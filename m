@@ -4,141 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F642F9EDCB
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 13:04:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AEAFF9EDC9
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 13:13:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92C2910E2AF;
-	Wed, 22 Apr 2026 13:04:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 665FF10EA09;
+	Wed, 22 Apr 2026 13:13:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="OAROdOi2";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SphHW3z/";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="s8lASLao";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E915310E2AF
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 13:04:36 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63M9kTTd2000973
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 13:04:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- w9eW7q2/yfswm/0EP7ohuo6irtJLMRsFkiVDHy32ekA=; b=OAROdOi2XqNWLjrM
- osntcLVo29SccQ+37V6UNRiSxWdk5HyHgw+Zfk+9MlzOzODfIvkCdP9ClahxPMv2
- 5zbqYjRj78JglBtTbVWNCZmEwqSC9Kxu3yXR3zqqEouR5ZxXXbBoaUhtHuVxcRCW
- 5GbCWQ5x9/r516wZl3/Oj8DcPeunutM0bnOKUpajNOV8wO4GJugmGCYy8yk/RlnE
- 6qQrGCLG10WgbWCSBxt+NRi6WCxH+BaO9oJg4ROc8sE8J4R23hlUHggZqDvgLYdD
- p1oVAwuSpM9kJ2wD2OMR5Kn46uF7sWdEiHOVucp3FEgzFm3yK3Dtv/VZtGhIKWBz
- 1pMjdw==
-Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com
- [209.85.160.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dpenfbhu2-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 13:04:36 +0000 (GMT)
-Received: by mail-oa1-f71.google.com with SMTP id
- 586e51a60fabf-423780ec681so1256278fac.0
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 06:04:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1776863075; x=1777467875;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=w9eW7q2/yfswm/0EP7ohuo6irtJLMRsFkiVDHy32ekA=;
- b=SphHW3z/FPmTy7ephSWnhUwAvVptvaFOnhRJdEyKRWT1D2L7NSmiFF5RXXeQxpNMti
- xHMIvuNG3puewWy3VblgjKHyn6CG54LeZNE/owYk+xD/TLUFXJ80uKFJXSqLI257yUc8
- eUAfdf6NVzPX3sk+5/0sVZkFOkHDuW13qsIlCbiKwCFHrzAM2anr1aWfb2UAB+01TVAs
- G9MWWwtceCxWiVKB8OboDpBu2QGJFjrFy8O3VrYaDxy6TVGxRI+BvQvK+VZHXfPE3JqD
- ss2lVBo2SFPRGuo9AJDEX6a1rnSzqWZVnHrGsAZ5C+O24k/nrARxW9dbpEDehtalPDig
- Mwgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776863075; x=1777467875;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=w9eW7q2/yfswm/0EP7ohuo6irtJLMRsFkiVDHy32ekA=;
- b=aRBfk6pdo18xwP2oWPJTsqkPpTD0RG/yeFRZ0TtOJbS6P/mj3U5ODfE+j/tSvwai+3
- LMkZPK0uqwe2vsCRw/z6JPyDiaAKLlb4aqsbyLKPm5OG3us0JXCQb3c0nf+/z22XtTZ2
- bakiaj903UFx1RiDI2NaMruzTNbeV4Jn22mRYe8GeDJftvdtFmpj4yfzjs+X4P6zZUno
- wmuZOvvPMAy/Y+tR27HymMQ1x0xmmEm0asbOSEbFR+o1RjZDTTBDZRrsfEZdXemtUrdK
- kxQFTb8yXPvh/CMRww3BqCxO/wnWshPa1ft3dbN6G0iG+uNIOHbiLhEkWj5fVBORh8Qe
- 5NEg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9zntLcrJp6eB82RLnsLjxmG0O/wfkaul4FxSXy4vuaaHLF+qIZcSDHkDI3Lsj/BKVU3lu0Jn+TaF4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywk1jozFUsez5eU3RbpLQi8EJMSe/BUiA2d0NAsdynXlitPUYZb
- hAu35pfURyY4NEmmmFs0urxmKgA8KbZRGr2GJsTwqETE640PwEiwrN0im1ztq8CqFeJGLmsfKL2
- 1a7IpTyoWOUmtwEZql8RVx4Svkz1x6nD/r+V4ntY95oiCoGhViDlFBueRQ5rG5TzOpco/oaA=
-X-Gm-Gg: AeBDietStb3HHjA0VzqIov+BC6uI/iGLt4fRn+uiG1tJookcfqc3Ffk7ZiluV8cp6nD
- 6/Tr9PUCTcLhnUulWvPVhPkr4vq/AtEBESGxkEAFH2YJS4nzIoOv21HeKEG4IlAkyM0Gqafy8uN
- BVDkdPC5oYhPORqd1l7xUEui3SCADWuvkZHHN6JxY+CBaw1UeBNMcMzc3LewDfTVpD5uowVV6Py
- oIGQp5BY1q/5aBgJqULunCWPnfCLtwbt4bS8ebowVKZRPGSF2E3VrU1NT0uwqlptIHWFMwYrqDI
- zd8p1yeFxG/dPLBE1wYlA8R62fDEdO2F4en3dQU6MR686tjPo6DErsZrCG5NU7GfMHaSqLtB5v5
- 3dzc3b3GQw3/FDLC1wNnW8VTzLq0/Wvm4TMu19V5yX087YKQqt5PD3y5caio+SC7SlZSVILpXG/
- T7n3MnjQlWNHffEQ==
-X-Received: by 2002:a05:6870:3269:b0:417:4754:c10e with SMTP id
- 586e51a60fabf-42abf209f86mr8474869fac.1.1776863075397; 
- Wed, 22 Apr 2026 06:04:35 -0700 (PDT)
-X-Received: by 2002:a05:6870:3269:b0:417:4754:c10e with SMTP id
- 586e51a60fabf-42abf209f86mr8474824fac.1.1776863074872; 
- Wed, 22 Apr 2026 06:04:34 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-672c480e21fsm3263165a12.8.2026.04.22.06.04.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 Apr 2026 06:04:33 -0700 (PDT)
-Message-ID: <23fbb36e-56b4-4ecf-94e9-4038c6311b31@oss.qualcomm.com>
-Date: Wed, 22 Apr 2026 15:04:28 +0200
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010027.outbound.protection.outlook.com
+ [52.101.193.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07BDD10E2A6;
+ Wed, 22 Apr 2026 13:13:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Rlc3RILa2ziO+1FZpahA+dVEZTAWgWPAs27Gu+f38SN7FM3hNuiF88chXoeFeXJ5zS/5X+0MV/itgfJmiKEUBd1xrbntyApUYpPMk9T3A3RfsfFLT7C6kb9MQ3yLwEzhwPPe5BwoWI1yBjbgJSDdPaOhXddfNWUa7Tbynx6OQTzHs68qWVfLfJhLNvpOXKyRvQYndUqcVkbMNW9r+51xqRqBmzJQglyeqCopoInsCltttgr/ulPEQvLD1poNNEWDMEX1lo/8vTTxz+RuPUaO6AjRc4N/ANEbCrBNyU9UBlzFbaZjGNdWaLSF14xYXbjJfsq+eXoWLUDXJ4AnSISHNA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pbdQ4Oon2/UIiFXS7sv16rW4AiBiu4pllSVmm7EkSxc=;
+ b=tOEkjZqSQOJd/wLqcmw9mKRGRuQiacsaFkih1D3RQ0ccG2pKUbh6fg7TW1JtVP5NTbSo+eCOkxw7VVg1PV3mqpSr5Sla2NpjDk5AQr8uio980LlXlKY6TkXzav4Qey737BRk23NSvtUncVxBf0pvOgpZ2G4NOnBzl128X1k4cVxIDSrlCjX0QglDc+IW9+uCUdlyiuxodsZfxe75X7h1PLOkBUkjMBeQFwasbiKP/MihpHB325y0F1Uo/db8z5H0p9Jiv+5Owm221SvTvZNx4ZaCaKXMZnGqDcHE7jzIFa2pW65uCWCiQpxEotWhhQHmN798fc0YhSGtOiSrVdKfCA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pbdQ4Oon2/UIiFXS7sv16rW4AiBiu4pllSVmm7EkSxc=;
+ b=s8lASLaoml8ngJ6EzRoYVuFBh5f9iWmiu6w3CdBlzzu2vlmfUur7UAUgfPjDtbBEhIHHjFBoxEqEGC1elc+A0fUKPvOsY9vayRdJbKpMg/h1pJzHHHEnb8lFWLUcagajdtM3cFegXJMocNBANvtff42VDwC5YJkVAqPgZL9ejxpWxGDnq3cCLziTZt5NoIqI2sAkwZ4lpFB6rpJHVghIJgbHPgUefdGJlNNXkA5z3FS4fsDrkjdPvA2V+z31tXBWwvbWMbXpQagWji45UEJKvYer3tsrAZdp7qXmYPvLbu7ie+Ne4uIMyoQ9eH7w0njaSewiKfgl/l+gdrH2NUiNiQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
+ by IA0PPFA8EB66EE9.namprd12.prod.outlook.com
+ (2603:10b6:20f:fc04::bde) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.18; Wed, 22 Apr
+ 2026 13:13:39 +0000
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528%5]) with mapi id 15.20.9846.019; Wed, 22 Apr 2026
+ 13:13:39 +0000
+Date: Wed, 22 Apr 2026 10:13:37 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Dongwon Kim <dongwon.kim@intel.com>, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, iommu@lists.linux.dev,
+ Kevin Tian <kevin.tian@intel.com>,
+ Leon Romanovsky <leonro@nvidia.com>, linaro-mm-sig@lists.linaro.org,
+ linux-media@vger.kernel.org, Matthew Brost <matthew.brost@intel.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>
+Subject: Re: [PATCH RFC 21/26] dma-buf: Add the Physical Address List DMA
+ mapping type
+Message-ID: <20260422131337.GJ3199414@nvidia.com>
+References: <21-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com>
+ <c413710b-4c28-4ed8-88ec-aeb8c4482011@amd.com>
+ <20260413121628.GE2588311@nvidia.com>
+ <f6d38a08-009c-4efe-9dc3-6bcf00ac35f7@amd.com>
+ <20260422115306.GI3199414@nvidia.com>
+ <fd8065ce-fd0e-4df5-9c80-8e9603657cfe@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <fd8065ce-fd0e-4df5-9c80-8e9603657cfe@amd.com>
+X-ClientProxiedBy: MN2PR20CA0057.namprd20.prod.outlook.com
+ (2603:10b6:208:235::26) To LV8PR12MB9620.namprd12.prod.outlook.com
+ (2603:10b6:408:2a1::19)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v4 6/7] drm/msm/adreno: add Adreno 810 GPU support
-To: Alexander Koskovich <akoskovich@pm.me>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>
-Cc: Luca Weiss <luca.weiss@fairphone.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260416-adreno-810-v4-0-61676e073f8a@pm.me>
- <20260416-adreno-810-v4-6-61676e073f8a@pm.me>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260416-adreno-810-v4-6-61676e073f8a@pm.me>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: HaXVqYuFO51xNoqYfEyWFj4qyqLx1DJ1
-X-Authority-Analysis: v=2.4 cv=fozsol4f c=1 sm=1 tr=0 ts=69e8c764 cx=c_pps
- a=CWtnpBpaoqyeOyNyJ5EW7Q==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=RWVxF5DFbFL-aEys5QMA:9 a=QEXdDO2ut3YA:10 a=vh23qwtRXIYOdz9xvnmn:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIyMDEyNSBTYWx0ZWRfX3yW76ZJJMe/s
- Cb/nxXAfkwymDGeQPdLKSqeKLmOST3hbYc6/nSGo4lUdz926wgPIOl8V1fDGhfcbCByvlXGvOkc
- e6X1PfTBVWd95jTz8lL1Axfm0Hf4NH1oYxJ70R7G2D89ELkAWAM1BNjTZNe1ngwsVBrLqU1WQoN
- lh2GaxtSFEtwoBAWEPzGupk5kJh495IrE/ea6PvJ4mWvhhchAuDmSG6u84Lp5EJ6bGqMZDc8tjJ
- KCbnWj+yZSmSDdoW8xarx45tlD3ILnNj6QSv2QoiklL8IvI2zd3jEv4tBazaZwhU9Spd/IJfnDT
- FIq4y7rJ4HOmRkQJZzOBKnNbroQKCM+alPSYWhMSyTnE/dFsxgchzAaQlMzQiYoKF96oypIzlvw
- 64R10dQhdyl8qmzKK9PqrgPz1y4G+9Megaqhvlinn/wE2jNcuMbD59Z+vuSUh0oK0Uk3VznDT03
- l4JVgcf3g9kvRfv6E3w==
-X-Proofpoint-GUID: HaXVqYuFO51xNoqYfEyWFj4qyqLx1DJ1
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-22_01,2026-04-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 malwarescore=0 clxscore=1015 adultscore=0 impostorscore=0
- spamscore=0 priorityscore=1501 suspectscore=0 phishscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604220125
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|IA0PPFA8EB66EE9:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1e83959d-5582-407c-7cee-08dea070f7d4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|1800799024|366016|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: elEBSodNLqkwKYw1fIQEg+FXcVgdTXEKTsFLeOIN2v28I7UHUtLgmVauoZYOK41s+7rC5IJtPFgPoRjcUCw2QvrJmgslPkPorWngRNG8oVQaWggEmgn29Q18Pi17FgRuMQ+AWUdWAsAMYL/+duUmGW2t1GF1UEOQP+6EJbdT/q6Z76+e3W6NT4gD/3qug9Bu9QQJGAFRDoY+4WsDc9DYOOVwjffArMjw0Pv1GSURA3fS6vshN/AozDI4QtvOpWLSmML8Tt9CP5tpFq09h4Q3W6wlh2Hrf/tUpE+YjbJD4WXm87yVfOtV89mXQn+G8mCy8Dp9WDm3f4NC/3zylaz4J4f+XuQY6YMdeqZRwXILVlFTUb5oMYWTb0UF0w40F0GjXslIXWMXsay9CeZuuiOwSJ+BaMgHyck9d9iV4wOuwZMPygMsU53/3fA57ivtifaVc7+MlN9G3ZZ8yclEKYdpzeew8haGzdi5PPvCMAuKoYOVDi7+kbSJlXOzLb91jwOhK7Y5Woe1/CWCPqO6Y2JyQN+34WJBG0AC7b5RxsXgSYLE5Y5iERKm7TMlRKbecjN6gMULFdB1pxvh10Mod3XdCwqwHO7M4l9KrLH1vVe7xjbBLChoDGTuidah3b0K8S2uQMyd3yGMTy+e101ZmlQSl1tc0kE2GUBTHTfx4Org1KnKAS01s72iTvvmCK73c2ltwrCCpn/B0JWa1DuVuRYHKycXfS6jzwupfg4Jv4ZoKwo=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LV8PR12MB9620.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(1800799024)(366016)(22082099003)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bXQ2aUtobmlZN3Y3MlhheW95cW9JcWo4azNCWDlWTUNzVmZEMm1KME9IQ2xW?=
+ =?utf-8?B?R0VLUnJBRk9zaWZUbExVV2ZxVmQ5T3J0RHVKNlh0aHlzSEsxYXlhbjFaU1hY?=
+ =?utf-8?B?TFZHTjZKZzNobXFtOVhJZGRsNHNwUnV4ZHRyZmt5bzNwZlpkWUcvYnlQNnBC?=
+ =?utf-8?B?alZUMjZ0RitMSnZ5RXdHS2NYbENJQ0JjN3ZVTzRsYTNFNk01MFlwaGtwbDVr?=
+ =?utf-8?B?dFFaV2Y1MC9mLzlRNE91ZmwycG5GQ0JjQXhGNUxsN1dLQUhKLzNpbDdFNUov?=
+ =?utf-8?B?L21tZy9sTFZUWWdRRTJxVHRVOTBURlR4TjNLblZTcUxYVFNsQUFVbXY5MjBz?=
+ =?utf-8?B?N25CenVpS2lhYkNDV1ZIWUlwN1krQTlTcWJnUDY1QWJJVWtLYzhCSHhzZDZN?=
+ =?utf-8?B?d3hDcVdUbTVhU3dCV3lFMVFyNG9zN3VZRTlSYmhwQk41WEw3M21WRUZBRnJi?=
+ =?utf-8?B?TTBEQnBBOFNOTFllbWExRXJPaTFMWDAwdUl0bDdNcGxSazZTRnZoSGRVUE9s?=
+ =?utf-8?B?VC9Fai9KTWt5WlVQemtKVHpuS0RvWEw3MkphRmZBQ3FHRWIyaUtKQUR1c0hL?=
+ =?utf-8?B?Y2xsNjQ1dVluZFFDNUFlU1JFUHFJaXp4K01heExFbHZmWjRhdEhEK3ZTNGJp?=
+ =?utf-8?B?MGUwcUVQUmE0VEJ2QXNjLzlmZlBrR0QzUEo5WGluWkVTcU9VRzJ5NFNreTlM?=
+ =?utf-8?B?Y1pObndCWCtzblVNSFFlaEFsQUlxTThMWXh3K1NOd2REK2pPYWZjU09GYlJ2?=
+ =?utf-8?B?R1RqSjlmNUVLcDBiTjF6QjF1aUhHK1c4WkhSbmpybEgzek93SzJGRituQTNJ?=
+ =?utf-8?B?ZVRQOHVTUzJQL2FnVFpIK1dwVDdVM2l0eEhkMkI5ZGtIdmRPbEdlT2tHTWU3?=
+ =?utf-8?B?WmtvMTM5MkdXV3dTTWNjekZZSmJEalE2WkpCcFBwZlljQVRGM0liMjF1TVZJ?=
+ =?utf-8?B?UzQ1T0ZkT05FS0x1SE5aR08xaXY4dXpEdUdVcFpFS0VMdGRZY09hbFhhRy94?=
+ =?utf-8?B?Ritsb3pBYjlEVlh1VzlMNGlHWDIxajROUlFEQ3c1eVVEWkJYTUNIR25oMWVm?=
+ =?utf-8?B?RDRKd280OUVEN1N2QjI3K0dmMXFVVkNpZFllYU5XcnVtelgwYzhxb1JSU0g4?=
+ =?utf-8?B?L2pTOTBoSmRlUFp3R2F4SWhjcUdjaEsvMFdZdjg2eS8vUlF4aUhiY2lTamVH?=
+ =?utf-8?B?ZFpyZFdYQlJyVXRrcEZNMUg4MTFFR1pOaEhFc2NGWGVTNnp3enI5Z0ZyM1BY?=
+ =?utf-8?B?Q2JwY0Z1cUdjYklWNHFPSkhzYUZLUGpmcGlTQ21OVm9qc0IwNEJ1eDBodk9w?=
+ =?utf-8?B?cWgrWDcrdlBBOUk1R0xLd0tpTG9XRXRjb1N3OWhaeXlJaXhKRFdpdWY5Ky9p?=
+ =?utf-8?B?MWUvOFBPc0FwWjhJZEdsR3djT05xVHd2K0paOXEzZjQxa0hZM050eG9lWmtE?=
+ =?utf-8?B?NWN1Q3ROd2JiR2cwNisrNjBJZm5KUm9MVzlPajBHc1FQczhUVXd3bWh1NkN6?=
+ =?utf-8?B?NEkxTkxMcDBvd29ZVS81bERhdXorUHlvUG5hUDIwbm9iTzdyNnJyL0dQUXNT?=
+ =?utf-8?B?WHNlNGlHZ3V0ckVzNVpta2FjNHJGUHhaMnFqcUhVejRncEtjdlVvR05aTEl4?=
+ =?utf-8?B?K0IyRnpYZjJRc1ErUVhNOHluV1VrUmUzMHMwR2UxM1RZZUpPdlhlNnNieXo3?=
+ =?utf-8?B?eml5Tk9UajhheXloOW5UemM0QVFKWUNKMEZyYnhZckFUeDZoOVZjL0ZvNXhq?=
+ =?utf-8?B?aHl2L1ZSakRwZGJNSnYzR0l1MUx2TVEyNWh5TnBrYTJ6d3YrTVBnQ21jN3ND?=
+ =?utf-8?B?NUl0N29HeTBISTJLWEhJNXFNTGZXdlZ4Qllvb3BobElHeHNZbjRURERwRFor?=
+ =?utf-8?B?YTBsOWg1azFSUXNGRUZvMXk2dGI2U1pXZlJ5WXBFcFIyR2NINzJvTlR6elpn?=
+ =?utf-8?B?MmtoRTVqYnc3SW9CbWJoQmUyd0xZSmFUa2VYWmhIUlhSVjdlUFFKU1RIa3Fp?=
+ =?utf-8?B?NUpWZFJaQTVOdzVDQWsyeVhreTBNcXZsTER5TTE0VzBERmQzbFZ0ODkwblFT?=
+ =?utf-8?B?aDBSaklVbkVzYk1WRGJYeGFyU2k1Y3U5dG8zUW5XRTlzZStSRkI5b3Yrb0Vl?=
+ =?utf-8?B?MTdlaGcyL1FWVy85T0p3dFdhQWF3d043WWRRL0tOb2pnanR5WnBFS2paV0pE?=
+ =?utf-8?B?K1cxVWkvUzhjaTYxZHhpb050eTJIQ2ZLRFQwVFl4YnN1ZlF5TnJsMTZ0UFcw?=
+ =?utf-8?B?NVl4WmhGUm5oYmZ0K3NRN2J3QVluSkN3YXAxa3I4UzByb3ZjeEROSmZpVy9o?=
+ =?utf-8?Q?48y3zmp53sGMpECnS7?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1e83959d-5582-407c-7cee-08dea070f7d4
+X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2026 13:13:38.9575 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: u+cJtViCSkXXQmrbzln+k0BCYjqAPmGzkOGIwwmf0KgwWmRhwvqj58Si74E+CFrB
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPFA8EB66EE9
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,82 +149,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/16/26 1:05 PM, Alexander Koskovich wrote:
-> Add catalog entry and register configuration for the Adreno 810
-> found in Qualcomm SM7635 (Milos) based devices.
+On Wed, Apr 22, 2026 at 02:39:16PM +0200, Christian König wrote:
+> > Can you be more specific please, I still have no idea what you are
+> > thinking in terms of an acceptable implementation.
 > 
-> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
-> ---
+> Let me try to describe it differently:
+> 
+> The iommufd deals with iommu_domain structures which userspace can map different things into.
+> 
+> So of hand I would say that an interface to map DMA-buf into such an
+> iommu_domain should look something like this:
+> 
+> dma_buf_map_attachment_iommu(struct dma_buf_attachment *attachment,
+>    struct iommu_domain *domain, unsigned long iova, unsigned long
+>    offset, size_t size, ...);
+>
+> The DMA buf exporter then maps the its data into the iommu_domain at
+> iova starting with offset from within the buffer and size number of
+> bytes.
 
-[...]
+Well, my first reaction is very negative, this suggestion is leaking
+deep internal details like iommu_domain out of the single place that
+needs them - iommufd - into about 6 exporter drivers. Not nice. I have
+the mirror of your concern that I don't trust DRM drivers not to abuse
+the iommu_domain pointer in some very creative way.
 
-> +static const uint32_t a810_pwrup_reglist_regs[] = {
-> +	REG_A6XX_UCHE_MODE_CNTL,
-> +	REG_A8XX_UCHE_VARB_IDLE_TIMEOUT,
-> +	REG_A8XX_UCHE_GBIF_GX_CONFIG,
-> +	REG_A8XX_UCHE_CACHE_WAYS,
-> +	REG_A8XX_UCHE_CCHE_MODE_CNTL,
-> +	REG_A8XX_UCHE_CCHE_CACHE_WAYS,
-> +	REG_A8XX_UCHE_CCHE_GC_GMEM_RANGE_MIN,
-> +	REG_A8XX_UCHE_CCHE_GC_GMEM_RANGE_MIN + 1,
-> +	REG_A8XX_UCHE_CCHE_TRAP_BASE,
-> +	REG_A8XX_UCHE_CCHE_TRAP_BASE + 1,
-> +	REG_A8XX_UCHE_CCHE_WRITE_THRU_BASE,
-> +	REG_A8XX_UCHE_CCHE_WRITE_THRU_BASE + 1,
-> +	REG_A8XX_UCHE_WRITE_THRU_BASE,
-> +	REG_A8XX_UCHE_WRITE_THRU_BASE + 1,
-> +	REG_A8XX_UCHE_TRAP_BASE,
-> +	REG_A8XX_UCHE_TRAP_BASE + 1,
-> +	REG_A8XX_UCHE_CLIENT_PF,
-> +	REG_A8XX_VSC_BIN_SIZE,
+However. With a suitable helper we can largely isolate this to a
+single function and yeah I can see making this functional.
 
-This REG_A8XX_VSC_BIN_SIZE is removed from all lists for all chips
-in newer kgsl
+Not sure how this can work for KVM, but I'm getting the feeling the
+way forward here is to "live and learn" together.
 
-> +	REG_A8XX_RB_CMP_NC_MODE_CNTL,
-> +	REG_A7XX_SP_HLSQ_TIMEOUT_THRESHOLD_DP,
-> +	REG_A8XX_SP_HLSQ_GC_GMEM_RANGE_MIN,
-> +	REG_A8XX_SP_HLSQ_GC_GMEM_RANGE_MIN + 1,
-> +	REG_A7XX_SP_READ_SEL,
+So, in the context of this series, your proposal is an iommu_domain
+mapping type, to replace PAL. Yes?
 
-Somewhat similarly,
+Do you have a positive feeling about the general mapping type system
+from the earlier patches?
 
-TPL1_NC_MODE_CNTL
-TPL1_DBG_ECO_CNTL
-TPL1_DBG_ECO_CNTL1
+I think if you want these kinds of APIs there are going to be several
+mapping types required to exchange their very narrowly defined
+details: scatterlist, scatterlist-ng, iommu_domain, the Intel vfio
+thing, UALink, driver private interconnects, and whatever KVM needs.
 
-should be preempt+ifpc for all targets, it seems
+Thus I think this is making a stronger case that we should have this
+formal negotiation protocol between exporter and importer for the
+mapping types. 
 
-[...]
-
-> +static const u32 a810_ifpc_reglist_regs[] = {
-> +	REG_A8XX_RBBM_NC_MODE_CNTL,
-> +	REG_A8XX_RBBM_PERFCTR_CNTL,
-
-This list matches the expectations, modulo this RBBM_PERFCTR_CNTL
-and the registers I mentioned above that should be moved to the
-first list
-
-[...]
-> +static const struct adreno_reglist_pipe a810_dyn_pwrup_reglist_regs[] = {
-> +	{ REG_A8XX_CP_PROTECT_CNTL_PIPE, 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
-> +	{ REG_A8XX_CP_PROTECT_PIPE(15), 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
-> +	{ REG_A8XX_GRAS_TSEFE_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
-> +	{ REG_A8XX_GRAS_NC_MODE_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
-> +	{ REG_A8XX_GRAS_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
-> +	{ REG_A7XX_RB_CCU_CNTL, 0, BIT(PIPE_BR) },
-
-+ RB_CCU_DBG_ECO_CNTL to BR
-
-[...]
-
-> +		.speedbins = ADRENO_SPEEDBINS(
-> +			{ 0,   0 },
-> +			{ 242, 1 },
-> +			{ 221, 2 },
-> +		),
-
-The DTs I have all point to SMEM-based SKU checks. Did you find these 
-numbers empirically?
-
-Konrad
+Thanks,
+Jason
