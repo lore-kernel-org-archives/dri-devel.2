@@ -4,128 +4,148 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11B54F9EDD9
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 14:11:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CBAFF9EDD9
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 14:13:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A67810EE4E;
-	Wed, 22 Apr 2026 14:11:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E52B10E0BD;
+	Wed, 22 Apr 2026 14:13:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="smSfH+C3";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="BisgEYBY";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RR3DIjb1";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012066.outbound.protection.outlook.com [40.107.209.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42F0E10EA46;
- Wed, 22 Apr 2026 14:11:30 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=q7YG1d8ZWtYpPNlNZGx+6VfTerp0mZaUUVSNMUbhSO/XTPMpvANft3Lj+6aFgJ7BvGWyE7QIMbPZvzy+98XZ/mtxXIFDmWsfzu6wEV1vSX9XvVwfRjOtYYaHlisdmpq90Y5NtaMPYxT5lBLZgIJDI7WMqDOI31lv05eZ6WK6eWjL7Wq1+/3//j9NMfCXV8dIdWUpco+Cwx5jGgnvtNr0nzTTtg61bGtwRxq6ZuBeIndLkWc+tzUVctcP2OiSc05hDSgDVGIC2wtVg6IPG7HuL9FTwu8k/4Gkr5OYrBlur33WptdnnmwUTdrEibasxivaWylS976bnRqHLvXYtK09hQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dJnYUs2XfWQDO40943XI3bCqmE8mYFFR+XA5DVwt//I=;
- b=KB4YCh4vTrjy+wuwI/0wkeA1iuTioAis5uK+KuP/oVXj0qaDKxJ3C0ch5xhyay7cxtO8gBHwTqh8Mi6QZH/5ycsbOBV0fqmIYj8Jtfm7yyG3X1+hwx48Au8+MVApNjT4tDIwt0BkM9iz+S4UtrfY+gWgqkNqKFxd+nkyNf0xduMxUGVaLpC+0Hj7lHsVkgjXx/KwZFgz1CHvZVWnoPddwsxK2m+ao38Bqi9n0uQrPS+YW2n/izlIPFjgdvHjtLTNOp0BS9WmbupxizMlbySc5i3seAw2kx4NRVBNKCKqtqKg8ytg2W3SS7ltbZs9xJHN92D6T+U0cSoWtzW6S+9i7Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dJnYUs2XfWQDO40943XI3bCqmE8mYFFR+XA5DVwt//I=;
- b=smSfH+C3+RyM9IagCt49MaDiFvSTzaL54mq+B34xK5XhdxBUVjzUOPRK5KbUWxCQPRLiI3/1nW/ktJf8u2dlXhZn1JCf/yB0vgnHNxhTW4kVC0b53uR8MBuK9Xvrmz1UDVbSeXTg95cIEOBDK5N2OFJQhdiwmRSe+mFt5hBD+l4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MN0PR12MB6126.namprd12.prod.outlook.com (2603:10b6:208:3c6::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.19; Wed, 22 Apr
- 2026 14:11:24 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9846.016; Wed, 22 Apr 2026
- 14:11:24 +0000
-Message-ID: <6064b45a-b8de-4848-856f-383d2d06680d@amd.com>
-Date: Wed, 22 Apr 2026 16:11:15 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.1.y] drm/amdgpu: remove two invalid BUG_ON()s
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- stable@vger.kernel.org, Robert Garcia <rob_garcia@163.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Pan Xinhui
- <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Yifan Zha <Yifan.Zha@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260417074010.1607496-1-rob_garcia@163.com>
- <7260936.9J7NaK4W3v@timur-hyperion>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <7260936.9J7NaK4W3v@timur-hyperion>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN0PR02CA0011.namprd02.prod.outlook.com
- (2603:10b6:208:530::33) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1774F10E0BD
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 14:13:52 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 63MAEWJp976184
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 14:13:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:reply-to:subject:to; s=
+ qcppdkim1; bh=bywIrjYAD8hJ/KhIAamlaAGv7hCjyo+6YSetWuvA6bg=; b=Bi
+ sgEYBYoORaLG2UREwtJmRVwIb8pFARss5l0mUaEvIkaoFEL0ZIDuSXKGV9pQzRYj
+ fF8GSW+ioLF49SXcQUvE1YH8GYvgw6SJlFxGRTrSTVgPBEEr0zs/d54AGrksVrLm
+ i3uPKy2fsZyNgmSaBkihDEKe3JjcnN3/XM49ecPwHqmC3nzoa9IQ9QBut2r6fpuB
+ TqAPH8hEWg37To8WJeCGoNhJAOMjeopBfBZ30eXSudD0ONM14xRyvaqasmpJZy/Z
+ MLC+21LnmvONXi/2tkt/iD3gQ7wqJdPm5gihJ53BRCOWHKcdDhfiMjlExfRSxvc7
+ NJIR2htIuViM0FQctjfg==
+Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com
+ [209.85.160.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dpenebtk2-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 14:13:51 +0000 (GMT)
+Received: by mail-oa1-f71.google.com with SMTP id
+ 586e51a60fabf-42322062cf3so6361278fac.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 07:13:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776867231; cv=none;
+ d=google.com; s=arc-20240605;
+ b=Jf5FlcFCPFTthdCbQMQ24roW1QEM/HoECX6B3dtk1zQ9TXhYV/vGULgc79iVIRx6VL
+ 2K1PYjvC4fsLo0vLVJ1F7B6KDZ1DFmpFdxg82JLC3y/epigHNRmwvMDahQx0yEMtpcnF
+ 0Rl1vG73bmfruXMT/DRM/Xm8Hu8SGIPuXiy+gnTT7yILgt+k6rPGaFMbvu+0ouiV67sr
+ jWH96nkA8ez31Magz4B5Kbu/j26vv964GoFvisO2yQiHxMTiJ0tVTG5OpPo2VXe8WQWE
+ o2jyHpP7k/bQNBMszTOMmRFowL2dmXU6+m1ze1hYdqj0t7Nse2dfOdCx1WQsEvv0MAeV
+ qsjQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:in-reply-to:references:mime-version:dkim-signature;
+ bh=bywIrjYAD8hJ/KhIAamlaAGv7hCjyo+6YSetWuvA6bg=;
+ fh=X3DsWfqXTD8UV0Q4imD0xfjR6AVgAY+ZNFO2vS0s1kU=;
+ b=JoV/+c6/Ew7eKv2DoArQfByXTtqTHCk8Bl0bNf8ZIBM/heW5ZHMaWMMKtEWHIviGx5
+ hhgZGNpAGiB7VNzlGoxGdvlhDvh/FturdwPT+Sa4mQ69UNEEfqbEvqtGOP1bkorOKnXV
+ +QgucABOfSEaCAddR+MkCDACHWNvXDZtSlCQIjXWTXb/SmtzCnmOGCThgRkfw6VcU/eR
+ xu6RSq0IrMnnEnbG+R8SoxefAtiFEGUKfrsHftRLuPfybMkwgDPcuDmEQ3fnP6IaQWUb
+ SWPIJRCGeW2ODoz3dI0sJCdWlBfL2OC0u8v2aFKzp79OUrd9s4oqYTqhhuilQsvsq5Cj
+ 0zFg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1776867231; x=1777472031;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=bywIrjYAD8hJ/KhIAamlaAGv7hCjyo+6YSetWuvA6bg=;
+ b=RR3DIjb1nwyC6++bRGvsU/7SdriReLO+f5zHbwIunU+EndJ3I45tng97TFWdyVgcHM
+ eu+abljMzohBPYXiCzGeiZnhMM0uGOFUT6x5wjy9tHjJIBAx9OvUH7+B9y48SCCMCXkb
+ T1pG8FfNW8+9QpgtORarYrqLUTXFqEo68Fm0Sx3hX3oX6WNwvvA0LOj+XOxLjxetii/v
+ OEQJeDvfAdOC1RLlutWyr8HchrU75WKaVn9pGchJk+Qf6qyTc0OW52742tKtnSab3ras
+ 5vVAlQReyUom1XBKsQq5lfAbGG5GAtcqnGp8aQggxUNsTUL1yGlgHZWht+0D1mKie+6X
+ 7PJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776867231; x=1777472031;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=bywIrjYAD8hJ/KhIAamlaAGv7hCjyo+6YSetWuvA6bg=;
+ b=TgRzoe13kZAv43W4XH5cwphgS/CYjGZOX7hk2MrYchI0R3mjC7rkKlpZvI9gZn4QMP
+ p6ZRChrQaX+JCsOgoYxgMmHr1cWOSR8UFvBCM6zaR+Gp/7nepJH5Q9tzNtBfFHVRM1ZN
+ X6ZL5ad8p7BPJ1OLbw/F6YYrImG4C9RJ/V8JEcY61OgQqP3AJJOCsbk3ybrSMjYy0cpy
+ fR3YJImm8ScqylV7RS/1fwEMDlSrPx+sH0KFEsNUxlKisuWBCYbFDE7GFEbnok2AGzrQ
+ kKe9xgPwBSLv/UnHywloroVDI29JQpB9htAB0usXzmL7X6gzNc0LnPlrj5Bh5yqLHhER
+ ZN+A==
+X-Gm-Message-State: AOJu0Yz5RR7olnjS0VGGfdCFj/MOIPe+wolZdSdVTz/hlUfGKTq8Y+wn
+ o3xuPn58ckVkgDhnyqMJNZrpsn+EQnXUOuuaVBhVLddRe612Nq6THVXQHHhcdXHJUNgAqxNANqM
+ cfTVrn3r4yzPhtsJLSY8EaNRCfdKjwasm0rTkIuwpuI0ZI6xQb9lJU00iW439ZFdbO/4T2SC21O
+ 6b8pB7eBdqg/+weGgF7uTrRvsEnekwn4TIFdRTdZGdsQGWXw==
+X-Gm-Gg: AeBDievMxR24RMmcibfvPeCwiDi5EC6oURX0An6sBzwCmhLsBl/SKo/ezsiO3QUeEqB
+ nO3QoUZeJVZiMBE9azobd+FVTpCu/Q3cnJuf6MQk3Brs3R42FRIywtCBWt24u+GfMRV6a5uhTvn
+ nnc7Hfb25IhsQoyLkUZf9u0fSHNdrChnzLCAHY3yzel6e6nXC6e3pwndg6mzarylKElnvUXMlM+
+ K2LzSmWYJe8iTtR1ePJvzvlEWoosMOBvGmBx/8TPijOfihG
+X-Received: by 2002:a05:6870:2155:b0:42c:12b4:37cc with SMTP id
+ 586e51a60fabf-42c12b43a35mr6673335fac.36.1776867230743; 
+ Wed, 22 Apr 2026 07:13:50 -0700 (PDT)
+X-Received: by 2002:a05:6870:2155:b0:42c:12b4:37cc with SMTP id
+ 586e51a60fabf-42c12b43a35mr6673314fac.36.1776867230386; Wed, 22 Apr 2026
+ 07:13:50 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MN0PR12MB6126:EE_
-X-MS-Office365-Filtering-Correlation-Id: f6f4d65f-21d2-450e-a803-08dea079091d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|56012099003|18002099003|22082099003; 
-X-Microsoft-Antispam-Message-Info: AFR3YVjdD6hsd6oPgfU1VocHiFpIqpyTT4XpXYeTx71qL/kyJCHRUOkGI0zJB9dbA7R2MvQYhfqwFGk04ZYhlHPo0trt2LQQMJiJT7dSmWRBptY+A7urUFx3A4ozbIhlK6mjDA3kwXultx8FUPp5MggN/n3havieg7GcZB+ZMCrAq293VUCiY1UjfJB0ZqTUWTJGPs9jjGeHMn37HmXRqK4UGZEU3M1IBDq9RmdcwUhYYwogJWxeSazpmhcc55ilEA+r3b7NTXr9GtyNaWLL/K+cLKy4NcKx2XFCP/9ag1iS82JdVR84mfrjAVKVWX5EcOOX8lAJbTPHgWAKm5dvW9c4aijZNjLJl3AleLULNCYm/dmzKbpWi32OrmNc5qmCnBgv/9B0mKUKuzuDocIlpYMaGsLsM1sXseKAL3hFPWCP/yRDr3npYXwHfUN7hC+Y7sT7+yX+zllOpw5FZCLBeuTmu7p0F3c3hmZVRpg9VxL20F8iX5Glb4yC5fwHVUSJv7NHNqcmtturEVYRCO9gtN7Lu1A4T4mQBWK2PTdNBGkygZtQ+dFbnsCBWIUz1zm2dYbjR5iB810+yGVgCMcbNdE2iQ0XGMXji+wagTy1hIRdW9VfG1nsEVeAWJda9g35/qNavA5V02ShIuklDdJIFU9iyAQK7g8L2EoTr6IDwHkgH4T7K8tinDuMyWzat5lo24Te9b1GITo6Py9jxPuUO0H/S1oSCxrHi4fuuC4HUDw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(56012099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z1pFS1UrOWlyTHVLZHdRUkRBNmRvenV4RDNPVGhEVzJaMTBXMDNaaDZ5VXQ1?=
- =?utf-8?B?QlVPN0w1WDVYbFBoM1I4YWI4QjgvMFlsazNSbnNGNlNja3BRNFJxYkF1aDN3?=
- =?utf-8?B?NGtVT2pSb2tmOE84MzdsbWVHZzR1RU9pcC9xK1NoWi9SRlVmQ2NuUUVxK2E4?=
- =?utf-8?B?NW8xQk1hd0laZzZwK1htUnlxWCtyaTQyVmMzZENOQkFLUjA3REcvTCtvbFVw?=
- =?utf-8?B?MnVMOW1LS3RxSXh2K1lRdk9FNWgrUnhZNHlOR1ZweXhYK3B3K20yOHZQVUZZ?=
- =?utf-8?B?cnBzd2ZFZFJXR3Y4QTBNckFDeUhvWDh5eFVqODcyZEIxaDB4aWhaSjNCREhj?=
- =?utf-8?B?N0JaWXU1VFhaNjd6M2M2ajBmNjhSNmFneEV4Y2xwOVhjMENCbG5jTHE0M1hJ?=
- =?utf-8?B?NEVSTURiWHlCQVFSNk1KUXM2aGV0S0poY1BwZUhjME1ZNUludGhoMDc1SUda?=
- =?utf-8?B?UHBCYUwvRjg5VFI1M3FGdU9qS2xuU2N3Y3oxMzU5aTAwM3dxb0dXVElEaUQ2?=
- =?utf-8?B?V1ErMnhRcVBNWXk1cG0zYmhLOTN2UHVqRkN3NXh3STdkYy95NXBhOXJST1JS?=
- =?utf-8?B?L0YrN3pxZlVwS3hiWnpLZk9zU21Vdmw0WkxKeDF5MFVMMWFna1orZEhYU3pB?=
- =?utf-8?B?dXVGRldRdHMzWWZQNjNrOW5ORmNHOFdaeU1xOUpibmhuQk1kazlqMUZUditV?=
- =?utf-8?B?T0VIWkpVRmZUMkxta2hOQi9EaytpWTFBMFBxVEpsYm1DcHV6RDBqajFwYUdU?=
- =?utf-8?B?aGpmYi8vcitDWExkcjE1Ymczd2VkcHZOS0NyM2hQYnFpTEwya2hRRDRJbUFS?=
- =?utf-8?B?dHIrTkg0b2EzWXRPSTdWRHFoU1FPdnV4ckl2L0JMd3paRnpubUpJVXg2VjBW?=
- =?utf-8?B?c3hkTEF5WGtMUkwyelZOckplMENNek5vSkxEQ0Z2SFJUd3BjY1RjTFpKSU1o?=
- =?utf-8?B?MEh0UmFXREllSzhzSEsyUmJ6WVovRTZETDJhT2dDa01LZWMvRG5jTVcySTJZ?=
- =?utf-8?B?eWVSTmVJZUVwMHI3ZWU2UmdpVW8rcEJuSFV2WmRjazBYMmpkWkh6YTVaaUs0?=
- =?utf-8?B?KytvblNTUGNpMDVmTm54RmVLNXl1MU4zRmgzZHR5OHN1SGtJYUpQcy9lUElC?=
- =?utf-8?B?ODhwVXNWSzlzTW5kdUUxOTZvV3YraGZNWUJmdkpMU0p2M0tHam1tbkRrNVpI?=
- =?utf-8?B?MTQwZlRPcjhpVHNhN3g0MDRGUlN0M3h5M1BMVVdaUHh0Y2tLLzFvYWhvLytQ?=
- =?utf-8?B?c3AyWVRNa2FXeXdHbXhYSzhNTjlMS3R0am5jalNCbFBXeGRuaUIrZkJLa0Nn?=
- =?utf-8?B?RUpreUpjVTF6SXE3bkMwMERUZisrQzVCaVVpZFZZdHpGeStCUVdPaVVFRFlz?=
- =?utf-8?B?eEhZTDNFS0JEZVhjbnF2azFNT2c1NEtzbWhvd2xwM29Wdk5wRTlkeFNubXFw?=
- =?utf-8?B?Y3pMVU1GR2QwU2VYUk9vK0FNRW1rN3NvYzJZRG1nRjYyN3R1TTYwekhWeWlP?=
- =?utf-8?B?S09zQm8wSDRyMStqV0RCRHVvZkpVcnFrcTNwNE5SZGNtblArTi9mQWlRek04?=
- =?utf-8?B?ZCtzT3MyZDNkaFJ0RDRBR3d4djREaGk0ZnoyTWlkV0lCN25MVmpoaWtJcDNE?=
- =?utf-8?B?UEltUDFUc25YQzV6eU5CQ3cwSDdQalJ2UkR3VXdnZTdlOS9ib0VCYy9GOGtQ?=
- =?utf-8?B?cFUvWHFpaW5PTUUyODhJcGYrM0g3L21DRVQrTlZGTk5iU0pPVFBQR2V5VzBR?=
- =?utf-8?B?dXdBMlViY0dwVHg5YUl5REc2a3ppaEZkRkhzM1JOU2hDdEhWRjJ4Mmo5azJK?=
- =?utf-8?B?bVQvTUJEeW5kZXZOdjd0MzdmVlZkcXhqb3VRdnlDckNqVGtUei9wWlNYN0pM?=
- =?utf-8?B?UkdiVE1xYmxpS3RxMGFjc3kvbUlhcFNneDBUNExZQ3NqSXVVMVR0SWdwVE5i?=
- =?utf-8?B?eEFIZXFib091Q2xmeVhjL2NKbDA3QnIwblRMYmxYT3pjN0JQQitxN2hNcHA4?=
- =?utf-8?B?elduaDFFWmZOWnZBZnlQZlF0enlWY3U4RzdZS2tUcSt0ZVdZTjhoRTM0UHNQ?=
- =?utf-8?B?aHdpL1kwRnFYWW9FNVpFSkRQUDRib1hkS0JlaTd3ajRtNlBtOENFbFNucENv?=
- =?utf-8?B?VnNmMWdnWlhZMmdkdUpRazBQeUo5T1ExWnI5dEo5Z0VEQ0tqRmlzeW1PUURI?=
- =?utf-8?B?bXo4L3JydmxUMmJwRWUreXo1Ry9LN2UzczhiUVlkcGM0NGFQazZhclMrYkFD?=
- =?utf-8?B?YWo3UGRpNnVnaDlQczliVzA1L0h6a0EvbDkzcHJ3djJvb28xYkZBNWJlb3Z6?=
- =?utf-8?Q?sfaq4e3QjYksroAU+H?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f6f4d65f-21d2-450e-a803-08dea079091d
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2026 14:11:24.0680 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rq/IC7LngjBJsZh2Ok4ZzWvMpKlRYxezhNTfVFJiUcbq33LbCHouu9UpEIpuXoEL
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6126
+References: <20260420222621.417276-1-robin.clark@oss.qualcomm.com>
+ <20260420222621.417276-10-robin.clark@oss.qualcomm.com>
+ <wfarxotu3lb64ncqmohysmyrdsneg7lgvq7kldcuntshtciob6@nej7bduzff4w>
+In-Reply-To: <wfarxotu3lb64ncqmohysmyrdsneg7lgvq7kldcuntshtciob6@nej7bduzff4w>
+From: Rob Clark <rob.clark@oss.qualcomm.com>
+Date: Wed, 22 Apr 2026 07:13:38 -0700
+X-Gm-Features: AQROBzAu-fRTbmbSLiq3Y4iwzoXmrrYlIvDXXLyPf-5MPPV1EIVVwBhinppkxVQ
+Message-ID: <CACSVV01AUx=1L0BpWQiECbPo1B+PBb9HoQDghUt+CoRuX084ew@mail.gmail.com>
+Subject: Re: [PATCH 09/13] drm/msm: Add per-context perfcntr state
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIyMDEzNyBTYWx0ZWRfXzIcXH3xxDsKI
+ /lZA8OvRwS6o2NixI5jduDLwDGQ/migq1/psLdDd2LnfsH01SOM65pwrlJ8DKVe9wov9rkfU4zG
+ 1FShDonzCVaD8RmBrChgR2JrtgP3AaQNVS9VeDyG7frFqElLdAHTCG5/+JQ+b1cGNw78AKiwyep
+ 1SsFgUtsNAu2464Ur/eOO7ZmYnJf+5tAagPVJe06+KKlDjh1o4ZKSpFeAcS4FqhlISNquV0WFp1
+ iV6neyuSJSW1NRahFe94ZJAM6NLlY+ug2sJRHF1zodoreB+UHOgfI3Ged1W5CROSWDOvGzCHy9s
+ 422hnYLwUmLhhEEhQZ9xLLf67ebX2WFV5UHtXOM28tA6DrcJTZnztM+bTNed4v6psQApnipqdTx
+ KoOgQKM0VYeeHScOThVI/nS2n5QF1QrGXRmG3s8gIwUQhqhsBdo99QEosOeU3i0NeH7DlR5CcwR
+ 7ynIb3Z+rpgTT5+0tYg==
+X-Proofpoint-GUID: yYegXXLeNdTDcJbmsZJ0EdPMfHFQO21q
+X-Proofpoint-ORIG-GUID: yYegXXLeNdTDcJbmsZJ0EdPMfHFQO21q
+X-Authority-Analysis: v=2.4 cv=RoT16imK c=1 sm=1 tr=0 ts=69e8d79f cx=c_pps
+ a=CWtnpBpaoqyeOyNyJ5EW7Q==:117 a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8 a=STtiYm4I-wbpJ57UIjUA:9
+ a=QEXdDO2ut3YA:10 a=vh23qwtRXIYOdz9xvnmn:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-22_01,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 impostorscore=0 lowpriorityscore=0
+ priorityscore=1501 phishscore=0 adultscore=0 bulkscore=0 suspectscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2604220137
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,70 +158,56 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Those points are certainly valid.
+On Tue, Apr 21, 2026 at 8:37=E2=80=AFPM Dmitry Baryshkov
+<dmitry.baryshkov@oss.qualcomm.com> wrote:
+>
+> On Mon, Apr 20, 2026 at 03:25:31PM -0700, Rob Clark wrote:
+> > The upcoming PERFCNTR_CONFIG ioctl will allow for both global counter
+> > collection, and per-context counter reservation for local (ie. within
+> > a single GEM_SUBMIT ioctl) counter collection.
+> >
+> > Any number of contexts can reserve the same counters, but we will need
+> > to ensure that counters reserved for local counter collection do not
+> > conflict with counters used for global counter collection.
+> >
+> > So add tracking for per-context local counter reservations.
+> >
+> > Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+>
+> >
+> > +struct msm_perfcntr_context_state {
+> > +     /**
+> > +      * @reserved_counters:
+> > +      *
+> > +      * The number of reserved counters indexed by perfcntr group.
+> > +      */
+> > +     unsigned reserved_counters[];
+> > +};
+>
+> Fails here (Debian, trixie, gcc 14.2) with:
+>
+> In file included from drivers/gpu/drm/msm/generated/a6xx_perfcntrs.json.c=
+:7:
+> ./drivers/gpu/drm/msm/msm_perfcntr.h:130:18: error: flexible array member=
+ in a struct with no named members
+>   130 |         unsigned reserved_counters[];
+>       |                  ^~~~~~~~~~~~~~~~~
 
-I've also up-streamed a patch which completely rejects userspace submissions who try to use the CE.
+ugg... gcc 15.2.1 seems ok with this.  I guess we could just add a dummy fi=
+eld..
 
-The problem is that those BUG_ON() can lead to a deny of service because they crash the whole kernel.
+BR,
+-R
 
-A BUG_ON() is only justified if it prevents even worse things to happen, e.g. data corruption or it would crash later on anyway just not so obvious on what is wrong.
-
-Otherwise we should use WARN_ON().
-
-Regards,
-Christian.
-
-On 4/22/26 16:03, Timur Kristóf wrote:
-> Hi,
-> 
-> In my opinion, this BUG_ON should NOT be removed.
-> 
-> Using the CE was never well-supported by amdgpu and can lead to serious 
-> issues, so we are planning to remove it entirely. Userspace isn't using it, so 
-> there is no loss of functionality here.
-> 
-> Mesa (the official userspace drivers) have never used CE and never will.
-> 
-> Best regards,
-> Timur
-> 
-> On Friday, April 17, 2026 9:40:10 AM Central European Summer Time Robert 
-> Garcia wrote:
->> From: Christian König <christian.koenig@amd.com>
->>
->> [ Upstream commit 5d55ed19d4190d2c210ac05ac7a53f800a8c6fe5 ]
->>
->> Those can be triggered trivially by userspace.
->>
->> Signed-off-by: Christian König <christian.koenig@amd.com>
->> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
->> Acked-by: Timur Kristóf <timur.kristof@gmail.com>
->> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->> [ Modified to gfx_v11_0.c only. ]
->> Signed-off-by: Robert Garcia <rob_garcia@163.com>
->> ---
->>  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 2 --
->>  1 file changed, 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
->> b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c index 37f793f7d4d2..6e3a32779168
->> 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
->> @@ -5380,8 +5380,6 @@ static void gfx_v11_0_ring_emit_ib_gfx(struct
->> amdgpu_ring *ring, unsigned vmid = AMDGPU_JOB_GET_VMID(job);
->>  	u32 header, control = 0;
->>
->> -	BUG_ON(ib->flags & AMDGPU_IB_FLAG_CE);
->> -
->>  	header = PACKET3(PACKET3_INDIRECT_BUFFER, 2);
->>
->>  	control |= ib->length_dw | (vmid << 24);
-> 
-> 
-> 
-> 
-
+> > +
+> >  extern const struct msm_perfcntr_group a6xx_perfcntr_groups[];
+> >  extern const unsigned a6xx_num_perfcntr_groups;
+> >
+>
+> --
+> With best wishes
+> Dmitry
