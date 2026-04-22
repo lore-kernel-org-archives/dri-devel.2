@@ -4,71 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21D10F9B5E4
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 08:42:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E5D7F9B5E8
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 08:55:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 617FF10E294;
-	Wed, 22 Apr 2026 08:42:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAF6110E98B;
+	Wed, 22 Apr 2026 08:55:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FXsGc3WR";
+	dkim=pass (2048-bit key; secure) header.d=tuxon.dev header.i=@tuxon.dev header.b="E4YVpead";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9D1D10E07D;
- Wed, 22 Apr 2026 08:42:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1776847339; x=1808383339;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=tgT/NiGuGyLMbkWXDtIGFUpu0M7Z2r7OkRxVmJlcCgE=;
- b=FXsGc3WRxvD2602PJK2QFWWsNEwvhf0qoG1qzJDpn7j9aXbStw4f1wvC
- hmJN0VQyRJzCWJAKoxwiYA0vN1Ae4T0Qpp6zuTdKG2h1COYTP+fHIMfen
- ipIPHPmCed92B/smSr+KKnjIVSlqR4fEhS1rSPOpKM9u87VL1478hlptC
- vqbYoqV997EorYI0nF4/l8iBey+WinYFdgLre5ZHuGQ7awechtEMXXat1
- 0qIBNrv8m5/5iBG0jvnIP4l41G6kBAB5sSGSdCBPi9rvS/h5eQxwPbFlo
- GKLf91oHqnR6OvB+GtHo8EqQMUoxiPf8o1M6tqDvt6HCV/CEg1nCdWbZZ g==;
-X-CSE-ConnectionGUID: pPwRG6QGTsmF/QkAadwv2Q==
-X-CSE-MsgGUID: YXGi5ay+RY6MG4d6/A/bLA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11763"; a="77709162"
-X-IronPort-AV: E=Sophos;i="6.23,192,1770624000"; d="scan'208";a="77709162"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Apr 2026 01:42:19 -0700
-X-CSE-ConnectionGUID: +U/3/pmqSB6F1hgjJ5IJAg==
-X-CSE-MsgGUID: Wm3z3MPtR3q2gdxyy2cDbw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,192,1770624000"; d="scan'208";a="255775796"
-Received: from abityuts-desk.ger.corp.intel.com (HELO [10.245.245.239])
- ([10.245.245.239])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Apr 2026 01:42:14 -0700
-Message-ID: <398623a092c65ce4e53d1713112fa39ac0979fd7.camel@linux.intel.com>
-Subject: Re: [PATCH 2/5] cgroup/dmem: Add reclaim callback for lowering max
- below current usage
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- intel-xe@lists.freedesktop.org
-Cc: Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner
- <hannes@cmpxchg.org>,  Tejun Heo <tj@kernel.org>, Michal
- =?ISO-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>, 	cgroups@vger.kernel.org,
- Huang Rui <ray.huang@amd.com>, Matthew Brost	 <matthew.brost@intel.com>,
- Matthew Auld <matthew.auld@intel.com>, Maxime Ripard	 <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter	 <simona@ffwll.ch>,
- David Airlie <airlied@gmail.com>, Christian =?ISO-8859-1?Q?K=F6nig?=	
- <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, 	linux-kernel@vger.kernel.org, Thadeu Lima
- de Souza Cascardo <cascardo@igalia.com>
-Date: Wed, 22 Apr 2026 10:42:11 +0200
-In-Reply-To: <4b647952-0038-4878-b67e-6c7fc7ab27a6@linux.intel.com>
-References: <20260327081600.4885-1-thomas.hellstrom@linux.intel.com>
- <20260327081600.4885-3-thomas.hellstrom@linux.intel.com>
- <4b647952-0038-4878-b67e-6c7fc7ab27a6@linux.intel.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E892210E94F
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 08:55:41 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-43d77f6092eso3535873f8f.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 01:55:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=tuxon.dev; s=google; t=1776848140; x=1777452940; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=uugn1Iy/EUw8QWPEjCkPMfHWiB+g/iglcdvhK7LYU78=;
+ b=E4YVpeadwQD9f+DxKRSlNGrpdmwgTr8fReP7A/1bM+5Tw0fMLUEFJSKomKMdpNGyn0
+ LChVnS/7GV1HUzfDD9sEtoMez6hpdTH6MI0wl6+d6ql1skgUnhmpaByFAw6iCifhVb12
+ HhrX7NrNW8aJYYnPe5sfhxH7lc3sKIVKI7dPp3DlGBUJ2VPnF8GwTbDyduxsgQK95kxE
+ YMEtKG16IJui08eyREGNxMZGku+lUfLOKP9s3Fgi34xV3Luqcg07TwAtQhjVcRbf1Q6Z
+ +MA9WqKw85c117WCmxp98dKHegA6v9JvESyVCDry3Fk+n4ryZgDe/G9JXzKLCrzCR9CA
+ p9rw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776848140; x=1777452940;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=uugn1Iy/EUw8QWPEjCkPMfHWiB+g/iglcdvhK7LYU78=;
+ b=baV7Adr/htr+hZyTFWiVLA1cPr1gA9QDm29QjmD3h57ENtkR3RIRi4MdquGDE5DbHK
+ 76dDQBhJlF/OAUMACe9W/U/zV+Ud319ClmTMWPnwYVnWJc4RH6jbT/oPg5NiXuJhGKci
+ sXTSv086cwKQ9OzXfqzQ0oj3ze19ZkdUnjwzahis5TpXI9woXrTYRQSjXsUQpV35WUtX
+ 2enDc+LAgBxtiOpj81vhm9mO+eVw7KjYqBIW3lvP+MiQH83nVtXRg7Ci149+g8yUIjuy
+ QteXqNPFEKh4g49aRajL3Gfhm+1Uv0tPc7V54Kiw4R8Awt5VDdMltf4lzj5iexNcJalX
+ DiBg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+Nohdvt/FN5jUhI4gvuyKpsXsRBcvrksAK9p8t4XzqH/ro1eEbOn+ngGhr3W4Z/Nox6A+3UYuCHBg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywh+6SsGzqqv1/Z6FMNxfJaJNHZNkzB5VQrOSn4VzhRNWLFhI2v
+ CGA0vMXA6Pz9zDo6g4hirOURy+SNVjrqiDBiztACfEE2M0WJYdOBjz64CkBUgzo/o3Q=
+X-Gm-Gg: AeBDiesTCqbyEqJOjI+hhGvfafV6qK/398gosSGa9k7X6A/jPAxQq2rHPoV08uAGo4K
+ l3MHS6kKy+O/m9/pyoAu1PlA/g6SDkBl3+o3fAnyMBhQ49widvhZBBbvwL+iaobNDozIV2lHZme
+ lUBsbXRfMEuFgWq8GpKDzWhWicixzhHvvwQjKj7arotXR5W+fQqhfki2V2470P+Taoy+j7fxBbi
+ aBDjGr9Ub9Zgm6APYj8tjsMS9yUUJInFBtZzxgR2ZYkTIMioxn+6oT8KyAN4PuD7KcmRbB3cRE2
+ pXn+0hktOcXskn7VLT2GlTwp8fAottOe1KLNhjPm3Zk4SZCbtpbP22kTR5IEdKd03jO1AaPdJGh
+ VpK59c7hDhCIU6hu2//oPWZjrQVYm968w/BJTPp6mNWxfqSirybxaLeAhejr3SWButetVgMYLsY
+ dAs/HADg2iVDrsNrilJz4nfzCnWi1kqzk9HemYWVvE5w==
+X-Received: by 2002:a05:6000:2510:b0:43d:7508:c9c9 with SMTP id
+ ffacd0b85a97d-43fe3e0984bmr34562736f8f.27.1776848139576; 
+ Wed, 22 Apr 2026 01:55:39 -0700 (PDT)
+Received: from [192.168.50.4] ([82.78.167.162])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43fe4cc0d51sm43898728f8f.10.2026.04.22.01.55.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 22 Apr 2026 01:55:39 -0700 (PDT)
+Message-ID: <d087c4f0-024d-480d-8711-5a47610b99b4@tuxon.dev>
+Date: Wed, 22 Apr 2026 11:55:37 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] drm: renesas: rz-du: Add support for RZ/G3L LVDS
+ encoder
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Biju <biju.das.au@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+References: <20260417175235.224809-1-biju.das.jz@bp.renesas.com>
+ <20260417175235.224809-4-biju.das.jz@bp.renesas.com>
+ <td55nrjrchomtatyx5phbojvjipwh64gnlnydqame5xakviafp@ixzaju2lnkpm>
+ <9523bd97-2730-4b99-b3d0-6accc7622478@tuxon.dev>
+ <m225f2xw3xkzacscycaifnc4hb3mv3o6ezaxjyhtphnjo5cfw3@6smswij3txnc>
+Content-Language: en-US
+From: Claudiu Beznea <claudiu.beznea@tuxon.dev>
+In-Reply-To: <m225f2xw3xkzacscycaifnc4hb3mv3o6ezaxjyhtphnjo5cfw3@6smswij3txnc>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,198 +105,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 2026-04-22 at 10:31 +0200, Maarten Lankhorst wrote:
-> Hey,
->=20
-> (Adding Thadeu to cc since they've been working on the same issue)
->=20
-> Den 2026-03-27 kl. 09:15, skrev Thomas Hellstr=C3=B6m:
-> > Add an optional reclaim callback to struct dmem_cgroup_region.=C2=A0
-> > When
-> > dmem.max is set below current usage, invoke the callback to evict
-> > memory
-> > and retry setting the limit rather than failing immediately.=C2=A0
-> > Signal
-> > interruptions propagate back to the write() caller.
-> >=20
-> > RFC:
-> > Due to us updating the max limit _after_ the usage has been
-> > sufficiently lowered, this should be prone to failures if there are
-> > aggressive allocators running in parallel to the reclaim.
-> > So can we somehow enforce the new limit while the eviction is
-> > happening?
-> >=20
-> > Assisted-by: GitHub Copilot:claude-sonnet-4.6
-> > Signed-off-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
-> > ---
-> > =C2=A0include/linux/cgroup_dmem.h | 11 +++++
-> > =C2=A0kernel/cgroup/dmem.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | =
-94
-> > +++++++++++++++++++++++++++++++++----
-> > =C2=A02 files changed, 96 insertions(+), 9 deletions(-)
-> >=20
-> > diff --git a/include/linux/cgroup_dmem.h
-> > b/include/linux/cgroup_dmem.h
-> > index dd4869f1d736..61520a431740 100644
-> > --- a/include/linux/cgroup_dmem.h
-> > +++ b/include/linux/cgroup_dmem.h
-> > @@ -26,6 +26,10 @@ bool dmem_cgroup_state_evict_valuable(struct
-> > dmem_cgroup_pool_state *limit_pool,
-> > =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bool ignore_low, bool
-> > *ret_hit_low);
-> > =C2=A0
-> > =C2=A0void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state
-> > *pool);
-> > +void dmem_cgroup_region_set_reclaim(struct dmem_cgroup_region
-> > *region,
-> > +				=C2=A0=C2=A0=C2=A0 int (*reclaim)(struct
-> > dmem_cgroup_pool_state *pool,
-> > +						=C2=A0=C2=A0 u64
-> > target_bytes, void *priv),
-> > +				=C2=A0=C2=A0=C2=A0 void *priv);
-> > =C2=A0#else
-> > =C2=A0static inline __printf(2,3) struct dmem_cgroup_region *
-> > =C2=A0dmem_cgroup_register_region(u64 size, const char *name_fmt, ...)
-> > @@ -62,5 +66,12 @@ bool dmem_cgroup_state_evict_valuable(struct
-> > dmem_cgroup_pool_state *limit_pool,
-> > =C2=A0static inline void dmem_cgroup_pool_state_put(struct
-> > dmem_cgroup_pool_state *pool)
-> > =C2=A0{ }
-> > =C2=A0
-> > +static inline void
-> > +dmem_cgroup_region_set_reclaim(struct dmem_cgroup_region *region,
-> > +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int (*reclaim)(struct
-> > dmem_cgroup_pool_state *pool,
-> > +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u64 target_bytes,
-> > void *priv),
-> > +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 void *priv)
-> > +{ }
-> > +
-> > =C2=A0#endif
-> > =C2=A0#endif	/* _CGROUP_DMEM_H */
-> > diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
-> > index 3e6d4c0b26a1..f993fb058b74 100644
-> > --- a/kernel/cgroup/dmem.c
-> > +++ b/kernel/cgroup/dmem.c
-> > @@ -51,6 +51,18 @@ struct dmem_cgroup_region {
-> > =C2=A0	 * No new pools should be added to the region afterwards.
-> > =C2=A0	 */
-> > =C2=A0	bool unregistered;
-> > +
-> > +	/**
-> > +	 * @reclaim: Optional callback invoked when dmem.max is
-> > set below the
-> > +	 * current usage of a pool. The driver should attempt to
-> > free at least
-> > +	 * @target_bytes from @pool. May be called multiple times
-> > if usage
-> > +	 * remains above the limit after returning.
-> > +	 */
-> > +	int (*reclaim)(struct dmem_cgroup_pool_state *pool, u64
-> > target_bytes,
-> > +		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 void *priv);
-> > +
-> > +	/** @reclaim_priv: Private data passed to @reclaim. */
-> > +	void *reclaim_priv;
-> > =C2=A0};
-> > =C2=A0
-> > =C2=A0struct dmemcg_state {
-> > @@ -145,23 +157,59 @@ static void free_cg_pool(struct
-> > dmem_cgroup_pool_state *pool)
-> > =C2=A0}
-> > =C2=A0
-> > =C2=A0static int
-> > -set_resource_min(struct dmem_cgroup_pool_state *pool, u64 val)
-> > +set_resource_min(struct dmem_cgroup_pool_state *pool, u64 val,
-> > +		 struct dmem_cgroup_region *region)
-> > =C2=A0{
-> > =C2=A0	page_counter_set_min(&pool->cnt, val);
-> > =C2=A0	return 0;
-> > =C2=A0}
-> > =C2=A0
-> > =C2=A0static int
-> > -set_resource_low(struct dmem_cgroup_pool_state *pool, u64 val)
-> > +set_resource_low(struct dmem_cgroup_pool_state *pool, u64 val,
-> > +		 struct dmem_cgroup_region *region)
-> > =C2=A0{
-> > =C2=A0	page_counter_set_low(&pool->cnt, val);
-> > =C2=A0	return 0;
-> > =C2=A0}
-> > =C2=A0
-> > =C2=A0static int
-> > -set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val)
-> > +set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val,
-> > +		 struct dmem_cgroup_region *region)
-> > =C2=A0{
-> > -	return page_counter_set_max(&pool->cnt, val);
-> > +	int err =3D page_counter_set_max(&pool->cnt, val);
-> > +
-> > +	if (err !=3D -EBUSY || !region || !region->reclaim)
-> > +		return err;
-> > +
-> > +	/*
-> > +	 * The new max is below current usage.=C2=A0 Ask the driver to
-> > evict memory
-> > +	 * and retry, up to a bounded number of times.=C2=A0 Signal
-> > interruptions are
-> > +	 * propagated back to the write() caller; other reclaim
-> > failures leave
-> > +	 * -EBUSY as the result.
-> > +	 */
-> > +	for (int retries =3D 5; retries > 0; retries--) {
-> > +		u64 usage =3D page_counter_read(&pool->cnt);
-> > +		u64 target =3D usage > val ? usage - val : 0;
-> > +		int reclaim_err;
-> > +
-> > +		if (!target) {
-> > +			err =3D page_counter_set_max(&pool->cnt,
-> > val);
-> > +			break;
-> > +		}
-> > +
-> > +		reclaim_err =3D region->reclaim(pool, target,
-> > region->reclaim_priv);
-> > +		if (reclaim_err) {
-> > +			if (reclaim_err =3D=3D -EINTR || reclaim_err
-> > =3D=3D -ERESTARTSYS)
-> > +				err =3D reclaim_err;
-> > +			break;
-> > +		}
-> > +
-> > +		err =3D page_counter_set_max(&pool->cnt, val);
-> > +		if (err !=3D -EBUSY)
-> > +			break;
-> > +	}
-> > +
-> > +	return err;
-> > =C2=A0}
->=20
-> I mentioned this in chat but I wanted to mention it on the mailing
-> list for others as well,
-> can we reproduce the behavior from memory_max_write() in
-> mm/memcontrol.c?
->=20
-> 1. First set new limit through xchg.
-> 2. If O_NONBLOCK is set -> do nothing, next allocation in target
-> region will fail and cause reclaim.
-> 3. If not set -> reclaim until below new limit or interrupted by a
-> signal, return success in all cases here since we set new limit.
->=20
->=20
-
-Yup.
-
-For 3, we also need to consider the case where we fail to reclaim due
-to memory being pinned. If it's OK to (usually temporary) have current
-usage above max, that would work.
-
-I have that coded up and also add a patch on top to defer reclaim to a
-thread if we bail due to signal or O_NONBLOCK. Perhaps we could discuss
-whether that's a good or bad idea in that patch.
-
-Will send out when I've updated the IGT tests accordingly.
-
-Thanks,
-Thomas
 
 
+On 4/21/26 14:22, Dmitry Baryshkov wrote:
+> On Tue, Apr 21, 2026 at 12:11:28PM +0300, Claudiu Beznea wrote:
+>> Hi,
+>>
+>> On 4/19/26 18:58, Dmitry Baryshkov wrote:
+>>> On Fri, Apr 17, 2026 at 06:52:30PM +0100, Biju wrote:
+>>>> From: Biju Das <biju.das.jz@bp.renesas.com>
+>>>>
+>>>> Add support for the RZ/G3L LVDS encoder driver. It operates in single-link
+>>>> mode with 4 lanes (Data) + 1 lane (Clock) and supports pixel clock rates
+>>>> from 25 to 87 MHz. The LVDS module cannot be used at the same time as
+>>>> MIPI-DSI. However, LVDS and the DSI interface share a peripheral clock and
+>>>> the MIPI_DSI_PRESET_N reset signal. Also, the MIPI_DSI_CMN_RSTB and
+>>>> MIPI_DSI_ARESET_N reset signals must be asserted before using the LVDS
+>>>> module.
+>>>>
+>>>> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+>>>> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+>>>> ---
+>>
+>> [ ...]
+>>
+>>>> +/* -----------------------------------------------------------------------------
+>>>> + * Bridge
+>>>> + */
+>>>> +static void rzg3l_lvds_atomic_enable(struct drm_bridge *bridge,
+>>>> +				     struct drm_atomic_state *state)
+>>>> +{
+>>>> +	struct rzg3l_lvds *lvds = bridge_to_rzg3l_lvds(bridge);
+>>>> +	const struct drm_bridge_state *bridge_state;
+>>>> +	int ret;
+>>>> +	u32 fmt;
+>>>> +
+>>>> +	/* Get the LVDS format from the bridge state. */
+>>>> +	bridge_state = drm_atomic_get_new_bridge_state(state, bridge);
+>>>> +	if (!bridge_state) {
+>>>> +		dev_err(lvds->dev, "failed to get bridge state\n");
+>>>> +		return;
+>>>> +	}
+>>>> +
+>>>> +	switch (bridge_state->output_bus_cfg.format) {
+>>>> +	case MEDIA_BUS_FMT_RGB888_1X7X4_JEIDA:
+>>>> +		fmt = RZG3L_LVDS_MODE_JEIDA;
+>>>> +		break;
+>>>> +	case MEDIA_BUS_FMT_RGB888_1X7X4_SPWG:
+>>>> +		fmt = RZG3L_LVDS_MODE_VESA;
+>>>> +		break;
+>>>> +	default:
+>>>> +		fmt = RZG3L_LVDS_MODE_VESA;
+>>>> +		dev_warn(lvds->dev, "Unsupported bus fmt 0x%04x\n",
+>>>> +			 bridge_state->output_bus_cfg.format);
+>>>> +		break;
+>>>> +	}
+>>>> +
+>>>> +	ret = pm_runtime_resume_and_get(lvds->dev);
+>>>
+>>> If this  fails for any reason, the atomic_disable() would still be
+>>> called and it will decrement the counter, potentially undeflowing it.
+>>> Consider switching to pm_runtime_get_sync(), which suits better here.
+>>
+>> AFAIK, the clocks of this HW blocks have MSTOP functionality. HW manual of
+>> RZ/G3S [1] (should be the same for RZ/G3L as well) mentions the following in
+>> the chapter 41.2.1. "If the master accesses a module that has the clock
+>> stopped and the MSTOP bit set, a bus error will occur". [1]
+>> MSTOP is set though the clock enable/disable APIs.
+>>
+>> The clocks on RZ/G3L are part of clock power domains. If the
+>> pm_runtime_resume_and_get() fails (or any runtime PM resume calls), the
+>> clocks will be off and MSTOP set. In this case, calling atomic_disable() or
+>> any API setting HW registers will lead to sync aborts.
+> 
+> Then you've identified a bug in the code. The atomic_enable() doesn't
+> fail, so for each enable there always will be an atomic_disable() call.
+> 
+
+Is this something that should be solved by individual drivers providing struct 
+drm_bridge_funcs to the upper layers or by the subsystem itself?
+
+Accessing HW w/o its power being on (whatever power means here, e.g. clocks, 
+resets, regulators) seems odd and may lead to critical failures.
+
+On some Renesas SoCs this used to work previously but it is not anymore with the 
+addition of the so called MSTOP functionality.
+
+Thank you,
+Claudiu
