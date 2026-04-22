@@ -4,110 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6391EF94CBE
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 15:38:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 705C7FA1FC9
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 15:47:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78FC310EA4F;
-	Wed, 22 Apr 2026 15:38:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D428C10E04D;
+	Wed, 22 Apr 2026 15:47:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="kV9FPQEr";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="eh6h25AJ";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="P/koRI/B";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012021.outbound.protection.outlook.com [52.101.43.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C9AB10EA4F
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 15:38:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lAQoDVrv6EkY+Ah0sn3G0CcOsBRNppMxtDHUGxiPQbqL7ZxZwNEJLb0VDA9flJALVjZYO1bcsXM4JnDiCWEw6Y9rGHcaykDS9bEM7Kkw2txes7vhI9UBrDUyc5xFzKMysbdWTiasju2nVT1bwIfU7g6qFMq+BkmLVjE+uQuKJtieys5zXPlMbwZhOfW4f3rcGlXc9cBa+wlS7YpLdpMyY9VI3pcFKkD8JMpD3FVhr/mw3/0hMHUSVUp8XngA6vOrs4gceTMxlBcJ/JRY6nnNT8VtJsK/VhG5/TTn48KugDH4UyQc+5Wsplk7lRcQJYWHpLe2nv/N2kS3VnNxcdXaEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9ESkB3fnWp5MBQDEQl+a8WDYjYYe5CozTNi3WB0E8Xo=;
- b=x3vjIxOIp4MBxoQmy4SYVP2e7l8oIkDoe/kRIBEKv8QWselPsQm0RFu7Y4QhzUxr0XNyYqd5nz2Gjj5O3TVwIfIZo2PyvihPGwShDowTBPdx9hMFIzpbdBBmaW9/bpIry2CJp9IKGO+UtyKxxR9tZSoTgO4wtRL1V+gyE4/TRztzoMGxIAr7fvPU2lwXP9dpna7hD383grOk6FdpJGIPQc/DjH9+slQaML9FwDA4rbUL/kz12z3LAf7LLQEoWrKEGZsLZwNNTuNqdYZ4jkGHvw30hQEF55o2fajy7g58jZPnzLnpxbHbAgMgSW/2i8aegG1gmnsrXLeoj6JBFlHvag==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9ESkB3fnWp5MBQDEQl+a8WDYjYYe5CozTNi3WB0E8Xo=;
- b=kV9FPQEr4EOG5KiKUShHa+gNlBM6P5w/Z9MVly1JuMfNsHN/PRRa3TjDTql23WCvCfT75XZR/l3jh6Fzs6H3LiVDVR+5q+rxUU0FkkE+FhERr9qJ9k7TJ6dSyA7v+4c6JMmo9ddOH1vQfQ0EPX8xT/rnjj0J7PCkJYCkzrT6Bhw=
-Received: from BN9PR03CA0064.namprd03.prod.outlook.com (2603:10b6:408:fc::9)
- by SJ0PR12MB7475.namprd12.prod.outlook.com (2603:10b6:a03:48d::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.16; Wed, 22 Apr
- 2026 15:38:20 +0000
-Received: from BL6PEPF0001AB52.namprd02.prod.outlook.com
- (2603:10b6:408:fc:cafe::93) by BN9PR03CA0064.outlook.office365.com
- (2603:10b6:408:fc::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9791.48 via Frontend Transport; Wed,
- 22 Apr 2026 15:38:19 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL6PEPF0001AB52.mail.protection.outlook.com (10.167.241.4) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9846.18 via Frontend Transport; Wed, 22 Apr 2026 15:38:19 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 22 Apr
- 2026 10:38:19 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 22 Apr
- 2026 10:38:19 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Wed, 22 Apr 2026 10:38:18 -0500
-Message-ID: <a405d199-2ce2-c8ed-3ede-4c9495b2d7da@amd.com>
-Date: Wed, 22 Apr 2026 08:38:13 -0700
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A97710E04D
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 15:47:25 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 63MAx3YJ3377466
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 15:47:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=TIu+DBStZtyj0oJu2FZ3xGC9
+ pVsbcUr12+1053rYZU0=; b=eh6h25AJgDrEZuVCUlq9yOcElyGqH/Fi9NmySvei
+ 8v1+u0UKn26YDxyuUamZJTGhB20QivW9pW9IWnnSNitdU/YXhRkxcrRhkmmBxLM/
+ usHltQC5g8lvYnXYu4gwLfxiN2Ho9Gaupls0WDovlNXiiy68DlD/3RFSbwYd5BT6
+ pWm2CgWaRf8CO4yq46GQMtKMtW5yb4ZWHrSdi8k0jKoZjCyRY5UsHNODwXvM3i8J
+ y9YvMBP5mZ3Ff6352oyI9D7TtEfPKLx9/MgpLPT7XlARG0qcpqY6F9qgfAV6oM6U
+ m3kZnbxJHVImoFapYLeFWi3DMhioYYXOpCsNf1obJS4FOA==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com
+ [209.85.217.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dpeng44u4-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 15:47:23 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id
+ ada2fe7eead31-612ef4e6c54so9465462137.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 08:47:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1776872843; x=1777477643;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=TIu+DBStZtyj0oJu2FZ3xGC9pVsbcUr12+1053rYZU0=;
+ b=P/koRI/Bq9mLZvwd9RKIhaAMT42F7fvuTd7f1/tXDgNWYNJ2pSRWukuP1tH8QFBs4z
+ vNftPAEIUEnPhB5p5gDZK8ipp3GwJQU1WNf6o5PUrRPiC/g65U93aFWQtzw8pCuWN7b1
+ qiLvihcVz8QyDs0havSh2MmQSEJv/mjCgMMhCAOcg41ERpYxEKF1aseKQ6JJuDHOsT/d
+ owLZ9sdTat6stC9Ti0HhRTZZMbmMpSOTSg+RvY88VenaMJkj4i4P/oCJvlTh215/qe5d
+ VqsvpGiBhmsvj613vxYMrUTQtWvJAPYgES7NsPJdvR2b0aEplhBq2EBt4Liz6UHVJHKU
+ rQkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776872843; x=1777477643;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=TIu+DBStZtyj0oJu2FZ3xGC9pVsbcUr12+1053rYZU0=;
+ b=pL+PnasaieLfgDKk5FwTKCemlrKJXscBGP+lWnmCFBGdmrW3sylrs5Cv6vTPB1h1hY
+ 9Z/1jdbaFvWwvyiTPpNVaPZgTK3/2W4ijdbYY7sKXUzdobWJhU/QtxSinj0hHxJyAs6x
+ 1bCulXx5POXAGZfee0br8CAavqMwA6HomAaOvieOugOWeRuIg8yxjNeYeIX40m41xpqm
+ P5LSLm/9P6cF4QQE6OqaCiJru4BMIpVQcKc7m5Qo6doGsN5ScJOR2p5DFOo8ZW9+NKXW
+ bGbwI21tGBq0fJJDsi5zcHsCBTvZ8LgMOBlnFxEHv7eBNtl377GmKBiS+EUgYkdIr/+q
+ MxXw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9F581WxwcceJomWp6pcLw9yqkRR2CklVyQ16oUVbHQ6P6CJ/3+p9+Hc8opVtRvN6bvJpM8SAUkTuw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzkKlxJ/o/5Bd7uJ8OnNGf/+HjeYQ6d7Qz2jczU578NL8FzpStw
+ v5/L/8shwwYHB0sYeHO8Zcua2H6cu953HU00zsBR0X6em8ZsiBuEQkZFsHab/A7Z+UjKelJuzBw
+ XIt24vmpQ3AO/mYbTGJOdlSvI4Mi/nUeNok9vJXG4xdGRmQ6l82EJxx8uvujZ6XLMTRZNS4g=
+X-Gm-Gg: AeBDieufBYbIOuZsbD0tDlfM8r59QuAmLebXIBfILV39pCjMvCX0+XY5tOK9mb6gQEE
+ bSFDF1ldJFnvVndaqN0tJwsPQ51uakMwVGYPYgw4lfuUohvtMKk9oksGYvc0WKOjZbVBW4nxahj
+ obNjs7tbwquhEtcBOhjSfToDXTPzIgkcKwnugN4j405obN0Ya8Rz5oGcLxRQMqh5h8yx6PoY/X6
+ 3l1YWE2wUmf2/ttXJVDxLU5uV2MDCOdYuWYDJJJcXKVz2speuWrdKNgGz1xOudW8dBcaDkyEQtv
+ TOs+kw4tTMVCMEOazM6WXlTZVml4jUFmCIcL/xNkutl6UGHm1rnCw7ZW2pnjqLqFhPT1b0RGNy5
+ B9v9dggBL8rxtu7noYmaO0uSq7SLlRl8sgvu4rJEHgm8tMurZZk6PIKnLdWRaDCWBWd+9peVIDN
+ v1b51sRI6cA/vwGCymYwvegtCNMgf+xs/pTKma+hsj/WBRYQ==
+X-Received: by 2002:a05:6102:b0f:b0:607:97a9:e3dd with SMTP id
+ ada2fe7eead31-616f73fb01fmr11038159137.24.1776872842928; 
+ Wed, 22 Apr 2026 08:47:22 -0700 (PDT)
+X-Received: by 2002:a05:6102:b0f:b0:607:97a9:e3dd with SMTP id
+ ada2fe7eead31-616f73fb01fmr11038138137.24.1776872842469; 
+ Wed, 22 Apr 2026 08:47:22 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a4187e7d80sm4485337e87.68.2026.04.22.08.47.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 22 Apr 2026 08:47:21 -0700 (PDT)
+Date: Wed, 22 Apr 2026 18:47:19 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Cc: srini@kernel.org, linux-arm-msm@vger.kernel.org,
+ gregkh@linuxfoundation.org, quic_bkumar@quicinc.com,
+ linux-kernel@vger.kernel.org, quic_chennak@quicinc.com,
+ dri-devel@lists.freedesktop.org, arnd@arndb.de, ltuikov89@gmail.com,
+ konrad.dybcio@oss.qualcomm.com, andersson@kernel.org
+Subject: Re: [PATCH v9 4/4] misc: fastrpc: Add polling mode support for
+ fastRPC driver
+Message-ID: <jqehwyeoda5t5kabxjouc4kgpnebndotkr2a4tuuiypzqcck42@dv3vu7wbq6nh>
+References: <20260422092409.4107093-1-ekansh.gupta@oss.qualcomm.com>
+ <20260422092409.4107093-5-ekansh.gupta@oss.qualcomm.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH V1] accel/amdxdna: Improve tracing for job lifecycle and
- mailbox RX worker
-Content-Language: en-US
-To: Mario Limonciello <superm1@kernel.org>, <ogabbay@kernel.org>,
- <quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
- <maciej.falkowski@linux.intel.com>
-CC: Max Zhen <max.zhen@amd.com>, <linux-kernel@vger.kernel.org>,
- <sonal.santan@amd.com>
-References: <20260421181502.1970263-1-lizhi.hou@amd.com>
- <83846da8-0c8f-4eca-bac9-08efe1c0eb2f@amd.com>
- <9bca1ecd-ce16-2703-3a0d-6db208c83b06@amd.com>
- <f3d1b859-e5f2-468c-b957-fc3686457213@kernel.org>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <f3d1b859-e5f2-468c-b957-fc3686457213@kernel.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB52:EE_|SJ0PR12MB7475:EE_
-X-MS-Office365-Filtering-Correlation-Id: 94d82da5-1925-47c0-8273-08dea0852e20
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700016|376014|1800799024|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: 1XWd726+zqZr4YAHL+qkKnUDXTwsGV85hLSHnWmrUZsAlwUufdfmLJsXnWh+/9ThFheI/q/YlVVYSm09/nJkmUo4GpxFVRciVEVAictc+/huED5G/MrqV4YNuwGNzclaQX2Bjk1hiWxcqkNaWjX7uQPA4YlAGKxGRJdHeZOjMQ7hcKW9eQ7UDeoJh7YSxjoxgZaJHVc7s//SMPM3tTlxdYzXasXjExl/Gk/ZNxPhxh37D1jQkNJDOzt8yq5OKsKjWEuseNfmeAvnKT232fnj+5eyHevtL65M7Hx/lUCdo8uTWhOK1aUiMkMiXQCT8JlxmRkBt1buFDkkUVX3bdfpMYk24xN8vvpNrngWhrpV+GLxbZnT6nAFeC08J5Nv3lVHfxmTtygO9n7tyj5OpJF6XI85h0uWvtrO/oJKQVP1Xe6dIvu+2NswtRNiviMwSir9Q66u4FFNIbsHnXNCiUhxNDpHkOWNawO8oAKvbe7eaRN4W2oT3phoB9irRIoKMr3Kl7iH90eAqGtEOgKj+MEPgfvoAyGtM4TurXoTlgJhQqtxep1jQoAzV9T7jkCJta8OmtxqejEjm8reFV7RN9y6NfXmmlSGfZVOb8jPfO4t7jbeWIhghh+15/lKdSf1cMb/uXY9g4cZTy/yLtZZ3qmevWO8r4Sum6F/cQXH347Bk8vZZRod+EEEYzfWuuEXLM1GNCdTQ3TKbOAk4VNwovqAGuCbpYxT5tO0TItMzXVQ2uwc5dBR7GhTyY1WACx46qnL+d71o1IhOoLCQ2lbK3OgsA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(18002099003)(22082099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: KVvPVeB5bDH83tKOtrR8/yb7tiZ3wyzqhBL3mpJJrFMXIlUESoUJjykdFiSrJx8AkuIiu9lILH2WWUVyFz6RAtWkGFFkJU7gOKFHaSocoMMVKfIkeocP2fyn8hTin56oM4vsVUfrdGbG4YG6p5AOzSzP0mh1b3efLacSljF2BAxWxPurXXW/U4l6zCv/eLF+pl43t3BL9GYpCnlO1MU97An0nID4aFqJyRGWZZEmKSmKo8n6W1fNF3qMUHOt0jjYc2HaYawB0FrrMyNEcbKK01JYv7uutH1bBjzoEJMypi3iglTB+D/dS5+TUEAPor/XiTcfp46No1buBo5Czu2fbCbFXUKpb3DjZtGbrbKNFZ0kdyF2IhrFYz6S2iwamPrPF8h9iwKdmVY8vw2pq19lBA3WU6MyQGGtRc44OPS1VHQh3TWpx+42l4WcKooLQuU4
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2026 15:38:19.7727 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 94d82da5-1925-47c0-8273-08dea0852e20
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB52.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7475
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260422092409.4107093-5-ekansh.gupta@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=CNUamxrD c=1 sm=1 tr=0 ts=69e8ed8b cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
+ a=EekQdeYcPna9Ds66k2oA:9 a=CjuIK1q_8ugA:10 a=gYDTvv6II1OnSo0itH1n:22
+X-Proofpoint-GUID: ErudZs1aGcME0wvOTUrXKXD15Fm58TE4
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIyMDE1MyBTYWx0ZWRfX1UZn7o/kYTOQ
+ S6G7wFTQs88j8X1pab7ZSSbMqcn7zoZUx422UvHwq5h6J9pgyQbuN21gnpQN8rttGKMLkHZZbLz
+ ad0Kyv7pqNrPVAw9/rj1HSDiVqEcawNK4RvkaiWU//ZaPoq80VK1P3FEIlxowf4xDLqon5Ux7uE
+ W/+ELmm0EOKivbnbd1oPt/BTemvEgAOMBBSYXkYwju2CHwxHQgL3/zgF3jwq2l6vLALHV+7Kj/5
+ Lq4tM+xxsKL6itfF2xKZMctuENcmVOZIwvWAkG78jcLawGkhjh2WEOPekdhrzAXQKyjomuJnZIf
+ kj72F2BvqH+8NRx8g6apCe2KEARw84C8nyaZptwE8Ab1niat5Jn1Tj0Ic6mz+SC3oTnsKQu+OmJ
+ lfy7MS+MddJ7msIEsJRJQpvCFQaqWgfy0+xO7/LH8l80XTLDL/ybTFBAz0NggBllPvm06YpUy9X
+ a8J78/QRXNN6FAKulqg==
+X-Proofpoint-ORIG-GUID: ErudZs1aGcME0wvOTUrXKXD15Fm58TE4
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-22_01,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 impostorscore=0 phishscore=0 bulkscore=0
+ suspectscore=0 clxscore=1015 spamscore=0 priorityscore=1501 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604220153
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,235 +142,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Applied to drm-misc-next
+On Wed, Apr 22, 2026 at 02:54:09PM +0530, Ekansh Gupta wrote:
+> For any remote call to DSP, after sending an invocation message,
+> fastRPC driver waits for glink response and during this time the
+> CPU can go into low power modes. This adds latency to overall fastrpc
+> call as CPU wakeup and scheduling latencies are included. Add polling
+> mode support with which fastRPC driver will poll continuously on a
+> memory after sending a message to remote subsystem which will eliminate
+> CPU wakeup and scheduling latencies and reduce fastRPC overhead. In case
+> poll timeout happens, the call will fallback to normal RPC mode.  Poll
+> mode can be enabled by user by using FASTRPC_IOCTL_SET_OPTION ioctl
+> request with FASTRPC_POLL_MODE request id.
+> 
+> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+> ---
+>  drivers/misc/fastrpc.c      | 148 ++++++++++++++++++++++++++++++++++--
+>  include/uapi/misc/fastrpc.h |  25 ++++++
+>  2 files changed, 166 insertions(+), 7 deletions(-)
+> 
+> @@ -2331,6 +2446,22 @@ static const struct fastrpc_soc_data default_soc_data = {
+>  	.dma_addr_bits_default = 32,
+>  };
+>  
+> +/*
+> + * Older platforms that use default_soc_data but whose DSP firmware
+> + * supports the FastRPC polling mode.
 
-On 4/21/26 12:45, Mario Limonciello wrote:
->
->
-> On 4/21/26 14:39, Lizhi Hou wrote:
->>
->> On 4/21/26 12:18, Mario Limonciello wrote:
->>>
->>>
->>> On 4/21/26 13:15, Lizhi Hou wrote:
->>>> From: Max Zhen <max.zhen@amd.com>
->>>>
->>>> Add more trace coverage to amdxdna job handling and mailbox receive
->>>> processing to make driver execution easier to debug.
->>>>
->>>> Extend the xdna_job trace event to record the command opcode in
->>>> addition to the job sequence number. Use the enhanced tracepoint in
->>>> the job run, sent-to-device, signaled-fence, and job-free paths so
->>>> that trace output can be correlated with the command being executed.
->>>>
->>>> Also add debug-point tracing when a command is received through the
->>>> submit ioctl path, and add a trace event when the mailbox RX worker
->>>> runs.
->>>>
->>>> These changes improve visibility into job lifetime transitions and
->>>> mailbox activity, which helps debug command flow and scheduler issues.
->>>>
->>>> Signed-off-by: Max Zhen <max.zhen@amd.com>
->>>> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
-> Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
->>>> ---
->>>>   drivers/accel/amdxdna/aie2_ctx.c        | 14 ++++++---
->>>>   drivers/accel/amdxdna/amdxdna_ctx.c     |  3 +-
->>>>   drivers/accel/amdxdna/amdxdna_ctx.h     |  1 +
->>>>   drivers/accel/amdxdna/amdxdna_mailbox.c |  1 +
->>>>   include/trace/events/amdxdna.h          | 42 
->>>> ++++++++++++++++---------
->>>>   5 files changed, 42 insertions(+), 19 deletions(-)
->>>>
->>>> diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/ 
->>>> amdxdna/aie2_ctx.c
->>>> index d37123d925b6..3b0feba448c4 100644
->>>> --- a/drivers/accel/amdxdna/aie2_ctx.c
->>>> +++ b/drivers/accel/amdxdna/aie2_ctx.c
->>>> @@ -64,6 +64,7 @@ static void aie2_job_release(struct kref *ref)
->>>>       struct amdxdna_sched_job *job;
->>>>         job = container_of(ref, struct amdxdna_sched_job, refcnt);
->>>> +
->>>>       amdxdna_sched_job_cleanup(job);
->>>>       atomic64_inc(&job->hwctx->job_free_cnt);
->>>>       wake_up(&job->hwctx->priv->job_free_wq);
->>>> @@ -195,7 +196,8 @@ aie2_sched_notify(struct amdxdna_sched_job *job)
->>>>   {
->>>>       struct dma_fence *fence = job->fence;
->>>>   -    trace_xdna_job(&job->base, job->hwctx->name, "signaled 
->>>> fence", job->seq);
->>>> +    trace_xdna_job(&job->base, job->hwctx->name, "signaling fence",
->>>> +               job->seq, job->drv_cmd ? job->drv_cmd->opcode : 
->>>> DEFAULT_IO);
->>>>         aie2_tdr_signal(job->hwctx->client->xdna);
->>>>       job->hwctx->priv->completed++;
->>>> @@ -366,6 +368,9 @@ aie2_sched_job_run(struct drm_sched_job 
->>>> *sched_job)
->>>>       struct dma_fence *fence;
->>>>       int ret;
->>>>   +    trace_xdna_job(sched_job, hwctx->name, "job run",
->>>> +               job->seq, job->drv_cmd ? job->drv_cmd->opcode : 
->>>> DEFAULT_IO);
->>>> +
->>>>       if (!hwctx->priv->mbox_chann)
->>>>           return NULL;
->>>>   @@ -409,7 +414,8 @@ aie2_sched_job_run(struct drm_sched_job 
->>>> *sched_job)
->>>>       } else {
->>>>           aie2_tdr_signal(hwctx->client->xdna);
->>>>       }
->>>> -    trace_xdna_job(sched_job, hwctx->name, "sent to device", 
->>>> job->seq);
->>>> +    trace_xdna_job(sched_job, hwctx->name, "sent to device",
->>>> +               job->seq, job->drv_cmd ? job->drv_cmd->opcode : 
->>>> DEFAULT_IO);
->>>>         return fence;
->>>>   }
->>>> @@ -419,7 +425,8 @@ static void aie2_sched_job_free(struct 
->>>> drm_sched_job *sched_job)
->>>>       struct amdxdna_sched_job *job = drm_job_to_xdna_job(sched_job);
->>>>       struct amdxdna_hwctx *hwctx = job->hwctx;
->>>>   -    trace_xdna_job(sched_job, hwctx->name, "job free", job->seq);
->>>> +    trace_xdna_job(sched_job, hwctx->name, "job free",
->>>> +               job->seq, job->drv_cmd ? job->drv_cmd->opcode : 
->>>> DEFAULT_IO);
->>>>       if (!job->job_done)
->>>>           up(&hwctx->priv->job_sem);
->>>>   @@ -437,7 +444,6 @@ aie2_sched_job_timedout(struct drm_sched_job 
->>>> *sched_job)
->>>>       int ret;
->>>>         xdna = hwctx->client->xdna;
->>>> -    trace_xdna_job(sched_job, hwctx->name, "job timedout", job->seq);
->>>>         guard(mutex)(&xdna->dev_lock);
->>>>   diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/ 
->>>> amdxdna/amdxdna_ctx.c
->>>> index ff6c3e8e5a15..2c2c21992c87 100644
->>>> --- a/drivers/accel/amdxdna/amdxdna_ctx.c
->>>> +++ b/drivers/accel/amdxdna/amdxdna_ctx.c
->>>> @@ -514,7 +514,6 @@ int amdxdna_cmd_submit(struct amdxdna_client 
->>>> *client,
->>>>           goto unlock_srcu;
->>>>       }
->>>>   -
->>>>       job->hwctx = hwctx;
->>>>       job->mm = current->mm;
->>>>   @@ -612,6 +611,8 @@ int amdxdna_drm_submit_cmd_ioctl(struct 
->>>> drm_device *dev, void *data, struct drm_
->>>>       if (args->ext || args->ext_flags)
->>>>           return -EINVAL;
->>>>   +    trace_amdxdna_debug_point(current->comm, args->type, "job 
->>>> received");
->>>> +
->>>>       switch (args->type) {
->>>>       case AMDXDNA_CMD_SUBMIT_EXEC_BUF:
->>>>           return amdxdna_drm_submit_execbuf(client, args);
->>>> diff --git a/drivers/accel/amdxdna/amdxdna_ctx.h b/drivers/accel/ 
->>>> amdxdna/amdxdna_ctx.h
->>>> index a8557d7e8923..355798687376 100644
->>>> --- a/drivers/accel/amdxdna/amdxdna_ctx.h
->>>> +++ b/drivers/accel/amdxdna/amdxdna_ctx.h
->>>> @@ -119,6 +119,7 @@ struct amdxdna_hwctx {
->>>>       container_of(j, struct amdxdna_sched_job, base)
->>>>     enum amdxdna_job_opcode {
->>>> +    DEFAULT_IO,
->>>
->>> Do you really want this at the beginning of the list?  Doesn't that 
->>> break uses of amdxdna_drv_cmd that has the previous indexing?
->>
->> *_DEBUG_BO is driver internal use only. Using 0 here to align with 
->> our current trace scripts.
->>
->> Lizhi
->>
->>>
->>>>       SYNC_DEBUG_BO,
->>>>       ATTACH_DEBUG_BO,
->>>>       DETACH_DEBUG_BO,
->>>> diff --git a/drivers/accel/amdxdna/amdxdna_mailbox.c 
->>>> b/drivers/accel/ amdxdna/amdxdna_mailbox.c
->>>> index 37771bdb24a1..cc8865f4e79c 100644
->>>> --- a/drivers/accel/amdxdna/amdxdna_mailbox.c
->>>> +++ b/drivers/accel/amdxdna/amdxdna_mailbox.c
->>>> @@ -361,6 +361,7 @@ static void mailbox_rx_worker(struct 
->>>> work_struct *rx_work)
->>>>       int ret;
->>>>         mb_chann = container_of(rx_work, struct mailbox_channel, 
->>>> rx_work);
->>>> +    trace_mbox_rx_worker(MAILBOX_NAME, mb_chann->msix_irq);
->>>>         if (READ_ONCE(mb_chann->bad_state)) {
->>>>           MB_ERR(mb_chann, "Channel in bad state, work aborted");
->>>> diff --git a/include/trace/events/amdxdna.h b/include/trace/events/ 
->>>> amdxdna.h
->>>> index c6cb2da7b706..71da24267e52 100644
->>>> --- a/include/trace/events/amdxdna.h
->>>> +++ b/include/trace/events/amdxdna.h
->>>> @@ -30,26 +30,30 @@ TRACE_EVENT(amdxdna_debug_point,
->>>>   );
->>>>     TRACE_EVENT(xdna_job,
->>>> -        TP_PROTO(struct drm_sched_job *sched_job, const char 
->>>> *name, const char *str, u64 seq),
->>>> +        TP_PROTO(struct drm_sched_job *sched_job, const char *name,
->>>> +             const char *str, u64 seq, u32 op),
->>>>   -        TP_ARGS(sched_job, name, str, seq),
->>>> +        TP_ARGS(sched_job, name, str, seq, op),
->>>>             TP_STRUCT__entry(__string(name, name)
->>>>                    __string(str, str)
->>>>                    __field(u64, fence_context)
->>>>                    __field(u64, fence_seqno)
->>>> -                 __field(u64, seq)),
->>>> +                 __field(u64, seq)
->>>> +                 __field(u32, op)),
->>>>             TP_fast_assign(__assign_str(name);
->>>>                  __assign_str(str);
->>>>                  __entry->fence_context = sched_job->s_fence- 
->>>> >finished.context;
->>>>                  __entry->fence_seqno = sched_job->s_fence- 
->>>> >finished.seqno;
->>>> -               __entry->seq = seq;),
->>>> +               __entry->seq = seq;
->>>> +               __entry->op = op;),
->>>>   -        TP_printk("fence=(context:%llu, seqno:%lld), %s 
->>>> seq#:%lld %s",
->>>> +        TP_printk("fence=(context:%llu, seqno:%llu), %s seq#:%llu 
->>>> %s, op=%u",
->>>>                 __entry->fence_context, __entry->fence_seqno,
->>>>                 __get_str(name), __entry->seq,
->>>> -              __get_str(str))
->>>> +              __get_str(str),
->>>> +              __entry->op)
->>>>   );
->>>>     DECLARE_EVENT_CLASS(xdna_mbox_msg,
->>>> @@ -81,18 +85,28 @@ DEFINE_EVENT(xdna_mbox_msg, mbox_set_head,
->>>>            TP_ARGS(name, chann_id, opcode, id)
->>>>   );
->>>>   -TRACE_EVENT(mbox_irq_handle,
->>>> -        TP_PROTO(char *name, int irq),
->>>> +DECLARE_EVENT_CLASS(xdna_mbox_name_id,
->>>> +            TP_PROTO(char *name, int irq),
->>>>   -        TP_ARGS(name, irq),
->>>> +            TP_ARGS(name, irq),
->>>>   -        TP_STRUCT__entry(__string(name, name)
->>>> -                 __field(int, irq)),
->>>> +            TP_STRUCT__entry(__string(name, name)
->>>> +                     __field(int, irq)),
->>>>   -        TP_fast_assign(__assign_str(name);
->>>> -               __entry->irq = irq;),
->>>> +            TP_fast_assign(__assign_str(name);
->>>> +                   __entry->irq = irq;),
->>>> +
->>>> +            TP_printk("%s.%d", __get_str(name), __entry->irq)
->>>> +);
->>>> +
->>>> +DEFINE_EVENT(xdna_mbox_name_id, mbox_irq_handle,
->>>> +         TP_PROTO(char *name, int irq),
->>>> +         TP_ARGS(name, irq)
->>>> +);
->>>>   -        TP_printk("%s.%d", __get_str(name), __entry->irq)
->>>> +DEFINE_EVENT(xdna_mbox_name_id, mbox_rx_worker,
->>>> +         TP_PROTO(char *name, int irq),
->>>> +         TP_ARGS(name, irq)
->>>>   );
->>>>     #endif /* !defined(_TRACE_AMDXDNA_H) || 
->>>> defined(TRACE_HEADER_MULTI_READ) */
->>>
->
+There should be a comment, "don't add more platforms to this list".
+
+> + */
+> +static const struct of_device_id fastrpc_poll_supported_machines[] __maybe_unused = {
+> +	{ .compatible = "qcom,qcs8300" },
+> +	{ .compatible = "qcom,qcs9100" },
+
+Use qcom,sa8775p instead. See sa8775p-ride boards.
+What about qcom,sar2130p?
+qcom,sc8280xp?
+qcom,milos?
+
+> +	{ .compatible = "qcom,sm8450" },
+> +	{ .compatible = "qcom,sm8550" },
+> +	{ .compatible = "qcom,sm8650" },
+> +	{ .compatible = "qcom,sm8750" },
+> +	{ .compatible = "qcom,x1e80100" },
+> +	{ .compatible = "qcom,x1p42100" },
+> +	{},
+> +};
+> +
+>  static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+>  {
+>  	struct device *rdev = &rpdev->dev;
+
+-- 
+With best wishes
+Dmitry
