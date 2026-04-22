@@ -4,87 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C408F94CDB
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 07:32:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E664F94CDB
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 07:36:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3FF798994A;
-	Wed, 22 Apr 2026 07:32:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7F9B10E171;
+	Wed, 22 Apr 2026 07:36:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="Ha8ClyoB";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="O1v1SNo4";
 	dkim-atps=neutral
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A27389664
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 07:32:12 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-4891cd41959so31761935e9.3
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 00:32:12 -0700 (PDT)
+Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com
+ [209.85.208.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F14E810E171
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 07:36:30 +0000 (UTC)
+Received: by mail-lj1-f173.google.com with SMTP id
+ 38308e7fff4ca-38ce8a5bc20so55376301fa.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 00:36:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776843389; cv=none;
+ d=google.com; s=arc-20240605;
+ b=kx0bqIkg7Pm8A1+bisIQToR9SCUqZj/ma+om3w72OMAaBZCoHeKWZw1XNi17cJCvzp
+ p4vrRhOi7oqcd2zWHTlXVuAgLCuIqtn5EWDisZT6AQuR1CSGWXJuXas/5G5B6hkCKjcb
+ 18ghpCPcaNJwlklahoDX3vi/CZ9681GKuBQ+UnprF3yRiM9yiq1v5HAxK5xEPCyHMVYx
+ GDO3EPNqo+HzsDlvYW/EDs2d9nzKuADwaGVA/DO764WV7IJonStN5Uba3AUn8SrapHSj
+ hcR5BYdoGbHQw6EriTdODH+DR6k9b18261AQDg8LcXXKqOJZ6cSoZwcQBwvqVlsj3/Mi
+ jAww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=JRhsk8bRbL2KGVeQozHjmCu3DTba9VSOU96UxmUB0aY=;
+ fh=LvnxZE+61OfGnN/nkY3Te6Hb2i4RkNU+8CV2208seNI=;
+ b=Qf33H6EDrs8MqeGOzqmzWMaRMuw3+kvx3bf8WHR88X51uwDgjKddvuwj8+B7pDBwvI
+ NFRNFS9QOtMrKkoMVpsUJhJc9u+ZUvENEiUjMgbxxjdGXA5BDNzafS4BB5/zz47w/Zwz
+ MaOLKgXTSUd9uGKRlTuAom5GtFtvCzTvPsyr0kfjjPMmEGjMdw2hPUQ6EEDGU7JTCgOR
+ YWX+8VFA6dT0HQMAxe0Ifk7MgxIPnPKmSyEy3QwmW+E8ZJIwQ8f88T9ozZUfvJdkxbCQ
+ PTYxMUQZvw6m3oBNiMRbmbEFCYizR0wzZvy+dMDLq9iFKO3s8hy8apFyxJ/4Y2RlRoay
+ Zmfg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin.net; s=google; t=1776843131; x=1777447931; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=FfMjYVt0OEJw9kTPbllj7wGPjeMaDQDeFyapIKBwi04=;
- b=Ha8ClyoBG+CrQo1TNJzizQHkPFovPYZLw8JQQb/AZInMU1AbaLGXNOqbL8WLej8iF6
- ZF0ozGP27ozQUpoeDUcWmqGjYoGhYiZHsngJ0/uxKvCpozYsnFfhSdpO7l/vFhl5li6Z
- s609OB0EXG6gGaxLGdk167NT1hEvjMcUUCJ/fOgyASput5OgumXDuJKG97jAFtMQg8pl
- X9gMbaw/zQJahDLVZruXEgo96SALlEBgXVE6C2YyP9XzfwXdn3qQjHiaL5OaEUVE+Idd
- +IW7Ae+iAWhsSxqW9rG0xXT4aaysa4yyC6QzB4s6txVcPmH+d7ibJb+3UUkFdu26kRCz
- uvNQ==
+ d=gmail.com; s=20251104; t=1776843389; x=1777448189; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=JRhsk8bRbL2KGVeQozHjmCu3DTba9VSOU96UxmUB0aY=;
+ b=O1v1SNo4Jjs4TGnbv4UuSa3sx17ThAKztbjAxsjeJCPE9iy7Iv4dfq+Ou/oH8A7b1a
+ bbZ0obhI4yrTKvrJuRTzN/lRCvNsB29nLL01a2AGxvCJXY4RX2r0ZDPXYgaUvkaxbs6O
+ 5/KLwu+vHvidTuTPP3LcwJhz19/sXlgSXixkv2xFN/1V+NHhQON8+IJLx3qLyCPVFBau
+ i2g4qFviZ+O/96xAm2BAXj4ZCYrMR7NQDXRdOieTvqvddyV1zWGDryKyXoqonNMbom9Q
+ S8jWNMso9XYZEw75H9lOBTcT4vKDhf+PysU5JOtr5DnHg5cc3pMH6bms3tO7utbVqEWT
+ UBeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776843131; x=1777447931;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=FfMjYVt0OEJw9kTPbllj7wGPjeMaDQDeFyapIKBwi04=;
- b=JgavvuT0y1HEXPv8eBP2H6o0+jnfF+AfyB3OI3tLRzdfFSm3kzpGL6Jdxs9++TOgCz
- nT12eJzrNptt1z2EXswkOfUVe9oZ7f9T8LFxlNxC+phoFVOdTRafuDN7gDQA9fPtmC1v
- /hACNyc0s+6msQ6DEUfDW0NAqmFkbyORTVaah/PlH+9/aYa5pjpd6EbsdCz/M5bnfV0K
- 62UCQE9Pz0iDxGbEQ1xz0ZyzE9K4ZDXRgoO5oL6wccB05kKvplJ/p5+vdgj6SU4lwV6f
- 3B6+kNAVSL0noWAX0P8rkvsQz15PtzHceX02CLG+Bpr1KhkZJeCsd2q7vEctL1DTBtNy
- SANQ==
+ d=1e100.net; s=20251104; t=1776843389; x=1777448189;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=JRhsk8bRbL2KGVeQozHjmCu3DTba9VSOU96UxmUB0aY=;
+ b=MiC0VASl+fwzjOKHOMESnHcd0xJheNUdVAbM0IyfOBvXZIWn41gDj6uk2eJtJLz1Eo
+ caQ8WZ0nzntMRZAplWXzNSz6WMmCWEdXW18kfhSAZ2Ahpd8o9Yr+T+izzQz/pINsdAsg
+ bxoa4CRRJmimOJZoNat2rovli9eHXRiuUjI+kZUFXVLPP9U+P0ra/KaR/ws7CymJRnAi
+ W/Jx8U4PelHT1vmdUMHL3MRMb5D2HMirAnk7G+cifzObY4R2sRc/qj+a5xH6+Mg9+eva
+ jlBaoC5I8KsJha8U8rmviqa9p/2UwQuSBXl8uTB7spJgXiiwNpybCj5hE+ybkaEgk7pt
+ PNOw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+LoQlRkcnO75goJ2TvLC1vmyFkCXt23J/VJrcuJZHesG8KMluPMHuK/BYJub8Vr5qVDpugWLW9su8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yweh33nOuz8ariUcdGWdKMFFfaX78V/KqyPCE2FeAuyTjpfYoPA
- jndmngI1/XNcD7NWeVm13du3qJigcx2odrfBAs5j2LJpFUHmD2rHFgEN/xow8We4PAM=
-X-Gm-Gg: AeBDieudprdGcFVKZ9RYo0tu/Q7R6zEfxuMwUhMt3WEyQOHd0NJWaOg03AifdEgs9sE
- Wi/oZLgO9IHzk3oG05cLmkoKa16hulxajEhkL1A8HBlGCOou/NKEWODqeQXZ0XIGWx2wmk14rkw
- eYawceDmdk9c9g6nKgMKS6NFi++6goCARtaiVrp8y6Hoz5VFYb26dFaUtfGDYTAzAQDld+B0nUB
- bSbFbG6HvONEKFo/joNtEofSIqqKLo0E7m59ekYuy3VfbxwWtnA7vVUYaCgLaWscOwjR+kZhlwf
- 6JtLGL/2noQ/lCbV+qrtT2SNh+6TdKpievjoMX6rPUBpAnipXBDtgjXOzaX0ph4LyDuhXr6QBbG
- atgzUz5nltIuBhNgvtXOAqONbGn9u8psHyx7fYUwIV6nkfmxa3iN4qjRcA+nfCOFTK/at+Ph2cI
- noIQWzD2NYiCEsbkCRfjl2DCXazVhO7FwcEDb4h4U8n9s4mMjFz+cm1c8=
-X-Received: by 2002:a05:600c:c0cf:b0:489:1f3e:5f6f with SMTP id
- 5b1f17b1804b1-4891f3e62a7mr113857145e9.12.1776843130310; 
- Wed, 22 Apr 2026 00:32:10 -0700 (PDT)
-Received: from [192.168.0.101] ([90.240.106.137])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-488fb762f56sm133492965e9.15.2026.04.22.00.32.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 Apr 2026 00:32:09 -0700 (PDT)
-Message-ID: <30c84c41-192c-44ae-a614-2b9951c55727@ursulin.net>
-Date: Wed, 22 Apr 2026 08:32:08 +0100
+ AFNElJ++LTGe/23MFEELUAxF/H51SsA5yWUPwDgIiwQj1m5bnDFQQ2yO/dchjKLT1ArpzxyiF6quddHqD8c=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzPokRep6Mh7W4RmkWKZFbMHzldZlOK2qbhEv65//zJiHBOls+x
+ qK/4nudM+ggY7LmGI3bUgl6D/GQSfDaqda51vE0ze0eX+HDwmKYIaCd8Zx/uVhQiwC0+X7LKb0R
+ IAp+24UsBgjkXRQfP93sLka7HlcTRO8w=
+X-Gm-Gg: AeBDiesvBZRMSOH97Y6tyXcYO522AIvYt18iEiSXCGVsAMCeQXHiesF1YCmxqOfIPdc
+ ni4lXpc9huCPjuQEkdN6+kTY+j/zNBxwVjpG8dlvxwMqyrNZfoYEQlldHvHvldpYdOhNNdUsoEZ
+ aG3Tmr1blAa7QZVXDx2DK+eUFMgT3m12HXhO7qubzJrLqEOkwG9p4Bf5PWrH+kfnrMnlnH18TPI
+ Ewq0BCLS1wjTCMzNPCmgXa69eEZf/x+y3L1FS3v0a7LRUSo2afog6e5zsBlnefO/LGkBPOpFICb
+ 24LJ9Vmoh30/uLEv3ME5bex9yU1043Z0Jzb9zy/zBnXKg66E0fot9locuEjfjZmrM8pnKLT04vi
+ ZXIs=
+X-Received: by 2002:a2e:bc14:0:b0:38e:23c9:2f77 with SMTP id
+ 38308e7fff4ca-38ec7418244mr76801921fa.0.1776843388831; Wed, 22 Apr 2026
+ 00:36:28 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] drm/ttm: Issue direct reclaim at beneficial_order
-To: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Carlos Santa <carlos.santa@intel.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
+References: <20260421-ch13726a-v5-0-f7f6f4f30e05@gmail.com>
+ <20260421-ch13726a-v5-1-f7f6f4f30e05@gmail.com>
+ <20260422-resilient-puma-of-excitement-02fee3@quoll>
+In-Reply-To: <20260422-resilient-puma-of-excitement-02fee3@quoll>
+From: Aaron Kling <webgeek1234@gmail.com>
+Date: Wed, 22 Apr 2026 02:36:17 -0500
+X-Gm-Features: AQROBzBRZGRInIxeMUjKR2PpeDYi3ALSLVHHQxsrJaDloP4zzhaCTJCBGIAsqt4
+Message-ID: <CALHNRZ__HyuWpcTzqq8YG_n=RPZ10kNhHU262=NHEqr_S-pYKg@mail.gmail.com>
+Subject: Re: [PATCH v5 1/2] dt-bindings: display: panel: Add ChipWealth
+ CH13726A AMOLED driver
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Daniel Colascione <dancol@dancol.org>
-References: <20260421012608.1474950-1-matthew.brost@intel.com>
- <20260421012608.1474950-2-matthew.brost@intel.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <20260421012608.1474950-2-matthew.brost@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Teguh Sobirin <teguh@sobir.in>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,60 +117,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Wed, Apr 22, 2026 at 2:05=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.or=
+g> wrote:
+>
+> On Tue, Apr 21, 2026 at 12:38:37PM -0500, Aaron Kling wrote:
+> > The Chip Wealth Technology CH13726A AMOLED driver is a single chip
+> > solution for MIPI-DSI. This is used for the AYN Thor bottom panel.
+> >
+> > Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+> > ---
+> >  .../display/panel/chipwealth,ch13726a.yaml         | 67 ++++++++++++++=
+++++++++
+> >  1 file changed, 67 insertions(+)
+> >
+>
+> I don't get it, you use b4 but still drop the tags (b4 gets them
+> automatically). Nothing explains reasons for dropping the tag, so I skip
+> the patch.
 
-On 21/04/2026 02:26, Matthew Brost wrote:
-> Triggering kswap at an order higher than beneficial_order makes little
-> sense, as the driver has already indicated the optimal order at which
-> reclaim is effective. Similarly, issuing direct reclaim or triggering
-> kswap at a lower order than beneficial_order is ineffective, since the
-> driver does not benefit from reclaiming lower-order pages.
-> 
-> As a result, direct reclaim should only be issued with __GFP_NORETRY at
-> exactly beneficial_order, or as a fallback, direct reclaim without
-> __GFP_NORETRY at order 0 when failure is not an option.
-> 
-> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> Cc: Carlos Santa <carlos.santa@intel.com>
-> Cc: Christian Koenig <christian.koenig@amd.com>
-> Cc: Huang Rui <ray.huang@amd.com>
-> Cc: Matthew Auld <matthew.auld@intel.com>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> CC: dri-devel@lists.freedesktop.org
-> Cc: Daniel Colascione <dancol@dancol.org>
-> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> ---
->   drivers/gpu/drm/ttm/ttm_pool.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-> index 26a3689e5fd9..8425dbcc6c68 100644
-> --- a/drivers/gpu/drm/ttm/ttm_pool.c
-> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
-> @@ -165,8 +165,8 @@ static struct page *ttm_pool_alloc_page(struct ttm_pool *pool, gfp_t gfp_flags,
->   	 * Do not add latency to the allocation path for allocations orders
->   	 * device tolds us do not bring them additional performance gains.
->   	 */
-> -	if (beneficial_order && order > beneficial_order)
-> -		gfp_flags &= ~__GFP_DIRECT_RECLAIM;
-> +	if (order && beneficial_order && order != beneficial_order)
-> +		gfp_flags &= ~__GFP_RECLAIM;
->   
->   	if (!ttm_pool_uses_dma_alloc(pool)) {
->   		p = alloc_pages_node(pool->nid, gfp_flags, order);
+It's not automatic, you have to run b4 trailers, which I forgot to do.
+Will send another revision after running that.
 
-I missed this conversation so don't know if this was discussed -
-having less of 64k pages is not a concern? I mean slightly higher TLB 
-pressure etc on hardware which supports this PTE size.
-
-Also, does clearing __GFP_RECLAIM disable compaction completely and is 
-that wanted?
-
-Regards,
-
-Tvrtko
-
+Aaron
