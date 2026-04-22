@@ -4,73 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC507F94CD8
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 07:43:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74137F94CD8
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 07:51:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60A2E10E936;
-	Wed, 22 Apr 2026 07:43:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D5FC10E222;
+	Wed, 22 Apr 2026 07:51:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MQT+ZjnW";
+	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="CFIREPaI";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F2E610E908
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 07:43:42 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 8D98F6001A;
- Wed, 22 Apr 2026 07:43:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3AA91C19425;
- Wed, 22 Apr 2026 07:43:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776843821;
- bh=IZr7RTAdxhkJ/lgF3S2u0E922vN1YnMMh25lXatpibc=;
- h=From:Subject:Date:To:Cc:Reply-To:From;
- b=MQT+ZjnWNRF2kQeI9RLeUwtlp9JZm8eaNplTuPOpqz6Sqqd9ndWNJS7F+Fh3BYtsj
- 2dhBlqpNopiDD4zJL0Lx2xfvMff2cId1F4o1gIdTmB3wyAoXDd0tMzjQHD1TEDzzcp
- sVhQGQ1TRyie8uAk79vDweECJAFvAzvFvTtCMlYNyBVxisxBHLsxVYlJZUqL9of8Ob
- aeMrCYyeX+eJ00sCyrMMvIytCnTNBru6vDTm/CNkI1Uu4+zlFQm1/rrn1MDzHDrjrY
- BP2E8iD7LPyOp0sj90UFs+kJquby2kXHUmutTOq62puuJ7wNVXQoSOl3+FkASZniFc
- gA3ILGE4+P9EA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 28EE1F94CDC;
- Wed, 22 Apr 2026 07:43:41 +0000 (UTC)
-From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
-Subject: [PATCH v6 0/2] drm/panel: Add panel driver for ChipWealth CH13726A
- based panels
-Date: Wed, 22 Apr 2026 02:43:23 -0500
-Message-Id: <20260422-ch13726a-v6-0-03680d6673ff@gmail.com>
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D849F10E222
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 07:51:12 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-48371104ffdso6117695e9.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 00:51:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1776844271; x=1777449071; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=JoRr8QDMIzfqgX7VNwrYeGw2tZtA7cdSKtjPSj3Z59k=;
+ b=CFIREPaIV2/MHOT/d/OqkNKeII6gJxQ6aLyJlk/Zw9YpID2NYx+ZcbmblpvjoSElUV
+ Hd5QO+Iw8QcSzU5kdm0j9rXxe7iiApcQ1Utr01jJZyqCT07raCG/K3RBrvNdi8JYGvky
+ tCWs1+F5mRh2zUuyEVTShh3+Rg+JdWZESUEsFSGwG0kRTYz5hpbfYBIO9em9H3rVsPv+
+ NTYrcjGH02Th4hKjGt09nPcLPWJt8EKS3F+uSAlUYSGDH3WcLVPAt1ZkmWN9bpCmI/JG
+ 0F+zos04L76vlfYE/huqvt7LHavaxvhDTi0SsLD8yRZTPJCfuf2kLukGVafmk74gNc3h
+ ZhIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776844271; x=1777449071;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=JoRr8QDMIzfqgX7VNwrYeGw2tZtA7cdSKtjPSj3Z59k=;
+ b=fQTQmsiC7vVEzcwjk42hxMi53FmmGamdrVS4r//LFRhvmgnycMgUU1H44/ehUm+Y7M
+ N9i3oEgHIwFIN5eFb1VIPZnRQCOMCqyk06Le43gxkJLTG5xedVnRO/+aiZDr4MIGYBJi
+ kFKCc66X0NA9oOL4oTKTvtW/TOps0JjjkRE1eAI+/B2jj1svz+G0ZKZC+DWEGlFm5h6R
+ +qwp9ehp5f7OAz3oEP+qF3MMezjKbQ0O0nmKPeHV4WW398/+PYZ5SMe66EnuYi10ol9b
+ oVBdvZnMFX9YTWTd76BzL6zGEYGofn4SeNNKG4THdRkZK1nR7w72biheMvOVB8BhR+lT
+ lFSg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ90Ky1FZaUT/PA0+Gqgcoit+qSPObNFRM9/ypzYoNa08jG/FiNZlL2JaqbsokS+DEGRKfmI3A1WfD4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxb8Zuvs9Pdl+JJNfh32hVPenjnzjDRqWKaJCaveNGsDXBnNAot
+ 57rosLiEgCW5zR6nSrmEm1WuOEGXk9+WQaTfatuPJlEC5jEVAACZWUW+7fV7Et8zS2A=
+X-Gm-Gg: AeBDiesS0T/Mlyyj40yQLGEyA3U8nDXk5g0eo081DtU1NBEUumGkzwCfOoq/Udd2lOG
+ Lq7ierpyOW3UUwpKAUQkUNjk+46CpNFL3z5C39whF8KPO9bLgUvIrsIO+T7Ps6qtVFi4TE5Zdfw
+ qH7IF9QJMotgU/laWYeIL2U6vYD/D48Q8z2v027PrJakHJiQWvOQsC9wLGIZbbfYPeBYH/F9sMi
+ YDUk1oCR6YlbCzFlvOmzkaqbwGrRQalpREXYP+Cuc/xxsCMawrIazZpVAfa1YU5/RPQCQIkb3Ew
+ P85jS6nwnisbfIPaUzAKh0+MjvTP1+UFULxKYtwDLJUt+/2J5dEXU7iyahOJKsjJ9D1OCoDo8ZH
+ FNJh0gtNbTkHJYbcqQSxg8ALNx8baTHnFDXqgY5UjbYaMZRNjjsTR+jMWeieMZ1qazrHPsHjGOH
+ pICCzzEnWg+ZVrP5FmXHn7kJqSKIvQPj+AAmu3XqP+z+YCbANOVLMLxLpgPBAgejYsyGaF9+ihZ
+ UNJa8pnK3e4DFFF7e5Wt/Ppuik=
+X-Received: by 2002:a05:600c:314c:b0:48a:5664:f44a with SMTP id
+ 5b1f17b1804b1-48a56650076mr45995745e9.2.1776844271346; 
+ Wed, 22 Apr 2026 00:51:11 -0700 (PDT)
+Received: from mordecai
+ (dynamic-2a00-1028-83b8-1e7a-3010-3bd6-8521-caf1.ipv6.o2.cz.
+ [2a00:1028:83b8:1e7a:3010:3bd6:8521:caf1])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43fe4e4d6casm39579398f8f.32.2026.04.22.00.51.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 22 Apr 2026 00:51:10 -0700 (PDT)
+Date: Wed, 22 Apr 2026 09:51:04 +0200
+From: Petr Tesarik <ptesarik@suse.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Jiri Pirko <jiri@resnulli.us>, "Aneesh Kumar K.V"
+ <aneesh.kumar@kernel.org>, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, iommu@lists.linux.dev,
+ linux-media@vger.kernel.org, sumit.semwal@linaro.org,
+ benjamin.gaignard@collabora.com, Brian.Starkey@arm.com, jstultz@google.com,
+ tjmercier@google.com, christian.koenig@amd.com, m.szyprowski@samsung.com,
+ robin.murphy@arm.com, leon@kernel.org, sean.anderson@linux.dev,
+ catalin.marinas@arm.com, suzuki.poulose@arm.com, steven.price@arm.com,
+ thomas.lendacky@amd.com, john.allen@amd.com, ashish.kalra@amd.com,
+ suravee.suthikulpanit@amd.com, linux-coco@lists.linux.dev
+Subject: Re: [PATCH v5 1/2] dma-mapping: introduce DMA_ATTR_CC_SHARED for
+ shared memory
+Message-ID: <20260422095104.1b3c4132@mordecai>
+In-Reply-To: <20260421121004.GA3611611@ziepe.ca>
+References: <20260325192352.437608-1-jiri@resnulli.us>
+ <20260325192352.437608-2-jiri@resnulli.us>
+ <yq5atst6ywbl.fsf@kernel.org>
+ <4qdizkkoeke3cvkcf35upa7p7ick6s654eqlrizmi7ozkw5eze@tnpk2e34xgwl>
+ <yq5awly0d504.fsf@kernel.org>
+ <tteiecxfqy4k24wnzvp6ocxnuopyhmqtne2xwh5htwldlbzjnp@o6cbzdlurxld>
+ <20260421121004.GA3611611@ziepe.ca>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-suse-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2XPTW7DIBAF4KtYrEs1DAbGXvUeVRf8DAlSEzd2a
- jWKcvcSp5KtdDmIb96bq5h4LDyJvrmKkecyleFYB/vSiLj3xx3LkuosENACIsi4V9qh9dJ00Vp
- HyehEon7/GjmXn2XV+8djHvn0XTeeH48i+IllHA6Hcu6bwGzZa4gtOSJWpFvS0GXqFCfyOWTnA
- H0U2yZ98+ihnPSXozzFiYwBqWwEF6xOjLafjbjH78t0HsbLctislvy/G3C9YVYSJBtQydUKYPz
- b7uDL52stuSyZcYW6hq4QK0TyvrUhJpvgGeoNRL2B+p6IFGzuXGb6B9sVtkAb2FbYhaB8Fyhr7
- J6h2UBUG2gqzC7b3GYNDGYLb7fbL1cZfL8DAgAA
-X-Change-ID: 20260220-ch13726a-59c6678d53d8
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Teguh Sobirin <teguh@sobir.in>, 
- Aaron Kling <webgeek1234@gmail.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776843820; l=2679;
- i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
- bh=IZr7RTAdxhkJ/lgF3S2u0E922vN1YnMMh25lXatpibc=;
- b=uFXcjC0ouNG/Zv4BGaGP4EHRfyB4e8yCSJ3ew9FYHuH8qsQ68qUGLJjbkNdi6LHlsHEs6YB4f
- PNXUefb/1LgAnBUdltvpY3tLDdQcvjeTv29CrkWOYhhREE5ThrLsy0N
-X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
- pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
-X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
- auth_id=342
-X-Original-From: Aaron Kling <webgeek1234@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,72 +105,44 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: webgeek1234@gmail.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This driver is based on the one by Teguh Sobirin [0], cut down to only
-support the AYN Thor bottom panel.
+On Tue, 21 Apr 2026 09:10:04 -0300
+Jason Gunthorpe <jgg@ziepe.ca> wrote:
 
-Due to [1], the AYN vendor description patch has been folded into the
-AYN QCS8550 dt series. Which means this series now depends on said
-series and it must be picked up before this.
+> On Tue, Apr 21, 2026 at 01:53:31PM +0200, Jiri Pirko wrote:
+> > >> You reach there when is_swiotlb_force_bounce(dev) is true and
+> > >> DMA_ATTR_CC_SHARED is set. What am I missing?
+> > >>  
+> > >
+> > >So a swiotlb_force_bounce will not use swiotlb bouncing if
+> > >DMA_ATTR_CC_SHARED is set ?   
+> > 
+> > Correct. Bouncing does not make sense in this case, as shared memory is
+> > already being mapped.  
+> 
+> It is a little bit mangled, there are many reasons force_swiotlb can
+> be set, but we loose them as it flows through - swiotlb_init()
+> just has a simple SWIOTLB_FORCE
+> 
+> Ideally DMA_ATTR_CC_SHARED would skip swiotlb only if it is being
+> selected for CC reasons. For instance if you have the swiotlb force
+> command line parameter I would still expect it bounce shared memory.
+> 
+> Arguably I think this arch flow is misdesigned, the
+> is_swiotlb_force_bounce() should not be used for CC. dma_capable() is
+> the correct API to check if the device can DMA to the presented
+> address, and it will trigger swiotlb_map() just the same without
+> creating this gap.
 
-[0] https://github.com/AYNTechnologies/linux/commit/d0ff75b09e66023c5f88992706dee4601aa7a437
-[1] https://lore.kernel.org/linux-arm-msm/c7fb3f89-6574-4761-9ef2-2fdf6d4801b5@kernel.org
+Seconded.
 
-Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
----
-Changes in v6:
-- Add trailers from v4
-- Link to v5: https://lore.kernel.org/r/20260421-ch13726a-v5-0-f7f6f4f30e05@gmail.com
+Then again, the whole DMA mapping logic is extremely convoluted, with
+dmaops, direct, CMA, and swiotlb, so I'm no longer sure there is one
+undisputable way where CC shared mappings should be added to the mix.
 
-Changes in v5:
-- Don't duplicate prepared tracking
-- Use devm_regulator_bulk_get_const() instead of setting names in probe
-- Use devm_drm_panel_alloc() instead of drm_panel_init()
-- Link to v4: https://lore.kernel.org/r/20260408-ch13726a-v4-0-9bb1a9b8f329@gmail.com
+Has anyone considered a cleaner design yet? If yes, I'm volunteering to
+help implement it. If not, then please ignore me as a random rant.
 
-Changes in v4:
-- Add fallback compatible to bindings doc in patch 1
-- Link to v3: https://lore.kernel.org/r/20260323-ch13726a-v3-0-e28b6f97fe80@gmail.com
-
-Changes in v3:
-- Reword patch 1 commit message for clarity
-- Order properties properly in patch 1
-- Track vendor description dependency series change
-- Link to v2: https://lore.kernel.org/r/20260317-ch13726a-v2-0-28aa46bcd6d0@gmail.com
-
-Changes in v2:
-- Add Neil Armstrong to binding maintainer list
-- Add 120hz mode, which required a minor restructure of the driver
-- Link to v1: https://lore.kernel.org/r/20260222-ch13726a-v1-0-e501d78e105a@gmail.com
-
----
-Aaron Kling (1):
-      dt-bindings: display: panel: Add ChipWealth CH13726A AMOLED driver
-
-Teguh Sobirin (1):
-      drm/panel: Add panel driver for ChipWealth CH13726A based panels
-
- .../display/panel/chipwealth,ch13726a.yaml         |  67 +++++
- drivers/gpu/drm/panel/Kconfig                      |  11 +
- drivers/gpu/drm/panel/Makefile                     |   1 +
- drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c  | 333 +++++++++++++++++++++
- 4 files changed, 412 insertions(+)
----
-base-commit: bee6ea30c48788e18348309f891ed8afbf7702ac
-change-id: 20260220-ch13726a-59c6678d53d8
-prerequisite-change-id: 20260217-ayn-qcs8550-16c07b63de26:v5
-prerequisite-patch-id: 2b010637c46f5ea0e19a2fa87cc5ccb19bfd9204
-prerequisite-patch-id: d0c633dc17f0aba726a8e8d21fee52b944bf67ff
-prerequisite-patch-id: 76ac126273870a96f05e1bd87f4f31bdc3746440
-prerequisite-patch-id: 76b61799dba520fc7fa3ff39b044e24103337af3
-prerequisite-patch-id: 3844bef2eda3cf59031b1d131eb6ba9295629bb4
-prerequisite-patch-id: 3331648bc6f4ac3bb156f0525aa1ede92bfc57f1
-
-Best regards,
--- 
-Aaron Kling <webgeek1234@gmail.com>
-
-
+Petr T
