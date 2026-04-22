@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21B48FA1FD5
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 16:49:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 895A5FA1FD5
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 16:49:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 751DB10EEB3;
-	Wed, 22 Apr 2026 16:49:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03A6610EEB9;
+	Wed, 22 Apr 2026 16:49:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="HcDVAzTH";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="uE3vKO/K";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 758EB10EEB3
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 16:49:11 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2481288F78
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 16:49:21 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 6AA6B1A33A7;
- Wed, 22 Apr 2026 16:49:10 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id BC2424E42ABB;
+ Wed, 22 Apr 2026 16:49:19 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 3EBFE5FA8F;
- Wed, 22 Apr 2026 16:49:10 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 90DDB5FA8F;
+ Wed, 22 Apr 2026 16:49:19 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id CE2F310460BF3; 
- Wed, 22 Apr 2026 18:49:06 +0200 (CEST)
+ with ESMTPSA id 9B2AF10460C1F; 
+ Wed, 22 Apr 2026 18:49:14 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1776876549; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1776876557; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=OZ8EM81DGMlJ9qEgvUE9Mt5KnFr4O4RtbirwspUTjRM=;
- b=HcDVAzTHVCirt6CQPqvVisMsLuiOiNG9IUbiBRETLuOVj8WUqocJRx1lyWQbRSi9wAQF8d
- bszoxzq8RBSAGFtIwmj/f7dBd5XGTeoK01YRpA5XQKjna2jsThDFyAfHF3w7zSjkgfZzOm
- pag0n5lYdrG2tgfjncUEkL5XUIe8rZsq5Ey+FDxYlO905hZyTgeZqDq4piwnVfK4w7SEnt
- O5UxtifKtDf2i8/Oux94IqTEl21Wkfr5yqRB0/47ZTVE17eFd2lVLLWYvXVYwOgv0tK/8O
- EEHzSqAjWmWwMCQ2IpDAk6nfg5BO7hiAkRdor7docN5tA32iDQcn8pqcqAc77Q==
+ bh=ODS/KcKkaJlG9a45UpwMB6wA5ib5OPfBDYu35wZafPw=;
+ b=uE3vKO/KnkrGUq+FuMZxB9LZ++ZsmjwURfTlrj/RADKRTjcgFbiNhK9h+VGSSzTnMuF89A
+ qutgupIq05S1Ufvu7kU16NR1SY1SJnnEd1VcO8gP+93CSkEAFiZE+iuEgRk745XjcRLVQn
+ lC7QkbH2aqpNR0xCYo1fv1q5LixVA+3rUhop6dz0HV1JYB89FuboZW56ZQRrloa7eksjBx
+ C7kghHrJ+Zo2IBG3GrKSxhRLQMMAd07lPWKLWYwP8uPjCAjabsPZQQaOuPqf4SN01+V8FA
+ PILAKo/POyy0b3ex0tZZadEsgHrSvFGgV9VenocxYZ6LshzjdT2RiSL5NIPzSw==
 From: Louis Chauvet <louis.chauvet@bootlin.com>
-Date: Wed, 22 Apr 2026 18:48:04 +0200
-Subject: [PATCH v4 07/37] Documentation: ABI: vkms: Add current VKMS ABI
- documentation
+Date: Wed, 22 Apr 2026 18:48:07 +0200
+Subject: [PATCH v4 10/37] drm/vkms: Explicitly display plane type
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260422-vkms-all-config-v4-7-dbb52e9aadc3@bootlin.com>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260422-vkms-all-config-v4-10-dbb52e9aadc3@bootlin.com>
 References: <20260422-vkms-all-config-v4-0-dbb52e9aadc3@bootlin.com>
 In-Reply-To: <20260422-vkms-all-config-v4-0-dbb52e9aadc3@bootlin.com>
 To: Haneen Mohammed <hamohammed.sa@gmail.com>, 
@@ -56,7 +55,9 @@ Cc: victoria@system76.com, sebastian.wick@redhat.com, victoria@system76.com,
  airlied@gmail.com, thomas.petazzoni@bootlin.com, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  linux-doc@vger.kernel.org, Louis Chauvet <louis.chauvet@bootlin.com>, 
- llvm@lists.linux.dev
+ llvm@lists.linux.dev, 
+ =?utf-8?q?Jos=C3=A9_Exp=C3=B3sito?= <jose.exposito@redhat.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
 X-Mailer: b4 0.16-dev
 X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -74,138 +75,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-VKMS recently introduced a ConfigFS API to configure new devices.
-Add proper ABI documentation.
+Debug information are mainly read by human, so use full name instead
+of values.
 
+Reviewed-by: José Expósito <jose.exposito@redhat.com>
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 Signed-off-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- Documentation/ABI/testing/configfs-vkms | 118 ++++++++++++++++++++++++++++++++
- 1 file changed, 118 insertions(+)
+ drivers/gpu/drm/vkms/vkms_config.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/ABI/testing/configfs-vkms b/Documentation/ABI/testing/configfs-vkms
-new file mode 100644
-index 000000000000..a1a3e186e50a
---- /dev/null
-+++ b/Documentation/ABI/testing/configfs-vkms
-@@ -0,0 +1,118 @@
-+What:		/sys/kernel/config/vkms/
-+Date:		Nov 2025
-+Contact:	dri-devel@lists.freedesktop.org
-+Description:
-+        This group contains sub-groups corresponding to created
-+	VKMS devices.
-+
-+What:		/sys/kernel/config/vkms/<device>
-+Date:		Nov 2025
-+Contact:	dri-devel@lists.freedesktop.org
-+Description:
-+	This group contains sub-groups corresponding to the VKMS
-+	device <device>.
-+
-+What:		/sys/kernel/config/vkms/<device>/connectors
-+Date:		Nov 2025
-+Contact:	dri-devel@lists.freedesktop.org
-+Description:
-+	This group contains sub-groups corresponding to the
-+	connectors of the VKMS device <device>.
-+
-+What:		/sys/kernel/config/vkms/<device>/connectors/<connector>
-+Date:		Nov 2025
-+Contact:	dri-devel@lists.freedesktop.org
-+Description:
-+	This group contains attributes corresponding to the
-+	connector <connector> of the VKMS device <device>.
-+
-+What:		/sys/kernel/config/vkms/<device>/connectors/<connector>/status
-+Date:		Nov 2025
-+Contact:	dri-devel@lists.freedesktop.org
-+Description:
-+	Connection status of the connector. Possible values:
-+	1 - connected, 2 - disconnected, 3 - unknown.
-+
-+What:		/sys/kernel/config/vkms/<device>/connectors/<connector>/possible_encoders
-+Date:		Nov 2025
-+Contact:	dri-devel@lists.freedesktop.org
-+Description:
-+	This group contains symbolic links to possible encoders
-+	for this connector.
-+
-+What:		/sys/kernel/config/vkms/<device>/crtcs
-+Date:		Nov 2025
-+Contact:	dri-devel@lists.freedesktop.org
-+Description:
-+	This group contains sub-groups corresponding to the
-+	CRTCs of the VKMS device <device>.
-+
-+What:		/sys/kernel/config/vkms/<device>/crtcs/<crtc>
-+Date:		Nov 2025
-+Contact:	dri-devel@lists.freedesktop.org
-+Description:
-+	This group contains attributes corresponding to the
-+	CRTC <crtc> of the VKMS device <device>.
-+
-+What:		/sys/kernel/config/vkms/<device>/crtcs/<crtc>/writeback
-+Date:		Nov 2025
-+Contact:	dri-devel@lists.freedesktop.org
-+Description:
-+	Enable or disable writeback connector support for this
-+	CRTC. Value: 1 - enabled, 0 - disabled.
-+
-+What:		/sys/kernel/config/vkms/<device>/encoders
-+Date:		Nov 2025
-+Contact:	dri-devel@lists.freedesktop.org
-+Description:
-+	This group contains sub-groups corresponding to the
-+	encoders of the VKMS device <device>.
-+
-+What:		/sys/kernel/config/vkms/<device>/encoders/<encoder>
-+Date:		Nov 2025
-+Contact:	dri-devel@lists.freedesktop.org
-+Description:
-+	This group contains attributes corresponding to the
-+	encoder <encoder> of the VKMS device <device>.
-+
-+What:		/sys/kernel/config/vkms/<device>/encoders/<encoder>/possible_crtcs
-+Date:		Nov 2025
-+Contact:	dri-devel@lists.freedesktop.org
-+Description:
-+	This group contains symbolic links to possible CRTCs
-+	for this encoder.
-+
-+What:		/sys/kernel/config/vkms/<device>/planes
-+Date:		Nov 2025
-+Contact:	dri-devel@lists.freedesktop.org
-+Description:
-+	This group contains sub-groups corresponding to the
-+	planes of the VKMS device <device>.
-+
-+What:		/sys/kernel/config/vkms/<device>/planes/<plane>
-+Date:		Nov 2025
-+Contact:	dri-devel@lists.freedesktop.org
-+Description:
-+	This group contains attributes corresponding to the
-+	plane <plane> of the VKMS device <device>.
-+
-+What:		/sys/kernel/config/vkms/<device>/planes/<plane>/type
-+Date:		Nov 2025
-+Contact:	dri-devel@lists.freedesktop.org
-+Description:
-+	Plane type. Possible values: 0 - overlay, 1 - primary,
-+	2 - cursor.
-+
-+What:		/sys/kernel/config/vkms/<device>/planes/<plane>/possible_crtcs
-+Date:		Nov 2025
-+Contact:	dri-devel@lists.freedesktop.org
-+Description:
-+	This group contains symbolic links to possible CRTCs
-+	for this plane.
-+
-+What:		/sys/kernel/config/vkms/<device>/enabled
-+Date:		Nov 2025
-+Contact:	dri-devel@lists.freedesktop.org
-+Description:
-+	Enable or disable the VKMS device. Value: 1 - enabled,
-+	0 - disabled.
+diff --git a/drivers/gpu/drm/vkms/vkms_config.c b/drivers/gpu/drm/vkms/vkms_config.c
+index 1fd2ed1167c5..469c57c6d1e8 100644
+--- a/drivers/gpu/drm/vkms/vkms_config.c
++++ b/drivers/gpu/drm/vkms/vkms_config.c
+@@ -352,8 +352,8 @@ static int vkms_config_show(struct seq_file *m, void *data)
+ 
+ 	vkms_config_for_each_plane(vkmsdev->config, plane_cfg) {
+ 		seq_puts(m, "plane:\n");
+-		seq_printf(m, "\ttype=%d\n",
+-			   vkms_config_plane_get_type(plane_cfg));
++		seq_printf(m, "\ttype=%s\n",
++			   drm_get_plane_type_name(vkms_config_plane_get_type(plane_cfg)));
+ 	}
+ 
+ 	vkms_config_for_each_crtc(vkmsdev->config, crtc_cfg) {
 
 -- 
 2.54.0
