@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EDB9FA1FD5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D240BFA1FD8
 	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 16:49:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6787C10EEAD;
-	Wed, 22 Apr 2026 16:49:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0380C10EEB2;
+	Wed, 22 Apr 2026 16:49:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="QDhhzZR8";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="GYm+yE6x";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9C6010EEAD
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 16:49:08 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38A8210EEAD
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 16:49:06 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 8FE3CC5AA8C;
- Wed, 22 Apr 2026 16:49:48 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 2C0561A33A5;
+ Wed, 22 Apr 2026 16:49:05 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id AD2F15FA8F;
- Wed, 22 Apr 2026 16:49:07 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 016355FA8F;
+ Wed, 22 Apr 2026 16:49:05 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 1D4F910460C0F; 
- Wed, 22 Apr 2026 18:49:04 +0200 (CEST)
+ with ESMTPSA id 57FC9104608C5; 
+ Wed, 22 Apr 2026 18:49:01 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1776876546; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1776876543; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=AwmYa1vngn+nSmQNXGb3qaN5w3tDhbVRzcmSdCp8gCU=;
- b=QDhhzZR8JJ20/5xnZWVgACSeTlk+eSlVualSxdsiwQw0HxLyHakSJOXWi9QyCE9mPG1XVK
- 9yqWFPDX2ctnzLISfSSGuGTo8VzjysqJ0D0fET6GWQzRi2WpStZ7YaLMtwlnaxMxXoa6g/
- 7bp+3/VfYMtJb+kqzaVH0x28dQ8PP/J5qUNItt6ZKxo4Spi4URGA/1nmbj6s/hAy/EWkj4
- bKyyKvVEzQzp989EnEy5/e77vMCPOB5GK6geC39UjDV+i9HDxECjl1evxbj+GtBrjdZFlr
- qRjNokVWFxJHGB7BlB60ht7/LsCJy1mZc72GT/SLTovQUfv6XEHsvu8CxWHqLg==
+ bh=y/R+lpJoyWpsnnVI7wiahjJdXBjMUYX86JCmN/cdjVc=;
+ b=GYm+yE6xevfjBtm0Qp7kAcAKiE53hXp4dar8Z/xx3jGa04hzAPoBniRrFU9bqBlLMAgds/
+ autefrCm7MGoVqVS9TsD7bGOQUAuc6ghxh0GAm9UaImO8b6vX9lj49NqhQtwWz+9cXJaSV
+ nJg0RJafhyj9Oohp6t/JMB8iEiLIltzqRNAQvVlLFUzyvi0JmAtfDWLnEE0/SFjRXvrqo0
+ cqdZFs7SeBVyWzqCvCyxzMoJ0WaxNcg84cfCp138MwV8+rwGR/Svv3le6JDXQWGuCz2xRO
+ d73AdbRzOUbuaB4wi7UEY8pa30WfWLqOiGp6FY7KPwIpE64iYxHQUBP192SPKw==
 From: Louis Chauvet <louis.chauvet@bootlin.com>
-Date: Wed, 22 Apr 2026 18:48:03 +0200
-Subject: [PATCH v4 06/37] drm/drm_atomic_state_helper: Properly load
- default value for rotation
+Date: Wed, 22 Apr 2026 18:48:02 +0200
+Subject: [PATCH v4 05/37] drm/connector: Export drm_get_colorspace_name
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260422-vkms-all-config-v4-6-dbb52e9aadc3@bootlin.com>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260422-vkms-all-config-v4-5-dbb52e9aadc3@bootlin.com>
 References: <20260422-vkms-all-config-v4-0-dbb52e9aadc3@bootlin.com>
 In-Reply-To: <20260422-vkms-all-config-v4-0-dbb52e9aadc3@bootlin.com>
 To: Haneen Mohammed <hamohammed.sa@gmail.com>, 
@@ -56,7 +55,7 @@ Cc: victoria@system76.com, sebastian.wick@redhat.com, victoria@system76.com,
  airlied@gmail.com, thomas.petazzoni@bootlin.com, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  linux-doc@vger.kernel.org, Louis Chauvet <louis.chauvet@bootlin.com>, 
- llvm@lists.linux.dev
+ llvm@lists.linux.dev, Luca Ceresoli <luca.ceresoli@bootlin.com>
 X-Mailer: b4 0.16-dev
 X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -74,43 +73,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Currently, the default rotation is always DRM_MODE_ROTATE_0 for all planes.
-Some planes may have a rotation property, and the property may specify a
-different default value and supported values.
+Export drm_get_colorspace_name so it could be used by VKMS
 
-This is not an issue for "fixed" configurations, but with the introduction
-of VKMS configuration, some plane may only support 90° and 180°
-rotations, so the reset state of the plane was wrong (forced to 0°).
-
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 Signed-off-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- drivers/gpu/drm/drm_atomic_state_helper.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/gpu/drm/drm_connector.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
-index 76746ad4a1bb..d2b325d6fc4b 100644
---- a/drivers/gpu/drm/drm_atomic_state_helper.c
-+++ b/drivers/gpu/drm/drm_atomic_state_helper.c
-@@ -32,6 +32,7 @@
- #include <drm/drm_crtc.h>
- #include <drm/drm_device.h>
- #include <drm/drm_framebuffer.h>
-+#include <drm/drm_mode_object.h>
- #include <drm/drm_plane.h>
- #include <drm/drm_print.h>
- #include <drm/drm_vblank.h>
-@@ -251,6 +252,11 @@ void __drm_atomic_helper_plane_state_reset(struct drm_plane_state *plane_state,
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index 3fa4d2082cd7..24fd5f967e62 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -1373,6 +1373,7 @@ const char *drm_get_colorspace_name(enum drm_colorspace colorspace)
+ 	else
+ 		return "(null)";
+ }
++EXPORT_SYMBOL(drm_get_colorspace_name);
  
- 	plane_state->plane = plane;
- 	plane_state->rotation = DRM_MODE_ROTATE_0;
-+	if (plane->rotation_property &&
-+	    !drm_object_property_get_default_value(&plane->base,
-+						   plane->rotation_property,
-+						   &val))
-+		plane_state->rotation = val;
- 
- 	plane_state->alpha = DRM_BLEND_ALPHA_OPAQUE;
- 	plane_state->pixel_blend_mode = DRM_MODE_BLEND_PREMULTI;
+ static const u32 hdmi_colorspaces =
+ 	BIT(DRM_MODE_COLORIMETRY_SMPTE_170M_YCC) |
 
 -- 
 2.54.0
