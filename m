@@ -4,76 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CF1EF99355
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 08:51:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A82CFF99344
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 08:51:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70C4010EF93;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77CE010EFD5;
 	Thu, 23 Apr 2026 08:51:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AG6SpB1W";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MwxplqEF";
 	dkim-atps=neutral
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EEAA10E04D
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 15:30:13 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-4852a9c6309so52129245e9.0
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 08:30:13 -0700 (PDT)
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com
+ [74.125.82.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47DF210E9E7
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 15:08:05 +0000 (UTC)
+Received: by mail-dy1-f170.google.com with SMTP id
+ 5a478bee46e88-2d832f2f44cso5107366eec.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 08:08:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776870484; cv=none;
+ d=google.com; s=arc-20240605;
+ b=UPBmN1nfA8pRmlubDkEBKLTeNeG6odB9bkxPZxOAdy/rd5FuMpwNzOTBufb0a7fX9y
+ /hIu1F4uSFTqQEpmXixnRP6dmEawTLoCmZhVIgPxoEsfbjaGWihkjJD7WHav3+BSYlfc
+ 6hcU+6wfFUpYc852WahrMFZbIatz89o3JBSy9TZScDnFB3+xmkVLbuPg7zJPSwZZHjYf
+ kbr/SM69yBUZ/SgHHU9djpFCLQejAUX2xSJAu7WlewEdsuPMfUt7bhNynn98zIUNmq+W
+ 9XBAoWZqd1t5uv4aXXEmQHoHWJU8N9qbCOl1B+r9jm8mQIVpWk6lTd9N+/U4nhTGN3DF
+ gE+w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=tKKuRiL9pZeGqtRhDJ+0Iftjn5ibFXpa0nN+Iza8sOo=;
+ fh=BzayvTRYfzTlH3oCOcSWSE+nXUygMVRCfpTUD4uZhuw=;
+ b=af3qGX3rj/05osvEE1D91zODwSkXvfYRpxp8LuWw5uO2hN7/+ZK5zzmgi1QkHjUVjR
+ lxNTRGJsBSa4z54nlg3DGg5mQqGCGz25Q0YMuxOyYXhJdB6YdhxQELUPYbkMRgJi2a2M
+ 6Vy5lgU3pNlzOoUS6GxixerAOQtx0KyBXUtVNuBYtrzpffyJJPVFMoEiUnmNiIlxdu1h
+ n5uwePZPr6Euomu9GCUdT7h+kjs7CRmgi/vwnUqD+qIFeaG+eV7vudLyNEYLmGHQtWTL
+ bkGrE9H0kiZh7dM3T0JKRx3eecEOY14mFcSjj8JbsyuMtUM1IXWTBAUKbwiWUj+OLoAg
+ 183g==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776871812; x=1777476612; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ysBs+qqXtlvRGKKjFh3kR4dBpeQzZzEKzPI/gcg4dkM=;
- b=AG6SpB1WiGGHfykDKbKH8ifgQH9t3QGwnTi6Ia53oFTa3sZXzG+SmYOTFpndMR4HQE
- CoHcjFWqYTJpnqdYlT0yWxYAFd2VWcBi/2K9NTFw6o+zh6kbXKecZ5Y5SSuAiySJeHFL
- QeZweWCp2/5Yo6z13CP1vJnCZT7g8FxGwzUPf4JQuPHrClERWgya/6OT61mCbYNHOw5I
- dizXtL1ZpfwUPh3g29wxzS+P+KQEH3pqnF6i8us2jbplYDh69eNAKjk/lkvimZxbVPK0
- B2N7ZrtsXpHccwOpPVD7yKM7UR6VaBPTnO4iJtGbdLD9ZbvyYqQ80xe5XBXrZVQN57m5
- 8l+A==
+ d=gmail.com; s=20251104; t=1776870484; x=1777475284; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=tKKuRiL9pZeGqtRhDJ+0Iftjn5ibFXpa0nN+Iza8sOo=;
+ b=MwxplqEFrOtHFU4OD65T17NDjWLTdALCHDNw+9BwpgjZGEWgQ9tAsNg8nnceiJE52w
+ WhCy1eemIWzz7vm4+1t3uDCV4sszLWwFMfN5g23pYwedwumuD5SqQGVsrDDiHVvyR6hx
+ Dq7u/DxjBYfz2GvKpJ8mrJX+dL46ROplps79Vx2IieTnIjc8mckbsvdxC7ZRHf9M2eeo
+ oKYeD589MKnhC8RfxVAjPG3MSaIyWUM6ofAzHg7sGQY37BQYwOuuxoa6gt6dHqsdS86k
+ CBOwVy021XR6vfnMFYlcA3TLbryabfb+hfJ74DZ9bTwBoGu4ToHcnSUUyzIAwU+WiskD
+ 5uCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776871812; x=1777476612;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=ysBs+qqXtlvRGKKjFh3kR4dBpeQzZzEKzPI/gcg4dkM=;
- b=LXJvrnLU641rcPomiFEW0nuBCOOK+qmZLYg4oI+lHAE+rOzLS53JAGdnaE8HvGQ0OZ
- PrpJGtRlBT8yJ3zNcRVl6QMiHU2/2FzJWNh6ZvRwDD+Mf/Wm47zUI5fxOxg5Ak8mf+ab
- pjPse3Ok2JIwbVb2Fc9mj07WdnuDEe4qxVVusoIn4cO1jlnku6NQqUZhr4Gymvda4U1x
- aTTabgybWz2XeBoDzOL+RcBhhvonTjj5Ag3jDKHzoSVq3oTm8vKYRQOOinBnV1d9Ey79
- 9qzbgzHHq0xYMQ/mD9RBJXCtVuTXEU1KBwratr11aG6UVbQF1wmPXs5Lvcal23ImZGMU
- Krog==
+ d=1e100.net; s=20251104; t=1776870484; x=1777475284;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=tKKuRiL9pZeGqtRhDJ+0Iftjn5ibFXpa0nN+Iza8sOo=;
+ b=DP+iJ+zXWbOqQOSgK2xCanEw6Omw1RwIo0S9mydKvna7Kei5Y4bgcBrRWnybpMTrSY
+ ap1sy3m+fpXJWcL8aXKz8DpgH/WEvxvAnUscPtj2zcZy4aW1h1PLjBl2EVrKuQywYgfh
+ 4mrvTSGB+iLiM+yPFXJXDk3rymEDFsgB3fb9uwzhLnPWvQi+g2+diPpkWs2L8U27/xiN
+ 6zf1at4OOm6t0hio7uLdCEW4uAiuEvzZPL9pOsYZ2hBPmQ7Ff/9pQUa0wKMRPkzCxxD+
+ yIioOow+gfYSGCYrE2anNwOYfahFGH8Xpm0KAx3docmDsOw4yxXZ0w/WROc2qTT5Jqhl
+ /xkA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8xoV1OnW9j5fFDHEYEFbqMLvYWKWg1fY5OeKQQmf3aVE+R9M2A9ayncX1lRm34DEwIKqLTUO1dNnE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzDE/Qler0DnvIsT8lvvyqC94JdkxLnV4qdmjwuBfeSkXWmLH/a
- YqE9HXIEHZwNYFBYR5+2CubukRJUoPdi4qLt8kOa7K1BeNYWdig/nhqI
-X-Gm-Gg: AeBDieumBSDatOmJY2boTTLVgIxO6xcTEVRYid5ogabN6rg+JEekPEG9nntHp/yeDZj
- Z3SGtpW0SwCwVq8LPqBIZb7du1LsvEsm5ERMF7cps/ZJjCAqI62WQgimnMXE/IRLNtFT8KStEdD
- FX8+vlpZApx99RBLHoAzDEZM63yeoADpqJr+hZ90Q7+7bS32WQ68hdgTx3DW26oWc0Ajx1o1c4i
- GNe1AXGtXL1V4E6pLQDzldzDejCRzyWrCPGRXAV9hr/PLGPhCMMMVFUHSXYVbG6KENRquVMXySm
- ocUAdBmuePXM2cvS9oyvEggJ63jhu54wavz/uXvcVUqIN7jQIRz9qEsPnxsdNrrrXF7gaD4/H+K
- dxz1rdclfinn9v4K3Pmd/vr6WINFvlsmWtw+Fdc4VFsaM2RrvDrhFlh7V5jqZhBDyil/aKnj8tb
- PHqao9GfPZYiwXwBCwV6xqeLwA7FLB5uOew7n86h9D
-X-Received: by 2002:a05:600c:3213:b0:489:149a:f9e6 with SMTP id
- 5b1f17b1804b1-489149afa07mr117244535e9.28.1776871811450; 
- Wed, 22 Apr 2026 08:30:11 -0700 (PDT)
-Received: from anthony ([2a06:c701:499d:3e00:12ff:e0ff:fea5:3d2e])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-488fc0b4c85sm434627425e9.0.2026.04.22.08.30.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Apr 2026 08:30:10 -0700 (PDT)
-From: Amit Barzilai <amit.barzilai22@gmail.com>
-To: deller@gmx.de
-Cc: amit.barzilai22@gmail.com, dri-devel@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, thomas.zimmermann@suse.de
-Subject: Re: [PATCH 1/3] fbdev: cobalt_lcdfb: Request memory region
-Date: Wed, 22 Apr 2026 18:29:46 +0300
-Message-ID: <20260422152946.5163-1-amit.barzilai22@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <404ec984-0486-442e-a108-4c5bad700248@gmx.de>
-References: <404ec984-0486-442e-a108-4c5bad700248@gmx.de>
+ AFNElJ/9JFCumWkaipemQUs0cftGPhxDw7PVhz4e39WK3plTlueGdd0kPyw/nh2QM9Qvo9VOEC21pREgFf4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwJ+G9bwA4ilmi+qfpq08wuOTWpsR9dX2Oni/koaQlpz4FzbN8h
+ sMDhiooEqx5rDl6KgTEd0326dZaxFOomXDuaSQLxci/dhwHEZxwmLe27rFfYyfNBUgeHv94vWlJ
+ eqUe2jUkIhH2cVu16LZKwRUIwLeSWKpo=
+X-Gm-Gg: AeBDievb+wq4dGj5jvQBR+SkGJil6lEkeKwistzFJZkhLDfeV7fjau9TCnUQwbsrgoC
+ uCOZseZLLcvYiDM5xJ37UVMFpmhFESyn7ZB/DZpQlapTELfPsdqCPQipapfeKQo+JBPqc9V87iS
+ 2F17EGd0rv+zKrRc57VhbvKbThqmJdraMRqiDdXLqqatsGyDRnZYx6xZeau235Nq5+i1JsBbmFh
+ utzh0PvNwCgrZdauiK6wegohxzBjUN5zxvAibcuKA4+8HEkD+Z8sszUfF/BFOx6YwWq9mo9rSCI
+ AmaW6JIgyttL9D5w2Y3gLdvgebUti3mASbMgHLsCoDdRtsWq370=
+X-Received: by 2002:a05:693c:3007:b0:2d9:6373:ad0a with SMTP id
+ 5a478bee46e88-2e46538fd04mr11320322eec.11.1776870484193; Wed, 22 Apr 2026
+ 08:08:04 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260420134424.77494-1-amit.barzilai22@gmail.com>
+ <20260420134424.77494-2-amit.barzilai22@gmail.com>
+ <404ec984-0486-442e-a108-4c5bad700248@gmx.de>
+In-Reply-To: <404ec984-0486-442e-a108-4c5bad700248@gmx.de>
+From: Amit Barzilai <amit.barzilai22@gmail.com>
+Date: Wed, 22 Apr 2026 18:07:53 +0300
+X-Gm-Features: AQROBzBeAfQymMn3-OspNSFT9i3Jc-DBT869Lzio_L7oER-_0lbe7HJBcj1uFO0
+Message-ID: <CAOEgbErWghDHw0XPajoQnBtcz74FpkfdsUV6Yz1Q15hg16pbdg@mail.gmail.com>
+Subject: Re: [PATCH 1/3] fbdev: cobalt_lcdfb: Request memory region
+To: Helge Deller <deller@gmx.de>
+Cc: thomas.zimmermann@suse.de, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org
+Content-Type: multipart/alternative; boundary="00000000000005b51a06500de65e"
 X-Mailman-Approved-At: Thu, 23 Apr 2026 08:51:37 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,10 +106,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Helge,
+--00000000000005b51a06500de65e
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Yes, I wrote all three patches and I am OK with the added Signed-off-by line.
-Sorry for the oversight, I'll make sure to include it in future submissions.
+Hi Helge,
+Yes, I wrote all three patches and I am OK with the added Signed-off-by
+line.
+Sorry for the oversight, I'll make sure to include it in future submissions=
+.
 
 Thanks,
 Amit
+
+On Wed, Apr 22, 2026 at 5:50=E2=80=AFPM Helge Deller <deller@gmx.de> wrote:
+
+> Hi Amit,
+>
+> On 4/20/26 15:44, Amit Barzilai wrote:
+> > Use devm_platform_get_and_ioremap_resource() instead of open-coding
+> > platform_get_resource() and devm_ioremap() separately. The helper
+> > requests the memory region before mapping it, which registers the range
+> > in /proc/iomem and prevents another driver from mapping the same
+> > registers.
+> >
+> > Assisted-by: Claude:claude-sonnet-4-6
+>
+> You missed your signed-off line, which I added while applying patches #1
+> and #2:
+> Signed-off-by: Amit Barzilai <amit.barzilai22@gmail.com>
+>
+> Amit, please confirm that you wrote patches #2 and #3 and that you
+> are OK with the added Signed-off-by line, otherwise I need to drop the
+> patches.
+>
+> Helge
+>
+> > ---
+> >   drivers/video/fbdev/cobalt_lcdfb.c | 12 +++---------
+> >   1 file changed, 3 insertions(+), 9 deletions(-)
+>
+>
+
+--00000000000005b51a06500de65e
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hi Helge,</div>Yes, I wrote all three patches and I a=
+m OK with the added Signed-off-by line.<div>Sorry for the oversight, I&#39;=
+ll make sure to include it in future submissions.</div><div><br></div><div>=
+Thanks,</div><div>Amit</div></div><br><div class=3D"gmail_quote gmail_quote=
+_container"><div dir=3D"ltr" class=3D"gmail_attr">On Wed, Apr 22, 2026 at 5=
+:50=E2=80=AFPM Helge Deller &lt;<a href=3D"mailto:deller@gmx.de">deller@gmx=
+.de</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"marg=
+in:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1e=
+x">Hi Amit,<br>
+<br>
+On 4/20/26 15:44, Amit Barzilai wrote:<br>
+&gt; Use devm_platform_get_and_ioremap_resource() instead of open-coding<br=
+>
+&gt; platform_get_resource() and devm_ioremap() separately. The helper<br>
+&gt; requests the memory region before mapping it, which registers the rang=
+e<br>
+&gt; in /proc/iomem and prevents another driver from mapping the same<br>
+&gt; registers.<br>
+&gt; <br>
+&gt; Assisted-by: Claude:claude-sonnet-4-6<br>
+<br>
+You missed your signed-off line, which I added while applying patches #1 an=
+d #2:<br>
+Signed-off-by: Amit Barzilai &lt;<a href=3D"mailto:amit.barzilai22@gmail.co=
+m" target=3D"_blank">amit.barzilai22@gmail.com</a>&gt;<br>
+<br>
+Amit, please confirm that you wrote patches #2 and #3 and that you<br>
+are OK with the added Signed-off-by line, otherwise I need to drop the patc=
+hes.<br>
+<br>
+Helge<br>
+<br>
+&gt; ---<br>
+&gt;=C2=A0 =C2=A0drivers/video/fbdev/cobalt_lcdfb.c | 12 +++---------<br>
+&gt;=C2=A0 =C2=A01 file changed, 3 insertions(+), 9 deletions(-)<br>
+<br>
+</blockquote></div>
+
+--00000000000005b51a06500de65e--
