@@ -4,104 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A870F99355
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 08:51:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CF1EF99355
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 08:51:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57DE310E2FD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70C4010EF93;
 	Thu, 23 Apr 2026 08:51:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DqCdh4dN";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AG6SpB1W";
 	dkim-atps=neutral
-Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com
- [209.85.161.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 136D810E2DC
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 00:50:29 +0000 (UTC)
-Received: by mail-oo1-f41.google.com with SMTP id
- 006d021491bc7-692205ca402so2173516eaf.0
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 17:50:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776905429; cv=none;
- d=google.com; s=arc-20240605;
- b=Bas5jAmZ9WkaUFgfqoLlTaKoxITuHg7pIM0VhcAzg6EKsLBQ27XsXxJ0JyI60EyG3/
- s0Z4vXPaygup3UQz/RsKJtJIwQVWAI0zfocdbwPkpz9oabcPEFvLX72XmTiEkse3zaZF
- U68w40i4qS92dABOye4eMmBx7u3A9izqHIDDsKAmCy298O/6Gy7pTCG+DVXKmjnNfZ+o
- UiSHpAgdnLPhImpDyNkZ8QM65+Ug2Xi/8t6GRCeZniithe9CxN1TkUi8DmDxkpxxzbKl
- Lm++0hJKATUoFkwWayuGWR3Cr8nLPuSqH5Qt/l07S3mONzVTeBoJeHah9vvAPafdSPdM
- h/HQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=/nEWRDfbzTChYAGuWA9e4JOGkSzV/lYIHVDwL6GP/tA=;
- fh=sKF+/v7MmOrQLOf94A4Hlb1RDIcx+kwZWPH9BCDU688=;
- b=a4cD0n33X+02G10N0gExmE/DLxEB/5zECbIq2bl1nB38PmgAv3v5pw2+1VBIsnL/WN
- 9emPkrRp7X3v5RFxsB5utE1VBAcma694/bzvdm/imaF+65UYz9OaATlBHBlMMvl1d5XV
- 5oJiZZ3b/4Zzagequu7ESV6+J77B1v4mYlP9MD/UWwuifS5h/SmBvVU3g3EmQEdn4+TR
- u3e4QIRbcEOUFDi7A78NMsi9YkCnrWak/nFY+ZxSoSg1l+V8G5otSQJyVYOA9I/y1Gzn
- vWsDBLwqgEEf5h+GoI7EHUIX1TAwtww0FUmYJl2ZUmB/FOr218iFGct+ly+56S6EUugb
- fJyw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EEAA10E04D
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 15:30:13 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-4852a9c6309so52129245e9.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 08:30:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776905429; x=1777510229; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1776871812; x=1777476612; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=/nEWRDfbzTChYAGuWA9e4JOGkSzV/lYIHVDwL6GP/tA=;
- b=DqCdh4dNMJNG26EzzvAh8vHbMAtxakDxg8zejFiEP3JdsFLaEXbNlaGsmVJZNLr2vJ
- CmAxacJHrTm0R8JsWq1F+QXm5IwNpDAUXRk+JsvVg8oxmuzslfrU8z6kdamnb39dUsHB
- /H5Ygnbxg/5+1CYkv5cu5Wi9NWL1XNRMTxPz/lXYrjqTdqSTvREES7VWow20/yAL5YFa
- Cwx98yygAp34LU9ZDllIn5y2mq4WGpRwbbVZ1sjCpTsO6/7ayPvdQZSLGtDzc44j4kuQ
- uXQH/PwtztLAtJ1MeF96nW3fvHaEmVgt4MyMrq+b+QO5KlHZVAA1ykd2DSUiJbH+8pqY
- 7zYg==
+ bh=ysBs+qqXtlvRGKKjFh3kR4dBpeQzZzEKzPI/gcg4dkM=;
+ b=AG6SpB1WiGGHfykDKbKH8ifgQH9t3QGwnTi6Ia53oFTa3sZXzG+SmYOTFpndMR4HQE
+ CoHcjFWqYTJpnqdYlT0yWxYAFd2VWcBi/2K9NTFw6o+zh6kbXKecZ5Y5SSuAiySJeHFL
+ QeZweWCp2/5Yo6z13CP1vJnCZT7g8FxGwzUPf4JQuPHrClERWgya/6OT61mCbYNHOw5I
+ dizXtL1ZpfwUPh3g29wxzS+P+KQEH3pqnF6i8us2jbplYDh69eNAKjk/lkvimZxbVPK0
+ B2N7ZrtsXpHccwOpPVD7yKM7UR6VaBPTnO4iJtGbdLD9ZbvyYqQ80xe5XBXrZVQN57m5
+ 8l+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776905429; x=1777510229;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ d=1e100.net; s=20251104; t=1776871812; x=1777476612;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=/nEWRDfbzTChYAGuWA9e4JOGkSzV/lYIHVDwL6GP/tA=;
- b=gB6ajwsf3zdfuU6K9bGyqCVhv1PSa08aw2f3ds2Ui0IQIUnLZt2QMse52byg8cjzM0
- K9E4GRS63t4pKLP0YZBrroVGXM0rz+8a4TWoHDqrpj6KL61cn1OfcE4rqTQr7yJPWzo6
- 8B946UtXFfWBPIV0LzEcBYu965H5v2NKwaV8bJaqUKkro4jTB8VyyGVYONZFOEQJAqKe
- iwpeDS9qA1mN4YUwwhppQOeZ65og0c2L469TmObAhgs8PBvouMVJY6MIGnjLcYyeOqlf
- v+BvAe8b0TAXuF3Ftf39cRMNcg6b4zqzeBUhiGrkAITtFb09ilRnhrvaU71cUsEhusdk
- xsZA==
+ bh=ysBs+qqXtlvRGKKjFh3kR4dBpeQzZzEKzPI/gcg4dkM=;
+ b=LXJvrnLU641rcPomiFEW0nuBCOOK+qmZLYg4oI+lHAE+rOzLS53JAGdnaE8HvGQ0OZ
+ PrpJGtRlBT8yJ3zNcRVl6QMiHU2/2FzJWNh6ZvRwDD+Mf/Wm47zUI5fxOxg5Ak8mf+ab
+ pjPse3Ok2JIwbVb2Fc9mj07WdnuDEe4qxVVusoIn4cO1jlnku6NQqUZhr4Gymvda4U1x
+ aTTabgybWz2XeBoDzOL+RcBhhvonTjj5Ag3jDKHzoSVq3oTm8vKYRQOOinBnV1d9Ey79
+ 9qzbgzHHq0xYMQ/mD9RBJXCtVuTXEU1KBwratr11aG6UVbQF1wmPXs5Lvcal23ImZGMU
+ Krog==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/bcd+Ln3dWCBnx+MC/FmJdO28wrc3uNQdbQDW5l2AkahQIO4XsZdqUgVChLUL/4f76Pi+BAT4CyRQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx3hSCD4Gwm0FK+oPffElIEeEdJUqqhGRHUKUKo3Xk2EZoqka6t
- aKvSsRpueFwJVeuoJz3WVYIWy1vQXi69g6VtWF0l+njGjbS/mMz0kfkZ/slr+iTLL1INxP4xt2/
- m/I2jUEbuPge7GeOKPd9o9VRH95Ta6iY=
-X-Gm-Gg: AeBDies4vH2yjCPER/Me3KNVrtfFHirmFqZZzrb+NYJewgzzHR6z6RIIT47iG9U3+A8
- ssTUfvE71qrJBA2jdMfRvV1DqpVrXDbxhWeRahYY6dMY6G/8gfYNX4ulKzSa4nX6qUEs+i1wPwu
- s06NHZ66K4I5uzLZxa03a/SOlITPsonmzzWX/Wnn0vx/tn2c2XoV+prgF/9V0uBCSeXibjvpjdm
- otBnrUI1U16jody0jT1d3Y0RVL9DgRAx4pCPkAYsGIoFZOMppZRJjNbu2RtJIRonaSM5uZyoUdA
- m2JS3eQI6Bq3AQg2Fw==
-X-Received: by 2002:a05:6820:168b:b0:694:a2c9:2d50 with SMTP id
- 006d021491bc7-694a2c92d8cmr3710704eaf.59.1776905428946; Wed, 22 Apr 2026
- 17:50:28 -0700 (PDT)
+ AFNElJ8xoV1OnW9j5fFDHEYEFbqMLvYWKWg1fY5OeKQQmf3aVE+R9M2A9ayncX1lRm34DEwIKqLTUO1dNnE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzDE/Qler0DnvIsT8lvvyqC94JdkxLnV4qdmjwuBfeSkXWmLH/a
+ YqE9HXIEHZwNYFBYR5+2CubukRJUoPdi4qLt8kOa7K1BeNYWdig/nhqI
+X-Gm-Gg: AeBDieumBSDatOmJY2boTTLVgIxO6xcTEVRYid5ogabN6rg+JEekPEG9nntHp/yeDZj
+ Z3SGtpW0SwCwVq8LPqBIZb7du1LsvEsm5ERMF7cps/ZJjCAqI62WQgimnMXE/IRLNtFT8KStEdD
+ FX8+vlpZApx99RBLHoAzDEZM63yeoADpqJr+hZ90Q7+7bS32WQ68hdgTx3DW26oWc0Ajx1o1c4i
+ GNe1AXGtXL1V4E6pLQDzldzDejCRzyWrCPGRXAV9hr/PLGPhCMMMVFUHSXYVbG6KENRquVMXySm
+ ocUAdBmuePXM2cvS9oyvEggJ63jhu54wavz/uXvcVUqIN7jQIRz9qEsPnxsdNrrrXF7gaD4/H+K
+ dxz1rdclfinn9v4K3Pmd/vr6WINFvlsmWtw+Fdc4VFsaM2RrvDrhFlh7V5jqZhBDyil/aKnj8tb
+ PHqao9GfPZYiwXwBCwV6xqeLwA7FLB5uOew7n86h9D
+X-Received: by 2002:a05:600c:3213:b0:489:149a:f9e6 with SMTP id
+ 5b1f17b1804b1-489149afa07mr117244535e9.28.1776871811450; 
+ Wed, 22 Apr 2026 08:30:11 -0700 (PDT)
+Received: from anthony ([2a06:c701:499d:3e00:12ff:e0ff:fea5:3d2e])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-488fc0b4c85sm434627425e9.0.2026.04.22.08.30.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 22 Apr 2026 08:30:10 -0700 (PDT)
+From: Amit Barzilai <amit.barzilai22@gmail.com>
+To: deller@gmx.de
+Cc: amit.barzilai22@gmail.com, dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, thomas.zimmermann@suse.de
+Subject: Re: [PATCH 1/3] fbdev: cobalt_lcdfb: Request memory region
+Date: Wed, 22 Apr 2026 18:29:46 +0300
+Message-ID: <20260422152946.5163-1-amit.barzilai22@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <404ec984-0486-442e-a108-4c5bad700248@gmx.de>
+References: <404ec984-0486-442e-a108-4c5bad700248@gmx.de>
 MIME-Version: 1.0
-References: <20260420061644.1251070-1-syyang@lontium.com>
- <20260420061644.1251070-3-syyang@lontium.com>
- <stkoeboxioodtki3nyksdglihgze243u25ui7dbyac4tuuobgx@ncl4j6l4vfqh>
- <CAFQXuNYXP1fiJtUiMb5iBL=jVXTB8HX8JLzto_eGOZvUaeZkfw@mail.gmail.com>
- <mvthlwcekj6i2h7bi5lns7ycictafjjyninvubp6adgaqxchkz@372c36cxon5t>
- <CAFQXuNZG-La0YpmHgMA-TZ2ayPDLfEvkbrSJZyW-jFCzXU-mLw@mail.gmail.com>
- <seno7shjhledyrunl5pib323zwgshtyhi455hzyspkhuvbps4m@qb4gwwakfww7>
-In-Reply-To: <seno7shjhledyrunl5pib323zwgshtyhi455hzyspkhuvbps4m@qb4gwwakfww7>
-From: =?UTF-8?B?5p2o5a2Z6L+Q?= <yangsunyun1993@gmail.com>
-Date: Thu, 23 Apr 2026 08:50:13 +0800
-X-Gm-Features: AQROBzBHLWJYWmQo9B-MiMuVDVxir1nNlnqbfrHtYvsavDSTDptUuFtwGXyCe4c
-Message-ID: <CAFQXuNYUj6OnR9Fo4qqebO3g38A2jbARbUWzgTXjYVB08WYcbQ@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] drm/bridge: This patch add new DRM bridge driver
- for LT9611C(EX/UXD) chip
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: syyang@lontium.com, robh@kernel.org, krzk+dt@kernel.org, 
- conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org, 
- maarten.lankhorst@linux.intel.com, rfoss@kernel.org, mripard@kernel.org, 
- Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se, jernej.skrabec@gmail.com, 
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, xmzhu@lontium.corp-partner.google.com, 
- tzimmermann@suse.de, xmzhu@lontium.com, rlyu@lontium.com, xbpeng@lontium.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 23 Apr 2026 08:51:37 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -118,145 +90,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=E5=B9=B4=
-4=E6=9C=8823=E6=97=A5=E5=91=A8=E5=9B=9B 02:56=E5=86=99=E9=81=93=EF=BC=9A
->
-> On Wed, Apr 22, 2026 at 12:41:11PM +0800, =E6=9D=A8=E5=AD=99=E8=BF=90 wro=
-te:
-> > Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=E5=
-=B9=B44=E6=9C=8821=E6=97=A5=E5=91=A8=E4=BA=8C 18:48=E5=86=99=E9=81=93=EF=BC=
-=9A
-> > >
-> > > On Tue, Apr 21, 2026 at 03:37:52PM +0800, =E6=9D=A8=E5=AD=99=E8=BF=90=
- wrote:
-> > > > Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=
-=E5=B9=B44=E6=9C=8820=E6=97=A5=E5=91=A8=E4=B8=80 20:18=E5=86=99=E9=81=93=EF=
-=BC=9A
-> > > > >
-> > > > > On Mon, Apr 20, 2026 at 02:16:44PM +0800, syyang@lontium.com wrot=
-e:
-> > > > > > From: Sunyun Yang <syyang@lontium.com>
-> > > >
-> > > > > > +
-> > > > > > +static int lt9611c_hdmi_audio_prepare(struct drm_bridge *bridg=
-e,
-> > > > > > +                                   struct drm_connector *conne=
-ctor,
-> > > > > > +                                   struct hdmi_codec_daifmt *f=
-mt,
-> > > > > > +                                   struct hdmi_codec_params *h=
-parms)
-> > > > > > +{
-> > > > > > +     struct lt9611c *lt9611c =3D bridge_to_lt9611c(bridge);
-> > > > > > +     u8 audio_cmd[6] =3D {0x57, 0x48, 0x36, 0x3a};
-> > > > > > +     u8 data[5];
-> > > > > > +     int ret;
-> > > > > > +
-> > > > > > +     /* Validate sample rate and width (LT9611C auto-detects b=
-ut we still check) */
-> > > > >
-> > > > > What for? You don't trust ASoC / ALSA core that the rates would m=
-atch
-> > > > > HDMI_RATES?
-> > > >
-> > > > Chip has limitations on sample_rate, sample_width, and fmt, and can=
-not
-> > > > support all formats.
-> > > > The validation here is to ensure that only the formats supported by
-> > > > the chip are used.
-> > >
-> > > Again, for sample rates, is it different from HDMI_RATES? If not, it =
-is
-> > > useless protective coding.
-> > >
-> >
-> > I checked the definition of HDMI_RATES and ended up doing a redundant
-> > validation.
-> >
-> > #define HDMI_RATES (SNDRV_PCM_RATE_32000 | SNDRV_PCM_RATE_44100 |\
-> > SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_88200 |\
-> > SNDRV_PCM_RATE_96000 | SNDRV_PCM_RATE_176400 |\
-> > SNDRV_PCM_RATE_192000)
-> >
-> > However, if HDMI_RATES is extended in the future to include sample
-> > rate not supported by LT9611C, this driver would require corresponding
-> > updates.
-> > If this is not expected to happen, I can remove the redundant check.
->
-> Updating HDMI_RATES would cause enough issues for the existign drivers
-> which don't have this kind of a check.
->
-OK,
-it will be removed in next version.
+Hi Helge,
 
-> >
-> > > > >
-> > > > > > +     switch (hparms->sample_rate) {
-> > > > > > +     case 32000:
-> > > > > > +     case 44100:
-> > > > > > +     case 48000:
-> > > > > > +     case 88200:
-> > > > > > +     case 96000:
-> > > > > > +     case 176400:
-> > > > > > +     case 192000:
-> > > > > > +             break;
-> > > > > > +     default:
-> > > > > > +             return -EINVAL;
-> > > > > > +     }
-> > > > > > +
-> > > > > > +     switch (hparms->sample_width) {
-> > > > > > +     case 16:
-> > > > > > +     case 18:
-> > > > > > +     case 20:
-> > > > > > +     case 24:
-> > > > >
-> > > > > and no support for 32?
-> > > > >
-> > > > no support for 32
-> > >
-> > > Then check for that rather than listing all the widths. If you check =
-the
-> > > hdmi-codec, you can't get 18-bit samples at all.
-> > >
-> > You are right, there is no 18-bit support.
-> >
-> > same reason with sample rate.
->
-> Yep. Check for 32-bit, the rest is fine.
->
-Same , it will be fixed in next version.
+Yes, I wrote all three patches and I am OK with the added Signed-off-by line.
+Sorry for the oversight, I'll make sure to include it in future submissions.
 
-> >
-> > > > > > +MODULE_LICENSE("GPL v2");
-> > > > >
-> > > > >
-> > > > > I think, checkpatch.pl should have flagged this.
-> > > > >
-> > > > yes,  it is need use GPL?
-> > >
-> > > If it flagged the line, why didn't you fix it? What did checkpatch sa=
-y?
-> > >
-> > Sorry, it is my mistake. i will fix.
-> > checkpatch say:
-> > WARNING: Prefer "GPL" over "GPL v2" - see commit bf7fbeeae6db
-> > ("module: Cure the MODULE_LICENSE "GPL" vs. "GPL v2" bogosity")
-> > #1450: FILE: drivers/gpu/drm/bridge/lontium-lt9611c.c:1364:
-> >
->
-> So... If there was a warning, why did you ignore it? Please don't,
-> unless you really know what you are doing.
->
-
-it will use GPL in next version.
-
-> >
-> > > > I see that many of the latest code still use GPL v2.
-> > >
-> > > --
-> > > With best wishes
-> > > Dmitry
->
-> --
-> With best wishes
-> Dmitry
+Thanks,
+Amit
