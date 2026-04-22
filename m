@@ -4,140 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1BEAFA1FD9
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 17:48:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BFF1FA1FE1
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 18:24:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBE3310EEC5;
-	Wed, 22 Apr 2026 17:48:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70E3610E08E;
+	Wed, 22 Apr 2026 18:24:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="IF8Zj5Xn";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GaFQWKPq";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="ROn2zXPo";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C2A5010EEBD
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 17:48:07 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63MG3kAa2012119
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 17:48:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- rdIWJRBzLsT+FQdXZs2St3YIH/aQ6EawAyxBixIyb/Q=; b=IF8Zj5XnmrkSseLs
- Pct9+MnzQeWe8qjhN80UeXGPkkOc2IlaMzCf69EYWZQwJOxRcvBlzcz8eLh/OUaf
- WMgYNk+Wh8DmskZcc4RUydXb4F+73IP5KXoNa+yg5g4fDxuE+O8IrIp5hvLxDlli
- 8dmclxrSetr9EwY14UIBDMxyflqAZLAgUEAlVDDCn41ZFh9A1xmuzVLU2430mzMW
- HjEncvCg3AvhDxOojHycs7UletsVbOh5l6LxfUKguW+7xgm5M/4oj11zy9I2G+zA
- Qp+1Re1LDz5TvwcjvM9TeoX6stG8ogSMSt+1+Lgx0DQ2BUoyDiv08Sdhc37ykOg7
- jVFTfw==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dq1h78cuc-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 17:48:06 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-50d8e8c47a3so150898701cf.0
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 10:48:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1776880086; x=1777484886;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=rdIWJRBzLsT+FQdXZs2St3YIH/aQ6EawAyxBixIyb/Q=;
- b=GaFQWKPqst6c+mgOEO5seDhnxe60dDaWatMURGzge6z7hyBKywnW504kJLzkJz/W6i
- mzlJ7CvO7MFJfpRSzVxHLpYsxutSs6lIkW+S2WR4JnOpSS+ma4H/itSKopB7V9mfJXBL
- //cZNiY24ceHON0q3ykRC37B9BJ7lY+zDC3YWqLbCY8Z7XAaN+z4oCtITVyhJ7gp1vTp
- ZODvM8GRpK2HgsbbV0hzRpUw3cloAtqr/ESRLe6IwtedoSHZUvLywR9+e3eWb1VK3e5k
- o3IwfeaEXpPir6dZUtNRpx4z6KQbg9RrD0s3ILZlfUUZywQ8S2ZpXlBI86bsjBevi80B
- lNWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776880086; x=1777484886;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=rdIWJRBzLsT+FQdXZs2St3YIH/aQ6EawAyxBixIyb/Q=;
- b=FSU0pxnQBH0fiCyLxQqtpJm2sl/7Z31QVZPZszaz6BUtitRBuI5yH7Ke6iBQN4QxMb
- xHyT6Jm+QsURJz2gQ6IodhUa/g7IdFNwG+zuQeD0/0qJm/NhZCTCKqIrkzKQQEcuk57p
- 1lsoFpr8VLiyEoYkYeMPNgsVbTdhHCaMextsin3MHhZ873vKcWeLk1P2BWoea1nstYv3
- ekPakVQ43Oy2hV9miHtMXlNY2huW3RWkE7AuFZG3AYhK02ykpJd2gous9Pz3zQMurot0
- FJKsixAn8SNPn7+e+hsGB5QTLwQhDKkmKcQ4kObRqqcTAth4TKePwh58Epqm6oMyEOjX
- ZOww==
-X-Gm-Message-State: AOJu0YxoCkWIeH3LMXXq6Yzo5wFJNDDxBmRCU2wQxrcMEpLISytQOmI7
- aBAZBXUrdRh+uwxmkmXbGHjqIsLxSPI14E8coVnVHo4oyBGlxnFpHeFrKxur2KVLAmVTQNtUEIG
- 0i2r6BLyU9m45oEZ9frQ6xq2TZ/7Aylvr9hDwp7/fcKWJG3fjkxOkwOG59k2Qr/pQAmbuBMs=
-X-Gm-Gg: AeBDiev8h6j4lRpQ2rQKitCDI1j0D18I8Go3KW0qXtLitKt/nF4l51QpF/xIwtEIhwd
- ClnszB6hzD8reMFsKIEDY/mchxOjUrcJ3G8GUfdMoYzpFIhqA59WjvS04x/aOd0o8zupZs7tqTn
- TMow4Qd1bYUe4hkL2ClBDcg0/LWLGmdI0IKaWComCSwrN7TZ7MM1P7xCGufBkwkvJj0+inL2trZ
- PIUvtYqeKmpmwoCKyzKBGJqPk8lLg0TN0pm0LI/zU0K/HmgO8ZJ2r8ymhKKuaIvBh9+CKWRV8Ca
- PFA63taL0PcrIQKCINaQPcPHHXTj8LH+daYSzGYIz1IgZcKC60RfX2oiP6hMQzxOPxLWyP3otX4
- qClBPnZJxoNB+U2Hn8b6AtHnjVPFq2Qt3dw3s9FN26LoUkwpFfTuh5TnVEiGbquGnw0+GQEIB1n
- 2ANTnYNVnxxTCfL9k4T2HJ8WziIUhm4xSBbVKQ/yxJGtQuhA==
-X-Received: by 2002:a05:622a:10e:b0:50b:29a6:8696 with SMTP id
- d75a77b69052e-50e3681d042mr350788551cf.7.1776880085643; 
- Wed, 22 Apr 2026 10:48:05 -0700 (PDT)
-X-Received: by 2002:a05:622a:10e:b0:50b:29a6:8696 with SMTP id
- d75a77b69052e-50e3681d042mr350788091cf.7.1776880085151; 
- Wed, 22 Apr 2026 10:48:05 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a4185ad0adsm4622156e87.11.2026.04.22.10.48.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Apr 2026 10:48:04 -0700 (PDT)
-Date: Wed, 22 Apr 2026 20:48:02 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Rob Clark <rob.clark@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 13/13] drm/msm: Add PERFCNTR_CONFIG ioctl
-Message-ID: <a36mlynml7egnts7lk2v46lxopuyxdxt7mp4vtbf7dbhn3gzpj@ufvqdjbnujif>
-References: <20260420222621.417276-1-robin.clark@oss.qualcomm.com>
- <20260420222621.417276-14-robin.clark@oss.qualcomm.com>
- <a3nvz2coifdazaoyssm7xtxmyiusvofxu5f2p44kvrgvpa7hbc@jmj6gyttetcr>
- <CACSVV03+aZUnLWfGjMLAJmvHm7LxnugJDQ=_ZZFV00-UWeZ98g@mail.gmail.com>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 277BF10E08E;
+ Wed, 22 Apr 2026 18:24:45 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1776882272; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=dLEa9x4IS9TjivUY7VPYnkO1F3Yu6KnjmTrJmjp0ldYQTYqwRqWt5uFHjSHDvOpE6TZCgpEr5B4m2zijFKVo6s1c6pXFIaiVbJMGYnHHXYxohXNt51uW7RZLqwZJUP6aqOytBAl+J2g3rqjvCw4REU5WCUR1/tnvLfGCsb1uZpI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1776882272;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=mEk38yepoHA8K74NovTtgivPyLiqXKjReVl++qj9Aak=; 
+ b=bU//KzT7PBmR64a4OtXn2qknzjyb41mXn4zyOAxQrwc7pVJM/88hYfMCLoES76j3DuWFQTJld4D8WVHFHY4uOW6ClWGAmMyzufSWRUZ8vQbEDBTdWWE9GM0fzvAetDDzZk6p2+5uPz+mnZOZBOra8RYYBmmjuMy4gfmjnCwgmn4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776882272; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+ bh=mEk38yepoHA8K74NovTtgivPyLiqXKjReVl++qj9Aak=;
+ b=ROn2zXPoy7x+RdnJHTi0PqAMc/Fezp56Bm1v74rbJiDcJPApkl33fcWh4fb46uxW
+ 7zCnnZYatt5AI3SEtNMWZBVhkRBTsEXwCOXWL823i1z4Py/EDE3diba6/O3TvdawX7X
+ OLrhK2M8henqeUveUUdV8gtxDGqHjJLbF93aGt50=
+Received: by mx.zohomail.com with SMTPS id 1776882269764220.28331060882078;
+ Wed, 22 Apr 2026 11:24:29 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Subject: [PATCH v9 0/2] Pass down hot-plug CONNECTOR ID to user-space
+Date: Wed, 22 Apr 2026 20:24:06 +0200
+Message-Id: <20260422-hot-plug-passup-v9-0-aef804255986@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CACSVV03+aZUnLWfGjMLAJmvHm7LxnugJDQ=_ZZFV00-UWeZ98g@mail.gmail.com>
-X-Proofpoint-ORIG-GUID: _MLkqgmHvpnezLmLddOTlxvWaPmpoYQt
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIyMDE3MiBTYWx0ZWRfX0rEhnZ89xY9U
- HBJFPpTFUktxECjQFdJUDXubFHhK6nZ4llPp5laCj3gvqo1kwXI0v/fdLAunXx4G7rJntRtccCa
- QJnipW2n7of/TA1W5ImspY+ikbRWKk1TJQas2qMvtOjLwvLJn8Y/BuK0u5aXR1CfLRaXfzGPLxG
- aPIcTf0zsSQ5bGTVK17SnRMTxtNqbL5f3cRMbIzeXgf91pITa2wwsRpFj5Yy1bQuPuGss3M/wgB
- FLg0daViHwEvaJtLDfA1ZvJ6UDjGm8MCkLiwoCht035bpYajqb8MOocvAfyYFHmKh7/heQ9LkRM
- VeKyx6cByilYVqu0zOoJ4w3M05fKBnTEoH41jzsSVXnhyUFYmVx1DEkHBIVJ6gJbG1rGtCLsAzT
- Rk9Ktd4JB+yNjQ0KXaeWOYl/7Rz/9xyPFGHNTmqFBnIi8Cgwbcx7Umcfd5Lt9okSvMqwXX1DlkW
- PddDooFvlrORDKHvhYA==
-X-Authority-Analysis: v=2.4 cv=UqNT8ewB c=1 sm=1 tr=0 ts=69e909d6 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
- a=ul2Ekiw2JhVQIeWwY14A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-GUID: _MLkqgmHvpnezLmLddOTlxvWaPmpoYQt
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-22_02,2026-04-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 adultscore=0 malwarescore=0 spamscore=0 suspectscore=0
- priorityscore=1501 impostorscore=0 bulkscore=0 lowpriorityscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
- definitions=main-2604220172
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22PwW6DMBBEfwX5XFN2wQZy6n9UPazBDpYgJjagV
+ hH/XkNTRQrZy2pkz5udGwvaWx3YKbkxrxcbrLtEUb8lrOnoctbctlEzzFBmgMA7N/Gxn898pBD
+ mkZtKt1luyib+YNE1em3s9078/IraeDfwqfOa/jkCtpGY51UKAgrgwAfydg7p0lP70bi+J+U8p
+ Y0b7kivr3O8bfrjMkVB8/g62OmUtD4G2PH9vtmW2tkwOf+z11rk7rk3yA8NFskzTkRGQlvLTKm
+ nCzbeUj4YCOWRUUaGqRBBIZEScGyxewsQr701YamN0Fhg9Sq/euQXiEdGFRmiMaSlogKgfmas6
+ /oLKTnVMuwBAAA=
+X-Change-ID: 20260121-hot-plug-passup-f8ed03f7c202
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>, 
+ =?utf-8?q?Ville_Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>, 
+ Louis Chauvet <louis.chauvet@bootlin.com>, 
+ Haneen Mohammed <hamohammed.sa@gmail.com>, 
+ Melissa Wen <melissa.srw@gmail.com>, 
+ Daniel Stone <daniel.stone@collabora.com>, 
+ Ian Forbes <ian.forbes@broadcom.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ kernel@collabora.com, wayland-devel@lists.freedesktop.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Marius Vlad <marius.vlad@collabora.com>
+X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,59 +82,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Apr 22, 2026 at 07:20:09AM -0700, Rob Clark wrote:
-> On Tue, Apr 21, 2026 at 8:41 PM Dmitry Baryshkov
-> <dmitry.baryshkov@oss.qualcomm.com> wrote:
-> >
-> > On Mon, Apr 20, 2026 at 03:25:35PM -0700, Rob Clark wrote:
-> > > Add new UABI and implementation of PERFCNTR_CONFIG ioctl.
-> > >
-> > > A bit more work is required to configure the pwrup_reglist for the GMU
-> > > to restore SELect regs on exist of IFPC, before we can stop disabling
-> > > IFPC while global counter collection.  This will follow in a later
-> > > commit, but will be transparent to userspace.
-> > >
-> > > Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
-> > > ---
-> > >  drivers/gpu/drm/msm/msm_drv.c      |   1 +
-> > >  drivers/gpu/drm/msm/msm_drv.h      |   2 +
-> > >  drivers/gpu/drm/msm/msm_perfcntr.c | 489 +++++++++++++++++++++++++++++
-> > >  drivers/gpu/drm/msm/msm_perfcntr.h |  54 ++++
-> > >  include/uapi/drm/msm_drm.h         |  41 +++
-> > >  5 files changed, 587 insertions(+)
-> > >
-> > > diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> > > index 3066547f319b..0a7fc06113e0 100644
-> > > --- a/drivers/gpu/drm/msm/msm_drv.c
-> > > +++ b/drivers/gpu/drm/msm/msm_drv.c
-> > > @@ -801,6 +801,7 @@ static const struct drm_ioctl_desc msm_ioctls[] = {
-> > >       DRM_IOCTL_DEF_DRV(MSM_SUBMITQUEUE_CLOSE, msm_ioctl_submitqueue_close, DRM_RENDER_ALLOW),
-> > >       DRM_IOCTL_DEF_DRV(MSM_SUBMITQUEUE_QUERY, msm_ioctl_submitqueue_query, DRM_RENDER_ALLOW),
-> > >       DRM_IOCTL_DEF_DRV(MSM_VM_BIND,      msm_ioctl_vm_bind,      DRM_RENDER_ALLOW),
-> > > +     DRM_IOCTL_DEF_DRV(MSM_PERFCNTR_CONFIG,   msm_ioctl_perfcntr_config,    DRM_RENDER_ALLOW),
-> > >  };
-> > >
-> > >  static void msm_show_fdinfo(struct drm_printer *p, struct drm_file *file)
-> >
-> >
-> > Should we also increase MSM_VERSION_MINOR?
-> 
-> Generally I only bump minor for a change that can't
-> otherwise/reasonably be probed for.  In this case, userspace can try
-> the new ioctl to see if it succeeds.  And since it is only supported
-> on gens w/ perfcntr support, userspace would still need to probe even
-> if we bumped minor.
+This series addresses a shortcoming whereby a hot plug event is sent
+without it being passed the actual connector that caused it. This takes
+into consideration both the polling path and the HPD (Hot Plug Detect)
+path.
 
-Ack
+The motivation is that user-space applications such as Weston would
+previously receive non-connector-specific hotplug events, and then have
+to figure out themselves which connector needs to have a modeset
+executed on. This notably did not work when the hotplug events came in
+too fast, resulting in Weston missing an on-off-on transition of a
+connector, seeing that its state was unchanged from "on" so can't be the
+one that was hotplugged, and skipping reinitialising it as it looks
+through the other connectors that could've caused it.
 
-> 
-> BR,
-> -R
-> 
-> > --
-> > With best wishes
-> > Dmitry
+The real world implication is that on setups with slightly sketchy HDMI
+connections, a brief flicker in the HPD signal could result in video
+output bidding farewell entirely until a manual proper re-plug was
+performed.
 
--- 
-With best wishes
-Dmitry
+By sending connector specific hotplug events, this ambiguity is resolved
+without any change to the user-space API. Future work should however
+make the kernel explicitly request a modeset from userspace through a
+more robust path, either by using link-status (nb. the userspace side
+may not handle it properly at present) or by exposing the epoch counter
+through the uAPI such that fragile state comparison code is no longer
+needed.
+
+This change results in potentially more hotplug events being sent than
+previously, as n changed connectors at a time result in n hotplug
+events, rather than just a single one.
+
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+---
+Changes in v9:
+- Get rid of the kmalloc_array by splitting the hotplug event into its
+  two constituent parts to avoid the deadlock.
+- Link to v8: https://patch.msgid.link/20260422-hot-plug-passup-v8-0-5cfae6ba4119@collabora.com
+
+Changes in v8:
+- Drop pending_hp patch
+- Add patch correcting epoch_counter documentation
+- Rework implementation such that hotplug events are still sent outside
+  the mode_config mutex, but don't iterate through the connector list
+  without the lock.
+- Link to v7: https://patch.msgid.link/20260415-hot-plug-passup-v7-0-9a27ef5e2428@collabora.com
+
+Changes in v7 RESEND:
+- None, other than removing the leftover diffstat from the cover letter
+- Link to v7: https://lore.kernel.org/r/20260217-hot-plug-passup-v7-0-f8221b2aab51@collabora.com
+
+Changes in v7:
+- Drop the two vkms patches, as I don't want them to be blocked on
+  review. I still think they're correct, but they're not essential and
+  don't need to block this series.
+- Link to v6: https://lore.kernel.org/r/20260123-hot-plug-passup-v6-0-aaaf61d960bb@collabora.com
+
+Changes in v6:
+- Rewrote cover letter to explain the motivation for this series more
+  plainly
+- Rename "status_changed" to "pending_hp"
+- Set "pending_hp" in the existing path that would also affect
+  epoch_counter
+- No longer set the boolean in drm_helper_probe_single_connector_modes,
+  as it does not appear to be necessary
+- Reword commits to better justify the changes
+- Link to v5: https://lore.kernel.org/r/20251111162338.15141-1-marius.vlad@collabora.com/
+
+Changes in v5:
+- vkms: add support for sending the CONNECTOR ID when hot-plugging through
+  ConfigFS - as reported by Louis, vkms can now make use of ConfigFS to
+  simulate connector status.
+- vkms: add a small change to ignore previous/old drm connector status
+  when sending out hot-plug uevent.
+- Link to v4: https://lore.kernel.org/r/20251103174558.7709-1-marius.vlad@collabora.com/
+
+Changes in v4:
+- removed the "This patch" bit - Dmitry
+- added a short note when the flag is set and cleared - Dmitry
+- address double dead-locking detected - kbot: https://lore.kernel.org/dri-devel/202509251410.fdfbcac3-lkp@intel.com/
+- virtual connectors do not seem have any kind of hotplug - added
+  polling in vkms - as noted by Ian
+- Link to v3: https://lore.kernel.org/r/20250923083636.4749-1-marius.vlad@collabora.com/
+
+Changes in v3:
+- Address comments from Dmitry:
+  - guard connector status write with mode_config.mutex
+  - avoid setting up the connector status and immediately unset it. Do the
+    unset in drm_kms_helper_hotplug_event/drm_kms_helper_connector_hotplug_event
+- Link to v2: https://lore.kernel.org/r/20250729165708.9947-1-marius.vlad@collabora.com/
+
+Changes in v2:
+- Address comments from Daniel:
+  - split patch into 2, one that introduces a bool to track connector
+    connection status change and a patch that uses that to be able to send
+    hot plug events with the proper CONNECTOR ID to udev and further pass
+    that down to user-space
+  - nuke out mutex when iterating connector list
+  - fix typo
+- Link to v1: https://lore.kernel.org/r/20250627131751.2004-1-marius.vlad@collabora.com/
+
+---
+Nicolas Frattaroli (2):
+      drm/connector: Fix epoch_counter docs to reflect reality
+      drm: Send per-connector hotplug events
+
+ drivers/gpu/drm/drm_probe_helper.c | 37 ++++++++++++++++---------------------
+ include/drm/drm_connector.h        |  5 ++++-
+ 2 files changed, 20 insertions(+), 22 deletions(-)
+---
+base-commit: 489e26ada57ce96a2ee3e5853cfe74981ef85bbd
+change-id: 20260121-hot-plug-passup-f8ed03f7c202
+
+Best regards,
+--  
+Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+
