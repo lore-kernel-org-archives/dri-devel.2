@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56DDAF9B5F5
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 09:48:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A298EF9B601
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 09:48:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCFD110EDD2;
-	Wed, 22 Apr 2026 09:48:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A38FE10EE02;
+	Wed, 22 Apr 2026 09:48:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="qoFz7fog";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jptyPDK8";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3C4610EE02
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 09:48:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18EA610EDD2
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 09:48:43 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id AF16E40C1D;
+ by sea.source.kernel.org (Postfix) with ESMTP id C853F44523;
  Wed, 22 Apr 2026 09:48:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8CFE9C2BCB8;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 99927C2BCC4;
  Wed, 22 Apr 2026 09:48:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1776851322;
- bh=dEStAOYvvTqP4eZwbeu8ORXA+TxQlnJ46bVxEwIV+/M=;
+ bh=DpZCKZE+rfT1AbndPVJGdc7LuCv/ALyUgKn5uPD43Y0=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=qoFz7foguRFAeG3cyQlS1m3t2+25J5B7wzYAlDX2Mol3YT6vlKMmhzy85JNqHZMKi
- idac5xA8VyU+McWBOfr6OHpO8rI/PRP6DLyYGL2pc1Vd4OwQGG8WH+fC3cMeoJlVon
- aKcZWz760K79GZTRTlHAgKBcxMhUyG6fgDd8Q4SqD+ZxNi+NaCi+efFMJxhWpmlKuT
- M2a3VeYAyqgIcfX03Y7OpVMjAVSdkbLlhelgRY4/T6Qiybb5hHZaQHR1x0TMwJTrgR
- rzvfZmUt27LCMHUtEncnMM2z1PiBXUFJDGVdcgVD8Buq2o0NJRfz+7pFAycYGQGfry
- Fq4uFe4BN7OzQ==
+ b=jptyPDK8UyKmc/9lnx4O1mfLNnGuoJdIARmspM28GXTbKSpEMXI7g8ZjWJubjGi2u
+ lKUqDPEi+AtiqipGu9p91zKQA5Rd1KHbpy05kcdO3kTbuGwByuwWxRiCgTrgU5hgp7
+ JuI6e/5Bog0LaC18sWS21XF9AZLCLN3lqnhHwpU7l4kjRGm4XXfOF6fktcyMBq3t1q
+ ng8TKOQxFAB7/Fycb5+X4gwr3XooOpfHzDMgGpkx5lpoZzXvFeeS+EM6Qrz+ZYjIok
+ F9sWrxHyY3y8TRGKsIeF4nh3IRZ7jvpNCaDmLDD7ggV+laO5M2XKAfMOqZzdMnBAg2
+ eNrNJ3832h9ng==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 811A5F9B5F5;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 91912F9B602;
  Wed, 22 Apr 2026 09:48:42 +0000 (UTC)
 From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Wed, 22 Apr 2026 11:48:37 +0200
-Subject: [PATCH RESEND 3/4] drm/panel: Clean up S6E3HA2 config dependencies
- and fill help text
+Date: Wed, 22 Apr 2026 11:48:38 +0200
+Subject: [PATCH RESEND 4/4] drm/panel: Enable GPIOLIB for panels which uses
+ functions from it
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260422-panel-clean-up-kconfig-dep-v1-3-d825e9ffe911@ixit.cz>
+Message-Id: <20260422-panel-clean-up-kconfig-dep-v1-4-d825e9ffe911@ixit.cz>
 References: <20260422-panel-clean-up-kconfig-dep-v1-0-d825e9ffe911@ixit.cz>
 In-Reply-To: <20260422-panel-clean-up-kconfig-dep-v1-0-d825e9ffe911@ixit.cz>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -56,21 +56,21 @@ Cc: Casey Connolly <casey.connolly@linaro.org>,
  linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
  David Heidelberg <david@ixit.cz>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1666; i=david@ixit.cz;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3466; i=david@ixit.cz;
  h=from:subject:message-id;
- bh=6btRlHpzFWcpsPVnKzj/ASpL7mxJeb/wvSMA84mBejw=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBp6Jl4Yj7VBbvMjvojVvl+CxxCBLgHAW9g3nU3Z
- ElNpVGBBXeJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaeiZeAAKCRBgAj/E00kg
- cs/VEACSzK8B/mOtJAB8GVBdcF4dDL1JH8JUOVbrc4eQbDruTr9/S8+n4IOTVA1Vdu+pjStQm84
- /7Gjh/bOZjf3/VdmhMZn/0AnBvwViXU1WbrwWN19UySL31Ahfw9MoYFact0jRn/M0NwJqYuwUpc
- ehrWi8pXTc8cIkEQI+v/KvGihbaD1F11asRvPg8Ga8QwNqAjeOb+WcBoqffmUv01DpDjhiiGAEe
- faUKFDLIRXsA1i9BYcCRY/D+/zsGFsLfSC2gcFS0/lv5Bvmv8Dq4p5Zv/lE2zxRtB5eniZf85nY
- gboqq2ifR7rZkKZ5V+3aZSwmgQKl5YM1Ux/PQH7vDAjTzXj++Jh9a879E/T8uPCpS95Vz8FJ1jC
- u6ylOCky7PSy0oZF9kzueYi9xmix3/5KjJrXpBisSUgifYFmPocPiNVxPbsDHq7PpjiiUzzEBlM
- fuPR0edzLtFv6u64A0+mRgcVLBswqyLQwgTueNB0kq2sj44FrUFrr2Jz1qX56dtNpK7HbYaxP7o
- MQNxAp9MI9kyKuo4URGfVGqnHaa91QPROsaZqHqjMuUV7sGSUfBJdcRxViJy1KxMBjQ56LVxW4p
- /vMRPTCeV2YQ1RU7d7sm5ftZL9mfHEjIRgxtAx+CgKTtV3VBmadXxl3mQ/fzeSWOECajKOG09nn
- V1mvxs83l+BYabQ==
+ bh=ZBiRe+gQ0qF5gTizCozkxDh2BdDwt4NwCy4NcwkIA/Y=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBp6Jl4kCY/HgJI146RXhILETPAjE/tuZPSMXgms
+ ECWjlvmXBCJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaeiZeAAKCRBgAj/E00kg
+ cpZwD/9vZ9FucYKgFYXr3tHHRj8yMP/0ETa0QOo7hASX8YXgej+JZ3N4UId5QbXPCN5OLceCYcr
+ VqgKEtobr+IxcM6ylugM2DGgmODrx/rIBgBiSGWr5SO7UsSeZuBFUvQorv7bHPVqN5Umtp6kTEH
+ CChaxNd2J5E/H+tntOwhx6/ujnUPPoI1GUgOZyWXuPr2VS5+/xInliCQMmW71e0e72tJphclkQc
+ QrOsdes9sVs9N0/pGp5VF/0Fexe3dpMX4PUim18treuc+NXPy4FzsEfNRdr8LJJl84XpT6xJ3Ea
+ by+iuMu2tq4MzSHfSfnNtZ37akBouhC6IXqbqiEYC/JnSKbX71ZLfsWe3dGIN4X7Hgt297D90t9
+ 9Mh6l7l4EWsEcgK9oy5CXxQZ71ElO5sPiwD2VdL1nX06t9DB489HowVWW9BKQ9J0pKDaLvE5Nzw
+ pYJNC1KtB1wo0YwHEAmYfbNLP/1sId6MksL/Ewbrf9YHyAtK2p0nGguP4JXXZs+qH6wuk6cva1P
+ pi72s4ciJyc2ZZQibC4jP6H9cwlZ+dhK7vwEw21uJYnf5SdRivXrYt/PAr2Tn/EGAm89srG+RIY
+ 1HnazOJvAIkL+NY2D85TKLC0mWSTIioa5KRXKGcj09gycqeMrkPTfRcbOTgCMWg04kt+DRivUZW
+ aSDByIPcFYz/hIA==
 X-Developer-Key: i=david@ixit.cz; a=openpgp;
  fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
 X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
@@ -93,52 +93,105 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: David Heidelberg <david@ixit.cz>
 
-As per the config name this Display IC features a DSI command-mode
-interface (or the command to switch to video mode is not
-known/documented) and does not use any of the video-mode helper
-utilities, hence should not select VIDEOMODE_HELPERS. In addition it
-uses devm_gpiod_get() and related functions from GPIOLIB.
+These panels used on sdm845 devices are using GPIOLIB functions,
+ensure it's enabled.
 
-Fixes: 779679d3c164 ("drm/panel: Add support for S6E3HA8 panel driver")
 Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- drivers/gpu/drm/panel/Kconfig | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/panel/Kconfig | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index a81ea7755c03f..4e7b4808f6e7c 100644
+index 4e7b4808f6e7c..3e819b4b23962 100644
 --- a/drivers/gpu/drm/panel/Kconfig
 +++ b/drivers/gpu/drm/panel/Kconfig
-@@ -844,21 +844,27 @@ config DRM_PANEL_SAMSUNG_S6E3HA2
- 	tristate "Samsung S6E3HA2 DSI video mode panel"
- 	depends on OF
+@@ -102,17 +102,17 @@ config DRM_PANEL_BOE_TV101WUM_LL2
  	depends on DRM_MIPI_DSI
  	depends on BACKLIGHT_CLASS_DEVICE
- 	select VIDEOMODE_HELPERS
+ 	help
+ 	  Say Y here if you want to support for BOE TV101WUM-LL2
+ 	  WUXGA PANEL DSI Video Mode panel
  
- config DRM_PANEL_SAMSUNG_S6E3HA8
- 	tristate "Samsung S6E3HA8 DSI video mode panel"
+ config DRM_PANEL_EBBG_FT8719
+ 	tristate "EBBG FT8719 panel driver"
+-	depends on OF
++	depends on OF && GPIOLIB
+ 	depends on DRM_MIPI_DSI
+ 	depends on BACKLIGHT_CLASS_DEVICE
+ 	help
+ 	  Say Y here if you want to enable support for the EBBG FT8719
+ 	  video mode panel. Mainly found on Xiaomi Poco F1 mobile phone.
+ 	  The panel has a resolution of 1080x2246. It provides a MIPI DSI
+ 	  interface to the host.
+ 
+@@ -427,17 +427,17 @@ config DRM_PANEL_LG_LG4573
+ 	depends on OF && SPI
+ 	select VIDEOMODE_HELPERS
+ 	help
+ 	  Say Y here if you want to enable support for LG4573 RGB panel.
+ 	  To compile this driver as a module, choose M here.
+ 
+ config DRM_PANEL_LG_SW43408
+ 	tristate "LG SW43408 panel"
 -	depends on OF
 +	depends on OF && GPIOLIB
  	depends on DRM_MIPI_DSI
  	depends on BACKLIGHT_CLASS_DEVICE
  	select DRM_DISPLAY_DSC_HELPER
--	select VIDEOMODE_HELPERS
-+	help
-+	  Say Y or M here if you want to enable support for the
-+	  Samsung S6E3HA8 DDIC and connected MIPI DSI panel.
-+	  Currently supported panels:
-+
-+	    Samsung AMB577PX01 (found in the Samsung S9 smartphone)
-+
+ 	select DRM_DISPLAY_HELPER
+ 	help
+ 	  Say Y here if you want to enable support for LG sw43408 panel.
+ 	  The panel has a 1080x2160@60Hz resolution and uses 24 bit RGB per
+ 	  pixel. It provides a MIPI DSI interface to the host and has a
+@@ -531,27 +531,27 @@ config DRM_PANEL_NOVATEK_NT36523
+ 	depends on BACKLIGHT_CLASS_DEVICE
+ 	help
+ 	  Say Y here if you want to enable support for the panels built
+ 	  around the Novatek NT36523 display controller, such as some
+ 	  Boe panels used in Xiaomi Mi Pad 5 and 5 Pro tablets.
  
- config DRM_PANEL_SAMSUNG_S6E63J0X03
- 	tristate "Samsung S6E63J0X03 DSI command mode panel"
- 	depends on OF
+ config DRM_PANEL_NOVATEK_NT36672A
+ 	tristate "Novatek NT36672A DSI panel"
+-	depends on OF
++	depends on OF && GPIOLIB
  	depends on DRM_MIPI_DSI
  	depends on BACKLIGHT_CLASS_DEVICE
- 	select VIDEOMODE_HELPERS
+ 	help
+ 	  Say Y here if you want to enable support for the panels built
+ 	  around the Novatek NT36672A display controller, such as some
+ 	  Tianma panels used in a few Xiaomi Poco F1 mobile phones.
  
+ config DRM_PANEL_NOVATEK_NT36672E
+ 	tristate "Novatek NT36672E DSI panel"
+-	depends on OF
++	depends on OF && GPIOLIB
+ 	depends on DRM_MIPI_DSI
+ 	depends on BACKLIGHT_CLASS_DEVICE
+ 	help
+ 	  Say Y here if you want to enable support for Novatek NT36672E DSI Video Mode
+ 	  LCD panel module. The panel has a resolution of 1080x2408 and uses 24 bit
+ 	  RGB per pixel.
+ 
+ config DRM_PANEL_NOVATEK_NT37801
+@@ -1177,17 +1177,17 @@ config DRM_PANEL_VISIONOX_R66451
+ 	select DRM_DISPLAY_DSC_HELPER
+ 	select DRM_DISPLAY_HELPER
+ 	help
+ 	  Say Y here if you want to enable support for Visionox
+ 	  R66451 1080x2340 AMOLED DSI panel.
+ 
+ config DRM_PANEL_VISIONOX_RM69299
+ 	tristate "Visionox RM69299"
+-	depends on OF
++	depends on OF && GPIOLIB
+ 	depends on DRM_MIPI_DSI
+ 	depends on BACKLIGHT_CLASS_DEVICE
+ 	help
+ 	  Say Y here if you want to enable support for Visionox
+ 	  RM69299  DSI Video Mode panel.
+ 
+ config DRM_PANEL_VISIONOX_RM692E5
+ 	tristate "Visionox RM692E5"
 
 -- 
 2.53.0
