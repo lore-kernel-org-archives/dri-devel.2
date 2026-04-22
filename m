@@ -4,60 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84A71F9EDC0
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 12:29:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3740BF9EDC4
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 12:29:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCD1D10E9D4;
-	Wed, 22 Apr 2026 12:29:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 003B210E9D6;
+	Wed, 22 Apr 2026 12:29:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (4096-bit key; unprotected) header.d=davidgow.net header.i=@davidgow.net header.b="deNpBR/Q";
-	dkim=fail reason="signature verification failed" (4096-bit key) header.d=davidgow.net header.i=@davidgow.net header.b="UTgnOpLg";
+	dkim=fail reason="signature verification failed" (4096-bit key; unprotected) header.d=davidgow.net header.i=@davidgow.net header.b="AxizSjGo";
+	dkim=fail reason="signature verification failed" (4096-bit key) header.d=davidgow.net header.i=@davidgow.net header.b="n6gHOe9B";
 	dkim-atps=neutral
+X-Greylist: delayed 551 seconds by postgrey-1.36 at gabe;
+ Wed, 22 Apr 2026 12:29:55 UTC
 Received: from sphereful.davidgow.net (sphereful.davidgow.net [203.29.242.92])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBEDB10E9DE
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B957810E9D4
  for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 12:29:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=davidgow.net;
- s=201606; t=1776860594;
- bh=b+jdMLz/f1OCxDME3vP0n+Ytlo9Zm1RnVo7KNc+DlTI=;
+ s=201606; t=1776860655;
+ bh=ny7vkY2fzG8mTBwVqO/QMWlF9EzgUJFVVOKu/qUlYIE=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=deNpBR/Q7lyFcUmDWk3meLXWyvl0YU3YaO1zbonZyvyUajjWDNPpQYgizK8rRWsHC
- NqTQAjq4qR65WgkjuqKOuAs5lFM44SPQA+vWWhvRBG8AhiqSpLK6qaBqxoIZ5o8zzT
- efOmygx6mEu25jqPWGt/HfAWGl1G3gGAC9QRSbfXbggdKs1MZfQZiVXQKdO+aLtqgq
- aaA31C8d0MF8bs1eC5LOHA0RiJmIJpkGhXfbGdXioOtPteo9YXi7cKEHy7e0pn1FW2
- u4X2rkVn5g5DI2/z+WRNOSr5oN0zDFCTM9lvMPIAnKKeNtkKH/fwGpM3H72IW6EtuQ
- /jcSvjEqKwQOnGvnVrrYuo646knKY5CXGspdeCIc9vtLvQqeFqRUnaNqj1X39plgrA
- 6ECRn6JKeHuBQi5vEpjIWjOPWgFsDV8yuFu9r0bC00t0ihO9p7Clk5vSI9PcYRvEc/
- rOaAkhTrRJAzXHblf8wvv8vU1TaDSJfcNO42DOJJfiY0zdC93tNdkDqT3FIJpDmBB/
- 5XCDBwASeA6w3ZTvR588X8DFyEuVTRBD5iUGJobnBInozU2kL7gQyhHKPKmn+Q6pha
- FfmLgL6OqhRK9BvRK1+Vh124/rsx21DbxLdJDmfSVxzqpKyb77fFXGah8U/zolJGL8
- R8nq9W2GDMeKRPG9/BX/7W1M=
+ b=AxizSjGo09n7KVJcalIYkFtRp9jEsbiLEVy/i/ApQS2RCCrmATHjk6P5xs5xyqFoL
+ 72hnBs1N/dMiJt7XUcJlYZ2zgtzDNuOCWmdR04qImHdilzrtx48Y9ALqOpaRX3hYYD
+ ifZtLFq2YHdGN1yQqMC1EJsBfgpZpBXhYzhWAJB+XLMOATVghidr3X12eYhf5FTNIX
+ /2WvHsi0D/QdKvCI5mKYpjsQHlTzcPw4zYVKk8/TmPR5ry8omXduzL0cwtiV1UwO3Y
+ JrjZjVmPpMCVfvNaMaxY9eqhA7Kpi213zcuK6pcYmmtAXhlU2kXZpwC5jb0+9NL0kn
+ 8We+t0yVpaxaDHVqo2em/rfab31xmAoS4w0h30Lbp4dwmrwPIZw6V/Jb7/1v1mj+J+
+ 3T3w5AFjdHdqpWcT4jbMIgLU6SXF5ICac817uDHFnJNhkTUQCI+V+KtFTE2gOVgxzU
+ vNeXAIoTbBS501NRNexZJtetY6/AAR2fUShSy9vm6cceiSYHw2aKiG6pGeZRbtaE/P
+ jklhhsB7QdzuQDK9vZujnlMwjZNxYC/7gFV01940n1Ljcld1I5LE/Nnt/96MvMW7Bf
+ UiFz6VV3QGAOmyFUAdfZ4WR+p9YlziNFwccYgodoETin9bM883BIFRSlTkz5wbkqlR
+ g1sAZxtGQH7nDhN5vUmd6JRI=
 Received: by sphereful.davidgow.net (Postfix, from userid 119)
- id 4658C1E8D9F; Wed, 22 Apr 2026 20:23:14 +0800 (AWST)
+ id 5DFFC1E8D9C; Wed, 22 Apr 2026 20:24:15 +0800 (AWST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=davidgow.net;
- s=201606; t=1776860421;
- bh=b+jdMLz/f1OCxDME3vP0n+Ytlo9Zm1RnVo7KNc+DlTI=;
+ s=201606; t=1776860426;
+ bh=ny7vkY2fzG8mTBwVqO/QMWlF9EzgUJFVVOKu/qUlYIE=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=UTgnOpLgovcFqQ4HM6TnCdPdCX4lU52Z2jkOjv2W7HETijIRyCzB6BoC8r/EK6bfY
- mJ7NfuHEcDqnLvFSgMs1pdeyzJVGQV5kov6J/MgNsiI7b1HpHqg234/oQfO0uTf0Lb
- /5PFNtMklX/+fLZY5tne1c3TXUamwifgR2KWnbjjCCu118RVlVNvgbzxm5UgqNAfpo
- SGpxDNeABfxvwxRtbXRCnOxyv6YbuM8VZBGRA060eFIC/9/DNeem7O8ze1zbqd0ibS
- ywIBWABlVZWnWNc0b066lw1pqQfP04Vxp+8pfFT4xriUNtceMFG86XYgRMt7A1bpHy
- sn9Fe6pyQGSE+NNeNDdhuuy2byf78MzCytxyJVx0Sp+XYJjFpFxDSsIdKDyUD5Kia1
- c/n6FUXM6bwFsbCErfBKJTwSgtf3nIWy49hxNBxSlizXu5MtVUTvWigirXW3L6UQd3
- gKkBEwcwpSNXJYlHbohyKjyWOUr+YxncJ7jtbMd2KbopLO4orXUkgESGzN/pD7fTPE
- IatgVyeX+bFglXxao/qgsVhPOcDxXXqehEeSKAtwyOBhLSDTWVsDxX5ztsYBYts+pm
- Xj0toXWDqLkZSnP0ydze+uSbkHUT7EnaJZWOSp1loEPLaJ8oM5m36lUYvoAX1ihEqo
- u+E/jcn1K1CjEYqfkGYSGKJo=
+ b=n6gHOe9BzQy5I3LJfAPshR0ULJLuaobMTsQFvc9SrmIERn8nsNVk7EqptPSNkMfO/
+ cxx2CYXvt38+3n71zY7BgVrGflkZlKVu8Fwv2bw5vbcJYZvLVr5dxrDWLPW6j3IYVV
+ a1EzTAinrVYdri3M5EACB1zKxq6OOoxvAzxXfbmORh/Nn4VA7wg4EdvOl4gDfzGp/k
+ yL7VLMqzA0AmRw9PWueFo487n3Q3IIgSoFxFFFBeeTPi21T6iz4/VRYSuuysbstjKh
+ M3qYq1cbK7WIttnxGU79k5IjeRo7Cdbd6UVELtrREnkKuzQX8Bb3wt9RVUuJHIOKH9
+ /sw0wkPu1e7r7mzTOmcHyS51v/uirWu3K0xtsm8XKSFoLCkYNXEwj/DX4mO9BSUXVY
+ dqroH6mm63smzh1FyucpJpLnPwZ553BMSBy1+2j7LeDQPMYihOhZaP6wSSb8jtryAa
+ VZDaFmc6SW7woWtCbaceE8iZykCpmW/dBWKYOqebaSh7Pb3jNCFr88wk/htV6j4D/k
+ Cu/QEQ3zPJU+z3k2yiEb4DJ3wySFGBj4P1vwirHw3q4udLumafxgfoPswZpOFuDdPI
+ uLjPnuRfU4/mm1wa56MN62Ya5mopAUSGL39f71SfNN1YrCQe1yScgo4cLDEuJYk2nj
+ U1bsR2ays0hRqFVvOz0Xvthg=
 Received: from [IPV6:2001:8003:8810:ea00:ed87:ca88:5326:e11d] (unknown
  [IPv6:2001:8003:8810:ea00:ed87:ca88:5326:e11d])
- by sphereful.davidgow.net (Postfix) with ESMTPSA id 9DF711E8D8B;
- Wed, 22 Apr 2026 20:20:21 +0800 (AWST)
-Message-ID: <3922addf-32d8-4548-9a43-0e9bd861a5c8@davidgow.net>
-Date: Wed, 22 Apr 2026 20:20:19 +0800
+ by sphereful.davidgow.net (Postfix) with ESMTPSA id 943BD1E8D95;
+ Wed, 22 Apr 2026 20:20:26 +0800 (AWST)
+Message-ID: <0bd3f863-207d-4994-92cb-ec9999c0bc1b@davidgow.net>
+Date: Wed, 22 Apr 2026 20:20:26 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 4/5] drm: Suppress intentional warning backtraces in
- scaling unit tests
+Subject: Re: [PATCH v7 5/5] kunit: Add documentation for warning backtrace
+ suppression API
 To: Albert Esteve <aesteve@redhat.com>, Arnd Bergmann <arnd@arndb.de>,
  Brendan Higgins <brendan.higgins@linux.dev>, Rae Moar <raemoar63@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -71,14 +73,13 @@ Cc: linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org,
  linux-doc@vger.kernel.org, peterz@infradead.org,
  Guenter Roeck <linux@roeck-us.net>,
  Linux Kernel Functional Testing <lkft@linaro.org>,
- Dan Carpenter <dan.carpenter@linaro.org>, =?UTF-8?Q?Ma=C3=ADra_Canal?=
- <mcanal@igalia.com>, Alessandro Carminati <acarmina@redhat.com>,
- Simona Vetter <simona.vetter@ffwll.ch>
+ Dan Carpenter <dan.carpenter@linaro.org>,
+ Alessandro Carminati <acarmina@redhat.com>, Kees Cook <kees@kernel.org>
 References: <20260420-kunit_add_support-v7-0-e8bc6e0f70de@redhat.com>
- <20260420-kunit_add_support-v7-4-e8bc6e0f70de@redhat.com>
+ <20260420-kunit_add_support-v7-5-e8bc6e0f70de@redhat.com>
 Content-Language: fr
 From: David Gow <david@davidgow.net>
-In-Reply-To: <20260420-kunit_add_support-v7-4-e8bc6e0f70de@redhat.com>
+In-Reply-To: <20260420-kunit_add_support-v7-5-e8bc6e0f70de@redhat.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -99,71 +100,81 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 Le 20/04/2026 à 8:28 PM, Albert Esteve a écrit :
 > From: Guenter Roeck <linux@roeck-us.net>
 > 
-> The drm_test_rect_calc_hscale and drm_test_rect_calc_vscale unit tests
-> intentionally trigger warning backtraces by providing bad parameters to
-> the tested functions. What is tested is the return value, not the existence
-> of a warning backtrace. Suppress the backtraces to avoid clogging the
-> kernel log and distraction from real problems.
+> Document API functions for suppressing warning backtraces.
 > 
 > Tested-by: Linux Kernel Functional Testing <lkft@linaro.org>
 > Acked-by: Dan Carpenter <dan.carpenter@linaro.org>
-> Acked-by: Maíra Canal <mcanal@igalia.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Daniel Vetter <daniel@ffwll.ch>
+> Reviewed-by: Kees Cook <keescook@chromium.org>
 > Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+> Reviewed-by: David Gow <davidgow@google.com>
 > Signed-off-by: Alessandro Carminati <acarmina@redhat.com>
 > Signed-off-by: Albert Esteve <aesteve@redhat.com>
 > ---
 
-Acked-by: David Gow <david@davidgow.net>
+Thanks -- it's always good to have documentation.
 
-Some of the suggestions in the thread around __cleanup() et al. sound 
-good to me, too. I suspect that it should work given the 
-kunit_add_action() / resource system use anyway, so even if an assertion 
-fires, things should be cleaned up properly.
+Apart from one note below, this looks good to me.
+
+Reviewed-by: David Gow <david@davidgow.net>
 
 Cheers,
 -- David
 
->   drivers/gpu/drm/tests/drm_rect_test.c | 14 ++++++++++++++
->   1 file changed, 14 insertions(+)
+>   Documentation/dev-tools/kunit/usage.rst | 30 +++++++++++++++++++++++++++++-
+>   1 file changed, 29 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/tests/drm_rect_test.c b/drivers/gpu/drm/tests/drm_rect_test.c
-> index 17e1f34b76101..1dd7d819165e7 100644
-> --- a/drivers/gpu/drm/tests/drm_rect_test.c
-> +++ b/drivers/gpu/drm/tests/drm_rect_test.c
-> @@ -409,8 +409,15 @@ static void drm_test_rect_calc_hscale(struct kunit *test)
->   	const struct drm_rect_scale_case *params = test->param_value;
->   	int scaling_factor;
+> diff --git a/Documentation/dev-tools/kunit/usage.rst b/Documentation/dev-tools/kunit/usage.rst
+> index ebd06f5ea4550..76e85412f240e 100644
+> --- a/Documentation/dev-tools/kunit/usage.rst
+> +++ b/Documentation/dev-tools/kunit/usage.rst
+> @@ -157,6 +157,34 @@ Alternatively, one can take full control over the error message by using
+>   	if (some_setup_function())
+>   		KUNIT_FAIL(test, "Failed to setup thing for testing");
 >   
-> +	/*
-> +	 * drm_rect_calc_hscale() generates a warning backtrace whenever bad
-> +	 * parameters are passed to it. This affects all unit tests with an
-> +	 * error code in expected_scaling_factor.
-> +	 */
-> +	KUNIT_START_SUPPRESSED_WARNING(test);
->   	scaling_factor = drm_rect_calc_hscale(&params->src, &params->dst,
->   					      params->min_range, params->max_range);
-> +	KUNIT_END_SUPPRESSED_WARNING(test);
+> +Suppressing warning backtraces
+> +------------------------------
+> +
+> +Some unit tests trigger warning backtraces either intentionally or as side
+> +effect. Such backtraces are normally undesirable since they distract from
+> +the actual test and may result in the impression that there is a problem.
+> +
+> +Such backtraces can be suppressed with **task scope suppression**: while
+> +``START`` / ``END`` is active on the current task, the backtrace and stack
+> +dump from warnings on that task are suppressed. Wrap the call from your test
+> +in that window, like shown in the following code.
+> +
+> +.. code-block:: c
+> +
+> +	static void some_test(struct kunit *test)
+> +	{
+> +		KUNIT_START_SUPPRESSED_WARNING(test);
+> +		trigger_backtrace();
+> +		KUNIT_END_SUPPRESSED_WARNING(test);
+> +	}
+> +
+> +``KUNIT_SUPPRESSED_WARNING_COUNT()`` returns the number of suppressed backtraces.
+> +If the suppressed backtrace was triggered on purpose, this can be used to check
+> +if the backtrace was actually triggered.
+> +
+> +.. code-block:: c
+> +
+> +	KUNIT_EXPECT_EQ(test, KUNIT_SUPPRESSED_WARNING_COUNT(), 1);
+
+
+It might be worth noting that all of these must be in the same function, 
+and the KUNIT_START_SUPPRESSED_WARNING() must be first. (And, in 
+addition, there can't be more than one START/END pair per-function).
+
+Of course, if the implementation is changed, that wouldn't be necessary. :-)
 >   
->   	KUNIT_EXPECT_EQ(test, scaling_factor, params->expected_scaling_factor);
->   }
-> @@ -420,8 +427,15 @@ static void drm_test_rect_calc_vscale(struct kunit *test)
->   	const struct drm_rect_scale_case *params = test->param_value;
->   	int scaling_factor;
+>   Test Suites
+>   ~~~~~~~~~~~
+> @@ -1211,4 +1239,4 @@ For example:
+>   		dev_managed_string = devm_kstrdup(fake_device, "Hello, World!");
 >   
-> +	/*
-> +	 * drm_rect_calc_vscale() generates a warning backtrace whenever bad
-> +	 * parameters are passed to it. This affects all unit tests with an
-> +	 * error code in expected_scaling_factor.
-> +	 */
-> +	KUNIT_START_SUPPRESSED_WARNING(test);
->   	scaling_factor = drm_rect_calc_vscale(&params->src, &params->dst,
->   					      params->min_range, params->max_range);
-> +	KUNIT_END_SUPPRESSED_WARNING(test);
->   
->   	KUNIT_EXPECT_EQ(test, scaling_factor, params->expected_scaling_factor);
->   }
+>   		// Everything is cleaned up automatically when the test ends.
+> -	}
+> \ No newline at end of file
+> +	}
 > 
 
