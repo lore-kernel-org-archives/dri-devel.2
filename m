@@ -4,56 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E65DF94CDB
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 07:43:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A264DF94CD8
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 07:43:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2BEA10E8BD;
-	Wed, 22 Apr 2026 07:43:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1036E10E908;
+	Wed, 22 Apr 2026 07:43:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Gsw/+RVX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="o69cDy8t";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEEA010E8BD
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 07:43:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1776843804;
- bh=om8dKKz+wqVSPeuqRvDV+A/LUJH2lWI7oRIGMZZgXXY=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=Gsw/+RVXdQdCwetJpQZwB16ZBEShSyJh5Vf9wdfUk0s7e+WdXQ+V+2dqLvbEvlsLV
- 2fFT1O9qEryQ1ixe+oZWjWIggQ93VZMGozXN1aaJRXYI5Q3uscQOFcUb4aUYysJRXp
- Y3KkZ4A2uP6mXtf++gK2DN/4rBwazfVceCQsakIXS40SaewBiLrXq3+frWzAYRUDD4
- YtT2igNzEajEIax5/5Vy4GtjMielnHJ/0pBPZ3vwrrnVjzCyEPFMx3TamkfGKxP+g3
- LuZKBHKxO7QZT75HBfqsKMOvo1dYUU/PTgJE4mOMxKHrUK467t7dVgNxWdUZcqJcQY
- 8YK9hvb2wQDSw==
-Received: from fedora (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id D6FC817E10F4;
- Wed, 22 Apr 2026 09:43:23 +0200 (CEST)
-Date: Wed, 22 Apr 2026 09:43:19 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Steven
- Price <steven.price@arm.com>, kernel@collabora.com, Liviu Dudau
- <liviu.dudau@arm.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Daniel Almeida
- <daniel.almeida@collabora.com>, Alice Ryhl <aliceryhl@google.com>
-Subject: Re: [PATCH v8 5/6] drm/panthor: Support sparse mappings
-Message-ID: <20260422094319.1fbd13b9@fedora>
-In-Reply-To: <aefukxIMh7UtG-2x@sobremesa>
-References: <20260416214453.112332-1-adrian.larumbe@collabora.com>
- <20260416214453.112332-6-adrian.larumbe@collabora.com>
- <20260417104023.19d5e83e@fedora> <aefukxIMh7UtG-2x@sobremesa>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2C7710E908
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 07:43:41 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 76DF244158;
+ Wed, 22 Apr 2026 07:43:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 4B8EBC2BCB4;
+ Wed, 22 Apr 2026 07:43:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1776843821;
+ bh=yF5vtNI4rT6BiL2Y7UF7MFh6FNbB7HXVaTHOlFHns4c=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=o69cDy8tbQ/rFk2g7ooDbwdUZlK9kaYqr7t0KOEyl67f9BTunm98an7/ahUgblUDC
+ Fw5r/gkMQR6+j1ycjxUF3M2d9mosgb95bLGlMvKF4H2BrjiQUtIw8ZZGoWT2Tto+ii
+ FZAn4XGIq0mDpLTT614MNM2z8ZIZEan1LiJMaV04J9bU+EjUuMskeytQ3y43u7RDLi
+ 39MYXyh/Ko1gD2OcxkfX8MjsuYQBl+5/QllvdpxmRycqk2g434DkdQF93mWZqMYPgE
+ GvwuQi3Np+wPKLmFYK8uneoZxYW1J1zs5hW+cEkyuqh+R39Jl5S1Mri6JG4VT4lnA1
+ 8MtST4jY6JmLQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 3BE0CF94CD8;
+ Wed, 22 Apr 2026 07:43:41 +0000 (UTC)
+From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
+Date: Wed, 22 Apr 2026 02:43:24 -0500
+Subject: [PATCH v6 1/2] dt-bindings: display: panel: Add ChipWealth
+ CH13726A AMOLED driver
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260422-ch13726a-v6-1-03680d6673ff@gmail.com>
+References: <20260422-ch13726a-v6-0-03680d6673ff@gmail.com>
+In-Reply-To: <20260422-ch13726a-v6-0-03680d6673ff@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Teguh Sobirin <teguh@sobir.in>, 
+ Aaron Kling <webgeek1234@gmail.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1776843820; l=2305;
+ i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
+ bh=PeipF7stSlnB3KSvVvobRqzG1vhA7mb7CLIfwJcYi7Y=;
+ b=YPGy5wjPhjJBDLIYh9AnykNVDs7Ik0t7MYZR0gVn1BuQBmmFqgQyIock7Ug313egE9eNrwkuM
+ fYlMJSJLS8pDhcB2FshZd71C7zikw5yx6cB1CshC+ThfGhTqkuSH9X6
+X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
+ pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
+X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
+ auth_id=342
+X-Original-From: Aaron Kling <webgeek1234@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,46 +78,96 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: webgeek1234@gmail.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 21 Apr 2026 22:44:18 +0100
-Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
+From: Aaron Kling <webgeek1234@gmail.com>
 
-> >
-> > Also, how about we do a
-> >
-> > 			gem =3D drm_gem_object_get(&vm->dummy->base) =20
->=20
-> I'm afraid drm_gem_object_get() doesn't return a pointer to the same obje=
-ct. Other drivers work around this
-> by defining their own refcnt macro like:
->=20
-> static inline struct xe_bo *xe_bo_get(struct xe_bo *bo)
-> {
-> 	if (bo)
-> 		drm_gem_object_get(&bo->ttm.base);
->=20
-> 	return bo;
-> }
->=20
-> However, this is meant to operate on the driver-specific bo rather than a=
- generic DRM one. We could also do this:
->=20
-> if (!(op->flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE))
->         gem =3D drm_gem_object_lookup(file, op->bo_handle);
-> else
->         drm_gem_object_get(gem =3D &vm->dummy->base);
+The Chip Wealth Technology CH13726A AMOLED driver is a single chip
+solution for MIPI-DSI. This is used for the AYN Thor bottom panel.
 
-If it's just this single instance, let's go for:
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+---
+ .../display/panel/chipwealth,ch13726a.yaml         | 67 ++++++++++++++++++++++
+ 1 file changed, 67 insertions(+)
 
-	if (!(op->flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE)) {
-		gem =3D drm_gem_object_lookup(file, op->bo_handle);
-	} else {
-		gem =3D &vm->dummy->base;
-		drm_gem_object_get(gem);
-	}
+diff --git a/Documentation/devicetree/bindings/display/panel/chipwealth,ch13726a.yaml b/Documentation/devicetree/bindings/display/panel/chipwealth,ch13726a.yaml
+new file mode 100644
+index 00000000000000..c8d7b61037e622
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/panel/chipwealth,ch13726a.yaml
+@@ -0,0 +1,67 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/chipwealth,ch13726a.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Chip Wealth Technology CH13726A AMOLED driver
++
++maintainers:
++  - Neil Armstrong <neil.armstrong@linaro.org>
++
++description:
++  Chip Wealth Technology CH13726A is a single-chip solution
++  for AMOLED connected using a MIPI-DSI video interface.
++
++allOf:
++  - $ref: panel-common.yaml#
++
++properties:
++  compatible:
++    items:
++      - const: ayntec,thor-panel-bottom
++      - const: chipwealth,ch13726a
++
++  reg:
++    maxItems: 1
++    description: DSI virtual channel
++
++  vdd-supply: true
++  vddio-supply: true
++  vdd1v2-supply: true
++  avdd-supply: true
++
++  port: true
++  reset-gpios: true
++  rotation: true
++
++required:
++  - compatible
++  - reg
++  - vdd-supply
++  - vddio-supply
++  - vdd1v2-supply
++  - avdd-supply
++  - reset-gpios
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    dsi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++        panel@0 {
++            compatible = "ayntec,thor-panel-bottom", "chipwealth,ch13726a";
++            reg = <0>;
++            vdd1v2-supply = <&vreg_l11b_1p2>;
++            vddio-supply = <&vdd_disp_1v8>;
++            vdd-supply = <&vreg_l13b_3p0>;
++            avdd-supply = <&vdd_disp2_2v8>;
++            reset-gpios = <&tlmm 133 GPIO_ACTIVE_HIGH>;
++        };
++    };
++
++...
 
-If there are multiple places where we want to acquire a
-panthor_gem_object ref, it might make sense to add those
-panthor_bo_{get,put}() helpers.
+-- 
+2.53.0
+
+
