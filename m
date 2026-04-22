@@ -4,53 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D924F94CA2
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 00:45:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56EF8F94CA2
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 01:27:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9DCB10EDFE;
-	Wed, 22 Apr 2026 00:45:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 643EC10EE0B;
+	Wed, 22 Apr 2026 01:27:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Pa1B8KsF";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lOmx9Cj6";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93F6010EDFE
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 00:45:30 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 13A3460018;
- Wed, 22 Apr 2026 00:45:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEFA1C2BCB0;
- Wed, 22 Apr 2026 00:45:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776818729;
- bh=0+lD1M+dekh11zqg5ftYA0my+o6aHPds9ommVvlpxME=;
- h=Subject:From:In-Reply-To:References:Date:To:Cc:From;
- b=Pa1B8KsF1/OFh+zqP68OP7bfSmq3BPNHJ0Y/ZdLtwWlwdqYhgLVL/+7v6+6NVQFUi
- Ng1u0NnsSJvBkqYUQO50xh2JNvhNyw3iILueGOxx0q5vmezH0teQwQYvUlMfkYHCxW
- uVXSMwngzPU7eMeXmJdpi66XpqO8E619wS0qkCz3zTVPGUVqHChNg5KYXA/5XE6E0e
- LrngNkzng5SoScSWeMSNNA3C3hPS0sPCD9fuM/dxqccAYCnx2ZXOjXBgHY6d1RK0An
- nXxy+2tyLQ2gY/x7DCJLH/R7bXmNpTqw3X9ux7Aowm2Q/SRwvAtM5A91UPuX4uFkCG
- +j0Wd42KU+8HQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
- by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- 1D36D3930018; Wed, 22 Apr 2026 00:44:54 +0000 (UTC)
-Subject: Re: [git pull] drm for 7.1-rc1 (part two again...)
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <CAPM=9tyROdmL71Qe+2gLbCEogPDFwLyHhkUoW3H3tfKsKK4qMw@mail.gmail.com>
-References: <CAPM=9tyROdmL71Qe+2gLbCEogPDFwLyHhkUoW3H3tfKsKK4qMw@mail.gmail.com>
-X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <CAPM=9tyROdmL71Qe+2gLbCEogPDFwLyHhkUoW3H3tfKsKK4qMw@mail.gmail.com>
-X-PR-Tracked-Remote: https://gitlab.freedesktop.org/drm/kernel.git
- tags/drm-next-2026-04-22
-X-PR-Tracked-Commit-Id: a7756371e57f69a137f295a418fb56f15ff2c10f
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 6596a02b207886e9e00bb0161c7fd59fea53c081
-Message-Id: <177681869283.3068898.17285631486094948192.pr-tracker-bot@kernel.org>
-Date: Wed, 22 Apr 2026 00:44:52 +0000
-To: Dave Airlie <airlied@gmail.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
- Simona Vetter <simona@ffwll.ch>, dri-devel <dri-devel@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>
+Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com
+ [74.125.224.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2FB410EE0B
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 01:27:18 +0000 (UTC)
+Received: by mail-yx1-f41.google.com with SMTP id
+ 956f58d0204a3-651c366f7efso5229238d50.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 18:27:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1776821237; x=1777426037; darn=lists.freedesktop.org;
+ h=in-reply-to:autocrypt:from:content-language:references:cc:to
+ :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=m9fhkqi5RYYYf8jtou/uXhqtRGhljUy8t+WuNuRPkCY=;
+ b=lOmx9Cj6o2K3Fo29itLSvRO8QKXl3A0u7hElqaA+9KTXnCvCzhprW6M44dk+lKVoMV
+ 0RMBfN7eMOKMk3fxmmba8/Rd6dtl6t/fIlFut7yqbz5dmEHQ+kwiUrzoVlJ+U82b9OZF
+ lBUanD8yv2c2HQKKLvZ96ceVvhMhpQXNnXbNHpEN+pWuEgvTOH2PdkWUNOlnZWhCjmKY
+ 2Z8WOKADhwDKjLdXnRe5orcHCgeBUOpa88aUozwzA9BQb0C9qhS7wSUGOXZ4cLMsZw7q
+ nZltTvkCFMO2TIBeHH2b08AqPy7voIph0PJFya0gW93XEKC4xBpq+MK+xgsl5SutYPa5
+ KXXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776821237; x=1777426037;
+ h=in-reply-to:autocrypt:from:content-language:references:cc:to
+ :subject:user-agent:mime-version:date:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=m9fhkqi5RYYYf8jtou/uXhqtRGhljUy8t+WuNuRPkCY=;
+ b=V9RBqfni/5b/CZBZ70U8iAkfuAiFgTDncybtSlWQv+YH/opS22WJdLo3sT/lUpcvh/
+ 5ri4hCexoE5yGP6yPNmG9lcmjW0ieupJ9el8y7wjKh5xsBwk1jLqlANSyrC3i+7f61tT
+ 6JxHUhcveBrZDr06HDPJut2Ju7gKUKiEmdIRGr04vZFfjNh0k3VLVNr1G+5L6P9a4r8A
+ vhgEDEmm4qp2xh+DQHWiX9bbkagfw9I0FydHltQIrJQyJaStdZz4U+65n/UBQe2W91sL
+ D5Qxp/vdoEuoTdZvjTbZA+tUaK6Oo5PZUaei9+a20ZPTAVspz7xR4RRgUpXcIbz5l3sl
+ SfAQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9cNjQSoayToS6MVpbLY582bhMveCsoAtV2LVvmf+lH0jjttmnHt5OwkErw6umXc0Kv8cME65bpt+A=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxduFniCRdAmmxdgC1jdJLiPy2ddXuveUrHty4am/TGBqydHkIu
+ Lq4uKr+WtxZO/VXltTej+KBFuEaOBK9rArtmOHwmnVuoWOE6TevlWrN/
+X-Gm-Gg: AeBDiesljRq9EpdAO1EQfXueSwJUgZjxOaBmVd6ddpdiCMLIVe9gSJWRsNjHqDbhZgi
+ kLTmttazCFvLRKZ2BQCXvxaBH7VefaeOQnAnjMHIG/1EEVq5iHH478L+xM+u24VMjYgIqgHzmUH
+ GevbLzfzmgFlqZV4wvu0B5+Xoj7hLUJ6LNkDtivwmkVaj6NdgAUJdV0LquetaWYrQuXk8DceAJo
+ YJAHa1VorquF4ROO4gBJfqLeW83YVqHEm/Z4+LyWj4dkNTqqsvcLJxRsyXmsEv4tXa3WaDIVw/x
+ Rru33mowdpFs7WFYxGflMF+Np0HczWLWBk/BhNVwV2N31yf4LZkxN6rVXBEScUE3rzYfnJ3994M
+ msMQfiM3MqAt1knpvfnCiMO47sp3+IFbn4Flr2OgEhKqy+pCKBKD+bA/QKM4cvPp1532OTj+vp1
+ 3ZBG/M9SviGV022fq68/HvvaSeoVZa3K6kd1sh1YCzOPtCqWddwwuRa1SUJp0OSdn+cEuDQrjBs
+ 8utKoWf65hDNoewWcgLO2NiAUx7HmBZnJzbfbkWBvWdK3c6VVJt
+X-Received: by 2002:a05:690e:4844:b0:650:70da:bc25 with SMTP id
+ 956f58d0204a3-65310b44cfbmr12505506d50.58.1776821237271; 
+ Tue, 21 Apr 2026 18:27:17 -0700 (PDT)
+Received: from [10.138.34.110]
+ (h69-131-150-190.cncrtn.broadband.dynamic.tds.net. [69.131.150.190])
+ by smtp.gmail.com with ESMTPSA id
+ 956f58d0204a3-65314b7d42bsm7570306d50.8.2026.04.21.18.27.15
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 21 Apr 2026 18:27:16 -0700 (PDT)
+Message-ID: <d045e25d-0bc5-4056-b4a2-9eda73fb5be7@gmail.com>
+Date: Tue, 21 Apr 2026 21:27:12 -0400
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: Pinned, non-revocable mappings of VRAM: will bad things happen?
+To: Val Packett <val@invisiblethingslab.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org,
+ Xen developer discussion <xen-devel@lists.xenproject.org>,
+ linux-media@vger.kernel.org
+Cc: Suwit Semal <sumit.semwal@linaro.org>,
+ "Pelloux-Prayer, Pierre-Eric" <Pierre-eric.Pelloux-prayer@amd.com>
+References: <a06133f7-3093-4733-9786-bc46c1453e06@gmail.com>
+ <b8d04414-18b5-40f7-9ea2-88b30ff5bea0@amd.com>
+ <c7865b27-6bf1-4df1-9520-c9ef6b3ef368@gmail.com>
+ <4751cf03-d3c1-4d5d-af8e-39ad7c8ffb84@amd.com>
+ <7472bfcf-8c22-4ac7-b903-a883cdb8f1c6@gmail.com>
+ <8fe8b78b-5294-4319-af92-a4fb00527417@amd.com>
+ <8846bac5-77ff-4439-ac5c-c33cdb4a94e3@gmail.com>
+ <964c3670-fad3-44ce-bd93-2057bca2dcb8@amd.com>
+ <08ad2301-3163-4497-8869-fa4cea30b384@gmail.com>
+ <e5c00f2c-0819-48b4-b66e-71b9a40a7235@amd.com>
+ <686713fc-c762-4b1b-88b2-d486d4f38ac6@gmail.com>
+ <de6777c1-1165-4ace-a5a7-3004aa9ea8c5@invisiblethingslab.com>
+Content-Language: en-US
+From: Demi Marie Obenour <demiobenour@gmail.com>
+Autocrypt: addr=demiobenour@gmail.com; keydata=
+ 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
+ +MYSfkEjBz0E8CLOcAw7JIwAaeBT
+In-Reply-To: <de6777c1-1165-4ace-a5a7-3004aa9ea8c5@invisiblethingslab.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------SebHAdj8yxVfqcchjV0gaqoc"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,15 +152,429 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The pull request you sent on Wed, 22 Apr 2026 07:50:35 +1000:
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------SebHAdj8yxVfqcchjV0gaqoc
+Content-Type: multipart/mixed; boundary="------------fCxYjExTx4afN7vZNGscsPeS";
+ protected-headers="v1"
+Message-ID: <d045e25d-0bc5-4056-b4a2-9eda73fb5be7@gmail.com>
+Date: Tue, 21 Apr 2026 21:27:12 -0400
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: Pinned, non-revocable mappings of VRAM: will bad things happen?
+To: Val Packett <val@invisiblethingslab.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org,
+ Xen developer discussion <xen-devel@lists.xenproject.org>,
+ linux-media@vger.kernel.org
+Cc: Suwit Semal <sumit.semwal@linaro.org>,
+ "Pelloux-Prayer, Pierre-Eric" <Pierre-eric.Pelloux-prayer@amd.com>
+References: <a06133f7-3093-4733-9786-bc46c1453e06@gmail.com>
+ <b8d04414-18b5-40f7-9ea2-88b30ff5bea0@amd.com>
+ <c7865b27-6bf1-4df1-9520-c9ef6b3ef368@gmail.com>
+ <4751cf03-d3c1-4d5d-af8e-39ad7c8ffb84@amd.com>
+ <7472bfcf-8c22-4ac7-b903-a883cdb8f1c6@gmail.com>
+ <8fe8b78b-5294-4319-af92-a4fb00527417@amd.com>
+ <8846bac5-77ff-4439-ac5c-c33cdb4a94e3@gmail.com>
+ <964c3670-fad3-44ce-bd93-2057bca2dcb8@amd.com>
+ <08ad2301-3163-4497-8869-fa4cea30b384@gmail.com>
+ <e5c00f2c-0819-48b4-b66e-71b9a40a7235@amd.com>
+ <686713fc-c762-4b1b-88b2-d486d4f38ac6@gmail.com>
+ <de6777c1-1165-4ace-a5a7-3004aa9ea8c5@invisiblethingslab.com>
+Content-Language: en-US
+From: Demi Marie Obenour <demiobenour@gmail.com>
+Autocrypt: addr=demiobenour@gmail.com; keydata=
+ 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
+ +MYSfkEjBz0E8CLOcAw7JIwAaeBT
+In-Reply-To: <de6777c1-1165-4ace-a5a7-3004aa9ea8c5@invisiblethingslab.com>
 
-> https://gitlab.freedesktop.org/drm/kernel.git tags/drm-next-2026-04-22
+--------------fCxYjExTx4afN7vZNGscsPeS
+Content-Type: multipart/mixed; boundary="------------q9AC06bCVyaPOibqDCDhtYPK"
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/6596a02b207886e9e00bb0161c7fd59fea53c081
+--------------q9AC06bCVyaPOibqDCDhtYPK
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you!
+On 4/21/26 12:55, Val Packett wrote:
+>=20
+> On 4/20/26 4:12 PM, Demi Marie Obenour wrote:
+>> On 4/20/26 14:53, Christian K=C3=B6nig wrote:
+>>> On 4/20/26 20:46, Demi Marie Obenour wrote:
+>>>> On 4/20/26 13:58, Christian K=C3=B6nig wrote:
+>>>>> On 4/20/26 19:03, Demi Marie Obenour wrote:
+>>>>>> On 4/20/26 04:49, Christian K=C3=B6nig wrote:
+>>>>>>> On 4/17/26 21:35, Demi Marie Obenour wrote:
+>>>>> ...
+>>>>>>>> Are any of the following reasonable options?
+>>>>>>>>
+>>>>>>>> 1. Change the guest kernel to only map (and thus pin) a small su=
+bset
+>>>>>>>>     of VRAM at any given time.  If unmapped VRAM is accessed the=
+ guest
+>>>>>>>>     traps the page fault, evicts an old VRAM mapping, and create=
+s a
+>>>>>>>>     new one.
+>>>>>>> Yeah, that could potentially work.
+>>>>>>>
+>>>>>>> This is basically what we do on the host kernel driver when we ca=
+n't resize the BAR for some reason. In that use case VRAM buffers are shu=
+ffled in and out of the CPU accessible window of VRAM on demand.
+>>>>>> How much is this going to hurt performance?
+>>>>> Hard to say, resizing the BAR can easily give you 10-15% more perfo=
+rmance on some use cases.
+>>>>>
+>>>>> But that involves physically transferring the data using a DMA. For=
+ this solution we basically only have to we basically only have to transf=
+er a few messages between host and guest.
+>>>>>
+>>>>> No idea how performant that is.
+>>>> In this use-case, 20-30% performance penalties are likely to be
+>>>> "business as usual".
+>>> Well that is quite a bit.
+>>>
+>>>> Close to native performance would be ideal, but
+>>>> to be useful it just needs to beat software rendering by a wide marg=
+in,
+>>>> and not cause data corruption or vulnerabilities.
+>>> That should still easily be the case, even trivial use cases are mult=
+iple magnitudes faster on GPUs compared to software rendering.
+>> Makes sense.  If only GPUs supported easy and flexible virtualization =
+the way CPUs do :(.
+>>
+>>>>>>> But I have one question: When XEN has a problem handling faults f=
+rom the guest on the host then how does that work for system memory mappi=
+ngs?
+>>>>>>>
+>>>>>>> There is really no difference between VRAM and system memory in t=
+he handling for the GPU driver stack.
+>>>>>>>
+>>>>>>> Regards,
+>>>>>>> Christian.
+>>>>>> Generally, Xen makes the frontend (usually an unprivileged VM)
+>>>>>> responsible for providing mappings to the backend (usually the hos=
+t).
+>>>>>> That is possible with system RAM but not with VRAM, because Xen ha=
+s
+>>>>>> no awareness of VRAM.  To Xen, VRAM is just a PCI BAR.
+>>>>> No, that doesn't work with system memory allocations of GPU drivers=
+ either.
+>>>>>
+>>>>> We already had it multiple times that people tried to be clever and=
+ incremented the page reference counter on driver allocated system memory=
+ and were totally surprised that this can result in security issues and d=
+ata corruption.
+>>>>>
+>>>>> I seriously hope that this isn't the case here again. As far as I k=
+now XEN already has support for accessing VMAs with VM_PFN or otherwise I=
+ don't know how driver allocated system memory access could potentially w=
+ork.
+>>>>>
+>>>>> Accessing VRAM is pretty much the same use case as far as I can see=
+=2E
+>>>>>
+>>>>> Regards,
+>>>>> Christian.
+>>>> The Xen-native approach would be for system memory allocations to
+>>>> be made using the Xen driver and then imported into the virtio-GPU
+>>>> driver via dmabuf.  Is there any chance this could be made to happen=
+?
+>>> That could be. Adding Pierre-Eric to comment since he knows that use =
+much better than I do.
+>>>
+>>>> If it's a lost cause, then how much is the memory overhead of pinnin=
+g
+>>>> everything ever used in a dmabuf?  It should be possible to account
+>>>> pinned host memory against a guest's quota, but if that leads to an
+>>>> unusable system it isn't going to be good.
+>>> That won't work at all.
+>>>
+>>> We have use cases where you *must* migrate a DMA-buf to VRAM or other=
+wise the GPU can't use it.
+>>>
+>>> A simple scanout to a monitor is such an use case for example, that i=
+s usually not possible from system memory.
+>> Direct scanout isn't a concern here.
+>>
+>>>> Is supporting page faults in Xen the only solution that will be viab=
+le
+>>>> long-term, considering the tolerance for very substantial performanc=
+e
+>>>> overheads compared to native?  AAA gaming isn't the initial goal her=
+e.
+>>>> Qubes OS already supports PCI passthrough for that.
+>>> We have AAA gaming working on XEN through native context working for =
+quite a while.
+>>>
+>>> Pierre-Eric can tell you more about that.
+>>>
+>>> Regards,
+>>> Christian.
+>> I've heard of that, but last I checked it required downstream patches
+>> to Xen, Linux, and QEMU.  I don't know if any of those have been
+>> upstreamed since, but I believe that upstreaming the Xen and Linux
+>> patches (or rewriting them and upstreaming the rewritten version) woul=
+d
+>> be necessary.  Qubes OS (which I don't work for anymore but still want=
 
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+>> to help with this) almost certainly won't be using QEMU for GPU stuff.=
+
+>=20
+> Yeah, our plan is to use xen-vhost-frontend[1] + vhost-device-gpu,=20
+> ported/extended/modified as necessary. (I already have=20
+> xen-vhost-frontend itself working on amd64 PVH with purely xenbus-based=
+=20
+> hotplug/configuration, currently working on cleaning up and submitting =
+
+> the necessary patches.)
+>=20
+> I'm curious to hear more details about how AMD has it working but last =
+
+> time I checked, there weren't any missing pieces in Xen or Linux that=20
+> we'd need.. The AMD downstream changes were mostly related to QEMU.
+>=20
+> As for the memory management concerns, I would like to remind everyone =
+
+> once again that the pinning of GPU dmabufs in regular graphics workload=
+s=20
+> would be *very* short-term. In GPU paravirtualization (native contexts =
+
+> or venus or whatever else) the guest mostly operates on *opaque handles=
+*=20
+> that refer to buffers owned by the host GPU process. The typical=20
+> rendering process (roughly) only involves submitting commands to the GP=
+U=20
+> that refer to memory using these handles. Only upon mmap() would a=20
+> buffer be pinned/granted to the guest, and those are typically only use=
+d=20
+> for *uploads* where the guest immediately does its memcpy() and unmaps =
+
+> the buffer.
+>=20
+> So I'm not worried about (unintentionally) pinning too much GPU driver =
+
+> memory.
+>=20
+> In terms of deliberate denial-of-service attacks from the guest to the =
+
+> host, the only reasonable response is:
+>=20
+> =C2=AF\_(=E3=83=84)_/=C2=AF
+>=20
+> CPU-mapping lots of GPU memory is far from the only DoS vector, the GPU=
+=20
+> commands themselves can easily wedge the GPU core in a million ways (an=
+d=20
+> last time I checked amdgpu was noooot so good at recovering from hangs)=
+=2E
+>=20
+>=20
+> [1]: https://github.com/vireshk/xen-vhost-frontend
+>=20
+> ~val
+
+I think it is best to handle things like GPU crashes by giving the guest
+some time to unmap its grants, and if that fails, crashing it.  This shou=
+ld
+be done from a revoke callback, as afterwards the VRAM might get reused.
+
+Does amdgpu call revoke callbacks when the device is reset and VRAM
+is lost?  It seems like it at least ought to.
+
+As an aside, Qubes needs to use the process isolation mode of the
+amdgpu driver.  This means that only one process will be on the GPU
+at a time, so it _should_ be possible to blow away all GPU-resident
+state except VRAM without affecting other processes.  Unfortunately,
+I think AMD GPUs might have HW or FW limitations that prevent that,
+at least on dGPUs.
+
+It might make sense to recommend KDE with GPU acceleration.  KWin can
+recover from losing VRAM.
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+--------------q9AC06bCVyaPOibqDCDhtYPK
+Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsFNBFp+A0oBEADffj6anl9/BHhUSxGTICeVl2tob7hPDdhHNgPR4C8xlYt5q49y
+B+l2nipdaq+4Gk6FZfqC825TKl7eRpUjMriwle4r3R0ydSIGcy4M6eb0IcxmuPYf
+bWpr/si88QKgyGSVZ7GeNW1UnzTdhYHuFlk8dBSmB1fzhEYEk0RcJqg4AKoq6/3/
+UorR+FaSuVwT7rqzGrTlscnTDlPWgRzrQ3jssesI7sZLm82E3pJSgaUoCdCOlL7M
+MPCJwI8JpPlBedRpe9tfVyfu3euTPLPxwcV3L/cfWPGSL4PofBtB8NUU6QwYiQ9H
+zx4xOyn67zW73/G0Q2vPPRst8LBDqlxLjbtx/WLR6h3nBc3eyuZ+q62HS1pJ5EvU
+T1vjyJ1ySrqtUXWQ4XlZyoEFUfpJxJoN0A9HCxmHGVckzTRl5FMWo8TCniHynNXs
+BtDQbabt7aNEOaAJdE7to0AH3T/Bvwzcp0ZJtBk0EM6YeMLtotUut7h2Bkg1b//r
+6bTBswMBXVJ5H44Qf0+eKeUg7whSC9qpYOzzrm7+0r9F5u3qF8ZTx55TJc2g656C
+9a1P1MYVysLvkLvS4H+crmxA/i08Tc1h+x9RRvqba4lSzZ6/Tmt60DPM5Sc4R0nS
+m9BBff0Nm0bSNRS8InXdO1Aq3362QKX2NOwcL5YaStwODNyZUqF7izjK4QARAQAB
+zTxEZW1pIE9iZW5vdXIgKElUTCBFbWFpbCBLZXkpIDxhdGhlbmFAaW52aXNpYmxl
+dGhpbmdzbGFiLmNvbT7CwY4EEwEIADgWIQR2h02fEza6IlkHHHGyiLVf/5wiwQUC
+X6YJvQIbAwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgAAKCRCyiLVf/5wiwWRhD/0Y
+R+YYC5Kduv/2LBgQJIygMsFiRHbR4+tWXuTFqgrxxFSlMktZ6gQrQCWe38WnOXkB
+oY6n/5lSJdfnuGd2UagZ/9dkaGMUkqt+5WshLFly4BnP7pSsWReKgMP7etRTwn3S
+zk1OwFx2lzY1EnnconPLfPBc6rWG2moA6l0WX+3WNR1B1ndqpl2hPSjT2jUCBWDV
+rGOUSX7r5f1WgtBeNYnEXPBCUUM51pFGESmfHIXQrqFDA7nBNiIVFDJTmQzuEqIy
+Jl67pKNgooij5mKzRhFKHfjLRAH4mmWZlB9UjDStAfFBAoDFHwd1HL5VQCNQdqEc
+/9lZDApqWuCPadZN+pGouqLysesIYsNxUhJ7dtWOWHl0vs7/3qkWmWun/2uOJMQh
+ra2u8nA9g91FbOobWqjrDd6x3ZJoGQf4zLqjmn/P514gb697788e573WN/MpQ5XI
+Fl7aM2d6/GJiq6LC9T2gSUW4rbPBiqOCeiUx7Kd/sVm41p9TOA7fEG4bYddCfDsN
+xaQJH6VRK3NOuBUGeL+iQEVF5Xs6Yp+U+jwvv2M5Lel3EqAYo5xXTx4ls0xaxDCu
+fudcAh8CMMqx3fguSb7Mi31WlnZpk0fDuWQVNKyDP7lYpwc4nCCGNKCj622ZSocH
+AcQmX28L8pJdLYacv9pU3jPy4fHcQYvmTavTqowGnM08RGVtaSBNYXJpZSBPYmVu
+b3VyIChsb3ZlciBvZiBjb2RpbmcpIDxkZW1pb2Jlbm91ckBnbWFpbC5jb20+wsF4
+BBMBAgAiBQJafgNKAhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRCyiLVf
+/5wiwYa/EACv8a2+MMou9cSCNoZBQaU+fTmyzft9hUE+0d5W2UY1RY3OsjFIzm9R
+/4SVccfsqOYLEo+S0vQMIIIqFEq3FCpXXwPzyimotps05VA8U3Bd7yseojFygOgK
+sAMOAee2RCaDDOnoJue01dfZMzzHPO/TVdp3OvnpWipfv5G1Xg96rwbhMLE3tg6N
+xwAHa31Bv4/Xq8CJOoIWvx6fcmZQpz01/lSvsYn0KrfEbTKkuUf0vM9JrCTCP2oz
+VNN5BYzqaq2M4r+jmSyeXLim922VOWqGkUEQ85BSEemqrRS06IU6NtEMsF8EWt/b
+hWjk/9GDKTcnpdJHTrMxTspExBiNrvpI2t+YPU5B/dJJAUxvmhFrbSIbdB8umBZs
+I3AMYrEmpAbh5x7jEjoskUC7uN3o9vpg1oCLS2ePDLtAtyBtbHnkA4xGD7ar8mem
+xpH9lY/i+sC6CyyIUWcUDnnagKyJP0m9ks0GLsTeOCA0bft2XA6rD6aaCnMUsndT
+ctrab42CV5XypjmC4U1rPJ8JQJUh1/3P48/8sMH+3krxpJ06KNWNFaUbaMTGiltZ
+7x9DngklSYrX0T+2G4kVXNmjaljwkoLahwLla2gUWwBSyofXdqyhQdwZsp01KXNQ
+UCyT/Pg+aDcm/E7OMV3d4lf7g/CSxiX2GSEe6BlhSz+Lmd7ZJ3g32M1ARGVtaSBN
+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
+EtJuZYM5blWncBOJCoWMnBEcTEo/viU3GgcVRw=3D=3D
+=3Dx94R
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------q9AC06bCVyaPOibqDCDhtYPK--
+
+--------------fCxYjExTx4afN7vZNGscsPeS--
+
+--------------SebHAdj8yxVfqcchjV0gaqoc
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmnoI/AACgkQszaHOrMp
+8lM1ahAAjMCbfIDX3RZLxBoBao3MOhrPxNVefEVZKXVfvOE0u5DPp8Y3OxUsaQJe
+X3dTRcGanzGu0dV2J6hRInKXH86H+8Jig8XLAVSUozkY2L5OzDwE9U6iN/kSIl7u
+ZxWKJt8pZZQ0CX+5BJ75nhAoAZO0/TzIAC0sQ53G9KspZueco2ZUTJ540lL2/kRk
+dCyL3ujwDkXZvo5SOvVHnRFV6rDoD96TMRuu0y0GgVMdOX6I+kIrXsKpiM73Ok7W
+2IwsciWxucQWBYjsnvPkM1aLtkysMCcUwyLXoMdly1L7jKVY4WaVVzXvVbLl9D2Y
+04EcEuhWHcpHG/W1BKbgISlZfWP/BsluE5hTdjJksHDGEBsGrBIdjMNS5y46kTlq
+oLfcWl/OIzP483qdFpDfgJJ/TQdLU46aTYGJiiIZPzKXAPCNRUm2ZnplatSjpdiA
+JfnZo60JuprDa0oiG9MNFk0VCUghsU79bhkrGAy/FAGc1kpminIyYfh2ypAaS7IK
+43diFPyCidJG+1dvGxR39kPFLOAtBx9ZV8Y4voQPrjZXAUAC1V4Yt1ixp3S7OB2O
+gEq8juh/2O6CdQ8fkfTdv3GcD8hta3urqT1Ejp+Tmpoxnn00NDukGX9zt/cpC3we
+Ss7oSS0X7UEMzrvVAy7hli0989tg8oTNH3RI68pAPhv/UVpkBCA=
+=nMSR
+-----END PGP SIGNATURE-----
+
+--------------SebHAdj8yxVfqcchjV0gaqoc--
