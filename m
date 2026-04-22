@@ -4,95 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75E24F9EDF9
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 15:21:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE2CEF9EDF9
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 15:23:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EF6310E2CB;
-	Wed, 22 Apr 2026 15:21:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E3E1410EA47;
+	Wed, 22 Apr 2026 15:23:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RlSp7wVQ";
+	dkim=pass (2048-bit key; unprotected) header.d=shazbot.org header.i=@shazbot.org header.b="rUc2xiht";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="QKfQ4zVP";
 	dkim-atps=neutral
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E97610E2CB
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 15:21:25 +0000 (UTC)
-Received: by mail-dl1-f42.google.com with SMTP id
- a92af1059eb24-12c8cac037cso335757c88.3
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 08:21:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776871284; cv=none;
- d=google.com; s=arc-20240605;
- b=YY+S3Lf/GBH3LEk62AgSUy5bowBdkOnjAXRhiCZJYgBajZziuUpOTUeX87mEikvSzb
- Q0xeyigDJaZzDhRBbs0YDjsKayalfl+0TJgYFyP3h3D5g4j0RpDOq7jZU/moUnvLl5CZ
- 4MJQ7dz+NEhfVgfr4K/gc3omloIveBdjGqFln6LRnoiSIwJajbnScEGdXWje1m31pVQc
- P7Bgm95obu4T5tx8e1PtbuAaUT5Ywpf6TdGGinhv7k/jHlTsvAGJYUaa1L0rN7XqR0p7
- pnHyB76Me7lO/rJ8x1bc75VipTdKoiC8xK/Qqja8GEu1Ij+dC8Krx14oLH9Ys6gVq7s8
- lvPQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=PRVwp2dnScW6r8xUQitR2DStMGtshyNjJneKJxOSVYw=;
- fh=bILhxf60BJWxLc1Uvk9Xs9zT4iLoCBPgxjfWfwNtYtk=;
- b=V0wbWwbsSgvMberlEcWGOIGsDxiE76CZhVaE8ZoHV4jJOoJifFEuASsLUcuhu++Dql
- FDcTXqQrLR+c/Mqhr5PB27yMLCgL/DGEkVI5wvVvuWQQ0MkSo9v4p0kqRvYr4S5LKShB
- e3zDBP4baxkOaHi9P8JKgp6DueVyZqn0QfViw9WGkfWT9ito0c8jD6MxZ8w52jm/qsY2
- k0iTRbm0z/azWNP4qZ10mBDZLLho+vpHjeiTNyPqSYPvd910vsDBQAw4kLaIyadVsuP0
- hlUdalKn9HwprzDaA8mvRf0vghIiHUu+awuyVObS/OsV45yxeU6QLXyU6Vy9sdXxbwzY
- mVfQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776871284; x=1777476084; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=PRVwp2dnScW6r8xUQitR2DStMGtshyNjJneKJxOSVYw=;
- b=RlSp7wVQCJ9L/3pPg92GyT+vGkHPtS/JHtl9UVA1SqShgaQJPcIy2LjQ0G1TxKt0zV
- OvuwICxUIxIHIDN4OitsgUjANiMe2cd1rSCrNJq5Y23I2yr/UAQ+wJa7d9ud0quW+mIu
- azMzG44f/X5wFxIMVG8Ncthhlr46w6Czv9dgaY/Bl2T4MBsO0nuG8BUywCHfN1y89Hwl
- 3O+59ob8j2iDNTDLKEd1yTovjdBGyKoRHDG+tu5nVp42shErgJ+cFmlfBhtDOiyn/YlO
- kuygzvOLzoPPiXIdtUN3eFs2OjIO7VFQfTYH00UAxfBlh7JlUTBD3Ebs7/wem5Rmr4xZ
- NIXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776871284; x=1777476084;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=PRVwp2dnScW6r8xUQitR2DStMGtshyNjJneKJxOSVYw=;
- b=sdcyJBquyrfvJy7pS+msfDdyVo2A9YbM9WFL7qyabCEswlDeLFlaBn9Mece1Ktmxij
- jcJDSjM31E1Jw818kdxw98uYcDmbI36/KJq4OFgvdqg0EZV/MMUbzpGyaBN8E6H2t7ko
- 3BKM1QT6/c929zka56aNhNvmrelB1WQttj/rWc53mY37PE2wyGbZqKukHhgZ0jY8JYqc
- E2EqZlxLno+IWnNXPwWhJRusMHRQ1bc0CrfWh5CTXBPiSahGQfZbH92SRq6IC+2Y/9gY
- qNgmOv0Nf069dbc8sdlhZ7H8iCw7Cih9oZSjRkk//VLGbMoVdHpaJ1gxzrqAm73xsVbt
- 240w==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+1KNv2DcHt4bWfVOK40hJoHdV4wtaQG/AhE9qy0rUH3U19Xh9V8wtb4IlkaSyjfa182HhOCYQlKx8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw1Z7pgYTJk4Vfnw/X9afVB7cmA7YEEPDN8nUMvGS+HEBL5HIt2
- 8ZtIeOvAJu3luRGojQLtbgb+RaSkbFvK5ZYxs8cZcpCXAxeI3fVEfv8aHjfoPZa4hKwTVNPdGCk
- bVuxRsvAGV3X7/1hHKk3OMBH8FaeVXZY=
-X-Gm-Gg: AeBDieuVFKgrUQhFODcLibCncgJelH/TxvNhRCBPZnrB/muiKlrpsvOMFKDO5C1GDUh
- 0TPKI9yRgZ5M0lwMLbdZc+wwOwNcGziNkKMBixWgvdmXjlDL6OrLIJdVFYzLu0bx0DSPLDPQxZY
- wJ+hqvFWacbFzzlONkX2Al4Q9eKNUt7lH5fR5HQBmel1nHB/UVXn9/+m9IBWyn+8iZ5J7CNCOXv
- YP4s2EZfzORdC6pWr4516N1cQPJNF99hFXfcLQcMrIgBZhhSn2Zgb8YJCETLbSgpwz8IgYJn5rp
- J29tqdRoi+bNpYebbBOT8fAMs2vPG5Jz8ee4itjU7oFGjGhHP0H7U7Ssk2bBjjPWtU4oS8lQrUO
- SjIEpexx22tJPy5M=
-X-Received: by 2002:a05:7022:459e:b0:127:332d:63e with SMTP id
- a92af1059eb24-12c73f9b5d7mr5030583c88.5.1776871284314; Wed, 22 Apr 2026
- 08:21:24 -0700 (PDT)
+Received: from fhigh-a1-smtp.messagingengine.com
+ (fhigh-a1-smtp.messagingengine.com [103.168.172.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3448D10EA47
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 15:23:30 +0000 (UTC)
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id 6F5301400064;
+ Wed, 22 Apr 2026 11:23:29 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-01.internal (MEProxy); Wed, 22 Apr 2026 11:23:29 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+ cc:cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm1; t=1776871409;
+ x=1776957809; bh=hQMlk9Xq+ZB050Bu5h5Pj79B23kU/VRcG/nsXr+g5/Q=; b=
+ rUc2xihtS2cQdAuSwUnr0y9hgq5IwBRt0Tsc8ILzmkJmagGjVApGux4WHK2ycA0K
+ 3IS7iCY8miyNBJfCA4fxgdr0GzuMGowKP3VSbdI74uFkrYLvcTNq2fFdsjs4wfjp
+ 29OkpB2eDocEBVWejYCaxAh9nsGQzIBCPissSi56G8Q6Upw8QKd5A0lr33z7CwQ+
+ JutrxlpmR1oU+/sTRc00/T0wOFMU/EkFGEmWtacf3k8mI+4BdjJly7Zu3yca06NI
+ O8u5maNR0b4k1ErHzlc7ecxIuTdkJvwnjP/+0Ynsn5BW2pvpL/hvpV2sAkF55Fay
+ EoFPDNl0v0lQGE5hWIweHQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1776871409; x=
+ 1776957809; bh=hQMlk9Xq+ZB050Bu5h5Pj79B23kU/VRcG/nsXr+g5/Q=; b=Q
+ KfQ4zVPMkiNPasEcIuOzqkJ6IyhtBK/0QDCAcy6He4QNOwK2Cb9B8mYpiy2tQNsZ
+ /g12FdDPrpuLb6ND3dc5PpL2sDCPHe1+EC94Ltr6aPsPVMU/hm254xwGu93FijKX
+ 6kklVb7VCFSK3feEUb+yZE9XlCOOGmaiaKTQh/DkEbleHNDV8MDs/eq9tGYbOeA/
+ WdqHwlp/Gm529uiII0FQl0Nd/Mr6XI4HbUd8ecf5ZEkVnIIoyKqkZn0UPgF4XYAk
+ Grc/Mn4k48zei00i9tGR3/P3w3FUC++OZXHR/Ws2yvvB8n4ZUkXnftanCbLRmD1h
+ Puj8udp4gf1zjyssWHLaA==
+X-ME-Sender: <xms:8efoaRVM9j15U5FN97It6PPOed7eKcPS-2D9fypr3_rxwCt4Nv9tbw>
+ <xme:8efoaVQ2W6El0ICXVel6Kmlv6SM6w-D1b7t5wVz_SqPhD4KLZ9D3xqPlIGID05jbq
+ yuCfekr7Az6TojO2J5qjXsy5ihwxxM1Ti5ofo8vybAVxZBqpFFwyA>
+X-ME-Received: <xmr:8efoaWDnjFvkN2nEp_g06_i1lvCZvWQeE6vm-Sc3XlQnFtSSNXqhsCt0rd4>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdeigeeivdcutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
+ ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
+ hrpeffhffvvefukfgjfhfogggtgfesthejredtredtvdenucfhrhhomheptehlvgigucgh
+ ihhllhhirghmshhonhcuoegrlhgvgiesshhhrgiisghothdrohhrgheqnecuggftrfgrth
+ htvghrnhepvdekfeejkedvudfhudfhteekudfgudeiteetvdeukedvheetvdekgfdugeev
+ ueeunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomheprg
+ hlvgigsehshhgriigsohhtrdhorhhgpdhnsggprhgtphhtthhopedufedpmhhouggvpehs
+ mhhtphhouhhtpdhrtghpthhtohepiihhihhpihhnghiisehmvghtrgdrtghomhdprhgtph
+ htthhopehsughfsehmvghtrgdrtghomhdprhgtphhtthhopehksghushgthheskhgvrhhn
+ vghlrdhorhhgpdhrtghpthhtohepjhhgghesiihivghpvgdrtggrpdhrtghpthhtoheplh
+ gvohhnsehkvghrnhgvlhdrohhrghdprhgtphhtthhopehhvghlghgrrghssehkvghrnhgv
+ lhdrohhrghdprhgtphhtthhopehlihhnuhigqdhrughmrgesvhhgvghrrdhkvghrnhgvlh
+ drohhrghdprhgtphhtthhopehlihhnuhigqdhptghisehvghgvrhdrkhgvrhhnvghlrdho
+ rhhgpdhrtghpthhtohepnhgvthguvghvsehvghgvrhdrkhgvrhhnvghlrdhorhhg
+X-ME-Proxy: <xmx:8efoaVsL30-Su4EHn6o1-1kxUePqFEnl0e0Q9han8VdJCNIZO5HbgQ>
+ <xmx:8efoac8feudf5sBZX0d9MbXUD-5TarHV7tn1c18EQUbIymllH2nt_Q>
+ <xmx:8efoaUTEhbrfTEuus2mOtj_Ysmuu-ybaNO1Yr76hqg-9Y5KWoucqHA>
+ <xmx:8efoaWU8dWKKFCRUIRCIQDOfFzW-yhNTf9qKpNTV-wpL_lWXeig7aQ>
+ <xmx:8efoaQze75CZ1fViASTOyrH-Gxcsrhd8qrd5j9hAHQr-9AEtcU9I-qNd>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 22 Apr 2026 11:23:28 -0400 (EDT)
+Date: Wed, 22 Apr 2026 09:23:27 -0600
+From: Alex Williamson <alex@shazbot.org>
+To: Zhiping Zhang <zhipingz@meta.com>
+Cc: Stanislav Fomichev <sdf@meta.com>, Keith Busch <kbusch@kernel.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, Bjorn
+ Helgaas <helgaas@kernel.org>, <linux-rdma@vger.kernel.org>,
+ <linux-pci@vger.kernel.org>, <netdev@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, Yochai Cohen <yochai@nvidia.com>, Yishai
+ Hadas <yishaih@nvidia.com>, alex@shazbot.org
+Subject: Re: [PATCH v1 1/2] vfio: add callback to get tph info for dma-buf
+Message-ID: <20260422092327.3f629ad6@shazbot.org>
+In-Reply-To: <20260420183920.3626389-2-zhipingz@meta.com>
+References: <20260420183920.3626389-1-zhipingz@meta.com>
+ <20260420183920.3626389-2-zhipingz@meta.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-References: <20260422123817.1940-1-getshell@seu.edu.cn>
- <879c6e0f-76e3-4eb0-bada-b38230d0d23e@amd.com>
-In-Reply-To: <879c6e0f-76e3-4eb0-bada-b38230d0d23e@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 22 Apr 2026 11:21:10 -0400
-X-Gm-Features: AQROBzBgaNCRleXArmeRyzHxy-XR8oh864TQTHE93XoF24lgZ7zJ0UBC0WrRxuI
-Message-ID: <CADnq5_PyPfz-Z9Cygy4R50RxLRDt08We5U0X3beW0Ta4KWeVdg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: avoid double drm_exec_fini() in userq validate
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Hongyan Xu <getshell@seu.edu.cn>, alexander.deucher@amd.com,
- airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- jianhao.xu@seu.edu.cn, 220245772@seu.edu.cn
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,64 +106,261 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Mon, 20 Apr 2026 11:39:15 -0700
+Zhiping Zhang <zhipingz@meta.com> wrote:
 
-On Wed, Apr 22, 2026 at 8:59=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
->
-> On 4/22/26 14:38, Hongyan Xu wrote:
-> > When new_addition is true, amdgpu_userq_vm_validate() calls
-> > drm_exec_fini(&exec) before iterating over the collected HMM ranges and
-> > calling amdgpu_ttm_tt_get_user_pages().
-> >
-> > If amdgpu_ttm_tt_get_user_pages() fails in that path, the code jumps to
-> > unlock_all and calls drm_exec_fini(&exec) a second time on the same
-> > exec object. drm_exec_fini() is not idempotent: it frees exec->objects
-> > and may also drop exec->contended and finalize the ww acquire context.
-> >
-> > Route that error path directly to the range cleanup once exec has
-> > already been finalized.
-> >
-> > Fixes: 42f148788469 ("drm/amdgpu/userqueue: validate userptrs for userq=
-ueues")
-> > Issue found using a prototype static analysis tool
-> > and confirmed by code review.
-> >
-> > Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
-> > Signed-off-by: Slavin Liu <220245772@seu.edu.cn>
->
-> Good catch, Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
->
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 3 ++-
-> >  1 file changed, 2 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_userq.c
-> > index 9d67b770bcc2..fe49108fabbd 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> > @@ -1193,7 +1193,7 @@ amdgpu_userq_vm_validate(struct amdgpu_userq_mgr =
-*uq_mgr)
-> >                         bo =3D range->bo;
-> >                         ret =3D amdgpu_ttm_tt_get_user_pages(bo, range)=
-;
-> >                         if (ret)
-> > -                               goto unlock_all;
-> > +                               goto free_ranges;
-> >                 }
-> >
-> >                 invalidated =3D true;
-> > @@ -1220,6 +1220,7 @@ amdgpu_userq_vm_validate(struct amdgpu_userq_mgr =
-*uq_mgr)
-> >
-> >  unlock_all:
-> >         drm_exec_fini(&exec);
-> > +free_ranges:
-> >         xa_for_each(&xa, tmp_key, range) {
-> >                 if (!range)
-> >                         continue;
-> > --
-> > 2.50.1.windows.1
-> >
->
+> Add a dma-buf callback that returns raw TPH metadata from the exporter
+> so peer devices can reuse the steering tag and processing hint
+> associated with a VFIO-exported buffer.
+> 
+> Keep the existing VFIO_DEVICE_FEATURE_DMA_BUF uAPI layout intact by
+> using a flag plus one extra trailing entries[] object for the optional
+> TPH metadata. Rename the uAPI field dma_ranges to entries. The
+> nr_ranges field remains the DMA range count; when VFIO_DMABUF_FLAG_TPH
+> is set the kernel reads one extra entry beyond nr_ranges for the TPH
+> metadata.
+> 
+> Add an st_width parameter to get_tph() so the exporter can reject
+> steering tags that exceed the consumer's supported width (8 vs 16 bit).
+> When no TPH metadata was supplied, make get_tph() return -EOPNOTSUPP.
+> 
+> Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
+> ---
+>  drivers/vfio/pci/vfio_pci_dmabuf.c | 62 +++++++++++++++++++++++-------
+>  include/linux/dma-buf.h            | 17 ++++++++
+>  include/uapi/linux/vfio.h          | 28 ++++++++++++--
+>  3 files changed, 89 insertions(+), 18 deletions(-)
+> 
+> diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
+> index b1d658b8f7b5..fdc05f9ab3ae 100644
+> --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
+> +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
+> @@ -17,6 +17,9 @@ struct vfio_pci_dma_buf {
+>  	struct phys_vec *phys_vec;
+>  	struct p2pdma_provider *provider;
+>  	u32 nr_ranges;
+> +	u16 steering_tag;
+> +	u8 ph;
+> +	u8 tph_present : 1;
+>  	u8 revoked : 1;
+>  };
+>  
+> @@ -60,6 +63,22 @@ vfio_pci_dma_buf_map(struct dma_buf_attachment *attachment,
+>  				       priv->size, dir);
+>  }
+>  
+> +static int vfio_pci_dma_buf_get_tph(struct dma_buf *dmabuf, u16 *steering_tag,
+> +				    u8 *ph, u8 st_width)
+> +{
+> +	struct vfio_pci_dma_buf *priv = dmabuf->priv;
+> +
+> +	if (!priv->tph_present)
+> +		return -EOPNOTSUPP;
+> +
+> +	if (st_width < 16 && priv->steering_tag > ((1U << st_width) - 1))
+> +		return -EINVAL;
+> +
+> +	*steering_tag = priv->steering_tag;
+> +	*ph = priv->ph;
+> +	return 0;
+> +}
+> +
+>  static void vfio_pci_dma_buf_unmap(struct dma_buf_attachment *attachment,
+>  				   struct sg_table *sgt,
+>  				   enum dma_data_direction dir)
+> @@ -89,6 +108,7 @@ static const struct dma_buf_ops vfio_pci_dmabuf_ops = {
+>  	.pin = vfio_pci_dma_buf_pin,
+>  	.unpin = vfio_pci_dma_buf_unpin,
+>  	.attach = vfio_pci_dma_buf_attach,
+> +	.get_tph = vfio_pci_dma_buf_get_tph,
+>  	.map_dma_buf = vfio_pci_dma_buf_map,
+>  	.unmap_dma_buf = vfio_pci_dma_buf_unmap,
+>  	.release = vfio_pci_dma_buf_release,
+> @@ -211,7 +231,9 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+>  				  size_t argsz)
+>  {
+>  	struct vfio_device_feature_dma_buf get_dma_buf = {};
+> -	struct vfio_region_dma_range *dma_ranges;
+> +	bool tph_supplied;
+> +	u32 tph_index;
+> +	struct vfio_region_dma_range *entries;
+>  	DEFINE_DMA_BUF_EXPORT_INFO(exp_info);
+>  	struct vfio_pci_dma_buf *priv;
+>  	size_t length;
+> @@ -228,7 +250,10 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+>  	if (copy_from_user(&get_dma_buf, arg, sizeof(get_dma_buf)))
+>  		return -EFAULT;
+>  
+> -	if (!get_dma_buf.nr_ranges || get_dma_buf.flags)
+> +	tph_supplied = !!(get_dma_buf.flags & VFIO_DMABUF_FLAG_TPH);
+> +	tph_index = get_dma_buf.nr_ranges;
+> +	if (!get_dma_buf.nr_ranges ||
+> +	    (get_dma_buf.flags & ~VFIO_DMABUF_FLAG_TPH))
+>  		return -EINVAL;
+>  
+>  	/*
+> @@ -237,19 +262,21 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+>  	if (get_dma_buf.region_index >= VFIO_PCI_ROM_REGION_INDEX)
+>  		return -ENODEV;
+>  
+> -	dma_ranges = memdup_array_user(&arg->dma_ranges, get_dma_buf.nr_ranges,
+> -				       sizeof(*dma_ranges));
+> -	if (IS_ERR(dma_ranges))
+> -		return PTR_ERR(dma_ranges);
+> +	entries = memdup_array_user(&arg->entries,
+> +				    get_dma_buf.nr_ranges +
+> +					(tph_supplied ? 1 : 0),
+> +				    sizeof(*entries));
+> +	if (IS_ERR(entries))
+> +		return PTR_ERR(entries);
+>  
+> -	ret = validate_dmabuf_input(&get_dma_buf, dma_ranges, &length);
+> +	ret = validate_dmabuf_input(&get_dma_buf, entries, &length);
+>  	if (ret)
+> -		goto err_free_ranges;
+> +		goto err_free_entries;
+>  
+>  	priv = kzalloc_obj(*priv);
+>  	if (!priv) {
+>  		ret = -ENOMEM;
+> -		goto err_free_ranges;
+> +		goto err_free_entries;
+>  	}
+>  	priv->phys_vec = kzalloc_objs(*priv->phys_vec, get_dma_buf.nr_ranges);
+>  	if (!priv->phys_vec) {
+> @@ -260,15 +287,22 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+>  	priv->vdev = vdev;
+>  	priv->nr_ranges = get_dma_buf.nr_ranges;
+>  	priv->size = length;
+> +
+> +	if (tph_supplied) {
+> +		priv->steering_tag = entries[tph_index].tph.steering_tag;
+> +		priv->ph = entries[tph_index].tph.ph;
+> +		priv->tph_present = 1;
+> +	}
+> +
+>  	ret = vdev->pci_ops->get_dmabuf_phys(vdev, &priv->provider,
+>  					     get_dma_buf.region_index,
+> -					     priv->phys_vec, dma_ranges,
+> +					     priv->phys_vec, entries,
+>  					     priv->nr_ranges);
+>  	if (ret)
+>  		goto err_free_phys;
+>  
+> -	kfree(dma_ranges);
+> -	dma_ranges = NULL;
+> +	kfree(entries);
+> +	entries = NULL;
+>  
+>  	if (!vfio_device_try_get_registration(&vdev->vdev)) {
+>  		ret = -ENODEV;
+> @@ -311,8 +345,8 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+>  	kfree(priv->phys_vec);
+>  err_free_priv:
+>  	kfree(priv);
+> -err_free_ranges:
+> -	kfree(dma_ranges);
+> +err_free_entries:
+> +	kfree(entries);
+>  	return ret;
+>  }
+>  
+> diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+> index 133b9e637b55..b0a79ccbe100 100644
+> --- a/include/linux/dma-buf.h
+> +++ b/include/linux/dma-buf.h
+> @@ -113,6 +113,23 @@ struct dma_buf_ops {
+>  	 */
+>  	void (*unpin)(struct dma_buf_attachment *attach);
+>  
+> +	/**
+> +	 * @get_tph:
+> +	 * @dmabuf: DMA buffer for which to retrieve TPH metadata
+> +	 * @steering_tag: Returns the raw TPH steering tag
+> +	 * @ph: Returns the TPH processing hint
+> +	 * @st_width: Consumer's supported steering tag width in bits (8 or 16)
+> +	 *
+> +	 * Return the TPH (TLP Processing Hints) metadata associated with this
+> +	 * DMA buffer. Exporters that do not provide TPH metadata should return
+> +	 * -EOPNOTSUPP. If the steering tag exceeds @st_width bits, return
+> +	 * -EINVAL.
+> +	 *
+> +	 * This callback is optional.
+> +	 */
+> +	int (*get_tph)(struct dma_buf *dmabuf, u16 *steering_tag, u8 *ph,
+> +		       u8 st_width);
+> +
+>  	/**
+>  	 * @map_dma_buf:
+>  	 *
+> diff --git a/include/uapi/linux/vfio.h b/include/uapi/linux/vfio.h
+> index bb7b89330d35..a0bd24623c52 100644
+> --- a/include/uapi/linux/vfio.h
+> +++ b/include/uapi/linux/vfio.h
+> @@ -1490,16 +1490,36 @@ struct vfio_device_feature_bus_master {
+>   * open_flags are the typical flags passed to open(2), eg O_RDWR, O_CLOEXEC,
+>   * etc. offset/length specify a slice of the region to create the dmabuf from.
+>   * nr_ranges is the total number of (P2P DMA) ranges that comprise the dmabuf.
+> + * When VFIO_DMABUF_FLAG_TPH is set, entries[] contains one extra trailing
+> + * object after the nr_ranges DMA ranges carrying the TPH steering tag and
+> + * processing hint.
+
+I really don't think we want to design an API where entries is
+implicitly one-off from what's actually there.  This feeds back into
+the below removal of the __counted by attribute, which is a red flag
+that this is the wrong approach.
+
+In general though, I'm really hoping that someone interested in
+enabling TPH as an interface through vfio actually decides to take
+resource targeting and revocation seriously.  There's no validation of
+the steering tag here relative to what the user has access to and no
+mechanism to revoke those tags if access changes.  In fact, there's not
+even a proposed mechanism allowing the user to derive valid steering
+tags.  Does the user implicitly know the value and the kernel just
+allows it because... yolo?  Thanks,
+
+Alex
+
+>   *
+> - * flags should be 0.
+> + * flags should be 0 or VFIO_DMABUF_FLAG_TPH.
+>   *
+>   * Return: The fd number on success, -1 and errno is set on failure.
+>   */
+>  #define VFIO_DEVICE_FEATURE_DMA_BUF 11
+>  
+> +enum vfio_device_feature_dma_buf_flags {
+> +	VFIO_DMABUF_FLAG_TPH = 1 << 0,
+> +};
+> +
+> +struct vfio_region_dma_tph {
+> +	__u16 steering_tag;
+> +	__u8 ph;
+> +	__u8 reserved;
+> +	__u32 reserved2;
+> +};
+> +
+>  struct vfio_region_dma_range {
+> -	__u64 offset;
+> -	__u64 length;
+> +	union {
+> +		__u64 offset;
+> +		struct vfio_region_dma_tph tph;
+> +	};
+> +	union {
+> +		__u64 length;
+> +		__u64 reserved;
+> +	};
+>  };
+>  
+>  struct vfio_device_feature_dma_buf {
+> @@ -1507,7 +1527,7 @@ struct vfio_device_feature_dma_buf {
+>  	__u32	open_flags;
+>  	__u32   flags;
+>  	__u32   nr_ranges;
+> -	struct vfio_region_dma_range dma_ranges[] __counted_by(nr_ranges);
+> +	struct vfio_region_dma_range entries[];
+>  };
+>  
+>  /* -------- API for Type1 VFIO IOMMU -------- */
+
