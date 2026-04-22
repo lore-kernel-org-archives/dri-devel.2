@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05194FA1FD5
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 16:49:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BE26FA1FD8
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 16:49:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56BF310EE92;
-	Wed, 22 Apr 2026 16:49:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69E7A10EA8A;
+	Wed, 22 Apr 2026 16:49:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="POIJG2qp";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="kp4VyVOp";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CF5610EA8A
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 16:48:57 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A7FA10EE9B
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 16:49:03 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 0DC7AC5B1AC;
- Wed, 22 Apr 2026 16:49:37 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 8E8491A33A7;
+ Wed, 22 Apr 2026 16:49:02 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 295245FA8F;
- Wed, 22 Apr 2026 16:48:56 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 5D35C5FA8F;
+ Wed, 22 Apr 2026 16:49:02 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 4977010460BF0; 
- Wed, 22 Apr 2026 18:48:52 +0200 (CEST)
+ with ESMTPSA id 626D110460C11; 
+ Wed, 22 Apr 2026 18:48:58 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1776876534; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1776876541; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=QM1+80iScubDXS7ZUrDW5AhCFai24uch4ln8tfIxf6g=;
- b=POIJG2qprmclyflmISs+ldiw4HYLinBb2sPfAvP5SNX0E3KWSmUUiS5jtjjt+18lnV18xA
- 2ZzthbGpoacVXuXEZZEEhDTYbrILRIBhWACY8iDw9v2+QKv5+kS8CqWaQhZ6SISdQG87A0
- 457z7uQWI4Id7E2TSG89tCE1PvZjykbp8Ud2gSJzGnAVonvk9AXnHIWaRektOovv+36hCP
- 0xcfUJvZs8i58JQ3lCWQ5sTZjO2pnxixsUfeihrIFzthmdhNS45tujetK9t7oENny2lolG
- K9Y91PcgnLlYNu5G4Siq+apEDOqXbp/YdU98qzGqq3exRq+zhkbp/v9cm3c/Zw==
+ bh=AneofuYJZoYI/gvUx2UhSF0pkRR1QMMrY7mUoU80ifc=;
+ b=kp4VyVOpU+zWCosSGjDUD4nlcxXZZfwWMqw1sks3y/vQ4oysCtLHb7HO5LuRL8cPCLmffy
+ tk/cecN/ZRHHj+C5HHBa9R3ZUOzTHk4vxJrI41fDSMURGBI1atfcAwmT7IE3Y3hQOGevpL
+ /yPwlZCFm7P7oHh3RiJgSD7DRLRlGqYghmhpOYTKTR9ENKxtXKfFzhKt66/ahLIKKCEBu/
+ a7jBoyQJtmw9CyTM+BKeq+YF9UjL4m+izc7WVd4909XcR2W2i2/ulLL9A/YyFJtnyDTS1F
+ ENbVfNQojRQ2MZNMt4FxoGuuUHlH3xeiaGDpv/5BckmGinq/BNXKHyiEBh7vOA==
 From: Louis Chauvet <louis.chauvet@bootlin.com>
-Date: Wed, 22 Apr 2026 18:47:59 +0200
-Subject: [PATCH v4 02/37] drm/blend: Get a rotation name from it's bitfield
+Date: Wed, 22 Apr 2026 18:48:01 +0200
+Subject: [PATCH v4 04/37] drm/drm_color_mgmt: Expose drm_get_color_range_name
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260422-vkms-all-config-v4-2-dbb52e9aadc3@bootlin.com>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260422-vkms-all-config-v4-4-dbb52e9aadc3@bootlin.com>
 References: <20260422-vkms-all-config-v4-0-dbb52e9aadc3@bootlin.com>
 In-Reply-To: <20260422-vkms-all-config-v4-0-dbb52e9aadc3@bootlin.com>
 To: Haneen Mohammed <hamohammed.sa@gmail.com>, 
@@ -55,9 +55,7 @@ Cc: victoria@system76.com, sebastian.wick@redhat.com, victoria@system76.com,
  airlied@gmail.com, thomas.petazzoni@bootlin.com, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  linux-doc@vger.kernel.org, Louis Chauvet <louis.chauvet@bootlin.com>, 
- llvm@lists.linux.dev, 
- =?utf-8?q?Jos=C3=A9_Exp=C3=B3sito?= <jose.exposito@redhat.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
+ llvm@lists.linux.dev, Luca Ceresoli <luca.ceresoli@bootlin.com>
 X-Mailer: b4 0.16-dev
 X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -75,91 +73,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Having the rotation/reflection name from its value can be useful for
-debugging purpose. Extract the rotation property table and implement
-drm_get_rotation_name.
+drm_get_color_range_name can be useful to print debugging information.
+Export it so it could be used from VKMS.
 
-Reviewed-by: José Expósito <jose.exposito@redhat.com>
 Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 Signed-off-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- drivers/gpu/drm/drm_blend.c | 35 ++++++++++++++++++++++++++---------
- include/drm/drm_blend.h     |  2 ++
- 2 files changed, 28 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/drm_color_mgmt.c    | 2 +-
+ drivers/gpu/drm/drm_crtc_internal.h | 4 ----
+ include/drm/drm_color_mgmt.h        | 1 +
+ 3 files changed, 2 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_blend.c b/drivers/gpu/drm/drm_blend.c
-index 1f3af27d2418..11d8e13caea3 100644
---- a/drivers/gpu/drm/drm_blend.c
-+++ b/drivers/gpu/drm/drm_blend.c
-@@ -256,6 +256,31 @@ int drm_plane_create_alpha_property(struct drm_plane *plane)
+diff --git a/drivers/gpu/drm/drm_color_mgmt.c b/drivers/gpu/drm/drm_color_mgmt.c
+index 56fd8e0620dd..beced449ecf1 100644
+--- a/drivers/gpu/drm/drm_color_mgmt.c
++++ b/drivers/gpu/drm/drm_color_mgmt.c
+@@ -512,7 +512,7 @@ const char *drm_get_color_range_name(enum drm_color_range range)
+ 
+ 	return color_range_name[range];
  }
- EXPORT_SYMBOL(drm_plane_create_alpha_property);
+-EXPORT_SYMBOL_IF_KUNIT(drm_get_color_range_name);
++EXPORT_SYMBOL(drm_get_color_range_name);
  
-+static const struct drm_prop_enum_list rotation_props[] = {
-+	{ __builtin_ffs(DRM_MODE_ROTATE_0) - 1,   "rotate-0" },
-+	{ __builtin_ffs(DRM_MODE_ROTATE_90) - 1,  "rotate-90" },
-+	{ __builtin_ffs(DRM_MODE_ROTATE_180) - 1, "rotate-180" },
-+	{ __builtin_ffs(DRM_MODE_ROTATE_270) - 1, "rotate-270" },
-+	{ __builtin_ffs(DRM_MODE_REFLECT_X) - 1,  "reflect-x" },
-+	{ __builtin_ffs(DRM_MODE_REFLECT_Y) - 1,  "reflect-y" },
-+};
-+
-+/**
-+ * drm_get_rotation_name - Return the name of a rotation
-+ * @rotation: The rotation mask (DRM_MODE_ROTATE_* | DRM_MODE_REFLECT_*)
-+ *
-+ * Returns: the name of the rotation type (unknown) if rotation is not
-+ * a known rotation/reflection
-+ */
-+const char *drm_get_rotation_name(unsigned int rotation)
-+{
-+	if (rotation < ARRAY_SIZE(rotation_props))
-+		return rotation_props[rotation].name;
-+
-+	return "(unknown)";
-+}
-+EXPORT_SYMBOL(drm_get_rotation_name);
-+
  /**
-  * drm_plane_create_rotation_property - create a new rotation property
-  * @plane: drm plane
-@@ -294,14 +319,6 @@ int drm_plane_create_rotation_property(struct drm_plane *plane,
- 				       unsigned int rotation,
- 				       unsigned int supported_rotations)
- {
--	static const struct drm_prop_enum_list props[] = {
--		{ __builtin_ffs(DRM_MODE_ROTATE_0) - 1,   "rotate-0" },
--		{ __builtin_ffs(DRM_MODE_ROTATE_90) - 1,  "rotate-90" },
--		{ __builtin_ffs(DRM_MODE_ROTATE_180) - 1, "rotate-180" },
--		{ __builtin_ffs(DRM_MODE_ROTATE_270) - 1, "rotate-270" },
--		{ __builtin_ffs(DRM_MODE_REFLECT_X) - 1,  "reflect-x" },
--		{ __builtin_ffs(DRM_MODE_REFLECT_Y) - 1,  "reflect-y" },
--	};
- 	struct drm_property *prop;
+  * drm_plane_create_color_properties - color encoding related plane properties
+diff --git a/drivers/gpu/drm/drm_crtc_internal.h b/drivers/gpu/drm/drm_crtc_internal.h
+index 2f22b1a16dfa..54bd491fbfba 100644
+--- a/drivers/gpu/drm/drm_crtc_internal.h
++++ b/drivers/gpu/drm/drm_crtc_internal.h
+@@ -38,7 +38,6 @@
+ #include <linux/err.h>
+ #include <linux/types.h>
  
- 	WARN_ON((supported_rotations & DRM_MODE_ROTATE_MASK) == 0);
-@@ -309,7 +326,7 @@ int drm_plane_create_rotation_property(struct drm_plane *plane,
- 	WARN_ON(rotation & ~supported_rotations);
+-enum drm_color_range;
+ enum drm_connector_force;
+ enum drm_mode_status;
  
- 	prop = drm_property_create_bitmask(plane->dev, 0, "rotation",
--					   props, ARRAY_SIZE(props),
-+					   rotation_props, ARRAY_SIZE(rotation_props),
- 					   supported_rotations);
- 	if (!prop)
- 		return -ENOMEM;
-diff --git a/include/drm/drm_blend.h b/include/drm/drm_blend.h
-index c7e888767c81..dc9ea3f61c35 100644
---- a/include/drm/drm_blend.h
-+++ b/include/drm/drm_blend.h
-@@ -43,6 +43,8 @@ static inline bool drm_rotation_90_or_270(unsigned int rotation)
+@@ -119,9 +118,6 @@ int drm_mode_mmap_dumb_ioctl(struct drm_device *dev,
+ int drm_mode_destroy_dumb_ioctl(struct drm_device *dev,
+ 				void *data, struct drm_file *file_priv);
  
- #define DRM_BLEND_ALPHA_OPAQUE		0xffff
+-/* drm_color_mgmt.c */
+-const char *drm_get_color_range_name(enum drm_color_range range);
+-
+ /* IOCTLs */
+ int drm_mode_gamma_get_ioctl(struct drm_device *dev,
+ 			     void *data, struct drm_file *file_priv);
+diff --git a/include/drm/drm_color_mgmt.h b/include/drm/drm_color_mgmt.h
+index 133ca77d91c7..e91f494e5a63 100644
+--- a/include/drm/drm_color_mgmt.h
++++ b/include/drm/drm_color_mgmt.h
+@@ -114,6 +114,7 @@ enum drm_color_range {
+ };
  
-+const char *drm_get_rotation_name(unsigned int rotation);
-+
- int drm_plane_create_alpha_property(struct drm_plane *plane);
- int drm_plane_create_rotation_property(struct drm_plane *plane,
- 				       unsigned int rotation,
+ const char *drm_get_color_encoding_name(enum drm_color_encoding encoding);
++const char *drm_get_color_range_name(enum drm_color_range range);
+ 
+ int drm_plane_create_color_properties(struct drm_plane *plane,
+ 				      u32 supported_encodings,
 
 -- 
 2.54.0
