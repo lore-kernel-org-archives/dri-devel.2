@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62DB3FA1FDA
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 16:50:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E4B1FA1FD5
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 16:50:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C05B10EEDB;
-	Wed, 22 Apr 2026 16:50:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B531310EEDD;
+	Wed, 22 Apr 2026 16:50:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="hKI2iDgN";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="PneZKtW0";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE85510EED1
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 16:50:00 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB18710EEDD
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 16:50:16 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 936AEC5EF06;
- Wed, 22 Apr 2026 16:50:40 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id BF8961A33B0;
+ Wed, 22 Apr 2026 16:50:15 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id AFFD45FA8F;
- Wed, 22 Apr 2026 16:49:59 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 949085FA8F;
+ Wed, 22 Apr 2026 16:50:15 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 7EBDD104608C5; 
- Wed, 22 Apr 2026 18:49:56 +0200 (CEST)
+ with ESMTPSA id 15A7F10460C21; 
+ Wed, 22 Apr 2026 18:50:12 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1776876598; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1776876614; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=t3Ks7JS2bXPVs2EXpchsXMgZDSggGzJrIJdbTNoa0SM=;
- b=hKI2iDgNmo9xnQR8xUWibvdC7McbfXPqY0QzvfUpzGOzxCAIYAmOkWsWZGy/ATXhWQozr1
- a5HoP0+/jlyZFIQDAsr5gHyFQvgLBdR0FMa/dEycBXacJegzeDQI/pX4ITZMSfvlx4HC7t
- gCy5pKNdtDVw8KRDZpKog2AGAsO8I/B+dAZp/+FPWiYcHh3jGvfauo+zHuIH0vNZQuTjKV
- xEIYsR+tDmw7xoJs1XnwtGA1UB0RmwbJjzVk4gjgJVqZ1zegw8dPPViu9nKrKbzmZ3u6GE
- RFt5ESjJocCnMLX4MRpHA6O4/3/VA6EDevQPfj+Otdo4e4Z9H6pecNHGBmZNjw==
+ bh=Qdj2x9CZWyS1GVhOOvBsSsRVbE5RxHKj8IrNu4MfsUE=;
+ b=PneZKtW02oDA4rS9q7gFgJK7DFk+XVyMmkCs8e8SV/dy2Cfs6aRXACIAlCNm4oJBVek3b4
+ h8TNuLLDwdN2knevDcJusIWoG44sj0tRZlhqbEF7KvBUJqpCB8jVqP0DjD0uJFQMHjw5NB
+ uMENOi7mS1Uduru93cNa4Dku66DbVj7pVenX+CiLjB1eaHwTk5NOTopn/+voldV/vPG1Ym
+ BvbtuHDNaLndNliVk2MtsPqHHb6Z0IqUboY3a6KqyrZQhf4+XAiydmWnnRnixiSJvw/K6h
+ nsMBRx6giN7+4guMvCkkH3+AlAp7Qe2JIkHDYpoJf6d9YhmIuH3au9Ad2t9GOw==
 From: Louis Chauvet <louis.chauvet@bootlin.com>
-Date: Wed, 22 Apr 2026 18:48:22 +0200
-Subject: [PATCH v4 25/37] drm/vkms: Introduce configfs for plane zpos property
+Date: Wed, 22 Apr 2026 18:48:28 +0200
+Subject: [PATCH v4 31/37] drm/vkms: Introduce config for connector EDID
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260422-vkms-all-config-v4-25-dbb52e9aadc3@bootlin.com>
+Message-Id: <20260422-vkms-all-config-v4-31-dbb52e9aadc3@bootlin.com>
 References: <20260422-vkms-all-config-v4-0-dbb52e9aadc3@bootlin.com>
 In-Reply-To: <20260422-vkms-all-config-v4-0-dbb52e9aadc3@bootlin.com>
 To: Haneen Mohammed <hamohammed.sa@gmail.com>, 
@@ -73,307 +73,218 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Modern compositor rely on zpos management to offload some processing to
-deticated hardware. In order to test multiple configurations, add zpos
-configuration to configFS.
-
-Introduce multiple attributes to configure zpos:
-- zpos_enabled - Create or not the zpos property. If not created, the zpos
-  is undefined.
-- zpos_mutable - If the zpos property is created, allow or not the
-  userspace to modify it
-- zpos_initial - Initial value for zpos property. Must be between zpos_min
-  and zpos_max
-- zpos_min - Minimum zpos value for this plane. Must be <= zpos_max
-- zpos_max - Maximum zpos value for this plane. Must be >= zpos_min
+Allows configuration of EDID for each connector.
 
 Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 Signed-off-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- Documentation/ABI/testing/configfs-vkms |  36 +++++++
- Documentation/gpu/vkms.rst              |   9 +-
- drivers/gpu/drm/vkms/vkms_configfs.c    | 180 ++++++++++++++++++++++++++++++++
- 3 files changed, 224 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/vkms/tests/vkms_config_test.c |  2 +
+ drivers/gpu/drm/vkms/vkms_config.c            |  6 +++
+ drivers/gpu/drm/vkms/vkms_config.h            | 75 +++++++++++++++++++++++++++
+ drivers/gpu/drm/vkms/vkms_connector.c         | 50 ++++++++++++++++--
+ 4 files changed, 129 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/ABI/testing/configfs-vkms b/Documentation/ABI/testing/configfs-vkms
-index dae8b9e9d6bf..9f77a878aeef 100644
---- a/Documentation/ABI/testing/configfs-vkms
-+++ b/Documentation/ABI/testing/configfs-vkms
-@@ -162,6 +162,42 @@ Description:
- 	use '-' prefix. Use '+*' to add all formats, '-*' to
- 	remove all.
+diff --git a/drivers/gpu/drm/vkms/tests/vkms_config_test.c b/drivers/gpu/drm/vkms/tests/vkms_config_test.c
+index a31fd230c1d4..2b49745ee026 100644
+--- a/drivers/gpu/drm/vkms/tests/vkms_config_test.c
++++ b/drivers/gpu/drm/vkms/tests/vkms_config_test.c
+@@ -218,6 +218,8 @@ static void vkms_config_test_default_config(struct kunit *test)
+ 		KUNIT_EXPECT_EQ(test,
+ 				vkms_config_connector_get_supported_colorspaces(connector_cfg),
+ 				0);
++		KUNIT_EXPECT_EQ(test, vkms_config_connector_get_edid_enabled(connector_cfg),
++				false);
+ 	}
  
-+What:		/sys/kernel/config/vkms/<device>/planes/<plane>/zpos_enabled
-+Date:		Nov 2025
-+Contact:	dri-devel@lists.freedesktop.org
-+Description:
-+	Enable or disable the zpos property. Value: 1 - enabled,
-+	0 - disabled.
-+
-+What:		/sys/kernel/config/vkms/<device>/planes/<plane>/zpos_mutable
-+Date:		Nov 2025
-+Contact:	dri-devel@lists.freedesktop.org
-+Description:
-+	Create the zpos property as mutable or immutable.
-+	Value: 1 - mutable, 0 - immutable. No effect if
-+	zpos_enabled is not set.
-+
-+What:		/sys/kernel/config/vkms/<device>/planes/<plane>/zpos_initial
-+Date:		Nov 2025
-+Contact:	dri-devel@lists.freedesktop.org
-+Description:
-+	Set the initial zpos value. Must be between zpos_min
-+	and zpos_max. No effect if zpos_enabled is not set.
-+
-+What:		/sys/kernel/config/vkms/<device>/planes/<plane>/zpos_min
-+Date:		Nov 2025
-+Contact:	dri-devel@lists.freedesktop.org
-+Description:
-+	Set the minimal zpos value. No effect if zpos_enabled
-+	is not set.
-+
-+What:		/sys/kernel/config/vkms/<device>/planes/<plane>/zpos_max
-+Date:		Nov 2025
-+Contact:	dri-devel@lists.freedesktop.org
-+Description:
-+	Set the maximal zpos value. No effect if zpos_enabled
-+	is not set.
-+
- What:		/sys/kernel/config/vkms/<device>/planes/<plane>/possible_crtcs
- Date:		Nov 2025
- Contact:	dri-devel@lists.freedesktop.org
-diff --git a/Documentation/gpu/vkms.rst b/Documentation/gpu/vkms.rst
-index 94f7b0d85ca7..c811290af983 100644
---- a/Documentation/gpu/vkms.rst
-+++ b/Documentation/gpu/vkms.rst
-@@ -87,7 +87,7 @@ Start by creating one or more planes::
+ 	KUNIT_EXPECT_TRUE(test, vkms_config_is_valid(config));
+diff --git a/drivers/gpu/drm/vkms/vkms_config.c b/drivers/gpu/drm/vkms/vkms_config.c
+index b0511e6fc64d..eee6401a3e4f 100644
+--- a/drivers/gpu/drm/vkms/vkms_config.c
++++ b/drivers/gpu/drm/vkms/vkms_config.c
+@@ -538,6 +538,7 @@ static int vkms_config_show(struct seq_file *m, void *data)
+ 	struct drm_device *dev = entry->dev;
+ 	struct vkms_device *vkmsdev = drm_device_to_vkms_device(dev);
+ 	const char *dev_name;
++	int edid_len;
+ 	struct vkms_config_plane *plane_cfg;
+ 	struct vkms_config_crtc *crtc_cfg;
+ 	struct vkms_config_encoder *encoder_cfg;
+@@ -608,6 +609,11 @@ static int vkms_config_show(struct seq_file *m, void *data)
+ 		show_bitfield(m, vkms_config_connector_get_supported_colorspaces(connector_cfg),
+ 			      drm_get_colorspace_name);
+ 		seq_puts(m, "\n");
++		vkms_config_connector_get_edid(connector_cfg, &edid_len);
++		seq_printf(m, "\tEDID=%s (len=%d)\n",
++			   str_enabled_disabled(vkms_config_connector_get_edid_enabled(connector_cfg)),
++			   edid_len
++		);
+ 	}
  
-   sudo mkdir /config/vkms/my-vkms/planes/plane0
+ 	return 0;
+diff --git a/drivers/gpu/drm/vkms/vkms_config.h b/drivers/gpu/drm/vkms/vkms_config.h
+index e62bb6603a69..3489c682b4af 100644
+--- a/drivers/gpu/drm/vkms/vkms_config.h
++++ b/drivers/gpu/drm/vkms/vkms_config.h
+@@ -136,6 +136,9 @@ struct vkms_config_encoder {
+  *                         are the sames as ones accepted by
+  *                         drm_mode_create_hdmi_colorspace_property() and
+  *                         drm_mode_create_dp_colorspace_property()
++ * @edid_enabled: If true, create the EDID property
++ * @edid: Stores the current EDID. The value will be ignored if @edid_enabled is false
++ * @edid_len: Current EDID length. The value will be ignored if @edid_enabled is false
+  * @possible_encoders: Array of encoders that can be used with this connector
+  * @connector: Internal usage. This pointer should never be considered as valid.
+  *             It can be used to store a temporary reference to a VKMS connector
+@@ -149,6 +152,9 @@ struct vkms_config_connector {
+ 	int type;
+ 	enum drm_connector_status status;
+ 	u32 supported_colorspaces;
++	bool edid_enabled;
++	u8 *edid;
++	unsigned int edid_len;
+ 	struct xarray possible_encoders;
  
--Planes have 9 configurable attributes:
-+Planes have 14 configurable attributes:
- 
- - type: Plane type: 0 overlay, 1 primary, 2 cursor (same values as those
-   exposed by the "type" property of a plane)
-@@ -114,6 +114,13 @@ Planes have 9 configurable attributes:
-   To remove a format, use a minus and its fourcc: -XR24
-   To add all formats use +*
-   To remove all formats, use -*
-+- zpos_enabled: Enable or not the zpos property: 1 enable, 0 disable
-+- zpos_mutable: Create the zpos property as a mutable or imutable property: 1 mutable,
-+  0 immutable. No effect if zpos_enabled is not set.
-+- zpos_initial: Set the initial zpos value. Must be between zpos_min and zpos_max. No
-+  effect if zpos_enabled is not set.
-+- zpos_min: Set the minimum zpos value. No effect if zpos_enabled is not set.
-+- zpos_max: Set the maximum zpos value. No effect if zpos_enabled is not set.
- 
- Continue by creating one or more CRTCs::
- 
-diff --git a/drivers/gpu/drm/vkms/vkms_configfs.c b/drivers/gpu/drm/vkms/vkms_configfs.c
-index b38d724cfb94..832f73011353 100644
---- a/drivers/gpu/drm/vkms/vkms_configfs.c
-+++ b/drivers/gpu/drm/vkms/vkms_configfs.c
-@@ -747,6 +747,176 @@ static ssize_t plane_supported_formats_store(struct config_item *item,
- 	return count;
+ 	/* Internal usage */
+@@ -273,6 +279,75 @@ vkms_config_connector_get_supported_colorspaces(const struct vkms_config_connect
+ 	return connector_cfg->supported_colorspaces;
  }
  
-+static ssize_t plane_zpos_enabled_show(struct config_item *item, char *page)
++/**
++ * vkms_config_connector_get_edid_enabled() - Check if EDID is enabled for a connector
++ * @connector_cfg: Connector configuration to check
++ *
++ * Returns:
++ * True if EDID is enabled for this connector, false otherwise.
++ */
++static inline bool
++vkms_config_connector_get_edid_enabled(const struct vkms_config_connector *connector_cfg)
 +{
-+	struct vkms_configfs_plane *plane;
-+	bool enabled;
-+
-+	plane = plane_item_to_vkms_configfs_plane(item);
-+
-+	scoped_guard(mutex, &plane->dev->lock)
-+		enabled = vkms_config_plane_get_zpos_enabled(plane->config);
-+
-+	return sprintf(page, "%d\n", enabled);
++	return connector_cfg->edid_enabled;
 +}
 +
-+static ssize_t plane_zpos_enabled_store(struct config_item *item, const char *page,
-+					size_t count)
++/**
++ * vkms_config_connector_set_edid_enabled() - Enable or disable EDID for a connector
++ * @connector_cfg: Connector configuration to modify
++ * @enabled: Whether to enable EDID for this connector
++ */
++static inline void
++vkms_config_connector_set_edid_enabled(struct vkms_config_connector *connector_cfg,
++				       bool enabled)
 +{
-+	struct vkms_configfs_plane *plane;
-+	bool enabled;
++	connector_cfg->edid_enabled = enabled;
++}
 +
-+	plane = plane_item_to_vkms_configfs_plane(item);
++/**
++ * vkms_config_connector_get_edid() - Get the EDID data for a connector
++ * @connector_cfg: Connector configuration to get the EDID from
++ * @len: Pointer to store the length of the EDID data
++ *
++ * Returns:
++ * Pointer to the EDID data buffer, or NULL if no EDID is set.
++ * The length of the EDID data is stored in @len.
++ */
++static inline const u8 *
++vkms_config_connector_get_edid(const struct vkms_config_connector *connector_cfg, int *len)
++{
++	*len = connector_cfg->edid_len;
++	return connector_cfg->edid;
++}
 +
-+	if (kstrtobool(page, &enabled))
-+		return -EINVAL;
++/**
++ * vkms_config_connector_set_edid() - Set the EDID data for a connector
++ * @connector_cfg: Connector configuration to modify
++ * @edid: Pointer to the EDID data buffer
++ * @len: Length of the EDID data
++ *
++ * If @len is 0, the EDID data will be cleared and @edid ignored. If
++ * memory allocation fails, the existing EDID data will be preserved.
++ */
++static inline void
++vkms_config_connector_set_edid(struct vkms_config_connector *connector_cfg,
++			       const u8 *edid, unsigned int len)
++{
++	if (len) {
++		void *edid_tmp = krealloc(connector_cfg->edid, len, GFP_KERNEL);
 +
-+	scoped_guard(mutex, &plane->dev->lock) {
-+		if (plane->dev->enabled)
-+			return -EBUSY;
-+
-+		vkms_config_plane_set_zpos_enabled(plane->config, enabled);
++		if (edid_tmp) {
++			connector_cfg->edid = edid_tmp;
++			memcpy(connector_cfg->edid, edid, len);
++			connector_cfg->edid_len = len;
++		}
++	} else {
++		kfree(connector_cfg->edid);
++		connector_cfg->edid = NULL;
++		connector_cfg->edid_len = len;
 +	}
-+
-+	return (ssize_t)count;
 +}
 +
-+static ssize_t plane_zpos_mutable_show(struct config_item *item, char *page)
-+{
-+	struct vkms_configfs_plane *plane;
-+	bool mutable;
-+
-+	plane = plane_item_to_vkms_configfs_plane(item);
-+
-+	scoped_guard(mutex, &plane->dev->lock)
-+		mutable = vkms_config_plane_get_zpos_mutable(plane->config);
-+
-+	return sprintf(page, "%d\n", mutable);
-+}
-+
-+static ssize_t plane_zpos_mutable_store(struct config_item *item, const char *page,
-+					size_t count)
-+{
-+	struct vkms_configfs_plane *plane;
-+	bool mutable;
-+
-+	plane = plane_item_to_vkms_configfs_plane(item);
-+
-+	if (kstrtobool(page, &mutable))
-+		return -EINVAL;
-+
-+	scoped_guard(mutex, &plane->dev->lock) {
-+		if (plane->dev->enabled)
-+			return -EBUSY;
-+
-+		vkms_config_plane_set_zpos_mutable(plane->config, mutable);
-+	}
-+
-+	return (ssize_t)count;
-+}
-+
-+static ssize_t plane_zpos_initial_show(struct config_item *item, char *page)
-+{
-+	struct vkms_configfs_plane *plane;
-+	unsigned int initial;
-+
-+	plane = plane_item_to_vkms_configfs_plane(item);
-+
-+	scoped_guard(mutex, &plane->dev->lock)
-+		initial = vkms_config_plane_get_zpos_initial(plane->config);
-+
-+	return sprintf(page, "%u\n", initial);
-+}
-+
-+static ssize_t plane_zpos_initial_store(struct config_item *item, const char *page,
-+					size_t count)
-+{
-+	struct vkms_configfs_plane *plane;
-+	unsigned int initial;
-+
-+	plane = plane_item_to_vkms_configfs_plane(item);
-+
-+	if (kstrtouint(page, 10, &initial))
-+		return -EINVAL;
-+
-+	scoped_guard(mutex, &plane->dev->lock) {
-+		if (plane->dev->enabled)
-+			return -EBUSY;
-+
-+		vkms_config_plane_set_zpos_initial(plane->config, initial);
-+	}
-+
-+	return (ssize_t)count;
-+}
-+
-+static ssize_t plane_zpos_min_show(struct config_item *item, char *page)
-+{
-+	struct vkms_configfs_plane *plane;
-+	unsigned int min;
-+
-+	plane = plane_item_to_vkms_configfs_plane(item);
-+
-+	scoped_guard(mutex, &plane->dev->lock)
-+		min = vkms_config_plane_get_zpos_min(plane->config);
-+
-+	return sprintf(page, "%u\n", min);
-+}
-+
-+static ssize_t plane_zpos_min_store(struct config_item *item, const char *page,
-+				    size_t count)
-+{
-+	struct vkms_configfs_plane *plane;
-+	unsigned int min;
-+
-+	plane = plane_item_to_vkms_configfs_plane(item);
-+
-+	if (kstrtouint(page, 10, &min))
-+		return -EINVAL;
-+
-+	scoped_guard(mutex, &plane->dev->lock) {
-+		if (plane->dev->enabled)
-+			return -EBUSY;
-+
-+		vkms_config_plane_set_zpos_min(plane->config, min);
-+	}
-+
-+	return (ssize_t)count;
-+}
-+
-+static ssize_t plane_zpos_max_show(struct config_item *item, char *page)
-+{
-+	struct vkms_configfs_plane *plane;
-+	unsigned int max;
-+
-+	plane = plane_item_to_vkms_configfs_plane(item);
-+
-+	scoped_guard(mutex, &plane->dev->lock)
-+		max = vkms_config_plane_get_zpos_max(plane->config);
-+
-+	return sprintf(page, "%u\n", max);
-+}
-+
-+static ssize_t plane_zpos_max_store(struct config_item *item, const char *page,
-+				    size_t count)
-+{
-+	struct vkms_configfs_plane *plane;
-+	unsigned int max;
-+
-+	plane = plane_item_to_vkms_configfs_plane(item);
-+
-+	if (kstrtouint(page, 10, &max))
-+		return -EINVAL;
-+
-+	scoped_guard(mutex, &plane->dev->lock) {
-+		if (plane->dev->enabled)
-+			return -EBUSY;
-+
-+		vkms_config_plane_set_zpos_max(plane->config, max);
-+	}
-+
-+	return (ssize_t)count;
-+}
-+
- CONFIGFS_ATTR(plane_, type);
- CONFIGFS_ATTR(plane_, name);
- CONFIGFS_ATTR(plane_, supported_rotations);
-@@ -756,6 +926,11 @@ CONFIGFS_ATTR(plane_, default_color_range);
- CONFIGFS_ATTR(plane_, supported_color_encodings);
- CONFIGFS_ATTR(plane_, default_color_encoding);
- CONFIGFS_ATTR(plane_, supported_formats);
-+CONFIGFS_ATTR(plane_, zpos_enabled);
-+CONFIGFS_ATTR(plane_, zpos_mutable);
-+CONFIGFS_ATTR(plane_, zpos_initial);
-+CONFIGFS_ATTR(plane_, zpos_min);
-+CONFIGFS_ATTR(plane_, zpos_max);
- 
- static struct configfs_attribute *plane_item_attrs[] = {
- 	&plane_attr_type,
-@@ -767,6 +942,11 @@ static struct configfs_attribute *plane_item_attrs[] = {
- 	&plane_attr_supported_color_encodings,
- 	&plane_attr_default_color_encoding,
- 	&plane_attr_supported_formats,
-+	&plane_attr_zpos_enabled,
-+	&plane_attr_zpos_mutable,
-+	&plane_attr_zpos_initial,
-+	&plane_attr_zpos_min,
-+	&plane_attr_zpos_max,
- 	NULL,
+ /**
+  * vkms_config_get_device_name() - Return the name of the device
+  * @config: Configuration to get the device name from
+diff --git a/drivers/gpu/drm/vkms/vkms_connector.c b/drivers/gpu/drm/vkms/vkms_connector.c
+index a1f08167def1..fe42ab2ba7b1 100644
+--- a/drivers/gpu/drm/vkms/vkms_connector.c
++++ b/drivers/gpu/drm/vkms/vkms_connector.c
+@@ -42,13 +42,55 @@ static const struct drm_connector_funcs vkms_connector_funcs = {
+ 	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
  };
  
++static int vkms_connector_read_block(void *context, u8 *buf, unsigned int block, size_t len)
++{
++	struct vkms_config_connector *config = context;
++	unsigned int edid_len;
++	const u8 *edid = vkms_config_connector_get_edid(config, &edid_len);
++
++	if (block * len + len > edid_len)
++		return 1;
++	memcpy(buf, &edid[block * len], len);
++	return 0;
++}
++
+ static int vkms_conn_get_modes(struct drm_connector *connector)
+ {
+-	int count;
++	struct vkms_connector *vkms_connector = drm_connector_to_vkms_connector(connector);
++	const struct drm_edid *drm_edid = NULL;
++	int count = 0;
++	struct vkms_config_connector *context = NULL;
++	struct drm_device *dev = connector->dev;
++	struct vkms_device *vkmsdev = drm_device_to_vkms_device(dev);
++	struct vkms_config_connector *connector_cfg;
+ 
+-	/* Use the default modes list from DRM */
+-	count = drm_add_modes_noedid(connector, XRES_MAX, YRES_MAX);
+-	drm_set_preferred_mode(connector, XRES_DEF, YRES_DEF);
++	vkms_config_for_each_connector(vkmsdev->config, connector_cfg) {
++		if (connector_cfg->connector == vkms_connector) {
++			context = connector_cfg;
++			break;
++		}
++	}
++	if (context) {
++		if (vkms_config_connector_get_edid_enabled(context)) {
++			drm_edid = drm_edid_read_custom(connector,
++							vkms_connector_read_block, context);
++
++			/*
++			 * Unconditionally update the connector. If the EDID was read
++			 * successfully, fill in the connector information derived from the
++			 * EDID. Otherwise, if the EDID is NULL, clear the connector
++			 * information.
++			 */
++			drm_edid_connector_update(connector, drm_edid);
++
++			count = drm_edid_connector_add_modes(connector);
++
++			drm_edid_free(drm_edid);
++		} else {
++			count = drm_add_modes_noedid(connector, XRES_MAX, YRES_MAX);
++			drm_set_preferred_mode(connector, XRES_DEF, YRES_DEF);
++		}
++	}
+ 
+ 	return count;
+ }
 
 -- 
 2.54.0
