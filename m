@@ -4,82 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2AB7F9EDEC
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 15:05:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD4FBF9EDEC
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 15:12:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DBA810E2B7;
-	Wed, 22 Apr 2026 15:05:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49B7F10EA2E;
+	Wed, 22 Apr 2026 15:12:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="R3W6Z4rK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XdzwLERF";
 	dkim-atps=neutral
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
- [209.85.218.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC9ED10E2B7
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 15:05:48 +0000 (UTC)
-Received: by mail-ej1-f45.google.com with SMTP id
- a640c23a62f3a-ba7fd666666so394580366b.3
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 08:05:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin.net; s=google; t=1776870347; x=1777475147; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=gA7eKH7J3A5zn7bbRs00GNHS2AH6hwEh/iROnwC+XDA=;
- b=R3W6Z4rKpxks3Kdi2wujiTS0kAQdmfbgpsC735S6o1U9mkTFrtK8U2Ovas/39m7H3c
- yeWhPaHfuVpuSRr9odLrlWPyWokBe4ELzD3qYCVOv2r7oD1vWnYRBMwl/DSZ1qmTGXi8
- T5soeyX2EjiIqUKaJ46JXAa6NOgiQkKZdHzFPmr6uzFsfEfRJMM75SFoTdjp3ZBFYY8E
- KzTchr2T5ucZiLKepevV/b8asZ4WIy0BYlvCbfor1Qj1EWw5eT5BCGc/EVS4sa0a1LQ6
- Uy5lGTm7nmnbUsHiw8VsY8C0Cgr+T2t90IolTgQe1+Tvxfw0zrselfwtIn+HcKM9d5h4
- vplA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776870347; x=1777475147;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=gA7eKH7J3A5zn7bbRs00GNHS2AH6hwEh/iROnwC+XDA=;
- b=NX3BFzSBBhdTAIj3TR5EADeLiPKha/Ry96+G4IiqSp1Zyxe/ymovO8NK9JEHQoMQ+n
- 00ldPPX9X2drgWQ+cw4ihRmJGg4laMgUKYJcHN6kA3oa9LQ2HG/DQ8fzDct5ywqzeQTE
- UWLTxDrEUeyccHmOZhi0PYO6hJ1tgmL8ts3cnSZCG/veM83UoJRrvxP+R9rUB4n9gxAI
- HKG+TB7cmbDr6K00MbhJsSBSd/vow95YE3g79IQnruyQb+62QFIv6wgb8f9T6p97YmqP
- Ri5Xnob9DYRJB9O/V6KiOFaZtNU9SKkl15MhZLWmbmsJmX+pkBq5EiNFdfd6ovoBiRW0
- i3zw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/jd6G0g7+cePt2/ZaVqnSu4hKyXHOGA4dO0wGDBhAIJPolG4IlO3Ri+6UhevrLZU9Z04hFsp+Vfzw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyFJilN+63jEMiDTs/FoujraPrLguYnMJgy9YI7texHDBY0ae0h
- EDzvlYF2y+xbJFo2TXIub3oauhADxGxBPqTTn9U4YUTkJEk6eLq10I4+tcTuql4zi6A=
-X-Gm-Gg: AeBDieskSsF5W/K6DBY5Jp7jp6QqYUvQ3lIUNvpk1LyqG40zNRqPkS/zclLPApat1qC
- p7dtUQ4KebMVzpd2Z91t5r7zoRenk9eu+QNWRpl87+ETVwaD9s9gEOCgxI+OD5DHX3cNYWQFKFm
- KxfRjCH2ldzVzAZQWn3koFjGPKROxLXd9t2ZgGPEuEa9xetkLzbJoCDEFn1ihxROIUi+9TQBUl5
- 19SgErcK0WzAxW9DkCpidhADxWDDAPcFJ+++xnxsfeDxMthzOhUpKYHtMTPo/RJnh/k7fiPapXc
- AOoVHlvE45CKfuqySbM/Plq9UiBIhWxe9iwZoIe++ekaCZSDen9oM5VTw1w0h2tYLJBvo6z4ygd
- Bwlo7bU+2LAhPvRCIKS0/dTsjzNjGZaq9KQWBYvKohNvRC0xtixIAe8ufwolCc8IVTQnoZY8gyJ
- BkFvUvZV6eWnufaJhvXcyGkkmI3fQR2OYEfDhZT3vHTONyWTEkrKOMG7o=
-X-Received: by 2002:a17:907:1b1a:b0:bab:f5f6:d700 with SMTP id
- a640c23a62f3a-babf5f6d819mr14085266b.38.1776870346790; 
- Wed, 22 Apr 2026 08:05:46 -0700 (PDT)
-Received: from [192.168.0.101] ([90.240.106.137])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ba454d1bd24sm548447866b.32.2026.04.22.08.05.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 Apr 2026 08:05:46 -0700 (PDT)
-Message-ID: <eabe4e7e-00b4-443a-930c-d838a9aa96e2@ursulin.net>
-Date: Wed, 22 Apr 2026 16:05:45 +0100
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68D2F10EA2E
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 15:12:20 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 1F88243C2F;
+ Wed, 22 Apr 2026 15:12:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BA4EC2BCB2;
+ Wed, 22 Apr 2026 15:12:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1776870740;
+ bh=+mxPr67dmi6eGFQEyDC3BhSbmybQ9ZfOoBp7zRL6wIU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=XdzwLERFkYdJ669m1kPKbBDvvaSbC2lPrz2VXhRFzFnBHNGLDlDZ2ffYtquR6W9G/
+ d5Yp4X98uyHhA9SpdwxWdCC/Q8pFrdAi4alhKteYf4zdf1hQ3zZVt06nL41RppUK3r
+ kwKnazcflpTTjePKX6CZusiw4DJ1HFUOeV4KrTDtYSnXm9WGvuhEg3hJw0Og7r+JHN
+ Aq16VxCuwdW+ILHs3vqgVlD+HhXt8l1J/xglzb6vlFHcm0fp4A6KhI2eQZBT5d3Qrd
+ BoUL694meGKIoHoV5K6SwsZLVCroGOp4OM1G6R2iJ2tDKN1IntC9HQpRDtn0mMzfcl
+ uGtJ1njG+jZ1w==
+Date: Wed, 22 Apr 2026 16:12:13 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>,
+ Stephen Boyd <sboyd@kernel.org>
+Cc: =?iso-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>,
+ Nicolas Saenz Julienne <nsaenz@kernel.org>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Stefan Wahren <wahrenst@gmx.net>,
+ Maxime Ripard <mripard@kernel.org>, Melissa Wen <mwen@igalia.com>,
+ Iago Toral Quiroga <itoral@igalia.com>,
+ Chema Casanova <jmcasanova@igalia.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-clk@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-rpi-kernel@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ kernel-dev@igalia.com
+Subject: Re: [PATCH v7 1/5] clk: bcm: rpi: Manage clock rate in
+ prepare/unprepare callbacks
+Message-ID: <18719902-4b4f-4766-ba92-658f3576f68b@sirena.org.uk>
+References: <20260312-v3d-power-management-v7-0-9f006a1d4c55@igalia.com>
+ <20260312-v3d-power-management-v7-1-9f006a1d4c55@igalia.com>
+ <5f0bec08-f458-4fba-8bf3-06817a100c4c@sirena.org.uk>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC] DRM Equivalent for top
-To: "Francis, David" <David.Francis@amd.com>,
- list DRI developers Maling <dri-devel@lists.freedesktop.org>
-Cc: Simona Vetter <simona@ffwll.ch>, Dave Airlie <airlied@gmail.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "lucas.demarchi@intel.com" <lucas.demarchi@intel.com>
-References: <SA1PR12MB8144E70E3AEE6CF0F54DB090EF2D2@SA1PR12MB8144.namprd12.prod.outlook.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <SA1PR12MB8144E70E3AEE6CF0F54DB090EF2D2@SA1PR12MB8144.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="LHYlK3DZlkasQWhb"
+Content-Disposition: inline
+In-Reply-To: <5f0bec08-f458-4fba-8bf3-06817a100c4c@sirena.org.uk>
+X-Cookie: I don't get no respect.
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,36 +77,46 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-On 22/04/2026 15:40, Francis, David wrote:
-> AMD have had some client requests for an equivalent of top that works with our drm driver
-> 
-> We're looking for an interface that
-> - Can be used by processes with no particular privileges.
-> - Gives a list of which processes are using a drm device (by pid).
-> - Can give (driver-specific) information about these processes.
-> 
-> We'd like to do this in drm, but drm doesn't track the pids of processes that have drm
-> device files open. It only knows which pid opened the file and which pid last touched it.
-> For example, if an X server opens a drm device file, creates some buffers, and then hands
-> that file to a child process, drm might still associate it with the X server.
+--LHYlK3DZlkasQWhb
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Slight correction here - DRM tracks the last ioctl already (so last 
-user) since 1c7a387ffef8 ("drm: Update file owner during use").
+On Tue, Mar 31, 2026 at 01:49:24PM +0100, Mark Brown wrote:
+> On Thu, Mar 12, 2026 at 06:34:23PM -0300, Ma=EDra Canal wrote:
 
-> We would like to do this through fdinfo, which does track by pid, but that would require
-> making part of fdinfo public, and we received negative responses to that.
-> https://lkml.org/lkml/2026/3/16/1816
+> > On current firmware versions, RPI_FIRMWARE_SET_CLOCK_STATE doesn't
+> > actually power off the clock. To achieve meaningful power savings, the
+> > clock rate must be set to the minimum before disabling. This might be
+> > fixed in future firmware releases.
+>=20
+> I'm seeing boot regressions in -next with NFS root on Raspberry Pi 3B+
+> which bisect to this commit.  We get a likely unrelated oops from the
+> firmware interface and the boot grinds to a halt some time later since
+> the ethernet never comes up:
 
-Would setcap CAP_PERFMON on the executable be good enough?
+This boot regression, which was originally reported against -next
+several weeks ago, is now present in mainline.  Ma=EDra quickly provided a
+fix:
 
-Regards,
+  https://lore.kernel.org/r/20260401111416.562279-2-mcanal@igalia.com
 
-Tvrtko
+which I have confirmed works but I've not seen any other response to
+either that fix or the original thread.
 
-> Would the public-fdinfo idea be useful to anyone else? More support might help push it
-> to acceptance. Alternately, is there appetite for an alternate interface that could
-> provide what we need?
-> 
-> Thanks,
-> David Francis
+--LHYlK3DZlkasQWhb
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmno5UwACgkQJNaLcl1U
+h9C8uAf/ZO4wI21Uzl5bCxYBY8Jno+VC7J4vtbL64QxVmWsUJS8BkYFC8/7ag7Xb
+3aX+wZAeWYuf+4kqIxij9+BdG+DUMiB2na+K9l42GGjTzNOxGlrrGZbswySitPsr
+h1ZXondy/6andS/ka69t4b+iHh0V6QJC/j2vVgrYGU3rg6M+jc39EZ88pwbCKej2
+ZCJc/vbmmaR9d/rqkcUFelHQcdTaIdDe7bT9WWbXplaBNKYvvPVyOsNfUtjDr8An
+mpRjI+38T2F+ILIjrqcY0PgvIQLKLqOpjYLl3UOsKp6WcuQirHNc0KT1t2GW43FM
+4MpOkPYfCgX7zx85X1PKJ1M63CuknA==
+=kuy8
+-----END PGP SIGNATURE-----
+
+--LHYlK3DZlkasQWhb--
