@@ -4,72 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B588F9B60C
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 10:29:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71FADF9B607
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 10:30:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 792C010E9A7;
-	Wed, 22 Apr 2026 10:29:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB6CE10E9A3;
+	Wed, 22 Apr 2026 10:30:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="frNPfyXR";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bDTFW2sY";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D38210E9A2;
- Wed, 22 Apr 2026 10:29:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1776853782; x=1808389782;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=auy2u+Gs2Ji/Jlwrh4HD3XtXCLmifnNNlGdQJLIyD14=;
- b=frNPfyXRM3bm6Lw+4gRN14t84PN7qKw66GlufI12T5ic6+bEBTx6Xa96
- dWn/Xir27VGqrQ0yvFsr7YWgwYW24UfR9Vq6ga69UYh7O1sc+4OAZAGnm
- npKUH0758Kjw092xC102qFzXtjxsHwPMvZ/eedMFaDeNpyvOZ2Anw0fP9
- Ca726Bmbeq9WHV5JFAwnC8CmylY27jIJBEQmt69ef1pGj8yKhhS6nkMmj
- oZ3vd8qVCJGUcI1D+Un32N19JUtFg6GNYFENHgUDbL6ltfCe90XprzM81
- wvlQIt7vuHy8OsJBOqQltNJSGIFjAVG7WlZwuFaBJmSwMD1WSYFmbQFVt g==;
-X-CSE-ConnectionGUID: W62wBR1PTouSGSc3CgBkxA==
-X-CSE-MsgGUID: +YLNCTVLQ7aViUVOwigBoA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11763"; a="77678460"
-X-IronPort-AV: E=Sophos;i="6.23,192,1770624000"; d="scan'208";a="77678460"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Apr 2026 03:29:42 -0700
-X-CSE-ConnectionGUID: lWq4nYq7SIynvDYM3mko8w==
-X-CSE-MsgGUID: HMiHusvQQf+tZ7IBNWRcdw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,192,1770624000"; d="scan'208";a="232184948"
-Received: from amilburn-desk.amilburn-desk (HELO [10.245.245.228])
- ([10.245.245.228])
- by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Apr 2026 03:29:38 -0700
-Message-ID: <4f74cacc-ff98-426f-ac31-c25e6cbec314@linux.intel.com>
-Date: Wed, 22 Apr 2026 12:29:35 +0200
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19D3610E9A3
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 10:30:16 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-43d734223e4so3624818f8f.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 03:30:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1776853814; x=1777458614; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=u5EkC/29S44h/d7Ni2SqoG2DCC3TxCGRvqnl3YG/8w8=;
+ b=bDTFW2sYfSSFu6Vs8Ttf+4BIVuY1d4LMD5VZnROGvuNTrU6ia+xJoirX/iNTkiH8Ao
+ 7St1djCLQR2zvJFFyd/Vkq1AGR4Ke/kCjenY3yQb1emFWVilH1JPEu3LLuxx5b8T/hcT
+ bycInElFykmEyXM501qDCatB8X+rw9ghMC1h4PI2YjToMMRC3oyY4UVsv2gO+i5l38J4
+ ir9U7t0TMelReSruBSBSLuyra0AZM2D6TnHqkx9OMJw6h+S2uI/U+vOfi7cfTHxDRYJU
+ xlpYj3f6L1riH5NqBEaI1NDDeewF5c4J8FJuaW9wY+1zllP+oyKbUU/lQTvFEi8XevV8
+ L0BQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776853814; x=1777458614;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=u5EkC/29S44h/d7Ni2SqoG2DCC3TxCGRvqnl3YG/8w8=;
+ b=WquoKog3Jmbh7mIt7Ogmt8FSlYeGOhTPUnXS43FIs0D26193Od+9S2HRWR7Y7/p+Wl
+ 9O1IoPRsG+XGfEU+2oscyuInR7vc7UIcavKC6hdtMHLD7Bs9D33rraZ5qy+e6jahww1U
+ 8QeGjTpCDR6dNJ5xzva/razDL6b99QjGeeoIfiiFUZB3dXH1DCkT6pZU8JJkIn712I+W
+ 0i9bOZIx+9tOAZSKwuyMyZ4rAZgLDmXzSPIpPaZu16Lv7/oNmOkCF6/fzAAWEriDRVlJ
+ 2FmTmVIe/wc58Iigr0V3+oLgsrom0xYcIaoSaMHMjZeTCxGdu+toR3nuPZF+z6qpb/xJ
+ 1BaQ==
+X-Gm-Message-State: AOJu0YzKmZOu9zvA2L62mItPAiovQ6N6kbPXcw+SNaCKPScmokcPWBgR
+ 6aXwWdn49gXeKMH/v94fT2oTk63ZZH2vGx6vHUxm5aiTHVrj63naPzkv
+X-Gm-Gg: AeBDievvkn6bfLjFeVnmu18ARt+MZjYRvi38RlzWB6DEmd5d38BlJOnMRXUlZ00QvCV
+ NUdQr7oCjcYZY4LS7QMBFWOm/plvVyJyhIqUw+g/PClP5PkWATaVDKDJH5DwlCzMGlK89G2QtzS
+ 6xEPayuLvCmpIqZ9YZmgmYGyAYzSMCipgg3+qI6MW6o/tlhQOImg7/IDRSf1RrP/b4Mwbd6SBwN
+ GyIV2cn5EdeQayf2upVaeXorvyXoopDwydMw1Wg6D9k4CmUOzwKuEcer/K3yO5AS6gwZcle7Ecj
+ NOFzoFXwaQlaffBX4lhNGCh94CUVBKiFErH234KQyMwtgxaAINi61ogd98tyfdor3OCyMVIsVPw
+ Ne7FU1EiwpbMXlLcgZwj9uhveFHONoBr2NWhVEh/hSFvEyyWmunIwa+b8VbsK3ego0lxycQAEQT
+ IOHwvX485YfUJIdcKtES5YcI31XUgiFK2v6aOhR3z55ShS/Q==
+X-Received: by 2002:a05:6000:40da:b0:43d:1df7:e3af with SMTP id
+ ffacd0b85a97d-43fe4088b01mr33049560f8f.22.1776853813543; 
+ Wed, 22 Apr 2026 03:30:13 -0700 (PDT)
+Received: from able.fritz.box ([2a00:e180:15c7:5100:eecf:fda8:2b8:432b])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43fe4e4daf2sm43439037f8f.33.2026.04.22.03.30.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 22 Apr 2026 03:30:12 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: tursulin@ursulin.net,
+	sumit.semwal@linaro.org
+Cc: dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org
+Subject: [PATCH 1/2] dma-buf/dma_fence_array: remove unused functionality v3
+Date: Wed, 22 Apr 2026 12:30:10 +0200
+Message-ID: <20260422103012.1647-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] cgroup/dmem: Add reclaim callback for lowering max
- below current usage
-To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- intel-xe@lists.freedesktop.org
-Cc: Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>, 
- Tejun Heo <tj@kernel.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>, cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Matthew Auld <matthew.auld@intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
- David Airlie <airlied@gmail.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-References: <20260327081600.4885-1-thomas.hellstrom@linux.intel.com>
- <20260327081600.4885-3-thomas.hellstrom@linux.intel.com>
- <4b647952-0038-4878-b67e-6c7fc7ab27a6@linux.intel.com>
- <398623a092c65ce4e53d1713112fa39ac0979fd7.camel@linux.intel.com>
- <8ecda206-d290-4895-bf57-346419afdc3c@linux.intel.com>
- <3b662522e17e380953d9b981d8c2febecf42455e.camel@linux.intel.com>
-Content-Language: en-US
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-In-Reply-To: <3b662522e17e380953d9b981d8c2febecf42455e.camel@linux.intel.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -87,271 +88,192 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hey,
+Amdgpu was the only user of the signal on any feature and we dropped
+that use case recently, so we can remove that functionality.
 
-Den 2026-04-22 kl. 12:20, skrev Thomas Hellström:
-> On Wed, 2026-04-22 at 11:50 +0200, Maarten Lankhorst wrote:
->> Hey,
->>
->> Den 2026-04-22 kl. 10:42, skrev Thomas Hellström:
->>> On Wed, 2026-04-22 at 10:31 +0200, Maarten Lankhorst wrote:
->>>> Hey,
->>>>
->>>> (Adding Thadeu to cc since they've been working on the same
->>>> issue)
->>>>
->>>> Den 2026-03-27 kl. 09:15, skrev Thomas Hellström:
->>>>> Add an optional reclaim callback to struct dmem_cgroup_region. 
->>>>> When
->>>>> dmem.max is set below current usage, invoke the callback to
->>>>> evict
->>>>> memory
->>>>> and retry setting the limit rather than failing immediately. 
->>>>> Signal
->>>>> interruptions propagate back to the write() caller.
->>>>>
->>>>> RFC:
->>>>> Due to us updating the max limit _after_ the usage has been
->>>>> sufficiently lowered, this should be prone to failures if there
->>>>> are
->>>>> aggressive allocators running in parallel to the reclaim.
->>>>> So can we somehow enforce the new limit while the eviction is
->>>>> happening?
->>>>>
->>>>> Assisted-by: GitHub Copilot:claude-sonnet-4.6
->>>>> Signed-off-by: Thomas Hellström
->>>>> <thomas.hellstrom@linux.intel.com>
->>>>> ---
->>>>>  include/linux/cgroup_dmem.h | 11 +++++
->>>>>  kernel/cgroup/dmem.c        | 94
->>>>> +++++++++++++++++++++++++++++++++----
->>>>>  2 files changed, 96 insertions(+), 9 deletions(-)
->>>>>
->>>>> diff --git a/include/linux/cgroup_dmem.h
->>>>> b/include/linux/cgroup_dmem.h
->>>>> index dd4869f1d736..61520a431740 100644
->>>>> --- a/include/linux/cgroup_dmem.h
->>>>> +++ b/include/linux/cgroup_dmem.h
->>>>> @@ -26,6 +26,10 @@ bool dmem_cgroup_state_evict_valuable(struct
->>>>> dmem_cgroup_pool_state *limit_pool,
->>>>>  				      bool ignore_low, bool
->>>>> *ret_hit_low);
->>>>>  
->>>>>  void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state
->>>>> *pool);
->>>>> +void dmem_cgroup_region_set_reclaim(struct dmem_cgroup_region
->>>>> *region,
->>>>> +				    int (*reclaim)(struct
->>>>> dmem_cgroup_pool_state *pool,
->>>>> +						   u64
->>>>> target_bytes, void *priv),
->>>>> +				    void *priv);
->>>>>  #else
->>>>>  static inline __printf(2,3) struct dmem_cgroup_region *
->>>>>  dmem_cgroup_register_region(u64 size, const char *name_fmt,
->>>>> ...)
->>>>> @@ -62,5 +66,12 @@ bool dmem_cgroup_state_evict_valuable(struct
->>>>> dmem_cgroup_pool_state *limit_pool,
->>>>>  static inline void dmem_cgroup_pool_state_put(struct
->>>>> dmem_cgroup_pool_state *pool)
->>>>>  { }
->>>>>  
->>>>> +static inline void
->>>>> +dmem_cgroup_region_set_reclaim(struct dmem_cgroup_region
->>>>> *region,
->>>>> +			       int (*reclaim)(struct
->>>>> dmem_cgroup_pool_state *pool,
->>>>> +					      u64
->>>>> target_bytes,
->>>>> void *priv),
->>>>> +			       void *priv)
->>>>> +{ }
->>>>> +
->>>>>  #endif
->>>>>  #endif	/* _CGROUP_DMEM_H */
->>>>> diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
->>>>> index 3e6d4c0b26a1..f993fb058b74 100644
->>>>> --- a/kernel/cgroup/dmem.c
->>>>> +++ b/kernel/cgroup/dmem.c
->>>>> @@ -51,6 +51,18 @@ struct dmem_cgroup_region {
->>>>>  	 * No new pools should be added to the region
->>>>> afterwards.
->>>>>  	 */
->>>>>  	bool unregistered;
->>>>> +
->>>>> +	/**
->>>>> +	 * @reclaim: Optional callback invoked when dmem.max
->>>>> is
->>>>> set below the
->>>>> +	 * current usage of a pool. The driver should attempt
->>>>> to
->>>>> free at least
->>>>> +	 * @target_bytes from @pool. May be called multiple
->>>>> times
->>>>> if usage
->>>>> +	 * remains above the limit after returning.
->>>>> +	 */
->>>>> +	int (*reclaim)(struct dmem_cgroup_pool_state *pool,
->>>>> u64
->>>>> target_bytes,
->>>>> +		       void *priv);
->>>>> +
->>>>> +	/** @reclaim_priv: Private data passed to @reclaim. */
->>>>> +	void *reclaim_priv;
->>>>>  };
->>>>>  
->>>>>  struct dmemcg_state {
->>>>> @@ -145,23 +157,59 @@ static void free_cg_pool(struct
->>>>> dmem_cgroup_pool_state *pool)
->>>>>  }
->>>>>  
->>>>>  static int
->>>>> -set_resource_min(struct dmem_cgroup_pool_state *pool, u64 val)
->>>>> +set_resource_min(struct dmem_cgroup_pool_state *pool, u64 val,
->>>>> +		 struct dmem_cgroup_region *region)
->>>>>  {
->>>>>  	page_counter_set_min(&pool->cnt, val);
->>>>>  	return 0;
->>>>>  }
->>>>>  
->>>>>  static int
->>>>> -set_resource_low(struct dmem_cgroup_pool_state *pool, u64 val)
->>>>> +set_resource_low(struct dmem_cgroup_pool_state *pool, u64 val,
->>>>> +		 struct dmem_cgroup_region *region)
->>>>>  {
->>>>>  	page_counter_set_low(&pool->cnt, val);
->>>>>  	return 0;
->>>>>  }
->>>>>  
->>>>>  static int
->>>>> -set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val)
->>>>> +set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val,
->>>>> +		 struct dmem_cgroup_region *region)
->>>>>  {
->>>>> -	return page_counter_set_max(&pool->cnt, val);
->>>>> +	int err = page_counter_set_max(&pool->cnt, val);
->>>>> +
->>>>> +	if (err != -EBUSY || !region || !region->reclaim)
->>>>> +		return err;
->>>>> +
->>>>> +	/*
->>>>> +	 * The new max is below current usage.  Ask the driver
->>>>> to
->>>>> evict memory
->>>>> +	 * and retry, up to a bounded number of times.  Signal
->>>>> interruptions are
->>>>> +	 * propagated back to the write() caller; other
->>>>> reclaim
->>>>> failures leave
->>>>> +	 * -EBUSY as the result.
->>>>> +	 */
->>>>> +	for (int retries = 5; retries > 0; retries--) {
->>>>> +		u64 usage = page_counter_read(&pool->cnt);
->>>>> +		u64 target = usage > val ? usage - val : 0;
->>>>> +		int reclaim_err;
->>>>> +
->>>>> +		if (!target) {
->>>>> +			err = page_counter_set_max(&pool->cnt,
->>>>> val);
->>>>> +			break;
->>>>> +		}
->>>>> +
->>>>> +		reclaim_err = region->reclaim(pool, target,
->>>>> region->reclaim_priv);
->>>>> +		if (reclaim_err) {
->>>>> +			if (reclaim_err == -EINTR ||
->>>>> reclaim_err
->>>>> == -ERESTARTSYS)
->>>>> +				err = reclaim_err;
->>>>> +			break;
->>>>> +		}
->>>>> +
->>>>> +		err = page_counter_set_max(&pool->cnt, val);
->>>>> +		if (err != -EBUSY)
->>>>> +			break;
->>>>> +	}
->>>>> +
->>>>> +	return err;
->>>>>  }
->>>>
->>>> I mentioned this in chat but I wanted to mention it on the
->>>> mailing
->>>> list for others as well,
->>>> can we reproduce the behavior from memory_max_write() in
->>>> mm/memcontrol.c?
->>>>
->>>> 1. First set new limit through xchg.
->>>> 2. If O_NONBLOCK is set -> do nothing, next allocation in target
->>>> region will fail and cause reclaim.
->>>> 3. If not set -> reclaim until below new limit or interrupted by
->>>> a
->>>> signal, return success in all cases here since we set new limit.
->>>>
->>>>
->>>
->>> Yup.
->>>
->>> For 3, we also need to consider the case where we fail to reclaim
->>> due
->>> to memory being pinned. If it's OK to (usually temporary) have
->>> current
->>> usage above max, that would work.
->>>
->>> I have that coded up and also add a patch on top to defer reclaim
->>> to a
->>> thread if we bail due to signal or O_NONBLOCK. Perhaps we could
->>> discuss
->>> whether that's a good or bad idea in that patch.
->>
->> That doesn't sound like a good idea. The semantics of O_NONBLOCK
->> are deliberately intended to be able to change the max without
->> causing
->> reclaim.
->>
->> See the details in commit ("memcg: introduce non-blocking limit
->> setting option")
-> 
-> From reading the docs that introduces, it sounds more like that avoids
-> *synchronous* reclaim, which is also in line with O_NONBLOCK semantics.
-> 
-> The analogy with launching a thread would be more that of kswapd doing
-> the reclaim in the memcg case?
-> 
-> But OTOH, if we were to introduce a thread-driven dmem reclaim that
-> would perhaps be something that wasn't directly tied to the dmem
-> controller but rather to the dmem provider itself. (TTM in this case).
+v2: update num_pending only after the fence is signaled
+v3: separate out simplifying dma_fence_array implementation
 
-From the docs:
-+        If memory.max is opened with O_NONBLOCK, then the synchronous
-+        reclaim and oom-kill are bypassed. This is useful for admin
-+        processes that need to dynamically adjust the job's memory limits
-+        without expending their own CPU resources on memory reclamation.
-+        The job will trigger the reclaim and/or oom-kill on its next
-+        charge request.
+Signed-off-by: Christian König <christian.koenig@amd.com>
+---
+ drivers/dma-buf/dma-fence-array.c              | 13 ++++---------
+ drivers/dma-buf/dma-fence-unwrap.c             |  3 +--
+ drivers/dma-buf/dma-resv.c                     |  3 +--
+ drivers/dma-buf/st-dma-fence-unwrap.c          |  2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c |  3 +--
+ drivers/gpu/drm/xe/xe_sync.c                   |  2 +-
+ drivers/gpu/drm/xe/xe_vm.c                     |  4 ++--
+ include/linux/dma-fence-array.h                |  6 ++----
+ 8 files changed, 13 insertions(+), 23 deletions(-)
 
-The task writing to max will not trigger a reclaim,
-only set the new max value.
-
-But when a process, part of the affected cgroup, tries to allocate memory,
-it will be forced to reclaim memory until below max again. 
-
-This is a workflow where instead of the updater doing all
-the evictions, the evictions handled by a process in the cgroup itself.
-
->>
->> I also believe it's ok not to continue reclaiming if aborted, the
->> caller can
->> always try again if necessary.
->>
->> If we want to deviate from the memcg controller, we need a very good
->> reason
->> to do so. I'd like to keep the semantics the same if possible.
->>
->>> Will send out when I've updated the IGT tests accordingly.
->>>
->>> Thanks,
->>> Thomas
->>
->> Kind regards,
->> ~Maarten Lankhorst
+diff --git a/drivers/dma-buf/dma-fence-array.c b/drivers/dma-buf/dma-fence-array.c
+index 089f69469524..5e10e8df372f 100644
+--- a/drivers/dma-buf/dma-fence-array.c
++++ b/drivers/dma-buf/dma-fence-array.c
+@@ -190,15 +190,13 @@ EXPORT_SYMBOL(dma_fence_array_alloc);
+  * @fences:		[in]	array containing the fences
+  * @context:		[in]	fence context to use
+  * @seqno:		[in]	sequence number to use
+- * @signal_on_any:	[in]	signal on any fence in the array
+  *
+  * Implementation of @dma_fence_array_create without allocation. Useful to init
+  * a preallocated dma fence array in the path of reclaim or dma fence signaling.
+  */
+ void dma_fence_array_init(struct dma_fence_array *array,
+ 			  int num_fences, struct dma_fence **fences,
+-			  u64 context, unsigned seqno,
+-			  bool signal_on_any)
++			  u64 context, unsigned seqno)
+ {
+ 	static struct lock_class_key dma_fence_array_lock_key;
+ 
+@@ -222,7 +220,7 @@ void dma_fence_array_init(struct dma_fence_array *array,
+ 	 */
+ 	lockdep_set_class(&array->base.inline_lock, &dma_fence_array_lock_key);
+ 
+-	atomic_set(&array->num_pending, signal_on_any ? 1 : num_fences);
++	atomic_set(&array->num_pending, num_fences);
+ 	array->fences = fences;
+ 
+ 	array->base.error = PENDING_ERROR;
+@@ -249,7 +247,6 @@ EXPORT_SYMBOL(dma_fence_array_init);
+  * @fences:		[in]	array containing the fences
+  * @context:		[in]	fence context to use
+  * @seqno:		[in]	sequence number to use
+- * @signal_on_any:	[in]	signal on any fence in the array
+  *
+  * Allocate a dma_fence_array object and initialize the base fence with
+  * dma_fence_init().
+@@ -264,8 +261,7 @@ EXPORT_SYMBOL(dma_fence_array_init);
+  */
+ struct dma_fence_array *dma_fence_array_create(int num_fences,
+ 					       struct dma_fence **fences,
+-					       u64 context, unsigned seqno,
+-					       bool signal_on_any)
++					       u64 context, unsigned seqno)
+ {
+ 	struct dma_fence_array *array;
+ 
+@@ -273,8 +269,7 @@ struct dma_fence_array *dma_fence_array_create(int num_fences,
+ 	if (!array)
+ 		return NULL;
+ 
+-	dma_fence_array_init(array, num_fences, fences,
+-			     context, seqno, signal_on_any);
++	dma_fence_array_init(array, num_fences, fences, context, seqno);
+ 
+ 	return array;
+ }
+diff --git a/drivers/dma-buf/dma-fence-unwrap.c b/drivers/dma-buf/dma-fence-unwrap.c
+index 07fe9bf45aea..53bb40e70b27 100644
+--- a/drivers/dma-buf/dma-fence-unwrap.c
++++ b/drivers/dma-buf/dma-fence-unwrap.c
+@@ -180,8 +180,7 @@ struct dma_fence *__dma_fence_unwrap_merge(unsigned int num_fences,
+ 
+ 	if (count > 1) {
+ 		result = dma_fence_array_create(count, array,
+-						dma_fence_context_alloc(1),
+-						1, false);
++						dma_fence_context_alloc(1), 1);
+ 		if (!result) {
+ 			for (i = 0; i < count; i++)
+ 				dma_fence_put(array[i]);
+diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
+index ce9e6c04897f..39a92d9f2413 100644
+--- a/drivers/dma-buf/dma-resv.c
++++ b/drivers/dma-buf/dma-resv.c
+@@ -648,8 +648,7 @@ int dma_resv_get_singleton(struct dma_resv *obj, enum dma_resv_usage usage,
+ 	}
+ 
+ 	array = dma_fence_array_create(count, fences,
+-				       dma_fence_context_alloc(1),
+-				       1, false);
++				       dma_fence_context_alloc(1), 1);
+ 	if (!array) {
+ 		while (count--)
+ 			dma_fence_put(fences[count]);
+diff --git a/drivers/dma-buf/st-dma-fence-unwrap.c b/drivers/dma-buf/st-dma-fence-unwrap.c
+index 51c87869b7b8..4e7ee25372ba 100644
+--- a/drivers/dma-buf/st-dma-fence-unwrap.c
++++ b/drivers/dma-buf/st-dma-fence-unwrap.c
+@@ -64,7 +64,7 @@ static struct dma_fence *mock_array(unsigned int num_fences, ...)
+ 
+ 	array = dma_fence_array_create(num_fences, fences,
+ 				       dma_fence_context_alloc(1),
+-				       1, false);
++				       1);
+ 	if (!array)
+ 		goto error_free;
+ 	return &array->base;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+index 942f4eed817f..4a1a9031f9db 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+@@ -3205,8 +3205,7 @@ eb_composite_fence_create(struct i915_execbuffer *eb, int out_fence_fd)
+ 	fence_array = dma_fence_array_create(eb->num_batches,
+ 					     fences,
+ 					     eb->context->parallel.fence_context,
+-					     eb->context->parallel.seqno++,
+-					     false);
++					     eb->context->parallel.seqno++);
+ 	if (!fence_array) {
+ 		kfree(fences);
+ 		return ERR_PTR(-ENOMEM);
+diff --git a/drivers/gpu/drm/xe/xe_sync.c b/drivers/gpu/drm/xe/xe_sync.c
+index 24d6d9af20d6..37866768d64c 100644
+--- a/drivers/gpu/drm/xe/xe_sync.c
++++ b/drivers/gpu/drm/xe/xe_sync.c
+@@ -376,7 +376,7 @@ xe_sync_in_fence_get(struct xe_sync_entry *sync, int num_sync,
+ 		xe_assert(vm->xe, current_fence == num_fence);
+ 		cf = dma_fence_array_create(num_fence, fences,
+ 					    dma_fence_context_alloc(1),
+-					    1, false);
++					    1);
+ 		if (!cf)
+ 			goto err_out;
+ 
+diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
+index 56e2db50bb36..8f472911469d 100644
+--- a/drivers/gpu/drm/xe/xe_vm.c
++++ b/drivers/gpu/drm/xe/xe_vm.c
+@@ -3370,7 +3370,7 @@ static struct dma_fence *ops_execute(struct xe_vm *vm,
+ 		goto err_trace;
+ 	}
+ 
+-	cf = dma_fence_array_alloc(n_fence);
++	cf = dma_fence_array_alloc();
+ 	if (!cf) {
+ 		fence = ERR_PTR(-ENOMEM);
+ 		goto err_out;
+@@ -3414,7 +3414,7 @@ static struct dma_fence *ops_execute(struct xe_vm *vm,
+ 
+ 	xe_assert(vm->xe, current_fence == n_fence);
+ 	dma_fence_array_init(cf, n_fence, fences, dma_fence_context_alloc(1),
+-			     1, false);
++			     1);
+ 	fence = &cf->base;
+ 
+ 	for_each_tile(tile, vm->xe, id) {
+diff --git a/include/linux/dma-fence-array.h b/include/linux/dma-fence-array.h
+index 370b3d2bba37..1b1d87579c38 100644
+--- a/include/linux/dma-fence-array.h
++++ b/include/linux/dma-fence-array.h
+@@ -81,13 +81,11 @@ to_dma_fence_array(struct dma_fence *fence)
+ struct dma_fence_array *dma_fence_array_alloc(int num_fences);
+ void dma_fence_array_init(struct dma_fence_array *array,
+ 			  int num_fences, struct dma_fence **fences,
+-			  u64 context, unsigned seqno,
+-			  bool signal_on_any);
++			  u64 context, unsigned seqno);
+ 
+ struct dma_fence_array *dma_fence_array_create(int num_fences,
+ 					       struct dma_fence **fences,
+-					       u64 context, unsigned seqno,
+-					       bool signal_on_any);
++					       u64 context, unsigned seqno);
+ 
+ bool dma_fence_match_context(struct dma_fence *fence, u64 context);
+ 
+-- 
+2.43.0
 
