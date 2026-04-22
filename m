@@ -4,131 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21B9AF94CD1
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 06:41:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41354F94CD2
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 06:45:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81C9710E030;
-	Wed, 22 Apr 2026 06:41:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91E3110EEE5;
+	Wed, 22 Apr 2026 06:45:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tKliri37";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ddhmfalq";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011040.outbound.protection.outlook.com [40.107.208.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45BAC8876A;
- Wed, 22 Apr 2026 06:41:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EXkNNoQ6s2BiI0iwAq/9lKQJ/XQxAFIq9DhCvL4musUnGwelqs3RQJ3Gfv4fKQ5YvszyEGOm4NY0oibOxKt8QFpYPXlJOmS0hJ8o45eraMHS3qxNKlwg0dzkHw3A9HYP3luIImzK2bOgWSyGOrzhv6VAowApjgfbwbXbdENE/tG5V2Q8L7cGFB1OM+CG5b6J9FC05lxj7hiXPgMyDrnbk8+aaWq+2SdkEh3Cg18c/8J3R80MDulrKy1YIE6MbQS2vsD8mpyEp0Bp/3qsGLokgSpTCTYk7mmoH7bU5DQsWPmmwFv6Wybk4Bye5GeBFVulNM+FP4626TxBr2hQmkoC6g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=F7zZnYk1f+K6mgX+zYwIrpAqyz3ipoVnuNuhnsmM7C8=;
- b=MTC3+cH7kjRsLDkgUmcmL6Vz3Z0a6no/SlispfyfBvcfojYbef1i19LOeaBNMN+WnBkv9Y0rlLUcezynmaMWHZ5YeUNiNN5fxuhuCHQSRwZH/OkHaaXcPlS4yDmviqaBXdhFzj8GkyF8GW2C3/hrzy3VEidrPUzKRilDi0yh2pFwxAlPWyqzGnADpTtCNIEAwdurEYcLC6BUvRxlvLwXio2vXIGD401ZcJIqsPHCT+7EPZkAWfD3c571ccly+cCzlUzfP5etevsIvVujZjqeKH6vk1RoW0n+ofmlvWqlun7/Gma/giBIU7lBDYsElFpppq97PkJEmnSyUgMdLlggsw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=F7zZnYk1f+K6mgX+zYwIrpAqyz3ipoVnuNuhnsmM7C8=;
- b=tKliri37F8FyqXpiQByGIoAaRCzzpOpEUynEQ+BfX5hIKarV1vmJlI0y5tcgGCmbunia6Zv2jzqBZSdyA/G/aIRywlKyOjiuWtt4FaRIvE0x506kQ57egPkK+1RQLtptNBFOVdrQ7E+7ULjxpr4K2QSI5LL1idEFXdM3i4KGx4c=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by BY5PR12MB4244.namprd12.prod.outlook.com (2603:10b6:a03:204::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.20; Wed, 22 Apr
- 2026 06:41:10 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9846.016; Wed, 22 Apr 2026
- 06:41:10 +0000
-Message-ID: <c340442c-ced0-4f9b-b8b4-8e2ed6518159@amd.com>
-Date: Wed, 22 Apr 2026 08:41:02 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] drm/ttm: Issue direct reclaim at beneficial_order
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Carlos Santa <carlos.santa@intel.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Daniel Colascione <dancol@dancol.org>
-References: <20260421012608.1474950-1-matthew.brost@intel.com>
- <20260421012608.1474950-2-matthew.brost@intel.com>
- <aecef1f3-5625-48b2-9117-b14cb1b61e50@amd.com>
- <aehKusO6Sc1Qn+Wi@gsse-cloud1.jf.intel.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <aehKusO6Sc1Qn+Wi@gsse-cloud1.jf.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0128.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:97::10) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6F2D10EECF;
+ Wed, 22 Apr 2026 06:45:19 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 7DAA54353C;
+ Wed, 22 Apr 2026 06:45:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8D6DC2BCB3;
+ Wed, 22 Apr 2026 06:45:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1776840319;
+ bh=pYMxzy5OOvpaaRU5o941SfAWX+eqdO8KE44KbLMbd7Y=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=DdhmfalqLLHd9GLo6AHzXaUb59GTRlMbd3z7X7bpR4gWre4PnQaPyczOtXwMb+2mp
+ BdG7O6F0DvzQAcj98JCSOKe85mfMwLGD1dfGxCGhN/F5X+3AGCymvlsnXfBoBmzkvz
+ 8WpGL1jYe7h93YrA2b573sIPOGpri5F+9AGTyTW6HxKMQSnQjVhBLb9NDNiqvvw6jp
+ aU/3Gc5qf1x1Cq5jyBoYHFt4eIEAC1V4XJwZZViYGgwXHUIZx8Lb2PjP4UHvGMeV01
+ 3OHS4wdTfZe0l68e9D+HnIc698iXzzT6EDYtqrQWCovkuGH01IBk2fCy51S/JXgEvY
+ 02//vyIBdljvw==
+Date: Wed, 22 Apr 2026 08:45:16 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Jyri Sarha <jyri.sarha@iki.fi>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Simon Ser <contact@emersion.fr>, 
+ Harry Wentland <harry.wentland@amd.com>, Melissa Wen <mwen@igalia.com>, 
+ Sebastian Wick <sebastian.wick@redhat.com>, Alex Hung <alex.hung@amd.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Daniel Stone <daniels@collabora.com>, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH v2 15/20] drm/drv: Call drm_mode_config_create_state() by
+ default
+Message-ID: <20260422-vermilion-bumblebee-from-betelgeuse-cffbc1@houat>
+References: <20260320-drm-mode-config-init-v2-0-c63f1134e76c@kernel.org>
+ <20260320-drm-mode-config-init-v2-15-c63f1134e76c@kernel.org>
+ <79cc30d5-80b5-4d87-a3ad-36d6fad98853@suse.de>
+ <dd39f423-1598-4749-8c95-98b8daf69680@suse.de>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|BY5PR12MB4244:EE_
-X-MS-Office365-Filtering-Correlation-Id: ae4e2b5f-f57f-49fc-774f-08dea03a236f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|366016|1800799024|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: dZ1m9aDjcw6QYqiCNjCfGXifAqgKtIJQo2ThGxgsfg6lwZIvlo9qVqb1cxAsWwHesAyGeMtZTs8R1NRD/H6tX9JaKATPgplkAtH3XCv49bakhHrh+D5gNYIm/ai3dFMNAOfCqXh9hmL+jB8+ZWjIUCadbROc5V5WZt8YwTPA6mZ5lBBOeMGnU80eJ9oPE4S9aVanoCIanIQi5qLPAzMwlyYRYfOAuYSAZ6LOp65LI16wPGFF378kqomR7XcDhmArEfvj10IfPw2CrYLlIlhPTkZKT3NrYb1rGo8iyFujGEbefI8LoPBq1YgJy2mBb18U3tOTf6X0hUdM+Nl0pIhG/GLVpIfIexDOxtmKX1pXaQl5kPDus/FjoIndKgrhUZ1F8Q+RzOz6B+HMiKF50EhoE2PAP89tDvz00GBFq0twUN1mX+1bb/6fiwPUUKybA8uBfUn0/9BKWEGdB/j1VhtjwF9U0h4/JexE4wdLxmzlVgvpWEGXccZfTHKwKqKUcfZ82yUVh+Ox/P8IwcbEc2c/yHS8wp1WvhrHbFhXVbxdKBMXJ6UZUN1Vgy8JoDZUPalOZTRqCtsByOchD/Zu2laDdXIOO10PVhZ1qOTMoUz7QehTHmQpUHq++/ITS3ihaG/o7nYoi8ULAWGGB4psVjo3qNAToIq3nMwyI5dwFANWDnn4BmGbwnFHeQOSw3/cOpOkuZSwrPKEOHHUrwtDC5SNGGXocRNWQqo/z3LP8Dv6OZM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(366016)(1800799024)(18002099003)(22082099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bEtlZXpPUzNMeGxYRWlCT2xlUnpxNmNUdTIyS0s2WDV0UWpFdHN5OVNmYlVq?=
- =?utf-8?B?QzRMWnhKNGxEYnZKY3FNOHoraG9MbnV2SUdwUyswdjZ1WVFKYzZIL2hxcm5M?=
- =?utf-8?B?NklveWVLbUpYQTEwMHJ3QjRMQ0FVTWVBQlZmNXV6d0dUTWVBamtNZlJZUDJx?=
- =?utf-8?B?UVZrWXFBTS9EdWdYYmV0R2J5Z1BjV3hBSXUrbGpqK3g0TzJmY004ZFJGaVdr?=
- =?utf-8?B?d1N1KzBNbGF0OGF5UzdOQlFuNGdoY3hsWGU5V0h5R3pveFhXYm1HQlI0c0Ev?=
- =?utf-8?B?WmRydHliUDRMRzVXanczMG5NR3NyTzhlQTMyOUQ2WUh5azFpQU4wcE1LSGty?=
- =?utf-8?B?OWEwMjdYQmlaR0VpMXFUQmlZL1VJWDA1WHpiTVowRGlDYnJWWGZoSUIwZjhZ?=
- =?utf-8?B?OXB1b2Qra1VqMy9QYzJRajRsZjFYQW5lc2pBK1RBV2pLZVJWNVI1djhMRW45?=
- =?utf-8?B?ODF5dENaVk9vN3JxMVBPSWRHb2VyYk00WHBBV1VRTmgwY0Jna0lhTVB2bGxE?=
- =?utf-8?B?alRoemNFVUdoaFE3Tmx4dHdTQ2h2MkZvM2YvT0czSmNMbjd0MUNEZENjMXlW?=
- =?utf-8?B?YXppUVVqbk1xanY1Y1JnYlkwV3Q4ZWg1R1MzUTBJRytNUUwwalZMSm53cDFM?=
- =?utf-8?B?ajAxZ2pWS1JEbUN4VVl4eDRiTUxLZGFiS3JtM1NxeXJHT3J6clA3V1F1ckND?=
- =?utf-8?B?NWpxdTNkcEpQTjFIR3JZdDExSDRObk1wRFdDUHlJUnRWUk5XYTBoOG9idGFm?=
- =?utf-8?B?dkQwdVNra2xZUndtK1U1a05yTlZiL3EzK3FVSlp5N0tTSWg0ZUZTbFZucmJr?=
- =?utf-8?B?RVRSUmtGdTlGY3VFTHc4N09DbUlmUnFyZkorZ3U2MnlRNVRPdGZQTUgxSjVP?=
- =?utf-8?B?a3d3bGI5UHRzYjBJV3dKaTdHd3dNenl3eUxJcjVHL1lBa0FJamlNdm1nUndV?=
- =?utf-8?B?WjQ3NnRaUjdJelhhWUN4MHdiQ205ZnNLY0pBNi80cGNKRjZ5VWdjdDVGNzZO?=
- =?utf-8?B?dDdsMjlVcG5NVXQyWi84OWdxd2lMS1VmNXJ2cG5lOVMrSTBYLzZ3UDRBMTFT?=
- =?utf-8?B?NmtsVmgzMzV4WGtBTU56eDVWUEo3a21CaHNNSTJrak5BTnVFM0VzWjc4M1Ir?=
- =?utf-8?B?WUU4cFRSQ0dqMGlYekgwU1h4Tmw4aUkrcFZ6cEx3L3ViWkRudzdOb2Y1b2ta?=
- =?utf-8?B?U3F4aVZBT0xrWEU4eTJwL0g4VHU5clI3emtsMlpEcmpkOXU2UlBUcUc1YkYx?=
- =?utf-8?B?VTZMdklzVmhDd3JXQkNaUmZ6bjF3VDRnQ2VQZGg0bTBJMW5hbnV6NTJIOW1W?=
- =?utf-8?B?YXVYNytIZFQ1R1ZYRHV5SjYyM2huLzdkSVFaZU8rK3VhaVFtQzNJUFIxeWts?=
- =?utf-8?B?Q1pSWW93SUVDM2NneHdlaFNXVzNvdyt5ZSs2MU0rYnRjRkUrT0ZuSWpuOWZy?=
- =?utf-8?B?TUJURzJ6K3lWbUFxTXB1ZWNybU54cDZkN24zWk5nMXh4RzU1Tmt6M2FMeHdr?=
- =?utf-8?B?RjdHYTZNOWlvdklRQkJoNEw0NzVFTW5ZWHN4TVFza2tZYkQrbXdzb2dZSTlm?=
- =?utf-8?B?VWlUWHVjaEtWd1o0Q0pMcHdGZ3dPZ2thV3VScGs0aktKcHFiZDNXQ2hSdjFZ?=
- =?utf-8?B?Ry9IVDF5OHZhWHZwM0xDN24xUDJwWDV3YitxcXdvemN5V1dWQ1Y5ZjlzMjBR?=
- =?utf-8?B?MmRNQitwQVVidmF4WjJudG9yZXB6RTFENDB1am1OWHZuU08vbU04YW93Z01B?=
- =?utf-8?B?b2grSE5vbHhrbll4d0RBTGN1cmw3djl4YncvWGRub0NnT2l1Ry9vNW51UTlk?=
- =?utf-8?B?dVF5Z2p1THEyc0kyYTBNVzluUy8xK01rb3ZiNmZabUMrYzYySldPMURwbnky?=
- =?utf-8?B?R1ZINEU4UW1NQXJSaFdCZ1htZlVJZzRXV1NBWGRlbThmRGpzU05BaTlxamlL?=
- =?utf-8?B?dEtRRVB6bzI0MDIwRDFjYkthQzN6YWJXN1prbEtsb05EcVBuOGRabC9rVStC?=
- =?utf-8?B?RFVKS3NaeUM3dnlSTXRYTllUSkdxVXBEbmt1Zm00NVFZQkptR1BEZ2Zrc3ZS?=
- =?utf-8?B?RjYwNmt6WURmc3ZKSFA5WGNWc2tZTFAva2JncnhhSEZzUDNlOUVGc3BoV2Rh?=
- =?utf-8?B?dmxndmRHQmtaZ0pVN2lIdmJESUdaSnpmTVVzU1N6SDRCako3N3pXNWk4L3VK?=
- =?utf-8?B?cWwvY1NDZkJ3RmJFcTF0aks5dGExUzRvMVlBRUV6SFFzRXJDdk5FcmFxaG1Q?=
- =?utf-8?B?cVhsQkh5YW5BZk1xcnlDSWxFb1F4NEtYdGV1bzlDWVZabUV2SjMrdHIrek9i?=
- =?utf-8?Q?Ma6Z2+w9tJeA23v6db?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ae4e2b5f-f57f-49fc-774f-08dea03a236f
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2026 06:41:10.1084 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ePOMG9hfM/Txi7iW8VPm60jgY89n2170S0s0HHpQaNjkojkTaZLEeVQiUYLUVrdE
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4244
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="mmuav45v5xyeg7x4"
+Content-Disposition: inline
+In-Reply-To: <dd39f423-1598-4749-8c95-98b8daf69680@suse.de>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,66 +85,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/22/26 06:12, Matthew Brost wrote:
-> On Tue, Apr 21, 2026 at 08:11:17AM +0200, Christian König wrote:
->> On 4/21/26 03:26, Matthew Brost wrote:
->>> Triggering kswap at an order higher than beneficial_order makes little
->>> sense, as the driver has already indicated the optimal order at which
->>> reclaim is effective. Similarly, issuing direct reclaim or triggering
->>> kswap at a lower order than beneficial_order is ineffective, since the
->>> driver does not benefit from reclaiming lower-order pages.
->>>
->>> As a result, direct reclaim should only be issued with __GFP_NORETRY at
->>> exactly beneficial_order, or as a fallback, direct reclaim without
->>> __GFP_NORETRY at order 0 when failure is not an option.
->>>
->>> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
->>> Cc: Carlos Santa <carlos.santa@intel.com>
->>> Cc: Christian Koenig <christian.koenig@amd.com>
->>> Cc: Huang Rui <ray.huang@amd.com>
->>> Cc: Matthew Auld <matthew.auld@intel.com>
->>> Cc: Matthew Brost <matthew.brost@intel.com>
->>> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
->>> Cc: Maxime Ripard <mripard@kernel.org>
->>> Cc: Thomas Zimmermann <tzimmermann@suse.de>
->>> Cc: David Airlie <airlied@gmail.com>
->>> Cc: Simona Vetter <simona@ffwll.ch>
->>> CC: dri-devel@lists.freedesktop.org
->>> Cc: Daniel Colascione <dancol@dancol.org>
->>> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
->>
->> Reviewed-by: Christian König <christian.koenig@amd.com>
->>
-> 
-> Thanks! I'm going to merge this patch to independently to drm-misc-next
-> unless you object - the Xe side heuristics of the shrinker will take a
-> bit longer to land on an agreed upon design.
 
-Yeah feel free to push it upstream through the XE tree, the two liner is probably small enough that it won't cause conflict.
+--mmuav45v5xyeg7x4
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 15/20] drm/drv: Call drm_mode_config_create_state() by
+ default
+MIME-Version: 1.0
 
-Christian
+Hi Thomas,
 
-> 
-> Matt
-> 
->>> ---
->>>  drivers/gpu/drm/ttm/ttm_pool.c | 4 ++--
->>>  1 file changed, 2 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
->>> index 26a3689e5fd9..8425dbcc6c68 100644
->>> --- a/drivers/gpu/drm/ttm/ttm_pool.c
->>> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
->>> @@ -165,8 +165,8 @@ static struct page *ttm_pool_alloc_page(struct ttm_pool *pool, gfp_t gfp_flags,
->>>  	 * Do not add latency to the allocation path for allocations orders
->>>  	 * device tolds us do not bring them additional performance gains.
->>>  	 */
->>> -	if (beneficial_order && order > beneficial_order)
->>> -		gfp_flags &= ~__GFP_DIRECT_RECLAIM;
->>> +	if (order && beneficial_order && order != beneficial_order)
->>> +		gfp_flags &= ~__GFP_RECLAIM;
->>>  
->>>  	if (!ttm_pool_uses_dma_alloc(pool)) {
->>>  		p = alloc_pages_node(pool->nid, gfp_flags, order);
->>
+On Tue, Apr 21, 2026 at 05:33:12PM +0200, Thomas Zimmermann wrote:
+> Am 21.04.26 um 15:38 schrieb Thomas Zimmermann:
+> > Hi
+> >=20
+> > Am 20.03.26 um 17:27 schrieb Maxime Ripard:
+> > > Almost all drivers, and our documented skeleton, call
+> > > drm_mode_config_reset() prior to calling drm_dev_register() to
+> > > initialize its DRM object states.
+> > >=20
+> > > Now that we have drm_mode_config_create_state() to create that initial
+> > > state if it doesn't exist, we can call it directly in
+> > > drm_dev_register(). That way, we know that the initial atomic state w=
+ill
+> > > always be allocated without any boilerplate.
+> > >=20
+> > > Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> > > ---
+> > > =A0 drivers/gpu/drm/drm_drv.c | 4 ++++
+> > > =A0 1 file changed, 4 insertions(+)
+> > >=20
+> > > diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+> > > index 2915118436ce8a6640cfb0c59936031990727ed1..820106d56ab399a39cac5=
+6d98662b5ddbcae8ded
+> > > 100644
+> > > --- a/drivers/gpu/drm/drm_drv.c
+> > > +++ b/drivers/gpu/drm/drm_drv.c
+> > > @@ -1097,10 +1097,14 @@ int drm_dev_register(struct drm_device *dev,
+> > > unsigned long flags)
+> > > =A0 =A0=A0=A0=A0=A0 if (drm_core_check_feature(dev, DRIVER_MODESET)) {
+> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0 ret =3D drm_modeset_register_all(dev);
+> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0 if (ret)
+> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 goto err_unload;
+> > > +
+> > > +=A0=A0=A0=A0=A0=A0=A0 ret =3D drm_mode_config_create_state(dev);
+> > > +=A0=A0=A0=A0=A0=A0=A0 if (ret)
+> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 goto err_unload;
+> >=20
+> > Way too late. Lets rather go through drivers and call this where they
+> > currently call drm_mode_config_reset() for initialization. This can be a
+> > single-patch mass conversion IMHO.
 
+I think that was Ville's main objection too. He suggested to do it in
+the object initialization instead, but I believe it would be too early.
+
+> On a second thought, can't we modify the suspend code and leave the reset
+> as-is for now?=A0 I'd still be interested to use reset as a means of
+> initializing the hardware or loading state on probe. So keeping the _rese=
+t()
+> calls in place might be helpful for that.
+>=20
+> What's the long-term plan here?
+
+So, the way I was thinking about this is reset is done for several
+things right now: initial state creation and software reset, and
+hardware reset.
+
+The latter isn't really commonly used. Most drivers, basically all
+drivers that use the reset helpers, will not perform the hardware reset
+as part of drm_mode_config_reset but will do it in probe or similar.
+
+This is also a concern for hardware state read-out, since you don't want
+that reset to happen.
+
+So, eventually, I wanted to have something like try a readout, and if it
+fails for any reason (disabled, unsupported, or failing to perform the
+readout), we fallback to allocating a pristine state + resetting the
+hardware.
+
+To do that, we need create_state introduced here both for the readout
+and non-readout paths, but also a (possibly device wide?) hw_reset hook
+that will *only* reset the device without affecting the software state.
+
+So:
+ - probe with readout would be create_state + readout_state for all objects
+ - probe without readout would be create_state + hw_reset for all objects
+ - resume would be create_state + hw_reset for a limited number of objects
+
+And then we don't need .reset at all anymore and / or can implement
+drm_mode_config_reset() on top of that.
+
+I wanted to work on that next when done with this series.
+
+Maxime
+
+--mmuav45v5xyeg7x4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaehueAAKCRAnX84Zoj2+
+dk+SAYDSxsLLjUkEwpwBzrLclRVmyy7Pnj03L4U6OuOb8UUQK/YHd8u6ZI0Y5Fn8
+lXwP3SkBgIJRm9gxqUlt2WlYOp3xz6AwEEaxd7tHd6n7tpSv6KJ44hNAwTVtgZFI
+mLpzKOrOQg==
+=tglw
+-----END PGP SIGNATURE-----
+
+--mmuav45v5xyeg7x4--
