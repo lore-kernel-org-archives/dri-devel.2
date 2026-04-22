@@ -4,55 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 816F7F9EDC0
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 12:26:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06A8EF9EDC4
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 12:26:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC06210E9C6;
-	Wed, 22 Apr 2026 12:26:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70BA910E2A8;
+	Wed, 22 Apr 2026 12:26:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="Fxmoci3O";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="FRRaMcma";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7B1A10E2A8
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 12:26:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1776860762; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C96A410E2A8
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 12:26:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1776860764; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=gI7HQVwGoLfsRoLcSvjsYG4n2Ps7pn7WpIBXgsZSK4xbl1QNZ72YSmQcagOXEaAXYHWIKjyrGTDpK9W1WVgl0va4SdFul9NaPFLua6kQgkzNQn9DKpteaPR0idAJA6PX4QZGB/dTUFT1JCS28EQgQgxY8QQxEyq2q5x52I7YCVI=
+ b=EPLer5UUJGCpl6DtuQHlNiveY8JfRdkKE/CScL4G5F8reRRPRQjBYZszPPuMtyd4wR5jTZSLI9E7S2xnHGRofUiX1tfR2mR1rsXwWmTUmMrSLC7o6JRZUSS60NUiEveOTbProFdjM+acAa0XS4TC6iQjTEYUMQmQNn4HCdSKIsI=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1776860762;
+ s=zohoarc; t=1776860764;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=wXWh4JTjO3XSS1HUIBp2EkkcOxlikol+FrLwQoFSZd4=; 
- b=XPqwHuFg3zCniGTWLwfkHQ93nKMbdTjuWHjD7PBypjURs5T8j98ZFZWmB+D/FfUYtyL9XK1e3StDoRrHngO69qp4M1YxqLIn91VEWYK5hPfVrTiiqgYV1IAW92nIFV/ZedhubfYj852UrkPnTq7p2s92Zv612Jsp7/+85DrEFXM=
+ bh=9lPuiNVrA0LM3ChHC/dFLUGUojgCyRrTYEEtP7kfHY4=; 
+ b=mUnruO7bdNloO1PEbQFbN75PzrpiBAB0Zgd8BbFtH+EN89i7v3dx+PIrzYk7VIcuc4pRaaBC919m30cWtDiSnjQgomQwMtZIiLbpR1t19opDDIiSKORZ+L3uxXT0leWt9H25g2hxsX4hyFYW8TbG7LJ+6PiHK634lFvbpvzQUz4=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
  dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776860762; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776860764; 
  s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
  h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=wXWh4JTjO3XSS1HUIBp2EkkcOxlikol+FrLwQoFSZd4=;
- b=Fxmoci3OXQje69TeTWoN2D8n8ycalqOtXUq5bfGHaN6q1LrirjI+apTmCUiEUQB1
- EQq/nhtEP3uCjVQSsP6CNcwsoBtBj4lS1SAb9w5y07bOF4fHsdQDbU6JVKS6lUo5/4g
- 3v/qdR5bFKX78ioK+Gs/iQITd+aYTrqxWyWlJnj4=
-Received: by mx.zohomail.com with SMTPS id 1776860760730893.8436997127039;
- Wed, 22 Apr 2026 05:26:00 -0700 (PDT)
+ bh=9lPuiNVrA0LM3ChHC/dFLUGUojgCyRrTYEEtP7kfHY4=;
+ b=FRRaMcma+HfVi1G1v+5uKe0uockXTWAoiPJye3m3TMYgRljVm760svyKpiENRZwF
+ WPEY8mD4Ijcw03FaW555WRQowT5kbpP9Vpktk2I2JlrmB2O6KyPIFrXqwAjSGZRwlQI
+ VcziritUE7D0EzRNui8OkwDn85+MokIL+WEjTnqs=
+Received: by mx.zohomail.com with SMTPS id 1776860763639528.7948103669642;
+ Wed, 22 Apr 2026 05:26:03 -0700 (PDT)
 From: =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>
 To: linux-kernel@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org, Steven Price <steven.price@arm.com>,
  Boris Brezillon <boris.brezillon@collabora.com>, kernel@collabora.com,
  =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>,
  Liviu Dudau <liviu.dudau@arm.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Alice Ryhl <aliceryhl@google.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>
-Subject: [PATCH v9 3/6] drm/panthor: Delete spurious whitespace from uAPI
- header
-Date: Wed, 22 Apr 2026 13:25:30 +0100
-Message-ID: <20260422122538.3117380-4-adrian.larumbe@collabora.com>
+Subject: [PATCH v9 4/6] drm/panthor: Remove unused operation context field
+Date: Wed, 22 Apr 2026 13:25:31 +0100
+Message-ID: <20260422122538.3117380-5-adrian.larumbe@collabora.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260422122538.3117380-1-adrian.larumbe@collabora.com>
 References: <20260422122538.3117380-1-adrian.larumbe@collabora.com>
@@ -74,28 +71,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-There's no extra blank line after the last member of any other uAPI
-structures, so delete it.
+A Panthor BO's sgtable is now retrieved from its dmap field.
 
 Reviewed-by: Steven Price <steven.price@arm.com>
 Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 ---
- include/uapi/drm/panthor_drm.h | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/gpu/drm/panthor/panthor_mmu.c | 8 --------
+ 1 file changed, 8 deletions(-)
 
-diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
-index dc2704fc2829..42c901ebdb7a 100644
---- a/include/uapi/drm/panthor_drm.h
-+++ b/include/uapi/drm/panthor_drm.h
-@@ -677,7 +677,6 @@ struct drm_panthor_vm_bind_op {
- 	 * This array shall not be empty for sync-only operations.
- 	 */
- 	struct drm_panthor_obj_array syncs;
--
- };
+diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+index 400e9652cd3b..54f7f7a8d44f 100644
+--- a/drivers/gpu/drm/panthor/panthor_mmu.c
++++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+@@ -195,14 +195,6 @@ struct panthor_vm_op_ctx {
+ 		/** @map.bo_offset: Offset in the buffer object. */
+ 		u64 bo_offset;
  
- /**
+-		/**
+-		 * @map.sgt: sg-table pointing to pages backing the GEM object.
+-		 *
+-		 * This is gathered at job creation time, such that we don't have
+-		 * to allocate in ::run_job().
+-		 */
+-		struct sg_table *sgt;
+-
+ 		/** @map.bo: the BO being mapped. */
+ 		struct panthor_gem_object *bo;
+ 	} map;
 -- 
 2.53.0
 
