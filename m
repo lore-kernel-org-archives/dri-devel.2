@@ -4,103 +4,165 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DC29FDEE4D
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 21:50:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E5ECFDEE51
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 22:22:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7158110EAF8;
-	Thu, 23 Apr 2026 21:50:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 401C510E092;
+	Thu, 23 Apr 2026 22:21:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="BtCWfUKV";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LEGaxZNs";
 	dkim-atps=neutral
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com
- [209.85.208.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6932C10EAF8
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 21:50:10 +0000 (UTC)
-Received: by mail-ed1-f47.google.com with SMTP id
- 4fb4d7f45d1cf-6763cc8775cso7276899a12.0
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 14:50:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1776981007; x=1777585807;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=G1fiSCPkq0DML3luJPuVMp7dn80QlXb/vZ8XRZ+msWc=;
- b=BtCWfUKVRx5VpeEX0nNouJpnRzZRfZElTmV6U1tYfwKebzv7Zn3VK3tCMea3snGpPM
- N52HZBmOMfc8xnHz2Is4wgUKe7L0Y15GsxWSYPKHUkhz31T2em8jNpVTWDqGe7a7zLJL
- vBH9R92ImTdFH5/g0Zozr49A+cTC2MU1uLmfs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776981007; x=1777585807;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=G1fiSCPkq0DML3luJPuVMp7dn80QlXb/vZ8XRZ+msWc=;
- b=grbxGxKqEQ4IEJtRGRiArhqNCmh3zkCIo6ODq/xtApasI9dVKBvsEHdFSGYtERLj8z
- ZyDmHlkP6LMrlOSW/LdnlajTJyo28aqD6VAihHzTRER/MaKFcsR2MtSZFfLJEZfPBgBs
- nQsioFFplGNhFYcH0foLLECkft+yDjljHm+L5HS+fjHmsXR8xhGCI7om83TfD6MrAuF2
- P5KQzo6O/9Eg4m/CQfkOBRptQofHC51xfjihj/+UHMsGt0o7NFwI47atOPGrmotujWFi
- zJgWWrfuF2RJruBIctfb5DbMAMa0kAVOQy5KAm86QBujvnumDpbW4UDV4CRYua8bMm0f
- 8iCQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+0NvJogwlSnHhXcgvKXVTi5e4T7VWp0mVi/yI9nwl+XybZN8zXX9puXneW7jfBotXSC1SBtmNDUJw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwmvO7XaXlQ3WyK3GFsRFtO057aZjg0icr7W4rreUymaBHwYzz3
- iU3bM9eZQACDzzH/+LGyBF73zC+HZePTx2PT4wwgW1BVmJ+93vRJiYhQ75AoprdYwXAXCUv8dM8
- mYjkg+Q==
-X-Gm-Gg: AeBDiestaiH8qHFfNTeNIxVDaOnB0b2LRRRpRyRsg7LZBBJEPIbdytJ8XMpF31qujaJ
- Bx+n/4qiwT6uoFvcdESTvFmiqIrCBBeUjf4zgrSz+vxMuyupS4xmEvEoiZObEzl8CCVUxM+7Xsv
- 5Whk+aSaDXjbhx25qxGqerURyhGien2yPnc54JmwqcsZ1+lrf76K1V+z7xpmRJ6IvYJ2xNl9Rdk
- ot5ySfp2NiKFzT5kldc44Gc852sSt9gntKK6XaS8gN5sazHv7din2XmOULI9Gz4ec7Dp7UAkOrf
- wnnkThe80MUKeqtX3p4+SA0VUg2AtsfW8Z2/tSBeu1C3btWcVoJakRml181v9Ukv4h4DdtNLp+X
- SGAJ2EJKUnTrbs2YU7bi5dd0VGwTXr8/FC/QZcLFtH4mWTZ3gJfv2XrNVXcygcUTujFSSfP5ngp
- V9U8Dpc/WyyEqB6ovxWJFaafSuOPfs9KW2qm9CfvIK0/8vVTtmaeDArbboR/fnTRAJ9hiD69bO
-X-Received: by 2002:a17:907:15c5:b0:ba9:3f4a:1521 with SMTP id
- a640c23a62f3a-ba93f4a157amr519583266b.19.1776981006756; 
- Thu, 23 Apr 2026 14:50:06 -0700 (PDT)
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com.
- [209.85.221.47]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ba45504441bsm697358066b.45.2026.04.23.14.50.04
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 Apr 2026 14:50:05 -0700 (PDT)
-Received: by mail-wr1-f47.google.com with SMTP id
- ffacd0b85a97d-43d734223e4so4922465f8f.0
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 14:50:04 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AFNElJ9JfQU7qaBYjaJrKQX3I3gKGnPvl/9SzZgvfdrF8/K+ClG25v8WvT2/NZKPf63v4eMrxANUHq0Jb5M=@lists.freedesktop.org
-X-Received: by 2002:a05:6000:208a:b0:43e:531f:720c with SMTP id
- ffacd0b85a97d-43fe407383cmr43673395f8f.11.1776981004287; Thu, 23 Apr 2026
- 14:50:04 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6FF210E04C;
+ Thu, 23 Apr 2026 22:21:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1776982916; x=1808518916;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=3LgQafyv2w6cmF7eS/YwFjaJ6HZffe4tqM1IVp6FXDQ=;
+ b=LEGaxZNsrjo5tRDJCMgF61xWFoqALNiRhDy9yB3ya7Ca2BGGtKbThSp3
+ LsjwRFOWbpyszWByvjufv1gFBosY2aG6xamjO6a1WIciOATkbv4Z+X5OF
+ O57XILLnUWuWrpkO7UwogCU3xy/jHtK9yNMQK+JOYZ2Qyz8yufL9mbpQL
+ kskBSB8Ljl9yP0LmHuk0OPEA9WG2F+tHx5kkBAqKcytdslVlU1qlxoYnm
+ 51262hSNwiZMOu/xlrD3H6vTxec9WiuEXDg/eMngzuc0RmP6af5TFDIcE
+ uptKe/RXWUpA8Nnyy0EIpCrmkK3yqw/X7tt3aq3Yzo/YtlCzZAkwSUkdn g==;
+X-CSE-ConnectionGUID: 7HTnv55DTVaezCijBlNckg==
+X-CSE-MsgGUID: 0YseDS89TG+OuD4Tc4kdBg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11765"; a="77844547"
+X-IronPort-AV: E=Sophos;i="6.23,195,1770624000"; d="scan'208";a="77844547"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Apr 2026 15:21:55 -0700
+X-CSE-ConnectionGUID: pusFl3ocT+yArLe43b1LtA==
+X-CSE-MsgGUID: d2pUwjLORwKP5kvUqNGx9Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,195,1770624000"; d="scan'208";a="228219296"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+ by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Apr 2026 15:21:55 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Thu, 23 Apr 2026 15:21:54 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Thu, 23 Apr 2026 15:21:54 -0700
+Received: from BL2PR02CU003.outbound.protection.outlook.com (52.101.52.71) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Thu, 23 Apr 2026 15:21:54 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FDy/Est3FEdwNnT8oL0wXjnMsFbwKCDnsMjk+++OHgYa+TIotgfGc3B7v4loE2H2QVGz3lc0uWMmwEl/5+5ODzog2p9H46j1XHBHD4bvCOjQzsdTFkdvRQtmFsRmPV6YfSB9Pk/DslNhjEqskIL6U9WkLigPKeNQCUMeRogITg7X1kQLODGsYrjGDPzJFVTm8IzzRVkSXxL6qisYIHQPTd1hsXrK7NJQ622zAFsEA5pgBi6SjRhNLIa6b0WpJiXucYwSHUz5RowtoV8lfjMRSNhUBcobl//S5JFPkrlX78bsPUfz7PyWh7okoUgnYhSgfatKuMPuc0IB1dhlaDBnAg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WXls5ISlaFHTwZ6/O75+HnaB6ojcYdKIJwTAMQZ9xPA=;
+ b=jdGR724UeWh8k7eBoCeiaHH4M1Q6bBKMEGO3fNSSFweI8Ya2s/ul5fzA3JNtpNaHvWngTKaJv/RFZGFNFQ4asI4XA3ublV4bIzhPEvfhPXKMGk31LfOIZAN6W1iz08gnpdWU8NCbLPSBGbOnNYHck4xGQryTPkKbBS/y7j4qNBPN3OIfGS+leDefLz1eh+hSODXHbwvOWLBYVLHzkcVGIGfU5Ivr3234G+wDIeKqDUr26yaKvMZD3gjcrZvbQoZFES7CcUhfURdLrEXpSiuS5+AH6dVqd+pu+zcER9SBq7DYGrQBSGPgmC+zgkHFrIQJ+KBfwJLe1wNROyAMuPj33A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
+ by SJ5PPF5B09F0799.namprd11.prod.outlook.com
+ (2603:10b6:a0f:fc02::82c) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.20; Thu, 23 Apr
+ 2026 22:21:52 +0000
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c%7]) with mapi id 15.20.9846.021; Thu, 23 Apr 2026
+ 22:21:52 +0000
+Date: Thu, 23 Apr 2026 15:21:47 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+CC: "David Hildenbrand (Arm)" <david@kernel.org>,
+ <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, "Andrew
+ Morton" <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam
+ R. Howlett" <Liam.Howlett@oracle.com>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, <linux-mm@kvack.org>,
+ <linux-kernel@vger.kernel.org>, Johannes Weiner <hannes@cmpxchg.org>
+Subject: Re: [PATCH v2 1/5] mm: Introduce zone_appears_fragmented()
+Message-ID: <aeqbe/9YRKNyYuWY@gsse-cloud1.jf.intel.com>
+References: <20260423055656.1696379-1-matthew.brost@intel.com>
+ <20260423055656.1696379-2-matthew.brost@intel.com>
+ <76191a17-18bf-4e9b-9ab5-dc9a48abfabb@kernel.org>
+ <be42059924cde9bb16a087ee2a5abb0b9d850d68.camel@linux.intel.com>
+ <aepuNL2fwp47P1Wi@gsse-cloud1.jf.intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aepuNL2fwp47P1Wi@gsse-cloud1.jf.intel.com>
+X-ClientProxiedBy: BY5PR04CA0009.namprd04.prod.outlook.com
+ (2603:10b6:a03:1d0::19) To PH7PR11MB6522.namprd11.prod.outlook.com
+ (2603:10b6:510:212::12)
 MIME-Version: 1.0
-References: <20260423-manta-display-v1-0-196f80c5673a@timmermann.space>
- <20260423-manta-display-v1-2-196f80c5673a@timmermann.space>
-In-Reply-To: <20260423-manta-display-v1-2-196f80c5673a@timmermann.space>
-From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 23 Apr 2026 14:49:53 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=VNvPtG_f1W942SKJfM4ptK8Wvd-nZs4geBCG3bO_A0BA@mail.gmail.com>
-X-Gm-Features: AQROBzBZ12eQ8JPtoHklunZA7baGhpheKR11CnReOtZ62TdnznxZp2PUusIRrN4
-Message-ID: <CAD=FV=VNvPtG_f1W942SKJfM4ptK8Wvd-nZs4geBCG3bO_A0BA@mail.gmail.com>
-Subject: Re: [PATCH 2/5] drm/panel-edp: Add support for Samsung LTL101DL02-002
- panel
-To: Lukas Timmermann <linux@timmermann.space>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, 
- Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, 
- Krzysztof Kozlowski <krzk@kernel.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>, 
- Chanwoo Choi <cw00.choi@samsung.com>, Alim Akhtar <alim.akhtar@samsung.com>, 
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-samsung-soc@vger.kernel.org, 
- linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Alexandre Marquet <tb@a-marquet.fr>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|SJ5PPF5B09F0799:EE_
+X-MS-Office365-Filtering-Correlation-Id: 491f8d3f-8995-4bf2-a440-08dea186b7fd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|7416014|376014|366016|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 61BJTGOalWoCXf/2hXLSqYqI+LP7oQUwKAXkRa58ogJz1dMxYjldGkAJ9TnZ0VB4OppgYB0Uj+XR/Msx5az0EsDjyXJr2TuOls4LOA/PtlPYHzm31uVXlsW6obVt3jujzfYDGss1LOhhLEOYjC2aCFzsafsE8SosPFnPsBUYP3sNz/APXVTKlBD3FcvAFkwdtUUn5H9qLbWn+kJHJX2vshhjINr0+O1iHDETAMJxjYZmJwVABPfahtoN3jAgN+kitUS2BiLYLcbwGBNVl4y14k+IXlyA4DqxTcohqAsLPpMuFYj1yWB3CVLbRiIxbnb3dB/xQIQ6ovR6VCYxm4dmPVlDeib2sNH04/B8XYmoPRPVtotIg33gYH8s3WABURqnlifyqYENFGAvKwDqYuN6Nkr5yMPR2aFzKIjlc+VHUs4EfqHubfqILsvvgdKPAAZ0GHEKiTIMDYID01cbMtda8X4I6d9x0d4wZvu+X9Y2Q3+qvTTtw5cEcPDuljB+FjOFzFE+jEGm2a2Ls437gYkmUgUCHq6+n1M5ST65LK1InBB83p6YHsNdI0A6hcEJGaXV5shn2BpvenFalIw2lGWfkdxFW19KhZVUV+E23Oz9Yvo/EvLGXbYfrgkIHrBzhjLY91harvwcgy8v8T/XDQD291rfIp9PQ4aDDhnHs5iZ1AEGz7xVShjbfa5VhzXpx17J
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(7416014)(376014)(366016)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?KzRPQmlpbjRTQStjUlFCZXgySEc0cTR5ZUxFd0tEa1FDK256Q1JqS1Z5QXN0?=
+ =?utf-8?B?c2xEZHRMK3pYZnhQL0ErcmNiSm9FRGVrZUR2WXVoVEUyaWQ3dndNV2NjbTM0?=
+ =?utf-8?B?NENKU0pkUGI3NDBXQ1N6Z2ozYVpQdFlYclZDVTYvVGZUbmFMSVAxMERuZGt3?=
+ =?utf-8?B?YzBWRFNOYnk4dGdRYlJUSkxOSThyb1Zld2t2VEltdFlKalJ4cmlnTjJvV3JZ?=
+ =?utf-8?B?MU92Wmg3akZ2MVpuUVpmZkJoY2JVUUhFZURscmNZTHBHa2NOV2hqYVRRZXlY?=
+ =?utf-8?B?QkhuWS9XeGNzcDl3SmsvR3VBcFlnSmNLZGxhaEJwd2ZPQks4U1RzcG9tSlp1?=
+ =?utf-8?B?YnhEZnlNK28vSXdOcGRBS0U3UFhmVEhzWDEzRlRmL0ZMMTIvMnlkcFFKY09u?=
+ =?utf-8?B?UHl2dTN2L3pMSVgrUmZaVjgzdlVlTUtKQjR1bGNLNEhneE94TkFib29oOXJt?=
+ =?utf-8?B?ZHpEdnhBZWJDcGdZT0h2SjlFWmhyci9xeW91YlVLY1hCYVg2R0cvcnZZa29m?=
+ =?utf-8?B?NkxpMXNaRTZXNHpOdVpKQ1BFYUlZaFdUZ0Z4UzNLbnlPOENqcm1xUUVHc043?=
+ =?utf-8?B?R0NHZ2k3Rnhod2tSL2pSeU9HTDQ5dGhqUHg4Q3F2N1diSUx2T3FQL2ppejZZ?=
+ =?utf-8?B?NUc0SFlXMTdxR1dBM01WbU1yVjBXbytxZUZtVTVYVGpuZ2ZaZnZSU0RGZXJ5?=
+ =?utf-8?B?ZThCSjMyaVNuME5hWEwra0VDa1N5TjJwaW1jVm4zcGJ2QW16RDRIbmpSa0c1?=
+ =?utf-8?B?bVFybkM5cmFhb2NqMi9JTFJJMklpT2JWSUYwSStOY3JCam5pQklGelFuTG4w?=
+ =?utf-8?B?WWtIT1RscS9iZlY0STUyRDJya2JCMnd6N3IxVUkrL3cvMmVuc1VTdXZLS2VG?=
+ =?utf-8?B?RVpvdVN1UjljWFJPZjJkdUFKM0VxOWZ6RTFEOEFQOTJTQlJSQUdLWHI0VWI0?=
+ =?utf-8?B?TkJoVXRJU3hRY29mS3pycE9NLzJMRlFaY3VwVDlDQkswNW0wNjZoTFdlZ3FW?=
+ =?utf-8?B?VVFEYnpjb1VsZ204cGZsVjh6NXlPcktPMXdQeHUvcGdwek1NTTdFQmRqYkVi?=
+ =?utf-8?B?TmZBVXZmZ0h4R3lSaWl6K1k5K0MvNlh6ZHVLK0llemlFMzk5dTVGMGNjN1FQ?=
+ =?utf-8?B?b1k2UUNCQWtLYm5VYUFlcWwvalQ3RUZFd012NDNBV3Y1aldsQ2FJdFZIQzJr?=
+ =?utf-8?B?V0x0OWE4SDRXL1dnbGJBZXdBOGRVT2lDNVNJeUNQVGp0eGlheTRMMnRkRFpq?=
+ =?utf-8?B?MUg5YzNiOCtTV3JjWlp1bEg0THg5KzFLNWJjRHEyOVpnSE0vWHZoWEN1SG9M?=
+ =?utf-8?B?TVVwMDIxbzZ6eWJhZ3hJZHI4a3JMN0czMU42RExqeTJ5ZEhXdmlxY3ExdXZ0?=
+ =?utf-8?B?MisvQzR5cThueW4wSFc1QWhSRWVicmZKWll1RFBDU1I0VThSS2hKdXkwN3BX?=
+ =?utf-8?B?ZWs0VFB5Um9VKzhvbmxmUEl6ZVNMNGovbXoxUktOWkNpeVZlVEV1RlhvZ3lw?=
+ =?utf-8?B?cjV5V1NoQkRpd1hpNnQzVmN3MkFIUUlCVWYyUnNUTDBES0NaeUVmZHRpcnlm?=
+ =?utf-8?B?NG9hK21nTU9TbDMxa21hTG05UGI1dEJHMktRcDdDcnBPUVdQTWh1aXBlbktB?=
+ =?utf-8?B?T2lLSzB3STY2NTJrSThQSDJZODhIMlJYc1NZTVJNdC94SDRBbTNIRmdWdVEx?=
+ =?utf-8?B?c3NUTFJYeXNHTFJibVFGUmhnTktSRFloTHBTalhPL0JoVG42R1RpR01uTHZS?=
+ =?utf-8?B?M21Td2ZoTGl0ZlhzS3BFVERBR3FpbHdYME1OSnM2RHB1ZmtTcUtYUG5aaUpZ?=
+ =?utf-8?B?bFJ2SnpIL3NhYVFUWEVkQ2NBY095SXZCUCtkMlVWV21JQVRZeC9lNXA2ZDh4?=
+ =?utf-8?B?N2VyUjdVYXhqbVc2Y01BNEN4elZQOXFsRGl4cmlYTHBkamVHZ0kxa2FFSFZh?=
+ =?utf-8?B?SFRPdHZ0UXdtMXlEUXhQT3lIeGpxQUhZMGdxYURTSExTdWxQcXk5Mi9aVElq?=
+ =?utf-8?B?QkpqL2lWRkNvRXh3R1lGdE1lMEJGK2VRLzRiQ0ZMVXFHSE4zVFUvaUV4L2tF?=
+ =?utf-8?B?MmRxQmRYT0luQmM0L1hNRS94WFdIbTQ3cG1KelBqTGl2WGxTZENQM0FPZURU?=
+ =?utf-8?B?MnAzWWRLSzJxYUgzVThEN2toR0poc3dLQXM0T0t0MWtVSEdrVElyZTVDNVZQ?=
+ =?utf-8?B?YlRCNjFCUkhOdjRSS2l1QlREQ2F1eE53clZZaHFhbStKYUhlRG00Y0tzdmVl?=
+ =?utf-8?B?WC9ZTjc2Q2Yrai9mUWVoOVVZQkFVZ3NoUkE3M0wyTHp6Tm54ajZtbVB6aFE3?=
+ =?utf-8?B?OEZod3JDeDY2L1lNNk1hTldNYUFhRUg3TXlSa0ZTaGZEZWVZMUhGRFUxdU9x?=
+ =?utf-8?Q?jUaVVK5RaPpRy5x0=3D?=
+X-Exchange-RoutingPolicyChecked: IQYWptVNhZcirGvsbCnNXhBxYTb+qNQL9vJETCE3RK7/qKcxYEY5A3li0UhbG7C+zMbGHq66CSnV6l66mMN7oiwJ15Ali898jktUeDTWn2lqI4maG7i9/w3BSWB9ncz5+rStF83yE6kRk+8DD8fcxm4CFLFFvqNuZd/SdGUgQN8J95iGOGZJId7RLoajWsmCueJ/7t6sFRuLEVfnixTDeiDM24e3kLDNzatfXNytp5hlZ0ykkNgFcAScym8cCbUjhokHEjLwoznAfzr5U8cr+j0BQSqD3VBXI5A1XJ7XnByq22uiEv+FJ0QMTWNbF1mnGBJLkrLV5ZEfwX3xK4TVpw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 491f8d3f-8995-4bf2-a440-08dea186b7fd
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Apr 2026 22:21:51.9804 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XHYzh70q/5oMFjbjtCD0c3KZ89gr9X5vBYXf6E83VhngGWGgZ4Ld6T+GASr55BClolYJcj3MHCt18yoNmI2Mmg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF5B09F0799
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,26 +178,146 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+On Thu, Apr 23, 2026 at 12:08:36PM -0700, Matthew Brost wrote:
+> On Thu, Apr 23, 2026 at 01:27:11PM +0200, Thomas Hellström wrote:
+> > On Thu, 2026-04-23 at 12:27 +0200, David Hildenbrand (Arm) wrote:
+> > > On 4/23/26 07:56, Matthew Brost wrote:
+> > > > Introduce zone_appears_fragmented() as a lightweight helper to
+> > > > allow
+> > > > subsystems to make coarse decisions about reclaim behavior in the
+> > > > presence of likely fragmentation.
+> > > > 
+> > > > The helper implements a simple heuristic: if the number of free
+> > > > pages
+> > > > in a zone exceeds twice the high watermark, the zone is considered
+> > > > to
+> > > > have ample free memory and allocation failures are more likely due
+> > > > to
+> > > > fragmentation than overall memory pressure.
+> > > > 
+> > > > This is intentionally imprecise and is not meant to replace the
+> > > > core
+> > > > MM compaction or fragmentation accounting logic. Instead, it
+> > > > provides
+> > > > a cheap signal for callers (e.g., shrinkers) that wish to avoid
+> > > > overly aggressive reclaim when sufficient free memory exists but
+> > > > high-order allocations may still fail.
+> > > > 
+> > > > No functional changes; this is a preparatory helper for future
+> > > > users.
+> > > > 
+> > > > Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> > > > Cc: Andrew Morton <akpm@linux-foundation.org>
+> > > > Cc: David Hildenbrand <david@kernel.org>
+> > > > Cc: Lorenzo Stoakes <ljs@kernel.org>
+> > > > Cc: "Liam R. Howlett" <Liam.Howlett@oracle.com>
+> > > > Cc: Vlastimil Babka <vbabka@kernel.org>
+> > > > Cc: Mike Rapoport <rppt@kernel.org>
+> > > > Cc: Suren Baghdasaryan <surenb@google.com>
+> > > > Cc: Michal Hocko <mhocko@suse.com>
+> > > > Cc: linux-mm@kvack.org
+> > > > Cc: linux-kernel@vger.kernel.org
+> > > > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> > > > ---
+> > > >  include/linux/vmstat.h | 13 +++++++++++++
+> > > >  1 file changed, 13 insertions(+)
+> > > > 
+> > > > diff --git a/include/linux/vmstat.h b/include/linux/vmstat.h
+> > > > index 3c9c266cf782..568d9f4f1a1f 100644
+> > > > --- a/include/linux/vmstat.h
+> > > > +++ b/include/linux/vmstat.h
+> > > > @@ -483,6 +483,19 @@ static inline const char *zone_stat_name(enum
+> > > > zone_stat_item item)
+> > > >  	return vmstat_text[item];
+> > > >  }
+> > > >  
+> > > > +static inline bool zone_appears_fragmented(struct zone *zone)
+> > > > +{
+> > > 
+> > > "zone_likely_fragmented" or "zone_maybe_fragmented" might be clearer,
+> > > depending
+> > > on the actual semantics.
+> > > 
+> > > > +	/*
+> > > > +	 * Simple heuristic: if the number of free pages is more
+> > > > than twice the
+> > > > +	 * high watermark, this strongly suggests that the zone is
+> > > > heavily
+> > > > +	 * fragmented when called from a shrinker.
+> > > > +	 */
+> > > 
+> > > I'll cc some more people. But the "when called from a shrinker" bit
+> > > is
+> > > concerning. Are there additional semantics that should be expressed
+> > > in the
+> > > function name, for example?
+> > > 
+> > > Something that implies that this function only gives you a reasonable
+> > > answer in
+> > > a certain context.
+> > 
+> > I think that test would not be relevant for cgroup-aware shrinking.
+> > 
+> > What about trying to pass something in the struct shrink_control? Like
+> > if we pass the struct scan_control's order field also in struct
+> 
+> If the order were included in shrink_control, there is about a 95%
+> certain that this change would allow TTM / Xe to break the problematic
+> kswapd feedback loop. This may also better express the intent of the
+> problem we are trying to fix here.
+> 
+> For reference, the cover letter [1] details the problem.
+> 
+> Any guidance from the core MM folks would be appreciated—would adding
+> the order to shrink_control be an acceptable solution?
+> 
+> Matt
+> 
+> [1] https://patchwork.freedesktop.org/series/165330/
+> 
+> > shrink_control, really expensive shrinkers could duck reclaim attempts
+> > from higher-order allocations that may fail anyway:
+> > 
+> >       if (sc->order > PAGE_ALLOC_COSTLY_ORDER &&
+> >            (sc->gfp_mask & (__GFP_NORETRY | __GFP_RETRY_MAYFAIL)) &&
+> >            !(sc->gfp_mask & __GFP_NOFAIL))
 
-On Thu, Apr 23, 2026 at 2:15=E2=80=AFPM Lukas Timmermann <linux@timmermann.=
-space> wrote:
->
-> From: Alexandre Marquet <tb@a-marquet.fr>
->
-> Add a panel entry for the Samsung LTL101DL02-002 panel, as found in
-> Samsung Manta (Google Nexus 10).
->
-> Signed-off-by: Alexandre Marquet <tb@a-marquet.fr>
-> Signed-off-by: Lukas Timmermann <linux@timmermann.space>
-> ---
->  drivers/gpu/drm/panel/panel-edp.c | 31 +++++++++++++++++++++++++++++++
->  1 file changed, 31 insertions(+)
+It doesn't look like __GFP_NORETRY, __GFP_RETRY_MAYFAIL, __GFP_NOFAIL
+make it to the sc->gfp_mask flags from the caller and get into kswapd
+loop...
 
-Adding new panels like this is discouraged these days. Is there a
-reason you can't use the generic "edp-panel" compatible? I know that
-the exynos5 driver is pretty old, but a quick glance shows that it's
-based on the same analogix-dp core that "rockchip,analogix-dp" is, and
-that seems to have support for aux-bus...
+ 1182 [  394.049058] xe_shrinker_scan: no skip order=9, gfp=0x0000000000000cc0
+ 1183 [  394.049061] CPU: 2 UID: 0 PID: 110 Comm: kswapd0 Not tainted 7.0.0-xe+ #355 PREEMPT(full)
+ 1184 [  394.049062] Hardware name: Intel Corporation Panther Lake Client Platform/PTL-UH LP5 T3 RVP1, BIOS PTLPFWI1.R00.3332.D05.2509011438 09/01/2025
+ 1185 [  394.049063] Call Trace:
+ 1186 [  394.049065]  <TASK>
+ 1187 [  394.049066]  dump_stack_lvl+0x55/0x70
+ 1188 [  394.049073]  xe_shrinker_scan+0x274/0x280 [xe]
+ 1189 [  394.049181]  do_shrink_slab+0x132/0x360
+ 1190 [  394.049184]  shrink_slab+0xf0/0x3e0
+ 1191 [  394.049186]  shrink_node+0x2bd/0x800
+ 1192 [  394.049188]  balance_pgdat+0x323/0x760
+ 1193 [  394.049189]  kswapd+0x1c3/0x340
+ 1194 [  394.049190]  ? __pfx_autoremove_wake_function+0x10/0x10
+ 1195 [  394.049193]  ? __pfx_kswapd+0x10/0x10
+ 1196 [  394.049194]  kthread+0xdf/0x120
+ 1197 [  394.049196]  ? __pfx_kthread+0x10/0x10
+ 1198 [  394.049197]  ret_from_fork+0x1d0/0x220
+ 1199 [  394.049200]  ? __pfx_kthread+0x10/0x10
+ 1200 [  394.049200]  ret_from_fork_asm+0x1a/0x30
+ 1201 [  394.049202]  </TASK>
 
--Doug
+Will look into if this is fixable, but again any core MM guidance would
+helpful.
+
+Matt
+
+> >            return SHRINK_STOP;
+> > 
+> > Possibly exposed as an inline helper in the shrinker interface?
+> > 
+> > /Thomas
+> > 
+> > 
+> > 
+> > 
