@@ -4,96 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE3DDFDEE3F
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 19:20:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2389AFDEE45
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 19:22:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28D2C10E38A;
-	Thu, 23 Apr 2026 19:20:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5981C10E36E;
+	Thu, 23 Apr 2026 19:22:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=shazbot.org header.i=@shazbot.org header.b="gdx1ISCQ";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="ZUvdr8y6";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="QwavcUDQ";
 	dkim-atps=neutral
-Received: from fhigh-a2-smtp.messagingengine.com
- (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AAD310E38A
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 19:20:18 +0000 (UTC)
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
- by mailfhigh.phl.internal (Postfix) with ESMTP id 517CD140016D;
- Thu, 23 Apr 2026 15:20:18 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-06.internal (MEProxy); Thu, 23 Apr 2026 15:20:18 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
- cc:cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm1; t=1776972018;
- x=1777058418; bh=zgX8pUM+ByGW1BJ4PzJmLl3HUKg2UKXk7RpMYuVX26w=; b=
- gdx1ISCQg+TSBOVzJw59r+B2kL6yGJACfaN4o+jfw1+LVBJo8M4CLyvxMZqpWhIx
- 8fpOYl9DQkAlFfIqSSi144Ul6oti8nQ6hSCVKDwxC+s/lBtdHrv7lReF2ZngadSN
- Od1QCcLnTHuxXOT44WWZfQzQACQhujzMpDPuxVnmfq8rkKaOQ+ikX7We+iSqzRzO
- lrBOtjeU4I9U3WCOUqUbHutFZXTRaEeWJ9839dNT5HYMu8eu7IaaETPPNEntcAqf
- 63YieUjaDu3Uo65EwCqgbc3T4uzS9avWCXOdukTXE1yhHm8iyNTcNLelKZkXBko7
- FtdcikH0aPB8qC7aZQPDxQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1776972018; x=
- 1777058418; bh=zgX8pUM+ByGW1BJ4PzJmLl3HUKg2UKXk7RpMYuVX26w=; b=Z
- Uvdr8y6kuGVNdu3c0ZQYsoJsU40DdAh5s3HryOIhEf7x0mApZTi4iFdEyC/sOHH+
- 7uxNgxnxV0i/uJwA9+WLgOk7+eKspnp5ZmPGowwF76c5XZwyVTXpJCuE6G9SI9pI
- JCXmyMKupSQ7GgZl01RmGH4oa/94yXKLCW9Jopu44qiDXX7TzAG9eJuKBK3KwBOp
- 53Gh7vFoSv8P9lglzIdViXCpVS4wYjSOwwFvMBAmTuraMIYTfxi5YM5DohZxfUsS
- zagp3HpVZ+gSqBaYoQKpsSWl2Gh7GpamX+WRzFOIOfxUOSimzBmOvbZCFSowXc1n
- s/AaHraDRy7mAx+OBWdZQ==
-X-ME-Sender: <xms:8nDqaSocVBUsGX6Dqv_G5w1rlJmoZL84errVQL3TlmWj8TRDyuK1aw>
- <xme:8nDqaV0BVjnH0Hj5F-hlKcd8X682cxE0tqu2brwkqUO7P9eoU9sbW3qd158Z-qwg3
- dcfVuqBvxksctosoEesiDf4wm47d41NEex_UAhQcNeIFqWc4Db3og>
-X-ME-Received: <xmr:8nDqaamq_rWSOK6CdZLMRBlb5SJREhMRV-lT_9V1GmTwxSd5W0bWC35lALQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdeijeeljecutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
- ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
- hrpeffhffvvefukfgjfhfogggtgfesthejredtredtvdenucfhrhhomheptehlvgigucgh
- ihhllhhirghmshhonhcuoegrlhgvgiesshhhrgiisghothdrohhrgheqnecuggftrfgrth
- htvghrnhepvdekfeejkedvudfhudfhteekudfgudeiteetvdeukedvheetvdekgfdugeev
- ueeunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomheprg
- hlvgigsehshhgriigsohhtrdhorhhgpdhnsggprhgtphhtthhopedufedpmhhouggvpehs
- mhhtphhouhhtpdhrtghpthhtohepjhhgghesiihivghpvgdrtggrpdhrtghpthhtohepii
- hhihhpihhnghiisehmvghtrgdrtghomhdprhgtphhtthhopehsughfsehmvghtrgdrtgho
- mhdprhgtphhtthhopehksghushgthheskhgvrhhnvghlrdhorhhgpdhrtghpthhtoheplh
- gvohhnsehkvghrnhgvlhdrohhrghdprhgtphhtthhopehhvghlghgrrghssehkvghrnhgv
- lhdrohhrghdprhgtphhtthhopehlihhnuhigqdhrughmrgesvhhgvghrrdhkvghrnhgvlh
- drohhrghdprhgtphhtthhopehlihhnuhigqdhptghisehvghgvrhdrkhgvrhhnvghlrdho
- rhhgpdhrtghpthhtohepnhgvthguvghvsehvghgvrhdrkhgvrhhnvghlrdhorhhg
-X-ME-Proxy: <xmx:8nDqaRa_rMoY3-Gu0IG6in9WxOQrtHLSZfodCQRs-3oWG0hGYNOALQ>
- <xmx:8nDqac-z_p1atCzPwxluejmtD6AzXG34JJfqwXlRQXFPUayD4aMd4w>
- <xmx:8nDqaREJs6AGZct-AGSAW1QRMET9_rt_kBglLTDnxIKI0-7uxp8MxQ>
- <xmx:8nDqaWezx6LiHdIh6_5BLrSXwi94wLwltOZ7z-ABrrvRs79Kw8U4iQ>
- <xmx:8nDqaSlZyN88SxHutEDRqgWwDrmlZGWMI7VKYXHLfjociova4Iy6orlE>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 23 Apr 2026 15:20:17 -0400 (EDT)
-Date: Thu, 23 Apr 2026 13:20:16 -0600
-From: Alex Williamson <alex@shazbot.org>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Zhiping Zhang <zhipingz@meta.com>, Stanislav Fomichev <sdf@meta.com>,
- Keith Busch <kbusch@kernel.org>, Leon Romanovsky <leon@kernel.org>, Bjorn
- Helgaas <helgaas@kernel.org>, linux-rdma@vger.kernel.org,
- linux-pci@vger.kernel.org, netdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Yochai Cohen <yochai@nvidia.com>, Yishai
- Hadas <yishaih@nvidia.com>, alex@shazbot.org
-Subject: Re: [PATCH v1 1/2] vfio: add callback to get tph info for dma-buf
-Message-ID: <20260423132016.4a25e074@shazbot.org>
-In-Reply-To: <20260423142828.GQ3611611@ziepe.ca>
-References: <20260420183920.3626389-1-zhipingz@meta.com>
- <20260420183920.3626389-2-zhipingz@meta.com>
- <20260422092327.3f629ad6@shazbot.org>
- <20260422162928.GL3611611@ziepe.ca>
- <20260422132740.5f809bf7@shazbot.org>
- <20260423142828.GQ3611611@ziepe.ca>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-pc-linux-gnu)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B8E110E36E
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 19:22:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1776972175;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=wSQkzxpeA1S/sXqiIjkU5AWADgODzfZs9CPZ+3hRtvI=;
+ b=QwavcUDQmRIucAL5opUdP/EKdSLeMnv0xt0vTh5iIvd41Sjkjw02YaNs6Fvz+kSLcwsZ+O
+ fikUM7N/8ob5c94I10sKvgncGbVfyVnyvFURSbViCu/cbhsIvQZ+TKlN1uo+Wqecnm5AUo
+ n0S4BDB7ElkWu2lUjHc5o2SgurBTPJ4=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-638-PvQc6jV2NHegTo84Y57Jpw-1; Thu, 23 Apr 2026 15:22:52 -0400
+X-MC-Unique: PvQc6jV2NHegTo84Y57Jpw-1
+X-Mimecast-MFC-AGG-ID: PvQc6jV2NHegTo84Y57Jpw_1776972171
+Received: by mail-wm1-f71.google.com with SMTP id
+ 5b1f17b1804b1-488c768a9a9so49159545e9.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 12:22:51 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776972171; x=1777576971;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=wSQkzxpeA1S/sXqiIjkU5AWADgODzfZs9CPZ+3hRtvI=;
+ b=e9btFy2msV/HbX+ipXJ2B3VTjrOg/CQx+Sv/GnD5mmsdeUd9u4hrr0rc0Tj0PczalC
+ V1MLtsRYIicZMFnAIGk08rK7MjbMM18wGp2h60TEGlCi9MP+F0mDGOxEyjzuQoior/9q
+ I5EisOz4BnOmAV5fylgk8g5N3zLvQ+8rFzugtFMFLzzawFQmzofbv+EeU1oGD76h6N4A
+ YA43vmKsBNTH/IqcZswTeUpO6d45xDR7hAgjFdcJ+JumnE/k2NERmmfa2jyxkDI+1bNr
+ vtjiy3M6q2Lk7ubnFqiP8yuIohrYQ8GI19ButmNp3C7q9jlSeduIyEWGX16qv8gLvf5X
+ JY/Q==
+X-Gm-Message-State: AOJu0YwVDFWfHtfucfGFPyXbSe0ZWBmyxqc0bqPp9uVSZSfeuH8SPPLF
+ fDYDR27yktiOfYUYjdtoNrj4DdHF7mBin5tK4J5XngmTKg9HoCiO2h0Ie9BB3sP78xMUUhMwbVL
+ z5egHt4uELHTh4CpavRGgNEWMQ9vnWlziKO/+dAxc9kn4UKLY1B5auSZDlar8w0CEtOX5XQ==
+X-Gm-Gg: AeBDieuPt8ntyMqq3OGsea3he5KnzyfmY6NUR+KMQq9qgUcs6RvTCfOSafbfNYZpaVf
+ ckoU+Gs7PsKNLvWGhjVvQE3PzxBkEhUd8zhjjaMoRmxdEZdSd9IcFTUnC+9dsFN1jfvwsOiTi/7
+ jOrALixWyu+PyMVGPHRHF9QVWeHnCfQOIuBU8cvjvNA5NcFwnTbxl5JI+dNIZVtD5yono2ekfpe
+ OxqJ9R4UmB/arM90fIQ1Ol4q4UmVQOUURAtGlXzsH/9/LxcN3ytSbqVZiqPycQSY4/rlet1NF4X
+ TLG7Qlerapuj3uwztXTZlMRnU3gqypqSprbBnGVa2zPJA3xpl5QgUNm+IH11eijxskkVUxCukqO
+ VhTQqeImEsRdWY65e+qim3Rl/UDU88XDmDwRcSiDvZh0xLFNdfitz6PmoDNdlS/1SwiluyHmW
+X-Received: by 2002:a05:600c:8b84:b0:480:1c69:9d36 with SMTP id
+ 5b1f17b1804b1-488fb76e4aamr444109045e9.17.1776972170705; 
+ Thu, 23 Apr 2026 12:22:50 -0700 (PDT)
+X-Received: by 2002:a05:600c:8b84:b0:480:1c69:9d36 with SMTP id
+ 5b1f17b1804b1-488fb76e4aamr444108865e9.17.1776972170228; 
+ Thu, 23 Apr 2026 12:22:50 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:c:37e0:8998:e0cf:68cc:1b62?
+ ([2a01:e0a:c:37e0:8998:e0cf:68cc:1b62])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4891b46cffasm359609565e9.13.2026.04.23.12.22.46
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 23 Apr 2026 12:22:47 -0700 (PDT)
+Message-ID: <14aa4840-29c4-46df-b60d-8e1b92494ad2@redhat.com>
+Date: Thu, 23 Apr 2026 21:22:45 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: further issues with MGA G200 graphics chipset
+To: Jacob Keller <jacob.e.keller@intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ "airlied@redhat.com" <airlied@redhat.com>
+Cc: dri-devel@lists.freedesktop.org,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Pasi Vaananen <pvaanane@redhat.com>
+References: <76aba88d-ec23-4b3c-ad91-83face0c3e94@intel.com>
+ <a9d176ec-d19b-4f41-af16-cdc4e475a8cc@suse.de>
+ <6ec01703-31e0-4998-9508-a5a115ae7bc9@intel.com>
+From: Jocelyn Falempe <jfalempe@redhat.com>
+In-Reply-To: <6ec01703-31e0-4998-9508-a5a115ae7bc9@intel.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: bHz-YKbn2BFiU-6oyP745jB9KX21TMYuQoIkvHKzX6Y_1776972171
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US, fr
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -110,48 +106,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 23 Apr 2026 11:28:28 -0300
-Jason Gunthorpe <jgg@ziepe.ca> wrote:
-> On Wed, Apr 22, 2026 at 01:27:40PM -0600, Alex Williamson wrote:
-> 
-> > So why does vfio need to be involved in any of the sequence proposed
-> > here?  It seems like it would be a much cleaner design, avoiding
-> > overloading the existing vfio feature and questionable array semantics,
-> > if there were a set-tph ioctl on the resulting dma-buf instead of
-> > making some vfio specific interface bundling creation with tph
-> > hints.  
-> 
-> Realistically only VFIO dmabufs will have this property that user
-> space can set any TPH.
-> 
-> Other in-kernel drivers should accept some kind of hint from userspace
-> when creating their dmabuf that makes sense for their device, not a
-> raw TPH value. Like a GPU might accept a hint that specifies which
-> dielet or something like that.
-> 
-> So I don't see a generality here from that perspective. The generality
-> is that exporting drivers that can use TPH now have the option to tell
-> the importing driver to send them.
+On 23/04/2026 18:35, Jacob Keller wrote:
+ > On 4/23/2026 12:44 AM, Thomas Zimmermann wrote:
+ >> Hi
+ >>
+ >> Am 23.04.26 um 01:55 schrieb Jacob Keller:
+ >>> Hello,
+ >>><snip>>>> I'm also curious if its possible to stop polling for so 
+long with udelay
+ >>> in the i2c logic somehow? I am not very familiar with i2c, but it is
+ >>> frustrating that this driver is causing yet another stall that is
+ >>> impacting timing sensitive data. Even if in this case its due to a
+ >>> faulty cable.. it is frustrating that such result causes the PTP
+ >>> failures. Would switching to WQ_UNBOUND be helpful here at all?
+ >>
+ >> Try Dave's suggestion to avoid polling.  The driver won't be able to
+ >> detect changes to the connector status, though.
+ >>
+ >
+ > That's fine. I don't think we're even using the device. It looks like it
+ > might only be in use for BMC, and the VGA connection isn't actually
+ > physically available, so there are no changes to detect.
+ >
+ > Is this polling really only to detect when VGA is enabled? Would it make
+ > sense to only poll on platforms which actually *have* that VGA 
+connection?
+ >
+Polling was introduced with https://patchwork.freedesktop.org/series/131977/
 
-Ok, if dma_buf_ops.get_tph serves the common case of the driver
-presenting TPH values and vfio's case of the driver being only a
-conduit of user specified TPH values is unique, let's work on the vfio
-uAPI.
+The driver needs to know if a VGA monitor is connected or not, to 
+provide the right available resolutions to the userspace.
+Otherwise you can set a high resolution that works from the BMC, but 
+then connecting a VGA monitor will not work, as the driver won't notice 
+that something has been connected.
 
-Why do we need to bundle dma-buf creation and TPH setting into a single
-ioctl?  That's what the proposal here does and it results in a really
-ugly extension with an off-by-one baked into it.
+The mgag200 doesn't have an IRQ or a register to check if something is 
+connected on the VGA port, so the driver uses the i2c and tries to read 
+the EDID.
 
-My suggestion would be that we leave VFIO_DEVICE_FEATURE_DMA_BUF
-unchanged and add a VFIO_DEVICE_FEATURE_DMA_BUF_TPH ioctl which takes
-the fd from VFIO_DEVICE_FEATURE_DMA_BUF, along with a steering tag and
-processing hint.  It would fdget() the dmabuf fd, validate it's a
-dmabuf via f_ops, validate it's a vfio exported dmabuf via dmabuf->ops,
-find the matching vfio_pci_dma_buf via priv under memory_lock, and
-stuff the provided TPH values into the object.  It would be left to the
-user to sequence setting the TPH values on the dmabuf before the dmabuf
-is consumed by the importer.
+Unfortunately, there is no way to know reliably if a VGA connector is 
+present. It's possible to disable polling on some machines using DMI 
+quirks, but I don't think this approach will scale.
 
-Is that a more reasonable uAPI?  Thanks,
+ >
+ > I'd like a solution where we don't have to go to each individual
+ > customer and have them ban the mgag200 driver or set some kernel
+ > parameter like drm_kms_helper.poll=0 to prevent issues. If the VGA
+ > connector isn't even available to *be* plugged in, then it doesn't make
+ > sense to constantly poll to check if it was...
+ >
+ > Many system admins likely aren't even aware of the devices existence,
+ > and it ends up causing stall issues like this, which for timing
+ > sensitive tasks results in service disruption.
+ >
+ > It is unpleasant that the mere *existence* of the device+driver causes
+ > such problems.
+ >
+ >> Best regards
+ >> Thomas
+ >>
+ >>>
+ >>> Thanks,
+ >>> Jake
+ >>
+ >
 
-Alex
+Best regards,
+
+-- 
+
+Jocelyn
+
