@@ -4,35 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F197CF99378
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 11:54:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C161F9937E
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 11:56:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59B5E10F0C2;
-	Thu, 23 Apr 2026 11:54:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB5E810E359;
+	Thu, 23 Apr 2026 11:56:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="u04KJPJe";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="mjqLdQVI";
 	dkim-atps=neutral
 Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 993C910F0C2
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 11:54:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFACE10E1CD;
+ Thu, 23 Apr 2026 11:56:33 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 931BFC5EF0E;
- Thu, 23 Apr 2026 11:54:55 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 334E5C5EF0E;
+ Thu, 23 Apr 2026 11:57:13 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 482D060495;
- Thu, 23 Apr 2026 11:54:14 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id C774C60495;
+ Thu, 23 Apr 2026 11:56:31 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id C221D10460B5E; 
- Thu, 23 Apr 2026 13:53:46 +0200 (CEST)
+ with ESMTPSA id B504010460B5E; 
+ Thu, 23 Apr 2026 13:56:12 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1776945250; h=from:subject:date:message-id:to:cc:mime-version:
+ t=1776945388; h=from:subject:date:message-id:to:cc:mime-version:
  content-transfer-encoding:in-reply-to:references;
  bh=rdtm2Mh4NvOrdzs2o8Fw+gJ72Ofe3PZvxoUNrnpIO1Y=;
- b=u04KJPJeSXFBhQCKkt2ZyvRWThFfZidRsxnYGqo6R+dyYSKJlvDD+mxl7yYbATWE5qRZfL
- 9R31Y8myN7D+SZ1mCmdZy3tVPAzk0CiJrQAb+lgVVn/2vGSsDiFwPHVXskGnhgZ6/eRAGO
- tkfzQVeB88kRem3WOyssXTKj+qB/I/0ZkXzEcx4iMxMJGWlQQe8sE3MLORu9fEudmg5I/r
- Fxtqtu9AqBMej3vNwWDkPYz7j9CXkRVuyYJ7wSOjM2GhjabZBAbKOflBREmZyU7rXTQ7XM
- WIwwcE+nzmlILk0x4XpbRihQclnu2kfXZk/DoFJHeRPEevHJUFvmdwz+8bBxEA==
+ b=mjqLdQVI1Dc8aftGHQVv+VhIMXpBs21PQkP+S5UPz2nov+JL8kUvexa9RS9WZs1wb1xTac
+ BHw41yuxZLY3aFGe9t8eAMtgiV5a2Bu7hwJnOg3fDSN1VaofZBGicll679ZrmKpDvbhFyC
+ 9sU1xF4fWXHO5bAMiCDeQ0rGjou3iGmYZlbKU37153HaOyuA/B7IyMR8psXISTcT+ES4iw
+ zbdVTMl2i5ZsqkVF+la3VxUllzn7e9TA3BhAJlHx5CFz6PaR3wNnyemgQxc4EAme59maCh
+ y4l0dDGqLufnPsAOcb/fNwvqenyLG1UlTEI8qhU6AdHBxQtcNxeFcNpp/vB72w==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
@@ -90,10 +90,10 @@ Cc: Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
  linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
  linux-samsung-soc@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
  Luca Ceresoli <luca.ceresoli@bootlin.com>
-Subject: [PATCH 35/41] drm/rockchip: lvds: remove now-redundant call to
+Subject: [PATCH v2 35/41] drm/rockchip: lvds: remove now-redundant call to
  drm_connector_attach_encoder()
-Date: Thu, 23 Apr 2026 13:53:28 +0200
-Message-ID: <20260423115334.444750-1-luca.ceresoli@bootlin.com>
+Date: Thu, 23 Apr 2026 13:55:44 +0200
+Message-ID: <20260423115550.444930-1-luca.ceresoli@bootlin.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260423-drm-bridge-connector-attach_encoder-v2-0-2ae6ca69b390@bootlin.com>
 References: <20260423-drm-bridge-connector-attach_encoder-v2-0-2ae6ca69b390@bootlin.com>
