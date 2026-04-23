@@ -4,53 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAA60F99368
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 10:21:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBE6EF99369
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 10:27:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0980510F07F;
-	Thu, 23 Apr 2026 10:21:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C49E10F083;
+	Thu, 23 Apr 2026 10:27:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MykLjWxj";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ok0FWBV9";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2D6810F07F
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 10:21:11 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E976D10E312;
+ Thu, 23 Apr 2026 10:27:43 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id F415260052;
- Thu, 23 Apr 2026 10:21:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56F35C2BCAF;
- Thu, 23 Apr 2026 10:21:10 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9186844245;
+ Thu, 23 Apr 2026 10:27:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49A32C2BCB2;
+ Thu, 23 Apr 2026 10:27:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776939670;
- bh=YvpGXcAIq/ELedWMUycPOJmoW9ohYVn+So3dnxCtPMQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=MykLjWxjvHKSw7G21j7POMOEV+Y5P9LS5JmvjH/CsGdPF6yd1Ttu6z/q2LdTCht7j
- TpOJQGZIq6tALSkaVSL0TFbHwy4GQPIzfv2Yf5uiziobWoRVcYYOFi9eBULxHnkfs+
- FKTO15KAaWw3LJATCqT090pCd1aREp0/AYoDMCfE37ckvpZq1sX2xc7zl9Su84s4Rs
- S1EQLMPJtv+XLJKhLJTDCZ41S9Vc+zLgz2fhgnNl7wOnCe9IJrGenmpMSh4whRD5g1
- Oem0/ldyVl8dksyl7XN199E79SrUclv7y3oUA4uQejDAcd+RT/RbkBFsCI+kj1YMWW
- IGJQL4GomZPeA==
-Date: Thu, 23 Apr 2026 12:21:07 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, Jyri Sarha <jyri.sarha@iki.fi>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-Subject: Re: [PATCH v2 00/28] drm: Implement state readout support
-Message-ID: <20260423-modest-polite-jaguarundi-f53cce@houat>
-References: <20260423-drm-state-readout-v2-0-6cde1a9910ed@kernel.org>
+ s=k20201202; t=1776940063;
+ bh=ohdrzIDtFsxHqFS1uvIA5YEDv/bmIvcy1gYpoCoGLJs=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=Ok0FWBV9PjaTvb9k3tr/bDRO6Bnnsc5r+cgS9c9qb/7vQfS0+dSOy9Rhhpma670eK
+ PX9YCMfDqd4gmFY6VQato7wSoq7iE1xqskFmOMog+FRyLSOY+49eUis37C35malsu/
+ 9B9ClLYJQTB+0Rk7cmDKNvPeivYtFZP5C0dLcF20QRwTP1x+v9OTW1C1K1CpmJgm3X
+ MROFWVPtcda7rBtLde4TYsImG789mMEZ1xNqs60HHc+UyxIWEDbrS/8wbOdi25muTv
+ F6w1qd/TUuT1/vyNDIoSTR77NjQY194gE6mQFJ+qXhwK35pxVoty+bROtnfsoq6DB8
+ 2yJwECD0NCVoQ==
+Message-ID: <76191a17-18bf-4e9b-9ab5-dc9a48abfabb@kernel.org>
+Date: Thu, 23 Apr 2026 12:27:36 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="flfzdlmjtvn42spd"
-Content-Disposition: inline
-In-Reply-To: <20260423-drm-state-readout-v2-0-6cde1a9910ed@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/5] mm: Introduce zone_appears_fragmented()
+To: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@suse.com>
+References: <20260423055656.1696379-1-matthew.brost@intel.com>
+ <20260423055656.1696379-2-matthew.brost@intel.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260423055656.1696379-2-matthew.brost@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,71 +110,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 4/23/26 07:56, Matthew Brost wrote:
+> Introduce zone_appears_fragmented() as a lightweight helper to allow
+> subsystems to make coarse decisions about reclaim behavior in the
+> presence of likely fragmentation.
+> 
+> The helper implements a simple heuristic: if the number of free pages
+> in a zone exceeds twice the high watermark, the zone is considered to
+> have ample free memory and allocation failures are more likely due to
+> fragmentation than overall memory pressure.
+> 
+> This is intentionally imprecise and is not meant to replace the core
+> MM compaction or fragmentation accounting logic. Instead, it provides
+> a cheap signal for callers (e.g., shrinkers) that wish to avoid
+> overly aggressive reclaim when sufficient free memory exists but
+> high-order allocations may still fail.
+> 
+> No functional changes; this is a preparatory helper for future users.
+> 
+> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> Cc: Andrew Morton <akpm@linux-foundation.org>
+> Cc: David Hildenbrand <david@kernel.org>
+> Cc: Lorenzo Stoakes <ljs@kernel.org>
+> Cc: "Liam R. Howlett" <Liam.Howlett@oracle.com>
+> Cc: Vlastimil Babka <vbabka@kernel.org>
+> Cc: Mike Rapoport <rppt@kernel.org>
+> Cc: Suren Baghdasaryan <surenb@google.com>
+> Cc: Michal Hocko <mhocko@suse.com>
+> Cc: linux-mm@kvack.org
+> Cc: linux-kernel@vger.kernel.org
+> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> ---
+>  include/linux/vmstat.h | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
+> 
+> diff --git a/include/linux/vmstat.h b/include/linux/vmstat.h
+> index 3c9c266cf782..568d9f4f1a1f 100644
+> --- a/include/linux/vmstat.h
+> +++ b/include/linux/vmstat.h
+> @@ -483,6 +483,19 @@ static inline const char *zone_stat_name(enum zone_stat_item item)
+>  	return vmstat_text[item];
+>  }
+>  
+> +static inline bool zone_appears_fragmented(struct zone *zone)
+> +{
 
---flfzdlmjtvn42spd
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 00/28] drm: Implement state readout support
-MIME-Version: 1.0
+"zone_likely_fragmented" or "zone_maybe_fragmented" might be clearer, depending
+on the actual semantics.
 
-Hi,
+> +	/*
+> +	 * Simple heuristic: if the number of free pages is more than twice the
+> +	 * high watermark, this strongly suggests that the zone is heavily
+> +	 * fragmented when called from a shrinker.
+> +	 */
 
-On Thu, Apr 23, 2026 at 12:06:38PM +0200, Maxime Ripard wrote:
-> Here's a series that implement what i915 calls "fastboot", ie,
-> initializing the initial KMS state from the hardware state at boot, to
-> skip the first modeset if the firmware already set up the display.
->=20
-> This series creates the infrastructure in KMS to create that state by
-> relying on driver specific hooks. It also implements some infrastructure
-> to check during non-blocking commits that the readout helpers work
-> properly by reading out the state that was just committed and comparing
-> it to what was supposed to be commited.
->=20
-> This relies on another set of driver hooks to compare the entities
-> states, with helpers providing the default implementation.
->=20
-> It then implements the readout support in the TIDSS driver, and was
-> tested with the SK-AM62 board. This board in particular is pretty
-> interesting, since it relies on an DPI to HDMI bridge, and uses the
-> drm_bridge_connector infrastructure.
->=20
-> So the readout works with the current state of the art on embedded-ish
->=20
-> It's now in a much better state than the v1 was, but there's still some
-> notable things broken:=20
->=20
->   - Bridges do not read their input and output bus formats and flags
->=20
->   - The tidss_crtc_state fields are not read properly at the moment
->     either.
->=20
->   - It looks like, when left unattended, we get some atomic_flush
->     WARN eventually, maybe because of something broken around
->     hotplugging and the monitor shutting itself down?
->=20
->   - If readout is disabled for any reason, the hardware isn't reset
->     anymore.
->=20
-> The main thing works though: the state is picked up properly, doesn't
-> trigger a modeset if what was programmed is the one the first modeset
-> tries to pick as well, will switch properly if it isn't, etc.
+I'll cc some more people. But the "when called from a shrinker" bit is
+concerning. Are there additional semantics that should be expressed in the
+function name, for example?
 
-Sorry, my smtp server spuriously failed halfway through sending the
-series. I just resent it.
+Something that implies that this function only gives you a reasonable answer in
+a certain context.
 
-Maxime
+-- 
+Cheers,
 
---flfzdlmjtvn42spd
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaenykwAKCRAnX84Zoj2+
-dj2BAX4tppgQeYFSoA6GxRsc2QG/piIpuUuPCN1zSS6Fj+Pn52mWjBNXp8inlWPK
-05n+ZIIBf2ltlFOQIgAtka71M+gksfkCwK+YCyLgGvIcfflqYBBlJEJVXwWrAvaU
-2Zpl1FZysA==
-=/RTo
------END PGP SIGNATURE-----
-
---flfzdlmjtvn42spd--
+David
