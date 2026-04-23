@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34157FDEE4E
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 21:26:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4205EFDEE4D
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 21:26:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6EB7610F28B;
-	Thu, 23 Apr 2026 21:26:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A824810F2A1;
+	Thu, 23 Apr 2026 21:26:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hHRlZOeK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oW+PNH6A";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 627F910F28B
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 21:26:15 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1C5410F2A1
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 21:26:44 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 854AD60582
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 21:26:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C3F0C2BCB2
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 21:26:14 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id CEFCC4449F
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 21:26:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96D35C4AF14
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 21:26:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776979574;
- bh=QoQhslnr2VDDv4dJKxyzU8pClbacRNGZ6y9c0nTvw58=;
+ s=k20201202; t=1776979604;
+ bh=0DDQs8T54McOd7hJnTqwws1DRjXMfYuwNn80v+kQdL8=;
  h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=hHRlZOeKFAljiXXH6X7AXE1TD3AOWdINseVHnhCIz6ZsdBOPUuwYkdaJOtmY8IHd3
- pYOBhsNYdUuGVUr2mFrZCP/cYpGZfMBPkBpmN6wpp/8ontKUCQvhmpT3eHYSRfGuvi
- uBdf5qzzKaPpsXsV/VpBeFtEhzQPX3E0bAH/sktULPDuwDR3keHhX1uaQ/6J6h2tYp
- 9QiiOy3eAUW3/y+cl5nJH/Fg9tzs4O/H2X/UZs3XaDZ8QHX6VsSq0hOACHuiCm0e0u
- 2b8VGFvYISf03NYqQpVdFMfB7PKADurExOMoWaP962uCLDDLBV68MJyuVh0FTzmF+h
- DJbepJSK0sksQ==
-Received: by mail-lf1-f49.google.com with SMTP id
- 2adb3069b0e04-5a40b2bc96dso8479530e87.3
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 14:26:14 -0700 (PDT)
+ b=oW+PNH6A6jOzDCoA2J2zMffkHl18TOlJgyakCnNt8Gtcgl7skCoN8ilGdVfJ6tLMZ
+ IAhj9lqfxZdOY8fOkdOisssAvuWwzxY7R9dNJxDVY+VbQVEE4k9rmsR0kmP1kk3piy
+ 4qoYNWLpF4HmNCtr7wjB0g8UIfR89ShJKHKO4Gc/vvzjG7P1P6YLatXd5caADlfDvr
+ PxTxce3IPk5Z6gjd+EO2f8HF+lPrVEmldNGDY8g5pCVT5IMuv60OjzJLM4jNKgZ3zF
+ JHlxzX3zCwycCQAs5oNslX4T9Vm2Z4oY4hhiKjbG/AeGAllCFiPH0V94NEEzX+WkYa
+ f2oeohy4FFk9w==
+Received: by mail-lf1-f51.google.com with SMTP id
+ 2adb3069b0e04-5a3be187ffbso7698341e87.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 14:26:44 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AFNElJ/fXAAblWBNLujiAVuEG3xiuP4UuSCQ7vpPZP5yTIJj6iuSGZJmuczHe1ACv/RTeIDvAUOJrbRawi4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxMihavtyAL7xxcPXt7D/4MWOBvcwuG6LH8ywnqflgCpYjPm68P
- t6RMvDue069nH/GMbhznqav+9UZYTJMHWVPQwA2F/OHphsMT6bx3tzTVXB49mh6rEySRwK6L1ky
- unO4IguG54Weou49mbmy4/wy0oBMqrP4=
-X-Received: by 2002:a05:6512:1302:b0:5a3:fe60:471c with SMTP id
- 2adb3069b0e04-5a4172cb33amr10098495e87.16.1776979572944; Thu, 23 Apr 2026
- 14:26:12 -0700 (PDT)
+ AFNElJ/1QnHJ7tSHNjt2Up6/VeMtrxlqBtjChjEL2ws9r68veSBid3VScpotTzqrLBPe8dZk7uMOT/R6qp0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwT0zGUAYh4845KdvsALT4uOp3pNS8rP1tyuoCj7QjtZ09CEEe+
+ HME7VE2rwWObHwOVAzkB3j9QHx2CG0nbxWPc/rS9c5M7NmUzABbGFyItDzzPZGE1j22TsoXY3rU
+ QMUo2sFMvmHmhSP8ZHJlTSVT1KBZRLNs=
+X-Received: by 2002:ac2:41cb:0:b0:5a5:25ae:da17 with SMTP id
+ 2adb3069b0e04-5a525aedd3bmr3763550e87.2.1776979603322; Thu, 23 Apr 2026
+ 14:26:43 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260413-waveshare-dsi-touch-v3-0-3aeb53022c32@oss.qualcomm.com>
- <20260413-waveshare-dsi-touch-v3-7-3aeb53022c32@oss.qualcomm.com>
-In-Reply-To: <20260413-waveshare-dsi-touch-v3-7-3aeb53022c32@oss.qualcomm.com>
+ <20260413-waveshare-dsi-touch-v3-14-3aeb53022c32@oss.qualcomm.com>
+In-Reply-To: <20260413-waveshare-dsi-touch-v3-14-3aeb53022c32@oss.qualcomm.com>
 From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 23 Apr 2026 23:26:01 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkRf0ehBr0CpCALJHL58gUw4954XzjxHOu8c7n7=b-bUQ@mail.gmail.com>
-X-Gm-Features: AQROBzBtnhd6trpGrfIHMX-D0f7VMPVcAX7SFq928axT4eaRMtmMnoYhsxJIvXU
-Message-ID: <CAD++jLkRf0ehBr0CpCALJHL58gUw4954XzjxHOu8c7n7=b-bUQ@mail.gmail.com>
-Subject: Re: [PATCH v3 07/21] drm/panel: himax-hx83102: support Waveshare
- 12.3" DSI panel
+Date: Thu, 23 Apr 2026 23:26:30 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=g_t9RC-8rmZvdMuu_b+QpB8GjmbAVx6B1F96zToXVpw@mail.gmail.com>
+X-Gm-Features: AQROBzDL1cfJthhfBWrjmA-f89fl7mK8hXIZNmLuA8w3ky1MkgwguYS8Mfizo84
+Message-ID: <CAD++jL=g_t9RC-8rmZvdMuu_b+QpB8GjmbAVx6B1F96zToXVpw@mail.gmail.com>
+Subject: Re: [PATCH v3 14/21] drm/panel: jadard-jd9365da-h3: support Waveshare
+ round DSI panels
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Cc: Neil Armstrong <neil.armstrong@linaro.org>,
  Jessica Zhang <jesszhan0024@gmail.com>, 
@@ -66,7 +66,8 @@ Cc: Neil Armstrong <neil.armstrong@linaro.org>,
  Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
  Bartosz Golaszewski <brgl@kernel.org>, Jie Gan <jie.gan@oss.qualcomm.com>, 
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ Riccardo Mereu <r.mereu@arduino.cc>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -84,13 +85,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Apr 13, 2026 at 4:05=E2=80=AFPM Dmitry Baryshkov
+On Mon, Apr 13, 2026 at 4:06=E2=80=AFPM Dmitry Baryshkov
 <dmitry.baryshkov@oss.qualcomm.com> wrote:
 
-> Add support for the Waveshare 12.3" DSI TOUCH-A panel. According to the
-> vendor driver, it uses different mode_flags, so let the panel
-> descriptions override driver-wide defaults.
+> Add configuration for Waveshare 3.4" and 4.0" round DSI panels using
+> JD9365 controller.
 >
+> Tested-by: Riccardo Mereu <r.mereu@arduino.cc>
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
 Reviewed-by: Linus Walleij <linusw@kernel.org>
