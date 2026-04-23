@@ -4,101 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A04BBF589DA
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 14:00:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77D09F589DA
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 14:05:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D69910F146;
-	Thu, 23 Apr 2026 14:00:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB0C210F14B;
+	Thu, 23 Apr 2026 14:05:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="CfUOSLL9";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ag/n9Ygt";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="CfUOSLL9";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ag/n9Ygt";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="MnFDp/Go";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DC5D10F146
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 14:00:49 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A27506A86D;
- Thu, 23 Apr 2026 14:00:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1776952835; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=8iGzXDdAsWe4Dlk10v8oKLR2EPxuue9+GaWVQqU9Tt8=;
- b=CfUOSLL9+s8z3AdZ20RQS8eUYxz7Tqa2SYdpBWznv82vLJtS1yeYizbL49FuvPZMfpM63v
- WBh65zeVG7m+QRFLy5GGTkzb5TuMxxN3FJEg2JwLRdBScqB18ibk1yroX8nJ49e9e39X3o
- 90wGBAv7UaEPVYIgIku8E5EJKrlIqf0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1776952835;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=8iGzXDdAsWe4Dlk10v8oKLR2EPxuue9+GaWVQqU9Tt8=;
- b=ag/n9YgtpxjwVl+onFAMu7oOzwdLD/bi5aqM5hmD8yh60u03tKmgbO3r3Exj2KGsvPtOgG
- Nk4R9iJY30+tdzAA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1776952835; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=8iGzXDdAsWe4Dlk10v8oKLR2EPxuue9+GaWVQqU9Tt8=;
- b=CfUOSLL9+s8z3AdZ20RQS8eUYxz7Tqa2SYdpBWznv82vLJtS1yeYizbL49FuvPZMfpM63v
- WBh65zeVG7m+QRFLy5GGTkzb5TuMxxN3FJEg2JwLRdBScqB18ibk1yroX8nJ49e9e39X3o
- 90wGBAv7UaEPVYIgIku8E5EJKrlIqf0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1776952835;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=8iGzXDdAsWe4Dlk10v8oKLR2EPxuue9+GaWVQqU9Tt8=;
- b=ag/n9YgtpxjwVl+onFAMu7oOzwdLD/bi5aqM5hmD8yh60u03tKmgbO3r3Exj2KGsvPtOgG
- Nk4R9iJY30+tdzAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 70DD4593A3;
- Thu, 23 Apr 2026 14:00:35 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id wGlcGgMm6mlCTwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 23 Apr 2026 14:00:35 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: tomi.valkeinen@ideasonboard.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org,
-	Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 3/3] drm/omapdrm: Make omap_framebuffer_init() an internal
- interface
-Date: Thu, 23 Apr 2026 15:58:09 +0200
-Message-ID: <20260423140031.126072-4-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260423140031.126072-1-tzimmermann@suse.de>
-References: <20260423140031.126072-1-tzimmermann@suse.de>
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB6B910F14B
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 14:05:40 +0000 (UTC)
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
+ [91.158.153.178])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id B9819227;
+ Thu, 23 Apr 2026 16:03:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1776953040;
+ bh=wqniVq9yEq7QN1zP9YpKxgcUq4s7oP2llFTuHjHuy04=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=MnFDp/GocbhxsUcToEMstatKOCP67wZpMIU3CSf2ZxhYNGDr7UVKluUnbOyKIACV6
+ OGF4pmKbFOdMaKDo2o9cs0EP8bcghzwPCBJCw1ZVo574ntEdJB1L/r7XpFKhRjNqwo
+ 2IjxOOY2TR0Hk8vDHobycLW2DT32EfEjlQ2cOx6M=
+Message-ID: <a5f67f4d-cfbf-4726-980b-0dbcb47255a9@ideasonboard.com>
+Date: Thu, 23 Apr 2026 17:05:35 +0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-6.80 / 50.00]; REPLY(-4.00)[];
- BAYES_HAM(-3.00)[100.00%]; MID_CONTAINS_FROM(1.00)[];
- NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- RCVD_COUNT_TWO(0.00)[2]; RCVD_VIA_SMTP_AUTH(0.00)[];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
- MIME_TRACE(0.00)[0:+]; FROM_HAS_DN(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FREEMAIL_TO(0.00)[ideasonboard.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:email,imap1.dmz-prg2.suse.org:helo];
- RCVD_TLS_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RCPT_COUNT_SEVEN(0.00)[7]; TO_DN_SOME(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] drm/panel: simple: Add timings for Raspberry Pi 7"
+ panel
+To: Marek Vasut <marex@nabladev.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
+ Sam Ravnborg <sam@ravnborg.org>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260420-rpi-7inch-v1-0-e68d5c9c44bc@ideasonboard.com>
+ <20260420-rpi-7inch-v1-2-e68d5c9c44bc@ideasonboard.com>
+ <3z3u5mbngmbzsch3mzs3twlh3aec6r7jokstzv3ghxyusrzt6b@jqvdnuiapx6e>
+ <af71183d-70b8-4a41-8466-67123e7aab02@ideasonboard.com>
+ <20260423-kickass-fat-boa-209f68@houat>
+ <72c2cd94-0a8b-46c8-981b-4ad4a3222e59@ideasonboard.com>
+ <CAO9ioeVX6OChRTgUrUdgrPF+3s2_7vme7m0yb85pjYtH1MFskw@mail.gmail.com>
+ <ced05a92-06b4-4f6f-95b6-c3dc104c35f3@ideasonboard.com>
+ <b24c428f-5752-4544-a8b4-77e91d7bc158@ideasonboard.com>
+ <da6bdb78-7fe8-4f51-b9e6-444748ebc319@nabladev.com>
+Content-Language: en-US
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+In-Reply-To: <da6bdb78-7fe8-4f51-b9e6-444748ebc319@nabladev.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,113 +76,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The only caller of omap_framebuffer_init() is omap_framebuffer_create()
-from the same source file. Declare the former as static. Reorder the
-functions to avoid forward declarations.
+Hi,
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
----
- drivers/gpu/drm/omapdrm/omap_fb.c | 68 ++++++++++++++++---------------
- drivers/gpu/drm/omapdrm/omap_fb.h |  3 --
- 2 files changed, 35 insertions(+), 36 deletions(-)
+On 23/04/2026 16:54, Marek Vasut wrote:
+> On 4/23/26 3:16 PM, Tomi Valkeinen wrote:
+> 
+> Hello Tomi,
+> 
+>>>> In the past I used this panel compat instead of the
+>>>> panel-raspberrypi-touchscreen.c and it worked.
+>>>> IIRC Marek splitted the multi-function module into a regulator and the
+>>>> panel description.
+>>> Ok... Indeed https://pip.raspberrypi.com/categories/651-pcn lists 
+>>> PH800480T013 as one of the panels used. Although two variants are 
+>>> listed, and also a third panel model, possibly from another vendor.
+>>>
+>>> My module is v1.1, and I think it has the PH800480T013-IAC21 D/5624/ 
+>>> KIT- LC variant.
+>> A question to Marek: Where did you get the timings for PH800480T013? 
+>> Did you find a datasheet?
+> Search engine first link:
+> 
+> https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/5337/ 
+> PH800480T013-IHC09.pdf
 
-diff --git a/drivers/gpu/drm/omapdrm/omap_fb.c b/drivers/gpu/drm/omapdrm/omap_fb.c
-index 1df232232a64..74cd0e4271c2 100644
---- a/drivers/gpu/drm/omapdrm/omap_fb.c
-+++ b/drivers/gpu/drm/omapdrm/omap_fb.c
-@@ -335,39 +335,10 @@ void omap_framebuffer_describe(struct drm_framebuffer *fb, struct seq_file *m)
- }
- #endif
- 
--struct drm_framebuffer *omap_framebuffer_create(struct drm_device *dev,
--		struct drm_file *file, const struct drm_format_info *info,
--		const struct drm_mode_fb_cmd2 *mode_cmd)
--{
--	unsigned int num_planes = info->num_planes;
--	struct drm_gem_object *bos[4];
--	struct drm_framebuffer *fb;
--	int i;
--
--	for (i = 0; i < num_planes; i++) {
--		bos[i] = drm_gem_object_lookup(file, mode_cmd->handles[i]);
--		if (!bos[i]) {
--			fb = ERR_PTR(-ENOENT);
--			goto error;
--		}
--	}
--
--	fb = omap_framebuffer_init(dev, info, mode_cmd, bos);
--	if (IS_ERR(fb))
--		goto error;
--
--	return fb;
--
--error:
--	while (--i >= 0)
--		drm_gem_object_put(bos[i]);
--
--	return fb;
--}
--
--struct drm_framebuffer *omap_framebuffer_init(struct drm_device *dev,
--		const struct drm_format_info *info,
--		const struct drm_mode_fb_cmd2 *mode_cmd, struct drm_gem_object **bos)
-+static struct drm_framebuffer *
-+omap_framebuffer_init(struct drm_device *dev,
-+		      const struct drm_format_info *info,
-+		      const struct drm_mode_fb_cmd2 *mode_cmd, struct drm_gem_object **bos)
- {
- 	struct omap_framebuffer *omap_fb = NULL;
- 	struct drm_framebuffer *fb = NULL;
-@@ -455,3 +426,34 @@ struct drm_framebuffer *omap_framebuffer_init(struct drm_device *dev,
- 
- 	return ERR_PTR(ret);
- }
-+
-+struct drm_framebuffer *omap_framebuffer_create(struct drm_device *dev,
-+						struct drm_file *file,
-+						const struct drm_format_info *info,
-+						const struct drm_mode_fb_cmd2 *mode_cmd)
-+{
-+	unsigned int num_planes = info->num_planes;
-+	struct drm_gem_object *bos[4];
-+	struct drm_framebuffer *fb;
-+	int i;
-+
-+	for (i = 0; i < num_planes; i++) {
-+		bos[i] = drm_gem_object_lookup(file, mode_cmd->handles[i]);
-+		if (!bos[i]) {
-+			fb = ERR_PTR(-ENOENT);
-+			goto error;
-+		}
-+	}
-+
-+	fb = omap_framebuffer_init(dev, info, mode_cmd, bos);
-+	if (IS_ERR(fb))
-+		goto error;
-+
-+	return fb;
-+
-+error:
-+	while (--i >= 0)
-+		drm_gem_object_put(bos[i]);
-+
-+	return fb;
-+}
-diff --git a/drivers/gpu/drm/omapdrm/omap_fb.h b/drivers/gpu/drm/omapdrm/omap_fb.h
-index e6010302a22b..595d4d695ac4 100644
---- a/drivers/gpu/drm/omapdrm/omap_fb.h
-+++ b/drivers/gpu/drm/omapdrm/omap_fb.h
-@@ -23,9 +23,6 @@ struct seq_file;
- struct drm_framebuffer *omap_framebuffer_create(struct drm_device *dev,
- 		struct drm_file *file, const struct drm_format_info *info,
- 		const struct drm_mode_fb_cmd2 *mode_cmd);
--struct drm_framebuffer *omap_framebuffer_init(struct drm_device *dev,
--		const struct drm_format_info *info,
--		const struct drm_mode_fb_cmd2 *mode_cmd, struct drm_gem_object **bos);
- int omap_framebuffer_pin(struct drm_framebuffer *fb);
- void omap_framebuffer_unpin(struct drm_framebuffer *fb);
- void omap_framebuffer_update_scanout(struct drm_framebuffer *fb,
--- 
-2.53.0
+Thanks. That's not exactly the same variant, though (IHC09 vs IAC21). 
+Even so, that datasheet also lists the backporches as 46 and 23, which 
+are not the same as in d69de69f2be105b2474c05a5ca4827aac3e80ad3.
+
+But oddly the datasheet pic shows that the backporch times would include 
+the sync time. Taken that way, the commit's hsw=2 and hbp=44 would 
+match, but the vsw=2 and vbp=22 still wouldn't.
+
+I'll test my HW with the PH800480T013 compatible at some point and see 
+how it behaves.
+
+  Tomi
 
