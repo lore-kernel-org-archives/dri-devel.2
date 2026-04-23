@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5F65F99368
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 10:07:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED143F99368
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 10:07:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 379BF10F039;
-	Thu, 23 Apr 2026 10:07:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56A5610F036;
+	Thu, 23 Apr 2026 10:07:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="M0oxVR7c";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bZEqdHUw";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91E8710F036
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 10:07:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5270010F039
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 10:07:31 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id E58BA60121;
- Thu, 23 Apr 2026 10:07:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4310BC2BCB2;
- Thu, 23 Apr 2026 10:07:27 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id CA3D96014C;
+ Thu, 23 Apr 2026 10:07:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21451C2BCB5;
+ Thu, 23 Apr 2026 10:07:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776938847;
- bh=8+FNfWxwQ20fsMj5oozQYABCMKlCSVOCkN7bV3C8s+Y=;
+ s=k20201202; t=1776938850;
+ bh=NfpXRHDfjtbdTLaohoWAMhjlabdMXeldWPufpwAeQ3M=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=M0oxVR7c1MdKB4Xcjsm9fV21NYkn0g1Xn3LUotxaRIPDU1bJJkn0Glaz0i1Ogpykh
- R++AHwfstyQ5S4fAY6KvjkoYTX6V1Z9yGvU9d0hHMkdJInprcaFhspKi6TFJXKsDSl
- ez5bcBwXhA4z5A6O7CC28A8DWUhp5ZSdNY0qPz87BmHHcnC55O+QTAcfzr5wcdiIxD
- bTYODRuakS108nOmIzIl5tmbHBe7bUynGv27o7n7HJR1z2xUDP1xVR+d7NmGbu8OJI
- X62NWKBK/jHPKE40SNvZeE/paHbdUlM2CvRjvvsbx1dAx5N3wxwIqMmwhc+h7iPBho
- zF7hLO55GROIw==
+ b=bZEqdHUwGBn0XK+exCeY3Xf7PvFUkOFAgfR1Nhd0YAUP9smSg5K/SW27mR2B47P15
+ 08MEO6ipf7eKl4lQxfNcCJxMBIhVgop2zkxjwZElXxp47oB01oczJmOCWDasw4/OUQ
+ ebXq3FSPb6gz4yKPLML/Yaw2doY/2Mm/vC2uoy4YaRY8YJhUWQ//2rEgKjy2XWpM+1
+ bgLuoS7fHU5/sw4EdUOfqG5xu+Tx9gPXkUSUyPl46ALAp0IvZJPPtBmqFeYR29jAs4
+ dkenHbNsz55WcemdxU63isua9RMqN5XmzCAjGq3dwici3HZr2i2MfBzQGjXGIXYC5w
+ iQSPBqtNVtvhQ==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 23 Apr 2026 12:06:41 +0200
-Subject: [PATCH v2 03/28] drm/atomic_state_helper: Remove memset in
- __drm_atomic_helper_bridge_reset()
+Date: Thu, 23 Apr 2026 12:06:42 +0200
+Subject: [PATCH v2 04/28] drm/atomic: Convert drm_priv_to_bridge_state to
+ container_of_const
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260423-drm-state-readout-v2-3-6cde1a9910ed@kernel.org>
+Message-Id: <20260423-drm-state-readout-v2-4-6cde1a9910ed@kernel.org>
 References: <20260423-drm-state-readout-v2-0-6cde1a9910ed@kernel.org>
 In-Reply-To: <20260423-drm-state-readout-v2-0-6cde1a9910ed@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -51,12 +51,12 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1659; i=mripard@kernel.org;
- h=from:subject:message-id; bh=8+FNfWxwQ20fsMj5oozQYABCMKlCSVOCkN7bV3C8s+Y=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDJkv37vLynV47L7Dozkh7+JUBqVbzUtKEo7Kih7fsK4j6
- e6/uC39HVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAieZmM9WWsF++tZdx9fpvt
- vvStiyfdZ1/73X2ZZeq+x3YFYlfzkp0vHbxx+vHUY0vvyHzolz7OKcnY0PZzbY0+D2PuJ85SpzX
- v5r17/3B7yrdGg6kb3BpXxbz7Kv9s8qnkA/FXHwrdbrk6m+uoDQA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1032; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=NfpXRHDfjtbdTLaohoWAMhjlabdMXeldWPufpwAeQ3M=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDJkv33vcWLzQTptPZr5WNP+Mywcqq5+cXXAu9ZQme22t5
+ Y7Tui89O6ayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBENBMZ69StNhlWzxd7JfNN
+ KqM41r73Vf3Gp7dcrbS5/KUWMYvte5fOkfj1sn+pRi6jVbB4mtt2xjqjhxm+K9J4/9/Y+lf0c8V
+ mE8cr4ilf7f37GmwMr9aX3fuvmZmpIqt684tRK09jaOx7PwA=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -74,46 +74,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The general consensus is that reset helpers shouldn't call memset
-directly because the object it initializes is supposed to have been
-zeroed out.
+container_of_const is more flexible than container_of when
+it comes to mixing pointers constness. Switch to it.
 
-Remove the memset call from
-__drm_atomic_helper_bridge_reset() and document the expectation.
-
-It should not have any impact on the current code base since there's
-only two callers: drm_atomic_helper_bridge_reset() and
-cdns-mhdp8546-core's cdns_mhdp_bridge_atomic_reset(), both allocating
-the object using kzalloc_obj().
-
-Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic_state_helper.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ include/drm/drm_atomic.h | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
-index c7eb3ce8c282..1a6f55329fee 100644
---- a/drivers/gpu/drm/drm_atomic_state_helper.c
-+++ b/drivers/gpu/drm/drm_atomic_state_helper.c
-@@ -952,15 +952,16 @@ EXPORT_SYMBOL(drm_atomic_helper_bridge_destroy_state);
-  * @state: bridge state to initialize
-  *
-  * Initializes the bridge state to default values. This is meant to be called
-  * by the bridge &drm_bridge_funcs.atomic_reset hook for bridges that subclass
-  * the bridge state.
-+ *
-+ * The object @state points to is assumed to have been initialized to zero.
-  */
- void __drm_atomic_helper_bridge_reset(struct drm_bridge *bridge,
- 				      struct drm_bridge_state *state)
- {
--	memset(state, 0, sizeof(*state));
- 	__drm_atomic_helper_private_obj_create_state(&bridge->base, &state->base);
- 	state->bridge = bridge;
- }
- EXPORT_SYMBOL(__drm_atomic_helper_bridge_reset);
+diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
+index b9e7281cfc97..537092d3ed16 100644
+--- a/include/drm/drm_atomic.h
++++ b/include/drm/drm_atomic.h
+@@ -1375,15 +1375,12 @@ struct drm_bridge_state {
+ 	 * @output_bus_cfg: output bus configuration
+ 	 */
+ 	struct drm_bus_cfg output_bus_cfg;
+ };
  
+-static inline struct drm_bridge_state *
+-drm_priv_to_bridge_state(struct drm_private_state *priv)
+-{
+-	return container_of(priv, struct drm_bridge_state, base);
+-}
++#define drm_priv_to_bridge_state(priv)		\
++	container_of_const(priv, struct drm_bridge_state, base)
+ 
+ struct drm_bridge_state *
+ drm_atomic_get_bridge_state(struct drm_atomic_state *state,
+ 			    struct drm_bridge *bridge);
+ struct drm_bridge_state *
 
 -- 
 2.53.0
