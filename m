@@ -4,115 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9894FDEE46
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 19:50:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DA38FDEE46
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 19:51:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DF6D10E20A;
-	Thu, 23 Apr 2026 19:50:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A716510E378;
+	Thu, 23 Apr 2026 19:51:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="e+AbSH98";
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="DW9uTNCL";
 	dkim-atps=neutral
-Received: from mail-qv1-f100.google.com (mail-qv1-f100.google.com
- [209.85.219.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10AB810E20A
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 19:50:39 +0000 (UTC)
-Received: by mail-qv1-f100.google.com with SMTP id
- 6a1803df08f44-8aca6bd57cfso67019246d6.0
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 12:50:39 -0700 (PDT)
+Received: from mail-dy1-f228.google.com (mail-dy1-f228.google.com
+ [74.125.82.228])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44EEA10E378
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 19:51:45 +0000 (UTC)
+Received: by mail-dy1-f228.google.com with SMTP id
+ 5a478bee46e88-2de831d2b20so5741646eec.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 12:51:45 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776973839; x=1777578639;
+ d=1e100.net; s=20251104; t=1776973904; x=1777578704;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=TcR7mlIfGhkpn4od8iEvTL0+vUUhsvUAn626yYYyrHs=;
- b=RYyUXFBl/Zyw1XfkqsnTl25F0aY9eVkJekQY6wlQNpEA/tExvx/r2hZLY3JMosiynL
- c8M6aianbUmYkWtxnxXclbUdWxuC5G8Sb9kWPp9rwjztnSCFyCDYD6w42PfqVtRYEk5P
- l7bGj7y4TQ8c50+0NzbvvttbMgGHXm0CHC3vZGLGIoDcg5MKy/hHzdLA3frWC8+lIG4b
- XL0ecxa9e7cKOBKTnCqmNWPnwippSmVEkMpXrD2e7fmIgV2xnBzb7Hx28E0Xe90BCAN3
- n0m8+Oh1xx+xkknyIN+ZU6sTvNNXCnWJCL2vqVO1YM3GNGl0Z0mMmwWWdlt91VC+3s5W
- GONA==
+ bh=mDgjcwSWdYwxL54oH1hVd28cbBxQ5LB849t/d+J86/w=;
+ b=W1MNZA59mqemNsBurhKhY8EUgbFoxZHxF+WL7cTSo1fl0u+KmXNrRCLm1qdFULst0j
+ LrAXimWT8le0342H2bbr827DYbtOgvoWXk2oFfS26q9bAeaf5Uxi0ymPpV70MohV922B
+ mbJPS6GfZ1MqwZJeAqRFiGg01+G60gKch9+oC14RN1fZsaApo0oX+uqMdZLbOkqMghd2
+ 3sDA9BsbYb3/gOVldgUc7Blczslh/0iO6TBAGp6i4FL8oX8x6F0U/LqKk8GpY0SwphJs
+ QgVy92sLbSLG02LhscH2BqtGCFjuwBceYHikJVD8r+9zElHakCRgejkORB/Ol/bshZAb
+ LvMQ==
 X-Forwarded-Encrypted: i=2;
- AFNElJ8c01eR5FcVKmt2MhXIwPhKtNEUoTE0uBDGUK3AzaCpeVMvChBz/yqs5xiV/p3OkpR/DAOeJWGwvGo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx2SpX2xE2LIJoXLyXATN+/sJFBN/uaemilff+weRHb1DGurD0W
- gL5dABIOPbI6u6hh3OTNADANfi7jjUGwkSh0RuxUZNouq+Ur1qWvJ9NawdjYSfoMY2jK+MRsezP
- veWpUojXUT9QUES60oWb+Sd0EIwjKOMiFWiUfUCb4KXMfGtXTAhoaSPBhsaHLyPmxusbECSSs3N
- lIvVz7C880qOBXx8EEC6TLsl4YljTJ3N5gewkfCogbK7JV1xK4rkcf0nMeEOaWrYCPyAtmEDrJ+
- CnXp9v04BjU0VB+lJNK
-X-Gm-Gg: AeBDiev6xbpxXSdRlHct/UzmJqs03iSGkmArlYgeLdX7ACTSqb7VRVJBLWWAVH+YIS3
- az1vemhAYOfzawQHPF7DCTADFa0pxLJdYSAqobqyovvESBnaXQbVOfVF59FNnOw3+IUZNEWvJ2q
- ZxNRoie1uGV1L7Bmm6IfVycyu55s4f/sc0cQA3Dol0WTkOhkxwyPvugcn9k7sih9O0yWYTuFCzp
- JKe0PWz5z0yQc8VhVIHc0kvIqJfsV5hhG439TIGKjcwAUQm6htYqrhnHdT/EeO2eCnMLyXjS78F
- lptGZRAOHHVyvmXffvOzCEz7Btm6VKKy1ib4AOTG2BFitRcL4r0CQ406X8PQ46sFK5ucQtMSst6
- Udy2f/hbcafp+tu3nz48Do/G8CcGFOFj378aN/Jvkwc/ds5hP5C+RWi399z2SOqSAgoGpqwCfBH
- M1lHjeKjHrI7nWxtaHV/VVkX+BXkdXX1ccW8Qw2hBAkJEXiyq1yFgQVp//wD+LAxL/
-X-Received: by 2002:a05:6214:4a84:b0:89c:5d56:bca8 with SMTP id
- 6a1803df08f44-8b02806e013mr437272916d6.16.1776973838471; 
- Thu, 23 Apr 2026 12:50:38 -0700 (PDT)
+ AFNElJ8aTSRnc2lyk+yKgthaOPZZpieicEvChbsGaXWabzPEFgfN/fMXfHCwXOFfLfez+qAqMsDpYhbrzAU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyEpbCMn+rJJgxlqD1H5+iG/XTiWjwCu64w5ftubZ/iAA4omrIw
+ M4DLYR4xXJ5ysbcf/5CsGoxHlEff0tTKnmZaItCF3tWZLJJjpgDCptoeIjWJmcwOTj0VKHw0Asj
+ JiuIDYcFmDqHBOhPQons9ox6ck+67bo+EGZ1vqjN5U438kVkN5tdw0S7PtG/cAZ4UfzIR7O4VLF
+ 7qqv3HZm5Q/3T4QvO4GrjSTWJTdnt5TRVD/9A7dUZRuHKTCnUNAA8vSMtEgQRG5HeZ7YdFp5hbM
+ 90es7/B4NP2QZSKbnZb
+X-Gm-Gg: AeBDietq4E4W+BmPMQD8nagbR37OgVFU4lqEguo8yr0a65GeTsid4lGc6UIi4ELzR1A
+ vN/uy+LPvtBOpIxdwRRBqIAS4029dvuqpXKwI3NsDxhTzybqE9KzmphzaXlmB+55ElnN+r8VmD/
+ YUiLlTrA20VEJ7tEIdbR0RwRV5LigNU+QrmwPCh8n//yySH1ulLq/TwVoFb882ASawZSWKb0o6/
+ 5EkF5V+lzug2p5LTo8IPYUDEmS3wy7XfUS8HVZI3hDvs4neAwk69mNy2GNU3aOHS76jU633r9XQ
+ +ivVBPrP9f/ipy8xvrNjYyom4TSxBlFpRbS5tOymExYedAVkBG8zz/wEsQsrFJN/Ofbyc5q2rM7
+ s2gnN2mN8OH2Ne2bSiM/4BzeXaqBwv1h8sJY0T7//oV2LbvAuobh964BuO+LyNNLXxm4vE9+iSI
+ muL0agTw0dlEEKlF93zsAKEBHqHYDh//meZFjumAUUehVT56nKU5TdIGElZ2Pa0PSC
+X-Received: by 2002:a05:7022:688b:b0:12b:fc21:874d with SMTP id
+ a92af1059eb24-12c73f92ec9mr15901086c88.19.1776973904018; 
+ Thu, 23 Apr 2026 12:51:44 -0700 (PDT)
 Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
  (address-144-49-247-17.dlp.protect.broadcom.com. [144.49.247.17])
  by smtp-relay.gmail.com with ESMTPS id
- 6a1803df08f44-8b02ae65a78sm14866676d6.22.2026.04.23.12.50.37
+ a92af1059eb24-12dbc37d48esm500902c88.5.2026.04.23.12.51.43
  for <dri-devel@lists.freedesktop.org>
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 23 Apr 2026 12:50:38 -0700 (PDT)
+ Thu, 23 Apr 2026 12:51:44 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-lj1-f200.google.com with SMTP id
- 38308e7fff4ca-38e0ef48a2eso32994661fa.3
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 12:50:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776973835; cv=none;
+Received: by mail-lf1-f71.google.com with SMTP id
+ 2adb3069b0e04-5a2aea62d7dso4016975e87.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 12:51:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776973901; cv=none;
  d=google.com; s=arc-20240605;
- b=avV0Yu1UJ9SFPWrCE6yAGPJBafPT4S4KhNzE21on5CZA2sPuhBE457mzOsDdLx6TWm
- O9ieKLjO5+RggLYAF0FN1hWwuHgEX9B+psi8hfXPamGWbPvog4g6lyg2ztAh7TAXp5Yj
- b874r7dvf86pNzvTSA8z5KJEfMpxiiEq+hv2DqOfjSiJ347hm5ucEaH/9k4m2Sl4NOzb
- N0MCTxj1butbvaUtLtmkTMShPEJqPS9ElSV8K2YkDg+0VoDfrmIEeMODkXdbpwZFhwOY
- 8MpgkLmmZ55ZC7i+/eIGwhSRWFNCLQv3iLfUsI47+ZYulA7t1MBSU4qi9crOo++xp54C
- ZRHA==
+ b=BsQ+J18xV1GGY2nGpwPuGY2TKJzFS/Kbnf0Sw+Py7kms/KMEPoF/aQn93/MJ1x3cCo
+ 9LIFxyeRT9YKtJ6U7eu9S6A9kJiCGld4qhwKciu8KbBrKnZekin+Z37uBWah3rJ+0fy5
+ aF1iRNIvxWyotPZTzGJRFH87Njun8hWxm4TyfFX/FFtOG341z4w8NXcFaFcMXSsE6rHU
+ IHW7+rWBNvc0ENEKNIfNSFcgEP8uEKyMPth5yKS5BWMqHmD/db77J64hkJgn11mvbMxm
+ 7PrAhGS3YviauWwml0k6nO15e73ti+ho7y+QtMrSyi+jPDSeDhN7zf7sRgKGxmEojre+
+ eGRQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:dkim-signature;
- bh=TcR7mlIfGhkpn4od8iEvTL0+vUUhsvUAn626yYYyrHs=;
- fh=/mPfY0pD1TsFiFf+NGFylFall1mIKGkyrYnZUzDvaKw=;
- b=IH+9mblbP9LaCl2423bm8jUvhVw1AWZHzZ6283KiBYtAJlafAKiby+x6rUbmHO77xy
- 5ShP/VpcfHu81XEkPYK95EW/5YEwAUyk98A996bR9K89fFUbMd1kTSt8kpJ6WLo/5HhQ
- rGDZJ1SXsTLTfirHB71Em/f+6d9gJf0V9h+5SHLndK1n8y9pLup57raygxBbfO2DeSqH
- etNVTGno8F1FBqvVcHdTkQlvF2/2CfwNzWbAhDa3hsZ4/Rc+zMBTzTM0edS2OeeP9uZl
- 7w3UDZNRSuEIj6nHbpRcea4tmua6sxOH3AIvkJ+RlMMK5W69SSnIouOK0F/Wrpcd80PF
- HNlQ==; darn=lists.freedesktop.org
+ bh=mDgjcwSWdYwxL54oH1hVd28cbBxQ5LB849t/d+J86/w=;
+ fh=QYvlj/rqceSaSlQ+uMwnARqMjlS4TSQuBrW8cuJRpE8=;
+ b=l1qZ01pxkfozdWRR5DycGjNCB0UtUl07Wp3cHYIdQPKWNPfAeSnBivgm4GHdFrArdm
+ DxI02GyuzKqoWNcRGDrDQxOTp0qgdoKBUPDakm87Qvx479nux2Vi3ClZR+oCEs5CEcqX
+ cFBDhTFQVvLMtMDML2hnOxraTnQvA7bEnF0nasAjdijvVrERhhS1ob1T7nR5kZcZ6lFT
+ VdVVBEplYxQm5H7ufHRseg1OPnyt/3qPFybFZ5Djfhh3x8Lc67D8yAaWBFHQ0IJqxPZs
+ c38rsh4Nyz+5B6idVIZVicLiQnxtpwXCZi+0LfOSsa6jSjDpmHJsUwJH95SC4qS5OBxN
+ Y2Ig==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1776973835; x=1777578635;
+ d=broadcom.com; s=google; t=1776973901; x=1777578701;
  darn=lists.freedesktop.org; 
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=TcR7mlIfGhkpn4od8iEvTL0+vUUhsvUAn626yYYyrHs=;
- b=e+AbSH9890cDDoyoyaKti9vFpJLxUv3RkdX9gC6k6D/p7t+z78Cxh3L/6yRTkSGjbm
- Bpg1EwCowN4TTrlhPKUtiU9ihnweq/K0+AqZBL4bfEb7kjBqhRVmLW+MtcKo2ELfivZX
- dRN/FYq1m6ztMzv1Wmw0mUdJ8830uVelXWszc=
+ bh=mDgjcwSWdYwxL54oH1hVd28cbBxQ5LB849t/d+J86/w=;
+ b=DW9uTNCLtX62xB4ONN2VYEabS76k/eE+hdJaPY3TBRtAr7L6AFQjCNQJbXnk8qLcYV
+ IhetnIIedcRqD/hjgATRKQpVTgyfcJkuke5zbP56EwiIQmXwnmKSlPWEZ4HiZVt+FRXF
+ gxQku8T9Gsu//Bw/KpwiNLBOQO4F4KWrf3mbk=
 X-Forwarded-Encrypted: i=1;
- AFNElJ9/DTILLVrtazJs9d0v4M3QyIdAQ7PDoFTp4sI0he9oz3jNn8+Y6rCDW/kh/0eYKXi1zHEveG39Zuc=@lists.freedesktop.org
-X-Received: by 2002:a05:651c:2109:b0:38f:e440:893 with SMTP id
- 38308e7fff4ca-38fe4400cc5mr72265401fa.5.1776973835341; 
- Thu, 23 Apr 2026 12:50:35 -0700 (PDT)
-X-Received: by 2002:a05:651c:2109:b0:38f:e440:893 with SMTP id
- 38308e7fff4ca-38fe4400cc5mr72265291fa.5.1776973834704; Thu, 23 Apr 2026
- 12:50:34 -0700 (PDT)
+ AFNElJ/xyFNbz98fb0PXqNC1ShlT5PtZM2g0RwNZcVv5zFpwZ8LHv/tYGmJXE8jrcIy5YRHxDbdFEBO2Ghs=@lists.freedesktop.org
+X-Received: by 2002:a05:6512:158a:b0:5a4:157:5354 with SMTP id
+ 2adb3069b0e04-5a4172c376bmr9273969e87.12.1776973901497; 
+ Thu, 23 Apr 2026 12:51:41 -0700 (PDT)
+X-Received: by 2002:a05:6512:158a:b0:5a4:157:5354 with SMTP id
+ 2adb3069b0e04-5a4172c376bmr9273960e87.12.1776973900944; Thu, 23 Apr 2026
+ 12:51:40 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260305134122.246884-1-tzimmermann@suse.de>
- <20260305134122.246884-4-tzimmermann@suse.de>
-In-Reply-To: <20260305134122.246884-4-tzimmermann@suse.de>
+ <20260305134122.246884-3-tzimmermann@suse.de>
+In-Reply-To: <20260305134122.246884-3-tzimmermann@suse.de>
 From: Zack Rusin <zack.rusin@broadcom.com>
-Date: Thu, 23 Apr 2026 15:50:22 -0400
-X-Gm-Features: AQROBzAUi5Dbbk7neKng8PxdibXzCHAVv6T5TPMWTwXNfFe841N1XUF3aYd_wp8
-Message-ID: <CABQX2QOXweV=+_-O0wumzKys6BtfHKmMaNtdCxj6c-zkr9r5gQ@mail.gmail.com>
-Subject: Re: [PATCH 3/3] drm/vmwgfx: Convert to DRM vblank timers
+Date: Thu, 23 Apr 2026 15:51:26 -0400
+X-Gm-Features: AQROBzDmq941QoCEfG5AMGFIvOUUb82XQlAh0Xd-IJT04hdv3jhDUyz9KcHcCco
+Message-ID: <CABQX2QN=8Ko==iZAn06vRqhuUB=h76Ye96hnuJ_WTLy4EbGapg@mail.gmail.com>
+Subject: Re: [PATCH 2/3] drm/vmwgfx: Move vblank handling into separate helper
 To: Thomas Zimmermann <tzimmermann@suse.de>
 Cc: bcm-kernel-feedback-list@broadcom.com, maarten.lankhorst@linux.intel.com, 
  mripard@kernel.org, dri-devel@lists.freedesktop.org
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 Content-Type: multipart/signed; protocol="application/pkcs7-signature";
- micalg=sha-256; boundary="000000000000444f7f065025f6e8"
+ micalg=sha-256; boundary="00000000000032fdaa065025fa9f"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,113 +128,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---000000000000444f7f065025f6e8
+--00000000000032fdaa065025fa9f
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 On Thu, Mar 5, 2026 at 8:41=E2=80=AFAM Thomas Zimmermann <tzimmermann@suse.=
 de> wrote:
 >
-> Replace vmwgfx's vblank timer with DRM's common implementation. The
-> timer handling is almost identical with a few additional bug fixes in
-> the common code.
+> Decouple vblank handling from the underlying hrtimer. This will be
+> helpful for replacing vmwgfx's vblank timer with DRM's common
+> implementation.
 >
-> Replace most of vmwgfx's vmw_vkms_get_vblank_timestamp() with the
-> shared helper drm_crtc_vblank_get_vblank_timeout(). The common helper
-> also works in the presence of delayed vblank timeouts that modify the
-> vblank counter concurrently.
->
-> Set the timeout handler to vmw_vkms_handle_vblank_timeout(). In addition
-> to handling vblank events, this function also controls CRC generation.
->
-> Remove all the hrtimer-related code from vmwgfx. DRM vblank timers
-> provides this.
+> The new helper vmw_vkms_handle_vblank_timeout() can later be used as
+> callback for DRM's handle_vblank call as-is. The remaining code in
+> vmw_vkms_vblank_simulate() will be replaced by the DRM implementation.
 >
 > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 > ---
->  drivers/gpu/drm/vmwgfx/vmwgfx_kms.h  |  2 -
->  drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c  |  1 +
->  drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c |  1 +
->  drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c |  1 +
->  drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c | 63 ++++------------------------
->  drivers/gpu/drm/vmwgfx/vmwgfx_vkms.h |  1 -
->  6 files changed, 10 insertions(+), 59 deletions(-)
->
-> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.h b/drivers/gpu/drm/vmwgfx=
-/vmwgfx_kms.h
-> index 445471fe9be6..b5670ece90a9 100644
-> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.h
-> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.h
-> @@ -322,8 +322,6 @@ struct vmw_display_unit {
->
->         struct {
->                 struct work_struct crc_generator_work;
-> -               struct hrtimer timer;
-> -               ktime_t period_ns;
->
->                 /* protects concurrent access to the vblank handler */
->                 atomic_t atomic_lock;
-> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c b/drivers/gpu/drm/vmwgfx=
-/vmwgfx_ldu.c
-> index f07669b27fba..6f22d5f5c379 100644
-> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c
-> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c
-> @@ -402,6 +402,7 @@ static const struct drm_crtc_helper_funcs vmw_ldu_crt=
-c_helper_funcs =3D {
->         .atomic_flush =3D vmw_vkms_crtc_atomic_flush,
->         .atomic_enable =3D vmw_vkms_crtc_atomic_enable,
->         .atomic_disable =3D vmw_vkms_crtc_atomic_disable,
-> +       .handle_vblank_timeout  =3D vmw_vkms_handle_vblank_timeout,
->  };
->
->
-> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c b/drivers/gpu/drm/vmwgf=
-x/vmwgfx_scrn.c
-> index 605d037d18c6..cfb8ad3ebe43 100644
-> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c
-> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c
-> @@ -797,6 +797,7 @@ static const struct drm_crtc_helper_funcs vmw_sou_crt=
-c_helper_funcs =3D {
->         .atomic_flush =3D vmw_vkms_crtc_atomic_flush,
->         .atomic_enable =3D vmw_vkms_crtc_atomic_enable,
->         .atomic_disable =3D vmw_sou_crtc_atomic_disable,
-> +       .handle_vblank_timeout  =3D vmw_vkms_handle_vblank_timeout,
->  };
->
->
-> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c b/drivers/gpu/drm/vmwgf=
-x/vmwgfx_stdu.c
-> index dcbacee97f61..1f5497e2638a 100644
-> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c
-> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c
-> @@ -1515,6 +1515,7 @@ static const struct drm_crtc_helper_funcs vmw_stdu_=
-crtc_helper_funcs =3D {
->         .atomic_flush =3D vmw_stdu_crtc_atomic_flush,
->         .atomic_enable =3D vmw_vkms_crtc_atomic_enable,
->         .atomic_disable =3D vmw_stdu_crtc_atomic_disable,
-> +       .handle_vblank_timeout  =3D vmw_vkms_handle_vblank_timeout,
->  };
->
+>  drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c | 37 +++++++++++++++++++---------
+>  drivers/gpu/drm/vmwgfx/vmwgfx_vkms.h |  1 +
+>  2 files changed, 26 insertions(+), 12 deletions(-)
 >
 > diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c b/drivers/gpu/drm/vmwgf=
 x/vmwgfx_vkms.c
-> index 15439ddd4f22..20b6dfd3d3c2 100644
+> index 7862f6972512..15439ddd4f22 100644
 > --- a/drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c
 > +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c
-> @@ -195,27 +195,6 @@ vmw_vkms_handle_vblank_timeout(struct drm_crtc *crtc=
-)
->         return true;
+> @@ -157,27 +157,19 @@ crc_generate_worker(struct work_struct *work)
+>                 drm_crtc_add_crc_entry(crtc, true, frame_start++, &crc32)=
+;
 >  }
 >
 > -static enum hrtimer_restart
 > -vmw_vkms_vblank_simulate(struct hrtimer *timer)
-> -{
+> +bool
+> +vmw_vkms_handle_vblank_timeout(struct drm_crtc *crtc)
+>  {
 > -       struct vmw_display_unit *du =3D container_of(timer, struct vmw_di=
 splay_unit, vkms.timer);
 > -       struct drm_crtc *crtc =3D &du->crtc;
+> +       struct vmw_display_unit *du =3D vmw_crtc_to_du(crtc);
+>         struct vmw_private *vmw =3D vmw_priv(crtc->dev);
+>         bool has_surface =3D false;
 > -       u64 ret_overrun;
-> -       bool success;
-> -
+>         bool locked, ret;
+>
 > -       ret_overrun =3D hrtimer_forward_now(&du->vkms.timer,
 > -                                         du->vkms.period_ns);
 > -       if (ret_overrun !=3D 1)
@@ -242,112 +180,19 @@ splay_unit, vkms.timer);
 s.\n",
 > -                              ret_overrun - 1);
 > -
-> -       success =3D vmw_vkms_handle_vblank_timeout(crtc);
-> -       if (!success)
-> -               return HRTIMER_NORESTART;
-> -
-> -       return HRTIMER_RESTART;
-> -}
-> -
->  void
->  vmw_vkms_init(struct vmw_private *vmw)
->  {
-> @@ -258,32 +237,12 @@ vmw_vkms_get_vblank_timestamp(struct drm_crtc *crtc=
-,
->                               ktime_t *vblank_time,
->                               bool in_vblank_irq)
->  {
-> -       struct drm_device *dev =3D crtc->dev;
-> -       struct vmw_private *vmw =3D vmw_priv(dev);
-> -       struct vmw_display_unit *du =3D vmw_crtc_to_du(crtc);
-> -       struct drm_vblank_crtc *vblank =3D drm_crtc_vblank_crtc(crtc);
-> +       struct vmw_private *vmw =3D vmw_priv(crtc->dev);
->
->         if (!vmw->vkms_enabled)
->                 return false;
->
-> -       if (!READ_ONCE(vblank->enabled)) {
-> -               *vblank_time =3D ktime_get();
-> -               return true;
-> -       }
-> -
-> -       *vblank_time =3D READ_ONCE(du->vkms.timer.node.expires);
-> -
-> -       if (WARN_ON(*vblank_time =3D=3D vblank->time))
-> -               return true;
-> -
-> -       /*
-> -        * To prevent races we roll the hrtimer forward before we do any
-> -        * interrupt processing - this is how real hw works (the interrup=
-t is
-> -        * only generated after all the vblank registers are updated) and=
- what
-> -        * the vblank core expects. Therefore we need to always correct t=
-he
-> -        * timestampe by one frame.
-> -        */
-> -       *vblank_time -=3D du->vkms.period_ns;
-> +       drm_crtc_vblank_get_vblank_timeout(crtc, vblank_time);
->
->         return true;
->  }
-> @@ -293,20 +252,11 @@ vmw_vkms_enable_vblank(struct drm_crtc *crtc)
->  {
->         struct drm_device *dev =3D crtc->dev;
->         struct vmw_private *vmw =3D vmw_priv(dev);
-> -       struct drm_vblank_crtc *vblank =3D drm_crtc_vblank_crtc(crtc);
-> -       struct vmw_display_unit *du =3D vmw_crtc_to_du(crtc);
->
->         if (!vmw->vkms_enabled)
->                 return -EINVAL;
->
-> -       drm_calc_timestamping_constants(crtc, &crtc->mode);
-> -
-> -       hrtimer_setup(&du->vkms.timer, &vmw_vkms_vblank_simulate, CLOCK_M=
-ONOTONIC,
-> -                     HRTIMER_MODE_REL);
-> -       du->vkms.period_ns =3D ktime_set(0, vblank->framedur_ns);
-> -       hrtimer_start(&du->vkms.timer, du->vkms.period_ns, HRTIMER_MODE_R=
-EL);
-> -
-> -       return 0;
-> +       return drm_crtc_vblank_start_timer(crtc);
->  }
->
->  void
-> @@ -318,9 +268,9 @@ vmw_vkms_disable_vblank(struct drm_crtc *crtc)
->         if (!vmw->vkms_enabled)
->                 return;
->
-> -       hrtimer_cancel(&du->vkms.timer);
-> +       drm_crtc_vblank_cancel_timer(crtc);
-> +
->         du->vkms.surface =3D NULL;
-> -       du->vkms.period_ns =3D ktime_set(0, 0);
->  }
->
->  enum vmw_vkms_lock_state {
-> @@ -346,10 +296,11 @@ vmw_vkms_crtc_cleanup(struct drm_crtc *crtc)
->  {
->         struct vmw_display_unit *du =3D vmw_crtc_to_du(crtc);
->
-> +       drm_crtc_vblank_cancel_timer(crtc);
-> +
+>         locked =3D vmw_vkms_vblank_trylock(crtc);
+>         ret =3D drm_crtc_handle_vblank(crtc);
+>         WARN_ON(!ret);
+>         if (!locked)
+> -               return HRTIMER_RESTART;
+> +               return true;
 
-This will need somethging like:
-  struct drm_device *dev =3D crtc->dev;
-  struct vmw_private *vmw =3D vmw_priv(dev);
-
-   if (vmw->vkms_enabled)
-         drm_crtc_vblank_cancel_timer(crtc);
-
-Because vmwgfx only calls drm_vblank_init if vmw->vkms_enabled is
-true, and drm_crtc_vblank_cancel_timer references drm_vblank_crtc
-without checking for its presence and it will crash here.
+Should this be false? Or is the common layer handling timer restarts
+differently?
 
 z
 
---000000000000444f7f065025f6e8
+--00000000000032fdaa065025fa9f
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment; filename="smime.p7s"
@@ -439,13 +284,13 @@ iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
 b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
 VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
 VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
-QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIBD6
-6yNWt3NLhePaNubtwmKLIMZOi3+/cnWgLIWDfHWVMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
-HAYJKoZIhvcNAQkFMQ8XDTI2MDQyMzE5NTAzNVowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
+QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEINqJ
+dtFBCLfc/KeAkdSGIsE+Yl0jxD62IG7qqytn1z2BMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
+HAYJKoZIhvcNAQkFMQ8XDTI2MDQyMzE5NTE0MVowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
 ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
-YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAILzME4QOu6zeKjhpylvCwN0jKyj4KrBrx8mdcgR
-4sb88nD7nGhGEupetTCLo6u+OZeAFh95oFotxuZX2XpjcVqCulesGKt90hIPXlnKjxvcdGHpjDh5
-uggYjPaMqgLCS+N378nsvmWr062+7kZBibqQ2opzW6Epllnj/tXHTaTfpYR1wvzlEUYW+qql5SlO
-1p1L6jaRDXW4YGcejJ0t92XvrPXuvnJl9tMyCwrZpEyEfWXbNI2J7byTrHDLwDrPf75bJ+CMeTJO
-EDKS0XxLFCY1ZV8yLmozGQoxiqz3r4fYBkIwrC5LF5GG3FrPi1bp+Tc4lAgv24q1LV3l1HsWRIU=
---000000000000444f7f065025f6e8--
+YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAHONw0BsT8WXP3VolCyCYJ1oPFuGFXv2VJsOn74p
+Xtf2s06axtxv04tCPkFFQQAyzQx+EEJhtHQaSa/HgR7DXKir1phC/0sc9FpAlcqDSBSfT9eLnXWY
+3KFhdzcTd0N3EjBid/ZPDJRrasoJcuKzz60S1FaTcuPKipb5FbZUE+xF8VOBL/UoNOFcMl71F2vN
+KcDKilnlSYABdZsQTA3ddy+XoNxkBC3MHqOa/v4DoQvT8kyy/mg4Mg+gr7eFR1UwBNa8pBNoQnWx
+CT2S2q/l7qofpLt/WWcu7NTBQTBTeOo7GnCKdxIINQNKt83AZU6VmENF2HJqc0mdwztOCWAxlzQ=
+--00000000000032fdaa065025fa9f--
