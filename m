@@ -4,71 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECD3BFB44C4
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 07:45:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEC22FB44C8
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 07:45:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29D8710F39F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D7B010F3A8;
 	Fri, 24 Apr 2026 07:44:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QxzFQw1W";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ixb3rBMg";
 	dkim-atps=neutral
-Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com
- [209.85.167.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD65810F295
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 20:54:18 +0000 (UTC)
-Received: by mail-oi1-f170.google.com with SMTP id
- 5614622812f47-4779b2497b4so4191130b6e.3
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 13:54:18 -0700 (PDT)
+Received: from mail-oi1-f174.google.com (mail-oi1-f174.google.com
+ [209.85.167.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9A0810F287
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 20:55:29 +0000 (UTC)
+Received: by mail-oi1-f174.google.com with SMTP id
+ 5614622812f47-479d85152c9so1881624b6e.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 13:55:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776977658; x=1777582458; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1776977729; x=1777582529; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=l1peIZB1cJ4wCWYePEqyi4U4OHQkEIk0zc+fw2Nxhlo=;
- b=QxzFQw1WO4LgJLkyEe0ipMKb3gEeUKXABWDyC4FilOgSVW2h/VvS+qgQxn+tvuzoHh
- 7NpRQbJiLY7mwY/rC1wrBsEt35zMZRFzMQWwe3DTfZBoJSJibjqAMY5sMB8uOfseuWrm
- +k+fTHuZLOYJkrieovbkuAZTfw6KE1h29lEaB3b598TLxXes1JAhgsTQ2TW+5ZHpx9T5
- Or8wqcahlARMjsH40rOMbal/e0D0SSs1JtvymwfpXwX1llRMut2ADM+DrxPRPj8pXxBn
- 4hwRqRa9cPSgueaaJlbT70o1GsqOsRHyGkIxNKx2UOGPY9jQz5k904NpjXgIpAauzziG
- bqlg==
+ :reply-to; bh=+ICkxfmcUuSMb3yZl4g/Y3yUkne/sOHePKJlImdhZsQ=;
+ b=ixb3rBMgEqkzx7Z3PtSVeSMs+jRvDm+KApV1Sxv2+A/mgSvi0AJovwUh4S4Cfju57j
+ djbvYLveThr/rX/sFtFi2k5BlRIrQU/1S8iXSQGegy6RsvV4fLb5ctdW1eFHmRqswPjs
+ f1QdLzv4zgIzjqYjqvzZWGDF78hUv4JQdUyh+Rj3ggaojyxZ4wWfKuZz0hFmvfTzuXzC
+ PHP4b6JVsCgVG7Tz3rWhi30v+11dVzx0nu4/O4qA+j4Yc8Z/AZUkQtOfaAzrI0resqB6
+ 2w92YjtK4+SVI7pFoWfravYFghyit3kVCJppcXjQgnqWpFcCXlH24sLOHE3/2b2oIgNV
+ Dl/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776977658; x=1777582458;
+ d=1e100.net; s=20251104; t=1776977729; x=1777582529;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=l1peIZB1cJ4wCWYePEqyi4U4OHQkEIk0zc+fw2Nxhlo=;
- b=gQA7UfdtBCcRd018lgUBsZXxhhzV+uuVHrE3i8uLVO5cu17l27KNw6nlFOw0d9zgfc
- R40GMr1hMLHgFZv0fheyOgn3OXYtBuX1ndRgosQBpqWSWAvF3oEVA+KPuRs8mrXvvstL
- PHOncXLtsGZQD39FGZNTGFzBF1nR51B51GaIF8uh1oksIvGGWZStSinGdq4Y+Ru+mmBO
- Usk7+MZZg/Jf8QAhW5q0e0Y1SBYDWY0U+eOOYjlMHDryE3ubCdVfCrM+/in53sQwKEPJ
- hzRys4P3XeDWIyFcaMTx9GkziAWxoZ351do5jVaWQfjsQW/qvOco9tdQAE/fACTQfdJZ
- S+2w==
+ bh=+ICkxfmcUuSMb3yZl4g/Y3yUkne/sOHePKJlImdhZsQ=;
+ b=PR2FphTd6zqh7Ec4jB8S5j6BBtZNzsXcoTFQ3+YmgDta/93DuIl5499tTtmvgeUbrl
+ tE0hXyXH+vOtYeurw210iIKtHZPssLEkcZ+d+61w+I+314NpDnvb7a5wqJORO2agF59R
+ xAVVmP1EZulGarqLodHTN8cim1o4VPlLoRZZ0ka9hJ6QLuO6oOeKxDRrRKOky4D0Efyc
+ 8wUSTMOiXBV+Lmb8+mcZU1Ln1HEINGL69aERCHlWLbqBTIgeKiSjITBse+njhYad0bhL
+ selZnwS4PXR/tmGLhLWqHANfTPTQFixzEQ211NUTSsnVcXi0uRM+jRu6CmFvboqlnS+B
+ GbjA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+sy4TtKO8n2XyVcUXqaPD4agohlKPTXkZ+3jP8wnEYoAihx5LmWvbw9zyOttGoGd3JvkijgavY6jw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxkqwGpRTnW7PWhP4ctNGNJlp5CwVjkM26wuC77uAT3FOh7S5ug
- r0BNeeJOLWjPom3eZ+S3j2CWSOdJM8T3R+q+/ouo5CMJY2n8LZoEKhLx
-X-Gm-Gg: AeBDievNQTqTzJe6celZO7dq6jfTJANUbUqaUYmqEddiWqd3IP6z4R5JakoNaiEQjeM
- SBC/LwKofW4wjr0BBiGEMuDm2w7Ud4anqn1nPFod3SdDiOcJPhLYDJRJ6ACpZltgnDRnb344Gyr
- Oj/Md0fYAdbdSe1ryIYl+FVf0EJ8Pbd6BpGS6x8eoRfDz60B/MgiW1G5L6a5eM5shoGF+dkY8zt
- Wx3ctPK32eJYK245F/inLCvwAvwSCAEwyMXHP8VQWIJArLaACaOcY5REtgmYz8CKSORhro4zXrA
- mhjiJvqxnpaOcgh46JSCtUKi+ugbOHCn3xlMiVaE9LdNzJpS6PeCi025oeHtOe/yZHNo8bSyJ4J
- Cq02v8jma2lI0KhbNEUTX7fnV07tvukZ1rTfO7UsjBBB+ljKyWT7HcvYM6lFHYBf0SlFeCYisru
- wVItGF7jq26fjhwotTUpiR7OJRL2lD5EDWR9ZC9xLg91kBiU++vtGRqXm5OUGg8DmTdPclw5QZ
-X-Received: by 2002:a05:6808:80b3:b0:479:d937:c4f4 with SMTP id
- 5614622812f47-479d937d218mr11467409b6e.19.1776977657796; 
- Thu, 23 Apr 2026 13:54:17 -0700 (PDT)
+ AFNElJ9lInZ+yesJMEpofuDTtRGuwHONW6eCDfLldULrGESA44M7YNdGwcfraOvK9/gPEAu8Q6EqkXbPYvs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzj5pHks2xboGz2Kh9MZEl8imZsJbNDYwkcEdmKAdg+xdKq3X4F
+ MQqNTXk9lvTt6rRzF60DO5QfZc8KLL3oLelHRJ8mxQGRc3D0tW95skcI
+X-Gm-Gg: AeBDievwz6QMPFA+7tP2E+wNuCS6DLMnFG3IcVzRg+qmzltBpPgBxT6x48VFb6dufWb
+ zY9bKfpoBFoFDDmZiLuJCMz2QByr3bsOiTaoC5cDFCUUxipcCEuZM9dPMbor+cpCX3AkjuatgIp
+ 8RCke1kT3ONz3SmsxhGmAEh6XapnNW5/TJWFfkhKexYPmNH6cqZi9SVd4o+XNThQuS5JPkxcm9e
+ qJgLWNuYrRt0eEOgH7Q+ej0mqAq0tZ7hXCCXmIv5TycCFV58eSw06f0oHIpqWjRoTWW5vC7Q7TR
+ YQ1JQWnELGQQIwO771oT51LdabRcri3CdzThEtmT7v63yxv7tbkCg5SkOCqXXoZferHeDRZ2L2o
+ h8X1jHy1j6IAF6LdYrnS1AtXnsG28IEVf0M+OjUKR+41wutGcHBdbHIZcGxQVIu9tEF2uupGq+z
+ aZdm60l5KdRpnd0xeJCMmBzDoeTVEgn3YATIi0C2qhUSHFFNSicPkFifNfolQAftQ2EtYlp0VR
+X-Received: by 2002:a05:6808:3087:b0:479:ed26:fbc9 with SMTP id
+ 5614622812f47-479ed271afamr8144285b6e.32.1776977728494; 
+ Thu, 23 Apr 2026 13:55:28 -0700 (PDT)
 Received: from [192.168.0.245] (c-98-38-17-99.hsd1.co.comcast.net.
  [98.38.17.99]) by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4799fead505sm14329744b6e.2.2026.04.23.13.54.13
+ 5614622812f47-4799fead505sm14329744b6e.2.2026.04.23.13.55.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Apr 2026 13:54:17 -0700 (PDT)
+ Thu, 23 Apr 2026 13:55:27 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
-Date: Thu, 23 Apr 2026 14:53:44 -0600
-Subject: [PATCH v14 03/92] dyndbg.lds.S: fix lost dyndbg sections in
- modules
+Date: Thu, 23 Apr 2026 14:53:58 -0600
+Subject: [PATCH v14 17/92] dyndbg: replace classmap list with a vector
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260423-submit-dyndbg-classmap-foundation-v14-3-2b809a8019d0@gmail.com>
+Message-Id: <20260423-submit-dyndbg-classmap-foundation-v14-17-2b809a8019d0@gmail.com>
 References: <20260423-submit-dyndbg-classmap-foundation-v14-0-2b809a8019d0@gmail.com>
 In-Reply-To: <20260423-submit-dyndbg-classmap-foundation-v14-0-2b809a8019d0@gmail.com>
 To: Arnd Bergmann <arnd@arndb.de>, Jason Baron <jbaron@akamai.com>, 
@@ -163,11 +162,11 @@ Cc: linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-renesas-soc@vger.kernel.org, 
  etnaviv@lists.freedesktop.org, Jim Cromie <jim.cromie@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776977636; l=3738;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1776977637; l=6247;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=dBPobWcjtsCPloRIZNIq7WrMQXPNqrRK7ZbNyYlUKjY=;
- b=Mq2FY9AhjybUNh2r2+R0eLZQJzbkYdY8eG/KkpbUCrUKuD8lbuRInjAtfOok3gY1b6jjhzeKk
- GFNhcQdx8P8CNk525EAsuvFZk9vQbFQyGNTNmtsMmoZIKphPxa+siA1
+ bh=R+IIRfrLLDcR6rFvCVkWfyCbB0nVdhMa0QC1tlhNRiA=;
+ b=RHF83Dij8nxPmsEOm7saTDuSK3/jQSIZiie4RJ8onn/gQK1p3S7hCn4sL3FaH9k7MiaRqADym
+ sKuqswRdT9LB8esnHyU1DisRqBP+F0Kyq26OjPeJWBEw8ebARXnHPQF
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Mailman-Approved-At: Fri, 24 Apr 2026 07:44:43 +0000
@@ -186,119 +185,182 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In an (unused) experimental variation of this series, I had trouble
-with __dyndbg* sections getting lost in drm drivers.  While it didn't
-happen in this series, it exposed a non-obvious weakness.  So fix it,
-by following the model demonstrated in codetag.lds.h.
+Classmaps are stored in an elf section/array, but currently are
+individually list-linked onto dyndbg's per-module ddebug_table for
+operation. This is unnecessary.
 
-Introduce include/asm-generic/dyndbg.lds.h, with 2 macros:
+Just like dyndbg's descriptors, classes are packed in compile order;
+so even with many builtin modules employing multiple classmaps, each
+modules' maps are packed contiguously, and can be treated as a
+array-start-address & array-length.
 
-DYNDBG_SECTIONS() gets the 2 BOUNDED_SECTION_BY(__yndbg*) calls from
-vmlinux.lds.h DATA_DATA, which now includes the new file and calls the
-new macro.
+So this drops the whole list building operation done in
+ddebug_attach_module_classes(), and removes the list-head members.
+The "select-by-modname" condition is reused to find the start,end of
+the subrange.
 
-MOD_DYNDBG_SECTIONS also has the 2 BOUNDED_SECTION_BY calls, but wraps
-them with output section syntax to keep them as known and separate ELF
-sections in the module.ko.
+NOTE: This "filter-by-modname" on classmaps should really be done in
+ddebug_add_module(1); ie at least one step closer to ddebug_init(2),
+which already splits up pr-debug descriptors into subranges by
+modname, then calls (1) on each.  (2) knows nothing of classmaps
+currently, and doesn't need to.  For now, just add comment.
 
-dyndbg.lds.h includes (reuses) bounded-section.lds.h
-
-scripts/module.lds.S: now calls MOD_DYNDBG_SECTIONS right before the
-CODETAG macro (consistent with their placements in vmlinux.lds.h), and
-also includes dyndbg.lds.h
-
-This isolates vmlinux.lds.h from further __dyndbg section additions.
-
-CC: Arnd Bergmann <arnd@arndb.de>
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- MAINTAINERS                       |  1 +
- include/asm-generic/dyndbg.lds.h  | 19 +++++++++++++++++++
- include/asm-generic/vmlinux.lds.h |  6 ++----
- scripts/module.lds.S              |  2 ++
- 4 files changed, 24 insertions(+), 4 deletions(-)
+ include/linux/dynamic_debug.h |  1 -
+ lib/dynamic_debug.c           | 62 ++++++++++++++++++++++---------------------
+ 2 files changed, 32 insertions(+), 31 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 5fcb7b991776..5c75109d2ee3 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -9069,6 +9069,7 @@ DYNAMIC DEBUG
- M:	Jason Baron <jbaron@akamai.com>
- M:	Jim Cromie <jim.cromie@gmail.com>
- S:	Maintained
-+F:	include/asm-generic/dyndbg.lds.h
- F:	include/linux/dynamic_debug.h
- F:	lib/dynamic_debug.c
- F:	lib/test_dynamic_debug.c
-diff --git a/include/asm-generic/dyndbg.lds.h b/include/asm-generic/dyndbg.lds.h
-new file mode 100644
-index 000000000000..f95683aa16b6
---- /dev/null
-+++ b/include/asm-generic/dyndbg.lds.h
-@@ -0,0 +1,19 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef __ASM_GENERIC_DYNDBG_LDS_H
-+#define __ASM_GENERIC_DYNDBG_LDS_H
-+
-+#include <asm-generic/bounded_sections.lds.h>
-+#define DYNDBG_SECTIONS()					\
-+	. = ALIGN(8);						\
-+	BOUNDED_SECTION_BY(__dyndbg, ___dyndbg)			\
-+	BOUNDED_SECTION_BY(__dyndbg_classes, ___dyndbg_classes)
-+
-+#define MOD_DYNDBG_SECTIONS()                                           \
-+	__dyndbg : {							\
-+		BOUNDED_SECTION_BY(__dyndbg, ___dyndbg)			\
-+	}								\
-+	__dyndbg_classes : {						\
-+		BOUNDED_SECTION_BY(__dyndbg_classes, ___dyndbg_classes)	\
-+	}
-+
-+#endif /* __ASM_GENERIC_DYNDBG_LDS_H */
-diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
-index acb4aadd74da..9324066aab51 100644
---- a/include/asm-generic/vmlinux.lds.h
-+++ b/include/asm-generic/vmlinux.lds.h
-@@ -340,6 +340,7 @@
- /*
-  * .data section
-  */
-+#include <asm-generic/dyndbg.lds.h>
- #define DATA_DATA							\
- 	*(.xiptext)							\
- 	*(DATA_MAIN)							\
-@@ -353,10 +354,7 @@
- 	*(.data..do_once)						\
- 	STRUCT_ALIGN();							\
- 	*(__tracepoints)						\
--	/* implement dynamic printk debug */				\
--	. = ALIGN(8);							\
--	BOUNDED_SECTION_BY(__dyndbg_classes, ___dyndbg_classes)		\
--	BOUNDED_SECTION_BY(__dyndbg, ___dyndbg)				\
-+	DYNDBG_SECTIONS()						\
- 	CODETAG_SECTIONS()						\
- 	LIKELY_PROFILE()		       				\
- 	BRANCH_PROFILE()						\
-diff --git a/scripts/module.lds.S b/scripts/module.lds.S
-index 2dc4c8c3e667..027c5c286ea0 100644
---- a/scripts/module.lds.S
-+++ b/scripts/module.lds.S
-@@ -10,6 +10,7 @@
- #endif
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index 92627a03b4d1..9fd36339db52 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -84,7 +84,6 @@ enum class_map_type {
+ };
  
- #include <asm-generic/codetag.lds.h>
-+#include <asm-generic/dyndbg.lds.h>
+ struct ddebug_class_map {
+-	struct list_head link;
+ 	struct module *mod;
+ 	const char *mod_name;	/* needed for builtins */
+ 	const char **class_names;
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index a18f4bc63473..94a66c8537ab 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -45,10 +45,11 @@ extern struct ddebug_class_map __start___dyndbg_classes[];
+ extern struct ddebug_class_map __stop___dyndbg_classes[];
  
- SECTIONS {
- 	/DISCARD/ : {
-@@ -59,6 +60,7 @@ SECTIONS {
- 		*(.rodata..L*)
- 	}
+ struct ddebug_table {
+-	struct list_head link, maps;
++	struct list_head link;
+ 	const char *mod_name;
+-	unsigned int num_ddebugs;
+ 	struct _ddebug *ddebugs;
++	struct ddebug_class_map *classes;
++	unsigned int num_ddebugs, num_classes;
+ };
  
-+	MOD_DYNDBG_SECTIONS()
- 	MOD_SEPARATE_CODETAG_SECTIONS()
+ struct ddebug_query {
+@@ -149,12 +150,13 @@ static void vpr_info_dq(const struct ddebug_query *query, const char *msg)
  }
  
+ static struct ddebug_class_map *ddebug_find_valid_class(struct ddebug_table const *dt,
+-							  const char *class_string, int *class_id)
++							const char *class_string,
++							int *class_id)
+ {
+ 	struct ddebug_class_map *map;
+-	int idx;
++	int i, idx;
+ 
+-	list_for_each_entry(map, &dt->maps, link) {
++	for (map = dt->classes, i = 0; i < dt->num_classes; i++, map++) {
+ 		idx = match_string(map->class_names, map->length, class_string);
+ 		if (idx >= 0) {
+ 			*class_id = idx + map->base;
+@@ -165,7 +167,6 @@ static struct ddebug_class_map *ddebug_find_valid_class(struct ddebug_table cons
+ 	return NULL;
+ }
+ 
+-#define __outvar /* filled by callee */
+ /*
+  * Search the tables for _ddebug's which match the given `query' and
+  * apply the `flags' and `mask' to them.  Returns number of matching
+@@ -227,7 +228,7 @@ static int ddebug_change(const struct ddebug_query *query,
+ 	unsigned int nfound = 0;
+ 	struct flagsbuf fbuf, nbuf;
+ 	struct ddebug_class_map *map = NULL;
+-	int __outvar valid_class;
++	int valid_class;
+ 
+ 	/* search for matching ddebugs */
+ 	mutex_lock(&ddebug_lock);
+@@ -1134,9 +1135,10 @@ static void *ddebug_proc_next(struct seq_file *m, void *p, loff_t *pos)
+ 
+ static const char *ddebug_class_name(struct ddebug_iter *iter, struct _ddebug *dp)
+ {
+-	struct ddebug_class_map *map;
++	struct ddebug_class_map *map = iter->table->classes;
++	int i, nc = iter->table->num_classes;
+ 
+-	list_for_each_entry(map, &iter->table->maps, link)
++	for (i = 0; i < nc; i++, map++)
+ 		if (class_in_range(dp->class_id, map))
+ 			return map->class_names[dp->class_id - map->base];
+ 
+@@ -1220,30 +1222,31 @@ static const struct proc_ops proc_fops = {
+ 	.proc_write = ddebug_proc_write
+ };
+ 
+-static void ddebug_attach_module_classes(struct ddebug_table *dt,
+-					 struct ddebug_class_map *classes,
+-					 int num_classes)
++static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug_info *di)
+ {
+ 	struct ddebug_class_map *cm;
+-	int i, j, ct = 0;
++	int i, nc = 0;
+ 
+-	for (cm = classes, i = 0; i < num_classes; i++, cm++) {
++	/*
++	 * Find this module's classmaps in a subrange/wholerange of
++	 * the builtin/modular classmap vector/section.  Save the start
++	 * and length of the subrange at its edges.
++	 */
++	for (cm = di->classes, i = 0; i < di->num_classes; i++, cm++) {
+ 
+ 		if (!strcmp(cm->mod_name, dt->mod_name)) {
+-
+-			v2pr_info("class[%d]: module:%s base:%d len:%d ty:%d\n", i,
+-				  cm->mod_name, cm->base, cm->length, cm->map_type);
+-
+-			for (j = 0; j < cm->length; j++)
+-				v3pr_info(" %d: %d %s\n", j + cm->base, j,
+-					  cm->class_names[j]);
+-
+-			list_add(&cm->link, &dt->maps);
+-			ct++;
++			if (!nc) {
++				v2pr_info("start subrange, class[%d]: module:%s base:%d len:%d ty:%d\n",
++					  i, cm->mod_name, cm->base, cm->length, cm->map_type);
++				dt->classes = cm;
++			}
++			nc++;
+ 		}
+ 	}
+-	if (ct)
+-		vpr_info("module:%s attached %d classes\n", dt->mod_name, ct);
++	if (nc) {
++		dt->num_classes = nc;
++		vpr_info("module:%s attached %d classes\n", dt->mod_name, nc);
++	}
+ }
+ 
+ /*
+@@ -1275,10 +1278,9 @@ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
+ 	dt->num_ddebugs = di->num_descs;
+ 
+ 	INIT_LIST_HEAD(&dt->link);
+-	INIT_LIST_HEAD(&dt->maps);
+ 
+ 	if (di->classes && di->num_classes)
+-		ddebug_attach_module_classes(dt, di->classes, di->num_classes);
++		ddebug_attach_module_classes(dt, di);
+ 
+ 	mutex_lock(&ddebug_lock);
+ 	list_add_tail(&dt->link, &ddebug_tables);
+@@ -1391,8 +1393,8 @@ static void ddebug_remove_all_tables(void)
+ 	mutex_lock(&ddebug_lock);
+ 	while (!list_empty(&ddebug_tables)) {
+ 		struct ddebug_table *dt = list_entry(ddebug_tables.next,
+-						      struct ddebug_table,
+-						      link);
++						     struct ddebug_table,
++						     link);
+ 		ddebug_table_free(dt);
+ 	}
+ 	mutex_unlock(&ddebug_lock);
 
 -- 
 2.53.0
