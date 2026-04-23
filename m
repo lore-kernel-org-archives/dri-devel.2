@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 080C8FDEE4E
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 21:24:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34157FDEE4E
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 21:26:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74B6F10E273;
-	Thu, 23 Apr 2026 21:24:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EB7610F28B;
+	Thu, 23 Apr 2026 21:26:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Pr5rX5+i";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hHRlZOeK";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3695E10E273
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 21:24:46 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 627F910F28B
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 21:26:15 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id D568640833
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 21:24:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5E91C2BCB2
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 21:24:45 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 854AD60582
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 21:26:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C3F0C2BCB2
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 21:26:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776979485;
- bh=bwLbQ5NviOj/bY0u6od11N2GNC6P5OodS0ixTy9vUk8=;
+ s=k20201202; t=1776979574;
+ bh=QoQhslnr2VDDv4dJKxyzU8pClbacRNGZ6y9c0nTvw58=;
  h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=Pr5rX5+iSOtoDmywesPolyZqj/RoYZzXZzqAKOCPXaAPVbQy181gcY4KqmWelL3xe
- iI8OxPQrJC/OTrH/ZLz0rOUiOTVtcX+tgL8fQldFAyifEXq4Ro7X9rCkCPHaEon8lf
- 78I3H6UHjrVSc0vZ/rmfbV584lCxPbmjMUsEw20EYHIC1m11yOmA53E7zZ9iwFFwMY
- h1y3TQiPQ/Mn6Lkn2GPmkG1BtNNIAudFgaxnIc/Wmh/3c8UYfH/tzhp03vDl1Esv5z
- JNQTUBvUtjQZhZCzy7NjdstndEvcCFBbiVJ8BrVj/ubjrTdizCo6szD4gaROtGlr3Q
- 7rfjwEOk7fYLQ==
-Received: by mail-lj1-f175.google.com with SMTP id
- 38308e7fff4ca-38df1889fb9so69503501fa.1
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 14:24:45 -0700 (PDT)
+ b=hHRlZOeKFAljiXXH6X7AXE1TD3AOWdINseVHnhCIz6ZsdBOPUuwYkdaJOtmY8IHd3
+ pYOBhsNYdUuGVUr2mFrZCP/cYpGZfMBPkBpmN6wpp/8ontKUCQvhmpT3eHYSRfGuvi
+ uBdf5qzzKaPpsXsV/VpBeFtEhzQPX3E0bAH/sktULPDuwDR3keHhX1uaQ/6J6h2tYp
+ 9QiiOy3eAUW3/y+cl5nJH/Fg9tzs4O/H2X/UZs3XaDZ8QHX6VsSq0hOACHuiCm0e0u
+ 2b8VGFvYISf03NYqQpVdFMfB7PKADurExOMoWaP962uCLDDLBV68MJyuVh0FTzmF+h
+ DJbepJSK0sksQ==
+Received: by mail-lf1-f49.google.com with SMTP id
+ 2adb3069b0e04-5a40b2bc96dso8479530e87.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 14:26:14 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AFNElJ95FDsQrzpQtfBLSSbS6jTk4p9r0UUZ3q4KmJsQBagh+hstUeCub7avmSi0BSO6B0oO+nlOddYKuRg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyptNJonYIg+u3eetfcgdI8c0HBs7ihIn2XPZUNDncok2qX2vUp
- Uh02ccle+/5Rep+MMPNhNqoUohVAwromhUrJ8aI4m3rm8snuF3VFYs9tTAGMzlXg8sqsXVaqLSu
- KvXasmaPHCcwCzRrIwljf1oBHDRvz/vk=
-X-Received: by 2002:a05:6512:118b:b0:5a2:8568:826a with SMTP id
- 2adb3069b0e04-5a4172eece0mr8397088e87.34.1776979484421; Thu, 23 Apr 2026
- 14:24:44 -0700 (PDT)
+ AFNElJ/fXAAblWBNLujiAVuEG3xiuP4UuSCQ7vpPZP5yTIJj6iuSGZJmuczHe1ACv/RTeIDvAUOJrbRawi4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxMihavtyAL7xxcPXt7D/4MWOBvcwuG6LH8ywnqflgCpYjPm68P
+ t6RMvDue069nH/GMbhznqav+9UZYTJMHWVPQwA2F/OHphsMT6bx3tzTVXB49mh6rEySRwK6L1ky
+ unO4IguG54Weou49mbmy4/wy0oBMqrP4=
+X-Received: by 2002:a05:6512:1302:b0:5a3:fe60:471c with SMTP id
+ 2adb3069b0e04-5a4172cb33amr10098495e87.16.1776979572944; Thu, 23 Apr 2026
+ 14:26:12 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260413-waveshare-dsi-touch-v3-0-3aeb53022c32@oss.qualcomm.com>
- <20260413-waveshare-dsi-touch-v3-17-3aeb53022c32@oss.qualcomm.com>
-In-Reply-To: <20260413-waveshare-dsi-touch-v3-17-3aeb53022c32@oss.qualcomm.com>
+ <20260413-waveshare-dsi-touch-v3-7-3aeb53022c32@oss.qualcomm.com>
+In-Reply-To: <20260413-waveshare-dsi-touch-v3-7-3aeb53022c32@oss.qualcomm.com>
 From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 23 Apr 2026 23:24:32 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnsVc3xqKfhuZo08wQFkGrgDiw+OAhTOfUi7vD5ZFY2_g@mail.gmail.com>
-X-Gm-Features: AQROBzCz31PGPdHjUDpQGU0MKBOAMjnGwCLXEjwbbDFHz8TqNnaOCqTWhFhlvZ4
-Message-ID: <CAD++jLnsVc3xqKfhuZo08wQFkGrgDiw+OAhTOfUi7vD5ZFY2_g@mail.gmail.com>
-Subject: Re: [PATCH v3 17/21] drm/panel: ilitek-ili9881c: support Waveshare
- 7.0" DSI panel
+Date: Thu, 23 Apr 2026 23:26:01 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkRf0ehBr0CpCALJHL58gUw4954XzjxHOu8c7n7=b-bUQ@mail.gmail.com>
+X-Gm-Features: AQROBzBtnhd6trpGrfIHMX-D0f7VMPVcAX7SFq928axT4eaRMtmMnoYhsxJIvXU
+Message-ID: <CAD++jLkRf0ehBr0CpCALJHL58gUw4954XzjxHOu8c7n7=b-bUQ@mail.gmail.com>
+Subject: Re: [PATCH v3 07/21] drm/panel: himax-hx83102: support Waveshare
+ 12.3" DSI panel
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Cc: Neil Armstrong <neil.armstrong@linaro.org>,
  Jessica Zhang <jesszhan0024@gmail.com>, 
@@ -84,11 +84,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Apr 13, 2026 at 4:06=E2=80=AFPM Dmitry Baryshkov
+On Mon, Apr 13, 2026 at 4:05=E2=80=AFPM Dmitry Baryshkov
 <dmitry.baryshkov@oss.qualcomm.com> wrote:
 
-> Enable support for Waveshare 7.0" DSI TOUCH-A panel. It requires
-> additional voltage regulator, iovcc.
+> Add support for the Waveshare 12.3" DSI TOUCH-A panel. According to the
+> vendor driver, it uses different mode_flags, so let the panel
+> descriptions override driver-wide defaults.
 >
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
