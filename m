@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99EA3F99368
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 10:19:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF1C2F99362
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 10:19:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0205E10F07B;
-	Thu, 23 Apr 2026 10:19:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 274E710F07D;
+	Thu, 23 Apr 2026 10:19:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aHwuW3iM";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kqQzmTpv";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86E8010F07A
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 10:19:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F2D010F07A
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 10:19:42 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 6EEAC40189;
- Thu, 23 Apr 2026 10:19:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF700C2BCAF;
- Thu, 23 Apr 2026 10:19:35 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id EAF20436F7;
+ Thu, 23 Apr 2026 10:19:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71D88C2BCB2;
+ Thu, 23 Apr 2026 10:19:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776939576;
- bh=DtbejoZC6kHnpLa4bta4bjDRktLOYJqY8pkgAwDp6dI=;
+ s=k20201202; t=1776939581;
+ bh=cHcm5apaxrM/bdKTAfTPAHbQ+naHeG9FAEo9kwK5j3o=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=aHwuW3iMDmYxr/k7TxjjA+CLx9VTcaB5w/QMsXHKAsrlLKvPmBN6Uz1C/qhf4poxU
- fOwDzwoWMS4YNmJRbJw0/pEdt2/1AZo5cwVYwwtL2+WeAzH3rkT5MROEFcP/teDVkO
- xubQkDMGeQ88koflCpRT2kKH8h2jjchq4yssnv43nW0Nh6UzZUVK+fW21SjbOJi99T
- wbStNrNgGCSrDJnupVf66Odr7yY2Hj+ZKnI3Zfmg5fqWlGE/RiSML5cONEkzNgPSNQ
- MBz1VZC/qcLhT1OKjxY2QSUvhy0bZCza9LNKekBIUO2G/OkB2FoXCTu3x+PTU0m7Xk
- vMI5ML99+Ne2A==
+ b=kqQzmTpvZ0Ll4qzqnuGsafpBBS+JeQ7JvBzZsL8aAR/e5myf1yHfS6pcfnNOVelDT
+ sgBsc12Ng+TTaPlfTm2MeGP5qgiqaseTzJH1eGnLjcMQEsaxd0IlGzaa1GASs4r6LH
+ Y+KFTQT87agVo03/jdDVxqpnHUsRgUW14+QSq/C4U6FkhN8LO/ibl3gO5ykeqQOY21
+ 8JjYKCnwjdb/eHsGy8ZMZ2i3QoeKrDQEioM2gaFrJXvLNyrC+sYi9NVXX3//Lgf2pV
+ 0QpncX8DLIRl8SC1gai1k845a1krymEXLi3dtA9FDYUHHhNvgwUUyHM+xekUFS5TAN
+ 8eouX03k2YnWw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 23 Apr 2026 12:18:36 +0200
-Subject: [PATCH v2 23/28] drm/bridge: display-connector: Implement readout
- support
+Date: Thu, 23 Apr 2026 12:18:38 +0200
+Subject: [PATCH v2 25/28] drm/tidss: dispc: Improve mode checking logs
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260423-drm-state-readout-v2-23-8549f87cb978@kernel.org>
+Message-Id: <20260423-drm-state-readout-v2-25-8549f87cb978@kernel.org>
 References: <20260423-drm-state-readout-v2-0-8549f87cb978@kernel.org>
 In-Reply-To: <20260423-drm-state-readout-v2-0-8549f87cb978@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -51,12 +50,12 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2411; i=mripard@kernel.org;
- h=from:subject:message-id; bh=DtbejoZC6kHnpLa4bta4bjDRktLOYJqY8pkgAwDp6dI=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDJkvP35MvZ51QdlSxE9BVN8qUPHXqhIzTv/enP+zHHzOr
- PCLm9DQMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACay7xhjw9lvKfN6V5WuV3NZ
- 2FUceGaGvPZv85VnmflV7OyMFyVZP5rSbneYe1/Qnfw98w4HFBsHMzY8zrbnSpjD5zw1iSNDyiJ
- A59WKlxnFalfqGi4G32VcKH3t0Cp3Cd7/u+e79V0LkxZmlgUA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4777; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=cHcm5apaxrM/bdKTAfTPAHbQ+naHeG9FAEo9kwK5j3o=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDJkvP34qOLXw0myGnTyWMRyzK1/xM9UcXe47SXyX0DO/l
+ rP+ZZ48HVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAiVjmMDScNlhlGmjRe69p3
+ SsF+gcLnCQe/M8/YOpd993RZ3jAfY6HWZysPxK17MDuSw0mOiSk1nrHO4OClp4e590/tMVp8T+7
+ EXpsic03vizm33De+FbNi2qD/+FJd+vYFG+fJBucZnWaPlmoGAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -74,68 +73,151 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The display-connector bridge is the last bridge in the chain on
-platforms using drm_bridge_connector, and is responsible for the
-physical connector interface.
+The dispc_vp_mode_valid() function checks whether a mode can be handled
+by the display controller.
 
-Implement the atomic_sro_readout_state hook and wire up the default
-drm_atomic_helper_bridge_compare_state() as the compare hook.
+There's a whole bunch of criteria, and it's not clear when a rejection
+happens why it did. Add logs on each rejection criterion to make it
+clearer.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/bridge/display-connector.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ drivers/gpu/drm/tidss/tidss_dispc.c | 45 +++++++++++++++++++++++++++++--------
+ 1 file changed, 36 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/display-connector.c b/drivers/gpu/drm/bridge/display-connector.c
-index 16c0631adeb1..94b645248368 100644
---- a/drivers/gpu/drm/bridge/display-connector.c
-+++ b/drivers/gpu/drm/bridge/display-connector.c
-@@ -12,10 +12,11 @@
- #include <linux/of.h>
- #include <linux/platform_device.h>
- #include <linux/regulator/consumer.h>
- 
- #include <drm/drm_atomic_helper.h>
-+#include <drm/drm_atomic_sro_helper.h>
- #include <drm/drm_bridge.h>
- #include <drm/drm_edid.h>
- 
- struct display_connector {
- 	struct drm_bridge	bridge;
-@@ -173,19 +174,33 @@ static u32 *display_connector_get_input_bus_fmts(struct drm_bridge *bridge,
- 	return prev_bridge->funcs->atomic_get_input_bus_fmts(prev_bridge, prev_bridge_state,
- 							     crtc_state, conn_state, output_fmt,
- 							     num_input_fmts);
+diff --git a/drivers/gpu/drm/tidss/tidss_dispc.c b/drivers/gpu/drm/tidss/tidss_dispc.c
+index 34bafe951924..c24c06cae10b 100644
+--- a/drivers/gpu/drm/tidss/tidss_dispc.c
++++ b/drivers/gpu/drm/tidss/tidss_dispc.c
+@@ -1317,10 +1317,12 @@ unsigned int dispc_pclk_diff(unsigned long rate, unsigned long real_rate)
  }
  
-+static int
-+display_connector_readout_state(struct drm_bridge *bridge,
-+				struct drm_atomic_sro_state *state,
-+				struct drm_bridge_state *bridge_state,
-+				struct drm_crtc_state *crtc_state,
-+				struct drm_connector_state *conn_state)
-+{
-+	// TODO: Actually implement it
-+
-+	return 0;
-+}
-+
- static const struct drm_bridge_funcs display_connector_bridge_funcs = {
- 	.attach = display_connector_attach,
- 	.detect = display_connector_bridge_detect,
- 	.edid_read = display_connector_edid_read,
- 	.atomic_get_output_bus_fmts = display_connector_get_output_bus_fmts,
- 	.atomic_get_input_bus_fmts = display_connector_get_input_bus_fmts,
- 	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
- 	.atomic_reset = drm_atomic_helper_bridge_reset,
-+	.atomic_sro_readout_state	= display_connector_readout_state,
-+	.atomic_sro_compare_state	= drm_atomic_helper_bridge_compare_state,
- };
- 
- static irqreturn_t display_connector_hpd_irq(int irq, void *arg)
+ static int check_pixel_clock(struct dispc_device *dispc, u32 hw_videoport,
+ 			     unsigned long clock)
  {
- 	struct display_connector *conn = arg;
++	struct tidss_device *tidss = dispc->tidss;
++	struct drm_device *dev = &tidss->ddev;
+ 	unsigned long round_clock;
+ 
+ 	/*
+ 	 * For VP's with external clocking, clock operations must be
+ 	 * delegated to respective driver, so we skip the check here.
+@@ -1331,51 +1333,65 @@ static int check_pixel_clock(struct dispc_device *dispc, u32 hw_videoport,
+ 	round_clock = clk_round_rate(dispc->vp_clk[hw_videoport], clock);
+ 	/*
+ 	 * To keep the check consistent with dispc_vp_set_clk_rate(), we
+ 	 * use the same 5% check here.
+ 	 */
+-	if (dispc_pclk_diff(clock, round_clock) > 5)
++	if (dispc_pclk_diff(clock, round_clock) > 5) {
++		drm_dbg(dev, "Mode pixel clock below hardware minimum pixel clock.");
+ 		return -EINVAL;
++	}
+ 
+ 	return 0;
+ }
+ 
+ enum drm_mode_status dispc_vp_mode_valid(struct dispc_device *dispc,
+ 					 u32 hw_videoport,
+ 					 const struct drm_display_mode *mode)
+ {
++	struct tidss_device *tidss = dispc->tidss;
++	struct drm_device *dev = &tidss->ddev;
+ 	u32 hsw, hfp, hbp, vsw, vfp, vbp;
+ 	enum dispc_vp_bus_type bus_type;
+ 
+ 	bus_type = dispc->feat->vp_bus_type[hw_videoport];
+ 
+-	if (WARN_ON(bus_type == DISPC_VP_TIED_OFF))
++	if (WARN_ON(bus_type == DISPC_VP_TIED_OFF)) {
++		drm_dbg(dev, "Invalid bus type.");
+ 		return MODE_BAD;
++	}
+ 
+-	if (mode->hdisplay > 4096)
++	if (mode->hdisplay > 4096) {
++		drm_dbg(dev, "Number of active horizontal pixels above hardware limits.");
+ 		return MODE_BAD;
++	}
+ 
+-	if (mode->vdisplay > 4096)
++	if (mode->vdisplay > 4096) {
++		drm_dbg(dev, "Number of active vertical lines above hardware limits.");
+ 		return MODE_BAD;
++	}
+ 
+ 	if (check_pixel_clock(dispc, hw_videoport, mode->clock * 1000))
+ 		return MODE_CLOCK_RANGE;
+ 
+ 	/* TODO: add interlace support */
+-	if (mode->flags & DRM_MODE_FLAG_INTERLACE)
++	if (mode->flags & DRM_MODE_FLAG_INTERLACE) {
++		drm_dbg(dev, "Interlace modes not supported.");
+ 		return MODE_NO_INTERLACE;
++	}
+ 
+ 	/*
+ 	 * Enforce the output width is divisible by 2. Actually this
+ 	 * is only needed in following cases:
+ 	 * - YUV output selected (BT656, BT1120)
+ 	 * - Dithering enabled
+ 	 * - TDM with TDMCycleFormat == 3
+ 	 * But for simplicity we enforce that always.
+ 	 */
+-	if ((mode->hdisplay % 2) != 0)
++	if ((mode->hdisplay % 2) != 0) {
++		drm_dbg(dev, "Number of active horizontal pixels must be even.");
+ 		return MODE_BAD_HVALUE;
++	}
+ 
+ 	hfp = mode->hsync_start - mode->hdisplay;
+ 	hsw = mode->hsync_end - mode->hsync_start;
+ 	hbp = mode->htotal - mode->hsync_end;
+ 
+@@ -1383,29 +1399,40 @@ enum drm_mode_status dispc_vp_mode_valid(struct dispc_device *dispc,
+ 	vsw = mode->vsync_end - mode->vsync_start;
+ 	vbp = mode->vtotal - mode->vsync_end;
+ 
+ 	if (hsw < 1 || hsw > 256 ||
+ 	    hfp < 1 || hfp > 4096 ||
+-	    hbp < 1 || hbp > 4096)
++	    hbp < 1 || hbp > 4096) {
++		drm_dbg(dev,
++			"Horizontal blanking or sync outside of hardware limits (fp: %u, sw: %u, bp: %u).",
++			hfp, hsw, hbp);
+ 		return MODE_BAD_HVALUE;
++	}
+ 
+ 	if (vsw < 1 || vsw > 256 ||
+-	    vfp > 4095 || vbp > 4095)
++	    vfp > 4095 || vbp > 4095) {
++		drm_dbg(dev,
++			"Vertical blanking or sync outside of hardware limits (fp: %u, sw: %u, bp: %u).",
++			vfp, vsw, vbp);
+ 		return MODE_BAD_VVALUE;
++	}
+ 
+ 	if (dispc->memory_bandwidth_limit) {
+ 		const unsigned int bpp = 4;
+ 		u64 bandwidth;
+ 
+ 		bandwidth = 1000 * mode->clock;
+ 		bandwidth = bandwidth * mode->hdisplay * mode->vdisplay * bpp;
+ 		bandwidth = div_u64(bandwidth, mode->htotal * mode->vtotal);
+ 
+-		if (dispc->memory_bandwidth_limit < bandwidth)
++		if (dispc->memory_bandwidth_limit < bandwidth) {
++			drm_dbg(dev, "Required memory bandwidth outside of hardware limits.");
+ 			return MODE_BAD;
++		}
+ 	}
+ 
++	drm_dbg(dev, "Mode is valid.");
+ 	return MODE_OK;
+ }
+ 
+ int dispc_vp_enable_clk(struct dispc_device *dispc, u32 hw_videoport)
+ {
 
 -- 
 2.53.0
