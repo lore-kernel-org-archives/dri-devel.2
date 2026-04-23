@@ -4,63 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0B89FC0342
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 15:02:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4E63FC0342
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 15:02:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B96810F196;
-	Thu, 23 Apr 2026 15:02:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3830910F18C;
+	Thu, 23 Apr 2026 15:02:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="NRGIDgU5";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="ozNWrGYr";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90CD910F196
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 15:01:59 +0000 (UTC)
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
- [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 64DA9BCA;
- Thu, 23 Apr 2026 17:00:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1776956419;
- bh=PPqnjiPUXR1jFV5RDIv+mYtA4/prS2yGlfk/ZnkqGLU=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=NRGIDgU5Jl3mS8c3JwCit43p8MAVJNt+N64yuU5i+IIvH7BW2L2Y0yrX4bZdvAA59
- pRzNA3Sg4b83UxB6g21hO9vVjHvbAwRWdfEpBpqrGmBkrpVa14PuGHZxz9uG7wn5Lh
- HW5yA5qvAT9fvhIVVZ2aJwPXd1ZJLKonuhqXPsds=
-Message-ID: <103f94d0-2599-497d-ae37-d88922b9f669@ideasonboard.com>
-Date: Thu, 23 Apr 2026 18:01:54 +0300
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012006.outbound.protection.outlook.com
+ [40.93.195.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73A4510F18C;
+ Thu, 23 Apr 2026 15:02:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BoU5bT7Pdzbl/BSka+GpNO0F9qdqUVHQJzjjkB6HjpTKHNfgPNx9WNyaKOT5ah3URNzPSwsRpr3IMh4pgIc5dQITtxwGzOH7oWaN2jiCBE0ZylDyf1DOSEil1aENmIgCwsKTUmCFi3dHIj6H+eYhTEamXmkdWIygAXOfSH5ITXvVH9librr0RFbV64mKUEsHjd8I6SodHpnNpZBZXkC7kM4wDnhCg8eJbKZNniPrd5qQgb17ye581KrqMELVm9Goy4NVpPjdOHw9AcOUywL3V8UhBAbwBOffKH/OfaD9CT6CkL0CDhFbst42hhC0LU4it+iG2L5+zSFsxjGefOg9gg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QCPCYAykWa1MxUSGw79HlnhBGDigg9Z4gm3Y+uBKTOM=;
+ b=qM8BGqhOrvV7cpB82UVw2WAfXNLOfHHqUEuYOm+RrXb+UaMldDXRqTqLT4EB3NurOYNAOrDDbDU/CK2XDhPhHeyzusfx5KGtnMzh+OFdILkIMGKrwzlLQU////OFaiRJ5MpPdpJuQzpPzCgDffLxemBlKArAj7lwviEw6Asq3uoyeq2PX1zIGVbV39AK4sJWk+GEyhdCiCqrXU8mq55uPU68Dk89jt0JpDCZ+h8hsc6KaUMUDAXZMiydCo/fYcOdsypCEQpjCzN/qAwf3iaNjHn+nJvUDkZ/6zDNXuLvedckMI3yGao3KgpsVUUQ43/VZ7osWhFa3HDpNd+5fxVTQQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QCPCYAykWa1MxUSGw79HlnhBGDigg9Z4gm3Y+uBKTOM=;
+ b=ozNWrGYreeNac/fEABSFO3TfVf85gBnUjPJScfMrzHDWc6fKVSRxQ7IUDmvGjh9LkIEOH0MWvXYSGaNstS0m5Ggyb91GEIsgsDOMVMr9cqnHx/cABrm6BI5Z+HQraY87AX3Ae/jEfKB+4OBKK8jv4g+0mQ8LWIuOYnF7xMQyjETptENOvaadU9N1TVk0CbIBsHVFvO+b+dzmZDUMlwZvuuMSpO59lgDCEVW4XsfyRmNdfSn+JPM0feOD4zMBqnU91L7dPxML04Lzdxyphe6fHb5/VvFNyjFO9jN4Gz6tbGwxDFuvXPQoaR2TRde/HGjYk/LtBo2zMD/jnRlgb5hiQA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by DS5PPF482CFEB7D.namprd12.prod.outlook.com (2603:10b6:f:fc00::64a)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.15; Thu, 23 Apr
+ 2026 15:02:00 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.20.9846.019; Thu, 23 Apr 2026
+ 15:02:00 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 24 Apr 2026 00:01:56 +0900
+Message-Id: <DI0MII8J4P2Y.309VKYVMQJNVK@nvidia.com>
+Cc: <nouveau@lists.freedesktop.org>, "Gary Guo" <gary@garyguo.net>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, <rust-for-linux@vger.kernel.org>,
+ "Danilo Krummrich" <dakr@kernel.org>, <dri-devel@lists.freedesktop.org>,
+ "Matthew Maurer" <mmaurer@google.com>, "FUJITA Tomonori"
+ <fujita.tomonori@gmail.com>, "Lorenzo Stoakes"
+ <lorenzo.stoakes@oracle.com>, <christian.koenig@amd.com>, "Asahi Lina"
+ <lina@asahilina.net>, "Miguel Ojeda" <ojeda@kernel.org>, "Andreas Hindborg"
+ <a.hindborg@kernel.org>, "Simona Vetter" <simona@ffwll.ch>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Boqun Feng" <boqun@kernel.org>, "Sumit Semwal"
+ <sumit.semwal@linaro.org>, "Krishna Ketan Rai" <prafulrai522@gmail.com>,
+ <linux-media@vger.kernel.org>, "Shankari Anand"
+ <shankari.ak0208@gmail.com>, "David Airlie" <airlied@gmail.com>, "Benno
+ Lossin" <lossin@kernel.org>, "Viresh Kumar" <viresh.kumar@linaro.org>,
+ <linaro-mm-sig@lists.linaro.org>, "Asahi Lina" <lina+kernel@asahilina.net>,
+ "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, <kernel@vger.kernel.org>
+Subject: Re: [PATCH v12 5/5] rust: drm: gem: Add vmap functions to shmem
+ bindings
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Lyude Paul" <lyude@redhat.com>
+Content-Transfer-Encoding: quoted-printable
+References: <20260421235346.672794-1-lyude@redhat.com>
+ <20260421235346.672794-6-lyude@redhat.com>
+In-Reply-To: <20260421235346.672794-6-lyude@redhat.com>
+X-ClientProxiedBy: TYCP286CA0066.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:31a::10) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/panel: simple: Add timings for Raspberry Pi 7"
- panel
-To: Marek Vasut <marex@nabladev.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Maxime Ripard <mripard@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
- Sam Ravnborg <sam@ravnborg.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260420-rpi-7inch-v1-0-e68d5c9c44bc@ideasonboard.com>
- <20260420-rpi-7inch-v1-2-e68d5c9c44bc@ideasonboard.com>
- <3z3u5mbngmbzsch3mzs3twlh3aec6r7jokstzv3ghxyusrzt6b@jqvdnuiapx6e>
- <af71183d-70b8-4a41-8466-67123e7aab02@ideasonboard.com>
- <20260423-kickass-fat-boa-209f68@houat>
- <72c2cd94-0a8b-46c8-981b-4ad4a3222e59@ideasonboard.com>
- <CAO9ioeVX6OChRTgUrUdgrPF+3s2_7vme7m0yb85pjYtH1MFskw@mail.gmail.com>
- <ced05a92-06b4-4f6f-95b6-c3dc104c35f3@ideasonboard.com>
- <b24c428f-5752-4544-a8b4-77e91d7bc158@ideasonboard.com>
- <da6bdb78-7fe8-4f51-b9e6-444748ebc319@nabladev.com>
-Content-Language: en-US
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-In-Reply-To: <da6bdb78-7fe8-4f51-b9e6-444748ebc319@nabladev.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|DS5PPF482CFEB7D:EE_
+X-MS-Office365-Filtering-Correlation-Id: 124001a8-db87-41ba-8c67-08dea1494539
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|10070799003|7416014|376014|1800799024|366016|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info: zv1hkVqc7p7+s5xQqR/8R6mYqseeq98L5QHNgMmnUaZWhrIGLGBzNKBAgJnpLIQam40+TZq8EmRQyQTATRa6K7JxC4H42fcAILfgpDjI3L3W09pOfyu4bCPZnTM1q0vwbzabDcTaATjaYNcGW+UaV5K2Ldj5mVhtH10GSaspnE6dcMqIurclCU8wO14AcCFMQ+TOHMyWeGw14vK0/2Plfsum0SzaE5KxmODUTNB0vTLo4dR0mBVbPqt1o4xBXPPnfYYi+7NG5rVjsn5xltP3GYyZ1XSFaQN/ZDXgbHXZxrpmjIDRjq2+Oqd8E664x7NYK/A7ic3U2b0QZvrLMqhNp+mSdG1otH4MEcHiW4/Ym2eNpp+cL2RVtj9CacQoOFUSxtJMqOatEWrNaHB3tjO3sui4dKtukMYti4xRzHqvxkEGIP1CWTl9LjcpSPQylB3I1r5ZFZs3D398yAO1Yu9crVtGtkDj3nAokVzX/EylVVn3nQmbaxzzyPEk0XHTwbCXjipc8ibjrCG7MoTjw3DXj50ggiL7Km3ZWcIW+mMf1encJQMSvc7PUh/4V/KcBef1UN/sEpy9S2kOhk90s+AJckE9/kyKBvYIy0k5HgAnq+pheuszOEAvx+g4rcog3JJqVFlMoQfNFYnmH3G3rBRKfZAJpeRNaiYtMMlZLOysb6sWvNrprKX7grGfW+Ncy+J15Oa9/a2ZtDv30LKFMwEc2g0JzHTGVDcDTZbkJzG3Xtc=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(10070799003)(7416014)(376014)(1800799024)(366016)(18002099003)(22082099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NEsxOHlhd29hYjA3NkM2RUIwTk9LNHRNcVhuRkZoNXhTQ1FMd3daN0lGS3RF?=
+ =?utf-8?B?dEExbFM3N3lBVXI5enl4U3ZRUno3U1R2QmtOQ2FBQmxOUS84Y052YXR5aDY4?=
+ =?utf-8?B?Y1BlZnhwZ2lyTlI4czBETCtnWFJOeTYvZFlLZEpJUXROZGVWeGcxeFJXa1R0?=
+ =?utf-8?B?UzZpQkN5enJKY21MdXBLWW45bDd3N2ZtVkhMcFZKV3M1VDQwbmlLYUtlSXlh?=
+ =?utf-8?B?SysvWThSWVRRdnJRWk1PSnhVR2d3ZVQ0MkpwaWM2cmhvajc0TDhLaHVRK2Vw?=
+ =?utf-8?B?RnQ3bXU0aW9PbGV0OXpJMHJhOXFFbEM0SjdRT2cwVWZ2N1lXaFFkc3dYMHBW?=
+ =?utf-8?B?eFE3SU5RTkNMclZWellyUG9zdWZGWkRMVkhaKzY5QnRuM2Vqb0ppNjNiN0l6?=
+ =?utf-8?B?RmFNRm5IQmhaNG9IQ0hudGNRQko0OEZqQndGRms4VmVWUzc4TXhFZkVINTBz?=
+ =?utf-8?B?dGxiaUdEUXV0Qyt4L056VS9nbVF5RlZoWXB5b2Rzbm9uWDJGQWlWWitscFd1?=
+ =?utf-8?B?alRWaGg4U0RDazd1UmlTdm00bUpiTzg2ZUtadzRQNGl5SWF1bW9qVzA1R1Fo?=
+ =?utf-8?B?Ly9sRk4rRjhkaHJjaDFPa2UvZ1ZFb0R1ZnpXdW9GSEUwZVR0K0c2NEdlUWlW?=
+ =?utf-8?B?aEMxQ3dDQzlyRFRDYUVVTDJjU0VGcDJEVUtxd291dkdkVkxiQUFtS1pWbU83?=
+ =?utf-8?B?dDJnbk1ES3h6RlRiRFBHbDVORlJvMTdTTGtXR3Zab0doWVZ6eHdLQTRBem9u?=
+ =?utf-8?B?UU9ycXgrZm5uQ2hpNkRJQzNrdzVQRDNJODUrMUk2NFFtL0YwSVJENGpwckpL?=
+ =?utf-8?B?NStwL3JGOTRMVktvRWNUNVVLZjUwdWkvOHl3UW9FaHZxVFNzaVJpRUZJb1ZU?=
+ =?utf-8?B?bkJxbFBGTVFTYVVySWs1d0sxNFhpV29IZWxaNjhMSWxWM053V2EybGladmJr?=
+ =?utf-8?B?Qk94T0tpVzU5dHlydHdLc3R2cHp0YjhkT09aSGZIdkcrcFppei9ZUkJSY0hC?=
+ =?utf-8?B?NThHZ1pwbk1SellIOVR2SDVKL3NzZXJmUUlmWXJlQ3FjTWxDRnlGK3Mra3gv?=
+ =?utf-8?B?N1NLTzBkcUFTNkoyU1Mrc1FwWEErOS83WkhjaVJBNDBld0tTN05zdlpqS0xx?=
+ =?utf-8?B?c09BWURLTEFxY0hQZ3pTOHdHQXJtM082UXRIRHpReDJiWVpXSjFBT0dBWGxx?=
+ =?utf-8?B?TVJZOWEyVFhpSGpFcW15TVNMZWphbGZ2d1dQdUJPZFNkUFd3TTlBcUppVkxV?=
+ =?utf-8?B?M21RRjNxNFlsRWpxMXhXNmpicEZJSzVIQnFpRHh6Mys5SFNDUjNVOTJ2N2Jl?=
+ =?utf-8?B?QndzUEY2T3k5RElRYnUwNDFsbCszN0Yzc1BVYVlraGlET1B6djlSeVhodkt6?=
+ =?utf-8?B?VmVTSGtsSXFmOWVDZER3aWgrMk5WUFMvQXE3YnY4bm45NkxzVWRFV2xLdHZt?=
+ =?utf-8?B?bU4rQ25NOVhuamVOczZ5UWxzWHBUWXpaakZJY21QNm52OTdOWjJJVlNIdFY4?=
+ =?utf-8?B?YzNvMFRkRnE2QkdNL21ieVcrYkZIUVN1UEt0aERFNERlMHFrWk1TRys3cGd1?=
+ =?utf-8?B?eWdOb2d1YTRNSDRvWnc2bjNxSC9UaTFtcytrenUySnFhQldZalV0ZFNZOWov?=
+ =?utf-8?B?NkV0eUxoUEU5elkrUW8rUy9CRjZVOVJRNnpzY2tvMHpIdUREYU91NVBxa0Vq?=
+ =?utf-8?B?TjZraDBxODhJUk5ST1ZUTkJYRDU0QW8wTG8zRTUrVCtlb0t3ZmpodWJCYTJW?=
+ =?utf-8?B?OWdpeWtxUkkrd0MrTDYrTHpLb1FqaHJ3aUk1Q2RnN0s3OGlJNGxvcUVsdDRX?=
+ =?utf-8?B?VXZpb21FRFhKa3RiaFIzVHdpRkVyUjB5aStuUGlaNm9Ka3A4WThJWGRTdC9I?=
+ =?utf-8?B?TU9SR1hzQ2o1YkpzSlYrOUFlcnBWUUYwNkhqTTBxV01jOVVUQ1NwbFd3bUZK?=
+ =?utf-8?B?TEdidGplcWp2eEpsUG9Md3NnZ1o4VVkxbFJaajMwOUM0S3hpeDRBaENCd1Ux?=
+ =?utf-8?B?alVWd29zaTBXTHU2TUg3M0xrQWFLYzZBcmVzNE9HNzVOQUZTQzh4SzhFSTZj?=
+ =?utf-8?B?VDZhTW56RitQL08ydTlobVpkQWRqL2NjenV4b0xuNGQ3bWgzeXA3cU5vL01F?=
+ =?utf-8?B?Ri8zSTE2WmtvaE9lMHRGdjRCNFEvYUhCcnhFVHljS1FiMWJYMDlpVVRNeEtz?=
+ =?utf-8?B?N1BmTlVjZitkVTl2cnFYMUlidUFDUnE4OXhvV0Q3bHF6T0p0b0U4OFVnSGRX?=
+ =?utf-8?B?ejFCTHF0TWYvSFN6VWo2SzJCM2FZektmSWN0b3BCc1N1UDkxVlB1bUs4d3E1?=
+ =?utf-8?B?MGl2UjBETTdnOHRVR1l0Tjc4RVUzZzU4UW5neXZhTHhTODNiNE15ODlWL05W?=
+ =?utf-8?Q?2PvKgMsuZK7CqhiEy8zqizhsX3rA+QToOUC8PttAHtO1N?=
+X-MS-Exchange-AntiSpam-MessageData-1: C2rXnT9g91CD9w==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 124001a8-db87-41ba-8c67-08dea1494539
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Apr 2026 15:02:00.1547 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AieZG6Dp7zaPY8E6bG/pb4otAMOdDlvIbotFdG+midTaBmUmsaDo3hG9xwSjO/cac0qywKIPiKEJQtGU3A3vqA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPF482CFEB7D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,56 +152,257 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+On Wed Apr 22, 2026 at 8:52 AM JST, Lyude Paul wrote:
+> One of the more obvious use cases for gem shmem objects is the ability to
+> create mappings into their contents. So, let's hook this up in our rust
+> bindings.
+>
+> Similar to how we handle SGTables, we make sure there's two different typ=
+es
+> of mappings: owned mappings (kernel::drm::gem::shmem::VMap) and borrowed
+> mappings (kernel::drm::gem::shmem::VMapRef).
+>
+> Signed-off-by: Lyude Paul <lyude@redhat.com>
+>
+> ---
+> V7:
+> * Switch over to the new iosys map bindings that use the Io trait
+> V8:
+> * Get rid of iosys_map bindings for now, only support non-iomem types
+> * s/as_shmem()/as_raw_shmem()
+> V9:
+> * Get rid of some outdated comments I missed
+> * Add missing SIZE check to raw_vmap()
+> * Add a proper unit test that ensures that we actually validate SIZE at
+>   compile-time.
+>   Turns out it takes only 34 lines to make a boilerplate DRM driver for a
+>   kunit test :)
+> * Add unit tests
+> * Add some missing #[inline]s
+> V10:
+> * Correct issue with iomem error path
+>   We previously called raw_vunmap() if we got an iomem allocation, but
+>   raw_vunmap() was written such that it assumed all allocations were sysm=
+em
+>   allocations. Fix this by just making raw_vunmap() accept a iosys_map.
+> V11:
+> * Use Alexandre's clever solution to remove the macros we were using for
+>   maintaining two different VMap types.
+> * Change the order of items in Object<T> to ensure that sgt_res is always
+>   dropped before obj.
 
-On 23/04/2026 16:54, Marek Vasut wrote:
-> On 4/23/26 3:16 PM, Tomi Valkeinen wrote:
-> 
-> Hello Tomi,
-> 
->>>> In the past I used this panel compat instead of the
->>>> panel-raspberrypi-touchscreen.c and it worked.
->>>> IIRC Marek splitted the multi-function module into a regulator and the
->>>> panel description.
->>> Ok... Indeed https://pip.raspberrypi.com/categories/651-pcn lists 
->>> PH800480T013 as one of the panels used. Although two variants are 
->>> listed, and also a third panel model, possibly from another vendor.
->>>
->>> My module is v1.1, and I think it has the PH800480T013-IAC21 D/5624/ 
->>> KIT- LC variant.
->> A question to Marek: Where did you get the timings for PH800480T013? 
->> Did you find a datasheet?
-> Search engine first link:
-> 
-> https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/5337/ 
-> PH800480T013-IHC09.pdf
+I am not sure this is enough to solve the double-free issue - although my G=
+EM
+knowledge is lacking, so please take this with a grain of salt.
 
-I tested the "powertip,ph800480t013-idf02". I'm using BeagleY-AI here, 
-and it didn't work at all. After some testing, I figured out these:
+Take an object where we called `sg_table`, so the SGT has been created.
 
-HSW of 2 is much too small. But this could be an issue on the display 
-controller or the DSI encoder side. HWS of around 8 starts to work ok. 
-Below that, I don't get anything on the screen.
+When the object is dropped by DRM, `free_callback` is first called. It
+calls `drm_gem_shmem_release`, which frees the SGT.
 
-The syncs are interesting. I set them to DISPLAY_FLAGS_VSYNC_HIGH | 
-DISPLAY_FLAGS_HSYNC_HIGH, Marek to DRM_MODE_FLAG_NVSYNC | 
-DRM_MODE_FLAG_NHSYNC. But I have sent the TC358762 series, which fixes 
-the syncs that the bridge sends 
-(20260327-tc358762-fixes-v2-0-3589d3c45f4a@ideasonboard.com).
+Then, the `Drop` implementation of `Object` is called, and `sgt_res` is
+dropped... which attempts to free the SGT again.
 
-Flipping the syncs might explain why I used 46 and 23 as the 
-backporches, Marked used 46-hsw and 23-vsw for backporches (well, 
-Marek's vbp was off by one as I mentioned).
+I haven't tested that and rely only on a quick look at the code and my
+partial understanding, but the correct fix appears to be to clearing
+`sgt_res` in `free_callback`.
 
-But now I'm getting unsure if my TC358762 fixed the syncs correctly... 
-I'm pretty sure I measured those with my scope, though.
+> * Fix typo in Object.raw_vmap()
+>
+>  rust/kernel/drm/gem/shmem.rs | 355 +++++++++++++++++++++++++++++++++++
+>  1 file changed, 355 insertions(+)
+>
+> diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
+> index a477312c8a09b..b96de8d33141d 100644
+> --- a/rust/kernel/drm/gem/shmem.rs
+> +++ b/rust/kernel/drm/gem/shmem.rs
+> @@ -26,6 +26,11 @@
+>          from_err_ptr,
+>          to_result, //
+>      },
+> +    io::{
+> +        Io,
+> +        IoCapable,
+> +        IoKnownSize, //
+> +    },
+>      prelude::*,
+>      scatterlist,
+>      types::{
+> @@ -35,6 +40,11 @@
+>  };
+>  use core::{
+>      cell::UnsafeCell,
+> +    ffi::c_void,
+> +    mem::{
+> +        self,
+> +        MaybeUninit, //
+> +    },
+>      ops::{
+>          Deref,
+>          DerefMut, //
+> @@ -45,6 +55,7 @@
+>      },
+>  };
+>  use gem::{
+> +    BaseObject,
+>      BaseObjectPrivate,
+>      DriverObject,
+>      IntoGEMObject, //
+> @@ -289,6 +300,84 @@ pub fn owned_sg_table(&self, dev: &device::Device<Bo=
+und>) -> Result<SGTable<T>>
+>          // `Some(Devres<SGTableMap<T>>)`.
+>          Ok(SGTable(self.into()))
+>      }
+> +
+> +    /// Attempt to create a vmap from the gem object, and confirm the si=
+ze of said vmap.
+> +    fn raw_vmap(&self, min_size: usize) -> Result<*mut c_void> {
+> +        if self.size() < min_size {
+> +            return Err(ENOSPC);
+> +        }
+> +
+> +        let mut map: MaybeUninit<bindings::iosys_map> =3D MaybeUninit::u=
+ninit();
+> +
+> +        // SAFETY: drm_gem_shmem_vmap can be called with the DMA reserva=
+tion lock held
+> +        to_result(unsafe {
+> +            // TODO: see top of file
+> +            bindings::dma_resv_lock(self.raw_dma_resv(), ptr::null_mut()=
+);
+> +            let ret =3D bindings::drm_gem_shmem_vmap_locked(self.as_raw_=
+shmem(), map.as_mut_ptr());
+> +            bindings::dma_resv_unlock(self.raw_dma_resv());
+> +            ret
+> +        })?;
+> +
+> +        // SAFETY: The call to drm_gem_shmem_vmap_locked succeeded above=
+, so we are guaranteed that
+> +        // map is properly initialized.
+> +        let map =3D unsafe { map.assume_init() };
 
-The fps is different, too. I aimed for 60fps, Marek for 50fps (I think, 
-it doesn't match exactly).
+With the DMA reservation guard I suggested in the previous patch, this
+can become
 
-In any case... I think I have to dig out my scope again and validate 
-that I see exactly what I have in the driver. Btw, reviews for the 
-TC358762 series is appreciated!
+    let map =3D {
+        let mut map: MaybeUninit<bindings::iosys_map> =3D MaybeUninit::unin=
+it();
+        let _dma_resv =3D DmaResvGuard::new(self);
 
-  Tomi
+        // SAFETY: drm_gem_shmem_vmap can be called with the DMA reservatio=
+n lock held
+        to_result(unsafe {
+            bindings::drm_gem_shmem_vmap_locked(self.as_raw_shmem(), map.as=
+_mut_ptr())
+        })?;
 
+        // SAFETY: The call to drm_gem_shmem_vmap_locked succeeded above, s=
+o we are guaranteed that
+        // map is properly initialized.
+        unsafe { map.assume_init() }
+    };
+
+> +
+> +        // XXX: We don't currently support iomem allocations
+> +        if map.is_iomem {
+> +            // SAFETY:
+> +            // - The vmap operation above succeeded, guaranteeing that `=
+map` points to a valid
+> +            //   memory mapping.
+> +            // - We checked that this is an iomem allocation, making it =
+safe to read vaddr_iomem
+> +            unsafe { self.raw_vunmap(map) };
+> +
+> +            Err(ENOTSUPP)
+> +        } else {
+> +            // SAFETY: We checked that this is not an iomem allocation, =
+making it safe to read vaddr
+> +            Ok(unsafe { map.__bindgen_anon_1.vaddr })
+> +        }
+> +    }
+> +
+> +    /// Unmap a vmap from the gem object.
+> +    ///
+> +    /// # Safety
+> +    ///
+> +    /// - The caller promises that `map` is a valid vmap on this gem obj=
+ect.
+> +    /// - The caller promises that the memory pointed to by map will no =
+longer be accesed through
+> +    ///   this instance.
+> +    unsafe fn raw_vunmap(&self, mut map: bindings::iosys_map) {
+> +        let resv =3D self.raw_dma_resv();
+> +
+> +        // SAFETY:
+> +        // - This function is safe to call with the DMA reservation lock=
+ held
+> +        // - Our `ARef` is proof that the underlying gem object here is =
+initialized and thus safe to
+> +        //   dereference.
+> +        unsafe {
+> +            // TODO: see top of file
+> +            bindings::dma_resv_lock(resv, ptr::null_mut());
+> +            bindings::drm_gem_shmem_vunmap_locked(self.as_raw_shmem(), &=
+mut map);
+> +            bindings::dma_resv_unlock(resv);
+> +        }
+> +    }
+> +
+> +    /// Creates and returns a virtual kernel memory mapping for this obj=
+ect.
+> +    #[inline]
+> +    pub fn vmap<const SIZE: usize>(&self) -> Result<VMapRef<'_, T, SIZE>=
+> {
+> +        Ok(VMap {
+> +            // INVARIANT: `raw_vmap()` checks that the gem object is at =
+least as large as `SIZE`.
+> +            addr: self.raw_vmap(SIZE)?,
+> +            owner: self,
+> +        })
+> +    }
+> +
+> +    /// Creates and returns an owned reference to a virtual kernel memor=
+y mapping for this object.
+> +    #[inline]
+> +    pub fn owned_vmap<const SIZE: usize>(&self) -> Result<VMapOwned<T, S=
+IZE>> {
+> +        Ok(VMap {
+> +            // INVARIANT: `raw_vmap()` checks that the gem object is at =
+least as large as `SIZE`.
+> +            addr: self.raw_vmap(SIZE)?,
+> +            owner: self.into(),
+> +        })
+> +    }
+
+You can factor out some of the code into a generic private method:
+
+    fn make_vmap<R, const SIZE: usize>(&self, owner: R) -> Result<VMap<T, R=
+, SIZE>>
+    where
+        R: Deref<Target =3D Object<T>>,
+    {
+        Ok(VMap {
+            // INVARIANT: `raw_vmap()` checks that the gem object is at lea=
+st as large as `SIZE`.
+            addr: self.raw_vmap(SIZE)?,
+            owner,
+        })
+    }
+
+    /// Creates and returns a virtual kernel memory mapping for this object=
+.
+    #[inline]
+    pub fn vmap<const SIZE: usize>(&self) -> Result<VMapRef<'_, T, SIZE>> {
+        self.make_vmap(self)
+    }
+
+    /// Creates and returns an owned reference to a virtual kernel memory m=
+apping for this object.
+    #[inline]
+    pub fn owned_vmap<const SIZE: usize>(&self) -> Result<VMapOwned<T, SIZE=
+>> {
+        self.make_vmap(self.into())
+    }
+
+It doesn't result in less LoCs, but reduces duplication and removes one
+`INVARIANT` statement.
