@@ -4,84 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16451FB44C8
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA654FB44C9
 	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 07:45:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4286210F380;
-	Fri, 24 Apr 2026 07:44:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB42410F38B;
+	Fri, 24 Apr 2026 07:44:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XwGetgKt";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="H40+2r2K";
 	dkim-atps=neutral
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
- [209.85.216.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADCB910E118
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 05:47:59 +0000 (UTC)
-Received: by mail-pj1-f48.google.com with SMTP id
- 98e67ed59e1d1-35da1af3e10so6995428a91.3
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 22:47:59 -0700 (PDT)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD79B10F139
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 13:42:57 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-488a88aeec9so86113285e9.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 06:42:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777009679; x=1777614479; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:from:to:cc:subject:date:message-id:reply-to;
- bh=Q7M2fwY604nxmRG1YIO02Z14fgzwwg1Pa67qHupVFxk=;
- b=XwGetgKtkGGHwt9IyWUgxf7zn9eSI8jTIHfpVhjB8x03XZd4neqPEmbP0oGaf6Azgl
- 0JQBUOELggeNPlkf332oUePkyzHTL4vbFDLZMEaYHL11zUcta/2LZbxSg55BWf8xaEe/
- wrbwdWlvp+07uifi1vlX1A72Hhp+AbmS1iwqzLC2H+76whTph6j1uGQ2LK3Q76BU6xf/
- jHPaF2RZcuW3iLf5XJqmjD1yqLwhY75dvnCk8AhK2dBdQuhPfwIMP222dxlHtxV4MVBg
- GJ7xN7KDFTs6cDr0Mx7Xf7c84GemhJZf3YRL+uG7XFixWT6ooTzsgxB1+d6Bm/WDXV/F
- ghIw==
+ d=gmail.com; s=20251104; t=1776951776; x=1777556576; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Rxz9NU02O++FzynrCeAoVbLT1PUkMktzynAKMZKwViY=;
+ b=H40+2r2KtTDnaThhKTbTf/Jkj9uiaqpcqsFQ6iW1KvewwFe5nkWD0kRnHnnXDHBG1X
+ VqAqrWwOaN0mUBAdUwEjmPylHGS5SxIOP26YWVc/8g19rgoYilBq+RFUtkrCBeZPlZYx
+ 0/szXL6IGC20BaR6GXRTk23Rv78XkgRGiru1PqYZnD/ivv/ZDu17h9eiAbCNpqos/hIe
+ kimWu4auXplFQHve14THxNugqnDh/7MWrjw6Yz06lX9qH4c4pvP3BwXoPc/0i76+2Yax
+ QtUWD7Yp0cWYR0OIisH2vsXTCNDmFptihahSMYL9ockd0APSTAQRAA3WMT1jFh3miXsX
+ /3Pg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777009679; x=1777614479;
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Q7M2fwY604nxmRG1YIO02Z14fgzwwg1Pa67qHupVFxk=;
- b=g0T4T+Xw4Eb4FdW2PFG+WiNzzDd2qhs2h4CvAzzI/NUz6NUJuLZJVHMdYNUaW+3YYr
- YHKvRlxare+hMptULq6/CKsoSibElmwx7b5r5qoqweo+dxDApkGoLhesbKsy3zbHMvTf
- +fjP5D6WXGnwAk2bIdBnUH0r2wrVHhqknihezwcEfOM7PQ9PcFePEnVPOWdkxEnrVd+t
- LOzMO/Fk6/L94sCzSNW9RyXWQ7/fUT8X0lfDrZiTY0XAUj7GLljjdApaIvMFtDxFNd1t
- 5TZenkpj4WFgZwBrfWTcCcqQsFTPWLG9MGpEucQGXFJC2Dp1skpnvQsNgDhjy73NBucJ
- TVpA==
+ d=1e100.net; s=20251104; t=1776951776; x=1777556576;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=Rxz9NU02O++FzynrCeAoVbLT1PUkMktzynAKMZKwViY=;
+ b=RRkEnG7ENCdPH2s9C2SlucH3BMRTeUA364TtVkxKZeDYuc3Dwis8sejQOGH2zkVCId
+ 9Ur71OepyB6x0pIDSwRrB+HgE+YnAcwhm/H3mlREFsLK0oDUZ37mh4m47H935ZKA6CCp
+ 5JECsmT4LFXLQUPqhajXXi62yWqBDw0N7h61xSe0sYlqza6kUP9I+keEgqzD75WJctiq
+ nnYU+mnd7YQLB7ze8zr1yFezrw0L3LTPjfz9V7grh1bSf7/dH8/TkLnLx9l8mAnlj+nO
+ gnRtYAet5PkEWhQnjLwKLxfiypFBd7JYkwfrvg10nTt8mlFOuc5XGeAGySkqC07PC8aC
+ eIeg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8nHUXaTk345A2Sg5mrF72e5rMx0/ApuIMCvZOhsK4EHnlcTlfsP1D2wH3IKmxtTwVcIBBhpRfOYZg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzte6zn1oI7OX/2olMheLC36MHqddsNLN7nDSVaSQVG1V0/3eUt
- sdPD7R/HueMflUrFnqvy2lh9BP9OhkpPfCAfZlbugpDcieoUO91ZzffI
-X-Gm-Gg: AeBDievhbY03TdIq0/kkmLLF+CMxSyapdRwg/XUKtnvelcc8vwlgw+88dyJT3ENC3Ip
- ees9uZCYFXJh9FBFsZqX8zudFQeIlIDu4ewyNY8EA1A1Xvk2MFl0yQi6xLleZqrZl6IjXnmdZb2
- CZHpewiaDcPgc5erJvV8tLZ5UVd4fsRCAF3Lv8qB5fcJ3tokzyDM+ZN0fl2MV8uj8x0/ob5QA6p
- fMMN0po3uWcWc6GDMHF8/zKffWf9RfjjXidUm06HpSXKWNJ7CMOoZMpBJ+OL2rH+cPtY+iXT2wu
- iLXsyu550+wvxqhSqxZQSbsf5Q+Ej5atXzFAvyJWtU5obAjrmWAEjDXUHEYhBEPaMC5K/q8dYtu
- KH9Nb6jSWAMBZOMCKxW3ZK1f+LEcggvhbqXkmUT5pqnB02CvksRBs7jGhhsa8Hz+GD7MzQb+uvT
- 3fk1RCRTor/PcZxR92gOoPgx9RlAJR4GKWpioaYTQqjnBJPx5BSxGjylVA2Bp5OhZuFdgpGvneV
- tmTd5cVy/cFXMo=
-X-Received: by 2002:a17:903:28e:b0:2b0:7531:b61e with SMTP id
- d9443c01a7336-2b5f9f9f125mr305572665ad.41.1777009679150; 
- Thu, 23 Apr 2026 22:47:59 -0700 (PDT)
-Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.bl1-in.ibm.com
- ([129.41.58.4]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2b5faa176e9sm208778245ad.20.2026.04.23.22.47.48
+ AFNElJ/FEemircL4lVbZskRYF74oLCZsdJWsAqBeyNwXzBHPX8TACVzI3xzyEiiZwEeNwD6Rl3A0zcxe/vs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yznsp7fIYDnGmqEEReJy5GWFDKFcNe9K6BDn8BsSmArqykOaaw2
+ 344zBAyPPTG10WEhKg5Mqt9O5YYdyOCRk5GdftOV2AHAbtBEbCMQPGZe
+X-Gm-Gg: AeBDies1+WtBg2L6ARBVlo7J281pnvfhGG6xvGQbRNE2X5R4DpDEsm8lwz9Kqnwd6Zj
+ 57p2ZCd0RqeOd9jI/BptryDdsTdAo3lMm8EqYpnJpfi+fj5UExu/2QsgZgBTWaxPtRxcpMMOxqE
+ d7mrzC6Oh3IDG3EJtlQ5ADlRKHb+mOP71UDYIdpDMEyDhtpE4XhrqJr8bCXL/K0jnL2x/pMk65Z
+ FugSSe70BVDnn9pMaNkQB54GtgQPOZlV+f+tbBsBMbJlaB5wm+JhTh8FgxbcMRuTNE2en6cVNzf
+ OmdH9Or3IPDvx/5XWnin9groSeOKsfAndgJITpOy2Y1zgqoHHsgV+28ctSHRd1eOo3emt5OTL6q
+ bLt7arjwgfgzwpEkdbOx5QZCl39HYQmnjOhspYwylfizUGjonhnIn7NrF45C6nJ7WLxPdmmLGYe
+ TerggNmUPN7grBU7PCyZYxNPuFgx7oYZ2eFDZKeFhr
+X-Received: by 2002:a05:6000:2888:b0:43d:7b23:bc99 with SMTP id
+ ffacd0b85a97d-43fe3dc8152mr43015263f8f.15.1776951775662; 
+ Thu, 23 Apr 2026 06:42:55 -0700 (PDT)
+Received: from anthony ([2a06:c701:499d:3e00:12ff:e0ff:fea5:3d2e])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43fe4e44f69sm55764812f8f.25.2026.04.23.06.42.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Apr 2026 22:47:58 -0700 (PDT)
-From: "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>
-To: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
- chleroy@kernel.org, peterz@infradead.org, jpoimboe@kernel.org,
- jbaron@akamai.com, aliceryhl@google.com, rostedt@goodmis.org,
- ardb@kernel.org, sumit.semwal@linaro.org, christian.koenig@amd.com,
- ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
- bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org,
- tmgross@umich.edu, dakr@kernel.org, nathan@kernel.org,
- nick.desaulniers+lkml@gmail.com, morbo@google.com, justinstitt@google.com,
- tamird@kernel.org, arnd@arndb.de, nsc@kernel.org, mkchauras@gmail.com,
- simona.vetter@ffwll.ch, linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- rust-for-linux@vger.kernel.org, llvm@lists.linux.dev
-Subject: [PATCH V13 0/7] Rust support for powerpc
-Date: Fri, 24 Apr 2026 11:17:35 +0530
-Message-ID: <20260424054742.45832-1-mkchauras@gmail.com>
-X-Mailer: git-send-email 2.53.0
+ Thu, 23 Apr 2026 06:42:55 -0700 (PDT)
+From: Amit Barzilai <amit.barzilai22@gmail.com>
+To: geert@linux-m68k.org
+Cc: amit.barzilai22@gmail.com, deller@gmx.de, dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, thomas.zimmermann@suse.de
+Subject: Re: [PATCH 0/3] fbdev: Request memory regions in platform drivers
+Date: Thu, 23 Apr 2026 16:42:35 +0300
+Message-ID: <20260423134235.230024-1-amit.barzilai22@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <CAMuHMdWhpD5vjfzsYieVOrio0chQAU=s0z5rX8AKTon3S=v-OA@mail.gmail.com>
+References: <CAMuHMdWhpD5vjfzsYieVOrio0chQAU=s0z5rX8AKTon3S=v-OA@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 24 Apr 2026 07:44:43 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -99,110 +90,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Enable experimental rust support for ppc64le and ppc32be. The patch for
-ppc32 has been provided by Link Mauve[1] and ppc64le support[2] has been
-merged over it. ppc32 needs some toolchain fixes mentioned in the patch
-`rust: Add PowerPC support` and the discussion for that is done here[1].
+Hi Geert,
 
-This has been tested on
-- powernv9 hardware
-- pseries P11 hardware
-- pseries(9, 10) qemu
-- powernv(9, 10) qemu
-- rustdoc on x86 and powerpc64le
-- rusttest on x86 and powerpc64le
+> This file does not seem to exist?
+> Was it hallucinated by Claude:claude-sonnet-4-6?
 
-We are actively working with our LLVM team to get the target for ppc,
-ppc64 and ppc64le in the rust compiler.
+You are right, I apologize. The correct path is Documentation/gpu/todo.rst.
+I will double-check all references before submitting next time.
 
-[1] https://lore.kernel.org/all/20260204030507.8203-1-linkmauve@linkmauve.fr
-[2] https://lore.kernel.org/all/20260204042417.83903-1-mkchauras@gmail.com
+> Have you tested this series?  I have to ask, because adding
+> seemingly-innocent request_mem_region() calls without testing the
+> result is a recurring source of broken drivers.
 
-Changelog:
-V12 -> V13:
-- Added a patch for fixing build issue on ppc32 by Link Mauve
-- Added another patch to fix a build issue in dma-buf
-- Added another patch to enforce minimum `rustc` version for powerpc
-V12: https://lore.kernel.org/all/20260421120958.190430-1-mkchauras@gmail.com/
+I cross-compiled cobalt_lcdfb against cobalt_defconfig (MIPS) and
+clps711x-fb against clps711x_defconfig (ARM). Neither platform has a
+QEMU machine available, so I was not able to do runtime testing.
 
-V11 -> V12:
-- Rebased to mainline (rust/Makefile conflict resolved)
-V11: https://lore.kernel.org/all/20260417152253.2312961-1-mkchauras@gmail.com/
+I understand that is not ideal. The changes replace ioremap() with
+devm_platform_get_and_ioremap_resource(), which is already widely used
+across the tree and handles failure cleanly, but I can understand that 
+compile-only testing is not a substitute for hardware validation on
+resource-sensitive paths.
 
-V10 -> V11:
-- Updated `rust/Makefile`
-- Not all libraries are move to `rust/host` directory now. Only
-  proc_macro2, quote and syn are moved
-- Special handling for pin init is added. Details in commit
-- Removed mkdir for `rust/host`, this is now handled by toolchain.
-V10: https://lore.kernel.org/all/20260406200149.3727922-1-mkchauras@gmail.com/
+I have not been able to find a suitable runtime environment for either
+platform. If you know of one, I have no problem validating these changes
+properly before they go further.
 
-V9 -> V10:
-- rust/Makefile updated with review comments from Miguel
-- Patch 1/4 updated with commit message and subject
-V9: https://lore.kernel.org/all/20260404121610.1956528-1-mkchauras@gmail.com/
-
-V8 -> V9:
-- rust/Makefile updated with a directory instead of abspath
-V8: https://lore.kernel.org/all/20260403145308.1042622-1-mkchauras@gmail.com/
-
-V7 -> V8:
-- rust/Makefile updated to separate host libraries from target
-V7: https://lore.kernel.org/all/20260329160254.2592207-1-mkchauras@gmail.com/
-
-Changelog:
-V6 -> V7:
-- Documentation removed as powerpc is still under development
-- Added a fix for race condition in rust/Makefile
-V6: https://lore.kernel.org/all/20260210090023.2587534-1-mkchauras@gmail.com
-
-V5 -> V6:
-- Added a missing Tested by from Venkat which got missed since V3
-- Support is marked as Maintained instead of experimental
-V5: https://lore.kernel.org/all/20260210053756.2088302-1-mkchauras@gmail.com
-
-V4 -> V5:
-- Removed a nested ifdef from PPC64 for Little endian toolchain
-V4: https://lore.kernel.org/all/20260209105456.1551677-1-mkchauras@gmail.com
-
-V3 -> V4:
-- Co-developed-by header added in patch 1
-V3: https://lore.kernel.org/all/20260205180429.3280657-1-mkchauras@gmail.com
-
-V2 -> V3:
-- Splited HAVE_RUST in 2 lines
-- BINDGEN_TARGET_powerpc initialized before assigning the same to
-  BINDGEN_TARGET
-V2: https://lore.kernel.org/all/20260204210125.613350-1-mkchauras@gmail.com
-
-V1 -> V2:
-- jump label fix for rust has been moved to a separate patch
-- PPC32 support has been taken
-- rust support has been marked experimental
-- target.json dependency has been removed
-- HAVE_RUST now depends on CPU_LITTLE_ENDIAN for PPC64
-
-Link Mauve (2):
-  rust: Make __udivdi3() and __umoddi3() panic
-  rust: Add PowerPC support
-
-Mukesh Kumar Chaurasiya (IBM) (5):
-  rust: Fix "multiple candidates for rmeta dependency core" error
-  dma-resv: Fix undefined symbol when CONFIG_DMA_SHARED_BUFFER is
-    disabled
-  powerpc/jump_label: adjust inline asm to be consistent
-  rust/powerpc: Set min rustc version for powerpc
-  powerpc: Enable Rust for ppc64le
-
- arch/powerpc/Kconfig                  |  2 ++
- arch/powerpc/Makefile                 |  7 ++++
- arch/powerpc/include/asm/jump_label.h | 23 ++++++------
- include/linux/dma-resv.h              |  2 +-
- rust/Makefile                         | 52 +++++++++++++++++----------
- rust/compiler_builtins.rs             |  6 ++++
- scripts/min-tool-version.sh           |  6 +++-
- 7 files changed, 68 insertions(+), 30 deletions(-)
-
--- 
-2.53.0
-
+Thanks,
+Amit
