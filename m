@@ -4,98 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C106AFDEE2A
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 16:46:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DD0DFDEE2B
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 17:01:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2854410E346;
-	Thu, 23 Apr 2026 16:46:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFBF610F1D5;
+	Thu, 23 Apr 2026 17:01:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="2l2tjOxb";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lWus9q9X";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9167510E346
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 16:46:30 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 1FB711A33CA;
- Thu, 23 Apr 2026 16:46:29 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id E2194600DD;
- Thu, 23 Apr 2026 16:46:28 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 66CE510720005; 
- Thu, 23 Apr 2026 18:46:01 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1776962785; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=S05j6aseg7c7u3xV5vOsljLds3FQ6L9R3JcogXmLNZs=;
- b=2l2tjOxbp/muwVUTt1iYaIz8b7OLe+mJ2gwHjUl/Zi9B+c+A9VYP6Ja5C2fCxD7EBcL8KE
- tj9o1FWt6yl5MwmosOaOCmM5hg14Gf6FQCD6xO4NlTRrX8rWJO7AXZiqzKJUGSdGNfq0dX
- 90/Fet3eusoHdXKPgHJviW0bm/BmWmkW8WJGQJXu+6RINWTT2CgIMhDV/YcJ+q/TJAH7GV
- wy8CB9xvhkE+fTuzqLnN9+emGn4BkhcJVhKXnLTSZCbNekK5oVrGCbiUFXMRSBxTBCE1Lo
- fGJwcmZCjXWgzqASXiN/aqIJ5NiJ8amWgtQeCTnheHeEOAEeGBshs0HQdugKjg==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 23 Apr 2026 18:46:00 +0200
-Message-Id: <DI0OQ6JRMPTR.1FP9UHPJBYI7M@bootlin.com>
-Subject: Re: [PATCH v2 00/41] drm/display: bridge-connector: attach encoder
- to the connector
-Cc: "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
- <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Sasha
- Finkelstein" <fnkl.kernel@gmail.com>, "Janne Grunau" <j@jannau.net>, "Liu
- Ying" <victor.liu@nxp.com>, "Douglas Anderson" <dianders@chromium.org>,
- "Laurentiu Palcu" <laurentiu.palcu@oss.nxp.com>, "Lucas Stach"
- <l.stach@pengutronix.de>, "Frank Li" <Frank.Li@nxp.com>, "Sascha Hauer"
- <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
- <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Philipp
- Zabel" <p.zabel@pengutronix.de>, "Paul Cercueil" <paul@crapouillou.net>,
- "Anitha Chrisanthus" <anitha.chrisanthus@intel.com>, "Chun-Kuang Hu"
- <chunkuang.hu@kernel.org>, "Matthias Brugger" <matthias.bgg@gmail.com>,
- "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>,
- "Kevin Hilman" <khilman@baylibre.com>, "Jerome Brunet"
- <jbrunet@baylibre.com>, "Martin Blumenstingl"
- <martin.blumenstingl@googlemail.com>, "Rob Clark"
- <robin.clark@oss.qualcomm.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
- "Abhinav Kumar" <abhinav.kumar@linux.dev>, "Jessica Zhang"
- <jesszhan0024@gmail.com>, "Sean Paul" <sean@poorly.run>, "Marijn Suijten"
- <marijn.suijten@somainline.org>, "Tomi Valkeinen"
- <tomi.valkeinen@ideasonboard.com>, "Sandy Huang" <hjc@rock-chips.com>,
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, "Andy Yan"
- <andy.yan@rock-chips.com>, "Thierry Reding" <thierry.reding@gmail.com>,
- "Mikko Perttunen" <mperttunen@nvidia.com>, "Jonathan Hunter"
- <jonathanh@nvidia.com>, "Icenowy Zheng" <zhengxingda@iscas.ac.cn>, "Jingoo
- Han" <jingoohan1@gmail.com>, "Inki Dae" <inki.dae@samsung.com>, "Seung-Woo
- Kim" <sw0312.kim@samsung.com>, "Kyungmin Park" <kyungmin.park@samsung.com>,
- "Krzysztof Kozlowski" <krzk@kernel.org>, "Alim Akhtar"
- <alim.akhtar@samsung.com>, "Laurent Pinchart"
- <laurent.pinchart+renesas@ideasonboard.com>, "Tomi Valkeinen"
- <tomi.valkeinen+renesas@ideasonboard.com>, "Kieran Bingham"
- <kieran.bingham+renesas@ideasonboard.com>, "Geert Uytterhoeven"
- <geert+renesas@glider.be>, "Magnus Damm" <magnus.damm@gmail.com>, "Biju
- Das" <biju.das.jz@bp.renesas.com>, "Marek Vasut" <marex@denx.de>, "Stefan
- Agner" <stefan@agner.ch>, "Jyri Sarha" <jyri.sarha@iki.fi>, "Michal Simek"
- <michal.simek@amd.com>, "Hui Pu" <Hui.Pu@gehealthcare.com>, "Ian Ray"
- <ian.ray@gehealthcare.com>, "Thomas Petazzoni"
- <thomas.petazzoni@bootlin.com>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <asahi@lists.linux.dev>,
- <imx@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>,
- <linux-mips@vger.kernel.org>, <linux-mediatek@lists.infradead.org>,
- <linux-amlogic@lists.infradead.org>, <linux-arm-msm@vger.kernel.org>,
- <freedreno@lists.freedesktop.org>, <linux-rockchip@lists.infradead.org>,
- <linux-tegra@vger.kernel.org>, <linux-samsung-soc@vger.kernel.org>,
- <linux-renesas-soc@vger.kernel.org>
-To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.20.1
-References: <20260423-drm-bridge-connector-attach_encoder-v2-0-2ae6ca69b390@bootlin.com>
- <wanzalswb3lez6kyklprqojcnidab5fkxgu57lfka45w2rt4ic@xdatq5o7yiub>
-In-Reply-To: <wanzalswb3lez6kyklprqojcnidab5fkxgu57lfka45w2rt4ic@xdatq5o7yiub>
-X-Last-TLS-Session-Version: TLSv1.3
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013058.outbound.protection.outlook.com
+ [40.93.196.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B55FF10F1D5;
+ Thu, 23 Apr 2026 17:01:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lmlHdlh0jrnww72JYVA130fsIbzqT4aIv8nPYZQEg5/DAMRVtCRj5wO2nIylYWLd7eSuGHaEgJwxkcuPB4ew6P6NdXiMf/aKCtVfYYpuMz+3j1G8gAJL0P7Ac0iqF6CgHnjybkPARaFemWJaCu33ChaF20wz68IRbXOS8+fw5nfuuu/+/M+jaXbJhEURHCnNItdT0+lTkci88U/ptnukKf5nEow8Mb4rEu20Q+tOCqfN3z5M8/yHCWw7O+RQbbngwXYoRjwGOoQT49NncUCwf3BPpDuLgifYL6GuV4RB+R35EsdJ+KXj6D5LU4jhUIaWl2O4/n5yF+6RloUd+ot5xQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jj5oh9ANkuV2k7AcFqrHZASY6uIH2uMT0Cfo6OpF/yg=;
+ b=e1VXjnQUMBmzcvyL9B+LhNiwJHo9/fnmX1FnB0JALAfQ/QZwvhze/QTI6s8BdEcWgh8s5osHZpsqcplXJW9ltO7yODsoBLiW0yYMO2tFVvCT0NNz6IpqZB71QeLDXgqGqyQ0PHNvjT7qNCu0QzKCgDJepEgGky5inbQtE4s2ZEw3+sIm/rTX2q0TPtOwsrnEDJuV3W+N9LbIJsOLkMKOQAFLvSkcn0KxsJIGie9+i47LMXAt1z8T2TpYiM62VfixmDeAiPQ662+y/vod/RK1kUzlEv4RftotlSPHnjcLZEXzzDdV3JKB6BNwr4GxzRXVSt+9tu7NYX96UTUYjM+cew==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jj5oh9ANkuV2k7AcFqrHZASY6uIH2uMT0Cfo6OpF/yg=;
+ b=lWus9q9XOpOrSdyDR0j5GNH4PI3rPm5Z8YlFBuSCLraSGjzSi7PfrpLmajfNCOqibLBrMcFmBabpTmugzyJkV1bnKp68l4tmXyeY2fVh+nu1G9dnMAwLc1aQVFTUiRFoDnoc+VEUWAUss4rpmYMxOZG++vnxZU8Bwdhx+H+kxuI=
+Received: from SA9PR10CA0021.namprd10.prod.outlook.com (2603:10b6:806:a7::26)
+ by MN2PR12MB4223.namprd12.prod.outlook.com (2603:10b6:208:1d3::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.16; Thu, 23 Apr
+ 2026 17:01:38 +0000
+Received: from SN1PEPF000397AE.namprd05.prod.outlook.com
+ (2603:10b6:806:a7:cafe::bb) by SA9PR10CA0021.outlook.office365.com
+ (2603:10b6:806:a7::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9791.48 via Frontend Transport; Thu,
+ 23 Apr 2026 17:01:38 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SN1PEPF000397AE.mail.protection.outlook.com (10.167.248.52) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9846.18 via Frontend Transport; Thu, 23 Apr 2026 17:01:37 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Thu, 23 Apr
+ 2026 12:01:37 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 23 Apr
+ 2026 12:01:37 -0500
+Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Thu, 23 Apr 2026 12:01:37 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <simona.vetter@ffwll.ch>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull] amdgpu, amdkfd drm-fixes-7.1
+Date: Thu, 23 Apr 2026 13:01:28 -0400
+Message-ID: <20260423170129.2345978-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.53.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Received-SPF: None (SATLEXMB03.amd.com: alexander.deucher@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF000397AE:EE_|MN2PR12MB4223:EE_
+X-MS-Office365-Filtering-Correlation-Id: 20c08aa0-065b-498c-4d22-08dea159fbb9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|36860700016|376014|1800799024|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: H4Fd8Qk22krUloPct7tcJxgHbEDDweFrsOzGNme0G05MNnElml0O5LXENxvNNM/url5nBBrdQcOcCpSMvD9CiFPjDoGqdkrwbgEdYYgeqQ+lAtxUeRCSHLhYYVMBCpo7oumIMpoZLGTOY0/1rw53vuca/pHNdLoW7GjGe8VBC8OauDDE0N+9tGM3en6OSUzh8XqX+49/gAAivxtbYSglHRUTQa4qUoRKIfeok5O4OYDD7N+UypWzPE5x0LkqIABDCbUmGfByclJkfKYMk0O6oHk+LXDNISz+9HeoSszxSNUbkziGtGedyyQXtaTNXYJyuiUF+toDBBGKLfURHSpFvYn/0esI8WBY1Y4dnqShRDnAPO/bWLmt7yESwx3kwnNiAirI7wa7KYpnoRmJjt+lyscpt+9SXGsm/pyTM8+szteai/0U8IPfqH5dx2M/QOzCpYwa3YLh/GxFwrCfqU4vmxYu6884OV5b2eh4E1wdVHpus+/m88ylemoraMJ0XFphfJUt9ppVkGo4Jved5jji6FTWu3JySbTCgGUjCCiqg/f2tsPPSt2oAS/tQ7CmVRRGVKXgvs/tPjFErKP85tmXp692/sThyfdGf7U2dJhYFGxtTqEumI5hCewR+ZVEQ4U9hrFXt+llRKCwjtuyTFF7DuUqZ8jUCNAzNX+bDkUUbR+uWo/OjXTp/nK3QtGyDI02QwNMxaaGW5+jWnMdVryaTHhOmyGTHUEXeRekmjW/Dj0=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: kB1AnlT2g/+myDEL7N0HAnKtKySVinHXtnuoDw3eX8em4vCP4BGIQ7i5TQacZKHufW25+xHXn3k1V2XE4IbTpLAoz3FxR84CP1KXMe39w2pbDupFu9wpSIHdmGp14dKz0EH9shqSMUhso6/f3Gcy0Hc3n2NSW7ifRUoKxS9kKREAzFR821O/G1hAYS/PeOVE7hwBA119NacudBsP/15OASb3aolRI/AgIhNT3TYJ06iJpQR3LpeFvk8r3QZ6KhmMlCuqugm957swO6eNGd2wymovFJAMn3QZi2dkalbODLRPoW9yLVsfrAgPz3zH6a7TbgwkjvE9PpZoUHvHRrJS6AsV2ZFE0fJWCKPCdisOtYy2vIUK+ajAJloyu8GhFzfZZVs/qMqmJ7Nkwxo9vysTDP9bA91PBymd2pKQRc+FIA5H4niAaqPWUTeGcxRSVLLu
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Apr 2026 17:01:37.9966 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 20c08aa0-065b-498c-4d22-08dea159fbb9
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000397AE.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4223
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,37 +116,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu Apr 23, 2026 at 2:45 PM CEST, Dmitry Baryshkov wrote:
-> On Thu, Apr 23, 2026 at 11:16:54AM +0200, Luca Ceresoli wrote:
->> This series simplifies using the bridge-connector by removing the need t=
-o
->> attach the newly created connector to the encoder.
->>
->> =3D=3D Series description
->>
->> Currently all users of the bridge-connector must call
->> drm_connector_attach_encoder() immediately after a successful
->> drm_bridge_connector_init().
->>
->> This is an unnecessary burden for users. Move the call to the end of
->> drm_bridge_connector_init() so all callers can be simplified.
->>
->
-> I don't know which one is more correct in this situation, but let it be
-> R-B for the series:
->
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->
-> Feel free to take the msm patches through drm-misc-next (A-b).
+Hi Dave, Simona,
 
-Meaning: Acked-by on the msm patches + Reviewed-by on all the series,
-right?
+Fixes for 7.1.
 
-Thank you very much!
+The following changes since commit dd88d42d9ca0dd7a4ed327dd33f6ead76cedf726:
 
-Luca
+  drm/amdgpu: drop userq fence driver refs out of fence process() (2026-04-17 15:41:12 -0400)
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-7.1-2026-04-23
+
+for you to fetch changes up to 74b73fa56a395d46745e4f245225963e9f8be7f1:
+
+  drm/amdkfd: Add upper bound check for num_of_nodes (2026-04-23 12:54:45 -0400)
+
+----------------------------------------------------------------
+amd-drm-fixes-7.1-2026-04-23:
+
+amdgpu:
+- DC idle state manager fix
+- ASPM fix
+- GPUVM SVM fix
+- DCE 6 fix
+
+amdkfd:
+- num_of_nodes bounds check fix
+
+----------------------------------------------------------------
+Alysa Liu (1):
+      drm/amdkfd: Add upper bound check for num_of_nodes
+
+Leo Li (1):
+      drm/amd/display: Undo accidental fix revert in amdgpu_dm_ism.c
+
+Mario Limonciello (1):
+      drm/amd: Adjust ASPM support quirk to cover more Intel hosts
+
+Siwei He (1):
+      drm/amdgpu: OR init_pte_flags into invalid leaf PTE updates
+
+Timur Kristóf (1):
+      drm/amd/display: Disable 10-bit truncation and dithering on DCE 6.x
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c            |  9 +++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c             |  7 +++++--
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c              |  3 +++
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h                 |  1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c             | 11 +++++++++++
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c | 10 ----------
+ drivers/gpu/drm/amd/display/dc/core/dc_resource.c     |  6 ++++++
+ 7 files changed, 29 insertions(+), 18 deletions(-)
