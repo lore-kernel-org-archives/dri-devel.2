@@ -4,162 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C35B0FDEE46
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 19:42:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9894FDEE46
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 19:50:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1AB9B10E390;
-	Thu, 23 Apr 2026 19:42:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DF6D10E20A;
+	Thu, 23 Apr 2026 19:50:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bN8FaFOQ";
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="e+AbSH98";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4276410E390
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 19:42:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1776973363; x=1808509363;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=hvsufMmcEpKdyY0myog0tpMGOytNnHRWJfi/1spFw0g=;
- b=bN8FaFOQzMtEjKNnJEZ0LVQSDhUfE4c/xtCbh7dzSa2TWZAS2N1ZOfbj
- YLE2QsewbIl9Z26MfOht86RbyeXhhyaiOiG+KxviICvLd6T+De3ege8Iw
- 8Swbah5qFt646e7xtQDMSGhHOnHd5eXnzyWYsO9pOennTghLGjqO40t8A
- xu/qNVZwBXzU8oSqZfp6Sd8keEpCsWC2WnXDN2CEBxIZxRu0qN6cXo/No
- axO667sgNGLDQLhOwRX3brQka93tAcGc7Xts7B3jChoI8kOASSsqFgTys
- c0VwDhUe0WVSfzc4ODoJqg9wBIlDQBKqFGCOkbFIZ6SArq6KBQkbQlePB Q==;
-X-CSE-ConnectionGUID: SzOR7JIqSJCU4H1mgojp5g==
-X-CSE-MsgGUID: HYVkCMkqQU6c25KFxLND2A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11765"; a="77971687"
-X-IronPort-AV: E=Sophos;i="6.23,195,1770624000"; d="scan'208";a="77971687"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Apr 2026 12:42:42 -0700
-X-CSE-ConnectionGUID: Ov/Y0podRVGtsNAOEUWeNg==
-X-CSE-MsgGUID: 5ucqJPg6SgGKbveLzyKhsQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,195,1770624000"; d="scan'208";a="230080457"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
- by fmviesa008.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Apr 2026 12:42:42 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Thu, 23 Apr 2026 12:42:42 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Thu, 23 Apr 2026 12:42:42 -0700
-Received: from CH4PR04CU002.outbound.protection.outlook.com (40.107.201.6) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Thu, 23 Apr 2026 12:42:42 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lmpeCbt3/29SExjGakAAq1np8hl2/lHcWQOyePts9vR4DQyXFW+XHZXk66KbTj6OqAl7qTzRrt7JmmxMUpmbi2MKfvRvfV+MZZZ8WLW4RfwRo4TYRQeDG/djn0eU3ugIx/sLWa2P88cpw6xurW/TnUoJNeHk/elxtECjdEBqb3z0JpCFQUYPfWGHZwIxK4MXCoa3J82qz0RtKlQXA3BUP49QxZs1Nqd7kjY9k41hyPCrUe1oxW/OcgHzyPf7eL9Vr1EAw/rw0w0CeLMf9J2w9m8ae9ixbKK+4KitM7GX3gFffqRkJ1FR96/Kv8w73uiWZyP7K7PFOCxCeg9SOYNKjQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Uywfleq+KjAciDUJ0OX3Ypsg+NKOLtXJ2FJKUPMIvbY=;
- b=N8k6hGn+zO2YP0T6a/pwn6xj1NOEJtDFeTkRi5atOdA14S6GZLXW/pFiMgWWpUfX6L2ux3I0iUHJWfO+0aNxFO/0OE+cNVN4YAC4tKzMwV3KOHTQ4jcELi/z/oDrHj6WxdF7B2kTe8XOp1aP6gS/vqcFX77P2uz7KjKnEu6QO21Yr3bAjSPEnYRSMmiBID07CTgAh00yxTeT8IEZ7MBVXuFpjV+Qc1XnxhbMsPvuwxZm5phGs9u9s1a1eD9lSD+mgGHfc/KKHjR6pMyeCViSqgTD+oqvaFT5qtVQz+UIK4k2lpAb3rq5SP3WHJSB7qN3PrrO2976Ylow9cQMN+OXog==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB7579.namprd11.prod.outlook.com (2603:10b6:8:14d::5) by
- PH3PPF248AC5624.namprd11.prod.outlook.com (2603:10b6:518:1::d0f) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.22; Thu, 23 Apr
- 2026 19:42:38 +0000
-Received: from DS0PR11MB7579.namprd11.prod.outlook.com
- ([fe80::4199:4cb5:cf88:e79e]) by DS0PR11MB7579.namprd11.prod.outlook.com
- ([fe80::4199:4cb5:cf88:e79e%5]) with mapi id 15.20.9846.019; Thu, 23 Apr 2026
- 19:42:38 +0000
-Message-ID: <e9cca01c-960d-495c-aaba-327eac43cad6@intel.com>
-Date: Thu, 23 Apr 2026 12:42:35 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: further issues with MGA G200 graphics chipset
-To: Jocelyn Falempe <jfalempe@redhat.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, "airlied@redhat.com" <airlied@redhat.com>
-CC: <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, Pasi Vaananen <pvaanane@redhat.com>
-References: <76aba88d-ec23-4b3c-ad91-83face0c3e94@intel.com>
- <a9d176ec-d19b-4f41-af16-cdc4e475a8cc@suse.de>
- <6ec01703-31e0-4998-9508-a5a115ae7bc9@intel.com>
- <14aa4840-29c4-46df-b60d-8e1b92494ad2@redhat.com>
-Content-Language: en-US
-From: Jacob Keller <jacob.e.keller@intel.com>
-In-Reply-To: <14aa4840-29c4-46df-b60d-8e1b92494ad2@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MW4PR04CA0336.namprd04.prod.outlook.com
- (2603:10b6:303:8a::11) To DS0PR11MB7579.namprd11.prod.outlook.com
- (2603:10b6:8:14d::5)
+Received: from mail-qv1-f100.google.com (mail-qv1-f100.google.com
+ [209.85.219.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10AB810E20A
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 19:50:39 +0000 (UTC)
+Received: by mail-qv1-f100.google.com with SMTP id
+ 6a1803df08f44-8aca6bd57cfso67019246d6.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 12:50:39 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776973839; x=1777578639;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=TcR7mlIfGhkpn4od8iEvTL0+vUUhsvUAn626yYYyrHs=;
+ b=RYyUXFBl/Zyw1XfkqsnTl25F0aY9eVkJekQY6wlQNpEA/tExvx/r2hZLY3JMosiynL
+ c8M6aianbUmYkWtxnxXclbUdWxuC5G8Sb9kWPp9rwjztnSCFyCDYD6w42PfqVtRYEk5P
+ l7bGj7y4TQ8c50+0NzbvvttbMgGHXm0CHC3vZGLGIoDcg5MKy/hHzdLA3frWC8+lIG4b
+ XL0ecxa9e7cKOBKTnCqmNWPnwippSmVEkMpXrD2e7fmIgV2xnBzb7Hx28E0Xe90BCAN3
+ n0m8+Oh1xx+xkknyIN+ZU6sTvNNXCnWJCL2vqVO1YM3GNGl0Z0mMmwWWdlt91VC+3s5W
+ GONA==
+X-Forwarded-Encrypted: i=2;
+ AFNElJ8c01eR5FcVKmt2MhXIwPhKtNEUoTE0uBDGUK3AzaCpeVMvChBz/yqs5xiV/p3OkpR/DAOeJWGwvGo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx2SpX2xE2LIJoXLyXATN+/sJFBN/uaemilff+weRHb1DGurD0W
+ gL5dABIOPbI6u6hh3OTNADANfi7jjUGwkSh0RuxUZNouq+Ur1qWvJ9NawdjYSfoMY2jK+MRsezP
+ veWpUojXUT9QUES60oWb+Sd0EIwjKOMiFWiUfUCb4KXMfGtXTAhoaSPBhsaHLyPmxusbECSSs3N
+ lIvVz7C880qOBXx8EEC6TLsl4YljTJ3N5gewkfCogbK7JV1xK4rkcf0nMeEOaWrYCPyAtmEDrJ+
+ CnXp9v04BjU0VB+lJNK
+X-Gm-Gg: AeBDiev6xbpxXSdRlHct/UzmJqs03iSGkmArlYgeLdX7ACTSqb7VRVJBLWWAVH+YIS3
+ az1vemhAYOfzawQHPF7DCTADFa0pxLJdYSAqobqyovvESBnaXQbVOfVF59FNnOw3+IUZNEWvJ2q
+ ZxNRoie1uGV1L7Bmm6IfVycyu55s4f/sc0cQA3Dol0WTkOhkxwyPvugcn9k7sih9O0yWYTuFCzp
+ JKe0PWz5z0yQc8VhVIHc0kvIqJfsV5hhG439TIGKjcwAUQm6htYqrhnHdT/EeO2eCnMLyXjS78F
+ lptGZRAOHHVyvmXffvOzCEz7Btm6VKKy1ib4AOTG2BFitRcL4r0CQ406X8PQ46sFK5ucQtMSst6
+ Udy2f/hbcafp+tu3nz48Do/G8CcGFOFj378aN/Jvkwc/ds5hP5C+RWi399z2SOqSAgoGpqwCfBH
+ M1lHjeKjHrI7nWxtaHV/VVkX+BXkdXX1ccW8Qw2hBAkJEXiyq1yFgQVp//wD+LAxL/
+X-Received: by 2002:a05:6214:4a84:b0:89c:5d56:bca8 with SMTP id
+ 6a1803df08f44-8b02806e013mr437272916d6.16.1776973838471; 
+ Thu, 23 Apr 2026 12:50:38 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
+ (address-144-49-247-17.dlp.protect.broadcom.com. [144.49.247.17])
+ by smtp-relay.gmail.com with ESMTPS id
+ 6a1803df08f44-8b02ae65a78sm14866676d6.22.2026.04.23.12.50.37
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 23 Apr 2026 12:50:38 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-lj1-f200.google.com with SMTP id
+ 38308e7fff4ca-38e0ef48a2eso32994661fa.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 12:50:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776973835; cv=none;
+ d=google.com; s=arc-20240605;
+ b=avV0Yu1UJ9SFPWrCE6yAGPJBafPT4S4KhNzE21on5CZA2sPuhBE457mzOsDdLx6TWm
+ O9ieKLjO5+RggLYAF0FN1hWwuHgEX9B+psi8hfXPamGWbPvog4g6lyg2ztAh7TAXp5Yj
+ b874r7dvf86pNzvTSA8z5KJEfMpxiiEq+hv2DqOfjSiJ347hm5ucEaH/9k4m2Sl4NOzb
+ N0MCTxj1butbvaUtLtmkTMShPEJqPS9ElSV8K2YkDg+0VoDfrmIEeMODkXdbpwZFhwOY
+ 8MpgkLmmZ55ZC7i+/eIGwhSRWFNCLQv3iLfUsI47+ZYulA7t1MBSU4qi9crOo++xp54C
+ ZRHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=TcR7mlIfGhkpn4od8iEvTL0+vUUhsvUAn626yYYyrHs=;
+ fh=/mPfY0pD1TsFiFf+NGFylFall1mIKGkyrYnZUzDvaKw=;
+ b=IH+9mblbP9LaCl2423bm8jUvhVw1AWZHzZ6283KiBYtAJlafAKiby+x6rUbmHO77xy
+ 5ShP/VpcfHu81XEkPYK95EW/5YEwAUyk98A996bR9K89fFUbMd1kTSt8kpJ6WLo/5HhQ
+ rGDZJ1SXsTLTfirHB71Em/f+6d9gJf0V9h+5SHLndK1n8y9pLup57raygxBbfO2DeSqH
+ etNVTGno8F1FBqvVcHdTkQlvF2/2CfwNzWbAhDa3hsZ4/Rc+zMBTzTM0edS2OeeP9uZl
+ 7w3UDZNRSuEIj6nHbpRcea4tmua6sxOH3AIvkJ+RlMMK5W69SSnIouOK0F/Wrpcd80PF
+ HNlQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=broadcom.com; s=google; t=1776973835; x=1777578635;
+ darn=lists.freedesktop.org; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=TcR7mlIfGhkpn4od8iEvTL0+vUUhsvUAn626yYYyrHs=;
+ b=e+AbSH9890cDDoyoyaKti9vFpJLxUv3RkdX9gC6k6D/p7t+z78Cxh3L/6yRTkSGjbm
+ Bpg1EwCowN4TTrlhPKUtiU9ihnweq/K0+AqZBL4bfEb7kjBqhRVmLW+MtcKo2ELfivZX
+ dRN/FYq1m6ztMzv1Wmw0mUdJ8830uVelXWszc=
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9/DTILLVrtazJs9d0v4M3QyIdAQ7PDoFTp4sI0he9oz3jNn8+Y6rCDW/kh/0eYKXi1zHEveG39Zuc=@lists.freedesktop.org
+X-Received: by 2002:a05:651c:2109:b0:38f:e440:893 with SMTP id
+ 38308e7fff4ca-38fe4400cc5mr72265401fa.5.1776973835341; 
+ Thu, 23 Apr 2026 12:50:35 -0700 (PDT)
+X-Received: by 2002:a05:651c:2109:b0:38f:e440:893 with SMTP id
+ 38308e7fff4ca-38fe4400cc5mr72265291fa.5.1776973834704; Thu, 23 Apr 2026
+ 12:50:34 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB7579:EE_|PH3PPF248AC5624:EE_
-X-MS-Office365-Filtering-Correlation-Id: 70604bc0-1d54-4155-14e0-08dea1707953
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|56012099003|18002099003|22082099003; 
-X-Microsoft-Antispam-Message-Info: I8bNBYbPNKrZlMBcGkrfWJe8Umg+uRXZy5WCDWM1/U3WvAlagW2pnzwX6LA5hFbsw96v/4D+dbIrY/bjqCdLd2VRAfRhS+Z4J/Kp87BM5WsaBt6la/mRKWkHYKkDQV16G0iJ0XlJ7D9HnRB11S/CuoMCxfjgLyXvvLQ4BTorizgFmk35z7G9Mm9ex6bDXefWnz4OyRH614RB9HlXNsdTmcq9cPx7MjIdYBeWyAq9bxhHJyexX3JWi/DonDjRjrEmlu840OUhUzRw1TST7zOTB4+n7WCsSph53gWghxy6vMNYX3tVMZoqCJNV0yituNEzcxZR5kDdoammrVu0wtvh40AWYKcoIaM16aUV4Ccwyk1erwH7+uPvejI4kGvnKlP92myGAejkdjllQokzSGrnKFhtDIkyfI+NAwwFF1pntNu6bgLmNI5L1waZroTC5bvgqQCMNXe0HOkn14sxhKq7dDjWrxIXbCDP0rqKKwRaVUwxwDqOaaTR5Ap9Pa7D/vZ66rgKetCqizfSzxHxkq+yzaGxZLVnr5rHwSqsOygturW5irY2te6Nm6enwAmQmDl/PBY103na6wuG13HjXPDsH98os5ZBBntZct60MaoX0AlVacBYgFO1oDgt2sxdCNhruAOZ0UGvrMcbfsl7EsKgm8kIpR6vAxVM1NURUhO2V+WJ7MlJxBV3hRH7p2onB0Cr
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR11MB7579.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(56012099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aThLVDNqQ1BBdFFWeTJiNEwyOTRLeU5rK056Si83T0RZUHpURnZGcXZNaWRn?=
- =?utf-8?B?OEpydDZDdVZMeWpJODNlWTBZNkJVemNTczlZZjFPVFVkTFVBa2ViL3JTbVlY?=
- =?utf-8?B?bjE2ZWdneGJGdlhDSFJpOHc5ekFDdmVqMEVLdjhleThzL1BzdlRMMjJnMldl?=
- =?utf-8?B?bENmeVZTSWVIZmtYV2o5Uk9SRTF5WGh6eXNGT1dSTWx6SWJzdUIrb3IwdWhn?=
- =?utf-8?B?T2wyYnh2R0lCOEF0YUxjWkZGaTZrOTcrQkNicllVT1crUXN2Q2x5Q0JDdlpR?=
- =?utf-8?B?NjJ6SzVjQjFnSldpMzJLZUZLWVhLZHNiWERYQ1pJRWNuL2VDeFludjVvSkpO?=
- =?utf-8?B?T0hTb3VsYUF1ODV4cm5BQnRrZlFhRDN6Zy84cHhUWk0rUk1pdFpmblRyMTNZ?=
- =?utf-8?B?eFRRbm5RdFNJYVZUYVpLRnBsUUFHd2orMGVsUWVYNGRCQnJEaTFMS3JLUmhO?=
- =?utf-8?B?Q1d3NlV6T21MQWVWeC9heExQQUMyQ3lGV2NtdXVYREJQYjZ2REcxWDFSNDNh?=
- =?utf-8?B?MGFkNk9KeEZGRzRiOFQ1Q25nRjE5ZS9aYzFIZCtaTkNpTVlWc1VRQkpYYXJT?=
- =?utf-8?B?WDRqWDdMN2NEKzJhUWRnYXBMVHBBT3JvV25SdFpwa3lvL2dwV1NDRkVKdkhG?=
- =?utf-8?B?VVFjSWFiRTdadmdJR2J2Ky83a09vT3FhcGNLVlA4K0FCblNrOXZnT3RlM3hm?=
- =?utf-8?B?QXoxY1FtREZpQ1JoRGJuRk00QU5rbkZxRjNvc1hGMkdBdE5ITHlTb0RnaTg0?=
- =?utf-8?B?OTVyM1JCZ3ZZUzhBQmY4YkdMUDNpb0FsYmxqUU1TNm96dzdSVEl1QzdXRkN4?=
- =?utf-8?B?Y3dhMTZ1dWNOVURhUWs3TTNGQjJ5R0tPdmcrS1M4MjA5ZjY5SnIwNnQyTEF6?=
- =?utf-8?B?enB5RG5aejJVU1Y2NDlBRU1lMDh0ZEd0K2VQQkFKQWdINDl0R1pPNmdYRXpo?=
- =?utf-8?B?VllJUWdYcFd4T3VYVThZa2Y5UnBHWmd5MWVVVzc4bzgrb0NwaC8xODFJZ0xN?=
- =?utf-8?B?UGl3czVpWGNIZXF5RWdXYWNEbW55K2RybS9RczgvUWV6UWFpZjZ0aEN4TU9l?=
- =?utf-8?B?Q3ZMcmRGNnFtOVh6RGRxME9MZUgvbnI3WE5MUjNNQ0czdzY3b3NUNGIrQ2FQ?=
- =?utf-8?B?SU8vemRRV2JjNFgyVEZRRlhxZjlBL3d1RmM3TE1tYnVwVUpTaFNMUldBNFlU?=
- =?utf-8?B?eHl3VllyQ3QycEU1eEhscWcrdlVCdlZUeGRHNGh6Z2pSWElsMnFnN3lDbUlR?=
- =?utf-8?B?YTBOOHljSWpZNjZtdWlGVnpHUldCemloTjJXdGtZY1AyYU1RaW1tZEVkSitv?=
- =?utf-8?B?YXNmQ255RFVvdElKeTZnbk16eU53S0U3ZDJnTnptQmxqc3QxaFBkWisvaUY0?=
- =?utf-8?B?NktBUlhFWVMyZm9HL2F6WG9ZYVZ4UDZiV283dmNncHBiem1UcWNTZUxlRFY1?=
- =?utf-8?B?YnkwRFRhYlZ5RTFMR1VlWnpwU2xMYktvalJTa3h2OEx1RkdrUmQwZFJiZWhW?=
- =?utf-8?B?aGxHRFFvRWNRMnIzdlc2TVUyd2hVK3JpTXY5R2dpZGlSYUxzZmhWZTdrOWUw?=
- =?utf-8?B?aGduVVdqWkp2QXRtUVlJQ1VFRyt0Ym5WajNOaXVMc3NNbGJTN2ZMeFVQNWVU?=
- =?utf-8?B?aVRkeWVKelNHdkRaS1VKY1ArU2J3b3RsUDVmNEp2S2hTKzU3dkx3aSs0TU5q?=
- =?utf-8?B?VHp5aUdaZHR3SE0xbXAzeG9mWFQzelZaTzBqN2JjWEdBaitudlB3bTVHMUcz?=
- =?utf-8?B?UFc0eVFYem9tbWxrQmFKVEFpU1p0aWtZUEtBNElLYnU3RGJpSCtuK3dPRG4r?=
- =?utf-8?B?MTc3VTZDL1BtK25kMThFZTBjUWJSUThBQVZ0WllnZEdGWEQ2Q0dkYjBHQ0Fa?=
- =?utf-8?B?UUp1anVTZ2xOTitTUDJmMVZMVkZiODdNQzhDTFpUSGsxWHlqZ3gvL3JJdi9H?=
- =?utf-8?B?MGRnWmRKaW9MQVV6aDVqc2Y2VW9pNDR2NlBNRklmWnVVMzcwamY1Zk4vZFdK?=
- =?utf-8?B?TitrUEovN2FDSlh1MnVvcHJkYmgxT2Z2MHU3aVVPci9oYmdTTENGL1FWTmZT?=
- =?utf-8?B?Q253Y0JYSHVpTnRWNVVBczljdTV2UDIwYWxlT3BXYmhYaUFzemhXTnpKOG9N?=
- =?utf-8?B?dEt4WDdCdkZaQ3p6Tm9RRjl5L0JSSURwc3ZESzEwckFnRXJLQU96VE0zaldk?=
- =?utf-8?B?WkhxUEk2ZDQ2amRIdXRzOGlkOENpT2luN1lzY2pyM1VYaFkvdU9RTitaVm5Y?=
- =?utf-8?B?TmpMZktway9CUndUdGFoREd6RUY0a2Yvb2trek1FOUtmdXVseWlScGdUZWll?=
- =?utf-8?B?WWZwRVpOU1dvVnp4WHlDTUJmWjROc1NKZ082UE9YR2RoWnRkYytySncrTFJm?=
- =?utf-8?Q?hqBQVLLvJ21PEJTk=3D?=
-X-Exchange-RoutingPolicyChecked: u2ZHnsRxjx1eOljezgLdpz8KRGXKIG+V3sHtBJxdks0WhQYfOmcV5jedbg6YD3lKqpjcpUuAtoRahhXzsrivlhkcLAd/hS9ej8SHVPtt/nGqMvnjkneoKYNTAG9WrFttGDhSOZlAMdlxIrgRIDoZHyKm1LFMsthOI5C49Q8647yVBZWwj7vmseBuBHdQlAh+EIZiPeN0xQUfiAMf94ZmFj2w2/ZNL3/zPMdektH1d0HjkKXVD/XchfwBiohAxeSJKi8sRXgOK/gcHc9S3YAiwc4UwaSJRyXR8IX0t7L2TxEtXdxSo88FISxKKBhCGXLR33tNMhNs3JKbENUFf5nJ1A==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 70604bc0-1d54-4155-14e0-08dea1707953
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7579.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Apr 2026 19:42:37.9443 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nfKfz6GZ2k2IKBW0dDXPWxAf716LXGkByMrxMiuCcs5NeF1Ggq1/6NI+rmBJC/WzjUcTo5mvXB5Bak20RTfsUbnaO6kqdI7tPngpGFTzXSc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH3PPF248AC5624
-X-OriginatorOrg: intel.com
+References: <20260305134122.246884-1-tzimmermann@suse.de>
+ <20260305134122.246884-4-tzimmermann@suse.de>
+In-Reply-To: <20260305134122.246884-4-tzimmermann@suse.de>
+From: Zack Rusin <zack.rusin@broadcom.com>
+Date: Thu, 23 Apr 2026 15:50:22 -0400
+X-Gm-Features: AQROBzAUi5Dbbk7neKng8PxdibXzCHAVv6T5TPMWTwXNfFe841N1XUF3aYd_wp8
+Message-ID: <CABQX2QOXweV=+_-O0wumzKys6BtfHKmMaNtdCxj6c-zkr9r5gQ@mail.gmail.com>
+Subject: Re: [PATCH 3/3] drm/vmwgfx: Convert to DRM vblank timers
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: bcm-kernel-feedback-list@broadcom.com, maarten.lankhorst@linux.intel.com, 
+ mripard@kernel.org, dri-devel@lists.freedesktop.org
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: multipart/signed; protocol="application/pkcs7-signature";
+ micalg=sha-256; boundary="000000000000444f7f065025f6e8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -175,85 +128,324 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/23/2026 12:22 PM, Jocelyn Falempe wrote:
-> On 23/04/2026 18:35, Jacob Keller wrote:
->> On 4/23/2026 12:44 AM, Thomas Zimmermann wrote:
->>> Hi
->>>
->>> Am 23.04.26 um 01:55 schrieb Jacob Keller:
->>>> Hello,
->>>><snip>>>> I'm also curious if its possible to stop polling for so
-> long with udelay
->>>> in the i2c logic somehow? I am not very familiar with i2c, but it is
->>>> frustrating that this driver is causing yet another stall that is
->>>> impacting timing sensitive data. Even if in this case its due to a
->>>> faulty cable.. it is frustrating that such result causes the PTP
->>>> failures. Would switching to WQ_UNBOUND be helpful here at all?
->>>
->>> Try Dave's suggestion to avoid polling.  The driver won't be able to
->>> detect changes to the connector status, though.
->>>
->>
->> That's fine. I don't think we're even using the device. It looks like it
->> might only be in use for BMC, and the VGA connection isn't actually
->> physically available, so there are no changes to detect.
->>
->> Is this polling really only to detect when VGA is enabled? Would it make
->> sense to only poll on platforms which actually *have* that VGA
-> connection?
->>
-> Polling was introduced with https://patchwork.freedesktop.org/
-> series/131977/
-> 
-> The driver needs to know if a VGA monitor is connected or not, to
-> provide the right available resolutions to the userspace.
-> Otherwise you can set a high resolution that works from the BMC, but
-> then connecting a VGA monitor will not work, as the driver won't notice
-> that something has been connected.
-> 
-> The mgag200 doesn't have an IRQ or a register to check if something is
-> connected on the VGA port, so the driver uses the i2c and tries to read
-> the EDID.
-> 
-> Unfortunately, there is no way to know reliably if a VGA connector is
-> present. It's possible to disable polling on some machines using DMI
-> quirks, but I don't think this approach will scale.
-> 
+--000000000000444f7f065025f6e8
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Timing sensitive setups like mine must have system admins who know to
-manually disable mgag200 or disable polling. Many users won't be aware
-of this. If the polling were not intrusive, this would not be an issue.
-But....
+On Thu, Mar 5, 2026 at 8:41=E2=80=AFAM Thomas Zimmermann <tzimmermann@suse.=
+de> wrote:
+>
+> Replace vmwgfx's vblank timer with DRM's common implementation. The
+> timer handling is almost identical with a few additional bug fixes in
+> the common code.
+>
+> Replace most of vmwgfx's vmw_vkms_get_vblank_timestamp() with the
+> shared helper drm_crtc_vblank_get_vblank_timeout(). The common helper
+> also works in the presence of delayed vblank timeouts that modify the
+> vblank counter concurrently.
+>
+> Set the timeout handler to vmw_vkms_handle_vblank_timeout(). In addition
+> to handling vblank events, this function also controls CRC generation.
+>
+> Remove all the hrtimer-related code from vmwgfx. DRM vblank timers
+> provides this.
+>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> ---
+>  drivers/gpu/drm/vmwgfx/vmwgfx_kms.h  |  2 -
+>  drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c  |  1 +
+>  drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c |  1 +
+>  drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c |  1 +
+>  drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c | 63 ++++------------------------
+>  drivers/gpu/drm/vmwgfx/vmwgfx_vkms.h |  1 -
+>  6 files changed, 10 insertions(+), 59 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.h b/drivers/gpu/drm/vmwgfx=
+/vmwgfx_kms.h
+> index 445471fe9be6..b5670ece90a9 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.h
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.h
+> @@ -322,8 +322,6 @@ struct vmw_display_unit {
+>
+>         struct {
+>                 struct work_struct crc_generator_work;
+> -               struct hrtimer timer;
+> -               ktime_t period_ns;
+>
+>                 /* protects concurrent access to the vblank handler */
+>                 atomic_t atomic_lock;
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c b/drivers/gpu/drm/vmwgfx=
+/vmwgfx_ldu.c
+> index f07669b27fba..6f22d5f5c379 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c
+> @@ -402,6 +402,7 @@ static const struct drm_crtc_helper_funcs vmw_ldu_crt=
+c_helper_funcs =3D {
+>         .atomic_flush =3D vmw_vkms_crtc_atomic_flush,
+>         .atomic_enable =3D vmw_vkms_crtc_atomic_enable,
+>         .atomic_disable =3D vmw_vkms_crtc_atomic_disable,
+> +       .handle_vblank_timeout  =3D vmw_vkms_handle_vblank_timeout,
+>  };
+>
+>
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c b/drivers/gpu/drm/vmwgf=
+x/vmwgfx_scrn.c
+> index 605d037d18c6..cfb8ad3ebe43 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c
+> @@ -797,6 +797,7 @@ static const struct drm_crtc_helper_funcs vmw_sou_crt=
+c_helper_funcs =3D {
+>         .atomic_flush =3D vmw_vkms_crtc_atomic_flush,
+>         .atomic_enable =3D vmw_vkms_crtc_atomic_enable,
+>         .atomic_disable =3D vmw_sou_crtc_atomic_disable,
+> +       .handle_vblank_timeout  =3D vmw_vkms_handle_vblank_timeout,
+>  };
+>
+>
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c b/drivers/gpu/drm/vmwgf=
+x/vmwgfx_stdu.c
+> index dcbacee97f61..1f5497e2638a 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c
+> @@ -1515,6 +1515,7 @@ static const struct drm_crtc_helper_funcs vmw_stdu_=
+crtc_helper_funcs =3D {
+>         .atomic_flush =3D vmw_stdu_crtc_atomic_flush,
+>         .atomic_enable =3D vmw_vkms_crtc_atomic_enable,
+>         .atomic_disable =3D vmw_stdu_crtc_atomic_disable,
+> +       .handle_vblank_timeout  =3D vmw_vkms_handle_vblank_timeout,
+>  };
+>
+>
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c b/drivers/gpu/drm/vmwgf=
+x/vmwgfx_vkms.c
+> index 15439ddd4f22..20b6dfd3d3c2 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c
+> @@ -195,27 +195,6 @@ vmw_vkms_handle_vblank_timeout(struct drm_crtc *crtc=
+)
+>         return true;
+>  }
+>
+> -static enum hrtimer_restart
+> -vmw_vkms_vblank_simulate(struct hrtimer *timer)
+> -{
+> -       struct vmw_display_unit *du =3D container_of(timer, struct vmw_di=
+splay_unit, vkms.timer);
+> -       struct drm_crtc *crtc =3D &du->crtc;
+> -       u64 ret_overrun;
+> -       bool success;
+> -
+> -       ret_overrun =3D hrtimer_forward_now(&du->vkms.timer,
+> -                                         du->vkms.period_ns);
+> -       if (ret_overrun !=3D 1)
+> -               drm_dbg_driver(crtc->dev, "vblank timer missed %lld frame=
+s.\n",
+> -                              ret_overrun - 1);
+> -
+> -       success =3D vmw_vkms_handle_vblank_timeout(crtc);
+> -       if (!success)
+> -               return HRTIMER_NORESTART;
+> -
+> -       return HRTIMER_RESTART;
+> -}
+> -
+>  void
+>  vmw_vkms_init(struct vmw_private *vmw)
+>  {
+> @@ -258,32 +237,12 @@ vmw_vkms_get_vblank_timestamp(struct drm_crtc *crtc=
+,
+>                               ktime_t *vblank_time,
+>                               bool in_vblank_irq)
+>  {
+> -       struct drm_device *dev =3D crtc->dev;
+> -       struct vmw_private *vmw =3D vmw_priv(dev);
+> -       struct vmw_display_unit *du =3D vmw_crtc_to_du(crtc);
+> -       struct drm_vblank_crtc *vblank =3D drm_crtc_vblank_crtc(crtc);
+> +       struct vmw_private *vmw =3D vmw_priv(crtc->dev);
+>
+>         if (!vmw->vkms_enabled)
+>                 return false;
+>
+> -       if (!READ_ONCE(vblank->enabled)) {
+> -               *vblank_time =3D ktime_get();
+> -               return true;
+> -       }
+> -
+> -       *vblank_time =3D READ_ONCE(du->vkms.timer.node.expires);
+> -
+> -       if (WARN_ON(*vblank_time =3D=3D vblank->time))
+> -               return true;
+> -
+> -       /*
+> -        * To prevent races we roll the hrtimer forward before we do any
+> -        * interrupt processing - this is how real hw works (the interrup=
+t is
+> -        * only generated after all the vblank registers are updated) and=
+ what
+> -        * the vblank core expects. Therefore we need to always correct t=
+he
+> -        * timestampe by one frame.
+> -        */
+> -       *vblank_time -=3D du->vkms.period_ns;
+> +       drm_crtc_vblank_get_vblank_timeout(crtc, vblank_time);
+>
+>         return true;
+>  }
+> @@ -293,20 +252,11 @@ vmw_vkms_enable_vblank(struct drm_crtc *crtc)
+>  {
+>         struct drm_device *dev =3D crtc->dev;
+>         struct vmw_private *vmw =3D vmw_priv(dev);
+> -       struct drm_vblank_crtc *vblank =3D drm_crtc_vblank_crtc(crtc);
+> -       struct vmw_display_unit *du =3D vmw_crtc_to_du(crtc);
+>
+>         if (!vmw->vkms_enabled)
+>                 return -EINVAL;
+>
+> -       drm_calc_timestamping_constants(crtc, &crtc->mode);
+> -
+> -       hrtimer_setup(&du->vkms.timer, &vmw_vkms_vblank_simulate, CLOCK_M=
+ONOTONIC,
+> -                     HRTIMER_MODE_REL);
+> -       du->vkms.period_ns =3D ktime_set(0, vblank->framedur_ns);
+> -       hrtimer_start(&du->vkms.timer, du->vkms.period_ns, HRTIMER_MODE_R=
+EL);
+> -
+> -       return 0;
+> +       return drm_crtc_vblank_start_timer(crtc);
+>  }
+>
+>  void
+> @@ -318,9 +268,9 @@ vmw_vkms_disable_vblank(struct drm_crtc *crtc)
+>         if (!vmw->vkms_enabled)
+>                 return;
+>
+> -       hrtimer_cancel(&du->vkms.timer);
+> +       drm_crtc_vblank_cancel_timer(crtc);
+> +
+>         du->vkms.surface =3D NULL;
+> -       du->vkms.period_ns =3D ktime_set(0, 0);
+>  }
+>
+>  enum vmw_vkms_lock_state {
+> @@ -346,10 +296,11 @@ vmw_vkms_crtc_cleanup(struct drm_crtc *crtc)
+>  {
+>         struct vmw_display_unit *du =3D vmw_crtc_to_du(crtc);
+>
+> +       drm_crtc_vblank_cancel_timer(crtc);
+> +
 
-Faulty hardware (perhaps just a cheap pull down resistor on the VGA
-connection as Dave Airlie suggests) means that any such affected
-platform has a polling routine that causes significant issues on any
-timing sensitive applications.
+This will need somethging like:
+  struct drm_device *dev =3D crtc->dev;
+  struct vmw_private *vmw =3D vmw_priv(dev);
 
-Right now, I am stuck in a situation which means that I have to fight to
-reach every customer who uses one of these platforms and confirm they
-either disable polling or ban the module so it won't even load.
+   if (vmw->vkms_enabled)
+         drm_crtc_vblank_cancel_timer(crtc);
 
-This is frustrating, as it is unlikely I'll reach everyone.
+Because vmwgfx only calls drm_vblank_init if vmw->vkms_enabled is
+true, and drm_crtc_vblank_cancel_timer references drm_vblank_crtc
+without checking for its presence and it will crash here.
 
-I doubt that I'm the only one with users who are affected by mysterious
-performance or timing problems related to this. While its true that not
-*every* instance of the device is problematic (at least not now that we
-fixed the other issue with the udelay...), but many systems using the
-controller *are* negatively impacted even with the timing fix, as I have
-now seen...
+z
 
-Unfortunately, I also have no better idea than a DMI quirk table to
-record known platforms that include the controller but don't have a
-physical VGA connection exposed.
+--000000000000444f7f065025f6e8
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
 
-Thus, I'm wondering what else we can do? Using WQ_UNBOUND might help
-somewhat? I have no idea if its safe to sleep instead of spin while
-reading the i2c connections... As far as I can tell the non-atomic
-version has nothing that *strictly* prevents sleep.. but maybe i2c
-access has tighter timing requirements than what usleep_range can
-fulfill? I am not sure...
-
-I'd just really like to not have to worry about going to every single
-user and asking them to unload and ban a driver for these big server
-platforms...
+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
+6U6qgI8F5eiKsQyE0HgYrQJx/sDs9LLVZlaNiA3U8M8CgEnb8VhuH3BN/yXphhEQdJXb1TyaJA60
+SmHcZdEQZbl4EjwUcs3UIowmI/Mhi7ADQB7VNsO/BaOVBEQk53xH+4djY/cg7jvqTTeliY05j2Yx
+uwwXcDC4mWjGzxAT5DVqC8fKQvon1uc2heorHb555+sLdwYxAgMBAAGjggHYMIIB1DAOBgNVHQ8B
+Af8EBAMCBaAwgZMGCCsGAQUFBwEBBIGGMIGDMEYGCCsGAQUFBzAChjpodHRwOi8vc2VjdXJlLmds
+b2JhbHNpZ24uY29tL2NhY2VydC9nc2djY3I2c21pbWVjYTIwMjMuY3J0MDkGCCsGAQUFBzABhi1o
+dHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMwZQYDVR0gBF4wXDAJ
+BgdngQwBBQMBMAsGCSsGAQQBoDIBKDBCBgorBgEEAaAyCgMCMDQwMgYIKwYBBQUHAgEWJmh0dHBz
+Oi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAkGA1UdEwQCMAAwQQYDVR0fBDowODA2
+oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCIG
+A1UdEQQbMBmBF3phY2sucnVzaW5AYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
+A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBQNDn2m/OLuDx9YjEqPLCDB
+s/VKNTANBgkqhkiG9w0BAQsFAAOCAgEAF463syOLTQkWZmEyyR60W1sM3J1cbnMRrBFUBt3S2NTY
+SJ2NAvkTAxbPoOhK6IQdaTyrWi8xdg2tftr5FC1bOSUdxudY6dipq2txe7mEoUE6VlpJid/56Mo4
+QJRb6YiykQeIfoJiYMKsyuXWsTB1rhQxlxfnaFxi8Xy3+xKAeX68DcsHG3ZU0h1beBURA44tXcz6
+fFDNPQ2k6rWDFz+XNN2YOPqfse2wEm3DXpqNT79ycU7Uva7e51b8XdbmJ6XVzUFmWzhjXy5hvV8z
+iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
+3CxrVqXUKm93J+rupyKVTGgKO9T1ODVPo665aIbM72RxSI9Wsofatm2fo8DWOkrfs29pYfy6eECl
+91qfFMl+IzIVfDgIrEX6gSngJ2ZLaG6L+/iNrUxHxxsaUmyDwBbTfjYwr10H6NKES3JaxVRslnpF
+06HTTciJNx2wowbYF1c+BFY4r/19LHygijIVa+hZEgNuMrVLyAamaAKZ1AWxTdv8Q/eeNN3Myq61
+b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
+VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
+VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
+QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIBD6
+6yNWt3NLhePaNubtwmKLIMZOi3+/cnWgLIWDfHWVMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
+HAYJKoZIhvcNAQkFMQ8XDTI2MDQyMzE5NTAzNVowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
+ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
+YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAILzME4QOu6zeKjhpylvCwN0jKyj4KrBrx8mdcgR
+4sb88nD7nGhGEupetTCLo6u+OZeAFh95oFotxuZX2XpjcVqCulesGKt90hIPXlnKjxvcdGHpjDh5
+uggYjPaMqgLCS+N378nsvmWr062+7kZBibqQ2opzW6Epllnj/tXHTaTfpYR1wvzlEUYW+qql5SlO
+1p1L6jaRDXW4YGcejJ0t92XvrPXuvnJl9tMyCwrZpEyEfWXbNI2J7byTrHDLwDrPf75bJ+CMeTJO
+EDKS0XxLFCY1ZV8yLmozGQoxiqz3r4fYBkIwrC5LF5GG3FrPi1bp+Tc4lAgv24q1LV3l1HsWRIU=
+--000000000000444f7f065025f6e8--
