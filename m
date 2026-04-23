@@ -4,135 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B771F99370
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 11:34:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1B9CF9937B
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 11:34:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8432810EF99;
-	Thu, 23 Apr 2026 11:34:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60FFD10F0AD;
+	Thu, 23 Apr 2026 11:34:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="tTFsGxiv";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hYFH0x0M";
 	dkim-atps=neutral
-Received: from CWXP265CU010.outbound.protection.outlook.com
- (mail-ukwestazon11022122.outbound.protection.outlook.com [52.101.101.122])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7CC310EF99;
- Thu, 23 Apr 2026 11:34:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=d8HC/UMaKQIaiYAK9ehiBlBSVYRmXqspVhFEIHgsiiC8T9GxXuKdSo7EdB5uy94AW7WnEpMyOP1jnf+SNm+6PGxc0kv7+nEUxJE+/6hUwNEZ/39wNV9eLXgz6W5n0sXhVl+wQWmInHRRxUduEysLji6IWZd5qgq1D8WC9VFXi+8ccL+OO30MKqGnNR8Yd2ruaVHnTFaQ3zStPh6dSdeT/QJPO9apbIuVKhUrPx/uxzLEBwsUYaQM9i5v9YjqZeAGVhXZ7yAVNofYRTLvVDDiEgkc8bVPEBMY4urUBf8HL+dulqa60a1WMdUUMEVzK72BKl2I8gyUZMi8VQPbuOFxtw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=c7DplJiGF3GFUHZwQB9/ZjsSCLIFOsIFt5Q424beC5U=;
- b=jX2o6Y6RdYdwLFhI+3ZRD90aySDqmsZaFXp+vTRhmZhGxOcBrw/oQVcGNN5v+ctwDIWcG5apvIpjlaDiCZVsnQQmPrS3la5vHD+8/C7Lx8HqTr4c6HXpNNl4L7EEpP+Twp/CqeR+f3PH+vS3PiwOQ9mTT5TrPcJKkXmpu1deqKI33oZYfvpuEVzP6Daw6Pp2M+sfvgktVEJYQJcIJYajDqmBGyMmR9f1znuHFYiBJ2wM/0y33qgxcU4mWkn6eR1PN2d8OzKOD/yxBBMMQq+mXrgZgdmG6u/M8MB+bu7DKa+tPyNl5yAZiFhe+VM9zFy4k30kTL+OEWLJXYdLNBDyCA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=c7DplJiGF3GFUHZwQB9/ZjsSCLIFOsIFt5Q424beC5U=;
- b=tTFsGxivf5dWYm2kIha8869MgP3HgkRQDcAQzA2Je8AvcH/vTkLiMy/OXdxVmqe1/C8J5hoqoONLNjKaTr+2M++e0AQXUQkUkEWYiCaEy5vvWWuPrFJPuFqZwYwm2zZDetyvSSnV0EPKhDYX7O5A6F65RGqvGgc+8JaP2HctSmE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:27c::13)
- by CWXP265MB5180.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:193::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.21; Thu, 23 Apr
- 2026 11:34:41 +0000
-Received: from CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
- ([fe80::6c9e:93c8:10db:e995]) by CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
- ([fe80::6c9e:93c8:10db:e995%6]) with mapi id 15.20.9846.016; Thu, 23 Apr 2026
- 11:34:41 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 23 Apr 2026 12:34:41 +0100
-Message-Id: <DI0I3TH8B8ZZ.2118S8MDUHG@garyguo.net>
-Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Joel Fernandes" <joelagnelf@nvidia.com>, "Timur
- Tabi" <ttabi@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>,
- <nouveau@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH v2 1/5] rust: add warn_on_err macro
-From: "Gary Guo" <gary@garyguo.net>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
- "Boqun Feng" <boqun@kernel.org>
-X-Mailer: aerc 0.21.0
-References: <20260421-nova-unload-v2-0-2fe54963af8b@nvidia.com>
- <20260421-nova-unload-v2-1-2fe54963af8b@nvidia.com>
-In-Reply-To: <20260421-nova-unload-v2-1-2fe54963af8b@nvidia.com>
-X-ClientProxiedBy: LO3P265CA0002.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:bb::7) To CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:400:27c::13)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 049C910EFA0
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 11:34:46 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-48909558b3aso58614305e9.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 04:34:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1776944084; x=1777548884; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=0WfnOZbXeCCnN3w3UE+Jw0ce/6J+iDbqFJsV/ehYRCw=;
+ b=hYFH0x0MatPnO8keE0AFxfl7rODqHceF53KGDpXbd9nANQdJQEteQhWhpq2u9ammtz
+ IXhKEUDxucmEwuS1VFk9iuodShEpihLHawh8S7QyiCrTSsD+f6OVNK4ciRz8lTdjnZ+W
+ TUTRclGq+vvE4aa8wHfPr6U+5G8VyxgGMaNDiq/p63yydMoRC+vE+OdPVK5GaXjlYSOL
+ FRH2JSmWahi/pW46meXKQ/FY310TorpfR4Ab7Cgrcte5VT1yuZWSUiX/P+A+OWjQjASF
+ +xd1pQbtdcOGB0OTMJIvuqchTFtTH01AiwbhkJIyNkIGN3cTfk7qQ22XulG4UCHk1pGC
+ /D7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776944084; x=1777548884;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=0WfnOZbXeCCnN3w3UE+Jw0ce/6J+iDbqFJsV/ehYRCw=;
+ b=Oy+UC2eJ4keq8WbySK1Y/IYxGoyCVZJULJdT5tKCTJLp4ZOgPDZ8lLQ7c6Fsjw9Pus
+ HX3sM+p/TeKUzXglct1Oj/2AH0kOMwyVyzsRdMusemlL3qQzRFzqGNReIfrriHe4oHpt
+ PCBgjL1BNNK6FQDxCT4UHiZ39rnjlYlx7BXIkHYKPa2XAUQn+MunagUG5ctdmWYTFEEK
+ dW3zxoXBpXWAmSu8WekL0QV07Gjuk8KaT+p8JpIf3a2YU81hc9ib+59YMCRezvyd8l6y
+ qSpSO0Ps4esL+fzkWpEO/NbX6SnYMd/oZQqAN95SLDkXvql1yrcnxRtA2UCr9wPyZ5Gf
+ 4Dtw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9G9CsOekHqhQAHC4NYo08JN0+aJ5qvDy+Cf4i/GsqeagPFOPyx6hNz+L0Rp571pVi71FpMUWUBxyY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxPv/5iJ1m33U2TvPhVYT4mlJlQpsWyU5o2jtjPmuB0F8mp4y0p
+ S6oTk0Lt25qoGk+7Jasr4AMwW6qwtpNybyJxDtos4Z+cE0RMyfDtWJQE
+X-Gm-Gg: AeBDieutTbJEqjik602zfEjW0uKWpCJcB/hnhO3t7qdhjs8fIAm1Ggq2Gg2v8007AgO
+ jwoc8Dq0vXfSp3d3rPZTEOjK52dzN4x9BskejI3LGt0RIwQK1CzXeOquzeeJYtys6dUmGs2XdJq
+ FG+GDbou6R5EBsOHI0k5WbV6/g+hFivqVliD6JN65tlvxY30Lqh4OuWFmEQR8Kc5g28ZgUGIAik
+ TWgDeLaXnqFJPq/+7KO09ZnpcaPh2Zbkmz8x+XMZJGto5r+e5a87xYk6H911ez1FvVenq/1bCIW
+ MLNfKMK+2Ofz3w3w3NCvu4UxIKsnUcwvvUZS1OIGrR0bmLvFqbkHfTQLrXksj3DjYXJzhAuxifC
+ qiRHAJc37A/P4JbAGl7jDicx8E6grbN7JIjWkUZfTHDA1MuynF3u1eGY6gb74HklcvSeijMk+dd
+ 52iEzrSMlKiv/CHTYlrSEzVW4LVtN7bgPUyqSg7/MxiWqMoYnfB65oMamts8zzaxGyaxnoPqnwf
+ UPOKEUL4+4=
+X-Received: by 2002:a05:600c:620d:b0:489:1d23:4524 with SMTP id
+ 5b1f17b1804b1-4891d23468bmr239536185e9.5.1776944084219; 
+ Thu, 23 Apr 2026 04:34:44 -0700 (PDT)
+Received: from timur-hyperion.localnet (5E1B98A2.dsl.pool.telekom.hu.
+ [94.27.152.162]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4891c08faffsm552416145e9.1.2026.04.23.04.34.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 23 Apr 2026 04:34:43 -0700 (PDT)
+From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
+To: Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, Robert Garcia <rob_garcia@163.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Pan Xinhui <Xinhui.Pan@amd.com>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Yifan Zha <Yifan.Zha@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 6.1.y] drm/amdgpu: remove two invalid BUG_ON()s
+Date: Thu, 23 Apr 2026 13:34:42 +0200
+Message-ID: <4885687.vXUDI8C0e8@timur-hyperion>
+In-Reply-To: <2026042335-probation-heftiness-7399@gregkh>
+References: <20260417074010.1607496-1-rob_garcia@163.com>
+ <6064b45a-b8de-4848-856f-383d2d06680d@amd.com>
+ <2026042335-probation-heftiness-7399@gregkh>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CW1P265MB8877:EE_|CWXP265MB5180:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0c8d6c5f-370b-4857-ed36-08dea12c4f7a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|10070799003|366016|1800799024|18002099003|921020|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: dmnucVv3RvQrvaiFg1A12ABJC5zaKu7Olgf56p6jOVIAUBb3p5yFwzohBIrHWBDv30MaZBSEuCoWCnmurdaWmhQh75sCgV/5LELw2mEmvBxggBB4Xss9h0k3Dgb+G2x6WekhWnLmHkguFQ39cUSxpgx8pL3BfdLcGqEjzM654qBwgPlHs0H7ijcIP3bXVp1TD2W4cl5XdDIRW3a5x+QmzLoUH7LiyQzrHziw71ch3ypR5V5hHAKWzgR3wxGdkCZ15OISnE+/sbxNX2bZOi3VpMaoolrcAjFm962zExnOChxBv4UMpVkD1Q69SUHPr0jbLjdHhtgBSpmvfoR1momdOhGcfGa8+ihKIqn3BcYZyAny+2HythvrXJCox3eF3Y/HEpvX1H1ojAeQgWsKT4YRq5W3Cx2Fx4tdCi5FmV0OwqhXvwn+fgb1WJTzEGJhPzcKDaimy/SFLz1Kw7Eq/yK1ORoWhMDXSCb3A9eIzhiE1H5ZUiRnm4A6vA4W5wqbxX4pSbkl91Jv4h/K0p6UGGAtrdQ89i+tEuCz4g/ZQrUpH1LgQ1ar93bHW+VXZ8pvvqIgLakWs3gUGLnqRjcf+uLNruxWwdnb9g9lgTxdFHaYpMuCg6++BDCglH4WUhZAfxBVBJKtKti3nrOtKDNFhpKIQSVMrq+S5ASxd6+Y6rQkY/Dv4DUaYUDybEIR5t9eSB1NOUFWe02WSf362lln7nmCnMtTp6+IUzYymYMDgupG0x1qxdfECxjYXLXV4Vm19+Kccmh4zE/ol+9Z2o1J+u91Uw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(10070799003)(366016)(1800799024)(18002099003)(921020)(56012099003)(22082099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YXovTTJsTGI3M3BpblZxSDg5a3drT2RiZzFjQnBmRFBDMW9zNWVDa2xZYzhw?=
- =?utf-8?B?cFJGUDluUzgyNjExQ1VqVnpZTHErSHB5anBYVy8zYUI4VGRkQ3ZjOEVBMkIx?=
- =?utf-8?B?Wml4SFBRWi9rRVNHbE1XZEhNSVMzaFkwMmxseDZxenhUc0kzbHhDZlFBb01n?=
- =?utf-8?B?YXVwb282dS9UMFAzZW11b0UvYSs0TmVsQ282aXJHUXlNSVNGeFZYUWowcFJJ?=
- =?utf-8?B?aVZGaUIzVUkrM1RIUDJqOVhkVlZBMEhZaEpDTHZmaWdwMm5KeTNoUGZNVzlj?=
- =?utf-8?B?cDF0SVdMUkhxNjF0RHpGZjhocW40NjR6eGxIZXE1V09Ub0FRV1FlMVp5cHpF?=
- =?utf-8?B?NXBYbExzcDBVZDJaMWpIMDI2cGF2ZlVBWTIzQ0lCc2FFSytJNktZVndOcEFZ?=
- =?utf-8?B?YUN2MzFXazNJNUZnVTAzOTBYZmE0SklJZmxTRzArKzZMakJoUDZBbkg4ZVRL?=
- =?utf-8?B?YWJDc1Q5S0VyVmhJMzZGWE9vTm5UUmYwRXNiRURXZk92ZWV0VlJLWXdubmw0?=
- =?utf-8?B?UXJSK0J2SldONk4zTjBKaXR4TEZYNFVHK0I2dzVpbDdaMTA4R1pOSUJZSnVP?=
- =?utf-8?B?WjV2L2dEMWJSejVndHpQai9LR2dKUDhhSTY5TGVoVWU2bGROeXhxRk5tZ3FP?=
- =?utf-8?B?YzFqZHVVRFVzNEwydFdWUHNIWllqUVhDSGtIZTVYQXYzOVBBK01XZ0FqYk5v?=
- =?utf-8?B?dHFPV1RvUTZuZlRScGhEV3gyUUNCMVBFc2tyODdvcG90SUYzeDFybUc1aW56?=
- =?utf-8?B?TEd1Y25FS0kxMkIxNHBqeHlscDdHVmdQVkl5SFRPeFhWSlFOMzdid09KSytS?=
- =?utf-8?B?VnI5NFVTVHBwWlB3bjU0OTNlb21rOVBoclRCcWJ5enBRRDdyVzYzM0FPY0dx?=
- =?utf-8?B?RVlaUDZwa0hRRDRLZFdDS0RZaHRrNEg3cVJTQ2ZKbG9tSGppWW52YVFnSkVG?=
- =?utf-8?B?OHZiVm5sQzJWQ1RwQ1NydWhTVk0vejVQUTg2YldBcFBkQWE4Nkx3NW9DcnlZ?=
- =?utf-8?B?Y3NyRldubWpVWk51cm42VDY3K21oSkNPTlIrYXZiUWwzbHY3d2NaeFprVzBO?=
- =?utf-8?B?VFM0OFJLZHpOZ0QzZTJZeWUwdVF5M0s3L1NlUXhmZEl0UllPN3ZkblNyTHpJ?=
- =?utf-8?B?WE9hVmJtM2NHRCtYR3ZONGhvbUxuUkorRnI1NUlMMk9qV0RQd0tSM0RJZ0VM?=
- =?utf-8?B?WnFpNUsvSm1jUTZKd0xOaFFReUxXNVFnMU4yVW1EMjlyWmhYQUpYUE1nYmIx?=
- =?utf-8?B?TVlKaDB1MnczdzFSWnNnQVU0RlpOOEZqSlE2VjlDRmZyRW1uWW51TzRXZWJD?=
- =?utf-8?B?cktIeXhENmtiNThqeDZ5Y1NiWXYzaE5yTmFiVlVJdzA1R3VoNXhMUldmbklO?=
- =?utf-8?B?czd0SUVOOHZOcCtubVNVSUg0S0hJZWZ1N2orOXB3NSswQWUvYVEwdmQvU3pJ?=
- =?utf-8?B?Y2VTcG02VDROM09TWnRQYjkwSG9XN3FQMFpPSVQrZ2FOWEVVdlczUy9nRkR5?=
- =?utf-8?B?OUxhN05tVm1jbUZ5d05ScmVhbFVwMi9lanJIc2Vob1l4Yithak5ROG5yendZ?=
- =?utf-8?B?VUZJRVNQM25KS1dTc1VRNUhCdDVGUzZUWjhpUlB1SzE1Z3ovKzZtUkNONEha?=
- =?utf-8?B?Ni9hSVFkMjVyd0x5bG95cGxTeUREWFVhSndKN1N1TE1KVkorbkpPMCtOQTVx?=
- =?utf-8?B?dGYwN3ZQUjMrQjk4Qk0xQlBBMnYzN0svZzV2dUlQS0Y2V2U0SDQ0QXUrNFp2?=
- =?utf-8?B?QVBZUWtDbTRPM2QvNVRDckJkOG8wSUs2aGwvNjB1Y0VyMlowNWR1RFplaVJN?=
- =?utf-8?B?RWxYZWpGcjEwcEZjQWFsSEtiODF4eFd2WFF6WjhveGhpeU5Rbzh4L1RqOURT?=
- =?utf-8?B?a3NmOE1uelZNQU91Y1hLOWF1TFJZUnRFb0hkMUFmWDR3VVhBM2orUU1vZ096?=
- =?utf-8?B?S3RSL1FDN0RaaU5mZERrNzB1Z2oyNW1zcFgrNEV3S013aEErSW1MVVpWLzlh?=
- =?utf-8?B?eWZBcjJtZWdhVjVuWGk5eUthWUVGMzVqbE5VWHdmZ1MrQStqTXNPNVhNWTFN?=
- =?utf-8?B?Vkg5bkVTbWdNK3B5eTltT1pnQnZKSHRkellnTGJiaVFKK2NSaXM0bDdSNFow?=
- =?utf-8?B?Z0VaOXd6NVpJWUdaSWZoL0lOUGd5RkYyNUsyVHVYZ29acVlDQWVvTG03Q3E0?=
- =?utf-8?B?c3d2YlFLNWlVQWVWY0E5T2p4VW04d2t3cTVHelRobTFGVmdUa2FRM25zWGJK?=
- =?utf-8?B?Wit2c096TERkbjNKNG1HeFlwazNKWFdQZlJFcDJLQUllRzNCODhSU2tLM0ln?=
- =?utf-8?B?TFIwYU03amVKYjkxcXhmeEhibHBGMnMzcWRmMzcvVVRRb3VOWTRvUT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0c8d6c5f-370b-4857-ed36-08dea12c4f7a
-X-MS-Exchange-CrossTenant-AuthSource: CW1P265MB8877.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Apr 2026 11:34:41.8296 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: us2Hgn3qe/+Fk7ICmqizx5qWCA0L++4sAN3Y0yBTfiorNm8isBkwvxsp88MukQrFwiBOCjTKwS76bFDV9ffz4Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP265MB5180
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,39 +96,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Apr 21, 2026 at 7:16 AM BST, Alexandre Courbot wrote:
-> While we already have the `warn_on` macro, a common usage pattern in
-> Rust is to check whether a `Result` is an error. Add a helper macro that
-> allows this.
->
-> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
-> ---
->  rust/kernel/bug.rs | 10 ++++++++++
->  1 file changed, 10 insertions(+)
->
-> diff --git a/rust/kernel/bug.rs b/rust/kernel/bug.rs
-> index ed943960f851..2fefc0aeef81 100644
-> --- a/rust/kernel/bug.rs
-> +++ b/rust/kernel/bug.rs
-> @@ -130,3 +130,13 @@ macro_rules! warn_on {
->          cond
->      }};
->  }
-> +
-> +/// Report a warning if `res` is an error and return it unmodified.
-> +#[macro_export]
-> +macro_rules! warn_on_err {
-> +    ($res:expr) =3D> {{
-> +        let res =3D $res;
-> +        let _ =3D $crate::warn_on!(res.is_err());
-> +        res
-> +    }};
-> +}
+On Thursday, April 23, 2026 1:22:22=E2=80=AFPM Central European Summer Time=
+ Greg=20
+Kroah-Hartman wrote:
+> On Wed, Apr 22, 2026 at 04:11:15PM +0200, Christian K=C3=B6nig wrote:
+> > Those points are certainly valid.
+> >=20
+> > I've also up-streamed a patch which completely rejects userspace
+> > submissions who try to use the CE.
+> >=20
+> > The problem is that those BUG_ON() can lead to a deny of service because
+> > they crash the whole kernel.
+> >=20
+> > A BUG_ON() is only justified if it prevents even worse things to happen,
+> > e.g. data corruption or it would crash later on anyway just not so
+> > obvious on what is wrong.
+> >=20
+> > Otherwise we should use WARN_ON().
+>=20
+> WARN_ON() crashes the kernel as well when panic-on-warn is enabled, as
+> it is in a few billion Linux systems :(
+>=20
+> As this commit is upstream, and in other stable trees, I'll apply this
+> as it's not nice to have a simple way for userspace to crash the system.
+>=20
+> thanks,
+>=20
+> greg k-h
+
+Sounds reasonable, if you feel this improves stability.
+
+That being said, there are many other ways besides this one for userspace t=
+o=20
+crash the system equally easily.
+
+Timur
 
 
-I think `warn_on_err` could just be expressed as
-
-    res.inspect_err(|_| warn_on!(true))
-
-Best,
-Gary
