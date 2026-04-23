@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E575F99368
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 10:19:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18C6FF99362
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 10:19:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C795A10F080;
-	Thu, 23 Apr 2026 10:19:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D3AB10F07A;
+	Thu, 23 Apr 2026 10:19:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SzLuCliv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="I/md34P7";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E45B10F07F
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 10:19:50 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EA9010F07E
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 10:19:48 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 651D742B1A;
- Thu, 23 Apr 2026 10:19:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0E17C2BCAF;
- Thu, 23 Apr 2026 10:19:49 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A82B260132;
+ Thu, 23 Apr 2026 10:19:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 098F9C2BCB5;
+ Thu, 23 Apr 2026 10:19:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776939590;
- bh=wjaFi3kYWB/9v7drMul6iXlyxd1t2eV/EeubsSZA5I8=;
+ s=k20201202; t=1776939587;
+ bh=Z8riGyhf3Bz4GzgecgLlN1izPrFfKBgKdgftTPMMNag=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=SzLuClivvORZe+vdxLe8I/0RWpcNqA7a+Fm4zkpPVbcetuDX2Wt6mIO3wwR4g7AVa
- Tzk/7FHYdzAeKJ8Gw88BN2BbcboZyXtCJOFZAPXE30UWJJsF7YbpijLMOOyGic6Wt6
- ycTdoUBTCFIHL1Ck1DelMbvhwG+LZ3PzgroUuabxaZLV+MSAcXlJtwOweyAEbh4+Lp
- UnVtkcAius/0Fr+w3HocIXIt3jcMwO6D/au3DyAym1V8knL/dw/KEHARXEdOcuF0YA
- 0kHozwneYOUHXQQKcfa4CBi2K6iXA2IIqIM8nB2Fwo1JQWLxehVZx37zfNavefHKtq
- 42yvNAE//9WDg==
+ b=I/md34P7N5U8/pvYGYXfRg7xgV0JpvhZCQopXZUVkQpxQydqqfu+Dvf67DKFvJVZv
+ cc9P1EjbsNnuW8s9g5Ms8g+qgXTFdEiq2ooo00vSOJasPA1VD36DWZTX0TdqiBH8ix
+ egCvLkQVdPCO/VGuYqbT1twAwMIpItprrGaaJufpAF7eHW5ZUOFI0hDB5swY66SAc0
+ XIs7SoL93fKWujVglmjCN2ceKhmGp2+wWGuqEgsPYhdO6P49dWYViXDpRqgY/FTj0Y
+ ibChMQnRfvPMxwF8RMcY2hCZkM+8uJmovRo/WPbSuIrqXvarGxrHElxcyx56y53L15
+ 87rD0A5D/S5yA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 23 Apr 2026 12:18:41 +0200
-Subject: [PATCH v2 28/28] drm/bridge: sii902x: Implement hw state readout
+Date: Thu, 23 Apr 2026 12:18:40 +0200
+Subject: [PATCH v2 27/28] drm/tidss: encoder: Implement
+ atomic_sro_get_current_crtc
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260423-drm-state-readout-v2-28-8549f87cb978@kernel.org>
+Message-Id: <20260423-drm-state-readout-v2-27-8549f87cb978@kernel.org>
 References: <20260423-drm-state-readout-v2-0-8549f87cb978@kernel.org>
 In-Reply-To: <20260423-drm-state-readout-v2-0-8549f87cb978@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -50,12 +51,12 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3848; i=mripard@kernel.org;
- h=from:subject:message-id; bh=wjaFi3kYWB/9v7drMul6iXlyxd1t2eV/EeubsSZA5I8=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDJkvP37RZM4/u/7MvyWdVo+9Tkh+adm0k+vAzl3BDMKtM
- 232XmP/0jGVhUGYk0FWTJHliUzY6eXti6sc7Ff+gJnDygQyhIGLUwAmsm8NY0Oz2UnOr/JFUSGp
- m5+rZs1ZLf9G0ipP8Pu5hTv+b5VcOP98PItIZFmuyVVW+TeclyImOjPWqazb938Rk3lNeGHT6qX
- rH4cf6vofuHhX+WZDEeunRoq3Ih3W7dqfl/Ik9H2A8YV1Sy/vBwA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2408; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=Z8riGyhf3Bz4GzgecgLlN1izPrFfKBgKdgftTPMMNag=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDJkvP372Xyuff6AzxpipQD5yQw7L5SilnRyrVwvPYlH/e
+ SzLwyG8YyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAEzEfRJjnY4MD3O34/W3ryXD
+ 3t2dqZrEb1ecMKVY48bf66tPrKiUCeaKcNgsYWX6cAtT1F35K4KnGBu+X74kscND/eHq6rKYeM7
+ zv++tY7e9+Hbx9/VzG3fXHAizixScMcl29smexvq/tUabTuoCAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -73,114 +74,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Implement the hardware state readout for the sii902x bridge
-now that all the infrastructure is in place.
+The tidss driver doesn't really implement anything with encoders, it
+just relies on simple encoders, bridges and drm_bridge_connector.
+
+In order to figure out the CRTC -> connector association from the
+hardware state, we do need encoder support though, through the
+get_current_crtc callback.
+
+Since the tidss encoders are always connected to a single CRTC, we don't
+really need to read the hardware state though, we can simply return the
+one we know we are always connected to.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/bridge/sii902x.c | 56 +++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 55 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/tidss/tidss_encoder.c | 24 ++++++++++++++++++++++--
+ 1 file changed, 22 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/sii902x.c b/drivers/gpu/drm/bridge/sii902x.c
-index 12497f5ce4ff..4ad0fdfc1c38 100644
---- a/drivers/gpu/drm/bridge/sii902x.c
-+++ b/drivers/gpu/drm/bridge/sii902x.c
-@@ -20,10 +20,12 @@
- #include <linux/regmap.h>
- #include <linux/regulator/consumer.h>
- #include <linux/clk.h>
+diff --git a/drivers/gpu/drm/tidss/tidss_encoder.c b/drivers/gpu/drm/tidss/tidss_encoder.c
+index a20d7826e3cc..7883f5ec6d41 100644
+--- a/drivers/gpu/drm/tidss/tidss_encoder.c
++++ b/drivers/gpu/drm/tidss/tidss_encoder.c
+@@ -92,10 +92,29 @@ static const struct drm_bridge_funcs tidss_bridge_funcs = {
+ 	.atomic_destroy_state		= drm_atomic_helper_bridge_destroy_state,
+ 	.atomic_sro_readout_state	= tidss_readout_state,
+ 	.atomic_sro_compare_state	= drm_atomic_helper_bridge_compare_state,
+ };
  
- #include <drm/drm_atomic_helper.h>
-+#include <drm/drm_atomic_sro.h>
-+#include <drm/drm_atomic_sro_helper.h>
- #include <drm/drm_bridge.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_edid.h>
- #include <drm/drm_print.h>
- #include <drm/drm_probe_helper.h>
-@@ -535,17 +537,68 @@ sii902x_bridge_mode_valid(struct drm_bridge *bridge,
- 		return MODE_CLOCK_HIGH;
- 
- 	return MODE_OK;
- }
- 
-+static int
-+sii902x_bridge_connector_readout(struct drm_bridge *bridge,
-+				 struct drm_atomic_sro_state *state,
-+				 struct drm_connector_state *conn_state)
++static struct drm_crtc *tidss_encoder_get_current_crtc(struct drm_encoder *encoder)
 +{
-+	struct sii902x *sii902x = bridge_to_sii902x(bridge);
-+	struct drm_connector *connector = conn_state->connector;
-+	struct drm_crtc_state *crtc_state;
-+	struct drm_encoder *encoder;
 +	struct drm_crtc *crtc;
 +
-+	if (regmap_test_bits(sii902x->regmap, SII902X_SYS_CTRL_DATA, SII902X_SYS_CTRL_PWR_DWN))
-+		return 0;
++	WARN_ON(hweight32(encoder->possible_crtcs) > 1);
 +
-+	encoder = bridge->encoder;
-+	crtc = encoder->funcs->atomic_sro_get_current_crtc(encoder);
-+	if (!crtc)
-+		return -ENODEV;
++	drm_for_each_crtc(crtc, encoder->dev) {
++		if (encoder->possible_crtcs == (1 << drm_crtc_index(crtc)))
++			return crtc;
++	}
 +
-+	crtc_state = drm_atomic_sro_get_crtc_state(state, crtc);
-+	if (!crtc_state)
-+		return -ENODEV;
-+
-+	crtc_state->encoder_mask |= drm_encoder_mask(encoder);
-+	crtc_state->connector_mask |= drm_connector_mask(connector);
-+
-+	conn_state->crtc = crtc;
-+	conn_state->best_encoder = encoder;
-+
-+	return 0;
++	return NULL;
 +}
 +
-+static int sii902x_bridge_readout_state(struct drm_bridge *bridge,
-+					struct drm_atomic_sro_state *state,
-+					struct drm_bridge_state *bridge_state,
-+					struct drm_crtc_state *crtc_state,
-+					struct drm_connector_state *conn_state)
-+{
-+	struct sii902x *sii902x = bridge_to_sii902x(bridge);
++static const struct drm_encoder_funcs tidss_encoder_funcs = {
++	.atomic_sro_get_current_crtc = tidss_encoder_get_current_crtc,
++	.destroy = drm_encoder_cleanup,
++};
 +
-+	if (regmap_test_bits(sii902x->regmap, SII902X_SYS_CTRL_DATA, SII902X_SYS_CTRL_PWR_DWN))
-+		return 0;
-+
-+	/* bridge_state is pretty trivial, we don't have anything to do here */
-+
-+	return 0;
-+}
-+
- static const struct drm_bridge_funcs sii902x_bridge_funcs = {
- 	.attach = sii902x_bridge_attach,
- 	.mode_set = sii902x_bridge_mode_set,
- 	.atomic_disable = sii902x_bridge_atomic_disable,
- 	.atomic_enable = sii902x_bridge_atomic_enable,
- 	.detect = sii902x_bridge_detect,
- 	.edid_read = sii902x_bridge_edid_read,
-+	.atomic_sro_compare_state = drm_atomic_helper_bridge_compare_state,
-+	.atomic_sro_readout_state = sii902x_bridge_readout_state,
-+	.atomic_sro_connector_readout = sii902x_bridge_connector_readout,
- 	.atomic_reset = drm_atomic_helper_bridge_reset,
- 	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
- 	.atomic_get_input_bus_fmts = sii902x_bridge_atomic_get_input_bus_fmts,
- 	.atomic_check = sii902x_bridge_atomic_check,
-@@ -1131,11 +1184,12 @@ static int sii902x_init(struct sii902x *sii902x)
+ int tidss_encoder_create(struct tidss_device *tidss,
+ 			 struct drm_bridge *next_bridge,
+ 			 u32 encoder_type, u32 possible_crtcs)
+ {
+ 	struct tidss_encoder *t_enc;
+@@ -106,12 +125,13 @@ int tidss_encoder_create(struct tidss_device *tidss,
+ 	t_enc = devm_drm_bridge_alloc(tidss->dev, struct tidss_encoder,
+ 				      bridge, &tidss_bridge_funcs);
+ 	if (IS_ERR(t_enc))
+ 		return PTR_ERR(t_enc);
+ 
+-	ret = drm_simple_encoder_init(&tidss->ddev, &t_enc->encoder,
+-				      encoder_type);
++	ret = drm_encoder_init(&tidss->ddev, &t_enc->encoder,
++			       &tidss_encoder_funcs,
++			       encoder_type, NULL);
  	if (ret)
- 		goto err_unreg_audio;
+ 		return ret;
  
- 	sii902x->bridge.of_node = dev->of_node;
- 	sii902x->bridge.timings = &default_sii902x_timings;
--	sii902x->bridge.ops = DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_EDID;
-+	sii902x->bridge.ops = DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_EDID |
-+			      DRM_BRIDGE_OP_CONNECTOR_HW_READOUT;
- 	sii902x->bridge.type = DRM_MODE_CONNECTOR_HDMIA;
- 
- 	if (sii902x->i2c->irq > 0)
- 		sii902x->bridge.ops |= DRM_BRIDGE_OP_HPD;
- 
+ 	t_enc->tidss = tidss;
+ 	t_enc->next_bridge = next_bridge;
 
 -- 
 2.53.0
