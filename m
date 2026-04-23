@@ -4,171 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43F47FB44C4
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 07:45:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13001FB44CA
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 07:45:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4FC5C10F3A9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E6C410F399;
 	Fri, 24 Apr 2026 07:44:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="X6X97QE9";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PoZ+q6Ba";
 	dkim-atps=neutral
-Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com
- [209.85.167.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19C8F10F2A3
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 20:55:35 +0000 (UTC)
-Received: by mail-oi1-f176.google.com with SMTP id
- 5614622812f47-479dd56d016so3346391b6e.3
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 13:55:35 -0700 (PDT)
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
+ [209.85.218.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA6F410E508
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 11:25:16 +0000 (UTC)
+Received: by mail-ej1-f53.google.com with SMTP id
+ a640c23a62f3a-b932fe2e1a7so82687166b.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 04:25:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776943515; cv=none;
+ d=google.com; s=arc-20240605;
+ b=V1fdHCSWOCcTe01fgM/8h9nS0ZZ2laIQZ0/5+d1zdXET0rJsHy0EqCeLuc5G/YT2OI
+ sn6gKkYYsH7h5ooGPHSVBU8tsAzTegoJCAeD3aqgJz3eeLTkN6v1CiFubB5rrBKnoouC
+ 82m5Vd/zj/Ryn3L7H4bK4QIV7+/PKdmtDceFQxAukh1YMQNaMCOwQVy5wbivT2MQ9dey
+ PXHAyE23h9Y29NC1AUuulTmVRie+HWXGhmW3QvGh/PrP+5egTP8nIe7/XMmaSUnB4W5M
+ FzFrxRku+JRTeY4oM3YaEyL62HkHO99qC0jZTJoBz9OW/oWuAfJY3Iv8B8uRxm6exg3h
+ vQhw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=VhHwF8uTe87PcS3rN02SDEGAKym5cX+QHbfVkZ05VKM=;
+ fh=cXSKyNO6Q6cKfSFR5jIopy/9FqZHqXteGyVIjbUfbGw=;
+ b=V1FuabyafuILtTC28vcOg7U8mnx6GLjgDDMQPUIw6PhYMiaNTNqbo7MPDUZVieJqat
+ TXtrrkz0guEAkRIuEWq9E45P+jIRtqpl1XN2uFp57E2LWUJjjed6iQ3QYVPyOLOT82K3
+ kIUqGgdtM5UqQ1Tyzab8aGj3qQKE/Y+Y/a4j5/fu+3fgTA92qBPkV+Vz0wSU/q+zsa4J
+ MA2CzyrEB0LcC9bIy+Bqr8EXIthGfiYLjO2ha+IdnXrhqvZhPsltcsLNW21UzYODH/L+
+ 7J1ZfKrdUEXiK4Gfj9TDlaZ6xfr3OIggHznzmd5wKG0vv/FdwlCafIv3WAQ66Vx6tP2q
+ UZNg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776977734; x=1777582534; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=3vKiM6M0LduO2D2FArnWSoF3Wdb1YcJsf91FDSRy54M=;
- b=X6X97QE9T/RCl/24pzEstUag/sWOcHCKcYS6V3gsQSBFZMDTJdTBBMS/NfGorRpF0a
- dXhspVO/grc8mdQYNJqU9hEQS3IgMo+oomg9c3TQj5RrCB6+VXQIE/XP6tD2YTlmb8Ui
- PW4Hob4iFEzG6eunWS8Vg8UPiLmcTvbl8Y7xzTudKN/xncwvwF0DUoxPx2iaoIlxUFDH
- KBXCAOxuilcoggYNE3qvVWP767zEVIgW03PcjF/3GOcRIpF8hdmIW0YwJK6jSOCv37tS
- ShDlPHtBg1rjQs5TjXbiJ0/xGLwNZqUvZhWzJ9KGMikW+G3dOmvUFIy0Jw5Rf2nKsmCa
- b2Xg==
+ d=gmail.com; s=20251104; t=1776943515; x=1777548315; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=VhHwF8uTe87PcS3rN02SDEGAKym5cX+QHbfVkZ05VKM=;
+ b=PoZ+q6BauHBVvVVvpGlwpKnOfCXpetQaQqsvJU2y82XZvR4BpEIFNyDnP2eX2NrUXj
+ JsKMpDJ/dcVp9nVfEi/QFJGHwl7j4XUxp4pRhGOTcU2S7hM0PmRKq5J2IlaDDkziwNTI
+ 56lBuT4BrNuMB9fo7lLk5Hzxg+OFRxjdMidvj7C9XjXAbwSSJfo7izcrsWuQA5/CNqnY
+ sCMwJfgrv8CmX4b7qZ502t9EmbGWAMNbDK9dJREjcpj/vrC8mhh06uaXfbv5x/vTzTj5
+ OEBdvuG3HLLvNfT0g3yDVUBgBetNY7dSWtSokZD2klpqGj1hQ0VEVu1eKBe6LkVtEs+j
+ NbQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776977734; x=1777582534;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=3vKiM6M0LduO2D2FArnWSoF3Wdb1YcJsf91FDSRy54M=;
- b=fXon6aQvAYPebdeZcVlBaZ4iqhk8F2b2V2zAvVqglP2KLk/9ZH2jAaRHqup/V9GRno
- 61eK++nLciqQQvBnnsJGZ6YlpB31wLFuAxNzKMKcOCmB25HZzPxSD9WAjweXgy/El5l4
- L1vQQrOpQyNbHsC1vVD76Xx5lQl6E67K73bZsYZoWfxn8RdNzgwYgQlILOtIoTXEr9R/
- 5xMzVWG7tMw8e/RcUwWYZJFYtY6jRLPuasc4AQicLMDFl12vXjhtFUE3CBU1Jz8h7yp9
- XK2Ty9ici/JgzqtZUPBCQSlCmnMekfjl3CzGdJPrz0lrRJf6NuE5QZXsigyCsV0vWVdn
- n91w==
+ d=1e100.net; s=20251104; t=1776943515; x=1777548315;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=VhHwF8uTe87PcS3rN02SDEGAKym5cX+QHbfVkZ05VKM=;
+ b=P/jacUYx8OlrqPttynZHNfM4raRxL+qBiomGiTpv4iThq37bpiJzoITCq+1zq0RBrQ
+ jkTCaQ4IhPrLYX9L3BzkCEevcNuxpPnIQg3BsLvIffWO1C54Nii9jktbHkyXjFob1N2Z
+ 7VL5aUJUfGtAsMFv8+JtgcbJrAaIAfX6GpZD22JGgmY0fBPoAjWvs5jCERRtr3/MKgro
+ cDaAqHVQpU60Jy21oes8PBRbDppcVZIvam9djkfyElU3n34rOj08Vtnx5LiCM9xJ0RNO
+ gWLhhd4PGUy7Fqjo15B6mHZXrGg1iU1wOPBZiwDt0ZiYAeajZcBDhdYlZ9tacMq0NAbp
+ ufug==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/PBfdXLhafROXkjD+4jBa6bQsce4qwXWTilaKAk9ygRMqydVClfryg6kFHaz5YMSsOVD41k1t/1Y4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwhuoSCSdLbJJdg6U/H67T9xPG6kIZfOzj27dT6XVHeVtn2N97A
- qT0cjYSHTwDKfh3betR5vmtdQ1ehouzJJXJcS+Thuw2Wg6jo4K0cjE9z
-X-Gm-Gg: AeBDietmHeQA30WgFSKziHXQifbwODuPTnwXWUFotCh/7XMOqsXtid5hw0lJ+66J9+n
- U+she4sqJMKLHIs5DNPljaGoTYk5ZaSrYZn7+x5ZjstbhmZRDBbZXj5IC7BAo2oF7+p2yHHz3v6
- D8ucuuVOV92Cn4dE7Nk1JC9dy9L7qAKyhxqDn0gbf/DAJQwuruC91LEg24XEYPxdDRCf0QiwL3L
- NSgWkyTQ/wbOMXspiyLJPkUHbdnQv8dkJm6+KptoV1DrH+Og0n295cCNWTKG1I1ahiZ4CN5KtCC
- 9Qy5FRb1oyHWzVl0a1IWKd9Vhh8U6LMzxnopZ2MXho8vKLNkGdA0G2IWC4jmMDozcYLf5Pyb34R
- XJod45wsdHuxQfdyckCBFB4gOg8VSCPLXmqT4XxYQaQfWAuXtyALxLKEGtKXMPN7cGyKC1u8Nxk
- ruddU+M69KGYT3GLWjVwayFQQaH+rzweFP8Rx/OxYXKo2jHHW4KJq6Uggx5Zoggo21vturLdGE
-X-Received: by 2002:a05:6808:4fde:b0:450:b249:718c with SMTP id
- 5614622812f47-4799c9b1d47mr15957275b6e.31.1776977734043; 
- Thu, 23 Apr 2026 13:55:34 -0700 (PDT)
-Received: from [192.168.0.245] (c-98-38-17-99.hsd1.co.comcast.net.
- [98.38.17.99]) by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4799fead505sm14329744b6e.2.2026.04.23.13.55.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Apr 2026 13:55:33 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-Date: Thu, 23 Apr 2026 14:53:59 -0600
-Subject: [PATCH v14 18/92] dyndbg: macrofy a 2-index for-loop pattern
+ AFNElJ+WXaN/mQfvjUwFese5qI5uFko3X7cQXKGDTPv6hrza9CKBQBwvrdjMstZLGHBZUsuVKizmsgFMwn8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy6fJlSA3cGdBxL5GsSg3E8LprTCrkpEVsfx7mRe5fYdlCYwNSA
+ AlX8JZCoPhYVHxMdoDo2CpuHtdo6aL01GirVq40xlQQIUFMUyTUNqkfUvwbUkFUZzay+eS5FkG8
+ BAl+rg8xFEB6Z6AwnwWejxxhnFM1YCA==
+X-Gm-Gg: AeBDievrbC3RQy67/IQd8Vfanl1VIYiPGm7LjNbGhldEZSPtwyE4dGM93FacIIs43FF
+ BcQqs9LKcZrQHplepecAi0VaLLxaKsyiKK5gfpHATLkMIRNbqVQBLQWjSET71XQO/05Ci2nOHso
+ OtRP48WAtR4tgCC6S1qd1xWIbcvWE1plQjjGE/bjDtAxmBevbbVAt2t/04IbBrQVwgkTUtWltQs
+ NzsugU5t7OcnqcK7bNMZH5UYh8kFdjntvhNSFqgfNpdkxNp2Lqy+zs5WNPlHkJicWIEq+fG3YWR
+ +6llLJ3jT8OD80Xl6GUWAfju6NjUBHf2E58GSbFiBjA+udo=
+X-Received: by 2002:a17:907:72c5:b0:ba5:bef2:2aa9 with SMTP id
+ a640c23a62f3a-ba5bef2333fmr1114513566b.35.1776943515065; Thu, 23 Apr 2026
+ 04:25:15 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260423-submit-dyndbg-classmap-foundation-v14-18-2b809a8019d0@gmail.com>
-References: <20260423-submit-dyndbg-classmap-foundation-v14-0-2b809a8019d0@gmail.com>
-In-Reply-To: <20260423-submit-dyndbg-classmap-foundation-v14-0-2b809a8019d0@gmail.com>
-To: Arnd Bergmann <arnd@arndb.de>, Jason Baron <jbaron@akamai.com>, 
- Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
- Aaron Tomlin <atomlin@atomlin.com>, 
- Andrew Morton <akpm@linux-foundation.org>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, Shuah Khan <shuah@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, 
- Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
- Gurchetan Singh <gurchetansingh@chromium.org>, 
- Chia-I Wu <olvaffe@gmail.com>, Matthew Brost <matthew.brost@intel.com>, 
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
- Zack Rusin <zack.rusin@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Louis Chauvet <louis.chauvet@bootlin.com>, 
- Haneen Mohammed <hamohammed.sa@gmail.com>, 
- Melissa Wen <melissa.srw@gmail.com>, Sean Paul <sean@poorly.run>, 
- Jocelyn Falempe <jfalempe@redhat.com>, Ruben Wauters <rubenru09@aol.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
+References: <casey.connolly@linaro.org>
+ <20260420073945.65849-1-mhun512@gmail.com>
+ <3ihxcwja3unx2257xbbk2e2aeiptb42bjkti6xnipwnvzrigw5@mhjhwckbyr2s>
+In-Reply-To: <3ihxcwja3unx2257xbbk2e2aeiptb42bjkti6xnipwnvzrigw5@mhjhwckbyr2s>
+From: Myeonghun Pak <mhun512@gmail.com>
+Date: Thu, 23 Apr 2026 20:25:03 +0900
+X-Gm-Features: AQROBzBC1fFL9FaIZnJVFPFemTRJQcxejs8oYq-k1APp1i7H7nRb2Tl3rnK5n-A
+Message-ID: <CAGEsz8EH6RoSh-OGzSkFse=saaupH2vbSB=VsQd0ZvVb7VO3jw@mail.gmail.com>
+Subject: Re: [PATCH v1] drm/panel: lg-sw43408: remove panel on DSI attach
+ failure
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>,
+ Casey Connolly <casey.connolly@linaro.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>,
  Jessica Zhang <jesszhan0024@gmail.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Xinliang Liu <xinliang.liu@linaro.org>, Tian Tao <tiantao6@hisilicon.com>, 
- Xinwei Kong <kong.kongxinwei@hisilicon.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- Yongqin Liu <yongqin.liu@linaro.org>, John Stultz <jstultz@google.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, Alain Volmat <alain.volmat@foss.st.com>, 
- Raphael Gallais-Pou <rgallaispou@gmail.com>, 
- Yannick Fertre <yannick.fertre@foss.st.com>, 
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
- Philippe Cornu <philippe.cornu@foss.st.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Oded Gabbay <ogabbay@kernel.org>, 
- Maciej Falkowski <maciej.falkowski@linux.intel.com>, 
- Karol Wachowski <karol.wachowski@linux.intel.com>, 
- "Rob Herring (Arm)" <robh@kernel.org>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, 
- Liviu Dudau <liviu.dudau@arm.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Liu Ying <victor.liu@nxp.com>, 
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
- Lucas Stach <l.stach@pengutronix.de>, Paul Kocialkowski <paulk@sys-base.io>, 
- Jianmin Lv <lvjianmin@loongson.cn>, Qianhai Wu <wuqianhai@loongson.cn>, 
- Huacai Chen <chenhuacai@kernel.org>, Mingcong Bai <jeffbai@aosc.io>, 
- Xi Ruoyao <xry111@xry111.site>, Icenowy Zheng <zhengxingda@iscas.ac.cn>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, 
- Javier Martinez Canillas <javierm@redhat.com>, 
- Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, 
- Jani Nikula <jani.nikula@intel.com>, Luca Coelho <luciano.coelho@intel.com>, 
- Russell King <linux+etnaviv@armlinux.org.uk>, 
- Christian Gmeiner <christian.gmeiner@gmail.com>
-Cc: linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- virtualization@lists.linux.dev, intel-xe@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, spice-devel@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-stm32@st-md-mailman.stormreply.com, linux-renesas-soc@vger.kernel.org, 
- etnaviv@lists.freedesktop.org, Jim Cromie <jim.cromie@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776977637; l=3514;
- i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=P80ziZ2kI8Whec+Ezljf/adgRZa3L0Pl7Cz8Qw7ESms=;
- b=7oS4PFpYNT5pkPe9d/6jwN43zQHFV3ZXzzfVE07BNgChvucdZ7oiVyCLTrH106ZHb57COsib2
- B/3Yn5wyYFSCbRR97h48IYVVpZDIxR8JbgltPz1aU89lbht6s0tUqdS
-X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
- pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Ijae Kim <ae878000@gmail.com>, Taegyu Kim <tmk5904@psu.edu>,
+ Yuho Choi <dbgh9129@gmail.com>
+Content-Type: multipart/alternative; boundary="00000000000000617d06501ee7f5"
 X-Mailman-Approved-At: Fri, 24 Apr 2026 07:44:43 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -185,95 +116,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-dynamic-debug currently has 2 __sections (__dyndbg, __dyndb_classes),
-struct _ddebug_info keeps track of them both, with 2 members each:
-_vec and _vec#_len.
+--00000000000000617d06501ee7f5
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-We need to loop over these sections, with index and record pointer,
-making ref to both _vec and _vec_len.  This is already fiddly and
-error-prone, and will get worse as we add a 3rd section.
+Dmitry, Understood. I will apply devm_drm_panel_add() to this patch as well
+in the next version, which will be submitted as part of the series. Thanks,
+Myeonghun Pak
 
-Lets instead embed/abstract the fiddly-ness in the `for_subvec()`
-macro, and avoid repeating it going forward.
+2026=EB=85=84 4=EC=9B=94 23=EC=9D=BC (=EB=AA=A9) =EC=98=A4=EC=A0=84 4:24, D=
+mitry Baryshkov <
+dmitry.baryshkov@oss.qualcomm.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
 
-This is a for-loop macro expander, so it syntactically expects to
-precede either a single statement or a { block } of them, and the
-usual typeof or do-while-0 tricks are unavailable to fix the
-multiple-expansion warning.
+> On Mon, Apr 20, 2026 at 04:38:27PM +0900, Myeonghun Pak wrote:
+> > The probe path registers the panel by calling drm_panel_add() in
+> > sw43408_add(), then returns the result of mipi_dsi_attach() directly
+> > from sw43408_probe().
+> >
+> > If mipi_dsi_attach() fails, the probe path exits without calling
+> > drm_panel_remove(), leaving the panel registered in the global DRM
+> > panel list. The .remove() callback does not cover this case because
+> > it is only invoked after a successful probe.
+> >
+> > Fix this by unwinding the panel registration with drm_panel_remove()
+> > when mipi_dsi_attach() fails.
+> >
+> > Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> > Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> > Co-developed-by: Taegyu Kim <tmk5904@psu.edu>
+> > Signed-off-by: Taegyu Kim <tmk5904@psu.edu>
+> > Co-developed-by: Yuho Choi <dbgh9129@gmail.com>
+> > Signed-off-by: Yuho Choi <dbgh9129@gmail.com>
+> > Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> > ---
+> >  drivers/gpu/drm/panel/panel-lg-sw43408.c | 8 +++++++-
+> >  1 file changed, 7 insertions(+), 1 deletion(-)
+> >
+>
+> You can also switch to devm_drm_panel_add().
+>
+> --
+> With best wishes
+> Dmitry
+>
 
-The macro needs a lot from its caller: it needs 2 local vars, 1 of
-which is a ref to a contained struct with named members.  To support
-these requirements, add:
+--00000000000000617d06501ee7f5
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-1. __ASSERT_IS_LVALUE(_X):
-   ie: ((void)sizeof((void)0, &(x)))
+<div dir=3D"ltr"><span style=3D"color:rgb(31,31,31);font-family:&quot;Googl=
+e Sans&quot;,Roboto,Arial,sans-serif;font-size:18px;font-variant-ligatures:=
+no-contextual;white-space:pre-wrap">Dmitry,
 
-2. __ASSERT_HAS_VEC_MEMBERS(_X, _Y):
-   compile-time check that the _Y "vector" exists
-   ie: _X->_Y and _X->num_##_Y are lvalues.
+Understood. I will apply devm_drm_panel_add() to this patch as well in the =
+next version, which will be submitted as part of the series.
 
-The for_subvec() macro then invokes these in the initialization of the
-for-loop; they disappear at runtime.
+Thanks,
 
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- lib/dynamic_debug.c | 27 ++++++++++++++++++++++++---
- 1 file changed, 24 insertions(+), 3 deletions(-)
+Myeonghun Pak</span></div><br><div class=3D"gmail_quote gmail_quote_contain=
+er"><div dir=3D"ltr" class=3D"gmail_attr">2026=EB=85=84 4=EC=9B=94 23=EC=9D=
+=BC (=EB=AA=A9) =EC=98=A4=EC=A0=84 4:24, Dmitry Baryshkov &lt;<a href=3D"ma=
+ilto:dmitry.baryshkov@oss.qualcomm.com">dmitry.baryshkov@oss.qualcomm.com</=
+a>&gt;=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:<br></div><blockquote class=3D"=
+gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(20=
+4,204,204);padding-left:1ex">On Mon, Apr 20, 2026 at 04:38:27PM +0900, Myeo=
+nghun Pak wrote:<br>
+&gt; The probe path registers the panel by calling drm_panel_add() in<br>
+&gt; sw43408_add(), then returns the result of mipi_dsi_attach() directly<b=
+r>
+&gt; from sw43408_probe().<br>
+&gt; <br>
+&gt; If mipi_dsi_attach() fails, the probe path exits without calling<br>
+&gt; drm_panel_remove(), leaving the panel registered in the global DRM<br>
+&gt; panel list. The .remove() callback does not cover this case because<br=
+>
+&gt; it is only invoked after a successful probe.<br>
+&gt; <br>
+&gt; Fix this by unwinding the panel registration with drm_panel_remove()<b=
+r>
+&gt; when mipi_dsi_attach() fails.<br>
+&gt; <br>
+&gt; Co-developed-by: Ijae Kim &lt;<a href=3D"mailto:ae878000@gmail.com" ta=
+rget=3D"_blank">ae878000@gmail.com</a>&gt;<br>
+&gt; Signed-off-by: Ijae Kim &lt;<a href=3D"mailto:ae878000@gmail.com" targ=
+et=3D"_blank">ae878000@gmail.com</a>&gt;<br>
+&gt; Co-developed-by: Taegyu Kim &lt;<a href=3D"mailto:tmk5904@psu.edu" tar=
+get=3D"_blank">tmk5904@psu.edu</a>&gt;<br>
+&gt; Signed-off-by: Taegyu Kim &lt;<a href=3D"mailto:tmk5904@psu.edu" targe=
+t=3D"_blank">tmk5904@psu.edu</a>&gt;<br>
+&gt; Co-developed-by: Yuho Choi &lt;<a href=3D"mailto:dbgh9129@gmail.com" t=
+arget=3D"_blank">dbgh9129@gmail.com</a>&gt;<br>
+&gt; Signed-off-by: Yuho Choi &lt;<a href=3D"mailto:dbgh9129@gmail.com" tar=
+get=3D"_blank">dbgh9129@gmail.com</a>&gt;<br>
+&gt; Signed-off-by: Myeonghun Pak &lt;<a href=3D"mailto:mhun512@gmail.com" =
+target=3D"_blank">mhun512@gmail.com</a>&gt;<br>
+&gt; ---<br>
+&gt;=C2=A0 drivers/gpu/drm/panel/panel-lg-sw43408.c | 8 +++++++-<br>
+&gt;=C2=A0 1 file changed, 7 insertions(+), 1 deletion(-)<br>
+&gt; <br>
+<br>
+You can also switch to devm_drm_panel_add().<br>
+<br>
+-- <br>
+With best wishes<br>
+Dmitry<br>
+</blockquote></div>
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 94a66c8537ab..8f614eba8ace 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -129,6 +129,28 @@ do {								\
- #define v3pr_info(fmt, ...)	vnpr_info(3, fmt, ##__VA_ARGS__)
- #define v4pr_info(fmt, ...)	vnpr_info(4, fmt, ##__VA_ARGS__)
- 
-+/*
-+ * simplify a repeated for-loop pattern walking N steps in a T _vec
-+ * member inside a struct _box.  It expects int i and T *_sp to be
-+ * declared in the caller.
-+ * @_i:  caller provided counter.
-+ * @_sp: cursor into _vec, to examine each item.
-+ * @_box: ptr to a struct containing @_vec member
-+ * @_vec: name of a member in @_box
-+ */
-+#define __ASSERT_IS_LVALUE(x) ((void)sizeof((void)0, &(x)))
-+#define __ASSERT_HAS_VEC_MEMBER(_box, _vec) \
-+	(void)sizeof((_box)->_vec + (_box)->num_##_vec)
-+
-+#define for_subvec(_i, _sp, _box, _vec)			\
-+	for (__ASSERT_IS_LVALUE(_i),			\
-+		__ASSERT_IS_LVALUE(_sp),		\
-+		__ASSERT_HAS_VEC_MEMBER(_box, _vec),	\
-+		(_i) = 0,				\
-+		(_sp) = (_box)->_vec;			\
-+	     (_i) < (_box)->num_##_vec;			\
-+	     (_i)++, (_sp)++)		/* { block } */
-+
- static void vpr_info_dq(const struct ddebug_query *query, const char *msg)
- {
- 	/* trim any trailing newlines */
-@@ -156,7 +178,7 @@ static struct ddebug_class_map *ddebug_find_valid_class(struct ddebug_table cons
- 	struct ddebug_class_map *map;
- 	int i, idx;
- 
--	for (map = dt->classes, i = 0; i < dt->num_classes; i++, map++) {
-+	for_subvec(i, map, dt, classes) {
- 		idx = match_string(map->class_names, map->length, class_string);
- 		if (idx >= 0) {
- 			*class_id = idx + map->base;
-@@ -1232,8 +1254,7 @@ static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug
- 	 * the builtin/modular classmap vector/section.  Save the start
- 	 * and length of the subrange at its edges.
- 	 */
--	for (cm = di->classes, i = 0; i < di->num_classes; i++, cm++) {
--
-+	for_subvec(i, cm, di, classes) {
- 		if (!strcmp(cm->mod_name, dt->mod_name)) {
- 			if (!nc) {
- 				v2pr_info("start subrange, class[%d]: module:%s base:%d len:%d ty:%d\n",
-
--- 
-2.53.0
-
+--00000000000000617d06501ee7f5--
