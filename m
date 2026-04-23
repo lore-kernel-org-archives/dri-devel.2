@@ -4,63 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77D09F589DA
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 14:05:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 858E5F589DB
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 14:21:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB0C210F14B;
-	Thu, 23 Apr 2026 14:05:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2D9D10F152;
+	Thu, 23 Apr 2026 14:21:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="MnFDp/Go";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="VPqhXwBC";
 	dkim-atps=neutral
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB6B910F14B
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 14:05:40 +0000 (UTC)
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4966010E2B5
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 14:21:47 +0000 (UTC)
+Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi
  [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id B9819227;
- Thu, 23 Apr 2026 16:03:59 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 667E5838;
+ Thu, 23 Apr 2026 16:20:05 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1776953040;
- bh=wqniVq9yEq7QN1zP9YpKxgcUq4s7oP2llFTuHjHuy04=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=MnFDp/GocbhxsUcToEMstatKOCP67wZpMIU3CSf2ZxhYNGDr7UVKluUnbOyKIACV6
- OGF4pmKbFOdMaKDo2o9cs0EP8bcghzwPCBJCw1ZVo574ntEdJB1L/r7XpFKhRjNqwo
- 2IjxOOY2TR0Hk8vDHobycLW2DT32EfEjlQ2cOx6M=
-Message-ID: <a5f67f4d-cfbf-4726-980b-0dbcb47255a9@ideasonboard.com>
-Date: Thu, 23 Apr 2026 17:05:35 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/panel: simple: Add timings for Raspberry Pi 7"
- panel
-To: Marek Vasut <marex@nabladev.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Maxime Ripard <mripard@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
- Sam Ravnborg <sam@ravnborg.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260420-rpi-7inch-v1-0-e68d5c9c44bc@ideasonboard.com>
- <20260420-rpi-7inch-v1-2-e68d5c9c44bc@ideasonboard.com>
- <3z3u5mbngmbzsch3mzs3twlh3aec6r7jokstzv3ghxyusrzt6b@jqvdnuiapx6e>
- <af71183d-70b8-4a41-8466-67123e7aab02@ideasonboard.com>
- <20260423-kickass-fat-boa-209f68@houat>
- <72c2cd94-0a8b-46c8-981b-4ad4a3222e59@ideasonboard.com>
- <CAO9ioeVX6OChRTgUrUdgrPF+3s2_7vme7m0yb85pjYtH1MFskw@mail.gmail.com>
- <ced05a92-06b4-4f6f-95b6-c3dc104c35f3@ideasonboard.com>
- <b24c428f-5752-4544-a8b4-77e91d7bc158@ideasonboard.com>
- <da6bdb78-7fe8-4f51-b9e6-444748ebc319@nabladev.com>
-Content-Language: en-US
+ s=mail; t=1776954006;
+ bh=k4Kr8v8q1FzJJOLJ0lZjjhg5zxTdGMz2I9k2MPOlTAM=;
+ h=From:Subject:Date:To:Cc:From;
+ b=VPqhXwBCn99Bs0mPijcUeG2KgW5wpIHlcJ/hEZS5Of8b/JgSLCZft0w+331Sk2PFy
+ HxXznzuqB6Hr12qS9jGHD3x0eEQhDGqrAjWMc+XuIOu95lAUJxs6svIiAyln3GlFZU
+ hZXcTxzjIH+mQTcH5Xef0R1/X+Ke+TSdqfzMB67s=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-In-Reply-To: <da6bdb78-7fe8-4f51-b9e6-444748ebc319@nabladev.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: [PATCH v10 00/11] drm: Add new pixel formats for Xilinx Zynqmp
+Date: Thu, 23 Apr 2026 17:21:11 +0300
+Message-Id: <20260423-xilinx-formats-v10-0-c690c2b8ea89@ideasonboard.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIANgq6mkC/3XQyWrDMBCA4VcJOtdlFi12T32P0oPWRtDYxQ7GJ
+ eTdK6ekhjo6ziB9Qv9FTHHMcRIvh4sY45ynPPRlQHg6CH+0/UdscigLQUASkaBZ8mfulyYN48m
+ epyYZ7AA1YcssyqWvMaa83MS39zIf83Qexu/bAzOu21+KQP6nZmygAZfIK5QmOHzNIdpp6N1gx
+ /Dsh5NYxZnuigJEtVOoKKiByXirFdmKwptCSDuFi9JBgBQRdNepiiI3hUnvFFkUJrIM4HUwVFH
+ Upkja/0gVxRtJmolRM1QU/acgAO4UvdZF6cBop2S1i9kUeqCYtW5EpVobUky+orR3RQNSu1Pat
+ W60xXCmnOkqSrcp/KBLV5QA7ExkoyjKB8r1ev0Bc50gVOQCAAA=
+X-Change-ID: 20241120-xilinx-formats-f71901621833
+To: Vishal Sagar <vishal.sagar@amd.com>, 
+ Anatoliy Klymenko <anatoliy.klymenko@amd.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Michal Simek <michal.simek@amd.com>, Simon Ser <contact@emersion.fr>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, 
+ Geert Uytterhoeven <geert@linux-m68k.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Pekka Paalanen <ppaalanen@gmail.com>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Pekka Paalanen <pekka.paalanen@collabora.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>
+X-Mailer: b4 0.15-dev-c25d1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7037;
+ i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
+ bh=k4Kr8v8q1FzJJOLJ0lZjjhg5zxTdGMz2I9k2MPOlTAM=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBp6irw2cDO8cSi4WZXJsExZqMVHBtFBW7a1WDBa
+ CLnNMXzBKGJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCaeoq8AAKCRD6PaqMvJYe
+ 9X5vD/9+mjfe1eJ7O+OfqWBzusLSa6RXJlTyEM7SWHLTxXQBqA8MJElKGqzWsOe2SF3G8CgnqCB
+ dXgrbQLP5GQB/eKAvbltWCtaZoQkaTL+EayvQSMZg6vWIkvukyI134syWdJv6oQfiq7+rLh4Cc1
+ 0er/hagKhVY9njy8zwjawloAXixehcrtsZ2PP40edqTVXY4TfpHeNFxYekViStGeRUUEgMj7aMW
+ W+02fzK7pCHKKYGJaVONlZBVm9lrAFQsmdlIavMLxOOuC82VYKAoOROJQvo9hg3XNSry0Xs4653
+ SGjSt+W9DZoiw/gcFBTWhWxeFgoLuNqHn9RPDQi0sjou6g4Oslxoof53C5CTlOARqmtXgReE4Lm
+ /O5e83U/tKEGUA7+Gsy7D7/84H875r/32VbP/bxMmclD6iAhGhk1v7F20K6RgM/PoWmG4Ihjr5M
+ dU1tkhGv0buOEs/YUz46/s7LVBYswu5NJBMKfDKNQ9C244GKeSN0pl1N+g+Wx5jb3MLSbsPY3lN
+ 9sCPV1tXx4rXqDQIvm8ysHyts7CU/IEErL653UUTxIehiBXVy1C5dkihTw5tbzQJdLycC8fpx8S
+ iCCJkImZYnoYHz6BXkzFmWyql0Nf/3uYu07ZX+gYRH1RSTGSig25XWbc8AKXPE/7J+4qo4YY4cY
+ aWLwpjqteaGQiJA==
+X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
+ fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,40 +89,174 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+Add new DRM pixel formats and add support for those in the Xilinx zynqmp
+display driver.
 
-On 23/04/2026 16:54, Marek Vasut wrote:
-> On 4/23/26 3:16 PM, Tomi Valkeinen wrote:
-> 
-> Hello Tomi,
-> 
->>>> In the past I used this panel compat instead of the
->>>> panel-raspberrypi-touchscreen.c and it worked.
->>>> IIRC Marek splitted the multi-function module into a regulator and the
->>>> panel description.
->>> Ok... Indeed https://pip.raspberrypi.com/categories/651-pcn lists 
->>> PH800480T013 as one of the panels used. Although two variants are 
->>> listed, and also a third panel model, possibly from another vendor.
->>>
->>> My module is v1.1, and I think it has the PH800480T013-IAC21 D/5624/ 
->>> KIT- LC variant.
->> A question to Marek: Where did you get the timings for PH800480T013? 
->> Did you find a datasheet?
-> Search engine first link:
-> 
-> https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/5337/ 
-> PH800480T013-IHC09.pdf
+All other formats except XVUY2101010 are already supported in upstream
+gstreamer, but gstreamer's kmssink does not have the support yet, as it
+obviously cannot support the formats without kernel having the formats.
 
-Thanks. That's not exactly the same variant, though (IHC09 vs IAC21). 
-Even so, that datasheet also lists the backporches as 46 and 23, which 
-are not the same as in d69de69f2be105b2474c05a5ca4827aac3e80ad3.
+Xilinx has support for these formats in their BSP kernel, and Xilinx has
+a branch here, adding the support to gstreamer kmssink:
 
-But oddly the datasheet pic shows that the backporch times would include 
-the sync time. Taken that way, the commit's hsw=2 and hbp=44 would 
-match, but the vsw=2 and vbp=22 still wouldn't.
+https://github.com/Xilinx/gst-plugins-bad.git xlnx-rebase-v1.18.5
 
-I'll test my HW with the PH800480T013 compatible at some point and see 
-how it behaves.
+New formats added:
 
-  Tomi
+DRM_FORMAT_Y8
+- 8-bit Y-only
+- fourcc: "GREY"
+- gstreamer: GRAY8
+
+DRM_FORMAT_XYYY2101010
+- 10-bit Y-only, three pixels packed into 32-bits
+- fourcc: "YPA4"
+- gstreamer: GRAY10_LE32
+
+DRM_FORMAT_P230
+- Like NV16, but with 10-bit components
+- fourcc: "P230"
+- gstreamer: NV16_10LE32
+
+DRM_FORMAT_T430
+- 10-bit planar 4:4:4, with three samples packed into 32-bits
+- fourcc: "T430"
+- gstreamer: Y444_10LE32
+
+XVUY2101010
+- 10-bit 4:4:4, one pixel in 32 bits
+- fourcc: "XY30"
+
+Some notes:
+
+I know the 8-bit greyscale format has been discussed before, and the
+guidance was to use DRM_FORMAT_R8. While I'm not totally against that, I
+would argue that adding DRM_FORMAT_Y8 makes sense, as:
+
+1) We can mark it as 'is_yuv' in the drm_format_info, and this can help
+   the drivers handle e.g. full/limited range. Probably some hardware
+   handles grayscale as a value used for all RGB components, in which case
+   R8 makes sense, but when the hardware handles the Y-only pixels as YCbCr,
+   where Cb and Cr are "neutral", it makes more sense to consider the
+   format as an YUV format rather than RGB.
+
+2) We can have the same fourcc as in v4l2. While not strictly necessary,
+   it's a constant source of confusion when the fourccs differ.
+
+3) It (possibly) makes more sense for the user to use Y8/GREY format
+   instead of R8, as, in my experience, the documentation usually refers
+   to gray(scale) format or Y-only format.
+
+I have made some adjustments to the formats compared to the Xilinx's
+branch. E.g. The DRM_FORMAT_XYYY2101010 format in Xilinx's kmssink uses
+fourcc "Y10 ", and DRM_FORMAT_Y10. I didn't like those, as the format is
+a packed format, three 10-bit pixels in a 32-bit container, and I think
+Y10 means a 10-bit pixel in a 16-bit container. Xilinx also has
+XV15/XV20 formats, of which XV15 already exists in the kernel as P030,
+and XV20 is added here as P230.
+
+Generally speaking, if someone has good ideas for the format define
+names or fourccs, speak up, as it's not easy to invent good names =).
+That said, keeping them the same as in the Xilinx trees will, of course,
+be slightly easier for the users of Xilinx platforms.
+
+Note: Earlier versions of the series had DRM_FORMAT_Y10_P32, which is
+now DRM_FORMAT_XYYY2101010, DRM_FORMAT_XV15, which is now removed as
+P030 already exists. DRM_FORMAT_P230 used to be DRM_FORMAT_XV20, and
+DRM_FORMAT_T430 used to be DRM_FORMAT_X403.
+
+[1] https://lore.kernel.org/all/20250109150310.219442-26-tzimmermann%40suse.de/
+[2] git@github.com:tomba/kmsxx.git xilinx
+[3] git@github.com:tomba/pykms.git xilinx
+[4] git@github.com:tomba/pixutils.git xilinx
+
+Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+---
+Changes in v10:
+- Rename DRM_FORMAT_XV20 to DRM_FORMAT_P230 to be aligned with DRM_FORMAT_P030
+- Rename DRM_FORMAT_X403 to DRM_FORMAT_T430
+- Link to v9: https://lore.kernel.org/r/20260325-xilinx-formats-v9-0-d03b7e3752e4@ideasonboard.com
+
+Changes in v9:
+- Drop DRM_FORMAT_XV15 as DRM_FORMAT_P030 already exists
+- Rename DRM_FORMAT_Y10_P32 to DRM_FORMAT_XYYY2101010
+- I kept the Reviewed-bys related to the above, although one could say
+  renaming the format names is a substantial change. Ping me if you want
+  me to drop the Rb and re-send.
+- Link to v8: https://lore.kernel.org/r/20260128-xilinx-formats-v8-0-9ea8adb70269@ideasonboard.com
+
+Changes in v8:
+- Expand the "drm/fourcc: Add DRM_FORMAT_Y8" commit description to
+  explain the rationale
+- Add comment to "drm: xlnx: zynqmp: Add support for Y8 and Y10_P32"
+  explainig the Y-only matrix
+- Remove extra blank line
+- Link to v7: https://lore.kernel.org/r/20251201-xilinx-formats-v7-0-1e1558adfefc@ideasonboard.com
+
+Changes in v7:
+- Added Reviewed-bys
+- Rebased on v6.18
+- Link to v6: https://lore.kernel.org/r/20251001-xilinx-formats-v6-0-014b076b542a@ideasonboard.com
+
+Changes in v6:
+- Added tags for reviews
+- Rebased on v6.17
+- Link to v5: https://lore.kernel.org/r/20250425-xilinx-formats-v5-0-c74263231630@ideasonboard.com
+
+Changes in v5:
+- Add comment about Y-only formats, clarifying how the display pipeline
+  handles them (they're handled as YCbCr, with Cb and Cr as "neutral")
+- Clarify X403 format in the patch description
+- Set unused Y-only CSC offsets to 0 (instead of 0x1800).
+- Add R-bs
+- Link to v4: https://lore.kernel.org/r/20250326-xilinx-formats-v4-0-322a300c6d72@ideasonboard.com
+
+Changes in v4:
+- Reformat the drm_format_info entries a bit
+- Calculate block size only once in drm_format_info_bpp()
+- Declare local variables in separate lines
+- Add review tags
+- Fix commit message referring to Y10_LE32 (should be Y10_P32)
+- Link to v3: https://lore.kernel.org/r/20250212-xilinx-formats-v3-0-90d0fe106995@ideasonboard.com
+
+Changes in v3:
+- Drop "drm: xlnx: zynqmp: Fix max dma segment size". It is already
+  pushed.
+- Add XVUY2101010 format.
+- Rename DRM_FORMAT_Y10_LE32 to DRM_FORMAT_Y10_P32.
+- Link to v2: https://lore.kernel.org/r/20250115-xilinx-formats-v2-0-160327ca652a@ideasonboard.com
+
+Changes in v2:
+- I noticed V4L2 already has fourcc Y10P, referring to MIPI-style packed
+  Y10 format. So I changed Y10_LE32 fourcc to YPA4. If logic has any
+  relevance here, P means packed, A means 10, 4 means "in 4 bytes".
+- Added tags to "Fix max dma segment size" patch
+- Updated description for "Add warning for bad bpp"
+- Link to v1: https://lore.kernel.org/r/20241204-xilinx-formats-v1-0-0bf2c5147db1@ideasonboard.com
+
+---
+Tomi Valkeinen (11):
+      drm/fourcc: Add warning for bad bpp
+      drm/fourcc: Add DRM_FORMAT_P230
+      drm/fourcc: Add DRM_FORMAT_Y8
+      drm/fourcc: Add DRM_FORMAT_XYYY2101010
+      drm/fourcc: Add DRM_FORMAT_T430
+      drm/fourcc: Add DRM_FORMAT_XVUY2101010
+      drm: xlnx: zynqmp: Use drm helpers when calculating buffer sizes
+      drm: xlnx: zynqmp: Add support for P030 & P230
+      drm: xlnx: zynqmp: Add support for Y8 and XYYY2101010
+      drm: xlnx: zynqmp: Add support for T430
+      drm: xlnx: zynqmp: Add support for XVUY2101010
+
+ drivers/gpu/drm/drm_fourcc.c       | 25 +++++++++++++++--
+ drivers/gpu/drm/xlnx/zynqmp_disp.c | 56 +++++++++++++++++++++++++++++++++++---
+ include/uapi/drm/drm_fourcc.h      | 28 +++++++++++++++++++
+ 3 files changed, 102 insertions(+), 7 deletions(-)
+---
+base-commit: 11439c4635edd669ae435eec308f4ab8a0804808
+change-id: 20241120-xilinx-formats-f71901621833
+
+Best regards,
+-- 
+Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 
