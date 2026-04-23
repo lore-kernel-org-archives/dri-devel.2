@@ -4,165 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E5ECFDEE51
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 22:22:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3FE2FDEE4D
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 22:46:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 401C510E092;
-	Thu, 23 Apr 2026 22:21:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BB7610E0AB;
+	Thu, 23 Apr 2026 22:46:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LEGaxZNs";
+	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="NemNG8R8";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6FF210E04C;
- Thu, 23 Apr 2026 22:21:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1776982916; x=1808518916;
- h=date:from:to:cc:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=3LgQafyv2w6cmF7eS/YwFjaJ6HZffe4tqM1IVp6FXDQ=;
- b=LEGaxZNsrjo5tRDJCMgF61xWFoqALNiRhDy9yB3ya7Ca2BGGtKbThSp3
- LsjwRFOWbpyszWByvjufv1gFBosY2aG6xamjO6a1WIciOATkbv4Z+X5OF
- O57XILLnUWuWrpkO7UwogCU3xy/jHtK9yNMQK+JOYZ2Qyz8yufL9mbpQL
- kskBSB8Ljl9yP0LmHuk0OPEA9WG2F+tHx5kkBAqKcytdslVlU1qlxoYnm
- 51262hSNwiZMOu/xlrD3H6vTxec9WiuEXDg/eMngzuc0RmP6af5TFDIcE
- uptKe/RXWUpA8Nnyy0EIpCrmkK3yqw/X7tt3aq3Yzo/YtlCzZAkwSUkdn g==;
-X-CSE-ConnectionGUID: 7HTnv55DTVaezCijBlNckg==
-X-CSE-MsgGUID: 0YseDS89TG+OuD4Tc4kdBg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11765"; a="77844547"
-X-IronPort-AV: E=Sophos;i="6.23,195,1770624000"; d="scan'208";a="77844547"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Apr 2026 15:21:55 -0700
-X-CSE-ConnectionGUID: pusFl3ocT+yArLe43b1LtA==
-X-CSE-MsgGUID: d2pUwjLORwKP5kvUqNGx9Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,195,1770624000"; d="scan'208";a="228219296"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
- by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Apr 2026 15:21:55 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Thu, 23 Apr 2026 15:21:54 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Thu, 23 Apr 2026 15:21:54 -0700
-Received: from BL2PR02CU003.outbound.protection.outlook.com (52.101.52.71) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Thu, 23 Apr 2026 15:21:54 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FDy/Est3FEdwNnT8oL0wXjnMsFbwKCDnsMjk+++OHgYa+TIotgfGc3B7v4loE2H2QVGz3lc0uWMmwEl/5+5ODzog2p9H46j1XHBHD4bvCOjQzsdTFkdvRQtmFsRmPV6YfSB9Pk/DslNhjEqskIL6U9WkLigPKeNQCUMeRogITg7X1kQLODGsYrjGDPzJFVTm8IzzRVkSXxL6qisYIHQPTd1hsXrK7NJQ622zAFsEA5pgBi6SjRhNLIa6b0WpJiXucYwSHUz5RowtoV8lfjMRSNhUBcobl//S5JFPkrlX78bsPUfz7PyWh7okoUgnYhSgfatKuMPuc0IB1dhlaDBnAg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WXls5ISlaFHTwZ6/O75+HnaB6ojcYdKIJwTAMQZ9xPA=;
- b=jdGR724UeWh8k7eBoCeiaHH4M1Q6bBKMEGO3fNSSFweI8Ya2s/ul5fzA3JNtpNaHvWngTKaJv/RFZGFNFQ4asI4XA3ublV4bIzhPEvfhPXKMGk31LfOIZAN6W1iz08gnpdWU8NCbLPSBGbOnNYHck4xGQryTPkKbBS/y7j4qNBPN3OIfGS+leDefLz1eh+hSODXHbwvOWLBYVLHzkcVGIGfU5Ivr3234G+wDIeKqDUr26yaKvMZD3gjcrZvbQoZFES7CcUhfURdLrEXpSiuS5+AH6dVqd+pu+zcER9SBq7DYGrQBSGPgmC+zgkHFrIQJ+KBfwJLe1wNROyAMuPj33A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
- by SJ5PPF5B09F0799.namprd11.prod.outlook.com
- (2603:10b6:a0f:fc02::82c) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.20; Thu, 23 Apr
- 2026 22:21:52 +0000
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c%7]) with mapi id 15.20.9846.021; Thu, 23 Apr 2026
- 22:21:52 +0000
-Date: Thu, 23 Apr 2026 15:21:47 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-CC: "David Hildenbrand (Arm)" <david@kernel.org>,
- <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, "Andrew
- Morton" <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam
- R. Howlett" <Liam.Howlett@oracle.com>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, <linux-mm@kvack.org>,
- <linux-kernel@vger.kernel.org>, Johannes Weiner <hannes@cmpxchg.org>
-Subject: Re: [PATCH v2 1/5] mm: Introduce zone_appears_fragmented()
-Message-ID: <aeqbe/9YRKNyYuWY@gsse-cloud1.jf.intel.com>
-References: <20260423055656.1696379-1-matthew.brost@intel.com>
- <20260423055656.1696379-2-matthew.brost@intel.com>
- <76191a17-18bf-4e9b-9ab5-dc9a48abfabb@kernel.org>
- <be42059924cde9bb16a087ee2a5abb0b9d850d68.camel@linux.intel.com>
- <aepuNL2fwp47P1Wi@gsse-cloud1.jf.intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aepuNL2fwp47P1Wi@gsse-cloud1.jf.intel.com>
-X-ClientProxiedBy: BY5PR04CA0009.namprd04.prod.outlook.com
- (2603:10b6:a03:1d0::19) To PH7PR11MB6522.namprd11.prod.outlook.com
- (2603:10b6:510:212::12)
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com
+ [209.85.222.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D47610E0AB
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 22:46:28 +0000 (UTC)
+Received: by mail-qk1-f182.google.com with SMTP id
+ af79cd13be357-8d933da14f0so672821185a.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 15:46:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ziepe.ca; s=google; t=1776984387; x=1777589187; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=LOyCcpWY9ETk6/DQ/Zzf9IsC2/j7viPfylDYdsbXpuw=;
+ b=NemNG8R8v3FePFkWiHvfImyhlqiUK7cHzC8uxhbOUIRoyua/EMbagGwy5oX0WqmBYI
+ QEMNZhWVVfPkoN9T9kPifF1v2TjyDN7SPXzqdomXRnNOjPiN20GvzidszQa+4SsHURw0
+ HBxdbQDxS1XFbfAkhwmy6vRvLWpSGI7GqF9y4LGRK+hHkrEcISJtpyOJr/fj8pAkX2Om
+ KrA3KoZwPxlOfGO0roFHvAPdHDSWLYGN2JclpmBDn7p8IAuAkGqvXWh7lFvqbxkTi5bk
+ feR7bENRJYvFPz44AnCOvKxyapN1bGlKTb1g6fiB3/qQp6i9a6Ra+zRH6Lf4/M9w4XI2
+ RKtw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776984387; x=1777589187;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=LOyCcpWY9ETk6/DQ/Zzf9IsC2/j7viPfylDYdsbXpuw=;
+ b=r8V1gy5PlYYYta/BAd96Joip1nA2u0c2ZxqAIo99uQMWlILbF7W0r0qVeCtpxSxAFS
+ sKUU75+he91wKIXERWh6kk76YFE67QAZiRJ2Q1at+PCoxavjJoMSo/w/HwWi3hnshdBb
+ XL02wLUTplxQio7SWyCD7KAOuMrzo5Bi3dkRjCa4g6bw42aRUssB+4/c50KW7+5T/ufg
+ 4cqcvY83evEpf+jgmNT1QRQ2XiUQcnuD/sScwD7vWCuKAMARGnwXagaixNfJOsATtC6a
+ XzpJz8yYu+nyXGjybZkmsB3spssLwNlyf73WEpiSNTgS3O1xf1mgfU+p6lavlpQNIBva
+ d7/w==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8DWBSFpm6SqrWuftJvnonmDKZqzfyqT5WBcL9aGwO2TB6bIY/sTXcJnhZa77EX/ggZsSSCz4ua8wY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxB/BW7eeAkt7f7vP5h+I6w1Gcqmv5drVX5viBNOV2M8DHMdIKQ
+ 3YFetNk1xwEPcGHObLNZN3upXB70UFJmR93qVnCBAz4IIvPQG3jh3rk5FHDnPSVAjEo=
+X-Gm-Gg: AeBDies+HlKKxlAPOkvPP1u6OI9WJdlVKZnQiuQ5yYvw0Gr82YsqA/wCHA2YZUNfwXA
+ b8sqs9E4XMMu1ymaR5A2K9+qV85AxwsMeeIgVL1JfQjkuPvRhT50RWuuMWPslCea+V3SM0WpEC5
+ 5esGjxZTzCVIBZMnFNvss2aourDM4ytRLYiRpIxkzU+55wxIlG508hvPHeN2NnvF4W7IOypLfr3
+ tlLRjI8xpce96GrVh5z+TxqezzqBVNtTFXpmMUb8CnMlwhwOJyDvVBQdyODR9JkRg3605/8c2MY
+ qco5sYgxFj4itB4zJz4pITAcAHYMauDv57XQLanLJ9xOzOGVpU6ATrrb9HYGdClDa6GXxN1LLtp
+ NtSFJyZkuI3PVsBPgnYhgmZ1kPCs7ezWkg4vdz/SX0io37DvN2rUDi8VRiMIk/OehVBUOUMBXjI
+ g/SZNLYaobMvVRGiFti5kW99rIfKDIZ+2NTtMzIW//iMn9CVXnCbgG1Y7pIeiSPaECq1DgNFkVc
+ pOLHEYKyZI6AXWZsl4aATxgTQw=
+X-Received: by 2002:a05:620a:440d:b0:8ef:74c9:daa7 with SMTP id
+ af79cd13be357-8ef74c9e32fmr1451093685a.8.1776984387201; 
+ Thu, 23 Apr 2026 15:46:27 -0700 (PDT)
+Received: from ziepe.ca
+ (crbknf0213w-47-54-130-67.pppoe-dynamic.high-speed.nl.bellaliant.net.
+ [47.54.130.67]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-8e7d98c15a9sm1970538185a.43.2026.04.23.15.46.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 23 Apr 2026 15:46:26 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+ (envelope-from <jgg@ziepe.ca>) id 1wG2oU-0000000GMBz-0jKo;
+ Thu, 23 Apr 2026 19:46:26 -0300
+Date: Thu, 23 Apr 2026 19:46:26 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Alex Williamson <alex@shazbot.org>
+Cc: Zhiping Zhang <zhipingz@meta.com>, Stanislav Fomichev <sdf@meta.com>,
+ Keith Busch <kbusch@kernel.org>, Leon Romanovsky <leon@kernel.org>,
+ Bjorn Helgaas <helgaas@kernel.org>, linux-rdma@vger.kernel.org,
+ linux-pci@vger.kernel.org, netdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Yochai Cohen <yochai@nvidia.com>,
+ Yishai Hadas <yishaih@nvidia.com>
+Subject: Re: [PATCH v1 1/2] vfio: add callback to get tph info for dma-buf
+Message-ID: <20260423224626.GV3611611@ziepe.ca>
+References: <20260420183920.3626389-1-zhipingz@meta.com>
+ <20260420183920.3626389-2-zhipingz@meta.com>
+ <20260422092327.3f629ad6@shazbot.org>
+ <20260422162928.GL3611611@ziepe.ca>
+ <20260422132740.5f809bf7@shazbot.org>
+ <20260423142828.GQ3611611@ziepe.ca>
+ <20260423132016.4a25e074@shazbot.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|SJ5PPF5B09F0799:EE_
-X-MS-Office365-Filtering-Correlation-Id: 491f8d3f-8995-4bf2-a440-08dea186b7fd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|7416014|376014|366016|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 61BJTGOalWoCXf/2hXLSqYqI+LP7oQUwKAXkRa58ogJz1dMxYjldGkAJ9TnZ0VB4OppgYB0Uj+XR/Msx5az0EsDjyXJr2TuOls4LOA/PtlPYHzm31uVXlsW6obVt3jujzfYDGss1LOhhLEOYjC2aCFzsafsE8SosPFnPsBUYP3sNz/APXVTKlBD3FcvAFkwdtUUn5H9qLbWn+kJHJX2vshhjINr0+O1iHDETAMJxjYZmJwVABPfahtoN3jAgN+kitUS2BiLYLcbwGBNVl4y14k+IXlyA4DqxTcohqAsLPpMuFYj1yWB3CVLbRiIxbnb3dB/xQIQ6ovR6VCYxm4dmPVlDeib2sNH04/B8XYmoPRPVtotIg33gYH8s3WABURqnlifyqYENFGAvKwDqYuN6Nkr5yMPR2aFzKIjlc+VHUs4EfqHubfqILsvvgdKPAAZ0GHEKiTIMDYID01cbMtda8X4I6d9x0d4wZvu+X9Y2Q3+qvTTtw5cEcPDuljB+FjOFzFE+jEGm2a2Ls437gYkmUgUCHq6+n1M5ST65LK1InBB83p6YHsNdI0A6hcEJGaXV5shn2BpvenFalIw2lGWfkdxFW19KhZVUV+E23Oz9Yvo/EvLGXbYfrgkIHrBzhjLY91harvwcgy8v8T/XDQD291rfIp9PQ4aDDhnHs5iZ1AEGz7xVShjbfa5VhzXpx17J
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(7416014)(376014)(366016)(56012099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?KzRPQmlpbjRTQStjUlFCZXgySEc0cTR5ZUxFd0tEa1FDK256Q1JqS1Z5QXN0?=
- =?utf-8?B?c2xEZHRMK3pYZnhQL0ErcmNiSm9FRGVrZUR2WXVoVEUyaWQ3dndNV2NjbTM0?=
- =?utf-8?B?NENKU0pkUGI3NDBXQ1N6Z2ozYVpQdFlYclZDVTYvVGZUbmFMSVAxMERuZGt3?=
- =?utf-8?B?YzBWRFNOYnk4dGdRYlJUSkxOSThyb1Zld2t2VEltdFlKalJ4cmlnTjJvV3JZ?=
- =?utf-8?B?MU92Wmg3akZ2MVpuUVpmZkJoY2JVUUhFZURscmNZTHBHa2NOV2hqYVRRZXlY?=
- =?utf-8?B?QkhuWS9XeGNzcDl3SmsvR3VBcFlnSmNLZGxhaEJwd2ZPQks4U1RzcG9tSlp1?=
- =?utf-8?B?YnhEZnlNK28vSXdOcGRBS0U3UFhmVEhzWDEzRlRmL0ZMMTIvMnlkcFFKY09u?=
- =?utf-8?B?UHl2dTN2L3pMSVgrUmZaVjgzdlVlTUtKQjR1bGNLNEhneE94TkFib29oOXJt?=
- =?utf-8?B?ZHpEdnhBZWJDcGdZT0h2SjlFWmhyci9xeW91YlVLY1hCYVg2R0cvcnZZa29m?=
- =?utf-8?B?NkxpMXNaRTZXNHpOdVpKQ1BFYUlZaFdUZ0Z4UzNLbnlPOENqcm1xUUVHc043?=
- =?utf-8?B?R0NHZ2k3Rnhod2tSL2pSeU9HTDQ5dGhqUHg4Q3F2N1diSUx2T3FQL2ppejZZ?=
- =?utf-8?B?NUc0SFlXMTdxR1dBM01WbU1yVjBXbytxZUZtVTVYVGpuZ2ZaZnZSU0RGZXJ5?=
- =?utf-8?B?ZThCSjMyaVNuME5hWEwra0VDa1N5TjJwaW1jVm4zcGJ2QW16RDRIbmpSa0c1?=
- =?utf-8?B?bVFybkM5cmFhb2NqMi9JTFJJMklpT2JWSUYwSStOY3JCam5pQklGelFuTG4w?=
- =?utf-8?B?WWtIT1RscS9iZlY0STUyRDJya2JCMnd6N3IxVUkrL3cvMmVuc1VTdXZLS2VG?=
- =?utf-8?B?RVpvdVN1UjljWFJPZjJkdUFKM0VxOWZ6RTFEOEFQOTJTQlJSQUdLWHI0VWI0?=
- =?utf-8?B?TkJoVXRJU3hRY29mS3pycE9NLzJMRlFaY3VwVDlDQkswNW0wNjZoTFdlZ3FW?=
- =?utf-8?B?VVFEYnpjb1VsZ204cGZsVjh6NXlPcktPMXdQeHUvcGdwek1NTTdFQmRqYkVi?=
- =?utf-8?B?TmZBVXZmZ0h4R3lSaWl6K1k5K0MvNlh6ZHVLK0llemlFMzk5dTVGMGNjN1FQ?=
- =?utf-8?B?b1k2UUNCQWtLYm5VYUFlcWwvalQ3RUZFd012NDNBV3Y1aldsQ2FJdFZIQzJr?=
- =?utf-8?B?V0x0OWE4SDRXL1dnbGJBZXdBOGRVT2lDNVNJeUNQVGp0eGlheTRMMnRkRFpq?=
- =?utf-8?B?MUg5YzNiOCtTV3JjWlp1bEg0THg5KzFLNWJjRHEyOVpnSE0vWHZoWEN1SG9M?=
- =?utf-8?B?TVVwMDIxbzZ6eWJhZ3hJZHI4a3JMN0czMU42RExqeTJ5ZEhXdmlxY3ExdXZ0?=
- =?utf-8?B?MisvQzR5cThueW4wSFc1QWhSRWVicmZKWll1RFBDU1I0VThSS2hKdXkwN3BX?=
- =?utf-8?B?ZWs0VFB5Um9VKzhvbmxmUEl6ZVNMNGovbXoxUktOWkNpeVZlVEV1RlhvZ3lw?=
- =?utf-8?B?cjV5V1NoQkRpd1hpNnQzVmN3MkFIUUlCVWYyUnNUTDBES0NaeUVmZHRpcnlm?=
- =?utf-8?B?NG9hK21nTU9TbDMxa21hTG05UGI1dEJHMktRcDdDcnBPUVdQTWh1aXBlbktB?=
- =?utf-8?B?T2lLSzB3STY2NTJrSThQSDJZODhIMlJYc1NZTVJNdC94SDRBbTNIRmdWdVEx?=
- =?utf-8?B?c3NUTFJYeXNHTFJibVFGUmhnTktSRFloTHBTalhPL0JoVG42R1RpR01uTHZS?=
- =?utf-8?B?M21Td2ZoTGl0ZlhzS3BFVERBR3FpbHdYME1OSnM2RHB1ZmtTcUtYUG5aaUpZ?=
- =?utf-8?B?bFJ2SnpIL3NhYVFUWEVkQ2NBY095SXZCUCtkMlVWV21JQVRZeC9lNXA2ZDh4?=
- =?utf-8?B?N2VyUjdVYXhqbVc2Y01BNEN4elZQOXFsRGl4cmlYTHBkamVHZ0kxa2FFSFZh?=
- =?utf-8?B?SFRPdHZ0UXdtMXlEUXhQT3lIeGpxQUhZMGdxYURTSExTdWxQcXk5Mi9aVElq?=
- =?utf-8?B?QkpqL2lWRkNvRXh3R1lGdE1lMEJGK2VRLzRiQ0ZMVXFHSE4zVFUvaUV4L2tF?=
- =?utf-8?B?MmRxQmRYT0luQmM0L1hNRS94WFdIbTQ3cG1KelBqTGl2WGxTZENQM0FPZURU?=
- =?utf-8?B?MnAzWWRLSzJxYUgzVThEN2toR0poc3dLQXM0T0t0MWtVSEdrVElyZTVDNVZQ?=
- =?utf-8?B?YlRCNjFCUkhOdjRSS2l1QlREQ2F1eE53clZZaHFhbStKYUhlRG00Y0tzdmVl?=
- =?utf-8?B?WC9ZTjc2Q2Yrai9mUWVoOVVZQkFVZ3NoUkE3M0wyTHp6Tm54ajZtbVB6aFE3?=
- =?utf-8?B?OEZod3JDeDY2L1lNNk1hTldNYUFhRUg3TXlSa0ZTaGZEZWVZMUhGRFUxdU9x?=
- =?utf-8?Q?jUaVVK5RaPpRy5x0=3D?=
-X-Exchange-RoutingPolicyChecked: IQYWptVNhZcirGvsbCnNXhBxYTb+qNQL9vJETCE3RK7/qKcxYEY5A3li0UhbG7C+zMbGHq66CSnV6l66mMN7oiwJ15Ali898jktUeDTWn2lqI4maG7i9/w3BSWB9ncz5+rStF83yE6kRk+8DD8fcxm4CFLFFvqNuZd/SdGUgQN8J95iGOGZJId7RLoajWsmCueJ/7t6sFRuLEVfnixTDeiDM24e3kLDNzatfXNytp5hlZ0ykkNgFcAScym8cCbUjhokHEjLwoznAfzr5U8cr+j0BQSqD3VBXI5A1XJ7XnByq22uiEv+FJ0QMTWNbF1mnGBJLkrLV5ZEfwX3xK4TVpw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 491f8d3f-8995-4bf2-a440-08dea186b7fd
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Apr 2026 22:21:51.9804 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XHYzh70q/5oMFjbjtCD0c3KZ89gr9X5vBYXf6E83VhngGWGgZ4Ld6T+GASr55BClolYJcj3MHCt18yoNmI2Mmg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF5B09F0799
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260423132016.4a25e074@shazbot.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -178,146 +103,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Apr 23, 2026 at 12:08:36PM -0700, Matthew Brost wrote:
-> On Thu, Apr 23, 2026 at 01:27:11PM +0200, Thomas Hellström wrote:
-> > On Thu, 2026-04-23 at 12:27 +0200, David Hildenbrand (Arm) wrote:
-> > > On 4/23/26 07:56, Matthew Brost wrote:
-> > > > Introduce zone_appears_fragmented() as a lightweight helper to
-> > > > allow
-> > > > subsystems to make coarse decisions about reclaim behavior in the
-> > > > presence of likely fragmentation.
-> > > > 
-> > > > The helper implements a simple heuristic: if the number of free
-> > > > pages
-> > > > in a zone exceeds twice the high watermark, the zone is considered
-> > > > to
-> > > > have ample free memory and allocation failures are more likely due
-> > > > to
-> > > > fragmentation than overall memory pressure.
-> > > > 
-> > > > This is intentionally imprecise and is not meant to replace the
-> > > > core
-> > > > MM compaction or fragmentation accounting logic. Instead, it
-> > > > provides
-> > > > a cheap signal for callers (e.g., shrinkers) that wish to avoid
-> > > > overly aggressive reclaim when sufficient free memory exists but
-> > > > high-order allocations may still fail.
-> > > > 
-> > > > No functional changes; this is a preparatory helper for future
-> > > > users.
-> > > > 
-> > > > Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> > > > Cc: Andrew Morton <akpm@linux-foundation.org>
-> > > > Cc: David Hildenbrand <david@kernel.org>
-> > > > Cc: Lorenzo Stoakes <ljs@kernel.org>
-> > > > Cc: "Liam R. Howlett" <Liam.Howlett@oracle.com>
-> > > > Cc: Vlastimil Babka <vbabka@kernel.org>
-> > > > Cc: Mike Rapoport <rppt@kernel.org>
-> > > > Cc: Suren Baghdasaryan <surenb@google.com>
-> > > > Cc: Michal Hocko <mhocko@suse.com>
-> > > > Cc: linux-mm@kvack.org
-> > > > Cc: linux-kernel@vger.kernel.org
-> > > > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> > > > ---
-> > > >  include/linux/vmstat.h | 13 +++++++++++++
-> > > >  1 file changed, 13 insertions(+)
-> > > > 
-> > > > diff --git a/include/linux/vmstat.h b/include/linux/vmstat.h
-> > > > index 3c9c266cf782..568d9f4f1a1f 100644
-> > > > --- a/include/linux/vmstat.h
-> > > > +++ b/include/linux/vmstat.h
-> > > > @@ -483,6 +483,19 @@ static inline const char *zone_stat_name(enum
-> > > > zone_stat_item item)
-> > > >  	return vmstat_text[item];
-> > > >  }
-> > > >  
-> > > > +static inline bool zone_appears_fragmented(struct zone *zone)
-> > > > +{
-> > > 
-> > > "zone_likely_fragmented" or "zone_maybe_fragmented" might be clearer,
-> > > depending
-> > > on the actual semantics.
-> > > 
-> > > > +	/*
-> > > > +	 * Simple heuristic: if the number of free pages is more
-> > > > than twice the
-> > > > +	 * high watermark, this strongly suggests that the zone is
-> > > > heavily
-> > > > +	 * fragmented when called from a shrinker.
-> > > > +	 */
-> > > 
-> > > I'll cc some more people. But the "when called from a shrinker" bit
-> > > is
-> > > concerning. Are there additional semantics that should be expressed
-> > > in the
-> > > function name, for example?
-> > > 
-> > > Something that implies that this function only gives you a reasonable
-> > > answer in
-> > > a certain context.
-> > 
-> > I think that test would not be relevant for cgroup-aware shrinking.
-> > 
-> > What about trying to pass something in the struct shrink_control? Like
-> > if we pass the struct scan_control's order field also in struct
-> 
-> If the order were included in shrink_control, there is about a 95%
-> certain that this change would allow TTM / Xe to break the problematic
-> kswapd feedback loop. This may also better express the intent of the
-> problem we are trying to fix here.
-> 
-> For reference, the cover letter [1] details the problem.
-> 
-> Any guidance from the core MM folks would be appreciated—would adding
-> the order to shrink_control be an acceptable solution?
-> 
-> Matt
-> 
-> [1] https://patchwork.freedesktop.org/series/165330/
-> 
-> > shrink_control, really expensive shrinkers could duck reclaim attempts
-> > from higher-order allocations that may fail anyway:
-> > 
-> >       if (sc->order > PAGE_ALLOC_COSTLY_ORDER &&
-> >            (sc->gfp_mask & (__GFP_NORETRY | __GFP_RETRY_MAYFAIL)) &&
-> >            !(sc->gfp_mask & __GFP_NOFAIL))
+On Thu, Apr 23, 2026 at 01:20:16PM -0600, Alex Williamson wrote:
 
-It doesn't look like __GFP_NORETRY, __GFP_RETRY_MAYFAIL, __GFP_NOFAIL
-make it to the sc->gfp_mask flags from the caller and get into kswapd
-loop...
+> My suggestion would be that we leave VFIO_DEVICE_FEATURE_DMA_BUF
+> unchanged and add a VFIO_DEVICE_FEATURE_DMA_BUF_TPH ioctl which takes
+> the fd from VFIO_DEVICE_FEATURE_DMA_BUF, along with a steering tag and
+> processing hint.  It would fdget() the dmabuf fd, validate it's a
+> dmabuf via f_ops, validate it's a vfio exported dmabuf via dmabuf->ops,
+> find the matching vfio_pci_dma_buf via priv under memory_lock, and
+> stuff the provided TPH values into the object.  It would be left to the
+> user to sequence setting the TPH values on the dmabuf before the dmabuf
+> is consumed by the importer.
+> 
+> Is that a more reasonable uAPI?  Thanks,
 
- 1182 [  394.049058] xe_shrinker_scan: no skip order=9, gfp=0x0000000000000cc0
- 1183 [  394.049061] CPU: 2 UID: 0 PID: 110 Comm: kswapd0 Not tainted 7.0.0-xe+ #355 PREEMPT(full)
- 1184 [  394.049062] Hardware name: Intel Corporation Panther Lake Client Platform/PTL-UH LP5 T3 RVP1, BIOS PTLPFWI1.R00.3332.D05.2509011438 09/01/2025
- 1185 [  394.049063] Call Trace:
- 1186 [  394.049065]  <TASK>
- 1187 [  394.049066]  dump_stack_lvl+0x55/0x70
- 1188 [  394.049073]  xe_shrinker_scan+0x274/0x280 [xe]
- 1189 [  394.049181]  do_shrink_slab+0x132/0x360
- 1190 [  394.049184]  shrink_slab+0xf0/0x3e0
- 1191 [  394.049186]  shrink_node+0x2bd/0x800
- 1192 [  394.049188]  balance_pgdat+0x323/0x760
- 1193 [  394.049189]  kswapd+0x1c3/0x340
- 1194 [  394.049190]  ? __pfx_autoremove_wake_function+0x10/0x10
- 1195 [  394.049193]  ? __pfx_kswapd+0x10/0x10
- 1196 [  394.049194]  kthread+0xdf/0x120
- 1197 [  394.049196]  ? __pfx_kthread+0x10/0x10
- 1198 [  394.049197]  ret_from_fork+0x1d0/0x220
- 1199 [  394.049200]  ? __pfx_kthread+0x10/0x10
- 1200 [  394.049200]  ret_from_fork_asm+0x1a/0x30
- 1201 [  394.049202]  </TASK>
+Off hand I think it can work, with the proviso that if userspace uses
+the dmabuf before setting the tph the importer may ignore it. I don't
+think that is a problem in practice.
 
-Will look into if this is fixable, but again any core MM guidance would
-helpful.
-
-Matt
-
-> >            return SHRINK_STOP;
-> > 
-> > Possibly exposed as an inline helper in the shrinker interface?
-> > 
-> > /Thomas
-> > 
-> > 
-> > 
-> > 
+Jason
