@@ -4,61 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CCBBF99368
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 10:08:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4068F99368
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 10:14:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FF0A10F06A;
-	Thu, 23 Apr 2026 10:08:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EFE8010F056;
+	Thu, 23 Apr 2026 10:14:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JJ1FjHOm";
+	dkim=pass (4096-bit key; unprotected) header.d=alien8.de header.i=@alien8.de header.b="jn8A1Ww9";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBE5D10F046
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 10:08:01 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 4EDC060120;
- Thu, 23 Apr 2026 10:08:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5468C2BCAF;
- Thu, 23 Apr 2026 10:08:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776938881;
- bh=bePbvwOBRVlaWXPTujYtgwL3T/BFFOXE7FNvSU5omaU=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=JJ1FjHOmab2gbz1N0D+1zPkn2UlNxium3WTGqvw9TymzW8p5DtwU69J/d17oHlNX2
- JcKJLG4B51ZJK9jqlPrOEXpVJCMAT7kY9xPIBsSV1gS0PVOoiw2aA+gkkxoBoeYGeW
- kWyPN0Gvp8oFHokRlner+yZjul8fv9HATT1cA1FZmY+ukP3aciuQPr3/SB61yoWOmC
- Tni2Fo8K4FkOKIYmHk8ysLZCPGznelu4dDx/Rm9jofu2Aw4mI5ntkerTm+6digLgtv
- vPjYXGDO1UdeQ41wacPWk2AOzbEkB7V8qqQsSIWQeXtEJueMEyr8P+gp8XFsTo1D98
- FZokVbDFmgs3w==
-From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 23 Apr 2026 12:06:53 +0200
-Subject: [PATCH v2 15/28] drm/bridge: Handle bridges with hardware state
- readout
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1609A10F056;
+ Thu, 23 Apr 2026 10:14:22 +0000 (UTC)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 7460E40E00C4; 
+ Thu, 23 Apr 2026 10:14:20 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+ header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+ by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id aMWtIg-9UTMt; Thu, 23 Apr 2026 10:14:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+ t=1776939249; bh=Z3fMnOzXvY9vQ6rbTljdxVI28pomvdIlA1Bba16AfpY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=jn8A1Ww91QGYOA8y+n5VK2+pK1EPRVjDgUreAwiRRS+tWJ0JeHVwmRJhvqYC88y4S
+ 1AB2WbPxJU0ZOmaa3C2M+wpgpAJnRkdE+DynlWfK5OJ3eFkkQKttXlbmeW3BMvIL25
+ 5K5GjomiMzQgFIAmrYvQJfX+OVK53L/whn5WKxxpz+NGU/jEWidVdb5B6+JOCccai3
+ JYN4OmDN6iC4YTGy3Lt36k7jaYSjzGxxJngX60XlhWH/8Qq/HX0bkHaPIR8w7Vnixt
+ ui3npXsSp/Rp0OJXhxTbTj1sLCbv0TrzP1aPLlkmmvX92jmtEtBkXZkZuffboxr0vg
+ As+5gVJZBsr6K1BgNlLELQVF8ym9/e0sJ7BE+z/hXIj0WQXmBEoUeqjn2MqsJXhXLg
+ atc5x1ARUPwN93GMK317ythCe6oaI0Yqa+MMt1Pp77quGneTRtOIahwjC597fkHzsN
+ H7nq+EEO0/UTjA7HMQVCz6kZNEDrJourtQtuxTSXuJd2eEx1ooBpMWKyH5TfYTPix/
+ 33GL4Ap22ZKs+YJhFyEdnQ1e1A6TaA8JPwTJeKBNoguSpQNAF7Q/ySO5RXjsVPFYU7
+ 5BgqMe07H0D2q7ucvKYRfCsPIhVFTE1eXMBBXzkwZQCAqGVy2W8plPyA2/VGUKZb8c
+ jPztUW54IUD4ZD2F6d7IVsb0=
+Received: from zn.tnic (p5de8e020.dip0.t-ipconnect.de [93.232.224.32])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest
+ SHA256) (No client certificate requested)
+ by mail.alien8.de (SuperMail on ZX Spectrum 128k) with UTF8SMTPSA id
+ CE14D40E0031; Thu, 23 Apr 2026 10:13:59 +0000 (UTC)
+Date: Thu, 23 Apr 2026 12:13:52 +0200
+From: Borislav Petkov <bp@alien8.de>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Rafal Ostrowski <rostrows@amd.com>, amd-gfx@lists.freedesktop.org,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: amdgpu: WARNING:
+ drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/dc_fpu.c:58 at
+ dc_assert_fp_enabled+0x10/0x20 [amdgpu], CPU#5: (udev-worker)/418
+Message-ID: <20260423101352.GAaenw4LLAwWyEtANw@fat_crate.local>
+References: <20260421132303.GCaed6N9mDwutP6sEx@fat_crate.local>
+ <CADnq5_POMAQyY1OtqE6v4-NwoN2ViUCTeq-RQp79UwpMeDZRYA@mail.gmail.com>
+ <20260422203314.GCaekwikuCiHx8CK-S@fat_crate.local>
+ <CADnq5_MD=88gWXFp_-sQ0qpj-xDbqNsEkofnaNqFkQbJL43hNg@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260423-drm-state-readout-v2-15-6cde1a9910ed@kernel.org>
-References: <20260423-drm-state-readout-v2-0-6cde1a9910ed@kernel.org>
-In-Reply-To: <20260423-drm-state-readout-v2-0-6cde1a9910ed@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Jyri Sarha <jyri.sarha@iki.fi>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5800; i=mripard@kernel.org;
- h=from:subject:message-id; bh=bePbvwOBRVlaWXPTujYtgwL3T/BFFOXE7FNvSU5omaU=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDJkv3/syZgqt29q997RA1cLf74Nvbpv4/KuE/EpnRRe/Z
- zueFxqpdExlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJMK1irPcMFHqYuV5g0ec3
- 3IW38nlaT3BNzw/9tOeuuY71pR3Vpv5BE/+t2/NNsDB12oO1wZMapjHWx1eUf+rQEX73min9LFd
- K4annoZGCb+qs1/7fce2tctSfvZ/muf03nKA5da2UVpBXv44jAA==
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CADnq5_MD=88gWXFp_-sQ0qpj-xDbqNsEkofnaNqFkQbJL43hNg@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,168 +79,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Bridges use drm_private_obj for their atomic state, but their readout
-needs special handling compared to other private objects.
+On Wed, Apr 22, 2026 at 04:54:32PM -0400, Alex Deucher wrote:
+> It's in drm-next, should land in this week's next-fixes PR.
+> https://gitlab.freedesktop.org/drm/kernel/-/commit/07598c76964a2c73702fa652bcd07ec21088c5ef
 
-Bridge drivers need the CRTC and connector states for their pipeline
-to properly read out their own state. Since bridge registration does
-not guarantee ordering, the readout must traverse each encoder's
-bridge chain to ensure each bridge can query the state of preceding
-bridges.
-
-Add a drm_bridge_atomic_readout_priv_state() wrapper that looks up
-the connector and CRTC states for the bridge's encoder, then forwards
-to the bridge's atomic_sro_readout_state hook. Create a separate
-drm_private_state_funcs vtable for bridges that support SRO so that
-drm_atomic_sro_device_can_readout() can properly discriminate bridges
-with and without SRO support.
-
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
----
- drivers/gpu/drm/drm_bridge.c | 81 +++++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 77 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-index fba440bddcb3..08226af6b82a 100644
---- a/drivers/gpu/drm/drm_bridge.c
-+++ b/drivers/gpu/drm/drm_bridge.c
-@@ -27,10 +27,11 @@
- #include <linux/media-bus-format.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
- #include <linux/srcu.h>
- 
-+#include <drm/drm_atomic_sro.h>
- #include <drm/drm_atomic_state_helper.h>
- #include <drm/drm_bridge.h>
- #include <drm/drm_debugfs.h>
- #include <drm/drm_edid.h>
- #include <drm/drm_encoder.h>
-@@ -506,10 +507,66 @@ drm_bridge_atomic_create_priv_state(struct drm_private_obj *obj)
- 		return ERR_CAST(state);
- 
- 	return &state->base;
- }
- 
-+static struct drm_connector_state *
-+find_connector_state_for_encoder(struct drm_atomic_sro_state *state,
-+				struct drm_encoder *encoder)
-+{
-+	struct drm_connector_list_iter conn_iter;
-+	struct drm_connector *connector;
-+
-+	drm_connector_list_iter_begin(drm_atomic_sro_state_get_device(state),
-+				      &conn_iter);
-+	drm_for_each_connector_iter(connector, &conn_iter) {
-+		struct drm_connector_state *conn_state =
-+			drm_atomic_sro_get_connector_state(state, connector);
-+
-+		if (WARN_ON(!conn_state))
-+			continue;
-+
-+		if (encoder == conn_state->best_encoder)
-+			return conn_state;
-+	}
-+	drm_connector_list_iter_end(&conn_iter);
-+
-+	return NULL;
-+}
-+
-+static int
-+drm_bridge_atomic_readout_priv_state(struct drm_private_obj *obj,
-+				     struct drm_atomic_sro_state *state,
-+				     struct drm_private_state *priv_state)
-+{
-+	struct drm_bridge *bridge = drm_priv_to_bridge(obj);
-+	struct drm_encoder *encoder = bridge->encoder;
-+	const struct drm_bridge_funcs *bridge_funcs = bridge->funcs;
-+	struct drm_crtc_state *crtc_state;
-+	struct drm_bridge_state *bridge_state;
-+	struct drm_connector_state *conn_state;
-+	int ret;
-+
-+	conn_state = find_connector_state_for_encoder(state, encoder);
-+	if (!conn_state)
-+		return -EINVAL;
-+
-+	crtc_state = drm_atomic_sro_get_crtc_state(state, conn_state->crtc);
-+	if (!crtc_state)
-+		return -EINVAL;
-+
-+	bridge_state = drm_priv_to_bridge_state(priv_state);
-+	if (bridge_funcs->atomic_sro_readout_state) {
-+		ret = bridge_funcs->atomic_sro_readout_state(
-+			bridge, state, bridge_state, crtc_state, conn_state);
-+		if (WARN_ON(ret))
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
- static void
- drm_bridge_atomic_print_priv_state(struct drm_printer *p,
- 				   const struct drm_private_state *s)
- {
- 	const struct drm_bridge_state *state = drm_priv_to_bridge_state(s);
-@@ -533,10 +590,18 @@ static const struct drm_private_state_funcs drm_bridge_priv_state_funcs = {
- 	.atomic_duplicate_state = drm_bridge_atomic_duplicate_priv_state,
- 	.atomic_destroy_state = drm_bridge_atomic_destroy_priv_state,
- 	.atomic_print_state = drm_bridge_atomic_print_priv_state,
- };
- 
-+static const struct drm_private_state_funcs drm_bridge_priv_state_funcs_with_sro = {
-+	.atomic_sro_readout_state = drm_bridge_atomic_readout_priv_state,
-+	.atomic_create_state = drm_bridge_atomic_create_priv_state,
-+	.atomic_duplicate_state = drm_bridge_atomic_duplicate_priv_state,
-+	.atomic_destroy_state = drm_bridge_atomic_destroy_priv_state,
-+	.atomic_print_state = drm_bridge_atomic_print_priv_state,
-+};
-+
- /**
-  * drm_private_obj_is_bridge - check if a private object backs a bridge
-  * @obj: private object to check
-  *
-  * RETURNS:
-@@ -544,11 +609,13 @@ static const struct drm_private_state_funcs drm_bridge_priv_state_funcs = {
-  * True if @obj is the &drm_private_obj embedded in a &struct drm_bridge,
-  * false otherwise.
-  */
- bool drm_private_obj_is_bridge(struct drm_private_obj *obj)
- {
--	return obj->funcs && obj->funcs == &drm_bridge_priv_state_funcs;
-+	return obj->funcs &&
-+	       (obj->funcs == &drm_bridge_priv_state_funcs ||
-+		obj->funcs == &drm_bridge_priv_state_funcs_with_sro);
- }
- EXPORT_SYMBOL(drm_private_obj_is_bridge);
- 
- static bool drm_bridge_is_atomic(struct drm_bridge *bridge)
- {
-@@ -622,13 +689,19 @@ int drm_bridge_attach(struct drm_encoder *encoder, struct drm_bridge *bridge,
- 		ret = bridge->funcs->attach(bridge, encoder, flags);
- 		if (ret < 0)
- 			goto err_reset_bridge;
- 	}
- 
--	if (drm_bridge_is_atomic(bridge))
--		drm_atomic_private_obj_init(bridge->dev, &bridge->base, bridge->name,
--					    &drm_bridge_priv_state_funcs);
-+	if (drm_bridge_is_atomic(bridge)) {
-+		if (bridge->funcs &&
-+		    bridge->funcs->atomic_sro_readout_state)
-+			drm_atomic_private_obj_init(bridge->dev, &bridge->base, bridge->name,
-+						    &drm_bridge_priv_state_funcs_with_sro);
-+		else
-+			drm_atomic_private_obj_init(bridge->dev, &bridge->base, bridge->name,
-+						    &drm_bridge_priv_state_funcs);
-+	}
- 
- 	return 0;
- 
- err_reset_bridge:
- 	bridge->dev = NULL;
+Thanks, that fixes it.
 
 -- 
-2.53.0
+Regards/Gruss,
+    Boris.
 
+https://people.kernel.org/tglx/notes-about-netiquette
