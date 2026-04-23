@@ -4,54 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A72A3F589DA
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 14:00:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A04BBF589DA
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 14:00:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1766C10F149;
-	Thu, 23 Apr 2026 14:00:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D69910F146;
+	Thu, 23 Apr 2026 14:00:51 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="CfUOSLL9";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ag/n9Ygt";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="CfUOSLL9";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ag/n9Ygt";
+	dkim-atps=neutral
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E61C710F149
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 14:00:44 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DC5D10F146
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 14:00:49 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 6ADB06A86C;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id A27506A86D;
  Thu, 23 Apr 2026 14:00:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1776952835; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=8iGzXDdAsWe4Dlk10v8oKLR2EPxuue9+GaWVQqU9Tt8=;
+ b=CfUOSLL9+s8z3AdZ20RQS8eUYxz7Tqa2SYdpBWznv82vLJtS1yeYizbL49FuvPZMfpM63v
+ WBh65zeVG7m+QRFLy5GGTkzb5TuMxxN3FJEg2JwLRdBScqB18ibk1yroX8nJ49e9e39X3o
+ 90wGBAv7UaEPVYIgIku8E5EJKrlIqf0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1776952835;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=8iGzXDdAsWe4Dlk10v8oKLR2EPxuue9+GaWVQqU9Tt8=;
+ b=ag/n9YgtpxjwVl+onFAMu7oOzwdLD/bi5aqM5hmD8yh60u03tKmgbO3r3Exj2KGsvPtOgG
+ Nk4R9iJY30+tdzAA==
 Authentication-Results: smtp-out1.suse.de;
 	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1776952835; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=8iGzXDdAsWe4Dlk10v8oKLR2EPxuue9+GaWVQqU9Tt8=;
+ b=CfUOSLL9+s8z3AdZ20RQS8eUYxz7Tqa2SYdpBWznv82vLJtS1yeYizbL49FuvPZMfpM63v
+ WBh65zeVG7m+QRFLy5GGTkzb5TuMxxN3FJEg2JwLRdBScqB18ibk1yroX8nJ49e9e39X3o
+ 90wGBAv7UaEPVYIgIku8E5EJKrlIqf0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1776952835;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=8iGzXDdAsWe4Dlk10v8oKLR2EPxuue9+GaWVQqU9Tt8=;
+ b=ag/n9YgtpxjwVl+onFAMu7oOzwdLD/bi5aqM5hmD8yh60u03tKmgbO3r3Exj2KGsvPtOgG
+ Nk4R9iJY30+tdzAA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 36435593A3;
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 70DD4593A3;
  Thu, 23 Apr 2026 14:00:35 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id YFcPDAMm6mlCTwAAD6G6ig
+ by imap1.dmz-prg2.suse.org with ESMTPSA id wGlcGgMm6mlCTwAAD6G6ig
  (envelope-from <tzimmermann@suse.de>); Thu, 23 Apr 2026 14:00:35 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: tomi.valkeinen@ideasonboard.com, maarten.lankhorst@linux.intel.com,
  mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch
 Cc: dri-devel@lists.freedesktop.org,
 	Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 2/3] drm/omapdrm: fbdev: Use a DRM client buffer
-Date: Thu, 23 Apr 2026 15:58:08 +0200
-Message-ID: <20260423140031.126072-3-tzimmermann@suse.de>
+Subject: [PATCH 3/3] drm/omapdrm: Make omap_framebuffer_init() an internal
+ interface
+Date: Thu, 23 Apr 2026 15:58:09 +0200
+Message-ID: <20260423140031.126072-4-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260423140031.126072-1-tzimmermann@suse.de>
 References: <20260423140031.126072-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Queue-Id: 6ADB06A86C
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-6.80 / 50.00]; REPLY(-4.00)[];
+ BAYES_HAM(-3.00)[100.00%]; MID_CONTAINS_FROM(1.00)[];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_COUNT_TWO(0.00)[2]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
+ MIME_TRACE(0.00)[0:+]; FROM_HAS_DN(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ FREEMAIL_TO(0.00)[ideasonboard.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:email,imap1.dmz-prg2.suse.org:helo];
+ RCVD_TLS_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ RCPT_COUNT_SEVEN(0.00)[7]; TO_DN_SOME(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,162 +114,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace the internal DRM framebuffer with a DRM client buffer. The
-client buffer allocates the DRM framebuffer on a file and also uses
-GEM object handles via the regular ADDFB2 interfaces.
-
-Using client-buffer interfaces unifies framebuffer allocation for
-DRM clients in user space and omapdrm's internal fbdev emulation. It
-also simplifies the clean-up side of the fbdev emulation.
+The only caller of omap_framebuffer_init() is omap_framebuffer_create()
+from the same source file. Declare the former as static. Reorder the
+functions to avoid forward declarations.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/omapdrm/omap_fbdev.c | 68 ++++++++++++++--------------
- 1 file changed, 35 insertions(+), 33 deletions(-)
+ drivers/gpu/drm/omapdrm/omap_fb.c | 68 ++++++++++++++++---------------
+ drivers/gpu/drm/omapdrm/omap_fb.h |  3 --
+ 2 files changed, 35 insertions(+), 36 deletions(-)
 
-diff --git a/drivers/gpu/drm/omapdrm/omap_fbdev.c b/drivers/gpu/drm/omapdrm/omap_fbdev.c
-index f1044d8d1a85..932da9877b98 100644
---- a/drivers/gpu/drm/omapdrm/omap_fbdev.c
-+++ b/drivers/gpu/drm/omapdrm/omap_fbdev.c
-@@ -93,8 +93,7 @@ static int omap_fbdev_fb_mmap(struct fb_info *info, struct vm_area_struct *vma)
- static void omap_fbdev_fb_destroy(struct fb_info *info)
- {
- 	struct drm_fb_helper *helper = info->par;
--	struct drm_framebuffer *fb = helper->fb;
--	struct drm_gem_object *bo = drm_gem_fb_get_obj(fb, 0);
-+	struct drm_gem_object *bo = drm_gem_fb_get_obj(helper->fb, 0);
- 
- 	DBG();
- 
-@@ -102,8 +101,8 @@ static void omap_fbdev_fb_destroy(struct fb_info *info)
- 	drm_fb_helper_fini(helper);
- 
- 	omap_gem_unpin(bo);
--	drm_framebuffer_remove(fb);
- 
-+	drm_client_buffer_delete(helper->buffer);
- 	drm_client_release(&helper->client);
+diff --git a/drivers/gpu/drm/omapdrm/omap_fb.c b/drivers/gpu/drm/omapdrm/omap_fb.c
+index 1df232232a64..74cd0e4271c2 100644
+--- a/drivers/gpu/drm/omapdrm/omap_fb.c
++++ b/drivers/gpu/drm/omapdrm/omap_fb.c
+@@ -335,39 +335,10 @@ void omap_framebuffer_describe(struct drm_framebuffer *fb, struct seq_file *m)
  }
+ #endif
  
-@@ -152,18 +151,20 @@ static struct drm_fb_helper *get_fb(struct fb_info *fbi)
- int omap_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
- 				  struct drm_fb_helper_surface_size *sizes)
- {
--	struct drm_device *dev = helper->dev;
-+	struct drm_client_dev *client = &helper->client;
-+	struct drm_device *dev = client->dev;
-+	struct drm_file *file = client->file;
- 	struct omap_drm_private *priv = dev->dev_private;
- 	struct omap_fbdev *fbdev = priv->fbdev;
- 	struct fb_info *fbi = helper->info;
- 	u32 fourcc;
- 	u64 pitch, size;
- 	const struct drm_format_info *format;
--	struct drm_framebuffer *fb = NULL;
- 	union omap_gem_size gsize;
--	struct drm_mode_fb_cmd2 mode_cmd = {0};
- 	struct drm_gem_object *bo;
-+	struct drm_client_buffer *buffer;
- 	dma_addr_t dma_addr;
-+	u32 handle;
- 	int ret;
- 
- 	sizes->surface_bpp = 32;
-@@ -196,24 +197,18 @@ int omap_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
- 	bo = omap_gem_new(dev, gsize, OMAP_BO_SCANOUT | OMAP_BO_WC);
- 	if (!bo) {
- 		dev_err(dev->dev, "failed to allocate buffer object\n");
--		ret = -ENOMEM;
--		goto fail;
-+		return -ENOMEM;
- 	}
- 
--	mode_cmd.pixel_format = fourcc;
--	mode_cmd.width = sizes->surface_width;
--	mode_cmd.height = sizes->surface_height;
--	mode_cmd.pitches[0] = pitch;
+-struct drm_framebuffer *omap_framebuffer_create(struct drm_device *dev,
+-		struct drm_file *file, const struct drm_format_info *info,
+-		const struct drm_mode_fb_cmd2 *mode_cmd)
+-{
+-	unsigned int num_planes = info->num_planes;
+-	struct drm_gem_object *bos[4];
+-	struct drm_framebuffer *fb;
+-	int i;
 -
--	fb = omap_framebuffer_init(dev, format,  &mode_cmd, &bo);
--	if (IS_ERR(fb)) {
--		dev_err(dev->dev, "failed to allocate fb\n");
--		/* note: if fb creation failed, we can't rely on fb destroy
--		 * to unref the bo:
--		 */
--		drm_gem_object_put(bo);
--		ret = PTR_ERR(fb);
--		goto fail;
-+	ret = drm_gem_handle_create(file, bo, &handle);
-+	if (ret)
-+		goto err_drm_gem_object_put;
-+
-+	buffer = drm_client_buffer_create(client, sizes->surface_width, sizes->surface_height,
-+					  fourcc, handle, pitch);
-+	if (IS_ERR(buffer)) {
-+		ret = PTR_ERR(buffer);
-+		goto err_drm_gem_handle_delete;
- 	}
- 
- 	/* note: this keeps the bo pinned.. which is perhaps not ideal,
-@@ -228,13 +223,14 @@ int omap_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
- 	if (ret) {
- 		dev_err(dev->dev, "could not pin framebuffer\n");
- 		ret = -ENOMEM;
--		goto fail;
-+		goto err_drm_client_buffer_delete;
- 	}
- 
- 	DBG("fbi=%p, dev=%p", fbi, dev);
- 
- 	helper->funcs = &omap_fbdev_helper_funcs;
--	helper->fb = fb;
-+	helper->buffer = buffer;
-+	helper->fb = buffer->fb;
- 
- 	fbi->fbops = &omap_fb_ops;
- 
-@@ -253,7 +249,7 @@ int omap_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
- 	fbi->fbdefio = &helper->fbdefio;
- 	ret = fb_deferred_io_init(fbi);
- 	if (ret)
--		goto fail;
-+		goto err_omap_gem_unpin;
- 
- 	/* if we have DMM, then we can use it for scrolling by just
- 	 * shuffling pages around in DMM rather than doing sw blit.
-@@ -264,19 +260,25 @@ int omap_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
- 		fbi->fix.ywrapstep = 1;
- 	}
- 
--
- 	DBG("par=%p, %dx%d", fbi->par, fbi->var.xres, fbi->var.yres);
--	DBG("allocated %dx%d fb", fb->width, fb->height);
-+	DBG("allocated %dx%d fb", buffer->fb->width, buffer->fb->height);
- 
--	return 0;
-+	/* The handle is only needed for creating the framebuffer. */
-+	drm_gem_handle_delete(file, handle);
- 
--fail:
-+	/* The framebuffer still holds a reference on the GEM object. */
-+	drm_gem_object_put(bo);
- 
--	if (ret) {
--		if (fb)
--			drm_framebuffer_remove(fb);
+-	for (i = 0; i < num_planes; i++) {
+-		bos[i] = drm_gem_object_lookup(file, mode_cmd->handles[i]);
+-		if (!bos[i]) {
+-			fb = ERR_PTR(-ENOENT);
+-			goto error;
+-		}
 -	}
-+	return 0;
+-
+-	fb = omap_framebuffer_init(dev, info, mode_cmd, bos);
+-	if (IS_ERR(fb))
+-		goto error;
+-
+-	return fb;
+-
+-error:
+-	while (--i >= 0)
+-		drm_gem_object_put(bos[i]);
+-
+-	return fb;
+-}
+-
+-struct drm_framebuffer *omap_framebuffer_init(struct drm_device *dev,
+-		const struct drm_format_info *info,
+-		const struct drm_mode_fb_cmd2 *mode_cmd, struct drm_gem_object **bos)
++static struct drm_framebuffer *
++omap_framebuffer_init(struct drm_device *dev,
++		      const struct drm_format_info *info,
++		      const struct drm_mode_fb_cmd2 *mode_cmd, struct drm_gem_object **bos)
+ {
+ 	struct omap_framebuffer *omap_fb = NULL;
+ 	struct drm_framebuffer *fb = NULL;
+@@ -455,3 +426,34 @@ struct drm_framebuffer *omap_framebuffer_init(struct drm_device *dev,
  
-+err_omap_gem_unpin:
-+	omap_gem_unpin(bo);
-+err_drm_client_buffer_delete:
-+	drm_client_buffer_delete(buffer);
-+err_drm_gem_handle_delete:
-+	drm_gem_handle_delete(file, handle);
-+err_drm_gem_object_put:
-+	drm_gem_object_put(bo);
- 	return ret;
+ 	return ERR_PTR(ret);
  }
- 
++
++struct drm_framebuffer *omap_framebuffer_create(struct drm_device *dev,
++						struct drm_file *file,
++						const struct drm_format_info *info,
++						const struct drm_mode_fb_cmd2 *mode_cmd)
++{
++	unsigned int num_planes = info->num_planes;
++	struct drm_gem_object *bos[4];
++	struct drm_framebuffer *fb;
++	int i;
++
++	for (i = 0; i < num_planes; i++) {
++		bos[i] = drm_gem_object_lookup(file, mode_cmd->handles[i]);
++		if (!bos[i]) {
++			fb = ERR_PTR(-ENOENT);
++			goto error;
++		}
++	}
++
++	fb = omap_framebuffer_init(dev, info, mode_cmd, bos);
++	if (IS_ERR(fb))
++		goto error;
++
++	return fb;
++
++error:
++	while (--i >= 0)
++		drm_gem_object_put(bos[i]);
++
++	return fb;
++}
+diff --git a/drivers/gpu/drm/omapdrm/omap_fb.h b/drivers/gpu/drm/omapdrm/omap_fb.h
+index e6010302a22b..595d4d695ac4 100644
+--- a/drivers/gpu/drm/omapdrm/omap_fb.h
++++ b/drivers/gpu/drm/omapdrm/omap_fb.h
+@@ -23,9 +23,6 @@ struct seq_file;
+ struct drm_framebuffer *omap_framebuffer_create(struct drm_device *dev,
+ 		struct drm_file *file, const struct drm_format_info *info,
+ 		const struct drm_mode_fb_cmd2 *mode_cmd);
+-struct drm_framebuffer *omap_framebuffer_init(struct drm_device *dev,
+-		const struct drm_format_info *info,
+-		const struct drm_mode_fb_cmd2 *mode_cmd, struct drm_gem_object **bos);
+ int omap_framebuffer_pin(struct drm_framebuffer *fb);
+ void omap_framebuffer_unpin(struct drm_framebuffer *fb);
+ void omap_framebuffer_update_scanout(struct drm_framebuffer *fb,
 -- 
 2.53.0
 
