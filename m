@@ -4,132 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 642D1F99362
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 10:17:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13E91F99369
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 10:18:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C55E210F057;
-	Thu, 23 Apr 2026 10:17:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7485C10F05E;
+	Thu, 23 Apr 2026 10:18:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Yw6KaeUR";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jB2/Kgjr";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RMr1IdTf";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 293B910F057
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 10:17:33 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63N8uMQh987864
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 10:17:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=MrFUNh0Sh+14OqZmTVoafGPx
- XO0ORTKN4V0WTnuxCeY=; b=Yw6KaeURW8LP5PUGegvNSdD1f0U/NuQBfodB/PyB
- 86a20sNYTUrywxKWWEfp7bTEUWC/xRu3fLa8zGCdJy2mT9dmYDef8u1yEyKVe3dx
- M8nExOc7PwednYRhxbp5iLQxMrGUqzuR1uzRwxDX+wZPagsA5dMvMWiCRiuIsiVk
- PeoDvHVZvj1ef0TtdoPLJ86nchO0Gc95Eip5Wy31tXQd7feZCUW69wDKnK6YuDWo
- Dkt6u1/RTGb7pGNh+aUzXswOvwcTcuxvUGBGkoba3fPxsT1mJcnTMWTlVmmWMff2
- yUfD4I32TWPgsSWbPKHMnKpgY1w84iPTfgbLeETN5+E2og==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dq16q3esk-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 10:17:32 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-50faf1ecd1dso85018661cf.1
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 03:17:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1776939452; x=1777544252;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=MrFUNh0Sh+14OqZmTVoafGPxXO0ORTKN4V0WTnuxCeY=;
- b=jB2/Kgjr6pRRNIhtKEWr3iHCM64BpIotj+wOP/IT8e9iBPWtTUIMGFjGor4qSB6FfJ
- aNeRaluoeGuMAJwYqFn1YZLtFUoXQB8E0ww4fzEi+LjOqNEJr5/p+g0MGGgBuQ4k7oz8
- SvLAusS8Lmu77BrVcid7R/rAlEMcp83hWXFve9QuVij2yHNx3B8K3fuB7K8b5tr8MYWb
- CVbld+TddwDNQF0Y0Ny6qpTSV/WuL9lWHuZZqM4sIbO6Ny2sBSct65EK15yztnqpTCY3
- SBPXmW29fc6a2iPbgokVek0sPD1FaC6/HA8QrjXcAoPMeOf+2O0lzbbGZ4J3PSV1xnSi
- OYyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776939452; x=1777544252;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=MrFUNh0Sh+14OqZmTVoafGPxXO0ORTKN4V0WTnuxCeY=;
- b=cf9fglqv+mvQ+w4WvdOG2cAxufKcE37KEVI20fF3BLmV/4d3jA4Qap7af62IX6kGXn
- 191kvR3GuowK6kldv0U+Esvdq2HGxWf8ib0edxNsBUdPqWIu/3Dn7Uio9pYXfid3yk/v
- OA33G8597xnSXIInawznOg4t564Jlq8meCw/Fwdj8qJ40HekwJ6kge7pWg6/TIJBv1/c
- 7/nptmhwUMQljiJSQxKW37PXdzATY+EcfYEl5T2OfFqiJbmIHIFoE16Q6S8wx0N4XWDs
- qjFIsDXzdQFRO5TLnGxapmGCR+kvLRuWYWwHrxWAKeDRs9/GQDDU9L9Wb3sKHMGzOT1g
- kpvg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/4MXB/0Bi7lbplVmzf5NfGpGSzmbGGpMtsdRzhAIxzLj3o0Rau3zr9PMSU/4gOF17Eeo4aNrckwek=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxZ0Gu9BkL5ZazGA8uUm/IFsQNoVxW43ba4x4EVuPyMZPz/qyCt
- nMgNDPKJL2xMwT8j/eayHdsFOW38drTvXfXE8aXhGNfN5u55EvZ19ZJiZ0e5lc82rxxn8IoCKtS
- UzU7OFtwUsJmjrS8XKC9cmXlzq2nVHDL/oX2IFjFh/VJcnYxXfCIaGMNiEfowuktqNOHVbrQ=
-X-Gm-Gg: AeBDieuIazV0kZAECIevqIKpcNRYHF7Z+bIA0Bt1PkWe0PniItaxYJb23gaoRjKF5q6
- See/3ZJa+OPh+IYEdbedtkUck3F/KvsY4ZNa7K79FAqgHl1YUMs6dgp8MY+BZfzBrDJJDRw9zXz
- S/WV+mLTsDgqhFiGP2IQWLR43/nnFAvNev+vJ4qQjOdk29dziu5aNS8TMOL3Q8dlegOjW6DhFn3
- D2/wi5ywUHIRgsEJyuVLEdzN6alb0GABhI+C1/vgFrmwPb7hYJBdPI4oELV6Qw32HevzCPHDgE/
- knU0xb6TMmIsGRkYuF7/yBU9I5X0nUc2MHREF9qaPmjpGHEXaTkmkfgY5P+06LzOjb/7UeohSz0
- zrdOIzbvZgrc+LjJ/BJ6v+UO0rFa3RP879uACoFQuSv2Qd5ryYZsouG7ch4ho90RFgOYCbn1QUx
- b72OI/+2qdtSCarmuIh57g9bJD8FXdJz8QxLICX3adEcraJA==
-X-Received: by 2002:a05:622a:506:b0:50d:86cb:db75 with SMTP id
- d75a77b69052e-50e36827766mr391728361cf.7.1776939451647; 
- Thu, 23 Apr 2026 03:17:31 -0700 (PDT)
-X-Received: by 2002:a05:622a:506:b0:50d:86cb:db75 with SMTP id
- d75a77b69052e-50e36827766mr391727931cf.7.1776939451013; 
- Thu, 23 Apr 2026 03:17:31 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a4185bc672sm5205340e87.34.2026.04.23.03.17.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Apr 2026 03:17:30 -0700 (PDT)
-Date: Thu, 23 Apr 2026 13:17:28 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Cc: srini@kernel.org, linux-arm-msm@vger.kernel.org,
- gregkh@linuxfoundation.org, quic_bkumar@quicinc.com,
- linux-kernel@vger.kernel.org, quic_chennak@quicinc.com,
- dri-devel@lists.freedesktop.org, arnd@arndb.de, ltuikov89@gmail.com,
- konrad.dybcio@oss.qualcomm.com, andersson@kernel.org
-Subject: Re: [PATCH v9 4/4] misc: fastrpc: Add polling mode support for
- fastRPC driver
-Message-ID: <ys6ujryc2bntxd66n2ft7rl73g7abtfwvhn66clqc52on2jwi4@7ladycubgrre>
-References: <20260422092409.4107093-1-ekansh.gupta@oss.qualcomm.com>
- <20260422092409.4107093-5-ekansh.gupta@oss.qualcomm.com>
- <jqehwyeoda5t5kabxjouc4kgpnebndotkr2a4tuuiypzqcck42@dv3vu7wbq6nh>
- <52aa6442-7e0e-423d-beef-0ef2a6c06884@oss.qualcomm.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76D3710F05E
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 10:18:31 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 2748C40C18;
+ Thu, 23 Apr 2026 10:18:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5BBEC2BCAF;
+ Thu, 23 Apr 2026 10:18:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1776939511;
+ bh=QXWXZQEXsf4MFpPvgRFfqvij9UUVaI2oohuViiAF3Gk=;
+ h=From:Subject:Date:To:Cc:From;
+ b=RMr1IdTf/98WrTIUBNX8XGw0uYC7FvTbKaJoOiX29drR4Nju6ig6zfXh0fig+c9bO
+ Uzx6JFS40KdiQ14b4htmUID/lA0Lh3Arbplr/ue2LaZgy390NUHGgE9wxXKvXXEHJl
+ coivkj3e0s/yDTDHNgqc0jgNW9Ky8t2gn9iOfrlB4qH4Thg6D+GwX4yXEXFnlRJzXm
+ elyEjfSj8LD8Sn0/YRv6X/0D37JSIq3OoU8MuQvOfvnXqZUfWwh5Dz0uoAtE0w1djU
+ zEcI3CA8/yY/Av7WHqvoZgkDZuD7v7qfQhDv702xXNrfNvOkbr0oosn5fSkhN512Kb
+ ttl3Sv/D+fCbA==
+From: Maxime Ripard <mripard@kernel.org>
+Subject: [PATCH v2 00/28] drm: Implement state readout support
+Date: Thu, 23 Apr 2026 12:18:13 +0200
+Message-Id: <20260423-drm-state-readout-v2-0-8549f87cb978@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <52aa6442-7e0e-423d-beef-0ef2a6c06884@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=KPNqylFo c=1 sm=1 tr=0 ts=69e9f1bc cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
- a=Ms8xwbpsCofS3cE9mJAA:9 a=CjuIK1q_8ugA:10 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-GUID: D9QXbr8A0MgPKxyQ4mvcvqj_pUQz-TsA
-X-Proofpoint-ORIG-GUID: D9QXbr8A0MgPKxyQ4mvcvqj_pUQz-TsA
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIzMDEwMSBTYWx0ZWRfXx/5uOxrCw+mQ
- IGNvAZCvkgiQrMPixl+FG5KyfBcnre31ZKuQ/Jlg9VIPKEumI3vM8f/AeMs/dpGVGfPSndsGmyo
- /qtz6ZeS1MLcRKSzs+2LPAvCOz3mWFHhK1IMWOTfUIEfFXymDootNSG/1c0rvPF6fqE2svgo5Fr
- 3YhwOG90mCoazvnIWITaiGDb9hchzCmEwdByDcqb8MdqYs03hn2JiUODGu9xnGhmiESbttpbabO
- bbIPOA4l3U91Kdr9znKmdA/OK35L7ZS4gopemLH1BvIjjKJePpjw/kCOWDb0ZPcegNfNrSs4xEN
- dBSTAcVZTJSkA8gV61eTvOhY0HXF+687Rut/5R5eoUpe3uvbxdHCqZI889l8zaVf5xR/vdmajNF
- 2dtnRwQgr7klPqvm9/FmUcdkiBGX8d2Fxyy7CyzS+rvR2+aF0/fsnw+2TCnvMr642SFPmlsQKxS
- sN3zXPjnUrVu2lQrwNg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-23_02,2026-04-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 clxscore=1015 malwarescore=0 bulkscore=0
- priorityscore=1501 suspectscore=0 spamscore=0 adultscore=0 phishscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
- definitions=main-2604230101
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22PwW7DIBBEf8Xi3K0WME3iU/+jyoHA2lm1hhSIl
+ SryvxfjQy89rWY180bzFJkSUxZD9xSJFs4cQxXqpRPuasNEwL5qoVAZPGgEn2bIxRaCRNbHewG
+ JxxGPJyedRlFzt0QjPxrz47zrRN/3ii77849ci1C9oZY7d46ewMUw8gQcuKJJjkZdDr3xOCxqo
+ 19s3jzzzGXoWoizg0CPAhsLsK9XbL1XziWmnzZtka24rTih+mfFIgFB9tYbLY23enz/pBTo6zW
+ mSZzXdf0FtpnJ6CsBAAA=
+X-Change-ID: 20250730-drm-state-readout-108f089c1c30
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Jyri Sarha <jyri.sarha@iki.fi>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8295; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=QXWXZQEXsf4MFpPvgRFfqvij9UUVaI2oohuViiAF3Gk=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDJkvPz4v6p+lXFCQUvBaRpDrrfp9kZZJU7iEr/EZzYjwv
+ zW1sfJgx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZiIgQ9jfXJG9l4FT62jpV6M
+ W6vqIj7LOB29oP4gsotBRdFSI3v1xmW80uu3CZWnVp1zlP6y1vUXY8MRq7mTpi22zXWZcy0kZU+
+ D1eOQRyE37K40/hHpm6z75EpQsNuUto4XXhKHAz+sKDw6TwsA
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,74 +78,164 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Apr 23, 2026 at 02:07:23PM +0530, Ekansh Gupta wrote:
-> On 22-04-2026 21:17, Dmitry Baryshkov wrote:
-> > On Wed, Apr 22, 2026 at 02:54:09PM +0530, Ekansh Gupta wrote:
-> >> For any remote call to DSP, after sending an invocation message,
-> >> fastRPC driver waits for glink response and during this time the
-> >> CPU can go into low power modes. This adds latency to overall fastrpc
-> >> call as CPU wakeup and scheduling latencies are included. Add polling
-> >> mode support with which fastRPC driver will poll continuously on a
-> >> memory after sending a message to remote subsystem which will eliminate
-> >> CPU wakeup and scheduling latencies and reduce fastRPC overhead. In case
-> >> poll timeout happens, the call will fallback to normal RPC mode.  Poll
-> >> mode can be enabled by user by using FASTRPC_IOCTL_SET_OPTION ioctl
-> >> request with FASTRPC_POLL_MODE request id.
-> >>
-> >> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-> >> ---
-> >>  drivers/misc/fastrpc.c      | 148 ++++++++++++++++++++++++++++++++++--
-> >>  include/uapi/misc/fastrpc.h |  25 ++++++
-> >>  2 files changed, 166 insertions(+), 7 deletions(-)
-> >>
-> >> @@ -2331,6 +2446,22 @@ static const struct fastrpc_soc_data default_soc_data = {
-> >>  	.dma_addr_bits_default = 32,
-> >>  };
-> >>  
-> >> +/*
-> >> + * Older platforms that use default_soc_data but whose DSP firmware
-> >> + * supports the FastRPC polling mode.
-> > 
-> > There should be a comment, "don't add more platforms to this list".
-> What if in future any platform is enabled that is based on older archs,
-> i.e. doesn't use kaanapali compatible but supports polling mode. In that
-> case this list might require an addition.
+Hi,
 
-No. New platforms can get a platform-specific compat.
+Here's a series that implement what i915 calls "fastboot", ie,
+initializing the initial KMS state from the hardware state at boot, to
+skip the first modeset if the firmware already set up the display.
 
-> > 
-> >> + */
-> >> +static const struct of_device_id fastrpc_poll_supported_machines[] __maybe_unused = {
-> >> +	{ .compatible = "qcom,qcs8300" },
-> >> +	{ .compatible = "qcom,qcs9100" },
-> > 
-> > Use qcom,sa8775p instead. See sa8775p-ride boards.
-> > What about qcom,sar2130p?
-> > qcom,sc8280xp?
-> > qcom,milos?
-> I'm checking for these platforms also. Will add if these are supporting
-> polling mode.
+This series creates the infrastructure in KMS to create that state by
+relying on driver specific hooks. It also implements some infrastructure
+to check during non-blocking commits that the readout helpers work
+properly by reading out the state that was just committed and comparing
+it to what was supposed to be commited.
 
-Thanks.
+This relies on another set of driver hooks to compare the entities
+states, with helpers providing the default implementation.
 
-> 
-> //Ekansh
-> > 
-> >> +	{ .compatible = "qcom,sm8450" },
-> >> +	{ .compatible = "qcom,sm8550" },
-> >> +	{ .compatible = "qcom,sm8650" },
-> >> +	{ .compatible = "qcom,sm8750" },
-> >> +	{ .compatible = "qcom,x1e80100" },
-> >> +	{ .compatible = "qcom,x1p42100" },
-> >> +	{},
-> >> +};
-> >> +
-> >>  static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
-> >>  {
-> >>  	struct device *rdev = &rpdev->dev;
-> > 
-> 
+It then implements the readout support in the TIDSS driver, and was
+tested with the SK-AM62 board. This board in particular is pretty
+interesting, since it relies on an DPI to HDMI bridge, and uses the
+drm_bridge_connector infrastructure.
 
+So the readout works with the current state of the art on embedded-ish
+
+It's now in a much better state than the v1 was, but there's still some
+notable things broken: 
+
+  - Bridges do not read their input and output bus formats and flags
+
+  - The tidss_crtc_state fields are not read properly at the moment
+    either.
+
+  - It looks like, when left unattended, we get some atomic_flush
+    WARN eventually, maybe because of something broken around
+    hotplugging and the monitor shutting itself down?
+
+  - If readout is disabled for any reason, the hardware isn't reset
+    anymore.
+
+The main thing works though: the state is picked up properly, doesn't
+trigger a modeset if what was programmed is the one the first modeset
+tries to pick as well, will switch properly if it isn't, etc.
+
+Let me know what you think,
+Maxime
+
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+---
+Changes in v2:
+- Get rid of patches already applied
+- Rebase on top of the current atomic_create_state work
+- Use the SRO prefix everywhere
+- Create our own states container structure instead of trying to plumb
+  it into a drm_atomic_state
+- Make a lot more use of helpers
+- Add a hook to enable the hardware resources when the readout state
+  becomes active
+- Move all the tidss readout code into tidss_dispc.c
+- Write documentation
+- Add drm_private_obj and drm_bridge name for easier debugging
+- Add drm_private_obj_is_bridge()
+- Link to v1: https://lore.kernel.org/r/20250902-drm-state-readout-v1-0-14ad5315da3f@kernel.org
+
+---
+Maxime Ripard (28):
+      drm/atomic: Fix unused but set warning in state iterator macros
+      drm/atomic_helper: Skip over NULL private_obj pointers
+      drm/atomic_state_helper: Remove memset in __drm_atomic_helper_bridge_reset()
+      drm/atomic: Convert drm_priv_to_bridge_state to container_of_const
+      drm/atomic: Add drm_private_obj name
+      drm/bridge: Add drm_private_obj_is_bridge()
+      drm/bridge: Implement atomic_print_state
+      drm/atomic: Export drm_atomic_*_print_state
+      drm/atomic: Only call atomic_destroy_state on a !NULL pointer
+      drm/atomic_sro: Create drm_atomic_sro_state container
+      drm/atomic_sro: Create kernel parameter to force or disable readout
+      drm/atomic_sro: Add atomic state readout infrastructure
+      drm/atomic_sro: Add function to install state into drm objects
+      drm/atomic_sro: Create documentation
+      drm/bridge: Handle bridges with hardware state readout
+      drm/mode_config: Read out hardware state in drm_mode_config_create_state
+      drm/atomic_sro: Provide helpers to implement hardware state readout
+      drm/atomic_helper: Pass nonblock to commit_tail
+      drm/atomic_helper: Compare actual and readout states once the commit is done
+      drm/atomic_state_helper: Provide comparison macros
+      drm/atomic_state_helper: Provide atomic_compare_state helpers
+      drm/encoder: Create atomic_sro_get_current_crtc hook
+      drm/bridge: display-connector: Implement readout support
+      drm/bridge_connector: Implement hw readout for connector
+      drm/tidss: dispc: Improve mode checking logs
+      drm/tidss: Implement readout support
+      drm/tidss: encoder: Implement atomic_sro_get_current_crtc
+      drm/bridge: sii902x: Implement hw state readout
+
+ drivers/gpu/drm/Makefile                           |   2 +
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |   1 +
+ .../drm/arm/display/komeda/komeda_private_obj.c    |   8 +
+ drivers/gpu/drm/bridge/display-connector.c         |  15 +
+ drivers/gpu/drm/bridge/sii902x.c                   |  56 +-
+ drivers/gpu/drm/display/drm_bridge_connector.c     |  31 +
+ drivers/gpu/drm/display/drm_dp_mst_topology.c      |   2 +-
+ drivers/gpu/drm/display/drm_dp_tunnel.c            |   1 +
+ drivers/gpu/drm/drm_atomic.c                       |  46 +-
+ drivers/gpu/drm/drm_atomic_helper.c                |  46 +-
+ drivers/gpu/drm/drm_atomic_sro.c                   | 854 +++++++++++++++++++++
+ drivers/gpu/drm/drm_atomic_sro_helper.c            | 677 ++++++++++++++++
+ drivers/gpu/drm/drm_atomic_state_helper.c          |   3 +-
+ drivers/gpu/drm/drm_bridge.c                       | 133 +++-
+ drivers/gpu/drm/drm_internal.h                     |  12 +
+ drivers/gpu/drm/drm_mode_config.c                  |   5 +
+ drivers/gpu/drm/ingenic/ingenic-drm-drv.c          |   1 +
+ drivers/gpu/drm/ingenic/ingenic-ipu.c              |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c           |   1 +
+ drivers/gpu/drm/omapdrm/omap_drv.c                 |   1 +
+ drivers/gpu/drm/tegra/hub.c                        |   1 +
+ drivers/gpu/drm/tidss/tidss_crtc.c                 |  93 +++
+ drivers/gpu/drm/tidss/tidss_dispc.c                | 332 ++++++--
+ drivers/gpu/drm/tidss/tidss_dispc.h                |  14 +
+ drivers/gpu/drm/tidss/tidss_encoder.c              |  37 +-
+ drivers/gpu/drm/tidss/tidss_kms.c                  |   6 +-
+ drivers/gpu/drm/tidss/tidss_plane.c                | 154 ++++
+ drivers/gpu/drm/vc4/vc4_kms.c                      |   3 +
+ include/drm/drm_atomic.h                           | 144 +++-
+ include/drm/drm_atomic_sro.h                       |  59 ++
+ include/drm/drm_atomic_sro_helper.h                | 275 +++++++
+ include/drm/drm_bridge.h                           |  87 +++
+ include/drm/drm_connector.h                        |  69 ++
+ include/drm/drm_crtc.h                             |  69 ++
+ include/drm/drm_encoder.h                          |  18 +
+ include/drm/drm_mode_config.h                      |  18 +
+ include/drm/drm_modeset_helper_vtables.h           |  23 +
+ include/drm/drm_plane.h                            |  69 ++
+ 39 files changed, 3255 insertions(+), 113 deletions(-)
+---
+base-commit: ea61048876a7137897da26dac49ee234fb38a35a
+change-id: 20250730-drm-state-readout-108f089c1c30
+prerequisite-change-id: 20260310-drm-mode-config-init-1e1f52b745d0:v2
+prerequisite-patch-id: 8831e320ca55e930e6dd8db8abfd2a79179fc1a0
+prerequisite-patch-id: 5d2ae478dfb0a8b1eed30431b52a63141f1a3edb
+prerequisite-patch-id: be3ef2f85cc3bba3ce65cbe4c1bf73b26c59b46c
+prerequisite-patch-id: ad4de3b4f7bf5861d8e74d15042fb1d17cf6f071
+prerequisite-patch-id: 6af92ef1aef1541ba0c504c3618612a89f5433a4
+prerequisite-patch-id: d7b9200d7155e7ae2a76121adb50ce974aa78ddc
+prerequisite-patch-id: 811a936fa6b38549807256e718b4c1faf49e90dd
+prerequisite-patch-id: 3816a4bdc28e3353dba2811cc82d6680cf9ada11
+prerequisite-patch-id: e156096dae812cab909877d7d614f56374652c6a
+prerequisite-patch-id: fa0187e85c3587e7b28e411f2198b7c070793fbb
+prerequisite-patch-id: f97b4088a1357121e4b35c4822839e45d952cba9
+prerequisite-patch-id: 2e942d5540fc208b0c94f9f9215f85cc59dd6c1c
+prerequisite-patch-id: 45ce20ef439a538b6c71c7aedb251bd62c882a11
+prerequisite-patch-id: 86674e487ba650461e29c284308ff9ba321a48e4
+prerequisite-patch-id: 1d7744840555f74f310c1d48642bfc755ac645c9
+prerequisite-patch-id: b01716030f5f9b3cedb4a6096b2d4769f625741a
+prerequisite-patch-id: 0372103622aa6006a3fe645b4c2eb2387d7d3b5a
+prerequisite-patch-id: 24a0b772f6fc53c41892a37b52cba95bbd261ca2
+prerequisite-patch-id: 80ec7eea600ad3be7b94a182e274695b7c5cf17f
+prerequisite-patch-id: 273773ea001ab348b4e85b47b20b45f48d4c1cbc
+
+Best regards,
 -- 
-With best wishes
-Dmitry
+Maxime Ripard <mripard@kernel.org>
+
