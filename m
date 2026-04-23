@@ -4,53 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2E69FDEE2F
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 17:15:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3C95FDEE40
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 18:05:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E6FB10E37B;
-	Thu, 23 Apr 2026 17:15:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E33810E361;
+	Thu, 23 Apr 2026 18:05:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="KSKR6b7m";
+	dkim=pass (1024-bit key; unprotected) header.d=crapouillou.net header.i=@crapouillou.net header.b="VidnwjpK";
 	dkim-atps=neutral
-Received: from mail-244108.protonmail.ch (mail-244108.protonmail.ch
- [109.224.244.108])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C103010E37B
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 17:15:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
- s=protonmail; t=1776964523; x=1777223723;
- bh=Z565GjO7YrtU4h57BjOTttW9CeupQn/HHRIOQjJ7HFc=;
- h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
- Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=KSKR6b7mua/xIbWJq33WEVr1PyHiTJJCvkhk1K2oQygPye2G/eRBaghdQEorAElrb
- 06VvHzh2+EmV7jZ7+srNlgz/ImJKZEK7UL2QtX4B6uXll6KvGZeFZ0btbIj58879kJ
- TpVh27NYsJWD6cWoJCsrqHbQiBnJZEHtl3xT7y9dxgssAarjcuTHsW+rG+1SpCDMqH
- g+oWjvIOt6Ak/1QTzpQzBW6EWZPa/pWHvi72jmxk2do5AxGGeEDGaQdbu0I+PaD9u0
- Is5MqrNy7x1duQTdTr2VuYwHCqbPaCeJ8QuWV8p9FTyBLN4qbQQyEGLfqG1hxNGjrm
- 6CU1vFULIQkRg==
-X-Pm-Submission-Id: 4g1jQb4w2Dz1DDs5
-From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-To: Eliot Courtney <ecourtney@nvidia.com>
-Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>, Alexandre Courbot <acourbot@nvidia.com>,
- John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Joel Fernandes <joelagnelf@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-Subject: Re: [PATCH] rust: drm: gem: clean up GEM state in init failure case
-Date: Thu, 23 Apr 2026 20:15:17 +0300
-Message-ID: <20260423171518.24896-1-work@onurozkan.dev>
-X-Mailer: git-send-email 2.51.2
-In-Reply-To: <20260423-fix-gem-1-v1-1-e12e35f7bba9@nvidia.com>
-References: <20260423-fix-gem-1-v1-1-e12e35f7bba9@nvidia.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+X-Greylist: delayed 364 seconds by postgrey-1.36 at gabe;
+ Thu, 23 Apr 2026 18:05:35 UTC
+Received: from aposti.net (aposti.net [185.119.170.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBD7210E33C;
+ Thu, 23 Apr 2026 18:05:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=crapouillou.net;
+ s=mail; t=1776967168;
+ bh=QGXWKH7JhojDk/vCfoesF6wdkbcwasz+b8TzqgsvnEY=;
+ h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+ b=VidnwjpKlxAHpZXdZ5M8HqNp1+KLzj/lVqpTUjnVCvvI0AlMOvy6xLPjbVADW6Z7T
+ zX2omNSMnvzMFu+5OaTkic3YSw0JBpTj1pMqKOxAH5KG+vq/PHkgVXLcKBhtSsGmGS
+ Vrdc/osIcU6MzDXs3blATAtRvZpS57uE18zfDmjI=
+Message-ID: <6bdce57340942334cf7d3c7f7ed0215458717495.camel@crapouillou.net>
+Subject: Re: [PATCH v2 10/41] drm/ingenic: remove now-redundant call to
+ drm_connector_attach_encoder()
+From: Paul Cercueil <paul@crapouillou.net>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Dmitry Baryshkov	
+ <dmitry.baryshkov@oss.qualcomm.com>, Andrzej Hajda
+ <andrzej.hajda@intel.com>,  Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Laurent Pinchart	
+ <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Sasha Finkelstein <fnkl.kernel@gmail.com>,
+ Janne Grunau <j@jannau.net>, Liu Ying <victor.liu@nxp.com>, Douglas
+ Anderson <dianders@chromium.org>, Laurentiu Palcu	
+ <laurentiu.palcu@oss.nxp.com>, Lucas Stach <l.stach@pengutronix.de>, Frank
+ Li	 <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix
+ Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>,
+ Philipp Zabel	 <p.zabel@pengutronix.de>, Anitha Chrisanthus
+ <anitha.chrisanthus@intel.com>,  Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>, Kevin Hilman
+ <khilman@baylibre.com>,  Jerome Brunet <jbrunet@baylibre.com>, Martin
+ Blumenstingl <martin.blumenstingl@googlemail.com>, Rob Clark	
+ <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang
+ <jesszhan0024@gmail.com>, Sean Paul	 <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, Tomi Valkeinen
+ <tomi.valkeinen@ideasonboard.com>, Sandy Huang <hjc@rock-chips.com>, Heiko
+ =?ISO-8859-1?Q?St=FCbner?=	 <heiko@sntech.de>, Andy Yan
+ <andy.yan@rock-chips.com>, Thierry Reding	 <thierry.reding@gmail.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>,  Jonathan Hunter
+ <jonathanh@nvidia.com>, Icenowy Zheng <zhengxingda@iscas.ac.cn>, Jingoo Han
+ <jingoohan1@gmail.com>,  Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim
+ <sw0312.kim@samsung.com>, Kyungmin Park	 <kyungmin.park@samsung.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar	
+ <alim.akhtar@samsung.com>, Laurent Pinchart	
+ <laurent.pinchart+renesas@ideasonboard.com>, Tomi Valkeinen	
+ <tomi.valkeinen+renesas@ideasonboard.com>, Kieran Bingham	
+ <kieran.bingham+renesas@ideasonboard.com>, Geert Uytterhoeven	
+ <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, Biju Das	
+ <biju.das.jz@bp.renesas.com>, Marek Vasut <marex@denx.de>, Stefan Agner	
+ <stefan@agner.ch>, Jyri Sarha <jyri.sarha@iki.fi>, Michal Simek	
+ <michal.simek@amd.com>
+Cc: Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ asahi@lists.linux.dev, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, 	linux-mips@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, 	linux-amlogic@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, 	freedreno@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, 	linux-tegra@vger.kernel.org,
+ linux-samsung-soc@vger.kernel.org, 	linux-renesas-soc@vger.kernel.org
+Date: Thu, 23 Apr 2026 19:59:21 +0200
+In-Reply-To: <20260423-drm-bridge-connector-attach_encoder-v2-10-2ae6ca69b390@bootlin.com>
+References: <20260423-drm-bridge-connector-attach_encoder-v2-0-2ae6ca69b390@bootlin.com>
+ <20260423-drm-bridge-connector-attach_encoder-v2-10-2ae6ca69b390@bootlin.com>
+Autocrypt: addr=paul@crapouillou.net; prefer-encrypt=mutual;
+ keydata=mQENBF0KhcEBCADkfmrzdTOp/gFOMQX0QwKE2WgeCJiHPWkpEuPH81/HB2dpjPZNW03ZM
+ LQfECbbaEkdbN4YnPfXgcc1uBe5mwOAPV1MBlaZcEt4M67iYQwSNrP7maPS3IaQJ18ES8JJ5Uf5Uz
+ FZaUawgH+oipYGW+v31cX6L3k+dGsPRM0Pyo0sQt52fsopNPZ9iag0iY7dGNuKenaEqkYNjwEgTtN
+ z8dt6s3hMpHIKZFL3OhAGi88wF/21isv0zkF4J0wlf9gYUTEEY3Eulx80PTVqGIcHZzfavlWIdzhe
+ +rxHTDGVwseR2Y1WjgFGQ2F+vXetAB8NEeygXee+i9nY5qt9c07m8mzjABEBAAG0JFBhdWwgQ2VyY
+ 3VlaWwgPHBhdWxAY3JhcG91aWxsb3UubmV0PokBTgQTAQoAOBYhBNdHYd8OeCBwpMuVxnPua9InSr
+ 1BBQJdCoXBAhsDBQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAAAoJEHPua9InSr1BgvIH/0kLyrI3V0f
+ 33a6D3BJwc1grbygPVYGuC5l5eMnAI+rDmLR19E2yvibRpgUc87NmPEQPpbbtAZt8On/2WZoE5OIP
+ dlId/AHNpdgAtGXo0ZX4LGeVPjxjdkbrKVHxbcdcnY+zzaFglpbVSvp76pxqgVg8PgxkAAeeJV+ET
+ 4t0823Gz2HzCL/6JZhvKAEtHVulOWoBh368SYdolp1TSfORWmHzvQiCCCA+j0cMkYVGzIQzEQhX7U
+ rf9N/nhU5/SGLFEi9DcBfXoGzhyQyLXflhJtKm3XGB1K/pPulbKaPcKAl6rIDWPuFpHkSbmZ9r4KF
+ lBwgAhlGy6nqP7O3u7q23hRU=
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,67 +112,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 23 Apr 2026 21:36:52 +0900=0D
-Eliot Courtney <ecourtney@nvidia.com> wrote:=0D
-=0D
-> Currently, if `drm_gem_object_init` fails, the object is freed without=0D
-> any cleanup. Perform the cleanup in that case.=0D
-> =0D
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>=0D
-> ---=0D
-> I looked at `drm_gem_shmem_init` for an example, and it seems like the=0D
-> correct cleanup here is to do `drm_gem_private_object_fini` if=0D
-> `drm_gem_object_init` fails. Other C drivers do different things, but=0D
-> looking at the implementation of `drm_gem_object_init`, this looks like=0D
-> the only thing we need to clean up.=0D
-> ---=0D
->  rust/kernel/drm/gem/mod.rs | 9 ++++++++-=0D
->  1 file changed, 8 insertions(+), 1 deletion(-)=0D
-> =0D
-> diff --git a/rust/kernel/drm/gem/mod.rs b/rust/kernel/drm/gem/mod.rs=0D
-> index 75acda7ba500..7b6a085ace27 100644=0D
-> --- a/rust/kernel/drm/gem/mod.rs=0D
-> +++ b/rust/kernel/drm/gem/mod.rs=0D
-> @@ -278,7 +278,14 @@ pub fn new(dev: &drm::Device<T::Driver>, size: usize=
-, args: T::Args) -> Result<A=0D
->          unsafe { (*obj.as_raw()).funcs =3D &Self::OBJECT_FUNCS };=0D
->  =0D
->          // SAFETY: The arguments are all valid per the type invariants.=
-=0D
-> -        to_result(unsafe { bindings::drm_gem_object_init(dev.as_raw(), o=
-bj.obj.get(), size) })?;=0D
-> +        if let Err(err) =3D=0D
-> +            to_result(unsafe { bindings::drm_gem_object_init(dev.as_raw(=
-), obj.obj.get(), size) })=0D
-> +        {=0D
-> +            // SAFETY: `drm_gem_object_init()` initializes the private G=
-EM object state before=0D
-> +            // failing, so `drm_gem_private_object_fini()` is the matchi=
-ng cleanup.=0D
-> +            unsafe { bindings::drm_gem_private_object_fini(obj.obj.get()=
-) };=0D
-> +            return Err(err);=0D
-> +        }=0D
-=0D
-I can confirm that this matches the usage on the C side. I think the API co=
-uld=0D
-be improved to avoid relying on developers remembering this pattern. I don'=
-t=0D
-expect that to happen in this patch, just saying it :).=0D
-=0D
-Reviewed-by: Onur =C3=96zkan <work@onurozkan.dev>=0D
-=0D
->  =0D
->          // SAFETY: We will never move out of `Self` as `ARef<Self>` is a=
-lways treated as pinned.=0D
->          let ptr =3D KBox::into_raw(unsafe { Pin::into_inner_unchecked(ob=
-j) });=0D
-> =0D
-> ---=0D
-> base-commit: a7a080bb4236ebe577b6776d940d1717912ff6dd=0D
-> change-id: 20260423-fix-gem-1-6c68b9fa0972=0D
-> =0D
-> Best regards,=0D
-> --  =0D
-> Eliot Courtney <ecourtney@nvidia.com>=0D
-> =0D
+Hi Luca,
+
+Le jeudi 23 avril 2026 =C3=A0 11:17 +0200, Luca Ceresoli a =C3=A9crit=C2=A0=
+:
+> drm_connector_attach_encoder() is now called by
+> drm_bridge_connector_init().
+>=20
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+
+Acked-by: Paul Cercueil <paul@crapouillou.net>
+
+Cheers,
+-Paul
+
+> ---
+> =C2=A0drivers/gpu/drm/ingenic/ingenic-drm-drv.c | 2 --
+> =C2=A01 file changed, 2 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+> b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+> index 4068114adf8c..70088db34f69 100644
+> --- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+> +++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+> @@ -1330,8 +1330,6 @@ static int ingenic_drm_bind(struct device *dev,
+> bool has_components)
+> =C2=A0			ret =3D PTR_ERR(connector);
+> =C2=A0			goto err_drvdata;
+> =C2=A0		}
+> -
+> -		drm_connector_attach_encoder(connector, encoder);
+> =C2=A0	}
+> =C2=A0
+> =C2=A0	drm_for_each_encoder(encoder, drm) {
