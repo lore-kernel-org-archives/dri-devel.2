@@ -4,92 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A82CFF99344
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 08:51:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C171CF99356
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 08:51:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77CE010EFD5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D2A210EFD8;
 	Thu, 23 Apr 2026 08:51:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MwxplqEF";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MvuARwPN";
 	dkim-atps=neutral
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com
- [74.125.82.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47DF210E9E7
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 15:08:05 +0000 (UTC)
-Received: by mail-dy1-f170.google.com with SMTP id
- 5a478bee46e88-2d832f2f44cso5107366eec.0
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 08:08:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776870484; cv=none;
+Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com
+ [209.85.161.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10E4E10E0C3
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 00:55:11 +0000 (UTC)
+Received: by mail-oo1-f42.google.com with SMTP id
+ 006d021491bc7-679b072ed3aso2990935eaf.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 17:55:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776905710; cv=none;
  d=google.com; s=arc-20240605;
- b=UPBmN1nfA8pRmlubDkEBKLTeNeG6odB9bkxPZxOAdy/rd5FuMpwNzOTBufb0a7fX9y
- /hIu1F4uSFTqQEpmXixnRP6dmEawTLoCmZhVIgPxoEsfbjaGWihkjJD7WHav3+BSYlfc
- 6hcU+6wfFUpYc852WahrMFZbIatz89o3JBSy9TZScDnFB3+xmkVLbuPg7zJPSwZZHjYf
- kbr/SM69yBUZ/SgHHU9djpFCLQejAUX2xSJAu7WlewEdsuPMfUt7bhNynn98zIUNmq+W
- 9XBAoWZqd1t5uv4aXXEmQHoHWJU8N9qbCOl1B+r9jm8mQIVpWk6lTd9N+/U4nhTGN3DF
- gE+w==
+ b=TpLp++Ub1WGzxP9CAS1ojIfeofMpFws+Ia1Trt0Ignlvig2ZzaVu3r3EdHdh+47HI3
+ mTQu+1OChL8uvm2B2u4P+kCqWIxErXvOS6+n98W+/pOc4XwwxXHokj0+uAIThUNw1dHv
+ U7mNKC/dibhNPsEa2dIgeV09fvwlP+eZLb09a2cYda+omu5nck/yUQNYmzk0FSPFMy0m
+ z7TwgTZWLeofaFJltm3m6dypLzj8ler+qwtb8KCAscKYBQ2iG8KFICZ9pBMzVVZixsXc
+ DHSpZC30bY1pHsuyil33VogWDFVvTjht++3zOgkOUFz2MGs63iNqtPKs95ae51p7Ls+R
+ Qh1g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=tKKuRiL9pZeGqtRhDJ+0Iftjn5ibFXpa0nN+Iza8sOo=;
- fh=BzayvTRYfzTlH3oCOcSWSE+nXUygMVRCfpTUD4uZhuw=;
- b=af3qGX3rj/05osvEE1D91zODwSkXvfYRpxp8LuWw5uO2hN7/+ZK5zzmgi1QkHjUVjR
- lxNTRGJsBSa4z54nlg3DGg5mQqGCGz25Q0YMuxOyYXhJdB6YdhxQELUPYbkMRgJi2a2M
- 6Vy5lgU3pNlzOoUS6GxixerAOQtx0KyBXUtVNuBYtrzpffyJJPVFMoEiUnmNiIlxdu1h
- n5uwePZPr6Euomu9GCUdT7h+kjs7CRmgi/vwnUqD+qIFeaG+eV7vudLyNEYLmGHQtWTL
- bkGrE9H0kiZh7dM3T0JKRx3eecEOY14mFcSjj8JbsyuMtUM1IXWTBAUKbwiWUj+OLoAg
- 183g==; darn=lists.freedesktop.org
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=+UtLEa2foHKEHFU/SLXwh05Wz0Pck1xJ13q7G3dvIOM=;
+ fh=R/GUfXL5mjkSSLoMWaZj7LJsMywp8s8mguDeTrG1nqY=;
+ b=icXRFHAU4mo8vi56wjHLOWWpSJlW7GXK9wlCBzFOosfU332CG2jD6vOPNCiTnYINKE
+ GxY1/clCetsfBYoWmYi0J8xRtU6sTiuM2MzwgMd+RS9yUMLjlLM/lENMvRxCEUyeXOZV
+ c6yIO9j1aP4in/kXgBVmuzTwWSgb/fGk0JK3kpLhQwYKx84MFw/lWGIeHqNO4XCAhPei
+ u1EayG3NTftXSjPE4FbpWwtA9Uty77S1yN6xyB0O8+AjIMrkwOA7qGy7qGXhjprC9xVF
+ MLVUCQGzY73zvqmWAfSnYWN/EY7ZGu4lubH2aWC2W9bvzgVBqlxavLpLGMQdRJhwoshp
+ hbRw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776870484; x=1777475284; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=tKKuRiL9pZeGqtRhDJ+0Iftjn5ibFXpa0nN+Iza8sOo=;
- b=MwxplqEFrOtHFU4OD65T17NDjWLTdALCHDNw+9BwpgjZGEWgQ9tAsNg8nnceiJE52w
- WhCy1eemIWzz7vm4+1t3uDCV4sszLWwFMfN5g23pYwedwumuD5SqQGVsrDDiHVvyR6hx
- Dq7u/DxjBYfz2GvKpJ8mrJX+dL46ROplps79Vx2IieTnIjc8mckbsvdxC7ZRHf9M2eeo
- oKYeD589MKnhC8RfxVAjPG3MSaIyWUM6ofAzHg7sGQY37BQYwOuuxoa6gt6dHqsdS86k
- CBOwVy021XR6vfnMFYlcA3TLbryabfb+hfJ74DZ9bTwBoGu4ToHcnSUUyzIAwU+WiskD
- 5uCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776870484; x=1777475284;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1776905710; x=1777510510; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=tKKuRiL9pZeGqtRhDJ+0Iftjn5ibFXpa0nN+Iza8sOo=;
- b=DP+iJ+zXWbOqQOSgK2xCanEw6Omw1RwIo0S9mydKvna7Kei5Y4bgcBrRWnybpMTrSY
- ap1sy3m+fpXJWcL8aXKz8DpgH/WEvxvAnUscPtj2zcZy4aW1h1PLjBl2EVrKuQywYgfh
- 4mrvTSGB+iLiM+yPFXJXDk3rymEDFsgB3fb9uwzhLnPWvQi+g2+diPpkWs2L8U27/xiN
- 6zf1at4OOm6t0hio7uLdCEW4uAiuEvzZPL9pOsYZ2hBPmQ7Ff/9pQUa0wKMRPkzCxxD+
- yIioOow+gfYSGCYrE2anNwOYfahFGH8Xpm0KAx3docmDsOw4yxXZ0w/WROc2qTT5Jqhl
- /xkA==
+ bh=+UtLEa2foHKEHFU/SLXwh05Wz0Pck1xJ13q7G3dvIOM=;
+ b=MvuARwPNSg241Z7FE4ajhPOyTpWC01zap8ltywiRD8sV82kAiRuV7UjLdR1j58G9ka
+ VWf2khnYtNUPLFS97nuIRA3nbDRoSWObCvMIKUQIGFfInxAuF5LVsPpty2NLuEhiU9vB
+ 8wTN55GZeb+om8o7hUMoMSn2G2FWAgRac25FPj4152x/+iSBhvvKc2iJJur7eR5qfKTl
+ /l8U34ISFOkk2wgFm4+aeIV4IEVKnOo83uRIvFwRKYSigJGOQDmI35Z/ujLLYwP0yG7A
+ DYj7fGDNt4scbmfI/BIJyIrgGzemF6BJvtqY6NAqSK5Km2rLakWDiwBa9E20hUuWbf3v
+ Qrog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776905710; x=1777510510;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=+UtLEa2foHKEHFU/SLXwh05Wz0Pck1xJ13q7G3dvIOM=;
+ b=K3b6qbHg3y8taeG04NOk1yq5QqpFed4SvJ3Lotr4hyVM7uejdiraKaZytgOuoIr/S8
+ f3gkLT13PHNi+is7xv8H1RYjvZOJ1RkjYa0KfnFWYfPm7xbwJFN3DMZq/szvEcYsa4rn
+ tHNktRK5l0b8Dk3b0XphdEwfjkhK1Q5Meo4eSN6j8kqAd2YzpM7r4ONASRw/kfNYZBvf
+ 2WbiUTECj9zFt4Kn7Yi5TWt41nObXErFjDfQ0iMuzBLVXz0Xs55O9oDz8ZIbVU8LwY9w
+ g036ZSAI/qHcqXHPPyO4RB+VOGxNiZ/N6S7ssPAbaxfq+NmbhwAuOh8slGSRM/IVSxlL
+ uPyQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/9JFCumWkaipemQUs0cftGPhxDw7PVhz4e39WK3plTlueGdd0kPyw/nh2QM9Qvo9VOEC21pREgFf4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwJ+G9bwA4ilmi+qfpq08wuOTWpsR9dX2Oni/koaQlpz4FzbN8h
- sMDhiooEqx5rDl6KgTEd0326dZaxFOomXDuaSQLxci/dhwHEZxwmLe27rFfYyfNBUgeHv94vWlJ
- eqUe2jUkIhH2cVu16LZKwRUIwLeSWKpo=
-X-Gm-Gg: AeBDievb+wq4dGj5jvQBR+SkGJil6lEkeKwistzFJZkhLDfeV7fjau9TCnUQwbsrgoC
- uCOZseZLLcvYiDM5xJ37UVMFpmhFESyn7ZB/DZpQlapTELfPsdqCPQipapfeKQo+JBPqc9V87iS
- 2F17EGd0rv+zKrRc57VhbvKbThqmJdraMRqiDdXLqqatsGyDRnZYx6xZeau235Nq5+i1JsBbmFh
- utzh0PvNwCgrZdauiK6wegohxzBjUN5zxvAibcuKA4+8HEkD+Z8sszUfF/BFOx6YwWq9mo9rSCI
- AmaW6JIgyttL9D5w2Y3gLdvgebUti3mASbMgHLsCoDdRtsWq370=
-X-Received: by 2002:a05:693c:3007:b0:2d9:6373:ad0a with SMTP id
- 5a478bee46e88-2e46538fd04mr11320322eec.11.1776870484193; Wed, 22 Apr 2026
- 08:08:04 -0700 (PDT)
+ AFNElJ9uwvfzWAe2mluopc5KrTjzBY2amH8o5DlF6287MRaLQzgYy2FB4SD/VqnTd0jF8Amc4kE7dN9p3GA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyKKwfr0BbX+vtMydoV7PUhUN0KOgspinblCNktaOvbAsE0mcW9
+ Z1wR/HokFFrcUs0VIjt8jhI+PeMK2dOE7SLJLLlqxuQbW93xk99aAIO8w4tL6dMxl1Ux0Zze5xr
+ i3mdUBZ+8z3k4arMn+HsQrUBquA2pb9w=
+X-Gm-Gg: AeBDievHAhVx7RgStVPnYHiBTQHz8AWHJe6DMUO9s/38I7+w95Y3M7DZqQuAGyztZNH
+ B5PUzoaNrAzGXc1lBGBcUD37jamDxUdUn1f1oZjL6+G9B6Fp9j+YFJDzgU5igTb4oDYdk5XatFj
+ GIlI7P0iZsnSl7hCypLAbkK8RWMesoeyqzBZO++HW0Q7k6ca9+NIdQEWlSfyzkrEqqKn0/ZX1Fm
+ 2LhUWewZ+TAhhpAkkJKo4Vrg94kE7Wfhz/tOCDrh9lnibJGLHemD4m8ARDNdbnxWnteThxFrGDp
+ 1asRUXbeStqqnxSdUKusL84f6DZ/
+X-Received: by 2002:a05:6820:4284:b0:680:6d72:9389 with SMTP id
+ 006d021491bc7-69462e62342mr9688484eaf.22.1776905709878; Wed, 22 Apr 2026
+ 17:55:09 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260420134424.77494-1-amit.barzilai22@gmail.com>
- <20260420134424.77494-2-amit.barzilai22@gmail.com>
- <404ec984-0486-442e-a108-4c5bad700248@gmx.de>
-In-Reply-To: <404ec984-0486-442e-a108-4c5bad700248@gmx.de>
-From: Amit Barzilai <amit.barzilai22@gmail.com>
-Date: Wed, 22 Apr 2026 18:07:53 +0300
-X-Gm-Features: AQROBzBeAfQymMn3-OspNSFT9i3Jc-DBT869Lzio_L7oER-_0lbe7HJBcj1uFO0
-Message-ID: <CAOEgbErWghDHw0XPajoQnBtcz74FpkfdsUV6Yz1Q15hg16pbdg@mail.gmail.com>
-Subject: Re: [PATCH 1/3] fbdev: cobalt_lcdfb: Request memory region
-To: Helge Deller <deller@gmx.de>
-Cc: thomas.zimmermann@suse.de, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org
-Content-Type: multipart/alternative; boundary="00000000000005b51a06500de65e"
+References: <20260420023354.1192642-1-syyang@lontium.com>
+ <20260420023354.1192642-3-syyang@lontium.com>
+ <CAO9ioeXDfTdETEBQknoLehk2aiabCgse109sDgJoPHuQ_07nKQ@mail.gmail.com>
+ <CAFQXuNYV+wt2-+8R4m+mtby9TBwcX+vGdqvUvb_6wXkkBg6b=w@mail.gmail.com>
+ <ed5u73a5lpsixqvm35zpmooolstjv22ygusorub2owbgz7cwj5@42uq6kl6run7>
+ <CAFQXuNZXe0vXAr+dN4LQfC95pvJ5C+Z+b+AuSGZnG4Ui+Nbjww@mail.gmail.com>
+ <3gzudodwvibrlzvzb4csbh5ljmhoxvexs4xef2jag5z7ih5nqw@ral5sgh5diso>
+In-Reply-To: <3gzudodwvibrlzvzb4csbh5ljmhoxvexs4xef2jag5z7ih5nqw@ral5sgh5diso>
+From: =?UTF-8?B?5p2o5a2Z6L+Q?= <yangsunyun1993@gmail.com>
+Date: Thu, 23 Apr 2026 08:54:56 +0800
+X-Gm-Features: AQROBzCge4WejUVf8NQQWOe-Uex68G1vhWDb55cQCiSB92inlzglDUjGgLlX5Y0
+Message-ID: <CAFQXuNa9BWgKsJ6sjesU96FrUczKPcgdy3yaEy4uhd9kCF==4A@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/bridge: Add LT7911EXC edp to mipi bridge driver
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: syyang@lontium.com, robh@kernel.org, krzk+dt@kernel.org, 
+ conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org, 
+ maarten.lankhorst@linux.intel.com, rfoss@kernel.org, mripard@kernel.org, 
+ Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se, jernej.skrabec@gmail.com, 
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, xmzhu@lontium.corp-partner.google.com, 
+ tzimmermann@suse.de, xbpeng@lontium.com, rlyu@lontium.com, xmzhu@lontium.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 23 Apr 2026 08:51:37 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -106,88 +117,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---00000000000005b51a06500de65e
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Helge,
-Yes, I wrote all three patches and I am OK with the added Signed-off-by
-line.
-Sorry for the oversight, I'll make sure to include it in future submissions=
-.
-
-Thanks,
-Amit
-
-On Wed, Apr 22, 2026 at 5:50=E2=80=AFPM Helge Deller <deller@gmx.de> wrote:
-
-> Hi Amit,
+Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=E5=B9=B4=
+4=E6=9C=8823=E6=97=A5=E5=91=A8=E5=9B=9B 02:58=E5=86=99=E9=81=93=EF=BC=9A
 >
-> On 4/20/26 15:44, Amit Barzilai wrote:
-> > Use devm_platform_get_and_ioremap_resource() instead of open-coding
-> > platform_get_resource() and devm_ioremap() separately. The helper
-> > requests the memory region before mapping it, which registers the range
-> > in /proc/iomem and prevents another driver from mapping the same
-> > registers.
+> On Wed, Apr 22, 2026 at 09:06:22AM +0800, =E6=9D=A8=E5=AD=99=E8=BF=90 wro=
+te:
+> > Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=E5=
+=B9=B44=E6=9C=8821=E6=97=A5=E5=91=A8=E4=BA=8C 19:15=E5=86=99=E9=81=93=EF=BC=
+=9A
+> > >
+> > > On Tue, Apr 21, 2026 at 11:13:30AM +0800, =E6=9D=A8=E5=AD=99=E8=BF=90=
+ wrote:
+> > > > Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=
+=E5=B9=B44=E6=9C=8820=E6=97=A5=E5=91=A8=E4=B8=80 11:57=E5=86=99=E9=81=93=EF=
+=BC=9A
+> > > > >
+> > > > > On Mon, 20 Apr 2026 at 05:34, <syyang@lontium.com> wrote:
+> > > > > >
+> > > > > > From: Sunyun Yang <syyang@lontium.com>
+>
+> > > > > > +       int fw_version;
+> > > > > > +       u32 fw_crc;
+> > > > > > +
+> > > > > > +       bool enabled;
+> > > > >
+> > > > > What for?
+> > > > >
+> > > > (bool enabled;) is used as a flag in the code to reduce the frequen=
+cy
+> > > > of power supply switching.
+> > >
+> > > How does it help to reduce the rate?
+> > >
+> > The enabled flag is used to track the hardware power state. In
+> > lt7911exc_pre_enable(), we check if (lt7911exc->enabled) return; to
+> > avoid redundant regulator enabling and reset pulses when the DRM
+> > framework calls pre_enable multiple times.
 > >
-> > Assisted-by: Claude:claude-sonnet-4-6
+> > Similarly, lt7911exc_post_disable() uses it to prevent multiple
+> > power-down sequences. This reduces unnecessary power supply switching
+> > and potential side effects.
 >
-> You missed your signed-off line, which I added while applying patches #1
-> and #2:
-> Signed-off-by: Amit Barzilai <amit.barzilai22@gmail.com>
+> Is there a code path leading to multiple enable or multiple disable calls=
+?
 >
-> Amit, please confirm that you wrote patches #2 and #3 and that you
-> are OK with the added Signed-off-by line, otherwise I need to drop the
-> patches.
->
-> Helge
->
-> > ---
-> >   drivers/video/fbdev/cobalt_lcdfb.c | 12 +++---------
-> >   1 file changed, 3 insertions(+), 9 deletions(-)
->
->
+Sorry, this is my mistake.
+it will be fixed in next version.
 
---00000000000005b51a06500de65e
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Thanks,  Dmitry.
 
-<div dir=3D"ltr"><div>Hi Helge,</div>Yes, I wrote all three patches and I a=
-m OK with the added Signed-off-by line.<div>Sorry for the oversight, I&#39;=
-ll make sure to include it in future submissions.</div><div><br></div><div>=
-Thanks,</div><div>Amit</div></div><br><div class=3D"gmail_quote gmail_quote=
-_container"><div dir=3D"ltr" class=3D"gmail_attr">On Wed, Apr 22, 2026 at 5=
-:50=E2=80=AFPM Helge Deller &lt;<a href=3D"mailto:deller@gmx.de">deller@gmx=
-.de</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"marg=
-in:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1e=
-x">Hi Amit,<br>
-<br>
-On 4/20/26 15:44, Amit Barzilai wrote:<br>
-&gt; Use devm_platform_get_and_ioremap_resource() instead of open-coding<br=
+> >
+> > However, if you consider this optimization unnecessary, I can remove
+> > the flag and the related checks in the next version. Please let me
+> > know your preference.
+> >
 >
-&gt; platform_get_resource() and devm_ioremap() separately. The helper<br>
-&gt; requests the memory region before mapping it, which registers the rang=
-e<br>
-&gt; in /proc/iomem and prevents another driver from mapping the same<br>
-&gt; registers.<br>
-&gt; <br>
-&gt; Assisted-by: Claude:claude-sonnet-4-6<br>
-<br>
-You missed your signed-off line, which I added while applying patches #1 an=
-d #2:<br>
-Signed-off-by: Amit Barzilai &lt;<a href=3D"mailto:amit.barzilai22@gmail.co=
-m" target=3D"_blank">amit.barzilai22@gmail.com</a>&gt;<br>
-<br>
-Amit, please confirm that you wrote patches #2 and #3 and that you<br>
-are OK with the added Signed-off-by line, otherwise I need to drop the patc=
-hes.<br>
-<br>
-Helge<br>
-<br>
-&gt; ---<br>
-&gt;=C2=A0 =C2=A0drivers/video/fbdev/cobalt_lcdfb.c | 12 +++---------<br>
-&gt;=C2=A0 =C2=A01 file changed, 3 insertions(+), 9 deletions(-)<br>
-<br>
-</blockquote></div>
-
---00000000000005b51a06500de65e--
+> --
+> With best wishes
+> Dmitry
