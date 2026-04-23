@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3C1CF94CBC
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 06:41:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC7D5FAD41F
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 06:41:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B509010EF56;
-	Thu, 23 Apr 2026 06:41:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 586DF10EF6B;
+	Thu, 23 Apr 2026 06:41:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="v8UZ+xWz";
+	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="DAFIRnYr";
 	dkim-atps=neutral
-Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com
- [113.46.200.219])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A83210EF74
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 06:41:32 +0000 (UTC)
+Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com
+ [113.46.200.225])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4FA310EF56
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 06:41:31 +0000 (UTC)
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
  c=relaxed/relaxed; q=dns/txt; h=From;
- bh=ho+2Hx10vvPVnB9eC9rs2XcagIxFGoHgX9X3x7uhGZI=;
- b=v8UZ+xWzOg/bqtwIvly1IfyNN+SFYPng+kC1k74glteUQnqGnzh8RkNOEgHllMqY0DMTgOIZU
- lvlTeAcVLV4fukv4sBFoahDTU3EvYnoC0XC0S37ZYz0k34i9Fiz0Kuezf8RLzZXuoaN8Dp+yvGV
- F7MSL1+3wY1JiB33wmh+u9g=
-Received: from mail.maildlp.com (unknown [172.19.163.0])
- by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4g1RCq53vTz1prLm;
- Thu, 23 Apr 2026 14:35:03 +0800 (CST)
-Received: from dggemv706-chm.china.huawei.com (unknown [10.3.19.33])
- by mail.maildlp.com (Postfix) with ESMTPS id A4C7F40537;
- Thu, 23 Apr 2026 14:41:29 +0800 (CST)
+ bh=HVGuWGkn8qWlrD3mMTeX1j/utDqoTv5W00gDHIxi5jg=;
+ b=DAFIRnYritZCMo9z+NoseYUJKkAKtKYEF5uttm3LD5ccqyNVyZFCrhqmTI/9BvjWsQWwLDbKg
+ dhJeqXlmk9DYDVoncMqD35j9gk1ljsh7GwmzjNl9moY5ISYY09K6juv00Sz5OGAI36868rPCyqR
+ uBoy0v0JJMFvPBb0amB0HZk=
+Received: from mail.maildlp.com (unknown [172.19.163.15])
+ by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4g1RCv5ZF9z1K980;
+ Thu, 23 Apr 2026 14:35:07 +0800 (CST)
+Received: from dggemv712-chm.china.huawei.com (unknown [10.1.198.32])
+ by mail.maildlp.com (Postfix) with ESMTPS id B083440571;
+ Thu, 23 Apr 2026 14:41:28 +0800 (CST)
 Received: from kwepemq100007.china.huawei.com (7.202.195.175) by
- dggemv706-chm.china.huawei.com (10.3.19.33) with Microsoft SMTP Server
+ dggemv712-chm.china.huawei.com (10.1.198.32) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Thu, 23 Apr 2026 14:41:29 +0800
+ 15.2.1544.11; Thu, 23 Apr 2026 14:41:28 +0800
 Received: from localhost.huawei.com (10.169.71.169) by
  kwepemq100007.china.huawei.com (7.202.195.175) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
@@ -45,10 +45,10 @@ CC: <liangjian010@huawei.com>, <chenjianmin@huawei.com>,
  <fengsheng5@huawei.com>, <shiyongbang@huawei.com>, <helin52@h-partners.com>,
  <shenjian15@huawei.com>, <shaojijie@huawei.com>,
  <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH for drm-misc-fixes v5 3/4] drm/hisilicon/hibmc: move display
- contrl config to hibmc_probe()
-Date: Thu, 23 Apr 2026 14:32:32 +0800
-Message-ID: <20260423063233.1267631-4-shiyongbang@huawei.com>
+Subject: [PATCH for drm-misc-fixes v5 1/4] drm/hisilicon/hibmc: add updating
+ link cap in DP detect()
+Date: Thu, 23 Apr 2026 14:32:30 +0800
+Message-ID: <20260423063233.1267631-2-shiyongbang@huawei.com>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20260423063233.1267631-1-shiyongbang@huawei.com>
 References: <20260423063233.1267631-1-shiyongbang@huawei.com>
@@ -75,97 +75,64 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Lin He <helin52@huawei.com>
 
-If there's no VGA output, this encoder modeset won't be called, which
-will cause displaying data from GPU being cut off. It's actually a
-common display config for DP and VGA, so move the vdac encoder modeset
-to driver load stage.
+In the past, the link cap is updated in link training at encoder enable
+stage, but the hibmc_dp_mode_valid() is called before it, which will use
+DP link's rate and lanes. So add the hibmc_dp_update_caps() in
+hibmc_dp_update_caps() to avoid some potential risks.
 
-Fixes: 5294967f4ae4 ("drm/hisilicon/hibmc: Add support for VDAC")
+Fixes: 607805abfb74 ("drm/hisilicon/hibmc: add dp mode valid check")
 Signed-off-by: Lin He <helin52@huawei.com>
 Signed-off-by: Yongbang Shi <shiyongbang@huawei.com>
 ---
 ChangeLog:
 v1 -> v2:
+  - fix the checkpatch.pl warning "Unknown commit ID 'e6c7c59da494'".
   - remove tag "Reviewed-by: Tao Tian <tiantao6@hisilicon.com>", witch will
     be given in public.
   - add 'drm-misc-fixes' in subject prefix.
 ---
- .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   | 14 ++++++++++++
- .../gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c  | 22 -------------------
- 2 files changed, 14 insertions(+), 22 deletions(-)
+ drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h   | 1 +
+ drivers/gpu/drm/hisilicon/hibmc/dp/dp_link.c   | 2 +-
+ drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c | 2 ++
+ 3 files changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-index d409efc34215..f8ab471f92e7 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-+++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-@@ -217,6 +217,18 @@ void hibmc_set_current_gate(struct hibmc_drm_private *priv, unsigned int gate)
- 	writel(gate, mmio + gate_reg);
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h
+index f9ee7ebfec55..f53dac256ee0 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h
++++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_comm.h
+@@ -69,5 +69,6 @@ int hibmc_dp_link_training(struct hibmc_dp_dev *dp);
+ int hibmc_dp_serdes_init(struct hibmc_dp_dev *dp);
+ int hibmc_dp_serdes_rate_switch(u8 rate, struct hibmc_dp_dev *dp);
+ int hibmc_dp_serdes_set_tx_cfg(struct hibmc_dp_dev *dp, u8 train_set[HIBMC_DP_LANE_NUM_MAX]);
++void hibmc_dp_update_caps(struct hibmc_dp_dev *dp);
+ 
+ #endif
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_link.c b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_link.c
+index 0726cb5b736e..8c53f16db516 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_link.c
++++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_link.c
+@@ -325,7 +325,7 @@ static int hibmc_dp_link_downgrade_training_eq(struct hibmc_dp_dev *dp)
+ 	return hibmc_dp_link_reduce_rate(dp);
  }
  
-+static void hibmc_display_ctrl(struct hibmc_drm_private *priv)
-+{
-+	u32 reg;
-+
-+	reg = readl(priv->mmio + HIBMC_DISPLAY_CONTROL_HISILE);
-+	reg |= HIBMC_DISPLAY_CONTROL_FPVDDEN(1);
-+	reg |= HIBMC_DISPLAY_CONTROL_PANELDATE(1);
-+	reg |= HIBMC_DISPLAY_CONTROL_FPEN(1);
-+	reg |= HIBMC_DISPLAY_CONTROL_VBIASEN(1);
-+	writel(reg, priv->mmio + HIBMC_DISPLAY_CONTROL_HISILE);
-+}
-+
- static void hibmc_hw_config(struct hibmc_drm_private *priv)
+-static void hibmc_dp_update_caps(struct hibmc_dp_dev *dp)
++void hibmc_dp_update_caps(struct hibmc_dp_dev *dp)
  {
- 	u32 reg;
-@@ -248,6 +260,8 @@ static void hibmc_hw_config(struct hibmc_drm_private *priv)
- 	reg |= HIBMC_MSCCTL_LOCALMEM_RESET(1);
+ 	dp->link.cap.link_rate = dp->dpcd[DP_MAX_LINK_RATE];
+ 	if (dp->link.cap.link_rate > DP_LINK_BW_8_1 || !dp->link.cap.link_rate)
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
+index 616821e3c933..35dff7bfbf76 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
++++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
+@@ -41,6 +41,8 @@ static bool hibmc_dp_get_dpcd(struct hibmc_dp_dev *dp_dev)
+ 	if (ret)
+ 		return false;
  
- 	writel(reg, priv->mmio + HIBMC_MISC_CTRL);
++	hibmc_dp_update_caps(dp_dev);
 +
-+	hibmc_display_ctrl(priv);
- }
+ 	dp_dev->is_branch = drm_dp_is_branch(dp_dev->dpcd);
  
- static int hibmc_hw_map(struct hibmc_drm_private *priv)
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c
-index dc40018dbd21..9d924740c110 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c
-+++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c
-@@ -86,26 +86,6 @@ static const struct drm_connector_funcs hibmc_connector_funcs = {
- 	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
- };
- 
--static void hibmc_encoder_mode_set(struct drm_encoder *encoder,
--				   struct drm_display_mode *mode,
--				   struct drm_display_mode *adj_mode)
--{
--	u32 reg;
--	struct drm_device *dev = encoder->dev;
--	struct hibmc_drm_private *priv = to_hibmc_drm_private(dev);
--
--	reg = readl(priv->mmio + HIBMC_DISPLAY_CONTROL_HISILE);
--	reg |= HIBMC_DISPLAY_CONTROL_FPVDDEN(1);
--	reg |= HIBMC_DISPLAY_CONTROL_PANELDATE(1);
--	reg |= HIBMC_DISPLAY_CONTROL_FPEN(1);
--	reg |= HIBMC_DISPLAY_CONTROL_VBIASEN(1);
--	writel(reg, priv->mmio + HIBMC_DISPLAY_CONTROL_HISILE);
--}
--
--static const struct drm_encoder_helper_funcs hibmc_encoder_helper_funcs = {
--	.mode_set = hibmc_encoder_mode_set,
--};
--
- int hibmc_vdac_init(struct hibmc_drm_private *priv)
- {
- 	struct drm_device *dev = &priv->dev;
-@@ -128,8 +108,6 @@ int hibmc_vdac_init(struct hibmc_drm_private *priv)
- 		goto err;
- 	}
- 
--	drm_encoder_helper_add(encoder, &hibmc_encoder_helper_funcs);
--
- 	ret = drm_connector_init_with_ddc(dev, connector,
- 					  &hibmc_connector_funcs,
- 					  DRM_MODE_CONNECTOR_VGA,
+ 	ret = drm_dp_read_desc(dp_dev->aux, &dp_dev->desc, dp_dev->is_branch);
 -- 
 2.33.0
 
