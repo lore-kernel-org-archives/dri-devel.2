@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65515F589D5
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 13:37:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35BB5F589D5
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 13:38:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCA4310F138;
-	Thu, 23 Apr 2026 13:37:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F62E10F13A;
+	Thu, 23 Apr 2026 13:38:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="au64Nxy3";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="siGgw8WK";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DF1A10F139
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 13:37:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59DB710F13D
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 13:38:28 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 8CFCA6014B;
- Thu, 23 Apr 2026 13:37:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEA45C2BCAF;
- Thu, 23 Apr 2026 13:37:06 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 9C9D460132;
+ Thu, 23 Apr 2026 13:38:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDF50C2BCAF;
+ Thu, 23 Apr 2026 13:38:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1776951427;
- bh=SCMeXc6iNHZVhRhU78udGlaYW9NkW14onQYu/AiF6M4=;
+ s=korg; t=1776951507;
+ bh=3wo7czwl0nEqa1PIdDnQUQEnxYPP/Z67DAucX0mtg6A=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=au64Nxy3WFohQJGnz3FSUq8C7RO3sPhLi5iwbU952kiR0Ope5w7kJ7cYGLG4z5SMC
- e/VFjhoABO6Y7Anyln2loRbXXujZZXjWCvV/JbnsUf8poq5HkVfBCsog9kgnuwaH8M
- BBlgRx59Y7oEpJWqqpEH2KOrwWDxjL8NrCi1uVSs=
-Date: Thu, 23 Apr 2026 15:37:04 +0200
+ b=siGgw8WKeTOObuAD7awlSiObkHulMUGDGs5E5vA0f08Rh3YiBdU/wdoTbGEfYQmR3
+ mJR2vBy47fIfYpsaFgS4aEETnl9GLyrG7R0uLDdr1gBR82CPAg99vYx83dZstyRsfY
+ YOboDlN2s3BkfkUmHMCDGdxlBId2oxKOuetVDiy8=
+Date: Thu, 23 Apr 2026 15:38:25 +0200
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 Cc: Bryan O'Donoghue <bod@kernel.org>,
@@ -51,16 +51,16 @@ Cc: Bryan O'Donoghue <bod@kernel.org>,
  linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
  driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v2 02/13] drivers: base: Add generic dma context bus
-Message-ID: <2026042346-trustable-register-095a@gregkh>
+ linux-tegra@vger.kernel.org
+Subject: Re: [PATCH v2 11/13] media: iris: Select DMA_CONTEXT_BUS to create
+ firmware device
+Message-ID: <2026042305-pungent-urban-c681@gregkh>
 References: <20260423-glymur-v2-0-0296bccb9f4e@oss.qualcomm.com>
- <20260423-glymur-v2-2-0296bccb9f4e@oss.qualcomm.com>
+ <20260423-glymur-v2-11-0296bccb9f4e@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260423-glymur-v2-2-0296bccb9f4e@oss.qualcomm.com>
+In-Reply-To: <20260423-glymur-v2-11-0296bccb9f4e@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,43 +76,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Apr 23, 2026 at 06:59:31PM +0530, Vishnu Reddy wrote:
-> From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-> 
-> When a driver needs to create virtual device at runtime and map it to
-> an IOMMU context for memory isolation, there is no common bus available
-> for this purpose. Each driver ends up implementing its own bus type,
-> leading to duplicated logic across multiple drivers.
-> 
-> host1x driver implemented its own bus type to attach an IOMMU context to
-> a dynamically created device. The Iris VPU driver now has the same
-> requirement. Rather than duplicating the same bus logic again, a shared
-> bus type is introduced under drivers/base that multiple drivers can use
-> directly.
-> 
-> The bus takes care of creating a device and attaching the IOMMU context
-> to it based on the client inputs.
-> 
-> Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> ---
->  drivers/base/Kconfig            |  3 ++
->  drivers/base/Makefile           |  1 +
->  drivers/base/dma_context_bus.c  | 77 +++++++++++++++++++++++++++++++++++++++++
->  include/linux/dma_context_bus.h | 26 ++++++++++++++
->  4 files changed, 107 insertions(+)
+On Thu, Apr 23, 2026 at 06:59:40PM +0530, Vishnu Reddy wrote:
+> Iris need a firmware device to enable secure PAS (peripheral
+> authentication service) support in case of non-Gunyah.
 
-as you can not have a device on multiple busses at the same time, this
-makes no sense to me at all.  "dma context" is a bus-specific thing, so
-please add it to the bus that you are wanting it for.  It can't be a
-generic bus as that just doesn't work.
+As gunyah isn't ever going upstream, why is this an issue here for us at
+all?
 
-Or what am I missing here?
-
-And why is DMA somehow "special" here from any other hardware attribute?
-
-thanks,
+confused,
 
 greg k-h
