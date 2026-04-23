@@ -4,91 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B642FDEE45
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 20:47:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCF8AFDEE4D
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 20:55:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C36E10F243;
-	Thu, 23 Apr 2026 20:47:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 385C910F289;
+	Thu, 23 Apr 2026 20:55:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Sh4O7+IH";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=deller@gmx.de header.b="NesvFSUV";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7672610F243
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 20:47:19 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63NHfrDH1532320; Thu, 23 Apr 2026 20:47:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:message-id:mime-version
- :subject:to; s=qcppdkim1; bh=U2gEHeYSu27C2eZNR3hTdiHeK1ATZpicCrg
- JNLTTh/Q=; b=Sh4O7+IH5SuUoe2WAKn5RlSzFRRu+pQx5icl6CHJF8nqZk6OIsp
- hhd/6fheZ1RpjkaRELKKb/uBgPxBJNu4MJ+z5FB3im+H8AcTa2C1AyRZr6uHI5vX
- hgXp97r45fbJiQ0t2VSUrhl1RkNz1fwzrFKyu+4tGUcOXQKojd6FEmrEEE2P1bIj
- PASd3GFv3rySenTJWjssbaTZR+4c+LTj/AxNAl9FPPpHn6gm2HSu+1224Cf5rOev
- 7VhvgSN6f5cQZGsKJnXVuINIhwz6wV6YDlK5hu2gyAtg+LcGyzh5LZQJ78Qzmnqt
- DIpPf2Am7rcQ8Th3S24oRDXLlVuMV4tTang==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dqr26gtxh-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 23 Apr 2026 20:47:12 +0000 (GMT)
-Received: from pps.filterd (NALASPPMTA05.qualcomm.com [127.0.0.1])
- by NALASPPMTA05.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 63NKlBN5029263; 
- Thu, 23 Apr 2026 20:47:11 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by NALASPPMTA05.qualcomm.com (PPS) with ESMTPS id 4dq63nawa6-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 23 Apr 2026 20:47:11 +0000 (GMT)
-Received: from NALASPPMTA05.qualcomm.com (NALASPPMTA05.qualcomm.com
- [127.0.0.1])
- by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 63NKlB17029254;
- Thu, 23 Apr 2026 20:47:11 GMT
-Received: from hu-devc-lv-u22-a.qualcomm.com (hu-zmckevit-lv.qualcomm.com
- [10.81.26.129])
- by NALASPPMTA05.qualcomm.com (PPS) with ESMTPS id 63NKlAWf029253
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 23 Apr 2026 20:47:10 +0000 (GMT)
-Received: by hu-devc-lv-u22-a.qualcomm.com (Postfix, from userid 4696302)
- id D64495E0; Thu, 23 Apr 2026 13:47:10 -0700 (PDT)
-From: Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>
-To: youssef.abdulrahman@oss.qualcomm.com, jeff.hugo@oss.qualcomm.com,
- carl.vanderlip@oss.qualcomm.com, troy.hanson@oss.qualcomm.com
-Cc: ogabbay@kernel.org, lizhi.hou@amd.com, karol.wachowski@linux.intel.com,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>,
- Lukas Maar <lukas.maar@tugraz.at>
-Subject: [PATCH] accel/qaic: Add overflow check to remap_pfn_range during mmap
-Date: Thu, 23 Apr 2026 13:44:16 -0700
-Message-Id: <20260423204412.2861046-1-zachary.mckevitt@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A8CF10F28B
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 20:55:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+ s=s31663417; t=1776977732; x=1777582532; i=deller@gmx.de;
+ bh=kD4ByncE5P0r3WsGsYODs4SPEglRPkKb/2LsfSNN6+A=;
+ h=X-UI-Sender-Class:From:To:Subject:Date:Message-ID:MIME-Version:
+ Content-Transfer-Encoding:cc:content-transfer-encoding:
+ content-type:date:from:message-id:mime-version:reply-to:subject:
+ to;
+ b=NesvFSUVac3pHVHFVwmt8TLM2plRq5QMYThFAJzxrlfbZsc6kFClYcUQP6kRVl9S
+ W2IsUkLwfu+GrFS7MGET5JyoTO8eWk7YfCAP7vnDtF5xVBGXw2wkyA/2SIdcFx5DT
+ 4Q4D7uIgpJB1mn8bQvWKE/FIdfeJfy4GYm58z938IM+I3Og75lcI/iXKbFw4HeAPz
+ SQ/Ib4TxxnPlEJsk4WVYzhmlSEcPRSQ/y/FxXaSpKHK89U7SXy4O1QObJ1N2jPUhk
+ gbrVPax7PLzF9Bc1sVu217EOaHyCdSt/Cb/b2HHo56Q6AbVhu+qlwLO3dK4LwH0Wq
+ FxplY84WckGfw/DNGQ==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1N5VD8-1vI3mo2682-00tVYl; Thu, 23
+ Apr 2026 22:55:32 +0200
+From: Helge Deller <deller@gmx.de>
+To: linux-fbdev@vger.kernel.org,
+	dri-devel@lists.freedesktop.org
+Subject: [PATCH] drm/todo: Drop todo item to request memory regions in all
+ fbdev drivers
+Date: Thu, 23 Apr 2026 22:55:31 +0200
+Message-ID: <20260423205531.49971-1-deller@gmx.de>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-ORIG-GUID: T-bI0vWBG-BHX93h9V4F1lSxNKbzHsZ9
-X-Authority-Analysis: v=2.4 cv=QLhYgALL c=1 sm=1 tr=0 ts=69ea8550 cx=c_pps
- a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=A5OVakUREuEA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8 a=jH4uIxKMFi7FzrR_XaIA:9
-X-Proofpoint-GUID: T-bI0vWBG-BHX93h9V4F1lSxNKbzHsZ9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIzMDIwMiBTYWx0ZWRfXylOG8piewTUC
- ZixR5phA0NYn2UbJzCMShlqACnyG04s0v3RZus7MXVy9T233VrZAbbtPWaisgw/L6BUzjtksunj
- ZrfRu2wtxDyh9xm0L6XbSyhFkZ9nmAX3dtiytfblYk6N+caBLUBBw1w15HttqbCCQyLz6lgRVvF
- EFNz9BAf8cI/NUW3/4Mw1oIWRDve4jvnf5Oxl06LTOCM1mEIBF0RxszaOW7MXiEP7ugelm8wgdV
- 9Zr6hEa2CnospO4I1YXhsmY/zV5lNc0A2cA9QGLJqQKWccI4041lXYCWgyg4Kxqmjra7gwWvlM6
- 8Gc+I+K2QCUGIyruZB4j8n1YOlImCIaj4NswG7PxPgNjPpfLkvAVN80uz1IMUJ1RetPN+o9rUyE
- H/7VE6qB612QsCVgjVsXFGrW3i4DUvhzFEGPwgR708U8Gl3VIldaEdL8AGjS7Xu4qVIzRVgT0Bb
- ng7kLS+XgW7Q5GSzuaA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-23_03,2026-04-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 suspectscore=0 phishscore=0 bulkscore=0
- lowpriorityscore=0 malwarescore=0 adultscore=0 clxscore=1011
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
- definitions=main-2604230202
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:zWc8qvNcoUyvBkSTTVLMaIkLyxTSpiqlY2MoxfQRdKbA4Zn9bKX
+ QEdq5uNVz3CUxknSSFfxULQE5fZ6IN1SGdW71miw113Qjz/CssGMyluuSdczfsvXY/69I69
+ FS9YPmSfQk6QvTQjS5chXfUs5OcZXkJFWD+pNSt2lcAOsdVvXEXOvwg3g6PGUBcdY1gogez
+ lPeV2erpntazgE35xN/Uw==
+UI-OutboundReport: notjunk:1;M01:P0:O4/AAyMIJ3E=;UOPQzFVos9rXuF0egNFt/VTSxQJ
+ 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
+ /cylCsOZQdytSals5YNTUanevuSD1AlKq5iU=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,63 +139,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The call to remap_pfn_range in qaic_gem_object_mmap is susceptible to
-(re)mapping beyond the VMA if the BO is too large. This can cause use
-after free issues when munmap() unmaps only the VMA region and not the
-additional mappings. To prevent this, check the remaining size of the
-VMA before remapping and truncate the remapped length if sg->length is
-too large.
+This item is tagged for beginners, so often people not familiar with
+the fbdev drivers think this is an easy task, start up their AI tools
+and blindly send in the generated code as patches.
 
-Reported-by: Lukas Maar <lukas.maar@tugraz.at>
-Fixes: ff13be830333 ("accel/qaic: Add datapath")
-Signed-off-by: Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>
----
- drivers/accel/qaic/qaic_data.c | 20 ++++++++++++++++++--
- 1 file changed, 18 insertions(+), 2 deletions(-)
+The problem:
+- Those patches often introduce bugs, so
+- ideally want the code tested, since ressource misconfigurations
+  often lead to failing drivers
+- The patches are often unnecessary, since in the old machines with the
+  old graphic cards resource conflicts usually don't happen as only one
+  graphic card can be used at a time anyway.
+- and today most relevant drivers have necessary patches already
+  implemented.
 
-diff --git a/drivers/accel/qaic/qaic_data.c b/drivers/accel/qaic/qaic_data.c
-index 95300c2f7d8a..8a6948f11346 100644
---- a/drivers/accel/qaic/qaic_data.c
-+++ b/drivers/accel/qaic/qaic_data.c
-@@ -606,8 +606,11 @@ static const struct vm_operations_struct drm_vm_ops = {
- static int qaic_gem_object_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma)
- {
- 	struct qaic_bo *bo = to_qaic_bo(obj);
-+	unsigned long remap_start;
- 	unsigned long offset = 0;
-+	unsigned long remap_end;
- 	struct scatterlist *sg;
-+	unsigned long length;
- 	int ret = 0;
- 
- 	if (drm_gem_is_imported(obj))
-@@ -615,11 +618,24 @@ static int qaic_gem_object_mmap(struct drm_gem_object *obj, struct vm_area_struc
- 
- 	for (sg = bo->sgt->sgl; sg; sg = sg_next(sg)) {
- 		if (sg_page(sg)) {
-+			/* if sg is too large for the VMA, so truncate it to fit */
-+			if (check_add_overflow(vma->vm_start, offset, &remap_start))
-+				return -EINVAL;
-+			if (check_add_overflow(remap_start, sg->length, &remap_end))
-+				return -EINVAL;
-+			if (remap_end >= vma->vm_end)
-+				length = vma->vm_end - remap_start;
-+			else
-+				length = sg->length;
-+
-+			if (length <= 0)
-+				goto out;
-+
- 			ret = remap_pfn_range(vma, vma->vm_start + offset, page_to_pfn(sg_page(sg)),
--					      sg->length, vma->vm_page_prot);
-+					      length, vma->vm_page_prot);
- 			if (ret)
- 				goto out;
--			offset += sg->length;
-+			offset += length;
- 		}
- 	}
- 
--- 
-2.34.1
+So, let's get rid of this todo item and silence the steady stream of
+stupid patches.
+
+Signed-off-by: Helge Deller <deller@gmx.de>
+=2D--
+ Documentation/gpu/todo.rst | 16 ----------------
+ 1 file changed, 16 deletions(-)
+
+diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
+index bc9f14c8a2ec..b4dd64a8cc06 100644
+=2D-- a/Documentation/gpu/todo.rst
++++ b/Documentation/gpu/todo.rst
+@@ -448,22 +448,6 @@ Contact: Thomas Zimmermann <tzimmermann@suse.de>
+=20
+ Level: Intermediate
+=20
+-Request memory regions in all fbdev drivers
+=2D--------------------------------------------
+-
+-Old/ancient fbdev drivers do not request their memory properly.
+-Go through these drivers and add code to request the memory regions
+-that the driver uses. This requires adding calls to request_mem_region(),
+-pci_request_region() or similar functions. Use helpers for managed cleanu=
+p
+-where possible. Problematic areas include hardware that has exclusive ran=
+ges
+-like VGA. VGA16fb does not request the range as it is expected.
+-Drivers are pretty bad at doing this and there used to be conflicts among
+-DRM and fbdev drivers. Still, it's the correct thing to do.
+-
+-Contact: Thomas Zimmermann <tzimmermann@suse.de>
+-
+-Level: Starter
+-
+ Remove driver dependencies on FB_DEVICE
+ ---------------------------------------
+=20
+=2D-=20
+2.53.0
 
