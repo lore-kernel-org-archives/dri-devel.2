@@ -4,101 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8451EF99362
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 09:45:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B640F99344
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 09:45:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E91E410F02B;
-	Thu, 23 Apr 2026 09:45:13 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="YVs9h22i";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Ssp+BQUg";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="YVs9h22i";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Ssp+BQUg";
-	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D31310F02B
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 09:45:08 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D12A10F00F;
+	Thu, 23 Apr 2026 09:45:17 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6619E10F02B
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 09:45:09 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 5FD136A84E;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 1E3FD5BD03;
  Thu, 23 Apr 2026 09:45:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1776937500; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=jYJuol+7YU/+PHceO+yqgAfvdOLjBZXkYkfGRMV3HPo=;
- b=YVs9h22iqqvN6J+XreSDzaVLqfsIRnE+otwdujtxBcKNyxI9vnqX5p/jjSiV9IMWNcVdlG
- 18i6IPI5RUPItdEGnUvpQ3vWj5d1rCd/oqluNdrKJHaGiRLyNwT80f68l+P8GlEb1nSPk9
- MoaChKeh7Qwh16fn9ErR3eX0KJX8VZs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1776937500;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=jYJuol+7YU/+PHceO+yqgAfvdOLjBZXkYkfGRMV3HPo=;
- b=Ssp+BQUg18k0vg/Ojx6U6uaNnOU8KaZYfQ5SiUcSFca/zScnJEHAZofssAeTAuVYKRow80
- gKEeNz2jGhMRbGCA==
-Authentication-Results: smtp-out1.suse.de;
+Authentication-Results: smtp-out2.suse.de;
 	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1776937500; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=jYJuol+7YU/+PHceO+yqgAfvdOLjBZXkYkfGRMV3HPo=;
- b=YVs9h22iqqvN6J+XreSDzaVLqfsIRnE+otwdujtxBcKNyxI9vnqX5p/jjSiV9IMWNcVdlG
- 18i6IPI5RUPItdEGnUvpQ3vWj5d1rCd/oqluNdrKJHaGiRLyNwT80f68l+P8GlEb1nSPk9
- MoaChKeh7Qwh16fn9ErR3eX0KJX8VZs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1776937500;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=jYJuol+7YU/+PHceO+yqgAfvdOLjBZXkYkfGRMV3HPo=;
- b=Ssp+BQUg18k0vg/Ojx6U6uaNnOU8KaZYfQ5SiUcSFca/zScnJEHAZofssAeTAuVYKRow80
- gKEeNz2jGhMRbGCA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 24602593A3;
- Thu, 23 Apr 2026 09:45:00 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D707E593A3;
+ Thu, 23 Apr 2026 09:44:59 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 2KiuBxzq6Wk+QwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 23 Apr 2026 09:45:00 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id sPpOMxvq6Wk+QwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 23 Apr 2026 09:44:59 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: inki.dae@samsung.com, sw0312.kim@samsung.com, kyungmin.park@samsung.com,
  airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org
 Cc: linux-samsung-soc@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 5/5] drm/exynos: Make exynos_drm_framebuffer_init() an
- internal interface
-Date: Thu, 23 Apr 2026 11:37:50 +0200
-Message-ID: <20260423094452.32665-6-tzimmermann@suse.de>
+Subject: [PATCH 4/5] drm/exynos: fbdev: Use a DRM client buffer
+Date: Thu, 23 Apr 2026 11:37:49 +0200
+Message-ID: <20260423094452.32665-5-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260423094452.32665-1-tzimmermann@suse.de>
 References: <20260423094452.32665-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-6.80 / 50.00]; REPLY(-4.00)[];
- BAYES_HAM(-3.00)[100.00%]; MID_CONTAINS_FROM(1.00)[];
- NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- FUZZY_RATELIMITED(0.00)[rspamd.com];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[]; TO_DN_SOME(0.00)[];
- FREEMAIL_TO(0.00)[samsung.com,gmail.com,ffwll.ch,lists.freedesktop.org];
- RCPT_COUNT_SEVEN(0.00)[8];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- R_RATELIMIT(0.00)[to_ip_from(RLqirfcw6gnbcr9a9yhi49fhi6)];
- RCVD_TLS_ALL(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid,suse.de:email];
- RCVD_COUNT_TWO(0.00)[2]; FREEMAIL_ENVRCPT(0.00)[gmail.com]
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Rspamd-Queue-Id: 1E3FD5BD03
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,47 +66,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The only caller of exynos_drm_framebuffer_init() is the helper
-exynos_user_fb_create() from the same source file. Declare the
-former as static.
+Replace the internal DRM framebuffer with a DRM client buffer. The
+client buffer allocates the DRM framebuffer on a file and also uses
+GEM object handles via the regular ADDFB2 interfaces.
+
+Using client-buffer interfaces unifies framebuffer allocation for
+DRM clients in user space and exynos' internal fbdev emulation. It
+also simplifies the clean-up side of the fbdev emulation.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/exynos/exynos_drm_fb.c | 2 +-
- drivers/gpu/drm/exynos/exynos_drm_fb.h | 7 -------
- 2 files changed, 1 insertion(+), 8 deletions(-)
+ drivers/gpu/drm/exynos/exynos_drm_fbdev.c | 46 ++++++++++++++---------
+ 1 file changed, 28 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/exynos/exynos_drm_fb.c b/drivers/gpu/drm/exynos/exynos_drm_fb.c
-index ab0e0c74ec47..66dec2b7a5de 100644
---- a/drivers/gpu/drm/exynos/exynos_drm_fb.c
-+++ b/drivers/gpu/drm/exynos/exynos_drm_fb.c
-@@ -55,7 +55,7 @@ static const struct drm_framebuffer_funcs exynos_drm_fb_funcs = {
- 	.create_handle	= drm_gem_fb_create_handle,
- };
+diff --git a/drivers/gpu/drm/exynos/exynos_drm_fbdev.c b/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
+index 9225cf1a83c8..f43ce974c952 100644
+--- a/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
++++ b/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
+@@ -36,12 +36,10 @@ static int exynos_drm_fb_mmap(struct fb_info *info, struct vm_area_struct *vma)
+ static void exynos_drm_fb_destroy(struct fb_info *info)
+ {
+ 	struct drm_fb_helper *fb_helper = info->par;
+-	struct drm_framebuffer *fb = fb_helper->fb;
  
--struct drm_framebuffer *
-+static struct drm_framebuffer *
- exynos_drm_framebuffer_init(struct drm_device *dev,
- 			    const struct drm_format_info *info,
- 			    const struct drm_mode_fb_cmd2 *mode_cmd,
-diff --git a/drivers/gpu/drm/exynos/exynos_drm_fb.h b/drivers/gpu/drm/exynos/exynos_drm_fb.h
-index fdc6cb40cc9c..aeb6f29eb167 100644
---- a/drivers/gpu/drm/exynos/exynos_drm_fb.h
-+++ b/drivers/gpu/drm/exynos/exynos_drm_fb.h
-@@ -12,13 +12,6 @@
+ 	drm_fb_helper_fini(fb_helper);
  
- #include "exynos_drm_gem.h"
- 
--struct drm_framebuffer *
--exynos_drm_framebuffer_init(struct drm_device *dev,
--			    const struct drm_format_info *info,
--			    const struct drm_mode_fb_cmd2 *mode_cmd,
--			    struct exynos_drm_gem **exynos_gem,
--			    int count);
+-	drm_framebuffer_remove(fb);
 -
- dma_addr_t exynos_drm_fb_dma_addr(struct drm_framebuffer *fb, int index);
++	drm_client_buffer_delete(fb_helper->buffer);
+ 	drm_client_release(&fb_helper->client);
+ }
  
- void exynos_drm_mode_config_init(struct drm_device *dev);
+@@ -60,14 +58,17 @@ static const struct drm_fb_helper_funcs exynos_drm_fbdev_helper_funcs = {
+ int exynos_drm_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
+ 					struct drm_fb_helper_surface_size *sizes)
+ {
+-	struct drm_device *dev = helper->dev;
++	struct drm_client_dev *client = &helper->client;
++	struct drm_device *dev = client->dev;
++	struct drm_file *file = client->file;
+ 	struct fb_info *info = helper->info;
+ 	u32 fourcc, pitch;
+ 	u64 size;
+ 	const struct drm_format_info *format;
+ 	struct exynos_drm_gem *exynos_gem;
+ 	struct drm_gem_object *obj;
+-	struct drm_mode_fb_cmd2 mode_cmd = { 0 };
++	struct drm_client_buffer *buffer;
++	u32 handle;
+ 	int ret;
+ 
+ 	DRM_DEV_DEBUG_KMS(dev->dev,
+@@ -85,19 +86,20 @@ int exynos_drm_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
+ 		return PTR_ERR(exynos_gem);
+ 	obj = &exynos_gem->base;
+ 
+-	mode_cmd.width = sizes->surface_width;
+-	mode_cmd.height = sizes->surface_height;
+-	mode_cmd.pixel_format = fourcc;
+-	mode_cmd.pitches[0] = pitch;
+-	mode_cmd.modifier[0] = DRM_FORMAT_MOD_LINEAR;
+-
+-	helper->fb = exynos_drm_framebuffer_init(dev, format, &mode_cmd, &exynos_gem, 1);
+-	if (IS_ERR(helper->fb)) {
+-		DRM_DEV_ERROR(dev->dev, "failed to create drm framebuffer.\n");
+-		ret = PTR_ERR(helper->fb);
+-		goto err_destroy_gem;
++	ret = drm_gem_handle_create(file, obj, &handle);
++	if (ret)
++		goto err_drm_gem_object_put;
++
++	buffer = drm_client_buffer_create(client, sizes->surface_width, sizes->surface_height,
++					  fourcc, handle, pitch);
++	if (IS_ERR(buffer)) {
++		ret = PTR_ERR(buffer);
++		goto err_drm_gem_handle_delete;
+ 	}
++
+ 	helper->funcs = &exynos_drm_fbdev_helper_funcs;
++	helper->buffer = buffer;
++	helper->fb = buffer->fb;
+ 
+ 	info->fbops = &exynos_drm_fb_ops;
+ 
+@@ -108,9 +110,17 @@ int exynos_drm_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
+ 	info->screen_size = obj->size;
+ 	info->fix.smem_len = obj->size;
+ 
++	/* The handle is only needed for creating the framebuffer. */
++	drm_gem_handle_delete(file, handle);
++
++	/* The framebuffer still holds a reference on the GEM object. */
++	drm_gem_object_put(obj);
++
+ 	return 0;
+ 
+-err_destroy_gem:
+-	exynos_drm_gem_destroy(exynos_gem);
++err_drm_gem_handle_delete:
++	drm_gem_handle_delete(file, handle);
++err_drm_gem_object_put:
++	drm_gem_object_put(obj);
+ 	return ret;
+ }
 -- 
 2.53.0
 
