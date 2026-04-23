@@ -4,49 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DB00F99376
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 11:22:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 699BAF99377
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 11:27:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B363910E313;
-	Thu, 23 Apr 2026 11:22:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3C1710EC06;
+	Thu, 23 Apr 2026 11:27:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dyVdK1ub";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PM4OBKgx";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B01A310E404;
- Thu, 23 Apr 2026 11:22:26 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 4BB056001A;
- Thu, 23 Apr 2026 11:22:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC05EC2BCAF;
- Thu, 23 Apr 2026 11:22:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1776943345;
- bh=v5vX1VJ6hD3zefByaEKuGLyZr08vT7W1KOhrYxlfQpg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=dyVdK1ubOcAXp+YKP2Nghh5b/q+AZL8CUbkno1W4J6qFNzaRqb5Q/cGxj/9xWlcd8
- 7AxDYHjbbuAeZ602YL4l7KQtxwNJV5hiOAXeP+xksDwbqUadzxLW1nwN09P+rAPuXm
- mH4xhcZbwkWaUlxpVc7/06VwsgosoKeUjjkzTOoo=
-Date: Thu, 23 Apr 2026 13:22:22 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: Timur =?iso-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>,
- stable@vger.kernel.org, Robert Garcia <rob_garcia@163.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Pan Xinhui <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Yifan Zha <Yifan.Zha@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 6.1.y] drm/amdgpu: remove two invalid BUG_ON()s
-Message-ID: <2026042335-probation-heftiness-7399@gregkh>
-References: <20260417074010.1607496-1-rob_garcia@163.com>
- <7260936.9J7NaK4W3v@timur-hyperion>
- <6064b45a-b8de-4848-856f-383d2d06680d@amd.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC34D10E865;
+ Thu, 23 Apr 2026 11:27:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1776943637; x=1808479637;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=5YI735XPEJkCgWEsucBd5PrMiYz/IupiNSJb7R/0oJ4=;
+ b=PM4OBKgxPq9xOPoGvGQMWZSVU9jimqGlZ39UYsoAKbvLWxM9eoPQ1hvG
+ pWXZse9dCv1yeIXZ5+s1RmKVWydvbvBPOcgrf2SkGkGbkJdpHuqjAlFP9
+ sRbHluHiLJv3b7L5e1B2J/3aE2g0PnCej2L6CWabWu7jl0ChntRV6Slrt
+ 2/mSUM7bfBOq1ASCHtUnrA0/PzHdTGvg4QqWtxd3e5McXSXMg633Z6V7Q
+ XMoplaIJUERaOTeqckzI5G3+QjnQfzfKvjIg/2djRMeUTyj7mrUa4P5Ky
+ n7GL3U+niLW4+Fv6wI1u49rmDZyHRtLWA7wouvY+vJTDL2MHNziIWHCTL A==;
+X-CSE-ConnectionGUID: PYeNhem4QZGhv7MrSp/mPQ==
+X-CSE-MsgGUID: eT5jcWK5SzCZH//Ul1H5Jg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11764"; a="80495789"
+X-IronPort-AV: E=Sophos;i="6.23,194,1770624000"; d="scan'208";a="80495789"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Apr 2026 04:27:17 -0700
+X-CSE-ConnectionGUID: ZEX+4CaZQgClv5j6ht9r2g==
+X-CSE-MsgGUID: 9rckGPeQRxCBLBGfWmbzJQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,194,1770624000"; d="scan'208";a="232538257"
+Received: from zzombora-mobl1 (HELO [10.245.244.147]) ([10.245.244.147])
+ by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Apr 2026 04:27:14 -0700
+Message-ID: <be42059924cde9bb16a087ee2a5abb0b9d850d68.camel@linux.intel.com>
+Subject: Re: [PATCH v2 1/5] mm: Introduce zone_appears_fragmented()
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>, Matthew Brost
+ <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org
+Cc: Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes
+ <ljs@kernel.org>,  "Liam R. Howlett" <Liam.Howlett@oracle.com>, Vlastimil
+ Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,  Suren
+ Baghdasaryan	 <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ linux-mm@kvack.org, 	linux-kernel@vger.kernel.org, Johannes Weiner
+ <hannes@cmpxchg.org>
+Date: Thu, 23 Apr 2026 13:27:11 +0200
+In-Reply-To: <76191a17-18bf-4e9b-9ab5-dc9a48abfabb@kernel.org>
+References: <20260423055656.1696379-1-matthew.brost@intel.com>
+ <20260423055656.1696379-2-matthew.brost@intel.com>
+ <76191a17-18bf-4e9b-9ab5-dc9a48abfabb@kernel.org>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <6064b45a-b8de-4848-856f-383d2d06680d@amd.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,23 +78,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Apr 22, 2026 at 04:11:15PM +0200, Christian König wrote:
-> Those points are certainly valid.
-> 
-> I've also up-streamed a patch which completely rejects userspace submissions who try to use the CE.
-> 
-> The problem is that those BUG_ON() can lead to a deny of service because they crash the whole kernel.
-> 
-> A BUG_ON() is only justified if it prevents even worse things to happen, e.g. data corruption or it would crash later on anyway just not so obvious on what is wrong.
-> 
-> Otherwise we should use WARN_ON().
+On Thu, 2026-04-23 at 12:27 +0200, David Hildenbrand (Arm) wrote:
+> On 4/23/26 07:56, Matthew Brost wrote:
+> > Introduce zone_appears_fragmented() as a lightweight helper to
+> > allow
+> > subsystems to make coarse decisions about reclaim behavior in the
+> > presence of likely fragmentation.
+> >=20
+> > The helper implements a simple heuristic: if the number of free
+> > pages
+> > in a zone exceeds twice the high watermark, the zone is considered
+> > to
+> > have ample free memory and allocation failures are more likely due
+> > to
+> > fragmentation than overall memory pressure.
+> >=20
+> > This is intentionally imprecise and is not meant to replace the
+> > core
+> > MM compaction or fragmentation accounting logic. Instead, it
+> > provides
+> > a cheap signal for callers (e.g., shrinkers) that wish to avoid
+> > overly aggressive reclaim when sufficient free memory exists but
+> > high-order allocations may still fail.
+> >=20
+> > No functional changes; this is a preparatory helper for future
+> > users.
+> >=20
+> > Cc: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+> > Cc: Andrew Morton <akpm@linux-foundation.org>
+> > Cc: David Hildenbrand <david@kernel.org>
+> > Cc: Lorenzo Stoakes <ljs@kernel.org>
+> > Cc: "Liam R. Howlett" <Liam.Howlett@oracle.com>
+> > Cc: Vlastimil Babka <vbabka@kernel.org>
+> > Cc: Mike Rapoport <rppt@kernel.org>
+> > Cc: Suren Baghdasaryan <surenb@google.com>
+> > Cc: Michal Hocko <mhocko@suse.com>
+> > Cc: linux-mm@kvack.org
+> > Cc: linux-kernel@vger.kernel.org
+> > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> > ---
+> > =C2=A0include/linux/vmstat.h | 13 +++++++++++++
+> > =C2=A01 file changed, 13 insertions(+)
+> >=20
+> > diff --git a/include/linux/vmstat.h b/include/linux/vmstat.h
+> > index 3c9c266cf782..568d9f4f1a1f 100644
+> > --- a/include/linux/vmstat.h
+> > +++ b/include/linux/vmstat.h
+> > @@ -483,6 +483,19 @@ static inline const char *zone_stat_name(enum
+> > zone_stat_item item)
+> > =C2=A0	return vmstat_text[item];
+> > =C2=A0}
+> > =C2=A0
+> > +static inline bool zone_appears_fragmented(struct zone *zone)
+> > +{
+>=20
+> "zone_likely_fragmented" or "zone_maybe_fragmented" might be clearer,
+> depending
+> on the actual semantics.
+>=20
+> > +	/*
+> > +	 * Simple heuristic: if the number of free pages is more
+> > than twice the
+> > +	 * high watermark, this strongly suggests that the zone is
+> > heavily
+> > +	 * fragmented when called from a shrinker.
+> > +	 */
+>=20
+> I'll cc some more people. But the "when called from a shrinker" bit
+> is
+> concerning. Are there additional semantics that should be expressed
+> in the
+> function name, for example?
+>=20
+> Something that implies that this function only gives you a reasonable
+> answer in
+> a certain context.
 
-WARN_ON() crashes the kernel as well when panic-on-warn is enabled, as
-it is in a few billion Linux systems :(
+I think that test would not be relevant for cgroup-aware shrinking.
 
-As this commit is upstream, and in other stable trees, I'll apply this
-as it's not nice to have a simple way for userspace to crash the system.
+What about trying to pass something in the struct shrink_control? Like
+if we pass the struct scan_control's order field also in struct
+shrink_control, really expensive shrinkers could duck reclaim attempts
+from higher-order allocations that may fail anyway:
 
-thanks,
+      if (sc->order > PAGE_ALLOC_COSTLY_ORDER &&
+           (sc->gfp_mask & (__GFP_NORETRY | __GFP_RETRY_MAYFAIL)) &&
+           !(sc->gfp_mask & __GFP_NOFAIL))
+           return SHRINK_STOP;
 
-greg k-h
+Possibly exposed as an inline helper in the shrinker interface?
+
+/Thomas
+
+
+
+
