@@ -4,36 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 579EBF589DF
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 14:22:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CB94F589DC
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 14:22:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E065B10F16D;
-	Thu, 23 Apr 2026 14:21:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA4E410F16B;
+	Thu, 23 Apr 2026 14:22:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="G/sJjcn0";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="V5RcwvF6";
 	dkim-atps=neutral
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21CB910E2B5
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 14:21:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24BE110F163
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 14:21:56 +0000 (UTC)
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi
  [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id DCBE112D6;
- Thu, 23 Apr 2026 16:20:09 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 330DA1B9A;
+ Thu, 23 Apr 2026 16:20:15 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1776954010;
- bh=eg74wjOEypEbnxxiyEFdSKXRuGixs62xUArGpDpOiJA=;
+ s=mail; t=1776954016;
+ bh=/bsXC7i63bCOBHETOe0gMQ4G64j9LJ0wcDbbGOO2nT8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=G/sJjcn0733qO5ZQAFkByLrlgZ9t3mnEqWSZlem2sMMOyPGDy4YrlNH7CviQD17mw
- KhcMnTk/VHpqpB8EfkBtPmp2qVOoOCREa/+5qkiyXG35rqzB+97wDOQCVe9dU3oQUo
- VOqC+yEBYjqEMc+ieLVVRsX/vNzWKeY/IX04PodE=
+ b=V5RcwvF6NpK1mMFTLwli5cQ9laRugC3BIb5jzsStkHn7S+Q5sG5dXYtl66L13qif/
+ HTCaHTFFGn15P+ztrgckOhW4177yLtPeL4DzOEufDjuBp2JVTHwd3Tr4BAbm2WeyCQ
+ DVl2o5j4I9uDXoPnfRm5OSNkygnOaINPrPJyxgOk=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Thu, 23 Apr 2026 17:21:15 +0300
-Subject: [PATCH v10 04/11] drm/fourcc: Add DRM_FORMAT_XYYY2101010
+Date: Thu, 23 Apr 2026 17:21:20 +0300
+Subject: [PATCH v10 09/11] drm: xlnx: zynqmp: Add support for Y8 and
+ XYYY2101010
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260423-xilinx-formats-v10-4-c690c2b8ea89@ideasonboard.com>
+Message-Id: <20260423-xilinx-formats-v10-9-c690c2b8ea89@ideasonboard.com>
 References: <20260423-xilinx-formats-v10-0-c690c2b8ea89@ideasonboard.com>
 In-Reply-To: <20260423-xilinx-formats-v10-0-c690c2b8ea89@ideasonboard.com>
 To: Vishal Sagar <vishal.sagar@amd.com>, 
@@ -48,24 +49,23 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Geert Uytterhoeven <geert@linux-m68k.org>, 
  Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
  Pekka Paalanen <ppaalanen@gmail.com>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Pekka Paalanen <pekka.paalanen@collabora.com>
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.15-dev-c25d1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1822;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2157;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=eg74wjOEypEbnxxiyEFdSKXRuGixs62xUArGpDpOiJA=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBp6ir1IPaI87+IOPSJMOTPxR4XsrexwwPRrpwaV
- +6/myhPGAOJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCaeoq9QAKCRD6PaqMvJYe
- 9doHEACe3U2/6h5BGr3J5TPHqgM1+xXVDm5PgoSI+5ONH4ux3GSREFSA6F1LCxQh4z0IfEcFJHV
- gVAYs5QhkJzKuqvzdr4F/9bWY4tqdpj4LhWU34A0d8szATiV98ie8Thjuka7RLDAn5p9v1WDQV0
- 4XYJoDeLxMz9a03031IFOJqqmMJXBMGodBBUklEuB8Vv2eXGf81Vw+FD9fIbh+YtH2zvL+hKN3x
- H3JOah44U2QajBDO25BF4OBa00v+rLCazGZe4ibzzpiLVuW1yvqJacnBvZTWLJFsSMQIreWZySp
- 2N/vUBi5L/ef8e3rDW6VaIkR8fQCfbMExjToaDon9p2WunRxx4CVCgt0TpomV5kY8y/Ij7uO+0X
- hlHhk2mgQaKHAIPjl5W0/eL5oiwris6nFaRc9QdbNywGWNHW7pAfUyMaXuWndfHjGULYF4oXsrN
- IxvB7vyUFRrqjPd/EElvlvyilaHWj6OtWe3hFOh3ZjBjCyH0x60wazpKadYSQjjXRVBDGF+Ukvq
- IcSUWwmfYN+4Uxc7M8hmiickX6Gs0Xw+0ATH0B1e88ftsiPlpqabBQ38EjaF4W5TJh199R3lLm5
- VeaHu/Nj93PK64qYxY04cXbUxIvff4kA0pOTQzIpFHtVunozbTnqTpuSBSp5NhT+pWTEcABpfPj
- 0rlM3Pczx5gMQjg==
+ bh=/bsXC7i63bCOBHETOe0gMQ4G64j9LJ0wcDbbGOO2nT8=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBp6ir38yudh4eJpmvDiVV6A1f8S9A67B2TxqxQO
+ iBLK6pnydaJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCaeoq9wAKCRD6PaqMvJYe
+ 9WPDD/94UAoIOrxeTFtzr2INZyk2ZTv5kc2+Fm5ZRAm9XR97kVioBGtJP8UdgEWmOzq/Pwjq7aa
+ QAdwxwp3FKkgeg5sdslWTZSIKNtUqtgHhe7usyzCRu5Iaz5BmkMlNUHe2uhjD3399aD/M2PIpfN
+ YddL0T8eGnVHq5AhyzHiA9PODKFhgkWkeq4K4DiQ5/JQ+KVu75XXBoB4iz6tU3ZOwcK5+BjjzTf
+ IgTv30LyqN+1mbtMAv7BtRZx8ThNtnGT6Aqe4nEw1XMMjPEr71I4hurVZ5UBFCVTN40pyGXKHp+
+ 6gMUDllcWQzlpUcY2dFieCg94cFNWheKGdLdb2hOVK0LRj+IOYV+t5Q2Uf0DYogKntW+E2LNp+F
+ BO/Nic03Al1tn0Gd86HRKdZ8FfSkwnCD1lzBoyiTRfvuYZ/rzxc3k9oyNZ5Bgqm4jMxg4HzzUb7
+ nbHjctxy2McL0rPRmwtsx8613kA2U1h1aS0NGLXUKSSI4F1UgYfeP7f2MxiJE54dKACqnovAPSl
+ 6/yS3XJIggKdvL3JZpxcHAji0XXBgwIGa4UxHO6ERzTsaiMeMt69xYnHxZqP6V5ABj9K2tvOBVp
+ lcIsK08JF2Rj0Lps7I0uxSF53zW3x1y3Xl7S9APkVGJ7UBd8N+xuyrmXwRN0OIQKdR8uZATC3lF
+ BQFJL/aHDAMmikA==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -83,48 +83,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add XYYY2101010 ("YPA4"), a 10 bit greyscale format, with 3 pixels
-packed into 32-bit container, and two bits of padding.
-
-The fourcc for the format is 'YPA4', which comes from Y - Y only, P -
-packed, A - 10 (as in 0xA), 4 - 4 bytes.
+Add support for Y8 and XYYY2101010 formats. We also need to add new csc
+matrices for these y-only formats.
 
 Reviewed-by: Vishal Sagar <vishal.sagar@amd.com>
-Reviewed-by: Pekka Paalanen <pekka.paalanen@collabora.com>
 Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Reviewed-by: Simon Ser <contact@emersion.fr>
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/drm_fourcc.c  | 3 +++
- include/uapi/drm/drm_fourcc.h | 1 +
- 2 files changed, 4 insertions(+)
+ drivers/gpu/drm/xlnx/zynqmp_disp.c | 27 ++++++++++++++++++++++++++-
+ 1 file changed, 26 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_fourcc.c b/drivers/gpu/drm/drm_fourcc.c
-index c30266b8d051..01761c553e7e 100644
---- a/drivers/gpu/drm/drm_fourcc.c
-+++ b/drivers/gpu/drm/drm_fourcc.c
-@@ -385,6 +385,9 @@ const struct drm_format_info *__drm_format_info(u32 format)
- 		{ .format = DRM_FORMAT_S416,            .depth = 0,  .num_planes = 3,
- 		  .char_per_block = { 2, 2, 2 }, .block_w = { 1, 1, 1 }, .block_h = { 1, 1, 1 },
- 		  .hsub = 1, .vsub = 1, .is_yuv = true},
-+		{ .format = DRM_FORMAT_XYYY2101010,	.depth = 0,  .num_planes = 1,
-+		  .char_per_block = { 4, 0, 0 }, .block_w = { 3, 0, 0 }, .block_h = { 1, 0, 0 },
-+		  .hsub = 1, .vsub = 1, .is_yuv = true },
- 	};
+diff --git a/drivers/gpu/drm/xlnx/zynqmp_disp.c b/drivers/gpu/drm/xlnx/zynqmp_disp.c
+index 46ea70fd37ec..175ae1589018 100644
+--- a/drivers/gpu/drm/xlnx/zynqmp_disp.c
++++ b/drivers/gpu/drm/xlnx/zynqmp_disp.c
+@@ -307,6 +307,16 @@ static const struct zynqmp_disp_format avbuf_vid_fmts[] = {
+ 		.buf_fmt	= ZYNQMP_DISP_AV_BUF_FMT_NL_VID_YV16CI_10,
+ 		.swap		= false,
+ 		.sf		= scaling_factors_101010,
++	}, {
++		.drm_fmt	= DRM_FORMAT_Y8,
++		.buf_fmt	= ZYNQMP_DISP_AV_BUF_FMT_NL_VID_MONO,
++		.swap		= false,
++		.sf		= scaling_factors_888,
++	}, {
++		.drm_fmt	= DRM_FORMAT_XYYY2101010,
++		.buf_fmt	= ZYNQMP_DISP_AV_BUF_FMT_NL_VID_YONLY_10,
++		.swap		= false,
++		.sf		= scaling_factors_101010,
+ 	},
+ };
  
- 	unsigned int i;
-diff --git a/include/uapi/drm/drm_fourcc.h b/include/uapi/drm/drm_fourcc.h
-index c5b64ed3b00a..472f95632640 100644
---- a/include/uapi/drm/drm_fourcc.h
-+++ b/include/uapi/drm/drm_fourcc.h
-@@ -468,6 +468,7 @@ extern "C" {
-  */
+@@ -697,6 +707,17 @@ static const u32 csc_sdtv_to_rgb_offsets[] = {
+ 	0x0, 0x1800, 0x1800
+ };
  
- #define DRM_FORMAT_Y8		fourcc_code('G', 'R', 'E', 'Y')  /* 8-bit Y-only */
-+#define DRM_FORMAT_XYYY2101010	fourcc_code('Y', 'P', 'A', '4')  /* [31:0] x:Y2:Y1:Y0 2:10:10:10 little endian */
++/* In Y-only mode the single Y channel is on the third column  */
++static const u16 csc_sdtv_to_rgb_yonly_matrix[] = {
++	0x0, 0x0, 0x1000,
++	0x0, 0x0, 0x1000,
++	0x0, 0x0, 0x1000,
++};
++
++static const u32 csc_sdtv_to_rgb_yonly_offsets[] = {
++	0x0, 0x0, 0x0
++};
++
+ /**
+  * zynqmp_disp_blend_set_output_format - Set the output format of the blender
+  * @disp: Display controller
+@@ -846,7 +867,11 @@ static void zynqmp_disp_blend_layer_enable(struct zynqmp_disp *disp,
+ 				ZYNQMP_DISP_V_BLEND_LAYER_CONTROL(layer->id),
+ 				val);
  
- /*
-  * Format Modifiers:
+-	if (layer->drm_fmt->is_yuv) {
++	if (layer->drm_fmt->format == DRM_FORMAT_Y8 ||
++	    layer->drm_fmt->format == DRM_FORMAT_XYYY2101010) {
++		coeffs = csc_sdtv_to_rgb_yonly_matrix;
++		offsets = csc_sdtv_to_rgb_yonly_offsets;
++	} else if (layer->drm_fmt->is_yuv) {
+ 		coeffs = csc_sdtv_to_rgb_matrix;
+ 		offsets = csc_sdtv_to_rgb_offsets;
+ 	} else {
 
 -- 
 2.43.0
