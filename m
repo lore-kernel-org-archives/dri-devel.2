@@ -4,55 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0AF3F9937D
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 12:01:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31EE9F589A0
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 12:07:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3731310F0D0;
-	Thu, 23 Apr 2026 12:01:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C2DE10F0D5;
+	Thu, 23 Apr 2026 12:07:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="hYU+Rth/";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lOD8dZ98";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C22A010F0D0
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 12:01:57 +0000 (UTC)
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
- [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 030669A4;
- Thu, 23 Apr 2026 14:00:15 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1776945617;
- bh=Fx938U2Vfj0K/y5jh7enFEPw/OYujGES1OBKTsXTLso=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=hYU+Rth/LWlUi09SWn3C1ojFeB3bob/ROPmYmxTjEC+TzCblfv6fwLHZ97Aoxhp8q
- KK8aYt7qWstD46FDSAt3LHGL8oq4RUzkmxaXoMS6iHzRJTHxKBVlJJ4rXcZ+UltJ3o
- 0oDuaK1K8Wnvw9XxASotvt1EjrM5algZ1YOzfjdY=
-Message-ID: <af71183d-70b8-4a41-8466-67123e7aab02@ideasonboard.com>
-Date: Thu, 23 Apr 2026 15:01:51 +0300
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF30010F0D5
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 12:07:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1776946056; x=1808482056;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=NZkSPcRmjL/wS6NsoQeCkA1V04iVBP/f44bcm0vL/PE=;
+ b=lOD8dZ98g4+8RAxhq0q1nB5E47eT/Y5tciDocXjf8+sriiNtOaK7vX3s
+ tlKyB+NHCDtcEI56OPqNW9tuDcd39jeFoPXl6ffNhHAdRQTUgDcnDGK2q
+ pE8UBEZNXpqBEcXApO59aNHGlOM/QIkllCJrqgtZIF8CL2Jd1nWGu0scG
+ 5nsmLzUolefc3F6HtzHkGGD22xg0CS13LpZQOVzN93W6e8wpADOiaNXFv
+ aCKF6UrmD5ZsYvj60fWbdMp3wsfk5ufK4/7eSaz6TqZpgYkAfWBmxX1Oh
+ SeT86sv7pvkizFLgi2hWKqB7G5v6iwX6osJyCgLpaKuYdKGLBwxzznADb Q==;
+X-CSE-ConnectionGUID: Ux2hzwZxR7mAIGGokMQIbg==
+X-CSE-MsgGUID: 2Ne+oQB3SGSaLO2nVD0N4w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11764"; a="77824251"
+X-IronPort-AV: E=Sophos;i="6.23,194,1770624000"; d="scan'208";a="77824251"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Apr 2026 05:07:35 -0700
+X-CSE-ConnectionGUID: SWrObGlTRYKZpSy+vvB4Qg==
+X-CSE-MsgGUID: v/6bw2eISui+45LyUBXJeA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,194,1770624000"; d="scan'208";a="232949259"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.220])
+ by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Apr 2026 05:07:31 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
+ <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, Laurent
+ Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Jyri Sarha
+ <jyri.sarha@iki.fi>, Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Laurent Pinchart
+ <laurent.pinchart+renesas@ideasonboard.com>
+Subject: Re: [PATCH v2 00/28] drm: Implement state readout support
+In-Reply-To: <20260423-wealthy-moth-of-youth-0858a5@houat>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260423-drm-state-readout-v2-0-6cde1a9910ed@kernel.org>
+ <28caaa3e416c13af6745fedb213dc6eed29feb46@intel.com>
+ <20260423-wealthy-moth-of-youth-0858a5@houat>
+Date: Thu, 23 Apr 2026 15:07:27 +0300
+Message-ID: <5a8491c0e403eebba06b3edc7c297abaa054e29d@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/panel: simple: Add timings for Raspberry Pi 7"
- panel
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Thierry Reding
- <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260420-rpi-7inch-v1-0-e68d5c9c44bc@ideasonboard.com>
- <20260420-rpi-7inch-v1-2-e68d5c9c44bc@ideasonboard.com>
- <3z3u5mbngmbzsch3mzs3twlh3aec6r7jokstzv3ghxyusrzt6b@jqvdnuiapx6e>
-Content-Language: en-US
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-In-Reply-To: <3z3u5mbngmbzsch3mzs3twlh3aec6r7jokstzv3ghxyusrzt6b@jqvdnuiapx6e>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,75 +80,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+On Thu, 23 Apr 2026, Maxime Ripard <mripard@kernel.org> wrote:
+> Hi Jani,
+>
+> On Thu, Apr 23, 2026 at 01:50:59PM +0300, Jani Nikula wrote:
+>> On Thu, 23 Apr 2026, Maxime Ripard <mripard@kernel.org> wrote:
+>> > Here's a series that implement what i915 calls "fastboot", ie,
+>> > initializing the initial KMS state from the hardware state at boot, to
+>> > skip the first modeset if the firmware already set up the display.
+>> 
+>> FWIW, in i915 we also use the state readout for atomic commit
+>> verification. Write software state to hardware, read hardware state
+>> back, compare with the original state, complain if there's a difference.
+>
+> I know, and this series implement it as well. Is there anything you
+> wanted to point out in particular?
 
-On 22/04/2026 22:22, Dmitry Baryshkov wrote:
-> On Mon, Apr 20, 2026 at 04:13:36PM +0300, Tomi Valkeinen wrote:
->> Add timings for the panel used in Raspberry Pi 7" DSI Display module:
->> https://www.raspberrypi.com/products/raspberry-pi-touch-display/
->>
->> This has been tested with version v1.1 of the display module.
->>
->> The panel is very strict about the back-porch values, they must be
->> exactly 46 for hbp and 23 for vbp. Other timings can be defined quite
->> freely.
->>
->> The panel is exclusive to Raspberry Pi, and different versions of the
->> display module can have panels from different vendors which are fully
->> compatible. Also, as the panel vendors are not public, the compatible
->> string used is "raspberrypi,7inch-dsi".
->>
->> Note that while the display module has a DSI connector, and the
->> compatible has "dsi" in it, we use DRM_MODE_CONNECTOR_DPI as the panel
->> itself is a parallel video panel. The display module (as of v1.1) uses
->> TC358762 DSI-to-DPI bridge to do the conversion.
->>
->> We could use DRM_MODE_CONNECTOR_DSI here, which would have the benefit
->> of showing a "DSI-1" connector to the userspace. However, the panel IS a
->> DPI panel, and gets its input from a DSI-to-DPI bridge, and the
->> panel-simple.c behaves differently depending on the connector type used,
->> so, DRM_MODE_CONNECTOR_DPI it is.
->>
->> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
->> ---
->>   drivers/gpu/drm/panel/panel-simple.c | 32 ++++++++++++++++++++++++++++++++
->>   1 file changed, 32 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
->> index 91ab280869ba..e75eb20301f2 100644
->> --- a/drivers/gpu/drm/panel/panel-simple.c
->> +++ b/drivers/gpu/drm/panel/panel-simple.c
->> @@ -4208,6 +4208,35 @@ static const struct panel_desc rocktech_rk043fn48h = {
->>   	.connector_type = DRM_MODE_CONNECTOR_DPI,
->>   };
->>   
->> +static const struct display_timing raspberrypi_7inch_timing = {
->> +	.pixelclock = { 10000000, 30000000, 50000000 },
->> +	.hactive = { 800, 800, 800 },
->> +	.hfront_porch = { 16, 72, 354 },
->> +	.hsync_len = { 1, 32, 40 },
->> +	.hback_porch = { 46, 46, 46 },
->> +	.vactive = { 480, 480, 480 },
->> +	.vfront_porch = { 7, 21, 147 },
->> +	.vsync_len = { 1, 2, 20 },
->> +	.vback_porch = { 23, 23, 23 },
->> +	.flags = DISPLAY_FLAGS_VSYNC_HIGH | DISPLAY_FLAGS_HSYNC_HIGH,
->> +	/* Note: the rest of the flags are defined below in bus_flags */
->> +};
-> 
-> This looks pretty close to powertip panels that have been used before
-> hand in those modules. Are you sure that powertip,ph800480t013-idf02
-> or powertip,ph800480t032-zhc19 don't work for you?
+Oh, I didn't get that far, obviously. Just wanted to mention the feature
+is not only about fastboot. Sorry for the noise.
 
-I haven't tested those, but the hbp and vbp do not seem to be the same. 
-For me, they had to be exactly as they are here. This was also confirmed 
-from Raspberry Pi, the panel datasheet had min/typ/max values (i.e. not 
-ranges) of 46 and 23 for back porches.
+BR,
+Jani.
 
-Where did the information come from that powertip,ph800480t013-idf02 or 
-powertip,ph800480t032-zhc19 are used in the display modules? Or did you 
-mean that while those models are not used in the Raspberry display 
-module, people have used them successfully?
 
-  Tomi
 
+-- 
+Jani Nikula, Intel
