@@ -4,61 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 896A3F589D0
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 13:16:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7FA6F589D1
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 13:19:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF49810F10C;
-	Thu, 23 Apr 2026 13:16:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D846C10E34A;
+	Thu, 23 Apr 2026 13:19:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="jRt2M6R7";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="CHffhXGz";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F4B210F10C
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 13:16:39 +0000 (UTC)
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
- [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1D2BD9A4;
- Thu, 23 Apr 2026 15:14:58 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1776950099;
- bh=g0tfRCWfNS80U1BG80fTONyoMqk2OH2q2gq5EU3XOxE=;
- h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
- b=jRt2M6R7ch4AN89uPIbi678C1fbUwm1eWdNNWNj5xcIwsqYjIm9wf3NuYmng7EYTN
- 7wO+h4ZMYV9fgYF8hknnBrkEq7JfxQJZTAVhOkQqwR4Ba4A1xvDsJgM9ajCNWYLzVH
- yn69OFGEjWxOE/1rqCwz0KHcpF7SowBiVBJUPSWQ=
-Message-ID: <b24c428f-5752-4544-a8b4-77e91d7bc158@ideasonboard.com>
-Date: Thu, 23 Apr 2026 16:16:34 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/panel: simple: Add timings for Raspberry Pi 7"
- panel
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Marek Vasut <marex@denx.de>
-Cc: Maxime Ripard <mripard@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
- Sam Ravnborg <sam@ravnborg.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260420-rpi-7inch-v1-0-e68d5c9c44bc@ideasonboard.com>
- <20260420-rpi-7inch-v1-2-e68d5c9c44bc@ideasonboard.com>
- <3z3u5mbngmbzsch3mzs3twlh3aec6r7jokstzv3ghxyusrzt6b@jqvdnuiapx6e>
- <af71183d-70b8-4a41-8466-67123e7aab02@ideasonboard.com>
- <20260423-kickass-fat-boa-209f68@houat>
- <72c2cd94-0a8b-46c8-981b-4ad4a3222e59@ideasonboard.com>
- <CAO9ioeVX6OChRTgUrUdgrPF+3s2_7vme7m0yb85pjYtH1MFskw@mail.gmail.com>
- <ced05a92-06b4-4f6f-95b6-c3dc104c35f3@ideasonboard.com>
-Content-Language: en-US
-In-Reply-To: <ced05a92-06b4-4f6f-95b6-c3dc104c35f3@ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48E3610E34A
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 13:19:32 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 800E74E42AC9;
+ Thu, 23 Apr 2026 13:19:30 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 4BD1460495;
+ Thu, 23 Apr 2026 13:19:30 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id B727910460BC4; 
+ Thu, 23 Apr 2026 15:19:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1776950366; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=N0czXPTCBLd6Via7w9anQbZ1SyEjDMbKmYb2klNRSzM=;
+ b=CHffhXGzBeQ87qx+VLT/QJwCaDtokpzRnxIGgqeeBGcHmpx9dkFTQezMvWUYtBFalmt0ym
+ ZlPNQeOk5Q1kth18AWc/K+W7Raxp9+99ljR8+PbnvhlipPqpO27B6VpRihKIXQayDAqgRG
+ da/TeGo6hU5ux+mR4M6i/8AmHfkbG+YJihJqxxPpKk1ng/qYjjX625VUgLNqxJALo9M/FP
+ rIln33FBGqBltj0d5nmulxlKj/OYQmYlq0XBZlKDps6B3HZSM/rShXabOS7pnFzpExVbdP
+ stMHIMq4UYNiQX+If3xxxJ52QyUsGZwDX30+01HblvyxBtNmG2GoUDU/v0ZI4A==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 23 Apr 2026 15:19:03 +0200
+Message-Id: <DI0KBQCGJWIC.1TNNX177Z8ZNU@bootlin.com>
+Subject: Re: [PATCH 35/41] drm/rockchip: lvds: remove now-redundant call to
+ drm_connector_attach_encoder()
+Cc: "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
+ Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
+ <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Sasha
+ Finkelstein" <fnkl.kernel@gmail.com>, "Janne Grunau" <j@jannau.net>, "Liu
+ Ying" <victor.liu@nxp.com>, "Douglas Anderson" <dianders@chromium.org>,
+ "Laurentiu Palcu" <laurentiu.palcu@oss.nxp.com>, "Lucas Stach"
+ <l.stach@pengutronix.de>, "Frank Li" <Frank.Li@nxp.com>, "Sascha Hauer"
+ <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
+ <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Philipp
+ Zabel" <p.zabel@pengutronix.de>, "Paul Cercueil" <paul@crapouillou.net>,
+ "Anitha Chrisanthus" <anitha.chrisanthus@intel.com>, "Chun-Kuang Hu"
+ <chunkuang.hu@kernel.org>, "Matthias Brugger" <matthias.bgg@gmail.com>,
+ "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>,
+ "Kevin Hilman" <khilman@baylibre.com>, "Jerome Brunet"
+ <jbrunet@baylibre.com>, "Martin Blumenstingl"
+ <martin.blumenstingl@googlemail.com>, "Rob Clark"
+ <robin.clark@oss.qualcomm.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
+ "Abhinav Kumar" <abhinav.kumar@linux.dev>, "Jessica Zhang"
+ <jesszhan0024@gmail.com>, "Sean Paul" <sean@poorly.run>, "Marijn Suijten"
+ <marijn.suijten@somainline.org>, "Tomi Valkeinen"
+ <tomi.valkeinen@ideasonboard.com>, "Sandy Huang" <hjc@rock-chips.com>,
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, "Andy Yan"
+ <andy.yan@rock-chips.com>, "Thierry Reding" <thierry.reding@gmail.com>,
+ "Mikko Perttunen" <mperttunen@nvidia.com>, "Jonathan Hunter"
+ <jonathanh@nvidia.com>, "Icenowy Zheng" <zhengxingda@iscas.ac.cn>, "Jingoo
+ Han" <jingoohan1@gmail.com>, "Inki Dae" <inki.dae@samsung.com>, "Seung-Woo
+ Kim" <sw0312.kim@samsung.com>, "Kyungmin Park" <kyungmin.park@samsung.com>,
+ "Krzysztof Kozlowski" <krzk@kernel.org>, "Alim Akhtar"
+ <alim.akhtar@samsung.com>, "Laurent Pinchart"
+ <laurent.pinchart+renesas@ideasonboard.com>, "Tomi Valkeinen"
+ <tomi.valkeinen+renesas@ideasonboard.com>, "Kieran Bingham"
+ <kieran.bingham+renesas@ideasonboard.com>, "Geert Uytterhoeven"
+ <geert+renesas@glider.be>, "Magnus Damm" <magnus.damm@gmail.com>, "Biju
+ Das" <biju.das.jz@bp.renesas.com>, "Marek Vasut" <marex@denx.de>, "Stefan
+ Agner" <stefan@agner.ch>, "Jyri Sarha" <jyri.sarha@iki.fi>, "Michal Simek"
+ <michal.simek@amd.com>, "Hui Pu" <Hui.Pu@gehealthcare.com>, "Ian Ray"
+ <ian.ray@gehealthcare.com>, "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <asahi@lists.linux.dev>,
+ <imx@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-mips@vger.kernel.org>, <linux-mediatek@lists.infradead.org>,
+ <linux-amlogic@lists.infradead.org>, <linux-arm-msm@vger.kernel.org>,
+ <freedreno@lists.freedesktop.org>, <linux-rockchip@lists.infradead.org>,
+ <linux-tegra@vger.kernel.org>, <linux-samsung-soc@vger.kernel.org>,
+ <linux-renesas-soc@vger.kernel.org>
+To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.20.1
+References: <20260423-drm-bridge-connector-attach_encoder-v2-0-2ae6ca69b390@bootlin.com>
+ <20260423115334.444750-1-luca.ceresoli@bootlin.com>
+ <wapbiwxou64emxlt6oz5slst3nvcgvs35hvhpz7v3wmwp33bzc@mvdog4t7un6m>
+In-Reply-To: <wapbiwxou64emxlt6oz5slst3nvcgvs35hvhpz7v3wmwp33bzc@mvdog4t7un6m>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,131 +112,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Marek,
+Hi Dmitry, Geert,
 
-On 23/04/2026 16:13, Tomi Valkeinen wrote:
-> Hi,
-> 
-> On 23/04/2026 15:33, Dmitry Baryshkov wrote:
->> On Thu, 23 Apr 2026 at 15:28, Tomi Valkeinen
->> <tomi.valkeinen@ideasonboard.com> wrote:
->>>
->>> Hi,
->>>
->>> On 23/04/2026 15:14, Maxime Ripard wrote:
->>>> Hi,
->>>>
->>>> On Thu, Apr 23, 2026 at 03:01:51PM +0300, Tomi Valkeinen wrote:
->>>>> On 22/04/2026 22:22, Dmitry Baryshkov wrote:
->>>>>> On Mon, Apr 20, 2026 at 04:13:36PM +0300, Tomi Valkeinen wrote:
->>>>>>> Add timings for the panel used in Raspberry Pi 7" DSI Display 
->>>>>>> module:
->>>>>>> https://www.raspberrypi.com/products/raspberry-pi-touch-display/
->>>>>>>
->>>>>>> This has been tested with version v1.1 of the display module.
->>>>>>>
->>>>>>> The panel is very strict about the back-porch values, they must be
->>>>>>> exactly 46 for hbp and 23 for vbp. Other timings can be defined 
->>>>>>> quite
->>>>>>> freely.
->>>>>>>
->>>>>>> The panel is exclusive to Raspberry Pi, and different versions of 
->>>>>>> the
->>>>>>> display module can have panels from different vendors which are 
->>>>>>> fully
->>>>>>> compatible. Also, as the panel vendors are not public, the 
->>>>>>> compatible
->>>>>>> string used is "raspberrypi,7inch-dsi".
->>>>>>>
->>>>>>> Note that while the display module has a DSI connector, and the
->>>>>>> compatible has "dsi" in it, we use DRM_MODE_CONNECTOR_DPI as the 
->>>>>>> panel
->>>>>>> itself is a parallel video panel. The display module (as of v1.1) 
->>>>>>> uses
->>>>>>> TC358762 DSI-to-DPI bridge to do the conversion.
->>>>>>>
->>>>>>> We could use DRM_MODE_CONNECTOR_DSI here, which would have the 
->>>>>>> benefit
->>>>>>> of showing a "DSI-1" connector to the userspace. However, the 
->>>>>>> panel IS a
->>>>>>> DPI panel, and gets its input from a DSI-to-DPI bridge, and the
->>>>>>> panel-simple.c behaves differently depending on the connector 
->>>>>>> type used,
->>>>>>> so, DRM_MODE_CONNECTOR_DPI it is.
->>>>>>>
->>>>>>> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
->>>>>>> ---
->>>>>>>     drivers/gpu/drm/panel/panel-simple.c | 32 +++++++++++++++++++ 
->>>>>>> +++++++++++++
->>>>>>>     1 file changed, 32 insertions(+)
->>>>>>>
->>>>>>> diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/ 
->>>>>>> drm/panel/panel-simple.c
->>>>>>> index 91ab280869ba..e75eb20301f2 100644
->>>>>>> --- a/drivers/gpu/drm/panel/panel-simple.c
->>>>>>> +++ b/drivers/gpu/drm/panel/panel-simple.c
->>>>>>> @@ -4208,6 +4208,35 @@ static const struct panel_desc 
->>>>>>> rocktech_rk043fn48h = {
->>>>>>>             .connector_type = DRM_MODE_CONNECTOR_DPI,
->>>>>>>     };
->>>>>>> +static const struct display_timing raspberrypi_7inch_timing = {
->>>>>>> +  .pixelclock = { 10000000, 30000000, 50000000 },
->>>>>>> +  .hactive = { 800, 800, 800 },
->>>>>>> +  .hfront_porch = { 16, 72, 354 },
->>>>>>> +  .hsync_len = { 1, 32, 40 },
->>>>>>> +  .hback_porch = { 46, 46, 46 },
->>>>>>> +  .vactive = { 480, 480, 480 },
->>>>>>> +  .vfront_porch = { 7, 21, 147 },
->>>>>>> +  .vsync_len = { 1, 2, 20 },
->>>>>>> +  .vback_porch = { 23, 23, 23 },
->>>>>>> +  .flags = DISPLAY_FLAGS_VSYNC_HIGH | DISPLAY_FLAGS_HSYNC_HIGH,
->>>>>>> +  /* Note: the rest of the flags are defined below in bus_flags */
->>>>>>> +};
->>>>>>
->>>>>> This looks pretty close to powertip panels that have been used before
->>>>>> hand in those modules. Are you sure that powertip,ph800480t013-idf02
->>>>>> or powertip,ph800480t032-zhc19 don't work for you?
->>>>>
->>>>> I haven't tested those, but the hbp and vbp do not seem to be the 
->>>>> same. For
->>>>> me, they had to be exactly as they are here. This was also 
->>>>> confirmed from
->>>>> Raspberry Pi, the panel datasheet had min/typ/max values (i.e. not 
->>>>> ranges)
->>>>> of 46 and 23 for back porches.
->>>>>
->>>>> Where did the information come from that powertip,ph800480t013- 
->>>>> idf02 or
->>>>> powertip,ph800480t032-zhc19 are used in the display modules? Or did 
->>>>> you mean
->>>>> that while those models are not used in the Raspberry display 
->>>>> module, people
->>>>> have used them successfully?
+On Thu Apr 23, 2026 at 2:42 PM CEST, Dmitry Baryshkov wrote:
+> On Thu, Apr 23, 2026 at 01:53:28PM +0200, Luca Ceresoli wrote:
+>> drm_connector_attach_encoder() is now called by
+>> drm_bridge_connector_init().
 >>
->> For the zhc19 it's a wild guess, but for the idf02 it more of a 
->> certainity:
+>> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+>> ---
+>>  drivers/gpu/drm/rockchip/rockchip_lvds.c | 6 ------
+>>  1 file changed, 6 deletions(-)
 >>
->> commit d69de69f2be105b2474c05a5ca4827aac3e80ad3
->> Author: Marek Vasut <marex@denx.de>
->> Date:   Tue Jul 28 14:12:46 2020 +0200
->>
->>      drm/panel: simple: Add Powertip PH800480T013 panel
->>
->>      Add support for Powertip PH800480T013 800x480 parallel LCD, this
->>      one is used in the Raspberry Pi 7" touchscreen display unit.
->>
->> In the past I used this panel compat instead of the
->> panel-raspberrypi-touchscreen.c and it worked.
->> IIRC Marek splitted the multi-function module into a regulator and the
->> panel description.
-> Ok... Indeed https://pip.raspberrypi.com/categories/651-pcn lists 
-> PH800480T013 as one of the panels used. Although two variants are 
-> listed, and also a third panel model, possibly from another vendor.
-> 
-> My module is v1.1, and I think it has the PH800480T013-IAC21 D/5624/KIT- 
-> LC variant.
-A question to Marek: Where did you get the timings for PH800480T013? Did 
-you find a datasheet?
+>
+> stray duplicate
 
-  Tomi
+Due to the long Cc list, when sending the series with b4 I hit the mail
+provider limit, so patches after 34 were not sent.
 
+I then sent them manually using the good old git format-patch/send-email,
+but in the process I missed the v2 (heh, b4 is great at automating
+that!). So patch 35 got sent without v2, and then I resent it and the
+following ones with the v2 marker.
+
+Sorry about the noise!
+
+I think with Dmitry's all-series R-by this whole series can be applied at
+once (I'll wait ~1 week before applying, in case of more comments). This
+will avoid more iterations spamming lots of people.
+
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
