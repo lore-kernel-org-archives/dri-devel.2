@@ -4,134 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3F0CF99352
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 08:37:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C4F0F99355
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 08:44:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFF3D10EFAB;
-	Thu, 23 Apr 2026 08:37:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57D8F10EFCF;
+	Thu, 23 Apr 2026 08:44:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="c+tVaFRc";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="avK8m7xA";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZL9BsRfH";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C166210EFAB
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 08:37:31 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63N5jvJN3796409
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 08:37:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- jhRntaser1eVzeCOhXjlHkYnbt+wCG8FqFTGxoVYfmc=; b=c+tVaFRchVP8LYhx
- jG2ZJxHIb2ri2zlr/V0Q3HvIk1m/mlEI6XODj5f/adjlbQqLy/CTmIl5pUqKk7WN
- WcLHbDDXcsVd8NguauSXTEuZwAAySdkTKcy5YuRTVOuxYKfjTfoEC5+ZYaP7t5VZ
- V5Q/KK4cl9rQ1x0OUzzxytICrlN0v/N/7xxIxmw3h73o+Yn+aBVa4iyFws/AcmY0
- HiZMdW5CWBD/9LxP3SGjpD2xUe6clvI3PI5lb/zcMmaZcbHsM5XhiuOwEgyUFJub
- 0Semb3Bw6xXm1M1Obd9HB5rgKD2coaRKuNHnWzfc5Xj+nxVUPMwroRYYydkJ1y/u
- INbWHA==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
- [209.85.214.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dqdjm0kpa-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 08:37:31 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id
- d9443c01a7336-2b258636d16so65211885ad.2
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 01:37:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1776933450; x=1777538250;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=jhRntaser1eVzeCOhXjlHkYnbt+wCG8FqFTGxoVYfmc=;
- b=avK8m7xA08MN0PfnX8XpNPl+yQmHgkzyGcwDRLgwNdwkv5YWP9DPmeux6JUB59igEz
- ZlCvCfKIdLIIOf2c+uDydIQbczY2/2tl9uVY5w8k7PAAtXsIuQlG7uvRkpK5Qqp/SVJ0
- 5aObW8S/dyXsDpuH+v4Mv9z9P9kJUksNt1XDCbKehJTIK70RJGfdpXwC0x965LbS0CGJ
- MWDVsEad2sAdmQE49smN2kk8ENspJHCnDZG9GXohNlUlew0LkeqW5F6zSVzgmFA4xyvJ
- oAQXHsliKzu6Tn5BVOLWHbnE9/07RMoQysGJhSRid+jH/nBNaMiaBHp+NkP9jVMj6KQB
- 0azw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776933450; x=1777538250;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=jhRntaser1eVzeCOhXjlHkYnbt+wCG8FqFTGxoVYfmc=;
- b=Em7jjZGLxbrqm8C/S8CPavoapAAjDs30v34vb5jeXpWkFyTvqnewxxLrPryeyYUZU4
- KbrW08j1ZsJ0qdvGuQAow0EPg0eWCDidMZhrhHnM5A8JbBPNCF/JBn0sAyclYiCfZpPO
- FlC7bhEyLsT1RONazupc6njcLfmYTyMZFbgkNQikRNwBbFuHrTcdiB5cGp7ZnK+Yz5Zr
- 8PSBpxTlTpwutUM68wRplz9RSww0LGrf4cDWH1CvKD/X+nk9q8xNoxsmBgBd3jpHw5oN
- N5Mv/EmWLzKqv6mV66omQ2JxzgJlmS/3J4y9A7NjWKa1rry6VNMtW7J3vYWfMAv0o0sI
- 0nvw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9n5l43oQnRlCossJpDWk65Wy7KrCLtSCbWFNYjj6xJ0RzVywtqckJX5BW1eZYrxJUN9LLQJTDYD24=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywze0/m9Q5RXFtJMdYorUz96DXM0jo8QaJOpcUEVNPL9MHQQCtM
- DjXIp6K1PEkznRM5OpH5334iZB9eqEkLfx+VfhOqgzXLVv68BkPmPSn2xCvw2mPZTDv9VbW21ci
- fOB7p7DJmIdx9eIKhva2+PmxJHJEkB9YDOLSnrXiQxd0b5ZaR/DoN3AEP2e164lB/BptHPrrRzh
- QM8TLVqA==
-X-Gm-Gg: AeBDiesSFfLkfnk0WN3E0aH8CUP0GbTRpI07cJ8Zb6qJShQHUFUHQdm3gBCfeUhV5rp
- dmERhmbg7pnT/CsLV19+ec5Auug0flw3LOuDQ15NL5w0jkb3j4zCjT4vrJCZ/A/Td6AFNL1J5EX
- tChhrxtZgV8UXjGosFAW334dBvm5uT1wvFWYiv24r7c2uxUATDM/ZU26ZaSAfNM6Ph+FyZLVe32
- FZpE7wKnirz3KzPXQgmLKutktUAN/ZSsFnXeZC+yVKFKkg7hPAv8r+g3nZxYrez45tnaGQE4Bcj
- ggFA3qsCftXErvcxr2ZlCF/jlKKzYYTmnJ13Z8irJgqIeHQctjbrrk8HJ2EOFbvLk7QMMGEoXw6
- Z6fJkXmuYpGy1pXYPHN1s2fcprnmxXaCe/SfG3FEdHYn1lx4XaF2ugT8aUD/D
-X-Received: by 2002:a17:90b:384e:b0:35b:952c:43b9 with SMTP id
- 98e67ed59e1d1-3614040b2c7mr27613886a91.10.1776933449642; 
- Thu, 23 Apr 2026 01:37:29 -0700 (PDT)
-X-Received: by 2002:a17:90b:384e:b0:35b:952c:43b9 with SMTP id
- 98e67ed59e1d1-3614040b2c7mr27613871a91.10.1776933449143; 
- Thu, 23 Apr 2026 01:37:29 -0700 (PDT)
-Received: from [10.204.79.66] ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-36143b0dc2fsm19089888a91.3.2026.04.23.01.37.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 Apr 2026 01:37:28 -0700 (PDT)
-Message-ID: <52aa6442-7e0e-423d-beef-0ef2a6c06884@oss.qualcomm.com>
-Date: Thu, 23 Apr 2026 14:07:23 +0530
-MIME-Version: 1.0
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011032.outbound.protection.outlook.com [40.107.208.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2426710EFCE;
+ Thu, 23 Apr 2026 08:44:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ezPYpOGy+K3vDXaZkvvxJFN6nxm7aj9ldbtwTq7Kpdru4gOp0LTmlOLgSaqWkNfvA/kEnJT2hFVnIlcv7wV+l99/CvM5sILgk5IlQkNHhtKDXPKgEHNmh5aWyKNfoQA+fHLh48Jjtg+lrZUHXjoJoTEVgN+B1h9Lls02E9Fh2Yost0IBH0z2MJyr/i0L3ABdcznVgUaBqvaka57TtwqDHb4thDfv5CaLF+69EN2gRdGEqmXrYKudtLqVFWuUGjMAFRL7DVfmPOY6ik4VbSL/ArLjEJckeSGtMYD5gh9nxhLUQ/WZO574f1xMHAIYOlO1DPSQGPmQHBcDU/qClqbTag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ra7Cj6boqoS5GcbE5KBfmii7SZuFtNRBEMgcBtoDWLE=;
+ b=NCl6c4cGMdUHRvwCexV7FoyGIt98GkG0LidPLoICk0zQYF47IO8X5RbQziHHe6T4YSAOKKJH24rSvUTjDHQA6tDN9oMDONojmtQ4hHJxPni4eiLXfM7e5P4ZJdl+atLsSIfqM2ZSpuJvB+5dweCalQTFq1J9J6HNefWbfoe6YgoybIotFR61wtChada2MZN97sftuzF0ZXlxYPcDQKv/zKQla2/dLBw3z9J+XtR407fBOlZSwm59IUoGe0wMSJAwri3Zgh01sdC31Y9l4X6q1pnWByeSzN/KNbO33m4Cz1XS4VbRMZwhkcv63yuauan5+mFZlFqZpjJxeMGZ7vlsRw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ra7Cj6boqoS5GcbE5KBfmii7SZuFtNRBEMgcBtoDWLE=;
+ b=ZL9BsRfHDnUz2D/iB8SVsdFNEkcmEcYfbF/MJ78sokbTsr89z/oVXuVnLGDpcjkL77Ag/x7KeUmKQeIJ6TKhESWvwbetM1gBnqTZ3mzp+v1vl/n886ZEmmcECuIVmrMKne6PLgdafxaObW1ef69Lli2T96shOE6Jup6K0m4JDeo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CY8PR12MB8410.namprd12.prod.outlook.com (2603:10b6:930:6d::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.21; Thu, 23 Apr
+ 2026 08:44:45 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9846.016; Thu, 23 Apr 2026
+ 08:44:44 +0000
+Message-ID: <697436d1-5720-4b12-9cd7-2d76759d63f5@amd.com>
+Date: Thu, 23 Apr 2026 10:44:36 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 4/4] misc: fastrpc: Add polling mode support for
- fastRPC driver
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: srini@kernel.org, linux-arm-msm@vger.kernel.org,
- gregkh@linuxfoundation.org, quic_bkumar@quicinc.com,
- linux-kernel@vger.kernel.org, quic_chennak@quicinc.com,
- dri-devel@lists.freedesktop.org, arnd@arndb.de, ltuikov89@gmail.com,
- konrad.dybcio@oss.qualcomm.com, andersson@kernel.org
-References: <20260422092409.4107093-1-ekansh.gupta@oss.qualcomm.com>
- <20260422092409.4107093-5-ekansh.gupta@oss.qualcomm.com>
- <jqehwyeoda5t5kabxjouc4kgpnebndotkr2a4tuuiypzqcck42@dv3vu7wbq6nh>
+Subject: Re: [PATCH 1/3] drm/ttm: Issue direct reclaim at beneficial_order
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: Tvrtko Ursulin <tursulin@ursulin.net>, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Carlos Santa <carlos.santa@intel.com>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Daniel Colascione <dancol@dancol.org>
+References: <20260421012608.1474950-1-matthew.brost@intel.com>
+ <20260421012608.1474950-2-matthew.brost@intel.com>
+ <30c84c41-192c-44ae-a614-2b9951c55727@ursulin.net>
+ <d7dda563-280f-4126-a822-a3d43ce5048e@amd.com>
+ <aekygVvRz7mu+elE@gsse-cloud1.jf.intel.com>
 Content-Language: en-US
-From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-In-Reply-To: <jqehwyeoda5t5kabxjouc4kgpnebndotkr2a4tuuiypzqcck42@dv3vu7wbq6nh>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <aekygVvRz7mu+elE@gsse-cloud1.jf.intel.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=EZn4hvmC c=1 sm=1 tr=0 ts=69e9da4b cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=G4waM6_Fef8mLlXZwtoA:9 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-GUID: CKXqOEg67vXi9fKo8-OgFNEQ52n22Lsx
-X-Proofpoint-ORIG-GUID: CKXqOEg67vXi9fKo8-OgFNEQ52n22Lsx
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIzMDA4MyBTYWx0ZWRfXzP+S9gGJj8gj
- d/EGS37dEvCuOn6XywtD9HF8Lz6KR5AND0YHJqMuwJhSicvptWNS3c172sjOve+sSg2ruvW957x
- t+V0Vdh4PWeavUyCq1H1cCOFkuqRFzqUWEOFQ0FRbG9M0DKGKdKdUly4uTf5o2cmXIGQOazLUM+
- 5279wG2ldPrkjiyryKnhUDDsUMPowLm6T++C2ddQ9KMm1qiM44WzMsOoG4vJXU4ogUs7cQ7fWxZ
- O0eTxKKjBbI3RTOprzTSguf8eTnolnXUeLWDGJ+Na/wohfsPuLqulbENsVBdRf+Do14V600UlIp
- o9/vIUh7L4qn3fNT+hihl5S5ZnyibI3iUX+YQbjJvFSzLoPbFg4SP34LIrOwqdAyEP1ttTPVOZt
- BQzVfOB8/ip1ILJXXYT7+irF0rfHG5jl+eD/j/6fOADR9g5C6bJR87zBFEOWqzPDeveqG4OCoCh
- 8WNuyYtqkLXUDXcAXxg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-23_02,2026-04-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 priorityscore=1501 phishscore=0 lowpriorityscore=0 bulkscore=0
- spamscore=0 clxscore=1015 impostorscore=0 malwarescore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604230083
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0450.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:c6::11) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY8PR12MB8410:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1529c8a8-0155-4cdc-6024-08dea114917b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|7416014|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 1YxDhdY6AwAkHZc/QbxkWuDW9He0OfQIGXIuBtgCFSN+TXPuuri1gzpkoGR3mqE5yTJW4WpLFDwNtmid9OuaC00pQp7gXh7U08G0DHMie44axi1YAe0tWpNkDdNx0ZnyormGAtG/ZOOqmYXsGnFNkl3PYflsaM1zJG8KyAdH7DeyHrQxIhv3iC8L5u83IM4O++Qx79GRN9giL//j1FP2hOy18OButCudbGxA38fAqvfBWKWHiHXVJ/U646HmWj5H0VYWo7aO/UuIrsQjrK23IzdXWCh0njInzbec5zs4RdteHHRV/dQ0UDf4+cMJSFjpyZ5R1JQe29E6X0cCQRcSFJ62H5SSdAAzxhhUVRfrEvwW35XMd4fX8AnQQxA80k7TVW7HmwMEA8Od+A/tbJkP/5KeK+GmW608zAlMkaVszckS/6lWv4hCEYmGVc+VTmA0J9VaxdxFFUzONyyL4UwlKmF0/2CaLhv5DoXgbKzgWZJ7GfOnhkZQDGHtZsBlaNB0wEGs6yoIXxy7z+sJR8EGMH0M5A+RhTOWRLE7nlJNI4FT+5yAIQJe7GDfpFGnwk+bUIauYHVs2h3dBeYGv77iHZSeE/JMDglC8NjhUmo2P/c/e4AM5KPHWUpxL5Pk0gMbQpVDqhbkOFEP2ZQVmkVdMB1m0QxaI22+c9r4aqnPqxq4DN2a4hSqO5fQrfiobwVj
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(7416014)(56012099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q29jSHpRQ1h2TlhrL3lKbE83WDFTVmdURjBLeVMwMDl3SCs0cDZxZTJZOWpE?=
+ =?utf-8?B?dTZGSjg2eGpwRnVSSXU4RTNtMGRraE52YThSZEt3M2QxOVhtNTVIbk04LzV4?=
+ =?utf-8?B?RWxMMVQrTDJuYWtiQk1PenFwazE5QkRQelJTbGNVdHpLL3FNa2dXMmpBeGtv?=
+ =?utf-8?B?MUtNNlZoWEdhVytYQ2VkcnBGYXdlRDkxK1BqakxEOWpzNExLSGc0RDNob290?=
+ =?utf-8?B?OEVyb0tWT0tUZVdXV2ZqZHNXNExWUWZVT21hTURrMnpmQmg1Q2xobXBqdVIy?=
+ =?utf-8?B?SkRQTnVRN3RRNGY1ZDVLMXB4ZWZkSWdzdFY0YVQ5MWpWRVA1SXZwbWovMFd2?=
+ =?utf-8?B?WGswekFRMWxDOXZJb1B4bEhwOENLc09ZbDZQNUlSYVpsam1DMTVSN003RDV1?=
+ =?utf-8?B?YWg2dlJqSm1jMkVnUGxQZVhKbDg1U3loVE0rRWV0cUhIZ25Hd1V5MzhGT2tX?=
+ =?utf-8?B?elhQcXJOM2JGaFhpeFdRWVpIY3FxQXU2V3Y1NzlxaDIyVDM4aFRqbW9SSjdW?=
+ =?utf-8?B?NElGempna0hwSmowYXIrUUdNSEEwOTgwVDRaajVwTWhWV0RmYVNHMFlJTkhS?=
+ =?utf-8?B?OWIxMll6enhOeFppSFRnbmFra2prTGxKSWd0RzNQajhNenhheDQvYU1MNVJr?=
+ =?utf-8?B?TGt1SnAyK0Z3d0R5MG1wK0E3YklxcHpVT2NJaGtiMEpxVGcyd24rcmRaWUgv?=
+ =?utf-8?B?b1IxWk5TNlhLRVpUY08wSXJuNHBVdHhUVnNvVmtQNnNoOEdwM2h0V2hMR3dF?=
+ =?utf-8?B?a3BoN1RYaUh2c3lhaXlpOFYyaHdsR0tvbllRV2xHOXZRcTI3WkNUMmNQc2Zi?=
+ =?utf-8?B?YlIxanlKUW11NW1aZFE1cUFzampqb3hOdS9ZRVBlTzVXcm1ZUklBc29pamJy?=
+ =?utf-8?B?d1pUSWFERzNDTHdxSFRBdDZLVTRuOEVCRWxna0ZNTW1kS24zRTE4VnR3Vnli?=
+ =?utf-8?B?NktQVmZKQU9BTkVLNEI5MkozWHBjamdrZ0g2K05PS3JGUGpmRnFlcURZclly?=
+ =?utf-8?B?MUM0QW4vbXo5T0I0ZFlUdXQ2RDZVWUpTa3A5NjJrclRMTjhOQlBsL1BKVWtP?=
+ =?utf-8?B?SUJKL0hTdnNXUXlETlB2WVNzU0NwbEQ0Ny9jMks1dUNmaVd4US80QTRZcUZ5?=
+ =?utf-8?B?THhlajhodjNSUVpWQ0tGa2QvVUMzU2k2VDJYTWFNRTNtVlZFQTZ0dWsydXcr?=
+ =?utf-8?B?R2pLbHRmQzRhSDNMaUgwRzNtNmVXM3ZhQmVoUTNFMHR4VDQ1RjVxaWc3MU1D?=
+ =?utf-8?B?ODhndWgzS081eGJuS3pNcjQ0STRoOWx0V1YvU21HZk84R0djWnVLcEROQkNR?=
+ =?utf-8?B?VXRFbktmNUdvWndTU1pieDNHU0hLbTNrU0g3K1B4akQ5eTY1Qlh3SVNYcXBD?=
+ =?utf-8?B?STIvRVVjNzJqWlVCYy96bHhqTUsyMmdDZ2syRGwxYUx3ZjNMWmV4WmVJUnBt?=
+ =?utf-8?B?c2diT1lqYTk1QnR2NDVFV2EwU1U2NGl3YjNJYjBYY3E1MWVwVVpqYTdpV091?=
+ =?utf-8?B?b0orWW5IandmQzhDMm9lT0hnRTYrTmcra0tZMjNid1dYZ3c2QlhqdHhFV3dE?=
+ =?utf-8?B?OXFWZVhkRTMzUEt1OFpFQTl3a2xFbzdtakhudzg5WFR2NDZGTmxtWUNSc0dh?=
+ =?utf-8?B?SDgvem4zVDRXeEUzQ2c0d2N3cndoOTJPOTZqbnFtMEVlMVFnQys3YkZVTy9Q?=
+ =?utf-8?B?d0pYakJmL0srUm9iVEtOdVNzSVk3d0c0eWxUaVUyTjVVRWNmRDB3b1RKcENa?=
+ =?utf-8?B?K0wzVEIzSWR6bVgvbUpGYXNIeW1qaFRjNDVrcXNKNUNCZHdJdDdlSzRPbUtV?=
+ =?utf-8?B?TzQ1bVBiQ3BDNnBnMW5zbUJoMlFpZ2FyMXo4NHFsbjhVVWlrOVVqejZod0ZL?=
+ =?utf-8?B?OE5hZkZ2bmdURG5rK3cwY0d0Rnd3NjErdGQweGdnME5NN01sTGV6ZGZwZFJC?=
+ =?utf-8?B?Y2hPaGF1MStJTEVmVThXbUZtQ295aU04dkZZZWkzVkZJaHhWUDB4bEtYcFdD?=
+ =?utf-8?B?eSt3eFNqaEVLQ0RKckl2TEtmR3pyUDI5eHhTbmQ2enBxSkdLZjZjaWQrNTY5?=
+ =?utf-8?B?VldHbmdkV0RxZDg3TXl3cDdFRTNsekF4bFlBWWpQQ1dwMEc1L2ZqQnVCTHRC?=
+ =?utf-8?B?YTZINGk0Tlg0TXdmTFhBS08zdlFJT0lzbzlyQncwSktwamZBTkdER2UzNDN6?=
+ =?utf-8?B?V2RWSHJON0dxL3dIQWltZ2R1K0NzT1VtZFhzR0xFZWFhSzZkaW5rUHFwVnE2?=
+ =?utf-8?B?bitYWXRJcW1UMi82L0EvbVRVV3llQTREN0dwc3I5UUh5WllKT2NhSmVXdmNZ?=
+ =?utf-8?Q?tkag155qZ5wdgsoL2u?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1529c8a8-0155-4cdc-6024-08dea114917b
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Apr 2026 08:44:44.8094 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gfh83GPBk2qL37vWqM7tLzYL9+iUjcBPA+iS09Nqn0NRVYZ9CBiTl6pYsXJ5lS1r
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8410
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,63 +146,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 22-04-2026 21:17, Dmitry Baryshkov wrote:
-> On Wed, Apr 22, 2026 at 02:54:09PM +0530, Ekansh Gupta wrote:
->> For any remote call to DSP, after sending an invocation message,
->> fastRPC driver waits for glink response and during this time the
->> CPU can go into low power modes. This adds latency to overall fastrpc
->> call as CPU wakeup and scheduling latencies are included. Add polling
->> mode support with which fastRPC driver will poll continuously on a
->> memory after sending a message to remote subsystem which will eliminate
->> CPU wakeup and scheduling latencies and reduce fastRPC overhead. In case
->> poll timeout happens, the call will fallback to normal RPC mode.  Poll
->> mode can be enabled by user by using FASTRPC_IOCTL_SET_OPTION ioctl
->> request with FASTRPC_POLL_MODE request id.
+On 4/22/26 22:41, Matthew Brost wrote:
+> On Wed, Apr 22, 2026 at 09:41:54AM +0200, Christian König wrote:
+>> On 4/22/26 09:32, Tvrtko Ursulin wrote:
+>>>
+>>> On 21/04/2026 02:26, Matthew Brost wrote:
+>>>> Triggering kswap at an order higher than beneficial_order makes little
+>>>> sense, as the driver has already indicated the optimal order at which
+>>>> reclaim is effective. Similarly, issuing direct reclaim or triggering
+>>>> kswap at a lower order than beneficial_order is ineffective, since the
+>>>> driver does not benefit from reclaiming lower-order pages.
+>>>>
+>>>> As a result, direct reclaim should only be issued with __GFP_NORETRY at
+>>>> exactly beneficial_order, or as a fallback, direct reclaim without
+>>>> __GFP_NORETRY at order 0 when failure is not an option.
+>>>>
+>>>> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+>>>> Cc: Carlos Santa <carlos.santa@intel.com>
+>>>> Cc: Christian Koenig <christian.koenig@amd.com>
+>>>> Cc: Huang Rui <ray.huang@amd.com>
+>>>> Cc: Matthew Auld <matthew.auld@intel.com>
+>>>> Cc: Matthew Brost <matthew.brost@intel.com>
+>>>> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>>>> Cc: Maxime Ripard <mripard@kernel.org>
+>>>> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+>>>> Cc: David Airlie <airlied@gmail.com>
+>>>> Cc: Simona Vetter <simona@ffwll.ch>
+>>>> CC: dri-devel@lists.freedesktop.org
+>>>> Cc: Daniel Colascione <dancol@dancol.org>
+>>>> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+>>>> ---
+>>>>   drivers/gpu/drm/ttm/ttm_pool.c | 4 ++--
+>>>>   1 file changed, 2 insertions(+), 2 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
+>>>> index 26a3689e5fd9..8425dbcc6c68 100644
+>>>> --- a/drivers/gpu/drm/ttm/ttm_pool.c
+>>>> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
+>>>> @@ -165,8 +165,8 @@ static struct page *ttm_pool_alloc_page(struct ttm_pool *pool, gfp_t gfp_flags,
+>>>>        * Do not add latency to the allocation path for allocations orders
+>>>>        * device tolds us do not bring them additional performance gains.
+>>>>        */
+>>>> -    if (beneficial_order && order > beneficial_order)
+>>>> -        gfp_flags &= ~__GFP_DIRECT_RECLAIM;
+>>>> +    if (order && beneficial_order && order != beneficial_order)
+>>>> +        gfp_flags &= ~__GFP_RECLAIM;
+>>>>         if (!ttm_pool_uses_dma_alloc(pool)) {
+>>>>           p = alloc_pages_node(pool->nid, gfp_flags, order);
+>>>
+>>> I missed this conversation so don't know if this was discussed -
+> 
+> I meant to CC you here, but missed including you.
+> 
+>>> having less of 64k pages is not a concern? I mean slightly higher TLB pressure etc on hardware which supports this PTE size.
 >>
->> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
->> ---
->>  drivers/misc/fastrpc.c      | 148 ++++++++++++++++++++++++++++++++++--
->>  include/uapi/misc/fastrpc.h |  25 ++++++
->>  2 files changed, 166 insertions(+), 7 deletions(-)
+>> At least for AMD GPUs 64k doesn't matter at all.
 >>
->> @@ -2331,6 +2446,22 @@ static const struct fastrpc_soc_data default_soc_data = {
->>  	.dma_addr_bits_default = 32,
->>  };
->>  
->> +/*
->> + * Older platforms that use default_soc_data but whose DSP firmware
->> + * supports the FastRPC polling mode.
 > 
-> There should be a comment, "don't add more platforms to this list".
-What if in future any platform is enabled that is based on older archs,
-i.e. doesn't use kaanapali compatible but supports polling mode. In that
-case this list might require an addition.
+> Same on Intel GPUs for system memory mappings - it is either 4k or 2M
+> GPU pages. VRAM can we 64k pages but that isn't involved here.
 > 
->> + */
->> +static const struct of_device_id fastrpc_poll_supported_machines[] __maybe_unused = {
->> +	{ .compatible = "qcom,qcs8300" },
->> +	{ .compatible = "qcom,qcs9100" },
+>> There was a large push from the Windows side to use that size, but we have more than enough evidence to prove that this size is actually completely nonsense for almost all use cases.
+>>
+>> I have no idea how we ended up with that in the first place.
+>>
+>> It could be that there is still HW out there which can only handle that size, but in that case such HW should just set beneficial_order to 64k.
+>>
 > 
-> Use qcom,sa8775p instead. See sa8775p-ride boards.
-> What about qcom,sar2130p?
-> qcom,sc8280xp?
-> qcom,milos?
-I'm checking for these platforms also. Will add if these are supporting
-polling mode.
+> Or we move to a table config if we find drivers have multiple
+> beneficial_orders.
+> 
+>>> Also, does clearing __GFP_RECLAIM disable compaction completely and is that wanted?
+>>
+>> Oh good point, most likely not.
+>>
+> 
+> Without completely reverse engineering the core MM, I'm not sure here.
 
-//Ekansh
+IIRC (and I'm seriously not an expert for all the details here):
+
+__GFP_DIRECT_RECLAIM is throwing things out which we can trivially reload from file system, e.g. memory backing mapped files.
+
+__GFP_KSWAPD_RECLAIM unmaps anonymous pages and eventually queues them up to be written into the swap. And the hope is that when those are faulted in again they eat up only single 4k pages instead of blocking a larger order.
+
+If I'm not completely mistaken pages actually don't need to reach the swap for this to work, it's mostly just defragmentation of the pages into larger orders.
+
+__GFP_RECLAIM is both of the above together.
+
+> I just read the kernel doc for __GFP_KSWAPD_RECLAIM [1] and this to
+> indicate if this is clear compaction won't be entered.
+
+I think we want to avoid only direct reclaim, because __GFP_KSWAPD_RECLAIM just eats up idle CPU cycles (you need to be OOM before it starts to actually use swap) but I'm not 100% sure either.
+
+Regards,
+Christian.
+
 > 
->> +	{ .compatible = "qcom,sm8450" },
->> +	{ .compatible = "qcom,sm8550" },
->> +	{ .compatible = "qcom,sm8650" },
->> +	{ .compatible = "qcom,sm8750" },
->> +	{ .compatible = "qcom,x1e80100" },
->> +	{ .compatible = "qcom,x1p42100" },
->> +	{},
->> +};
->> +
->>  static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
->>  {
->>  	struct device *rdev = &rpdev->dev;
+> Matt
 > 
+> [1] https://elixir.bootlin.com/linux/v7.0/source/include/linux/gfp_types.h#L198
+>  
+>> Regards,
+>> Christian.
+>>
+>>>
+>>> Regards,
+>>>
+>>> Tvrtko
+>>>
+>>
 
