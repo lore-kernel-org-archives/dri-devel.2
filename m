@@ -4,115 +4,159 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DA38FDEE46
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 19:51:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B47C8FDEE48
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 20:03:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A716510E378;
-	Thu, 23 Apr 2026 19:51:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4A3610E373;
+	Thu, 23 Apr 2026 20:03:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="DW9uTNCL";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="AJOuOCUB";
 	dkim-atps=neutral
-Received: from mail-dy1-f228.google.com (mail-dy1-f228.google.com
- [74.125.82.228])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44EEA10E378
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 19:51:45 +0000 (UTC)
-Received: by mail-dy1-f228.google.com with SMTP id
- 5a478bee46e88-2de831d2b20so5741646eec.1
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 12:51:45 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776973904; x=1777578704;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=mDgjcwSWdYwxL54oH1hVd28cbBxQ5LB849t/d+J86/w=;
- b=W1MNZA59mqemNsBurhKhY8EUgbFoxZHxF+WL7cTSo1fl0u+KmXNrRCLm1qdFULst0j
- LrAXimWT8le0342H2bbr827DYbtOgvoWXk2oFfS26q9bAeaf5Uxi0ymPpV70MohV922B
- mbJPS6GfZ1MqwZJeAqRFiGg01+G60gKch9+oC14RN1fZsaApo0oX+uqMdZLbOkqMghd2
- 3sDA9BsbYb3/gOVldgUc7Blczslh/0iO6TBAGp6i4FL8oX8x6F0U/LqKk8GpY0SwphJs
- QgVy92sLbSLG02LhscH2BqtGCFjuwBceYHikJVD8r+9zElHakCRgejkORB/Ol/bshZAb
- LvMQ==
-X-Forwarded-Encrypted: i=2;
- AFNElJ8aTSRnc2lyk+yKgthaOPZZpieicEvChbsGaXWabzPEFgfN/fMXfHCwXOFfLfez+qAqMsDpYhbrzAU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyEpbCMn+rJJgxlqD1H5+iG/XTiWjwCu64w5ftubZ/iAA4omrIw
- M4DLYR4xXJ5ysbcf/5CsGoxHlEff0tTKnmZaItCF3tWZLJJjpgDCptoeIjWJmcwOTj0VKHw0Asj
- JiuIDYcFmDqHBOhPQons9ox6ck+67bo+EGZ1vqjN5U438kVkN5tdw0S7PtG/cAZ4UfzIR7O4VLF
- 7qqv3HZm5Q/3T4QvO4GrjSTWJTdnt5TRVD/9A7dUZRuHKTCnUNAA8vSMtEgQRG5HeZ7YdFp5hbM
- 90es7/B4NP2QZSKbnZb
-X-Gm-Gg: AeBDietq4E4W+BmPMQD8nagbR37OgVFU4lqEguo8yr0a65GeTsid4lGc6UIi4ELzR1A
- vN/uy+LPvtBOpIxdwRRBqIAS4029dvuqpXKwI3NsDxhTzybqE9KzmphzaXlmB+55ElnN+r8VmD/
- YUiLlTrA20VEJ7tEIdbR0RwRV5LigNU+QrmwPCh8n//yySH1ulLq/TwVoFb882ASawZSWKb0o6/
- 5EkF5V+lzug2p5LTo8IPYUDEmS3wy7XfUS8HVZI3hDvs4neAwk69mNy2GNU3aOHS76jU633r9XQ
- +ivVBPrP9f/ipy8xvrNjYyom4TSxBlFpRbS5tOymExYedAVkBG8zz/wEsQsrFJN/Ofbyc5q2rM7
- s2gnN2mN8OH2Ne2bSiM/4BzeXaqBwv1h8sJY0T7//oV2LbvAuobh964BuO+LyNNLXxm4vE9+iSI
- muL0agTw0dlEEKlF93zsAKEBHqHYDh//meZFjumAUUehVT56nKU5TdIGElZ2Pa0PSC
-X-Received: by 2002:a05:7022:688b:b0:12b:fc21:874d with SMTP id
- a92af1059eb24-12c73f92ec9mr15901086c88.19.1776973904018; 
- Thu, 23 Apr 2026 12:51:44 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-17.dlp.protect.broadcom.com. [144.49.247.17])
- by smtp-relay.gmail.com with ESMTPS id
- a92af1059eb24-12dbc37d48esm500902c88.5.2026.04.23.12.51.43
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 23 Apr 2026 12:51:44 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-lf1-f71.google.com with SMTP id
- 2adb3069b0e04-5a2aea62d7dso4016975e87.1
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 12:51:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776973901; cv=none;
- d=google.com; s=arc-20240605;
- b=BsQ+J18xV1GGY2nGpwPuGY2TKJzFS/Kbnf0Sw+Py7kms/KMEPoF/aQn93/MJ1x3cCo
- 9LIFxyeRT9YKtJ6U7eu9S6A9kJiCGld4qhwKciu8KbBrKnZekin+Z37uBWah3rJ+0fy5
- aF1iRNIvxWyotPZTzGJRFH87Njun8hWxm4TyfFX/FFtOG341z4w8NXcFaFcMXSsE6rHU
- IHW7+rWBNvc0ENEKNIfNSFcgEP8uEKyMPth5yKS5BWMqHmD/db77J64hkJgn11mvbMxm
- 7PrAhGS3YviauWwml0k6nO15e73ti+ho7y+QtMrSyi+jPDSeDhN7zf7sRgKGxmEojre+
- eGRQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=mDgjcwSWdYwxL54oH1hVd28cbBxQ5LB849t/d+J86/w=;
- fh=QYvlj/rqceSaSlQ+uMwnARqMjlS4TSQuBrW8cuJRpE8=;
- b=l1qZ01pxkfozdWRR5DycGjNCB0UtUl07Wp3cHYIdQPKWNPfAeSnBivgm4GHdFrArdm
- DxI02GyuzKqoWNcRGDrDQxOTp0qgdoKBUPDakm87Qvx479nux2Vi3ClZR+oCEs5CEcqX
- cFBDhTFQVvLMtMDML2hnOxraTnQvA7bEnF0nasAjdijvVrERhhS1ob1T7nR5kZcZ6lFT
- VdVVBEplYxQm5H7ufHRseg1OPnyt/3qPFybFZ5Djfhh3x8Lc67D8yAaWBFHQ0IJqxPZs
- c38rsh4Nyz+5B6idVIZVicLiQnxtpwXCZi+0LfOSsa6jSjDpmHJsUwJH95SC4qS5OBxN
- Y2Ig==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1776973901; x=1777578701;
- darn=lists.freedesktop.org; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=mDgjcwSWdYwxL54oH1hVd28cbBxQ5LB849t/d+J86/w=;
- b=DW9uTNCLtX62xB4ONN2VYEabS76k/eE+hdJaPY3TBRtAr7L6AFQjCNQJbXnk8qLcYV
- IhetnIIedcRqD/hjgATRKQpVTgyfcJkuke5zbP56EwiIQmXwnmKSlPWEZ4HiZVt+FRXF
- gxQku8T9Gsu//Bw/KpwiNLBOQO4F4KWrf3mbk=
-X-Forwarded-Encrypted: i=1;
- AFNElJ/xyFNbz98fb0PXqNC1ShlT5PtZM2g0RwNZcVv5zFpwZ8LHv/tYGmJXE8jrcIy5YRHxDbdFEBO2Ghs=@lists.freedesktop.org
-X-Received: by 2002:a05:6512:158a:b0:5a4:157:5354 with SMTP id
- 2adb3069b0e04-5a4172c376bmr9273969e87.12.1776973901497; 
- Thu, 23 Apr 2026 12:51:41 -0700 (PDT)
-X-Received: by 2002:a05:6512:158a:b0:5a4:157:5354 with SMTP id
- 2adb3069b0e04-5a4172c376bmr9273960e87.12.1776973900944; Thu, 23 Apr 2026
- 12:51:40 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C62C10E373;
+ Thu, 23 Apr 2026 20:03:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1776974584; x=1808510584;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=mR5zidtMdk1Ywvr8ph6Q23e6wvhT37OKHten4UO3TDE=;
+ b=AJOuOCUByUE/GGpwuArp3AYMNqq5nEiBG2MYpEc68b9iklMyO/RZ8c4s
+ JByxiflg3jRCy/V4i3UfmXR7q17MoqUXqE9wclgBAKtv6aDHpmcm3jG/0
+ MOY6+B/AaUleWClUInyK+Ed9drI4w7K8NmGVvSvJJVLPLPh1kmRDwoRNu
+ JaZSx4n+nuQh6s+L1MtGx7iiA5NVw92w2ACj05ZqOZ1yaUoWku+ROC3+K
+ ejxxtICItbVO46g2cVgQqQyn0mzYCFnAUn5jdFXpYdjulZGkGxlR/2yPz
+ OoRQ+wH57yxVJDtHUjjk3OBYJ+bTMYir0HJVEkvHgQtyrewYkia8BGrcH Q==;
+X-CSE-ConnectionGUID: EsfQG8AEQPCH3JLJnUCSKw==
+X-CSE-MsgGUID: UFKIN7J/RCOJm8VFgT2qDg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11765"; a="77121310"
+X-IronPort-AV: E=Sophos;i="6.23,195,1770624000"; d="scan'208";a="77121310"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Apr 2026 13:03:04 -0700
+X-CSE-ConnectionGUID: EaHqKzbtQW+ZBWLXVVhoag==
+X-CSE-MsgGUID: Yo05Gj4mSmSAp7eoVlppDw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,195,1770624000"; d="scan'208";a="237104982"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+ by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Apr 2026 13:03:03 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Thu, 23 Apr 2026 13:03:02 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Thu, 23 Apr 2026 13:03:02 -0700
+Received: from BYAPR05CU005.outbound.protection.outlook.com (52.101.85.63) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Thu, 23 Apr 2026 13:02:59 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Cp/CCg1KYm5RbTa0Mtg1byAZfwH7XoLxmtkVP7YuWvC76NtAJjPCMfzHpbO4gn8rDwdG3YGKQavX3dIYTrFgs2g8VC6gkuqZJoBwqx4K4+cpWWsXLbqJmzGW2o/5s3wmZXPBPWd/F3J3uvyIg+PCcIPPeZkq9ryvbrP8jvhtk0acUEpL+G+8WPu+YVNmBB54HhmDHiZvJ6UUjKcbsY17kXPnu509JZ2GSCLmdjGK+X29SMw6mKF7uaNJUe+r3/eTzETJH8YU+A8rR4Np4+xKHqIwrUEZwvLBpV1IPJiCw0euAX05lI33VTqEedR6amO6GR+3nzu9+QsGwuKd5r03nA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Goy1PSYUfhTN9A/s/UokCuS93CT46O39s5zBL+tDKMc=;
+ b=mMfx3CoYDaJzIZpMNFjcMMXLikQWtYWQU2qEziYOSyS1r3EdobiizvgJQU35MxHVCn2SUwKNYOYPhp0/MEGyg53seRJNeBqPJqROhLxCrqreIIEg1Vcs39lbQiD6VJDzIoPzLd+YRKnpjoZ320/vZeyyDYoz/Bb/ZjnicUiCRX8kJCEx1P37DeN3c4ocaavcJkL4bnVtYRtyke/b3aD/lelYWLnvQhpn32c5yUKymkyfAAbMQ7SWaiIFlo30Yk/DIvEOgXMRpvZ6bsXyELhEZUOoTAC3KvyogxtolckBWXYjFT8LHqfGz+bRBVQxUtT3pQAFEpOyNuSqlTF9pHEa1w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
+ by CH3PR11MB8415.namprd11.prod.outlook.com (2603:10b6:610:17b::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.18; Thu, 23 Apr
+ 2026 20:02:56 +0000
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c%7]) with mapi id 15.20.9846.021; Thu, 23 Apr 2026
+ 20:02:56 +0000
+Date: Thu, 23 Apr 2026 13:02:53 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: "Huang, Honglei1" <honghuan@amd.com>
+CC: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ <Felix.Kuehling@amd.com>, <Alexander.Deucher@amd.com>, <Oak.Zeng@amd.com>,
+ <Jenny-Jing.Liu@amd.com>, <Philip.Yang@amd.com>, <Xiaogang.Chen@amd.com>,
+ <Ray.Huang@amd.com>, <Lingshan.Zhu@amd.com>, <Junhua.Shen@amd.com>,
+ <rodrigo.vivi@intel.com>, <thomas.hellstrom@linux.intel.com>,
+ <dakr@kernel.org>, <aliceryhl@google.com>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>
+Subject: Re: [RFC/POC PATCH 01/12] drm/amdgpu: add SVM UAPI definitions
+Message-ID: <aep67Z1YrJBtf+27@gsse-cloud1.jf.intel.com>
+References: <20260420120739.1811731-1-honglei1.huang@amd.com>
+ <20260420120739.1811731-2-honglei1.huang@amd.com>
+ <cda09d5d-4cca-46a1-8625-fe9fa687e5a2@amd.com>
+ <50d13ae3-be27-4b79-91ef-e1b386054943@amd.com>
+ <54bb7286-2ffb-47f0-b37d-83b5c39ad9a0@amd.com>
+ <9e2bee93-306a-4ef0-80be-daed33c8bbb5@amd.com>
+ <7a3ebad2-839a-4a88-911f-c9bb7be3b00e@amd.com>
+ <daa7239f-7fc9-492d-849f-2d46bd84999b@amd.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <daa7239f-7fc9-492d-849f-2d46bd84999b@amd.com>
+X-ClientProxiedBy: SJ0PR13CA0180.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c7::35) To PH7PR11MB6522.namprd11.prod.outlook.com
+ (2603:10b6:510:212::12)
 MIME-Version: 1.0
-References: <20260305134122.246884-1-tzimmermann@suse.de>
- <20260305134122.246884-3-tzimmermann@suse.de>
-In-Reply-To: <20260305134122.246884-3-tzimmermann@suse.de>
-From: Zack Rusin <zack.rusin@broadcom.com>
-Date: Thu, 23 Apr 2026 15:51:26 -0400
-X-Gm-Features: AQROBzDmq941QoCEfG5AMGFIvOUUb82XQlAh0Xd-IJT04hdv3jhDUyz9KcHcCco
-Message-ID: <CABQX2QN=8Ko==iZAn06vRqhuUB=h76Ye96hnuJ_WTLy4EbGapg@mail.gmail.com>
-Subject: Re: [PATCH 2/3] drm/vmwgfx: Move vblank handling into separate helper
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: bcm-kernel-feedback-list@broadcom.com, maarten.lankhorst@linux.intel.com, 
- mripard@kernel.org, dri-devel@lists.freedesktop.org
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature";
- micalg=sha-256; boundary="00000000000032fdaa065025fa9f"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|CH3PR11MB8415:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0eed44ba-9907-4fa9-885d-08dea1734fba
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|7416014|1800799024|376014|18096099003|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 2M3h5dSyimuw5dJhlXj1yG6YqBeuf7VOsBgsBnBWVIMiYt7NDFMpgth8akN48SZA30x8zUHilcJKVMksEUm/PgHdGwcB5lG/VGEyXu82AIq08TBQehSZsIP5c0gYn5QtpfaJDDOwIBtCby0TA8vv56xOW3L2U0eAC1td3cSTV2d2SnbuG9fUTCiE0s+M8u1h4mrZCE8+TCG/FcivbigkFL59gcsFz7lA6ctfj+4AcQYYbZU07RE5/JlXERyWGM94ZvYMAYihCHe7dudHtZZJrzZ+jH1satbbQQTL3o8eyEhReESW1SAP4K90Fbt6gdEH93Xc16uYdl4wJnPeDuxP/9BuJa2i5C/8JkbzpVZ0SB0IJT26z7UIcJVppRTsPj8vZhGzlfebZGNGnvlsYhbzkIB4NBn3Fd24SnpXjA5QP3sMBkrmanXc18YlBHixJwH7EuyD2Sxpwjq9hyN+Rjy5kCT3BQYJF5XP7UEEGn7JipOrXzNVf6eryUY4KU1bnpR8iNSijWBPXifvp1z5odQSzgoiiwWbvH8OQrNottuQqjiRoyGokqxIGa/xddZuGXj4GKXTNxyiQm9CQLrVJVuKNu5uZGTm294day2ru4yCHPzoomiPUwiy+812S/wMLsxWfyTr7F2VYuv46qYfVKKoE8kImsdmdhGsxk5WaAVo10DCMvXfr1HOQ98CkMeI9sVH
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(7416014)(1800799024)(376014)(18096099003)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?2PyUlKQAHuPtUK6pqrTBUWs2C6S1lAQhgT5Xq95YnqIDRbzb+lPEqEDomz?=
+ =?iso-8859-1?Q?V1WQG8rN7peHcterahIYZnklEJ8rlojtvE/JZWY8OJA5OuzlVu4VaeOWlW?=
+ =?iso-8859-1?Q?KbO2iWYK8IEkP0merf6zIZOoK0Slkp3L3b7b6kHFFAw00MXJPsAtOwXKxY?=
+ =?iso-8859-1?Q?i+TXS1iSEI8x3XXv6nOCgr6z/KQ+nUfOlEq8rLa0KxvNHOTd3L6DibPT2Y?=
+ =?iso-8859-1?Q?eITsSSKm4imxg69Q2yNZE4TI+N4adVpxd4RMH6Jm4W7UkVPK2h+CpHvpoC?=
+ =?iso-8859-1?Q?aJNBPbkqqvXbq5A0NkkoHTINkviiCBMNR8f135J4fBO5v+b79kii5D4hi6?=
+ =?iso-8859-1?Q?DXZK1PMjo2EoS/9OmBXJOX/04DZjHwAubfQ5MJnKpq/lt5qoZqiHEqgy/P?=
+ =?iso-8859-1?Q?nYGdk2+Log6VWSr0I08kIEUVj5ovmWEx403qpPH0K8d2uDIuE7ntcZFKxY?=
+ =?iso-8859-1?Q?1UvTtsXwpm8SpZkDOYrhS5Wrwq7qQFPG9rJcCieY/ulMHGwwtYJNTicrgs?=
+ =?iso-8859-1?Q?hckxrD52nnCUi4i+QUB1dfn/bCZzzvxBKtJp8jIQqxeMNKGqQy2D/21P3V?=
+ =?iso-8859-1?Q?himuV+LbUL+czo5eofA17h7APnbm5ifyx14GSsLcsvXcA2bDyPMYtJ7vOU?=
+ =?iso-8859-1?Q?d9Pk7wl36+zl/c/KkxNFL4PHOgOuqmaJqyn1A1QpeYvhSGICIED2+bOkAB?=
+ =?iso-8859-1?Q?Zvs1X6kMJkr33yQMZ0mCQFkCVBcNcaJbY5XjZKVskWT6faratnE9iJG8mi?=
+ =?iso-8859-1?Q?XcBKLrGWxPNfHk4bWJhqEUZFCIq7+Tr4ZYP6PCvekw0Br4aa8ekilLC/TQ?=
+ =?iso-8859-1?Q?J7IInbCtNbPJpDc74CcCREPsye/rx1YJIfXiWBhtPXS6biDFjQoVZRrZY8?=
+ =?iso-8859-1?Q?G1I0SaRa+to73dtNnrPgJGrUMRYe1oxIyQRL+G4FRdfbgcIhp7LcvgwQNP?=
+ =?iso-8859-1?Q?8MazkZazeKCihk+8fhKfHVhFFNWK9eAtr0eK0jUa1T/9KRP57zhTPhVLEF?=
+ =?iso-8859-1?Q?6I4EqpaZnOJq9rjpvHhXRxxfQqH6qKjwbwaaG5erVZbuJvws4it3Q+fMpy?=
+ =?iso-8859-1?Q?ql/y3HZ7dGseQOYHgTtM6rEtdUwQyn1iBDyRooVfOaCl/vXPrWXW0r2iPl?=
+ =?iso-8859-1?Q?dQ72KH72pEIPC1BKah8kKXvqxN3ubVakSFBLwRTXO1hOhFRRKvR1gU8itK?=
+ =?iso-8859-1?Q?qH1aQb+9kC/CB7S+SB5GH9U2GR2WQqx5cnilq5/XC6fOuiWZiI4/Om9B5M?=
+ =?iso-8859-1?Q?BFeX8g2tVdV9+0wMFGqoYzZtaKbtmWT0RB/bPDprfWde3fw80+8mRFjR9V?=
+ =?iso-8859-1?Q?k46B2qjEYlyQBsGsXJOD4ZrLka3NxQRef/Gq9tbsIckRXcU5BUVqX8LyCE?=
+ =?iso-8859-1?Q?pe1MM9kmRQ7HeA0G1zB43OcqaaoDTjsgg2kUtQTnvgCbruE2pW6ERoH8LV?=
+ =?iso-8859-1?Q?DwJg7gmtPGttHbIZ/MMXs9DN60AJlnjnWezBZAj3J3B10oJpJ6xzzKgEUl?=
+ =?iso-8859-1?Q?9pNlMBDa9PIbrmo+8SAkevpHemtwClTlqs4nfOIwTFoxjRgAMfchqM7bK5?=
+ =?iso-8859-1?Q?rPa+VXFFSCz1LBO+39zXDZ17l/og5NnhprkO/nfcW10L0frGSYS1N333Rn?=
+ =?iso-8859-1?Q?FtzFCgKNH1kRYFvyHZ9I52RWoAteO9V+PbdLor16FWj6UnamdYkcGEzVNE?=
+ =?iso-8859-1?Q?+nKWn4TRzRMMbFBCx8T6XNzwFWazKdnxkYLfeS3emvkCgT0bOEeQO0cXW4?=
+ =?iso-8859-1?Q?nJz7yltPmTfc6drdO1wlV766hRXUk8nEQYr4Ewfk7wQ3weWHL3m0zjB2Tn?=
+ =?iso-8859-1?Q?xnk/T+Feaw=3D=3D?=
+X-Exchange-RoutingPolicyChecked: H/wXZGlAnEHjno3PAR3wqKCdaVm7GIlQGhHH73Wk1IwYCczFjltNBiSYB1aGU6O2hfL2pi/uSNg+brGM0Le3VewWUY/smHiORJrsGz8E3X0ELQZqwYBoajkmlIeKSeAFBSE0px8YLXARXUbfavdfJhkG4E/4x+9CYe0HEsWl/BOrMBqPW/PwV5xneePjTwbv1BUwGSMIez7bVDun6/fgLNPdRbFH7Lm5SkwEipQp/pfqEj2WKJRRu0Cd4ufHDIzzfqjoP6MOuado9d7mHzurfR06wdrkMbi6b2K3YIhihR9TsLBID4eGJP0UrhUUa4wnIOSO/20/pPdAL7TSkriAWw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0eed44ba-9907-4fa9-885d-08dea1734fba
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Apr 2026 20:02:56.6035 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IxadEME5SCH4mfsahVaXBBT4YJU9f/sG/aKeZcz4C+2163zRubBC9Mi+JrU9aBxMzMfw8k0y4e6lsQAhTTFRHA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB8415
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,169 +172,235 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---00000000000032fdaa065025fa9f
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Thu, Apr 23, 2026 at 07:06:43PM +0800, Huang, Honglei1 wrote:
+> 
+> 
+> On 4/23/2026 6:39 PM, Christian König wrote:
+> > On 4/23/26 08:21, Huang, Honglei1 wrote:
+> > > 
+> > > 
+> > > On 4/20/2026 11:37 PM, Christian König wrote:
+> > > > On 4/20/26 15:30, Huang, Honglei1 wrote:
+> > > > > On 4/20/2026 8:15 PM, Christian König wrote:
+> > > > > > 
+> > > > > > 
+> > > > > > On 4/20/26 14:07, Honglei Huang wrote:
+> > > > > > > From: Honglei Huang <honghuan@amd.com>
+> > > > > > > 
+> > > > > > > Add amdgpu drm SVM API definitions built on the
+> > > > > > > DRM GPUSVM framework.
+> > > > > > > 
+> > > > > > > This includes:
+> > > > > > > - DRM_AMDGPU_GEM_SVM ioctl
+> > > > > > > - AMDGPU_SVM_FLAG_* flags
+> > > > > > > - AMDGPU_SVM_OP_SET_ATTR / AMDGPU_SVM_OP_GET_ATTR operations
+> > > > > > > - AMDGPU_SVM_ATTR_* attribute types
+> > > > > > > - AMDGPU_SVM_LOCATION_SYSMEM / AMDGPU_SVM_LOCATION_UNDEFINED
+> > > > > > > - struct drm_amdgpu_svm_attribute and struct drm_amdgpu_gem_svm
+> > > > > > > 
+> > > > > > > Signed-off-by: Honglei Huang <honghuan@amd.com>
+> > > > > > > ---
+> > > > > > >     include/uapi/drm/amdgpu_drm.h | 39 +++++++++++++++++++++++++++++++++++
+> > > > > > >     1 file changed, 39 insertions(+)
+> > > > > > > 
+> > > > > > > diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+> > > > > > > index 406a42be4..bed71ed9b 100644
+> > > > > > > --- a/include/uapi/drm/amdgpu_drm.h
+> > > > > > > +++ b/include/uapi/drm/amdgpu_drm.h
+> > > > > > > @@ -58,6 +58,7 @@ extern "C" {
+> > > > > > >     #define DRM_AMDGPU_USERQ_SIGNAL        0x17
+> > > > > > >     #define DRM_AMDGPU_USERQ_WAIT        0x18
+> > > > > > >     #define DRM_AMDGPU_GEM_LIST_HANDLES    0x19
+> > > > > > > +#define DRM_AMDGPU_GEM_SVM        0x1a
+> > > > > > >       #define DRM_IOCTL_AMDGPU_GEM_CREATE    DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
+> > > > > > >     #define DRM_IOCTL_AMDGPU_GEM_MMAP    DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
+> > > > > > > @@ -79,6 +80,7 @@ extern "C" {
+> > > > > > >     #define DRM_IOCTL_AMDGPU_USERQ_SIGNAL    DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_SIGNAL, struct drm_amdgpu_userq_signal)
+> > > > > > >     #define DRM_IOCTL_AMDGPU_USERQ_WAIT    DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_WAIT, struct drm_amdgpu_userq_wait)
+> > > > > > >     #define DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_LIST_HANDLES, struct drm_amdgpu_gem_list_handles)
+> > > > > > > +#define DRM_IOCTL_AMDGPU_GEM_SVM    DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_SVM, struct drm_amdgpu_gem_svm)
+> > > > > > >       /**
+> > > > > > >      * DOC: memory domains
+> > > > > > > @@ -1665,6 +1667,43 @@ struct drm_color_ctm_3x4 {
+> > > > > > >         __u64 matrix[12];
+> > > > > > >     };
+> > > > > > >     +#define AMDGPU_SVM_FLAG_HOST_ACCESS        0x00000001
+> > > > > > > +#define AMDGPU_SVM_FLAG_COHERENT        0x00000002
+> > > > > > > +#define AMDGPU_SVM_FLAG_HIVE_LOCAL        0x00000004
+> > > > > > > +#define AMDGPU_SVM_FLAG_GPU_RO            0x00000008
+> > > > > > > +#define AMDGPU_SVM_FLAG_GPU_EXEC        0x00000010
+> > > > > > > +#define AMDGPU_SVM_FLAG_GPU_READ_MOSTLY        0x00000020
+> > > > > > > +#define AMDGPU_SVM_FLAG_GPU_ALWAYS_MAPPED    0x00000040
+> > > > > > > +#define AMDGPU_SVM_FLAG_EXT_COHERENT        0x00000080
+> > > > > > > +
+> > > > > > > +#define AMDGPU_SVM_OP_SET_ATTR        0
+> > > > > > > +#define AMDGPU_SVM_OP_GET_ATTR        1
+> > > > > > > +
+> > > > > > > +#define AMDGPU_SVM_ATTR_PREFERRED_LOC        0
+> > > > > > > +#define AMDGPU_SVM_ATTR_PREFETCH_LOC        1
+> > > > > > 
+> > > > > > Up till here the interface makes perfect sense, but then it becomes a bit fuzzy.
+> > > > > > 
+> > > > > > > +#define AMDGPU_SVM_ATTR_ACCESS            2
+> > > > > > > +#define AMDGPU_SVM_ATTR_ACCESS_IN_PLACE        3
+> > > > > > > +#define AMDGPU_SVM_ATTR_NO_ACCESS        4
+> > > > > > 
+> > > > > > Why are those separate attributes? What is the difference between those?
+> > > > > 
+> > > > > Really thanks for the comments, I have some content mistaken in V2, so I updated the V3 to fix that. For the header they are same. for other content please review the V3, sorry about that. And will fix the concern you raised in next version.
+> > > > > 
+> > > > > So the meaning of AMDGPU_SVM_ATTR_ACCESS and AMDGPU_SVM_ATTR_NO_ACCESS are clear, GPU can access it or not, and the SVM can set the preferred location, it can be in VRAM or system, for AMDGPU_SVM_ATTR_ACCESS it can be migrated between RAM and VRAM. For AMDGPU_SVM_ATTR_ACCESS_IN_PLACE,
+> > > > > it can not migrate, GPU only can access it in the initial place.
+> > > > 
+> > > > Yeah but that doesn't then the interface doesn't seem to make sense since such states are mutual exclusive.
+> > > > 
+> > > > It would make sense when you have some attribute which is named (for example) AMDGPU_SVM_ATTR_ACCESS which can have the values INACCESSIBLE, IN_PLACE, MIGRATE.
+> > > 
+> > > Got it so can I change the UAPI to the following format?
+> > > 
+> > > enum amdgpu_ioctl_svm_attr_type {
+> > >      AMDGPU_IOCTL_SVM_ATTR_PREFERRED_LOC,
+> > >      AMDGPU_IOCTL_SVM_ATTR_PREFETCH_LOC,
+> > >      AMDGPU_IOCTL_SVM_ATTR_ACCESS,
+> > >      AMDGPU_IOCTL_SVM_ATTR_SET_FLAGS,
+> > >      AMDGPU_IOCTL_SVM_ATTR_CLR_FLAGS,
+> > >      AMDGPU_IOCTL_SVM_ATTR_GRANULARITY
+> > > };
+> > > 
+> > > enum amdgpu_ioctl_svm_location {
+> > 
+> > The enum name could probably be improved, but apart from that looks reasonable to me.
+> 
+> Will improve the name.
+> > 
+> > >      AMDGPU_SVM_ACCESS_INACCESSIBLE = 1,
+> > >      AMDGPU_SVM_ACCESS_IN_PLACE = 2,
+> > >      AMDGPU_SVM_ACCESS_MIGRATE = 3,
+> > > };
+> > > 
+> > > > 
+> > > > > > > +#define AMDGPU_SVM_ATTR_SET_FLAGS        5
+> > > > > > > +#define AMDGPU_SVM_ATTR_CLR_FLAGS        6
+> > > > > > 
+> > > > > > Why is that separated into set and clear flags?
+> > > > > 
+> > > > > This method inherits from KFD and is also designed to be compatible with upper layer applications such as ROCR.
+> > > > 
+> > > > That is *not* sufficient as justification. We need to document why that is necessary and *not* just say ROCR works that way.
+> > > > 
+> > > > As far as I can see just a SET_FLAGS should be sufficient.
+> > > 
+> > > Accoding to the reply form Felix, CLR_FLAGS provides a convenient method for deleting large-scale flags, do we need to redesign this part?
+> > 
+> > I think we should expose those flags as individual attributes then.
+> 
+> Got it will do.
+> 
+> > 
+> > > > 
+> > > > > > > +#define AMDGPU_SVM_ATTR_GRANULARITY        7
+> > > > > > > +
+> > > > > > > +#define AMDGPU_SVM_LOCATION_SYSMEM        0
+> > > > > > > +#define AMDGPU_SVM_LOCATION_UNDEFINED        0xffffffff
+> > > > > > 
+> > > > > > No location for device local memory?
+> > > > > 
+> > > > > Vaule > 0 means for device memory, in xe_svm, it seems like it uses fd for device local memory.
+> > > > 
+> > > > Absolute clear NAK for that approach. This interface is per FD!
+> > > > 
+> > > > We need some value AMDGPU_SVM_LOCATION_DEVICE which means that the memory should be migrated to the current device.
+> > > > 
+> > > > We also need to make sure that setting attributes for different devices doesn't affect each other.
+> > > 
+> > > 
+> > > I Totally agreed with your thoughts, but according to the reply from matt, it seems like we need to consider the P2P/multi GPU situation.
+> > 
+> > When the drm_svm or pagemap component has already code to deal with that then it is probably ok to have the same interface.
+> > 
+> > When when XE only hacked that together on their own then that is a bit questionable because getting the lifetime right is usually tricky.
+> >
 
-On Thu, Mar 5, 2026 at 8:41=E2=80=AFAM Thomas Zimmermann <tzimmermann@suse.=
-de> wrote:
->
-> Decouple vblank handling from the underlying hrtimer. This will be
-> helpful for replacing vmwgfx's vblank timer with DRM's common
-> implementation.
->
-> The new helper vmw_vkms_handle_vblank_timeout() can later be used as
-> callback for DRM's handle_vblank call as-is. The remaining code in
-> vmw_vkms_vblank_simulate() will be replaced by the DRM implementation.
->
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> ---
->  drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c | 37 +++++++++++++++++++---------
->  drivers/gpu/drm/vmwgfx/vmwgfx_vkms.h |  1 +
->  2 files changed, 26 insertions(+), 12 deletions(-)
->
-> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c b/drivers/gpu/drm/vmwgf=
-x/vmwgfx_vkms.c
-> index 7862f6972512..15439ddd4f22 100644
-> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c
-> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c
-> @@ -157,27 +157,19 @@ crc_generate_worker(struct work_struct *work)
->                 drm_crtc_add_crc_entry(crtc, true, frame_start++, &crc32)=
-;
->  }
->
-> -static enum hrtimer_restart
-> -vmw_vkms_vblank_simulate(struct hrtimer *timer)
-> +bool
-> +vmw_vkms_handle_vblank_timeout(struct drm_crtc *crtc)
->  {
-> -       struct vmw_display_unit *du =3D container_of(timer, struct vmw_di=
-splay_unit, vkms.timer);
-> -       struct drm_crtc *crtc =3D &du->crtc;
-> +       struct vmw_display_unit *du =3D vmw_crtc_to_du(crtc);
->         struct vmw_private *vmw =3D vmw_priv(crtc->dev);
->         bool has_surface =3D false;
-> -       u64 ret_overrun;
->         bool locked, ret;
->
-> -       ret_overrun =3D hrtimer_forward_now(&du->vkms.timer,
-> -                                         du->vkms.period_ns);
-> -       if (ret_overrun !=3D 1)
-> -               drm_dbg_driver(crtc->dev, "vblank timer missed %lld frame=
-s.\n",
-> -                              ret_overrun - 1);
-> -
->         locked =3D vmw_vkms_vblank_trylock(crtc);
->         ret =3D drm_crtc_handle_vblank(crtc);
->         WARN_ON(!ret);
->         if (!locked)
-> -               return HRTIMER_RESTART;
-> +               return true;
+The drm_pagemap has a refcount which prevents it from disapearing. The
+refcounting is a little tricky but Thomas wrote it down here [1].
 
-Should this be false? Or is the common layer handling timer restarts
-differently?
+A shrinker is wired to drm_pagemap which when refcount is zero the
+drm_pagemap can reclaimed (i.e., free all device pages) as this is a
+non-trivial amount of memory (1/64 of VRAM size).
 
-z
+If drm_pagemap doesn't exist or has been reclaimed, next use (e.g.,
+create a VM on a device, madvise on pagemap on a report device, etc..)
+the drm_pagemap will be created. 
 
---00000000000032fdaa065025fa9f
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
+[1] https://elixir.bootlin.com/linux/v7.0/source/drivers/gpu/drm/xe/xe_svm.c#L32 
+ 
+> > > 
+> > > So do I need to add a AMDGPU_SVM_LOCATION_DEVICE  flag or do I need to modify the UAPI to align with xe_svm?
+> > 
+> > I think we need to full clarify how XE works here. E.g. that you can specify both 0 as well as give the fd to get the memory migrated to the local device sounds odd.
 
-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
-6U6qgI8F5eiKsQyE0HgYrQJx/sDs9LLVZlaNiA3U8M8CgEnb8VhuH3BN/yXphhEQdJXb1TyaJA60
-SmHcZdEQZbl4EjwUcs3UIowmI/Mhi7ADQB7VNsO/BaOVBEQk53xH+4djY/cg7jvqTTeliY05j2Yx
-uwwXcDC4mWjGzxAT5DVqC8fKQvon1uc2heorHb555+sLdwYxAgMBAAGjggHYMIIB1DAOBgNVHQ8B
-Af8EBAMCBaAwgZMGCCsGAQUFBwEBBIGGMIGDMEYGCCsGAQUFBzAChjpodHRwOi8vc2VjdXJlLmds
-b2JhbHNpZ24uY29tL2NhY2VydC9nc2djY3I2c21pbWVjYTIwMjMuY3J0MDkGCCsGAQUFBzABhi1o
-dHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMwZQYDVR0gBF4wXDAJ
-BgdngQwBBQMBMAsGCSsGAQQBoDIBKDBCBgorBgEEAaAyCgMCMDQwMgYIKwYBBQUHAgEWJmh0dHBz
-Oi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAkGA1UdEwQCMAAwQQYDVR0fBDowODA2
-oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCIG
-A1UdEQQbMBmBF3phY2sucnVzaW5AYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
-A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBQNDn2m/OLuDx9YjEqPLCDB
-s/VKNTANBgkqhkiG9w0BAQsFAAOCAgEAF463syOLTQkWZmEyyR60W1sM3J1cbnMRrBFUBt3S2NTY
-SJ2NAvkTAxbPoOhK6IQdaTyrWi8xdg2tftr5FC1bOSUdxudY6dipq2txe7mEoUE6VlpJid/56Mo4
-QJRb6YiykQeIfoJiYMKsyuXWsTB1rhQxlxfnaFxi8Xy3+xKAeX68DcsHG3ZU0h1beBURA44tXcz6
-fFDNPQ2k6rWDFz+XNN2YOPqfse2wEm3DXpqNT79ycU7Uva7e51b8XdbmJ6XVzUFmWzhjXy5hvV8z
-iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
-3CxrVqXUKm93J+rupyKVTGgKO9T1ODVPo665aIbM72RxSI9Wsofatm2fo8DWOkrfs29pYfy6eECl
-91qfFMl+IzIVfDgIrEX6gSngJ2ZLaG6L+/iNrUxHxxsaUmyDwBbTfjYwr10H6NKES3JaxVRslnpF
-06HTTciJNx2wowbYF1c+BFY4r/19LHygijIVa+hZEgNuMrVLyAamaAKZ1AWxTdv8Q/eeNN3Myq61
-b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
-VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
-VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
-QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEINqJ
-dtFBCLfc/KeAkdSGIsE+Yl0jxD62IG7qqytn1z2BMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
-HAYJKoZIhvcNAQkFMQ8XDTI2MDQyMzE5NTE0MVowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
-ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
-YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAHONw0BsT8WXP3VolCyCYJ1oPFuGFXv2VJsOn74p
-Xtf2s06axtxv04tCPkFFQQAyzQx+EEJhtHQaSa/HgR7DXKir1phC/0sc9FpAlcqDSBSfT9eLnXWY
-3KFhdzcTd0N3EjBid/ZPDJRrasoJcuKzz60S1FaTcuPKipb5FbZUE+xF8VOBL/UoNOFcMl71F2vN
-KcDKilnlSYABdZsQTA3ddy+XoNxkBC3MHqOa/v4DoQvT8kyy/mg4Mg+gr7eFR1UwBNa8pBNoQnWx
-CT2S2q/l7qofpLt/WWcu7NTBQTBTeOo7GnCKdxIINQNKt83AZU6VmENF2HJqc0mdwztOCWAxlzQ=
---00000000000032fdaa065025fa9f--
+Yes, the oddity is partly because madvise / multi-gpu landed out of
+order and the pushback on exporting drm_pagemaps as FDs. Making
+everything FDs is a completely reasonable uAPI IMO. You'd have to have
+system memory FD though but that seems possible.
+
+Matt
+
+> 
+> Got it, for this part maybe require more discussion and time to fully
+> understand, so this part will remain unchanged in the next version.
+> 
+> Regards,
+> Honglei
+> 
+> > 
+> > Regards,
+> > Christian.
+> > 
+> > > 
+> > > Regards,
+> > > Honglei
+> > > 
+> > > > 
+> > > > Regards,
+> > > > Christian.
+> > > > 
+> > > > > 
+> > > > > > 
+> > > > > > > +
+> > > > > > > +struct drm_amdgpu_svm_attribute {
+> > > > > > > +    __u32 type;
+> > > > > > > +    __u32 value;
+> > > > > > > +};
+> > > > > > > +
+> > > > > > > +struct drm_amdgpu_gem_svm {
+> > > > > > > +    __u64 start_addr;
+> > > > > > > +    __u64 size;
+> > > > > > > +    __u32 operation;
+> > > > > > > +    __u32 nattr;
+> > > > > > > +    __u64 attrs_ptr;
+> > > > > > > +};
+> > > > > > 
+> > > > > > Those struct make perfect sense but clearly need documentation. Preferable as kerneldoc.
+> > > > > > 
+> > > > > > And we usually use unions in this header to separate the input from the output parameters.
+> > > > > 
+> > > > > Got it will add documentation for it and will use unions in next version. Really thanks for the comments.
+> > > > > 
+> > > > > Regards,
+> > > > > Honglei
+> > > > > 
+> > > > > > 
+> > > > > > Regards,
+> > > > > > Christian.
+> > > > > > 
+> > > > > > > +
+> > > > > > >     #if defined(__cplusplus)
+> > > > > > >     }
+> > > > > > >     #endif
+> > > > > > 
+> > > > > 
+> > > > 
+> > > 
+> > 
+> 
