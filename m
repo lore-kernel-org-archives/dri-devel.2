@@ -4,79 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17772F9EDFE
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 07:09:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90539F9EDFE
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 07:11:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E81A10E11A;
-	Thu, 23 Apr 2026 07:09:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC42C10EF7F;
+	Thu, 23 Apr 2026 07:11:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PGx1MrPg";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="dNAa3Nt2";
 	dkim-atps=neutral
-Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com
- [74.125.224.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A851910EF7F
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 07:09:27 +0000 (UTC)
-Received: by mail-yx1-f42.google.com with SMTP id
- 956f58d0204a3-651c8371ed5so3666687d50.2
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 00:09:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776928167; x=1777532967; darn=lists.freedesktop.org;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=+G5xDeM2eEmKTciid+jelsafennvBZ1THzAZAjB59Gk=;
- b=PGx1MrPgdVRDIecpo16TdPSHyFVo/7Zobq2bipHeGPIeweC26NfHoGKDt5twpviXrY
- h2TiUhca/z8Bm6CcUALCDXznxdYGfcCveY89/4P0pmu9rb3Y1y7FQETgzH+LKYc2pKUN
- okvdwEcAAMNLOqGzFHuj5ygH3XJGmekpBl3xK/+YM2D7ZVCXr4hNKsZFk+LCrjFVN993
- +8MR+kJdiuamWTTzSW8k6UJJqlirnYUTzRplo0uJut9STpxujL75Ua7t9A8fVOoR15Sv
- XyoiyhrcOsh5Q1u52Pk6HRD+Pv5fjM8rkB4jK1aW9Sr4kGHtC6baliwM6qo2y4A9lM/6
- wlTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776928167; x=1777532967;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=+G5xDeM2eEmKTciid+jelsafennvBZ1THzAZAjB59Gk=;
- b=apCl8dvOTwVwLsLdOOkisyRvb7afiTc3d+WtpBa8ZLheuash7r2LkutJHrX03kTuFd
- LFLkijezE3oiiJcoi2rrzYuICTvmtgp13XMe9VyMrcGp8hVgF0ffHpyNZVEULLangxCY
- xnaL81S/v200eDHbAG/9ZPyJSY8QeeFYp1UfFOtuQPk1BAAITwAEopFN3Uqed4EDJScB
- TzkSHNp9WhPAomtBTPFzKPhOFQkb1HEf81IubWxmTaL7UvcEkC6fQhIxYC/uhMeQrvaZ
- wVipnTyfOtICPCNgCChlBbrwqCQzLxNfQqBFqKCRxDu9It0pPqx3Kl1ncWkerjUrLVb7
- F3GQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9odi79UrQL0rvaqz/lvdofB8Dhz37s2ZBShbROS6rJiDlkRm3WhRClEsXgpQh8ZLbHU67L8fjJswQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyBxzK2dSPQupDDIXAkABiHWSiiS7lL6ag41qHStbjvVJax0gKW
- ex7C8VCvILmM3wWetKlwVUeaNYEyCyOSXcbWaXPQqkzSDvHGxJpbYsRD
-X-Gm-Gg: AeBDievqfzO7it2r0oMzizp93J9odaqdMPKEiByxjbF+eX7K5luphQ110rmWdMW3o8t
- r5P/mWnY5J9PqfxPFRf5NYdldyvmXrRqMeNmlO07YL0I7fWkQk0+dJ0RlrdAzvBF3O1vNBOcurf
- TMLqzl4e1shnbBnI+maH+j47DEqynuACeHNvxS4ztAMuz8vfxzPfx/5fy6tlxtsTORu/TdBcAho
- 9hHGlTBSrue0A6aOy0PC9nR0veVImoEQwQD+CKDDGqsl464Vm+fpRysUqfx6xG6mAn+2mW8hpIS
- NbxaVZwQYWCGO1ra48wmRj+WqXEKIp9ZU2WmBXtmh/E+JB61XCa/pMMhLlRKOxngGZ8AOJiDNi6
- SKdxbnsvzgxCNTWTPr4uNjOyLehr2xNLevJ+dMs588vCD90EVBegzdpPHCmw7/3CoDVF7EpiLcb
- zmao49jVnvcTmzNxDwt+kDmHegfBp6
-X-Received: by 2002:a05:690e:4850:b0:649:e871:3eb7 with SMTP id
- 956f58d0204a3-65310b03ee5mr15847316d50.57.1776928166757; 
- Thu, 23 Apr 2026 00:09:26 -0700 (PDT)
-Received: from localhost ([172.216.252.33]) by smtp.gmail.com with ESMTPSA id
- 956f58d0204a3-65314e328d6sm8799738d50.11.2026.04.23.00.09.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Apr 2026 00:09:26 -0700 (PDT)
-Date: Thu, 23 Apr 2026 10:09:20 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>
-Cc: Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Chenyu Chen <chen-yu.chen@amd.com>, Ray Wu <ray.wu@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
-Subject: [PATCH] drm/amd/display: Clean up allocation in
- initialize_backlight_caps()
-Message-ID: <aenFoICS1syeOPEm@stanley.mountain>
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012060.outbound.protection.outlook.com [52.101.48.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3F5810EF7F
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 07:11:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KOX2Zl/L4ZIYcrlYFMHAlbHQBl1Vd7sNo2QNEqaKGzt4rFR0hcf2FYqRA3ELmaYi08B4U9SIPVe76OG9h7fl9cl1n/YT1huDqcynFR/84r6caIIWqsOqGBL3zjO0Z+6TsWpnKCU6jbnkMlO6Ydk614AKacX/tP2+nH+B6T0gIp/kwHPMZRF9/45VZgZZ5J393+bVnoBD6G4wAh1cjhl489qUnNVhHm0WLGRWn0USUSA0CORavyBofFgZhdBMEeskcRXftCwmICobd2LvxqsqnR++gsKoHTo9lBRoLDaIrlM+wgB1Lu+/yRvmI/1EibWsU3cYnIQNjteXYRbqrXMXzg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=23klcSpBwOrWMnj4W6OMfxrsqzWazM7/GWkl72Ayycw=;
+ b=fYN44A7pjOYjcyGWQNA8xRbMLcqMwc9cbL3aXF+rITV7toO2z5kzWLfPNG6KRATdB0FumZkqAdgVo2X/ot3bleNnN7EiozIKcj9p0p7AGQY6oV3Dl0ENVVoCsCMJ/lrUXEh32rpvK45U0MPHQwIBD/1QB/REfSunyUZA2jR0sFUtgFCGChV4EY1+CwW42OqDCpwzd0I6/sZoyttZUM8ZmmIthQZCzevGnRL/vDAZkSsdkLmeHBtYWpliuspVOrNgTOUkzg4LFg5fgt3HdwujxujgUUOSToKk2PmoBOPdQPKo/in7YaYM0C5JMXhBvOcwrUSlr1581z4Kqm3Hlos2og==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=23klcSpBwOrWMnj4W6OMfxrsqzWazM7/GWkl72Ayycw=;
+ b=dNAa3Nt2EgfUJmtyVwaL5nfkx4yf0u+l7G8O5QtG4Jf7U2ktLckLGV+DXQo4R0bcgolScZnGmUAimojpxeCRYdSCur5N3yoult6jTqm/SKS7FsAdPOPF5L2CYy9KzI9ZfGX+/xWUwuP7eIKWWxgUGzrDRcNnksnqqyCdhSiiICe7eNrUy+rEym0ZDeVmVAQowQfDUP3hwettKznRtMARRkLl8hkwvnrMHhtaQ0o/SVl/YM6WKmVrbMyjyvrPlmwuiV/VSFoVdsJCYXN8Yw5B34gtHy8x0JRFsJcjnekU/cW59JyH8GxjetqQLDyu+CADtgVSUkTaeJlDDmiEmF7GlA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
+ by CYXPR12MB9426.namprd12.prod.outlook.com (2603:10b6:930:e3::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.16; Thu, 23 Apr
+ 2026 07:11:51 +0000
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.20.9846.019; Thu, 23 Apr 2026
+ 07:11:51 +0000
+From: Eliot Courtney <ecourtney@nvidia.com>
+Date: Thu, 23 Apr 2026 16:11:44 +0900
+Subject: [PATCH] gpu: nova-core: simplify and_then with condition to filter
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260423-fix-filter-v1-1-b3b197c65daf@nvidia.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDEyNj3bTMCiDOKUkt0rVMtDQzNzRMMjc2SVYCaigoSgXKgg2LjoXwi0u
+ TslKTS0AmKNXWAgAhA4bxbgAAAA==
+X-Change-ID: 20260423-fix-filter-9a96711b734c
+To: Danilo Krummrich <dakr@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, Alice Ryhl <aliceryhl@google.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>, 
+ Joel Fernandes <joelagnelf@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
+ rust-for-linux@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Eliot Courtney <ecourtney@nvidia.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: TYCPR01CA0013.jpnprd01.prod.outlook.com (2603:1096:405::25)
+ To BL0PR12MB2353.namprd12.prod.outlook.com
+ (2603:10b6:207:4c::31)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Mailer: git-send-email haha only kidding
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|CYXPR12MB9426:EE_
+X-MS-Office365-Filtering-Correlation-Id: 025c477b-f145-46b8-e6b9-08dea1079788
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|10070799003|376014|18002099003|56012099003; 
+X-Microsoft-Antispam-Message-Info: C23YGWy16HlB8VePt6hbq4QTVmlDA8vA//UMqXSrAGtR4jfi/5DI/khGKujHhpNUy2aXHeNoiF1VkpkhqtcaXhlv9P6diLkr/Y8Miu0AuNxc8KACwfmZD/OkIFkHiYFvmQ4TFIr13BqLMvd61AP/jLaOckPqJ+PW+mlphv7SMdy3km/jPrmSISJ2HsG+0pPaoxAdu9ibIRjXj1my3WrA4hQzUfqywygdzrRUN/uodsf96muLvSN4i3nqUUUDKWQDz3YepjsR59mkC21x+jjK5vFliryd0h8E9QEvcZpZ/f1fHUfTUCjsBVB8qURDfzxZVbS/T93K1I12UAoYPnh0BBuJqgRcgBpeeM0YYxycgwIyZa1+GVyzyPXOpAXAk3Y8R/DmQAI0PaAsSPG7t9eRuvhKuuhudGSsFD4gOsoHUUNXj5G7hS+l9I+5XhaCyaZKhuDkuDUpce/qs7dA88Op/5yLF8+rqym+IXLaXFCKg4GoVhcvIO6PA/qwaKlbh2qbp+mN09gU9CSUjaKWYrB1CvYk2VphnPP2pNT5qO9bHC6ae+dBNIf7W9YRr5mXEfhe8cATvDliRQgg+JCFRR+bGey081HVagkUEPsLyTl7/GUwL6A4s7q1JR1dWYGsAKHpHIBRG8R70eYmPNpqVLoc47dmGhR/hzYptzSfzj5L/9e8FCtZySeydT2K0uBIuiqD3iFT6hVf6W11ciMSKrhE5gRhQ6Z4uO5CozZVAYP63qU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(10070799003)(376014)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N1Z2M1dyeGJ4U3Rwa0pmUXZGS2dQdkt3VVhBVW1vMkY5TWdKVDdsemdKUjJH?=
+ =?utf-8?B?ZE5TZEFLTjZqMld2dDE3YkdvZzQ4N1lQV0ZNL0Vud1d6UkwzTzJjZ2RjdDVX?=
+ =?utf-8?B?V3l1eUxKUytmVmRXUElZbU40cXRZbTFBRzRYcUxudFBNQ056L3ZtQnJTZHYw?=
+ =?utf-8?B?WUZaSHgwRXJXU0JKQVNvZ09zbGUwL3lTWVAwNHlwUHVOWk8ySjA4eGdSRU5T?=
+ =?utf-8?B?NWFZcnJsWXRMZTNxNXNEcXJCcDZHYkN2emg0eFVqK0xLVFZpOXNhN3JRWWRK?=
+ =?utf-8?B?U1VrTmwwcmxsQVp2TU16M3FGUC9veWMwWnhoN1JraktUVEloUEY3OTNxbmtS?=
+ =?utf-8?B?czd4L3RIWG9IamFpUXc5cUVibUZjN0czaFpNVjUrbUpGVk5SMXQzVyt6Z0NE?=
+ =?utf-8?B?cjRLeVhnSTZtV1I0NmNpUnF1UlZXWnUwRS9ZTEFWWHM3RHkzR1VQVCtBbnZF?=
+ =?utf-8?B?ampza0l3VWFsUXc3aWMyQUdYQjZGTmdYOU4zOHI3Z29Ecit6c0IxTVF5bDE2?=
+ =?utf-8?B?ZG9TY3YvTlBwK21Fd2x1Wk9KVVg5M1pRejFvZUhvVHZwTXBHWmJya3Y4WXBO?=
+ =?utf-8?B?Q2RBdWVNdkdkc3FhU2dxRG5CMUtkeThwaGVKZ2l3c0dhbXdPL0p2eW9IVW44?=
+ =?utf-8?B?bXNobnV4Q0RKODBINTR6U2p5bVZpYVBqcmhzQjFFWXNZcnJtMlNmUjA4OXJk?=
+ =?utf-8?B?VTAwd2ppK3BMb29zYTh4RHRRRUxYRXN2VHNQYVJNTmNUTkl5ajhEcktQVzVF?=
+ =?utf-8?B?ZmU4SmJXaG1ERW9USHdkTlFPSTF1K29HZFhBUXErMzdCb2w0NlZPMk1Pckdo?=
+ =?utf-8?B?ZVhIVk1lQW54eDhDMDV1QVR6d3I5cC83aU9FUDNPS1lZK1VjUTB4NU9SdEFX?=
+ =?utf-8?B?OGZhUmx4dDk3QmpQanBzekZRdFIxN0ZRemdtUmtpa0tPa2hRaUdXb2c5Wk8z?=
+ =?utf-8?B?ZmNoMGJHdC9qWitEeXNGRmVacTBlcnRubXpGeDIvK3g1MjhoK0RxTlQ4Qkg5?=
+ =?utf-8?B?Qk9CSGNsNUl0V2VDWEhEOGxTWUxpMHZMckFqWUhLci8vY1h6UUt2YXBSb05O?=
+ =?utf-8?B?SFpualhWNC9PblpBTUtKdC9Xdmk1dWhZSU9wL1pZN3d5NDZXdjd6QUVQTmZZ?=
+ =?utf-8?B?QWU4RW5oejg0Mld1dkk5WDhEZmlwSWNGMk9TRkw4L3lCSTZlNmM1WDZOTEJS?=
+ =?utf-8?B?WmduWmpLY3E1WWowbktwNHMwWFZyaUt3ZDFYZzZBUG1FUWtQVlYweGVjRzVp?=
+ =?utf-8?B?WFI0SlE2cmZsaHdabUdiUG11YWwzbW9ERk5neFBGQkVFYTdCL0cvUzJWcWtP?=
+ =?utf-8?B?by9keFNLZHNVTnh2eERwMkhzSjZRMC96aGFYcURmeWlNOUlNeiswK1J4bmtT?=
+ =?utf-8?B?RU9ITVR0UjRVbmE5VitheFhhb1pjcUNBcytRLzZZbmQ3dFZnSVYxR1M4V2c2?=
+ =?utf-8?B?V0pKRXkxYnJZT3lmUXF0WmhZMk5FK0pjdW5hNHF4YkNLcG9uZXpJT1AzTGZ6?=
+ =?utf-8?B?Vmx1Q2QxblhsSVFkZkx5Q1VsUzlkNUprTkxNMlBDbXBFNU9ZY3J3cHIrNlJn?=
+ =?utf-8?B?MjNjcnQraWJrRWRtTzZWL0NRUVBTeU1iTjdlVGIzUTVXMEtud2VkeUVwVFNS?=
+ =?utf-8?B?eklFVGpWVlp3MGE4Y2N4ZXM3SG8zbWk3cGo5Qjk0dndYNHZtY0svVG9xa2Vp?=
+ =?utf-8?B?ZWlGUDlRaFRDdEU1dVQvQTJmUi9NNUxyakdLby92UjVJOFRJb2ltaTJBRHhF?=
+ =?utf-8?B?Nko4SnhleVFPQVNOOUNSOXppOTRQaTVyczZYY3BOMFRMOFBrZTRoVEZsTXUx?=
+ =?utf-8?B?QXZ3Qmt3NUttMUwwUjMvTHRtRmk2SnNZRmhrTnhBb1l0bTNUQVJrY1FyZHdo?=
+ =?utf-8?B?V3Zxa1llRktvZUNtYllmeXhVK3E4ZjNuUTdiU3UvcTJOMTIvQVQ1WHRMSVdZ?=
+ =?utf-8?B?WHJQWlo4MlpiZU1QcFpNamdCNE01Yk5JYjEydzB4UGVvL2hmY0JIZjArRnRR?=
+ =?utf-8?B?d2xobXVJTG9xcy83LzRzdTJXNHR4TDhWc2V0Q2R1ZGFkUFpHSUZPWk5TYSs0?=
+ =?utf-8?B?bzdGcDU4cG9oTjV6R3psNzVLeFZTc2tYNmd3MXoyNzJyeVBZRFN3dDZRNUFp?=
+ =?utf-8?B?ZnU3WVFUbHZPWUsyOHJjSlg4Y1p5TG8yMzl0dFpWUnYvRWJ5MnU1REY3U2tV?=
+ =?utf-8?B?NXpJZXJDT2ZTdHRtcU5KaHlGZlJ5NUF6Q0xzc1k1VGN0Qkk3YkR2dUJxOERS?=
+ =?utf-8?B?WXloaVY3U3BnZVlmOTNicElEdEVJRnd6NmJiMlFpUFpjbnNHMysrOTNZVHZi?=
+ =?utf-8?B?TkRHZ3F6aG5XTEhMNE9hcHFqK1VSc2R6a1lVVnBTeXBHZ1dUbzZyNC80OTF5?=
+ =?utf-8?Q?Dm6XRD+UuAsoFaxbhNdQPDSeaLwFkGmN3CYsc338E3zEq?=
+X-MS-Exchange-AntiSpam-MessageData-1: 4T3MKP/EqpCWMA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 025c477b-f145-46b8-e6b9-08dea1079788
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Apr 2026 07:11:51.4057 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TSlvijEzkP5XEsBDlNCcC9LgKcGnx7LfvIuX/tsbmr/MgmAivMzJAP7dvJhyqk20ydkwA9FsgG4Bmn053u+KPQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9426
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,55 +143,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Just a small cleanup:
-1) Remove unnecessary initialization.
-2) Use the new kzalloc_obj() macro.
-3) Reformat the NULL check to make checkpatch happy.
-4) Remove the unnecessary NULL check before kfree() since the pointer
-   is not NULL and anyway kfree() accepts NULL pointers.
+This code is more simply expressed using Option::filter instead of the
+and_then with conditional.
 
-Signed-off-by: Dan Carpenter <error27@gmail.com>
+Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 ---
- drivers/gpu/drm/amd/display/modules/power/power.c | 12 ++++--------
- 1 file changed, 4 insertions(+), 8 deletions(-)
+ drivers/gpu/nova-core/firmware.rs | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/modules/power/power.c b/drivers/gpu/drm/amd/display/modules/power/power.c
-index 6c73fecf57d5..68b5b3b967be 100644
---- a/drivers/gpu/drm/amd/display/modules/power/power.c
-+++ b/drivers/gpu/drm/amd/display/modules/power/power.c
-@@ -470,7 +470,7 @@ static bool validate_ext_backlight_caps(
- static void initialize_backlight_caps(struct core_power *core_power, unsigned int inst)
- {
- 	unsigned int i;
--	struct dm_acpi_atif_backlight_caps *ext_backlight_caps = NULL;
-+	struct dm_acpi_atif_backlight_caps *ext_backlight_caps;
- 	bool custom_curve_present = false;
- 	unsigned int num_levels = 0;
- 	struct dc *dc = NULL;
-@@ -486,11 +486,8 @@ static void initialize_backlight_caps(struct core_power *core_power, unsigned in
- 	/* Allocate memory for ATIF output
- 	 * (do not want to use 256 bytes on the stack)
- 	 */
--	ext_backlight_caps = (struct dm_acpi_atif_backlight_caps *)
--		(kzalloc(sizeof(struct dm_acpi_atif_backlight_caps),
--				GFP_KERNEL));
--
--	if (ext_backlight_caps == NULL)
-+	ext_backlight_caps = kzalloc_obj(*ext_backlight_caps);
-+	if (!ext_backlight_caps)
- 		return;
- 
- 	/* Retrieve ACPI extended brightness caps */
-@@ -611,8 +608,7 @@ static void initialize_backlight_caps(struct core_power *core_power, unsigned in
- 		}
- 	}
- 
--	if (ext_backlight_caps != NULL)
--		kfree(ext_backlight_caps);
-+	kfree(ext_backlight_caps);
- 
- 	/* Successfully initialized */
- 	core_power->bl_prop[inst].backlight_caps_valid = true;
--- 
-2.53.0
+diff --git a/drivers/gpu/nova-core/firmware.rs b/drivers/gpu/nova-core/firmware.rs
+index 6c2ab69cb605..3aac073efee2 100644
+--- a/drivers/gpu/nova-core/firmware.rs
++++ b/drivers/gpu/nova-core/firmware.rs
+@@ -388,13 +388,7 @@ fn new(fw: &'a firmware::Firmware) -> Result<Self> {
+             // Extract header.
+             .and_then(BinHdr::from_bytes_copy)
+             // Validate header.
+-            .and_then(|hdr| {
+-                if hdr.bin_magic == BIN_MAGIC {
+-                    Some(hdr)
+-                } else {
+-                    None
+-                }
+-            })
++            .filter(|hdr| hdr.bin_magic == BIN_MAGIC)
+             .map(|hdr| Self { hdr, fw })
+             .ok_or(EINVAL)
+     }
+
+---
+base-commit: a7a080bb4236ebe577b6776d940d1717912ff6dd
+change-id: 20260423-fix-filter-9a96711b734c
+
+Best regards,
+--  
+Eliot Courtney <ecourtney@nvidia.com>
 
