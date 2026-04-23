@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70A76FAD41F
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 06:41:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04F23FAD41F
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Apr 2026 06:41:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D37BF10E303;
-	Thu, 23 Apr 2026 06:41:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D70610EAE6;
+	Thu, 23 Apr 2026 06:41:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="HtKYah9u";
+	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="T04N4mNe";
 	dkim-atps=neutral
-Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com
- [113.46.200.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCF3610EF73
+Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com
+ [113.46.200.227])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D74B610EF6B
  for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 06:41:31 +0000 (UTC)
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
  c=relaxed/relaxed; q=dns/txt; h=From;
- bh=eZ4eN5J14yem8dvqeVc/cY6fm8c2X8grALdpqBJeAHs=;
- b=HtKYah9uzvfFsPfL5rWgDk0ZUDD5plNlreSLPAYWz858e7KfJV9benuTgU5/5QiPW1Sh7yu2F
- guq4tibyY3dj+BkJWagRDa3Pp30DBMjGal1+c6kkhPC5/NBCM/TA2ZBbqnx0QC/Vb4fRQzyLqiG
- aukLpp0EzuXbv4g4s8+b8Gw=
-Received: from mail.maildlp.com (unknown [172.19.163.0])
- by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4g1RCS4plSzcZyN;
- Thu, 23 Apr 2026 14:34:44 +0800 (CST)
-Received: from dggemv705-chm.china.huawei.com (unknown [10.3.19.32])
- by mail.maildlp.com (Postfix) with ESMTPS id 2B1A740537;
- Thu, 23 Apr 2026 14:41:29 +0800 (CST)
+ bh=CyxNms4u51j8X7bRCNIf3jHmlTROkjy+D77Ec+H5b7k=;
+ b=T04N4mNe07y/2L3/tntZIUGv6JGiZEjY3Q6Sn5YH70QigqyX6wTZdBmJqhZShhCWGFVIFUTf8
+ PMjS3k9FxzKoB799dJ61x7eTVWBxQ1gduzh140CuVsiBbmqcpcLwEx3DI5bmHzwHt4ujh9WR6C9
+ ItS/9XZ5VmrOxjcxffU3faw=
+Received: from mail.maildlp.com (unknown [172.19.163.127])
+ by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4g1RD44K5NznTWD;
+ Thu, 23 Apr 2026 14:35:16 +0800 (CST)
+Received: from dggemv712-chm.china.huawei.com (unknown [10.1.198.32])
+ by mail.maildlp.com (Postfix) with ESMTPS id 0933640572;
+ Thu, 23 Apr 2026 14:41:30 +0800 (CST)
 Received: from kwepemq100007.china.huawei.com (7.202.195.175) by
- dggemv705-chm.china.huawei.com (10.3.19.32) with Microsoft SMTP Server
+ dggemv712-chm.china.huawei.com (10.1.198.32) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
  15.2.1544.11; Thu, 23 Apr 2026 14:41:29 +0800
 Received: from localhost.huawei.com (10.169.71.169) by
  kwepemq100007.china.huawei.com (7.202.195.175) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Thu, 23 Apr 2026 14:41:28 +0800
+ 15.2.1544.11; Thu, 23 Apr 2026 14:41:29 +0800
 From: Yongbang Shi <shiyongbang@huawei.com>
 To: <tzimmermann@suse.de>, <dmitry.baryshkov@oss.qualcomm.com>,
  <tiantao6@hisilicon.com>, <xinliang.liu@linaro.org>,
@@ -45,10 +45,10 @@ CC: <liangjian010@huawei.com>, <chenjianmin@huawei.com>,
  <fengsheng5@huawei.com>, <shiyongbang@huawei.com>, <helin52@h-partners.com>,
  <shenjian15@huawei.com>, <shaojijie@huawei.com>,
  <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH for drm-misc-fixes v5 2/4] drm/hisilicon/hibmc: fix no showing
- when no connectors connected
-Date: Thu, 23 Apr 2026 14:32:31 +0800
-Message-ID: <20260423063233.1267631-3-shiyongbang@huawei.com>
+Subject: [PATCH for drm-misc-fixes v5 4/4] drm/hisilicon/hibmc: use clock to
+ look up the PLL value
+Date: Thu, 23 Apr 2026 14:32:33 +0800
+Message-ID: <20260423063233.1267631-5-shiyongbang@huawei.com>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20260423063233.1267631-1-shiyongbang@huawei.com>
 References: <20260423063233.1267631-1-shiyongbang@huawei.com>
@@ -75,244 +75,151 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Lin He <helin52@huawei.com>
 
-Our chip support KVM over IP feature, so hibmc driver need to support
-displaying without any connectors plugged in. If no connectors are
-connected, the vdac connector status should be set to 'connected' to
-ensure proper KVM display functionality. Additionally, for
-previous-generation products that may lack hardware link support and
-thus cannot detect the monitor, the same approach should be applied
-to ensure VGA display functionality.
+In the past, we use width and height to look up our PLL value.
+But actually the actual clock check is also necessnary. There are
+some resolutions that width and height same, but its clock different.
+Add the clock check when using pll_table to determine the PLL value.
 
-* Add phys_state in the struct of dp and vdac to check physical outputs.
-
-* The 'epoch_counter' of the vdac connector is incremented when the
-physical status changes.
-
-For get_modes: using BMC modes for connector if no display is attached to
-phys VGA cable, otherwise use EDID modes by drm_connector_helper_get_modes,
-because KVM doesn't provide EDID reads.
-
-The polling mechanism for the KMS helper is enabled.
-
-Fixes: 4c962bc929f1 ("drm/hisilicon/hibmc: Add vga connector detect functions")
-Reported-by: Thomas Zimmermann <tzimmermann@suse.de>
-Closes: https://lore.kernel.org/all/0eb5c509-2724-4c57-87ad-74e4270d5a5a@suse.de/
+Fixes: da52605eea8f ("drm/hisilicon/hibmc: Add support for display engine")
 Signed-off-by: Lin He <helin52@huawei.com>
 Signed-off-by: Yongbang Shi <shiyongbang@huawei.com>
 ---
 ChangeLog:
-v4 -> v5:
-  - The 'epoch_counter' of the vdac connector is incremented when the physical
-    status changes.
-  - The polling mechanism for the KMS helper is enabled.
+v2 -> v3:
+  - remove unused macro CLOCK_TOLERANCE.
 v1 -> v2:
-  - fix the checkpatch.pl warning "line length of 83/85 exceeds 80 columns".
   - remove tag "Reviewed-by: Tao Tian <tiantao6@hisilicon.com>", witch will
     be given in public.
   - add 'drm-misc-fixes' in subject prefix.
 ---
- drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h    |  1 +
- .../gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c    | 33 +++++++++-----
- .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   |  4 ++
- .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h   |  1 +
- .../gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c  | 45 +++++++++++++------
- 5 files changed, 60 insertions(+), 24 deletions(-)
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_de.c    | 78 +++++++++++--------
+ 1 file changed, 44 insertions(+), 34 deletions(-)
 
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
-index 31316fe1ea8d..dfaeabd05d46 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
-+++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
-@@ -55,6 +55,7 @@ struct hibmc_dp {
- 	struct drm_dp_aux aux;
- 	struct hibmc_dp_cbar_cfg cfg;
- 	u32 irq_status;
-+	int phys_state;
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
+index 89bed78f1466..1a07e8146eee 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
++++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
+@@ -32,26 +32,43 @@ struct hibmc_display_panel_pll {
+ struct hibmc_dislay_pll_config {
+ 	u64 hdisplay;
+ 	u64 vdisplay;
++	int clock;
+ 	u32 pll1_config_value;
+ 	u32 pll2_config_value;
  };
  
- int hibmc_dp_hw_init(struct hibmc_dp *dp);
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
-index 35dff7bfbf76..8fe2eb51a0b3 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
-+++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
-@@ -61,27 +61,38 @@ static int hibmc_dp_detect(struct drm_connector *connector,
- {
- 	struct hibmc_dp *dp = to_hibmc_dp(connector);
- 	struct hibmc_dp_dev *dp_dev = dp->dp_dev;
--	int ret;
-+	int ret = connector_status_disconnected;
- 
- 	if (dp->irq_status) {
--		if (dp_dev->hpd_status != HIBMC_HPD_IN)
--			return connector_status_disconnected;
-+		if (dp_dev->hpd_status != HIBMC_HPD_IN) {
-+			ret = connector_status_disconnected;
-+			goto exit;
-+		}
- 	}
- 
--	if (!hibmc_dp_get_dpcd(dp_dev))
--		return connector_status_disconnected;
-+	if (!hibmc_dp_get_dpcd(dp_dev)) {
-+		ret = connector_status_disconnected;
-+		goto exit;
-+	}
- 
--	if (!dp_dev->is_branch)
--		return connector_status_connected;
-+	if (!dp_dev->is_branch) {
-+		ret = connector_status_connected;
-+		goto exit;
-+	}
- 
- 	if (drm_dp_read_sink_count_cap(connector, dp_dev->dpcd, &dp_dev->desc) &&
- 	    dp_dev->downstream_ports[0] & DP_DS_PORT_HPD) {
- 		ret = drm_dp_read_sink_count(dp_dev->aux);
--		if (ret > 0)
--			return connector_status_connected;
-+		if (ret > 0) {
-+			ret = connector_status_connected;
-+			goto exit;
-+		}
- 	}
- 
--	return connector_status_disconnected;
-+exit:
-+	dp->phys_state = ret;
-+
-+	return ret;
- }
- 
- static int hibmc_dp_mode_valid(struct drm_connector *connector,
-@@ -243,5 +254,7 @@ int hibmc_dp_init(struct hibmc_drm_private *priv)
- 
- 	connector->polled = DRM_CONNECTOR_POLL_HPD;
- 
-+	dp->phys_state = connector_status_disconnected;
-+
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-index 289304500ab0..d409efc34215 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-+++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-@@ -24,6 +24,7 @@
- #include <drm/drm_managed.h>
- #include <drm/drm_module.h>
- #include <drm/drm_vblank.h>
-+#include <drm/drm_probe_helper.h>
- 
- #include "hibmc_drm_drv.h"
- #include "hibmc_drm_regs.h"
-@@ -162,6 +163,8 @@ static int hibmc_kms_init(struct hibmc_drm_private *priv)
- 	drm_for_each_encoder(encoder, dev)
- 		encoder->possible_clones = clone_mask;
- 
-+	drm_kms_helper_poll_init(dev);
-+
- 	return 0;
- }
- 
-@@ -279,6 +282,7 @@ static int hibmc_hw_init(struct hibmc_drm_private *priv)
- 
- static void hibmc_unload(struct drm_device *dev)
- {
-+	drm_kms_helper_poll_fini(dev);
- 	drm_atomic_helper_shutdown(dev);
- }
- 
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
-index ca8502e2760c..6abb49b5107b 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
-+++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
-@@ -31,6 +31,7 @@ struct hibmc_vdac {
- 	struct drm_connector connector;
- 	struct i2c_adapter adapter;
- 	struct i2c_algo_bit_data bit_data;
-+	int phys_state;
+ static const struct hibmc_dislay_pll_config hibmc_pll_table[] = {
+-	{640, 480, CRT_PLL1_HS_25MHZ, CRT_PLL2_HS_25MHZ},
+-	{800, 600, CRT_PLL1_HS_40MHZ, CRT_PLL2_HS_40MHZ},
+-	{1024, 768, CRT_PLL1_HS_65MHZ, CRT_PLL2_HS_65MHZ},
+-	{1152, 864, CRT_PLL1_HS_80MHZ_1152, CRT_PLL2_HS_80MHZ},
+-	{1280, 768, CRT_PLL1_HS_80MHZ, CRT_PLL2_HS_80MHZ},
+-	{1280, 720, CRT_PLL1_HS_74MHZ, CRT_PLL2_HS_74MHZ},
+-	{1280, 960, CRT_PLL1_HS_108MHZ, CRT_PLL2_HS_108MHZ},
+-	{1280, 1024, CRT_PLL1_HS_108MHZ, CRT_PLL2_HS_108MHZ},
+-	{1440, 900, CRT_PLL1_HS_106MHZ, CRT_PLL2_HS_106MHZ},
+-	{1600, 900, CRT_PLL1_HS_108MHZ, CRT_PLL2_HS_108MHZ},
+-	{1600, 1200, CRT_PLL1_HS_162MHZ, CRT_PLL2_HS_162MHZ},
+-	{1920, 1080, CRT_PLL1_HS_148MHZ, CRT_PLL2_HS_148MHZ},
+-	{1920, 1200, CRT_PLL1_HS_193MHZ, CRT_PLL2_HS_193MHZ},
++	{640, 480, 25000, CRT_PLL1_HS_25MHZ, CRT_PLL2_HS_25MHZ},
++	{800, 600, 40000, CRT_PLL1_HS_40MHZ, CRT_PLL2_HS_40MHZ},
++	{1024, 768, 65000, CRT_PLL1_HS_65MHZ, CRT_PLL2_HS_65MHZ},
++	{1152, 864, 78750, CRT_PLL1_HS_80MHZ_1152, CRT_PLL2_HS_80MHZ},
++	{1280, 768, 80000, CRT_PLL1_HS_80MHZ, CRT_PLL2_HS_80MHZ},
++	{1280, 720, 74375, CRT_PLL1_HS_74MHZ, CRT_PLL2_HS_74MHZ},
++	{1280, 960, 108000, CRT_PLL1_HS_108MHZ, CRT_PLL2_HS_108MHZ},
++	{1280, 1024, 108000, CRT_PLL1_HS_108MHZ, CRT_PLL2_HS_108MHZ},
++	{1440, 900, 105952, CRT_PLL1_HS_106MHZ, CRT_PLL2_HS_106MHZ},
++	{1600, 900, 108000, CRT_PLL1_HS_108MHZ, CRT_PLL2_HS_108MHZ},
++	{1600, 1200, 162500, CRT_PLL1_HS_162MHZ, CRT_PLL2_HS_162MHZ},
++	{1920, 1080, 148750, CRT_PLL1_HS_148MHZ, CRT_PLL2_HS_148MHZ},
++	{1920, 1200, 193750, CRT_PLL1_HS_193MHZ, CRT_PLL2_HS_193MHZ},
  };
  
- struct hibmc_drm_private {
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c
-index 841e81f47b68..dc40018dbd21 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c
-+++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c
-@@ -25,27 +25,20 @@
- static int hibmc_connector_get_modes(struct drm_connector *connector)
- {
- 	struct hibmc_vdac *vdac = to_hibmc_vdac(connector);
--	const struct drm_edid *drm_edid;
--	int count;
-+	int count = 0;
- 
--	drm_edid = drm_edid_read_ddc(connector, &vdac->adapter);
-+	if (vdac->phys_state == connector_status_connected)
-+		count = drm_connector_helper_get_modes(connector);
- 
--	drm_edid_connector_update(connector, drm_edid);
--
--	if (drm_edid) {
--		count = drm_edid_connector_add_modes(connector);
--		if (count)
--			goto out;
--	}
-+	if (count > 0)
-+		return count;
- 
-+	drm_edid_connector_update(connector, NULL);
- 	count = drm_add_modes_noedid(connector,
- 				     connector->dev->mode_config.max_width,
- 				     connector->dev->mode_config.max_height);
- 	drm_set_preferred_mode(connector, 1024, 768);
- 
--out:
--	drm_edid_free(drm_edid);
--
- 	return count;
- }
- 
-@@ -57,10 +50,32 @@ static void hibmc_connector_destroy(struct drm_connector *connector)
- 	drm_connector_cleanup(connector);
- }
- 
-+static int hibmc_vdac_detect(struct drm_connector *connector,
-+			     struct drm_modeset_acquire_ctx *ctx,
-+			     bool force)
++static int hibmc_get_best_clock_idx(const struct drm_display_mode *mode)
 +{
-+	struct hibmc_drm_private *priv = to_hibmc_drm_private(connector->dev);
-+	int state = drm_connector_helper_detect_from_ddc(connector, ctx,
-+							 force);
-+	struct hibmc_vdac *vdac = to_hibmc_vdac(connector);
++	int i, diff;
 +
-+	if (priv->dp.phys_state == connector_status_connected)
-+		return vdac->phys_state = state;
++	for (i = 0; i < ARRAY_SIZE(hibmc_pll_table); i++) {
++		if (hibmc_pll_table[i].hdisplay == mode->hdisplay &&
++		    hibmc_pll_table[i].vdisplay == mode->vdisplay) {
++			diff = abs(mode->clock - hibmc_pll_table[i].clock);
++			if (diff < mode->clock / 100) /* tolerance 1/100 */
++				return i;
++		}
++	}
 +
-+	if (state != vdac->phys_state)
-+		++connector->epoch_counter;
-+	vdac->phys_state = state;
-+
-+	/* If both the DP and VDAC physical states are disconnected,
-+	 * the "connected" status is returned to support KVM display.
-+	 */
-+	return connector_status_connected;
++	return -EOPNOTSUPP;
 +}
 +
- static const struct drm_connector_helper_funcs
- 	hibmc_connector_helper_funcs = {
- 	.get_modes = hibmc_connector_get_modes,
--	.detect_ctx = drm_connector_helper_detect_from_ddc,
-+	.detect_ctx = hibmc_vdac_detect,
- };
+ static int hibmc_plane_atomic_check(struct drm_plane *plane,
+ 				    struct drm_atomic_state *state)
+ {
+@@ -214,17 +231,13 @@ static enum drm_mode_status
+ hibmc_crtc_mode_valid(struct drm_crtc *crtc,
+ 		      const struct drm_display_mode *mode)
+ {
+-	size_t i = 0;
+ 	int vrefresh = drm_mode_vrefresh(mode);
  
- static const struct drm_connector_funcs hibmc_connector_funcs = {
-@@ -130,6 +145,8 @@ int hibmc_vdac_init(struct hibmc_drm_private *priv)
+ 	if (vrefresh < 59 || vrefresh > 61)
+ 		return MODE_NOCLOCK;
  
- 	connector->polled = DRM_CONNECTOR_POLL_CONNECT | DRM_CONNECTOR_POLL_DISCONNECT;
+-	for (i = 0; i < ARRAY_SIZE(hibmc_pll_table); i++) {
+-		if (hibmc_pll_table[i].hdisplay == mode->hdisplay &&
+-		    hibmc_pll_table[i].vdisplay == mode->vdisplay)
+-			return MODE_OK;
+-	}
++	if (hibmc_get_best_clock_idx(mode) >= 0)
++		return MODE_OK;
  
-+	vdac->phys_state = connector_status_connected;
+ 	return MODE_BAD;
+ }
+@@ -281,23 +294,20 @@ static void set_vclock_hisilicon(struct drm_device *dev, u64 pll)
+ 	writel(val, priv->mmio + CRT_PLL1_HS);
+ }
+ 
+-static void get_pll_config(u64 x, u64 y, u32 *pll1, u32 *pll2)
++static void get_pll_config(struct drm_display_mode *mode, u32 *pll1, u32 *pll2)
+ {
+-	size_t i;
+-	size_t count = ARRAY_SIZE(hibmc_pll_table);
+-
+-	for (i = 0; i < count; i++) {
+-		if (hibmc_pll_table[i].hdisplay == x &&
+-		    hibmc_pll_table[i].vdisplay == y) {
+-			*pll1 = hibmc_pll_table[i].pll1_config_value;
+-			*pll2 = hibmc_pll_table[i].pll2_config_value;
+-			return;
+-		}
++	int idx;
 +
- 	return 0;
++	idx = hibmc_get_best_clock_idx(mode);
++	if (idx < 0) {
++		/* if found none, we use default value */
++		*pll1 = CRT_PLL1_HS_25MHZ;
++		*pll2 = CRT_PLL2_HS_25MHZ;
++		return;
+ 	}
  
- err:
+-	/* if found none, we use default value */
+-	*pll1 = CRT_PLL1_HS_25MHZ;
+-	*pll2 = CRT_PLL2_HS_25MHZ;
++	*pll1 = hibmc_pll_table[idx].pll1_config_value;
++	*pll2 = hibmc_pll_table[idx].pll2_config_value;
+ }
+ 
+ /*
+@@ -319,7 +329,7 @@ static u32 display_ctrl_adjust(struct drm_device *dev,
+ 	x = mode->hdisplay;
+ 	y = mode->vdisplay;
+ 
+-	get_pll_config(x, y, &pll1, &pll2);
++	get_pll_config(mode, &pll1, &pll2);
+ 	writel(pll2, priv->mmio + CRT_PLL2_HS);
+ 	set_vclock_hisilicon(dev, pll1);
+ 
 -- 
 2.33.0
 
