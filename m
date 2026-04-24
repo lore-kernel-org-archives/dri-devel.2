@@ -4,92 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 400D2FE51E6
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 09:04:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 310D2FE51E6
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 09:06:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AFB210E3A9;
-	Fri, 24 Apr 2026 09:04:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99C6010E3D5;
+	Fri, 24 Apr 2026 09:06:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mvuJbLRC";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="VVrV36lO";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="QkBl/Sv7";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="VVrV36lO";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="QkBl/Sv7";
 	dkim-atps=neutral
-Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com
- [74.125.224.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B6D810E3A9
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 09:04:43 +0000 (UTC)
-Received: by mail-yx1-f44.google.com with SMTP id
- 956f58d0204a3-65427236e94so4831396d50.1
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 02:04:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777021482; cv=none;
- d=google.com; s=arc-20240605;
- b=J+hxw7j4xJiLEe5ln+0CH3S+A4lrUyT/Bdqf2tx6BfjIlJTgJX/iWgLvaMd02K2ZFz
- BkEFEQmTKUyq3YdAh8ZnYUyaXkBql4oV5MBzZKt/dbIk91YJK0/TbZYqZI9K/TJ/6bv4
- IZDCjScMlaW4PJVQYg9N/cCO1qIXtpYgXjFn4ycpDPGnuR0WwIjPb41aUwrwPTGkAdqR
- /RlS9xGhuTIglpL7jNZ5/AsnRd0uEWnq/ZqkDIXWSnXSfT/VHF0+c1aGvgO8eASM5alX
- WRLKjfWStWx7LHpC9WgR84rVLvevvX2TNW5awGseG4RE4oPbMXhk7yN4bwzFWaj+URu5
- E4QA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=10qs2iwkS/eyNLtJNpVSp8xONvcrn//8/hAjXSFPo+c=;
- fh=zf2PighFW12vmYnWN+qLnHte4uv/Pab/DCvkgWcgBOQ=;
- b=V01vWlqsb7wFnYHsGvwgGWh5R3D77R8KOLOt3z1O727v9G/q9M5SCpUWkuUOTY9UMg
- u1sO2OecL+P6QCEXHTmGfNM4FTRYZLQqU6Cf3QrDBsQ624qlF5auPIybwJKhVjTz0nrO
- XEfu4/DCU7m1xR9/tgypqApyFCDTLvnqrsg2657qv0aC59hvdhy/pVRUMBXvnEOb/YKp
- aPVMMVIYJF9lBYZ6rMlzdxTM0HIUlrtzJl4me2GCuPcYDxbfPBt8rCfys19cNpF0C0b5
- ZnHkLHzxhAQFAdNLdPY9JDE1GzzUpEsMLWFb3OdotQGuJNwJhZJJwWcT+nrykK8IGe26
- 1oOA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777021482; x=1777626282; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=10qs2iwkS/eyNLtJNpVSp8xONvcrn//8/hAjXSFPo+c=;
- b=mvuJbLRCspMeJC9sAlXnllmtqwSdcln8xtxILtqIAncISksxMONyCE2uipnpqJ4Zvo
- ikEwFv7bwer/mMLslbBOHtNXPj0/i4XCZ4uYoAMEKEznD15ynwqE4ICsuGdTuvwST8Sn
- Md31yjlbkwJoWC3/wn0kxudGhJH3CNNT078SwM4dI+qL+r7qPWCBbcrXVhd3Fbofg3wD
- TRoT93NGekZ73WpoLWeQbKqXWBkEC+9roTa4+V6tkFEjgx9owRd/eJKJDwKk1hW7re9a
- 5DgV5bDJN9nIgG2C4NlN42npTVQ9iCOtz4ZcciTk2q8A5uztJ+mKvIWxiNvE4Gtp2VNj
- unwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777021482; x=1777626282;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=10qs2iwkS/eyNLtJNpVSp8xONvcrn//8/hAjXSFPo+c=;
- b=DMzBKFikF21FhCfcofqgVd0AC0L7iLNms0phRGTnn6GfAGdXnOHekGgOlhuGRk9HbN
- eeZyJQLPoJgFseVZ8CZW24DiK+pvE46lshxutZZWFYYCMz796PpdBlryXQp3w//42k7w
- eCG4bmO+fwX1YiGwluaktw6OpBdkcdw8zJd11JNQMtzD7pc21L0vHo8/WTzXnnfX4+mA
- n32Z+YXbjO4LDN3MfEEuq4oYA1wC0EC9PVkVaqHbDlk3NFwu3UBTn5FFVxVB7koTZamJ
- c8w9Thgw+2b2eCZ3jXBVIwKmSeGWDVrTlpEpfmGpo3UyptKwq+Rr0/FoSXqtogNDxTPW
- UNew==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9BgP9YCJNcRwCaqM6xX5naQq6kjeTd1l26aXKsxbFeAriv5dwY/3LqxYcL5p2O99J41rFfJ8uHaDs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwVqYdTKYuFmAhMdE5Sc+tIv+r3DbDvDzJb0Ow5pYTdbOXtQaTF
- 9MelR2eVJOHKIjjULbDWABq9mWzVX6fzHbc6ux9aBv1QWKt8t1QS35TuTw2XW2Mx19LR++WnVa6
- 1f2OyT5zHdJGWytcu5/nShafmySORebs=
-X-Gm-Gg: AeBDies3wOBq7cEA3XSivHFm4EfK2UAoL+HouQklSmiraxeDpBoX9BlTkoh4hP/iccc
- QL5cWtM7jHtwlpCMx1CPq/hyC5t8B+T0GumLKEyXVbBPH1eDXPmXkBxsSawgeAMASFN67l3nY0u
- ouUQWfmdaEYIePZjC/ccSoUyMV+LU42aDz/Ocwc3Wfov0gbKWUeOkr7jwD4sNS4Hil5rLq+YiLc
- UR6kgnmxpKVqWhmRzJJP33M2jH9fl3xH10878t8y5ExDTHgzlLl+BNncS6QSDCjsQVGax1Yq9g2
- lB8N0FTf1ncus+xoNoAv
-X-Received: by 2002:a05:690e:4141:b0:653:3f1a:798d with SMTP id
- 956f58d0204a3-6533f1a7f4bmr26739134d50.23.1777021482431; Fri, 24 Apr 2026
- 02:04:42 -0700 (PDT)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 78E1210E3D5
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 09:06:17 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 26AB95BD89;
+ Fri, 24 Apr 2026 09:06:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1777021576; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=NlHTNE5rmk5AUAgo36L+TL/iO8BsxVWDcrQ0p8AI6KU=;
+ b=VVrV36lOeV9EvlHTOaNeVzdIQ1VTAk1Nhbwpk+4297Mbz7CvWTD7f0pYcQYO+CfjVrYcry
+ /CfhVrLnPCS0FPHdjYQ7WoxLFkT7NufswPEswogv9wq5gaF4VGWyZ3T8tmBqFNCVBDwxgZ
+ sVywTxwgX5ZMWiFjc+9GTYe+J0y/FdI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1777021576;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=NlHTNE5rmk5AUAgo36L+TL/iO8BsxVWDcrQ0p8AI6KU=;
+ b=QkBl/Sv7HiLCLx+KvrEw3MPWseUbrxb+xd/Wr51Ol0auu695GyUG/2oSjxtAAqHDPzJLWo
+ kYALOB4Dlq3VxXCA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1777021576; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=NlHTNE5rmk5AUAgo36L+TL/iO8BsxVWDcrQ0p8AI6KU=;
+ b=VVrV36lOeV9EvlHTOaNeVzdIQ1VTAk1Nhbwpk+4297Mbz7CvWTD7f0pYcQYO+CfjVrYcry
+ /CfhVrLnPCS0FPHdjYQ7WoxLFkT7NufswPEswogv9wq5gaF4VGWyZ3T8tmBqFNCVBDwxgZ
+ sVywTxwgX5ZMWiFjc+9GTYe+J0y/FdI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1777021576;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=NlHTNE5rmk5AUAgo36L+TL/iO8BsxVWDcrQ0p8AI6KU=;
+ b=QkBl/Sv7HiLCLx+KvrEw3MPWseUbrxb+xd/Wr51Ol0auu695GyUG/2oSjxtAAqHDPzJLWo
+ kYALOB4Dlq3VxXCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D8825593A4;
+ Fri, 24 Apr 2026 09:06:15 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id GOpuM4cy62m2KwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 24 Apr 2026 09:06:15 +0000
+Message-ID: <7700862e-fe74-46b0-b379-59d6e65812ae@suse.de>
+Date: Fri, 24 Apr 2026 11:06:15 +0200
 MIME-Version: 1.0
-References: <20260415191306.3837839-1-lgs201920130244@gmail.com>
-In-Reply-To: <20260415191306.3837839-1-lgs201920130244@gmail.com>
-From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Fri, 24 Apr 2026 17:04:28 +0800
-X-Gm-Features: AQROBzD3ciSHDJ4yZ2SN0KweOJ4wwJwZ7CklV1Yarwt6T_p1EdetKVc2Xh8dTK8
-Message-ID: <CANUHTR_zY8f3eGUJwzcq_rAe=XfturfT5N=E3fYLyaYXqGV4Tw@mail.gmail.com>
-Subject: Re: [PATCH] fbdev: q40fb: fix reference leak on failed device
- registration
-To: Helge Deller <deller@gmx.de>, Guangshuo Li <lgs201920130244@gmail.com>, 
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 RESEND] drm/udl: Increase GET_URB_TIMEOUT
+To: oushixiong1025@163.com, Dave Airlie <airlied@redhat.com>
+Cc: Sean Paul <sean@poorly.run>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Shixiong Ou <oushixiong@kylinos.cn>
+References: <20260424085643.559968-1-oushixiong1025@163.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260424085643.559968-1-oushixiong1025@163.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_TLS_ALL(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ FREEMAIL_ENVRCPT(0.00)[163.com,gmail.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[]; TO_DN_SOME(0.00)[];
+ MIME_TRACE(0.00)[0:+]; FREEMAIL_TO(0.00)[163.com,redhat.com];
+ MID_RHS_MATCH_FROM(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[poorly.run,linux.intel.com,kernel.org,gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org,kylinos.cn];
+ RCPT_COUNT_SEVEN(0.00)[10]; FROM_EQ_ENVFROM(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[kylinos.cn:email, imap1.dmz-prg2.suse.org:helo,
+ suse.de:mid, suse.de:email, suse.com:url]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,65 +144,83 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi,
 
-Please disregard this patch.
+apologies, I think I missed the first submission of this patch.
 
-On Thu, 16 Apr 2026 at 03:13, Guangshuo Li <lgs201920130244@gmail.com> wrote:
+Am 24.04.26 um 10:56 schrieb oushixiong1025@163.com:
+> From: Shixiong Ou <oushixiong@kylinos.cn>
 >
-> When platform_device_register() fails in q40fb_init(), the embedded
-> struct device in q40fb_device has already been initialized by
-> device_initialize(), but the failure path only unregisters the platform
-> driver and does not drop the device reference for the current platform
-> device:
+> [WHY]
+> A situation has occurred where udl_handle_damage() executed successfully
+> and the kernel log appears normal, but the display fails to show any output.
+> This is because the call to udl_get_urb() in udl_crtc_helper_atomic_enable()
+> failed without generating any error message.
 >
->   q40fb_init()
->     -> platform_device_register(&q40fb_device)
->        -> device_initialize(&q40fb_device.dev)
->        -> setup_pdev_dma_masks(&q40fb_device)
->        -> platform_device_add(&q40fb_device)
+> [HOW]
+> 1. Increase GET_URB_TIMEOUT.
+> 2. Add error messages when calling udl_get_urb() failed in
+> udl_crtc_helper_atomic_enable().
 >
-> This leads to a reference leak when platform_device_register() fails.
-> Fix this by calling platform_device_put() before unregistering the
-> platform driver.
->
-> The issue was identified by a static analysis tool I developed and
-> confirmed by manual review.
->
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
+> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 > ---
->  drivers/video/fbdev/q40fb.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
+>   drivers/gpu/drm/udl/udl_main.c    | 2 +-
+>   drivers/gpu/drm/udl/udl_modeset.c | 5 ++++-
+>   2 files changed, 5 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/video/fbdev/q40fb.c b/drivers/video/fbdev/q40fb.c
-> index 1ff8fa176124..0151a41267b3 100644
-> --- a/drivers/video/fbdev/q40fb.c
-> +++ b/drivers/video/fbdev/q40fb.c
-> @@ -141,8 +141,10 @@ static int __init q40fb_init(void)
->
->         if (!ret) {
->                 ret = platform_device_register(&q40fb_device);
-> -               if (ret)
-> +               if (ret) {
-> +                       platform_device_put(&q40fb_device);
->                         platform_driver_unregister(&q40fb_driver);
-> +               }
->         }
->         return ret;
->  }
-> --
-> 2.43.0
->
+> diff --git a/drivers/gpu/drm/udl/udl_main.c b/drivers/gpu/drm/udl/udl_main.c
+> index bc58991a6f14..dd9576fd4ff0 100644
+> --- a/drivers/gpu/drm/udl/udl_main.c
+> +++ b/drivers/gpu/drm/udl/udl_main.c
+> @@ -285,7 +285,7 @@ static struct urb *udl_get_urb_locked(struct udl_device *udl, long timeout)
+>   	return unode->urb;
+>   }
+>   
+> -#define GET_URB_TIMEOUT	HZ
+> +#define GET_URB_TIMEOUT	(HZ * 2)
 
-After re-checking it, q40fb_device is a static platform_device and it does
-not provide a dev.release callback. Therefore calling
-platform_device_put() on the platform_device_register() failure path is
-not appropriate here and can trigger the missing release callback
-warning.
+Could you please remove the define and directly pass 2 * HZ to 
+udl_get_urb_locked() instead.
 
-This falls into the same static platform_device pattern pointed out in
-the other reviews, so I will drop this patch.
+I always wanted to remove the URB caching locking and allocate them when 
+needed. So that timeout is likely going away at some point.
 
-Sorry for the noise.
+Best regards
+Thomas
 
-Best regards,
-Guangshuo Li
+>   struct urb *udl_get_urb(struct udl_device *udl)
+>   {
+>   	struct urb *urb;
+> diff --git a/drivers/gpu/drm/udl/udl_modeset.c b/drivers/gpu/drm/udl/udl_modeset.c
+> index 231e829bd709..2df5bd291b0a 100644
+> --- a/drivers/gpu/drm/udl/udl_modeset.c
+> +++ b/drivers/gpu/drm/udl/udl_modeset.c
+> @@ -21,6 +21,7 @@
+>   #include <drm/drm_gem_framebuffer_helper.h>
+>   #include <drm/drm_gem_shmem_helper.h>
+>   #include <drm/drm_modeset_helper_vtables.h>
+> +#include <drm/drm_print.h>
+>   #include <drm/drm_probe_helper.h>
+>   #include <drm/drm_vblank.h>
+>   
+> @@ -342,8 +343,10 @@ static void udl_crtc_helper_atomic_enable(struct drm_crtc *crtc, struct drm_atom
+>   		return;
+>   
+>   	urb = udl_get_urb(udl);
+> -	if (!urb)
+> +	if (!urb) {
+> +		drm_err_ratelimited(dev, "Get urb failed when enabling crtc\n");
+>   		goto out;
+> +	}
+>   
+>   	buf = (char *)urb->transfer_buffer;
+>   	buf = udl_vidreg_lock(buf);
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
+
