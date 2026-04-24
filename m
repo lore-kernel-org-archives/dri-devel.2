@@ -4,76 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17C55FED3F5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6C50FED3F6
 	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 17:29:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0EF010F661;
-	Fri, 24 Apr 2026 17:29:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0197F10F665;
+	Fri, 24 Apr 2026 17:29:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QLKQgynX";
+	dkim=permerror (0-bit key) header.d=eduardovasconcelos.com header.i=@eduardovasconcelos.com header.b="jyffZIM9";
+	dkim=permerror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="ZP2e39kb";
 	dkim-atps=neutral
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
- [209.85.216.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8192B10F437
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 12:23:58 +0000 (UTC)
-Received: by mail-pj1-f50.google.com with SMTP id
- 98e67ed59e1d1-362e30526f8so580924a91.3
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 05:23:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777033438; x=1777638238; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=C71odJl+wa8fdrMSB/JV4uI6qaWBDJ3Egjrlc4m0udU=;
- b=QLKQgynX5/2Qm+4dTuHkyUvN/hwP3mP4wBHPFndlpO4miCmN9k5aiRbtGrfl3odp5A
- VbE0FpxhYrnWIrj7yFc0JubMtjtFoinycr5p40f/CWS7ZcpWsAqDsrvehklAOnxPAqHA
- nTjfN07c5j05C0xFZimR/MVNxN3bML2ym+9oUBp40h5dHr4E3+f6VsZgFB8uEEMetpte
- esbyOAayJXQBSuX0EuPH+1WkMD1Dz8/ZubbL23WVmvofYsFvgUsy2iexKl4P963I4r1T
- n8X+tvsEZokX6wd7B94BQ2PK5hVlqeyLlq2IA1yhIRtcNQPg1OSZ0VQwF1B8AadvGeku
- nrBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777033438; x=1777638238;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=C71odJl+wa8fdrMSB/JV4uI6qaWBDJ3Egjrlc4m0udU=;
- b=BzH0DVJz9MrgK6+x9NJeYd/Fe5rlWbR6yVIU76oWmTh9P5eok7hV44UPPkGSRRQQq+
- Dyya72QXmSlhU+PyfvMDwZQW3XhiRL+r4E+u8pNeGPK9B4pzEAFRzdwhckbQA3mv20CY
- 3DPkRB192Edga0WAX1KqIAo3Ym24lTu3lYHny1M8S094d4RdQvJcHvBymqdmh96p0xmr
- UWSGiK5jadE4wwDaSw1cj+o9k3cvXlqpfNdDIbdxLzhdr9cHLvaluLx4dWL9PEmKKpz3
- A325/MN/6FE1EB6/3UMV118u0COJtZnPCvA5Vpjbj9zJaL1cYPAjtIc/JlQBbA56zp88
- kHoQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ97m6nEJOf1TJEjCHiIykEdQSzi+uYPhV8aQhwLcIXAonJ8bYFp3Ui+E83WH945NVETXeWf7oJmBN4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzr3D0eLEiqYCyt5hKDK91uxxpJU7jKP6pXlDTvtqkAKxip7vVN
- QHLRjBtVrFyudFstqRIt5tPieBKE2pO/hEUi+Owxl5lPt8yb5BHpd4Q=
-X-Gm-Gg: AeBDieuSmIYpquAk2nQgl8medf91kg+IZW6R1bwxYrJl9X8vZ/GqJB6lyXCgHpoqiot
- A7lxq8jNv6gKbwDFqeVBM6f0LNNFAAvrQzGswaUr5p24T1xkqEA1FEZTD99IjDAJQU0gCaP32HA
- HBnlKtk82RoQZ9swsGr92lLraROv3LmlMHFgB0YicYbwFxq+S3BR+emwPvAjXxIHbUOX9X89QQC
- w04Z0uwCJ5QpqOJXD7SjKr8US8T3MrFadkS5lbgaLkxuhZkfmFZUbw0MV3gWp9wAkwwu2nEOVOi
- MDgYlQAUzalFYZZzvPZCAXRXjGc7Yq8MTTTtHtZ7q/dmNX7zvv35UiXcZPuRjyMowhmbRJky6OE
- CRTZCL8WWz8z5IzqzPAkCuqfnd0KZDj/a6QUJXDRsox3sfYMUH7O6fpw49mclA4TdY6HLGKxNc+
- P4xSE7xCt8Kv9KfFVkFDyMDbw3cLDXe822V5yvC6Othtobeno+Bp+cK3hJP+QMaGSRx9T2Z+O7y
- O08rwVZLw==
-X-Received: by 2002:a17:902:cec6:b0:2b0:917c:bc4 with SMTP id
- d9443c01a7336-2b5f9e8e3c0mr355839025ad.4.1777033437987; 
- Fri, 24 Apr 2026 05:23:57 -0700 (PDT)
-Received: from localhost.localdomain ([1.226.165.54])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2b5faa30134sm230574895ad.30.2026.04.24.05.23.55
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Fri, 24 Apr 2026 05:23:57 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Alain Volmat <alain.volmat@foss.st.com>,
- Raphael Gallais-Pou <rgallaispou@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Myeonghun Pak <mhun512@gmail.com>
-Subject: [PATCH] drm/sti: hdmi: Fix bridge leak on component_add() failure
-Date: Fri, 24 Apr 2026 21:23:39 +0900
-Message-ID: <20260424122352.20930-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.47.1
+X-Greylist: delayed 308 seconds by postgrey-1.36 at gabe;
+ Fri, 24 Apr 2026 14:11:37 UTC
+Received: from flow-b7-smtp.messagingengine.com
+ (flow-b7-smtp.messagingengine.com [202.12.124.142])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC99710E3B4
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 14:11:37 +0000 (UTC)
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+ by mailflow.stl.internal (Postfix) with ESMTP id 287781300F6C;
+ Fri, 24 Apr 2026 10:06:28 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-04.internal (MEProxy); Fri, 24 Apr 2026 10:06:28 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ eduardovasconcelos.com; h=cc:cc:content-transfer-encoding
+ :content-type:date:date:from:from:in-reply-to:message-id
+ :mime-version:reply-to:subject:subject:to:to; s=fm1; t=
+ 1777039587; x=1777043187; bh=oHuMOvtj1iezE1YeNuDLSCyrYSQUS/0Yz/m
+ go3MwrYs=; b=jyffZIM9CAu7RLVGskBsOaknZ1Fb9Nj2OgVtx2v36VsXTKcrl+w
+ oQRl7+Iq80V6drEjweeeI2MsCd3B6V148U6pBdj6xyBhEo8/RMRXz/mYSXS2kctQ
+ V6Ikz+0Am9iiuLtNveDQ3iDzB5IS5PcNMLnlofz+9Xpm3EAgfrH0Y9fLJYJqVCbJ
+ TN49CAiD2IcZgfyyuEYoPcT1o7enASVWuibrOg2mWxMcLX97ZG3QTRSD7WKhK35z
+ QjioEaKc1+hf/2GmCeodL/voRzc6+PnJMkLU/BOMsBTBnY/C/4wEMle74eW0fc2K
+ NW+07csFrW+Gume17Idji/7hLN23bkKusdw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:date:date:feedback-id:feedback-id:from:from
+ :in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+ :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+ 1777039587; x=1777043187; bh=oHuMOvtj1iezE1YeNuDLSCyrYSQUS/0Yz/m
+ go3MwrYs=; b=ZP2e39kbNb8sjWgt7gZLAqyvfkxjHPxs0c1j5qEKAoTpGATbWUP
+ pCbuB2rvxegPdl3trSyAm+rUD7IEoRnMvnIUgIBvGijWvvREcQa25gZgFBW4nSh+
+ GRavmn+i0BWZH+yqTWKv8jKLa5zgLqqqltN1sHteHh/KhE4v/L7CH+rcr0IGGsc2
+ DJXWDE5UyDcUTQRVlZ4zKYFVFk6fAf8k5Mmr+nY3M8Mfhsl6x1TUbJXYCVVswf0I
+ bLpwXYMYzusfdbugZEYbfwxdVEKNdI6xSGKo68ETruRM1TK1Kag6MFju6ysk9Llx
+ tahEOkj6VTeZ670vVKJCJv9gg/Qa3gAhkFg==
+X-ME-Sender: <xms:4njraQ4Xf8s23F1Yzd7x3ROe84cagSZv8-EJWot-BlQqeKzWmVhODg>
+ <xme:4njraedLh7CMayWeGhfWPc1Tqfj62b67W0p-9EYjvagn6JbqDuF1u5OCpNoS7Q-Qx
+ _cN_hIEHusqY6rI7s8LiAHpscinu4HQyVmC2O2dLGKW_vH3hWdOD-s>
+X-ME-Received: <xmr:4njraT4UZ3ZrY-VP1dw9Uw7vG6o0tgaYYQtVsodw97P3o1puo5rE3ZANisLyRw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdejtddvfecutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
+ ihhlohhuthemuceftddtnecunecujfgurhephffvvefufffkofgggfestdekredtredttd
+ enucfhrhhomhepgfguuhgrrhguohcugggrshgtohhntggvlhhoshcuoegvughurghrugho
+ segvughurghrughovhgrshgtohhntggvlhhoshdrtghomheqnecuggftrfgrthhtvghrnh
+ epuddtueffheevgeduudegfeffjeevveeugeegjeeuvdelhefgkeeujefggffhffeunecu
+ vehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepvgguuhgrrh
+ guohesvgguuhgrrhguohhvrghstghonhgtvghlohhsrdgtohhmpdhnsggprhgtphhtthho
+ peelpdhmohguvgepshhmthhpohhuthdprhgtphhtthhopehmrggrrhhtvghnrdhlrghnkh
+ hhohhrshhtsehlihhnuhigrdhinhhtvghlrdgtohhmpdhrtghpthhtohepmhhrihhprghr
+ ugeskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepthiiihhmmhgvrhhmrghnnhesshhush
+ gvrdguvgdprhgtphhtthhopegrihhrlhhivggusehgmhgrihhlrdgtohhmpdhrtghpthht
+ ohepshhimhhonhgrsehffhiflhhlrdgthhdprhgtphhtthhopegvughurghrughosegvug
+ hurghrughovhgrshgtohhntggvlhhoshdrtghomhdprhgtphhtthhopegurhhiqdguvghv
+ vghlsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhgpdhrtghpthhtoheplhhinh
+ hugidqkhgvrhhnvghlsehvghgvrhdrkhgvrhhnvghlrdhorhhgpdhrtghpthhtohepkhgv
+ rhhnvghlqdhjrghnihhtohhrshesvhhgvghrrdhkvghrnhgvlhdrohhrgh
+X-ME-Proxy: <xmx:4njrab9TsKMSzAGnmzBQBBxi3efbelVccmxMKWoBDHpTgRWVoPyB_w>
+ <xmx:4njraVEag09JlgTu5x-w57cAApIYMboxkW4WL3Ibhwv-j4DdesnJ1w>
+ <xmx:4njraQVyJf7RO_1gcnoXNX2sCBoX8_g08zkNuPBH0N5zhpkInxOQnQ>
+ <xmx:4njraR9zvuBFUb41bE4E48dA2HjRqxj1kAJxg_Y9FlW93exVTWcDBQ>
+ <xmx:43jradE5gVON7dWaMvPYhbM9bnGjfUVmxbSpg-5NejEiLKmGAqhNV8nf>
+Feedback-ID: iac1e4b6b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 24 Apr 2026 10:06:23 -0400 (EDT)
+From: Eduardo Vasconcelos <eduardo@eduardovasconcelos.com>
+To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch
+Cc: Eduardo Vasconcelos <eduardo@eduardovasconcelos.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel-janitors@vger.kernel.org
+Subject: [PATCH] drm/crc: Fix typo in documentation for drm_crtc_crc
+Date: Fri, 24 Apr 2026 11:05:13 -0300
+Message-ID: <20260424140515.2019-1-eduardo@eduardovasconcelos.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 24 Apr 2026 17:29:28 +0000
@@ -92,40 +104,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-sti_hdmi_probe() registers its bridge before adding the component. If
-component_add() fails, probe returns the error and leaves the bridge
-registered.
+There is a typo in the documentation for struct drm_crtc_crc ("occured." -> "occurred"). Fix it.
 
-The remove callback unregisters the bridge, but remove is only called
-after a successful probe. Remove the bridge locally when component_add()
-fails, then continue through the existing adapter unwind path.
-
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Signed-off-by: Eduardo Vasconcelos <eduardo@eduardovasconcelos.com>
 ---
- drivers/gpu/drm/sti/sti_hdmi.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ include/drm/drm_debugfs_crc.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/sti/sti_hdmi.c b/drivers/gpu/drm/sti/sti_hdmi.c
-index f8222e60b1..d7b61b5b35 100644
---- a/drivers/gpu/drm/sti/sti_hdmi.c
-+++ b/drivers/gpu/drm/sti/sti_hdmi.c
-@@ -1460,9 +1460,15 @@ static int sti_hdmi_probe(struct platform_device *pdev)
- 	platform_set_drvdata(pdev, hdmi);
- 
- 	drm_bridge_add(&hdmi->bridge);
--	return component_add(&pdev->dev, &sti_hdmi_ops);
-+	ret = component_add(&pdev->dev, &sti_hdmi_ops);
-+	if (ret)
-+		goto bridge_remove;
- 
-- release_adapter:
-+	return 0;
-+
-+bridge_remove:
-+	drm_bridge_remove(&hdmi->bridge);
-+release_adapter:
- 	i2c_put_adapter(hdmi->ddc_adapt);
- 
- 	return ret;
+diff --git a/include/drm/drm_debugfs_crc.h b/include/drm/drm_debugfs_crc.h
+index 1b4c98c2f838..1cb71c03bf44 100644
+--- a/include/drm/drm_debugfs_crc.h
++++ b/include/drm/drm_debugfs_crc.h
+@@ -49,7 +49,7 @@ struct drm_crtc_crc_entry {
+  * @lock: protects the fields in this struct
+  * @source: name of the currently configured source of CRCs
+  * @opened: whether userspace has opened the data file for reading
+- * @overflow: whether an overflow occured.
++ * @overflow: whether an overflow occurred
+  * @entries: array of entries, with size of %DRM_CRC_ENTRIES_NR
+  * @head: head of circular queue
+  * @tail: tail of circular queue
 -- 
-2.50.1
+2.54.0
+
