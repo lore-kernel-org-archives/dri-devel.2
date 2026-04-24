@@ -4,80 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4A93FED3F6
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 17:29:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73C80FED3F7
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 17:29:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17D8610F673;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04E0210F66F;
 	Fri, 24 Apr 2026 17:29:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="T8AmfHxT";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JuvpjmaG";
 	dkim-atps=neutral
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
- [209.85.221.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEF7010F465
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 09:42:27 +0000 (UTC)
-Received: by mail-wr1-f46.google.com with SMTP id
- ffacd0b85a97d-43d74086e5bso7386331f8f.0
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 02:42:27 -0700 (PDT)
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
+ [209.85.214.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DE5910F548
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 12:35:12 +0000 (UTC)
+Received: by mail-pl1-f176.google.com with SMTP id
+ d9443c01a7336-2b4583f0a1aso49380205ad.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 05:35:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777023746; x=1777628546; darn=lists.freedesktop.org;
- h=references:in-reply-to:date:cc:to:from:subject
- :content-transfer-encoding:mime-version:message-id:from:to:cc
- :subject:date:message-id:reply-to;
- bh=hDYc1MW6S1MSpliI1TbPg+1F6w7TIPay6jp2YVrMVdc=;
- b=T8AmfHxTRY2f4esIQh5+OiUIQwHb6wUXVXKYvwqLsvobCAaOFnIbx8RvLI9yg2zJni
- tHG7sJ+RIUpd+WEWJoRlRJ8z+VKi4E42B21KbfX19kell47q9k3HsUsc2n/2MbQeS4ys
- 314uY1kcb6hN0+csAaHvCFKvnQjebM+PjgIeAesHVMyegI5Y3/LfY9x+lrrpWDDPgFZT
- H1eCkl1X84dhG/PZCwG19A7Ao7YOImFZOhcSb9mFwPkrMvaPIp7FtoBm+0E3TiOzqvNP
- 8xUYDTl06bUjrHzpouaaKh3Gn3amMAiSn+NrBuSy8mNk4VUby/NRNxa9vzEJnAc85v39
- XLOQ==
+ d=gmail.com; s=20251104; t=1777034112; x=1777638912; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=ru7oTacAH1AHj/CyXoHHypjd6b0Mk6YIUe6NpkAx0hI=;
+ b=JuvpjmaG5TIlsXFB9B/ciaWb4v/jyNKPqQeZkFBFE5WojYA+TqtuVLN99okcEtYl5y
+ owFyOE6A3uTtp5mj9LuFFF8eH/4Xxmmfz2wBYIr1pn8m3w/p2fMQDSt2yZc9dEILDjgB
+ kxn79tIdSfF+SQzIrW2I5FTK3at/UfgkwaM5NIV8fKqkGMCYFpK0tlGbASrBjIgGauoo
+ OCNVmERWOvsne1NaSH2pmsnl20t0j5faeKJDXOF4+UADBcTqu9E3HG8lKT45ysc62D70
+ VOBYND9TdhCSo1RR37AS7MMpO4A9GRSv/npLimfbo12e041erEpHkxp9T0pQIP4KNtC5
+ 6AHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777023746; x=1777628546;
- h=references:in-reply-to:date:cc:to:from:subject
- :content-transfer-encoding:mime-version:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=hDYc1MW6S1MSpliI1TbPg+1F6w7TIPay6jp2YVrMVdc=;
- b=g1ejF3Xbr3igzoIst0GePEc0xotrgEyT2bCoQRqASPSioIeo7YLTOxJH+yJizqKiOi
- yyRTQ2Fc3a6t1LYNAKprZnFg7qzTt4OlIOGvXpt7tuA6N3R8ZnEc166gLkrerXwpzqEq
- 5ffV4lXcxV71z6a8ZKOhH0XrOscywVo/uQLQB3rhcigcqB6yq/hPO1NsUR/LZisN5nVz
- t4r16G114p03g3Mo12MVzVHSWwSoX2uM2XWf/mWzTPbTXP28VJ1XJ8xpWdwlwjy7ORl4
- dDoqXNBcYNm2H0/iAqgKT5syFLzNWNkT+cDdbyGl6rIufsDfdpFQyhG0S5R7txnF8+69
- Ko+g==
+ d=1e100.net; s=20251104; t=1777034112; x=1777638912;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ru7oTacAH1AHj/CyXoHHypjd6b0Mk6YIUe6NpkAx0hI=;
+ b=sIAXEPAmLHBeErvqnZf0jKhS5V2b8z6TgCIusZk3NpYO1/XhKyhj2kR7AfBz27HFBo
+ QqNTMCqsn+kT+kB6AfPF/EpmRgvBsjEvI3NDzhAFI/C9HQeD4Mvj7hhXHnVmV3A4Ocf7
+ sxwvH8Xw8DHCz+N4Xm8eftXi7QxR8yLYVojSnJvzKNxuHql/ma6Ntn7zmNGc8wnDMWrT
+ g++2bh/ap3RwHnwnBPT7SELHSodOJdXv/6feHHDAlaQvtbtu6kShgKUPKKKfVLyRZqdR
+ 2NIWlGow1RrD6y694WpGlOVfBAE5wjlUxfzM+zVg1mi3BKuADjAniUGLQRIaQDkEtOU1
+ FIJA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+YyajHSeaONTZyM9tuQcIl4DzYbtnf+M5o/1WvsXPUovic/nO3SOL5+iEjuPIOzp20QJbe5lI9/5Q=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyGBs92kpZMRDOY6qnqxfSBImy5mHPxF6NYZVKWJ0EvX8qJr9Lq
- HLpiRWrUrrcPIowvPybaHEl4yBS4R2+GtoBSqCYP+g/Bv41TGvnMGtfS
-X-Gm-Gg: AeBDievGbVgWUtlFvaRCrvJ2I0zNT65YGkjktAa/UxEvpwdzwssgANSicSVsPE3T8OZ
- YV+wexfYUGUc1NOEUbrgUhLXgxBFxTIJJANxTpfk5tMg6fqM2ocfUV9e7XJy1JGNY36rFzlBpXX
- 5TyuAOBoHrzUIrOSHpIc0qFN2LKpByJh9GAVspPR5UaM/6Llp7mzfwHw3n0i7rcTFFMGxYOLHRR
- ixaGtRW489b0Og0D0mAzzw71dmqOSuVt7974rTxiinbPWgQSgBnP3e7u2q2BBoBPicitTa5trkX
- LDinoYFTDMNt3JJpVyAu6XT5E1AlKjAyJaI18P10bkCPJTCmh4NECwHI+4vOmclTJN2T9C9gc1/
- pQwtaR+TQ7YqYpK6ainxRSf/npJOmHLsY2bR+XNoXBF65l8j0oOlhEJ9y2Gtat88MKnoGFimRmp
- bmmASGASPBl4Vy+aGgyzly1prMG9rvMF+HH7wVQk+jCvcTRLEHOT6IKUEQn80T514BkVextIu1r
- PfRizIPN4lb4R6PaAR0UjwXjqPPtmH9ryRGRhCfD8LaDv/f+8vZSLwnz5y2WdUAJWZS
-X-Received: by 2002:a05:6000:2303:b0:43e:b020:f8a2 with SMTP id
- ffacd0b85a97d-43fe3dd5208mr45925335f8f.19.1777023746069; 
- Fri, 24 Apr 2026 02:42:26 -0700 (PDT)
-Received: from ahossu.localdomain ([5.14.131.42])
+ AFNElJ/tsvFSwI31rOEnfCzF+yCxtH7EzPQl230n9uW3oQ/xUMf6ndIMqb43hOqzUMEqV+O2zWIk1J3ePvA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw/z/HClAvnFet1s65WgccMcLpDAAVSmSCaGVF5lWg07J1/Di1X
+ YdeMOIvYN9k1zDigm6EklXpOoONw7eNz5BSiEMWsjSOIYbbaVrbbyfQ=
+X-Gm-Gg: AeBDiet9CKrKiClwqeRCD4OFMoER6r3ujWVe8XGFF3Kq0+FvYkIGan7zV0GY6B5IZv6
+ 4p/HjOsdotv0Q8pvvsQ+ESuRIbZxhvhVfyzkHqCv5qPnUbnNprMChs3D484zeVwSzq48AdEF7DJ
+ PD/Q1iE1EQmmBHwnILR+XxZ9Pp2h2lVbhjogT0pjk2deDT4TYYs22HxaJ6jdLaidEb2LUNH1Ucv
+ bEOSkiEek3eWvrILPiJNju7H1DkdLiF42icksiLi//jFX1dW+ZLmmYsHS3EtVzVZDQjtsmlY9u0
+ ox7HkuTAVRRM1t5jcz0stMPyDtd7mLGf5AC9hafd2byXtnlkoUhVm7osjRAO21xrcYP5yztYDQY
+ cO2VYBWiS461nTgTp5ltrZNCejx4QnoROiTWtJ2J+K6Kjn6Va15WyB7x50kRk56mTvjXdjOl9Va
+ NVaTEUTE6aEBktjpynf4oJNIz3VF/ezZMyrKFXn1aryb1Om4TLmKBNh/VSeCd3rEmTp37rcOfYH
+ BWefqkCXw==
+X-Received: by 2002:a17:902:bf4a:b0:2b2:4e5c:69a9 with SMTP id
+ d9443c01a7336-2b5f9e79fa8mr242778605ad.5.1777034112041; 
+ Fri, 24 Apr 2026 05:35:12 -0700 (PDT)
+Received: from localhost.localdomain ([1.226.165.54])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-44123d23e0bsm19540453f8f.15.2026.04.24.02.42.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Apr 2026 02:42:25 -0700 (PDT)
-Message-ID: <69eb3b01.5d0a0220.3c3ebd.f35b@mx.google.com>
-Content-Type: text/plain; charset="us-ascii"
+ d9443c01a7336-2b5fab0cdbbsm224428665ad.48.2026.04.24.05.35.09
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Fri, 24 Apr 2026 05:35:11 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Gerd Hoffmann <kraxel@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Myeonghun Pak <mhun512@gmail.com>, virtualization@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/bochs: Drop manual put on probe error path
+Date: Fri, 24 Apr 2026 21:34:28 +0900
+Message-ID: <20260424123506.32275-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.47.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] staging: fbtft: fbtft-bus: replace function-defining
- macro with concrete functions
-From: Alexandru Hossu <hossu.alexandru@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: andy@kernel.org, gregkh@linuxfoundation.org,
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Date: Fri, 24 Apr 2026 09:40:48 -0000
-In-Reply-To: <aes6JY3Ht6p1VpFa@ashevche-desk.local>
-References: <20260424092818.3322248-1-hossu.alexandru@gmail.com>
- <aes6JY3Ht6p1VpFa@ashevche-desk.local>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 24 Apr 2026 17:29:28 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,18 +92,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Apr 24, 2026 at 12:38:45PM +0300, Andy Shevchenko wrote:
-> I'm not sure this patch improves the code. What I see it's harder to follow.
-> NAK.
+bochs_pci_probe() allocates the DRM device with devm_drm_dev_alloc(),
+which registers a devres action to drop the initial DRM device reference
+on driver detach or probe failure.
 
-Fair point. Three near-identical functions hide the pattern the macro
-makes explicit. I'll drop this approach.
+The error path currently calls drm_dev_put() manually. If probe then
+returns an error, devres will run the registered release action and put
+the same device again, after the first put may already have released it.
 
-If there's appetite for a minimal fix, I can send a v2 that moves
-EXPORT_SYMBOL() outside the macro body only, leaving the function
-definition untouched. Otherwise I'll leave it as-is and wait for
-Greg's take.
+Return the probe error directly and let devres own the final put.
 
-Thanks for the quick review.
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+---
+ drivers/gpu/drm/tiny/bochs.c | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
 
-Alexandru
+diff --git a/drivers/gpu/drm/tiny/bochs.c b/drivers/gpu/drm/tiny/bochs.c
+index 222e4ae1ab..5d8dc5efec 100644
+--- a/drivers/gpu/drm/tiny/bochs.c
++++ b/drivers/gpu/drm/tiny/bochs.c
+@@ -761,25 +761,21 @@ static int bochs_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent
+ 
+ 	ret = pcim_enable_device(pdev);
+ 	if (ret)
+-		goto err_free_dev;
++		return ret;
+ 
+ 	pci_set_drvdata(pdev, dev);
+ 
+ 	ret = bochs_load(bochs);
+ 	if (ret)
+-		goto err_free_dev;
++		return ret;
+ 
+ 	ret = drm_dev_register(dev, 0);
+ 	if (ret)
+-		goto err_free_dev;
++		return ret;
+ 
+ 	drm_client_setup(dev, NULL);
+ 
+ 	return ret;
+-
+-err_free_dev:
+-	drm_dev_put(dev);
+-	return ret;
+ }
+ 
+ static void bochs_pci_remove(struct pci_dev *pdev)
+-- 
+2.39.5
+
