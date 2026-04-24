@@ -4,78 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A610BFED3F2
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6B0CFED3E6
 	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 17:29:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC41410F650;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC5A610F659;
 	Fri, 24 Apr 2026 17:29:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IFbcKvXa";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZjPmBrTS";
 	dkim-atps=neutral
-Received: from mail-oa1-f46.google.com (mail-oa1-f46.google.com
- [209.85.160.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6A0D10F5AB
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 14:08:20 +0000 (UTC)
-Received: by mail-oa1-f46.google.com with SMTP id
- 586e51a60fabf-42fdab683b7so1178309fac.3
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 07:08:20 -0700 (PDT)
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
+ [209.85.216.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92A6A10E3CD
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 13:55:07 +0000 (UTC)
+Received: by mail-pj1-f53.google.com with SMTP id
+ 98e67ed59e1d1-35da1af3e10so7396643a91.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 06:55:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777039700; x=1777644500; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Awi4viU8NvHRlCqV4pUg2d0xyjRYURsNTCZSqlhhrUI=;
- b=IFbcKvXaihoQFRtDhH4tAzVc3IeWELWNGdThrJwq9l8J/mJtpo9tUbSEHg7kik18KY
- ueTr5bvAitQMiYXldukBjUiIGTllXXvrvazTxzSOh85qcthjCWY5pSQioCnyvrn2zkAg
- aHDpXDliYIF1heIAm8WSL13jmWne5JBTY1p6Cs8wiNhXCI027EoSMcatYpYGR6Ociv3j
- oOIEEw5D+sJo9sSYoOy6toKzb6N8URwrQwLkVQ+sc8B3zAgLE2iNEy3rYRCSMc/VVzrU
- U+fWG3kf9ixPSAbwmIFpL6JsLEVM9BpSJIWxRVXJDRQu1jr1PHzz90jSCtUV34oePREc
- D9Fw==
+ d=gmail.com; s=20251104; t=1777038907; x=1777643707; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=kMeiAHdTbFhy7JXd41HJZsYauWdI9RVH3tSuSNB+WCI=;
+ b=ZjPmBrTSQ2t2HwKelCrnn9XPrJ46eqBR2imTuQUvmRRxYY+iyA90z8w2djUBaHpqsP
+ CrBU2d9BGTJyo6x6pNNuLL6iY321lCcgxYRNpo+XfQMS4mn0YxWXtsfpB8t2nsqidTZn
+ uzLoaBw4AP7exHXBJsVizpwiszLua5DzSPDYdSPAWvZosxPHJEuPxR0acA5F6N8thnOi
+ IOyawPWBqr4oYM5Rs+sdIzspqv2Vyxde6kT281yyy7Fshn192Sk2jtXy5ob8/R4FD8T+
+ QtFjm/t23m6fcYZnZHhf4cA5hooJSnTG4g0YdCB+qpJvkZzzkaS3WiHxEmbvAMroTGQ7
+ dZHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777039700; x=1777644500;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=Awi4viU8NvHRlCqV4pUg2d0xyjRYURsNTCZSqlhhrUI=;
- b=SylPaPtq/ykASVO9v0q/09sZdEDDVzOQLdQM40sKqoQrfoz/7aG2kht3BRXldv21Vt
- y82TaQK+6djhDZlZjBGy9De0FWJ2ezgdMcV3S01aFJumiIgG4LhtPrWunPmyV547ocj4
- uVNBuRb2HQgmOe9d2RKLs/45OseBa07jTgRk7MXhc2iF88u/r9DbnXabbYq8Mja0l2QH
- HgeQFGRk7by2blRro0lcvLX4lrUA3cEEDl2ldGu3B8QXDS/QMdQMlU+RiavrugBA3bux
- opBiw70d+Dawmry7w3NrJJciEcqnhUaDtMs2H3Fedz+rH4PeF2J+8IJC9ickUr46bQkM
- ELLw==
+ d=1e100.net; s=20251104; t=1777038907; x=1777643707;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=kMeiAHdTbFhy7JXd41HJZsYauWdI9RVH3tSuSNB+WCI=;
+ b=BCi4L7qWEzEbr0SryTFsBqJIXrvU4EY5djPXOh1mVA6CIbafXLUx3DhGBE0l2FjRWh
+ CBH5gGSWVs8gDSEsaAOHLZQpfTPMtsaQ5QIo0/EdWhgZmxvZ+cc/0BjiWPDjLUuOOc+q
+ 4g/OlG4TeDA0Sv5vPlfER9fwG9VyF39jwyAOndQsbqjo1u1s+TSzLGihie2iHVcltIYu
+ 61iuDYHEOV8rfKysk0fd4Xvyup2OjRd0OBZwHY0btbCeV1RSRVmpR4AfzkHZ07Wh/oyN
+ xmGkyNqDffTbUXMRMA4zczRUAowyPQWnjnH+f8/rry8a1+CkHBPYm+2uYSWk4HEIXCyO
+ 3Icw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+R9FsSWCBDph+SC+tnj5fcKmmYiqnjQbSpdXLzavzpdpB4WL0fdxpwPfBdumXfBAWq+9PyqBma20U=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwlpXrIps0QnxMthi2va1AhWbvIRFJYNyJ83ivVM2AsVuX/1Eat
- KL0gmFK8QlTIVyIIkEAwFG2Ci54VrKybBoitrGBP4mp1lnBjzDOhtYY=
-X-Gm-Gg: AeBDievOvoivGlNJ9a22BaN9BP/cZKSDzN8GN1za3vTjUOTR62AdkKlQefsNvPvjwAh
- yXpAXa2e2J5vm+R+m1cgK7OnjOmY4pdQpCW4c1+4RxaMFexEhjR6HZ0f8xJcDH7ZbJmeA+1JK9P
- yX26knHcR/wamb/bH4ml+ZuS7MUZoJPFQP8Daa5TGwUze+u6oHOlSXYFeR6n4CQZjclXKzAQjkA
- sh592vefctmV53YkTu9Ey4fdAhxnEu5AG3heWnqu4KowwXNYnccRdRoA0zB9j6q9QgW/teXC1pg
- XyIyv+DN/0c/rTZaO7O21gGeKVSJcGnwDy9t7ECpA+nRmztzAPr0kN2dSOo2VQnNoc+uA2GntuP
- 449Jf+zzFZxb5plJdrdHuclxiv54gZVtQB0gPPNUX/P1oL2smIFQATEOzfrgbQ2cg+OowX3R88e
- 3jJfExf78j8cZro7zmdXSF8VFgIBi4mubaKWAy1XBeQQdYpXsOIdRjtIxNfA1TgJesSFamBjUuz
- Mnx1WOiogrDkRGaASJ+vNmH54z+Fo8danA=
-X-Received: by 2002:a05:6870:9109:b0:42c:f89:7555 with SMTP id
- 586e51a60fabf-42c0f89783cmr10667903fac.11.1777039699909; 
- Fri, 24 Apr 2026 07:08:19 -0700 (PDT)
-Received: from localhost.localdomain ([47.188.191.104])
+ AFNElJ83s2fRBS3Vt08li17kRjTQNBt/eyJCVcWor4Heza+VRNiydqixq++WVQa0Bs9nbItmvaTZwh+xilo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwZWdBX6ggfWq2MmepD7RjqKSr/pqr5+9jAP+DcaxnLsE/yeT5j
+ f/KyETIJAnExHXHG6akgbs2DAM7LkXAst7QV5B09zKIJZUGOwQ06XA0=
+X-Gm-Gg: AeBDiescrbrEn5XmkH/o88cAouU9ry2JyJJ2779+UvgnG8JGvHcPY4EewMtUOZ7ZVYB
+ KQF0jNDAtp5RQq+9E7I6kvLbuuSGpWNcfI3UXUgLq8fxMFp3nRAtyEqiWRu2ws5CD/LD6fMIMTl
+ aEcYyXNmXftPO4ky2SEWjPfbgArne1tSeo/neTUgNwroa0vUDhnyWsEjjRjN8A6IxSAd0pxMmO5
+ zcMAyzGpSbmOmTFbm9VtFzrPiGtjmw9tJMY4MZSyiCoonW5G9xp4q1JBGlqJgp7hAba/4vdAWtw
+ Mfp82tLsfxyQSkrrUypckJhdSj8bzdD4alR4k6Bw703MKrsXxEsqiEQJsad131RUUrqYGY9YWlb
+ Mn7Gl0XcQqITOz7iH/rmuaIAa7aJ4tiTWM2e2DNWsFv34EFfakjwKkYPASwNLCWmjjD2FCiOtfS
+ kj72H1O9LcjgZAA565imFQd86ARMRU8UQ7vINpx2q/cz9bXLnSD4wacapXP3ohf4pllo6mnKKpP
+ cJUBSqkzj4Csu0=
+X-Received: by 2002:a17:90b:2dc1:b0:35e:30bc:96e2 with SMTP id
+ 98e67ed59e1d1-361403f1901mr33384481a91.10.1777038906954; 
+ Fri, 24 Apr 2026 06:55:06 -0700 (PDT)
+Received: from localhost.localdomain ([1.226.165.54])
  by smtp.gmail.com with ESMTPSA id
- 586e51a60fabf-42b934a2dd1sm22228653fac.9.2026.04.24.07.08.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Apr 2026 07:08:19 -0700 (PDT)
-From: "John B. Moore" <jbmoore61@gmail.com>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- airlied@gmail.com, simona@ffwll.ch, stable@vger.kernel.org,
- "John B. Moore" <jbmoore61@gmail.com>
-Subject: [PATCH v2 2/2] drm/amdgpu: remove superfluous BUG_ON in
- amdgpu_cs_vm_handling
-Date: Fri, 24 Apr 2026 09:08:16 -0500
-Message-ID: <20260424140816.43766-3-jbmoore61@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260424140816.43766-1-jbmoore61@gmail.com>
-References: <20260424140816.43766-1-jbmoore61@gmail.com>
+ 98e67ed59e1d1-36141990bb6sm24427479a91.17.2026.04.24.06.55.04
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Fri, 24 Apr 2026 06:55:06 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Gerd Hoffmann <kraxel@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Myeonghun Pak <mhun512@gmail.com>, virtualization@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/bochs: Drop manual put on probe error path
+Date: Fri, 24 Apr 2026 22:54:42 +0900
+Message-ID: <20260424135501.18483-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.47.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 24 Apr 2026 17:29:28 +0000
@@ -94,28 +93,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Remove the BUG_ON(!bo_va) in amdgpu_cs_vm_handling() that is
-unreachable: bo_va is assigned from fpriv->csa_va on the line
-directly above, inside an if (fpriv->csa_va) block, so it is
-guaranteed to be non-NULL at that point.
+bochs_pci_probe() allocates the DRM device with devm_drm_dev_alloc(),
+which registers a devres action to drop the initial DRM device reference
+on driver detach or probe failure.
 
-Signed-off-by: John B. Moore <jbmoore61@gmail.com>
+The error path currently calls drm_dev_put() manually. If probe then
+returns an error, devres will run the registered release action and put
+the same device again, after the first put may already have released it.
+
+Return the probe error directly and let devres own the final put.
+
+Fixes: 04826f588682 ("drm/bochs: Allocate DRM device in struct bochs_device")
+Cc: stable@vger.kernel.org
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/gpu/drm/tiny/bochs.c | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index 53f537f3e..556c62948 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -1137,7 +1137,6 @@ static int amdgpu_cs_vm_handling(struct amdgpu_cs_parser *p)
+diff --git a/drivers/gpu/drm/tiny/bochs.c b/drivers/gpu/drm/tiny/bochs.c
+index 222e4ae1ab..5d8dc5efec 100644
+--- a/drivers/gpu/drm/tiny/bochs.c
++++ b/drivers/gpu/drm/tiny/bochs.c
+@@ -761,25 +761,21 @@ static int bochs_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent
  
- 	if (fpriv->csa_va) {
- 		bo_va = fpriv->csa_va;
--		BUG_ON(!bo_va);
- 		r = amdgpu_vm_bo_update(adev, bo_va, false);
- 		if (r)
- 			return r;
+ 	ret = pcim_enable_device(pdev);
+ 	if (ret)
+-		goto err_free_dev;
++		return ret;
+ 
+ 	pci_set_drvdata(pdev, dev);
+ 
+ 	ret = bochs_load(bochs);
+ 	if (ret)
+-		goto err_free_dev;
++		return ret;
+ 
+ 	ret = drm_dev_register(dev, 0);
+ 	if (ret)
+-		goto err_free_dev;
++		return ret;
+ 
+ 	drm_client_setup(dev, NULL);
+ 
+ 	return ret;
+-
+-err_free_dev:
+-	drm_dev_put(dev);
+-	return ret;
+ }
+ 
+ static void bochs_pci_remove(struct pci_dev *pdev)
 -- 
-2.43.0
-
+2.39.5
