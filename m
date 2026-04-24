@@ -4,90 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CB74FE51F0
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 09:14:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06408FE51EE
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 09:20:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E89BF10F44D;
-	Fri, 24 Apr 2026 09:14:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BE8D10F458;
+	Fri, 24 Apr 2026 09:20:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nY775n2F";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="f3nvIfeu";
 	dkim-atps=neutral
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
- [209.85.221.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45CED10F44D
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 09:14:29 +0000 (UTC)
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-43cf7683a28so5159000f8f.2
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 02:14:29 -0700 (PDT)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43C6A10F458
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 09:20:17 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-488ab2db91aso103979955e9.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 02:20:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777022068; x=1777626868; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:from:to:cc:subject:date
- :message-id:reply-to;
- bh=nSmDvRkfSjghcrtIGnXq0grda+xm9HI4mnGbjcUNF0k=;
- b=nY775n2FdqwT+Qljehetl+Lo38lcOtcVI1qpomAv2RI1E7nuMXHCa2uWUkKxIotTyN
- tSr99vDQb5NxLRPbi93HQCAJ3yGeOOhneSa9gUSHI/IBuVKwKFAX+MF4ne+dIlnhfuDl
- ymsqlLqd3bBBX2/gQ2PG1AsHEH8oQPDe48AB8QkcdAnWHp21YHH3e/xYjdz2++32dfAS
- iDN5bv0DOY0xnyX2nyPAXDEXlgegM6aW9W/KWJy2cnUjiLDarfLe5+TGjRPUTo7io6zR
- FaUeN0o9E4YnNYwRu1yAfAKYmjIm2ad06lbPdS54I3Kh+20pujEHOvbO7OHW+2Lcofkb
- pWDg==
+ d=gmail.com; s=20251104; t=1777022416; x=1777627216; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=gOHHzHpR+tUYq1PV1E2y8jxvE0jwtx0gBXAvhrnysC8=;
+ b=f3nvIfeuajUm2V+ZDeu7/p4JDvX7NIDaliv8E1KqvZ2nBJ9HJD5DAzhqsaw4Wp8Xce
+ jxBBmfoA1q1Iipdva3zk5I759+5RLQxYf/cf3/16L+bVqayHnD6gpA21ZNfKc8kmkbbk
+ v7sJb1WVDMnEXwd5x3NOVoG2lJBdazX2idnikGs0I8B7/U2VbLD0DmajsJ/TcV8Sc1Ir
+ aXJ1CxU/EaF4LVFcKOCDaxs+i5qHJf9hbXBaUVANao2A4o/p0qjmFn7X2DSDs2/0QAYm
+ AOkahV27M48VqvLIyy/pyHN8hFKQqBai4f0pGXPu/okDgO+5Ba6Vdmghn8wfXfUVXw0v
+ OEfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777022068; x=1777626868;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=nSmDvRkfSjghcrtIGnXq0grda+xm9HI4mnGbjcUNF0k=;
- b=MWPmOR4hsmRWxWvUAmjdOsXC47iCMBvVR0uu4S6XJHLYh+vPbY28DVXMm2KOJfd9lh
- fm/b9jK3Rni13YZs4OS8K7c1BVl26hSwlfewRkngL+npMfFnaoOahV6rAVfBChuGJeI5
- eTn9qUgZ/DMHWmrZbUMgFd7Q6toBf6s/qxMw6ImZu5Aa6xFxSZnnfgVZF9zs09hdVROb
- vX6H/85IYGJ8b22dUAZYvkygiFGvqep6la49nGqMe23Y7p7zSvxbxt0fFkBwxs3igDRb
- sW205ZNoayzEk03jYalBc/Dr1UFbPcnaS/qYWbctJ2OQWp42HRgJA2LhCNHvzVWfU7zj
- dpWg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/3eNvrwlmebjboNEQlG1mEK3iQ7q4xfPNUp64SznGQQr2j4lDztaIyaDeyo58jVP+NA1MLPE1uVPU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxwqQQcBDFKgWOw42JtpSh+z6Xcmgsf1xwVLFVZcLhjTRwit+V8
- iNqXqvMHF64331mBxGOnJcXNmLJGpHDW+let7CQPt3/OWZGIOxF1VYxC
-X-Gm-Gg: AeBDieuJHIdPIRYHAlU4MhavnxDffm+w4nhSWMlbzwpQunlZodMXJE6wJLBH904NfsH
- DxpfiI1AUpSRjZGmFUyc99VCHVRNolxzeD4PdcXTIrgpfCDRR6ELta2nTckDyTsRHbRi3MkawSk
- Ln7YeFSnIcJm88cshd///+DeEef3BnkufS9kQZ6PhmHTER8zqk5cNdj+lE8RxInmckHKI9iJ468
- L+gHxWBUVT6G2lVkqNylZH5v2yi/2cOptADH0vXDaaj+qno/bWCti9AZRRd0kh46Sgxydmt1fPV
- i1gdBcLlNNqMJVSfmuQ2K+xTXlyTwaclWoGZVPQiI7nMrD3M8K5V2vy/LuXGtZaqSKKWJVpQ8gb
- enr2U6TPMV/rPnVxv5NUK75gBOYen7qLxdGUBdlgDIb3dR9gosm5xmMNnPzaRugEStqaB8Ex3d+
- AUKnPC8QFfF2AOaaW6DaNgJM+V8pzUmNRMJ0Un0lTkGg4LuoV7Bk1HIZW12IHQrK1bUX9NgddXa
- 1o=
-X-Received: by 2002:a5d:5f84:0:b0:43d:7783:c684 with SMTP id
- ffacd0b85a97d-43fe3e1e092mr49352860f8f.43.1777022067498; 
- Fri, 24 Apr 2026 02:14:27 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+ d=1e100.net; s=20251104; t=1777022416; x=1777627216;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=gOHHzHpR+tUYq1PV1E2y8jxvE0jwtx0gBXAvhrnysC8=;
+ b=QK/tR1hs3i77vMn0Jb7xBT/7rsgIdHuHy4B3j2v/KpWoFpmT0pIBA2mjrQ6Sctwfkk
+ dAyi4HxhjjekeWsvv6SOqutSOUXkkAmPnNdGHDbgUfztPG7r5QgnLyoPvUAs2wAmhOtb
+ Vm9KaEuCwOk0oyXpZqYOuj3XwiuWkSFrBFcgesoCO7/q/b6Y0sPVbEHlXyGCfNs/y6KX
+ Vl82zCFaNGblHCLsicNQHKk35cllGf9qYFoqoinhloHs12dp2taKbZ8XMG0VbJSNPcIg
+ R9XmnaLl2NnjVWb5r8OamKF7bwOwAkRzIlk27ZxiFX2Q/jsug2887t5i4VPX4DXosWLM
+ jAjw==
+X-Gm-Message-State: AOJu0YzvqtPQ/KJAbgI4HjAlWpTfV6U28wpxCKqOqvMFgTl7Bc/6cX2X
+ bMsVFjTwMZL1TLJGaS/u2Nf+wWwq+tSPu8JEoaiIIpMBVT36ZSdAFKEI
+X-Gm-Gg: AeBDies27U5SunbtnSo/2mGEXZXJox1qvnmB1cCOLtSwobRmaB6dJL+q7rr4FSwrzDn
+ cEaDqRdSdMrvKkw9zySVbBiosn4Sv/np2UGgrncEqaIQD7a6U6aiLWSlvDGjY3bzFon11gsdARS
+ FcnkBzayhQGQHA4sgsQShA+vevdsyqoCH8QDTJ3bcawRZBVx/yDbALZVbBCBJi4fG39jo92mQKF
+ v7VSNW/ZZu8GkDv+zx8tpLs2RzyKrTN6ezpn/Yhp85bbEKatJLil7LRZarrmnj4OiSMTdj0gHoD
+ 9lNlMnuyhTLY1B0pSJEI8YWhdw49JZRqdw+zrkivWkjYzJnuEBH/BihKe1nzc5sfrLFCxEc8pjv
+ GGvAnjdBKndsYVQrVIzVX44INYQJuMXYEw7hJVyy4cbbYpcZpF2IFRKn8/aBg2EISiq9Qa50aZQ
+ X8oHnIrRnNW4/xA/BY0H76l2fDKngIwQKxt6sRDhAVW/ZOreM=
+X-Received: by 2002:a05:600c:3515:b0:488:8b99:54a1 with SMTP id
+ 5b1f17b1804b1-488fb78e7c5mr424576075e9.28.1777022415481; 
+ Fri, 24 Apr 2026 02:20:15 -0700 (PDT)
+Received: from able.fritz.box ([2a00:e180:15f2:7300:95ce:4290:489c:f518])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4412150a092sm23750898f8f.23.2026.04.24.02.14.26
+ 5b1f17b1804b1-4891c08faffsm660955235e9.1.2026.04.24.02.20.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Apr 2026 02:14:27 -0700 (PDT)
-Date: Fri, 24 Apr 2026 10:14:25 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>
-Cc: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
- chleroy@kernel.org, peterz@infradead.org, jpoimboe@kernel.org,
- jbaron@akamai.com, aliceryhl@google.com, rostedt@goodmis.org,
- ardb@kernel.org, sumit.semwal@linaro.org, christian.koenig@amd.com,
- ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
- bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org,
- tmgross@umich.edu, dakr@kernel.org, nathan@kernel.org,
- nick.desaulniers+lkml@gmail.com, morbo@google.com, justinstitt@google.com,
- tamird@kernel.org, arnd@arndb.de, nsc@kernel.org, simona.vetter@ffwll.ch,
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, rust-for-linux@vger.kernel.org,
- llvm@lists.linux.dev, Link Mauve <linkmauve@linkmauve.fr>
-Subject: Re: [PATCH V13 5/7] rust: Make __udivdi3() and __umoddi3() panic
-Message-ID: <20260424101425.6bde0e17@pumpkin>
-In-Reply-To: <20260424054742.45832-6-mkchauras@gmail.com>
-References: <20260424054742.45832-1-mkchauras@gmail.com>
- <20260424054742.45832-6-mkchauras@gmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+ Fri, 24 Apr 2026 02:20:14 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: zack.rusin@broadcom.com,
+	bcm-kernel-feedback-list@broadcom.com
+Cc: dri-devel@lists.freedesktop.org
+Subject: Finishing drm_exec cleanup
+Date: Fri, 24 Apr 2026 11:15:08 +0200
+Message-ID: <20260424092012.5694-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,67 +86,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 24 Apr 2026 11:17:40 +0530
-"Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com> wrote:
+Hi Zack,
 
-> From: Link Mauve <linkmauve@linkmauve.fr>
->=20
-> The core crate currently depends on these two functions for i64/u64/
-> i128/u128/core::time::Duration formatting, but we shouldn=E2=80=99t use t=
-hat in
-> the kernel so let=E2=80=99s panic if they are ever called.
+VMWGFX is the only DRM driver who is still using the old ttm_execbuf
+framework and while going over my TODO branches I've found that I never
+upstreamed the patches to clean that up and fully move over to drm_exec.
 
-Ugg.
-Surely you can make it a link-time failure?
-Or change the underlying code to avoid the divide.
+It should be a trivial 1 to 1 replacement now, but I can only compile
+test it.
 
-	David
+There can be more cleanup on top of this, for example as far as I can
+see vmw_resource_check_buffer() actually doesn't need a ticket. But this
+isn't the topic of this patch set.
 
->=20
-> This doesn=E2=80=99t yet fix drm_panic_qr.rs, which also uses __udivdi3 w=
-hen
-> CONFIG_CC_OPTIMIZE_FOR_SIZE=3Dy, but at least makes the rest of the kernel
-> build on PPC32.
->=20
-> Signed-off-by: Link Mauve <linkmauve@linkmauve.fr>
-> Signed-off-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
-> ---
->  rust/Makefile             | 4 ++++
->  rust/compiler_builtins.rs | 6 ++++++
->  2 files changed, 10 insertions(+)
->=20
-> diff --git a/rust/Makefile b/rust/Makefile
-> index 2a5428a5503d..ee11fba7a03d 100644
-> --- a/rust/Makefile
-> +++ b/rust/Makefile
-> @@ -616,6 +616,10 @@ ifneq ($(or $(CONFIG_ARM64),$(and $(CONFIG_RISCV),$(=
-CONFIG_64BIT))),)
->  		__ashrti3 \
->  		__ashlti3 __lshrti3
->  endif
-> +ifdef CONFIG_PPC32
-> +	redirect-intrinsics +=3D \
-> +		__udivdi3 __umoddi3
-> +endif
-> =20
->  ifdef CONFIG_MODVERSIONS
->  cmd_gendwarfksyms =3D $(if $(skip_gendwarfksyms),, \
-> diff --git a/rust/compiler_builtins.rs b/rust/compiler_builtins.rs
-> index dd16c1dc899c..fc6b54636dd5 100644
-> --- a/rust/compiler_builtins.rs
-> +++ b/rust/compiler_builtins.rs
-> @@ -97,5 +97,11 @@ pub extern "C" fn $ident() {
->      __aeabi_uldivmod,
->  });
-> =20
-> +#[cfg(target_arch =3D "powerpc")]
-> +define_panicking_intrinsics!("`u64` division/modulo should not be used",=
- {
-> +    __udivdi3,
-> +    __umoddi3,
-> +});
-> +
->  // NOTE: if you are adding a new intrinsic here, you should also add it =
-to
->  // `redirect-intrinsics` in `rust/Makefile`.
+Please let me know what you think since that would allow remove quite a
+bunch of otherwise unmaintained code.
+
+Thanks,
+Christian.
 
