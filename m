@@ -4,59 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29385FE5214
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 12:09:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2C35FE5214
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 12:10:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DD0110E3D1;
-	Fri, 24 Apr 2026 12:09:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E80110E3CF;
+	Fri, 24 Apr 2026 12:10:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="bHcgaOOS";
+	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="QshOk4O7";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 821B910E3D1
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 12:09:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1777032547;
- bh=bAtkoYstXQt4BRxKwP2U4Ooxgnt99sDfcSdFJjFTetc=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=bHcgaOOS/mAFd771CKIfLiEoLJUoG3lZQyF2Ond/qEmqpOl+ArIYpcyRaOfe+yOc6
- 3CdEB0PiVkjoHwFkIGLX8CINiADO5htPlNUbdwWX+HDraP+5XfGewahxaHoBXmhmxa
- gOqXOeg93EXaRn9OjwafNPPjmjJ+rHpmvTkVINEPmoXItfS2YplU61kUw/2AQeTV7i
- 4da7da3nhbahX7BiutQUsCGge3pDfj2RAzJOFaQM1p8J/9wUZd64deDe74ZOvo/O7g
- RGaAlP+XrI0W/5afRO7+I385IcBrwk9Py3jpW5hJMHuWddTE007x130rNzCuSarBmY
- oOYElh2KMkpuA==
-Received: from fedora (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 680F917E14D4;
- Fri, 24 Apr 2026 14:09:07 +0200 (CEST)
-Date: Fri, 24 Apr 2026 14:09:03 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Steven Price <steven.price@arm.com>
-Cc: Karunika Choo <karunika.choo@arm.com>, dri-devel@lists.freedesktop.org,
- nd@arm.com, Liviu Dudau <liviu.dudau@arm.com>, Maarten Lankhorst
+Received: from OS0P286CU010.outbound.protection.outlook.com
+ (mail-japanwestazon11011067.outbound.protection.outlook.com [40.107.74.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68F4D10E3CF
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 12:10:21 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MdYT7AWeqd/3qWt40BUChYA39BEKdmDZirb1Pd0PSgSvMWaRVso5XrqaRGxcp7fm858pv6H+eOKSMIrCoZF+u1MAtlE+826HVN1wPEQSue53oxTNQIfi8IX7fN+Ltkr9V+9FO7v7xC0z6sRWcEk/Rp6QhPSzbPvzu58HValnNfquVwMU7ZRt+IToyTybCf67AjBEkZWlPUdkkrYmoxwsdJLbgUQQ8Wh1hIkEa0u1VuuWP+KCWpwhTaXEQeKxEq+gifC//pdWPK6/ylHqa5xbUaS8xd8zDWBNdm0lM7XqfQ/k9/Hp91owWwl7qL5a3A2VOgedPsOF/SBjtPkX/7R7vA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aunVaAz7iNFwqfkpdmd19PdQHB8K/CYzdRBhT3gbdO0=;
+ b=bHygvpo0gl6J/doaRFFKW2HrgOYV3PLMM3CD5hVPG9tOn1RJ0VMecY8bVhSocP3PxiUtxGxGH+IoUfeoY6Or7+VhMAS6p4glWI40CoabmQUVy5weg6YxZcmHJTb57tdGU9JbeYofAD5a2InMchmGynp6wRTzQdBhWTVJDmQrZKICPFi3FVC6EhsymnfGi3CWkiuCeuTt3JqyrzwOnB3V1XEsjNmGi37oF8JEHP/YQzMGkrwVAk1Ty368ofVj3wWsvoprYk6OiZjXwMtRdrh0afFoclN2hou4x/zfU2u29wxdN2Pk0sEvp7UZjaZQx8mJaZ/cUY79JTOYFALWD5OOVA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aunVaAz7iNFwqfkpdmd19PdQHB8K/CYzdRBhT3gbdO0=;
+ b=QshOk4O7C7Ucb+CnbN5r+ILo5+tABjWyPG4ptZspVBb3jvPbv7jR3rcH2awkixf/W29VmqsXtteivWsZthvaK7FJv9r5dcxRxaDCuOGW49frNhBaNxEQdyEuqCAFYRHnqDbiYuA9YBtWSi/580HDQyhJ1RMOdtEuYndacn55W3s=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by TY4PR01MB12956.jpnprd01.prod.outlook.com (2603:1096:405:1e6::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.22; Fri, 24 Apr
+ 2026 12:10:17 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.20.9846.021; Fri, 24 Apr 2026
+ 12:10:17 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Chris Brandt <Chris.Brandt@renesas.com>, Maarten Lankhorst
  <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 4/8] drm/panthor: Store IRQ register base iomem
- pointer in panthor_irq
-Message-ID: <20260424140903.26b03ea2@fedora>
-In-Reply-To: <5087bbe4-4898-4fe1-9ea2-17e967bfeec0@arm.com>
-References: <20260412142951.2309135-1-karunika.choo@arm.com>
- <20260412142951.2309135-5-karunika.choo@arm.com>
- <53a66bbd-7ed5-41d9-a15e-af17f292dea1@arm.com>
- <b6c97926-57aa-41dd-99f8-c5f0397e002c@arm.com>
- <05bc8e72-a914-4bee-b635-fe1e9c623900@arm.com>
- <20260424130302.4fb86551@fedora>
- <5087bbe4-4898-4fe1-9ea2-17e967bfeec0@arm.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+ Simona Vetter <simona@ffwll.ch>, Pavel Machek <pavel@nabladev.com>, Hugo
+ Villeneuve <hugo@hugovil.com>
+CC: "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, Chris
+ Brandt <Chris.Brandt@renesas.com>, Hugo Villeneuve <hvilleneuve@dimonoff.com>
+Subject: RE: [PATCH v2] drm: renesas: rz-du: mipi_dsi: Fix return path on error
+Thread-Topic: [PATCH v2] drm: renesas: rz-du: mipi_dsi: Fix return path on
+ error
+Thread-Index: AQHc0meinmXgOg3bwE20e+5HFeyfnrXuIZTA
+Date: Fri, 24 Apr 2026 12:10:17 +0000
+Message-ID: <TY3PR01MB113464115454EB533EE670E81862B2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20260422145146.1638998-1-chris.brandt@renesas.com>
+In-Reply-To: <20260422145146.1638998-1-chris.brandt@renesas.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TY4PR01MB12956:EE_
+x-ms-office365-filtering-correlation-id: b5e4df28-5ff2-496d-6070-08dea1fa72ae
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|366016|7416014|376014|38070700021|18002099003|56012099003|22082099003;
+x-microsoft-antispam-message-info: hvBiRI4fICBpqJIC9LEeUJJF4DBfYkuOfKt6QNxZqDm8Dq/0vP/EkXUi69+aAsfmlhLKyiFwFgAFZlgnmnCRh7ZQpH+qNhYjTVEl8XX4/zSqQRDVxMxX39lxmn1hGo4cPTKpPt9YKqQQkxvMSa73YjMOA8SbM4x1adtfCz/Mnuw+eMEqiUHnbm/0oROYFnMnha3Lg0nHeWfIYBJrB4JaTgOAgLEFTqjr8HKxQHOEQfSwu1rmd9G64u5P+xbsj+sWBnw37a43cyH63IWMNF589a3+1mU7UUQYP7N0kaf+I9DYjcZrMImCv4vWGogL2HP52QzrYdSN6t4FH1viOZCbeVMiGkn4p2HIzMAMFiJvq30ImE7+MooaHy2Vr3UxhhxMWAOJhUHa50A1dl5Gpa8jElV0OkSwk0Ot3/oJzl7l6wYbqBfCIdvMV7Ai8jUktjYOVv2vgMSnz9+skJxjmym0rcU375IQAk74S2YNujEI/NaShxT8gLL5ZS4KqTMH+iXV+1xQpNPX5kpuAQTcCmXn2dVZGHxnJ90KZbwgEq1oml8yhAhHFNF6HuWCwNlFHV4j58NGbwjJGDEHS+1TP+KcKR0SVglBCWoFIK1QeVgPdPxJpHnFDTBk3HprGscNhUE1/SlsIhE8sfb+kMH1nCOvYuslv8a9EI2jcsERTjXG0staR7+KBNlao7UUCQT6XZae6iFAGBmQcGCPws+8YsrNSdGz7UG93MUkI1vBL4uaiM3vmZBP41JKhsvnX3hLsDxVaXoULq9QjVQJitBeFWITM8SuA+DqkAS1ttOFNBzkJpw=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TY3PR01MB11346.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(7416014)(376014)(38070700021)(18002099003)(56012099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?wbBW2QDtuDu8B1eTSqYOPPhTk2P7vWCFly1BvzE+NBNkyGFaBIhiwkuxTd+N?=
+ =?us-ascii?Q?W+0tpzZv7iTChlVRpdP6JrDxQp7UxsGVcAjzGcHjyKoV1n5QVatVewRegNF8?=
+ =?us-ascii?Q?rqT6BwUEdbSuR94Z3my5TIYoHX28fgL3Jxha2tGDqQlmmEV0v0C5jinl19nO?=
+ =?us-ascii?Q?h6kyFJvknOyB6Uwdtx9MMLUlbY66QcLpqF18CCbcu/tlsXiwSYTUm3V1WnPr?=
+ =?us-ascii?Q?YT6lCvR8O4tzOwhwYxvBoINVlVZrJ/YYk2xdmOUgbX5MgwQO6NhlOJZ9P6JV?=
+ =?us-ascii?Q?2anR6gw+QHPe1a7rzJeSczLAZqbdUIQcnhPhkoTjav0d1RXE2hDy5sCPTMgW?=
+ =?us-ascii?Q?gwb6jZ+4y0mBj1nYYoVNkXHKA4e9nUJHvjjEAuZTTtJ4Flq5CMUFwNuv1lyO?=
+ =?us-ascii?Q?qRDrPmD0wkV5qEMGgbAHVrc0LRyauZBdg1hqJru63l6+hdoRfIX6cObvRgEz?=
+ =?us-ascii?Q?gHIj/X4zIOLTHOAgyJrfvj/RaKm7DiPguFSUvP2rY0mTTTGawDjEMMYAHUto?=
+ =?us-ascii?Q?Ca/SS54jxfn4/5D6wCpOQBLhtk02K6nCsRgyMWGYCAo8w6jonltsnSYZSSBS?=
+ =?us-ascii?Q?KIPWDnMSor9Mij2t7irL6YfPsOspTsGHJjEGNgsBVL54SyBuHhtWy4NfXwlg?=
+ =?us-ascii?Q?OLC0PTTjgCBz4LuI1TztCav8ioMvtrc7EzWo+HmEUGEtnBOipAGwAu5HBFQo?=
+ =?us-ascii?Q?y+0W9M5OKhY9smdHGpHnx/6JCQjFwpCuNG4FMBmtd01VF3bm/6QhtGugOwH4?=
+ =?us-ascii?Q?6u2ExHxgx7ZvHvQ8d+JGfJFlydEGVD9u8qPayMFUPwYV7k8iGXbrYlj+7634?=
+ =?us-ascii?Q?v7UTkPUfQ7PGs+A7jBEng0ItIWANINkJjGvwhyhTKwIwUhG0wwxRw/P3Q43w?=
+ =?us-ascii?Q?2BqthMLofRnWQATcsX3ACUKXjkezQcEpsl0bs0+FzZss8tAiFC3czHrL67dn?=
+ =?us-ascii?Q?tU6ky1hSQuhgniZ20+iztCzJW+JdWgXmg8vUWGi/s980BpEqYWMjrwRy02DJ?=
+ =?us-ascii?Q?TQe4kJFhyhi6MpG/QLqNyaDz+bdJSGrL+UVF0rAvLelnjkI7xFxQDfyyuJVn?=
+ =?us-ascii?Q?nYHMn/3zjveA33jqIYrENAxZlj1CrGgcGfvSDhRKRF513PVl0bTxc2CWHtMo?=
+ =?us-ascii?Q?UXunVma3Ka+CpGVgz1ntl3vMcnwFhyRYaUHGjenUqky4ieEioLPWxijjU1vr?=
+ =?us-ascii?Q?SC9/NvT1YqSj6HjAUydgoSVGSYkphshgAGRqZ+rk0+drHSKtqdyAxih+DsfU?=
+ =?us-ascii?Q?uOtEJuSSnnuhEKy6BtjnZix0vJ55x3EOBnn+p3poV7VrW0SMr3KYxR4HGyJN?=
+ =?us-ascii?Q?sf/8Ysg+HjEMaq/ahlhGuSaenSWPx6KR0cDoNayk2ou1QU+RamHzzMPoq+SO?=
+ =?us-ascii?Q?LhBhvn/0EiuLcu2d5qs1GhsoUTozxTw5VqrRNVIomWHd4dHloubUv2MtxYBG?=
+ =?us-ascii?Q?5SHZEjqxS90cawOpXI9YERYuDxKW9ibjUYQ/zjEpb7D9aY4q5NncgEy3iYku?=
+ =?us-ascii?Q?WnLxcrH3kviwT0q4iqWHL6lat/7F5et4b52VgNDXAsajuUcQ6GZEDbO13NP3?=
+ =?us-ascii?Q?GnVk/6HunjR8Lo1qfh2YywpsFl1PCuQm+diq/48nWBEcTxOIougKE9Juwxxu?=
+ =?us-ascii?Q?v2t9OgIrg5qC19T1VTPOnsYavBvc1KOsPNIW7y12MYYBNkUB0he7vqXjzo5y?=
+ =?us-ascii?Q?azqN0xrXHXPzl8UK+S6NmJvBl5F404gVhuevfHVJa+1L8Ws35o5XN0vsEfuQ?=
+ =?us-ascii?Q?Mnied2EuZw=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b5e4df28-5ff2-496d-6070-08dea1fa72ae
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Apr 2026 12:10:17.1096 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: N1K4uxwCQF0kJkJAmrclgdrnz2Ulq/iO1mpjW1E5bpV5Qs1nNNgA29ZcRh4QxkEdPb4pPUQsgKIJJXXbNSd0b+OHKBTCwuAlQty98TAwU9U=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY4PR01MB12956
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,159 +134,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 24 Apr 2026 12:20:07 +0100
-Steven Price <steven.price@arm.com> wrote:
+Hi Chris,
 
-> On 24/04/2026 12:03, Boris Brezillon wrote:
-> > On Fri, 24 Apr 2026 11:38:24 +0100
-> > Steven Price <steven.price@arm.com> wrote:
-> >   
-> >> On 22/04/2026 17:08, Karunika Choo wrote:  
-> >>> On 22/04/2026 10:34, Steven Price wrote:    
-> >>>> On 12/04/2026 15:29, Karunika Choo wrote:    
-> >>>>> Update common IRQ handling code to work from an IRQ-local iomem base
-> >>>>> instead of referencing block-specific interrupt register offsets.
-> >>>>>
-> >>>>> Store the interrupt base address iomem pointer in struct panthor_irq and
-> >>>>> switch the shared IRQ helpers to use generic INT_* offsets from that
-> >>>>> local base. This removes the need for each caller to expose absolute IRQ
-> >>>>> register addresses while keeping the common IRQ flow unchanged.
-> >>>>>
-> >>>>> No functional change intended.
-> >>>>>
-> >>>>> v2:
-> >>>>> - Change IRQ request function to accept an iomem pointer instead of
-> >>>>>   computing it from an offset argument.
-> >>>>>
-> >>>>> Signed-off-by: Karunika Choo <karunika.choo@arm.com>    
-> >>>>
-> >>>> One minor comment below...
-> >>>>    
-> >>>>> ---
-> >>>>>  drivers/gpu/drm/panthor/panthor_device.h   | 32 ++++++++++++++--------
-> >>>>>  drivers/gpu/drm/panthor/panthor_fw.c       |  5 ++--
-> >>>>>  drivers/gpu/drm/panthor/panthor_fw_regs.h  |  2 ++
-> >>>>>  drivers/gpu/drm/panthor/panthor_gpu.c      |  6 ++--
-> >>>>>  drivers/gpu/drm/panthor/panthor_gpu_regs.h |  3 ++
-> >>>>>  drivers/gpu/drm/panthor/panthor_mmu.c      |  5 ++--
-> >>>>>  drivers/gpu/drm/panthor/panthor_mmu_regs.h |  3 ++
-> >>>>>  drivers/gpu/drm/panthor/panthor_pwr.c      |  6 ++--
-> >>>>>  8 files changed, 42 insertions(+), 20 deletions(-)
-> >>>>>    
-> >>>> [...]    
-> >>>>> @@ -1470,7 +1470,8 @@ int panthor_fw_init(struct panthor_device *ptdev)
-> >>>>>  	if (irq <= 0)
-> >>>>>  		return -ENODEV;
-> >>>>>  
-> >>>>> -	ret = panthor_request_job_irq(ptdev, &fw->irq, irq, 0);
-> >>>>> +	ret = panthor_request_job_irq(ptdev, &fw->irq, irq, 0,
-> >>>>> +				      ptdev->iomem + JOB_INT_BASE);
-> >>>>>  	if (ret) {
-> >>>>>  		drm_err(&ptdev->base, "failed to request job irq");
-> >>>>>  		return ret;    
-> >>>> [..]    
-> >>>>> @@ -162,7 +162,9 @@ int panthor_gpu_init(struct panthor_device *ptdev)
-> >>>>>  	if (irq < 0)
-> >>>>>  		return irq;
-> >>>>>  
-> >>>>> -	ret = panthor_request_gpu_irq(ptdev, &ptdev->gpu->irq, irq, GPU_INTERRUPTS_MASK);
-> >>>>> +	ret = panthor_request_gpu_irq(ptdev, &ptdev->gpu->irq, irq,
-> >>>>> +				      GPU_INTERRUPTS_MASK,
-> >>>>> +				      ptdev->iomem + GPU_INT_BASE);
-> >>>>>  	if (ret)
-> >>>>>  		return ret;
-> >>>>>      
-> >>>> [...]    
-> >>>>> @@ -3229,7 +3229,8 @@ int panthor_mmu_init(struct panthor_device *ptdev)
-> >>>>>  		return -ENODEV;
-> >>>>>  
-> >>>>>  	ret = panthor_request_mmu_irq(ptdev, &mmu->irq, irq,
-> >>>>> -				      panthor_mmu_fault_mask(ptdev, ~0));
-> >>>>> +				      panthor_mmu_fault_mask(ptdev, ~0),
-> >>>>> +				      ptdev->iomem + MMU_INT_BASE);
-> >>>>>  	if (ret)
-> >>>>>  		return ret;
-> >>>>>      
-> >>>> [...]    
-> >>>>> diff --git a/drivers/gpu/drm/panthor/panthor_pwr.c b/drivers/gpu/drm/panthor/panthor_pwr.c
-> >>>>> index aafb0c5c7d23..11c43de1ddd5 100644
-> >>>>> --- a/drivers/gpu/drm/panthor/panthor_pwr.c
-> >>>>> +++ b/drivers/gpu/drm/panthor/panthor_pwr.c
-> >>>>> @@ -70,7 +70,7 @@ static void panthor_pwr_irq_handler(struct panthor_device *ptdev, u32 status)
-> >>>>>  	}
-> >>>>>  	spin_unlock(&ptdev->pwr->reqs_lock);
-> >>>>>  }
-> >>>>> -PANTHOR_IRQ_HANDLER(pwr, PWR, panthor_pwr_irq_handler);
-> >>>>> +PANTHOR_IRQ_HANDLER(pwr, panthor_pwr_irq_handler);
-> >>>>>  
-> >>>>>  static void panthor_pwr_write_command(struct panthor_device *ptdev, u32 command, u64 args)
-> >>>>>  {
-> >>>>> @@ -464,7 +464,9 @@ int panthor_pwr_init(struct panthor_device *ptdev)
-> >>>>>  	if (irq < 0)
-> >>>>>  		return irq;
-> >>>>>  
-> >>>>> -	err = panthor_request_pwr_irq(ptdev, &pwr->irq, irq, PWR_INTERRUPTS_MASK);
-> >>>>> +	err = panthor_request_pwr_irq(
-> >>>>> +		ptdev, &pwr->irq, irq, PWR_INTERRUPTS_MASK,
-> >>>>> +		ptdev->iomem + GPU_CONTROL_BASE + PWR_CONTROL_BASE);    
-> >>>>
-> >>>> This one is the odd one out because it adds GPU_CONTROL_BASE put the
-> >>>> other panthor_request_xxx_irq() calls don't. Sashiko also points out
-> >>>> that there's an argument these should all be using ptdev->gpu->iomem in
-> >>>> the final refactor.
-> >>>>    
-> >>>
-> >>> I understand that it is slightly different, it is only there to
-> >>> illustrate the fact that it is a child of the GPU_CONTROL register page.
-> >>> w.r.t using ptdev->gpu->iomem, that would mean that we need reach into
-> >>> the panthor_gpu component to access the memory, hence why we used a
-> >>> separate iomem for this one.    
-> >>
-> >> Why do you not add GPU_CONTROL_BASE on when accessing JOB_INT_BASE,
-> >> GPU_INT_BASE and MMU_INT_BASE though?
-> >>
-> >> The obvious answer for JOB/MMU is because they're not architecturally in
-> >> GPU_CONTROL. But then why don't we have
-> >> JOB_CONTROL_BASE/MMU_CONTROL_BASE (my guess is because there isn't
-> >> really anything other than INT registers in those blocks).
-> >>
-> >> So it looks like for JOB_INT_BASE/GPU_INT_BASE/MMU_INT_BASE these are
-> >> offsets from the beginning of the GPU registers iomem. But then for some
-> >> reason PWR_INT_BASE (introduced in patch 6) is treated as if it's a
-> >> relative offset within GPU_CONTROL_BASE. Which is just weirdly inconsistent.
-> >>
-> >> I'm happy to disagree with Sashiko on the use of ptdev->gpu->iomem - I
-> >> think interrupts are special enough that we can use the top-level iomem.
-> >> But that only holds as a justification if all interrupts are treated in
-> >> the same way.  
-> > 
-> > I don't really mind if some intermediate patches use ugly tricks to get
-> > there,  
-> 
-> Sorry, I should have been clearer on that - the intermediate patches can
-> be a big ugly if necessary (it's clearly better to split things up
-> rather than change everything in one go). I picked this patch to comment
-> on because it's the one changing the IRQ handling.
-> 
-> > but in the final state, I'd actually prefer if each block was>  
-> initializing its own iomem, and then the interrupt iomem was calculated
-> > off this block-iomem region.
-> > 
-> > So, in patch, I'd like to see PWR_INT_BASE changed from 0x800 to 0 and
-> > 
-> > 	panthor_request_pwr_irq(ptdev, &pwr->irq, irq,
-> > 				PWR_INTERRUPTS_MASK,
-> > 				ptdev->pwr->iomem + PWR_INT_BASE);  
-> 
-> Yes, using the relevant iomem pointer for each IRQ request also makes
-> sense. What I disagreed with Sashiko on was picking on just the GPU
-> instance ;)
+Thanks for the patch.
 
-No worries. That was more a comment addressed to Karunika actually,
-since I see:
+> -----Original Message-----
+> From: Chris Brandt <chris.brandt@renesas.com>
+> Sent: 22 April 2026 15:52
+> Subject: [PATCH v2] drm: renesas: rz-du: mipi_dsi: Fix return path on err=
+or
+>=20
+> In case of error, we should unwind correctly.
+> Switching to using dmam_ instead of dma_ and moving the code earlier fixe=
+s the issue.
+>=20
+> Fixes: 6f392f371650 ("drm: renesas: rz-du: Implement MIPI DSI host transf=
+ers")
+> Suggested-by: Pavel Machek <pavel@nabladev.com>
+> Signed-off-by: Chris Brandt <chris.brandt@renesas.com>
+> Acked-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
 
- 	err = panthor_request_pwr_irq(
- 		ptdev, &pwr->irq, irq, PWR_INTERRUPTS_MASK,
-		ptdev->iomem + GPU_CONTROL_BASE + PWR_INT_BASE);
+Reviewed-by: Biju Das <biju.das.jz@bp.renesas.com>
 
-in patch 6, which is not what I'd expect there.
+Cheers,
+Biju
+
+>=20
+> ---
+> V1->V2:
+>  - Need to take into account mipi_dsi_host_register was already called (G=
+eert)
+>  - Switch to using dmam_alloc_coherent to automate unwinding (Chris)
+>  - Added Acked-by (Hugo)
+> ---
+>  drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c | 12 +++++-------
+>  1 file changed, 5 insertions(+), 7 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c b/drivers/gpu=
+/drm/renesas/rz-
+> du/rzg2l_mipi_dsi.c
+> index 29f2b7d24fe5..b908e702b607 100644
+> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+> @@ -1442,6 +1442,11 @@ static int rzg2l_mipi_dsi_probe(struct platform_de=
+vice *pdev)
+>  		return dev_err_probe(dsi->dev, PTR_ERR(dsi->prstc),
+>  				     "failed to get prst\n");
+>=20
+> +	dsi->dcs_buf_virt =3D dmam_alloc_coherent(dsi->dev, RZG2L_DCS_BUF_SIZE,
+> +						&dsi->dcs_buf_phys, GFP_KERNEL);
+> +	if (!dsi->dcs_buf_virt)
+> +		return -ENOMEM;
+> +
+>  	platform_set_drvdata(pdev, dsi);
+>=20
+>  	pm_runtime_enable(dsi->dev);
+> @@ -1474,11 +1479,6 @@ static int rzg2l_mipi_dsi_probe(struct platform_de=
+vice *pdev)
+>  	if (ret < 0)
+>  		goto err_pm_disable;
+>=20
+> -	dsi->dcs_buf_virt =3D dma_alloc_coherent(dsi->host.dev, RZG2L_DCS_BUF_S=
+IZE,
+> -					       &dsi->dcs_buf_phys, GFP_KERNEL);
+> -	if (!dsi->dcs_buf_virt)
+> -		return -ENOMEM;
+> -
+>  	return 0;
+>=20
+>  err_phy:
+> @@ -1493,8 +1493,6 @@ static void rzg2l_mipi_dsi_remove(struct platform_d=
+evice *pdev)  {
+>  	struct rzg2l_mipi_dsi *dsi =3D platform_get_drvdata(pdev);
+>=20
+> -	dma_free_coherent(dsi->host.dev, RZG2L_DCS_BUF_SIZE, dsi->dcs_buf_virt,
+> -			  dsi->dcs_buf_phys);
+>  	mipi_dsi_host_unregister(&dsi->host);
+>  	pm_runtime_disable(&pdev->dev);
+>  }
+> --
+> 2.52.0
+
