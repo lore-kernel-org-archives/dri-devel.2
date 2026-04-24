@@ -4,128 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E143DFED3C0
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 13:13:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B23EFED3C3
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 13:18:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50FA510F590;
-	Fri, 24 Apr 2026 13:13:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10C8710F588;
+	Fri, 24 Apr 2026 13:18:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="FSXGjo2Z";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="lHjA0DCJ";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="FSXGjo2Z";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="lHjA0DCJ";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="sl9SaL3f";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B9CF10F590
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 13:13:50 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 0ED876A843;
- Fri, 24 Apr 2026 13:13:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1777036429; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=sOevJRgU6I5lgeXBVvYKSafiysbbHPTPkMS9uwoWmrI=;
- b=FSXGjo2Zw2GX0Yuei5nfUdzG9N7XePURW8Xc+9MfIdbzt3kA3W/ZhLYAVTTsAPSkI7ij62
- HHpqiwQK+c91ktBddL0zAUQK74nQVE5xXavlYR6Ww86EsQVtI667DFbmnDqwLR1tgUAwyc
- 0enmy1moascPVwePrRUblQx9oWHHbz4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1777036429;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=sOevJRgU6I5lgeXBVvYKSafiysbbHPTPkMS9uwoWmrI=;
- b=lHjA0DCJEAyX2R9H1EvV/vqUIPTA0cZSBuW2X30HbnLW7LG8hGGg+eIHfYwxo9QheXSUaI
- zIxlOFvk/9YgV9BA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1777036429; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=sOevJRgU6I5lgeXBVvYKSafiysbbHPTPkMS9uwoWmrI=;
- b=FSXGjo2Zw2GX0Yuei5nfUdzG9N7XePURW8Xc+9MfIdbzt3kA3W/ZhLYAVTTsAPSkI7ij62
- HHpqiwQK+c91ktBddL0zAUQK74nQVE5xXavlYR6Ww86EsQVtI667DFbmnDqwLR1tgUAwyc
- 0enmy1moascPVwePrRUblQx9oWHHbz4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1777036429;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=sOevJRgU6I5lgeXBVvYKSafiysbbHPTPkMS9uwoWmrI=;
- b=lHjA0DCJEAyX2R9H1EvV/vqUIPTA0cZSBuW2X30HbnLW7LG8hGGg+eIHfYwxo9QheXSUaI
- zIxlOFvk/9YgV9BA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C4D5E593A4;
- Fri, 24 Apr 2026 13:13:48 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id pezgLoxs62nRJgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 24 Apr 2026 13:13:48 +0000
-Message-ID: <5839b215-022a-4aa1-b99c-1de04cc7a684@suse.de>
-Date: Fri, 24 Apr 2026 15:13:48 +0200
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 1746410F588
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 13:18:27 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 058C11BB0;
+ Fri, 24 Apr 2026 06:18:21 -0700 (PDT)
+Received: from [10.1.26.15] (e122027.cambridge.arm.com [10.1.26.15])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A60E93F23F;
+ Fri, 24 Apr 2026 06:18:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1777036706; bh=mJGBfCHv5LOt9jWMcDEqBWe0NR0Lj6QyytQG4M68WrY=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=sl9SaL3fRLSnr1ilJ6bDRRD6WO4HsFfbFt3HvOV/iCchFbICfSY8CAcA6Y6VTgHqL
+ HO/FkLDfRZujudYfnhYnkyV9683pSrjJYGD+sbvTPu3J8V6541530TFAVMPN2eElft
+ 0qjoa5famLoLZWQ1WAg1fETpa5hN4Te65lx6fal0=
+Message-ID: <dc262035-1147-4fbc-8140-10176e43b8bc@arm.com>
+Date: Fri, 24 Apr 2026 14:18:22 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/udl: Increase GET_URB_TIMEOUT
-To: Shixiong Ou <oushixiong1025@163.com>, Dave Airlie <airlied@redhat.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Shixiong Ou <oushixiong@kylinos.cn>
-References: <20260424124427.657-1-oushixiong1025@163.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260424124427.657-1-oushixiong1025@163.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v9 1/6] drm/panthor: Expose GPU page sizes to UM
+To: =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>,
+ linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org,
+ Boris Brezillon <boris.brezillon@collabora.com>, kernel@collabora.com,
+ Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Alice Ryhl <aliceryhl@google.com>
+References: <20260422122538.3117380-1-adrian.larumbe@collabora.com>
+ <20260422122538.3117380-2-adrian.larumbe@collabora.com>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260422122538.3117380-2-adrian.larumbe@collabora.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- FREEMAIL_TO(0.00)[163.com,redhat.com];
- FREEMAIL_ENVRCPT(0.00)[163.com,gmail.com]; ARC_NA(0.00)[];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; MIME_TRACE(0.00)[0:+];
- FREEMAIL_CC(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org,kylinos.cn];
- RCVD_TLS_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- RCPT_COUNT_SEVEN(0.00)[9]; MID_RHS_MATCH_FROM(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:url,
- suse.de:mid, suse.de:email]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,89 +64,150 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-
-Am 24.04.26 um 14:44 schrieb Shixiong Ou:
-> From: Shixiong Ou <oushixiong@kylinos.cn>
->
-> [WHY]
-> A situation has occurred where udl_handle_damage() executed successfully
-> and the kernel log appears normal, but the display fails to show any output.
-> This is because the call to udl_get_urb() in udl_crtc_helper_atomic_enable()
-> failed without generating any error message.
->
-> [HOW]
-> 1. Increase timeout of getting urb.
-> 2. Add error messages when calling udl_get_urb() failed in
-> udl_crtc_helper_atomic_enable().
->
-> Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
-
-Thanks
-
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-
-Fixes: 5320918b9a87 ("drm/udl: initial UDL driver (v4)")
-Cc: <stable@vger.kernel.org> # v3.4+
-
-
+On 22/04/2026 13:25, Adrián Larumbe wrote:
+> In future commits that will implement repeated mappings, only repeat
+> values multiple of GPU page sizes will be tolerated. That means these
+> values must be made known to UM. Do it through a queriable GPU info
+> value.
+> 
+> Reviewed-by: Steven Price <steven.price@arm.com>
+> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+> Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 > ---
-> v3: Remove GET_URB_TIMEOUT macro and pass 2 * HZ directly.
->
->   drivers/gpu/drm/udl/udl_main.c    | 3 +--
->   drivers/gpu/drm/udl/udl_modeset.c | 5 ++++-
->   2 files changed, 5 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/udl/udl_main.c b/drivers/gpu/drm/udl/udl_main.c
-> index bc58991a6f14..b4c23dbcf3e3 100644
-> --- a/drivers/gpu/drm/udl/udl_main.c
-> +++ b/drivers/gpu/drm/udl/udl_main.c
-> @@ -285,13 +285,12 @@ static struct urb *udl_get_urb_locked(struct udl_device *udl, long timeout)
->   	return unode->urb;
->   }
->   
-> -#define GET_URB_TIMEOUT	HZ
->   struct urb *udl_get_urb(struct udl_device *udl)
->   {
->   	struct urb *urb;
->   
->   	spin_lock_irq(&udl->urbs.lock);
-> -	urb = udl_get_urb_locked(udl, GET_URB_TIMEOUT);
-> +	urb = udl_get_urb_locked(udl, HZ * 2);
->   	spin_unlock_irq(&udl->urbs.lock);
->   	return urb;
->   }
-> diff --git a/drivers/gpu/drm/udl/udl_modeset.c b/drivers/gpu/drm/udl/udl_modeset.c
-> index 231e829bd709..1ca073a4ecb2 100644
-> --- a/drivers/gpu/drm/udl/udl_modeset.c
-> +++ b/drivers/gpu/drm/udl/udl_modeset.c
-> @@ -21,6 +21,7 @@
->   #include <drm/drm_gem_framebuffer_helper.h>
->   #include <drm/drm_gem_shmem_helper.h>
->   #include <drm/drm_modeset_helper_vtables.h>
-> +#include <drm/drm_print.h>
->   #include <drm/drm_probe_helper.h>
->   #include <drm/drm_vblank.h>
->   
-> @@ -342,8 +343,10 @@ static void udl_crtc_helper_atomic_enable(struct drm_crtc *crtc, struct drm_atom
->   		return;
->   
->   	urb = udl_get_urb(udl);
-> -	if (!urb)
-> +	if (!urb) {
-> +		drm_err_ratelimited(dev, "get urb failed when enabling crtc\n");
->   		goto out;
-> +	}
->   
->   	buf = (char *)urb->transfer_buffer;
->   	buf = udl_vidreg_lock(buf);
+>  drivers/gpu/drm/panthor/panthor_device.h |  3 +++
+>  drivers/gpu/drm/panthor/panthor_drv.c    |  8 ++++++++
+>  drivers/gpu/drm/panthor/panthor_mmu.c    |  9 ++++++++-
+>  include/uapi/drm/panthor_drm.h           | 13 +++++++++++++
+>  4 files changed, 32 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
+> index 5cba272f9b4d..d856a4fe1d61 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.h
+> +++ b/drivers/gpu/drm/panthor/panthor_device.h
+> @@ -158,6 +158,9 @@ struct panthor_device {
+>  	/** @csif_info: Command stream interface information. */
+>  	struct drm_panthor_csif_info csif_info;
+>  
+> +	/** @mmu_info: MMU info */
+> +	struct drm_panthor_mmu_info mmu_info;
+> +
+>  	/** @hw: GPU-specific data. */
+>  	struct panthor_hw *hw;
+>  
+> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
+> index 73fc983dc9b4..a8090bc4e33c 100644
+> --- a/drivers/gpu/drm/panthor/panthor_drv.c
+> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
+> @@ -175,6 +175,7 @@ panthor_get_uobj_array(const struct drm_panthor_obj_array *in, u32 min_stride,
+>  	_Generic(_obj_name, \
+>  		 PANTHOR_UOBJ_DECL(struct drm_panthor_gpu_info, tiler_present), \
+>  		 PANTHOR_UOBJ_DECL(struct drm_panthor_csif_info, pad), \
+> +		 PANTHOR_UOBJ_DECL(struct drm_panthor_mmu_info, page_size_bitmap), \
+>  		 PANTHOR_UOBJ_DECL(struct drm_panthor_timestamp_info, current_timestamp), \
+>  		 PANTHOR_UOBJ_DECL(struct drm_panthor_group_priorities_info, pad), \
+>  		 PANTHOR_UOBJ_DECL(struct drm_panthor_sync_op, timeline_value), \
+> @@ -946,6 +947,10 @@ static int panthor_ioctl_dev_query(struct drm_device *ddev, void *data, struct d
+>  			args->size = sizeof(ptdev->csif_info);
+>  			return 0;
+>  
+> +		case DRM_PANTHOR_DEV_QUERY_MMU_INFO:
+> +			args->size = sizeof(ptdev->mmu_info);
+> +			return 0;
+> +
+>  		case DRM_PANTHOR_DEV_QUERY_TIMESTAMP_INFO:
+>  			args->size = sizeof(timestamp_info);
+>  			return 0;
+> @@ -966,6 +971,9 @@ static int panthor_ioctl_dev_query(struct drm_device *ddev, void *data, struct d
+>  	case DRM_PANTHOR_DEV_QUERY_CSIF_INFO:
+>  		return PANTHOR_UOBJ_SET(args->pointer, args->size, ptdev->csif_info);
+>  
+> +	case DRM_PANTHOR_DEV_QUERY_MMU_INFO:
+> +		return PANTHOR_UOBJ_SET(args->pointer, args->size, ptdev->mmu_info);
+> +
+>  	case DRM_PANTHOR_DEV_QUERY_TIMESTAMP_INFO:
+>  		ret = copy_struct_from_user(&timestamp_info,
+>  					    sizeof(timestamp_info),
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+> index fa8b31df85c9..dad56a01c597 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> @@ -2750,7 +2750,7 @@ panthor_vm_create(struct panthor_device *ptdev, bool for_mcu,
+>  	refcount_set(&vm->as.active_cnt, 0);
+>  
+>  	pgtbl_cfg = (struct io_pgtable_cfg) {
+> -		.pgsize_bitmap	= SZ_4K | SZ_2M,
+> +		.pgsize_bitmap	= ptdev->mmu_info.page_size_bitmap,
+>  		.ias		= va_bits,
+>  		.oas		= pa_bits,
+>  		.coherent_walk	= ptdev->coherent,
+> @@ -3195,6 +3195,11 @@ static void panthor_mmu_release_wq(struct drm_device *ddev, void *res)
+>  	destroy_workqueue(res);
+>  }
+>  
+> +static void panthor_mmu_info_init(struct panthor_device *ptdev)
+> +{
+> +	ptdev->mmu_info.page_size_bitmap = SZ_4K | SZ_2M;
+> +}
+> +
+>  /**
+>   * panthor_mmu_init() - Initialize the MMU logic.
+>   * @ptdev: Device.
+> @@ -3207,6 +3212,8 @@ int panthor_mmu_init(struct panthor_device *ptdev)
+>  	struct panthor_mmu *mmu;
+>  	int ret, irq;
+>  
+> +	panthor_mmu_info_init(ptdev);
+> +
+>  	mmu = drmm_kzalloc(&ptdev->base, sizeof(*mmu), GFP_KERNEL);
+>  	if (!mmu)
+>  		return -ENOMEM;
+> diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
+> index 0e455d91e77d..dc2704fc2829 100644
+> --- a/include/uapi/drm/panthor_drm.h
+> +++ b/include/uapi/drm/panthor_drm.h
+> @@ -246,6 +246,9 @@ enum drm_panthor_dev_query_type {
+>  	/** @DRM_PANTHOR_DEV_QUERY_CSIF_INFO: Query command-stream interface information. */
+>  	DRM_PANTHOR_DEV_QUERY_CSIF_INFO,
+>  
+> +	/** @DRM_PANTHOR_DEV_QUERY_MMU_INFO: Query MMU information. */
+> +	DRM_PANTHOR_DEV_QUERY_MMU_INFO,
+> +
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+This is why I dislike enums... there's a comment above this:
 
+> /**
+>  * enum drm_panthor_dev_query_type - Query type
+>  *
+>  * Place new types at the end, don't re-order, don't remove or replace.
+>  */
+
+As it says - you need to place new types at the end, otherwise it
+changes the values for existing types (i.e. QUERY_TIMESTAMP_INFO below
+ends up with a new value).
+
+Otherwise this will break old user space.
+
+Thanks,
+Steve
+
+>  	/** @DRM_PANTHOR_DEV_QUERY_TIMESTAMP_INFO: Query timestamp information. */
+>  	DRM_PANTHOR_DEV_QUERY_TIMESTAMP_INFO,
+>  
+> @@ -487,6 +490,16 @@ struct drm_panthor_timestamp_info {
+>  	__u64 cpu_timestamp_nsec;
+>  };
+>  
+> +/**
+> + * struct drm_panthor_mmu_info - MMU information
+> + *
+> + * Structure grouping all queryable information relating to the MMU.
+> + */
+> +struct drm_panthor_mmu_info {
+> +	/** @page_size_bitmap: Allowed page sizes */
+> +	__u64 page_size_bitmap;
+> +};
+> +
+>  /**
+>   * struct drm_panthor_group_priorities_info - Group priorities information
+>   *
 
