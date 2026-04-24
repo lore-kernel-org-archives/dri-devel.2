@@ -4,102 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13001FB44CA
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D28D7FB44C8
 	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 07:45:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E6C410F399;
-	Fri, 24 Apr 2026 07:44:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46C7F10E065;
+	Fri, 24 Apr 2026 07:44:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PoZ+q6Ba";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ll3oAqat";
 	dkim-atps=neutral
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
- [209.85.218.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA6F410E508
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 11:25:16 +0000 (UTC)
-Received: by mail-ej1-f53.google.com with SMTP id
- a640c23a62f3a-b932fe2e1a7so82687166b.1
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 04:25:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776943515; cv=none;
- d=google.com; s=arc-20240605;
- b=V1fdHCSWOCcTe01fgM/8h9nS0ZZ2laIQZ0/5+d1zdXET0rJsHy0EqCeLuc5G/YT2OI
- sn6gKkYYsH7h5ooGPHSVBU8tsAzTegoJCAeD3aqgJz3eeLTkN6v1CiFubB5rrBKnoouC
- 82m5Vd/zj/Ryn3L7H4bK4QIV7+/PKdmtDceFQxAukh1YMQNaMCOwQVy5wbivT2MQ9dey
- PXHAyE23h9Y29NC1AUuulTmVRie+HWXGhmW3QvGh/PrP+5egTP8nIe7/XMmaSUnB4W5M
- FzFrxRku+JRTeY4oM3YaEyL62HkHO99qC0jZTJoBz9OW/oWuAfJY3Iv8B8uRxm6exg3h
- vQhw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=VhHwF8uTe87PcS3rN02SDEGAKym5cX+QHbfVkZ05VKM=;
- fh=cXSKyNO6Q6cKfSFR5jIopy/9FqZHqXteGyVIjbUfbGw=;
- b=V1FuabyafuILtTC28vcOg7U8mnx6GLjgDDMQPUIw6PhYMiaNTNqbo7MPDUZVieJqat
- TXtrrkz0guEAkRIuEWq9E45P+jIRtqpl1XN2uFp57E2LWUJjjed6iQ3QYVPyOLOT82K3
- kIUqGgdtM5UqQ1Tyzab8aGj3qQKE/Y+Y/a4j5/fu+3fgTA92qBPkV+Vz0wSU/q+zsa4J
- MA2CzyrEB0LcC9bIy+Bqr8EXIthGfiYLjO2ha+IdnXrhqvZhPsltcsLNW21UzYODH/L+
- 7J1ZfKrdUEXiK4Gfj9TDlaZ6xfr3OIggHznzmd5wKG0vv/FdwlCafIv3WAQ66Vx6tP2q
- UZNg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
+ [209.85.216.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95CB710F285
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 05:48:52 +0000 (UTC)
+Received: by mail-pj1-f41.google.com with SMTP id
+ 98e67ed59e1d1-3590042fa8eso5954057a91.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 22:48:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776943515; x=1777548315; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=VhHwF8uTe87PcS3rN02SDEGAKym5cX+QHbfVkZ05VKM=;
- b=PoZ+q6BauHBVvVVvpGlwpKnOfCXpetQaQqsvJU2y82XZvR4BpEIFNyDnP2eX2NrUXj
- JsKMpDJ/dcVp9nVfEi/QFJGHwl7j4XUxp4pRhGOTcU2S7hM0PmRKq5J2IlaDDkziwNTI
- 56lBuT4BrNuMB9fo7lLk5Hzxg+OFRxjdMidvj7C9XjXAbwSSJfo7izcrsWuQA5/CNqnY
- sCMwJfgrv8CmX4b7qZ502t9EmbGWAMNbDK9dJREjcpj/vrC8mhh06uaXfbv5x/vTzTj5
- OEBdvuG3HLLvNfT0g3yDVUBgBetNY7dSWtSokZD2klpqGj1hQ0VEVu1eKBe6LkVtEs+j
- NbQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776943515; x=1777548315;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1777009732; x=1777614532; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=VhHwF8uTe87PcS3rN02SDEGAKym5cX+QHbfVkZ05VKM=;
- b=P/jacUYx8OlrqPttynZHNfM4raRxL+qBiomGiTpv4iThq37bpiJzoITCq+1zq0RBrQ
- jkTCaQ4IhPrLYX9L3BzkCEevcNuxpPnIQg3BsLvIffWO1C54Nii9jktbHkyXjFob1N2Z
- 7VL5aUJUfGtAsMFv8+JtgcbJrAaIAfX6GpZD22JGgmY0fBPoAjWvs5jCERRtr3/MKgro
- cDaAqHVQpU60Jy21oes8PBRbDppcVZIvam9djkfyElU3n34rOj08Vtnx5LiCM9xJ0RNO
- gWLhhd4PGUy7Fqjo15B6mHZXrGg1iU1wOPBZiwDt0ZiYAeajZcBDhdYlZ9tacMq0NAbp
- ufug==
+ bh=/jOMf9sHPOP+Fk6bUCc/tdd0deN6bifNBcXjhksEyrM=;
+ b=ll3oAqatrrnnrKqFdXFzVggFOp5j1rKoZyXhEOgbB9tekJjvzkHNUOmcgAapeUm/vB
+ 5+rvayjTdbDn7dK3MGJyMLkT+sBmW+TXoVbLljashv+8e6nvALTFMsrn51CdqwssBNcs
+ Ee8n+U7dY4r/LoIcE3PIfrL+OJhjFkJAq4JEiPujuDkj2CEY2xaX17Zdum/zGLK2PVBV
+ gOKyq+c6adUTbQniM0amD7TKj0bTCCWGf45odtCvCBZGImRA21pChms1OqssoeDwGndC
+ T39L5o69XnuCujuWmZ3grhn8lnpgyU2QYr5z0iwiQtGmk+O2YnK2RU1k2BYQnvDj9oJ6
+ Yjbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777009732; x=1777614532;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=/jOMf9sHPOP+Fk6bUCc/tdd0deN6bifNBcXjhksEyrM=;
+ b=K0wjXah1w+vXc04DxXtIkcNe/btTziUTMLu0DURM6BORPtYCDBrRVgJ5d15K31I6F9
+ b4jkz/DzeTVt8R9PM1BYDVfU3FRttUvfw99fIVBVvZFDMky+UExWtn/RB7/X9vyi8Uw4
+ GQKCDHZxG7iPDlvh6Pm72KxXNvKTUVafejro4+aVv+mavXD18L6uoI5YUUvb+LzccT48
+ PdTQGXFzbR4rzH7rFG+6RroNvGJwm6W3YDOvPxchQHL8f4mlGzwms/n3SHfDya7k4Gec
+ PvfIY/o8109bhKj31i9HQ+kCo1ZVj43Jus9ZVGDXZLQItW7q/xCvkAhPJECGlixo8BvM
+ /aQA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+WXaN/mQfvjUwFese5qI5uFko3X7cQXKGDTPv6hrza9CKBQBwvrdjMstZLGHBZUsuVKizmsgFMwn8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy6fJlSA3cGdBxL5GsSg3E8LprTCrkpEVsfx7mRe5fYdlCYwNSA
- AlX8JZCoPhYVHxMdoDo2CpuHtdo6aL01GirVq40xlQQIUFMUyTUNqkfUvwbUkFUZzay+eS5FkG8
- BAl+rg8xFEB6Z6AwnwWejxxhnFM1YCA==
-X-Gm-Gg: AeBDievrbC3RQy67/IQd8Vfanl1VIYiPGm7LjNbGhldEZSPtwyE4dGM93FacIIs43FF
- BcQqs9LKcZrQHplepecAi0VaLLxaKsyiKK5gfpHATLkMIRNbqVQBLQWjSET71XQO/05Ci2nOHso
- OtRP48WAtR4tgCC6S1qd1xWIbcvWE1plQjjGE/bjDtAxmBevbbVAt2t/04IbBrQVwgkTUtWltQs
- NzsugU5t7OcnqcK7bNMZH5UYh8kFdjntvhNSFqgfNpdkxNp2Lqy+zs5WNPlHkJicWIEq+fG3YWR
- +6llLJ3jT8OD80Xl6GUWAfju6NjUBHf2E58GSbFiBjA+udo=
-X-Received: by 2002:a17:907:72c5:b0:ba5:bef2:2aa9 with SMTP id
- a640c23a62f3a-ba5bef2333fmr1114513566b.35.1776943515065; Thu, 23 Apr 2026
- 04:25:15 -0700 (PDT)
+ AFNElJ/QrnZYlyDwIcHZkVbgTzJtrgpEtZFfsQ+h9vhayOFL0RjPVYd/8fGJDEF97wwQdxwInW8PTKrfcOQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzcrfEs574ZuwtYzFCuqRGKranhun0zR/H4108lUu8mD/Rg3o+b
+ eb/Eut3LbAWkeexFkIcIXPR0r/ET3vrQxWiRkrpFBUk1UK5qrGV/Ndc1
+X-Gm-Gg: AeBDieskHrpu/NJZNKRch88EHWCMJAJaSKTt/nYcdIQ1CXgHUzZ/2yhDcLlVA2wyYv3
+ mR1mSWk2I6bhENqONymOSADaDRsJQw3HKzVtvNAdLVgDB3QbHxyBzuFfd9lHW7T7s122OqPUcZJ
+ mAX7aSLEGPF3yc6Gq6iTrNrbe6U5tc6+310v/4dhH0XGwI6oFVK5XlgYyDkDHBs/QSeGEYZV5hY
+ fihGZt3qoXFx8RF7Fnbt2zBuhr0qV6o0NRBWH2Icnp6xYnNBU22c3B+hOeaa5nORravnusfBiE3
+ ybOU55+hPm+nXMQGhwZ9lPsImo9q41nCplshzeCXfnmEQwxLpunzpigD1YWKvWI/mJo0oCVcoLq
+ uTu3WyPgs16jytuncLXBFHc5d6tcIEkWnEBdITV9iKkjIsr7DLZIeSxITU4bEcWof6lHTjJy6AI
+ ey+EL+63YENUOtxc0F8DX9DjqZFepOG2zXv2o7tyH+59lu1xjbBt/z7RTSi8bVtohL4JWVP1LP6
+ VQeWyIMK6hTcwo=
+X-Received: by 2002:a17:90b:5185:b0:35c:29ba:bf92 with SMTP id
+ 98e67ed59e1d1-361403d5988mr33141482a91.5.1777009732009; 
+ Thu, 23 Apr 2026 22:48:52 -0700 (PDT)
+Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.bl1-in.ibm.com
+ ([129.41.58.4]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2b5faa176e9sm208778245ad.20.2026.04.23.22.48.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 23 Apr 2026 22:48:51 -0700 (PDT)
+From: "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>
+To: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
+ chleroy@kernel.org, peterz@infradead.org, jpoimboe@kernel.org,
+ jbaron@akamai.com, aliceryhl@google.com, rostedt@goodmis.org,
+ ardb@kernel.org, sumit.semwal@linaro.org, christian.koenig@amd.com,
+ ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
+ bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org,
+ tmgross@umich.edu, dakr@kernel.org, nathan@kernel.org,
+ nick.desaulniers+lkml@gmail.com, morbo@google.com, justinstitt@google.com,
+ tamird@kernel.org, arnd@arndb.de, nsc@kernel.org, mkchauras@gmail.com,
+ simona.vetter@ffwll.ch, linuxppc-dev@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ rust-for-linux@vger.kernel.org, llvm@lists.linux.dev
+Cc: Link Mauve <linkmauve@linkmauve.fr>
+Subject: [PATCH V13 5/7] rust: Make __udivdi3() and __umoddi3() panic
+Date: Fri, 24 Apr 2026 11:17:40 +0530
+Message-ID: <20260424054742.45832-6-mkchauras@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260424054742.45832-1-mkchauras@gmail.com>
+References: <20260424054742.45832-1-mkchauras@gmail.com>
 MIME-Version: 1.0
-References: <casey.connolly@linaro.org>
- <20260420073945.65849-1-mhun512@gmail.com>
- <3ihxcwja3unx2257xbbk2e2aeiptb42bjkti6xnipwnvzrigw5@mhjhwckbyr2s>
-In-Reply-To: <3ihxcwja3unx2257xbbk2e2aeiptb42bjkti6xnipwnvzrigw5@mhjhwckbyr2s>
-From: Myeonghun Pak <mhun512@gmail.com>
-Date: Thu, 23 Apr 2026 20:25:03 +0900
-X-Gm-Features: AQROBzBC1fFL9FaIZnJVFPFemTRJQcxejs8oYq-k1APp1i7H7nRb2Tl3rnK5n-A
-Message-ID: <CAGEsz8EH6RoSh-OGzSkFse=saaupH2vbSB=VsQd0ZvVb7VO3jw@mail.gmail.com>
-Subject: Re: [PATCH v1] drm/panel: lg-sw43408: remove panel on DSI attach
- failure
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
- Casey Connolly <casey.connolly@linaro.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Ijae Kim <ae878000@gmail.com>, Taegyu Kim <tmk5904@psu.edu>,
- Yuho Choi <dbgh9129@gmail.com>
-Content-Type: multipart/alternative; boundary="00000000000000617d06501ee7f5"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 24 Apr 2026 07:44:43 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -116,110 +103,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---00000000000000617d06501ee7f5
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+From: Link Mauve <linkmauve@linkmauve.fr>
 
-Dmitry, Understood. I will apply devm_drm_panel_add() to this patch as well
-in the next version, which will be submitted as part of the series. Thanks,
-Myeonghun Pak
+The core crate currently depends on these two functions for i64/u64/
+i128/u128/core::time::Duration formatting, but we shouldn’t use that in
+the kernel so let’s panic if they are ever called.
 
-2026=EB=85=84 4=EC=9B=94 23=EC=9D=BC (=EB=AA=A9) =EC=98=A4=EC=A0=84 4:24, D=
-mitry Baryshkov <
-dmitry.baryshkov@oss.qualcomm.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+This doesn’t yet fix drm_panic_qr.rs, which also uses __udivdi3 when
+CONFIG_CC_OPTIMIZE_FOR_SIZE=y, but at least makes the rest of the kernel
+build on PPC32.
 
-> On Mon, Apr 20, 2026 at 04:38:27PM +0900, Myeonghun Pak wrote:
-> > The probe path registers the panel by calling drm_panel_add() in
-> > sw43408_add(), then returns the result of mipi_dsi_attach() directly
-> > from sw43408_probe().
-> >
-> > If mipi_dsi_attach() fails, the probe path exits without calling
-> > drm_panel_remove(), leaving the panel registered in the global DRM
-> > panel list. The .remove() callback does not cover this case because
-> > it is only invoked after a successful probe.
-> >
-> > Fix this by unwinding the panel registration with drm_panel_remove()
-> > when mipi_dsi_attach() fails.
-> >
-> > Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> > Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> > Co-developed-by: Taegyu Kim <tmk5904@psu.edu>
-> > Signed-off-by: Taegyu Kim <tmk5904@psu.edu>
-> > Co-developed-by: Yuho Choi <dbgh9129@gmail.com>
-> > Signed-off-by: Yuho Choi <dbgh9129@gmail.com>
-> > Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-> > ---
-> >  drivers/gpu/drm/panel/panel-lg-sw43408.c | 8 +++++++-
-> >  1 file changed, 7 insertions(+), 1 deletion(-)
-> >
->
-> You can also switch to devm_drm_panel_add().
->
-> --
-> With best wishes
-> Dmitry
->
+Signed-off-by: Link Mauve <linkmauve@linkmauve.fr>
+Signed-off-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
+---
+ rust/Makefile             | 4 ++++
+ rust/compiler_builtins.rs | 6 ++++++
+ 2 files changed, 10 insertions(+)
 
---00000000000000617d06501ee7f5
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+diff --git a/rust/Makefile b/rust/Makefile
+index 2a5428a5503d..ee11fba7a03d 100644
+--- a/rust/Makefile
++++ b/rust/Makefile
+@@ -616,6 +616,10 @@ ifneq ($(or $(CONFIG_ARM64),$(and $(CONFIG_RISCV),$(CONFIG_64BIT))),)
+ 		__ashrti3 \
+ 		__ashlti3 __lshrti3
+ endif
++ifdef CONFIG_PPC32
++	redirect-intrinsics += \
++		__udivdi3 __umoddi3
++endif
+ 
+ ifdef CONFIG_MODVERSIONS
+ cmd_gendwarfksyms = $(if $(skip_gendwarfksyms),, \
+diff --git a/rust/compiler_builtins.rs b/rust/compiler_builtins.rs
+index dd16c1dc899c..fc6b54636dd5 100644
+--- a/rust/compiler_builtins.rs
++++ b/rust/compiler_builtins.rs
+@@ -97,5 +97,11 @@ pub extern "C" fn $ident() {
+     __aeabi_uldivmod,
+ });
+ 
++#[cfg(target_arch = "powerpc")]
++define_panicking_intrinsics!("`u64` division/modulo should not be used", {
++    __udivdi3,
++    __umoddi3,
++});
++
+ // NOTE: if you are adding a new intrinsic here, you should also add it to
+ // `redirect-intrinsics` in `rust/Makefile`.
+-- 
+2.53.0
 
-<div dir=3D"ltr"><span style=3D"color:rgb(31,31,31);font-family:&quot;Googl=
-e Sans&quot;,Roboto,Arial,sans-serif;font-size:18px;font-variant-ligatures:=
-no-contextual;white-space:pre-wrap">Dmitry,
-
-Understood. I will apply devm_drm_panel_add() to this patch as well in the =
-next version, which will be submitted as part of the series.
-
-Thanks,
-
-Myeonghun Pak</span></div><br><div class=3D"gmail_quote gmail_quote_contain=
-er"><div dir=3D"ltr" class=3D"gmail_attr">2026=EB=85=84 4=EC=9B=94 23=EC=9D=
-=BC (=EB=AA=A9) =EC=98=A4=EC=A0=84 4:24, Dmitry Baryshkov &lt;<a href=3D"ma=
-ilto:dmitry.baryshkov@oss.qualcomm.com">dmitry.baryshkov@oss.qualcomm.com</=
-a>&gt;=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:<br></div><blockquote class=3D"=
-gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(20=
-4,204,204);padding-left:1ex">On Mon, Apr 20, 2026 at 04:38:27PM +0900, Myeo=
-nghun Pak wrote:<br>
-&gt; The probe path registers the panel by calling drm_panel_add() in<br>
-&gt; sw43408_add(), then returns the result of mipi_dsi_attach() directly<b=
-r>
-&gt; from sw43408_probe().<br>
-&gt; <br>
-&gt; If mipi_dsi_attach() fails, the probe path exits without calling<br>
-&gt; drm_panel_remove(), leaving the panel registered in the global DRM<br>
-&gt; panel list. The .remove() callback does not cover this case because<br=
->
-&gt; it is only invoked after a successful probe.<br>
-&gt; <br>
-&gt; Fix this by unwinding the panel registration with drm_panel_remove()<b=
-r>
-&gt; when mipi_dsi_attach() fails.<br>
-&gt; <br>
-&gt; Co-developed-by: Ijae Kim &lt;<a href=3D"mailto:ae878000@gmail.com" ta=
-rget=3D"_blank">ae878000@gmail.com</a>&gt;<br>
-&gt; Signed-off-by: Ijae Kim &lt;<a href=3D"mailto:ae878000@gmail.com" targ=
-et=3D"_blank">ae878000@gmail.com</a>&gt;<br>
-&gt; Co-developed-by: Taegyu Kim &lt;<a href=3D"mailto:tmk5904@psu.edu" tar=
-get=3D"_blank">tmk5904@psu.edu</a>&gt;<br>
-&gt; Signed-off-by: Taegyu Kim &lt;<a href=3D"mailto:tmk5904@psu.edu" targe=
-t=3D"_blank">tmk5904@psu.edu</a>&gt;<br>
-&gt; Co-developed-by: Yuho Choi &lt;<a href=3D"mailto:dbgh9129@gmail.com" t=
-arget=3D"_blank">dbgh9129@gmail.com</a>&gt;<br>
-&gt; Signed-off-by: Yuho Choi &lt;<a href=3D"mailto:dbgh9129@gmail.com" tar=
-get=3D"_blank">dbgh9129@gmail.com</a>&gt;<br>
-&gt; Signed-off-by: Myeonghun Pak &lt;<a href=3D"mailto:mhun512@gmail.com" =
-target=3D"_blank">mhun512@gmail.com</a>&gt;<br>
-&gt; ---<br>
-&gt;=C2=A0 drivers/gpu/drm/panel/panel-lg-sw43408.c | 8 +++++++-<br>
-&gt;=C2=A0 1 file changed, 7 insertions(+), 1 deletion(-)<br>
-&gt; <br>
-<br>
-You can also switch to devm_drm_panel_add().<br>
-<br>
--- <br>
-With best wishes<br>
-Dmitry<br>
-</blockquote></div>
-
---00000000000000617d06501ee7f5--
