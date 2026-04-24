@@ -4,100 +4,165 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2F95FF885A
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 23:10:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0D61FF885A
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 23:29:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91A9510E083;
-	Fri, 24 Apr 2026 23:10:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B9DD10E01F;
+	Fri, 24 Apr 2026 23:29:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="Ox57Ghba";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XamaqXHR";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24DBB10E083
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 23:10:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1777072220;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=N09YNoupJhmv1sapC/t38hsbn3OUvdSVBkUzd+3dwtM=;
- b=Ox57Ghbaimk+jQcGIkzcbqK9WJL9ntd5Lp4/lyP9TvlWgzx0/4F+gci2Co4byOQAYVLcwF
- 95KiuMrTV9rR0XaCOM1dP7xJiREMV6d/0rhDfO1OWkHzSlDpOrsGGU3b50bFPGvgZeTrlM
- j9qYAH6xmou+rfPEICFo7OratmFYSxc=
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-48-BRX_bQQnPnu0lUH62cT9KQ-1; Fri, 24 Apr 2026 19:10:18 -0400
-X-MC-Unique: BRX_bQQnPnu0lUH62cT9KQ-1
-X-Mimecast-MFC-AGG-ID: BRX_bQQnPnu0lUH62cT9KQ_1777072218
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-8d5b5d607d1so1681188285a.3
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 16:10:18 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777072218; x=1777677018;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=N09YNoupJhmv1sapC/t38hsbn3OUvdSVBkUzd+3dwtM=;
- b=pspGbe50eoK03lYMx5MEXr5+pE4Unbp16mRe5U0MbnEhme/ngA2pPTozGX3YK8RjGs
- ZpSiIVDsEsh4m2/70z1cjzHvtdozJCSgS7vhKK+iy2YD1Hz7sZUWfqFewgoJprXtTD2j
- 3Ac9uwjw9GajdHsGBu3BDgTp2eZQLkSHVEqGNmUgx77rnW7kUmH555WLzMgF4xx7L0gg
- +OTi0vJHOtRqH7mDV1KUJadTqOVyRYtcTJ9gj7InPADeJ3Levd9HeOqRjDHtww0sPV5h
- nPfF8CakSp8+EEVCjoX2/dgdvU91xeu4zw8QGMfIO+dYHreTL4S91dY+mhxpqmLXbKdz
- I35A==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8mFCAby4Q0Ln4IAnr2+90W8aM3gKraXHWrKxfD6tNe6XO9xHFycsz4nyfb9J4I5vfW4fmELReBR1A=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzYCl2sGX2tlPcjvbkWY7W0tc1PTWlDb7qPQQbrBGKKdwcqUsSD
- 2Q/2WydjN6H2SYhABk50XOppj+XeZI39AhC/dZ5/mMSUKKiEJCamsWSV1FciOl1PpWRQo3c4o2K
- auH8CeJYv64L7dljbrFlzsVLMxe5iaqihZLCxVL38vpuEyKfe7GpmfMZWzjx+0pP8QVpbyQ==
-X-Gm-Gg: AeBDieuw2AHi5p/cV+EbZ7hBzYEbcMUhji/oPFwdVi6IDFVIe+/FE8Au/zKm3Ret6uB
- SZ276wVgod+1/WmOW1iK7HfGKg1hIQ5wY5Ns4j6EKQTrfTuSukayNonLWtUy8xaxp0TlwQaoOGW
- fV09W59rC9HpCKYyo6NJZC2B3dSvVKkvj9QcaBCqgGEXEN35SgqDXajRKhV6BNnimugYVxMs0ff
- FdCRKleCPoHuTJzW4DLfSKopiAabf/MUBqi6AOxXI5/YYn+UDBFbWWZdY89eIyv5PARKuoeT8YJ
- XU/Htfiytjf7GDf/jpOB8Fg3TpoUmDNzV8RHy0eb+08X1uHGlU4QDFaNSfkycQ7PvTrGtu30PNG
- /7rhljSGCamqvyuS0iaE22ojfxdSV
-X-Received: by 2002:a05:620a:f0b:b0:8eb:cbf8:85e7 with SMTP id
- af79cd13be357-8ebcbf89261mr3123560985a.34.1777072217923; 
- Fri, 24 Apr 2026 16:10:17 -0700 (PDT)
-X-Received: by 2002:a05:620a:f0b:b0:8eb:cbf8:85e7 with SMTP id
- af79cd13be357-8ebcbf89261mr3123553685a.34.1777072217335; 
- Fri, 24 Apr 2026 16:10:17 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-8e7d69ad48asm1913863785a.19.2026.04.24.16.10.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Apr 2026 16:10:16 -0700 (PDT)
-Message-ID: <ed26658c461020547e058b237575324adcbaca59.camel@redhat.com>
-Subject: Re: [PATCH v12 4/5] rust: drm: gem: Introduce shmem::SGTable
-From: lyude@redhat.com
-To: Alexandre Courbot <acourbot@nvidia.com>
-Cc: nouveau@lists.freedesktop.org, Gary Guo <gary@garyguo.net>, Daniel
- Almeida	 <daniel.almeida@collabora.com>, rust-for-linux@vger.kernel.org,
- Danilo Krummrich <dakr@kernel.org>, dri-devel@lists.freedesktop.org,
- Matthew Maurer <mmaurer@google.com>,  FUJITA Tomonori
- <fujita.tomonori@gmail.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, 
- christian.koenig@amd.com, Asahi Lina <lina@asahilina.net>, Miguel Ojeda	
- <ojeda@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Simona Vetter
- <simona@ffwll.ch>, Alice Ryhl <aliceryhl@google.com>, Boqun Feng	
- <boqun@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, Krishna Ketan
- Rai	 <prafulrai522@gmail.com>, linux-media@vger.kernel.org, Shankari Anand	
- <shankari.ak0208@gmail.com>, David Airlie <airlied@gmail.com>, Benno Lossin
- <lossin@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>, 
- linaro-mm-sig@lists.linaro.org, Asahi Lina <lina+kernel@asahilina.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, kernel@vger.kernel.org
-Date: Fri, 24 Apr 2026 19:10:14 -0400
-In-Reply-To: <DI0MI6UF325Y.2TDWZGCN3WGIG@nvidia.com>
-References: <20260421235346.672794-1-lyude@redhat.com>
- <20260421235346.672794-5-lyude@redhat.com>
- <DI0MI6UF325Y.2TDWZGCN3WGIG@nvidia.com>
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
-MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: k8uf__5Anq1ZOK3Ic0hHC27kcBVUYk7wJz4cHRBd2YE_1777072218
-X-Mimecast-Originator: redhat.com
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9942D10E01F
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 23:29:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1777073388; x=1808609388;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=K8+XTBgUXMLE31q08xSzyEsuWrZaVN9IlJyWRjmN24A=;
+ b=XamaqXHRLXlkm4bYyXxVfrQOmMHumZNxTIounatFFYP57eAPzqKZVFdG
+ eLO5/QjkmbrDbJiX8dDiUqweObuIKAaFOWq3yplthozijQAjdiT/J1jKM
+ rnVeeEoWQgH72L7q5i5yCC9K2id7kAptKMIXwruS351dT72RPoMMrp6zn
+ AR5F6yQYeVlgE0eBnYAyVMC9P2VJE2BhInWrvAdXpnTDlTjlYLJpCINBw
+ Mk/uO5MTrF0J+rPUstPsnJZdD2zStnyG+FuoyGZOaqxcB2KP9BBT+F8LF
+ i+2c7wNL2erHUnvrtxvz/n4XP4roQWW7jKOWF3pVISwBWowEIpDpn4+5e Q==;
+X-CSE-ConnectionGUID: h7b/QiWgSFO3Kv3/h78d0g==
+X-CSE-MsgGUID: geA9Jl+pQrK205WgJnDT+A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11766"; a="95473091"
+X-IronPort-AV: E=Sophos;i="6.23,197,1770624000"; d="scan'208";a="95473091"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Apr 2026 16:29:47 -0700
+X-CSE-ConnectionGUID: lYXvj35kRu6XjVRsM3SYAQ==
+X-CSE-MsgGUID: /ZDlSBKIQy6wF8b7k2wOkg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,197,1770624000"; d="scan'208";a="232920163"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+ by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Apr 2026 16:29:47 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Fri, 24 Apr 2026 16:29:46 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Fri, 24 Apr 2026 16:29:46 -0700
+Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.20) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Fri, 24 Apr 2026 16:29:45 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=L6xtZsZqauwmYYLFM4RugDppEs0zjnDZv6Mj1DWvzQCCa7dx+9yUYajjQ6dxsLi2OUykFrSg5mgGtd6Y6dWai9aLr9pGbeqqgcG082T1/1W5futdpF8zVOCECP3rITSFS1g87hrzbVaSpvohkLZ/WcSulQ+05e10zYR0S9ipShzE842V8ol6gUEDiHuU+l1JeqRIH3tCcb6K2bgNSha15KBBB2bxSdWuoRCDIHS+48tswOZbEBCBqA/jbpSCeZK3M0XWJylN+riJaLv53xDJTIcd/0k/Tu0IMkg+xqwZeD6C931umFv1BnVbp4vI/GTtp26oQPLxAATMjANO/Tw09w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PQrJew8d+Gp3M3hvz+qmbAa7ZHNh/DWemSUWu6JMIxk=;
+ b=RHarFMdQRh3so6fIXOdIl/ujn7mbamos7yv56t3Ftw7sFkY7eJKgvKMxPT/IP1tDtb7OJSaoQQ/bm4UosEkt3VatoGMXuS1u8hiP7Fsh5S99CBh0VhC340gF8niFfVKKGNpqpNDW7MxXqQAo2tOa8hu3EDxCJDraiRwPVkEiTVgpe8aOxwr01NSU21ekDjjAuBXk9p43F3RMVZEH2fOlQAQnFzA9AubQbxmIlFajjbw4nVr5MnCFIkKtpltV/zlJTPQQmhxhtQymF4OYABAx0JjW3qJyjY5Ix9igdgr2Zq0bGPl7XAe3ORdVylc2cCyc1aBrYIMKKkVjadNf0ZRZIg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH0PR11MB7588.namprd11.prod.outlook.com (2603:10b6:510:28b::16)
+ by SA3PR11MB8003.namprd11.prod.outlook.com (2603:10b6:806:2f7::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.21; Fri, 24 Apr
+ 2026 23:29:38 +0000
+Received: from PH0PR11MB7588.namprd11.prod.outlook.com
+ ([fe80::42ad:6451:1ae2:edd3]) by PH0PR11MB7588.namprd11.prod.outlook.com
+ ([fe80::42ad:6451:1ae2:edd3%3]) with mapi id 15.20.9846.021; Fri, 24 Apr 2026
+ 23:29:38 +0000
+Message-ID: <df849883-f61d-484a-bd4c-32da52473ad3@intel.com>
+Date: Fri, 24 Apr 2026 16:29:37 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: further issues with MGA G200 graphics chipset
+To: Thomas Zimmermann <tzimmermann@suse.de>, Jocelyn Falempe
+ <jfalempe@redhat.com>, "airlied@redhat.com" <airlied@redhat.com>
+CC: <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, Pasi Vaananen <pvaanane@redhat.com>
+References: <76aba88d-ec23-4b3c-ad91-83face0c3e94@intel.com>
+ <a9d176ec-d19b-4f41-af16-cdc4e475a8cc@suse.de>
+ <6ec01703-31e0-4998-9508-a5a115ae7bc9@intel.com>
+ <14aa4840-29c4-46df-b60d-8e1b92494ad2@redhat.com>
+ <e9cca01c-960d-495c-aaba-327eac43cad6@intel.com>
+ <a23413a4-f939-4a23-996f-4ba5c8294c59@suse.de>
+ <5155f29b-bc4d-4e60-9a26-22d568c43e46@redhat.com>
+ <0be82b55-0f78-4ef9-8b50-f068ec36ec4f@suse.de>
+Content-Language: en-US
+From: Jacob Keller <jacob.e.keller@intel.com>
+In-Reply-To: <0be82b55-0f78-4ef9-8b50-f068ec36ec4f@suse.de>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4PR03CA0079.namprd03.prod.outlook.com
+ (2603:10b6:303:b6::24) To PH0PR11MB7588.namprd11.prod.outlook.com
+ (2603:10b6:510:28b::16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR11MB7588:EE_|SA3PR11MB8003:EE_
+X-MS-Office365-Filtering-Correlation-Id: f67a88d5-1b0b-424d-5a64-08dea2595a65
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|22082099003|56012099003|18002099003; 
+X-Microsoft-Antispam-Message-Info: y548uTYWusU7Zo8Rw14lnF4w4XHufS7QNZTdBin4GHtsR0mzLbTpGxMVZdGEmjRcpAh3seBmIhacXcueG9F1KVlrUpmbJQNH3WB7K+Yxpc1oHQpyriXIZ8imz/RYJmCl2lG94qGJ/hvKGy53XuQ5mSOnBl+bNr128X+zSJb+fr7MoMLhuVJMLVbZegC5Cw2m1Ao4JMFJN4ppMNd/KWrbMFNxGt5ZXPf3zdSuxFoxSbUVK9qecanVCAxF2toHczq8B1tp3ThBFHfGnbascZ4+xBjMURSwprajKuiGi5jiTiNlT8Tjq0jYfKkRP7rRW6L6pnooW9CyS4WFWCHcuScEXJCfvKbAE8EakhasV3T7WpqUrNnodZVeUR2G1lsh+1BthQMhQTBKj5vCq5BVNja/GJDVpwGZqdxpUUQYUx2CdWJVxrv7eMT/WYJLFxg5Wx6hZIzpzCWtnhzkMwxavahiR1L79oTWi1Ir6medOW5ImTM5cSSYt3ZTY7IXpkz107uePdwJGsDdgT1/8C4CNmGyRfSfDaV0sf2liN9vwSrwgoktn8DfPa1uUyAAzYsoLXmFnGG8i4TFnlUgIhW5QSDbpkRkCgqWMK07v+i88yR57NDJmnQnoPHai4sJhSZAA/KUWwihWy8STJ+xKk8axkySscC/Srg54b19t8Z/Lf4ywg50cEjp2xGpOjvprpKzNaKtimVqlSHD/0dN3aKHxs7UnO8NoQvU9WR5wSwpY9uEvS0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH0PR11MB7588.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(22082099003)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VmVRR2VoS3lMWExBZHo3TW1lU2o0ZDlid2taRk8rZ2NOZnlzSm85Y2Mzc2Nw?=
+ =?utf-8?B?RDhMMWNZTTRJRndxRDE0SFBsNE5pSTNoQVgreTVuMXVmeVo2enZHRXNXRGRD?=
+ =?utf-8?B?bGxpR3NMdzlib1FaQ1BwRlk5UU9EeDNvWFFMeDhMTzVxbGFGYTJjODh2amtx?=
+ =?utf-8?B?bFppdld0c3IrZUYrUDVvNUVIbUhjTHhkWHh2eDVDcjBvRXNUbjlBblJscDdt?=
+ =?utf-8?B?UndQWURjM0dFZkwxSTgreXo1QjBzOTVZci9neXVLRGZ3eVc2bnNkOHNIYjNL?=
+ =?utf-8?B?Rm5vT1lST2luTVI3Y254VWhsUUJ6R3daS1o2ZksrRGVlVzZqbllxcHVZV0hq?=
+ =?utf-8?B?NDNWZ0YyK1ArdnE0V1BFY1ZnckIyS0NtQloxUld5aU0weEk5ck90WEk3MTc3?=
+ =?utf-8?B?UHdlS2c1MWkwcTV6cWhPZHlka0x2YnRyY0RjNi9oUkxJNm0vNkp1SXhVd3ZT?=
+ =?utf-8?B?OGtacWIveXZIT2ZvVDlpVjZRMGRFTWVhMWhSTVczN3dQRmdQOGRCV25GVCt2?=
+ =?utf-8?B?TkJqUWFTc2lNbzJacVU4djlZdHlnSjEveTFaVHBJQVI5WXVnZVdWZjBDd0o2?=
+ =?utf-8?B?aGZGenRLZVFXNkVicjBMaDgyTzRNSk5pQm1tZ2tVaTdmd20wQ1BUbzRoWnVt?=
+ =?utf-8?B?SEs0cE1BbnFYRFRMQUVBKzBnZk5HRHhpaWVwZ3N0TERKanZ1WWw3dTV3d04w?=
+ =?utf-8?B?UGU4UUsxaWhIYjhpTHcybXRYSGhVMCs0eC83T3RBV3NmV00xMitBdXBzVEMw?=
+ =?utf-8?B?TEJ1aENQbjk2UGdzcG90RWhrUjFBa0pLaUlsd0FlS3V2OE44MFFITTRYTnB4?=
+ =?utf-8?B?ZXVSd1pjc2U5M3VxMzFuSGIzTGllYlNWSHVsd0VTZTArdzBDVGQ2ZEhrd29v?=
+ =?utf-8?B?R0Q1RWErS2ozb3NOUWF3WXdEbmN5UGJKbWlkaFpJZS94Y1YxbnU1dG9iZDJn?=
+ =?utf-8?B?ZmtvNHM2ejZ2NHd0WVZmQXdrTmtEMFd5VGEybTUxdTUrMi9GZi8rbTRuejlX?=
+ =?utf-8?B?VlluNWxZQ3ZkNHE0aWlKdzhIcnJzNEFUMzl4VDVqQVRlZzQraCsyTGw2OWFB?=
+ =?utf-8?B?RjBEZE9RRjNCSng1azJNTFpqRW1vaVg1Nzhsc1B0eVNBbExUNnpoeWtHa21U?=
+ =?utf-8?B?S09YNFh6Rnp4d0xBT0NsL2hQMXlGbURSa2I3WU1lbnQ4aEdOTWRQRC9XZk5k?=
+ =?utf-8?B?RnFxb1g0Q1B1Uk53Ym5PcXdjalpxT0JNUVpCY2VLMDdlamVCTURjbXBtVE5G?=
+ =?utf-8?B?QmpNL3ZmeFdwelZjN1pHVUVVZ01ubEpyVmdPeGozZXVpRVFWdEJreWJVOEd3?=
+ =?utf-8?B?dWc5YmZudW5hdEVvWDd1SFhEd09TS1RmbnRBUk5pbnZaSGRKZUdnQkM4VDFX?=
+ =?utf-8?B?TEdZUXFHSTd6eDVubGhNOGt5VmdIYURtZXV1SW5TQldybFpKKzFieVl5a2cw?=
+ =?utf-8?B?VEkvZFdNQ2ZzME1WdGRROVBUVk9iSDFZaWRLUllvZ2NtV2hrSFNGeDBuMnZ6?=
+ =?utf-8?B?bkJPd09mdlZsQjk3eGpsLzExZWViRXhlc2ZZYmpnbXhVRXJuL0RrQzFpNDl4?=
+ =?utf-8?B?NmxrUHRQb1JSU2JMOWhhL1RtOHdad0ZWeTZmeDF0bnNBOGVYL2dES3haM3FE?=
+ =?utf-8?B?b2lBRE9IditjQ0NvWFBZNG1zaFFWb0dCZWM3SFk5SkQxTE5tTlhNeDh5V0dV?=
+ =?utf-8?B?cnMrbDQ1VG94dThSODZycnk5bjRrc05jSjZQcDZuVStReHZ2WjFaYzJDQ0c0?=
+ =?utf-8?B?NnREbDRXTzBWdEhGc2hjWEVMZkd1QXhsL0srUVBxdW45ZUdXc05oc3lxelJB?=
+ =?utf-8?B?SlFjU1ROdlk2dFVST3RXOFR6aittS29SbXArckxOWGJJamxBUk9LNVJLTlpy?=
+ =?utf-8?B?aUF1U1VNQlBtMkFQVk1RbENtblhueGxUekdkd1VsVlp5RjNyM1h5VVpMRWVu?=
+ =?utf-8?B?bzBLcFF1RnNVQWJkYXZWZFpwN0NES281dnJIV3RlQ3ZZR3lZR1hXZTVkZzFu?=
+ =?utf-8?B?TDBEeVU3Vlp3VUVodWxlcTRvSXJZZDZPeFJQdlNyVjZQV3pHczlNNytRSFlV?=
+ =?utf-8?B?cVlTZXIrZkVncVBHVm5FZGVjOUo3Qk4wYjIrUzl1QWhVQTFCRDlyVU8rcmRC?=
+ =?utf-8?B?WnpGL3ZyeW9pS2RXL3cwa1RwQkNtcWM1cXlGdTVlYkkyNm9tL2d0M2FwWHRP?=
+ =?utf-8?B?QkRQbkkybE1XS2xSdGF1V0dRMDNnd3NRRnF2U21pNHRrNTBvdGJNTytvR0la?=
+ =?utf-8?B?MDBsZ1RlamtlelRaa2VzL0xadmxJNHdvdmZlV0l5cEtoZjlyRk1WOTBhVEpR?=
+ =?utf-8?B?K3hWLzlGdlIzM2t1WlVrZk41OWdPNzJXaTBEK21XMnByTWZCNFNJUT09?=
+X-Exchange-RoutingPolicyChecked: Bs50+UIM76tOqQFeKPjYe5vDEAZECMcN1hDFfPC/nBAcsapBjh3Kh+40bASMOvvcFjBflhDaL9D3bEFb32+exPc2MUJhdQHquPOwYAd83XSkIN11iXkQoamdCOL/00HUPtL0khXqVJVokiS4GQ/0rhR8Aaa9RwS4OjJw6uXy8D4AC6AmhHC5E8TXE62UB/hWblgQ4I8y2FCYoJzFm7LgLYecOYddf/LcsS+VPGQKvokkJ+JfgS8xc8w3YN+eCTJnxsw+vjWcEiB8q9Qxo48IQ8RW/FjlxPn0xItHu4ghzfqWuOVvsR4Kq2LUdj47vkOSXoF0OXnFM/5/g5hxPOaL8A==
+X-MS-Exchange-CrossTenant-Network-Message-Id: f67a88d5-1b0b-424d-5a64-08dea2595a65
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7588.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2026 23:29:38.7429 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8hRWm3zZ2MaKoWy0gL6K1GAvVtpDf3Tggw9jk3/JLJAYqFmLc2d4JxF/qdYizDLz/aCrhot1+k24yEPA2K+ZqvU4X2hAHJb9AUyEu+Whh/E=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR11MB8003
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,57 +178,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 4/24/2026 12:47 AM, Thomas Zimmermann wrote:
+> Hi Jocelyn
+> 
+> Am 24.04.26 um 09:36 schrieb Jocelyn Falempe:
+>> On 24/04/2026 08:20, Thomas Zimmermann wrote:
+>>> Hi
+>>>
+>>> Am 23.04.26 um 21:42 schrieb Jacob Keller:
+>>> [...]
+>>>> Unfortunately, I also have no better idea than a DMI quirk table to
+>>>> record known platforms that include the controller but don't have a
+>>>> physical VGA connection exposed.
+>>>
+>>> I'm in favor of this. If you send a meaningful DMI identifier for
+>>> your system, I'd make you a patch for testing.
+>>
+>> I didn't find something related to VGA connector in dmidecode.
+>> My suggestion would be to use the chassis-type [1], and disable
+>> polling on Blade (0x1C and 0x1D) and Rack Mount (0x17) as they are
+>> less likely to have a real VGA monitor connected.
+>> My Dell T310, which is kind of a Tower, has a chassis-type of 0x11
+>> "Main server chassis" so it might not be very reliable.
+> 
+> This is the first time, I hear about this problem. I don't think it's
+> very common. And it appears only to be related due to cheap hardware
+> manufacturing.
+> 
+> So I suggest to pick Manufacturer, Product, Version as key. I'd be
+> surprised if we find more than a hand full of systems with the issue. If
+> we see a trend or common pattern, we can generalize later on.
+> 
 
-On Fri, 2026-04-24 at 00:01 +0900, Alexandre Courbot wrote:
-> There are 4 sites where we acquire and release the DMA resv lock,
-> each
-> of which require unsafe blocks and carrying the risk that we forget
-> releasing the lock in the end. For this method in particular we need
-> to
-> jump through hoops a bit and store the return value into a temporary
-> variable so we can unlock the DMA reservation.
->=20
-> Let's do ourselves a favor and implement a small, private guard type:
->=20
-> =C2=A0=C2=A0=C2=A0 struct DmaResvGuard<'a, T: DriverObject>(&'a Object<T>=
-);
->=20
-> =C2=A0=C2=A0=C2=A0 impl<'a, T: DriverObject> DmaResvGuard<'a, T> {
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fn new(object: &'a Object<T>) =
--> Self {
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SAF=
-ETY: This lock is initialized throughout the
-> lifetime of `object`
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsafe=
- { bindings::dma_resv_lock(object.raw_dma_resv(),
-> ptr::null_mut()) };
->=20
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Self(o=
-bject)
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
-> =C2=A0=C2=A0=C2=A0 }
->=20
-> =C2=A0=C2=A0=C2=A0 impl<'a, T> Drop for DmaResvGuard<'a, T>
-> =C2=A0=C2=A0=C2=A0 where
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 T: DriverObject,
-> =C2=A0=C2=A0=C2=A0 {
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fn drop(&mut self) {
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SAF=
-ETY: We are releasing the lock grabbed during the
-> creation of this object.
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsafe=
- { bindings::dma_resv_unlock(self.0.raw_dma_resv())
-> };
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
-> =C2=A0=C2=A0=C2=A0 }
->=20
-> There here you would just do
->=20
-> =C2=A0=C2=A0=C2=A0 let _dma_resv =3D DmaResvGuard::new(self);
+I think this is the best solution. Keep it focused for now. I believe
+Intel has two major platforms that we care about with respect to this
+issue. I'll see if I can dig up the data. The systems install the MGA
+G200 for BMC use but don't seem to expose the VGA connection.
 
-I thought of doing this but lost track of how many times I was actually
-grabbing this lock=E2=80=A6
-BTW - want me to just give you authorship on the patch for adding
-DmaResvGuard? Since on my branch I've pretty much only just added two
-inline annotations, it's otherwise identical to what you wrote here.
+For the specific system I have that was faulty, we have the following:
 
+$ for t in system-manufacturer system-product-name system-version ; \
+    do dmidecode -s ${t}; \
+done
+Dell Inc.
+PowerEdge XR8720t
+Not Specified
+
+
+
+I believe there was also some concern about HP systems which similarly
+use this chipset, but I don't have the DMI data for that one off hand.
+I've asked some colleagues to confirm the situation and obtain that
+data. I'll get back early next week if we think there are any other
+systems possibly affected.
+
+In the mean time, I'm happy to have our team test any patch to confirm
+that it behaves as expected and resolves the service interruptions.
+
+Appreciate all the feedback on this thread.
+
+Thanks,
+Jake
