@@ -4,137 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC7C1FB44C4
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 08:25:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 750EBFB44CB
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 08:25:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EE5010E3D0;
-	Fri, 24 Apr 2026 08:25:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBC4F10E15C;
+	Fri, 24 Apr 2026 08:25:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QmMRsExh";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="DwDc9Q5h";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012018.outbound.protection.outlook.com
- [40.107.200.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 226A410E15C
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 08:25:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Bc1GOQCXZAopQr/+UgpzNRYrtItbkjKxPCYUM4nK5leWOVpIlrlyfSbuJDVqi0b6qK5NVHIj6lFyRnoLZL+5jf6a9iWOrbv5VwxXtoA8m4jT0PCM77rK7Uku4SezP6mO4E6TlsggR/4SLAUCnW1EZfx4v8Jzs9LuuwbiznRDtdS6qqponNDKeI0axzIXgP9f8EM1v1zxh017kjISFZ0vrfT9+sw1fFNIcoqb5n8aRfwEMh2hS6nOWgR6erDmI/zdDI9A7d1+QhW2hdyqjM26c0ph5bHgIGNFv9UWv6F3hudanXtuwkjK+u+WOqBCA7Im6RQeK2tr1KH9KLEHpfWTXQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=w7TNyY/lYHLLSCa5Ra/CX9BuJtD5IZVLv3ibec1Z4oo=;
- b=RYmr1PzXCZ/sHTb1twmxAy8LENHv2Bg2134Bt5KSqBsvGAES2Bgk7Cj/EvfLuMZ4wWN06XnYvQUuUxJXogVFr4o7F7t8WMuvIV2Tac2vuStkTa35N30iPKvdzVwVs2YqYPVw7UjQrcB58rPJe7vDwlch89rOiVNuXA/ywQMtq7wESlgaTZi1burbuQZWsTOgbMTzCS0vUebwDW/69tXFZE3cyNIO2QMF3iL1X3wvMiSF0ErS3EDdk0KTk1ycsr4uxAHau3HXDJ7k4N+2PMJHrkaZ1LSF0d6uaWct5PHPexAn0E1amGMmm6DwI/9ItbLp4TYriByxv2TLWKc/kt810Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=w7TNyY/lYHLLSCa5Ra/CX9BuJtD5IZVLv3ibec1Z4oo=;
- b=QmMRsExhZegauuWhfb8qhzDkMhXx0ikof/OhhB5DdriGRN5mNLckI/1rT9Oydeh7vo5hFyaEvTxFnOmhiiVFvmPuW+4ghr091FWMpDZXGBaaQlWuRV6GKDYtB3uVIwVMpYpxcUBCtCaRWui0V0PZwRKD71/yVK5W5ickuKFJ0Jo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SJ0PR12MB7459.namprd12.prod.outlook.com (2603:10b6:a03:48d::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.22; Fri, 24 Apr
- 2026 08:25:37 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9846.021; Fri, 24 Apr 2026
- 08:25:36 +0000
-Message-ID: <a2241936-579f-4fa6-a9ec-49325d44413f@amd.com>
-Date: Fri, 24 Apr 2026 10:25:25 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V13 2/7] dma-resv: Fix undefined symbol when
- CONFIG_DMA_SHARED_BUFFER is disabled
-To: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
-Cc: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
- chleroy@kernel.org, peterz@infradead.org, jpoimboe@kernel.org,
- jbaron@akamai.com, aliceryhl@google.com, rostedt@goodmis.org,
- ardb@kernel.org, sumit.semwal@linaro.org, ojeda@kernel.org,
- boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com,
- lossin@kernel.org, a.hindborg@kernel.org, tmgross@umich.edu,
- dakr@kernel.org, nathan@kernel.org, nick.desaulniers+lkml@gmail.com,
- morbo@google.com, justinstitt@google.com, tamird@kernel.org, arnd@arndb.de,
- nsc@kernel.org, simona.vetter@ffwll.ch, linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- rust-for-linux@vger.kernel.org, llvm@lists.linux.dev
-References: <20260424054742.45832-1-mkchauras@gmail.com>
- <20260424054742.45832-3-mkchauras@gmail.com>
- <b4dcb464-7784-47e2-a973-6d731ab9ccf8@amd.com>
- <aeskOeb9uBiPptEJ@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <aeskOeb9uBiPptEJ@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C17110E15C
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 08:25:46 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 683754E42AB3;
+ Fri, 24 Apr 2026 08:25:44 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 23C55604EB;
+ Fri, 24 Apr 2026 08:25:44 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 0AE7A10720728; 
+ Fri, 24 Apr 2026 10:25:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1777019143; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=5+BUx2qSA912qQYrUExSpogjXL6NTO1wukuwyeTYxEg=;
+ b=DwDc9Q5hEqzM/vxv94h5vObNwrcBr5XkEjcPQ5JPIrSbkbVboj8JUgz6oVETrjJ3hW1U/x
+ SNLhPho6dc+EX7nk3hmdjqig1a8MyNxCRfK3Ih+TQ0vhxwxDCBSs3nfKeHGCOLwteEslzy
+ C4YyxnuMhk3jhsuA3I4Xnob+c4IgllgXxw3lAdsxPMlWpnVfRmMCc3sVYMYYDBi00A3fu6
+ Xmu6DuSUbmR/FRjX5VLJcaeud7CxfD5YFhdS7eyU9ERo2YaI1ZqpQdGaRnBdx+PDsobolz
+ Q9Comrv9svQ+fCNUkZxKVAfDTG5u9OfwzGL7rYe0fLJb9QF0BLpBWTKr8DFNIQ==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR5P281CA0029.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f1::13) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ0PR12MB7459:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0897a3f6-e7d8-4fc9-2c28-08dea1db0fc1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|366016|1800799024|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 3btoKxuCOOd4rkrWEedArkPUExY4PnDOWOub5MLCAcYxm/1ZoPDPiNZ8NnCmDfoZSk2LMVUclZW5IdFnPkjcU3F03Jugobzlyizo4CM1eg+H77A9+9H0AvtI6qZWQyex622v7IVHK9+ztosGk22BkpkFsOYIWnsjmdA6s8x5Qp0WY6rHcYXiYMtOAl/CYmh1d4f3UBlfbHUyTpx6H19Pzgs32NUU4Qnhb6LF6a63QEHAJG+a2XWUa8NykwNvn4oG+hAibeY4PrKH9fJ0oqwqkdUnG9nNrQe/05PyC4djvqh4F3TmO5yLmUjMH2PPv4neHslRJX6ddDrq+18BS7rGhzTMvfRqgcJJM/xlhUWJqqnknivB/oNw1eYH3o52Npq7AXR6vMXj6mzdCHK6JDzINE0D7rTtdZhdymtl5eibT0xIBoIOsi6IfKsizrk+B8ODYFoOrvabNXN7jmqw0y+3ltxyhxu3t4ztYiDsO45goqE+r7+7oPqfzify83+GdozGuVKBr/dSgS+GWtXbymVq39lUPDX0mmSbsoNTYULGGd997VMU0doqZnDGeid2oepKHIvwIOd82t9whIPRdxtuzC4RCcm0d9TS/NLhXnsCsonTTnOvekgW2D+eKJ2Yx4Uj1DFrtfu33r/8ootNHslgyK/ceUsoQHDqNXggNXpr0JS5cYqsc+4rryWgPGrUmEqdnOUuJ044iKRLZFHkxrxAFZMssBBhukNjGZEeq+EIoac=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(366016)(1800799024)(56012099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?LzlTMU1yS0F1N0hxdHpsYlhrbldzZ3YzdW5wQ3dUUWt1dDdIL3FLV21lZnVa?=
- =?utf-8?B?NGpvclhHNzE3dXlZUittOGNhLzVCOTZIWTBYaWVrZ3NoV2ExeWFQVlIraXc1?=
- =?utf-8?B?UUI3Z0s0WDZ6WVlzU3doc05RWk5TWTdHejViUlRjcEFnSFpZRFAyZzA1MWdk?=
- =?utf-8?B?ZmxCUStkZDlmRDdYZWRBV2JCYkhXd2hBQTFKaFdSd0YzbzBlNUoreUdYYTR5?=
- =?utf-8?B?dW1QOHgzTWI2SkhtN0lzNDMwMEdjKytDK0dqeDBqTGlLOUZUdmp1WGRjcUVj?=
- =?utf-8?B?SnBSbW41MENTcEkvN2lhNnZhNy93NkR2LzRDQzNuTzNSc2VNM0JXUUY2T1BS?=
- =?utf-8?B?c0V2VzU1WWhoNUp2bDFkeExTZ0ZUVFNJTzZHY2ZKNDFyOG5CTWIyK3hYWG05?=
- =?utf-8?B?K1VFU3doRHJqL0lpZkZ3dFZOc0pnUDhiOWw0QUxIakpiVFRBRzd0UTdkMXJv?=
- =?utf-8?B?ZVdDK2ViejVTT2paQ3VEQkRuWHdjcTVpRGRhSXVwSmFhUElob3lRQ2lEcGd3?=
- =?utf-8?B?TjVSeUVnUVdDeWh2M0txeCtTb2c4Ly94T1Q4emFBWm1MdHNyUEpNVzhvZkpO?=
- =?utf-8?B?cVluT0RmS2tVaDIxMGlFdytORVl5bEJ5VFBCeHQ4dXluUkNhWnlLYjExb21s?=
- =?utf-8?B?Nnhsc0R0alp6Vm4yNzZFQnhZcHZlVVBSRnR6djAvS3pQeWU2RDJqK21LUk13?=
- =?utf-8?B?aC9IK0FCMlpFUzdRTFR5ZjJwL3ZuNlhVcnkzVDlwRnhIUWlFajk0dk5GUmhk?=
- =?utf-8?B?YnVRZHU1RXBzdUl2STVtSE02VDBtRnlwcHlhYW5PdWZXQUt2WDc5NXJwWnJ4?=
- =?utf-8?B?RzQ2MHF0NTJDM3R0K25ubkhpWlEvNVB0NGkvMXM1cytMWnA1Ukhna0E4Y1hB?=
- =?utf-8?B?L25CRUR3OGR2L002d0QrcHRUM0lMN1RYdXpGb0dLaGxvUWI1elloR0sveEk3?=
- =?utf-8?B?cW9ubG9WT3EzUHYrOGNvVElRdVFWbUszeXVFVkdxV0ZGcEcwUVJSRmdIbFNy?=
- =?utf-8?B?ek1GY0pTaEdUQkpLR0Y4TndZWGtFYWVrQm9aVmgwWGh0bExpalBxSjlMaHU5?=
- =?utf-8?B?dGxQbXdoZlhleklVVlMyS3RHdFNSTTBjMjZybWlUeW1CU0JGVTQrSlpiNnk5?=
- =?utf-8?B?Y1Q0TWRrc3JEL05RcHdwS1ZHMFFlOUk1U21xRGYwMnl4SVkxNmVaY3QxL3pR?=
- =?utf-8?B?ZTU2OEp1Y3dIYW9MSURZbFRBNzBwRlp2Q3EyWGtSa1Job2FHenBkRXlxM0Fa?=
- =?utf-8?B?b3c0UzFMamw5RzNFMjlETjhLTGpKTk5hMEhsSUk2dVJWU1oyaytQNGxqZHU4?=
- =?utf-8?B?VGdBeHlVMXVOTmdXeU56TVo2SjdNK1ZjVklNQU8xVGtjYUdWZTlFMFBTV0tT?=
- =?utf-8?B?dGk2RjNTdi8xZ0pwRTRsZzFpMTFQQWNWWHdsVmdQbGtnRUxET0FMY25lRW9K?=
- =?utf-8?B?dUtiNnhqVUcvTjQ5YmJiNFkzNzJ5Um1VYlJKY3dSaHE2UDdHeC9BUzZkS2kv?=
- =?utf-8?B?MFkzaDlzemcwdGNoaWNFTHNINTFHMTYrM01hdWp2SHU0WnZqL3Vxc016ZE5x?=
- =?utf-8?B?N25FM2Q3cEJBM3ExdjI1NFQxY05uY0NFTDdPSVoxT3Rka0xoZjVtdFFMNGxa?=
- =?utf-8?B?bnJQdFBVVnQySDlNTVR6VzM0YVJYZkMzUVJjenVGRzZNd2dYeTZHaEpOZk1p?=
- =?utf-8?B?OGs0TnlRRDdwOXNhMGxuZCthR1JRNE1HcDRTNW1CT3JOQTkxR0VUd2xxNjFv?=
- =?utf-8?B?SnNtbW1Ea0hLSG9uTTlaS3IvZ0dxd1dHK0xOY3JIR1ZqYms3Ulk1aW9sbC94?=
- =?utf-8?B?SVh0SWU2STRJeER2SzhSYTJoblVDSThGQ2pjaWJpcDZRUDVHS3RLd1QrQUJt?=
- =?utf-8?B?c3BwNVVMTjFCR1JRVmczMm1McWVQOElsQzZPZnVLdmlYbGFDZ2N5NHJLMHdR?=
- =?utf-8?B?V3o3OTlVTHdXbDlKZ3ZiNkR5cFNVU3lCaCthWnVGSHFjeG1VL2ZPbWgyRC9j?=
- =?utf-8?B?TzZrc1lKaDdvN05nUXVNSWF4aVlGWTlGMEZwNE0yN0VNNTFXVWdnT255RmI3?=
- =?utf-8?B?MDlvdlBoQWJydlNndURLdGN3R1hDTTc3YXBBZW1VTGNKYWgyQy94VHhuK3N5?=
- =?utf-8?B?cmFQd0tDQ28ra3ZLRVhWMmhtWHBTWXc5bUMrZFVibGRFWU8wNVVmckUrOGU1?=
- =?utf-8?B?Z013anJ6TDVtUkw4QytWa2ZMdTQ2NjZHazBZMFcyWkZ2N29QNkE1NVlmcEdV?=
- =?utf-8?B?SnkraTlFY0tjdTRFaXhJcURTemw3Y2Rna2FCNHZVS2plWVJBUmdHMXUzTXpY?=
- =?utf-8?Q?KxQ2DDDAo9Gj0GwFGX?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0897a3f6-e7d8-4fc9-2c28-08dea1db0fc1
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2026 08:25:36.8324 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qS8p/DPDAG2SXgomuWILqM6RZp0xmKRQ1NUKbj+v/xwsFCTE/e94p2rDZWJtQoLy
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7459
+Date: Fri, 24 Apr 2026 10:25:35 +0200
+Message-Id: <DI18PL73UQKR.2YZVZ21V69H7O@bootlin.com>
+Subject: Re: [PATCH v3 1/1] drm: bridge: ti-sn65dsi83: Fix DSI mode flags
+ for stable LVDS output
+Cc: <Laurent.pinchart@ideasonboard.com>, <jonas@kwiboo.se>,
+ <jernej.skrabec@gmail.com>, <maarten.lankhorst@linux.intel.com>,
+ <mripard@kernel.org>, <tzimmermann@suse.de>, <airlied@gmail.com>,
+ <simona@ffwll.ch>, <marex@denx.de>, <valentin@compulab.co.il>,
+ <philippe.schenker@toradex.com>, <alexander.stein@ew.tq-group.com>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+To: <tessolveupstream@gmail.com>, <andrzej.hajda@intel.com>,
+ <neil.armstrong@linaro.org>, <rfoss@kernel.org>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.20.1
+References: <20260412053811.662461-1-tessolveupstream@gmail.com>
+ <20260412053811.662461-2-tessolveupstream@gmail.com>
+ <DHTJJRKD65L4.1P7X5O20V1W2Q@bootlin.com>
+ <c4c33f14-0da0-447a-ab82-2e2f65c09c07@gmail.com>
+ <7056b23b-ed81-4d79-b782-5cfcb0102ef7@gmail.com>
+ <60a24977-b181-40e4-bcf6-38b65af293e2@gmail.com>
+In-Reply-To: <60a24977-b181-40e4-bcf6-38b65af293e2@gmail.com>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,102 +73,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/24/26 10:06, Mukesh Kumar Chaurasiya wrote:
-> [Sie erhalten nicht häufig E-Mails von mkchauras@gmail.com. Weitere Informationen, warum dies wichtig ist, finden Sie unter https://aka.ms/LearnAboutSenderIdentification ]
-> 
-> On Fri, Apr 24, 2026 at 09:56:16AM +0200, Christian König wrote:
->> On 4/24/26 07:47, Mukesh Kumar Chaurasiya (IBM) wrote:
->>> When building with LLVM=1 for architectures like powerpc where
->>> CONFIG_DMA_SHARED_BUFFER is not enabled, the build fails with:
->>>
->>>   ld.lld: error: undefined symbol: dma_resv_reset_max_fences
->>>   >>> referenced by helpers.c
->>>   >>>               rust/helpers/helpers.o:(rust_helper_dma_resv_unlock)
->>>
->>> The issue occurs because:
->>> 1. CONFIG_DEBUG_MUTEXES=y is enabled
->>> 2. CONFIG_DMA_SHARED_BUFFER is not enabled
->>> 3. dma_resv_reset_max_fences() is declared in the header when
->>>    CONFIG_DEBUG_MUTEXES is set
->>> 4. But the function is only compiled in drivers/dma-buf/dma-resv.c,
->>>    which is only built when CONFIG_DMA_SHARED_BUFFER is enabled
->>> 5. Rust helpers call dma_resv_unlock() which calls
->>>    dma_resv_reset_max_fences(), causing an undefined symbol
->>>
->>> Fix this by making the function declaration conditional on both
->>> CONFIG_DEBUG_MUTEXES and CONFIG_DMA_SHARED_BUFFER. When either is
->>> disabled, use a static inline stub instead.
->>
->> Well we are clearly missing something here, but of hand that doesn't looks like the right fix.
->>
->> When CONFIG_DMA_SHARED_BUFFER isn't enabled then the whole dma-resv.h header can't be used at all.
->>
->> So you also can't call dma_resv_unlock() from the Rust helpers. Which means that we need to make the Rust helpers somehow depend on CONFIG_DMA_SHARED_BUFFER.
->>
->> Alternative would be to provide dummies for the functions in dma-resv.h when CONFIG_DMA_SHARED_BUFFER isn't set, but that looks a bit like it just hides the issue.
->>
->> Regards,
->> Christian.
->>
-> What about something like this:
-> 
-> diff --git a/rust/helpers/dma-resv.c b/rust/helpers/dma-resv.c
-> index 71914d8241e2..53c119f1b144 100644
-> --- a/rust/helpers/dma-resv.c
-> +++ b/rust/helpers/dma-resv.c
-> @@ -2,6 +2,7 @@
-> 
->  #include <linux/dma-resv.h>
-> 
-> +#ifdef CONFIG_DMA_SHARED_BUFFER
->  __rust_helper
->  int rust_helper_dma_resv_lock(struct dma_resv *obj, struct ww_acquire_ctx *ctx)
->  {
-> @@ -12,3 +13,4 @@ __rust_helper void rust_helper_dma_resv_unlock(struct dma_resv *obj)
->  {
->         dma_resv_unlock(obj);
->  }
-> +#endif
-> 
-> This seems to fix the issue and makes sense, whoever wants to use the
-> dma shared buffer will anyway enable the config
+Hello,
 
-Yeah that directions makes sense.
+On Thu Apr 23, 2026 at 11:16 AM CEST, tessolveupstream wrote:
 
-I would maybe go a step further and don't even compile rust/helpers/dma-resv.c when CONFIG_DMA_SHARED_BUFFER isn't set.
-
-But if that is not possible for some reason then this solution is perfectly fine with me as well.
-
-The general goal is to make the error messages when you haven't set CONFIG_DMA_SHARED_BUFFER and still try to use the DMA-buf functions easy to understand and not something cryptic.
-
-Thanks,
-Christian.
-
-> 
-> Regards,
-> Mukesh
->>>
->>> Fixes: 0c6b522abc2a ("dma-buf: cleanup dma-resv shared fence debugging a bit v2")
->>> Signed-off-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
->>> ---
->>>  include/linux/dma-resv.h | 2 +-
->>>  1 file changed, 1 insertion(+), 1 deletion(-)
->>>
->>> diff --git a/include/linux/dma-resv.h b/include/linux/dma-resv.h
->>> index c5ab6fd9ebe8..23c8db0b5214 100644
->>> --- a/include/linux/dma-resv.h
->>> +++ b/include/linux/dma-resv.h
->>> @@ -311,7 +311,7 @@ static inline bool dma_resv_iter_is_restarted(struct dma_resv_iter *cursor)
->>>  #define dma_resv_held(obj) lockdep_is_held(&(obj)->lock.base)
->>>  #define dma_resv_assert_held(obj) lockdep_assert_held(&(obj)->lock.base)
->>>
->>> -#ifdef CONFIG_DEBUG_MUTEXES
->>> +#if IS_ENABLED(CONFIG_DEBUG_MUTEXES) && IS_ENABLED(CONFIG_DMA_SHARED_BUFFER)
->>>  void dma_resv_reset_max_fences(struct dma_resv *obj);
->>>  #else
->>>  static inline void dma_resv_reset_max_fences(struct dma_resv *obj) {}
->>> --
->>> 2.53.0
->>>
+>> I had reached out to TI for clarification and any related documentation
+>> updates, but I have not received any response so far.Given this, it is
+>> uncertain whether we will be able to obtain further details or official
+>> confirmation from TI in the near term.
 >>
+>> I would appreciate your guidance on how you would prefer us to proceed
+>> from here.
+>
+> I followed up with TI, and they pointed us to the relevant sections in th=
+e
+> SN65DSI83/84/86 datasheets covering DSI video transmission specifications=
+.
 
+Thanks for keeping on! I'm also trying to get info from TI, I'm keeping you
+up to date if that will happen.
+
+>> https://www.ti.com/lit/ds/symlink/sn65dsi84.pdf?ts=3D1776924088430&ref_u=
+rl=3Dhttps%253A%252F%252Fwww.ti.com%252Fproduct%252FSN65DSI84
+>
+> As per datasheet Section 7.4.7, the device operates in DSI video mode wit=
+h
+> fixed horizontal timing, where HBP, and HFP are explicitly defined and ex=
+pected
+> to be present as part of the video line structure. The timing description=
+ in
+> this section assumes standard non=E2=80=91burst video transmission with a=
+ll horizontal
+> blanking intervals accounted for.
+>
+> The datasheet does not document support for DSI video burst mode,
+
+This sentence seems incorrect. Section 7.4.7 starts with this sentence:
+"The SN65DSI84 supports burst video mode and non-burst video mode ...".
+
+Even though asa matter of fact it looks like many users have issues that
+get solved by disabling burst mode.
+
+> nor does it
+> mention support for omitting horizontal front or back porch intervals. In
+> particular, there is no indication that the device can operate with colla=
+psed
+> or suppressed horizontal blanking, as enabled by MIPI_DSI_MODE_VIDEO_BURS=
+T,
+> MIPI_DSI_MODE_VIDEO_NO_HFP, or MIPI_DSI_MODE_VIDEO_NO_HBP.
+
+This is correct.
+
+We can still try to get TI feedback, but it that won't happen in, say, a
+few weeks then I think we should apply this patch.
+
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
