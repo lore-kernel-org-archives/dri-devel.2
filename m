@@ -4,122 +4,108 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 675C3FED3F2
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 18:26:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6FA8FED3E6
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 18:27:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C088C10E010;
-	Fri, 24 Apr 2026 18:26:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2688410F680;
+	Fri, 24 Apr 2026 18:27:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="doISpOO3";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="d6bIOA1d";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012000.outbound.protection.outlook.com [40.107.209.0])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D366510E010
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 18:26:21 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dhZnVROtDCkBvFc8JS7XQRxIQ6Q8BwQRvnv3Q5VvuQJh2/umMx2xrDpy7ILmOMnUV24q1yL1OHw9dG1YqSh+nGYKIWAgH3R79xQXAGqnD+leZp73ssBff+dbXGDfBv9HOvXWQRboNYWtl2AwNqT3tBcc4F48uztulezRmp9qSnbU0AW/MxxFA41rVY4hh9ebc401DdEmBoaa6Yer+BY4ofToK1Fq4QHwRt4Rs/XMoIkEqaQsxo41hh4r2ZoZU35MuE6hOfwc5ymQxKMrMezIqYGxKr2+dYk+lRZJGauXdTQ5/K4PGcyrV5iot2zMltPRsoHSjR5by0hp1HYl7KJF3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=o45aHEGAzOZAQxDbyJnnpRjxkJePUvuzdSg5zapsHt4=;
- b=W9vdgZyeQ3d6mLEglq0sa66wrecC+PUmQyW6VX/Vu2pffa5hsQeBoPNWltxesV3ICajClxD/XL0QaOFXJ/ZMkiVSy0y32Si8Ohl5GGUcI2OI/UnbbCG1mZ2Wihn+D7uuehMiOZG1gCAl1YAznfQ9W0ek1uA8vz0CKzM3w4ZIGpgf/7YZRtXA5TkuyXOE3fdlgie7NKVIELM4K9FQT2XZT8aS/SbBQsZ1+chfgsxi9vgDGp82ORtrpmrcJMbEBqt/p95G1Dyqy8JuMgrT/S1X8hfONUX5xZ3jRDS/DNxR4KqnViyZsmZFNWTylsnsJSHHXCP4MynPgciZ/ew7srIWwg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=o45aHEGAzOZAQxDbyJnnpRjxkJePUvuzdSg5zapsHt4=;
- b=doISpOO3md8yxJNTguvQe/FowQlty3jM06oJMp4XXss7h3H3UhptJzdX4pq0+GxLoz8IxzSQ1kAZpfJ0/1REak5meIDNwgPXf5cp4P3fCDjJtyW2sa9Jnr9XNl++hor+Kj1sqVk2HC0oPgdNnf7EHtTay4E/T5d00lHDjBjO4lbtcH230anfuKVYleVmF12qyMRdZSeRl2MMG8oLKfz9+fLFdH/04+S1aKJ9U7T7plOdfYkpZiibKwYu5dq4DdeMz8MpmC25E9nGM9zCdfogmSJle7vBrMeByvFdPTF5V5MkhswE3Gg9slhFddfFyVgC4AurbYiBOXqs7d/g0wnpsA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
- by SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.22; Fri, 24 Apr
- 2026 18:26:14 +0000
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528%5]) with mapi id 15.20.9846.019; Fri, 24 Apr 2026
- 18:26:13 +0000
-Date: Fri, 24 Apr 2026 15:26:12 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Matt Evans <mattev@meta.com>
-Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
- Alex Mastro <amastro@fb.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
- =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Kevin Tian <kevin.tian@intel.com>,
- Ankit Agrawal <ankita@nvidia.com>, Pranjal Shrivastava <praan@google.com>,
- Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- kvm@vger.kernel.org
-Subject: Re: [PATCH 5/9] vfio/pci: Provide a user-facing name for BAR mappings
-Message-ID: <20260424182612.GH3444440@nvidia.com>
-References: <20260416131815.2729131-1-mattev@meta.com>
- <20260416131815.2729131-6-mattev@meta.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260416131815.2729131-6-mattev@meta.com>
-X-ClientProxiedBy: YT2PR01CA0019.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:38::24) To LV8PR12MB9620.namprd12.prod.outlook.com
- (2603:10b6:408:2a1::19)
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6EF7410F680
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 18:27:26 +0000 (UTC)
+Received: by mail-dl1-f51.google.com with SMTP id
+ a92af1059eb24-12c6df0b9bbso5169508c88.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 11:27:26 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777055246; cv=none;
+ d=google.com; s=arc-20240605;
+ b=G6TfK3ZepsUtdDX6qX11cwhN/vUIJTHUtL5FBFtbt3x1dKM7Z5vc/umQ4CpdTO7bp8
+ lTtWlylpfrVwxO5P9exnnomcqVVnJ5sNn/39toGmuZ7aB74xpNoGlblIjPejQ1UoydcL
+ xAEzBsdEmOGKJiIStumYrlYgUKPhTO2cQ1obJejS3mTMHXD2nER+p+HXS8R3euaOUVn5
+ aHdMMHM5y54ii3+sXvKVT1NBd5bDWmgJplC9PZkJpIuQsqvI51uKt5Lwm0NJ4hy5Izz+
+ IpOTSqLPHC6ktpJQPPa0G6v8iHQWl49QRNsqaa8Tt7YG+bKArAwmT/QZMJTcVphwAMbp
+ 0xwA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=8fKE6uWynXvOQK+WQLf5kO4iqhFOCsKdnL+aW04mVOs=;
+ fh=B+RAmfCHj7yRmfaxI6/wCI0J+tHrAvhluX2/rQLUlaA=;
+ b=cSLELo3foZG4CdGuL9WtZ+j9y05PoWVHt9X77py/+4zu2+WeTMc4bMhMon+6XhwXxP
+ gGwahjR4oA7lpbAU6SFL8cJpIJTzChY5ZI9SaiI2tNCSkBS0N/UprpjkhUATMjwIE2t9
+ B5Y0lueGMq6p+Zr008BfpSN0ba/t9eMPufshRsBHMPyc8EaSfhESGfwWZxzrTzNjzJ6o
+ MdLjhXQ7at79dwtp5WQWbH6TD4awB9F7/Ht23Fhy6M349mhLREbQBXeYe+rnkv9bff7U
+ RPNpfPeX3WTZoFQ4eDizVH5IXZj6y7WVpQQXcaibSV2cAqD46ZWW8iCLxqpIzj+xLTec
+ YTdA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1777055246; x=1777660046; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=8fKE6uWynXvOQK+WQLf5kO4iqhFOCsKdnL+aW04mVOs=;
+ b=d6bIOA1dkMfvrWDK9cCwiV/RAt4vCecANdlBtHiN/j1UfzAVC6dTiThR91Wg/7lVOi
+ XE0/eb0lkjnYNAG796nckwPgHirvYeAtw0+eiJYtOs9+oBEuJ8FgRYRuPHQSRKAN+8VD
+ avVnHMT4xsae3ERBx+p6CnC/JjiMTIhwYu3m95oxwyRqMICt/E79uCTAlEEiIrGTMLz9
+ C0MRBPb4l4HoSL3OiS+BtqhmrtWkwrLLXKS12HE+rnDBhfyobSGGFqWtgVzA4mwcmS/X
+ UhXN6hjHLDs9+QGSCiJ0SWkacDwH1zCM2Vdj/QXz5zdcrfaec8xaVAKHyAG4NGL3P+14
+ kaIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777055246; x=1777660046;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=8fKE6uWynXvOQK+WQLf5kO4iqhFOCsKdnL+aW04mVOs=;
+ b=rpcCYKus2RWFTXRXaV1qwcMN658Q+fc+lbpoasYMI2CFcvUWU3fVDjCQEqMCOlMOfb
+ H26svVPoFZPP3MxV5LpXNpGKeuVHmn1BzPPZN11LE8hIq6Kcve+lxXSrQeFt2ouemars
+ NdwV3e5auruSjoKzqiGvvjYkjJPgnl7SXjZJH4mTDjH2RPJoVLeGUavv3MkYs1KrkG1E
+ +9Df5IIcUlu3wqtBOwCaGFPU1ERyfkSFxeCt5Zq3CwBhBNMtXpuhJ+3vx3XP+Z5aFwkq
+ xRTmngDQi3kuweDakR54Xq50AVtE0ZKRQtGoE/+s9rdvhYdLD/VeO/AyMyr7/d43ntJS
+ iJbQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9RjtyK2uSKGnmgfeioO6huLd56V55iGoxk4AceRw5NtpL4pg4WFQ3QyTqnHzul5fWhyHgsiBgHiNc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzPYbfbNpt5GtaDivMG7Xumu1hfds3OLGmGvkfilfmAAtkNBUOn
+ DevWG44e5zdxWa5CvX2AIGkRTwoZ6kDX7ytrip/vT1hfJopHS5TsEfcys7TuMcvG63eYdA0v3Up
+ eDHpdUACtbfuTs9+bMggi2XniU/90IDA=
+X-Gm-Gg: AeBDietkYAe4R+U5BVdhJQ2XfYjOBsQdssxmYYtL8QTVYI30bn4Dgo70C+/THDzvzoI
+ aLwBVOOX+i/xLnQ897X/ELGc58TPgwXga8SpvlIWTSUTO6A4Kw0Ar2/VJRgm+b5JstQDMyfwb1g
+ ADtj5+VbUm4AYKBhJdgGj10INgsZbRmzNoSTpy3pd0UsIpJWEF1X84oETVlg1OkHKQaTv4d4jPO
+ 8yN2J3FGgqI4kNuj5CCi6kf1tNXKI5AuRLDhrK/ZJnAy0Tu0gg1ftayGDq0Er3/EYURMxisZqwJ
+ fCPy5zhjA1s9+6WfSPTj27MC4IirBaLXwtIOamVDtcpc6WnpxyIShYL4pf0vOv75s3BiM/ac0M9
+ MJh4r8J6Vuxju9ATotdeF3o/lGWnXqy9yZRaFeg==
+X-Received: by 2002:a05:7022:383:b0:12a:6fb7:87e3 with SMTP id
+ a92af1059eb24-12c73fac0cbmr19164773c88.31.1777055245496; Fri, 24 Apr 2026
+ 11:27:25 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|SA0PR12MB7091:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1c80c321-12b1-4579-ce97-08dea22ef728
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|7416014|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: yu9RRzaNwqLccLh90KYHm5jbwzdYQD/SChAns4Cq4ALR74Z7eEkSjGJ6L86E/rweIMbvaR2yygEIAa5uiTDwBtnYjaz6DXFBiwtXBnzuWBLsPHEZpnRPf8zKWbbb2f5roZHtVhVYFGzEIdMyFPr7F7J5vPSiYzeRUdH5esq2TYDPtxzCZgQJApNMi0sTSD9nBp9rqzxuyqiHrDo37fQlgit9O1kFf587Y5AXtC0UrLtaiaeM8RTTFnk3+Rq+J4cT4uD8nEJDqzUvdsaeDrRgQVjj84/gI7mycAlpdmcJ8ClLPJp5whIo4CzgMM3RdCa08glAib5Hs5JV1LFmtx4m5+E8TFZTOWKL142kE+2nyjSbFinAUVOFwwa92xqSUQEncZzkefaXXbs81JpW0bzdXZx1XHF9mmF/WMFzyt/hWSek64bRGnNCuWYhdEH7rlCnKmjlkn0aXHx+ppFWyHJAl1LDFWlynmIVvCHxmV5J+lMh6mFopYxZRftuylrI5yvmQAl/sHGwJuznDNyErggvUCn9ZCwdUAciVtdzJuf9Ie3k/Hj8X65zzTucNpQrmtwJzpSddZbxbEY6X/jvuDjqAEBXjk/q/XWiNXyNAes/026l0acaNOWV/hWU065GKPc1YNGhY85yp4+s7MiJUDDe7ovdVf4nGPJnT/vM9i0fAR/UbspYRv2fytmk7KKkj+xBIsBHJGMEVf1IB8++R22Wt2C7RwCFAoNWkOfqB0BSc9w=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LV8PR12MB9620.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(7416014)(22082099003)(18002099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?dHM8s1gX4MogTrOaEWPwmQ5DJCc8FDxXyRB4v8KCtDavUH2p1d1gvMr4kcYZ?=
- =?us-ascii?Q?LC+OOINN+cHPfWa2g3jDpWAQ97KF7AhUKJ626h+BmezBAxUyP1psFcMa4vWI?=
- =?us-ascii?Q?nslEO8OWv9DvN9Tf/VIXWzbUz99RT/BS8MdglddH9JRiXE4V0Pmx121u2zPR?=
- =?us-ascii?Q?SSSSgf1KK5/iObeoqrP8v60Kame0SCrw5zVZowxFIxAPaG3x/CHLEyjFB9Qx?=
- =?us-ascii?Q?gftUBSgvxtpAglN+pczNV9gsnPTiIBakBTjy3QULBAkpxRktpNVz3lsdhkUx?=
- =?us-ascii?Q?q9U4ghlMso/9/xtCsIxWF1VqU6rlGsMaqfLwm/7fEPbEyx0krL5oo2dcRVHi?=
- =?us-ascii?Q?do7nQvrh1sCjtM/GWjkyVoHjVDpyQbbtAoX3uDltY8pU4e5Fw0NibK3GvFO6?=
- =?us-ascii?Q?NS3M/lBfX1UGx9DImLbhzPVPk9DjJWeW4+PR1FW5Z5e/oCa0igmypGNRVUXH?=
- =?us-ascii?Q?CIGuDIAZDfPdstnMJN85zzozUU+QnA46IjrZAbFK8PMokLJNbciFr2l7NqGM?=
- =?us-ascii?Q?gYfs9oFMChAnZKlWyY9OqrlMtIGWEYcL8gwQY30czqiOP3VKDR/7e/HJtBGQ?=
- =?us-ascii?Q?s+tXV/2UvPbbiKoibLGXCA7HpAhMjTdI+cTgFHKxkDcSPUZwRdEDOGshZGx+?=
- =?us-ascii?Q?gE+UKBOrn2gqcfV6ScBHt0a1d2lDhd7V+TNF+BjrF9Rekjr2mRvOIs23lgcs?=
- =?us-ascii?Q?SvG0LfkOGBFM2GCZ1u6R6OF0ddLcH1yPAITLlmMsYnCimkBTgGUjzlEddQ0c?=
- =?us-ascii?Q?4cnGj0+RFEcnuIY4MSISJdj5FgVsPdilcnFbmOsvlE59g24UMvjwvYw/jOrv?=
- =?us-ascii?Q?FuCYSdOvteo2VAiLeNuf80t5gc1NhglPY02MTstz/zM+9iJM87jhExbMj1I+?=
- =?us-ascii?Q?eQtQGZi64fAt92VpXZ77NE2IKHgxqI+CIIQEOC/a/31XthZ6/aH05VFNCLht?=
- =?us-ascii?Q?ZfkM51ELXN/YDSptlB7lGNVg+0nUUWZkzTOH1LaS+Mq1qyHSSzUgpsPn2MCV?=
- =?us-ascii?Q?0aZp5vWOocaG6Y6yRdoI6PTdeFU5Wx/NZ20uj4wbeq3VwFb3L1VuoBDsZZLf?=
- =?us-ascii?Q?lPPsxFOFeD1ym/ZrIXzdFKj8jxs8uNJx39voVOmucDuXhqPQNUjAH96SUUhX?=
- =?us-ascii?Q?kRX8IxgJGzgVvuXw4ApU88YvRU9t7g+M1KUwSMy3tST37Ldip1YVeYjk4L81?=
- =?us-ascii?Q?Vk6hyjj9zE00avlnra0QQkrBNDq1H9/wkbX56ykGm7jSIBptRSUYbYGBF/GN?=
- =?us-ascii?Q?aeXfl/t8OFolH1qpP1RSa3LYtgVyZ17FuouMjHXBvW/6EWx/H/c1p+iN12jt?=
- =?us-ascii?Q?SENXasxptl46eMnzn40jPVTQBkIY8F8crLYj0S8duE8w346Il1rRQocLtzlG?=
- =?us-ascii?Q?otGKFAZydMNWw/gZURE74bKkS/BgpNi0TAZOmSpeoDoqYs0HAvr+U9L4uidn?=
- =?us-ascii?Q?aI9jYUkSEP8qIMlPlfdhkI0uojkIzfuuOYo/gc6Be4s9dZqgBlqdTatMRx3v?=
- =?us-ascii?Q?bap99Y67dGp6AQMD1M3NJT1VEmoxLeUpayGgBBZqJx1aKBqM+QvSJC7moclg?=
- =?us-ascii?Q?LKrSA5ak4HF5gP97mhbE/UeUgGaM+93JGkVx3GGnBSgm4kOOTzw6Yiw/Y6IG?=
- =?us-ascii?Q?DCrRpdXY8+Y8dzh3KFQS3Qla+5zqECvqzciWdvLZGQf2Ete4MLeztfy5nbjI?=
- =?us-ascii?Q?E7IVjFD77FD8OkbY4IaTWFt4T54f7LLW9cEgD6Bl6d+fZsFD?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1c80c321-12b1-4579-ce97-08dea22ef728
-X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2026 18:26:13.3722 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mkq3NHYkFYNZjOtc3dAijOxBGdWPM0dB3+DdlO9lCZ2KZvQqOGvTEW5qNfzFfYUu
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB7091
+References: <20260420-beagley-ai-display-v1-0-f628543dfd14@ideasonboard.com>
+ <20260420-beagley-ai-display-v1-15-f628543dfd14@ideasonboard.com>
+ <CAOCHtYjJgqomKreDxLUiVbUtpeh36f0bL-jA6P-6rsoJrweshQ@mail.gmail.com>
+ <cb19eafe-6c25-4a2a-bd31-9fb280837623@ideasonboard.com>
+In-Reply-To: <cb19eafe-6c25-4a2a-bd31-9fb280837623@ideasonboard.com>
+From: Robert Nelson <robertcnelson@gmail.com>
+Date: Fri, 24 Apr 2026 13:26:57 -0500
+X-Gm-Features: AQROBzDdYR96fKz8FXyueV-T0huFl-SkTA_xyoSbvkzAGH098Vzr3EpRVRVzohg
+Message-ID: <CAOCHtYgQ=71GtnUFkwhoVTkWma9rrbjp3xyKYUGVv1dG63m0Dw@mail.gmail.com>
+Subject: Re: [PATCH 15/15] arm64: dts: ti: beagley-ai: Enable HDMI display and
+ audio
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Andrei Aldea <andrei@ti.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, 
+ Lee Jones <lee@kernel.org>, Aradhya Bhatia <aradhya.bhatia@linux.dev>,
+ Nishanth Menon <nm@ti.com>, 
+ Vignesh Raghavendra <vigneshr@ti.com>, Swamil Jain <s-jain1@ti.com>,
+ Devarsh Thakkar <devarsht@ti.com>, 
+ Louis Chauvet <louis.chauvet@bootlin.com>, devicetree@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, Andrew Davis <afd@ti.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,20 +121,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Apr 16, 2026 at 06:17:48AM -0700, Matt Evans wrote:
-> Since converting BAR mmap()s to using DMABUFs, we lose the original
-> device path in /proc/<pid>/maps, lsof, etc.  Generate a debug-oriented
-> synthetic 'filename' based on the cdev, plus BDF, plus resource index.
-> 
-> This applies only to BAR mappings via the VFIO device fd, as
-> explicitly-exported DMABUFs are named by userspace via the
-> DMA_BUF_SET_NAME ioctl.
-> 
-> Signed-off-by: Matt Evans <mattev@meta.com>
-> ---
->  drivers/vfio/pci/vfio_pci_dmabuf.c | 27 +++++++++++++++++++++++++--
->  1 file changed, 25 insertions(+), 2 deletions(-)
+On Fri, Apr 24, 2026 at 12:04=E2=80=AFPM Tomi Valkeinen
+<tomi.valkeinen@ideasonboard.com> wrote:
+>
+> Hi,
+>
+> On 24/04/2026 19:16, Robert Nelson wrote:
+> > On Mon, Apr 20, 2026 at 8:04=E2=80=AFAM Tomi Valkeinen
+> > <tomi.valkeinen@ideasonboard.com> wrote:
+> >>
+> >> From: Andrew Davis <afd@ti.com>
+> >>
+> >> Enable HDMI support for BeagleY-AI platform. The display controller us=
+ed is
+> >> TIDSS and the HDMI bridge used is IT66122.
+> >>
+> >> Based on DT by: Robert Nelson <robertcnelson@gmail.com>
+> >> Signed-off-by: Andrew Davis <afd@ti.com>
+> >> Signed-off-by: Swamil Jain <s-jain1@ti.com>
+> >> [tomi.valkeinen: cosmetic fixes]
+> >> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> >
+> > Tested-by: Robert Nelson <robertcnelson@gmail.com>
+> >
+> > Thank you for getting the display back end working on j722s family!
+> What displays did you test? I don't have OLDI panel...
 
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+I was buggin @Andrei Aldea to get you one. I also don't have the
+'special' Lincoln tech display or the TI cloned panel that works on
+OLDI..  Right now just HDMI as i decided to tackle cc33xx wifi again
+today on mainline..
 
-Jason
+
+Regards,
+
+--
+Robert Nelson
+https://rcn-ee.com/
