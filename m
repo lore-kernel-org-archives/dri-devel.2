@@ -4,139 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B801FED3C3
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 13:26:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09F1DFED3CB
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 13:29:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88B2F10E3C8;
-	Fri, 24 Apr 2026 13:25:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B5D510E9D9;
+	Fri, 24 Apr 2026 13:29:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="JuW5JPhU";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="rUmLqfuc";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="KsCDSP1f";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="UiYJwB1y";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BIDqvUrG";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D9EC10E3C8
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 13:25:58 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E3CAB6A843;
- Fri, 24 Apr 2026 13:25:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1777037157; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=hXzxoW/FhdDOvsaLZ/AVSa7KkcUrVFugO8vdPWzUuwM=;
- b=JuW5JPhUfo38juPBMiWU/1o5pbzOQ5kuMrwfHnooT1ebjL1L7+A102VwPaoSVcyWWJQXll
- NVuLhXSB5LDe/SyLiayZcQZ+SZwIED8mIdHGb6lSVYSOgFI0x3jau/8JTzaLPitlhCgvX/
- 5KOz2Tsh1gRhdNeKquqzY0Bfso+fe3I=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1777037157;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=hXzxoW/FhdDOvsaLZ/AVSa7KkcUrVFugO8vdPWzUuwM=;
- b=rUmLqfucZbSPEl2XKmLsknTYR+uXMBCtvDduDZ9Qmsclix1lawz+vFuhzcdEExZ0oSOsh9
- qCqXop9wkLYv24Bw==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=KsCDSP1f;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=UiYJwB1y
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1777037156; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=hXzxoW/FhdDOvsaLZ/AVSa7KkcUrVFugO8vdPWzUuwM=;
- b=KsCDSP1fgUBkbw3MI0MMybI8pwTEfq9B1a1QlEg8zN8mA3L50U15YckjRSpvF5wQ74yC9C
- Mao6ssk/pZ0CjIlfU0cDq82db2v9lkN4LkTi2JQlKt7OYBCOkYHowS5OfQQ0iMnGXT0WAW
- Zz2AFJn7QVsehrTCekmBYFiqK39VnWI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1777037156;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=hXzxoW/FhdDOvsaLZ/AVSa7KkcUrVFugO8vdPWzUuwM=;
- b=UiYJwB1yy7fpr1w9GlcLgzm4tw1dX8lqWQKGH41E+y7LJ48GfRUT3tCUNTPLTgoqllkqP2
- /0X+YvSJxNsa98Aw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9EA2F593A4;
- Fri, 24 Apr 2026 13:25:56 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id cP4+JWRv62lGMwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 24 Apr 2026 13:25:56 +0000
-Message-ID: <43bbfbcf-4a8d-4039-9ebf-24672b7e6d0a@suse.de>
-Date: Fri, 24 Apr 2026 15:25:56 +0200
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E59C10E9D9
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 13:28:59 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 105A940E15;
+ Fri, 24 Apr 2026 13:28:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53BEAC2BCB6;
+ Fri, 24 Apr 2026 13:28:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1777037338;
+ bh=BEfGB8RjYhIuJXmNUypefZ6/Od0uAzaYOP1hU0ZuA/4=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=BIDqvUrGWxRPqHkwIC1balqxWUO5kpWlnL5Q4wGmS8KLgMmGMYf8wUpST0CjrM4pq
+ lLNQpe+W1YNGUPqlB2fHO3THh4J/BVcpEhxUqnSjlDL9SDxC5FCRCb05OPJSycg3kn
+ Z4cVgWzpe4fotAkAynAhDPZX715UbA5K+dwEZ0gSGR3qUDHRaQBZQv+H1TjuxYglN0
+ 0rBGHwpajkB/FNUOdxX9wnIq5wiG2qp9ZTLGk6bUM07tZ737iA4LYWs/EWSISUVCM2
+ UpOn5Pv/L4iu3rw9ys3pXt/qz5FFPF33FCpR2rETuMmnPPYTZ6CGP+Q3pHBYyhLlLI
+ wW+8XKqsuJDuw==
+Message-ID: <26abc339-2e8d-4ab8-9006-4da741f8f08b@kernel.org>
+Date: Fri, 24 Apr 2026 08:28:56 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/bochs: Drop manual put on probe error path
-To: Myeonghun Pak <mhun512@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: virtualization@lists.linux.dev, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260424123506.32275-1-mhun512@gmail.com>
+Subject: Re: [PATCH V1 1/3] accel/amdxdna: Set default DPM level based on QoS
+ for temporal-only mode
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260424123506.32275-1-mhun512@gmail.com>
+To: Lizhi Hou <lizhi.hou@amd.com>, ogabbay@kernel.org,
+ quic_jhugo@quicinc.com, dri-devel@lists.freedesktop.org,
+ maciej.falkowski@linux.intel.com
+Cc: linux-kernel@vger.kernel.org, max.zhen@amd.com, sonal.santan@amd.com
+References: <20260424040824.2253607-1-lizhi.hou@amd.com>
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <20260424040824.2253607-1-lizhi.hou@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FREEMAIL_TO(0.00)[gmail.com,redhat.com,linux.intel.com,kernel.org,ffwll.ch];
- FUZZY_RATELIMITED(0.00)[rspamd.com];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- TO_DN_SOME(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_TLS_ALL(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+]; RCVD_COUNT_TWO(0.00)[2];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- RCPT_COUNT_SEVEN(0.00)[9]; MID_RHS_MATCH_FROM(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,suse.de:dkim,suse.de:mid]
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: E3CAB6A843
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,71 +61,207 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
 
-please add fixes tags to all these patches you're sending. You also need 
-to CC stable so that they can be backported easily. Also list the AI 
-you're using to find and create these patches.
 
-Best regards
-Thomas
-
-Am 24.04.26 um 14:34 schrieb Myeonghun Pak:
-> bochs_pci_probe() allocates the DRM device with devm_drm_dev_alloc(),
-> which registers a devres action to drop the initial DRM device reference
-> on driver detach or probe failure.
->
-> The error path currently calls drm_dev_put() manually. If probe then
-> returns an error, devres will run the registered release action and put
-> the same device again, after the first put may already have released it.
->
-> Return the probe error directly and let devres own the final put.
->
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+On 4/23/26 23:08, Lizhi Hou wrote:
+> The QoS request provided when creating a hardware context is currently
+> ignored when operating in temporal-only mode. Change this to use resource
+> allocation through xrs_allocate_resource(), which sets the default DPM
+> level according to the QoS request.
+> 
+> When multiple hardware contexts are active, track their required DPM
+> levels and set the default DPM level to the highest among them.
+> 
+> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
 > ---
->   drivers/gpu/drm/tiny/bochs.c | 10 +++-------
->   1 file changed, 3 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/gpu/drm/tiny/bochs.c b/drivers/gpu/drm/tiny/bochs.c
-> index 222e4ae1ab..5d8dc5efec 100644
-> --- a/drivers/gpu/drm/tiny/bochs.c
-> +++ b/drivers/gpu/drm/tiny/bochs.c
-> @@ -761,25 +761,21 @@ static int bochs_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent
+>   drivers/accel/amdxdna/aie2_ctx.c    | 34 +++++++++++++----------------
+>   drivers/accel/amdxdna/aie2_pci.c    |  1 +
+>   drivers/accel/amdxdna/aie2_pci.h    |  1 +
+>   drivers/accel/amdxdna/aie2_pm.c     |  2 +-
+>   drivers/accel/amdxdna/aie2_solver.c | 10 ++++++++-
+>   drivers/accel/amdxdna/npu1_regs.c   |  1 +
+>   drivers/accel/amdxdna/npu4_regs.c   |  1 +
+>   drivers/accel/amdxdna/npu5_regs.c   |  1 +
+>   drivers/accel/amdxdna/npu6_regs.c   |  1 +
+>   9 files changed, 31 insertions(+), 21 deletions(-)
+> 
+> diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
+> index d37123d925b6..0261f7f26236 100644
+> --- a/drivers/accel/amdxdna/aie2_ctx.c
+> +++ b/drivers/accel/amdxdna/aie2_ctx.c
+> @@ -540,22 +540,24 @@ static int aie2_alloc_resource(struct amdxdna_hwctx *hwctx)
+>   {
+>   	struct amdxdna_dev *xdna = hwctx->client->xdna;
+>   	struct alloc_requests *xrs_req;
+> +	u32 temporal_only_col = 0;
+>   	int ret;
 >   
->   	ret = pcim_enable_device(pdev);
->   	if (ret)
-> -		goto err_free_dev;
-> +		return ret;
->   
->   	pci_set_drvdata(pdev, dev);
->   
->   	ret = bochs_load(bochs);
->   	if (ret)
-> -		goto err_free_dev;
-> +		return ret;
->   
->   	ret = drm_dev_register(dev, 0);
->   	if (ret)
-> -		goto err_free_dev;
-> +		return ret;
->   
->   	drm_client_setup(dev, NULL);
->   
->   	return ret;
+> -	if (AIE_FEATURE_ON(&xdna->dev_handle->aie, AIE2_TEMPORAL_ONLY)) {
+> -		hwctx->num_unused_col = xdna->dev_handle->total_col - hwctx->num_col;
+> -		hwctx->num_col = xdna->dev_handle->total_col;
+> -		return aie2_create_context(xdna->dev_handle, hwctx);
+> -	}
 > -
-> -err_free_dev:
-> -	drm_dev_put(dev);
-> -	return ret;
+>   	xrs_req = kzalloc_obj(*xrs_req);
+>   	if (!xrs_req)
+>   		return -ENOMEM;
+>   
+> -	xrs_req->cdo.start_cols = hwctx->col_list;
+> -	xrs_req->cdo.cols_len = hwctx->col_list_len;
+> -	xrs_req->cdo.ncols = hwctx->num_col;
+> -	xrs_req->cdo.qos_cap.opc = hwctx->max_opc;
+> +	if (AIE_FEATURE_ON(&xdna->dev_handle->aie, AIE2_TEMPORAL_ONLY)) {
+> +		xrs_req->cdo.start_cols = &temporal_only_col;
+> +		xrs_req->cdo.cols_len = 1;
+> +		xrs_req->cdo.ncols = xdna->dev_handle->total_col;
+> +	} else {
+> +		xrs_req->cdo.start_cols = hwctx->col_list;
+> +		xrs_req->cdo.cols_len = hwctx->col_list_len;
+> +		xrs_req->cdo.ncols = hwctx->num_col;
+> +	}
+> +	/* Use platform opc */
+> +	xrs_req->cdo.qos_cap.opc = xdna->dev_handle->priv->col_opc * hwctx->num_col;
+>   
+>   	xrs_req->rqos.gops = hwctx->qos.gops;
+>   	xrs_req->rqos.fps = hwctx->qos.fps;
+> @@ -579,15 +581,9 @@ static void aie2_release_resource(struct amdxdna_hwctx *hwctx)
+>   	struct amdxdna_dev *xdna = hwctx->client->xdna;
+>   	int ret;
+>   
+> -	if (AIE_FEATURE_ON(&xdna->dev_handle->aie, AIE2_TEMPORAL_ONLY)) {
+> -		ret = aie2_destroy_context(xdna->dev_handle, hwctx);
+> -		if (ret && ret != -ENODEV)
+> -			XDNA_ERR(xdna, "Destroy temporal only context failed, ret %d", ret);
+> -	} else {
+> -		ret = xrs_release_resource(xdna->xrs_hdl, (uintptr_t)hwctx);
+> -		if (ret)
+> -			XDNA_ERR(xdna, "Release AIE resource failed, ret %d", ret);
+> -	}
+> +	ret = xrs_release_resource(xdna->xrs_hdl, (uintptr_t)hwctx);
+> +	if (ret)
+> +		XDNA_ERR(xdna, "Release AIE resource failed, ret %d", ret);
 >   }
 >   
->   static void bochs_pci_remove(struct pci_dev *pdev)
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
+>   static int aie2_ctx_syncobj_create(struct amdxdna_hwctx *hwctx)
+> diff --git a/drivers/accel/amdxdna/aie2_pci.c b/drivers/accel/amdxdna/aie2_pci.c
+> index 1d1fb012294a..a07e453a1721 100644
+> --- a/drivers/accel/amdxdna/aie2_pci.c
+> +++ b/drivers/accel/amdxdna/aie2_pci.c
+> @@ -246,6 +246,7 @@ static int aie2_xrs_load(void *cb_arg, struct xrs_action_load *action)
+>   	xdna = hwctx->client->xdna;
+>   
+>   	hwctx->start_col = action->part.start_col;
+> +	hwctx->num_unused_col = action->part.ncols - hwctx->num_col;
+>   	hwctx->num_col = action->part.ncols;
+>   	ret = aie2_create_context(xdna->dev_handle, hwctx);
+>   	if (ret)
+> diff --git a/drivers/accel/amdxdna/aie2_pci.h b/drivers/accel/amdxdna/aie2_pci.h
+> index c44616065058..f12073175676 100644
+> --- a/drivers/accel/amdxdna/aie2_pci.h
+> +++ b/drivers/accel/amdxdna/aie2_pci.h
+> @@ -237,6 +237,7 @@ struct amdxdna_dev_priv {
+>   #define COL_ALIGN_NONE   0
+>   #define COL_ALIGN_NATURE 1
+>   	u32				col_align;
+> +	u32				col_opc;
+>   	u32				mbox_dev_addr;
+>   	/* If mbox_size is 0, use BAR size. See MBOX_SIZE macro */
+>   	u32				mbox_size;
+> diff --git a/drivers/accel/amdxdna/aie2_pm.c b/drivers/accel/amdxdna/aie2_pm.c
+> index 786d688bd82c..d9ccd7fc8a6d 100644
+> --- a/drivers/accel/amdxdna/aie2_pm.c
+> +++ b/drivers/accel/amdxdna/aie2_pm.c
+> @@ -74,7 +74,7 @@ int aie2_pm_init(struct amdxdna_dev_hdl *ndev)
+>   		return ret;
+>   
+>   	ndev->pw_mode = POWER_MODE_DEFAULT;
+> -	ndev->dft_dpm_level = ndev->max_dpm_level;
+> +	ndev->dft_dpm_level = 0;
+>   
+>   	return 0;
+>   }
+> diff --git a/drivers/accel/amdxdna/aie2_solver.c b/drivers/accel/amdxdna/aie2_solver.c
+> index 3611e3268d79..6f3ee77d5264 100644
+> --- a/drivers/accel/amdxdna/aie2_solver.c
+> +++ b/drivers/accel/amdxdna/aie2_solver.c
+> @@ -52,7 +52,7 @@ static u32 calculate_gops(struct aie_qos *rqos)
+>   	u32 service_rate = 0;
+>   
+>   	if (rqos->latency)
+> -		service_rate = (1000 / rqos->latency);
+> +		service_rate = max_t(u32, 1000 / rqos->latency, 1);
+>   
+>   	if (rqos->fps > service_rate)
+>   		return rqos->fps * rqos->gops;
+> @@ -348,6 +348,7 @@ int xrs_release_resource(void *hdl, u64 rid)
+>   {
+>   	struct solver_state *xrs = hdl;
+>   	struct solver_node *node;
+> +	u32 level = 0;
+>   
+>   	node = rg_search_node(&xrs->rgp, rid);
+>   	if (!node) {
+> @@ -358,6 +359,13 @@ int xrs_release_resource(void *hdl, u64 rid)
+>   	xrs->cfg.actions->unload(node->cb_arg);
+>   	remove_solver_node(&xrs->rgp, node);
+>   
+> +	/* set the dpm level which fits all the sessions */
+> +	list_for_each_entry(node, &xrs->rgp.node_list, list) {
+> +		if (node->dpm_level > level)
+> +			level = node->dpm_level;
+> +	}
+> +	xrs->cfg.actions->set_dft_dpm_level(xrs->cfg.ddev, level);
+> +
+>   	return 0;
+>   }
+>   
+> diff --git a/drivers/accel/amdxdna/npu1_regs.c b/drivers/accel/amdxdna/npu1_regs.c
+> index d7e50c6b06ef..4e48c030a69f 100644
+> --- a/drivers/accel/amdxdna/npu1_regs.c
+> +++ b/drivers/accel/amdxdna/npu1_regs.c
+> @@ -97,6 +97,7 @@ static const struct amdxdna_dev_priv npu1_dev_priv = {
+>   	.rt_config	= npu1_default_rt_cfg,
+>   	.dpm_clk_tbl	= npu1_dpm_clk_table,
+>   	.col_align	= COL_ALIGN_NONE,
+> +	.col_opc	= 2048,
+>   	.mbox_dev_addr  = NPU1_MBOX_BAR_BASE,
+>   	.mbox_size      = 0, /* Use BAR size */
+>   	.sram_dev_addr  = NPU1_SRAM_BAR_BASE,
+> diff --git a/drivers/accel/amdxdna/npu4_regs.c b/drivers/accel/amdxdna/npu4_regs.c
+> index 935999ced70f..eddc31803a50 100644
+> --- a/drivers/accel/amdxdna/npu4_regs.c
+> +++ b/drivers/accel/amdxdna/npu4_regs.c
+> @@ -160,6 +160,7 @@ static const struct amdxdna_dev_priv npu4_dev_priv = {
+>   	.rt_config	= npu4_default_rt_cfg,
+>   	.dpm_clk_tbl	= npu4_dpm_clk_table,
+>   	.col_align	= COL_ALIGN_NATURE,
+> +	.col_opc	= 4096,
+>   	.mbox_dev_addr  = NPU4_MBOX_BAR_BASE,
+>   	.mbox_size      = 0, /* Use BAR size */
+>   	.sram_dev_addr  = NPU4_SRAM_BAR_BASE,
+> diff --git a/drivers/accel/amdxdna/npu5_regs.c b/drivers/accel/amdxdna/npu5_regs.c
+> index 795bd1996845..a9102978e4a8 100644
+> --- a/drivers/accel/amdxdna/npu5_regs.c
+> +++ b/drivers/accel/amdxdna/npu5_regs.c
+> @@ -67,6 +67,7 @@ static const struct amdxdna_dev_priv npu5_dev_priv = {
+>   	.rt_config	= npu4_default_rt_cfg,
+>   	.dpm_clk_tbl	= npu4_dpm_clk_table,
+>   	.col_align	= COL_ALIGN_NATURE,
+> +	.col_opc	= 4096,
+>   	.mbox_dev_addr  = NPU5_MBOX_BAR_BASE,
+>   	.mbox_size      = 0, /* Use BAR size */
+>   	.sram_dev_addr  = NPU5_SRAM_BAR_BASE,
+> diff --git a/drivers/accel/amdxdna/npu6_regs.c b/drivers/accel/amdxdna/npu6_regs.c
+> index 3125d1ce45ab..e0db3a09740b 100644
+> --- a/drivers/accel/amdxdna/npu6_regs.c
+> +++ b/drivers/accel/amdxdna/npu6_regs.c
+> @@ -67,6 +67,7 @@ static const struct amdxdna_dev_priv npu6_dev_priv = {
+>   	.rt_config	= npu4_default_rt_cfg,
+>   	.dpm_clk_tbl	= npu4_dpm_clk_table,
+>   	.col_align	= COL_ALIGN_NATURE,
+> +	.col_opc	= 4096,
+>   	.mbox_dev_addr  = NPU6_MBOX_BAR_BASE,
+>   	.mbox_size      = 0, /* Use BAR size */
+>   	.sram_dev_addr  = NPU6_SRAM_BAR_BASE,
 
