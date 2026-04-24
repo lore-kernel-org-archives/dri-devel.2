@@ -4,173 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 908BAFB44CA
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 07:45:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68610FB44C8
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 07:45:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53AD410F3AF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E498810F3B2;
 	Fri, 24 Apr 2026 07:44:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kI0JRZC6";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="j65xhbmC";
 	dkim-atps=neutral
-Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com
- [209.85.167.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12C7F10F2A1
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 20:55:09 +0000 (UTC)
-Received: by mail-oi1-f170.google.com with SMTP id
- 5614622812f47-466ec4c6846so2449358b6e.3
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 13:55:09 -0700 (PDT)
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 704738825E
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 00:49:42 +0000 (UTC)
+Received: by mail-dl1-f43.google.com with SMTP id
+ a92af1059eb24-12c565dd3a7so10623080c88.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 17:49:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776977708; x=1777582508; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=qXxdsOArU9ZJHRv0gxhcPUMG6BfjYVh32ZwNXW3DQls=;
- b=kI0JRZC61rpAnKkYp53jkjzJGsktXCdg1fDZp49B4Ln3OGeL0nrGt2x/3XTHO7bPsS
- kb1228DpGsmN8O18pxufz2/xpRuBlP1cJ/mJPLA9oLJE6AJc2RruiBHo43XIFzaZXy1c
- mnRuSe3pFW+aKKmn8Oa2p6W6HQrjV/OIWmcip96Fgs21BeZQxefEn4hrqGNKLopNRWGX
- a5Xaxawqe9h00iPI1Vm+leOG5lKxBrDevhHzWJV1kkqv1dlwxAkBOMdPJ7Pjxb1U6IAR
- vijO8F0aM6Rbz7C4cPQsmem6atwJ0RwmtAHy5o3bxHwhXm9YiM4S67F0v4zSoX3s70Ly
- 4MBQ==
+ d=gmail.com; s=20251104; t=1776991782; x=1777596582; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=2TqsQ3VTtmFOdJXnJ7xYfxOi+4kprx1dikYuBadGme8=;
+ b=j65xhbmCIzKvyfPvNrRqDdzLAaar7M1tkDgOSkE8rdhM9RZO4O+4i/7z/GhL+Ww+Tm
+ MpqHDpyKsslhms4G26K+wgfLjO+EJwrBQaMRcjTHCa49KiVRPmQ/oJl5O9Y+0mK3KoC4
+ 6c5LlpZ6whqutqvQzkMyuXnuEtY0E0uDT5YML4yA9rOiS+ry3dVe5x6H/Jy6zRlQO+vO
+ W9TYhAzhDIn0aI9tT16uSUNUCm1ZX2QTTkQTbfdOTrE01A/J13CzDrsn4qj6JozuyLyl
+ Nws7tsyZGpWX4xTMAjppMkKG98UIX3AfadhnULbhBr34Wlii8YZc66ziakUgsKAIHr34
+ DGuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776977708; x=1777582508;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=qXxdsOArU9ZJHRv0gxhcPUMG6BfjYVh32ZwNXW3DQls=;
- b=ogIJKJa3811+4xVA3SmbN+uujca9v4JcVA9zN0yIvdR8lZLyO92VE6mBWtHXPFzbjN
- hjj1P/SxWVhKZTOodE2XEZFddgBgpIGkKwIhbPyEC0jlnO0OM9vJY8/4ie9/Bcx9Zi3G
- B4NDndivOYVTcMQtam0VpmiqSd6nhMQpA5+zTmT757JkLCMvT6X+5nsP2VAfgpwP3I4K
- JQfc+SJyp9CDWq7tEJx2vb2tH/0rlyop8VvnRntF91sFMtfAYPHO/dUXSMIG0y+3EeLo
- UytzOcS6p6PQtXcdPTTxFLgN9xuRPDZ3OCGqD7U/sLaGtyWZMlfxbSBHC+/x1yUoZZGu
- 572A==
+ d=1e100.net; s=20251104; t=1776991782; x=1777596582;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=2TqsQ3VTtmFOdJXnJ7xYfxOi+4kprx1dikYuBadGme8=;
+ b=aFQO619yEHW7E2l13OiBf6mYhDZ+sQDon7KopjsmVl9iEL8sQX8JFEpZ/RSoi+PAmN
+ YUyOrIFIC/J8ZnI1ZDOhWhlS6uy7wZ0VYvE7g9iXaDcXrXIqNtGwXdAcK99sEzDz4prU
+ XqjEADp7doKJ7l/FXlpV2c+rb2IIAJ8zy/U4npJt18HhcpP7yoWDqCQh0Wfmsfmdwglv
+ 1WrKeulnr42tCF7G73o8UTGLDN1Vh+SZ4uLwq7jxBjT/zWAg77v99uAsc661JXWcMz7w
+ DJibzAYP0HE+nym5EV6zSywIbmfvrGqSwkXaZgQKnez+UuQntNvodVxHhmi9OGdJ6TXy
+ Y+jQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ926DXVBp5EHFXsTo3UgDl/aUVsNHiNhbk10N2l76Ct2JgYzcUEhZIiDU4rATuV5EQegCrEF71i1P0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyRI7V7P5uOcWVYi5PVKLH7uVdyqB6j9dUjJqXRCvPyb4af+mkX
- pwPzzZg92I+L0k2m3R4416swz0i8EYXTGhveS/dEZ6Q6Muso4i5hdDsi
-X-Gm-Gg: AeBDiesb1gwA22gGYTMNp3PDXXWH/PCaTRQUv9me3eKHvBYCIVy72/sUdP2dlpzwD1a
- hpv5SWn3PlE6cTP3qsU90BIKFO7Zf0DA6H26kqIZ7sL/5gKKkm/fZJw7gLJI2sdVx5x69P21VQV
- HYW1NgukmqxyDxJyjoK79u7bkkw+qcxixzX92ioSUKJZypLumZ/G7V5IIqR5QkPzkb3zJdNqQEB
- cF0PKegxNLWC1O5gSOp+ObDjlTbeD7lZHl1yKkv8eYP/tcpWD4G+M1RYQyOrRfxlzpA38PRUKR6
- vYpyIabUdwpjsSXDL0T+WyyuOkyjjxKLI1qdctniN2Ni/h5oaezPulPHvC8NxMsiwTo5lKyYeth
- vP2FLGUtrBFkfwRiI4/alrzkYNRhh/krejl5ccifh0Q+gfVg/ziahUOubTNfWU4+4S1FGdfFMQj
- 9WVFQ2EIUYPYo1PVh3xPNxpQ3bJNKn2ulK49A0EgF0aILPjcUz79NCc5yalK+74ei8G8yB7Ka/P
- LWUeC7d+3c=
-X-Received: by 2002:a05:6808:2381:b0:467:f567:d609 with SMTP id
- 5614622812f47-4799cacba8amr15988443b6e.34.1776977708127; 
- Thu, 23 Apr 2026 13:55:08 -0700 (PDT)
-Received: from [192.168.0.245] (c-98-38-17-99.hsd1.co.comcast.net.
- [98.38.17.99]) by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4799fead505sm14329744b6e.2.2026.04.23.13.55.03
+ AFNElJ8dHcDIGXLZcNcz0aA2whb0gd1A9DgWOXij+jTw4jqyJTe+RwNpJn4dWBJrX8x/Ud0JY5Wi5I5MSBA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxoLe07OrZW1cXz8D47qJlsrmBbFxMBW4icqjOOcTnNsk35oH9z
+ yXq8oTVsbRnd66AbI6hGHtH1iXtt1IHd9y51u1OsJKz4AKATpVxXcaM2
+X-Gm-Gg: AeBDievN1yKs0S9SVU1TdSwKhtwIUt99KXkN++AjDC/IDnccPMjQmj0y37X2XH3pVEE
+ wvsIkG+Q3afQp9Rz3EwFS6IM+0/Gh4AphEr8vZI1lhV1gVddNnW6E7K+afPTQoLe5pBHvqMIT8i
+ kK89wmpb9xrj6yQCnQLZkxFrEmJyP19Vv6dAt5++Cd6rQzuwUN6CTVHdmlt1tEBUWBlGlh//UUp
+ CvXwKydSf57Wt6J7zUlsREz2I4YssjHpXP4j4WTl3WKUMn0TYTZM3hirYq+lfrS1aZ5FBxEr5DX
+ loGLfDZaxJchcMBmbbU2BTZlpQgvNh/tpflWck/OMCMvz67XGtMo5hrZ06QE1OpzG/v9aiOMXm6
+ f/VuG6KCf2H4mS2XeSv6UIKMi0ToGZBUBrBtREshIocbmAR5paMrJx1HKhTC5/mOjKQSdb1+ghY
+ hgaO9zv1+Mtw5EDcRKtdlw+nOcw5RZs1YFpqZIuw==
+X-Received: by 2002:a05:7022:68d:b0:123:34e8:aec2 with SMTP id
+ a92af1059eb24-12c73f68419mr15738793c88.1.1776991781564; 
+ Thu, 23 Apr 2026 17:49:41 -0700 (PDT)
+Received: from osabio.. ([2804:14c:498:1391:e297:f15e:34f:a801])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-12c74a185a8sm30930634c88.9.2026.04.23.17.49.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Apr 2026 13:55:07 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-Date: Thu, 23 Apr 2026 14:53:54 -0600
-Subject: [PATCH v14 13/92] dyndbg: tweak pr_fmt to avoid expansion
- conflicts
+ Thu, 23 Apr 2026 17:49:40 -0700 (PDT)
+From: Gabriel Almeida <gabrielsousa230@gmail.com>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, gabrielsousa230@gmail.com
+Subject: [PATCH v3 1/2] drm/amdgpu: move program_aspm to amdgpu_nbio
+Date: Thu, 23 Apr 2026 21:49:09 -0300
+Message-ID: <20260424004910.21003-1-gabrielsousa230@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260423-submit-dyndbg-classmap-foundation-v14-13-2b809a8019d0@gmail.com>
-References: <20260423-submit-dyndbg-classmap-foundation-v14-0-2b809a8019d0@gmail.com>
-In-Reply-To: <20260423-submit-dyndbg-classmap-foundation-v14-0-2b809a8019d0@gmail.com>
-To: Arnd Bergmann <arnd@arndb.de>, Jason Baron <jbaron@akamai.com>, 
- Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
- Aaron Tomlin <atomlin@atomlin.com>, 
- Andrew Morton <akpm@linux-foundation.org>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, Shuah Khan <shuah@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, 
- Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
- Gurchetan Singh <gurchetansingh@chromium.org>, 
- Chia-I Wu <olvaffe@gmail.com>, Matthew Brost <matthew.brost@intel.com>, 
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
- Zack Rusin <zack.rusin@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Louis Chauvet <louis.chauvet@bootlin.com>, 
- Haneen Mohammed <hamohammed.sa@gmail.com>, 
- Melissa Wen <melissa.srw@gmail.com>, Sean Paul <sean@poorly.run>, 
- Jocelyn Falempe <jfalempe@redhat.com>, Ruben Wauters <rubenru09@aol.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Xinliang Liu <xinliang.liu@linaro.org>, Tian Tao <tiantao6@hisilicon.com>, 
- Xinwei Kong <kong.kongxinwei@hisilicon.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- Yongqin Liu <yongqin.liu@linaro.org>, John Stultz <jstultz@google.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, Alain Volmat <alain.volmat@foss.st.com>, 
- Raphael Gallais-Pou <rgallaispou@gmail.com>, 
- Yannick Fertre <yannick.fertre@foss.st.com>, 
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
- Philippe Cornu <philippe.cornu@foss.st.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Oded Gabbay <ogabbay@kernel.org>, 
- Maciej Falkowski <maciej.falkowski@linux.intel.com>, 
- Karol Wachowski <karol.wachowski@linux.intel.com>, 
- "Rob Herring (Arm)" <robh@kernel.org>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, 
- Liviu Dudau <liviu.dudau@arm.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Liu Ying <victor.liu@nxp.com>, 
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
- Lucas Stach <l.stach@pengutronix.de>, Paul Kocialkowski <paulk@sys-base.io>, 
- Jianmin Lv <lvjianmin@loongson.cn>, Qianhai Wu <wuqianhai@loongson.cn>, 
- Huacai Chen <chenhuacai@kernel.org>, Mingcong Bai <jeffbai@aosc.io>, 
- Xi Ruoyao <xry111@xry111.site>, Icenowy Zheng <zhengxingda@iscas.ac.cn>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, 
- Javier Martinez Canillas <javierm@redhat.com>, 
- Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, 
- Jani Nikula <jani.nikula@intel.com>, Luca Coelho <luciano.coelho@intel.com>, 
- Russell King <linux+etnaviv@armlinux.org.uk>, 
- Christian Gmeiner <christian.gmeiner@gmail.com>
-Cc: linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- virtualization@lists.linux.dev, intel-xe@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, spice-devel@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-stm32@st-md-mailman.stormreply.com, linux-renesas-soc@vger.kernel.org, 
- etnaviv@lists.freedesktop.org, Jim Cromie <jim.cromie@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776977637; l=739;
- i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=Lx8Le50+nsjiQgeV6zgGG9hZjacD3w46irda8Vp6AWc=;
- b=SnpdcS+23XSjrZpeLIyoz7fp4858ZuhNdkUZ3gyhPRKYDKkKBaruLmuYi2tS21h9vU8M8wWZE
- Y5Q7mlfCnULCyFEZyjXTXMc7I7vQ1FQTWqcfAQXyvf5zEOLG4FrW4jT
-X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
- pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 24 Apr 2026 07:44:43 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -187,31 +87,145 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Disambiguate pr_fmt(fmt) arg, by changing it to _FMT_, to avoid naming
-confusion with many later macros also using that argname.
+The program_aspm helper is duplicated across multiple files with
+identical logic.
 
-no functional change
+Move it to amdgpu_nbio.c as amdgpu_nbio_program_aspm and update
+all users accordingly.
 
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Signed-off-by: Gabriel Almeida <gabrielsousa230@gmail.com>
 ---
- lib/dynamic_debug.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+v3:
+- split from previous combined patch
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index ffa1cf7c2c72..9575b92a8deb 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -11,7 +11,7 @@
-  * Copyright (C) 2013 Du, Changbin <changbin.du@gmail.com>
-  */
- 
--#define pr_fmt(fmt) "dyndbg: " fmt
-+#define pr_fmt(_FMT_) "dyndbg: " _FMT_
- 
- #include <linux/kernel.h>
- #include <linux/module.h>
+v2:
+- move program_aspm to amdgpu_nbio.c
+- drop amdgpu_common
 
+ drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c | 10 ++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h |  2 ++
+ drivers/gpu/drm/amd/amdgpu/nv.c          | 12 +-----------
+ drivers/gpu/drm/amd/amdgpu/soc15.c       | 11 +----------
+ drivers/gpu/drm/amd/amdgpu/soc21.c       | 11 +----------
+ 5 files changed, 15 insertions(+), 31 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c
+index a97426583..e4c8e9872 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c
+@@ -84,3 +84,13 @@ int amdgpu_nbio_ras_late_init(struct amdgpu_device *adev, struct ras_common_if *
+ 	amdgpu_ras_block_late_fini(adev, ras_block);
+ 	return r;
+ }
++
++
++void amdgpu_nbio_program_aspm(struct amdgpu_device *adev)
++{
++	if (!amdgpu_device_should_use_aspm(adev))
++		return;
++
++	if (adev->nbio.funcs->program_aspm)
++		adev->nbio.funcs->program_aspm(adev);
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
+index b528de6a0..a61f3a6e8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
+@@ -121,4 +121,6 @@ u64 amdgpu_nbio_get_pcie_replay_count(struct amdgpu_device *adev);
+ 
+ bool amdgpu_nbio_is_replay_cnt_supported(struct amdgpu_device *adev);
+ 
++void amdgpu_nbio_program_aspm(struct amdgpu_device *adev);
++
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
+index 7ce1a1b95..030d80664 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+@@ -511,16 +511,6 @@ static int nv_set_vce_clocks(struct amdgpu_device *adev, u32 evclk, u32 ecclk)
+ 	return 0;
+ }
+ 
+-static void nv_program_aspm(struct amdgpu_device *adev)
+-{
+-	if (!amdgpu_device_should_use_aspm(adev))
+-		return;
+-
+-	if (adev->nbio.funcs->program_aspm)
+-		adev->nbio.funcs->program_aspm(adev);
+-
+-}
+-
+ const struct amdgpu_ip_block_version nv_common_ip_block = {
+ 	.type = AMD_IP_BLOCK_TYPE_COMMON,
+ 	.major = 1,
+@@ -984,7 +974,7 @@ static int nv_common_hw_init(struct amdgpu_ip_block *ip_block)
+ 		adev->nbio.funcs->apply_l1_link_width_reconfig_wa(adev);
+ 
+ 	/* enable aspm */
+-	nv_program_aspm(adev);
++	amdgpu_nbio_program_aspm(adev);
+ 	/* setup nbio registers */
+ 	adev->nbio.funcs->init_registers(adev);
+ 	/* remap HDP registers to a hole in mmio space,
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
+index b456e4541..27bcbbae5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc15.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+@@ -695,15 +695,6 @@ static int soc15_set_vce_clocks(struct amdgpu_device *adev, u32 evclk, u32 ecclk
+ 	return 0;
+ }
+ 
+-static void soc15_program_aspm(struct amdgpu_device *adev)
+-{
+-	if (!amdgpu_device_should_use_aspm(adev))
+-		return;
+-
+-	if (adev->nbio.funcs->program_aspm)
+-		adev->nbio.funcs->program_aspm(adev);
+-}
+-
+ const struct amdgpu_ip_block_version vega10_common_ip_block =
+ {
+ 	.type = AMD_IP_BLOCK_TYPE_COMMON,
+@@ -1284,7 +1275,7 @@ static int soc15_common_hw_init(struct amdgpu_ip_block *ip_block)
+ 	struct amdgpu_device *adev = ip_block->adev;
+ 
+ 	/* enable aspm */
+-	soc15_program_aspm(adev);
++	amdgpu_nbio_program_aspm(adev);
+ 	/* setup nbio registers */
+ 	adev->nbio.funcs->init_registers(adev);
+ 	/* remap HDP registers to a hole in mmio space,
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
+index fbd1d97f3..7e4353d0c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc21.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
+@@ -470,15 +470,6 @@ static int soc21_set_vce_clocks(struct amdgpu_device *adev, u32 evclk, u32 ecclk
+ 	return 0;
+ }
+ 
+-static void soc21_program_aspm(struct amdgpu_device *adev)
+-{
+-	if (!amdgpu_device_should_use_aspm(adev))
+-		return;
+-
+-	if (adev->nbio.funcs->program_aspm)
+-		adev->nbio.funcs->program_aspm(adev);
+-}
+-
+ const struct amdgpu_ip_block_version soc21_common_ip_block = {
+ 	.type = AMD_IP_BLOCK_TYPE_COMMON,
+ 	.major = 1,
+@@ -925,7 +916,7 @@ static int soc21_common_hw_init(struct amdgpu_ip_block *ip_block)
+ 	struct amdgpu_device *adev = ip_block->adev;
+ 
+ 	/* enable aspm */
+-	soc21_program_aspm(adev);
++	amdgpu_nbio_program_aspm(adev);
+ 	/* setup nbio registers */
+ 	adev->nbio.funcs->init_registers(adev);
+ 	/* remap HDP registers to a hole in mmio space,
 -- 
-2.53.0
+2.43.0
 
