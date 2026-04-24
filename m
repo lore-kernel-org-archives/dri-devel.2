@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8450EFE51FF
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 10:19:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0239FE51FF
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 10:19:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8DC710F4BD;
-	Fri, 24 Apr 2026 10:19:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C6E010F4D7;
+	Fri, 24 Apr 2026 10:19:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NSKPF/6L";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GLdopPDZ";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E10EC10F4BA;
- Fri, 24 Apr 2026 10:19:15 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB8A710F4D7;
+ Fri, 24 Apr 2026 10:19:21 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id B7C154174B;
- Fri, 24 Apr 2026 10:19:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1888BC2BCB4;
- Fri, 24 Apr 2026 10:19:15 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6D1E5600CB;
+ Fri, 24 Apr 2026 10:19:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9905BC19425;
+ Fri, 24 Apr 2026 10:19:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777025955;
- bh=aNX0zEGJyR4omhAYCQYN3diflr9cBelBuF2mFH6r1sI=;
+ s=k20201202; t=1777025961;
+ bh=f1p1Qjz6o1/6AK0pHuYPmJPPNVcdZH/dmfB4Pynzfj8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=NSKPF/6L1iOeTKpG+TAXaJZRtvHoJDHtu0EPg8P8qH/e/o2Ui2bduii2PYLUt+XYV
- sD+vQsmKIBJQC2olcVH5iVvacfi8uB8/dHwlQorFzAlDMcAqcD3n0U2iaNSw8Qlog7
- rB5LaXn5wkwiRXVmYch0h4O+bC7Tl55d5B85Rc9bcbR9hUOXbcz8iZXb9BVmpwKjvN
- dlZyQcNsOpYD8LgI+ND5K6TmCPHVu8sZeS6dgUsNir2YhFztC1+WdWAz0+vGvjZX/h
- zDemEt6SX1jQjbIrfRjGJX4IrsdU3s7GgU+sWzE/qa1QrvEfCYxyXV2IWH68gewvtD
- YmSUgmPk5mmNg==
+ b=GLdopPDZszbUpEyI1zd8RSNPKa/D0GOxoIR/D0YU6qlY1oDaksSXBcExGiZYRjy3R
+ gYiE8M53S9+FfSGpHiv5b6mLN//FodA78F6P4Eot5lawRpLHlaMrW6Q9LMJfKsDZzH
+ K79Q/cbD4nOjTZ2rFnNd3ssq+Qj3rx+IYFdv3oNm2ktgmzjFnARcfJZ1lO5lC1OrGX
+ qOaURQiQeb2Honzsd2AUfsaJ5iNpYu63k/IZwf0+BJPQh5yKX+F4AFaYoW31M984O2
+ wahLHBXD0TrZtuDAAujMRrcaQjxnTq/Cc1ArRlo+DGIBjKytvFLvkAd3ZE1JI+bt+S
+ jdOAZB/d7FdJA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 24 Apr 2026 12:18:45 +0200
-Subject: [PATCH v3 05/20] drm/mode-config: Document drm_private_obj
- exclusion from drm_mode_config_reset()
+Date: Fri, 24 Apr 2026 12:18:47 +0200
+Subject: [PATCH v3 07/20] drm/colorop: Create
+ drm_atomic_helper_colorop_create_state()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260424-drm-mode-config-init-v3-5-8b68d9db0d8b@kernel.org>
+Message-Id: <20260424-drm-mode-config-init-v3-7-8b68d9db0d8b@kernel.org>
 References: <20260424-drm-mode-config-init-v3-0-8b68d9db0d8b@kernel.org>
 In-Reply-To: <20260424-drm-mode-config-init-v3-0-8b68d9db0d8b@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -65,15 +65,14 @@ Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
  linux-kernel@vger.kernel.org, Daniel Stone <daniels@collabora.com>, 
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
  linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
- Maxime Ripard <mripard@kernel.org>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+ Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1384; i=mripard@kernel.org;
- h=from:subject:message-id; bh=aNX0zEGJyR4omhAYCQYN3diflr9cBelBuF2mFH6r1sI=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDJmvnbvKFXQ8VfeKxlTPP/BDz01t8s9ftR8+W3pPmbG3s
- UrpWWVwx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZhIgD9jnfWZjfrVx66VvdrH
- HmEtX+uqYLDfTOHztkjOMOtHU5+vK+ePLxA+2zB1duTyJLn0OZoTGBu2bDDyvv/rd+aOlyK3s9/
- NXRZ1UPvPu8DHuoZPtvbsZzDc5pTL1pd4n/nlFz+7cjbzafkA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3449; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=f1p1Qjz6o1/6AK0pHuYPmJPPNVcdZH/dmfB4Pynzfj8=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDJmvnbv9Ui1V/n7sMbt6OyZhe2TxiriNL1/qx4mlTj2Wx
+ 9P1NaKwYyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAEyklp2xPqx+184/HXZ75jlE
+ FqqKcZtsVrgc9usPyzbpy1zZC1in/d9y5c5ZrYQAcaX1fyzUErYfZ2x4/5Bv/n3xx0ftHp2s/tv
+ XuHNR4YbbbsyOBy2C3H/N2n6aYXqg2YG93pa6me87T8irXl0KAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -91,40 +90,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_mode_config_reset() does not reset drm_private_states by design.
+Commit 47b5ac7daa46 ("drm/atomic: Add new atomic_create_state callback
+to drm_private_obj") introduced a new pattern for allocating drm object
+states.
 
-This is especially significant for the DP MST and tunneling code that
-expect to be preserved across a suspend/resume cycle, where
-drm_mode_config_reset() is also used.
+Instead of relying on the reset() callback, it created a new
+atomic_create_state hook. This is helpful because reset is a bit
+overloaded: it's used to create the initial software state, reset it,
+but also reset the hardware.
 
-Document this expectation.
+It can also be used either at probe time, to create the initial state
+and possibly reset the hardware to an expected default, but also during
+suspend/resume.
 
-Link: https://lore.kernel.org/dri-devel/aOaQLx-7EpsHRwkH@ideak-desk/
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Both these cases come with different expectations too: during the
+initialization, we want to initialize all states, but during
+suspend/resume, drm_private_states for example are expected to be kept
+around.
+
+reset() also isn't fallible, which makes it harder to handle
+initialization errors properly. This is only really relevant for some
+drivers though, since all the helpers for reset only create a new
+state, and don't touch the hardware at all.
+
+It was thus decided to create a new hook that would allocate and
+initialize a pristine state without any side effect:
+atomic_create_state to untangle a bit some of it, and to separate the
+initialization with the actual reset one might need during a
+suspend/resume.
+
+Continue the transition to the new pattern with drm_colorop.
+
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_mode_config.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/drm_colorop.c | 23 +++++++++++++++++++++++
+ include/drm/drm_colorop.h     |  2 ++
+ 2 files changed, 25 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode_config.c
-index 66f7dc37b597..c33382a38191 100644
---- a/drivers/gpu/drm/drm_mode_config.c
-+++ b/drivers/gpu/drm/drm_mode_config.c
-@@ -187,10 +187,14 @@ int drm_mode_getresources(struct drm_device *dev, void *data,
-  * @dev: drm device
-  *
-  * This functions calls all the crtc's, encoder's and connector's ->reset
-  * callback. Drivers can use this in e.g. their driver load or resume code to
-  * reset hardware and software state.
+diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
+index 4c4d0a953e35..c0eecde8c176 100644
+--- a/drivers/gpu/drm/drm_colorop.c
++++ b/drivers/gpu/drm/drm_colorop.c
+@@ -521,10 +521,33 @@ static void __drm_colorop_state_init(struct drm_colorop_state *colorop_state,
+ 							   &val))
+ 			colorop_state->curve_1d_type = val;
+ 	}
+ }
+ 
++/**
++ * drm_atomic_helper_colorop_create_state - Allocates and initializes colorop atomic state
++ * @colorop: drm colorop
 + *
-+ * Note that &drm_private_obj structures are expected to be stable across
-+ * suspend/resume cycles, and drm_mode_config_reset() does not affect these
-+ * structures.
-  */
- void drm_mode_config_reset(struct drm_device *dev)
- {
- 	struct drm_crtc *crtc;
- 	struct drm_colorop *colorop;
++ * Initializes a pristine @drm_colorop_state.
++ *
++ * RETURNS:
++ * Pointer to new colorop state, or ERR_PTR on failure.
++ */
++struct drm_colorop_state *
++drm_atomic_helper_colorop_create_state(struct drm_colorop *colorop)
++{
++	struct drm_colorop_state *state;
++
++	state = kzalloc_obj(*state);
++	if (!state)
++		return ERR_PTR(-ENOMEM);
++
++	__drm_colorop_state_init(state, colorop);
++
++	return state;
++}
++
+ /**
+  * __drm_colorop_reset - reset state on colorop
+  * @colorop: drm colorop
+  * @colorop_state: colorop state to assign
+  *
+diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
+index bd082854ca74..874ed693329c 100644
+--- a/include/drm/drm_colorop.h
++++ b/include/drm/drm_colorop.h
+@@ -423,10 +423,12 @@ int drm_plane_colorop_3dlut_init(struct drm_device *dev, struct drm_colorop *col
+ 				 struct drm_plane *plane, const struct drm_colorop_funcs *funcs,
+ 				 uint32_t lut_size,
+ 				 enum drm_colorop_lut3d_interpolation_type interpolation,
+ 				 uint32_t flags);
+ 
++struct drm_colorop_state *
++drm_atomic_helper_colorop_create_state(struct drm_colorop *colorop);
+ struct drm_colorop_state *
+ drm_atomic_helper_colorop_duplicate_state(struct drm_colorop *colorop);
+ 
+ void drm_colorop_atomic_destroy_state(struct drm_colorop *colorop,
+ 				      struct drm_colorop_state *state);
 
 -- 
 2.53.0
