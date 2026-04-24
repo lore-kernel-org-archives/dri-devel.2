@@ -4,114 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AFD0FE51ED
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 08:59:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E976FE51E6
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 09:00:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC98D10F43D;
-	Fri, 24 Apr 2026 08:59:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0382710F448;
+	Fri, 24 Apr 2026 09:00:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=arndb.de header.i=@arndb.de header.b="VAwtGBDd";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="DQKHbfZw";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PbRgLfBL";
 	dkim-atps=neutral
-Received: from fhigh-b3-smtp.messagingengine.com
- (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9558510F43D
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 08:59:51 +0000 (UTC)
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
- by mailfhigh.stl.internal (Postfix) with ESMTP id 92E997A025F;
- Fri, 24 Apr 2026 04:59:49 -0400 (EDT)
-Received: from phl-imap-02 ([10.202.2.81])
- by phl-compute-04.internal (MEProxy); Fri, 24 Apr 2026 04:59:51 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
- :cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm2; t=1777021189;
- x=1777107589; bh=mlomHPrruE4T+ys87B/weKxrB+OMcheSKA7ybwHe8Os=; b=
- VAwtGBDdupJVNcGs4MDYlHN/jcjRLczK3kvxLgWoQdqSNpidCbOM34UZdtC47lPI
- 3mzLU0zrlTFvKZ4ByH4LX9Kc74D/yZouVzPWdHMwcRR2I1feKTWewWA7tTWI+ZJn
- PrCivp8NoY5n6WX3mrTswbFq4VmW/SNE7TH8ixsNpRyhFWyWMFTL1KmtdlIq+YV4
- Kqd5RjvlVW8dM6YHO4uaay2H+g3/Hiwvkb+D9ydasIbOygdMJBl45LE1dQLMPNks
- e6uubMuXLbwSb53dOAF6N0Z68dFgeLj6Sr8wJEC5GhRXlY6SxMikVtgDQeLDHKcT
- a6xtaaVwbYWaDHF/GgPeYg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1777021189; x=
- 1777107589; bh=mlomHPrruE4T+ys87B/weKxrB+OMcheSKA7ybwHe8Os=; b=D
- QKHbfZw7Q2sK5fyHnbXqxbgWESxL1nXYGxwluPhFn04CPG0ZBoNwIGyTlE2bmVOx
- AdU+JrNbqccmxNUNuf1Unuo3Y9MufNOoEOQUHzy/Dt0Fd1EUMAWkUy8g7wYkzTZk
- tHj6S0blQgtMsWFUzUXtS4X7Zb/ocS8a8QF/iF4O4Ff1YZL5wyy6+pWnRWUMD/qt
- 6RslSA1fTW4t8AVYcxkj3Q1GOVC79Od4yVRo3O1HtUx0w7zq8/HWNi0pcd1fSOhr
- zPwSZ8Jr8MoCjwPosyG48F3HQ7x+w8nWRA6wOb4l1R5vVbrgunuKZd/1BLg5Y/O/
- PAZfYZ88A0es7wYw41N1w==
-X-ME-Sender: <xms:AzHraaywWnncYS8tNhxu63w-pdBByhF1khzcFj2QqdnD_7zXkakFWg>
- <xme:AzHraRGVdgiwkNe1nvTP1k6zaX_wJ8ZkyqgdKXya6mgkEbVD7yti8eiOP4J83Qde8
- hva1xiaUorg-yfUdfieO-6I8coGh6k11H7kKx3As8c6Wb13HojPbxs>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdeileeiudcutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
- ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
- hrpefoggffhffvvefkjghfufgtgfesthhqredtredtjeenucfhrhhomhepfdetrhhnugcu
- uegvrhhgmhgrnhhnfdcuoegrrhhnugesrghrnhgusgdruggvqeenucggtffrrghtthgvrh
- hnpedvhfdvkeeuudevfffftefgvdevfedvleehvddvgeejvdefhedtgeegveehfeeljeen
- ucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpegrrhhnug
- esrghrnhgusgdruggvpdhnsggprhgtphhtthhopeefiedpmhhouggvpehsmhhtphhouhht
- pdhrtghpthhtohepjhgsrghrohhnsegrkhgrmhgrihdrtghomhdprhgtphhtthhopegthh
- hrihhsthhirghnrdhkohgvnhhighesrghmugdrtghomhdprhgtphhtthhopehmphgvsegv
- lhhlvghrmhgrnhdrihgurdgruhdprhgtphhtthhopehsihhmohhnrgdrvhgvthhtvghrse
- hffhiflhhlrdgthhdprhgtphhtthhopehgrghrhiesghgrrhihghhuohdrnhgvthdprhgt
- phhtthhopehmkhgthhgruhhrrghssehgmhgrihhlrdgtohhmpdhrtghpthhtohepnhhitg
- hkrdguvghsrghulhhnihgvrhhsodhlkhhmlhesghhmrghilhdrtghomhdprhgtphhtthho
- pehnphhighhgihhnsehgmhgrihhlrdgtohhmpdhrtghpthhtoheprhhoshhtvgguthesgh
- hoohgumhhishdrohhrgh
-X-ME-Proxy: <xmx:AzHraU8PAM-pOR819TPN7Sy12OwyJa_bV3rrivQ1T8WeNaru67PLBQ>
- <xmx:AzHraYGd2u2SgOhQCAvkyX46Rn0Y5ChJvYTIHhv9DEn4DxxVWJHpyg>
- <xmx:AzHraTb8M-1Ggg45Cjrw2tGk-khaiCVKwHOQcW9e1jDzIcTeHgAb5w>
- <xmx:AzHracMu7nyMcdKc_oWpxYP_L21uEHKH1knniB8yVyBMOxpxXlfuYg>
- <xmx:BTHrafRJhrCm9AgwqxWvjH44g0NYZQpqxnlIVz9LfEM3RmBfYtPHuybK>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
- id BE908700065; Fri, 24 Apr 2026 04:59:47 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com
+ [74.125.224.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 627F810F448
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 09:00:17 +0000 (UTC)
+Received: by mail-yx1-f42.google.com with SMTP id
+ 956f58d0204a3-651c366f7efso8002259d50.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 02:00:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777021216; cv=none;
+ d=google.com; s=arc-20240605;
+ b=Qd06SSVqnJJYtf34AQOVY6MeTSAVtno/nFBUC2Yd2svnWRRggGrRjd66LYV9tR3W0J
+ qyAucFg4KX/B+qWwMpIt2HiWQg6KxkFSudqEiqw1qK+7UhIangxu14r4LSBmYoYIxBrz
+ EPkQ3feYwsUiNj0CjzvnqdFMRM/TlxynSSC5UD49NxkZRluZVDNJSYi26CfIqGTFxWzW
+ vqN9gXKC/SRk7HWZZO2DIDb1LS92Kk2EYhlzprFJiJ3ESaes/lOfq0UPMYVXgsWrm1MG
+ PkqSF7RGNX8gvTlS7ihvr4oF5cewOeAi/hrokJ6uPJYx1LafA9gHPlsnjkb5uOjlNmDt
+ oItw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=WMhVWR0mg6d0bsMxu4OxDI/s6SgSzPlLJoRVMia7Nt4=;
+ fh=tdjElNSctrJ5vj1P95tH47+m0BSNlZ+2sSLoUXGW/2M=;
+ b=UNF7UHvrHzVeiVoPkukMhjc7cMHzhRgRHJl/QfNqGLxXFgr8Sy1SWQMt2LGt8Q0Bfz
+ hpzoU0jJz4Y5Hp1nbHFhZZ/iZb+K2JSJp/SxHZ2lVrADdLBFsJiISFiGVe1nAPdRXPAh
+ oTvfb6Zwydqu/1fwPH1vcG8RQOXRl+IIPvkb8Ia8MAqlHC2viKyUjP59zEnRepJYT7Sq
+ 7N0+fjNX3SNTN8IYRwQrL+7RXsdhZw6JZQF+fVl6I75h2BN0I3vk6+U1Z2uTz9KfHrYb
+ L1ig/UiFWhUx9Z+IMJAtgCxcp4vOVB/PR46plu90FoHjUYQWLkow3/66mn5/FArPSM62
+ nsAQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1777021216; x=1777626016; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=WMhVWR0mg6d0bsMxu4OxDI/s6SgSzPlLJoRVMia7Nt4=;
+ b=PbRgLfBLIcIZA6FxV7PcZfBoH34FjPILy9H+adIE4Y6N0LVUjO5L6cKAwNeCKjlNRY
+ 76p9s00CPuIg6lJ6AjgB87x3H0AywGT5dNKHVvXh7tX/qlOl+IvYnETy4QXmmJNp9fss
+ L+5fq0qg3LvJObvn2OIjsTtGhRtkKSV+QpbHwJawY+bq/XU0TjSHpiywCOa5wA5XsuRw
+ p0OpnTk9W1+wrGnz3Ot9E8mlGyDK4MFwWUAax8VNYs9LjFEqOz9h2ivXSV/6pXLRrsnl
+ 2qUGDhBXFHJWOZv6pNsoy5mbk+PlUO/l7ji4ahhgabUkHDdpVwjmBfSetljxAqIUY+lP
+ pp2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777021216; x=1777626016;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=WMhVWR0mg6d0bsMxu4OxDI/s6SgSzPlLJoRVMia7Nt4=;
+ b=EAUVc2lujDbxNQ+hQqrK6F+MAKc8XaKyRDV7y9ZKiQ8GOemvSWzcD9CPiY6EvMRlWc
+ 7KYku3ZriexgCrMQuZniKcILhRAh9Dr/8Mkjo6f3dwTUs+Pj13d/iE805awJUvXSnVLJ
+ 9W61MFQ0BZMAtqRfI6Y67/5zfJDxiQMSRv4yLAhwP1p6BAFe2/RwYymIfDy/CSwxPZkP
+ qyIQ8w8O3b4swxGAzeH6toaXZP4MwD+noMeOgBimXnXWQt+QRlMfa1EcSqzZk63K7GHf
+ l9OrexgwVgbrwmj5K+c1VN4gQ/BA1RPUEXPBBK0GoNYrA+3rFMxXymnAt2nh3px65aHC
+ GrDA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ87uLaEBwt1Ox9l1wyS7owQ9kiCdPW4KuH5cUm4n8OWMuFyCcP9VesM1TKCJXe72+khcJCeyufvoeU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz5+q0FdV1DfO38feChSdyk1faZbcBwpuUNTanbnpqqa1tvp4MX
+ YqM/quvzI+2Xs9ZtyuIII6c0fNrp0kCPX3g3OF125m05BcXZw0S5ShX5vFa9PkR8kBpRhOkL/u0
+ uHGIIveDmbqQcN0tca3n4sexbPbwC6PM=
+X-Gm-Gg: AeBDiesIpAl1LrmUVrjvZCvQ6A2fqbrvKjr8YqjYRG+IHc1ve+VhYZk26RvQcB/kPwC
+ RDzq9Zp+7gyrDKfOUarnEA38j+Ozn2HZNjs/ZSqL7VhedY5noRAkYaf34ea8vxS0n9e4irpujeO
+ XZEwriGnOLSc9KTciBJNYmZ2WAusEwf6CHY3GB5rN/qwmP9T2+P/RAd+gGmg7rcYJriFrNRP4XK
+ J5FYRfnVWMeDvWUxNC91Kde9Rg4BVOYHi9knZxl3vsvFiqyYjo3dSJimqnoGTKpBruxo6HM5ILq
+ iEzGztsbCnpSLZoAH/38
+X-Received: by 2002:a05:690e:d0a:b0:653:1945:8fab with SMTP id
+ 956f58d0204a3-65319459b3cmr27855758d50.43.1777021216403; Fri, 24 Apr 2026
+ 02:00:16 -0700 (PDT)
 MIME-Version: 1.0
-X-ThreadId: ADiin7Vigcc3
-Date: Fri, 24 Apr 2026 10:59:27 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>,
- "Madhavan Srinivasan" <maddy@linux.ibm.com>,
- "Michael Ellerman" <mpe@ellerman.id.au>,
- "Nicholas Piggin" <npiggin@gmail.com>,
- "Christophe Leroy" <chleroy@kernel.org>,
- "Peter Zijlstra" <peterz@infradead.org>,
- "Josh Poimboeuf" <jpoimboe@kernel.org>,
- "Jason Baron" <jbaron@akamai.com>, "Alice Ryhl" <aliceryhl@google.com>,
- "Steven Rostedt" <rostedt@goodmis.org>, "Ard Biesheuvel" <ardb@kernel.org>,
- "Sumit Semwal" <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "Miguel Ojeda" <ojeda@kernel.org>, boqun@kernel.org,
- "Gary Guo" <gary@garyguo.net>,
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- "Benno Lossin" <lossin@kernel.org>,
- "Andreas Hindborg" <a.hindborg@kernel.org>,
- "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
- "Nathan Chancellor" <nathan@kernel.org>,
- "Nick Desaulniers" <nick.desaulniers+lkml@gmail.com>,
- "Bill Wendling" <morbo@google.com>,
- "Justin Stitt" <justinstitt@google.com>, tamird@kernel.org,
- "Nicolas Schier" <nsc@kernel.org>, simona.vetter@ffwll.ch,
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, rust-for-linux@vger.kernel.org,
- llvm@lists.linux.dev
-Cc: "Link Mauve" <linkmauve@linkmauve.fr>
-Message-Id: <b5e7c099-3a5a-44dc-bc7b-42429abe3aec@app.fastmail.com>
-In-Reply-To: <20260424054742.45832-6-mkchauras@gmail.com>
-References: <20260424054742.45832-1-mkchauras@gmail.com>
- <20260424054742.45832-6-mkchauras@gmail.com>
-Subject: Re: [PATCH V13 5/7] rust: Make __udivdi3() and __umoddi3() panic
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+References: <20260415191003.3829558-1-lgs201920130244@gmail.com>
+In-Reply-To: <20260415191003.3829558-1-lgs201920130244@gmail.com>
+From: Guangshuo Li <lgs201920130244@gmail.com>
+Date: Fri, 24 Apr 2026 17:00:01 +0800
+X-Gm-Features: AQROBzDRuc7ifOf5Jk1J9tOCgnKOvndIrCp42i0bqZ5GOvl-P0LF9lO5bb2Mf9k
+Message-ID: <CANUHTR_2RuqR95v3zRzqBsy2txTq2nBghi9PhMj_ek4VEBCHdQ@mail.gmail.com>
+Subject: Re: [PATCH] fbdev: hitfb: fix reference leak on failed device
+ registration
+To: Helge Deller <deller@gmx.de>, Guangshuo Li <lgs201920130244@gmail.com>, 
+ Andriy Skulysh <askulysh@gmail.com>, Paul Mundt <lethal@linux-sh.org>,
+ linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,19 +106,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Apr 24, 2026, at 07:47, Mukesh Kumar Chaurasiya (IBM) wrote:
+Hi,
+
+Please disregard this patch.
+
+On Thu, 16 Apr 2026 at 03:10, Guangshuo Li <lgs201920130244@gmail.com> wrote:
 >
-> This doesn=E2=80=99t yet fix drm_panic_qr.rs, which also uses __udivdi=
-3 when
-> CONFIG_CC_OPTIMIZE_FOR_SIZE=3Dy, but at least makes the rest of the ke=
-rnel
-> build on PPC32.
+> When platform_device_register() fails in hitfb_init(), the embedded
+> struct device in hitfb_device has already been initialized by
+> device_initialize(), but the failure path only unregisters the platform
+> driver and does not drop the device reference for the current platform
+> device:
+>
+>   hitfb_init()
+>     -> platform_device_register(&hitfb_device)
+>        -> device_initialize(&hitfb_device.dev)
+>        -> setup_pdev_dma_masks(&hitfb_device)
+>        -> platform_device_add(&hitfb_device)
+>
+> This leads to a reference leak when platform_device_register() fails.
+> Fix this by calling platform_device_put() before unregistering the
+> platform driver.
+>
+> The issue was identified by a static analysis tool I developed and
+> confirmed by manual review.
+>
+> Fixes: 048839dc548a5 ("video: hitfb suspend/resume and updates.")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> ---
+>  drivers/video/fbdev/hitfb.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/video/fbdev/hitfb.c b/drivers/video/fbdev/hitfb.c
+> index 97db325df2b4..29708c2d506d 100644
+> --- a/drivers/video/fbdev/hitfb.c
+> +++ b/drivers/video/fbdev/hitfb.c
+> @@ -495,8 +495,10 @@ static int __init hitfb_init(void)
+>         ret = platform_driver_register(&hitfb_driver);
+>         if (!ret) {
+>                 ret = platform_device_register(&hitfb_device);
+> -               if (ret)
+> +               if (ret) {
+> +                       platform_device_put(&hitfb_device);
+>                         platform_driver_unregister(&hitfb_driver);
+> +               }
+>         }
+>         return ret;
+>  }
+> --
+> 2.43.0
+>
 
-It looks like the problem is commit 9af8f2b469c0 ("drm/panic: Add a
-u64 divide by 10 for arm32") describing this as an arm32 specific
-issue rather than something common for any 32-bit architecture.
+After re-checking it, hitfb_device is a static platform_device and it does
+not provide a dev.release callback. Therefore calling
+platform_device_put() on the platform_device_register() failure path is
+not appropriate here and can trigger the missing release callback
+warning.
 
-You can probably add a rust version of div_u64() and use that
-there.
+This falls into the same static platform_device pattern pointed out in
+the other reviews, so I will drop this patch.
 
-     Arnd
+Sorry for the noise.
+
+Best regards,
+Guangshuo Li
