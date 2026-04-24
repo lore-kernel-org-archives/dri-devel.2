@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8D51FE5203
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 10:19:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CA76FE5204
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 10:19:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB90A10F4E1;
-	Fri, 24 Apr 2026 10:19:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82B5D10F4CB;
+	Fri, 24 Apr 2026 10:19:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Yxv8iu9p";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="rivjJvYl";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 608F410F4DE;
- Fri, 24 Apr 2026 10:19:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F85010F4BB;
+ Fri, 24 Apr 2026 10:19:13 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 34157445AA;
- Fri, 24 Apr 2026 10:19:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85EDDC2BCC4;
- Fri, 24 Apr 2026 10:19:09 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 02331416EA;
+ Fri, 24 Apr 2026 10:19:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57098C2BCB4;
+ Fri, 24 Apr 2026 10:19:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777025950;
- bh=XAgmvRaLUMDtneZLQ+nRSwQ09O7j2t1sw6KuyUmkyW4=;
+ s=k20201202; t=1777025952;
+ bh=5Ea5gMI9MfhFWsMh9WvE+F2BPQLTR3mTdSpzh4zL9cA=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=Yxv8iu9p5oca1HpS1ke2aUuWLynHWauOJPv7fhkNJu8atoJVq+sr0oJ8mzcmEd8cH
- 4MRIFx08lu1pPnXgUPlzzURn5rl6Bp1I/pcL7SS5+tlCsCQCuVeYv730AsRREU111/
- GFwM6JSOO8N2WNYcjzj9cCG6FzRLuGiSpyrk4Ad+dw5QmrwKEnFA3P5vwifZaUsdwR
- e2JQ3OeBsSQiICWG1py38LLHE44mduTtqgy9lPSpQLXKWLacvJHJ9Lc1KFhKxHa7K7
- I/IITi9rPv3AEzOFTKjkXparalaihY/EwSDk+1DdxDUSSHaQM3+erQ5WFhX3ezSnuz
- KUSJgEHCMSGQA==
+ b=rivjJvYl0nvqLcqlSZiGgPxyse5aaQaouk7pTKSOT+0W7hbpHE74dszgh+/T9ti8y
+ j8p7OaTPX3conMxulwB0Pri4zlNGK6+QdXX6QFuwTBiorBW8D19qPZpDCAPrKh4JD5
+ RNJ7Q3Jn61bwoG4MiR6lCxiNMbpgNH4qOiEh1ifWETDPPMCTrW0asvwBaVR9hJhTpe
+ JlkXALPEzs3bG2YGS/G7hOFVe87OIUnlCKs7Kpb6JUhTb0Ootme/7NoKTovNhWztXC
+ M/JhNMuPq1tvoEUNrYRXxshLVm8UbCm8+ofZ40pC/3aoovD7jlG9f8InSgeph+naiM
+ DyWo/5VNYMh8Q==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 24 Apr 2026 12:18:43 +0200
-Subject: [PATCH v3 03/20] drm/atomic: Drop drm_private_obj.state assignment
- from create_state
+Date: Fri, 24 Apr 2026 12:18:44 +0200
+Subject: [PATCH v3 04/20] drm/atomic: Expand atomic_create_state
+ expectations for drm_private_obj
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260424-drm-mode-config-init-v3-3-8b68d9db0d8b@kernel.org>
+Message-Id: <20260424-drm-mode-config-init-v3-4-8b68d9db0d8b@kernel.org>
 References: <20260424-drm-mode-config-init-v3-0-8b68d9db0d8b@kernel.org>
 In-Reply-To: <20260424-drm-mode-config-init-v3-0-8b68d9db0d8b@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -67,12 +67,12 @@ Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1546; i=mripard@kernel.org;
- h=from:subject:message-id; bh=XAgmvRaLUMDtneZLQ+nRSwQ09O7j2t1sw6KuyUmkyW4=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDJmvnTub5Y1EX5zpXbVpR+1EbT7GPtt2bq/ZjTtPRKYqa
- O91D2LrmMrCIMzJICumyPJEJuz08vbFVQ72K3/AzGFlAhnCwMUpABMpdGGs4TrjI6iivfnix5/s
- e+/FyHxXkhbJU9s9S/zRmrojrlGdYq+PhkrOLFx34Wfq+2J1JptOxoaJtrvlyrY8zJn9Nq0uYIv
- +iaBlLuLR7Ss3NL6fmRtyIOq2OsezKfdeKN+5wiwY8p//DzsA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1229; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=5Ea5gMI9MfhFWsMh9WvE+F2BPQLTR3mTdSpzh4zL9cA=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDJmvnbuiFV+oa+iaBM9m/JPXpnfWT/x8dNFWLqNvC2zeP
+ 38ULavaMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACbyoZuxYZa9y+n1vOdS1q24
+ vkRZcO7/3T7ff9wsmHg5Uvt4oJFTyKarpV6VbRy2IYb96tXLLBg3MNaKOW4VkhVdK7nwUK5TuOq
+ iiL/GkT0XmQ1K33SyNAntqk45+/D9Q9Z3fzf3VPRIv5m34BAA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -90,44 +90,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The initial intent of the atomic_create_state hook was to simply
-allocate a proper drm_private_state and return it, without any side
-effect.
+The atomic_create_state callback documentation for planes, CRTCs, and
+connectors explicitly states the expected behaviour: the returned
+state must not be assigned to the object's state pointer, and hardware
+must not be touched.
 
-However, __drm_atomic_helper_private_obj_create_state(), which most
-atomic_create_state implementations call, introduces a side effect by
-setting drm_private_obj.state to the newly allocated state.
+The drm_private_state_funcs.atomic_create_state documentation is
+missing this clarification. Add it for consistency.
 
-This assignment defeats the purpose, but is also redundant since
-drm_atomic_private_obj_init(), the only call site for the
-atomic_create_state hook, will also set this pointer to the newly
-allocated state.
-
-Drop the assignment in __drm_atomic_helper_private_obj_create_state().
-
-Fixes: e7be39ed1716 ("drm/atomic-helper: Add private_obj atomic_create_state helper")
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic_state_helper.c | 2 --
- 1 file changed, 2 deletions(-)
+ include/drm/drm_atomic.h | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
-index 76746ad4a1bb..875149494b00 100644
---- a/drivers/gpu/drm/drm_atomic_state_helper.c
-+++ b/drivers/gpu/drm/drm_atomic_state_helper.c
-@@ -729,12 +729,10 @@ EXPORT_SYMBOL(drm_atomic_helper_connector_destroy_state);
- void __drm_atomic_helper_private_obj_create_state(struct drm_private_obj *obj,
- 						  struct drm_private_state *state)
- {
- 	if (state)
- 		state->obj = obj;
--
--	obj->state = state;
- }
- EXPORT_SYMBOL(__drm_atomic_helper_private_obj_create_state);
- 
- /**
-  * __drm_atomic_helper_private_obj_duplicate_state - copy atomic private state
+diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
+index f03cd199aee7..f7f9c6c85f3a 100644
+--- a/include/drm/drm_atomic.h
++++ b/include/drm/drm_atomic.h
+@@ -263,11 +263,14 @@ struct drm_private_state;
+ struct drm_private_state_funcs {
+ 	/**
+ 	 * @atomic_create_state:
+ 	 *
+ 	 * Allocates a pristine, initialized, state for the private
+-	 * object and returns it.
++	 * object and returns it. This callback must have no side
++	 * effects: in particular, the returned state must not be
++	 * assigned to the object's state pointer and it must not affect
++	 * the hardware state.
+ 	 *
+ 	 * RETURNS:
+ 	 *
+ 	 * A new, pristine, private state instance or an error pointer
+ 	 * on failure.
 
 -- 
 2.53.0
