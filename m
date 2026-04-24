@@ -4,117 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5A85FE5204
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 10:34:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD5ECFE5204
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 10:38:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C48810F4EE;
-	Fri, 24 Apr 2026 10:34:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4998910F511;
+	Fri, 24 Apr 2026 10:38:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="F/GtiV+Q";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="eEdjwOF/";
 	dkim-atps=neutral
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com
- [74.125.82.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1086C10F4EE
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 10:34:41 +0000 (UTC)
-Received: by mail-dy1-f179.google.com with SMTP id
- 5a478bee46e88-2e92c54bab4so798207eec.0
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 03:34:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777026880; cv=none;
- d=google.com; s=arc-20240605;
- b=S8jMMcL2i/DGy+rZWcQ1bpb7v2b1B1yLQbcttLefzkHDjEZ2HJat3uDbJ4GBrkv9+E
- sWrbDlW0eElnI6b8i8OCuV3VR/tta9TqF0MBT0/MKIBTqSxilzN8daV0GmaGVc8IGH4E
- 8Zfuf9TO8NPawM6cdr94wF7vPb1SFcBbiWKmO902xtX5qZsE4cBFMTtxGgezb1BJMIbg
- vLaEpCgGG2LmgJNS6lUmvUDxz4BFcJA5tfavsucT8lG5Eh0h72DCDovIhLu/QxM1HkX8
- iicreNxT431TVGY0/s7VV/M24+y6hisXqg5w2CVEWH9u37lwKZRidhhjSJ2OQBaZcuhA
- TGgQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=yTJizOE+aTFx68oE3PlVDChTaWYKzRYowl6JulRmua4=;
- fh=c72pXFOBPPI6eBBiLL5O+iL5Fuqe4k1y9RQ50+0kaFc=;
- b=GfMTyt+5JZX2F/UDSd8JsxUL/QUptZwO8sqhJhcrYY2aKCk2rdjqCXkf3TaIUO+xHm
- C2tRFWS0Nnxm2pyLM7srH41pKSpOzaQOZi20uX3f5ORhd+IDCOYiWcy8nT/rqEaVU68i
- TMK3Sw5zHHfh4cIHVcK9Qh2oQ3Vk3i4H9vKZb3bLTCLMd0BTJ6xnoPrEThCsua/EMx+W
- Fyve4yiAygwVVe3Luu8bpSR/CCqdLrSzrCtHOAT6vQVQrHbVqt/MJSbcaoWO3K/0XlPl
- SV2P65dRw7RdDKwCtJmRm344DUpDoJ5d8BLqXoRSpJxRz8K3QpADx8KFZPTYH8Kzfihf
- VUSg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777026880; x=1777631680; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=yTJizOE+aTFx68oE3PlVDChTaWYKzRYowl6JulRmua4=;
- b=F/GtiV+QlKbZX8dLxGKuaWRuSuQpiv25FuPMst1E+AYR/l2QO/EegDl4RV+FRgw07v
- BoVajjft6rtBXEWTgzXi+PUemCc9GQsbSV6Nir3gj7x69ZqOUKYtq0GM+eQeMlCZdzt+
- IqacsDnzvUx99JfECD5yAf1/7BFRS5jHjn4qhRHy25oML1sAtnvv3q7Mo+AQ8zWHZGoH
- p4VK+5k3b4wfPOWD8ekuUzWtbv/O8RGu4SWhmJJ5Gyk3dSOERw7LWsZuA9nbEY8aAgCk
- zL6OL2nmrz+P0mtptJvhOLtr6zu+MmI+cO7vrzcSYo78tUSIQcFTONTVAnwLvHvA6hx6
- uV/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777026880; x=1777631680;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=yTJizOE+aTFx68oE3PlVDChTaWYKzRYowl6JulRmua4=;
- b=X4QPiMxyu+c1pLvUUBisjuslb7Q+kAm1dNeNchfPTCXHU7e82n6WTiO3gvXZmHkyUI
- LNDN+ZDQ5irumVKrdIYRXmsZJ79W0ta0jgqCZQ9zYvgFKofbUci5HtfLoMI8iPxQueYq
- S1KOUgYjRW0x9GCREbcoai7oGFJ/Lf6K5uSyv6r4O/b3Q0qNQ+XerR0SL7yDIIp+085K
- McIwyhEBODl3wOWGOcfqv8On+p5L50w/HoGNE8jnSmikp4QfTVoXXR96TloC6D9e48iO
- urMhF1M+Xoto/7HOHVHuAjdspzjsuTBF+WDDADdhMUVR77/E9npt7A/SunS66CBLMMkk
- WXHQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9GzJmKW1SXRB425Wo+qC7W++SrVo5882TxBhYC8mvyQryWSCH9Pmdk31H4ynMxtqtFy2qKUeD6kNY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw5wvJTdZgJhz52oPCMipasWZsYgVnSJeVd5850ZFT15GGU2EEe
- RXT0ffziQjgL20ldprSKBhYrkqsBbMVdd3P8KHn5+Io0aat1PwnsV9muoplLonbgS06mIYJND8b
- O9lupkebpfqqq+skErEcjwax5qnGRSog=
-X-Gm-Gg: AeBDiesKms4ZLk1n+WU1kuFqTjJi50FwUNRc/8iIoOvyUqjIVfsON+RyrrdKrL6ucT2
- Tq/TMGw7TaT5vwvNjG2EAjOXYtYtTJjU2HQCcAPQJxD5lwSy9DVIUsPB4/YfBhZiiCULjWx+NnX
- vYR22xjUC+hv4nsaNsP/eZhkOj/V9avXmNXqQikDIaPykijjyNzpBfsyfdFc1V+iQ30UBw2p6q7
- irVReZUc4fsG89cg0F6C1h1oL5eI28iNov5arXQj57Y6dYE9f0etXkE2ther2roF4PFPLyBsPXm
- uoBcfp72zxGIr+ps/PKkHzVyJP742JBkYPOx4tk4SZma/tcardyN0nrWiH6LZ23kzbNXWWOLxUQ
- EoA8NhumWoTLULA2Jn0CbimjXaHF1Jzbpiw==
-X-Received: by 2002:a05:7300:d50e:b0:2bd:d8e6:90a0 with SMTP id
- 5a478bee46e88-2e478936a32mr6682650eec.3.1777026880251; Fri, 24 Apr 2026
- 03:34:40 -0700 (PDT)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 2E1C610F511
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 10:38:29 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1DB821BB0;
+ Fri, 24 Apr 2026 03:38:23 -0700 (PDT)
+Received: from [10.1.26.15] (e122027.cambridge.arm.com [10.1.26.15])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4AC013F641;
+ Fri, 24 Apr 2026 03:38:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1777027108; bh=8wRrlHqLCUUw/ZymJQysm9ZbVt5HN6QK4AgD+1zWieI=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=eEdjwOF/je5J53Y91NzlcfoFRVezG4hxpPybg0KFs1YlTOM1a1Rdz+WZPQPK5WWSf
+ tOucoEhpGJ30rA8bkfXU5au9vsR9ZDZ2jjNPjlo8b0FXqmYmNFdNNaLrGDsq+OJfvM
+ 3HD9TPWOR/kIQB3FKCQ6KtIwezZlpLdtasu1dh2s=
+Message-ID: <05bc8e72-a914-4bee-b635-fe1e9c623900@arm.com>
+Date: Fri, 24 Apr 2026 11:38:24 +0100
 MIME-Version: 1.0
-References: <20260424054742.45832-1-mkchauras@gmail.com>
- <20260424054742.45832-6-mkchauras@gmail.com>
- <20260424101425.6bde0e17@pumpkin> <aes7L3M1d_LvvGKa@luna>
- <0a81f510-7b49-4879-b0bb-3b24dbfc0788@app.fastmail.com>
-In-Reply-To: <0a81f510-7b49-4879-b0bb-3b24dbfc0788@app.fastmail.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Fri, 24 Apr 2026 12:34:27 +0200
-X-Gm-Features: AQROBzBsdDZLB2GUpMgvGgFgU1KPjXwk3TMpDFKjffQGyp1lulncbpRBZafhAFU
-Message-ID: <CANiq72mZGb+mTwP-8pTLe81oM0QnK-WtQeVjKPiP5m8zK_tOnw@mail.gmail.com>
-Subject: Re: [PATCH V13 5/7] rust: Make __udivdi3() and __umoddi3() panic
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Link Mauve <linkmauve@linkmauve.fr>,
- David Laight <david.laight.linux@gmail.com>, 
- "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
- Christophe Leroy <chleroy@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
- Josh Poimboeuf <jpoimboe@kernel.org>, Jason Baron <jbaron@akamai.com>, 
- Alice Ryhl <aliceryhl@google.com>, Steven Rostedt <rostedt@goodmis.org>, 
- Ard Biesheuvel <ardb@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Miguel Ojeda <ojeda@kernel.org>, boqun@kernel.org, Gary Guo <gary@garyguo.net>,
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
- Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <nick.desaulniers+lkml@gmail.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- tamird@kernel.org, 
- Nicolas Schier <nsc@kernel.org>, simona.vetter@ffwll.ch,
- linuxppc-dev@lists.ozlabs.org, 
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- rust-for-linux@vger.kernel.org, llvm@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/8] drm/panthor: Store IRQ register base iomem pointer
+ in panthor_irq
+To: Karunika Choo <karunika.choo@arm.com>, dri-devel@lists.freedesktop.org
+Cc: nd@arm.com, Boris Brezillon <boris.brezillon@collabora.com>,
+ Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org
+References: <20260412142951.2309135-1-karunika.choo@arm.com>
+ <20260412142951.2309135-5-karunika.choo@arm.com>
+ <53a66bbd-7ed5-41d9-a15e-af17f292dea1@arm.com>
+ <b6c97926-57aa-41dd-99f8-c5f0397e002c@arm.com>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <b6c97926-57aa-41dd-99f8-c5f0397e002c@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,31 +64,138 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Apr 24, 2026 at 12:21=E2=80=AFPM Arnd Bergmann <arnd@arndb.de> wrot=
-e:
->
-> How hard would it be to have a private copy of the parts of the core
-> crate that the kernel actually needs? Since Linux is neither quite
-> hosted (using a full libc) nor entirely freestanding (still using
-> some library interfaces), the C implementation on most architectures
-> has a small subset of the libgcc that we ship with the kernel.
->
-> I assume the core crate is larger than libgcc, but I don't know how
-> much of it is actually needed here.
+On 22/04/2026 17:08, Karunika Choo wrote:
+> On 22/04/2026 10:34, Steven Price wrote:
+>> On 12/04/2026 15:29, Karunika Choo wrote:
+>>> Update common IRQ handling code to work from an IRQ-local iomem base
+>>> instead of referencing block-specific interrupt register offsets.
+>>>
+>>> Store the interrupt base address iomem pointer in struct panthor_irq and
+>>> switch the shared IRQ helpers to use generic INT_* offsets from that
+>>> local base. This removes the need for each caller to expose absolute IRQ
+>>> register addresses while keeping the common IRQ flow unchanged.
+>>>
+>>> No functional change intended.
+>>>
+>>> v2:
+>>> - Change IRQ request function to accept an iomem pointer instead of
+>>>   computing it from an offset argument.
+>>>
+>>> Signed-off-by: Karunika Choo <karunika.choo@arm.com>
+>>
+>> One minor comment below...
+>>
+>>> ---
+>>>  drivers/gpu/drm/panthor/panthor_device.h   | 32 ++++++++++++++--------
+>>>  drivers/gpu/drm/panthor/panthor_fw.c       |  5 ++--
+>>>  drivers/gpu/drm/panthor/panthor_fw_regs.h  |  2 ++
+>>>  drivers/gpu/drm/panthor/panthor_gpu.c      |  6 ++--
+>>>  drivers/gpu/drm/panthor/panthor_gpu_regs.h |  3 ++
+>>>  drivers/gpu/drm/panthor/panthor_mmu.c      |  5 ++--
+>>>  drivers/gpu/drm/panthor/panthor_mmu_regs.h |  3 ++
+>>>  drivers/gpu/drm/panthor/panthor_pwr.c      |  6 ++--
+>>>  8 files changed, 42 insertions(+), 20 deletions(-)
+>>>
+>> [...]
+>>> @@ -1470,7 +1470,8 @@ int panthor_fw_init(struct panthor_device *ptdev)
+>>>  	if (irq <= 0)
+>>>  		return -ENODEV;
+>>>  
+>>> -	ret = panthor_request_job_irq(ptdev, &fw->irq, irq, 0);
+>>> +	ret = panthor_request_job_irq(ptdev, &fw->irq, irq, 0,
+>>> +				      ptdev->iomem + JOB_INT_BASE);
+>>>  	if (ret) {
+>>>  		drm_err(&ptdev->base, "failed to request job irq");
+>>>  		return ret;
+>> [..]
+>>> @@ -162,7 +162,9 @@ int panthor_gpu_init(struct panthor_device *ptdev)
+>>>  	if (irq < 0)
+>>>  		return irq;
+>>>  
+>>> -	ret = panthor_request_gpu_irq(ptdev, &ptdev->gpu->irq, irq, GPU_INTERRUPTS_MASK);
+>>> +	ret = panthor_request_gpu_irq(ptdev, &ptdev->gpu->irq, irq,
+>>> +				      GPU_INTERRUPTS_MASK,
+>>> +				      ptdev->iomem + GPU_INT_BASE);
+>>>  	if (ret)
+>>>  		return ret;
+>>>  
+>> [...]
+>>> @@ -3229,7 +3229,8 @@ int panthor_mmu_init(struct panthor_device *ptdev)
+>>>  		return -ENODEV;
+>>>  
+>>>  	ret = panthor_request_mmu_irq(ptdev, &mmu->irq, irq,
+>>> -				      panthor_mmu_fault_mask(ptdev, ~0));
+>>> +				      panthor_mmu_fault_mask(ptdev, ~0),
+>>> +				      ptdev->iomem + MMU_INT_BASE);
+>>>  	if (ret)
+>>>  		return ret;
+>>>  
+>> [...]
+>>> diff --git a/drivers/gpu/drm/panthor/panthor_pwr.c b/drivers/gpu/drm/panthor/panthor_pwr.c
+>>> index aafb0c5c7d23..11c43de1ddd5 100644
+>>> --- a/drivers/gpu/drm/panthor/panthor_pwr.c
+>>> +++ b/drivers/gpu/drm/panthor/panthor_pwr.c
+>>> @@ -70,7 +70,7 @@ static void panthor_pwr_irq_handler(struct panthor_device *ptdev, u32 status)
+>>>  	}
+>>>  	spin_unlock(&ptdev->pwr->reqs_lock);
+>>>  }
+>>> -PANTHOR_IRQ_HANDLER(pwr, PWR, panthor_pwr_irq_handler);
+>>> +PANTHOR_IRQ_HANDLER(pwr, panthor_pwr_irq_handler);
+>>>  
+>>>  static void panthor_pwr_write_command(struct panthor_device *ptdev, u32 command, u64 args)
+>>>  {
+>>> @@ -464,7 +464,9 @@ int panthor_pwr_init(struct panthor_device *ptdev)
+>>>  	if (irq < 0)
+>>>  		return irq;
+>>>  
+>>> -	err = panthor_request_pwr_irq(ptdev, &pwr->irq, irq, PWR_INTERRUPTS_MASK);
+>>> +	err = panthor_request_pwr_irq(
+>>> +		ptdev, &pwr->irq, irq, PWR_INTERRUPTS_MASK,
+>>> +		ptdev->iomem + GPU_CONTROL_BASE + PWR_CONTROL_BASE);
+>>
+>> This one is the odd one out because it adds GPU_CONTROL_BASE put the
+>> other panthor_request_xxx_irq() calls don't. Sashiko also points out
+>> that there's an argument these should all be using ptdev->gpu->iomem in
+>> the final refactor.
+>>
+> 
+> I understand that it is slightly different, it is only there to
+> illustrate the fact that it is a child of the GPU_CONTROL register page.
+> w.r.t using ptdev->gpu->iomem, that would mean that we need reach into
+> the panthor_gpu component to access the memory, hence why we used a
+> separate iomem for this one.
 
-It is fairly tied to the compiler version, so it would be a
-substantial effort to support across a bunch of versions. Instead of
-that, initially we asked to have some `cfg`s (i.e. conditional
-compilation) to customize it in the few places we need. We already
-pass `--cfg no_fp_fmt_parse` for instance.
+Why do you not add GPU_CONTROL_BASE on when accessing JOB_INT_BASE,
+GPU_INT_BASE and MMU_INT_BASE though?
 
-There were concerns about combinatorial explosion of `cfg`s, so we
-suggested `cfg(linux_kernel)` or similar instead, though nothing
-happened so far.
+The obvious answer for JOB/MMU is because they're not architecturally in
+GPU_CONTROL. But then why don't we have
+JOB_CONTROL_BASE/MMU_CONTROL_BASE (my guess is because there isn't
+really anything other than INT registers in those blocks).
 
-The other option is to at least lint against certain operations, but I
-think it would be better to have a way to tell the compiler we really
-don't want them generated to begin with.
+So it looks like for JOB_INT_BASE/GPU_INT_BASE/MMU_INT_BASE these are
+offsets from the beginning of the GPU registers iomem. But then for some
+reason PWR_INT_BASE (introduced in patch 6) is treated as if it's a
+relative offset within GPU_CONTROL_BASE. Which is just weirdly inconsistent.
 
-Cheers,
-Miguel
+I'm happy to disagree with Sashiko on the use of ptdev->gpu->iomem - I
+think interrupts are special enough that we can use the top-level iomem.
+But that only holds as a justification if all interrupts are treated in
+the same way.
+
+Thanks,
+Steve
+
+> Kind regards,
+> Karunika
+> 
+> 
+>> Thanks,
+>> Steve
+>>
+>>>  	if (err)
+>>>  		return err;
+>>>  
+>>
+> 
+
