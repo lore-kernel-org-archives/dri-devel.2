@@ -4,103 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A969FED3EA
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 16:24:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25893FED3EF
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 16:33:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EB3A10E170;
-	Fri, 24 Apr 2026 16:24:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 746C710E3E8;
+	Fri, 24 Apr 2026 16:33:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="apSsknrq";
+	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="MpeN7uA0";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 123E98935C
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 16:24:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1777047860;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=bkHBfOVa4bz/wCbZfmwZYYdZCO/tCYPxae+JQxak4Yg=;
- b=apSsknrqDhMC7h2cShmEWRD3Qvr9woqVNmefE6IRbhC8GfPLl0eiIUyjJKVzb/Nsbs7HsH
- Kq4azJ5c9gPbVxTdHQ64WobC7eXeBwoo3zYWUZ59WvRIMjIIBWxd9stOWEqqKRePA/5Ay3
- Hm0Mv0YhxcdJ078jtBn+CspmUudwYJ8=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-678-XF_kVLwqODG0U2_FK_CCgA-1; Fri, 24 Apr 2026 12:24:16 -0400
-X-MC-Unique: XF_kVLwqODG0U2_FK_CCgA-1
-X-Mimecast-MFC-AGG-ID: XF_kVLwqODG0U2_FK_CCgA_1777047855
-Received: by mail-wm1-f71.google.com with SMTP id
- 5b1f17b1804b1-48a5fb71a84so13524515e9.1
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 09:24:16 -0700 (PDT)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DF8510E3E8
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 16:33:28 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-48374014a77so104902945e9.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 09:33:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1777048407; x=1777653207; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=rigkqYAlhoqFqeCkHJ7xy8GFb3SiN14JzSLZL9wmVyo=;
+ b=MpeN7uA0ovuhwgxNHdX/E81XG0oUWtMlL3XIy3B3pXjmPD6sQobgfC147vnatpUfAI
+ U7PNYL4tvV8np1hUVp4LnM9WMx3sR356T0b1CbaHfBHnAAUSyWWiu0PfMWhsjAi93DK0
+ w3VJTcaM+j81yXX1z8t3tcT80dL+r44E8GSxpk9n6lkXtLNX/XebIGO50HgBjuJGSXmY
+ qa4SH4XVm2fxQCz3EHGsQWFV5pUTPyzMWJ2zj5rjKY0cLywx6e2DKN4Ptbynk7TOceD3
+ AhOYMUj+cWstCiTmH79TGMZozvMA+aaNq07EQmOOfPacTne7isFBmxLuzE/eKLIyEzW3
+ Ss3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777047855; x=1777652655;
- h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
- :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=bkHBfOVa4bz/wCbZfmwZYYdZCO/tCYPxae+JQxak4Yg=;
- b=K13jJ6M3L9OVQ0Ez05cB6WLsY+TCXAHhe/cDqE8BksaqtBjkYPoxBFa4N3cEmVF1x5
- cT9cH4GP+BfX1f2BYkuPDq/G8MQ0QwFhzCGynCf7oWndSu3v0RSlvmMfMgi6kL2Hplu6
- +MIJ5hYuqS/hKZbPncQsZM5Cw1yThVAmBRn8E3MebleYscvqDScim6b/t3L8X39oTCij
- r1oc+sTVV3PdZKQCvq1POyC9eAUaX98C5ik/MxsvGml+hW92vBMrNAQMyxd9mXc2DTvp
- hYNajd7dk5xuxrudKMcbd8gntKKGcX7NTOJ0ojT5KM6cVLiIweF8HHY6hOXSsKttsjgj
- wyeA==
+ d=1e100.net; s=20251104; t=1777048407; x=1777653207;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=rigkqYAlhoqFqeCkHJ7xy8GFb3SiN14JzSLZL9wmVyo=;
+ b=AWvNNaIjhaj1NHmWhXu/Tzt1hcWrVmGvV8X7RAP+Cs+oVIQSecJqphNVTUqRVixB+2
+ au3U7ZsHk+w1/DWCVFtE2HRZyVmi2T7yLKCYBPlOjrSlHXf5azN13xUD3DdMjqzubSkD
+ X//5x8S0r+gJVfHvJkgkc7KHlUdgiIpuey1o9jHsIekEOHMGHQQn+yCiJHAHuqF4TSfX
+ 8Cp4u9xyfFdE6gzSV35ujUWZ9KArdjH2YRxCZ69mGipcGfZrj3Eb/24ibuu4kreXs5uh
+ LEnURt1tQMVKE8NuKReJMZm60St4mB5rhbaWIlacTw2UK3O7C6aQeP/GT8+hWGD9sVJg
+ F9Ow==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8ZqS8E/SOiSg16Y4f9zcC10prUOEGJeK7Ay/YTKd/pmJf9W901mHyztjWhhUFUXQd9DarRSGO7Xy0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxKO3HfU2gejpV7L0rkIsoTHckQB5gi7vZCJAqAOwsdGVddD3ec
- u52B7uklWRqvRLUXSBR/KoFLaVgY4oLbMHz3vp84/rMLRNMBnjSLjNqCYbNG5f5wI/o+1C4bMCl
- 5nhXE7cGwwJI3aS4ib3+/6jps32233YS+X7j31MVzFza8ydbR8s442DNqPPcI6ijQ6rmvcw==
-X-Gm-Gg: AeBDieuNTi49Ao/FNG0Eb6Pvdrw9RYhZglmr4Tgl3k8QepAJ+Dh1CiaVleLjEOcEUre
- ux90gUil4VXywyFO7lAbmiKKkWpKzfyhz6Go4CaZ6VRmrLirgi00L1XJCyPMQUoSPjqN3PU95r8
- aPPPC5UjFQeQEQny3bPoSgHZYPIwQVUJPmuyuvKz41uMrAxKMQXrXbeIk0r1lJyjxzGStYZwcco
- UKloKcXoiYW6LDht1WBXB3bAD0us4AbcLzCjbO0XIzG+7Ls42ffDFex33UP8xNJ3BhjTPBbnuXr
- J5c4tvaRtHIdB0M5P4RnkhOy0SfO/vpOP+r9E4I1j3iU6phJ7aXKrJJI4S5V23FqTvHl+eR5TYs
- xh8AUqVdrFEdG3JELBD6Hj+KOggK3zeJJs/RmrrvHGUgGQsybeVaAoqYsRG8ZcV1Gs6KT+CDZUP
- fWQSH0fhMvPEPse58=
-X-Received: by 2002:a05:600c:8b6b:b0:485:3c2e:60d5 with SMTP id
- 5b1f17b1804b1-488fb8859ddmr427762185e9.2.1777047855241; 
- Fri, 24 Apr 2026 09:24:15 -0700 (PDT)
-X-Received: by 2002:a05:600c:8b6b:b0:485:3c2e:60d5 with SMTP id
- 5b1f17b1804b1-488fb8859ddmr427761525e9.2.1777047854742; 
- Fri, 24 Apr 2026 09:24:14 -0700 (PDT)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
+ AFNElJ9Bej6/3qML4Hkl/IE7LyjhlouDSx8oU/71pRpnP953VuF/jW2yz6IugJ34xOVHGd9msXu6Twbmz88=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyrml0SD1DhWqfoPx/w6kk49EDznOpioHkavF1lA1uXYyEE+5tZ
+ k0dIEuaij63SBquBDoLYov4BeRiOftjQx73If9oNB3poQX8MNwoHZDa3l4/ZDzN2vqk=
+X-Gm-Gg: AeBDiet0NIJtsPb6SB0FaLu04Y3aK/yHqjE+aaBPKoM2Wh8GlU86Mo41UjqioulRVD6
+ sbIjYmOBkM/Xz2LFLGk2iB1/8mP7EjrolkHRAeHEsWPhsjbdF3iLYxi/AlVXIKi6OakNJMns3Z5
+ MREeohnTr/ALyFIAtKSEwr1bYmdeV9T7Z990dvIx2dHFHuWlicpJ5DaZ8Y9m3FXFfmH7rnGi7b2
+ PwHXajnlJp4YaUUbVY94m62Hokrm3zgk4pb8G6Q1sNIUoCsHcI8eJy14MSAqKqkVkma3vSZjbUY
+ c8Y9j1DsKaOY3uIkeNR7CkBhpE5u6q3yJDhGT3DdmEqBs7uUvIseBXqal0ZxSwpEqO91/CMzcYO
+ c5x15umHYZldiOeb+Gdkjuumm4r4FuwnSTbX9wOXJVZpgr6WxMYJJ8eF04IdbhhRv8Fou9sXrpc
+ f0OXLg4Gr8Jvxi7D0hYcd77mHmLYAimRWsatXXpKECWvzd7FFKo28ikQ==
+X-Received: by 2002:a05:600c:c0c8:b0:487:21c7:2885 with SMTP id
+ 5b1f17b1804b1-488fb73d9ffmr351003145e9.5.1777048406745; 
+ Fri, 24 Apr 2026 09:33:26 -0700 (PDT)
+Received: from blackdock.suse.cz (nat2.prg.suse.com. [195.250.132.146])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48a682588f8sm6272915e9.10.2026.04.24.09.24.13
+ 5b1f17b1804b1-4891c08faffsm702405535e9.1.2026.04.24.09.33.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Apr 2026 09:24:13 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>, Arnd Bergmann <arnd@arndb.de>,
- Ard Biesheuvel <ardb@kernel.org>, Ilias Apalodimas
- <ilias.apalodimas@linaro.org>, Huacai Chen <chenhuacai@kernel.org>, WANG
- Xuerui <kernel@xen0n.name>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Dave Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, "K. Y.
- Srinivasan" <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>,
- Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
- longli@microsoft.com, Helge Deller <deller@gmx.de>
-Cc: linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
- linux-efi@vger.kernel.org, linux-riscv@lists.infradead.org,
- dri-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
- linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH 3/8] firmware: sysfb: Make CONFIG_SYSFB a
- user-selectable option
-In-Reply-To: <0156562f-5fcf-47ce-8fea-03345f2c3fe6@suse.de>
-References: <20260402092305.208728-1-tzimmermann@suse.de>
- <20260402092305.208728-4-tzimmermann@suse.de>
- <78f76717-8f1e-41d6-92f7-261df96b84b6@app.fastmail.com>
- <3e466158-c2e5-4e23-934f-dcdbb71ad41f@suse.de>
- <d3d7c545-3b07-4881-a16d-45b6f039de19@app.fastmail.com>
- <001efe27-9cbb-4a89-8d2d-a1f3ae15e505@suse.de>
- <295a43ce-92fb-435d-a82f-d1cfa8f4f28d@app.fastmail.com>
- <0156562f-5fcf-47ce-8fea-03345f2c3fe6@suse.de>
-Date: Fri, 24 Apr 2026 18:24:07 +0200
-Message-ID: <87se8kjpi0.fsf@ocarina.mail-host-address-is-not-set>
+ Fri, 24 Apr 2026 09:33:26 -0700 (PDT)
+Date: Fri, 24 Apr 2026 18:33:24 +0200
+From: Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>
+To: Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ intel-xe@lists.freedesktop.org, Natalie Vock <natalie.vock@gmx.de>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Tejun Heo <tj@kernel.org>,
+ cgroups@vger.kernel.org, 
+ Huang Rui <ray.huang@amd.com>, Matthew Brost <matthew.brost@intel.com>, 
+ Matthew Auld <matthew.auld@intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>, 
+ David Airlie <airlied@gmail.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, 
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Subject: Re: [PATCH 2/5] cgroup/dmem: Add reclaim callback for lowering max
+ below current usage
+Message-ID: <soifu3hpmugejzevzggs57dreexuoammqkufegpjfvr6dzkt7u@7chmb3ppce6d>
+References: <20260327081600.4885-1-thomas.hellstrom@linux.intel.com>
+ <20260327081600.4885-3-thomas.hellstrom@linux.intel.com>
+ <4b647952-0038-4878-b67e-6c7fc7ab27a6@linux.intel.com>
+ <398623a092c65ce4e53d1713112fa39ac0979fd7.camel@linux.intel.com>
+ <8ecda206-d290-4895-bf57-346419afdc3c@linux.intel.com>
+ <3b662522e17e380953d9b981d8c2febecf42455e.camel@linux.intel.com>
+ <4f74cacc-ff98-426f-ac31-c25e6cbec314@linux.intel.com>
+ <fb353b64e9084bc8fff01f8d5cc45701a2a60a60.camel@linux.intel.com>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: gsOuKvu6G6jScX3Eh6A7sKKYbl6pyrrC3G7e7qCbH9o_1777047855
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="dosxmscoevitfoas"
+Content-Disposition: inline
+In-Reply-To: <fb353b64e9084bc8fff01f8d5cc45701a2a60a60.camel@linux.intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,46 +108,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thomas Zimmermann <tzimmermann@suse.de> writes:
 
-Hello,
+--dosxmscoevitfoas
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 2/5] cgroup/dmem: Add reclaim callback for lowering max
+ below current usage
+MIME-Version: 1.0
 
-[...]
+On Wed, Apr 22, 2026 at 12:36:50PM +0200, Thomas Hellstr=F6m <thomas.hellst=
+rom@linux.intel.com> wrote:
+> > The task writing to max will not trigger a reclaim,
+> > only set the new max value.
+>=20
+> I still read *synchronous* reclaim.
+>=20
+> >=20
+> > But when a process, part of the affected cgroup, tries to allocate
+> > memory,
+> > it will be forced to reclaim memory until below max again.=20
+> >=20
+> > This is a workflow where instead of the updater doing all
+> > the evictions, the evictions handled by a process in the cgroup
+> > itself.
+>=20
+> But kswapd is still used to do background per-cgroup reclaim in this
+> case, right?
 
->>>>>> On Thu, Apr 2, 2026, at 11:09, Thomas Zimmermann wrote:
->>>>>> I don't really like this part of the series and would prefer
->>>>>> to keep CONFIG_SYSFB hidden as much as possible as an x86
+kswapd is driven by the global zone watermarks, it would only reclaim in
+the cgroup proportionally to its usage to fulfill that global "limit".
+The actual memcg's memory.max doesn't affect kswapd, it's really when
+reclaim is triggered upon hitting the limit from within the memcg.
 
-I tend to agree with Arnd here, I'm also not seeing that much value on
-making this symbol user selectable. For now I would just keep it hidden.
+(The background per-cgroup analogy of kswapd for memcgs is proactive
+memory.reclaim but there's no dedicated kthread, it's up to the user to
+decide when and what to write into memory.reclaim.)
 
-[...]
+HTH,
+Michal
 
->> Yes, I saw that as well and don't have an immediate idea for how
->> to best do it. I saw that you already abstracted the access to
->> the screen_info members in drm_sysfb_screen_info.c, which I think
->> is a step in that direction.
->>
->> I also noticed that efidrm is mostly a subset of vesadrm, so
->> in theory they could be merged back into an x86 drm driver
->> along with the drm_sysfb_screen_info helpers, and have a non-x86
->> driver that constructs a drm_sysfb_device directly from the
->> EFI structures.
->
-> I would not want to have a unifed driver for all-things-screen_info. The 
-> code that can easily be shared is already in the sysfb helpers. But I 
-> don't mind adding a separate driver for EFI's Graphics Output Protocol.
+--dosxmscoevitfoas
+Content-Type: application/pgp-signature; name="signature.asc"
 
-I agree. It is much more maintainable if we have dedicated DRM drivers that
-use shared helpers, than attempting to have a driver for different platforms.
+-----BEGIN PGP SIGNATURE-----
 
-As Thomas explained, the maintance effort is small on the DRM side and he has
-done a lot of work to split simpledrm in efidrm, vesadrm and ofdrm.
+iJEEABYKADkWIQRCE24Fn/AcRjnLivR+PQLnlNv4CAUCaeubUBsUgAAAAAAEAA5t
+YW51MiwyLjUrMS4xMiwyLDIACgkQfj0C55Tb+Ai0HQD+Jgif2K031TYm0YfdjAty
+B0TzqcqwBBNpvrgnUgC67EkA/14ZknnuVjDttRPWZYhls33OFy1aAPEoFVVOc+Zd
+XuMF
+=AICI
+-----END PGP SIGNATURE-----
 
--- 
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
-
+--dosxmscoevitfoas--
