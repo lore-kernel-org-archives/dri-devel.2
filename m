@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DE94FF8850
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0221FF885D
 	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 23:39:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1AC310F700;
-	Fri, 24 Apr 2026 23:39:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E64D10F702;
+	Fri, 24 Apr 2026 23:39:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="NVRJRMit";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="fe7roqjA";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3346210F700
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 23:39:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1777073977; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2DD610F6FD
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 23:39:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1777073975; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=DLGWL+QUqSjLkm3RfUeOY1QcsyRdDj8WwyegMJrJp+zhmpoljdRLp2CQl2Hu9Sr53M0b05cZI2ET3mbwmCAtVhgVS4N4zzL+yywSqj/RzdyjvqzQXCLtdAa5NDmHYDgRilKqg3GBSqGWqbRlpMpoMv9S2jqHj/43VIpk6pkUAYw=
+ b=KQn9RxJQSFmEOihrIKHKoRVnv3ubC+rp6yapRUxuQh2gFjilYhA7tlhYQRCByTtab/4SHzMJgrinQ2A+JttsAGvLhVTJC/7V5QV3J2SEQCIzTKBzPvKYtB9mGJaumL/3Mr+vU+09ps2M8Ynzwqsi4gj2cqHL5oxHPXDoGaLF4EM=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1777073977;
+ s=zohoarc; t=1777073975;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=XPCpEWcCJ0qzuj/oC3i6Lp1Z+GZwJBbgwjn01sw/iTY=; 
- b=gTZCVvmngYUVHB1za1iPpclaNdidHNztyQ6NzbJzkCAdKsrZx+4sANqW47qAVfsoY43bOsoLLGERTyYS8QjrM/gm6c1cnH/gybNxztEDIKmNj0RgEjQShpx9ynD8SDBvdx4mAu080r0Ux8tYJsX+R572ZolOipFwvYGe/tzyGmY=
+ bh=Hp6X7lRO2Not0Ub1LtI2j0rehU8Gzb0YawWAXUTLDb0=; 
+ b=ZuL3LTDSvCztv1Z/+8jYrkfunRrKmPERiL88xubRJzrzhHISlWXr+tdSW7rC/ja6gjdiqp/Mnd9sJpu+33ZKokJIPEDgDWbFrozl4MjEeLVv06w2XimmMbV9/bbAYM8JcHBZDICAq7KEeabbrLd2hpA1TPchJYXJ/2EzSIxW/4s=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
  dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1777073977; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1777073975; 
  s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=XPCpEWcCJ0qzuj/oC3i6Lp1Z+GZwJBbgwjn01sw/iTY=;
- b=NVRJRMitxXq/FphIpBxwcRzsEzOSiBv3071c5ioSTJ6oyqVD7Pl8slU3sl8MIjrw
- sVUO+p0zm5AGqi703QXwBBgL/SeJH1GuIeluQv9yZWWyMGS+/VB3rCWJqhnE8bwvZ96
- cul1MYJPYhFjB/rX7aIWQOTBZBlERKrrhmf3/IrY=
-Received: by mx.zohomail.com with SMTPS id 1777073974777481.1103136465414;
- Fri, 24 Apr 2026 16:39:34 -0700 (PDT)
+ bh=Hp6X7lRO2Not0Ub1LtI2j0rehU8Gzb0YawWAXUTLDb0=;
+ b=fe7roqjAguEzrrIhEU2EWz4ssU4PXZe+xahbpAU1zNOfz1U2W6VK2b6pNd2ArbOU
+ R/uPH+AZQy0AGO+4sWbsmJ8TBu9t9BcZhhzSMzw5OuxOR5oP8gMu69LjAXGJSqr0Jw+
+ TK9YqijFMg3oIQL6QpFj2HGFjUGd2JfVA9mJPjQs=
+Received: by mx.zohomail.com with SMTPS id 177707397360115.53315446750355;
+ Fri, 24 Apr 2026 16:39:33 -0700 (PDT)
 From: Deborah Brouwer <deborah.brouwer@collabora.com>
-Date: Fri, 24 Apr 2026 16:39:10 -0700
-Subject: [PATCH v4 16/20] drm/tyr: wait for global interface readiness
+Date: Fri, 24 Apr 2026 16:39:09 -0700
+Subject: [PATCH v4 15/20] drm/tyr: add Job IRQ handling
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260424-b4-fw-boot-v4-v4-16-a5d91050789d@collabora.com>
+Message-Id: <20260424-b4-fw-boot-v4-v4-15-a5d91050789d@collabora.com>
 References: <20260424-b4-fw-boot-v4-v4-0-a5d91050789d@collabora.com>
 In-Reply-To: <20260424-b4-fw-boot-v4-v4-0-a5d91050789d@collabora.com>
 To: Daniel Almeida <daniel.almeida@collabora.com>, 
@@ -64,13 +64,13 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  work@onurozkan.dev, alvin.sun@linux.dev, 
  Deborah Brouwer <deborah.brouwer@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5113;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7139;
  i=deborah.brouwer@collabora.com; h=from:subject:message-id;
- bh=zL8ETxM/Ozs01P199qVIBqOXQzVzvFVTIb+dkPMKXBE=;
- b=owGbwMvMwCVWuULzOU9c7WvG02pJDJmv/yu0tsUqaFRnbLi76ubZmZd/f9od6BBV7Hoh0/Dzk
- hyHwOaXHaUsDGJcDLJiiixn7Y16xKveG+nO/98MM4eVCWQIAxenAExELZHhr/TMqc61PL+LpjUt
- 2sS+8qH1DE29KcfddNQWhQtWHzcLcGH4p3hRvfvEa6aly+8fKhAMWlztLbvsfbVx813uL8/nRH0
- yYQMA
+ bh=Wy5br/oMx1DtfGRbLaIteahpbobGyw+1HEHcVVt4KSA=;
+ b=owGbwMvMwCVWuULzOU9c7WvG02pJDJmv/yv8bHi5Y/bt/eUnDoS3nPe/UfzfPpGN5XSR/Lq9f
+ mpmzzlvd5SyMIhxMciKKbKctTfqEa96b6Q7/38zzBxWJpAhDFycAjCRMwsY/hfzxaz+KfqJd/Jm
+ t+u2p/Z27r956+Sa/phJm6ZU/ux+vPw4I8NbtT9J9XdSZwfOUw574GN3fUbA1Jl9TjI+/Sm2Jhu
+ 5tbgA
 X-Developer-Key: i=deborah.brouwer@collabora.com; a=openpgp;
  fpr=CD3F328C177AEF322D9FFF8379A829E70C5E7DEB
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -88,184 +88,258 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a wait helper for global interface readiness using the Job IRQ. The
-IRQ handler latches readiness in fw_ready and wakes waiters. After
-booting the firmware, probe waits until the firmware reports that the
-global interface is ready to accept requests.
+Add a threaded IRQ wrapper for Tyr interrupt sources and use it to handle
+the firmware Job IRQ.
 
-Register the Job IRQ before booting the firmware so that the initial GLB
-event is not missed.
+The Job IRQ reports requests from the CSF firmware, including global
+interface requests and CSG attention bits. Add a Job IRQ handler that
+masks the interrupt in the primary IRQ handler, processes pending raw
+status in the threaded handler, clears handled bits, and reenables the
+mask before returning.
 
 Co-developed-by: Daniel Almeida <daniel.almeida@collabora.com>
 Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
 Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
 ---
- drivers/gpu/drm/tyr/driver.rs | 18 +++++++++++++++++-
- drivers/gpu/drm/tyr/fw.rs     | 35 +++++++++++++++++++++++++++++++++--
- drivers/gpu/drm/tyr/fw/irq.rs |  1 -
- drivers/gpu/drm/tyr/wait.rs   |  1 -
- 4 files changed, 50 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/tyr/driver.rs |  70 ++++++++++++++++++++++++
+ drivers/gpu/drm/tyr/fw.rs     |   3 ++
+ drivers/gpu/drm/tyr/fw/irq.rs | 121 ++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 194 insertions(+)
 
 diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
-index da007aded92d..3225385cd511 100644
+index 246bc3cb8580..da007aded92d 100644
 --- a/drivers/gpu/drm/tyr/driver.rs
 +++ b/drivers/gpu/drm/tyr/driver.rs
-@@ -12,6 +12,7 @@
-         Core,
-         Device, //
+@@ -1,5 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0 or MIT
+ 
++use core::marker::PhantomPinned;
++
+ use kernel::{
+     clk::{
+         Clk,
+@@ -25,6 +27,13 @@
+         poll,
+         Io, //
      },
-+    devres,
-     devres::Devres,
-     dma::{
-         Device as DmaDevice,
-@@ -51,7 +52,10 @@
- 
- use crate::{
-     file::TyrDrmFileData,
--    fw::Firmware,
-+    fw::{
-+        irq::job_irq_init,
-+        Firmware, //
++    irq::{
++        Flags,
++        IrqReturn,
++        ThreadedHandler,
++        ThreadedIrqReturn,
++        ThreadedRegistration, //
 +    },
-     gem::BoData,
-     gpu,
-     gpu::GpuInfo,
-@@ -176,8 +180,20 @@ fn probe(
-             &gpu_info,
-         )?;
- 
-+        let job_irq = job_irq_init(
-+            pdev,
-+            iomem.clone(),
-+            firmware.fw_ready.clone(),
-+            firmware.ready_wait.clone(),
-+        )?;
-+        devres::register(pdev.as_ref(), job_irq, GFP_KERNEL)?;
+     new_mutex,
+     of,
+     platform,
+@@ -239,3 +248,64 @@ struct Regulators {
+     _mali: Regulator<regulator::Enabled>,
+     _sram: Regulator<regulator::Enabled>,
+ }
 +
-         firmware.boot()?;
- 
-+        firmware
-+            .wait_ready(1000)
-+            .inspect_err(|_| pr_err!("Timed out waiting for firmware to be ready.\n"))?;
++pub(crate) trait TyrIrqTrait: Sync {
++    fn read_status(&self, dev: &Device<Bound>) -> u32;
++    fn clear_mask(&self, dev: &Device<Bound>);
++    fn reenable_mask(&self, dev: &Device<Bound>);
++    fn read_raw_status(&self, dev: &Device<Bound>) -> u32;
++    fn clear_status(&self, dev: &Device<Bound>, status: u32);
++    fn mask(&self) -> u32;
++    fn handle(&self, status: u32);
++}
 +
-         let data = try_pin_init!(TyrDrmDeviceData {
-                 pdev: platform.clone(),
-                 fw: firmware,
++#[pin_data]
++pub(crate) struct TyrIrq<T: TyrIrqTrait> {
++    irq: T,
++    #[pin]
++    _pin: PhantomPinned,
++}
++
++impl<T: TyrIrqTrait + 'static> TyrIrq<T> {
++    pub(crate) fn request<'a>(
++        pdev: &'a platform::Device<Bound>,
++        name: &'static CStr,
++        irq: T,
++    ) -> Result<impl PinInit<ThreadedRegistration<Self>, Error> + 'a> {
++        let handler = try_pin_init!(Self {
++            irq,
++            _pin: PhantomPinned,
++        });
++
++        Ok(pdev.request_threaded_irq_by_name(Flags::SHARED, name, name, handler))
++    }
++}
++
++impl<T: TyrIrqTrait> ThreadedHandler for TyrIrq<T> {
++    fn handle(&self, dev: &Device<Bound>) -> ThreadedIrqReturn {
++        let masked_status = self.irq.read_status(dev);
++
++        if masked_status == 0 {
++            return ThreadedIrqReturn::None;
++        }
++        self.irq.clear_mask(dev);
++        ThreadedIrqReturn::WakeThread
++    }
++
++    fn handle_threaded(&self, dev: &Device<Bound>) -> IrqReturn {
++        let mut ret = IrqReturn::None;
++
++        loop {
++            let raw_status = self.irq.read_raw_status(dev) & self.irq.mask();
++            if raw_status == 0 {
++                break;
++            }
++            self.irq.handle(raw_status);
++            self.irq.clear_status(dev, raw_status);
++            ret = IrqReturn::Handled;
++        }
++
++        self.irq.reenable_mask(dev);
++        ret
++    }
++}
 diff --git a/drivers/gpu/drm/tyr/fw.rs b/drivers/gpu/drm/tyr/fw.rs
-index b5ccacf891a3..14815cdafac8 100644
+index cb2546350f0a..b5ccacf891a3 100644
 --- a/drivers/gpu/drm/tyr/fw.rs
 +++ b/drivers/gpu/drm/tyr/fw.rs
-@@ -13,6 +13,11 @@
- //! [`Firmware`]: crate::fw::Firmware
- //! [`Section`]: crate::fw::Section
+@@ -62,8 +62,11 @@
+     vm::Vm, //
+ };
  
++pub(crate) mod irq;
+ mod parser;
+ 
++const MAX_CSG: u32 = 16;
++
+ impl_flags!(
+     #[derive(Debug, Clone, Default, Copy, PartialEq, Eq)]
+     pub(super) struct SectionFlags(u32);
+diff --git a/drivers/gpu/drm/tyr/fw/irq.rs b/drivers/gpu/drm/tyr/fw/irq.rs
+new file mode 100644
+index 000000000000..0eff5a14f69e
+--- /dev/null
++++ b/drivers/gpu/drm/tyr/fw/irq.rs
+@@ -0,0 +1,121 @@
++// SPDX-License-Identifier: GPL-2.0 or MIT
++
++//! IRQ handling for the Job IRQ.
++//!
++//! The Job IRQ signals events from the MCU, including global interface acknowledgements.
++#![allow(dead_code)]
++
 +use core::sync::atomic::{
 +    AtomicBool,
 +    Ordering, //
 +};
 +
- use kernel::{
-     bits::genmask_u32,
-     devres::Devres,
-@@ -25,6 +30,7 @@
-         poll,
-         Io, //
-     },
-+    new_mutex,
-     platform,
-     prelude::*,
-     str::CString,
-@@ -52,6 +58,7 @@
-     },
-     gpu::GpuInfo,
-     mmu::Mmu,
-+    new_wait,
-     regs::gpu_control::{
-         McuControlMode,
-         McuStatus,
-@@ -59,13 +66,18 @@
-         MCU_CONTROL,
-         MCU_STATUS, //
-     },
--    vm::Vm, //
-+    vm::Vm,
-+    wait::{
-+        Wait,
-+        WaitResult, //
-+    }, //
- };
- 
- pub(crate) mod irq;
- mod parser;
- 
--const MAX_CSG: u32 = 16;
-+/// Maximum number of CSG interfaces supported by hardware.
-+const MAX_CSG: usize = 16;
- 
- impl_flags!(
-     #[derive(Debug, Clone, Default, Copy, PartialEq, Eq)]
-@@ -142,6 +154,12 @@ pub(crate) struct Firmware {
-     /// List of firmware sections.
-     #[expect(dead_code)]
-     sections: KVec<Section>,
++use kernel::{
++    c_str,
++    device::{
++        Bound,
++        Device, //
++    },
++    devres::Devres,
++    io::Io,
++    irq::ThreadedRegistration,
++    platform,
++    prelude::*,
++    sync::Arc, //
++};
 +
-+    /// A condvar representing a wait on a firmware event.
-+    pub(crate) ready_wait: Arc<Wait>,
++use crate::{
++    driver::{
++        IoMem,
++        TyrIrq,
++        TyrIrqTrait, //
++    },
++    regs::job_control::{
++        JOB_IRQ_CLEAR,
++        JOB_IRQ_MASK,
++        JOB_IRQ_RAWSTAT,
++        JOB_IRQ_STATUS, //
++    },
++    wait::Wait, //
++};
 +
-+    /// Latched to `true` by the IRQ handler when the firmware signals readiness via the GLB bit.
-+    pub(crate) fw_ready: Arc<AtomicBool>,
- }
- 
- impl Drop for Firmware {
-@@ -246,6 +264,8 @@ pub(crate) fn new(
-                 iomem,
-                 vm,
-                 sections,
-+                ready_wait: new_wait!()?,
-+                fw_ready: Arc::new(AtomicBool::new(false), GFP_KERNEL)?,
-             },
-             GFP_KERNEL,
-         )?;
-@@ -272,4 +292,15 @@ pub(crate) fn boot(&self) -> Result {
-         }
-         Ok(())
-     }
++const CSG_IRQ_MASK: u32 = (1u32 << super::MAX_CSG) - 1;
 +
-+    /// Waits until the firmware signals readiness via the GLB IRQ bit.
-+    pub(crate) fn wait_ready(&self, timeout_ms: u32) -> Result {
-+        self.ready_wait.wait_interruptible_timeout(timeout_ms, || {
-+            if self.fw_ready.load(Ordering::Acquire) {
-+                Ok(WaitResult::Done)
-+            } else {
-+                Ok(WaitResult::Retry)
-+            }
-+        })
++pub(crate) struct JobIrq {
++    iomem: Arc<Devres<IoMem>>,
++    fw_ready: Arc<AtomicBool>,
++    ready_wait: Arc<Wait>,
++}
++
++pub(crate) fn job_irq_init<'a>(
++    pdev: &'a platform::Device<Bound>,
++    iomem: Arc<Devres<IoMem>>,
++    fw_ready: Arc<AtomicBool>,
++    ready_wait: Arc<Wait>,
++) -> Result<impl PinInit<ThreadedRegistration<TyrIrq<JobIrq>>, Error> + 'a> {
++    let io = iomem.access(pdev.as_ref())?;
++    io.write_reg(
++        JOB_IRQ_MASK::zeroed()
++            .with_const_csg::<CSG_IRQ_MASK>()
++            .with_glb(true),
++    );
++    let job_irq = JobIrq {
++        iomem: iomem.clone(),
++        fw_ready,
++        ready_wait,
++    };
++
++    TyrIrq::request(pdev, c_str!("job"), job_irq)
++}
++
++impl TyrIrqTrait for JobIrq {
++    fn read_status(&self, dev: &Device<Bound>) -> u32 {
++        match self.iomem.access(dev) {
++            Ok(io) => io.read(JOB_IRQ_STATUS).into_raw(),
++            Err(_) => 0,
++        }
 +    }
- }
-diff --git a/drivers/gpu/drm/tyr/fw/irq.rs b/drivers/gpu/drm/tyr/fw/irq.rs
-index 0eff5a14f69e..0f371000679c 100644
---- a/drivers/gpu/drm/tyr/fw/irq.rs
-+++ b/drivers/gpu/drm/tyr/fw/irq.rs
-@@ -3,7 +3,6 @@
- //! IRQ handling for the Job IRQ.
- //!
- //! The Job IRQ signals events from the MCU, including global interface acknowledgements.
--#![allow(dead_code)]
- 
- use core::sync::atomic::{
-     AtomicBool,
-diff --git a/drivers/gpu/drm/tyr/wait.rs b/drivers/gpu/drm/tyr/wait.rs
-index 2a4d691c443c..1db4c1827fd7 100644
---- a/drivers/gpu/drm/tyr/wait.rs
-+++ b/drivers/gpu/drm/tyr/wait.rs
-@@ -1,7 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0 or MIT
- 
- //! Code to wait on GPU events.
--#![allow(dead_code)]
- 
- use kernel::{
-     new_condvar,
++
++    fn clear_mask(&self, dev: &Device<Bound>) {
++        if let Ok(io) = self.iomem.access(dev) {
++            io.write_reg(JOB_IRQ_MASK::zeroed());
++        }
++    }
++
++    fn reenable_mask(&self, dev: &Device<Bound>) {
++        if let Ok(io) = self.iomem.access(dev) {
++            io.write_reg(
++                JOB_IRQ_MASK::zeroed()
++                    .with_const_csg::<CSG_IRQ_MASK>()
++                    .with_glb(true),
++            );
++        }
++    }
++
++    fn read_raw_status(&self, dev: &Device<Bound>) -> u32 {
++        match self.iomem.access(dev) {
++            Ok(io) => io.read(JOB_IRQ_RAWSTAT).into_raw(),
++            Err(_) => 0,
++        }
++    }
++
++    fn clear_status(&self, dev: &Device<Bound>, status: u32) {
++        if let Ok(io) = self.iomem.access(dev) {
++            io.write_reg(JOB_IRQ_CLEAR::from_raw(status));
++        }
++    }
++
++    fn mask(&self) -> u32 {
++        JOB_IRQ_MASK::zeroed()
++            .with_const_csg::<CSG_IRQ_MASK>()
++            .with_glb(true)
++            .into_raw()
++    }
++
++    fn handle(&self, status: u32) {
++        if JOB_IRQ_RAWSTAT::from_raw(status).glb() {
++            self.fw_ready.store(true, Ordering::Release);
++            self.ready_wait.notify_all();
++        }
++    }
++}
 
 -- 
 2.53.0
