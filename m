@@ -4,95 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACD36FED3C9
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 13:08:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E143DFED3C0
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 13:13:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1119710F58D;
-	Fri, 24 Apr 2026 13:08:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50FA510F590;
+	Fri, 24 Apr 2026 13:13:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="bss6v6+m";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="FSXGjo2Z";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="lHjA0DCJ";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="FSXGjo2Z";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="lHjA0DCJ";
 	dkim-atps=neutral
-Received: from mail-dl1-f100.google.com (mail-dl1-f100.google.com
- [74.125.82.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9969610F58D
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 13:08:39 +0000 (UTC)
-Received: by mail-dl1-f100.google.com with SMTP id
- a92af1059eb24-12c726f46baso9732850c88.1
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 06:08:39 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777036119; x=1777640919;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=04PoJGYYbIVeybVOTimRunrvJNsyFgk10x++FEl8Po8=;
- b=szb/5aVyjNKZwR09CiB9lAc5gXaDhF9bqJZh33bmUm2V9xJxIO70ZfCjroIL+JlsYY
- dDJ5ivIs7TXKGgaxTqadiaTsNIfw1YKH57C8Oh6Wquxh9FD1CNPQ9dHtRzSp0PtU3kSz
- XjlSNIYJCjJwkCkZSWPP8VDk/UpFXS+O1A+NVCkr18Xyn0L+mGuwvglSnYBWxP4/0TdS
- LOFlNpEovAzmBAF21XsKsDmG/LYJZo8HWSf9XnIVVCimoLN/tgITvmxq6kLBd+kzgyoo
- oLIIHu0bcn77Nqe2wkYC7ABze0uMRvjz5zpsCo4zXkryrUrUtyiO1wvWXKcJIJwPyAjb
- h1SQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9AG7hVtJr1SrwNzZ4rRpEwW4MCNKuvKOwHMhEvp7eUZlkV26j4ktL4KBhBk20bAEBeUp3cxfVxXTQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzvUJFbnxUHVIyoUvR/J7KQymtAJc6RCX9nC8ogxw9Q+FhnkC2U
- xCSx8bSol0WxOeKAM0yOQ/o5ZlB+ffKrQlMZvSqkyIq3EqIkfRESHx5fhhxMhzg/KUy6ZmWLz1R
- i6+CbRFRR/djQvPJ1LRQD3hO+1Q/Y2iYGWqUjKGNVrW6QMuipbIyHMOdsGPQrBhLFHuQi0Pp1RI
- 0yjJRUG/1vYjKMACJ1jyUuGbn9BMBOt5JeYqFZDeUXwTh50aqR/IkIQxL9sgjCJZXftno9uhyCf
- 9BHgk1z07GOF9ZfKGjN
-X-Gm-Gg: AeBDieuE7F+yBSxmVZhoeyT21n8FoiAQo4xPUGjioVlOB6Ondz1mz9b+hfu/iOv3oBG
- 9clJo/6CxBw0+hbEixw9rtDQSSlIIwaf5Fn+QUQCVZdAhm2w/jVSWjYqRTRlJUdMCxjUzWJi7uY
- 683nKlec2K7Z/7h305Q8AQa67+0UxdsEEByVCgm4UEgLHPv/QckykrTDMItbpaZ9aHJDv37LKrT
- cGjXw/3R8jDGhazboXkLPao9qeTFhTPcfVyvCL7oVpCFabvpbBUn8alnnENwIpLgE+Jki583w1s
- MbMyzvpmBN1GOTsjjFN5EcpXR3GcZSOKTQ5LFLH1OPi9xe1NFPUw1NgAfh9eAzGNW7a7+jjvCAa
- 1HaPeJWzMmc+dAgN6BrsHxWRx3PvRNmFNKvhqi3IL99Ywbh7bQz0km9+PZCOJ9ZmDn4o7+mhB6A
- FuSz2UnLNT6UaFRnmWpmHbG4rPUVZpT8uTfte0LPzrPmVBCS63tCYjqc/8WuhU0FdA
-X-Received: by 2002:a05:7022:ec13:b0:12a:6a64:81ee with SMTP id
- a92af1059eb24-12c73f64465mr15776785c88.3.1777036118412; 
- Fri, 24 Apr 2026 06:08:38 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-16.dlp.protect.broadcom.com. [144.49.247.16])
- by smtp-relay.gmail.com with ESMTPS id
- a92af1059eb24-12db53641a4sm949310c88.4.2026.04.24.06.08.37
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 24 Apr 2026 06:08:38 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-wr1-f70.google.com with SMTP id
- ffacd0b85a97d-43d7757463eso5115783f8f.0
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 06:08:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1777036116; x=1777640916;
- darn=lists.freedesktop.org; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=04PoJGYYbIVeybVOTimRunrvJNsyFgk10x++FEl8Po8=;
- b=bss6v6+m2CXfm5O33oDC+eQ8E8UfcLobnhZfba+ENQbdqohOhQrhSAhfUhg49PkKwP
- Wk5+EZ5VHCqlsC6w1SevFHUwykDmEbhAcd/tKBxAdXycUdOcaRZFVo0m/oJ8eCR0izJR
- jvcsnWdlnX/GKS9XJhN3ob+K6Q07fqFvwkYvk=
-X-Forwarded-Encrypted: i=1;
- AFNElJ++OUzg7f69ycA90fhjmRIMFP+SGMC6I5qDLoaDoe2wbk1WxDK0jNliL79lNXS0zcUDxA4PP57Ng68=@lists.freedesktop.org
-X-Received: by 2002:a05:6000:44e8:b0:441:1cfb:2024 with SMTP id
- ffacd0b85a97d-4411cfb20admr17830463f8f.26.1777036116132; 
- Fri, 24 Apr 2026 06:08:36 -0700 (PDT)
-X-Received: by 2002:a05:6000:44e8:b0:441:1cfb:2024 with SMTP id
- ffacd0b85a97d-4411cfb20admr17830417f8f.26.1777036115611; Fri, 24 Apr 2026
- 06:08:35 -0700 (PDT)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B9CF10F590
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 13:13:50 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 0ED876A843;
+ Fri, 24 Apr 2026 13:13:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1777036429; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=sOevJRgU6I5lgeXBVvYKSafiysbbHPTPkMS9uwoWmrI=;
+ b=FSXGjo2Zw2GX0Yuei5nfUdzG9N7XePURW8Xc+9MfIdbzt3kA3W/ZhLYAVTTsAPSkI7ij62
+ HHpqiwQK+c91ktBddL0zAUQK74nQVE5xXavlYR6Ww86EsQVtI667DFbmnDqwLR1tgUAwyc
+ 0enmy1moascPVwePrRUblQx9oWHHbz4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1777036429;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=sOevJRgU6I5lgeXBVvYKSafiysbbHPTPkMS9uwoWmrI=;
+ b=lHjA0DCJEAyX2R9H1EvV/vqUIPTA0cZSBuW2X30HbnLW7LG8hGGg+eIHfYwxo9QheXSUaI
+ zIxlOFvk/9YgV9BA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1777036429; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=sOevJRgU6I5lgeXBVvYKSafiysbbHPTPkMS9uwoWmrI=;
+ b=FSXGjo2Zw2GX0Yuei5nfUdzG9N7XePURW8Xc+9MfIdbzt3kA3W/ZhLYAVTTsAPSkI7ij62
+ HHpqiwQK+c91ktBddL0zAUQK74nQVE5xXavlYR6Ww86EsQVtI667DFbmnDqwLR1tgUAwyc
+ 0enmy1moascPVwePrRUblQx9oWHHbz4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1777036429;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=sOevJRgU6I5lgeXBVvYKSafiysbbHPTPkMS9uwoWmrI=;
+ b=lHjA0DCJEAyX2R9H1EvV/vqUIPTA0cZSBuW2X30HbnLW7LG8hGGg+eIHfYwxo9QheXSUaI
+ zIxlOFvk/9YgV9BA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C4D5E593A4;
+ Fri, 24 Apr 2026 13:13:48 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id pezgLoxs62nRJgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 24 Apr 2026 13:13:48 +0000
+Message-ID: <5839b215-022a-4aa1-b99c-1de04cc7a684@suse.de>
+Date: Fri, 24 Apr 2026 15:13:48 +0200
 MIME-Version: 1.0
-References: <CAGp+u1Y42cwE0RHhtoMEneCRTuM4k9aqKtzvXOVc9-_px49N0A@mail.gmail.com>
-In-Reply-To: <CAGp+u1Y42cwE0RHhtoMEneCRTuM4k9aqKtzvXOVc9-_px49N0A@mail.gmail.com>
-From: Ian Forbes <ian.forbes@broadcom.com>
-Date: Fri, 24 Apr 2026 08:08:22 -0500
-X-Gm-Features: AQROBzAw9ODul4JEGouNRJRaK4WaqXPIckIT4bL36zzOpw2upJZSTmbY4yIxr9o
-Message-ID: <CAO6MGtgE+MxeOv5xDhRoKh75tJgfvfaxoevMHJ_-AJZUc5vQyQ@mail.gmail.com>
-Subject: Re: [bug report] Potential deadlock bug in
- 'drivers/gpu/drm/vmwgfx/vmwgfx_irq.c', 
- between 'vmw_thread_fn()' and 'vmw_cmdbuf_header_free()'
-To: Ginger <ginger.jzllee@gmail.com>
-Cc: zack.rusin@broadcom.com, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature";
- micalg=sha-256; boundary="0000000000007b373d0650347629"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] drm/udl: Increase GET_URB_TIMEOUT
+To: Shixiong Ou <oushixiong1025@163.com>, Dave Airlie <airlied@redhat.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Shixiong Ou <oushixiong@kylinos.cn>
+References: <20260424124427.657-1-oushixiong1025@163.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260424124427.657-1-oushixiong1025@163.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FREEMAIL_TO(0.00)[163.com,redhat.com];
+ FREEMAIL_ENVRCPT(0.00)[163.com,gmail.com]; ARC_NA(0.00)[];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; MIME_TRACE(0.00)[0:+];
+ FREEMAIL_CC(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org,kylinos.cn];
+ RCVD_TLS_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ RCPT_COUNT_SEVEN(0.00)[9]; MID_RHS_MATCH_FROM(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:url,
+ suse.de:mid, suse.de:email]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,194 +141,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---0000000000007b373d0650347629
-Content-Type: multipart/alternative; boundary="0000000000006cc6a80650347608"
 
---0000000000006cc6a80650347608
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-T0 is a threaded IRQ handler so it should not run in an IRQ context.
-
-On Fri, Apr 24, 2026 at 2:45=E2=80=AFAM Ginger <ginger.jzllee@gmail.com> wr=
-ote:
-
-> Dear Linux kernel maintainers,
+Am 24.04.26 um 14:44 schrieb Shixiong Ou:
+> From: Shixiong Ou <oushixiong@kylinos.cn>
 >
-> My research-based static analyzer found a potential deadlock bug
-> within the 'drivers/gpu/drm/vmwgfxl' subsystem, more specifically, in
-> 'drivers/gpu/drm/vmwgfx/vmwgfx_irq.c'.
-> This deadlock potentially occurs with the involvement of hard irq.
+> [WHY]
+> A situation has occurred where udl_handle_damage() executed successfully
+> and the kernel log appears normal, but the display fails to show any output.
+> This is because the call to udl_get_urb() in udl_crtc_helper_atomic_enable()
+> failed without generating any error message.
 >
-> Kernel version: long-term kernel v6.18.9
+> [HOW]
+> 1. Increase timeout of getting urb.
+> 2. Add error messages when calling udl_get_urb() failed in
+> udl_crtc_helper_atomic_enable().
 >
-> Potential concurrent triggering executions:
-> T0:
-> vmw_thread_fn[t1]
->        --> vmw_cmdbuf_irqthread
->               --> spin_lock(&man->lock); [t2]
->
-> T1:
-> vmw_cmdbuf_header_free
->     --> spin_lock(&man->lock) [t0]
->
-> T1 does not disable hardware irqs in acquiring the spin lock. If T0
-> (i.e., the hard irq context) occurs after T1 acquires the lock and
-> both happen within the same CPU, then T0 will not proceed because it
-> cannot hold the spin lock that has already been possessed by T1, yet
-> T1 cannot proceed because the hard irq runs disables preempts.
->
-> Thank you for your time and consideration.
->
-> Sincerely,
-> Ginger
->
+> Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
 
---0000000000006cc6a80650347608
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Thanks
 
-<div dir=3D"ltr"><div class=3D"gmail_default" style=3D"font-family:arial,sa=
-ns-serif">T0 is a threaded IRQ handler so it should not run in an IRQ conte=
-xt.</div></div><br><div class=3D"gmail_quote gmail_quote_container"><div di=
-r=3D"ltr" class=3D"gmail_attr">On Fri, Apr 24, 2026 at 2:45=E2=80=AFAM Ging=
-er &lt;<a href=3D"mailto:ginger.jzllee@gmail.com">ginger.jzllee@gmail.com</=
-a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0p=
-x 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">De=
-ar Linux kernel maintainers,<br>
-<br>
-My research-based static analyzer found a potential deadlock bug<br>
-within the &#39;drivers/gpu/drm/vmwgfxl&#39; subsystem, more specifically, =
-in<br>
-&#39;drivers/gpu/drm/vmwgfx/vmwgfx_irq.c&#39;.<br>
-This deadlock potentially occurs with the involvement of hard irq.<br>
-<br>
-Kernel version: long-term kernel v6.18.9<br>
-<br>
-Potential concurrent triggering executions:<br>
-T0:<br>
-vmw_thread_fn[t1]<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0--&gt; vmw_cmdbuf_irqthread<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 --&gt; spin_lock(&amp;man-=
-&gt;lock); [t2]<br>
-<br>
-T1:<br>
-vmw_cmdbuf_header_free<br>
-=C2=A0 =C2=A0 --&gt; spin_lock(&amp;man-&gt;lock) [t0]<br>
-<br>
-T1 does not disable hardware irqs in acquiring the spin lock. If T0<br>
-(i.e., the hard irq context) occurs after T1 acquires the lock and<br>
-both happen within the same CPU, then T0 will not proceed because it<br>
-cannot hold the spin lock that has already been possessed by T1, yet<br>
-T1 cannot proceed because the hard irq runs disables preempts.<br>
-<br>
-Thank you for your time and consideration.<br>
-<br>
-Sincerely,<br>
-Ginger<br>
-</blockquote></div>
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 
---0000000000006cc6a80650347608--
+Fixes: 5320918b9a87 ("drm/udl: initial UDL driver (v4)")
+Cc: <stable@vger.kernel.org> # v3.4+
 
---0000000000007b373d0650347629
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
 
-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
-V0fYJUiKJMCwvDmndOil8EtMA8j2T6taUZoQINiKQ0oDWgY6eYVv7AdPVIeOOs3noCyUL8AyA7Bl
-yoOPBB2/gk8VGcolEKgAAj+3hPbBF/d19x1bZzU3wABizBomVwykx5ms1nVXDbQajz8jqYECKWh9
-3OMo7BuC3TAClu5mLr2zs0Ccpp6NRRkjTF8WtCJ+jSnjFJGLAgMBAAGjggHYMIIB1DAOBgNVHQ8B
-Af8EBAMCBaAwgZMGCCsGAQUFBwEBBIGGMIGDMEYGCCsGAQUFBzAChjpodHRwOi8vc2VjdXJlLmds
-b2JhbHNpZ24uY29tL2NhY2VydC9nc2djY3I2c21pbWVjYTIwMjMuY3J0MDkGCCsGAQUFBzABhi1o
-dHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMwZQYDVR0gBF4wXDAJ
-BgdngQwBBQMBMAsGCSsGAQQBoDIBKDBCBgorBgEEAaAyCgMCMDQwMgYIKwYBBQUHAgEWJmh0dHBz
-Oi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAkGA1UdEwQCMAAwQQYDVR0fBDowODA2
-oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCIG
-A1UdEQQbMBmBF2lhbi5mb3JiZXNAYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
-A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBSvJWzgGK7aSByS+CQVBVfM
-Xgm5azANBgkqhkiG9w0BAQsFAAOCAgEAfrWiLF3zrYq7D+KPNRaAP70FbxHeaiUfn27Hbu37Eefz
-xeJTcFZH04IEtXqpM3NWYZm4A/dFn/VQPbLCRaeXzpT2TESVH6EFY7BEF0rnSSlUbFyi000MnSH3
-h5m+MoyE+PzLqfzLBZS+EU/haCpPy6Nqhs3fPKG3w5VTnUPsAxXK7rSmkIDVNsvwRttuMq9KHJzH
-Bx51dP/z3mel4OuMjgrwHk5uNY1Sn1MZAUQztVUsWguyfoKcmhxXbBccR5DdEfBgDEbq8bicPQ3J
-kqEy1QZXJfHlJuAJIiEw7odGctwqLeGCU6cBLhnsg54ngjO3uYC6tIySul55MRxFKE8HIwIrx+D5
-2SwhDeVLZ8sTK40uPzW5xg5laOWVCvmy2b+cHCGzarUeIlYdtw0ejdH9Hbkm0G7IrDvjkhPa64gR
-6Q+m5CGRDk+8iWhieH6WFE4HL++BpZhoi+YsOkGU3DK0dA+pxQnXNcNw1s0eNbSUVwQzmlC4LqiK
-Gj5JV81HTPLhoAya57a9i28Fp5qHZiFnCq4HMvwiwY7IWe+UwUuueU199aTK80xNiS553vHc6FpI
-/vxGy+LveJqEtodfKqQKwDOVu//c1Lz3uergJHqFYTMykk5U95J3FG5q/7Mqe4RF6E9OgtuAJidS
-6Ca5anjLQ/qzIfTjoXX7TJSjPztehRQxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
-VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
-QSAyMDIzAgx2/5+PPF/QoW30N7swDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIKyo
-fY/1quWrvt4291B6r5upyscuit2Fzw3SO/TZDdDcMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
-HAYJKoZIhvcNAQkFMQ8XDTI2MDQyNDEzMDgzNlowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
-ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
-YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAFc3h2HplTd4r6+OaWtaYcXXDL0YPHmcGjmebd9T
-xB0LYC0UN3TqVkV/tPLWn4k8J/wZ53p6OyGP3+uYRYqQnCLBXNqQML8LbVeXjZ/JjCty7i+QwYAG
-MpFwaQDeW5Ou3yLA1ROohhGxIgSlBMcaI6IbWpnNyXtupBm7Hy92A1wGZItbJIxS8kcBMp2cx/P0
-mwpLpWZi2v0Uwm+Ex/8IsVhBFlSW4cRORRwha8UL/gOVKV8wjSHsVkmhCiL+pa6tvvQWI7UOUMNV
-XKwyRtXui1dkdie3+E1Pmqrj9ckkxmU2aMctRmNj0eHGDs2v7KPs1ytZ9mkjsqkanWqnUM5gr+E=
---0000000000007b373d0650347629--
+> ---
+> v3: Remove GET_URB_TIMEOUT macro and pass 2 * HZ directly.
+>
+>   drivers/gpu/drm/udl/udl_main.c    | 3 +--
+>   drivers/gpu/drm/udl/udl_modeset.c | 5 ++++-
+>   2 files changed, 5 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/udl/udl_main.c b/drivers/gpu/drm/udl/udl_main.c
+> index bc58991a6f14..b4c23dbcf3e3 100644
+> --- a/drivers/gpu/drm/udl/udl_main.c
+> +++ b/drivers/gpu/drm/udl/udl_main.c
+> @@ -285,13 +285,12 @@ static struct urb *udl_get_urb_locked(struct udl_device *udl, long timeout)
+>   	return unode->urb;
+>   }
+>   
+> -#define GET_URB_TIMEOUT	HZ
+>   struct urb *udl_get_urb(struct udl_device *udl)
+>   {
+>   	struct urb *urb;
+>   
+>   	spin_lock_irq(&udl->urbs.lock);
+> -	urb = udl_get_urb_locked(udl, GET_URB_TIMEOUT);
+> +	urb = udl_get_urb_locked(udl, HZ * 2);
+>   	spin_unlock_irq(&udl->urbs.lock);
+>   	return urb;
+>   }
+> diff --git a/drivers/gpu/drm/udl/udl_modeset.c b/drivers/gpu/drm/udl/udl_modeset.c
+> index 231e829bd709..1ca073a4ecb2 100644
+> --- a/drivers/gpu/drm/udl/udl_modeset.c
+> +++ b/drivers/gpu/drm/udl/udl_modeset.c
+> @@ -21,6 +21,7 @@
+>   #include <drm/drm_gem_framebuffer_helper.h>
+>   #include <drm/drm_gem_shmem_helper.h>
+>   #include <drm/drm_modeset_helper_vtables.h>
+> +#include <drm/drm_print.h>
+>   #include <drm/drm_probe_helper.h>
+>   #include <drm/drm_vblank.h>
+>   
+> @@ -342,8 +343,10 @@ static void udl_crtc_helper_atomic_enable(struct drm_crtc *crtc, struct drm_atom
+>   		return;
+>   
+>   	urb = udl_get_urb(udl);
+> -	if (!urb)
+> +	if (!urb) {
+> +		drm_err_ratelimited(dev, "get urb failed when enabling crtc\n");
+>   		goto out;
+> +	}
+>   
+>   	buf = (char *)urb->transfer_buffer;
+>   	buf = udl_vidreg_lock(buf);
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
+
