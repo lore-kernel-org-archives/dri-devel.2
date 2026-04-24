@@ -4,165 +4,153 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DCA0FE5209
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 11:38:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BDFEFE520D
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 11:45:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FBF410F3BD;
-	Fri, 24 Apr 2026 11:38:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C903410E3CA;
+	Fri, 24 Apr 2026 11:45:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KJCfYeJP";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="KEErPifd";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LQP3oDLa";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F315F10E3CA;
- Fri, 24 Apr 2026 11:37:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777030680; x=1808566680;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=SeynWYHKvUP0+HD7XuqSvDiJ9gXLOePoNoEvdP5jSSE=;
- b=KJCfYeJPesp2cPpf/sXirOwqaW0+YeinQDy17+4xCSX8Er3TuN1d1KBS
- SegX9XAS0rqcNqdzuVO5TU4gBVjx8ymy45G36vJKWSJPnHTUL5Ac8hofw
- RK+e8/fTKXbYLiFgqWhhuNtQMaRggGAtuOhZuPqudN6VXi87b0d3xZjit
- iSX4ec8M1idVIFmz8TBM875q58aXddE740d8HD65p7CItkElhzZ0mTum8
- SAPv+aReK9129f5f1cDC/yjEAirXt5MLJr0ltLrMTiN/zbQy4FfCy3D6n
- 91wt7NavKMjh2bD1Gnhv+E364LcI4ag1UqVRqOz2JHOH0wk4wJZMh7YWz w==;
-X-CSE-ConnectionGUID: sdKBw1nETU+Cv+ahbeKIaQ==
-X-CSE-MsgGUID: xL4NE04ZR3qI0Otq148gMw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11765"; a="77919309"
-X-IronPort-AV: E=Sophos;i="6.23,196,1770624000"; d="scan'208";a="77919309"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Apr 2026 04:37:59 -0700
-X-CSE-ConnectionGUID: BQOX0sjmT2+dPojoJbJ0BQ==
-X-CSE-MsgGUID: XimOi04/RY+Dsp6r/ziccw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,196,1770624000"; d="scan'208";a="228366951"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
- by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Apr 2026 04:37:58 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Fri, 24 Apr 2026 04:37:57 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Fri, 24 Apr 2026 04:37:57 -0700
-Received: from BN1PR04CU002.outbound.protection.outlook.com (52.101.56.1) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Fri, 24 Apr 2026 04:37:56 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HPB10T45Ha4FUE35rhDqzjiUowreCGFjZqOPfmPMbfxGft7E9p6KKKHjSL1+og3/3jZzT2NtTm4RajA18VuWVFpo3df2AeXH/OzPQInlODR3w8UlvtFtUpgbqcjLeWfhi+MB/HmzmQZ3b5CoQuIJ7vLywn1zihUr85siFESQp4nfAdAJbOdRFyXc45rkfsN3fLG48Bj0V/WwnySzJSypAQi4cvtwJkRXxdBlHfkXWrTRwLS7Gi5c6XIS3VqEuiGCwuaYi0bALvy1XsSsqoSNAMKGEF9gUnDvcIw4gVEITa0USn3iZ2X4JZ/J3WN2kb3j8+gT0gNPA+Zq3NDggy/PhA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5e3aXuDPiaiTEvlztPXldvDXOMvPVF2daH+JyvgFG18=;
- b=lbF8xCPO4UBzu2mUVo0jTE2C0lCr/0vnbIQFRW3t/k6vPohTDE+tz1U2FAJ9+TK2Ra1o2Ko93MBuofGNdVdTxjXdtZfQ3x1mBWy0bvACDxAv6X6yBQKH6CKxcqCNSyxqg3pyOb7i7MXJsP0UQUiDd76U1g2qs67+84Ud0bTRSj4TfzQJKJ+VRVIzwlm2BTMyo9DgMgsFKozvUigYWPtjwVOTv4X6lJsZZoQ9kQ3IbxHH8kP+jw4ddK+GeCW2k/8+xe1hGNpqdedndYtoh0/buRetTFH89MpakrrCG9rc1n3znH+Z0ycaFdnszQ2I5Iipu/nUwOgl8WcIlb/5z9OyNQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from BN9PR11MB5290.namprd11.prod.outlook.com (2603:10b6:408:137::5)
- by DM4PR11MB8158.namprd11.prod.outlook.com (2603:10b6:8:18b::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.15; Fri, 24 Apr
- 2026 11:37:53 +0000
-Received: from BN9PR11MB5290.namprd11.prod.outlook.com
- ([fe80::e3c3:1a6a:aeec:f3ed]) by BN9PR11MB5290.namprd11.prod.outlook.com
- ([fe80::e3c3:1a6a:aeec:f3ed%6]) with mapi id 15.20.9846.021; Fri, 24 Apr 2026
- 11:37:53 +0000
-From: "Kumar, Naveen1" <naveen1.kumar@intel.com>
-To: =?iso-8859-1?Q?Michel_D=E4nzer?= <michel.daenzer@mailbox.org>, "Murthy,
- Arun R" <arun.r.murthy@intel.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
- "Vivi, Rodrigo" <rodrigo.vivi@intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
- "xaver.hugl@kde.org" <xaver.hugl@kde.org>, "harry.wentland@amd.com"
- <harry.wentland@amd.com>, "Shankar, Uma" <uma.shankar@intel.com>,
- "louis.chauvet@bootlin.com" <louis.chauvet@bootlin.com>, "Yella, Ramya
- Krishna" <ramya.krishna.yella@intel.com>
-CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>, "Kandpal,
- Suraj" <suraj.kandpal@intel.com>
-Subject: RE: [PATCH v11 0/7] User readable error codes on atomic_ioctl failure
-Thread-Topic: [PATCH v11 0/7] User readable error codes on atomic_ioctl failure
-Thread-Index: AQHcwO2d20A/eYq2a0e6os8r0aiGTbXnu1OQgAGbm4CABNiEcA==
-Date: Fri, 24 Apr 2026 11:37:52 +0000
-Message-ID: <BN9PR11MB52901206A25AC016817AF1F7A72B2@BN9PR11MB5290.namprd11.prod.outlook.com>
-References: <20260331-atomic-v11-0-6a1df7ec5af8@intel.com>
- <BN9PR11MB529039EC705FBA4E5E65C64FA72F2@BN9PR11MB5290.namprd11.prod.outlook.com>
- <6f5f44d3-2490-4d19-b6aa-31056410c22a@mailbox.org>
-In-Reply-To: <6f5f44d3-2490-4d19-b6aa-31056410c22a@mailbox.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR11MB5290:EE_|DM4PR11MB8158:EE_
-x-ms-office365-filtering-correlation-id: 4170efaa-2599-4964-b6fa-08dea1f5ebe8
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|10070799003|7416014|376014|921020|38070700021|56012099003|18002099003|22082099003;
-x-microsoft-antispam-message-info: Vb17JKpdl0pGl9naS0JmV+549hMvzVTclWt7f2q66vZe2pqgtX/sE7zXFwjwu39d7xay0rJ/fj2IyfZAWWPUiUxmfiti9Ft+oWadv/evn9GqufhkSStvvJB0t58nWwKsbHKhhS27e4hGoe8AolN5KNOX2Ct9iXfpdPB1iUfM7j14C7/qAZqXoOFFvqfenBltwRi2Dvc/8E+HtM4f5TVKOVphvUG7LwzkRFWoEmvXkXYOBkhA4X2AvU4FkBnuilSj8nOR4ZR4HX8+T4YA+/xdsVb5MOv0tbubstqWOSR55zB2V/VP8tVQtPxIUbM7vq1L1Z/l0JTFT0s3CaJpYUdaRyPZc2EaCoFKZ0VMP17KWNXDvATJEqK66POg/MBuFcmtzMPjAg3lbFy1UJBYhL0HkwUWKeqBLpdhZZbMfATRGg/JIwasy6hZ2JvggCWjGEXdq/d2o+eVzS755lFNqahQRuWhxt2qiFZO7ANJTOL+fle2mVkdRVGA1IziORW2TczvLT4eqKsnghf6vY5lt0/T6+soGBe9tVnSyqJ/Cc5imCx53rRKZ2QaTMObq0ylwcCF18hfFTemB0VjDLEPa8FSbEUWGW3RuahMMFwPk96lNoOMZzr4GFwIi3XZb63nRoimTKyzR9OV1zU78schdYQrWUS06RoF0zvrBxfVbhUkn3oYbPE39wmTM0Mgem0AmNMKganMso9A7FXpaypjYll00cD+UY28yVsHB5IijMieOSMIblZtUTULufq5M13YILDm
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR11MB5290.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(10070799003)(7416014)(376014)(921020)(38070700021)(56012099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 2
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?iFBNHNhBHbO4W2v3saLjI8fak2d14R/kv0ROxw/FYMdP0CIzf7LjpYya9q?=
- =?iso-8859-1?Q?AJUdcfvBqjhA0tlweg7wS8xha3/BTWITnOD3D2/OpBKx8gggBQVfqoCQGk?=
- =?iso-8859-1?Q?p/zqzSGoBmlQ0NP/FnjNIFeOAh9xZfRg4NOZpZjs5yzKblg2mbo/ZN739g?=
- =?iso-8859-1?Q?HjG/S0CrhifKMjmGI5hBJ67MlAQ1UbL+kjsiEYccYiyBWBU5MhsksR6U0j?=
- =?iso-8859-1?Q?VLdoo5CdL7lzP7s7ffr8Z0rKuniLJRwE5Q8IxAp8aQO5YOFZx7x5V0By+s?=
- =?iso-8859-1?Q?4ELtFw7bZu5G2qnFMVSg4MapUC29VwUbZ0peKW8RTBnxS/UqmGRein8D3z?=
- =?iso-8859-1?Q?djiCiXyrJTKaNXd3FtF6DbRP88+K+Qi+WJfu88NqMLunvcVCixG6fmxQxz?=
- =?iso-8859-1?Q?KFdNi8uO3LxhC0Thr2FU+VhWvXPWQZ2Evh93ki1YntkUvcptQOx556YsLG?=
- =?iso-8859-1?Q?WDStnGw0A96Eyu+J4NGaKdq3CKxrchZnrAYaIiXdIFS/N97SftjPwNpJJ0?=
- =?iso-8859-1?Q?pyR1OA2e2/RU5TvtxbRNY8CTBLFexpyCQwN4cbwOJgFnY6tUpKX4+nKP4C?=
- =?iso-8859-1?Q?BFxP/EoRJkM/4mAuWXEsfNuLTc18KcrFIcLW2d6ArPnD51D/U3P6Ryhiq7?=
- =?iso-8859-1?Q?qLt+e9n3Z93mVMKXo3byFm8XNxcmyYFH/NBWvsIVdu7bkDJoQteLdeqgy5?=
- =?iso-8859-1?Q?Q81VSfvKAxt2p9azFvoGyT7bsEwHnQAIIl5Y8wkgoKgiFIhDn7W3ipj/g4?=
- =?iso-8859-1?Q?7nJkxvyeLDWCWrjmkUq8b4iBtaeGMGECw6LWmphguu71y1X99eo0exmxPP?=
- =?iso-8859-1?Q?NN2zfIelu+0R1awuozVqgIC9yA7w8tzBQaxalB8ePk5RdM+VHBuJYqGrzu?=
- =?iso-8859-1?Q?7JQIm7Kv7As9H5Ug3hoewwTeskj4QGEKbtUtdYXL8BN+ygUVOf3Biq3hK2?=
- =?iso-8859-1?Q?b6XnTd+QMQCj4eXGfVwSSofG3/EeeUSsMiYIq3J7HEFB+0EPkR/0/1ksxh?=
- =?iso-8859-1?Q?QePf0k22jzWoPUGwMNPcm1DV27eYQMVb1hHpmxc0aXQnNG2vzMOptnmMBu?=
- =?iso-8859-1?Q?5uopLegaloh4+qCweEWkM8y3e7u6i6DddhGjKkvvQ2UG6SEanTCwfPIsa7?=
- =?iso-8859-1?Q?kY72TxTA1CNSxfd8LLhOw431Xg8kkJlGeYZRtTh/D1ZK5ho8wAWZ7/nnbm?=
- =?iso-8859-1?Q?13BoR/+4YsNfMoyV4r84ZIu9waYGtovCWVxQLA6JV10JzPMDR60rEC/QEz?=
- =?iso-8859-1?Q?06lbCsy56WPBhN9OzCUqHtcdEQd6GqGLLk7SF/O/tAeIFVt7wyucylaWLZ?=
- =?iso-8859-1?Q?3h9R9xiP7UTbPOLZgMc68e2h+Yiiegtv7rOOxEFCVvAUtAjLaq7UQ/Psze?=
- =?iso-8859-1?Q?QeQskaPSnCiM+Wygf3QGdD38jBlSJcybXjaPWvlz/s2jVyk9a8hAAhnK/P?=
- =?iso-8859-1?Q?O53u5KaVwbaDZSjAzCiI+1l3rEBFqXb3cKv1WgAEEw3HvSvbryuNb9TxNn?=
- =?iso-8859-1?Q?syd/ICP4SbDp6YAKmF9EheeTyZUocTr8JEgd4jSaRoB6mBp+e8YAyUGOaG?=
- =?iso-8859-1?Q?n4y1K5q/r+q/BIBifov/nZTLnxIobIlZkVnnzQfN/LwRH4/dODiJnFYehM?=
- =?iso-8859-1?Q?AY8q/v0suUma/OKb5CIY68/3ypr6oAn0alJMFVhC7gWHVitcnBNskGKC3x?=
- =?iso-8859-1?Q?zFyy7hwQsifAehrVx7gAnbZ1YvMJ5zq1i7cM9HL2TOFKe9G+o3dxSrdM3j?=
- =?iso-8859-1?Q?TWrTV2MXk9l4+WIRcKaxjk/FijgZq0aLVmPwdyR8Yw5wYRCkT37brla+CO?=
- =?iso-8859-1?Q?eRAvIiPuEb/GQlYKucnC79u0o0tOuVXx57wL+SsR7QVEAKK+JBJSTAcA50?=
- =?iso-8859-1?Q?Iv?=
-x-ms-exchange-antispam-messagedata-1: U2I/RKhEA/owTQ==
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E29ED10E3CA
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 11:45:19 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 63O88H5o4012159
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 11:45:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ vKD+oIXo8r5i+72tQbUpEkekMjtbIYtq2yZlf7mfgso=; b=KEErPifdYn4zic/W
+ +0SI2Cxb09hK+xb2nh4J1gZerJ3aNlQnxYHaQlbgVa08VCXZ+4T54lQTHE8E487F
+ cCSzG0BcBokq8YT3neEZg7zNGhuQlxJR8iVdmo92VrP6mRait0WrN0DJmPMuFfaH
+ yjSA4GIed25xK5BkjbDiwWinSrGkrsqst/ZysXd0TZoXuXNBO0hKyZxC9t1JcGL/
+ OEQxmiKBTTihMWypvZa9l+Be22bVLesE2xCwtkcIokiB0+B+CY5Y2piY9RdblTSI
+ GGmX0WB879Um7NO/Q+CnSgas3JjafGv3s2uw0iEA27A59O2a5BNOU8pikUrxggCf
+ QzzUEA==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com
+ [209.85.215.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dqpq9v8uc-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 11:45:18 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id
+ 41be03b00d2f7-c79281bd14cso3086706a12.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 04:45:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1777031118; x=1777635918;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=vKD+oIXo8r5i+72tQbUpEkekMjtbIYtq2yZlf7mfgso=;
+ b=LQP3oDLaV9ATKOcGbzsIZEHb8KENfvx0v6W2qRkw/TpwAuoB9X6yBZyXGO/yao3zrW
+ vCezhx5S5TR1VzYVoVXTc05tNZZH4nVyC8OEjkMon7dY90sL3Ggs0xSesAe3Jdt22rOO
+ MpoAiCjE84sjfKqcxFPnLq3lYOeVUFOJvqZAQqA0eL2fePDBULN82UHVrIv6dhaJtYWq
+ ZqTfgEJdQiKcEKqhwQTXD38pEL9IvpG82VusnhjXPdnPKs4mR5RJSYGAZ5qbmS3B+cry
+ OL+92OsQxmqZgm76aBSPHSaT2Lhof71040yq8Zqbh7q2o2/Ovm9hVXMv8T/EW34O4Q3r
+ 3tSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777031118; x=1777635918;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=vKD+oIXo8r5i+72tQbUpEkekMjtbIYtq2yZlf7mfgso=;
+ b=Lv/mjnw8ig5VvMJSoAOOJPm/s0044Uxj4MG11nHei6Twe4y0KWN5lesiLaDxHGqJcI
+ fM29WOongk/zp1lA9E7y3rpUY+xXbzdhyaec79Az1OKp/Lz6lKRHLRLVG39erXohzNHD
+ DCTECQh+VvDUhRnSoKBcHZ9i+TQXGUhv97zBFNHjQowbL4aOSqxLRGSbqb3kGLjH724d
+ 3N77EbMDpM/zZDxaWkvuvMWaDGBiYCTTl7z9bFjTIIqMPCRMgFyJyZEqX/vUn8w4/2TC
+ N0mVnJbHK3e9C9bjJjUNMt8q6lAjXlrjUpilSmJQKWnQWDlt7S1COiZoL5UYHOGXzIa0
+ 3/zw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/uxAAJ2JHeb1wWMFT7IMFIzWwatFBcrTKfNKqO3LGoplUQNRSfklqlDf/xwDZLSvqbILKPJYKrYks=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxwCzRrWPuaT+0rIgUPrl4i6TTFLOj46mqG76WWd9prb0a4+86W
+ p7HbxglIzAr8wq49iitY1yituw+DpS8vGhgE2SuvQVEzMZJQaGes/qZxz8kqLREv+x0JyHIvCvt
+ blD9Tuu6NRjSGADONtI7pECi5jCBJuMWcEKBMS5ANZiBcDqlR+QdA3F6gntFg7qjTyaXas6I=
+X-Gm-Gg: AeBDiesjQtNG/nGrcbG1RNmLd9x87NyCMP2W7K5QsLnoysAWUZBlg4fZRsjUfVvmlGK
+ iEDSj7zfP8u/YJ3lxVIA5B3uFg5asfPPl0GcItXaxT9sbkvJJ84DXBF++tPGPJL98hw3tlRvMeZ
+ 0xaTu1JjXGIM2WKvqBIzLyKrurAu4DQsffFyQV5yUVufpu0HAV0m44oO4NCcx4mjodXf7DdL8h8
+ 6I0BBVWvLURQ1lubnzBx18V1D93RWuLVS/8Nc3LcNECC+9Jig0RIhxHI/fJqq7FwL6yeb/EBWKh
+ tNESPLGCkDKMNAFB7T7laSCa9xcziL9QoAzsiB5q5YyLzm3kVHRoFdcCjsrRO4H6spyYE/Q19Ep
+ DjFguHHBj1DhX1DNGNR7YBX2VaklQSSVBvRQhdX1iXkXQeYJ9QHSSXw5hmSxm7L9s
+X-Received: by 2002:a05:6a00:27a8:b0:82f:18fa:1668 with SMTP id
+ d2e1a72fcca58-82f8c91e3cbmr31091392b3a.44.1777031117657; 
+ Fri, 24 Apr 2026 04:45:17 -0700 (PDT)
+X-Received: by 2002:a05:6a00:27a8:b0:82f:18fa:1668 with SMTP id
+ d2e1a72fcca58-82f8c91e3cbmr31091150b3a.44.1777031115048; 
+ Fri, 24 Apr 2026 04:45:15 -0700 (PDT)
+Received: from [10.239.60.18] ([106.192.26.241])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-82f8ec04448sm27904931b3a.55.2026.04.24.04.45.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 24 Apr 2026 04:45:14 -0700 (PDT)
+Message-ID: <4c3fa710-f61a-4aad-622d-54909190cb9e@oss.qualcomm.com>
+Date: Fri, 24 Apr 2026 17:15:02 +0530
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: etMZNBodQpiuHQG/N/7BkvhO/Vbja0W3RNgopgCrGGr4NfPRac/a4Pq8q0kPqeYSK8UOwDnv9P0bwS++TVE9OPZwXilSjHKvBEN+hAtXVPqTg6OFJRGtaN1GShQtJlUUIKLeH5DDCAYB+kQmY1li1GQ+Qha7uArAvIumTAYKnAmN8eKcGszPbApDEUZwoUkeufZey+bBXRJsqHwpc6b1Xea9J160i1psoobbM800t/7PTQc20yoqKBTdgh2vhlkQxXtng8Oau9WSMXJQU3Dt0+VBDT2uYg0xJ5duxPwMB5AiGPF8uAc68TyzCevBxZHOD9zZmdQ7LMMz5dZ513VN6g==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR11MB5290.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4170efaa-2599-4964-b6fa-08dea1f5ebe8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Apr 2026 11:37:52.9943 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ww2dWXMeAlstm3WJ9MHuPJXLmp+PPMva2yXj068MZX5z7mAMGWaEBIWzMSxUJRP3cctlB18t0NxJaGM9XCdVTw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB8158
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH v2 02/13] drivers: base: Add generic dma context bus
+Content-Language: en-US
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Bryan O'Donoghue <bod@kernel.org>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Stefan Schmidt <stefan.schmidt@linaro.org>,
+ Hans Verkuil <hverkuil@kernel.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Hunter <jonathanh@nvidia.com>, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+ driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+References: <20260423-glymur-v2-0-0296bccb9f4e@oss.qualcomm.com>
+ <20260423-glymur-v2-2-0296bccb9f4e@oss.qualcomm.com>
+ <2026042346-trustable-register-095a@gregkh>
+ <06c04947-e72e-679b-493b-e112d693f391@oss.qualcomm.com>
+ <2026042422-deem-chemist-8d0f@gregkh>
+From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+In-Reply-To: <2026042422-deem-chemist-8d0f@gregkh>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI0MDExMSBTYWx0ZWRfXxncBJ6H6fLBG
+ KcB1RckVjvsgXIOM/wgMaNocc8r6/1XkTA/AXf7z3RcK5SjGnKLtGsvNZqW3/9/RAH8WbxWrbk1
+ 6LAaS/yVQrgdj/gwBB9FKecJ0eSZq9e/zUR7cAdFR9GP0pBAcnBsN2oIB2l9Klo1sGDoLnweSKF
+ JOYWWwe05f/veElJVUUmxzRtxuQoVTb/+Sqqd5VjwuWZvMgCtqlrv34oeMepbpkHT3BYZ5t/kkt
+ yKdAPjSpGbi9ysEr/MdqTY2MA9lgsLUdkcOqdGJGpUQXFov2ufkGtUaT9afVxIObRFM6t3Vfqn7
+ 8HYgPOCsbNICzVXL4dxaumJIlVIXjs+Yarme4m5AGsXqOH/TtZ4HhQjmyQwRunQuVCyI5XLcdsn
+ JudmzVlyaMEdQ4cv6rfRO6NI8MlVkeuV937Uy51DRP7EroZZkWKB1VfQJ1npi3BatgHzM+P7MfW
+ Qr4/JbDI9g6YHgMwJCQ==
+X-Authority-Analysis: v=2.4 cv=FPMrAeos c=1 sm=1 tr=0 ts=69eb57ce cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=K3jt3zD9TrcZs+Uyli2v9A==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=7CQSdrXTAAAA:8 a=EUspDBNiAAAA:8 a=qtrQGJdHBaugJqU6AYUA:9
+ a=QEXdDO2ut3YA:10 a=_Vgx9l1VpLgwpw_dHYaR:22 a=a-qgeE7W1pNrGK8U0ZQC:22
+X-Proofpoint-GUID: FqZgzrJEvgKa6YkX0E8AUYKUlhZywSKi
+X-Proofpoint-ORIG-GUID: FqZgzrJEvgKa6YkX0E8AUYKUlhZywSKi
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-23_03,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 bulkscore=0 suspectscore=0 lowpriorityscore=0
+ adultscore=0 impostorscore=0 priorityscore=1501 spamscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604240111
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -178,66 +166,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Michel,
 
->-----Original Message-----
->From: Michel D=E4nzer <michel.daenzer@mailbox.org>
->Sent: Tuesday, April 21, 2026 2:24 PM
->To: Kumar, Naveen1 <naveen1.kumar@intel.com>; Murthy, Arun R
-><arun.r.murthy@intel.com>; Maarten Lankhorst
-><maarten.lankhorst@linux.intel.com>; Maxime Ripard <mripard@kernel.org>;
->Thomas Zimmermann <tzimmermann@suse.de>; David Airlie
-><airlied@gmail.com>; Simona Vetter <simona@ffwll.ch>; Jani Nikula
-><jani.nikula@linux.intel.com>; Vivi, Rodrigo <rodrigo.vivi@intel.com>; Joo=
-nas
->Lahtinen <joonas.lahtinen@linux.intel.com>; Tvrtko Ursulin
-><tursulin@ursulin.net>; xaver.hugl@kde.org; harry.wentland@amd.com;
->Shankar, Uma <uma.shankar@intel.com>; louis.chauvet@bootlin.com; Yella,
->Ramya Krishna <ramya.krishna.yella@intel.com>
->Cc: dri-devel@lists.freedesktop.org; intel-gfx@lists.freedesktop.org; inte=
-l-
->xe@lists.freedesktop.org; Kandpal, Suraj <suraj.kandpal@intel.com>
->Subject: Re: [PATCH v11 0/7] User readable error codes on atomic_ioctl fai=
-lure
->
->On 4/20/26 10:32, Kumar, Naveen1 wrote:
->> HI Arun,
+On 4/24/2026 4:43 PM, Greg Kroah-Hartman wrote:
+> On Fri, Apr 24, 2026 at 04:01:13PM +0530, Vishnu Reddy wrote:
+>> On 4/23/2026 7:07 PM, Greg Kroah-Hartman wrote:
+>>> On Thu, Apr 23, 2026 at 06:59:31PM +0530, Vishnu Reddy wrote:
+>>>> From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+>>>>
+>>>> When a driver needs to create virtual device at runtime and map it to
+>>>> an IOMMU context for memory isolation, there is no common bus available
+>>>> for this purpose. Each driver ends up implementing its own bus type,
+>>>> leading to duplicated logic across multiple drivers.
+>>>>
+>>>> host1x driver implemented its own bus type to attach an IOMMU context to
+>>>> a dynamically created device. The Iris VPU driver now has the same
+>>>> requirement. Rather than duplicating the same bus logic again, a shared
+>>>> bus type is introduced under drivers/base that multiple drivers can use
+>>>> directly.
+>>>>
+>>>> The bus takes care of creating a device and attaching the IOMMU context
+>>>> to it based on the client inputs.
+>>>>
+>>>> Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+>>>> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+>>>> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+>>>> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+>>>> ---
+>>>>  drivers/base/Kconfig            |  3 ++
+>>>>  drivers/base/Makefile           |  1 +
+>>>>  drivers/base/dma_context_bus.c  | 77 +++++++++++++++++++++++++++++++++++++++++
+>>>>  include/linux/dma_context_bus.h | 26 ++++++++++++++
+>>>>  4 files changed, 107 insertions(+)
+>>> as you can not have a device on multiple busses at the same time, this
+>>> makes no sense to me at all.  "dma context" is a bus-specific thing, so
+>>> please add it to the bus that you are wanting it for.  It can't be a
+>>> generic bus as that just doesn't work.
+>>>
+>>> Or what am I missing here?
+>>>
+>>> And why is DMA somehow "special" here from any other hardware attribute?
+>> Let me give brief information which was discussed, in the initial series,
+>> the iris VPU used platform bus for dynamically created devices and we got
+>> the comment/suggestion from Robin to implement a proper bus_type with a
+>> .dma_configure callback.
 >>
->> We verified atomic commit failure detection via capability flag, error
->code/string retrieval, and fallback path execution in Mutter via MR
->https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/5022.
+>> https://lore.kernel.org/all/02b3d0f5-f94c-43cd-93af-97cfcf7751b1@arm.com/
+>>
+>> based on the discussion, implemented the dma_context_bus and used for iris
+>> VPU devices instead of platform bus.
+> Why not make a irus_vpu_bus where you can do what you want?
+Initially iris_vpu_bus was introduced, and it was made generic based on the
+discussion,
+
+https://lore.kernel.org/all/20260227-kaanapali-iris-v2-3-850043ac3933@oss.qualcomm.com/
+>> Here, the device have only one bus (dma_context_bus), not multiple buses.
+>>
+>> Regarding the "DMA" naming, the core operation of this bus is its
+>> .dma_configure callback, which calls of_dma_configure_id() to map the device
+>> to a corresponding IOMMU stream ID. The name "dma_context" reflects this
+>> purpose.
+>>
+>> I am open to suggestions from you or Robin or anyone else, if there is a
+>> better or preferred way to achieve this, I am happy to consider it and
+>> rework the implementation accordingly.
+> As there is only one user, just make this your own bus please and do all
+> of the needed bus operations for your devices there (i.e. don't hang an
+> "empty" device off of it.)
+The reasoning behind to make it generic was to have more users - host1x,
+Iris VPU, QDA on the generic context bus, instead of each of them having
+their own. Let me know if you suggest to have the iris_vpu_bus.
+
+QDA -
+https://lore.kernel.org/all/20260224-qda-firstpost-v1-4-fe46a9c1a046@oss.qualcomm.com/
+Iris VPU -
+https://lore.kernel.org/all/20260227-kaanapali-iris-v2-3-850043ac3933@oss.qualcomm.com/
+> thanks,
 >
->I don't see any fallback handling in the mutter MR -
->process_atomic_commit_error has only TODO comments for all failure codes.
->
->As such, in the current state I wouldn't consider it satisfying the user-s=
-pace
->implementation requirements for new UAPI.
->
->
->--
->Earthling Michel D=E4nzer       \        GNOME / Xwayland / Mesa developer
->https://redhat.com             \               Libre software enthusiast
-
-Thanks for the review.
-
-The current Mutter MR is intentionally scoped to enumerating the kernel-sup=
-ported error codes and establishing the basic framework to collect early UA=
-PI design feedback. The TODOs in process_atomic_commit_error() are placehol=
-ders; per-failure fallback handling is follow-on work, pending design sign-=
-off.
-
-For validation, we injected error scenarios in Mutter and confirmed the err=
-or enum and string are correctly retrieved from the kernel.
-
-We agree the UAPI is not ready to merge without concrete fallback handling.=
- We can go either way:
-- Land the framework now and follow up with per-failure fallback patches, o=
-r
-- Add at least one representative fallback case in Mutter MR to demonstrate=
- the full flow first.
-
-Let us know your preference and we will proceed accordingly.
-
-Thanks,
-Naveen Kumar
+> greg k-h
