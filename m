@@ -4,134 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D0C9FB44C8
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 07:56:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACBD4FB44C6
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 08:04:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 708DA10F2DD;
-	Fri, 24 Apr 2026 07:56:33 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="k2Wo/xFD";
-	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012068.outbound.protection.outlook.com [52.101.48.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4520710F2DD
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 07:56:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=o9/KAROI8IXfUP1G0TO7wdtlJO7mOum5bLdxe43PzOTHpMyMdOg+cF+CaxYGP+zWq5zgzWVBHqekDPlWaz7vQcd85xIys5SGSCCsLtlR9G97KKHF8bqBCwV4XD0q+MvX7UYqeJMfN1X8TPxj46QTYwT2S7+U06p7qmuLYT4xBMwTzeCQkBO2+ivAnCZDl2LhTuDyic3gJ5QXYWjOprJOSTKIC+Z0XoQ3VP8u5QTM/S+yLgLQEOPZEWOx/hepCSkovjrEHhGibC+i7tfl9CrsIdd0w6k6jBSlKCWYRuMXyRFuREPAjaDly2BpLdwxSgd9FhDpKOciFBoFQ7D7novHoA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=scSnd+H3WVxhMjEXoi5rhivsgX1stNt6JPlyZUyc9XI=;
- b=fEvTqyVHnYZIGdYWmQTEhpmHxKmhchh1PpH/uWlNqlbmATa0j2IVH+JmMOOGfjjo1XFKk0SoRMCUSk6ylkq3COABqRb+pd0Sh92DJmYcuM5VV6OvwD3/SlZUjDwa+YaVkZLqDE6zOoU8mMcsj4zYvKx6wCn48yTxVVPPB8o7LcOs1In2KjY/vGBdf1m6wL5HJNhuWcbG4wRzOm13S6DApkUfHTJR2aDGY+7aDzjE2acMBGbqSfLXXhAMjr4AZrjW7V19D2dG+IMZMfFhrRy/EDVxJjxu3X2rJ2I+dgMUgjnIlGOh+XbR6T4k6gMi3JSkFZmOS1UV+tMOPZSvJ8C5xg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=scSnd+H3WVxhMjEXoi5rhivsgX1stNt6JPlyZUyc9XI=;
- b=k2Wo/xFDdkNGpLbd7eVOFdCwu+4zIiBfEEN9gToSEyZeCXiaqreSJfwDI2pY7TP36J35TIayBw4t2Fppz00HDKRkj7Zg9uyAFqlLL2hRubF6nHh3GojvQ6JdY11fDg8CGVn3+07RGvLbMxtN1aWl+u1AkgR0YBfXWP4B6QkrTGI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SN7PR12MB6861.namprd12.prod.outlook.com (2603:10b6:806:266::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.15; Fri, 24 Apr
- 2026 07:56:27 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9846.021; Fri, 24 Apr 2026
- 07:56:27 +0000
-Message-ID: <b4dcb464-7784-47e2-a973-6d731ab9ccf8@amd.com>
-Date: Fri, 24 Apr 2026 09:56:16 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V13 2/7] dma-resv: Fix undefined symbol when
- CONFIG_DMA_SHARED_BUFFER is disabled
-To: "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>,
- maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
- chleroy@kernel.org, peterz@infradead.org, jpoimboe@kernel.org,
- jbaron@akamai.com, aliceryhl@google.com, rostedt@goodmis.org,
- ardb@kernel.org, sumit.semwal@linaro.org, ojeda@kernel.org,
- boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com,
- lossin@kernel.org, a.hindborg@kernel.org, tmgross@umich.edu,
- dakr@kernel.org, nathan@kernel.org, nick.desaulniers+lkml@gmail.com,
- morbo@google.com, justinstitt@google.com, tamird@kernel.org, arnd@arndb.de,
- nsc@kernel.org, simona.vetter@ffwll.ch, linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- rust-for-linux@vger.kernel.org, llvm@lists.linux.dev
-References: <20260424054742.45832-1-mkchauras@gmail.com>
- <20260424054742.45832-3-mkchauras@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260424054742.45832-3-mkchauras@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0180.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b7::13) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 228B310F391;
+	Fri, 24 Apr 2026 08:04:25 +0000 (UTC)
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABE6D10F391
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 08:04:23 +0000 (UTC)
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.10])
+ by APP-03 (Coremail) with SMTP id rQCowABnhNvRI+tpv7EHDw--.22752S2;
+ Fri, 24 Apr 2026 16:03:33 +0800 (CST)
+Message-ID: <1d54c67c3c1892805793e58e77ef5708cf5b7ca4.camel@iscas.ac.cn>
+Subject: Re: [PATCH v2 24/41] drm: verisilicon: remove now-redundant call to
+ drm_connector_attach_encoder()
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Dmitry Baryshkov	
+ <dmitry.baryshkov@oss.qualcomm.com>, Andrzej Hajda
+ <andrzej.hajda@intel.com>,  Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Laurent Pinchart	
+ <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Sasha Finkelstein <fnkl.kernel@gmail.com>,
+ Janne Grunau <j@jannau.net>, Liu Ying <victor.liu@nxp.com>, Douglas
+ Anderson <dianders@chromium.org>, Laurentiu Palcu	
+ <laurentiu.palcu@oss.nxp.com>, Lucas Stach <l.stach@pengutronix.de>, Frank
+ Li	 <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix
+ Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>,
+ Philipp Zabel	 <p.zabel@pengutronix.de>, Paul Cercueil
+ <paul@crapouillou.net>, Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, Matthias Brugger	
+ <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno	
+ <angelogioacchino.delregno@collabora.com>, Kevin Hilman
+ <khilman@baylibre.com>,  Jerome Brunet <jbrunet@baylibre.com>, Martin
+ Blumenstingl <martin.blumenstingl@googlemail.com>, Rob Clark	
+ <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang
+ <jesszhan0024@gmail.com>, Sean Paul	 <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, Tomi Valkeinen
+ <tomi.valkeinen@ideasonboard.com>, Sandy Huang <hjc@rock-chips.com>, Heiko
+ =?ISO-8859-1?Q?St=FCbner?=	 <heiko@sntech.de>, Andy Yan
+ <andy.yan@rock-chips.com>, Thierry Reding	 <thierry.reding@gmail.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>,  Jonathan Hunter
+ <jonathanh@nvidia.com>, Jingoo Han <jingoohan1@gmail.com>, Inki Dae
+ <inki.dae@samsung.com>,  Seung-Woo Kim <sw0312.kim@samsung.com>, Kyungmin
+ Park <kyungmin.park@samsung.com>, Krzysztof Kozlowski	 <krzk@kernel.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Laurent Pinchart	
+ <laurent.pinchart+renesas@ideasonboard.com>, Tomi Valkeinen	
+ <tomi.valkeinen+renesas@ideasonboard.com>, Kieran Bingham	
+ <kieran.bingham+renesas@ideasonboard.com>, Geert Uytterhoeven	
+ <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, Biju Das	
+ <biju.das.jz@bp.renesas.com>, Marek Vasut <marex@denx.de>, Stefan Agner	
+ <stefan@agner.ch>, Jyri Sarha <jyri.sarha@iki.fi>, Michal Simek	
+ <michal.simek@amd.com>
+Cc: Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ asahi@lists.linux.dev, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, 	linux-mips@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, 	linux-amlogic@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, 	freedreno@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, 	linux-tegra@vger.kernel.org,
+ linux-samsung-soc@vger.kernel.org, 	linux-renesas-soc@vger.kernel.org
+Date: Fri, 24 Apr 2026 16:03:29 +0800
+In-Reply-To: <20260423-drm-bridge-connector-attach_encoder-v2-24-2ae6ca69b390@bootlin.com>
+References: <20260423-drm-bridge-connector-attach_encoder-v2-0-2ae6ca69b390@bootlin.com>
+ <20260423-drm-bridge-connector-attach_encoder-v2-24-2ae6ca69b390@bootlin.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB6861:EE_
-X-MS-Office365-Filtering-Correlation-Id: e1a51f7d-c556-4420-2a76-08dea1d6fcbf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|7416014|366016|18002099003|921020|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: hcbDccIkFnEwL3/hvvoGROrys+qLkGqjSziOPe48RryGsAdQ8W0uOEdRMCOEn1YevwM677ZCrknXyClW6rMT4dhIQw9EyBWRWzWLZ1xwjlNmoNnBNmGstDFoDJEBXpqES7Err+Uv/e/XR2IIWY134wY/7Dn78BpfUi6yWnXSy4y3BGw8rCJuLjabcdk9rZvxry8frWuMkexJ1TcNMJV++xmT5hQxP4k3tzxTq9eKh04bwQ2gX3/hSBwXXm9OanbUPOlRV1UtLpbLhvi6G5mDmdfqTsWeIUMFFElWvRBmyGdL4aZw7aOXulr1UZALvSHDy4yykXBJ110rlI3AqoK25GQaBKqGmlCYFTBKnLsr0z7QEEWCiaOrjgSD4ZGmkSxUyVCldO/zkPMKZeC+s7vqpqBU27WvTu1hGC5G94K8GDrYBUnFo57Mmk94Kk2MjClLZkLmFTphVPa0DXYcUrBfY4Q+3dkF+8LbzPcSF3vgBeZdHVzrP4g9KvzhVPpcWg85Nz+IFItfWHkxh4eRihcoUtEA5nWalgAUvukE7QHRPDa9lA6K3Yw+inNqWhLgf0GzoH8ZT7DXKNN3Zmx3SFIS6+V/JoG4iALfvvZ16Ro1RfeEvXGmhOrnmiV4G1UQjUE49+ZKgFpg80JeOQ+XlCzXA2QInij0aAOks5yVJK5PFeIwXDs1zlEr6dzvkwkjlrPtpCJVCX50SJGHS6vxzNySD/7dqavktMCJTiSuHl5SvUOrK9NW7RZ6FKRsNIu5mDB4TLGom+XfVeS277+4nBNFUg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(7416014)(366016)(18002099003)(921020)(22082099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eDNjcXJIT2IwelRlN0Y2Nkl0aGFkQVFYNyt4TVg1dE5NQ1RqNklZcVM3Y3ly?=
- =?utf-8?B?M01wcVUrTTJSQXV1bnYxMnlqZWsrVk5RMmVoYmF5S2VHMFlmRUY3RkU1SWs5?=
- =?utf-8?B?NTZ2U0F3SzR0cFJTd1VyZmp2TmJrUlkwblZlMGtSVDNIajJhanBkY08xbjJh?=
- =?utf-8?B?NnhEdXVCcFBwNnJkRlRnenBlbStzM0cwNVBRbEZ0WEJpamliWXNmdmQxYjVX?=
- =?utf-8?B?OFB1MzIyNjFxSjNqcEpyc05nNXhWc0JFZThQQWcrUkQvd1FnWjdjRUZjb3BI?=
- =?utf-8?B?UEt4bHl5dnpYWll5TGhzdEs3NGk0Nm41RU1vaXVrM29lQVFIaFE3RlY5SWdw?=
- =?utf-8?B?UzJIeEViTStnUG90OU4vZzFHbGo0M2tFanhTS0h6OFJjak91MmdHTWxPRlds?=
- =?utf-8?B?TjBOaGJPZlVqRmt4NnYrT2tHSjRRZGRzVHJSbm9SQmFRcGYxY0dVamQ2VVNS?=
- =?utf-8?B?SnlyUEd6dldOaHdzR3VjN2syN2VuUk4yOHJuNkNmWFd1YkFGSFQ4WjA5MTg4?=
- =?utf-8?B?TmUwQkhSLzZ0UFFvZmhLRWNERkd1b21sNGQ0LzAreUVoRjVNWU9KQzNUWkV2?=
- =?utf-8?B?M0JuSjB1Ry9Fd0FRSDJCbnV3dTl5QlBGemZYNWRpU2VEcjhNbmJ0RWl3YWZF?=
- =?utf-8?B?QkVXamxiM2x3OTM0VHB5emgyVXVVaTJIODFaNXhHSUdYR1Y3SCt6MUlKODhx?=
- =?utf-8?B?WTRVaEQ4Rk05MzFlNERZeVB3RlcvYmx0cll1WGpKVjR2N0pqTFMydEdKQWY5?=
- =?utf-8?B?NUt1Z05URFQrQndGcERnQ3orK0UwdXAvdjlESkVmb0ZPaUgzN2pFeEFEOUFp?=
- =?utf-8?B?R1V5dWV4cHM5dmFEdHd0RXQzSi84c2V0eGtaZnJMMXlSUWxPYk5qbTRZTkkx?=
- =?utf-8?B?K1NpL0FyQ3ZzUmY3T1NrMk9YNEtKaGJ6NmRaRTNubmhDd0g5NXptVGRiQ3Bs?=
- =?utf-8?B?cHJwRi8rQk42Q1RBa204OWpyV2xiRGJpZEpwRmJKV0g1d1VHeGxFaVlTK1NG?=
- =?utf-8?B?TFFPeHdtWm8zMGs5V2xpejFXYW1HS05XeERnQ3gwR1lqYjFhbHJFWTlneDhZ?=
- =?utf-8?B?ZWp4MVdSSXFVcTZHVTVUZ2hZYVU1R3VWVWdNaVVBcWV2czcxeGdOVXI3OC9w?=
- =?utf-8?B?L01ueTBwK1RsSEV1VFVGS0llNkNmbmlWaUtoUWFmVVBWY0czZDFqcXNRNW5K?=
- =?utf-8?B?c2U1MlJHR1IzQkRMa0lXMEh4VUNyaWpMeCtidFAxL1hJYURkNVJpMlZRcmVY?=
- =?utf-8?B?S3oweVVaTUE5ZkJ1bEpnRzNVOEZRRFRJYUM4bk4vY3Z5N2oxSksrVUhTU3pD?=
- =?utf-8?B?U3FScTJwOElzeWlNT2xWd3UxTUdVOWpPU2hhUjJmM3Y0WlpVODh4RG80b0FQ?=
- =?utf-8?B?b2VZWk1GWjZ5OXlBdU9BZ1BxMFp2RTNtVTBZUHd0SEFScW5PbStiM0J6WmYy?=
- =?utf-8?B?NklnelNqaThpbUxxMSs3UzM5QlpSOWZxeDYwRmlrOHVxMTVHRU5zTm1YUjQr?=
- =?utf-8?B?VnBsNFRHUXJxeGtlZThFSVRkZDVZdkplRm4vNlBiSmVlRzAyWmtZdlRxRTdh?=
- =?utf-8?B?N0pncXhidmZ2bWZTangwV3JrU2psaU9DQytoSlZ2dkI5S29vZTNJcVBvZk5B?=
- =?utf-8?B?aHlSSERhZitmdXNubmUxalNGcFJITXlxRkNlK3ZvUjdTanI2L2RxWThQc1hF?=
- =?utf-8?B?T3QzdkdTZEFtRUo2YmlwQ1U2SzIwZDdDV3RzUTVrS1VmTDh5aUtDRmVwa1Z3?=
- =?utf-8?B?aHByNVAxQ2cwNW0zOGVmcHdKYzZQT2xWYTBVc2IzUHdtNjd0Z29mSzRockxp?=
- =?utf-8?B?dGVIbVhLZTZneHE1bEY5azVCRTh2Q3NkMG9NNzd0K0hjMVFyOU1KK3F1SWNO?=
- =?utf-8?B?RHo3Zk9pcXpkUjg4bnVTUGZrUWRCNkNwQTdiRmVBSDBIWG14V0JQUnYzeW1G?=
- =?utf-8?B?SG84MEhiSm1KSzFUVnZ5bGx1b01tTDFzMUJPc3NsZEYveCsvdjRlazNoeVNQ?=
- =?utf-8?B?QWIrRVdSQXJjQlp5TUtYZFpyVUx2ZFJTS1lqQzVQTkorM1NjVlV4UmZOMzNh?=
- =?utf-8?B?c2VyeWNhbmRzLytsSDJFaDZFRzdNTnpLaU1kM01USjYycUF3TkxTTmI5dHdV?=
- =?utf-8?B?VUU2MEtoMW5ocUNSMHBuUFBDRjh2a09sM0srVEpFR1l6T3dlamZXcjM0VEZy?=
- =?utf-8?B?dVI3aDZ6aGZSWnN2d3FlUGtGcWhtcGpQTWNWN2JiSFdsWlNGOEQ2TTN2V0M0?=
- =?utf-8?B?Q1Bod2puUmQ3WnQ3Z0h4MWF5N05naDlpdFF5SW5MWW5jNG4xczBRRUtSblJS?=
- =?utf-8?Q?gD0nSOcdQyAiCVRh+g?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e1a51f7d-c556-4420-2a76-08dea1d6fcbf
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2026 07:56:27.0591 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yHnvy7/gV1lsr8iRkL1ZFfLZEjHYbGw2wOg8trkR4KMWvq3PWoA2oVfCOWzlfemM
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6861
+X-CM-TRANSID: rQCowABnhNvRI+tpv7EHDw--.22752S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7GFWxKr15Xw1xXw48Jr4rGrg_yoWfWFc_uw
+ nY9F9rWrW5KFyDC3Z7Jrn5Zry2v3Z5uFW8uwnrt393KwsrAw18Z347Xry2v34UuFyUAFZF
+ kw4DWFZ7Ar4akjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUIcSsGvfJTRUUUbVxYjsxI4VWxJwAYFVCjjxCrM7AC8VAFwI0_Wr0E3s1l1xkIjI8I
+ 6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
+ 8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0
+ cI8IcVCY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
+ 8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+ 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
+ Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
+ c7CjxVAaw2AFwI0_ZF0_GFyUMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
+ 4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
+ 67AKxVWrXVW8Jr1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6x
+ IIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY
+ 6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa
+ 73UjIFyTuYvjxUxeOJUUUUU
+X-Originating-IP: [112.94.102.10]
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,60 +110,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/24/26 07:47, Mukesh Kumar Chaurasiya (IBM) wrote:
-> When building with LLVM=1 for architectures like powerpc where
-> CONFIG_DMA_SHARED_BUFFER is not enabled, the build fails with:
-> 
->   ld.lld: error: undefined symbol: dma_resv_reset_max_fences
->   >>> referenced by helpers.c
->   >>>               rust/helpers/helpers.o:(rust_helper_dma_resv_unlock)
-> 
-> The issue occurs because:
-> 1. CONFIG_DEBUG_MUTEXES=y is enabled
-> 2. CONFIG_DMA_SHARED_BUFFER is not enabled
-> 3. dma_resv_reset_max_fences() is declared in the header when
->    CONFIG_DEBUG_MUTEXES is set
-> 4. But the function is only compiled in drivers/dma-buf/dma-resv.c,
->    which is only built when CONFIG_DMA_SHARED_BUFFER is enabled
-> 5. Rust helpers call dma_resv_unlock() which calls
->    dma_resv_reset_max_fences(), causing an undefined symbol
-> 
-> Fix this by making the function declaration conditional on both
-> CONFIG_DEBUG_MUTEXES and CONFIG_DMA_SHARED_BUFFER. When either is
-> disabled, use a static inline stub instead.
+=E5=9C=A8 2026-04-23=E5=9B=9B=E7=9A=84 11:17 +0200=EF=BC=8CLuca Ceresoli=E5=
+=86=99=E9=81=93=EF=BC=9A
+> drm_connector_attach_encoder() is now called by
+> drm_bridge_connector_init().
+>=20
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-Well we are clearly missing something here, but of hand that doesn't looks like the right fix.
+Acked-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 
-When CONFIG_DMA_SHARED_BUFFER isn't enabled then the whole dma-resv.h header can't be used at all.
-
-So you also can't call dma_resv_unlock() from the Rust helpers. Which means that we need to make the Rust helpers somehow depend on CONFIG_DMA_SHARED_BUFFER.
-
-Alternative would be to provide dummies for the functions in dma-resv.h when CONFIG_DMA_SHARED_BUFFER isn't set, but that looks a bit like it just hides the issue.
-
-Regards,
-Christian.
-
-> 
-> Fixes: 0c6b522abc2a ("dma-buf: cleanup dma-resv shared fence debugging a bit v2")
-> Signed-off-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
 > ---
->  include/linux/dma-resv.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/include/linux/dma-resv.h b/include/linux/dma-resv.h
-> index c5ab6fd9ebe8..23c8db0b5214 100644
-> --- a/include/linux/dma-resv.h
-> +++ b/include/linux/dma-resv.h
-> @@ -311,7 +311,7 @@ static inline bool dma_resv_iter_is_restarted(struct dma_resv_iter *cursor)
->  #define dma_resv_held(obj) lockdep_is_held(&(obj)->lock.base)
->  #define dma_resv_assert_held(obj) lockdep_assert_held(&(obj)->lock.base)
-> 
-> -#ifdef CONFIG_DEBUG_MUTEXES
-> +#if IS_ENABLED(CONFIG_DEBUG_MUTEXES) && IS_ENABLED(CONFIG_DMA_SHARED_BUFFER)
->  void dma_resv_reset_max_fences(struct dma_resv *obj);
->  #else
->  static inline void dma_resv_reset_max_fences(struct dma_resv *obj) {}
-> --
-> 2.53.0
-> 
+> =C2=A0drivers/gpu/drm/verisilicon/vs_bridge.c | 1 -
+> =C2=A01 file changed, 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/verisilicon/vs_bridge.c
+> b/drivers/gpu/drm/verisilicon/vs_bridge.c
+> index 2a0ad00a94d6..83c91d5ce397 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_bridge.c
+> +++ b/drivers/gpu/drm/verisilicon/vs_bridge.c
+> @@ -365,7 +365,6 @@ struct vs_bridge *vs_bridge_init(struct
+> drm_device *drm_dev,
+> =C2=A0		ret =3D PTR_ERR(bridge->conn);
+> =C2=A0		return ERR_PTR(ret);
+> =C2=A0	}
+> -	drm_connector_attach_encoder(bridge->conn, bridge->enc);
+> =C2=A0
+> =C2=A0	return bridge;
+> =C2=A0}
 
