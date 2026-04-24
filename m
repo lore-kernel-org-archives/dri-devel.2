@@ -4,51 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B01EFE51FD
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 10:09:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6817AFE51FB
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 10:12:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94D7810F4A9;
-	Fri, 24 Apr 2026 10:09:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99A5D10F4B5;
+	Fri, 24 Apr 2026 10:12:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="F6r19G00";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wm+eHpy1";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 6440810F4A9
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 10:09:32 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 417441BC0;
- Fri, 24 Apr 2026 03:09:26 -0700 (PDT)
-Received: from [10.1.26.15] (e122027.cambridge.arm.com [10.1.26.15])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8049C3F641;
- Fri, 24 Apr 2026 03:09:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1777025371; bh=N2CAmZ8t8+fMGKaAWWd8No/XpPYJSrYXNu28O4/Bb6A=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=F6r19G008x765L42IrI9v3sLOMzNEA3q2lxXKRXpE/uAbpBYl+mvJs3H+W0hQ+3aL
- 3erRzOz4iEDgWKrZmBbDee0xOl3+GxNoDMA+l/uSgsi71bLvN6srcX6fjhyKSRflJe
- 7WvS4OSCShUWsBqcG1tEdFnG2Iyji7T9j1v0DwP0=
-Message-ID: <f0ec1b96-a6ff-49c6-b57d-740f97ac867f@arm.com>
-Date: Fri, 24 Apr 2026 11:09:27 +0100
-MIME-Version: 1.0
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011065.outbound.protection.outlook.com [40.107.208.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A10C10F4B5;
+ Fri, 24 Apr 2026 10:12:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vSucteUWa1NO9CXqah42Sk0WyETUjqKPrLebWKhgwb7Q7s1lVZVtB5U7mv79s1Xy7PqChRdY0R6rjCVtyFxD8OM3vE6fN+iuUHNwuANsMLCjQu0DwQ+BWaGU9uphqOtF+k3MEwpDYyn0AA0Ue+FsTRfNCwWC9ya+KQLGL9/8WhDpDs5ix+sAn3GezZSrbdioUl4oHeiTTHgr8HZMB2d0TyRHDuQIMYV2U/fjyjzmpzwhSXwOC0V14orf5H/VHPdPZCIbBExaf8N0zqKhmf7npFepiT9k9CBjzvqwG5twLRsMzklJXeqo5LFDnm5EFtAjAtU5VtkDs0yvj8Gv+cDlKA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=D7X6PfH2jkuCLoC8M0g9FuiLQHlZXv9roitp7nw1IKo=;
+ b=PMIy2xzV4R8hxwdqK0nxhi4tAHYtSjaZPsHqVIxa5G2PfReIy73XF12uKWQSEX/R6OPb8e4ikpEB01IuDBhkLKPz5kEpVabmCEOtmZiBx7WHK/J82eSIMe4PB5T9h6EZCm1sxz/e/KqO34MFLP3I6K1X4+f85OuCB0llwU/SIvWvKbje49FKvdOlobXq//TOZ7722o70iOW199XEG1/YEVBDLQ0hfam70UQv7aPviJQ7nSio+IYI8DaoDqIanCnyG4yr95kcLVRc+HpVGmlJJwtHQMg9Kh6n07HAkIwMhzNPndDX+5zGz6B+a4FG1WK9nsk85f/WDZhp5K1pX9Qbfg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=D7X6PfH2jkuCLoC8M0g9FuiLQHlZXv9roitp7nw1IKo=;
+ b=wm+eHpy1dZ/3HwGgUSXmZX/t1QDTo9uBzpxCyHdz9gCL77JsTh8KUTSEGMVLl0dBDUB8WE+a07i7tZtlruWbnha7cAmGsiMhGf3y2Kpy68CttOWiZikbvnxiPcixP7xU+DxILOXzIeUeZ7UbMasvBDXD6IzA12XGmzG8MVUH7Fc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from IA1PR12MB6435.namprd12.prod.outlook.com (2603:10b6:208:3ad::10)
+ by DM4PR12MB6110.namprd12.prod.outlook.com (2603:10b6:8:ad::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9846.14; Fri, 24 Apr 2026 10:12:35 +0000
+Received: from IA1PR12MB6435.namprd12.prod.outlook.com
+ ([fe80::8b77:7cdb:b17a:a8e2]) by IA1PR12MB6435.namprd12.prod.outlook.com
+ ([fe80::8b77:7cdb:b17a:a8e2%5]) with mapi id 15.20.9846.021; Fri, 24 Apr 2026
+ 10:12:35 +0000
+Message-ID: <9c5afd4b-f9f0-445a-9b39-35f56fa2bea4@amd.com>
+Date: Fri, 24 Apr 2026 18:12:24 +0800
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 5/6] drm/panthor: Support sparse mappings
-To: =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>,
- linux-kernel@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org,
- Boris Brezillon <boris.brezillon@collabora.com>, kernel@collabora.com,
- Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Alice Ryhl <aliceryhl@google.com>
-References: <20260422122538.3117380-1-adrian.larumbe@collabora.com>
- <20260422122538.3117380-6-adrian.larumbe@collabora.com>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260422122538.3117380-6-adrian.larumbe@collabora.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [RFC/POC PATCH 01/12] drm/amdgpu: add SVM UAPI definitions
+From: "Huang, Honglei1" <honghuan@amd.com>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Felix.Kuehling@amd.com
+Cc: Alexander.Deucher@amd.com, Oak.Zeng@amd.com, Jenny-Jing.Liu@amd.com,
+ Philip.Yang@amd.com, Xiaogang.Chen@amd.com, Ray.Huang@amd.com,
+ Lingshan.Zhu@amd.com, Junhua.Shen@amd.com, matthew.brost@intel.com,
+ rodrigo.vivi@intel.com, thomas.hellstrom@linux.intel.com, dakr@kernel.org,
+ aliceryhl@google.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20260420120739.1811731-1-honglei1.huang@amd.com>
+ <20260420120739.1811731-2-honglei1.huang@amd.com>
+ <cda09d5d-4cca-46a1-8625-fe9fa687e5a2@amd.com>
+ <50d13ae3-be27-4b79-91ef-e1b386054943@amd.com>
+ <54bb7286-2ffb-47f0-b37d-83b5c39ad9a0@amd.com>
+ <9e2bee93-306a-4ef0-80be-daed33c8bbb5@amd.com>
+ <7a3ebad2-839a-4a88-911f-c9bb7be3b00e@amd.com>
+ <daa7239f-7fc9-492d-849f-2d46bd84999b@amd.com>
+Content-Language: en-US
+In-Reply-To: <daa7239f-7fc9-492d-849f-2d46bd84999b@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: KU0P306CA0088.MYSP306.PROD.OUTLOOK.COM
+ (2603:1096:d10:22::17) To IA1PR12MB6435.namprd12.prod.outlook.com
+ (2603:10b6:208:3ad::10)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA1PR12MB6435:EE_|DM4PR12MB6110:EE_
+X-MS-Office365-Filtering-Correlation-Id: c7b80cd9-9384-4d89-cfbd-08dea1ea010e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|18002099003|56012099003|22082099003; 
+X-Microsoft-Antispam-Message-Info: AiSXp9NVaV4OW57peL967FpekUbhgAZbbTKq9p8cQUVpv+Pc1wqJZkvRM5WcQoMz/SjEGBNECvu5DKIPcMgL4M7rnlgOcJ3PM0fRu1nDCD2pXHdJYUn+U4gOU2WcI1DyhscUcE4NrLNPdjBpvovXb4aKOUOQJqoGEKMVFIeG6tUYvo5xBWudhxsz6bbPfi1zhGbC7h/GYIZ79dnC9QbQ2aD+OeK6kJrC07iTHk1Cwa96wz959nq9U22/oaodkCnvKizoPkV2PF0O6fcxal9+cpY8Yi2Lq8jj1xGNLT1s2d+Jf/AYYoChW0X+uPDAVO7ljgrdW/h/Elb8uynvtf1w9mVlDjqDy920fR7SYaMjw3r1kjk2/OD/YKK2qG2mVmMEZqWPSNCr0VN0Cba5uP/85oP54H8CLx39tu2cGo1KNuuh3+uN3VMi77dMvloxMU2Kialvrs/+uHMl7lsbrvH2s92Gt+8aHYitep0nFfku7vXUAs/YmthtcATGIxUma1uxYLOMdqldD/oDui1VRXG1fttJjOIkvg049AEKihKJXFgvtLsA4wyLVQW3UsvSxkdM7FgcMfV8kNptnLjewxdQHJdTrfcf1xsj7CF2nvZm+16vXzZySMDnANuBBOIHq2qHhLYhlbMlvGP1G9djilwMfhAiOK73HnpA5KPQXX/dKfQa4unXkih6U0B1kgr4Zc+OF5TiKrj9cB+n57WYqKQ5nBTTm+nBve29X5PTTd+9/4M=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA1PR12MB6435.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(18002099003)(56012099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TWJWTkcxQjFXdWo2SmdaZDVzeHovaThTbEd4Qms1elhONkN2ZUI1a1ZqUGJi?=
+ =?utf-8?B?M2VDQzlYWE54eHZYUVR6bUs3QVh3Rmx3b01KOEpXV0dpK0xJSEJ2Z1hSRkly?=
+ =?utf-8?B?T2hodm1pUGY0NkM2RG9DRGw4UHQ3aDNWdG1xS29IRnh0U3NlOXo5RDFiZUJF?=
+ =?utf-8?B?eGhoR083UHdoUXpyTHRPVWVjZitWc3lYaUsvRnptRVltSE9uVDRRWTk2TW4r?=
+ =?utf-8?B?ZzFXaFVZQ2ZZRWErRTdRRW9mZ2N5SGxycldXV3Y4aFJtb2pkM3BCL1R4WE5V?=
+ =?utf-8?B?UlF2a0U3TTBQb3dSWHhvWjZQK1ozcHB4THVXTStyVGRPclI0VDJQRWlqRGta?=
+ =?utf-8?B?bUNOYnJHWEFaMjBvWWxFS0sxMnpLMkVtQTIvNWs1ckw1ZmE5M2lWdkF5YmY0?=
+ =?utf-8?B?NkNubXplTFREdjdFS0hXbUJRdGw3bm5tWm8xT0pXeXBZb2lOUVJ5NCtzcmJj?=
+ =?utf-8?B?bXJ4UlVWdVBCazk3eWVzSlBBZGdiWHVOUDE4bjk0WUNWQWFyRGE3WW9RZWRH?=
+ =?utf-8?B?bnI0Rno5cXJQb0p4d2pWc0lmNHk5RVU1aEVIc2hhSjdGZ09vL25qbmRjNHpQ?=
+ =?utf-8?B?SHRZSlNHWWVicXYzUkg4WjVQa2FSVGpaUkVtQVRHL21iTldMak5nUDdLV2xD?=
+ =?utf-8?B?bzVvUHBtSHJyOFljMHZUZDZLdVBvTXZoSldzeWlNSlJUVUM3QUFIZ01qMnpL?=
+ =?utf-8?B?L1hzNC90M1ZTdzVTbjJ6Sjd6T1czZnVkSFZGV1JHNWV0dFhpRjZFYkEwdk5t?=
+ =?utf-8?B?RFNSOXljVlBkei9jSmkvSk9lRjFSaHU1b3JrcTBJZVZWRlM5cXBYTVNldTNk?=
+ =?utf-8?B?bEFTeFhWM2Z1ZW9hSW50T3pvMlVFS2h0ZjU0MXJHNEpHWXZQVDBjdW4wMUxM?=
+ =?utf-8?B?dlZDdGtLNnpiQlhZeGkvaXlaZTArcG9POG1OYTh1UEh2UlIzc0VLc3lBWk0v?=
+ =?utf-8?B?QVdYbFcyb0traFF0NHlUd1F2QStPZlNJUStaTnVIVVFFOXBrY2czMW5xbytU?=
+ =?utf-8?B?TzFRc1pWRDlvMXFTalJHL0o4cWJVVXp6TStRMTF4ZFI4VE5YQ0xNSzNQbXpq?=
+ =?utf-8?B?S0lmM2hmRHY3cDlmbTh2Vk8rSlNjeTc2UC9rejdxRzh1bmp4elVzTUdJdmZS?=
+ =?utf-8?B?SEtab2tRTlBoYjM2M2dub29wU3VSQ3lUdjcwK053TVk3VytsT1kzQ2xQcGZH?=
+ =?utf-8?B?TmNYNjJkcy9CcUQzVE5XUUdqR2pWb1JTY25haUs3Nmk0MWthQWZhM05oNk5l?=
+ =?utf-8?B?emtUMXNvaXorcW05Vk1NRlhFVGFCMmp0eHhONlJjV3JkWU1JVmhzbW9ocTF2?=
+ =?utf-8?B?NTg5cW9KUmZyRmFidGMyT29jTGc4bkIvSHEvRnV3T25UaTFFTGN4a3NlQ0ov?=
+ =?utf-8?B?MU1yRFQzdU1JK1kzWHl6b291NVBmcXBlL0xCR1Z3R0pqS3RiQzZzU2M5RHZL?=
+ =?utf-8?B?TG1lY0tNQU55aG1jT3hQUm5DUXRXNlZiY3g4K2NnT2xNMTVYWnlFTFg5NG4x?=
+ =?utf-8?B?ZlBuMUczWkxMUzlSWGdIODJOT2g5SlBRa3RvOGpDdHd3V29KVEV4S2xORmo4?=
+ =?utf-8?B?SG1Jd2E3TDhXQVlROTZhWWNaRmc5SE53TDZIWGJtSjFWTGlNNERMTWVROXd5?=
+ =?utf-8?B?VitwMG9obitqdWhnTlIzaE5QMUNTL2plV0UwYzFzM0dCVFdqd29rRTVCWm5v?=
+ =?utf-8?B?Zi9rblU4RzJDSDJmUllYWVY3SVVyRS9HMjdNLzFKd2JkREZOamJzVmtTS005?=
+ =?utf-8?B?T1UxcnZmZkNzNkJia2U2d2lNQjlZSTAzQm94QkFPcE9VRnNjdXdvVERKWVo5?=
+ =?utf-8?B?ckZEbXlOejlFWW4rNjJmRUJUNWNxa1V0dFpmWlZlcHFpUWJ0QVBNYnZnSVRV?=
+ =?utf-8?B?TkkvaU5VdTNJSmFkaUZaY0JVR2VyUmRNWk5SOXRyTzl0bFA4ZXE5U1NjcCtD?=
+ =?utf-8?B?YmVNSEJzZTlOYjJ6MmlTNE1rMzg5NUVCSXZsZUsrMG9qZHdRYlR5dFJqVjNx?=
+ =?utf-8?B?emV0TXlyYjVWNXo4U09uUXpKalNaaURoS2lVOHE1ajNsazBMVjM0cWFXOFpx?=
+ =?utf-8?B?YU8yTy9PVnZqOHEySE9QTnowdmRhK1ovSS8xNnd0QmVaMEFCS1NnUDcyWmhC?=
+ =?utf-8?B?VkwwSUNEd1RsWldYQTEzem1jTU4vaW1vSkx4UFFzOUh3N25Za2FzbFhGNm10?=
+ =?utf-8?B?VTNYRWdNZFl5WXdnNi9peThFQTFKWDRPbkEycGVZNnFrT2kvR00vVU4yQ0NT?=
+ =?utf-8?B?SGVzSWp6LzR0RVBabkRVVWFYOFA3eS8vZWs3cUNSeUtGMXA4RlBaT2xXc2pr?=
+ =?utf-8?Q?qJ0nvKlNw46e57HpYA?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c7b80cd9-9384-4d89-cfbd-08dea1ea010e
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB6435.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2026 10:12:35.0587 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: dmdjK0u8gxYH/tsRynCYj5XSxkcjCLWdBvPZROO937u1cxGGevXnFSKnNy+cg6gI3aXceGEwkQf6+R+6s0ge3A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6110
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,457 +147,313 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Adrián,
 
-On 22/04/2026 13:25, Adrián Larumbe wrote:
-> Allow UM to bind sparsely populated memory regions by cyclically mapping
-> virtual ranges over a kernel-allocated dummy BO. This alternative is
-> preferable to the old method of handling sparseness in the UMD, because it
-> relied on the creation of a buffer object to the same end, despite the fact
-> Vulkan sparse resources don't need to be backed by a driver BO.
+
+On 4/23/2026 7:06 PM, Huang, Honglei1 wrote:
 > 
-> The choice of backing sparsely-bound regions with a Panhtor BO was made so
-> as to profit from the existing shrinker reclaim code. That way no special
-> treatment must be given to the dummy sparse BOs when reclaiming memory, as
-> would be the case if we had chosen a raw kernel page implementation.
 > 
-> A new dummy BO is allocated per open file context, because even though the
-> Vulkan spec mandates that writes into sparsely bound regions must be
-> discarded, our implementation is still a workaround over the fact Mali CSF
-> GPUs cannot support this behaviour on the hardware level, so writes still
-> make it into the backing BO. If we had a global one, then it could be a
-> venue for information leaks between file contexts, which should never
-> happen in DRM.
+> On 4/23/2026 6:39 PM, Christian König wrote:
+>> On 4/23/26 08:21, Huang, Honglei1 wrote:
+>>>
+>>>
+>>> On 4/20/2026 11:37 PM, Christian König wrote:
+>>>> On 4/20/26 15:30, Huang, Honglei1 wrote:
+>>>>> On 4/20/2026 8:15 PM, Christian König wrote:
+>>>>>>
+>>>>>>
+>>>>>> On 4/20/26 14:07, Honglei Huang wrote:
+>>>>>>> From: Honglei Huang <honghuan@amd.com>
+>>>>>>>
+>>>>>>> Add amdgpu drm SVM API definitions built on the
+>>>>>>> DRM GPUSVM framework.
+>>>>>>>
+>>>>>>> This includes:
+>>>>>>> - DRM_AMDGPU_GEM_SVM ioctl
+>>>>>>> - AMDGPU_SVM_FLAG_* flags
+>>>>>>> - AMDGPU_SVM_OP_SET_ATTR / AMDGPU_SVM_OP_GET_ATTR operations
+>>>>>>> - AMDGPU_SVM_ATTR_* attribute types
+>>>>>>> - AMDGPU_SVM_LOCATION_SYSMEM / AMDGPU_SVM_LOCATION_UNDEFINED
+>>>>>>> - struct drm_amdgpu_svm_attribute and struct drm_amdgpu_gem_svm
+>>>>>>>
+>>>>>>> Signed-off-by: Honglei Huang <honghuan@amd.com>
+>>>>>>> ---
+>>>>>>>     include/uapi/drm/amdgpu_drm.h | 39 ++++++++++++++++++++++++++ 
+>>>>>>> +++++++++
+>>>>>>>     1 file changed, 39 insertions(+)
+>>>>>>>
+>>>>>>> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/ 
+>>>>>>> amdgpu_drm.h
+>>>>>>> index 406a42be4..bed71ed9b 100644
+>>>>>>> --- a/include/uapi/drm/amdgpu_drm.h
+>>>>>>> +++ b/include/uapi/drm/amdgpu_drm.h
+>>>>>>> @@ -58,6 +58,7 @@ extern "C" {
+>>>>>>>     #define DRM_AMDGPU_USERQ_SIGNAL        0x17
+>>>>>>>     #define DRM_AMDGPU_USERQ_WAIT        0x18
+>>>>>>>     #define DRM_AMDGPU_GEM_LIST_HANDLES    0x19
+>>>>>>> +#define DRM_AMDGPU_GEM_SVM        0x1a
+>>>>>>>       #define DRM_IOCTL_AMDGPU_GEM_CREATE    
+>>>>>>> DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union 
+>>>>>>> drm_amdgpu_gem_create)
+>>>>>>>     #define DRM_IOCTL_AMDGPU_GEM_MMAP    
+>>>>>>> DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union 
+>>>>>>> drm_amdgpu_gem_mmap)
+>>>>>>> @@ -79,6 +80,7 @@ extern "C" {
+>>>>>>>     #define DRM_IOCTL_AMDGPU_USERQ_SIGNAL    
+>>>>>>> DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_SIGNAL, struct 
+>>>>>>> drm_amdgpu_userq_signal)
+>>>>>>>     #define DRM_IOCTL_AMDGPU_USERQ_WAIT    
+>>>>>>> DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_WAIT, struct 
+>>>>>>> drm_amdgpu_userq_wait)
+>>>>>>>     #define DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES 
+>>>>>>> DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_LIST_HANDLES, struct 
+>>>>>>> drm_amdgpu_gem_list_handles)
+>>>>>>> +#define DRM_IOCTL_AMDGPU_GEM_SVM    DRM_IOWR(DRM_COMMAND_BASE + 
+>>>>>>> DRM_AMDGPU_GEM_SVM, struct drm_amdgpu_gem_svm)
+>>>>>>>       /**
+>>>>>>>      * DOC: memory domains
+>>>>>>> @@ -1665,6 +1667,43 @@ struct drm_color_ctm_3x4 {
+>>>>>>>         __u64 matrix[12];
+>>>>>>>     };
+>>>>>>>     +#define AMDGPU_SVM_FLAG_HOST_ACCESS        0x00000001
+>>>>>>> +#define AMDGPU_SVM_FLAG_COHERENT        0x00000002
+>>>>>>> +#define AMDGPU_SVM_FLAG_HIVE_LOCAL        0x00000004
+>>>>>>> +#define AMDGPU_SVM_FLAG_GPU_RO            0x00000008
+>>>>>>> +#define AMDGPU_SVM_FLAG_GPU_EXEC        0x00000010
+>>>>>>> +#define AMDGPU_SVM_FLAG_GPU_READ_MOSTLY        0x00000020
+>>>>>>> +#define AMDGPU_SVM_FLAG_GPU_ALWAYS_MAPPED    0x00000040
+>>>>>>> +#define AMDGPU_SVM_FLAG_EXT_COHERENT        0x00000080
+>>>>>>> +
+>>>>>>> +#define AMDGPU_SVM_OP_SET_ATTR        0
+>>>>>>> +#define AMDGPU_SVM_OP_GET_ATTR        1
+>>>>>>> +
+>>>>>>> +#define AMDGPU_SVM_ATTR_PREFERRED_LOC        0
+>>>>>>> +#define AMDGPU_SVM_ATTR_PREFETCH_LOC        1
+>>>>>>
+>>>>>> Up till here the interface makes perfect sense, but then it 
+>>>>>> becomes a bit fuzzy.
+>>>>>>
+>>>>>>> +#define AMDGPU_SVM_ATTR_ACCESS            2
+>>>>>>> +#define AMDGPU_SVM_ATTR_ACCESS_IN_PLACE        3
+>>>>>>> +#define AMDGPU_SVM_ATTR_NO_ACCESS        4
+>>>>>>
+>>>>>> Why are those separate attributes? What is the difference between 
+>>>>>> those?
+>>>>>
+>>>>> Really thanks for the comments, I have some content mistaken in V2, 
+>>>>> so I updated the V3 to fix that. For the header they are same. for 
+>>>>> other content please review the V3, sorry about that. And will fix 
+>>>>> the concern you raised in next version.
+>>>>>
+>>>>> So the meaning of AMDGPU_SVM_ATTR_ACCESS and 
+>>>>> AMDGPU_SVM_ATTR_NO_ACCESS are clear, GPU can access it or not, and 
+>>>>> the SVM can set the preferred location, it can be in VRAM or 
+>>>>> system, for AMDGPU_SVM_ATTR_ACCESS it can be migrated between RAM 
+>>>>> and VRAM. For AMDGPU_SVM_ATTR_ACCESS_IN_PLACE,
+>>>>> it can not migrate, GPU only can access it in the initial place.
+>>>>
+>>>> Yeah but that doesn't then the interface doesn't seem to make sense 
+>>>> since such states are mutual exclusive.
+>>>>
+>>>> It would make sense when you have some attribute which is named (for 
+>>>> example) AMDGPU_SVM_ATTR_ACCESS which can have the values 
+>>>> INACCESSIBLE, IN_PLACE, MIGRATE.
+>>>
+>>> Got it so can I change the UAPI to the following format?
+>>>
+>>> enum amdgpu_ioctl_svm_attr_type {
+>>>      AMDGPU_IOCTL_SVM_ATTR_PREFERRED_LOC,
+>>>      AMDGPU_IOCTL_SVM_ATTR_PREFETCH_LOC,
+>>>      AMDGPU_IOCTL_SVM_ATTR_ACCESS,
+>>>      AMDGPU_IOCTL_SVM_ATTR_SET_FLAGS,
+>>>      AMDGPU_IOCTL_SVM_ATTR_CLR_FLAGS,
+>>>      AMDGPU_IOCTL_SVM_ATTR_GRANULARITY
+>>> };
+>>>
+>>> enum amdgpu_ioctl_svm_location {
+>>
+>> The enum name could probably be improved, but apart from that looks 
+>> reasonable to me.
 > 
-> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-> Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
-
-Looks good, a few issues below.
-
-I'm worried about remap_evicted_vma() and how that interacts with sparse
-mappings. Does that need to be fixed up to handle sparse mappings? Or is
-there something to prevent the dummy BO being reclaimed? I might be
-missing something here.
-
-> ---
->  drivers/gpu/drm/panthor/panthor_gem.c |  18 +++
->  drivers/gpu/drm/panthor/panthor_gem.h |   2 +
->  drivers/gpu/drm/panthor/panthor_mmu.c | 172 ++++++++++++++++++++++----
->  include/uapi/drm/panthor_drm.h        |  12 ++
->  4 files changed, 183 insertions(+), 21 deletions(-)
+> Will improve the name.
+>>
+>>>      AMDGPU_SVM_ACCESS_INACCESSIBLE = 1,
+>>>      AMDGPU_SVM_ACCESS_IN_PLACE = 2,
+>>>      AMDGPU_SVM_ACCESS_MIGRATE = 3,
+>>> };
+>>>
+>>>>
+>>>>>>> +#define AMDGPU_SVM_ATTR_SET_FLAGS        5
+>>>>>>> +#define AMDGPU_SVM_ATTR_CLR_FLAGS        6
+>>>>>>
+>>>>>> Why is that separated into set and clear flags?
+>>>>>
+>>>>> This method inherits from KFD and is also designed to be compatible 
+>>>>> with upper layer applications such as ROCR.
+>>>>
+>>>> That is *not* sufficient as justification. We need to document why 
+>>>> that is necessary and *not* just say ROCR works that way.
+>>>>
+>>>> As far as I can see just a SET_FLAGS should be sufficient.
+>>>
+>>> Accoding to the reply form Felix, CLR_FLAGS provides a convenient 
+>>> method for deleting large-scale flags, do we need to redesign this part?
+>>
+>> I think we should expose those flags as individual attributes then.
 > 
-> diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
-> index 69cef05b6ef7..833153c2b080 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gem.c
-> +++ b/drivers/gpu/drm/panthor/panthor_gem.c
-> @@ -1345,6 +1345,24 @@ panthor_kernel_bo_create(struct panthor_device *ptdev, struct panthor_vm *vm,
->  	return ERR_PTR(ret);
->  }
->  
-> +/**
-> + * panthor_dummy_bo_create() - Create a Panthor BO meant to back sparse bindings.
-> + * @ptdev: Device.
-> + *
-> + * Return: A valid pointer in case of success, an ERR_PTR() otherwise.
-> + */
-> +struct panthor_gem_object *
-> +panthor_dummy_bo_create(struct panthor_device *ptdev)
-> +{
-> +	/* Since even when the DRM device's mount point has enabled THP we have no guarantee
-> +	 * that drm_gem_get_pages() will return a single 2MiB PMD, and also we cannot be sure
-> +	 * that the 2MiB won't be reclaimed and re-allocated later on as 4KiB chunks, it doesn't
-> +	 * make sense to pre-populate this object's page array, nor to fall back on a BO size
-> +	 * of 4KiB. Sticking to a dummy object size of 2MiB lets us keep things simple for now.
-> +	 */
-> +	return panthor_gem_create(&ptdev->base, SZ_2M, DRM_PANTHOR_BO_NO_MMAP, NULL, 0);
+> Got it will do.
+> 
+>>
+>>>>
+>>>>>>> +#define AMDGPU_SVM_ATTR_GRANULARITY        7
+>>>>>>> +
+>>>>>>> +#define AMDGPU_SVM_LOCATION_SYSMEM        0
+>>>>>>> +#define AMDGPU_SVM_LOCATION_UNDEFINED        0xffffffff
+>>>>>>
+>>>>>> No location for device local memory?
+>>>>>
+>>>>> Vaule > 0 means for device memory, in xe_svm, it seems like it uses 
+>>>>> fd for device local memory.
+>>>>
+>>>> Absolute clear NAK for that approach. This interface is per FD!
+>>>>
+>>>> We need some value AMDGPU_SVM_LOCATION_DEVICE which means that the 
+>>>> memory should be migrated to the current device.
+>>>>
+>>>> We also need to make sure that setting attributes for different 
+>>>> devices doesn't affect each other.
+>>>
+>>>
+>>> I Totally agreed with your thoughts, but according to the reply from 
+>>> matt, it seems like we need to consider the P2P/multi GPU situation.
+>>
+>> When the drm_svm or pagemap component has already code to deal with 
+>> that then it is probably ok to have the same interface.
+>>
+>> When when XE only hacked that together on their own then that is a bit 
+>> questionable because getting the lifetime right is usually tricky.
+>>
+>>>
+>>> So do I need to add a AMDGPU_SVM_LOCATION_DEVICE  flag or do I need 
+>>> to modify the UAPI to align with xe_svm?
+>>
+>> I think we need to full clarify how XE works here. E.g. that you can 
+>> specify both 0 as well as give the fd to get the memory migrated to 
+>> the local device sounds odd.
+> 
+> Got it, for this part maybe require more discussion and time to fully 
+> understand, so this part will remain unchanged in the next version.
+> 
 
-So here we're not guaranteeing the dummy BO is a huge page (which is
-fine), but...
+Hi Christian, Felix,
 
-> +}
-> +
->  static bool can_swap(void)
->  {
->  	return get_nr_swap_pages() > 0;
-> diff --git a/drivers/gpu/drm/panthor/panthor_gem.h b/drivers/gpu/drm/panthor/panthor_gem.h
-> index ae0491d0b121..8639c2fa08e6 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gem.h
-> +++ b/drivers/gpu/drm/panthor/panthor_gem.h
-> @@ -315,6 +315,8 @@ panthor_kernel_bo_create(struct panthor_device *ptdev, struct panthor_vm *vm,
->  
->  void panthor_kernel_bo_destroy(struct panthor_kernel_bo *bo);
->  
-> +struct panthor_gem_object *panthor_dummy_bo_create(struct panthor_device *ptdev);
-> +
->  #ifdef CONFIG_DEBUG_FS
->  void panthor_gem_debugfs_init(struct drm_minor *minor);
->  #endif
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> index 54f7f7a8d44f..7b91836e608d 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -112,6 +112,17 @@ struct panthor_mmu {
->  struct panthor_vm_pool {
->  	/** @xa: Array used for VM handle tracking. */
->  	struct xarray xa;
-> +
-> +	/**
-> +	 * @dummy: Dummy object used for sparse mappings
-> +	 *
-> +	 * Sparse bindings map virtual address ranges onto a dummy
-> +	 * BO in a modulo fashion. Even though sparse writes are meant
-> +	 * to be discarded and reads undefined, writes are still reflected
-> +	 * in the dummy buffer. That means we must keep a dummy object per
-> +	 * file context, to avoid data leaks between them.
-> +	 */
-> +	struct panthor_gem_object *dummy;
->  };
->  
->  /**
-> @@ -391,6 +402,16 @@ struct panthor_vm {
->  		 */
->  		struct list_head lru_node;
->  	} reclaim;
-> +
-> +	/**
-> +	 * @dummy: Dummy object used for sparse mappings.
-> +	 *
-> +	 * VM's must keep a reference to the file context-wide dummy BO because
-> +	 * they can outlive the file context, which includes the VM pool holding
-> +	 * the original dummy BO reference.
-> +	 *
-> +	 */
-> +	struct panthor_gem_object *dummy;
->  };
->  
->  /**
-> @@ -1020,6 +1041,45 @@ panthor_vm_map_pages(struct panthor_vm *vm, u64 iova, int prot,
->  	return 0;
->  }
->  
-> +static int
-> +panthor_vm_map_sparse(struct panthor_vm *vm, u64 iova, int prot,
-> +		      struct sg_table *sgt, u64 size)
-> +{
-> +	u64 start_iova = iova;
-> +	int ret;
-> +
-> +	if (iova & (SZ_2M - 1)) {
-> +		u64 unaligned_size = min(ALIGN(iova, SZ_2M) - iova, size);
-> +
-> +		ret = panthor_vm_map_pages(vm, iova, prot, sgt,
-> +					   0, unaligned_size);
-> +		if (ret)
-> +			return ret;
-> +
-> +		size -= unaligned_size;
-> +		iova += unaligned_size;
-> +	}
-> +
-> +	/* TODO: we should probably optimize this at the io_pgtable level. */
-> +	while (size > 0) {
-> +		u64 next_size = min(size, sg_dma_len(sgt->sgl));
+Based on the v3 review, I've reworked the SVM UAPI. Please let me know 
+if anything still looks off before I post v4.
 
-Here we're only using the first entry of the scatter list. So I think in
-the fragmented case we don't end up using the full 2MB.
+Changes with v3 UAPI:
+   - OP / ATTR_TYPE / ACCESS / LOCATION converted to documented enums.
+   - Three ACCESS_* attribute types collapsed into a single
+     AMDGPU_SVM_ATTR_ACCESS carrying enum amdgpu_ioctl_svm_access.
+   - ACCESS/MIGRATE renamed to ALLOW_MIGRATE to means permitted, not 
+required
+   - SET_FLAGS / CLR_FLAGS removed; each former flag is now its own
+     attribute carrying enum amdgpu_ioctl_svm_flag_value: CLR / SET
 
-> +
-> +		ret = panthor_vm_map_pages(vm, iova, prot,
-> +					   sgt, 0, next_size);
-> +		if (ret)
-> +			goto err_unmap;
-> +
-> +		size -= next_size;
-> +		iova += next_size;
-> +	}
-> +
-> +	return 0;
-> +
-> +err_unmap:
-> +	panthor_vm_unmap_pages(vm, start_iova, iova - start_iova);
-> +	return ret;
-> +}
-> +
->  static int flags_to_prot(u32 flags)
->  {
->  	int prot = 0;
-> @@ -1262,6 +1322,7 @@ static int panthor_vm_op_ctx_prealloc_pts(struct panthor_vm_op_ctx *op_ctx)
->  	(DRM_PANTHOR_VM_BIND_OP_MAP_READONLY | \
->  	 DRM_PANTHOR_VM_BIND_OP_MAP_NOEXEC | \
->  	 DRM_PANTHOR_VM_BIND_OP_MAP_UNCACHED | \
-> +	 DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE | \
->  	 DRM_PANTHOR_VM_BIND_OP_TYPE_MASK)
->  
->  static int panthor_vm_prepare_map_op_ctx(struct panthor_vm_op_ctx *op_ctx,
-> @@ -1269,6 +1330,7 @@ static int panthor_vm_prepare_map_op_ctx(struct panthor_vm_op_ctx *op_ctx,
->  					 struct panthor_gem_object *bo,
->  					 const struct drm_panthor_vm_bind_op *op)
->  {
-> +	bool is_sparse = op->flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE;
->  	struct drm_gpuvm_bo *preallocated_vm_bo;
->  	struct sg_table *sgt = NULL;
->  	int ret;
-> @@ -1280,8 +1342,21 @@ static int panthor_vm_prepare_map_op_ctx(struct panthor_vm_op_ctx *op_ctx,
->  	    (op->flags & DRM_PANTHOR_VM_BIND_OP_TYPE_MASK) != DRM_PANTHOR_VM_BIND_OP_TYPE_MAP)
->  		return -EINVAL;
->  
-> -	/* Make sure the VA and size are in-bounds. */
-> -	if (op->size > bo->base.size || op->bo_offset > bo->base.size - op->size)
-> +	/* uAPI mandates sparsely bound regions must not be executable. */
-> +	if (is_sparse && !(op->flags & DRM_PANTHOR_VM_BIND_OP_MAP_NOEXEC))
-> +		return -EINVAL;
-> +
-> +	/* For non-sparse, make sure the VA and size are in-bounds.
-> +	 * For sparse, this is not applicable, because the dummy BO is
-> +	 * repeatedly mapped over a potentially wider VA range.
-> +	 */
-> +	if (!is_sparse && (op->size > bo->base.size || op->bo_offset > bo->base.size - op->size))
-> +		return -EINVAL;
-> +
-> +	/* For sparse, we don't expect any user BO, the BO we get passed
-> +	 * is the dummy BO attached to the VM pool.
-> +	 */
-> +	if (is_sparse && (op->bo_handle || op->bo_offset))
->  		return -EINVAL;
->  
->  	/* If the BO has an exclusive VM attached, it can't be mapped to other VMs. */
-> @@ -1543,6 +1618,9 @@ int panthor_vm_pool_create_vm(struct panthor_device *ptdev,
->  		return ret;
->  	}
->  
-> +	drm_gem_object_get(&pool->dummy->base);
-> +	vm->dummy = pool->dummy;
-> +
->  	args->user_va_range = kernel_va_start;
->  	return id;
->  }
-> @@ -1634,6 +1712,7 @@ void panthor_vm_pool_destroy(struct panthor_file *pfile)
->  	xa_for_each(&pfile->vms->xa, i, vm)
->  		panthor_vm_destroy(vm);
->  
-> +	drm_gem_object_put(&pfile->vms->dummy->base);
->  	xa_destroy(&pfile->vms->xa);
->  	kfree(pfile->vms);
->  }
-> @@ -1651,6 +1730,11 @@ int panthor_vm_pool_create(struct panthor_file *pfile)
-[missing context]
-	pfile->vms = kzalloc_obj(*pfile->vms);
-	if (!pfile->vms)
-[/missing_context]
->  		return -ENOMEM;
->  
->  	xa_init_flags(&pfile->vms->xa, XA_FLAGS_ALLOC1);
-> +
-> +	pfile->vms->dummy = panthor_dummy_bo_create(pfile->ptdev);
-> +	if (IS_ERR(pfile->vms->dummy))
-> +		return PTR_ERR(pfile->vms->dummy);
 
-Here pfile->vms is not cleaned up.
+   enum amdgpu_ioctl_svm_op {
+           AMDGPU_SVM_OP_SET_ATTR = 0,
+           AMDGPU_SVM_OP_GET_ATTR = 1,
+   };
 
-> +
->  	return 0;
->  }
->  
-> @@ -1968,6 +2052,9 @@ static void panthor_vm_free(struct drm_gpuvm *gpuvm)
->  
->  	free_io_pgtable_ops(vm->pgtbl_ops);
->  
-> +	if (vm->dummy)
-> +		drm_gem_object_put(&vm->dummy->base);
-> +
->  	drm_mm_takedown(&vm->mm);
->  	kfree(vm);
->  }
-> @@ -2127,7 +2214,23 @@ static void panthor_vma_init(struct panthor_vma *vma, u32 flags)
->  #define PANTHOR_VM_MAP_FLAGS \
->  	(DRM_PANTHOR_VM_BIND_OP_MAP_READONLY | \
->  	 DRM_PANTHOR_VM_BIND_OP_MAP_NOEXEC | \
-> -	 DRM_PANTHOR_VM_BIND_OP_MAP_UNCACHED)
-> +	 DRM_PANTHOR_VM_BIND_OP_MAP_UNCACHED | \
-> +	 DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE)
-> +
-> +static int
-> +panthor_vm_exec_map_op(struct panthor_vm *vm, u32 flags,
-> +		       const struct drm_gpuva_op_map *op)
-> +{
-> +	struct panthor_gem_object *bo = to_panthor_bo(op->gem.obj);
-> +	int prot = flags_to_prot(flags);
-> +
-> +	if (flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE)
-> +		return panthor_vm_map_sparse(vm, op->va.addr, prot,
-> +					     bo->dmap.sgt, op->va.range);
-> +
-> +	return panthor_vm_map_pages(vm, op->va.addr, prot, bo->dmap.sgt,
-> +				    op->gem.offset, op->va.range);
-> +}
->  
->  static int panthor_gpuva_sm_step_map(struct drm_gpuva_op *op, void *priv)
->  {
-> @@ -2141,9 +2244,7 @@ static int panthor_gpuva_sm_step_map(struct drm_gpuva_op *op, void *priv)
->  
->  	panthor_vma_init(vma, op_ctx->flags & PANTHOR_VM_MAP_FLAGS);
->  
-> -	ret = panthor_vm_map_pages(vm, op->map.va.addr, flags_to_prot(vma->flags),
-> -				   op_ctx->map.bo->dmap.sgt, op->map.gem.offset,
-> -				   op->map.va.range);
-> +	ret = panthor_vm_exec_map_op(vm, vma->flags, &op->map);
->  	if (ret) {
->  		panthor_vm_op_ctx_return_vma(op_ctx, vma);
->  		return ret;
-> @@ -2159,13 +2260,16 @@ static int panthor_gpuva_sm_step_map(struct drm_gpuva_op *op, void *priv)
->  }
->  
->  static bool
-> -iova_mapped_as_huge_page(struct drm_gpuva_op_map *op, u64 addr)
-> +iova_mapped_as_huge_page(struct drm_gpuva_op_map *op, u64 addr, bool is_sparse)
->  {
->  	struct panthor_gem_object *bo = to_panthor_bo(op->gem.obj);
->  	const struct page *pg;
->  	pgoff_t bo_offset;
->  
-> -	bo_offset = addr - op->va.addr + op->gem.offset;
-> +	/* Per-VM Dummy BO in sparse mappings is always 2MiB, so checking the
-> +	 * size of the very first page is enough.
-> +	 */
-> +	bo_offset = !is_sparse ? addr - op->va.addr + op->gem.offset : 0;
->  	pg = bo->backing.pages[bo_offset >> PAGE_SHIFT];
->  
->  	return folio_size(page_folio(pg)) >= SZ_2M;
-> @@ -2175,6 +2279,8 @@ static void
->  unmap_hugepage_align(const struct drm_gpuva_op_remap *op,
->  		     u64 *unmap_start, u64 *unmap_range)
->  {
-> +	struct panthor_vma *unmap_vma = container_of(op->unmap->va, struct panthor_vma, base);
-> +	bool is_sparse = unmap_vma->flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE;
->  	u64 aligned_unmap_start, aligned_unmap_end, unmap_end;
->  
->  	unmap_end = *unmap_start + *unmap_range;
-> @@ -2186,7 +2292,7 @@ unmap_hugepage_align(const struct drm_gpuva_op_remap *op,
->  	 */
->  	if (op->prev && aligned_unmap_start < *unmap_start &&
->  	    op->prev->va.addr <= aligned_unmap_start &&
-> -	    iova_mapped_as_huge_page(op->prev, *unmap_start)) {
-> +	    (iova_mapped_as_huge_page(op->prev, *unmap_start, is_sparse))) {
->  		*unmap_range += *unmap_start - aligned_unmap_start;
->  		*unmap_start = aligned_unmap_start;
->  	}
-> @@ -2196,7 +2302,7 @@ unmap_hugepage_align(const struct drm_gpuva_op_remap *op,
->  	 */
->  	if (op->next && aligned_unmap_end > unmap_end &&
->  	    op->next->va.addr + op->next->va.range >= aligned_unmap_end &&
-> -	    iova_mapped_as_huge_page(op->next, unmap_end - 1)) {
-> +	    (iova_mapped_as_huge_page(op->next, *unmap_start, is_sparse))) {
-                                                ^^^^^^^^^^^^
-Shouldn't that still be (unmap_end - 1)?
+   enum amdgpu_ioctl_svm_attr_type {
+           AMDGPU_SVM_ATTR_PREFERRED_LOC           = 0,
+           AMDGPU_SVM_ATTR_PREFETCH_LOC            = 1,
+           AMDGPU_SVM_ATTR_ACCESS                  = 2,
+           AMDGPU_SVM_ATTR_GRANULARITY             = 3,
+           AMDGPU_SVM_ATTR_HOST_ACCESS             = 4,
+           AMDGPU_SVM_ATTR_COHERENT                = 5,
+           AMDGPU_SVM_ATTR_EXT_COHERENT            = 6,
+           AMDGPU_SVM_ATTR_HIVE_LOCAL              = 7,
+           AMDGPU_SVM_ATTR_GPU_RO                  = 8,
+           AMDGPU_SVM_ATTR_GPU_EXEC                = 9,
+           AMDGPU_SVM_ATTR_GPU_READ_MOSTLY         = 10,
+           AMDGPU_SVM_ATTR_GPU_ALWAYS_MAPPED       = 11,
+   };
 
-Thanks,
-Steve
+   enum amdgpu_ioctl_svm_access {
+           AMDGPU_SVM_ACCESS_INACCESSIBLE          = 0,
+           AMDGPU_SVM_ACCESS_IN_PLACE              = 1,
+           AMDGPU_SVM_ACCESS_ALLOW_MIGRATE         = 2,
+   };
 
->  		*unmap_range += aligned_unmap_end - unmap_end;
->  	}
->  }
-> @@ -2231,15 +2337,27 @@ static int panthor_gpuva_sm_step_remap(struct drm_gpuva_op *op,
->  		panthor_vm_unmap_pages(vm, unmap_start, unmap_range);
->  	}
->  
-> +	/* In the following two branches, neither remap::unmap::offset nor remap::unmap::keep
-> +	 * can be trusted to contain legitimate values in the case of sparse mappings, because
-> +	 * the drm_gpuvm core calculates them on the assumption that a VM_BIND operation's
-> +	 * range is always less than the target BO. That doesn't hold in the case of sparse
-> +	 * bindings, but we don't care to adjust the BO offset of new VA's spawned by a remap
-> +	 * operation because we ignore them altogether when sparse-mapping pages on a HW level
-> +	 * just further below. If we ever wanted to make use of remap::unmap::keep, then this
-> +	 * logic would have to be reworked.
-> +	 */
->  	if (op->remap.prev) {
-> -		struct panthor_gem_object *bo = to_panthor_bo(op->remap.prev->gem.obj);
->  		u64 offset = op->remap.prev->gem.offset + unmap_start - op->remap.prev->va.addr;
->  		u64 size = op->remap.prev->va.addr + op->remap.prev->va.range - unmap_start;
-> +		const struct drm_gpuva_op_map map_op = {
-> +			.va.addr = unmap_start,
-> +			.va.range = size,
-> +			.gem.obj = op->remap.prev->gem.obj,
-> +			.gem.offset = offset,
-> +		};
->  
-> -		if (!unmap_vma->evicted) {
-> -			ret = panthor_vm_map_pages(vm, unmap_start,
-> -						   flags_to_prot(unmap_vma->flags),
-> -						   bo->dmap.sgt, offset, size);
-> +		if (!unmap_vma->evicted && size > 0) {
-> +			ret = panthor_vm_exec_map_op(vm, unmap_vma->flags, &map_op);
->  			if (ret)
->  				return ret;
->  		}
-> @@ -2250,14 +2368,17 @@ static int panthor_gpuva_sm_step_remap(struct drm_gpuva_op *op,
->  	}
->  
->  	if (op->remap.next) {
-> -		struct panthor_gem_object *bo = to_panthor_bo(op->remap.next->gem.obj);
->  		u64 addr = op->remap.next->va.addr;
->  		u64 size = unmap_start + unmap_range - op->remap.next->va.addr;
-> +		const struct drm_gpuva_op_map map_op = {
-> +			.va.addr = addr,
-> +			.va.range = size,
-> +			.gem.obj = op->remap.next->gem.obj,
-> +			.gem.offset = op->remap.next->gem.offset,
-> +		};
->  
-> -		if (!unmap_vma->evicted) {
-> -			ret = panthor_vm_map_pages(vm, addr, flags_to_prot(unmap_vma->flags),
-> -						   bo->dmap.sgt, op->remap.next->gem.offset,
-> -						   size);
-> +		if (!unmap_vma->evicted && size > 0) {
-> +			ret = panthor_vm_exec_map_op(vm, unmap_vma->flags, &map_op);
->  			if (ret)
->  				return ret;
->  		}
-> @@ -2817,7 +2938,13 @@ panthor_vm_bind_prepare_op_ctx(struct drm_file *file,
->  
->  	switch (op->flags & DRM_PANTHOR_VM_BIND_OP_TYPE_MASK) {
->  	case DRM_PANTHOR_VM_BIND_OP_TYPE_MAP:
-> -		gem = drm_gem_object_lookup(file, op->bo_handle);
-> +		if (!(op->flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE)) {
-> +			gem = drm_gem_object_lookup(file, op->bo_handle);
-> +		} else {
-> +			gem = &vm->dummy->base;
-> +			drm_gem_object_get(&vm->dummy->base);
-> +		}
-> +
->  		ret = panthor_vm_prepare_map_op_ctx(op_ctx, vm,
->  						    gem ? to_panthor_bo(gem) : NULL,
->  						    op);
-> @@ -3025,6 +3152,9 @@ int panthor_vm_map_bo_range(struct panthor_vm *vm, struct panthor_gem_object *bo
->  	struct panthor_vm_op_ctx op_ctx;
->  	int ret;
->  
-> +	if (drm_WARN_ON(&vm->ptdev->base, flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE))
-> +		return -EINVAL;
-> +
->  	ret = panthor_vm_prepare_map_op_ctx(&op_ctx, vm, bo, &op);
->  	if (ret)
->  		return ret;
-> diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
-> index 42c901ebdb7a..1490a2223766 100644
-> --- a/include/uapi/drm/panthor_drm.h
-> +++ b/include/uapi/drm/panthor_drm.h
-> @@ -614,6 +614,18 @@ enum drm_panthor_vm_bind_op_flags {
->  	 */
->  	DRM_PANTHOR_VM_BIND_OP_MAP_UNCACHED = 1 << 2,
->  
-> +	/**
-> +	 * @DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE: Sparsely map a virtual memory range
-> +	 *
-> +	 * Only valid with DRM_PANTHOR_VM_BIND_OP_TYPE_MAP.
-> +	 *
-> +	 * When this flag is set, the whole vm_bind range is mapped over a dummy object in a cyclic
-> +	 * fashion, and all GPU reads from addresses in the range return undefined values. This flag
-> +	 * being set means drm_panthor_vm_bind_op:offset and drm_panthor_vm_bind_op::handle must
-> +	 * both be set to 0. DRM_PANTHOR_VM_BIND_OP_MAP_NOEXEC must also be set.
-> +	 */
-> +	DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE = 1 << 3,
-> +
->  	/**
->  	 * @DRM_PANTHOR_VM_BIND_OP_TYPE_MASK: Mask used to determine the type of operation.
->  	 */
+   enum amdgpu_ioctl_svm_location {
+           AMDGPU_SVM_LOCATION_SYSMEM              = 0,
+           AMDGPU_SVM_LOCATION_UNDEFINED           = 0xffffffff,
+   };
+
+   enum amdgpu_ioctl_svm_flag_value {
+           AMDGPU_SVM_FLAG_CLR                     = 0,
+           AMDGPU_SVM_FLAG_SET                     = 1,
+   };
+
+
+Regards,
+Honglei
+
+> Regards,
+> Honglei
+> 
+>>
+>> Regards,
+>> Christian.
+>>
+>>>
+>>> Regards,
+>>> Honglei
+>>>
+>>>>
+>>>> Regards,
+>>>> Christian.
+>>>>
+>>>>>
+>>>>>>
+>>>>>>> +
+>>>>>>> +struct drm_amdgpu_svm_attribute {
+>>>>>>> +    __u32 type;
+>>>>>>> +    __u32 value;
+>>>>>>> +};
+>>>>>>> +
+>>>>>>> +struct drm_amdgpu_gem_svm {
+>>>>>>> +    __u64 start_addr;
+>>>>>>> +    __u64 size;
+>>>>>>> +    __u32 operation;
+>>>>>>> +    __u32 nattr;
+>>>>>>> +    __u64 attrs_ptr;
+>>>>>>> +};
+>>>>>>
+>>>>>> Those struct make perfect sense but clearly need documentation. 
+>>>>>> Preferable as kerneldoc.
+>>>>>>
+>>>>>> And we usually use unions in this header to separate the input 
+>>>>>> from the output parameters.
+>>>>>
+>>>>> Got it will add documentation for it and will use unions in next 
+>>>>> version. Really thanks for the comments.
+>>>>>
+>>>>> Regards,
+>>>>> Honglei
+>>>>>
+>>>>>>
+>>>>>> Regards,
+>>>>>> Christian.
+>>>>>>
+>>>>>>> +
+>>>>>>>     #if defined(__cplusplus)
+>>>>>>>     }
+>>>>>>>     #endif
+>>>>>>
+>>>>>
+>>>>
+>>>
+>>
+> 
 
