@@ -4,50 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52A6EFE5209
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 11:08:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28A00FE5206
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 11:08:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D34B10E3DE;
-	Fri, 24 Apr 2026 11:08:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8156910F4E2;
+	Fri, 24 Apr 2026 11:08:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="h8CnEK46";
+	dkim=pass (2048-bit key; unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="nNG6YF5a";
 	dkim-atps=neutral
-Received: from OSPPR02CU001.outbound.protection.outlook.com
- (mail-norwayeastazon11013014.outbound.protection.outlook.com [40.107.159.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6842D10E3BB
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 11:08:03 +0000 (UTC)
+Received: from DB3PR0202CU003.outbound.protection.outlook.com
+ (mail-northeuropeazon11010037.outbound.protection.outlook.com [52.101.84.37])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8FC9E10F4E2
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 11:08:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WlM4w15K54RBE2D62hjlMIleqMDtLKxzy1OZrMz4ZaAovvUhJiOzCtPMuqV8vpRg2STbXLxLcIUEBOsqfPXzbdS3RF4m0/9XaPk54fFRd3/VpSgpMTediAdhGTN17gm1vaQlywqwZkBAoJgvWlRSVf16yu9/2NjH/qxPMkfXpdHOhyPhTIohW/vvtlb7OXD2mStiPB2XM2mTYO35GQW+nW+rbrnbDKSsH7Ag4aohm9QFkpPHtDqJ9dMS5wvPAeE7jjwTNDRlfyHLfJm8zQTq2YFfFgWuFVI8MZCKXg760i0/Uzz479NTHG7WAvecTCOzFb0/oKa/6GmEKBEU4vn42A==
+ b=m/48vWC0a9rXmCmj/0FQra5oi6Z3OXZZQg6Hs2DyQdGaBQQ7HXl9JffF0xOv0U0JvdbIG9HxfEJ7KQI5pPku+sNvvm4RmWUxi4YFhl0CWWvc381lC8Gko1HHaS4561oOtrHfk9AXcbQL8zmBnrHFsDHCwx1vVxJTkWW3NeipeG1HbjuHWH1btHe4xc+/HWJG0T9H5eD36RB0t8soW/2OizJriHkYMnt0HklxHGkU1qzh1R2nZwtAlAxC7HENBQnJE0wnRMHo3lrIdI3OZJJcpI44HalL6EvLjJ+nnG2vlw8w5G7DOO10OQ7YrzU0sCNdf2HCzVCG2hzb+3/B4lUlVw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Fk5FBYQf4SilOGdL2OgFcR+TuXVIRFfP248BXVWP7ok=;
- b=DbvJVMeQfTWCjy6TSpLFFdsp8A7y5UkhxNijeDoGnxX0Pq5t4ds1TEQrfaz420ESGxmYyq2aZcRhFF0S/xzpUTjBZ/VoGyx14TYEOH3VRl0bP2jtLlYR3iEGJgzFo6T4Cc824CKJ62NeDdS1WufM8OuiKEdumQg8HbGMNUiFfzczpLNIGMmuZcwVCflZCJUmBxN6D2XsiKg6GTx7JL2JuYHE5iVg/fIpPv/gWi8b3B8sjdpdyteMuHcVlIjn+vnU+NcIoSCWmWNsKnsDMTKjhNxb/dWwVup9wdaJKKRyIZxWR7EdaalUh19fjAb9A7aI/ZnUE5qi1pswnTfz9dYq/Q==
+ bh=HoGbHzhFf5l0L28y9QAlGMnK1kCos/dfaI3eY2jta7c=;
+ b=ojFAKGGpwfIbRWyzFd8IVM3naYafOrI2s2Wz46OmjTDQDmuH0Ay6UXWGon/UQefwpr+mokYiWhK2iZQUayNmHoGlZwCG+rd3bZJdhZu0HxyJtGyln4XxXoQBcl+l7Ioka1gh4UfsgNEK2d/EnRF+znXcJWp0DHjWuocoOYqWu1MSfjP5WtAjatOVF/vX0GkqJUzh9trY9i/FNYeIV6p8LTTRBhfVF1OSd5lfDv9e9WkWRoQXsWfDLb5RdM8SlrLUCkLUt1e9WhaDJNXLg1wQBVunAHGwX1Qoz7uwikuW2aykzF9F/91HT3eo+KPh9vVKYxU45hxX9uSw63V393e2qQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
  dkim=pass header.d=oss.nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
  s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Fk5FBYQf4SilOGdL2OgFcR+TuXVIRFfP248BXVWP7ok=;
- b=h8CnEK46P3Xz29IovTlQfhz5Vz99t/QlX0P1q+lUfgO09Yh6T3Vl61YIDlnDI3U0j77xuqDa10iGDoc5uhhlNVVeUCi/ZdPCswWpMumyUpZUHgSOMKw228dHM44ub0C7Km7+cBBtkCsfUpzRkmWpSg1E1L2P+2F8VaGnFWYp01VazV41OJyD//45ykuSYwl4Z2qdJJKqlz5cpBT81jhQ0VI6FWAX44cAXZ+tFS9ARLh8s1fn2Od7ELuv0OhCf0MRkVVAxa1T5AaE0NsKONAZlCmW+Y9xr+qOV7lgax7SCP3oPh0HULGOt6DzOLr9/p9tWXox3+KEkTbGVOPIvtdnKw==
+ bh=HoGbHzhFf5l0L28y9QAlGMnK1kCos/dfaI3eY2jta7c=;
+ b=nNG6YF5ag8kYh5P+JQ//MrKx6n28vxBh91Wbp6kaovr0QBoPqFHhkOLklp3BTPqYwReJDzJIMb4q0Rlo5mKZOdUnzZ32YPxvr+nJvUjwd+2LVfSHTkrSyeZNn+qfBYpks3f2ZZO/JeJuiyyIUtHylaAOPP+4ufEiI12cegsLKvqOXsvsf09jeY2nJCkoVNIzx6GhwWGxYM3l9OMPcuPl5l35vFlSgSIhxkouYN0OPkGCVe+Vb9OOs7wMlSQTnPOlOxXhw0SN5MkO+cCl2MOQnIvsPv8yDlXhSpluaq+dcEYQJYUjms6uwUXQkaqP71mgaOOWGYindMjvudPoy/TCMA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=oss.nxp.com;
 Received: from GV1PR04MB9135.eurprd04.prod.outlook.com (2603:10a6:150:26::19)
  by PAXPR04MB9279.eurprd04.prod.outlook.com (2603:10a6:102:2b7::9)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.22; Fri, 24 Apr
- 2026 11:07:54 +0000
+ 2026 11:08:03 +0000
 Received: from GV1PR04MB9135.eurprd04.prod.outlook.com
  ([fe80::3826:2706:1e81:c9e2]) by GV1PR04MB9135.eurprd04.prod.outlook.com
  ([fe80::3826:2706:1e81:c9e2%5]) with mapi id 15.20.9846.021; Fri, 24 Apr 2026
- 11:07:54 +0000
+ 11:08:03 +0000
 From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-To: Parshuram Thombare <pthombar@cadence.com>,
- Swapnil Jakhade <sjakhade@cadence.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Nikhil Devshatwar <nikhil.nd@ti.com>,
- Jayesh Choudhary <j-choudhary@ti.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
@@ -56,91 +52,89 @@ To: Parshuram Thombare <pthombar@cadence.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>
+ Conor Dooley <conor+dt@kernel.org>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
  imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
  linux@ew.tq-group.com, Alexander Stein <alexander.stein@ew.tq-group.com>,
  Ying Liu <victor.liu@nxp.com>
-Subject: [PATCH v22 0/8] Initial support Cadence MHDP8501(HDMI/DP) for i.MX8MQ
-Date: Fri, 24 Apr 2026 11:07:13 +0000
-Message-ID: <20260424-dcss-hdmi-upstreaming-v22-0-30a28f89298d@oss.nxp.com>
+Subject: [PATCH v22 3/8] dt-bindings: display: bridge: Add Cadence MHDP8501
+Date: Fri, 24 Apr 2026 11:07:16 +0000
+Message-ID: <20260424-dcss-hdmi-upstreaming-v22-3-30a28f89298d@oss.nxp.com>
 X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260424-dcss-hdmi-upstreaming-v22-0-30a28f89298d@oss.nxp.com>
+References: <20260424-dcss-hdmi-upstreaming-v22-0-30a28f89298d@oss.nxp.com>
 Content-Type: text/plain; charset="utf-8"
-X-Change-ID: 20260406-dcss-hdmi-upstreaming-28998a88e911
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AS4P250CA0016.EURP250.PROD.OUTLOOK.COM
- (2603:10a6:20b:5e3::8) To GV1PR04MB9135.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AS4P189CA0066.EURP189.PROD.OUTLOOK.COM
+ (2603:10a6:20b:659::14) To GV1PR04MB9135.eurprd04.prod.outlook.com
  (2603:10a6:150:26::19)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: GV1PR04MB9135:EE_|PAXPR04MB9279:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2a55e4bd-acb4-4658-65cf-08dea1f1bb7e
+X-MS-Office365-Filtering-Correlation-Id: 23d5e3dd-077e-4659-2085-08dea1f1c12a
 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
 X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|7416014|376014|19092799006|1800799024|56012099003|18092099006|18002099003|921020;
-X-Microsoft-Antispam-Message-Info: I7F8N3Jmr1ocXFOQZA8ubO2QjnhEHPxQxHbQmjSR1cdb2/BPXeKklG97g/WARZ3sCyQHRJHKEH4gMNU6VN8RJH1JFdDsIX/BC1MQtOmeKwVP7DZ9KhjOATfkStQtKg9T5LXWOByH4Xfl/QQerGcgPvUIx0q+zksQ/VkqR3JBW8AAA3mbBnHwNBLPvjA9iadi9AqJwDgfn4WJMgIh2k033qwdSAa18BzV/NVsyv0GNmI1tGmE8wJyqC/IgXgvux04yTa3KBmVz1Gqmuj87KcpQkWtj72q3Q/wIQeZJEv22X+SSmRwRsVPOSJLHjfk9pJ7o+urTmMSIPfcCzqZLaWGgjUweMJC5jmNKfgoqeojWzNvXTIrlmVbrSEmPTgHPobwJHUq1NWQISf/MDbnXAhfwgdSoDCHBjLbZ0I9hYZu5MuabrYnuYsab2VBgw+GfXtIGLZZg5tGtXCu6nfK2TO5jugK6KKUFb32xRs1JdGPARh/8gR+8XyyXpdwKyPlJKTy5DtD2OmCjDIbvD/VKn0uEBauur8A7NcmlLHG8+1oRGyKEmUZYZeeXbcByxEIZcdIsteb7jgGOijEa1gKbhVxCjpXycKpv9kgv15yOwizm5gqBPKj4w9JeB3lhPCJgMZKAAXb3xKNL1YU3FHfomM+NXzgDwMu96jDDacrnscR6ciI6IWYfTA+7Fpgf4LiX3vFzI1FMwSWCgKg3SmXQucRCye91Bj/DTOPkQ1m9LNjNik=
+ ARA:13230040|366016|7416014|376014|19092799006|1800799024|56012099003|22082099003|18002099003|921020;
+X-Microsoft-Antispam-Message-Info: eo22r48cdt3A917hHxVvxFUQF+xlAr1NQG+D4P8uHlbwSxXh6/z1BqJYF+pviMlnqgPOnvOUhmxaORQPFd8UVBfXaQCSwwTupKzh2uZHQ4Deh11zkDhmCtZTdMWuzY3c4tv9GBs09sPltfTVv+UrMhddmPjt8MRnA2kCHkhEwBZPXegvrJthuVbgg9COqTskB9TJWB9LOMZaLLrJVrCYfN7BhT8rsMzlIa8HK69vCEjpyeM79gnsJj2jRyxj+xeo/pYtGADlBCvT2Na21HUsbqjtNXsTGTOVfCEJCQvhBADjKGFi9EKuk7Mb5T15x0VD+uMnbmskYrTvffq/GqvL1oGNAlZaAq39TudEtkqivnzy700x7lKHrKj4/jhyQnfmWMq/fcST8K+JztriOYfbgvxxujqvGWZQUgl71viqNVU+ZeQMpNCmVLjTW+bxNOXoeN47T1exULr8lAxINYH9yOvEFzEF7vfhg+jhtDSGZQKZ/Hncz6t5hbTVsWi+IYbU1ElHbxsX9S15QOJ/y4CAr6XTuNXEMNrQhbgFxjA/YlJl4g0RmRqvBaeOVJi7N/GiAAPi53bVKl+mp37/ItJ7HisTNMFg33GPNYwAFAprAdEcIz0apSaV6KLZf6L+F2oiv7rLOcqtlAiritCRff6UUW8QlgPD6H220Gin3463So8bZGuz8vvo2www6rE1mBxSg74jBE/Glyqjdmfe1hmH7VwUw4kPzdTYy3Jb5R1Evls=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:GV1PR04MB9135.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(7416014)(376014)(19092799006)(1800799024)(56012099003)(18092099006)(18002099003)(921020);
+ SFS:(13230040)(366016)(7416014)(376014)(19092799006)(1800799024)(56012099003)(22082099003)(18002099003)(921020);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c0JFeU85TmxDZ0dDczV1S2hIMGJJVHovYWdWZHdFS1JKbXZhZ1NDb1lwU3VR?=
- =?utf-8?B?KzVIYllJc2VtempZNDNyaTNHN2o0ZWE0K2NPZVJXWTEyS3ArWGNEeWhHL3Z5?=
- =?utf-8?B?TEhsM29GSXhicm9NSzVISmxDQUtDcGF0eURoRzl1YzdsNVJCUjBXbHBHVWcx?=
- =?utf-8?B?VmYvOStyVTl2T2VKWkJvZ2V0MmZUUTc4WFB0K25MZDNxTmFmZ1ByVjhSS2hn?=
- =?utf-8?B?OTRWM0JQZGR3UXp4dzVIZElweFEydFM4QytTa1B4aUdjOVpvWDBZV3hkdVhI?=
- =?utf-8?B?Y1d3M2dOM1BxSmJ6bVozOWg3MkMxQjl1cE1zQ2xBdzlhVEJXK2RBREtvdmdw?=
- =?utf-8?B?OC9HWldWQnBFOFJWY01BTzNBMkpjS1B6NFlZOHZMOEtGMGJtWCtzMEJmVEJ4?=
- =?utf-8?B?N3NoN0d6eWpQTEU3WThNWmNIcDc3NCtxZTVqa2E5QitGMG9FM21jLzdmN1pQ?=
- =?utf-8?B?ZHU0UUordHlJMEVmdU0yQmZqdW1sMHJuenBUemliNlhPdkFhRTVpMk5KYTJX?=
- =?utf-8?B?QlBYTjNOSG5ac1VRTUlzMGJHeGtjUGdYdzR5MnFsYkZidUJRazk2U1c0c3VV?=
- =?utf-8?B?SmhwUVJOL2gvTzdxTklXT3BOMnFaemkxRi80Q1JubVE0N1N0b0pKY0tWei9J?=
- =?utf-8?B?dVRRR3I1enl3QjRXTkc0THdpd2RJRHAzRWdjT3lPY0JpVXJxUHd0Q09MM0s2?=
- =?utf-8?B?b2J6VlBFSnRuZVRVK0NVSGdURUFIUk5pNXJ4L25wZGM0TzRIT2ZMbE51aENU?=
- =?utf-8?B?c1F4S1RGWExnQ0ZDU1pMQmhkNDB5RlBEcVRXajJ3eDlLSlh0bkNiSzB3NVZP?=
- =?utf-8?B?VW95K3JZdXA4L0hZUm03Y1M3TzVCZ2RVK2Z0OGdZNkJTc2pEQmlLSlZxak9C?=
- =?utf-8?B?dzlNcDNGS1F6eXBWZjNRTnZSRFBHd0NxeWUxQTVLYVU4THdiUUhCK01uMExM?=
- =?utf-8?B?RTQxaWlvUE1XekVaU3hyWTFHTTRSODlFbDZDb0FPWU5WdEVSdURMU2tWalE5?=
- =?utf-8?B?SjdLK1QvWU1HSkg2QnA2MkovZEhkQ0RWMFdSUi93Z2d0Wk13Z3loc2lOQkhR?=
- =?utf-8?B?T0p1dzlUc2JJeXNLeDNuYllMUnJVTWFKUnlIV0cwQWE3SktnZGtQT3RWM2Jo?=
- =?utf-8?B?S1dsbUpPN3B6Wm80S3l3S2VkR211dXZrdmp6MjQxM0NBS0IvVG5RaTZLWFV3?=
- =?utf-8?B?bXJZWmVRMHNXaU1SZm1xbDB4OXlkZm9wSElFa0w3OHdHT283RlJ5bkp3REds?=
- =?utf-8?B?MDlQcjVDZXBtRVppblNEeVozTW1ncDE3eWxJcWVGYlVNb0ljV0tYdW5EbSth?=
- =?utf-8?B?dzRILytRYjFNWlFYb3E2VFRPSi9rMDdtaFR2Q3UvSUt1NFJxZDZQanp6Mk53?=
- =?utf-8?B?YzVzNUhrZWZCWVZHNUlNUjhhTUw0dWErU1gxeXFUaDBIL3JTb2ZnK3pUQmhj?=
- =?utf-8?B?ci9SYVJFWnZYMWZpVGZYR2tWaiticXNlOEdiOUx6UUQzSW92cEhaY2pSeHFk?=
- =?utf-8?B?NXpETit1aHlRWEROUG8yOGlqWE5PWUwyUHVZdHlkNXo0WUt1TjlxQzUycjdk?=
- =?utf-8?B?WGRmajRIdHVoNmNQcThTL00rMEg3OHhuVFpqS0ttRGkxbU96Njk3V0ZkNm1T?=
- =?utf-8?B?SjhtYWRlYitiQjVyYnBkQ3ZJaG82cmo0ZHZ5QWQ4S1l0K1RkYUtFTFB1M0xF?=
- =?utf-8?B?MDR0TXdxL3lEcnRwMDAxb0lCZkZiSmZvSDBPNFBRRlZ0UjVaaDdkaUY1TStw?=
- =?utf-8?B?TkZrOGEwU283cWZmZkp3Vk4wL1NEMndOblRaZkZNVXIrL1V2cUdWajEvMU5z?=
- =?utf-8?B?WGR4a1lNcnVSWm5Ra0g2cUhUbzkyQUswaXpKYytRUUNudDhhM0Erbk5Yd2lY?=
- =?utf-8?B?T1ZybEdNckxtVnlNME1MajZ4ajJReHRBblRHSG1RbituVkkwRDNxaVcxY1Rr?=
- =?utf-8?B?UnRyOE1SNE5aRTdoVE5RNndiODVNajAycWhUdzc0ekR5NHpJRnl0VlRlcjVB?=
- =?utf-8?B?Z3NJZUhCdjZpYUI1YU80aWIrUmUyTTNLc0svVHl1eXlmNzd1dStaek5yZXNI?=
- =?utf-8?B?RUpVQ05aQUhxSUdDOGR2OVM3ZDVzWGRhUm9rdmQ1dmlpY1lBbFJqMGVaMWxn?=
- =?utf-8?B?WTR3MitnemlQV0kvUG5iNXZ0MHhhenpxRnVKL3FZU3NDdVZPN3NkRjc1Nmp4?=
- =?utf-8?B?bnBQbjRSYVR6Y1pRWDhaT1RCWTFDL2pNdGxoNHpsamtHaTFDZC8xZDgyK0c4?=
- =?utf-8?B?V3JZT2RiRDU3Q2lpK090RDk5Y091NEoyRUVUMTZ6MjRKakF2VWNLODN0Q2t5?=
- =?utf-8?B?dHZJQVg2b0tTY210Mk1PNDIvN21hbXYrYkpFMTlvdCtFSnBhdHE5M0dCeDJF?=
- =?utf-8?Q?IG4VD3Xn/6VWeA1g=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N3d3UzRXYlY3cjJEeElscWkzYXZlUlAxeGxmZXVpeGRFZmYwUWwwcFd4bEtl?=
+ =?utf-8?B?a08wNGw0MENnQkI3bHlScTcrcEhZYXBJYmFtMExaWUo3SkdFNS92RWlWQTNq?=
+ =?utf-8?B?bVc2aXJDZ1d6M2oxcmZ3Vzcra2d5TmtjdmlhdExvRWlmNExQSGNoREFScVZy?=
+ =?utf-8?B?QWt3a0dFeFRUbmg2d1FpR0dkWEk5SGNEakFQb0tZc2tUY21oTVFUL052NC8z?=
+ =?utf-8?B?TWtJRDF6MjJkZXZZVFNGRlRXMjRIOFpmcXZuSU5ZTTFheGFRdDQrd2h1UGNr?=
+ =?utf-8?B?eEpaVnd1WmR1QUg5MG5tdWhKNTVwaDhQc0MwZUNyY0xXbWtwMjgwdGo3czh2?=
+ =?utf-8?B?SUZkY2hqUkFQOVEvaDlrRFRZblRZbWQrUTUyQm1JQnRsc2VpNlN0cHhFSSsr?=
+ =?utf-8?B?UFR2MThjeEZwWDVKQk96THc3ZzJ2MVJ2VHlYZVR0TGdYODlIYlZvVEgvdG14?=
+ =?utf-8?B?QTRidnJNRTkxOGlwSi9vQW55VjdzQWIyTUJCNU5yM2xBVlN6ZFVPQnRMT0Q0?=
+ =?utf-8?B?OUNIQ3R4WnpCTnVxeWRFWHo3V1VsZ21laWlnSnJDOTAySGlmR1J4V0xaak1y?=
+ =?utf-8?B?VEY1S280bTJKUEZITFFaR0NSUC8xbkNtUFIyOEptU2dIVFpEL2Q4SEtOU2FD?=
+ =?utf-8?B?UHVpTmpQYWFlYjB4NXVQaFMvSlNKcDRMdzAyRlJYVXpUbGNjblJPU0JZK0hk?=
+ =?utf-8?B?NG9mdG9LbFhISmtkd25WRmJTejhCWTRJaXYxNURLcStKK0VHMnl4ajRyWDh2?=
+ =?utf-8?B?cWZaV0JsZEYvU1VIRm53VDA4N3liVjJTNmNwYTJxeU0zK3ltOS8zWjYwZCtS?=
+ =?utf-8?B?ODMzeEJQMjhKS3diMk41ZmdqUFZNMVZhclJEdCs4bUdObzFEekYxTFptaTA3?=
+ =?utf-8?B?MzFQeVRlNTZhby8yNmJlOWh0K01PTVVnUklwMWRURkpqb2hrWkIzUlFPR2Jw?=
+ =?utf-8?B?YWlNdHJaZWh1ZmM0Tm5FT1RmbVU2WlJ4QkYxUVpLN3l2TXNneW00TXZ3QnJR?=
+ =?utf-8?B?Ty9aVU5QWFRjNlBwY3NuSkhjK1pnZ0xKeVdoTVRNcTJjczk0R3dIMmg3My9U?=
+ =?utf-8?B?VXJDcS9Md011Q1prYUxucDNxc091VVJtNHpWek9DVUMvK1NqWTlHSXIwaWdE?=
+ =?utf-8?B?Y1JiMjhRZU9nYmR3Rjg1bUJXRWFERUtseUdSaFBLVnhtVXg0bEdnSHZUYTFt?=
+ =?utf-8?B?S0pBdWZqcE9IdzZydzFBSTRRY2ZuRStIc01rV25CZG9DSDVaQ0hKR1JhQmRl?=
+ =?utf-8?B?aVZLL1BJZ0FDNDc5MTQxUkZMdEdaejh2KzdXNGpPcmQ2YUJ0cmNHbFNERWM0?=
+ =?utf-8?B?azNYV3RYSGVPSmwyYSs2djZNdmZWSEhRd0JZd1VucUFaL1E1QS9QdTdMNmsy?=
+ =?utf-8?B?eEI5MVVpTERnYXNDSWVJTWdDblpka05XcDJXUVplQnVSZWo0cDZVNXA2ZFJs?=
+ =?utf-8?B?Y3dCcU9jN01qZ3h3UVJtbk5UOHhCR3pua2JLT0pMb1dQdnJERGo3TmJXREox?=
+ =?utf-8?B?RzJvbnI5K05mS2M0WG5wREQ1RUlBanJxNHJiZmdNdW9kYVN4ekR1djV0am8z?=
+ =?utf-8?B?QVllWnJkb1ppQ3Z3cXpnWFVoK2d2TVp0ZXBIdlp4YVhvNHRtT1JSN1NQUDZS?=
+ =?utf-8?B?YXo5OVVxMEpBeDlRTllEUGo0OStOaEtoTzFWVTBPaG9QWjJZejUyWG9jeElZ?=
+ =?utf-8?B?aE9yNnNlcGZ5bTdjQ056cUpHWEdtWWZ1Tnk5VkJJYjd5c09mbGVPeWt4RitZ?=
+ =?utf-8?B?V3ZCTUs1T2VHRUVqbXBZUUZlL080K0dHOXkyRlVJVEtVMHdBaU1VQVp4QWc5?=
+ =?utf-8?B?VzJ4UGJIVVJxTXA4MUhEV3hOeHdESkNicDRUTFA2OUo5Zi9FNklFUkVvUTVr?=
+ =?utf-8?B?UllTd3Z0U3UzMnkxV09TMHRLNEVUQXo3YmJhaUtlNmorN0NHTkdna1EyYS90?=
+ =?utf-8?B?OVpEeFVEMUJzYklESStzbGhLalBYYVZldmc1b1dQZ1QvWFAzWFBCajA5OTh5?=
+ =?utf-8?B?OWU2SHp0K3pjY29qci9VMnNpS2hqYXN5NWxCc2NJczR5UkdFbURYdzlZN202?=
+ =?utf-8?B?a1dXcDJtdHpncEhsVjRVRkdndmZQeEFiMDZwUTE0UnN0YjRuVXZLS1RrRVJz?=
+ =?utf-8?B?QWFyQm1idEx5YnNCUS9nVit3TWcrckQxOXI4ZlJoR0lNSTR2RStPV0ZVdXJT?=
+ =?utf-8?B?MzRvRnNKbjBCbXlFZW50bzNyTzVFMGd1TUUrbE02enpUWXpBUmUzZHZmV091?=
+ =?utf-8?B?OUNrZFU0QlE0WUJ5R08yK09PT0VDRFhYYS9IVWV3Vy85ZURDT0doN0JoYXo3?=
+ =?utf-8?B?a1RQSjFCTGRBeTQ0VU1XTysyT3FCakt2QVBERHNYN1dhQkVrUkZxcWo1Qldi?=
+ =?utf-8?Q?3eF6YgGVlVTW2iCM=3D?=
 X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2a55e4bd-acb4-4658-65cf-08dea1f1bb7e
+X-MS-Exchange-CrossTenant-Network-Message-Id: 23d5e3dd-077e-4659-2085-08dea1f1c12a
 X-MS-Exchange-CrossTenant-AuthSource: GV1PR04MB9135.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2026 11:07:54.0709 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2026 11:08:03.4819 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XEmZFZFaUmklO28BH5AaINmbUzXpvRgPBtYls0/pao/oldszC86Z1AUBR6zfkiiWSOBukTk6Uh//7s/w7mTZsw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: fmFf44psiELsulWNByxr+qWMsAPNp+doPUFMV7A9YINPFNCV1kYSOfVMoClf+s4huV1rCdWI7w0d52hZXzi0kQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9279
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -157,406 +151,157 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+From: Sandor Yu <Sandor.yu@nxp.com>
 
-Since Sandor left NXP some time back, I'll be taking over this patchset
-and continue the upstreaming process from where he left off.
+Add bindings for Cadence MHDP8501 DisplayPort/HDMI bridge.
 
-The patchset adds initial support for Cadence MHDP8501(HDMI/DP) DRM bridge
-and Cadence HDP-TX PHY(HDMI/DP) for Freescale i.MX8MQ.
-
-I addressed all remaining reviewers' comments from v20 but I'm not sure
-whether Alexander's issue is still present. Alexander, let me know if
-you're still experiencing a black screen with this patch-set and I'll
-try to address it in the next revision.
-
-Thanks,
-Laurentiu
-
---
-Changes in v22:
- - Addressed most of Sashiko review comments (per-patch changelog below):
-   https://sashiko.dev/#/patchset/20260407-dcss-hdmi-upstreaming-v21-0-4681070ab82f%40oss.nxp.com
- - Removed all existing r-b tags since pretty much all patches have
-   changes;
- - 0001 - soc: cadence: Create helper functions for Cadence MHDP
-   - Global mailbox mutex replaced with a per-instance mailbox_mutex in struct
-     cdns_mhdp_base
-   - Added dedicated mhdp_mailbox_read/write_secure() functions; all mailbox
-     helpers now take a bool secure parameter instead of a raw regs pointer
-   - Fixed HDCP opcode numbering (values 0x09–0x0c shifted up by one)
-   - KDoc style fixes throughout, added a kernel-doc comment to cdns_mhdp_base;
- - 0002 - drm: bridge: cadence: Update mhdp8546 mailbox access functions
-   - Added mutex_init / mutex_destroy calls for the new per-instance mailbox
-     mutex
- - 0003 - dt-bindings: display: bridge: Add Cadence MHDP8501
-   - Dropped 'cdns,bridge-type' property (Krzysztof); added 'phy' child-node
-     property to avoid having 2 nodes with the same address;
-     fixed mdhp_phy -> mhdp_phy typo
- - 0004 - drm: bridge: Cadence: Add MHDP8501 DP/HDMI driver
-   - Bridge type is now auto-detected by traversing the OF graph to the
-     connector (DP or HDMI), replacing the removed DT property
-   - Since PHY is now a child platform device, use devm_of_platform_populate
-   - Extensive error handling improvements (goto labels, proper unwinding)
-   - HDMI: fixed uninitialised packet[] buffer, SCDC read rewritten for
-     correctness, hotplug handler uses proper modeset locking, atomic commit
-     handles -EDEADLK, infoframe update moved after hardware config
- - 0005 - dt-bindings: phy: Add Freescale iMX8MQ DP and HDMI PHY
-   - Binding file renamed to fsl,imx8mq-hdptx-phy.yaml to comply with DT spec;
-     removed reg property (PHY inherits parent MMIO now); expanded example
-     showing PHY as a child node
- - 0006 - phy: freescale: Add DisplayPort/HDMI Combo-PHY driver for i.MX8MQ
-   - MMIO now mapped via devm_of_iomap(...parent...) instead of its own reg
-     resource
-   - Fixed uninitialised variable, wrong return type on link-rate error, NULL
-     dereference in phy_valid, and swallowed error code in clock enable
- - 0007 - arm64: dts: imx8mq: Add DCSS + HDMI/DP display pipeline
-   - PHY moved from top-level bus node to child of the bridge node;
-     fixed mdhp_phy -> mhdp_phy typo
- - 0008 - arm64: dts: imx8mq: tqma8mq-mba8mx: Enable HDMI support
-   - Added status = "okay" on the HDMI connector; removed now-gone
-     cdns,bridge-type; added status = "disabled" in shared dtsi
- - Link to v21: https://lore.kernel.org/r/20260407-dcss-hdmi-upstreaming-v21-0-4681070ab82f@oss.nxp.com
-
-Changes in v21:
- - Dropped "phy: Add HDMI configuration options" patch because it was
-   already merged separately;
- - Rebased to latest linux-next (7.0-rc6) and fixed all issues
-   introduced by API changes in DRM;
- - Addressed Maxime's comment on patch #5 and used debugfs file instead
-   of sysfs for printing firmware version;
- - Addressed all Dmitry's comments: handled the
-   cdns_mhdp_mailbox_send_recv_multi() error, removed the RGB 10bit
-   unused code, added a dts property in order to get the bridge type (I
-   couldn't find another way to do it...);
- - Dropped Krzysztof's r-b tag for patch #4 (which is now patch #3)
-   since I added a new property;
- - Link to v20: https://lore.kernel.org/r/cover.1734340233.git.Sandor.yu@nxp.com
-
-Changes in v20:
- - Patch #1: soc: cadence: Create helper functions for Cadence MHDP
- - Patch #2: drm: bridge: cadence: Update mhdp8546 mailbox access functions
-   - The two patches are split from Patch #1 in v19.  The MHDP helper
-     functions have been moved in a new "cadence" directory under the
-     SOC directory in patch #1, in order to promote code reuse among
-     MHDP8546, MHDP8501, and the i.MX8MQ HDMI/DP PHY drivers,
- - Patch #3: phy: Add HDMI configuration options
-   - Add a-b tag
- - Patch #4: dt-bindings: display: bridge: Add Cadence MHDP8501
-   - remove data type link of data-lanes
- - Patch #5: drm: bridge: Cadence: Add MHDP8501 DP/HDMI driver
-   - Dump mhdp FW version by debugfs
-   - Combine HDMI and DP cable detect functions into one function
-   - Combine HDMI and DP cable bridge_mode_valid() functions into one function
-   - Rename cdns_hdmi_reset_link() to cdns_hdmi_handle_hotplug()
-   - Add comments for EDID in cdns_hdmi_handle_hotplug() and cdns_dp_check_link_state()
-   - Add atomic_get_input_bus_fmts() and bridge_atomic_check() for DP driver
-   - Remove bpc and color_fmt init in atomic_enable() function.
-   - More detail comments for DDC adapter only support SCDC_I2C_SLAVE_ADDRESS
-     read and write in HDMI driver.
- - Patch #7: phy: freescale: Add DisplayPort/HDMI Combo-PHY driver for i.MX8MQ
-   - implify DP configuration handling by directly copying
-     the configuration options to the driver's internal structure.
-   - return the error code directly instead of logging an error message in `hdptx_clk_enable`
-   - Remove redundant ref_clk_rate check
- - Link to v19: https://lore.kernel.org/r/cover.1732627815.git.Sandor.yu@nxp.com
-
-Changes in v19:
- - Patch #1
-   - use guard(mutex)
-   - Add kerneldocs for all new APIs.
-   - Detail comments for mailbox access specific case.
-   - remove cdns_mhdp_dp_reg_write() because it is not needed by driver now.
- - Patch #3
-   - move property data-lanes to endpoint of port@1
- - Patch #4
-   - get endpoint for data-lanes as it had move to endpoint of port@1
-   - update clock management as devm_clk_get_enabled() introduced.
-   - Fix clear_infoframe() function is not work issue.
-   - Manage PHY power state via phy_power_on() and phy_power_off().
- - Patch #6
-   - Simplify the PLL table by removing unused and constant data
-   - Remove PHY power management, controller driver will handle them.
-   - Remove enum dp_link_rate
-   - introduce read_pll_timeout.
-   - update clock management as devm_clk_get_enabled() introduced.
-   - remove cdns_hdptx_phy_init() and cdns_hdptx_phy_remove().
- - Patch #8:
-   - move property data-lanes to endpoint of port@1
- - Link to v18: https://lore.kernel.org/r/cover.1730172244.git.Sandor.yu@nxp.com
-
-Changes in v18:
- - Patch #1
-   - Create three ordinary mailbox access APIs
-       cdns_mhdp_mailbox_send
-       cdns_mhdp_mailbox_send_recv
-       cdns_mhdp_mailbox_send_recv_multi
-   - Create three secure mailbox access APIs
-       cdns_mhdp_secure_mailbox_send
-       cdns_mhdp_secure_mailbox_send_recv
-       cdns_mhdp_secure_mailbox_send_recv_multi
-   - MHDP8546 DP and HDCP commands that need access mailbox are rewrited
-     with above 6 API functions.
- - Patch #3
-   - remove lane-mapping and replace it with data-lanes
-   - remove r-b tag as property changed.
- - Patch #4
-   - MHDP8501 HDMI and DP commands that need access mailbox are rewrited
-     with new API functions created in patch #1.
-   - replace lane-mapping with data-lanes, use the value from data-lanes
-     to reorder HDMI and DP lane mapping.
-   - create I2C adapter for HDMI SCDC, remove cdns_hdmi_scdc_write() function.
-   - Rewrite cdns_hdmi_sink_config() function, use HDMI SCDC helper function
-     drm_scdc_set_high_tmds_clock_ratio() and drm_scdc_set_scrambling()
-     to config HDMI sink TMDS.
-   - Remove struct video_info from HDMI driver.
-   - Remove tmds_char_rate_valid() be called in bridge_mode_valid(),
-     community had patch in reviewing to implement the function.
-   - Remove warning message print when get unknown HPD cable status.
-   - Add more detail comments for HDP plugin and plugout interrupt.
-   - use dev_dbg to repleace DRM_INFO when cable HPD status changed.
-   - Remove t-b tag as above code change.
- - Patch #6
-   - fix build error as code rebase to latest kernel version.
- - Patch #8:
-   - replace lane-mapping with data-lanes
- - Link to v17: https://lore.kernel.org/r/cover.1727159906.git.Sandor.yu@nxp.com
-
-Changes in v17:
- - Patch #1:
-   - Replaces the local mutex mbox_mutex with a global mutex mhdp_mailbox_mutex
- - Patch #2:
-   - remove hdmi.h
-   - add 2024 year to copyright
-   - Add r-b tag.
- - Patch #3:
-   - Add lane-mapping property.
- - Patch #4:
-   - Reset the HDMI/DP link when an HPD (Hot Plug Detect) event is detected
-   - Move the HDMI protocol settings from hdmi_ctrl_init() to a new function
-     cdns_hdmi_set_hdmi_mode_type(), to align with the introduced link reset functionality.
-   - Implement logic to check the type of HDMI sink.
-     If the sink is not a hdmi display, set the default mode to DVI.
-   - Implement hdmi_reset_infoframe function
-   - Reorder certain bit definitions in the header file to follow a descending order.
-   - Add "lane-mapping" property for both HDMI and DP, remove platform data from driver.
-     lane-mapping should be setting in dts according different board layout.
-   - Remove variable mode in struct cdns_mhdp8501_device, video mode could get from struct drm_crtc_state
-   - Remove variable char_rate in  struct cdns_mhdp8501_device, it could get from struct struct drm_connector_state.hdmi
-   - Replaces the local mutex mbox_mutex with a global mutex mhdp_mailbox_mutex
-   - Remove mutext protect for phy_api access functions.
- - Patch #6:
-   - Remove mbox_mutex
- - Link to v16: https://lore.kernel.org/r/cover.1719903904.git.Sandor.yu@nxp.com
-
-Changes in v16:
- - Patch #2:
-   - Remove pixel_clk_rate, bpc and color_space fields from struct
-     phy_configure_opts_hdmi, they were replaced by
-     unsigned long long tmds_char_rate.
-   - Remove r-b and a-c tags because this patch have important change.
- - Patch #4:
-   - Add DRM_BRIDGE_OP_HDMI flags for HDMI driver,
-   - Introduce the hdmi info frame helper functions,
-     added hdmi_clear_infoframe(), hdmi_write_infoframe() and
-     hdmi_tmds_char_rate_valid() according Dmitry's patch
-     'make use of the HDMI connector infrastructure' patchset ([2]).
-   - mode_fixup() is replaced by atomic_check().
-   - Fix video mode 4Kp30 did not work on some displays that support
-     LTE_340Mcsc_scramble.
-   - updated for tmds_char_rate added in patch #2.
- - Patch #6:
-   - updated for tmds_char_rate added in patch #2.
- - Link to v15: https://lore.kernel.org/r/20240306101625.795732-1-alexander.stein@ew.tq-group.com
-
-Changes in v15:
- - Patch #6 + #7:
-   -  Merged PHY driver into a single combo PHY driver
- - Patch #7 + #8:
-   - Add DT patches for a running HDMI setup
-
-Changes in v14:
- - Patch #4:
-   - Rebase to next-20240219, replace get_edid function by edid_read
-     function as commits d807ad80d811b ("drm/bridge: add ->edid_read
-     hook and drm_bridge_edid_read()") and 27b8f91c08d99 ("drm/bridge:
-     remove ->get_edid callback") had change the API.
-
-Changes in v13:
- - Patch #4:
-   - Explicitly include linux/platform_device.h for cdns-mhdp8501-core.c
-   - Fix build warning
-   - Order bit bpc and color_space in descending shit.
- - Patch #7:
-   - Fix build warning
-
-Changes in v12:
- - Patch #1:
-   - Move status initialize out of mbox_mutex.
-   - Reorder API functions in alphabetical.
-   - Add notes for malibox access functions.
-   - Add year 2024 to copyright.
- - Patch #4:
-   - Replace DRM_INFO with dev_info or dev_warn.
-   - Replace DRM_ERROR with dev_err.
-   - Return ret when cdns_mhdp_dpcd_read failed in function cdns_dp_aux_transferi().
-   - Remove unused parmeter in function cdns_dp_get_msa_misc
-     and use two separate variables for color space and bpc.
-   - Add year 2024 to copyright.
- - Patch #6:
-   - Return error code to replace -1 for function wait_for_ack().
-   - Set cdns_phy->power_up = false in phy_power_down function.
-   - Remove "RATE_8_1 = 810000", it is not used in driver.
-   - Add year 2024 to copyright.
- - Patch #7:
-   - Adjust clk disable order.
-   - Return error code to replace -1 for function wait_for_ack().
-   - Use bool for variable pclk_in.
-   - Add year 2024 to copyright.
-
-Changes in v11:
- - rewrite cdns_mhdp_set_firmware_active() in mhdp8546 core driver,
-   use cdns_mhdp_mailbox_send() to replace cdns_mhdp_mailbox_write()
-   same as the other mailbox access functions.
- - use static for cdns_mhdp_mailbox_write() and
-   cdns_mhdp_mailbox_read() and remove them from EXPORT_SYMBOL_GPL().
- - remove MODULE_ALIAS() from mhdp8501 driver.
-
-Changes in v10:
- - Create mhdp helper driver to replace macro functions, move all mhdp
-   mailbox access functions and common functions into the helper
-   driver.  Patch #1:drm: bridge: Cadence: Creat mhdp helper driver it
-   is totaly different with v9.
-
-Changes in v9:
- - Remove compatible string "cdns,mhdp8501" that had removed
-   from dt-bindings file in v8.
- - Add Dmitry's R-b tag to patch #2
- - Add Krzysztof's R-b tag to patch #3
-
-Changes in v8:
- - MHDP8501 HDMI/DP:
-   - Correct DT node name to "display-bridge".
-   - Remove "cdns,mhdp8501" from mhdp8501 dt-binding doc.
-
- - HDMI/DP PHY:
-   - Introduced functions `wait_for_ack` and `wait_for_ack_clear` to handle
-     waiting with acknowledgment bits set and cleared respectively.
-   - Use FIELD_PRE() to set bitfields for both HDMI and DP PHY.
-
-Changes in v7:
- - MHDP8501 HDMI/DP:
-   - Combine HDMI and DP driver into one mhdp8501 driver.
-     Use the connector type to load the corresponding functions.
-   - Remove connector init functions.
-   - Add <linux/hdmi.h> in phy_hdmi.h to reuse 'enum hdmi_colorspace'.
-
- - HDMI/DP PHY:
-   - Lowercase hex values
-   - Fix parameters indent issue on some functions
-   - Replace 'udelay' with 'usleep_range'
-
-Changes in v6:
- - HDMI/DP bridge driver
-   - 8501 is the part number of Cadence MHDP on i.MX8MQ.
-     Use MHDP8501 to name hdmi/dp drivers and files.
-   - Add compatible "fsl,imx8mq-mhdp8501-dp" for i.MX8MQ DP driver
-   - Add compatible "fsl,imx8mq-mhdp8501-hdmi" for i.MX8MQ HDMI driver
-   - Combine HDMI and DP dt-bindings into one file cdns,mhdp8501.yaml
-   - Fix HDMI scrambling is not enable issue when driver working in 4Kp60
-     mode.
-   - Add HDMI/DP PHY API mailbox protect.
-
- - HDMI/DP PHY driver:
-   - Rename DP and HDMI PHY files and move to folder phy/freescale/
-   - Remove properties num_lanes and link_rate from DP PHY driver.
-   - Combine HDMI and DP dt-bindings into one file fsl,imx8mq-dp-hdmi-phy.yaml
-   - Update compatible string to "fsl,imx8mq-dp-phy".
-   - Update compatible string to "fsl,imx8mq-hdmi-phy".
-
-Changes in v5:
- - Drop "clk" suffix in clock name.
- - Add output port property in the example of hdmi/dp.
-
-Changes in v4:
- - dt-bindings:
-   - Correct dt-bindings coding style and address review comments.
-   - Add apb_clk description.
-   - Add output port for HDMI/DP connector
- - PHY:
-   - Alphabetically sorted in Kconfig and Makefile for DP and HDMI PHY
-   - Remove unused registers define from HDMI and DP PHY drivers.
-   - More description in phy_hdmi.h.
-   - Add apb_clk to HDMI and DP phy driver.
- - HDMI/DP:
-   - Use get_unaligned_le32() to replace hardcode type conversion
-     in HDMI AVI infoframe data fill function.
-   - Add mailbox mutex lock in HDMI/DP driver for phy functions
-     to reslove race conditions between HDMI/DP and PHY drivers.
-   - Add apb_clk to both HDMI and DP driver.
-   - Rename some function names and add prefix with "cdns_hdmi/cdns_dp".
-   - Remove bpc 12 and 16 optional that not supported.
-
-Changes in v3:
- - Address comments for dt-bindings files.
-   - Correct dts-bindings file names
-     Rename phy-cadence-hdptx-dp.yaml to cdns,mhdp-imx8mq-dp.yaml
-     Rename phy-cadence-hdptx-hdmi.yaml to cdns,mhdp-imx8mq-hdmi.yaml
-   - Drop redundant words and descriptions.
-   - Correct hdmi/dp node name.
-
-Changes in v2:
- - Reuse Cadence mailbox access functions from mhdp8546 instead of
-   rockchip DP.
- - Mailbox access functions be convert to marco functions
-   that will be referenced by HDP-TX PHY(HDMI/DP) driver too.
- - Plain bridge instead of component driver.
- - Standalone Cadence HDP-TX PHY(HDMI/DP) driver.
- - Audio driver are removed from the patch set, it will be add in another
-   patch set later.
-
+Signed-off-by: Sandor Yu <Sandor.yu@nxp.com>
+Signed-off-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
 ---
-Alexander Stein (2):
-      arm64: dts: imx8mq: Add DCSS + HDMI/DP display pipeline
-      arm64: dts: imx8mq: tqma8mq-mba8mx: Enable HDMI support
+ .../bindings/display/bridge/cdns,mhdp8501.yaml     | 135 +++++++++++++++++++++
+ 1 file changed, 135 insertions(+)
 
-Sandor Yu (6):
-      soc: cadence: Create helper functions for Cadence MHDP
-      drm: bridge: cadence: Update mhdp8546 mailbox access functions
-      dt-bindings: display: bridge: Add Cadence MHDP8501
-      drm: bridge: Cadence: Add MHDP8501 DP/HDMI driver
-      dt-bindings: phy: Add Freescale iMX8MQ DP and HDMI PHY
-      phy: freescale: Add DisplayPort/HDMI Combo-PHY driver for i.MX8MQ
+diff --git a/Documentation/devicetree/bindings/display/bridge/cdns,mhdp8501.yaml b/Documentation/devicetree/bindings/display/bridge/cdns,mhdp8501.yaml
+new file mode 100644
+index 0000000000000..de549471c6859
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/bridge/cdns,mhdp8501.yaml
+@@ -0,0 +1,135 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/bridge/cdns,mhdp8501.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Cadence MHDP8501 DP/HDMI bridge
++
++maintainers:
++  - Sandor Yu <Sandor.yu@nxp.com>
++
++description:
++  Cadence MHDP8501 DisplayPort/HDMI interface.
++
++properties:
++  compatible:
++    enum:
++      - fsl,imx8mq-mhdp8501
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++    description: MHDP8501 DP/HDMI APB clock.
++
++  phys:
++    maxItems: 1
++    description:
++      phandle to the DP/HDMI PHY
++
++  interrupts:
++    items:
++      - description: Hotplug cable plugin.
++      - description: Hotplug cable plugout.
++
++  interrupt-names:
++    items:
++      - const: plug_in
++      - const: plug_out
++
++  ports:
++    $ref: /schemas/graph.yaml#/properties/ports
++
++    properties:
++      port@0:
++        $ref: /schemas/graph.yaml#/properties/port
++        description:
++          Input port from display controller output.
++
++      port@1:
++        $ref: /schemas/graph.yaml#/$defs/port-base
++        unevaluatedProperties: false
++        description:
++          Output port to DisplayPort or HDMI connector.
++
++        properties:
++          endpoint:
++            $ref: /schemas/media/video-interfaces.yaml#
++            unevaluatedProperties: false
++
++            properties:
++              data-lanes:
++                description: Lane reordering for HDMI or DisplayPort interface.
++                minItems: 4
++                maxItems: 4
++
++            required:
++              - data-lanes
++
++    required:
++      - port@0
++      - port@1
++
++  phy:
++    description:
++      Child node describing the Cadence HDP-TX DP/HDMI PHY, which shares
++      the same MMIO region as the bridge.
++    $ref: /schemas/phy/fsl,imx8mq-hdptx-phy.yaml#
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - interrupts
++  - interrupt-names
++  - phys
++  - ports
++  - phy
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/imx8mq-clock.h>
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++
++    mhdp: display-bridge@32c00000 {
++        compatible = "fsl,imx8mq-mhdp8501";
++        reg = <0x32c00000 0x100000>;
++        interrupts = <GIC_SPI 16 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 25 IRQ_TYPE_LEVEL_HIGH>;
++        interrupt-names = "plug_in", "plug_out";
++        clocks = <&clk IMX8MQ_CLK_DISP_APB_ROOT>;
++        phys = <&mhdp_phy>;
++
++        ports {
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            port@0 {
++                reg = <0>;
++
++                mhdp_in: endpoint {
++                    remote-endpoint = <&dcss_out>;
++                };
++            };
++
++            port@1 {
++                reg = <1>;
++
++                mhdp_out: endpoint {
++                    remote-endpoint = <&dp_connector>;
++                    data-lanes = <2 1 0 3>;
++                };
++            };
++        };
++
++        mhdp_phy: phy {
++            compatible = "fsl,imx8mq-hdptx-phy";
++            #phy-cells = <0>;
++            clocks = <&hdmi_phy_27m>, <&clk IMX8MQ_CLK_DISP_APB_ROOT>;
++            clock-names = "ref", "apb";
++        };
++    };
 
- .../bindings/display/bridge/cdns,mhdp8501.yaml     |  135 +++
- .../bindings/phy/fsl,imx8mq-hdptx-phy.yaml         |   80 ++
- .../boot/dts/freescale/imx8mq-tqma8mq-mba8mx.dts   |   28 +
- arch/arm64/boot/dts/freescale/imx8mq.dtsi          |   67 ++
- arch/arm64/boot/dts/freescale/mba8mx.dtsi          |   12 +
- drivers/gpu/drm/bridge/cadence/Kconfig             |   17 +
- drivers/gpu/drm/bridge/cadence/Makefile            |    2 +
- .../gpu/drm/bridge/cadence/cdns-mhdp8501-core.c    |  456 ++++++++
- .../gpu/drm/bridge/cadence/cdns-mhdp8501-core.h    |  382 ++++++
- drivers/gpu/drm/bridge/cadence/cdns-mhdp8501-dp.c  |  724 ++++++++++++
- .../gpu/drm/bridge/cadence/cdns-mhdp8501-hdmi.c    |  780 +++++++++++++
- .../gpu/drm/bridge/cadence/cdns-mhdp8546-core.c    |  489 ++------
- .../gpu/drm/bridge/cadence/cdns-mhdp8546-core.h    |   47 +-
- .../gpu/drm/bridge/cadence/cdns-mhdp8546-hdcp.c    |  212 +---
- .../gpu/drm/bridge/cadence/cdns-mhdp8546-hdcp.h    |   18 +-
- drivers/phy/freescale/Kconfig                      |   10 +
- drivers/phy/freescale/Makefile                     |    1 +
- drivers/phy/freescale/phy-fsl-imx8mq-hdptx.c       | 1233 ++++++++++++++++++++
- drivers/soc/Kconfig                                |    1 +
- drivers/soc/Makefile                               |    1 +
- drivers/soc/cadence/Kconfig                        |    9 +
- drivers/soc/cadence/Makefile                       |    3 +
- drivers/soc/cadence/cdns-mhdp-helper.c             |  611 ++++++++++
- include/soc/cadence/cdns-mhdp-helper.h             |  143 +++
- 24 files changed, 4800 insertions(+), 661 deletions(-)
----
-base-commit: fbddb4aaabc2b3b250552eb4ed8074b06acb4e0e
-change-id: 20260406-dcss-hdmi-upstreaming-28998a88e911
-
-Best regards,
 -- 
-Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+2.51.0
