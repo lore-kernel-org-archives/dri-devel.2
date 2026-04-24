@@ -4,91 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B946BFB44B3
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 06:20:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A28AFB44BD
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 06:40:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A6B510E3CE;
-	Fri, 24 Apr 2026 06:20:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C058D10E0DD;
+	Fri, 24 Apr 2026 06:40:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="RlMMm79U";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="oa7cRqFE";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="RlMMm79U";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="oa7cRqFE";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="kXey69Ty";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="CKYhtGWy";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="kXey69Ty";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="CKYhtGWy";
 	dkim-atps=neutral
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23BC610E3CE
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 06:20:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F40D010E0DD
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 06:40:50 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id C0C196A867;
- Fri, 24 Apr 2026 06:20:16 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 743966A868;
+ Fri, 24 Apr 2026 06:40:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1777011616; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1777012849; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=eK28ueoygCZOKNSpilY1Ba+gEaTEDY/7Cf3y26veP3M=;
- b=RlMMm79UMOz19yXte+RKboT7nPcjMq9t8tHDxXwVBA4Yr9eBPd3dTSs/AazskgbxDNpvYY
- Chf5Cyy2L2RmrjOo3FAW+v4OrT1k7zIlZYBf/1kWvjYPrLAWl+9NrimFYvA0dXl+EY90Fy
- iAFL0D9rzOg9TPbUpLwEyfpU2GxTYpw=
+ bh=M/rktJKs+IeEJzqmS19ivYtExQzYDAZMLO0Is985pQk=;
+ b=kXey69Tyg4rzaeVfK7+yK4vENKw8ZZTx1kgfoBwrI5lr7B8SW3Q+SvO4YmhveaKLOAq9fz
+ cvnJ4QCTitIXMZDvLxQpMn6RwzoHwQZkBl/B/TChkEZNgcZymubGuSFVMYNVaTntybNk+F
+ THMnwETsNNJurQ/PJbDkVv3Y9Px0/6k=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1777011616;
+ s=susede2_ed25519; t=1777012849;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=eK28ueoygCZOKNSpilY1Ba+gEaTEDY/7Cf3y26veP3M=;
- b=oa7cRqFEIA+aT3cSdkiabKk+Rdoj22W+AxoBQjtf+QkZ/uXu3CFeZraLOSM7oKGJCZtnG7
- 3Vcxxyu/xDfYBXAw==
+ bh=M/rktJKs+IeEJzqmS19ivYtExQzYDAZMLO0Is985pQk=;
+ b=CKYhtGWyZVM/nrll4FMlJvhH4wUa2BldSeiDg3/sqqA9LzjlrazoojbKBPHTZUIqKhKwRK
+ mWfMnWhsbgQIBoDQ==
 Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=RlMMm79U;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=oa7cRqFE
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=kXey69Ty;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=CKYhtGWy
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1777011616; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1777012849; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=eK28ueoygCZOKNSpilY1Ba+gEaTEDY/7Cf3y26veP3M=;
- b=RlMMm79UMOz19yXte+RKboT7nPcjMq9t8tHDxXwVBA4Yr9eBPd3dTSs/AazskgbxDNpvYY
- Chf5Cyy2L2RmrjOo3FAW+v4OrT1k7zIlZYBf/1kWvjYPrLAWl+9NrimFYvA0dXl+EY90Fy
- iAFL0D9rzOg9TPbUpLwEyfpU2GxTYpw=
+ bh=M/rktJKs+IeEJzqmS19ivYtExQzYDAZMLO0Is985pQk=;
+ b=kXey69Tyg4rzaeVfK7+yK4vENKw8ZZTx1kgfoBwrI5lr7B8SW3Q+SvO4YmhveaKLOAq9fz
+ cvnJ4QCTitIXMZDvLxQpMn6RwzoHwQZkBl/B/TChkEZNgcZymubGuSFVMYNVaTntybNk+F
+ THMnwETsNNJurQ/PJbDkVv3Y9Px0/6k=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1777011616;
+ s=susede2_ed25519; t=1777012849;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=eK28ueoygCZOKNSpilY1Ba+gEaTEDY/7Cf3y26veP3M=;
- b=oa7cRqFEIA+aT3cSdkiabKk+Rdoj22W+AxoBQjtf+QkZ/uXu3CFeZraLOSM7oKGJCZtnG7
- 3Vcxxyu/xDfYBXAw==
+ bh=M/rktJKs+IeEJzqmS19ivYtExQzYDAZMLO0Is985pQk=;
+ b=CKYhtGWyZVM/nrll4FMlJvhH4wUa2BldSeiDg3/sqqA9LzjlrazoojbKBPHTZUIqKhKwRK
+ mWfMnWhsbgQIBoDQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8C47E593AE;
- Fri, 24 Apr 2026 06:20:16 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4C7CC593AE;
+ Fri, 24 Apr 2026 06:40:49 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id a97HIKAL62lvBQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 24 Apr 2026 06:20:16 +0000
-Message-ID: <a23413a4-f939-4a23-996f-4ba5c8294c59@suse.de>
-Date: Fri, 24 Apr 2026 08:20:16 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id u8IyEXEQ62m/GQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 24 Apr 2026 06:40:49 +0000
+Message-ID: <2087a2bc-4e3c-462e-b9fb-6b533419de03@suse.de>
+Date: Fri, 24 Apr 2026 08:40:48 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: further issues with MGA G200 graphics chipset
-To: Jacob Keller <jacob.e.keller@intel.com>,
- Jocelyn Falempe <jfalempe@redhat.com>,
- "airlied@redhat.com" <airlied@redhat.com>
-Cc: dri-devel@lists.freedesktop.org,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Pasi Vaananen <pvaanane@redhat.com>
-References: <76aba88d-ec23-4b3c-ad91-83face0c3e94@intel.com>
- <a9d176ec-d19b-4f41-af16-cdc4e475a8cc@suse.de>
- <6ec01703-31e0-4998-9508-a5a115ae7bc9@intel.com>
- <14aa4840-29c4-46df-b60d-8e1b92494ad2@redhat.com>
- <e9cca01c-960d-495c-aaba-327eac43cad6@intel.com>
+Subject: Re: [PATCH 2/3] drm/vmwgfx: Move vblank handling into separate helper
+To: Zack Rusin <zack.rusin@broadcom.com>
+Cc: bcm-kernel-feedback-list@broadcom.com, maarten.lankhorst@linux.intel.com, 
+ mripard@kernel.org, dri-devel@lists.freedesktop.org
+References: <20260305134122.246884-1-tzimmermann@suse.de>
+ <20260305134122.246884-3-tzimmermann@suse.de>
+ <CABQX2QN=8Ko==iZAn06vRqhuUB=h76Ye96hnuJ_WTLy4EbGapg@mail.gmail.com>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -115,29 +110,29 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <e9cca01c-960d-495c-aaba-327eac43cad6@intel.com>
+In-Reply-To: <CABQX2QN=8Ko==iZAn06vRqhuUB=h76Ye96hnuJ_WTLy4EbGapg@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000];
  R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- TO_DN_EQ_ADDR_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
- FUZZY_RATELIMITED(0.00)[rspamd.com];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
+ TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
  SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ MID_RHS_MATCH_FROM(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ RCPT_COUNT_FIVE(0.00)[5]; RCVD_COUNT_TWO(0.00)[2];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
  DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- RCPT_COUNT_FIVE(0.00)[6]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,suse.com:url,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+ URIBL_BLOCKED(0.00)[suse.de:dkim,suse.de:mid,suse.com:url,bootlin.com:url,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  DKIM_TRACE(0.00)[suse.de:+]
 X-Rspamd-Action: no action
 X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: C0C196A867
+X-Rspamd-Queue-Id: 743966A868
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,32 +150,46 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi
 
-Am 23.04.26 um 21:42 schrieb Jacob Keller:
+Am 23.04.26 um 21:51 schrieb Zack Rusin:
 [...]
-> Unfortunately, I also have no better idea than a DMI quirk table to
-> record known platforms that include the controller but don't have a
-> physical VGA connection exposed.
+>> -static enum hrtimer_restart
+>> -vmw_vkms_vblank_simulate(struct hrtimer *timer)
+>> +bool
+>> +vmw_vkms_handle_vblank_timeout(struct drm_crtc *crtc)
+>>   {
+>> -       struct vmw_display_unit *du = container_of(timer, struct vmw_display_unit, vkms.timer);
+>> -       struct drm_crtc *crtc = &du->crtc;
+>> +       struct vmw_display_unit *du = vmw_crtc_to_du(crtc);
+>>          struct vmw_private *vmw = vmw_priv(crtc->dev);
+>>          bool has_surface = false;
+>> -       u64 ret_overrun;
+>>          bool locked, ret;
+>>
+>> -       ret_overrun = hrtimer_forward_now(&du->vkms.timer,
+>> -                                         du->vkms.period_ns);
+>> -       if (ret_overrun != 1)
+>> -               drm_dbg_driver(crtc->dev, "vblank timer missed %lld frames.\n",
+>> -                              ret_overrun - 1);
+>> -
+>>          locked = vmw_vkms_vblank_trylock(crtc);
+>>          ret = drm_crtc_handle_vblank(crtc);
+>>          WARN_ON(!ret);
+>>          if (!locked)
+>> -               return HRTIMER_RESTART;
+>> +               return true;
+> Should this be false? Or is the common layer handling timer restarts
+> differently?
 
-I'm in favor of this. If you send a meaningful DMI identifier for your 
-system, I'd make you a patch for testing.
+Returning true here will restart the timer as before. See [1] for the logic.
 
-I don't know of any way for detecting the presence of a physical VGA 
-connector BTW.
+[1] 
+https://elixir.bootlin.com/linux/v7.0.1/source/drivers/gpu/drm/drm_vblank.c#L2193
 
 Best regards
 Thomas
 
 >
-> Thus, I'm wondering what else we can do? Using WQ_UNBOUND might help
-> somewhat? I have no idea if its safe to sleep instead of spin while
-> reading the i2c connections... As far as I can tell the non-atomic
-> version has nothing that *strictly* prevents sleep.. but maybe i2c
-> access has tighter timing requirements than what usleep_range can
-> fulfill? I am not sure...
->
-> I'd just really like to not have to worry about going to every single
-> user and asking them to unload and ban a driver for these big server
-> platforms...
+> z
 
 -- 
 --
