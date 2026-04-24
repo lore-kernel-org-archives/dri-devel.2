@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 015F4FF885E
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 23:39:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11ABAFF885A
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 23:40:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3232610F70F;
-	Fri, 24 Apr 2026 23:39:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84A7A10F707;
+	Fri, 24 Apr 2026 23:40:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="MYd7u9/P";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="O3ZRbk/v";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 156B310F703
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 23:39:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1777073981; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9956710F6FD
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 23:39:35 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1777073973; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=mPK6Y2jWagLzq3MvXDDOa4qi9ttQez6SSsRM6S65ydwzQOjSuIr6getQw/t/JA3AUP0T9qrVKNGMKJ/qAyVNXY7IGLMhZ/lpIbpWSKrSI3Uc7TMKhByWJXz4stqhVwdtAsIB9H1x5XzFNIW/kii3hpKteRnUSrnRwUnPn3rnUAM=
+ b=lX6mgycwtadmZmf4aM5E3+srCH6govgn2n3b2ARS50Dmmc8QikJszQ5erwr3WC6223F9PkGee5seaQTLjtmMVwb9e0ztdqt0UTfDI2lPosXy4HfNb2SK7JrpaK32jIgQugZIAqwjmUcCpeRdtQ2p+HB9w3Kiyvw396lQkGYU6PY=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1777073981;
+ s=zohoarc; t=1777073973;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=YFpEwDk265HcDtT2iSrpnnS2CizbAS4fRqC8NvMq/RA=; 
- b=eG/TsPomWOdKmQf8yxy8QaYDoBhGiV+WlVsRmAJbMArkXmtrf2yXp0SjnEL1UJQT1jqWMy5c4Fla+CLRnJP39eH4zykhoQkjOC52zFgY9Eo1B2/vbklSjpuZOUbXYCjbqyybeWsQGWi4aHIn5rpK1IIt5ozbrmgihtxWgtONVbE=
+ bh=0htmUZ7cd0cYpXNM04syGCkizAjtah7yfT8aRdJ9awE=; 
+ b=fuM9hsE5IGOg/j6WXiXQZRorh7W26X1PcHid8l2154wyo//cN9mi0TeMmbb/vmqSPR+gW4k6M0KCmaNbNQR7fYZLM23OeZONIvd8l16WbqPqo+/lz7wuOwgGT2cJG0H+KActSrlceANCpEHaobbAToIu9j0HGrfqCFCBEt8dwno=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
  dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1777073981; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1777073973; 
  s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=YFpEwDk265HcDtT2iSrpnnS2CizbAS4fRqC8NvMq/RA=;
- b=MYd7u9/P3LjsAZGrsakdVMETZ3v+CnNpWvukfqLy5m5Gr7AWaCI8LOxeACmK+eHc
- xBPIdXQ/Y90TwkMGEBl/SGLgyN+LOr3al2FHY7BIVEphcoLfT1uxF3pucakvKK/udp3
- muyBPsOEj/Z45moQ0Sv0LtPFkQHtyYk8ue2XDN1U=
-Received: by mx.zohomail.com with SMTPS id 1777073979336487.8899109468525;
- Fri, 24 Apr 2026 16:39:39 -0700 (PDT)
+ bh=0htmUZ7cd0cYpXNM04syGCkizAjtah7yfT8aRdJ9awE=;
+ b=O3ZRbk/v9pBI3aWcwKqXCF8KkXuNOjBiV6PW8InjKS7YzOBuSUgerWCCa3jWgYSd
+ WJmg4wbD6prA6oY+4k8DILLSUahWqRlDRyakCs6o4A4MIr0gE58VjakfYxCylymVOxH
+ 6HVyu0U8feUQENfrb6v0kXVoYC2vJu/aE4fYlfWg=
+Received: by mx.zohomail.com with SMTPS id 1777073971418822.0534965186632;
+ Fri, 24 Apr 2026 16:39:31 -0700 (PDT)
 From: Deborah Brouwer <deborah.brouwer@collabora.com>
-Date: Fri, 24 Apr 2026 16:39:14 -0700
-Subject: [PATCH v4 20/20] drm/tyr: program CSF global interface
+Date: Fri, 24 Apr 2026 16:39:07 -0700
+Subject: [PATCH v4 13/20] drm/tyr: add firmware loading and MCU boot
+ support
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260424-b4-fw-boot-v4-v4-20-a5d91050789d@collabora.com>
+Message-Id: <20260424-b4-fw-boot-v4-v4-13-a5d91050789d@collabora.com>
 References: <20260424-b4-fw-boot-v4-v4-0-a5d91050789d@collabora.com>
 In-Reply-To: <20260424-b4-fw-boot-v4-v4-0-a5d91050789d@collabora.com>
 To: Daniel Almeida <daniel.almeida@collabora.com>, 
@@ -64,13 +65,13 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  work@onurozkan.dev, alvin.sun@linux.dev, 
  Deborah Brouwer <deborah.brouwer@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=13824;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=13544;
  i=deborah.brouwer@collabora.com; h=from:subject:message-id;
- bh=YJdZvBVt6Gs0/MhLYMLar4r0DRCow0chMhC6y3CR32c=;
- b=owGbwMvMwCVWuULzOU9c7WvG02pJDJmv/yuYH5OZYhlwW/7adivr9eUlOyUP/Q4u/mrZsNNBL
- /W5oaBlRykLgxgXg6yYIstZe6Me8ar3Rrrz/zfDzGFlAhnCwMUpABMpW8vIMInBSHqO9zJVyxlp
- t7ZNZtfICdJt0Vi+98epPL1r1rtiVjD8U/7iNTsx6Dv7mzWC5x6eO+I8UYhv7xeus3/Cdt3M+NO
- ixgkA
+ bh=c4q67V7m5J8MVZYjpWxFtUzFl3nup07SAjdC7IcRBEc=;
+ b=owGbwMvMwCVWuULzOU9c7WvG02pJDJmv/yukVVhM+SuetpK36WSUfOw+Pjuf32ImOyomFlhm5
+ T5XXLK9o5SFQYyLQVZMkeWsvVGPeNV7I935/5th5rAygQxh4OIUgIlcC2f4p/DBkrM/Xv54hNWX
+ rN43zyOcjWP2X2GVmK90k8fpXKTUckaGNdaR81umV3ist93zg8tY9XJs5KNzJ/+yhd0XvR2TUSX
+ ICQA=
 X-Developer-Key: i=deborah.brouwer@collabora.com; a=openpgp;
  fpr=CD3F328C177AEF322D9FFF8379A829E70C5E7DEB
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -88,360 +89,438 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Initialize the CSF global (GLB) interface after firmware boot.
+Add firmware loading and management for the Mali CSF GPU. This introduces
+the fw module that loads the Mali GPU firmware binary, parses it into
+sections, and maps those sections into the MCU VM at the required
+virtual addresses.
 
-Program the GLB input block with initial configuration:
-- enable allocation across all present shader cores
-- set power-off, progress, and idle timers
+On probe, the firmware is loaded, its sections are mapped and populated,
+the MCU VM is activated, and the MCU is booted.
 
-Then update GLB_REQ to enable persistent features and trigger
-configuration updates, and ring the global doorbell to notify the MCU.
-
-After ringing the doorbell, wait for the firmware to acknowledge the
-configuration requests before proceeding.
-
-Co-developed-by: Daniel Almeida <daniel.almeida@collabora.com>
-Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
+Co-developed-by: Boris Brezillon <boris.brezillon@collabora.com>
+Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
 ---
- drivers/gpu/drm/tyr/driver.rs        |   2 +-
- drivers/gpu/drm/tyr/fw.rs            |  12 +-
- drivers/gpu/drm/tyr/fw/interfaces.rs | 246 ++++++++++++++++++++++++++++++++++-
- 3 files changed, 253 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/tyr/Kconfig   |   1 +
+ drivers/gpu/drm/tyr/driver.rs |  16 ++-
+ drivers/gpu/drm/tyr/fw.rs     | 272 ++++++++++++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/tyr/gem.rs    |   3 -
+ drivers/gpu/drm/tyr/mmu.rs    |   1 -
+ drivers/gpu/drm/tyr/slot.rs   |   1 -
+ drivers/gpu/drm/tyr/tyr.rs    |   1 +
+ drivers/gpu/drm/tyr/vm.rs     |   1 -
+ 8 files changed, 289 insertions(+), 7 deletions(-)
 
+diff --git a/drivers/gpu/drm/tyr/Kconfig b/drivers/gpu/drm/tyr/Kconfig
+index 443ce988b570..729643f4db49 100644
+--- a/drivers/gpu/drm/tyr/Kconfig
++++ b/drivers/gpu/drm/tyr/Kconfig
+@@ -18,6 +18,7 @@ config DRM_TYR
+ 	select DRM_TYR_STATIC_DEPS
+ 	select IOMMU_IO_PGTABLE_LPAE
+ 	select RUST_DRM_GEM_SHMEM_HELPER
++	select RUST_FW_LOADER_ABSTRACTIONS
+ 	depends on IOMMU_SUPPORT
+ 	default n
+ 	help
 diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
-index 20ae114a4180..67a5289dd346 100644
+index 495021a8657d..246bc3cb8580 100644
 --- a/drivers/gpu/drm/tyr/driver.rs
 +++ b/drivers/gpu/drm/tyr/driver.rs
-@@ -192,7 +192,7 @@ fn probe(
-         firmware
-             .wait_ready(1000)
-             .inspect_err(|_| pr_err!("Timed out waiting for firmware to be ready.\n"))?;
--        firmware.enable_global_interface()?;
-+        firmware.enable_global_interface(&gpu_info, &core_clk)?;
+@@ -42,6 +42,7 @@
+ 
+ use crate::{
+     file::TyrDrmFileData,
++    fw::Firmware,
+     gem::BoData,
+     gpu,
+     gpu::GpuInfo,
+@@ -63,6 +64,8 @@
+ pub(crate) struct TyrDrmDeviceData {
+     pub(crate) pdev: ARef<platform::Device>,
+ 
++    pub(crate) fw: Arc<Firmware>,
++
+     #[pin]
+     clks: Mutex<Clocks>,
+ 
+@@ -154,10 +157,21 @@ fn probe(
+         let uninit_ddev = UnregisteredDevice::<TyrDrmDriver>::new(pdev.as_ref())?;
+         let platform: ARef<platform::Device> = pdev.into();
+ 
+-        let _mmu = Mmu::new(pdev, iomem.as_arc_borrow(), &gpu_info)?;
++        let mmu = Mmu::new(pdev, iomem.as_arc_borrow(), &gpu_info)?;
++
++        let firmware = Firmware::new(
++            pdev,
++            iomem.clone(),
++            &uninit_ddev,
++            mmu.as_arc_borrow(),
++            &gpu_info,
++        )?;
++
++        firmware.boot()?;
  
          let data = try_pin_init!(TyrDrmDeviceData {
                  pdev: platform.clone(),
++                fw: firmware,
+                 clks <- new_mutex!(Clocks {
+                     core: core_clk,
+                     stacks: stacks_clk,
 diff --git a/drivers/gpu/drm/tyr/fw.rs b/drivers/gpu/drm/tyr/fw.rs
-index 598e399a58ae..5fe6f47c5d2e 100644
---- a/drivers/gpu/drm/tyr/fw.rs
+new file mode 100644
+index 000000000000..cb2546350f0a
+--- /dev/null
 +++ b/drivers/gpu/drm/tyr/fw.rs
-@@ -20,6 +20,7 @@
- 
- use kernel::{
-     bits::genmask_u32,
-+    clk::Clk,
-     devres::Devres,
-     drm::{
-         gem::BaseObject,
-@@ -337,8 +338,15 @@ pub(crate) fn wait_ready(&self, timeout_ms: u32) -> Result {
-     }
- 
-     /// Enable the global interface.
--    pub(crate) fn enable_global_interface(&self) -> Result {
-+    pub(crate) fn enable_global_interface(&self, gpu_info: &GpuInfo, core_clk: &Clk) -> Result {
-         let shared_section = self.shared_section()?;
--        self.global_iface.lock().enable(shared_section)
-+        self.global_iface.lock().enable(
-+            &self.pdev,
-+            &self.iomem,
-+            shared_section,
-+            gpu_info,
-+            core_clk,
-+            &self.ready_wait,
-+        )
-     }
- }
-diff --git a/drivers/gpu/drm/tyr/fw/interfaces.rs b/drivers/gpu/drm/tyr/fw/interfaces.rs
-index 07cdb1c76a3f..efea0785b3bd 100644
---- a/drivers/gpu/drm/tyr/fw/interfaces.rs
-+++ b/drivers/gpu/drm/tyr/fw/interfaces.rs
-@@ -39,11 +39,29 @@
- //! ```
- //!
- 
--use crate::fw::Section;
-+use crate::{
-+    driver::IoMem,
-+    fw::Section,
-+    gpu::GpuInfo,
-+    regs::doorbell_block::DOORBELL,
-+    wait::{
-+        Wait,
-+        WaitResult, //
-+    }, //
-+};
- use iface::FwInterface;
- use kernel::{
--    io::Io,
--    prelude::*, //
-+    bindings::SZ_1K,
-+    clk::Clk,
+@@ -0,0 +1,272 @@
++// SPDX-License-Identifier: GPL-2.0 or MIT
++
++//! Firmware loading and management for Mali CSF GPU.
++//!
++//! This module handles loading the Mali GPU firmware binary, parsing it into sections,
++//! and mapping those sections into the MCU's virtual address space. Each firmware section
++//! has specific properties (read/write/execute permissions, cache modes) and must be loaded
++//! at specific virtual addresses expected by the MCU.
++//!
++//! See [`Firmware`] for the main firmware management interface and [`Section`] for
++//! individual firmware sections.
++//!
++//! [`Firmware`]: crate::fw::Firmware
++//! [`Section`]: crate::fw::Section
++
++use kernel::{
++    bits::genmask_u32,
 +    devres::Devres,
++    drm::{
++        gem::BaseObject,
++        Uninit, //
++    },
++    impl_flags,
 +    io::{
-+        register::Array,
++        poll,
 +        Io, //
 +    },
-+    num::Bounded,
 +    platform,
 +    prelude::*,
-+    time::arch_timer_get_rate, //
- };
- 
- /// Offset from GLB_CONTROL_BLOCK start to the first GROUP_CONTROL block.
-@@ -1616,9 +1634,94 @@ pub(super) mod output {
- use csg::*;
- use glb::{
-     control::*,
-+    input::*,
-+    output::GLB_ACK,
-     *, //
- };
- 
-+/// Converts a timeout in microseconds to a timeout field value and timer source.
-+///
-+/// The firmware supports two timer sources:
-+/// - System timestamp (arch timer): preferred when available, so the timeout
-+///   tracks real elapsed time independently of GPU clock rate.
-+/// - GPU cycle counter: fallback when the system timestamp is unavailable.
-+///
-+/// Returns the encoded timeout value and the selected timer source.
-+fn conv_timeout(core_clk: &Clk, timeout_us: u32) -> Result<(u32, TimestampSource)> {
-+    // The max timeout is determined by the 31 bit size of the timeout field.
-+    let max_timeout = (1u32 << 31) - 1;
-+    let core_rate = core_clk.rate().as_hz() as u64;
++    str::CString,
++    sync::{
++        Arc,
++        ArcBorrow, //
++    },
++    time,
++    types::ARef, //
++};
 +
-+    let (timer_rate, timer_source) = match arch_timer_get_rate() {
-+        Some(rate) => (u64::from(rate), TimestampSource::SystemTimestamp),
-+        _ if core_rate != 0 => (core_rate, TimestampSource::GpuCounter),
-+        _ => return Err(EINVAL),
-+    };
++use crate::{
++    driver::{
++        IoMem,
++        TyrDrmDevice, //
++    },
++    fw::parser::{
++        FwParser,
++        ParsedSection, //
++    },
++    gem,
++    gem::{
++        KernelBo,
++        KernelBoVaAlloc, //
++    },
++    gpu::GpuInfo,
++    mmu::Mmu,
++    regs::gpu_control::{
++        McuControlMode,
++        McuStatus,
++        GPU_ID,
++        MCU_CONTROL,
++        MCU_STATUS, //
++    },
++    vm::Vm, //
++};
 +
-+    let timeout_in_cycles = u64::from(timeout_us) * timer_rate;
++mod parser;
 +
-+    // The hardware stores the represented timeout value with a shr(10) to save space.
-+    let timeout_shift = u64::from(SZ_1K);
-+    let us_per_second = 1_000_000u64;
++impl_flags!(
++    #[derive(Debug, Clone, Default, Copy, PartialEq, Eq)]
++    pub(super) struct SectionFlags(u32);
 +
-+    let timeout_val = timeout_in_cycles.div_ceil(us_per_second * timeout_shift);
-+    let timeout_val = timeout_val.min(u64::from(max_timeout)) as u32;
-+
-+    Ok((timeout_val, timer_source))
-+}
-+
-+/// Request/acknowledge communication between Tyr and CSF.
-+struct GlobalInterfaceRequests<'a> {
-+    /// Global input block where driver writes requests.
-+    input: &'a FwInterface<GLB_INPUT_BLOCK_SIZE>,
-+    /// Global output block where firmware writes acknowledgements.
-+    output: &'a FwInterface<GLB_OUTPUT_BLOCK_SIZE>,
-+}
-+
-+impl<'a> GlobalInterfaceRequests<'a> {
-+    fn new(
-+        input: &'a FwInterface<GLB_INPUT_BLOCK_SIZE>,
-+        output: &'a FwInterface<GLB_OUTPUT_BLOCK_SIZE>,
-+    ) -> Self {
-+        Self { input, output }
++    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
++    pub(super) enum SectionFlag {
++        Read = 1 << 0,
++        Write = 1 << 1,
++        Exec = 1 << 2,
++        CacheModeNone = 0 << 3,
++        CacheModeCached = 1 << 3,
++        CacheModeUncachedCoherent = 2 << 3,
++        CacheModeCachedCoherent = 3 << 3,
++        Prot = 1 << 5,
++        Shared = 1 << 30,
++        Zero = 1 << 31,
 +    }
++);
 +
-+    /// Waits for the firmware to acknowledge the given request bits.
-+    ///
-+    /// The ack condition is `(GLB_ACK & mask) == (GLB_REQ & mask)`.
-+    fn wait_acks(&self, reqs_mask: GLB_REQ, event_wait: &Wait, timeout_ms: u32) -> Result {
-+        let mask = reqs_mask.into_raw();
++pub(super) const CACHE_MODE_MASK: SectionFlags = SectionFlags(genmask_u32(3..=4));
 +
-+        event_wait.wait_interruptible_timeout(timeout_ms, || {
-+            let req = self.input.read(GLB_REQ).into_raw() & mask;
-+            let ack = self.output.read(GLB_ACK).into_raw() & mask;
-+            if req == ack {
-+                Ok(WaitResult::Done)
-+            } else {
-+                Ok(WaitResult::Retry)
-+            }
-+        })
-+    }
++pub(super) const CSF_MCU_SHARED_REGION_START: u32 = 0x04000000;
 +
-+    /// Use to make requests, where simply changing the bit value is
-+    /// sufficient to make a request; the bit value has no meaning in itself.
-+    fn toggle_requests(&self, reqs_mask: GLB_REQ) -> Result {
-+        let reqs_mask_val = reqs_mask.into_raw();
-+
-+        let cur_ack_val = self.output.read(GLB_ACK).into_raw();
-+
-+        // Calculate which bits to toggle based on ACK state
-+        let toggled_bits = (cur_ack_val ^ reqs_mask_val) & reqs_mask_val;
-+
-+        let cur_req_val = self.input.read(GLB_REQ).into_raw();
-+        let preserved_bits = cur_req_val & !reqs_mask_val;
-+        let new_val = toggled_bits | preserved_bits;
-+
-+        self.input.write(GLB_REQ, GLB_REQ::from_raw(new_val));
-+        Ok(())
++impl SectionFlags {
++    fn cache_mode(&self) -> SectionFlags {
++        *self & CACHE_MODE_MASK
 +    }
 +}
 +
- /// State of the global interface.
- enum GlobalInterfaceState {
-     /// Interface is not yet initialized.
-@@ -1667,7 +1770,15 @@ pub(super) fn new() -> Result<Self> {
-     /// This reads the firmware's control block to set up the global input/output
-     /// interfaces; it configures timers and shader core allocation; and it discovers
-     /// available CSG interfaces.
--    pub(crate) fn enable(&mut self, shared_section: &Section) -> Result {
-+    pub(crate) fn enable(
-+        &mut self,
-+        pdev: &platform::Device,
-+        iomem: &Devres<IoMem>,
-+        shared_section: &Section,
-+        gpu_info: &GpuInfo,
-+        core_clk: &Clk,
-+        event_wait: &Wait,
-+    ) -> Result {
-         let vmap = shared_section.mem.bo.owned_vmap::<0>()?;
-         let va_range = shared_section.mem.va_range();
- 
-@@ -1700,6 +1811,24 @@ pub(crate) fn enable(&mut self, shared_section: &Section) -> Result {
-             output_va.value().get().into(),
-         )?;
- 
-+        Self::configure_glb_input(&glb_input, gpu_info, core_clk)?;
-+        let ack_mask = Self::configure_glb_requests(&glb_input, &glb_output)?;
++impl TryFrom<u32> for SectionFlags {
++    type Error = Error;
 +
-+        // Ring the global doorbell to notify the MCU.
-+        // SAFETY: Called during probe after the device has been successfully bound,
-+        // so it is valid to access it as a bound device.
-+        let dev = unsafe { pdev.as_ref().as_bound() };
-+        let io = iomem.access(dev)?;
-+        io.write(Array::at(0), DOORBELL::zeroed().with_ring(true));
++    fn try_from(value: u32) -> Result<Self, Self::Error> {
++        let valid_flags = SectionFlags::from(SectionFlag::Read)
++            | SectionFlags::from(SectionFlag::Write)
++            | SectionFlags::from(SectionFlag::Exec)
++            | CACHE_MODE_MASK
++            | SectionFlags::from(SectionFlag::Prot)
++            | SectionFlags::from(SectionFlag::Shared)
++            | SectionFlags::from(SectionFlag::Zero);
 +
-+        // Wait for the firmware to acknowledge the initial global configuration.
-+        let request_field = GlobalInterfaceRequests::new(&glb_input, &glb_output);
++        if value & valid_flags.0 != value {
++            Err(EINVAL)
++        } else {
++            Ok(Self(value))
++        }
++    }
++}
 +
-+        if let Err(e) = request_field.wait_acks(ack_mask, event_wait, 1000) {
-+            pr_err!("CSF firmware failed to ACK initial GLB config\n");
-+            return Err(e);
++/// A parsed section of the firmware binary.
++struct Section {
++    // Raw firmware section data for reset purposes
++    #[expect(dead_code)]
++    data: KVec<u8>,
++
++    // Keep the BO backing this firmware section so that both the
++    // GPU mapping and CPU mapping remain valid until the Section is dropped.
++    #[expect(dead_code)]
++    mem: gem::KernelBo,
++}
++
++/// Loaded firmware with sections mapped into MCU VM.
++pub(crate) struct Firmware {
++    /// Platform device reference (needed to access the MCU JOB_IRQ registers).
++    pdev: ARef<platform::Device>,
++
++    /// Iomem need to access registers.
++    iomem: Arc<Devres<IoMem>>,
++
++    /// MCU VM.
++    vm: Arc<Vm>,
++
++    /// List of firmware sections.
++    #[expect(dead_code)]
++    sections: KVec<Section>,
++}
++
++impl Drop for Firmware {
++    fn drop(&mut self) {
++        // AS slots retain a VM ref, we need to kill the circular ref manually.
++        self.vm.kill();
++    }
++}
++
++impl Firmware {
++    fn init_section_mem(mem: &mut KernelBo, data: &KVec<u8>) -> Result {
++        if data.is_empty() {
++            return Ok(());
 +        }
 +
-         // Read how many CSG interfaces exist.
-         let csg_num = glb_control.read(GLB_GROUP_NUM).value().get();
- 
-@@ -1739,6 +1868,115 @@ pub(crate) fn enable(&mut self, shared_section: &Section) -> Result {
-         Ok(())
-     }
- 
-+    /// Programs GLB input-block configuration registers.
-+    ///
-+    /// Writes shader core allocation and timer values. These settings are applied
-+    /// by firmware only after the corresponding GLB_REQ bits are updated.
-+    fn configure_glb_input(
-+        glb_input: &FwInterface<GLB_INPUT_BLOCK_SIZE>,
-+        gpu_info: &GpuInfo,
-+        core_clk: &Clk,
-+    ) -> Result {
-+        // Make all present shader cores available for endpoint allocation.
-+        glb_input.write(
-+            GLB_ALLOC_EN,
-+            GLB_ALLOC_EN::zeroed().with_mask(gpu_info.shader_present),
-+        );
++        let vmap = mem.bo.vmap::<0>()?;
++        let size = mem.bo.size();
 +
-+        // Configure power-down delay for shader and tiler domains.
-+        // The firmware powers down a domain after it has been idle for this duration,
-+        // and cancels the timeout if work arrives before expiry.
++        if data.len() > size {
++            pr_err!("fw section {} bigger than BO {}\n", data.len(), size);
++            return Err(EINVAL);
++        }
 +
-+        // Power-down delay after idle, in microseconds.
-+        const PWROFF_HYSTERESIS_US: u32 = 10_000;
-+        let (pwroff_timeout, pwroff_source) = conv_timeout(core_clk, PWROFF_HYSTERESIS_US)?;
-+        let pwroff_timeout = Bounded::<u32, 31>::try_new(pwroff_timeout).ok_or(EINVAL)?;
-+        glb_input.write(
-+            GLB_PWROFF_TIMER,
-+            GLB_PWROFF_TIMER::zeroed()
-+                .with_timeout(pwroff_timeout)
-+                .with_timer_source(pwroff_source),
-+        );
-+
-+        // Configure forward progress timeout.
-+        //
-+        // Keep this aligned with panthor, which programs a fixed GPU-cycle timeout.
-+        // The real-time duration therefore varies with the GPU clock rate (e.g. ~5.24 s
-+        // at 500 MHz, longer at lower frequencies).
-+        //
-+        // The hardware stores the timeout in units of 1024 cycles, so encode the raw
-+        // cycle count by shifting right by 10.
-+        const PROGRESS_TIMEOUT_CYCLES: u32 = 5 * 500 * 1024 * 1024;
-+        const PROGRESS_TIMEOUT_SCALE_SHIFT: u32 = 10;
-+        let progress_timeout = PROGRESS_TIMEOUT_CYCLES >> PROGRESS_TIMEOUT_SCALE_SHIFT;
-+        glb_input.write(
-+            GLB_PROGRESS_TIMER,
-+            GLB_PROGRESS_TIMER::zeroed().with_timeout(progress_timeout),
-+        );
-+
-+        // Configure the delay before reporting the GPU as idle.
-+        const IDLE_HYSTERESIS_US: u32 = 800;
-+        let (idle_timeout, idle_source) = conv_timeout(core_clk, IDLE_HYSTERESIS_US)?;
-+        let idle_timeout = Bounded::<u32, 31>::try_new(idle_timeout).ok_or(EINVAL)?;
-+        glb_input.write(
-+            GLB_IDLE_TIMER,
-+            GLB_IDLE_TIMER::zeroed()
-+                .with_timeout(idle_timeout)
-+                .with_timer_source(idle_source),
-+        );
++        for (i, &byte) in data.iter().enumerate() {
++            vmap.try_write8(byte, i)?;
++        }
 +
 +        Ok(())
 +    }
 +
-+    /// Programs GLB_REQ and ACK IRQ mask after GLB input registers are configured.
-+    ///
-+    /// This sets desired persistent states, toggles configuration-update requests,
-+    /// and returns the GLB_REQ bits that must be acknowledged by firmware.
-+    fn configure_glb_requests(
-+        glb_input: &FwInterface<GLB_INPUT_BLOCK_SIZE>,
-+        glb_output: &FwInterface<GLB_OUTPUT_BLOCK_SIZE>,
-+    ) -> Result<GLB_REQ> {
-+        // Firmware updates GLB_ACK (output block) in response to GLB_REQ.
-+        // GLB_ACK_IRQ_MASK selects which of these updates trigger a host interrupt.
-+        glb_input.write(
-+            GLB_ACK_IRQ_MASK,
-+            GLB_ACK_IRQ_MASK::zeroed()
-+                .with_cfg_progress_timer(true)
-+                .with_cfg_alloc_en(true)
-+                .with_cfg_pwroff_timer(true)
-+                .with_idle_enable(true)
-+                .with_idle_event(true)
-+                .with_counter_enable(true),
-+        );
++    fn request(
++        ddev: &TyrDrmDevice<Uninit>,
++        gpu_info: &GpuInfo,
++    ) -> Result<kernel::firmware::Firmware> {
++        let gpu_id = GPU_ID::from_raw(gpu_info.gpu_id);
 +
-+        // Requests whose value represents the desired persistent state.
-+        let cur_req = glb_input.read(GLB_REQ);
-+        glb_input.write(
-+            GLB_REQ,
-+            cur_req.with_idle_enable(true).with_counter_enable(true),
-+        );
++        let path = CString::try_from_fmt(fmt!(
++            "arm/mali/arch{}.{}/mali_csffw.bin",
++            gpu_id.arch_major().get(),
++            gpu_id.arch_minor().get()
++        ))?;
 +
-+        let request_field = GlobalInterfaceRequests::new(glb_input, glb_output);
-+
-+        // Fields that require toggle semantics.
-+        let toggle_mask = GLB_REQ::zeroed()
-+            .with_cfg_progress_timer(true)
-+            .with_cfg_alloc_en(true)
-+            .with_cfg_pwroff_timer(true);
-+
-+        request_field.toggle_requests(toggle_mask)?;
-+
-+        // All fields we want to wait for completion on (REQ == ACK).
-+        let ack_mask = GLB_REQ::zeroed()
-+            .with_cfg_progress_timer(true)
-+            .with_cfg_alloc_en(true)
-+            .with_cfg_pwroff_timer(true)
-+            .with_idle_enable(true)
-+            .with_counter_enable(true);
-+
-+        Ok(ack_mask)
++        kernel::firmware::Firmware::request(&path, ddev.as_ref())
 +    }
 +
-     /// Initialize CSG interfaces.
-     ///
-     /// This uses the previously read CSG count to create and enable each CSG interface.
++    fn load(
++        ddev: &TyrDrmDevice<Uninit>,
++        gpu_info: &GpuInfo,
++    ) -> Result<(kernel::firmware::Firmware, KVec<ParsedSection>)> {
++        let fw = Self::request(ddev, gpu_info)?;
++        let mut parser = FwParser::new(fw.data());
++
++        let parsed_sections = parser.parse()?;
++
++        Ok((fw, parsed_sections))
++    }
++
++    /// Load firmware and map sections into MCU VM.
++    pub(crate) fn new(
++        pdev: &platform::Device,
++        iomem: Arc<Devres<IoMem>>,
++        ddev: &TyrDrmDevice<Uninit>,
++        mmu: ArcBorrow<'_, Mmu>,
++        gpu_info: &GpuInfo,
++    ) -> Result<Arc<Firmware>> {
++        let vm = Vm::new(pdev, ddev, mmu, gpu_info)?;
++
++        let (fw, parsed_sections) = Self::load(ddev, gpu_info)?;
++
++        vm.activate()?;
++
++        let mut sections = KVec::new();
++        for parsed in parsed_sections {
++            let size = (parsed.va.end - parsed.va.start) as usize;
++            let va = u64::from(parsed.va.start);
++
++            let mut mem = KernelBo::new(
++                ddev,
++                vm.as_arc_borrow(),
++                size.try_into().unwrap(),
++                KernelBoVaAlloc::Explicit(va),
++                parsed.vm_map_flags,
++            )?;
++
++            let section_start = parsed.data_range.start as usize;
++            let section_end = parsed.data_range.end as usize;
++            let mut data = KVec::new();
++
++            // Ensure that the firmware slice is not out of bounds.
++            let fw_data = fw.data();
++            let bytes = fw_data.get(section_start..section_end).ok_or(EINVAL)?;
++            data.extend_from_slice(bytes, GFP_KERNEL)?;
++
++            Self::init_section_mem(&mut mem, &data)?;
++
++            sections.push(Section { data, mem }, GFP_KERNEL)?;
++        }
++
++        let firmware = Arc::new(
++            Firmware {
++                pdev: pdev.into(),
++                iomem,
++                vm,
++                sections,
++            },
++            GFP_KERNEL,
++        )?;
++
++        Ok(firmware)
++    }
++
++    pub(crate) fn boot(&self) -> Result {
++        // SAFETY: Boot is currently only called in the probe path, so we're sure we have a bound
++        // device.
++        let dev = unsafe { self.pdev.as_ref().as_bound() };
++        let io = (self.iomem).access(dev)?;
++        io.write_reg(MCU_CONTROL::zeroed().with_req(McuControlMode::Auto));
++
++        if let Err(e) = poll::read_poll_timeout(
++            || Ok(io.read(MCU_STATUS)),
++            |status| status.value() == McuStatus::Enabled,
++            time::Delta::from_millis(1),
++            time::Delta::from_millis(100),
++        ) {
++            let status = io.read(MCU_STATUS);
++            pr_err!("MCU failed to boot, status: {:?}", status.value());
++            return Err(e);
++        }
++        Ok(())
++    }
++}
+diff --git a/drivers/gpu/drm/tyr/gem.rs b/drivers/gpu/drm/tyr/gem.rs
+index d032a8ae543f..4ec373e0bcfa 100644
+--- a/drivers/gpu/drm/tyr/gem.rs
++++ b/drivers/gpu/drm/tyr/gem.rs
+@@ -94,7 +94,6 @@ pub(crate) fn new_dummy_object<Ctx: DeviceContext>(ddev: &TyrDrmDevice<Ctx>) ->
+ /// a [`KernelBo`]. An automatic VA allocation strategy will be added in the future.
+ pub(crate) enum KernelBoVaAlloc {
+     /// Explicit VA address specified by the caller.
+-    #[expect(dead_code)]
+     Explicit(u64),
+ }
+ 
+@@ -107,7 +106,6 @@ pub(crate) enum KernelBoVaAlloc {
+ /// When dropped, the buffer is automatically unmapped from the GPU VA space.
+ pub(crate) struct KernelBo {
+     /// The underlying GEM buffer object.
+-    #[expect(dead_code)]
+     pub(crate) bo: ARef<Bo>,
+     /// The GPU VM this buffer is mapped into.
+     vm: Arc<Vm>,
+@@ -121,7 +119,6 @@ impl KernelBo {
+     /// This function allocates a new shmem-backed GEM object and immediately maps
+     /// it into the specified GPU virtual memory space. The mapping is automatically
+     /// cleaned up when the [`KernelBo`] is dropped.
+-    #[expect(dead_code)]
+     pub(crate) fn new<Ctx: DeviceContext>(
+         ddev: &TyrDrmDevice<Ctx>,
+         vm: ArcBorrow<'_, Vm>,
+diff --git a/drivers/gpu/drm/tyr/mmu.rs b/drivers/gpu/drm/tyr/mmu.rs
+index 09df98ffc9e3..935e2102ab30 100644
+--- a/drivers/gpu/drm/tyr/mmu.rs
++++ b/drivers/gpu/drm/tyr/mmu.rs
+@@ -12,7 +12,6 @@
+ //!
+ //! [`AddressSpaceManager`]: address_space::AddressSpaceManager
+ //! [`SlotManager`]: crate::slot::SlotManager
+-#![allow(dead_code)]
+ 
+ use core::ops::Range;
+ 
+diff --git a/drivers/gpu/drm/tyr/slot.rs b/drivers/gpu/drm/tyr/slot.rs
+index debba75f6204..53abb9eeb970 100644
+--- a/drivers/gpu/drm/tyr/slot.rs
++++ b/drivers/gpu/drm/tyr/slot.rs
+@@ -20,7 +20,6 @@
+ //!
+ //! [SlotOperations]: crate::slot::SlotOperations
+ //! [SlotManager]: crate::slot::SlotManager
+-#![allow(dead_code)]
+ 
+ use core::{
+     mem::take,
+diff --git a/drivers/gpu/drm/tyr/tyr.rs b/drivers/gpu/drm/tyr/tyr.rs
+index b3244670dd79..18b0668bb217 100644
+--- a/drivers/gpu/drm/tyr/tyr.rs
++++ b/drivers/gpu/drm/tyr/tyr.rs
+@@ -9,6 +9,7 @@
+ 
+ mod driver;
+ mod file;
++mod fw;
+ mod gem;
+ mod gpu;
+ mod mmu;
+diff --git a/drivers/gpu/drm/tyr/vm.rs b/drivers/gpu/drm/tyr/vm.rs
+index c19300d76194..1ef7e40ccdb5 100644
+--- a/drivers/gpu/drm/tyr/vm.rs
++++ b/drivers/gpu/drm/tyr/vm.rs
+@@ -6,7 +6,6 @@
+ //! the illusion of owning the entire virtual address (VA) range, similar to CPU virtual memory.
+ //! Each virtual memory (VM) area is backed by ARM64 LPAE Stage 1 page tables and can be
+ //! mapped into hardware address space (AS) slots for GPU execution.
+-#![allow(dead_code)]
+ 
+ use core::ops::Range;
+ 
 
 -- 
 2.53.0
