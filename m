@@ -4,73 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65111FF885A
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 21:35:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60721FF885A
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 22:08:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A730810E119;
-	Fri, 24 Apr 2026 21:35:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6956B10E09E;
+	Fri, 24 Apr 2026 22:08:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TzSrA83h";
+	dkim=pass (2048-bit key; secure) header.d=proton.me header.i=@proton.me header.b="VnsyjAeJ";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99B0810E119
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 21:35:31 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 61CD4418BF
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 21:35:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E502C2BCF5
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 21:35:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777066531;
- bh=V/g5417/lu7Rq9Wc+VHeVNBsxjaU+u4FIfHUcgI8RBA=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=TzSrA83h3MF29WGElQvFWQ5jKHyEJlRhWdtIJjpO4xcVRbM/po+lDeAxLa/JBomDK
- uh6wtq/VEjqMJxCJZOtItouPuZdLYh/0K1ESZwMkKekkwajXTLCh5uVPkRAGQw2ex2
- z6HerXXTiRtWoEON36F59AhbxYvNLf48NirNBrQ/5WGPKpR/C+PJFigx4/xW8RMq5j
- jg1XBWHt7viGZ8Rwn/TJYA0uqaNse0FsL1PxNhIG2Tlmc+tYIUoJP2Gwi4DR+HOM74
- /Gybl/hwIIJTu7nYxN32939Xr7ypeUUNQvwFONtCG8LGIQvBhNFlyxrVc3C63ww0kM
- U7FVAFBpb9XiA==
-Received: by mail-lj1-f182.google.com with SMTP id
- 38308e7fff4ca-38a01c80c34so80692171fa.0
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 14:35:30 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AFNElJ8ZcTFfvyJLp7zIXk4WiUd/X0sktxae6w4S2BqMym7zm7U8bfdqlReeVeciyAq/dCicPd22lhSAP2M=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz0iz7lUHRrBnxUo85ES/NevlSxaY5TxTd69zRfEtwU7E6e1fIw
- Rpb1QWEud6GPajTNDhQ2f0uBJnf4ZLcGxL9OH0ehb5FS3c/ycq/w19l5v0WYiNPJ2uSLPO2bG9M
- tkAsJFfhAJjnjWiMqFQZPJ7hw32P5mzE=
-X-Received: by 2002:a05:6512:3d27:b0:5a2:b3dd:7a74 with SMTP id
- 2adb3069b0e04-5a4172e7af6mr12181069e87.33.1777066529695; Fri, 24 Apr 2026
- 14:35:29 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260411-waveshare-dsi-touch-v2-0-75cdbeac5156@oss.qualcomm.com>
- <20260411-waveshare-dsi-touch-v2-21-75cdbeac5156@oss.qualcomm.com>
- <CAD++jL=zmd8yto9HuyjC8cmBj1oMgOa7C899yo_toP9Q+QJcDw@mail.gmail.com>
- <dovqowg4a3aet2f4gwd5lufh6xqopeq5slgyix2bqbf3v7z4fk@b6pwiyn6ppov>
-In-Reply-To: <dovqowg4a3aet2f4gwd5lufh6xqopeq5slgyix2bqbf3v7z4fk@b6pwiyn6ppov>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 24 Apr 2026 23:35:17 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnSeT2obJrvw3Z7G5WMeEqaPueWAKhjS7BO-HY6RsR+2A@mail.gmail.com>
-X-Gm-Features: AQROBzDBWqqVUjdalSSficemzrrdbGhMWHS70jsRIKyadsmlsfGsHqdU45XnDFM
-Message-ID: <CAD++jLnSeT2obJrvw3Z7G5WMeEqaPueWAKhjS7BO-HY6RsR+2A@mail.gmail.com>
-Subject: Re: [PATCH v2 21/21] gpio: add GPIO controller found on Waveshare DSI
- TOUCH panels
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+Received: from mail-244102.protonmail.ch (mail-244102.protonmail.ch
+ [109.224.244.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA58B10E0A2
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 18:06:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+ s=protonmail; t=1777053558; x=1777312758;
+ bh=+rIN4AoFQDCARUNcTNv+OAPOjIHNpFlUIFmOxApD1WY=;
+ h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+ Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=VnsyjAeJ+qbZhWOuoAf0Uj9PjMeBHSNZv43D1eYGODbxHSXe6bgg1OeYKj1GbFOdZ
+ 1bL42kewOHLTNlU0M5RZlJvkQJCtxQpa3kU0oXBiWNCJf3mOLICLgp7kRR6n/I9K6g
+ u1gaEE2a7bYr4posymmvd+EAmvzRZvcs7k0mtSEMBFhydt53RWnN3yDhQu/3wjmZUW
+ ds90FDXmdKTEqejnXtx7SxOR718Gz9fRKx5sDszEFdXuk+rr/3/JdU1mOMG+X4leyZ
+ umuQJzbdPrUnPhFvPDXlPfAUE2GjJHfZGdaELUin5vSNlNtmYyDUdVms2ilcz4owHl
+ II/tvxAug3hzA==
+Date: Fri, 24 Apr 2026 17:59:14 +0000
+To: Thomas Zimmermann <tzimmermann@suse.de>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Cong Yang <yangcong5@huaqin.corp-partner.google.com>,
- Ondrej Jirman <megi@xff.cz>, 
- Javier Martinez Canillas <javierm@redhat.com>, Jagan Teki <jagan@edgeble.ai>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-gpio@vger.kernel.org, Riccardo Mereu <r.mereu@arduino.cc>
-Content-Type: text/plain; charset="UTF-8"
+ Maxime Ripard <mripard@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+ David Airlie <airlied@gmail.com>
+From: Aditya Garg <gargaditya08@proton.me>
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+Subject: [PATCH] MAINTAINERS, mailmap: update Aditya Garg's email address
+Message-ID: <20260424175846.15103-1-gargaditya08@proton.me>
+Feedback-ID: 145777226:user:proton
+X-Pm-Message-ID: 89dc5780f8fa7a69d7654c614361dff868dd0ddb
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Fri, 24 Apr 2026 22:08:49 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,22 +58,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Apr 22, 2026 at 8:39=E2=80=AFPM Dmitry Baryshkov
-<dmitry.baryshkov@oss.qualcomm.com> wrote:
-> On Wed, Apr 22, 2026 at 03:20:26PM +0200, Linus Walleij wrote:
+My Outlook email address often sends emails from kernel devs to the junk
+folder. Also, emails from some addresses (eg suse.de) are not received
+at all. Update the email to my alternate Proton Mail address.
 
-> > This looks like it can be replaced with a few lines of
-> > select GPIO_REGMAP
-> > #include <linux/gpio/regmap.h>
-> > helpers.
-> >
-> > Has this not been discussed earlier?
->
-> Yes, it was. Using gpio-regmap would complicate BL code since it
-> wouldn't be easy to directly toggle the BL GPIO.
+Signed-off-by: Aditya Garg <gargaditya08@proton.me>
+---
+ .mailmap    | 1 +
+ MAINTAINERS | 2 +-
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
-OK I buy that.
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+diff --git a/.mailmap b/.mailmap
+index 28eedfaa2..5c219b40e 100644
+--- a/.mailmap
++++ b/.mailmap
+@@ -19,6 +19,7 @@ Abhinav Kumar <quic_abhinavk@quicinc.com> <abhinavk@codea=
+urora.org>
+ Ahmad Masri <quic_amasri@quicinc.com> <amasri@codeaurora.org>
+ Adam Oldham <oldhamca@gmail.com>
+ Adam Radford <aradford@gmail.com>
++Aditya Garg <gargaditya08@proton.me> <gargaditya08@live.com>
+ Adriana Reus <adi.reus@gmail.com> <adriana.reus@intel.com>
+ Adrian Bunk <bunk@stusta.de>
+ Ajay Kaher <ajay.kaher@broadcom.com> <akaher@vmware.com>
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 090b52a5c..0ebd747ac 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -7894,7 +7894,7 @@ F:=09drivers/gpu/drm/sun4i/sun8i*
+=20
+ DRM DRIVER FOR APPLE TOUCH BARS
+ M:=09Aun-Ali Zaidi <admin@kodeit.net>
+-M:=09Aditya Garg <gargaditya08@live.com>
++M:=09Aditya Garg <gargaditya08@proton.me>
+ L:=09dri-devel@lists.freedesktop.org
+ S:=09Maintained
+ T:=09git https://gitlab.freedesktop.org/drm/misc/kernel.git
+--=20
+2.52.0
 
-Yours,
-Linus Walleij
+
