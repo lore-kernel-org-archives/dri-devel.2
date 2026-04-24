@@ -4,56 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6ABDFE51FA
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 09:49:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81D90FE51F3
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 09:52:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33BE410F4AA;
-	Fri, 24 Apr 2026 09:49:24 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GsnR2IR0";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34BA810F4B0;
- Fri, 24 Apr 2026 09:49:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777024162; x=1808560162;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=uDfnAhuPeQpYybCGDkoBbLrE24EWqvm4HBK5ycB3WjE=;
- b=GsnR2IR0z0cukhi78HS+dpuXZ1hbRagTMC97ZWkwzx09msF++rq0FiPO
- SY9M3+sg2h9aglsW0NNHaZnRsJwCwoHufBBH/fGB0bSilbE/p6Myo+/uy
- inmCaR68bAa8IHwoEK9Zdy85ZxJx0zV1hFOVG8oe5hKm3wcGPluVSYH0R
- 4duEpFGulotoLdqRsOuLzqZKwqZI9Lb3CkLhYlN7Helyza6t+yt/Z1CYe
- Hg8HFV7u5Dkwsg8CtvLB6PhBMMOq220b2vmzXWhVpaTB+uWuOxd3E+Ij4
- vT0DCDK/J9d3g8A1svoO3TNypSQDLnH9E2CfwhNxx+O3USrLL4/lXbaRo g==;
-X-CSE-ConnectionGUID: eGYxX404RseAUP977KVJgw==
-X-CSE-MsgGUID: gyzxPdyTQPqboX/7Hdsdhw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11765"; a="88612861"
-X-IronPort-AV: E=Sophos;i="6.23,196,1770624000"; d="scan'208";a="88612861"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Apr 2026 02:49:22 -0700
-X-CSE-ConnectionGUID: E+aYv/SbRlazVw+VGEknng==
-X-CSE-MsgGUID: qqKekCyCTKylPHWu5Xkgdg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,196,1770624000"; d="scan'208";a="228575721"
-Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
- by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Apr 2026 02:49:20 -0700
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: ville.syrjala@linux.intel.com, Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [RESEND PATCH 7/7] drm/dp: Add target_rr_divider field in AS SDP
- logging
-Date: Fri, 24 Apr 2026 15:04:24 +0530
-Message-ID: <20260424093424.3060805-8-ankit.k.nautiyal@intel.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20260424093424.3060805-1-ankit.k.nautiyal@intel.com>
-References: <20260424093424.3060805-1-ankit.k.nautiyal@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E6EE010E21D;
+	Fri, 24 Apr 2026 09:52:14 +0000 (UTC)
+X-Greylist: delayed 536 seconds by postgrey-1.36 at gabe;
+ Fri, 24 Apr 2026 09:52:13 UTC
+Received: from luna.linkmauve.fr (82-65-109-163.subs.proxad.net
+ [82.65.109.163])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2B5F10E21D
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 09:52:13 +0000 (UTC)
+Received: by luna.linkmauve.fr (Postfix, from userid 1000)
+ id AD74AF4089F; Fri, 24 Apr 2026 11:43:11 +0200 (CEST)
+Date: Fri, 24 Apr 2026 11:43:11 +0200
+From: Link Mauve <linkmauve@linkmauve.fr>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>,
+ maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
+ chleroy@kernel.org, peterz@infradead.org, jpoimboe@kernel.org,
+ jbaron@akamai.com, aliceryhl@google.com, rostedt@goodmis.org,
+ ardb@kernel.org, sumit.semwal@linaro.org, christian.koenig@amd.com,
+ ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
+ bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org,
+ tmgross@umich.edu, dakr@kernel.org, nathan@kernel.org,
+ nick.desaulniers+lkml@gmail.com, morbo@google.com,
+ justinstitt@google.com, tamird@kernel.org, arnd@arndb.de,
+ nsc@kernel.org, simona.vetter@ffwll.ch,
+ linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, rust-for-linux@vger.kernel.org,
+ llvm@lists.linux.dev, Link Mauve <linkmauve@linkmauve.fr>
+Subject: Re: [PATCH V13 5/7] rust: Make __udivdi3() and __umoddi3() panic
+Message-ID: <aes7L3M1d_LvvGKa@luna>
+References: <20260424054742.45832-1-mkchauras@gmail.com>
+ <20260424054742.45832-6-mkchauras@gmail.com>
+ <20260424101425.6bde0e17@pumpkin>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260424101425.6bde0e17@pumpkin>
+Jabber-ID: linkmauve@linkmauve.fr
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,27 +61,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The field target_rr_divider is missing from the AS SDP logging.
-Add it and print the divider value (1.001 or 1.000) as per the DP 2.1 spec.
+On Fri, Apr 24, 2026 at 10:14:25AM +0100, David Laight wrote:
+> On Fri, 24 Apr 2026 11:17:40 +0530
+> "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com> wrote:
+> 
+> > From: Link Mauve <linkmauve@linkmauve.fr>
+> > 
+> > The core crate currently depends on these two functions for i64/u64/
+> > i128/u128/core::time::Duration formatting, but we shouldn’t use that in
+> > the kernel so let’s panic if they are ever called.
+> 
+> Ugg.
+> Surely you can make it a link-time failure?
+> Or change the underlying code to avoid the divide.
 
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
----
- drivers/gpu/drm/display/drm_dp_helper.c | 2 ++
- 1 file changed, 2 insertions(+)
+This is currently a link-time failure, which means if any of the core
+crate or drm_panic_qr are linked in, the kernel will fail to link.
 
-diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-index 102328d9022d..c8421099a3ac 100644
---- a/drivers/gpu/drm/display/drm_dp_helper.c
-+++ b/drivers/gpu/drm/display/drm_dp_helper.c
-@@ -3537,6 +3537,8 @@ void drm_dp_as_sdp_log(struct drm_printer *p, const struct drm_dp_as_sdp *as_sdp
- 		   dp_sdp_type_get_name(as_sdp->sdp_type), as_sdp->revision, as_sdp->length);
- 	drm_printf(p, "    vtotal: %d\n", as_sdp->vtotal);
- 	drm_printf(p, "    target_rr: %d\n", as_sdp->target_rr);
-+	drm_printf(p, "    target_rr_divider: %s\n",
-+		   as_sdp->target_rr_divider ? "1.001" : "1.000");
- 	drm_printf(p, "    duration_incr_ms: %d\n", as_sdp->duration_incr_ms);
- 	drm_printf(p, "    duration_decr_ms: %d\n", as_sdp->duration_decr_ms);
- 	drm_printf(p, "    operation_mode: %d\n", as_sdp->mode);
+And since we rely on core, that means no kernel can be built on PowerPC
+without this patch.
+
+A possible solution would be to change the core crate to not divide
+u64s, but the last time I tried to do that I couldn’t quite figure out
+how to do formatting without it, maybe I will just open an issue against
+Rust.
+
+> 
+> 	David
+> 
+> > 
+> > This doesn’t yet fix drm_panic_qr.rs, which also uses __udivdi3 when
+> > CONFIG_CC_OPTIMIZE_FOR_SIZE=y, but at least makes the rest of the kernel
+> > build on PPC32.
+> > 
+> > Signed-off-by: Link Mauve <linkmauve@linkmauve.fr>
+> > Signed-off-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
+> > ---
+> >  rust/Makefile             | 4 ++++
+> >  rust/compiler_builtins.rs | 6 ++++++
+> >  2 files changed, 10 insertions(+)
+> > 
+> > diff --git a/rust/Makefile b/rust/Makefile
+> > index 2a5428a5503d..ee11fba7a03d 100644
+> > --- a/rust/Makefile
+> > +++ b/rust/Makefile
+> > @@ -616,6 +616,10 @@ ifneq ($(or $(CONFIG_ARM64),$(and $(CONFIG_RISCV),$(CONFIG_64BIT))),)
+> >  		__ashrti3 \
+> >  		__ashlti3 __lshrti3
+> >  endif
+> > +ifdef CONFIG_PPC32
+> > +	redirect-intrinsics += \
+> > +		__udivdi3 __umoddi3
+> > +endif
+> >  
+> >  ifdef CONFIG_MODVERSIONS
+> >  cmd_gendwarfksyms = $(if $(skip_gendwarfksyms),, \
+> > diff --git a/rust/compiler_builtins.rs b/rust/compiler_builtins.rs
+> > index dd16c1dc899c..fc6b54636dd5 100644
+> > --- a/rust/compiler_builtins.rs
+> > +++ b/rust/compiler_builtins.rs
+> > @@ -97,5 +97,11 @@ pub extern "C" fn $ident() {
+> >      __aeabi_uldivmod,
+> >  });
+> >  
+> > +#[cfg(target_arch = "powerpc")]
+> > +define_panicking_intrinsics!("`u64` division/modulo should not be used", {
+> > +    __udivdi3,
+> > +    __umoddi3,
+> > +});
+> > +
+> >  // NOTE: if you are adding a new intrinsic here, you should also add it to
+> >  // `redirect-intrinsics` in `rust/Makefile`.
+> 
+> 
+
 -- 
-2.45.2
-
+Link Mauve
