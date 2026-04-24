@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F944FF8850
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 015F4FF885E
 	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 23:39:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4114510F711;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3232610F70F;
 	Fri, 24 Apr 2026 23:39:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="AII++CzB";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="MYd7u9/P";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 651C910F6FD
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 23:39:34 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1777073971; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 156B310F703
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 23:39:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1777073981; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=T3u4z5Y1spakpJMYPdbhv41pFxJ9FihBY1tkqZlyKd/TZNxyUFIIiPOfTFXi7+avhM/sMREz9Rh0GSyx5ZpPkPGFz72W68fIZb4SPsIyoCxN37+IN9WFrLPUOnWqC72ZSkcQjCK0xCUnztuUlXb3O2ecGXNMtNnOsvqDEeaanUc=
+ b=mPK6Y2jWagLzq3MvXDDOa4qi9ttQez6SSsRM6S65ydwzQOjSuIr6getQw/t/JA3AUP0T9qrVKNGMKJ/qAyVNXY7IGLMhZ/lpIbpWSKrSI3Uc7TMKhByWJXz4stqhVwdtAsIB9H1x5XzFNIW/kii3hpKteRnUSrnRwUnPn3rnUAM=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1777073971;
+ s=zohoarc; t=1777073981;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=KcHukzoU8dcgpz87NrenhC9DZ76DzADTeyvlOzIcL9c=; 
- b=RI5FNSYL1QenEsgkPG5Mxvyf2bzdIVqrFfVd24UnndYSFSFiiWtGsYDfYZ8fiXZCmBA4kA9VM9oajq5PcdCcX1C0S+TggjXASBV+9RUWFB8k9XejKGZzIllSvdObwLwdELd7XlBoWkxA1uxhGQbPJ9XEOtZI12SPwl4U7GjqtJo=
+ bh=YFpEwDk265HcDtT2iSrpnnS2CizbAS4fRqC8NvMq/RA=; 
+ b=eG/TsPomWOdKmQf8yxy8QaYDoBhGiV+WlVsRmAJbMArkXmtrf2yXp0SjnEL1UJQT1jqWMy5c4Fla+CLRnJP39eH4zykhoQkjOC52zFgY9Eo1B2/vbklSjpuZOUbXYCjbqyybeWsQGWi4aHIn5rpK1IIt5ozbrmgihtxWgtONVbE=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
  dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1777073971; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1777073981; 
  s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=KcHukzoU8dcgpz87NrenhC9DZ76DzADTeyvlOzIcL9c=;
- b=AII++CzBtaAighlUfj/3hm2QvgS91zxRrfmnQd8S4+UQ70bIl6B71mRIlySamsaA
- Q5yOAi/1ccuEt3QCescMgoUPg8e53f27JeuPiWIZF2Oa3QmUBLrIqAGbXsgOMtusZah
- 4qV88Er1yE8gTz80yxXDllEfVebKFUUuey3wWNFw=
-Received: by mx.zohomail.com with SMTPS id 1777073970302131.98482399484396;
- Fri, 24 Apr 2026 16:39:30 -0700 (PDT)
+ bh=YFpEwDk265HcDtT2iSrpnnS2CizbAS4fRqC8NvMq/RA=;
+ b=MYd7u9/P3LjsAZGrsakdVMETZ3v+CnNpWvukfqLy5m5Gr7AWaCI8LOxeACmK+eHc
+ xBPIdXQ/Y90TwkMGEBl/SGLgyN+LOr3al2FHY7BIVEphcoLfT1uxF3pucakvKK/udp3
+ muyBPsOEj/Z45moQ0Sv0LtPFkQHtyYk8ue2XDN1U=
+Received: by mx.zohomail.com with SMTPS id 1777073979336487.8899109468525;
+ Fri, 24 Apr 2026 16:39:39 -0700 (PDT)
 From: Deborah Brouwer <deborah.brouwer@collabora.com>
-Date: Fri, 24 Apr 2026 16:39:06 -0700
-Subject: [PATCH v4 12/20] drm/tyr: add parser for firmware binary
+Date: Fri, 24 Apr 2026 16:39:14 -0700
+Subject: [PATCH v4 20/20] drm/tyr: program CSF global interface
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260424-b4-fw-boot-v4-v4-12-a5d91050789d@collabora.com>
+Message-Id: <20260424-b4-fw-boot-v4-v4-20-a5d91050789d@collabora.com>
 References: <20260424-b4-fw-boot-v4-v4-0-a5d91050789d@collabora.com>
 In-Reply-To: <20260424-b4-fw-boot-v4-v4-0-a5d91050789d@collabora.com>
 To: Daniel Almeida <daniel.almeida@collabora.com>, 
@@ -64,13 +64,13 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  work@onurozkan.dev, alvin.sun@linux.dev, 
  Deborah Brouwer <deborah.brouwer@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=18286;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=13824;
  i=deborah.brouwer@collabora.com; h=from:subject:message-id;
- bh=b9k99QVltbqyD/Fe9rFI5rWsmu3CuqkqbOW+iRrxeO4=;
- b=owGbwMvMwCVWuULzOU9c7WvG02pJDJmv/yt8X7TqR8eXLuakzVdrJx6NWhy3v2i2wtkW1rldN
- wUjt+lc6ihlYRDjYpAVU2Q5a2/UI1713kh3/v9mmDmsTCBDGLg4BWAiO74y/K84xnCoRfOpcmGZ
- oFPgDjnxfbtdvsxVXmx6v/D+3bpnvzIYGV7c/cugmbzQ6fzKv1sO8e9fbih8pjdccv/sX1Xbr4n
- WTWUDAA==
+ bh=YJdZvBVt6Gs0/MhLYMLar4r0DRCow0chMhC6y3CR32c=;
+ b=owGbwMvMwCVWuULzOU9c7WvG02pJDJmv/yuYH5OZYhlwW/7adivr9eUlOyUP/Q4u/mrZsNNBL
+ /W5oaBlRykLgxgXg6yYIstZe6Me8ar3Rrrz/zfDzGFlAhnCwMUpABMpW8vIMInBSHqO9zJVyxlp
+ t7ZNZtfICdJt0Vi+98epPL1r1rtiVjD8U/7iNTsx6Dv7mzWC5x6eO+I8UYhv7xeus3/Cdt3M+NO
+ ixgkA
 X-Developer-Key: i=deborah.brouwer@collabora.com; a=openpgp;
  fpr=CD3F328C177AEF322D9FFF8379A829E70C5E7DEB
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -88,553 +88,360 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Daniel Almeida <daniel.almeida@collabora.com>
+Initialize the CSF global (GLB) interface after firmware boot.
 
-Add a parser for the Mali CSF GPU firmware binary format. The firmware
-consists of a header followed by entries describing how to load firmware
-sections into the MCU's memory.
+Program the GLB input block with initial configuration:
+- enable allocation across all present shader cores
+- set power-off, progress, and idle timers
 
-The parser extracts section metadata including virtual address ranges,
-data byte offsets within the binary, and section flags controlling
-permissions and cache modes. It validates the basic firmware structure
-and alignment and ignores protected-mode sections for now.
+Then update GLB_REQ to enable persistent features and trigger
+configuration updates, and ring the global doorbell to notify the MCU.
 
+After ringing the doorbell, wait for the firmware to acknowledge the
+configuration requests before proceeding.
+
+Co-developed-by: Daniel Almeida <daniel.almeida@collabora.com>
 Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
-Co-developed-by: Beata Michalska <beata.michalska@arm.com>
-Signed-off-by: Beata Michalska <beata.michalska@arm.com>
-Co-developed-by: Boris Brezillon <boris.brezillon@collabora.com>
-Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-Co-developed-by: Deborah Brouwer <deborah.brouwer@collabora.com>
 Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
 ---
- drivers/gpu/drm/tyr/fw/parser.rs | 519 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 519 insertions(+)
+ drivers/gpu/drm/tyr/driver.rs        |   2 +-
+ drivers/gpu/drm/tyr/fw.rs            |  12 +-
+ drivers/gpu/drm/tyr/fw/interfaces.rs | 246 ++++++++++++++++++++++++++++++++++-
+ 3 files changed, 253 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/tyr/fw/parser.rs b/drivers/gpu/drm/tyr/fw/parser.rs
-new file mode 100644
-index 000000000000..638707430701
---- /dev/null
-+++ b/drivers/gpu/drm/tyr/fw/parser.rs
-@@ -0,0 +1,519 @@
-+// SPDX-License-Identifier: GPL-2.0 or MIT
-+
-+//! Firmware binary parser for Mali CSF (Command Stream Frontend) GPU.
-+//!
-+//! This module implements a parser for the Mali GPU firmware binary format. The firmware
-+//! file contains a header followed by a sequence of entries, each describing how to load
-+//! firmware sections into the MCU (Microcontroller Unit) memory. The parser extracts section metadata including:
-+//! - Virtual address ranges where sections should be mapped
-+//! - Data ranges (byte offsets) within the firmware binary
-+//! - Section flags (permissions, cache modes)
-+
-+use core::{
-+    mem::size_of,
-+    ops::Range, //
-+};
-+
-+use kernel::{
-+    bits::bit_u32,
-+    prelude::*,
-+    str::CString, //
-+};
-+
+diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
+index 20ae114a4180..67a5289dd346 100644
+--- a/drivers/gpu/drm/tyr/driver.rs
++++ b/drivers/gpu/drm/tyr/driver.rs
+@@ -192,7 +192,7 @@ fn probe(
+         firmware
+             .wait_ready(1000)
+             .inspect_err(|_| pr_err!("Timed out waiting for firmware to be ready.\n"))?;
+-        firmware.enable_global_interface()?;
++        firmware.enable_global_interface(&gpu_info, &core_clk)?;
+ 
+         let data = try_pin_init!(TyrDrmDeviceData {
+                 pdev: platform.clone(),
+diff --git a/drivers/gpu/drm/tyr/fw.rs b/drivers/gpu/drm/tyr/fw.rs
+index 598e399a58ae..5fe6f47c5d2e 100644
+--- a/drivers/gpu/drm/tyr/fw.rs
++++ b/drivers/gpu/drm/tyr/fw.rs
+@@ -20,6 +20,7 @@
+ 
+ use kernel::{
+     bits::genmask_u32,
++    clk::Clk,
+     devres::Devres,
+     drm::{
+         gem::BaseObject,
+@@ -337,8 +338,15 @@ pub(crate) fn wait_ready(&self, timeout_ms: u32) -> Result {
+     }
+ 
+     /// Enable the global interface.
+-    pub(crate) fn enable_global_interface(&self) -> Result {
++    pub(crate) fn enable_global_interface(&self, gpu_info: &GpuInfo, core_clk: &Clk) -> Result {
+         let shared_section = self.shared_section()?;
+-        self.global_iface.lock().enable(shared_section)
++        self.global_iface.lock().enable(
++            &self.pdev,
++            &self.iomem,
++            shared_section,
++            gpu_info,
++            core_clk,
++            &self.ready_wait,
++        )
+     }
+ }
+diff --git a/drivers/gpu/drm/tyr/fw/interfaces.rs b/drivers/gpu/drm/tyr/fw/interfaces.rs
+index 07cdb1c76a3f..efea0785b3bd 100644
+--- a/drivers/gpu/drm/tyr/fw/interfaces.rs
++++ b/drivers/gpu/drm/tyr/fw/interfaces.rs
+@@ -39,11 +39,29 @@
+ //! ```
+ //!
+ 
+-use crate::fw::Section;
 +use crate::{
-+    fw::{
-+        SectionFlag,
-+        SectionFlags,
-+        CSF_MCU_SHARED_REGION_START, //
-+    },
-+    vm::{
-+        VmFlag,
-+        VmMapFlags, //
++    driver::IoMem,
++    fw::Section,
++    gpu::GpuInfo,
++    regs::doorbell_block::DOORBELL,
++    wait::{
++        Wait,
++        WaitResult, //
 +    }, //
 +};
-+
-+/// A parsed firmware section ready for loading into MCU memory.
+ use iface::FwInterface;
+ use kernel::{
+-    io::Io,
+-    prelude::*, //
++    bindings::SZ_1K,
++    clk::Clk,
++    devres::Devres,
++    io::{
++        register::Array,
++        Io, //
++    },
++    num::Bounded,
++    platform,
++    prelude::*,
++    time::arch_timer_get_rate, //
+ };
+ 
+ /// Offset from GLB_CONTROL_BLOCK start to the first GROUP_CONTROL block.
+@@ -1616,9 +1634,94 @@ pub(super) mod output {
+ use csg::*;
+ use glb::{
+     control::*,
++    input::*,
++    output::GLB_ACK,
+     *, //
+ };
+ 
++/// Converts a timeout in microseconds to a timeout field value and timer source.
 +///
-+/// Represents a single firmware section extracted from the firmware binary, containing
-+/// all information needed to map the section's data into the MCU's virtual address space.
-+pub(super) struct ParsedSection {
-+    /// Byte offset range within the firmware binary where this section's data resides.
-+    pub(super) data_range: Range<u32>,
-+    /// MCU virtual address range where this section should be mapped.
-+    pub(super) va: Range<u32>,
-+    /// Memory protection and caching flags for the mapping.
-+    pub(super) vm_map_flags: VmMapFlags,
++/// The firmware supports two timer sources:
++/// - System timestamp (arch timer): preferred when available, so the timeout
++///   tracks real elapsed time independently of GPU clock rate.
++/// - GPU cycle counter: fallback when the system timestamp is unavailable.
++///
++/// Returns the encoded timeout value and the selected timer source.
++fn conv_timeout(core_clk: &Clk, timeout_us: u32) -> Result<(u32, TimestampSource)> {
++    // The max timeout is determined by the 31 bit size of the timeout field.
++    let max_timeout = (1u32 << 31) - 1;
++    let core_rate = core_clk.rate().as_hz() as u64;
++
++    let (timer_rate, timer_source) = match arch_timer_get_rate() {
++        Some(rate) => (u64::from(rate), TimestampSource::SystemTimestamp),
++        _ if core_rate != 0 => (core_rate, TimestampSource::GpuCounter),
++        _ => return Err(EINVAL),
++    };
++
++    let timeout_in_cycles = u64::from(timeout_us) * timer_rate;
++
++    // The hardware stores the represented timeout value with a shr(10) to save space.
++    let timeout_shift = u64::from(SZ_1K);
++    let us_per_second = 1_000_000u64;
++
++    let timeout_val = timeout_in_cycles.div_ceil(us_per_second * timeout_shift);
++    let timeout_val = timeout_val.min(u64::from(max_timeout)) as u32;
++
++    Ok((timeout_val, timer_source))
 +}
 +
-+/// A bare-bones `std::io::Cursor<[u8]>` clone to keep track of the current position in the firmware binary.
-+///
-+/// Provides methods to sequentially read primitive types and byte arrays from the firmware
-+/// binary while maintaining the current read position.
-+struct Cursor<'a> {
-+    data: &'a [u8],
-+    pos: usize,
++/// Request/acknowledge communication between Tyr and CSF.
++struct GlobalInterfaceRequests<'a> {
++    /// Global input block where driver writes requests.
++    input: &'a FwInterface<GLB_INPUT_BLOCK_SIZE>,
++    /// Global output block where firmware writes acknowledgements.
++    output: &'a FwInterface<GLB_OUTPUT_BLOCK_SIZE>,
 +}
 +
-+impl<'a> Cursor<'a> {
-+    fn new(data: &'a [u8]) -> Self {
-+        Self { data, pos: 0 }
++impl<'a> GlobalInterfaceRequests<'a> {
++    fn new(
++        input: &'a FwInterface<GLB_INPUT_BLOCK_SIZE>,
++        output: &'a FwInterface<GLB_OUTPUT_BLOCK_SIZE>,
++    ) -> Self {
++        Self { input, output }
 +    }
 +
-+    fn len(&self) -> usize {
-+        self.data.len()
-+    }
-+
-+    fn pos(&self) -> usize {
-+        self.pos
-+    }
-+
-+    /// Returns a view into the cursor's data.
++    /// Waits for the firmware to acknowledge the given request bits.
 +    ///
-+    /// This spawns a new cursor, leaving the current cursor unchanged.
-+    fn view(&self, range: Range<usize>) -> Result<Cursor<'_>> {
-+        if range.start < self.pos || range.end > self.data.len() {
-+            pr_err!(
-+                "Invalid cursor range {:?} for data of length {}",
-+                range,
-+                self.data.len()
-+            );
++    /// The ack condition is `(GLB_ACK & mask) == (GLB_REQ & mask)`.
++    fn wait_acks(&self, reqs_mask: GLB_REQ, event_wait: &Wait, timeout_ms: u32) -> Result {
++        let mask = reqs_mask.into_raw();
 +
-+            Err(EINVAL)
-+        } else {
-+            Ok(Self {
-+                data: &self.data[range],
-+                pos: 0,
-+            })
-+        }
++        event_wait.wait_interruptible_timeout(timeout_ms, || {
++            let req = self.input.read(GLB_REQ).into_raw() & mask;
++            let ack = self.output.read(GLB_ACK).into_raw() & mask;
++            if req == ack {
++                Ok(WaitResult::Done)
++            } else {
++                Ok(WaitResult::Retry)
++            }
++        })
 +    }
 +
-+    /// Reads a slice of bytes from the current position and advances the cursor.
-+    ///
-+    /// Returns an error if the read would exceed the data bounds.
-+    fn read(&mut self, nbytes: usize) -> Result<&[u8]> {
-+        let start = self.pos;
-+        let end = start + nbytes;
++    /// Use to make requests, where simply changing the bit value is
++    /// sufficient to make a request; the bit value has no meaning in itself.
++    fn toggle_requests(&self, reqs_mask: GLB_REQ) -> Result {
++        let reqs_mask_val = reqs_mask.into_raw();
 +
-+        if end > self.data.len() {
-+            pr_err!(
-+                "Invalid firmware file: read of size {} at position {} is out of bounds",
-+                nbytes,
-+                start,
-+            );
-+            return Err(EINVAL);
-+        }
++        let cur_ack_val = self.output.read(GLB_ACK).into_raw();
 +
-+        self.pos += nbytes;
-+        Ok(&self.data[start..end])
-+    }
++        // Calculate which bits to toggle based on ACK state
++        let toggled_bits = (cur_ack_val ^ reqs_mask_val) & reqs_mask_val;
 +
-+    /// Reads a little-endian `u8` from the current position and advances the cursor.
-+    fn read_u8(&mut self) -> Result<u8> {
-+        let bytes = self.read(size_of::<u8>())?;
-+        Ok(bytes[0])
-+    }
++        let cur_req_val = self.input.read(GLB_REQ).into_raw();
++        let preserved_bits = cur_req_val & !reqs_mask_val;
++        let new_val = toggled_bits | preserved_bits;
 +
-+    /// Reads a little-endian `u16` from the current position and advances the cursor.
-+    fn read_u16(&mut self) -> Result<u16> {
-+        let bytes = self.read(size_of::<u16>())?;
-+        Ok(u16::from_le_bytes(bytes.try_into().unwrap()))
-+    }
-+
-+    /// Reads a little-endian `u32` from the current position and advances the cursor.
-+    fn read_u32(&mut self) -> Result<u32> {
-+        let bytes = self.read(size_of::<u32>())?;
-+        Ok(u32::from_le_bytes(bytes.try_into().unwrap()))
-+    }
-+
-+    /// Advances the cursor position by the specified number of bytes.
-+    ///
-+    /// Returns an error if the advance would exceed the data bounds.
-+    fn advance(&mut self, nbytes: usize) -> Result {
-+        if self.pos + nbytes > self.data.len() {
-+            pr_err!(
-+                "Invalid firmware file: advance of size {} at position {} is out of bounds",
-+                nbytes,
-+                self.pos,
-+            );
-+            return Err(EINVAL);
-+        }
-+        self.pos += nbytes;
++        self.input.write(GLB_REQ, GLB_REQ::from_raw(new_val));
 +        Ok(())
 +    }
 +}
 +
-+/// Parser for Mali CSF GPU firmware binaries.
-+///
-+/// Parses the firmware binary format, extracting section metadata including virtual
-+/// address ranges, data offsets, and memory protection flags needed to load firmware
-+/// into the MCU's memory.
-+pub(super) struct FwParser<'a> {
-+    cursor: Cursor<'a>,
-+}
+ /// State of the global interface.
+ enum GlobalInterfaceState {
+     /// Interface is not yet initialized.
+@@ -1667,7 +1770,15 @@ pub(super) fn new() -> Result<Self> {
+     /// This reads the firmware's control block to set up the global input/output
+     /// interfaces; it configures timers and shader core allocation; and it discovers
+     /// available CSG interfaces.
+-    pub(crate) fn enable(&mut self, shared_section: &Section) -> Result {
++    pub(crate) fn enable(
++        &mut self,
++        pdev: &platform::Device,
++        iomem: &Devres<IoMem>,
++        shared_section: &Section,
++        gpu_info: &GpuInfo,
++        core_clk: &Clk,
++        event_wait: &Wait,
++    ) -> Result {
+         let vmap = shared_section.mem.bo.owned_vmap::<0>()?;
+         let va_range = shared_section.mem.va_range();
+ 
+@@ -1700,6 +1811,24 @@ pub(crate) fn enable(&mut self, shared_section: &Section) -> Result {
+             output_va.value().get().into(),
+         )?;
+ 
++        Self::configure_glb_input(&glb_input, gpu_info, core_clk)?;
++        let ack_mask = Self::configure_glb_requests(&glb_input, &glb_output)?;
 +
-+impl<'a> FwParser<'a> {
-+    /// Creates a new firmware parser for the given firmware binary data.
-+    pub(super) fn new(data: &'a [u8]) -> Self {
-+        Self {
-+            cursor: Cursor::new(data),
++        // Ring the global doorbell to notify the MCU.
++        // SAFETY: Called during probe after the device has been successfully bound,
++        // so it is valid to access it as a bound device.
++        let dev = unsafe { pdev.as_ref().as_bound() };
++        let io = iomem.access(dev)?;
++        io.write(Array::at(0), DOORBELL::zeroed().with_ring(true));
++
++        // Wait for the firmware to acknowledge the initial global configuration.
++        let request_field = GlobalInterfaceRequests::new(&glb_input, &glb_output);
++
++        if let Err(e) = request_field.wait_acks(ack_mask, event_wait, 1000) {
++            pr_err!("CSF firmware failed to ACK initial GLB config\n");
++            return Err(e);
 +        }
-+    }
 +
-+    /// Parses the firmware binary and returns a collection of parsed sections.
+         // Read how many CSG interfaces exist.
+         let csg_num = glb_control.read(GLB_GROUP_NUM).value().get();
+ 
+@@ -1739,6 +1868,115 @@ pub(crate) fn enable(&mut self, shared_section: &Section) -> Result {
+         Ok(())
+     }
+ 
++    /// Programs GLB input-block configuration registers.
 +    ///
-+    /// This method validates the firmware header and iterates through all entries
-+    /// in the binary, extracting section information needed for loading.
-+    pub(super) fn parse(&mut self) -> Result<KVec<ParsedSection>> {
-+        let fw_header = self.parse_fw_header()?;
++    /// Writes shader core allocation and timer values. These settings are applied
++    /// by firmware only after the corresponding GLB_REQ bits are updated.
++    fn configure_glb_input(
++        glb_input: &FwInterface<GLB_INPUT_BLOCK_SIZE>,
++        gpu_info: &GpuInfo,
++        core_clk: &Clk,
++    ) -> Result {
++        // Make all present shader cores available for endpoint allocation.
++        glb_input.write(
++            GLB_ALLOC_EN,
++            GLB_ALLOC_EN::zeroed().with_mask(gpu_info.shader_present),
++        );
 +
-+        let mut parsed_sections = KVec::new();
-+        while (self.cursor.pos() as u32) < fw_header.size {
-+            let entry_section = self.parse_entry()?;
++        // Configure power-down delay for shader and tiler domains.
++        // The firmware powers down a domain after it has been idle for this duration,
++        // and cancels the timeout if work arrives before expiry.
 +
-+            if let Some(inner) = entry_section.inner {
-+                parsed_sections.push(inner, GFP_KERNEL)?;
-+            }
-+        }
++        // Power-down delay after idle, in microseconds.
++        const PWROFF_HYSTERESIS_US: u32 = 10_000;
++        let (pwroff_timeout, pwroff_source) = conv_timeout(core_clk, PWROFF_HYSTERESIS_US)?;
++        let pwroff_timeout = Bounded::<u32, 31>::try_new(pwroff_timeout).ok_or(EINVAL)?;
++        glb_input.write(
++            GLB_PWROFF_TIMER,
++            GLB_PWROFF_TIMER::zeroed()
++                .with_timeout(pwroff_timeout)
++                .with_timer_source(pwroff_source),
++        );
 +
-+        Ok(parsed_sections)
++        // Configure forward progress timeout.
++        //
++        // Keep this aligned with panthor, which programs a fixed GPU-cycle timeout.
++        // The real-time duration therefore varies with the GPU clock rate (e.g. ~5.24 s
++        // at 500 MHz, longer at lower frequencies).
++        //
++        // The hardware stores the timeout in units of 1024 cycles, so encode the raw
++        // cycle count by shifting right by 10.
++        const PROGRESS_TIMEOUT_CYCLES: u32 = 5 * 500 * 1024 * 1024;
++        const PROGRESS_TIMEOUT_SCALE_SHIFT: u32 = 10;
++        let progress_timeout = PROGRESS_TIMEOUT_CYCLES >> PROGRESS_TIMEOUT_SCALE_SHIFT;
++        glb_input.write(
++            GLB_PROGRESS_TIMER,
++            GLB_PROGRESS_TIMER::zeroed().with_timeout(progress_timeout),
++        );
++
++        // Configure the delay before reporting the GPU as idle.
++        const IDLE_HYSTERESIS_US: u32 = 800;
++        let (idle_timeout, idle_source) = conv_timeout(core_clk, IDLE_HYSTERESIS_US)?;
++        let idle_timeout = Bounded::<u32, 31>::try_new(idle_timeout).ok_or(EINVAL)?;
++        glb_input.write(
++            GLB_IDLE_TIMER,
++            GLB_IDLE_TIMER::zeroed()
++                .with_timeout(idle_timeout)
++                .with_timer_source(idle_source),
++        );
++
++        Ok(())
 +    }
 +
-+    fn parse_fw_header(&mut self) -> Result<FirmwareHeader> {
-+        let fw_header: FirmwareHeader = match FirmwareHeader::new(&mut self.cursor) {
-+            Ok(fw_header) => fw_header,
-+            Err(e) => {
-+                pr_err!("Invalid firmware file: {}", e.to_errno());
-+                return Err(e);
-+            }
-+        };
-+
-+        if fw_header.size > self.cursor.len() as u32 {
-+            pr_err!("Firmware image is truncated");
-+            return Err(EINVAL);
-+        }
-+        Ok(fw_header)
-+    }
-+
-+    fn parse_entry(&mut self) -> Result<EntrySection> {
-+        let entry_section = EntrySection {
-+            entry_hdr: EntryHeader(self.cursor.read_u32()?),
-+            inner: None,
-+        };
-+
-+        if self.cursor.pos() % size_of::<u32>() != 0
-+            || entry_section.entry_hdr.size() as usize % size_of::<u32>() != 0
-+        {
-+            pr_err!(
-+                "Firmware entry isn't 32 bit aligned, offset={:#x} size={:#x}\n",
-+                self.cursor.pos() - size_of::<u32>(),
-+                entry_section.entry_hdr.size()
-+            );
-+            return Err(EINVAL);
-+        }
-+
-+        let section_hdr_size = entry_section.entry_hdr.size() as usize - size_of::<EntryHeader>();
-+
-+        let entry_section = {
-+            let mut entry_cursor = self
-+                .cursor
-+                .view(self.cursor.pos()..self.cursor.pos() + section_hdr_size)?;
-+
-+            match entry_section.entry_hdr.entry_type() {
-+                Ok(EntryType::Iface) => Ok(EntrySection {
-+                    entry_hdr: entry_section.entry_hdr,
-+                    inner: Self::parse_section_entry(&mut entry_cursor)?,
-+                }),
-+                Ok(
-+                    EntryType::Config
-+                    | EntryType::FutfTest
-+                    | EntryType::TraceBuffer
-+                    | EntryType::TimelineMetadata
-+                    | EntryType::BuildInfoMetadata,
-+                ) => Ok(entry_section),
-+
-+                entry_type => {
-+                    if entry_type.is_err() || !entry_section.entry_hdr.optional() {
-+                        if !entry_section.entry_hdr.optional() {
-+                            pr_err!(
-+                                "Failed to handle firmware entry type: {}\n",
-+                                entry_type
-+                                    .map_or(entry_section.entry_hdr.entry_type_raw(), |e| e as u8)
-+                            );
-+                            Err(EINVAL)
-+                        } else {
-+                            Ok(entry_section)
-+                        }
-+                    } else {
-+                        Ok(entry_section)
-+                    }
-+                }
-+            }
-+        };
-+
-+        if entry_section.is_ok() {
-+            self.cursor.advance(section_hdr_size)?;
-+        }
-+
-+        entry_section
-+    }
-+
-+    fn parse_section_entry(entry_cursor: &mut Cursor<'_>) -> Result<Option<ParsedSection>> {
-+        let section_hdr: SectionHeader = SectionHeader::new(entry_cursor)?;
-+
-+        if section_hdr.data.end < section_hdr.data.start {
-+            pr_err!(
-+                "Firmware corrupted, data.end < data.start (0x{:x} < 0x{:x})\n",
-+                section_hdr.data.end,
-+                section_hdr.data.start
-+            );
-+            return Err(EINVAL);
-+        }
-+
-+        if section_hdr.va.end < section_hdr.va.start {
-+            pr_err!(
-+                "Firmware corrupted, section_hdr.va.end < section_hdr.va.start (0x{:x} < 0x{:x})\n",
-+                section_hdr.va.end,
-+                section_hdr.va.start
-+            );
-+            return Err(EINVAL);
-+        }
-+
-+        if section_hdr.section_flags.contains(SectionFlag::Prot) {
-+            pr_info!("Firmware protected mode entry not supported, ignoring");
-+            return Ok(None);
-+        }
-+
-+        if section_hdr.va.start == CSF_MCU_SHARED_REGION_START
-+            && !section_hdr.section_flags.contains(SectionFlag::Shared)
-+        {
-+            pr_err!(
-+                "Interface at 0x{:x} must be shared",
-+                CSF_MCU_SHARED_REGION_START
-+            );
-+            return Err(EINVAL);
-+        }
-+
-+        let name_len = entry_cursor.len() - entry_cursor.pos();
-+        let name_bytes = entry_cursor.read(name_len)?;
-+
-+        let mut name = KVec::with_capacity(name_bytes.len() + 1, GFP_KERNEL)?;
-+        name.extend_from_slice(name_bytes, GFP_KERNEL)?;
-+        name.push(0, GFP_KERNEL)?;
-+
-+        let _name = CStr::from_bytes_with_nul(&name)
-+            .ok()
-+            .and_then(|name| CString::try_from(name).ok());
-+
-+        let cache_mode = section_hdr.section_flags.cache_mode();
-+        let mut vm_map_flags = VmMapFlags::empty();
-+
-+        if !section_hdr.section_flags.contains(SectionFlag::Write) {
-+            vm_map_flags |= VmFlag::Readonly;
-+        }
-+        if !section_hdr.section_flags.contains(SectionFlag::Exec) {
-+            vm_map_flags |= VmFlag::Noexec;
-+        }
-+        if cache_mode != SectionFlag::CacheModeCached.into() {
-+            vm_map_flags |= VmFlag::Uncached;
-+        }
-+
-+        Ok(Some(ParsedSection {
-+            data_range: section_hdr.data.clone(),
-+            va: section_hdr.va,
-+            vm_map_flags,
-+        }))
-+    }
-+}
-+
-+/// Firmware binary header containing version and size information.
-+///
-+/// The header is located at the beginning of the firmware binary and contains
-+/// a magic value for validation, version information, and the total size of
-+/// all structured headers that follow.
-+#[expect(dead_code)]
-+struct FirmwareHeader {
-+    /// Magic value to check binary validity.
-+    magic: u32,
-+
-+    /// Minor firmware version.
-+    minor: u8,
-+
-+    /// Major firmware version.
-+    major: u8,
-+
-+    /// Padding. Must be set to zero.
-+    _padding1: u16,
-+
-+    /// Firmware version hash.
-+    version_hash: u32,
-+
-+    /// Padding. Must be set to zero.
-+    _padding2: u32,
-+
-+    /// Total size of all the structured data headers at beginning of firmware binary.
-+    size: u32,
-+}
-+
-+impl FirmwareHeader {
-+    const FW_BINARY_MAGIC: u32 = 0xc3f13a6e;
-+    const FW_BINARY_MAJOR_MAX: u8 = 0;
-+
-+    /// Reads and validates a firmware header from the cursor.
++    /// Programs GLB_REQ and ACK IRQ mask after GLB input registers are configured.
 +    ///
-+    /// Verifies the magic value, version compatibility, and padding fields.
-+    fn new(cursor: &mut Cursor<'_>) -> Result<Self> {
-+        let magic = cursor.read_u32()?;
-+        if magic != Self::FW_BINARY_MAGIC {
-+            pr_err!("Invalid firmware magic");
-+            return Err(EINVAL);
-+        }
++    /// This sets desired persistent states, toggles configuration-update requests,
++    /// and returns the GLB_REQ bits that must be acknowledged by firmware.
++    fn configure_glb_requests(
++        glb_input: &FwInterface<GLB_INPUT_BLOCK_SIZE>,
++        glb_output: &FwInterface<GLB_OUTPUT_BLOCK_SIZE>,
++    ) -> Result<GLB_REQ> {
++        // Firmware updates GLB_ACK (output block) in response to GLB_REQ.
++        // GLB_ACK_IRQ_MASK selects which of these updates trigger a host interrupt.
++        glb_input.write(
++            GLB_ACK_IRQ_MASK,
++            GLB_ACK_IRQ_MASK::zeroed()
++                .with_cfg_progress_timer(true)
++                .with_cfg_alloc_en(true)
++                .with_cfg_pwroff_timer(true)
++                .with_idle_enable(true)
++                .with_idle_event(true)
++                .with_counter_enable(true),
++        );
 +
-+        let minor = cursor.read_u8()?;
-+        let major = cursor.read_u8()?;
++        // Requests whose value represents the desired persistent state.
++        let cur_req = glb_input.read(GLB_REQ);
++        glb_input.write(
++            GLB_REQ,
++            cur_req.with_idle_enable(true).with_counter_enable(true),
++        );
 +
-+        if major > Self::FW_BINARY_MAJOR_MAX {
-+            pr_err!(
-+                "Unsupported firmware binary header version {}.{} (expected {}.x)\n",
-+                major,
-+                minor,
-+                Self::FW_BINARY_MAJOR_MAX
-+            );
-+            return Err(EINVAL);
-+        }
++        let request_field = GlobalInterfaceRequests::new(glb_input, glb_output);
 +
-+        let padding1 = cursor.read_u16()?;
-+        let version_hash = cursor.read_u32()?;
-+        let padding2 = cursor.read_u32()?;
-+        let size = cursor.read_u32()?;
++        // Fields that require toggle semantics.
++        let toggle_mask = GLB_REQ::zeroed()
++            .with_cfg_progress_timer(true)
++            .with_cfg_alloc_en(true)
++            .with_cfg_pwroff_timer(true);
 +
-+        if padding1 != 0 || padding2 != 0 {
-+            pr_err!("Invalid firmware file: header padding is not zero");
-+            return Err(EINVAL);
-+        }
++        request_field.toggle_requests(toggle_mask)?;
 +
-+        let fw_header = Self {
-+            magic,
-+            minor,
-+            major,
-+            _padding1: padding1,
-+            version_hash,
-+            _padding2: padding2,
-+            size,
-+        };
++        // All fields we want to wait for completion on (REQ == ACK).
++        let ack_mask = GLB_REQ::zeroed()
++            .with_cfg_progress_timer(true)
++            .with_cfg_alloc_en(true)
++            .with_cfg_pwroff_timer(true)
++            .with_idle_enable(true)
++            .with_counter_enable(true);
 +
-+        Ok(fw_header)
-+    }
-+}
-+
-+/// Firmware section header for loading binary sections into MCU memory.
-+#[derive(Debug)]
-+struct SectionHeader {
-+    section_flags: SectionFlags,
-+    /// MCU virtual range to map this binary section to.
-+    va: Range<u32>,
-+    /// References the data in the FW binary.
-+    data: Range<u32>,
-+}
-+
-+impl SectionHeader {
-+    /// Reads and validates a section header from the cursor.
-+    ///
-+    /// Parses section flags, virtual address range, and data range from the firmware binary.
-+    fn new(cursor: &mut Cursor<'_>) -> Result<Self> {
-+        let section_flags = cursor.read_u32()?;
-+        let section_flags = SectionFlags::try_from(section_flags)?;
-+
-+        let va_start = cursor.read_u32()?;
-+        let va_end = cursor.read_u32()?;
-+
-+        let va = va_start..va_end;
-+
-+        if va.is_empty() {
-+            pr_err!(
-+                "Invalid firmware file: empty VA range at pos {}\n",
-+                cursor.pos(),
-+            );
-+            return Err(EINVAL);
-+        }
-+
-+        let data_start = cursor.read_u32()?;
-+        let data_end = cursor.read_u32()?;
-+        let data = data_start..data_end;
-+
-+        Ok(Self {
-+            section_flags,
-+            va,
-+            data,
-+        })
-+    }
-+}
-+
-+/// A firmware entry containing a header and optional parsed section data.
-+///
-+/// Represents a single entry in the firmware binary, which may contain loadable
-+/// section data or metadata that doesn't require loading.
-+struct EntrySection {
-+    entry_hdr: EntryHeader,
-+    inner: Option<ParsedSection>,
-+}
-+
-+/// Header for a firmware entry, packed into a single u32.
-+///
-+/// The entry header encodes the entry type, size, and optional flag in a
-+/// 32-bit value with the following layout:
-+/// - Bits 0-7: Entry type
-+/// - Bits 8-15: Size in bytes
-+/// - Bit 31: Optional flag
-+struct EntryHeader(u32);
-+
-+impl EntryHeader {
-+    fn entry_type_raw(&self) -> u8 {
-+        (self.0 & 0xff) as u8
++        Ok(ack_mask)
 +    }
 +
-+    fn entry_type(&self) -> Result<EntryType> {
-+        let v = self.entry_type_raw();
-+        EntryType::try_from(v)
-+    }
-+
-+    fn optional(&self) -> bool {
-+        self.0 & bit_u32(31) != 0
-+    }
-+
-+    fn size(&self) -> u32 {
-+        self.0 >> 8 & 0xff
-+    }
-+}
-+
-+#[derive(Clone, Copy, Debug)]
-+#[repr(u8)]
-+enum EntryType {
-+    /// Host <-> FW interface.
-+    Iface = 0,
-+    /// FW config.
-+    Config = 1,
-+    /// Unit tests.
-+    FutfTest = 2,
-+    /// Trace buffer interface.
-+    TraceBuffer = 3,
-+    /// Timeline metadata interface.
-+    TimelineMetadata = 4,
-+    /// Metadata about how the FW binary was built.
-+    BuildInfoMetadata = 6,
-+}
-+
-+impl TryFrom<u8> for EntryType {
-+    type Error = Error;
-+
-+    fn try_from(value: u8) -> Result<Self, Self::Error> {
-+        match value {
-+            0 => Ok(EntryType::Iface),
-+            1 => Ok(EntryType::Config),
-+            2 => Ok(EntryType::FutfTest),
-+            3 => Ok(EntryType::TraceBuffer),
-+            4 => Ok(EntryType::TimelineMetadata),
-+            6 => Ok(EntryType::BuildInfoMetadata),
-+            _ => Err(EINVAL),
-+        }
-+    }
-+}
+     /// Initialize CSG interfaces.
+     ///
+     /// This uses the previously read CSG count to create and enable each CSG interface.
 
 -- 
 2.53.0
