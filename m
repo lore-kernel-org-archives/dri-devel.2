@@ -4,54 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B96D7FF8850
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 22:34:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06751FF8850
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 22:55:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26F6110E0E9;
-	Fri, 24 Apr 2026 22:34:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AFFA10E052;
+	Fri, 24 Apr 2026 22:55:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="RqnOgpU8";
+	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="SD2MaP7T";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4833410E0E9
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 22:34:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777070093; x=1808606093;
- h=date:from:to:cc:subject:message-id;
- bh=3HopLhOAfmINSYdImfoFsHkfsN4vAPjjPqkMmqS4KAU=;
- b=RqnOgpU80M8rcY7yrqWzPw7DpiDyR8hW7Q1Cgs4QdUzub7v+Kpx4rlF7
- yvkTqsBmgVDR9pJUE2NrzgDPEzaqqAox99qYydW6WkxmLQTL85f003vkq
- F+hpXf8q/HXT8WZUKWlw2pPwfXnS7Gxu0W2yF9K36IkDDK0D6d44hk7mJ
- PIu/IBnKqtGlVaEZJT0qmqm+HpdCHpZoI9wpfjXw1bvwwQm6QJkmYlWP0
- Yp88PEbZnvWt0kpndvIfELRrx49ImkIL8qDTR2MZ7tvnLPjI1nCLkZT1L
- NJnoUMSwDM5kxKPnUsF2P8FGel/w/1v2cM4ag7frHzP1eJkDhO9QuzHe/ A==;
-X-CSE-ConnectionGUID: T8zd/qpMQwuI3qaHnRK6gA==
-X-CSE-MsgGUID: BeXWw+o9R/+aEytCGCa0Qg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11766"; a="77970037"
-X-IronPort-AV: E=Sophos;i="6.23,197,1770624000"; d="scan'208";a="77970037"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Apr 2026 15:34:52 -0700
-X-CSE-ConnectionGUID: cW6OTeEITcO2Z2om/MvPDA==
-X-CSE-MsgGUID: Yw3BO2OAQOef181quTpsOQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,197,1770624000"; d="scan'208";a="234866619"
-Received: from lkp-server01.sh.intel.com (HELO aa799cca880d) ([10.239.97.150])
- by fmviesa004.fm.intel.com with ESMTP; 24 Apr 2026 15:34:49 -0700
-Received: from kbuild by aa799cca880d with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1wGP6l-000000006Ar-04Fa;
- Fri, 24 Apr 2026 22:34:47 +0000
-Date: Sat, 25 Apr 2026 06:34:43 +0800
-From: kernel test robot <lkp@intel.com>
-To: Dmitry Baryshkov <lumag@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
- Linus Walleij <linusw@kernel.org>
-Subject: [drm-misc:drm-misc-next 17/19] WARNING: modpost: vmlinux:
- section mismatch in reference: sys_call_table+0x130 (section: .text) ->
- keembay_emmc_phy_driver_init (section: .init.text)
-Message-ID: <202604250623.02dzJcGX-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com
+ [209.85.219.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E273C10E052
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 22:55:16 +0000 (UTC)
+Received: by mail-qv1-f43.google.com with SMTP id
+ 6a1803df08f44-899a5db525cso65839356d6.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 15:55:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ziepe.ca; s=google; t=1777071316; x=1777676116; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=Dw33gELuGUNq59I/OY2f7G4Yqpl4DyjVQaY1TU/E47I=;
+ b=SD2MaP7TRXy7TLVAGNqOrOwHPD6KfpPbklsYbqXdITVOPpgLvYOE0RoimrN1+wThgE
+ 0N2GqPfdw2ZuMtm7DmEhuG77ChiexNsd+M3M5tWf4aWde84O41VPeAomZJN6WBjkHyy+
+ cCXPJS3hPzByaRZiNzlpELD3Y8VS1VR/2dkb7f4dHxrci+2U4D2LMyoRfNXVXhF6Pir0
+ RL/jaFlLG6cJ7hqXfUNQUkUKr0Cj5lXurh91AHPUdrMMpWe3SilyllMRuO8C8PTyhhc6
+ X/VDPcr2NHQscezZm3tb3dKmUR4Ywz5TvXIwiMTxO5JpvZZXcHU+ot0Ge0JrjwwKsMSH
+ L9aw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777071316; x=1777676116;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Dw33gELuGUNq59I/OY2f7G4Yqpl4DyjVQaY1TU/E47I=;
+ b=B7XrWkn4no2/qAovn+GgoqtqsWZJqKuDaMOWASNgOMd1jrMtCZfcroWvXsvWJM6IVn
+ md92jJSi7ubdiriAyfXINXJM0xSL+ZVbscS5Qa6rRztR8iP8V0snwnPu/dZH6/0T21kK
+ mezF6GCK2Rd7eXbdas/D2scIr/aDN5SqB8E4DZ+a9AmGYXE4ankUdf83dgjnMVdqWwGn
+ RiAIDeUKEMsVjMC6PNz0i35qDJC9OAIdpqBatAMaa0eVsrtiXdmndrT9K9owRP7wGrF/
+ EG4+wEnxd+8hRA1MimxwD14EaFFXDtEqD2g5COK8Byk3lePeqCZ3zuR+zrfjQt7q8ZKI
+ LjyA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8vuCLqj3xfnKkf5lDBbjS0Dr4/eSAAFagfK1dCbGftDur3roXGZkRuszHbsmr4I0Jpzjx8DWOo2L0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwaQPY1dILLIbJmIuO85MicoU65p8l9wjEJLBaQO7L9GenyLNUk
+ yHhN7CGC9hcQ4OQXCylZm+1d0TXXTyecjigViQIUJZKdXXktso22otd9xhzOiQc98AU=
+X-Gm-Gg: AeBDieuD+aNEZ7bFiECPTh2+RW1LBPWtsi/l4+bEW7Z+lJ3+Si+hpZpgC+jHdMTMZ7n
+ dR8M5ilfsmKtS5pOLk1qo5+J50By7FjVU4Mhv61ihONM4sYbQ/CzrgOWMoChX3YncJr5GK6vEUl
+ X2g6dLR6/qODzcRRkae4Ee9qUrrdMwi+QqfK2/FPd7M1SujE41iEg8nK3AEMbwDLvzDMhG50Ig0
+ 71l82WGtk8jbDNjn0Bei8kuwhyow33E5bgcdpZro/RU6lDAVJl/QjOa3tli3MkDWggG0K0va36U
+ UQR8sYgoAsd1NAVLmkd+afB9t1y8uF3n4lX4HAwbcZPQKoIxN0iOKOQjbo4JY16b+gJ2NRkRg94
+ rHsRypiUHugoAAcZ1YTZHbJo/ncma9l5CmJMzYabwyYzCXIBRWtgA3lZHi5/owo39pLscosVo/o
+ RNgP3rK65IW4BfH600KOPAR2w5/w7oleVuta2bRJ2Nwxk3dVKl7w4izBeO4oSp4i7i5O3aLZi7B
+ ty/DutRjuHsCEmg
+X-Received: by 2002:ad4:5f0e:0:b0:8b2:2474:8f3a with SMTP id
+ 6a1803df08f44-8b224749034mr37604816d6.25.1777071315667; 
+ Fri, 24 Apr 2026 15:55:15 -0700 (PDT)
+Received: from ziepe.ca
+ (crbknf0213w-47-54-130-67.pppoe-dynamic.high-speed.nl.bellaliant.net.
+ [47.54.130.67]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-8b02ac78513sm198480506d6.19.2026.04.24.15.55.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 24 Apr 2026 15:55:15 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+ (envelope-from <jgg@ziepe.ca>) id 1wGPQY-00000004wIG-2XfJ;
+ Fri, 24 Apr 2026 19:55:14 -0300
+Date: Fri, 24 Apr 2026 19:55:14 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
+Cc: Jiri Pirko <jiri@resnulli.us>, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, iommu@lists.linux.dev,
+ linux-media@vger.kernel.org, sumit.semwal@linaro.org,
+ benjamin.gaignard@collabora.com, Brian.Starkey@arm.com,
+ jstultz@google.com, tjmercier@google.com, christian.koenig@amd.com,
+ m.szyprowski@samsung.com, robin.murphy@arm.com, leon@kernel.org,
+ sean.anderson@linux.dev, ptesarik@suse.com, catalin.marinas@arm.com,
+ suzuki.poulose@arm.com, steven.price@arm.com,
+ thomas.lendacky@amd.com, john.allen@amd.com, ashish.kalra@amd.com,
+ suravee.suthikulpanit@amd.com, linux-coco@lists.linux.dev
+Subject: Re: [PATCH v5 1/2] dma-mapping: introduce DMA_ATTR_CC_SHARED for
+ shared memory
+Message-ID: <20260424225514.GE804026@ziepe.ca>
+References: <20260325192352.437608-1-jiri@resnulli.us>
+ <20260325192352.437608-2-jiri@resnulli.us>
+ <yq5atst6ywbl.fsf@kernel.org>
+ <4qdizkkoeke3cvkcf35upa7p7ick6s654eqlrizmi7ozkw5eze@tnpk2e34xgwl>
+ <yq5awly0d504.fsf@kernel.org>
+ <tteiecxfqy4k24wnzvp6ocxnuopyhmqtne2xwh5htwldlbzjnp@o6cbzdlurxld>
+ <20260421121004.GA3611611@ziepe.ca> <yq5aik9jcpzm.fsf@kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <yq5aik9jcpzm.fsf@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,124 +108,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-tree:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-head:   03af6c3afc4893988ceed54531f5dde4bebd6024
-commit: 07853e95424869059d7ce1cd25c800f88ee03e95 [17/19] drm/panel: add driver for Waveshare 8.8" DSI TOUCH-A panel
-config: mips-randconfig-r111-20260424 (https://download.01.org/0day-ci/archive/20260425/202604250623.02dzJcGX-lkp@intel.com/config)
-compiler: clang version 23.0.0git (https://github.com/llvm/llvm-project 5bac06718f502014fade905512f1d26d578a18f3)
-sparse: v0.6.5-rc1
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260425/202604250623.02dzJcGX-lkp@intel.com/reproduce)
+On Wed, Apr 22, 2026 at 02:48:37PM +0530, Aneesh Kumar K.V wrote:
+> Jason Gunthorpe <jgg@ziepe.ca> writes:
+> 
+> > On Tue, Apr 21, 2026 at 01:53:31PM +0200, Jiri Pirko wrote:
+> >> >> You reach there when is_swiotlb_force_bounce(dev) is true and
+> >> >> DMA_ATTR_CC_SHARED is set. What am I missing?
+> >> >>
+> >> >
+> >> >So a swiotlb_force_bounce will not use swiotlb bouncing if
+> >> >DMA_ATTR_CC_SHARED is set ? 
+> >> 
+> >> Correct. Bouncing does not make sense in this case, as shared memory is
+> >> already being mapped.
+> >
+> > It is a little bit mangled, there are many reasons force_swiotlb can
+> > be set, but we loose them as it flows through - swiotlb_init()
+> > just has a simple SWIOTLB_FORCE
+> >
+> > Ideally DMA_ATTR_CC_SHARED would skip swiotlb only if it is being
+> > selected for CC reasons. For instance if you have the swiotlb force
+> > command line parameter I would still expect it bounce shared memory.
+> >
+> > Arguably I think this arch flow is misdesigned, the
+> > is_swiotlb_force_bounce() should not be used for CC. dma_capable() is
+> > the correct API to check if the device can DMA to the presented
+> > address, and it will trigger swiotlb_map() just the same without
+> > creating this gap.
+> >
+> > Jason
+> 
+> Something like this?
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202604250623.02dzJcGX-lkp@intel.com/
+Yeah that reads pretty sanely.
 
-All warnings (new ones prefixed by >>, old ones prefixed by <<):
+> static inline dma_addr_t dma_direct_map_phys(struct device *dev,
+> 		phys_addr_t phys, size_t size, enum dma_data_direction dir,
+> 		unsigned long attrs, bool flush)
+> {
+> 	dma_addr_t dma_addr;
+> 
+> 	if (is_swiotlb_force_bounce(dev)) {
+> 		if (attrs & (DMA_ATTR_MMIO | DMA_ATTR_REQUIRE_COHERENT))
+> 			return DMA_MAPPING_ERROR;
+> 
+> 		return swiotlb_map(dev, phys, size, dir, attrs);
+> 	}
+> 
+> 	if (attrs & DMA_ATTR_MMIO) {
+> 		dma_addr = phys;
+> 		if (unlikely(!dma_capable(dev, dma_addr, size, false, attrs)))
+> 			goto err_overflow;
+> 		goto dma_mapped;
 
->> WARNING: modpost: vmlinux: section mismatch in reference: sys_call_table+0x130 (section: .text) -> keembay_emmc_phy_driver_init (section: .init.text)
->> WARNING: modpost: vmlinux: section mismatch in reference: sys_call_table+0x138 (section: .text) -> keembay_emmc_phy_driver_exit (section: .exit.text)
-WARNING: modpost: vmlinux: section mismatch in reference: irq_map_generic_chip+0x2a8 (section: .text) -> keembay_usb_phy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: irq_unmap_generic_chip+0xe0 (section: .text) -> keembay_usb_phy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: dev_map_redirect_multi+0x1dc (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: dev_map_redirect_multi+0x310 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: dev_map_redirect_multi+0x364 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: crypto_des3_ede_encrypt+0x3c (section: .text) -> ltq_rcu_usb2_phy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: rzg2l_irqc_common_probe+0x294 (section: .text) -> keembay_usb_phy_driver_exit (section: .exit.text)
-WARNING: modpost: vmlinux: section mismatch in reference: mchp_eic_probe+0x228 (section: .text) -> keembay_usb_phy_driver_exit (section: .exit.text)
-WARNING: modpost: vmlinux: section mismatch in reference: gpiochip_hierarchy_irq_domain_alloc+0xb8 (section: .text) -> keembay_usb_phy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: __traceiter_rpmh_send_msg+0x44 (section: .text) -> armada375_usb_phy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: __traceiter_rpmh_send_msg+0x48 (section: .text) -> armada375_usb_phy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: __tcs_buffer_write+0x6c (section: .text) -> armada375_usb_phy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: __tcs_buffer_write+0x74 (section: .text) -> armada375_usb_phy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: __do_trace_rpmh_send_msg+0x4c (section: .text) -> armada375_usb_phy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: __do_trace_rpmh_send_msg+0x54 (section: .text) -> armada375_usb_phy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: gsm_dlci_free+0x68 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: fimd_bind+0xa4 (section: .text) -> phy_berlin_usb_driver_exit (section: .exit.text)
-WARNING: modpost: vmlinux: section mismatch in reference: fimd_bind+0xec (section: .text) -> phy_berlin_usb_driver_exit (section: .exit.text)
-WARNING: modpost: vmlinux: section mismatch in reference: fimd_bind+0x154 (section: .text) -> phy_berlin_usb_driver_exit (section: .exit.text)
-WARNING: modpost: vmlinux: section mismatch in reference: fimd_bind+0x1a0 (section: .text) -> phy_berlin_usb_driver_exit (section: .exit.text)
-WARNING: modpost: vmlinux: section mismatch in reference: fimd_bind+0x204 (section: .text) -> phy_berlin_usb_driver_exit (section: .exit.text)
-WARNING: modpost: vmlinux: section mismatch in reference: mixer_bind+0x294 (section: .text) -> phy_berlin_usb_driver_exit (section: .exit.text)
-WARNING: modpost: vmlinux: section mismatch in reference: mixer_bind+0x314 (section: .text) -> phy_berlin_usb_driver_exit (section: .exit.text)
-WARNING: modpost: vmlinux: section mismatch in reference: mixer_bind+0x350 (section: .text) -> phy_berlin_usb_driver_exit (section: .exit.text)
-WARNING: modpost: vmlinux: section mismatch in reference: vidi_bind+0x80 (section: .text) -> phy_berlin_usb_driver_exit (section: .exit.text)
-WARNING: modpost: vmlinux: section mismatch in reference: vidi_bind+0xa4 (section: .text) -> phy_berlin_usb_driver_exit (section: .exit.text)
-WARNING: modpost: vmlinux: section mismatch in reference: vidi_bind+0xcc (section: .text) -> phy_berlin_usb_driver_exit (section: .exit.text)
-WARNING: modpost: vmlinux: section mismatch in reference: pm8xxx_irq_domain_alloc+0xa8 (section: .text) -> keembay_usb_phy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: bond_handle_frame+0x68 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: bond_handle_frame+0x110 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: ipvlan_process_multicast+0x37c (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: ipvlan_queue_xmit+0x17c (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: ipvlan_queue_xmit+0x1e8 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: ipvlan_queue_xmit+0x40c (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: ipvlan_rcv_frame+0xa8 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: dummy_xmit+0x1a8 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: wg_xmit+0x1d0 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: wg_xmit+0x22c (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: wg_xmit+0x314 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: wg_packet_handshake_receive_worker+0x90 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: wg_packet_rx_poll+0x6ac (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: wg_packet_rx_poll+0x7d0 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: wg_packet_receive+0x380 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: wg_packet_receive+0x68c (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: wg_socket_send_skb_to_peer+0xc8 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: ovpn_decrypt_post+0x4c4 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: ovpn_net_xmit+0x1cc (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: ovpn_net_xmit+0x22c (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: ovpn_tcp_rcv+0xa8 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: eql_slave_xmit+0x110 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: macsec_start_xmit+0x474 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: macsec_handle_frame+0x520 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: macsec_decrypt+0x8c (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: macsec_decrypt+0x294 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: macvlan_process_broadcast+0x1b4 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: macvlan_handle_frame+0x3f4 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: tun_do_read+0x98c (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: tap_handle_frame+0x310 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: tap_do_read+0x480 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: veth_poll+0x1e8 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: veth_poll+0x918 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: veth_poll+0xdf0 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: vxlan_xmit_one+0x7a8 (section: .text) -> mvebu_a3700_utmi_driver_exit (section: .exit.text)
-WARNING: modpost: vmlinux: section mismatch in reference: vxlan_changelink+0x314 (section: .text) -> mvebu_a3700_utmi_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: vxlan_xmit+0x4f0 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: vxlan_xmit+0x828 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: vxlan_xmit+0xc40 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: vxlan_fill_metadata_dst+0x240 (section: .text) -> mvebu_a3700_utmi_driver_exit (section: .exit.text)
-WARNING: modpost: vmlinux: section mismatch in reference: neigh_reduce+0x14c (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: vxlan_fdb_delete+0xd4 (section: .text) -> mvebu_a3700_utmi_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: vxlan_switchdev_event+0x1c4 (section: .text) -> mvebu_a3700_utmi_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: vxlan_update_default_fdb_entry+0x1a4 (section: .text) -> mvebu_a3700_utmi_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: vxlan_vnifilter_process+0xdbc (section: .text) -> mvebu_a3700_utmi_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: geneve_xmit+0x3d0 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: geneve_xmit+0x52c (section: .text) -> mvebu_a3700_utmi_driver_exit (section: .exit.text)
-WARNING: modpost: vmlinux: section mismatch in reference: geneve_xmit+0xdc0 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: geneve_fill_metadata_dst+0x398 (section: .text) -> mvebu_a3700_utmi_driver_exit (section: .exit.text)
-WARNING: modpost: vmlinux: section mismatch in reference: gtp_dev_xmit+0x718 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: arcnet_reply_work+0x148 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: arcnet_send_packet+0x188 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: vcan_tx+0x1ac (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: vcan_tx+0x1bc (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: vcan_tx+0x1f8 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: vxcan_xmit+0x110 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: slcan_receive_buf+0x508 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: slcan_receive_buf+0x8c0 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: can_put_echo_skb+0x15c (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: ems_usb_start_xmit+0x350 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: esd_usb_start_xmit+0x360 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: esd_usb_start_xmit+0x3f4 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: es58x_start_xmit+0x400 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: gs_can_start_xmit+0x540 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: kvaser_usb_start_xmit+0x3ec (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: kvaser_usb_start_xmit+0x408 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: ppp_do_recv+0x18c (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: ppp_do_recv+0x39c (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: __ppp_xmit_process+0x360 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: __ppp_xmit_process+0x384 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: __ppp_xmit_process+0x584 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
-WARNING: modpost: vmlinux: section mismatch in reference: __ppp_xmit_process+0x5c4 (section: .text) -> intel_cbphy_driver_init (section: .init.text)
+I suspect P2P is probably broken on CC because this doesn't make
+sense..
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+This should flow into the
+phys_to_dma_unencrypted/phys_to_dma_encrypted block as well AFAICT, it
+shouldn't just assign phys. Assigning phys to dma on a CC system is
+always wrong, right?
+
+It is is more like
+
+        /* To be updated, callers should specify MMIO | CC_SHARED instead of
+	 * implying it. */
+        if (attrs & DMA_ATTR_MMIO)
+	   attrs |= DMA_ATTR_CC_SHARED;
+
+        if (attrs & DMA_ATTR_CC_SHARED) {
+ 		dma_addr = phys_to_dma_unencrypted(dev, phys);
+ 	} else {
+ 		dma_addr = phys_to_dma_encrypted(dev, phys);
+ 	}
+
+        if (!dma_capable()) {
+            if (attrs & (DMA_ATTR_MMIO | DMA_ATTR_REQUIRE_COHERENT)
+	       fail
+        }
+
+> and dma_capable() now does
+> static inline bool dma_capable(struct device *dev, dma_addr_t addr, size_t size,
+> 		bool is_ram, unsigned long attrs)
+> {
+> ....
+> 
+> 	/*
+> 	 * if phys addr attribute is encrypted but the
+> 	 * device is forcing an encrypted dma addr
+> 	 */
+> 	if (!(attrs & DMA_ATTR_CC_SHARED) && force_dma_unencrypted(dev))
+> 		return false;
+
+Yeah
+
+And with the above little edits it works for MMIO now too.
+
+Jason
