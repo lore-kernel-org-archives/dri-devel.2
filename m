@@ -4,97 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACBD4FB44C6
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 08:04:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEC04FB44C6
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 08:06:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 228B310F391;
-	Fri, 24 Apr 2026 08:04:25 +0000 (UTC)
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ABE6D10F391
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 08:04:23 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.10])
- by APP-03 (Coremail) with SMTP id rQCowABnhNvRI+tpv7EHDw--.22752S2;
- Fri, 24 Apr 2026 16:03:33 +0800 (CST)
-Message-ID: <1d54c67c3c1892805793e58e77ef5708cf5b7ca4.camel@iscas.ac.cn>
-Subject: Re: [PATCH v2 24/41] drm: verisilicon: remove now-redundant call to
- drm_connector_attach_encoder()
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Dmitry Baryshkov	
- <dmitry.baryshkov@oss.qualcomm.com>, Andrzej Hajda
- <andrzej.hajda@intel.com>,  Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>, Laurent Pinchart	
- <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Sasha Finkelstein <fnkl.kernel@gmail.com>,
- Janne Grunau <j@jannau.net>, Liu Ying <victor.liu@nxp.com>, Douglas
- Anderson <dianders@chromium.org>, Laurentiu Palcu	
- <laurentiu.palcu@oss.nxp.com>, Lucas Stach <l.stach@pengutronix.de>, Frank
- Li	 <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix
- Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>,
- Philipp Zabel	 <p.zabel@pengutronix.de>, Paul Cercueil
- <paul@crapouillou.net>, Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, Matthias Brugger	
- <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno	
- <angelogioacchino.delregno@collabora.com>, Kevin Hilman
- <khilman@baylibre.com>,  Jerome Brunet <jbrunet@baylibre.com>, Martin
- Blumenstingl <martin.blumenstingl@googlemail.com>, Rob Clark	
- <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang
- <jesszhan0024@gmail.com>, Sean Paul	 <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, Tomi Valkeinen
- <tomi.valkeinen@ideasonboard.com>, Sandy Huang <hjc@rock-chips.com>, Heiko
- =?ISO-8859-1?Q?St=FCbner?=	 <heiko@sntech.de>, Andy Yan
- <andy.yan@rock-chips.com>, Thierry Reding	 <thierry.reding@gmail.com>,
- Mikko Perttunen <mperttunen@nvidia.com>,  Jonathan Hunter
- <jonathanh@nvidia.com>, Jingoo Han <jingoohan1@gmail.com>, Inki Dae
- <inki.dae@samsung.com>,  Seung-Woo Kim <sw0312.kim@samsung.com>, Kyungmin
- Park <kyungmin.park@samsung.com>, Krzysztof Kozlowski	 <krzk@kernel.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Laurent Pinchart	
- <laurent.pinchart+renesas@ideasonboard.com>, Tomi Valkeinen	
- <tomi.valkeinen+renesas@ideasonboard.com>, Kieran Bingham	
- <kieran.bingham+renesas@ideasonboard.com>, Geert Uytterhoeven	
- <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, Biju Das	
- <biju.das.jz@bp.renesas.com>, Marek Vasut <marex@denx.de>, Stefan Agner	
- <stefan@agner.ch>, Jyri Sarha <jyri.sarha@iki.fi>, Michal Simek	
- <michal.simek@amd.com>
-Cc: Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- asahi@lists.linux.dev, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, 	linux-mips@vger.kernel.org,
- linux-mediatek@lists.infradead.org, 	linux-amlogic@lists.infradead.org,
- linux-arm-msm@vger.kernel.org, 	freedreno@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, 	linux-tegra@vger.kernel.org,
- linux-samsung-soc@vger.kernel.org, 	linux-renesas-soc@vger.kernel.org
-Date: Fri, 24 Apr 2026 16:03:29 +0800
-In-Reply-To: <20260423-drm-bridge-connector-attach_encoder-v2-24-2ae6ca69b390@bootlin.com>
-References: <20260423-drm-bridge-connector-attach_encoder-v2-0-2ae6ca69b390@bootlin.com>
- <20260423-drm-bridge-connector-attach_encoder-v2-24-2ae6ca69b390@bootlin.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08C0710F419;
+	Fri, 24 Apr 2026 08:06:54 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="B5cnnVoW";
+	dkim-atps=neutral
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76CFB10F3D2
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 08:06:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1777018011;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=eULTLH5+rebPEmYGz/v2v6bFHyPiu5NARAHlkmwacCU=;
+ b=B5cnnVoWd6+h9C+29UXh+4Mv6QDHhbmHIM5gNoRBp1gE8uPRa9L5LmuybTEuEoYTGXIzQ/
+ GC+P63cBf2uY/HjfNmvgIWSQ0loSlCSALfRi+rualU3Xoqu71BAWWfWFBO95uWA4gIYwMT
+ 3j1PnZNmc4R8rZkWXDA8p1KXsy5mz+4=
+Received: from mail-yw1-f198.google.com (mail-yw1-f198.google.com
+ [209.85.128.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-224-A-ShS-62N9Kqa3HmoPKDfg-1; Fri, 24 Apr 2026 04:06:50 -0400
+X-MC-Unique: A-ShS-62N9Kqa3HmoPKDfg-1
+X-Mimecast-MFC-AGG-ID: A-ShS-62N9Kqa3HmoPKDfg_1777018009
+Received: by mail-yw1-f198.google.com with SMTP id
+ 00721157ae682-79895ffb315so175455927b3.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 01:06:49 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777018009; x=1777622809;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=eULTLH5+rebPEmYGz/v2v6bFHyPiu5NARAHlkmwacCU=;
+ b=TJ3PEer6g9aJcdcC15+geweUGLRiQf+MZi51Sf6oaHDJMVhJl/MniNkD1Fz9/FwOQ8
+ gFLOyUSwByGxAZ3YNSEyunl4MV6vfIEGGJElY2MaiQcxaqVMBtWWB+JRc6io2QXRYaBq
+ SbHCIVsiujMzpCrcLjSUibnXLYMQT2KC/nYbYpXpSEtuLCd85hhinSlalj7kFnLfzCHX
+ hyKW8RLwiOBWLQPV79ty5U1dPs7Hn9L01hQmGJsH+sFWc6dIRZ9UVhXSSHCFLM/KOo7b
+ a9XTtLi6wLEGg1xSEpKeCfLtQNq0HE4fFLYhJiIC9wxi0S6xQmsnlgw9nkwzkgnENRdi
+ GXDw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ92mjI72ZDmiEZ4UVk9vI5XujNGZ6gFVVwKn6eFX+Z9vzGlu/bkjzYaRvtVTyHT58HuROMG/ni8ys0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyAVr/ClUsf7susyFx9QBfr1Dq8vln/fl3xVF4MMpYrh/GQ9Ams
+ rhU0lVB7YhMdARoCe6ysBYqn2GYoPiPkxSnJfXvKGBPjXV3YZTuItTaM7wP1bDN2Z3KOWc2Honr
+ uu3BVvvzQrbFWzVRWsvcUeQzGmX31EckW+PO3Qk0LVdeRJueSoCSkkHFBEI6Nc8t8pp8d/eDy56
+ LsvuDHA19IzSnfSoIZ//gdobj/Jfz3X8WjPn8z3YitQSBe
+X-Gm-Gg: AeBDieshf5TWsUBa5aSBl6P2WqfZcuyc+/2F2Bq5C89IvxUCgpTKp6AemL1wfKL+p6p
+ i0pwtTcrFqIPsMxsnYxIjxAWE4j4V8GXhHWZNiVczxvqAVfm68w2tYosDLN4UFo7S+DHqSRsCPk
+ ev9JB5lVhdl1Xa2abgNO4WY5jAq6YGaNq2As6gNHMWY3ZK3hH15XzFMVqoj0u9bg3dxH2rqblHS
+ WX7g+m8mCYjiJwM
+X-Received: by 2002:a05:690c:23c4:b0:79f:cadb:d0ba with SMTP id
+ 00721157ae682-7b9eced655amr332313387b3.20.1777018009338; 
+ Fri, 24 Apr 2026 01:06:49 -0700 (PDT)
+X-Received: by 2002:a05:690c:23c4:b0:79f:cadb:d0ba with SMTP id
+ 00721157ae682-7b9eced655amr332313037b3.20.1777018008878; Fri, 24 Apr 2026
+ 01:06:48 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260420-kunit_add_support-v7-0-e8bc6e0f70de@redhat.com>
+ <20260420-kunit_add_support-v7-1-e8bc6e0f70de@redhat.com>
+ <c71899ce-95a5-419b-8e83-9146ff9c7b7f@davidgow.net>
+In-Reply-To: <c71899ce-95a5-419b-8e83-9146ff9c7b7f@davidgow.net>
+From: Albert Esteve <aesteve@redhat.com>
+Date: Fri, 24 Apr 2026 10:06:37 +0200
+X-Gm-Features: AQROBzDQ4huzbi_ViNkBPGbNAJ1QgRlSgWeQ-wM8T-GPsWEk4gY0YNjAMXGMJQ4
+Message-ID: <CADSE00Jkb4KEKPRdF8-wZ5Lj=cqowWYP0mCj7NDiC8uLCgnZSQ@mail.gmail.com>
+Subject: Re: [PATCH v7 1/5] bug/kunit: Core support for suppressing warning
+ backtraces
+To: David Gow <david@davidgow.net>
+Cc: Arnd Bergmann <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>,
+ Rae Moar <raemoar63@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Andrew Morton <akpm@linux-foundation.org>, 
+ linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, 
+ dri-devel@lists.freedesktop.org, workflows@vger.kernel.org, 
+ linux-doc@vger.kernel.org, peterz@infradead.org, 
+ Alessandro Carminati <acarmina@redhat.com>, Guenter Roeck <linux@roeck-us.net>,
+ Kees Cook <kees@kernel.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: avIv3CqaxeRqkFXZR5DGNq55Ipewyg3GWn8DKpyLKgM_1777018009
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
-MIME-Version: 1.0
-X-CM-TRANSID: rQCowABnhNvRI+tpv7EHDw--.22752S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7GFWxKr15Xw1xXw48Jr4rGrg_yoWfWFc_uw
- nY9F9rWrW5KFyDC3Z7Jrn5Zry2v3Z5uFW8uwnrt393KwsrAw18Z347Xry2v34UuFyUAFZF
- kw4DWFZ7Ar4akjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUIcSsGvfJTRUUUbVxYjsxI4VWxJwAYFVCjjxCrM7AC8VAFwI0_Wr0E3s1l1xkIjI8I
- 6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
- 8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0
- cI8IcVCY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
- 8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
- 64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
- Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
- c7CjxVAaw2AFwI0_ZF0_GFyUMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
- 4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
- 67AKxVWrXVW8Jr1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6x
- IIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY
- 6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa
- 73UjIFyTuYvjxUxeOJUUUUU
-X-Originating-IP: [112.94.102.10]
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,31 +108,453 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-04-23=E5=9B=9B=E7=9A=84 11:17 +0200=EF=BC=8CLuca Ceresoli=E5=
-=86=99=E9=81=93=EF=BC=9A
-> drm_connector_attach_encoder() is now called by
-> drm_bridge_connector_init().
->=20
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+On Wed, Apr 22, 2026 at 2:21=E2=80=AFPM David Gow <david@davidgow.net> wrot=
+e:
+>
+> Thanks very much for keeping this series alive! I'm very much in favour
+> of it, and I think the overall design is good. Lots of more detailed
+> nitpicks below, though.
+>
 
-Acked-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Hi David,
 
-> ---
-> =C2=A0drivers/gpu/drm/verisilicon/vs_bridge.c | 1 -
-> =C2=A01 file changed, 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/verisilicon/vs_bridge.c
-> b/drivers/gpu/drm/verisilicon/vs_bridge.c
-> index 2a0ad00a94d6..83c91d5ce397 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_bridge.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_bridge.c
-> @@ -365,7 +365,6 @@ struct vs_bridge *vs_bridge_init(struct
-> drm_device *drm_dev,
-> =C2=A0		ret =3D PTR_ERR(bridge->conn);
-> =C2=A0		return ERR_PTR(ret);
-> =C2=A0	}
-> -	drm_connector_attach_encoder(bridge->conn, bridge->enc);
-> =C2=A0
-> =C2=A0	return bridge;
-> =C2=A0}
+Thank you for taking the time to review the series!
+
+> Le 20/04/2026 =C3=A0 8:28 PM, Albert Esteve a =C3=A9crit :
+> > From: Alessandro Carminati <acarmina@redhat.com>
+> >
+> > Some unit tests intentionally trigger warning backtraces by passing bad
+> > parameters to kernel API functions. Such unit tests typically check the
+> > return value from such calls, not the existence of the warning backtrac=
+e.
+> >
+> > Such intentionally generated warning backtraces are neither desirable
+> > nor useful for a number of reasons:
+> > - They can result in overlooked real problems.
+> > - A warning that suddenly starts to show up in unit tests needs to be
+> >    investigated and has to be marked to be ignored, for example by
+> >    adjusting filter scripts. Such filters are ad hoc because there is
+> >    no real standard format for warnings. On top of that, such filter
+> >    scripts would require constant maintenance.
+> >
+> > Solve the problem by providing a means to identify and suppress specifi=
+c
+> > warning backtraces while executing test code. Support suppressing multi=
+ple
+> > backtraces while at the same time limiting changes to generic code to t=
+he
+> > absolute minimum.
+>
+> It sounds from the description here that suppressing "specific
+> backtraces" means that we're matching on the _contents_ of the stack
+> trace. This sort-of does that implicitly by checking they're in the same
+> kthread, but I think the fact that it's matching based on kthread should
+> be explicit in the commit message, like it is in the documentation.
+>
+
+You are right. Previous version was based on function name matches. I
+mostly fixed all commit messages, but this section remained. I will
+rewrite it.
+
+> >
+> > Implementation details:
+> > Suppression is checked at two points in the warning path:
+> > - In warn_slowpath_fmt(), the check runs before any output, fully
+> >    suppressing both message and backtrace.
+> > - In __report_bug(), the check runs before __warn() is called,
+> >    suppressing the backtrace and stack dump. Note that on this path,
+> >    the WARN() format message may still appear in the kernel log since
+> >    __warn_printk() runs before the trap that enters __report_bug().
+>
+> Would it make sense to output a 'backtrace suppressed due to running
+> test' message in this latter case, so we don't just end up with the
+> WARN() format message by itself? (My gut feeling is 'no, it isn't worth
+> it', but it's food for thought.)
+>
+
+I had the same thought and landed on the same conclusion. It would
+also become moot if we add the suppression check to __warn_printk() as
+discussed with Peter, since the message would be fully suppressed on
+that path too.
+
+> >
+> > A helper function, `__kunit_is_suppressed_warning()`, walks an
+> > RCU-protected list of active suppressions, matching by current task.
+> > The suppression state is tied to the KUnit test lifecycle via
+> > kunit_add_action(), ensuring automatic cleanup at test exit.
+> >
+> > The list of suppressed warnings is protected with RCU to allow
+> > concurrent read access without locks.
+> >
+> > The implementation is deliberately simple and avoids architecture-speci=
+fic
+> > optimizations to preserve portability.
+> >
+> > Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+> > Signed-off-by: Alessandro Carminati <acarmina@redhat.com>
+> > Reviewed-by: Kees Cook <kees@kernel.org>
+> > Signed-off-by: Albert Esteve <aesteve@redhat.com>
+> > ---
+> >   include/kunit/bug.h  | 56 +++++++++++++++++++++++++++++++++++
+> >   include/kunit/test.h |  1 +
+> >   kernel/panic.c       |  8 ++++-
+> >   lib/bug.c            |  8 +++++
+> >   lib/kunit/Kconfig    |  9 ++++++
+> >   lib/kunit/Makefile   |  6 ++--
+> >   lib/kunit/bug.c      | 84 +++++++++++++++++++++++++++++++++++++++++++=
++++++++++
+> >   7 files changed, 169 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/include/kunit/bug.h b/include/kunit/bug.h
+> > new file mode 100644
+> > index 0000000000000..e52c9d21d9fe6
+> > --- /dev/null
+> > +++ b/include/kunit/bug.h
+>
+> It's a bit confusing to name this bug.h when we have the (admittedly
+> terribly-named) test-bug.h header already. I'm pretty tempted to rename
+> the latter to something like 'hooks.h', as that's really what it's for,
+> and having a separate bug.h would be an incentive to do so, though, sit
+> it's not a big problem.
+>
+> I do think that it'd be reasonable to include the backtrace suppression
+> tuff in the same file, though, if you'd rather. The
+> __kunit_is_suppressed_warning() stuff in particular fits the category of
+> "code called to change behaviour based on whether or not a test is
+> running", which is generally what the hooks are for. (And, if you'd
+> rather, there's a bunch of existing hooks and hook infrastructure you
+> could use.)
+
+I wasn't aware of the hooks infrastructure! I was so focused on the
+solution carried over from initial versions that I did not seek
+alternatives.
+
+Honestly, that's a much better fit -- I'll integrate it into
+test-bug.h for next version.
+
+>
+> > @@ -0,0 +1,56 @@
+> > +/* SPDX-License-Identifier: GPL-2.0 */
+> > +/*
+> > + * KUnit helpers for backtrace suppression
+> > + *
+> > + * Copyright (C) 2025 Alessandro Carminati <acarmina@redhat.com>
+> > + * Copyright (C) 2024 Guenter Roeck <linux@roeck-us.net>
+> > + */
+> > +
+> > +#ifndef _KUNIT_BUG_H
+> > +#define _KUNIT_BUG_H
+> > +
+> > +#ifndef __ASSEMBLY__
+> > +
+> > +#include <linux/kconfig.h>
+> > +
+> > +struct kunit;
+> > +
+> > +#ifdef CONFIG_KUNIT_SUPPRESS_BACKTRACE
+> > +
+> > +#include <linux/types.h>
+> > +
+> > +struct task_struct;
+> > +
+> > +struct __suppressed_warning {
+> > +     struct list_head node;
+> > +     struct task_struct *task;
+> > +     int counter;
+> > +};
+> > +
+> > +struct __suppressed_warning *
+> > +__kunit_start_suppress_warning(struct kunit *test);
+> > +void __kunit_end_suppress_warning(struct kunit *test,
+> > +                               struct __suppressed_warning *warning);
+> > +int __kunit_suppressed_warning_count(struct __suppressed_warning *warn=
+ing);
+> > +bool __kunit_is_suppressed_warning(void);
+> > +
+> > +#define KUNIT_START_SUPPRESSED_WARNING(test) \
+> > +     struct __suppressed_warning *__kunit_suppress =3D \
+> > +             __kunit_start_suppress_warning(test)
+> > +
+> > +#define KUNIT_END_SUPPRESSED_WARNING(test) \
+> > +     __kunit_end_suppress_warning(test, __kunit_suppress)
+> > +
+> > +#define KUNIT_SUPPRESSED_WARNING_COUNT() \
+> > +     __kunit_suppressed_warning_count(__kunit_suppress)
+>
+> Using a local variable (__kunit_suppress) here means that all of the
+> above macros must live in the same function. This is probably okay for
+> most use-cases, but more complicated tests may have to structure things
+> carefully. It also prevents there from being multiple START/END pairs in
+> the same function, and the KUNIT_SUPPRESSED_WARNING_COUNT() macro from
+> appearing before _START().
+>
+> It also makes it less obvious that this cleans up nicely if the test
+> exits uncleanly, as the variable will have gone out-of-scope. (But given
+> we're just storing a pointer to heap-allocated memory, and
+> kunit_add_action() is used, it should be okay.)
+>
+> One other option would be to allocate the suppression as a named
+> resource, which could then be retrieved from anywhere within the test
+> with kunit_find_named_resource(). (Though handling nested suppressions
+> gets a little more complicated here.)
+>
+> Or you could make the struct __suppressed_warning pointer returned
+> explicitly user-visible, and let the user pass it around (though that
+> seems more work).
+>
+
+Good points. The function matching approach used the function name to
+allow concurrent suppressions to coexist. This is a limitation of the
+current approach that I traded off for simplicity (without properly
+considering the more complicated scenarios). I'll add a name parameter
+to the macros (or expose the pointer directly) so multiple pairs and
+cross-function usage work naturally. I think I lean more towards
+making the return value user-visible? But I will decide based on how
+the API evolves, especially if I change to the scoped approach
+suggested in a different thread.
+
+>
+> > +
+> > +#else /* CONFIG_KUNIT_SUPPRESS_BACKTRACE */
+> > +
+> > +#define KUNIT_START_SUPPRESSED_WARNING(test)
+> > +#define KUNIT_END_SUPPRESSED_WARNING(test)
+> > +#define KUNIT_SUPPRESSED_WARNING_COUNT() 0
+> > +static inline bool __kunit_is_suppressed_warning(void) { return false;=
+ }
+> > +
+> > +#endif /* CONFIG_KUNIT_SUPPRESS_BACKTRACE */
+> > +#endif /* __ASSEMBLY__ */
+> > +#endif /* _KUNIT_BUG_H */
+> > diff --git a/include/kunit/test.h b/include/kunit/test.h
+> > index 9cd1594ab697d..4ec07b3fa0204 100644
+> > --- a/include/kunit/test.h
+> > +++ b/include/kunit/test.h
+> > @@ -10,6 +10,7 @@
+> >   #define _KUNIT_TEST_H
+> >
+> >   #include <kunit/assert.h>
+> > +#include <kunit/bug.h>
+> >   #include <kunit/try-catch.h>
+> >
+> >   #include <linux/args.h>
+> > diff --git a/kernel/panic.c b/kernel/panic.c
+> > index c78600212b6c1..d7a7a679f56c4 100644
+> > --- a/kernel/panic.c
+> > +++ b/kernel/panic.c
+> > @@ -39,6 +39,7 @@
+> >   #include <linux/sys_info.h>
+> >   #include <trace/events/error_report.h>
+> >   #include <asm/sections.h>
+> > +#include <kunit/bug.h>
+> >
+> >   #define PANIC_TIMER_STEP 100
+> >   #define PANIC_BLINK_SPD 18
+> > @@ -1080,9 +1081,14 @@ void __warn(const char *file, int line, void *ca=
+ller, unsigned taint,
+> >   void warn_slowpath_fmt(const char *file, int line, unsigned taint,
+> >                      const char *fmt, ...)
+> >   {
+> > -     bool rcu =3D warn_rcu_enter();
+> > +     bool rcu;
+> >       struct warn_args args;
+> >
+> > +     if (__kunit_is_suppressed_warning())
+> > +             return;
+> > +
+> > +     rcu =3D warn_rcu_enter();
+> > +
+> >       pr_warn(CUT_HERE);
+> >
+> >       if (!fmt) {
+> > diff --git a/lib/bug.c b/lib/bug.c
+> > index 623c467a8b76c..606205c8c302f 100644
+> > --- a/lib/bug.c
+> > +++ b/lib/bug.c
+> > @@ -48,6 +48,7 @@
+> >   #include <linux/rculist.h>
+> >   #include <linux/ftrace.h>
+> >   #include <linux/context_tracking.h>
+> > +#include <kunit/bug.h>
+> >
+> >   extern struct bug_entry __start___bug_table[], __stop___bug_table[];
+> >
+> > @@ -223,6 +224,13 @@ static enum bug_trap_type __report_bug(struct bug_=
+entry *bug, unsigned long buga
+> >       no_cut   =3D bug->flags & BUGFLAG_NO_CUT_HERE;
+> >       has_args =3D bug->flags & BUGFLAG_ARGS;
+> >
+> > +     /*
+> > +      * Before the once logic so suppressed warnings do not consume
+> > +      * the single-fire budget of WARN_ON_ONCE().
+> > +      */
+> > +     if (warning && __kunit_is_suppressed_warning())
+> > +             return BUG_TRAP_TYPE_WARN;
+> > +
+>
+> While any competant optimiser should get rid of this entirely, it might
+> be clearer to anyone reading it that this disappears if we just put it
+> behind an #ifdef?
+
+Makes sense. Will do.
+
+>
+> >       if (warning && once) {
+> >               if (done)
+> >                       return BUG_TRAP_TYPE_WARN;
+> > diff --git a/lib/kunit/Kconfig b/lib/kunit/Kconfig
+> > index 498cc51e493dc..57527418fcf09 100644
+> > --- a/lib/kunit/Kconfig
+> > +++ b/lib/kunit/Kconfig
+> > @@ -15,6 +15,15 @@ menuconfig KUNIT
+> >
+> >   if KUNIT
+> >
+> > +config KUNIT_SUPPRESS_BACKTRACE
+> > +     bool "KUnit - Enable backtrace suppression"
+> > +     default y
+> > +     help
+> > +       Enable backtrace suppression for KUnit. If enabled, backtraces
+> > +       generated intentionally by KUnit tests are suppressed. Disable
+> > +       to reduce kernel image size if image size is more important tha=
+n
+> > +       suppression of backtraces generated by KUnit tests.
+> > +
+> >   config KUNIT_DEBUGFS
+> >       bool "KUnit - Enable /sys/kernel/debug/kunit debugfs representati=
+on" if !KUNIT_ALL_TESTS
+> >       default KUNIT_ALL_TESTS
+> > diff --git a/lib/kunit/Makefile b/lib/kunit/Makefile
+> > index 656f1fa35abcc..fe177ff3ebdef 100644
+> > --- a/lib/kunit/Makefile
+> > +++ b/lib/kunit/Makefile
+> > @@ -16,8 +16,10 @@ ifeq ($(CONFIG_KUNIT_DEBUGFS),y)
+> >   kunit-objs +=3D                               debugfs.o
+> >   endif
+> >
+> > -# KUnit 'hooks' are built-in even when KUnit is built as a module.
+> > -obj-$(if $(CONFIG_KUNIT),y) +=3D               hooks.o
+> > +# KUnit 'hooks' and bug handling are built-in even when KUnit is built
+> > +# as a module.
+> > +obj-$(if $(CONFIG_KUNIT),y) +=3D               hooks.o \
+> > +                                     bug.o
+>
+> Is there any reason we couldn't implement this on top of the hooks
+> mechanism? Then we could include the bug suppression code in the
+> kunit.ko module (albeit, with fewer possibilities for the compiler to
+> optimise things, as they'd have to go through an indirect pointer).
+>
+
+No reason. I'll integrate this feature into the hooks infrastructure.
+Thanks for the suggestion!
+
+>
+> >
+> >   obj-$(CONFIG_KUNIT_TEST) +=3D         kunit-test.o
+> >   obj-$(CONFIG_KUNIT_TEST) +=3D         platform-test.o
+> > diff --git a/lib/kunit/bug.c b/lib/kunit/bug.c
+> > new file mode 100644
+> > index 0000000000000..356c8a5928828
+> > --- /dev/null
+> > +++ b/lib/kunit/bug.c
+> > @@ -0,0 +1,84 @@
+> > +// SPDX-License-Identifier: GPL-2.0
+> > +/*
+> > + * KUnit helpers for backtrace suppression
+> > + *
+> > + * Copyright (C) 2025 Alessandro Carminati <acarmina@redhat.com>
+> > + * Copyright (C) 2024 Guenter Roeck <linux@roeck-us.net>
+> > + */
+> > +
+> > +#include <kunit/bug.h>
+> > +#include <kunit/resource.h>
+> > +#include <linux/export.h>
+> > +#include <linux/rculist.h>
+> > +#include <linux/sched.h>
+> > +
+> > +#ifdef CONFIG_KUNIT_SUPPRESS_BACKTRACE
+> > +
+> > +static LIST_HEAD(suppressed_warnings);
+> > +
+> > +static void __kunit_suppress_warning_remove(struct __suppressed_warnin=
+g *warning)
+> > +{
+> > +     list_del_rcu(&warning->node);
+> > +     synchronize_rcu(); /* Wait for readers to finish */
+> > +}
+> > +
+> > +KUNIT_DEFINE_ACTION_WRAPPER(__kunit_suppress_warning_cleanup,
+> > +                         __kunit_suppress_warning_remove,
+> > +                         struct __suppressed_warning *);
+> > +
+> > +struct __suppressed_warning *
+> > +__kunit_start_suppress_warning(struct kunit *test)
+> > +{
+> > +     struct __suppressed_warning *warning;
+> > +     int ret;
+> > +
+> > +     warning =3D kunit_kzalloc(test, sizeof(*warning), GFP_KERNEL);
+> > +     if (!warning)
+> > +             return NULL;
+> > +
+> > +     warning->task =3D current;
+> > +     list_add_rcu(&warning->node, &suppressed_warnings);
+> > +
+> > +     ret =3D kunit_add_action_or_reset(test,
+> > +                                     __kunit_suppress_warning_cleanup,
+> > +                                     warning);
+> > +     if (ret)
+> > +             return NULL;
+> > +
+> > +     return warning;
+> > +}
+> > +EXPORT_SYMBOL_GPL(__kunit_start_suppress_warning);
+> > +
+> > +void __kunit_end_suppress_warning(struct kunit *test,
+> > +                               struct __suppressed_warning *warning)
+> > +{
+> > +     if (!warning)
+> > +             return;
+> > +     kunit_release_action(test, __kunit_suppress_warning_cleanup, warn=
+ing);
+> > +}
+> > +EXPORT_SYMBOL_GPL(__kunit_end_suppress_warning);
+> > +
+> > +int __kunit_suppressed_warning_count(struct __suppressed_warning *warn=
+ing)
+> > +{
+> > +     return warning ? warning->counter : 0;
+> > +}
+> > +EXPORT_SYMBOL_GPL(__kunit_suppressed_warning_count);
+> > +
+> > +bool __kunit_is_suppressed_warning(void)
+> > +{
+> > +     struct __suppressed_warning *warning;
+> > +
+> > +     rcu_read_lock();
+> > +     list_for_each_entry_rcu(warning, &suppressed_warnings, node) {
+> > +             if (warning->task =3D=3D current) {
+> > +                     warning->counter++;
+> > +                     rcu_read_unlock();
+> > +                     return true;
+> > +             }
+> > +     }
+> > +     rcu_read_unlock();
+> > +
+> > +     return false;
+> > +}
+>
+> Note to self: this is _not_ exported, as bug.c is being built-in
+> regardless of whether or not KUnit is a module. If we used the hook
+> system, it could live in kunit.ko, and would be manually exported by
+> kunit_install_hooks()
+>
+> > +
+> > +#endif /* CONFIG_KUNIT_SUPPRESS_BACKTRACE */
+> >
+>
+>
+> Thanks again,
+> -- David
+>
 
