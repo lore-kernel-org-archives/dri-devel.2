@@ -4,50 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2E12FED3C9
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 13:30:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7EDFFED3CF
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 14:00:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F0FD10F594;
-	Fri, 24 Apr 2026 13:30:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08BDB10F5A5;
+	Fri, 24 Apr 2026 14:00:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KHv26dpB";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="AF1I+hgO";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35AF310F594
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 13:30:22 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 7C05A6001A;
- Fri, 24 Apr 2026 13:30:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78A69C19425;
- Fri, 24 Apr 2026 13:30:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777037421;
- bh=6xx/cqSPmGGq5SiVIeMj63/5yGyjb6+6H5Qsk2Hj8Ew=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=KHv26dpBitAOieQFueRFmWncLQ61m6IeEZIKgZGW5cfMLFC2FizUtSyVSr3J3+joD
- ORGEljE9Gy63Lpy9zlbW9maKXl06uhKwbAcivaIho1Tj85lhrCFx5Xkum1u/gqbEYp
- H+0ljf9900HdWdmDHVeujr5AI5FwllkyXy8jFgVnEP88VUm4rjGaR4+Lsw0QvsQEZZ
- K9h7gX7yMcNJWfPw5AnshjEuE3D6My4ZS5XSbqwHkSF3k5D9HbFwzrOkrizCpkJHWw
- E0vUzeH9sRfRo+uphqmV+prYFW7qBkMNv/0Y06MIqQ52XdBE4R/s9bnmjmiyJeP0Gd
- KQXW7PZ19w1eQ==
-Message-ID: <cdd649b8-db85-4bfb-8c0f-2a099201f89a@kernel.org>
-Date: Fri, 24 Apr 2026 08:30:19 -0500
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14A6910E3CD;
+ Fri, 24 Apr 2026 14:00:44 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4g2F3Q72tfz9tp1;
+ Fri, 24 Apr 2026 16:00:34 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1777039235;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=6SDpkva1CDyDwc/8PDqf/y1gmyrPMX3emqZXIY9zddg=;
+ b=AF1I+hgOqZT5vH894kHT0zdrWmPq0j8KoZbftc3kgTFGiB/cMVsP0TvNIKZ5znrEY0AQpN
+ FETAA3VUE9d0ilnOw/2Ak0ZhM94ditWa8HQv1N4qOAb6akW0qUhttTxUt16xHPmrxy13Tv
+ W2N6/I4zhl+L+U7RSYzycDzHQutVAV0bWX+P6J8TD0nltlb6jjLUgBZUuhln92YvZHIQtd
+ +WxaWklcZEkQTO5VL3pcHDMuzukkbZIHsrUSDhcCsGi3sSGu1QE6Tl4ENK/zYr6T73S2Xh
+ vVlZLuO67gBH4yOQ+OcX+2HJsPI2gbjhBDbWG5BwhI/gWHlnXT/PL6iJ6+ovcA==
+Message-ID: <02f8471a-881e-462e-936a-d8048cc0ae05@mailbox.org>
+Date: Fri, 24 Apr 2026 16:00:26 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V1 3/3] accel/amdxdna: Set the system efficiency factor to
- 2
-Content-Language: en-US
-To: Lizhi Hou <lizhi.hou@amd.com>, ogabbay@kernel.org,
- quic_jhugo@quicinc.com, dri-devel@lists.freedesktop.org,
- maciej.falkowski@linux.intel.com
-Cc: Nishad Saraf <nishads@amd.com>, linux-kernel@vger.kernel.org,
- max.zhen@amd.com, sonal.santan@amd.com
-References: <20260424040824.2253607-1-lizhi.hou@amd.com>
- <20260424040824.2253607-3-lizhi.hou@amd.com>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <20260424040824.2253607-3-lizhi.hou@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v11 0/7] User readable error codes on atomic_ioctl failure
+To: "Kumar, Naveen1" <naveen1.kumar@intel.com>,
+ "Murthy, Arun R" <arun.r.murthy@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ "Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ "xaver.hugl@kde.org" <xaver.hugl@kde.org>,
+ "harry.wentland@amd.com" <harry.wentland@amd.com>,
+ "Shankar, Uma" <uma.shankar@intel.com>,
+ "louis.chauvet@bootlin.com" <louis.chauvet@bootlin.com>,
+ "Yella, Ramya Krishna" <ramya.krishna.yella@intel.com>
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+ "Kandpal, Suraj" <suraj.kandpal@intel.com>
+References: <20260331-atomic-v11-0-6a1df7ec5af8@intel.com>
+ <BN9PR11MB529039EC705FBA4E5E65C64FA72F2@BN9PR11MB5290.namprd11.prod.outlook.com>
+ <6f5f44d3-2490-4d19-b6aa-31056410c22a@mailbox.org>
+ <BN9PR11MB52901206A25AC016817AF1F7A72B2@BN9PR11MB5290.namprd11.prod.outlook.com>
+From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Content-Language: en-CA
+In-Reply-To: <BN9PR11MB52901206A25AC016817AF1F7A72B2@BN9PR11MB5290.namprd11.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 32f803cdefd80af69c7
+X-MBO-RS-META: 8io57xtkundju7z81soewra6aegt14ms
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,32 +82,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 4/24/26 13:37, Kumar, Naveen1 wrote:
+>> From: Michel Dänzer <michel.daenzer@mailbox.org>
+>> On 4/20/26 10:32, Kumar, Naveen1 wrote:
+>>>
+>>> We verified atomic commit failure detection via capability flag, error
+>> code/string retrieval, and fallback path execution in Mutter via MR
+>> https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/5022.
+>>
+>> I don't see any fallback handling in the mutter MR -
+>> process_atomic_commit_error has only TODO comments for all failure codes.
+>>
+>> As such, in the current state I wouldn't consider it satisfying the user-space
+>> implementation requirements for new UAPI.
+> 
+> Thanks for the review.
+> 
+> The current Mutter MR is intentionally scoped to enumerating the kernel-supported error codes and establishing the basic framework to collect early UAPI design feedback.
+
+User-space code which doesn't do anything useful isn't suitable for giving feedback on UAPI design.
+
+(For similar reasons, code in user-space test suites such as IGT isn't sufficient for this)
 
 
-On 4/23/26 23:08, Lizhi Hou wrote:
-> From: Nishad Saraf <nishads@amd.com>
-> 
-> The system efficiency factor is used for QoS calculation. Change it to 2
-> to account for the efficiency overhead.
-> 
-> Signed-off-by: Nishad Saraf <nishads@amd.com>
-> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
-> ---
->   drivers/accel/amdxdna/aie2_pci.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/accel/amdxdna/aie2_pci.c b/drivers/accel/amdxdna/aie2_pci.c
-> index a07e453a1721..f0ddb843eb21 100644
-> --- a/drivers/accel/amdxdna/aie2_pci.c
-> +++ b/drivers/accel/amdxdna/aie2_pci.c
-> @@ -595,7 +595,7 @@ static int aie2_init(struct amdxdna_dev *xdna)
->   	xrs_cfg.clk_list.num_levels = ndev->max_dpm_level + 1;
->   	for (i = 0; i < xrs_cfg.clk_list.num_levels; i++)
->   		xrs_cfg.clk_list.cu_clk_list[i] = ndev->priv->dpm_clk_tbl[i].hclk;
-> -	xrs_cfg.sys_eff_factor = 1;
-> +	xrs_cfg.sys_eff_factor = 2;
->   	xrs_cfg.ddev = &xdna->ddev;
->   	xrs_cfg.actions = &aie2_xrs_actions;
->   	xrs_cfg.total_col = ndev->total_col;
+> We agree the UAPI is not ready to merge without concrete fallback handling. We can go either way:
+> - Land the framework now and follow up with per-failure fallback patches, or
+> - Add at least one representative fallback case in Mutter MR to demonstrate the full flow first.
 
+Every aspect of new UAPI needs to be fully utilized in real-world user-space code.
+
+
+-- 
+Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
+https://redhat.com             \               Libre software enthusiast
