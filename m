@@ -4,125 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CEB1FB44C5
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 07:24:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 788C8FB44C6
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 07:26:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 880FA10F32D;
-	Fri, 24 Apr 2026 07:24:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7AA410F377;
+	Fri, 24 Apr 2026 07:26:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QhIBQf4O";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="C6/S2Vgh";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011015.outbound.protection.outlook.com [52.101.62.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C09A10F327;
- Fri, 24 Apr 2026 07:24:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zBILOLhjPwjtFvNhJx0IjXbRo4Ed1RLqfxm7ATLMl9pjT+9HismCb8rbRBzxXk4a2cGrQVuwqrXi6Wrz36MoFC/lSvWc615gOH01korHRWx1X8LA19/SOjDmEaV6/GcTzqqOY97hiyKPByni10Hv0+oZK0pnh6s1n1xLOrONTUWn9h2Y0kV9uTL/UuDgqhE+qe7Fk8xioe1P5xM9t9bV5mnOUJ7dITzh3pX/Y8g1C706IRU24TgLAiT4dOplpJuXTYQlhdDUnJhVRbKS1K5e+cTEkTOP7E9xpR+FC7EQ4XAlS3U3R0ecjO0H57Q4Uj/eGFyYsIPfOzh7haWhTMh8Aw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=H38PF4+sa36ICJRCQaz7nlRo1C2+jLyKKOpajd//AUc=;
- b=FOq4lJZTCjXoUzumo6lRmARuR62x5peqst8Ll9saw8ufR2UYO+ZrBr/3VioCBCJFmTKY3uNoeBm6oYbHygNmZiVd1jCcvpobBMvW9bjCDqD+Ekzcs/frINSTZ0RFL45loWjxQGVDZTXkhqKKTKXx4+KVpMWfBAkqGDr3dYBurKPtjC+r3LXj8QnSsMPilVZHdqgmd6EkhZdEoOWfiYzqJnFjg4nLjg4FzlzPFoRsQQ5kQOoPGkQCxjZy4a8ZhtBEOpg/yX97BMJ+EtlpkawGIPx1Qp+xN4Vfq7hN1LptugNLAhyHMxRhg0m9VOinQ30Q406zbECAUNYpQ40AaMS6Qg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H38PF4+sa36ICJRCQaz7nlRo1C2+jLyKKOpajd//AUc=;
- b=QhIBQf4O1X7iBDbC9m7OEefQQOJtxQYMkTqHIziNaJz7ncvC852ia0MyIgDhgxiKkXuwmaYwWtZi+jMvq9oF97d6XSSKXN6ZMKPbswEpxn6N1RjcG7sSAp0XyE2UBeYpK70NV/P6ycFRKYDW70gBGL8G0xMpxmeUHOATWDNAb4U=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS4PR12MB9819.namprd12.prod.outlook.com (2603:10b6:8:2a0::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.22; Fri, 24 Apr
- 2026 07:24:24 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9846.021; Fri, 24 Apr 2026
- 07:24:24 +0000
-Message-ID: <975a945c-1bb8-4dbe-9767-d39f3c98e778@amd.com>
-Date: Fri, 24 Apr 2026 09:24:19 +0200
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A4AE10F32E;
+ Fri, 24 Apr 2026 07:26:25 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 08A5C444A0;
+ Fri, 24 Apr 2026 07:26:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B53E4C19425;
+ Fri, 24 Apr 2026 07:26:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1777015584;
+ bh=5dmzXPh5bpR2t1b0uCMuOAqmdZYp5LGnT+Lwxr5M/oo=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=C6/S2VghcGegNnoRZvvUqEJC5Se8UaQriA/q3zpdTKceryHugwPWmW3hLepdvu1F+
+ 2pM+7AAqUoTcF2vFap5zsQEkhXzDgXYV78p0OUuJuBbqwBv3O/8qmPDmftAAl3npF0
+ xW/rsHX18FkQjJ+YAAeoc6OliYWOCGHcOEkrOczwwIR7JJOdORUKzS+ONFq0/aasrm
+ hP3Sx+oWS6eTZF945+EHKpbaheEyeT0B2vNJIJS1KrWjWeYm3RWxWjG9f4dFefYjb2
+ Mwbeyt6hyV1NXzUvZvL3q+lySBi28hFUyuJMztEzXOwji88N0hU/rAZhQILqhxViia
+ bamHzpaHrw1WA==
+Message-ID: <a1252167-63a1-481b-9f1d-2a7bae7a3b6c@kernel.org>
+Date: Fri, 24 Apr 2026 09:26:18 +0200
+MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] drm/amdgpu: move read_indexed_register to
- amdgpu_reg_access
-To: Gabriel Almeida <gabrielsousa230@gmail.com>, alexander.deucher@amd.com,
- airlied@gmail.com, simona@ffwll.ch
-Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-References: <20260424004910.21003-1-gabrielsousa230@gmail.com>
- <20260424004910.21003-2-gabrielsousa230@gmail.com>
+Subject: Re: [PATCH v2 1/5] mm: Introduce zone_appears_fragmented()
+To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Matthew Brost <matthew.brost@intel.com>
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Johannes Weiner <hannes@cmpxchg.org>
+References: <20260423055656.1696379-1-matthew.brost@intel.com>
+ <20260423055656.1696379-2-matthew.brost@intel.com>
+ <76191a17-18bf-4e9b-9ab5-dc9a48abfabb@kernel.org>
+ <be42059924cde9bb16a087ee2a5abb0b9d850d68.camel@linux.intel.com>
+ <aepuNL2fwp47P1Wi@gsse-cloud1.jf.intel.com>
+ <aeqbe/9YRKNyYuWY@gsse-cloud1.jf.intel.com>
+ <291406b26b8badf2e565996515931d9ebe50208f.camel@linux.intel.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260424004910.21003-2-gabrielsousa230@gmail.com>
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <291406b26b8badf2e565996515931d9ebe50208f.camel@linux.intel.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BN9PR03CA0938.namprd03.prod.outlook.com
- (2603:10b6:408:108::13) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS4PR12MB9819:EE_
-X-MS-Office365-Filtering-Correlation-Id: cfffc871-0654-4111-0501-08dea1d282d5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|56012099003|18002099003|22082099003; 
-X-Microsoft-Antispam-Message-Info: hvX40fC5GWAIFiyo/DQHe/XJ1P7TJoLH2Gc9XmeCqaWVPYKsi7SjUSPFNpkpqxk8zYRQSiH3HN3m7JxusqUlOWbdtUuBuek7lnOle7j7pS5vd2cSHeCZLQVkHY36bTO3NEbU6i98k61aDp7zEu6Xq05tuXYPtBtkiF6CU84qLKePExbw7IDb3GkC9hd6Tj/XqdyxhpbOQLerlMh4vwJw4UGj2jqBGMVNu8TUjgC8V3Dmm1BFS7CCYmuj2b398ubjFKnEi+URfXXRWy5VlEx04Kd1tpa5jEnP1N7nF4LCJsSSMbx2c5l7kKjUh9MrD5U6E7ibehRLy5dTqYKfiEdMI9v/jZH+sPE6CLW5DLJeUwJCuhgF+TpOAH/mlsQapn3YcIAPggPBOzUAG5fwdAS1l9Q62F0iS+qyYJT2XTPDl57KjMIRZ/8fR8UK6ieSVQuuBwUDt3yeGSefLp9+9OZIqDnGB0mv4dkek7WxMnc/bNYlVtH0euZK/ZMc/VdhNR0uRCGh+S5t5Xa5xjbJqkGeXVeL4X1HgyQRZCSUBCiZs9m/U0up1As2k0z7ytkY+OXFpsT6EgYaLH8hHYVHgbxER8yxX5AWmPt8UQbFTnresAfcYcqSY3Z10jw+f4wlJGH7AMB9aimwyv/WHKnbZCllIYunOZZwJN52wcAfE0fBVASR6cZ02IUJyrbrVnWmd0Q3qz7YB+B12Dv43IvnBXlf6zaVssOXtQZnvi19bxl9GXo=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(56012099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SGczZTlYNy95YWxhb0VyaXZtSTZWMUpMYjJ3KzdpWnZOOUhkN1pyU0owMk5D?=
- =?utf-8?B?Y1ZEdkdPTzlVVTUvbGZrNHBZaUY5eWJ0M1dCMENrQUkvU1FheHVlYkZCZHB3?=
- =?utf-8?B?dWloQlZiTk9uT3R3bGhWbElGTzYzSGhRODVvSzhOR3YrSEIxZk5hRm5xUU9D?=
- =?utf-8?B?aHdKdXF5R283NFpTeWxsYzJ1Uy9QOERZVGorS3hSclp6cEI0QlM2endDSEhm?=
- =?utf-8?B?UWlyUGU5SmRJSlR1Nmo3YS8zakM1UEpuTVczVHh0YXZpNldnVzZmNU9RYVJ4?=
- =?utf-8?B?dGZDd0Q0UCtsSW9Za0x4Nk1vZ3AxYkhEMko1U1ZzU3ZOMnFKWWVJMldsUStl?=
- =?utf-8?B?OG9kNG5jbldXYjZlR1JoYSs2ZVllS0N1Q2s4NHNXdTB5ZEVZakp3bDdvd3o3?=
- =?utf-8?B?VjJoUm96dmxJeW5ReWxKVWFhMjl0ZDdkREJlakRtdFpjb1d3dGlOMW5FQmFv?=
- =?utf-8?B?Q0ljZzAySHZweVQ2V1V5cDdZRjkwYXlwS3JyVjN3RVV1NFBoWElhRlRMak14?=
- =?utf-8?B?cEErTEoxYnA4L2dwenkwYTJycGt3bUNCWGl1aTVRLzBKNzFGWTlwQk1CSzlL?=
- =?utf-8?B?VHQ4UjREREQ0ODVDNndHYitGd1IzdTM2cVNKdTdpWVd2T2kvYmcxYklZdGU2?=
- =?utf-8?B?dzJhanY5OTlHQWMzVnJhb2x6SDFzZFhzSDJtTnhsVlIvMCtUWTE2VjNtT3ZR?=
- =?utf-8?B?aDllUVdybkptT3F4S0o0S3NFdW9RbjE5cnE4bUdlWHUzdDlNNFVQaUNLNVFt?=
- =?utf-8?B?bW5NZXFSRERaSDliODFiaXhwRVlUUnhCd0ovK2FZWGdzaUplQzdFS1E4anJV?=
- =?utf-8?B?WUQrOXB2QXM3ckg2RFpvZld2R04wUlVJQUVnSEw2eXR0QjRXRFJTd0hkYUls?=
- =?utf-8?B?RTYvT256VVdHL21EOFdvb2JqYkMyR2xwbTY5Z2RrUVU0aXJRUTh5SVdaRjZX?=
- =?utf-8?B?cHAvRVAvSXE0UG9jeEgxK09FMnFGNUd3U0MzZXZONzQwMzhsMlZNbkh4RElW?=
- =?utf-8?B?UG5GZDFVR0dkOWFJUkZhT2p5ZkpXZE5XdEQ0OE9iMjFGQVNNNkorU0lNb2xh?=
- =?utf-8?B?WW5jSTNzZkc3TlJUZkhtODkvVWNBQmQ1VjYvTk40VW1Kc0RNcVZWaTFsRHZL?=
- =?utf-8?B?SWt2RldOWTdYbTllQUZlZmpnSVdZUzR0cXRCWjgxM0pESnFTbFdSZmxIMGpR?=
- =?utf-8?B?K2gvWnA1STR3di8vS1pwVlRpK2xUK2IwbzZlN09Pd2I4UnMyZlVMMzJoVkJK?=
- =?utf-8?B?bXpYQWdZZTFuVFN6ZmVGR01obHFTcGZTcmJEWk1iekpkdHVXbUpGaXF2L0JG?=
- =?utf-8?B?RFZJTXptSkpkZExqeUtDTlhQc0o1TlY4SHcvd0JhZkhQQXdxdWFzSWJPZnpV?=
- =?utf-8?B?WFF6WmhTdnIrMmk1SFhNUzFLL2FpSnRyRHFIU3lvd1VpdTZuZ2RVZFBqb2Jq?=
- =?utf-8?B?cGdGK3pDSVp6dTY4RDNHcUpJSHd3V0hUcEwyWFJQeDNkUEczVU9GNWNhZGIx?=
- =?utf-8?B?eUtCbnVFWGhpQjArLzduRnB2dkJIUlZ3aENRQVVQcGR4WSsrK3Z5MmdPWm9y?=
- =?utf-8?B?YjdDR01OdEREbVhoM21ra1NNbHdjdzk5VkwxSUhmY2FVcFFqcUZLeHU4eG0w?=
- =?utf-8?B?a2NZaXRiaXBFRGtubEFVaG5nbnkvOWNlOWVyL0Qzb2J2TFdvOUpGT2IyQkhU?=
- =?utf-8?B?QWMxSnMrV0RDWUZydGt6aWJ6bk0rZU4reWNmYlNCcVZxNmNVMlhlN0lDL1ZF?=
- =?utf-8?B?Smd4Q2J5aGZtV01KMmRsZTZpVnArRlIxZi9xUzQ3RXNVY0pNNTZMcktFRWVR?=
- =?utf-8?B?cUtOSWR2dUZRVktzMWlBVWNybVVYQkcyOHBDa1BzcW5vQVNqTXgzbXgzRXZ0?=
- =?utf-8?B?NnhFbkpxWXR4eEEzTlBNVTZ6WjJqSmM1eHZZM3d4L0t6YWxVeWhFdVBkaDJp?=
- =?utf-8?B?VC9Hd2Ivb2lnZFd1SWhtQXpaT0RqczAvenFxeHUyTFFHSExOaVlYVDRmMzdi?=
- =?utf-8?B?b3UvUG5ncDFmZWVXVk1GaGFIR2s4NzV2QlhIWWxDTE1BN0ZiNUVreEZFNXRI?=
- =?utf-8?B?eVhNK0FJdzR4emt3VEd6ZmdSa3h3OXNsb1VEZEx3VWRqQVFVMklST3Vpc0dl?=
- =?utf-8?B?QUlSQXVvaUhvZEZRd3JRcFNmbzg2ZVBYOEJoRUhmZG01eExmOGYzLzJZUS9r?=
- =?utf-8?B?N0gzVDcxaEVkNFFlWERpazlZRUlwc082Wm9NSWpqVDQ2VFNiTVEyZ2VvQlFz?=
- =?utf-8?B?ektRTmE5bGZvMjFzQ043Yis4cGhpMUVrdEt1aUhNMXJLT3RIYmJSbE5sdStS?=
- =?utf-8?Q?kylqrk+b/vutPmGmdn?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cfffc871-0654-4111-0501-08dea1d282d5
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2026 07:24:24.5643 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: g8ktX+Wl8dGYca928uikO6+DT5jZbpVId67ZqLHUbAu72OnORKeOsEpE4TmBYCrG
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9819
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,258 +115,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/24/26 02:49, Gabriel Almeida wrote:
-> The read_indexed_register helper is duplicated across multiple files
-> with identical logic.
+On 4/24/26 09:05, Thomas Hellström wrote:
+> On Thu, 2026-04-23 at 15:21 -0700, Matthew Brost wrote:
+>> On Thu, Apr 23, 2026 at 12:08:36PM -0700, Matthew Brost wrote:
+>>>
+>>> If the order were included in shrink_control, there is about a 95%
+>>> certain that this change would allow TTM / Xe to break the
+>>> problematic
+>>> kswapd feedback loop. This may also better express the intent of
+>>> the
+>>> problem we are trying to fix here.
+>>>
+>>> For reference, the cover letter [1] details the problem.
+>>>
+>>> Any guidance from the core MM folks would be appreciated—would
+>>> adding
+>>> the order to shrink_control be an acceptable solution?
+>>>
+>>> Matt
+>>>
+>>> [1] https://patchwork.freedesktop.org/series/165330/
+>>>
+>>
+>> It doesn't look like __GFP_NORETRY, __GFP_RETRY_MAYFAIL, __GFP_NOFAIL
+>> make it to the sc->gfp_mask flags from the caller and get into kswapd
+>> loop...
 > 
-> Move it to amdgpu_reg_access.c as
-> amdgpu_read_indexed_register and update all users accordingly.
-> 
-> No functional changes intended.
+> Perhaps that's because they mostly (only?) make sense from direct
+> reclaim? Looks like the trace is from kswapd.
 
-Yeah, as far as I can see we have already abstracted the HW generation depending parts in amdgpu_gfx_select_se_sh(), so the change is most likely a valid cleanup.
+kswap obtains the desired order through pgdat->kswapd_order, as a hint from
+allocation code (wakeup_kswapd). The order can be easily merged (just use the max)
 
-> Signed-off-by: Gabriel Almeida <gabrielsousa230@gmail.com>
-> ---
-> v3:
-> - split into two patches as requested
-> 
-> v2:
-> - move read_indexed_register to amdgpu_reg_access.c
-> - drop amdgpu_common
-> 
->  .../gpu/drm/amd/amdgpu/amdgpu_reg_access.c    | 18 ++++++++++++++++
->  .../gpu/drm/amd/amdgpu/amdgpu_reg_access.h    |  3 +++
->  drivers/gpu/drm/amd/amdgpu/nv.c               | 19 +----------------
->  drivers/gpu/drm/amd/amdgpu/soc15.c            | 19 +----------------
->  drivers/gpu/drm/amd/amdgpu/soc21.c            | 19 +----------------
->  drivers/gpu/drm/amd/amdgpu/soc24.c            | 21 +------------------
->  drivers/gpu/drm/amd/amdgpu/soc_v1_0.c         | 20 +-----------------
->  7 files changed, 26 insertions(+), 93 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reg_access.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_reg_access.c
-> index 540040c76..daefbeeee 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reg_access.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reg_access.c
-> @@ -956,3 +956,21 @@ uint32_t amdgpu_device_wait_on_rreg(struct amdgpu_device *adev, uint32_t inst,
->  	}
->  	return ret;
->  }
-> +
-> +
+We do have the gfp_flags there, but merging them from different wakeups is a bit
+more tricky (and when to reset?).
 
-A bit kerneldoc here would be nice to have, but not mandatory.
+Assume we have one urgent request for order-0 and one non-urgent
+(noretry,nofail, ...) request for order-9, we'd have to figure out a way how to
+represent that. Gets more complicated for more orders.
 
-With that done Reviewed-by: Christian König <christian.koenig@amd.com>
+Of course, we could have some kind of array, and try to store some "priority"
+per order. But I assume plumbing that into the rest of kswapd might not be that
+easy.
 
-Regards,
-Christian.
 
-> +uint32_t amdgpu_read_indexed_register(struct amdgpu_device *adev,
-> +			       u32 se_num, u32 sh_num, u32 reg_offset)
-> +{
-> +	uint32_t val;
-> +
-> +	mutex_lock(&adev->grbm_idx_mutex);
-> +	if (se_num != 0xffffffff || sh_num != 0xffffffff)
-> +		amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xffffffff, 0);
-> +
-> +	val = RREG32(reg_offset);
-> +
-> +	if (se_num != 0xffffffff || sh_num != 0xffffffff)
-> +		amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, 0);
-> +	mutex_unlock(&adev->grbm_idx_mutex);
-> +	return val;
-> +}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reg_access.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_reg_access.h
-> index 4d88e5cd1..a1011af6b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reg_access.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reg_access.h
-> @@ -160,4 +160,7 @@ uint32_t amdgpu_device_wait_on_rreg(struct amdgpu_device *adev, uint32_t inst,
->  				    uint32_t reg_addr, char reg_name[],
->  				    uint32_t expected_value, uint32_t mask);
->  
-> +uint32_t amdgpu_read_indexed_register(struct amdgpu_device *adev,
-> +					u32 se_num, u32 sh_num, u32 reg_offset);
-> +
->  #endif /* __AMDGPU_REG_ACCESS_H__ */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-> index 030d80664..72edf5326 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-> @@ -354,29 +354,12 @@ static struct soc15_allowed_register_entry nv_allowed_read_registers[] = {
->  	{ SOC15_REG_ENTRY(GC, 0, mmGB_ADDR_CONFIG)},
->  };
->  
-> -static uint32_t nv_read_indexed_register(struct amdgpu_device *adev, u32 se_num,
-> -					 u32 sh_num, u32 reg_offset)
-> -{
-> -	uint32_t val;
-> -
-> -	mutex_lock(&adev->grbm_idx_mutex);
-> -	if (se_num != 0xffffffff || sh_num != 0xffffffff)
-> -		amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xffffffff, 0);
-> -
-> -	val = RREG32(reg_offset);
-> -
-> -	if (se_num != 0xffffffff || sh_num != 0xffffffff)
-> -		amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, 0);
-> -	mutex_unlock(&adev->grbm_idx_mutex);
-> -	return val;
-> -}
-> -
->  static uint32_t nv_get_register_value(struct amdgpu_device *adev,
->  				      bool indexed, u32 se_num,
->  				      u32 sh_num, u32 reg_offset)
->  {
->  	if (indexed) {
-> -		return nv_read_indexed_register(adev, se_num, sh_num, reg_offset);
-> +		return amdgpu_read_indexed_register(adev, se_num, sh_num, reg_offset);
->  	} else {
->  		if (reg_offset == SOC15_REG_OFFSET(GC, 0, mmGB_ADDR_CONFIG))
->  			return adev->gfx.config.gb_addr_config;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> index 27bcbbae5..87b398dd0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> @@ -401,29 +401,12 @@ static struct soc15_allowed_register_entry soc15_allowed_read_registers[] = {
->  	{ SOC15_REG_ENTRY(GC, 0, mmDB_DEBUG2)},
->  };
->  
-> -static uint32_t soc15_read_indexed_register(struct amdgpu_device *adev, u32 se_num,
-> -					 u32 sh_num, u32 reg_offset)
-> -{
-> -	uint32_t val;
-> -
-> -	mutex_lock(&adev->grbm_idx_mutex);
-> -	if (se_num != 0xffffffff || sh_num != 0xffffffff)
-> -		amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xffffffff, 0);
-> -
-> -	val = RREG32(reg_offset);
-> -
-> -	if (se_num != 0xffffffff || sh_num != 0xffffffff)
-> -		amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, 0);
-> -	mutex_unlock(&adev->grbm_idx_mutex);
-> -	return val;
-> -}
-> -
->  static uint32_t soc15_get_register_value(struct amdgpu_device *adev,
->  					 bool indexed, u32 se_num,
->  					 u32 sh_num, u32 reg_offset)
->  {
->  	if (indexed) {
-> -		return soc15_read_indexed_register(adev, se_num, sh_num, reg_offset);
-> +		return amdgpu_read_indexed_register(adev, se_num, sh_num, reg_offset);
->  	} else {
->  		if (reg_offset == SOC15_REG_OFFSET(GC, 0, mmGB_ADDR_CONFIG))
->  			return adev->gfx.config.gb_addr_config;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
-> index 7e4353d0c..93c002e51 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc21.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-> @@ -306,29 +306,12 @@ static struct soc15_allowed_register_entry soc21_allowed_read_registers[] = {
->  	{ SOC15_REG_ENTRY(GC, 0, regGB_ADDR_CONFIG)},
->  };
->  
-> -static uint32_t soc21_read_indexed_register(struct amdgpu_device *adev, u32 se_num,
-> -					 u32 sh_num, u32 reg_offset)
-> -{
-> -	uint32_t val;
-> -
-> -	mutex_lock(&adev->grbm_idx_mutex);
-> -	if (se_num != 0xffffffff || sh_num != 0xffffffff)
-> -		amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xffffffff, 0);
-> -
-> -	val = RREG32(reg_offset);
-> -
-> -	if (se_num != 0xffffffff || sh_num != 0xffffffff)
-> -		amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, 0);
-> -	mutex_unlock(&adev->grbm_idx_mutex);
-> -	return val;
-> -}
-> -
->  static uint32_t soc21_get_register_value(struct amdgpu_device *adev,
->  				      bool indexed, u32 se_num,
->  				      u32 sh_num, u32 reg_offset)
->  {
->  	if (indexed) {
-> -		return soc21_read_indexed_register(adev, se_num, sh_num, reg_offset);
-> +		return amdgpu_read_indexed_register(adev, se_num, sh_num, reg_offset);
->  	} else {
->  		if (reg_offset == SOC15_REG_OFFSET(GC, 0, regGB_ADDR_CONFIG) && adev->gfx.config.gb_addr_config)
->  			return adev->gfx.config.gb_addr_config;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/soc24.c b/drivers/gpu/drm/amd/amdgpu/soc24.c
-> index d1adf19a5..265db9331 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc24.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc24.c
-> @@ -132,31 +132,12 @@ static struct soc15_allowed_register_entry soc24_allowed_read_registers[] = {
->  	{ SOC15_REG_ENTRY(GC, 0, regGB_ADDR_CONFIG)},
->  };
->  
-> -static uint32_t soc24_read_indexed_register(struct amdgpu_device *adev,
-> -					    u32 se_num,
-> -					    u32 sh_num,
-> -					    u32 reg_offset)
-> -{
-> -	uint32_t val;
-> -
-> -	mutex_lock(&adev->grbm_idx_mutex);
-> -	if (se_num != 0xffffffff || sh_num != 0xffffffff)
-> -		amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xffffffff, 0);
-> -
-> -	val = RREG32(reg_offset);
-> -
-> -	if (se_num != 0xffffffff || sh_num != 0xffffffff)
-> -		amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, 0);
-> -	mutex_unlock(&adev->grbm_idx_mutex);
-> -	return val;
-> -}
-> -
->  static uint32_t soc24_get_register_value(struct amdgpu_device *adev,
->  					 bool indexed, u32 se_num,
->  					 u32 sh_num, u32 reg_offset)
->  {
->  	if (indexed) {
-> -		return soc24_read_indexed_register(adev, se_num, sh_num, reg_offset);
-> +		return amdgpu_read_indexed_register(adev, se_num, sh_num, reg_offset);
->  	} else {
->  		if (reg_offset == SOC15_REG_OFFSET(GC, 0, regGB_ADDR_CONFIG) &&
->  		    adev->gfx.config.gb_addr_config)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c b/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
-> index 709b1669b..4a5fe8e9d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
-> @@ -184,31 +184,13 @@ static struct soc15_allowed_register_entry soc_v1_0_allowed_read_registers[] = {
->  	{ SOC15_REG_ENTRY(GC, 0, regGB_ADDR_CONFIG_1) },
->  };
->  
-> -static uint32_t soc_v1_0_read_indexed_register(struct amdgpu_device *adev,
-> -					       u32 se_num,
-> -					       u32 sh_num,
-> -					       u32 reg_offset)
-> -{
-> -	uint32_t val;
-> -
-> -	mutex_lock(&adev->grbm_idx_mutex);
-> -	if (se_num != 0xffffffff || sh_num != 0xffffffff)
-> -		amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xffffffff, 0);
-> -
-> -	val = RREG32(reg_offset);
-> -
-> -	if (se_num != 0xffffffff || sh_num != 0xffffffff)
-> -		amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, 0);
-> -	mutex_unlock(&adev->grbm_idx_mutex);
-> -	return val;
-> -}
->  
->  static uint32_t soc_v1_0_get_register_value(struct amdgpu_device *adev,
->  					    bool indexed, u32 se_num,
->  					    u32 sh_num, u32 reg_offset)
->  {
->  	if (indexed) {
-> -		return soc_v1_0_read_indexed_register(adev, se_num, sh_num, reg_offset);
-> +		return amdgpu_read_indexed_register(adev, se_num, sh_num, reg_offset);
->  	} else {
->  		if (reg_offset == SOC15_REG_OFFSET(GC, 0, regGB_ADDR_CONFIG_1) &&
->  		    adev->gfx.config.gb_addr_config)
+-- 
+Cheers,
 
+David
