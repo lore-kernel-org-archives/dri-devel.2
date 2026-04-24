@@ -4,68 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8D95FB44C2
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 07:05:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D322BFB44BB
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 07:17:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0328A10F326;
-	Fri, 24 Apr 2026 07:05:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3453010F31A;
+	Fri, 24 Apr 2026 07:17:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="E5wFM9Zb";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="gRZy9pch";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB39A10F30E;
- Fri, 24 Apr 2026 07:05:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777014322; x=1808550322;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=wKkQjksF58KOBShBOIr4QCuWLnUJX6G0srOO77XVonw=;
- b=E5wFM9ZbUByT0F4buwvYWrYglfF5vJ1wQsyyIKPcvM24xwiziHOkbHa5
- 2avB/q7LyjgelMEHQm09KOiDioDiiV/ildVJCZJz6RMnSGhC07Q7YUe43
- MgforIpHztR8kUod3GPUcjwZB20kXO3uz3cWBl5iXyHwmmZtsM9d1RWZ2
- peJtEFaKOiyV6hg7QdDIt2mm/oypl0PJTW8sLXG8kIqz2HQLsI+1HUlkt
- lXzt83KiHkGMvQeWPiAQW2pmNal6qVTQl5rq1d+YAmU5slI5FfrGwEsBC
- v7GaKk4aLUGJLlYyb69x46rlgBJ5N2aPaIETgpi7F7w0aJXUWk5jY6r6H A==;
-X-CSE-ConnectionGUID: xR31NPqCQMqYpAuaS8NpJA==
-X-CSE-MsgGUID: VD15kLMHTUStn1+VJiTkZQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11765"; a="81852603"
-X-IronPort-AV: E=Sophos;i="6.23,196,1770624000"; d="scan'208";a="81852603"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Apr 2026 00:05:22 -0700
-X-CSE-ConnectionGUID: jALR2HnjQy2FSh+IwLvczw==
-X-CSE-MsgGUID: AFI2FRyNTSWr9Z8LdXAzDA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,196,1770624000"; d="scan'208";a="228315564"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.245.58])
- ([10.245.245.58])
- by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Apr 2026 00:05:19 -0700
-Message-ID: <291406b26b8badf2e565996515931d9ebe50208f.camel@linux.intel.com>
-Subject: Re: [PATCH v2 1/5] mm: Introduce zone_appears_fragmented()
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, 
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Andrew
- Morton	 <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>, Vlastimil Babka
- <vbabka@kernel.org>, Mike Rapoport	 <rppt@kernel.org>, Suren Baghdasaryan
- <surenb@google.com>, Michal Hocko	 <mhocko@suse.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Johannes Weiner <hannes@cmpxchg.org>
-Date: Fri, 24 Apr 2026 09:05:16 +0200
-In-Reply-To: <aeqbe/9YRKNyYuWY@gsse-cloud1.jf.intel.com>
-References: <20260423055656.1696379-1-matthew.brost@intel.com>
- <20260423055656.1696379-2-matthew.brost@intel.com>
- <76191a17-18bf-4e9b-9ab5-dc9a48abfabb@kernel.org>
- <be42059924cde9bb16a087ee2a5abb0b9d850d68.camel@linux.intel.com>
- <aepuNL2fwp47P1Wi@gsse-cloud1.jf.intel.com>
- <aeqbe/9YRKNyYuWY@gsse-cloud1.jf.intel.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7FB210F31A
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 07:17:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1777015044;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ocRQwsGxmUd24plQscvID6P4Yrryzt44ghQQY2RzSsk=;
+ b=gRZy9pcheJJfNKQc79QzEv5r8/IBDDn08DR1gjiy2fR3/jpGUnWOM5iNst+Y2giyle2K0Y
+ N/ib1ATM4AupQy4L2UsgraHZ1TLQTSakdKZbUOrLYIP9GQdOqTk9ZcMD8g85CvVsgi/lo6
+ VeBEZksNptqE+6c/+Rr97P39D3fhCWU=
+Received: from mail-yw1-f198.google.com (mail-yw1-f198.google.com
+ [209.85.128.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-43-LPyeXd2aOTa737oKlIlTJw-1; Fri, 24 Apr 2026 03:17:18 -0400
+X-MC-Unique: LPyeXd2aOTa737oKlIlTJw-1
+X-Mimecast-MFC-AGG-ID: LPyeXd2aOTa737oKlIlTJw_1777015038
+Received: by mail-yw1-f198.google.com with SMTP id
+ 00721157ae682-7b6fea89dd7so93204377b3.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 00:17:18 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777015038; x=1777619838;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=ocRQwsGxmUd24plQscvID6P4Yrryzt44ghQQY2RzSsk=;
+ b=Aznr1skFWMjtL5WOA4NPpdB7Uavkmo8G1hbUQ7qemg36I4vIpxiN3n+yLcqs2YYnhE
+ XNIPSH3AHULHp6MGVMyfJxhn0AQmvNR+8WBPBhwH+w04WMyK3olRZ0Zy4SpK2W2cVf3a
+ zMV/GER9HOTLtWEQ3fm6jvyc0jKEp3FHVBeJLGisirkBDPTEGfPdrKzdy1EtvJ7YN0fH
+ xV41+2cLrv7D//SIckJmsCOU7OBjLLARF0ra9xWOeRm9cuqkAb8VnCM+MDy2MMyd6dtZ
+ z12oQuxrFaiIlq38BIFNL3qCKAZbviTr2L0DAMN12So1j1H+TPRxYB2N+2MU9fEDJ8+B
+ Rddw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+NSQIN9LZH0+faTU+K6dHNdn+WDYkTyfKHJ1/cCl3nMR1fwj2tnmxmMY8dMzPbl8gzAC4dqm7YKs8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxgtfgCoAnD2TmZvgorY2zyHIoRUIpfGvpA0OJz3HSR13i/w3Mb
+ y9UKpWApAHqugOgdRYJTEwaOIUBUA3S1VYyvf6KUUinzhfbVkoLlLUREWncoGn5thI7hPii/vxc
+ uHRgZIgf0zyGUe1OnhLmVVPjrWCkqVyfcVAFGsHFJWj0btbDpRsE3frNvFqIZvF45RueQvJPxl4
+ jAf4Kvj3qwZX50xxHYymP9Ycg5JDzrkGSm2YL39hO0SBsm
+X-Gm-Gg: AeBDiethYoyuqx4BNnfnRSR+zYIscfiJWqZpzj8RflYnsMcTBmC4sihhg8YIre68nnV
+ T98RyerCVrY14V2wrsWumw0+Rv5zw5ATVk026JQQpYa2xLSV6qS7SGTWIs1MeUDSvqOBwNnpola
+ 0q2rk2/JqrJlpkj4kRfmr+lwZKcOT/Ir2qWKl98NqoynsFyOCcS1vYpqrgHBkoQ5rWrynzfXHsC
+ sz4FdIah6g/0Eka
+X-Received: by 2002:a05:690c:2701:b0:79b:cf31:9767 with SMTP id
+ 00721157ae682-7b9ece638bbmr313691517b3.3.1777015037638; 
+ Fri, 24 Apr 2026 00:17:17 -0700 (PDT)
+X-Received: by 2002:a05:690c:2701:b0:79b:cf31:9767 with SMTP id
+ 00721157ae682-7b9ece638bbmr313691117b3.3.1777015037197; Fri, 24 Apr 2026
+ 00:17:17 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260420-kunit_add_support-v7-0-e8bc6e0f70de@redhat.com>
+ <20260420-kunit_add_support-v7-4-e8bc6e0f70de@redhat.com>
+ <20260420144702.GM3102624@noisy.programming.kicks-ass.net>
+ <CADSE00JJq6fsYbkFN5hBD=-ZWsFG9p4_C55fp3MupMJQj0QCUQ@mail.gmail.com>
+ <8a9c125c08206296d698c79c3d3dd6aea36a7e3b@intel.com>
+In-Reply-To: <8a9c125c08206296d698c79c3d3dd6aea36a7e3b@intel.com>
+From: Albert Esteve <aesteve@redhat.com>
+Date: Fri, 24 Apr 2026 09:17:05 +0200
+X-Gm-Features: AQROBzD6yZWbejVMF7ldH8G24-m4djSD1N4zfjIlQ_Qh0r0EH3w2r9AAFZGj5x0
+Message-ID: <CADSE00+b-8moX5FkLjLs+wzyaW5dtJDMxvTT6Gu-QmDoDxJdVA@mail.gmail.com>
+Subject: Re: [PATCH v7 4/5] drm: Suppress intentional warning backtraces in
+ scaling unit tests
+To: Jani Nikula <jani.nikula@intel.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Arnd Bergmann <arnd@arndb.de>, 
+ Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, 
+ Rae Moar <raemoar63@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Andrew Morton <akpm@linux-foundation.org>, 
+ linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, 
+ dri-devel@lists.freedesktop.org, workflows@vger.kernel.org, 
+ linux-doc@vger.kernel.org, Guenter Roeck <linux@roeck-us.net>, 
+ Linux Kernel Functional Testing <lkft@linaro.org>,
+ Dan Carpenter <dan.carpenter@linaro.org>, 
+ =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>, 
+ Alessandro Carminati <acarmina@redhat.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: AJ4Cjy5lPYZLK7EK5H5wlTbm9N1uQlXwBCGvKpXFowk_1777015038
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
-MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,194 +114,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 2026-04-23 at 15:21 -0700, Matthew Brost wrote:
-> On Thu, Apr 23, 2026 at 12:08:36PM -0700, Matthew Brost wrote:
-> > On Thu, Apr 23, 2026 at 01:27:11PM +0200, Thomas Hellstr=C3=B6m wrote:
-> > > On Thu, 2026-04-23 at 12:27 +0200, David Hildenbrand (Arm) wrote:
-> > > > On 4/23/26 07:56, Matthew Brost wrote:
-> > > > > Introduce zone_appears_fragmented() as a lightweight helper
-> > > > > to
-> > > > > allow
-> > > > > subsystems to make coarse decisions about reclaim behavior in
-> > > > > the
-> > > > > presence of likely fragmentation.
-> > > > >=20
-> > > > > The helper implements a simple heuristic: if the number of
-> > > > > free
-> > > > > pages
-> > > > > in a zone exceeds twice the high watermark, the zone is
-> > > > > considered
-> > > > > to
-> > > > > have ample free memory and allocation failures are more
-> > > > > likely due
-> > > > > to
-> > > > > fragmentation than overall memory pressure.
-> > > > >=20
-> > > > > This is intentionally imprecise and is not meant to replace
-> > > > > the
-> > > > > core
-> > > > > MM compaction or fragmentation accounting logic. Instead, it
-> > > > > provides
-> > > > > a cheap signal for callers (e.g., shrinkers) that wish to
-> > > > > avoid
-> > > > > overly aggressive reclaim when sufficient free memory exists
-> > > > > but
-> > > > > high-order allocations may still fail.
-> > > > >=20
-> > > > > No functional changes; this is a preparatory helper for
-> > > > > future
-> > > > > users.
-> > > > >=20
-> > > > > Cc: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
-> > > > > Cc: Andrew Morton <akpm@linux-foundation.org>
-> > > > > Cc: David Hildenbrand <david@kernel.org>
-> > > > > Cc: Lorenzo Stoakes <ljs@kernel.org>
-> > > > > Cc: "Liam R. Howlett" <Liam.Howlett@oracle.com>
-> > > > > Cc: Vlastimil Babka <vbabka@kernel.org>
-> > > > > Cc: Mike Rapoport <rppt@kernel.org>
-> > > > > Cc: Suren Baghdasaryan <surenb@google.com>
-> > > > > Cc: Michal Hocko <mhocko@suse.com>
-> > > > > Cc: linux-mm@kvack.org
-> > > > > Cc: linux-kernel@vger.kernel.org
-> > > > > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> > > > > ---
-> > > > > =C2=A0include/linux/vmstat.h | 13 +++++++++++++
-> > > > > =C2=A01 file changed, 13 insertions(+)
-> > > > >=20
-> > > > > diff --git a/include/linux/vmstat.h b/include/linux/vmstat.h
-> > > > > index 3c9c266cf782..568d9f4f1a1f 100644
-> > > > > --- a/include/linux/vmstat.h
-> > > > > +++ b/include/linux/vmstat.h
-> > > > > @@ -483,6 +483,19 @@ static inline const char
-> > > > > *zone_stat_name(enum
-> > > > > zone_stat_item item)
-> > > > > =C2=A0	return vmstat_text[item];
-> > > > > =C2=A0}
-> > > > > =C2=A0
-> > > > > +static inline bool zone_appears_fragmented(struct zone
-> > > > > *zone)
-> > > > > +{
-> > > >=20
-> > > > "zone_likely_fragmented" or "zone_maybe_fragmented" might be
-> > > > clearer,
-> > > > depending
-> > > > on the actual semantics.
-> > > >=20
-> > > > > +	/*
-> > > > > +	 * Simple heuristic: if the number of free pages is
-> > > > > more
-> > > > > than twice the
-> > > > > +	 * high watermark, this strongly suggests that the
-> > > > > zone is
-> > > > > heavily
-> > > > > +	 * fragmented when called from a shrinker.
-> > > > > +	 */
-> > > >=20
-> > > > I'll cc some more people. But the "when called from a shrinker"
-> > > > bit
-> > > > is
-> > > > concerning. Are there additional semantics that should be
-> > > > expressed
-> > > > in the
-> > > > function name, for example?
-> > > >=20
-> > > > Something that implies that this function only gives you a
-> > > > reasonable
-> > > > answer in
-> > > > a certain context.
-> > >=20
-> > > I think that test would not be relevant for cgroup-aware
-> > > shrinking.
-> > >=20
-> > > What about trying to pass something in the struct shrink_control?
-> > > Like
-> > > if we pass the struct scan_control's order field also in struct
-> >=20
-> > If the order were included in shrink_control, there is about a 95%
-> > certain that this change would allow TTM / Xe to break the
-> > problematic
-> > kswapd feedback loop. This may also better express the intent of
-> > the
-> > problem we are trying to fix here.
-> >=20
-> > For reference, the cover letter [1] details the problem.
-> >=20
-> > Any guidance from the core MM folks would be appreciated=E2=80=94would
-> > adding
-> > the order to shrink_control be an acceptable solution?
-> >=20
-> > Matt
-> >=20
-> > [1] https://patchwork.freedesktop.org/series/165330/
-> >=20
-> > > shrink_control, really expensive shrinkers could duck reclaim
-> > > attempts
-> > > from higher-order allocations that may fail anyway:
-> > >=20
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (sc->order > PAGE_ALLOC_COSTLY_ORDE=
-R &&
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (sc->gfp=
-_mask & (__GFP_NORETRY | __GFP_RETRY_MAYFAIL))
-> > > &&
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 !(sc->gf=
-p_mask & __GFP_NOFAIL))
->=20
-> It doesn't look like __GFP_NORETRY, __GFP_RETRY_MAYFAIL, __GFP_NOFAIL
-> make it to the sc->gfp_mask flags from the caller and get into kswapd
-> loop...
+On Tue, Apr 21, 2026 at 1:51=E2=80=AFPM Jani Nikula <jani.nikula@intel.com>=
+ wrote:
+>
+> On Tue, 21 Apr 2026, Albert Esteve <aesteve@redhat.com> wrote:
+> > On Mon, Apr 20, 2026 at 4:47=E2=80=AFPM Peter Zijlstra <peterz@infradea=
+d.org> wrote:
+> >>
+> >> On Mon, Apr 20, 2026 at 02:28:06PM +0200, Albert Esteve wrote:
+> >> > From: Guenter Roeck <linux@roeck-us.net>
+> >> >
+> >> > The drm_test_rect_calc_hscale and drm_test_rect_calc_vscale unit tes=
+ts
+> >> > intentionally trigger warning backtraces by providing bad parameters=
+ to
+> >> > the tested functions. What is tested is the return value, not the ex=
+istence
+> >> > of a warning backtrace. Suppress the backtraces to avoid clogging th=
+e
+> >> > kernel log and distraction from real problems.
+> >> >
+> >> > Tested-by: Linux Kernel Functional Testing <lkft@linaro.org>
+> >> > Acked-by: Dan Carpenter <dan.carpenter@linaro.org>
+> >> > Acked-by: Ma=C3=ADra Canal <mcanal@igalia.com>
+> >> > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> >> > Cc: David Airlie <airlied@gmail.com>
+> >> > Cc: Daniel Vetter <daniel@ffwll.ch>
+> >> > Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+> >> > Signed-off-by: Alessandro Carminati <acarmina@redhat.com>
+> >> > Signed-off-by: Albert Esteve <aesteve@redhat.com>
+> >> > ---
+> >> >  drivers/gpu/drm/tests/drm_rect_test.c | 14 ++++++++++++++
+> >> >  1 file changed, 14 insertions(+)
+> >> >
+> >> > diff --git a/drivers/gpu/drm/tests/drm_rect_test.c b/drivers/gpu/drm=
+/tests/drm_rect_test.c
+> >> > index 17e1f34b76101..1dd7d819165e7 100644
+> >> > --- a/drivers/gpu/drm/tests/drm_rect_test.c
+> >> > +++ b/drivers/gpu/drm/tests/drm_rect_test.c
+> >> > @@ -409,8 +409,15 @@ static void drm_test_rect_calc_hscale(struct ku=
+nit *test)
+> >> >       const struct drm_rect_scale_case *params =3D test->param_value=
+;
+> >> >       int scaling_factor;
+> >> >
+> >> > +     /*
+> >> > +      * drm_rect_calc_hscale() generates a warning backtrace whenev=
+er bad
+> >> > +      * parameters are passed to it. This affects all unit tests wi=
+th an
+> >> > +      * error code in expected_scaling_factor.
+> >> > +      */
+> >> > +     KUNIT_START_SUPPRESSED_WARNING(test);
+> >> >       scaling_factor =3D drm_rect_calc_hscale(&params->src, &params-=
+>dst,
+> >> >                                             params->min_range, param=
+s->max_range);
+> >> > +     KUNIT_END_SUPPRESSED_WARNING(test);
+> >>
+> >> Would not something like:
+> >>
+> >>         scoped_kunit_suppress() {
+> >>                 scaling_factor =3D drm_rect_calc_hscale(&params->src, =
+&params->dst,
+> >>                                                       params->min_rang=
+e, params->max_range);
+> >>         }
+> >>
+> >> be better?
+> >
+> > Since KUnit already has a few macros in its API it didn't occur to me.
+> > Good idea, I like it. And I guess the scope approach matches well with
+> > your __cleanup comment in the first patch. If no one opposes, I will
+> > work toward that pattern for the next version.
+>
+> There's a catch with kunit and __cleanup and thus (scoped) guards. Kunit
+> runs in ktreads, asserts lead to kthread_exit() and the __cleanup won't
+> be called.
 
-Perhaps that's because they mostly (only?) make sense from direct
-reclaim? Looks like the trace is from kswapd.
+Hi Jani,
 
-Another metric to weigh in is perhaps the scan_control::priority field.
-From my understanding it is progressively decreased towards 0 with 0
-indicating most urgent shrinking.=20
+Good point. In this specific case, the actual cleanup is handled by
+kunit_add_action_or_reset(), so __cleanup not firing on assert is
+harmless.
 
-Thanks,
-Thomas
+>
+> Warning suppression being part of kunit infrastructure, asserts can and
+> should end the suppression too. But setting the example (scoped) guards
+> are safe in kunit tests in general feels like a trap waiting to happen.
+>
 
->=20
-> =C2=A01182 [=C2=A0 394.049058] xe_shrinker_scan: no skip order=3D9,
-> gfp=3D0x0000000000000cc0
-> =C2=A01183 [=C2=A0 394.049061] CPU: 2 UID: 0 PID: 110 Comm: kswapd0 Not t=
-ainted
-> 7.0.0-xe+ #355 PREEMPT(full)
-> =C2=A01184 [=C2=A0 394.049062] Hardware name: Intel Corporation Panther L=
-ake
-> Client Platform/PTL-UH LP5 T3 RVP1, BIOS
-> PTLPFWI1.R00.3332.D05.2509011438 09/01/2025
-> =C2=A01185 [=C2=A0 394.049063] Call Trace:
-> =C2=A01186 [=C2=A0 394.049065]=C2=A0 <TASK>
-> =C2=A01187 [=C2=A0 394.049066]=C2=A0 dump_stack_lvl+0x55/0x70
-> =C2=A01188 [=C2=A0 394.049073]=C2=A0 xe_shrinker_scan+0x274/0x280 [xe]
-> =C2=A01189 [=C2=A0 394.049181]=C2=A0 do_shrink_slab+0x132/0x360
-> =C2=A01190 [=C2=A0 394.049184]=C2=A0 shrink_slab+0xf0/0x3e0
-> =C2=A01191 [=C2=A0 394.049186]=C2=A0 shrink_node+0x2bd/0x800
-> =C2=A01192 [=C2=A0 394.049188]=C2=A0 balance_pgdat+0x323/0x760
-> =C2=A01193 [=C2=A0 394.049189]=C2=A0 kswapd+0x1c3/0x340
-> =C2=A01194 [=C2=A0 394.049190]=C2=A0 ? __pfx_autoremove_wake_function+0x1=
-0/0x10
-> =C2=A01195 [=C2=A0 394.049193]=C2=A0 ? __pfx_kswapd+0x10/0x10
-> =C2=A01196 [=C2=A0 394.049194]=C2=A0 kthread+0xdf/0x120
-> =C2=A01197 [=C2=A0 394.049196]=C2=A0 ? __pfx_kthread+0x10/0x10
-> =C2=A01198 [=C2=A0 394.049197]=C2=A0 ret_from_fork+0x1d0/0x220
-> =C2=A01199 [=C2=A0 394.049200]=C2=A0 ? __pfx_kthread+0x10/0x10
-> =C2=A01200 [=C2=A0 394.049200]=C2=A0 ret_from_fork_asm+0x1a/0x30
-> =C2=A01201 [=C2=A0 394.049202]=C2=A0 </TASK>
->=20
-> Will look into if this is fixable, but again any core MM guidance
-> would
-> helpful.
->=20
-> Matt
->=20
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return S=
-HRINK_STOP;
-> > >=20
-> > > Possibly exposed as an inline helper in the shrinker interface?
-> > >=20
-> > > /Thomas
-> > >=20
-> > >=20
-> > >=20
-> > >=20
+... but I agree it sets a misleading precedent. I'll stick with the
+explicit start/end API, then? Or maybe we can clearly document why the
+scoped approach is safe in this case and use it.
+
+>
+> BR,
+> Jani.
+>
+>
+> >
+> >>
+> >> Also, how can you stand all this screaming in the code?
+> >>
+> >
+> > Again, KUnit already contains many macros, so this use didn't register
+> > as such. Now I will not be able to unsee it.
+> >
+> >
+>
+> --
+> Jani Nikula, Intel
+>
+
