@@ -4,93 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DA48FED3C5
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 12:55:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACD36FED3C9
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 13:08:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C4DD10F56A;
-	Fri, 24 Apr 2026 12:55:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1119710F58D;
+	Fri, 24 Apr 2026 13:08:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="DxibHRaK";
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="bss6v6+m";
 	dkim-atps=neutral
-Received: from mail-pl1-f227.google.com (mail-pl1-f227.google.com
- [209.85.214.227])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB08910F59B
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 12:55:28 +0000 (UTC)
-Received: by mail-pl1-f227.google.com with SMTP id
- d9443c01a7336-2b7d3ecc10dso624435ad.2
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 05:55:28 -0700 (PDT)
+Received: from mail-dl1-f100.google.com (mail-dl1-f100.google.com
+ [74.125.82.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9969610F58D
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 13:08:39 +0000 (UTC)
+Received: by mail-dl1-f100.google.com with SMTP id
+ a92af1059eb24-12c726f46baso9732850c88.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 06:08:39 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777035328; x=1777640128;
+ d=1e100.net; s=20251104; t=1777036119; x=1777640919;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=ZUBGDolqxGw1GZkvkH+iSnIyt6GXZroWy0qNt0wlGTk=;
- b=miU+0toW9NXlz6CKYOr8ldFObN9KP5EG+TYAo6CYKNMLp+mcxKBCVnhwGKFJ16hNC+
- Lq/s8KOIDRIeg+RqyIpRemxygk1A2RYeawhoZXxIskWh4LlAogj/gYExX72d7Zaa0IC4
- vGFX5CcLW7obzbw4Xa2L9Vk6wIUxoSvkDyNZEO0aVriWF7U2ZCDjjsMIxdPC2jWjAa05
- soSOAPG4weEqC7C3BSnl9n5F5z0ixwSaCCjwYOLUlo4lDVcsLe9oO9jk8vaiD7o3FFK1
- MzFwZLAkkIPYgDudhGhJ1q0ASxcCuDxDRUjREhXlDzP5zCjTNEJdEnXrvnAh/ILvpa7J
- OA1Q==
+ bh=04PoJGYYbIVeybVOTimRunrvJNsyFgk10x++FEl8Po8=;
+ b=szb/5aVyjNKZwR09CiB9lAc5gXaDhF9bqJZh33bmUm2V9xJxIO70ZfCjroIL+JlsYY
+ dDJ5ivIs7TXKGgaxTqadiaTsNIfw1YKH57C8Oh6Wquxh9FD1CNPQ9dHtRzSp0PtU3kSz
+ XjlSNIYJCjJwkCkZSWPP8VDk/UpFXS+O1A+NVCkr18Xyn0L+mGuwvglSnYBWxP4/0TdS
+ LOFlNpEovAzmBAF21XsKsDmG/LYJZo8HWSf9XnIVVCimoLN/tgITvmxq6kLBd+kzgyoo
+ oLIIHu0bcn77Nqe2wkYC7ABze0uMRvjz5zpsCo4zXkryrUrUtyiO1wvWXKcJIJwPyAjb
+ h1SQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/MRoRb9jzbdqPpk5V7HnTm49D65oTMGnWnIQ56zRDDUBHq5F5ReqjD0sgaGDeM3moYO/XqwJsHlww=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwGHzI7hj5hQWP5lZDhCwyOM3Ouwd5SzzbkpUDOM8SxEnamrG/F
- HqHxST7WFU/HzxFeor/m1fws2BdKWt7uN4/wIJX5bDPC+HVbZpFf5qVoJ+Eabuh+44s9ttLjl9x
- rva9r2tEwRwIl/xDdnyIICf3TfeDgt8qha6VwDZ1Fq4lDP7AB/dlBch87iSOFgFmPz9U7BXhpOZ
- F2W11bH0vNBX5qT4q/OWu6yvyKbn/d5ErWRtz+KXp4CegRth/xOG9O/aYZKlMsiwuhmRxo60FEG
- INRVxjXAAzFKlmJ4alL
-X-Gm-Gg: AeBDievaBfJ0MfBCOIsYEknsOsh/B6eC7q5/CcE65B6N4HkRC/ZYNJrTU/vwvrebk+P
- uQe8Z7ZePpp1M+9hnfWR5fnyjqeqhRUHyQOlevuNEi8PWIRs5qN4f+nCkvwRVAP139T6hTqJV+B
- xu3Ir+AFT8fw6PIDYvaN7dlL/T+DUm56uWIlGX07viTz3UTPxyRYSr8LgIVplPzfobGY95u13iE
- PjB2CtVwrrPvdGhwtBEvZWPJ/rVvqrTPHg+Cys3uQYQfcxnN6HqZeERhUMj81HhLuPtWJu7RTFt
- myWdHyUPC15RCrrixcTqBdLo0Yy66R8BrfhcOcER/UdlqTmvmCGy8nKoYLq98kwodtbQcqj4JMX
- aPdD8uTzRxM1YUJGwPFtW1k/kflqRTrPiaw/tAqJzCH7eWSXPv9Cl81UcvGOIJ4xQEVoy3B8gXu
- EiKWALhJhA/SAOYin1LWFRZT1WNzaFcmWVvFK2c4MeXLaMXAPiv9m8DDIMD0nl13pQcJM=
-X-Received: by 2002:a17:903:1b07:b0:2b4:5cea:f61c with SMTP id
- d9443c01a7336-2b5f9e78672mr354275075ad.4.1777035328245; 
- Fri, 24 Apr 2026 05:55:28 -0700 (PDT)
+ AFNElJ9AG7hVtJr1SrwNzZ4rRpEwW4MCNKuvKOwHMhEvp7eUZlkV26j4ktL4KBhBk20bAEBeUp3cxfVxXTQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzvUJFbnxUHVIyoUvR/J7KQymtAJc6RCX9nC8ogxw9Q+FhnkC2U
+ xCSx8bSol0WxOeKAM0yOQ/o5ZlB+ffKrQlMZvSqkyIq3EqIkfRESHx5fhhxMhzg/KUy6ZmWLz1R
+ i6+CbRFRR/djQvPJ1LRQD3hO+1Q/Y2iYGWqUjKGNVrW6QMuipbIyHMOdsGPQrBhLFHuQi0Pp1RI
+ 0yjJRUG/1vYjKMACJ1jyUuGbn9BMBOt5JeYqFZDeUXwTh50aqR/IkIQxL9sgjCJZXftno9uhyCf
+ 9BHgk1z07GOF9ZfKGjN
+X-Gm-Gg: AeBDieuE7F+yBSxmVZhoeyT21n8FoiAQo4xPUGjioVlOB6Ondz1mz9b+hfu/iOv3oBG
+ 9clJo/6CxBw0+hbEixw9rtDQSSlIIwaf5Fn+QUQCVZdAhm2w/jVSWjYqRTRlJUdMCxjUzWJi7uY
+ 683nKlec2K7Z/7h305Q8AQa67+0UxdsEEByVCgm4UEgLHPv/QckykrTDMItbpaZ9aHJDv37LKrT
+ cGjXw/3R8jDGhazboXkLPao9qeTFhTPcfVyvCL7oVpCFabvpbBUn8alnnENwIpLgE+Jki583w1s
+ MbMyzvpmBN1GOTsjjFN5EcpXR3GcZSOKTQ5LFLH1OPi9xe1NFPUw1NgAfh9eAzGNW7a7+jjvCAa
+ 1HaPeJWzMmc+dAgN6BrsHxWRx3PvRNmFNKvhqi3IL99Ywbh7bQz0km9+PZCOJ9ZmDn4o7+mhB6A
+ FuSz2UnLNT6UaFRnmWpmHbG4rPUVZpT8uTfte0LPzrPmVBCS63tCYjqc/8WuhU0FdA
+X-Received: by 2002:a05:7022:ec13:b0:12a:6a64:81ee with SMTP id
+ a92af1059eb24-12c73f64465mr15776785c88.3.1777036118412; 
+ Fri, 24 Apr 2026 06:08:38 -0700 (PDT)
 Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-101.dlp.protect.broadcom.com. [144.49.247.101])
+ (address-144-49-247-16.dlp.protect.broadcom.com. [144.49.247.16])
  by smtp-relay.gmail.com with ESMTPS id
- d9443c01a7336-2b5faae2744sm16034065ad.30.2026.04.24.05.55.27
+ a92af1059eb24-12db53641a4sm949310c88.4.2026.04.24.06.08.37
  for <dri-devel@lists.freedesktop.org>
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 24 Apr 2026 05:55:28 -0700 (PDT)
+ Fri, 24 Apr 2026 06:08:38 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-wr1-f72.google.com with SMTP id
- ffacd0b85a97d-43ff0eb2b2aso4991727f8f.2
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 05:55:27 -0700 (PDT)
+Received: by mail-wr1-f70.google.com with SMTP id
+ ffacd0b85a97d-43d7757463eso5115783f8f.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 06:08:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1777035326; x=1777640126;
+ d=broadcom.com; s=google; t=1777036116; x=1777640916;
  darn=lists.freedesktop.org; 
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=ZUBGDolqxGw1GZkvkH+iSnIyt6GXZroWy0qNt0wlGTk=;
- b=DxibHRaKtdNy92qUJsvvXqMNdKhVVgbb70OhN0EtfKugV2DqD9X9GANAogPOO4xur6
- vS3m0/BvhvMuY4L3eRe81oYpPP0x/HxXUYE6qpzbgIhXmhmqMrsc5rnPJBjOTaWZQSyU
- xY1eVA2Rx17bYuj0YDkK7LPn+J4M06pj9sDk0=
+ bh=04PoJGYYbIVeybVOTimRunrvJNsyFgk10x++FEl8Po8=;
+ b=bss6v6+m2CXfm5O33oDC+eQ8E8UfcLobnhZfba+ENQbdqohOhQrhSAhfUhg49PkKwP
+ Wk5+EZ5VHCqlsC6w1SevFHUwykDmEbhAcd/tKBxAdXycUdOcaRZFVo0m/oJ8eCR0izJR
+ jvcsnWdlnX/GKS9XJhN3ob+K6Q07fqFvwkYvk=
 X-Forwarded-Encrypted: i=1;
- AFNElJ9YrniR7o4ZSwFOdAT8Cjp+DgiJ5uHxihujZcJArf5eW+kF8flo3d6j3dL0kP68t0g3fRn7dGVToxo=@lists.freedesktop.org
-X-Received: by 2002:a5d:5f93:0:b0:43d:7854:32e7 with SMTP id
- ffacd0b85a97d-43fe3dd3ac1mr49712946f8f.15.1777035326124; 
- Fri, 24 Apr 2026 05:55:26 -0700 (PDT)
-X-Received: by 2002:a5d:5f93:0:b0:43d:7854:32e7 with SMTP id
- ffacd0b85a97d-43fe3dd3ac1mr49712906f8f.15.1777035325640; Fri, 24 Apr 2026
- 05:55:25 -0700 (PDT)
+ AFNElJ++OUzg7f69ycA90fhjmRIMFP+SGMC6I5qDLoaDoe2wbk1WxDK0jNliL79lNXS0zcUDxA4PP57Ng68=@lists.freedesktop.org
+X-Received: by 2002:a05:6000:44e8:b0:441:1cfb:2024 with SMTP id
+ ffacd0b85a97d-4411cfb20admr17830463f8f.26.1777036116132; 
+ Fri, 24 Apr 2026 06:08:36 -0700 (PDT)
+X-Received: by 2002:a05:6000:44e8:b0:441:1cfb:2024 with SMTP id
+ ffacd0b85a97d-4411cfb20admr17830417f8f.26.1777036115611; Fri, 24 Apr 2026
+ 06:08:35 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260424092012.5694-1-christian.koenig@amd.com>
-In-Reply-To: <20260424092012.5694-1-christian.koenig@amd.com>
+References: <CAGp+u1Y42cwE0RHhtoMEneCRTuM4k9aqKtzvXOVc9-_px49N0A@mail.gmail.com>
+In-Reply-To: <CAGp+u1Y42cwE0RHhtoMEneCRTuM4k9aqKtzvXOVc9-_px49N0A@mail.gmail.com>
 From: Ian Forbes <ian.forbes@broadcom.com>
-Date: Fri, 24 Apr 2026 07:55:13 -0500
-X-Gm-Features: AQROBzCLVWXa521rWgconPPOprBbUju5MXrjasnDABLrP25ttyaTimFcA0qAajM
-Message-ID: <CAO6MGth7OXG64pBxdtHU67M+yQ7QM7rSFQTmT57_1sC6TQMK4w@mail.gmail.com>
-Subject: Re: Finishing drm_exec cleanup
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: zack.rusin@broadcom.com, bcm-kernel-feedback-list@broadcom.com, 
- dri-devel@lists.freedesktop.org
+Date: Fri, 24 Apr 2026 08:08:22 -0500
+X-Gm-Features: AQROBzAw9ODul4JEGouNRJRaK4WaqXPIckIT4bL36zzOpw2upJZSTmbY4yIxr9o
+Message-ID: <CAO6MGtgE+MxeOv5xDhRoKh75tJgfvfaxoevMHJ_-AJZUc5vQyQ@mail.gmail.com>
+Subject: Re: [bug report] Potential deadlock bug in
+ 'drivers/gpu/drm/vmwgfx/vmwgfx_irq.c', 
+ between 'vmw_thread_fn()' and 'vmw_cmdbuf_header_free()'
+To: Ginger <ginger.jzllee@gmail.com>
+Cc: zack.rusin@broadcom.com, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 Content-Type: multipart/signed; protocol="application/pkcs7-signature";
- micalg=sha-256; boundary="000000000000633e2206503447c0"
+ micalg=sha-256; boundary="0000000000007b373d0650347629"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,85 +108,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---000000000000633e2206503447c0
-Content-Type: multipart/alternative; boundary="00000000000056b294065034474e"
+--0000000000007b373d0650347629
+Content-Type: multipart/alternative; boundary="0000000000006cc6a80650347608"
 
---00000000000056b294065034474e
+--0000000000006cc6a80650347608
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-When I tested this last time the first patch was fine but applying
-subsequent patches broke vmwgfx. I did get it to work but it required some
-hacks and at the time there was a major conflict with the ttm -> gem
-reference counting series. I will try again now that the reference counting
-changes are done but some changes will be needed in vmw_cotable_resize.
+T0 is a threaded IRQ handler so it should not run in an IRQ context.
 
-On Fri, Apr 24, 2026 at 4:20=E2=80=AFAM Christian K=C3=B6nig <
-ckoenig.leichtzumerken@gmail.com> wrote:
+On Fri, Apr 24, 2026 at 2:45=E2=80=AFAM Ginger <ginger.jzllee@gmail.com> wr=
+ote:
 
-> Hi Zack,
+> Dear Linux kernel maintainers,
 >
-> VMWGFX is the only DRM driver who is still using the old ttm_execbuf
-> framework and while going over my TODO branches I've found that I never
-> upstreamed the patches to clean that up and fully move over to drm_exec.
+> My research-based static analyzer found a potential deadlock bug
+> within the 'drivers/gpu/drm/vmwgfxl' subsystem, more specifically, in
+> 'drivers/gpu/drm/vmwgfx/vmwgfx_irq.c'.
+> This deadlock potentially occurs with the involvement of hard irq.
 >
-> It should be a trivial 1 to 1 replacement now, but I can only compile
-> test it.
+> Kernel version: long-term kernel v6.18.9
 >
-> There can be more cleanup on top of this, for example as far as I can
-> see vmw_resource_check_buffer() actually doesn't need a ticket. But this
-> isn't the topic of this patch set.
+> Potential concurrent triggering executions:
+> T0:
+> vmw_thread_fn[t1]
+>        --> vmw_cmdbuf_irqthread
+>               --> spin_lock(&man->lock); [t2]
 >
-> Please let me know what you think since that would allow remove quite a
-> bunch of otherwise unmaintained code.
+> T1:
+> vmw_cmdbuf_header_free
+>     --> spin_lock(&man->lock) [t0]
 >
-> Thanks,
-> Christian.
+> T1 does not disable hardware irqs in acquiring the spin lock. If T0
+> (i.e., the hard irq context) occurs after T1 acquires the lock and
+> both happen within the same CPU, then T0 will not proceed because it
+> cannot hold the spin lock that has already been possessed by T1, yet
+> T1 cannot proceed because the hard irq runs disables preempts.
 >
+> Thank you for your time and consideration.
+>
+> Sincerely,
+> Ginger
 >
 
---00000000000056b294065034474e
+--0000000000006cc6a80650347608
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 <div dir=3D"ltr"><div class=3D"gmail_default" style=3D"font-family:arial,sa=
-ns-serif">When I tested this last time the first patch was fine but applyin=
-g subsequent patches broke vmwgfx. I did get it to work but it required som=
-e hacks and at the time there was a major conflict with the ttm -&gt; gem r=
-eference counting series. I will try again now that the reference counting =
-changes are done but some changes will be needed in vmw_cotable_resize.</di=
-v></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr=
-">On Fri, Apr 24, 2026 at 4:20=E2=80=AFAM Christian K=C3=B6nig &lt;<a href=
-=3D"mailto:ckoenig.leichtzumerken@gmail.com" target=3D"_blank">ckoenig.leic=
-htzumerken@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quo=
-te" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204=
-);padding-left:1ex">Hi Zack,<br>
+ns-serif">T0 is a threaded IRQ handler so it should not run in an IRQ conte=
+xt.</div></div><br><div class=3D"gmail_quote gmail_quote_container"><div di=
+r=3D"ltr" class=3D"gmail_attr">On Fri, Apr 24, 2026 at 2:45=E2=80=AFAM Ging=
+er &lt;<a href=3D"mailto:ginger.jzllee@gmail.com">ginger.jzllee@gmail.com</=
+a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0p=
+x 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">De=
+ar Linux kernel maintainers,<br>
 <br>
-VMWGFX is the only DRM driver who is still using the old ttm_execbuf<br>
-framework and while going over my TODO branches I&#39;ve found that I never=
+My research-based static analyzer found a potential deadlock bug<br>
+within the &#39;drivers/gpu/drm/vmwgfxl&#39; subsystem, more specifically, =
+in<br>
+&#39;drivers/gpu/drm/vmwgfx/vmwgfx_irq.c&#39;.<br>
+This deadlock potentially occurs with the involvement of hard irq.<br>
 <br>
-upstreamed the patches to clean that up and fully move over to drm_exec.<br=
->
+Kernel version: long-term kernel v6.18.9<br>
 <br>
-It should be a trivial 1 to 1 replacement now, but I can only compile<br>
-test it.<br>
+Potential concurrent triggering executions:<br>
+T0:<br>
+vmw_thread_fn[t1]<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0--&gt; vmw_cmdbuf_irqthread<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 --&gt; spin_lock(&amp;man-=
+&gt;lock); [t2]<br>
 <br>
-There can be more cleanup on top of this, for example as far as I can<br>
-see vmw_resource_check_buffer() actually doesn&#39;t need a ticket. But thi=
-s<br>
-isn&#39;t the topic of this patch set.<br>
+T1:<br>
+vmw_cmdbuf_header_free<br>
+=C2=A0 =C2=A0 --&gt; spin_lock(&amp;man-&gt;lock) [t0]<br>
 <br>
-Please let me know what you think since that would allow remove quite a<br>
-bunch of otherwise unmaintained code.<br>
+T1 does not disable hardware irqs in acquiring the spin lock. If T0<br>
+(i.e., the hard irq context) occurs after T1 acquires the lock and<br>
+both happen within the same CPU, then T0 will not proceed because it<br>
+cannot hold the spin lock that has already been possessed by T1, yet<br>
+T1 cannot proceed because the hard irq runs disables preempts.<br>
 <br>
-Thanks,<br>
-Christian.<br>
+Thank you for your time and consideration.<br>
 <br>
+Sincerely,<br>
+Ginger<br>
 </blockquote></div>
 
---00000000000056b294065034474e--
+--0000000000006cc6a80650347608--
 
---000000000000633e2206503447c0
+--0000000000007b373d0650347629
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment; filename="smime.p7s"
@@ -276,13 +289,13 @@ Gj5JV81HTPLhoAya57a9i28Fp5qHZiFnCq4HMvwiwY7IWe+UwUuueU199aTK80xNiS553vHc6FpI
 /vxGy+LveJqEtodfKqQKwDOVu//c1Lz3uergJHqFYTMykk5U95J3FG5q/7Mqe4RF6E9OgtuAJidS
 6Ca5anjLQ/qzIfTjoXX7TJSjPztehRQxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
 VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
-QSAyMDIzAgx2/5+PPF/QoW30N7swDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEINix
-IteDV8EkvoMvZfY6240exoYRBSxGrvmnMZnBHRkNMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
-HAYJKoZIhvcNAQkFMQ8XDTI2MDQyNDEyNTUyNlowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
+QSAyMDIzAgx2/5+PPF/QoW30N7swDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIKyo
+fY/1quWrvt4291B6r5upyscuit2Fzw3SO/TZDdDcMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
+HAYJKoZIhvcNAQkFMQ8XDTI2MDQyNDEzMDgzNlowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
 ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
-YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAJxrUNXHCpQfquweah86bfuoONkpiTRqb7lRZohO
-BvdOlI8tb/Yv1k+wWPK+Jonx8DgaYWC27cn/kYawWCjNVPICx3m/XsQpDnnL0BD6dKU4YJUrAyEO
-fVdnrTJj/d//HiA1qKKMmdiqJ9DhJ26FD55szIItaam4CksvG+5ONKdbKE0hL9rHiTCbg54/sSSz
-VRYSKqabU1tremGvoMUke287Q2BoOEPIyxVtj/jLg09ROaKnta3XNmZ3yUqgl/WDZVoog+f5+jYf
-DPILOayUjEwmrPeV1KmgzpjlM6V48a0W2SUHrYwaWHwOsFcLQ8qL+VDZKqjbdI2gIgw9DNul2RY=
---000000000000633e2206503447c0--
+YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAFc3h2HplTd4r6+OaWtaYcXXDL0YPHmcGjmebd9T
+xB0LYC0UN3TqVkV/tPLWn4k8J/wZ53p6OyGP3+uYRYqQnCLBXNqQML8LbVeXjZ/JjCty7i+QwYAG
+MpFwaQDeW5Ou3yLA1ROohhGxIgSlBMcaI6IbWpnNyXtupBm7Hy92A1wGZItbJIxS8kcBMp2cx/P0
+mwpLpWZi2v0Uwm+Ex/8IsVhBFlSW4cRORRwha8UL/gOVKV8wjSHsVkmhCiL+pa6tvvQWI7UOUMNV
+XKwyRtXui1dkdie3+E1Pmqrj9ckkxmU2aMctRmNj0eHGDs2v7KPs1ytZ9mkjsqkanWqnUM5gr+E=
+--0000000000007b373d0650347629--
