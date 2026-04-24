@@ -4,178 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 659F0F589DF
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 08:42:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09D0DFE51E5
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 08:44:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96D4B10F435;
-	Fri, 24 Apr 2026 08:42:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1202610F3D3;
+	Fri, 24 Apr 2026 08:44:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="mHfowSX4";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CW7ZL+CR";
 	dkim-atps=neutral
-Received: from TY3P286CU002.outbound.protection.outlook.com
- (mail-japaneastazon11010052.outbound.protection.outlook.com [52.101.229.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73FA510F435;
- Fri, 24 Apr 2026 08:42:35 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kC8j0wmpzfz8cS/86QP9uq5wiLDWG5rJfkZMM+scbYSQ/ahChTPNuGd2eA4SqyRCvxHQ4IN0Efz9/r7ylJoQfJeAsITxfa7+9lpdg2kcUa+Bz8UDvB5z/lMAttFX4qDr/sRypmh/rvS5RZh9blA5dUDXzxWXDEcN4NWur+H60TEeL2+b3P6iCx3tk3MAOcQqHHzSwLfAlCKEg27BpsciKZKAGaHoj3IqAvwGwCCo0lcHZ/y8UEUcgZQB+i1fyCgXjHmCUuqJ51PSpvC7DlRrNxjBToMSf55VpJFjUcrgrPRHpnC4L03boQMfJ45RQASM68IGRssJ1wF1IEfkHX5kSQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+wJjsf/anvYo50AdPO34dd21s+fgnlT6QdME+TXBaGQ=;
- b=cf67Ak+VnQnxJzWbBFr9mduXA5KdMTL6ltAvQI3fHf7Vrw6XArodw9om4iZ7aGYiOjbIMSOyUi0BtwJ8RNLIR+XOLB4rYu7MZsUtJzK06v8whYckZ7YIkFtWk6gPXgE4sKjj9G9que3aFCO508wWkiH60lEfobO1hUeDYYkejj8dVCBrCrpulDg/P5VF2wBvLXtFCe3Ohxc0JO9co6gbBTrEeYSfsLXLNJqLL+iqEE4HkPQLtTSjMTe6MQ9bwPAOY+atckX/jd/JSh95GpFiFfYwzZVy8lSy56DAik5n8HA10G46Aw7Fcj1UYTqA87M3HvqnFkYA9+PMMLmUbW94hg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+wJjsf/anvYo50AdPO34dd21s+fgnlT6QdME+TXBaGQ=;
- b=mHfowSX4WseAf37ZPMQgFb+FyKHaCtLgX/n9mHFkgWnD3KxmOkot6PYejY+wDFqTGLJfAHo8JwixZZ/kZl+FarnLY7pjstq6T56WEkuCqOtVNM7Rv1YRfdSaAiRf0L+ctZ0DvlNkvpYBFQavgZdeY1blJd9x3oixe1cCYQN4XyM=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by OSCPR01MB16167.jpnprd01.prod.outlook.com (2603:1096:604:3e4::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.22; Fri, 24 Apr
- 2026 08:42:27 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.20.9846.021; Fri, 24 Apr 2026
- 08:42:27 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Dmitry Baryshkov
- <dmitry.baryshkov@oss.qualcomm.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- laurent.pinchart <laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Sasha Finkelstein
- <fnkl.kernel@gmail.com>, Janne Grunau <j@jannau.net>, Liu Ying
- <victor.liu@nxp.com>, Douglas Anderson <dianders@chromium.org>, Laurentiu
- Palcu <laurentiu.palcu@oss.nxp.com>, Lucas Stach <l.stach@pengutronix.de>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam
- <festevam@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>, Paul Cercueil
- <paul@crapouillou.net>, Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>, Kevin Hilman
- <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, Martin
- Blumenstingl <martin.blumenstingl@googlemail.com>, Rob Clark
- <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, Abhinav
- Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, Sean
- Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- tomi.valkeinen <tomi.valkeinen@ideasonboard.com>, Sandy Huang
- <hjc@rock-chips.com>, =?utf-8?B?SGVpa28gU3TDvGJuZXI=?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, Thierry Reding
- <thierry.reding@gmail.com>, Mikko Perttunen <mperttunen@nvidia.com>, Jonathan
- Hunter <jonathanh@nvidia.com>, Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Jingoo Han <jingoohan1@gmail.com>, Inki Dae <inki.dae@samsung.com>, Seung-Woo
- Kim <sw0312.kim@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, Tomi Valkeinen
- <tomi.valkeinen+renesas@ideasonboard.com>, Kieran Bingham
- <kieran.bingham+renesas@ideasonboard.com>, Geert Uytterhoeven
- <geert+renesas@glider.be>, magnus.damm <magnus.damm@gmail.com>, Marek Vasut
- <marex@denx.de>, Stefan Agner <stefan@agner.ch>, Jyri Sarha
- <jyri.sarha@iki.fi>, Michal Simek <michal.simek@amd.com>
-CC: Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "asahi@lists.linux.dev" <asahi@lists.linux.dev>, "imx@lists.linux.dev"
- <imx@lists.linux.dev>, "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, "linux-mips@vger.kernel.org"
- <linux-mips@vger.kernel.org>, "linux-mediatek@lists.infradead.org"
- <linux-mediatek@lists.infradead.org>, "linux-amlogic@lists.infradead.org"
- <linux-amlogic@lists.infradead.org>, "linux-arm-msm@vger.kernel.org"
- <linux-arm-msm@vger.kernel.org>, "freedreno@lists.freedesktop.org"
- <freedreno@lists.freedesktop.org>, "linux-rockchip@lists.infradead.org"
- <linux-rockchip@lists.infradead.org>, "linux-tegra@vger.kernel.org"
- <linux-tegra@vger.kernel.org>, "linux-samsung-soc@vger.kernel.org"
- <linux-samsung-soc@vger.kernel.org>, "linux-renesas-soc@vger.kernel.org"
- <linux-renesas-soc@vger.kernel.org>
-Subject: RE: [PATCH v2 27/41] drm: renesas: rz-du: rzg2l_du_encoder: remove
- now-redundant call to drm_connector_attach_encoder()
-Thread-Topic: [PATCH v2 27/41] drm: renesas: rz-du: rzg2l_du_encoder: remove
- now-redundant call to drm_connector_attach_encoder()
-Thread-Index: AQHc0wMPn6eeb3cH2UKy8pfL3ClHULXt4txQ
-Date: Fri, 24 Apr 2026 08:42:26 +0000
-Message-ID: <TY3PR01MB113468611B69713E9DE33644F862B2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <20260423-drm-bridge-connector-attach_encoder-v2-0-2ae6ca69b390@bootlin.com>
- <20260423-drm-bridge-connector-attach_encoder-v2-27-2ae6ca69b390@bootlin.com>
-In-Reply-To: <20260423-drm-bridge-connector-attach_encoder-v2-27-2ae6ca69b390@bootlin.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|OSCPR01MB16167:EE_
-x-ms-office365-filtering-correlation-id: 0449fc4a-002a-41fc-50da-08dea1dd69e5
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|7416014|376014|1800799024|22082099003|56012099003|18002099003|921020|38070700021;
-x-microsoft-antispam-message-info: RTF8aGeT5JQ/M/d2/Y5WwzWGiOhBLy0BQg3LMZk3eL3d/Gw6uqspsMHmpqgwCe2t7XkOy6C/t69Fl76+NfspOi2I9CthnreHMA7auFoVg9kW1xtgNR4EwTt7KnMYdAFXgZ0j+mHl0+gFed6rKSdEhC81hOAtu4NCHMWXF7HfIvTFx01Rpm6H/HA5JLaq/P7IhlhnuMF5oTXG4KIiUo7Hl5AqLGrop5dzfQR2IhsD+bNMWMmMSdOU3XlVkEsDty47NfHF1Pt2Hyj3CUaFK8WrMeedOlR2HkIWwOZCeeVdxrMuP++4PrrxpBitbgZd4n63k+BM2Cupf5qi7UtFWSmYUeodHm+u39zWvbEmB21vohh1QLSpx7kBXTr4vqKF30oiYj4ou4/3tTNSlhBnYpYeMNgr7GAannxHptt/WEPAp8+mwR6eiSRHrBBT+xE9xgHteRG6Jwl649coH4l5SiWfwPdb2nDAhWvvJTOcJwuhpS25qqLGo5fr9tRlQFAt2EZjxZ55gIbQ41HcuXFvCznk1ME5yifT8raDuRt6Lx7stOu8sYJwTJuvDwvYgEak3a00ZUpmwE4LU5rJCo+bFyB89vUuEbGRkkReZkafquAF1L3DkvxGlKlSBJ+W6doYM4/JJfYaDq5Z64c2DCTvbMjGJ8CzuV6mDnmtiAAm/oJ5S4yTyyRjUCj1RK2PrgRN9NN4TFx4ZhbpSaqPt0TaVGvmwrQMaqIsx2CoDn9Wxl7BY6GZAmxsUYsq89s/VqR/wMgORoJhPfjhqkrTs+X5J3HGrWa28VBan6EROt4QT+geIaY=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TY3PR01MB11346.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(7416014)(376014)(1800799024)(22082099003)(56012099003)(18002099003)(921020)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?d3ZRdG1jbFJJa3pBUExoWWxHRWQrR3JnSm9mYVV6M1JaaUtFYTIwVGZodDU1?=
- =?utf-8?B?czRQQTAwOFl5d01aNjc1ZXRMOTg1N1VTc3dDUmhJeVVRTHhaK1pIRlhYcCsx?=
- =?utf-8?B?UytOZ1BWcE9KSHZMK0dSWllKcXM1OXlEY2RSK3dKTitXbmdNcFVZbTBScnFU?=
- =?utf-8?B?RHBMSW5kY3R0cW5KREU0d3diUS8zdHpNS283bjRvN2pyeThuSWE3c1cwQ1Y0?=
- =?utf-8?B?RUpwV002WmxWYmxnTWRrQmRhUnlZUG5LS1B3MGsyT2VZbWlQTjd4aGR0UXVt?=
- =?utf-8?B?WWVEVy8vKysweEY3cHFmTFhZZFh5Mitsd0oyZzF5ZHlZMUFaakY0M3MrQ0Jz?=
- =?utf-8?B?RXVsZkRKdWlid0pWaWU5U1Z4WC9aNkFNMyt4WVUyZjV5QSsxK21VcnhHQzgz?=
- =?utf-8?B?cDlMYlNpaER5NGtYKzJkYkRxT3NtM0NJaDI4eVlQWWhsMGFnTHh0MSswdmdZ?=
- =?utf-8?B?WDBYcUJyWnJ6RVN6TXdPRThYSmRySWhZUFN0bTRacG56OGljQUcyejhrdjJq?=
- =?utf-8?B?K3dLeEdtUmQwQmthV0d1NFcyWFZRSUdkODFWMXUvbHVmT2pTV21aR2YybmU2?=
- =?utf-8?B?dTlHZy9zTy9ZcUc2ZGJkNDBlYjQrK0llckpzbFhuYXl6b0JiYUVKeklVK1gz?=
- =?utf-8?B?U0QxVGNJcHQxOHl5ZDhiY0dPRWRnWDY3ZGNUa2FiU3l3RlBoYmRuVFBnQ0dE?=
- =?utf-8?B?WFVoUjF3eTVhOWxKb0Y3WGpOamNyYzc3RUcvSXFOck5WcmNlY0F0UjNodEIw?=
- =?utf-8?B?dVFmY2U5ZGE4SVh6L053elk0aDI1YlFQamJ4RkJhSTdRUHBhZ1I5LzhhUFlt?=
- =?utf-8?B?NmQ0bjROd1NEN2l6UEJUT1Z6NzFBUzVSQmNUWnBQeC8vMkRlZkRaaDNhVUZx?=
- =?utf-8?B?bnIvQ2ZhYkpwaU43Y1pKMFBrTGl5YStRejI3WkVzMmY2UWJvWHBZSkUvWS9X?=
- =?utf-8?B?ZldWQmhqNHpIdlJaMUtUdU8vUC9yVHowNksxWnV0WE9YQkFKNDlIT0xQcGxY?=
- =?utf-8?B?ZEpaY3p5TTFra1hlYmFhRFRzMUk0S2ZxKzE1SlV3WmxjdmVTaFc1UnM4VC80?=
- =?utf-8?B?a1FpYTd5MEZTVjZhc1RzUm81cGJBdExuSEMxVUxaSWNZdHdTTE9PdkxaaHNN?=
- =?utf-8?B?aGhMbnVTeDZiaDZ3dnRQSG54Q2c2NVJ5YnFDSGFhZ085ZWxqa1NoNEZ4YnJD?=
- =?utf-8?B?TlpXYzFCenlsRmdPMDFvdVBQWkFQM3JCbmdjT3JWcCtaWm1oWVNEa2xVdmFK?=
- =?utf-8?B?NVpkcTVNcnFkaU9iWm9PTVFoSE1lZ3JHQVBqbEpmdy9Way9XSENiS3VERmw3?=
- =?utf-8?B?d204ZGZ1bjFzMXhKK21oQWJRZDl6NDhEb1NNbXdmb2g4TE1hUXpUUFZ5YlVj?=
- =?utf-8?B?SHlnV1c1c2tFWFJjNUN3a3ptT3JINkhYWFQ1Mk9vK29CWVlzR3FPUnMvWmh1?=
- =?utf-8?B?ZG41ZVZXQjJkSmxzUnAweEZ1UlJJQXhac2VpRkl6NXFjdWZUdmpQZ2daSFI5?=
- =?utf-8?B?aVQyb0tXRWJWemFrb3huRXI0SUhRSFYzdTAzRzB0ODdoV0pUTVprTUg0ZEJi?=
- =?utf-8?B?MU5Mc0VxRlM3UjEyRXcrNVM3cGZlNWhyUElLQ2E3WjZBMTFsVEdzYThpYldE?=
- =?utf-8?B?YWNFTGJ2M2xFWnB0THlZQXcyMUNTYUZLRkJINDZ1OHpHMVZzd3NzSXlXL2VY?=
- =?utf-8?B?aWdLQW1FQloxVjBwYTUvZHcwUlBHcTh0U1ZJYmltUEM2U1RaS2FvK1lrdDJ1?=
- =?utf-8?B?SXhEZjAxVDF2WEhnWUU0RXJVRmZOVDBtRkVodUpCT05NalNMSXZacGt2MmlL?=
- =?utf-8?B?KzcvMGVsK3dlQ0dWK3h2UGJVY05DSWlFaHg4L3d4LzdJak8yNHc4QVlwS0hr?=
- =?utf-8?B?cEUzbWQ3eW5MYVdjRWZ4Z21veUYwaFRDOER6ZVVxVzRpUUFPWHAwcG5LN29O?=
- =?utf-8?B?eThBR0ZDOURzWHM3dnJjZXNTVG1KUmczRnBoeGprVVdYckhySENKcTN0OE5i?=
- =?utf-8?B?U1FKNFo4bW1oZWxVU25MT25WbE1qS1lGWEJPRE4vdU9NaXU0S1Q5ZTIzdDA4?=
- =?utf-8?B?Zlh2Z1A1OHI2V2VDdmNsR2ZtaWozK0Vnb2pMUkpjc25QVFlSYmt2VW5zdTU5?=
- =?utf-8?B?WStPbWU4UWlTR1JrR3NXTzBJY0toQ3F3VWcxR1MxUEY4YWJpNFo1ZmhDem9n?=
- =?utf-8?B?MEpGczk1VDIyVzNsOTBGMjFkTWhISG9adG1xQXZ0TlhpS3J2aVp5SzNhV293?=
- =?utf-8?B?VFltemtnVi9TYXNES3JKelNZMDVOdUZtTnN3by9iSlV0YW40MlV6TzlScVpH?=
- =?utf-8?B?bjNxN0IyUTdxMUpBRlFOeVlvbWFWTS9RaGMzdjZJUkJzUjNNNThYUT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E41AB10F3CC;
+ Fri, 24 Apr 2026 08:44:38 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 80AC143E0B;
+ Fri, 24 Apr 2026 08:44:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB358C19425;
+ Fri, 24 Apr 2026 08:44:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1777020278;
+ bh=ZPtRTAcO5vKULVkGrPOpdr9dYJKbJwHKAW4LzVRqvoI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=CW7ZL+CRxx2Sijgh6xjUCCZml3UTTpMsXH6cO1EZ6wibNcZoHu595LxCD4AB8p2gn
+ jSaoBI3ElXU1BYxmuOc3NDEcABEdeWKt6wgHB6S1IsWuiFyVWmWv6h/971fYooCBzo
+ RXo6526CET9X621wMlDYeWZctMcReAJzCTJhKeUpGjw8LbqkjVRhIMh6j6vBuXZgaN
+ vJhIZiRh3AQausKSMcfwwnRicX+K/+23ib3tV7aeM7/IdPKDxwRxc5oXLTYFRczQqC
+ tBByluQBB80/irXS/ql/+Ua1O0zUeEjDHWti0vhpQ85qMnzbxJfKvOh6qIr9+EWwRy
+ IX3mNtvMouAVQ==
+Date: Fri, 24 Apr 2026 10:44:35 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Jyri Sarha <jyri.sarha@iki.fi>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Simon Ser <contact@emersion.fr>, 
+ Harry Wentland <harry.wentland@amd.com>, Melissa Wen <mwen@igalia.com>, 
+ Sebastian Wick <sebastian.wick@redhat.com>, Alex Hung <alex.hung@amd.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Daniel Stone <daniels@collabora.com>, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH v2 15/20] drm/drv: Call drm_mode_config_create_state() by
+ default
+Message-ID: <20260424-nimble-asparagus-tarsier-15f8bb@houat>
+References: <20260320-drm-mode-config-init-v2-0-c63f1134e76c@kernel.org>
+ <20260320-drm-mode-config-init-v2-15-c63f1134e76c@kernel.org>
+ <79cc30d5-80b5-4d87-a3ad-36d6fad98853@suse.de>
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0449fc4a-002a-41fc-50da-08dea1dd69e5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Apr 2026 08:42:26.8503 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Ms1eNyXmPIE7wG4/LKKA0jjr11rfUBhJA6WQCtPF+vjZNpRxCCbOuiD0tJxCtGWJ+fdIAAQVCxSIEfHWA6s0aM+jBQPi64bF/VewG4Nun68=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSCPR01MB16167
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="3cb63aedvnuis3py"
+Content-Disposition: inline
+In-Reply-To: <79cc30d5-80b5-4d87-a3ad-36d6fad98853@suse.de>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -191,24 +84,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-SGkgTHVjYSBDZXJlc29saSwNCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9t
-OiBMdWNhIENlcmVzb2xpIDxsdWNhLmNlcmVzb2xpQGJvb3RsaW4uY29tPg0KPiBTZW50OiAyMyBB
-cHJpbCAyMDI2IDEwOjE3DQo+IFN1YmplY3Q6IFtQQVRDSCB2MiAyNy80MV0gZHJtOiByZW5lc2Fz
-OiByei1kdTogcnpnMmxfZHVfZW5jb2RlcjogcmVtb3ZlIG5vdy1yZWR1bmRhbnQgY2FsbCB0bw0K
-PiBkcm1fY29ubmVjdG9yX2F0dGFjaF9lbmNvZGVyKCkNCj4gDQo+IGRybV9jb25uZWN0b3JfYXR0
-YWNoX2VuY29kZXIoKSBpcyBub3cgY2FsbGVkIGJ5IGRybV9icmlkZ2VfY29ubmVjdG9yX2luaXQo
-KS4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IEx1Y2EgQ2VyZXNvbGkgPGx1Y2EuY2VyZXNvbGlAYm9v
-dGxpbi5jb20+DQoNClRlc3RlZCBvbiBSWi9HMkwgU01BUkMgRVZLLg0KDQpUZXN0ZWQtYnk6IEJp
-anUgRGFzIDxiaWp1LmRhcy5qekBicC5yZW5lc2FzLmNvbT4NCg0KQ2hlZXJzLA0KQmlqdQ0KDQo+
-IC0tLQ0KPiAgZHJpdmVycy9ncHUvZHJtL3JlbmVzYXMvcnotZHUvcnpnMmxfZHVfZW5jb2Rlci5j
-IHwgMiArLQ0KPiAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0p
-DQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3JlbmVzYXMvcnotZHUvcnpnMmxf
-ZHVfZW5jb2Rlci5jIGIvZHJpdmVycy9ncHUvZHJtL3JlbmVzYXMvcnotDQo+IGR1L3J6ZzJsX2R1
-X2VuY29kZXIuYw0KPiBpbmRleCBkNTMwNjg3MzNjNjYuLjBlNTY3YjU3YTQwOCAxMDA2NDQNCj4g
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL3JlbmVzYXMvcnotZHUvcnpnMmxfZHVfZW5jb2Rlci5jDQo+
-ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9yZW5lc2FzL3J6LWR1L3J6ZzJsX2R1X2VuY29kZXIuYw0K
-PiBAQCAtMTI5LDUgKzEyOSw1IEBAIGludCByemcybF9kdV9lbmNvZGVyX2luaXQoc3RydWN0IHJ6
-ZzJsX2R1X2RldmljZSAgKnJjZHUsDQo+ICAJCXJldHVybiBQVFJfRVJSKGNvbm5lY3Rvcik7DQo+
-ICAJfQ0KPiANCj4gLQlyZXR1cm4gZHJtX2Nvbm5lY3Rvcl9hdHRhY2hfZW5jb2Rlcihjb25uZWN0
-b3IsICZyZW5jLT5iYXNlKTsNCj4gKwlyZXR1cm4gMDsNCj4gIH0NCj4gDQo+IC0tDQo+IDIuNTMu
-MA0KDQo=
+
+--3cb63aedvnuis3py
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 15/20] drm/drv: Call drm_mode_config_create_state() by
+ default
+MIME-Version: 1.0
+
+Hi,
+
+On Tue, Apr 21, 2026 at 03:38:16PM +0200, Thomas Zimmermann wrote:
+> Am 20.03.26 um 17:27 schrieb Maxime Ripard:
+> > Almost all drivers, and our documented skeleton, call
+> > drm_mode_config_reset() prior to calling drm_dev_register() to
+> > initialize its DRM object states.
+> >=20
+> > Now that we have drm_mode_config_create_state() to create that initial
+> > state if it doesn't exist, we can call it directly in
+> > drm_dev_register(). That way, we know that the initial atomic state will
+> > always be allocated without any boilerplate.
+> >=20
+> > Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> > ---
+> >   drivers/gpu/drm/drm_drv.c | 4 ++++
+> >   1 file changed, 4 insertions(+)
+> >=20
+> > diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+> > index 2915118436ce8a6640cfb0c59936031990727ed1..820106d56ab399a39cac56d=
+98662b5ddbcae8ded 100644
+> > --- a/drivers/gpu/drm/drm_drv.c
+> > +++ b/drivers/gpu/drm/drm_drv.c
+> > @@ -1097,10 +1097,14 @@ int drm_dev_register(struct drm_device *dev, un=
+signed long flags)
+> >   	if (drm_core_check_feature(dev, DRIVER_MODESET)) {
+> >   		ret =3D drm_modeset_register_all(dev);
+> >   		if (ret)
+> >   			goto err_unload;
+> > +
+> > +		ret =3D drm_mode_config_create_state(dev);
+> > +		if (ret)
+> > +			goto err_unload;
+>=20
+> Way too late.
+
+Yeah... I think that was Ville's main objection too.
+
+> Lets rather go through drivers and call this where they currently call
+> drm_mode_config_reset() for initialization.
+
+I was really hoping to remove the boilerplate from drivers, but I don't
+really see a good place for it then. drm_mode_config_init() could be
+another candidate, but it looks weird to put it there too.
+
+I'll drop that then.
+
+> This can be a single-patch mass conversion IMHO.
+
+I'm not really sure? For it to work we'd need to convert these drivers
+objects from reset to atomic_create_state too. I absolutely want to do
+it next, but I don't think it will be as trivial as a sed call, and it
+would probably be best done by driver to allow reverts if we screw up.
+
+Maxime
+
+--3cb63aedvnuis3py
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaestcwAKCRAnX84Zoj2+
+dqD3AX91s5aTyrSIs+zg1NTVZ/3A3vLYBnSfFHi5Qil7rXN1H/JxIEEE9V0Ta7xL
+sVv2OtMBfAktM0SQa0/hMpYggLwZw3S6EpI61etzjCn+mWT08kRxfRP0K6KBacXD
+xc3d+CTDBg==
+=tyOY
+-----END PGP SIGNATURE-----
+
+--3cb63aedvnuis3py--
