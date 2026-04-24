@@ -4,77 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56874FED3E6
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90B5DFED3F2
 	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 17:29:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A31C310F66B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB00D10F66E;
 	Fri, 24 Apr 2026 17:29:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DpDMG748";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WI58WkQH";
 	dkim-atps=neutral
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
- [209.85.216.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C427310F51E
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 11:25:51 +0000 (UTC)
-Received: by mail-pj1-f48.google.com with SMTP id
- 98e67ed59e1d1-35fc0d7c310so5224821a91.1
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 04:25:51 -0700 (PDT)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 402C610ED80
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 09:29:58 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-48a3e9862f0so37866315e9.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 02:29:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777029951; x=1777634751; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1777022997; x=1777627797; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=FSJ7I3/KIQ88Wa0Cq5z543CNK+Uoag1ofD2MM0j17pQ=;
- b=DpDMG748aXHsBPoIXLfZ1Laf1lVj4BQrdo/9CxaglKVPnlhYhslLatGahaDWlvN7Ho
- R63QK9CLC9w7w8biTFyMoLXOTZJsWp5oFIe6eZJikaveAfoLWvHgTjoBe3K3D1ivE03N
- xbayrulr9ytAUkIJvhXRGY0gF4eWq+roa1XnLgw4pnRpebotzUzhf3vWSmwcJYhkoiO4
- OCSAiUcQwL9DE4FXsk/Kq9daRMY0N6Gz/JkviLbNvSbRqzD8JD4kRa1Ir4TpM2yD/gro
- hDqa8A8qgdopERJPSiAlMpYujS+l99w+23kp3fIshC+0+YwgiEce6OavBKslYbJdVuSy
- VTyA==
+ bh=PRmQYDLWnbQPdXE28Inb8Q/Xi2npOv1Gc9ccDpPNZg0=;
+ b=WI58WkQHJuC/eShwjxx/L4gMMNCVGg9U/DlsST6j2w+chg4OvLC87GAcylgO3gF43q
+ YkUEr0pXPEZKJ+tR9R0VHMcusGgQm5PNCndkzoYFOvksll/m+nNGO2QkpT1AKJE3sahS
+ imWZddIxC2AQlGIJBFj25MyQSnhwcuZW1btmslcRtDheMD4aL0k3BSlNR0CWC3frLj67
+ 6TtP5Fl2L2Bkk6cIO4ozsHySm3vkfqn7qiAf2BqfDSp4cnaL6nIfQaaQ9BcaVCwckt9i
+ OR8tFiYAJRYECiqaWUEwqC48blvukEgadyT2g+Ki/Np8XbgKXba9MDDEzU8Oeu7uiqHJ
+ UAfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777029951; x=1777634751;
+ d=1e100.net; s=20251104; t=1777022997; x=1777627797;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=FSJ7I3/KIQ88Wa0Cq5z543CNK+Uoag1ofD2MM0j17pQ=;
- b=j32/Vgnp39YhOYFIQQ+uVywg1vvOdDb7JxStqLEjWzv71ZXJi+vIB5v7a3GE9RdCoT
- pQG/2rSp094nuoKmOOQTlUzZAQkU3NxbyjHQhm+AWMxdJv2v6ebseoeSX6MP5N7wa9c3
- uG6uEZbSI+ThDGLlrMegKyXSqglKxAVyYp9wm/ZD4KWi4/M8TqDVtf+0k/Pplwo0eAs7
- Bd9r/wDmovT4opE6Vg1JKPwPMMNPhyUMc0hW9z6yhmEVDy+5KmJdJQUWpIx3ezofyqFP
- xYh9MHtkIxm3cHvdk0UtvN5Ed7FptZF/nDWezTTSEyAGWBIYE5H9PcCSt7Y8Nh1ytAt/
- Soiw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9QQZw1Aue9ZCQ2JQpPch1bw1lT3uieyqRNI6hmMhVgQ8019BJ+oil0NgO0cNQOGIJkTfvKSW29kCA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxFv+7vKO0toaZ5o/H+0y0ZplXwK4nl804RP1e4+Vyqq/JELVyW
- aJgQ9s3TWixfH3p/VBh/M2dc2Mdk/UkDPyj0GFx/ExMvhni7IaxBpKw=
-X-Gm-Gg: AeBDieuyy+aWxgUHbnxik8w1FkqYKVHK+n/uBLDtvmx9L+7p+979YSDxLqFsdgJzttS
- W4FDfKMAO/V921VPI45QPkrjZiGbZzSMQYreKMb+H6d4SsWDNq9rfEwFnQqGzBhKvBYKbvrdpbN
- YYthcErJcUQ5P0SoPPZghSF8wHZl7poS8sQmxHW9iRn7OOrgJOdsKS2blti5Z0mcd4iwoXIKgl6
- 9+Pc1piZRkCKB3SVhLA9iZ2js2U6JJxxsCee+A0BfbSSSborqsdkK2irRMJG/Hqe4IHIdDez8kR
- zRObOHywViOhUsWsE5L7KEfQ5UjJ2Lhx/2orTP750K7BXktkbAxj6x9Dqrwmh/AknCcDuOWIAZb
- w1y/82okb98wLAQhhQrbMZ+OtJmzrmeCZp4jcatDnhnntryZdI4MhVKkPMlDB28Y4jMiiLiOmB7
- tTaI4WIXMNRyyvlDGoAGFQ1EWs27L8oIDOjU7GojC7gqrP6cNrQLbtN17uZEvYCJCkJ2e4qjkUv
- SNakFGxdQ==
-X-Received: by 2002:a17:90b:380c:b0:35f:b5df:448 with SMTP id
- 98e67ed59e1d1-3614049ed12mr32784879a91.24.1777029951174; 
- Fri, 24 Apr 2026 04:25:51 -0700 (PDT)
-Received: from localhost.localdomain ([1.226.165.54])
+ bh=PRmQYDLWnbQPdXE28Inb8Q/Xi2npOv1Gc9ccDpPNZg0=;
+ b=PXuqBBDfO+0RMvhbDLQ+Ai6aLDHS2Kg790S02hH03G1xysr7jXPA57piN7+iIrRIm/
+ ARRlc/2javFG6APTRFpcXCvWiwHpm7evrjOt0TxOM1yuf3d5Sd8zZYpyB41cBSGrs5+f
+ dYZlEzzsdLjfLDqjJMZHkFg/8J7ZZyszYNXZUhJzgmgwcph0oR87wRML0gk3XV88SyEE
+ o3EQok7EZlAaJWTCoZjU8puHHF91neiFEA97V1zzqV3pKKcfQl13Sk0mypCYgH9trRWJ
+ Vo8hbjlJ1uUWx/3dD09NaIs4uejAnjNHebnLq3cyy7G0mDA1g5j76Keb7pxhbMiNUFbx
+ ting==
+X-Gm-Message-State: AOJu0YyNxbtM0Yvr4EoymzKDemIsI1ylpVy1q+rE4flYFcYPnOJt2yAm
+ aIsy8BlOQ6eS+V0O3IFmisBNknqsCHmu+GdsOkDHxZiuDaJGhriofdIp
+X-Gm-Gg: AeBDieufNEuIfRMcsfrECmyIP1iSGawkROZ2tHSILRZMz06paORA+RVCN7xmRlzrqKJ
+ iOGTELLhXm4ohYPQRaPTx5DY+6BFSi2FJ6GyzPHN9uYeZZRB3Ax8oauRFxQ0H/aPwKIKqHV/BVa
+ 4Wh8ze/p7lqsKoVf6vyPj1J7OtsK7TC6HxguyEosj9BRlKP0a/dcnmkV5c36pgJurx8rhgVQFkK
+ cpPgUxM8ciRyeMGzJmGiwUpn+gZcSFNCO/P38OnXCcyBRqppb5ftWQuFWisYuIVEvDZ+yvOBgSO
+ OCp0kWegGMvuRLyJl153uFkt6DcyPjybS4i29YEm40Lo/JQAS43aIkTnfFwBU4+I9mKoJsNujZD
+ GKzEZyWRrlL6WJpAZeqteUlYAPvGkH/yF2KsHYUxRttGEdsP+hEdnUV13xl31I9UXfVGsI575Zf
+ HxMy5W0W1TDQIh3wsjMf6Fg5zBjrNaE55FT/vJ5BkSQcGPbjCU26UQ/SVRGrQFTC+m4q8hN9VpN
+ V4Ymgcw8g2IPiW74lwijcBv6fVMI0PIE2kaGDx7+lIrKt3sT9yeNJpkqXRjqxM2L0br
+X-Received: by 2002:a05:600c:4e0c:b0:489:1d7a:4537 with SMTP id
+ 5b1f17b1804b1-4891d7a463emr288514125e9.3.1777022996567; 
+ Fri, 24 Apr 2026 02:29:56 -0700 (PDT)
+Received: from ahossu.localdomain ([5.14.129.42])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-36141990bb6sm23974050a91.17.2026.04.24.04.25.47
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Fri, 24 Apr 2026 04:25:50 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Dave Airlie <airlied@redhat.com>,
-	Gerd Hoffmann <kraxel@redhat.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Myeonghun Pak <mhun512@gmail.com>
-Subject: [PATCH] drm/qxl: Fix missing KMS poll cleanup
-Date: Fri, 24 Apr 2026 20:25:18 +0900
-Message-ID: <20260424112543.57819-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.47.1
+ 5b1f17b1804b1-48a52d232afsm97787865e9.31.2026.04.24.02.29.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 24 Apr 2026 02:29:55 -0700 (PDT)
+From: Alexandru Hossu <hossu.alexandru@gmail.com>
+To: andy@kernel.org,
+	gregkh@linuxfoundation.org
+Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Alexandru Hossu <hossu.alexandru@gmail.com>
+Subject: [PATCH] staging: fbtft: fbtft-bus: replace function-defining macro
+ with concrete functions
+Date: Fri, 24 Apr 2026 11:28:18 +0200
+Message-ID: <20260424092818.3322248-1-hossu.alexandru@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 24 Apr 2026 17:29:28 +0000
@@ -93,48 +89,226 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_kms_helper_poll_init() initializes the output polling work and
-enables polling for the DRM device. qxl enables polling before calling
-drm_dev_register(), but the drm_dev_register() failure path tears down
-the modeset and device state without disabling the polling helper.
+The define_fbtft_write_reg macro defines full function bodies including
+a goto statement and a trailing semicolon on EXPORT_SYMBOL(), which
+violates kernel coding style (checkpatch reports 2 ERRORs, 2 WARNINGs,
+and 5 CHECKs).
 
-The remove path also unregisters and shuts down the DRM device without
-first disabling the polling helper. Add matching drm_kms_helper_poll_fini()
-calls in both paths so the delayed polling work is cancelled before qxl
-tears down the associated modeset/device state.
+Replace it with three concrete C functions that are semantically
+identical to the macro expansions:
+  - fbtft_write_reg8_bus8   (u8 buffer, u8 data)
+  - fbtft_write_reg16_bus8  (__be16 buffer, u16 data, cpu_to_be16)
+  - fbtft_write_reg16_bus16 (u16 buffer, u16 data)
 
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+The function declarations in fbtft.h are already present and unchanged.
+
+Signed-off-by: Alexandru Hossu <hossu.alexandru@gmail.com>
 ---
- drivers/gpu/drm/qxl/qxl_drv.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/staging/fbtft/fbtft-bus.c | 191 +++++++++++++++++++++---------
+ 1 file changed, 137 insertions(+), 54 deletions(-)
 
-diff --git a/drivers/gpu/drm/qxl/qxl_drv.c b/drivers/gpu/drm/qxl/qxl_drv.c
-index 2bbb1168a3..1e6a2392d7 100644
---- a/drivers/gpu/drm/qxl/qxl_drv.c
-+++ b/drivers/gpu/drm/qxl/qxl_drv.c
-@@ -118,12 +118,13 @@ qxl_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 	/* Complete initialization. */
- 	ret = drm_dev_register(&qdev->ddev, ent->driver_data);
- 	if (ret)
--		goto modeset_cleanup;
-+		goto poll_fini;
+diff --git a/drivers/staging/fbtft/fbtft-bus.c b/drivers/staging/fbtft/fbtft-bus.c
+index 30e436ff1..acd035203 100644
+--- a/drivers/staging/fbtft/fbtft-bus.c
++++ b/drivers/staging/fbtft/fbtft-bus.c
+@@ -11,60 +11,143 @@
+  *
+  *****************************************************************************/
  
- 	drm_client_setup(&qdev->ddev, NULL);
- 	return 0;
+-#define define_fbtft_write_reg(func, buffer_type, data_type, modifier)        \
+-void func(struct fbtft_par *par, int len, ...)                                \
+-{                                                                             \
+-	va_list args;                                                         \
+-	int i, ret;                                                           \
+-	int offset = 0;                                                       \
+-	buffer_type *buf = (buffer_type *)par->buf;                           \
+-									      \
+-	if (unlikely(par->debug & DEBUG_WRITE_REGISTER)) {                    \
+-		va_start(args, len);                                          \
+-		for (i = 0; i < len; i++) {                                   \
+-			buf[i] = modifier((data_type)va_arg(args,             \
+-							    unsigned int));   \
+-		}                                                             \
+-		va_end(args);                                                 \
+-		fbtft_par_dbg_hex(DEBUG_WRITE_REGISTER, par,                  \
+-				  par->info->device, buffer_type, buf, len,   \
+-				  "%s: ", __func__);                          \
+-	}                                                                     \
+-									      \
+-	va_start(args, len);                                                  \
+-									      \
+-	if (par->startbyte) {                                                 \
+-		*(u8 *)par->buf = par->startbyte;                             \
+-		buf = (buffer_type *)(par->buf + 1);                          \
+-		offset = 1;                                                   \
+-	}                                                                     \
+-									      \
+-	*buf = modifier((data_type)va_arg(args, unsigned int));               \
+-	ret = fbtft_write_buf_dc(par, par->buf, sizeof(data_type) + offset,   \
+-				 0);                                          \
+-	if (ret < 0)							      \
+-		goto out;						      \
+-	len--;                                                                \
+-									      \
+-	if (par->startbyte)                                                   \
+-		*(u8 *)par->buf = par->startbyte | 0x2;                       \
+-									      \
+-	if (len) {                                                            \
+-		i = len;                                                      \
+-		while (i--)						      \
+-			*buf++ = modifier((data_type)va_arg(args,             \
+-							    unsigned int));   \
+-		fbtft_write_buf_dc(par, par->buf,			      \
+-				   len * (sizeof(data_type) + offset), 1);    \
+-	}                                                                     \
+-out:									      \
+-	va_end(args);                                                         \
+-}                                                                             \
+-EXPORT_SYMBOL(func);
+-
+-define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8, )
+-define_fbtft_write_reg(fbtft_write_reg16_bus8, __be16, u16, cpu_to_be16)
+-define_fbtft_write_reg(fbtft_write_reg16_bus16, u16, u16, )
++void fbtft_write_reg8_bus8(struct fbtft_par *par, int len, ...)
++{
++	va_list args;
++	int i, ret;
++	int offset = 0;
++	u8 *buf = (u8 *)par->buf;
++
++	if (unlikely(par->debug & DEBUG_WRITE_REGISTER)) {
++		va_start(args, len);
++		for (i = 0; i < len; i++)
++			buf[i] = (u8)va_arg(args, unsigned int);
++		va_end(args);
++		fbtft_par_dbg_hex(DEBUG_WRITE_REGISTER, par,
++				  par->info->device, u8, buf, len,
++				  "%s: ", __func__);
++	}
++
++	va_start(args, len);
++
++	if (par->startbyte) {
++		*(u8 *)par->buf = par->startbyte;
++		buf = (u8 *)(par->buf + 1);
++		offset = 1;
++	}
++
++	*buf = (u8)va_arg(args, unsigned int);
++	ret = fbtft_write_buf_dc(par, par->buf, sizeof(u8) + offset, 0);
++	if (ret < 0)
++		goto out;
++	len--;
++
++	if (par->startbyte)
++		*(u8 *)par->buf = par->startbyte | 0x2;
++
++	if (len) {
++		i = len;
++		while (i--)
++			*buf++ = (u8)va_arg(args, unsigned int);
++		fbtft_write_buf_dc(par, par->buf,
++				   len * (sizeof(u8) + offset), 1);
++	}
++out:
++	va_end(args);
++}
++EXPORT_SYMBOL(fbtft_write_reg8_bus8);
++
++void fbtft_write_reg16_bus8(struct fbtft_par *par, int len, ...)
++{
++	va_list args;
++	int i, ret;
++	int offset = 0;
++	__be16 *buf = (__be16 *)par->buf;
++
++	if (unlikely(par->debug & DEBUG_WRITE_REGISTER)) {
++		va_start(args, len);
++		for (i = 0; i < len; i++)
++			buf[i] = cpu_to_be16((u16)va_arg(args, unsigned int));
++		va_end(args);
++		fbtft_par_dbg_hex(DEBUG_WRITE_REGISTER, par,
++				  par->info->device, __be16, buf, len,
++				  "%s: ", __func__);
++	}
++
++	va_start(args, len);
++
++	if (par->startbyte) {
++		*(u8 *)par->buf = par->startbyte;
++		buf = (__be16 *)(par->buf + 1);
++		offset = 1;
++	}
++
++	*buf = cpu_to_be16((u16)va_arg(args, unsigned int));
++	ret = fbtft_write_buf_dc(par, par->buf, sizeof(u16) + offset, 0);
++	if (ret < 0)
++		goto out;
++	len--;
++
++	if (par->startbyte)
++		*(u8 *)par->buf = par->startbyte | 0x2;
++
++	if (len) {
++		i = len;
++		while (i--)
++			*buf++ = cpu_to_be16((u16)va_arg(args, unsigned int));
++		fbtft_write_buf_dc(par, par->buf,
++				   len * (sizeof(u16) + offset), 1);
++	}
++out:
++	va_end(args);
++}
++EXPORT_SYMBOL(fbtft_write_reg16_bus8);
++
++void fbtft_write_reg16_bus16(struct fbtft_par *par, int len, ...)
++{
++	va_list args;
++	int i, ret;
++	int offset = 0;
++	u16 *buf = (u16 *)par->buf;
++
++	if (unlikely(par->debug & DEBUG_WRITE_REGISTER)) {
++		va_start(args, len);
++		for (i = 0; i < len; i++)
++			buf[i] = (u16)va_arg(args, unsigned int);
++		va_end(args);
++		fbtft_par_dbg_hex(DEBUG_WRITE_REGISTER, par,
++				  par->info->device, u16, buf, len,
++				  "%s: ", __func__);
++	}
++
++	va_start(args, len);
++
++	if (par->startbyte) {
++		*(u8 *)par->buf = par->startbyte;
++		buf = (u16 *)(par->buf + 1);
++		offset = 1;
++	}
++
++	*buf = (u16)va_arg(args, unsigned int);
++	ret = fbtft_write_buf_dc(par, par->buf, sizeof(u16) + offset, 0);
++	if (ret < 0)
++		goto out;
++	len--;
++
++	if (par->startbyte)
++		*(u8 *)par->buf = par->startbyte | 0x2;
++
++	if (len) {
++		i = len;
++		while (i--)
++			*buf++ = (u16)va_arg(args, unsigned int);
++		fbtft_write_buf_dc(par, par->buf,
++				   len * (sizeof(u16) + offset), 1);
++	}
++out:
++	va_end(args);
++}
++EXPORT_SYMBOL(fbtft_write_reg16_bus16);
  
--modeset_cleanup:
-+poll_fini:
-+	drm_kms_helper_poll_fini(&qdev->ddev);
- 	qxl_modeset_fini(qdev);
- unload:
- 	qxl_device_fini(qdev);
-@@ -154,6 +155,7 @@ qxl_pci_remove(struct pci_dev *pdev)
+ void fbtft_write_reg8_bus9(struct fbtft_par *par, int len, ...)
  {
- 	struct drm_device *dev = pci_get_drvdata(pdev);
- 
-+	drm_kms_helper_poll_fini(dev);
- 	drm_dev_unregister(dev);
- 	drm_atomic_helper_shutdown(dev);
- 	if (pci_is_vga(pdev) && pdev->revision < 5)
 -- 
-2.50.1
+2.53.0
+
