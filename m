@@ -4,45 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06D01FE51FC
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6ABDFE51FA
 	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 09:49:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F35EF10F4A6;
-	Fri, 24 Apr 2026 09:49:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33BE410F4AA;
+	Fri, 24 Apr 2026 09:49:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="WZ+KVMEk";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GsnR2IR0";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3BC310F4AA
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 09:49:21 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 7D691405F5;
- Fri, 24 Apr 2026 09:49:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16482C2BCB4;
- Fri, 24 Apr 2026 09:49:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1777024161;
- bh=bCmMLd7TT625UC3cRQD0EElDDVxXsrbMw+gPrcqFMLQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=WZ+KVMEkBBHUpNlYmU5IIWtbtyf5QXsuQgX+/QHw0x7cJVo3iVTPDkQXxixA+EQap
- 5fqnQ2S+GdO+sKzfQwN/40mcbooHmjK4P2TQyEAAVLtASArBnHm62P0MirKywSsvW6
- 68xNHyXhihYSVy9ZQKT6UXp1EpM5OWQokJyYBIiY=
-Date: Fri, 24 Apr 2026 11:49:19 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Alexandru Hossu <hossu.alexandru@gmail.com>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, andy@kernel.org,
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] staging: fbtft: fbtft-bus: replace function-defining
- macro with concrete functions
-Message-ID: <2026042402-dictation-curtly-8267@gregkh>
-References: <20260424092818.3322248-1-hossu.alexandru@gmail.com>
- <aes6JY3Ht6p1VpFa@ashevche-desk.local>
- <69eb3b01.5d0a0220.3c3ebd.f35b@mx.google.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34BA810F4B0;
+ Fri, 24 Apr 2026 09:49:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1777024162; x=1808560162;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=uDfnAhuPeQpYybCGDkoBbLrE24EWqvm4HBK5ycB3WjE=;
+ b=GsnR2IR0z0cukhi78HS+dpuXZ1hbRagTMC97ZWkwzx09msF++rq0FiPO
+ SY9M3+sg2h9aglsW0NNHaZnRsJwCwoHufBBH/fGB0bSilbE/p6Myo+/uy
+ inmCaR68bAa8IHwoEK9Zdy85ZxJx0zV1hFOVG8oe5hKm3wcGPluVSYH0R
+ 4duEpFGulotoLdqRsOuLzqZKwqZI9Lb3CkLhYlN7Helyza6t+yt/Z1CYe
+ Hg8HFV7u5Dkwsg8CtvLB6PhBMMOq220b2vmzXWhVpaTB+uWuOxd3E+Ij4
+ vT0DCDK/J9d3g8A1svoO3TNypSQDLnH9E2CfwhNxx+O3USrLL4/lXbaRo g==;
+X-CSE-ConnectionGUID: eGYxX404RseAUP977KVJgw==
+X-CSE-MsgGUID: gyzxPdyTQPqboX/7Hdsdhw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11765"; a="88612861"
+X-IronPort-AV: E=Sophos;i="6.23,196,1770624000"; d="scan'208";a="88612861"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Apr 2026 02:49:22 -0700
+X-CSE-ConnectionGUID: E+aYv/SbRlazVw+VGEknng==
+X-CSE-MsgGUID: qqKekCyCTKylPHWu5Xkgdg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,196,1770624000"; d="scan'208";a="228575721"
+Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
+ by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Apr 2026 02:49:20 -0700
+From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: ville.syrjala@linux.intel.com, Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Subject: [RESEND PATCH 7/7] drm/dp: Add target_rr_divider field in AS SDP
+ logging
+Date: Fri, 24 Apr 2026 15:04:24 +0530
+Message-ID: <20260424093424.3060805-8-ankit.k.nautiyal@intel.com>
+X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20260424093424.3060805-1-ankit.k.nautiyal@intel.com>
+References: <20260424093424.3060805-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <69eb3b01.5d0a0220.3c3ebd.f35b@mx.google.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,21 +69,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Apr 24, 2026 at 09:40:48AM -0000, Alexandru Hossu wrote:
-> On Fri, Apr 24, 2026 at 12:38:45PM +0300, Andy Shevchenko wrote:
-> > I'm not sure this patch improves the code. What I see it's harder to follow.
-> > NAK.
-> 
-> Fair point. Three near-identical functions hide the pattern the macro
-> makes explicit. I'll drop this approach.
-> 
-> If there's appetite for a minimal fix, I can send a v2 that moves
-> EXPORT_SYMBOL() outside the macro body only, leaving the function
-> definition untouched. Otherwise I'll leave it as-is and wait for
-> Greg's take.
+The field target_rr_divider is missing from the AS SDP logging.
+Add it and print the divider value (1.001 or 1.000) as per the DP 2.1 spec.
 
-Please leave as-is, there's nothing wrong with the existing code here.
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+---
+ drivers/gpu/drm/display/drm_dp_helper.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-thanks,
+diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+index 102328d9022d..c8421099a3ac 100644
+--- a/drivers/gpu/drm/display/drm_dp_helper.c
++++ b/drivers/gpu/drm/display/drm_dp_helper.c
+@@ -3537,6 +3537,8 @@ void drm_dp_as_sdp_log(struct drm_printer *p, const struct drm_dp_as_sdp *as_sdp
+ 		   dp_sdp_type_get_name(as_sdp->sdp_type), as_sdp->revision, as_sdp->length);
+ 	drm_printf(p, "    vtotal: %d\n", as_sdp->vtotal);
+ 	drm_printf(p, "    target_rr: %d\n", as_sdp->target_rr);
++	drm_printf(p, "    target_rr_divider: %s\n",
++		   as_sdp->target_rr_divider ? "1.001" : "1.000");
+ 	drm_printf(p, "    duration_incr_ms: %d\n", as_sdp->duration_incr_ms);
+ 	drm_printf(p, "    duration_decr_ms: %d\n", as_sdp->duration_decr_ms);
+ 	drm_printf(p, "    operation_mode: %d\n", as_sdp->mode);
+-- 
+2.45.2
 
-greg k-h
