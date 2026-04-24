@@ -4,135 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A28AFB44BD
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 06:40:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7798FB44B4
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 06:43:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C058D10E0DD;
-	Fri, 24 Apr 2026 06:40:52 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="kXey69Ty";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="CKYhtGWy";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="kXey69Ty";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="CKYhtGWy";
-	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F40D010E0DD
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 06:40:50 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 743966A868;
- Fri, 24 Apr 2026 06:40:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1777012849; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=M/rktJKs+IeEJzqmS19ivYtExQzYDAZMLO0Is985pQk=;
- b=kXey69Tyg4rzaeVfK7+yK4vENKw8ZZTx1kgfoBwrI5lr7B8SW3Q+SvO4YmhveaKLOAq9fz
- cvnJ4QCTitIXMZDvLxQpMn6RwzoHwQZkBl/B/TChkEZNgcZymubGuSFVMYNVaTntybNk+F
- THMnwETsNNJurQ/PJbDkVv3Y9Px0/6k=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1777012849;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=M/rktJKs+IeEJzqmS19ivYtExQzYDAZMLO0Is985pQk=;
- b=CKYhtGWyZVM/nrll4FMlJvhH4wUa2BldSeiDg3/sqqA9LzjlrazoojbKBPHTZUIqKhKwRK
- mWfMnWhsbgQIBoDQ==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=kXey69Ty;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=CKYhtGWy
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1777012849; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=M/rktJKs+IeEJzqmS19ivYtExQzYDAZMLO0Is985pQk=;
- b=kXey69Tyg4rzaeVfK7+yK4vENKw8ZZTx1kgfoBwrI5lr7B8SW3Q+SvO4YmhveaKLOAq9fz
- cvnJ4QCTitIXMZDvLxQpMn6RwzoHwQZkBl/B/TChkEZNgcZymubGuSFVMYNVaTntybNk+F
- THMnwETsNNJurQ/PJbDkVv3Y9Px0/6k=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1777012849;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=M/rktJKs+IeEJzqmS19ivYtExQzYDAZMLO0Is985pQk=;
- b=CKYhtGWyZVM/nrll4FMlJvhH4wUa2BldSeiDg3/sqqA9LzjlrazoojbKBPHTZUIqKhKwRK
- mWfMnWhsbgQIBoDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4C7CC593AE;
- Fri, 24 Apr 2026 06:40:49 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id u8IyEXEQ62m/GQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 24 Apr 2026 06:40:49 +0000
-Message-ID: <2087a2bc-4e3c-462e-b9fb-6b533419de03@suse.de>
-Date: Fri, 24 Apr 2026 08:40:48 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0561910F2B0;
+	Fri, 24 Apr 2026 06:43:16 +0000 (UTC)
+Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com
+ [209.85.221.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FF9210F2B0
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 06:43:14 +0000 (UTC)
+Received: by mail-vk1-f176.google.com with SMTP id
+ 71dfb90a1353d-56f8c77ca6aso5073091e0c.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 23:43:14 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777012993; x=1777617793;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=4oJXSFX8PKzcLFcm7xTXFNvyUHwCzfrNVzAXd7R67sg=;
+ b=ZYPm9Vd6kWow+JYllN1TRiD5abt0FMmvFjvjoDfM7dq+G7Wl4xa0cNAibQ2CNvtbC2
+ GiHGsJ05/oT2DUp2JSwO1B6zbdV+0ckDA8efKil1WfU17aJoZloTpLXLLK+p+dlfGawX
+ xAMMiAPPgllhHhhvJIh8peBaElz6om83ZAvlSC01QepcVRSMmVMIrLArX9noF2aE1Vus
+ 9g3WI0s98JcmOEWZAqA7RVu/Okz+HoI9rprmxvXnNMScE4Ardglq93NVUkXFgwcgFKnd
+ IkBwk1m0a8wrtRQoBNJXUaLH6Zzd3Oq0XCYUZmPOtNQNZ7HcLqcG4H857bOIBUeyDkt7
+ u0lw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9IgdZMg8X2xGtvMFLw0YBEMEhEl3tyftUgv8vVx+oakrhQOvzO5FJ7kWhJiQ+UlVFaEsdlVZP+gQI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxTNgml0651hhVzMjgss5VOpE271R514Al/44uKmbvjV3ucZPSL
+ PFS8K7VBjWg6U4w+o+qENqosM7tMBEzvkdcJLsJ9SUdrS4WZ+pgkpy2g3lmiSTzzrJs=
+X-Gm-Gg: AeBDiev31AeRVBBVIP4yQUN3wWmSbGpDyIz0vxT2dJVCxpcGC68e0yLok8Ry8Q7QTAP
+ Q7fpxP+vKoQ9XkmK6PFAFyqKJIN25CtMt8BRidALdmO32xToEEGb77oPzR1Kd4lk3BRiCwGppE1
+ 4e1ZkEAitBn9AyPkswiePeh3CGprBiIQ8UUGChdiOFCmSGAII+lnRZqsMm6EOalpWXwZTZ8nfuW
+ WtJxB9PfPpjLys1GZGxEfG2TOmWt04ZKLKOPEhSA56K7DA4xhTmJLVDoge3lKtQGVfvAu7hWgiJ
+ WIPHBPTs8ykMTJUXmIEDLlBbyl7p9+gAewDCpGLutXETQUNaLju2ARjKhXszn292xGj0rf56ABA
+ 5bNTqwgN/3FTZU4TZncMrFMcRjeJfvoab708nd2ryhDy6us0TCaaspylXvx5NZu9x59Sg8l35K8
+ LAPshqYgoa2Sow1lBKL/hyjrCXkUCDBdf9/KUsA6aNB1drs5KREX4f7yWVtr2mMMcK7UHjYZkU5
+ oYnj521Dw==
+X-Received: by 2002:a05:6122:4d0d:b0:56b:5893:d042 with SMTP id
+ 71dfb90a1353d-56fa5a8ee80mr15756806e0c.12.1777012992892; 
+ Thu, 23 Apr 2026 23:43:12 -0700 (PDT)
+Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com.
+ [209.85.217.42]) by smtp.gmail.com with ESMTPSA id
+ a1e0cc1a2514c-958909bd5e4sm10780770241.6.2026.04.23.23.43.12
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 23 Apr 2026 23:43:12 -0700 (PDT)
+Received: by mail-vs1-f42.google.com with SMTP id
+ ada2fe7eead31-60591ade110so5134490137.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 23:43:12 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AFNElJ81Gn1Al7PbepjB37oZxdDMfWbXM43RLmUvmmdlmwf2aR9AfIuvaQOsonHC1TFvrkeWXpSGo5uKeNE=@lists.freedesktop.org
+X-Received: by 2002:a05:6102:3e26:b0:60c:bca6:8198 with SMTP id
+ ada2fe7eead31-616f54a0df1mr16521159137.10.1777012992325; Thu, 23 Apr 2026
+ 23:43:12 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] drm/vmwgfx: Move vblank handling into separate helper
-To: Zack Rusin <zack.rusin@broadcom.com>
-Cc: bcm-kernel-feedback-list@broadcom.com, maarten.lankhorst@linux.intel.com, 
- mripard@kernel.org, dri-devel@lists.freedesktop.org
-References: <20260305134122.246884-1-tzimmermann@suse.de>
- <20260305134122.246884-3-tzimmermann@suse.de>
- <CABQX2QN=8Ko==iZAn06vRqhuUB=h76Ye96hnuJ_WTLy4EbGapg@mail.gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <CABQX2QN=8Ko==iZAn06vRqhuUB=h76Ye96hnuJ_WTLy4EbGapg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
- TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- MID_RHS_MATCH_FROM(0.00)[]; RCVD_TLS_ALL(0.00)[];
- RCPT_COUNT_FIVE(0.00)[5]; RCVD_COUNT_TWO(0.00)[2];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
- URIBL_BLOCKED(0.00)[suse.de:dkim,suse.de:mid,suse.com:url,bootlin.com:url,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 743966A868
+References: <20260423205531.49971-1-deller@gmx.de>
+In-Reply-To: <20260423205531.49971-1-deller@gmx.de>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 24 Apr 2026 08:43:00 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVOk3ejrM5EkOBRjc0rQsSGU7TP+Kgd4=DzYuiF8m8Mzw@mail.gmail.com>
+X-Gm-Features: AQROBzD-bUctc5D-Bc0eMK2oVZmhH3jTRhq2Qclb0vv_xr_vyYpPVe9rCYI5UQ0
+Message-ID: <CAMuHMdVOk3ejrM5EkOBRjc0rQsSGU7TP+Kgd4=DzYuiF8m8Mzw@mail.gmail.com>
+Subject: Re: [PATCH] drm/todo: Drop todo item to request memory regions in all
+ fbdev drivers
+To: Helge Deller <deller@gmx.de>
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ Thomas Zimmermann <tzimmermann@suse.de>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,55 +86,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+Hi Helge,
 
-Am 23.04.26 um 21:51 schrieb Zack Rusin:
-[...]
->> -static enum hrtimer_restart
->> -vmw_vkms_vblank_simulate(struct hrtimer *timer)
->> +bool
->> +vmw_vkms_handle_vblank_timeout(struct drm_crtc *crtc)
->>   {
->> -       struct vmw_display_unit *du = container_of(timer, struct vmw_display_unit, vkms.timer);
->> -       struct drm_crtc *crtc = &du->crtc;
->> +       struct vmw_display_unit *du = vmw_crtc_to_du(crtc);
->>          struct vmw_private *vmw = vmw_priv(crtc->dev);
->>          bool has_surface = false;
->> -       u64 ret_overrun;
->>          bool locked, ret;
->>
->> -       ret_overrun = hrtimer_forward_now(&du->vkms.timer,
->> -                                         du->vkms.period_ns);
->> -       if (ret_overrun != 1)
->> -               drm_dbg_driver(crtc->dev, "vblank timer missed %lld frames.\n",
->> -                              ret_overrun - 1);
->> -
->>          locked = vmw_vkms_vblank_trylock(crtc);
->>          ret = drm_crtc_handle_vblank(crtc);
->>          WARN_ON(!ret);
->>          if (!locked)
->> -               return HRTIMER_RESTART;
->> +               return true;
-> Should this be false? Or is the common layer handling timer restarts
-> differently?
-
-Returning true here will restart the timer as before. See [1] for the logic.
-
-[1] 
-https://elixir.bootlin.com/linux/v7.0.1/source/drivers/gpu/drm/drm_vblank.c#L2193
-
-Best regards
-Thomas
-
+On Thu, 23 Apr 2026 at 23:04, Helge Deller <deller@gmx.de> wrote:
+> This item is tagged for beginners, so often people not familiar with
+> the fbdev drivers think this is an easy task, start up their AI tools
+> and blindly send in the generated code as patches.
 >
-> z
+> The problem:
+> - Those patches often introduce bugs, so
+> - ideally want the code tested, since ressource misconfigurations
+
+resource
+
+>   often lead to failing drivers
+> - The patches are often unnecessary, since in the old machines with the
+>   old graphic cards resource conflicts usually don't happen as only one
+>   graphic card can be used at a time anyway.
+> - and today most relevant drivers have necessary patches already
+>   implemented.
+>
+> So, let's get rid of this todo item and silence the steady stream of
+> stupid patches.
+>
+> Signed-off-by: Helge Deller <deller@gmx.de>
+
+Thanks for your patch!
+
+> --- a/Documentation/gpu/todo.rst
+> +++ b/Documentation/gpu/todo.rst
+> @@ -448,22 +448,6 @@ Contact: Thomas Zimmermann <tzimmermann@suse.de>
+>
+>  Level: Intermediate
+>
+> -Request memory regions in all fbdev drivers
+> ---------------------------------------------
+> -
+> -Old/ancient fbdev drivers do not request their memory properly.
+> -Go through these drivers and add code to request the memory regions
+> -that the driver uses. This requires adding calls to request_mem_region(),
+> -pci_request_region() or similar functions. Use helpers for managed cleanup
+> -where possible. Problematic areas include hardware that has exclusive ranges
+> -like VGA. VGA16fb does not request the range as it is expected.
+> -Drivers are pretty bad at doing this and there used to be conflicts among
+> -DRM and fbdev drivers. Still, it's the correct thing to do.
+> -
+> -Contact: Thomas Zimmermann <tzimmermann@suse.de>
+> -
+> -Level: Starter
+
+I am not really against keeping this item. But as the related changes
+are not pure refactorings, and cause a change in behavior, they _must_
+be tested on actual hardware.  I guess making that explicit would be a
+bit silly (heck, all changes should be tested).  And bumping the level
+to intermediate might send the wrong message, too (starters don't need
+to test? Doh...)
+
+Thomas: do we still any hardware for which there exist both DRM and
+fbdev drivers, and the resource management is missing in the fbdev
+drivers?
+
+> -
+>  Remove driver dependencies on FB_DEVICE
+>  ---------------------------------------
+>
+
+Gr{oetje,eeting}s,
+
+                        Geert
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
