@@ -4,69 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC5C3FED3CC
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 14:02:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 920B9FED3CF
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 14:13:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1538110F5A4;
-	Fri, 24 Apr 2026 14:02:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCB6010E3B4;
+	Fri, 24 Apr 2026 14:13:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="eVrbBPSa";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="G5Prosa2";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C22910F5A4
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 14:02:23 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id C8E9742A15;
- Fri, 24 Apr 2026 14:02:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 300E0C19425;
- Fri, 24 Apr 2026 14:02:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1777039342;
- bh=ack7mYbip6ZcuORQPpGdCVHFIO+2WE0qOIuDR99tjcI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=eVrbBPSay5lsKqpmLH1QRqkLYOnAbpPXdwffDswEX5wCx3OM8YNgFVoAszeWet41J
- N7en7QHUFyw55uVogTj/9asNhK9JcorV9woWHwY6p95kzbYb9NwfRCbUQ+iccUgFGa
- 1atSKUuBQu1QGh/D5JqOoasZsOzablfgD/xYZz5k=
-Date: Fri, 24 Apr 2026 15:34:38 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Stefan Schmidt <stefan.schmidt@linaro.org>,
- Hans Verkuil <hverkuil@kernel.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>,
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Hunter <jonathanh@nvidia.com>, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
- driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v2 02/13] drivers: base: Add generic dma context bus
-Message-ID: <2026042442-luxurious-antonym-f20c@gregkh>
-References: <20260423-glymur-v2-0-0296bccb9f4e@oss.qualcomm.com>
- <20260423-glymur-v2-2-0296bccb9f4e@oss.qualcomm.com>
- <2026042346-trustable-register-095a@gregkh>
- <06c04947-e72e-679b-493b-e112d693f391@oss.qualcomm.com>
- <2026042422-deem-chemist-8d0f@gregkh>
- <4c3fa710-f61a-4aad-622d-54909190cb9e@oss.qualcomm.com>
- <2026042428-blemish-helpline-7d8d@gregkh>
- <1e039dd5-da3f-19b2-ef98-29e64fdd925d@oss.qualcomm.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D9EB10E3B4
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 14:13:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1777039998; x=1808575998;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=y5xWrYfVQJGD1c2gpGmxsIdJlpuZuKi2LVj4vQlZ1vg=;
+ b=G5Prosa2QF1SNoaP7BHCwtNeRqcTHbsg5Aj5bG9doxbAF1IblN/m1oaI
+ 3IX/ZwUmwFGO4bHxl0eU/lAoU2y2WxTrptFDfS24eR4HQ1I38OSDNSjtn
+ qlyfRJntFJzcxY1tEvzgod19e475y8f7payIn0+5/MnszJnaJ11FeIvSE
+ sTnzxVm/dfq+HLoEEgZsVVhDGlBKLDmSOWZ0IHf9n0f6vuqBmccLZCUHL
+ 5qb4IihHcB7iCAsNKYGzBMsV4BU0pWwrYgMXnpC4DGPYqd0tWrwwrVSOP
+ 7/hFlupzOE2ZpyXQ73g7FvuZS8JrW/Mb7PvZh8TShu2N+fjrg+t4GbIn9 g==;
+X-CSE-ConnectionGUID: DT8lLctHS/+hV9u007yDPg==
+X-CSE-MsgGUID: soidyz5mRByuQhVZcIdg8w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11765"; a="89404187"
+X-IronPort-AV: E=Sophos;i="6.23,196,1770624000"; d="scan'208";a="89404187"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Apr 2026 07:13:17 -0700
+X-CSE-ConnectionGUID: OPVmvdFdQBysKWD+deWhVg==
+X-CSE-MsgGUID: FaMhVWedT+C/YuLkKYmTow==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,196,1770624000"; d="scan'208";a="230318504"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.89])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Apr 2026 07:13:13 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
+ <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, Laurent
+ Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Jyri Sarha
+ <jyri.sarha@iki.fi>, Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>, Laurent
+ Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Subject: Re: [PATCH v2 07/28] drm/bridge: Implement atomic_print_state
+In-Reply-To: <20260423-drm-state-readout-v2-7-8549f87cb978@kernel.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260423-drm-state-readout-v2-0-8549f87cb978@kernel.org>
+ <20260423-drm-state-readout-v2-7-8549f87cb978@kernel.org>
+Date: Fri, 24 Apr 2026 17:13:10 +0300
+Message-ID: <aa1ede131e4e3e8e98c684a4f1eeaf2cc8438a4c@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1e039dd5-da3f-19b2-ef98-29e64fdd925d@oss.qualcomm.com>
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,112 +79,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Apr 24, 2026 at 06:12:09PM +0530, Vishnu Reddy wrote:
-> 
-> On 4/24/2026 5:25 PM, Greg Kroah-Hartman wrote:
-> > On Fri, Apr 24, 2026 at 05:15:02PM +0530, Vishnu Reddy wrote:
-> >> On 4/24/2026 4:43 PM, Greg Kroah-Hartman wrote:
-> >>> On Fri, Apr 24, 2026 at 04:01:13PM +0530, Vishnu Reddy wrote:
-> >>>> On 4/23/2026 7:07 PM, Greg Kroah-Hartman wrote:
-> >>>>> On Thu, Apr 23, 2026 at 06:59:31PM +0530, Vishnu Reddy wrote:
-> >>>>>> From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-> >>>>>>
-> >>>>>> When a driver needs to create virtual device at runtime and map it to
-> >>>>>> an IOMMU context for memory isolation, there is no common bus available
-> >>>>>> for this purpose. Each driver ends up implementing its own bus type,
-> >>>>>> leading to duplicated logic across multiple drivers.
-> >>>>>>
-> >>>>>> host1x driver implemented its own bus type to attach an IOMMU context to
-> >>>>>> a dynamically created device. The Iris VPU driver now has the same
-> >>>>>> requirement. Rather than duplicating the same bus logic again, a shared
-> >>>>>> bus type is introduced under drivers/base that multiple drivers can use
-> >>>>>> directly.
-> >>>>>>
-> >>>>>> The bus takes care of creating a device and attaching the IOMMU context
-> >>>>>> to it based on the client inputs.
-> >>>>>>
-> >>>>>> Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> >>>>>> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-> >>>>>> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-> >>>>>> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> >>>>>> ---
-> >>>>>>  drivers/base/Kconfig            |  3 ++
-> >>>>>>  drivers/base/Makefile           |  1 +
-> >>>>>>  drivers/base/dma_context_bus.c  | 77 +++++++++++++++++++++++++++++++++++++++++
-> >>>>>>  include/linux/dma_context_bus.h | 26 ++++++++++++++
-> >>>>>>  4 files changed, 107 insertions(+)
-> >>>>> as you can not have a device on multiple busses at the same time, this
-> >>>>> makes no sense to me at all.  "dma context" is a bus-specific thing, so
-> >>>>> please add it to the bus that you are wanting it for.  It can't be a
-> >>>>> generic bus as that just doesn't work.
-> >>>>>
-> >>>>> Or what am I missing here?
-> >>>>>
-> >>>>> And why is DMA somehow "special" here from any other hardware attribute?
-> >>>> Let me give brief information which was discussed, in the initial series,
-> >>>> the iris VPU used platform bus for dynamically created devices and we got
-> >>>> the comment/suggestion from Robin to implement a proper bus_type with a
-> >>>> .dma_configure callback.
-> >>>>
-> >>>> https://lore.kernel.org/all/02b3d0f5-f94c-43cd-93af-97cfcf7751b1@arm.com/
-> >>>>
-> >>>> based on the discussion, implemented the dma_context_bus and used for iris
-> >>>> VPU devices instead of platform bus.
-> >>> Why not make a irus_vpu_bus where you can do what you want?
-> >> Initially iris_vpu_bus was introduced, and it was made generic based on the
-> >> discussion,
-> >>
-> >> https://lore.kernel.org/all/20260227-kaanapali-iris-v2-3-850043ac3933@oss.qualcomm.com/
-> > I don't really see that request here, I see a "make this better and more
-> > generic for other busses" but that does not mean "dump it into
-> > drivers/bus/ for someone else to maintain" :)
-> >
-> >>>> Here, the device have only one bus (dma_context_bus), not multiple buses.
-> >>>>
-> >>>> Regarding the "DMA" naming, the core operation of this bus is its
-> >>>> .dma_configure callback, which calls of_dma_configure_id() to map the device
-> >>>> to a corresponding IOMMU stream ID. The name "dma_context" reflects this
-> >>>> purpose.
-> >>>>
-> >>>> I am open to suggestions from you or Robin or anyone else, if there is a
-> >>>> better or preferred way to achieve this, I am happy to consider it and
-> >>>> rework the implementation accordingly.
-> >>> As there is only one user, just make this your own bus please and do all
-> >>> of the needed bus operations for your devices there (i.e. don't hang an
-> >>> "empty" device off of it.)
-> >> The reasoning behind to make it generic was to have more users - host1x,
-> >> Iris VPU, QDA on the generic context bus, instead of each of them having
-> >> their own. Let me know if you suggest to have the iris_vpu_bus.
-> > But you did not add such users here, so how would we know this?
-> >
-> > And still, I have no idea what this bus really is doing.  Is it dynamic?
-> > Is it self-describing?  Why not just use aux-bus?  What is it supposed
-> > to be doing and used for?
-> 
-> This bus will allow users to create a dynamic device and map to IOMMU stream
-> ID via .dma_configure callback which calls the of_dma_confgure_id() based on
-> the user inputs. This bus is under the iommu_buses list to register for bus
-> notifier callbacks for iommu_probe_device() and iommu_release_device() during
-> add and remove.
+On Thu, 23 Apr 2026, Maxime Ripard <mripard@kernel.org> wrote:
+> Bridges have some fields in their state worth printing, but we don't
+> provide an atomic_print_state implementation to show those fields.
+>
+> Provide one.
+>
+> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> ---
+>  drivers/gpu/drm/drm_bridge.c | 21 +++++++++++++++++++++
+>  1 file changed, 21 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+> index 5b8e171afbe5..fba440bddcb3 100644
+> --- a/drivers/gpu/drm/drm_bridge.c
+> +++ b/drivers/gpu/drm/drm_bridge.c
+> @@ -506,14 +506,35 @@ drm_bridge_atomic_create_priv_state(struct drm_private_obj *obj)
+>  		return ERR_CAST(state);
+>  
+>  	return &state->base;
+>  }
+>  
+> +static void
+> +drm_bridge_atomic_print_priv_state(struct drm_printer *p,
+> +				   const struct drm_private_state *s)
+> +{
+> +	const struct drm_bridge_state *state = drm_priv_to_bridge_state(s);
+> +	struct drm_bridge *bridge = drm_priv_to_bridge(s->obj);
+> +
+> +	if (bridge->of_node)
+> +		drm_printf(p, "bridge: %ps (%pOFfc)\n", bridge->funcs, bridge->of_node);
+> +	else
+> +		drm_printf(p, "bridge: %ps\n", bridge->funcs);
+> +
+> +	drm_printf(p, "\tinput bus configuration:");
+> +	drm_printf(p, "\t\tcode: %04x", state->input_bus_cfg.format);
+> +	drm_printf(p, "\t\tflags: %08x", state->input_bus_cfg.flags);
+> +	drm_printf(p, "\toutput bus configuration:");
+> +	drm_printf(p, "\t\tcode: %04x", state->output_bus_cfg.format);
+> +	drm_printf(p, "\t\tflags: %08x", state->output_bus_cfg.flags);
 
-But a device is nothing on its own.  You can not just have a random
-'struct device' hanging out there that does nothing but iommu, right?
-It should be doing something else that is very "bus" specific.
+Nitpick, please see drm_printf_indent(). Not having the \t's in the
+format strings makes them easier on the eyes.
 
-Again, why not create a bus for your hardware type and have that control
-the bindings of drivers to the devices, like it should be done.  You
-better not be creating platform devices for these things :)
+BR,
+Jani.
 
-> auxilary bus don't have the .dma_callback and bus notifier callbacks where it
-> can do iommu_probe_device() and iommu_release_device(). iommu_release_device(),
-> being a static api, need to be called from bus notifier callbacks which should
-> be under the list of iommu_buses.
+> +}
+> +
+>  static const struct drm_private_state_funcs drm_bridge_priv_state_funcs = {
+>  	.atomic_create_state = drm_bridge_atomic_create_priv_state,
+>  	.atomic_duplicate_state = drm_bridge_atomic_duplicate_priv_state,
+>  	.atomic_destroy_state = drm_bridge_atomic_destroy_priv_state,
+> +	.atomic_print_state = drm_bridge_atomic_print_priv_state,
+>  };
+>  
+>  /**
+>   * drm_private_obj_is_bridge - check if a private object backs a bridge
+>   * @obj: private object to check
 
-True, because aux bus devices don't do that directly, they are "sharing"
-resources with their parent device and something has to mediate for it.
-So yes, you are right, that is not a good idea.  Make a custom bus type
-instead please.
-
-thanks,
-
-greg k-h
+-- 
+Jani Nikula, Intel
