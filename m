@@ -4,91 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E976FE51E6
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 09:00:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 400D2FE51E6
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 09:04:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0382710F448;
-	Fri, 24 Apr 2026 09:00:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AFB210E3A9;
+	Fri, 24 Apr 2026 09:04:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PbRgLfBL";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mvuJbLRC";
 	dkim-atps=neutral
-Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com
- [74.125.224.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 627F810F448
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 09:00:17 +0000 (UTC)
-Received: by mail-yx1-f42.google.com with SMTP id
- 956f58d0204a3-651c366f7efso8002259d50.1
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 02:00:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777021216; cv=none;
+Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com
+ [74.125.224.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B6D810E3A9
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 09:04:43 +0000 (UTC)
+Received: by mail-yx1-f44.google.com with SMTP id
+ 956f58d0204a3-65427236e94so4831396d50.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 02:04:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777021482; cv=none;
  d=google.com; s=arc-20240605;
- b=Qd06SSVqnJJYtf34AQOVY6MeTSAVtno/nFBUC2Yd2svnWRRggGrRjd66LYV9tR3W0J
- qyAucFg4KX/B+qWwMpIt2HiWQg6KxkFSudqEiqw1qK+7UhIangxu14r4LSBmYoYIxBrz
- EPkQ3feYwsUiNj0CjzvnqdFMRM/TlxynSSC5UD49NxkZRluZVDNJSYi26CfIqGTFxWzW
- vqN9gXKC/SRk7HWZZO2DIDb1LS92Kk2EYhlzprFJiJ3ESaes/lOfq0UPMYVXgsWrm1MG
- PkqSF7RGNX8gvTlS7ihvr4oF5cewOeAi/hrokJ6uPJYx1LafA9gHPlsnjkb5uOjlNmDt
- oItw==
+ b=J+hxw7j4xJiLEe5ln+0CH3S+A4lrUyT/Bdqf2tx6BfjIlJTgJX/iWgLvaMd02K2ZFz
+ BkEFEQmTKUyq3YdAh8ZnYUyaXkBql4oV5MBzZKt/dbIk91YJK0/TbZYqZI9K/TJ/6bv4
+ IZDCjScMlaW4PJVQYg9N/cCO1qIXtpYgXjFn4ycpDPGnuR0WwIjPb41aUwrwPTGkAdqR
+ /RlS9xGhuTIglpL7jNZ5/AsnRd0uEWnq/ZqkDIXWSnXSfT/VHF0+c1aGvgO8eASM5alX
+ WRLKjfWStWx7LHpC9WgR84rVLvevvX2TNW5awGseG4RE4oPbMXhk7yN4bwzFWaj+URu5
+ E4QA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:dkim-signature;
- bh=WMhVWR0mg6d0bsMxu4OxDI/s6SgSzPlLJoRVMia7Nt4=;
- fh=tdjElNSctrJ5vj1P95tH47+m0BSNlZ+2sSLoUXGW/2M=;
- b=UNF7UHvrHzVeiVoPkukMhjc7cMHzhRgRHJl/QfNqGLxXFgr8Sy1SWQMt2LGt8Q0Bfz
- hpzoU0jJz4Y5Hp1nbHFhZZ/iZb+K2JSJp/SxHZ2lVrADdLBFsJiISFiGVe1nAPdRXPAh
- oTvfb6Zwydqu/1fwPH1vcG8RQOXRl+IIPvkb8Ia8MAqlHC2viKyUjP59zEnRepJYT7Sq
- 7N0+fjNX3SNTN8IYRwQrL+7RXsdhZw6JZQF+fVl6I75h2BN0I3vk6+U1Z2uTz9KfHrYb
- L1ig/UiFWhUx9Z+IMJAtgCxcp4vOVB/PR46plu90FoHjUYQWLkow3/66mn5/FArPSM62
- nsAQ==; darn=lists.freedesktop.org
+ bh=10qs2iwkS/eyNLtJNpVSp8xONvcrn//8/hAjXSFPo+c=;
+ fh=zf2PighFW12vmYnWN+qLnHte4uv/Pab/DCvkgWcgBOQ=;
+ b=V01vWlqsb7wFnYHsGvwgGWh5R3D77R8KOLOt3z1O727v9G/q9M5SCpUWkuUOTY9UMg
+ u1sO2OecL+P6QCEXHTmGfNM4FTRYZLQqU6Cf3QrDBsQ624qlF5auPIybwJKhVjTz0nrO
+ XEfu4/DCU7m1xR9/tgypqApyFCDTLvnqrsg2657qv0aC59hvdhy/pVRUMBXvnEOb/YKp
+ aPVMMVIYJF9lBYZ6rMlzdxTM0HIUlrtzJl4me2GCuPcYDxbfPBt8rCfys19cNpF0C0b5
+ ZnHkLHzxhAQFAdNLdPY9JDE1GzzUpEsMLWFb3OdotQGuJNwJhZJJwWcT+nrykK8IGe26
+ 1oOA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777021216; x=1777626016; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1777021482; x=1777626282; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=WMhVWR0mg6d0bsMxu4OxDI/s6SgSzPlLJoRVMia7Nt4=;
- b=PbRgLfBLIcIZA6FxV7PcZfBoH34FjPILy9H+adIE4Y6N0LVUjO5L6cKAwNeCKjlNRY
- 76p9s00CPuIg6lJ6AjgB87x3H0AywGT5dNKHVvXh7tX/qlOl+IvYnETy4QXmmJNp9fss
- L+5fq0qg3LvJObvn2OIjsTtGhRtkKSV+QpbHwJawY+bq/XU0TjSHpiywCOa5wA5XsuRw
- p0OpnTk9W1+wrGnz3Ot9E8mlGyDK4MFwWUAax8VNYs9LjFEqOz9h2ivXSV/6pXLRrsnl
- 2qUGDhBXFHJWOZv6pNsoy5mbk+PlUO/l7ji4ahhgabUkHDdpVwjmBfSetljxAqIUY+lP
- pp2g==
+ bh=10qs2iwkS/eyNLtJNpVSp8xONvcrn//8/hAjXSFPo+c=;
+ b=mvuJbLRCspMeJC9sAlXnllmtqwSdcln8xtxILtqIAncISksxMONyCE2uipnpqJ4Zvo
+ ikEwFv7bwer/mMLslbBOHtNXPj0/i4XCZ4uYoAMEKEznD15ynwqE4ICsuGdTuvwST8Sn
+ Md31yjlbkwJoWC3/wn0kxudGhJH3CNNT078SwM4dI+qL+r7qPWCBbcrXVhd3Fbofg3wD
+ TRoT93NGekZ73WpoLWeQbKqXWBkEC+9roTa4+V6tkFEjgx9owRd/eJKJDwKk1hW7re9a
+ 5DgV5bDJN9nIgG2C4NlN42npTVQ9iCOtz4ZcciTk2q8A5uztJ+mKvIWxiNvE4Gtp2VNj
+ unwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777021216; x=1777626016;
+ d=1e100.net; s=20251104; t=1777021482; x=1777626282;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=WMhVWR0mg6d0bsMxu4OxDI/s6SgSzPlLJoRVMia7Nt4=;
- b=EAUVc2lujDbxNQ+hQqrK6F+MAKc8XaKyRDV7y9ZKiQ8GOemvSWzcD9CPiY6EvMRlWc
- 7KYku3ZriexgCrMQuZniKcILhRAh9Dr/8Mkjo6f3dwTUs+Pj13d/iE805awJUvXSnVLJ
- 9W61MFQ0BZMAtqRfI6Y67/5zfJDxiQMSRv4yLAhwP1p6BAFe2/RwYymIfDy/CSwxPZkP
- qyIQ8w8O3b4swxGAzeH6toaXZP4MwD+noMeOgBimXnXWQt+QRlMfa1EcSqzZk63K7GHf
- l9OrexgwVgbrwmj5K+c1VN4gQ/BA1RPUEXPBBK0GoNYrA+3rFMxXymnAt2nh3px65aHC
- GrDA==
+ bh=10qs2iwkS/eyNLtJNpVSp8xONvcrn//8/hAjXSFPo+c=;
+ b=DMzBKFikF21FhCfcofqgVd0AC0L7iLNms0phRGTnn6GfAGdXnOHekGgOlhuGRk9HbN
+ eeZyJQLPoJgFseVZ8CZW24DiK+pvE46lshxutZZWFYYCMz796PpdBlryXQp3w//42k7w
+ eCG4bmO+fwX1YiGwluaktw6OpBdkcdw8zJd11JNQMtzD7pc21L0vHo8/WTzXnnfX4+mA
+ n32Z+YXbjO4LDN3MfEEuq4oYA1wC0EC9PVkVaqHbDlk3NFwu3UBTn5FFVxVB7koTZamJ
+ c8w9Thgw+2b2eCZ3jXBVIwKmSeGWDVrTlpEpfmGpo3UyptKwq+Rr0/FoSXqtogNDxTPW
+ UNew==
 X-Forwarded-Encrypted: i=1;
- AFNElJ87uLaEBwt1Ox9l1wyS7owQ9kiCdPW4KuH5cUm4n8OWMuFyCcP9VesM1TKCJXe72+khcJCeyufvoeU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz5+q0FdV1DfO38feChSdyk1faZbcBwpuUNTanbnpqqa1tvp4MX
- YqM/quvzI+2Xs9ZtyuIII6c0fNrp0kCPX3g3OF125m05BcXZw0S5ShX5vFa9PkR8kBpRhOkL/u0
- uHGIIveDmbqQcN0tca3n4sexbPbwC6PM=
-X-Gm-Gg: AeBDiesIpAl1LrmUVrjvZCvQ6A2fqbrvKjr8YqjYRG+IHc1ve+VhYZk26RvQcB/kPwC
- RDzq9Zp+7gyrDKfOUarnEA38j+Ozn2HZNjs/ZSqL7VhedY5noRAkYaf34ea8vxS0n9e4irpujeO
- XZEwriGnOLSc9KTciBJNYmZ2WAusEwf6CHY3GB5rN/qwmP9T2+P/RAd+gGmg7rcYJriFrNRP4XK
- J5FYRfnVWMeDvWUxNC91Kde9Rg4BVOYHi9knZxl3vsvFiqyYjo3dSJimqnoGTKpBruxo6HM5ILq
- iEzGztsbCnpSLZoAH/38
-X-Received: by 2002:a05:690e:d0a:b0:653:1945:8fab with SMTP id
- 956f58d0204a3-65319459b3cmr27855758d50.43.1777021216403; Fri, 24 Apr 2026
- 02:00:16 -0700 (PDT)
+ AFNElJ9BgP9YCJNcRwCaqM6xX5naQq6kjeTd1l26aXKsxbFeAriv5dwY/3LqxYcL5p2O99J41rFfJ8uHaDs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwVqYdTKYuFmAhMdE5Sc+tIv+r3DbDvDzJb0Ow5pYTdbOXtQaTF
+ 9MelR2eVJOHKIjjULbDWABq9mWzVX6fzHbc6ux9aBv1QWKt8t1QS35TuTw2XW2Mx19LR++WnVa6
+ 1f2OyT5zHdJGWytcu5/nShafmySORebs=
+X-Gm-Gg: AeBDies3wOBq7cEA3XSivHFm4EfK2UAoL+HouQklSmiraxeDpBoX9BlTkoh4hP/iccc
+ QL5cWtM7jHtwlpCMx1CPq/hyC5t8B+T0GumLKEyXVbBPH1eDXPmXkBxsSawgeAMASFN67l3nY0u
+ ouUQWfmdaEYIePZjC/ccSoUyMV+LU42aDz/Ocwc3Wfov0gbKWUeOkr7jwD4sNS4Hil5rLq+YiLc
+ UR6kgnmxpKVqWhmRzJJP33M2jH9fl3xH10878t8y5ExDTHgzlLl+BNncS6QSDCjsQVGax1Yq9g2
+ lB8N0FTf1ncus+xoNoAv
+X-Received: by 2002:a05:690e:4141:b0:653:3f1a:798d with SMTP id
+ 956f58d0204a3-6533f1a7f4bmr26739134d50.23.1777021482431; Fri, 24 Apr 2026
+ 02:04:42 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260415191003.3829558-1-lgs201920130244@gmail.com>
-In-Reply-To: <20260415191003.3829558-1-lgs201920130244@gmail.com>
+References: <20260415191306.3837839-1-lgs201920130244@gmail.com>
+In-Reply-To: <20260415191306.3837839-1-lgs201920130244@gmail.com>
 From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Fri, 24 Apr 2026 17:00:01 +0800
-X-Gm-Features: AQROBzDRuc7ifOf5Jk1J9tOCgnKOvndIrCp42i0bqZ5GOvl-P0LF9lO5bb2Mf9k
-Message-ID: <CANUHTR_2RuqR95v3zRzqBsy2txTq2nBghi9PhMj_ek4VEBCHdQ@mail.gmail.com>
-Subject: Re: [PATCH] fbdev: hitfb: fix reference leak on failed device
+Date: Fri, 24 Apr 2026 17:04:28 +0800
+X-Gm-Features: AQROBzD3ciSHDJ4yZ2SN0KweOJ4wwJwZ7CklV1Yarwt6T_p1EdetKVc2Xh8dTK8
+Message-ID: <CANUHTR_zY8f3eGUJwzcq_rAe=XfturfT5N=E3fYLyaYXqGV4Tw@mail.gmail.com>
+Subject: Re: [PATCH] fbdev: q40fb: fix reference leak on failed device
  registration
 To: Helge Deller <deller@gmx.de>, Guangshuo Li <lgs201920130244@gmail.com>, 
- Andriy Skulysh <askulysh@gmail.com>, Paul Mundt <lethal@linux-sh.org>,
- linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -110,19 +109,19 @@ Hi,
 
 Please disregard this patch.
 
-On Thu, 16 Apr 2026 at 03:10, Guangshuo Li <lgs201920130244@gmail.com> wrote:
+On Thu, 16 Apr 2026 at 03:13, Guangshuo Li <lgs201920130244@gmail.com> wrote:
 >
-> When platform_device_register() fails in hitfb_init(), the embedded
-> struct device in hitfb_device has already been initialized by
+> When platform_device_register() fails in q40fb_init(), the embedded
+> struct device in q40fb_device has already been initialized by
 > device_initialize(), but the failure path only unregisters the platform
 > driver and does not drop the device reference for the current platform
 > device:
 >
->   hitfb_init()
->     -> platform_device_register(&hitfb_device)
->        -> device_initialize(&hitfb_device.dev)
->        -> setup_pdev_dma_masks(&hitfb_device)
->        -> platform_device_add(&hitfb_device)
+>   q40fb_init()
+>     -> platform_device_register(&q40fb_device)
+>        -> device_initialize(&q40fb_device.dev)
+>        -> setup_pdev_dma_masks(&q40fb_device)
+>        -> platform_device_add(&q40fb_device)
 >
 > This leads to a reference leak when platform_device_register() fails.
 > Fix this by calling platform_device_put() before unregistering the
@@ -131,25 +130,24 @@ On Thu, 16 Apr 2026 at 03:10, Guangshuo Li <lgs201920130244@gmail.com> wrote:
 > The issue was identified by a static analysis tool I developed and
 > confirmed by manual review.
 >
-> Fixes: 048839dc548a5 ("video: hitfb suspend/resume and updates.")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 > ---
->  drivers/video/fbdev/hitfb.c | 4 +++-
+>  drivers/video/fbdev/q40fb.c | 4 +++-
 >  1 file changed, 3 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/video/fbdev/hitfb.c b/drivers/video/fbdev/hitfb.c
-> index 97db325df2b4..29708c2d506d 100644
-> --- a/drivers/video/fbdev/hitfb.c
-> +++ b/drivers/video/fbdev/hitfb.c
-> @@ -495,8 +495,10 @@ static int __init hitfb_init(void)
->         ret = platform_driver_register(&hitfb_driver);
+> diff --git a/drivers/video/fbdev/q40fb.c b/drivers/video/fbdev/q40fb.c
+> index 1ff8fa176124..0151a41267b3 100644
+> --- a/drivers/video/fbdev/q40fb.c
+> +++ b/drivers/video/fbdev/q40fb.c
+> @@ -141,8 +141,10 @@ static int __init q40fb_init(void)
+>
 >         if (!ret) {
->                 ret = platform_device_register(&hitfb_device);
+>                 ret = platform_device_register(&q40fb_device);
 > -               if (ret)
 > +               if (ret) {
-> +                       platform_device_put(&hitfb_device);
->                         platform_driver_unregister(&hitfb_driver);
+> +                       platform_device_put(&q40fb_device);
+>                         platform_driver_unregister(&q40fb_driver);
 > +               }
 >         }
 >         return ret;
@@ -158,7 +156,7 @@ On Thu, 16 Apr 2026 at 03:10, Guangshuo Li <lgs201920130244@gmail.com> wrote:
 > 2.43.0
 >
 
-After re-checking it, hitfb_device is a static platform_device and it does
+After re-checking it, q40fb_device is a static platform_device and it does
 not provide a dev.release callback. Therefore calling
 platform_device_put() on the platform_device_register() failure path is
 not appropriate here and can trigger the missing release callback
