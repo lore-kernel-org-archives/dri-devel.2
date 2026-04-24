@@ -4,172 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6E62FB44C9
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 07:45:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50B7DFB44C4
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 07:47:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1425D10F3AD;
-	Fri, 24 Apr 2026 07:44:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0E8B10F361;
+	Fri, 24 Apr 2026 07:47:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IF6EoyQq";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="bU962kaV";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="pSc/6BMy";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ZIY6pN4J";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="4Eyc3LVi";
 	dkim-atps=neutral
-Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com
- [209.85.167.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C669310F2A3
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 20:55:03 +0000 (UTC)
-Received: by mail-oi1-f180.google.com with SMTP id
- 5614622812f47-479d4df9035so2814408b6e.0
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Apr 2026 13:55:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776977703; x=1777582503; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=MqO5/EH/UF1TE1Yyx5zB/rmOp92tEJKuB03COKwdtP4=;
- b=IF6EoyQqVd1nMSfmgelgwZO71+j93UwogAGI85TtBTvo2ylXiBiNVadMwbuLaAPHdt
- +vIHRFP5PKMaVfqc+Y1YOe2Jqe2OrtM4sEn451ninotNGYLX1deM/JGsYJHcWO0tS1bF
- 0T80Dq/HKznhP3XOLGkhyLfhOLtmJRaJUDH6mcBex9Mv0KJMRKlJEVg0xvb1bdAC1Cwz
- eknGbXHusIoUmCihpLN1ZLW9iSj7vR8k0m7AT50Pde2lqzeLsJD48sei00SbcX3E4Kcr
- Indu5x1hFoX3Y2j6MlrhxauKSf100nZs9/zbxsn0sPZFQ9eScydSxD7XCGmPA4OHs7v6
- UHVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776977703; x=1777582503;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=MqO5/EH/UF1TE1Yyx5zB/rmOp92tEJKuB03COKwdtP4=;
- b=OS+cj0Z73giWC3ZazGGct/zGbvJ4P2W5JR15kVAOti7kvYz9fkkin/f5XIYGoD4xea
- dU+wXHuVZVQOsmNlCk7IVcoPgjKen49irECsaX3GDzvdz4Ml/7j1d528OZVwAJAB3a12
- nCjVM3d5shfzdMRpa53AUGchwSlf7zQfwz0+DyI3x64Y/9TLFcmnfmFzMotbX6zpemXj
- 7kqKah97wHero5T6aIMHyzRmHza0VvhCmyTe5fMlyvIA2H4Vw1K3aIve2VMgGrshkn1j
- dufNA/TjMjjuR18zVcj34Bg3lpL8wYgH4X1wa8RjhrS05eKxo5Y4JGUGmusTs5LyRXl3
- iB8g==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/2ZnUPbddT4IRAsNNPPz55cHfHoJ+BPuIb7sXNZ8WGIcjw/sWuIuTK9tkqrGWD/Ji17v1F+3CyeGE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx3U/zJ2HrCM9R7NrJ8YFs4PCfZM4lxHO/HYn1vM45Gx1Zq5RMJ
- DuUBULblUkl3gBfUherZoFv1np9i0N2GH0jeyPPaXPpq0bc4KCKnquPj
-X-Gm-Gg: AeBDiet2cUU40cCL0cVDEMmhdOii58byI7+x2pFdZavo+iZ1SbSNmXysJn1OtW0H93J
- 20L0Q/N4lQwWiT48QsnkRny4CYUGcNT5X4VTDWn6pn8faDDijxRjwtJMLi5LotBQLgbL9vG/WNa
- P+j4GsI4UEnFTBR230SrmkzkHZCOFfxpBkp9ok/JIv4OwSqc7FCkOpLa/3wxpZpSSKS1jXlT4gD
- eGh92NwauHtceBfTg+Cflv9TgZJxtuJImA4OhTj9SNE7l37N964P85dpUI9JXTxS+onguz3Ynwv
- gWZtxlu73/iiSWUDllYS8E5dJ4UX+kABoarMLuWYPG5c2Mm+NqxtdOyKI3eE7sqOnU8P/5OmYpf
- frOuwGkL9oXOv9A3uBF19ePPi0mHQW6GRouGGyzI9yQISY8Uj3Xq9DBRPYG/FyK+TmPa0+YEH+K
- J0LUo7f/QJhU945RLS3AIGtAD/FCav79J0sEira34g5gzqB9wtkea3zO8A57cE2HZcIl4EC5lJ
-X-Received: by 2002:a05:6808:4f0a:b0:468:698:a626 with SMTP id
- 5614622812f47-4799bf4b93dmr13762368b6e.22.1776977702799; 
- Thu, 23 Apr 2026 13:55:02 -0700 (PDT)
-Received: from [192.168.0.245] (c-98-38-17-99.hsd1.co.comcast.net.
- [98.38.17.99]) by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4799fead505sm14329744b6e.2.2026.04.23.13.54.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Apr 2026 13:55:02 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-Date: Thu, 23 Apr 2026 14:53:53 -0600
-Subject: [PATCH v14 12/92] dyndbg: drop NUM_TYPE_ARRAY
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 011AB10F361
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 07:47:33 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 5AD6F5BD7E;
+ Fri, 24 Apr 2026 07:47:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1777016852; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=6uc3GHNzYQBl2DFkkOugPff/GkODO6tB00fcaNe3RdI=;
+ b=bU962kaVPXOWSuEzAxC/JpvgxVdaYDP3wFQ5or4aq9zb1c7KyDrErT211Lq+NkWP1DjifM
+ uKU5/SQSGMSgrKElhyXYEENBbIe43ydqi5Uq9ijZjWRxIlTfUzMtiXHZR4tbTH58QKSSeq
+ I6T1wUotd7oo1RnJ2fwn3sguS4Jf7cI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1777016852;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=6uc3GHNzYQBl2DFkkOugPff/GkODO6tB00fcaNe3RdI=;
+ b=pSc/6BMye4ao9EwICwb+xim/3CCJIml9uzCO49kTSCGrTj5WxGqawmDhffgFyehY4gmjPa
+ Ld8CEjh/RMjXozBQ==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=ZIY6pN4J;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=4Eyc3LVi
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1777016851; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=6uc3GHNzYQBl2DFkkOugPff/GkODO6tB00fcaNe3RdI=;
+ b=ZIY6pN4JqDLICDoZgyG7qFoNQEeHGc6KCZNNKa0b4xCW2BNIwFFxo9IXCQQyZdv1wMYRSz
+ +JKQPt7z4fHPrc6SI/yKOoYLrZa1ESpxmoGfJ+J/EpoBKl164CXcLgfdA19/fbHYipd+48
+ Qmu5V/baKoLh+OnZB3rvqwz1UysBmwo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1777016851;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=6uc3GHNzYQBl2DFkkOugPff/GkODO6tB00fcaNe3RdI=;
+ b=4Eyc3LViLaUDV3hYR3qzPy+o2phSsRJ83TV+gr2W1zFyMUH9eY0eTuqeBto6vVOZ9AUKXu
+ 8Hj7v1c3ZDTpZaAQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2C1D4593A4;
+ Fri, 24 Apr 2026 07:47:31 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id GRCZCRMg62lVWwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 24 Apr 2026 07:47:31 +0000
+Message-ID: <0be82b55-0f78-4ef9-8b50-f068ec36ec4f@suse.de>
+Date: Fri, 24 Apr 2026 09:47:30 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260423-submit-dyndbg-classmap-foundation-v14-12-2b809a8019d0@gmail.com>
-References: <20260423-submit-dyndbg-classmap-foundation-v14-0-2b809a8019d0@gmail.com>
-In-Reply-To: <20260423-submit-dyndbg-classmap-foundation-v14-0-2b809a8019d0@gmail.com>
-To: Arnd Bergmann <arnd@arndb.de>, Jason Baron <jbaron@akamai.com>, 
- Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
- Aaron Tomlin <atomlin@atomlin.com>, 
- Andrew Morton <akpm@linux-foundation.org>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, Shuah Khan <shuah@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, 
- Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
- Gurchetan Singh <gurchetansingh@chromium.org>, 
- Chia-I Wu <olvaffe@gmail.com>, Matthew Brost <matthew.brost@intel.com>, 
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
- Zack Rusin <zack.rusin@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Louis Chauvet <louis.chauvet@bootlin.com>, 
- Haneen Mohammed <hamohammed.sa@gmail.com>, 
- Melissa Wen <melissa.srw@gmail.com>, Sean Paul <sean@poorly.run>, 
- Jocelyn Falempe <jfalempe@redhat.com>, Ruben Wauters <rubenru09@aol.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Xinliang Liu <xinliang.liu@linaro.org>, Tian Tao <tiantao6@hisilicon.com>, 
- Xinwei Kong <kong.kongxinwei@hisilicon.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- Yongqin Liu <yongqin.liu@linaro.org>, John Stultz <jstultz@google.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, Alain Volmat <alain.volmat@foss.st.com>, 
- Raphael Gallais-Pou <rgallaispou@gmail.com>, 
- Yannick Fertre <yannick.fertre@foss.st.com>, 
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
- Philippe Cornu <philippe.cornu@foss.st.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Oded Gabbay <ogabbay@kernel.org>, 
- Maciej Falkowski <maciej.falkowski@linux.intel.com>, 
- Karol Wachowski <karol.wachowski@linux.intel.com>, 
- "Rob Herring (Arm)" <robh@kernel.org>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, 
- Liviu Dudau <liviu.dudau@arm.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Liu Ying <victor.liu@nxp.com>, 
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
- Lucas Stach <l.stach@pengutronix.de>, Paul Kocialkowski <paulk@sys-base.io>, 
- Jianmin Lv <lvjianmin@loongson.cn>, Qianhai Wu <wuqianhai@loongson.cn>, 
- Huacai Chen <chenhuacai@kernel.org>, Mingcong Bai <jeffbai@aosc.io>, 
- Xi Ruoyao <xry111@xry111.site>, Icenowy Zheng <zhengxingda@iscas.ac.cn>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, 
- Javier Martinez Canillas <javierm@redhat.com>, 
- Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, 
- Jani Nikula <jani.nikula@intel.com>, Luca Coelho <luciano.coelho@intel.com>, 
- Russell King <linux+etnaviv@armlinux.org.uk>, 
- Christian Gmeiner <christian.gmeiner@gmail.com>
-Cc: linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- virtualization@lists.linux.dev, intel-xe@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, spice-devel@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-stm32@st-md-mailman.stormreply.com, linux-renesas-soc@vger.kernel.org, 
- etnaviv@lists.freedesktop.org, Jim Cromie <jim.cromie@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776977637; l=982;
- i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=y0aqiZzD4/dauxqWGWZpTeZQeDGgmhoKACp8yCx31Lc=;
- b=0ylBEG5Zr2L9JzVM3p0QOGGNJYPJlqcvdgDfrferqn+IIjg0mF/DXa7yY98RemD0Q77UWcis8
- afOWJy3fK3tDbGja7wdbkN+8vIczS7ipTPRP52IXbHMq4ogKAy8+JGS
-X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
- pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
-X-Mailman-Approved-At: Fri, 24 Apr 2026 07:44:43 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: further issues with MGA G200 graphics chipset
+To: Jocelyn Falempe <jfalempe@redhat.com>,
+ Jacob Keller <jacob.e.keller@intel.com>,
+ "airlied@redhat.com" <airlied@redhat.com>
+Cc: dri-devel@lists.freedesktop.org,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Pasi Vaananen <pvaanane@redhat.com>
+References: <76aba88d-ec23-4b3c-ad91-83face0c3e94@intel.com>
+ <a9d176ec-d19b-4f41-af16-cdc4e475a8cc@suse.de>
+ <6ec01703-31e0-4998-9508-a5a115ae7bc9@intel.com>
+ <14aa4840-29c4-46df-b60d-8e1b92494ad2@redhat.com>
+ <e9cca01c-960d-495c-aaba-327eac43cad6@intel.com>
+ <a23413a4-f939-4a23-996f-4ba5c8294c59@suse.de>
+ <5155f29b-bc4d-4e60-9a26-22d568c43e46@redhat.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <5155f29b-bc4d-4e60-9a26-22d568c43e46@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ MIME_TRACE(0.00)[0:+]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ ARC_NA(0.00)[]; TO_DN_SOME(0.00)[]; TO_DN_EQ_ADDR_SOME(0.00)[];
+ RCVD_TLS_ALL(0.00)[]; RCPT_COUNT_FIVE(0.00)[6];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:url];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 5AD6F5BD7E
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -185,34 +154,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-ARRAY_SIZE works here, since array decl is complete.
+Hi Jocelyn
 
-no functional change
+Am 24.04.26 um 09:36 schrieb Jocelyn Falempe:
+> On 24/04/2026 08:20, Thomas Zimmermann wrote:
+>> Hi
+>>
+>> Am 23.04.26 um 21:42 schrieb Jacob Keller:
+>> [...]
+>>> Unfortunately, I also have no better idea than a DMI quirk table to
+>>> record known platforms that include the controller but don't have a
+>>> physical VGA connection exposed.
+>>
+>> I'm in favor of this. If you send a meaningful DMI identifier for 
+>> your system, I'd make you a patch for testing.
+>
+> I didn't find something related to VGA connector in dmidecode.
+> My suggestion would be to use the chassis-type [1], and disable 
+> polling on Blade (0x1C and 0x1D) and Rack Mount (0x17) as they are 
+> less likely to have a real VGA monitor connected.
+> My Dell T310, which is kind of a Tower, has a chassis-type of 0x11 
+> "Main server chassis" so it might not be very reliable.
 
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- include/linux/dynamic_debug.h | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+This is the first time, I hear about this problem. I don't think it's 
+very common. And it appears only to be related due to cheap hardware 
+manufacturing.
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index 441305277914..92627a03b4d1 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -132,11 +132,9 @@ struct ddebug_class_param {
- 		.mod_name = KBUILD_MODNAME,				\
- 		.base = _base,						\
- 		.map_type = _maptype,					\
--		.length = NUM_TYPE_ARGS(char*, __VA_ARGS__),		\
-+		.length = ARRAY_SIZE(_var##_classnames),		\
- 		.class_names = _var##_classnames,			\
- 	}
--#define NUM_TYPE_ARGS(eltype, ...)				\
--	(sizeof((eltype[]) {__VA_ARGS__}) / sizeof(eltype))
- 
- extern __printf(2, 3)
- void __dynamic_pr_debug(struct _ddebug *descriptor, const char *fmt, ...);
+So I suggest to pick Manufacturer, Product, Version as key. I'd be 
+surprised if we find more than a hand full of systems with the issue. If 
+we see a trend or common pattern, we can generalize later on.
+
+
+>
+> Another option would be to disable polling if PREEMPT_RT is set, so if 
+> the user expects low latency, he can actually have it.
+>
+> Last resort is that the driver did work for 2 decades without polling 
+> the VGA connector, maybe we can revert to that behavior.
+
+It didn't actually work. Removing it will break a lot of systems.
+
+Best regards
+Thomas
+
 
 -- 
-2.53.0
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
 
