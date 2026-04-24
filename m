@@ -4,50 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF2D6FF885A
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 23:39:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2329FF885A
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 23:39:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B27710E080;
-	Fri, 24 Apr 2026 23:39:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B97210F6EB;
+	Fri, 24 Apr 2026 23:39:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="LEp97SXN";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="QcUJ/NRy";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5662710E080
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 23:39:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1777073955; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4683D10F6EB
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 23:39:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1777073959; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=GHOqLhrKMHrsDD/N7jS6wIZ/r2zr3HfUXMxyiON+rRnpP+NaEvBvPxNmgpb1rReWGYLOXlyu5FC5SreGDFNJKt/bUbagluvOEyS7coIjaSNQv2yQqKCiWvgjMu85s4XG63bkngkekpfYwukZLTsWd6Q72d0TtsQNvmEAp7IIvOw=
+ b=FPJTs+fiqHXOZ2Op8xT9dEznPDwqUYWQX4QfK17HJsL0GT6ATcTb/BYuUh3TFse8tsS3B4xcAJIE6KErZfAYHMSCstq5NSK3maBkSMLscdbB/uAxghXqc8p0gkrzOa7ROs6WozgxBGJitvNNnw+i8VAzCXosae1l8XWolbClWjY=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1777073955;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=RcWvnCAbCUFK7Lm2LM/nqXTh7dLqCHkL6wDI2q0/+xw=; 
- b=PQ8eBx4sISyaCR7N3vJAzAxF+yT/Iqh4Yc6iLslnYmqjEzTEhHEGJinOXzEf/PGsivrxe15FKFxzi1QliYzqpEEXJQwZgE1LzNADq9YsFwj0PwVhklbJYbO/T3tsoaf/LqpRe2VjvIO2O0okYgfjdLjg5oVYP1KeqXcuaX2olnM=
+ s=zohoarc; t=1777073959;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=mJKP1SVgsbLnTI6G/aFIyYqGXRmudzvv7JSn+nXBGDU=; 
+ b=Xam2FAj3+bFUW11jv14dYTi6NWcOtYApVxxpzmP/df8LFfVC9XYsZVhfV9Np5qFry9amTIvVWRs7AEQwSvISz3vbseWB5GmNkaN/EDLokWSeFoV8D1/Z0gEzV7uBkHOopz6m3hbvgS+4bEMRv3z+8Icly2fyC9Rgcb0j6noOjCg=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
  dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1777073955; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1777073959; 
  s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
- h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
- bh=RcWvnCAbCUFK7Lm2LM/nqXTh7dLqCHkL6wDI2q0/+xw=;
- b=LEp97SXNiY0zJVIEvEmxf2W/0QL0GmqYwvdo8ja36v83xvPP4FxmW0rCYzRetOL/
- XUqmCF1/Da9WQHxzI+OHGf1j5M7acPpDZpPirl483x4baxCu8UeSQW/0r1PjktukiPq
- jpuWFcKrzjL+7dlQuKYLWfaBUTsWqcZN51+mAHW8=
-Received: by mx.zohomail.com with SMTPS id 1777073953870348.13203397773054;
- Fri, 24 Apr 2026 16:39:13 -0700 (PDT)
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=mJKP1SVgsbLnTI6G/aFIyYqGXRmudzvv7JSn+nXBGDU=;
+ b=QcUJ/NRyKDP8sOm04JyVq1dm16DwcTUqe/hx6tcKKSYk6Rd8bJ43hTFjsKicPFBj
+ I2aVnIizIKAE8Z03EOO+K5rQah4Qe5jbf/j0Dpiaa/xi3bLgnjKyG6uJRK9hlByOzav
+ n0i3SaLJDfdenBd6sXpYZ6TA8c0zzBZ5qLjj6gsM=
+Received: by mx.zohomail.com with SMTPS id 1777073958375783.2625500612932;
+ Fri, 24 Apr 2026 16:39:18 -0700 (PDT)
 From: Deborah Brouwer <deborah.brouwer@collabora.com>
-Subject: [PATCH v4 00/20] drm/tyr: firmware loading and MCU boot support
-Date: Fri, 24 Apr 2026 16:38:54 -0700
-Message-Id: <20260424-b4-fw-boot-v4-v4-0-a5d91050789d@collabora.com>
+Date: Fri, 24 Apr 2026 16:38:57 -0700
+Subject: [PATCH v4 03/20] drm/tyr: move clock cleanup into Clocks Drop impl
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQ5AMBBA0avIrE1SNQRXEQtlymxaaQWJ9O4ay
- 7f4/4XIQTjCULwQ+JIo3mVQWcCyz25jlDUbtNKtIk1oCO2NxvsTL0IyjVW9sVXNHeTmCGzl+X/
- jlNIH9ggXg18AAAA=
-X-Change-ID: 20260424-b4-fw-boot-v4-4b5f09bf13e8
+Message-Id: <20260424-b4-fw-boot-v4-v4-3-a5d91050789d@collabora.com>
+References: <20260424-b4-fw-boot-v4-v4-0-a5d91050789d@collabora.com>
+In-Reply-To: <20260424-b4-fw-boot-v4-v4-0-a5d91050789d@collabora.com>
 To: Daniel Almeida <daniel.almeida@collabora.com>, 
  Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -66,13 +64,13 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  work@onurozkan.dev, alvin.sun@linux.dev, 
  Deborah Brouwer <deborah.brouwer@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5755;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2601;
  i=deborah.brouwer@collabora.com; h=from:subject:message-id;
- bh=ghNzVyPKU/Kea9FpHetQ6ymOdAd9S1ctNJ6NEXrA21E=;
- b=owGbwMvMwCVWuULzOU9c7WvG02pJDJmv/yvc5Aou1VUNkZ5vcMzGX/GwQ7m2/hf+7LfHL5Rbh
- v+t0T7YUcrCIMbFICumyHLW3qhHvOq9ke78/80wc1iZQIYwcHEKwERmrGVkOFWWo+d9+PDGKRPS
- YhQKBB0/HrvtkhKi/fHF0WZv6+qH5Qz/9Ntun31WnVQptm4S/8GFKrIusxdOtZxqxNjMe8hievY
- VRgA=
+ bh=TJYiaR6HkYI0Jih2JmM5qi5Sd5bcOQQAYqWwO1EUFlU=;
+ b=owGbwMvMwCVWuULzOU9c7WvG02pJDJmv/ytoNs2uDdlk+Wl374H+zGdb5whvMbu098iMsxvWv
+ 7jGF21W1lHKwiDGxSArpshy1t6oR7zqvZHu/P/NMHNYmUCGMHBxCsBEFgsy/HcvUqlIyLu/tJot
+ +umZ8BfJvHNfR29IWmM6fbWeieSMd3kM/5QtqjfKLlMsm3zrteveqh33cs0bAhwC5uS/uPND8OE
+ fbnYA
 X-Developer-Key: i=deborah.brouwer@collabora.com; a=openpgp;
  fpr=CD3F328C177AEF322D9FFF8379A829E70C5E7DEB
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -90,143 +88,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series adds firmware loading and MCU boot support to the Tyr DRM
-driver. It includes:
- - A parser for the Mali CSF firmware binary format
- - A kernel-managed BO type (KernelBo) for internal driver allocations
- - GPU virtual memory (VM) integration using drm_gpuvm
- - An MMU module and a generic slot manager
- - Shmem-backed GEM support for Tyr
- - Loading firmware, VM activation, and MCU boot at probe()
- - Initialization of Command Stream Frontend (CSF) firmware interfaces
+Currently Tyr disables its clocks from TyrDrmDeviceData::drop(), which
+causes them to be shut down before any other fields in TyrDrmDeviceData
+are dropped. This prevents us from using the clocks when dropping the
+other fields in TyrDrmDeviceData.
 
-Dependencies:
- - [PATCH v12 0/5] Rust bindings for gem shmem
-    https://lore.kernel.org/rust-for-linux/20260421235346.672794-1-lyude@redhat.com
+In order to better control when the clocks are dropped, move this cleanup
+logic into a Drop implementation on the Clocks struct itself.
 
- - [PATCH v6 0/5] Rust GPUVM immediate mode
-    https://lore.kernel.org/rust-for-linux/20260409-gpuvm-rust-v6-0-b16e6ada7261@google.com/
+Since it serves no further purpose, remove the PinnedDrop implementation
+for TyrDrmDeviceData.
 
- - [PATCH v6 0/5] Introduce DeviceContext
-    https://lore.kernel.org/rust-for-linux/20260320233645.950190-1-lyude@redhat.com/
+Also, while here, remove the #[pin_data] annotation from both the struct
+Clocks and struct Regulators since neither of these structs need this
+macro to create structurally pinned fields.
 
- - [PATCH v5 0/6] drm/tyr: Use register! macro
-    https://lore.kernel.org/rust-for-linux/20260409-b4-tyr-use-register-macro-v5-v5-0-8abfff8a0204@collabora.com/
-
-Other Prerequisites:
- This series also depends on additional prerequisite fixes not included in
- this posting. The full stack (base + prerequisites + this series) is
- available here:
-  https://gitlab.freedesktop.org/dbrouwer/linux/-/tree/dbrouwer/fw-boot
-    
-  Development history / discussion:
-   https://gitlab.freedesktop.org/panfrost/linux/-/merge_requests/56
-    
-
----
-Changes in v4:
- New commits:
-  - drm/tyr: program CSF global interface
-  - rust: time: add arch_timer_get_rate wrapper
-  - drm/tyr: add CSF firmware interface support
-  - drm/tyr: validate presence of CSF shared section
-  - drm/tyr: wait for global interface readiness
-  - drm/tyr: add Job IRQ handling
-  - drm/tyr: add Wait type for GPU events
-
- The existing commits from v3 remain unchanged.
- - Link to v3: https://lore.kernel.org/r/20260413-b4-fw-boot-v3-v3-0-b422f3c03885@collabora.com
-    
-Changes in v3:
- New commits:
-  - drm/tyr: remove unused device from platform data
-  - drm/tyr: use shmem GEM object type in TyrDrmDriver
-    
- drm/tyr: select required dependencies in Kconfig
-  - Rename commit since the dependencies are not limited to DRM.
-  - Select new RUST_DRM_GEM_SHMEM_HELPER instead of DRM_GEM_SHMEM_HELPER.
-    
- drm/tyr: set DMA mask using GPU physical address
-  - Use register macro to read pa_bits instead of separate helper function.
-    
- drm/tyr: add MMU module
-  - Switch MMU code to typed register APIs (TRANSCFG, MEMATTR, STATUS, LOCKADDR, etc.).
-  - Use MmuCommand enum for MMU commands instead of raw constants.
-  - Minor cleanups and renaming (MAX_AS, AS_PRESENT handling).
-    
- drm/tyr: add GPU virtual memory module
-  - Extract VA/PA bits via typed MMU_FEATURES register.
-  - Update the VM code to match the new GPUVM v6 and shmem GEM v10 APIs.
-    
- drm/tyr: add a kernel buffer object
-  - Reject zero-sized KernelBo allocations up front.
-    
- drm/tyr: add firmware loading and MCU boot support
-  - Use typed GPU control registers.
-  - Pass iomem by Arc into Firmware::new() since we store it eventually.
-    
-  - Link to v2: https://lore.kernel.org/rust-for-linux/20260302232500.244489-1-deborah.brouwer@collabora.com/
-    
-Changes in v2:
- - The whole series is rebased on drm-rust-next including v7.0-rc1.
- - Each patch has its own changelog.
-    
- Link to v1: https://lore.kernel.org/rust-for-linux/20260212013713.304343-1-deborah.brouwer@collabora.com/
-
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
 Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
-
 ---
-Alvin Sun (1):
-      drm/tyr: use shmem GEM object type in TyrDrmDriver
+ drivers/gpu/drm/tyr/driver.rs | 23 +++++++++--------------
+ 1 file changed, 9 insertions(+), 14 deletions(-)
 
-Beata Michalska (1):
-      drm/tyr: set DMA mask using GPU physical address
+diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
+index 7a27207e52f7..3057f3af10e3 100644
+--- a/drivers/gpu/drm/tyr/driver.rs
++++ b/drivers/gpu/drm/tyr/driver.rs
+@@ -54,7 +54,7 @@
+ #[pin_data(PinnedDrop)]
+ pub(crate) struct TyrPlatformDriverData;
+ 
+-#[pin_data(PinnedDrop)]
++#[pin_data]
+ pub(crate) struct TyrDrmDeviceData {
+     pub(crate) pdev: ARef<platform::Device>,
+ 
+@@ -169,17 +169,6 @@ impl PinnedDrop for TyrPlatformDriverData {
+     fn drop(self: Pin<&mut Self>) {}
+ }
+ 
+-#[pinned_drop]
+-impl PinnedDrop for TyrDrmDeviceData {
+-    fn drop(self: Pin<&mut Self>) {
+-        // TODO: the type-state pattern for Clks will fix this.
+-        let clks = self.clks.lock();
+-        clks.core.disable_unprepare();
+-        clks.stacks.disable_unprepare();
+-        clks.coregroup.disable_unprepare();
+-    }
+-}
+-
+ // We need to retain the name "panthor" to achieve drop-in compatibility with
+ // the C driver in the userspace stack.
+ const INFO: drm::DriverInfo = drm::DriverInfo {
+@@ -203,14 +192,20 @@ impl drm::Driver for TyrDrmDriver {
+     }
+ }
+ 
+-#[pin_data]
+ struct Clocks {
+     core: Clk,
+     stacks: OptionalClk,
+     coregroup: OptionalClk,
+ }
+ 
+-#[pin_data]
++impl Drop for Clocks {
++    fn drop(&mut self) {
++        self.core.disable_unprepare();
++        self.stacks.disable_unprepare();
++        self.coregroup.disable_unprepare();
++    }
++}
++
+ struct Regulators {
+     _mali: Regulator<regulator::Enabled>,
+     _sram: Regulator<regulator::Enabled>,
 
-Boris Brezillon (5):
-      drm/tyr: select required dependencies in Kconfig
-      drm/tyr: rename TyrObject to BoData
-      drm/tyr: Add generic slot manager
-      drm/tyr: add MMU module
-      drm/tyr: add GPU virtual memory module
-
-Daniel Almeida (1):
-      drm/tyr: add parser for firmware binary
-
-Deborah Brouwer (12):
-      drm/tyr: remove unused device from platform data
-      drm/tyr: move clock cleanup into Clocks Drop impl
-      drm/tyr: add shmem backing for GEM objects
-      drm/tyr: add a kernel buffer object
-      drm/tyr: add firmware loading and MCU boot support
-      drm/tyr: add Wait type for GPU events
-      drm/tyr: add Job IRQ handling
-      drm/tyr: wait for global interface readiness
-      drm/tyr: validate presence of CSF shared section
-      drm/tyr: add CSF firmware interface support
-      rust: time: add arch_timer_get_rate wrapper
-      drm/tyr: program CSF global interface
-
- drivers/gpu/drm/tyr/Kconfig              |   15 +-
- drivers/gpu/drm/tyr/driver.rs            |  153 +-
- drivers/gpu/drm/tyr/fw.rs                |  352 +++++
- drivers/gpu/drm/tyr/fw/interfaces.rs     | 2243 ++++++++++++++++++++++++++++++
- drivers/gpu/drm/tyr/fw/irq.rs            |  120 ++
- drivers/gpu/drm/tyr/fw/parser.rs         |  532 +++++++
- drivers/gpu/drm/tyr/gem.rs               |  164 ++-
- drivers/gpu/drm/tyr/mmu.rs               |  127 ++
- drivers/gpu/drm/tyr/mmu/address_space.rs |  571 ++++++++
- drivers/gpu/drm/tyr/regs.rs              |  110 ++
- drivers/gpu/drm/tyr/slot.rs              |  436 ++++++
- drivers/gpu/drm/tyr/tyr.rs               |    5 +
- drivers/gpu/drm/tyr/vm.rs                |  805 +++++++++++
- drivers/gpu/drm/tyr/wait.rs              |  125 ++
- rust/kernel/time.rs                      |   29 +
- 15 files changed, 5752 insertions(+), 35 deletions(-)
----
-base-commit: 52c3c3b7eb11d596526e523bf57f8b3cbdcb24d8
-change-id: 20260424-b4-fw-boot-v4-4b5f09bf13e8
-
-Best regards,
 -- 
-Deborah Brouwer <deborah.brouwer@collabora.com>
+2.53.0
 
