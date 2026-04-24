@@ -4,125 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC3F0FB44C8
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 07:50:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D0C9FB44C8
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 07:56:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AF3410F38A;
-	Fri, 24 Apr 2026 07:50:26 +0000 (UTC)
-Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com
- [209.85.221.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B784610F38A
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 07:50:25 +0000 (UTC)
-Received: by mail-vk1-f173.google.com with SMTP id
- 71dfb90a1353d-56d9ed609d2so2251087e0c.1
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 00:50:25 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777017025; x=1777621825;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=+k21mzy1Q8IyL290m/XCuURamP2UyoHvl1hWQE5Pk/w=;
- b=AbqFs6dr6oRyZW5cwOHGuSYq9a+pM5+fjBAUCj0EA/rN/EhbZG77mDeR+cQ+/CBLrB
- 6fg3hcerHAUkbLFxsZQxGsfxxbKWwuXUUp1tjLQDEf4mMzl7Mey6oBfY5RvUkWcJJ1/F
- r9k1NPf0RVz73yzy5ZIwiUhOroIr1c8uwpY3JfFwW2cM6lmJFRDcRjipuUeUJGlU+hSf
- zHQ4xRXm/lBSXOsVKYvxE/lZCarURgU8kO76Vw8G/1v0mcBEo4eJmUSIPG+glcS5bXzy
- WH7AERnp1dmKCUjxLuZDfYe9+oZVDJVHckh11RH3pGGUljp5JPrP1YCV7StygNoALF3Q
- wi/A==
-X-Forwarded-Encrypted: i=1;
- AFNElJ86HT8cUTWsmCTHzjspKG8LAzOhJHeB1ncBSQvtPcDbqlAGjpED0kbt1VcFo56ffChDCvEnAjs3fhY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwhgvET53aZITyOcpuKB1MNA/0SIx1TSpB3t9Em1nzQuFtWSjQ4
- 4DQ2ygLY5BcQGF5Djpuw06KIa9bV3j97+GHXw57SLik+9l7FWe5WwUnEodGXGyyL2TE=
-X-Gm-Gg: AeBDiesb1M/tF8AiBfJWA3iGajp1Vkg05+5L3XIcwdgPmp0J8yQoZXKw8/GJrJ5fDIF
- fD8svetjqIowg2ttJBQrPkdRQpxuXjdZojac7YEoxGGqUJ8Wktrh5wlsVgu3WG0CGwKqefgOA83
- DY2Dm7l5ZIx3e036Y1aGlrf5hcUVxwKeWpwAI035DKAJS8zDYkr+xlOC+nWlY1NYk7aVlW4o8tO
- 5aXaNO2JcfmGIMQjkO3awK/2g0vmPo7scxCIuenLX1QnaV+dk/ooY1kK1qjPTcy0Lbu5jMqrrFr
- swYeNpmIeiCQaRyomE1SXy16cK1NLyKKbEZP6e2EkUYCPtnVcSmhWGjCOjrH0KDsvkfZr7PRvJS
- IGQuzs9Fpz0IwEBqqBIfIDEXcW+uZSto70wxsMizEsOen/zwSel4EjbHwG6W9QXuU4V+H215FdW
- UlBDRz8GCqEf1ag8wIFPT6q7EZj3PjEvZlunztq0SpCH9VAJ065p7DzlbtVDapm1TWsB+5ZLJ6e
- efAckTYcg==
-X-Received: by 2002:a05:6122:e233:b0:56e:f876:5626 with SMTP id
- 71dfb90a1353d-56fa5848332mr14070755e0c.5.1777017024503; 
- Fri, 24 Apr 2026 00:50:24 -0700 (PDT)
-Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com.
- [209.85.217.46]) by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-56fa9351ca8sm12670654e0c.18.2026.04.24.00.50.23
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 24 Apr 2026 00:50:23 -0700 (PDT)
-Received: by mail-vs1-f46.google.com with SMTP id
- ada2fe7eead31-6221c7251d1so294307137.2
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 00:50:23 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AFNElJ9Pft3bjfNHCHB8LUjW6RGFflPwiKEtgnj7LiX16U7UUVZCeTB84K+f/swRCCidGGb24EEPCJ8zvgo=@lists.freedesktop.org
-X-Received: by 2002:a05:6102:38cb:b0:5e8:1d93:921a with SMTP id
- ada2fe7eead31-616f772e968mr14645934137.15.1777017023068; Fri, 24 Apr 2026
- 00:50:23 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 708DA10F2DD;
+	Fri, 24 Apr 2026 07:56:33 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="k2Wo/xFD";
+	dkim-atps=neutral
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012068.outbound.protection.outlook.com [52.101.48.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4520710F2DD
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 07:56:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=o9/KAROI8IXfUP1G0TO7wdtlJO7mOum5bLdxe43PzOTHpMyMdOg+cF+CaxYGP+zWq5zgzWVBHqekDPlWaz7vQcd85xIys5SGSCCsLtlR9G97KKHF8bqBCwV4XD0q+MvX7UYqeJMfN1X8TPxj46QTYwT2S7+U06p7qmuLYT4xBMwTzeCQkBO2+ivAnCZDl2LhTuDyic3gJ5QXYWjOprJOSTKIC+Z0XoQ3VP8u5QTM/S+yLgLQEOPZEWOx/hepCSkovjrEHhGibC+i7tfl9CrsIdd0w6k6jBSlKCWYRuMXyRFuREPAjaDly2BpLdwxSgd9FhDpKOciFBoFQ7D7novHoA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=scSnd+H3WVxhMjEXoi5rhivsgX1stNt6JPlyZUyc9XI=;
+ b=fEvTqyVHnYZIGdYWmQTEhpmHxKmhchh1PpH/uWlNqlbmATa0j2IVH+JmMOOGfjjo1XFKk0SoRMCUSk6ylkq3COABqRb+pd0Sh92DJmYcuM5VV6OvwD3/SlZUjDwa+YaVkZLqDE6zOoU8mMcsj4zYvKx6wCn48yTxVVPPB8o7LcOs1In2KjY/vGBdf1m6wL5HJNhuWcbG4wRzOm13S6DApkUfHTJR2aDGY+7aDzjE2acMBGbqSfLXXhAMjr4AZrjW7V19D2dG+IMZMfFhrRy/EDVxJjxu3X2rJ2I+dgMUgjnIlGOh+XbR6T4k6gMi3JSkFZmOS1UV+tMOPZSvJ8C5xg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=scSnd+H3WVxhMjEXoi5rhivsgX1stNt6JPlyZUyc9XI=;
+ b=k2Wo/xFDdkNGpLbd7eVOFdCwu+4zIiBfEEN9gToSEyZeCXiaqreSJfwDI2pY7TP36J35TIayBw4t2Fppz00HDKRkj7Zg9uyAFqlLL2hRubF6nHh3GojvQ6JdY11fDg8CGVn3+07RGvLbMxtN1aWl+u1AkgR0YBfXWP4B6QkrTGI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SN7PR12MB6861.namprd12.prod.outlook.com (2603:10b6:806:266::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.15; Fri, 24 Apr
+ 2026 07:56:27 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9846.021; Fri, 24 Apr 2026
+ 07:56:27 +0000
+Message-ID: <b4dcb464-7784-47e2-a973-6d731ab9ccf8@amd.com>
+Date: Fri, 24 Apr 2026 09:56:16 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V13 2/7] dma-resv: Fix undefined symbol when
+ CONFIG_DMA_SHARED_BUFFER is disabled
+To: "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>,
+ maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
+ chleroy@kernel.org, peterz@infradead.org, jpoimboe@kernel.org,
+ jbaron@akamai.com, aliceryhl@google.com, rostedt@goodmis.org,
+ ardb@kernel.org, sumit.semwal@linaro.org, ojeda@kernel.org,
+ boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com,
+ lossin@kernel.org, a.hindborg@kernel.org, tmgross@umich.edu,
+ dakr@kernel.org, nathan@kernel.org, nick.desaulniers+lkml@gmail.com,
+ morbo@google.com, justinstitt@google.com, tamird@kernel.org, arnd@arndb.de,
+ nsc@kernel.org, simona.vetter@ffwll.ch, linuxppc-dev@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ rust-for-linux@vger.kernel.org, llvm@lists.linux.dev
+References: <20260424054742.45832-1-mkchauras@gmail.com>
+ <20260424054742.45832-3-mkchauras@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260424054742.45832-3-mkchauras@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0180.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b7::13) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-References: <20260423-drm-bridge-connector-attach_encoder-v2-0-2ae6ca69b390@bootlin.com>
- <20260423115550.444930-7-luca.ceresoli@bootlin.com>
-In-Reply-To: <20260423115550.444930-7-luca.ceresoli@bootlin.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 24 Apr 2026 09:50:10 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVbEV0b+MwCjqyc9Q0EjasD2hoN0rqWtjfmPPotZ19Lrw@mail.gmail.com>
-X-Gm-Features: AQROBzASdrVB_Aky8lNaIViGqa4fIOoRKTkBEjNLF-nFJbKyYgy5oQezNNnYjKM
-Message-ID: <CAMuHMdVbEV0b+MwCjqyc9Q0EjasD2hoN0rqWtjfmPPotZ19Lrw@mail.gmail.com>
-Subject: Re: [PATCH v2 41/41] drm: renesas: shmobile: remove now-redundant
- call to drm_connector_attach_encoder()
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Sasha Finkelstein <fnkl.kernel@gmail.com>, Janne Grunau <j@jannau.net>,
- Liu Ying <victor.liu@nxp.com>, Douglas Anderson <dianders@chromium.org>,
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
- Lucas Stach <l.stach@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
- Paul Cercueil <paul@crapouillou.net>,
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>, 
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Sandy Huang <hjc@rock-chips.com>, 
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, Thierry Reding <thierry.reding@gmail.com>, 
- Mikko Perttunen <mperttunen@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
- Icenowy Zheng <zhengxingda@iscas.ac.cn>, Jingoo Han <jingoohan1@gmail.com>, 
- Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, 
- Biju Das <biju.das.jz@bp.renesas.com>, Marek Vasut <marex@denx.de>, 
- Stefan Agner <stefan@agner.ch>, Jyri Sarha <jyri.sarha@iki.fi>,
- Michal Simek <michal.simek@amd.com>, 
- Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, asahi@lists.linux.dev, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org, 
- linux-mediatek@lists.infradead.org, linux-amlogic@lists.infradead.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org, 
- linux-samsung-soc@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB6861:EE_
+X-MS-Office365-Filtering-Correlation-Id: e1a51f7d-c556-4420-2a76-08dea1d6fcbf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|7416014|366016|18002099003|921020|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info: hcbDccIkFnEwL3/hvvoGROrys+qLkGqjSziOPe48RryGsAdQ8W0uOEdRMCOEn1YevwM677ZCrknXyClW6rMT4dhIQw9EyBWRWzWLZ1xwjlNmoNnBNmGstDFoDJEBXpqES7Err+Uv/e/XR2IIWY134wY/7Dn78BpfUi6yWnXSy4y3BGw8rCJuLjabcdk9rZvxry8frWuMkexJ1TcNMJV++xmT5hQxP4k3tzxTq9eKh04bwQ2gX3/hSBwXXm9OanbUPOlRV1UtLpbLhvi6G5mDmdfqTsWeIUMFFElWvRBmyGdL4aZw7aOXulr1UZALvSHDy4yykXBJ110rlI3AqoK25GQaBKqGmlCYFTBKnLsr0z7QEEWCiaOrjgSD4ZGmkSxUyVCldO/zkPMKZeC+s7vqpqBU27WvTu1hGC5G94K8GDrYBUnFo57Mmk94Kk2MjClLZkLmFTphVPa0DXYcUrBfY4Q+3dkF+8LbzPcSF3vgBeZdHVzrP4g9KvzhVPpcWg85Nz+IFItfWHkxh4eRihcoUtEA5nWalgAUvukE7QHRPDa9lA6K3Yw+inNqWhLgf0GzoH8ZT7DXKNN3Zmx3SFIS6+V/JoG4iALfvvZ16Ro1RfeEvXGmhOrnmiV4G1UQjUE49+ZKgFpg80JeOQ+XlCzXA2QInij0aAOks5yVJK5PFeIwXDs1zlEr6dzvkwkjlrPtpCJVCX50SJGHS6vxzNySD/7dqavktMCJTiSuHl5SvUOrK9NW7RZ6FKRsNIu5mDB4TLGom+XfVeS277+4nBNFUg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(7416014)(366016)(18002099003)(921020)(22082099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eDNjcXJIT2IwelRlN0Y2Nkl0aGFkQVFYNyt4TVg1dE5NQ1RqNklZcVM3Y3ly?=
+ =?utf-8?B?M01wcVUrTTJSQXV1bnYxMnlqZWsrVk5RMmVoYmF5S2VHMFlmRUY3RkU1SWs5?=
+ =?utf-8?B?NTZ2U0F3SzR0cFJTd1VyZmp2TmJrUlkwblZlMGtSVDNIajJhanBkY08xbjJh?=
+ =?utf-8?B?NnhEdXVCcFBwNnJkRlRnenBlbStzM0cwNVBRbEZ0WEJpamliWXNmdmQxYjVX?=
+ =?utf-8?B?OFB1MzIyNjFxSjNqcEpyc05nNXhWc0JFZThQQWcrUkQvd1FnWjdjRUZjb3BI?=
+ =?utf-8?B?UEt4bHl5dnpYWll5TGhzdEs3NGk0Nm41RU1vaXVrM29lQVFIaFE3RlY5SWdw?=
+ =?utf-8?B?UzJIeEViTStnUG90OU4vZzFHbGo0M2tFanhTS0h6OFJjak91MmdHTWxPRlds?=
+ =?utf-8?B?TjBOaGJPZlVqRmt4NnYrT2tHSjRRZGRzVHJSbm9SQmFRcGYxY0dVamQ2VVNS?=
+ =?utf-8?B?SnlyUEd6dldOaHdzR3VjN2syN2VuUk4yOHJuNkNmWFd1YkFGSFQ4WjA5MTg4?=
+ =?utf-8?B?TmUwQkhSLzZ0UFFvZmhLRWNERkd1b21sNGQ0LzAreUVoRjVNWU9KQzNUWkV2?=
+ =?utf-8?B?M0JuSjB1Ry9Fd0FRSDJCbnV3dTl5QlBGemZYNWRpU2VEcjhNbmJ0RWl3YWZF?=
+ =?utf-8?B?QkVXamxiM2x3OTM0VHB5emgyVXVVaTJIODFaNXhHSUdYR1Y3SCt6MUlKODhx?=
+ =?utf-8?B?WTRVaEQ4Rk05MzFlNERZeVB3RlcvYmx0cll1WGpKVjR2N0pqTFMydEdKQWY5?=
+ =?utf-8?B?NUt1Z05URFQrQndGcERnQ3orK0UwdXAvdjlESkVmb0ZPaUgzN2pFeEFEOUFp?=
+ =?utf-8?B?R1V5dWV4cHM5dmFEdHd0RXQzSi84c2V0eGtaZnJMMXlSUWxPYk5qbTRZTkkx?=
+ =?utf-8?B?K1NpL0FyQ3ZzUmY3T1NrMk9YNEtKaGJ6NmRaRTNubmhDd0g5NXptVGRiQ3Bs?=
+ =?utf-8?B?cHJwRi8rQk42Q1RBa204OWpyV2xiRGJpZEpwRmJKV0g1d1VHeGxFaVlTK1NG?=
+ =?utf-8?B?TFFPeHdtWm8zMGs5V2xpejFXYW1HS05XeERnQ3gwR1lqYjFhbHJFWTlneDhZ?=
+ =?utf-8?B?ZWp4MVdSSXFVcTZHVTVUZ2hZYVU1R3VWVWdNaVVBcWV2czcxeGdOVXI3OC9w?=
+ =?utf-8?B?L01ueTBwK1RsSEV1VFVGS0llNkNmbmlWaUtoUWFmVVBWY0czZDFqcXNRNW5K?=
+ =?utf-8?B?c2U1MlJHR1IzQkRMa0lXMEh4VUNyaWpMeCtidFAxL1hJYURkNVJpMlZRcmVY?=
+ =?utf-8?B?S3oweVVaTUE5ZkJ1bEpnRzNVOEZRRFRJYUM4bk4vY3Z5N2oxSksrVUhTU3pD?=
+ =?utf-8?B?U3FScTJwOElzeWlNT2xWd3UxTUdVOWpPU2hhUjJmM3Y0WlpVODh4RG80b0FQ?=
+ =?utf-8?B?b2VZWk1GWjZ5OXlBdU9BZ1BxMFp2RTNtVTBZUHd0SEFScW5PbStiM0J6WmYy?=
+ =?utf-8?B?NklnelNqaThpbUxxMSs3UzM5QlpSOWZxeDYwRmlrOHVxMTVHRU5zTm1YUjQr?=
+ =?utf-8?B?VnBsNFRHUXJxeGtlZThFSVRkZDVZdkplRm4vNlBiSmVlRzAyWmtZdlRxRTdh?=
+ =?utf-8?B?N0pncXhidmZ2bWZTangwV3JrU2psaU9DQytoSlZ2dkI5S29vZTNJcVBvZk5B?=
+ =?utf-8?B?aHlSSERhZitmdXNubmUxalNGcFJITXlxRkNlK3ZvUjdTanI2L2RxWThQc1hF?=
+ =?utf-8?B?T3QzdkdTZEFtRUo2YmlwQ1U2SzIwZDdDV3RzUTVrS1VmTDh5aUtDRmVwa1Z3?=
+ =?utf-8?B?aHByNVAxQ2cwNW0zOGVmcHdKYzZQT2xWYTBVc2IzUHdtNjd0Z29mSzRockxp?=
+ =?utf-8?B?dGVIbVhLZTZneHE1bEY5azVCRTh2Q3NkMG9NNzd0K0hjMVFyOU1KK3F1SWNO?=
+ =?utf-8?B?RHo3Zk9pcXpkUjg4bnVTUGZrUWRCNkNwQTdiRmVBSDBIWG14V0JQUnYzeW1G?=
+ =?utf-8?B?SG84MEhiSm1KSzFUVnZ5bGx1b01tTDFzMUJPc3NsZEYveCsvdjRlazNoeVNQ?=
+ =?utf-8?B?QWIrRVdSQXJjQlp5TUtYZFpyVUx2ZFJTS1lqQzVQTkorM1NjVlV4UmZOMzNh?=
+ =?utf-8?B?c2VyeWNhbmRzLytsSDJFaDZFRzdNTnpLaU1kM01USjYycUF3TkxTTmI5dHdV?=
+ =?utf-8?B?VUU2MEtoMW5ocUNSMHBuUFBDRjh2a09sM0srVEpFR1l6T3dlamZXcjM0VEZy?=
+ =?utf-8?B?dVI3aDZ6aGZSWnN2d3FlUGtGcWhtcGpQTWNWN2JiSFdsWlNGOEQ2TTN2V0M0?=
+ =?utf-8?B?Q1Bod2puUmQ3WnQ3Z0h4MWF5N05naDlpdFF5SW5MWW5jNG4xczBRRUtSblJS?=
+ =?utf-8?Q?gD0nSOcdQyAiCVRh+g?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e1a51f7d-c556-4420-2a76-08dea1d6fcbf
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2026 07:56:27.0591 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: yHnvy7/gV1lsr8iRkL1ZFfLZEjHYbGw2wOg8trkR4KMWvq3PWoA2oVfCOWzlfemM
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6861
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,39 +147,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Luca,
+On 4/24/26 07:47, Mukesh Kumar Chaurasiya (IBM) wrote:
+> When building with LLVM=1 for architectures like powerpc where
+> CONFIG_DMA_SHARED_BUFFER is not enabled, the build fails with:
+> 
+>   ld.lld: error: undefined symbol: dma_resv_reset_max_fences
+>   >>> referenced by helpers.c
+>   >>>               rust/helpers/helpers.o:(rust_helper_dma_resv_unlock)
+> 
+> The issue occurs because:
+> 1. CONFIG_DEBUG_MUTEXES=y is enabled
+> 2. CONFIG_DMA_SHARED_BUFFER is not enabled
+> 3. dma_resv_reset_max_fences() is declared in the header when
+>    CONFIG_DEBUG_MUTEXES is set
+> 4. But the function is only compiled in drivers/dma-buf/dma-resv.c,
+>    which is only built when CONFIG_DMA_SHARED_BUFFER is enabled
+> 5. Rust helpers call dma_resv_unlock() which calls
+>    dma_resv_reset_max_fences(), causing an undefined symbol
+> 
+> Fix this by making the function declaration conditional on both
+> CONFIG_DEBUG_MUTEXES and CONFIG_DMA_SHARED_BUFFER. When either is
+> disabled, use a static inline stub instead.
 
-On Thu, 23 Apr 2026 at 13:59, Luca Ceresoli <luca.ceresoli@bootlin.com> wrote:
-> shmob_drm_connector_create() can init the connector in two ways, based on
-> the 'if (sdev->pdata)':
->
->  1. manually in shmob_drm_connector_create(), or
->  2. delegating to drm_bridge_connector_init()
->
-> Whichever branch is taken, drm_connector_attach_encoder() is called
-> immediately after to attach the connector to the encoder.
->
-> Now drm_bridge_connector_init() calls drm_connector_attach_encoder() on the
-> connector so it is not needed anymore in case 2 and should be removed, but
-> it is still needed in case 1. Move drm_connector_attach_encoder() from the
-> common path to inside shmob_drm_connector_create() in order to get back to
-> a single drm_connector_attach_encoder() in both cases.
->
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Well we are clearly missing something here, but of hand that doesn't looks like the right fix.
 
-For case 2:
-Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
+When CONFIG_DMA_SHARED_BUFFER isn't enabled then the whole dma-resv.h header can't be used at all.
 
-As none of the old SH platform have been converted from
-sh_mobile_lcdc_fb to shmob-drm yet, case 1 cannot be tested.
+So you also can't call dma_resv_unlock() from the Rust helpers. Which means that we need to make the Rust helpers somehow depend on CONFIG_DMA_SHARED_BUFFER.
 
-Gr{oetje,eeting}s,
+Alternative would be to provide dummies for the functions in dma-resv.h when CONFIG_DMA_SHARED_BUFFER isn't set, but that looks a bit like it just hides the issue.
 
-                        Geert
+Regards,
+Christian.
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+> 
+> Fixes: 0c6b522abc2a ("dma-buf: cleanup dma-resv shared fence debugging a bit v2")
+> Signed-off-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
+> ---
+>  include/linux/dma-resv.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/include/linux/dma-resv.h b/include/linux/dma-resv.h
+> index c5ab6fd9ebe8..23c8db0b5214 100644
+> --- a/include/linux/dma-resv.h
+> +++ b/include/linux/dma-resv.h
+> @@ -311,7 +311,7 @@ static inline bool dma_resv_iter_is_restarted(struct dma_resv_iter *cursor)
+>  #define dma_resv_held(obj) lockdep_is_held(&(obj)->lock.base)
+>  #define dma_resv_assert_held(obj) lockdep_assert_held(&(obj)->lock.base)
+> 
+> -#ifdef CONFIG_DEBUG_MUTEXES
+> +#if IS_ENABLED(CONFIG_DEBUG_MUTEXES) && IS_ENABLED(CONFIG_DMA_SHARED_BUFFER)
+>  void dma_resv_reset_max_fences(struct dma_resv *obj);
+>  #else
+>  static inline void dma_resv_reset_max_fences(struct dma_resv *obj) {}
+> --
+> 2.53.0
+> 
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
