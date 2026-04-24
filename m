@@ -4,84 +4,154 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AE0CFED3EF
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 16:01:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19C64FED3EF
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 16:11:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5BCC10E365;
-	Fri, 24 Apr 2026 16:01:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A68E10E3EC;
+	Fri, 24 Apr 2026 16:11:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="emQLkciN";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="RgzAqBgs";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WqLUlqC5";
 	dkim-atps=neutral
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C402810E365
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 16:01:14 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-4852a9c6309so74769905e9.0
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 09:01:14 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 78BB710E3EC
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 16:11:40 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 63OCxYtr1823375
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 16:11:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=QmsYx3pvgYXAO1jZPjQXfdfP
+ yIwVCxRQ49qD+yx6sQU=; b=RgzAqBgst8mSwk93KlB/HsQ8M3+1B5WUWhboVVSt
+ 1VvJTYEzGzQ4lwATMwM1b3p7v0x+tk7eznRaMA/9gmgDGs2uVYDXr/6q/G+EWUaD
+ cbLNKTNFgdVYztZzVXNeKPHYhjXLV3jS3vSCmLiMo+ch+8xf8mLNaHIt6ueeOIEv
+ ts0KrQA0P+eJANsfTBFHAb6ZRMsLDAcBh3QSPJEYs3J3ygj5kqvqpIy3n2vBAq8B
+ 3bzXkmpEKifiISdgHA7/tmFrVvhsnNL448iH42cpBtC7dfCSUEPfK4AWXHYqmr6R
+ +VgfAbQEJBEyV30IJQ+dMtoJf35AhLBEPA54bU7hU/uy0Q==
+Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com
+ [209.85.217.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dqv5rurey-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 16:11:39 +0000 (GMT)
+Received: by mail-vs1-f71.google.com with SMTP id
+ ada2fe7eead31-6100b5a0757so12953783137.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 09:11:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin.net; s=google; t=1777046473; x=1777651273; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=qARNYk1xmAI7/1amvsRMfp//VfnZGwb0pgC/2wWQOCc=;
- b=emQLkciNOiJivmTop/VZqtVHOIa7HJmUnML8/R71Sh3S6QIKTKp1OrftLey1INZAIh
- uq5KGBo3VRrWfl2qDOrvMunGUbkLYTcWAAYsxlfBeaDuWJ1mXfLs4ATn2GHBu5ncFjux
- NqWKMMwf1Uxuk/qGz1HAGY4Qui+g93dIiOIVgoPLVD+PqaUY2Ohnvx85Ek9GG+18LTbL
- M0/yLGYZlWm0ngpv9KpeIYSREhqDJu3SL28Iysy8nBgvQ0skiKNrMY2EthLRcqd6pzjB
- dXXa9gvOOMvTjwnaYNj1TjsonLijLB3YX9ewQmVXw7mUVaDem3/DZby/Xz6Amh0dxcpR
- ku+A==
+ d=oss.qualcomm.com; s=google; t=1777047099; x=1777651899;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=QmsYx3pvgYXAO1jZPjQXfdfPyIwVCxRQ49qD+yx6sQU=;
+ b=WqLUlqC5IqPoAwQwXr19Jpu33liD0LHHeJ911+wNl8hMJBBJC4QuOlGAdAwxiqw6Pt
+ Wcq7BZVVRVevxpSsRrXwSdP9q70XBs505Q3XucGztJdM/vbv8iVMiKfmYVG09Gq71Vny
+ 9fnMOPNwj97L48M7193epVX4Tns+dYFd09VzYaYOqRCM2KdwVtio36tts29Rg2ib2blm
+ qB8qJf1HQI84XETnbfBTiQe5kfXgw0VyvKCjYFHsLWC+Erm2u7gB3AGn+BxjcQKaVfIV
+ MIUa/oOeqUd+d1BBOgg4cyT41nYmeJdQQBJ3vZNUdeOXpxb/Ni/fGtnrnQ8FrJXEU0Tq
+ QVnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777046473; x=1777651273;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=qARNYk1xmAI7/1amvsRMfp//VfnZGwb0pgC/2wWQOCc=;
- b=DMtrPspQD/9Dp2qzmIGfHyhiLlmIbOTKfDOkXaFDiUToIEZmQCZbyfV1rNm96/9+YE
- Wvz7tzRkzhOA68se+oRWdmszyIXX+lDFpnlTVUllYyfZQDUwZegHBF997lotq+3SmYmH
- AOTad84sXKi9QT4Wy3UhpJv3RisHLJTKJVR6JRj6Vcu/Dz9IlvCY41BP+MYzylwT5fD5
- YifNp4WIMMaNmGOfWBNBPnklkF6+Di9JSUEhF9MwPn99yrZJP24k83nHYdECuWkHpc12
- ztu6n756+/zNL2BxYA8bGpk36pvl7CNa7jfC0wC4+FrYI30tK3XURWUpZhhtym+zY22O
- Z2/A==
-X-Gm-Message-State: AOJu0YzAPVXc5Fz2i92cqJS//BwPQZhnGffiV5k8mH0Pq8gCHn4I9ZRk
- lWqXVrng+YevCZZl4EYTbLb9HgByKX8RJ7U8vm0ScZxXWSnSLGDj438OjcEBsBpDpYY=
-X-Gm-Gg: AeBDievyXJwg+oQve6lh3CRB9LxwmaI+tbiiaI+Ye2Fn2w1NIf7iTVLzcW0cShnqUpy
- RfaKPgK1KNAZe214hSH3zl5pgdLrKJtvKUIWsifYVymQnh2FWtR9PW68uc8P/1JScxFFByCcpC3
- jxK4ArybwTwlb2ZNisBedRVC44b6FTknCay/ztbbqYBXmdKk/px923QcaunA3j0MnTU4vAXP2qS
- Jzc3xIJJsMBM/oBn01BFCPVKwUwwyGf5hJvOSU1tro0ICIJH2L1LeP83lSlco1VyjPu0di6cn3C
- 340QMMcWBzcF3z2WX6Goxdf7I2gfx+dMy0IUwzVE3pPvC2K9HIV4sUkk8YIUZ9Hsmdbbhcc8I73
- XWTiq50bUhtUkpUDnFZahZMw7dC9p1sbNU1ARDR+BGbQCYXEbzrvy3HYM2qc0L/e50ndUhHbM4b
- W9e0zu6bOFVfsfESGgjp6ujOu7KHxMS8weCrc9FJC3b28J/3GOFEMw8SgqMULpMBUsNQ==
-X-Received: by 2002:a05:600c:c0d6:b0:489:ecee:c4ef with SMTP id
- 5b1f17b1804b1-489eceec9e3mr227124215e9.13.1777046472224; 
- Fri, 24 Apr 2026 09:01:12 -0700 (PDT)
-Received: from [192.168.0.101] ([90.240.106.137])
+ d=1e100.net; s=20251104; t=1777047099; x=1777651899;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=QmsYx3pvgYXAO1jZPjQXfdfPyIwVCxRQ49qD+yx6sQU=;
+ b=X+UHle/POxGbs5MypJL9L2OA0mJ6x6mzaFLeShi+XhdhqYhS7IwFJa5i5zD7+hyZkx
+ l3EA2T+bQQKAoEHrTa7iIR6NxfTEW74nZGPGRFuhHOfKYD/S3I8dKa72fmub/ovo4Umb
+ 3RbvTBlcTQrHgyA/d3VzXE1NYJR1U+7AFL3BJXe5pYXhS3vEzixUCAhoFyVqv0WlbX1e
+ 0LwobPqCYVQFv0cITsPRxaFvfqV5rfc1BMv3aa1Xxt7+/An6p0G3UiKPKqxS/dSkMWaT
+ 2DuH7SllZbNUAvbQqKuXMwNhpJXu6/2T0V8k+vTKVYsA44SoJt73cw4VX5y8YCnJ18ir
+ vQ3g==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+r6Vwazh9Vv//dPZM4W9KdduU9tt+JtKsICK+I7Vo0PbDdkbp666KTFq2rZIYoTtQHjJtY+XsrLtI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzQNURvHpDz7Zqf7+9CFOo5HmK8t/cBL1TLLxkBBzLaCwqt/IHU
+ kcSUrKq6MzbwXMZNAsoKqsFNdwtFuwj1ABaoU6LAF9j2wxarnJoFiYGbS3SepPsV/bP6RGzz7vU
+ dvzjO4yVQNSrHWM+jCNqCMlDKMKO7SwVcnszh2A3psBffE+0r/2Ee0V76wPfk9rQhicIo6gY=
+X-Gm-Gg: AeBDiesp0vjb/L92HT+6xaLQCefqcB0vtVMWw59UvxyoSvfO0OBfdW+JSEa+ggUf5KB
+ cX6eXUypKRowKRTiJFbT7xjvOZduJePx3FhE7O9EchcM1FbYS6SbOyYGjGxilxyvrTpb1CImXQB
+ S9FFenTrjYZqQIosefMNQL4R48x69+PKAw9Sr94I81VsiH6Z4QfMCCc3bZpsrQ7bIzQRpA70mNJ
+ s7o+IiJ8I/UD+anuiO2E4VE9JfM9awJvmm53yJ+XGmG3LGaLxSpZCOCR8e897YyqcKZNxmMm/z+
+ EZtPiQflbQ4XpsXHj/8udDEFU//5ClTqufm9lKBW6E/vATARmZpfzDZ6gSjMIgacjmS04qnwruQ
+ 1Qq2DWWqQKJfA7VoKEeYHaByqjQKngk7cabEisYA5UAXNNpDdD3jg87jagnI2toFCJGNVkQr5U/
+ 5BDXcxCVS7XHYkg87RmfIFUSHagE9lStSRc1c/NAdK5Gg6+w==
+X-Received: by 2002:a05:6102:41a6:b0:60f:c9ba:b992 with SMTP id
+ ada2fe7eead31-616f68d760dmr17881085137.16.1777047098714; 
+ Fri, 24 Apr 2026 09:11:38 -0700 (PDT)
+X-Received: by 2002:a05:6102:41a6:b0:60f:c9ba:b992 with SMTP id
+ ada2fe7eead31-616f68d760dmr17881013137.16.1777047098170; 
+ Fri, 24 Apr 2026 09:11:38 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48a525a0b1asm154555995e9.2.2026.04.24.09.01.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 24 Apr 2026 09:01:11 -0700 (PDT)
-Message-ID: <85d22f7e-af44-4a6e-911f-54830c91e339@ursulin.net>
-Date: Fri, 24 Apr 2026 17:01:10 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] drm/fdinfo: Add "evicted" memory accounting
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ 2adb3069b0e04-5a4185ad0c5sm6134967e87.10.2026.04.24.09.11.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 24 Apr 2026 09:11:36 -0700 (PDT)
+Date: Fri, 24 Apr 2026 19:11:35 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
+ Bryan O'Donoghue <bod@kernel.org>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Stefan Schmidt <stefan.schmidt@linaro.org>,
+ Hans Verkuil <hverkuil@kernel.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel@collabora.com, linux-doc@vger.kernel.org
-References: <20260423-panthor-bo-reclaim-observability-v3-0-60af32164a4f@collabora.com>
- <20260423-panthor-bo-reclaim-observability-v3-1-60af32164a4f@collabora.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <20260423-panthor-bo-reclaim-observability-v3-1-60af32164a4f@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ Jonathan Hunter <jonathanh@nvidia.com>, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+ driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Subject: Re: [PATCH v2 02/13] drivers: base: Add generic dma context bus
+Message-ID: <xuitjl6tzfl6nl4ds4vdy3637i5cqtjuqntcpqt5fnkx2ogcws@iapcavrwhyzv>
+References: <20260423-glymur-v2-0-0296bccb9f4e@oss.qualcomm.com>
+ <20260423-glymur-v2-2-0296bccb9f4e@oss.qualcomm.com>
+ <2026042346-trustable-register-095a@gregkh>
+ <06c04947-e72e-679b-493b-e112d693f391@oss.qualcomm.com>
+ <2026042422-deem-chemist-8d0f@gregkh>
+ <4c3fa710-f61a-4aad-622d-54909190cb9e@oss.qualcomm.com>
+ <2026042428-blemish-helpline-7d8d@gregkh>
+ <1e039dd5-da3f-19b2-ef98-29e64fdd925d@oss.qualcomm.com>
+ <2026042442-luxurious-antonym-f20c@gregkh>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2026042442-luxurious-antonym-f20c@gregkh>
+X-Authority-Analysis: v=2.4 cv=LqiiDHdc c=1 sm=1 tr=0 ts=69eb963b cx=c_pps
+ a=P2rfLEam3zuxRRdjJWA2cw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=VwQbUJbxAAAA:8
+ a=7CQSdrXTAAAA:8 a=EUspDBNiAAAA:8 a=7jvbHUuHxlDJpGpAObkA:9 a=CjuIK1q_8ugA:10
+ a=ODZdjJIeia2B_SHc_B0f:22 a=a-qgeE7W1pNrGK8U0ZQC:22
+X-Proofpoint-ORIG-GUID: Nv_gX_LdAFKuBS3yscx8v6NMXPbK3rlT
+X-Proofpoint-GUID: Nv_gX_LdAFKuBS3yscx8v6NMXPbK3rlT
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI0MDE1NCBTYWx0ZWRfX5jnlsm5l0pQX
+ x+jqzBxETBJ68RdzXLRpLBbgTv7c6unwX1rdmU+Yxioq+TnuiFeqLd+NCbPdtcAEOcRWcsZ7FdF
+ ID9h3Yz2EHNwi8qyzMVAuD9wv9Wmeq+sjwIRlbOCR2REB3sbqjLVOPp7R5lWnENpAaqCzLFYaRp
+ uZUGDsWaER04KDqyicnmGFiY4wyD1rpRAmaPv6gKgsXCA7JGVG+dXy/5hVS5QAu4V93SQgME8hZ
+ 4oI/XDnIsfyaXdGQBEAvqDqmxiHIMb+Do4DZpDr0fXyUi9BBGhIbVI0J7Ths5K0Hbbstf0wEjNU
+ iblIaPSi79j0kXU3U4JorCcMuhUWykR6GlEMP9+KvFzEhQQkb/V4fYX/sOHat+3l2oQt+YQr3ed
+ Sras9OgLFlOGNxX/r5w4BmqTspjNyhedrm1Rkifrng/KANbGqv9H4JuMRiSyfTD3sFBC5HUFFXt
+ EjDY5G6cbsP0vABevFw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-24_01,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0
+ malwarescore=0 suspectscore=0 adultscore=0 phishscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604240154
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,127 +167,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-On 23/04/2026 13:33, Nicolas Frattaroli wrote:
-> Currently, there's no way to know for certain how much GPU memory was
-> swapped out. The difference between total and resident memory would
-> include newly allocated pages, which are not resident, but also aren't
-> swapped out.
+On Fri, Apr 24, 2026 at 03:34:38PM +0200, Greg Kroah-Hartman wrote:
+> On Fri, Apr 24, 2026 at 06:12:09PM +0530, Vishnu Reddy wrote:
+> > 
+> > On 4/24/2026 5:25 PM, Greg Kroah-Hartman wrote:
+> > > On Fri, Apr 24, 2026 at 05:15:02PM +0530, Vishnu Reddy wrote:
+> > >> On 4/24/2026 4:43 PM, Greg Kroah-Hartman wrote:
+> > >>> On Fri, Apr 24, 2026 at 04:01:13PM +0530, Vishnu Reddy wrote:
+> > >>>> On 4/23/2026 7:07 PM, Greg Kroah-Hartman wrote:
+> > >>>>> On Thu, Apr 23, 2026 at 06:59:31PM +0530, Vishnu Reddy wrote:
+> > >>>>>> From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+> > >>>>>>
+> > >>>>>> When a driver needs to create virtual device at runtime and map it to
+> > >>>>>> an IOMMU context for memory isolation, there is no common bus available
+> > >>>>>> for this purpose. Each driver ends up implementing its own bus type,
+> > >>>>>> leading to duplicated logic across multiple drivers.
+> > >>>>>>
+> > >>>>>> host1x driver implemented its own bus type to attach an IOMMU context to
+> > >>>>>> a dynamically created device. The Iris VPU driver now has the same
+> > >>>>>> requirement. Rather than duplicating the same bus logic again, a shared
+> > >>>>>> bus type is introduced under drivers/base that multiple drivers can use
+> > >>>>>> directly.
+> > >>>>>>
+> > >>>>>> The bus takes care of creating a device and attaching the IOMMU context
+> > >>>>>> to it based on the client inputs.
+> > >>>>>>
+> > >>>>>> Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> > >>>>>> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+> > >>>>>> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+> > >>>>>> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> > >>>>>> ---
+> > >>>>>>  drivers/base/Kconfig            |  3 ++
+> > >>>>>>  drivers/base/Makefile           |  1 +
+> > >>>>>>  drivers/base/dma_context_bus.c  | 77 +++++++++++++++++++++++++++++++++++++++++
+> > >>>>>>  include/linux/dma_context_bus.h | 26 ++++++++++++++
+> > >>>>>>  4 files changed, 107 insertions(+)
+> > >>>>> as you can not have a device on multiple busses at the same time, this
+> > >>>>> makes no sense to me at all.  "dma context" is a bus-specific thing, so
+> > >>>>> please add it to the bus that you are wanting it for.  It can't be a
+> > >>>>> generic bus as that just doesn't work.
+> > >>>>>
+> > >>>>> Or what am I missing here?
+> > >>>>>
+> > >>>>> And why is DMA somehow "special" here from any other hardware attribute?
+> > >>>> Let me give brief information which was discussed, in the initial series,
+> > >>>> the iris VPU used platform bus for dynamically created devices and we got
+> > >>>> the comment/suggestion from Robin to implement a proper bus_type with a
+> > >>>> .dma_configure callback.
+> > >>>>
+> > >>>> https://lore.kernel.org/all/02b3d0f5-f94c-43cd-93af-97cfcf7751b1@arm.com/
+> > >>>>
+> > >>>> based on the discussion, implemented the dma_context_bus and used for iris
+> > >>>> VPU devices instead of platform bus.
+> > >>> Why not make a irus_vpu_bus where you can do what you want?
+> > >> Initially iris_vpu_bus was introduced, and it was made generic based on the
+> > >> discussion,
+> > >>
+> > >> https://lore.kernel.org/all/20260227-kaanapali-iris-v2-3-850043ac3933@oss.qualcomm.com/
+> > > I don't really see that request here, I see a "make this better and more
+> > > generic for other busses" but that does not mean "dump it into
+> > > drivers/bus/ for someone else to maintain" :)
+> > >
+> > >>>> Here, the device have only one bus (dma_context_bus), not multiple buses.
+> > >>>>
+> > >>>> Regarding the "DMA" naming, the core operation of this bus is its
+> > >>>> .dma_configure callback, which calls of_dma_configure_id() to map the device
+> > >>>> to a corresponding IOMMU stream ID. The name "dma_context" reflects this
+> > >>>> purpose.
+> > >>>>
+> > >>>> I am open to suggestions from you or Robin or anyone else, if there is a
+> > >>>> better or preferred way to achieve this, I am happy to consider it and
+> > >>>> rework the implementation accordingly.
+> > >>> As there is only one user, just make this your own bus please and do all
+> > >>> of the needed bus operations for your devices there (i.e. don't hang an
+> > >>> "empty" device off of it.)
+> > >> The reasoning behind to make it generic was to have more users - host1x,
+> > >> Iris VPU, QDA on the generic context bus, instead of each of them having
+> > >> their own. Let me know if you suggest to have the iris_vpu_bus.
+> > > But you did not add such users here, so how would we know this?
+> > >
+> > > And still, I have no idea what this bus really is doing.  Is it dynamic?
+> > > Is it self-describing?  Why not just use aux-bus?  What is it supposed
+> > > to be doing and used for?
+> > 
+> > This bus will allow users to create a dynamic device and map to IOMMU stream
+> > ID via .dma_configure callback which calls the of_dma_confgure_id() based on
+> > the user inputs. This bus is under the iommu_buses list to register for bus
+> > notifier callbacks for iommu_probe_device() and iommu_release_device() during
+> > add and remove.
 > 
-> Add a new drm_gem_object_status so drivers can signal when an object has
-> been evicted to swap, and add a new "evicted" counter to
-> drm_memory_stats.
+> But a device is nothing on its own.  You can not just have a random
+> 'struct device' hanging out there that does nothing but iommu, right?
+> It should be doing something else that is very "bus" specific.
+
+Unfortunately, it is a pattern of IOMMU-only devices. All the actual
+programmig is done through IO region associated with the main device,
+while subdevices are mostly used for DMA buffer allocation.
+
 > 
-> Due to how the supported_flags bitmask is determined, the "evicted"
-> count won't be printed to fdinfo if there's no swapped out pages.
+> Again, why not create a bus for your hardware type and have that control
+> the bindings of drivers to the devices, like it should be done.  You
+> better not be creating platform devices for these things :)
 > 
-> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> ---
->   Documentation/gpu/drm-usage-stats.rst | 6 ++++++
->   drivers/gpu/drm/drm_file.c            | 8 ++++++++
->   include/drm/drm_file.h                | 2 ++
->   include/drm/drm_gem.h                 | 2 ++
->   4 files changed, 18 insertions(+)
-> 
-> diff --git a/Documentation/gpu/drm-usage-stats.rst b/Documentation/gpu/drm-usage-stats.rst
-> index 24d3012ca7a6..11570976095e 100644
-> --- a/Documentation/gpu/drm-usage-stats.rst
-> +++ b/Documentation/gpu/drm-usage-stats.rst
-> @@ -200,6 +200,12 @@ One practical example of this could be the presence of unsignaled fences in a
->   GEM buffer reservation object. Therefore, the active category is a subset of the
->   resident category.
->   
-> +- drm-evicted-<region>: <uint> [KiB|MiB]
-> +
-> +The total size of buffers that have been evicted and are currently in swap
-> +space. Only present if there are buffers that are currently swapped out, and the
-> +driver implements reporting of this type of memory.
-
-Please hold off merging this for a few days, I just noticed it and would 
-like to set aside some time next week to think about the semantics, how 
-it applies to discrete GPUs where evicted != swapped and some other 
-questions.
-
-Regards,
-
-Tvrtko
-
-> +
->   Implementation Details
->   ======================
->   
-> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
-> index ec820686b302..5078172976c0 100644
-> --- a/drivers/gpu/drm/drm_file.c
-> +++ b/drivers/gpu/drm/drm_file.c
-> @@ -868,6 +868,7 @@ int drm_memory_stats_is_zero(const struct drm_memory_stats *stats)
->   		stats->private == 0 &&
->   		stats->resident == 0 &&
->   		stats->purgeable == 0 &&
-> +		stats->evicted == 0 &&
->   		stats->active == 0);
->   }
->   EXPORT_SYMBOL(drm_memory_stats_is_zero);
-> @@ -901,6 +902,10 @@ void drm_print_memory_stats(struct drm_printer *p,
->   	if (supported_status & DRM_GEM_OBJECT_PURGEABLE)
->   		drm_fdinfo_print_size(p, prefix, "purgeable", region,
->   				      stats->purgeable);
-> +
-> +	if (supported_status & DRM_GEM_OBJECT_EVICTED)
-> +		drm_fdinfo_print_size(p, prefix, "evicted", region,
-> +				      stats->evicted);
->   }
->   EXPORT_SYMBOL(drm_print_memory_stats);
->   
-> @@ -954,6 +959,9 @@ void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file)
->   
->   		if (s & DRM_GEM_OBJECT_PURGEABLE)
->   			status.purgeable += add_size;
-> +
-> +		if (s & DRM_GEM_OBJECT_EVICTED)
-> +			status.evicted += add_size;
->   	}
->   	spin_unlock(&file->table_lock);
->   
-> diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
-> index 6ee70ad65e1f..213dfecac342 100644
-> --- a/include/drm/drm_file.h
-> +++ b/include/drm/drm_file.h
-> @@ -500,6 +500,7 @@ void drm_send_event_timestamp_locked(struct drm_device *dev,
->    * @resident: Total size of GEM objects backing pages
->    * @purgeable: Total size of GEM objects that can be purged (resident and not active)
->    * @active: Total size of GEM objects active on one or more engines
-> + * @evicted: Total size of GEM objects that have been evicted to swap
->    *
->    * Used by drm_print_memory_stats()
->    */
-> @@ -509,6 +510,7 @@ struct drm_memory_stats {
->   	u64 resident;
->   	u64 purgeable;
->   	u64 active;
-> +	u64 evicted;
->   };
->   
->   enum drm_gem_object_status;
-> diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
-> index 86f5846154f7..b42ea2e582cf 100644
-> --- a/include/drm/drm_gem.h
-> +++ b/include/drm/drm_gem.h
-> @@ -53,6 +53,7 @@ struct drm_gem_object;
->    * @DRM_GEM_OBJECT_RESIDENT: object is resident in memory (ie. not unpinned)
->    * @DRM_GEM_OBJECT_PURGEABLE: object marked as purgeable by userspace
->    * @DRM_GEM_OBJECT_ACTIVE: object is currently used by an active submission
-> + * @DRM_GEM_OBJECT_EVICTED: object is evicted to swap
->    *
->    * Bitmask of status used for fdinfo memory stats, see &drm_gem_object_funcs.status
->    * and drm_show_fdinfo().  Note that an object can report DRM_GEM_OBJECT_PURGEABLE
-> @@ -67,6 +68,7 @@ enum drm_gem_object_status {
->   	DRM_GEM_OBJECT_RESIDENT  = BIT(0),
->   	DRM_GEM_OBJECT_PURGEABLE = BIT(1),
->   	DRM_GEM_OBJECT_ACTIVE    = BIT(2),
-> +	DRM_GEM_OBJECT_EVICTED   = BIT(3),
->   };
->   
->   /**
-> 
-
+-- 
+With best wishes
+Dmitry
