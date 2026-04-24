@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C922FED3FA
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 20:37:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C3DFFED3FA
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 20:37:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2103110E011;
-	Fri, 24 Apr 2026 20:37:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BC5810E057;
+	Fri, 24 Apr 2026 20:37:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="rY/d6uTR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="d5TczMLt";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6754A10E011
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 20:37:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D74BE10E011
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 20:37:52 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 1DBC442A08;
- Fri, 24 Apr 2026 20:37:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0D24C2BCB0;
- Fri, 24 Apr 2026 20:37:50 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id BFA1942E0C;
+ Fri, 24 Apr 2026 20:37:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3C05C2BCB6;
+ Fri, 24 Apr 2026 20:37:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777063071;
- bh=5aNKRW3IA98Fmqf/gGTA1ueKDwOhWuxHxN9Dcs74koc=;
+ s=k20201202; t=1777063072;
+ bh=2iYIFjvdwueCbldFU5YVo9LbBogzHjQ1S7d81wt807g=;
  h=Subject:From:In-Reply-To:References:Date:To:Cc:From;
- b=rY/d6uTRXF+4eglztOb9ZUOH26lipSx4u5HNafAUNn8lBRwU32k+9hbh6rIBW2rTY
- BxRlo+ELdazmNUpNVSnMCdAcOJVAlMM2xNpaphHn9G3Jhxnbf5TSq6kzjUW/gnNFHd
- J5FxFktbzuXFByEWPWrVTiqtG9j2hYTcgGGnoPI51nsgiGKJcTgeZkxKnp3J7qJPtZ
- lrZsRToLFyB/HZgS0sKOzKrvACJ6gBXWggjRIdwU9mi2qPf6OVWuRVuPCjeztKOc0X
- 7LA555V89yJ3tZFmWRlPO52laedFFxii1wNcJpbaqxDZX9/4ToxRRFb9x5RY8RLdQZ
- qsoxnrZsVulHg==
+ b=d5TczMLt5o61noPPHDn+LEik7LL6bHWle9e5AiJhUVpUQ8wzSUG3Eoz1I9cYg3V9U
+ IAgeaCw+XUVsovpuKNpabgkrAhWwEj16DOZPEKJN03PuaUvMwPcFSAnjzglDLdQ8Pg
+ 0T6Cvu14bNQOpqPRrCV4IiFuYn2eZyZdPooMWGlxpifgC0QeILNbBp/xjorSCPsjH0
+ HI+PGSIsLc6NakHJnhtWDQmr96lEFtjGMx9vhB1ovqM3I2zZot5DuGvRdvMTeKxqs/
+ wqgXFSmdhwNgGeHK2rKlZXN4R63ozJnTKkiFZtQz5/797+i5gYhWx67UsmyV7s/s35
+ OifZ43iv4bG7Q==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
  by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- 7CF4938119C3; Fri, 24 Apr 2026 20:37:12 +0000 (UTC)
-Subject: Re: [git pull] drm next fixes for 7.1-rc1
+ 3FCBA38119C3; Fri, 24 Apr 2026 20:37:14 +0000 (UTC)
+Subject: Re: [git pull] drm fixes for 7.1-rc1
 From: pr-tracker-bot@kernel.org
-In-Reply-To: <CAPM=9txGwneUzw-Qv2P1yy9jAqJssAdm+0-5C2yL=cDm-_SJOg@mail.gmail.com>
-References: <CAPM=9txGwneUzw-Qv2P1yy9jAqJssAdm+0-5C2yL=cDm-_SJOg@mail.gmail.com>
+In-Reply-To: <CAPM=9twXGyOZMh2k20wFnVXH5tpbX8DRhNRv6rMBw1oMyPoQ_g@mail.gmail.com>
+References: <CAPM=9twXGyOZMh2k20wFnVXH5tpbX8DRhNRv6rMBw1oMyPoQ_g@mail.gmail.com>
 X-PR-Tracked-List-Id: Direct Rendering Infrastructure - Development
  <dri-devel.lists.freedesktop.org>
-X-PR-Tracked-Message-Id: <CAPM=9txGwneUzw-Qv2P1yy9jAqJssAdm+0-5C2yL=cDm-_SJOg@mail.gmail.com>
+X-PR-Tracked-Message-Id: <CAPM=9twXGyOZMh2k20wFnVXH5tpbX8DRhNRv6rMBw1oMyPoQ_g@mail.gmail.com>
 X-PR-Tracked-Remote: https://gitlab.freedesktop.org/drm/kernel.git
- tags/drm-next-2026-04-24
-X-PR-Tracked-Commit-Id: e49712ef03dbc4e282dd0e76469642279c2811e5
+ tags/drm-fixes-2026-04-24
+X-PR-Tracked-Commit-Id: 56d0a0b38faa13836568d425f6ea806e27f3a69e
 X-PR-Merge-Tree: torvalds/linux.git
 X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 92c4c9fdc838d3b41a996bb700ea64b9e78fc7ea
-Message-Id: <177706303113.1703875.4326585826637400901.pr-tracker-bot@kernel.org>
-Date: Fri, 24 Apr 2026 20:37:11 +0000
+X-PR-Merge-Commit-Id: cf950766e96e36c90871d955cfd2a2c1feddba37
+Message-Id: <177706303274.1703875.14195108363337550474.pr-tracker-bot@kernel.org>
+Date: Fri, 24 Apr 2026 20:37:12 +0000
 To: Dave Airlie <airlied@gmail.com>
 Cc: Linus Torvalds <torvalds@linux-foundation.org>, Sima Vetter <sima@ffwll.ch>,
  dri-devel <dri-devel@lists.freedesktop.org>,
@@ -67,12 +67,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The pull request you sent on Fri, 24 Apr 2026 16:05:38 +1000:
+The pull request you sent on Fri, 24 Apr 2026 16:11:23 +1000:
 
-> https://gitlab.freedesktop.org/drm/kernel.git tags/drm-next-2026-04-24
+> https://gitlab.freedesktop.org/drm/kernel.git tags/drm-fixes-2026-04-24
 
 has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/92c4c9fdc838d3b41a996bb700ea64b9e78fc7ea
+https://git.kernel.org/torvalds/c/cf950766e96e36c90871d955cfd2a2c1feddba37
 
 Thank you!
 
