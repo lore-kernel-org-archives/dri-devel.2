@@ -4,115 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05E60FDEE28
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 00:52:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FDEAFDEE56
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Apr 2026 01:27:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03FFA10E0C2;
-	Fri, 24 Apr 2026 00:52:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67C1C10E134;
+	Fri, 24 Apr 2026 01:27:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="j42OZirg";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="bjJBKmYU";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010035.outbound.protection.outlook.com [52.101.61.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BBC2A10E0C2;
- Fri, 24 Apr 2026 00:52:27 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012056.outbound.protection.outlook.com [52.101.53.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 032FF10E134;
+ Fri, 24 Apr 2026 01:27:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=e7jbngqpXcWXOWO4wcqRapj+2BVMWLP1A0yj8qyrFZlpqjmOjqRH4YypU7e9c3FedBn1qkMQZwC5UYHE5DxGhuuLOgwE3B6/E8gxpTc+7zI+0HH4fIx94sMZNoKWDS4kn7v5KJIt5Zv1dFuGxi4xL13XRIB+TdIhNdWxHFUsYuN2w7ILeri6DdqoIfxO9N+aMuxYjlFHkKQCMCCPplvIJ063Dip9pwRz//OYcsZZpudICr9oK/GH64fR60WzOW5L+Z0KPBvgsiCFsdXqPQntL+5yUCkcq7PqTibygMXtQLQg6vaGFLH4X+8Y3S7OBcI1QCVHchb7374ziDEOUFv1tg==
+ b=IFBNa/yutk41Ih+OSrGSM3rSOcdm8WG+ta41pb65IA5zU0qdoGpXvMDgaFdaiKRGUCMRZWyIr4eNuVDarZ/J8dTb7nBAZWfi1ImiQJ13+g9kC55mg8f8AzDptnv0dMVEO0ZK4EmAzf7jZK4/AjdvO2wsr89tK/9To0ZBFbs+0eQtPHrKeSdd5j3fwImhNL5HgUzxwtiGJoIS38qG2VFh898qeED5lnf4+UX41V0B9hUgyHHn4uCf6OUTkbssPOm2kSci65U7ymRuuoprJUdvi1GCdsatx7QTm9JHGEAMU1fYlARgUmKeNUHfDcf2Sdu9PbvCOuyApHEP5GzxzlZUQw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qBkmgSbG4mxuin+xasBvpIbEpkC5uFmR5CqLkX7emiQ=;
- b=wHUqqLf03U+i7sUjHMp+B9vXbKHCDfiqCybr5hsX/svbvSsAveAwhDEfaWcAO/R3MLAcWqj8Wr759M++tTpbgwflFCqC7w7GktMob8wmFFeJL21yIOW3MgCB49ZvObtx7U4fXNg+LF0dL2QZc+gdpCJHF0O8etfHBWqD0w2b+oIh9E7K9YOphx3ol1EIKEIfhg2rDfHScJspj/k3gRFsy38iUHOWqtbbyD/2CI+3UU23ZPn3milKwgZPJ2cbWdSbaSOcYzesm/xhE8p/6ijAeqUV/gNnzHvbbDv6WMD1HVnZ5g4S7VdZDBh3r5I+OP+siv6xMJKX+wt5+vaHNS4eZQ==
+ bh=9y9QxxOSAFzEFtJninjOp0oCwTDzwKBnjqCmM3z2tVo=;
+ b=KLdZ2wIZ5zBvXCMEeB+9beFAu6PhMHUxJEcz1oh7NSS6BP4egbCaykmqVwSMOanclM7d6P8awkF8gEZcVxw5nWKC1awiSfdxyZvVigSpc4Yh66gKjxoUvy295Ww6goY2k3xEp0h9uFcoRSs2FJAcGVcF3i2/48idbszFqfFNHdqZ4MSUJR7TsvlkLAxIgYONdm7q5gYnazh815tXCBMuF/nMt0/NcVpstt6lpRA2UypZ/hRm+JgJrHcA+yx6vb5PzeB43lcTvfoI+ouPgglhlO4UY28pE7LL5ZGzX9iAvjceImVZ/0iobsLxEd94+prUgKtRNxTI1QhsrleEHO5RBQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qBkmgSbG4mxuin+xasBvpIbEpkC5uFmR5CqLkX7emiQ=;
- b=j42OZirgAthwD/vgNHovgk51qDYxXdxSJMZukn+dHAPzgtknDzqhfNFJQjXJHfIH3/HivhJ9JP7Nz9gw1dnltL4oni5aAyY2C2+/Z4Mzaa27yq4717ktfMtB+/4xwjqs+ASTVferXd7PCXZf/O9XYpjFfMD9mrn/uI1j/qW3V8gx5CUEwdxnEE2Qip9xaJGn+uV7mPrPp4iBjshJeiLvgyO3JzuIyVkgJwIReQBB10YbzQrhT0eSqKBord+TahSVI23VsYvT3+7S7jFCq3IcNm+wVk+uUO4eNf9pnTNuXQhEQSzMkiHi3u9hUzLWrfXW++f8PGXYGG0neTIWf++Fug==
+ bh=9y9QxxOSAFzEFtJninjOp0oCwTDzwKBnjqCmM3z2tVo=;
+ b=bjJBKmYUfyWeqnb0Xpwarbs5WTrRcn/RQlcCpoWjU/6JjCZ6xVnPEY8e5tt6kVhqn+b9WAPbJPTD2e6yOg1XUP/X3CfkoTqANqIEr2sJTgtCenZw3/gCZ7hUPBCl1K8pc+va+SCfcL531YND9ebUwvaPqFJvmvd85+8wS1n2hQSvkHtB8SLOBouCppgygN96jltMbXbgiHEBrxHP7aqvagDYFAN87qMO1vfwH2FYNU9nMSXMMVFHxXdUEuoKWK3x4S1suZgCTJZo/1xjgEUetbQAbJg/FK4jbGQKkENoO/QkRRVGRacjCNWIUxbVFrnUajDo1zMHo8s3uoR7uTMzJA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from CY8PR12MB8300.namprd12.prod.outlook.com (2603:10b6:930:7d::16)
- by DM4PR12MB5867.namprd12.prod.outlook.com (2603:10b6:8:66::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.21; Fri, 24 Apr
- 2026 00:52:22 +0000
+ by LV8PR12MB9692.namprd12.prod.outlook.com (2603:10b6:408:295::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.22; Fri, 24 Apr
+ 2026 01:27:24 +0000
 Received: from CY8PR12MB8300.namprd12.prod.outlook.com
  ([fe80::ce75:8187:3ac3:c5de]) by CY8PR12MB8300.namprd12.prod.outlook.com
  ([fe80::ce75:8187:3ac3:c5de%3]) with mapi id 15.20.9846.021; Fri, 24 Apr 2026
- 00:52:22 +0000
+ 01:27:24 +0000
+Date: Thu, 23 Apr 2026 21:27:21 -0400
 From: Yury Norov <ynorov@nvidia.com>
 To: Felix Kuehling <Felix.Kuehling@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Cc: Yury Norov <ynorov@nvidia.com>
-Subject: [PATCH] drm/amdgpu: use bitmap_clear() in amdgpu_amdkfd_device_init()
-Date: Thu, 23 Apr 2026 20:52:17 -0400
-Message-ID: <20260424005218.147961-1-ynorov@nvidia.com>
-X-Mailer: git-send-email 2.51.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SJ0PR03CA0238.namprd03.prod.outlook.com
- (2603:10b6:a03:39f::33) To CY8PR12MB8300.namprd12.prod.outlook.com
+Subject: Re: [PATCH] drm/amdgpu: use bitmap_clear() in
+ amdgpu_amdkfd_device_init()
+Message-ID: <aerG-e-D6wgs8gDl@yury>
+References: <20260424005218.147961-1-ynorov@nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260424005218.147961-1-ynorov@nvidia.com>
+X-ClientProxiedBy: SJ0PR05CA0038.namprd05.prod.outlook.com
+ (2603:10b6:a03:33f::13) To CY8PR12MB8300.namprd12.prod.outlook.com
  (2603:10b6:930:7d::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY8PR12MB8300:EE_|DM4PR12MB5867:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3ce5ddbe-5697-47a2-6092-08dea19bbe76
+X-MS-TrafficTypeDiagnostic: CY8PR12MB8300:EE_|LV8PR12MB9692:EE_
+X-MS-Office365-Filtering-Correlation-Id: ed2c1d13-bb52-49ef-b4a8-08dea1a0a368
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|10070799003|56012099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: riFgHJu6w9sm005REkGLI2I9wSbhWVALd8Hnmf9lOeBMerk5H+w31FedaccSMOmNhwA5ebEIja2Y1+A9z2FyCbC/e1HDUTVJv32+NtiH2z7w7TUmaqXSWDqpMMApd9TZT7w2XHFGcGtxB81A5gNr13MzdUoBm3PMUsGu/bJxArE4cYljCy6RhWF4oOEzmke0/eWTVohv5CJeZfqwT1nVDlkLT3gR7GOWpONBDncXOVeBI6cXrizJWx6hVbPk2ra+Li0dulCrYh5e3+sOkc0sX6+osZRUyWfE/0lQqWkqHaqMlngvKV3g483xtvzu83BcR25QIEdke+yKDcjV6e2PQccaOPDfUnzX2cThMqYH+m8+K8Tg3hiWbLyddYHAU2tTI3WssMIwWHlp17BXQKmUwz24xTAsB9cspo+X6Gd54XQ7lnUdFpjKPq75/UOFVOSeFi2ypx0iHClz0RuAiwuEzXitFWP2LespUnpChD8Rg8+ocF7c8ocLQoLDkBNlPxRpzXA+DumZ1q+IDKYUYlulassu/hNsk4jAPaSwRzlAg1G1gecSZCBbclHjloQt7F+kahCGOnhstpJSf0E3r/6y45VI2+mvZL+XzY/LAy9x3fjizoW1vKC+USl1d44HJe5N31obULMOjpKTCcOiIqGYk4LTZBy6m4MxsNXC/3gU5Dltyat4ExzVGP8QQGlgpk4s2vaGEheHipw1iQ4+lWu0YJw64/3RPSBQY/Tgq8dM5ko=
+ ARA:13230040|376014|10070799003|366016|1800799024|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 3+hQ261tcQZOw50VWqoZ9Fi4AebzRGIz4WFCoMZ/ENJRpBZZTqvuAu2lQWpwsfzoPSgeNqtqs1eme2rn9quQQYn3L9wxrcXq51AhFaQwzcuk2suA/YEp2uKoDNyH1beTqgioIOzs2afKIt4hi918BTo/W8iR4Sb7dHDWTrJcOsJ7Nnf+9ZLbs0Z/RcEi0Rdext8J6778YJ+Zc7pQM4V62ySgeIY33ZOArCWdmUd0dbImp3McwrPxs1992jd73gscIKu2nIGXWIKB+/8dutDsa1Tslthptx34FEnrgtiZMu5rSkDIbfreIxdUYhpno7HqSglODU+9x0tAhqUmND1RVrfnHJ2IHQuuy/CalRiKc8Tct1XK+FcTu5L2OHAOc14Hh9BM56pmT5QIvMIrVUhvs4XZd2gH8PSfUoPJ2tYVC+hsGaR5U3Xn2gyB1GocNOMz+QRts+B7nf0AefufVmv21nMowUudxbKDhTzwPwiVxXFHbiTyem6CC8dH/zih8cyj24ygWwSYs81R4dZSe1I6WBIr+UZWjia6NlylIuEq4cxk1T4Z1sG/QbV7NPg5/HZKoIZ6zZ8tjYeTqPN7Xk5HoJBPjoEbYWto6HPQVZCWq6lZS3dwFaP6dxqGVooDudIid1ePEtaeeeLOyjduOtORw8R327Ho0OgTX/WW8QRjfVVAjlDHc04G0dGJ/HNSPY9kim22BwcJTM/J9GA7FTLjQI3Zi5cmj5FjJufiROT3DOQ=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CY8PR12MB8300.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(10070799003)(56012099003)(18002099003);
+ SFS:(13230040)(376014)(10070799003)(366016)(1800799024)(56012099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?u3PsPIYSJaUfHbB8RH8Irsm8R0BXHW3EXWJ+tbT+UIkBdgvQs+BNgPYqTP8B?=
- =?us-ascii?Q?ocyQQOJVp0JOlDX5jv3medQ4prnphRr+S6SkTNS8dzU9+j1IgcFVBMNtZykK?=
- =?us-ascii?Q?Rk4W3V+Go4sMPfCd8O1BVzU3hb/NVox7kGjJPupeB3AhGTEanJh5NgT1skrm?=
- =?us-ascii?Q?yVyVwLLFypMIZq4YVV1Zwpe+V4qa+MWL3lgZH2DpG/n1Xn7j3BXX4mchqOJv?=
- =?us-ascii?Q?Uv7aMqDD/JGB/4HU0K3m97n8TXzMIujLWYMWuWDbvu0KdpPyFCj56upkmeFz?=
- =?us-ascii?Q?8J1U4600jIpmmUOk033D4sU5KAKn3lzw5dk4mZHhkASw2urinRILGLU23hU/?=
- =?us-ascii?Q?yOzq9ElWtLWAW80NHZarzOY2XNSGnqQCVAMEfO/g8Lb2SbuutiD1yL1qIgs1?=
- =?us-ascii?Q?Lr5WBayqZOfst8jn2cQuO6ppZP3kM9ITshupM17bH8CoL2WLYYgpDmaj4XAT?=
- =?us-ascii?Q?R40Z5t9hbALcqJtIrxbcGgeI24ERlbLft3bTau6qfqeqk3g//X0Kxe7KN0ay?=
- =?us-ascii?Q?M2bIckj6SiSJzYv5VnAsxSnJb8nE85Mnet8IcvmrcFM01tbtoF8DH62NuLQE?=
- =?us-ascii?Q?0HEVbRA/5DnvDBokJ2DfA0DdFdXMpu+cpwMeh/X0k5LwExfXdSOq/7Pv2Zf0?=
- =?us-ascii?Q?6lH8ZvLq9oQFb5DQmp/H3R7qWaLAUmWEi2bQLqHcGv31+UU69qOlNDQoBbWr?=
- =?us-ascii?Q?C+rZSKut4lR699sQLFjkiyYUy6RZJE91o1V8wL/vfyVX6d5niE1HOOJ3d45i?=
- =?us-ascii?Q?D1uS2AFNgqjkGRRRBcnVz1xgsxT/ywHdg68wNau111IPxbctlK4N5m38Luay?=
- =?us-ascii?Q?g+VEUsHSTjRhwJthTCUf4C5UG0DUoOZ9yHMU0aSB4W/UC3j3HB9a/7yb1VPv?=
- =?us-ascii?Q?ZSyws4ETmPk7aEHbL8eRkdotgZr9jMal39F2LW9erwfbZsfrVbqzDIoqZvOt?=
- =?us-ascii?Q?vDqNrz5H07dbRoj8uNnzsRAnY/YN2hjL3xSe2pc0JkVMPfDgyVaoCUNJ82Zz?=
- =?us-ascii?Q?d5tC4mIrm4S1Q0eZsw0ybdgTiGSYUmAMaJuTRm+1QyGW6XX0TfZvWg/Pi0sm?=
- =?us-ascii?Q?dXFwIs6Qhx4kKJ/LCWH/bQ6JEsq3moz/bQHS+mkuTRqWDg7+qX493/5sg+X8?=
- =?us-ascii?Q?kzrFvjYrLoog72N7l5addRJbvHHlcOocYk2+cmUAQo+9VGqYrgyACkAFTX2l?=
- =?us-ascii?Q?lIJywUG2VVU+OiWJPIidJ7/n7xxfVue2ep7aZNE584Zw8IMQCe+MevDqtyUq?=
- =?us-ascii?Q?+Mdmdk2Q6pdyPQJbwHsd+0AskTASubJC8HcMYNu79AfkRIy0LyYVIxi0jp3P?=
- =?us-ascii?Q?n1AdFVQ6So6UHbukdg0KoIHRMMCAmGgX7WrW4WUHyka4kK/6nLZksm1ZHAr2?=
- =?us-ascii?Q?UOpj7hJ0EPq9IfVTUoSnYHN8nJWeJzbqVFF5lTvWxdTGMOVwyDbC4gFnWk2y?=
- =?us-ascii?Q?EG/ChaPK5AkTqoJL+fegYx2XxHfg0z0cbcATFu3J1TUvEfIRlMbtvP2ZMegD?=
- =?us-ascii?Q?irTmwh9i8CyzXBckN3hipxqzVgnMd3xfUVWxDZQcfcUBYyYsy0rvHI/MjYEe?=
- =?us-ascii?Q?rQnDf7Wuld7rdnQq1I3oNWLqdGz5BGxlTbMmpJIyb9sh6+VJaWSYFWbrGORM?=
- =?us-ascii?Q?3XevnzFV0EjDkPkLwC8p5R6Rn82rQsuGY5V/lcnUHqcAHXDKUai5/DQVsOoU?=
- =?us-ascii?Q?Nro7NO+xAUuzDIjnhnAcUDiFCK+11h8z78b6ZSz/LLfe10iw9zaudQNIHs+s?=
- =?us-ascii?Q?wxkiVylbmrfmnw4//qJrR67mNqC3qM3Ckw9Fz2kutO7uqLo8nAU5?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?6ITC3GFYXmU1y6pChhM7HcgbsWx/8pmTGqBzCnTOagoBBPZYAsEyDH5WJC27?=
+ =?us-ascii?Q?/ApeHfD3kTN4CxT4e/pcjjeo9bZlG8RD4bzh4lP6GkPpAW2rWTMyE2Iz1Gpu?=
+ =?us-ascii?Q?wx2g8MXWQcxHui37QX7sWR/rxEo0fgw0T4VylMh6gBHm+5Kb6tqx9iQKsurL?=
+ =?us-ascii?Q?/Q125PUvDH9cWpsBt5E2kkZ82zRKCKwZqNxzLRxuujrmeIthF6X1UGSiJTxP?=
+ =?us-ascii?Q?dSiyDrJVjD1UPLvg6/SIpmuPaJM7XVKPXEIaeEKz5hn1caUBrsKJt417Q3Bg?=
+ =?us-ascii?Q?NkpF33BwWZmwJxl8CCTJvXAPxVzw0yba6wX3qHGxil0+MUUtjcGIS5wwzvvy?=
+ =?us-ascii?Q?BHXHBe598ps2v6WDlzC1oOziMX0EvFk0sPIUz6b5teouTO3DMBgcj4w8SpbJ?=
+ =?us-ascii?Q?sZ+D/l5Rdnz8WbbDENhEV/8sSLZ95RnQH0GzMjff0pw/uFhLCvCiktR2adAa?=
+ =?us-ascii?Q?/hli3mS7QFKg70TDtuPljfnZKQ+csEL9yBSvQn2aEKlMda24qvrc/jHMvXr5?=
+ =?us-ascii?Q?kZ4GhoTz9EJbM9932iDIddvp0E1Ptir1BCMBMOYkzQ+Lb3noviEEmngqxgM4?=
+ =?us-ascii?Q?KYgs9knfm/7Lh1gAlOsUTSvNv0sj0x7mXl3+vaOawVOSDHAPR7bTZI50AZs8?=
+ =?us-ascii?Q?okjZ31zl93PqcNcjSBrOg70nB17GZgzvDFMLCI9kQFDADGj7DHBdMRuy3o+U?=
+ =?us-ascii?Q?zHuXv1m1kHQL2Zf7YL9ATAmWuDB95tzZpZ3uL/t5gOtkXnadBhLmZIik6yif?=
+ =?us-ascii?Q?bPMl7bb9YlqUiLZ3yYCGA838innnpoctd7Tv4GmFUvjbenW7osoStFiwvHWt?=
+ =?us-ascii?Q?UnsWusCngZ9LpNLFMArqQJE40wYXY3bg8q25FMO+L6XxgAnk4U+nqmrplNuv?=
+ =?us-ascii?Q?GkV0ChTrfDc+KFGKlpQ7wCRNUBU1WS9GTkwBQ8Fr8l39vkESOeweGJiaaiJo?=
+ =?us-ascii?Q?my98rEVFb4lwVynLbnJrN13G8IeM5lbR65QXQkKxqGvv23wuvJ6LPlQABy4q?=
+ =?us-ascii?Q?bhzJEfmXcViZe0Zbg52AklXK4bBDFJst2lJG90NkYqG9TQ/b9X9JLrNnVpDP?=
+ =?us-ascii?Q?N7bXS3QCAaVy9KAFe56Wz1umPi5VJqTUAe2DgjqXHb8T4OQEbVpUAi9l++U8?=
+ =?us-ascii?Q?mKj73dZ5lxnEjxfQwIzKq6MV9PhWUX/DuFeCEOsGEQmZAXerqTNQZkaKR2xX?=
+ =?us-ascii?Q?nblUXrHl2gk4GF41yaptQYVTMOYNnswdyLx0LPfx5Qp2a3jKMOcqvwDe/+1c?=
+ =?us-ascii?Q?2QRBs7nSvPlOYbJxNWHN02cwFAlX3RmrWZdlGmrbyJ3fWiqY6cq+slyupu7M?=
+ =?us-ascii?Q?8eXXG3S4pUP++E56mkbo4ExELZveM3KBt4U49ltVvraEr1HL8pRKx5Rw5kKo?=
+ =?us-ascii?Q?i2J6d2JqwhVUaI8VXV+nd75Y6BoXjpJuYD9t3Y+3hPK7WXrGYpVnA8+w3bV5?=
+ =?us-ascii?Q?u3ucMLwKdMXut0vZJO15RasqS3UZakbBuavyvW+wS9HXYgc3HfkbxTy1YQhY?=
+ =?us-ascii?Q?nBZkwD1kL6oOreUeD+K2Qc3sg3rPgG9Y15uoH3D+FVhRUeDDXh9W1ehBRTHp?=
+ =?us-ascii?Q?OoOzl+40+xdlJNmPT0uTvCWjNM7+AUy271fNpj7e1N3lTI/f54MuOKPNQVxo?=
+ =?us-ascii?Q?9FgE/+bqgrD/hVJWY6ouKR5kB7nLBG3jFW5GiNcj4Fq9k2+LverwuZrpFfmk?=
+ =?us-ascii?Q?7bbVxxcGV+jhi2RPGwXInCmcSlh3RSm96z0BDtHkjsGa1taPRZKtwPLWWD5h?=
+ =?us-ascii?Q?dbPPtYD5ZAQZiZixmrRqf8bJGqwz7U5aNdRYw3Or47ThUIq+qK/v?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3ce5ddbe-5697-47a2-6092-08dea19bbe76
+X-MS-Exchange-CrossTenant-Network-Message-Id: ed2c1d13-bb52-49ef-b4a8-08dea1a0a368
 X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB8300.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2026 00:52:22.2588 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2026 01:27:24.2428 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: izkTSybxphkgbk1VSfhOFMm70Uq5h3Qiycq+FoVi3PUod3BlbnCOZNF3uxOOiH3h1sicFlukqq7ZCsWyGDDzPA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5867
+X-MS-Exchange-CrossTenant-UserPrincipalName: brKSxFCcnOi0x9456Fx9QpQLGjaoPWqfuwn725Mdrd6rZ3fHJNShO950M04OgEUPJI/fhtZLI9r5ozF1u/YdVQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9692
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,39 +129,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The bitmap_clear() works OK with both compile- and runtime nbits. But the
-comment says it doesn't work, and opencodes the call for nothing. Drop
-the misleading comment, and use bitmap_clear() as it should.
+On Thu, Apr 23, 2026 at 08:52:17PM -0400, Yury Norov wrote:
+> The bitmap_clear() works OK with both compile- and runtime nbits. But the
+> comment says it doesn't work, and opencodes the call for nothing. Drop
+> the misleading comment, and use bitmap_clear() as it should.
+> 
+> As a side effect, the patch switches from a series of atomics to
+> a single non-atomic operation, which is easier on caches.
+> 
+> Signed-off-by: Yury Norov <ynorov@nvidia.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 7 ++-----
+>  1 file changed, 2 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> index d9e283f3b57d..47d52cb2f1ba 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> @@ -194,14 +194,11 @@ void amdgpu_amdkfd_device_init(struct amdgpu_device *adev)
+>  				  adev->gfx.mec_bitmap[0].queue_bitmap,
+>  				  AMDGPU_MAX_QUEUES);
+>  
+> -		/* According to linux/bitmap.h we shouldn't use bitmap_clear if
+> -		 * nbits is not compile time constant
+> -		 */
+>  		last_valid_bit = 1 /* only first MEC can have compute queues */
+>  				* adev->gfx.mec.num_pipe_per_mec
+>  				* adev->gfx.mec.num_queue_per_pipe;
+> -		for (i = last_valid_bit; i < AMDGPU_MAX_QUEUES; ++i)
+> -			clear_bit(i, gpu_resources.cp_queue_bitmap);
 
-As a side effect, the patch switches from a series of atomics to
-a single non-atomic operation, which is easier on caches.
+Please disregard. This patch accidentally dropped a chunk removing 'i'
+declaration. I'll resend shortly.
 
-Signed-off-by: Yury Norov <ynorov@nvidia.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-index d9e283f3b57d..47d52cb2f1ba 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-@@ -194,14 +194,11 @@ void amdgpu_amdkfd_device_init(struct amdgpu_device *adev)
- 				  adev->gfx.mec_bitmap[0].queue_bitmap,
- 				  AMDGPU_MAX_QUEUES);
- 
--		/* According to linux/bitmap.h we shouldn't use bitmap_clear if
--		 * nbits is not compile time constant
--		 */
- 		last_valid_bit = 1 /* only first MEC can have compute queues */
- 				* adev->gfx.mec.num_pipe_per_mec
- 				* adev->gfx.mec.num_queue_per_pipe;
--		for (i = last_valid_bit; i < AMDGPU_MAX_QUEUES; ++i)
--			clear_bit(i, gpu_resources.cp_queue_bitmap);
-+		bitmap_clear(gpu_resources.cp_queue_bitmap, last_valid_bit,
-+					AMDGPU_MAX_QUEUES - last_valid_bit);
- 
- 		amdgpu_doorbell_get_kfd_info(adev,
- 				&gpu_resources.doorbell_physical_address,
--- 
-2.51.0
-
+> +		bitmap_clear(gpu_resources.cp_queue_bitmap, last_valid_bit,
+> +					AMDGPU_MAX_QUEUES - last_valid_bit);
+>  
+>  		amdgpu_doorbell_get_kfd_info(adev,
+>  				&gpu_resources.doorbell_physical_address,
+> -- 
+> 2.51.0
+> 
