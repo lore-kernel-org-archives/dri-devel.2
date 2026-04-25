@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26681FF885C
-	for <dri-devel@archiver.kernel.org>; Sat, 25 Apr 2026 09:54:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30A49FF885C
+	for <dri-devel@archiver.kernel.org>; Sat, 25 Apr 2026 09:56:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5450E10E112;
-	Sat, 25 Apr 2026 09:54:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DDAA10E122;
+	Sat, 25 Apr 2026 09:56:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XFm/6Ir0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YQaav5Vz";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B75710E112
- for <dri-devel@lists.freedesktop.org>; Sat, 25 Apr 2026 09:54:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1E5A10E122
+ for <dri-devel@lists.freedesktop.org>; Sat, 25 Apr 2026 09:56:06 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id B4A3A41866;
- Sat, 25 Apr 2026 09:54:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3858C2BCB5;
- Sat, 25 Apr 2026 09:54:34 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A3315442A9;
+ Sat, 25 Apr 2026 09:56:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1EA9C2BCB0;
+ Sat, 25 Apr 2026 09:56:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777110875;
- bh=RTKJFkZOhPvSkw4w1T5IdZXZkOeETqyobx085qFKyh0=;
+ s=k20201202; t=1777110966;
+ bh=WJcc1NZETmbddcBcUKF7rrXIoSuykV0QJB1jUEB7vEQ=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=XFm/6Ir0UoLq2kqL/P6LiY88zut5JBR0WxqAguLcedSe9xjim+tjjko8QnNSavNvB
- 6XHYz+D2CRO6BO+Gx3lI30y0pu8sO8sOX6CpxHRglsvlm9Rw6z1f7+GdjxgyDy5O0R
- yND4prjQDM0XaTC4XmbUhf1v1XOnxHwEHBcOgOw8vsEu0Cd2YY5L8d18KuRccNSflz
- nTaxduh7rAAWfXdPbK/fNFb3toSgSgXuhr/ZsWWt+TDesHI//MM7Htd8pdphJYKfFy
- sjYg0qnCmpeSTHSeY8IhZEl0jVvcAC/q7OwOcD7RAx03RDyeJt0n9I7i8r9JyOTiNw
- oH4+7vR90xH3Q==
-Date: Sat, 25 Apr 2026 11:54:33 +0200
+ b=YQaav5VzbXA3ZKzDIAcL2FZVk7pFwk4MWSaisn9CqO/T5tbx63RhH0O0/4h/UuDz2
+ J1HRbdWoue6NAxI5kU4UT9sL9c/e48aJlD5tb/ZEGds0rkTjaZJ+mU8cNgvx+IxSz3
+ Q10QxMOHtnmdz2CaVydUMd7IknbArXP8sqkcfI9yGr8wRyHuif6QPeJqlk4ofFIAgH
+ cpVJlKKDpZ6Z34sjVh4PBguEwDuwJ4R5vcXkMUNUnzSbNc3xOvsLmbn6lBciwJtdxj
+ 4OGgw7wdjWGnINf5OSVMmxNO/zJD/pPfWMZ1gTcQCOZ8q8aeMYKqIMYGiiPjp/safH
+ XMPzpaERlmqyg==
+Date: Sat, 25 Apr 2026 11:56:04 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Lukas Timmermann <linux@timmermann.space>
 Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -48,17 +48,15 @@ Cc: Neil Armstrong <neil.armstrong@linaro.org>,
  dri-devel@lists.freedesktop.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-samsung-soc@vger.kernel.org, 
- linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Alexandre Marquet <tb@a-marquet.fr>
-Subject: Re: [PATCH 1/5] dt-bindings: display: panel: Document Samsung
- LTL101DL02-002 panel
-Message-ID: <20260425-subtle-silent-dolphin-0a7ae3@quoll>
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 3/5] dt-bindings: clock: samsung: Add fimd1 and vpll muxes
+Message-ID: <20260425-uncovered-otter-of-sunshine-d00ed0@quoll>
 References: <20260423-manta-display-v1-0-196f80c5673a@timmermann.space>
- <20260423-manta-display-v1-1-196f80c5673a@timmermann.space>
+ <20260423-manta-display-v1-3-196f80c5673a@timmermann.space>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260423-manta-display-v1-1-196f80c5673a@timmermann.space>
+In-Reply-To: <20260423-manta-display-v1-3-196f80c5673a@timmermann.space>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,32 +72,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Apr 23, 2026 at 11:14:37PM +0200, Lukas Timmermann wrote:
-> From: Alexandre Marquet <tb@a-marquet.fr>
+On Thu, Apr 23, 2026 at 11:14:39PM +0200, Lukas Timmermann wrote:
+> Add two clocks necessary for the google-manta board
+> display.
 > 
-> Add the dt-bindings for the LTL101DL02-002 panel.
-> 
-> Signed-off-by: Alexandre Marquet <tb@a-marquet.fr>
-> Signed-off-by: Lukas Timmermann	<linux@timmermann.space>
+> Signed-off-by: Lukas Timmermann <linux@timmermann.space>
 > ---
->  Documentation/devicetree/bindings/display/panel/panel-simple.yaml | 2 ++
+>  include/dt-bindings/clock/exynos5250.h | 2 ++
 >  1 file changed, 2 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/panel/panel-simple.yaml b/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
-> index 24e277b19094..2de0a3a6d1fe 100644
-> --- a/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
-> +++ b/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
-> @@ -283,6 +283,8 @@ properties:
->          # Samsung Electronics 10.6" FWXGA (1366x768) TFT LCD panel
->        - samsung,ltl106al01
->          # Samsung Electronics 10.1" WSVGA TFT LCD panel
-> +      - samsung,ltl101dl02-002
+>
 
-This looks like incorrectly placed (101 < 106) and comment should be
-above the compatible, at least judging by context.
+If there is going to be any new version, better to split this and send
+all SoC patches (clk + DTS) separately from DRM.
 
-> +        # Samsung Electronics 10.1" WQXGA (2560x1600) TFT LCD panel
->        - samsung,ltn101nt05
+No need to resend just for that, I will pick up Samsung SoC things after
+the merge window.
 
 Best regards,
 Krzysztof
