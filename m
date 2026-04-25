@@ -4,58 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CECFFF8863
-	for <dri-devel@archiver.kernel.org>; Sun, 26 Apr 2026 06:48:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A417FF8850
+	for <dri-devel@archiver.kernel.org>; Sun, 26 Apr 2026 06:48:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0538010E523;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0596F10E525;
 	Sun, 26 Apr 2026 06:48:17 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E629A10E0D6
- for <dri-devel@lists.freedesktop.org>; Sat, 25 Apr 2026 07:05:25 +0000 (UTC)
-X-UUID: 694455d2407411f1aa26b74ffac11d73-20260425
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12, REQID:0f97fdc8-2535-4596-97d7-ca6423094005, IP:0,
- U
- RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
- release,TS:0
-X-CID-META: VersionHash:e7bac3a, CLOUDID:facd07b298118c7b11ed0a6806b8c4aa,
- BulkI
- D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|898,TC:nil,Content:0|15|50,EDM
- :-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0
- ,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 694455d2407411f1aa26b74ffac11d73-20260425
-X-User: aichao@kylinos.cn
-Received: from thinksys.. [(10.44.16.150)] by mailgw.kylinos.cn
- (envelope-from <aichao@kylinos.cn>)
- (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
- with ESMTP id 1171954029; Sat, 25 Apr 2026 15:00:15 +0800
-From: Ai Chao <aichao@kylinos.cn>
-To: deller@gmx.de, nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com,
- claudiu.beznea@tuxon.dev, linux@armlinux.org.uk, dilinger@queued.net,
- adaplas@gmail.com, James.Bottomley@HansenPartnership.com,
- FlorianSchandinat@gmx.de, alchark@gmail.com, krzk@kernel.org,
- kees@kernel.org, rene@exactco.de, tzimmermann@suse.de,
- rongqianfeng@vivo.com, thorsten.blum@linux.dev,
- chelsyratnawat2001@gmail.com, soci@c64.rulez.org,
- gregkh@linuxfoundation.org, daniel@thingy.jp, linmq006@gmail.com,
- fourier.thomas@gmail.com
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-geode@lists.infradead.org, linux-parisc@vger.kernel.org,
- Ai Chao <aichao@kylinos.cn>
-Subject: [PATCH 15/35] fbdev: gbefb: Use safer strscpy() instead of strcpy()
-Date: Sat, 25 Apr 2026 14:59:06 +0800
-Message-Id: <20260425065926.1091168-16-aichao@kylinos.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260425065926.1091168-1-aichao@kylinos.cn>
-References: <20260425065926.1091168-1-aichao@kylinos.cn>
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="DmLKY5Py";
+	dkim-atps=neutral
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 818BA10E180
+ for <dri-devel@lists.freedesktop.org>; Sat, 25 Apr 2026 18:17:42 +0000 (UTC)
+Received: by linux.microsoft.com (Postfix, from userid 1216)
+ id BB44820B7167; Sat, 25 Apr 2026 11:17:42 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com BB44820B7167
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+ s=default; t=1777141062;
+ bh=sh39rjXCVsjh69pBUlReRVKxFnTSW80T1LCRSsVGCpk=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=DmLKY5PywiKZ56ifa/A3vP5fRErajPZezlwTuJfPij/+ws3BnFPT2CW1kRGiEHxfe
+ 2Gb3yZDo/EljSMA2RhOBHeNPVvD+MLbQMsWCLHVamglpQGTHQngBGf1CuyhRz5PmJE
+ F6buL9MpiAXEl/u57gvRZN4SLya5TH6eS35PR9kU=
+From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+To: linux-kernel@vger.kernel.org
+Cc: "K. Y. Srinivasan" <kys@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+ Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
+ Stefano Garzarella <sgarzare@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Himadri Pandya <himadrispandya@gmail.com>,
+ Michael Kelley <mhklinux@outlook.com>, linux-hyperv@vger.kernel.org,
+ virtualization@lists.linux.dev, netdev@vger.kernel.org,
+ Saurabh Sengar <ssengar@linux.microsoft.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Deepak Rawat <drawat.floss@gmail.com>,
+ dri-devel@lists.freedesktop.org,
+ Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>, stable@kernel.vger.org
+Subject: [PATCH 2/2] drm/hyperv: use VMBUS_RING_SIZE()
+Date: Sat, 25 Apr 2026 11:17:19 -0700
+Message-ID: <20260425181719.1538483-2-hamzamahfooz@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20260425181719.1538483-1-hamzamahfooz@linux.microsoft.com>
+References: <20260425181719.1538483-1-hamzamahfooz@linux.microsoft.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sun, 26 Apr 2026 06:46:56 +0000
+X-Mailman-Approved-At: Sun, 26 Apr 2026 06:47:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,28 +68,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Use a safer function strscpy() instead of strcpy() for copying to arrays.
+VMBUS ring buffers must be page aligned. So, use VMBUS_RING_SIZE() to
+ensure they are always aligned and large enough to hold all of the
+relevant data.
 
-Only idiomatic code replacement, and no functional changes.
-
-Signed-off-by: Ai Chao <aichao@kylinos.cn>
+Cc: stable@kernel.vger.org
+Fixes: 76c56a5affeb ("drm/hyperv: Add DRM driver for hyperv synthetic video device")
+Signed-off-by: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
 ---
- drivers/video/fbdev/gbefb.c | 2 +-
+ drivers/gpu/drm/hyperv/hyperv_drm_proto.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/video/fbdev/gbefb.c b/drivers/video/fbdev/gbefb.c
-index cb6ff15a21db..34da219b6e76 100644
---- a/drivers/video/fbdev/gbefb.c
-+++ b/drivers/video/fbdev/gbefb.c
-@@ -818,7 +818,7 @@ static void gbefb_encode_fix(struct fb_fix_screeninfo *fix,
- 			     struct fb_var_screeninfo *var)
- {
- 	memset(fix, 0, sizeof(struct fb_fix_screeninfo));
--	strcpy(fix->id, "SGI GBE");
-+	strscpy(fix->id, "SGI GBE");
- 	fix->smem_start = (unsigned long) gbe_mem;
- 	fix->smem_len = gbe_mem_size;
- 	fix->type = FB_TYPE_PACKED_PIXELS;
+diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_proto.c b/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
+index 051ecc526832..753d97bff76f 100644
+--- a/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
++++ b/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
+@@ -10,7 +10,7 @@
+ 
+ #include "hyperv_drm.h"
+ 
+-#define VMBUS_RING_BUFSIZE (256 * 1024)
++#define VMBUS_RING_BUFSIZE VMBUS_RING_SIZE(256 * 1024)
+ #define VMBUS_VSP_TIMEOUT (10 * HZ)
+ 
+ #define SYNTHVID_VERSION(major, minor) ((minor) << 16 | (major))
 -- 
-2.34.1
+2.54.0
 
