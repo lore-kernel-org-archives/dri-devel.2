@@ -4,131 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19209FF885C
-	for <dri-devel@archiver.kernel.org>; Sat, 25 Apr 2026 12:08:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AAFEFF885C
+	for <dri-devel@archiver.kernel.org>; Sat, 25 Apr 2026 12:17:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DC3F10E1BC;
-	Sat, 25 Apr 2026 12:08:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32BAF10E41F;
+	Sat, 25 Apr 2026 12:17:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="FK86YGn1";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="H2Vd6pUu";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Gk3vtrNQ";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Q6Q8qywE";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B23BD10E1BC
- for <dri-devel@lists.freedesktop.org>; Sat, 25 Apr 2026 12:08:09 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01FC110E208
+ for <dri-devel@lists.freedesktop.org>; Sat, 25 Apr 2026 12:17:39 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63PBVeUk2342638
- for <dri-devel@lists.freedesktop.org>; Sat, 25 Apr 2026 12:08:08 GMT
+ 63P3a2sM625042
+ for <dri-devel@lists.freedesktop.org>; Sat, 25 Apr 2026 12:17:39 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=jE1rlsOcAb8mtjkROW5TnXVB
- qCOL8sz1Ss/Eu8mtnWs=; b=FK86YGn1+rGVLm8Gbkdeuo6FcEXV/ht/9MGJlJKF
- PIew6jehBwcaSjKS6Je0KwgDvPK/4fGqE4I+C+g2spo6TrIlYbWmaYdR064zG3p3
- MGy5RJszKZqFCy5Ss6c5InetVCI8HhT1uaS5WjcydDuJo6BD3rxHy8nLL9XeoJ00
- SwCgTrrMOZH5O+Juaif77uB+HSrLWLsw85/1JGx1/umlhpGJ1/7EinWGsEh/VuYI
- oyna8DFkcdP6qlyQxEzSx0HKkeuQ5IV4YkrDyRtyM0icHnMzvmWPL8kDdbBYQHrR
- /dgpEulIj9BN8juMSHm4PSWRe93+LwunRYvE3rvdoxMY3g==
-Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com
- [209.85.222.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4drnmr0v54-1
+ :references:subject:to; s=qcppdkim1; bh=npr90gwsT5NmHlfS0yD/bLI3
+ 6eTJwhU1xjIXKSB/J18=; b=Gk3vtrNQjbbVlhzmPlbhxBpronK6iqfLEVQYwPPe
+ Eu8dKttQeDXem680XaryEfUimz9i+LVgttnHImlUbq3YUdi+aC+0B/zwkk3C2u53
+ 4fUUh5b0LHgWBHgGgzuMaaBxHo8eahUBRAtmep25rO7HMn18Sp97lB8EFNKnVmox
+ Vywmoyf1LPtzB2wGkQ0eWqRMJugcqz2mIISJ6jTGo5oksQWjRbE9/Gp12VP1nvVm
+ /zTjjUygWlJ6ZNNlOs2fT0BPgRqQA4G8Sa7qV2MRmaiZiVqmfQS6nQzyWbM03/vc
+ 3EQvG27k15piB4TQGxNO/Q8VtMIulszXJG84cr9ertSMHQ==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4drnu2ruuu-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Sat, 25 Apr 2026 12:08:08 +0000 (GMT)
-Received: by mail-ua1-f72.google.com with SMTP id
- a1e0cc1a2514c-9570d05becaso10411193241.0
- for <dri-devel@lists.freedesktop.org>; Sat, 25 Apr 2026 05:08:08 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Sat, 25 Apr 2026 12:17:39 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-50edf0245b0so1315281cf.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 25 Apr 2026 05:17:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1777118888; x=1777723688;
+ d=oss.qualcomm.com; s=google; t=1777119458; x=1777724258;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=jE1rlsOcAb8mtjkROW5TnXVBqCOL8sz1Ss/Eu8mtnWs=;
- b=H2Vd6pUu2ktUZ2G87OB6k84B/EPfNo4xuUp3C2UWN4xQdjW+HJeA6jYK1NV1C4iRMT
- 5Y9yGMtXu1+M+p9Ej73u1bG+iZO0xrU0N1d5IP4TPsQXsje9DycpTyLN0C74rSP7IbjQ
- zN3zLTTCtCnpkrr8O9b7iS99aH0bqrjxg88ROQbU2VzoqrF8w30pZVK+8IQz6S/f9tG1
- 2WdP8IoQm/HvofKLQHyociFbz0LqxhjxCAQm++U9EDrfwvm/FRBOnc2UWqHpTjasVn++
- 5rmAyZgRowLUqnMo4vSGM3QUQ6pVam0/3drcIyhyOE6vZ1ZwuSSwoGcochFW6mt12Y6z
- vLKA==
+ bh=npr90gwsT5NmHlfS0yD/bLI36eTJwhU1xjIXKSB/J18=;
+ b=Q6Q8qywEOLu7ERRv32brjPMDOB5nc49Em9nQnMs8gq9A45nu5xlOcJJ0lOUc0J+/4u
+ yQF7S5UfXqOt6Q9slPtvhqDxY4544CvWE1KrHgfppxG6J4wWwg8HIupk1mW1fGg8dBvc
+ yuvpc9erCM0hJVouVKiR2ShTpHzC9q/9qh0tnVnGYdHWJBj5XL9NRjWI4XIrELZlYN4B
+ ZkcMxT7um8EGR4TiS01jFwOsEdVHo9y+wfwtssnmc0AdR1Hi0JG+Xu/rqyrSPW5SEcvl
+ azMc9HKzXgnwNj+lHXu2EZltToYfKq7ZMejiey0QGMWTwJ3EjjYLISu6umvLqEjeNf9G
+ 0jyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777118888; x=1777723688;
+ d=1e100.net; s=20251104; t=1777119458; x=1777724258;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=jE1rlsOcAb8mtjkROW5TnXVBqCOL8sz1Ss/Eu8mtnWs=;
- b=ApRjvvL5w1rBm6DVd2gKc85somyufB1J7g+c86a9ibPe0sIvrIH7anE5F4uhkmkdzk
- S0LjUgvMPReOJ/WC3jE0P9lppB5rike4j//vZiYVvqB9RLbQwX+XxV9aIe7HYw2qfPh6
- eclfxnnvrbjGllSYRj0LogWOSFoO9A7D65t/gu7DkHaMbmsDoLu1wgiN1q/5h1WAsCgh
- fVspokTCbN/qSa4wOUQUB4IE7tj3+o14pP2vEkDqu0Gtcs60etJHRoBN6AvXPK/fSrlc
- 0Ss+r6KABca3HEw/awqXWQBMtfZFxuoor4Zcx11fvW+f34wWUYUdGfjB3AM6kKSwpWMS
- BpvQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ94FHNLCJA7YBjoTx2M+KfMShQf9DocIunKYaS/v+sQ9jMBZOYMlEemfedBiY/JIeccPinT1G0l+3I=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywxm5+CDyxUn496TSPmTH+BT9HkqWCzKAgwtUshuJ2UZLJimROn
- gL0huSRFJQVtu8P1iJSISsSqVSwA5vIvTvzCr1XAcAO/5ZPAbb3Qu/O8xUTB2Wlh4jgvylnMKqW
- rYr2LhV8IOTXdwZbS0tWg70cYIwnyXqX7xW+bHVRDwh4qOEkzgAMRkEiUmfxbXnmLuc9EwRo=
-X-Gm-Gg: AeBDieuHD6uzTepZEMUfhFSGAub0QC0PiRglmqtpgkMph/AH6zCcm2O3wGHRA1PLOm6
- 4253S8lvaFRb0GXoCmd6JQ3okky1y5x9x6Bzw9nA45LqDqx847b+Hn8sWMDH6K7vPMBkO6+sJMG
- Hpd6xr+CdCvwgWPraT9hPfBBRh6iy8InnFeXXXwrUGuIlIqdp7OKSx9AByt2xrIcuCJN0/W6V2m
- 0mFoV5YTVE2EKFoOic6DpJVNtgpQNhXYGhzQ2ANwircEqP1/2GmC7OVptD1AyEuv52kdTv8uZrW
- iZ+DLWBoPFvrseMA+tpvIj1r60KG0tffCx4p01jY8u3YJPa8JnWX7U3Y40WoAauLR819pbWMnUT
- POudYUO4vXNybU/2PTphMZ/IkrXimEiOpNTYTETXXR6AJjdxzC7Uu7LeZv84hNZqbVBEMzPdQ8a
- 4wzET08FxUE9/TL90qbv2oPFosCSHtjrcAtip9zMxqLWZYvA==
-X-Received: by 2002:a05:6102:6c9:b0:611:3bcb:aee5 with SMTP id
- ada2fe7eead31-616f142e949mr18800609137.0.1777118887710; 
- Sat, 25 Apr 2026 05:08:07 -0700 (PDT)
-X-Received: by 2002:a05:6102:6c9:b0:611:3bcb:aee5 with SMTP id
- ada2fe7eead31-616f142e949mr18800598137.0.1777118887278; 
- Sat, 25 Apr 2026 05:08:07 -0700 (PDT)
+ bh=npr90gwsT5NmHlfS0yD/bLI36eTJwhU1xjIXKSB/J18=;
+ b=dtGUYVm4oQOQgX7TputViUWHRuCbK2m7hkfW5gqjlFP7ILgUhOTBo+/4E6dxnaiCeF
+ 2PZ4Bl/I56vKURQl+lCSl3vTWkfcTytRM2yEvE4tvXLnvX24fwnS1UR8PdHst4WkFU7R
+ ZOP8a0EAPHfn8QCl+E6+lW334sPG3oUZte9faLu4qqTs+vS9D9fG8AOr+kvee27pj327
+ 46nhBh0p+XE7RVThZ4M6JwCiR1KSVEwbiZtnA3ibtGGaeQ7ZRWhB9zAjJr+joD288rz1
+ ZNh1nUigBB5Fhif41d4WRdt3iK45WerAtrGlB7GyXudR2nrxg+843YdrB4QTC5Vy7mgI
+ WaIg==
+X-Gm-Message-State: AOJu0Yy7VPUvFrm+wlSij/9xeB3y2Z4tsqQrXMSFw5PKHE/wLY4BsE8L
+ 5aTWMZiIXPc98A2Z9lthXdS8lMbpnUwgQAyjqqJwvpQ3xkDSpNo4UOUoB4eBphh+ex9Zth6m452
+ kmIcjOTdJk9mqOFqzsCTwcxskl/ij7Om0Ga9IUSobTdY0gb4SDa7CeprBHd3gW2oZOULR6HA=
+X-Gm-Gg: AeBDietO1dJca5dxXuRS41lWxxVw2UQHE0xxdYCe4C2fdsFeM6VUIKIQyaLShOOJBpt
+ kYUJZgKGy0Ogt6X5GUwHhRqVtbAnNA7/4RIJaFS5biUFjY0374bhc1hCUNxL6bT+mpxDLT8fnXv
+ 2fCUnVuGCDlB1KrkEctFTL4SmhTy29+aSALOtQhCVqcWot8jB0cbTNh5FwOLsmUL+Ssl5nvC7l/
+ mB9sAPWVgrX7XuaD1r91PP5R9yNMS0A8LTYnhxswMweFtwjoy0GEjj/69JukVOqabv/9oofsVOC
+ Awy4rLUWvAIAghkRKVkHjmCBZyLcJ1RaF0W3EWezIMgZOM+j44uS9v79q599E2zBFGevabWsphA
+ 3vjBjgFGkqyKsksaKf2EOrGmKNvp0C7f9ndLCrCQtGL1FCocrKYJ0Ran6HYmVUSum+7EZdEgm36
+ Mwp2XIhmO63FRCt7MI+oM/4xm1Qbm/pmu4KRKBW/zR14iKhQ==
+X-Received: by 2002:a05:622a:2509:b0:50e:defb:9dd8 with SMTP id
+ d75a77b69052e-50edefba3b8mr340804751cf.6.1777119458474; 
+ Sat, 25 Apr 2026 05:17:38 -0700 (PDT)
+X-Received: by 2002:a05:622a:2509:b0:50e:defb:9dd8 with SMTP id
+ d75a77b69052e-50edefba3b8mr340804061cf.6.1777119457678; 
+ Sat, 25 Apr 2026 05:17:37 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-38ecb5f66besm57897581fa.13.2026.04.25.05.08.05
+ 2adb3069b0e04-5a63296adb0sm2218995e87.6.2026.04.25.05.17.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 25 Apr 2026 05:08:06 -0700 (PDT)
-Date: Sat, 25 Apr 2026 15:08:04 +0300
+ Sat, 25 Apr 2026 05:17:36 -0700 (PDT)
+Date: Sat, 25 Apr 2026 15:17:34 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Val Packett <val@packett.cool>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- dri-devel@lists.freedesktop.org, ~postmarketos/upstreaming@lists.sr.ht,
- phone-devel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] drm/panel: Add atomic versions of panel ops
-Message-ID: <fjrm77kea7efb3xpxsqajrki7uzlhvbtwfyjvgnhznt5pisjfj@tfkmlodkjpw6>
-References: <20260425001130.233935-1-val@packett.cool>
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: dri-devel@lists.freedesktop.org, harry.wentland@amd.com,
+ Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH v3 4/8] DRM: Add support for client and driver indicating
+ support for luminance
+Message-ID: <5trcw3bcadvk2ltmat5axlezuznylsgm5xr7dmo66o5ijcrpdz@fhv7yhmlklub>
+References: <20260424220953.167058-1-mario.limonciello@amd.com>
+ <20260424220953.167058-5-mario.limonciello@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260425001130.233935-1-val@packett.cool>
-X-Authority-Analysis: v=2.4 cv=aqCCzyZV c=1 sm=1 tr=0 ts=69ecaea8 cx=c_pps
- a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
- a=9kKUQjWlHt89d_PKQGIA:9 a=CjuIK1q_8ugA:10 a=1WsBpfsz9X-RYQiigVTh:22
-X-Proofpoint-GUID: XT7C64LDO-qDb4oE6WnIFAETTSXXDlLq
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI1MDEyMSBTYWx0ZWRfX/0HEPTITXBnK
- XCXG5fHpUhMx+iw10RqMFwSsTkf4hNgkTGcO89FwMcCOewAI9hlhRpjRBJNdGFTAvVFU/xn+n39
- X4LOBENksSxg0dAH+/Hmijlrr0FivMAS47DutIctOYWuJhagTHepjPgF2OKqobhniXA2dfs5aV3
- LUUTHwRBp2pL7fehuUUDYMUr/kx/xuB6Krtk0AFmECaOr3kJla0QBojaVVLtNJeK5NjaZX/kr1X
- NBMPfJ7vzLM0x58oRi/gv6NPBW6NOZgHGN8f1XsMENOz9gMB4BMDwRmSDLKHZvI7+MNl5tUPnBp
- t6kpxGDJJVdWa2nmRTV5I+UOz9ybERQnHWH7V6os9Lo7Bk/axP5quHB4k1RCO5MYsLVfwHcv7uC
- 5YPoOmKf0GbFEU44Nc0HhgURgE3gcTxT4g1b0Op9boeKY8BjpPd1fkCi+w5uxO2n6SA18mCEPHu
- 4uGN0jSIG+z07w9p5wQ==
-X-Proofpoint-ORIG-GUID: XT7C64LDO-qDb4oE6WnIFAETTSXXDlLq
+In-Reply-To: <20260424220953.167058-5-mario.limonciello@amd.com>
+X-Proofpoint-GUID: KRGLzrpJYNZTYUlmT3IrrQ3kwn6a597S
+X-Authority-Analysis: v=2.4 cv=cbriaHDM c=1 sm=1 tr=0 ts=69ecb0e3 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=ws1xHSm7LW_IKOyM:21 a=xqWC_Br6kY4A:10
+ a=kj9zAlcOel0A:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=zd2uoN0lAAAA:8 a=sgUbT2v92nCVnnKm-eoA:9 a=CjuIK1q_8ugA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-ORIG-GUID: KRGLzrpJYNZTYUlmT3IrrQ3kwn6a597S
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI1MDEyNCBTYWx0ZWRfX9E5Xmbo/YweL
+ NhZr4qR0QQW1zc01TSNL4u6iQd6r4UbKex9TD6nrtK191OcWY1BCCAY5IpqDsbLXrgJt7UL/3GQ
+ cI1PRXIOP4uKzpGVaujNXCcm7VtW5FIsckKRuxATKwURZk4VAjrbrpQm5dJCYY+vv7sjOsyNrmC
+ 9r9OMbIn+xKvWWvpNbP/lIFx7LZuLqc3npYi/EqaPfpL29iOMxvyPxUAYuE7OPFfR1iiD3A5MOv
+ mtbeNV96Ss+qBu7gfQZeomGlJRvAE/M24UTwsBtqBRmdmGsLT2FDZ0nVe3gZl8fNAy6bLqZWSSg
+ hnmlvJMU09xUgOWrdQNyNkNUUUWPnB+NcmMjYmSsjaFOI1D1X+xSHgJX/g6ygRpvqv0szBk/ydc
+ ndtvSeyt6LzFqOfr/Oop+AQAmqaDcljMmsGt0GHHF9/qy9bnJZuCeeeO1P7Yd9qN9y+THw76tdp
+ GfOqrSoXurqYxkuGoCw==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-04-25_03,2026-04-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 phishscore=0 spamscore=0 adultscore=0
- suspectscore=0 malwarescore=0 bulkscore=0 clxscore=1015 lowpriorityscore=0
+ suspectscore=0 phishscore=0 lowpriorityscore=0 clxscore=1015 impostorscore=0
+ priorityscore=1501 spamscore=0 malwarescore=0 bulkscore=0 adultscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604250121
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604250124
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,199 +138,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Apr 24, 2026 at 08:49:50PM -0300, Val Packett wrote:
-> Modern DSI panels support various modes (resolutions and refresh rates),
-> which usually requires sending mode-specific DCS commands to configure the
-> DDIC during operations like prepare(). However existing drm_panel_funcs
-> only take the panel itself as an argument, so there's no way to access
-> relevant state (such as the mode being set) inside of these functions.
-> 
-> To allow panel drivers access to the state, introduce new atomic_*
-> versions of the prepare/enable/disable/unprepare ops, and make the
-> corresponding drm_panel_* functions call them if available, falling back
-> to the original ops otherwise. To avoid the need to modify all consumers
-> at once, the original single-argument drm_panel_* functions are redefined
-> as aliases to the new ones, passing NULLs for the new extra arguments.
-> 
-> The atomic ops pass the CRTC as well as the atomic state because getting
-> the mode being set is part of per-CRTC state.
-> 
-> Signed-off-by: Val Packett <val@packett.cool>
+On Fri, Apr 24, 2026 at 05:09:49PM -0500, Mario Limonciello wrote:
+> The legacy backlight control interface can only be disabled when both
+> the client and driver have agreed that the luminance can be set during
+> a modeset. Add capability for the client to register and for the driver
+> to indicate support.
+
+Please describe, why do we need DRM_CLIENT_CAP_LUMINANCE.
+
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 > ---
+>  drivers/gpu/drm/drm_atomic_uapi.c | 24 ++++++++++++++++++++++++
+>  drivers/gpu/drm/drm_connector.c   |  4 ++--
+>  drivers/gpu/drm/drm_ioctl.c       | 10 ++++++++++
+>  include/drm/drm_connector.h       |  5 +++++
+>  include/drm/drm_drv.h             |  7 +++++++
+>  include/drm/drm_file.h            |  8 ++++++++
+>  include/uapi/drm/drm.h            | 10 ++++++++++
+>  7 files changed, 66 insertions(+), 2 deletions(-)
 > 
-> As discussed in my recent RFC [1] and an older thread I was pointed to
-> there [2], the right way to expose the mode to panel drivers is to expose
-> the entire atomic state and let them find the mode there. (Turns out,
-> the drm_crtc must also be passed along with the state as it's necessary
-> for drm_atomic_get_new_crtc_state).
-> 
-> Hopefully this first "real" attempt is close enough! :)
-> 
-> I have tested this with the WIP nt37701 driver from the linked RFC,
-> only slightly updated to receive the new args and not directly the mode.
-> 
-> [1]: https://lore.kernel.org/all/20260412113851.355944-1-val@packett.cool/
-> [2]: https://lore.kernel.org/dri-devel/nfc6ih43gjpi5u67fpkkxgwwygv53grdldq7tfp5iiukrkiy2u@53fsrtezzkyt/
-> 
-> Thanks,
-> ~val
-> 
-> ---
->  drivers/gpu/drm/drm_panel.c |  88 +++++++++++++++--------
->  include/drm/drm_panel.h     | 137 ++++++++++++++++++++++++++++++++++--
->  2 files changed, 193 insertions(+), 32 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
-> index d1e6598ea3bc..48fce5e89bca 100644
-> --- a/drivers/gpu/drm/drm_panel.c
-> +++ b/drivers/gpu/drm/drm_panel.c
-> @@ -102,16 +102,20 @@ void drm_panel_remove(struct drm_panel *panel)
->  EXPORT_SYMBOL(drm_panel_remove);
->  
->  /**
-> - * drm_panel_prepare - power on a panel
-> + * drm_panel_atomic_prepare - power on a panel
->   * @panel: DRM panel
-> + * @crtc: the CRTC used to drive the panel, may be NULL
-
-What does NULL mean here? How would panel's atomic helpers behave if
-they receive NULL?
-
-If you want to see a nicer way to migrate to atomic funcs, see
-5ade071ba13e ("drm: Add atomic variants for bridge enable/disable").
-
-So, you can't replace drm_panel_foo() with a stub calling
-drm_atomic_panel_foo().
-
-> + * @state: current atomic commit state, may be NULL
->   *
->   * Calling this function will enable power and deassert any reset signals to
->   * the panel. After this has completed it is possible to communicate with any
->   * integrated circuitry via a command bus. This function cannot fail (as it is
->   * called from the pre_enable call chain). There will always be a call to
-> - * drm_panel_disable() afterwards.
-> + * drm_panel_atomic_disable() afterwards.
+> diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
+> index 27cc159c1d275..b5e6d940f2816 100644
+> --- a/include/uapi/drm/drm.h
+> +++ b/include/uapi/drm/drm.h
+> @@ -921,6 +921,16 @@ struct drm_get_cap {
 >   */
-> -void drm_panel_prepare(struct drm_panel *panel)
-> +void drm_panel_atomic_prepare(struct drm_panel *panel,
-> +			      struct drm_crtc *crtc,
-
-Thinking about it... We can have several panels being driven by the same
-CRTC. Likewise there can be a lot going on between the CRTC and the
-panel. After looking at the code actually calling drm_panel functions,
-the only thing that we can easily pass here is the encoder. But then,
-there also might be bridges between encoder and the panel. Encoders
-don't have state per se.
-
-If the panel needs to identify something, it should be getting the
-connector. It might be a more cumbersome, but it sounds like a more
-logical option here.
-
-Maxime suggested passing drm_connector_state here instead of the
-complete state + connector. I don't have a strong preference here, but I
-think that the latter might be slighly more idiomatic nowadays.
-
-
-> +			      struct drm_atomic_state *state)
->  {
->  	struct drm_panel_follower *follower;
->  	int ret;
-
-[...]
-
-> @@ -330,11 +384,86 @@ void drm_panel_put(struct drm_panel *panel);
->  void drm_panel_add(struct drm_panel *panel);
->  void drm_panel_remove(struct drm_panel *panel);
+>  #define DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE	7
 >  
-> -void drm_panel_prepare(struct drm_panel *panel);
-> -void drm_panel_unprepare(struct drm_panel *panel);
-> +void drm_panel_atomic_prepare(struct drm_panel *panel,
-> +			      struct drm_crtc *crtc,
-> +			      struct drm_atomic_state *state);
->  
-> -void drm_panel_enable(struct drm_panel *panel);
-> -void drm_panel_disable(struct drm_panel *panel);
 > +/**
-> + * drm_panel_prepare - power on a panel
-> + * @panel: DRM panel
+> + * DRM_CLIENT_CAP_LUMINANCE
 > + *
-> + * Calling this function will enable power and deassert any reset signals to
-> + * the panel. After this has completed it is possible to communicate with any
-> + * integrated circuitry via a command bus. This function cannot fail (as it is
-> + * called from the pre_enable call chain). There will always be a call to
-> + * drm_panel_disable() afterwards.
-> + *
-> + * If atomic commit state is available, call drm_panel_atomic_prepare instead.
+> + * If set to 1, legacy sysfs interface for controlling backlight brightness will
+> + * be disabled.  The client will include luminance values as part of the modeset.
+
+I don't think this is accurate (anymore?). The sysfs doesn't seem to be
+disabled. Rather the DRM updates it internally. Which might mean that we
+don't need an extra client cap.
+
+> +
+> + * This capability is supported starting in kernel 7.2
 > + */
-> +static inline void drm_panel_prepare(struct drm_panel *panel)
-> +{
-> +	drm_panel_atomic_prepare(panel, NULL, NULL);
-> +}
+> +#define DRM_CLIENT_CAP_LUMINANCE		8
 > +
-> +void drm_panel_atomic_unprepare(struct drm_panel *panel,
-> +				struct drm_crtc *crtc,
-> +				struct drm_atomic_state *state);
-> +
-> +/**
-> + * drm_panel_unprepare - power off a panel
-> + * @panel: DRM panel
-> + *
-> + * Calling this function will completely power off a panel (assert the panel's
-> + * reset, turn off power supplies, ...). After this function has completed, it
-> + * is usually no longer possible to communicate with the panel until another
-> + * call to drm_panel_prepare().
-> + *
-> + * If atomic commit state is available, call drm_panel_atomic_unprepare instead.
-> + */
-> +static inline void drm_panel_unprepare(struct drm_panel *panel)
-> +{
-> +	drm_panel_atomic_unprepare(panel, NULL, NULL);
-> +}
-> +
-> +void drm_panel_atomic_enable(struct drm_panel *panel,
-> +			     struct drm_crtc *crtc,
-> +			     struct drm_atomic_state *state);
-> +
-> +/**
-> + * drm_panel_enable - enable a panel
-> + * @panel: DRM panel
-> + *
-> + * Calling this function will cause the panel display drivers to be turned on
-> + * and the backlight to be enabled. Content will be visible on screen after
-> + * this call completes. This function cannot fail (as it is called from the
-> + * enable call chain). There will always be a call to drm_panel_disable()
-> + * afterwards.
-> + *
-> + * If atomic commit state is available, call drm_panel_atomic_enable instead.
-> + */
-> +static inline void drm_panel_enable(struct drm_panel *panel)
-> +{
-> +	drm_panel_atomic_enable(panel, NULL, NULL);
-> +}
-> +
-> +void drm_panel_atomic_disable(struct drm_panel *panel,
-> +			      struct drm_crtc *crtc,
-> +			      struct drm_atomic_state *state);
-> +
-> +/**
-> + * drm_panel_disable - disable a panel
-> + * @panel: DRM panel
-> + *
-> + * This will typically turn off the panel's backlight or disable the display
-> + * drivers. For smart panels it should still be possible to communicate with
-> + * the integrated circuitry via any command bus after this call.
-> + *
-> + * If atomic commit state is available, call drm_panel_atomic_disable instead.
-> + */
-> +static inline void drm_panel_disable(struct drm_panel *panel)
-> +{
-> +	drm_panel_atomic_disable(panel, NULL, NULL);
-> +}
->  
->  int drm_panel_get_modes(struct drm_panel *panel, struct drm_connector *connector);
->  
+>  /* DRM_IOCTL_SET_CLIENT_CAP ioctl argument type */
+>  struct drm_set_client_cap {
+>  	__u64 capability;
 > -- 
-> 2.53.0
+> 2.43.0
 > 
 
 -- 
