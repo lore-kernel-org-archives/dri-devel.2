@@ -4,125 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC2F3FF8860
-	for <dri-devel@archiver.kernel.org>; Sat, 25 Apr 2026 14:45:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45687FF885C
+	for <dri-devel@archiver.kernel.org>; Sat, 25 Apr 2026 14:57:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4722310E227;
-	Sat, 25 Apr 2026 14:45:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7682C10E42E;
+	Sat, 25 Apr 2026 14:57:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BTqCoP7z";
+	dkim=pass (1024-bit key; secure) header.d=ixit.cz header.i=@ixit.cz header.b="Uvp4yvXk";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011069.outbound.protection.outlook.com [52.101.57.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3BA110E227;
- Sat, 25 Apr 2026 14:45:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Z2/1iMtbsrXAfJS5fXwn8bYHoCXvrpv3E4yC9cDqok47NvgmS3IPuuxsfpZgAh15iUdyNW9M4fStXYwhFkv7hIJYvOjmeJMadFTmoMzvTNoS1uhDLhzKiIvsT/py5zJ+JRmGihWQRNW9OIqPGIfG/HF5eI5J8v/1Cyy1/WkEr7RRpq3DDWGqZhGNnv2aATwLlNJibTScYt3z25BpRMcH1PKdNH8OqJJGfhxi3TRmPu4w+fLpTPYbFTbZjtyw3ZL1mZl7gJc7nJWNB3cF6T3NPhXuPxq0ixgvVm9qZbsy5lILjSL0Km7lUlT34Zj9phIQJOfrq2SNL4rx7cqriASG4w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=U+vEX4gYTeZLZoJjxeEi/rgaAD6iNObFIdo6R/LBOjc=;
- b=ZBdpjRkSrUG4zB+zNk4u6TOnyIRuuAcXYCAX4gpHFMdHpyCxE202rRBBkNDZlUOGdYEIj74JUHQmJidGPevir9LtEh1ZNJqyHERooQYEPUEYA+mhmiTykQkMYL2PkgUx1SYSVOD8ZtNwAtvc5vfqCM45Ykm2QiSAighWI83YvOGnVChImfkmeG139IkhEs7IVeQlgux3fsUasvDSPUXJJoh5P25X2Pl0vd6280Yh3YwBKGdCpNlZLlwEE3jAHtvr3eolKEp2s2/NbSgSamvi4R02c5VpTLpClDR7ix27kFa5mC6hNLOGqfI1MLYI211FbA2pJFDcLv5Xv/8pAj2ECw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=U+vEX4gYTeZLZoJjxeEi/rgaAD6iNObFIdo6R/LBOjc=;
- b=BTqCoP7zAoTJAVJWSIOqBMJU36H1mKYgL4eC2SUclsNsA8Arg0kzyMHgNX0xUgduo7vLGSuC5zhQzja2Sdd38Y0OzjZ6B6vT7Adg0iVOF2nqn4qSSzTRevikajdiPv9vT3HxWi0zvpOLak3XBZFYAQXDtKXjicpoOnaDrAp0R+Y=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB4557.namprd12.prod.outlook.com (2603:10b6:806:9d::10)
- by PH7PR12MB7235.namprd12.prod.outlook.com (2603:10b6:510:206::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.12; Sat, 25 Apr
- 2026 14:45:32 +0000
-Received: from SA0PR12MB4557.namprd12.prod.outlook.com
- ([fe80::885a:79b3:8288:287]) by SA0PR12MB4557.namprd12.prod.outlook.com
- ([fe80::885a:79b3:8288:287%5]) with mapi id 15.20.9870.012; Sat, 25 Apr 2026
- 14:45:32 +0000
-Message-ID: <cb1ab06a-630b-4bd7-95a3-5f679b84dbe2@amd.com>
-Date: Sat, 25 Apr 2026 09:45:30 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/8] DRM: Add support for client and driver indicating
- support for luminance
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, harry.wentland@amd.com,
- Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org
-References: <20260424220953.167058-1-mario.limonciello@amd.com>
- <20260424220953.167058-5-mario.limonciello@amd.com>
- <5trcw3bcadvk2ltmat5axlezuznylsgm5xr7dmo66o5ijcrpdz@fhv7yhmlklub>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <5trcw3bcadvk2ltmat5axlezuznylsgm5xr7dmo66o5ijcrpdz@fhv7yhmlklub>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SA0PR11CA0062.namprd11.prod.outlook.com
- (2603:10b6:806:d2::7) To SA0PR12MB4557.namprd12.prod.outlook.com
- (2603:10b6:806:9d::10)
+Received: from ixit.cz (ixit.cz [185.100.197.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8EC710E42E
+ for <dri-devel@lists.freedesktop.org>; Sat, 25 Apr 2026 14:57:29 +0000 (UTC)
+Received: from [192.168.0.18] (unknown [46.16.122.36])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by ixit.cz (Postfix) with ESMTPSA id E9B485342871;
+ Sat, 25 Apr 2026 16:57:24 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+ t=1777129045;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=1xfrxxkgRXWrZvXUXYzqrDwHFTaOnrrt+sAZhRpuWao=;
+ b=Uvp4yvXkO71zgTsRjm9PCfIC3Rx8SEIdLJCbWB1tX/IsXJjXErmSL6+ebXGFv8Pd1JjlSj
+ +s1rsNC9WsF7dX7DvhBdDGNmlIK8+GM7tZ7VJoVYAYaw2PPrdvdraumwJJH9IWGBuprDSt
+ jspNsy26brnBY7GhyIJGcTjE+eOIKBA=
+Message-ID: <e20e87fc-532f-42c5-a60f-37b900d74dab@ixit.cz>
+Date: Sat, 25 Apr 2026 16:57:23 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB4557:EE_|PH7PR12MB7235:EE_
-X-MS-Office365-Filtering-Correlation-Id: 31ea8980-9364-490f-78e6-08dea2d94d54
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|56012099003|22082099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: 0zpYpx0SUwm691YeMoAOAsDHFx6MN4svkdFyb6C2LDTdnIidBBVZW2zQ29K+oR3MVkbaQHei7h9rLqzvPboK9C6x1pEdTTROWA/bndtTpL4KP0oCO3h9q9BiAzbh33qNJmUEipLHT7Su3zvEdcSXS+UAhEvjblJ0gGY85piPEeLJaefCzx1sWPBqyw+6Tal2oth+YBkauAhb7WPWh2njcGo+1UCSe1de+qTLPGFAbyuSJxyoSYHK423pTevHcOHEe8gHwxRYfqZ6zlSMioRGPLd8cOV9W5TaSksRz0/tOqGJTWFXWB1ERiqZP+crDPSiXwC6jdKBXqJVHIoN5zkSswFFhd6yPp5WT3OZnf684SSIiuLEI6fqyUY1dRRNhBq5KPG8JJ/EIQPwtJRfQkEw5A1cusEV1qxA6JzNnRj8Dr/lT427igo8kDlEDrVqrsvVcenXYaxCAkREVF06FcMU+GOgRydE3Hz9aG52waP39Nx7dwSYAIqFGQDVXPJkr5PvFiOKFZ/xu8qgjX1x2IHBHrtskyif5f/dMobdrIG9vVOUNuDpat+WlbqBLnbd1BqNe+hUqy9I1D+4SxLmojTQCPBghKwEmtX+lOyeQMhMmoh0Ao9myoqFaJxuzYCauNf1ZfHevnfm6RlGpZX7KICuhYq6ONM4sNla8DrYUzTfefZ6B3eXk4TPb1kjBYQRxdnkvFDTQe5An79Tnl61DeyezM6Lzxyr6FaP9Ot+CKwqpAc=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB4557.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(56012099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R2xsTWV5YVFqTHhVRmoxQ0JiMnMwZ1JkdmhVbHM5dHVOSDRXSjU0NE9WRTBN?=
- =?utf-8?B?TVlhYW9KK2liYXEyOHluR1JCZnFoYVlMSTV1NnF3QVRneXRSd3U3cVpEN0Zl?=
- =?utf-8?B?ekF2VFVFTGcvU3BkdXBrMlNSZFU3eDkrRHRkTVBhNzRoT2VLOVYxVmFtdHFF?=
- =?utf-8?B?MzdPSTBkWW4zc3hwcm5yaWlZRHVuRnl5RHYrQVVUemJnV0hEV2JZZmcxRDJU?=
- =?utf-8?B?dUs0NE1HMWNjOU5maUdjeTVxNGV6YUJzS3ZxRmVVdmVwSHYrZDhMMFNGNEdu?=
- =?utf-8?B?ZjkxZFJuaWlhYzc5N2tvb0V0WkYwOUUxVUpoUnhQODZUS0RWSmhmb0NnT3lQ?=
- =?utf-8?B?M2svMVU4U29FSGIwUFNkVE9sYmFqQ0xkNzgwcXN1ZllFTlZSN0I0U1pQQWNr?=
- =?utf-8?B?OGJNcFBZWVNidHUwd1o2eUhoZlVYUW5FNGdrK1d4bHJvTmtzMGcybW8vdXBw?=
- =?utf-8?B?a0ZtV3liYXB0bW5LeWN3cXc2Q2c4UGhFQkNjNzJwYThxcjBTUkxrMVNmWitR?=
- =?utf-8?B?OHFBOGpwUkQyT0RtNVBvV2ZlYlEvWmdMaUp5MkF1TGxaY0s5VStFcWMvam85?=
- =?utf-8?B?bGVyVkZONlh1MElFOUFWcXdaYm1jakZTdU9adm43VWVNYUhyUXN3aDNyMFBu?=
- =?utf-8?B?RHZaZktCYXA4TzJKQ3JNMjhvcnMyNnlTTHN0UklJY0hOZGJ4MmJkbnUraG1a?=
- =?utf-8?B?TmJmcGV5bHBxNjZBZ1RSa2tIbzVSS1NqMUM5ZytZa2FmUERncWI1QUJISjRW?=
- =?utf-8?B?OGs1VVpveFhXM1ZaZlhBSjZhUHFXNlh6RU9IekFFMUNiSkwxbWNlbjhkdlpw?=
- =?utf-8?B?a2xiOVg5NnVWSUJwKzlXR2ZJeldnRGRSR2JETGxQV0oyZ1lNa1MraEdONU9X?=
- =?utf-8?B?S3lhbFVJMXBiRUZacTdYWHRkRjJUT21SQUJoR0RGbGJ0azcyYWFOM0s0SWhp?=
- =?utf-8?B?aHBjWm1SK0ljUVloRWdnQWd3RmlWV0tvS09zM0VmTWdodXVwY2VUQnV5bnMw?=
- =?utf-8?B?VnY4N2M1dnRKbytEQWNCLzZnMGF6R05JbFBITmp5dVh6dktzTll1Z3VPTTdk?=
- =?utf-8?B?dDAyejNOV2lhYnJVeVR2WVNaeGlTSzFjVCtXTmFqQTdIWUlFUHZWZ0JUU21T?=
- =?utf-8?B?dVEyMW4wRGh6cEJtWHFKK3BTcGJwcWpGeHRzS2NNZklhQWR6SUF2Zlp1eVRy?=
- =?utf-8?B?cXZ4MlZCNjBkZHlsSEh0MXdhcnE1SC9OME9DODNCRU53Y1hGanY2L2dCdVl2?=
- =?utf-8?B?dVRmVEN0c1hnUm9ocmc1NnJPR3FJb3RETUkrd1MzTUxma3RRSmswNXY5U0Va?=
- =?utf-8?B?OC9nc3lRdk83Ly9NemMrbGZGcUpTMkk0V3N6L1NFL3BTTHI1aThrNHZQUHM2?=
- =?utf-8?B?RzNKTFlJUnBTZUhPcGlDbzlTbHhVL2pzNG9DTWtXS05xY3VlaTNQMnVscUpy?=
- =?utf-8?B?NktGTllaTzEvdXFxK1gwNzA1RUNLZkhicnB5VlhlaGFlcUtaSll4Q2FCenVi?=
- =?utf-8?B?WkRsVmJOM0JUQzdVQ3o5OFFrbjQ3VE1GTTRDcysyenJSamhISFE1c1V4eENR?=
- =?utf-8?B?OEpNbEQ3cDFTdE5FUWsyaHJFc0pNZlRSZklBV1VRSWZ5T1FweU5DeXgzb0tN?=
- =?utf-8?B?NWtGeERMM3ZSU2p0ZElkSWZWNTJYeGpRODYvaStIaEp2NG1UTWNTR0p2d3ZI?=
- =?utf-8?B?TzdPYTN2UldwQ2srUnJTdzNXbTZWcUFFTlNrOFBrS2F1YXFFNEdQN3R4dkNv?=
- =?utf-8?B?SUdzK3R4K0xZUmU4UFNrOHZhNFR1VGFrWkZiQVNtenhGTEhydVBRSUloZnhq?=
- =?utf-8?B?QnVTQXJydTFyQ0NibFhUUVN1UUMvNGxqVFlKV0JVeHZkSnU2VVN0RE5yVEhx?=
- =?utf-8?B?UUt4TWx4WDNCd3VaeXFYaTU0bFVFd2ZPUEcxY3J3Vnlpc1FabWlmUDhrL1RK?=
- =?utf-8?B?UDU4WHU4Q1BOdkM0Zjh2Z0NjZmRZbFlJTU9xVGZEVkVZU3FLdlFuSkNkK3lY?=
- =?utf-8?B?RUxGSzhDeXlWSWw2SjZpMjZ4em0wRVM5SEJ4Y0QwNDNYR1JNVml6aFJCVE9v?=
- =?utf-8?B?ZE1ralNTUWplNEQvL09wMStUQm9sZlNMYVQyRzNHbEs1OXk2V1c0ejJaNnBl?=
- =?utf-8?B?U0NqdzVxQW5YQ2UwbjdEU1N1bW0xa1NQUzJZWmZWTnZtcVNoK1U2YUtCVHVK?=
- =?utf-8?B?Ykd0Vy8wZnNYTURDbERTeHlrNVlkdWt2MjlnVFhZWmd5TU43NnJFSUtZaUlW?=
- =?utf-8?B?VmlnNUtvbzduVU5LOFljMXk0TmlYY01abElVOTVmeWpxNFRHeHN4YmNocGZW?=
- =?utf-8?Q?t71WK7haMCO9wH1cTM?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 31ea8980-9364-490f-78e6-08dea2d94d54
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB4557.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Apr 2026 14:45:32.5977 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1YoyUFjKqu4+8DT2eh2y2/dKQui6LzEAfJmq0oMyXfVlK0SN9KkWUIQRElFOx78gNiVj1XNCeqbU58m8tYZuBA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7235
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND 2/4] drm/panel: Clean up S6E3FC2X01 config
+ dependencies
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Dzmitry Sankouski <dsankouski@gmail.com>, Sam Ravnborg <sam@ravnborg.org>
+Cc: Casey Connolly <casey.connolly@linaro.org>,
+ marijn.suijten@somainline.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
+References: <20260422-panel-clean-up-kconfig-dep-v1-0-d825e9ffe911@ixit.cz>
+ <20260422-panel-clean-up-kconfig-dep-v1-2-d825e9ffe911@ixit.cz>
+ <ebe54ec7-9cf2-4243-a616-34b18c50fd57@linaro.org>
+Content-Language: en-US
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ xsFNBF5v1x4BEADS3EddwsNsvVAI1XF8uQKbdYPY/GhjaSLziwVnbwv5BGwqB1tfXoHnccoA
+ 9kTgKAbiXG/CiZFhD6l4WCIskQDKzyQN3JhCUIxh16Xyw0lECI7iqoW9LmMoN1dNKcUmCO9g
+ lZxQaOl+1bY/7ttd7DapLh9rmBXJ2lKiMEaIpUwb/Nw0d7Enp4Jy2TpkhPywIpUn8CoJCv3/
+ 61qbvI9y5utB/UhfMAUXsaAgwEJyGPAqHlC0YZjaTwOu+YQUE3AFzhCbksq95CwDz4U4gdls
+ dmv9tkATfu2OmzERZQ6vJTehK0Pu4l5KmCAzYg42I9Dy4E6b17x6NncKbcByQFOXMtG0qVUk
+ F1yeeOQUHwu+8t3ZDMBUhCkRL/juuoqLmyDWKMc0hKNNeZ9BNXgB8fXkRLWEUfgDXsFyEkKp
+ NxUy5bDRlivf6XfExnikk5kj9l2gGlNQwqROti/46bfbmlmc/a2GM4k8ZyalHNEAdwtXYSpP
+ 8JJmlbQ7hNTLkc3HQLRsIocN5th/ur7pPMz1Beyp0gbE9GcOceqmdZQB80vJ01XDyCAihf6l
+ AMnzwpXZsjqIqH9r7T7tM6tVEVbPSwPt4eZYXSoJijEBC/43TBbmxDX+5+3txRaSCRQrG9dY
+ k3mMGM3xJLCps2KnaqMcgUnvb1KdTgEFUZQaItw7HyRd6RppewARAQABzSBEYXZpZCBIZWlk
+ ZWxiZXJnIDxkYXZpZEBpeGl0LmN6PsLBlAQTAQgAPgIbAwULCQgHAgYVCgkICwIEFgIDAQIe
+ AQIXgBYhBNd6Cc/u3Cu9U6cEdGACP8TTSSByBQJl+KksBQkPDaAOAAoJEGACP8TTSSBy6IAQ
+ AMqFqVi9LLxCEcUWBn82ssQGiVSDniKpFE/tp7lMXflwhjD5xoftoWOmMYkiWE86t5x5Fsp7
+ afALx7SEDz599F1K1bLnaga+budu55JEAYGudD2WwpLJ0kPzRhqBwGFIx8k6F+goZJzxPDsf
+ loAtXQE62UvEKa4KRRcZmF0GGoRsgA7vE7OnV8LMeocdD3eb2CuXLzauHAfdvqF50IfPH/sE
+ jbzROiAZU+WgrwU946aOzrN8jVU+Cy8XAccGAZxsmPBfhTY5f2VN1IqvfaRdkKKlmWVJWGw+
+ ycFpAEJKFRdfcc5PSjUJcALn5C+hxzL2hBpIZJdfdfStn+DWHXNgBeRDiZj1x6vvyaC43RAb
+ VXvRzOQfG4EaMVMIOvBjBA/FtIpb1gtXA42ewhvPnd5RVCqD9YYUxsVpJ9d+XsAy7uib3BsV
+ W2idAEsPtoqhVhq8bCUs/G4sC2DdyGZK8MRFDJqciJSUbqA+5z1ZCuE8UOPDpZKiW6H/OuOM
+ zDcjh0lOzr4p+/1TSg1PbUh7fQ+nbMuiT044sC1lLtJK0+Zyn0GwhR82oNM4fldNsaHRW42w
+ QGD35+eNo5Pvb3We5XRMlBdhFnj7Siggp4J8/PJ6MJvRyC+RIJPGtbdMB2/RxWunFLn87e5w
+ UgwR9jPMHAstuTR1yR23c4SIYoQ2fzkrRzuazsFNBF5v1x4BEADnlrbta2WL87BlEOotZUh0
+ zXANMrNV15WxexsirLetfqbs0AGCaTRNj+uWlTUDJRXOVIwzmF76Us3I2796+Od2ocNpLheZ
+ 7EIkq8budtLVd1c06qJ+GMraz51zfgSIazVInNMPk9T6fz0lembji5yEcNPNNBA4sHiFmXfo
+ IhepHFOBApjS0CiOPqowYxSTPe/DLcJ/LDwWpTi37doKPhBwlHev1BwVCbrLEIFjY0MLM0aT
+ jiBBlyLJaTqvE48gblonu2SGaNmGtkC3VoQUQFcVYDXtlL9CVbNo7BAt5gwPcNqEqkUL60Jh
+ FtvVSKyQh6gn7HHsyMtgltjZ3NKjv8S3yQd7zxvCn79tCKwoeNevsvoMq/bzlKxc9QiKaRPO
+ aDj3FtW7R/3XoKJBY8Hckyug6uc2qYWRpnuXc0as6S0wfek6gauExUttBKrtSbPPHiuTeNHt
+ NsT4+dyvaJtQKPBTbPHkXpTO8e1+YAg7kPj3aKFToE/dakIh8iqUHLNxywDAamRVn8Ha67WO
+ AEAA3iklJ49QQk2ZyS1RJ2Ul28ePFDZ3QSr9LoJiOBZv9XkbhXS164iRB7rBZk6ZRVgCz3V6
+ hhhjkipYvpJ/fpjXNsVL8jvel1mYNf0a46T4QQDQx4KQj0zXJbC2fFikAtu1AULktF4iEXEI
+ rSjFoqhd4euZ+QARAQABwsF8BBgBCAAmAhsMFiEE13oJz+7cK71TpwR0YAI/xNNJIHIFAmX4
+ qVAFCQ8NoDIACgkQYAI/xNNJIHKN4A/+Ine2Ii7JiuGITjJkcV6pgKlfwYdEs4eFD1pTRb/K
+ 5dprUz3QSLP41u9OJQ23HnESMvn31UENk9ffebNoW7WxZ/8cTQY0JY/cgTTrlNXtyAlGbR3/
+ 3Q/VBJptf04Er7I6TaKAmqWzdVeKTw33LljpkHp02vrbOdylb4JQG/SginLV9purGAFptYRO
+ 8JNa2J4FAQtQTrfOUjulOWMxy7XRkqK3QqLcPW79/CFn7q1yxamPkpoXUJq9/fVjlhk7P+da
+ NYQpe4WQQnktBY29SkFnvfIAwqIVU8ix5Oz8rghuCcAdR7lEJ7hCX9bR0EE05FOXdZy5FWL9
+ GHvFa/Opkq3DPmFl/0nt4HJqq1Nwrr+WR6d0414oo1n2hPEllge/6iD3ZYwptTvOFKEw/v0A
+ yqOoYSiKX9F7Ko7QO+VnYeVDsDDevKic2T/4GDpcSVd9ipiKxCQvUAzKUH7RUpqDTa+rYurm
+ zRKcgRumz2Tc1ouHj6qINlzEe3a5ldctIn/dvR1l2Ko7GBTG+VGp9U5NOAEkGpxHG9yg6eeY
+ fFYnMme51H/HKiyUlFiE3yd5LSmv8Dhbf+vsI4x6BOOOq4Iyop/Exavj1owGxW0hpdUGcCl1
+ ovlwVPO/6l/XLAmSGwdnGqok5eGZQzSst0tj9RC9O0dXO1TZocOsf0tJ8dR2egX4kxM=
+In-Reply-To: <ebe54ec7-9cf2-4243-a616-34b18c50fd57@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,75 +113,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-
-On 4/25/26 07:17, Dmitry Baryshkov wrote:
-> On Fri, Apr 24, 2026 at 05:09:49PM -0500, Mario Limonciello wrote:
->> The legacy backlight control interface can only be disabled when both
->> the client and driver have agreed that the luminance can be set during
->> a modeset. Add capability for the client to register and for the driver
->> to indicate support.
+...
+>>       tristate "Samsung S6E3FC2X01 DSI panel controller"
+>> -    depends on OF
+>> +    depends on OF && GPIOLIB
 > 
-> Please describe, why do we need DRM_CLIENT_CAP_LUMINANCE.
-> 
->> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
->> ---
->>   drivers/gpu/drm/drm_atomic_uapi.c | 24 ++++++++++++++++++++++++
->>   drivers/gpu/drm/drm_connector.c   |  4 ++--
->>   drivers/gpu/drm/drm_ioctl.c       | 10 ++++++++++
->>   include/drm/drm_connector.h       |  5 +++++
->>   include/drm/drm_drv.h             |  7 +++++++
->>   include/drm/drm_file.h            |  8 ++++++++
->>   include/uapi/drm/drm.h            | 10 ++++++++++
->>   7 files changed, 66 insertions(+), 2 deletions(-)
->>
->> diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
->> index 27cc159c1d275..b5e6d940f2816 100644
->> --- a/include/uapi/drm/drm.h
->> +++ b/include/uapi/drm/drm.h
->> @@ -921,6 +921,16 @@ struct drm_get_cap {
->>    */
->>   #define DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE	7
->>   
->> +/**
->> + * DRM_CLIENT_CAP_LUMINANCE
->> + *
->> + * If set to 1, legacy sysfs interface for controlling backlight brightness will
->> + * be disabled.  The client will include luminance values as part of the modeset.
-> 
-> I don't think this is accurate (anymore?). The sysfs doesn't seem to be
-> disabled. Rather the DRM updates it internally. Which might mean that we
-> don't need an extra client cap.
+> Why OF && GPIOLIB and not on separate depends ?
 
-I had code in my tree for doing it and decided to defer that (see cover 
-letter) but forgot to drop the cap.
+No particular reason, is the multi-line syntax preferred?
 
-I suppose this is an area that would be good to discuss if it's worth 
-getting some of it done in the same series or should be deferred.
-
-The overally idea I have is:
-
-1) Allow both sysfs and DRM master to do writes initially (allow 
-transitioning and PoC)
-2) Userspace changes to DRM master
-3) Introduce client cap for it and block off sysfs writes when DRM 
-master indicates it.
-4) Move sysfs compat behind a kconfig
-5) Drop Kconfig
-
-The timescale between steps 3 and 5 is "many kernel cycles".
-
-> 
->> +
->> + * This capability is supported starting in kernel 7.2
->> + */
->> +#define DRM_CLIENT_CAP_LUMINANCE		8
->> +
->>   /* DRM_IOCTL_SET_CLIENT_CAP ioctl argument type */
->>   struct drm_set_client_cap {
->>   	__u64 capability;
->> -- 
->> 2.43.0
->>
-> 
-
+David
