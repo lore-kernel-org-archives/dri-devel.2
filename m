@@ -4,86 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86EE3FF8850
-	for <dri-devel@archiver.kernel.org>; Sun, 26 Apr 2026 06:48:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E0E9FF885E
+	for <dri-devel@archiver.kernel.org>; Sun, 26 Apr 2026 06:48:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D53DB10E51B;
-	Sun, 26 Apr 2026 06:48:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F89510E51D;
+	Sun, 26 Apr 2026 06:48:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ausil.us header.i=@ausil.us header.b="lV0eQJ5/";
+	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="AUg2tAmh";
 	dkim-atps=neutral
-Received: from mail-dl1-f99.google.com (mail-dl1-f99.google.com [74.125.82.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DC4510E0A0
- for <dri-devel@lists.freedesktop.org>; Sat, 25 Apr 2026 03:10:20 +0000 (UTC)
-Received: by mail-dl1-f99.google.com with SMTP id
- a92af1059eb24-12dbd0f8063so2403282c88.0
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 20:10:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ausil.us; s=google; t=1777086620; x=1777691420; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=hzwyg+Q8PpdccnVWRF49NDrMOdX2e/qspSUaU1qJfGA=;
- b=lV0eQJ5/GgnR3i/Ebil7osKqN1gi2CHiriENiRm6I6u7xrISCV8ro5+40CMedNU5tc
- i082TYCD7vgaG3NWJKNjEeDuGm8PxqIWRPTkG8J5ObmwRPaBL40ypnm9uUKiaDIa7k3v
- WXoPmm4KeAnUAQyPNhfVmBPhGMt8m4aw2j9LPWEDLHRMNJmxHssJ0eC+Uf/vtf5PNAZ6
- EMsXnbM3hlisfN4z3SJGn/UUpr4x20sIP5CTkEwxbeDYzOOdaTwTvAKIEW2XFz0zqVBI
- 4iFGyXAGdBrZmZxYiLaDyQfuhVkHaN/Y0l45TNg/bba+i6z3HQnjH/9R1g4IVK3yWMoU
- xpqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777086620; x=1777691420;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=hzwyg+Q8PpdccnVWRF49NDrMOdX2e/qspSUaU1qJfGA=;
- b=q/6sW/axTKX0uRVTT0wqxainhRn0B194sm/Z2cOdYemAkyoO6e1jY/za6QQFwZJ+z7
- 1k2WH/J6y5A0sI4PrL/tqfwrEj6wfp3eunBRkaX8XE/wSvyWKan7WaDX4STgqUDllI4W
- wXk9svs+ahvEEH0p2Hi/s98kC9WyDmITuRZ7WHWsk6EnxcqoRGMte4ioE7+m5VbFMq7o
- YxP+yIDrX2MqeP6oV21PjZCU7Qd34PzPgswMDqdWxjqw+tjWmDYbsf2ErzCmMgMBi9dO
- EytUw1CjplDb4rFZ6uSPgJ/iXvE/5MLD89aC3lSD6H0ui93Jlwklx6Yw6D45KsLiUH+r
- 0YsA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8LkjFM4sLqGP58vqL1LTiyxMDFn6W5pNWrSPhGMKbMrq2XMS0FyBt6s1sh/TzZIDTiDCE43Glx6Ms=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YybTGDBVcizCWhWuMJWryHEj6tAlbGRlqnMtPudO4LTRy5lBcRW
- 7YLPTx1C6JD5+j4yGP4ZVP7Nn3rARkIi5Rxo1d4B32N7o65Op/1/ronCw7CANodTv64J5GncRb/
- BovhIYv8B5WVtUI/rDovvk2850lv8F2qVTThu
-X-Gm-Gg: AeBDiesj7JbkXP3xk6Wj3Gq9cyM0/ae0IRuNvQ3Gsfs/8N/kaJsB+/VfPlaLdGEqTSn
- 0bR2EFN68cIEIeaCkj5nyybGbELMcHjpAdjDel+p9w6LeVcO7w5ROsCFEggqucYmrWPSpQB6OAF
- qZ9gMsb1GFhbS3RtCvtounhF4X92AAHAOMtdujQ7HHff4WrxJ6q3E338Z1bv342v/+gtbYie3w8
- bD3V7+zoFOOXKo5PS5AHhngozM2p+ByXosthKLF4+xvwKOE3lz+U1e9vARWuLv/tNxiGH10Uu2T
- amyU0oDeoAivISBq9s/PzU3P3SUdIV8KLoN2kmbkeqZkRUS+vkMFkLwZ2Df5DZ/YILnZ4eRl10D
- nFPsK891SvOlBdWAHwQ2rfuvmxX+49/hcPuousnoHzZc99kJkEplb1Rc=
-X-Received: by 2002:a05:7301:3808:b0:2d8:7302:d21 with SMTP id
- 5a478bee46e88-2e479724538mr19046348eec.16.1777086619649; 
- Fri, 24 Apr 2026 20:10:19 -0700 (PDT)
-Received: from ryac.ausil.us (207-179-239-100.mtco.net. [207.179.239.100])
- by smtp-relay.gmail.com with ESMTPS id
- 5a478bee46e88-2e53a3ae691sm1728646eec.11.2026.04.24.20.10.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Apr 2026 20:10:19 -0700 (PDT)
-X-Relaying-Domain: ausil.us
-From: Dennis Gilmore <dennis@ausil.us>
-To: Heiko Stuebner <heiko@sntech.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maxime Ripard <mripard@kernel.org>, Alexey Charkov <alchark@gmail.com>,
- devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Dennis Gilmore <dennis@ausil.us>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v8 2/6] dt-bindings: display: bridge: simple: document the
- Lontium LT8711UXD DP-to-HDMI bridge
-Date: Fri, 24 Apr 2026 22:10:07 -0500
-Message-ID: <20260425031011.2529364-3-dennis@ausil.us>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260425031011.2529364-1-dennis@ausil.us>
-References: <20260425031011.2529364-1-dennis@ausil.us>
-MIME-Version: 1.0
+Received: from TYVP286CU001.outbound.protection.outlook.com
+ (mail-japaneastazon11011059.outbound.protection.outlook.com [52.101.125.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B7AE10E094
+ for <dri-devel@lists.freedesktop.org>; Sat, 25 Apr 2026 02:29:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Sf/uXjqNHcpVbQ9x3bcaKtW3bbenVlJMd+6yq9SNXZyxKR83gMLiHtUtFkxVO7FTPxMgEYBadisc6E7qw3b/gup4flKzRkS+94MlwFAIkAdK7UPnWQ3qDkPWD79x6msOJESoLfKLNQXjewxhMib/abVBZCgUmZsQ73Cy/1C/uN1VCA3TcStRkg73H5nH5XLknS88yFu9LHjghyDPN8h12CznYjBRFs0Lhgf/jmzV6m7PArl8Rrw18Yic+J85flMH3/pCgDGPpldWX6yIPsDiR+03EK4Q0O3vkA3W2cet5zBYmzZPQrWAJ/u6SIgxo2aUmiA+gUWDYKLVBwXSTXzHHQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3CHlwTuyEYwBBYMf+cTtz+zZGRLlT7WAwF7EwT/wu4Y=;
+ b=ih9r25JRWr/9xy0dH7iUtlBkIReVFkfWFFjH5VLxSTESzSySjp/3h0D2pAruYC7LZxJAW3/uhLuzoB5+LXdHOZ3VndaTMMmR4UWVTUMnUqRd/islo0eEHc9dph/Jon8YOxl7tX4m5hOs0g1JX5VZ2PswOgKfYMZsMuuznMcdiWZR+GqZh61QNlrpQdFylJkzRrvw91dtu+ohmZ/NqLxHxw6JLaiGnqvFGzaNCEpALZg2gDOhVTXOxjh6e9vjCGrcedGKUQ/f1DJz6/zm4NtZrlp4fb4fOZNEAs2sH1zchOE0XwblqjqJl0SqsYIP8aBvRCfG/bbx6fW/vsv1GsgBnA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3CHlwTuyEYwBBYMf+cTtz+zZGRLlT7WAwF7EwT/wu4Y=;
+ b=AUg2tAmh5nUMlLzLEp0mSXS/rFsNalhBfUW3b0YHrZ6ZfqSSOrK5Nm7sqcawpVuuAAoDAHY/Wx/3VgLZf4eKM7+fyZSZV7vANJ3PKN7YHkrlVvlZExlTevtDCtDJDv5zpuriVFTEe3xkrvB3wl9pvGXO00/+sm9sPIb0sFTsuN4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from TY6PR01MB17377.jpnprd01.prod.outlook.com (2603:1096:405:35b::6)
+ by TY3PR01MB11951.jpnprd01.prod.outlook.com (2603:1096:400:405::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.23; Sat, 25 Apr
+ 2026 02:29:43 +0000
+Received: from TY6PR01MB17377.jpnprd01.prod.outlook.com
+ ([fe80::f373:26d6:86c4:6aa3]) by TY6PR01MB17377.jpnprd01.prod.outlook.com
+ ([fe80::f373:26d6:86c4:6aa3%6]) with mapi id 15.20.9846.023; Sat, 25 Apr 2026
+ 02:29:43 +0000
+From: John Madieu <john.madieu.xa@bp.renesas.com>
+To: biju.das.jz@bp.renesas.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, john.madieu@gmail.com,
+ John Madieu <john.madieu.xa@bp.renesas.com>
+Subject: [PATCH] drm: renesas: rz-du: mipi-dsi: drop duplicate
+ platform_set_drvdata() call
+Date: Sat, 25 Apr 2026 02:28:57 +0000
+Message-Id: <20260425022857.2382603-1-john.madieu.xa@bp.renesas.com>
+X-Mailer: git-send-email 2.25.1
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sun, 26 Apr 2026 06:46:56 +0000
+Content-Type: text/plain
+X-ClientProxiedBy: PA7P264CA0217.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:102:374::18) To TY6PR01MB17377.jpnprd01.prod.outlook.com
+ (2603:1096:405:35b::6)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY6PR01MB17377:EE_|TY3PR01MB11951:EE_
+X-MS-Office365-Filtering-Correlation-Id: dfd6660c-48fd-4cfb-1052-08dea272823b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|52116014|38350700014|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: 4x5sRf7e0Z3Os58VOV62Rilvp+0lTQDPkZ+8XDE0xuvqwQvTc9XI/sCG0sXt89OQVQgCOesye0xv+m8C5gVqp50Z1/Oqfg/WON5e3SkBqgWGyzxGWRD4woiv/PuRz07LzGHPKCePjnwYVhs16a8/pVI6hqOLPiSSLJrkA1BctEoOpOWWfIZxd4D1LGWhtkHqNI+fPPv+BDmbFOBcJ3u/deeox5BU7FA6+8OpP+9ajdt3cxIQc6h2CRKC1W8MAprhanNlKJulz0qIKFJlkTP0+uuSc/juFYpoXN8FmQoUjH+X0kLO0h+huFRcgUC1l13d2ZY/RQzcMNTu7tAkMIOEHAXc2IosYm2QNyx1knWvAolxG3Z8FrBXa2z6bUuUbrPhB7EK8Y61AxnVvb5duRplp4cI7gbF446TNigmnqC43pG9sFegERbRNXERsdLGkF4EWvoftAygbCyPpqQFzIxvpqzumKLlIwV2S2jpuZxwszC17cgw5aTeb1OGwJn+Rb8SCJaZAN+O1VVI3taBqaE2Pw7gFwqo478c3XVHJXxQfvqPK8b0VNoOpgxfH2TZ3CiFoeM6+DbFbwRkYnj5CXlO8GqfXGvKBW5XZ1UnminuJDzn0gxfRhaB6WE5SkIxR2VzMXIZdK36sDbq3xRQ7aQBBZo6LegH6/L84Cs2onEMPnUdLPqERTS7cOQgSUMXNxiQ9VAbXVR9DeEbBvKdoeJiypae7tfRHvdvStcYdSuTgVB5ofOByzFur1JYFZh8nf+2K3bjJGFrXAx3Nozlp+QYQdIl2RdFKkjKH2nGC83ZxIA=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TY6PR01MB17377.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(52116014)(38350700014)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?CpAyQJcX7uTCnhOO/20ddWeF9kgnj+IowKZgfPqmoUUepKNPrmXv89VzQxVL?=
+ =?us-ascii?Q?szALQkJL0mszjEccI1GwEnHMMdw56f3DHdNdjnEnuwsrC8tiNmur+162CFO/?=
+ =?us-ascii?Q?03z4ZfyNNykRNJmFdZhi3WUIJgWElw8KGb8DiKeg5YTPMX+ANYViFEyjD1dc?=
+ =?us-ascii?Q?h4/XWUkaEyKj57pn72B9vJoQOg8PGTzVk/D6CTZ4D5Jv2GrdcIYSamig/mjl?=
+ =?us-ascii?Q?YHGTPc+0e7dpImUYONt1CBU29OH8lztBD3ADv6+xYc3wgM5/0mgPPFvQK7Jg?=
+ =?us-ascii?Q?1n+kJZu/2HyTvWF2AJGsC66zOjoXf3Dgf0lqAZHgAxWdiuEHHQfhegyK8/Ex?=
+ =?us-ascii?Q?6aQYOrQ5f9uHmu+f7K80rpYBF7eb1thRzEP3roDLb2+HFkei3X7H7jva/9l7?=
+ =?us-ascii?Q?AcshlUp2KbizIffLN9nlCKDiItrcSgbJZjTOkqvU7mPJDNjinf2t6lJHveKK?=
+ =?us-ascii?Q?roied0H51LIR3YYm78uxVzqca92WXoeL2lYRoRzbzEVz4/tnIx7xJEDpqfxP?=
+ =?us-ascii?Q?FHNL0oLi2KBnzkRvMNityV5Kmm6oXWvbF/wyOzKJxH3ROI96ay7w6D44YsCd?=
+ =?us-ascii?Q?XQ85Ftr3UNfqkN7x/iZanOy5GGBYVKWfehj6cnxPpzZeUcq7hifHruKBftnd?=
+ =?us-ascii?Q?Ez1fn9dUY7f5dnV3oKMBsDZRGejzC2eXKqnSBULUjj5V6XL2Gb82j0yf0IvL?=
+ =?us-ascii?Q?YsHKR7GRZt4eP1wZtzPU1jhWdu5+7RCtVpYX9WjXFJ6HWZnUyi+FgCVWNSa4?=
+ =?us-ascii?Q?siO4Zk9gZMqd4yieqMNCMLxiZTiCtRa5ejekCbKLhbwmqx/CQqKFrfcoLjvl?=
+ =?us-ascii?Q?HX9AdabIUEd5KZC4sv4yNOafZk15kQQpxrdRndfGT4m5opMil48UzMuKGNkA?=
+ =?us-ascii?Q?1P35hke3A44WjOZ6ZJUNEZMGxqRGsW20DJf7bXf46JWFCRD46S4PaxmoBZNL?=
+ =?us-ascii?Q?P7U9zm9YKmduCpMloYvMtxyCkO/isMnQmu2VsfIRtSi6mOBsxbPkPWfWc6Gt?=
+ =?us-ascii?Q?OaNGe3H/cuXP+VtX+/b2Ul1HvBsR7gO7Kgamt8QbiQSXiMHwcScuRldrRSzW?=
+ =?us-ascii?Q?YvUN9GPqTIJx0n+REDWF4OS4ZGcNymbuJPnV/iH0acwTPWPvMN/ao7X+zloF?=
+ =?us-ascii?Q?2do833WJ8HEFBhnThCVncRKYTu2LVeUHzV/2+qOEJF8pM3uvmxRvtlcgWTUm?=
+ =?us-ascii?Q?eb2LZBn0cdvp8AslAre4gTMvuwm4LGDBTHZOSTKQtq3mwihwMS1QWcBOhIKP?=
+ =?us-ascii?Q?OxqVZiJPCFWs3ONgex2meJSKuaHqfWeVxScWdOhH1ignR/+Br1vs1dt3Z5yw?=
+ =?us-ascii?Q?W12SZf80huUPdJgoJNgM3rU5olyjyQj88/BDSvw3i9lL05a1kGT6nYaSbfZ4?=
+ =?us-ascii?Q?mLX5brVg72f6/AUOA2tLQ0fE87hn+NFs9XpkO39fYqJP4pIJLsi/uoEOKBpu?=
+ =?us-ascii?Q?87IMuf5qf84KPdB01wKPg9bL3GdEmxIensl9em9mEJnOKU1hPSQ3bj6pbtmU?=
+ =?us-ascii?Q?5hZAAxwPO2U1gba3+qZivY/jHRTrIcC42C+7/OMCJHmZo79KRWCc39GWUHFp?=
+ =?us-ascii?Q?GxzUoJ7l8Kbbj7zRBu0Osr8cE3m+gKCgHXobLoFZ9ky9fAllv7ZeanyRBN1t?=
+ =?us-ascii?Q?kqmOq+pG925YHArG9LWWKhLKQoU/Tb8Y144QF3ELkTTA4k1sxIXaunFODdhY?=
+ =?us-ascii?Q?wE226v2cTDC99TEmoWTybsLYBcEe/vrQl8w/19mL22dNJYp/sz6ATU7Sol0t?=
+ =?us-ascii?Q?ozAgtG0VXjMOb1RqQdFQTugMoSd9UQ4=3D?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dfd6660c-48fd-4cfb-1052-08dea272823b
+X-MS-Exchange-CrossTenant-AuthSource: TY6PR01MB17377.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Apr 2026 02:29:43.1734 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NEInsjiHEB+9S+kKBbfYPByTteekVN+Q+CdOriIrvq4qcylvXMCmFchm3iQAml+c7TxKLny7PMbSPrfUiKGPiIzjtr4/POic81ayhKN+bJE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3PR01MB11951
+X-Mailman-Approved-At: Sun, 26 Apr 2026 06:47:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,28 +128,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The Lontium LT8711UXD is a high performance two lane Type-C/DP1.4
-to HDMI2.0 converter, designed to connect a USB Type-C source or
-a DP1.4 source to an HDMI2.0 sink.
+rzg2l_mipi_dsi_probe() calls platform_set_drvdata() twice with the same
+arguments: once right after devm_drm_bridge_alloc() succeeds and again
+after the reset controllers have been acquired. The second call is
+redundant; remove it.
 
-Signed-off-by: Dennis Gilmore <dennis@ausil.us>
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+No functional change.
+
+Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
 ---
- .../devicetree/bindings/display/bridge/simple-bridge.yaml        | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/bridge/simple-bridge.yaml b/Documentation/devicetree/bindings/display/bridge/simple-bridge.yaml
-index e6808419f625..752c736c8f85 100644
---- a/Documentation/devicetree/bindings/display/bridge/simple-bridge.yaml
-+++ b/Documentation/devicetree/bindings/display/bridge/simple-bridge.yaml
-@@ -30,6 +30,7 @@ properties:
-           - algoltek,ag6311
-           - asl-tek,cs5263
-           - dumb-vga-dac
-+          - lontium,lt8711uxd
-           - parade,ps185hdm
-           - radxa,ra620
-           - realtek,rtd2171
+diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+index 0b4861824319..b8527661a409 100644
+--- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
++++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+@@ -1441,8 +1441,6 @@ static int rzg2l_mipi_dsi_probe(struct platform_device *pdev)
+ 		return dev_err_probe(dsi->dev, PTR_ERR(dsi->prstc),
+ 				     "failed to get prst\n");
+ 
+-	platform_set_drvdata(pdev, dsi);
+-
+ 	pm_runtime_enable(dsi->dev);
+ 
+ 	ret = pm_runtime_resume_and_get(dsi->dev);
 -- 
-2.53.0
+2.25.1
 
