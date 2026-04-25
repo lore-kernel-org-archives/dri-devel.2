@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9C20FF8850
-	for <dri-devel@archiver.kernel.org>; Sun, 26 Apr 2026 06:48:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C399FFF8864
+	for <dri-devel@archiver.kernel.org>; Sun, 26 Apr 2026 06:48:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4C5710E522;
-	Sun, 26 Apr 2026 06:48:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1878010E526;
+	Sun, 26 Apr 2026 06:48:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ausil.us header.i=@ausil.us header.b="Quw7BbfE";
+	dkim=pass (2048-bit key; unprotected) header.d=ausil.us header.i=@ausil.us header.b="ea9svDYY";
 	dkim-atps=neutral
-Received: from mail-dy1-f225.google.com (mail-dy1-f225.google.com
- [74.125.82.225])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FE3310E0A0
- for <dri-devel@lists.freedesktop.org>; Sat, 25 Apr 2026 03:10:18 +0000 (UTC)
-Received: by mail-dy1-f225.google.com with SMTP id
- 5a478bee46e88-2d891442388so14257534eec.0
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 20:10:18 -0700 (PDT)
+Received: from mail-dy1-f226.google.com (mail-dy1-f226.google.com
+ [74.125.82.226])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C8BD10E0A0
+ for <dri-devel@lists.freedesktop.org>; Sat, 25 Apr 2026 03:10:22 +0000 (UTC)
+Received: by mail-dy1-f226.google.com with SMTP id
+ 5a478bee46e88-2de831d2b20so2211774eec.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 20:10:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ausil.us; s=google; t=1777086618; x=1777691418; darn=lists.freedesktop.org; 
+ d=ausil.us; s=google; t=1777086621; x=1777691421; darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Qyy2EUSFHuUvP8vn408rgcFPQdBTOKcJ9K4PyZHCKk0=;
- b=Quw7BbfEhtYqVBK0tmk44KZPWv/o5GXYPiq6Tt92Mi3BwArwlcbEYcYoCM6plLkTa5
- vhpD9MVEDkTxpvjxKmnkVNqSePcOR9vRp0QSgBneiuz80gafjMyjS2RPfBlSI1K0poli
- u9FAADj9MEwF2+tdcw439KlmbRlVwSzCyY1DqcIhtRbWGl/L0tNw2vXidglAvtJH8JyG
- Su1UvCJ+HemEOuySMmG7CW4INSu1Cole5gtlVDRsXPJvuqF9wLqi7npBI7WGeRycVysI
- Ey+oa5UjiELrB+VKcWlD3agacPq1cGAZtYd+ofiWvcfL0jNUYQ+9Gp4GQStWa2VL2ZMy
- x4Uw==
+ bh=B2siy8AgvZkarnaqQ1iRlbYdPe6np7TX5Kc2BXRw5Y4=;
+ b=ea9svDYYgYZDiC6WkmxhIep91eyypmDhtePMnt2vqgI9Me4wtIPDD9651172fe9Xdg
+ XNJLpm+wGxrU1sxeNdxYlvhdYHGrydWkcw459GHWv5tw/1oTvtlSbMceQn2xo1XvWjs5
+ Kh3WICOT2RAyMDIVsi5LbzNj3MMpGeFDJKRuuygPFUCHuHmXTea1Gt4+oFpVcSr7ac7g
+ lZQjqdRmAcFg37xyzL4FLZEzAnSmOoseFHS5zkXF8Qdy0c3kXhFfQqvFQstN3OQUdYWr
+ BVoGJzaO9Hdt4KUkXkheya0MKRzGehbgu0QKlCMygIXHaMevVIZZUWuviURkW74iAVyt
+ jhXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777086618; x=1777691418;
+ d=1e100.net; s=20251104; t=1777086621; x=1777691421;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=Qyy2EUSFHuUvP8vn408rgcFPQdBTOKcJ9K4PyZHCKk0=;
- b=ooVasRYKnLQ6wJm+Y5fuZMWSpiXdfmTPZk5dNTb2UHz2lb5uzY+IZSmlv7jmahoXhM
- QSIRATzQA2mLbjy8InTI9PyVk6O1bCcKmNUxmIedV15lU5+YGqTC6SkWuZE8Svbk6B1E
- RDwxMV9DpW0Jm9GsPxyjiO6v6PW2aYCCyNfsK+g9ukhw1ZlBylqFhyCEFvcZaQur0qXM
- Ll7Y7Ua090DKouekL+427WSrvf8362Ed98NhptLrPogMW4hJffkUZ9bACOr4islNYXCY
- ghrGRUfXoOfSQlNxScJNi6WjSWfn8UEwBmm2UIa4SkM9JpTUO5oLREhVW103s0C2gNnE
- KPTg==
+ bh=B2siy8AgvZkarnaqQ1iRlbYdPe6np7TX5Kc2BXRw5Y4=;
+ b=Uq70rk3HrNoGspu8G4HQ3vwg36mpRuT8NDRvm0l1BooTE2el8C+F4kXAgy8djOvuiT
+ chOQ9FBwjty8G2nsLyveSpSVcrFwt14AjPTLYy0fHhjqHtV+HUgeTEGIUfytG/vW0H1x
+ 0FnwuXgLL62baO4s1B9cfPLWiWdcSChGz9hEHlkVzyEZZ1wQ+utMVI071rvAX/6THPZO
+ PlMPaaub3iV/3y+yUdfcDpfB3CofMmlnJ5PSFQf4Szw8BeFbSGK6OXEbJTNA3fIQzAZL
+ fOh2e0yXBZSU73RPO3uYYUNxtHvgeAMqTUEY8uWEFFAaxSvaOOQVimw6nGcP8jeGjMjm
+ vYhA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+Jn440lNhDXpEbo3KzLKY8dxdUhK4WlGdk8dy9nRmlIaobH+p3qvJWSgMxPpm0a5cUqS+jz9+sN3c=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxf9GskCHXFxyK2IILu8OBUP9DbbQbb9fyoB9HQOa7dc7ui7UEP
- Bp6IciC1C5ZBpSXU6aUJeWyGJcDGDMJM+8r81XDrk2o7JCzWd2ciaX916C8i5rk8pVQWhXsQOpK
- RuQ19ERpRQjzao7RcCIP+pLHxklP1dqLG2BDB
-X-Gm-Gg: AeBDies+OQrFXJE9n/PczlpQXmt/IZQriL6266rNZdu19kck0kY7W1ILBkn58+lZdwt
- nDycXBVlS6F8kr4zuFlgf9VXQuEBGwC8raiYkRm5EWcuwz64B6lnwZIW9HUgAKTaLS6lttlBxaB
- /yFXoZKESGrsvljzwReqpm187IKXaEXLzrywQRzKPIFVXtl9ZHwaWeuxTxobcirgp/vsra5yIPd
- sOdOfaZtyEErbPkilQdkYxAWXJ7BIpG1f4DF29FglGNQuYrdBdmnMLGHsy0ST2Tcps4JwUZwRD2
- 5Nx70dwQmA6OWt5ChFHA7ae33QxPkH4hprOY7wIzGtGzHj7KFOl9ofQXXClZZgg5wkrPLsBFDEk
- WwJkM8qH/WmeTgRVDdPRwo/YoQmKU06LEmjtvCZWb2/CaUDAfvNOrQPk=
-X-Received: by 2002:a05:7301:578e:b0:2d9:6373:ad1d with SMTP id
- 5a478bee46e88-2e478c1f833mr20475128eec.20.1777086617724; 
- Fri, 24 Apr 2026 20:10:17 -0700 (PDT)
+ AFNElJ/CyHV8hpKU6Lz9Tao8PZslB4TanQvZAp37VNt1MuZOeIrmmhssWSlA3j2xaKwADHD0JL1wdX+ZZn8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwYM7Ns7A/X6mB3rqMQU9Q6wYC2/skfEiWRI8nDMrO7W7dVmKvI
+ fgMwoZRY2fmkjvnABC/WHzsYWIDcblw+zhWOU17klnn2Lq8aAvSX3p9/GyPvVq/Md0YQ8yq+CMS
+ c5NYJkO/HcaGdM2iBM9PnN+EaQkjWsO4aFnG3
+X-Gm-Gg: AeBDiet0Zew7lLxoCFk+mcAjI4WJSsifXRo1t1AAD2ED0qkLsI+BMq9QiqwTLT7nR4G
+ zy5DecnIT0BhYK2RNCv4Dpv1Nzq+yWDGrYQCjOIBYtsWArtJpJKsC7bXn5BnGmrvlclrsH/pO5P
+ 4SKs84Hyoo2njBGP7hxYv4mGyNL/pxUQ/ZY8gNDUZEjiW+kh9gTDTvlp8SDdSocthS3YuUP1eDB
+ bZ5OcHPPSXNVkgiBhtnlQeiz9RGatrd/i3+8t5H4jfU5YfGo6jJppoQJ4jP8LoyQEu9eVzHrUuO
+ PZYw5Pa48bjFPAf0gAeILMHCiccKQOLB2KdjCToDGTDwlW1twuIMIIOvka8xwD2KT+rfoWvL8cZ
+ RjGBRWU/at9n9+UJnTVN1ULI9OxegNRY55blqrzIzBFEnlzlk4IjhWTo=
+X-Received: by 2002:a05:7301:1693:b0:2d2:129a:1682 with SMTP id
+ 5a478bee46e88-2e4786460f9mr18795386eec.16.1777086621591; 
+ Fri, 24 Apr 2026 20:10:21 -0700 (PDT)
 Received: from ryac.ausil.us (207-179-239-100.mtco.net. [207.179.239.100])
  by smtp-relay.gmail.com with ESMTPS id
- 5a478bee46e88-2e53a3ae691sm1728646eec.11.2026.04.24.20.10.16
+ 5a478bee46e88-2e53a3ae691sm1728646eec.11.2026.04.24.20.10.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Apr 2026 20:10:17 -0700 (PDT)
+ Fri, 24 Apr 2026 20:10:21 -0700 (PDT)
 X-Relaying-Domain: ausil.us
 From: Dennis Gilmore <dennis@ausil.us>
 To: Heiko Stuebner <heiko@sntech.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
@@ -74,10 +74,11 @@ Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, Dennis Gilmore <dennis@ausil.us>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v8 1/6] dt-bindings: arm: rockchip: Add Orange Pi 5 Pro
-Date: Fri, 24 Apr 2026 22:10:06 -0500
-Message-ID: <20260425031011.2529364-2-dennis@ausil.us>
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: [PATCH v8 3/6] drm/bridge: simple: Add the Lontium LT8711UXD
+ DP-to-HDMI bridge
+Date: Fri, 24 Apr 2026 22:10:08 -0500
+Message-ID: <20260425031011.2529364-4-dennis@ausil.us>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260425031011.2529364-1-dennis@ausil.us>
 References: <20260425031011.2529364-1-dennis@ausil.us>
@@ -99,26 +100,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add compatible string for the Orange Pi 5 Pro.
+The Lontium LT8711UXD is a high performance two lane Type-C/DP1.4
+to HDMI2.0 converter, designed to connect a USB Type-C source or
+a DP1.4 source to an HDMI2.0 sink.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Dennis Gilmore <dennis@ausil.us>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- Documentation/devicetree/bindings/arm/rockchip.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/bridge/simple-bridge.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/arm/rockchip.yaml b/Documentation/devicetree/bindings/arm/rockchip.yaml
-index ae77ded9fe47..3c6b83a84463 100644
---- a/Documentation/devicetree/bindings/arm/rockchip.yaml
-+++ b/Documentation/devicetree/bindings/arm/rockchip.yaml
-@@ -1320,6 +1320,7 @@ properties:
-         items:
-           - enum:
-               - xunlong,orangepi-5
-+              - xunlong,orangepi-5-pro
-               - xunlong,orangepi-5b
-           - const: rockchip,rk3588s
- 
+diff --git a/drivers/gpu/drm/bridge/simple-bridge.c b/drivers/gpu/drm/bridge/simple-bridge.c
+index 8aa31ca3c72d..42c1f3d5ba0c 100644
+--- a/drivers/gpu/drm/bridge/simple-bridge.c
++++ b/drivers/gpu/drm/bridge/simple-bridge.c
+@@ -270,6 +270,11 @@ static const struct of_device_id simple_bridge_match[] = {
+ 		.data = &(const struct simple_bridge_info) {
+ 			.connector_type = DRM_MODE_CONNECTOR_HDMIA,
+ 		},
++	}, {
++		.compatible = "lontium,lt8711uxd",
++		.data = &(const struct simple_bridge_info) {
++			.connector_type = DRM_MODE_CONNECTOR_HDMIA,
++		},
+ 	}, {
+ 		.compatible = "parade,ps185hdm",
+ 		.data = &(const struct simple_bridge_info) {
 -- 
 2.53.0
 
