@@ -4,42 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 171E8FF885C
-	for <dri-devel@archiver.kernel.org>; Sat, 25 Apr 2026 08:27:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26681FF885C
+	for <dri-devel@archiver.kernel.org>; Sat, 25 Apr 2026 09:54:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A4E710E0F2;
-	Sat, 25 Apr 2026 08:27:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5450E10E112;
+	Sat, 25 Apr 2026 09:54:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="V5TqowGn";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XFm/6Ir0";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7900810E0F2
- for <dri-devel@lists.freedesktop.org>; Sat, 25 Apr 2026 08:27:29 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B75710E112
+ for <dri-devel@lists.freedesktop.org>; Sat, 25 Apr 2026 09:54:36 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 8602160052;
- Sat, 25 Apr 2026 08:27:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94A00C2BCB0;
- Sat, 25 Apr 2026 08:27:26 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B4A3A41866;
+ Sat, 25 Apr 2026 09:54:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3858C2BCB5;
+ Sat, 25 Apr 2026 09:54:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777105648;
- bh=JGYbF/CAx2fm2Y2c+p/5FAbpm8wEl0YaPWaPki3UAQI=;
- h=Date:From:To:Subject:From;
- b=V5TqowGnA37KGTd6X1s5M/3iguCrArMV0LRVsj1ZCmCZxECDF8R85ciG05iRBvOvS
- 84dm7AUuxGMWztjh+QDQ5ySaiZj+iHgXb31F8pR5dGvid1G8NYfrxnQSWv2Xozu0se
- aIurOIF5d8WfFe2dAVp3q2GzAdJ0H2Z/RrLz99bIeZBvFc9lKTVWTBqHnRMNlKFo9+
- wApSaK4IziZrXgwHRKR91NoV4s6dDymvp472Z5pl+ztFQNculj3TS8n6JObXkUWyKT
- B4FmfmxbwMGuVL3GPa67nlyxwii3jVE6UHDL+bVBN8rWLOFhB1YghG2c2HiKpl5oEi
- wCGX/5Vm0WP9g==
-Date: Sat, 25 Apr 2026 10:27:23 +0200
-From: Helge Deller <deller@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>,
- linux-kernel@vger.kernel.org, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-Subject: [GIT PULL] more fbdev fixes for v7.1-rc1
-Message-ID: <aex66_AU379EYm_a@carbonx1>
+ s=k20201202; t=1777110875;
+ bh=RTKJFkZOhPvSkw4w1T5IdZXZkOeETqyobx085qFKyh0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=XFm/6Ir0UoLq2kqL/P6LiY88zut5JBR0WxqAguLcedSe9xjim+tjjko8QnNSavNvB
+ 6XHYz+D2CRO6BO+Gx3lI30y0pu8sO8sOX6CpxHRglsvlm9Rw6z1f7+GdjxgyDy5O0R
+ yND4prjQDM0XaTC4XmbUhf1v1XOnxHwEHBcOgOw8vsEu0Cd2YY5L8d18KuRccNSflz
+ nTaxduh7rAAWfXdPbK/fNFb3toSgSgXuhr/ZsWWt+TDesHI//MM7Htd8pdphJYKfFy
+ sjYg0qnCmpeSTHSeY8IhZEl0jVvcAC/q7OwOcD7RAx03RDyeJt0n9I7i8r9JyOTiNw
+ oH4+7vR90xH3Q==
+Date: Sat, 25 Apr 2026 11:54:33 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Lukas Timmermann <linux@timmermann.space>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, 
+ Douglas Anderson <dianders@chromium.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>, 
+ Chanwoo Choi <cw00.choi@samsung.com>, Alim Akhtar <alim.akhtar@samsung.com>, 
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
+ dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-samsung-soc@vger.kernel.org, 
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ Alexandre Marquet <tb@a-marquet.fr>
+Subject: Re: [PATCH 1/5] dt-bindings: display: panel: Document Samsung
+ LTL101DL02-002 panel
+Message-ID: <20260425-subtle-silent-dolphin-0a7ae3@quoll>
+References: <20260423-manta-display-v1-0-196f80c5673a@timmermann.space>
+ <20260423-manta-display-v1-1-196f80c5673a@timmermann.space>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+In-Reply-To: <20260423-manta-display-v1-1-196f80c5673a@timmermann.space>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,54 +74,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Linus,
+On Thu, Apr 23, 2026 at 11:14:37PM +0200, Lukas Timmermann wrote:
+> From: Alexandre Marquet <tb@a-marquet.fr>
+> 
+> Add the dt-bindings for the LTL101DL02-002 panel.
+> 
+> Signed-off-by: Alexandre Marquet <tb@a-marquet.fr>
+> Signed-off-by: Lukas Timmermann	<linux@timmermann.space>
+> ---
+>  Documentation/devicetree/bindings/display/panel/panel-simple.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/panel/panel-simple.yaml b/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
+> index 24e277b19094..2de0a3a6d1fe 100644
+> --- a/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
+> +++ b/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
+> @@ -283,6 +283,8 @@ properties:
+>          # Samsung Electronics 10.6" FWXGA (1366x768) TFT LCD panel
+>        - samsung,ltl106al01
+>          # Samsung Electronics 10.1" WSVGA TFT LCD panel
+> +      - samsung,ltl101dl02-002
 
-please pull a few remaining fbdev fixes for this merge window.
+This looks like incorrectly placed (101 < 106) and comment should be
+above the compatible, at least judging by context.
 
-Thanks!
-Helge
+> +        # Samsung Electronics 10.1" WQXGA (2560x1600) TFT LCD panel
+>        - samsung,ltn101nt05
 
-----------------------------------------------------------------
+Best regards,
+Krzysztof
 
-
-The following changes since commit 6596a02b207886e9e00bb0161c7fd59fea53c081:
-
-  Merge tag 'drm-next-2026-04-22' of https://gitlab.freedesktop.org/drm/kernel (2026-04-21 17:39:21 -0700)
-
-are available in the Git repository at:
-
-  http://git.kernel.org/pub/scm/linux/kernel/git/deller/linux-fbdev.git tags/fbdev-for-7.1-rc1-2
-
-for you to fetch changes up to 448aaf54d3ae1b73dfcf723c9f8a02c2116f3358:
-
-  fbdev: hgafb: Request memory region before ioremap (2026-04-22 17:02:55 +0200)
-
-----------------------------------------------------------------
-fbdev fixes & cleanups for 7.1-rc1:
-
-- request memory region before use (cobalt_lcdfb, clps711x-fb, hgafb)
-- reference cleanups in failure path (offb, savage)
-- a spelling fix (atyfb)
-
-----------------------------------------------------------------
-Amit Barzilai (2):
-      fbdev: cobalt_lcdfb: Request memory region
-      fbdev: clps711x-fb: Request memory region for MMIO
-
-Ethan Carter Edwards (1):
-      fbdev: atyfb: Fix spelling mistake "enfore" -> "enforce"
-
-Hardik Phalet (1):
-      fbdev: hgafb: Request memory region before ioremap
-
-Yuho Choi (2):
-      fbdev: offb: fix PCI device reference leak on probe failure
-      fbdev: savage: fix probe-path EDID cleanup leaks
-
- drivers/video/fbdev/aty/radeon_monitor.c     |  2 +-
- drivers/video/fbdev/clps711x-fb.c            |  9 +++------
- drivers/video/fbdev/cobalt_lcdfb.c           | 12 +++---------
- drivers/video/fbdev/hgafb.c                  |  9 +++++++--
- drivers/video/fbdev/offb.c                   |  7 ++++++-
- drivers/video/fbdev/savage/savagefb_driver.c |  2 ++
- 6 files changed, 22 insertions(+), 19 deletions(-)
