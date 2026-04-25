@@ -4,85 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06A03FF8863
-	for <dri-devel@archiver.kernel.org>; Sun, 26 Apr 2026 06:47:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11A7BFF8850
+	for <dri-devel@archiver.kernel.org>; Sun, 26 Apr 2026 06:47:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2161010E50A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF37510E50D;
 	Sun, 26 Apr 2026 06:47:14 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ausil.us header.i=@ausil.us header.b="berUIZQ4";
-	dkim-atps=neutral
-Received: from mail-dy1-f227.google.com (mail-dy1-f227.google.com
- [74.125.82.227])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11FBB10E0A0
- for <dri-devel@lists.freedesktop.org>; Sat, 25 Apr 2026 03:10:26 +0000 (UTC)
-Received: by mail-dy1-f227.google.com with SMTP id
- 5a478bee46e88-2d832f2f44cso7375578eec.0
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 20:10:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ausil.us; s=google; t=1777086625; x=1777691425; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=DxqfwpmU1GNLtr1wdhebN81dBIM+yL2CIZ6uQh9/040=;
- b=berUIZQ4Ci6eY7j2YLpus674iTr/x215ZdQP48Q4KHqoMIpIgTAggXq4WVCcF2VnSz
- iu/vA62ecJSVaUAcljT8LQh3Q6ot2cTddOlN8KYHzq0IHNKYAYUVY+8LVua+UFezJZj6
- 9i5kjiOlgMnARH7l5gRTw19/G+Wssate4RtZiJgey6sf0DE5WnhOG7hO2cupWNNsrQRY
- PgqWcKBFHCJHPNyLB9qE2k/YLCCcr4lhzpXndd6yLDkcu/C4O65T+gdKz9p1vdfpkiw/
- ZFQIrbI85vrUXe+gx235eyLFWKZSTTRrAVrsyFerYqelo6sUEybWadCbEPSzlbtF60yB
- aS5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777086625; x=1777691425;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=DxqfwpmU1GNLtr1wdhebN81dBIM+yL2CIZ6uQh9/040=;
- b=TwlC27k60H7roq7fy7JrBG7XiDWnNhJ6cq+pHsEv0YwonC53+u4JCpG42V03aqbr9g
- f1XhBfUAYp0eBKnW/sKW9FcyFfHlWVT6LohqwUcapFacSn4+rL/bTlJTTi5ThVnzSsS4
- qALh6v7kB5OC1Ho9RKKUEl6nnMnFT9bKyuDba9oG887kNcm7WcF0G4AX38QSZGs1OrAY
- oSGLBlEZq3D6rEQ+NyPCv4VjBw7qgwvV009GhdT4vZYG1ek/SFouSEsm6CuxHUWoLNhY
- u5puJtY1ITIEHS0aC/IcR/IY0OzsZQsY0T0sMyFbdMnVi/NCPDY6MOlPShJIYqC9oEOH
- UJtw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8hoknxnyKhgCfc5F47RIf2SnJfNtp3+ci1tVk2aaRlBhxymM6IJYl8736fC3xxFlgi5a7tKB7Iwyg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxo8ewT2JOSX6+03mWME6+/QRnrch3XKB9B/VXio/pVP3XK2Bvp
- kslc9okXvcN4nhet7FdgPgPJ+kSl1azEWaLTVNWCsCc8sIRzbgONeK2BEP67EeatKXcFNTCFWTp
- TuKQ4UwFFRVT8utRadLIbsqriKdoJlEImYs2n
-X-Gm-Gg: AeBDieuEU3ebAnhsgruVxfeq0zjZT2TtEYdHwb2QzxagqgI/6jo8/nm+gqup/met4g6
- N+nKx69q+rlC6MO3BN/m7dSM9FKDohCUVzaBod1/10IMROKqiVagoiCwuwY2XGHdxeERmfT6Fts
- i/ezZmhaTMMTpTkFeTBOdtnQzha9eFA5hfIKK2PSsuPh/VOCRil1D4vZ4uMWCUfc5ABQIq9gCGk
- MtY3qMrBJsFF1K++psQDMw1tTZ90JFX6NSdMD8wipl5F3WLqz+OJTfMwS86MBHXEaAMSVCPG8ln
- xPEDJfQMi17QFYeGgdRf0jX997GkIaDbTnQikOcfpyULnsJB3FUQ4Rq8yn2EOGU88p+AhRYojsZ
- rB18uRLQwcuMJHaf4X7/DZf9PelI2S1FFF5dBNWPEZNXkZZ1pNw78rCI=
-X-Received: by 2002:a05:7301:1292:b0:2c0:c415:cfd6 with SMTP id
- 5a478bee46e88-2e47873bca2mr19005585eec.13.1777086625362; 
- Fri, 24 Apr 2026 20:10:25 -0700 (PDT)
-Received: from ryac.ausil.us (207-179-239-100.mtco.net. [207.179.239.100])
- by smtp-relay.gmail.com with ESMTPS id
- 5a478bee46e88-2e53a3ae691sm1728646eec.11.2026.04.24.20.10.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Apr 2026 20:10:25 -0700 (PDT)
-X-Relaying-Domain: ausil.us
-From: Dennis Gilmore <dennis@ausil.us>
-To: Heiko Stuebner <heiko@sntech.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maxime Ripard <mripard@kernel.org>, Alexey Charkov <alchark@gmail.com>,
- devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Dennis Gilmore <dennis@ausil.us>
-Subject: [PATCH v8 5/6] arm64: dts: rockchip: refactor items from Orange Pi
- 5/b to prep for Pro
-Date: Fri, 24 Apr 2026 22:10:10 -0500
-Message-ID: <20260425031011.2529364-6-dennis@ausil.us>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260425031011.2529364-1-dennis@ausil.us>
-References: <20260425031011.2529364-1-dennis@ausil.us>
+X-Greylist: delayed 984 seconds by postgrey-1.36 at gabe;
+ Sat, 25 Apr 2026 06:59:06 UTC
+Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com
+ [45.249.212.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5ED9910E0D6;
+ Sat, 25 Apr 2026 06:59:06 +0000 (UTC)
+Received: from mail.maildlp.com (unknown [172.19.163.198])
+ by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4g2gHC1b9YzKHMXJ;
+ Sat, 25 Apr 2026 14:42:15 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.128])
+ by mail.maildlp.com (Postfix) with ESMTP id 4AC9640574;
+ Sat, 25 Apr 2026 14:42:40 +0800 (CST)
+Received: from [10.67.111.176] (unknown [10.67.111.176])
+ by APP4 (Coremail) with SMTP id gCh0CgA3HrxeYuxpzYCiBg--.33183S2;
+ Sat, 25 Apr 2026 14:42:40 +0800 (CST)
+Message-ID: <220aadd9-0d92-44ce-8a70-bd30030defa9@huaweicloud.com>
+Date: Sat, 25 Apr 2026 14:42:38 +0800
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/5] cgroup/dmem: Add reclaim callback for lowering max
+ below current usage
+To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-xe@lists.freedesktop.org
+Cc: Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Tejun Heo <tj@kernel.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>, cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Simona Vetter <simona@ffwll.ch>, David Airlie <airlied@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260327081600.4885-1-thomas.hellstrom@linux.intel.com>
+ <20260327081600.4885-3-thomas.hellstrom@linux.intel.com>
+Content-Language: en-US
+From: Chen Ridong <chenridong@huaweicloud.com>
+In-Reply-To: <20260327081600.4885-3-thomas.hellstrom@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: gCh0CgA3HrxeYuxpzYCiBg--.33183S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3Jr4kKr4xGFWxCr47Ar1DKFg_yoW3XrykpF
+ ZrCr13Kw4rXrW7Zrsay3W8uF93u3Wvgr45W34xGw4fuFsrJw1Yyr4qk3yYyF1UCF9rGr1f
+ Xan0krnruFWjyrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvjb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I20VC2zVCF04k2
+ 6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+ vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7Cj
+ xVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I
+ 0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40E
+ x7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x
+ 0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AF
+ wI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
+ xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5
+ MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I
+ 0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWU
+ JVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUIa
+ 0PDUUUU
+X-CM-SenderInfo: hfkh02xlgr0w46kxt4xhlfz01xgou0bp/
 X-Mailman-Approved-At: Sun, 26 Apr 2026 06:46:56 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -99,697 +85,215 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The Orange Pi 5 Pro uses the same SoC and base as the Orange Pi 5 and
-Orange Pi 5B but has had sound, USB, and leds wired up differently. The
-5 and 5B boards use gmac for ethernet where the Pro has a PCIe attached
-NIC.
 
-Move the 5/5B-specific bits (analog-sound/es8388, FUSB302 Type-C,
-gmac1, pwm-leds, i2s1_8ch routing, USB role-switch plumbing) out of
-rk3588s-orangepi-5.dtsi into a new rk3588s-orangepi-5-5b.dtsi that is
-included by both 5 and 5B.
 
-The RK806 PLDO1 and PLDO2 outputs are wired differently between the
-5/5B and the Pro (PLDO1/PLDO2 are swapped), so label the PMIC node
-rk806_single in the base dtsi, drop pldo-reg1/pldo-reg2 from it, and
-define them via a &rk806_single regulators augmentation in
-rk3588s-orangepi-5-5b.dtsi. The Pro will supply its own mapping.
+On 2026/3/27 16:15, Thomas Hellström wrote:
+> Add an optional reclaim callback to struct dmem_cgroup_region.  When
+> dmem.max is set below current usage, invoke the callback to evict memory
+> and retry setting the limit rather than failing immediately.  Signal
+> interruptions propagate back to the write() caller.
+> 
+> RFC:
+> Due to us updating the max limit _after_ the usage has been
+> sufficiently lowered, this should be prone to failures if there are
+> aggressive allocators running in parallel to the reclaim.
+> So can we somehow enforce the new limit while the eviction is
+> happening?
+> 
+> Assisted-by: GitHub Copilot:claude-sonnet-4.6
+> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> ---
+>  include/linux/cgroup_dmem.h | 11 +++++
+>  kernel/cgroup/dmem.c        | 94 +++++++++++++++++++++++++++++++++----
+>  2 files changed, 96 insertions(+), 9 deletions(-)
+> 
+> diff --git a/include/linux/cgroup_dmem.h b/include/linux/cgroup_dmem.h
+> index dd4869f1d736..61520a431740 100644
+> --- a/include/linux/cgroup_dmem.h
+> +++ b/include/linux/cgroup_dmem.h
+> @@ -26,6 +26,10 @@ bool dmem_cgroup_state_evict_valuable(struct dmem_cgroup_pool_state *limit_pool,
+>  				      bool ignore_low, bool *ret_hit_low);
+>  
+>  void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state *pool);
+> +void dmem_cgroup_region_set_reclaim(struct dmem_cgroup_region *region,
+> +				    int (*reclaim)(struct dmem_cgroup_pool_state *pool,
+> +						   u64 target_bytes, void *priv),
+> +				    void *priv);
+>  #else
+>  static inline __printf(2,3) struct dmem_cgroup_region *
+>  dmem_cgroup_register_region(u64 size, const char *name_fmt, ...)
+> @@ -62,5 +66,12 @@ bool dmem_cgroup_state_evict_valuable(struct dmem_cgroup_pool_state *limit_pool,
+>  static inline void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state *pool)
+>  { }
+>  
+> +static inline void
+> +dmem_cgroup_region_set_reclaim(struct dmem_cgroup_region *region,
+> +			       int (*reclaim)(struct dmem_cgroup_pool_state *pool,
+> +					      u64 target_bytes, void *priv),
+> +			       void *priv)
+> +{ }
+> +
+>  #endif
+>  #endif	/* _CGROUP_DMEM_H */
+> diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
+> index 3e6d4c0b26a1..f993fb058b74 100644
+> --- a/kernel/cgroup/dmem.c
+> +++ b/kernel/cgroup/dmem.c
+> @@ -51,6 +51,18 @@ struct dmem_cgroup_region {
+>  	 * No new pools should be added to the region afterwards.
+>  	 */
+>  	bool unregistered;
+> +
+> +	/**
+> +	 * @reclaim: Optional callback invoked when dmem.max is set below the
+> +	 * current usage of a pool. The driver should attempt to free at least
+> +	 * @target_bytes from @pool. May be called multiple times if usage
+> +	 * remains above the limit after returning.
+> +	 */
+> +	int (*reclaim)(struct dmem_cgroup_pool_state *pool, u64 target_bytes,
+> +		       void *priv);
+> +
+> +	/** @reclaim_priv: Private data passed to @reclaim. */
+> +	void *reclaim_priv;
+>  };
+>  
+>  struct dmemcg_state {
+> @@ -145,23 +157,59 @@ static void free_cg_pool(struct dmem_cgroup_pool_state *pool)
+>  }
+>  
+>  static int
+> -set_resource_min(struct dmem_cgroup_pool_state *pool, u64 val)
+> +set_resource_min(struct dmem_cgroup_pool_state *pool, u64 val,
+> +		 struct dmem_cgroup_region *region)
+>  {
+>  	page_counter_set_min(&pool->cnt, val);
+>  	return 0;
+>  }
+>  
+>  static int
+> -set_resource_low(struct dmem_cgroup_pool_state *pool, u64 val)
+> +set_resource_low(struct dmem_cgroup_pool_state *pool, u64 val,
+> +		 struct dmem_cgroup_region *region)
+>  {
+>  	page_counter_set_low(&pool->cnt, val);
+>  	return 0;
+>  }
+>  
+>  static int
+> -set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val)
+> +set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val,
 
-Signed-off-by: Dennis Gilmore <dennis@ausil.us>
-Reviewed-by: Alexey Charkov <alchark@gmail.com>
----
- .../dts/rockchip/rk3588s-orangepi-5-5b.dtsi   | 256 ++++++++++++++++++
- .../boot/dts/rockchip/rk3588s-orangepi-5.dts  |   6 +-
- .../boot/dts/rockchip/rk3588s-orangepi-5.dtsi | 253 +----------------
- .../boot/dts/rockchip/rk3588s-orangepi-5b.dts |   2 +-
- 4 files changed, 272 insertions(+), 245 deletions(-)
- create mode 100644 arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-5b.dtsi
+Though we are discussing how to set the maximum, renaming 'val' to 'max' would
+improve readability in the next version.
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-5b.dtsi b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-5b.dtsi
-new file mode 100644
-index 000000000000..b42d2f5d9e3e
---- /dev/null
-+++ b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-5b.dtsi
-@@ -0,0 +1,256 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Device tree definitions shared by the Orange Pi 5 and Orange Pi 5B
-+ * but not the Orange Pi 5 Pro.
-+ */
-+
-+#include <dt-bindings/usb/pd.h>
-+#include "rk3588s-orangepi-5.dtsi"
-+
-+/ {
-+	aliases {
-+		ethernet0 = &gmac1;
-+	};
-+
-+	analog-sound {
-+		compatible = "simple-audio-card";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&hp_detect>;
-+		simple-audio-card,name = "rockchip,es8388";
-+		simple-audio-card,bitclock-master = <&masterdai>;
-+		simple-audio-card,format = "i2s";
-+		simple-audio-card,frame-master = <&masterdai>;
-+		simple-audio-card,hp-det-gpios = <&gpio1 RK_PD5 GPIO_ACTIVE_HIGH>;
-+		simple-audio-card,mclk-fs = <256>;
-+		simple-audio-card,routing =
-+			"Headphones", "LOUT1",
-+			"Headphones", "ROUT1",
-+			"LINPUT1", "Microphone Jack",
-+			"RINPUT1", "Microphone Jack",
-+			"LINPUT2", "Onboard Microphone",
-+			"RINPUT2", "Onboard Microphone";
-+		simple-audio-card,widgets =
-+			"Microphone", "Microphone Jack",
-+			"Microphone", "Onboard Microphone",
-+			"Headphone", "Headphones";
-+
-+		simple-audio-card,cpu {
-+			sound-dai = <&i2s1_8ch>;
-+		};
-+
-+		masterdai: simple-audio-card,codec {
-+			sound-dai = <&es8388>;
-+			system-clock-frequency = <12288000>;
-+		};
-+	};
-+
-+	pwm-leds {
-+		compatible = "pwm-leds";
-+
-+		led {
-+			color = <LED_COLOR_ID_GREEN>;
-+			function = LED_FUNCTION_STATUS;
-+			linux,default-trigger = "heartbeat";
-+			max-brightness = <255>;
-+			pwms = <&pwm0 0 25000 0>;
-+		};
-+	};
-+
-+	vbus_typec: regulator-vbus-typec {
-+		compatible = "regulator-fixed";
-+		enable-active-high;
-+		gpio = <&gpio3 RK_PC0 GPIO_ACTIVE_HIGH>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&typec5v_pwren>;
-+		regulator-name = "vbus_typec";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		vin-supply = <&vcc5v0_sys>;
-+	};
-+};
-+
-+&gmac1 {
-+	clock_in_out = "output";
-+	phy-handle = <&rgmii_phy1>;
-+	phy-mode = "rgmii-rxid";
-+	pinctrl-0 = <&gmac1_miim
-+			&gmac1_tx_bus2
-+			&gmac1_rx_bus2
-+			&gmac1_rgmii_clk
-+			&gmac1_rgmii_bus>;
-+	pinctrl-names = "default";
-+	tx_delay = <0x42>;
-+	status = "okay";
-+};
-+
-+&i2c6 {
-+	es8388: audio-codec@10 {
-+		compatible = "everest,es8388", "everest,es8328";
-+		reg = <0x10>;
-+		clocks = <&cru I2S1_8CH_MCLKOUT>;
-+		AVDD-supply = <&vcca_3v3_s0>;
-+		DVDD-supply = <&vcca_1v8_s0>;
-+		HPVDD-supply = <&vcca_3v3_s0>;
-+		PVDD-supply = <&vcca_3v3_s0>;
-+		assigned-clocks = <&cru I2S1_8CH_MCLKOUT>;
-+		assigned-clock-rates = <12288000>;
-+		#sound-dai-cells = <0>;
-+	};
-+
-+	usbc0: usb-typec@22 {
-+		compatible = "fcs,fusb302";
-+		reg = <0x22>;
-+		interrupt-parent = <&gpio0>;
-+		interrupts = <RK_PD3 IRQ_TYPE_LEVEL_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&usbc0_int>;
-+		vbus-supply = <&vbus_typec>;
-+		status = "okay";
-+
-+		usb_con: connector {
-+			compatible = "usb-c-connector";
-+			label = "USB-C";
-+			data-role = "dual";
-+			op-sink-microwatt = <1000000>;
-+			power-role = "dual";
-+			sink-pdos =
-+				<PDO_FIXED(5000, 1000, PDO_FIXED_USB_COMM)>;
-+			source-pdos =
-+				<PDO_FIXED(5000, 3000, PDO_FIXED_USB_COMM)>;
-+			try-power-role = "source";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					usbc0_hs: endpoint {
-+						remote-endpoint = <&usb_host0_xhci_drd_sw>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					usbc0_ss: endpoint {
-+						remote-endpoint = <&usbdp_phy0_typec_ss>;
-+					};
-+				};
-+
-+				port@2 {
-+					reg = <2>;
-+					usbc0_sbu: endpoint {
-+						remote-endpoint = <&usbdp_phy0_typec_sbu>;
-+					};
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&mdio1 {
-+	rgmii_phy1: ethernet-phy@1 {
-+		compatible = "ethernet-phy-ieee802.3-c22";
-+		reg = <0x1>;
-+		reset-assert-us = <20000>;
-+		reset-deassert-us = <100000>;
-+		reset-gpios = <&gpio3 RK_PB2 GPIO_ACTIVE_LOW>;
-+	};
-+};
-+
-+&pinctrl {
-+	usb-typec {
-+		usbc0_int: usbc0-int {
-+			rockchip,pins = <0 RK_PD3 RK_FUNC_GPIO &pcfg_pull_up>;
-+		};
-+
-+		typec5v_pwren: typec5v-pwren {
-+			rockchip,pins = <3 RK_PC0 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+};
-+
-+&i2s1_8ch {
-+	rockchip,i2s-tx-route = <3 2 1 0>;
-+	rockchip,i2s-rx-route = <1 3 2 0>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2s1m0_sclk
-+			   &i2s1m0_mclk
-+			   &i2s1m0_lrck
-+			   &i2s1m0_sdi1
-+			   &i2s1m0_sdo3>;
-+	status = "okay";
-+};
-+
-+&pwm0 {
-+	pinctrl-0 = <&pwm0m2_pins>;
-+	pinctrl-names = "default";
-+	status = "okay";
-+};
-+
-+&rk806_single {
-+	regulators {
-+		vcc_1v8_s0: pldo-reg1 {
-+			regulator-name = "vcc_1v8_s0";
-+			regulator-always-on;
-+			regulator-boot-on;
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+
-+			regulator-state-mem {
-+				regulator-off-in-suspend;
-+			};
-+		};
-+
-+		vcca_1v8_s0: pldo-reg2 {
-+			regulator-name = "vcca_1v8_s0";
-+			regulator-always-on;
-+			regulator-boot-on;
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+
-+			regulator-state-mem {
-+				regulator-off-in-suspend;
-+				regulator-suspend-microvolt = <1800000>;
-+			};
-+		};
-+	};
-+};
-+
-+
-+&usb_host0_xhci {
-+	dr_mode = "otg";
-+	usb-role-switch;
-+
-+	port {
-+		usb_host0_xhci_drd_sw: endpoint {
-+			remote-endpoint = <&usbc0_hs>;
-+		};
-+	};
-+};
-+
-+&usb_host2_xhci {
-+	status = "okay";
-+};
-+
-+&usbdp_phy0 {
-+	mode-switch;
-+	orientation-switch;
-+	sbu1-dc-gpios = <&gpio4 RK_PA5 GPIO_ACTIVE_HIGH>;
-+	sbu2-dc-gpios = <&gpio4 RK_PA7 GPIO_ACTIVE_HIGH>;
-+
-+	port {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		usbdp_phy0_typec_ss: endpoint@0 {
-+			reg = <0>;
-+			remote-endpoint = <&usbc0_ss>;
-+		};
-+
-+		usbdp_phy0_typec_sbu: endpoint@1 {
-+			reg = <1>;
-+			remote-endpoint = <&usbc0_sbu>;
-+		};
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dts b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dts
-index 83b9b6645a1e..d76bdf1b5e90 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dts
-@@ -2,12 +2,16 @@
- 
- /dts-v1/;
- 
--#include "rk3588s-orangepi-5.dtsi"
-+#include "rk3588s-orangepi-5-5b.dtsi"
- 
- / {
- 	model = "Xunlong Orange Pi 5";
- 	compatible = "xunlong,orangepi-5", "rockchip,rk3588s";
- 
-+	aliases {
-+		mmc0 = &sdmmc;
-+	};
-+
- 	vcc3v3_pcie20: regulator-vcc3v3-pcie20 {
- 		compatible = "regulator-fixed";
- 		enable-active-high;
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dtsi b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dtsi
-index fd5c6a025cd1..9bdecd5a07e5 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dtsi
-@@ -3,19 +3,13 @@
- /dts-v1/;
- 
- #include <dt-bindings/gpio/gpio.h>
--#include <dt-bindings/leds/common.h>
- #include <dt-bindings/input/input.h>
-+#include <dt-bindings/leds/common.h>
- #include <dt-bindings/pinctrl/rockchip.h>
- #include <dt-bindings/soc/rockchip,vop2.h>
--#include <dt-bindings/usb/pd.h>
- #include "rk3588s.dtsi"
- 
- / {
--	aliases {
--		ethernet0 = &gmac1;
--		mmc0 = &sdmmc;
--	};
--
- 	chosen {
- 		stdout-path = "serial2:1500000n8";
- 	};
-@@ -34,38 +28,6 @@ button-recovery {
- 		};
- 	};
- 
--	analog-sound {
--		compatible = "simple-audio-card";
--		pinctrl-names = "default";
--		pinctrl-0 = <&hp_detect>;
--		simple-audio-card,name = "rockchip,es8388";
--		simple-audio-card,bitclock-master = <&masterdai>;
--		simple-audio-card,format = "i2s";
--		simple-audio-card,frame-master = <&masterdai>;
--		simple-audio-card,hp-det-gpios = <&gpio1 RK_PD5 GPIO_ACTIVE_HIGH>;
--		simple-audio-card,mclk-fs = <256>;
--		simple-audio-card,routing =
--			"Headphones", "LOUT1",
--			"Headphones", "ROUT1",
--			"LINPUT1", "Microphone Jack",
--			"RINPUT1", "Microphone Jack",
--			"LINPUT2", "Onboard Microphone",
--			"RINPUT2", "Onboard Microphone";
--		simple-audio-card,widgets =
--			"Microphone", "Microphone Jack",
--			"Microphone", "Onboard Microphone",
--			"Headphone", "Headphones";
--
--		simple-audio-card,cpu {
--			sound-dai = <&i2s1_8ch>;
--		};
--
--		masterdai: simple-audio-card,codec {
--			sound-dai = <&es8388>;
--			system-clock-frequency = <12288000>;
--		};
--	};
--
- 	hdmi0-con {
- 		compatible = "hdmi-connector";
- 		type = "a";
-@@ -77,28 +39,14 @@ hdmi0_con_in: endpoint {
- 		};
- 	};
- 
--	pwm-leds {
--		compatible = "pwm-leds";
--
--		led {
--			color = <LED_COLOR_ID_GREEN>;
--			function = LED_FUNCTION_STATUS;
--			linux,default-trigger = "heartbeat";
--			max-brightness = <255>;
--			pwms = <&pwm0 0 25000 0>;
--		};
--	};
--
--	vbus_typec: regulator-vbus-typec {
-+	vcc_3v3_sd_s0: regulator-vcc-3v3-sd-s0 {
- 		compatible = "regulator-fixed";
--		enable-active-high;
--		gpio = <&gpio3 RK_PC0 GPIO_ACTIVE_HIGH>;
--		pinctrl-names = "default";
--		pinctrl-0 = <&typec5v_pwren>;
--		regulator-name = "vbus_typec";
--		regulator-min-microvolt = <5000000>;
--		regulator-max-microvolt = <5000000>;
--		vin-supply = <&vcc5v0_sys>;
-+		gpios = <&gpio4 RK_PB5 GPIO_ACTIVE_LOW>;
-+		regulator-name = "vcc_3v3_sd_s0";
-+		regulator-boot-on;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		vin-supply = <&vcc_3v3_s3>;
- 	};
- 
- 	vcc5v0_sys: regulator-vcc5v0-sys {
-@@ -109,16 +57,6 @@ vcc5v0_sys: regulator-vcc5v0-sys {
- 		regulator-min-microvolt = <5000000>;
- 		regulator-max-microvolt = <5000000>;
- 	};
--
--	vcc_3v3_sd_s0: regulator-vcc-3v3-sd-s0 {
--		compatible = "regulator-fixed";
--		gpios = <&gpio4 RK_PB5 GPIO_ACTIVE_LOW>;
--		regulator-name = "vcc_3v3_sd_s0";
--		regulator-boot-on;
--		regulator-min-microvolt = <3300000>;
--		regulator-max-microvolt = <3300000>;
--		vin-supply = <&vcc_3v3_s3>;
--	};
- };
- 
- &combphy0_ps {
-@@ -161,20 +99,6 @@ &cpu_l3 {
- 	cpu-supply = <&vdd_cpu_lit_s0>;
- };
- 
--&gmac1 {
--	clock_in_out = "output";
--	phy-handle = <&rgmii_phy1>;
--	phy-mode = "rgmii-rxid";
--	pinctrl-0 = <&gmac1_miim
--		     &gmac1_tx_bus2
--		     &gmac1_rx_bus2
--		     &gmac1_rgmii_clk
--		     &gmac1_rgmii_bus>;
--	pinctrl-names = "default";
--	tx_delay = <0x42>;
--	status = "okay";
--};
--
- &gpu {
- 	mali-supply = <&vdd_gpu_s0>;
- 	status = "okay";
-@@ -270,69 +194,6 @@ &i2c6 {
- 	pinctrl-0 = <&i2c6m3_xfer>;
- 	status = "okay";
- 
--	es8388: audio-codec@10 {
--		compatible = "everest,es8388", "everest,es8328";
--		reg = <0x10>;
--		clocks = <&cru I2S1_8CH_MCLKOUT>;
--		AVDD-supply = <&vcca_3v3_s0>;
--		DVDD-supply = <&vcca_1v8_s0>;
--		HPVDD-supply = <&vcca_3v3_s0>;
--		PVDD-supply = <&vcca_3v3_s0>;
--		assigned-clocks = <&cru I2S1_8CH_MCLKOUT>;
--		assigned-clock-rates = <12288000>;
--		#sound-dai-cells = <0>;
--	};
--
--	usbc0: usb-typec@22 {
--		compatible = "fcs,fusb302";
--		reg = <0x22>;
--		interrupt-parent = <&gpio0>;
--		interrupts = <RK_PD3 IRQ_TYPE_LEVEL_LOW>;
--		pinctrl-names = "default";
--		pinctrl-0 = <&usbc0_int>;
--		vbus-supply = <&vbus_typec>;
--		status = "okay";
--
--		usb_con: connector {
--			compatible = "usb-c-connector";
--			label = "USB-C";
--			data-role = "dual";
--			op-sink-microwatt = <1000000>;
--			power-role = "dual";
--			sink-pdos =
--				<PDO_FIXED(5000, 1000, PDO_FIXED_USB_COMM)>;
--			source-pdos =
--				<PDO_FIXED(5000, 3000, PDO_FIXED_USB_COMM)>;
--			try-power-role = "source";
--
--			ports {
--				#address-cells = <1>;
--				#size-cells = <0>;
--
--				port@0 {
--					reg = <0>;
--					usbc0_hs: endpoint {
--						remote-endpoint = <&usb_host0_xhci_drd_sw>;
--					};
--				};
--
--				port@1 {
--					reg = <1>;
--					usbc0_ss: endpoint {
--						remote-endpoint = <&usbdp_phy0_typec_ss>;
--					};
--				};
--
--				port@2 {
--					reg = <2>;
--					usbc0_sbu: endpoint {
--						remote-endpoint = <&usbdp_phy0_typec_sbu>;
--					};
--				};
--			};
--		};
--	};
--
- 	hym8563: rtc@51 {
- 		compatible = "haoyu,hym8563";
- 		reg = <0x51>;
-@@ -346,32 +207,10 @@ hym8563: rtc@51 {
- 	};
- };
- 
--&i2s1_8ch {
--	rockchip,i2s-tx-route = <3 2 1 0>;
--	rockchip,i2s-rx-route = <1 3 2 0>;
--	pinctrl-names = "default";
--	pinctrl-0 = <&i2s1m0_sclk
--	             &i2s1m0_mclk
--	             &i2s1m0_lrck
--	             &i2s1m0_sdi1
--	             &i2s1m0_sdo3>;
--	status = "okay";
--};
--
- &i2s5_8ch {
- 	status = "okay";
- };
- 
--&mdio1 {
--	rgmii_phy1: ethernet-phy@1 {
--		compatible = "ethernet-phy-ieee802.3-c22";
--		reg = <0x1>;
--		reset-assert-us = <20000>;
--		reset-deassert-us = <100000>;
--		reset-gpios = <&gpio3 RK_PB2 GPIO_ACTIVE_LOW>;
--	};
--};
--
- &pd_gpu {
- 	domain-supply = <&vdd_gpu_s0>;
- };
-@@ -392,22 +231,6 @@ hp_detect: hp-detect {
- 			rockchip,pins = <1 RK_PD5 RK_FUNC_GPIO &pcfg_pull_none>;
- 		};
- 	};
--
--	usb-typec {
--		usbc0_int: usbc0-int {
--			rockchip,pins = <0 RK_PD3 RK_FUNC_GPIO &pcfg_pull_up>;
--		};
--
--		typec5v_pwren: typec5v-pwren {
--			rockchip,pins = <3 RK_PC0 RK_FUNC_GPIO &pcfg_pull_none>;
--		};
--	};
--};
--
--&pwm0 {
--	pinctrl-0 = <&pwm0m2_pins>;
--	pinctrl-names = "default";
--	status = "okay";
- };
- 
- &rknn_core_0 {
-@@ -491,7 +314,7 @@ &spi2 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&spi2m2_cs0 &spi2m2_pins>;
- 
--	pmic@0 {
-+	rk806_single: pmic@0 {
- 		compatible = "rockchip,rk806";
- 		reg = <0x0>;
- 		interrupt-parent = <&gpio0>;
-@@ -666,31 +489,6 @@ regulator-state-mem {
- 				};
- 			};
- 
--			vcc_1v8_s0: pldo-reg1 {
--				regulator-name = "vcc_1v8_s0";
--				regulator-always-on;
--				regulator-boot-on;
--				regulator-min-microvolt = <1800000>;
--				regulator-max-microvolt = <1800000>;
--
--				regulator-state-mem {
--					regulator-off-in-suspend;
--				};
--			};
--
--			vcca_1v8_s0: pldo-reg2 {
--				regulator-name = "vcca_1v8_s0";
--				regulator-always-on;
--				regulator-boot-on;
--				regulator-min-microvolt = <1800000>;
--				regulator-max-microvolt = <1800000>;
--
--				regulator-state-mem {
--					regulator-off-in-suspend;
--					regulator-suspend-microvolt = <1800000>;
--				};
--			};
--
- 			vdda_1v2_s0: pldo-reg3 {
- 				regulator-name = "vdda_1v2_s0";
- 				regulator-always-on;
-@@ -841,26 +639,7 @@ &uart2 {
- };
- 
- &usbdp_phy0 {
--	mode-switch;
--	orientation-switch;
--	sbu1-dc-gpios = <&gpio4 RK_PA5 GPIO_ACTIVE_HIGH>;
--	sbu2-dc-gpios = <&gpio4 RK_PA7 GPIO_ACTIVE_HIGH>;
- 	status = "okay";
--
--	port {
--		#address-cells = <1>;
--		#size-cells = <0>;
--
--		usbdp_phy0_typec_ss: endpoint@0 {
--			reg = <0>;
--			remote-endpoint = <&usbc0_ss>;
--		};
--
--		usbdp_phy0_typec_sbu: endpoint@1 {
--			reg = <1>;
--			remote-endpoint = <&usbc0_sbu>;
--		};
--	};
- };
- 
- &usb_host0_ehci {
-@@ -872,15 +651,7 @@ &usb_host0_ohci {
- };
- 
- &usb_host0_xhci {
--	dr_mode = "otg";
--	usb-role-switch;
- 	status = "okay";
--
--	port {
--		usb_host0_xhci_drd_sw: endpoint {
--			remote-endpoint = <&usbc0_hs>;
--		};
--	};
- };
- 
- &usb_host1_ehci {
-@@ -891,7 +662,7 @@ &usb_host1_ohci {
- 	status = "okay";
- };
- 
--&usb_host2_xhci {
-+&vop {
- 	status = "okay";
- };
- 
-@@ -899,10 +670,6 @@ &vop_mmu {
- 	status = "okay";
- };
- 
--&vop {
--	status = "okay";
--};
--
- &vp0 {
- 	vp0_out_hdmi0: endpoint@ROCKCHIP_VOP2_EP_HDMI0 {
- 		reg = <ROCKCHIP_VOP2_EP_HDMI0>;
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5b.dts b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5b.dts
-index d21ec320d295..8af174777809 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5b.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5b.dts
-@@ -2,7 +2,7 @@
- 
- /dts-v1/;
- 
--#include "rk3588s-orangepi-5.dtsi"
-+#include "rk3588s-orangepi-5-5b.dtsi"
- 
- / {
- 	model = "Xunlong Orange Pi 5B";
+> +		 struct dmem_cgroup_region *region)
+>  {
+> -	return page_counter_set_max(&pool->cnt, val);
+> +	int err = page_counter_set_max(&pool->cnt, val);
+> +
+> +	if (err != -EBUSY || !region || !region->reclaim)
+> +		return err;
+> +
+> +	/*
+> +	 * The new max is below current usage.  Ask the driver to evict memory
+> +	 * and retry, up to a bounded number of times.  Signal interruptions are
+> +	 * propagated back to the write() caller; other reclaim failures leave
+> +	 * -EBUSY as the result.
+> +	 */
+> +	for (int retries = 5; retries > 0; retries--) {
+> +		u64 usage = page_counter_read(&pool->cnt);
+> +		u64 target = usage > val ? usage - val : 0;
+> +		int reclaim_err;
+> +
+> +		if (!target) {
+> +			err = page_counter_set_max(&pool->cnt, val);
+> +			break;
+> +		}
+> +
+> +		reclaim_err = region->reclaim(pool, target, region->reclaim_priv);
+> +		if (reclaim_err) {
+> +			if (reclaim_err == -EINTR || reclaim_err == -ERESTARTSYS)
+> +				err = reclaim_err;
+> +			break;
+> +		}
+> +
+> +		err = page_counter_set_max(&pool->cnt, val);
+> +		if (err != -EBUSY)
+> +			break;
+> +	}
+> +
+> +	return err;
+>  }
+>  
+>  static u64 get_resource_low(struct dmem_cgroup_pool_state *pool)
+> @@ -186,9 +234,9 @@ static u64 get_resource_current(struct dmem_cgroup_pool_state *pool)
+>  
+>  static void reset_all_resource_limits(struct dmem_cgroup_pool_state *rpool)
+>  {
+> -	set_resource_min(rpool, 0);
+> -	set_resource_low(rpool, 0);
+> -	set_resource_max(rpool, PAGE_COUNTER_MAX);
+> +	set_resource_min(rpool, 0, NULL);
+> +	set_resource_low(rpool, 0, NULL);
+> +	set_resource_max(rpool, PAGE_COUNTER_MAX, NULL);
+>  }
+>  
+>  static void dmemcs_offline(struct cgroup_subsys_state *css)
+> @@ -570,6 +618,32 @@ void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state *pool)
+>  }
+>  EXPORT_SYMBOL_GPL(dmem_cgroup_pool_state_put);
+>  
+> +/**
+> + * dmem_cgroup_region_set_reclaim - Register a reclaim callback on a region.
+> + * @region: The region to register the callback for.
+> + * @reclaim: Callback to invoke when dmem.max is set below current usage.
+> + *           Called with the pool that needs reclaiming and the number of
+> + *           bytes to free. Returns 0 on progress, negative on failure.
+> + * @priv: Opaque pointer passed back to @reclaim.
+> + *
+> + * When dmem.max is lowered below the current usage of a cgroup pool, the
+> + * dmem controller will call @reclaim with a target number of bytes to free.
+> + * After @reclaim returns the controller retries setting the limit; if usage
+> + * is still too high it calls @reclaim again, up to a bounded retry count.
+> + */
+> +void dmem_cgroup_region_set_reclaim(struct dmem_cgroup_region *region,
+> +				    int (*reclaim)(struct dmem_cgroup_pool_state *pool,
+> +						   u64 target_bytes, void *priv),
+> +				    void *priv)
+> +{
+> +	if (!region)
+> +		return;
+> +
+> +	region->reclaim = reclaim;
+> +	region->reclaim_priv = priv;
+> +}
+> +EXPORT_SYMBOL_GPL(dmem_cgroup_region_set_reclaim);
+> +
+>  static struct dmem_cgroup_pool_state *
+>  get_cg_pool_unlocked(struct dmemcg_state *cg, struct dmem_cgroup_region *region)
+>  {
+> @@ -728,7 +802,8 @@ static int dmemcg_parse_limit(char *options, struct dmem_cgroup_region *region,
+>  
+>  static ssize_t dmemcg_limit_write(struct kernfs_open_file *of,
+>  				 char *buf, size_t nbytes, loff_t off,
+> -				 int (*apply)(struct dmem_cgroup_pool_state *, u64))
+> +				 int (*apply)(struct dmem_cgroup_pool_state *, u64,
+> +					      struct dmem_cgroup_region *))
+>  {
+>  	struct dmemcg_state *dmemcs = css_to_dmemcs(of_css(of));
+>  	int err = 0;
+> @@ -775,7 +850,8 @@ static ssize_t dmemcg_limit_write(struct kernfs_open_file *of,
+>  		}
+>  
+>  		/* And commit */
+> -		err = apply(pool, new_limit);
+> +		err = apply(pool, new_limit, region);
+> +
+>  		dmemcg_pool_put(pool);
+>  
+>  out_put:
+
 -- 
-2.53.0
+Best regards,
+Ridong
 
