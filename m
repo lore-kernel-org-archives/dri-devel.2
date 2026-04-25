@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AE99FF885A
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC8A2FF8863
 	for <dri-devel@archiver.kernel.org>; Sat, 25 Apr 2026 21:16:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8332010E496;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD16010E498;
 	Sat, 25 Apr 2026 21:16:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="KWF3rHGw";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="DfL1dTuk";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011015.outbound.protection.outlook.com
- [40.93.194.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8767F10E496
- for <dri-devel@lists.freedesktop.org>; Sat, 25 Apr 2026 21:15:44 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012020.outbound.protection.outlook.com [52.101.53.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E2DE10E48C
+ for <dri-devel@lists.freedesktop.org>; Sat, 25 Apr 2026 21:16:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=n+rbI0c1YbVLGjSEzw+zuobPB+pU//bizD8IZViyNj3b8RPdXlTAxvYcXrC/SFOyqnpvAObBcqOZ4UloXTBGWki8BkxcrnQcM3geS3jgubr5JGSvwZkizLuh1ALR7WFw4a5QOPCKc5dFNzUtzo/LjYNYnfnS7gR/vKhfrvqDwIpes8HBrGiQCaTOSxHmIXZSb/xCvJPD8bN5FZwGATlL+2o426MfY4UzIWzZnyNF8JyfnseaSG3nm9uW7I6iW2C2bPYA+tFX05HLU8dCw0SzgUXfEj7lPYMwuaxT/6c4KLw0NzzczQFiIF6P6rwvKWU/ITDM5eOzt++G8H8l2id7aA==
+ b=GVoqxPAQN6j1PDd7GvRYKJQaicHkxyk6J+h4uEMUq9Q/Y7lmXyCkNw8UhjXxhgAaiG0+nInI8DDsOTmUcltUprTriI7u+wqf/L7RpuUE7qtWeirdAaFqPSmYrkNP5WQM4v65eHK5G9a114SVcMsYU1lLLzyiWV+jKNVR7C7SQPSx6iUHk8J50qr4/Ntv9auOUNvs8+Zz4Ks0tKBtMd+6kFdk1dABy+VX9J9U15sIspgfOxW/ZDKMp/VCVFC77b/lXeRTkX7Be0PUO5gmzXtlf8MvNgo4PDtNK9Rd4cS2UEwmmNB21dvrzgI3W3APeNcrI5OtvdMfWF4Gk3t0uj7Y7g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sTxAbb20E9XGeOsT7WvzLc2cxjknHQ/eVyCvPQsn7A8=;
- b=KGg/ONjqWhZDLvAIQkqjrdmaa2uUe5yScGiYa11ZCrRcxExF2q/jmAn7D+8CazrRjzc8CY899QMVChOVblhi3M0VPedIMVd0XFIIXCF5540bhj1nhYmcexcEWKn2mRYVHJHPio0e0qQs9zqYFoEoXP9o30mSWvCz8fiBfE27C+9MeD0zBIGEU8ch5GfRaD4iBHHRaAHFcKs+dhzY0HlvCGTSkaRg/Yb0WH46jeNzN6H5OiY8/ySwO143xAe2zJfeRB7qK4U2lqW03t39/533Cx/4YROS4hq1s/3iQzI//aXYzeM5gvySPdVILOsnUBKsGqrvTdoDQVOkmzWpaUzTvQ==
+ bh=EgB+8CVQb1tcL3+Yv52GQLOqWFAEjP6h+ej6wl7Ydvg=;
+ b=gMx4HvIZuchZ7RwchMZgEsBrEYjx/k8v2YoPCZ5yc+i2/YtWMNto/L1JdJpsMbWqL6sLKiZBuiKDi2AxFdi07Wv060kQtktrRH1kp7TY7D7tH62Zgdy0Z21u42ZH3HJdLyZqv/DsE2kz4Y249RjScflnAQ1JvTtd2SVVC+6hXvKklnZJGPQVFScSeWd6+4Kob3z7K87VyMPkrMw9p1f4MzP8RBfsDtnyF6JqGKF3p0qfKL2104SejTJIiC9CnHU2+gq+y80wm/LKnZylP1lhzLdjOWpQFgje4YCSJskTd8nOd4+zzOLOod8HRy8AW0B6eFxPQ4YTyUtC3EJrGIJ/HQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sTxAbb20E9XGeOsT7WvzLc2cxjknHQ/eVyCvPQsn7A8=;
- b=KWF3rHGwdLELzrao5O9Tz8bG+YafJ2m/3pcbEZIsHx6+eveLrDCzaiLaGUhe3f2NXlPQEMEJu9S+saZzIpzRSsn5/DpuHgQyjfW1Shxv+Z/AcmhSWcPz9+quEFiVqYvlo3TnUX8XErPBW+8sd3Bu5AzzovL/uaH/6plnpT1N4nxIL1MtMNjFskeaHflRBvElLX52I6pLykd3N5RWYCzL6Tt7X36Z2OnIB8QXTxpisZiHn3VVySB309g39qE5cbuy4XMCXi41BMiBChZglHW33Y/vd+U5PQxzdxwjn+FrLCwkzpcmJPWAV3F/8GGf+6abOPxeEwKfWpojBj1VdH5yBA==
+ bh=EgB+8CVQb1tcL3+Yv52GQLOqWFAEjP6h+ej6wl7Ydvg=;
+ b=DfL1dTukzDsaOS1cEQxyAlQpIsT1gTMYK6iZpoCZT+9+kTBvL2jarFrnqBr5QzPhS2kUjLB4ywh+5Sh7o8fVIyAYeEQMnuABOcsqbyaL8mT3e51cJnWBR5JIuFUaFkVVdjmWotOvXKRk7DQftptTXHrPL43bEt9jYt97Zlz8Zn3gUaFcHc37KGZOwEyA6WRXPCfKudmWeR4cDZgWon/zxwLoBbbziuv9DaC/+RYq5YzmBP5SpleiFHYrcB+u+ErN1UyD8sJAs0Y+TtO7YmEnk3pocVwzQzJRwfLLfV+H4ykIlQ17d1yg8e1OUpcQrA8wETMLdJWgsP8G3GscqwIZgg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
- IA1PR12MB8358.namprd12.prod.outlook.com (2603:10b6:208:3fa::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.13; Sat, 25 Apr
- 2026 21:15:41 +0000
+ CH8PR12MB9765.namprd12.prod.outlook.com (2603:10b6:610:264::6) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9870.13; Sat, 25 Apr 2026 21:15:56 +0000
 Received: from DS0PR12MB6486.namprd12.prod.outlook.com
  ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
  ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9870.012; Sat, 25 Apr 2026
- 21:15:41 +0000
+ 21:15:56 +0000
 From: Joel Fernandes <joelagnelf@nvidia.com>
 To: linux-kernel@vger.kernel.org
 Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
@@ -62,72 +61,72 @@ Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
  alexeyi@nvidia.com, Eliot Courtney <ecourtney@nvidia.com>,
  joel@joelfernandes.org, linux-doc@vger.kernel.org,
  Joel Fernandes <joelagnelf@nvidia.com>
-Subject: [PATCH v12 15/22] gpu: nova-core: mm: Add virtual address range
- tracking to VMM
-Date: Sat, 25 Apr 2026 17:14:47 -0400
-Message-Id: <20260425211454.174696-16-joelagnelf@nvidia.com>
+Subject: [PATCH v12 22/22] rust: maple_tree: implement Send and Sync for
+ MapleTree
+Date: Sat, 25 Apr 2026 17:14:54 -0400
+Message-Id: <20260425211454.174696-23-joelagnelf@nvidia.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260425211454.174696-1-joelagnelf@nvidia.com>
 References: <20260425211454.174696-1-joelagnelf@nvidia.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: CY5PR15CA0242.namprd15.prod.outlook.com
- (2603:10b6:930:66::18) To DS0PR12MB6486.namprd12.prod.outlook.com
+X-ClientProxiedBy: CYZPR14CA0027.namprd14.prod.outlook.com
+ (2603:10b6:930:a0::17) To DS0PR12MB6486.namprd12.prod.outlook.com
  (2603:10b6:8:c5::21)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|IA1PR12MB8358:EE_
-X-MS-Office365-Filtering-Correlation-Id: bae8dcaa-c15a-4243-cd44-08dea30fcdf4
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|CH8PR12MB9765:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5f712bc9-3c7d-4bbd-c7a8-08dea30fd6eb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|7416014|366016|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: ZkYIBgAagLTcRb68jzi1OjBmoNs0DHNafUzitkCbIbNhzaqnKDDhgPdJtEcY9XyAiR8/eSKVdh1+MoCUJYjLAHEagBdQKORfetbmVJvSqmaq+XlfQ/2QrajEOW3rDXpr/XKRL64QBJ/S1ZAU13p5/hi9dF8fT+hh5bJuiyIVt8/e4KaoFRnlHsBG3Cm2QvOFl9hmfS8O9sUPr4iikGvqP23j/1M/681bD8M4t7SzbyA954KCVHQWi+5tQvpH4J3AbqYHoYi2wVoSeOazEy0o6zUig+p1445ctiV7xWQQDhdu4F4ey/TRMmQ/Li6805EJwjwQgFjODiIgu8Mo/IShhkbgR/V52bwqGAH78adaelE4Dv5u70zEPOtdArjiGWrRUTWZgvKSMJdTn6QAEVwhU091UjllpNZyv+r4BTDj2z79cWhHEISdnZVO/gNSt7mWYx/eMUUnPlJJZMSvYqD/OrzT2iQtK44HsXTjv7mRy6VZt0BSphwFx46JdORLVJ9pC1TLVoct1LZGiWLGOfhvFCg23AHMYSTed/QlNJqQmG9H9shJYQWorWY03CPQ8g/LuBn0E+JWZAfTW+gXKjdRuFzab4gFLh5U55u5cqaP8SfUHr1GubW1d+9qUNDqFE+CLJwvriZZE1+4bSDp1H0KVrzUCWszaLsnX+9NMphQ1PbgvIGMkaXnlfl9vURvZkbxntCfj/aOzDBB52z/IOTcyzCyNSo7hfbLTfON79dcyPc=
+ ARA:13230040|366016|7416014|376014|1800799024|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: ov2gvhUpmV1e4JMPvIUjwcYz5SCAkfSYoOpylH61P79v0sKQxxd6RElDlTHwMNQ/tayPzsBd+Y0SVFdKoMtIJ67zUv8PXBiYGteH4lQ2VBsCcaUeaqS7+1POomCAYrCJw++3dwkpaSs/mw9csGwNQbbXKj0N6vrFfwfBHSaoizhNWowlxvtAUapiiihPDMZdYJ09tq3K5JTymJUBxM8qOxdYn/TPIdT6zAHmnEfEOm2Su+dHOuxStsXedP1smn8Hhl2w/PXq/GcZO18uElPRq88KFTJu3gJJZ0QKAMntXIlf5HGFFvkmyAOl0RVQGNryXDm7CqTPrDauH23q3NZMd9AjV07n/nhkzCb01eMT7ughsOAN583yW8/caxWFFPU6T6ziH97juFKScfPHmk6WwY3XJVRiiqFk25ncOv2/6B5NDcW0qvCiv9ULHvvza2ht3KTP4QhGKdQHE/xghvPMUPMNv31ITgeQ9iIk1n1mShX47DY/vPW1g/WnYK8sMhd8Z17hEe/FEvzzS6KBoo6osOFXUwi1HTIXrtl/4YkIXbGyYIKoOK/Ucrrlz1mbivEpBDVzEbVqqLfi8rYddFVSd+dMJ9Ns/B0lene8dtmLkHQjpGyIqp60HQ924OQHaAzT/j7SA8C32rCj7hLatTtog9qgCQ9Uo8PH6EtfeXBvxrCZRbcvyoHeeA3xD9CDJQkou810d1ZZckzGcovqaF8eGYag83sN0Y4lZioCfus4c0k=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(7416014)(366016)(56012099003)(18002099003)(22082099003);
+ SFS:(13230040)(366016)(7416014)(376014)(1800799024)(56012099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?vH6U85vruhGwKzWn2MmtVzuSh/Vzxhr+9RQMpiDlMbizhpd/ozZ1mbfU7+9/?=
- =?us-ascii?Q?fnsIwDaBMLQdlGVVYxUXu3/XunHt4t8YDVT3Y1oWoxKPanXLz2MeSg6a41Yp?=
- =?us-ascii?Q?MppaD4zDmDY5Zf3fZS0VTSIxFQpZoh2SwqdNmNaRim8LhFtJFjJ7db8MuNZp?=
- =?us-ascii?Q?FZPuHRNXlo7n0gElrm3vlAIMixZhSLzomLMnMZXgKmYgImrWKqryJ1HG6gzH?=
- =?us-ascii?Q?/4+1YvRgSXPvbTOOuckKQidSqvRW78pjlcsoNjufQWUnv/Ox2pMTbmodMomi?=
- =?us-ascii?Q?2Bxoh899AFi7IjXeIbxr/8Irt3VFOaMWsL+W4QPWb7BlS3xLM8f3Bmqoje/2?=
- =?us-ascii?Q?HWhU9sJX7ssLtZTH2OX99TRu4EbksPWVLzcVqcFPIm9jh9aeI8of8ZjfIOUF?=
- =?us-ascii?Q?NHb89yhAXQ+6ZqPUoF4M68ru/2ijmgNhuvffNV0EbxWmhF5PhPjzfj6xQ8M6?=
- =?us-ascii?Q?9tBntyxlDCxlPQWp5OryifCPe+PX+vJv4VohZTFHRmsqq+uzJkQlniL/Cp9W?=
- =?us-ascii?Q?nCst8/FwSbPP/BWB7qaZBdgY3ZyEcxUTssFB642dG7WKf7NrFX3l5IA36ZrE?=
- =?us-ascii?Q?Q0MsDcHx33hJ3Oqor4xpOOBQAjYaAYOF+RCInTGItZ9zHiUaUxd4PLJYSg+2?=
- =?us-ascii?Q?uJdddkxXYRrhO7IrI32NZI88Bc2JGUolasp/qTlzFqzi4nm8dqKLnckNsAYR?=
- =?us-ascii?Q?LAGe+zxZLNtDwTzTdZPD8bC2EtkZZq8ixp9V9T+4nEgdgZqYCai2X/T8wBWK?=
- =?us-ascii?Q?LCEWLMuVLIUBrQRJrwuWOe0K1BxnA2pVnSBzN2ldOBKMPwtlcAeVYEN56eBZ?=
- =?us-ascii?Q?znh0anBdWbva2Aa45gwKfJmanihmhHfaFYn1NiMwVelpAO10KwjoQ1C2atat?=
- =?us-ascii?Q?381BiACXkfugEaSimjaDhe4FxS0JqHyMNJ0e+CVfwqSbMhMImX2/xJhGhwuC?=
- =?us-ascii?Q?lzeCaSghEsy1GWKp5x1s0YRFdzS/xg3o6AX4dmmJ15+zdpAzNydtpHJPeS/U?=
- =?us-ascii?Q?P3kf6WkdmSxUeoYIWs92KnQh2U3v3Q0n70PoD7eBz3kkXWhZ0POMqkiR9YL/?=
- =?us-ascii?Q?uIo8ANPT06fd3qz8Jp4pSRNTip0glQrhVb6ta/E8lce0a6/N+UQ74uiJcfuN?=
- =?us-ascii?Q?k7Z7Swh92cEtTU3x9qRCNlurO0GpNjmwkNOk/yVT0UxljSHQQGLZs1fY8UwT?=
- =?us-ascii?Q?LdJvNhJ4BCZRYaREL8yenqFBZypfBJ11FPHBHx4OjG5+aoS5PYIG3lEKsswf?=
- =?us-ascii?Q?eSChCfK++Cnt+Kr4wztScPS4nDR3LZXrVURrJI/OLsFPO9FI2yClNhCr1Yan?=
- =?us-ascii?Q?eMzt2PPUKvyn5RIepM/yStu5LouE9ao1n3l56g4Lbe57Q6LDkGf4cXF94vmF?=
- =?us-ascii?Q?vME/nvoXqa71vPIw9yKRGp0B8xk50aJtw+Hefw042gvjgwpMnFIFHS78eDxA?=
- =?us-ascii?Q?d/d4tTSdN7caMR4VwfJGO0baslaC5jTIff6JSOjyGjyyeQ3YvY+jgognsbls?=
- =?us-ascii?Q?6tDTQPSVrlnq0++AWNh4tmWIJ1SvHeqv90IbI0/okK2ks9JuXIxCRGigd0yY?=
- =?us-ascii?Q?NeJzVeOa8VXHMr9TD2++oRGh7xIPekqhHHT/LfrBEdkwMA0cJQO5liEGHmDX?=
- =?us-ascii?Q?pN2Ge4Lj5ULtXROESZ2tv7C9091EUhDZMQC5H3sv1r5HzuFGZ4Kwz49Ao/ID?=
- =?us-ascii?Q?pIN9vatpuJDia/tcrUsCM5Uj99Wfjx9SdWsNj49el4Ro/6sl1LXSQngFZ9oW?=
- =?us-ascii?Q?ygol2Inv0g=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?v3oQGT8xLFZc5WK8OjMz2fFZpRY7hejmid7qouzmUTRdb/Ev9BwEPeTtISbC?=
+ =?us-ascii?Q?svpMUbmLRj5iJ9mGQ2iI8XxJryVNeCwGSsbOePnaLmTCoSLg8x5KQc1n6xuf?=
+ =?us-ascii?Q?BJPrz3I90DCfzeE0qSg8mZRwHw6QOQOttXMLvylmNA1Ghl9cBZL/W4qlFJsl?=
+ =?us-ascii?Q?ZbAJW875XFMv4oXUFG8mUOjfLhhVD4b8UrdKxRtrW5Zz9mr0lSZDfTsNRGDG?=
+ =?us-ascii?Q?tnniQ48bRFnUZuzRrgzI7nDe4EzXR9+TUQneQKDcvO4QxXwvvGxKFIy5Ne/X?=
+ =?us-ascii?Q?pvg2CXxx6pmsJKAB1fRf9h/kcw6GTvPD9l4tHKlA+T1E8BbkZHvYzSHNPEmK?=
+ =?us-ascii?Q?P/DIJbo+w/HmnZSomq+XJ0in9NuqQ0RydcBZdyLBZ4FCbMVN7RNKwfB3RqN0?=
+ =?us-ascii?Q?37QKMrP2KKz/9w1TXTd3g/tKdNh261q2A6Teh3LtniVCAWJ/PLWrxgGp+OZU?=
+ =?us-ascii?Q?ufQhX8yY7vf2POPWlJijV25ys83F5MoQ5rPTYcnRUYWigH3kwGu6Glo7+l5O?=
+ =?us-ascii?Q?omhpvzglBL8ycCgKT+GByxZmPCiA7w8L7E0CT8QxRc8qyIEpfeTyeAoGdOqG?=
+ =?us-ascii?Q?z+Dq9zcGGgvGCiySmlCRL8oPGx8OajWtb1H+l3u7CIcNDducCAkgG0+794m2?=
+ =?us-ascii?Q?iWOm85Hd7O7sdwe4qVurl0RZ+gvukOVrtg3mqQHxLHEu8EE1ntB1x4UPNFzL?=
+ =?us-ascii?Q?kxDUWNTcyhF3MX943h7DAESspevPGAIUkjExVPp+EPo/HT2xqQmq/OOEsQjl?=
+ =?us-ascii?Q?/uHwE3x676ABIVDHJUKVS5MtA3Tda5TZIrtJX+87EV3ZXxGsj639qSJMZ6i3?=
+ =?us-ascii?Q?Ju+sKKKAuC9wQTCXZagYCyw02XNc4VTYGQ6aoyETD9ryS+Vyv9+G20JTMS+0?=
+ =?us-ascii?Q?AYngObMa30g6QWU/X6bfLV4T4X2fkTAG48YJVjMX/D/SrWmHv2yZ28N0Kgqu?=
+ =?us-ascii?Q?CJ/nxk87D/KZ0RgyVw0YFUfVbyiXGjURm6GWrfqkMy83qh7T6moZOw6zSjKx?=
+ =?us-ascii?Q?nTLID+sG6ve2Ak50r2qShvJY2Fpoaxo2U4bhqv01Ckoff/S3KrWX7NMdja9x?=
+ =?us-ascii?Q?Q/2S2GkxnF6u+NE8K6SW861B7+toHq9tmB/lzmJ+pVTr9UeexyqDKlM7r4x7?=
+ =?us-ascii?Q?8DmlPd+PaaWUF/JSjD9mWMVWgq1BsJqOqbk9HLoJk5ksV2frrmtzfT15jxYN?=
+ =?us-ascii?Q?IQdc4XPuISNB6k204JP77ZUgFMiML81xJOKkT5uRXBfw0/IT36gPbf0eeHNL?=
+ =?us-ascii?Q?E90+eb98oq2sCmj1ly5Si7wuodUfttjrMYSB/Cp0zvnvt7bPNKsmOKmS/FeH?=
+ =?us-ascii?Q?IcwVCZqauukvlIazYJ+CxyCrKPjtyg9R69lI/hXZPWAVCDXwm9pltaTWphUR?=
+ =?us-ascii?Q?CXGNTpqwCHcdmZOw8zCyrH1TRDGDcFB5tJ01Dat79bNhM0ymeJ4lmHA3/Sq5?=
+ =?us-ascii?Q?FXyRHXImCMT1sUz8EhRtpU426JxHdwpuGQgkY/ICGGCYyit92S6IW+gY92mo?=
+ =?us-ascii?Q?KMUO2DhJeY4xwuYspq0WLZTMvFdrBmEmwtLkDrWn/iVLFJPcz2RiswJfrWMl?=
+ =?us-ascii?Q?I0NRaIs5mSk0ItyFlBa3eegjLGyEnf/nAnp3rTg0A1aAscoqaEte6yF6PpaA?=
+ =?us-ascii?Q?AqVmY6HpN0FuSqQKZM+ZPzBCdUnNKa4xGx9c+79TmOSLD7zK/lYjMZz+QxVP?=
+ =?us-ascii?Q?EF6fidY0M8qEYEcMT5ZVXraNuKJ8zMER+3iHWeVUIr9q2yso81/U1UDXRkMt?=
+ =?us-ascii?Q?LgWxJL/y3Q=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bae8dcaa-c15a-4243-cd44-08dea30fcdf4
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5f712bc9-3c7d-4bbd-c7a8-08dea30fd6eb
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Apr 2026 21:15:41.0085 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Apr 2026 21:15:56.0316 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AdVUMPSL90qshBYe6EzAWomTCgv05awNOZd5fV85JWn4iZYOlyiWEGejP0GwJPLOTSWjyu4p8mSffm519+QIzQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8358
+X-MS-Exchange-CrossTenant-UserPrincipalName: k19X8WcCH/7u2pLBex96XDBzlLLiBu+Io7LO/bAMrSC+kp22INJn4/eLqxtz6zCJbK9Si3VRSKlGYWMdX0m/HA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH8PR12MB9765
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,141 +142,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add virtual address range tracking to the VMM using a buddy allocator.
-This enables contiguous virtual address range allocation for mappings.
+The C maple_tree struct contains a *mut c_void, which prevents Rust from
+auto-deriving Send/Sync. Following is an example error message when using
+MapleTree in nova-core's Vmm.
 
-Cc: Nikola Djukic <ndjukic@nvidia.com>
+This propagates up through MapleTreeAlloc to Vmm, BarUser, Gpu, and NovaCore,
+causing NovaCore to fail the Send bound required by pci::Driver:
+
+  error[E0277]: `*mut c_void` cannot be sent between threads safely
+      --> drivers/gpu/nova-core/driver.rs:77:22
+       |
+  77   | impl pci::Driver for NovaCore {
+       |                      ^^^^^^^^ `*mut c_void` cannot be sent between threads safely
+       |
+       = help: within `MapleTreeAlloc<()>`, the trait `Send` is not implemented for `*mut c_void`
+  note: required because it appears within the type `kernel::bindings::maple_tree`
+  note: required because it appears within the type `Opaque<kernel::bindings::maple_tree>`
+  note: required because it appears within the type `MapleTree<()>`
+  note: required because it appears within the type `MapleTreeAlloc<()>`
+       = note: required for `Box<MapleTreeAlloc<()>, Kmalloc>` to implement `Send`
+  note: required because it appears within the type `core::pin::Pin<Box<MapleTreeAlloc<()>, Kmalloc>>`
+  note: required because it appears within the type `Vmm`
+  note: required because it appears within the type `BarUser`
+  note: required because it appears within the type `Gpu`
+  note: required because it appears within the type `NovaCore`
+  note: required by a bound in `kernel::pci::Driver`
+      --> rust/kernel/pci.rs:294:19
+
+Implement Send and Sync for MapleTree. The tree contains no thread-local
+state, and all shared access goes through the internal ma_lock spinlock.
+
 Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
 ---
- drivers/gpu/nova-core/mm/vmm.rs | 89 +++++++++++++++++++++++++++++----
- 1 file changed, 79 insertions(+), 10 deletions(-)
+ rust/kernel/maple_tree.rs | 29 +++++++++++++++++++++++------
+ 1 file changed, 23 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/mm/vmm.rs b/drivers/gpu/nova-core/mm/vmm.rs
-index 7a2ab2acaa9b..81ae08ce1cd7 100644
---- a/drivers/gpu/nova-core/mm/vmm.rs
-+++ b/drivers/gpu/nova-core/mm/vmm.rs
-@@ -9,18 +9,27 @@
- use kernel::{
-     device,
-     gpu::buddy::AllocatedBlocks,
--    prelude::*, //
-+    maple_tree::MapleTreeAlloc,
-+    prelude::*,
- };
- 
--use crate::mm::{
--    pagetable::{
--        walk::{PtWalk, WalkResult},
--        MmuVersion, //
-+use core::ops::Range;
-+
-+use crate::{
-+    mm::{
-+        pagetable::{
-+            walk::{PtWalk, WalkResult},
-+            MmuVersion, //
-+        },
-+        GpuMm,
-+        Pfn,
-+        Vfn,
-+        VramAddress,
-+        PAGE_SIZE, //
+diff --git a/rust/kernel/maple_tree.rs b/rust/kernel/maple_tree.rs
+index 265d6396a78a..2400c905270d 100644
+--- a/rust/kernel/maple_tree.rs
++++ b/rust/kernel/maple_tree.rs
+@@ -16,7 +16,11 @@
+     alloc::Flags,
+     error::to_result,
+     prelude::*,
+-    types::{ForeignOwnable, Opaque},
++    types::{
++        ForeignOwnable,
++        NotThreadSafe,
++        Opaque, //
 +    },
-+    num::{
-+        IntoSafeCast, //
-     },
--    GpuMm,
--    Pfn,
--    Vfn,
--    VramAddress, //
  };
  
- /// Virtual Memory Manager for a GPU address space.
-@@ -35,23 +44,83 @@ pub(crate) struct Vmm {
-     mmu_version: MmuVersion,
-     /// Page table allocations required for mappings.
-     page_table_allocs: KVec<Pin<KBox<AllocatedBlocks>>>,
-+    /// Maple tree allocator for virtual address range tracking.
-+    virt_alloc: Pin<KBox<MapleTreeAlloc<()>>>,
-+    /// Total number of pages in the virtual address space.
-+    va_pages: usize,
- }
+ /// A maple tree optimized for storing non-overlapping ranges.
+@@ -240,7 +244,10 @@ pub fn lock(&self) -> MapleGuard<'_, T> {
+         unsafe { bindings::spin_lock(self.ma_lock()) };
  
- impl Vmm {
-     /// Create a new [`Vmm`] for the given Page Directory Base address.
--    pub(crate) fn new(pdb_addr: VramAddress, mmu_version: MmuVersion) -> Result<Self> {
-+    ///
-+    /// The [`Vmm`] will manage a virtual address space of `va_size` bytes.
-+    pub(crate) fn new(
-+        pdb_addr: VramAddress,
-+        mmu_version: MmuVersion,
-+        va_size: u64,
-+    ) -> Result<Self> {
-         // Only MMU v2 is supported for now.
-         if mmu_version != MmuVersion::V2 {
-             return Err(ENOTSUPP);
-         }
- 
-+        let page_size: u64 = PAGE_SIZE.into_safe_cast();
-+        let va_pages: usize = (va_size / page_size).into_safe_cast();
-+        let virt_alloc = KBox::pin_init(MapleTreeAlloc::<()>::new(), GFP_KERNEL)?;
-+
-         Ok(Self {
-             pdb_addr,
-             mmu_version,
-             page_table_allocs: KVec::new(),
-+            virt_alloc,
-+            va_pages,
-         })
+         // INVARIANT: We just took the spinlock.
+-        MapleGuard(self)
++        MapleGuard {
++            tree: self,
++            _not_send: NotThreadSafe,
++        }
      }
  
-+    /// Allocate a contiguous virtual frame number range.
-+    ///
-+    /// # Arguments
-+    ///
-+    /// - `num_pages`: Number of pages to allocate.
-+    /// - `va_range`: `None` = allocate anywhere, `Some(range)` = constrain allocation to the given
-+    ///   range.
-+    fn alloc_vfn_range(
-+        &self,
-+        num_pages: usize,
-+        va_range: Option<Range<u64>>,
-+    ) -> Result<Vfn> {
-+        let page_size: u64 = PAGE_SIZE.into_safe_cast();
+     #[inline]
+@@ -302,19 +309,29 @@ fn drop(mut self: Pin<&mut Self>) {
+     }
+ }
+ 
++// SAFETY: `MapleTree<T>` is `Send` if `T` is `Send` because `MapleTree` owns its elements.
++unsafe impl<T: ForeignOwnable + Send> Send for MapleTree<T> {}
++// SAFETY: `&MapleTree<T>` never hands out `&T`; all entry access is serialized
++// by `ma_lock` or `&mut Guard`, so `T: Send` suffices (`T: Sync` not required).
++unsafe impl<T: ForeignOwnable + Send> Sync for MapleTree<T> {}
 +
-+        let start_vfn = match va_range {
-+            Some(r) => {
-+                let num_pages_u64: u64 = num_pages.into_safe_cast();
-+                let size = num_pages_u64.checked_mul(page_size).ok_or(EOVERFLOW)?;
-+                let range_size = r.end.checked_sub(r.start).ok_or(EOVERFLOW)?;
-+                if range_size != size {
-+                    return Err(EINVAL);
-+                }
-+                let start_vfn: usize = (r.start / page_size).into_safe_cast();
-+                let end_vfn: usize = (r.end / page_size).into_safe_cast();
-+                self.virt_alloc
-+                    .insert_range(start_vfn..end_vfn, (), GFP_KERNEL)?;
-+                start_vfn
-+            }
-+            None => self
-+                .virt_alloc
-+                .alloc_range(num_pages, (), ..self.va_pages, GFP_KERNEL)?,
-+        };
-+
-+        Ok(Vfn::new(start_vfn.into_safe_cast()))
-+    }
-+
-+    /// Free a virtual frame number range back to the maple tree.
-+    fn free_vfn(&self, vfn: Vfn) {
-+        let vfn_index: usize = vfn.raw().into_safe_cast();
-+        if self.virt_alloc.erase(vfn_index).is_none() {
-+            kernel::pr_warn!("free_vfn: VFN {} not found in maple tree\n", vfn_index);
-+        }
-+    }
-+
-     /// Read the [`Pfn`] for a mapped [`Vfn`] if one is mapped.
-     pub(super) fn read_mapping(
-         &self,
+ /// A reference to a [`MapleTree`] that owns the inner lock.
+ ///
+ /// # Invariants
+ ///
+ /// This guard owns the inner spinlock.
+ #[must_use = "if unused, the lock will be immediately unlocked"]
+-pub struct MapleGuard<'tree, T: ForeignOwnable>(&'tree MapleTree<T>);
++pub struct MapleGuard<'tree, T: ForeignOwnable> {
++    tree: &'tree MapleTree<T>,
++    // A held spinlock must be released on the same CPU that acquired it.
++    _not_send: NotThreadSafe,
++}
+ 
+ impl<'tree, T: ForeignOwnable> Drop for MapleGuard<'tree, T> {
+     #[inline]
+     fn drop(&mut self) {
+         // SAFETY: By the type invariants, we hold this spinlock.
+-        unsafe { bindings::spin_unlock(self.0.ma_lock()) };
++        unsafe { bindings::spin_unlock(self.tree.ma_lock()) };
+     }
+ }
+ 
+@@ -323,7 +340,7 @@ impl<'tree, T: ForeignOwnable> MapleGuard<'tree, T> {
+     pub fn ma_state(&mut self, first: usize, end: usize) -> MaState<'_, T> {
+         // SAFETY: The `MaState` borrows this `MapleGuard`, so it can also borrow the `MapleGuard`s
+         // read/write permissions to the maple tree.
+-        unsafe { MaState::new_raw(self.0, first, end) }
++        unsafe { MaState::new_raw(self.tree, first, end) }
+     }
+ 
+     /// Load the value at the given index.
+@@ -375,7 +392,7 @@ pub fn ma_state(&mut self, first: usize, end: usize) -> MaState<'_, T> {
+     #[inline]
+     pub fn load(&mut self, index: usize) -> Option<T::BorrowedMut<'_>> {
+         // SAFETY: `self.tree` contains a valid maple tree.
+-        let ret = unsafe { bindings::mtree_load(self.0.tree.get(), index) };
++        let ret = unsafe { bindings::mtree_load(self.tree.tree.get(), index) };
+         if ret.is_null() {
+             return None;
+         }
 -- 
 2.34.1
 
