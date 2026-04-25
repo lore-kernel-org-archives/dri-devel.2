@@ -4,71 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E61A1FF885A
-	for <dri-devel@archiver.kernel.org>; Sat, 25 Apr 2026 05:42:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A743FF885C
+	for <dri-devel@archiver.kernel.org>; Sat, 25 Apr 2026 06:39:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CACE110E034;
-	Sat, 25 Apr 2026 05:42:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E0EB10E00F;
+	Sat, 25 Apr 2026 06:39:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="AIulHLRA";
+	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="D/3L2X0K";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34CC310E034
- for <dri-devel@lists.freedesktop.org>; Sat, 25 Apr 2026 05:42:07 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id CAA454450B;
- Sat, 25 Apr 2026 05:42:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F38FC2BCB2;
- Sat, 25 Apr 2026 05:42:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1777095726;
- bh=HPRnxwXK8vu5np6VX+55Q2Y3ogOkac72lAGyNzFWA/g=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=AIulHLRAKLlLErfT4LNX6qehizWiYSRf/7frr23MN5EuQV/uv1/GMEgWhNnYOC3S2
- P7aAr8Ifr31gNTvRcI/4Tu1+p8sDQj+AymmqnfPtX25X51hEmG9Qfc+0zfM+WqN3cH
- qxacBTLwV8747T2MjGJ/lwbO5Uglr0akF36/x8Rk=
-Date: Sat, 25 Apr 2026 07:42:04 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Stefan Schmidt <stefan.schmidt@linaro.org>,
- Hans Verkuil <hverkuil@kernel.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>,
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Hunter <jonathanh@nvidia.com>, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
- driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Subject: Re: [PATCH v2 02/13] drivers: base: Add generic dma context bus
-Message-ID: <2026042539-swab-active-21a5@gregkh>
-References: <20260423-glymur-v2-0-0296bccb9f4e@oss.qualcomm.com>
- <20260423-glymur-v2-2-0296bccb9f4e@oss.qualcomm.com>
- <2026042346-trustable-register-095a@gregkh>
- <06c04947-e72e-679b-493b-e112d693f391@oss.qualcomm.com>
- <2026042422-deem-chemist-8d0f@gregkh>
- <4c3fa710-f61a-4aad-622d-54909190cb9e@oss.qualcomm.com>
- <2026042428-blemish-helpline-7d8d@gregkh>
- <1e039dd5-da3f-19b2-ef98-29e64fdd925d@oss.qualcomm.com>
- <2026042442-luxurious-antonym-f20c@gregkh>
- <xuitjl6tzfl6nl4ds4vdy3637i5cqtjuqntcpqt5fnkx2ogcws@iapcavrwhyzv>
+Received: from OS0P286CU011.outbound.protection.outlook.com
+ (mail-japanwestazon11010010.outbound.protection.outlook.com [52.101.228.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FDB710E00F
+ for <dri-devel@lists.freedesktop.org>; Sat, 25 Apr 2026 06:39:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tnGSmHVTb7XhsbxoorAVJsxtYIWI1UKTZLYmswelQlM9AVkeUaw/mzr9p2HxKKD6Hu1HblAssnQweUJNpcQV1Keqvprw266PZT/hnI0355mslhthnd6HtD2hwSDKrnLtytNzSTVB0kkJLIuaG2hymDEecC2X5ugwVijSNmJaSE2nBqcWMrbevKD0/AvLPwLeaWqyHokGbZ9+MB4qlqDv+jd4nhBff9CiEMM3XoN/HFJUxkYm55c4y9XALhaoCxvB5beTRNV/SJ31IOPaDxNNhYSfi3M/16V3wZjGwvCrRnPnKNkhbituHe4HBN7Jb62SBZEFQH1Bda8u7Qyr4HaneQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6HZlZjF8BMVc3vDR5+4WvjQfzbxvtvANiKyfQQUJNOc=;
+ b=EJZwrE0SEIJW9liq2rdGrwrbiXeV3meu7wQIGxb5jY6lVuoYMKrBo/hJ6mAAsW7rAuhkvYdwV6A6+Sa0zhRMwVhMndA+XZYypsYHqLJa85rCq5bWAMVkYdqrsFPFAGh5z0R8dSvj8qSH/+FCXrovJBCe5pvnD+d+9MlMUZ34pjlGntl9iKlJ0v7KCJWt+h+II+QiCiY1IecyQE7jdDrVeuSZhXnVhe675eJRnfE3qU0YfyILwwaDEbGxuEk52JiGw6oJwOrdbcPkNTPvmVwwr8EYWOVvRQGDpfeq/9qnr/8KanL0yuHjnhkYJQ4Fg636i5yydMMmXwL2PhApKIDkuQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6HZlZjF8BMVc3vDR5+4WvjQfzbxvtvANiKyfQQUJNOc=;
+ b=D/3L2X0KZ6W64L1L6giIY3ajS4HlHP4NKArDWH6BNPBwUaVumJ/obpOHs+IBpI/hIg6Xw8CF0+Xkaebht+RUS072fTsWXKKY/r2WABJY5H8QFjxuIHoB+ywC5QmYsQJ368BXko/s57ANqTPuYQSgxRK9DyGdBSBHf9tddAiPRIQ=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by OS3PR01MB10153.jpnprd01.prod.outlook.com (2603:1096:604:1e4::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.23; Sat, 25 Apr
+ 2026 06:39:44 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.20.9846.023; Sat, 25 Apr 2026
+ 06:39:41 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: John Madieu <john.madieu.xa@bp.renesas.com>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "mripard@kernel.org" <mripard@kernel.org>, "tzimmermann@suse.de"
+ <tzimmermann@suse.de>, "airlied@gmail.com" <airlied@gmail.com>,
+ "simona@ffwll.ch" <simona@ffwll.ch>
+CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "john.madieu@gmail.com" <john.madieu@gmail.com>
+Subject: RE: [PATCH] drm: renesas: rz-du: mipi-dsi: drop duplicate
+ platform_set_drvdata() call
+Thread-Topic: [PATCH] drm: renesas: rz-du: mipi-dsi: drop duplicate
+ platform_set_drvdata() call
+Thread-Index: AQHc1Fth6WAavjC7t0+tqZxtVO5pfLXvU0+A
+Date: Sat, 25 Apr 2026 06:39:41 +0000
+Message-ID: <TY3PR01MB11346EADBA4CCD3950E93A41686282@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20260425022857.2382603-1-john.madieu.xa@bp.renesas.com>
+In-Reply-To: <20260425022857.2382603-1-john.madieu.xa@bp.renesas.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|OS3PR01MB10153:EE_
+x-ms-office365-filtering-correlation-id: 163c26ad-f404-43d0-e114-08dea2956e0e
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|38070700021|18002099003|22082099003|56012099003;
+x-microsoft-antispam-message-info: KAHgKn73s1kTFgnpfWjw/vBNsWIzOwewqDwgtYuhETP1as+eqcQ+SBe7xNaFJz6AIptJFAOJ8ifSLHsoabJCGFiJQeILVKu8Q+6XktfEkuTNfYAC9py2Ak+EetiwlP4cIX8T7AsTBIEQbUKHATw1WC/6xZwvKtMYpc4IS+WRZ65Qw43qB37aOF7+7/3LdT8q5nZ4D6zvJ8buZfLZLF6HiPWtFfZoYNBE3vWfYcuS0ZcULqQ+jte4UMwiUlsQ2QCb+QooijT1sGhKPjGc76/IrvpIN/RgAPvbdk4KAt74LQ4gPYY7um0Zdt6cYBZrDzf3Qe2+iJjBaCHqWGFgHxrsB+FrY2F93pGpkl0xppFoLmmRitaJY3KywBefrtmC6XD5UzoWp2sCPxmdTmM70ZMbGFhlYKzHBREJJaxAu4W/fsH3SlT5HqntQ+IqLNl5JBRWv8wsScBRNvjWHzITpK07ETMtzwpgeQ01187agmNCNoB+eAnqGC+9yST77gf72mb0KWygoZjBsxJKju4tKx7+jQFcaoDaEqXv6OkNE3AjRx9UAuRZ3NW/j0/1fzkfIMyiOoYsR9EML2HoENY2ZluqF/QHLkNZWPQ5ePF64RjC+gePoHVG1UD9NXQ/TmGfctenxTITU+NxxAKfyuBtLpsrrbNmSeSrGJC33yN5TbcxrRxm3f47bXenYkk20ypzltMH6I/HeT4BazjjsXKznGx4LRGyuP4awoz+zX9w1m1ibPLE8a0WHl5Pr6ENIA2+oaMAPyehS5faGnJKe2ZM3VRJjkVYo31orN09jJy5ulrrujs=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TY3PR01MB11346.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(38070700021)(18002099003)(22082099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?JjQ1KBt/HNbMMqe3Ga3iFexDYWCmH9ujZ9ElQeobkiulpF+jD6xQ11Ug6Ire?=
+ =?us-ascii?Q?NPkRTqgoPTXo1w/2gHgBcDp//Ty7M6BY0Wa+mzcQ5+pS3ncDkNRsjkU3lI+d?=
+ =?us-ascii?Q?2mO9PP7mNGeuL6hc5Q4BXheK5lNxTFGKHtomzl3gdcWmrSfjr0rXFji8Xter?=
+ =?us-ascii?Q?HF51CbzCo3N2FVtvmI1aDLg0DpQz1lV6daEZOrxaYe2fm+ZHR1341jTzq6gP?=
+ =?us-ascii?Q?SuPF8CMtw/5ECp9aXEy8ZbhighwOqjI9RiCt/OLFsL76Jf2AvZyYdVe4K9YU?=
+ =?us-ascii?Q?VfHBOK1uAFumpd8CvSrHAMN01enmYpZYFyZQU0HZ7RdmcXOFQ6zco6iwMvuP?=
+ =?us-ascii?Q?ohf5CATj5EmKDGrpJP9Oacst9eb/QUW1qeCJxHZQEAj0nYs4CREYgomKt+sk?=
+ =?us-ascii?Q?RJ4ECtwBrUxIpPolh8YWmwRk14I3sGippxwToI5GcBM4glQxeEIhBtPykups?=
+ =?us-ascii?Q?iiC19jllXaVYWox+Ue1A/5Tqg1d04EteiRexgxkOacbqwEwFgaXraX5xzgDc?=
+ =?us-ascii?Q?Eb1iJKUYDlo7J46E+T2CywK2o9qQXpluet0KM2CogJElF15X1yyuYBDQ7kei?=
+ =?us-ascii?Q?MWmMn6Y/qboSD97yekP/JkaAiNxYsg2K/CtWdVHV53fkDTObFGO+xJ5+x7bC?=
+ =?us-ascii?Q?CJDRnTnzhcNdUrYvthR3/accTmgPQxJam/HcT+bc56/Q/Gd7bi5BVnMaFQb/?=
+ =?us-ascii?Q?Seib91nzDxC2eK92z3mkjOe2H/BjP2dEXY7dHwVqqMuJdx+I3uP6+ldfJ4dS?=
+ =?us-ascii?Q?ArqqVoq+3/V5vbLXo9jIAvRWWnWikTQBPzeS5Xlw1G79oALhbHaZA2Qt5fww?=
+ =?us-ascii?Q?GDkl2eTwCoO1suZOlQ2ugOAf0dVKqRzH6tC0wdJKCTRIhzTiny6E69ko+OLK?=
+ =?us-ascii?Q?4g9emHYXwxMIpPuwujsksE0OxiJkVIRKWMS2y1WgO5yYAfBIqVIuEdFirlSf?=
+ =?us-ascii?Q?KYDdNpj8x8osgXn22INTpDIrwe98v76EqfUmc/Ov8hfchLvjlDURSVib8dmj?=
+ =?us-ascii?Q?CMzBUh6Pe1SpvUxgv5cd9QPqxVfOkbj0BFEF0JPKFZhHkKTCSk/aE4OrB8r2?=
+ =?us-ascii?Q?dSvOuCULRIkF7oJMNGrfvMc5VphwjgmJn7HOlbfHarjZtz4UOIXUbY+mHmJT?=
+ =?us-ascii?Q?vwdix/Fmw/fEuwO9lAkGffHR/NR/JURTBqEASAY5VHEjjQ1fXs5CeW7xsobC?=
+ =?us-ascii?Q?u8qjxA5fp9iDJpg7a1/h5bpWiPU++SJoAK/kqYLvbzDwtbnNI2VEzAH10vPX?=
+ =?us-ascii?Q?liMpE3P4aXCdxcki7YQsdKk96KU3CMCJS+mlgGDed5Y92Sph6llyjbFvZ8xQ?=
+ =?us-ascii?Q?5wLa9ay51cUIdAFpTANEyV2MLskjRS/CbjUSvJnBC6QzzAMJogCqqABoVxmD?=
+ =?us-ascii?Q?Lza1/LW1AmZlNZ0gPvrwOM5o14dcKWryzP1ucHnovaeDLZL087+YAsSp6ANd?=
+ =?us-ascii?Q?kJqmJcLJCAkPhWipX+upTOYt+FTPBem1HmfG57bFdkCPv6Ti6SF56CBVR1oP?=
+ =?us-ascii?Q?hic+iSgAw/HGzwGrsL3qcrma+rrSDMt2jpl4KMSea6vdr9HW5CUEnIvghAC0?=
+ =?us-ascii?Q?0CYdlnzt64jZUWkxrkz+tsVPjFBudsdHZSvman4HqI9tqtzzBUkmdImtQUI+?=
+ =?us-ascii?Q?1asYsfla5gpIA5UULINLrQkdWWFcPJEkYW3pX+wGpKcPiezG5Hf4yMiQD1xQ?=
+ =?us-ascii?Q?jyL5xBfIN/ZUvtwr2UOVQj+pYFBRLT+1WwLubQPGxms4NpfVnqpE7cx9zaJa?=
+ =?us-ascii?Q?7Kjy3qA+mg=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <xuitjl6tzfl6nl4ds4vdy3637i5cqtjuqntcpqt5fnkx2ogcws@iapcavrwhyzv>
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 163c26ad-f404-43d0-e114-08dea2956e0e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Apr 2026 06:39:41.2862 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: oSR7moU+IhH5kaKis4LLm6yOSmE7dY32dY35pnqK6v3P+NL6kli+3UMcJMK4KFbjkHIYh9p98A3XwZvRyaYoGwu4Eo07/Ld/8X4fWE0JnbU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB10153
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,113 +136,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Apr 24, 2026 at 07:11:35PM +0300, Dmitry Baryshkov wrote:
-> On Fri, Apr 24, 2026 at 03:34:38PM +0200, Greg Kroah-Hartman wrote:
-> > On Fri, Apr 24, 2026 at 06:12:09PM +0530, Vishnu Reddy wrote:
-> > > 
-> > > On 4/24/2026 5:25 PM, Greg Kroah-Hartman wrote:
-> > > > On Fri, Apr 24, 2026 at 05:15:02PM +0530, Vishnu Reddy wrote:
-> > > >> On 4/24/2026 4:43 PM, Greg Kroah-Hartman wrote:
-> > > >>> On Fri, Apr 24, 2026 at 04:01:13PM +0530, Vishnu Reddy wrote:
-> > > >>>> On 4/23/2026 7:07 PM, Greg Kroah-Hartman wrote:
-> > > >>>>> On Thu, Apr 23, 2026 at 06:59:31PM +0530, Vishnu Reddy wrote:
-> > > >>>>>> From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-> > > >>>>>>
-> > > >>>>>> When a driver needs to create virtual device at runtime and map it to
-> > > >>>>>> an IOMMU context for memory isolation, there is no common bus available
-> > > >>>>>> for this purpose. Each driver ends up implementing its own bus type,
-> > > >>>>>> leading to duplicated logic across multiple drivers.
-> > > >>>>>>
-> > > >>>>>> host1x driver implemented its own bus type to attach an IOMMU context to
-> > > >>>>>> a dynamically created device. The Iris VPU driver now has the same
-> > > >>>>>> requirement. Rather than duplicating the same bus logic again, a shared
-> > > >>>>>> bus type is introduced under drivers/base that multiple drivers can use
-> > > >>>>>> directly.
-> > > >>>>>>
-> > > >>>>>> The bus takes care of creating a device and attaching the IOMMU context
-> > > >>>>>> to it based on the client inputs.
-> > > >>>>>>
-> > > >>>>>> Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> > > >>>>>> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-> > > >>>>>> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-> > > >>>>>> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> > > >>>>>> ---
-> > > >>>>>>  drivers/base/Kconfig            |  3 ++
-> > > >>>>>>  drivers/base/Makefile           |  1 +
-> > > >>>>>>  drivers/base/dma_context_bus.c  | 77 +++++++++++++++++++++++++++++++++++++++++
-> > > >>>>>>  include/linux/dma_context_bus.h | 26 ++++++++++++++
-> > > >>>>>>  4 files changed, 107 insertions(+)
-> > > >>>>> as you can not have a device on multiple busses at the same time, this
-> > > >>>>> makes no sense to me at all.  "dma context" is a bus-specific thing, so
-> > > >>>>> please add it to the bus that you are wanting it for.  It can't be a
-> > > >>>>> generic bus as that just doesn't work.
-> > > >>>>>
-> > > >>>>> Or what am I missing here?
-> > > >>>>>
-> > > >>>>> And why is DMA somehow "special" here from any other hardware attribute?
-> > > >>>> Let me give brief information which was discussed, in the initial series,
-> > > >>>> the iris VPU used platform bus for dynamically created devices and we got
-> > > >>>> the comment/suggestion from Robin to implement a proper bus_type with a
-> > > >>>> .dma_configure callback.
-> > > >>>>
-> > > >>>> https://lore.kernel.org/all/02b3d0f5-f94c-43cd-93af-97cfcf7751b1@arm.com/
-> > > >>>>
-> > > >>>> based on the discussion, implemented the dma_context_bus and used for iris
-> > > >>>> VPU devices instead of platform bus.
-> > > >>> Why not make a irus_vpu_bus where you can do what you want?
-> > > >> Initially iris_vpu_bus was introduced, and it was made generic based on the
-> > > >> discussion,
-> > > >>
-> > > >> https://lore.kernel.org/all/20260227-kaanapali-iris-v2-3-850043ac3933@oss.qualcomm.com/
-> > > > I don't really see that request here, I see a "make this better and more
-> > > > generic for other busses" but that does not mean "dump it into
-> > > > drivers/bus/ for someone else to maintain" :)
-> > > >
-> > > >>>> Here, the device have only one bus (dma_context_bus), not multiple buses.
-> > > >>>>
-> > > >>>> Regarding the "DMA" naming, the core operation of this bus is its
-> > > >>>> .dma_configure callback, which calls of_dma_configure_id() to map the device
-> > > >>>> to a corresponding IOMMU stream ID. The name "dma_context" reflects this
-> > > >>>> purpose.
-> > > >>>>
-> > > >>>> I am open to suggestions from you or Robin or anyone else, if there is a
-> > > >>>> better or preferred way to achieve this, I am happy to consider it and
-> > > >>>> rework the implementation accordingly.
-> > > >>> As there is only one user, just make this your own bus please and do all
-> > > >>> of the needed bus operations for your devices there (i.e. don't hang an
-> > > >>> "empty" device off of it.)
-> > > >> The reasoning behind to make it generic was to have more users - host1x,
-> > > >> Iris VPU, QDA on the generic context bus, instead of each of them having
-> > > >> their own. Let me know if you suggest to have the iris_vpu_bus.
-> > > > But you did not add such users here, so how would we know this?
-> > > >
-> > > > And still, I have no idea what this bus really is doing.  Is it dynamic?
-> > > > Is it self-describing?  Why not just use aux-bus?  What is it supposed
-> > > > to be doing and used for?
-> > > 
-> > > This bus will allow users to create a dynamic device and map to IOMMU stream
-> > > ID via .dma_configure callback which calls the of_dma_confgure_id() based on
-> > > the user inputs. This bus is under the iommu_buses list to register for bus
-> > > notifier callbacks for iommu_probe_device() and iommu_release_device() during
-> > > add and remove.
-> > 
-> > But a device is nothing on its own.  You can not just have a random
-> > 'struct device' hanging out there that does nothing but iommu, right?
-> > It should be doing something else that is very "bus" specific.
-> 
-> Unfortunately, it is a pattern of IOMMU-only devices. All the actual
-> programmig is done through IO region associated with the main device,
-> while subdevices are mostly used for DMA buffer allocation.
+Hi John,
 
-Great, then you have a "host controller" for the devices, and children
-devices on that bus, with proper drivers binding to them.  Like all
-other normal busses.
+Thanks for the patch.
 
-Yes, writing a new bus is a bit more pain than it should be, one of
-these days someone will get around to making that simpler...
+> -----Original Message-----
+> From: John Madieu <john.madieu.xa@bp.renesas.com>
+> Sent: 25 April 2026 03:29
+> Subject: [PATCH] drm: renesas: rz-du: mipi-dsi: drop duplicate platform_s=
+et_drvdata() call
+>=20
+> rzg2l_mipi_dsi_probe() calls platform_set_drvdata() twice with the same
+> arguments: once right after devm_drm_bridge_alloc() succeeds and again af=
+ter the reset controllers have
+> been acquired. The second call is redundant; remove it.
+>=20
+> No functional change.
+>=20
+> Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
+> ---
+>  drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c | 2 --
+>  1 file changed, 2 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c b/drivers/gpu=
+/drm/renesas/rz-
+> du/rzg2l_mipi_dsi.c
+> index 0b4861824319..b8527661a409 100644
+> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+> @@ -1441,8 +1441,6 @@ static int rzg2l_mipi_dsi_probe(struct platform_dev=
+ice *pdev)
+>  		return dev_err_probe(dsi->dev, PTR_ERR(dsi->prstc),
+>  				     "failed to get prst\n");
+>=20
+> -	platform_set_drvdata(pdev, dsi);
+> -
 
-Along those lines, why aren't these new drivers in rust?  :)
+Keep this one here and drop the earlier one as pm_runtime_resume is the fir=
+st user
+of drvdata.
 
-thanks,
+Cheers,
+Biju
 
-greg k-h
+>  	pm_runtime_enable(dsi->dev);
+>=20
+>  	ret =3D pm_runtime_resume_and_get(dsi->dev);
+> --
+> 2.25.1
+
