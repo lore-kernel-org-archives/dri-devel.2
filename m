@@ -4,71 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11A7BFF8850
-	for <dri-devel@archiver.kernel.org>; Sun, 26 Apr 2026 06:47:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E2E3FF8865
+	for <dri-devel@archiver.kernel.org>; Sun, 26 Apr 2026 06:47:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF37510E50D;
-	Sun, 26 Apr 2026 06:47:14 +0000 (UTC)
-X-Greylist: delayed 984 seconds by postgrey-1.36 at gabe;
- Sat, 25 Apr 2026 06:59:06 UTC
-Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com
- [45.249.212.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5ED9910E0D6;
- Sat, 25 Apr 2026 06:59:06 +0000 (UTC)
-Received: from mail.maildlp.com (unknown [172.19.163.198])
- by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4g2gHC1b9YzKHMXJ;
- Sat, 25 Apr 2026 14:42:15 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.128])
- by mail.maildlp.com (Postfix) with ESMTP id 4AC9640574;
- Sat, 25 Apr 2026 14:42:40 +0800 (CST)
-Received: from [10.67.111.176] (unknown [10.67.111.176])
- by APP4 (Coremail) with SMTP id gCh0CgA3HrxeYuxpzYCiBg--.33183S2;
- Sat, 25 Apr 2026 14:42:40 +0800 (CST)
-Message-ID: <220aadd9-0d92-44ce-8a70-bd30030defa9@huaweicloud.com>
-Date: Sat, 25 Apr 2026 14:42:38 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] cgroup/dmem: Add reclaim callback for lowering max
- below current usage
-To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- intel-xe@lists.freedesktop.org
-Cc: Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>, 
- Tejun Heo <tj@kernel.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>, cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Matthew Auld <matthew.auld@intel.com>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38B2A10E518;
+	Sun, 26 Apr 2026 06:47:15 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NA0lQZyr";
+	dkim-atps=neutral
+Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com
+ [209.85.160.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC4E910E034
+ for <dri-devel@lists.freedesktop.org>; Sat, 25 Apr 2026 05:39:58 +0000 (UTC)
+Received: by mail-qt1-f175.google.com with SMTP id
+ d75a77b69052e-50e63771d91so70454951cf.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 22:39:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1777095598; x=1777700398; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=ee9tn27jibidoYwOFfvWDoDEqvYUolsrYADjFbx6g60=;
+ b=NA0lQZyrGQL++UMLLsDZiyM6xK03EUM33ofjEmjVYV9Dc/h0AZh7KTgIdsFM0d5JRr
+ wjHrnJCHZWN/bIfKfOI14tba2Hyxz8a+bV6lMCIdsddAW3pTxCROhQdIG0j8rCFUWFY9
+ C7mBhzODLchhMGSU5DHcH1zqcTwiLSPAnblwfBdfjgb+jqqvm4UJ5iOi35sBUZh3lEJF
+ RZA4yJu0bQ/ZvN5JQ98uE5PW4kS4f6LR/qYcyUGgFpmdjb7sx3Y7EikPUVOXvfLyPvGz
+ OJSgclhPy9DoRDzMnaICVOGrVG53O0NClDL40g3/KQJnBrFzE5T1Jq/ceyK3Bu0SRB7l
+ JTIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777095598; x=1777700398;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ee9tn27jibidoYwOFfvWDoDEqvYUolsrYADjFbx6g60=;
+ b=GVWIZ2imA2pYKhoVf04sVQVUdv1PrbqANWhwDPzH7Bhmv1NuDxEMbBxzfmBGOw01/V
+ zQ5+pO6qI4H17P3omg01uLFgN6DVnYxCHRNrJR+wIYt/+1Yo8ghhdszyw+NbmuR1Bk4Q
+ lPdMv3Ww31XgquYFDVnChBmGDni3BlWsz/A30gvqoncrPmmy/e53MUezM+nHb9Bqhag/
+ GmQFKd/a0UYCPURRhPLkbrSaaUuFB5Jgd0y+2tWJXVfPnjys8DMty8A1xQ1RtJKxlCWL
+ CqlvAnu+8Ldi3AqZ2PbkbnAREnaR/EStmKgvwfduWernSmCk3dZiv27jdoh0Txc473Na
+ xTDg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/USRi/S0TOEV2rcHrkRjZ2NCGHDRgKjCbTm8oSFaFQgHLZ6Piz9M+v1j8AlLSeTafoSHdRDnMrodk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyFervmqtEBpCRYrWzAW0136WNj5B8JTx8fME6cWdgx+iliWcSG
+ VAVkRFLsyRMNJcvfLkwXb1Vyve5q4BxAajJMMCVHhDkboQDeUskFB8+v
+X-Gm-Gg: AeBDietVzRyPFE5n2eEJqZEXYoJaQFRZHHAUeZ9eZhctz1ESprha3PzLENUPyMzJ+my
+ 1zL2YnQxMuYvoFJK1V3dTxgMD0sojHGxQQULYU0USqRk8lFNHf4NgU7fZPtIO0KmK2p7yr4xfFT
+ 5m68b12tNqy+QzDgdz9KkP4++lafJvNC9RB3zJpKo8kwF2vefOhFqJzkf1KBuMLhQ0JieNO+A1d
+ HSrpQTvtdA7rR6F1cPiKBm/s7bLuoGvJ0rgMHeL66kKse9rsGjDT04TeSesLOyIEh3R2CgT/P64
+ tzZwuB0Sfl0R+DF7o1OaU49SUxoQfXI5uWkriO5d7p/7SbFDtn2tfYG+7E2kHGEGh+LWDELoNWP
+ AOx0aKhkJKmbm45fbWZ+bHFD00HKojtMI0NVmzS0EGpZWk74sMw9D/pjh1VMq2NaN8VYNu2cpy2
+ ZI7kvtP00eI58vdiJr0lfclL8LaH/1vIPCaMndr+wsr9temGTeB28N2vCv7IjM6Ebs2R/aXRx1I
+ lohcWZdzp5INeIw12Kzl0r1nH4eBeMADXUWVI5t75tg3nItfeaTOJ8NEzeC6kGUYzhlayC1OSHo
+ mTloy3YYldjJAVkiPG7ehR3iRW0=
+X-Received: by 2002:a05:622a:1208:b0:509:44c3:5ffa with SMTP id
+ d75a77b69052e-50e36c69265mr486591751cf.52.1777095597716; 
+ Fri, 24 Apr 2026 22:39:57 -0700 (PDT)
+Received: from Christians.localdomain (c-68-55-113-25.hsd1.mi.comcast.net.
+ [68.55.113.25]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-50fc9715610sm75943411cf.10.2026.04.24.22.39.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 24 Apr 2026 22:39:57 -0700 (PDT)
+From: Christian Van <cvan20191@gmail.com>
+To: Jagan Teki <jagan@amarulasolutions.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Jessica Zhang <jesszhan0024@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Simona Vetter <simona@ffwll.ch>, David Airlie <airlied@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260327081600.4885-1-thomas.hellstrom@linux.intel.com>
- <20260327081600.4885-3-thomas.hellstrom@linux.intel.com>
-Content-Language: en-US
-From: Chen Ridong <chenridong@huaweicloud.com>
-In-Reply-To: <20260327081600.4885-3-thomas.hellstrom@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Christian Van <cvan20191@gmail.com>
+Subject: [PATCH] drm/panel: feiyang-fy07024di26a30d: return display-on error
+Date: Sat, 25 Apr 2026 01:39:48 -0400
+Message-ID: <20260425053948.117714-1-cvan20191@gmail.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: gCh0CgA3HrxeYuxpzYCiBg--.33183S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3Jr4kKr4xGFWxCr47Ar1DKFg_yoW3XrykpF
- ZrCr13Kw4rXrW7Zrsay3W8uF93u3Wvgr45W34xGw4fuFsrJw1Yyr4qk3yYyF1UCF9rGr1f
- Xan0krnruFWjyrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvjb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I20VC2zVCF04k2
- 6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
- vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7Cj
- xVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I
- 0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40E
- x7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x
- 0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AF
- wI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
- xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5
- MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I
- 0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWU
- JVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUIa
- 0PDUUUU
-X-CM-SenderInfo: hfkh02xlgr0w46kxt4xhlfz01xgou0bp/
 X-Mailman-Approved-At: Sun, 26 Apr 2026 06:46:56 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,215 +94,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+mipi_dsi_dcs_set_display_on() returns an error code, but feiyang_enable()
+currently ignores it and always reports success.
 
+Return the DCS command result so callers can observe enable failures.
 
-On 2026/3/27 16:15, Thomas Hellström wrote:
-> Add an optional reclaim callback to struct dmem_cgroup_region.  When
-> dmem.max is set below current usage, invoke the callback to evict memory
-> and retry setting the limit rather than failing immediately.  Signal
-> interruptions propagate back to the write() caller.
-> 
-> RFC:
-> Due to us updating the max limit _after_ the usage has been
-> sufficiently lowered, this should be prone to failures if there are
-> aggressive allocators running in parallel to the reclaim.
-> So can we somehow enforce the new limit while the eviction is
-> happening?
-> 
-> Assisted-by: GitHub Copilot:claude-sonnet-4.6
-> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> ---
->  include/linux/cgroup_dmem.h | 11 +++++
->  kernel/cgroup/dmem.c        | 94 +++++++++++++++++++++++++++++++++----
->  2 files changed, 96 insertions(+), 9 deletions(-)
-> 
-> diff --git a/include/linux/cgroup_dmem.h b/include/linux/cgroup_dmem.h
-> index dd4869f1d736..61520a431740 100644
-> --- a/include/linux/cgroup_dmem.h
-> +++ b/include/linux/cgroup_dmem.h
-> @@ -26,6 +26,10 @@ bool dmem_cgroup_state_evict_valuable(struct dmem_cgroup_pool_state *limit_pool,
->  				      bool ignore_low, bool *ret_hit_low);
->  
->  void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state *pool);
-> +void dmem_cgroup_region_set_reclaim(struct dmem_cgroup_region *region,
-> +				    int (*reclaim)(struct dmem_cgroup_pool_state *pool,
-> +						   u64 target_bytes, void *priv),
-> +				    void *priv);
->  #else
->  static inline __printf(2,3) struct dmem_cgroup_region *
->  dmem_cgroup_register_region(u64 size, const char *name_fmt, ...)
-> @@ -62,5 +66,12 @@ bool dmem_cgroup_state_evict_valuable(struct dmem_cgroup_pool_state *limit_pool,
->  static inline void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state *pool)
->  { }
->  
-> +static inline void
-> +dmem_cgroup_region_set_reclaim(struct dmem_cgroup_region *region,
-> +			       int (*reclaim)(struct dmem_cgroup_pool_state *pool,
-> +					      u64 target_bytes, void *priv),
-> +			       void *priv)
-> +{ }
-> +
->  #endif
->  #endif	/* _CGROUP_DMEM_H */
-> diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
-> index 3e6d4c0b26a1..f993fb058b74 100644
-> --- a/kernel/cgroup/dmem.c
-> +++ b/kernel/cgroup/dmem.c
-> @@ -51,6 +51,18 @@ struct dmem_cgroup_region {
->  	 * No new pools should be added to the region afterwards.
->  	 */
->  	bool unregistered;
-> +
-> +	/**
-> +	 * @reclaim: Optional callback invoked when dmem.max is set below the
-> +	 * current usage of a pool. The driver should attempt to free at least
-> +	 * @target_bytes from @pool. May be called multiple times if usage
-> +	 * remains above the limit after returning.
-> +	 */
-> +	int (*reclaim)(struct dmem_cgroup_pool_state *pool, u64 target_bytes,
-> +		       void *priv);
-> +
-> +	/** @reclaim_priv: Private data passed to @reclaim. */
-> +	void *reclaim_priv;
->  };
->  
->  struct dmemcg_state {
-> @@ -145,23 +157,59 @@ static void free_cg_pool(struct dmem_cgroup_pool_state *pool)
->  }
->  
->  static int
-> -set_resource_min(struct dmem_cgroup_pool_state *pool, u64 val)
-> +set_resource_min(struct dmem_cgroup_pool_state *pool, u64 val,
-> +		 struct dmem_cgroup_region *region)
->  {
->  	page_counter_set_min(&pool->cnt, val);
->  	return 0;
->  }
->  
->  static int
-> -set_resource_low(struct dmem_cgroup_pool_state *pool, u64 val)
-> +set_resource_low(struct dmem_cgroup_pool_state *pool, u64 val,
-> +		 struct dmem_cgroup_region *region)
->  {
->  	page_counter_set_low(&pool->cnt, val);
->  	return 0;
->  }
->  
->  static int
-> -set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val)
-> +set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val,
+Signed-off-by: Christian Van <cvan20191@gmail.com>
+---
+ drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-Though we are discussing how to set the maximum, renaming 'val' to 'max' would
-improve readability in the next version.
-
-> +		 struct dmem_cgroup_region *region)
->  {
-> -	return page_counter_set_max(&pool->cnt, val);
-> +	int err = page_counter_set_max(&pool->cnt, val);
-> +
-> +	if (err != -EBUSY || !region || !region->reclaim)
-> +		return err;
-> +
-> +	/*
-> +	 * The new max is below current usage.  Ask the driver to evict memory
-> +	 * and retry, up to a bounded number of times.  Signal interruptions are
-> +	 * propagated back to the write() caller; other reclaim failures leave
-> +	 * -EBUSY as the result.
-> +	 */
-> +	for (int retries = 5; retries > 0; retries--) {
-> +		u64 usage = page_counter_read(&pool->cnt);
-> +		u64 target = usage > val ? usage - val : 0;
-> +		int reclaim_err;
-> +
-> +		if (!target) {
-> +			err = page_counter_set_max(&pool->cnt, val);
-> +			break;
-> +		}
-> +
-> +		reclaim_err = region->reclaim(pool, target, region->reclaim_priv);
-> +		if (reclaim_err) {
-> +			if (reclaim_err == -EINTR || reclaim_err == -ERESTARTSYS)
-> +				err = reclaim_err;
-> +			break;
-> +		}
-> +
-> +		err = page_counter_set_max(&pool->cnt, val);
-> +		if (err != -EBUSY)
-> +			break;
-> +	}
-> +
-> +	return err;
->  }
->  
->  static u64 get_resource_low(struct dmem_cgroup_pool_state *pool)
-> @@ -186,9 +234,9 @@ static u64 get_resource_current(struct dmem_cgroup_pool_state *pool)
->  
->  static void reset_all_resource_limits(struct dmem_cgroup_pool_state *rpool)
->  {
-> -	set_resource_min(rpool, 0);
-> -	set_resource_low(rpool, 0);
-> -	set_resource_max(rpool, PAGE_COUNTER_MAX);
-> +	set_resource_min(rpool, 0, NULL);
-> +	set_resource_low(rpool, 0, NULL);
-> +	set_resource_max(rpool, PAGE_COUNTER_MAX, NULL);
->  }
->  
->  static void dmemcs_offline(struct cgroup_subsys_state *css)
-> @@ -570,6 +618,32 @@ void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state *pool)
->  }
->  EXPORT_SYMBOL_GPL(dmem_cgroup_pool_state_put);
->  
-> +/**
-> + * dmem_cgroup_region_set_reclaim - Register a reclaim callback on a region.
-> + * @region: The region to register the callback for.
-> + * @reclaim: Callback to invoke when dmem.max is set below current usage.
-> + *           Called with the pool that needs reclaiming and the number of
-> + *           bytes to free. Returns 0 on progress, negative on failure.
-> + * @priv: Opaque pointer passed back to @reclaim.
-> + *
-> + * When dmem.max is lowered below the current usage of a cgroup pool, the
-> + * dmem controller will call @reclaim with a target number of bytes to free.
-> + * After @reclaim returns the controller retries setting the limit; if usage
-> + * is still too high it calls @reclaim again, up to a bounded retry count.
-> + */
-> +void dmem_cgroup_region_set_reclaim(struct dmem_cgroup_region *region,
-> +				    int (*reclaim)(struct dmem_cgroup_pool_state *pool,
-> +						   u64 target_bytes, void *priv),
-> +				    void *priv)
-> +{
-> +	if (!region)
-> +		return;
-> +
-> +	region->reclaim = reclaim;
-> +	region->reclaim_priv = priv;
-> +}
-> +EXPORT_SYMBOL_GPL(dmem_cgroup_region_set_reclaim);
-> +
->  static struct dmem_cgroup_pool_state *
->  get_cg_pool_unlocked(struct dmemcg_state *cg, struct dmem_cgroup_region *region)
->  {
-> @@ -728,7 +802,8 @@ static int dmemcg_parse_limit(char *options, struct dmem_cgroup_region *region,
->  
->  static ssize_t dmemcg_limit_write(struct kernfs_open_file *of,
->  				 char *buf, size_t nbytes, loff_t off,
-> -				 int (*apply)(struct dmem_cgroup_pool_state *, u64))
-> +				 int (*apply)(struct dmem_cgroup_pool_state *, u64,
-> +					      struct dmem_cgroup_region *))
->  {
->  	struct dmemcg_state *dmemcs = css_to_dmemcs(of_css(of));
->  	int err = 0;
-> @@ -775,7 +850,8 @@ static ssize_t dmemcg_limit_write(struct kernfs_open_file *of,
->  		}
->  
->  		/* And commit */
-> -		err = apply(pool, new_limit);
-> +		err = apply(pool, new_limit, region);
-> +
->  		dmemcg_pool_put(pool);
->  
->  out_put:
-
+diff --git a/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c b/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c
+index 4f8d6d8c0..dbdb7e3cb 100644
+--- a/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c
++++ b/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c
+@@ -98,9 +98,7 @@ static int feiyang_enable(struct drm_panel *panel)
+ 	/* T12 (video & logic signal rise + backlight rise) T12 >= 200ms */
+ 	msleep(200);
+ 
+-	mipi_dsi_dcs_set_display_on(ctx->dsi);
+-
+-	return 0;
++	return mipi_dsi_dcs_set_display_on(ctx->dsi);
+ }
+ 
+ static int feiyang_disable(struct drm_panel *panel)
 -- 
-Best regards,
-Ridong
+2.43.0
 
