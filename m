@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C652DFF885C
-	for <dri-devel@archiver.kernel.org>; Sat, 25 Apr 2026 21:16:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B9A7FF8863
+	for <dri-devel@archiver.kernel.org>; Sat, 25 Apr 2026 21:16:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04AFB10E49A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75F5810E49D;
 	Sat, 25 Apr 2026 21:16:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="G6Nz0/Ni";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="GyM4Y7xM";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011039.outbound.protection.outlook.com
- [40.93.194.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C553710E48C
- for <dri-devel@lists.freedesktop.org>; Sat, 25 Apr 2026 21:15:53 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011056.outbound.protection.outlook.com [52.101.62.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B64C10E495
+ for <dri-devel@lists.freedesktop.org>; Sat, 25 Apr 2026 21:15:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Q8iXAuWR1fqDlGgWAruj6g7KzJu8vcE+YKKbWrMzF1fAkfpxChIHQa7+TE4Fd4I7tsIXCQzV0sszZ/YkLOYSdn3eI3Jd8hmsgDUMmyNDJIO8fm8OulqzDclU7DJ9+gkuvg9BCzY5CIq4/cxnjQOe7NtfTfdDWKTW2nNMcpxYF0zXTS6l4uziRiOcM/qRoJE3XkmeDGJmjvYGtCpzMZ5m9/jxde0tJ6b6vdrJ7dcKezgmYjHg91zGytIIBZKSbf9nq6tAnhIRAI+pVjmbef8LIKw9dPXJra+e7Ebrb1srPzwTYo6rzWYQDhz67ffFNWsqlQK4X1JUT566PsKqBkjLXA==
+ b=UVc8tN3nSMVhcD50JwMd5B38VrY28N5Jccb960elkAT5hORRvMFUrktEVXxnLRtl+nbeV/n7HAHYux20IbdWtLCC1xQVLMX/TyHyQNTLEF7Ist5QaJjhplyeHwfuek6XmJP7FsAH4nJzrEKuT3QqsRZpv8wj5a5YXtzAzJvX+769RYtXQh6cxfSUPOQF/Hom+/DATNgzSz2n3uOoNO1d21BQdIC31H1YscIqB1CwH8NjOo3CEFDqZ6ezUYWhD81K2YcYGfzkPMIfvcrEUsXKzXhs29pELHhQxFBHjxn3fppScXo5so2/Ljf11a/oror9y6r9RXRWpCNdPT4344i/sQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UPWqWeNmZCRfm6CfqFDQxkbRqTfCo9IE5zDAweyMbiM=;
- b=mNCTD/J+ykkpRv7OrigMc8oEhgwG+a7t5og3H33nyrwfWzh1dZIJlwOpOlvxnE/SthJD6FA+jNvb0Lh/RcK8ML2J/dc7/O49JMPFWnP5p4dLrUF47A716fG4j1L4PZP71F39sOTZ6LdAoHgsMos2tWIyD+1SaCgNZDp/L3IMJFrDfkoYMC2WgU8XRayIMLybzUSHQINblEBZKQKMVTmvqztHVCh1XrPxGT8/OsfWKkMulX7eUAPyYIuYMrUfYLuDhxcvT5D1ue+VFMNIBNo6V8tqqHSD0taKQobr+LTtg/fp+68/jxrEmOCux7+DI+Sbvfd/o2Z9JgyqVKYMBjSdCw==
+ bh=TyUS6/+oW6v0MLCUlSC5LRZXzNEN/+lk2DCmusIvBbM=;
+ b=U6MV7KQsTyGY+q/EcMKTMVMbjRNvCjMGArSQ3/wV0AkS002Dz/hmFaQx8hNRUxDSpCZuDP3Q18USEf3jNUH5NwyyY66UoRt2UpE32r68ZGgZJ/E1wMdsRy7OWHvoL7XXLeQuthc8E6bs83JkYWg6AILrjYX8aXUTRXFbzKyqjavtdQFySeUiJod9ZSFk8QHx19NRBFtspGarDyYtfwRkYhvOUoqdHWhJx1ZnSW2imoGFUQXGHO58CmjG7u9TSmqtYlS7ZB/UFi9e61di2jJiPVcKiSWu3VzoH80PcTGja8OAFKMm4YO/4wyMXUNM/iCeIjAyKUc0hmnurXVKsKQQzw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UPWqWeNmZCRfm6CfqFDQxkbRqTfCo9IE5zDAweyMbiM=;
- b=G6Nz0/NiXSR5Ni1P5udr2mFUWdlz229CBPsJZ0+A0S89zRr7KEWDQh3MvqpY07sOHfy/EvgLjb8gVIGdXhRfFjTTPzWVSDNBXGjdGjColQ/st1VlRWkojZiEt3Zy1jDXT+4sy0fXgeHv3l0mPwSGhivvYx2uG2kR37PD5/Hr0w4PQBbrkYh6EGM7qxBaMYtPsOHJhyfDyHYl+i/5MLYscf8UmBxJ5KUJ4NLOc0USMhEuCrCl0o6uKEAD77PvPGziEF71XOyoqxqbXtFkfgXc6YJP1BvoTRJ8jDPWRVlfAJv96QoWHpgpTV1aYPHdLLOV9ti8vICnDVA14oee0mchhQ==
+ bh=TyUS6/+oW6v0MLCUlSC5LRZXzNEN/+lk2DCmusIvBbM=;
+ b=GyM4Y7xMp7OysVdfn893GBOQiqc+Pxa4OUoH2gJvOD13yYFUwuPz6wZX5slSSYADZA5bSsak9zbE4te94khY3Ezjb2JMeLxEyKNbd9Ux2qrYqV9gYNP9vm8bw/aF2Mdv9mRZxyEh+2gQht95iJ0I3XFqKBWs8uptgYq8rrNIyidvhomzFqPvggiCRXgPpU0oGCaeQdZZ8Mp0K7MYeYnru6mwGz/fnBo8WvXlM3HMckvWPxhBLO7cmmn4N7yt+rdDt3/6VNlWGMC9g1v9ddBFvAAmStYN7t8g/n3wjnKpG9xivYKnBmW0v752Eot/0pepxXyHqel7H/KUxaWqm59glA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
  IA1PR12MB8358.namprd12.prod.outlook.com (2603:10b6:208:3fa::17) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.13; Sat, 25 Apr
- 2026 21:15:49 +0000
+ 2026 21:15:43 +0000
 Received: from DS0PR12MB6486.namprd12.prod.outlook.com
  ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
  ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9870.012; Sat, 25 Apr 2026
- 21:15:49 +0000
+ 21:15:43 +0000
 From: Joel Fernandes <joelagnelf@nvidia.com>
 To: linux-kernel@vger.kernel.org
 Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
@@ -62,80 +61,71 @@ Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
  alexeyi@nvidia.com, Eliot Courtney <ecourtney@nvidia.com>,
  joel@joelfernandes.org, linux-doc@vger.kernel.org,
  Joel Fernandes <joelagnelf@nvidia.com>
-Subject: [PATCH v12 19/22] gpu: nova-core: mm: Add BAR1 memory management
- self-tests
-Date: Sat, 25 Apr 2026 17:14:51 -0400
-Message-Id: <20260425211454.174696-20-joelagnelf@nvidia.com>
+Subject: [PATCH v12 16/22] gpu: nova-core: mm: Add multi-page mapping API to
+ VMM
+Date: Sat, 25 Apr 2026 17:14:48 -0400
+Message-Id: <20260425211454.174696-17-joelagnelf@nvidia.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260425211454.174696-1-joelagnelf@nvidia.com>
 References: <20260425211454.174696-1-joelagnelf@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BL1PR13CA0350.namprd13.prod.outlook.com
- (2603:10b6:208:2c6::25) To DS0PR12MB6486.namprd12.prod.outlook.com
+Content-Type: text/plain
+X-ClientProxiedBy: CY5PR10CA0005.namprd10.prod.outlook.com
+ (2603:10b6:930:1c::18) To DS0PR12MB6486.namprd12.prod.outlook.com
  (2603:10b6:8:c5::21)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|IA1PR12MB8358:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4cc286f3-2618-4a9a-4196-08dea30fd316
+X-MS-Office365-Filtering-Correlation-Id: e3c1ab8a-ff3b-4ad1-9ecd-08dea30fcf49
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|7416014|366016|56012099003|18002099003|22082099003|11006099003;
-X-Microsoft-Antispam-Message-Info: VL5JVU7Jrjix3n13QuBXa0iAKTUSSOek+QQLrd9Djgoo5IeG8GRf3iAQP0aAw3r/IdhswtfoyvMQabcgUEDug7iZmFrdbmGUp9bUOzB4SFd6DGcax52IaFOjs0/NjsS5AII+rnJLjg9YxWks3/2l54R9WUuJoqTE2rqWXORp1Id4xm+xRV92ynMSe7UhQ6sDMHgxdnAcrKMQwxBqdAenADQ+NlE+BUtGLhcS8GIL4PV9EcBqUhUx2gDyPiUCjsorsUHw1VfgRKoRw0r+Ug82sBv+WoNWJtRFyiDbUUUKanbCefb0hqmuR02vdI8drV9CWuxt8a0Jd1PesGdaYk28H/3LK8ydZmB1pTidDjFXNkDVo7p3eYp1OujmiKg5pAoocOPxTWTH1IDheiUtTxzLjOMahcMWl0r5biZhd+9htNLFWddAebiIhZJ5I2zVC3u7RI6ar7aA862Z+wNpy2aWIU57n/NC3W4+DPRR8wCyc35p8x4pqOU0vtAhXNlMhJduHurP0D5bFJmVOFpKh8eQo6Kh81jLtZ8/qF+H8S49fS/Xhsbz1A6A/4oGg8qBPB62nptF/YdeOCKww/k0E6C0YpMT54V41JxC/Ek4E7zR0GJkaYYOtAMBhpqtLc+YAU4MCYf8XvbhD6hS7w4CsQpptJgqa82khZgTEamC4l8deQ6xscI/SHRmaftxRwr5r5RlRDikBhKcpztkbFLVwCNAreW48/isSY/196td5vDUrwU=
+ ARA:13230040|1800799024|376014|7416014|366016|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: JH+xcCSEXEC533uiY7CjSmY1W1s5C03p0jinBTfNWCFIDzmq1OI7mAfEdmEAIXj1ZCkw6vA+RPEwBVoqyAquEz6tP/lhTvFx50CFPCnsb1MtwRgAWW/5I/teuYmU6H42+4XBOtqVeDkZL2B6FU3WfFsHB3uAMFFyCFsaGtXGo8cD2t0LZrh+rsY7lHBM16uU2+WNjIIJCPibKRcZzkdA5He7yZBRlWhb0IIBxPqYjHU9/nojzZKBTifpipbY8Op42ZZHf3HpVnrlBnAQoy+7L66ruHUZK0z/C3QL4I9KpWRJ2CLlq9cVgi0N1+L2Y6BiUOeHKUATtLAmCmFyHhITt8ApTnahVwFirrjgdR+hdNc3r9BCy1JdxW9kK0yiROYE/1mnLIs3E/nuC5hc//H6HBWHkqgoLXtzWCqM6tzwvfm49rk3fDzptWRBZjGOdQsC+N23XT7hPm76DtWSd2+3HN1BVnyPe5Nct0SeVmLiXRFijaxZ+rXD0Is97baNFYPL8Y9FmzdlziOXyFU2xtuRwdvkQdwo2hvzfB+Pb7XiUt7m3z5ZGzS7D+fGkvwMAHW/Vw40ZH+H9sqKQgMcyR7MJBEcvVIyC6BZhVbKUwIGJPZdfmcUA7TCqRmQjyWm5ql1Lhv8w3J9KaF1UjeVoGw95Uv9QT9xbklGhMFgYorNQQC4uvajYh1R79dSmtwLxrL87QiDOP9Pzv3M7iDX9zxAnj+iLBOtlFPcP2+o/EQWUGM=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(7416014)(366016)(56012099003)(18002099003)(22082099003)(11006099003);
+ SFS:(13230040)(1800799024)(376014)(7416014)(366016)(56012099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Ym5hTzhtaXk4NzJhSXlNUWdYVVBsZGZNMEdFcEFwSjZlMG40Qm02MGREQ1pj?=
- =?utf-8?B?WWZtbm9OZG85RTZraHlWeDVkdGZyUENibTN6TDhJcC9YSDdRQmZaZHlXV0Vj?=
- =?utf-8?B?RnF3NGdYSGZUUHRCTm9jZmNKaW1sVG8yaXdvRVJjZlhKSTAzb0xKaUdOOTNV?=
- =?utf-8?B?bUNLTUgwOWROZ1B3Mm5Ra3IxbTRxSldPY0pCQkk4b2xsUUpnV0NhQkhzckFN?=
- =?utf-8?B?Q2pBSnl6VDZ4ZS9kL0VuZ0U1Um1UV3ZDSjg5WHlUSTBhOWFBeUxrZ1FpNmVo?=
- =?utf-8?B?WlJTdC9vSFVvUWJPbGVKMGFhU05XWnhUbGVoS0JNNi8xVTF5VUVPcTQ2SHFT?=
- =?utf-8?B?aFQrVkhDRWtNVXIvdlZybitLUGZERDFEK0ViSU9vcHhzb3hnaUM1Rmk2MEJ3?=
- =?utf-8?B?dXAyTFk2MitWTDdyOTFKN09wdktEdWxZTFBWT3JqVFVRN3JtbURLZS9wZUhP?=
- =?utf-8?B?L2RCQlcwaGRWcjlsSFQxTE5haERucjNXT1JCNnZoT1B2YStzSzFTTW1pOW52?=
- =?utf-8?B?NkZZOVZBUU5EVk1QSGs3MHNIVlNWYko1TDBSOHdqanhodXBMQURHRmc2c1JC?=
- =?utf-8?B?dmNuSTQ3TlV6a2pvejdFZ1FDVGFWNW1QdWEvN1NZQVFkUHV1NnZQMnZBZmJH?=
- =?utf-8?B?TTdSRzFUcVN4RDc2UjlRR2x4SDE2ZG9pRlR1bEI1YVRkeG0vcUNxLytuRXdp?=
- =?utf-8?B?bzdvN0xiUU1Nc1hrdXFPb2sxeFQzc295bkNrWFZKOXJhRUoyenYwVTNZNGhL?=
- =?utf-8?B?dlFMQ3Z2UUZicHRmWllMNzdQK2xENjdRY1ZYck9peEdMNlJCeFJGTGVud3hv?=
- =?utf-8?B?cFpJRzhONXhONDdZTmNtWHFFQ2VVOTJqVUkwRTVLZUcxYVB1ZWtjak1sMi9O?=
- =?utf-8?B?VkZiTkZ1djBva3dLNzI1cjFlRkVxaERMaFF5QVg4enFWdis2N3h4a01Bc1l3?=
- =?utf-8?B?a0gxcmJLUGpSY3JsU1J6R1lUQ1VYZ1dFQWJ4MVc1ZGxmVjNBZFA1aWVhSE1u?=
- =?utf-8?B?Y2RHUkQva2xtZ0pmUFo1NGRjamdhMEYxSWRyT3VEamNFcVdxSGhPK2RDOHU4?=
- =?utf-8?B?RlQ2cjZTUHF3UW13RWw3R2o3c0RyZTZmTEdMU3RCNHFlRDR0M1FTdXdIL3VV?=
- =?utf-8?B?Yjk0b1FSWkM1MmRLRm9kdStNS2F4MGwyUW9NNXBySXQyN2ZUcUMxUkU2aEh1?=
- =?utf-8?B?NkNwMXVJRmdLaEJDYWdEY0RKZ2poN2pRaXdBaW9vSElLMFU4dDNUVDkrYXlD?=
- =?utf-8?B?c0tyR1NaSkc1TU5mRWJ5NUxOZXZCRGFJY3FnYkZWYk93bWVSa29VODdpN2RK?=
- =?utf-8?B?Vy9kb0xsRkpSTndwbFh1UDJXa1RwWktpQzBBSjB0clVkSW96bDdkajZvaXdM?=
- =?utf-8?B?WThtaGtPeDhvME12R3BxQkNXbVN1eUVzSFV4N25YVWlib1dOdytXdDNKSFZ3?=
- =?utf-8?B?dms4NUQxMHNhZFNXNjZCM2xHNlE5N2lLVGFTc2l6OWVuZ010bHZwbkdRcTQ0?=
- =?utf-8?B?cm5EYXRFREUwM05VU1hIejRRb0Fya20vYTZSamVORE9WeWwwRllvT3c3eHUy?=
- =?utf-8?B?MEJyN2tPQk8yUGVsa2UzdWE1TW4yT2diNzRIMitJTkJKbWI2S3Zvb2ZlVmJO?=
- =?utf-8?B?RHNqb25xKzRCakRTWXVNZkFiUVVieVNSb2dpSDVjSWNueGNsKzgzb3o3ZUZG?=
- =?utf-8?B?ejllYmlvRDJkSUZiOWxWcnhJUHpabko5UU9xR2NPMDlMK2J2dkxJbmhvUVQ5?=
- =?utf-8?B?Vmg2ejA3R0FVVml3eE5jR0NiaW5RTk0xOVF6NUpjTzEzd1lFUWZBb0M3YmZR?=
- =?utf-8?B?RUVVNDFDVDIySjQrVUt4b2FjN0ZXajh6STd2VVN4MVV2c0p3ajkxYWRkQWxh?=
- =?utf-8?B?Szl5ZFN1UVM5OUFQS0hSWW91eExqd2NycnJvdXFPa2ttbjM3Njdxa2d0WDVN?=
- =?utf-8?B?enJ5MnJaWlN0UDJRc1ZNeXFENlJSN2NhSlJyTjJRRy9SRGxWUDc3ZlpiVWpV?=
- =?utf-8?B?a1pNQy9NQXg3a0FDYm1VOFg3S1o1cEROY09XOHB3ck55aGVQWmxES28wY3da?=
- =?utf-8?B?MUdVV09acWZXeDM1TFFscnJjNzNDZHhNdkJXTzBaSlVGSEZXak5xaFUwbmRu?=
- =?utf-8?B?ZUc4VDNway8yVHQzMCtUTld4WllJeThIZU5tSDIyZk1OeUtnekgrWkVwbXhP?=
- =?utf-8?B?emdMaERiN3lVMVh1aWNMbVRMWHNhOXJIUlc4OXRid01Nc1VNVW9pSFRwWGNV?=
- =?utf-8?B?cDlKVk1OUGRRMTFnRWVEZWVkUnJKeG1UQVFwWmJQeWF4ei8yTHgvcXRXOXRo?=
- =?utf-8?B?dytwOEFZQ3RaNi9OMXBVOVNxWWovVmlWT1lVYWh5bnp1RlNsTjdGUT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?AJlBZ6XRf/A1MWrS5XdMeDaqJivkEKL2GrTLj4JFz9mOeOKFIni2a4NoSNeX?=
+ =?us-ascii?Q?DW/3P8oD2JQgkvLu8F8RGy9lI4t9bsKwgYdR9QCnuBP23lGrkVMpoqJP5oL4?=
+ =?us-ascii?Q?ekgD/Of4xnDM2J8Qd7efPnM83YIjpVflq0810yQnMdIQfNrSnE8SRSsTtsTH?=
+ =?us-ascii?Q?uVWU4wBrLpLcy92qN08q1bRvotQpXjvPhbCdStLtaGEG8gPjN24++xv68ns7?=
+ =?us-ascii?Q?vscxqUZ5RQF1VXH7y4YO0xJY8bmJnIhzAR7h2sKn8gUVwGjcsevbnuTOW5PM?=
+ =?us-ascii?Q?JWGHkbIIKVTR9s7Nq58dYXVEDRReXpWgs/pGT8gmpd/wX5y3TR0haPUXshOL?=
+ =?us-ascii?Q?R43qLLD8TDmSIS8eY9xx7XM3Y4vgzTjiKQM1C18qRlMOCA5Z41HaXLfyHuYe?=
+ =?us-ascii?Q?Q6T+GR9voThODqnwWlUr3RkOHbJgiaVre0a0iTw2zLNgJQHGoh37ynZSWP3x?=
+ =?us-ascii?Q?tm5bQDy/E+HVKoz54pz+ZhOoFZ/Emyvdw4nBE35RmdtFcRAAKl/oJccJlac0?=
+ =?us-ascii?Q?eo8XsP4W25VEcoX6f8FLudOjSLFQNNIMRTgCfWPVO2ehAyIsAuUoBsa9julX?=
+ =?us-ascii?Q?FY+fkQyScJ5wS/yTfBCQJXILPpgRGr0PNYZm2sWZSeWfCi2mbaKSq8XYBkZa?=
+ =?us-ascii?Q?zmwCvIM3nSw6UvtzJsJlL7htB2Xf+jtrNhOmparjtJaS9KZlmt2IRMCFhyv7?=
+ =?us-ascii?Q?QgBN+4ggZtM7k7J/gnhfHnSdlupk3/O3ILFkHw4rK7kweN58k7PSHp/FmBGz?=
+ =?us-ascii?Q?ocYFUf7ztLxRrGBU4lDan3pgIdkFoWvfWUn0ulKjr3vZ4fH0r66wqcr96QSl?=
+ =?us-ascii?Q?iKcwSOV+TBe/jt0VYvWr8efY1AMo4vNBMD6uxbrUY0APP3/IyM5v8Yd3iI0d?=
+ =?us-ascii?Q?d1D1OF2wwpQ6i34zJg+Hl+bVhPkAxTqCjOtQ5Za3HwFEIo//CUPTRDt5QQ1p?=
+ =?us-ascii?Q?gmSuYI/HJBBaUS1wML+kN41ENEk/bNXU6iE6W/aHuRupfMDhhOW6Q7kAiLYx?=
+ =?us-ascii?Q?J9o1udVGUKiKLtBiurV0P+omcIS6NRuKvbbFha/7tDINxr8DDZ12/XLo5Ncu?=
+ =?us-ascii?Q?ih4GAgShdqq/SXAPVkViChlyZbfbJpx8diUyaJH6iqXJbv0evWK67zrmGAVk?=
+ =?us-ascii?Q?4BaoLcpzdqkr9s+fuf9FZDUulMX6WA2D8S4ygySbX9GR1gvMWv1+TZV77qma?=
+ =?us-ascii?Q?xNkUTmnzMbrahcoyrvgWiWFxHVAhGT1ZwQn5CLdBTvlX4o57DcV7E94N3dow?=
+ =?us-ascii?Q?P+VeH2bH1c+z20mDc9ffPqzfZ7zS7rXcqNfXucRE+77LY2YTEyp0blLv3wMO?=
+ =?us-ascii?Q?usDFUcv9J/Cg5/NPZiF1ubJHuQfbW099itVCWZXitHIPDwF/EeibjF+2I7d5?=
+ =?us-ascii?Q?wtGBGeaUIsj0/YmWP/iCyGFjLAdv3ZfFoUqbXBogtyz9/+sDfNPXUqkYvJXA?=
+ =?us-ascii?Q?MGhzu6Ey/RrucuWHUhGUrpFLY18qfZ/bBXtLhZPfSeLu1fGZV18rlwQhlZ+h?=
+ =?us-ascii?Q?eNuhUbkkxWvBGIOr9DDDRtP/0Net2dRON3EPjsgNcXsuHWf2V84sFy2phnY0?=
+ =?us-ascii?Q?03KL+zXjZxjDuLBjnPzWDNtcE7ae9OVAeL7XQWcOV4uM7OmaKkVVHcNdYHcQ?=
+ =?us-ascii?Q?V9Qb/vvl9H5aOgioaOI/4CL2+wVuAZnfVD7b/FZGZ/rON6s5Cxq7lIQgvmIJ?=
+ =?us-ascii?Q?0l1omTpkk6nMFwRiG4iLoVGerFe/jltctutnXZ9dbycl6U0WZw3s2al8VPcC?=
+ =?us-ascii?Q?fL+gO1hgZw=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4cc286f3-2618-4a9a-4196-08dea30fd316
+X-MS-Exchange-CrossTenant-Network-Message-Id: e3c1ab8a-ff3b-4ad1-9ecd-08dea30fcf49
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Apr 2026 21:15:49.5907 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Apr 2026 21:15:43.2901 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: czUCyOvtI77BxQVaVnhkUvNaCgoEDYEEd2VDue6Mh0RNuw2k0uBEsUTMUlZMFun2g69ldmfNyzBG0QBIManmsA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: k+QJauymwo66gULfAUj/CbOIZxrjEjrXOqMN+xiVViIEMzgJobuUhZ/N7A9VUwo6e0yN39tQV4g+BRKSizeh8Q==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8358
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -152,394 +142,725 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add self-tests for BAR1 access during driver probe when
-CONFIG_NOVA_MM_SELFTESTS is enabled (default disabled). This results in
-testing the Vmm, GPU buddy allocator and BAR1 region all of which should
-function correctly for the tests to pass.
+Add the page table mapping and unmapping API to the Virtual Memory
+Manager, implementing a two-phase prepare/execute model suitable for
+use both inside and outside the DMA fence signalling critical path.
 
 Cc: Nikola Djukic <ndjukic@nvidia.com>
 Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
 ---
- drivers/gpu/nova-core/Kconfig         |  10 ++
- drivers/gpu/nova-core/driver.rs       |   2 +
- drivers/gpu/nova-core/gpu.rs          |  31 ++++
- drivers/gpu/nova-core/mm/bar_user.rs  | 244 ++++++++++++++++++++++++++
- drivers/gpu/nova-core/mm/pagetable.rs |  35 +++-
- 5 files changed, 321 insertions(+), 1 deletion(-)
+ drivers/gpu/nova-core/mm/pagetable.rs     |   1 +
+ drivers/gpu/nova-core/mm/pagetable/map.rs | 355 ++++++++++++++++++++++
+ drivers/gpu/nova-core/mm/vmm.rs           | 268 ++++++++++++++--
+ 3 files changed, 606 insertions(+), 18 deletions(-)
+ create mode 100644 drivers/gpu/nova-core/mm/pagetable/map.rs
 
-diff --git a/drivers/gpu/nova-core/Kconfig b/drivers/gpu/nova-core/Kconfig
-index 6513007bf66f..35de55aabcfc 100644
---- a/drivers/gpu/nova-core/Kconfig
-+++ b/drivers/gpu/nova-core/Kconfig
-@@ -15,3 +15,13 @@ config NOVA_CORE
- 	  This driver is work in progress and may not be functional.
+diff --git a/drivers/gpu/nova-core/mm/pagetable.rs b/drivers/gpu/nova-core/mm/pagetable.rs
+index b7e0e8e02905..4070070922a4 100644
+--- a/drivers/gpu/nova-core/mm/pagetable.rs
++++ b/drivers/gpu/nova-core/mm/pagetable.rs
+@@ -8,6 +8,7 @@
  
- 	  If M is selected, the module will be called nova_core.
-+
-+config NOVA_MM_SELFTESTS
-+	bool "Memory management self-tests"
-+	depends on NOVA_CORE
-+	help
-+	  Enable self-tests for the memory management subsystem. When enabled,
-+	  tests are run during GPU probe to verify PRAMIN aperture access,
-+	  page table walking, and BAR1 virtual memory mapping functionality.
-+
-+	  This is a testing option and is default-disabled.
-diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver.rs
-index e78a682a7f2a..6f95f8672158 100644
---- a/drivers/gpu/nova-core/driver.rs
-+++ b/drivers/gpu/nova-core/driver.rs
-@@ -97,6 +97,8 @@ fn probe(pdev: &pci::Device<Core>, _info: &Self::IdInfo) -> impl PinInit<Self, E
+ #![expect(dead_code)]
  
-             Ok(try_pin_init!(Self {
-                 gpu <- Gpu::new(pdev, bar.clone(), bar.access(pdev.as_ref())?),
-+                // Run optional GPU selftests.
-+                _: { gpu.run_selftests(pdev)? },
-                 _reg <- auxiliary::Registration::new(
-                     pdev.as_ref(),
-                     c"nova-drm",
-diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-index 73a48dba391d..e94f5374eb67 100644
---- a/drivers/gpu/nova-core/gpu.rs
-+++ b/drivers/gpu/nova-core/gpu.rs
-@@ -346,4 +346,35 @@ pub(crate) fn unbind(&self, dev: &device::Device<device::Core>) {
-             .inspect(|bar| self.sysmem_flush.unregister(bar))
-             .is_err());
-     }
++pub(super) mod map;
+ pub(super) mod ver2;
+ pub(super) mod ver3;
+ pub(super) mod walk;
+diff --git a/drivers/gpu/nova-core/mm/pagetable/map.rs b/drivers/gpu/nova-core/mm/pagetable/map.rs
+new file mode 100644
+index 000000000000..16af491472db
+--- /dev/null
++++ b/drivers/gpu/nova-core/mm/pagetable/map.rs
+@@ -0,0 +1,355 @@
++// SPDX-License-Identifier: GPL-2.0
 +
-+    /// Run selftests on the constructed [`Gpu`].
-+    pub(crate) fn run_selftests(
-+        mut self: Pin<&mut Self>,
-+        pdev: &pci::Device<device::Bound>,
-+    ) -> Result {
-+        self.as_mut().run_mm_selftests(pdev)?;
-+        Ok(())
-+    }
++//! Page table mapping operations for NVIDIA GPUs.
 +
-+    #[cfg(CONFIG_NOVA_MM_SELFTESTS)]
-+    fn run_mm_selftests(self: Pin<&mut Self>, pdev: &pci::Device<device::Bound>) -> Result {
-+        // BAR1 self-tests.
-+        let bar1 = Arc::pin_init(pdev.iomap_region(1, c"nova-core/bar1"), GFP_KERNEL)?;
-+        let bar1_access = bar1.access(pdev.as_ref())?;
++use core::marker::PhantomData;
 +
-+        crate::mm::bar_user::run_self_test(
-+            pdev.as_ref(),
-+            &self.mm,
-+            bar1_access,
-+            self.gsp_static_info.bar1_pde_base,
-+            self.spec.chipset,
-+        )?;
-+
-+        Ok(())
-+    }
-+
-+    #[cfg(not(CONFIG_NOVA_MM_SELFTESTS))]
-+    fn run_mm_selftests(self: Pin<&mut Self>, _pdev: &pci::Device<device::Bound>) -> Result {
-+        Ok(())
-+    }
- }
-diff --git a/drivers/gpu/nova-core/mm/bar_user.rs b/drivers/gpu/nova-core/mm/bar_user.rs
-index ab56ecd66fb9..8d996e7eaebe 100644
---- a/drivers/gpu/nova-core/mm/bar_user.rs
-+++ b/drivers/gpu/nova-core/mm/bar_user.rs
-@@ -154,3 +154,247 @@ fn drop(&mut self) {
-         }
-     }
- }
-+
-+/// Run MM subsystem self-tests during probe.
-+///
-+/// Tests page table infrastructure and `BAR1` MMIO access using the `BAR1`
-+/// address space. Uses the `GpuMm`'s buddy allocator to allocate page tables
-+/// and test pages as needed.
-+#[cfg(CONFIG_NOVA_MM_SELFTESTS)]
-+pub(crate) fn run_self_test(
-+    pdev: &device::Device<device::Bound>,
-+    mm: &GpuMm,
-+    bar1: &Bar1,
-+    bar1_pdb: u64,
-+    chipset: Chipset,
-+) -> Result {
-+    use kernel::gpu::buddy::{
++use kernel::{
++    device,
++    gpu::buddy::{
++        AllocatedBlocks,
 +        GpuBuddyAllocFlags,
 +        GpuBuddyAllocMode, //
-+    };
-+    use kernel::ptr::Alignment;
-+    use kernel::sizes::{
-+        SZ_16K,
-+        SZ_32K,
-+        SZ_4K,
-+        SZ_64K, //
-+    };
++    },
++    prelude::*,
++    ptr::Alignment,
++    rbtree::{RBTree, RBTreeNode},
++    sizes::SZ_4K, //
++};
 +
-+    // Test patterns.
-+    const PATTERN_PRAMIN: u32 = 0xDEAD_BEEF;
-+    const PATTERN_BAR1: u32 = 0xCAFE_BABE;
++use super::{
++    walk::{
++        PtWalkInner,
++        WalkPdeResult,
++        WalkResult, //
++    },
++    DualPdeOps,
++    MmuConfig,
++    MmuV2,
++    MmuV3,
++    MmuVersion,
++    PageTableLevel,
++    PdeOps,
++    PteOps, //
++};
++use crate::{
++    mm::{
++        GpuMm,
++        Pfn,
++        Vfn,
++        VramAddress,
++        PAGE_SIZE, //
++    },
++    num::{
++        IntoSafeCast, //
++    },
++};
 +
-+    let dev = pdev;
-+    dev_info!(dev, "MM: Starting self-test...\n");
++/// A pre-allocated and zeroed page table page.
++///
++/// Created during the mapping prepare phase and consumed during the execute phase.
++/// Stored in an [`RBTree`] keyed by the PDE slot address (`install_addr`).
++pub(in crate::mm) struct PreparedPtPage {
++    /// The allocated and zeroed page table page.
++    pub(in crate::mm) alloc: Pin<KBox<AllocatedBlocks>>,
++    /// Page table level -- needed to determine if this PT page is for a dual PDE.
++    pub(in crate::mm) level: PageTableLevel,
++}
 +
-+    let pdb_addr = VramAddress::new(bar1_pdb);
++/// Page table mapper.
++pub(in crate::mm) struct PtMapInner<M: MmuConfig> {
++    walker: PtWalkInner<M>,
++    pdb_addr: VramAddress,
++    _phantom: PhantomData<M>,
++}
 +
-+    // Check if initial page tables are in VRAM.
-+    if crate::mm::pagetable::check_pdb_valid(pdev, mm.pramin(), pdb_addr, chipset).is_err() {
-+        dev_info!(dev, "MM: Self-test SKIPPED - no valid VRAM page tables\n");
-+        return Ok(());
++impl<M: MmuConfig> PtMapInner<M> {
++    /// Create a new [`PtMapInner`].
++    pub(super) fn new(pdb_addr: VramAddress) -> Self {
++        Self {
++            walker: PtWalkInner::<M>::new(pdb_addr),
++            pdb_addr,
++            _phantom: PhantomData,
++        }
 +    }
 +
-+    // Set up a test page from the buddy allocator.
-+    let test_page_blocks = KBox::pin_init(
-+        mm.buddy().alloc_blocks(
-+            GpuBuddyAllocMode::Simple,
-+            SZ_4K.into_safe_cast(),
-+            Alignment::new::<SZ_4K>(),
-+            GpuBuddyAllocFlags::default(),
-+        ),
-+        GFP_KERNEL,
-+    )?;
-+    let test_vram_offset = test_page_blocks.iter().next().ok_or(ENOMEM)?.offset();
-+    let test_vram = VramAddress::new(test_vram_offset);
-+    let test_pfn = Pfn::from(test_vram);
++    /// Allocate and zero a physical page table page.
++    fn alloc_and_zero_page(
++        dev: &device::Device<device::Bound>,
++        mm: &GpuMm,
++        level: PageTableLevel,
++    ) -> Result<PreparedPtPage> {
++        let blocks = KBox::pin_init(
++            mm.buddy().alloc_blocks(
++                GpuBuddyAllocMode::Simple,
++                SZ_4K.into_safe_cast(),
++                Alignment::new::<SZ_4K>(),
++                GpuBuddyAllocFlags::default(),
++            ),
++            GFP_KERNEL,
++        )?;
 +
-+    // Create a VMM of size 64K to track virtual memory mappings.
-+    let mut vmm = Vmm::new(pdb_addr, chipset.mmu_version(), SZ_64K.into_safe_cast())?;
++        let page_vram = VramAddress::new(blocks.iter().next().ok_or(ENOMEM)?.offset());
 +
-+    // Create a test mapping.
-+    let mapped = vmm.map_pages(pdev, mm, &[test_pfn], None, true)?;
-+    let test_vfn = mapped.vfn_start;
-+
-+    // Pre-compute test addresses for the PRAMIN to BAR1 read test.
-+    let vfn_offset: usize = test_vfn.raw().into_safe_cast();
-+    let bar1_base_offset = vfn_offset.checked_mul(PAGE_SIZE).ok_or(EOVERFLOW)?;
-+    let bar1_read_offset: usize = bar1_base_offset + 0x100;
-+    let vram_read_addr: usize = test_vram.raw() + 0x100;
-+
-+    // Test 1: Write via PRAMIN, read via BAR1.
-+    {
-+        let mut window = mm.pramin().get_window(pdev)?;
-+        window.try_write32(vram_read_addr, PATTERN_PRAMIN)?;
-+    }
-+
-+    // Read back via BAR1 aperture.
-+    let bar1_value = bar1.try_read32(bar1_read_offset)?;
-+
-+    let test1_passed = if bar1_value == PATTERN_PRAMIN {
-+        true
-+    } else {
-+        dev_err!(
-+            dev,
-+            "MM: Test 1 FAILED - Expected {:#010x}, got {:#010x}\n",
-+            PATTERN_PRAMIN,
-+            bar1_value
-+        );
-+        false
-+    };
-+
-+    // Cleanup - invalidate PTE.
-+    vmm.unmap_pages(pdev, mm, mapped)?;
-+
-+    // Test 2: Two-phase prepare/execute API.
-+    let prepared = vmm.prepare_map(pdev, mm, 1, None)?;
-+    let mapped2 = vmm.execute_map(pdev, mm, prepared, &[test_pfn], true)?;
-+    let readback = vmm.read_mapping(pdev, mm, mapped2.vfn_start)?;
-+    let test2_passed = if readback == Some(test_pfn) {
-+        true
-+    } else {
-+        dev_err!(dev, "MM: Test 2 FAILED - Two-phase map readback mismatch\n");
-+        false
-+    };
-+    vmm.unmap_pages(pdev, mm, mapped2)?;
-+
-+    // Test 3: Range-constrained allocation with a hole — exercises block.size()-driven
-+    // BAR1 mapping. A 4K hole is punched at base+16K, then a single 32K allocation
-+    // is requested within [base, base+36K). The buddy allocator must split around the
-+    // hole, returning multiple blocks (expected: {16K, 4K, 8K, 4K} = 32K total).
-+    // Each block is mapped into BAR1 and verified via PRAMIN read-back.
-+    //
-+    // Address layout (base = 0x10000):
-+    //   [    16K    ] [HOLE 4K] [4K] [ 8K ] [4K]
-+    //   0x10000       0x14000  0x15000 0x16000 0x18000 0x19000
-+    let range_base: u64 = SZ_64K.into_safe_cast();
-+    let sz_4k: u64 = SZ_4K.into_safe_cast();
-+    let sz_16k: u64 = SZ_16K.into_safe_cast();
-+    let sz_32k_4k: u64 = (SZ_32K + SZ_4K).into_safe_cast();
-+
-+    // Punch a 4K hole at base+16K so the subsequent 32K allocation must split.
-+    let _hole = KBox::pin_init(
-+        mm.buddy().alloc_blocks(
-+            GpuBuddyAllocMode::Range(range_base + sz_16k..range_base + sz_16k + sz_4k),
-+            SZ_4K.into_safe_cast(),
-+            Alignment::new::<SZ_4K>(),
-+            GpuBuddyAllocFlags::default(),
-+        ),
-+        GFP_KERNEL,
-+    )?;
-+
-+    // Allocate 32K within [base, base+36K). The hole forces the allocator to return
-+    // split blocks whose sizes are determined by buddy alignment.
-+    let blocks = KBox::pin_init(
-+        mm.buddy().alloc_blocks(
-+            GpuBuddyAllocMode::Range(range_base..range_base + sz_32k_4k),
-+            SZ_32K.into_safe_cast(),
-+            Alignment::new::<SZ_4K>(),
-+            GpuBuddyAllocFlags::default(),
-+        ),
-+        GFP_KERNEL,
-+    )?;
-+
-+    let mut test3_passed = true;
-+    let mut total_size = 0usize;
-+
-+    for block in blocks.iter() {
-+        total_size += IntoSafeCast::<usize>::into_safe_cast(block.size());
-+
-+        // Map all pages of this block.
-+        let page_size: u64 = PAGE_SIZE.into_safe_cast();
-+        let num_pages: usize = (block.size() / page_size).into_safe_cast();
-+
-+        let mut pfns = KVec::new();
-+        for j in 0..num_pages {
-+            let j_u64: u64 = j.into_safe_cast();
-+            pfns.push(
-+                Pfn::from(VramAddress::new(
-+                    block.offset() + j_u64.checked_mul(page_size).ok_or(EOVERFLOW)?,
-+                )),
-+                GFP_KERNEL,
-+            )?;
++        // Zero via PRAMIN.
++        let mut window = mm.pramin().get_window(dev)?;
++        let base = page_vram.raw();
++        for off in (0..PAGE_SIZE).step_by(8) {
++            window.try_write64(base + off, 0)?;
 +        }
 +
-+        let mapped = vmm.map_pages(pdev, mm, &pfns, None, true)?;
-+        let bar1_base_vfn: usize = mapped.vfn_start.raw().into_safe_cast();
-+        let bar1_base = bar1_base_vfn.checked_mul(PAGE_SIZE).ok_or(EOVERFLOW)?;
++        Ok(PreparedPtPage {
++            alloc: blocks,
++            level,
++        })
++    }
 +
-+        for j in 0..num_pages {
-+            let page_bar1_off = bar1_base + j * PAGE_SIZE;
-+            let j_u64: u64 = j.into_safe_cast();
-+            let page_phys = block.offset()
-+                + j_u64
-+                    .checked_mul(PAGE_SIZE.into_safe_cast())
-+                    .ok_or(EOVERFLOW)?;
++    /// Ensure all intermediate page table pages exist for a single VFN.
++    ///
++    /// PRAMIN is released before each allocation and re-acquired after. Memory
++    /// allocations are done outside of holding this lock to prevent deadlocks with
++    /// the fence signalling critical path.
++    fn ensure_single_pte_path(
++        &self,
++        dev: &device::Device<device::Bound>,
++        mm: &GpuMm,
++        vfn: Vfn,
++        pt_pages: &mut RBTree<VramAddress, PreparedPtPage>,
++    ) -> Result {
++        let max_iter = 2 * M::PDE_LEVELS.len();
 +
-+            bar1.try_write32(PATTERN_BAR1, page_bar1_off)?;
++        for _ in 0..max_iter {
++            let mut window = mm.pramin().get_window(dev)?;
 +
-+            let pramin_val = {
-+                let mut window = mm.pramin().get_window(pdev)?;
-+                window.try_read32(page_phys.into_safe_cast())?
-+            };
++            let result = self
++                .walker
++                .walk_pde_levels(&mut window, vfn, |install_addr| {
++                    pt_pages
++                        .get(&install_addr)
++                        .and_then(|p| p.alloc.iter().next().map(|b| VramAddress::new(b.offset())))
++                })?;
 +
-+            if pramin_val != PATTERN_BAR1 {
-+                dev_err!(
-+                    dev,
-+                    "MM: Test 3 FAILED block offset {:#x} page {} (val={:#x})\n",
-+                    block.offset(),
-+                    j,
-+                    pramin_val
-+                );
-+                test3_passed = false;
++            match result {
++                WalkPdeResult::Complete { .. } => {
++                    return Ok(());
++                }
++                WalkPdeResult::Missing {
++                    install_addr,
++                    level,
++                } => {
++                    // Drop PRAMIN before allocation.
++                    drop(window);
++                    let page = Self::alloc_and_zero_page(dev, mm, level)?;
++                    let node = RBTreeNode::new(install_addr, page, GFP_KERNEL)?;
++                    let old = pt_pages.insert(node);
++                    if old.is_some() {
++                        kernel::pr_warn_once!(
++                            "VMM: duplicate install_addr in pt_pages (internal consistency error)\n"
++                        );
++                        return Err(EIO);
++                    }
++                }
 +            }
 +        }
 +
-+        vmm.unmap_pages(pdev, mm, mapped)?;
-+    }
-+
-+    // Verify aggregate: all returned block sizes must sum to allocation size.
-+    if total_size != SZ_32K {
-+        dev_err!(
-+            dev,
-+            "MM: Test 3 FAILED - total size {} != expected {}\n",
-+            total_size,
-+            SZ_32K
++        kernel::pr_warn!(
++            "VMM: ensure_pte_path: loop exhausted after {} iters (VFN {:?})\n",
++            max_iter,
++            vfn
 +        );
-+        test3_passed = false;
-+    }
-+
-+    // Release Tests 1-3's Vmm before Test 4 constructs a fresh BarUser on
-+    // the same PDB.
-+    drop(vmm);
-+
-+    // Test 4: Exercise `BarUser::map()` end-to-end.
-+    let mut bar_user = BarUser::new(pdb_addr, chipset, SZ_64K.into_safe_cast())?;
-+    let test4_passed = {
-+        let access = bar_user.map(pdev, mm, bar1, &[test_pfn], true)?;
-+
-+        // Write pattern via PRAMIN, read via BarUserAccess.
-+        {
-+            let mut window = mm.pramin().get_window(pdev)?;
-+            window.try_write32(test_vram.raw(), PATTERN_BAR1)?;
-+        }
-+
-+        let readback = access.try_read32(0)?;
-+        if readback == PATTERN_BAR1 {
-+            true
-+        } else {
-+            dev_err!(
-+                dev,
-+                "MM: Test 4 FAILED - Expected {:#010x}, got {:#010x}\n",
-+                PATTERN_BAR1,
-+                readback
-+            );
-+            false
-+        }
-+    };
-+
-+    if test1_passed && test2_passed && test3_passed && test4_passed {
-+        dev_info!(dev, "MM: All self-tests PASSED\n");
-+        Ok(())
-+    } else {
-+        dev_err!(dev, "MM: Self-tests FAILED\n");
 +        Err(EIO)
 +    }
++
++    /// Prepare page table resources for mapping `num_pages` pages starting at `vfn_start`.
++    ///
++    /// Reserves capacity in `page_table_allocs`, then walks the hierarchy
++    /// per-VFN to prepare pages for all missing PDEs.
++    pub(super) fn prepare_map(
++        &self,
++        dev: &device::Device<device::Bound>,
++        mm: &GpuMm,
++        vfn_start: Vfn,
++        num_pages: usize,
++        page_table_allocs: &mut KVec<Pin<KBox<AllocatedBlocks>>>,
++        pt_pages: &mut RBTree<VramAddress, PreparedPtPage>,
++    ) -> Result {
++        // Pre-reserve so install_mappings() can use push_within_capacity (no alloc
++        // in fence signalling critical path).
++        let pt_upper_bound = M::pt_pages_upper_bound(num_pages);
++        page_table_allocs.reserve(pt_upper_bound, GFP_KERNEL)?;
++
++        // Walk the hierarchy per-VFN to prepare pages for all missing PDEs.
++        for i in 0..num_pages {
++            let i_u64: u64 = i.into_safe_cast();
++            let vfn = Vfn::new(vfn_start.raw() + i_u64);
++            self.ensure_single_pte_path(dev, mm, vfn, pt_pages)?;
++        }
++        Ok(())
++    }
++
++    /// Install prepared PDEs and write PTEs, then flush TLB.
++    ///
++    /// Drains `pt_pages` and moves allocations into `page_table_allocs`.
++    pub(super) fn install_mappings(
++        &self,
++        dev: &device::Device<device::Bound>,
++        mm: &GpuMm,
++        pt_pages: &mut RBTree<VramAddress, PreparedPtPage>,
++        page_table_allocs: &mut KVec<Pin<KBox<AllocatedBlocks>>>,
++        vfn_start: Vfn,
++        pfns: &[Pfn],
++        writable: bool,
++    ) -> Result {
++        let mut window = mm.pramin().get_window(dev)?;
++
++        // Drain prepared PT pages, install all pending PDEs.
++        let mut cursor = pt_pages.cursor_front_mut();
++        while let Some(c) = cursor {
++            let (next, node) = c.remove_current();
++            let (install_addr, page) = node.to_key_value();
++            let page_vram = VramAddress::new(page.alloc.iter().next().ok_or(ENOMEM)?.offset());
++
++            if page.level == M::DUAL_PDE_LEVEL {
++                let new_dpde = M::DualPde::new_small(Pfn::from(page_vram));
++                new_dpde.write(&mut window, install_addr)?;
++            } else {
++                let new_pde = M::Pde::new_vram(Pfn::from(page_vram));
++                new_pde.write(&mut window, install_addr)?;
++            }
++
++            page_table_allocs
++                .push_within_capacity(page.alloc)
++                .map_err(|_| ENOMEM)?;
++
++            cursor = next;
++        }
++
++        // Write PTEs (all PDEs now installed in HW).
++        for (i, &pfn) in pfns.iter().enumerate() {
++            let i_u64: u64 = i.into_safe_cast();
++            let vfn = Vfn::new(vfn_start.raw() + i_u64);
++            let result = self
++                .walker
++                .walk_to_pte_lookup_with_window(&mut window, vfn)?;
++
++            match result {
++                WalkResult::Unmapped { pte_addr } | WalkResult::Mapped { pte_addr, .. } => {
++                    let pte = M::Pte::new_vram(pfn, writable);
++                    pte.write(&mut window, pte_addr)?;
++                }
++                WalkResult::PageTableMissing => {
++                    kernel::pr_warn_once!("VMM: page table missing for VFN {vfn:?}\n");
++                    return Err(EIO);
++                }
++            }
++        }
++
++        drop(window);
++
++        // Flush TLB.
++        mm.tlb().flush(dev, self.pdb_addr)
++    }
++
++    /// Invalidate PTEs for a range and flush TLB.
++    pub(super) fn invalidate_ptes(
++        &self,
++        dev: &device::Device<device::Bound>,
++        mm: &GpuMm,
++        vfn_start: Vfn,
++        num_pages: usize,
++    ) -> Result {
++        let invalid_pte = M::Pte::invalid();
++
++        let mut window = mm.pramin().get_window(dev)?;
++        for i in 0..num_pages {
++            let i_u64: u64 = i.into_safe_cast();
++            let vfn = Vfn::new(vfn_start.raw() + i_u64);
++            let result = self
++                .walker
++                .walk_to_pte_lookup_with_window(&mut window, vfn)?;
++
++            match result {
++                WalkResult::Mapped { pte_addr, .. } | WalkResult::Unmapped { pte_addr } => {
++                    invalid_pte.write(&mut window, pte_addr)?;
++                }
++                WalkResult::PageTableMissing => {
++                    continue;
++                }
++            }
++        }
++        drop(window);
++
++        mm.tlb().flush(dev, self.pdb_addr)
++    }
 +}
-diff --git a/drivers/gpu/nova-core/mm/pagetable.rs b/drivers/gpu/nova-core/mm/pagetable.rs
-index 4070070922a4..8fd179ce7476 100644
---- a/drivers/gpu/nova-core/mm/pagetable.rs
-+++ b/drivers/gpu/nova-core/mm/pagetable.rs
-@@ -22,7 +22,10 @@
-     VirtualAddress,
-     VramAddress, //
++
++macro_rules! pt_map_dispatch {
++    ($self:expr, $method:ident ( $($arg:expr),* $(,)? )) => {
++        match $self {
++            PtMap::V2(inner) => inner.$method($($arg),*),
++            PtMap::V3(inner) => inner.$method($($arg),*),
++        }
++    };
++}
++
++/// Page table mapper dispatch.
++pub(in crate::mm) enum PtMap {
++    /// MMU v2 (Turing/Ampere/Ada).
++    V2(PtMapInner<MmuV2>),
++    /// MMU v3 (Hopper+).
++    V3(PtMapInner<MmuV3>),
++}
++
++impl PtMap {
++    /// Create a new page table mapper for the given MMU version.
++    pub(in crate::mm) fn new(pdb_addr: VramAddress, version: MmuVersion) -> Self {
++        match version {
++            MmuVersion::V2 => Self::V2(PtMapInner::<MmuV2>::new(pdb_addr)),
++            MmuVersion::V3 => Self::V3(PtMapInner::<MmuV3>::new(pdb_addr)),
++        }
++    }
++
++    /// Prepare page table resources for a mapping.
++    pub(in crate::mm) fn prepare_map(
++        &self,
++        dev: &device::Device<device::Bound>,
++        mm: &GpuMm,
++        vfn_start: Vfn,
++        num_pages: usize,
++        page_table_allocs: &mut KVec<Pin<KBox<AllocatedBlocks>>>,
++        pt_pages: &mut RBTree<VramAddress, PreparedPtPage>,
++    ) -> Result {
++        pt_map_dispatch!(
++            self,
++            prepare_map(dev, mm, vfn_start, num_pages, page_table_allocs, pt_pages)
++        )
++    }
++
++    /// Install prepared PDEs and write PTEs, then flush TLB.
++    pub(in crate::mm) fn install_mappings(
++        &self,
++        dev: &device::Device<device::Bound>,
++        mm: &GpuMm,
++        pt_pages: &mut RBTree<VramAddress, PreparedPtPage>,
++        page_table_allocs: &mut KVec<Pin<KBox<AllocatedBlocks>>>,
++        vfn_start: Vfn,
++        pfns: &[Pfn],
++        writable: bool,
++    ) -> Result {
++        pt_map_dispatch!(
++            self,
++            install_mappings(dev, mm, pt_pages, page_table_allocs, vfn_start, pfns, writable)
++        )
++    }
++
++    /// Invalidate PTEs for a range and flush TLB.
++    pub(in crate::mm) fn invalidate_ptes(
++        &self,
++        dev: &device::Device<device::Bound>,
++        mm: &GpuMm,
++        vfn_start: Vfn,
++        num_pages: usize,
++    ) -> Result {
++        pt_map_dispatch!(self, invalidate_ptes(dev, mm, vfn_start, num_pages))
++    }
++}
+diff --git a/drivers/gpu/nova-core/mm/vmm.rs b/drivers/gpu/nova-core/mm/vmm.rs
+index 81ae08ce1cd7..57269409147d 100644
+--- a/drivers/gpu/nova-core/mm/vmm.rs
++++ b/drivers/gpu/nova-core/mm/vmm.rs
+@@ -3,22 +3,31 @@
+ //! Virtual Memory Manager for NVIDIA GPU page table management.
+ //!
+ //! The [`Vmm`] provides high-level page mapping and unmapping operations for GPU
+-//! virtual address spaces (Channels, BAR1, BAR2). It wraps the page table walker
+-//! and handles TLB flushing after modifications.
++//! virtual address spaces (Channels, BAR1, BAR2).
+ 
+ use kernel::{
+     device,
+     gpu::buddy::AllocatedBlocks,
+     maple_tree::MapleTreeAlloc,
+     prelude::*,
++    rbtree::RBTree, //
  };
--use kernel::prelude::*;
-+use kernel::{
-+    device,
-+    prelude::*, //
+ 
+-use core::ops::Range;
++use core::{
++    cell::Cell,
++    ops::Range, //
 +};
  
- /// Extracts the page table index at a given level from a virtual address.
- pub(super) trait VaLevelIndex {
-@@ -383,3 +386,33 @@ fn from(val: AperturePde) -> Self {
-         Bounded::from_expr(val as u64 & 0x3)
-     }
+ use crate::{
+     mm::{
+         pagetable::{
+-            walk::{PtWalk, WalkResult},
++            map::{
++                PtMap, //
++            },
++            walk::{
++                PtWalk,
++                WalkResult, //
++            },
+             MmuVersion, //
+         },
+         GpuMm,
+@@ -32,22 +41,108 @@
+     },
+ };
+ 
++/// Multi-page prepared mapping -- VA range allocated, ready for execute.
++///
++/// Produced by [`Vmm::prepare_map()`], consumed by [`Vmm::execute_map()`].
++/// The VA space allocation is tracked in the [`Vmm`]'s maple tree and freed
++/// on error or via [`Vmm::unmap_pages()`].
++///
++/// Dropping without calling [`Vmm::execute_map()`] logs a warning and leaks
++/// the VA range in the maple tree.
++pub(crate) struct PreparedMapping {
++    vfn_start: Vfn,
++    num_pages: usize,
++    /// Logs a warning if dropped without executing.
++    _drop_guard: MustExecuteGuard,
++}
++
++/// Result of a mapping operation -- tracks the active mapped range.
++///
++/// Returned by [`Vmm::execute_map()`] and [`Vmm::map_pages()`].
++/// Callers must call [`Vmm::unmap_pages()`] before dropping to invalidate
++/// PTEs and free the VA range. Dropping without unmapping logs a warning
++/// and leaks the VA range in the maple tree.
++pub(crate) struct MappedRange {
++    pub(super) vfn_start: Vfn,
++    pub(super) num_pages: usize,
++    /// Logs a warning if dropped without unmapping.
++    _drop_guard: MustUnmapGuard,
++}
++
++/// Guard that logs a warning if a [`PreparedMapping`] is dropped without
++/// being consumed by [`Vmm::execute_map()`].
++struct MustExecuteGuard {
++    armed: Cell<bool>,
++}
++
++impl MustExecuteGuard {
++    const fn new() -> Self {
++        Self {
++            armed: Cell::new(true),
++        }
++    }
++
++    fn disarm(&self) {
++        self.armed.set(false);
++    }
++}
++
++impl Drop for MustExecuteGuard {
++    fn drop(&mut self) {
++        if self.armed.get() {
++            kernel::pr_warn!("PreparedMapping dropped without calling execute_map()\n");
++        }
++    }
++}
++
++/// Guard that logs a warning if a [`MappedRange`] is dropped without
++/// calling [`Vmm::unmap_pages()`].
++struct MustUnmapGuard {
++    armed: Cell<bool>,
++}
++
++impl MustUnmapGuard {
++    const fn new() -> Self {
++        Self {
++            armed: Cell::new(true),
++        }
++    }
++
++    fn disarm(&self) {
++        self.armed.set(false);
++    }
++}
++
++impl Drop for MustUnmapGuard {
++    fn drop(&mut self) {
++        if self.armed.get() {
++            kernel::pr_warn!("MappedRange dropped without calling unmap_pages()\n");
++        }
++    }
++}
++
+ /// Virtual Memory Manager for a GPU address space.
+ ///
+ /// Each [`Vmm`] instance manages a single address space identified by its Page
+-/// Directory Base (`PDB`) address. The [`Vmm`] is used for Channel, BAR1 and
+-/// BAR2 mappings.
++/// Directory Base (`PDB`) address. Used for Channel, BAR1 and BAR2 mappings.
+ pub(crate) struct Vmm {
+     /// Page Directory Base address for this address space.
+     pdb_addr: VramAddress,
+-    /// MMU version used for page table layout.
+-    mmu_version: MmuVersion,
++    /// Page table walker for reading existing mappings.
++    pt_walk: PtWalk,
++    /// Page table mapper for prepare/execute operations.
++    pt_map: PtMap,
+     /// Page table allocations required for mappings.
+     page_table_allocs: KVec<Pin<KBox<AllocatedBlocks>>>,
+     /// Maple tree allocator for virtual address range tracking.
+     virt_alloc: Pin<KBox<MapleTreeAlloc<()>>>,
+     /// Total number of pages in the virtual address space.
+     va_pages: usize,
++    /// Prepared PT pages pending PDE installation, keyed by `install_addr`.
++    ///
++    /// Populated during prepare phase and drained in execute phase. Shared by all
++    /// pending maps, preventing races on the same PDE slot.
++    pt_pages: RBTree<VramAddress, super::pagetable::map::PreparedPtPage>,
  }
+ 
+ impl Vmm {
+@@ -70,20 +165,16 @@ pub(crate) fn new(
+ 
+         Ok(Self {
+             pdb_addr,
+-            mmu_version,
++            pt_walk: PtWalk::new(pdb_addr, mmu_version),
++            pt_map: PtMap::new(pdb_addr, mmu_version),
+             page_table_allocs: KVec::new(),
+             virt_alloc,
+             va_pages,
++            pt_pages: RBTree::new(),
+         })
+     }
+ 
+     /// Allocate a contiguous virtual frame number range.
+-    ///
+-    /// # Arguments
+-    ///
+-    /// - `num_pages`: Number of pages to allocate.
+-    /// - `va_range`: `None` = allocate anywhere, `Some(range)` = constrain allocation to the given
+-    ///   range.
+     fn alloc_vfn_range(
+         &self,
+         num_pages: usize,
+@@ -128,11 +219,152 @@ pub(super) fn read_mapping(
+         mm: &GpuMm,
+         vfn: Vfn,
+     ) -> Result<Option<Pfn>> {
+-        let walker = PtWalk::new(self.pdb_addr, self.mmu_version);
+-
+-        match walker.walk_to_pte(dev, mm, vfn)? {
++        match self.pt_walk.walk_to_pte(dev, mm, vfn)? {
+             WalkResult::Mapped { pfn, .. } => Ok(Some(pfn)),
+             WalkResult::Unmapped { .. } | WalkResult::PageTableMissing => Ok(None),
+         }
+     }
 +
-+/// Check if the PDB has valid, VRAM-backed page tables.
-+#[cfg(CONFIG_NOVA_MM_SELFTESTS)]
-+fn check_pdb_inner<M: MmuConfig>(
-+    dev: &device::Device<device::Bound>,
-+    pramin: &pramin::Pramin,
-+    pdb_addr: VramAddress,
-+) -> Result {
-+    let mut window = pramin.get_window(dev)?;
-+    let raw = window.try_read64(pdb_addr.raw())?;
++    /// Prepare resources for mapping `num_pages` pages.
++    ///
++    /// Allocates a contiguous VA range, then walks the hierarchy per-VFN to prepare pages
++    /// for all missing PDEs. Returns a [`PreparedMapping`] with the VA allocation.
++    ///
++    /// If `va_range` is not `None`, the VA range is constrained to the given range. Safe
++    /// to call outside the fence signalling critical path.
++    pub(crate) fn prepare_map(
++        &mut self,
++        dev: &device::Device<device::Bound>,
++        mm: &GpuMm,
++        num_pages: usize,
++        va_range: Option<Range<u64>>,
++    ) -> Result<PreparedMapping> {
++        if num_pages == 0 {
++            return Err(EINVAL);
++        }
 +
-+    if !M::Pde::new(raw).is_valid_vram() {
-+        return Err(ENOENT);
++        // Allocate contiguous VA range.
++        let vfn_start = self.alloc_vfn_range(num_pages, va_range)?;
++
++        if let Err(e) = self.pt_map.prepare_map(
++            dev,
++            mm,
++            vfn_start,
++            num_pages,
++            &mut self.page_table_allocs,
++            &mut self.pt_pages,
++        ) {
++            self.free_vfn(vfn_start);
++            return Err(e);
++        }
++
++        Ok(PreparedMapping {
++            vfn_start,
++            num_pages,
++            _drop_guard: MustExecuteGuard::new(),
++        })
 +    }
-+    Ok(())
-+}
 +
-+/// Check if the PDB has valid, VRAM-backed page tables, dispatching by MMU version.
-+#[cfg(CONFIG_NOVA_MM_SELFTESTS)]
-+pub(super) fn check_pdb_valid(
-+    dev: &device::Device<device::Bound>,
-+    pramin: &pramin::Pramin,
-+    pdb_addr: VramAddress,
-+    chipset: crate::gpu::Chipset,
-+) -> Result {
-+    match MmuVersion::from(chipset.arch()) {
-+        MmuVersion::V2 => check_pdb_inner::<MmuV2>(dev, pramin, pdb_addr),
-+        MmuVersion::V3 => check_pdb_inner::<MmuV3>(dev, pramin, pdb_addr),
++    /// Execute a prepared multi-page mapping.
++    ///
++    /// Installs all prepared PDEs and writes PTEs into the page table, then flushes TLB.
++    pub(crate) fn execute_map(
++        &mut self,
++        dev: &device::Device<device::Bound>,
++        mm: &GpuMm,
++        prepared: PreparedMapping,
++        pfns: &[Pfn],
++        writable: bool,
++    ) -> Result<MappedRange> {
++        if pfns.len() != prepared.num_pages {
++            self.free_vfn(prepared.vfn_start);
++            return Err(EINVAL);
++        }
++
++        let PreparedMapping {
++            vfn_start,
++            num_pages,
++            _drop_guard,
++        } = prepared;
++        _drop_guard.disarm();
++
++        if let Err(e) = self.pt_map.install_mappings(
++            dev,
++            mm,
++            &mut self.pt_pages,
++            &mut self.page_table_allocs,
++            vfn_start,
++            pfns,
++            writable,
++        ) {
++            self.free_vfn(vfn_start);
++            return Err(e);
++        }
++
++        Ok(MappedRange {
++            vfn_start,
++            num_pages,
++            _drop_guard: MustUnmapGuard::new(),
++        })
 +    }
-+}
++
++    /// Map pages doing prepare and execute in the same call.
++    ///
++    /// This is a convenience wrapper for callers outside the fence signalling critical
++    /// path (e.g., BAR mappings). For DRM usecases, [`Vmm::prepare_map()`] and
++    /// [`Vmm::execute_map()`] will be called separately.
++    pub(crate) fn map_pages(
++        &mut self,
++        dev: &device::Device<device::Bound>,
++        mm: &GpuMm,
++        pfns: &[Pfn],
++        va_range: Option<Range<u64>>,
++        writable: bool,
++    ) -> Result<MappedRange> {
++        if pfns.is_empty() {
++            return Err(EINVAL);
++        }
++
++        // Check if provided VA range is sufficient (if provided).
++        if let Some(ref range) = va_range {
++            let required: u64 = pfns
++                .len()
++                .checked_mul(PAGE_SIZE)
++                .ok_or(EOVERFLOW)?
++                .into_safe_cast();
++            let available = range.end.checked_sub(range.start).ok_or(EINVAL)?;
++            if available < required {
++                return Err(EINVAL);
++            }
++        }
++
++        let prepared = self.prepare_map(dev, mm, pfns.len(), va_range)?;
++        self.execute_map(dev, mm, prepared, pfns, writable)
++    }
++
++    /// Unmap all pages in a [`MappedRange`] with a single TLB flush.
++    pub(crate) fn unmap_pages(
++        &mut self,
++        dev: &device::Device<device::Bound>,
++        mm: &GpuMm,
++        range: MappedRange,
++    ) -> Result {
++        let result = self
++            .pt_map
++            .invalidate_ptes(dev, mm, range.vfn_start, range.num_pages);
++
++        // TODO: Internal page table pages (PDE, PTE pages) are still kept around.
++        // This is by design as repeated maps/unmaps will be fast. As a future TODO,
++        // we can add a reclaimer here to reclaim if VRAM is short. For now, the PT
++        // pages are dropped once the `Vmm` is dropped.
++
++        // Free the VA range regardless of PTE invalidation success, so that the VA
++        // range is recovered even on failure (PTEs may be stale, but that is better
++        // than leaking both PTEs and VA range).
++        self.free_vfn(range.vfn_start);
++
++        // Unmap complete, safe to drop `MappedRange`.
++        range._drop_guard.disarm();
++        result
++    }
+ }
 -- 
 2.34.1
 
