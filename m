@@ -4,137 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E532FF8850
-	for <dri-devel@archiver.kernel.org>; Sun, 26 Apr 2026 05:00:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FE55FF8850
+	for <dri-devel@archiver.kernel.org>; Sun, 26 Apr 2026 06:46:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9D3710E05E;
-	Sun, 26 Apr 2026 05:00:51 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=microsoft.com header.i=@microsoft.com header.b="Nsdbmlfu";
-	dkim-atps=neutral
-Received: from TYDPR03CU002.outbound.protection.outlook.com
- (mail-japaneastazon11023075.outbound.protection.outlook.com [52.101.127.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9551110E05E
- for <dri-devel@lists.freedesktop.org>; Sun, 26 Apr 2026 05:00:50 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FUjRY1tCXTYVgPEGoYpaNkyGDnwK8Kk6kDcn2ZO4yJ4cdKHutDXXYICx4tex2gROuHJ3bO6lL2ZAzGPgjCPr8qv04QO18XXNhnCOlV5OhytI65HZEI6Tsa/OitxRGrgVj9REDyv3vdlTqfceI5SKVZJGnA3G76W0VZ41LtZSHbIoQMQu956QWk5Mg4WEHo6hGLtUzDiYW3xM3aIQ+C5/xHj0MU1kXQaq7jJlxDCi+LwvVnD9Vdh2GXVt1rtBAMaHn3MBK7gfOLbZNnT6iARJedqIQTbitC19rOVmSQbebTSbwgA6RjkzLLK4AJm43G7Yv5AUE/IJsZBwfI1/sRgdPA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JCaoCwt9OnpWu4KDy9p09/PzVQUztpkf870emYvMKyw=;
- b=SXd14ZFb0TTtW9v9t9vmA/h8Xi/yOed1jLrYRl3GRtYACcv576qRwxD0wXGlo/dpyaSviiZP7EbZfy7Ul0Vvp8YhFBcedCHxeu6xQzYnZcRvkg8TBM+hCVukznGFBrH3fjlBEKrR+3BbDuQ/bRaVul7KhWB3cu12EKR0FYE4/7lUDd0hcOhzjInqEMHTUUU0NTmjZMh7bYx77wVshyfr8cLEa5XVP+7elJ+4QZbZh+rI/JhOZXry69bsjEhWCK/BHBOj+UQ4ZORNPEDVD12+oEPOEdONvFffZkmcfrmUORPrzY9LpPBOE92gLbPkyzfNHsTGnms62zODLjJIHnzBmQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=microsoft.com; dmarc=pass action=none
- header.from=microsoft.com; dkim=pass header.d=microsoft.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JCaoCwt9OnpWu4KDy9p09/PzVQUztpkf870emYvMKyw=;
- b=NsdbmlfusZMhsqR9QfpvtR38hsIO9yTfw+mrwigex7KKOrKAkpUOiREX8JyQZsmCITNV8wleT/pqQw/mPC4KZGNLNje/TRaIegzI8E9cTPu8gS/Ierk1HVaMVr1xfl0TQNjlYZ4AjvOW/hEzRhYHVid42awDBl6O9jSyXgop0j4=
-Received: from KUZP153MB1444.APCP153.PROD.OUTLOOK.COM (2603:1096:d10:36::22)
- by SE3P153MB2015.APCP153.PROD.OUTLOOK.COM (2603:1096:101:340::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.13; Sun, 26 Apr
- 2026 05:00:26 +0000
-Received: from KUZP153MB1444.APCP153.PROD.OUTLOOK.COM
- ([fe80::c9fa:b931:702:dbac]) by KUZP153MB1444.APCP153.PROD.OUTLOOK.COM
- ([fe80::c9fa:b931:702:dbac%5]) with mapi id 15.20.9870.012; Sun, 26 Apr 2026
- 05:00:25 +0000
-From: Saurabh Singh Sengar <ssengar@microsoft.com>
-To: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-CC: KY Srinivasan <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, 
- Wei Liu <wei.liu@kernel.org>, Dexuan Cui <DECUI@microsoft.com>, Long Li
- <longli@microsoft.com>, Stefano Garzarella <sgarzare@redhat.com>, "David S.
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
- Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
- <horms@kernel.org>, Himadri Pandya <himadrispandya@gmail.com>, Michael Kelley
- <mhklinux@outlook.com>, "linux-hyperv@vger.kernel.org"
- <linux-hyperv@vger.kernel.org>, "virtualization@lists.linux.dev"
- <virtualization@lists.linux.dev>, "netdev@vger.kernel.org"
- <netdev@vger.kernel.org>, Saurabh Sengar <ssengar@linux.microsoft.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Deepak Rawat
- <drawat.floss@gmail.com>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "stable@kernel.vger.org"
- <stable@kernel.vger.org>
-Subject: RE: [PATCH 2/2] drm/hyperv: use VMBUS_RING_SIZE()
-Thread-Topic: [PATCH 2/2] drm/hyperv: use VMBUS_RING_SIZE()
-Thread-Index: AQHc1N/SUNnjTDdEJ0aXGX//Fa53IbXwyMIg
-Date: Sun, 26 Apr 2026 05:00:24 +0000
-Message-ID: <KUZP153MB14445757C6A5DA5DEDA9A09CBE292@KUZP153MB1444.APCP153.PROD.OUTLOOK.COM>
-References: <20260425181719.1538483-1-hamzamahfooz@linux.microsoft.com>
- <20260425181719.1538483-2-hamzamahfooz@linux.microsoft.com>
-In-Reply-To: <20260425181719.1538483-2-hamzamahfooz@linux.microsoft.com>
-Accept-Language: en-IN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ActionId=895fcc43-acab-44d8-b176-25a159887d25;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ContentBits=0;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Enabled=true;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Method=Standard;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Name=Internal;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SetDate=2026-04-26T04:57:59Z;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SiteId=72f988bf-86f1-41af-91ab-2d7cd011db47;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Tag=10, 3, 0, 1;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=microsoft.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: KUZP153MB1444:EE_|SE3P153MB2015:EE_
-x-ms-office365-filtering-correlation-id: b1137af0-4759-416d-56ba-08dea350ba3d
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|7416014|38070700021|56012099003|22082099003|18002099003;
-x-microsoft-antispam-message-info: NY2+znp5p4TI4/zSAOfH3x5UFAjl2XDp/KERrZhh86/gEuVRGuQ//HdFcv1ijC8zGiSwAmGVlG48xamGaRg2fWWHvqdo0H3lj83CN7ah4LUC1MjVy36X+53zS2ayV1rjNESVEUhsCcazVQKxSZdApfjaosrFEpKGXhAkj0b15aruRtl2UwQI2hUVSpJ6135zUp32O0IMY9uI6wEPzA48eriIO24Z0saJDqJYkWPEFLvwOKrXEpKI5KdC0O2t9rXPzWcwZ6BQE+RehmCcAYS8SQ3S9UxMWFc1fidqEdgujug6vSgiLfW+1UbMf29jHM/gtKKpPyM5NWdWhS4YUDOc/9EBiBJ3GUVAqKV+763uJEBbQBH0/Sosr4tLrmPP06ibswXYipa5EvAdrf7rGxrXsmLxCw2Mxn+eChTyJtJi2ZI0TWAk5ySoG0JsZ12tIW8HtrMjqlL8scLXrcmGPdEV8pTooQ2+wrbv+ZPoK+6WVjQzhD6dj5kD66ssgk/45AM6hM7NJXNJ62gXvGSiUQoF8lrQIm/cm0tyo8sgB6cLmZ2joa9IuG+LiEb05RyVHQ3oG1gRMODpp0JSH/neNVKhJXBCkmcWDNOIq2a07cDIsJb5fi2GvhgULueZe2tpE2UgDn1SE1aTNFsagF0/zr0Uqmk25uURiEbXqivN5AWG5kclxkoW4vto6aJ7uu1bhfoGe71W5wFgtszUKbbNSCQaTe+Ex9pD3XYecXVREW5+dT3ui2P8JHMEhz6DaRbdZwnjUdVVCigB5VR9NSTpnwUi3kNC9TbZ17N3zTwk7jU2kFo=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:KUZP153MB1444.APCP153.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(7416014)(38070700021)(56012099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?CxC3Up22GSg5BtNW28sPAuo3Re850mPWgHfZ5/OOf/NlFEMeyyO1qlPeabor?=
- =?us-ascii?Q?+i84wR9puWiqe6RK6RPa0BT7qFYhslZFMbML4AiHPjBghKK5Jo5+5pz8s8ID?=
- =?us-ascii?Q?i88lrcFYmhI0Wx4fbOuC3tDXRwjQsJh6A2pVID+GAnf9/YZjPCaN7ZQdTi2c?=
- =?us-ascii?Q?/2iluU7YNQCfEEkVBEXwoTucCG0bGA4R49vmFRbcQxi6nhtoAfwPu+ZCyqI0?=
- =?us-ascii?Q?q/xqwdF9r2EyvrP5UJhU8F36r8/x2MV8Lcgl0Dqu+lGLaYcYnsde6FWHHxGZ?=
- =?us-ascii?Q?VJVO/KFA4CSTL7bytxJg4132Jz/PaO3oTQDg8N7NKe/5JGjmSeHEAdkwl0ty?=
- =?us-ascii?Q?baXoadZQZTE23CyDmqrVSP7xl4Ru1yG6zTidq8J7QoLNcnlRgwhbhxPlyTTM?=
- =?us-ascii?Q?/nkpwg21Id1PDmhidVDu9Egnms3PE4juYeAiprPm5OvK1LMyAGJqvJNGO8mE?=
- =?us-ascii?Q?yEprSUBiflD5JEcZtW/vE1+h7NpoXIG5AiOlQvYLUaYfkQn5s79iQNEIa50l?=
- =?us-ascii?Q?OpVU9ydA7mi/lZz1CBKKqg9mhVl3cxVwQsN5buv16sABacEcMGaqQAwfRxNy?=
- =?us-ascii?Q?K6ZvS//3kb8WZUg3SG2m47x9RamW69QfWu68wO9ZCZThWJL7FAckFgazacbJ?=
- =?us-ascii?Q?H5RvxhIMkG1bj89KuonxaXRvksWKQ52ljQ7KKyiHmbn/AkIO2UYBmVn5Vb8v?=
- =?us-ascii?Q?+Jgk9ndHTnHauBXSGXdQVG46ewwCy5SM53O9kk2gdIt3bGnxIiszO6hcVwOw?=
- =?us-ascii?Q?lGyPYhh7CBI+FWV6FsK/2TQVnzmbJhcf9p219LYrBVLMRrZl9O09K/tnd5qk?=
- =?us-ascii?Q?oxHPQTA4k5U309VGki6eveSgWoPM9fbNBOZFwYNsL1GjPSFnYSxVsS4rxK+4?=
- =?us-ascii?Q?eLmdhLufAQRKSnzIBtZ9nA9Bd3NO5DutrHzHQhoLrXOcwXrLECjF7tdlBYaD?=
- =?us-ascii?Q?5xnpjWXbmnFWnrCQl8N7Q1I1DthzuYER2+eNLNWqRsX3LHVsUFUSdWPbSoGr?=
- =?us-ascii?Q?t8xnWgeJ3uS3Yb6nETfogDP31ZybsXyBf4fxfEwUw7bAXGXRG59DIFGCOvaF?=
- =?us-ascii?Q?TEAQrCNiAIllCt0fenlIF+UPON2NyqecqQSiei3L6+AgWnHYyF6Y8HQd/PHn?=
- =?us-ascii?Q?OG1MvuF8qOOrR+Q6wmxU/n0zhUvKLg/PioPys5LLLb3YIqllKNsRMyL3OR0u?=
- =?us-ascii?Q?UNGdeD9i2y61O5JYYCM6vqWseo+jUwv5cjaW5GTp23CzXKanThC78ifmmxB9?=
- =?us-ascii?Q?y1HJvus5AWKvcFnUJi7PykM9xdm67PUtvJ4Ic7Zs0rTyVVT3lU9g4QDKFL1h?=
- =?us-ascii?Q?2MRgUSL+YBpfGlNNOZD5pXpgZwQfCqLMg3Hm2EcVsXpl61tkRUm2xZW2nO5x?=
- =?us-ascii?Q?hiJOOlbGzJ20b/PrtOLrYaSF3a6eE8Dk0tEclaTTtOH+Ccb6rd+4whyDM+YI?=
- =?us-ascii?Q?F7UhSBw8SGh5YUdLH2MSMIOOLhUuMkKJ3dspimpiT9ZKgAGCIlZ8DCPFEnl5?=
- =?us-ascii?Q?WIHBmf6wZe5CIMhi11uttbkiYoqNaahJ8/6ySpw7hlYACjJI9ZRwBwSyRWQp?=
- =?us-ascii?Q?p1iU0PqYbSXPx7ni9COTItEwE6YlFxtbXnHt6PXYHqiTPtdUYfadBkzg9ubw?=
- =?us-ascii?Q?fBqIQXE3Na6nRJIaIeFoIE83M76nqGmxQjKOrAcLQOT6?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD62810E151;
+	Sun, 26 Apr 2026 06:46:56 +0000 (UTC)
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33D9810E0DA
+ for <dri-devel@lists.freedesktop.org>; Sat, 25 Apr 2026 07:04:59 +0000 (UTC)
+X-UUID: 5c11cf7a407411f1aa26b74ffac11d73-20260425
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12, REQID:700b046f-a4fe-40ed-b688-e789afee0875, IP:0,
+ U
+ RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+ N:release,TS:-25
+X-CID-META: VersionHash:e7bac3a, CLOUDID:3f8a7e80e46a0360510c7e23c4deab8f,
+ BulkI
+ D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|898,TC:nil,Content:0|15|50,EDM
+ :-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0
+ ,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 5c11cf7a407411f1aa26b74ffac11d73-20260425
+X-User: aichao@kylinos.cn
+Received: from thinksys.. [(10.44.16.150)] by mailgw.kylinos.cn
+ (envelope-from <aichao@kylinos.cn>)
+ (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+ with ESMTP id 589308069; Sat, 25 Apr 2026 14:59:53 +0800
+From: Ai Chao <aichao@kylinos.cn>
+To: deller@gmx.de, nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com,
+ claudiu.beznea@tuxon.dev, linux@armlinux.org.uk, dilinger@queued.net,
+ adaplas@gmail.com, James.Bottomley@HansenPartnership.com,
+ FlorianSchandinat@gmx.de, alchark@gmail.com, krzk@kernel.org,
+ kees@kernel.org, rene@exactco.de, tzimmermann@suse.de,
+ rongqianfeng@vivo.com, thorsten.blum@linux.dev,
+ chelsyratnawat2001@gmail.com, soci@c64.rulez.org,
+ gregkh@linuxfoundation.org, daniel@thingy.jp, linmq006@gmail.com,
+ fourier.thomas@gmail.com
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-geode@lists.infradead.org, linux-parisc@vger.kernel.org,
+ Ai Chao <aichao@kylinos.cn>
+Subject: [PATCH 05/35] fbdev: atafb: Use safer strscpy() instead of strcpy()
+Date: Sat, 25 Apr 2026 14:58:56 +0800
+Message-Id: <20260425065926.1091168-6-aichao@kylinos.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260425065926.1091168-1-aichao@kylinos.cn>
+References: <20260425065926.1091168-1-aichao@kylinos.cn>
 MIME-Version: 1.0
-X-OriginatorOrg: microsoft.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: KUZP153MB1444.APCP153.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: b1137af0-4759-416d-56ba-08dea350ba3d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Apr 2026 05:00:24.9854 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 72f988bf-86f1-41af-91ab-2d7cd011db47
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: T8jWOY/UEHeWzYVXz26eGwh4d+vGjQ4BVp4DM0gdd+AE9zFfwVrqJzCoSfkarSG6eGEaPrwt7BXHq8ZsADtpBQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SE3P153MB2015
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Sun, 26 Apr 2026 06:46:56 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,43 +71,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> Subject: [PATCH 2/2] drm/hyperv: use VMBUS_RING_SIZE()
->=20
-> VMBUS ring buffers must be page aligned. So, use VMBUS_RING_SIZE() to
-> ensure they are always aligned and large enough to hold all of the releva=
-nt
-> data.
->=20
-> Cc: stable@kernel.vger.org
-> Fixes: 76c56a5affeb ("drm/hyperv: Add DRM driver for hyperv synthetic vid=
-eo
-> device")
-> Signed-off-by: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-> ---
->  drivers/gpu/drm/hyperv/hyperv_drm_proto.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
-> b/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
-> index 051ecc526832..753d97bff76f 100644
-> --- a/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
-> +++ b/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
-> @@ -10,7 +10,7 @@
->=20
->  #include "hyperv_drm.h"
->=20
-> -#define VMBUS_RING_BUFSIZE (256 * 1024)
-> +#define VMBUS_RING_BUFSIZE VMBUS_RING_SIZE(256 * 1024)
->  #define VMBUS_VSP_TIMEOUT (10 * HZ)
->=20
->  #define SYNTHVID_VERSION(major, minor) ((minor) << 16 | (major))
-> --
-> 2.54.0
+Use a safer function strscpy() instead of strcpy() for copying to arrays.
 
-Although this lgtm, but this may change the behaviour on ARM64 systems with=
- page size > 4K ?
-Have we tested it ?
+Only idiomatic code replacement, and no functional changes.
 
-Reviewed-by: Saurabh Sengar <ssengar@linux.microsoft.com>
+Signed-off-by: Ai Chao <aichao@kylinos.cn>
+---
+ drivers/video/fbdev/atafb.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
+diff --git a/drivers/video/fbdev/atafb.c b/drivers/video/fbdev/atafb.c
+index b8ed1c537293..5f2d50919718 100644
+--- a/drivers/video/fbdev/atafb.c
++++ b/drivers/video/fbdev/atafb.c
+@@ -555,7 +555,7 @@ static int tt_encode_fix(struct fb_fix_screeninfo *fix, struct atafb_par *par)
+ {
+ 	int mode;
+ 
+-	strcpy(fix->id, "Atari Builtin");
++	strscpy(fix->id, "Atari Builtin");
+ 	fix->smem_start = phys_screen_base;
+ 	fix->smem_len = screen_len;
+ 	fix->type = FB_TYPE_INTERLEAVED_PLANES;
+@@ -851,7 +851,7 @@ static inline int hxx_prescale(struct falcon_hw *hw)
+ static int falcon_encode_fix(struct fb_fix_screeninfo *fix,
+ 			     struct atafb_par *par)
+ {
+-	strcpy(fix->id, "Atari Builtin");
++	strscpy(fix->id, "Atari Builtin");
+ 	fix->smem_start = phys_screen_base;
+ 	fix->smem_len = screen_len;
+ 	fix->type = FB_TYPE_INTERLEAVED_PLANES;
+@@ -1770,7 +1770,7 @@ static int stste_encode_fix(struct fb_fix_screeninfo *fix,
+ {
+ 	int mode;
+ 
+-	strcpy(fix->id, "Atari Builtin");
++	strscpy(fix->id, "Atari Builtin");
+ 	fix->smem_start = phys_screen_base;
+ 	fix->smem_len = screen_len;
+ 	fix->type = FB_TYPE_INTERLEAVED_PLANES;
+@@ -2069,7 +2069,7 @@ static void st_ovsc_switch(void)
+ 
+ static int ext_encode_fix(struct fb_fix_screeninfo *fix, struct atafb_par *par)
+ {
+-	strcpy(fix->id, "Unknown Extern");
++	strscpy(fix->id, "Unknown Extern");
+ 	fix->smem_start = external_addr;
+ 	fix->smem_len = PAGE_ALIGN(external_len);
+ 	if (external_depth == 1) {
+@@ -3100,7 +3100,7 @@ static int __init atafb_probe(struct platform_device *pdev)
+ 	}
+ #endif /* ATAFB_EXT */
+ 
+-//	strcpy(fb_info.mode->name, "Atari Builtin ");
++//	strscpy(fb_info.mode->name, "Atari Builtin ");
+ 	fb_info.fbops = &atafb_ops;
+ 	// try to set default (detected; requested) var
+ 	do_fb_set_var(&atafb_predefined[default_par - 1], 1);
+-- 
+2.34.1
 
