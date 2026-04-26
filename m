@@ -4,31 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F381FF885C
-	for <dri-devel@archiver.kernel.org>; Sun, 26 Apr 2026 08:04:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56777FF885E
+	for <dri-devel@archiver.kernel.org>; Sun, 26 Apr 2026 08:05:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77CCD10E172;
-	Sun, 26 Apr 2026 08:04:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96E2310E194;
+	Sun, 26 Apr 2026 08:05:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=emersion.fr header.i=@emersion.fr header.b="YfOBMiBl";
+	dkim=pass (2048-bit key; unprotected) header.d=emersion.fr header.i=@emersion.fr header.b="WMXgWCqC";
 	dkim-atps=neutral
-Received: from mail-24420.protonmail.ch (mail-24420.protonmail.ch
- [109.224.244.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDE7F10E194
- for <dri-devel@lists.freedesktop.org>; Sun, 26 Apr 2026 08:03:57 +0000 (UTC)
+Received: from mail-4320.protonmail.ch (mail-4320.protonmail.ch [185.70.43.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9AC710E194
+ for <dri-devel@lists.freedesktop.org>; Sun, 26 Apr 2026 08:05:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail; t=1777190634; x=1777449834;
+ s=protonmail; t=1777190719; x=1777449919;
  bh=zRwWsMDd5Kf2yQpedEA3Ka2dLpgNvYvwuOL0uYq4mxY=;
  h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
  Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
  Message-ID:BIMI-Selector;
- b=YfOBMiBlFqzHGJOjxlAZfJhM+LlwPeWbFI+h5WCdwdS1k7/MASQnDqX8/SS1YHOaa
- h80SHYXVEqXWZxorhHVNKVHdYDQHBxWoGnA74lwsuiWe+lfO2NCJbUbdY7agFETMTP
- NMmF6TCq4s6mLIyM0wUaUAD+VD5FX8C7TGymRy51xnIL3dPe0DJmFsnM8EmOoJNQUk
- +IO1sj6l59CGFQ+5iy0ww+9ZlEIHpF6qFrwrJoAInWavBXj58+vLkDu55yKn7QEeo/
- zdga0JorVh7T6+XuuI9BAofYT8A3fHdq8uoOJ1+aLya5BS44H8NUDULp3Vk2ueQkE7
- pXF5JgTbW2i4g==
-Date: Sun, 26 Apr 2026 08:03:50 +0000
+ b=WMXgWCqCJ/7Xb48ijUqafvDUBgCd0z86K+APwniTvg1Cg0LrUx9+PScwMBpeP4uxa
+ jWzwDXkpX3JyrZaCoJj9G7wWJPRZ2gLOSRCogXqgzc7GYa3sBVlDTKAlynJF38vwnf
+ gekbodsxtch7KKoUGL51nQiSGwgYL0GBvFlK/ihctE3HLuLrtb7NHp+9hXnKn6zBZn
+ Vl6MQCA0suTId3Wh0lx0n92lLIUN77fS/g9KXTdkMy8K4xtOHfjZHhYI4NvoDpBMPn
+ TQoVprL3rNjA8YG+P6gn5EZYKxJrUhFlqQ2rMfQs4VhoAXIq2jmPf7mzX0wE4ztCUf
+ JETR39HCq9rVw==
+Date: Sun, 26 Apr 2026 08:05:15 +0000
 To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 From: Simon Ser <contact@emersion.fr>
 Cc: Vishal Sagar <vishal.sagar@amd.com>,
@@ -41,14 +40,14 @@ Cc: Vishal Sagar <vishal.sagar@amd.com>,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  Geert Uytterhoeven <geert@linux-m68k.org>,
  Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Pekka Paalanen <ppaalanen@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>
-Subject: Re: [PATCH v10 02/11] drm/fourcc: Add DRM_FORMAT_P230
-Message-ID: <H2QJo49vDTIzQ-lKh3Prc1kUpAWzNfr94nyTapbtaxd1oSirvSvG-zD-p5HNHTgNIyWfZ78l00aWG6mPvjPpe48LEvfR8FiIZ1nNqLt_X5Q=@emersion.fr>
-In-Reply-To: <20260423-xilinx-formats-v10-2-c690c2b8ea89@ideasonboard.com>
+ Pekka Paalanen <ppaalanen@gmail.com>
+Subject: Re: [PATCH v10 05/11] drm/fourcc: Add DRM_FORMAT_T430
+Message-ID: <VA0NYRaJ0iQ1QCxWnRFLMh9x3Jf757mXB8N44Yi4hohJxGjMe34UHsDdxUpMSkLyKhzBlXY7uj4fIkd9FE1VBd3ZC0DKdkJpPaN7A_-2z4w=@emersion.fr>
+In-Reply-To: <20260423-xilinx-formats-v10-5-c690c2b8ea89@ideasonboard.com>
 References: <20260423-xilinx-formats-v10-0-c690c2b8ea89@ideasonboard.com>
- <20260423-xilinx-formats-v10-2-c690c2b8ea89@ideasonboard.com>
+ <20260423-xilinx-formats-v10-5-c690c2b8ea89@ideasonboard.com>
 Feedback-ID: 1358184:user:proton
-X-Pm-Message-ID: 1c1ebaad32201e7919aaf83f655aa205358a19bd
+X-Pm-Message-ID: d0e099f4c50983dac4eec8186294db13ed8244c6
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
