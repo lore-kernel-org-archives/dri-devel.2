@@ -4,57 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F333DFF885C
-	for <dri-devel@archiver.kernel.org>; Sat, 25 Apr 2026 23:48:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9442FF885A
+	for <dri-devel@archiver.kernel.org>; Sun, 26 Apr 2026 00:20:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0DF610E203;
-	Sat, 25 Apr 2026 23:48:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93EB610E0BA;
+	Sun, 26 Apr 2026 00:20:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="aBosJ+CP";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="R0x/+eFK";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AC4110E4F3
- for <dri-devel@lists.freedesktop.org>; Sat, 25 Apr 2026 23:48:49 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id A956F1544;
- Sun, 26 Apr 2026 01:47:06 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1777160826;
- bh=Bp8RyEnQL0UxPw7eElHX5mckH3F8+ELKhrN2JVsixec=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=aBosJ+CPRWpbzNhjnEakqNIWx8v6lvj20KVcTdhjJHN+Ndm/UNWPtYyXx6WQQbise
- L8hXN5SGvJ/awHLT9vgqFhYtYGLwhcvKW6IpH+xHcG2egbT8THwrLcbcNhFYgXfQdc
- j4ji2Tag7R41Gax3AEIZ/M90dRFcVrQECrMOoRD0=
-Date: Sun, 26 Apr 2026 02:48:45 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Dennis Gilmore <dennis@ausil.us>, Heiko Stuebner <heiko@sntech.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maxime Ripard <mripard@kernel.org>,
- Alexey Charkov <alchark@gmail.com>, devicetree@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v8 3/6] drm/bridge: simple: Add the Lontium LT8711UXD
- DP-to-HDMI bridge
-Message-ID: <20260425234845.GC2964234@killaraus.ideasonboard.com>
-References: <20260425031011.2529364-1-dennis@ausil.us>
- <20260425031011.2529364-4-dennis@ausil.us>
- <20260425112844.GB2964234@killaraus.ideasonboard.com>
- <45evt7lkzuykoqsc2z27hsvm7fasmn6sr6gbjtdnme54jauehf@dmvon2o5emzd>
- <CAABkxwt1=n=CnrVfCcw+EHjqjfsLkp67POk451fV8Gqw4vdnQw@mail.gmail.com>
- <ur7mow4lw47ylxj3uigwwasrfywe6n42zb2to7ygeyjlkcgfkf@guzkembyy5hc>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91E1710E0BA
+ for <dri-devel@lists.freedesktop.org>; Sun, 26 Apr 2026 00:20:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1777162827;
+ bh=AfrklpZhanVZ347ZRxSgMmwfas3MbrEOgB7m30ETr4M=;
+ h=From:Subject:Date:To:Cc:From;
+ b=R0x/+eFKQ9LD56Y91qnpN6c8WuozAx0QLefjnZ1iaMn0Uh7OEqkwn5OTwqUMZ8h0I
+ 6pD3D6gWq2Q0asup3TgiNeBtjbqsGiCdCUdj+5a1Sg6/j4Gni2xouCHsJX29MSUy3m
+ aOW+ryMXKyMKEjhSRd2eZpw6cXF66t3zUTyy+u96GEzw3O4mLTUmCJucUMPhnQm9jx
+ nfNi7kVo/ZnzNF0RKjKp1UQKDZ5NiLMV1bej25WyunukXqvIUkLuKg7Hr2nosdzkyO
+ 0jgxwxutH52x9iJHvrO/jnSMfBpPZrrLJTwXZLloEwE5UueyuCkwsXIjuppMsEhJDq
+ PmL85Cj+7C/zw==
+Received: from localhost (unknown [100.64.0.241])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: cristicc)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 3040817E0EB4;
+ Sun, 26 Apr 2026 02:20:27 +0200 (CEST)
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Subject: [PATCH v5 00/10] Add HDMI 2.0 support to DW HDMI QP TX
+Date: Sun, 26 Apr 2026 03:20:12 +0300
+Message-Id: <20260426-dw-hdmi-qp-scramb-v5-0-d778e70c317b@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ur7mow4lw47ylxj3uigwwasrfywe6n42zb2to7ygeyjlkcgfkf@guzkembyy5hc>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33P0WqEMBAF0F+RPDclk6jRPvU/Sh+SmVgDarZJs
+ S3ivzcKZRc27OMdmHO5G0suepfYS7Wx6FaffFhyaJ4qhqNZPhz3lDOTQjYgheL0zUeaPf+88IT
+ RzJYjWepsoxGHnuW/S3SD/znNt/ecR5++Qvw9K1Y4ro+0FbjgnWoHp2sBpu1fMUyTsSGaZwwzO
+ 8RV/iutACgqMivGaSux6UjWVFLUrdKXFJWVPK4F0EoMCCWlviqqvKjOigJNynaWJNwt2vf9D1u
+ Acs6IAQAA
+X-Change-ID: 20251203-dw-hdmi-qp-scramb-cdbd8b57ccf9
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>
+Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, 
+ Diederik de Haas <diederik@cknow-tech.com>, 
+ Maud Spierings <maud_spierings@hotmail.com>
+X-Mailer: b4 0.15.1
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,84 +77,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, Apr 26, 2026 at 12:44:59AM +0300, Dmitry Baryshkov wrote:
-> On Sat, Apr 25, 2026 at 01:10:02PM -0500, Dennis Gilmore wrote:
-> > On Sat, Apr 25, 2026 at 9:24 AM Dmitry Baryshkov wrote:
-> > > On Sat, Apr 25, 2026 at 02:28:44PM +0300, Laurent Pinchart wrote:
-> > > > Hi Dennis,
-> > > >
-> > > > Thank you for the patch.
-> > > >
-> > > > On Fri, Apr 24, 2026 at 10:10:08PM -0500, Dennis Gilmore wrote:
-> > > > > The Lontium LT8711UXD is a high performance two lane Type-C/DP1.4
-> > > > > to HDMI2.0 converter, designed to connect a USB Type-C source or
-> > > > > a DP1.4 source to an HDMI2.0 sink.
-> > > >
-> > > > As far as I can tell, the LT8711UXD has an I2C control interface.
-> > > > Shouldn't it be an I2C device ?
-> > >
-> > > From the datasheet:
-> > >
-> > > The device is capable of automatic operation which is
-> > > enabled by an integrated microprocessor that uses an
-> > > embedded SPI flash for firmware storage. System control
-> > > is also available through the use of a dedicated
-> > > configuration I2C slave interface.
-> > >
-> > > My guess was that it can either be an I2C device or it can function as a
-> > > simple platdev with no I2C controls. Please correct me if my
-> > > understanding was wrong.
-> > >
-> > > But now looking at the schematics, it seems to be connected to I2C6.
-> > > Which means that it should be desribed (and bound) as such.
-> > 
-> > Hi Dmitry and Laurent,
-> > 
-> > While the schematic shows that it can use I2C and has been wired up,
-> > it also shows that both MODE_SEL and I2C_ADDR have unpopulated 10k
-> > resistors; as a result, MODE_SEL is connected directly to GND, putting
-> > the bridge in autonomous mode. I confirmed this by running `i2cdetect
-> > -r -y 6`, with the only device on the bus being the HYM8563 RTC at
-> > 0x51. Without reworking the board, the device is not directly
-> > controllable and just runs autonomously.
-> 
-> I think it would be nice to mention:
-> - In the commit for the bindings, that the device can be running
->   uncontrolled or it can be attached over I2C, bindings describe the
->   uncontrolled mode.
-> - In this commit message, the same.
-> - In the commit message for the board DT mention your findings about the
->   board, mention soldering R9 or R17 (which one?) and R27.
+Enable HDMI 2.0 display modes (e.g. 4K@60Hz) on the Synopsys DW HDMI QP
+TX controller, as found in Rockchip RK3576 & RK3588 SoCs, by adding SCDC
+management for high TMDS clock ratio and scrambling.
 
-Additionally, how are we going to handle boards where the device
-operates in I2C mode ? Will we use a different compatible string (maybe
-"lontium,lt8711uxd-i2c") ? If DT maintainers are fine with that, I have
-no objection to this patch.
+Since SCDC state is lost on sink disconnects, the bridge driver needs to
+trigger a CRTC reset during connector detection.  To support this, the
+series introduces an atomic-aware detect_ctx bridge hook and a
+drm_bridge_detect_ctx() helper (patches 1-4), then uses them to
+implement the SCDC scrambling feature (patch 5).
 
-> > > > > Signed-off-by: Dennis Gilmore <dennis@ausil.us>
-> > > > > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> > > > > ---
-> > > > >  drivers/gpu/drm/bridge/simple-bridge.c | 5 +++++
-> > > > >  1 file changed, 5 insertions(+)
-> > > > >
-> > > > > diff --git a/drivers/gpu/drm/bridge/simple-bridge.c b/drivers/gpu/drm/bridge/simple-bridge.c
-> > > > > index 8aa31ca3c72d..42c1f3d5ba0c 100644
-> > > > > --- a/drivers/gpu/drm/bridge/simple-bridge.c
-> > > > > +++ b/drivers/gpu/drm/bridge/simple-bridge.c
-> > > > > @@ -270,6 +270,11 @@ static const struct of_device_id simple_bridge_match[] = {
-> > > > >             .data = &(const struct simple_bridge_info) {
-> > > > >                     .connector_type = DRM_MODE_CONNECTOR_HDMIA,
-> > > > >             },
-> > > > > +   }, {
-> > > > > +           .compatible = "lontium,lt8711uxd",
-> > > > > +           .data = &(const struct simple_bridge_info) {
-> > > > > +                   .connector_type = DRM_MODE_CONNECTOR_HDMIA,
-> > > > > +           },
-> > > > >     }, {
-> > > > >             .compatible = "parade,ps185hdm",
-> > > > >             .data = &(const struct simple_bridge_info) {
+Patches 6-8 are minor cleanups in the dw-hdmi-qp and Rockchip platform
+drivers.  Patches 9-10 improve HPD handling by deferring IRQ
+registration until the connector is fully initialized and restricting
+HPD events to the affected connector.
 
--- 
-Regards,
+Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+---
+Changes in v5:
+- Added new patches: 1/10, 3/10, 6/10, 7/10, 8/10
+- Removed redundant no-op error check in drm_bridge_helper_reset_crtc()
+  (patch 1)
+- Removed the EDEADLK retry loop from the bridge .detect_ctx() callback,
+  as that's already handled in the drm_bridge_detect_ctx() helper or by
+  the caller when ctx is provided (patch 2)
+- Refactored drm_bridge_detect() to delegate to drm_bridge_detect_ctx()
+  and added a WARN_ON for unexpected negative return values (patch 2)
+- Split the bridge-connector .detect_ctx() switch into a preparatory
+  patch to use cached connector status in .get_modes() (patch 3)
+- Improved error handling in SCDC scrambling setup: roll back high TMDS
+  clock ratio on scrambling failure, reset scramb_enabled flag on
+  set_scramb failure, and add SCDC version read/write error checks
+  (patch 5)
+- Annotated scramb_enabled with READ_ONCE/WRITE_ONCE for cross-context
+  access between modeset paths and the scrambling work item (patch 5)
+- Renamed SCDC_MIN_SOURCE_VERSION to SCDC_MAX_SOURCE_VERSION (patch 5)
+- Rate limited i2c error messages (patch 6)
+- Added missing newlines in dev_err_probe() messages (patch 7)
+- Replaced indirect device pointer accesses with local dev variable in
+  bind() (patch 8)
+- Split the HPD connector restriction (formerly patch 4/4): register HPD
+  IRQ after connector setup first (patch 9), then restrict HPD event to
+  the affected connector (patch 10); also collected R-b from Heiko
+- Rebased onto latest drm-misc-next
+- Link to v4: https://lore.kernel.org/r/20260303-dw-hdmi-qp-scramb-v4-0-317d3b8bd219@collabora.com
 
-Laurent Pinchart
+Changes in v4:
+- Fixed conflicts while rebasing onto latest drm-misc-next
+- Link to v3: https://lore.kernel.org/r/20260119-dw-hdmi-qp-scramb-v3-0-bd8611730fc1@collabora.com
+
+Changes in v3:
+- Used drm_bridge_helper_reset_crtc() helper to reset the display
+  pipeline and got rid of some boilerplate code (Maxime)
+- Rebased onto latest drm-misc-next
+- Link to v2: https://lore.kernel.org/r/20260113-dw-hdmi-qp-scramb-v2-0-ae7b2c58d24d@collabora.com
+
+Changes in v2:
+- Collected Tested-by tags from Diederik and Maud
+- Rebased onto latest drm-misc-next
+- Ensured the recently introduced 'no-hpd' support for dealing with
+  unconnected/repurposed/broken HPD pin is limited to HDMI 1.4 rates
+- Link to v1: https://lore.kernel.org/r/20251203-dw-hdmi-qp-scramb-v1-0-836fe7401a69@collabora.com
+
+---
+Cristian Ciocaltea (10):
+      drm/bridge: Remove redundant error check in drm_bridge_helper_reset_crtc()
+      drm/bridge: Add detect_ctx hook and drm_bridge_detect_ctx() helper
+      drm/bridge-connector: Use cached connector status in .get_modes()
+      drm/bridge-connector: Switch to .detect_ctx() for connector detection
+      drm/bridge: dw-hdmi-qp: Add HDMI 2.0 SCDC scrambling and high TMDS clock ratio support
+      drm/bridge: dw-hdmi-qp: Rate limit i2c read error messages
+      drm/rockchip: dw_hdmi_qp: Add missing newlines in dev_err_probe() messages
+      drm/rockchip: dw_hdmi_qp: Use local dev variable consistently in bind()
+      drm/rockchip: dw_hdmi_qp: Register HPD IRQ after connector setup
+      drm/rockchip: dw_hdmi_qp: Restrict HPD event to the affected connector
+
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c   | 192 ++++++++++++++++++++++---
+ drivers/gpu/drm/display/drm_bridge_connector.c |  75 +++++-----
+ drivers/gpu/drm/drm_bridge.c                   |  66 ++++++++-
+ drivers/gpu/drm/drm_bridge_helper.c            |   2 -
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c |  68 ++++-----
+ include/drm/drm_bridge.h                       |  43 +++++-
+ 6 files changed, 344 insertions(+), 102 deletions(-)
+---
+base-commit: 03af6c3afc4893988ceed54531f5dde4bebd6024
+change-id: 20251203-dw-hdmi-qp-scramb-cdbd8b57ccf9
+
