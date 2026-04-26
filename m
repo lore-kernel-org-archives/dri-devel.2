@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 348B2FF885D
-	for <dri-devel@archiver.kernel.org>; Sun, 26 Apr 2026 09:47:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47573FF885D
+	for <dri-devel@archiver.kernel.org>; Sun, 26 Apr 2026 09:47:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13E4210E530;
-	Sun, 26 Apr 2026 09:47:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A515310E531;
+	Sun, 26 Apr 2026 09:47:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="G0UaYBSj";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KmY8dY6W";
 	dkim-atps=neutral
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
- [209.85.216.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B131610E19E
- for <dri-devel@lists.freedesktop.org>; Sun, 26 Apr 2026 09:47:37 +0000 (UTC)
-Received: by mail-pj1-f49.google.com with SMTP id
- 98e67ed59e1d1-35fbca04006so4611761a91.1
- for <dri-devel@lists.freedesktop.org>; Sun, 26 Apr 2026 02:47:37 -0700 (PDT)
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
+ [209.85.216.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0509C10E531
+ for <dri-devel@lists.freedesktop.org>; Sun, 26 Apr 2026 09:47:44 +0000 (UTC)
+Received: by mail-pj1-f47.google.com with SMTP id
+ 98e67ed59e1d1-35f9ab079bdso6126983a91.2
+ for <dri-devel@lists.freedesktop.org>; Sun, 26 Apr 2026 02:47:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777196857; x=1777801657; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:from:to:cc:subject:date:message-id:reply-to;
- bh=vAS4ETnzVa+zgF2nxAAi1cetwDrRrqxC6W6wHfZIEQk=;
- b=G0UaYBSjkFIZRf8+QHCKcE1fJqWOqeDcOqbdmuELRaFh3elC2nroR5fNZM0+BpG3lc
- MTcohJmEZmoihX1qtj6N8D4iiUhEyjxn13+9Hi48IQYHvwi7fU8/NZHuv2KOVdiTF9QZ
- 6Piieh3qtKrhm3VTJdfFE3sz4KcDB785huDfHXM2FL0WA9hh7gbRBnGQIj2eBH2KQ61R
- OSs65Fr5Z5jAZpZc8Y4ocfQ4xcJxj2pcmzGmKNHHK32q+mLbu4ohg+Ufl6HCv4DNTZNK
- dduipNnXUjOOHBnPPMzrTsaH+415TrfVZsyP7YeDkAFqTd4i136tyA5z15fcu8fmtZ6x
- OiSQ==
+ d=gmail.com; s=20251104; t=1777196864; x=1777801664; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=ZHhSckLmj3+7rbDwz/6bR3hAFf764LgnIQFCwbFne0A=;
+ b=KmY8dY6WMYjBbk4RK4MvLSaFxNJxE1KVq3QYp3l0ChV9J5AHSYU4MLeYc2Uwn1m9R3
+ LwGvudZBvZ4Bpbd0ob6aZgZY92XLeHjxdnCvQE64bUFlunqhL+qaRWtChb/ae3oOgXKM
+ tX+aF7/NIYE/fkyEvSiJcY5nNFBFiJSZ6Do4WC/KfdrCILaIbT2WfOoq5ffjot8hKu2e
+ fS1v5D67Xj0mUqm/n/1QBgXu4TjYW+QR/Puvj42W7y/abAQwueFwaQfVQ+85yIVIj4xw
+ p3/4wF5DSdy7Dr5l0Bk7AFxhNEh+mX8oV0Yovqrs22f7V4YCe3AeX3v7Lpw8lYPYqsNF
+ Mr8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777196857; x=1777801657;
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=vAS4ETnzVa+zgF2nxAAi1cetwDrRrqxC6W6wHfZIEQk=;
- b=fWXYiF/bJ1NjQnBsnMkzXBOJYtxA7Dkuh3JVlGDv98mSySwt1/HCDJm1jbcDvZ1hZ4
- MIdub7+/NwQ6lI0FNMkoL8b/ro/xjz/ml+fTNEYWTh8/zFHDUhvuAQWO2AQ65NoT1TXL
- GWdmz7pUxxHaGAWzSvEiJXexx4hiOxuAdS4+OXkqGYLCjtODvI0Lf+EvyffJELovDIlC
- Fmh8kh7QBEH38tTxuqD/aYyHZ0NIM/xuuQ1Tv7rUuR9taFAiYq4yyLBUJqaHvKC0sGsA
- vjpDwq8nOvNwkUQN7T7e00GPfqFPIIcANPJg+EEORlHRppEh5TGkEpC4jIxDMzd0CNKX
- Exeg==
+ d=1e100.net; s=20251104; t=1777196864; x=1777801664;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=ZHhSckLmj3+7rbDwz/6bR3hAFf764LgnIQFCwbFne0A=;
+ b=FmZxm72h6GC8JQ8bPkfmD6QD19lJx1z6B5v1yn6Z3/9qVROj3p9ZGJPjNgCwGzXqtF
+ wWWIUPrp/B7GdFivhPFlX+7GWEnA+2rnvYz45kMDsEJcF/m9J1t8RFp5z/fUZ8hOR+0B
+ tFgnrv7LCW8ajc/Izrb9gmYQ2uDLPzT93oa7DgrUBm+U5w7HdYdRpvHZxR6nH9/BHGTU
+ ZT7u5jPSM/NoT8foZjWihmWr7Zcan+Q+oGlPE43YNJiBfjDcQkgOpvITvnkkJntczKw8
+ DPLaIOV5dq+S4aFNreKtbMNPXGmdR58tubiCC7e48L2JmhD84+eyFQxX4Gsre7jxk+2t
+ PzOQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+S+8iR1BRLFgJhLytnzhWhZh7xP6d7KdpHITUQuk+1sZtgmpAqMynPdrIzP7ZG+7m5BcIp5298Lo4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxov7QENx3v5ykikD1MqiyrQ/0pMXeDkxoNwLvDjZ4yM3MMJ9Ku
- NlxTX1Q0JBKSAtyC1dmJgX14Z+zwO7r2tEgQr2U3X68+IpydVoE3yplA
-X-Gm-Gg: AeBDiesACd3b2X/zBbFuMGVGCZ/HAoeo9TliBk0xfn2ORf1HDF9lqKaZJGPf/yZqzdU
- Ok5UnhdQO3kq5WhVxwXEYOkW/YcBnnPQb3sxVbObaagPUFb4qRK5euD6Q00TghzrJfNJpHEQBra
- WSvbo9adpJVnFzaAa/fVFPJCSrSGBzWIpctzL3g39dzgb0ArlDg4VnBTY9FQLqmedvz+4XS9ls1
- ccbiEJGqhp3XT+/PRCCxP1UT+51FsFzsrghoF8kVB0Gr910rsAGlBaa5OY7IWxryr9jPrkVurTH
- NgecyXxZAJlH77bUZ2y1SjML0FBY38+OWnhjW+HNhccu8ob8gvoSlIMOmb2Ssi6vK4CZx3heDqq
- wMdhWqIBX1fsD6xKrmTe/bl3viDRiIfjOcgJWRHrHlYGIJQ5mszYTKUjei9nzF9xNj3nEezSAud
- EjmhSUQEpjVsSnJIojhcINB+21JkBLw8qacwZYWuI0rBiNnw4njKcXGr2ByJYu0dS0qOL/jIKkU
- GQQ6rp5c/lgDwk=
-X-Received: by 2002:a17:90b:2243:b0:35f:bf4b:c396 with SMTP id
- 98e67ed59e1d1-361403ca5femr37242198a91.1.1777196857110; 
- Sun, 26 Apr 2026 02:47:37 -0700 (PDT)
+ AFNElJ9b79dhzxsfSGuPPSZTDNgUclHupJAIReh3DX06hlsPTEe/Xoq1GIZsml3IqmFqBCJ5ttIyJIlWbks=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy40/W8B2wD0rv0OUN7qnMKFO7lFeqyZh81Te7Kq99C5zs7ANkC
+ pGQo7oTValrkFXu8YbRqNq6bg7mml9gVH8udpPBuaeCpvX+5gbCesdzd
+X-Gm-Gg: AeBDies9XGyUYOoZKrh4zzdqXzCsl9WXWWjY82MLdeZQFtY8h9rnt8hNoZOUR09W9KK
+ 54tgBmAPUdpqHsNOQn4DV65xshoGgSlwriGcd364RbTKU2f3CqO0Pm9Ie+95xFbxi2VxSJRUoUn
+ LAbATxcDachFSxRbQTvle+3BhPD54PX7rt0i90DDcgQrA3I18Kb8der3hKt0H+9ip+FRHpiHZex
+ yXU9FwEpZrdlNifEntyaC6IfVzjb6n6CVXY044FLOFfgf/Jk7yljsVkXckIfGuCGYqlSUIE1AO4
+ XO+3ZU3xzOdTKDicd2L3p3SN7MlP4jk71DD1QNcVFAyuZK73Jz1sB6IeE61zTrG7i0D7R6unZrb
+ pwP19YH3XQBKQ5yTKxXwGJsrfyz5+TWbYwJCdnSRCDB+j0tHzCpwa0fOklmNak/TSYReGb1ufFW
+ AzbQO2JXfxUxP4MUiaRKog3gylylKj+bAgMPCYDcu0qCnBrSSzm9MphPYGZSJ8s03f4u4lE3EtN
+ Y44IBykLrp/95Y=
+X-Received: by 2002:a17:90b:37cb:b0:35f:d56d:1c45 with SMTP id
+ 98e67ed59e1d1-3614041bc7cmr35362717a91.12.1777196864370; 
+ Sun, 26 Apr 2026 02:47:44 -0700 (PDT)
 Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com.com
  ([106.51.164.157]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3614371a7c8sm28450073a91.5.2026.04.26.02.47.30
+ 98e67ed59e1d1-3614371a7c8sm28450073a91.5.2026.04.26.02.47.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 26 Apr 2026 02:47:36 -0700 (PDT)
+ Sun, 26 Apr 2026 02:47:44 -0700 (PDT)
 From: "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>
 To: dakr@kernel.org, aliceryhl@google.com, airlied@gmail.com, simona@ffwll.ch,
  ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
@@ -70,10 +70,12 @@ To: dakr@kernel.org, aliceryhl@google.com, airlied@gmail.com, simona@ffwll.ch,
  lyude@redhat.com, j@jananu.net, mkchauras@gmail.com,
  dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH V2 0/1] Rust DRM build fix
-Date: Sun, 26 Apr 2026 15:17:24 +0530
-Message-ID: <20260426094725.2188668-1-mkchauras@gmail.com>
+Subject: [PATCH V2 1/1] rust/drm: import ARef from sync crate
+Date: Sun, 26 Apr 2026 15:17:25 +0530
+Message-ID: <20260426094725.2188668-2-mkchauras@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260426094725.2188668-1-mkchauras@gmail.com>
+References: <20260426094725.2188668-1-mkchauras@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -91,23 +93,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-rust drm gem shmem doesn't builds due to an import error of ARef from
-types instead of sync.
+ARef is defined in sync and is getting used from types causing the
+build to fail.
 
-Changelog:
+Fix this by using ARef from sync module.
 
-V1 -> V2:
-- Removed the 2nd patch as it was by design
-- Removed unnecessary braces around the Opaque mod
-- Minor change in commit message 
-V1: https://lore.kernel.org/all/20260426082234.2026908-1-mkchauras@gmail.com/
-
-Mukesh Kumar Chaurasiya (IBM) (1):
-  rust/drm: import ARef from sync crate
-
+Signed-off-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
+---
  rust/kernel/drm/gem/shmem.rs | 6 ++----
  1 file changed, 2 insertions(+), 4 deletions(-)
 
+diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
+index d025fb035195..e1b648920d2f 100644
+--- a/rust/kernel/drm/gem/shmem.rs
++++ b/rust/kernel/drm/gem/shmem.rs
+@@ -19,10 +19,8 @@
+     },
+     error::to_result,
+     prelude::*,
+-    types::{
+-        ARef,
+-        Opaque, //
+-    }, //
++    sync::aref::ARef,
++    types::Opaque, //
+ };
+ use core::{
+     ops::{
 -- 
 2.53.0
 
