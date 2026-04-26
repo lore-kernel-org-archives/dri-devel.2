@@ -4,80 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3684EFF885D
-	for <dri-devel@archiver.kernel.org>; Sun, 26 Apr 2026 22:10:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C745AFF8850
+	for <dri-devel@archiver.kernel.org>; Sun, 26 Apr 2026 23:25:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1782010E229;
-	Sun, 26 Apr 2026 22:10:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BD0010E064;
+	Sun, 26 Apr 2026 23:25:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pxOFpbPH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FhwWfqj6";
 	dkim-atps=neutral
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
- [209.85.221.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0506410E14E
- for <dri-devel@lists.freedesktop.org>; Sun, 26 Apr 2026 19:19:13 +0000 (UTC)
-Received: by mail-wr1-f46.google.com with SMTP id
- ffacd0b85a97d-43cf7683a28so6301250f8f.2
- for <dri-devel@lists.freedesktop.org>; Sun, 26 Apr 2026 12:19:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777231152; x=1777835952; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=Zhjzk6+k9bpCPC8O+MN7tV3ddOFfrvXcuTes7z8vTpM=;
- b=pxOFpbPH1jut33I/dJ+EdE/A2hzNU+Hl+z+B+Wmkcuxma7CTGnEzBDxsAEt0xuQsIS
- 4jRFoONLDIUcp8/Y2ywwcc8tAxwavIv/J+KKziRhMR4BOdIPMYrORbFTNWJhAvByahlY
- whJlV5b9s1XLRrIo5EW/7ZKDnZWR+M+Q8OU1Snr1xn8v84iYFg9ydLP8YsXqD9zumq1Z
- B4eft2Xu8Ea186z/NtR8T4/Www1g6lHdHAjS84Jl745eqk1nKMGAnYdxxDyXjF31w50L
- G2YwLm50pBnUIK3XtJNBKN1jg331Z5ZUYqeXE7HpIQ1JojUxe5JEwLqfcdMz3E6mYqpt
- vIvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777231152; x=1777835952;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Zhjzk6+k9bpCPC8O+MN7tV3ddOFfrvXcuTes7z8vTpM=;
- b=If9qBRtNhMooYdhv8SIzBky05KXr+Jl0O+OPvGOMq2HCRJlPRPQ0S6I8zO7kQozquY
- lSPTSEVXVTuod3FBwBUZFuL/qC+u1TNJDgXfMvaH3/iwlcnPE9wtn5RJEfRzkrpuxcC/
- wefNb79/dRHgqKPF8GHxQr+uPbTI1f2t2kcVEBkMh4ZchMn1abfBa+SxCQX+Aa9ym3aT
- WCNNn+o1GQ3Aq65PoSRTRK+DP469FJR6cndEoH6CLhPJEnzTVd6x3yCp3kNzGN6a+C/v
- QtA7a4o70MBHwnJOe/Bs8R0k99qIk73cDRD12cPtSU+q8nIeQkhXvp82GbnWcLzA9rww
- zOOA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ91VQaJYeg0KrZxwvFYOxzg0AU0wIQDsMv7qCkYpgSQY2wAy8W/UIiJFQ+84K+q3gar2FO3kv4smA0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxrVFShdWDMTvdzhSPHr9W7f+JeCHSi6LjJwMKAzfYnqWyY4YSC
- 9rlsTvEp+Wbkx3JWRH3c3sQVGVpjQOOE/B26kgajyPX9I2vZMCIi+nA2
-X-Gm-Gg: AeBDiethSqo+JgWgnHXfxG2SrziAwqs5SZTP2CX+aP0Ib5PlbEEj/ZS6iA2iIVO7Gp6
- 5Znq3NLlaEEqwzcro9bXIg1IKA7t857V325JotfzoBNfeye0I5OaU2wHPPyvQVDqMePuRVZzVHP
- CMCYQFennlbsFN5fgdSLalJWKh6wSkWoV9xLZo2qwLNOejU6OPVrnB7WPceKkjsRIqrAdtDn5HO
- Z557v8aeSzQun459SaEIq65OyVcu5oDEYuvtzbcldVs9DjoJhCgw2FphHBU4BSS19CWrddiBAMg
- ELpZwJOYp/FId6JjqkHZ36eDm15t7hJVl+D4kbTprsr7FFoQGOVf8LAULnRzJ3TPfcBQSKVnQfB
- GksRAkKPj2X2lmIzXuVd3fueftPhUYB+IiBWPLn2/9rQ//PTRWnBB4v+6i9JLxLA7yyTs0os5FF
- xR7i7PKHDvQext3ysacF+2RJgzaxs/0DQGu6wl7glwWVUCc9H4bLPvK0j/UmOHqxHD4m/v2b0k+
- IM8fXWl002Abp4SriQih2CJxul1bRhuUr2+paAxXp043NzZi4I=
-X-Received: by 2002:a5d:5f84:0:b0:43d:7783:c684 with SMTP id
- ffacd0b85a97d-43fe3e1e092mr63569379f8f.43.1777231152150; 
- Sun, 26 Apr 2026 12:19:12 -0700 (PDT)
-Received: from fedora.homenet.telecomitalia.it
- (host-82-60-237-185.retail.telecomitalia.it. [82.60.237.185])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4412150a092sm39057567f8f.23.2026.04.26.12.19.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 26 Apr 2026 12:19:11 -0700 (PDT)
-From: Adriano Vero <adri.vero.dev@gmail.com>
-To: austin.zheng@amd.com, jun.lei@amd.com, harry.wentland@amd.com,
- sunpeng.li@amd.com
-Cc: siqueira@igalia.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Adriano Vero <adri.vero.dev@gmail.com>
-Subject: [PATCH] drm/amd/display: clarify average bandwidth comment in
- dcn4_calcs
-Date: Sun, 26 Apr 2026 21:18:25 +0200
-Message-ID: <20260426191825.9727-1-adri.vero.dev@gmail.com>
-X-Mailer: git-send-email 2.53.0
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3B8E10E064
+ for <dri-devel@lists.freedesktop.org>; Sun, 26 Apr 2026 23:25:09 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id A0D0B41B5B
+ for <dri-devel@lists.freedesktop.org>; Sun, 26 Apr 2026 23:25:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7FEE2C2BCAF
+ for <dri-devel@lists.freedesktop.org>; Sun, 26 Apr 2026 23:25:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1777245909;
+ bh=QifPQf8+5NxABBgQgM8wtBwRPNP/WA950jJpTMJ0Jp0=;
+ h=From:To:Subject:Date:From;
+ b=FhwWfqj6G+DqOATzJZRHDxtBk+17XCBjJpwETHeTvVCxTHRH2GDnyOD7c0E6N1zjX
+ I6CQ9JCf8A7OzbaHjiIztWP145x3VhCqF4T+dBHqU27/79AjV2gOYkgeS8aEDrsiio
+ c7fD3WdOn2RqKPFVmNPDRDUyW8iXtrK+6JHxx1btoeagTH11H/ktieaYwJctvwpoDv
+ Q5nik+fgMYxpOM5sj9ElGQygvMHKUOGXCMhj6fUswWK5Izvh493a5YGKzxFhrRNnG+
+ AQI9k0upbpn1FQX4qW2MOC2nf7HE2mhDm/IjBEQF6vwpLBlmYYAuYuZpkk14hzqGNN
+ 3KZF76YfGq+AQ==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix,
+ from userid 48) id 713EFC3279F; Sun, 26 Apr 2026 23:25:09 +0000 (UTC)
+From: bugzilla-daemon@kernel.org
+To: dri-devel@lists.freedesktop.org
+Subject: [Bug 221421] New: amdgpu fails to display anything after resume from
+ S3 suspend
+Date: Sun, 26 Apr 2026 23:25:09 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: new
+X-Bugzilla-Watch-Reason: AssignedTo drivers_video-dri@kernel-bugs.osdl.org
+X-Bugzilla-Product: Drivers
+X-Bugzilla-Component: Video(DRI - non Intel)
+X-Bugzilla-Version: 2.5
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: 0456523@gmail.com
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P3
+X-Bugzilla-Assigned-To: drivers_video-dri@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: bug_id short_desc product version rep_platform
+ op_sys bug_status bug_severity priority component assigned_to reporter
+ cf_regression
+Message-ID: <bug-221421-2300@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sun, 26 Apr 2026 22:10:08 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,46 +75,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace a stale FIXME_DCN4 comment in calculate_avg_bandwidth_required()
-that questioned whether cursor_bw and tdlut bandwidth should be included
-in the average bandwidth calculation.
+https://bugzilla.kernel.org/show_bug.cgi?id=3D221421
 
-cursor_bw is already correctly included in all four accumulation
-sites below the comment. tdlut bandwidth is intentionally absent
-because tdlut data is fetched only during prefetch and blanking
-intervals, not during active display, and therefore does not
-contribute to active average bandwidth.
+            Bug ID: 221421
+           Summary: amdgpu fails to display anything after resume from S3
+                    suspend
+           Product: Drivers
+           Version: 2.5
+          Hardware: AMD
+                OS: Linux
+            Status: NEW
+          Severity: normal
+          Priority: P3
+         Component: Video(DRI - non Intel)
+          Assignee: drivers_video-dri@kernel-bugs.osdl.org
+          Reporter: 0456523@gmail.com
+        Regression: No
 
-Also clarify the phantom pipe handling: phantom pipes are excluded
-from sys_active average BW but included in svp_prefetch average BW,
-which matches the existing code structure.
+Hardware:
+    Machine: Dell Inspiron 15 3525
+    CPU:     AMD Ryzen 7 5825U
+    GPU:     AMD Barcelo [Integrated]
+    RAM:     16GB (2x8GB) of RAM, 32GB of swap
+    Distro:  Arch Linux
+Current kernel version: 6.19.14
 
-Signed-off-by: Adriano Vero <adri.vero.dev@gmail.com>
----
- .../dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c  | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+This laptop originally did not advertise S3 sleep support in the DSDT. S0ix=
+ was
+chewing up my battery so I followed a guide like this
+(https://dev.to/epassaro/fix-suspend-issues-on-dell-7405-2-in-1-3l1b) to pa=
+tch
+S3 sleep back in. I still have the files from back when I did that if they =
+are
+needed. Another issue is that the touchpad also will immediately wake the
+laptop back up with no interaction (which I fixed with a udev rule that mat=
+ches
+the touchpad by name and sets ATTR{power/wakeup}=3D"disabled"), but that's a
+separate issue.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-index ca5ac3c0d..34a2a8326 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-@@ -2845,8 +2845,14 @@ static void calculate_avg_bandwidth_required(
- 		dram_overhead_factor_p0 = dcc_dram_bw_nom_overhead_factor_p0[k] * mall_prefetch_dram_overhead_factor[k];
- 		dram_overhead_factor_p1 = dcc_dram_bw_nom_overhead_factor_p1[k] * mall_prefetch_dram_overhead_factor[k];
- 
--		// FIXME_DCN4, was missing cursor_bw in here, but do I actually need that and tdlut bw for average bandwidth calculation?
--		// active avg bw not include phantom, but svp_prefetch avg bw should include phantom pipes
-+		/*
-+		 * cursor_bw is included in the average bandwidth calculation below.
-+		 * tdlut bandwidth is intentionally excluded: tdlut data is fetched
-+		 * only during prefetch/blanking intervals and does not contribute
-+		 * to active average bandwidth.
-+		 * Phantom pipe contributions are excluded from sys_active but
-+		 * included in svp_prefetch average bandwidth.
-+		 */
- 		if (!dml_is_phantom_pipe(&display_cfg->plane_descriptors[k])) {
- 			avg_bandwidth_required[dml2_core_internal_soc_state_sys_active][dml2_core_internal_bw_sdp] += sdp_overhead_factor * (ReadBandwidthLuma[k] + ReadBandwidthChroma[k]) + cursor_bw[k];
- 			avg_bandwidth_required[dml2_core_internal_soc_state_sys_active][dml2_core_internal_bw_dram] += dram_overhead_factor_p0 * ReadBandwidthLuma[k] + dram_overhead_factor_p1 * ReadBandwidthChroma[k] + cursor_bw[k];
--- 
-2.53.0
+Steps to reproduce and what happens:
+    1. Start up
+    2. Log in to TTY
+    3. Run systemctl suspend
+    4. Display goes black and backlight turns off, and the system goes to s=
+leep
+    5. Wake the system up by hitting a key
+    6. System wakes up
+    7. Backlight turns on
+    8. Display remains black
 
+This only happens when resuming from S3 sleep and does not happen when resu=
+ming
+from S0ix or hibernation.
+
+There are a few things that worked or used to work to restore the image on =
+the
+display:
+Connecting an external display will produce an image on the external display
+just fine, and changing the resolution of the main display worked in restor=
+ing
+the image to it last time I tried, but having to grab my spare monitor out =
+of
+the closet and hook it up is a massive pain.
+Doing sudo cat /sys/kernel/debug/dri/128/amdgpu_gpu_recover used to work
+sometimes, but it seems to now have no effect other than toggling the backl=
+ight
+off then back on.
+
+I have also tried passing in acpi.prefer_microsoft_guid=3D1 and
+amdgpu.dcdebugmask=3D0x10 during boot but neither had any effect at all (go=
+od or
+bad). I checked the kernel logs and there does not seem to be any obvious
+errors (amdgpu-related or not) when suspending and resuming.
+
+This is a massive pain since S0ix or hibernation are the only 2 ways to avo=
+id a
+black screen on resume, but S0ix is unusably power-draining, and hibernatio=
+n is
+still considerably slower than it is on Windows.
+
+--=20
+You may reply to this email to add a comment.
+
+You are receiving this mail because:
+You are watching the assignee of the bug.=
