@@ -4,55 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84C8DFF885D
-	for <dri-devel@archiver.kernel.org>; Sun, 26 Apr 2026 13:27:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B92CFF885C
+	for <dri-devel@archiver.kernel.org>; Sun, 26 Apr 2026 13:31:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD3D710E1BA;
-	Sun, 26 Apr 2026 13:27:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0ED110E1C7;
+	Sun, 26 Apr 2026 13:30:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="V4Lgyvz+";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="d8FrH67h";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9429F10E1BA
- for <dri-devel@lists.freedesktop.org>; Sun, 26 Apr 2026 13:27:22 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 36BCF6A6;
- Sun, 26 Apr 2026 15:25:39 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1777209939;
- bh=AImdYVRVxu5KDaS0wYHMilfThx6b/J7M7IYbo4FUIic=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=V4Lgyvz+LZ/B8NucZ0Tq9FVaEOSNosKAzOGtypyt0aopXlHtPJ5LgFoqccCr2/Ebk
- 05wMugBV4SQYdxtJ4jryIdOh5QNeSC5BhErZRAvpDAdYVz6v5ePwa04f6HAA2YihYf
- t2MstkfWay9RaYZcKTRJ2Jf64UeuJlD0IavR7VGU=
-Date: Sun, 26 Apr 2026 16:27:19 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Dennis Gilmore <dennis@ausil.us>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maxime Ripard <mripard@kernel.org>,
- Alexey Charkov <alchark@gmail.com>, devicetree@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v8 3/6] drm/bridge: simple: Add the Lontium LT8711UXD
- DP-to-HDMI bridge
-Message-ID: <20260426132719.GD2964234@killaraus.ideasonboard.com>
-References: <20260425031011.2529364-1-dennis@ausil.us>
- <ur7mow4lw47ylxj3uigwwasrfywe6n42zb2to7ygeyjlkcgfkf@guzkembyy5hc>
- <20260425234845.GC2964234@killaraus.ideasonboard.com>
- <6519122.LvFx2qVVIh@phil>
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com
+ [74.125.82.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5997710E1C7
+ for <dri-devel@lists.freedesktop.org>; Sun, 26 Apr 2026 13:30:58 +0000 (UTC)
+Received: by mail-dy1-f170.google.com with SMTP id
+ 5a478bee46e88-2daaab98000so557387eec.2
+ for <dri-devel@lists.freedesktop.org>; Sun, 26 Apr 2026 06:30:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777210257; cv=none;
+ d=google.com; s=arc-20240605;
+ b=E3kFR66UFWKxFMEaDiCMIq+oizIYKgGWLS4FkmKhNDmA9a+bZLnJfmmoWej4n4GKAS
+ oV8/lr68tNIx1JZ0kHyDQj9bANUexqDon8QwsfYvpMsgT0hORkawgyYoqhcIYhUsWU0C
+ ZU4oMuCSduMRXJGoqTGYIyPjSaEbprr1EkGWge1+56xSwbTQ1q8NCGbXlAnQf1WqHVZq
+ w89DJKcDwhJJOCvm6vJaKCGXX7kazBX/+bZIHAzsUrI615W1ouvvn2mID+J0rvq+E+5S
+ y6PhAD47HzfSSpYSosuhWq44rVSXt6+JmWrlREMu40M4xPr7MlpqC2GRVROC8Pmr5LYh
+ 3/Yw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=cJXGj63MEyCfqqwOxEXy8J3gwEUh1+Qon8MkHQWN0OQ=;
+ fh=q+0633YUUpjdmj9eJK4XrgDiwAg3gpeBusEXT58ysqs=;
+ b=EX2OZZHjbXBJhUXyEWnXsYoGrva2UR69BGlY9TneSSmsSD0WB545DCYwwFGP5a3OdY
+ GIC334CTHe1Tfj7p/lv7mfjDinoKqxZJbZNhy5kiDG2vF1YRx5JtDlykcaywv9yWaf3e
+ mdhUoaM4QPjetFaooaI7YzwMs2Bye49rRCgnDVI5YRLeoBlnI4lY/rENo9Jj3PfetuyX
+ juNublnB0HBFvCQ1qygYZyR69+hdwC0dFRBG5zsowvEtS6OZ6LG7ET8xyRFlatPSuFtz
+ XM+vU9WmfMe45A7uDgn+hym/UK81muAfAY9/OPYC6MndR4xIJryil9jvlNgrywDLUxwj
+ 7yPQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1777210257; x=1777815057; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=cJXGj63MEyCfqqwOxEXy8J3gwEUh1+Qon8MkHQWN0OQ=;
+ b=d8FrH67htBskNzyB+4Vg0Xt917UhkgpHt2B0z6Wy6XzrBIwutY+c6j9o3YBdZSUIs1
+ QMSb94GVtg4K8x//MgKNILSG+C/CrJ7gL6e60P62zogepZW09WwekFQyqTHivVUawwvh
+ ZHOTiv+Q1Dlbucs7hwAoqC4qXYdE0l+M5YIRjgatkyUFngafJ7LLY6xHLZZn/z3kaqG/
+ 2kxwIkinFmTAcUJ/boAhm2EvtBi1jHjQ5m4fhkVvQY2g3CDM9bKGqerDMoKZyRGWDt13
+ uuc+v1naJ6FRDD2PG1rWW4jkLQLNXCpnHrxGwbnKuDJXq+7OE9my0okATUvfa9cHQ6hH
+ Bk5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777210257; x=1777815057;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=cJXGj63MEyCfqqwOxEXy8J3gwEUh1+Qon8MkHQWN0OQ=;
+ b=pHxc4LNe2A/0LlMn/UL8StKDbQj0Err3MZhrGwcSGnOy5+QXMS0WT7Whp9qZhL+V4Q
+ 36yGTt4D23MTlHFVxyQQXZRZ1nmrsKZ6gzyFKVvEM43o+swVCGCvfHU4Bmahw7ZTI9F1
+ AiHgUIdW7psa7xnsdBUMumuWLE7ikvN1uAbuv/ngNHWRKQXeZHKa7HrebJtwWbPzEqLi
+ QFMQaeBNNtGld9xaJ8r51pH9DDN7qrnjFdaHgoW4HXK6QjO/0lB9RIooIgGA7SSQs3Ao
+ 670qVYCkWUzsZvzX6gDfbDbCLGFW+jf0ZscNif49tz0HXyfFjORPZ25Yak5ndlK/IAD3
+ AroQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8TSn/F36HuRz69ZrgQG/dmUXkG+AgPJgeSG6xOvdXlBczbWlgFFyiRb1V7RI7JiAySkKtaYANY2co=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxxhp3llgIdzHKiY/h0r2aPQSVWyrxOIaW6naA4UdZYaS6VnprX
+ IDP1ZFXyVsaZIegjJ3TWUFQBw0ZzhR6afwOXyz8xC0c2bvK3U4HZciJXihoYIwNCTePIGXRiO52
+ 7YWNBNq+aXk87P6Fsbs6UgayV4PKl5M0=
+X-Gm-Gg: AeBDies9HRme5DBb9DGI7D2wOwbgCfOMyFA/2H1bI1igOZ1TEFi+WBXkTRLNfRcWPcU
+ RRNhewNbHo1NjgRUqNCt37NRz+ADsnUvdZpvyBXJnCFInUQ+v40t/rqkmJYAOuEqX3+vJCt1eBk
+ ft2jWtJzJJ95QVwHsrvYKhm/4QIB1SeU2Y0P4muHasGrux+im64BSsm3x90Nv027Wgj6LyIb4kh
+ zgfkCVyHEiW4sMZBA7tmc1tUJYruhJCkUtzz2seqBHql937H/p8Pay8lUW5PCpMVnMIlGEC899X
+ dI2bgmg6nuFRCjoOJ44P8LJbqqxj9cdBY9k6G8qoQiUDxidgxym1wdgub4ZQBrHrXwklWEEL8F0
+ D9SZswtXZfqAhrvzeLzr4MS8zEVMgjUOxMg==
+X-Received: by 2002:a05:7301:1984:b0:2d9:94b4:a1bc with SMTP id
+ 5a478bee46e88-2e479517ab5mr8193241eec.8.1777210257423; Sun, 26 Apr 2026
+ 06:30:57 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <6519122.LvFx2qVVIh@phil>
+References: <20260422-nova-unload-v3-0-1d2c81bd3ced@nvidia.com>
+ <20260422-nova-unload-v3-1-1d2c81bd3ced@nvidia.com>
+In-Reply-To: <20260422-nova-unload-v3-1-1d2c81bd3ced@nvidia.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Sun, 26 Apr 2026 15:30:44 +0200
+X-Gm-Features: AVHnY4LsUneK3YH3oukvOXnA8etUJn6NPCzTeboNDm_V89hbH9h5xFq9uiWnoW4
+Message-ID: <CANiq72=7u5O_58b6cnCwGz=j0D1tmf5+9Ntv1mkJZpACWXQpFw@mail.gmail.com>
+Subject: Re: [PATCH v3 1/6] rust: add warn_on_err macro
+To: Alexandre Courbot <acourbot@nvidia.com>, Gary Guo <gary@garyguo.net>
+Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Helgaas <bhelgaas@google.com>, 
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Miguel Ojeda <ojeda@kernel.org>,
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, Boqun Feng <boqun@kernel.org>,
+ John Hubbard <jhubbard@nvidia.com>, 
+ Alistair Popple <apopple@nvidia.com>, Joel Fernandes <joelagnelf@nvidia.com>, 
+ Timur Tabi <ttabi@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>,
+ dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,99 +118,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, Apr 26, 2026 at 11:54:57AM +0200, Heiko Stuebner wrote:
-> Am Sonntag, 26. April 2026, 01:48:45 Mitteleuropäische Sommerzeit schrieb Laurent Pinchart:
-> > On Sun, Apr 26, 2026 at 12:44:59AM +0300, Dmitry Baryshkov wrote:
-> > > On Sat, Apr 25, 2026 at 01:10:02PM -0500, Dennis Gilmore wrote:
-> > > > On Sat, Apr 25, 2026 at 9:24 AM Dmitry Baryshkov wrote:
-> > > > > On Sat, Apr 25, 2026 at 02:28:44PM +0300, Laurent Pinchart wrote:
-> > > > > > Hi Dennis,
-> > > > > >
-> > > > > > Thank you for the patch.
-> > > > > >
-> > > > > > On Fri, Apr 24, 2026 at 10:10:08PM -0500, Dennis Gilmore wrote:
-> > > > > > > The Lontium LT8711UXD is a high performance two lane Type-C/DP1.4
-> > > > > > > to HDMI2.0 converter, designed to connect a USB Type-C source or
-> > > > > > > a DP1.4 source to an HDMI2.0 sink.
-> > > > > >
-> > > > > > As far as I can tell, the LT8711UXD has an I2C control interface.
-> > > > > > Shouldn't it be an I2C device ?
-> > > > >
-> > > > > From the datasheet:
-> > > > >
-> > > > > The device is capable of automatic operation which is
-> > > > > enabled by an integrated microprocessor that uses an
-> > > > > embedded SPI flash for firmware storage. System control
-> > > > > is also available through the use of a dedicated
-> > > > > configuration I2C slave interface.
-> > > > >
-> > > > > My guess was that it can either be an I2C device or it can function as a
-> > > > > simple platdev with no I2C controls. Please correct me if my
-> > > > > understanding was wrong.
-> > > > >
-> > > > > But now looking at the schematics, it seems to be connected to I2C6.
-> > > > > Which means that it should be desribed (and bound) as such.
-> > > > 
-> > > > Hi Dmitry and Laurent,
-> > > > 
-> > > > While the schematic shows that it can use I2C and has been wired up,
-> > > > it also shows that both MODE_SEL and I2C_ADDR have unpopulated 10k
-> > > > resistors; as a result, MODE_SEL is connected directly to GND,
-> 
-> looking at the schematics linked in the board patch, I somehow see
-> both R9 (mode_sel -> vcc3v3_io) but also R17 (mode_sel -> gnd) marked
-> as 10K.nc ?
-> 
-> > > > putting
-> > > > the bridge in autonomous mode. I confirmed this by running `i2cdetect
-> > > > -r -y 6`, with the only device on the bus being the HYM8563 RTC at
-> > > > 0x51. Without reworking the board, the device is not directly
-> > > > controllable and just runs autonomously.
-> > > 
-> > > I think it would be nice to mention:
-> > > - In the commit for the bindings, that the device can be running
-> > >   uncontrolled or it can be attached over I2C, bindings describe the
-> > >   uncontrolled mode.
-> > > - In this commit message, the same.
-> > > - In the commit message for the board DT mention your findings about the
-> > >   board, mention soldering R9 or R17 (which one?) and R27.
-> > 
-> > Additionally, how are we going to handle boards where the device
-> > operates in I2C mode ? Will we use a different compatible string (maybe
-> > "lontium,lt8711uxd-i2c") ? If DT maintainers are fine with that, I have
-> > no objection to this patch.
-> 
-> I would assume it'd be more the dt-maintainers objecting?
+On Wed, Apr 22, 2026 at 3:41=E2=80=AFPM Alexandre Courbot <acourbot@nvidia.=
+com> wrote:
+>
+> While we already have the `warn_on` macro, a common usage pattern in
+> Rust is to check whether a `Result` is an error. Add a helper macro that
+> allows this.
+>
+> Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
+> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 
-Yes, probably :-) My main concern here is making sure we're not
-cornering ourselves.
+I saw the discussion with Gary in v2 -- not sure if you are still
+putting this in. If so, and assuming Gary is OK with it, I guess it is
+fine as-is for now, but we should probably create at least a (good
+first?) issue:
 
-> I.e. the two different bindings for the same hardware and leaking Linux
-> implementation-specifics into the binding.
-> 
-> I'm don't have deep insight into the i2c framework, but I guess the i2c
-> device probe does not need to talk to an i2c device due to resources
-> needing setup. Does the i2c core need to talk to the device at all?
-> 
-> Because otherwise, you could just do a regular i2c device (the routing
-> for everything is there afterall), add a lontium,automatic-mode; flag
-> to the node to denote mode.
+Acked-by: Miguel Ojeda <ojeda@kernel.org>
 
-That would work in this case, but if we have a board where the I2C lines
-are really not routed, we would have to invent a fake connection to an
-I2C controller. That's not very nice.
+Not sure about Sashiko's report -- it may be nice to make the macro
+more transparent, even if it would be rare to use it with expressions
+where it would matter.
 
-There seem to be precedents for devices that can be controlled through
-either I2C or SPI. See for instance
-Documentation/devicetree/bindings/net/nfc/st,st-nci.yaml that defines
-two compatible strings for the same device, "st,st21nfcb-i2c" and
-"st,st21nfcb-spi". I don't know if that's the best practice recommended
-by the DT maintainers, or a hack that slipped through.
+Thanks!
 
-> And if for whatever reason a variant appears with the lines connected
-> you can just modifiy the DT via an overlay?
-
--- 
-Regards,
-
-Laurent Pinchart
+Cheers,
+Miguel
