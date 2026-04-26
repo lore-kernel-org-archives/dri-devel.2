@@ -4,85 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0767EFF8850
-	for <dri-devel@archiver.kernel.org>; Sun, 26 Apr 2026 06:48:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99DB7FF8850
+	for <dri-devel@archiver.kernel.org>; Sun, 26 Apr 2026 07:52:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A8F710E528;
-	Sun, 26 Apr 2026 06:48:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64FE410E18C;
+	Sun, 26 Apr 2026 07:52:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ausil.us header.i=@ausil.us header.b="dBHPlb3a";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YWvSKg93";
 	dkim-atps=neutral
-Received: from mail-dl1-f99.google.com (mail-dl1-f99.google.com [74.125.82.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FE4F10E0A0
- for <dri-devel@lists.freedesktop.org>; Sat, 25 Apr 2026 03:10:24 +0000 (UTC)
-Received: by mail-dl1-f99.google.com with SMTP id
- a92af1059eb24-12dca45ca21so1012244c88.1
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Apr 2026 20:10:24 -0700 (PDT)
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
+ [209.85.216.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6714810E18C
+ for <dri-devel@lists.freedesktop.org>; Sun, 26 Apr 2026 07:52:39 +0000 (UTC)
+Received: by mail-pj1-f44.google.com with SMTP id
+ 98e67ed59e1d1-35f9ab079bdso6102102a91.2
+ for <dri-devel@lists.freedesktop.org>; Sun, 26 Apr 2026 00:52:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ausil.us; s=google; t=1777086623; x=1777691423; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=5Q87q408S6kD03eCdhgkumlXWLlyzkrJl5PR3laXuXk=;
- b=dBHPlb3aFy/0o91PX3/QVYqvidWdUD1X+WsxVKn3lpFwwG/Fnkd+FiBFVysVFyutdY
- c0iswpQeROvX/4tG7lwa3Z3h/hrXum2BD2xBG+YuCYbGSmdMll/25mPTJzIZCgoHrf6l
- C0UOic4j15jhtQPr7NhRBVGdTdI2KdysgORJnmrhTFcuEmSIfdMFv2mbvdt0FPhakVh1
- k3kjT4l8PjjbZ1ja91BsEWF37KLJqae/dQBbbEshdMJf0/vMkirhL0yLeqoswebPRVmR
- WO4ZNPkCvrRy2Zn483MSGlQMNQI9I3DmtnmpohfGpTzK910ZLg3zo3yoxR89bjvZvTp4
- AcJg==
+ d=gmail.com; s=20251104; t=1777189959; x=1777794759; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=8zTG+Dw6oqSR8kg/1RMP0Ayk7RcQFqZXb8XQS8VS+9A=;
+ b=YWvSKg93XSIW8ozP2gQf/x9GdwjDYYk0UeKRk+mAzjMpNg2xjwf/+Zx42FYQYTFF6Z
+ wcLBazXxI40rj6BagdO66ajF8REN2ULq6EmojgBrmBuOtG/Ub2gpoDBH5v/+FkSRDwaV
+ AULE3mdqsmBRVYvCXl4tqo/DLXCRtfWgQzBIRmjwcgrY0GYr5p+o1doDt80/RTV8xQBk
+ 5kz7me71NxQu/f91gj6y3BPGm0MkkOIun8SsUZNE2CSM188hdWXL+WMMksbLgra4z3hp
+ IRBWFPJ64xd649ZrSlTkyVIRpzUgu7RzpQbzPRNWpCtflOgQzYlvf2azr3EbbJ1zTfjF
+ 6tmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777086623; x=1777691423;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=5Q87q408S6kD03eCdhgkumlXWLlyzkrJl5PR3laXuXk=;
- b=FB1DFEgent+oGnvf8h8UOFtFl5rxSlV4w/U8Dq/GgmIZVZ8rrctGqhncpX640Tgul0
- i7MICJdKw7496Be5j/m0n114NHKTDTrlfxVDOm/m1DGyZck9Fy/Rv124zej4a2muTnYx
- BOJ34hTRXkIzgmnZRIUMM/QWJpmm4OeiatVlRmAj+Mtsbe61fgNhRuXkRoeFFeiJiMqg
- 71AUChf3GHfrl6TYIEhuibGqbJqNXsCrclbXotQFBC2nSaBiWW5fHcW5VTEm7LhPSXYG
- yBZKCUakVGbZXFL/zOlVLaoRzbjHnzE5ly8qr0DTfeiWI8XWANLojAkEi1VONEYH1sM+
- nkRQ==
+ d=1e100.net; s=20251104; t=1777189959; x=1777794759;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=8zTG+Dw6oqSR8kg/1RMP0Ayk7RcQFqZXb8XQS8VS+9A=;
+ b=reyUaC621UeQMF6nqlBuu4KT2hvYTAzzlBJs0nKWoPgybsmNPcKghvpA8PlyZBr4eV
+ RwejjzP8IElTPpFkUv8x5c8ZLje7jTaNuvnUQrD9g8cVcdstBFlxClDk7OYlpzL23//o
+ ekfEoZJR+wvIwWysBLN2zetItwar5tRVT5N5syzbVPueX0WT8xLhR/8VfXLRoEfDzkal
+ pvmlUcIT6GILEvR8sUfl3uAXduihKQr7bZ4883ebGw3XuzXn9xyX0ihg5lU7NqGX1Pf0
+ 00ePAiAbGG6B9Tq5CHAGRk1QKSCDIgvDiMSXCOwPx6Q5Qb45HVdJfI3/OUVWerBGETSv
+ lv+w==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+hecZQQi32Pka3UOGbdMw826uBkzPCtxliVbqzeqidklu8WIZl/6qrmIEYZ04KZKZU8OAoOZ2HRPg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyAYg5DMNyqyqz7seLPrQrNejrUTl3EcTtTO99K4hG0PMBYgJJz
- /r1cucNCr7Ah+X8D+nGIVhp3EMxwFU/judeLtHF4UAU+WXXg2nJIwCVtMGmEf6AfFgT2yUVbOWn
- Ce9W+j98JBfUuqZe8gb0oPk7B7ayybdgIeEnn
-X-Gm-Gg: AeBDieskVWmi+rE6wqmGwep+ZR5gx12tVkiWpMad0LuSQZxOFwXTsdEw/tug4p3ThIC
- y42YmzbtORWW4qIhXt3clNkyC65Vx9glCNjRVzGNgsjk+KtE2N6crxICRt2n7bfho3ojdpl7BB2
- xvhcC0xmtpaOKNfBEOpPmnG/RnkYR8DoR73D78ce8ucFfyZWk8gDi7428PRnC2MLrJirpUJ65KQ
- KdjXBnWadIIlZ7ZjOXZaXRBwEuJky23IhuwoYGN7Vyv6unhcGAeFQ2TENYCWibDMCVHMYRbouQW
- goSaJmbCHYoJTRpct0W/pdy+8EQp2Wb6jNcp+JQSFL5BB5xcF71lTHLqHJ4zHhhGTlfA0ZRsOyD
- G0btnoWH4vryPEWkYIRd+9lDfFEmZdLOrTt4aUvCWjb3rZF6ZyuXTpww=
-X-Received: by 2002:a05:693c:4011:b0:2e6:e916:70ff with SMTP id
- 5a478bee46e88-2e6e916770cmr11635454eec.28.1777086623456; 
- Fri, 24 Apr 2026 20:10:23 -0700 (PDT)
-Received: from ryac.ausil.us (207-179-239-100.mtco.net. [207.179.239.100])
- by smtp-relay.gmail.com with ESMTPS id
- 5a478bee46e88-2e53a3ae691sm1728646eec.11.2026.04.24.20.10.21
+ AFNElJ+2Yk7bjljj3U1xX0QGDV5UPo89JUVp+hKKVlYkggQqI827hBK1AZX3Zhj1f9oaJLr3zvvzjIQTL0s=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzxNICbAC2kO4epOyU1EvOVsVbMJQECOM7jIknSzMchHsjmyuta
+ aqYxQ3ZZ2X5NnjXT5h5p0L99pCt7AzMICU1Fc3AzdKfXHlMBhQWxQWlQ
+X-Gm-Gg: AeBDiet5BzBRVEB6fRB8aBvAAlBllQyYZw+fh1sLI1V6SVewAXdA5RfMuWTh1yFcVQy
+ 6LeAdf3a3lZzOMRj5TJS6AmrPT32c853sA+U9q0a6qRpi9rsYV9XA1nJJ8qP/5MxhN0QG733kmE
+ 1DICJXzzo49EJz8UTbVz7kodqFI+s+4ZcGKX7GoXNtbcT03v8je8GQOuZYuByNw2+vNgXT2u7vF
+ IO5Od4Z6uovaoGHmfCmd+bpWqBIGXz7y6AhMkl2yvmRnfLkeFBWzIUFbIc3J7zYf7plA8zoivxg
+ w2DQApc3FN4MgEt2z/55E0NXZYZSLXXHNX1sDr8PC2VH0SVeE+WbaVPFmgOlyUaqUJDtSGs3PJV
+ hqTpXWJekDVTL6PCJ4CMt24KldNoCObONbsq4YbclTG7x5yo8TCrkIgJYMA55xuKCQM5Z63vl6M
+ 8ss3hFiSghb+Jz606l28bxF7DeR+pjG5DGikNw+vaQKz+Hx8ezc6cD0BikBbZQ4WGhycMf3sOru
+ jJNK2I9AQ==
+X-Received: by 2002:a17:90b:52cf:b0:35e:577c:c9f with SMTP id
+ 98e67ed59e1d1-361403fb305mr37768192a91.9.1777189958672; 
+ Sun, 26 Apr 2026 00:52:38 -0700 (PDT)
+Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com
+ ([106.51.164.157]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3613fba1436sm10396034a91.11.2026.04.26.00.52.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Apr 2026 20:10:23 -0700 (PDT)
-X-Relaying-Domain: ausil.us
-From: Dennis Gilmore <dennis@ausil.us>
-To: Heiko Stuebner <heiko@sntech.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maxime Ripard <mripard@kernel.org>, Alexey Charkov <alchark@gmail.com>,
- devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Dennis Gilmore <dennis@ausil.us>
-Subject: [PATCH v8 4/6] arm64: dts: rockchip: rk3588s-orangepi-5: rename PLDO
- regulator labels to match schematic
-Date: Fri, 24 Apr 2026 22:10:09 -0500
-Message-ID: <20260425031011.2529364-5-dennis@ausil.us>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260425031011.2529364-1-dennis@ausil.us>
-References: <20260425031011.2529364-1-dennis@ausil.us>
+ Sun, 26 Apr 2026 00:52:38 -0700 (PDT)
+Date: Sun, 26 Apr 2026 13:22:24 +0530
+From: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
+To: Gary Guo <gary@garyguo.net>
+Cc: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com, 
+ chleroy@kernel.org, peterz@infradead.org, jpoimboe@kernel.org,
+ jbaron@akamai.com, 
+ aliceryhl@google.com, rostedt@goodmis.org, ardb@kernel.org,
+ sumit.semwal@linaro.org, 
+ christian.koenig@amd.com, ojeda@kernel.org, boqun@kernel.org,
+ bjorn3_gh@protonmail.com, 
+ lossin@kernel.org, a.hindborg@kernel.org, tmgross@umich.edu, dakr@kernel.org, 
+ nathan@kernel.org, nick.desaulniers+lkml@gmail.com, morbo@google.com, 
+ justinstitt@google.com, tamird@kernel.org, arnd@arndb.de, nsc@kernel.org, 
+ simona.vetter@ffwll.ch, linuxppc-dev@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, 
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, 
+ rust-for-linux@vger.kernel.org, llvm@lists.linux.dev,
+ Link Mauve <linkmauve@linkmauve.fr>
+Subject: Re: [PATCH V13 5/7] rust: Make __udivdi3() and __umoddi3() panic
+Message-ID: <ae3C2gqzoVaovY-h@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+References: <20260424054742.45832-1-mkchauras@gmail.com>
+ <20260424054742.45832-6-mkchauras@gmail.com>
+ <DI1E781QPU8F.1C28PL0089NP6@garyguo.net>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sun, 26 Apr 2026 06:46:56 +0000
+In-Reply-To: <DI1E781QPU8F.1C28PL0089NP6@garyguo.net>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,95 +107,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The Orange Pi 5, 5B and 5 Pro schematics label the RK806 PLDO outputs
-using the pattern VCC_*_S0 / VCCA_*_S0 / VDDA_*_S0. Rename the base
-dtsi regulator labels (and the es8388 supply references) to match:
+On Fri, Apr 24, 2026 at 01:43:43PM +0100, Gary Guo wrote:
+> On Fri Apr 24, 2026 at 6:47 AM BST, Mukesh Kumar Chaurasiya (IBM) wrote:
+> > From: Link Mauve <linkmauve@linkmauve.fr>
+> >
+> > The core crate currently depends on these two functions for i64/u64/
+> > i128/u128/core::time::Duration formatting, but we shouldn’t use that in
+> > the kernel so let’s panic if they are ever called.
+> >
+> > This doesn’t yet fix drm_panic_qr.rs, which also uses __udivdi3 when
+> > CONFIG_CC_OPTIMIZE_FOR_SIZE=y, but at least makes the rest of the kernel
+> > build on PPC32.
+> 
+> Can we always build libcore with `-C opt-level=2` even if
+> `CONFIG_CC_OPTIMIZE_FOR_SIZE` is specified? It feels like a better fix than
+> stubbing things out.
+> 
+> Best,
+> Gary
+> 
+The issue is not coming from libcore itself. It's the driver that's
+causing this.
 
-  pldo-reg1: avcc_1v8_s0 -> vcc_1v8_s0
-  pldo-reg2: vcc_1v8_s0  -> vcca_1v8_s0
-  pldo-reg3: avdd_1v2_s0 -> vdda_1v2_s0
-  pldo-reg4: vcc_3v3_s0  -> vcca_3v3_s0
-
-Also update the saradc vref-supply reference to track the pldo-reg1
-rename. No functional change.
-
-Signed-off-by: Dennis Gilmore <dennis@ausil.us>
----
- .../boot/dts/rockchip/rk3588s-orangepi-5.dtsi | 26 +++++++++----------
- 1 file changed, 13 insertions(+), 13 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dtsi b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dtsi
-index dafad29f9854..fd5c6a025cd1 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5.dtsi
-@@ -274,10 +274,10 @@ es8388: audio-codec@10 {
- 		compatible = "everest,es8388", "everest,es8328";
- 		reg = <0x10>;
- 		clocks = <&cru I2S1_8CH_MCLKOUT>;
--		AVDD-supply = <&vcc_3v3_s0>;
--		DVDD-supply = <&vcc_1v8_s0>;
--		HPVDD-supply = <&vcc_3v3_s0>;
--		PVDD-supply = <&vcc_3v3_s0>;
-+		AVDD-supply = <&vcca_3v3_s0>;
-+		DVDD-supply = <&vcca_1v8_s0>;
-+		HPVDD-supply = <&vcca_3v3_s0>;
-+		PVDD-supply = <&vcca_3v3_s0>;
- 		assigned-clocks = <&cru I2S1_8CH_MCLKOUT>;
- 		assigned-clock-rates = <12288000>;
- 		#sound-dai-cells = <0>;
-@@ -441,7 +441,7 @@ &rknn_mmu_2 {
- };
- 
- &saradc {
--	vref-supply = <&avcc_1v8_s0>;
-+	vref-supply = <&vcc_1v8_s0>;
- 	status = "okay";
- };
- 
-@@ -666,8 +666,8 @@ regulator-state-mem {
- 				};
- 			};
- 
--			avcc_1v8_s0: pldo-reg1 {
--				regulator-name = "avcc_1v8_s0";
-+			vcc_1v8_s0: pldo-reg1 {
-+				regulator-name = "vcc_1v8_s0";
- 				regulator-always-on;
- 				regulator-boot-on;
- 				regulator-min-microvolt = <1800000>;
-@@ -678,8 +678,8 @@ regulator-state-mem {
- 				};
- 			};
- 
--			vcc_1v8_s0: pldo-reg2 {
--				regulator-name = "vcc_1v8_s0";
-+			vcca_1v8_s0: pldo-reg2 {
-+				regulator-name = "vcca_1v8_s0";
- 				regulator-always-on;
- 				regulator-boot-on;
- 				regulator-min-microvolt = <1800000>;
-@@ -691,8 +691,8 @@ regulator-state-mem {
- 				};
- 			};
- 
--			avdd_1v2_s0: pldo-reg3 {
--				regulator-name = "avdd_1v2_s0";
-+			vdda_1v2_s0: pldo-reg3 {
-+				regulator-name = "vdda_1v2_s0";
- 				regulator-always-on;
- 				regulator-boot-on;
- 				regulator-min-microvolt = <1200000>;
-@@ -703,8 +703,8 @@ regulator-state-mem {
- 				};
- 			};
- 
--			vcc_3v3_s0: pldo-reg4 {
--				regulator-name = "vcc_3v3_s0";
-+			vcca_3v3_s0: pldo-reg4 {
-+				regulator-name = "vcca_3v3_s0";
- 				regulator-always-on;
- 				regulator-boot-on;
- 				regulator-min-microvolt = <3300000>;
--- 
-2.53.0
-
+Regards,
+Mukesh
+> >
+> > Signed-off-by: Link Mauve <linkmauve@linkmauve.fr>
+> > Signed-off-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
+> > ---
+> >  rust/Makefile             | 4 ++++
+> >  rust/compiler_builtins.rs | 6 ++++++
+> >  2 files changed, 10 insertions(+)
+> >
+> > diff --git a/rust/Makefile b/rust/Makefile
+> > index 2a5428a5503d..ee11fba7a03d 100644
+> > --- a/rust/Makefile
+> > +++ b/rust/Makefile
+> > @@ -616,6 +616,10 @@ ifneq ($(or $(CONFIG_ARM64),$(and $(CONFIG_RISCV),$(CONFIG_64BIT))),)
+> >  		__ashrti3 \
+> >  		__ashlti3 __lshrti3
+> >  endif
+> > +ifdef CONFIG_PPC32
+> > +	redirect-intrinsics += \
+> > +		__udivdi3 __umoddi3
+> > +endif
+> >  
+> >  ifdef CONFIG_MODVERSIONS
+> >  cmd_gendwarfksyms = $(if $(skip_gendwarfksyms),, \
+> > diff --git a/rust/compiler_builtins.rs b/rust/compiler_builtins.rs
+> > index dd16c1dc899c..fc6b54636dd5 100644
+> > --- a/rust/compiler_builtins.rs
+> > +++ b/rust/compiler_builtins.rs
+> > @@ -97,5 +97,11 @@ pub extern "C" fn $ident() {
+> >      __aeabi_uldivmod,
+> >  });
+> >  
+> > +#[cfg(target_arch = "powerpc")]
+> > +define_panicking_intrinsics!("`u64` division/modulo should not be used", {
+> > +    __udivdi3,
+> > +    __umoddi3,
+> > +});
+> > +
+> >  // NOTE: if you are adding a new intrinsic here, you should also add it to
+> >  // `redirect-intrinsics` in `rust/Makefile`.
+> 
