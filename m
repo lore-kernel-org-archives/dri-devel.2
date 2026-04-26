@@ -4,49 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5772FF885D
-	for <dri-devel@archiver.kernel.org>; Sun, 26 Apr 2026 16:59:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 645A0FF8850
+	for <dri-devel@archiver.kernel.org>; Sun, 26 Apr 2026 21:33:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E494B10E25A;
-	Sun, 26 Apr 2026 16:59:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5496D10E16B;
+	Sun, 26 Apr 2026 21:33:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=emersion.fr header.i=@emersion.fr header.b="Q2eC4HQL";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NkMirT4R";
 	dkim-atps=neutral
-Received: from mail-4323.protonmail.ch (mail-4323.protonmail.ch [185.70.43.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 525D710E25A
- for <dri-devel@lists.freedesktop.org>; Sun, 26 Apr 2026 16:59:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail; t=1777222765; x=1777481965;
- bh=tUDUyDOnCOqPoW+O+WZwKRHRLeRqAPThkvPuVS5TBX0=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=Q2eC4HQLRpZSF7fKkw2jeTRA1Grf+H9SotgXdn/xfVfVSyUsecMh2sbyIGhss4WJY
- 5I4FsFw9AiJLGyqQmU1GSKm4dryeO6FPDhNKD71NJSv5XGutGnnklgA0991Wq6mOYQ
- FL7W7+7JqeiiGkbTjwYmq5SbX1h8HZiJou6GU3fb0F2J3jRVc0nexq8MNKTk0L9zt4
- xb2v7Ug7pxmgT0PkICq2Jy2dQIanD8cw/plhrDoFRzvnECLcTWSy8OigqVQhrCsm64
- dAyc+5JCp5dzNOha/nMzdDTpcaLeQtOtPc0ewnm/TFgLt0WXsMig5fr9X7zXu3EoJm
- DBlJB0luLKVfw==
-Date: Sun, 26 Apr 2026 16:59:19 +0000
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-From: Simon Ser <contact@emersion.fr>
-Cc: dri-devel@lists.freedesktop.org, Pekka Paalanen <ppaalanen@gmail.com>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Daniel Stone <daniel@fooishbar.org>
-Subject: Re: [PATCH] drm/fourcc: document format naming scheme
-Message-ID: <XUz08zbEN3acyjqze6qP6M8Mx2WdKet8WU6eVe9vF2XMr7vlYxEXNAy7qfbmi6V3STr5sLeU0Ew6_9MCm7VQFxHZg8zznLQ8etKUVbi-dLI=@emersion.fr>
-In-Reply-To: <20260426164739.GE2964234@killaraus.ideasonboard.com>
-References: <20260426151641.93763-1-contact@emersion.fr>
- <20260426164739.GE2964234@killaraus.ideasonboard.com>
-Feedback-ID: 1358184:user:proton
-X-Pm-Message-ID: d48cc7349b6266edda2777ceda7e20e167f6ec78
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7AFBC10E16B
+ for <dri-devel@lists.freedesktop.org>; Sun, 26 Apr 2026 21:33:08 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 9AAAE60138;
+ Sun, 26 Apr 2026 21:33:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0AFCC2BCAF;
+ Sun, 26 Apr 2026 21:33:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1777239187;
+ bh=hhIRGFDgMyHb8qHPStrp0zkhGvc8+JYpfKJhJoTAMGg=;
+ h=Date:Subject:Cc:To:From:From;
+ b=NkMirT4RfEeb5R8pDjOqGbdD//pRfJvN0+IIyTnLsEc+8Hk8xiGaAWRc3eeVkEVwm
+ w748UGO4Iq/lbDFRJx8VXvXTNNnlujVU352owigj38NQm9EvegTJiugcke2AJbNkWN
+ vQcAOGFCp4zkxUA7yGj4P76aKdLdiMap2OITP5w9NbRb1GRzTxH2b2X4p5sQcRopW4
+ deImKdWJsRnCKXVCTlhFXhKkSebVcCTmzelN/ulmvSb17ta9pWKBjep3hNeS8Zuh4j
+ MKYx2ZPcFWUNDXoyNt02usw7MZktlEUqGgNrOoB3xlh/SIBN9CUxtWnDXdG3bLU8lB
+ zySfeY8PVxR5g==
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 26 Apr 2026 23:33:01 +0200
+Message-Id: <DI3EPKNRWMQJ.17YVN5V0VBKLR@kernel.org>
+Subject: drm-rust: process change announcement
+Cc: "Alice Ryhl" <aliceryhl@google.com>, "Alexandre Courbot"
+ <acourbot@nvidia.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
+ "John Hubbard" <jhubbard@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, "Joel Fernandes" <joelagnelf@nvidia.com>, "Alistair
+ Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Zhi Wang"
+ <zhiw@nvidia.com>, "Lyude Paul" <lyude@redhat.com>, "Gary Guo"
+ <gary@garyguo.net>, "Philipp Stanner" <phasta@mailbox.org>, "Deborah
+ Brouwer" <deborah.brouwer@collabora.com>, "Beata Michalska"
+ <beata.michalska@arm.com>, "Boris Brezillon"
+ <boris.brezillon@collabora.com>, "Steven Price" <steven.price@arm.com>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Janne Grunau"
+ <j@jannau.net>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Miguel Ojeda" <ojeda@kernel.org>,
+ <rust-for-linux@vger.kernel.org>
+To: <dri-devel@lists.freedesktop.org>, <nova-gpu@lists.linux.dev>
+From: "Danilo Krummrich" <dakr@kernel.org>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,31 +68,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sunday, April 26th, 2026 at 18:47, Laurent Pinchart <laurent.pinchart@id=
-easonboard.com> wrote:
+As already mentioned in [1], starting from the next cycle, the drm-rust-nex=
+t
+branch will be open for new features at all times.
 
-> > + * Memory layout is always described in little-endian order.
->=20
-> This sentence may be a bit vague, especially given that we have the
-> DRM_FORMAT_BIG_ENDIAN() macro.
+Consequently, all patches applied to drm-rust-next after -rc6 do not target=
+ the
+upcoming merge window, but the one after that.
 
-Right, that macro is almost never used=E2=80=A6 I see it only used for
-XRGB1555 and RGB565. Someone recommended against using it, I don't
-remember who.
+Fixes for code that landed in drm-rust-next before -rc6 have to go into
+drm-rust-next-fixes.
 
-See also:
+drm-rust-fixes will continue to be the target for fixes for the current -rc=
+.
 
- * Note that the DRM_FORMAT_BIG_ENDIAN flag should only be used in
- * case the format can't be specified otherwise, so we don't end up
- * with two values describing the same format.
+Please also see the updated documentation in [2] and [3].
 
-> > + * - The first digit indicates chroma sub-sampling: 0 for 2x2, 2 for 2=
-x1, 4 for
-> > + *   none.
->=20
-> We also have 4x4 and 4x1 sub-sampled formats, it would be good to
-> document them.
+Also note that commits merged into drm-rust-next after -rc6 will not be pre=
+sent
+in linux-next until -rc1 of the next cycle.
 
-Yeah, but these use a completely different scheme, like the NV family.
-And then there's single-plane YUV formats, which are just the wild west.
-Not sure how to document all of that=E2=80=A6
+- Danilo
+
+[1] https://lore.kernel.org/all/DHUXFAD38G5Y.6X6QNTANYNGH@kernel.org/
+[2] https://drm.pages.freedesktop.org/maintainer-tools/repositories/drm-rus=
+t.html
+[3] https://drm.pages.freedesktop.org/maintainer-tools/committer/committer-=
+drm-rust.html
