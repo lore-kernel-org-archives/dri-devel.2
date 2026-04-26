@@ -4,96 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02014FF885C
-	for <dri-devel@archiver.kernel.org>; Sun, 26 Apr 2026 13:05:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84C8DFF885D
+	for <dri-devel@archiver.kernel.org>; Sun, 26 Apr 2026 13:27:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9C5210E1BF;
-	Sun, 26 Apr 2026 13:05:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD3D710E1BA;
+	Sun, 26 Apr 2026 13:27:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="glE7GLfE";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="V4Lgyvz+";
 	dkim-atps=neutral
-Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com
- [209.85.217.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EDF510E1BF
- for <dri-devel@lists.freedesktop.org>; Sun, 26 Apr 2026 13:05:34 +0000 (UTC)
-Received: by mail-vs1-f53.google.com with SMTP id
- ada2fe7eead31-612d8a59cc0so2935884137.3
- for <dri-devel@lists.freedesktop.org>; Sun, 26 Apr 2026 06:05:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1777208732; x=1777813532; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=mZgLj8cyLE1pTCqai3ecepNuqq+WdEKm5C7L8MuPHFc=;
- b=glE7GLfEQ52gYj5ZOU6FhLmz1BtJn0HFG3bLAGnk3XDBQOiAPl0nn/d3RnsiBrfUAE
- AcCJpeGdZVumX+np3MEsYzlqxWIIcpEFitA7ENrGEQIZ+0ugcEHQwlxb6mw579dyW7LC
- MB/uV8Ojr9TWiZ/ALqEBsv11cnu00OdonXVKNCcp/Q+/hId65k9gVnj2Oa0HltvSynGY
- mB+t8u29uQ8z61q3kp1+78u9Mn/Az95CdxSQ94qS5TURzEoYbzIF+1g1k8nqYi0rxqKq
- tDGSnDmkU0qMfu9/6Nkucpm0FzZoMumy2k4OEZhYns+1Jm4ZnrNnPAc5LZiKExEtBW0w
- 47vA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777208732; x=1777813532;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=mZgLj8cyLE1pTCqai3ecepNuqq+WdEKm5C7L8MuPHFc=;
- b=KyPEg/bq83avWSAUpBo/9ah/97ZjweuhxOel991RriNbM4F+KtvAvUY48RQGQ7SSsb
- 6u1rqrZUwcFJj17BN21OW3o1u2HFVoQ73WagmMvHHZUb4fNG9+XSvk2xrRLLR6UiNHrG
- y9DmKa2MIucXmOPY96JmTOot1E0Jkx786en2NFmOlBGo1iDrdWotwkuEZkFWIkqmO/gj
- XY5V15cJdJq6vBJwF2SkAfQH91kf5ypu4s51fbrW+v50yMszSLEYu0dQfMQD/qnYUC+R
- PQECyLO0vf64Hwf3yvlLrZR+zvZy3/SE1zcsTLxQy7trrivHWpN7sS4HhcPlBVDCdRS1
- yCbA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+6DC7XjNsEo3Ob3kCdQUIRKN09052/At1NDb8Zp0Fe6/muHpzzYTPsZYbMhQqVr1lVA3yUMJcpWcY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzLjcQxEQOW95vybSeQm3HKQjeG887xbz3ImUXdcPOATH5OcA6k
- GwZ94ShO9T55QTojQUr7hLE8qFnvH6ZUPo6eqThh4YFGB86hfHQikuUWAKnTfPkMtKk=
-X-Gm-Gg: AeBDiesQ5Ri1Hwucyy6iVOcPM1B3w939wOyChHTQSt4xEYkR1OTatiszN/pB02pCbzf
- EmXTaUo6H5G8ON+3c79cb8UT5N7sASAVmMl0i//7b304LeoO98PVX5mgkSKxoh+RWOyb66iCuPp
- SUAOZKYMnmiuO6HeavlnC5oawzvOq/0rgkubWwARp3A+B+45hRm05/Rpx6fqGY3XpCfRdMYwhuf
- KdtBCQBvlzIcdH9jVv9wdTjSzKrejz0MWzPLou3uqsKTvp90AExn0ArPscByT0o3E3GwBiWaT/R
- Rju6V62CcRyIp8v/u8XOm+D6zzZxXtQmza+LqowFespfEKTqWD4EqflfXhy774cKLcyIeylFxoF
- W7HyQ9WCfkoRz8CdHwk4MjL5Vxuj55wfE6OCfXCvoA7nt5FvZosf13SyDk7dUsjD6JCjFaAEJbe
- YU9WerbXfH/Au5UVad0iGQ5I1t04ICA/QU/cv/u7rNtC5DwSHhFv0x0oFeTNCgAD2CDcIZrdgp7
- HUjE/vQt6kK9CVB9mYx17cdRmA=
-X-Received: by 2002:a05:6102:5e94:b0:610:1239:f6d7 with SMTP id
- ada2fe7eead31-616f772efecmr18253527137.18.1777208732488; 
- Sun, 26 Apr 2026 06:05:32 -0700 (PDT)
-Received: from ziepe.ca
- (crbknf0213w-47-54-130-67.pppoe-dynamic.high-speed.nl.bellaliant.net.
- [47.54.130.67]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-8b02ae7df88sm249063966d6.35.2026.04.26.06.05.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 26 Apr 2026 06:05:31 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1wGzAx-0000000Egs5-0CBA;
- Sun, 26 Apr 2026 10:05:31 -0300
-Date: Sun, 26 Apr 2026 10:05:31 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
-Cc: Jiri Pirko <jiri@resnulli.us>, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, iommu@lists.linux.dev,
- linux-media@vger.kernel.org, sumit.semwal@linaro.org,
- benjamin.gaignard@collabora.com, Brian.Starkey@arm.com,
- jstultz@google.com, tjmercier@google.com, christian.koenig@amd.com,
- m.szyprowski@samsung.com, robin.murphy@arm.com, leon@kernel.org,
- sean.anderson@linux.dev, ptesarik@suse.com, catalin.marinas@arm.com,
- suzuki.poulose@arm.com, steven.price@arm.com,
- thomas.lendacky@amd.com, john.allen@amd.com, ashish.kalra@amd.com,
- suravee.suthikulpanit@amd.com, linux-coco@lists.linux.dev
-Subject: Re: [PATCH v5 1/2] dma-mapping: introduce DMA_ATTR_CC_SHARED for
- shared memory
-Message-ID: <20260426130531.GF804026@ziepe.ca>
-References: <20260325192352.437608-1-jiri@resnulli.us>
- <20260325192352.437608-2-jiri@resnulli.us>
- <yq5atst6ywbl.fsf@kernel.org>
- <4qdizkkoeke3cvkcf35upa7p7ick6s654eqlrizmi7ozkw5eze@tnpk2e34xgwl>
- <yq5awly0d504.fsf@kernel.org>
- <tteiecxfqy4k24wnzvp6ocxnuopyhmqtne2xwh5htwldlbzjnp@o6cbzdlurxld>
- <20260421121004.GA3611611@ziepe.ca> <yq5aik9jcpzm.fsf@kernel.org>
- <20260424225514.GE804026@ziepe.ca>
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9429F10E1BA
+ for <dri-devel@lists.freedesktop.org>; Sun, 26 Apr 2026 13:27:22 +0000 (UTC)
+Received: from killaraus.ideasonboard.com
+ (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 36BCF6A6;
+ Sun, 26 Apr 2026 15:25:39 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1777209939;
+ bh=AImdYVRVxu5KDaS0wYHMilfThx6b/J7M7IYbo4FUIic=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=V4Lgyvz+LZ/B8NucZ0Tq9FVaEOSNosKAzOGtypyt0aopXlHtPJ5LgFoqccCr2/Ebk
+ 05wMugBV4SQYdxtJ4jryIdOh5QNeSC5BhErZRAvpDAdYVz6v5ePwa04f6HAA2YihYf
+ t2MstkfWay9RaYZcKTRJ2Jf64UeuJlD0IavR7VGU=
+Date: Sun, 26 Apr 2026 16:27:19 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Dennis Gilmore <dennis@ausil.us>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Alexey Charkov <alchark@gmail.com>, devicetree@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v8 3/6] drm/bridge: simple: Add the Lontium LT8711UXD
+ DP-to-HDMI bridge
+Message-ID: <20260426132719.GD2964234@killaraus.ideasonboard.com>
+References: <20260425031011.2529364-1-dennis@ausil.us>
+ <ur7mow4lw47ylxj3uigwwasrfywe6n42zb2to7ygeyjlkcgfkf@guzkembyy5hc>
+ <20260425234845.GC2964234@killaraus.ideasonboard.com>
+ <6519122.LvFx2qVVIh@phil>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260424225514.GE804026@ziepe.ca>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <6519122.LvFx2qVVIh@phil>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,50 +68,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> > static inline dma_addr_t dma_direct_map_phys(struct device *dev,
-> > 		phys_addr_t phys, size_t size, enum dma_data_direction dir,
-> > 		unsigned long attrs, bool flush)
-> > {
-> > 	dma_addr_t dma_addr;
-> > 
-> > 	if (is_swiotlb_force_bounce(dev)) {
-> > 		if (attrs & (DMA_ATTR_MMIO | DMA_ATTR_REQUIRE_COHERENT))
-> > 			return DMA_MAPPING_ERROR;
-> > 
-> > 		return swiotlb_map(dev, phys, size, dir, attrs);
-> > 	}
-> > 
-> > 	if (attrs & DMA_ATTR_MMIO) {
-> > 		dma_addr = phys;
-> > 		if (unlikely(!dma_capable(dev, dma_addr, size, false, attrs)))
-> > 			goto err_overflow;
-> > 		goto dma_mapped;
+On Sun, Apr 26, 2026 at 11:54:57AM +0200, Heiko Stuebner wrote:
+> Am Sonntag, 26. April 2026, 01:48:45 Mitteleuropäische Sommerzeit schrieb Laurent Pinchart:
+> > On Sun, Apr 26, 2026 at 12:44:59AM +0300, Dmitry Baryshkov wrote:
+> > > On Sat, Apr 25, 2026 at 01:10:02PM -0500, Dennis Gilmore wrote:
+> > > > On Sat, Apr 25, 2026 at 9:24 AM Dmitry Baryshkov wrote:
+> > > > > On Sat, Apr 25, 2026 at 02:28:44PM +0300, Laurent Pinchart wrote:
+> > > > > > Hi Dennis,
+> > > > > >
+> > > > > > Thank you for the patch.
+> > > > > >
+> > > > > > On Fri, Apr 24, 2026 at 10:10:08PM -0500, Dennis Gilmore wrote:
+> > > > > > > The Lontium LT8711UXD is a high performance two lane Type-C/DP1.4
+> > > > > > > to HDMI2.0 converter, designed to connect a USB Type-C source or
+> > > > > > > a DP1.4 source to an HDMI2.0 sink.
+> > > > > >
+> > > > > > As far as I can tell, the LT8711UXD has an I2C control interface.
+> > > > > > Shouldn't it be an I2C device ?
+> > > > >
+> > > > > From the datasheet:
+> > > > >
+> > > > > The device is capable of automatic operation which is
+> > > > > enabled by an integrated microprocessor that uses an
+> > > > > embedded SPI flash for firmware storage. System control
+> > > > > is also available through the use of a dedicated
+> > > > > configuration I2C slave interface.
+> > > > >
+> > > > > My guess was that it can either be an I2C device or it can function as a
+> > > > > simple platdev with no I2C controls. Please correct me if my
+> > > > > understanding was wrong.
+> > > > >
+> > > > > But now looking at the schematics, it seems to be connected to I2C6.
+> > > > > Which means that it should be desribed (and bound) as such.
+> > > > 
+> > > > Hi Dmitry and Laurent,
+> > > > 
+> > > > While the schematic shows that it can use I2C and has been wired up,
+> > > > it also shows that both MODE_SEL and I2C_ADDR have unpopulated 10k
+> > > > resistors; as a result, MODE_SEL is connected directly to GND,
 > 
-> I suspect P2P is probably broken on CC because this doesn't make
-> sense..
-
-Actually, I suppose it is fully broken because it will jump to swiotlb
-and then should fail.
-
-> This should flow into the
-> phys_to_dma_unencrypted/phys_to_dma_encrypted block as well AFAICT, it
-> shouldn't just assign phys. Assigning phys to dma on a CC system is
-> always wrong, right?
+> looking at the schematics linked in the board patch, I somehow see
+> both R9 (mode_sel -> vcc3v3_io) but also R17 (mode_sel -> gnd) marked
+> as 10K.nc ?
 > 
-> It is is more like
+> > > > putting
+> > > > the bridge in autonomous mode. I confirmed this by running `i2cdetect
+> > > > -r -y 6`, with the only device on the bus being the HYM8563 RTC at
+> > > > 0x51. Without reworking the board, the device is not directly
+> > > > controllable and just runs autonomously.
+> > > 
+> > > I think it would be nice to mention:
+> > > - In the commit for the bindings, that the device can be running
+> > >   uncontrolled or it can be attached over I2C, bindings describe the
+> > >   uncontrolled mode.
+> > > - In this commit message, the same.
+> > > - In the commit message for the board DT mention your findings about the
+> > >   board, mention soldering R9 or R17 (which one?) and R27.
+> > 
+> > Additionally, how are we going to handle boards where the device
+> > operates in I2C mode ? Will we use a different compatible string (maybe
+> > "lontium,lt8711uxd-i2c") ? If DT maintainers are fine with that, I have
+> > no objection to this patch.
 > 
->         /* To be updated, callers should specify MMIO | CC_SHARED instead of
-> 	   * implying it. */
->         if (attrs & DMA_ATTR_MMIO)
-> 	   attrs |= DMA_ATTR_CC_SHARED;
+> I would assume it'd be more the dt-maintainers objecting?
 
-So no need for this if, we can go directly to marking the MMIO callers
-with DMA_ATTR_CC_SHARED once this is fixed for mmio:
+Yes, probably :-) My main concern here is making sure we're not
+cornering ourselves.
 
->         if (attrs & DMA_ATTR_CC_SHARED) {
->  		dma_addr = phys_to_dma_unencrypted(dev, phys);
->  	} else {
->  		dma_addr = phys_to_dma_encrypted(dev, phys);
->  	}
+> I.e. the two different bindings for the same hardware and leaking Linux
+> implementation-specifics into the binding.
+> 
+> I'm don't have deep insight into the i2c framework, but I guess the i2c
+> device probe does not need to talk to an i2c device due to resources
+> needing setup. Does the i2c core need to talk to the device at all?
+> 
+> Because otherwise, you could just do a regular i2c device (the routing
+> for everything is there afterall), add a lontium,automatic-mode; flag
+> to the node to denote mode.
 
-Jasn
+That would work in this case, but if we have a board where the I2C lines
+are really not routed, we would have to invent a fake connection to an
+I2C controller. That's not very nice.
+
+There seem to be precedents for devices that can be controlled through
+either I2C or SPI. See for instance
+Documentation/devicetree/bindings/net/nfc/st,st-nci.yaml that defines
+two compatible strings for the same device, "st,st21nfcb-i2c" and
+"st,st21nfcb-spi". I don't know if that's the best practice recommended
+by the DT maintainers, or a hack that slipped through.
+
+> And if for whatever reason a variant appears with the lines connected
+> you can just modifiy the DT via an overlay?
+
+-- 
+Regards,
+
+Laurent Pinchart
