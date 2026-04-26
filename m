@@ -4,47 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9A26FF885D
-	for <dri-devel@archiver.kernel.org>; Sun, 26 Apr 2026 16:47:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5772FF885D
+	for <dri-devel@archiver.kernel.org>; Sun, 26 Apr 2026 16:59:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EFFE10E139;
-	Sun, 26 Apr 2026 16:47:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E494B10E25A;
+	Sun, 26 Apr 2026 16:59:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="FUJ3FeOH";
+	dkim=pass (2048-bit key; unprotected) header.d=emersion.fr header.i=@emersion.fr header.b="Q2eC4HQL";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05A7010E139
- for <dri-devel@lists.freedesktop.org>; Sun, 26 Apr 2026 16:47:43 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id C74E8981;
- Sun, 26 Apr 2026 18:45:59 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1777221960;
- bh=JHkWtqG1syN5M2zJzbXjCcAC0qMYBTMOxbe5qquROQc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=FUJ3FeOH7r57hfceOnj3GGVeQHajWJ/gfgKatdhHnxd19qMBXm6/ezrndHFr2F5kx
- NASZ5i6IxKVFIZwxFTQzzgfvCO47LShxrZQ8Li8MuSVCm309/uKsl/ukY7FxrgTpA4
- IG6trek4zbTpiRPWZHaK8pMSGXxZOMVd4K2DDyJA=
-Date: Sun, 26 Apr 2026 19:47:39 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Simon Ser <contact@emersion.fr>
+Received: from mail-4323.protonmail.ch (mail-4323.protonmail.ch [185.70.43.23])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 525D710E25A
+ for <dri-devel@lists.freedesktop.org>; Sun, 26 Apr 2026 16:59:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
+ s=protonmail; t=1777222765; x=1777481965;
+ bh=tUDUyDOnCOqPoW+O+WZwKRHRLeRqAPThkvPuVS5TBX0=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=Q2eC4HQLRpZSF7fKkw2jeTRA1Grf+H9SotgXdn/xfVfVSyUsecMh2sbyIGhss4WJY
+ 5I4FsFw9AiJLGyqQmU1GSKm4dryeO6FPDhNKD71NJSv5XGutGnnklgA0991Wq6mOYQ
+ FL7W7+7JqeiiGkbTjwYmq5SbX1h8HZiJou6GU3fb0F2J3jRVc0nexq8MNKTk0L9zt4
+ xb2v7Ug7pxmgT0PkICq2Jy2dQIanD8cw/plhrDoFRzvnECLcTWSy8OigqVQhrCsm64
+ dAyc+5JCp5dzNOha/nMzdDTpcaLeQtOtPc0ewnm/TFgLt0WXsMig5fr9X7zXu3EoJm
+ DBlJB0luLKVfw==
+Date: Sun, 26 Apr 2026 16:59:19 +0000
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+From: Simon Ser <contact@emersion.fr>
 Cc: dri-devel@lists.freedesktop.org, Pekka Paalanen <ppaalanen@gmail.com>,
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
  Daniel Stone <daniel@fooishbar.org>
 Subject: Re: [PATCH] drm/fourcc: document format naming scheme
-Message-ID: <20260426164739.GE2964234@killaraus.ideasonboard.com>
+Message-ID: <XUz08zbEN3acyjqze6qP6M8Mx2WdKet8WU6eVe9vF2XMr7vlYxEXNAy7qfbmi6V3STr5sLeU0Ew6_9MCm7VQFxHZg8zznLQ8etKUVbi-dLI=@emersion.fr>
+In-Reply-To: <20260426164739.GE2964234@killaraus.ideasonboard.com>
 References: <20260426151641.93763-1-contact@emersion.fr>
+ <20260426164739.GE2964234@killaraus.ideasonboard.com>
+Feedback-ID: 1358184:user:proton
+X-Pm-Message-ID: d48cc7349b6266edda2777ceda7e20e167f6ec78
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260426151641.93763-1-contact@emersion.fr>
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,98 +62,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Simon,
+On Sunday, April 26th, 2026 at 18:47, Laurent Pinchart <laurent.pinchart@id=
+easonboard.com> wrote:
 
-Thank you for the patch.
+> > + * Memory layout is always described in little-endian order.
+>=20
+> This sentence may be a bit vague, especially given that we have the
+> DRM_FORMAT_BIG_ENDIAN() macro.
 
-On Sun, Apr 26, 2026 at 03:16:58PM +0000, Simon Ser wrote:
-> When adding a new format, one needs to pick a name and fourcc.
-> This is not always an easy task: figuring out why current formats
-> are named this way is tricky.
-> 
-> Document current practice to make that process easier.
-> 
-> See previous discussion at:
-> https://lore.kernel.org/all/aocdbgbLe5WhUEOGeLg3P7fRDM8i72H9zBuUnoAjjsuvBLfMPofrPtaUEjII_43KXf1wCbv1G9UutJKMkWLaEcBSnrlUV78Wrhu6l_Z0xi8=@emersion.fr/
-> 
-> Signed-off-by: Simon Ser <contact@emersion.fr>
-> Cc: Pekka Paalanen <ppaalanen@gmail.com>
-> Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> Cc: Daniel Stone <daniel@fooishbar.org>
-> ---
->  include/uapi/drm/drm_fourcc.h | 39 +++++++++++++++++++++++++++++++++++
->  1 file changed, 39 insertions(+)
-> 
-> diff --git a/include/uapi/drm/drm_fourcc.h b/include/uapi/drm/drm_fourcc.h
-> index ac66fa93b5a3..dc737c4fa5f2 100644
-> --- a/include/uapi/drm/drm_fourcc.h
-> +++ b/include/uapi/drm/drm_fourcc.h
-> @@ -38,6 +38,45 @@ extern "C" {
->   * fourcc code, a Format Modifier may optionally be provided, in order to
->   * further describe the buffer's format - for example tiling or compression.
->   *
-> + * Formats
-> + * -------
-> + *
-> + * Formats describe how a buffer is interpreted to decode pixel color and alpha
-> + * values. Formats are uniquely identified by a four character code (fourcc).
-> + * Memory layout is always described in little-endian order.
+Right, that macro is almost never used=E2=80=A6 I see it only used for
+XRGB1555 and RGB565. Someone recommended against using it, I don't
+remember who.
 
-This sentence may be a bit vague, especially given that we have the
-DRM_FORMAT_BIG_ENDIAN() macro.
+See also:
 
-> + *
-> + * The following channels are defined:
-> + *
-> + * - "R", red
-> + * - "G", green
-> + * - "B", blue
-> + * - "A", alpha
-> + * - "C", color index (for paletted formats)
-> + * - "D", darkness (inverse relationship between channel value and brightness)
-> + * - "Y", luma/brightness
-> + * - "U", blue-difference chroma (Cb)
-> + * - "V", red-difference chroma (Cr)
-> + * - "X", a placeholder for undefined/unused contents
-> + *
-> + * Formats using the RGB color model have names made up of a list of channels
-> + * followed by the number of bits used by each channel, respectively. Any
-> + * padding is explicitly indicated by the special "X" channel. Channels use
-> + * unsigned integers, except when suffixed by "F" to indicate IEEE 754 floats.
-> + * An underscore "_" can be used to delimit planes.
-> + *
-> + * Multi-planar YUV formats use the following naming scheme for the most part:
-> + *
-> + * - The first letter indicates the number of planes, channel alignment and
-> + *   ordering. It is should not be a letter already used to denote a channel.
+ * Note that the DRM_FORMAT_BIG_ENDIAN flag should only be used in
+ * case the format can't be specified otherwise, so we don't end up
+ * with two values describing the same format.
 
-s/It is/It/
+> > + * - The first digit indicates chroma sub-sampling: 0 for 2x2, 2 for 2=
+x1, 4 for
+> > + *   none.
+>=20
+> We also have 4x4 and 4x1 sub-sampled formats, it would be good to
+> document them.
 
-> + * - The first digit indicates chroma sub-sampling: 0 for 2x2, 2 for 2x1, 4 for
-> + *   none.
-
-We also have 4x4 and 4x1 sub-sampled formats, it would be good to
-document them.
-
-> + * - The two other digits indicate bits for the Y channel. If the Cb channel
-> + *   comes before Cr, the digits are reversed.
-> + *
-> + * Fourccs are allocated on a first-come, first-served basis. New format names
-> + * and fourccs should try to use the same naming scheme as existing, similar
-> + * formats.
-> + *
->   * Format Modifiers
->   * ----------------
->   *
-
--- 
-Regards,
-
-Laurent Pinchart
+Yeah, but these use a completely different scheme, like the NV family.
+And then there's single-plane YUV formats, which are just the wild west.
+Not sure how to document all of that=E2=80=A6
