@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6227FF885E
-	for <dri-devel@archiver.kernel.org>; Sun, 26 Apr 2026 08:22:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79298FF885E
+	for <dri-devel@archiver.kernel.org>; Sun, 26 Apr 2026 08:23:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 525F910E196;
-	Sun, 26 Apr 2026 08:22:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBE6C10E17E;
+	Sun, 26 Apr 2026 08:23:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Jo3ehBd0";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RyH05gSQ";
 	dkim-atps=neutral
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
- [209.85.214.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E9C610E196
- for <dri-devel@lists.freedesktop.org>; Sun, 26 Apr 2026 08:22:55 +0000 (UTC)
-Received: by mail-pl1-f181.google.com with SMTP id
- d9443c01a7336-2ad21f437eeso59324945ad.0
- for <dri-devel@lists.freedesktop.org>; Sun, 26 Apr 2026 01:22:55 -0700 (PDT)
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
+ [209.85.214.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E865710E17E
+ for <dri-devel@lists.freedesktop.org>; Sun, 26 Apr 2026 08:23:02 +0000 (UTC)
+Received: by mail-pl1-f182.google.com with SMTP id
+ d9443c01a7336-2aaed195901so39696515ad.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 26 Apr 2026 01:23:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777191775; x=1777796575; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1777191782; x=1777796582; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=5X1fF5hQULGKVZ4Sp8pVMxUoUy4e3HU84f9TuloiPvw=;
- b=Jo3ehBd0qVyc35ekFOALUj03yxtAWQiPzNSpg194a4i7Du3ctPEMGuVb/QhH7WE+oJ
- rfTs5UZ6YtRWYg1x4N99MaVp2Jqd7COsS/tZjjf8HRlpGfg2QJmyKdzyB2fBdX0ly/5b
- y8wl+xenB97LI808+CX5qTP7uv4mZVrzOKEhvoE37IPim5FdhLMgMTOiDIFnGmqKaQFP
- O3m7UgEhfXe4neGnA2fFsXi4amyGcUR8XCtaIWr6aRlHZtXB1m6UsarD6+qLH5icLPsZ
- NHhlU6oPDQkE5s8ixOeWofZ7AER9fs8pnzExjmja2fqmEkMEWbXjmO0JuGLrKwCyzfCA
- JwIw==
+ :reply-to; bh=W1qEqq8PLZmBKEBDQMcGtLZPtyhcLKjlPNm9SyBR/+E=;
+ b=RyH05gSQHRm6SCZSLiw3fDZaIzkDKGjFz+jSv069X0KRrYxNFEdjFls6C6kjXA5lu/
+ wNHngaJZ8aHlZKZ4wu1pmsDUTrUQ/1oV2HumJAtU+fTXPH3V4JqMmTKnHdz4JQLZEp9o
+ wwbyhfY0PQY9CPM7fgZ3DYfaWpMuJgt9tRoKGYbFMATDdxyWL/DYwpMENtzEl7wOA+wl
+ Hy0NrDqBef0sEyTt/sqRtmaoDA27NOc6m8WiVdjdsvDFMgWKQuBGKrjjPRuoPt2fQC0w
+ m0YVDVFyL0yU53yv0oNicsfehfztB+I8SqvNvku4fqlmgUmYn7gK6YiQzP3Q2rX2Rmzc
+ iStA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777191775; x=1777796575;
+ d=1e100.net; s=20251104; t=1777191782; x=1777796582;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=5X1fF5hQULGKVZ4Sp8pVMxUoUy4e3HU84f9TuloiPvw=;
- b=HgiDrSQDHfjY1CciabIGa8WszrN5F9QionIZGFgzP7gnu9RfbELgoDMZzz7WlQ5nat
- +qHt3XvZhPYDsKM8hH4WPs821A/srJ/oEyj9kFDflsstazIS9RLmHMq1MObRpr1jYAkG
- jFd42qTQR5iNXMpdmPPBTHpJlCvn53rukGVPQIaCZIAyLI9OTzaNK6nvs2u49hMggJar
- i3SkhpD3AScE7PVL13oOzt4lu16Zz+cMKPMRUUkL2cl/RgZ6Xq7RRXmVwWvyhsSTG18A
- l/+VNdM8UptfGDwsDtkgMKHLuw1bbEuiDYlbVIuKxBED+zkQIBheTVxnN2nuFjfyeM2t
- 50cA==
+ bh=W1qEqq8PLZmBKEBDQMcGtLZPtyhcLKjlPNm9SyBR/+E=;
+ b=dKIKvS0O3IFcVqiG9P8nNgApYYsYUAC5oDM73D7VxsDY1lZvf6uyPHZbXFXfBIohVS
+ GApWXxAbc/vRwnoxkJ3UaCk36+AtDsLqV/ZWsql/TaEiJNOrdWYvltOeW+ENxHtgLnyI
+ SjoPA+ZO3sANU1j7lZdOYYdk0EKdSeZjy8b3ADuIDtFdeIjGCkVg4TRegHemZ/nT6tqw
+ zlv8yz+zbjlfjo0J8U+6VVYzED3ac+uEcohi8vxUUIVs3KOsgUY6y1YUKMqgz1IB2SM8
+ A5hnC6KSv67iWM7mmX7LYC7LvF3AAV1hFg5V5Q/h3w3gZIrnA6mybwGZdDSUMZ6/AZbO
+ iTYA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+JK6Bi9mVkkTZrUlhwZpeY5wuPb//SxTKabtgAkHT0JI5QtpVOLqC0YGionYgUlrl0F1oIDPUIDew=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyDQaS7KV+P/KCZiC5ufv+W+EUZmd7Ch0BOyOTmA9T4GdF5kPR2
- IEj+FzIDSYh1s1rl8EwnFLDKPlE8w9w/jav08OyG/GsvHuCk+lSb3IPi
-X-Gm-Gg: AeBDieuxTF+9biCFJGyjtKdSR/PSNJhA5yqGSk8ikQ8LQ1xd+vMsBIOVAIVYjbiQaaA
- v2g3ONE/T84PHej6js1Gn808aB5XN4vgNII/a4JalGTobOeeI5+e9V+1EYOnG6o32jHArE9d4zm
- zz1W/rKC+YM1brrBKuYrY7LtWys4eVD4HX7CCmlwrcb/ylqWgejRMA9TupmetVCpCXdXxX6tlMw
- OYqTsKduQzohTope0wXI4J4p/+2CpMGPV8eM/CwNpnIC4ey26qSnytqvH4BP31NoelMAFBqZ5RZ
- srM6Fd5zMiYQwMT8vE5MqT9rtVt5pMfQWRO57bDnurtQO/HNZaaoCILLj/efAqxwsTp4zCFs+Q7
- vMVewKNo655ODRDDSkhrP5+dIKaj4uNolv+lHoQPB5OOv9954Oh6z6dsbilrelc+EJQfmJAtAHC
- VMOIUWG85rH4hU94cjCfRBvPnB/RUznMK/U1Q1DdD36ZtAYMaPkKoRrSGiW2w+4q1iOHTpoJYnI
- +lhCOmjbH+wrhc=
-X-Received: by 2002:a17:903:bd0:b0:2b0:4f16:22f7 with SMTP id
- d9443c01a7336-2b5f9e8d873mr243196255ad.16.1777191774559; 
- Sun, 26 Apr 2026 01:22:54 -0700 (PDT)
+ AFNElJ/+n3rfPhab9KtJnX4KLFaFuqGubf078vvpetzUuoYEW8m68Mmxv43HCydkMo9MFfCjTXEMr1vyrj0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxeukJtiC/n78uzaKVkEyD9rL6YLV/m18svKnQgtE13KedDsyWp
+ n2vYDRoHX6wWODmQyMPffVMy68gALxy7R6ZFMfsi1IhK3Kn4PnjOUBQk
+X-Gm-Gg: AeBDietOShYRlzEIsAmgyFI8BySObwCnZDZYgP5Zptjw0PKyANZfGvwUPOZDyHprauo
+ vGnstpGTs0hPF20zYt7P6eEw3p+7pnTcr0nxsga40Si+VGRyqFRTiH+vJyfH9bxuvdVkgJjv+UA
+ NZs5ujNC9OsO2vU/+7aRl5s5wU08houfKjtht+M7BApYF0PoKgUkkVruWR1myvQ5u3EMFjB+ti7
+ XqOx93M6wzjWNTKtK8gQuCahMxT5UyOdwARsBjgMgF+jzUw7mmi9Xk+7mEOCVf6sEcBM3loBN6n
+ 6B4uG9+UXdRJwg1YzQ9dcwP4kPUFj9XB/eGmdWvMC0hWD/6hWTa3c3QwcAqOGoNwILLMQqp/GIK
+ ETVPqmbXbosVbvpW5/WzwRpVoB+brtpgS6ZAJxfYbB6IcKbsVoJxw/Udm9gxUm11r/rwRLP/ZON
+ IpU2ZGu/azqrM8l4cRLqAdyNz8f5pFwL2hmtU8osg91bX453HME+rrmLoAuWSJgbBQEWTSFpr6A
+ 1Dtfj1ufzRPQxs=
+X-Received: by 2002:a17:903:b8f:b0:2b0:7225:d2c0 with SMTP id
+ d9443c01a7336-2b5f9fb9d4cmr376823945ad.30.1777191782308; 
+ Sun, 26 Apr 2026 01:23:02 -0700 (PDT)
 Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com.com
  ([106.51.164.157]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2b5fab0dafcsm284770165ad.52.2026.04.26.01.22.47
+ d9443c01a7336-2b5fab0dafcsm284770165ad.52.2026.04.26.01.22.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 26 Apr 2026 01:22:54 -0700 (PDT)
+ Sun, 26 Apr 2026 01:23:02 -0700 (PDT)
 From: "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>
 To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
  airlied@gmail.com, simona@ffwll.ch, dakr@kernel.org, aliceryhl@google.com,
@@ -70,9 +70,10 @@ To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
  tmgross@umich.edu, daniel.almeida@collabora.com, lina+kernel@asahilina.net,
  j@jananu.net, mkchauras@gmail.com, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
-Subject: [PATCH V1 1/2] rust/drm: import ARef from sync crate
-Date: Sun, 26 Apr 2026 13:52:33 +0530
-Message-ID: <20260426082234.2026908-2-mkchauras@gmail.com>
+Subject: [PATCH V1 2/2] drm: Make CONFIG_RUST_DRM_GEM_SHMEM_HELPER selectable
+ from menuconfig
+Date: Sun, 26 Apr 2026 13:52:34 +0530
+Message-ID: <20260426082234.2026908-3-mkchauras@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260426082234.2026908-1-mkchauras@gmail.com>
 References: <20260426082234.2026908-1-mkchauras@gmail.com>
@@ -93,30 +94,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-ARef is defined in sync and is getting used from types causing the
-build to fail.
+CONFIG_RUST_DRM_GEM_SHMEM_HELPER doesn't have a description leading to
+not show up as a selectable menu item in menuconfig. Along side it's not
+dependent on rust.
 
-Fix this by using ARef from sync crate.
+Fix this by making CONFIG_RUST_DRM_GEM_SHMEM_HELPER dependent on
+CONFIG_RUST and give it a description string so that it can be selected
+from menuconfig.
 
 Signed-off-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
 ---
- rust/kernel/drm/gem/shmem.rs | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/Kconfig | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
-index d025fb035195..50aa57bf78ca 100644
---- a/rust/kernel/drm/gem/shmem.rs
-+++ b/rust/kernel/drm/gem/shmem.rs
-@@ -19,8 +19,8 @@
-     },
-     error::to_result,
-     prelude::*,
-+    sync::aref::ARef,
-     types::{
--        ARef,
-         Opaque, //
-     }, //
- };
+diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+index 8f5a8d3012e4..89adb700d710 100644
+--- a/drivers/gpu/drm/Kconfig
++++ b/drivers/gpu/drm/Kconfig
+@@ -269,8 +269,8 @@ config DRM_GEM_SHMEM_HELPER
+ 	  Choose this if you need the GEM shmem helper functions
+ 
+ config RUST_DRM_GEM_SHMEM_HELPER
+-	bool
+-	depends on DRM && MMU
++	bool "Rust GEM shmem helper functions"
++	depends on DRM && MMU && RUST
+ 	select DRM_GEM_SHMEM_HELPER
+ 	help
+ 	  Choose this if you need the GEM shmem helper functions In Rust
 -- 
 2.53.0
 
