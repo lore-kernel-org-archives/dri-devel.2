@@ -4,85 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 287A8FF8862
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 08:16:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E83F5FF8861
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 08:19:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6963410E222;
-	Mon, 27 Apr 2026 08:16:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BCFC10E28E;
+	Mon, 27 Apr 2026 08:19:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="hlTKKBpV";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="qcXu4slc";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="hlTKKBpV";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="qcXu4slc";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="ewlRAZYl";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="8u9R91+k";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="OlQh3CzF";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="yhJKxnz0";
 	dkim-atps=neutral
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B37F10E222
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 08:16:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DCA910E28E
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 08:19:19 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 8223E6A94D;
- Mon, 27 Apr 2026 08:16:20 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 9054E6A90C;
+ Mon, 27 Apr 2026 08:19:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1777277780; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1777277957; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=BX4raB6T4rmFud8OAcvCz8tOECk6x1ETc7sFYC7jpg0=;
- b=hlTKKBpVXtHaoIZ7NCFrEy8MOrPN4oTkgAIk9dBLOIqg+lXzN9umUgViO+kgbTQJ6firJ/
- 4NCrWOUL/6PYUEZJ/sKum1+8HQVSWczGRdtAwWTmSLKwj5GlPQpenBoitRw9YTeqY38FOI
- 47au1jKs4OChL5vbT4g5Y69UjBm3YZg=
+ bh=AcWK5ou8hWVLwJj6Gqo3HEzbRIc3fKmzIfbj8K3a2lA=;
+ b=ewlRAZYlZajJKSuZGYMhFr0EPDruXIohC7BprRVJOhDvaCHHaB4mQqjNrLidjCURsHWCG1
+ e6yVValbUOA/MEOyd2FyBe/yVDXIm/o6qpJW9xfSTY9wfpRGVIJ4VGpx9BJxftVGP8uby+
+ 8FJHQlAdMgXdq+rTvh2VS3Pmw4ho+8o=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1777277780;
+ s=susede2_ed25519; t=1777277957;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=BX4raB6T4rmFud8OAcvCz8tOECk6x1ETc7sFYC7jpg0=;
- b=qcXu4slcRWhwJiq6WJN/EOQMVsxjMwraLaaEMnDIIM01PDcRV95fG/Y6nwvVGHc/bsXX89
- IdOdWFUr6Isda2Cg==
+ bh=AcWK5ou8hWVLwJj6Gqo3HEzbRIc3fKmzIfbj8K3a2lA=;
+ b=8u9R91+klDtEpp/gmQuJMPAK6gWxtPt3b5NYft0t0c6/PGRDbW2p9sc3H02/Bc2EHSAd7i
+ 8J12CS+lwI8U1ECg==
 Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1777277780; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1777277956; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=BX4raB6T4rmFud8OAcvCz8tOECk6x1ETc7sFYC7jpg0=;
- b=hlTKKBpVXtHaoIZ7NCFrEy8MOrPN4oTkgAIk9dBLOIqg+lXzN9umUgViO+kgbTQJ6firJ/
- 4NCrWOUL/6PYUEZJ/sKum1+8HQVSWczGRdtAwWTmSLKwj5GlPQpenBoitRw9YTeqY38FOI
- 47au1jKs4OChL5vbT4g5Y69UjBm3YZg=
+ bh=AcWK5ou8hWVLwJj6Gqo3HEzbRIc3fKmzIfbj8K3a2lA=;
+ b=OlQh3CzFf8iotNHrhBWBbRGRd50VtK7B4wX1qu6aKtH8W3OzSXd+l5nOKAEnx0t7qluD75
+ sE9R/BYstsHls9DA3Ctfgthsnr4230fo6A8tjxyCkZ5/NT1/0R01Ii0z5Y+BW4EyWtCMup
+ BnsB4dehIba0dqbL53/RqDSbB1SHIFM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1777277780;
+ s=susede2_ed25519; t=1777277956;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=BX4raB6T4rmFud8OAcvCz8tOECk6x1ETc7sFYC7jpg0=;
- b=qcXu4slcRWhwJiq6WJN/EOQMVsxjMwraLaaEMnDIIM01PDcRV95fG/Y6nwvVGHc/bsXX89
- IdOdWFUr6Isda2Cg==
+ bh=AcWK5ou8hWVLwJj6Gqo3HEzbRIc3fKmzIfbj8K3a2lA=;
+ b=yhJKxnz0i+HhwuPQadEwJA/w1deTPzvZRFiwHXwl/OGU/e25cCEkaNLG/gmvJfctg+k+vT
+ bmZ1Wrrb397a/vAA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 46500593B0;
- Mon, 27 Apr 2026 08:16:20 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 534A8593B1;
+ Mon, 27 Apr 2026 08:19:16 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id Llb3D1Qb72lBCwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 27 Apr 2026 08:16:20 +0000
-Message-ID: <781d75e9-47f2-432c-beb4-abab3aff49a3@suse.de>
-Date: Mon, 27 Apr 2026 10:16:19 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id TRXVEgQc72mCDgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 27 Apr 2026 08:19:16 +0000
+Message-ID: <23bd7123-f22e-4ab2-b3f0-03833e25bf7d@suse.de>
+Date: Mon, 27 Apr 2026 10:19:15 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: fix build for CONFIG_DRM_FBDEV_EMULATION=n
-To: Yury Norov <ynorov@nvidia.com>, Dave Airlie <airlied@redhat.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: Yury Norov <yury.norov@gmail.com>
-References: <20260424184821.294103-1-ynorov@nvidia.com>
+Subject: Re: [PATCH v2] drm/crc: Fix typo in doc for drm_crtc_crc
+To: Eduardo Vasconcelos <eduardo@eduardovasconcelos.com>,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel-janitors@vger.kernel.org
+References: <20260424183630.3764-1-eduardo@eduardovasconcelos.com>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -109,22 +108,24 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260424184821.294103-1-ynorov@nvidia.com>
+In-Reply-To: <20260424183630.3764-1-eduardo@eduardovasconcelos.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- RCVD_TLS_ALL(0.00)[]; TAGGED_RCPT(0.00)[]; ARC_NA(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCVD_VIA_SMTP_AUTH(0.00)[];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; RCPT_COUNT_SEVEN(0.00)[9];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; TO_DN_SOME(0.00)[];
- FROM_HAS_DN(0.00)[]; FREEMAIL_CC(0.00)[gmail.com];
- MID_RHS_MATCH_FROM(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-0.998]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
+ ARC_NA(0.00)[];
+ FREEMAIL_TO(0.00)[eduardovasconcelos.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
+ RCPT_COUNT_SEVEN(0.00)[8]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, imap1.dmz-prg2.suse.org:helo,
- suse.com:url]
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ URIBL_BLOCKED(0.00)[suse.com:url,suse.de:mid,suse.de:email,eduardovasconcelos.com:email,imap1.dmz-prg2.suse.org:helo];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, suse.de:email,
+ eduardovasconcelos.com:email, imap1.dmz-prg2.suse.org:helo, suse.com:url]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,154 +141,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
 
-Am 24.04.26 um 20:48 schrieb Yury Norov:
-> The merge-commit 02e778f12359 ("Merge tag 'amd-drm-next-7.1-2026-03-12' of
-> https://gitlab.freedesktop.org/agd5f/linux into drm-next") removes stubs
-> for drm_fb_helper_xxx() functions, so the buld gets broken if
-> DRM_FBDEV_EMULATION is not set.
+
+Am 24.04.26 um 20:36 schrieb Eduardo Vasconcelos:
+> Fix a typo in the documentation for struct drm_crtc_crc
+> ("occured." -> "occurred").
 >
-> ‘drm_fb_helper_gem_is_fb’; did you mean ‘drm_fb_helper_from_client’? [-Wimplicit-function-declaration]
->   1777 |                 if (!drm_fb_helper_gem_is_fb(dev->fb_helper, fb->obj[0])) {
->        |                      ^~~~~~~~~~~~~~~~~~~~~~~
->        |                      drm_fb_helper_from_client
->
-> Restore the stubs.
-> Fixes: 02e778f12359 ("Merge tag 'amd-drm-next-7.1-2026-03-12' of https://gitlab.freedesktop.org/agd5f/linux into drm-next")
-> Signed-off-by: Yury Norov <ynorov@nvidia.com>
+> Signed-off-by: Eduardo Vasconcelos <eduardo@eduardovasconcelos.com>
+
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+
 > ---
->   include/drm/drm_fb_helper.h | 111 ++++++++++++++++++++++++++++++++++++
->   1 file changed, 111 insertions(+)
+> Changes in v2:
+> - Fix subject line and commit message formatting
+> - Link to v1: https://lore.kernel.org/dri-devel/20260424140515.2019-1-eduardo@eduardovasconcelos.com/T/#u
 >
-> diff --git a/include/drm/drm_fb_helper.h b/include/drm/drm_fb_helper.h
-> index bf391903443d..ca214b5c0283 100644
-> --- a/include/drm/drm_fb_helper.h
-> +++ b/include/drm/drm_fb_helper.h
-> @@ -273,6 +273,117 @@ int drm_fb_helper_hotplug_event(struct drm_fb_helper *fb_helper);
->   int drm_fb_helper_initial_config(struct drm_fb_helper *fb_helper);
->   bool drm_fb_helper_gem_is_fb(const struct drm_fb_helper *fb_helper,
->   			     const struct drm_gem_object *obj);
-> +#else
-> +static inline bool drm_fb_helper_gem_is_fb(const struct drm_fb_helper *fb_helper,
-> +					   const struct drm_gem_object *obj)
-> +{
-> +	return false;
-> +}
-
-Only this helper is required. The others have been removed.
-
-Best regards
-Thomas
-
-> +
-> +static inline void drm_fb_helper_prepare(struct drm_device *dev,
-> +					 struct drm_fb_helper *helper,
-> +					 unsigned int preferred_bpp,
-> +					 const struct drm_fb_helper_funcs *funcs)
-> +{
-> +}
-> +
-> +static inline void drm_fb_helper_unprepare(struct drm_fb_helper *fb_helper)
-> +{
-> +}
-> +
-> +static inline int drm_fb_helper_init(struct drm_device *dev,
-> +		       struct drm_fb_helper *helper)
-> +{
-> +	/* So drivers can use it to free the struct */
-> +	helper->dev = dev;
-> +	dev->fb_helper = helper;
-> +
-> +	return 0;
-> +}
-> +
-> +static inline void drm_fb_helper_fini(struct drm_fb_helper *helper)
-> +{
-> +	if (helper && helper->dev)
-> +		helper->dev->fb_helper = NULL;
-> +}
-> +
-> +static inline int drm_fb_helper_blank(int blank, struct fb_info *info)
-> +{
-> +	return 0;
-> +}
-> +
-> +static inline int drm_fb_helper_pan_display(struct fb_var_screeninfo *var,
-> +					    struct fb_info *info)
-> +{
-> +	return 0;
-> +}
-> +
-> +static inline int drm_fb_helper_set_par(struct fb_info *info)
-> +{
-> +	return 0;
-> +}
-> +
-> +static inline int drm_fb_helper_check_var(struct fb_var_screeninfo *var,
-> +					  struct fb_info *info)
-> +{
-> +	return 0;
-> +}
-> +
-> +static inline int
-> +drm_fb_helper_restore_fbdev_mode_unlocked(struct drm_fb_helper *fb_helper)
-> +{
-> +	return 0;
-> +}
-> +
-> +static inline void drm_fb_helper_unregister_info(struct drm_fb_helper *fb_helper)
-> +{
-> +}
-> +
-> +static inline void
-> +drm_fb_helper_fill_info(struct fb_info *info,
-> +			struct drm_fb_helper *fb_helper,
-> +			struct drm_fb_helper_surface_size *sizes)
-> +{
-> +}
-> +
-> +static inline int drm_fb_helper_setcmap(struct fb_cmap *cmap,
-> +					struct fb_info *info)
-> +{
-> +	return 0;
-> +}
-> +
-> +static inline int drm_fb_helper_ioctl(struct fb_info *info, unsigned int cmd,
-> +				      unsigned long arg)
-> +{
-> +	return 0;
-> +}
-> +
-> +#ifdef CONFIG_FB_DEFERRED_IO
-> +static inline void drm_fb_helper_deferred_io(struct fb_info *info,
-> +					     struct list_head *pagelist)
-> +{
-> +}
-> +#endif
-> +
-> +static inline void drm_fb_helper_set_suspend(struct drm_fb_helper *fb_helper,
-> +					     bool suspend)
-> +{
-> +}
-> +
-> +static inline void
-> +drm_fb_helper_set_suspend_unlocked(struct drm_fb_helper *fb_helper, bool suspend)
-> +{
-> +}
-> +
-> +static inline int drm_fb_helper_hotplug_event(struct drm_fb_helper *fb_helper)
-> +{
-> +	return 0;
-> +}
-> +
-> +static inline int drm_fb_helper_initial_config(struct drm_fb_helper *fb_helper)
-> +{
-> +	return 0;
-> +}
->   #endif
->   
->   #endif
+>   include/drm/drm_debugfs_crc.h | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/include/drm/drm_debugfs_crc.h b/include/drm/drm_debugfs_crc.h
+> index 1b4c98c2f838..1cb71c03bf44 100644
+> --- a/include/drm/drm_debugfs_crc.h
+> +++ b/include/drm/drm_debugfs_crc.h
+> @@ -49,7 +49,7 @@ struct drm_crtc_crc_entry {
+>    * @lock: protects the fields in this struct
+>    * @source: name of the currently configured source of CRCs
+>    * @opened: whether userspace has opened the data file for reading
+> - * @overflow: whether an overflow occured.
+> + * @overflow: whether an overflow occurred
+>    * @entries: array of entries, with size of %DRM_CRC_ENTRIES_NR
+>    * @head: head of circular queue
+>    * @tail: tail of circular queue
 
 -- 
 --
