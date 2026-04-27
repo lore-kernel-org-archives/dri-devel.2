@@ -4,46 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49121FF8860
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 18:44:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A76DFF8860
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 18:46:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A550610E2CD;
-	Mon, 27 Apr 2026 18:44:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 038F210E8D8;
+	Mon, 27 Apr 2026 18:46:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="BFk1GZbQ";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="lKvXqjyZ";
 	dkim-atps=neutral
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7649D10E2CD
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 18:44:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
- Content-ID:Content-Description:In-Reply-To:References;
- bh=UqJXfYFr0Sjo7TtDfWrGHXSllvmgK6PN3PMaeVT3y+M=; b=BFk1GZbQ0gZrweHPFd9wd1Qw6d
- PmPEUgLIBYLDGUbBancGIuK2m+Njh1cV6s1yubKsUiOyIPW42NjaSQ2Z3/jmiUZehSngNWhT4/56L
- 3MgRj9y4LQ1YifrQ+wVcqObNxrWEC9zapi7DrrGmaW9SqMbsmMtJDMHiEXkhM/xyxh6XNwdG8S4dJ
- dQBS9r8kstxEpC9vmehCy20WJ11AdUt2Q4OWsZnRzpaD3VMxjLGOa5d39Ym4y7hhaCTSqUXPtmfpP
- DgHOkNUyU0mIsXx0vXhtRULQE7mVfP7kxg1ojK9FhNvr8Ea4+UvF2RsNVSxzJhpWMCn5kJIQ/Pt/w
- sPBjesGw==;
-Received: from [50.53.43.113] (helo=bombadil.infradead.org)
- by bombadil.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
- id 1wHQww-0000000Haz3-436h; Mon, 27 Apr 2026 18:44:55 +0000
-From: Randy Dunlap <rdunlap@infradead.org>
-To: dri-devel@lists.freedesktop.org
-Cc: Randy Dunlap <rdunlap@infradead.org>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Thierry Reding <thierry.reding@gmail.com>, linux-tegra@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Subject: [PATCH v3] drm/tegra: tegra_drm.h: fix all uapi kernel-doc warnings
-Date: Mon, 27 Apr 2026 11:44:54 -0700
-Message-ID: <20260427184454.693794-1-rdunlap@infradead.org>
-X-Mailer: git-send-email 2.53.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from mail-wr1-f73.google.com (mail-wr1-f73.google.com
+ [209.85.221.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA06910E8D8
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 18:46:42 +0000 (UTC)
+Received: by mail-wr1-f73.google.com with SMTP id
+ ffacd0b85a97d-43ff0eb2b2aso7808280f8f.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 11:46:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1777315601; x=1777920401;
+ darn=lists.freedesktop.org; 
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=schKK6eemA/etdLN7SA+QtE76XJ0JVRvUkLlJGOyRrQ=;
+ b=lKvXqjyZ1+2ZP4dWKOgNLR3L8cTk4SqK6OA1NPzw/D1DcnBkfhclC1WI4XclkqOZDW
+ WdaTSAsWPdbEvpCyuBZgjDDzbUYk0wACwIDRltO6BhZWrw1tiJbJd/TlbxSnToJSyMZ1
+ BbO2Wxb4axJJQ9H5dfeFImwCC8iIpW3T3jh17c1FhDIGLsi0ZSV9fiqPNODOgSsrg37X
+ vDe/jJaVgv0Qp0pwFmpw355Vfql7KhvpKSQ4h3F1ghBzYQ79yQR9VzdvG/4VMJ/mzpjj
+ vhLERhiHGN8Pa3DnaqTQ9k3umXqYntL17J+QLLKw0dER6y67t77KkIxlmU41Pt1pL6hH
+ c6hg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777315601; x=1777920401;
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=schKK6eemA/etdLN7SA+QtE76XJ0JVRvUkLlJGOyRrQ=;
+ b=pHSHi+8fsvoHwr8hBQlznT7qFqQCZ0PfoujNmu3x9zwW4Byo/WFITtNgmqglm5tHHY
+ 5SpvqaOLHBvluch0JrnJeC6RHNp5HWPfD1Lvkzf2eyfJLCzEkNBulNczZlRD5SwVQnAB
+ oFwKjPTuCO4UQDWnzYXol2BP3NLE1foCsgSCSgyyvm6GYJbZ8UBrDJbvV2eNR+7+Cf90
+ 2yKmvfhZB0Venkg76+RN+jJNGb0DufvX8oNqT3TDQ3pAhg2Yd7pBgTNcTWzwnP1b+4AM
+ VP4bAokLSjptCiKm39cCAAGv31xTvJFEzMlgO63rH16qKssLsh2VDHyWVqqXPikOMUou
+ MZZw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/kANcfQW6n8RNfGJi4HvGOuu0dxn7CFiVBl56qTXIAcxmAX3Lbwtti+iV5K9wN9OBbxZE0II0RPAA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YybxrD9oPlSBrOCnTS8K4fXCLScGyz6Q/eMsKKoZGrvecal/+Ab
+ gSis7Zz/8+SjnuuDTqqoYWBEB0gR8W3gJ0p7II5TvM7VS+0KA1bv4r1y7PnOjK2Hxs94D6m5Xhk
+ wQGJhOdLXJkTmuFmVSQ==
+X-Received: from wrh14.prod.google.com ([2002:a5d:5a0e:0:b0:445:168d:28e9])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6000:2287:b0:43f:e22e:e8da with SMTP id
+ ffacd0b85a97d-4464761c4f8mr124941f8f.5.1777315601387; 
+ Mon, 27 Apr 2026 11:46:41 -0700 (PDT)
+Date: Mon, 27 Apr 2026 18:46:40 +0000
+In-Reply-To: <20260423-fix-filter-v1-1-b3b197c65daf@nvidia.com>
+Mime-Version: 1.0
+References: <20260423-fix-filter-v1-1-b3b197c65daf@nvidia.com>
+Message-ID: <ae-vEDyPvUqPRmiQ@google.com>
+Subject: Re: [PATCH] gpu: nova-core: simplify and_then with condition to filter
+From: Alice Ryhl <aliceryhl@google.com>
+To: Eliot Courtney <ecourtney@nvidia.com>
+Cc: Danilo Krummrich <dakr@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ John Hubbard <jhubbard@nvidia.com>, 
+ Alistair Popple <apopple@nvidia.com>, Joel Fernandes <joelagnelf@nvidia.com>, 
+ Timur Tabi <ttabi@nvidia.com>, rust-for-linux@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,99 +82,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add 2 struct member descriptions and convert #define macro constants
-comments to kernel-doc comments to eliminate all kernel-doc warnings:
+On Thu, Apr 23, 2026 at 04:11:44PM +0900, Eliot Courtney wrote:
+> This code is more simply expressed using Option::filter instead of the
+> and_then with conditional.
+> 
+> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 
-Warning: include/uapi/drm/tegra_drm.h:353 struct member 'cmdbuf' not
- described in 'drm_tegra_reloc'
-Warning: include/uapi/drm/tegra_drm.h:353 struct member 'target' not
- described in 'drm_tegra_reloc'
+Applied to drm-rust, thanks!
 
-Warning: include/uapi/drm/tegra_drm.h:780 This comment starts with '/**',
- but isn't a kernel-doc comment.
- * Specify that bit 39 of the patched-in address should be set to switch
-Warning: include/uapi/drm/tegra_drm.h:832 This comment starts with '/**',
- but isn't a kernel-doc comment.
- * Execute `words` words of Host1x opcodes specified in the
- `gather_data_ptr`
-Warning: include/uapi/drm/tegra_drm.h:837 This comment starts with '/**',
- but isn't a kernel-doc comment.
- * Wait for a syncpoint to reach a value before continuing with further
-Warning: include/uapi/drm/tegra_drm.h:842 This comment starts with '/**',
- but isn't a kernel-doc comment.
- * Wait for a syncpoint to reach a value before continuing with further
+I modified the commit message to quote the clippy warning fixed by this
+commit and added Fixes:/Cc: stable tags.
 
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-Acked-by: Mikko Perttunen <mperttunen@nvidia.com>
----
-v2: add kernel-doc comments for #define constants (thanks, Mikko)
-v3: rebase & resend
-
-Cc: Thierry Reding <thierry.reding@gmail.com>
-Cc: Mikko Perttunen <mperttunen@nvidia.com>
-Cc: linux-tegra@vger.kernel.org
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-
- include/uapi/drm/tegra_drm.h |   16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
-
---- linux-next-20260427.orig/include/uapi/drm/tegra_drm.h
-+++ linux-next-20260427/include/uapi/drm/tegra_drm.h
-@@ -304,6 +304,7 @@ struct drm_tegra_cmdbuf {
-  * struct drm_tegra_reloc - GEM object relocation structure
-  */
- struct drm_tegra_reloc {
-+	/** @cmdbuf: cmd information */
- 	struct {
- 		/**
- 		 * @cmdbuf.handle:
-@@ -321,6 +322,7 @@ struct drm_tegra_reloc {
- 		 */
- 		__u32 offset;
- 	} cmdbuf;
-+	/** @target: relocate target information */
- 	struct {
- 		/**
- 		 * @target.handle:
-@@ -778,6 +780,9 @@ struct drm_tegra_channel_unmap {
- /* Submission */
- 
- /**
-+ * define DRM_TEGRA_SUBMIT_RELOC_SECTOR_LAYOUT - \
-+ *    Select sector layout swizzling for in-memory buffers.
-+ *
-  * Specify that bit 39 of the patched-in address should be set to switch
-  * swizzling between Tegra and non-Tegra sector layout on systems that store
-  * surfaces in system memory in non-Tegra sector layout.
-@@ -830,16 +835,27 @@ struct drm_tegra_submit_buf {
- };
- 
- /**
-+ * define DRM_TEGRA_SUBMIT_CMD_GATHER_UPTR - \
-+ *    Execute Host1x opcodes from user pointer.
-+ *
-  * Execute `words` words of Host1x opcodes specified in the `gather_data_ptr`
-  * buffer. Each GATHER_UPTR command uses successive words from the buffer.
-  */
- #define DRM_TEGRA_SUBMIT_CMD_GATHER_UPTR		0
-+
- /**
-+ * define DRM_TEGRA_SUBMIT_CMD_WAIT_SYNCPT - \
-+ *    Wait for syncpoint (absolute).
-+ *
-  * Wait for a syncpoint to reach a value before continuing with further
-  * commands.
-  */
- #define DRM_TEGRA_SUBMIT_CMD_WAIT_SYNCPT		1
-+
- /**
-+ * define DRM_TEGRA_SUBMIT_CMD_WAIT_SYNCPT_RELATIVE - \
-+ *    Wait for syncpoint (relative).
-+ *
-  * Wait for a syncpoint to reach a value before continuing with further
-  * commands. The threshold is calculated relative to the start of the job.
-  */
+Alice
