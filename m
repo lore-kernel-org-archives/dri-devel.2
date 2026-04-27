@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60E8DFF8867
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 22:16:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E066FF8867
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 22:20:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C959510E153;
-	Mon, 27 Apr 2026 22:16:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF71410E963;
+	Mon, 27 Apr 2026 22:20:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gCSOdWN5";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BqDRm9LT";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B50DD10E153
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 22:16:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8471A10E988
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 22:20:13 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 1472D60121;
- Mon, 27 Apr 2026 22:16:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EAAFC19425;
- Mon, 27 Apr 2026 22:16:22 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6DC3860128;
+ Mon, 27 Apr 2026 22:14:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AFB6C2BCB5;
+ Mon, 27 Apr 2026 22:14:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777328187;
- bh=PGxVViMhHB03sAijAlxNGF7mgYEJwbY2rwD26gbYrHs=;
- h=Date:To:From:Subject:Cc:References:In-Reply-To:From;
- b=gCSOdWN5D78SXVP+wRiSah70WX8vRhFWzTMxldjJDoEzDh6ADKZ+QjTRz0r2SqQ5W
- jsnRgoXUP5yPTSYZ/Dv68rQFrSs/MnSnT7/KCoxEiJZe0882jXgk2PPazeiNotutr9
- CGFSPYFy3CIZf7rdd0Xky9gMP+hXeMZtsd2CPmIvGyVi6JJV6AO/IPHpFvXsagP9za
- AbTQbRn0Wn7ykefDrvhM3Rqlvl/Bb/uMpFVzoyYbXCtnA/FzlV5XljmA88Wr1ORiRq
- ORqJK2J+jrYSlZFhzq4oLqrwuQh5tUOWOiMJTxC4U774y57AvoJEzxd0ThPOzhGvWt
- ZBbqvlZ6TwevQ==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 28 Apr 2026 00:16:20 +0200
-Message-Id: <DI4A9AFPGL3D.16M7U97LU7B4R@kernel.org>
-To: <gregkh@linuxfoundation.org>, <rafael@kernel.org>,
- <acourbot@nvidia.com>, <aliceryhl@google.com>, <david.m.ertman@intel.com>,
- <ira.weiny@intel.com>, <leon@kernel.org>, <viresh.kumar@linaro.org>,
- <m.wilczynski@samsung.com>, <ukleinek@kernel.org>, <bhelgaas@google.com>,
- <kwilczynski@kernel.org>, <abdiel.janulgue@gmail.com>,
- <robin.murphy@arm.com>, <markus.probst@posteo.de>, <ojeda@kernel.org>,
- <boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
- <lossin@kernel.org>, <a.hindborg@kernel.org>, <tmgross@umich.edu>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH 02/24] rust: types: add `ForLt` trait for higher-ranked
- lifetime support
-Cc: <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pm@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
+ s=k20201202; t=1777328067;
+ bh=hYy8LQDnO+hisbOptHtgqKp36k1YyJTGix7eeoo2qKk=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=BqDRm9LTAxT+LFyHHIuPW75dzJcoI9Ybx7Pav2R3kJM6ezZK8ghNMm+Vgu0kZDyZK
+ 1LudCaJgONM+Un6S/kbl7SB8Mcga8LywZ7inQvNuX1KcK7KaSNDiyXC7DBPDVdTKor
+ 0q2svsR7Us01zcKWz6u/qqn6vkMogrDSopGHpgCW5TGai40EemoNAzP0c0nAQAfQN4
+ l2N+0gniTfMs4GFNXBcrNGkoZtep7KOXCrc+BN9b5PlcSlhqV7AuaookXi4u61d0b9
+ TflB5dPw/5CUgL0yAScR61V23nWsROYxBmcBHmPPDz34QgZrIkEkjFfH5hf1xXxnE3
+ DpmWxroqy3GiQ==
+From: Danilo Krummrich <dakr@kernel.org>
+To: gregkh@linuxfoundation.org, rafael@kernel.org, acourbot@nvidia.com,
+ aliceryhl@google.com, david.m.ertman@intel.com, ira.weiny@intel.com,
+ leon@kernel.org, viresh.kumar@linaro.org, m.wilczynski@samsung.com,
+ ukleinek@kernel.org, bhelgaas@google.com, kwilczynski@kernel.org,
+ abdiel.janulgue@gmail.com, robin.murphy@arm.com, markus.probst@posteo.de,
+ ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
+ bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org,
+ tmgross@umich.edu
+Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ linux-pm@vger.kernel.org, linux-pwm@vger.kernel.org,
+ linux-pci@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ Danilo Krummrich <dakr@kernel.org>, Eliot Courtney <ecourtney@nvidia.com>
+Subject: [PATCH REF 22/24] gpu: nova-core: unregister sysmem flush page from
+ Drop
+Date: Tue, 28 Apr 2026 00:11:20 +0200
+Message-ID: <20260427221155.2144848-23-dakr@kernel.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260427221155.2144848-1-dakr@kernel.org>
 References: <20260427221155.2144848-1-dakr@kernel.org>
- <20260427221155.2144848-3-dakr@kernel.org>
-In-Reply-To: <20260427221155.2144848-3-dakr@kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,52 +68,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Apr 28, 2026 at 12:11 AM CEST, Danilo Krummrich wrote:
-> From: Gary Guo <gary@garyguo.net>
->
-> There are a few cases, e.g. when dealing with data referencing each other=
-,
-> one might want to write code that are generic over lifetimes. For example=
-,
-> if you want take a function that takes `&'a Foo` and gives `Bar<'a>`, you
-> can write:
->
->     f: impl for<'a> FnOnce(&'a Foo) -> Bar<'a>,
->
-> However, it becomes tricky when you want that function to not have a fixe=
-d
-> `Bar`, but have it be generic again. In this case, one needs something th=
-at
-> is generic over types that are themselves generic over lifetimes.
->
-> `ForLt` provides such support. It provides a trait `ForLt` which describe=
-s
-> a type generic over lifetime. One may use `ForLt::Of<'a>` to get an
-> instance of a type for a specific lifetime.
->
-> For the case of cross referencing, one would almost always want the
-> lifetime to be covariant. Therefore this is also made a requirement for t=
-he
-> `ForLt` trait, so functions with `ForLt` trait bound can assume covarianc=
-e.
->
-> A macro `ForLt!()` is provided to be able to obtain a type that implement=
-s
-> `ForLt`. For example, `ForLt!(for<'a> Bar<'a>)` would yield a type that
-> `<TheType as ForLt>::Of<'a>` is `Bar<'a>`. This also works with lifetime
-> elision, e.g. `ForLt!(Bar<'_>)` or for types without lifetime at all, e.g=
-.
-> `ForLt!(u32)`.
->
-> The API design draws inspiration from the higher-kinded-types [1] crate,
-> however different design decision has been taken (e.g. covariance
-> requirement) and the implementation is independent.
->
-> License headers use "Apache-2.0 OR MIT" because I anticipate this to be
-> used in pin-init crate too which is licensed as such.
->
-> Link: https://docs.rs/higher-kinded-types/ [1]
->
-> Signed-off-by: Gary Guo <gary@garyguo.net>
+Now that SysmemFlush can borrow the Bar via HRT lifetime, store a &'a
+Bar0 reference and implement Drop to automatically unregister the
+sysmem flush page. This removes the need for manual unregister() calls
+and the Gpu::unbind() method.
 
+Reported-by: Eliot Courtney <ecourtney@nvidia.com>
+Closes: https://lore.kernel.org/all/20260409-fix-systemflush-v1-1-a1d6c968f17c@nvidia.com/
+Fixes: 6554ad65b589 ("gpu: nova-core: register sysmem flush page")
 Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+---
+ drivers/gpu/nova-core/driver.rs |  4 ----
+ drivers/gpu/nova-core/fb.rs     | 22 ++++++++++------------
+ drivers/gpu/nova-core/gpu.rs    |  9 +--------
+ 3 files changed, 11 insertions(+), 24 deletions(-)
+
+diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver.rs
+index ec9cecb30f63..401ae213991f 100644
+--- a/drivers/gpu/nova-core/driver.rs
++++ b/drivers/gpu/nova-core/driver.rs
+@@ -111,8 +111,4 @@ fn probe(
+             }))
+         })
+     }
+-
+-    fn unbind(_pdev: &'a pci::Device<Core>, this: Pin<&'a Self>) {
+-        this.gpu.unbind();
+-    }
+ }
+diff --git a/drivers/gpu/nova-core/fb.rs b/drivers/gpu/nova-core/fb.rs
+index bdd5eed760e1..cbc42e98afca 100644
+--- a/drivers/gpu/nova-core/fb.rs
++++ b/drivers/gpu/nova-core/fb.rs
+@@ -46,21 +46,20 @@
+ /// Because of this, the sysmem flush memory page must be registered as early as possible during
+ /// driver initialization, and before any falcon is reset.
+ ///
+-/// Users are responsible for manually calling [`Self::unregister`] before dropping this object,
+-/// otherwise the GPU might still use it even after it has been freed.
+-pub(crate) struct SysmemFlush {
++pub(crate) struct SysmemFlush<'a> {
+     /// Chipset we are operating on.
+     chipset: Chipset,
+     device: ARef<device::Device>,
++    bar: &'a Bar0,
+     /// Keep the page alive as long as we need it.
+     page: CoherentHandle,
+ }
+ 
+-impl SysmemFlush {
++impl<'a> SysmemFlush<'a> {
+     /// Allocate a memory page and register it as the sysmem flush page.
+     pub(crate) fn register(
+         dev: &device::Device<device::Bound>,
+-        bar: &Bar0,
++        bar: &'a Bar0,
+         chipset: Chipset,
+     ) -> Result<Self> {
+         let page = CoherentHandle::alloc(dev, kernel::page::PAGE_SIZE, GFP_KERNEL)?;
+@@ -70,19 +69,18 @@ pub(crate) fn register(
+         Ok(Self {
+             chipset,
+             device: dev.into(),
++            bar,
+             page,
+         })
+     }
++}
+ 
+-    /// Unregister the managed sysmem flush page.
+-    ///
+-    /// In order to gracefully tear down the GPU, users must make sure to call this method before
+-    /// dropping the object.
+-    pub(crate) fn unregister(&self, bar: &Bar0) {
++impl Drop for SysmemFlush<'_> {
++    fn drop(&mut self) {
+         let hal = hal::fb_hal(self.chipset);
+ 
+-        if hal.read_sysmem_flush_page(bar) == self.page.dma_handle() {
+-            let _ = hal.write_sysmem_flush_page(bar, 0).inspect_err(|e| {
++        if hal.read_sysmem_flush_page(self.bar) == self.page.dma_handle() {
++            let _ = hal.write_sysmem_flush_page(self.bar, 0).inspect_err(|e| {
+                 dev_warn!(
+                     &self.device,
+                     "failed to unregister sysmem flush page: {:?}\n",
+diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
+index 922197f2aeef..ff9a90a46609 100644
+--- a/drivers/gpu/nova-core/gpu.rs
++++ b/drivers/gpu/nova-core/gpu.rs
+@@ -228,7 +228,7 @@ pub(crate) struct Gpu<'a> {
+     bar: &'a Bar0,
+     /// System memory page required for flushing all pending GPU-side memory writes done through
+     /// PCIE into system memory, via sysmembar (A GPU-initiated HW memory-barrier operation).
+-    sysmem_flush: SysmemFlush,
++    sysmem_flush: SysmemFlush<'a>,
+     /// GSP falcon instance, used for GSP boot up and cleanup.
+     gsp_falcon: Falcon<GspFalcon>,
+     /// SEC2 falcon instance, used for GSP boot up and cleanup.
+@@ -271,11 +271,4 @@ pub(crate) fn new(
+             _: { gsp.boot(pdev, bar, spec.chipset, gsp_falcon, sec2_falcon)? },
+         })
+     }
+-
+-    /// Called when the corresponding [`Device`](device::Device) is unbound.
+-    ///
+-    /// Note: This method must only be called from `Driver::unbind`.
+-    pub(crate) fn unbind(&self) {
+-        self.sysmem_flush.unregister(self.bar);
+-    }
+ }
+-- 
+2.54.0
+
