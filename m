@@ -4,140 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14DC0FF8860
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 18:42:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA19FFF886C
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 18:43:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 639EB10E8D2;
-	Mon, 27 Apr 2026 18:42:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A2F910E8D7;
+	Mon, 27 Apr 2026 18:43:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=microsoft.com header.i=@microsoft.com header.b="PFBZxjiL";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4dxKZYls";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11020125.outbound.protection.outlook.com [52.101.201.125])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC2B410E8D2
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 18:42:31 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012021.outbound.protection.outlook.com
+ [40.93.195.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24BFD10E8D4;
+ Mon, 27 Apr 2026 18:43:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=A6atEoWYkRAX4XRv2FedDChz4bleyri6VV4ZNmBF2M+L7RqlFSF4GE/uTlimN0DUUaKM/AcCgUziPYHc295QmACtX1f2WUFjqMXrStclZJZxigqlJM8rTLS2WIxYrmmpnz0+4GSlKlg36IC5d+5WS5zUhYqf+LYbrKmfJeIqk3inO3vmUfp5Qmdvlv3gHGFny6wzXri6xvwfGR8A9iF3cyNqRy3WB5OGh/8R+25u84AMdzhOcSOvBNv+ltHfAIsoOR8B4sb9EXQGsp9rQfCXvlZ/6Vfb5MtWU2EmpCUWd7VqSEk5496E8SNbEDmoFUz7tZe+uXbzSiwYy8s1AuL7ag==
+ b=QGER4bJQL2LuVvKSnqXSjsTmyzoh4SPK6uGRrCbSyemij1ZpIraIb3/ynXamTPXXJ4JU6Us5hIZMAuFRpka2m6ggAof7r2hym25niha1NPaNvOp7G3IOYHk/Z07AmjFHI8/v6IxBl9zvi8KnpGKKtrgUOrQOiQnSPUfHy/vgupGUEacUWuy+u3uV1AAnX2rQmZkcCPvdbWOuw53eMrc+pWYJLeFcCS3YNOsHl48gAlKYvK8I+B2tmd37hMSJCq9ZWXvj8b5WdnlGjmT4x2NL8M8d8vSyjv0b1fVsofEXtSXTUp0KItBLZ/TS1vfExRKO+Z0g+HXpeJpyBTmRIkgd6g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LqqPh8aSReHLCMn3DmKlF7XyaLBkZIYT6aLqF4ub1nI=;
- b=LLep+/up7bEi0kUfU0wQ4Wf4+WyFvChWeCTMvoT18EiWcpbtdE+5oEs+e3dXdcnAKELhmZnYqvqZHN3xtt0l5S1sblqQvXmj92+s+myRa/8r6f017+yVDThpecqDtTJ0WYzs/Z6Rb5KmHYlG5u1OhXK/Yf3QGWzHQsuyrFUZYJbmW0I+MMgXYAX76XGwajfNgHRaKZ6e3wjqW89FQhfwjDdAPDJtub+X6/OK0noinhhjfZ3XzYcvFie+lC4F+n4Bdq5PbhQ8UUkO/Esuw8aBtvg0Yf6srCMqNg0DpilRgq5ch6wSP0UDv0o7uXwJneHMhAApZ52Vxb34kLPBXEY4mA==
+ bh=w54Cx1XWezmHtdCmaOr3hwoY0NeBQuPdujegigQEUwU=;
+ b=Vl4yy4SeTByeGAKWcVPu992aQouh6skHt8u/+N/uGHOvc5V9X4/Pm12vqMULPcRuueOp+4Km6K2Wk7oi3AwpgixUKnQSdBLI1F+OmELwSnVzOEh0TW6ueekRkAsrm6/miCA7cgyN1g8Fnr9OLVk9BeX6d/c6za0lmL4jPPz4QxvrGiUxJJrzjx9qdowVAlqfDTDkwvwvd9bGl6pnO2M1biTMcZTEH8ga/J716zKGkScm05oRpEgCCxKVjpIbmJyFcpiGfExzOdeWH0bHDgH4SkyZwyzY4Ial7jCOn12b5nWBVqdcEFds+JmBoUiZ+M9lg/QrcX3uHJdrs1FuqqOY3w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=microsoft.com; dmarc=pass action=none
- header.from=microsoft.com; dkim=pass header.d=microsoft.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=selector2;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LqqPh8aSReHLCMn3DmKlF7XyaLBkZIYT6aLqF4ub1nI=;
- b=PFBZxjiLxBsvIhgmX53Ff/yqcUqFBlfVSdqY+k8gj1fM+UFkeYbTHiWdLbHesg5OpfLIaQCzsLoN8jMeMkEJsTbgw3SAxCnKdOqgEitqoQ0Kz0kBGnImSWyFQwTpcsbtpsnA3fkibEXpKI6JafuZrpb7NiuUICbBcTxzGoIxfgQ=
-Received: from SA1PR21MB6921.namprd21.prod.outlook.com (2603:10b6:806:4a7::11)
- by SA3PR21MB5696.namprd21.prod.outlook.com (2603:10b6:806:493::22)
+ bh=w54Cx1XWezmHtdCmaOr3hwoY0NeBQuPdujegigQEUwU=;
+ b=4dxKZYlstj49Huw5efZ93PU5HbTCY/dGIz07OE0l+4vbrpp7Q+4VIMrSdUp1DwV4XKKWb2H13mUoUDNlmrEm9FDgylxO/JdGdNH4/P6ida/phE83U8ARNZWPZI8HdAym8ttzsZDEqvnHe22iYkM7hssDxvEnqWMl+NRgFjZg0E0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by MW4PR12MB6850.namprd12.prod.outlook.com (2603:10b6:303:1ed::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.15; Mon, 27 Apr
- 2026 18:42:27 +0000
-Received: from SA1PR21MB6921.namprd21.prod.outlook.com
- ([fe80::51cf:497c:e5df:f6d]) by SA1PR21MB6921.namprd21.prod.outlook.com
- ([fe80::51cf:497c:e5df:f6d%2]) with mapi id 15.20.9870.013; Mon, 27 Apr 2026
- 18:42:27 +0000
-From: Dexuan Cui <DECUI@microsoft.com>
-To: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>, Saurabh Singh Sengar
- <ssengar@microsoft.com>
-CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, KY
- Srinivasan <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, Wei
- Liu <wei.liu@kernel.org>, Long Li <longli@microsoft.com>, Stefano Garzarella
- <sgarzare@redhat.com>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Himadri Pandya
- <himadrispandya@gmail.com>, Michael Kelley <mhklinux@outlook.com>,
- "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
- "virtualization@lists.linux.dev" <virtualization@lists.linux.dev>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>, Saurabh Sengar
- <ssengar@linux.microsoft.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Deepak Rawat <drawat.floss@gmail.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "stable@kernel.vger.org" <stable@kernel.vger.org>
-Subject: RE: [PATCH 2/2] drm/hyperv: use VMBUS_RING_SIZE()
-Thread-Topic: [PATCH 2/2] drm/hyperv: use VMBUS_RING_SIZE()
-Thread-Index: AQHc1jw02yJrERFkmkeSl7gccH8LxLXzPWxQ
-Date: Mon, 27 Apr 2026 18:42:27 +0000
-Message-ID: <SA1PR21MB6921B5A2441DB3E9A1312AC0BF362@SA1PR21MB6921.namprd21.prod.outlook.com>
-References: <20260425181719.1538483-1-hamzamahfooz@linux.microsoft.com>
- <20260425181719.1538483-2-hamzamahfooz@linux.microsoft.com>
- <KUZP153MB14445757C6A5DA5DEDA9A09CBE292@KUZP153MB1444.APCP153.PROD.OUTLOOK.COM>
- <ae9NxmDBTkzPP3H6@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-In-Reply-To: <ae9NxmDBTkzPP3H6@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-Accept-Language: en-US
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.16; Mon, 27 Apr
+ 2026 18:43:37 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9870.013; Mon, 27 Apr 2026
+ 18:43:36 +0000
+Message-ID: <9ad1c4bd-6f12-41b6-b6a0-979a0de32e16@amd.com>
+Date: Mon, 27 Apr 2026 20:43:31 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] drm/amdgpu: amdgpu{_reset}.h: fix all kernel-doc
+ warnings
+To: Randy Dunlap <rdunlap@infradead.org>, dri-devel@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+References: <20260427183854.672967-1-rdunlap@infradead.org>
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ActionId=866de344-17d1-4da0-ae37-df720ba729ed;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ContentBits=0;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Enabled=true;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Method=Standard;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Name=Internal;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SetDate=2026-04-27T18:37:48Z;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SiteId=72f988bf-86f1-41af-91ab-2d7cd011db47;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Tag=10, 3, 0, 1;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=microsoft.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA1PR21MB6921:EE_|SA3PR21MB5696:EE_
-x-ms-office365-filtering-correlation-id: 0cf98fbb-de6e-4f13-ea49-08dea48cbb18
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|7416014|376014|1800799024|38070700021|56012099003|22082099003|18002099003;
-x-microsoft-antispam-message-info: HZyTNBGw5pDp3DxMEyljCszlE9jJDXvDjXMufGASsRxujHBoVWg3NSmGu/N8dJwF/12OlRpbM26ErfJ9BrPPXHVWU6ZwjH+hwlEK2t4YxJMspKV6MKRR5FVxjTxr6KgtGKiKJ70cawtrHiW1OsgmmYDg/+znDI/hwjVmKZoO8ey6inZR43gnkPMoCuTmIvN+WtlNkfwSOGslB99+EusMt60vZny+g5cuTA6+kZKnqri9ZCCcP21bIeSNm1ihThdCwjoNGMeQd9VllLiTxxbvpsi+ppGn8quavSe63APetxSsDD1uteWxjjA7bVbD3wIO9K3PZGD/yS7WRZFnTfSXpbB34OcTbzGZU4qdYcV61RAAznYmOf0f5KINgw3N9CiaGZnUtkVshcfbJuyZFTbxkkyCELHQKQfLQty43+QsO97iXfEvfIjf1L4qHKgxG4c5Sj/xMEz70q+xYaFfdi+hZj7ccelpgIM4GaaUGAn0unIW7jhy0pU/kUyO+cwJq6In4E3LCTTa04LQfJzQPcfVoDrksJH9vSrFZ/7Unc69+XmZ4qxit4atZuypbAJkaKe6ARuDF5yeIoO8/0PVjrwtNCYnOg/TedqDk514Wui/WMP5EGvWyJL1C8H03J6RHhEouTQuvjbfUneJji5ik/JbrRuMcuRArp4dgtMiPm3UR7zaUOHjJq4IhuF84/RP0gfMAJjGEOP7s2XN1jPsaYkRPeB6zqbFFBoMBmjKzGqR3sgMTVS60Du3PB4oCie6bmMSFtUMjBSyNf3PVDyY1rJvZKWPEIY+aiw6NvG1M5xJHvc=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA1PR21MB6921.namprd21.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(7416014)(376014)(1800799024)(38070700021)(56012099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?SPUXqpozLWgLQtrc8f8iWys7aY+CaXq9cRjdYO9ugfGE73flp1zlEWdrbMDt?=
- =?us-ascii?Q?J9XlFzymWF7aV8jgnVqI6XbjhaKk6yvWigSAAbiijS4ybUFDVXkzzNMXB+XI?=
- =?us-ascii?Q?Nftq5vA3kF1yDzhg+qII/v3iB3BOyIIN30522Ico5J+uTJdH7B8LnBTPBHGu?=
- =?us-ascii?Q?e/8fA8ZdbWuJUI2qF0ExbiGzQNasDQaChnjNoOlOfu6fqO7B5Pf5sc3Y1fy/?=
- =?us-ascii?Q?LDrj3hdZmz1Aote4NwqJ/rtFP60CuEdPSt7WcdXZtpjVRr/bFTKPwcxbJBvY?=
- =?us-ascii?Q?i5Nt5nTsy+ymT00VfuJZfTDGrv8rBToJR7d5R1S05GQUf2BPO/y0IUjYVAHZ?=
- =?us-ascii?Q?a48bp7hEmBOUbYf6L0DgayqaIobkGYO8ZwKcSIJfWJeTpaudYG+Bgq+pZQfu?=
- =?us-ascii?Q?gZiWHmH/oOZevogPVWEZaTFsx+S5pWNNwZW6F0cBjgFkXgRbjTza6TgkxpBG?=
- =?us-ascii?Q?0e4WWHZw15sDkbv6j+5cnAV/j6hw1CVImIDdAQc5St46GF4DXBWNwv4pLI/n?=
- =?us-ascii?Q?Qm+Loak5ZoyC0Yos6CAT6rXruo5vCRrWQeUEHqvCYTH4Np25V00vvucrBYcY?=
- =?us-ascii?Q?ZAkzdk864zmV7T49wRL6dXsARWTm64fyB7c3JBm1Z3+Oo4FUPhmfyLmpH1VB?=
- =?us-ascii?Q?eM6aqXTe5p1MtxmMX8n0JyN6xxuFlCRUB4a0FcZcSQrTpgZkmWWnpnpNaSTc?=
- =?us-ascii?Q?IOMkvNNOFkW9vnOpQ5zHziWluTt7t+Leb2dWmY7dZXqYuqTId3X2Rvk8dYXT?=
- =?us-ascii?Q?Q0QdW9J81t/8BAGM1/tMOocrKSHuyHqdeyqpISSXYGY1rORssGZe6Lhcwpjc?=
- =?us-ascii?Q?D7dWOUzT8NUrKBEnKfi2XU+ZwaB8GzCpGwpx5ScynbnzVzPBKMUThAFpygLO?=
- =?us-ascii?Q?NGjnd5wet/3W3ADmmij2xiSs3vvr4pqbJfH7XrDo/sduZT8V6bjjYBiYslnm?=
- =?us-ascii?Q?+A8uBE0qcVNF6B6oWNOh+UV7gvOBBFuT8+fd8XZBDXUY/xF4cEPYmhXhOSR5?=
- =?us-ascii?Q?9N2k1UOyL2x3gLfm5q4QpG9kSYGAnBlRSNrt4YoSt2APUtZQDxNMxHzdSKpO?=
- =?us-ascii?Q?5XLIElS3oFOGlCoI4jvNxKviy9tn8xtb9qAHKjT/Kbcs3yWB4OtJJDwJQj8p?=
- =?us-ascii?Q?VeYGy25B/yWY0zbgQc8YM2oXpj7WflczMs913uz4svKfT8TDQW1bqbY3qgjG?=
- =?us-ascii?Q?AWN2gsbcgOSP/wJK41hGNpCMohT0304JTlB3KUQKVP853xujph96U+KiuFYU?=
- =?us-ascii?Q?qqeCxxhv3fP3fn85KWyzuL0IhMsporbSi7E7kLvuYQvdEm/IoKcQEgyN+hpH?=
- =?us-ascii?Q?JfRV7usSqsUKfirMdpqlFaEWJUdBUSbLER+MIGnui5rHGfHTGKfmePW2yg9U?=
- =?us-ascii?Q?P7wJugJEVdDc1hj+sNJTbXho7n2ZzwKKwOttC7eyJOZZaMewGHplJ17K6t7D?=
- =?us-ascii?Q?/pjie3ibn24yZA4gvCV4tMDz6ikPUQVNczA0iydNEv19Fi5qUd+J6UqzqQ24?=
- =?us-ascii?Q?hZ1/FyAib1dA7PFoApieXFw9UhnFtVupoEyt+7DMxPyTs5+OWit+berjTjls?=
- =?us-ascii?Q?kbc/rKEBvbv3b0pF31JqCUhUxoJoxsJoeY5DVRd0DxwHBvwLPekeiBnSbPaR?=
- =?us-ascii?Q?QECpJ7Y04GTHgg7nalt/Ya0cPMx+tw/yyfA7eH/2PDdQ1kDSP1zTawA+OTjE?=
- =?us-ascii?Q?BeHhLbDcQHeSdV8S0xoyrTcnjzpXQeG3/QTrlD8jTqU4DvLE?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260427183854.672967-1-rdunlap@infradead.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0157.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:99::18) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-X-OriginatorOrg: microsoft.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MW4PR12MB6850:EE_
+X-MS-Office365-Filtering-Correlation-Id: 76975576-03f8-43b1-6938-08dea48ce43b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|1800799024|56012099003|22082099003|18002099003; 
+X-Microsoft-Antispam-Message-Info: TZ4BmXe6sKLOPzchFq+85HOODucdMng40MKUPnZmnms9X7p579WtAstaA7q9Z3U4YBF5OMiEkrdpjLljDZydCBHqp3XGwD360Z82xXJ0J+iailXZIUQGR3mkvxv20tRQ+RthrhZN1fSouZAmx/pojrnPH77whoX+hxUefHBFP9YZqo7ePqv90t/pDZCgoGbvIRNdHEZ3FIZ83UtzZCA5O1QVZOL70zG/Ypn3RBSWuezC0Ql5r45JMeifGv88MNm+ly5a9ZCS/jWuuZwziRnh1nvxOuBudr7KjrZTO3APzd1bDDhM5EMElk/jiTfUYGJ4diSb7FnzTmEESNyBdkr+eShAF5ySqVHvEdYQ0moy/PbGt6RIlJ9EhGtIHbRa5OE2Y56WHwco0jQT/fMqDaV/1Pxveda64I4+Ow0lMxEXnJQqixpj5URz3muFcGq8zjhwazaXnqtKZLof/ZGwBnZTczKmaRYfqxuPZxbIy6JvDiq+wMc7d4puacxki6ykaTuJrN4+097J6dhNZytGjm/SXzwMyzQ1TREB9ReHi42S/hdnVPlJk/J5ZIW97T8ls5AkjpMhoVE8fuU6sgA10MQhD9QpZGK1vo6quOsqn7tPmbKlyPfvHcFOFRytMh3893lOTr/rz6jKvrY09wYjRxruNdHz289t39N9RpCKbaSicUf5VlwQA2Alfb1iDuIeYuro
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a2FGaHZOVU9KK3VmQ1ZwU3dwMjlqVWsvc2lKbGpYT0dqaFJXTEptbUFLNUUr?=
+ =?utf-8?B?dzFlWS9EdVNIcW1LeGt6NnJrRFh1V1ZSMlpoT01xMTQ2enJQRzZRYzg2NGNS?=
+ =?utf-8?B?clZEOTV6aE9EZG1YL3Z6aDJvMWE3MGs1OTRtU1g2TFJCV0V3UDhUYzBpRlBr?=
+ =?utf-8?B?YTNubnNuZnVBSXRLY1ZVUWNCT2xOZEJITkpHMXZRbFRUV2ZCV0FPMnV0cUNI?=
+ =?utf-8?B?UHlaWEhQQ3ZCaHpFQTIvNzE3VFYybHdjTHNOYnZ2NVgwVktycFhVUHF3bjM0?=
+ =?utf-8?B?bGhXajNIU2xHY1FyYStuRlJqRjEzOFVEUlpGbXprbGlPcE5zblM0NVJMcWZX?=
+ =?utf-8?B?YitRVSs4QXcvL1R4YmZpSE93OXpOUzdpZTJiaHI0U21kMlU1NlNzYlp3WFc3?=
+ =?utf-8?B?aUViQ0d6Mm0ydm5jZ1dOOFhoYkJEZVNVNTJ1MWVwWEV2N2RUMXlHUnhLUldz?=
+ =?utf-8?B?cmt5OTZheVRqSjNSNjhNOXR1TVhhMVNHR1FZSmMvVzZqYUVnd3llRk1sZUZ6?=
+ =?utf-8?B?NFhGWW1pbmRNeFdDNmd2TTMzY1QxUXZWYzRyeUQxZDY5Vk5DSHNjdS9iRHE4?=
+ =?utf-8?B?RzFLVTZkcHpjSk50TFV1a3ozSnB1dWk2TUNMazZDVHE5VFl0QmhuZzFuQ20v?=
+ =?utf-8?B?Ym9OK1BFRlU4bUlZZU1SMDNOK0laZ3lRQVBCV0ZtRng5QWRWblhYUm1tWm1L?=
+ =?utf-8?B?OEQ1Mnp1dGNWdTJDVlk1ZFBSM3pyMkRtT0ZLNTQ4bUExUEpXejg3Qi9qdEN1?=
+ =?utf-8?B?UTRzMTA5LzRaRVRlWVZHNG9CSS9xUDBBeTgxemJDV3FoU1EvdkprTXdLa1RI?=
+ =?utf-8?B?ZEpNbUxibHNnUGtxQ2hNRDhXQlk2emNjZjNBUXd3dk9yWkdId3VSa0NBTmFv?=
+ =?utf-8?B?ckF4emhsRnQwdVlHSWNpVzNNaXFuUGNtUDJ3NU9ITkFpQ2NKY2ZlRHZScUZu?=
+ =?utf-8?B?MU02OWVoUmEyRnU0aTB5S2ZBNS9jQ3hSWjU1Y29uNzhhUmZMMU9jTUQ1Qklr?=
+ =?utf-8?B?K3dBdjE5dlA4RjRzOVB5eDlkcnRtanZNSmhmVjJPeXBvWUJXRE91NmgrM1lJ?=
+ =?utf-8?B?ckp1WnlZNjJ4RWRFVUVkTjFWdWQ0OTIzam9lMTIxZGQrS3ZJa0JpcU42Ny9F?=
+ =?utf-8?B?RDVCbVA5M3BhMnJXclBOL2ZnUHVaZzR2U213RkNFcVU3TExFQVpmUnovQlRE?=
+ =?utf-8?B?TmtPbnJGcWQ0bCtGTGtjblZBV3djaUdlQTFub3kxQnk4QWhFN1BBK2R6QkJl?=
+ =?utf-8?B?OGgxencybzFBSEtQRTc2ZTh4Mm9aUEozWERucUN0OWVkdHlHbjZyM2l6RUtZ?=
+ =?utf-8?B?VElua2wrT01PYmRFZWcrazZMclVkQzgvZXZxcUViTHhMWndGb3B5Y0F0TkI2?=
+ =?utf-8?B?S0NlT3ViQTVIS3JnR281bjdMakJpYmowQ1BLV04reTlBdlNzK3lxZXJPbXYy?=
+ =?utf-8?B?NTZncXNwUmlRTVROcnZBVWZSUTZQbWhVTS9MS1Z1K2pZdjNnVTdGZ0J5UUVl?=
+ =?utf-8?B?S01jQmpRbGVydDZSRDJSblFDSktYTWdmeTVkM0JtY3dOZ1pFR3VXbHliVlh3?=
+ =?utf-8?B?ZTF0S3FRVEZHWG5pVEdqczZBeTVCQ2k0TW9WUTNSRU5GZ3FEaTkycDQ5cGZo?=
+ =?utf-8?B?MWxmVDJuc1E2MkN4SGVXRHFkOE9OOEpORWk1aDB2S2JWbktmS0pVNkQ0TWY0?=
+ =?utf-8?B?d0xNa080RWhMbGovTUl2Q2wwclBkVWNuUS9nWjRUa3FTYmRiMmdxcGNHMG1K?=
+ =?utf-8?B?VGp3cFJ4N3VHL2lkczBPdTYyeUVqcjdZZFJQcUlNY0xSU1QyZ1NvaW92QURu?=
+ =?utf-8?B?cGVxTWVxWldvRkR3VWZ3V3d4U0Ziek55UHAzRU0zcXJBajFKL2tzZUJYWmdU?=
+ =?utf-8?B?N2JtWTFSNzFYWUtWblh4MHd0VjU5NGtrbDgzeFNqdHpveHo5S3dFZHpNMFVq?=
+ =?utf-8?B?dnJwMVF3Q3ZnNTF1NUNJUW1RUDNaay8xNVRnZmY1R0NMRWsyM2NLNUZNU3Bs?=
+ =?utf-8?B?aTg3dlV5OTZDT0E4Wis2RmFscy9hTm8rNGxGaEFUVG9PamZrSFRRZGFTZldE?=
+ =?utf-8?B?R0VEU0JqUWMzQlQwT2pRWmhaV3BkN2lRUFI3QllWZFBhUVhnalhIWW0wYk1O?=
+ =?utf-8?B?K3hQc3Q5dm5uTllzVlhobytwaTlialBjMERON0VnM1NmcVBiTldYQjJhS2py?=
+ =?utf-8?B?QUdETE1vamhtaEJtc0lvMkZQSEhOSEZpcHpuS2tHbDIybytzOWhiemJSUExU?=
+ =?utf-8?B?aStGSGVVbzBPSjJuTjQ0QUVBK3Q0OUs5Rk1mM1MyY3NiM0x5NUpCNjc3ZkFt?=
+ =?utf-8?Q?a56dhy1JFEZeyRW6ZS?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 76975576-03f8-43b1-6938-08dea48ce43b
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR21MB6921.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0cf98fbb-de6e-4f13-ea49-08dea48cbb18
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Apr 2026 18:42:27.4455 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 72f988bf-86f1-41af-91ab-2d7cd011db47
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: AMKtozZnGWueXimcAAfFDjc1x/ET/61y8KX8x3/723m1J+pNC3+bIgE2G/xKgoIslK+gRXDZC44ArR+C434/sQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR21MB5696
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Apr 2026 18:43:36.7231 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9VgqtJTtx332pb8RvE02DP2K/xsR3plXULmCci0rLStQBj96d+SMqQ+6s5lDyaA6
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6850
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,62 +139,228 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-> Sent: Monday, April 27, 2026 4:52 AM
-> To: Saurabh Singh Sengar <ssengar@microsoft.com>
-> ...
-> On Sun, Apr 26, 2026 at 05:00:24AM +0000, Saurabh Singh Sengar wrote:
-> > > Subject: [PATCH 2/2] drm/hyperv: use VMBUS_RING_SIZE()
-> > >
-> > > VMBUS ring buffers must be page aligned. So, use VMBUS_RING_SIZE() to
-> > > ensure they are always aligned and large enough to hold all of the re=
-levant
-> > > data.
-> > >
-> > > Cc: stable@kernel.vger.org
-> > > Fixes: 76c56a5affeb ("drm/hyperv: Add DRM driver for hyperv synthetic
-> > >  video device")
 
-IMO the Fixes tag is unnecessary because the existing VMBUS_RING_BUFSIZE
-is 256KB, which is already aligned to 4KB, 16KB and 64KB.
 
-VMBUS_RING_SIZE(256 * 1024) is still 256KB.
+On 4/27/26 20:38, Randy Dunlap wrote:
+> Fix all kernel-doc warnings in amdgpu.h and amdgpu_reset.h:
+> - Use the struct keyword for kernel-doc struct comments.
+> - Use the correct enum names in enum amd_reset_method.
+> 
+> This eliminates these warnings:
+> 
+> Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:477 cannot understand
+>  function prototype: 'struct amdgpu_wb'
+> Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
+>  'AMD_RESET_METHOD_LEGACY' not described in enum 'amd_reset_method'
+> Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
+>  'AMD_RESET_METHOD_MODE0' not described in enum 'amd_reset_method'
+> Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
+>  'AMD_RESET_METHOD_MODE1' not described in enum 'amd_reset_method'
+> Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
+>  'AMD_RESET_METHOD_MODE2' not described in enum 'amd_reset_method'
+> Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
+>  'AMD_RESET_METHOD_LINK' not described in enum 'amd_reset_method'
+> Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
+>  'AMD_RESET_METHOD_BACO' not described in enum 'amd_reset_method'
+> Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
+>  'AMD_RESET_METHOD_PCI' not described in enum 'amd_reset_method'
+> Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
+>  'AMD_RESET_METHOD_ON_INIT' not described in enum 'amd_reset_method'
+> Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Excess enum value
+>  '@AMD_RESET_LEGACY' description in 'amd_reset_method'
+> Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Excess enum value
+>  '@AMD_RESET_MODE0' description in 'amd_reset_method'
+> Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Excess enum value
+>  '@AMD_RESET_MODE1' description in 'amd_reset_method'
+> Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Excess enum value
+>  '@AMD_RESET_MODE2' description in 'amd_reset_method'
+> Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Excess enum value
+>  '@AMD_RESET_LINK' description in 'amd_reset_method'
+> Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Excess enum value
+>  '@AMD_RESET_BACO' description in 'amd_reset_method'
+> Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Excess enum value
+>  '@AMD_RESET_PCI' description in 'amd_reset_method'
+> 
+> Also move the enum to amdgpu_reset.h and eventually only forward declare
+> it in amdgpu.h. (Christian)
+> 
+> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
 
-> > > Signed-off-by: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-> > > ---
-> > >  drivers/gpu/drm/hyperv/hyperv_drm_proto.c | 2 +-
-> > >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
-> > > b/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
-> > > index 051ecc526832..753d97bff76f 100644
-> > > --- a/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
-> > > +++ b/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
-> > > @@ -10,7 +10,7 @@
-> > >
-> > >  #include "hyperv_drm.h"
-> > >
-> > > -#define VMBUS_RING_BUFSIZE (256 * 1024)
-> > > +#define VMBUS_RING_BUFSIZE VMBUS_RING_SIZE(256 * 1024)
-> > >  #define VMBUS_VSP_TIMEOUT (10 * HZ)
-> > >
-> > >  #define SYNTHVID_VERSION(major, minor) ((minor) << 16 | (major))
-> > > --
-> > > 2.54.0
-> >
-> > Although this lgtm, but this may change the behaviour on ARM64 systems
-> with page size > 4K ?
+Acked-by: Christian König <christian.koenig@amd.com>
 
-Actually the behavior won't change, because
-VMBUS_RING_SIZE(256 * 1024) is still 256KB.
-
-> > Have we tested it ?
->=20
-> Yup, I tested it on an ARM64 windows machine with a 64K page size guest
-> kernel.
->=20
-> >
-> > Reviewed-by: Saurabh Sengar <ssengar@linux.microsoft.com>
->=20
-> Pushed to drm-misc.
+> ---
+> v2: I moved the enum to amdgpu_reset.h and then #included amdgpu_reset.h
+>     in amdgpu.h. The simpler method causes build errors.
+> v3: rebase and resend
+> 
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Christian König <christian.koenig@amd.com>
+> Cc: amd-gfx@lists.freedesktop.org
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> 
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h       |   42 ------------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h |   69 +++++++++++++++-----
+>  2 files changed, 58 insertions(+), 53 deletions(-)
+> 
+> --- linux-next-20260427.orig/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ linux-next-20260427/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -464,7 +464,7 @@ int amdgpu_file_to_fpriv(struct file *fi
+>  #define AMDGPU_MAX_WB 1024	/* Reserve at most 1024 WB slots for amdgpu-owned rings. */
+>  
+>  /**
+> - * amdgpu_wb - This struct is used for small GPU memory allocation.
+> + * struct amdgpu_wb - This struct is used for small GPU memory allocation.
+>   *
+>   * This struct is used to allocate a small amount of GPU memory that can be
+>   * used to shadow certain states into the memory. This is especially useful for
+> @@ -538,44 +538,6 @@ struct amdgpu_allowed_register_entry {
+>  	bool grbm_indexed;
+>  };
+>  
+> -/**
+> - * enum amd_reset_method - Methods for resetting AMD GPU devices
+> - *
+> - * @AMD_RESET_METHOD_NONE: The device will not be reset.
+> - * @AMD_RESET_LEGACY: Method reserved for SI, CIK and VI ASICs.
+> - * @AMD_RESET_MODE0: Reset the entire ASIC. Not currently available for the
+> - *                   any device.
+> - * @AMD_RESET_MODE1: Resets all IP blocks on the ASIC (SDMA, GFX, VCN, etc.)
+> - *                   individually. Suitable only for some discrete GPU, not
+> - *                   available for all ASICs.
+> - * @AMD_RESET_MODE2: Resets a lesser level of IPs compared to MODE1. Which IPs
+> - *                   are reset depends on the ASIC. Notably doesn't reset IPs
+> - *                   shared with the CPU on APUs or the memory controllers (so
+> - *                   VRAM is not lost). Not available on all ASICs.
+> - * @AMD_RESET_LINK: Triggers SW-UP link reset on other GPUs
+> - * @AMD_RESET_BACO: BACO (Bus Alive, Chip Off) method powers off and on the card
+> - *                  but without powering off the PCI bus. Suitable only for
+> - *                  discrete GPUs.
+> - * @AMD_RESET_PCI: Does a full bus reset using core Linux subsystem PCI reset
+> - *                 and does a secondary bus reset or FLR, depending on what the
+> - *                 underlying hardware supports.
+> - *
+> - * Methods available for AMD GPU driver for resetting the device. Not all
+> - * methods are suitable for every device. User can override the method using
+> - * module parameter `reset_method`.
+> - */
+> -enum amd_reset_method {
+> -	AMD_RESET_METHOD_NONE = -1,
+> -	AMD_RESET_METHOD_LEGACY = 0,
+> -	AMD_RESET_METHOD_MODE0,
+> -	AMD_RESET_METHOD_MODE1,
+> -	AMD_RESET_METHOD_MODE2,
+> -	AMD_RESET_METHOD_LINK,
+> -	AMD_RESET_METHOD_BACO,
+> -	AMD_RESET_METHOD_PCI,
+> -	AMD_RESET_METHOD_ON_INIT,
+> -};
+> -
+>  struct amdgpu_video_codec_info {
+>  	u32 codec_type;
+>  	u32 max_width;
+> @@ -1373,6 +1335,8 @@ int emu_soc_asic_init(struct amdgpu_devi
+>  #define RBIOS16(i) (RBIOS8(i) | (RBIOS8((i)+1) << 8))
+>  #define RBIOS32(i) ((RBIOS16(i)) | (RBIOS16((i)+2) << 16))
+>  
+> +#include "amdgpu_reset.h"
+> +
+>  /*
+>   * ASICs macro.
+>   */
+> --- linux-next-20260427.orig/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
+> +++ linux-next-20260427/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
+> @@ -46,6 +46,47 @@ enum AMDGPU_RESET_SRCS {
+>  	AMDGPU_RESET_SRC_USERQ,
+>  };
+>  
+> +/**
+> + * enum amd_reset_method - Methods for resetting AMD GPU devices
+> + *
+> + * @AMD_RESET_METHOD_NONE: The device will not be reset.
+> + * @AMD_RESET_METHOD_LEGACY: Method reserved for SI, CIK and VI ASICs.
+> + * @AMD_RESET_METHOD_MODE0: Reset the entire ASIC. Not currently available for
+> + *                          the any device.
+> + * @AMD_RESET_METHOD_MODE1: Resets all IP blocks on the ASIC (SDMA, GFX, VCN,
+> + *                   etc.) individually. Suitable only for some discrete GPU,
+> + *                   not available for all ASICs.
+> + * @AMD_RESET_METHOD_MODE2: Resets a lesser level of IPs compared to MODE1.
+> + *                   Which IPs are reset depends on the ASIC. Notably doesn't
+> + *                   reset IPs shared with the CPU on APUs or the memory
+> + *                   controllers (so VRAM is not lost). Not available on all
+> + *                   ASICs.
+> + * @AMD_RESET_METHOD_LINK: Triggers SW-UP link reset on other GPUs
+> + * @AMD_RESET_METHOD_BACO: BACO (Bus Alive, Chip Off) method powers off and on
+> + *                   the card but without powering off the PCI bus. Suitable
+> + *                   only for discrete GPUs.
+> + * @AMD_RESET_METHOD_PCI: Does a full bus reset using core Linux subsystem
+> + *                   PCI reset and does a secondary bus reset or FLR,
+> + *                   depending on what the underlying hardware supports.
+> + * @AMD_RESET_METHOD_ON_INIT: Does a device reset during the driver init
+> + *                   sequence.
+> + *
+> + * Methods available for AMD GPU driver for resetting the device. Not all
+> + * methods are suitable for every device. User can override the method using
+> + * module parameter `reset_method`.
+> + */
+> +enum amd_reset_method {
+> +	AMD_RESET_METHOD_NONE = -1,
+> +	AMD_RESET_METHOD_LEGACY = 0,
+> +	AMD_RESET_METHOD_MODE0,
+> +	AMD_RESET_METHOD_MODE1,
+> +	AMD_RESET_METHOD_MODE2,
+> +	AMD_RESET_METHOD_LINK,
+> +	AMD_RESET_METHOD_BACO,
+> +	AMD_RESET_METHOD_PCI,
+> +	AMD_RESET_METHOD_ON_INIT,
+> +};
+> +
+>  struct amdgpu_reset_context {
+>  	enum amd_reset_method method;
+>  	struct amdgpu_device *reset_req_dev;
+> @@ -56,6 +97,20 @@ struct amdgpu_reset_context {
+>  	enum AMDGPU_RESET_SRCS src;
+>  };
+>  
+> +struct amdgpu_reset_control {
+> +	void *handle;
+> +	struct work_struct reset_work;
+> +	struct mutex reset_lock;
+> +	struct amdgpu_reset_handler *(
+> +		*reset_handlers)[AMDGPU_RESET_MAX_HANDLERS];
+> +	atomic_t in_reset;
+> +	enum amd_reset_method active_reset;
+> +	struct amdgpu_reset_handler *(*get_reset_handler)(
+> +		struct amdgpu_reset_control *reset_ctl,
+> +		struct amdgpu_reset_context *context);
+> +	void (*async_reset)(struct work_struct *work);
+> +};
+> +
+>  struct amdgpu_reset_handler {
+>  	enum amd_reset_method reset_method;
+>  	int (*prepare_env)(struct amdgpu_reset_control *reset_ctl,
+> @@ -72,20 +127,6 @@ struct amdgpu_reset_handler {
+>  	int (*do_reset)(struct amdgpu_device *adev);
+>  };
+>  
+> -struct amdgpu_reset_control {
+> -	void *handle;
+> -	struct work_struct reset_work;
+> -	struct mutex reset_lock;
+> -	struct amdgpu_reset_handler *(
+> -		*reset_handlers)[AMDGPU_RESET_MAX_HANDLERS];
+> -	atomic_t in_reset;
+> -	enum amd_reset_method active_reset;
+> -	struct amdgpu_reset_handler *(*get_reset_handler)(
+> -		struct amdgpu_reset_control *reset_ctl,
+> -		struct amdgpu_reset_context *context);
+> -	void (*async_reset)(struct work_struct *work);
+> -};
+> -
+>  
+>  enum amdgpu_reset_domain_type {
+>  	SINGLE_DEVICE,
 
