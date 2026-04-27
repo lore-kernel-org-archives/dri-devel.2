@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B04AFF8864
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 23:35:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 427B6FF8867
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 23:36:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE3BB10E9A6;
-	Mon, 27 Apr 2026 23:35:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B354510E9A8;
+	Mon, 27 Apr 2026 23:36:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="Q0OPTiRW";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="JgQctkD9";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5AD510E9A6
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 23:35:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1777332945; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3C6810E9A8
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 23:36:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1777333011; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=VbPr3ZeL02NRyCn+NUp7sx/5ai/WpO6sI0+LN2IFY/ENkDXelW8A67JJ7YRbPMoUXJ+EGycelsaKK1AHEcBMNIuudHd3paPfG7NeYTFRVFAgHJ+RccMvKAisOCG3SbqOsUUBLTUJLrmu2v59FdMuoghyPpyUic14R2OzkohYjmU=
+ b=mVtBRvbv7KKJLThCZ6nLF1OXuXyhmQ2wCU4O6/6QsZW9AqvJv0LzsBvks5j6g9jMiFrcrgeaJGzxIdR3DgoKTupgvKJsWAXRk+vD64TKsSVTPmr9MtktZbA97EER6yatFwdf6cgeNiPb89tVQjYyvDCf2JGvIYwTzIVU3hlOzQQ=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1777332945;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=lnSnM4C990qgs9pUSno2N5WyCcVKDoCRlxhe7ByWmPM=; 
- b=aaqJRYlLSdpQB3GKP/Zeq5VKkZNog6/9Sygky50/3nWoTxAeEMIjJ9vSRCURj5WtFEAPJqpbmENJe7OiHYyhDsK5joioqSG6CsfpVncasa2PAnOW9KktzEHGLBRAJkHfancjFelKSNMNsC86HOnPp1CCpKH+MZZVpxv3Cyg1m4g=
+ s=zohoarc; t=1777333011;
+ h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=7hpeqhF3jnEv6T8olU96rzYxcW7mlYBS6IkFNCMTEhI=; 
+ b=TJhDd4LfhAucFUQYgLYicbRw0JUDFdVW7ny3d9G0/zFa4Wy//Af1jF87bufnalG6PZ/TBDwmb8F4pr0SM/9XKQE34ajLuCXaZDoD7JUkIi4wSVn2T9QvjIC9RQv1L3K8Pntg48/5sADNFHUxMtZcu5MX1bJqTA0g1iPIOUzONb4=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
  dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1777332945; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1777333011; 
  s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
- h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
- bh=lnSnM4C990qgs9pUSno2N5WyCcVKDoCRlxhe7ByWmPM=;
- b=Q0OPTiRWH4mvw0ZKQO7Ixto8w3ed2Uh33WFb9AS3wBKRj4j/fYZffu5dt0vkMbi2
- wdw00saWyhaEUHaYjhgnuSsrJEQJ/1oZZKfHxuW8bJkomHwNh/wVeO3aOSJQK4xgWV9
- K45Qdakx2vk6COr2s3BQ7IDadDYwFdfXkWb3EVns=
-Received: by mx.zohomail.com with SMTPS id 177733294331785.60014132848107;
- Mon, 27 Apr 2026 16:35:43 -0700 (PDT)
-Date: Mon, 27 Apr 2026 16:35:42 -0700
+ h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+ bh=7hpeqhF3jnEv6T8olU96rzYxcW7mlYBS6IkFNCMTEhI=;
+ b=JgQctkD9snGp1HfHKxlUsUpxDdoOsC2De1qV5Nw99bPkyEIjkho9MxJuchnsgtDf
+ pIKnyE7IphrI7eAA35g9WncjXNS11U31jDJmbutw0A8zcr2srvvQlFN9mKL3Qp6hP0T
+ QO8JQ8u6J8SDgfiuPafk4egaQJ7kw/yxbkhgMMp8=
+Received: by mx.zohomail.com with SMTPS id 177733300908413.680628273178513;
+ Mon, 27 Apr 2026 16:36:49 -0700 (PDT)
+Date: Mon, 27 Apr 2026 16:36:48 -0700
 From: Deborah Brouwer <deborah.brouwer@collabora.com>
-To: Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>
+To: Boris Brezillon <boris.brezillon@collabora.com>
 Cc: Daniel Almeida <daniel.almeida@collabora.com>,
  Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
@@ -53,19 +53,18 @@ Cc: Daniel Almeida <daniel.almeida@collabora.com>,
  Anna-Maria Behnsen <anna-maria@linutronix.de>,
  John Stultz <jstultz@google.com>, Stephen Boyd <sboyd@kernel.org>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org, boris.brezillon@collabora.com,
- beata.michalska@arm.com, lyude@redhat.com, acourbot@nvidia.com,
+ rust-for-linux@vger.kernel.org, beata.michalska@arm.com,
+ lyude@redhat.com, acourbot@nvidia.com, work@onurozkan.dev,
  alvin.sun@linux.dev
-Subject: Re: [PATCH v4 19/20] rust: time: add arch_timer_get_rate wrapper
-Message-ID: <ae_yzmiGc0rnu6VR@um790>
+Subject: Re: [PATCH v4 02/20] drm/tyr: select required dependencies in Kconfig
+Message-ID: <ae_zEJv-H9bPv5jE@um790>
 References: <20260424-b4-fw-boot-v4-v4-0-a5d91050789d@collabora.com>
- <20260424-b4-fw-boot-v4-v4-19-a5d91050789d@collabora.com>
- <20260427085907.106896-1-work@onurozkan.dev>
+ <20260424-b4-fw-boot-v4-v4-2-a5d91050789d@collabora.com>
+ <20260427092338.4e083a55@fedora>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260427085907.106896-1-work@onurozkan.dev>
+In-Reply-To: <20260427092338.4e083a55@fedora>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,77 +80,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Apr 27, 2026 at 11:59:06AM +0300, Onur Özkan wrote:
-> On Fri, 24 Apr 2026 16:39:13 -0700
+On Mon, Apr 27, 2026 at 09:23:38AM +0200, Boris Brezillon wrote:
+> On Fri, 24 Apr 2026 16:38:56 -0700
 > Deborah Brouwer <deborah.brouwer@collabora.com> wrote:
 > 
-> > Provide a safe Rust wrapper for arch_timer_get_rate().
+> > From: Boris Brezillon <boris.brezillon@collabora.com>
 > > 
-> > The underlying C helper returns 0 when the ARM architectural timer
-> > is not available or not yet initialized. Map this to Option<u32> to
-> > make the absence of a valid rate explicit to Rust callers.
+> > Tyr depends on DRM_GPUVM, RUST_DRM_GEM_SHMEM_HELPER, MMU, IOMMU_SUPPORT,
+> > and IOMMU_IO_PGTABLE_LPAE. Select or depend on these symbols in Kconfig so
+> > the required infrastructure is enabled when Tyr is built.
 > > 
-> > This allows Rust drivers to query the system timer frequency and
-> > select appropriate time sources when programming hardware timeouts.
+> > Introduce DRM_TYR_STATIC_DEPS to keep the built-in DRM dependencies
+> > selected even when Tyr is built as a module.
 > > 
+> > Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 > > Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
 > > ---
-> >  rust/kernel/time.rs | 29 +++++++++++++++++++++++++++++
-> >  1 file changed, 29 insertions(+)
+> >  drivers/gpu/drm/tyr/Kconfig | 14 +++++++++++++-
+> >  1 file changed, 13 insertions(+), 1 deletion(-)
 > > 
-> > diff --git a/rust/kernel/time.rs b/rust/kernel/time.rs
-> > index 6ea98dfcd027..03ce96450fc8 100644
-> > --- a/rust/kernel/time.rs
-> > +++ b/rust/kernel/time.rs
-> > @@ -359,6 +359,35 @@ fn div(self, rhs: Self) -> Self::Output {
-> >      }
-> >  }
+> > diff --git a/drivers/gpu/drm/tyr/Kconfig b/drivers/gpu/drm/tyr/Kconfig
+> > index e933e6478027..443ce988b570 100644
+> > --- a/drivers/gpu/drm/tyr/Kconfig
+> > +++ b/drivers/gpu/drm/tyr/Kconfig
+> > @@ -1,5 +1,12 @@
+> >  # SPDX-License-Identifier: GPL-2.0 or MIT
 > >  
-> > +/// Returns the ARM architecture timer frequency in Hz, if available.
-> > +///
-> > +/// This function queries the system-wide ARM architecture timer frequency.
-> > +/// The architecture timer provides a consistent time source across all CPU cores.
-> > +///
-> > +/// Returns `None` if:
-> > +/// - The ARM architecture timer is not available (`CONFIG_ARM_ARCH_TIMER` not enabled)
-> > +/// - The timer rate is zero (not initialized)
+> > +config DRM_TYR_STATIC_DEPS
+> > +	bool
+> > +	select DRM_GPUVM
 > 
-> Can we return distinct errors for these cases and return NonZero<u32> when the
-> rate is valid?
+> IIRC, Danilo said we should have some boolean RUST_DRM_GPUVM option
+> selecting DRM_GPUVM for us, just like RUST_DRM_GEM_SHMEM_HELPER does.
 
-I don’t think there is an easy way to distinguish between those cases from the C helper,
-since both are represented by a return value of 0.
-
-As far as I can see, callers only need to know whether a valid rate is available or not.
-I agree that NonZeroU32 would better model the valid case, but I’m not sure it adds
-enough benefit here to justify the extra complexity.
+yes, I think Alice just sent that patch today. I have fixed it and
+will send it in the next version.
 
 > 
-> > +///
-> > +/// # Examples
-> > +///
-> > +/// ```
-> > +/// use kernel::time::arch_timer_get_rate;
-> > +///
-> > +/// if let Some(rate) = arch_timer_get_rate() {
-> > +///     // Use `rate`.
-> > +/// }
-> > +/// ```
-> > +pub fn arch_timer_get_rate() -> Option<u32> {
-> > +    // SAFETY: The C API is available in all configs; when CONFIG_ARM_ARCH_TIMER
-> > +    // is disabled, the header provides a stub returning 0.
-> > +    let rate = unsafe { bindings::arch_timer_get_rate() };
-> > +    if rate == 0 {
-> > +        None
-> > +    } else {
-> > +        Some(rate)
-> > +    }
-> > +}
+> > +	help
+> > +	  Ensure required DRM infrastructure is built-in when enabling Tyr
+> > +	  even if Tyr is =m
 > > +
-> >  impl Delta {
-> >      /// A span of time equal to zero.
-> >      pub const ZERO: Self = Self { nanos: 0 };
+> >  config DRM_TYR
+> >  	tristate "Tyr (Rust DRM support for ARM Mali CSF-based GPUs)"
+> >  	depends on DRM=y
+> > @@ -7,6 +14,11 @@ config DRM_TYR
+> >  	depends on ARM || ARM64 || COMPILE_TEST
+> >  	depends on !GENERIC_ATOMIC64  # for IOMMU_IO_PGTABLE_LPAE
+> >  	depends on COMMON_CLK
+> > +	depends on MMU
+> > +	select DRM_TYR_STATIC_DEPS
+> > +	select IOMMU_IO_PGTABLE_LPAE
+> > +	select RUST_DRM_GEM_SHMEM_HELPER
+> > +	depends on IOMMU_SUPPORT
+> >  	default n
+> >  	help
+> >  	  Rust DRM driver for ARM Mali CSF-based GPUs.
+> > @@ -16,5 +28,5 @@ config DRM_TYR
+> >  	  Note that the Mali-G68 and Mali-G78, while Valhall architecture, will
+> >  	  be supported with the panfrost driver as they are not CSF GPUs.
+> >  
+> > -	  if M is selected, the module will be called tyr. This driver is work
+> > +	  If M is selected, the module will be called tyr. This driver is work
+> >  	  in progress and may not be functional.
 > > 
-> > -- 
-> > 2.53.0
-> > 
+> 
