@@ -4,111 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CED4FF8861
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 07:43:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B8F2FF8862
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 07:44:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0B0410E5DC;
-	Mon, 27 Apr 2026 07:43:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 950DC10E290;
+	Mon, 27 Apr 2026 07:44:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="UdWYMB7I";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BW25sMZu";
 	dkim-atps=neutral
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 60B3110E5DC
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 07:43:08 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-488b3f8fa2bso99629575e9.1
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 00:43:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1777275787; x=1777880587; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=oRsAzItervdKnHbuWBjQcpBneMcumUm5p4D7xOs/de4=;
- b=UdWYMB7IfiTqa35LiL2n4s5aiYI2kiU5QoDEPDDDA837Hav/8dQgFKn8GVGPo3cHl4
- h9yGkSzRsHPrKCyk0wA546FbKuoDQyT/ovXgh3MbUx146UsE8OudmDx/CfWmvG7WnT77
- ackccalE4nujI3zSJcddqK0Q7vpQCdEK/iiZNUO2xvywMBpia8zulrgKrPGM432Zz5jG
- ntUa3Ohs7V9COjuuTXk+LCThZyQGTZL42ChT+BDxdydoIN8ODotpjVbDZCLPEQMw1ToQ
- 6tqRdD+UFhVt14KmDWVDK48y/GFYbHk4qew/Fjw4Lwgj+6vQ2gpX+ECCMHeK7WYOcvi5
- MZSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777275787; x=1777880587;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=oRsAzItervdKnHbuWBjQcpBneMcumUm5p4D7xOs/de4=;
- b=jbO4zD5Vb1uz2DPEoUlyCgXgJ9wEl/LP5ATq7Mpooc2nJdLqtoBIlg3X2F3FlKahv+
- 6AOcDZmb3dtj/Pq3uZwq0g14C0FTrZtqnkx1kTLsNDlhCzEys4aj0l/LGzk/zobMjjBn
- JJCTLjmfgCkd/BsXXoAMS83ah/76RVzXd74B9mPVTsdBlfU5Fint75RZsASJIKQoJtVT
- IGmyZ86GwJMAgoXDYtjl1MdGMakh/rf8xgPtqObi6JZo9/QJrzYZ+h/lVI9i1mllBUz+
- V2BISj81OK+veYMB1oiBazBZN5Fd7WGWKB5Hgccqc3xfNo8B7PnTlAtmhpRX+IJimm5U
- itSg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9+3b4PNf87VK9DH0WgKpTI2SLS7f3ArIIzqWxL8IB26u6v0YeySRdlJ7L/561dGOM2QQO7hNPQfrc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy6iXkI/tC0evJ8xyEMqyjbBVhok6PXL46KkhphYA2W7Ij3W/ZD
- pdZFJ6ZAL67gsy0va1P6/ipeT3mblNHfnyokIOL7ZZCHuqWwgWQw8ULasqO/wZ47XYg=
-X-Gm-Gg: AeBDietgTVOUe72NoUt4UZ5BYDrjTMAccBOU/fgyFfDFgCGtpuakkvoiNmkdBH9DLxn
- EWCsa0iq9qBtp3gtZDJDdOvZR/GDtYS7CScIiIMIABuGoNUzYAYaqoW6tyqy9cZBbrHo6GZojh/
- lWgVK9YvSEfJ6Zxs6bjUdSpFIZ8hyqy1DEB+sFwyPtqAyBMv2mknL0eEFnxxb/9OTeaaLYMEWCi
- dsZaayP3WSk98HsfW4UtFbtk/QpmCj+5LwNFNan9Rs9UicXvZJzuphNKiQwxKHLkyA0S1A98zg0
- eC7dorbWEtoPqGKAJuWD83Zo24BFJYhk6CseLt1ZKf2L+0+KK9N31siQPyuXOQammDdVaAAdUWw
- vuTDwtnrk7zTJp75PrkAvbMeFhYUGRyaVSD0KJeYiCckmzSjGJ897//hURIPH+aQV2bZ9x6rbDQ
- CyKL1nBOLDrZk+2Jx4DZIXIkVm6j7ZO5Maqpm13Wl8KmhKQzKcT60qcddi9XzRWHMd7QcqtlbzZ
- rdeAX+hgssnvtrHDg==
-X-Received: by 2002:a05:600c:1d05:b0:489:1baf:8c03 with SMTP id
- 5b1f17b1804b1-4891baf8d2cmr428569415e9.11.1777275786796; 
- Mon, 27 Apr 2026 00:43:06 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:ad59:75f7:6c30:2440?
- ([2a01:e0a:106d:1080:ad59:75f7:6c30:2440])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48a6124d7e7sm462203655e9.5.2026.04.27.00.43.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Apr 2026 00:43:06 -0700 (PDT)
-Message-ID: <503bdbd2-8a88-4224-8059-23e9e5c599f7@linaro.org>
-Date: Mon, 27 Apr 2026 09:43:08 +0200
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C409010E290
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 07:44:26 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 709D741A08;
+ Mon, 27 Apr 2026 07:44:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9EA4C19425;
+ Mon, 27 Apr 2026 07:44:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1777275866;
+ bh=UhvaxafvAV+ZY92qW1p4rqQSumkIHXI0RQwzke5UgDE=;
+ h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+ b=BW25sMZuhPdjNa+iM6VMCaTjMZD5Kev7T7jEtroyTfS2+f86qU70P9PmiZb2nsE9K
+ CHbm4UknzWpbPGmHIDKy2/mXdJZNj1p81lXtZ8TZyzbc63XrmW/Ztn09RTsfQacE5q
+ S21iB+vRtl3S3Qx5KlxHCdHBJua0C+5MUnEq5Tu/CGk2B7u1lWwkzDDTFte27gYpKH
+ DGCpXpfr2yD8c0f1QvWa6DAQn71OpkjJ2/F6i9MZptA9gmbKipGa3c+CWNDBldcnRz
+ OlcAgiVcch6SuTaVv5OjnfxWY3wRsUA3qiTcEwzcfY9edRNQ8dAffTZXqXdfl2EXlC
+ ted1yOxdHRADg==
+From: Andreas Hindborg <a.hindborg@kernel.org>
+To: Deborah Brouwer <deborah.brouwer@collabora.com>, Daniel Almeida
+ <daniel.almeida@collabora.com>, Alice Ryhl <aliceryhl@google.com>, Danilo
+ Krummrich <dakr@kernel.org>, David
+ Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Benno
+ Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>, Miguel Ojeda
+ <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, =?utf-8?Q?Bj=C3=B6rn?=
+ Roy Baron
+ <bjorn3_gh@protonmail.com>, Trevor Gross <tmgross@umich.edu>, FUJITA
+ Tomonori <fujita.tomonori@gmail.com>, Frederic Weisbecker
+ <frederic@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Anna-Maria
+ Behnsen <anna-maria@linutronix.de>, John Stultz <jstultz@google.com>,
+ Stephen Boyd <sboyd@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, boris.brezillon@collabora.com,
+ beata.michalska@arm.com, lyude@redhat.com, acourbot@nvidia.com,
+ work@onurozkan.dev, alvin.sun@linux.dev, Deborah Brouwer
+ <deborah.brouwer@collabora.com>
+Subject: Re: [PATCH v4 19/20] rust: time: add arch_timer_get_rate wrapper
+In-Reply-To: <20260424-b4-fw-boot-v4-v4-19-a5d91050789d@collabora.com>
+References: <20260424-b4-fw-boot-v4-v4-0-a5d91050789d@collabora.com>
+ <ZpKRFb-Ves9nQ6lMstVDx-dk-vA9CSQMUQDTgSz4zBssvYj06calaHWnfeBCR6Zv92SVSX3QohKqUcY1KpTzHA==@protonmail.internalid>
+ <20260424-b4-fw-boot-v4-v4-19-a5d91050789d@collabora.com>
+Date: Mon, 27 Apr 2026 09:42:52 +0200
+Message-ID: <87wlxsrgqr.fsf@t14s.mail-host-address-is-not-set>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH] drm/panel: feiyang-fy07024di26a30d: return display-on
- error
-To: Christian Van <cvan20191@gmail.com>,
- Jagan Teki <jagan@amarulasolutions.com>
-Cc: Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260425053948.117714-1-cvan20191@gmail.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260425053948.117714-1-cvan20191@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,38 +69,28 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/25/26 07:39, Christian Van wrote:
-> mipi_dsi_dcs_set_display_on() returns an error code, but feiyang_enable()
-> currently ignores it and always reports success.
-> 
-> Return the DCS command result so callers can observe enable failures.
-> 
-> Signed-off-by: Christian Van <cvan20191@gmail.com>
-> ---
->   drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c | 4 +---
->   1 file changed, 1 insertion(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c b/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c
-> index 4f8d6d8c0..dbdb7e3cb 100644
-> --- a/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c
-> +++ b/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c
-> @@ -98,9 +98,7 @@ static int feiyang_enable(struct drm_panel *panel)
->   	/* T12 (video & logic signal rise + backlight rise) T12 >= 200ms */
->   	msleep(200);
->   
-> -	mipi_dsi_dcs_set_display_on(ctx->dsi);
-> -
-> -	return 0;
-> +	return mipi_dsi_dcs_set_display_on(ctx->dsi);
->   }
->   
->   static int feiyang_disable(struct drm_panel *panel)
+"Deborah Brouwer" <deborah.brouwer@collabora.com> writes:
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+> Provide a safe Rust wrapper for arch_timer_get_rate().
+>
+> The underlying C helper returns 0 when the ARM architectural timer
+> is not available or not yet initialized. Map this to Option<u32> to
+> make the absence of a valid rate explicit to Rust callers.
+>
+> This allows Rust drivers to query the system timer frequency and
+> select appropriate time sources when programming hardware timeouts.
+>
+> Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
 
-Thanks,
-Neil
+Looks good to me, but it is weird that this is defined for non-arm targets.
+
+Even if this is available for all architectures in C code, would it make
+sense to gate it on the target being Arm in Rust?
+
+
+Best regards,
+Andreas Hindborg
+
