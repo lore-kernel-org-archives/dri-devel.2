@@ -4,132 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F9EAFF8850
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 06:21:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 800FBFF8850
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 06:22:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A24E10E25B;
-	Mon, 27 Apr 2026 06:21:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAD0710E266;
+	Mon, 27 Apr 2026 06:22:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="a8/QvMCO";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="z2hvE5VT";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="LQ2Kxq4s";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="56Q2Gyyf";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="s+FmbZf+";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8917E10E25B
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 06:21:55 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id CFBA66A811;
- Mon, 27 Apr 2026 06:21:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1777270914; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=cZEZt7TCHH+wwJ5U7se0n4LEFWnmTvWqAEh8+bNEVvM=;
- b=a8/QvMCOy7MnhkFVUqZe863NMkucjYHZ9gvSqNKuEPlgXBsZFdR1wT96zCdsH/GOHb0WzH
- ib+4/PiVdKigHQaE8q6VQ9rCb6bGi1DgEG1PGkFvIzWE0zPdJi8zb8EFzBfR7ZmwrdPkHl
- zCLIChQXa9QrjIc9HJ+j9d+nINHP+QY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1777270914;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=cZEZt7TCHH+wwJ5U7se0n4LEFWnmTvWqAEh8+bNEVvM=;
- b=z2hvE5VTBMcjZF2KCUfIYHtSKwguOElWB40l1aK7p2aU5s1kGex8bUB5rGEiOcZej+z4Ox
- wfSZ2O8RrkMhVzAg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1777270913; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=cZEZt7TCHH+wwJ5U7se0n4LEFWnmTvWqAEh8+bNEVvM=;
- b=LQ2Kxq4sLYgGLQhLgsB36cwQ6Eksn49DHpLx3gaGo6PcL/eGFJm2suAW3cbJwx8cKpPJEo
- hbcs6DQtNjgOVA9abLiXz4BOCBVfdrS/2KlFNu9u2rVF9MeQL8ZSbJiilPFtWz9cTJ1+bJ
- hHQUmMlVqk78xbbrbJ9AfcTVaTuWnLc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1777270913;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=cZEZt7TCHH+wwJ5U7se0n4LEFWnmTvWqAEh8+bNEVvM=;
- b=56Q2Gyyfb3KxTbEVd0y44GekdVLBzuCQ3zMFOwnetF1TJnH42OlBtO2PcOx3Yd3h6ReUwL
- vn658Zw12EdjQ7Cg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 124F7593B0;
- Mon, 27 Apr 2026 06:21:53 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id yLfkAYEA72lSFgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 27 Apr 2026 06:21:53 +0000
-Message-ID: <46b215b8-4b78-4a84-9474-ca5f852b2c95@suse.de>
-Date: Mon, 27 Apr 2026 08:21:51 +0200
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
+ [209.85.221.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B25AC10E266
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 06:22:38 +0000 (UTC)
+Received: by mail-wr1-f42.google.com with SMTP id
+ ffacd0b85a97d-43d77f60944so7234402f8f.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 26 Apr 2026 23:22:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777270957; cv=none;
+ d=google.com; s=arc-20240605;
+ b=OrpysMzMBueu/nFZWeKRYcz8Drf96W192uv6rCnQj9FWdO0FPRdQ5L+buVuwuGSYPd
+ aNucw6x1VyELgZxjW6illwW7K1YnTD2wNKPYO2JVJ4BplUbhajWXOSAH6qBIGJvWBxYg
+ qg5AczFQ/KxJLd00n78ir3ZS16/lrvssRLWr0IOym77/gGbF5lAC7XPIvh9VEH8H5T4E
+ xdLOEhRcaVlumlWb0s1a+lcvNG6mXHoumMFrjEfylz3MhJzeAhFH0A5RypGbDM9Kdn6D
+ E8kMcQPmZkwsgzA3wEGKuTs0F0DwLzJPn5k1icKdKmI4z6tN7XcZ1hkyH31Foib4UZCw
+ aGdQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=TAPUtgLCeg2rPN5wb/LbwTrSRKf1znENF+kSWITCphI=;
+ fh=e0cJOoSpiXGHxhskGGpoAl8VZFFYuD/kVKU2vyNhjfM=;
+ b=iAaRQNKsHgE5QOSXkodHTUT1kK5XKSmpbv+Gu+dDuPVj3/+SGOodJFxUxvF542V5cQ
+ n178NdgEEvUzMaAacGfsr7zYdEJUgzMVvQpg0GJSV+U0cHOeE80Ju75O1nFH6VJeGm3f
+ tl0YM/7sLODVzcw9ygpH08WWDuLDiOfwHxTdYXFZnfLqipJRR/kCin2aibjtxmkwa54q
+ 1QFhD/7O2jEWdgiIQ5p0N7TweBuvWX2UdXuSt6yApNmLMswUNI47b5kGo7tipJD6sntI
+ DyGMg9FON9+u6GlNbrtF9c/GOcw9OAfK2XCWOqSOZ2Cz4Kte2cjnb4t2kHaWSIOiem4T
+ bclg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1777270957; x=1777875757; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=TAPUtgLCeg2rPN5wb/LbwTrSRKf1znENF+kSWITCphI=;
+ b=s+FmbZf+bAre1CDLvMoafVJceORi9Q2uc3iP4kmJguOGhrOi3USwMrPpGCrGL2B3NX
+ 5z9K326/qskci60qpcBiVwOwbno47D54nUfPtBn2XFOJSXSrJySqVpilooQBeDq+Hw2V
+ dzmXZ1oikhGvMKqfXvG6i7FeWlYulQJbA1xlegtzk7vZFNPp7WbwlR159LUUxPSjerqW
+ YLYeyt71aOP1sxyA6dg/xTlPkmOFTSHMh50G5TiQrkJ97sybp6cyIT5eI5b7VkV5uF/M
+ fnR0Hi/OECv3iFp1WYsr3SGqJsjCsjBqbfbnFV+oRqaSRifDoBWgneFDZIQla1f+k/nL
+ pVaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777270957; x=1777875757;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=TAPUtgLCeg2rPN5wb/LbwTrSRKf1znENF+kSWITCphI=;
+ b=G88B36dKyz5gvGKCDFXQ8e7MgkJY5k+IYbAOkpgKYzYjU12BSsuuUOxni/Hfvruo2f
+ WZaC1aOpmxoBnGqoIlrkbr91oJ3wIgeWHWMtAI8+Fpw7V4DmLXdFjMdz0c2jO/KpQ8hF
+ KiB/C1xfHUslyHgweMyPVl11m3MgrNqQdtFpNO/I1Y69swRVa9uzA37sYlYQUyzFEdNU
+ rZibVT6mTwe5fi91dT1xYVDNn+vlJn7uVWsGnAHFdW7c4Rd/PGvLgYzfo4uOny8B+0s3
+ gLXU/DJhpCFDeIknxMGCvacttpNbdgz6smmrYOVWpGM/MrUPMZS8qO51VQO+XW5f1DPI
+ vJlQ==
+X-Gm-Message-State: AOJu0YwdUEcMivYRrZHkbxmcqXdnGEwmccW20AlITRBMvwGV+BAYC2de
+ lj0XHFdT1ekOTuulHdlFKwy6tJgoseLdd592Vmu2s66VMFrEdN8sH253WesEnXncsT/FPmSBI+E
+ AZGvKErdz6ezHRlE2FZJ3eTkYeU8Klro=
+X-Gm-Gg: AeBDietUW/mZUWdHZbIb6Ujoe60g/Einy8VgB3+TbzF1Oaw3EtRJKMYkfbjfetnVDhq
+ WZpg0OxtW6G39o89rVJMX/ozJdwA2z10bQURdYA+o0e7L/KuIBfbtp/1+3PMzwNleWqXttJ4VjS
+ Qaqv9fK+3kzDx5IAMTZc1TQs/z11RfXZziV3rXJ4UyQDtK/G5xjGZYKABQfKWTtStLnOUcX4/+u
+ xHfFbwjQrjbqcD3oOF77F/iAZyab0LNk56ljxjwEcwn9cAbLgk2gGezCQ0CMVDU14r3BQLCBpBt
+ kcYJo6WgogDNFwdjw98=
+X-Received: by 2002:a5d:5f82:0:b0:437:711c:8754 with SMTP id
+ ffacd0b85a97d-43fe3dc842bmr65390987f8f.7.1777270956678; Sun, 26 Apr 2026
+ 23:22:36 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V1 0/2] Rust DRM build fix
-To: "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch, dakr@kernel.org, aliceryhl@google.com, ojeda@kernel.org,
- boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com,
- lossin@kernel.org, a.hindborg@kernel.org, tmgross@umich.edu,
- daniel.almeida@collabora.com, lina+kernel@asahilina.net, j@jananu.net,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org
-References: <20260426082234.2026908-1-mkchauras@gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260426082234.2026908-1-mkchauras@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- TAGGED_RCPT(0.00)[kernel]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- MIME_TRACE(0.00)[0:+];
- FREEMAIL_TO(0.00)[gmail.com,linux.intel.com,kernel.org,ffwll.ch,google.com,garyguo.net,protonmail.com,umich.edu,collabora.com,asahilina.net,jananu.net,lists.freedesktop.org,vger.kernel.org];
- RCPT_COUNT_TWELVE(0.00)[20]; MID_RHS_MATCH_FROM(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com,protonmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- URIBL_BLOCKED(0.00)[suse.de:mid,suse.com:url,imap1.dmz-prg2.suse.org:helo];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.de:mid,
- suse.com:url]
+References: <20260309075248.47730-1-clamor95@gmail.com>
+In-Reply-To: <20260309075248.47730-1-clamor95@gmail.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Mon, 27 Apr 2026 09:22:24 +0300
+X-Gm-Features: AVHnY4LHLsGKQKTddU9Ol3ClWnqsWYnQ5Yf01s4atQPUjMHbboFRlCT-xHbdbow
+Message-ID: <CAPVz0n2rc5M4FRxiCK5cJ6usQxsfPhWjMCEpFucoZEuTfY7Pvg@mail.gmail.com>
+Subject: Re: [PATCH v4 0/2] gpu/drm: tegra: add DSI support for Tegra20/Tegra30
+To: Thierry Reding <thierry.reding@gmail.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Diogo Ivo <diogo.ivo@tecnico.ulisboa.pt>, 
+ Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,37 +108,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
-
-Am 26.04.26 um 10:22 schrieb Mukesh Kumar Chaurasiya (IBM):
-> rust drm gem shmem doesn't builds due to an import error of ARef from
-> types instead of sync.
+=D0=BF=D0=BD, 9 =D0=B1=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 09:53 Svyat=
+oslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
 >
-> This series fixes that and also makes CONFIG_RUST_DRM_GEM_SHMEM_HELPER
-> dependent of RUST and making it selectable from menuconfig.
-
-Memory managers are selected by drivers, not by users. You have to fix 
-the driver rules instead.
-
-Best regards
-Thomas
-
+> Tegra20/Tegra30 DSI is quite similar to Tegra114+ apart MIPI calibration
+> logic and clocks. With a few minor tweaks, existing tegra DSI driver
+> should work on Tegra20/Tegra30 devices just fine. Tested on
+> Motorola Atrix 4G (T20) and ASUS VivoTab RT TF600T (T30).
 >
-> Mukesh Kumar Chaurasiya (IBM) (2):
->    rust/drm: import ARef from sync crate
->    drm: Make CONFIG_RUST_DRM_GEM_SHMEM_HELPER selectable from menuconfig
+> This patchset depends on Tegra20/Tegra30 CSI bringup since both share
+> MIPI calibration logic. Ideally these patches should be picked after
+> CSI bringup but they will not break anything even if picked before
+> CSI patches.
 >
->   drivers/gpu/drm/Kconfig      | 4 ++--
->   rust/kernel/drm/gem/shmem.rs | 2 +-
->   2 files changed, 3 insertions(+), 3 deletions(-)
+> ---
+> Changes in v2:
+> - removed all MIPI calibration, it is handled within CSI bringup
+> - added per-soc structures into of_match
+> - added fix for hang caused by register access with uninited hw
+>
+> Changes in v3:
+> - switched from version DSI to boolean flags
+> - added comment regarding Tegra30 clock configuration
+> - commits were picked:
+>   "clk: tegra20: reparent dsi clock to pll_d_out0"
+>   "ARM: tegra: adjust DSI nodes for Tegra20/Tegra30"
+> - commit adapted to recent DSI changes:
+>   "gpu/drm: tegra: dsi: move prepare function at the top of encoder
+>     enable" > "gpu/drm: tegra: dsi: re-add clear enable register if
+>     DSI was powered by bootloader"
+>
+> Changes in v4:
+> - switched to device_get_match_data and added check
+> - added comment regarding Tegra124+ quirk
+> - adjusted commit titles and message formatting
+> ---
+>
+> Svyatoslav Ryhel (2):
+>   drm/tegra: dsi: add support for Tegra20/Tegra30
+>   drm/tegra: dsi: re-add clear enable register if DSI was powered by
+>     bootloader
+>
+>  drivers/gpu/drm/tegra/drm.c |   2 +
+>  drivers/gpu/drm/tegra/dsi.c | 126 +++++++++++++++++++++++++++---------
+>  drivers/gpu/drm/tegra/dsi.h |  10 +++
+>  3 files changed, 107 insertions(+), 31 deletions(-)
+>
+> --
+> 2.51.0
 >
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+Hello Thierry!
 
+May you please pick these patch if you are fine with them when you
+have some spare time? It is ok if they end up in the next.
 
+Best regards,
+Svyatoslav R.
