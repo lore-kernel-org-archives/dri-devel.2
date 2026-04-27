@@ -4,54 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34EB6FF8867
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 22:14:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31EA2FF8867
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 22:15:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EF9610E986;
-	Mon, 27 Apr 2026 22:14:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7AA1810E987;
+	Mon, 27 Apr 2026 22:15:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="p6W4oeKO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jq/7jo+a";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF5CC10E986
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 22:14:39 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E6C010E987
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 22:15:00 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id D77474150C;
- Mon, 27 Apr 2026 22:14:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB888C2BCB5;
- Mon, 27 Apr 2026 22:14:33 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A7E2060121;
+ Mon, 27 Apr 2026 22:14:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8302C19425;
+ Mon, 27 Apr 2026 22:14:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777328079;
- bh=E8DtrBLrYNArPpJF86GXwFeCoMuUblCF+p22mHtKF5E=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=p6W4oeKOQM7jk9jUoesyFgPltNs3rvUvJ9lYlQcxOYgJ6MKYpnV/2PWjGc4O6Z2eb
- OR2tKoInE0qj80ZUwdAGFDLG4KTetFGk1Mcf4t5ByMJsB3c1ULTqJ3Usu1SZh1w1TO
- WxDVArGn6/bxZq0SsSxaYf6HzaY4TXNrLwAMm4lr3cW8GW/thYh6Nz8M8ORmihfJr9
- OqI6G35dQV1DQq9pVVfRW9IxKUFn7KltdTAEQagbAfhmotKOyNua/Lke93ARGdheGU
- dC3a4xk7VM5u4w1NFuaIIZSl2DV6pVKkWCaY0owAM0qH7kTKDX66LvYg4HueAW+yn+
- bT5jiQBXLlbsA==
-From: Danilo Krummrich <dakr@kernel.org>
-To: gregkh@linuxfoundation.org, rafael@kernel.org, acourbot@nvidia.com,
- aliceryhl@google.com, david.m.ertman@intel.com, ira.weiny@intel.com,
- leon@kernel.org, viresh.kumar@linaro.org, m.wilczynski@samsung.com,
- ukleinek@kernel.org, bhelgaas@google.com, kwilczynski@kernel.org,
- abdiel.janulgue@gmail.com, robin.murphy@arm.com, markus.probst@posteo.de,
- ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
- bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org,
- tmgross@umich.edu
-Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
- linux-pm@vger.kernel.org, linux-pwm@vger.kernel.org,
- linux-pci@vger.kernel.org, rust-for-linux@vger.kernel.org,
- Danilo Krummrich <dakr@kernel.org>
-Subject: [PATCH REF 24/24] gpu: drm: tyr: use HRT lifetime for IoMem
-Date: Tue, 28 Apr 2026 00:11:22 +0200
-Message-ID: <20260427221155.2144848-25-dakr@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260427221155.2144848-1-dakr@kernel.org>
-References: <20260427221155.2144848-1-dakr@kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ s=k20201202; t=1777328099;
+ bh=jKCbYSmsGSQtb8z472IdJt0wtsbMXXU4FOygbGFvB9I=;
+ h=Date:Subject:Cc:To:From:References:In-Reply-To:From;
+ b=jq/7jo+ayvGw9P4xqGszsECHGAmSYk/Y0GbzMSiOfaNV1f520wAdrEOggaW5pJisY
+ ZzXAJW4LCoyAOzIO5JJp+aqLFu6tXyS0jUXNiB1kXczf20busfVnrRv80JeUDTOLDC
+ lM6YQCmUnSoH8VwyS3iHhc1/ysFWsLE6qI7rVNBG5grV42DMTMlm10RcfKeSQvQpU3
+ 2F5b6mpX+vSdBI3GNqXygFOjJyHHoOebj9vr3XlMOWFPCQ6+Ri03GqQx5IEihteT74
+ kZhAUWer7UwyImNSJy3aSGFmICbze7ulG38PpUIN/DDKwOVVfBHHkRfyziFEpxWNjT
+ izJEtsuA85SMA==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 28 Apr 2026 00:14:54 +0200
+Message-Id: <DI4A86QOY8BW.10B14POU8D2XA@kernel.org>
+Subject: Re: [PATCH 0/2] rust: auxiliary: replace drvdata() with
+ registration data
+Cc: <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <rust-for-linux@vger.kernel.org>
+To: <gregkh@linuxfoundation.org>, <rafael@kernel.org>,
+ <acourbot@nvidia.com>, <aliceryhl@google.com>, <david.m.ertman@intel.com>,
+ <ira.weiny@intel.com>, <leon@kernel.org>, <ojeda@kernel.org>,
+ <boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
+ <lossin@kernel.org>, <a.hindborg@kernel.org>, <tmgross@umich.edu>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260427221002.2143861-1-dakr@kernel.org>
+In-Reply-To: <20260427221002.2143861-1-dakr@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,225 +63,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Take advantage of the lifetime-parameterized IoMem<'a> to use the
-memory mapping directly during probe, eliminating the Arc<Devres<IoMem>>
-indirection.
+On Tue Apr 28, 2026 at 12:09 AM CEST, Danilo Krummrich wrote:
+> When drvdata() was introduced in commit 6f61a2637abe ("rust: device: intr=
+oduce
+> Device::drvdata()"), its commit message already noted that a direct acces=
+sor to
+> the driver's bus device private data is not commonly required -- bus call=
+backs
+> provide access through &self, and other entry points (IRQs, workqueues, I=
+OCTLs,
+> etc.) carry their own private data.
+>
+> The sole motivation for drvdata() was inter-driver interaction, e.g. a pa=
+rent
+> driver deriving its bus device private data from the child driver via the
+> auxiliary bus.
+>
+> However, drvdata() exposes the driver's bus device private data beyond th=
+e
+> driver's own scope. This creates ordering constraints -- drvdata may not =
+be set
+> yet when the first caller of drvdata() can appear -- and forces the drive=
+r's bus
+> device private data to outlive all registrations that access it; a requir=
+ement
+> that causes unnecessary complications.
+>
+> Private data should be private to the entity that issues it; bus device p=
+rivate
+> data belongs to bus callbacks, class device private data to class callbac=
+ks, IRQ
+> private data to the IRQ handler, etc.
+>
+> This series replaces drvdata() with a dedicated registration_data pointer=
+ on
+> struct auxiliary_device. The parent stores its private data explicitly du=
+ring
+> registration; the data is private to the registration and lives as long a=
+s the
+> Registration object.
+>
+> On teardown, Registration::drop() first triggers auxiliary_device_delete(=
+)
+> (unbinding the child), then frees the registration data. Ordering constra=
+ints
+> are structural -- the child's lifecycle is scoped to the registration by
+> construction, not by convention.
+>
+> With no remaining use case for drvdata(), drvdata(), match_type_id(),
+> set_type_id() and struct driver_type are removed.
+>
+> This is a prerequisite for [1], which builds on the removal of drvdata() =
+to
+> enable Higher-Ranked Lifetime Types (HRT) for Rust device drivers.
+>
+> [1] Posted as a reply to this series.
 
-Since the IoMem is only used during probe, this also simplifies
-Register::read/write to be infallible -- the Devres access check is no
-longer needed, so reads return u32 directly and writes return ().
+https://lore.kernel.org/driver-core/20260427221155.2144848-1-dakr@kernel.or=
+g/
 
-Signed-off-by: Danilo Krummrich <dakr@kernel.org>
----
-Not yet updated to Tyr using the register!() macro, but probably good enough for
-reference.
----
- drivers/gpu/drm/tyr/driver.rs | 14 ++++----
- drivers/gpu/drm/tyr/gpu.rs    | 62 +++++++++++++++++------------------
- drivers/gpu/drm/tyr/regs.rs   | 21 +++---------
- 3 files changed, 41 insertions(+), 56 deletions(-)
-
-diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
-index eaa84efdfdf7..d305ad433e03 100644
---- a/drivers/gpu/drm/tyr/driver.rs
-+++ b/drivers/gpu/drm/tyr/driver.rs
-@@ -10,7 +10,6 @@
-         Core,
-         Device, //
-     },
--    devres::Devres,
-     drm,
-     drm::ioctl,
-     io::poll,
-@@ -23,7 +22,6 @@
-     sizes::SZ_2M,
-     sync::{
-         aref::ARef,
--        Arc,
-         Mutex, //
-     },
-     time, //
-@@ -37,7 +35,7 @@
-     regs, //
- };
- 
--pub(crate) type IoMem = kernel::io::mem::IoMem<'static, SZ_2M>;
-+pub(crate) type IoMem = kernel::io::Mmio<SZ_2M>;
- 
- pub(crate) struct TyrDrmDriver;
- 
-@@ -65,11 +63,11 @@ pub(crate) struct TyrDrmDeviceData {
-     pub(crate) gpu_info: GpuInfo,
- }
- 
--fn issue_soft_reset(dev: &Device<Bound>, iomem: &Devres<IoMem>) -> Result {
--    regs::GPU_CMD.write(dev, iomem, regs::GPU_CMD_SOFT_RESET)?;
-+fn issue_soft_reset(dev: &Device<Bound>, iomem: &IoMem) -> Result {
-+    regs::GPU_CMD.write(iomem, regs::GPU_CMD_SOFT_RESET);
- 
-     poll::read_poll_timeout(
--        || regs::GPU_IRQ_RAWSTAT.read(dev, iomem),
-+        || Ok(regs::GPU_IRQ_RAWSTAT.read(iomem)),
-         |status| *status & regs::GPU_IRQ_RAWSTAT_RESET_COMPLETED != 0,
-         time::Delta::from_millis(1),
-         time::Delta::from_millis(100),
-@@ -109,12 +107,12 @@ fn probe(
-         let sram_regulator = Regulator::<regulator::Enabled>::get(pdev.as_ref(), c"sram")?;
- 
-         let request = pdev.io_request_by_index(0).ok_or(ENODEV)?;
--        let iomem = Arc::new(request.iomap_sized::<SZ_2M>()?.into_devres()?, GFP_KERNEL)?;
-+        let iomem = request.iomap_sized::<SZ_2M>()?;
- 
-         issue_soft_reset(pdev.as_ref(), &iomem)?;
-         gpu::l2_power_on(pdev.as_ref(), &iomem)?;
- 
--        let gpu_info = GpuInfo::new(pdev.as_ref(), &iomem)?;
-+        let gpu_info = GpuInfo::new(&iomem);
-         gpu_info.log(pdev);
- 
-         let platform: ARef<platform::Device> = pdev.into();
-diff --git a/drivers/gpu/drm/tyr/gpu.rs b/drivers/gpu/drm/tyr/gpu.rs
-index a88775160f98..bb0473c85bf7 100644
---- a/drivers/gpu/drm/tyr/gpu.rs
-+++ b/drivers/gpu/drm/tyr/gpu.rs
-@@ -10,7 +10,6 @@
-         Bound,
-         Device, //
-     },
--    devres::Devres,
-     io::poll,
-     platform,
-     prelude::*,
-@@ -35,37 +34,36 @@
- pub(crate) struct GpuInfo(pub(crate) uapi::drm_panthor_gpu_info);
- 
- impl GpuInfo {
--    pub(crate) fn new(dev: &Device<Bound>, iomem: &Devres<IoMem>) -> Result<Self> {
--        let gpu_id = regs::GPU_ID.read(dev, iomem)?;
--        let csf_id = regs::GPU_CSF_ID.read(dev, iomem)?;
--        let gpu_rev = regs::GPU_REVID.read(dev, iomem)?;
--        let core_features = regs::GPU_CORE_FEATURES.read(dev, iomem)?;
--        let l2_features = regs::GPU_L2_FEATURES.read(dev, iomem)?;
--        let tiler_features = regs::GPU_TILER_FEATURES.read(dev, iomem)?;
--        let mem_features = regs::GPU_MEM_FEATURES.read(dev, iomem)?;
--        let mmu_features = regs::GPU_MMU_FEATURES.read(dev, iomem)?;
--        let thread_features = regs::GPU_THREAD_FEATURES.read(dev, iomem)?;
--        let max_threads = regs::GPU_THREAD_MAX_THREADS.read(dev, iomem)?;
--        let thread_max_workgroup_size = regs::GPU_THREAD_MAX_WORKGROUP_SIZE.read(dev, iomem)?;
--        let thread_max_barrier_size = regs::GPU_THREAD_MAX_BARRIER_SIZE.read(dev, iomem)?;
--        let coherency_features = regs::GPU_COHERENCY_FEATURES.read(dev, iomem)?;
--
--        let texture_features = regs::GPU_TEXTURE_FEATURES0.read(dev, iomem)?;
--
--        let as_present = regs::GPU_AS_PRESENT.read(dev, iomem)?;
--
--        let shader_present = u64::from(regs::GPU_SHADER_PRESENT_LO.read(dev, iomem)?);
-+    pub(crate) fn new(iomem: &IoMem) -> Self {
-+        let gpu_id = regs::GPU_ID.read(iomem);
-+        let csf_id = regs::GPU_CSF_ID.read(iomem);
-+        let gpu_rev = regs::GPU_REVID.read(iomem);
-+        let core_features = regs::GPU_CORE_FEATURES.read(iomem);
-+        let l2_features = regs::GPU_L2_FEATURES.read(iomem);
-+        let tiler_features = regs::GPU_TILER_FEATURES.read(iomem);
-+        let mem_features = regs::GPU_MEM_FEATURES.read(iomem);
-+        let mmu_features = regs::GPU_MMU_FEATURES.read(iomem);
-+        let thread_features = regs::GPU_THREAD_FEATURES.read(iomem);
-+        let max_threads = regs::GPU_THREAD_MAX_THREADS.read(iomem);
-+        let thread_max_workgroup_size = regs::GPU_THREAD_MAX_WORKGROUP_SIZE.read(iomem);
-+        let thread_max_barrier_size = regs::GPU_THREAD_MAX_BARRIER_SIZE.read(iomem);
-+        let coherency_features = regs::GPU_COHERENCY_FEATURES.read(iomem);
-+
-+        let texture_features = regs::GPU_TEXTURE_FEATURES0.read(iomem);
-+
-+        let as_present = regs::GPU_AS_PRESENT.read(iomem);
-+
-+        let shader_present = u64::from(regs::GPU_SHADER_PRESENT_LO.read(iomem));
-         let shader_present =
--            shader_present | u64::from(regs::GPU_SHADER_PRESENT_HI.read(dev, iomem)?) << 32;
-+            shader_present | u64::from(regs::GPU_SHADER_PRESENT_HI.read(iomem)) << 32;
- 
--        let tiler_present = u64::from(regs::GPU_TILER_PRESENT_LO.read(dev, iomem)?);
--        let tiler_present =
--            tiler_present | u64::from(regs::GPU_TILER_PRESENT_HI.read(dev, iomem)?) << 32;
-+        let tiler_present = u64::from(regs::GPU_TILER_PRESENT_LO.read(iomem));
-+        let tiler_present = tiler_present | u64::from(regs::GPU_TILER_PRESENT_HI.read(iomem)) << 32;
- 
--        let l2_present = u64::from(regs::GPU_L2_PRESENT_LO.read(dev, iomem)?);
--        let l2_present = l2_present | u64::from(regs::GPU_L2_PRESENT_HI.read(dev, iomem)?) << 32;
-+        let l2_present = u64::from(regs::GPU_L2_PRESENT_LO.read(iomem));
-+        let l2_present = l2_present | u64::from(regs::GPU_L2_PRESENT_HI.read(iomem)) << 32;
- 
--        Ok(Self(uapi::drm_panthor_gpu_info {
-+        Self(uapi::drm_panthor_gpu_info {
-             gpu_id,
-             gpu_rev,
-             csf_id,
-@@ -88,7 +86,7 @@ pub(crate) fn new(dev: &Device<Bound>, iomem: &Devres<IoMem>) -> Result<Self> {
-             core_features,
-             pad: 0,
-             gpu_features: 0,
--        }))
-+        })
-     }
- 
-     pub(crate) fn log(&self, pdev: &platform::Device) {
-@@ -208,11 +206,11 @@ fn from(value: u32) -> Self {
- }
- 
- /// Powers on the l2 block.
--pub(crate) fn l2_power_on(dev: &Device<Bound>, iomem: &Devres<IoMem>) -> Result {
--    regs::L2_PWRON_LO.write(dev, iomem, 1)?;
-+pub(crate) fn l2_power_on(dev: &Device<Bound>, iomem: &IoMem) -> Result {
-+    regs::L2_PWRON_LO.write(iomem, 1);
- 
-     poll::read_poll_timeout(
--        || regs::L2_READY_LO.read(dev, iomem),
-+        || Ok(regs::L2_READY_LO.read(iomem)),
-         |status| *status == 1,
-         Delta::from_millis(1),
-         Delta::from_millis(100),
-diff --git a/drivers/gpu/drm/tyr/regs.rs b/drivers/gpu/drm/tyr/regs.rs
-index 611870c2e6af..0881b3812afd 100644
---- a/drivers/gpu/drm/tyr/regs.rs
-+++ b/drivers/gpu/drm/tyr/regs.rs
-@@ -7,16 +7,7 @@
- // does.
- #![allow(dead_code)]
- 
--use kernel::{
--    bits::bit_u32,
--    device::{
--        Bound,
--        Device, //
--    },
--    devres::Devres,
--    io::Io,
--    prelude::*, //
--};
-+use kernel::{bits::bit_u32, io::Io};
- 
- use crate::driver::IoMem;
- 
-@@ -29,15 +20,13 @@
- 
- impl<const OFFSET: usize> Register<OFFSET> {
-     #[inline]
--    pub(crate) fn read(&self, dev: &Device<Bound>, iomem: &Devres<IoMem>) -> Result<u32> {
--        let value = (*iomem).access(dev)?.read32(OFFSET);
--        Ok(value)
-+    pub(crate) fn read(&self, iomem: &IoMem) -> u32 {
-+        iomem.read32(OFFSET)
-     }
- 
-     #[inline]
--    pub(crate) fn write(&self, dev: &Device<Bound>, iomem: &Devres<IoMem>, value: u32) -> Result {
--        (*iomem).access(dev)?.write32(value, OFFSET);
--        Ok(())
-+    pub(crate) fn write(&self, iomem: &IoMem, value: u32) {
-+        iomem.write32(value, OFFSET);
-     }
- }
- 
--- 
-2.54.0
+>
+> Danilo Krummrich (2):
+>   rust: auxiliary: add registration data to auxiliary devices
+>   rust: driver core: remove drvdata() and driver_type
+>
+>  drivers/base/base.h                   |  16 --
+>  drivers/gpu/nova-core/driver.rs       |  10 +-
+>  include/linux/auxiliary_bus.h         |   4 +
+>  rust/kernel/auxiliary.rs              | 208 ++++++++++++++++++--------
+>  rust/kernel/device.rs                 |  60 --------
+>  samples/rust/rust_driver_auxiliary.rs |  40 +++--
+>  6 files changed, 180 insertions(+), 158 deletions(-)
+>
+>
+> base-commit: a7cc262a11354ab104b8e55c21200d099d141bc7
+> --=20
+> 2.54.0
 
