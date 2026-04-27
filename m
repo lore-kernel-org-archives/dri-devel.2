@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BCFAFF8862
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 08:36:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FF2FFF8868
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 08:36:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 028F610E621;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B2BE10E624;
 	Mon, 27 Apr 2026 08:36:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=qq.com header.i=@qq.com header.b="H90BX9qc";
+	dkim=pass (1024-bit key; unprotected) header.d=qq.com header.i=@qq.com header.b="Mh7+Ohn4";
 	dkim-atps=neutral
 Received: from out203-205-221-153.mail.qq.com (out203-205-221-153.mail.qq.com
  [203.205.221.153])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7A7310E191;
- Mon, 27 Apr 2026 06:54:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB1EC10E191;
+ Mon, 27 Apr 2026 06:54:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1777272869; bh=lHLU024aAwcguS5ARAG4kBqUfkxnD5hl6+Lo4kd7XPY=;
+ t=1777272879; bh=YAf/LrZfGLPBHgeXFYTRaJADqAAirwQb1U8glIUJrVQ=;
  h=From:To:Cc:Subject:Date;
- b=H90BX9qcBLE+uU8EcshUZIosNX0ZZ4eg4QDQdyxHcOM4X0k/eGS/ZWYaDwRa/0z6F
- /RpdYCUS0RNRGsg1Cb9b0Omw9NaHGcnB13jSGhLwBm6yeyWjSQA9r+eO1haGGegL6g
- vyzill9D1tqOGwE/uvUqvd+0UrIxZ4W8vvHJaqqA=
+ b=Mh7+Ohn4coSTVl2TCCqykuYULvxOwZWIwYlF4AhpzPYpmQ/5ZgxKcLqJelbQSu07+
+ nXJilrGhlWY3nI2QlxZ345SLthEe8/ByhLpml3M1CG685dV3ROFMhYZpFlKprmntsU
+ Q7VejewWxAhYl7VSo+4+g7JGcK1ktOfi3Ni/ruBU=
 Received: from NTT-kernel-dev ([60.247.85.88])
- by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
- id D99A8494; Mon, 27 Apr 2026 14:54:25 +0800
-X-QQ-mid: xmsmtpt1777272865tepqw5bdl
-Message-ID: <tencent_983388E3E437227CF3632311A472F9E89907@qq.com>
-X-QQ-XMAILINFO: NGZp1yYNf7Y+XImPKHod7cmbUONk4HZ2f3rdMQkVnqsXgSgz30B4xqrsAGR7js
- kFrpGcBqy7N9NtT1oJLAgLyFdGeXQeT4hTfZvvB3UIc+mwTT9w7+rcoCRedGfRn32joDZ1N2CpeT
- jhJNkkL4VCkMUUgYqkpuLnsU7ru3cU6Go887wJd09ri9XQyJD1QQZAG708uNyBR0kIrh4D5J2EGg
- vu1bOEh88zwYaQ9Vb9q8GYJpvS+Nk6PQ9RMZf2t1w+qaZkrbu0OEwaqQ6fhRr4pTV2Q0vo+c90CJ
- cohxr2xmdbBZK+ymZ0bKVp5bozy/tqvJ9iCSNbbbOMNA+hzobsiCChWxjRhUYPWjWyFQgcSFugiP
- zGXak2ssj1h6N0JFHs3Giu+II7T+eWkpTaVx+6rXVjjbqmpLHtrF1PD2Nv21legm0BlxTgyqMV8V
- EYgj+kBjVMN9VKVZExlf5Sk8VcVYdIpoUIs/Z1xK4TRKp8680/ZVZf3px3JYQmrl19xtbvugMMEx
- YUx7LpTuHCA5C5LTAOGfSXdn3NcYcQbAUcmTBv0YHr6W6En+XFgHkZMkbqVps+P0CtcUKxCGizo0
- 58MMu4g0mGSUkwezMc8CcMiJ2lrmkui0OlJ/kMOtEt1HEm75hNkKwWRUNaZtPzgfnJFAwg4RZzYo
- S7PVrMBnYPN+jj2cV4AC6tmARxa0/Ft1qdP3rKGDyO+dkJyIQS8N2CYYNzm9VCxW+re4HIVEdTf4
- 1jC3HXLu75GO8Z8H+cJACJLDXlPXzVOqCFJs5Ol/CWyfPIue4OovUdnxhTz/Qfb37Xog8yLUTPya
- IcRfhBCobFUZD4p4wCEjp20b+ws9OpAfxQVZ8FUTbpKNBw6d58TzydDA2B1zp7KGokVrCwiJBT4+
- b3NVHAYqgmQ01jjLmJwg/J6iKdJCN4U893Qbr/WwWzAMHh3jo+Y8ym8sjeGvHH+2jR+B89e/vKht
- aofPLQbwymIYgyLfeufqB6C4UglGjaOwjlNgsdw8zzL6zsWoGCSWFQzvX4FipIOl/S3KVHhIwQe4
- bipDdVA/gtnICNu+aV1v/8+QDNKZtwij3nSuqlWoLD5nNUup0FoXB7jLXfU9A=
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+ by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+ id DA406ACD; Mon, 27 Apr 2026 14:54:36 +0800
+X-QQ-mid: xmsmtpt1777272876t4whu3acg
+Message-ID: <tencent_899C611CFFBE8DE17F1DE7896C968F47DF0A@qq.com>
+X-QQ-XMAILINFO: OVFdYp27KdlJFxO5Mr92P2c3o2Wm6PFcJfY62DYcKfwndIjHB320O1n8Hq8GXD
+ eVEo88eEEcagnd6V8Xnnjhj70WKYH4BdFBzC1aZC4D+2mydkE8Gs8QT7MOT6xN9BCCgXUBvO7HPH
+ +ASCA95OLvJ+KaTqRg6Kfp+bxa+2xDwyc7CovkiRLHAPxTLMK/DPwNtA+lG/qNnenBlx0C5/XCS8
+ XYOehxeEJ/AeQ9yCev/eQscUdS0vnHnWYoIGO/XDvDxat87ZXi4oEMgA8wt0RiM5Z/6OU1LuWiK3
+ TmCPqiQQVMzSPFUa2lBeqCU2sFgLPTemsjXpKf7TxyyU6UpwpJUdS7eSg8kr0GUVjAk91HirPL4X
+ ZOEmgmcHsdwLMQp6e19kyCESM2Q+68ZpLM5WN/EwMJgIa/8HaPAT1FQjrTR1UEqO3Qf4hArQdWQd
+ t0DTzvBPTqM7D62GhCQJfM7Mdung91Nfa/Leo/+zd/yrxAMclHOta7ZTr2BMNzy498p8RgH/e07Q
+ JCleUCaG7bAWLb+bjarOPVHyEBrHTVSma/EU/qDggiyJOZL4IQ+fUHi0ORvV+vFJde0FensJLcle
+ fnTPqRXJCCPlX+rOO61Lz+pI5jiyEufk9zAS0E+hLy6J1AmCNWnUj+aiWuWZBjwdGYcL3tLGH1+e
+ RIKo5SRsyLCO1M1IudVO+RBqwSJg4drbfkRnnbwk69AlXCUxplgjlV/AmnP0gvwD4gYBC8k2PhEL
+ oxQ990yJY7ZBVRPKWsD7tp7endP4UHd99Qn/LyvMRD7xLsXfLui49tAcaqnmtRO5bN1EroCM8GVr
+ 9xbd4lYC8XYT+zIQjuUd7QoJFheMFmTEsz8s/0nTJH4k6oLlkhXiN+BcTjdB7uzjQ3+ovCiNJe3Y
+ IAD1A13qrK2rVpazLVEt6PIOvuNIgxgmvhqx201V+pisAzwd2+i/Vb6j+/ik7HtBghAQ717RCt/u
+ B1AFxOXe7gv87xLXKl0Y6JI/ueZBOW0Rv+AsRwBQ9Re88GrnOFYNdGcQJwa8nVNCmTl0LMhkUCvL
+ SDwMIeRvQUw2KYDyTDLMVrGLRxAHM9AU9zEKfe+XJGg3RYOmuZLB6/9c/W/i6QeWfBmunAkLJPo8
+ xODDYVjtV9kkw8VQU=
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
 From: Fang Wang <32840572@qq.com>
 To: gregkh@linuxfoundation.org, stable@vger.kernel.org,
  tvrtko.ursulin@igalia.com
@@ -50,12 +51,13 @@ Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
  alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
  airlied@gmail.com, simona@ffwll.ch, Jesse.Zhang@amd.com,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH 6.1.y 1/2] drm/amdgpu: Use vmemdup_array_user in
- amdgpu_bo_create_list_entry_array
-Date: Mon, 27 Apr 2026 14:54:25 +0800
-X-OQ-MSGID: <20260427065425.4120132-1-32840572@qq.com>
+Subject: [PATCH 6.1.y 2/2] drm/amdgpu: Limit BO list entry count to prevent
+ resource exhaustion
+Date: Mon, 27 Apr 2026 14:54:35 +0800
+X-OQ-MSGID: <20260427065435.4120232-1-32840572@qq.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 27 Apr 2026 08:36:43 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -73,88 +75,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+From: "Jesse.Zhang" <Jesse.Zhang@amd.com>
 
-[ Upstream commit c4ac100e9ae252b09986766ad23b1f83ca3a369d ]
+[ Upstream commit 6270b1a5dab94665d7adce3dc78bc9066ed28bdd ]
 
-Replace kvmalloc_array() + copy_from_user() with vmemdup_array_user() on
-the fast path.
+Userspace can pass an arbitrary number of BO list entries via the
+bo_number field. Although the previous multiplication overflow check
+prevents out-of-bounds allocation, a large number of entries could still
+cause excessive memory allocation (up to potentially gigabytes) and
+unnecessarily long list processing times.
 
-This shrinks the source code and improves separation between the kernel
-and userspace slabs.
+Introduce a hard limit of 128k entries per BO list, which is more than
+sufficient for any realistic use case (e.g., a single list containing all
+buffers in a large scene). This prevents memory exhaustion attacks and
+ensures predictable performance.
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Return -EINVAL if the requested entry count exceeds the limit
+
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Suggested-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 688b87d39e0aa8135105b40dc167d74b5ada5332)
+Cc: stable@vger.kernel.org
 Signed-off-by: Fang Wang <32840572@qq.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c | 41 +++++++++------------
- 1 file changed, 17 insertions(+), 24 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-index fdc302aa59e7..79e43896eddd 100644
+index 79e43896eddd..28a5b54a3aae 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-@@ -226,43 +226,36 @@ void amdgpu_bo_list_put(struct amdgpu_bo_list *list)
- int amdgpu_bo_create_list_entry_array(struct drm_amdgpu_bo_list_in *in,
- 				      struct drm_amdgpu_bo_list_entry **info_param)
+@@ -35,6 +35,7 @@
+ 
+ #define AMDGPU_BO_LIST_MAX_PRIORITY	32u
+ #define AMDGPU_BO_LIST_NUM_BUCKETS	(AMDGPU_BO_LIST_MAX_PRIORITY + 1)
++#define AMDGPU_BO_LIST_MAX_ENTRIES	(128 * 1024)
+ 
+ static void amdgpu_bo_list_free_rcu(struct rcu_head *rcu)
  {
--	const void __user *uptr = u64_to_user_ptr(in->bo_info_ptr);
- 	const uint32_t info_size = sizeof(struct drm_amdgpu_bo_list_entry);
-+	const void __user *uptr = u64_to_user_ptr(in->bo_info_ptr);
-+	const uint32_t bo_info_size = in->bo_info_size;
-+	const uint32_t bo_number = in->bo_number;
+@@ -232,6 +233,9 @@ int amdgpu_bo_create_list_entry_array(struct drm_amdgpu_bo_list_in *in,
+ 	const uint32_t bo_number = in->bo_number;
  	struct drm_amdgpu_bo_list_entry *info;
--	int r;
--
--	info = kvmalloc_array(in->bo_number, info_size, GFP_KERNEL);
--	if (!info)
--		return -ENOMEM;
  
++	if (bo_number > AMDGPU_BO_LIST_MAX_ENTRIES)
++		return -EINVAL;
++
  	/* copy the handle array from userspace to a kernel buffer */
--	r = -EFAULT;
--	if (likely(info_size == in->bo_info_size)) {
--		unsigned long bytes = in->bo_number *
--			in->bo_info_size;
--
--		if (copy_from_user(info, uptr, bytes))
--			goto error_free;
--
-+	if (likely(info_size == bo_info_size)) {
-+		info = vmemdup_array_user(uptr, bo_number, info_size);
-+		if (IS_ERR(info))
-+			return PTR_ERR(info);
- 	} else {
--		unsigned long bytes = min(in->bo_info_size, info_size);
-+		const uint32_t bytes = min(bo_info_size, info_size);
- 		unsigned i;
- 
--		memset(info, 0, in->bo_number * info_size);
--		for (i = 0; i < in->bo_number; ++i) {
--			if (copy_from_user(&info[i], uptr, bytes))
--				goto error_free;
-+		info = kvmalloc_array(bo_number, info_size, GFP_KERNEL);
-+		if (!info)
-+			return -ENOMEM;
- 
--			uptr += in->bo_info_size;
-+		memset(info, 0, bo_number * info_size);
-+		for (i = 0; i < bo_number; ++i, uptr += bo_info_size) {
-+			if (copy_from_user(&info[i], uptr, bytes)) {
-+				kvfree(info);
-+				return -EFAULT;
-+			}
- 		}
- 	}
- 
- 	*info_param = info;
- 	return 0;
--
--error_free:
--	kvfree(info);
--	return r;
- }
- 
- int amdgpu_bo_list_ioctl(struct drm_device *dev, void *data,
+ 	if (likely(info_size == bo_info_size)) {
+ 		info = vmemdup_array_user(uptr, bo_number, info_size);
 -- 
 2.34.1
 
