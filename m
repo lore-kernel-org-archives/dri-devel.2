@@ -4,111 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FCF9FF8870
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 21:52:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 476EBFF8864
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 21:52:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 842D010E16A;
-	Mon, 27 Apr 2026 21:52:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9EDAD10E95E;
+	Mon, 27 Apr 2026 21:52:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="RQEGFp9o";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="CZ6Ss6XT";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="O2GyTDop";
 	dkim-atps=neutral
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
- [209.85.218.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ABAE810E96F
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 21:52:26 +0000 (UTC)
-Received: by mail-ej1-f51.google.com with SMTP id
- a640c23a62f3a-ba92146cc86so1161875266b.1
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 14:52:26 -0700 (PDT)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4823F10E95E
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 21:52:41 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 63RLhSfw241446
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 21:52:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=CNhntZyoOnGHOA0x4ScHYcHW
+ xSRqZTMx43yC0kuuWsU=; b=CZ6Ss6XTBvh0n7I8Jn5kTc+Ex/cTe/aMwy9GsBd0
+ TvHeNCdSr6eogQr6g7f61TOvBQGG9oFOyZ1VH2Qkz5+vF+oJWjooKB0pBITckyLo
+ /n2O4fJRkSdmkzTnJ3wBaBJJ/62iVJrB23HgXalmxefV0+Bs7mxpyOW1VEHGhme8
+ AzH1OsfTMcabuFf0EiE2t5oDa0nwOSDO/0BmhDVxi2zZR0rQ3tNCXcYzFoJCSzKD
+ lOXc5glwNc8dubirwbeeyDvewdqc2B0pQFaMvfqsWe1hQH2J6kn6ifpaIWcHhcW/
+ q82QEhVjHBW++2FAsXl1FNFIOOlT5x4+TKnZQxYzTOrXcQ==
+Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com
+ [209.85.217.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dt946sqn8-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 21:52:40 +0000 (GMT)
+Received: by mail-vs1-f71.google.com with SMTP id
+ ada2fe7eead31-60fdbcd749fso12783082137.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 14:52:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux-foundation.org; s=google; t=1777326745; x=1777931545;
+ d=oss.qualcomm.com; s=google; t=1777326759; x=1777931559;
  darn=lists.freedesktop.org; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=eodThUBj1SnOvacXe/3ftYxEWQMFbYqc4B0FCa9Alx4=;
- b=RQEGFp9odf24Yt/w+kqr1+LS3ScvAZjzhvsZmvmnlnZs/81FuhxwIBx2VAIzK/WgZx
- UuBBhqtNpPqk1CaUtGOVbblXSS21Z55+neZa1b5RMM8RxMoICRycTZYiLavD+T8r92J/
- O+r9fPnlEKRxQHmKPV3/4nVJ/oYDaqZhN3yjM=
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=CNhntZyoOnGHOA0x4ScHYcHWxSRqZTMx43yC0kuuWsU=;
+ b=O2GyTDop0Dmu7VjvU71oKu01mpL+iJQ/BUvJpXmazSP9o48mkkH1qHF44comDhDD65
+ 5HfXUHDzyYU+SOoNzNP+iRaISNBPIZiAwL6K1/yyLFKi52Tb+Qc1gYkdSFgL5piNsp01
+ dGpNaVqwJeVT53yX2V/7+nrR3ZBIrLJqaokLgip1FYlVof/fjuCkg+nETd8va+bujPRT
+ q34SD4/MRiU0XMF3ulDZT9kx0uzq7ezz6bQHONZrGHDcLQELYNWx0s7YKlko68sc57V1
+ sd3UY9pm5lD6yHNZ6Sz1YTaZMN3UN3HzvyU8IDe2AB6JTpRe34w1dUbg0IUP2nvRjL4y
+ w7xA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777326745; x=1777931545;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=eodThUBj1SnOvacXe/3ftYxEWQMFbYqc4B0FCa9Alx4=;
- b=aKB6xJf7jLT7i5WY8T8MfPsTk6w/qFpERmfeAgcD34aocrXeKV7v4hn900MkSd8chI
- sJbW0sVcgptP8uBrOi6WOR1mXtluXBMdwR94Hy87yfXLvP3QtVHtMM2MatLKYDPtUFf0
- ayjnhhmNb5ckgOE0k7/azFsC6K8OEJdhLuZzleAg5IO4TFAiJ0CwLQgS8SLBb9sJM8td
- zAhr6+CzL5i/oC2eRMcHrTUT4hy4BaHrstBAZagyCd7heRDYkXno1O0zC/Zjb0sR+WA/
- iCrZczmQ6LrGkBoHbcoyz+ZeE13hjLjDe6r4iNOfQEF4wicKRMTELVHu1zkY6BNsZpnt
- CivQ==
+ d=1e100.net; s=20251104; t=1777326759; x=1777931559;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=CNhntZyoOnGHOA0x4ScHYcHWxSRqZTMx43yC0kuuWsU=;
+ b=Yp7KpCDW9ggxKm1t5Ggh5h+2hzXErOn+27gjdvcrNe+zr+R3F645LnIT7zYQeEY57n
+ bY+rgZRY3wXT2G0ZljRmmDbMT6aAY2CLEvih3rVerrgA/tbb/ChLHyWHkZn1t1zqUFEn
+ V4LzoJW2whnKX6ZhBlc49Fk8E7QawSfESNjRJLGptnIvVzZKVzAxmY127J7K2c+pxPdN
+ DSq3PbbnZrUIveY97o5yFY9rvXJ39gYUGbPD70BEm51bbaAkZkhW9IB6hPIabMy4X7XU
+ WNzHV/d3bgEx1fXgGYWuS+05WlRxADTNdE2Zb0vzvebFcH9mZIQobcjHhBP+LAPDCQ0p
+ 8/2A==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8+ylbZZxuBitPSORJ7xW0x3U4/EzXd3I6rN3g+MuzxNQO9DTg2ISHq+7649H87fXmliQ+hiwUerrU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw71A4Zj9DJTMEuG5+tU8FWk7m7ncojBK+xjZz2KjcKN13HNRz9
- pts19cP4slbUuoAOM3eEhuS2bw35Wd7CByb/wjpNDvjIpmwLl7KG/fWFmCop30zZB+iXoZjg4WF
- MREDGBnFcrw==
-X-Gm-Gg: AeBDies2uDZwoKw6zmuPlBk9AiKeWrZMLb6z85ezyz/DJr2cWJx3YyOCJRZO4Hu95oD
- Y6jaT2VXovZWDTI0XgDD/M2on7352VENFCyWCDa9DJUOxHOxrJSdqVlit48AeXKAQYiaiDAH9Fy
- BXzjytodDb6vAMg9bElkPjLMgz73+s/GVV0cIKxzaoOj2n7Q/McySqS+EUFRZcJ/TbJ3mymofKB
- 3rBiLDBmcfC511VVRnD8xhCAyABtI4PDvQ0/r0nykbV20/LFy/DyRMUEJ6sjDf5orJLl8KJsrny
- 3hMYdDKsYFIBpvhW5Ky9d7c7qcfZZfLn2ZsRvXKooFAN4twIarYo9IYZHeXsRZ7t9Rm4nlhAnG5
- JEGqbJAP24DU0zns3fun+BvYfAS9t6i3ZlOryiFvnjcEr+zxEOUbPpJJGZ/uKOkDo+Fyb6GQKdK
- djelxDCfhKjsYlHKAWA5KEWg6B8wqe1t6pCQUMQkKuTN/nIR52GgwMdl9oC97ZjiWcg/hLWJJsp
- J08CcznlMw=
-X-Received: by 2002:a17:907:74c:b0:ba8:9137:da5f with SMTP id
- a640c23a62f3a-bb80377b922mr28869766b.32.1777326744775; 
- Mon, 27 Apr 2026 14:52:24 -0700 (PDT)
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com.
- [209.85.208.47]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bb80853e641sm10376966b.10.2026.04.27.14.52.22
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Apr 2026 14:52:23 -0700 (PDT)
-Received: by mail-ed1-f47.google.com with SMTP id
- 4fb4d7f45d1cf-676e62faf2bso10752232a12.1
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 14:52:22 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AFNElJ9XTYNeLoD5sGxaLQkiN2Zirl2rvLpJVqe6RQKnpt3r7S1aFNKHvWyMHrGwxyDhcxHkbP+9fNh+3uo=@lists.freedesktop.org
-X-Received: by 2002:a05:6402:35c2:b0:677:270f:6f4b with SMTP id
- 4fb4d7f45d1cf-679bb04a8a7mr185115a12.1.1777326742385; Mon, 27 Apr 2026
- 14:52:22 -0700 (PDT)
+ AFNElJ86nqr1YF9Lazcb7Ze3jQ230IPHPZYk/ZA5XoNbsL/1rG0uyxTIVMIpr3n/OhnNJ77ukSDUvCRStaE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyRwVH6ct3eC+9xYoU7QU0+AFmqPG7FIjC06bEl6PoLI0bXhn4n
+ 9wRIpka+kz2EBfRyb3JkxuD7il2JiVndIgVcbjxrNRzg8JYjxHbCZwiWDksFbljWZa+AEtwTfY4
+ mv0Zg6iuhwTShoTpjtEGJzseWiP9fJYNaCEbahD6nBCbyRF05Cvesxy9VBmgJZPmTxA0/kpg=
+X-Gm-Gg: AeBDies0Y5JVyHbvex3J1uJc63Yhcbyz+nXPCoP3zNrSCUgBRg2dd3j3SYyT8/IuAXA
+ aSZqQXX5917g5Zk/2JdKhhKxRYth90HNhYkByMArTvPUgNRlCDnHnNYOHae9rRW+QskgGmNGMJX
+ Xoee/PbLpHfI7dN+c2GWlE6xLMPEvj0VcmgHxngoezJCkoqM+b+i7OlvMV7E/FIPToXjkdUjzKs
+ 2HQxSgqRKTWiFTOTtnlC+Mv+OccddYmJZKjXj4XshOLO5tH9Hupaw39SkCpSEX6S+exGAyKJw4x
+ 2akaxsE8v524CX8lDoyVe7s2E9ZbQ2rbwzn6MyEZv+NUfExmi9yuhmBOXrdOXecViWpQ0RhTxC1
+ J+MLCzY6kOPiL2o/zulom/012tftLoRr6O6bwWP97d84M10CKVziwnFzpmAO4dwXGuswxItSM8V
+ 0qK39yuKvSVHIwqYlmr64ep4ddux6NLZSmaiTtKtHYnJC6FQ==
+X-Received: by 2002:a05:6102:46e8:b0:613:6b44:3fad with SMTP id
+ ada2fe7eead31-6280b3dcee1mr126952137.25.1777326759327; 
+ Mon, 27 Apr 2026 14:52:39 -0700 (PDT)
+X-Received: by 2002:a05:6102:46e8:b0:613:6b44:3fad with SMTP id
+ ada2fe7eead31-6280b3dcee1mr126934137.25.1777326758789; 
+ Mon, 27 Apr 2026 14:52:38 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-3923f2e3237sm1638651fa.3.2026.04.27.14.52.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 27 Apr 2026 14:52:36 -0700 (PDT)
+Date: Tue, 28 Apr 2026 00:52:34 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, kernel@collabora.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org
+Subject: Re: [PATCH v5 03/10] drm/bridge-connector: Use cached connector
+ status in .get_modes()
+Message-ID: <4zvprx4mytr22ylibmoj2rsrjzkrnnuumucohodrl75cwntxcj@5wixqw74n6cs>
+References: <20260426-dw-hdmi-qp-scramb-v5-0-d778e70c317b@collabora.com>
+ <20260426-dw-hdmi-qp-scramb-v5-3-d778e70c317b@collabora.com>
 MIME-Version: 1.0
-References: <cover.1777306795.git.chleroy@kernel.org>
- <0ee46bb228d97163fbdc14f2a7c52b93d8bc34ce.1777306795.git.chleroy@kernel.org>
- <ae-j2_QirCySZD02@yury> <63a4d0f6-0eb3-48cd-9f98-bf7b223b2606@kernel.org>
- <ae-2yLWSGnfeTvh1@yury>
-In-Reply-To: <ae-2yLWSGnfeTvh1@yury>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Mon, 27 Apr 2026 14:52:05 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wgPrLy0FR3sEWBYQuNAac1axDASYMnTuPuxEU0WytzL7w@mail.gmail.com>
-X-Gm-Features: AVHnY4LQUFWo9ODz4M3q2vZC9Gn8nsdYr95Nd4ky5ERVHHxIyN_9ZXY5zjebfdc
-Message-ID: <CAHk-=wgPrLy0FR3sEWBYQuNAac1axDASYMnTuPuxEU0WytzL7w@mail.gmail.com>
-Subject: Re: [RFC PATCH v1 7/9] x86: Add unsafe_copy_from_user()
-To: Yury Norov <ynorov@nvidia.com>
-Cc: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, 
- David Laight <david.laight.linux@gmail.com>,
- Thomas Gleixner <tglx@linutronix.de>, 
- linux-alpha@vger.kernel.org, Yury Norov <yury.norov@gmail.com>, 
- linux-kernel@vger.kernel.org, linux-snps-arc@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org, 
- sparclinux@vger.kernel.org, linux-um@lists.infradead.org, 
- dmaengine@vger.kernel.org, linux-efi@vger.kernel.org, 
- linux-fsi@lists.ozlabs.org, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- linux-wpan@vger.kernel.org, netdev@vger.kernel.org, 
- linux-wireless@vger.kernel.org, linux-spi@vger.kernel.org, 
- linux-media@vger.kernel.org, linux-staging@lists.linux.dev, 
- linux-serial@vger.kernel.org, linux-usb@vger.kernel.org, 
- xen-devel@lists.xenproject.org, linux-fsdevel@vger.kernel.org, 
- ocfs2-devel@lists.linux.dev, bpf@vger.kernel.org, kasan-dev@googlegroups.com, 
- linux-mm@kvack.org, linux-x25@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- linux-sound@vger.kernel.org, sound-open-firmware@alsa-project.org, 
- linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
- loongarch@lists.linux.dev, linux-m68k@lists.linux-m68k.org, 
- linux-openrisc@vger.kernel.org, linux-parisc@vger.kernel.org, 
- linux-sh@vger.kernel.org, linux-arch@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260426-dw-hdmi-qp-scramb-v5-3-d778e70c317b@collabora.com>
+X-Authority-Analysis: v=2.4 cv=YcWNIQRf c=1 sm=1 tr=0 ts=69efdaa8 cx=c_pps
+ a=P2rfLEam3zuxRRdjJWA2cw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=QX4gbG5DAAAA:8
+ a=EUspDBNiAAAA:8 a=ANRcj1VhA4TbxNHgoT0A:9 a=CjuIK1q_8ugA:10
+ a=ODZdjJIeia2B_SHc_B0f:22 a=AbAUZ8qAyYyZVLSsDulk:22
+X-Proofpoint-GUID: VzRE5beGND-N0caZ7ALGMvV2JHJBIEGz
+X-Proofpoint-ORIG-GUID: VzRE5beGND-N0caZ7ALGMvV2JHJBIEGz
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI3MDIzMSBTYWx0ZWRfXxEv3wQbdBa+c
+ DzM0ekOfZ/Jddre0+ydkd7sersB0D+IcTDEsOVsJL7T/h0cnQIgPD4Wjp6BzARbueLhx6ZWU5G3
+ QCixCfM3tndxjnOAAzN9kUYXrXsyTbeLAUUpLF/kdTb6s7zcxpKJ3nNyifF/DEC4ue3fIBhG6pX
+ O+0Xm4CtBjZoUzXKcKQvGFCnDrjP/TjE9GPzCNWXFEmou32qglpZWsTyXnOhU9DESw2dZ6/0wak
+ rUdrLBxrQkuWevCxE/xsu15E9WReKc8HpRsqX28TU2Ve+pOCAodpkB6cXtWoKwnF5B+PHnDNwLf
+ 0HG9t1eHtuaz8SDSWPP09vwvzhv45BpXu0H6A5ZeAnDhe2BkpKdHwAkWRkoVqlG3trDPodfXXnw
+ 2dRtB9w6UMk13F/Fw4AZnbvrqTJUuJocyHkhx1V01MlswBCEpmNyOS6ByGBzMAfhgAhVZ8jerEu
+ wyFfU3+F7H07jgLJyWA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-27_04,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 clxscore=1015 spamscore=0 malwarescore=0
+ adultscore=0 impostorscore=0 phishscore=0 lowpriorityscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2604270231
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,22 +152,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 27 Apr 2026 at 12:19, Yury Norov <ynorov@nvidia.com> wrote:
->
-> This is what Linus said when added x86 implementation for copy_from_user()
-> in c512c69187197:
+On Sun, Apr 26, 2026 at 03:20:15AM +0300, Cristian Ciocaltea wrote:
+> Replace the active drm_bridge_connector_detect() call in get_modes()
+> with a read of the already-cached connector->status.
+> 
+> The .get_modes() callback is only invoked from
+> drm_helper_probe_single_connector_modes(), which has already retrieved
+> the connector status.  Calling detect again is redundant and triggers a
+> duplicate hotplug event.  This is also a prerequisite for switching to
+> the .detect_ctx() hook, which requires a drm_modeset_acquire_ctx not
+> available in the .get_modes() path.
+> 
+> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+> ---
+>  drivers/gpu/drm/display/drm_bridge_connector.c | 4 +---
+>  1 file changed, 1 insertion(+), 3 deletions(-)
+> 
 
-Note that some things have happily changed in the six+ years since...
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
->   That's partly because we have no current users of it, but also partly
->   because the copy_from_user() case is slightly different and cannot
->   efficiently be implemented in terms of a unsafe_get_user() loop (because
->   gcc can't do asm goto with outputs).
 
-now everybody can do asm goto with outputs.
-
-Yes, it's disabled on older versions, so it's not *always* available,
-but all modern versions do it. And if you care about performance, you
-won't be using an old compiler.
-
-             Linus
+-- 
+With best wishes
+Dmitry
