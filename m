@@ -4,64 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3E09FF885E
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 10:05:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC53CFF8861
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 10:05:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CD0010E67E;
-	Mon, 27 Apr 2026 10:05:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 651CD10E67A;
+	Mon, 27 Apr 2026 10:05:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aZ9bXcmJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XYDX8QIv";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CC1310E67E;
- Mon, 27 Apr 2026 10:05:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E93510E67F
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 10:05:18 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 1158960138;
- Mon, 27 Apr 2026 09:57:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27FBBC19425;
- Mon, 27 Apr 2026 09:57:38 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 0636D60145;
+ Mon, 27 Apr 2026 10:05:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E2E4C2BCB8;
+ Mon, 27 Apr 2026 10:05:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777283872;
- bh=5si9p9X+QdKOUj/kEC+OxqljHo6dif086Up1Mo3twcA=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=aZ9bXcmJU6u6s38rF4Nnjw6SoDEJKoVZH8lE1sqhS0fDzscFXMeSO1kjVR3xRILKl
- m1PsnyF4zb+1zveZDnnfNPCabApls2FlymUpbpIaQZQtCe0U2bLrB4qVoTUzqjGY+Z
- pzCRiL0kVtcpgq2S7J5Vplz6vnQO4GZ6oAfna42tHLBOMJdR3l/54iYqLuMmqT94Ho
- y34bDP5x4w28FrvSsd5nxlKVWQLeDzcE5YMUiuyaTQEg514ouNZB7optAFLtx7xvFP
- tYlswTDUg72W3VxO34uOVAyv4q5/oZxsXmhzy4oZaf9l8cQYCgbgcWmW/fsQ+GY3EJ
- BpRtrPMLsj9Bg==
-From: Sumit Garg <sumit.garg@kernel.org>
-To: andersson@kernel.org,
-	konradybcio@kernel.org
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-media@vger.kernel.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
- linux-remoteproc@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
- akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jesszhan0024@gmail.com, marijn.suijten@somainline.org, airlied@gmail.com,
- simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
- dikshita.agarwal@oss.qualcomm.com, bod@kernel.org, mchehab@kernel.org,
- elder@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- jjohnson@kernel.org, mathieu.poirier@linaro.org,
- trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
- pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
- tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
- srinivas.kandagatla@oss.qualcomm.com, amirreza.zarrabi@oss.qualcomm.com,
- jens.wiklander@linaro.org, op-tee@lists.trustedfirmware.org,
- apurupa@qti.qualcomm.com, skare@qti.qualcomm.com,
- linux-kernel@vger.kernel.org, Sumit Garg <sumit.garg@oss.qualcomm.com>
-Subject: [PATCH v4 06/15] remoteproc: qcom_q6v5_mss: Switch to generic PAS TZ
- APIs
-Date: Mon, 27 Apr 2026 15:25:54 +0530
-Message-ID: <20260427095603.1157963-7-sumit.garg@kernel.org>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260427095603.1157963-1-sumit.garg@kernel.org>
-References: <20260427095603.1157963-1-sumit.garg@kernel.org>
+ s=k20201202; t=1777284317;
+ bh=DgPZwjzTFCrRVafEvDDt8RvwW+K7/Y0nWv4ZA667X40=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=XYDX8QIv5rn6XF6AN3mOs8DUJBbHzQ4lcb6GLGW4Ex+wswcwryiFJRPGWOGkSiFDA
+ N5qaLLQldCWzxADjPFUxa3SX2HHiz5Vj9Sd0E4qZPKnU3/yBKYKYnSNxE0SeGoG6T+
+ sSA8STxJC9vlPYvlIyobICgLPT5lctMnflKiPBQXRmPrkMGTw7K1/2O84alAAG+Ugz
+ wSYmwb9ud5CQEbiztSggvtcdkopqBZ9w4O+Ht+1UQPvl7riDL4puO6W6u3gG2rWpjY
+ SOA3v+eY2hdrTOgCxtpyj3EJvVo8juB9D5ZAO4TxbA5EEVfI3nAQAnKMQTTX1U3Pfi
+ tiqXc9mMgbRUQ==
+From: Maxime Ripard <mripard@kernel.org>
+Date: Mon, 27 Apr 2026 12:04:58 +0200
+Subject: [PATCH v5 2/4] dma-buf: heaps: cma: Turn the heap into a module
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260427-dma-buf-heaps-as-modules-v5-2-b6f5678feefc@kernel.org>
+References: <20260427-dma-buf-heaps-as-modules-v5-0-b6f5678feefc@kernel.org>
+In-Reply-To: <20260427-dma-buf-heaps-as-modules-v5-0-b6f5678feefc@kernel.org>
+To: Sumit Semwal <sumit.semwal@linaro.org>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
+ "T.J. Mercier" <tjmercier@google.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
+ Maxime Ripard <mripard@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1748; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=DgPZwjzTFCrRVafEvDDt8RvwW+K7/Y0nWv4ZA667X40=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDJnvTS7H/mDasOzXil2rF2y4GBjeWc2Xfag1r22CsoURM
+ 9P/7NwbHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAie30Z6+zcFMpK9LdFno2d
+ KrJ3quyj8u91q/tDKuYwnq5Y6Mux+ew22dTMJweUVrH0Xqk1/1UpxFgfmnwu7ZC91dyFuZk85xo
+ 5Lwdej35VIPdbv0ug+uvy/l+/LF7vW16tpSbieNL72oxrCoIA
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,48 +71,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+All the symbols used by the CMA heap are already exported, so turning it
+into a module is straightforward. We only need to add the usual MODULE_*
+macros, import the proper namespaces and change the Kconfig symbol to a
+tristate.
 
-Switch qcom_q6v5_mss client driver over to generic PAS TZ APIs. Generic PAS
-TZ service allows to support multiple TZ implementation backends like QTEE
-based SCM PAS service, OP-TEE based PAS service and any further future TZ
-backend service.
+This heap won't be able to unload though, since we're missing a lot of
+infrastructure to make it safe.
 
-Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+Reviewed-by: T.J. Mercier <tjmercier@google.com>
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/remoteproc/qcom_q6v5_mss.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/dma-buf/heaps/Kconfig    | 2 +-
+ drivers/dma-buf/heaps/cma_heap.c | 3 +++
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/remoteproc/qcom_q6v5_mss.c b/drivers/remoteproc/qcom_q6v5_mss.c
-index ae78f5c7c1b6..96888007faa8 100644
---- a/drivers/remoteproc/qcom_q6v5_mss.c
-+++ b/drivers/remoteproc/qcom_q6v5_mss.c
-@@ -34,6 +34,7 @@
- #include "qcom_pil_info.h"
- #include "qcom_q6v5.h"
+diff --git a/drivers/dma-buf/heaps/Kconfig b/drivers/dma-buf/heaps/Kconfig
+index a5eef06c4226..aed0b9b4febf 100644
+--- a/drivers/dma-buf/heaps/Kconfig
++++ b/drivers/dma-buf/heaps/Kconfig
+@@ -4,11 +4,11 @@ config DMABUF_HEAPS_SYSTEM
+ 	help
+ 	  Choose this option to enable the system dmabuf heap. The system heap
+ 	  is backed by pages from the buddy allocator. If in doubt, say Y.
  
-+#include <linux/firmware/qcom/qcom_pas.h>
- #include <linux/firmware/qcom/qcom_scm.h>
+ config DMABUF_HEAPS_CMA
+-	bool "DMA-BUF CMA Heap"
++	tristate "DMA-BUF CMA Heap"
+ 	depends on DMABUF_HEAPS && DMA_CMA
+ 	help
+ 	  Choose this option to enable dma-buf CMA heap. This heap is backed
+ 	  by the Contiguous Memory Allocator (CMA). If your system has these
+ 	  regions, you should say Y here.
+diff --git a/drivers/dma-buf/heaps/cma_heap.c b/drivers/dma-buf/heaps/cma_heap.c
+index a359aac45579..3fb4b946c91a 100644
+--- a/drivers/dma-buf/heaps/cma_heap.c
++++ b/drivers/dma-buf/heaps/cma_heap.c
+@@ -418,5 +418,8 @@ static int __init add_cma_heaps(void)
  
- #define MPSS_CRASH_REASON_SMEM		421
-@@ -1480,7 +1481,7 @@ static int q6v5_mpss_load(struct q6v5 *qproc)
- 	}
- 
- 	if (qproc->need_pas_mem_setup) {
--		ret = qcom_scm_pas_mem_setup(MPSS_PAS_ID, qproc->mpss_phys, qproc->mpss_size);
-+		ret = qcom_pas_mem_setup(MPSS_PAS_ID, qproc->mpss_phys, qproc->mpss_size);
- 		if (ret) {
- 			dev_err(qproc->dev,
- 				"setting up mpss memory failed: %d\n", ret);
-@@ -2077,7 +2078,7 @@ static int q6v5_probe(struct platform_device *pdev)
- 	if (!desc)
- 		return -EINVAL;
- 
--	if (desc->need_mem_protection && !qcom_scm_is_available())
-+	if (desc->need_mem_protection && !qcom_pas_is_available())
- 		return -EPROBE_DEFER;
- 
- 	mba_image = desc->hexagon_mba_image;
+ 	return 0;
+ }
+ module_init(add_cma_heaps);
+ MODULE_DESCRIPTION("DMA-BUF CMA Heap");
++MODULE_LICENSE("GPL");
++MODULE_IMPORT_NS("DMA_BUF");
++MODULE_IMPORT_NS("DMA_BUF_HEAP");
+
 -- 
-2.51.0
+2.53.0
 
