@@ -4,141 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E430FF886D
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 20:00:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DD67FF8868
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 20:08:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F48610E8F5;
-	Mon, 27 Apr 2026 20:00:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7ADA10E8FC;
+	Mon, 27 Apr 2026 20:08:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ALnXr+uT";
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="IpX+gMf4";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010043.outbound.protection.outlook.com [52.101.201.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4BCE10E8F5;
- Mon, 27 Apr 2026 20:00:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hfXsQzeEM8IXQryte31+cvjwNx5AMtJ9nCnP8Sobjj3fJkZrBvzho3x9IvvwdEJlD5JOE9TOS6jpfrDtWW4bUgZcWW9GTzCon4gc0dc0hZkQT+cMrGqvIZ8GOY/fvvij2WHypAEIqY0ZWB5q6Dt89h6VvtyIIEMnrHb+y9h/qavF3DLG7C4HyGrMbQ1/bGfcmuQqJL7QVVa3elUVSj3+cjFj5cxT1xQ+U9dn5ci6VYha4UEIoRm1WhdTNlHK85NcAc7EIiq7bNcEosw3VwhBpAfdgZ9hOoYAsakiNgiLESSSdQVHQFWP9U/FK6JI09Z/ftGCegcLDKRZCl9sgkA0hQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Vj+GU6m0bcUImM6Vj/Zt8wPi0I15nocrwqlQT4PLSzo=;
- b=jYoxofGaUVUw8/R96NZKtfM0Ru/faf5uPA8DzREWLhq6/kLRnQfX8XapWv5TiqnXnnT0aobRp6a9uPfsgQ6NrtoAC+xWlpV543cvkFfK2AZ0PJJuxr8CfL1ODv+UyGGDJ3JW6OeHYjf+gh/LuCWj766FPAu3usk8l+m4ZtIZS+SS4l4XMl9D0fj9GvGSs/zChrc4pR+OKcbA2ogP4k8vFaXdDliApVhqtiWQ5HOzaYvkb67OsOQq6auJcR/4oois10CRhIPeSlNdfYi9PizmeX/e3OJvY/R2nX0vC1VwUskafqbIn0y6k5W2ZQqsa7Xcs3qXomW8fguRaiZNcYh7XQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Vj+GU6m0bcUImM6Vj/Zt8wPi0I15nocrwqlQT4PLSzo=;
- b=ALnXr+uTyDXfR07RRf0m0IxWoZWBFlzciPbEN6ZRAxnxl6MhMrEr99Ni43Dpzrpm/jmkE0XvQ73Bf/Lc/xXjTxxSp9v7zHCg+jXk4ZrDhXHiiFUm8jeQ6Wy5m0RcCTssaoNRLTEwg+nCzcwkb4nz8fhOwB1bB7dGpzJuX1Ws3gI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL1PR12MB5112.namprd12.prod.outlook.com (2603:10b6:208:316::16)
- by SA6PR12MB999200.namprd12.prod.outlook.com (2603:10b6:806:450::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.26; Mon, 27 Apr
- 2026 20:00:43 +0000
-Received: from BL1PR12MB5112.namprd12.prod.outlook.com
- ([fe80::d977:95c9:e89:ff27]) by BL1PR12MB5112.namprd12.prod.outlook.com
- ([fe80::d977:95c9:e89:ff27%6]) with mapi id 15.20.9870.013; Mon, 27 Apr 2026
- 20:00:43 +0000
-Message-ID: <66a7efd4-8ec9-47af-b6c4-5be25459a474@amd.com>
-Date: Mon, 27 Apr 2026 16:00:40 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC/POC PATCH 00/12] POC SVM implementation in AMDGPU based on
- drm_gpusvm
-To: "Huang, Honglei1" <honghuan@amd.com>,
- Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Alexander.Deucher@amd.com, Honglei Huang <honglei1.huang@amd.com>,
- Oak.Zeng@amd.com, Jenny-Jing.Liu@amd.com, Philip.Yang@amd.com,
- Xiaogang.Chen@amd.com, Ray.Huang@amd.com, Lingshan.Zhu@amd.com,
- Junhua.Shen@amd.com, =?UTF-8?Q?Thomas_Hellstr=C3=B6m?=
- <thomas.hellstrom@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>
-References: <abuE0KBPtAZM9Bo0@lstrano-desk.jf.intel.com>
- <098d5d68-f218-4cee-8b73-201e7012a287@amd.com>
- <acDeRhCTh/ehOUyu@lstrano-desk.jf.intel.com>
- <26186168-abff-4ce4-ad93-db9bc2fd68d7@amd.com> <acRgr7QwdULsn6G2@gsse-cloud1>
- <d2fddc5d-2628-47e3-95c5-874b3a0466be@amd.com>
- <5fb57768-35b9-4e48-8178-2e1760a93aed@amd.com>
- <aem++OfFRJqHAPTG@gsse-cloud1.jf.intel.com>
- <aenH0REel7/enRi+@gsse-cloud1.jf.intel.com>
- <812102ac-906b-4fbf-bc8c-1881493a3eca@amd.com>
- <aep/S6m7vG5K7Ra9@gsse-cloud1.jf.intel.com>
- <79e9730b-80b5-4517-9942-fb6ec1569276@amd.com>
-Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <79e9730b-80b5-4517-9942-fb6ec1569276@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR01CA0144.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:1::44) To BL1PR12MB5112.namprd12.prod.outlook.com
- (2603:10b6:208:316::16)
+Received: from mail-ot1-f99.google.com (mail-ot1-f99.google.com
+ [209.85.210.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09D9510E8FC
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 20:08:56 +0000 (UTC)
+Received: by mail-ot1-f99.google.com with SMTP id
+ 46e09a7af769-7d1872504cbso9001061a34.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 13:08:55 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777320535; x=1777925335;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=O2jP4QWXThIT/fdAWs6cCDWb99I49DlTyAeqp4TfTzQ=;
+ b=CP9c0DXUnPzpRmEkN3uTeyhte+1WoAZfC8c0pferUiXxNG2HTyBbPpxZGB01nN27d4
+ MjH9SoBf4d5c+56Ju7DDlPQUprpN9Y2XzzM2+PlPoEzAq34BZplEgp7VNve6k9W7lFPs
+ L07eCwFvwcFjjjNRwGVuGAGBsW6mAluJu2ZpyLqA9JVz8trihhbGsf1P8zACjLX9Ei+b
+ BNu3fNVrMKbtWBQFNZUmKWCg3rFTLGcKSFdHWeQNfFBcY53zVagVRX+Ly3HE29Mp7lrD
+ gGwdx49TjK9wzQl7hB+cjyZB5pW7sdkei8TY4ODzdENUWP21hjcPvTW1UVtqhsQdG4Ez
+ gyzg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/RiN3D2rLsmk5fytCrtjC/1JRzukRw+RpY2aoiJz33bNf0uXdQZToKGxbe4FoZ9w7goq4JwZq5C1w=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw7YdWcr7rulu/Aat1CEnFjCkUQBRZiVYvcfmtio5G0mUNmou/J
+ cVF0BL2TBBw8rWqf/zlFAgE6MLJfXJ63AJ1wNi/CHf+3Jbelo9TjfEUEmt4WDqzBYu9pYrimOt4
+ 171y3o9bv/58Zf2PFdApgps7IDfOq3q4pOuVM8pZ2cNF5MiXlzbQeq34bJOI+kmklSyw1K2H95X
+ ur/QnGsrA2u7c2MP92bUG8iPRNbFpIxjROFOaFAms/WMm/rMAE1pZr92P7dL6fg43CKt6YtIWIR
+ mPGuOgzAazilbuttrcS
+X-Gm-Gg: AeBDiev5RRMBKfkQYLkjNWRZNrelXGFuNJe2FqnjL4lI7+UDTJg44HobQHLQ04DrHXC
+ CugRTL4L1kvgBybU23ajWfdwbrR4TYRiwv9I+kD6IzM5DXzHQo0LDgBOJOdRWCwb8GmtJoFrqWx
+ Z7Dm43KE9O6A/jcz5zTYpYe1Nw1dnEUH2+nYUZ5zcLdEfi0Dpi3d4zvjTrObkKIgaLLtBMQu9Tp
+ 51qCw4hxWKP89BJkhakWiUOb8Poe0Sdth2m+Q2iTzCpquuT+duot/fwXGvrNiBujICMCN+6PFME
+ gCmBrxeqx1G14xWagp366FMrOR2MR9sD64s46/hqf8D3jy3zRVxaHRCDRlI63XOJc6qx2+39+LF
+ /Y5ml6dv6qw4Y4HSZelygmvGhIZVR9Pugcyy/Ig1TowFbK/717TkMYelELi0d+wXwkbuNBdBv5M
+ zT+9gq9Te3uG8NhHp6xRjTtgOaDhboSVTz3oMn0sqGN3SppJOLwKyn5oGMgkz/qQ==
+X-Received: by 2002:a05:6820:198e:b0:694:7051:6fef with SMTP id
+ 006d021491bc7-6965c5ee2b5mr74021eaf.4.1777320534798; 
+ Mon, 27 Apr 2026 13:08:54 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
+ (address-144-49-247-2.dlp.protect.broadcom.com. [144.49.247.2])
+ by smtp-relay.gmail.com with ESMTPS id
+ 006d021491bc7-6965ba74a85sm19350eaf.25.2026.04.27.13.08.53
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 27 Apr 2026 13:08:54 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-wr1-f71.google.com with SMTP id
+ ffacd0b85a97d-43d1dea12aaso986043f8f.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 13:08:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=broadcom.com; s=google; t=1777320532; x=1777925332;
+ darn=lists.freedesktop.org; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=O2jP4QWXThIT/fdAWs6cCDWb99I49DlTyAeqp4TfTzQ=;
+ b=IpX+gMf44SayRUOftxhHwwOGx67N1MDhjWqrsHkLXJpmpy6MEd4cSKKBJxk4OQ3XDz
+ aJpDQrRxb+XHc9AZbodqIJXoWb27kXEGP8YDQKiG73usK/jpkwqAV4sTk8T6nDwOR72d
+ 4SczgAHiCqTnZ3blFCRkkH16oiTHpOpsxYQXI=
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/tk2dy0HC3GjZSTkZ6BSwhnTTMOGs4CNnwgwXO9rEPrkVLaqxliFEXk4eKy3UKbRoi24gmnSA6rU4=@lists.freedesktop.org
+X-Received: by 2002:a05:6000:144d:b0:43e:a6f3:b763 with SMTP id
+ ffacd0b85a97d-4464aced1cdmr420057f8f.44.1777320532190; 
+ Mon, 27 Apr 2026 13:08:52 -0700 (PDT)
+X-Received: by 2002:a05:6000:144d:b0:43e:a6f3:b763 with SMTP id
+ ffacd0b85a97d-4464aced1cdmr420012f8f.44.1777320531556; Mon, 27 Apr 2026
+ 13:08:51 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5112:EE_|SA6PR12MB999200:EE_
-X-MS-Office365-Filtering-Correlation-Id: 17662974-cbb4-4cfd-9141-08dea497a956
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|56012099003|22082099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: nfloivDL6+EG3Dt9nUZkYHSBTXViPrtnV/G8e0Uz3aNpjaByWPAgBiwI8lkcMKNR9aAIJcHnOxHuj8ijKTAm+ND5cC1AJxzipuyQKyRlCILItjTwismJ3SFEiWWVxUPUYn6artxQlTvP+LR8JMjnn6Scl9dIrGkDjwAcwn+E1AAwQK7eOV/FHVKpLxrG9WcYwSLUrmgDmFaGcMEUHTe2gapdpgf1NGBUeptL/ankSn6Ug41bkjaXjHrvIg0XjHcNTf/kUK6aGQlPV0E3QSx3V2BpUaNjq/s4CTbqbOwOlC1odAHTY+BNcfHQagYHE4r7ydQFzVOUodyfeyT1W/kUVqPtOm2xNItnnpfU5bgGE1hBolf1MDYwAIFr/yGCQUgITM89NKTTJuHeABwFdj8PaH6cN63rZWTh1CtOzqXujOMI+zTqmE7WaXcsWvwzQDCHl1F8zQMJRDGNkP6/QvfhiDTVh9/fKvEIMALQH1vXIrjW/oaI23hWySIPXkPu4fxG+i44CosssC9nMphe9MHDdqgQI/q4bqnlhstRefp/5Ti8j02hEExjv4afVEX1KMVJkJ9/Pp470BQlSN6pvwCXA16xmodBzVBCrfiRfkBxRF3Jz1u4A0Q/bGtndTwBIGMK/AIVLOuTgf/Km2hGWHlO5JQIxEKbVqMn4a97jP8d/nt1R5pNsdXILDM/oILu1aov
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5112.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(56012099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Rm5acTVIaUdmYzRlcUs3S1ZOVjJndU1hSERSKy9SdmRacHRRRjZjTnJnVjdn?=
- =?utf-8?B?bXNrVTlQaWVsZ0lOOGdUbjBMY0dIc1dteitIaU1Eby9CTkxyNUdOYkQyZVpI?=
- =?utf-8?B?YTMxaGs1RVRqVGMwNkp5NEc0aVhrV2plK0V2SnNnWGNrMWFmNmxDZDFwUWpk?=
- =?utf-8?B?d2FKb0xoZ2ZFTHdNVFRFMXBDengvVXNDUnBmYUcvV2tlMUVlaUdXZ29td2F1?=
- =?utf-8?B?QW9iZVAxekZ0ZGh2RHlEeWpJQ1hDT1pETkkvcVlFTEZucVc2ODFxUVg4Tmtz?=
- =?utf-8?B?N011RFN3YllRYjBhM2MvTHB5MS9TVnh1K0FkUHVZRzNKTTlLYkZSY1ZZM00z?=
- =?utf-8?B?a2ZuLzAxYU4vZXZUMUdoUjNjZ0FGd1BVZ1dJbDdHSG5VR09SWWNtVWhmdW8y?=
- =?utf-8?B?MkFjeUF2TjJNN0Y4RFJRWjlFN1hrY2ZRcEJqQThOaFRGVlVCVm5aWXR6aC9P?=
- =?utf-8?B?MVhwZ3hadFVXcGk0cFZ4N2ZEVkcvaWVBTkV4ckFyMW92RzlqaWdoVllIY2V5?=
- =?utf-8?B?Q002TnpLeUpZZzRiZW5WdFJTdzFBVzB1UzZDRStSd3lZR1RxUDJXV0J3Zk5K?=
- =?utf-8?B?K1pnaGpaQlZoakliNklOaWJqaUpSN21VcWQ3dnMwdkVwWmtBRUpnSjZmQS92?=
- =?utf-8?B?VnFSMVFFMjdJdkRHNWhjQWJLbXA0Qlh4WjVVSGN3YXVKbm8rbnY4eEV3RlE0?=
- =?utf-8?B?QldDQkQzMmptdjhkNHlnN0ROc3NtYlZrZUhubm13cU1sdTBVY3hWODlVNlpw?=
- =?utf-8?B?MjVVVFdUaE8rR3FuOUl2b1lUNFA0dllGcWJacXo4SmFtREZhSXBZc0N1TXNs?=
- =?utf-8?B?dGJEU2JMNDlMbk5HT3BvWGhQOWN0NWpvK1pINHFRVmlJK1N4SkdtQkljV1Rh?=
- =?utf-8?B?VDdOb3I3TWFaQ0NTSDhEVk1haEZwbEtuUEZBUTZvOFY1NlJrMUMzVnFIajdL?=
- =?utf-8?B?UDErOVlqSVRvUU96TmwyZUdYNG9UUU84cE1wTkcxTDZ6Z0JZemdHaURvemc5?=
- =?utf-8?B?YWJQcWpjOUY5ZkNKdXpveGM4a28rUnRGYXI1VGhjbGlzWGltZFBJcUErK1Ra?=
- =?utf-8?B?WFJYNjc3bUdOUGRKOXk5OUtkODlSNW5Fb05rbDQyUytDSlpmUDJ3MTZQQjNm?=
- =?utf-8?B?dmJTalFFQitadFRBbE0xR0NFUERia3g0NjhyUG15dWhuWjlGa0J1WUxDQjcw?=
- =?utf-8?B?U3g3blpEMUg3RUFzc0R3RFJsbmlXcWJzMTFwVHduRzdxWFFqTGY2Tklvakpw?=
- =?utf-8?B?aE45Y3lpRGZCMGpXVUYwdGNVRkxFZVBZQXIvYlRtYi9jbHEyUjllMUFYSklw?=
- =?utf-8?B?RjNZZFJZVzNZc0VySVNmU093dDhGVDJCRXRtRDYwaHRRWU1mZGMxYWsxREpB?=
- =?utf-8?B?d0pmZ2lGNEt5QWliWFRlbXRHeGNocCtsekpPUGhSZEVMbjI4ZjU4SnF0dFVK?=
- =?utf-8?B?NHptQzFPMlVzL2pocTRORXV6VmdnVW10VnlOUlBpZUZEdUI0cUVFeTloNW5J?=
- =?utf-8?B?QXRFa1RKL2xQeUdTd3ZZS2NMQzJOM3VJekl1ZHVvVXpvUG8zNWFpTWZ6NkNP?=
- =?utf-8?B?VjhseXNiMVpzN2x5SWM3N25Gd1pyUnM1YzVJL296U2pEL2s2UGU1b0F5dmFs?=
- =?utf-8?B?aVBjeVZnSnBNcEx3WUEzUWFkQU8rVGliUGd6d3BiRHFIOEEzRUloVEF3WDcv?=
- =?utf-8?B?U1Rib0tvaHZDSDNpeUc3Rjl4d1N0VXR2TklIRURKamZSTk5VeU5YN1pPODZI?=
- =?utf-8?B?MlhCeVZDb1FMKy9IeThwc3l5RmlqMi9oa3Y2L1pyNG44ekY1R2FSWlpMdDFw?=
- =?utf-8?B?OVBkRElQeWFRZzhWMERsU2VVRGVJWWNkNFdZMWY0cFFGWldDNWJBUzdYZEF6?=
- =?utf-8?B?ZnVDTXA4dk9wUkw4cmtGUWdHMnd0NTNtVWN2VkRYYU9IcWJUT252ckxuQWFG?=
- =?utf-8?B?Q0loVDNFakM1dlQyb0pXc3ArMUxuSHIwK3B6cUlaeGZrczNlMkU2amc4R3pZ?=
- =?utf-8?B?RW44V2wyeHZBRXFyVktPajBta0tDaXc4VHovVzQxNzc0TmRlQnJMa0oyR2dS?=
- =?utf-8?B?WEpuUkt3K3RXek1mUTJsNUdrNmd0RnhWZU1HWkZYQUpaUWZndUlRUS9mR2R0?=
- =?utf-8?B?dmJoTm9MLyt2YUdyY2IvV3lSaWpNRE9xWGhWWWZ5THBWYWRTUTBZcEkwREdQ?=
- =?utf-8?B?VmN5WittMzRCcHNmWlIrUGZOVVI2MFc0QVpSWEJEMDQ1NWxGZC82TFdnMGto?=
- =?utf-8?B?Y2JoY3hCUVZaUWh1d2x4c05rb0ZIOG1wZDl5a2dpNElrc1drZjRYNnRZUkhN?=
- =?utf-8?B?QUtBN0JWN2tVQ0JtS2pZR2VWR2hCZXJnWmF3UXpkRnZreTM4QVdJUT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 17662974-cbb4-4cfd-9141-08dea497a956
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5112.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Apr 2026 20:00:42.6363 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7Mf0JlsLWSg1LU0NJm/tp8ABbTFCYaBn/jRsRqahYCWgGLnI21BlFOJegcI8RRrl+sw97EcJlMB3j+V0t7QK5Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA6PR12MB999200
+References: <20260424092012.5694-1-christian.koenig@amd.com>
+ <CAO6MGth7OXG64pBxdtHU67M+yQ7QM7rSFQTmT57_1sC6TQMK4w@mail.gmail.com>
+ <1b5f0648-6532-4b59-a1d4-21c470d17464@amd.com>
+In-Reply-To: <1b5f0648-6532-4b59-a1d4-21c470d17464@amd.com>
+From: Ian Forbes <ian.forbes@broadcom.com>
+Date: Mon, 27 Apr 2026 15:08:39 -0500
+X-Gm-Features: AVHnY4LEYdAuChm9eMmwSxFOMbLaaY7wdPgtH5Q_QUaIuGCRKDWTi7m0vJagPrg
+Message-ID: <CAO6MGthCeOuXr4MJQYXsnzGRAJhJ=3_-0ARypPuxngxUa0=GCg@mail.gmail.com>
+Subject: Re: Finishing drm_exec cleanup
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: zack.rusin@broadcom.com, bcm-kernel-feedback-list@broadcom.com, 
+ dri-devel@lists.freedesktop.org
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: multipart/signed; protocol="application/pkcs7-signature";
+ micalg=sha-256; boundary="000000000000feeb05065076ae7a"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,293 +108,255 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+--000000000000feeb05065076ae7a
+Content-Type: multipart/alternative; boundary="000000000000ef9086065076ae7a"
 
-On 2026-04-24 06:43, Huang, Honglei1 wrote:
->
->
-> On 4/24/2026 4:21 AM, Matthew Brost wrote:
->> On Thu, Apr 23, 2026 at 07:03:52PM +0800, Huang, Honglei1 wrote:
->>>
->>>
->>> On 4/23/2026 3:18 PM, Matthew Brost wrote:
->>> ...
->>>>>>>>>> This clarifies a lot. This is what we’d call in Xe 
->>>>>>>>>> “preemption fence”
->>>>>>>>>> mode for a VM. Anytime memory is moved, we trigger a GPU 
->>>>>>>>>> preemption and
->>>>>>>>>> resume. We don’t actually support SVM in this case; instead, 
->>>>>>>>>> we use
->>>>>>>>>> “userptr binds,” which are built on gpusvm for page
->>>>>>>>>> collection. However,
->>>>>>>>>> we don’t support migrating memory to the device—though we could.
->>>>>>>>>>
->>>>>>>>>> I’d look at how we converted 'userptr' to be based on GPU SVM 
->>>>>>>>>> [2]. In
->>>>>>>>>> this case, don’t maintain a range tree, as those—as you
->>>>>>>>>> suggest—are more
->>>>>>>>>> of an on-demand fault driver concern. Instead, just embed 
->>>>>>>>>> 'struct
->>>>>>>>>> drm_gpusvm_pages' in the VMA struct defined by the IOCTLs..
->>>>>>>>>>
->>>>>>>>>> We could extend this to support migrating 'userptr', but we
->>>>>>>>>> just haven’t
->>>>>>>>>> done that yet—this may be what you want to do in “XNACK off..
->>>>>>>>>>
->>>>>>>>>> [2] https://patchwork.freedesktop.org/series/146553/
->>>>>>>>>>
->>>>>>>>>
->>>>>>>>> Actually we need to swith the xnack mode between on and off, so
->>>>>>>>> in xnack off
->>>>>>>>> mode, the driver operats in "implicit  prefetch mode". This may
->>>>>>>>> be due to
->>>>>>>>> compatibility with older hardware and the need for UMD 
->>>>>>>>> runtime. We will
->>>>>>>>> further discuss the handling method under xnack off internally.
->>>>>>>>>
->>>>>>
->>>>>> Hi Matt,
->>>>>>
->>>>>> I studied the xe_userptr code and the conversion series [2] you
->>>>>> pointed to.
->>>>>>
->>>>>> I have a question that:
->>>>>> Would it be possible to reuse drm_gpusvm_range to handle the 
->>>>>> hardware
->>>>>> without gpu fault feature(xnack off mode).
->>>>>
->>>>> That’s not how we’ve done it. We embedded drm_gpusvm_pages into 
->>>>> our VMA
->>>>> structure and then attached a notifier. The notifier attachment is
->>>>> open-coded on the Xe side, and this could be normalized and opened up
->>>>> for common driver use cases.
->>>
->>> The way in xe_userptr likes the implementation in kfd_svm: embeded 
->>> physical
->>> pages into structure and attach same size notifier.
->>> But kfd_svm is an implementation of SVM semantics, which supports 
->>> partial
->>> unmap, doesn't need explicitly delete userptr ioctl calling when 
->>> remove ,
->>> and doesn't need a explicitly userptr flag when creating.
->>> And actually there is also a existing implementation for userptr 
->>> semantics
->>> in amdgpu kfd: KFD_IOC_ALLOC_MEM_FLAGS_USERPTR.
->>> If the no gpu fault mode can not use the drm gpu svm fram work, use 
->>> the same
->>> way for xe_userptr, it seems like doing the duplicate work.
->>>
->>> I think the core gap is we are trying to use the drmgpu_svm to 
->>> implement a
->>> SVM semantics driver for no gpu fault hardware instead of userptr 
->>> semantics.
->>>
->>>>>
->>>>> The problem with reusing drm_gpusvm_range directly is that a VMA may
->>>>> span multiple gpusvm notifiers—i.e., it can be larger than the 
->>>>> notifier
->>>>> size. Of course, we could rework this as well.
->>>
->>> So the "VMA spans multiple gpusvm notifiers" concern: I'd like to 
->>> clarify
->>> that this is not actually a blocker for amdgpu's XNACK-off path, 
->>> because
->>> amdgpu does not try to represent one user ioctl virtual address 
->>> interval as
->>> a single drm_gpusvm_range.
->>>
->>> we walk the attr interval and call drm_gpusvm_range_find_or_insert()
->>> repeatedly, letting gpusvm pick chunk aligned ranges bounded by
->>> notifier_size. One ioctl interval will create N chunk sized ranges.
->>>
->>>>>
->>>>
->>>> Sorry for the double reply—I just glanced at the latest series. I 
->>>> don’t
->>>> think creating a range per page of the userptr is desirable. While it
->>>> would work, from a time-complexity point of view I don’t think this is
->>>> ideal.
->>>>
->>>> The issue with spans across multiple notifiers is real, though.
->>>>
->>>> My rough idea would be:
->>>>
->>>> - Give drivers an interface to create larger ranges.
->>>
->>> So maybe we do not need to create larger ranges if we call
->>> drm_gpusvm_range_find_or_insert() repeatedly.
->>>
->>
->> That will be functional, but consider it from a time-complexity point of
->> view.
->>
->> Multiple ranges increase the time complexity of range-tree searches.
->> This isn’t a huge deal, but it will show up to some extent.
->>
->> Multiple ranges will also slow down DMA mapping and migration. We
->> switched over to the dma_iova_alloc/link/unlink/sync uAPI here [1].
->> While dma_iova_link is a relatively fast radix-tree walk, the allocation
->> and sync steps are where things get expensive. Therefore, it is
->> advantageous to perform these steps as few times as possible. For
->> example, if your SVM buffer is 512MB, instead of doing these steps 256
->> times, you do them once. The same logic applies to the migrate_vma_*
->> functions—they are quite expensive, so doing them in a single shot is
->> significantly faster.
->>
->> The same applies to invalidations. If you can invalidate a large range
->> in a single shot, it will be faster. Although the logic in the notifier
->> should be able to zap multiple ranges in one shot (Xe does this), having
->> to DMA-unmap a single large range will still be faster than multiple
->> smaller DMA unmaps.
->>
->> The TL;DR is if your driver knows size of SVM allocation upfront (e.g.,
->> an IOCTL tells you the size) it makes more sense to use a single large
->> struct (either embedded drm_gpusvm_pages into a VMA or we figure out an
->> interface to insert large ranges / notifiers).
->>
->> [1] https://patchwork.freedesktop.org/series/160587/
->>
->>>>
->>>> - If the range fits inside a single notifier’s size → done.
->>>>
->>>> - If the range spans multiple notifier sizes → round up to a power of
->>>>     two and create a larger notifier. This may overlap with existing
->>>>     notifiers, which is likely fine given that interval trees support
->>>>     overlaps (?). We’d need to double-check and test this. If 
->>>> overlapping
->>>>     notifiers are not acceptable, we’d need some heavy-handed 
->>>> notifier merge
->>>>     logic—it will be complicated, but isolated, so once we get it 
->>>> right
->>>>     everyone can use it.
->>>
->>> If we call drm_gpusvm_range_find_or_insert() repeatedly the 
->>> drmgpu_svm will
->>> create the corresponding notifier correctly as far as I can see.
->>>
->>
->> I agree this will be functional but not ideal. You can always start the
->> approach you have here and optimize it later by adding the required
->> support in GPU SVM.
->>
->
-> Hi Matt,
->
-> Really thanks for your information, this really helps a lot!
->
->
-> Hi Christian, Felix,
->
-> According to the discussion with Matt on the previous thread, I'd like 
-> to align with you on the XNACK off direction before start to the series.
->
-> According to the information form Matt:
-> when the allocation size is known doing one big operation is
-> significantly faster than doing many small ranges, because
-> the allocation and sync steps are where things get expensive.
-> Doing them in a single shot is significantly faster, especially in the
-> situlation of xnack off mode, which needs pre fault and pre map in 
-> ioctl, and the size is known.
->
-> It is confirmed that repeatedly calling 
-> drm_gpusvm_range_find_or_insert() is
-> functional, and suggested we land it first and optimize later by adding
-> large range support in GPU SVM core. That motivates the two phase plan 
-> below.
->
-> Phase 1
-> - Reuse drm_gpusvm_range for XNACK-off, one ioctl interval is split by 
-> drm_gpusvm_range_find_or_insert() into
->   N chunk-sized ranges bounded by notifier_size, same mechanism as the 
-> fault path.
-> - populate all ranges at ioctl / submit time instead of on fault.
-> - Invalidation -> GPU queue stop -> rebind/restore the pages and gpu 
-> map ->restore queue
->
-> Phase 2:
-> Add a large range / large notifier insert interface in GPU SVM core
-> so one ioctl interval maps to a single range to improve efficiency.
-> This needs modify the drmgpu_svm frame work.
->
-> May I know your thoughts on this plan?
+--000000000000ef9086065076ae7a
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-I think drm_gpusvm_range_find_or_insert already has all the parameters 
-necessary to allocate larger notifiers and ranges. All it would take is 
-maybe adding a flag in drm_gpusvm_ctx to request larger range allocation 
-instead of arbitrary chunking.
+The problem is that we create and reserve a new BO in vmw_cotable_resize as
+part of the validation phase but this BO is not added to the drm_exec
+context so it never gets unreserved. This only worked previously because we
+operated on the vmw_validation_context::bo_list. This can be hacked around
+by using vmw_bo_fence_single in vmw_cotable_resize but the correct solution
+is to remove vmw_validation_context::bo_list and only iterate over the
+drm_exec list. This then requires plumbing the drm_exec object through all
+bind and create resource function hooks.
 
-I agree this could be done as a second phase and is mostly work in the 
-drm_gpusvm code.
+On Mon, Apr 27, 2026 at 6:29=E2=80=AFAM Christian K=C3=B6nig <christian.koe=
+nig@amd.com>
+wrote:
 
-Regards,
-   Felix
-
-
+> On 4/24/26 14:55, Ian Forbes wrote:
+> > When I tested this last time the first patch was fine but applying
+> subsequent patches broke vmwgfx. I did get it to work but it required som=
+e
+> hacks and at the time there was a major conflict with the ttm -> gem
+> reference counting series. I will try again now that the reference counti=
+ng
+> changes are done but some changes will be needed in vmw_cotable_resize.
 >
-> Regards,
-> Honglei
+> Yes since the ttm -> gem reference counting change is already completed i=
+t
+> is now the patch set becomes a trivial replacing the old function with th=
+e
+> new one.
 >
+> Of hand I don't see any dependency with vmw_cotable_resize() any more, bu=
+t
+> it clearly needs some testing.
 >
->> Matt
+> Thanks,
+> Christian.
+>
+> >
+> > On Fri, Apr 24, 2026 at 4:20=E2=80=AFAM Christian K=C3=B6nig <
+> ckoenig.leichtzumerken@gmail.com <mailto:ckoenig.leichtzumerken@gmail.com=
 >>
->>> Regards,
->>> Honglei
->>>
->>>>
->>>> - Finally, make sure that individual userptr pages can reside at any
->>>>     location.
->>>>
->>>> Over conversely:
->>>>
->>>> - Normalize embedding of drm_gpusvm_pages in VMA structs + notifier
->>>>     creation
->>>>
->>>> - Make sure that individual userptr pages can reside at any location.
->>>
->>>>
->>>> Both options actually sound really similar after typing this out.
->>>>
->>>> Matt
->>>>
->>>>> So either way, the Xe userptr + gpusvm implementation should be 
->>>>> refined
->>>>> further for common driver use.
->>>>>
->>>>>>
->>>>>> Reusing drm_gpusvm_range for the XNACK-off case would simplify our
->>>>>> implementation considerably, it already provides large page chunk
->>>>>> optimization, can reuse the existing migration infrastructure.
->>>>>>
->>>>>> Building these on top of a standalone drm_gpusvm_pages
->>>>>> would mean reimplementing much of what the range layer already 
->>>>>> offers.
->>>>>> It would also let us keep a single code path for both XNACK modes,
->>>>>> which reduces maintenance burden and avoids behavioral difference.
->>>>>>
->>>>>> Would this direction be acceptable, or do you see concerns with 
->>>>>> reusing
->>>>>> the range infrastructure for the no-fault case?
->>>>>>
->>>>>
->>>>> If you prefer something like insert a range exactly here + create 
->>>>> range
->>>>> + notifier I think that completely reasonable direction and Xe would
->>>>> likely switch over to using this.
->>>>>
->>>>> I guess my only concern is sub-userptr migration. We are trending
->>>>> towards allowing userptrs to being migrated either via prefetch 
->>>>> IOCTLs
->>>>> or access counters on the GPU side - access counter we'd likely a 
->>>>> single
->>>>> 2M page at time migration within the userptr. get_pages() supports 
->>>>> mixed
->>>>> mappings between VRAM + system but likely needs some more work to 
->>>>> really
->>>>> make this complete though.
->>>>>
->>>>> Matt
->>>>>> Regards,
->>>>>> Honglei
->>> ...
->>>
->>>
+> wrote:
+> >
+> >     Hi Zack,
+> >
+> >     VMWGFX is the only DRM driver who is still using the old ttm_execbu=
+f
+> >     framework and while going over my TODO branches I've found that I
+> never
+> >     upstreamed the patches to clean that up and fully move over to
+> drm_exec.
+> >
+> >     It should be a trivial 1 to 1 replacement now, but I can only compi=
+le
+> >     test it.
+> >
+> >     There can be more cleanup on top of this, for example as far as I c=
+an
+> >     see vmw_resource_check_buffer() actually doesn't need a ticket. But
+> this
+> >     isn't the topic of this patch set.
+> >
+> >     Please let me know what you think since that would allow remove
+> quite a
+> >     bunch of otherwise unmaintained code.
+> >
+> >     Thanks,
+> >     Christian.
+> >
 >
+>
+
+--000000000000ef9086065076ae7a
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div class=3D"gmail_default" style=3D"font-family:arial,sa=
+ns-serif">The problem is that we create and reserve a new BO in vmw_cotable=
+_resize as part of the validation phase but this BO is not added to the drm=
+_exec context so it never gets unreserved. This only worked previously beca=
+use we operated on the vmw_validation_context::bo_list. This can be hacked =
+around by using vmw_bo_fence_single in vmw_cotable_resize but the correct s=
+olution is to remove vmw_validation_context::bo_list and only iterate over =
+the drm_exec list. This then requires plumbing the drm_exec object through =
+all bind and create resource function hooks.</div></div><br><div class=3D"g=
+mail_quote gmail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On =
+Mon, Apr 27, 2026 at 6:29=E2=80=AFAM Christian K=C3=B6nig &lt;<a href=3D"ma=
+ilto:christian.koenig@amd.com">christian.koenig@amd.com</a>&gt; wrote:<br><=
+/div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bo=
+rder-left:1px solid rgb(204,204,204);padding-left:1ex">On 4/24/26 14:55, Ia=
+n Forbes wrote:<br>
+&gt; When I tested this last time the first patch was fine but applying sub=
+sequent patches broke vmwgfx. I did get it to work but it required some hac=
+ks and at the time there was a major conflict with the ttm -&gt; gem refere=
+nce counting series. I will try again now that the reference counting chang=
+es are done but some changes will be needed in vmw_cotable_resize.<br>
+<br>
+Yes since the ttm -&gt; gem reference counting change is already completed =
+it is now the patch set becomes a trivial replacing the old function with t=
+he new one.<br>
+<br>
+Of hand I don&#39;t see any dependency with vmw_cotable_resize() any more, =
+but it clearly needs some testing.<br>
+<br>
+Thanks,<br>
+Christian.<br>
+<br>
+&gt; <br>
+&gt; On Fri, Apr 24, 2026 at 4:20=E2=80=AFAM Christian K=C3=B6nig &lt;<a hr=
+ef=3D"mailto:ckoenig.leichtzumerken@gmail.com" target=3D"_blank">ckoenig.le=
+ichtzumerken@gmail.com</a> &lt;mailto:<a href=3D"mailto:ckoenig.leichtzumer=
+ken@gmail.com" target=3D"_blank">ckoenig.leichtzumerken@gmail.com</a>&gt;&g=
+t; wrote:<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0Hi Zack,<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0VMWGFX is the only DRM driver who is still using th=
+e old ttm_execbuf<br>
+&gt;=C2=A0 =C2=A0 =C2=A0framework and while going over my TODO branches I&#=
+39;ve found that I never<br>
+&gt;=C2=A0 =C2=A0 =C2=A0upstreamed the patches to clean that up and fully m=
+ove over to drm_exec.<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0It should be a trivial 1 to 1 replacement now, but =
+I can only compile<br>
+&gt;=C2=A0 =C2=A0 =C2=A0test it.<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0There can be more cleanup on top of this, for examp=
+le as far as I can<br>
+&gt;=C2=A0 =C2=A0 =C2=A0see vmw_resource_check_buffer() actually doesn&#39;=
+t need a ticket. But this<br>
+&gt;=C2=A0 =C2=A0 =C2=A0isn&#39;t the topic of this patch set.<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0Please let me know what you think since that would =
+allow remove quite a<br>
+&gt;=C2=A0 =C2=A0 =C2=A0bunch of otherwise unmaintained code.<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0Thanks,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0Christian.<br>
+&gt; <br>
+<br>
+</blockquote></div>
+
+--000000000000ef9086065076ae7a--
+
+--000000000000feeb05065076ae7a
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
+
+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
+V0fYJUiKJMCwvDmndOil8EtMA8j2T6taUZoQINiKQ0oDWgY6eYVv7AdPVIeOOs3noCyUL8AyA7Bl
+yoOPBB2/gk8VGcolEKgAAj+3hPbBF/d19x1bZzU3wABizBomVwykx5ms1nVXDbQajz8jqYECKWh9
+3OMo7BuC3TAClu5mLr2zs0Ccpp6NRRkjTF8WtCJ+jSnjFJGLAgMBAAGjggHYMIIB1DAOBgNVHQ8B
+Af8EBAMCBaAwgZMGCCsGAQUFBwEBBIGGMIGDMEYGCCsGAQUFBzAChjpodHRwOi8vc2VjdXJlLmds
+b2JhbHNpZ24uY29tL2NhY2VydC9nc2djY3I2c21pbWVjYTIwMjMuY3J0MDkGCCsGAQUFBzABhi1o
+dHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMwZQYDVR0gBF4wXDAJ
+BgdngQwBBQMBMAsGCSsGAQQBoDIBKDBCBgorBgEEAaAyCgMCMDQwMgYIKwYBBQUHAgEWJmh0dHBz
+Oi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAkGA1UdEwQCMAAwQQYDVR0fBDowODA2
+oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCIG
+A1UdEQQbMBmBF2lhbi5mb3JiZXNAYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
+A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBSvJWzgGK7aSByS+CQVBVfM
+Xgm5azANBgkqhkiG9w0BAQsFAAOCAgEAfrWiLF3zrYq7D+KPNRaAP70FbxHeaiUfn27Hbu37Eefz
+xeJTcFZH04IEtXqpM3NWYZm4A/dFn/VQPbLCRaeXzpT2TESVH6EFY7BEF0rnSSlUbFyi000MnSH3
+h5m+MoyE+PzLqfzLBZS+EU/haCpPy6Nqhs3fPKG3w5VTnUPsAxXK7rSmkIDVNsvwRttuMq9KHJzH
+Bx51dP/z3mel4OuMjgrwHk5uNY1Sn1MZAUQztVUsWguyfoKcmhxXbBccR5DdEfBgDEbq8bicPQ3J
+kqEy1QZXJfHlJuAJIiEw7odGctwqLeGCU6cBLhnsg54ngjO3uYC6tIySul55MRxFKE8HIwIrx+D5
+2SwhDeVLZ8sTK40uPzW5xg5laOWVCvmy2b+cHCGzarUeIlYdtw0ejdH9Hbkm0G7IrDvjkhPa64gR
+6Q+m5CGRDk+8iWhieH6WFE4HL++BpZhoi+YsOkGU3DK0dA+pxQnXNcNw1s0eNbSUVwQzmlC4LqiK
+Gj5JV81HTPLhoAya57a9i28Fp5qHZiFnCq4HMvwiwY7IWe+UwUuueU199aTK80xNiS553vHc6FpI
+/vxGy+LveJqEtodfKqQKwDOVu//c1Lz3uergJHqFYTMykk5U95J3FG5q/7Mqe4RF6E9OgtuAJidS
+6Ca5anjLQ/qzIfTjoXX7TJSjPztehRQxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
+VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
+QSAyMDIzAgx2/5+PPF/QoW30N7swDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIImH
+SHHTZVh3oLQtqLrnlE7+jAGTA2wpOLP5oxVIKupYMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
+HAYJKoZIhvcNAQkFMQ8XDTI2MDQyNzIwMDg1MlowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
+ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
+YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBACYfGmA31jMUZGdIN83mF3TaGI6bN+GdIXLUFAHB
+6HhhEEHANzCqPlJrj+pNicfqgBOp5IblHMRmrwy2q+dGBVusq9V5BEIb3dC/gSZYjM7kbOxXVMUR
+7obUyXXjwpKK7NFwWAR7LzyDoGe7JKWqV2rJ3dDcjYqTOJcnl+zgvogPMqvOAy/iAtoEShsrL/s+
+tGattCdl1na8l+9xMbjJebRptqKLcrpF/kVblAYBemdoRRpSKAEu8eMKzBpQ9EPeCKn1MlQdG5Pv
+GjdO4ch7jb7zlwbEeoahiFEblxUsDkrVDXgOrvuTYtpeZgvuqJ1aiipYkK5vSxSXGV3lQv9/QGY=
+--000000000000feeb05065076ae7a--
