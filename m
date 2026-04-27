@@ -4,89 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72E9DFF8860
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 13:06:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D552FF885E
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 13:13:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFF0A10E2AC;
-	Mon, 27 Apr 2026 13:06:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4DF710E2B2;
+	Mon, 27 Apr 2026 13:13:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IqEYWray";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Q/1r81SI";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UvRFtafx";
 	dkim-atps=neutral
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0892F10E2AC
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 13:06:01 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-4891c0620bcso69340035e9.1
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 06:06:00 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A20D10E744
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 13:13:39 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 63R8TBLP665664
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 13:13:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ s3iVNUw12SY/X8URiLbb1cnOLSTbe21tBccpKnto7BQ=; b=Q/1r81SIHBKGczY8
+ zdRb4t6sOXXPx3fNhFO2/xgtH1U9uCWmcvLC3IcJ0JRWHo+jsF5pLJANwhJ/6Pp0
+ hUZIvOcQCkWXj+ILELYT51emAlIZXTr/aBByLFxr92ay/pQHAXAGzhdnepSSkx8G
+ fpUO/RAT6+V94Odn0prXVJtlp8mdyMZKk0UUkA/QU6mwK/Hzn/noCAklCvLzNAUe
+ S23Zz4sc+KeQhREQ863iVVSl1dh0lk2G/s1JfCqF6f9aOb+gN8NxVtZ0mcymyWnF
+ BkYIJOMTqVBFGHAISfEiYNCY79CLFN4oFL7HAFzlPyTU3boygqN7wtGmCrUXlI2T
+ zRgUIA==
+Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com
+ [209.85.221.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dt30n1gya-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 13:13:39 +0000 (GMT)
+Received: by mail-vk1-f197.google.com with SMTP id
+ 71dfb90a1353d-56ee3caacf5so719826e0c.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 06:13:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777295159; x=1777899959; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:from:to:cc:subject:date
- :message-id:reply-to;
- bh=F8iqGCzMLvZ/FUHTnqulEZ9CiBEz3wlFLR64nRtCLLQ=;
- b=IqEYWrayLlmrXXO3w0D32LNPBLdfAPsCb4zLbRjX7wxTKWyQYf1FpPpJGtTU/x3fRy
- /MRohnhvtqdpMF2DrEISSU+qMrZPPZRIDaP/J3WQV/ZKm7/8gzk9L6DO+l6Ywtw/aJpn
- XolXy1512dqc7hLBL3YnhnrimpGrm26d2zXvrivr+6EaeP8YeiNAHPQvT8TL84Dwn48L
- In9UbeMKSXkQxOcxz6Wy9zPUgkXRnoWrOCHfAUeC5wxZeu+b/AOjtEDZ1TZgyg5i1XKl
- 5+i+2DivNhqVzeOP6s8m5wCELeLPMKwZz+OvJEF3wFs96lkE2yFXXzOj2qRNvz7RRmkL
- EjOw==
+ d=oss.qualcomm.com; s=google; t=1777295618; x=1777900418;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=s3iVNUw12SY/X8URiLbb1cnOLSTbe21tBccpKnto7BQ=;
+ b=UvRFtafxv/4u4HRJhsdq/56Da/QLEPvnhwYX98tVgOo4yrqUBvwyj2cQhkFM6+g/ur
+ 2VvNk/nTtFsMnRg20njMdz3AD4kIeYsCDiAQSCKvHlqt3pH8nndyl+PkvW4YFvg6FdDC
+ 0HLs/er8Mcc/hnll8RrDlR0oQagCy27HjR67vTMlwu6ErmXsoafT87KajXqajhJ0YDmg
+ iGrLI/+kXQ0KxvpAKgRb+RV48RQC944LT0LterAx16UMiWdwg9rEjj4wOlQf2dsVOa6Q
+ oUuchVK7FcTlHggOBBLtCzApe4gLm8VguVaz4qlBs28qlViZ+Uu1GP+3AYVmxyEoeHEy
+ Gb/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777295159; x=1777899959;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=F8iqGCzMLvZ/FUHTnqulEZ9CiBEz3wlFLR64nRtCLLQ=;
- b=AgLMn2/4tXCM9mJiOcC6ttlQ92Wc/gj44EQGQgIcVZqwR6W3GC7sVYRU62E6UACgzR
- +KOzRtZ2J1RX0WrdgyjCTRkVJOxILNVvWqug09ugZryLxAyHwrp2v7ue8QVEqYJ2Hn9o
- 8FNGk/tq7nU5yfVYavkJBbRzsHvw1FqwjKz68aeXnwScNjmxbUF5oOALHa0XKMA7ii/x
- O2NKTAinikS9/06PEj4iTAz3GY8KrKObo4+/uoy+gKsvM7fvmCqczUtDspoozESKYCQH
- TkWFulQo/0k92yUuj5LWRHKtjCDrgdn9MnfCu5XL7i56eeMd5BOh5ZZTbqK48epaQ63l
- tmfA==
+ d=1e100.net; s=20251104; t=1777295618; x=1777900418;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=s3iVNUw12SY/X8URiLbb1cnOLSTbe21tBccpKnto7BQ=;
+ b=cxAAX5uKdcRjvuRMoMJ5No//EBJOdy3tJwicseP9sKlG3oHa+cv7j7ss3nos9GBg7V
+ 1Z0zKHT+zCP2AbwHhLsUw0/5lY/2lC7Nq7jIpz02Kj+AeBC0yl4jBZWUeiLc2UveKrm7
+ 39/NmXG4ITUH0pa3wd111BOPLvQMFtoiqRG+N9G0/tKIAg+E30IrjCUSoLifRj1LyEye
+ ExRD17pYMzQwZ2FLb6QJafOdltwT4j7vyxFDedPH8uaSTkuAXxqoOueFw/oG92Qoe4XP
+ UHUpbgSBsUhcTvU3qyvxrXIBFjIVmyc+jrsW/MJsmN/TUt+H3/iYfBiunB+ivqh4AHqt
+ cQJw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9gaysECxFoXQzsG783oea4wI2eTbUE39aoLDqOo96XKCpoceGAF33ufHjSuzbml9NDM2Ky+yCu+Is=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxJFqx6yphVjld4uN8Ld53tP8zvv+p+ny+cpn2VMbF4fe3TMVW2
- QedMX5UAQkV+TE1JqQJ6qEwDyCGYs3MKl95c4VM800yUvpHBSVyXvP0U
-X-Gm-Gg: AeBDiesxJtYnjh0C9+b9EcOlJudx09u5tHxcnZXx49G/UCqW2RF1JBdw5S54uanhtY3
- iSi4IwDPYMhaw5awUZd0zxiL8Ze5OnR4clhGNafc50V8bJIU1/9hreLmt/foPREVqTgRAACeZ6y
- 6kLACyV6wkkf9XXS46FUmwmmzKg2LmtTCvBlD/4k0iaYGHChg12mSKsH8gFq59Gp97yoa9Qr0MN
- yD7cZPg6r/nrOoBp42kiO3SNPzLOVDzAf89/jPLO3a8NnDUNUy9tWkWzSZjcm5cGCJwa/oKAfIU
- QA3l5N9WslTKCNKnYcOgXTh/d0hA2WOOrbWfAVVgHZ1h9UPsN21oIG6+v2BoHmwlh1S4BcbY30J
- 9e8TZ/yR41T8nocODYvOxw50XmfSb5vO9SWH0fgPjubhzBdBr5eODuYyL8MZGzQXPSjBjygQGpD
- t++ir4fr4c5ndve+ZLelLBmoVSOKJAFkDGCH5/YIhz5m4Y5v2+VpDVeqOO7LQ6z0Ckaj44pyc97
- 0o=
-X-Received: by 2002:a05:600c:3150:b0:480:3ad0:93bf with SMTP id
- 5b1f17b1804b1-488fb7930famr614025895e9.24.1777295159074; 
- Mon, 27 Apr 2026 06:05:59 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-488fb75ab25sm247366475e9.11.2026.04.27.06.05.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Apr 2026 06:05:58 -0700 (PDT)
-Date: Mon, 27 Apr 2026 14:05:55 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Ai Chao <aichao@kylinos.cn>
-Cc: deller@gmx.de, nicolas.ferre@microchip.com,
- alexandre.belloni@bootlin.com, claudiu.beznea@tuxon.dev,
- linux@armlinux.org.uk, dilinger@queued.net, adaplas@gmail.com,
- James.Bottomley@HansenPartnership.com, FlorianSchandinat@gmx.de,
- alchark@gmail.com, krzk@kernel.org, kees@kernel.org, rene@exactco.de,
- tzimmermann@suse.de, rongqianfeng@vivo.com, thorsten.blum@linux.dev,
- chelsyratnawat2001@gmail.com, soci@c64.rulez.org,
- gregkh@linuxfoundation.org, daniel@thingy.jp, linmq006@gmail.com,
- fourier.thomas@gmail.com, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-geode@lists.infradead.org,
- linux-parisc@vger.kernel.org
-Subject: Re: [PATCH 03/35] fbdev: sisfb: Use safer strscpy() instead of
- strcpy()
-Message-ID: <20260427140555.4d001050@pumpkin>
-In-Reply-To: <20260427090910.1940231-1-aichao@kylinos.cn>
-References: <20260427090910.1940231-1-aichao@kylinos.cn>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+ AFNElJ9D+bPPJPIXMGjYCromwkYDov1fgzko43YPWbS+R1SMf1M0Kdx9HdTYqxGZG5nmtv/w7F+qrlIW/wQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxmAGwVwuhRi4SmkwFA3/uEwtWDQ/YfkgVgGS4A11IfbtiQufNN
+ +Tdsb3lOPXya4rnsgLFTwsdsM5pbX3cYPhgDXnfoK0V/i/OmWFXsQYPBsAApx0IwpjJ6whp4mSr
+ WcLAaI5OlfcdYJi8njrXgWe0R6UGTjViNCCEH6TtyAt13xIzGpZQx6Vin5zHM/g5tNP9pzsw=
+X-Gm-Gg: AeBDietRows6KjXA61yJtY52b7wDr/ZdsQfkAseOWCeW+r3oM6kZSOmvi3VSAjUwPdZ
+ 5X0xcFh+GjjT+PrKJFjbQqehcDHT+LYucjEO5u1OPjMvgNTLSLneIavbxauH6v7jfTd7YibWlsp
+ JWUeU6y84x41mG2NNRpcyDEAg1/ECLl+Mi4pmVtuR6iDuelvsHIycbGPyPmo3l5VWzF1DIl/ZBb
+ LBrmPDxZ37zFeUWIn7xvGYUam/XHf9zCjhu71zR6ua4w1CU/DVtEzK3UgvV4qr22K7jvujPRC2A
+ j8fobpP5vnA3FroOGxK1H6AX/UHIR6h6xmpLGZWXGwmlnnr8JtECIILJ7CnUDp+CjUHMoOzzcnj
+ tppyY+fHe6L/Y0sOjmoKEV0HAjhl8zh9mldksamYSD4yeknnjsmoqVkwkMEwJRfvaWc5AgPUClz
+ ylCGiLBqP7HyUXAA==
+X-Received: by 2002:a05:6102:292a:b0:602:7589:6536 with SMTP id
+ ada2fe7eead31-616f4c5b722mr8143759137.2.1777295618074; 
+ Mon, 27 Apr 2026 06:13:38 -0700 (PDT)
+X-Received: by 2002:a05:6102:292a:b0:602:7589:6536 with SMTP id
+ ada2fe7eead31-616f4c5b722mr8143744137.2.1777295617483; 
+ Mon, 27 Apr 2026 06:13:37 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ba4517ec776sm1140081466b.16.2026.04.27.06.13.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 27 Apr 2026 06:13:36 -0700 (PDT)
+Message-ID: <b8cdcf95-7fb0-4d53-82fa-c7d1e986af92@oss.qualcomm.com>
+Date: Mon, 27 Apr 2026 15:13:32 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/6] clk: qcom: gdsc: Add custom disable callback for
+ GX GDSC
+To: Taniya Das <taniya.das@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Abel Vesa <abel.vesa@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+ Imran Shaik <imran.shaik@oss.qualcomm.com>,
+ Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+References: <20260427-gfx-clk-fixes-v2-0-797e54b3d464@oss.qualcomm.com>
+ <20260427-gfx-clk-fixes-v2-1-797e54b3d464@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260427-gfx-clk-fixes-v2-1-797e54b3d464@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI3MDE0MCBTYWx0ZWRfXy5P+cFs5bKjD
+ Jqs4l9OzP13xgNAWfw8X9WGNHjKu9J6KD0QrxuO/g4oXWKfGiEAFsplQIGGPzfNfO5nGVjHRD7V
+ yj61sw8WLSK+8qJIQW45OHG1v6hMNeH5r5ihTIuFl1wewjXAKA3PWqxMpOueTLc+86cTXdA4DSJ
+ q33Kb3hixzbctTSOyedCEc3/gz/+tgwKVVUXVTLeuf2DzhGL7pdgtN3e40R+8qTdCojXocNf3jG
+ +DX4/es58pDn46FxQaHI6Fme5SF71LfBMqKJxvMZ0vGaB7MTFD0uBm8d5VVf2K1VhpJw0NJiF6s
+ dMn0WwR4b8mrNlKtqdeVgcrXLrYUBJ9uxdFFTuqAPagwRRGiedZxf/ctUugdvHM1SvDpDszu9Td
+ v/l3IpHMf2JZvwrxUzTjuleiylVbNi8MgCbj7UwwCwpZkX+80LgTlJalFBRw9skso8uquV9/Zaw
+ xQeKGXia+RSOtfXoFCw==
+X-Proofpoint-GUID: Xc2J6Ed1awHpq3AV3IK7GRHd5vdvJNaM
+X-Authority-Analysis: v=2.4 cv=efANubEH c=1 sm=1 tr=0 ts=69ef6103 cx=c_pps
+ a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=aB4qEwVHbqlS5mOuu88A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=tNoRWFLymzeba-QzToBc:22
+X-Proofpoint-ORIG-GUID: Xc2J6Ed1awHpq3AV3IK7GRHd5vdvJNaM
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-27_04,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 malwarescore=0 adultscore=0 bulkscore=0 clxscore=1015
+ priorityscore=1501 lowpriorityscore=0 spamscore=0 phishscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2604270140
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,61 +158,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 27 Apr 2026 17:09:10 +0800
-Ai Chao <aichao@kylinos.cn> wrote:
-
-> Hello David and Helge
-> ...
-> > > > -            strcpy(ivideo->myid, "SiS 730");
-> > > > +            strscpy(ivideo->myid, "SiS 730");    
-> > > 
-> > > The compiler knows at build time the length of myid, and the "SIS 730" string.
-> > > Using strscpy() has no benefit here either. Contrary, the code generated
-> > > because of using strscpy() is probably even larger.
-> > > Don't replace such code with strscpy().  
+On 4/27/26 8:38 AM, Taniya Das wrote:
+> From: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
 > 
-> > Both should get converted to a memcpy().  
+> The GX GDSC is a special power domain that should only be disabled
+> by OS during GMU recovery. In all other scenarios, the GMU firmware
+> is responsible for handling its disable sequence, and OS must not
+> interfere.
 > 
-> > If you increase the literal to be too long I'm pretty sure you'll
-> > get a compiler warning/error from strcpy().
-> > OTOH strscpy() is more likely to truncate the string (I'd need to
-> > check).  
+> During the resume_noirq() phase of system resume, the GenPD framework
+> enables all power domains and later disables them in the complete()
+> phase if there are no active votes from OS. This behavior can
+> incorrectly disable the GX GDSC while the GMU firmware is still using
+> it.
 > 
-> > So leaving it as strcpy() is fine - and possibly even better.
-> > The header files might get changed to error strcpy() unless the compiler
-> > knows the source string has a constant length and the destination is
-> > big enough - but that hasn't been done yet.  
+> To prevent this, implement a custom disable callback for GX GDSC that
+> relies on GenPD’s synced_poweroff flag. The GMU driver sets this flag
+> only during recovery, allowing OS to explicitly disable GX GDSC in
+> hardware in that case. In all other situations, the disable callback
+> will avoid touching GX GDSC hardware.
 > 
-> struct sis_video_info {
->     char    myid[40];
-> }
-> I have rewritten the code: 
-> strcpy(ivideo->myid, "SiS 730-0123456789abcdefghijklmnopqrstuvwxyz0123456789");
-> Used gcc version 11.4.0 (Ubuntu 11.4.0-1ubuntu1~22.04.3)
-> There was no compiler warning or error. 
-> The strcpy copies the entire string into myid(causing a buffer overflow),
-> whereas strscpy only copies 40 characters into myid according to its size.
+> Signed-off-by: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
+> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+> ---
 
-It depends on what is in string.h and the enabled warnings.
-Testing on 'godbolt' gives an error with both gcc and clang without any
-special compilation options.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-The linux kernel build errors strcpy() at line 799 of fortify-string.h.
-strscpy() doesn't (and really shouldn't) generate an error since it is
-expected to truncate overlong strings.
-
-Since you should (at least) test compile any patches before sending them
-(even trivial ones) you ought to have things setup to have checked what
-happens in a kernel build.
-Ideally you should also run the code.
-
-This really means that strcpy() is better than strscpy() for copying fixed
-length strings into arrays.
-
-	David
-
-> 
-> Thanks,
-> Ai Chao
-> 
-
+Konrad
