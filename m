@@ -4,45 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52F2AFF8868
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 18:41:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14DC0FF8860
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 18:42:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DE5C10E8CE;
-	Mon, 27 Apr 2026 18:41:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 639EB10E8D2;
+	Mon, 27 Apr 2026 18:42:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="zZ2TnrJt";
+	dkim=pass (1024-bit key; unprotected) header.d=microsoft.com header.i=@microsoft.com header.b="PFBZxjiL";
 	dkim-atps=neutral
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5877E10E8CE
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 18:41:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
- Content-ID:Content-Description:In-Reply-To:References;
- bh=tKFjVU+J+YR0H4z/pWtJPVpnt8Lv9io4o0Njdlbzr6s=; b=zZ2TnrJtfh8aucZ8JMdrZiJO0b
- ky0vZmdvYCudxfmfilVbSli/BDHiRFdDGGf9X00wotHRB8ScpKwDf/FKKPtq2Ygf50xRsCylyUL55
- qYviv3V/gxChxCTfsN3KakeKwsbKPvqKq9OjUHp6fL8Y3SFk15OZYMb4opwhfXUw2suMW2p0syeUh
- 3MwLAuI+TKLJi+1JYdiFyQpkLvxxfnqn4G1q4W3tBf8Ph+dclMjphghkXdYzRUNnZEzehxX/wGWDJ
- RMSs0oblj37ySePSmjJG/BLJYMpfGLmg4uyW7m2BRyRKmi2Zqacva+YNhfJhxVZJT8ZJsTS+NbJ1q
- +DXDoctw==;
-Received: from [50.53.43.113] (helo=bombadil.infradead.org)
- by bombadil.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
- id 1wHQtW-0000000Harj-2Ykx; Mon, 27 Apr 2026 18:41:22 +0000
-From: Randy Dunlap <rdunlap@infradead.org>
-To: dri-devel@lists.freedesktop.org
-Cc: Randy Dunlap <rdunlap@infradead.org>, Rob Herring <robh@kernel.org>,
- Tomeu Vizoso <tomeu@tomeuvizoso.net>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11020125.outbound.protection.outlook.com [52.101.201.125])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC2B410E8D2
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 18:42:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=A6atEoWYkRAX4XRv2FedDChz4bleyri6VV4ZNmBF2M+L7RqlFSF4GE/uTlimN0DUUaKM/AcCgUziPYHc295QmACtX1f2WUFjqMXrStclZJZxigqlJM8rTLS2WIxYrmmpnz0+4GSlKlg36IC5d+5WS5zUhYqf+LYbrKmfJeIqk3inO3vmUfp5Qmdvlv3gHGFny6wzXri6xvwfGR8A9iF3cyNqRy3WB5OGh/8R+25u84AMdzhOcSOvBNv+ltHfAIsoOR8B4sb9EXQGsp9rQfCXvlZ/6Vfb5MtWU2EmpCUWd7VqSEk5496E8SNbEDmoFUz7tZe+uXbzSiwYy8s1AuL7ag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LqqPh8aSReHLCMn3DmKlF7XyaLBkZIYT6aLqF4ub1nI=;
+ b=LLep+/up7bEi0kUfU0wQ4Wf4+WyFvChWeCTMvoT18EiWcpbtdE+5oEs+e3dXdcnAKELhmZnYqvqZHN3xtt0l5S1sblqQvXmj92+s+myRa/8r6f017+yVDThpecqDtTJ0WYzs/Z6Rb5KmHYlG5u1OhXK/Yf3QGWzHQsuyrFUZYJbmW0I+MMgXYAX76XGwajfNgHRaKZ6e3wjqW89FQhfwjDdAPDJtub+X6/OK0noinhhjfZ3XzYcvFie+lC4F+n4Bdq5PbhQ8UUkO/Esuw8aBtvg0Yf6srCMqNg0DpilRgq5ch6wSP0UDv0o7uXwJneHMhAApZ52Vxb34kLPBXEY4mA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=microsoft.com; dmarc=pass action=none
+ header.from=microsoft.com; dkim=pass header.d=microsoft.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LqqPh8aSReHLCMn3DmKlF7XyaLBkZIYT6aLqF4ub1nI=;
+ b=PFBZxjiLxBsvIhgmX53Ff/yqcUqFBlfVSdqY+k8gj1fM+UFkeYbTHiWdLbHesg5OpfLIaQCzsLoN8jMeMkEJsTbgw3SAxCnKdOqgEitqoQ0Kz0kBGnImSWyFQwTpcsbtpsnA3fkibEXpKI6JafuZrpb7NiuUICbBcTxzGoIxfgQ=
+Received: from SA1PR21MB6921.namprd21.prod.outlook.com (2603:10b6:806:4a7::11)
+ by SA3PR21MB5696.namprd21.prod.outlook.com (2603:10b6:806:493::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.15; Mon, 27 Apr
+ 2026 18:42:27 +0000
+Received: from SA1PR21MB6921.namprd21.prod.outlook.com
+ ([fe80::51cf:497c:e5df:f6d]) by SA1PR21MB6921.namprd21.prod.outlook.com
+ ([fe80::51cf:497c:e5df:f6d%2]) with mapi id 15.20.9870.013; Mon, 27 Apr 2026
+ 18:42:27 +0000
+From: Dexuan Cui <DECUI@microsoft.com>
+To: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>, Saurabh Singh Sengar
+ <ssengar@microsoft.com>
+CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, KY
+ Srinivasan <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, Wei
+ Liu <wei.liu@kernel.org>, Long Li <longli@microsoft.com>, Stefano Garzarella
+ <sgarzare@redhat.com>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Himadri Pandya
+ <himadrispandya@gmail.com>, Michael Kelley <mhklinux@outlook.com>,
+ "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+ "virtualization@lists.linux.dev" <virtualization@lists.linux.dev>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>, Saurabh Sengar
+ <ssengar@linux.microsoft.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Subject: [PATCH v2] accel: Arm Ethos-U NPU: fix all uapi kernel-doc warnings
-Date: Mon, 27 Apr 2026 11:41:21 -0700
-Message-ID: <20260427184121.680672-1-rdunlap@infradead.org>
-X-Mailer: git-send-email 2.53.0
+ Simona Vetter <simona@ffwll.ch>, Deepak Rawat <drawat.floss@gmail.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "stable@kernel.vger.org" <stable@kernel.vger.org>
+Subject: RE: [PATCH 2/2] drm/hyperv: use VMBUS_RING_SIZE()
+Thread-Topic: [PATCH 2/2] drm/hyperv: use VMBUS_RING_SIZE()
+Thread-Index: AQHc1jw02yJrERFkmkeSl7gccH8LxLXzPWxQ
+Date: Mon, 27 Apr 2026 18:42:27 +0000
+Message-ID: <SA1PR21MB6921B5A2441DB3E9A1312AC0BF362@SA1PR21MB6921.namprd21.prod.outlook.com>
+References: <20260425181719.1538483-1-hamzamahfooz@linux.microsoft.com>
+ <20260425181719.1538483-2-hamzamahfooz@linux.microsoft.com>
+ <KUZP153MB14445757C6A5DA5DEDA9A09CBE292@KUZP153MB1444.APCP153.PROD.OUTLOOK.COM>
+ <ae9NxmDBTkzPP3H6@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+In-Reply-To: <ae9NxmDBTkzPP3H6@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ActionId=866de344-17d1-4da0-ae37-df720ba729ed;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ContentBits=0;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Enabled=true;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Method=Standard;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Name=Internal;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SetDate=2026-04-27T18:37:48Z;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SiteId=72f988bf-86f1-41af-91ab-2d7cd011db47;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Tag=10, 3, 0, 1;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=microsoft.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA1PR21MB6921:EE_|SA3PR21MB5696:EE_
+x-ms-office365-filtering-correlation-id: 0cf98fbb-de6e-4f13-ea49-08dea48cbb18
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|7416014|376014|1800799024|38070700021|56012099003|22082099003|18002099003;
+x-microsoft-antispam-message-info: HZyTNBGw5pDp3DxMEyljCszlE9jJDXvDjXMufGASsRxujHBoVWg3NSmGu/N8dJwF/12OlRpbM26ErfJ9BrPPXHVWU6ZwjH+hwlEK2t4YxJMspKV6MKRR5FVxjTxr6KgtGKiKJ70cawtrHiW1OsgmmYDg/+znDI/hwjVmKZoO8ey6inZR43gnkPMoCuTmIvN+WtlNkfwSOGslB99+EusMt60vZny+g5cuTA6+kZKnqri9ZCCcP21bIeSNm1ihThdCwjoNGMeQd9VllLiTxxbvpsi+ppGn8quavSe63APetxSsDD1uteWxjjA7bVbD3wIO9K3PZGD/yS7WRZFnTfSXpbB34OcTbzGZU4qdYcV61RAAznYmOf0f5KINgw3N9CiaGZnUtkVshcfbJuyZFTbxkkyCELHQKQfLQty43+QsO97iXfEvfIjf1L4qHKgxG4c5Sj/xMEz70q+xYaFfdi+hZj7ccelpgIM4GaaUGAn0unIW7jhy0pU/kUyO+cwJq6In4E3LCTTa04LQfJzQPcfVoDrksJH9vSrFZ/7Unc69+XmZ4qxit4atZuypbAJkaKe6ARuDF5yeIoO8/0PVjrwtNCYnOg/TedqDk514Wui/WMP5EGvWyJL1C8H03J6RHhEouTQuvjbfUneJji5ik/JbrRuMcuRArp4dgtMiPm3UR7zaUOHjJq4IhuF84/RP0gfMAJjGEOP7s2XN1jPsaYkRPeB6zqbFFBoMBmjKzGqR3sgMTVS60Du3PB4oCie6bmMSFtUMjBSyNf3PVDyY1rJvZKWPEIY+aiw6NvG1M5xJHvc=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA1PR21MB6921.namprd21.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(7416014)(376014)(1800799024)(38070700021)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?SPUXqpozLWgLQtrc8f8iWys7aY+CaXq9cRjdYO9ugfGE73flp1zlEWdrbMDt?=
+ =?us-ascii?Q?J9XlFzymWF7aV8jgnVqI6XbjhaKk6yvWigSAAbiijS4ybUFDVXkzzNMXB+XI?=
+ =?us-ascii?Q?Nftq5vA3kF1yDzhg+qII/v3iB3BOyIIN30522Ico5J+uTJdH7B8LnBTPBHGu?=
+ =?us-ascii?Q?e/8fA8ZdbWuJUI2qF0ExbiGzQNasDQaChnjNoOlOfu6fqO7B5Pf5sc3Y1fy/?=
+ =?us-ascii?Q?LDrj3hdZmz1Aote4NwqJ/rtFP60CuEdPSt7WcdXZtpjVRr/bFTKPwcxbJBvY?=
+ =?us-ascii?Q?i5Nt5nTsy+ymT00VfuJZfTDGrv8rBToJR7d5R1S05GQUf2BPO/y0IUjYVAHZ?=
+ =?us-ascii?Q?a48bp7hEmBOUbYf6L0DgayqaIobkGYO8ZwKcSIJfWJeTpaudYG+Bgq+pZQfu?=
+ =?us-ascii?Q?gZiWHmH/oOZevogPVWEZaTFsx+S5pWNNwZW6F0cBjgFkXgRbjTza6TgkxpBG?=
+ =?us-ascii?Q?0e4WWHZw15sDkbv6j+5cnAV/j6hw1CVImIDdAQc5St46GF4DXBWNwv4pLI/n?=
+ =?us-ascii?Q?Qm+Loak5ZoyC0Yos6CAT6rXruo5vCRrWQeUEHqvCYTH4Np25V00vvucrBYcY?=
+ =?us-ascii?Q?ZAkzdk864zmV7T49wRL6dXsARWTm64fyB7c3JBm1Z3+Oo4FUPhmfyLmpH1VB?=
+ =?us-ascii?Q?eM6aqXTe5p1MtxmMX8n0JyN6xxuFlCRUB4a0FcZcSQrTpgZkmWWnpnpNaSTc?=
+ =?us-ascii?Q?IOMkvNNOFkW9vnOpQ5zHziWluTt7t+Leb2dWmY7dZXqYuqTId3X2Rvk8dYXT?=
+ =?us-ascii?Q?Q0QdW9J81t/8BAGM1/tMOocrKSHuyHqdeyqpISSXYGY1rORssGZe6Lhcwpjc?=
+ =?us-ascii?Q?D7dWOUzT8NUrKBEnKfi2XU+ZwaB8GzCpGwpx5ScynbnzVzPBKMUThAFpygLO?=
+ =?us-ascii?Q?NGjnd5wet/3W3ADmmij2xiSs3vvr4pqbJfH7XrDo/sduZT8V6bjjYBiYslnm?=
+ =?us-ascii?Q?+A8uBE0qcVNF6B6oWNOh+UV7gvOBBFuT8+fd8XZBDXUY/xF4cEPYmhXhOSR5?=
+ =?us-ascii?Q?9N2k1UOyL2x3gLfm5q4QpG9kSYGAnBlRSNrt4YoSt2APUtZQDxNMxHzdSKpO?=
+ =?us-ascii?Q?5XLIElS3oFOGlCoI4jvNxKviy9tn8xtb9qAHKjT/Kbcs3yWB4OtJJDwJQj8p?=
+ =?us-ascii?Q?VeYGy25B/yWY0zbgQc8YM2oXpj7WflczMs913uz4svKfT8TDQW1bqbY3qgjG?=
+ =?us-ascii?Q?AWN2gsbcgOSP/wJK41hGNpCMohT0304JTlB3KUQKVP853xujph96U+KiuFYU?=
+ =?us-ascii?Q?qqeCxxhv3fP3fn85KWyzuL0IhMsporbSi7E7kLvuYQvdEm/IoKcQEgyN+hpH?=
+ =?us-ascii?Q?JfRV7usSqsUKfirMdpqlFaEWJUdBUSbLER+MIGnui5rHGfHTGKfmePW2yg9U?=
+ =?us-ascii?Q?P7wJugJEVdDc1hj+sNJTbXho7n2ZzwKKwOttC7eyJOZZaMewGHplJ17K6t7D?=
+ =?us-ascii?Q?/pjie3ibn24yZA4gvCV4tMDz6ikPUQVNczA0iydNEv19Fi5qUd+J6UqzqQ24?=
+ =?us-ascii?Q?hZ1/FyAib1dA7PFoApieXFw9UhnFtVupoEyt+7DMxPyTs5+OWit+berjTjls?=
+ =?us-ascii?Q?kbc/rKEBvbv3b0pF31JqCUhUxoJoxsJoeY5DVRd0DxwHBvwLPekeiBnSbPaR?=
+ =?us-ascii?Q?QECpJ7Y04GTHgg7nalt/Ya0cPMx+tw/yyfA7eH/2PDdQ1kDSP1zTawA+OTjE?=
+ =?us-ascii?Q?BeHhLbDcQHeSdV8S0xoyrTcnjzpXQeG3/QTrlD8jTqU4DvLE?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: microsoft.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR21MB6921.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0cf98fbb-de6e-4f13-ea49-08dea48cbb18
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Apr 2026 18:42:27.4455 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 72f988bf-86f1-41af-91ab-2d7cd011db47
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: AMKtozZnGWueXimcAAfFDjc1x/ET/61y8KX8x3/723m1J+pNC3+bIgE2G/xKgoIslK+gRXDZC44ArR+C434/sQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR21MB5696
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,132 +153,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Use correct struct names, struct member names, and kernel-doc
-format to resolve all kernel-doc warnings:
+> From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+> Sent: Monday, April 27, 2026 4:52 AM
+> To: Saurabh Singh Sengar <ssengar@microsoft.com>
+> ...
+> On Sun, Apr 26, 2026 at 05:00:24AM +0000, Saurabh Singh Sengar wrote:
+> > > Subject: [PATCH 2/2] drm/hyperv: use VMBUS_RING_SIZE()
+> > >
+> > > VMBUS ring buffers must be page aligned. So, use VMBUS_RING_SIZE() to
+> > > ensure they are always aligned and large enough to hold all of the re=
+levant
+> > > data.
+> > >
+> > > Cc: stable@kernel.vger.org
+> > > Fixes: 76c56a5affeb ("drm/hyperv: Add DRM driver for hyperv synthetic
+> > >  video device")
 
-Warning: include/uapi/drm/ethosu_accel.h:81 expecting prototype for struct
- drm_ethosu_gpu_info. Prototype was for struct drm_ethosu_npu_info instead
-Warning: include/uapi/drm/ethosu_accel.h:81 struct member 'config' not
- described in 'drm_ethosu_npu_info'
-Warning: include/uapi/drm/ethosu_accel.h:81 struct member 'sram_size' not
- described in 'drm_ethosu_npu_info'
+IMO the Fixes tag is unnecessary because the existing VMBUS_RING_BUFSIZE
+is 256KB, which is already aligned to 4KB, 16KB and 64KB.
 
-Warning: include/uapi/drm/ethosu_accel.h:172 expecting prototype for struct
- drm_ethosu_wait_bo. Prototype was for struct drm_ethosu_bo_wait instead
-Warning: include/uapi/drm/ethosu_accel.h:172 struct member 'handle' not
- described in 'drm_ethosu_bo_wait'
-Warning: include/uapi/drm/ethosu_accel.h:172 struct member 'pad' not
- described in 'drm_ethosu_bo_wait'
-Warning: include/uapi/drm/ethosu_accel.h:172 struct member 'timeout_ns' not
- described in 'drm_ethosu_bo_wait'
+VMBUS_RING_SIZE(256 * 1024) is still 256KB.
 
-Warning: include/uapi/drm/ethosu_accel.h:208 struct member 'cmd_bo' not
- described in 'drm_ethosu_job'
-Warning: include/uapi/drm/ethosu_accel.h:208 struct member 'sram_size' not
- described in 'drm_ethosu_job'
-Warning: include/uapi/drm/ethosu_accel.h:208 struct member
- 'region_bo_handles' not described in 'drm_ethosu_job'
+> > > Signed-off-by: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+> > > ---
+> > >  drivers/gpu/drm/hyperv/hyperv_drm_proto.c | 2 +-
+> > >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
+> > > b/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
+> > > index 051ecc526832..753d97bff76f 100644
+> > > --- a/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
+> > > +++ b/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
+> > > @@ -10,7 +10,7 @@
+> > >
+> > >  #include "hyperv_drm.h"
+> > >
+> > > -#define VMBUS_RING_BUFSIZE (256 * 1024)
+> > > +#define VMBUS_RING_BUFSIZE VMBUS_RING_SIZE(256 * 1024)
+> > >  #define VMBUS_VSP_TIMEOUT (10 * HZ)
+> > >
+> > >  #define SYNTHVID_VERSION(major, minor) ((minor) << 16 | (major))
+> > > --
+> > > 2.54.0
+> >
+> > Although this lgtm, but this may change the behaviour on ARM64 systems
+> with page size > 4K ?
 
-Warning: include/uapi/drm/ethosu_accel.h:224 struct member 'jobs' not
- described in 'drm_ethosu_submit'
-Warning: include/uapi/drm/ethosu_accel.h:224 struct member 'job_count' not
- described in 'drm_ethosu_submit'
-Warning: include/uapi/drm/ethosu_accel.h:224 struct member 'pad' not
- described in 'drm_ethosu_submit'
+Actually the behavior won't change, because
+VMBUS_RING_SIZE(256 * 1024) is still 256KB.
 
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
----
-v2: rebase & resend
+> > Have we tested it ?
+>=20
+> Yup, I tested it on an ARM64 windows machine with a 64K page size guest
+> kernel.
+>=20
+> >
+> > Reviewed-by: Saurabh Sengar <ssengar@linux.microsoft.com>
+>=20
+> Pushed to drm-misc.
 
-Cc: Rob Herring <robh@kernel.org>
-Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-
- include/uapi/drm/ethosu_accel.h |   24 ++++++++++++++----------
- 1 file changed, 14 insertions(+), 10 deletions(-)
-
---- linux-next-20260427.orig/include/uapi/drm/ethosu_accel.h
-+++ linux-next-20260427/include/uapi/drm/ethosu_accel.h
-@@ -60,7 +60,7 @@ enum drm_ethosu_dev_query_type {
- };
- 
- /**
-- * struct drm_ethosu_gpu_info - NPU information
-+ * struct drm_ethosu_npu_info - NPU information
-  *
-  * Structure grouping all queryable information relating to the NPU.
-  */
-@@ -75,9 +75,10 @@ struct drm_ethosu_npu_info {
- #define DRM_ETHOSU_VERSION_MINOR(x)		(((x) >> 4) & 0xff)
- #define DRM_ETHOSU_VERSION_STATUS(x)		((x) & 0xf)
- 
--	/** @gpu_rev: GPU revision. */
-+	/** @config: NPU revision. */
- 	__u32 config;
- 
-+	/** @sram_size: NPU SRAM size (KB) */
- 	__u32 sram_size;
- };
- 
-@@ -159,7 +160,7 @@ struct drm_ethosu_bo_mmap_offset {
- };
- 
- /**
-- * struct drm_ethosu_wait_bo - ioctl argument for waiting for
-+ * struct drm_ethosu_bo_wait - ioctl argument for waiting for
-  * completion of the last DRM_ETHOSU_SUBMIT on a BO.
-  *
-  * This is useful for cases where multiple processes might be
-@@ -167,9 +168,12 @@ struct drm_ethosu_bo_mmap_offset {
-  * completed.
-  */
- struct drm_ethosu_bo_wait {
-+	/** @handle: BO handle */
- 	__u32 handle;
-+	/** @pad: Reserved, must be zero. */
- 	__u32 pad;
--	__s64 timeout_ns;	/* absolute */
-+	/** @timeout_ns: Absolute timeout in ns. */
-+	__s64 timeout_ns;
- };
- 
- struct drm_ethosu_cmdstream_bo_create {
-@@ -197,14 +201,14 @@ struct drm_ethosu_cmdstream_bo_create {
-  * sequentially on the same core, to benefit from memory residency in SRAM.
-  */
- struct drm_ethosu_job {
--	/** Input: BO handle for cmdstream. */
-+	/** @cmd_bo: Input: BO handle for cmdstream. */
- 	__u32 cmd_bo;
- 
--	/** Input: Amount of SRAM to use. */
-+	/** @sram_size: Input: Amount of SRAM to use. */
- 	__u32 sram_size;
- 
- #define ETHOSU_MAX_REGIONS	8
--	/** Input: Array of BO handles for each region. */
-+	/** @region_bo_handles: Input: Array of BO handles for each region. */
- 	__u32 region_bo_handles[ETHOSU_MAX_REGIONS];
- };
- 
-@@ -214,13 +218,13 @@ struct drm_ethosu_job {
-  * The kernel will schedule the execution of these jobs in dependency order.
-  */
- struct drm_ethosu_submit {
--	/** Input: Pointer to an array of struct drm_ethosu_job. */
-+	/** @jobs: Input: Pointer to an array of struct drm_ethosu_job. */
- 	__u64 jobs;
- 
--	/** Input: Number of jobs passed in. */
-+	/** @job_count: Input: Number of jobs passed in. */
- 	__u32 job_count;
- 
--	/** Reserved, must be zero. */
-+	/** @pad: Reserved, must be zero. */
- 	__u32 pad;
- };
- 
