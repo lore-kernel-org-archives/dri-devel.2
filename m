@@ -4,139 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1FEEFF885E
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 13:04:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72E9DFF8860
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 13:06:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9FB810E2A9;
-	Mon, 27 Apr 2026 13:04:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFF0A10E2AC;
+	Mon, 27 Apr 2026 13:06:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="W5Zlwskh";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IqEYWray";
 	dkim-atps=neutral
-Received: from CWXP265CU008.outbound.protection.outlook.com
- (mail-ukwestazon11020087.outbound.protection.outlook.com [52.101.195.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 684F710E744
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 13:04:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Iiafj0DWR/NbThmTAysv96WRL/svUtSLXUy1psJoMrfajscnnTrGJnwlbbrYuCd/zMWEs9duZrR1kwZ3Ber+jJo0EzppOZj7rYAszBdzWbXivzXVbDj7z0rN9Ga8Fq5IGAB9Q6ActE7VAaY8ND5GX0zO4yJgsU+tKKBBoALUH5+lmPMtGwUND7MsE48dlZADuzdOjH6lYta1M+hWLALSXRUoM6KI3FUDvGjmWdlRKRdhyjcO0N40FQHWAwyw0H4tv2R7qfl4ly2gmFb48oQfahH26SRQh205uviE+Cmu5Cw6hFm0uYUqisuyqR7ONz7A80xDK/dxG1qK+ZCvYc5Icw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=d3xLuyvBLl8qtpsM0U2sMSWzTtQidgBi49zpQDMRu3A=;
- b=ocuFMhBAwIwSj5qkHj1VCU1aq/dDhWzs6Rny6/OSPbBVCkSfyWYbYZIodrARedUYYI+HvFkBG0CKytQLwIL0LzlEw29Glpc4MAEylBQ+MRhQhwglmNxHosaVl36SP+QB2yKovP4oiKj115kHeEpcqB/hYIxZdOb86UFvD03z1PexIpPERN1Y71VhSVikNSJDpnna0Yr7yBmXofWPrtiIlpGBKDnQQN7YQgBFF4SPM0qGKR29hXZsc3ADLujQJT3dGjBiDvfmNQiFn5OSgLnRYwFmkJo1LyT2OZhoxLVXTLiF5Li60JGd4B9FtjS9EmeDQoiyXvGQFJm9ZCMQocBEyQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=d3xLuyvBLl8qtpsM0U2sMSWzTtQidgBi49zpQDMRu3A=;
- b=W5Zlwskhrg7KHQEDsv1F9ZhxDjRJ14m0lP28HIkiM2Z/L1bmZRYCgATFA1SUswzvEXhm9TvJrfJm2TwLMRHcd6J1Unb0Iicq5ccm5BpLcR+I0dyrK9o0MQKdxF+IfE6YZtSvXq3Sjgena4mo1qkZk+LDDur77ycKvixrhpKct3o=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by CW1P265MB9152.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:270::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.23; Mon, 27 Apr
- 2026 13:04:16 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.20.9846.025; Mon, 27 Apr 2026
- 13:04:16 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 27 Apr 2026 14:04:15 +0100
-Message-Id: <DI3YIKR2CKFR.27RVO55HH5GED@garyguo.net>
-Subject: Re: [PATCH V13 5/7] rust: Make __udivdi3() and __umoddi3() panic
-From: "Gary Guo" <gary@garyguo.net>
-To: "David Laight" <david.laight.linux@gmail.com>, "Gary Guo"
- <gary@garyguo.net>
-Cc: "Mukesh Kumar Chaurasiya" <mkchauras@gmail.com>, <maddy@linux.ibm.com>,
- <mpe@ellerman.id.au>, <npiggin@gmail.com>, <chleroy@kernel.org>,
- <peterz@infradead.org>, <jpoimboe@kernel.org>, <jbaron@akamai.com>,
- <aliceryhl@google.com>, <rostedt@goodmis.org>, <ardb@kernel.org>,
- <sumit.semwal@linaro.org>, <christian.koenig@amd.com>, <ojeda@kernel.org>,
- <boqun@kernel.org>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
- <a.hindborg@kernel.org>, <tmgross@umich.edu>, <dakr@kernel.org>,
- <nathan@kernel.org>, <nick.desaulniers+lkml@gmail.com>, <morbo@google.com>,
- <justinstitt@google.com>, <tamird@kernel.org>, <arnd@arndb.de>,
- <nsc@kernel.org>, <simona.vetter@ffwll.ch>,
- <linuxppc-dev@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
- <linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linaro-mm-sig@lists.linaro.org>, <rust-for-linux@vger.kernel.org>,
- <llvm@lists.linux.dev>, "Link Mauve" <linkmauve@linkmauve.fr>
-X-Mailer: aerc 0.21.0
-References: <20260424054742.45832-1-mkchauras@gmail.com>
- <20260424054742.45832-6-mkchauras@gmail.com>
- <DI1E781QPU8F.1C28PL0089NP6@garyguo.net>
- <ae3C2gqzoVaovY-h@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
- <DI35IFD8M019.2WGRH5ADW6NOG@garyguo.net> <20260426230408.489c68c3@pumpkin>
-In-Reply-To: <20260426230408.489c68c3@pumpkin>
-X-ClientProxiedBy: LO6P123CA0007.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:338::9) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0892F10E2AC
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 13:06:01 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-4891c0620bcso69340035e9.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 06:06:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1777295159; x=1777899959; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=F8iqGCzMLvZ/FUHTnqulEZ9CiBEz3wlFLR64nRtCLLQ=;
+ b=IqEYWrayLlmrXXO3w0D32LNPBLdfAPsCb4zLbRjX7wxTKWyQYf1FpPpJGtTU/x3fRy
+ /MRohnhvtqdpMF2DrEISSU+qMrZPPZRIDaP/J3WQV/ZKm7/8gzk9L6DO+l6Ywtw/aJpn
+ XolXy1512dqc7hLBL3YnhnrimpGrm26d2zXvrivr+6EaeP8YeiNAHPQvT8TL84Dwn48L
+ In9UbeMKSXkQxOcxz6Wy9zPUgkXRnoWrOCHfAUeC5wxZeu+b/AOjtEDZ1TZgyg5i1XKl
+ 5+i+2DivNhqVzeOP6s8m5wCELeLPMKwZz+OvJEF3wFs96lkE2yFXXzOj2qRNvz7RRmkL
+ EjOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777295159; x=1777899959;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=F8iqGCzMLvZ/FUHTnqulEZ9CiBEz3wlFLR64nRtCLLQ=;
+ b=AgLMn2/4tXCM9mJiOcC6ttlQ92Wc/gj44EQGQgIcVZqwR6W3GC7sVYRU62E6UACgzR
+ +KOzRtZ2J1RX0WrdgyjCTRkVJOxILNVvWqug09ugZryLxAyHwrp2v7ue8QVEqYJ2Hn9o
+ 8FNGk/tq7nU5yfVYavkJBbRzsHvw1FqwjKz68aeXnwScNjmxbUF5oOALHa0XKMA7ii/x
+ O2NKTAinikS9/06PEj4iTAz3GY8KrKObo4+/uoy+gKsvM7fvmCqczUtDspoozESKYCQH
+ TkWFulQo/0k92yUuj5LWRHKtjCDrgdn9MnfCu5XL7i56eeMd5BOh5ZZTbqK48epaQ63l
+ tmfA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9gaysECxFoXQzsG783oea4wI2eTbUE39aoLDqOo96XKCpoceGAF33ufHjSuzbml9NDM2Ky+yCu+Is=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxJFqx6yphVjld4uN8Ld53tP8zvv+p+ny+cpn2VMbF4fe3TMVW2
+ QedMX5UAQkV+TE1JqQJ6qEwDyCGYs3MKl95c4VM800yUvpHBSVyXvP0U
+X-Gm-Gg: AeBDiesxJtYnjh0C9+b9EcOlJudx09u5tHxcnZXx49G/UCqW2RF1JBdw5S54uanhtY3
+ iSi4IwDPYMhaw5awUZd0zxiL8Ze5OnR4clhGNafc50V8bJIU1/9hreLmt/foPREVqTgRAACeZ6y
+ 6kLACyV6wkkf9XXS46FUmwmmzKg2LmtTCvBlD/4k0iaYGHChg12mSKsH8gFq59Gp97yoa9Qr0MN
+ yD7cZPg6r/nrOoBp42kiO3SNPzLOVDzAf89/jPLO3a8NnDUNUy9tWkWzSZjcm5cGCJwa/oKAfIU
+ QA3l5N9WslTKCNKnYcOgXTh/d0hA2WOOrbWfAVVgHZ1h9UPsN21oIG6+v2BoHmwlh1S4BcbY30J
+ 9e8TZ/yR41T8nocODYvOxw50XmfSb5vO9SWH0fgPjubhzBdBr5eODuYyL8MZGzQXPSjBjygQGpD
+ t++ir4fr4c5ndve+ZLelLBmoVSOKJAFkDGCH5/YIhz5m4Y5v2+VpDVeqOO7LQ6z0Ckaj44pyc97
+ 0o=
+X-Received: by 2002:a05:600c:3150:b0:480:3ad0:93bf with SMTP id
+ 5b1f17b1804b1-488fb7930famr614025895e9.24.1777295159074; 
+ Mon, 27 Apr 2026 06:05:59 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-488fb75ab25sm247366475e9.11.2026.04.27.06.05.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 27 Apr 2026 06:05:58 -0700 (PDT)
+Date: Mon, 27 Apr 2026 14:05:55 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Ai Chao <aichao@kylinos.cn>
+Cc: deller@gmx.de, nicolas.ferre@microchip.com,
+ alexandre.belloni@bootlin.com, claudiu.beznea@tuxon.dev,
+ linux@armlinux.org.uk, dilinger@queued.net, adaplas@gmail.com,
+ James.Bottomley@HansenPartnership.com, FlorianSchandinat@gmx.de,
+ alchark@gmail.com, krzk@kernel.org, kees@kernel.org, rene@exactco.de,
+ tzimmermann@suse.de, rongqianfeng@vivo.com, thorsten.blum@linux.dev,
+ chelsyratnawat2001@gmail.com, soci@c64.rulez.org,
+ gregkh@linuxfoundation.org, daniel@thingy.jp, linmq006@gmail.com,
+ fourier.thomas@gmail.com, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-geode@lists.infradead.org,
+ linux-parisc@vger.kernel.org
+Subject: Re: [PATCH 03/35] fbdev: sisfb: Use safer strscpy() instead of
+ strcpy()
+Message-ID: <20260427140555.4d001050@pumpkin>
+In-Reply-To: <20260427090910.1940231-1-aichao@kylinos.cn>
+References: <20260427090910.1940231-1-aichao@kylinos.cn>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CW1P265MB9152:EE_
-X-MS-Office365-Filtering-Correlation-Id: e7bcf125-2b74-49a4-5bfd-08dea45d7c71
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|7416014|376014|10070799003|1800799024|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: u6V4ubftfkaX2vcHzfs4NGsvDBoGOe2oDpHS1Lu5vZOKxPZwKP7MK53KN0QQ8Fj2oWt5EsIgJG3VztsR0kC+u2S6+dxKUWHqzIUgcRsjVJPWTpm6qoya1VMl2VU/tX3QMU7JOPV7XvHU/wvbcDpKJwau4YyMO9ZhkXfJccwLWbxdItxaimHAHf11uu343pz01H7W9MkFHmJi3gq/WmQdAhL4sQnJPgOJztohLTsGQycMyWh3qJf2MOXfzZuIMuFJ89WhEVU1ujFdK7mxhPGhfK9WD94jUcV6LpuG2agRSaeeI7ounlbWc1z2/akEiCjcI3a4yKTrm/U6c7s9qfDqWU4vzTGg/5Vv/nFtxjHfXcPJsbhw1fZ/cfE/pKW8oFufTZaekPntKDjq8ZuMk/ji+pjnnERoQuDn2ZgpEmyAOmwaU1UOmaU0FayNXDBcRAUVgUyLMuxXTI8lt6Twm1xR7daBL4sZbwnEVEYUU7xTPMC/vf0SrxJQLE108jvReL/57OoJj38Dcz/XurVTWkxeYtkYIZZCm9B19JaC1Lo2dmNBFtLDoQ7LwOpt8Kkscb+OxXOgD+Gv0tP+nNG64qJ+GZWheNhqdjmS7aPz7Vm/9psgdZly3P1h68tCNYusUOdQHZhwUL2rjIqr/s6Se9kAR0FYOWWsr4xc4/GutIo+2YmfKVbOW/i+xNZnxTKs7oGOYP/DSdgiP7AhmxMaRu/aUdYsFAL4ObjcrI2KFmaawgA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(7416014)(376014)(10070799003)(1800799024)(22082099003)(56012099003)(18002099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SVpsK2kwYVM0Z0s5TWluWUtack9RZTgrbGpNMTZFamFKYjltKzFaMGl0RHV2?=
- =?utf-8?B?Z1BQcHB4ZmdlZlgzNjVzUXVTRVp5dlJhU3ZqbWpWSzgzR1BGOEdvVDlnTEoz?=
- =?utf-8?B?dHIwbm5kUEVHanRNVTNkZG51Ui96NGVEYldkMXpIU1dUZDN5TG1JSVBNbHRi?=
- =?utf-8?B?Rm5ONmhJbVRDWklabEs5Sk82dkVZNWxXRXBvWVA0V3ZlTFpNTXBkWHNuZnNx?=
- =?utf-8?B?T2pMSm1aRGQrbmVMTGtiZmIyTkE2MzR5VFlTTlM0OTd6Rjh6TzlZcUlRbGhG?=
- =?utf-8?B?V0JUSHVuTjZKSWw4OVJsaGtvQVFhd1lmRFo4azZEMmNmV0lDK0djVFFoWnpl?=
- =?utf-8?B?OEVwNndVUjkwcFRpeDZLc0tmRENXb2pONHFqTis2cWJQaU1WVjR0MlhLL1M3?=
- =?utf-8?B?M2xUbEtoc2kvM0ZZRVFqOWJRZ09sOHQ3cksvWmcvT3M4MnBScFNvckdVdERU?=
- =?utf-8?B?alFjQ2lzS2RPSVc2U0F5bGZ1MDFnZFkwYVM4VmlBbFVVdnkxS05HUGZpcnlG?=
- =?utf-8?B?YkgyQjRNcWRKN0MydjU5ZU1CWGVDZEEya2tsQlM2YmdrU2h5VmVYbUcwV3Fo?=
- =?utf-8?B?VEhlUUNrTnBhMGhXTGpydWFoVTQ3ejNqek90d29mZkt5TEtYMHVyaDhwS01Z?=
- =?utf-8?B?Y1BLSWlSZ1VoZU9tQ0lpTlp1OFJvVFFwMTR4UVY1MkF5K0JEY05qKy9vWDZv?=
- =?utf-8?B?VmRrQnRQdVZ4bmh4dnVDV2F5ZC9qYWpJTXY0Wldma0ptL0EvdGMvQ3dXSHls?=
- =?utf-8?B?R1hWTjdWRy9xZW93UlQxMEtGOHFDWldkTEJ1ajdldW1FcUtmMkI2blZOSlc1?=
- =?utf-8?B?cENzdWtOVktsdHNITldVVE4vRXpUUmpndGxia2wvaVhiR0xOZ3lRUWN4MUM1?=
- =?utf-8?B?ZVFCYlZsTXlHSHhid1BpS2cxUSsrOUlhWkUvUGFhTjRYVXB1ZUVMV1BCSTVK?=
- =?utf-8?B?SWtVSndPU08rQ0k2TDlZUmpGQVJwODZMZjlERHNhK1M4UXFtSFI5VGhKends?=
- =?utf-8?B?eEtNMGRuTmZrbWwwVUpKbTJQSDFlTTVXaVhzckw5WFdNcVRBWDgxWTE0RGQz?=
- =?utf-8?B?ZFpjZFdGYnpITUs1TzVIY08wSi9LWXZMRGNkRHErNmVTekZJWFdwSjFOTTBQ?=
- =?utf-8?B?QytiUms1c2NMYWd4TU11aGlCT093VXd0dHhVNk9PSlF4VTFhY09XenRsck50?=
- =?utf-8?B?YUtHa3hiekhEeVBQMkV6cm5CZnBuR2Y1RUMxbngvaHNQVUJsT3FrM2NXSGVN?=
- =?utf-8?B?SVFYT1dKZzludThCNXZGcytKVWc5Mkp4VmlLS3p5SFdsQURsRlRDM2JJU0ht?=
- =?utf-8?B?SUo4MzV6cEtXQU1SN1lqT1B5MnhuZnlCenRxanpjUVh3WFRGNXdEMEk1dUIv?=
- =?utf-8?B?UXh1dVg5MW5ISXV4TDdUOGZ5WTZ0Y29VS293M1JtOGwyOWdUSG9IOG0xWFFo?=
- =?utf-8?B?UHdONHFmRDljOUd6dkc5NVowTzBCK05MdWIvSU50clJ0ZGFPTzM5ZkZRZlR2?=
- =?utf-8?B?dzZtYVpnYlVUQjVFSUZTdWhIUTA5UE9sZTljU1B6SVNBYUhZNHRwRFB0Wkdz?=
- =?utf-8?B?Sm9YY0RZYUZJL0dIZGZoT0VqajVhYVJaOUM5ZmtNb0hRT3hiUDFLenRHU1Fp?=
- =?utf-8?B?Nm1JNng1MHVHOXA4RDJNay8rY3h2WnMwUkdUVHhMb0d2UHJkNUZwOXBDODlj?=
- =?utf-8?B?UVVuMTdwbFhmM1hLM0NwbkVya0VpYzdkUGhwWmpCRmRYbjRaV1B2TmZIS1hT?=
- =?utf-8?B?bWF3VHVmYVlJWXhReTV4NU1uQytrK2dhRFhUdlQ2WE01clNLMUV5VXJYQlZp?=
- =?utf-8?B?LzNSaFRtWVM1dlNBWnZTVkd4TGdidXBHTVd6b1lVVisxRi9wdmFTWWxTdWto?=
- =?utf-8?B?dVcvWkltbGx0N0dsczJIR1ZvQ1RoL21zY24vd05ZaVBFQ3JLaTVSR2pJNjJL?=
- =?utf-8?B?eERiTWZ2cHQ0NGEySWJYdExoaGRvTXpLTUUzTkJwNFV0bnZydjhoOENrMXho?=
- =?utf-8?B?MExKMmNobEFMeEkwdkNDWWtOcWFHelZUdnJ1dVBCc25wZ1RLRnRpT1QxZVpy?=
- =?utf-8?B?T3U2elpuclg3WWFnbWN4bnFwVG1Md1NSSjdnQlRHanVJbnlTTXJMUDVadnFN?=
- =?utf-8?B?WjFJRmN5L28xWlhsbmZKTGJ2bzlkK21QWi9QKzBxdXNhZENRa1RoRDFSYmFM?=
- =?utf-8?B?T2JsNmNnMHVDZE5CSGlubFRHcERuTUl4VGx5b3FobzIzYWgvOHVrM25TaWJ1?=
- =?utf-8?B?QU5YTnVXdmlRd3hibXErQXN2UjFGS3Jxd1BSYXJxRk51cjJpc3dqMUMySklO?=
- =?utf-8?B?NWtubExBZUxuRUlsRHBsakpPVDgwS0Vaa3dYbG40Z1BIQXNCekFLdz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: e7bcf125-2b74-49a4-5bfd-08dea45d7c71
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Apr 2026 13:04:16.0693 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oVCGwCYcidIg8U5ZUV3zcOHSVHsCVTnyVqDQOaJqnTp9BTy/lRU7bTvRCMB39jCB2x8PFG7OVgTsMvnqSPLoyQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P265MB9152
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,71 +102,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun Apr 26, 2026 at 11:04 PM BST, David Laight wrote:
-> On Sun, 26 Apr 2026 15:20:31 +0100
-> "Gary Guo" <gary@garyguo.net> wrote:
->
->> On Sun Apr 26, 2026 at 8:52 AM BST, Mukesh Kumar Chaurasiya wrote:
->> > On Fri, Apr 24, 2026 at 01:43:43PM +0100, Gary Guo wrote: =20
->> >> On Fri Apr 24, 2026 at 6:47 AM BST, Mukesh Kumar Chaurasiya (IBM) wro=
-te: =20
->> >> > From: Link Mauve <linkmauve@linkmauve.fr>
->> >> >
->> >> > The core crate currently depends on these two functions for i64/u64=
-/
->> >> > i128/u128/core::time::Duration formatting, but we shouldn=E2=80=99t=
- use that in
->> >> > the kernel so let=E2=80=99s panic if they are ever called.
->> >> >
->> >> > This doesn=E2=80=99t yet fix drm_panic_qr.rs, which also uses __udi=
-vdi3 when
->> >> > CONFIG_CC_OPTIMIZE_FOR_SIZE=3Dy, but at least makes the rest of the=
- kernel
->> >> > build on PPC32. =20
->> >>=20
->> >> Can we always build libcore with `-C opt-level=3D2` even if
->> >> `CONFIG_CC_OPTIMIZE_FOR_SIZE` is specified? It feels like a better fi=
-x than
->> >> stubbing things out.
->> >>=20
->> >> Best,
->> >> Gary
->> >>  =20
->> > The issue is not coming from libcore itself. It's the driver that's
->> > causing this. =20
->>=20
->> Sorry. I quoted the wrong part. I was asking if compiling libcore with O=
-2 gets
->> rid of its use of the builtins, as that's what the change this commit is=
- for.
->>=20
->> Formatting of u64 will be needed, so we should make sure that these work=
-s as
->> intended.
->
-> This code (from nolibc) will convert u64 to ascii in any base:
->
-> [snip]
->
-> Not hard to do without any divides at all.
+On Mon, 27 Apr 2026 17:09:10 +0800
+Ai Chao <aichao@kylinos.cn> wrote:
 
-I mean, the exact same logic is when LLVM lowers code where divisor is cons=
-tant.
-It just that it decides that the multiply-by-inverse lowering shouldn't be =
-done
-with `Os`.
+> Hello David and Helge
+> ...
+> > > > -            strcpy(ivideo->myid, "SiS 730");
+> > > > +            strscpy(ivideo->myid, "SiS 730");    
+> > > 
+> > > The compiler knows at build time the length of myid, and the "SIS 730" string.
+> > > Using strscpy() has no benefit here either. Contrary, the code generated
+> > > because of using strscpy() is probably even larger.
+> > > Don't replace such code with strscpy().  
+> 
+> > Both should get converted to a memcpy().  
+> 
+> > If you increase the literal to be too long I'm pretty sure you'll
+> > get a compiler warning/error from strcpy().
+> > OTOH strscpy() is more likely to truncate the string (I'd need to
+> > check).  
+> 
+> > So leaving it as strcpy() is fine - and possibly even better.
+> > The header files might get changed to error strcpy() unless the compiler
+> > knows the source string has a constant length and the destination is
+> > big enough - but that hasn't been done yet.  
+> 
+> struct sis_video_info {
+>     char    myid[40];
+> }
+> I have rewritten the code: 
+> strcpy(ivideo->myid, "SiS 730-0123456789abcdefghijklmnopqrstuvwxyz0123456789");
+> Used gcc version 11.4.0 (Ubuntu 11.4.0-1ubuntu1~22.04.3)
+> There was no compiler warning or error. 
+> The strcpy copies the entire string into myid(causing a buffer overflow),
+> whereas strscpy only copies 40 characters into myid according to its size.
 
-In this case libcore is provided by Rust (think it as freestanding headers)=
-,
-that code is not part of kernel. And currently they just use constant-divis=
-or
-divide and have this task performed by LLVM. We could ask Rust to explicitl=
-y use
-multiply-by-inverse to avoid generating __udivdi3 in the future, but even i=
-f we
-do that it won't be available to already-released Rust compilers.=20
+It depends on what is in string.h and the enabled warnings.
+Testing on 'godbolt' gives an error with both gcc and clang without any
+special compilation options.
 
-In the mean time we need to workaround this.
+The linux kernel build errors strcpy() at line 799 of fortify-string.h.
+strscpy() doesn't (and really shouldn't) generate an error since it is
+expected to truncate overlong strings.
 
-Best,
-Gary
+Since you should (at least) test compile any patches before sending them
+(even trivial ones) you ought to have things setup to have checked what
+happens in a kernel build.
+Ideally you should also run the code.
+
+This really means that strcpy() is better than strscpy() for copying fixed
+length strings into arrays.
+
+	David
+
+> 
+> Thanks,
+> Ai Chao
+> 
+
