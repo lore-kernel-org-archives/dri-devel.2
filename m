@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AE9CFF885D
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 00:18:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31D35FF8850
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 00:19:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60EC210E230;
-	Mon, 27 Apr 2026 00:18:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 920AF10E50E;
+	Mon, 27 Apr 2026 00:19:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jS+NNRL6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cQanYPIp";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1FF010E230
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 00:18:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECB1410E245
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 00:19:47 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id CB6FE60138;
- Mon, 27 Apr 2026 00:17:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C28EFC2BCAF;
- Mon, 27 Apr 2026 00:17:55 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 1B06C60138;
+ Mon, 27 Apr 2026 00:19:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E56B1C2BCAF;
+ Mon, 27 Apr 2026 00:19:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777249079;
- bh=/IYygXAoENKbgEqtgqis7Wk6FfD7Ekordvwh+V5T9s8=;
+ s=k20201202; t=1777249186;
+ bh=pQcztVIYnB6HM81PuBatMXyzSIxW/tn0+1fHdpnZNBs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=jS+NNRL6OIyFXDcuKX98Ej7+D1O1cRA/ueskRCYRO5jbdQ1rsEw8kDexkLGMiV7Qy
- US9nYXLTxiwgvLiLImv0q6ui41YAegLfHtEasnBx22dJWkyrLB2WEs3e3yP8QKr42q
- tGFLu8R2DZgp56sb5x2g2sauMVAhkdXzyfKxhwS8/llIDGZGuO2raTg519KiEtHEbe
- 2CgTfixs9eURqudlcYLkUxKAur+zZJL7s8zb5Xy+h5SyeYACPRIUAeAqMuWRpKzwfy
- 5A6cJY7o4Fm+kq618IPGi10+iqHd5CLrvPWgifCVxNLdZe8Tm6rDBi2FE0BG7xw71O
- NA2HWz5WIvIqg==
+ b=cQanYPIpp1Ms8FDiRaJyeabJVSVixFFsvXNPYTxrgUObPgVJkYiGLOXjrTwIOvxtw
+ bRQab7txEy+4WvLZYDT0VyqH/k2sWU5Td1a/vACQFX/M+wfASPEUGA9zUYjfZLNTR+
+ 08b6Q5FosCD6frDh1HLoO/Sl8w2alxh2H1vyYFfLaXBtDtPVzmnDY3+o5dI/RDSPUI
+ rafJIedYMVrDxScxG7Bs9up+gpcCXDuzRHNnVOxBteAIaRLWo5zV31HiuMZiHjtYJB
+ miwdP87OsDv3QVqz8q/xG/bMYZbLGYc94DLy91HxswN8pIGtQxT03G+hTUXwof0c4w
+ HwzXsnQ83iagA==
 From: Danilo Krummrich <dakr@kernel.org>
-To: "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>
-Cc: dakr@kernel.org, aliceryhl@google.com, airlied@gmail.com, simona@ffwll.ch,
- ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
- bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org,
- tmgross@umich.edu, daniel.almeida@collabora.com, lina+kernel@asahilina.net,
- lyude@redhat.com, j@jananu.net, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH V2 0/1] Rust DRM build fix
-Date: Mon, 27 Apr 2026 02:17:50 +0200
-Message-ID: <20260427001750.1559562-1-dakr@kernel.org>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: acourbot@nvidia.com, jhubbard@nvidia.com, ecourtney@nvidia.com,
+ joelagnelf@nvidia.com, apopple@nvidia.com, ttabi@nvidia.com,
+ zhiw@nvidia.com, airlied@gmail.com, simona@ffwll.ch, aliceryhl@google.com,
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] MAINTAINERS: nova: update mailing list
+Date: Mon, 27 Apr 2026 02:19:34 +0200
+Message-ID: <20260427001934.1562415-1-dakr@kernel.org>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260426094725.2188668-1-mkchauras@gmail.com>
-References: <20260426094725.2188668-1-mkchauras@gmail.com>
+In-Reply-To: <20260423124649.38793-1-dakr@kernel.org>
+References: <20260423124649.38793-1-dakr@kernel.org>
 X-Patch-Reply: applied
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -63,18 +62,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, 26 Apr 2026 15:17:24 +0530, Mukesh Kumar Chaurasiya (IBM) wrote:
-> [PATCH V2 0/1] Rust DRM build fix
+On Thu, 23 Apr 2026 14:46:35 +0200, Danilo Krummrich wrote:
+> [PATCH] MAINTAINERS: nova: update mailing list
 
 Applied, thanks!
 
   Branch: drm-rust-next
   Tree:   https://gitlab.freedesktop.org/drm/rust/kernel.git
 
-[1/1] rust/drm: import ARef from sync crate
-      commit: 5f69165b7e42
-
-      [ Add missing Fixes: tag. - Danilo ]
+[1/1] MAINTAINERS: nova: update mailing list
+      commit: 15e8bae5d930
 
 The patch will appear in the next linux-next integration (typically within 24
 hours on weekdays).
