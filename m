@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99105FF8864
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 22:14:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EF2EFF8867
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 22:14:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E85C10E982;
-	Mon, 27 Apr 2026 22:14:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5137310E984;
+	Mon, 27 Apr 2026 22:14:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eFgnlEm3";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="W75RH2Y9";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A08510E982
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 22:14:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1C1210E984
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 22:14:20 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 2C34D40E0B;
- Mon, 27 Apr 2026 22:14:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3004DC19425;
- Mon, 27 Apr 2026 22:14:02 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C0C994150C;
+ Mon, 27 Apr 2026 22:14:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C523EC19425;
+ Mon, 27 Apr 2026 22:14:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777328048;
- bh=oDLfz4P+cSYONbkhLgBov+ZXz5OHB6gJXhSmiwV6qCg=;
+ s=k20201202; t=1777328060;
+ bh=+vCZJoneZObXHz+HrSLsZDDMk+BGXI4VJJ4WNODomsU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=eFgnlEm3pXg0eh312U6fN2BXIxcUv+3BK/HvTQvxBpeyfFlsq75qrE28AMPb8sRuX
- Pr/Pv7dZIaEWsENJXnWAQnkU4n7ynPxpeQR+yLTS53RX4kCRHqFas5WyBPtqJkjx01
- ILKaNS0fdNS2mbtISXFmHUpph7D09Y+odVxPqvq1uC6jEIkPNUhtS3qyUFBznuTxsO
- TzuLthDfWjJn3ivkrCJdamlvkw4E9gP9C/MKAlgAaCOj780p6ArfelGybOkd21gj8/
- UHT+FQqvmH3wBafkn1BDQcrc6EmlUdxxYMyFb/KJXr1GSfQAntxNoTJ8US+pNWifBH
- u/viU9eFZOmoA==
+ b=W75RH2Y9F/+siwPQ1JHURZcogobZ9/VrlGLtxYgFA1gLCsqjOxrPQg1XKsISLV87C
+ fQsa1U+tA3GM6aDw9oqcXpq5cLE+zLKREDMDG8R4OU9DliimeWPWQlG3kyJA7b5S7z
+ ooGGLlzy1lXyPGwJ5q3stU6oLo6vInOjyWIa6D2C/FoLh6wMzJiRKEiVCBmR3IQgKe
+ K7BFdXEiftt7WobIFyHxAHliiFeowDzCMDGRqPmLbKKR/m4a1yUzwHJVmPydCDKmIG
+ yGznAjvJr6qehxk0Y5WUo7FrhKCcPUS5wIOfw08fSkAlbj9rXqvhoP1GC5FQqwFXIw
+ pUy8/Ka1tYgpA==
 From: Danilo Krummrich <dakr@kernel.org>
 To: gregkh@linuxfoundation.org, rafael@kernel.org, acourbot@nvidia.com,
  aliceryhl@google.com, david.m.ertman@intel.com, ira.weiny@intel.com,
@@ -44,10 +44,9 @@ Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
  linux-pm@vger.kernel.org, linux-pwm@vger.kernel.org,
  linux-pci@vger.kernel.org, rust-for-linux@vger.kernel.org,
  Danilo Krummrich <dakr@kernel.org>
-Subject: [PATCH 19/24] rust: io: make IoMem and ExclusiveIoMem
- lifetime-parameterized
-Date: Tue, 28 Apr 2026 00:11:17 +0200
-Message-ID: <20260427221155.2144848-20-dakr@kernel.org>
+Subject: [PATCH REF 21/24] gpu: nova-core: use HRT lifetime for Bar
+Date: Tue, 28 Apr 2026 00:11:19 +0200
+Message-ID: <20260427221155.2144848-22-dakr@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260427221155.2144848-1-dakr@kernel.org>
 References: <20260427221155.2144848-1-dakr@kernel.org>
@@ -68,275 +67,200 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a lifetime parameter to IoMem<'a, SIZE> and ExclusiveIoMem<'a,
-SIZE>, storing a &'a Device<Bound> reference to tie the mapping to the
-device's lifetime.
+Take advantage of the lifetime-parameterized pci::Bar<'a> to hold the
+BAR mapping directly in NovaCore<'a>, and pass a borrowed reference to
+Gpu<'a>.
 
-This mirrors the pci::Bar<'a, SIZE> design and enables drivers to hold
-I/O memory mappings directly in their HRT private data, tied to the
-device lifetime.
-
-IoRequest::iomap_* methods now return the mapping directly instead of
-wrapping it in Devres. Callers that need device-managed revocation can
-call the new into_devres() method.
+This eliminates the Arc<Devres<Bar0>> indirection, removes runtime
+revocation checks for BAR access, and simplifies Gpu::unbind().
 
 Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 ---
- drivers/gpu/drm/tyr/driver.rs |   4 +-
- drivers/pwm/pwm_th1520.rs     |   4 +-
- rust/kernel/io/mem.rs         | 102 +++++++++++++++++-----------------
- 3 files changed, 55 insertions(+), 55 deletions(-)
+ drivers/gpu/nova-core/driver.rs    | 40 ++++++++++++++----------------
+ drivers/gpu/nova-core/gpu.rs       | 27 ++++++++------------
+ drivers/gpu/nova-core/nova_core.rs |  2 +-
+ 3 files changed, 30 insertions(+), 39 deletions(-)
 
-diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
-index 7cc47ec76863..eaa84efdfdf7 100644
---- a/drivers/gpu/drm/tyr/driver.rs
-+++ b/drivers/gpu/drm/tyr/driver.rs
-@@ -37,7 +37,7 @@
-     regs, //
+diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver.rs
+index 149a20748e86..ec9cecb30f63 100644
+--- a/drivers/gpu/nova-core/driver.rs
++++ b/drivers/gpu/nova-core/driver.rs
+@@ -14,12 +14,9 @@
+     },
+     prelude::*,
+     sizes::SZ_16M,
+-    sync::{
+-        atomic::{
+-            Atomic,
+-            Relaxed, //
+-        },
+-        Arc,
++    sync::atomic::{
++        Atomic,
++        Relaxed, //
+     },
+     types::ForLt,
+ };
+@@ -30,9 +27,10 @@
+ static AUXILIARY_ID_COUNTER: Atomic<u32> = Atomic::new(0);
+ 
+ #[pin_data]
+-pub(crate) struct NovaCore {
++pub(crate) struct NovaCore<'a> {
+     #[pin]
+-    pub(crate) gpu: Gpu,
++    pub(crate) gpu: Gpu<'a>,
++    bar: pci::Bar<'a, BAR0_SIZE>,
+     #[allow(clippy::type_complexity)]
+     _reg: Devres<auxiliary::Registration<ForLt!(())>>,
+ }
+@@ -47,12 +45,12 @@ pub(crate) struct NovaCore {
+ // DMA addresses. These systems should be quite rare.
+ const GPU_DMA_BITS: u32 = 47;
+ 
+-pub(crate) type Bar0 = pci::Bar<'static, BAR0_SIZE>;
++pub(crate) type Bar0 = kernel::io::Mmio<BAR0_SIZE>;
+ 
+ kernel::pci_device_table!(
+     PCI_TABLE,
+     MODULE_PCI_TABLE,
+-    <NovaCore as pci::Driver<'_>>::IdInfo,
++    <NovaCore<'_> as pci::Driver<'_>>::IdInfo,
+     [
+         // Modern NVIDIA GPUs will show up as either VGA or 3D controllers.
+         (
+@@ -74,7 +72,7 @@ pub(crate) struct NovaCore {
+     ]
+ );
+ 
+-impl<'a> pci::Driver<'a> for NovaCore {
++impl<'a> pci::Driver<'a> for NovaCore<'a> {
+     type IdInfo = ();
+     const ID_TABLE: pci::IdTable<Self::IdInfo> = &PCI_TABLE;
+ 
+@@ -93,14 +91,14 @@ fn probe(
+             // other threads of execution.
+             unsafe { pdev.dma_set_mask_and_coherent(DmaMask::new::<GPU_DMA_BITS>())? };
+ 
+-            let bar = Arc::new(
+-                pdev.iomap_region_sized::<BAR0_SIZE>(0, c"nova-core/bar0")?
+-                    .into_devres()?,
+-                GFP_KERNEL,
+-            )?;
+-
+-            Ok(try_pin_init!(Self {
+-                gpu <- Gpu::new(pdev, bar.clone(), bar.access(pdev.as_ref())?),
++            Ok(try_pin_init!(NovaCore {
++                bar: pdev.iomap_region_sized::<BAR0_SIZE>(0, c"nova-core/bar0")?,
++                // TODO: Use `&bar` self-referential pin-init syntax once available.
++                //
++                // SAFETY: `bar` is initialized before this expression is evaluated
++                // (`try_pin_init!()` initializes fields in declaration order), lives at a pinned
++                // stable address, and is dropped after `gpu` (struct field drop order).
++                gpu <- Gpu::new(pdev, unsafe { &*core::ptr::from_ref(bar) }),
+                 _reg: auxiliary::Registration::new(
+                     pdev.as_ref(),
+                     c"nova-drm",
+@@ -114,7 +112,7 @@ fn probe(
+         })
+     }
+ 
+-    fn unbind(pdev: &pci::Device<Core>, this: Pin<&Self>) {
+-        this.gpu.unbind(pdev.as_ref());
++    fn unbind(_pdev: &'a pci::Device<Core>, this: Pin<&'a Self>) {
++        this.gpu.unbind();
+     }
+ }
+diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
+index 0f6fe9a1b955..922197f2aeef 100644
+--- a/drivers/gpu/nova-core/gpu.rs
++++ b/drivers/gpu/nova-core/gpu.rs
+@@ -2,13 +2,11 @@
+ 
+ use kernel::{
+     device,
+-    devres::Devres,
+     fmt,
+     io::Io,
+     num::Bounded,
+     pci,
+-    prelude::*,
+-    sync::Arc, //
++    prelude::*, //
  };
  
--pub(crate) type IoMem = kernel::io::mem::IoMem<SZ_2M>;
-+pub(crate) type IoMem = kernel::io::mem::IoMem<'static, SZ_2M>;
+ use crate::{
+@@ -224,10 +222,10 @@ fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
  
- pub(crate) struct TyrDrmDriver;
+ /// Structure holding the resources required to operate the GPU.
+ #[pin_data]
+-pub(crate) struct Gpu {
++pub(crate) struct Gpu<'a> {
+     spec: Spec,
+-    /// MMIO mapping of PCI BAR 0
+-    bar: Arc<Devres<Bar0>>,
++    /// MMIO mapping of PCI BAR 0.
++    bar: &'a Bar0,
+     /// System memory page required for flushing all pending GPU-side memory writes done through
+     /// PCIE into system memory, via sysmembar (A GPU-initiated HW memory-barrier operation).
+     sysmem_flush: SysmemFlush,
+@@ -240,10 +238,9 @@ pub(crate) struct Gpu {
+     gsp: Gsp,
+ }
  
-@@ -109,7 +109,7 @@ fn probe(
-         let sram_regulator = Regulator::<regulator::Enabled>::get(pdev.as_ref(), c"sram")?;
+-impl Gpu {
+-    pub(crate) fn new<'a>(
++impl<'a> Gpu<'a> {
++    pub(crate) fn new(
+         pdev: &'a pci::Device<device::Bound>,
+-        devres_bar: Arc<Devres<Bar0>>,
+         bar: &'a Bar0,
+     ) -> impl PinInit<Self, Error> + 'a {
+         try_pin_init!(Self {
+@@ -257,6 +254,8 @@ pub(crate) fn new<'a>(
+                     .inspect_err(|_| dev_err!(pdev, "GFW boot did not complete\n"))?;
+             },
  
-         let request = pdev.io_request_by_index(0).ok_or(ENODEV)?;
--        let iomem = Arc::pin_init(request.iomap_sized::<SZ_2M>(), GFP_KERNEL)?;
-+        let iomem = Arc::new(request.iomap_sized::<SZ_2M>()?.into_devres()?, GFP_KERNEL)?;
++            bar,
++
+             sysmem_flush: SysmemFlush::register(pdev.as_ref(), bar, spec.chipset)?,
  
-         issue_soft_reset(pdev.as_ref(), &iomem)?;
-         gpu::l2_power_on(pdev.as_ref(), &iomem)?;
-diff --git a/drivers/pwm/pwm_th1520.rs b/drivers/pwm/pwm_th1520.rs
-index 7139f3f4373d..a45fe359c371 100644
---- a/drivers/pwm/pwm_th1520.rs
-+++ b/drivers/pwm/pwm_th1520.rs
-@@ -92,7 +92,7 @@ struct Th1520WfHw {
- #[pin_data(PinnedDrop)]
- struct Th1520PwmDriverData {
+             gsp_falcon: Falcon::new(
+@@ -270,19 +269,13 @@ pub(crate) fn new<'a>(
+             gsp <- Gsp::new(pdev),
+ 
+             _: { gsp.boot(pdev, bar, spec.chipset, gsp_falcon, sec2_falcon)? },
+-
+-            bar: devres_bar,
+         })
+     }
+ 
+     /// Called when the corresponding [`Device`](device::Device) is unbound.
+     ///
+     /// Note: This method must only be called from `Driver::unbind`.
+-    pub(crate) fn unbind(&self, dev: &device::Device<device::Core>) {
+-        kernel::warn_on!(self
+-            .bar
+-            .access(dev)
+-            .inspect(|bar| self.sysmem_flush.unregister(bar))
+-            .is_err());
++    pub(crate) fn unbind(&self) {
++        self.sysmem_flush.unregister(self.bar);
+     }
+ }
+diff --git a/drivers/gpu/nova-core/nova_core.rs b/drivers/gpu/nova-core/nova_core.rs
+index 49c093a0cb42..ed5eb39c8201 100644
+--- a/drivers/gpu/nova-core/nova_core.rs
++++ b/drivers/gpu/nova-core/nova_core.rs
+@@ -49,7 +49,7 @@ struct NovaCoreModule {
+     // then `_debugfs_guard` clears `DEBUGFS_ROOT`.
+     #[allow(clippy::type_complexity)]
      #[pin]
--    iomem: devres::Devres<IoMem<TH1520_PWM_REG_SIZE>>,
-+    iomem: devres::Devres<IoMem<'static, TH1520_PWM_REG_SIZE>>,
-     clk: Clk,
+-    _driver: Registration<pci::Adapter<ForLt!(driver::NovaCore)>>,
++    _driver: Registration<pci::Adapter<ForLt!(driver::NovaCore<'_>)>>,
+     _debugfs_guard: DebugfsRootGuard,
  }
  
-@@ -351,7 +351,7 @@ fn probe(
-             dev,
-             TH1520_MAX_PWM_NUM,
-             try_pin_init!(Th1520PwmDriverData {
--                iomem <- request.iomap_sized::<TH1520_PWM_REG_SIZE>(),
-+                iomem <- request.iomap_sized::<TH1520_PWM_REG_SIZE>()?.into_devres(),
-                 clk <- clk,
-             }),
-         )?;
-diff --git a/rust/kernel/io/mem.rs b/rust/kernel/io/mem.rs
-index a483e59054e8..12b773bc994d 100644
---- a/rust/kernel/io/mem.rs
-+++ b/rust/kernel/io/mem.rs
-@@ -73,22 +73,19 @@ pub(crate) unsafe fn new(device: &'a Device<Bound>, resource: &'a Resource) -> S
-     ///       //
-     ///       // No runtime checks will apply when reading and writing.
-     ///       let request = pdev.io_request_by_index(0).ok_or(ENODEV)?;
--    ///       let iomem = request.iomap_sized::<42>();
--    ///       let iomem = KBox::pin_init(iomem, GFP_KERNEL)?;
--    ///
--    ///       let io = iomem.access(pdev.as_ref())?;
-+    ///       let iomem = request.iomap_sized::<42>()?;
-     ///
-     ///       // Read and write a 32-bit value at `offset`.
--    ///       let data = io.read32(offset);
-+    ///       let data = iomem.read32(offset);
-     ///
--    ///       io.write32(data, offset);
-+    ///       iomem.write32(data, offset);
-     ///
-     ///       # Ok(SampleDriver)
-     ///     }
-     /// }
-     /// ```
--    pub fn iomap_sized<const SIZE: usize>(self) -> impl PinInit<Devres<IoMem<SIZE>>, Error> + 'a {
--        IoMem::new(self)
-+    pub fn iomap_sized<const SIZE: usize>(self) -> Result<IoMem<'a, SIZE>> {
-+        IoMem::ioremap(self.device, self.resource)
-     }
- 
-     /// Same as [`Self::iomap_sized`] but with exclusive access to the
-@@ -97,10 +94,8 @@ pub fn iomap_sized<const SIZE: usize>(self) -> impl PinInit<Devres<IoMem<SIZE>>,
-     /// This uses the [`ioremap()`] C API.
-     ///
-     /// [`ioremap()`]: https://docs.kernel.org/driver-api/device-io.html#getting-access-to-the-device
--    pub fn iomap_exclusive_sized<const SIZE: usize>(
--        self,
--    ) -> impl PinInit<Devres<ExclusiveIoMem<SIZE>>, Error> + 'a {
--        ExclusiveIoMem::new(self)
-+    pub fn iomap_exclusive_sized<const SIZE: usize>(self) -> Result<ExclusiveIoMem<'a, SIZE>> {
-+        ExclusiveIoMem::ioremap(self.device, self.resource)
-     }
- 
-     /// Maps an [`IoRequest`] where the size is not known at compile time,
-@@ -138,27 +133,24 @@ pub fn iomap_exclusive_sized<const SIZE: usize>(
-     ///       // family of functions should be used, leading to runtime checks on every
-     ///       // access.
-     ///       let request = pdev.io_request_by_index(0).ok_or(ENODEV)?;
--    ///       let iomem = request.iomap();
--    ///       let iomem = KBox::pin_init(iomem, GFP_KERNEL)?;
--    ///
--    ///       let io = iomem.access(pdev.as_ref())?;
-+    ///       let iomem = request.iomap()?;
-     ///
--    ///       let data = io.try_read32(offset)?;
-+    ///       let data = iomem.try_read32(offset)?;
-     ///
--    ///       io.try_write32(data, offset)?;
-+    ///       iomem.try_write32(data, offset)?;
-     ///
-     ///       # Ok(SampleDriver)
-     ///     }
-     /// }
-     /// ```
--    pub fn iomap(self) -> impl PinInit<Devres<IoMem<0>>, Error> + 'a {
--        Self::iomap_sized::<0>(self)
-+    pub fn iomap(self) -> Result<IoMem<'a>> {
-+        self.iomap_sized::<0>()
-     }
- 
-     /// Same as [`Self::iomap`] but with exclusive access to the underlying
-     /// region.
--    pub fn iomap_exclusive(self) -> impl PinInit<Devres<ExclusiveIoMem<0>>, Error> + 'a {
--        Self::iomap_exclusive_sized::<0>(self)
-+    pub fn iomap_exclusive(self) -> Result<ExclusiveIoMem<'a, 0>> {
-+        self.iomap_exclusive_sized::<0>()
-     }
- }
- 
-@@ -167,9 +159,9 @@ pub fn iomap_exclusive(self) -> impl PinInit<Devres<ExclusiveIoMem<0>>, Error> +
- /// # Invariants
- ///
- /// - [`ExclusiveIoMem`] has exclusive access to the underlying [`IoMem`].
--pub struct ExclusiveIoMem<const SIZE: usize> {
-+pub struct ExclusiveIoMem<'a, const SIZE: usize> {
-     /// The underlying `IoMem` instance.
--    iomem: IoMem<SIZE>,
-+    iomem: IoMem<'a, SIZE>,
- 
-     /// The region abstraction. This represents exclusive access to the
-     /// range represented by the underlying `iomem`.
-@@ -178,9 +170,9 @@ pub struct ExclusiveIoMem<const SIZE: usize> {
-     _region: Region,
- }
- 
--impl<const SIZE: usize> ExclusiveIoMem<SIZE> {
-+impl<'a, const SIZE: usize> ExclusiveIoMem<'a, SIZE> {
-     /// Creates a new `ExclusiveIoMem` instance.
--    fn ioremap(resource: &Resource) -> Result<Self> {
-+    fn ioremap(dev: &'a Device<Bound>, resource: &Resource) -> Result<Self> {
-         let start = resource.start();
-         let size = resource.size();
-         let name = resource.name().unwrap_or_default();
-@@ -194,26 +186,29 @@ fn ioremap(resource: &Resource) -> Result<Self> {
-             )
-             .ok_or(EBUSY)?;
- 
--        let iomem = IoMem::ioremap(resource)?;
-+        let iomem = IoMem::ioremap(dev, resource)?;
- 
--        let iomem = ExclusiveIoMem {
-+        Ok(ExclusiveIoMem {
-             iomem,
-             _region: region,
--        };
--
--        Ok(iomem)
-+        })
-     }
- 
--    /// Creates a new `ExclusiveIoMem` instance from a previously acquired [`IoRequest`].
--    pub fn new<'a>(io_request: IoRequest<'a>) -> impl PinInit<Devres<Self>, Error> + 'a {
--        let dev = io_request.device;
--        let res = io_request.resource;
--
--        Devres::new(dev, Self::ioremap(res))
-+    /// Consume the `ExclusiveIoMem` and register it as a device-managed resource.
-+    ///
-+    /// The returned `Devres<ExclusiveIoMem<'static, SIZE>>` can outlive the original lifetime
-+    /// `'a`. Access to the I/O memory is revoked when the device is unbound.
-+    pub fn into_devres(self) -> Result<Devres<ExclusiveIoMem<'static, SIZE>>> {
-+        // SAFETY: Casting to `'static` is sound because `Devres` guarantees the
-+        // `ExclusiveIoMem` does not actually outlive the device -- access is revoked and the
-+        // resource is released when the device is unbound.
-+        let iomem: ExclusiveIoMem<'static, SIZE> = unsafe { core::mem::transmute(self) };
-+        let dev = iomem.iomem.dev;
-+        Devres::new(dev, iomem)
-     }
- }
- 
--impl<const SIZE: usize> Deref for ExclusiveIoMem<SIZE> {
-+impl<const SIZE: usize> Deref for ExclusiveIoMem<'_, SIZE> {
-     type Target = Mmio<SIZE>;
- 
-     fn deref(&self) -> &Self::Target {
-@@ -230,12 +225,13 @@ fn deref(&self) -> &Self::Target {
- ///
- /// [`IoMem`] always holds an [`MmioRaw`] instance that holds a valid pointer to the
- /// start of the I/O memory mapped region.
--pub struct IoMem<const SIZE: usize = 0> {
-+pub struct IoMem<'a, const SIZE: usize = 0> {
-+    dev: &'a Device<Bound>,
-     io: MmioRaw<SIZE>,
- }
- 
--impl<const SIZE: usize> IoMem<SIZE> {
--    fn ioremap(resource: &Resource) -> Result<Self> {
-+impl<'a, const SIZE: usize> IoMem<'a, SIZE> {
-+    fn ioremap(dev: &'a Device<Bound>, resource: &Resource) -> Result<Self> {
-         // Note: Some ioremap() implementations use types that depend on the CPU
-         // word width rather than the bus address width.
-         //
-@@ -267,28 +263,32 @@ fn ioremap(resource: &Resource) -> Result<Self> {
-         }
- 
-         let io = MmioRaw::new(addr as usize, size)?;
--        let io = IoMem { io };
- 
--        Ok(io)
-+        Ok(IoMem { dev, io })
-     }
- 
--    /// Creates a new `IoMem` instance from a previously acquired [`IoRequest`].
--    pub fn new<'a>(io_request: IoRequest<'a>) -> impl PinInit<Devres<Self>, Error> + 'a {
--        let dev = io_request.device;
--        let res = io_request.resource;
--
--        Devres::new(dev, Self::ioremap(res))
-+    /// Consume the `IoMem` and register it as a device-managed resource.
-+    ///
-+    /// The returned `Devres<IoMem<'static, SIZE>>` can outlive the original lifetime `'a`. Access
-+    /// to the I/O memory is revoked when the device is unbound.
-+    pub fn into_devres(self) -> Result<Devres<IoMem<'static, SIZE>>> {
-+        // SAFETY: Casting to `'static` is sound because `Devres` guarantees the `IoMem` does not
-+        // actually outlive the device -- access is revoked and the resource is released when the
-+        // device is unbound.
-+        let iomem: IoMem<'static, SIZE> = unsafe { core::mem::transmute(self) };
-+        let dev = iomem.dev;
-+        Devres::new(dev, iomem)
-     }
- }
- 
--impl<const SIZE: usize> Drop for IoMem<SIZE> {
-+impl<const SIZE: usize> Drop for IoMem<'_, SIZE> {
-     fn drop(&mut self) {
-         // SAFETY: Safe as by the invariant of `Io`.
-         unsafe { bindings::iounmap(self.io.addr() as *mut c_void) }
-     }
- }
- 
--impl<const SIZE: usize> Deref for IoMem<SIZE> {
-+impl<const SIZE: usize> Deref for IoMem<'_, SIZE> {
-     type Target = Mmio<SIZE>;
- 
-     fn deref(&self) -> &Self::Target {
 -- 
 2.54.0
 
