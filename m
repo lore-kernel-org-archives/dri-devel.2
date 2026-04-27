@@ -4,80 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 861F0FF8867
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 10:10:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A3E4FF8877
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 10:10:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30DE910EF18;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36B9F10EF27;
 	Wed, 29 Apr 2026 10:10:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imd-tec.com header.i=@imd-tec.com header.b="cQRjuZ+x";
+	dkim=pass (2048-bit key; secure) header.d=tennr.com header.i=@tennr.com header.b="ZyrjZyNn";
 	dkim-atps=neutral
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B08910E7B3
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 15:22:31 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-48896199cbaso103189875e9.1
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 08:22:31 -0700 (PDT)
+Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com
+ [209.85.222.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 358C310E995
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 22:58:47 +0000 (UTC)
+Received: by mail-qk1-f176.google.com with SMTP id
+ af79cd13be357-8eb5ad01402so958408785a.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 15:58:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=imd-tec.com; s=google; t=1777303350; x=1777908150; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=kxIlr02u0245SQX0aOke1TpITzvCVNhVlaMNlcxWD0s=;
- b=cQRjuZ+xxApBoyPP04sksrRna03K0UyRy5ZYRex+we1+GWx9kfjQHWV01ccQMPwSfr
- qKMYVpEsMaBry4zwSofhVbgYC4bHNPXEwKJ2KP/7F2rh6KYGWGKY/MP4J7DjxS4Fw4rZ
- EsfIuk8lOX7ZQzX4erU4ZeGclQwbquBJIPc1Y00A4/EE78vuRJp+MteVwqgRVA8VjzXc
- gklbPOV4tYenaP2oJRS3FryB+/Yi2lckBkjjNvQgS48O0dj0bS5774WqpybNrx7t2Vab
- LRdFGXcOSAveEddo/2ozr8JUiyLK6PRfVpvxaXtpW9lMr54fm3ViAqaTgbIL/ecTEbKC
- zXjw==
+ d=tennr.com; s=google; t=1777330726; x=1777935526; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:from:content-language:subject:cc:to
+ :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=+tTpdXP31L/w3dxQzZkwmCqv09pS8R5zE05I+AiYdQk=;
+ b=ZyrjZyNn3ABt3/p4NWXBbNd04lYE0+0jyeIPKvenHpZ9iCeRAYr4W4GNXY/547JpJi
+ H8uaVyf4FNFuBCKlwjCm+lZk0gqkQHFKn0q7PATaQvYgwfEBT8fKKSRhVtlcniZkP87T
+ r1/GZjICSDu08x01ZsGQ8zwzJJnlko/4P1eLQ32JU1jL6j2aYvYrtbKq1M1sVMsWoYNy
+ v086Kt/FQmGY2e/skbHcAJiMqNHPtjslJTIfQC1IRA1K9mcV+TSScVMsHhd8joLOd76w
+ 9iiainnGLj3e/+bw/wBG+LHeIFnQppcV179NilQSywwh73/oaw/bUDcdz0wM62K+pS17
+ KEgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777303350; x=1777908150;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=kxIlr02u0245SQX0aOke1TpITzvCVNhVlaMNlcxWD0s=;
- b=gLieE6iCZyAsFH02UKvvDMRpKp7kiHNAXLijEp1S7TSOP7iEhmG5DJ87103bndN4pk
- sYV5VgwqMuRRQUrbLG+yi225qiB4TniAvaHGdCZuxLk/TYfB3s1AwASw/BrYPfLmpkNe
- +HBKEcbQrc9bFRUw/F2RQIOSnJScPpOybsnqpG793/OTwTh4WDSExnK/FlZUrZuLKSPH
- ovF8lmpSjrrZ235sC5c8+ZCPDtqpRw8S9fRvgm7FzNSMgcC2Q63iBcbHnyrkMLqv6dFu
- z4ZkLiivXjOJk3I4z+g5Mvzsk9ZGYrqv4yuDEPAjy7f0DPFi90Aw0/h41HEaYdQOlwup
- LhIA==
-X-Gm-Message-State: AOJu0YzJMVPpqAUT8QRkoY+uiuosE/6Xu18dO9eaLHIPw82UGn7k51qJ
- oGb9UohxDDBkjRvg9+F46mn8F76vqVy5dFMLy14yTtI2LAj/wO4W1Y5B48OO77MQWUY=
-X-Gm-Gg: AeBDievZRHVg7hELSSwQ1MKXAi430hT4Gk/BlucHyCTdVaaJf3UcKjpd9f0vl5Dg0Qh
- GGO6S7jgtviu/vMhRxy0cKGVVXRSc+xd45OFtU7dVEqlWjxhRGdPc7ZzLYzulvK8tqa5cSqzNrk
- 9JSADgv5HGQand4m3h4UJJENHLtO59Xsn8bEgl9Cv70a1YhqAsOhH3YoW4nqq2fgDXrA/xuOnh1
- 24vgRmhWZx1oiXikIVOA9ZI6L7XPLUje823+tdDDe71ZFNtWDxMUGV2Lad0oK3JgacxoHzJSKc/
- kHQIFLZKVaIvIQ87xwRiYT+luclMRvMeMLTMc42TmajmIJAB2AYWRfEXFl8s7HvqSxl8cohsMps
- mxJsMNXgFSka7nqtCnf8Z4F04HgTC6daGUa9qocQZQey51dy7KqILYhObNLsVl0g571ARGgKzjE
- 5iZV1/n35ZUhD/eFMzs9qZU37dZ4EUogWqfqI1ZsC51Armaq3BO73nH+R4qee1ThgT/C9YWtLmf
- tZzQ1B298p50h5Ki3kEXqatIv60uw==
-X-Received: by 2002:a05:600c:4f92:b0:48a:f18:ece4 with SMTP id
- 5b1f17b1804b1-48a0f18edf7mr408561105e9.24.1777303349827; 
- Mon, 27 Apr 2026 08:22:29 -0700 (PDT)
-Received: from [127.0.1.1] ([82.71.135.85]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-488fc0f8188sm861247695e9.2.2026.04.27.08.22.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Apr 2026 08:22:29 -0700 (PDT)
-From: William Bright <william.bright@imd-tec.com>
-Date: Mon, 27 Apr 2026 16:21:09 +0100
-Subject: [PATCH 1/2] dt-bindings: display: panel: Add TSD TST070WSBE-196C panel
+ d=1e100.net; s=20251104; t=1777330726; x=1777935526;
+ h=content-transfer-encoding:from:content-language:subject:cc:to
+ :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=+tTpdXP31L/w3dxQzZkwmCqv09pS8R5zE05I+AiYdQk=;
+ b=lE4VZ+jYfe2SDQJHapJ9m6Ybtr2FCW97rGQWj8qmM4frzH2jF8ikLumwTq4MYPVWWC
+ UChxeivMgD4fzYGYt+3uxv+W6jl50Xsocg9hnb3lzb7sTwwRovwrX+FaKkh6LvE2yTO/
+ paK84IFsnyldHhElasfxVg8F4uf64NPhNs+k0z5eYsCfEXSMZCFN3t0MlAdWuIIDv5zj
+ AVZ3B0s9yj+JkieaFjXhGvVh5gwF9usekUkL9T65W26JS0zzgBNvxlEnX94iBIcJzD53
+ kHqUwvigKnheBEibIvFDoX0oupuVVS/f+3zkovG9o9rsLV+k0Paw8Vaf5qQzxKCdZBYT
+ oSHw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+qvlCoYI+H8bLzI6rgcd8PaRRxTJnVUUb8kPZIjJ7b6JpH4cvWZXJRwbZc7VEwxVtQNUhk2hEqaxk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwR5J71PdK3lVRNLV9pdSqZSQepVQAwr44uwwNaBcZ/ZA+BHiiE
+ f7ZyqDl9OWyzMx6lmQ5qR5rQV8V0+f1gKtJ7R+eicZZXih79j+lS1idGDuMN0z+XMPg=
+X-Gm-Gg: AeBDietkdUJ//hKDcfXT73TJ+uWcdm0g3ARKaSZzvgL4f1jKb1a+Uw8x3sOs94pZ1+X
+ hsl9ra8f9T5d5gu/ttRCOOEHqYy8u5NAEL6kpo7GqxdkR9r0g2FrUiUUVmxogB3PX0288HlOx6W
+ 8XtdXL7Vj/6xMghLuZsZ9tDnKcRw+IcED9Yw9MJvylroewC7T11wLiIU3gHgFVMmnev+igEi/Sq
+ kW6tnrGyrkImWbKWOsPfUkm794V/JMvX0Q/GjKVDADMzyYbc/1g1F9rww7ptZxBGbBk/zGJMahV
+ oZlaxtSdHBK22xSFupbdY6zgytNbth7wCxysEMVe07gpp6HTiOGy9BgTsUdpfu5m1qFGiieD0dU
+ aFuwogESl/DmrM1tf793/O2cbp0NEldlMS9Avu+11c0+fN1BIqe2ton3e4FEcM1QQSwYImko4Rz
+ LmlRhY8u2+oc6/Nm5qQDwpDksXaYEdpnZpdWwOmnfzlTwsXon6BZ99OAFhKeJP5b7rbyw=
+X-Received: by 2002:ac8:58d6:0:b0:50f:b81e:c655 with SMTP id
+ d75a77b69052e-5100e1fbae3mr7673691cf.57.1777330725738; 
+ Mon, 27 Apr 2026 15:58:45 -0700 (PDT)
+Received: from [172.25.10.5] ([104.225.247.194])
+ by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-8b3e2976bd6sm6538126d6.35.2026.04.27.15.58.44
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 27 Apr 2026 15:58:45 -0700 (PDT)
+Message-ID: <986650a0-2035-4082-9867-9c5ecd8dbc55@tennr.com>
+Date: Mon, 27 Apr 2026 18:58:44 -0400
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+To: Harry Wentland <harry.wentland@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Wayne Lin <Wayne.Lin@amd.com>, Roman Li <Roman.Li@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>
+Subject: [PATCH] drm/amd/display: simplify FreeSync MCCS capability check
+Content-Language: en-US
+From: Avi Radinsky <avi.radinsky@tennr.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260427-imdt-dsi-display-v1-1-bb2768de120b@imd-tec.com>
-References: <20260427-imdt-dsi-display-v1-0-bb2768de120b@imd-tec.com>
-In-Reply-To: <20260427-imdt-dsi-display-v1-0-bb2768de120b@imd-tec.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, William Bright <william.bright@imd-tec.com>
-X-Mailer: b4 0.15.2
 X-Mailman-Approved-At: Wed, 29 Apr 2026 10:09:58 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,86 +94,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add device tree binding documentation for the TSD TST070WSBE-196C, a 7"
-1024x600 MIPI-DSI TFT LCD panel using an EK79007AD controller. The
-panel is connected via a 4-lane MIPI-DSI video interface.
+Simplify the FreeSync MCCS capability check by removing a redundant
+freesync_vcp_code test. The expression matches Coccinelle's
+!A || (A && B) to !A || B simplification without changing behavior.
 
-Signed-off-by: William Bright <william.bright@imd-tec.com>
+Fixes: 6f71d5dd3206 ("drm/amd/display: Read sink freesync support via mccs")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202604270741.pABgRDTb-lkp@intel.com/
+Signed-off-by: Avi Radinsky <avi.radinsky@tennr.com>
 ---
- .../display/panel/tsd,tst070wsbe-196c.yaml         | 64 ++++++++++++++++++++++
- 1 file changed, 64 insertions(+)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/display/panel/tsd,tst070wsbe-196c.yaml b/Documentation/devicetree/bindings/display/panel/tsd,tst070wsbe-196c.yaml
-new file mode 100644
-index 000000000000..fe3f45aa4575
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/panel/tsd,tst070wsbe-196c.yaml
-@@ -0,0 +1,64 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/panel/tsd,tst070wsbe-196c.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: TSD TST070WSBE-196C 7" 1024x600 MIPI-DSI TFT LCD panel
-+
-+maintainers:
-+  - William Bright <william.bright@imd-tec.com>
-+
-+description: |
-+  The TSD TST070WSBE-196C is a 7" 1024x600 TFT LCD panel module with an
-+  EK79007AD controller, connected via a 4-lane MIPI-DSI video interface.
-+
-+allOf:
-+  - $ref: panel-common.yaml
-+
-+properties:
-+  compatible:
-+    const: tsd,tst070wsbe-196c
-+
-+  reg:
-+    maxItems: 1
-+    description: DSI virtual channel
-+
-+  backlight: true
-+  reset-gpios: true
-+  power-supply: true
-+  port: true
-+
-+required:
-+  - compatible
-+  - reg
-+  - reset-gpios
-+  - power-supply
-+  - port
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    dsi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        panel@0 {
-+            compatible = "tsd,tst070wsbe-196c";
-+            reg = <0>;
-+
-+            reset-gpios = <&tlmm 133 GPIO_ACTIVE_LOW>;
-+            power-supply = <&display_panel_pwr_en>;
-+            backlight = <&backlight>;
-+
-+            port {
-+                panel_in: endpoint {
-+                    remote-endpoint = <&dsi_out>;
-+                };
-+            };
-+        };
-+    };
-+...
-
--- 
-2.43.0
-
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index e96a12ff2d31..b7fa74a87c1f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -13436,7 +13436,7 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+ 	if ((sink->sink_signal == SIGNAL_TYPE_HDMI_TYPE_A ||
+ 		as_type == FREESYNC_TYPE_PCON_IN_WHITELIST) &&
+ 		(!sink->edid_caps.freesync_vcp_code ||
+-		(sink->edid_caps.freesync_vcp_code && !sink->mccs_caps.freesync_supported)))
++		!sink->mccs_caps.freesync_supported))
+ 		freesync_capable = false;
+ 
+ 	if (do_mccs && sink->mccs_caps.freesync_supported && freesync_capable)
