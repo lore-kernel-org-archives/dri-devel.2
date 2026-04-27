@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EF7FFF8861
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 09:58:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E95F4FF8861
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 09:58:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B94DA10E671;
-	Mon, 27 Apr 2026 09:58:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37F6B10E66D;
+	Mon, 27 Apr 2026 09:58:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="poZiuXQa";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oj2FsikU";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 266A810E66D;
- Mon, 27 Apr 2026 09:58:36 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7574710E66D;
+ Mon, 27 Apr 2026 09:58:51 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id EE9C9441DB;
- Mon, 27 Apr 2026 09:58:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CCB0C2BCB4;
- Mon, 27 Apr 2026 09:58:21 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A1E076014C;
+ Mon, 27 Apr 2026 09:58:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F43CC2BCB6;
+ Mon, 27 Apr 2026 09:58:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777283915;
- bh=xYlvJO+JflPgYH7lV81mrAxzP35EX+W421jGEAyidpM=;
+ s=k20201202; t=1777283930;
+ bh=J4HLesdTxZiOmSnG4cnDWRHJXWd/P5xqcY0bR8WnNJ8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=poZiuXQaK+RMtf7K2aOlAUJi4kCbFFBuAtE8LsuQaL73aE65NbJ832nqq0RwR74jN
- BV4kY+BPz3ughnNyUdsvqIlQ5EMHiFhzjJBF9Aokuew+S+s2+U3Mp9+yhSs6CE8y6p
- FR0BPZxUU9d+pSSJ3alTf/lO7p1F6D2bOqfQe6zpZnQyRSfJgp4xGJ8T3zefDswcml
- GpOxyuLDmr5TzuICuLCUKBiBBBt2xI6w6peUGOVpEmrUKpSWzkw38p8rjZLC4naGoK
- zek/cp3u22URZRBVte6v2qcCju0lFb8E5b1ev4X/9Q6ehAg4NDRYZEaVnczI+RuWlK
- xPM7/7NBSWing==
+ b=oj2FsikUqt/Gx83Ruzgqb4I4oRuBnjiEWRzwEndq2ttmcFbIauNVNe9r8tvowWUAF
+ OQ6VTL9C4FxpcZFsNy8RMMu2VvDrRh5OuGQF61IN5G3AxUzgQkmUxFuLFe8cP1vY4g
+ GLE3bK5qRfwa5zernMpQyZYRtP9ytwYnjkhH0b7A3ewciP8gXAJY7lgI744XYJ2eJJ
+ QRlcM5sHKUt93OBkQY02nRronUbny/gHF2Mvjif/cALltv9IMjlu/Q9/yutDgmzy3e
+ pjdHcu4s4i6FMY3bVr5S+8RySO92v377wBlEl0iXuY8jRNDK7eNOF/KgEYwkxHpbIA
+ Hr7QJGcSV5H5A==
 From: Sumit Garg <sumit.garg@kernel.org>
 To: andersson@kernel.org,
 	konradybcio@kernel.org
@@ -52,10 +52,11 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  srinivas.kandagatla@oss.qualcomm.com, amirreza.zarrabi@oss.qualcomm.com,
  jens.wiklander@linaro.org, op-tee@lists.trustedfirmware.org,
  apurupa@qti.qualcomm.com, skare@qti.qualcomm.com,
- linux-kernel@vger.kernel.org, Sumit Garg <sumit.garg@oss.qualcomm.com>
-Subject: [PATCH v4 09/15] remoteproc: qcom: Select QCOM_PAS generic service
-Date: Mon, 27 Apr 2026 15:25:57 +0530
-Message-ID: <20260427095603.1157963-10-sumit.garg@kernel.org>
+ linux-kernel@vger.kernel.org, Sumit Garg <sumit.garg@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: [PATCH v4 10/15] drm/msm: Switch to generic PAS TZ APIs
+Date: Mon, 27 Apr 2026 15:25:58 +0530
+Message-ID: <20260427095603.1157963-11-sumit.garg@kernel.org>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260427095603.1157963-1-sumit.garg@kernel.org>
 References: <20260427095603.1157963-1-sumit.garg@kernel.org>
@@ -78,26 +79,91 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Sumit Garg <sumit.garg@oss.qualcomm.com>
 
-Select PAS generic service driver to enable support for multiple PAS
-backends like OP-TEE in addition to SCM.
+Switch drm/msm client drivers over to generic PAS TZ APIs. Generic PAS
+TZ service allows to support multiple TZ implementation backends like QTEE
+based SCM PAS service, OP-TEE based PAS service and any further future TZ
+backend service.
 
+Acked-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
 ---
- drivers/remoteproc/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/msm/Kconfig             |  1 +
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c   |  4 ++--
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c | 11 ++++++-----
+ 3 files changed, 9 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/remoteproc/Kconfig b/drivers/remoteproc/Kconfig
-index ee54436fea5a..da3c5d9562ea 100644
---- a/drivers/remoteproc/Kconfig
-+++ b/drivers/remoteproc/Kconfig
-@@ -230,6 +230,7 @@ config QCOM_Q6V5_PAS
- 	select QCOM_Q6V5_COMMON
- 	select QCOM_RPROC_COMMON
+diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
+index 250246f81ea9..09469d56513b 100644
+--- a/drivers/gpu/drm/msm/Kconfig
++++ b/drivers/gpu/drm/msm/Kconfig
+@@ -21,6 +21,7 @@ config DRM_MSM
+ 	select SHMEM
+ 	select TMPFS
  	select QCOM_SCM
 +	select QCOM_PAS
- 	help
- 	  Say y here to support the TrustZone based Peripheral Image Loader for
- 	  the Qualcomm remote processors. This is commonly used to control
+ 	select QCOM_UBWC_CONFIG
+ 	select WANT_DEV_COREDUMP
+ 	select SND_SOC_HDMI_CODEC if SND_SOC
+diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+index 79acae11154a..b556da823897 100644
+--- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+@@ -5,7 +5,7 @@
+ #include <linux/kernel.h>
+ #include <linux/types.h>
+ #include <linux/cpumask.h>
+-#include <linux/firmware/qcom/qcom_scm.h>
++#include <linux/firmware/qcom/qcom_pas.h>
+ #include <linux/pm_opp.h>
+ #include <linux/nvmem-consumer.h>
+ #include <linux/slab.h>
+@@ -653,7 +653,7 @@ static int a5xx_zap_shader_resume(struct msm_gpu *gpu)
+ 	if (adreno_is_a506(adreno_gpu))
+ 		return 0;
+ 
+-	ret = qcom_scm_set_remote_state(SCM_GPU_ZAP_SHADER_RESUME, GPU_PAS_ID);
++	ret = qcom_pas_set_remote_state(SCM_GPU_ZAP_SHADER_RESUME, GPU_PAS_ID);
+ 	if (ret)
+ 		DRM_ERROR("%s: zap-shader resume failed: %d\n",
+ 			gpu->name, ret);
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+index 66f80f2d12f9..6d68edf0578c 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+@@ -8,6 +8,7 @@
+ 
+ #include <linux/ascii85.h>
+ #include <linux/interconnect.h>
++#include <linux/firmware/qcom/qcom_pas.h>
+ #include <linux/firmware/qcom/qcom_scm.h>
+ #include <linux/kernel.h>
+ #include <linux/of_reserved_mem.h>
+@@ -146,10 +147,10 @@ static int zap_shader_load_mdt(struct msm_gpu *gpu, const char *fwname,
+ 		goto out;
+ 
+ 	/* Send the image to the secure world */
+-	ret = qcom_scm_pas_auth_and_reset(pasid);
++	ret = qcom_pas_auth_and_reset(pasid);
+ 
+ 	/*
+-	 * If the scm call returns -EOPNOTSUPP we assume that this target
++	 * If the pas call returns -EOPNOTSUPP we assume that this target
+ 	 * doesn't need/support the zap shader so quietly fail
+ 	 */
+ 	if (ret == -EOPNOTSUPP)
+@@ -175,9 +176,9 @@ int adreno_zap_shader_load(struct msm_gpu *gpu, u32 pasid)
+ 	if (!zap_available)
+ 		return -ENODEV;
+ 
+-	/* We need SCM to be able to load the firmware */
+-	if (!qcom_scm_is_available()) {
+-		DRM_DEV_ERROR(&pdev->dev, "SCM is not available\n");
++	/* We need PAS to be able to load the firmware */
++	if (!qcom_pas_is_available()) {
++		DRM_DEV_ERROR(&pdev->dev, "Qcom PAS is not available\n");
+ 		return -EPROBE_DEFER;
+ 	}
+ 
 -- 
 2.51.0
 
