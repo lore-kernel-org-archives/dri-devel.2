@@ -4,133 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8CDBFF8867
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 23:52:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFF4EFF8864
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 23:58:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8DAD10E9AD;
-	Mon, 27 Apr 2026 23:52:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AA6D10E9B4;
+	Mon, 27 Apr 2026 23:58:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="x1gtluw0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kKFfGkJT";
 	dkim-atps=neutral
-Received: from CWXP265CU009.outbound.protection.outlook.com
- (mail-ukwestazon11021141.outbound.protection.outlook.com [52.101.100.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 047EC10E9AD
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 23:52:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=md2Fheib67yI1YmFWPywIC3Q+fwnp60eJBJJmO/p7CKR+TZ+JInw3B+yClH723hkqC4nod+XOtANKUMwjRF0+C3+/S0iLRYw8GlV0TzzAOj7nvjgmRVlvjq1J+xxIg6/ZqJoXkyzhVH5ftopGzR2EaWkyPY0si9a0xySq8DQSqm1PsIO1DnKc38Vf4Y0tVya5Pu6aYGydcdDFs28C6zLvNGXFeDocu/PuILEtyZZF7iCNZ/tHcMEzh+O2xh2EA48P7b4MT+1rZBTStBgPMDg5959jWtfx4Gv5igxqgyYaRszwAtu8gTxtapfAvdKJR3A1fo5tjc0zCPAN6vGLWDaAw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0IhncgU3AcNMXgmtiPUDpX2MFFdkxxX+foBruly68HM=;
- b=tracFmUE1dwT7Tyc1QKWZ14Cyn2lpTSFuS9wKK7Ul2t1V7osgCbjZt3BqoQ8rM5+9L3u7Owi6aOq1zr5pcpUPUV1hb0MpnL3g2dYqk1U/xhXi6gU/ZL34H+8owMgkBOfPsAzsIZ6tnsObBIglURlUP/HZYm0XBqlS/KifwwcZBxa+wVP5cmVfkTkkt5UL22uiAvwM3BgeoEPFM+A1PdHEyqwtcqjXuaDYitvF2c9NU7qjS3Iw0RZ2VXjUZPI4dfkLh995+vRJ6MRAnmQlmFLzHv0R6rG1KroGAesMElCZQVHFI1gxo2URoYOoWsIb/NhSBM/oe8AFx2DZ5UbV1eeKg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0IhncgU3AcNMXgmtiPUDpX2MFFdkxxX+foBruly68HM=;
- b=x1gtluw0s8G1TOltmlIbcDfZeR07Vv4VES2jHWAY4oZvUSh50whw0csTd1jI+sKbnuPNCvydeY+6JjN2Rd5l5wR/IZSNLSq+sf/YymRM///HQq9A/tZAgjp6dNgrnrXQwpYVqIuegd6XCQjfDb0RzqruODYSMnKsGVGBLib44rs=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LOAP265MB9000.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:498::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.26; Mon, 27 Apr
- 2026 23:52:51 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.20.9846.025; Mon, 27 Apr 2026
- 23:52:51 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 28 Apr 2026 00:52:50 +0100
-Message-Id: <DI4CB68NZI8P.3RA6M7P8XRII4@garyguo.net>
-Cc: <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pm@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH 06/24] rust: pci: implement Sync for Device<Bound>
-From: "Gary Guo" <gary@garyguo.net>
-To: "Danilo Krummrich" <dakr@kernel.org>, <gregkh@linuxfoundation.org>,
- <rafael@kernel.org>, <acourbot@nvidia.com>, <aliceryhl@google.com>,
- <david.m.ertman@intel.com>, <ira.weiny@intel.com>, <leon@kernel.org>,
- <viresh.kumar@linaro.org>, <m.wilczynski@samsung.com>,
- <ukleinek@kernel.org>, <bhelgaas@google.com>, <kwilczynski@kernel.org>,
- <abdiel.janulgue@gmail.com>, <robin.murphy@arm.com>,
- <markus.probst@posteo.de>, <ojeda@kernel.org>, <boqun@kernel.org>,
- <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
- <a.hindborg@kernel.org>, <tmgross@umich.edu>
-X-Mailer: aerc 0.21.0
-References: <20260427221155.2144848-1-dakr@kernel.org>
- <20260427221155.2144848-7-dakr@kernel.org>
-In-Reply-To: <20260427221155.2144848-7-dakr@kernel.org>
-X-ClientProxiedBy: LO4P123CA0682.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:351::7) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8FC6F10E9B4;
+ Mon, 27 Apr 2026 23:58:22 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 9F62E60121;
+ Mon, 27 Apr 2026 23:58:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EE43C19425;
+ Mon, 27 Apr 2026 23:58:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1777334301;
+ bh=2uhLD0tH1NwpJiWOQG116+gMkzVllKmTE1oc9AVp0dU=;
+ h=Date:From:To:Cc:Subject:From;
+ b=kKFfGkJTvVWVQxPcyS8d+RRPD4dm4+SnBAnNjyFEcvwbszfa8aDfc+NW+qKHp4MMJ
+ eJgSPVgz/qCv1/DMuR9VFcN8CRnipTllaVPCn9LSe2An4tsnBtVC4XMxsZg9Jjd224
+ k++7MTsodi3NhSke+fkF88y/VZB8LPmtuKnuztisX3iNDBmLSDxijl5nyQxGOFuN4e
+ IYcYPvVhd5F44lhHlCebbIjKjsPPQ8X5D5KyMPCmX7KkvciQWygzVmx3IJ1BBBqcA9
+ 5AW1+/L0zS1mllpYvzFvpLFIJZp0O6HkpbZr/7dPFte3zvaTGWwyaIl/SPDytV/MrF
+ w3Fywm4EmjMnw==
+Date: Mon, 27 Apr 2026 17:58:18 -0600
+From: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+To: Zhenyu Wang <zhenyuw.linux@gmail.com>, Zhi Wang <zhi.wang.linux@gmail.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ linux-hardening@vger.kernel.org
+Subject: [PATCH][next] drm/i915/gvt: Avoid -Wflex-array-member-not-at-end
+ warning
+Message-ID: <ae_4GkBsNl_0SYTm@kspp>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LOAP265MB9000:EE_
-X-MS-Office365-Filtering-Correlation-Id: 32522f74-195d-44d5-aba5-08dea4b817ba
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|10070799003|7416014|366016|1800799024|921020|22082099003|18002099003|56012099003|11006099003;
-X-Microsoft-Antispam-Message-Info: jO9YDYLCpAR5AItHJhS6j87pvkzn51hAUCMIIg6aaUXiXBh4x6MaBKFCipMXFuEj3PpY41l2/KhB9CG7cffwuWB2HYBXH5NAWbfxYxwBbjARAeDLhKpKC/uh5Y41LUYz40sbSTZRQoa3isG+wigKBY0v0bIDsUUF3tM/HhRy2jvIisRIupoDhSE0LYbBx6NlnLkfxkne0icxqhwLeCtsAM0s51pwjhBqSZvxc9VYLokSg0A6PQ5pde6AxwFSaOtvouXF1tswx0ib/rzSNe/4jI2FkJCIcT2gpe3wrF1WQnOP7YXF4LNRZrv1WhrWYQHY/Z+2x5oYJzq0Sed8uhxPKbK7Z+vTqnGq+dSZpSgNdq1lOxWjM1cP56zmyuMVxtNU1vjU0MRWqvuERA8SYKQ/fzbOI2bmO3LS8z780mjSnsezno4Aq35E3J8eLUqcDC6Kt0NM+4Fvz/d1BkQwd9bHX+HxhJy7cikIDkh0yHE43HEWvlc/qIYZDXgx8AlsLoryq2wylaruvuA/aJ3HSmvOV4hefOMiun7mGhTvHcwoiVQ7f9LJ4W+Drbaa9jKdejZHTlqynqbCS1P3gmXCPulqyoVwYWcnDj1mBOH18ajr9Eei9sb4KzkRbwVh+QmEqeLzuFxhUe5VZC4flvemlAJHhsv9inS2rDHB16fXNvFj/ig4F2IbFaVGY3XD2pD4GUs8fP+E+pnfIQ+MueRPUYrtuKtSeFVHWFA9jkQkWNc+k28ry8Uj49pcqTv6+A2KWBMb+kqjUKOM5rdm/9kSzVy0mw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(10070799003)(7416014)(366016)(1800799024)(921020)(22082099003)(18002099003)(56012099003)(11006099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eUlEZDhkYXVxRCtycHFUNFFaSEdoRXVEdHB6ZDZzelFhNTVtdW82dVlHNEVC?=
- =?utf-8?B?OVVXUVpINXdSTjVyMFczSVpEZkhDaEZiRE9QTHBlNUdtWFZLNUowY1ZTbHhD?=
- =?utf-8?B?RnlyWk9jd2RwejRzWURjOEZsVHNHS3Z0Zm1xTERUZUd6VklNUGxjM294QURv?=
- =?utf-8?B?VjAvQld0cFBwUEN4ODJnK2pGVVdxQTRIZXQ2WGdWVkxXeGRvanE5ZnhNWnRJ?=
- =?utf-8?B?alJhV3pCMzJGYi9kSUpUNVVhOGtUa2d4LzJ6azZMSnRyZWt2MHNndGVnQXR3?=
- =?utf-8?B?L3FlZEpjQWVrSVB5T20vOU1PRHd5Wjg1SHhLZWJ1ZWhGby9qUFhkc2t1SXJu?=
- =?utf-8?B?NWxaVURkTG5qY0d1QkFKamVYRTV6cUptWGd3ZXJ0K3hoWGVVOTdJeEtSZ2hG?=
- =?utf-8?B?cXRFK3FOdmpzZFFkV2lNMWxCMDcrc0kxNkllRk9sUWJUa0F6OXprYUJxNzhW?=
- =?utf-8?B?d3VzdjM4RHZSaXFKNmloMFpnSTN3OERpVHlRc3Y0Z1djcDBLOHcvSm5JQVRQ?=
- =?utf-8?B?a0xLMEQrZ09oQXF4UlB5dm1sdzNoVEVqbU5iNEtmckhIWWoyUkJYbWRtTDhQ?=
- =?utf-8?B?aXJNam95YTF0N0RxMjFQTTd1LzZMalcrL0E3VmcxMEtreFdMNUFlRHZVQ2I4?=
- =?utf-8?B?NmhBZTBheWN2Z0VrT2ZDOWlWdmw5ZFArRDZSY3RWejhDWjczMTJOQjhEUlhS?=
- =?utf-8?B?RXp2ZTNLenpKeGRzNk8wVHlBMjZ3RUhHZ2IxM2U5WllLWCsybkZ6UDdFNENh?=
- =?utf-8?B?cHVQN2FSZUJpVjh6bVo0dG4xL01aWDBZdkF1cEg2akZBOGxkeUNtOGE2a0E0?=
- =?utf-8?B?QTBkaUhHNHVaRzFhT3N5N28yUkhBTVZhSVAybWNrYU1uTmRGWHoxa29VSGha?=
- =?utf-8?B?N0I1Y0h3Q215RmxpRWtraWxKRjFyaG00ZVRRWndlb3VzYW5Bc3NZZzFpUENV?=
- =?utf-8?B?YUJHQzY1aU9MaXJaaXY2K09ocDEybFdVeU1nK1hMY3p3Y3BVNlBLY2pOTnlS?=
- =?utf-8?B?ejZnVEh5MG1sNUlIVGU4ZlR2OFljZFVwa1psR2thNkQ0c0k5ejIvWnFjMXRN?=
- =?utf-8?B?VEgyQ3RTTWV0cDB6YXpwNm5JTDg1U3R1RHZlb2ZGYnBiaFZPaGRRTnhzcncv?=
- =?utf-8?B?OFVnV0d5QndjaytWZjVOQjlFVlR2ay84d0xJdGw2N1k4SXlMWnkveUtWV3p5?=
- =?utf-8?B?WmRkZVR3M0JHZmtXRGJ2aklWaDl1OHFpM3NISjgxOGo0MFRPRFo0N1FWZ1FW?=
- =?utf-8?B?cGVFYmlCNlZwdWRjZGNzeGpDZEozYWJ3ZVIwZEZKNlFyVEpPNU1qQTNjVkla?=
- =?utf-8?B?Q2JJcTk2SGtpbjYvenhNNmV3VUZhcFVTS0JyTlhRTDNjazJDbkVSKzZtK0F3?=
- =?utf-8?B?c0t3UlNGbU50UVFBMWZmY0pySU1RZnF5bEt5M0ZJcTBXUVFnSnkzOU41TkN1?=
- =?utf-8?B?Q2VyMXhyeVVmZG9DS3RoODRVam5nODFyNGZNYlJxby8rVnhFQko2cE54QUpk?=
- =?utf-8?B?aWIyWVR3aUljbmd1VlN6V0hGVDhvdjVheDFjNnlPcHFYdUovYW5JYUdzYXN0?=
- =?utf-8?B?QlJLZHBiQWZYdHpObXVnRnV4VnNDdTB1Rm4zdVEyeW5GdUNFQ2h3SW5QTlNO?=
- =?utf-8?B?UzlMbDVRZ1ZnYzFUTmUzdUFDSXBLdnBjaklpVU05RkVuaWprUVI0NGVmOG85?=
- =?utf-8?B?RGVVYVRKR0wyd1FKQWNpVmhrNHBsY2pjU3RLMzVQYlU4RXZoWmZaem01WHJX?=
- =?utf-8?B?Ykh1aEhQbm0xK1l2azBNSTRHSnZHRmNONjhTRG5Pbk05VkRYNW8wRUo3Mksv?=
- =?utf-8?B?SG56U1Uza29RaHVPN1ZXV2NQR0k1Z2JuNmFBVzMzTEQwdFVqcWt5SnJqejk3?=
- =?utf-8?B?eC9LSWlOWHZPNGdQRkJlWG5Tb2N3aUtXYTN4V3dFZCtlVmw0ZERkeUc5dHZX?=
- =?utf-8?B?czJOOXVTZUF4eGg5MVZiVE02SFE5VU9rMG9wY0xVNS9janRXYVFrTjlFSzlB?=
- =?utf-8?B?RGhTT1JXNCt4aXAwTjdzQTY5RE9vVGdUd05GVk8xVE80algvV2tZaXFZaVlI?=
- =?utf-8?B?dUJLYnQ4ZjE5YS9XYTVIQXF4V1ZZTWJnMEMzTnQzblcyS1dZeWQ0TktGdnZx?=
- =?utf-8?B?S0Z0NXBLcjB5aU9Md00rVjZPS25tSDd6Y0VEVEZ0WW1kZWtFWkV0T0ppTHRa?=
- =?utf-8?B?bW9YZjRWd3U3MzFWMVZjek5ydXRpa09HR0NKb3JuSitpUFBIZXlpTnpLTFVJ?=
- =?utf-8?B?bVN4Nlk1YTJNSXJHSlRvSUJhN3NsWTd3UWZEWWZzUHUreVZzUDFhZHBZVml4?=
- =?utf-8?B?aElwa2hXSXVOcnpUb1NscFFiMUg3SGQ1bUZKbUFQQlBHcEFhaVJJZz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 32522f74-195d-44d5-aba5-08dea4b817ba
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Apr 2026 23:52:51.2830 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Uwze1aeEGIz7oMwCeSd6mAqMnsJsPaDxKAu1n94MyyEaSjtf2jYYXjY8mpqeG7aBdXKZtGpe6Dg3x7xiGmACKw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOAP265MB9000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,43 +63,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Apr 27, 2026 at 11:11 PM BST, Danilo Krummrich wrote:
-> Implement Sync for Device<Bound> in addition to Device<Normal>. The
-> underlying struct pci_dev is the same; Bound is a zero-sized type-state
-> marker that does not affect thread safety.
->
-> This is needed for pci::Bar to hold &'a Device<Bound> (required for
-> Bar::into_devres()) while remaining Send.
->
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
-> ---
->  rust/kernel/pci.rs | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
-> index fe5148f41d8b..6f82f2e6c74f 100644
-> --- a/rust/kernel/pci.rs
-> +++ b/rust/kernel/pci.rs
-> @@ -526,3 +526,7 @@ unsafe impl Send for Device {}
->  // SAFETY: `Device` can be shared among threads because all methods of `=
-Device`
->  // (i.e. `Device<Normal>) are thread safe.
->  unsafe impl Sync for Device {}
-> +
-> +// SAFETY: Same as `Device<Normal>` -- the underlying `struct pci_dev` i=
-s the same;
-> +// `Bound` is a zero-sized type-state marker that does not affect thread=
- safety.
-> +unsafe impl Sync for Device<device::Bound> {}
+-Wflex-array-member-not-at-end was introduced in GCC-14, and we are
+getting ready to enable it, globally.
 
-Given that you're now implementing for two ctx marker types, it might worth=
- changing
-the existing one to spell out the `Normal` explicitly (also saves you from
-having to spell it out in the comment).
+Use the TRAILING_OVERLAP() helper to fix the following warning:
 
-It might also make sense to write a comment to say that why it's not the ca=
-se
-for `Device<Core>`.
+drivers/gpu/drm/i915/gvt/opregion.c:126:40: warning: structure containing a flexible array member is not at the end of another structure [-Wflex-array-member-not-at-end]
 
-Best,
-Gary
+This helper creates a union between a flexible-array member (FAM)
+and a set of members that would otherwise follow it. This overlays
+the trailing members onto the FAM while preserving the original
+memory layout.
+
+Lastly, the static_assert() ensures the alignment between the FAM and
+struct efp_child_device_config child0; is not inadvertently changed,
+and it's intentionally placed inmediately after the related structure
+(that is, no blank line in between).
+
+Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
+---
+ drivers/gpu/drm/i915/gvt/opregion.c | 20 ++++++++++++--------
+ 1 file changed, 12 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gvt/opregion.c b/drivers/gpu/drm/i915/gvt/opregion.c
+index d6e76ba31d60..efe457c02788 100644
+--- a/drivers/gpu/drm/i915/gvt/opregion.c
++++ b/drivers/gpu/drm/i915/gvt/opregion.c
+@@ -122,17 +122,21 @@ struct vbt {
+ 	struct bdb_data_header general_features_header;
+ 	struct bdb_general_features general_features;
+ 
+-	struct bdb_data_header general_definitions_header;
+-	struct bdb_general_definitions general_definitions;
+-
+-	struct efp_child_device_config child0;
+-	struct efp_child_device_config child1;
+-	struct efp_child_device_config child2;
+-	struct efp_child_device_config child3;
+-
+ 	struct bdb_data_header driver_features_header;
+ 	struct bdb_driver_features driver_features;
++
++	struct bdb_data_header general_definitions_header;
++
++	/* Must be last as it ends in a flexible-array member. */
++	TRAILING_OVERLAP(struct bdb_general_definitions, general_definitions, devices,
++		struct efp_child_device_config child0;
++		struct efp_child_device_config child1;
++		struct efp_child_device_config child2;
++		struct efp_child_device_config child3;
++	);
+ };
++static_assert(offsetof(struct vbt, general_definitions.devices) ==
++	      offsetof(struct vbt, child0));
+ 
+ static void virt_vbt_generation(struct vbt *v)
+ {
+-- 
+2.51.0
+
