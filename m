@@ -4,99 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68839FF8868
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 15:03:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AFE9FF8860
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 15:04:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD32210E7A6;
-	Mon, 27 Apr 2026 15:03:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81FD410E25D;
+	Mon, 27 Apr 2026 15:04:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="IKLq2LAR";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="1RQtv4hC";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="bgOOopsY";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Syreb9oE";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="h7ry9Pgn";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1CB7D10E7AB
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 15:03:09 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 88AC55BCCB;
- Mon, 27 Apr 2026 15:02:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1777302175; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=nlgIRhMdhESmpQR8vUMZK/LBpcx/oPqaXUJiiL5XOjU=;
- b=IKLq2LARHclQNU+bh3GKoZC2KtDk/UdiubeTzbsb1D1jiYSmaBnuRT/rbnFYjQBPR8OYvo
- cYyc3Xj4ZuzTTzoIIXdjeLnxVe3KZglGr8AXj9487VKTxQ33fqYAQQOYoFRUuvOX8hJKZI
- uuc6A1WpSdVxfI6PIcGoV5sGfSMVeGM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1777302175;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=nlgIRhMdhESmpQR8vUMZK/LBpcx/oPqaXUJiiL5XOjU=;
- b=1RQtv4hCAne2Ki5ry5BYln0gpBZT1xKawfQv5I53BLSnPJPNvrOC/1J/gzkDC3HozKehhW
- 8zC6GEIbuCF8EzCw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1777302174; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=nlgIRhMdhESmpQR8vUMZK/LBpcx/oPqaXUJiiL5XOjU=;
- b=bgOOopsYNRnDvJ/f1pGJVFeYKE5p8jKGmvEXZztM4kNVOlNcrpS7pPACxzvM8EmA1MZZGe
- FGy2MFFFWqyBS1B3CSTSolpgcl0pqGrLZGkZsmodOw+XojwOzKw72rfFqLHdwM41Rg7Xe+
- f9qIpH+GJCqGbGgv8mpLINps5AoNfDw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1777302174;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=nlgIRhMdhESmpQR8vUMZK/LBpcx/oPqaXUJiiL5XOjU=;
- b=Syreb9oE+ZHUsyL2KEl8GQZD8D5mtbkR2euNRWhlpbGzVVyIXqlefjeTXtbmB/bk/Q9Tdq
- Lnv+ThSYOp0cf/DA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 56ACC593B1;
- Mon, 27 Apr 2026 15:02:54 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id iLirE55672k9OQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 27 Apr 2026 15:02:54 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: zack.rusin@broadcom.com, bcm-kernel-feedback-list@broadcom.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org
-Cc: dri-devel@lists.freedesktop.org,
-	Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v2 1/3] drm/vmwgfx: Determine lock-waiting timeout from vblank
- state
-Date: Mon, 27 Apr 2026 17:00:38 +0200
-Message-ID: <20260427150250.699768-2-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260427150250.699768-1-tzimmermann@suse.de>
-References: <20260427150250.699768-1-tzimmermann@suse.de>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7939710E25D;
+ Mon, 27 Apr 2026 15:04:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1777302266; x=1808838266;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=0BhzXUUIU7HN7as12xXj3YX45vmTFz5zx1OZ1jxI/e0=;
+ b=h7ry9PgnRpoNPsQ7fpmD44XyLsSifgDaG4K5efjMmKkY7n98EIjKS5O/
+ 6Qt5QtsLtXJb9RM1+9KQ4iB93Gt6gga23btIwdroayjYccLSZpH8VBNuf
+ cDMTcUUTU2iMNi6842dbshzMKDra4dM0jPsD8g50mY31XnUvFGpkE2eCw
+ Bdq2gXrFmx+BvAWJN29czGoZrRSTTH8VtUv9BKasHJJD7BOMKJGZb72Wi
+ Gr+kEmkEo5vIKQrmtqORQuo2h8FVla/wX3TWrEqOYDl0OFrWgyagxyPE/
+ /evO728tgYzYSdy91xxSlIqKq887/bx1psq/Z5yc73c7H7HVAttDx+LkE w==;
+X-CSE-ConnectionGUID: 43Bi8Fs5SeaRHQTkZ/vjRA==
+X-CSE-MsgGUID: n+0zBwfDRlGBEYWTVAzCwQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11769"; a="81800127"
+X-IronPort-AV: E=Sophos;i="6.23,202,1770624000"; d="scan'208";a="81800127"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Apr 2026 08:04:26 -0700
+X-CSE-ConnectionGUID: XnNgI77QRJGHZUhMTC29lg==
+X-CSE-MsgGUID: Z65SQDR9RHOsq/koKG9fuQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,202,1770624000"; d="scan'208";a="227142233"
+Received: from guc-pnp-dev-box-1.fm.intel.com ([10.1.39.24])
+ by fmviesa009.fm.intel.com with ESMTP; 27 Apr 2026 08:04:24 -0700
+From: Zhanjun Dong <zhanjun.dong@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: matthew.brost@intel.com,
+	Zhanjun Dong <zhanjun.dong@intel.com>
+Subject: [PATCH 1/1] drm/i915/guc: Avoid tasklet_kill hang after submission
+ deadlock
+Date: Mon, 27 Apr 2026 11:04:23 -0400
+Message-Id: <20260427150423.642543-1-zhanjun.dong@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-6.80 / 50.00]; REPLY(-4.00)[];
- BAYES_HAM(-3.00)[99.99%]; NEURAL_HAM_LONG(-1.00)[-1.000];
- MID_CONTAINS_FROM(1.00)[]; R_MISSING_CHARSET(0.50)[];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- RCVD_COUNT_TWO(0.00)[2]; FROM_HAS_DN(0.00)[]; ARC_NA(0.00)[];
- MIME_TRACE(0.00)[0:+]; TO_DN_SOME(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- FROM_EQ_ENVFROM(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; RCPT_COUNT_FIVE(0.00)[6];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid,suse.de:email];
- RCVD_TLS_ALL(0.00)[]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,38 +67,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Use the calculated duration of a frame as stored in the vblank state
-for the lock-waiting timeout. Decouples the waiting from the details
-of the vblank implementation. Both values should be equal.
+A wedged GuC submission path can leave the sched_engine tasklet
+disabled with TASKLET_STATE_SCHED still set. In that state
+tasklet_kill() waits forever for the scheduled bit to clear, but
+softirq processing cannot drain the tasklet because it is still
+disabled.
 
-This will be helpful for replacing vmwgfx's vblank timer with DRM's
-common implementation.
+Keep the existing deadlock semantics in guc_dequeue_one_context() by
+continuing to disable submission with callback = NULL and
+tasklet_disable_nosync().
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fix teardown in guc_sched_engine_destroy() by installing a safe nop
+callback, re-enabling the tasklet until its disable count reaches
+zero, and only then calling tasklet_kill(). That lets softirq clear
+the scheduled state and avoids the uninterruptible wait.
+
+Fixes: eb5e7da736f3 ("drm/i915/guc: Reset implementation for new GuC interface")
+Signed-off-by: Zhanjun Dong <zhanjun.dong@intel.com>
 ---
- drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 19 ++++++++++++++++++-
+ 1 file changed, 18 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c b/drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c
-index 5abd7f5ad2db..7862f6972512 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c
-@@ -516,9 +516,13 @@ vmw_vkms_set_crc_surface(struct drm_crtc *crtc,
- static inline u64
- vmw_vkms_lock_max_wait_ns(struct vmw_display_unit *du)
- {
--	s64 nsecs = ktime_to_ns(du->vkms.period_ns);
-+	struct drm_crtc *crtc = &du->crtc;
-+	struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(crtc);
-+
-+	if (!vblank || !vblank->framedur_ns)
-+		return NSEC_PER_SEC / 60; /* disabled; assume 60 Hz */
- 
--	return  (nsecs > 0) ? nsecs : 16666666;
-+	return vblank->framedur_ns;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 788e59cdfac9..d793196223e2 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -4614,6 +4614,10 @@ static inline void guc_default_irqs(struct intel_engine_cs *engine)
+ 	intel_engine_set_irq_handler(engine, cs_irq_handler);
  }
  
- /**
++static void guc_submission_tasklet_nop(struct tasklet_struct *t)
++{
++}
++
+ static void guc_sched_engine_destroy(struct kref *kref)
+ {
+ 	struct i915_sched_engine *sched_engine =
+@@ -4621,7 +4625,20 @@ static void guc_sched_engine_destroy(struct kref *kref)
+ 	struct intel_guc *guc = sched_engine->private_data;
+ 
+ 	guc->sched_engine = NULL;
+-	tasklet_kill(&sched_engine->tasklet); /* flush the callback */
++
++	/*
++	 * The tasklet may have been left disabled (with TASKLET_STATE_SCHED
++	 * still set) if the GT was wedged; intel_guc_submission_reset_finish
++	 * skips enable_submission() in that case. tasklet_kill() waits for
++	 * SCHED to clear, but softirq only clears it when the tasklet is
++	 * enabled (count == 0) and can actually run.
++	 * Force-enable and install a safe no-op callback so tasklet_kill()
++	 * can make progress.
++	 */
++	sched_engine->tasklet.callback = guc_submission_tasklet_nop;
++	while (!__tasklet_is_enabled(&sched_engine->tasklet))
++		tasklet_enable(&sched_engine->tasklet);
++	tasklet_kill(&sched_engine->tasklet);
+ 	kfree(sched_engine);
+ }
+ 
 -- 
-2.54.0
+2.34.1
 
