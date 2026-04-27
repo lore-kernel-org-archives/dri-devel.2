@@ -4,55 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B325FFF8861
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 10:14:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6775BFF8861
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 10:38:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27B0B10E295;
-	Mon, 27 Apr 2026 10:14:32 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 519A310E652
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 10:14:29 +0000 (UTC)
-X-UUID: dbb47b66422111f1aa26b74ffac11d73-20260427
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12, REQID:42a87919-8872-4d14-b715-ee17e98e16c3, IP:0,
- U
- RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
- release,TS:0
-X-CID-META: VersionHash:e7bac3a, CLOUDID:fbda4651c2406ebcf9e57774bb9946c3,
- BulkI
- D:nil,BulkQuantity:0,Recheck:0,SF:80|83|102|898,TC:nil,Content:4|15|50,EDM
- :-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0
- ,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: dbb47b66422111f1aa26b74ffac11d73-20260427
-X-User: aichao@kylinos.cn
-Received: from thinksys.. [(10.44.16.150)] by mailgw.kylinos.cn
- (envelope-from <aichao@kylinos.cn>)
- (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
- with ESMTP id 1929850333; Mon, 27 Apr 2026 18:14:21 +0800
-From: Ai Chao <aichao@kylinos.cn>
-To: deller@gmx.de, nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com,
- claudiu.beznea@tuxon.dev, linux@armlinux.org.uk, dilinger@queued.net,
- adaplas@gmail.com, James.Bottomley@HansenPartnership.com,
- FlorianSchandinat@gmx.de, alchark@gmail.com, krzk@kernel.org,
- kees@kernel.org, rene@exactco.de, tzimmermann@suse.de,
- rongqianfeng@vivo.com, thorsten.blum@linux.dev,
- chelsyratnawat2001@gmail.com, soci@c64.rulez.org,
- gregkh@linuxfoundation.org, daniel@thingy.jp, linmq006@gmail.com,
- fourier.thomas@gmail.com
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-geode@lists.infradead.org, linux-parisc@vger.kernel.org
-Subject: Re: Re: [PATCH 03/35] fbdev: sisfb: Use safer strscpy() instead of
- strcpy()
-Date: Mon, 27 Apr 2026 18:14:17 +0800
-Message-Id: <20260427101417.2199601-1-aichao@kylinos.cn>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFF2610E693;
+	Mon, 27 Apr 2026 10:38:15 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="ungP194k";
+	dkim-atps=neutral
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26CEB10E693
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 10:38:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
+ s=gloria202408;
+ h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+ References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+ bh=Yp6hw9YMUgyBOlWT7AEyu22BSsvL8XW4ydyheGX7ebs=; b=ungP194ke67KZU5pOYDrDK4HRt
+ 39+h5iKodZrPPc3WP3GJYIdwdDcuK7sfhBdP/fYS8mBpBW0L+4x7+27aTH8nwmc6AVV4RkcoT7DQL
+ IkYwhSHkJRRfA9FPYpGD4uGLFm0ZI50bARTZK4MxIq/FDHWr40hHzrnqTDe/8VSoZGfJWozga84HQ
+ dTJRkKQGn3u1R9MosVaskZDpqpb55lW9AvrkzxjlGm102hV9MJGIFvnl2WC4lDCVylE54QDvn+rPr
+ nj/JKQmt/ZRhA5tZmTcyE9H0Dz+Nxzz34vQ/1ZwD8fuDmhEvIsml4+mPFHCnzS4g9jZXFhu0c+gef
+ y2SGQNEg==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Dennis Gilmore <dennis@ausil.us>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maxime Ripard <mripard@kernel.org>, Alexey Charkov <alchark@gmail.com>,
+ devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Dennis Gilmore <dennis@ausil.us>
+Subject: Re: [PATCH v8 0/6] Add support for Orange Pi 5 Pro
+Date: Mon, 27 Apr 2026 12:37:57 +0200
+Message-ID: <6856027.GXAFRqVoOG@phil>
+In-Reply-To: <20260425031011.2529364-1-dennis@ausil.us>
+References: <20260425031011.2529364-1-dennis@ausil.us>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,30 +60,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello Helge
-...
->>> So leaving it as strcpy() is fine - and possibly even better.
->>> The header files might get changed to error strcpy() unless the compiler
->>> knows the source string has a constant length and the destination is
->>> big enough - but that hasn't been done yet.
->> 
->> struct sis_video_info {
->>      char    myid[40];
->> }
->> I have rewritten the code:
->> strcpy(ivideo->myid, "SiS 730-0123456789abcdefghijklmnopqrstuvwxyz0123456789");
->> Used gcc version 11.4.0 (Ubuntu 11.4.0-1ubuntu1~22.04.3)
->> There was no compiler warning or error.
->
->Sure it would
->But the compiler issued a warning that the string is too big..
->So, such places will be detected at compile time.
+Hi Dennis,
 
-gcc-version: gcc version 11.4.0 (Ubuntu 11.4.0-1ubuntu1~22.04.3)
-aichao@thinksys:~/dev/linux-next$ make W=2 drivers/video/fbdev/sis/sis_main.o
-  CC [M]  drivers/video/fbdev/sis/sis_main.o
+Am Samstag, 25. April 2026, 05:10:05 Mitteleurop=C3=A4ische Sommerzeit schr=
+ieb Dennis Gilmore:
+> This series adds initial support for the Xunlong Orange Pi 5 Pro, based on
+> the Rockchip RK3588S SoC. The board features eMMC, SD card, NVMe (PCIe),
+> a Motorcomm YT6801 NIC (PCIe), WiFi/BT (BCM43456), dual HDMI output (the
+> second via a Lontium LT8711UXD DP-to-HDMI bridge on dp0), and a 40-pin
+> expansion header.
 
-There was no error and no warning.
+more as a general node as the dp-hdmi thing is ongoing, you might want
+to just submit the orange-pi5-pro basics first and do a separate series
+with the display parts (both driver + dts integration).
 
-Thanks,
-Ai Chao
+That way the core board support can already be applied and get testing.
+
+
+Heiko
+
+
