@@ -4,94 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35DBFFF8850
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 06:39:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B592FF8860
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 06:39:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E1CA10E577;
-	Mon, 27 Apr 2026 06:39:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C61710E27B;
+	Mon, 27 Apr 2026 06:39:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="SfzCHpGM";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GO1zjChI";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Nvom64kR";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iVUgbRKA";
 	dkim-atps=neutral
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E686C10E27A
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 06:39:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E616110E27C
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 06:39:50 +0000 (UTC)
 Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63QINpaD3909591
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 06:39:43 GMT
+ 63R3MnmD2526400
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 06:39:50 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- Spu2aZ7sZlC2v6vcrcvt66Eq5ch+u67lu57CxDRsDh4=; b=SfzCHpGM18QafocW
- NPb1KXvoKnxgHgJdKWoyUsKg4zsfSgvO6I5f2HH89DpFL5sQEc+ZcccvLXjCbFps
- VqH8xscCrWKjP9KZRAYSjFusMKws3LOJA4K8p+jjCbfWryXOOZqou0HCS2rRxijh
- 2WkRC1xw5Xy5Vqzvx7dBvWVJmDyEWgeXkIYpB0ZhKkNBoqrxQWJx3RSBzHwbn9cN
- AE31ci29FE4nBT3uyRxvv194sKXXUPwZrL/vc7ilvsxRrwlBYDWPoyHRtePR2BPi
- j6pjXkOzkoNBeoYVpLMYq4gqy/OqefYWfZf4ZhJpcIvu+i1ff3QmHRqodsj+lSSE
- DBtAjA==
+ qzC8dA/21UMvhLjLYCfzr/+6i+/FSPhWX2hchnV7imk=; b=Nvom64kRl3CVEg9v
+ VxzjqyKzMgv4wplcqD02BaPhFVqe2fyTtYCnOb+UYSakQJMGOZC6MwSyhr57OaVX
+ 7NHeQRYVmTve4d1AGhHmwQ0RkVqbaOXVPChTKYjIKWum4DU708aMBbIwRxxhmGRc
+ i5rd9Az7NSlAPLXx8EqNzebqLRuM43iA/dJnBYQHyY6Im+qeyAZUOYgYivKf78Mn
+ n7GhnrsAH+s1q8do/quUagvVdwMj5CYboMCY1eo8sdcSI7qYkYcSwWLTQ38pqaAm
+ Jx1Fh/jCkRTRpBOekU6TU9Xhno0ZwVSgp82/RknRP4f4dRFWQJ9FgCABGiRE+ft6
+ hxlxJA==
 Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
  [209.85.216.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4drnqrmpub-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4drnqrmput-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 06:39:42 +0000 (GMT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 06:39:49 +0000 (GMT)
 Received: by mail-pj1-f72.google.com with SMTP id
- 98e67ed59e1d1-35daf3d3030so10339765a91.1
- for <dri-devel@lists.freedesktop.org>; Sun, 26 Apr 2026 23:39:42 -0700 (PDT)
+ 98e67ed59e1d1-35e59791605so10496790a91.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 26 Apr 2026 23:39:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1777271982; x=1777876782;
+ d=oss.qualcomm.com; s=google; t=1777271989; x=1777876789;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=Spu2aZ7sZlC2v6vcrcvt66Eq5ch+u67lu57CxDRsDh4=;
- b=GO1zjChI4OW1GG53EbYOSaojzjAbX3AWE6+XHTjYnhcTJU7AwCmPJSNZn2EN79xXeo
- 6lj9PB4UolHoQJs5F/2FmN2E37CKSepp8xuOdxFT4sJa7VTgC6l/Lxli0lFHy6BOIrlg
- gg/Y7Mzzq5zFy+2BbkRFVfarQLtc2X+mfRzdXbfRmyKv19jk+b4AsQ8HHc6MPKioGOc7
- Cpfc3OyK+2FzT+fGCHe4llUHDYFeX+uu50aFOUpmD5gTBtQaOPWINami5m9p9AbtVRT8
- +L7cmqF9xlaFQuvaGRB5eEJt0+YJaCyzqXmxN6m1TarW98n0FXAH8xZmGAqJh8vHRQIE
- 4yaA==
+ :reply-to; bh=qzC8dA/21UMvhLjLYCfzr/+6i+/FSPhWX2hchnV7imk=;
+ b=iVUgbRKAqMRutT/WLd+Y44Dlp2rUJGxSGpeDivvZDmz+87Eo2TRZ8rIy3B2gq5TUoJ
+ OmFlTlP32YrAs2cBHeMdACvKY/tFDSUUGvNTJFOi/SG/9yQUtH4l6eRy9Djs5eInJk8Q
+ p+bolrPn2u9vTMhGk9ULl9D/OS8K3x/fVpeb/Rd+HhH/fs5eoE2x4Od++1hqjUuTSDen
+ hlAZok9UgpulTJtXQYEny+8xePlfrcexwLEb3+QPOYlBqPFA0NkA/Avffbqu+f/EDv5u
+ +/MiHh4GwE12b/kpnMFocXHfpXd7Fsx2KObXXCJ+UDnoG1dR3lWG59KytER/QjSCI/YD
+ uywg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777271982; x=1777876782;
+ d=1e100.net; s=20251104; t=1777271989; x=1777876789;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=Spu2aZ7sZlC2v6vcrcvt66Eq5ch+u67lu57CxDRsDh4=;
- b=rDFQPjsBZNbPD3NgTP/R1dnjctm0ekRBWYDXrd+IGNdOvorw1fROqYvmVzr3ZO89/E
- NmP8RK2eKdAvI/AiGrU7Gz3uhkd6fkgGq9wMB1L75vyo2AOhucrCh2QUCU3hNNS5F4mj
- E76LHTKRP9b74yf7gqLp1yl0+t5P/lWblY8V0KztYM7eDckJ3xXmNd6/u2k0aXC/DLsr
- Q9xoXHhtX3WaC9OsuBG9zmcU1uwVBZeRJEwC2Daann31DYcDSjl454CXz1ILZrSslkPp
- S5ZMTcpKsL3HqO7tHBNW9tCXVIGSNec0NcJmXkKyUGtoYDPFTr2p2/YirLNa8V4FqNcB
- cHVg==
+ bh=qzC8dA/21UMvhLjLYCfzr/+6i+/FSPhWX2hchnV7imk=;
+ b=R214OBWPDiJEZ8OzVzd5OJetMSVWREUDRzbT9ValNKa+rhqcofdb9zPPbySFHxHTHg
+ SjgS17RhIpntRJMSm3zYptPtlq9lSTAuqJ4LMfGRWGSOS+pVTdoX+rUhks4U9IdX5sq0
+ D8gKkFrHH8zMW+D2rImfkkBA9axMGYayrrQcUeFf8PYspcRNHmF+X+lQXdQZwGt6vr8L
+ CmxrnL4d79QrocUDMEUCRolHSvTGZfAPGahgbmStcYTO819o3Dlb0TD3j+t/DogUkTWD
+ Ne9dELoX1RPMWe+YTpEwLOPybDOTyaWNgnapajBL1PIKnM6iEFaemc8SEJFX8f+ttBIb
+ 45Bg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/Dg0P7XTUC8AWKQCRBsGW9Oj7yuU/UXpNOc3fFFpqlGNNkMxaubh33sNkI7gwvATblIUZvz6AHbV0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywo2xcYJO/b+BzZLmKMxmokKvC8iYNSDNIwULBLaKX3vStSBDPC
- 0Y1RkwrvBg5sQZlQLkUNaGOQ1JUi7AZH/PETkUK2l/B6lZzhzr6wriH03jXBABBhv4rFjL2Yajs
- gHF4F0Hv6Ler/FD9A2euGYDfeDtP97q8p6zVrGXkDAlPPK9WUMojXZ57KwqlutxqQ3tqnYGs=
-X-Gm-Gg: AeBDieuyedi75IThkGhQNaYz/WZKtUPF0VCf3p5Gp6jtuk3gRqH4QuXRY/Nc8uAqs6X
- /mDr+L1BqtYLDP6q6dd/G7Q9oLMbCFY7RDE1ie90Belj0OhzbHcGHv1QU7Pab1kv26qWBf/LSHo
- dy6QZq4ueYIL5KleU+CwlVayZsn6cOo04Ft0cuFM6eRSTwoD5rBdgiDRiN2Dnxun71JTlj6/9lv
- 60cDnOwAF62M7q26GZASOpRJlHt4Ue5QsRK+fAPQtYn+TbzmrR6WxCDTLB7ODLWAMgeNXqQgqzj
- tP1FdYGDrq19UH9vJomggQTF50t3L5pDv7fxeIXKGUuBOFqQr+w1Gsi2X51vZozQlVJjT4KFatT
- 0lS5kX2WISihKa0pn3q0Xp8j4Wa6/22W6TRtUive7+WMrD9lqhRMNV8Ol
-X-Received: by 2002:a17:90b:3f4b:b0:362:e7e5:a20a with SMTP id
- 98e67ed59e1d1-362e7e5ac9amr12823663a91.4.1777271981948; 
- Sun, 26 Apr 2026 23:39:41 -0700 (PDT)
-X-Received: by 2002:a17:90b:3f4b:b0:362:e7e5:a20a with SMTP id
- 98e67ed59e1d1-362e7e5ac9amr12823621a91.4.1777271981496; 
- Sun, 26 Apr 2026 23:39:41 -0700 (PDT)
+ AFNElJ+E51gspLNiElvmN6F8tH/+hd0lCDh+XAEsLaTPd+G92oIiZu3w+fPkUiwgmbFwJXKSwc+tXZlTfH0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyJ+ybr+dCmvH32EHNqDn1Az1qVkPrKXfa1iPlfi93ZA/r153ew
+ KF/2U8KGf2tMaeNZB6soLY4qCyfJIMvSwowswyEn+nyqQzAMViixRddqvCeGTqjSPGj1Ugo+XOH
+ 208xt8cx30jjcQBv31CFYhhJXGRc4NRQkeEznBiTfTrtSOQxQukwHj8NjOQbk5T+sRjcrv2c=
+X-Gm-Gg: AeBDietxGfHJm3lMZ79DrQN+ksRM7UQW9QTL7sHwvfB+ettBxZc2pslf6OHp/pquz+2
+ kIcjKYZNJ0a4HNfmyfwIXY/DDBHMoA1wfmMWl/yWwgOGUne1MGmERBSG6ifBLpnnZhr4RYnHZ6s
+ 31ZQ0nZglHOsS5ltK0wP76egEBoCW8wNl09Z1mvzLUEnFQnRumtyAFzippmI6ZYr6cUACq/RG4v
+ YJd7Bji+lVgxaGCSfmW7ZHrllBbq9Bl1ora+RZF5uOcYYRZE9UCXY6wYjM2PAmstt8DIaZznh8J
+ nMVq8p3Fx3C9EGKu69zfPHOTtRfT67GIe0R0W+Sl6h5jmA27kgM+SUovkRHhR6pqu9gGfuRBnTU
+ EBQUMBQEd7cnXF00Rn+uIPNOx6YUp3Z3uqvrgjKqssudnJXqULPX0lyg7
+X-Received: by 2002:a17:90b:164a:b0:35b:96bb:47ba with SMTP id
+ 98e67ed59e1d1-361404c0ca8mr41138502a91.26.1777271988883; 
+ Sun, 26 Apr 2026 23:39:48 -0700 (PDT)
+X-Received: by 2002:a17:90b:164a:b0:35b:96bb:47ba with SMTP id
+ 98e67ed59e1d1-361404c0ca8mr41138449a91.26.1777271988319; 
+ Sun, 26 Apr 2026 23:39:48 -0700 (PDT)
 Received: from hu-tdas-hyd.qualcomm.com ([202.46.22.19])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-361410a7ab7sm38628234a91.10.2026.04.26.23.39.35
+ 98e67ed59e1d1-361410a7ab7sm38628234a91.10.2026.04.26.23.39.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 26 Apr 2026 23:39:41 -0700 (PDT)
+ Sun, 26 Apr 2026 23:39:47 -0700 (PDT)
 From: Taniya Das <taniya.das@oss.qualcomm.com>
-Date: Mon, 27 Apr 2026 12:08:59 +0530
-Subject: [PATCH v2 5/6] drm/msm/a8xx: Make a8xx_recover IFPC safe
+Date: Mon, 27 Apr 2026 12:09:00 +0530
+Subject: [PATCH v2 6/6] drm/msm/a6xx: Limit GXPD votes to recovery in A8x
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260427-gfx-clk-fixes-v2-5-797e54b3d464@oss.qualcomm.com>
+Message-Id: <20260427-gfx-clk-fixes-v2-6-797e54b3d464@oss.qualcomm.com>
 References: <20260427-gfx-clk-fixes-v2-0-797e54b3d464@oss.qualcomm.com>
 In-Reply-To: <20260427-gfx-clk-fixes-v2-0-797e54b3d464@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
@@ -114,21 +114,21 @@ Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, Taniya Das <taniya.das@oss.qualcomm.com>
 X-Mailer: b4 0.15-dev-aa3f6
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI3MDA2OCBTYWx0ZWRfX2qXJW2iHrgyD
- QWYfGr59XGTA6haNG5cKNvi0hVJkHtKD94QJu4Rualkc5tnt13ou/8zuFnzpFeICWLzRytZhq2h
- vFSZfKCQlNGlQbyZA2WYYHVa6Rk0lh8Afe4loVnwjrq9issCSA8s/gGN2zIft5552pI/dFdy+eX
- oC9gP+G+jQZ4rse+GRX9Hr4ykm9jKJCPeYC8BdP0eenVA/LR/C/q/DWLNNm5CkrQGE6GJ2Aqm+r
- vSHyeQMLI3W5io43LRnerj742jStSTjPBdw3QKW9VnuA7iyrCdDE674wkCyfDZ3Zm1/uOqE5Y/H
- N31hExd9C6MBfc7Y2lOkAgKcevHP21jTyDJSCdsp9aqjT9FYa0LGwjdayvECYioKVEPko2eaNjx
- PqmRSa/EAjfnJJ6pTvmvQZ5i8woC0Y7Ow5MGnXKRiKF5mAYBxWmU+hNglDSnVhH0mkGRI6cxU6w
- i6K5keP7n/CVq4Sfu4Q==
-X-Proofpoint-ORIG-GUID: JgEBpdi6H-qGkEIP8xIqFF7SIGOvROz_
-X-Proofpoint-GUID: JgEBpdi6H-qGkEIP8xIqFF7SIGOvROz_
-X-Authority-Analysis: v=2.4 cv=UcthjqSN c=1 sm=1 tr=0 ts=69ef04af cx=c_pps
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI3MDA2OCBTYWx0ZWRfX/bNJPMo4vYo+
+ pakyQVZcH7raHr2yqX/olC2wF2lWy/ZDLrnpzobhIR8lHegkgtvc0pwCrpAwg9BVxTFSxVkYT/w
+ TiaZ+GUDdhJEoE1//ofceADXtjZy0s28BgnON/znpuNHaPAcwQS80OUyHE0GiUEXdt/b/8uplgd
+ MzPYsOxwki6+Dr6A4+iXDVMqItRPR4uYEPdfQIsrJEuTWmQ1orgfXGi/7Ee5kX8yxscHvOISzqB
+ OzX9eRRBFQYQNryXlXbPpZFy3q+f4UGwC9a9ATLxcVer0VY/aMXgHqvHtcv8VI77b8waNXcin5n
+ odmXXzFvS7QOVPws/y2P6OyhT6a0tiJ9OrVO03KjaZH+Jke9A72WbtpV28FXVPGIzENoBhlAFvo
+ SA6t68WH7//9JB5HEAQYDB5iRShhPt32xqteEJ5f5Fk15gbsdJhY6r+CjUSo0jFj+cW2W1pe6FP
+ 36n5ojAy0NjeflQJChw==
+X-Proofpoint-ORIG-GUID: w9TkDDFR4RWT52Tiu4hzNj2jn_oXRBEo
+X-Proofpoint-GUID: w9TkDDFR4RWT52Tiu4hzNj2jn_oXRBEo
+X-Authority-Analysis: v=2.4 cv=UcthjqSN c=1 sm=1 tr=0 ts=69ef04b5 cx=c_pps
  a=RP+M6JBNLl+fLTcSJhASfg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=6racf7IOMx3K1H64_JMA:9 a=QEXdDO2ut3YA:10
+ a=EUspDBNiAAAA:8 a=wUjT8lVc3dO_4AMqBZcA:9 a=QEXdDO2ut3YA:10
  a=iS9zxrgQBfv6-_F4QbHw:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
@@ -155,48 +155,119 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 
-Similar to a6xx_recover(), check the GX power domain status before
-accessing mmio in GX domain a8xx_recover().
+In A8x GPUs, the GX GDSC is moved to a separate block called GXCLKCTL
+which is under the GX power domain. Due to the way the support for this
+block is implemented in its driver, pm_runtime votes result in a vote on
+GX/GMxC/MxC rails from the APPS RSC. This is against the Adreno
+architecture which require GMU to be the sole voter of these collapsible
+rails on behalf of GPU, except during the GPU/GMU recovery.
 
-Fixes: 288a93200892 ("drm/msm/adreno: Introduce A8x GPU Support")
+To align with this architectural requirement and to realize the power
+benefits of the IFPC feature, remove the GXPD votes during gmu resume
+and suspend. And during the recovery sequence, enable/disable the GXPD
+along with the 'synced_poweroff' genpd hint to force collapse this GDSC.
+
 Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/adreno/a8xx_gpu.c | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 64 +++++++++++++++++++++++++++++------
+ 1 file changed, 54 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-index ccfccc45133fda53168d3475ebd3d543f10268af..9b99ec5ceeb5826fbd5cd1059febf5bc5ba468b5 100644
---- a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-@@ -886,17 +886,22 @@ void a8xx_recover(struct msm_gpu *gpu)
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+index 1b44b9e21ad868e6454b9140284cc7ebedc4f59a..b7166a883b018f459caae742e9a589f32167f8d2 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+@@ -1250,6 +1250,56 @@ static int a6xx_gmu_secure_init(struct a6xx_gpu *a6xx_gpu)
+ 	return 0;
+ }
  
- 	adreno_dump_info(gpu);
- 
--	if (hang_debug)
--		a8xx_dump(gpu);
--
- 	/*
- 	 * To handle recovery specific sequences during the rpm suspend we are
- 	 * about to trigger
- 	 */
- 	a6xx_gpu->hung = true;
- 
--	/* Halt SQE first */
--	gpu_write(gpu, REG_A8XX_CP_SQE_CNTL, 3);
-+	if (adreno_gpu->funcs->gx_is_on(adreno_gpu)) {
-+		/*
-+		 * Sometimes crashstate capture is skipped, so SQE should be
-+		 * halted here again
-+		 */
-+		gpu_write(gpu, REG_A8XX_CP_SQE_CNTL, 3);
++static int a6xx_gmu_gxpd_get(struct a6xx_gmu *gmu)
++{
++	struct a6xx_gpu *a6xx_gpu = container_of(gmu, struct a6xx_gpu, gmu);
++	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
 +
-+		if (hang_debug)
-+			a8xx_dump(gpu);
++	if (IS_ERR_OR_NULL(gmu->gxpd))
++		return 0;
++
++	/*
++	 * On A8xx HW, GX GDSC is moved to a new clk controller block under GX
++	 * power domain. The clock driver for this new block keeps the GX rail
++	 * voted when gxpd is voted. So, use the gxpd only during gpu recovery.
++	 */
++	if (adreno_gpu->info->family >= ADRENO_8XX_GEN1)
++		return 0;
++
++	/*
++	 * On A6x/A7x, "enable" the GX power domain which won't actually do
++	 * anything but it will make sure that the refcounting is correct in
++	 * case we need to bring down the GX after a GMU failure
++	 */
++	return pm_runtime_get_sync(gmu->gxpd);
++}
++
++static int a6xx_gmu_gxpd_put(struct a6xx_gmu *gmu)
++{
++	struct a6xx_gpu *a6xx_gpu = container_of(gmu, struct a6xx_gpu, gmu);
++	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
++
++	if (IS_ERR_OR_NULL(gmu->gxpd))
++		return 0;
++
++	if (adreno_gpu->info->family < ADRENO_8XX_GEN1)
++		return pm_runtime_put_sync(gmu->gxpd);
++
++	/*
++	 * On A8x, GX GDSC collapse should be triggered only when it is stuck ON
++	 */
++	if (adreno_gpu->funcs->gx_is_on(adreno_gpu)) {
++		pm_runtime_get_sync(gmu->gxpd);
++		/*
++		 * Hint to gfxclkctl driver to do a hw collapse during the next
++		 * RPM PUT. This is a special behavior in the gfxclkctl driver
++		 */
++		dev_pm_genpd_synced_poweroff(gmu->gxpd);
++		pm_runtime_put_sync(gmu->gxpd);
 +	}
++
++	return 0;
++}
  
- 	pm_runtime_dont_use_autosuspend(&gpu->pdev->dev);
+ int a6xx_gmu_resume(struct a6xx_gpu *a6xx_gpu)
+ {
+@@ -1266,13 +1316,7 @@ int a6xx_gmu_resume(struct a6xx_gpu *a6xx_gpu)
+ 	/* Turn on the resources */
+ 	pm_runtime_get_sync(gmu->dev);
+ 
+-	/*
+-	 * "enable" the GX power domain which won't actually do anything but it
+-	 * will make sure that the refcounting is correct in case we need to
+-	 * bring down the GX after a GMU failure
+-	 */
+-	if (!IS_ERR_OR_NULL(gmu->gxpd))
+-		pm_runtime_get_sync(gmu->gxpd);
++	a6xx_gmu_gxpd_get(gmu);
+ 
+ 	/* Use a known rate to bring up the GMU */
+ 	clk_set_rate(gmu->core_clk, 200000000);
+@@ -1339,7 +1383,8 @@ int a6xx_gmu_resume(struct a6xx_gpu *a6xx_gpu)
+ disable_clk:
+ 	clk_bulk_disable_unprepare(gmu->nr_clocks, gmu->clocks);
+ rpm_put:
+-	pm_runtime_put(gmu->gxpd);
++	a6xx_gmu_gxpd_put(gmu);
++
+ 	pm_runtime_put(gmu->dev);
+ 
+ 	return ret;
+@@ -1455,8 +1500,7 @@ int a6xx_gmu_stop(struct a6xx_gpu *a6xx_gpu)
+ 	 * domain. Usually the GMU does this but only if the shutdown sequence
+ 	 * was successful
+ 	 */
+-	if (!IS_ERR_OR_NULL(gmu->gxpd))
+-		pm_runtime_put_sync(gmu->gxpd);
++	a6xx_gmu_gxpd_put(gmu);
+ 
+ 	clk_bulk_disable_unprepare(gmu->nr_clocks, gmu->clocks);
  
 
 -- 
