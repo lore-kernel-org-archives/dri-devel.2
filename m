@@ -4,144 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEB0EFF8860
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 13:14:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CC74FF885E
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 13:16:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AC8610E746;
-	Mon, 27 Apr 2026 13:14:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7DB2D10E29E;
+	Mon, 27 Apr 2026 13:16:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ocBGaHMS";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VAiAbmrr";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="Njl1OWmc";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C975310E746
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 13:14:36 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63RB7ZDi1238182
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 13:14:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 6oTwfVDw7QNHQ4l4Eu3rLR/gbCz9lqfqUZ3HQYe/v6Y=; b=ocBGaHMS/3/QPLyg
- oEGnWfC5Vui0NY8YtJukeSHGWm0KRUnVp3x295q+rRZghnSznYG0larhcV1/9WBL
- phs1q9fhY3Clwg9rbpXXNnQSTGCc2hmzNUhTXtc2bwnJkTlR8zmrIngMSrieNMz3
- L88M1/nRcwpF6UtIRKGMM0R3t1fwfXg1uNLmjviuoSqKh5A2F5k1aj/0DIALGEdY
- Dp7WpzraIj77ecGonTKp9/kZk5cGPuaJ00vWZ/4WSckWBrljPKsJUQikMlZG8hTF
- VlV/4N1/r7nZOQtqbnD9gR/EWNcRqkiJXOF+ANQnbzfthr3SGaUrYfSwsfGA+Rzp
- DqVklw==
-Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com
- [209.85.217.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dt6n4gdm7-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 13:14:35 +0000 (GMT)
-Received: by mail-vs1-f69.google.com with SMTP id
- ada2fe7eead31-605a884731dso626917137.1
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 06:14:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1777295675; x=1777900475;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=6oTwfVDw7QNHQ4l4Eu3rLR/gbCz9lqfqUZ3HQYe/v6Y=;
- b=VAiAbmrrby0nBJjOY5Xaf/cKMN3Ew0o5VtorO96nbvu1guy8EgEnILdi0WwIL425BF
- pWiQYyMtqjWSFxIB/LUBPeyjM3VNHeRr3uqurlqrwgi9OkGR8CFtrZIcKH7Sod2rap/2
- P3ycW2uGIVjxFoK/nrhoq3Ef1YaqH+ECUJUEJBi6gW781yIrbIODHkqygubpmVY5jgfM
- S1uVAaHqf8f30G6w2hf0V4h2dQ5GJnFv3IpCmTQfqpnF2dDMbwVllfH1RCtU4nT5oyYQ
- k/xYUKg9e2apzG8tQTPXwn2bd2lV3tEjADcie8UMvuq40WlSN9UmKI2nmqC+A8lD/lC4
- 2mLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777295675; x=1777900475;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=6oTwfVDw7QNHQ4l4Eu3rLR/gbCz9lqfqUZ3HQYe/v6Y=;
- b=mz2ZRz+jUPupj+cS1+90k+ikf9/+JyNiU7/ed1xNeQY/HFt+g1VZd7CJXb7+nfk6mz
- FFhIBB9SbkBFtfh+u3s9Ao4TiRQuEBtIGpEZViQlP7R3fTWlaBvB8V6egFOEX2s4oEhz
- 4u2Yb0Ivb94K/UNMQJojG+xucJgbKu/ML76ahj/bONnMK6XPTpzf6P6ajWvvF/fahzkn
- vv3wIjZV5qSJ2ilhpOPPFq7PBJIMN7un0GAtgJ2zmSnZhzSr3/KMM3WgMmLMfRfj1z5z
- Y7LM657Bsv2jri1mj5wrpBvqwWM6HTpUCSAIb2curgglshJPHbvLMnc0C0bywuY8n2sQ
- q5zQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/wxHaIuUeR7wkWDBjnNB8yATseRGMBMpXpmTPugZSrE/YY6ET+ZhsLPEQS8oGD9fMF7gm8USGeJbw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxRUyMrlzSsE3OwvHt8fEOF+R0PzWhw8Bt9nNOMsgBqZGwUAPdL
- Z8t9izDgulkzExy1rwRCf/fi9nqG4Qhohr3HuIf87QY6RWmpAM49Y8l3B73ZtHeiCxAhjytWQOn
- V7B5+rqGJam52Syv3/QqydR/VuAE3CndnNjhe6SsEXRCOv9OlxwiijBw9Z/6VsBPEkyWIcrY=
-X-Gm-Gg: AeBDievWwp0vMfp6Wwa/u+Vp3QxP63rzepGCwjqw6F2NoMx1RdySoA/4+ITyPi4YSqn
- jgE7dH9M31JE/wH+mQOB9JnIWzanL6kmTHA4xbBHUrUf1E/s8NGiVmIBM7cOUD1/JwJWO0KXEC7
- +2Llu+NFefoJ3HCa7GTmPkIODkT0CEz4mrHpd3bxhZLEwyp4kXEcVktA7lLDq4zdmluH3dHM5bj
- Q3w5zMEE6qRSPYxtyHD/N/Dj2jo3bRP12zYg/nLIu61JCgLoYlVHwL1oy/PJ/63F2U9c+krpDV2
- QQ21KSj3Q3NFqB+oOh/1Y8LV65bCkc8Cyv8EZlYWA3qCCXfwyy51UBHOY9CxfbJZ0gomKPp+eXB
- 7cmfUh13kzbwexAhAZGaTb01+BR/qZGs2uexqp5lsa03nwEfJVUf/YeI3J9itu1u/xi9E2w/W/S
- 8FuNnokaZJjT/+9Q==
-X-Received: by 2002:a05:6102:5c2:b0:612:13af:f5de with SMTP id
- ada2fe7eead31-616f6ef8614mr6569921137.3.1777295675209; 
- Mon, 27 Apr 2026 06:14:35 -0700 (PDT)
-X-Received: by 2002:a05:6102:5c2:b0:612:13af:f5de with SMTP id
- ada2fe7eead31-616f6ef8614mr6569906137.3.1777295674654; 
- Mon, 27 Apr 2026 06:14:34 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-672c4d69708sm7043728a12.28.2026.04.27.06.14.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Apr 2026 06:14:33 -0700 (PDT)
-Message-ID: <0314b78c-cd96-473e-aad8-6977b47cf1f0@oss.qualcomm.com>
-Date: Mon, 27 Apr 2026 15:14:30 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/6] clk: qcom: gxclkctl: Remove GX/GMxC rail votes to
- align with IFPC
-To: Taniya Das <taniya.das@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Abel Vesa <abel.vesa@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
- Imran Shaik <imran.shaik@oss.qualcomm.com>,
- Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org
-References: <20260427-gfx-clk-fixes-v2-0-797e54b3d464@oss.qualcomm.com>
- <20260427-gfx-clk-fixes-v2-4-797e54b3d464@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260427-gfx-clk-fixes-v2-4-797e54b3d464@oss.qualcomm.com>
+Received: from CWXP265CU009.outbound.protection.outlook.com
+ (mail-ukwestazon11021097.outbound.protection.outlook.com [52.101.100.97])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D95910E29E
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 13:16:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=h1jFi3tHrz4U2si3wMVKG4VKkq8T+pQE4+DUYj99Tsnd0wfRHQsLEGUmBZ0oh8A5Xs54mqR6SPiHMA9dlf7aCzjUtgQmdFeF1ZwNlTta0tFLF6i9hTHD+UnM1kOPDBcY3/xSbaNIF9uu2axWTh/CQft1bIanfD6bmh+zOGVrHW3yskLPmvL3LRHPj80WcYy/cKIQ9eKW31R5Fjbv7GkVPZWfxJRyC8j6FRo25Rs6IwK+IPzcl2Xfku4345Jfe5sB+H98UCKMBt+tKb+3KK5q+9o4pbAFc/cirLObvEj9x/GND3djf/4DAsfUUscZ/KS2cIUA2UGfP61/mevE5J9fsA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1OtCylJ9kAyuzrUrv6W1OBkSVVRNf5d2RyIJA3tv6Io=;
+ b=dbnzTH1X6Mye5rTLsDRTh5Hy9AfIQHGhe2oHpM4CytxQjsuwR8oRxyhvsLC93BQSKwPlqm3RtFAbfCMJJuRiyFVyqn4Eb2JFD5gzWjgPMK5pLhzFIGYUWjkqTqn9ZVtaK0BhUCKX8R6h6KAQ63Ximqq7rjdnkO0pDclPIr+tqYlbNH3ewXiW8jkl4+NHaYGLlR/VXPKuP1FaZYmDvty/h4BxOJggtmNvMZ23KlK6cnNyx8wMtXdxcr9PkSJcb3i+U52RVGOgp2z/FBR+G6pq2SwRjIUQbj9mPbr11UInM12ByXMn6lZj26X+jLyVMV93RCowNm/xF3sSIqgZHfsLog==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1OtCylJ9kAyuzrUrv6W1OBkSVVRNf5d2RyIJA3tv6Io=;
+ b=Njl1OWmcY5Uv7Tgv0/PVtnSiAD5NSro3nk+7K1h52kW5RLjZSccGjYetWdtFy1u7ju3GF5gMg7cnyWq/io7DQ7ob8CY8iIEfbfZLtGKaXNtrjo8Ro5VgcpQb8PCG6dIDhFBCgJlLbuT+Rw4YofI0jq2N2uTKnsXelBQHt+vHKh8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by LOYP265MB2272.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:111::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.26; Mon, 27 Apr
+ 2026 13:16:28 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.20.9846.025; Mon, 27 Apr 2026
+ 13:16:28 +0000
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: YVJNkao8pdlDbz8YXiBHD7WVCsCGlnFt
-X-Authority-Analysis: v=2.4 cv=Xba5Co55 c=1 sm=1 tr=0 ts=69ef613b cx=c_pps
- a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=IGZpXzwkV2I0bIdW4VsA:9 a=QEXdDO2ut3YA:10
- a=gYDTvv6II1OnSo0itH1n:22
-X-Proofpoint-GUID: YVJNkao8pdlDbz8YXiBHD7WVCsCGlnFt
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI3MDE0MCBTYWx0ZWRfX4PZBFkmp5AmM
- 4JtXqzLAHaF9k+SGELr0gIb1rKcylfGzNQx3y0ueP8Vd1vZGsa36uCJlwJ6jGtcLCn/cSczakUi
- jO6b3AaTyCWPPtm87mS2I9hRb4SyZHmWoOWKX7Ybtd2JfV6wPVrJbbmRMIoJr5Z8SwSNe+916b1
- Wo1f0jPEMXI82womD1AeCvaSgVYGYgg1wUEzKqH2gPv+okW6mmS5OX9fptxWto/cUNaPYc1OfnF
- PYg//nZ9q2rC7HEXGTdLMi8/9FyJMRXiLH8YtFC1Ducv3u6NixkVuHLjDdLPGQqqOl86dQkPwcw
- YDYOEtujCwdhxrMQ0xjgRyy53fstAFtRQK4zHYq1xnPkk4R6LxEnySvxT71P+smPrI7RG+BM0bb
- B1QghV9NIWjLG/pl1a25YuuBcmthL/PzQ55h9OZTZ+kf3zUbUWa7eDxxTpRqDu5ID6NWKNvNr0W
- 7mXXko+7Pli0mSG62Fg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-27_04,2026-04-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 suspectscore=0 phishscore=0 adultscore=0
- impostorscore=0 lowpriorityscore=0 spamscore=0 clxscore=1015 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604270140
+Date: Mon, 27 Apr 2026 14:16:27 +0100
+Message-Id: <DI3YRXBIVAA1.1KLJUZZO6MPAX@garyguo.net>
+Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Joel Fernandes" <joelagnelf@nvidia.com>, "Timur
+ Tabi" <ttabi@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH v4 1/8] gpu: nova-core: remove unneeded get_gsp_info
+ proxy function
+From: "Gary Guo" <gary@garyguo.net>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
+X-Mailer: aerc 0.21.0
+References: <20260427-nova-unload-v4-0-e145ccddae66@nvidia.com>
+ <20260427-nova-unload-v4-1-e145ccddae66@nvidia.com>
+In-Reply-To: <20260427-nova-unload-v4-1-e145ccddae66@nvidia.com>
+X-ClientProxiedBy: LO4P123CA0356.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:18d::19) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LOYP265MB2272:EE_
+X-MS-Office365-Filtering-Correlation-Id: b277850f-7289-4ba3-90e4-08dea45f30f3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|10070799003|7416014|376014|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: aaUkviIoEzLox4st7uGaxFu8QRBHLTdDCMs+GKbzJYh2NJwEdGRMWOCzyYIc+wQpTwFhcBZHXKDmCmtGvzDVuFBuxKAHvto144jLYPjZVkkTLilawRfyA1gW3ev7TjKR67J/VQurbqnjjPQd9iH9HhHaa00VkNVDvwizPEHs12lsoiGc8kwo4cs2/W5lWEYDu85B6n/zkbc4Rn9Qbe9vhDTgbWyNaDR2GtF8dQmG7MsO3CPu1gtKL+UqLu2YqpS7wp+n9EnBWbsaGC7Mqt0TX++yw4vG0hf+Thn2EQDXSHpLSWkFyybrJHGjusn1e97uVNL3h4BRM/3UD4HPynFg1LZIN3KOM5kSe+fLcbdUnCCyWk7nbtmFjC9qPjG4Z8AKqRMo1qZd04mxRjQ5+k2CYgRyKC8cVw3Ryuh/k/fWuK4rZofH/kP9Cek2oSeqE93T78NCxICMHyi5E+DfJeYDyF7Q/9MEUsEnvRPzrPEM5Uuugl61F6uYSwIU6b+zpr3TvjjDCHtuljWkWE7vkViGiruIhIzlyySO2WrmS8VBrCyhHWqnxXu+adQHDHjiTdymqQJ8NmYstpL9R7s1AYx21CMD/Co60+n6kceW4OT9GbjsEkInLslpPQIo9z59rMsBVA6ZX1FtNOwDWsZSbWnnTB8DG5cW7vS8HnqigYX6dy1bZHGcRU0I0Er+T7GcCl9XisKREaWjvogs7b0gpec0cWOPzuRy8ErFmE0Z1gn8/TU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(10070799003)(7416014)(376014)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y0didVZHVUFFZFIxbzA1NS9rV3VEVERRTnBSL2ZucW9vM3JYL29nQXN0aEpo?=
+ =?utf-8?B?Z05XanJ1aVRkMUlBc28zWXYrb3A2OXZrY0dOd3FDRTRJa01vanRzZmlBVUIy?=
+ =?utf-8?B?cDliRFFDUGl2UXFtVTRHOUVhcm1qQzVudGFZSm5zay9BdDZUcmVCaVRHQXJV?=
+ =?utf-8?B?OEQ2TzdTNUtTVFJRTnRYSlEvWVlSWk1ERXJaQlZnU0Y1RTRzb2VCcDI4YWlU?=
+ =?utf-8?B?TjI1WDgyMGtGSzJWdFNuOVo4dzVNeFJ0ZVNWWXJ3M2k5aDRyNFczSGVBQW5y?=
+ =?utf-8?B?KytkeHhMcm12akxKY0xuWDU1Uk50RXNPekxnNGN6cjQwMWtqaS9samxEMlh1?=
+ =?utf-8?B?NWRDUkFTeE5STVExZlYzS2FHdkdpYmc2QkkzUE9GbjlUWUxObkFCLzE0UHAw?=
+ =?utf-8?B?VTkyRURiamtlQjByR3grM2JDeGo0YWdZcm43VmJGWDdkT2QrYnVYQXhuVWMy?=
+ =?utf-8?B?a3NwV3d5Z3Ryd3QrMmZyZ2lPUy9CSlVsTndFWXNqM2xuS2ZYekVrdVc3Wi9t?=
+ =?utf-8?B?YXpCbXlNWUMvY0JUQXZLdzhKaEpycW9saUxweVpaemJaa0FkV2wyZ05TSFJu?=
+ =?utf-8?B?WkZoTXdXNzg1aC91Q1Z1bEl6TGt6ZkFoOExXWGxteEVoeXo1Q0NBTHpHc2lN?=
+ =?utf-8?B?YmF4dmppZ3R3MStNSEhKQW1FblMrZlFGUjJGTVJxZkpKZTQ1Y1VOOFVKcGU3?=
+ =?utf-8?B?U28wOFBsVVc1dEh0VDl0b0lndFROeU1vS3VwV0ZaZTR5d1BaZEVZOHFTNDBR?=
+ =?utf-8?B?K1NDcitKQXNGcDlybEhFbzN3T2x3NGVoQjhvdnVhd0hIOXptZlp6VGxVemhX?=
+ =?utf-8?B?MTR1djlQZUh0UVJDcCtpYUgxQXZzSldTNG5MdHdUNzA5OEJSZUtuaHZNY01I?=
+ =?utf-8?B?ZHROUWNaTlR4a3BKbWRpR1psUm9UWUdYQmtZR0wvQUVTWmxIVTBnSWRNb1or?=
+ =?utf-8?B?Tmo0MHI0K2dnaG5pZnZiNk9FMlg3OVE1Z21xcktXU2xLSUM3QWV1b3pHSTVx?=
+ =?utf-8?B?blRLRi9sWXI3ZHAvY0w2c3hFVExhN1phaVNyQVFQQ0p0bUxqSmpDSzhsMkFZ?=
+ =?utf-8?B?TmFqei9OUTJQK2ZudVdGdmVxaG9HR2t5eHNlZ3lrOUZWZSsxWU13STVWYS9Q?=
+ =?utf-8?B?OTh2VmFqNXM3clp0dG1xVlNrbG04cVdvYXc4K01VZzdJdEZaQjc1cjRKdmd4?=
+ =?utf-8?B?YVpWdEZMVVdRTFBjeXZKWStvL1JQWWhidXpqazNKWkwrWFFGTkE1YVdrOHFO?=
+ =?utf-8?B?T3QvYmtOZ0tsc0FTeXJ0QXFKeWhmWVVsenB5VzR5Ky9DUStvWFRRNGxwSzQw?=
+ =?utf-8?B?MzBwZXJ3andkMDl3NnJjb3JrWmthZ0dEaW42R3g1eTJjd3RhNi9CWkQxZytD?=
+ =?utf-8?B?QU5JUnZ6RU9XUStwMXJDbTZweEtPNzNCS00vMXdxVlU3NVNsb0ZrT2x3WVJt?=
+ =?utf-8?B?ZlV3Wjh1VFlGMzNvUk5hT25HUnM3NXdqdlpJbWlBQ0l6ZklId1M5cmdGOEVE?=
+ =?utf-8?B?QWMzZE8xT1hrR0NJWThJTmRSUEMzQVl5V3hnMnhGQUUzd0tVVFlXTlpoSnJV?=
+ =?utf-8?B?YXJNckV3K01aZGEwU0F5Z05zYjNkR09acE13MEU0djVIeU9XaC9UcDZIMG5N?=
+ =?utf-8?B?WHltUHJlY05tT05hVUZlcFVuVC8xUzBlS3FDTVNNUW1FWmtZOUR2V0VGMEg2?=
+ =?utf-8?B?V0x2SUUwQ1JNMmNZTHFya3UreG8yc2dKZURNc2NXK3JoQTJvd0FvaE9EbUtw?=
+ =?utf-8?B?b0tQZUdKalZGUklSVlgxYTBIeVd5dGVyYS82SWVLSFVlY3ZUNXJETkFEbFRx?=
+ =?utf-8?B?MGlrSVAvVTVQbEN6VTBEUjNiRGxJVXBCWkpuelV2dTBNRG0xT1FMbE83eUJy?=
+ =?utf-8?B?dU5YQStGRzFHWU1tRU9ySHpLVnJIMXVaNXJUQ2N6TDV0L1hQRXl2blcvWXZx?=
+ =?utf-8?B?d3hYbHpCSzRoTDFZcFVUWUk4c21SZDR4bXNIL3FvclgzaTYrQmVKb045eFI3?=
+ =?utf-8?B?WnVkaU5TSGpaMWcxZzhCZTBNeFJsNVVvVFFpVG9sT1E3dXc4ekFvYWxXR2Iv?=
+ =?utf-8?B?am5XYmI4MmtySmJqWk5DWkp4VGxEWTRwbGxEWUdCbG96SzRXOHliTUNlbnJX?=
+ =?utf-8?B?bXQ4akR5UlhQVEExc0d0MlViWmtOVUFtNHVrNlFab25RUlRHd2toK0pSaHlZ?=
+ =?utf-8?B?NEM1NVR5bWg0NlZnOXlvbjh0OHoxalNnTFRGL0x4RldxY2xoYmxWMUtGWkpv?=
+ =?utf-8?B?VXJjZ3hIZGlEQmFwYkphTDlZQk0xclFoZXgrdDJtOXpCMzBVQVZ2NW10WHkx?=
+ =?utf-8?B?cUJaaTdIZFhkVCtia2tmNm8rMkpmRmo0MWNhU2RObzNkcGxKMTJMZz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: b277850f-7289-4ba3-90e4-08dea45f30f3
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Apr 2026 13:16:28.4056 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pZD+7Q1hL4yKtZ5sJVwgIC4ccIJs+9+KD+B2CHPFkI+XYn0H/F+4K7GJEClaQhsQnaRXDnBonjFRfZyoHal4Cw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOYP265MB2272
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,26 +142,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/27/26 8:38 AM, Taniya Das wrote:
-> The GX GDSC control is handled through a dedicated clock controller,
-> and the enable/disable sequencing depends on correct rail voting.
-> The driver votes for the GX/GMxC rails and CX GDSC before toggling
-> the GX GDSC. Currently, during GMU runtime PM resume, rails remain
-> enabled due to upstream votes propagated via RPM-enabled devlinks
-> and explicit pm_runtime votes on GX GDSC.
-> 
-> This is not an expected behaviour of IFPC(Inter Frame Power Collapse)
-> requirements of GPU as GMU firmware is expected to control these rails,
-> except during the GPU/GMU recovery via the OS and that is where the GX
-> GDSC should be voting for the rails (GX/GMxC and CX GDSC) before
-> toggling the GX GDSC.
-> 
-> Thus, disable runtime PM after successfully registering the clock
-> controller.
-> 
-> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+On Mon Apr 27, 2026 at 7:56 AM BST, Alexandre Courbot wrote:
+> This function was useful before the generic command-queue send methods
+> got merged, but it is just boilerplate now. Replace it with the correct
+> sequence to queue the `GetGspStaticInfo` command directly.
+>=20
+> Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
+> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+
+Reviewed-by: Gary Guo <gary@garyguo.net>
+
 > ---
+>  drivers/gpu/nova-core/gsp/boot.rs     | 2 +-
+>  drivers/gpu/nova-core/gsp/commands.rs | 8 +-------
+>  2 files changed, 2 insertions(+), 8 deletions(-)
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-
-Konrad
