@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E066FF8867
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 22:20:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 175D7FF8870
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 22:20:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF71410E963;
-	Mon, 27 Apr 2026 22:20:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 336C510E988;
+	Mon, 27 Apr 2026 22:20:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BqDRm9LT";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="e5a52eLG";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8471A10E988
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E87F10E963
  for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 22:20:13 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 6DC3860128;
- Mon, 27 Apr 2026 22:14:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AFB6C2BCB5;
- Mon, 27 Apr 2026 22:14:20 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A21BC60052;
+ Mon, 27 Apr 2026 22:14:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A906C2BCB6;
+ Mon, 27 Apr 2026 22:14:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777328067;
- bh=hYy8LQDnO+hisbOptHtgqKp36k1YyJTGix7eeoo2qKk=;
+ s=k20201202; t=1777328054;
+ bh=XiapHwreBkWCEuUnKNcDw0jpNWgyfgymZLeXPuHxqy0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=BqDRm9LTAxT+LFyHHIuPW75dzJcoI9Ybx7Pav2R3kJM6ezZK8ghNMm+Vgu0kZDyZK
- 1LudCaJgONM+Un6S/kbl7SB8Mcga8LywZ7inQvNuX1KcK7KaSNDiyXC7DBPDVdTKor
- 0q2svsR7Us01zcKWz6u/qqn6vkMogrDSopGHpgCW5TGai40EemoNAzP0c0nAQAfQN4
- l2N+0gniTfMs4GFNXBcrNGkoZtep7KOXCrc+BN9b5PlcSlhqV7AuaookXi4u61d0b9
- TflB5dPw/5CUgL0yAScR61V23nWsROYxBmcBHmPPDz34QgZrIkEkjFfH5hf1xXxnE3
- DpmWxroqy3GiQ==
+ b=e5a52eLGli+O/acn0H7GNgrRvd2gsA94IDJ2pALf9WnLRw6E3MYqHMbmR2XMKX8Im
+ SzMhCHVZiY9d9ALBdRxcor0owOPvX0R9KtpwuOhy+o1bTQOCmS/vLXwLZzizJO+i4J
+ v7gRIwkHzDIsbar07FDbu4IuSvnxpJTDrPp1spnf/XsKL76ECGGg7GKhB8GbYhjrQC
+ 9KNa16Md94CMpWFalQN3aNSj682XSMCeLjyixpPWnCLaK/8N82y9M6KSzcQ8qBHfpm
+ 6vV+m/9qa0lu7OJRQCD3UfwHNBM10wB676tBWV0CIcoSx/y6wXMmD7BNRR9e5cItKb
+ 5jQiGFny0S3LQ==
 From: Danilo Krummrich <dakr@kernel.org>
 To: gregkh@linuxfoundation.org, rafael@kernel.org, acourbot@nvidia.com,
  aliceryhl@google.com, david.m.ertman@intel.com, ira.weiny@intel.com,
@@ -43,11 +43,10 @@ Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
  nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
  linux-pm@vger.kernel.org, linux-pwm@vger.kernel.org,
  linux-pci@vger.kernel.org, rust-for-linux@vger.kernel.org,
- Danilo Krummrich <dakr@kernel.org>, Eliot Courtney <ecourtney@nvidia.com>
-Subject: [PATCH REF 22/24] gpu: nova-core: unregister sysmem flush page from
- Drop
-Date: Tue, 28 Apr 2026 00:11:20 +0200
-Message-ID: <20260427221155.2144848-23-dakr@kernel.org>
+ Danilo Krummrich <dakr@kernel.org>
+Subject: [PATCH 20/24] samples: rust: rust_driver_pci: use HRT lifetime for Bar
+Date: Tue, 28 Apr 2026 00:11:18 +0200
+Message-ID: <20260427221155.2144848-21-dakr@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260427221155.2144848-1-dakr@kernel.org>
 References: <20260427221155.2144848-1-dakr@kernel.org>
@@ -68,115 +67,177 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Now that SysmemFlush can borrow the Bar via HRT lifetime, store a &'a
-Bar0 reference and implement Drop to automatically unregister the
-sysmem flush page. This removes the need for manual unregister() calls
-and the Gpu::unbind() method.
+Convert the sample driver to SampleDriver<'a>, taking advantage of the
+lifetime-parameterized Driver trait.
 
-Reported-by: Eliot Courtney <ecourtney@nvidia.com>
-Closes: https://lore.kernel.org/all/20260409-fix-systemflush-v1-1-a1d6c968f17c@nvidia.com/
-Fixes: 6554ad65b589 ("gpu: nova-core: register sysmem flush page")
+The driver struct holds &'a pci::Device directly instead of
+ARef<pci::Device>, and pci::Bar<'a> directly instead of
+Devres<pci::Bar>. This removes PinnedDrop, pin_init_scope, and runtime
+revocation checks on BAR access.
+
 Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 ---
- drivers/gpu/nova-core/driver.rs |  4 ----
- drivers/gpu/nova-core/fb.rs     | 22 ++++++++++------------
- drivers/gpu/nova-core/gpu.rs    |  9 +--------
- 3 files changed, 11 insertions(+), 24 deletions(-)
+ samples/rust/rust_driver_pci.rs | 89 +++++++++++++++------------------
+ 1 file changed, 39 insertions(+), 50 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver.rs
-index ec9cecb30f63..401ae213991f 100644
---- a/drivers/gpu/nova-core/driver.rs
-+++ b/drivers/gpu/nova-core/driver.rs
-@@ -111,8 +111,4 @@ fn probe(
-             }))
-         })
-     }
--
--    fn unbind(_pdev: &'a pci::Device<Core>, this: Pin<&'a Self>) {
--        this.gpu.unbind();
--    }
- }
-diff --git a/drivers/gpu/nova-core/fb.rs b/drivers/gpu/nova-core/fb.rs
-index bdd5eed760e1..cbc42e98afca 100644
---- a/drivers/gpu/nova-core/fb.rs
-+++ b/drivers/gpu/nova-core/fb.rs
-@@ -46,21 +46,20 @@
- /// Because of this, the sysmem flush memory page must be registered as early as possible during
- /// driver initialization, and before any falcon is reset.
- ///
--/// Users are responsible for manually calling [`Self::unregister`] before dropping this object,
--/// otherwise the GPU might still use it even after it has been freed.
--pub(crate) struct SysmemFlush {
-+pub(crate) struct SysmemFlush<'a> {
-     /// Chipset we are operating on.
-     chipset: Chipset,
-     device: ARef<device::Device>,
-+    bar: &'a Bar0,
-     /// Keep the page alive as long as we need it.
-     page: CoherentHandle,
+diff --git a/samples/rust/rust_driver_pci.rs b/samples/rust/rust_driver_pci.rs
+index 38d639731229..7f763f43a38d 100644
+--- a/samples/rust/rust_driver_pci.rs
++++ b/samples/rust/rust_driver_pci.rs
+@@ -9,7 +9,6 @@
+         Bound,
+         Core, //
+     },
+-    devres::Devres,
+     io::{
+         register,
+         register::Array,
+@@ -17,8 +16,7 @@
+     },
+     num::Bounded,
+     pci,
+-    prelude::*,
+-    sync::aref::ARef, //
++    prelude::*, //
+ };
+ 
+ mod regs {
+@@ -45,7 +43,7 @@ mod regs {
+     pub(super) const END: usize = 0x10;
  }
  
--impl SysmemFlush {
-+impl<'a> SysmemFlush<'a> {
-     /// Allocate a memory page and register it as the sysmem flush page.
-     pub(crate) fn register(
-         dev: &device::Device<device::Bound>,
--        bar: &Bar0,
-+        bar: &'a Bar0,
-         chipset: Chipset,
-     ) -> Result<Self> {
-         let page = CoherentHandle::alloc(dev, kernel::page::PAGE_SIZE, GFP_KERNEL)?;
-@@ -70,19 +69,18 @@ pub(crate) fn register(
-         Ok(Self {
-             chipset,
-             device: dev.into(),
+-type Bar0 = pci::Bar<'static, { regs::END }>;
++type Bar0<'a> = pci::Bar<'a, { regs::END }>;
+ 
+ #[derive(Copy, Clone, Debug)]
+ struct TestIndex(u8);
+@@ -66,26 +64,24 @@ impl TestIndex {
+     const NO_EVENTFD: Self = Self(0);
+ }
+ 
+-#[pin_data(PinnedDrop)]
+-struct SampleDriver {
+-    pdev: ARef<pci::Device>,
+-    #[pin]
+-    bar: Devres<Bar0>,
++struct SampleDriver<'a> {
++    pdev: &'a pci::Device,
++    bar: Bar0<'a>,
+     index: TestIndex,
+ }
+ 
+ kernel::pci_device_table!(
+     PCI_TABLE,
+     MODULE_PCI_TABLE,
+-    <SampleDriver as pci::Driver<'_>>::IdInfo,
++    <SampleDriver<'_> as pci::Driver<'_>>::IdInfo,
+     [(
+         pci::DeviceId::from_id(pci::Vendor::REDHAT, 0x5),
+         TestIndex::NO_EVENTFD
+     )]
+ );
+ 
+-impl SampleDriver {
+-    fn testdev(index: &TestIndex, bar: &Bar0) -> Result<u32> {
++impl SampleDriver<'_> {
++    fn testdev(index: &TestIndex, bar: &Bar0<'_>) -> Result<u32> {
+         // Select the test.
+         bar.write_reg(regs::TEST::zeroed().with_index(*index));
+ 
+@@ -138,7 +134,7 @@ fn config_space(pdev: &pci::Device<Bound>) {
+     }
+ }
+ 
+-impl<'a> pci::Driver<'a> for SampleDriver {
++impl<'a> pci::Driver<'a> for SampleDriver<'a> {
+     type IdInfo = TestIndex;
+ 
+     const ID_TABLE: pci::IdTable<Self::IdInfo> = &PCI_TABLE;
+@@ -147,54 +143,47 @@ fn probe(
+         pdev: &'a pci::Device<Core>,
+         info: &'a Self::IdInfo,
+     ) -> impl PinInit<Self, Error> + 'a {
+-        pin_init::pin_init_scope(move || {
+-            let vendor = pdev.vendor_id();
+-            dev_dbg!(
+-                pdev,
+-                "Probe Rust PCI driver sample (PCI ID: {}, 0x{:x}).\n",
+-                vendor,
+-                pdev.device_id()
+-            );
+-
+-            pdev.enable_device_mem()?;
+-            pdev.set_master();
+-
+-            Ok(try_pin_init!(Self {
+-                bar: pdev.iomap_region_sized::<{ regs::END }>(0, c"rust_driver_pci")?
+-                    .into_devres()?,
+-                index: *info,
+-                _: {
+-                    let bar = bar.access(pdev.as_ref())?;
+-
+-                    dev_info!(
+-                        pdev,
+-                        "pci-testdev data-match count: {}\n",
+-                        Self::testdev(info, bar)?
+-                    );
+-                    Self::config_space(pdev);
+-                },
+-                pdev: pdev.into(),
+-            }))
++        let vendor = pdev.vendor_id();
++        dev_dbg!(
++            pdev,
++            "Probe Rust PCI driver sample (PCI ID: {}, 0x{:x}).\n",
++            vendor,
++            pdev.device_id()
++        );
++
++        pdev.enable_device_mem()?;
++        pdev.set_master();
++
++        let bar = pdev.iomap_region_sized::<{ regs::END }>(0, c"rust_driver_pci")?;
++
++        dev_info!(
++            pdev,
++            "pci-testdev data-match count: {}\n",
++            Self::testdev(info, &bar)?
++        );
++        Self::config_space(pdev);
++
++        Ok(Self {
++            pdev,
 +            bar,
-             page,
++            index: *info,
          })
      }
-+}
  
--    /// Unregister the managed sysmem flush page.
--    ///
--    /// In order to gracefully tear down the GPU, users must make sure to call this method before
--    /// dropping the object.
--    pub(crate) fn unregister(&self, bar: &Bar0) {
-+impl Drop for SysmemFlush<'_> {
-+    fn drop(&mut self) {
-         let hal = hal::fb_hal(self.chipset);
- 
--        if hal.read_sysmem_flush_page(bar) == self.page.dma_handle() {
--            let _ = hal.write_sysmem_flush_page(bar, 0).inspect_err(|e| {
-+        if hal.read_sysmem_flush_page(self.bar) == self.page.dma_handle() {
-+            let _ = hal.write_sysmem_flush_page(self.bar, 0).inspect_err(|e| {
-                 dev_warn!(
-                     &self.device,
-                     "failed to unregister sysmem flush page: {:?}\n",
-diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-index 922197f2aeef..ff9a90a46609 100644
---- a/drivers/gpu/nova-core/gpu.rs
-+++ b/drivers/gpu/nova-core/gpu.rs
-@@ -228,7 +228,7 @@ pub(crate) struct Gpu<'a> {
-     bar: &'a Bar0,
-     /// System memory page required for flushing all pending GPU-side memory writes done through
-     /// PCIE into system memory, via sysmembar (A GPU-initiated HW memory-barrier operation).
--    sysmem_flush: SysmemFlush,
-+    sysmem_flush: SysmemFlush<'a>,
-     /// GSP falcon instance, used for GSP boot up and cleanup.
-     gsp_falcon: Falcon<GspFalcon>,
-     /// SEC2 falcon instance, used for GSP boot up and cleanup.
-@@ -271,11 +271,4 @@ pub(crate) fn new(
-             _: { gsp.boot(pdev, bar, spec.chipset, gsp_falcon, sec2_falcon)? },
-         })
+-    fn unbind(pdev: &'a pci::Device<Core>, this: Pin<&'a Self>) {
+-        if let Ok(bar) = this.bar.access(pdev.as_ref()) {
+-            // Reset pci-testdev by writing a new test index.
+-            bar.write_reg(regs::TEST::zeroed().with_index(this.index));
+-        }
++    fn unbind(_pdev: &'a pci::Device<Core>, this: Pin<&'a Self>) {
++        this.bar
++            .write_reg(regs::TEST::zeroed().with_index(this.index));
      }
--
--    /// Called when the corresponding [`Device`](device::Device) is unbound.
--    ///
--    /// Note: This method must only be called from `Driver::unbind`.
--    pub(crate) fn unbind(&self) {
--        self.sysmem_flush.unregister(self.bar);
--    }
  }
+ 
+-#[pinned_drop]
+-impl PinnedDrop for SampleDriver {
+-    fn drop(self: Pin<&mut Self>) {
++impl Drop for SampleDriver<'_> {
++    fn drop(&mut self) {
+         dev_dbg!(self.pdev, "Remove Rust PCI driver sample.\n");
+     }
+ }
+ 
+ kernel::module_pci_driver! {
+-    type: SampleDriver,
++    type: SampleDriver<'_>,
+     name: "rust_driver_pci",
+     authors: ["Danilo Krummrich"],
+     description: "Rust PCI driver",
 -- 
 2.54.0
 
