@@ -4,123 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAB39FF8860
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 19:09:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 328B1FF8860
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 19:10:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22D0C10E08E;
-	Mon, 27 Apr 2026 19:09:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8177810E0BF;
+	Mon, 27 Apr 2026 19:10:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="lNcNrHwP";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FV6swgQU";
+	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="VaiZ0EuM";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6134B10E0BF
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 19:09:23 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63RFLLcf440889
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 19:09:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:message-id:mime-version
- :subject:to; s=qcppdkim1; bh=VN5/vWSpUfq9bwbzgEQDNDzFZoAHnVwNNTG
- Tid3qqrU=; b=lNcNrHwPgkYTE0JzH8D6ZgdLbLGqDJcXiBBbQzzczaX367p7Ock
- 6lHWXieQlV0UD6yDfiFUyFsAyNX7JKVqCT5EFmooGCIT6aN23s2SY/Ad77E3RC1C
- 25Y4OpxHbv5jc6oBStM1ja314LA+V5TepKxT4wL0s9Hj6xohxuaDDXVGRADr7age
- NgiR45Z6gF32Go07coLsoRkXGSXGK2eBhuNSm0drsY2VC4AcukKhg7vauw68MUMc
- Nu9xk/cbFSy/aXNyvuarOMIeyRpWfFPnDe3HlNei2k90/WiKQoH8XKK+jPBTwuN9
- muq9fVFWRjDw3f3jW0RR6DzeXMe0e8bmbnA==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
- [209.85.214.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dtac40uhs-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 19:09:22 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id
- d9443c01a7336-2b2e8bba2e6so150892505ad.1
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 12:09:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1777316962; x=1777921762;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=VN5/vWSpUfq9bwbzgEQDNDzFZoAHnVwNNTGTid3qqrU=;
- b=FV6swgQUi4Qd0cE1T0/mFId+TTnTZ1h7E5+haloeicDYhgpGlMxtmpSVTGQFHZ/2yN
- rCVMm00uRPAYnzjDHaOypseLF7Pkf7EfvgoD2DTyB0+Y+OXqgfk6t8wn9g3S8QAsmcsr
- BfZ7ge6DxtMwiS6k1D7J+SgNibElF1/nx4y5t3kwMqpDYYxOzRIaAKnMuIfPYlt2zDy5
- psXD8+upK6oHd5+FVwWE2jihc58nDY/jx2kIiEFlHKsTRCgoTcKKJupm7jhrghrigOGK
- k2rVYEx+hbFEjZ1Vgfm/w8/NK5h3VDNuFlymoYKWVVE/QQvmRL6zMWTt923sI/a/eO23
- wT+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777316962; x=1777921762;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=VN5/vWSpUfq9bwbzgEQDNDzFZoAHnVwNNTGTid3qqrU=;
- b=h0MRNVLQCTVZZfJI1cq5gNKznqrvGgWCaRkIwWo5DiR2hUEqnV6BhhG8CDsja9lAvn
- KlpDe0X9ESvbpqDn4Jwi0wvGrOOdF4GCF0ZmzIgk6Bdycn2j1igg/3CtXi6DLB4hwxBK
- XzseCMvbCC1yjE+YULsiOEO7E/A62OqKAFhyy1vjnuqdQYaG74QT402nc16C8NZwbTCJ
- VpkkDF7c3nBcVYas0mNfRLZnv/IGp8Spc6VriMswlMCNKl1RbVOZQAMqF7n7QD1S6FPS
- rBTcO6o30xZTIPl3JWSMUtNKM7kJOfcBxwX70jp3ks7KEiaZdTGf1biTrJh0kA3UkMU2
- FWQw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8rR0IgA/QENILPVG3TliyN39W5CTplbzL/2RpTXL8dkrb161KXL9H6WYToXEB8SZJWGClUAo6f4JY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwiD4fTgblBFygUmv8GmnNX4xyB177VXcjqf8DIAtOAjKnD7/Sd
- B7MXOyBLQsaLOHw6pxzXdw1eRSx5i1CAA+XzujBdSV4YKOfTOU8ydXDrT0bmLRicJPI12ZdFFYe
- wVzzH9d02DnoL2qN0W4vp+TIeeZuCQprH6NYynfcTBrldrIL9F0qMjHL5szA3Ld9gprDgTrg=
-X-Gm-Gg: AeBDiesXoVo+nM+GHcyEHPmwMhlnGReu9+jWFnId7kiYOjqO5WfKoLwQbaUtGkniDIF
- 6hshorO8wv+EPO/tMwaRgfqi4oo16qy6U30esaQq5bZzXXj4W2SDlCZSxi+xunGE/yLc5RENGkc
- 8s/g/kd2TLhT8PkRgGzhDawDY/em8ffVyKt37vbc0VLs4apQjJziLGpD9FZOkPOKxduNeS+rKTJ
- leMNGXjKBLdjpzrUTBUr4lB/vexMU2JKyIhCtQg7mgCUThyBBD+DCpCY/2BfNj+fGLpf0jSt6uY
- LjIEj9QZSMGu4tIMDeCVEKn4jtWkkQJmfKqaxefcWXeCIdDp0ii1yqvVflo2a/lcES5Zu8YXn7Q
- /Le5denygjJmmEZhjx9ZFOoy1U0ZbsNoOjmLgrzw7nRlTNk4ucv3RSxMWUw0=
-X-Received: by 2002:a17:903:22c2:b0:2b2:489a:f46a with SMTP id
- d9443c01a7336-2b97a97298dmr4981575ad.36.1777316962151; 
- Mon, 27 Apr 2026 12:09:22 -0700 (PDT)
-X-Received: by 2002:a17:903:22c2:b0:2b2:489a:f46a with SMTP id
- d9443c01a7336-2b97a97298dmr4981065ad.36.1777316961476; 
- Mon, 27 Apr 2026 12:09:21 -0700 (PDT)
-Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2b97aa95a7fsm2232335ad.24.2026.04.27.12.09.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Apr 2026 12:09:20 -0700 (PDT)
-From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Subject: [PATCH] dt-bindings: misc: qcom,fastrpc: Add compatible for Hawi SoC
-Date: Tue, 28 Apr 2026 00:39:13 +0530
-Message-ID: <20260427190913.3680717-1-mukesh.ojha@oss.qualcomm.com>
-X-Mailer: git-send-email 2.53.0
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61DB110E0BF
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 19:10:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
+ s=gloria202408;
+ h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+ References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+ bh=Rb4LC4RoKjMwkAoMYkZMORsdxxUBkkBcuhhkQcQ9qHU=; b=VaiZ0EuMs/V/UpaUqhIxQT4kOQ
+ m2fmNRxLnBGy786PBF2Z0XkvBMAdhyEjrVoKui6GQ8giNSHAgxOJ65AnNm08rjG9ZcemAVGmlbYo/
+ x0vLZwJUF06BH6iWuyebP6piC19SdZ3GLQlXRGSEATGAP7cM7uguCYD7l8bg82hup8QcS5AT6NLAK
+ O1rudfGXB/blSVVheseL8grFMm70H+C1ElnAg1J4VOHI1ueOm2U+FYROlQkL8Vzg77Rlg4y8VwKlq
+ IekUEQ9uAOQ5SFiBYkhiDulThCYOT1lPRHpbX2efjvngHBt09pilTEDB+hXdcnKs1SbNOdXWus5zo
+ 4MNyAfbg==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org,
+ Diederik de Haas <diederik@cknow-tech.com>,
+ Maud Spierings <maud_spierings@hotmail.com>
+Subject: Re: [PATCH v5 05/10] drm/bridge: dw-hdmi-qp: Add HDMI 2.0 SCDC
+ scrambling and high TMDS clock ratio support
+Date: Mon, 27 Apr 2026 21:09:09 +0200
+Message-ID: <890451008.0ifERbkFSE@phil>
+In-Reply-To: <d3b5239b-e3d9-4d81-9220-d6057d670ff3@collabora.com>
+References: <20260426-dw-hdmi-qp-scramb-v5-0-d778e70c317b@collabora.com>
+ <3826043.PYKUYFuaPT@phil>
+ <d3b5239b-e3d9-4d81-9220-d6057d670ff3@collabora.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: L0GYBmxvfDk9HzbeF9PD2AN-ag_tQ8-m
-X-Authority-Analysis: v=2.4 cv=D7J37PRj c=1 sm=1 tr=0 ts=69efb462 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=vdJOUiAGeZ4XVXUCxO0A:9 a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-ORIG-GUID: L0GYBmxvfDk9HzbeF9PD2AN-ag_tQ8-m
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI3MDIwNCBTYWx0ZWRfX+DTALyqaOtp4
- EX1lPEhBlfL0y/MIKMMz6L4XoTPhVgJqwUY57CBpDGO9WL/Eg87/AcIoEsEVvpXo2vMyBJx1/am
- J1vr6MJe+LS1YWiEw+y1axvlAxURrNCQ18rqsbibnlMpgCUDVyEtUw8oTpmQ3aryuszlfHCWLSx
- i2DcD6ma/y3WN6OVEB4yCm6YKqofQyBzEKMWrrPRaSrFAe4+vEv1amGZSgvewyNQWvZqkHkQxGy
- 8kCj5d7we/eUt43rJ+w2XkeOqBepmtLXXUXNi4rybQ42iZaepKBJoKdqcaMreosj4bS5IDPfCqT
- 8B/AeUmKFfQL5MKX4FAPWJskUljHwLYSrQ51vWrFtE+lDpddiwnvLVhhGzSK7IOaDJstVeZqQ2o
- cpd4uKqEICwSiP/FwqqT1kQZYc9kBDR1p4lOYze/RRE3DcwJf18Nyn0iVfi1abP64OGQ6XB/PcE
- dSlhlZGx/jSgRZS047w==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-27_04,2026-04-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 bulkscore=0 phishscore=0 lowpriorityscore=0 spamscore=0
- priorityscore=1501 suspectscore=0 clxscore=1011 adultscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604270204
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,26 +66,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Document compatible for Qualcomm Hawi fastrpc which is fully
-compatible with Qualcomm Kaanapali fastrpc.
+Am Montag, 27. April 2026, 18:39:44 Mitteleurop=C3=A4ische Sommerzeit schri=
+eb Cristian Ciocaltea:
+> Hello Heiko,
+>=20
+> Thanks for the quick reviews!
+>=20
+> On 4/27/26 1:49 PM, Heiko Stuebner wrote:
+> > Am Sonntag, 26. April 2026, 02:20:17 Mitteleurop=C3=A4ische Sommerzeit =
+schrieb Cristian Ciocaltea:
+> >> Enable HDMI 2.0 display modes (e.g. 4K@60Hz) by adding SCDC management
+> >> for the high TMDS clock ratio and scrambling, required when the TMDS
+> >> character rate exceeds the 340 MHz HDMI 1.4b limit.
+> >>
+> >> A periodic work item monitors the sink's scrambling status to recover
+> >> from sink-side resets.  On hotplug detect, if SCDC scrambling state is
+> >> out of sync with the driver, trigger a CRTC reset to re-establish the
+> >> link.
+> >>
+> >> Reject modes requiring TMDS rates above 600 MHz, as those fall in the
+> >> HDMI 2.1 FRL domain which is not supported. In no_hpd configurations,
+> >> further restrict to 340 MHz since SCDC requires a connected sink.
+> >>
+> >> Tested-by: Diederik de Haas <diederik@cknow-tech.com>
+> >> Tested-by: Maud Spierings <maud_spierings@hotmail.com>
+> >> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+> >> ---
+> >>  drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 188 ++++++++++++++++++=
+++++++---
+> >>  1 file changed, 172 insertions(+), 16 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gp=
+u/drm/bridge/synopsys/dw-hdmi-qp.c
+> >> index d649a1cf07f5..c482a8e7da25 100644
+> >> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+> >> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+> >> @@ -2,6 +2,7 @@
+> >>  /*
+> >>   * Copyright (c) 2021-2022 Rockchip Electronics Co., Ltd.
+> >>   * Copyright (c) 2024 Collabora Ltd.
+> >> + * Copyright (c) 2025 Amazon.com, Inc. or its affiliates.
+> >=20
+> > I have no real clue about the inner workings of hdmi, but that line
+> > does make me curious, because no part of the patch authorship does
+> > mention Amazon ;-) .
+>=20
+> That was intentional: although the code was written by Collabora, the cop=
+yright
+> belongs to Amazon.
 
-Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
----
- Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml | 1 +
- 1 file changed, 1 insertion(+)
+They selected a nice chip then :-D
 
-diff --git a/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml b/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml
-index ca830dd06de2..2876fdd7c6e6 100644
---- a/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml
-+++ b/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml
-@@ -25,6 +25,7 @@ properties:
-       - items:
-           - enum:
-               - qcom,glymur-fastrpc
-+              - qcom,hawi-fastrpc
-           - const: qcom,kaanapali-fastrpc
- 
-   label:
--- 
-2.53.0
+
+> > Also I think "or it's affiliates" might be way too broad, because this
+> > can be essentially everyone. So noone in the future will know who to
+> > ask on copyright questions.
+> >=20
+> > Similarly when _somebody_ comes forward with "I hold a copyright on thi=
+s"
+> > no-one could verify this claim as well.
+> >=20
+> > I somehow expect _one_ entity being specified, not possibly hundreds.
+>=20
+> Hmm, I followed the wording already used elsewhere in the kernel tree:
+>=20
+> $ git grep 'Copyright.*Amazon.*affiliates' | wc -l
+> 93
+>=20
+> There appears to be only a single instance that omits =E2=80=9Caffiliates=
+=E2=80=9D:
+>=20
+> $ git grep 'Copyright.*Amazon' | grep -v affiliates
+> drivers/power/supply/max14656_charger_detector.c: * Copyright (C) Amazon =
+Technologies Inc. All rights reserved.
+>=20
+> Which was added nearly ten years ago, so I=E2=80=99m not sure it makes se=
+nse to adopt
+> that form now.
+>=20
+> Actually, this seems to be fairly common among other vendors as well:
+>=20
+> $ git grep 'Copyright.*affiliates' | wc -l
+> 1014
+
+okay then ... if that is already used a lot, and nobody else complained
+then it should be fine I guess :-) .
+
+It just sounded strange to me when reading that earlier.
+
+
+Thanks a lot for digging those stats up
+Heiko
+
 
