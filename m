@@ -4,96 +4,143 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0154FF8860
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 13:16:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6ADCFF885E
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 13:17:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C89D10E748;
-	Mon, 27 Apr 2026 13:16:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06B7A10E74C;
+	Mon, 27 Apr 2026 13:17:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="f0kfKrKi";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="eafwYqJ7";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YSRof1XK";
 	dkim-atps=neutral
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com
- [209.85.208.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 172EF10E748
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 13:16:48 +0000 (UTC)
-Received: by mail-ed1-f51.google.com with SMTP id
- 4fb4d7f45d1cf-672c12e95e9so14401707a12.2
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 06:16:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777295806; cv=none;
- d=google.com; s=arc-20240605;
- b=RcYByyavMaN3uiKOUZ7SfV0gH7Fe+vUgyVrtZfjpym+YxQp2z0q0h5x4SOqMeMpURQ
- 3JfoOHjayk+o7ZhTKyv8DLx8UZBMfAg+SDW/2Ie22qLXTYMH55Dg8OymRGWCH1ChXJbN
- iMhcQizMogX66Rx2Xht7DVB5izKsqQyHz5toPx4bk0b19zAgO7Obw6pSCly/SMvJ/2BI
- otbodE50dfqrjbwob3y+aLhjrHe1FMvhcIXl/Axb+z4kN9VBMFtXZufbVtMB/poRS5JR
- 3EGJpwJMQa0dnt8TTgrV0dMHkYfkLtNpLAFzN/D8GJ4HN0KjEUCMfSHtfHQY9+GLU2t4
- t9PQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=6Ez+m/Pp3FoKDsSjZqsPsJp65wBlWOPg9kLMbj+KHSE=;
- fh=04/vsFp6qyOvMwCspTMawmwXAkiZyZTOWybwi5XW8TQ=;
- b=RVzkP9EXHnnbkaLj3q2Pb7tC53SbC94A9sDw0hsfThory9Ywxh5DEHuWFUnts1r+0j
- jE+AFxRLGFf16tqhQSH2FUvS0LLluzCqS8z+wSAsjdSLK/w3lwpyni9CSpyWZ6paisdN
- hcOgxI8fubLv/kmJzk7iqudbLhEv/RjiaoWC0YbIc+k7+zoWXtUvkEzwYIr1XYFd6mbi
- EtgTwMZtvLG3dkrCHS76ABNtJHVG9x7g2SrM2H35e7hJ0NP3w371wf7rspkcwFlHcJ8F
- p/4vtZ3y9JyGI4wzDXmg9mWHXio1iiti1uZJ1x7O8gUuKRFZScOrQsLqKfJu3CEQxvMK
- Y50A==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7D4410E749
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 13:17:17 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 63R8TEks2913944
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 13:17:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ zQ20hVfh6ChaIxk/xrbKz90SjTLBFn05mgb1/z9GS18=; b=eafwYqJ7X+N7+uxR
+ HIqdnIywU9Y2UwhDLXF8PCr3AOiJXIfLy0uDSBMROxVHG0DnMbw4j764Pt9eOTbm
+ JlQZnUAY1gkwk4wjkg5BSMxqwVm8+5L4gk0QENcKBpaLFvVATEqYqAh3ts8kp0Oj
+ bXQupf3B6rIsQiqWWzYqPc4RSt9GtazgYXWZeUjkDEZDrLvW9GTkuklA2jLgHVWX
+ gJxT+lmJJUiE0InATBCObRul3i2pR717KX853O6BVR6NoM1MhOx06svUHkChnSL7
+ LltYM9YiRWxF9MtgyurJ8QbR005kJLcRHocip+GGcAilGK3sClsiBd//vE0opSoi
+ MEK3TQ==
+Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com
+ [209.85.222.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dt26xhkx7-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 13:17:16 +0000 (GMT)
+Received: by mail-ua1-f69.google.com with SMTP id
+ a1e0cc1a2514c-9568c79b893so603179241.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 06:17:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777295806; x=1777900606; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=6Ez+m/Pp3FoKDsSjZqsPsJp65wBlWOPg9kLMbj+KHSE=;
- b=f0kfKrKi3klVyIGTv1ncDbDnlTLy9W273D1YfGHJ7s4AsqY5j+F+opdboPHQ6Sh77w
- u8ozWKeGRVZEPXRgQUy0us+zHDdR4OmcVGSRDTlKxYOf/Mp6bPcxI8RQFXNgfsn6ETHg
- r1Vmq9YkXryPJn0SqN/SddQIEMFzA+QOcUzzXrzMlHQCwlxiVTWkTrNx/DY6Wh6OZ6Tk
- MBUxPdhC8xShOAOVLj/qjI8wgqyGJp8f/8SyJgMywK0D6Y1rCJqJS1BWW/cL9YkQi016
- tHTX4EpzgG4s3ZHIETUCWmaWmB/np4U5GMnA/JqzDcb9EE5B5am8YTOMSv/QrMRPqKRw
- +FSg==
+ d=oss.qualcomm.com; s=google; t=1777295836; x=1777900636;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=zQ20hVfh6ChaIxk/xrbKz90SjTLBFn05mgb1/z9GS18=;
+ b=YSRof1XKogDDybMfXgp7urtzyTxdc0TCzmw9GLZltk3O6+CSW0iiyeTtwCbC99GAzZ
+ 1BoCzl+4BGsjuWpiApUMh7FMb8FMs3slXijKGg+1RPflMrjJx/WZL3pxnWBFYkT4cltH
+ WZ+EWR4ifH3BeXlpBuZ6BFeIDVsQ3nBxiUiZYQZtXs9pqj+W7dlMqeuKgp3gwBcvFDgK
+ s3peFDqq1XKcBx9ft/qLIS810Xpuo++NFFsCT4Xocvl/zcYHkLtjUK6y5DIn/lnQm1mn
+ z/L5M1ibXdhmkZ3Eys/cdCVMM8Q5uoG1PXUCCqunLJh2D8XYszWAMu4U/vIpaqnxiCVJ
+ ZwUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777295806; x=1777900606;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=6Ez+m/Pp3FoKDsSjZqsPsJp65wBlWOPg9kLMbj+KHSE=;
- b=ZpdJzUQdHvizhZa0W7a8T94+UN6IxknuvcEQnC8jPKnYzzhVKsfGL4milEOvRCs5vE
- 0Ny7vJWqVCPVS59MnCqC1RRvDyzsSOw4QUoqxoHZuhK+c4qOhJXCX2xqqsWPhpdQbifQ
- FrVFTsbkAf6l8IUUtwx/ofBtwhlyHJNhs/e50Eq0Rhc76AUS9ZcEV4vaAYo112y/wL1m
- 4e5N1eXD6VEHB0Nzp46l+zO5alL4DHbydqRiMPnZrsiyUJ4YiLPA6nRkmphZLhnxljKp
- t6czXYRXIvnV+h+9J32oEyY8qoxN44RJ23GjU1UOfchRkiS/tgD3ToN58BJTdVei/bng
- 8b+A==
+ d=1e100.net; s=20251104; t=1777295836; x=1777900636;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=zQ20hVfh6ChaIxk/xrbKz90SjTLBFn05mgb1/z9GS18=;
+ b=BqAWW2PHTEpP0AZZDBg81x0wtKtse/2v8OJ/kUnAPv9Qqiqjx/W2KNYvQToJ/FXn0K
+ 5L19lcrvS9bzhAq4or5lDAicT/H2wiWFDDBzrkFYemV03G/NYn3p9O8WuY6wUTqCjyRQ
+ nQnj10bFovjkZ5Vwe9nGg3R3+/Cd0l95NSj7X5e4yPtccKscK1jYgz+P7M2SezFZt4My
+ 9WmP50XyuLnVMJdE+MQkd4UISC8+dhRkpsndgkAVO4Q2FhNZ082tMo/FKVE3d41mnMKT
+ IEqLSEM0NnsX33v/B2rvBpF/XnuGEK8k4vU7smAINZF4TYvTbPXzeXm+dDsAFSm/oIrV
+ +gTA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ823hL5qJRrHCkKZIqL2+xW8mA+77KLTeZbs9KIB3xD35JljDTCxp75x0zDtp4Io0GTsMe04bLsMms=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzVM3bhytUzFpPevYsENM2gFVZat1ClHPVWjvBjULtSspdXO67a
- Aez3IfBWEQ27w9FoA0ippnt9/m+x/+o/0dTe51XHsb0yuutsznjKJZIpOugRHz/s22Va/IB2bu3
- Uu49xfasJ72uO2MfkpMnxNUvjfg3TEQ==
-X-Gm-Gg: AeBDietbMHmlGlKRMDVaCwcyKdiTJpP487LkJtYzZXr+TsPgmjgJGN/5OGGfW9qEvJb
- tLNuf/AW3cyCjOmfX1TZKEz9xVgMaoVGPNiZl/FCkuXVdAUfJfZvbVxZhDj20a3zK2zj+FRf6ua
- Vs3R89Wjbq6I4NjQlQKZ+jitg/UReSbR9Bwuxxcy9tyikf1wlxHizmwHkzecGvbywQRibv0I2jp
- PikF3OIaucU9BlktAp36M5nGmJsOHfzYdoHcuPg0caQTEYx6cMhgJ/pXzYd8gHs1X63kktQhSOo
- vvuwePPzRJ9/2/fUe2VBbjCeZOH/FsvEoFNoHipOpUluAI09okMgfipzlw==
-X-Received: by 2002:a05:6402:c4f:b0:670:ef2a:217e with SMTP id
- 4fb4d7f45d1cf-672bfbff5f4mr18786057a12.0.1777295805962; Mon, 27 Apr 2026
- 06:16:45 -0700 (PDT)
+ AFNElJ+7v91+ZJW+T4B5e76DyktPffvSIkkPVBJP1s7anBPWvSWfeGplXKsUKceV0GO+e5Areh/1zjRqelk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzkB7LPk165wqozxzJHRLVDabV9Q0MoiF/wKSM5pBvXkv9y6jVv
+ K/YMVSjE4iPjHwvfp6GmHsS4KajW+cljSD5RMR8kJioSLxyL8pHzWxj99Gh8H1EWbocFiY3WNxF
+ 60oOyezT1LE/SCBncyRQThmGfC9Bpj9BDULJIcacRlI/vO5HIBZOu9ajFo5+bn6tqdPxe0VY=
+X-Gm-Gg: AeBDievPSEqU4elVINuD7ijiBMlKX09xWf9UIQAsuVNzf+T5KwFT/roviuThemApi2g
+ PIrshNnrEmBM6n4XzKuE+UjgNKc5U8PcQTi14pWPjNsesuBsA8ILkTiyBkXkw3p40/ZrajgRi0W
+ dKRpS4h6xfNxHsiygFyE7I8ASTHCCIKCwfcmapVfDCgftwspmCsfSrnWarTz39vHo7IGqItedDH
+ MfZzQIf87fGjDtrkNEFaL7SsIZOGb1+PyAWELigA/MCaGG64pcNbmUBPxjbqebnuymrMj1waypw
+ kLPVWtTBAcW3ttY5URySY1cooyK2M5GNPNYu6MU9eK+SgXL/ZnvpZelOpHcvuUwYmmgGBOmJFhN
+ 5e6VT7wDcWGsOe5FMyVR9V9eNo2ZYD71NqAHio1DhhSL/Q2gfe5SY87TE6EYZR7svBZSPqi2utZ
+ qnijC5tVwdaaCuwQ==
+X-Received: by 2002:a05:6122:83c3:b0:56f:6edd:77ae with SMTP id
+ 71dfb90a1353d-56fa55ed7b5mr8965583e0c.0.1777295836242; 
+ Mon, 27 Apr 2026 06:17:16 -0700 (PDT)
+X-Received: by 2002:a05:6122:83c3:b0:56f:6edd:77ae with SMTP id
+ 71dfb90a1353d-56fa55ed7b5mr8965532e0c.0.1777295835721; 
+ Mon, 27 Apr 2026 06:17:15 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-678974e23adsm3156526a12.13.2026.04.27.06.17.10
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 27 Apr 2026 06:17:14 -0700 (PDT)
+Message-ID: <4e454c14-92f2-4929-a058-3f128c901a00@oss.qualcomm.com>
+Date: Mon, 27 Apr 2026 15:17:10 +0200
 MIME-Version: 1.0
-References: <20260424121206.14558-1-mhun512@gmail.com>
- <DI3YHHC57ZD8.4FCLYJZ8YU19@bootlin.com>
-In-Reply-To: <DI3YHHC57ZD8.4FCLYJZ8YU19@bootlin.com>
-From: Myeonghun Pak <mhun512@gmail.com>
-Date: Mon, 27 Apr 2026 22:16:29 +0900
-X-Gm-Features: AVHnY4K-7aIoLTtljVW2w-j64x6ZOS7Ncpg-tfBrYJvWYyALgDBAnVTrISmkJLc
-Message-ID: <CAGEsz8E1679jzn7MhLKsQKzUZXAVxrDfQqaBDMB53fHTy1OY-Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/sti: hda: Fix bridge leak on component_add() failure
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Alain Volmat <alain.volmat@foss.st.com>,
- Raphael Gallais-Pou <rgallaispou@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: multipart/alternative; boundary="0000000000002cdfcd065070ed67"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 6/6] drm/msm/a6xx: Limit GXPD votes to recovery in A8x
+To: Taniya Das <taniya.das@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Abel Vesa <abel.vesa@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+ Imran Shaik <imran.shaik@oss.qualcomm.com>,
+ Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+References: <20260427-gfx-clk-fixes-v2-0-797e54b3d464@oss.qualcomm.com>
+ <20260427-gfx-clk-fixes-v2-6-797e54b3d464@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260427-gfx-clk-fixes-v2-6-797e54b3d464@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: oJv1kQCnlPiABuLKlkF8rWf8EkEX_82X
+X-Proofpoint-ORIG-GUID: oJv1kQCnlPiABuLKlkF8rWf8EkEX_82X
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI3MDE0MSBTYWx0ZWRfX+n41M+Oa9p0F
+ LVQyVISx3bDuZIFXoumGpniAr+r3fHJstEIT2Uoa9bXkxH65zAXNuy1xm5bR5LB7XRkrXe29Hpo
+ Xnm+iFaf1IaMsDNcmPGypsya3JG3x1EIq+O3WdilAccI1imUU5+n+549iNeuxg+z1nDZt73F2Ys
+ 3jRlK3Oanaw3QgRof0/S93x99mABcGjaqx6XfbcjgwGHlpGm/OCnKL7RCORpwHkJNNWV4oO2V4m
+ N/i6szaLeigTb/RnwO0ZSGdJZ2+a+atelzuU4i+PrF6esMLUsn4RAW1gmQUatIB2MdcK/SSoSt3
+ 0BC0oY5oyVPQIigVZ8G5OqwmjynN3T3FFPI7Oxvqp7hBoSsKE+JJgoV9okSMOKk2zAX6kAyAbGB
+ k0if3sn/K4kG5vWIsVkeNM9g0gzhReCCj2Kn7D3BRRvkPBNnSI0wVumoZ4FDOpZEO+Rm9e5oq1j
+ gmpOGfEL9IlvohJzSeg==
+X-Authority-Analysis: v=2.4 cv=FM8rAeos c=1 sm=1 tr=0 ts=69ef61dd cx=c_pps
+ a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=eR-y9ft8gFT6PtJfczAA:9 a=QEXdDO2ut3YA:10
+ a=TOPH6uDL9cOC6tEoww4z:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-27_04,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 suspectscore=0 adultscore=0 bulkscore=0 phishscore=0
+ spamscore=0 malwarescore=0 priorityscore=1501 impostorscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604270141
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,95 +156,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---0000000000002cdfcd065070ed67
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 4/27/26 8:39 AM, Taniya Das wrote:
+> From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+> 
+> In A8x GPUs, the GX GDSC is moved to a separate block called GXCLKCTL
+> which is under the GX power domain. Due to the way the support for this
+> block is implemented in its driver, pm_runtime votes result in a vote on
+> GX/GMxC/MxC rails from the APPS RSC. This is against the Adreno
+> architecture which require GMU to be the sole voter of these collapsible
+> rails on behalf of GPU, except during the GPU/GMU recovery.
+> 
+> To align with this architectural requirement and to realize the power
+> benefits of the IFPC feature, remove the GXPD votes during gmu resume
+> and suspend. And during the recovery sequence, enable/disable the GXPD
+> along with the 'synced_poweroff' genpd hint to force collapse this GDSC.
+> 
+> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+> ---
 
-Hello Luca,
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Yes, this is a duplicate. I missed Osama's patch when preparing mine.
-
-Please ignore/drop my patch, and sorry for the noise.
-
-Thanks,
-Myeonghun
-
-2026=EB=85=84 4=EC=9B=94 27=EC=9D=BC (=EC=9B=94) =EC=98=A4=ED=9B=84 10:02, =
-Luca Ceresoli <luca.ceresoli@bootlin.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=
-=B1:
-
-> Hello Myeonghun,
->
-> On Fri Apr 24, 2026 at 2:11 PM CEST, Myeonghun Pak wrote:
-> > sti_hda_probe() registers its bridge before adding the component. If
-> > component_add() fails, probe returns the error directly and leaves the
-> > bridge registered.
-> >
-> > The remove callback unregisters the bridge, but remove is only called
-> > after a successful probe. Remove the bridge locally when component_add(=
-)
-> > fails so the probe error path matches the successful-probe remove path.
-> >
-> > Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
->
-> Duplicate of [0]?
->
-> [0]
-> https://lore.kernel.org/all/20260423200622.325076-1-osama.abdelkader@gmai=
-l.com/
->
-> Luca
->
-> --
-> Luca Ceresoli, Bootlin
-> Embedded Linux and Kernel engineering
-> https://bootlin.com
->
-
---0000000000002cdfcd065070ed67
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hello Luca,<br><br>Yes, this is a duplicate. I missed Osam=
-a&#39;s patch when preparing mine.<br><br>Please ignore/drop my patch, and =
-sorry for the noise.<br><br>Thanks,<br>Myeonghun<br></div><br><div class=3D=
-"gmail_quote gmail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">2=
-026=EB=85=84 4=EC=9B=94 27=EC=9D=BC (=EC=9B=94) =EC=98=A4=ED=9B=84 10:02, L=
-uca Ceresoli &lt;<a href=3D"mailto:luca.ceresoli@bootlin.com">luca.ceresoli=
-@bootlin.com</a>&gt;=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:<br></div><blockq=
-uote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1p=
-x solid rgb(204,204,204);padding-left:1ex">Hello Myeonghun,<br>
-<br>
-On Fri Apr 24, 2026 at 2:11 PM CEST, Myeonghun Pak wrote:<br>
-&gt; sti_hda_probe() registers its bridge before adding the component. If<b=
-r>
-&gt; component_add() fails, probe returns the error directly and leaves the=
-<br>
-&gt; bridge registered.<br>
-&gt;<br>
-&gt; The remove callback unregisters the bridge, but remove is only called<=
-br>
-&gt; after a successful probe. Remove the bridge locally when component_add=
-()<br>
-&gt; fails so the probe error path matches the successful-probe remove path=
-.<br>
-&gt;<br>
-&gt; Signed-off-by: Myeonghun Pak &lt;<a href=3D"mailto:mhun512@gmail.com" =
-target=3D"_blank">mhun512@gmail.com</a>&gt;<br>
-<br>
-Duplicate of [0]?<br>
-<br>
-[0] <a href=3D"https://lore.kernel.org/all/20260423200622.325076-1-osama.ab=
-delkader@gmail.com/" rel=3D"noreferrer" target=3D"_blank">https://lore.kern=
-el.org/all/20260423200622.325076-1-osama.abdelkader@gmail.com/</a><br>
-<br>
-Luca<br>
-<br>
---<br>
-Luca Ceresoli, Bootlin<br>
-Embedded Linux and Kernel engineering<br>
-<a href=3D"https://bootlin.com" rel=3D"noreferrer" target=3D"_blank">https:=
-//bootlin.com</a><br>
-</blockquote></div>
-
---0000000000002cdfcd065070ed67--
+Konrad
