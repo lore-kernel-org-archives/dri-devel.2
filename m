@@ -4,76 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1F84FF8860
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 17:19:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7538BFF8860
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 17:29:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C53010E866;
-	Mon, 27 Apr 2026 17:19:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3D28891E1;
+	Mon, 27 Apr 2026 17:29:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="k8kV5Zhk";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="PqrH+zq1";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9394B10E866;
- Mon, 27 Apr 2026 17:19:25 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 180046024D;
- Mon, 27 Apr 2026 17:19:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A25EEC2BCB7;
- Mon, 27 Apr 2026 17:19:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777310364;
- bh=xblTv37x9V4gU3cvmA9ILfz6xXNOv0sNe2zU9C6a5nw=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=k8kV5Zhk7HZbxy8X7mxqUL5UgTTJPPuuLtSKHKOe5PwbIiNodL9/7ESxRbcOMv4dB
- NN/pd897F5mMQZv6MW+RM/3mikWvqmJGQCtupbd6YHiobStaCQu79RRkwt3Bs1rL/A
- WmXtcy3vIzgejB2MGSu6MrKJ33itreKKdFlemNypyCUExoUHGXA1bHbqFqaNX4ujdd
- iXZiXWTV/w69yfgs2V8e+zdWAilhhtsvDDxzPIT8CbbievjXPmrPwVloE5aoqLKmYP
- ca2+sf92YJQm2mLHcpyNlGd6mMQP6QhUed6Hx8vk/CloBjO7tSgz4fayv+CeXka+Fz
- NwGM6tvALNVmQ==
-From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-To: Yury Norov <ynorov@nvidia.com>, Andrew Morton <akpm@linux-foundation.org>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- David Laight <david.laight.linux@gmail.com>,
- Thomas Gleixner <tglx@linutronix.de>
-Cc: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-snps-arc@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- kvm@vger.kernel.org, linux-riscv@lists.infradead.org,
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
- linux-um@lists.infradead.org, dmaengine@vger.kernel.org,
- linux-efi@vger.kernel.org, linux-fsi@lists.ozlabs.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-wpan@vger.kernel.org,
- netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
- linux-spi@vger.kernel.org, linux-media@vger.kernel.org,
- linux-staging@lists.linux.dev, linux-serial@vger.kernel.org,
- linux-usb@vger.kernel.org, xen-devel@lists.xenproject.org,
- linux-fsdevel@vger.kernel.org, ocfs2-devel@lists.linux.dev,
- bpf@vger.kernel.org, kasan-dev@googlegroups.com, linux-mm@kvack.org,
- linux-x25@vger.kernel.org, rust-for-linux@vger.kernel.org,
- linux-sound@vger.kernel.org, sound-open-firmware@alsa-project.org,
- linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org,
- loongarch@lists.linux.dev, linux-m68k@lists.linux-m68k.org,
- linux-openrisc@vger.kernel.org, linux-parisc@vger.kernel.org,
- linux-sh@vger.kernel.org, linux-arch@vger.kernel.org
-Subject: [RFC PATCH v1 9/9] uaccess: Convert small fixed size
- copy_{to/from}_user() to scoped user access
-Date: Mon, 27 Apr 2026 19:13:50 +0200
-Message-ID: <8780eb2ef80575931a339e5225bc80eb13e9be6c.1777306795.git.chleroy@kernel.org>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <cover.1777306795.git.chleroy@kernel.org>
-References: <cover.1777306795.git.chleroy@kernel.org>
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CDABD891E1
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 17:29:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1777310975;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=KF7u6ZoNxfK3+BpCCoO5erH9nqzrz/OiFIJaWAx89LM=;
+ b=PqrH+zq11Ei/swCxgFCEzYfc+FAYkYyenOijqDTIjqPIaqVOkswyxWkiaBkuGP3aRQSOcL
+ 4IotGw+ftxFz0iQ0vc82A206sb5E8s8PvVG98orQmwyWt0pSBdBMQgmvm70ehcqKZY4KkO
+ R1ZjCRBW0MorYG6mRDa9V0wwA2X6pi8=
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-580-S1YJHXg0O7SLLWWYnemcPQ-1; Mon, 27 Apr 2026 13:29:34 -0400
+X-MC-Unique: S1YJHXg0O7SLLWWYnemcPQ-1
+X-Mimecast-MFC-AGG-ID: S1YJHXg0O7SLLWWYnemcPQ_1777310974
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-50da529ff48so45830511cf.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 10:29:34 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777310974; x=1777915774;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=KF7u6ZoNxfK3+BpCCoO5erH9nqzrz/OiFIJaWAx89LM=;
+ b=LnnfuiTp1gnU2jlZSuBmRrzMvy2Di7FAZv+QUV6n4DXI4nmsDEVl4sflADDvSePY6X
+ 3ySbG8pIK6MoscmOBrtwApopFbjKvwkdn9PQpvYlBajqD5stqUNkFocRSzCukI4rFRiK
+ I4jVh6ASx5LTTm6XlO9mn5ZCyLxmsBVypA+pUbof7/aVbenp+a7y8bJ9pa2SzkO3iWH1
+ 8qFOFXpFG17Tcs5iH9NBpKzBOsQku/ORA+wTIQaYsfoqyNvSlRyw/HzvEEIEX71pun/D
+ Rodk03gWymzze4i3bQ+Bo8DOeRaOJZm6t5BjqDwfKfyGpAJUB5Z4jGZ7LVHKiAVwxYY6
+ i++A==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8rjgpE0ccTcycyli8cYdycBebXwzD1t4dZK2vr3p7ZL+bP1G1gtV9n2GuJzYQl/atuWytUH/wR9wE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwYHnCGawOEFXmWXif9tTGpgXFZgMR/feR9uVmn5qK6u6GdcvD3
+ LrS0BPyWNC7UwHQluOcbUmUziX6i3nnw7xu906iNdmo8ecsg3+f7YjM0wEBgFsOQyFHp2xpEyMx
+ ABug8yV/ftnOPznJwQBdRdnzkDvPG0a+rq2qLgxCibddTqI5dPuR8SoqrxDfACBPLoyzEeg==
+X-Gm-Gg: AeBDietoGep6UMhfr+3ovL/bLNtYDoKx7WyZPq6JHOsiSpH4sSfonEmuZIc77FyhjyW
+ XbZAc3yOT6/aEW6BlD1Z3crycyFbrtJzouPdXApuy+c9KsfaBExxQyeOD6wzDmJeKusEqe2T+o3
+ 80YmrodK0jjC3pmgqf/4Ql1k4aQOIVUYIH5kcKl8inTnqdPcAEIP7L6tN0MF4GI9E18QBXiTN3P
+ 2ofcWUExpfQJN3JkyiwlL5EFjLHm3zuaBuWP9okHeIK1AC8n7ihQXRbN0ISvaKyEQo+2CzhgN0o
+ LG2oncdfG4hNoSVC2oJCElRa4KCr+kZGFhIeDDTcc6Z1WqaE6UcBF2q0UY8cpkjnPMaL3ysbENc
+ HG7Fmt5dMmP0KqIf5eojhJCRZ+aWo
+X-Received: by 2002:a05:622a:486:b0:509:1009:e7a6 with SMTP id
+ d75a77b69052e-5100c97933emr2571341cf.43.1777310973867; 
+ Mon, 27 Apr 2026 10:29:33 -0700 (PDT)
+X-Received: by 2002:a05:622a:486:b0:509:1009:e7a6 with SMTP id
+ d75a77b69052e-5100c97933emr2570391cf.43.1777310973161; 
+ Mon, 27 Apr 2026 10:29:33 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-8b3e29932fasm285886d6.45.2026.04.27.10.29.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 27 Apr 2026 10:29:32 -0700 (PDT)
+Message-ID: <2f8a8b96473d99cee6f33075532a97f956ce21bc.camel@redhat.com>
+Subject: Re: [PATCH v12 5/5] rust: drm: gem: Add vmap functions to shmem
+ bindings
+From: lyude@redhat.com
+To: Alexandre Courbot <acourbot@nvidia.com>
+Cc: nouveau@lists.freedesktop.org, Gary Guo <gary@garyguo.net>, Daniel
+ Almeida	 <daniel.almeida@collabora.com>, rust-for-linux@vger.kernel.org,
+ Danilo Krummrich <dakr@kernel.org>, dri-devel@lists.freedesktop.org,
+ Matthew Maurer <mmaurer@google.com>,  FUJITA Tomonori
+ <fujita.tomonori@gmail.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, 
+ christian.koenig@amd.com, Asahi Lina <lina@asahilina.net>, Miguel Ojeda	
+ <ojeda@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Simona Vetter
+ <simona@ffwll.ch>, Alice Ryhl <aliceryhl@google.com>, Boqun Feng	
+ <boqun@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, Krishna Ketan
+ Rai	 <prafulrai522@gmail.com>, linux-media@vger.kernel.org, Shankari Anand	
+ <shankari.ak0208@gmail.com>, David Airlie <airlied@gmail.com>, Benno Lossin
+ <lossin@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>, 
+ linaro-mm-sig@lists.linaro.org, Asahi Lina <lina+kernel@asahilina.net>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, kernel@vger.kernel.org
+Date: Mon, 27 Apr 2026 13:29:31 -0400
+In-Reply-To: <DI0MII8J4P2Y.309VKYVMQJNVK@nvidia.com>
+References: <20260421235346.672794-1-lyude@redhat.com>
+ <20260421235346.672794-6-lyude@redhat.com>
+ <DI0MII8J4P2Y.309VKYVMQJNVK@nvidia.com>
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3638; i=chleroy@kernel.org;
- h=from:subject:message-id; bh=xblTv37x9V4gU3cvmA9ILfz6xXNOv0sNe2zU9C6a5nw=;
- b=owGbwMvMwCV2d0KB2p7V54MZT6slMWS+nxlr/n9yu2DE7uwkCZGbl0uCp6Y1JLvZTPpz+P/PY
- xNqPMoaOkpZGMS4GGTFFFmO/+feNaPrS2r+1F36MHNYmUCGMHBxCsBE9HwZ/ns82Ho9PV2Q+7Pp
- 5fqvs6O/v3YN+3EgL+Wk4b/co1rlkZ8YGVZxmDl7XFiUcmPSTPW14WGSHT6/1u4pcTY2cjD0U7P
- bzAkA
-X-Developer-Key: i=chleroy@kernel.org; a=openpgp;
- fpr=10FFE6F8B390DE17ACC2632368A92FEB01B8DD78
-Content-Transfer-Encoding: 8bit
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: goqKgs4RrfUOcJzOuu8ejC5jBBGGZARv2CH4Ap5Y698_1777310974
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,110 +114,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-copy_{to/from}_user() is a heavy function optimised for copy of large
-blocs of memory between user and kernel space.
+On Fri, 2026-04-24 at 00:01 +0900, Alexandre Courbot wrote:
+> > =C2=A0=C2=A0 dropped before obj.
+>=20
+> I am not sure this is enough to solve the double-free issue -
+> although my GEM
+> knowledge is lacking, so please take this with a grain of salt.
+>=20
+> Take an object where we called `sg_table`, so the SGT has been
+> created.
+>=20
+> When the object is dropped by DRM, `free_callback` is first called.
+> It
+> calls `drm_gem_shmem_release`, which frees the SGT.
+>=20
+> Then, the `Drop` implementation of `Object` is called, and `sgt_res`
+> is
+> dropped... which attempts to free the SGT again.
+>=20
+> I haven't tested that and rely only on a quick look at the code and
+> my
+> partial understanding, but the correct fix appears to be to clearing
+> `sgt_res` in `free_callback`.
 
-When the number of bytes to be copied is known at build time and small,
-using scoped user access removes the burden of that optimisation.
-
-Signed-off-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
----
- include/linux/uaccess.h | 47 +++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 47 insertions(+)
-
-diff --git a/include/linux/uaccess.h b/include/linux/uaccess.h
-index 33b7d0f5f808..3ac544527af2 100644
---- a/include/linux/uaccess.h
-+++ b/include/linux/uaccess.h
-@@ -50,6 +50,8 @@
-  #define mask_user_address(src) (src)
- #endif
- 
-+#define SMALL_COPY_USER		64
-+
- /*
-  * Architectures should provide two primitives (raw_copy_{to,from}_user())
-  * and get rid of their private instances of copy_{to,from}_user() and
-@@ -191,6 +193,9 @@ _inline_copy_from_user(void *to, const void __user *from, unsigned long n)
- 	return res;
- }
- 
-+static __always_inline __must_check unsigned long
-+_small_copy_from_user(void *to, const void __user *from, unsigned long n);
-+
- extern __must_check unsigned long
- _copy_from_user(void *, const void __user *, unsigned long);
- 
-@@ -207,6 +212,9 @@ _inline_copy_to_user(void __user *to, const void *from, unsigned long n)
- 	return n;
- }
- 
-+static __always_inline __must_check unsigned long
-+_small_copy_to_user(void __user *to, const void *from, unsigned long n);
-+
- extern __must_check unsigned long
- _copy_to_user(void __user *, const void *, unsigned long);
- 
-@@ -215,6 +223,8 @@ copy_from_user_common(void *to, const void __user *from, unsigned long n, bool p
- {
- 	if (!check_copy_size(to, n, false))
- 		return n;
-+	if (!partial && __builtin_constant_p(n) && n <= SMALL_COPY_USER)
-+		return _small_copy_from_user(to, from, n);
- 	if (IS_ENABLED(ARCH_WANTS_NOINLINE_COPY_USER))
- 		return _copy_from_user(to, from, n);
- 	else
-@@ -239,6 +249,8 @@ copy_to_user_common(void __user *to, const void *from, unsigned long n, bool par
- 	if (!check_copy_size(from, n, true))
- 		return n;
- 
-+	if (!partial && __builtin_constant_p(n) && n <= SMALL_COPY_USER)
-+		return _small_copy_to_user(to, from, n);
- 	if (IS_ENABLED(ARCH_WANTS_NOINLINE_COPY_USER))
- 		return _copy_to_user(to, from, n);
- 	else
-@@ -838,6 +850,41 @@ for (bool done = false; !done; done = true)					\
- #define scoped_user_rw_access(uptr, elbl)				\
- 	scoped_user_rw_access_size(uptr, sizeof(*(uptr)), elbl)
- 
-+static __always_inline __must_check unsigned long
-+_small_copy_from_user(void *to, const void __user *from, unsigned long n)
-+{
-+	might_fault();
-+	instrument_copy_from_user_before(to, from, n);
-+	scoped_user_read_access_size(from, n, failed) {
-+		/*
-+		 * Ensure that bad access_ok() speculation will not lead
-+		 * to nasty side effects *after* the copy is finished:
-+		 */
-+		if (!can_do_masked_user_access())
-+			barrier_nospec();
-+		unsafe_copy_from_user(to, from, n, failed);
-+	}
-+	instrument_copy_from_user_after(to, from, n, 0);
-+	return 0;
-+failed:
-+	instrument_copy_from_user_after(to, from, n, n);
-+	return n;
-+}
-+
-+static __always_inline __must_check unsigned long
-+_small_copy_to_user(void __user *to, const void *from, unsigned long n)
-+{
-+	might_fault();
-+	if (should_fail_usercopy())
-+		return n;
-+	instrument_copy_to_user(to, from, n);
-+	scoped_user_write_access_size(to, n, failed)
-+		unsafe_copy_to_user(to, from, n, failed);
-+	return 0;
-+failed:
-+	return n;
-+}
-+
- /**
-  * get_user_inline - Read user data inlined
-  * @val:	The variable to store the value read from user memory
--- 
-2.49.0
+Whoops! No you're right, and so is Deborah (she mentioned this
+previously, but when reading through it I completely forgot that
+free_callback() was in the picture). We can't clear SetOnce, but we can
+use mem::take() which should be essentially the same thing. Will fix in
+the next respin
 
