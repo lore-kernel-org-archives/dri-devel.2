@@ -4,81 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D511FF8868
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 20:32:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 139E8FF8868
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 20:36:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC93010E915;
-	Mon, 27 Apr 2026 20:32:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C09810E917;
+	Mon, 27 Apr 2026 20:36:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="DctoitRk";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=leandro.ribeiro@collabora.com header.b="GZx2niL+";
 	dkim-atps=neutral
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B41CB10E915
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 20:32:09 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-4891f625344so96492925e9.0
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 13:32:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1777321928; x=1777926728;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=vtsGRC0FacbegB0AwrvJfP/Z12ZLNzAQIxUg9a44s5w=;
- b=DctoitRkviZJL+OfXu88waLmSMWvR8ToNqlG64adMvmA6EgHujWsg8GADZaQBMcUuf
- AYKOdoSjExaJfi9ppbWqX1ma9VIMU1e4KcAWvi3nqP1DBIxWuY86lRGN30Vut/7dXWRO
- j34LhrSQB2xn1CvPVZFNIWhwvvu65n1viBAysLXHo+F6fgrcOGEqicxhATkHt5m4/B1h
- Bk0iHy/5tEkKCKigWQrYwSlnev56Hwl4JWBbWMly14okL/ufInB/xl8P+jubJ/49mWFR
- 2VyAWt2jWvBosDlM/brofugvh4Rids76SvMSgP8zh9lm56ANEXpyqP7TT7XBLDCNAYGQ
- qgpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777321928; x=1777926728;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=vtsGRC0FacbegB0AwrvJfP/Z12ZLNzAQIxUg9a44s5w=;
- b=od0ZOiP09yUt04zqpo5Nk1cW0UFHictK5cKIod1UBPOAipSNSi1of2x9ztay0BWP1N
- J5ueVXNRK4rFLjTihYBXriV8BRf9uyZeWKWhV71QMFycbA4j8bruXarG+M9fQNoS9pWs
- whZs0sJEUrX87JURQbqKPAJ81kx3hTWsAPqbhcdKGIsSp4/fDJ+o4leV6K8VJUkW2pWY
- sfBuKfUOqqKK19zxnLQJ/Bbjr5DX34Rb+t+3NCN7yNhW7IH6gd6E7kcyW1Yp/YgaGOwC
- 8Lx9u7cGwiJjA++UNBHuMO/1bRIPNIQuE76oaex2YCP6sOeHZbqGDLmsuDssLFiIERaT
- wDAg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/XHbKXVJfEXTG+Ia5zEZ9/G4NU6K/DmloJlSEGnRHnuoHP9z21NWPdECU/7dmwOADzw8VKZcM5LS0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzaslpbS17Dx8MwFBm/6dJ8o3VI/qFev9P98XWRhxWNptmFpbXx
- bQyW5HwKOpGY873vGIjdB7Etz9n7yr4aIwapklXaYayUidSV65XPl4TGht8helcAf34=
-X-Gm-Gg: AeBDietHD1ITmcuelcxXB8uYBiOzzM+Bo5TeP2aTupG2HHj+9TU7ItqA7gUUJpo/x2Y
- NVnuUQyciB/TFL66oqOOplUkXgEpGFkVLwL2h+e7pxU46/oBBD8OuXYAnIbQckrobCXblylCgP/
- /G5hpI4dGoZBrUkS+7GA1oDmgOkS/CSkUY9kyUR7ffC7iyEftmSeM2uWnowJAcDMjJAXkt4/PKH
- TiaDFIBU0g8+xWTrW1jvxS8L0A6fJQOdVYMkz2e//PmZzI4sAdLGmExw4e+gFAGJZEbF025Y14K
- 7mP5Mt8COkywute8/qBWV3n4cE40Y/jLLzKyK1TVhyjXWwjqVOJlBfuCqdmLK4mS3a3R2JPR+2Z
- hVLBxaV7Ilhg43acRSRxe9dwIygRUR/X6oRv88i9xJ8RYz+biYWnb0jmZ9slJHyu2P/89VXTDD2
- Ojawe4PMuDhxoTYH4yB4tiOHeHoVx54n2VhNglhdg=
-X-Received: by 2002:a05:600d:8495:10b0:489:1e5e:2cc with SMTP id
- 5b1f17b1804b1-48a77afcf3cmr2718895e9.9.1777321928066; 
- Mon, 27 Apr 2026 13:32:08 -0700 (PDT)
-Received: from localhost ([2a02:8071:b783:6940:1d24:d58d:2b65:c291])
- by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-4463fb7e366sm811816f8f.31.2026.04.27.13.32.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Apr 2026 13:32:07 -0700 (PDT)
-Date: Mon, 27 Apr 2026 22:32:05 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
- <u.kleine-koenig@baylibre.com>
-To: Matthew Brost <matthew.brost@intel.com>, 
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/xe: Don't emit UTS_RELEASE as part of device coredump
-Message-ID: <ae_HSpwz298xt0Yj@monoceros>
-References: <20260427160902.1126027-2-u.kleine-koenig@baylibre.com>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3875710E917
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 20:36:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1777322189; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=Gpm49hkutbmlezMZxVgcFwbA9HQtB9YRGJZuzMxb9xq7nh116BfHOywzEbQXYZT1VY2jS5AM6dTa8gRPs4+c4+XFZDH/bOwfzQua/7JuqsfM2nMGvyR9Rs3UMXEQ0deH+S0SGxL33TAVRml2MyDaobKG47hUixKDfII95APujJU=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1777322189;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=pIQcDJIsj+B+7mZQVhJczqVIjhfsLFSEL5WKUbpmXow=; 
+ b=Ka6GQffYaDEh891jOKPWWoLvAWKrLPxgFWeqGDYaCtcAqxz/Z2iGMVgMWiNuBk2bvFj+waEem6JcamFHh1JjDUf7ecrWOjxdeEtUafCMfr+NSatBk70PVXkPMTaxbhCxbjrRL8oDBkJbeomOj5i4pqFS8JmvJmUc3xHbgMl8YDk=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=leandro.ribeiro@collabora.com;
+ dmarc=pass header.from=<leandro.ribeiro@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1777322189; 
+ s=zohomail; d=collabora.com; i=leandro.ribeiro@collabora.com; 
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=pIQcDJIsj+B+7mZQVhJczqVIjhfsLFSEL5WKUbpmXow=;
+ b=GZx2niL+LcnTXFcWuY/9N3paN/tQL8V4TCukSK8k8qBwfVF1fZjURWlBkrP3h6t2
+ 35bU+9zXKIa+Ti6nut17hzLvHM1eAaSG5GvffCzIV0Wb5B3Lhsgt3qlDSKC1OJPvzqo
+ Gt1IeYZCVIrgIa1fGWbiVmTc0nuRGrS72nmuxvmw=
+Received: by mx.zohomail.com with SMTPS id 1777322188089628.065436419896;
+ Mon, 27 Apr 2026 13:36:28 -0700 (PDT)
+Message-ID: <a7f8f84d-f0c3-4aaf-a5e3-30e5d45e1cbb@collabora.com>
+Date: Mon, 27 Apr 2026 17:36:24 -0300
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="5nl4r2jq5dzig4bb"
-Content-Disposition: inline
-In-Reply-To: <20260427160902.1126027-2-u.kleine-koenig@baylibre.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/drm_blend: allow blend mode property without PREMULTI
+To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: dri-devel@lists.freedesktop.org, airlied@gmail.com,
+ daniels@collabora.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, pekka.paalanen@collabora.com, simona@ffwll.ch,
+ tzimmermann@suse.de, linux-kernel@vger.kernel.org
+References: <20260424143513.13004-1-leandro.ribeiro@collabora.com>
+ <ae9T8e6NBaC3z0uH@intel.com>
+Content-Language: en-US
+From: Leandro Ribeiro <leandro.ribeiro@collabora.com>
+In-Reply-To: <ae9T8e6NBaC3z0uH@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,100 +71,114 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---5nl4r2jq5dzig4bb
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] drm/xe: Don't emit UTS_RELEASE as part of device coredump
-MIME-Version: 1.0
 
-On Mon, Apr 27, 2026 at 06:09:03PM +0200, Uwe Kleine-K=F6nig (The Capable H=
-ub) wrote:
-> UTS_RELEASE changes quite easily (e.g. uncommitted changes in the source
-> tree or new commits). So when checking if a patch introduces changes to t=
-he
-> resulting binary each usage of UTS_RELEASE is a source of annoyance as
-> it introduces changes not caused by the change under test.
->=20
-> It's little helpful to emit the kernel version in the device coredump, so
-> drop the kernel version line from it.
->=20
-> Signed-off-by: Uwe Kleine-K=F6nig (The Capable Hub) <u.kleine-koenig@bayl=
-ibre.com>
-> ---
-> Hello,
->=20
-> I'm not really sure if my assertion above that the kernel version isn't
-> helpful is actually true.
->=20
-> If yes, there are a few more very similar changes to make:
->=20
-> 	$ git grep -E 'drm_p.*UTS_RELEASE' v7.1-rc1 drivers/gpu/
-> 	v7.1-rc1:drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c:      drm_prin=
-tf(&p, "kernel: " UTS_RELEASE "\n");
-> 	v7.1-rc1:drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c:     drm_prin=
-tf(p, "kernel: " UTS_RELEASE "\n");
-> 	v7.1-rc1:drivers/gpu/drm/msm/msm_gpu.c: drm_printf(&p, "kernel: " UTS_RE=
-LEASE "\n");
-> 	v7.1-rc1:drivers/gpu/drm/xe/xe_devcoredump.c:   drm_puts(&p, "kernel: " =
-UTS_RELEASE "\n");
->=20
-> Best regards
-> Uwe
->=20
->  drivers/gpu/drm/xe/xe_devcoredump.c | 1 -
->  1 file changed, 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/xe/xe_devcoredump.c b/drivers/gpu/drm/xe/xe_=
-devcoredump.c
-> index 558a1a9841a0..260e3f19286b 100644
-> --- a/drivers/gpu/drm/xe/xe_devcoredump.c
-> +++ b/drivers/gpu/drm/xe/xe_devcoredump.c
-> @@ -101,7 +101,6 @@ static ssize_t __xe_devcoredump_read(char *buffer, ss=
-ize_t count,
-> =20
->  	drm_puts(&p, "**** Xe Device Coredump ****\n");
->  	drm_printf(&p, "Reason: %s\n", ss->reason);
-> -	drm_puts(&p, "kernel: " UTS_RELEASE "\n");
->  	drm_puts(&p, "module: " KBUILD_MODNAME "\n");
-> =20
->  	ts =3D ktime_to_timespec64(ss->snapshot_time);
->=20
-FTR: If the patch is acceptable, the following should be squashed into
-it:
+On 4/27/26 9:17 AM, Ville Syrjälä wrote:
+> On Fri, Apr 24, 2026 at 11:35:13AM -0300, Leandro Ribeiro wrote:
+>> Some hardware only supports the COVERAGE blend mode and lacks PREMULTI
+>> support entirely. DRM currently requires that PREMULTI is present when
+>> creating a blend mode property, which prevents such drivers from being
+>> properly upstreamed.
+>>
+>> Remove this restriction and allow drivers to create a blend mode
+>> property without PREMULTI, enabling support for hardware that
+>> implements only COVERAGE blend mode.
+>>
+>> This does not introduce a regression, as no existing upstream drivers
+>> expose only COVERAGE. However, userspace that wants to support such kind
+>> of hardware in the future will have to check the supported blend modes
+>> instead of assuming PREMULTI is always supported.
+>>
+>> If the driver does not support the blend mode property, userspace must
+>> assume that only PREMULTI is supported (as was the case before this
+>> patch).
+>>
+>> Signed-off-by: Leandro Ribeiro <leandro.ribeiro@collabora.com>
+>> ---
+>>  drivers/gpu/drm/drm_blend.c | 24 +++++++++++++++++-------
+>>  1 file changed, 17 insertions(+), 7 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/drm_blend.c b/drivers/gpu/drm/drm_blend.c
+>> index 1f3af27d2418..e5015d0fb219 100644
+>> --- a/drivers/gpu/drm/drm_blend.c
+>> +++ b/drivers/gpu/drm/drm_blend.c
+>> @@ -563,10 +563,10 @@ EXPORT_SYMBOL(drm_atomic_normalize_zpos);
+>>  /**
+>>   * drm_plane_create_blend_mode_property - create a new blend mode property
+>>   * @plane: drm plane
+>> - * @supported_modes: bitmask of supported modes, must include
+>> - *		     BIT(DRM_MODE_BLEND_PREMULTI). Current DRM assumption is
+>> - *		     that alpha is premultiplied, and old userspace can break if
+>> - *		     the property defaults to anything else.
+>> + * @supported_modes: bitmask of supported modes. When
+>> + *		     BIT(DRM_MODE_BLEND_PREMULTI) is included, it will be used
+>> + *		     as the default. Otherwise, the default will fallback to one
+>> + *		     of the supported modes.
+>>   *
+>>   * This creates a new property describing the blend mode.
+>>   *
+>> @@ -586,6 +586,9 @@ EXPORT_SYMBOL(drm_atomic_normalize_zpos);
+>>   *	pre-multiplied and will do so when blending them to the background color
+>>   *	values.
+>>   *
+>> + * Note: if the blend mode property is not present, userspace must assume that
+>> + * the driver supports only "Pre-multiplied".
+> 
+> IMO we shouldn't allow drivers to follow that rule anymore.
+> What we'd need is an assert that any plane that exposes
+> formats with alpha also exposes the blend mode property.
+> That would at least force the drivers to get fixed.
 
-diff --git a/drivers/gpu/drm/xe/xe_devcoredump.c b/drivers/gpu/drm/xe/xe_de=
-vcoredump.c
-index 260e3f19286b..4ed1e4afa4c6 100644
---- a/drivers/gpu/drm/xe/xe_devcoredump.c
-+++ b/drivers/gpu/drm/xe/xe_devcoredump.c
-@@ -8,7 +8,6 @@
-=20
- #include <linux/ascii85.h>
- #include <linux/devcoredump.h>
--#include <generated/utsrelease.h>
-=20
- #include <drm/drm_managed.h>
-=20
+Sounds good to me. I prefer that instead of relying on assumptions.
 
-I will wait with a new revision in the hope to get some feedback first.
+Besides pixel formats with alpha, we should also check for planes that
+expose the alpha property, right?
 
-Best regards
-Uwe
+Also, I'm wondering where to assert that. I see that before registering
+the DRM device, in drm_dev_register(), drm_mode_config_validate() is
+called. But it doesn't fail if a check doesn't pass, only WARN. So I'm
+wondering if there's a better place.
 
---5nl4r2jq5dzig4bb
-Content-Type: application/pgp-signature; name="signature.asc"
+> 
+>> + *
+>>   * RETURNS:
+>>   * Zero for success or -errno
+>>   */
+>> @@ -599,13 +602,13 @@ int drm_plane_create_blend_mode_property(struct drm_plane *plane,
+>>  		{ DRM_MODE_BLEND_PREMULTI, "Pre-multiplied" },
+>>  		{ DRM_MODE_BLEND_COVERAGE, "Coverage" },
+>>  	};
+>> +	unsigned int default_mode;
+>>  	unsigned int valid_mode_mask = BIT(DRM_MODE_BLEND_PIXEL_NONE) |
+>>  				       BIT(DRM_MODE_BLEND_PREMULTI)   |
+>>  				       BIT(DRM_MODE_BLEND_COVERAGE);
+>>  	int i;
+>>  
+>> -	if (WARN_ON((supported_modes & ~valid_mode_mask) ||
+>> -		    ((supported_modes & BIT(DRM_MODE_BLEND_PREMULTI)) == 0)))
+>> +	if (WARN_ON((supported_modes & ~valid_mode_mask)))
+>>  		return -EINVAL;
+>>  
+>>  	prop = drm_property_create(dev, DRM_MODE_PROP_ENUM,
+>> @@ -630,7 +633,14 @@ int drm_plane_create_blend_mode_property(struct drm_plane *plane,
+>>  		}
+>>  	}
+>>  
+>> -	drm_object_attach_property(&plane->base, prop, DRM_MODE_BLEND_PREMULTI);
+>> +	if (supported_modes & BIT(DRM_MODE_BLEND_PREMULTI))
+>> +		default_mode = DRM_MODE_BLEND_PREMULTI;
+>> +	else if (supported_modes & BIT(DRM_MODE_BLEND_COVERAGE))
+>> +		default_mode = DRM_MODE_BLEND_COVERAGE;
+>> +	else
+>> +		default_mode = DRM_MODE_BLEND_PIXEL_NONE;
+>> +
+>> +	drm_object_attach_property(&plane->base, prop, default_mode);
+>>  	plane->blend_mode_property = prop;
+>>  
+>>  	return 0;
+>> -- 
+>> 2.54.0
+> 
 
------BEGIN PGP SIGNATURE-----
+-- 
+Leandro Ribeiro
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmnvx7sACgkQj4D7WH0S
-/k47UAgApSFviop5H5WcLHTrJ16SrGvoD/8b9OMezrcG6g/kkc7sBetFoXGKnsKi
-f9Qtxnbkdv0wur6dQsvKxzkX6RKGGn2ZXaEHbRC07FO4XIrkIebQ7YNWWE3l0VM3
-8385S74OD9Hrzehrkj5ZFZ+NJ+tf6SJdwlZqE8lubXtZGzsIMrjC6yWglZXcU0+F
-cgP8I8+czIHWqLzgQ5KGusr8NTAPzkT4c4iI3mWboHyp3qP/vBba2dOFg9518Ao7
-Q6RFQmY9PNCbOgBRNjOGs+sPJXfYDNJIfqq4kzDIQPK4pisa690bd2H8+9kH+zGp
-dISTjeWk4+f8H+M1CJVJZqxNWTYx3g==
-=lCt6
------END PGP SIGNATURE-----
-
---5nl4r2jq5dzig4bb--
