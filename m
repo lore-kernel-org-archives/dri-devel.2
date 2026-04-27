@@ -4,126 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFC84FF8868
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 14:29:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26C84FF8860
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 14:30:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E980110E2B8;
-	Mon, 27 Apr 2026 14:29:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DAFB10E76A;
+	Mon, 27 Apr 2026 14:30:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="EUDXK0UB";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="c6kJyxQE";
 	dkim-atps=neutral
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A2D510E2B8
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 14:29:11 +0000 (UTC)
-Received: from pps.filterd (m0528005.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63R4gxBl1267896
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 07:29:10 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
- bh=2UYvqcb6I1B7arRH3pzlLzPrPOKAEH8Y0SQKyqL2jag=; b=EUDXK0UBjzGK
- QKaoX5rIbqufWNaKZdxeAqfPQCkyeDJd2/wFJgapOGZ67xUUMlghtDbf4D/d1LxH
- 5K8gn8+RpXX2sydNaWxkc5Fg5ZbqRGAsqwVsCp1OE3OWi5+yquLz/58V0qPoBIMB
- HhedRrHQtQxwKZTwXJUSL7FPjA3ZBGAKGlymgWIYr0yRV3XBk5s5Z4C1y8nt7KML
- jPg8exqznSgbfD7YbW/T/LWbR/ipKX7cSSMzAc4VFZlAkI+faif4DC/D2wB4c7UM
- RbXB1a99Y6RAwk67EGD4OMCuU6JKBc5xh1gQ4EhZCgV4Nyiw1GPLWPY/voT8hSRh
- Zbz3O5ycQA==
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com
- [209.85.210.70])
- by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4dsf6ndb6t-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 07:29:09 -0700 (PDT)
-Received: by mail-ot1-f70.google.com with SMTP id
- 46e09a7af769-7dcc9e6b772so16963471a34.0
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 07:29:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777300149; cv=none;
- d=google.com; s=arc-20240605;
- b=E3vi94iI+7jZN1HnClY/Dtqf8VOmxP2tbpm3DQeTrgKecLIs+/3OLAHBigzqTYjHgz
- Cg9DGfsCQwmIwdxduE04fCN8gWgPYb7S1OV4CbdJxUwm7DWb+oABko1HBw6HltQkWTBe
- ApPuyxyVDSbo1mjCpc3P4okPI75sf43OY3aM91kpyjqFqnJRA89L9WnUnlFb6qTBL06j
- dYl8nNV1P9/InIBOzAPn5j/IwluSo7uuNRKTmLmvy/yE+q40dASZfR7JLb6P3hH7xJza
- xAdG5XpagiSMlyaJjZ1vr/1R+6JKP30HHXSq6dyeAYR4MIEVpJ+2Yk/IH8aPgEkl9XCs
- gbxQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version;
- bh=fc3CIGbC+cnKFtpvmB87XnJppPdvAQ5kyZjnAa4rMk0=;
- fh=k47xm2mFqQpQzRDQ32HJumuJWi7pGw3tyd5bXeagpo0=;
- b=CkxJ2JRzYG0TJfrai+jvo451BnUsxyL0klgCaYbyBOys/vSf9ooLpfEQI+0raRYMiu
- JwzBJK72vfLUdBbSoRHTXtVhf6Boj19eCyDAUSc7wPGCQ5el+1XSuCzN3sa+tHF8qJQ5
- 1SHkT3sTKMaQ9INGsiMXrOIrCQ9dJ9H506SPvRD/UrzyLfUTDeNP7YhHhpx0yI/f5NRA
- jWrGfFZon4keQrMXGR6t2o5/rkdo543R2s2m/AqPmisrQspDaGi7IEZdya0/kiAt6Nyk
- poKfVTue84s4MkHR64AiZkiU9D7C++o1k1A5rG/7tJEuw82fFqoYPVZYmNWv2Vd2IuVI
- 8c8g==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777300149; x=1777904949;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=fc3CIGbC+cnKFtpvmB87XnJppPdvAQ5kyZjnAa4rMk0=;
- b=JkQYYn5f6bSMxfQ7D6x+Nu7KlvOthxGbB8d2eHKDAzAsj8JRacFrf7AWIY0YVq4rPg
- 2RKhikknLE7AcOHYinh/5cvRgWakCK8A+Yj91Q95XZz6PWm3KoWKMTlNpCQqzcVK6lsY
- LgiBGm41m801yXIAW/THOD6dzh0CGm3ufnQNzLetC2bjAyUvfnt90mxPG1/FaziUQmg4
- ktmh/6oHXGxLtZrto7pGPUoUg6rD8jGAShjk3+IgYFpOIovnYvbmrDNLM8EybGxmX8mB
- M6UXmNjqXx8vB5KqT5jMjUbVXbEr5k7lHbOIfWYONRTpxf4AzjkmgERcKoDc/q2dwQBj
- W1zA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+LhpmNHCj2K+Kgr0kmcEMrHdiKoT4WGCT+eg0mcNPS4gvRdvGS2J0b/Jiw3TbbOQmjpWXYl20TkFY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyDKINyNctXmmIuJSZHgmPnUK72FIe2zS4qiSjsMRl/HFrXV7va
- 2G+ut00pLjl2jsCokmkkuxz7Cpt9K8//BWVC2ekYAcyfoc0rMaljVcpETgdriIvYFfVyChLEr0a
- l5zymmgqWQ0ryxOb5Iqjyqc2VyYbF3/VM2bsrc+nJxlhGMmAJ+iAwjoPHNg5Tj77Fsnm8eP/6i9
- yhVbmecDHq1m25Y5wtCRtewflujbI0dVgjkescy9wCqIQ=
-X-Gm-Gg: AeBDietpkTJFwQBDbspo6QLJJarcj/6IsEmwtrsbTmfWcNTRrX+8ou5bIULwvxG55K+
- QUbhw8URoDR8526aUb3fZh85sy++5+8JtQtLHJq7jonT2X8KlGQ31oZY35tmFYDlKL9rVtbkQC1
- YnOCGLmhgP6TVIx7Tx2KRAfuQqe4h/cyVgG8m+6wSoJE+2mkccYlWRVJ9mEa5FEpc36GSJUftZq
- BOIvjY11AoSXBjQgj5pH475eOJDmQ==
-X-Received: by 2002:a05:6830:82c6:b0:7d7:e3d7:e200 with SMTP id
- 46e09a7af769-7dc95525104mr20499568a34.6.1777300149201; 
- Mon, 27 Apr 2026 07:29:09 -0700 (PDT)
-X-Received: by 2002:a05:6830:82c6:b0:7d7:e3d7:e200 with SMTP id
- 46e09a7af769-7dc95525104mr20499546a34.6.1777300148671; Mon, 27 Apr 2026
- 07:29:08 -0700 (PDT)
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AEE0710E76A
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 14:30:12 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1777300199; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=lsFsNHKLDgrducjjPO464sAo0WfGUux6ZMY8/Oir0ZDnfeLaaTcG9BZAdHEKlX12RQQbbjB6W5jNRVBKBhNq7faO7NDro+Exiia6JMvg8r8EZR07yxZNk3AQMSVIZ6uKZKU0GbMfbKweylqMLLGD1a1XBuZhONod9bhRNuQnKbQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1777300199;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=uwZnq5EJnn++su2XsJpns3YMuRt2+EKtTUYS5NgkxfE=; 
+ b=nuUpy7ysNw3WB5wNLHuZ30z1lCbyao9+qFNhkU9fqRwWaE7o89vq6vot8NUwLMFQv0tWHrKQH+1N4fF2jcfl/xzLIdUDpJK96Cj6HpFjOYDiAzFaZ67XJmGJ19dceqYOPzs90IZeif9YTUSEC/y1FqqHamzYJY2czshZrYEyBEs=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+ dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1777300199; 
+ s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+ h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
+ bh=uwZnq5EJnn++su2XsJpns3YMuRt2+EKtTUYS5NgkxfE=;
+ b=c6kJyxQEawrM0MUui/tBv1/NtfxgbXnvYP69eRerPyIVSZFtKOxiR1FfUmXO+zr6
+ 7YqSZNEypfUI8SM82UNWRDvKyNKObUj78Dr6H9PXjbJtlD4OVpydxy2WitnCxPNwelA
+ ruNTz236x6ie8O6Qm+/j5C2GXVxj50v3As4IHs08=
+Received: by mx.zohomail.com with SMTPS id 1777300197909285.0489425341178;
+ Mon, 27 Apr 2026 07:29:57 -0700 (PDT)
+Date: Mon, 27 Apr 2026 15:29:53 +0100
+From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
+To: Steven Price <steven.price@arm.com>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ Boris Brezillon <boris.brezillon@collabora.com>, kernel@collabora.com,
+ Liviu Dudau <liviu.dudau@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Daniel Almeida <daniel.almeida@collabora.com>,
+ Alice Ryhl <aliceryhl@google.com>
+Subject: Re: [PATCH v9 1/6] drm/panthor: Expose GPU page sizes to UM
+Message-ID: <ae9yp93D1wY7jBDZ@sobremesa>
+References: <20260422122538.3117380-1-adrian.larumbe@collabora.com>
+ <20260422122538.3117380-2-adrian.larumbe@collabora.com>
+ <dc262035-1147-4fbc-8140-10176e43b8bc@arm.com>
 MIME-Version: 1.0
-References: <20260420183920.3626389-1-zhipingz@meta.com>
- <20260420183920.3626389-2-zhipingz@meta.com>
- <20260422092327.3f629ad6@shazbot.org> <20260427133746.GJ440345@unreal>
-In-Reply-To: <20260427133746.GJ440345@unreal>
-From: Zhiping Zhang <zhipingz@meta.com>
-Date: Mon, 27 Apr 2026 07:28:57 -0700
-X-Gm-Features: AVHnY4JY-sO0J_s7LFL2WwzvQxcK7s_leO-HiTQgItvSXPr8LTKeRFwdBSndRaI
-Message-ID: <CAH3zFs2Sy0mv=QkK4VSV+MVR=ef_CdoxMhTFgzaqoZ+uSOpxoQ@mail.gmail.com>
-Subject: Re: [PATCH v1 1/2] vfio: add callback to get tph info for dma-buf
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Alex Williamson <alex@shazbot.org>, Stanislav Fomichev <sdf@meta.com>,
- Keith Busch <kbusch@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- Bjorn Helgaas <helgaas@kernel.org>, linux-rdma@vger.kernel.org,
- linux-pci@vger.kernel.org, netdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Yochai Cohen <yochai@nvidia.com>,
- Yishai Hadas <yishaih@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI3MDE1NCBTYWx0ZWRfX7sANdQ7flQ9o
- gP71zRmBZSGeEID7HeqKVrSw+Bu/pfOoR6ccCyHp7G7sKeVFQkBf1uZpBWJMra5OFPGIgEIJdix
- cSi0Dhc/OETs7qwknS3gNn2CY8qFUyAscQjgq6y55b23V/9+bCuqPOHvSqmXMc/Qh5TEKWrH/Ov
- gehx/xanhwotXm6wmLgdYBrlRIRn5lWQG4N6wkgKO8GYGmOOpWrFiPhhYmlXBFO/3+tNIXO+Hnq
- BUXERPl4IptfDm8Ef7zJ4kG1iJOCS/B+ep3uMi9rL7cAcuIdELWnvl9NQ26qHNiF8bxbaABQTSt
- fOlc9I617q2yl3HZ7zBvtLihElhiOQWwEJrVdJDwWw9wbMNsM6w6RUSpBg9a2drFDtf5LjlyhkU
- BjQUFnvYr5d/V/zgpuvfB1QcLgU8hEaewnxM3EXXSwcf6QUGSjNAhLwQ3i5OWWCAPWEEtWwYpwB
- YlD89fkru2+s/DV1/cg==
-X-Authority-Analysis: v=2.4 cv=Cfo4Irrl c=1 sm=1 tr=0 ts=69ef72b5 cx=c_pps
- a=7uPEO8VhqeOX8vTJ3z8K6Q==:117 a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=jCddH8ec0KUNCymVuxII:22
- a=VwQbUJbxAAAA:8 a=VabnemYjAAAA:8 a=jaC9V5GCrIjCCUt1bV4A:9 a=QEXdDO2ut3YA:10
- a=EXS-LbY8YePsIyqnH6vw:22 a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-ORIG-GUID: nlz_fx2_6o2rKRhPy6Mix7p9Fub7F4N-
-X-Proofpoint-GUID: nlz_fx2_6o2rKRhPy6Mix7p9Fub7F4N-
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-27_04,2026-04-21_02,2025-10-01_01
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <dc262035-1147-4fbc-8140-10176e43b8bc@arm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,77 +73,154 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Apr 27, 2026 at 6:37=E2=80=AFAM Leon Romanovsky <leon@kernel.org> w=
-rote:
->
+On 24.04.2026 14:18, Steven Price wrote:
+> On 22/04/2026 13:25, Adrián Larumbe wrote:
+> > In future commits that will implement repeated mappings, only repeat
+> > values multiple of GPU page sizes will be tolerated. That means these
+> > values must be made known to UM. Do it through a queriable GPU info
+> > value.
 > >
-> On Wed, Apr 22, 2026 at 09:23:27AM -0600, Alex Williamson wrote:
-> > On Mon, 20 Apr 2026 11:39:15 -0700
-> > Zhiping Zhang <zhipingz@meta.com> wrote:
+> > Reviewed-by: Steven Price <steven.price@arm.com>
+> > Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+> > Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+> > ---
+> >  drivers/gpu/drm/panthor/panthor_device.h |  3 +++
+> >  drivers/gpu/drm/panthor/panthor_drv.c    |  8 ++++++++
+> >  drivers/gpu/drm/panthor/panthor_mmu.c    |  9 ++++++++-
+> >  include/uapi/drm/panthor_drm.h           | 13 +++++++++++++
+> >  4 files changed, 32 insertions(+), 1 deletion(-)
 > >
-> > > Add a dma-buf callback that returns raw TPH metadata from the exporter
-> > > so peer devices can reuse the steering tag and processing hint
-> > > associated with a VFIO-exported buffer.
-> > >
-> > > Keep the existing VFIO_DEVICE_FEATURE_DMA_BUF uAPI layout intact by
-> > > using a flag plus one extra trailing entries[] object for the optional
-> > > TPH metadata. Rename the uAPI field dma_ranges to entries. The
-> > > nr_ranges field remains the DMA range count; when VFIO_DMABUF_FLAG_TPH
-> > > is set the kernel reads one extra entry beyond nr_ranges for the TPH
-> > > metadata.
-> > >
-> > > Add an st_width parameter to get_tph() so the exporter can reject
-> > > steering tags that exceed the consumer's supported width (8 vs 16 bit=
-).
-> > > When no TPH metadata was supplied, make get_tph() return -EOPNOTSUPP.
-> > >
-> > > Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
-> > > ---
-> > >  drivers/vfio/pci/vfio_pci_dmabuf.c | 62 +++++++++++++++++++++++-----=
---
-> > >  include/linux/dma-buf.h            | 17 ++++++++
-> > >  include/uapi/linux/vfio.h          | 28 ++++++++++++--
-> > >  3 files changed, 89 insertions(+), 18 deletions(-)
->
-> <...>
->
-> > > diff --git a/include/uapi/linux/vfio.h b/include/uapi/linux/vfio.h
-> > > index bb7b89330d35..a0bd24623c52 100644
-> > > --- a/include/uapi/linux/vfio.h
-> > > +++ b/include/uapi/linux/vfio.h
-> > > @@ -1490,16 +1490,36 @@ struct vfio_device_feature_bus_master {
-> > >   * open_flags are the typical flags passed to open(2), eg O_RDWR, O_=
-CLOEXEC,
-> > >   * etc. offset/length specify a slice of the region to create the dm=
-abuf from.
-> > >   * nr_ranges is the total number of (P2P DMA) ranges that comprise t=
-he dmabuf.
-> > > + * When VFIO_DMABUF_FLAG_TPH is set, entries[] contains one extra tr=
-ailing
-> > > + * object after the nr_ranges DMA ranges carrying the TPH steering t=
-ag and
-> > > + * processing hint.
+> > diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
+> > index 5cba272f9b4d..d856a4fe1d61 100644
+> > --- a/drivers/gpu/drm/panthor/panthor_device.h
+> > +++ b/drivers/gpu/drm/panthor/panthor_device.h
+> > @@ -158,6 +158,9 @@ struct panthor_device {
+> >  	/** @csif_info: Command stream interface information. */
+> >  	struct drm_panthor_csif_info csif_info;
 > >
-> > I really don't think we want to design an API where entries is
-> > implicitly one-off from what's actually there.  This feeds back into
-> > the below removal of the __counted by attribute, which is a red flag
-> > that this is the wrong approach.
+> > +	/** @mmu_info: MMU info */
+> > +	struct drm_panthor_mmu_info mmu_info;
+> > +
+> >  	/** @hw: GPU-specific data. */
+> >  	struct panthor_hw *hw;
+> >
+> > diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
+> > index 73fc983dc9b4..a8090bc4e33c 100644
+> > --- a/drivers/gpu/drm/panthor/panthor_drv.c
+> > +++ b/drivers/gpu/drm/panthor/panthor_drv.c
+> > @@ -175,6 +175,7 @@ panthor_get_uobj_array(const struct drm_panthor_obj_array *in, u32 min_stride,
+> >  	_Generic(_obj_name, \
+> >  		 PANTHOR_UOBJ_DECL(struct drm_panthor_gpu_info, tiler_present), \
+> >  		 PANTHOR_UOBJ_DECL(struct drm_panthor_csif_info, pad), \
+> > +		 PANTHOR_UOBJ_DECL(struct drm_panthor_mmu_info, page_size_bitmap), \
+> >  		 PANTHOR_UOBJ_DECL(struct drm_panthor_timestamp_info, current_timestamp), \
+> >  		 PANTHOR_UOBJ_DECL(struct drm_panthor_group_priorities_info, pad), \
+> >  		 PANTHOR_UOBJ_DECL(struct drm_panthor_sync_op, timeline_value), \
+> > @@ -946,6 +947,10 @@ static int panthor_ioctl_dev_query(struct drm_device *ddev, void *data, struct d
+> >  			args->size = sizeof(ptdev->csif_info);
+> >  			return 0;
+> >
+> > +		case DRM_PANTHOR_DEV_QUERY_MMU_INFO:
+> > +			args->size = sizeof(ptdev->mmu_info);
+> > +			return 0;
+> > +
+> >  		case DRM_PANTHOR_DEV_QUERY_TIMESTAMP_INFO:
+> >  			args->size = sizeof(timestamp_info);
+> >  			return 0;
+> > @@ -966,6 +971,9 @@ static int panthor_ioctl_dev_query(struct drm_device *ddev, void *data, struct d
+> >  	case DRM_PANTHOR_DEV_QUERY_CSIF_INFO:
+> >  		return PANTHOR_UOBJ_SET(args->pointer, args->size, ptdev->csif_info);
+> >
+> > +	case DRM_PANTHOR_DEV_QUERY_MMU_INFO:
+> > +		return PANTHOR_UOBJ_SET(args->pointer, args->size, ptdev->mmu_info);
+> > +
+> >  	case DRM_PANTHOR_DEV_QUERY_TIMESTAMP_INFO:
+> >  		ret = copy_struct_from_user(&timestamp_info,
+> >  					    sizeof(timestamp_info),
+> > diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+> > index fa8b31df85c9..dad56a01c597 100644
+> > --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> > +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> > @@ -2750,7 +2750,7 @@ panthor_vm_create(struct panthor_device *ptdev, bool for_mcu,
+> >  	refcount_set(&vm->as.active_cnt, 0);
+> >
+> >  	pgtbl_cfg = (struct io_pgtable_cfg) {
+> > -		.pgsize_bitmap	= SZ_4K | SZ_2M,
+> > +		.pgsize_bitmap	= ptdev->mmu_info.page_size_bitmap,
+> >  		.ias		= va_bits,
+> >  		.oas		= pa_bits,
+> >  		.coherent_walk	= ptdev->coherent,
+> > @@ -3195,6 +3195,11 @@ static void panthor_mmu_release_wq(struct drm_device *ddev, void *res)
+> >  	destroy_workqueue(res);
+> >  }
+> >
+> > +static void panthor_mmu_info_init(struct panthor_device *ptdev)
+> > +{
+> > +	ptdev->mmu_info.page_size_bitmap = SZ_4K | SZ_2M;
+> > +}
+> > +
+> >  /**
+> >   * panthor_mmu_init() - Initialize the MMU logic.
+> >   * @ptdev: Device.
+> > @@ -3207,6 +3212,8 @@ int panthor_mmu_init(struct panthor_device *ptdev)
+> >  	struct panthor_mmu *mmu;
+> >  	int ret, irq;
+> >
+> > +	panthor_mmu_info_init(ptdev);
+> > +
+> >  	mmu = drmm_kzalloc(&ptdev->base, sizeof(*mmu), GFP_KERNEL);
+> >  	if (!mmu)
+> >  		return -ENOMEM;
+> > diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
+> > index 0e455d91e77d..dc2704fc2829 100644
+> > --- a/include/uapi/drm/panthor_drm.h
+> > +++ b/include/uapi/drm/panthor_drm.h
+> > @@ -246,6 +246,9 @@ enum drm_panthor_dev_query_type {
+> >  	/** @DRM_PANTHOR_DEV_QUERY_CSIF_INFO: Query command-stream interface information. */
+> >  	DRM_PANTHOR_DEV_QUERY_CSIF_INFO,
+> >
+> > +	/** @DRM_PANTHOR_DEV_QUERY_MMU_INFO: Query MMU information. */
+> > +	DRM_PANTHOR_DEV_QUERY_MMU_INFO,
+> > +
 >
-> I believe removing `__counted` is a mistake. In my proposal, the intent
-> was to adjust the meaning of the storage object based on the flag bit.
-> The size of the array should still be represented correctly.
+> This is why I dislike enums... there's a comment above this:
 >
-> Thanks
+> > /**
+> >  * enum drm_panthor_dev_query_type - Query type
+> >  *
+> >  * Place new types at the end, don't re-order, don't remove or replace.
+> >  */
+>
+> As it says - you need to place new types at the end, otherwise it
+> changes the values for existing types (i.e. QUERY_TIMESTAMP_INFO below
+> ends up with a new value).
+>
+> otherwise this will break old user space.
 
-Thanks Leon =E2=80=94 you're right that __counted_by should be preserved. In
-your approach, when the flag is set, the last entry in the array
-carries the TPH data, so the effective DMA range count is nr_ranges -
-1.
+Thanks for catching this, it had completely escaped me.
 
-That said, after discussing internally, we're leaning toward
-introducing a new VFIO device feature with dedicated TPH fields (as
-Alex suggested too), to avoid overloading vfio_region_dma_range with a
-union that changes semantics based on position.
+> thanks,
+> Steve
+>
+> >  	/** @DRM_PANTHOR_DEV_QUERY_TIMESTAMP_INFO: Query timestamp information. */
+> >  	DRM_PANTHOR_DEV_QUERY_TIMESTAMP_INFO,
+> >
+> > @@ -487,6 +490,16 @@ struct drm_panthor_timestamp_info {
+> >  	__u64 cpu_timestamp_nsec;
+> >  };
+> >
+> > +/**
+> > + * struct drm_panthor_mmu_info - MMU information
+> > + *
+> > + * Structure grouping all queryable information relating to the MMU.
+> > + */
+> > +struct drm_panthor_mmu_info {
+> > +	/** @page_size_bitmap: Allowed page sizes */
+> > +	__u64 page_size_bitmap;
+> > +};
+> > +
+> >  /**
+> >   * struct drm_panthor_group_priorities_info - Group priorities information
+> >   *
 
-Would you have concerns with that direction? I'll post a v3 with the
-new approach.
+Adrian Larumbe
