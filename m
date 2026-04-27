@@ -4,140 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B592FF8860
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 06:39:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A45D2FF8861
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 06:57:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C61710E27B;
-	Mon, 27 Apr 2026 06:39:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED84610E1E6;
+	Mon, 27 Apr 2026 06:57:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Nvom64kR";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iVUgbRKA";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="H/Q15RqE";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E616110E27C
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 06:39:50 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63R3MnmD2526400
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 06:39:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- qzC8dA/21UMvhLjLYCfzr/+6i+/FSPhWX2hchnV7imk=; b=Nvom64kRl3CVEg9v
- VxzjqyKzMgv4wplcqD02BaPhFVqe2fyTtYCnOb+UYSakQJMGOZC6MwSyhr57OaVX
- 7NHeQRYVmTve4d1AGhHmwQ0RkVqbaOXVPChTKYjIKWum4DU708aMBbIwRxxhmGRc
- i5rd9Az7NSlAPLXx8EqNzebqLRuM43iA/dJnBYQHyY6Im+qeyAZUOYgYivKf78Mn
- n7GhnrsAH+s1q8do/quUagvVdwMj5CYboMCY1eo8sdcSI7qYkYcSwWLTQ38pqaAm
- Jx1Fh/jCkRTRpBOekU6TU9Xhno0ZwVSgp82/RknRP4f4dRFWQJ9FgCABGiRE+ft6
- hxlxJA==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
- [209.85.216.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4drnqrmput-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 06:39:49 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id
- 98e67ed59e1d1-35e59791605so10496790a91.1
- for <dri-devel@lists.freedesktop.org>; Sun, 26 Apr 2026 23:39:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1777271989; x=1777876789;
- darn=lists.freedesktop.org; 
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=qzC8dA/21UMvhLjLYCfzr/+6i+/FSPhWX2hchnV7imk=;
- b=iVUgbRKAqMRutT/WLd+Y44Dlp2rUJGxSGpeDivvZDmz+87Eo2TRZ8rIy3B2gq5TUoJ
- OmFlTlP32YrAs2cBHeMdACvKY/tFDSUUGvNTJFOi/SG/9yQUtH4l6eRy9Djs5eInJk8Q
- p+bolrPn2u9vTMhGk9ULl9D/OS8K3x/fVpeb/Rd+HhH/fs5eoE2x4Od++1hqjUuTSDen
- hlAZok9UgpulTJtXQYEny+8xePlfrcexwLEb3+QPOYlBqPFA0NkA/Avffbqu+f/EDv5u
- +/MiHh4GwE12b/kpnMFocXHfpXd7Fsx2KObXXCJ+UDnoG1dR3lWG59KytER/QjSCI/YD
- uywg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777271989; x=1777876789;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=qzC8dA/21UMvhLjLYCfzr/+6i+/FSPhWX2hchnV7imk=;
- b=R214OBWPDiJEZ8OzVzd5OJetMSVWREUDRzbT9ValNKa+rhqcofdb9zPPbySFHxHTHg
- SjgS17RhIpntRJMSm3zYptPtlq9lSTAuqJ4LMfGRWGSOS+pVTdoX+rUhks4U9IdX5sq0
- D8gKkFrHH8zMW+D2rImfkkBA9axMGYayrrQcUeFf8PYspcRNHmF+X+lQXdQZwGt6vr8L
- CmxrnL4d79QrocUDMEUCRolHSvTGZfAPGahgbmStcYTO819o3Dlb0TD3j+t/DogUkTWD
- Ne9dELoX1RPMWe+YTpEwLOPybDOTyaWNgnapajBL1PIKnM6iEFaemc8SEJFX8f+ttBIb
- 45Bg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+E51gspLNiElvmN6F8tH/+hd0lCDh+XAEsLaTPd+G92oIiZu3w+fPkUiwgmbFwJXKSwc+tXZlTfH0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyJ+ybr+dCmvH32EHNqDn1Az1qVkPrKXfa1iPlfi93ZA/r153ew
- KF/2U8KGf2tMaeNZB6soLY4qCyfJIMvSwowswyEn+nyqQzAMViixRddqvCeGTqjSPGj1Ugo+XOH
- 208xt8cx30jjcQBv31CFYhhJXGRc4NRQkeEznBiTfTrtSOQxQukwHj8NjOQbk5T+sRjcrv2c=
-X-Gm-Gg: AeBDietxGfHJm3lMZ79DrQN+ksRM7UQW9QTL7sHwvfB+ettBxZc2pslf6OHp/pquz+2
- kIcjKYZNJ0a4HNfmyfwIXY/DDBHMoA1wfmMWl/yWwgOGUne1MGmERBSG6ifBLpnnZhr4RYnHZ6s
- 31ZQ0nZglHOsS5ltK0wP76egEBoCW8wNl09Z1mvzLUEnFQnRumtyAFzippmI6ZYr6cUACq/RG4v
- YJd7Bji+lVgxaGCSfmW7ZHrllBbq9Bl1ora+RZF5uOcYYRZE9UCXY6wYjM2PAmstt8DIaZznh8J
- nMVq8p3Fx3C9EGKu69zfPHOTtRfT67GIe0R0W+Sl6h5jmA27kgM+SUovkRHhR6pqu9gGfuRBnTU
- EBQUMBQEd7cnXF00Rn+uIPNOx6YUp3Z3uqvrgjKqssudnJXqULPX0lyg7
-X-Received: by 2002:a17:90b:164a:b0:35b:96bb:47ba with SMTP id
- 98e67ed59e1d1-361404c0ca8mr41138502a91.26.1777271988883; 
- Sun, 26 Apr 2026 23:39:48 -0700 (PDT)
-X-Received: by 2002:a17:90b:164a:b0:35b:96bb:47ba with SMTP id
- 98e67ed59e1d1-361404c0ca8mr41138449a91.26.1777271988319; 
- Sun, 26 Apr 2026 23:39:48 -0700 (PDT)
-Received: from hu-tdas-hyd.qualcomm.com ([202.46.22.19])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-361410a7ab7sm38628234a91.10.2026.04.26.23.39.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 26 Apr 2026 23:39:47 -0700 (PDT)
-From: Taniya Das <taniya.das@oss.qualcomm.com>
-Date: Mon, 27 Apr 2026 12:09:00 +0530
-Subject: [PATCH v2 6/6] drm/msm/a6xx: Limit GXPD votes to recovery in A8x
-MIME-Version: 1.0
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013029.outbound.protection.outlook.com
+ [40.93.201.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC47310E1E6
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 06:57:09 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=u1PM0NbzqvzQ5KMJsmCv0IbUX59pldTHg4rALUZrThlkiLetcG1GtLYd4LOF6EjW7LVHWtH0h/OaIDCsRAidzlY8v35NFzkT5/skDmv9N4W07oFvQOwu5wnYybPoUGTXXYisy8s7ZabmbkQTto/n8SrNkMwavTlexhUMWD/UIxcoo8Ci9XFUEpjSBAePh5buAhGkCDV0gGK6bGjURTLacQLqhxm/fzNLFiWIny5DbwBoA4pWEm//Ve5dZaKD3wchETdkYnnDk/TqjSWAYZAqWK2k3Uum40VGRQhLR3G3M6PydDo5WVVVNHABFtbqeHlXesTYiYtZ4ve+UMnRhashvQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XFG1/2Ww94Pub4UfUYiW7xvhwEelb4evdLVpQHIjlcQ=;
+ b=qz/2CAY6Ivxq3xqHZEuiaUYQxQY5bEscLKfdgZchYMVQujHgGNaJHrclpK+m0QaCt47UcQnuzN10RctuHt6+3/3EbgMLmJX6KK4NAfHgQnap2/Jyt+yngd6dUSTWBh6XnCRPKZYbX5EqJTJIHZWMPYgy53PwSuM9qX76qcmIfJeFybseJmbeU2rWuZl6tixjyB8aK0qr81/qT7dx1vdLC1tgM+MPNxeik/tdn+lUMuC9nWWDI9I+IHLdoHZnRvTeSw7x8q2zUWV6H+nDvkiHN5kVmZjz8hMoI8ZxWfXvkzs1F0HlmP8z7HkLk6fwDeGiXGXHTLAJ24pAV9W83hlvIQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XFG1/2Ww94Pub4UfUYiW7xvhwEelb4evdLVpQHIjlcQ=;
+ b=H/Q15RqEMIp2XNCDxlPcC+Lj4iYBCDvIakvrzVQ1Q4ULb5cssypshU6LacltvtmyWbwsfdDDB+sAUvCAzCqLtDwqaKVtUkHgxEU7iC+bjtjgIfu+IPtZihbbG9saELBdIqfYB0o4t9yAxc9zUSWAGMDNW6jbVzbIt5O0gKDeWDUeyPQeY5w5Wzwo/WAsRnPVpk7oabpoqq2hxK/DBaPgPUGXmht3BVPqkz2YQzgftVfNyBtVh6uqc/+2B4WuRipMzJeA9dhzIHIK+8IDGndIR435I00YmDqn/DRDYAAJp7wvBSV8nd/dbwo9+9eiNn2mxl4XrEp+cJO0rEc/krZ0Og==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by DS0PR12MB7655.namprd12.prod.outlook.com (2603:10b6:8:11e::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.16; Mon, 27 Apr
+ 2026 06:57:04 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.20.9870.013; Mon, 27 Apr 2026
+ 06:57:04 +0000
+From: Alexandre Courbot <acourbot@nvidia.com>
+Subject: [PATCH v4 0/8] gpu: nova-core: run unload sequence upon unbinding
+Date: Mon, 27 Apr 2026 15:56:57 +0900
+Message-Id: <20260427-nova-unload-v4-0-e145ccddae66@nvidia.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260427-gfx-clk-fixes-v2-6-797e54b3d464@oss.qualcomm.com>
-References: <20260427-gfx-clk-fixes-v2-0-797e54b3d464@oss.qualcomm.com>
-In-Reply-To: <20260427-gfx-clk-fixes-v2-0-797e54b3d464@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Abel Vesa <abel.vesa@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23NSwrCMBSF4a2UjI0kNw9bR+5DHORVG9BEEg1K6
+ d5NC4JFh+fC998RZZe8y2jfjCi54rOPoQ6+aZAZVDg77G3dCAgIClTiEIvCj3CJymJOoNNM72Q
+ nCKrillzvn0vteKp78Pke02uJFzpf/3cKxQRLJWwLTDva2UMo3nq1NfGK5lCBD5aEA11jqBh6J
+ 3gnmepb/YPZN4Y1ZhVTC6al2jLj1p+naXoDFFBdHiEBAAA=
+X-Change-ID: 20251216-nova-unload-4029b3b76950
+To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
- Imran Shaik <imran.shaik@oss.qualcomm.com>,
- Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, Taniya Das <taniya.das@oss.qualcomm.com>
-X-Mailer: b4 0.15-dev-aa3f6
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI3MDA2OCBTYWx0ZWRfX/bNJPMo4vYo+
- pakyQVZcH7raHr2yqX/olC2wF2lWy/ZDLrnpzobhIR8lHegkgtvc0pwCrpAwg9BVxTFSxVkYT/w
- TiaZ+GUDdhJEoE1//ofceADXtjZy0s28BgnON/znpuNHaPAcwQS80OUyHE0GiUEXdt/b/8uplgd
- MzPYsOxwki6+Dr6A4+iXDVMqItRPR4uYEPdfQIsrJEuTWmQ1orgfXGi/7Ee5kX8yxscHvOISzqB
- OzX9eRRBFQYQNryXlXbPpZFy3q+f4UGwC9a9ATLxcVer0VY/aMXgHqvHtcv8VI77b8waNXcin5n
- odmXXzFvS7QOVPws/y2P6OyhT6a0tiJ9OrVO03KjaZH+Jke9A72WbtpV28FXVPGIzENoBhlAFvo
- SA6t68WH7//9JB5HEAQYDB5iRShhPt32xqteEJ5f5Fk15gbsdJhY6r+CjUSo0jFj+cW2W1pe6FP
- 36n5ojAy0NjeflQJChw==
-X-Proofpoint-ORIG-GUID: w9TkDDFR4RWT52Tiu4hzNj2jn_oXRBEo
-X-Proofpoint-GUID: w9TkDDFR4RWT52Tiu4hzNj2jn_oXRBEo
-X-Authority-Analysis: v=2.4 cv=UcthjqSN c=1 sm=1 tr=0 ts=69ef04b5 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=wUjT8lVc3dO_4AMqBZcA:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-27_01,2026-04-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 spamscore=0 lowpriorityscore=0 impostorscore=0
- adultscore=0 priorityscore=1501 bulkscore=0 suspectscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604270068
+Cc: John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>, 
+ Joel Fernandes <joelagnelf@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
+ Eliot Courtney <ecourtney@nvidia.com>, nova-gpu@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org, Alexandre Courbot <acourbot@nvidia.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: TYCP286CA0078.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:2b3::15) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|DS0PR12MB7655:EE_
+X-MS-Office365-Filtering-Correlation-Id: 742b413b-79f0-421e-1649-08dea42a3065
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|10070799003|366016|56012099003|18002099003|18096099003;
+X-Microsoft-Antispam-Message-Info: hxQS2HrTLKXuFkzIvoes24pUH7KfPfM62Gi/9iuN9X2nYucnjVH8h7FZo/4F4oPq34UI6ZC/Za7hg8AjpVIVQqWgiyPGKw3FFSO/8WQ4zqqAY1ATTlDipwE4T6xMpawA6GM6yKuhycc/OighL7JdGfkZyURkNhVSzsrcr/IQGTYP2q0EUd92v4WSyVt78WaM2ITOg0jkFv9qatQXy7owU3vR59GIpc1nFlK5QFW5ifSBrXIvwKie2s0SEZU/T6vfsfT9a11EIiAnOlTM9fD8GwzKQmhzGAZm76S4CjIGlXhlopYa01buJxJVCcxBXE/EZLvJXvNcu7IVkzp+G+acVvIJIreeWIwaCSzYhTqOhMxDo+bJLFEXfRtMWkKNgeW/xloko11RYu4+rniqsKSRm2mkBw0uo7WB7+AFd3ekkNy9PPs8kBiYW93YGjGdiUUeA+eZ6c7u7cqWnmwomgiril7bjZlds3QBi4qWxzdEqqGT4WpLb68iq40i7O05p4F9HWNd5AlvnvyrkaoVIhan5vQ0/iQi4fIufsVlHzdQQnmjfEs/26Dx3PeppzrHcWoT7ql54R4FkHn0UNMalJKVC0+jglfLE/qc/Q2AIwbhXBiWa4VBRG7xZHwkHBnqjXBpeaBofD37+dop1lvjZHCn+IHtz8GUm69sntlRVmwLitcanRaoLLleInfmuj72+MB5K6TZUOGen3I929f1HcU7n7CdjeXK2HBX6BCEqhp3lCk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(10070799003)(366016)(56012099003)(18002099003)(18096099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QUgvaGUrdXVTNzZTRVJrS3BmR3Y0VEdCaDJMNHVjeTc3SHllWXZOVEFOdTBK?=
+ =?utf-8?B?V3hKaEJFUlgzd3luRDNhVHJ3c3NMQ1hLYndNejVEWTVza0Y4THRkSzlzUWdF?=
+ =?utf-8?B?UWUvaVJBejhhVEhYbTZ6eloydEt2WmhwcG5XV1YxaWtsc0N2VnZhS1VJeTEv?=
+ =?utf-8?B?VDg3Mlg4WWNFL1QxKzdRY3pYWU1VcTRIcGNKSWE1bi84UTl2c1lDV0xBSDZn?=
+ =?utf-8?B?YmdDQXdmdGRuWTZ2T1EwSTBRWnBDNjE3b2k5RW9PUkkyVUNEcXZtR3duVXJw?=
+ =?utf-8?B?SytDNWd3aS83WEtyc3l2ZHlyQUVuMll1NDlVUlk1NVZDc0kxL1krSE9kditJ?=
+ =?utf-8?B?ajB0OUdFR093U25HaVhRM3I5dDRpVHlpdlVaVkRsMm5FT09PRDJQakdIN0cr?=
+ =?utf-8?B?ZHJJSnkwQUZKNFh0NktrK0wyYUJHVWlrekozSGZNQ3RodGpoQ09XSGNVUStD?=
+ =?utf-8?B?azQwQUR4WVJkR3B6Y0ttZUhabXRIOHZKM3FLREtKeElJWGw1a2N3L25tQkRE?=
+ =?utf-8?B?R3d2MDNMN1NzeFBRNWhvWGhMYm5zeGNvRmRLdGNYdlRGS3hDRTdlS2xOTlRT?=
+ =?utf-8?B?VTdkSGFuR1V6d05qc3hBVnYwNlo1RVc5Q2twT0tpMGs4RXpTZTNjcmlQUkNT?=
+ =?utf-8?B?djRBWFloL1JlVWVNVGNNRlBTeWlINkZzTWFFM3I3REVOaVlROHArZ1BXTWVv?=
+ =?utf-8?B?WkxSMWRYUlZpZWpLcUg5Y1ZZN0EzTUhIaXREbU1DeHJ1NmZHK01ueFlvbUxD?=
+ =?utf-8?B?eEQxcnJCVVI4czFUaHFnVFdzU21WdWlOMzVsK014b3NPNFpiejB4RVVBMW9J?=
+ =?utf-8?B?SC9yRE82Qlp3T0tvOEYxUkhiaTAyQzB4YndRcWN2MVJKWVF4TjZZT093OGty?=
+ =?utf-8?B?RUY1ZlFjaTQyZWkwSFVnVzNiLzdlM0IwZk96MENyZi82bTFqbXcvK1BjckRE?=
+ =?utf-8?B?TGtOc1ZrakFSVXZ6NUJnZGlSRFBCbkZSOXBVY1JTQVlxWE1mTEZWNFZwVStl?=
+ =?utf-8?B?UW01NlZPbnRVMFlqdWgzbWtONnhDTVVIVFBFVit3VTNPTlNVcUVDbjNSUHIx?=
+ =?utf-8?B?S3dVZkxKbFc2WTVOY1V5bUlXQXcvbGJaVW1RZGFqa3lUYWorWmVVSDZaejB3?=
+ =?utf-8?B?MENIL3YzUllYVWNERjk2cjdjZ3Rvd25raFVYZVRydWlRUWk1cms2M1plTWJn?=
+ =?utf-8?B?U0lmaTBtRW1Dc2VxbGMxbFZhZ1BUMHRHY3B1RW1tWEwzMk9zdjYrbVEyUDVJ?=
+ =?utf-8?B?OUt6M0J2TkNTOWV1eWxEMktHQ3hueTYvT1ZuM3Q0ODJGbnA4YUFoeWZlRHds?=
+ =?utf-8?B?VmpVb1pMRVZJU1FxK2FpNE1yQlltYWYzSXNKZ2g3bDJEc1VKdDVqL3FhV0lT?=
+ =?utf-8?B?MHdJWU96dThqMkpYZEtta1F4OVJrMlNrdlNlNndLZTBtNjgrTTEzOG5TNnl2?=
+ =?utf-8?B?eWRJT2hnVVJtVE03YWRVeUd2WU5xeFdxc1o3UDNpRndXRmRMbHZhWEZTaHhU?=
+ =?utf-8?B?ZjdjdmtCZDZEREhXRGpjRzNxYTBrVjRCVU5KRTNBd0wvZXlXUWQ0bENzU3VV?=
+ =?utf-8?B?cGN5WHBYemt5OCsyWkxqdjd1SmtQWXFuOFJXTU9nQUlaVEM2SHNoZzhqQjFv?=
+ =?utf-8?B?eE1pV0NvZEtQNGhYR1JEVjhvaHpBWlBpSHdHY2JQSEM1TklVSmRKRjREYzMw?=
+ =?utf-8?B?NFo5cFBrV0pLeldFbVFxdS9qOWFzcXUvWktGTC96ejRaUDNHcnFaOGppbzRI?=
+ =?utf-8?B?RGJha0M5WXFJTG51QmxvVHJpRGJZVk9ERU1DODVoTWx5WGtRbGluT2Vpalc1?=
+ =?utf-8?B?QU9RRGFLNGdCM3c3R04rOXcvc0JtODhHcmp4RTVPUENzWlg2QXZJMzNITFh2?=
+ =?utf-8?B?WGxSRHFzTUxRUytnSm1BMGN0U1U5aXlBRUFJRjlKcTVSZW9PcDhNZThKWDlm?=
+ =?utf-8?B?TmVmL09ZTVNNc0ZrOU5JMkN3UkxMTDNhVXM5N2ZQS3VTSDV6NXdHMEQ3cGZ5?=
+ =?utf-8?B?QmZPemJ4RnJ2clFBZ0dUOTh4V3NmZVVwVkpidDBBSVkxZDRxa2MvYnF3US9o?=
+ =?utf-8?B?UmxCYVcwYVFid3VNR3l5Tm5VVEZOaUgyMWI0UDZiSVMvNTF0TXBmYXpOTEo2?=
+ =?utf-8?B?U2llWm9tUXJnZy9uRkpHN2I4ZXlVU1Q4M1lYS285NW5pNzNBdWZ3ZjUvNHNZ?=
+ =?utf-8?B?cHh1bk41a3Z4bE02c0JQUWpodm9PZitTWm9LZmNCZzMzT1pQeUVXdzFwQWxQ?=
+ =?utf-8?B?UkJ4M3pQQ3Rhc01aelF3aDFsQThKMm1YZHc2aVBLVXExNDdNOFJMeXJnSmNv?=
+ =?utf-8?B?dlIxWkdMSDlSNjRkOTZ4OG1ETmhmaHRBUzlFcExPang4dmlWdDZsamIwRWp2?=
+ =?utf-8?Q?+JjATGX0AKrUqPXzAHzZC9ZwPjNj1aOHoI9xNbRXSBaF7?=
+X-MS-Exchange-AntiSpam-MessageData-1: 4POJbyArmJF4uA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 742b413b-79f0-421e-1649-08dea42a3065
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Apr 2026 06:57:04.2820 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: OzUJ8Wkj/Y9cIJQHe3QHUFaakbBJ3kh0eShDjRDR/Zh8xbTLRvvMTbB6KOlixsCIvCoiVhndd3MDMbaJy3rUgg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7655
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,123 +145,124 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Currently the GSP is left running and the WPR2 memory region untouched
+when the driver is unbound. This is obviously not ideal for at least two
+reasons:
 
-In A8x GPUs, the GX GDSC is moved to a separate block called GXCLKCTL
-which is under the GX power domain. Due to the way the support for this
-block is implemented in its driver, pm_runtime votes result in a vote on
-GX/GMxC/MxC rails from the APPS RSC. This is against the Adreno
-architecture which require GMU to be the sole voter of these collapsible
-rails on behalf of GPU, except during the GPU/GMU recovery.
+- Probing requires setting up the WPR2 region, which cannot be done if
+  there is already one in place. Hence the current requirement to reset
+  the GPU (using e.g. `echo 1 >/sys/bus/pci/devices/.../reset`) before
+  the driver can be probed again after removal.
+- The running GSP may still attempt to access shared memory regions
+  which the kernel might recycle.
 
-To align with this architectural requirement and to realize the power
-benefits of the IFPC feature, remove the GXPD votes during gmu resume
-and suspend. And during the recovery sequence, enable/disable the GXPD
-along with the 'synced_poweroff' genpd hint to force collapse this GDSC.
+On top of that, there is a nasty bug in the Blackwell VBIOS that
+sometimes borks the GPU upon PCI reset, requiring a reboot. So relying
+on the PCI reset to unload/reload Nova is really not practical here.
 
-Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+This series does what is needed to leave the GPU in a clean state after
+unbind, for all currently supported GPUs. Blackwell support is trivial
+and will be added alongside the Blackwell series [1] if this can be
+merged first.
+
+On top of addressing the feedback received on v3, this revision is a
+considerable rework. The `warn_on_err` convenience macro looks like it
+will require a bit more work, so it has been dropped as it brought a
+very small improvement anyway.
+
+Since this series touches the GSP boot code, which will also be changed
+further by the Blackwell series [1], I have decided to proactively split
+said boot code into a HAL. This will be helpful to avoid having the two
+boot methods in the same Rust module and discriminated only by
+conditionals; but this is also useful for this series in order to
+abstract the unload bundle.
+
+Indeed, as Sachiko correctly pointed out we cannot guarantee filesystem
+access when the driver detaches. So this revision now prepares all the
+firmware needed for unloading at load time and saves it into an unload
+bundle that is executed when the driver unbinds.
+
+The GSP HAL work might look a bit premature, but it will be fully
+exploited by the Blackwell series and doing it now spares us the need to
+move things around in it by putting everything in the right place from
+the get-go.
+
+This series is based on `drm-rust-next` with the GA100 support series
+[2] and first patches of the Blackwell series [1] applied. A branch with
+the series and its required dependencies is available at [3].
+
+[1] https://lore.kernel.org/all/20260411024953.473149-1-jhubbard@nvidia.com/
+[2] https://lore.kernel.org/all/20260417191359.1307434-1-ttabi@nvidia.com/
+[3] https://github.com/Gnurou/linux/tree/b4/nova-unload
+
+Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 64 +++++++++++++++++++++++++++++------
- 1 file changed, 54 insertions(+), 10 deletions(-)
+Changes in v4:
+- Remove `warn_on_err` macro as it isn't performing as expected and
+  distracts from the goal of the series.
+- Add John's patch from the Blackwell series refactoring the Booter
+  Loader runner code.
+- Add a GSP HAL and move the existing TU102/SEC2 boot sequence into it
+  in preparation for the Hopper/Blackwell FSP boot path.
+- Prepare the firmware required for unloading at probe time and save it
+  into an unload bundle, as we cannot guarantee filesystem access at
+  unload time.
+- Constrain `UNLOADING_GUEST_DRIVER`'s visibility to the parent module.
+- Also write the sentinel value `0xff` into `mbox1` when running Booter
+  Unloader to align with OpenRM.
+- Link to v3: https://patch.msgid.link/20260422-nova-unload-v3-0-1d2c81bd3ced@nvidia.com
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index 1b44b9e21ad868e6454b9140284cc7ebedc4f59a..b7166a883b018f459caae742e9a589f32167f8d2 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -1250,6 +1250,56 @@ static int a6xx_gmu_secure_init(struct a6xx_gpu *a6xx_gpu)
- 	return 0;
- }
- 
-+static int a6xx_gmu_gxpd_get(struct a6xx_gmu *gmu)
-+{
-+	struct a6xx_gpu *a6xx_gpu = container_of(gmu, struct a6xx_gpu, gmu);
-+	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
-+
-+	if (IS_ERR_OR_NULL(gmu->gxpd))
-+		return 0;
-+
-+	/*
-+	 * On A8xx HW, GX GDSC is moved to a new clk controller block under GX
-+	 * power domain. The clock driver for this new block keeps the GX rail
-+	 * voted when gxpd is voted. So, use the gxpd only during gpu recovery.
-+	 */
-+	if (adreno_gpu->info->family >= ADRENO_8XX_GEN1)
-+		return 0;
-+
-+	/*
-+	 * On A6x/A7x, "enable" the GX power domain which won't actually do
-+	 * anything but it will make sure that the refcounting is correct in
-+	 * case we need to bring down the GX after a GMU failure
-+	 */
-+	return pm_runtime_get_sync(gmu->gxpd);
-+}
-+
-+static int a6xx_gmu_gxpd_put(struct a6xx_gmu *gmu)
-+{
-+	struct a6xx_gpu *a6xx_gpu = container_of(gmu, struct a6xx_gpu, gmu);
-+	struct adreno_gpu *adreno_gpu = &a6xx_gpu->base;
-+
-+	if (IS_ERR_OR_NULL(gmu->gxpd))
-+		return 0;
-+
-+	if (adreno_gpu->info->family < ADRENO_8XX_GEN1)
-+		return pm_runtime_put_sync(gmu->gxpd);
-+
-+	/*
-+	 * On A8x, GX GDSC collapse should be triggered only when it is stuck ON
-+	 */
-+	if (adreno_gpu->funcs->gx_is_on(adreno_gpu)) {
-+		pm_runtime_get_sync(gmu->gxpd);
-+		/*
-+		 * Hint to gfxclkctl driver to do a hw collapse during the next
-+		 * RPM PUT. This is a special behavior in the gfxclkctl driver
-+		 */
-+		dev_pm_genpd_synced_poweroff(gmu->gxpd);
-+		pm_runtime_put_sync(gmu->gxpd);
-+	}
-+
-+	return 0;
-+}
- 
- int a6xx_gmu_resume(struct a6xx_gpu *a6xx_gpu)
- {
-@@ -1266,13 +1316,7 @@ int a6xx_gmu_resume(struct a6xx_gpu *a6xx_gpu)
- 	/* Turn on the resources */
- 	pm_runtime_get_sync(gmu->dev);
- 
--	/*
--	 * "enable" the GX power domain which won't actually do anything but it
--	 * will make sure that the refcounting is correct in case we need to
--	 * bring down the GX after a GMU failure
--	 */
--	if (!IS_ERR_OR_NULL(gmu->gxpd))
--		pm_runtime_get_sync(gmu->gxpd);
-+	a6xx_gmu_gxpd_get(gmu);
- 
- 	/* Use a known rate to bring up the GMU */
- 	clk_set_rate(gmu->core_clk, 200000000);
-@@ -1339,7 +1383,8 @@ int a6xx_gmu_resume(struct a6xx_gpu *a6xx_gpu)
- disable_clk:
- 	clk_bulk_disable_unprepare(gmu->nr_clocks, gmu->clocks);
- rpm_put:
--	pm_runtime_put(gmu->gxpd);
-+	a6xx_gmu_gxpd_put(gmu);
-+
- 	pm_runtime_put(gmu->dev);
- 
- 	return ret;
-@@ -1455,8 +1500,7 @@ int a6xx_gmu_stop(struct a6xx_gpu *a6xx_gpu)
- 	 * domain. Usually the GMU does this but only if the shutdown sequence
- 	 * was successful
- 	 */
--	if (!IS_ERR_OR_NULL(gmu->gxpd))
--		pm_runtime_put_sync(gmu->gxpd);
-+	a6xx_gmu_gxpd_put(gmu);
- 
- 	clk_bulk_disable_unprepare(gmu->nr_clocks, gmu->clocks);
- 
+Changes in v3:
+- Disambiguate doccomment for `warn_on_err`.
+- Test the correct bit instead of the whole register value to determine
+  that the GSP has stopped.
+- Use an enum instead of a boolean to encode the power level when
+  shutting down the GSP.
+- Add missing newline to `dev_err`.
+- Add missing doccomments for new types.
+- Use values from bindings instead of magic numbers.
+- Remove the redundant `get_gsp_info` function.
+- Better document Booter Unloader mailbox sentinel value, and check the
+  value of mbox0 upon return.
+- Link to v2: https://patch.msgid.link/20260421-nova-unload-v2-0-2fe54963af8b@nvidia.com
 
--- 
-2.34.1
+Changes in v2:
+- Rebase on top of `master` and remove unneeded/obsolete preparatory patches.
+- Tidy up the imports of commands from the `fw` module in the `gsp` module.
+- Link to v1: https://patch.msgid.link/20251216-nova-unload-v1-0-6a5d823be19d@nvidia.com
+
+---
+Alexandre Courbot (7):
+      gpu: nova-core: remove unneeded get_gsp_info proxy function
+      gpu: nova-core: do not import firmware commands into GSP command module
+      gpu: nova-core: split BAR acquisition in unbind()
+      gpu: nova-core: send UNLOADING_GUEST_DRIVER GSP command upon unloading
+      gpu: nova-core: gsp: shuffle boot code a bit to keep chipset-specific parts close
+      gpu: nova-core: gsp: move chipset-specific parts of the boot process into a HAL
+      gpu: nova-core: run Booter Unloader and FWSEC-SB upon unbinding
+
+John Hubbard (1):
+      gpu: nova-core: refactor SEC2 booter loading into BooterFirmware::run()
+
+ drivers/gpu/nova-core/firmware/booter.rs          |  31 +-
+ drivers/gpu/nova-core/firmware/fwsec.rs           |   1 -
+ drivers/gpu/nova-core/gpu.rs                      |  21 +-
+ drivers/gpu/nova-core/gsp.rs                      |   4 +
+ drivers/gpu/nova-core/gsp/boot.rs                 | 252 +++++-----------
+ drivers/gpu/nova-core/gsp/commands.rs             |  71 +++--
+ drivers/gpu/nova-core/gsp/fw.rs                   |   4 +
+ drivers/gpu/nova-core/gsp/fw/commands.rs          |  44 +++
+ drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs |  11 +
+ drivers/gpu/nova-core/gsp/hal.rs                  |  92 ++++++
+ drivers/gpu/nova-core/gsp/hal/gh100.rs            |  52 ++++
+ drivers/gpu/nova-core/gsp/hal/tu102.rs            | 351 ++++++++++++++++++++++
+ drivers/gpu/nova-core/regs.rs                     |   5 +
+ 13 files changed, 741 insertions(+), 198 deletions(-)
+---
+base-commit: 1affa624811b93a2df098c1d141a33c7c134d43f
+change-id: 20251216-nova-unload-4029b3b76950
+
+Best regards,
+--  
+Alexandre Courbot <acourbot@nvidia.com>
 
