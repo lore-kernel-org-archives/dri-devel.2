@@ -4,138 +4,111 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1C12FF8864
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 21:46:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FCF9FF8870
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 21:52:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05DC310E95B;
-	Mon, 27 Apr 2026 21:46:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 842D010E16A;
+	Mon, 27 Apr 2026 21:52:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="XuSY9Nfd";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="I2HrjsQ7";
+	dkim=pass (1024-bit key; unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="RQEGFp9o";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64A3E10E95B
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 21:46:35 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63RK0mf82383087
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 21:46:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=Qy9dkggDlG/oyWyAEZqLIpFq
- SrbxrGP9rj3trvdXwlE=; b=XuSY9Nfdj0TTkjZbxEx8vqiWo5cvm6+o9hv/2tXa
- tyBuHcn/g3m3I96iuXILrhhTHT0I+DHin6OIlEt2l1SU8Bk1WDWclSqLFrwimA3Q
- GBEYbGWrJ+xCGZ/p5lXAAQcCloVpbDay13+HIHV4tgk/qj2QiwGcyeCwOu1AOnYe
- TI9ol1ETGWYB8gotbUoCGrhpFx8EWunoUkOlUvgyAOigocMYrXp8rqDfbd+kdLh0
- CUwr+3eVXqieZIH7Unworskb4qnaEjcuCy5p9OWG8jIv9fzKabzDgipDeFzdtEkG
- lwCNyHSDwiMZtpYpJOaqeWj3PPt+s1Zrl8qRhIcnPq8KmQ==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dt85xsy0n-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 21:46:34 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id
- 6a1803df08f44-8a275472d89so166343486d6.1
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 14:46:34 -0700 (PDT)
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
+ [209.85.218.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABAE810E96F
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 21:52:26 +0000 (UTC)
+Received: by mail-ej1-f51.google.com with SMTP id
+ a640c23a62f3a-ba92146cc86so1161875266b.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 14:52:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1777326394; x=1777931194;
+ d=linux-foundation.org; s=google; t=1777326745; x=1777931545;
  darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=Qy9dkggDlG/oyWyAEZqLIpFqSrbxrGP9rj3trvdXwlE=;
- b=I2HrjsQ7gRxyF7QZmtCxUW9n+MCkZkrFFhJ+ukqwYyGy3qHsxpozpuiBqnlaP0w7NX
- 2TGzJdeuTMPGVBoDEtUp4vWTOIbwXoGXq0BxjZJrl3g1G45AadU2AmRrqhH2AF0exzCN
- xwvMhwIUsrYe3IEtuV8X3jWh47LHc+Hp+ZiLZFoXHf7KrAgQu75v+LCvBqK7wnPEAy7s
- hWxBijrxwwkkMYZ7OJh0K1cgIKvjLvIhG3tsbMqbGNxqCYWy3Ad8hBddAUyMmx3xUoiS
- /JABI1FdbjIjtkc5A2n5ur/vPWNTRy8OS3SqMkep5BSlhasmlkt8CIeyJtWUiKyphl3s
- 3ikw==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=eodThUBj1SnOvacXe/3ftYxEWQMFbYqc4B0FCa9Alx4=;
+ b=RQEGFp9odf24Yt/w+kqr1+LS3ScvAZjzhvsZmvmnlnZs/81FuhxwIBx2VAIzK/WgZx
+ UuBBhqtNpPqk1CaUtGOVbblXSS21Z55+neZa1b5RMM8RxMoICRycTZYiLavD+T8r92J/
+ O+r9fPnlEKRxQHmKPV3/4nVJ/oYDaqZhN3yjM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777326394; x=1777931194;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Qy9dkggDlG/oyWyAEZqLIpFqSrbxrGP9rj3trvdXwlE=;
- b=Vn1tIq6MmEqW7FkDmKcnQ+PR69hEyGfaj9GH8QFl2phF9SaUzHcRj0aYMM4hi4C3sH
- MGil/YwCWahHTe95j5j9VbucHw04+wo1OMZD/FMkUx/RnaqyWMDSB0RHky6Lb/XUwEbY
- iZkZIltqrHkWdLiuJbZ/kxrC1x3jFDZzNXj31QvAd5mKeZkqD4mvCbowhdRaM2Rrrx+7
- 8fXrRQ2NSMfYE3sf4TeSTYllkpvePwdd0hNcoLjNaGoiGpowx7C56cGz6iTeNStcvmKL
- 3AWPwfbmcNnSkwouHes+0oswJBG9UwgqWooG3CiL6hDoT7iAQpG7sNmlV5L2U0ZNkrif
- bbvw==
+ d=1e100.net; s=20251104; t=1777326745; x=1777931545;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=eodThUBj1SnOvacXe/3ftYxEWQMFbYqc4B0FCa9Alx4=;
+ b=aKB6xJf7jLT7i5WY8T8MfPsTk6w/qFpERmfeAgcD34aocrXeKV7v4hn900MkSd8chI
+ sJbW0sVcgptP8uBrOi6WOR1mXtluXBMdwR94Hy87yfXLvP3QtVHtMM2MatLKYDPtUFf0
+ ayjnhhmNb5ckgOE0k7/azFsC6K8OEJdhLuZzleAg5IO4TFAiJ0CwLQgS8SLBb9sJM8td
+ zAhr6+CzL5i/oC2eRMcHrTUT4hy4BaHrstBAZagyCd7heRDYkXno1O0zC/Zjb0sR+WA/
+ iCrZczmQ6LrGkBoHbcoyz+ZeE13hjLjDe6r4iNOfQEF4wicKRMTELVHu1zkY6BNsZpnt
+ CivQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8MpJ34O77Goaf7GqtG3QWHmQUXZE18HszL9JngDTbXqnk8Vns7mwEjT4FB685s5mLP+RFHOiACCAg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxoA4+NO35PDhnKvGk8woTRqi+YIbbjwWRipGm/TXmCwJPeJpP3
- 2EBSqTAjXNEaK4RWxEPpf7xInum2+Hpdb8f1aBG+WD1Rl+MDrXpXM2yxXTCFqxQmgZ3UCJatghq
- nNz3BScIlMxCQe/mRzfg1jl1T+PqAA7+p/VpfFamhmXQBsYCx909PQZzM2sN2W6eyhUHIZW0=
-X-Gm-Gg: AeBDieuW1pT6vREoFpqQ1Tl4BWq6+voaBK+qHYEAkXkGS4+UeNxzQYX75UjdNII/17A
- aKYgtYdNeMxmVvX+9zVCANXpjF6nyKemhgNCrDXqFKPisQmeMhvrKCa9daame7jRzjpb23SYWF5
- KyhSuooZGr82js7CmeFpEKuxLOL31+bA+urb51/UEfpAkBngeJ62rH+RCfqYPFFY7O8ZaYKClry
- PCDcEiCWOXK6q7FPqldTsC4b/oxkdehPi9Ynee9u8EXT3ZjbedCbIXkUdH+X7MNSlHTdv1ByAp3
- TlKaAyN7ZIjn0yaaSlTBgwa+DQ9ipMga0zOoRULts+LSTtSQjBMvy5/BnMa9NHVCpZY7/YTPfRY
- ZbIYoY2eMHUAwG10qsMZqKfD5dzAa8BKQ2YwlNLcjou/3vLw6pZAzuR8yu4hT6S5z+GbZpc2w5K
- mc6xZV3PHwQwYSzChU8FRfCvwCdhlgFTGAvIWmUGXOA2VP4g==
-X-Received: by 2002:a05:622a:1c0a:b0:50d:9931:7054 with SMTP id
- d75a77b69052e-5100e121b23mr4483281cf.15.1777326393763; 
- Mon, 27 Apr 2026 14:46:33 -0700 (PDT)
-X-Received: by 2002:a05:622a:1c0a:b0:50d:9931:7054 with SMTP id
- d75a77b69052e-5100e121b23mr4482921cf.15.1777326393213; 
- Mon, 27 Apr 2026 14:46:33 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a7463fcf6asm96326e87.61.2026.04.27.14.46.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Apr 2026 14:46:32 -0700 (PDT)
-Date: Tue, 28 Apr 2026 00:46:30 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sandy Huang <hjc@rock-chips.com>,
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, kernel@collabora.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org
-Subject: Re: [PATCH v5 01/10] drm/bridge: Remove redundant error check in
- drm_bridge_helper_reset_crtc()
-Message-ID: <bovprpd2qb65rggguc3etwxbhzfve2krvmrg2gkfmt7rohvk4t@a2olw6ph4bzs>
-References: <20260426-dw-hdmi-qp-scramb-v5-0-d778e70c317b@collabora.com>
- <20260426-dw-hdmi-qp-scramb-v5-1-d778e70c317b@collabora.com>
+ AFNElJ8+ylbZZxuBitPSORJ7xW0x3U4/EzXd3I6rN3g+MuzxNQO9DTg2ISHq+7649H87fXmliQ+hiwUerrU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw71A4Zj9DJTMEuG5+tU8FWk7m7ncojBK+xjZz2KjcKN13HNRz9
+ pts19cP4slbUuoAOM3eEhuS2bw35Wd7CByb/wjpNDvjIpmwLl7KG/fWFmCop30zZB+iXoZjg4WF
+ MREDGBnFcrw==
+X-Gm-Gg: AeBDies2uDZwoKw6zmuPlBk9AiKeWrZMLb6z85ezyz/DJr2cWJx3YyOCJRZO4Hu95oD
+ Y6jaT2VXovZWDTI0XgDD/M2on7352VENFCyWCDa9DJUOxHOxrJSdqVlit48AeXKAQYiaiDAH9Fy
+ BXzjytodDb6vAMg9bElkPjLMgz73+s/GVV0cIKxzaoOj2n7Q/McySqS+EUFRZcJ/TbJ3mymofKB
+ 3rBiLDBmcfC511VVRnD8xhCAyABtI4PDvQ0/r0nykbV20/LFy/DyRMUEJ6sjDf5orJLl8KJsrny
+ 3hMYdDKsYFIBpvhW5Ky9d7c7qcfZZfLn2ZsRvXKooFAN4twIarYo9IYZHeXsRZ7t9Rm4nlhAnG5
+ JEGqbJAP24DU0zns3fun+BvYfAS9t6i3ZlOryiFvnjcEr+zxEOUbPpJJGZ/uKOkDo+Fyb6GQKdK
+ djelxDCfhKjsYlHKAWA5KEWg6B8wqe1t6pCQUMQkKuTN/nIR52GgwMdl9oC97ZjiWcg/hLWJJsp
+ J08CcznlMw=
+X-Received: by 2002:a17:907:74c:b0:ba8:9137:da5f with SMTP id
+ a640c23a62f3a-bb80377b922mr28869766b.32.1777326744775; 
+ Mon, 27 Apr 2026 14:52:24 -0700 (PDT)
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com.
+ [209.85.208.47]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-bb80853e641sm10376966b.10.2026.04.27.14.52.22
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 27 Apr 2026 14:52:23 -0700 (PDT)
+Received: by mail-ed1-f47.google.com with SMTP id
+ 4fb4d7f45d1cf-676e62faf2bso10752232a12.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 14:52:22 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9XTYNeLoD5sGxaLQkiN2Zirl2rvLpJVqe6RQKnpt3r7S1aFNKHvWyMHrGwxyDhcxHkbP+9fNh+3uo=@lists.freedesktop.org
+X-Received: by 2002:a05:6402:35c2:b0:677:270f:6f4b with SMTP id
+ 4fb4d7f45d1cf-679bb04a8a7mr185115a12.1.1777326742385; Mon, 27 Apr 2026
+ 14:52:22 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260426-dw-hdmi-qp-scramb-v5-1-d778e70c317b@collabora.com>
-X-Authority-Analysis: v=2.4 cv=Zs3d7d7G c=1 sm=1 tr=0 ts=69efd93a cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=QX4gbG5DAAAA:8
- a=EUspDBNiAAAA:8 a=-_LoNN0qLOdyQgNrNWwA:9 a=CjuIK1q_8ugA:10
- a=pJ04lnu7RYOZP9TFuWaZ:22 a=AbAUZ8qAyYyZVLSsDulk:22
-X-Proofpoint-ORIG-GUID: POL0Sth0hRB21jU-bWBsnQviHQC5tWoT
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI3MDIzMSBTYWx0ZWRfX7ozz51/Znf2O
- FIimhYH3oj8h/iRe9YYxOqFVgpgvx5546NSyBr3ja1g+wpUbxpE2HllEExUx81JXRyBoupk+Wwd
- /kERuR6mivgFnsIzNwDMNmmlbcCyxGNVIocUZvHK2Ls9R1TLqKTpmSrjH+HoD9hB4I0/YL8oKGk
- sEfZIrkB9XcGqCr11pv2XWhLol/DBMrYb4a8pKlkUTLWTrhL9ir6VS9k/r/vh6IjZqYQ+YjgboE
- ok/Ob+EomCc+TXUnpIWvsp0fTFIFU7kqScwcptdWZ45rzJG9aOL0kVZGdqafm/MamMggSaE0uM9
- M3PpJ+galYKLe6AEW8xJXA8u8nfEl4sHvLbhCh9Xl29tsTgpv6Jvb+EQuuhHglKxIOPlXVYLvw6
- ws8ORkEqMPxCUeM1hAa8Nd/OgGfxMpdMMtWtr4sbi2KOmtfAzOraR9Fe0GsVQKm0RATOe+7VLNA
- ACybGe4PjhYSDoDqLjg==
-X-Proofpoint-GUID: POL0Sth0hRB21jU-bWBsnQviHQC5tWoT
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-27_04,2026-04-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 phishscore=0 bulkscore=0 malwarescore=0
- impostorscore=0 adultscore=0 suspectscore=0 spamscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604270231
+References: <cover.1777306795.git.chleroy@kernel.org>
+ <0ee46bb228d97163fbdc14f2a7c52b93d8bc34ce.1777306795.git.chleroy@kernel.org>
+ <ae-j2_QirCySZD02@yury> <63a4d0f6-0eb3-48cd-9f98-bf7b223b2606@kernel.org>
+ <ae-2yLWSGnfeTvh1@yury>
+In-Reply-To: <ae-2yLWSGnfeTvh1@yury>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Mon, 27 Apr 2026 14:52:05 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wgPrLy0FR3sEWBYQuNAac1axDASYMnTuPuxEU0WytzL7w@mail.gmail.com>
+X-Gm-Features: AVHnY4LQUFWo9ODz4M3q2vZC9Gn8nsdYr95Nd4ky5ERVHHxIyN_9ZXY5zjebfdc
+Message-ID: <CAHk-=wgPrLy0FR3sEWBYQuNAac1axDASYMnTuPuxEU0WytzL7w@mail.gmail.com>
+Subject: Re: [RFC PATCH v1 7/9] x86: Add unsafe_copy_from_user()
+To: Yury Norov <ynorov@nvidia.com>
+Cc: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, 
+ David Laight <david.laight.linux@gmail.com>,
+ Thomas Gleixner <tglx@linutronix.de>, 
+ linux-alpha@vger.kernel.org, Yury Norov <yury.norov@gmail.com>, 
+ linux-kernel@vger.kernel.org, linux-snps-arc@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org, 
+ sparclinux@vger.kernel.org, linux-um@lists.infradead.org, 
+ dmaengine@vger.kernel.org, linux-efi@vger.kernel.org, 
+ linux-fsi@lists.ozlabs.org, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ linux-wpan@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-wireless@vger.kernel.org, linux-spi@vger.kernel.org, 
+ linux-media@vger.kernel.org, linux-staging@lists.linux.dev, 
+ linux-serial@vger.kernel.org, linux-usb@vger.kernel.org, 
+ xen-devel@lists.xenproject.org, linux-fsdevel@vger.kernel.org, 
+ ocfs2-devel@lists.linux.dev, bpf@vger.kernel.org, kasan-dev@googlegroups.com, 
+ linux-mm@kvack.org, linux-x25@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ linux-sound@vger.kernel.org, sound-open-firmware@alsa-project.org, 
+ linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
+ loongarch@lists.linux.dev, linux-m68k@lists.linux-m68k.org, 
+ linux-openrisc@vger.kernel.org, linux-parisc@vger.kernel.org, 
+ linux-sh@vger.kernel.org, linux-arch@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,20 +124,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, Apr 26, 2026 at 03:20:13AM +0300, Cristian Ciocaltea wrote:
-> Remove the no-op error check after drm_atomic_helper_reset_crtc() since
-> the goto target is the immediately following label and the return value
-> is already propagated correctly without it.
-> 
-> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-> ---
->  drivers/gpu/drm/drm_bridge_helper.c | 2 --
->  1 file changed, 2 deletions(-)
-> 
+On Mon, 27 Apr 2026 at 12:19, Yury Norov <ynorov@nvidia.com> wrote:
+>
+> This is what Linus said when added x86 implementation for copy_from_user()
+> in c512c69187197:
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Note that some things have happily changed in the six+ years since...
 
+>   That's partly because we have no current users of it, but also partly
+>   because the copy_from_user() case is slightly different and cannot
+>   efficiently be implemented in terms of a unsafe_get_user() loop (because
+>   gcc can't do asm goto with outputs).
 
--- 
-With best wishes
-Dmitry
+now everybody can do asm goto with outputs.
+
+Yes, it's disabled on older versions, so it's not *always* available,
+but all modern versions do it. And if you care about performance, you
+won't be using an old compiler.
+
+             Linus
