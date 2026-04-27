@@ -4,62 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAE5DFF8860
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 18:04:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71D90FF8868
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 18:05:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C079010E0C7;
-	Mon, 27 Apr 2026 18:04:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCAE110E87E;
+	Mon, 27 Apr 2026 18:05:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="avCR022q";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Vuo2Oh+V";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3C2E10E0C7
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 18:04:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1777313057; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=nAvcNvQpM+gfhn2/3HLRBs0Lxyq9g3izU3YePHe4GZ9OWKwQ3UX69okS4N/2ImL5Bebzq6PPWL9034cwg51C0Bww3/A0kAcbIbCr7rS3irVTomncxzhNzCsTOcE6n14/ZmS4V9Q/urzR1wSGW2+DDiBkp7GdtyBtXW4c//Yh1X8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1777313057;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=NSEXEwx9S+OeVaRRjXS9ZK8EIwQIZrHT5PwNt4KV1SE=; 
- b=EsY0cGqnRzk/RCyADweX9Vyn05CU/UpD+rzGnwnm3dDK7Kxp7/v7YLlZCWTHcXEng5L6vg4sn+YWTeoEC6AyBMB38ZKAj2XVokIRpshMGagbxvyOdes+wCQXuyuCCUkEErYDBTh48mb4UD0L5EuaCBb4PrsPKF9REfAuNbKft6I=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1777313057; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=NSEXEwx9S+OeVaRRjXS9ZK8EIwQIZrHT5PwNt4KV1SE=;
- b=avCR022qeDlbdkeJAGU3zhJUbIsjF8r9yuEc101tqxnIqbwLOS290IExQMzV8nU6
- 9PuAaFJUVgDUupEz16UKzQ36fAYx8vuk4U7EfzUXPwyJ52EmGMXcD0gcKHVtj8ttxHp
- YZWf2q1Oas3TD8+sCgRRjkTB15U4OVSND959Nr+g=
-Received: by mx.zohomail.com with SMTPS id 1777313055502484.3747463385729;
- Mon, 27 Apr 2026 11:04:15 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Lucas Stach <l.stach@pengutronix.de>, dri-devel@lists.freedesktop.org
-Cc: Christian Hewitt <christianshewitt@gmail.com>,
- Diederik de Haas <diederik@cknow-tech.com>, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- Jonas Karlman <jonas@kwiboo.se>
-Subject: Re: [PATCH v3 02/13] drm: bridge: dw_hdmi: Only notify connected
- status on HPD interrupt
-Date: Mon, 27 Apr 2026 20:04:10 +0200
-Message-ID: <5ozaSaKzQeSilqZavTuKOw@collabora.com>
-In-Reply-To: <20260403185303.80748-3-jonas@kwiboo.se>
-References: <20260403185303.80748-1-jonas@kwiboo.se>
- <20260403185303.80748-3-jonas@kwiboo.se>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F2CF10E87E
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 18:05:53 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 6EADE60139;
+ Mon, 27 Apr 2026 18:05:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 86FB9C2BCB7;
+ Mon, 27 Apr 2026 18:05:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1777313151;
+ bh=0ud1QnU6DSZTrgik1DuQ8GzbwSpCgKyutvxo4R3s3/Y=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=Vuo2Oh+VsSSIBVNwrxYEiLEskYMdNrx7YnDItq6WOLf4NCHmfXxBX6hyH2t3vTe5p
+ B7Xmk5dqMH5u9n3kVLKVKogVLckHrMLig4LONyDct0mY+3TNk8bqYWwfRPafBh1N+R
+ rxxR0ffEM8J39NFSMDBpKefl1DO04fQ3vTxXa4fU448D/mVeT33AK1zOAocKA6qEE6
+ 3KIQhcDZZNLbjbTCFRjcrynrQqD3n+e6h95XywS0LVUfIO9o/mcIvp245L5wTbbKIe
+ pGa4Slm+2/R1x6ZTC1uN7/5X2La3EQJYcsSOAMWi00yhrNsrt4vXxKwManVsBJI8zG
+ 2LcmLn3Ge66lw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 73892FF8869;
+ Mon, 27 Apr 2026 18:05:51 +0000 (UTC)
+From: Markus Probst via B4 Relay <devnull+markus.probst.posteo.de@kernel.org>
+Date: Mon, 27 Apr 2026 20:05:42 +0200
+Subject: [PATCH v6 2/4] serdev: add rust private data to serdev_device
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
 Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260427-rust_serdev-v6-2-173798d5e1a3@posteo.de>
+References: <20260427-rust_serdev-v6-0-173798d5e1a3@posteo.de>
+In-Reply-To: <20260427-rust_serdev-v6-0-173798d5e1a3@posteo.de>
+To: Rob Herring <robh@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Kari Argillander <kari.argillander@gmail.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Viresh Kumar <viresh.kumar@linaro.org>, Boqun Feng <boqun@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Boqun Feng <boqun@kernel.org>
+Cc: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org, linux-pm@vger.kernel.org, 
+ driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ Markus Probst <markus.probst@posteo.de>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1683;
+ i=markus.probst@posteo.de; h=from:subject:message-id;
+ bh=Lci9sJZ/Hd89WrWg8pDQ/wKU3djKPRT47wh61HUUHxo=;
+ b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBp76V9RbMszIgYWJvSWd0DQQvpRFArS72LDlcV3
+ 7DTy3b7pj+JAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCae+lfRsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9JuqA/+KWXf7SvsT8sOhGfeNvEPjyBdh3Zb7Su
+ QYx71x8wz5G4X2BfWc1y3I4E6K+R9FeOjMzKGGZxSsgbKk95TumVive0o4+rG4hyNk7WD1RbeAp
+ cQ+uOCUbhWlwSR+Iwnd+5AEADEBWxzOWn+QzvHa6RxMKhhMUwNd5QNumBtMy6JSyjrrpeG4v3v/
+ 7BWxPOHhooqtdbhhxSgSl+dub5IQCubhPEySPAhwQ3BdeD1iEXW2leQHDErHk/L6GoNn2fyf4aj
+ 4tUqsX0qKBTnj8NbBHJ+txkl0BxRdEAWnoHqc8Bfx2F8JW7tjw/hahr10t+efWWTwg84ePqumlz
+ RiBXatCl8m4Ju2QZGKhKl4VKOoi6KDrGxI6IoadKSDoWyWYBveZmqcN/TCe2MfgX/lx3K1nAv+2
+ 0VbxqgLssAVYp+B1cbXp8XdwMvYyBSrPkdiVHRrqwT1/j5dKjY2RFrpYCGZ6gnpPD04n/OejVTv
+ QRPyF4vx5fznUKHxFofDtbjrB6AevRJ7CwgS1rKq6O+ZaNiTk7l+CGg22EYwaqwXgIs2JJdov11
+ Jb+t1kQs1cmmcLu6qI8l6WUmcx2ai+z1+6I+UqhNiIespcshLjw1fBW3FzVAESd0zFt7ek5a/+S
+ DKUZ1Qp6Fm5MT1NeJ8dQn7y2P2mHr2eh8IZJl2zZ0KmusC9UngJk=
+X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
+ fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
+X-Endpoint-Received: by B4 Relay for markus.probst@posteo.de/default with
+ auth_id=680
+X-Original-From: Markus Probst <markus.probst@posteo.de>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,61 +93,56 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: markus.probst@posteo.de
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Friday, 3 April 2026 20:52:48 Central European Summer Time Jonas Karlman wrote:
-> drm_helper_hpd_irq_event() and drm_bridge_hpd_notify() may incorrectly
-> be called with a connected status when HPD is high and RX sense is
-> changed. This typically happens when the HDMI cable is unplugged,
-> shortly before the HPD is changed to low.
-> 
-> The original intent of commit da09daf88108 ("drm: bridge: dw_hdmi: only
-> trigger hotplug event on link change") was to signal hotplug event at
-> correct interrupt states.
-> 
-> Based on the commit message the intent was to trigger hotplug event:
-> - when HPD goes high (plugin)
-> - when both HPD and RX sense has gone low (plugout)
-> 
-> However, following interrupt state changes can typically be observed
-> when the HDMI cable is unplugged:
-> - RX interrupt:  HPD=high RX=low  -> triggers a connected event
-> - HPD interrupt: HPD=low  RX=low  -> triggers a disconnected event
-> 
-> Fix this by only notify connected status on the HPD interrupt when HPD
-> is going high, not on the RX sense interrupt when RX sense is changed.
-> 
-> After this a connected event should be triggered when HPD=high at HPD
-> interrupt, and a disconnected event should be triggered when both
-> HPD=low and RX=low at either HPD or RX interrupt.
-> 
-> Fixes: da09daf88108 ("drm: bridge: dw_hdmi: only trigger hotplug event on link change")
-> Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
-> ---
-> v3: Update commit message
-> v2: New patch
-> ---
->  drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-> index 9febcb58a1df..3b851f12adfe 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-> @@ -3140,7 +3140,8 @@ static irqreturn_t dw_hdmi_irq(int irq, void *dev_id)
->  			mutex_unlock(&hdmi->cec_notifier_mutex);
->  		}
->  
-> -		if (phy_stat & HDMI_PHY_HPD)
-> +		if ((intr_stat & HDMI_IH_PHY_STAT0_HPD) &&
-> +		    (phy_stat & HDMI_PHY_HPD))
->  			status = connector_status_connected;
->  
->  		if (!(phy_stat & (HDMI_PHY_HPD | HDMI_PHY_RX_SENSE)))
-> 
+From: Markus Probst <markus.probst@posteo.de>
 
-Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Add rust private data to `struct serdev_device`, as it is required by the
+rust abstraction added in the following commit
+(rust: add basic serial device bus abstractions).
 
+Signed-off-by: Markus Probst <markus.probst@posteo.de>
+---
+ include/linux/serdev.h | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
+
+diff --git a/include/linux/serdev.h b/include/linux/serdev.h
+index b6c3d957ec15..048ef5857786 100644
+--- a/include/linux/serdev.h
++++ b/include/linux/serdev.h
+@@ -33,12 +33,14 @@ struct serdev_device_ops {
+ 
+ /**
+  * struct serdev_device - Basic representation of an serdev device
+- * @dev:	Driver model representation of the device.
+- * @nr:		Device number on serdev bus.
+- * @ctrl:	serdev controller managing this device.
+- * @ops:	Device operations.
+- * @write_comp:	Completion used by serdev_device_write() internally
+- * @write_lock:	Lock to serialize access when writing data
++ * @dev:		Driver model representation of the device.
++ * @nr:			Device number on serdev bus.
++ * @ctrl:		serdev controller managing this device.
++ * @ops:		Device operations.
++ * @write_comp:		Completion used by serdev_device_write() internally
++ * @write_lock:		Lock to serialize access when writing data
++ * @rust_private_data:	Private data for the rust abstraction. This should
++ *			not be used by the C drivers.
+  */
+ struct serdev_device {
+ 	struct device dev;
+@@ -47,6 +49,7 @@ struct serdev_device {
+ 	const struct serdev_device_ops *ops;
+ 	struct completion write_comp;
+ 	struct mutex write_lock;
++	void *rust_private_data;
+ };
+ 
+ #define to_serdev_device(d) container_of_const(d, struct serdev_device, dev)
+
+-- 
+2.53.0
 
 
