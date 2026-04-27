@@ -4,137 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60701FF8869
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 15:27:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF865FF8868
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 15:47:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8CAD10E7B3;
-	Mon, 27 Apr 2026 15:27:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 176EF10E2CB;
+	Mon, 27 Apr 2026 15:47:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="UAXin7wT";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iVFs4tJk";
 	dkim-atps=neutral
-Received: from LO2P265CU024.outbound.protection.outlook.com
- (mail-uksouthazon11021079.outbound.protection.outlook.com [52.101.95.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 052C310E7B3;
- Mon, 27 Apr 2026 15:27:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XXRLok/2HoWqb5OP6VqjkayyKHG4yQdCzZt8Lu75ux4KOJuqaMh7tUspVR8SPljpsCNyHK3XG0O3K5F+DF/+yV0gJZsw3DXOW9q6ceS4r1sQWlFpk/x+LMe/s/suOA2mfa+IStn4f/C4LOTLC/jSjn7xStuw1IwlgFET1nbOub5BjAUepv+sCN0FqqT3KuQIMq9pYxNXYYOEp7rI3SyJlRadpnfhjYHUUp6QXbG/PyKCtuQpt4uKpXXASMRoFfr3Gq6Uy+C49ueAkycndF/yF5dV6pVyPn/wZsgIb3qxle3EP6cATkcmxWL13ECgVrtf8RYy+xTDXnI6Vpr7PvDH/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iNZmHTGe471kIVIL4xdxKcZDsUrytI9jitdwsfdKkRE=;
- b=tCBiaEtqEvDAActNQfrkurB//Me19xYheZZhL2czT24BVORxDO6JPbcyovijAHg3tEQ6/q42SYDUr74/qo8F+hnRy+DtdMWI2JLqtnj1dirRWl2RW6EKpaiGv11J66sahIc4ZA8l85C8NCT+1dR+XaIA25HjwjwaRq3KGUBahIQn8sn9bTIv/Z7YeKefUyGFofKt/vkdfPyNtTIs1sjGakgziZcums/p3xnCGGepC6QiRdn3OQF9kt3TgWYPEXGd+QOL20oQ5z7VZqh1puAoQrGCibk66sg6FLHiRxBzw4qao4fG1iw4PGL+0pctODTcVzfsV4zvyZFRMnA5acFR5A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iNZmHTGe471kIVIL4xdxKcZDsUrytI9jitdwsfdKkRE=;
- b=UAXin7wTZmshiPQHnZ4S6x3zBENPO2l6iQkjGugc0jvFu9HdYtulx2lthBAk5/MduT8kuzWt9YrOeonz3+uL92ZwpkZKUJucvJ6zIPYZRyttvyWWsBr5gA3IAPM+88S1JNjmprBF97BCnQ6QoZ20ggtHt9ikguJ2ohAALgu1zdM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LO8P265MB7935.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:3a8::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.26; Mon, 27 Apr
- 2026 15:27:23 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.20.9846.025; Mon, 27 Apr 2026
- 15:27:22 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 27 Apr 2026 16:27:22 +0100
-Message-Id: <DI41K5J2FKE1.DF81VQ146J5T@garyguo.net>
-Cc: <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <nouveau@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v2 03/11] rust: io: use pointer types instead of address
-From: "Gary Guo" <gary@garyguo.net>
-To: "Andreas Hindborg" <a.hindborg@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, "Danilo Krummrich"
- <dakr@kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, "Abdiel Janulgue" <abdiel.janulgue@gmail.com>,
- "Robin Murphy" <robin.murphy@arm.com>, "Alexandre Courbot"
- <acourbot@nvidia.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>
-X-Mailer: aerc 0.21.0
-References: <20260421-io_projection-v2-0-4c251c692ef4@garyguo.net>
- <20260421-io_projection-v2-3-4c251c692ef4@garyguo.net>
- <87cxzkqybd.fsf@t14s.mail-host-address-is-not-set>
-In-Reply-To: <87cxzkqybd.fsf@t14s.mail-host-address-is-not-set>
-X-ClientProxiedBy: LO2P123CA0030.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600::18)
- To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
+ [209.85.221.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DD4110E2CB
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 15:47:05 +0000 (UTC)
+Received: by mail-wr1-f43.google.com with SMTP id
+ ffacd0b85a97d-43fe8bda8e9so5804345f8f.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 08:47:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1777304824; x=1777909624; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=SAfTMxnj/6IMVjfTHuWc/Km6sx3eQW0UAcM2xEXbSOk=;
+ b=iVFs4tJkrbblZtnneobEElplXl5bswdXkE0DZQ0zAyp8L7kI1UNsEOsjMsj+rQS0mM
+ hbDsKZfvXYnByC7rahBproLraY63Hr5SkApc/PaDvlYeIrebUCyEhG39XYMuJ7CdsJUp
+ Q+8uixUA5Kp7THlZ6tZJc9EI+AGGQ74G5G6+4LiyonovC2N4g+fPVTPcr/Am8MehjpWE
+ Q/acjLfghC+awPOR4nFD6evrmVdrIvPW5KLqSjKtaLVriBHL868CMdeU+e8svPCTAaRp
+ HBZSPz/JTY7K1ZFtt3hO0QqALuEtyygwYYkrsJNLuF3639n+JXIXkjmpjq5GgtHMNbJZ
+ Wiyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777304824; x=1777909624;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=SAfTMxnj/6IMVjfTHuWc/Km6sx3eQW0UAcM2xEXbSOk=;
+ b=mCRl18UDMYe2CwkhAXDx53gBLjT0dki83RI7JlbmR778uUeoqZ4l2hiUPGfsE4ZJym
+ DbfNeziognhRCEZdB5uYN1BlAaacObIuBjpGzy+aVCglUWfVXE4IcCilL3ZXEburgFLg
+ hhZbRsJmc1nnux4jtRXIYwvdX1sP1ekrYhhWITwwKewXG4RtVPO3eJajKaJhsqm2Mt2U
+ j856tkXpZ6fy+CHTJ0SlQf7NQFaDTvaEPNB+S9Wn3rz9+AM5SJ8zy5AUjEZzfSHXkjfs
+ akuzAJjupJJqVUFPkUaB6fjMIEdUxyuSiezMIc+BL0NOP2IkIrbqAOUbiv81yOrWjowy
+ fkXw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8SgNczYOmlU0x1Xn0k3ov8ZvcYJxboh/wO/BB/B/KdP0D173Tz8C3eS5oI1UnV9lnqjG6lU991wP8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzIIf67j1nUaGdIsDMZsgmZaIlBLuLoyrCQt7mBpwefMGf2j3RQ
+ qa3dYouf8L6OkqgO6+HXVVXGqJlnQzb8tFYeZO24YNH9QJKeo7RiBNEC
+X-Gm-Gg: AeBDieuMeTirypoSVczmaqeq/7CQr9EVWH+TcubaEm6RnpSNacbs2tv6gAjrbnAcpkZ
+ 04mgrBBnIrUJOUCoQKtQ9LNoKsAsrCuHlRDmEm12c+dxG18AIrlyv+2z9vlTe6N0UQ/rlWbzMtU
+ 9KDc9zTrabr1DW7W2bdGsdalknj+soepIITRQdvvjixAH10DCc1LycYv3e/X6h1aKGwaGvzngVZ
+ Oge5xNBVklEzC/Oi+ZbAz+WEP+iVTHOyHtNiV1tinOOtB580jRj4U3y22CAU9729x7twvwKZjh5
+ Tt9jpzu/kTOyenDpORRqdYGpbUjlMPsavhHqCxs++l79NngN4tYlwVqqymWrNfdINgZlsKCYCRU
+ 34+4QOHRapIIlaxG4Dta5ny+Hj1ZzHRLY37OCbJq0TcFWd5ueoy4zzwGsA9yTxcBUkBMO8HpIKw
+ C9INgJFjUdB/Td8B/5dY6qdd6fsXYi5oXsrMJoKI+Q2lxtGVVsdKbc5GxeHycOp8ZNt568aFq4l
+ TjckIWA0yO/nklibkfFZxO6+Vy+E+WeXC9Hm6YJh60qUIWW
+X-Received: by 2002:a05:6000:2082:b0:441:1c18:f779 with SMTP id
+ ffacd0b85a97d-4411c18f7c5mr47093562f8f.37.1777304823718; 
+ Mon, 27 Apr 2026 08:47:03 -0700 (PDT)
+Received: from iku.Home ([2a06:5906:61b:2d00:3f97:a47d:8f30:c055])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43fe4dc24cfsm80537830f8f.16.2026.04.27.08.47.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 27 Apr 2026 08:47:03 -0700 (PDT)
+From: Prabhakar <prabhakar.csengg@gmail.com>
+X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Prabhakar <prabhakar.csengg@gmail.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH] dt-bindings: display/msm: Fix typo in clock-names property
+Date: Mon, 27 Apr 2026 16:46:58 +0100
+Message-ID: <20260427154658.276737-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO8P265MB7935:EE_
-X-MS-Office365-Filtering-Correlation-Id: e3b3877c-05cd-41ca-ff88-08dea4717a97
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|7416014|376014|1800799024|10070799003|56012099003|18002099003|22082099003|921020;
-X-Microsoft-Antispam-Message-Info: t/KhFymq8ftn1YMzvdrNMm7d213u337G21EHc93nQdPmPE74Hp7oVhUARH7/0IWbs0X+q2FYXMZoq5OUx4IGOaEId1ZH4pcQ2IT3hhc9bWuJsmBSauijpFRjPRxwPcyJch2jiFgweC8FZXzMEpx9Ol3JVW7UMluHUxlyzSiDoy0RSx6GaXnPthrLyQaIVnQZK4ODnRkVG+UhOFlg3rbwklGvHr0qsPfqHLXTu1REbxK4CmnrcrwsBqtGBcpK9UwTrNZl+L4syhZjjoloiRnc/VVIAX+K66htzIITY9V52kAVpVVd6dCBGtiZDMS1PdmIFVaAFt2TLX/cSsCSeoOJyyCsEgDhHBu+PxZUw4SHJ/LnNaSwW6PEzVGRVhhux+IETQq7tuQl+/rD2IVkXqfRLRwLN0P1UmILFLVq2iBlZZcj4plADzBinmJrpBS4qSRtI3m+Pm16fqh/oCroY7RmHlEMPrTflk1skRLPtbe9pvD/8d6neDzIFelznXkGyHbxwvKg/l8HjbHdYtfYuyISRvCdSd3kUeXhT12pXz+kbPl2K7vFCcoIDafwB16Pk8iSyzdS0FwD0mtUV9/wW3cBs5RCsC4RM+ubuf53QZFmdNRngeacXDz0bPDcXfI7OAXl3vBbHqGQjeUhwYDZmOLp6umwxx474SawkVYMNRCm3AcHBiI+JGCEgm7DSqqazzkjoxZ1PoIu+PErlt1u8+QyTWiLZLEqVgadnFNkC6tAw8Fj5qe99vyNVVBol0L86jwWMNYVXMiy1umM8lesKmMCOA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(7416014)(376014)(1800799024)(10070799003)(56012099003)(18002099003)(22082099003)(921020);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cDcxeHJXVkZyZERLZ1d1MTVwNkJGaVk0MnNTejA0ZXVIVS9zZldJR3d4WFRo?=
- =?utf-8?B?a01xWEdFSzlDT3JvTkQrTlM4TFVTK1l1QnZYL1dhZ0ViZTIzM2RqUWVsVG9W?=
- =?utf-8?B?R3BZUjk4b3cwLzJBR1pwTks1RmRMY3B6QTRLbkdGVGJqZ0cwaStkVkJBZUQr?=
- =?utf-8?B?T0FFT3FGQkFOWEhaVnh0VkNtU05XYUF6R3JMRjVTNjZkckx2ck1ubFRHV0tH?=
- =?utf-8?B?THVwcGNLeDhESlJhMit6WWhZdDF4SUZqR3ZMalRDMmZIRDgvNmR1eTVld3oy?=
- =?utf-8?B?NDBaSlgxQ0N4eWtkc1VMNXIyNGZmakIzMmtNd2h2cmRHZmZvM0FYb21qd2s0?=
- =?utf-8?B?SDI4OWprNm04aHFIUnFDWWNMOFRlalpGZGpidllsRUw4eEtTQXEvYnZlY3Yx?=
- =?utf-8?B?ZHpIdFpSeTlWSUNUTklKbnU3NHVBb3NNVVhaSFJSZEEySnhEQkZUdGtXVlZX?=
- =?utf-8?B?TlZ3NTMydWR4aFlQamJnb0RCUm1rek1ySXcvdFk0NDJtRC9oSTJUZzIrUmVa?=
- =?utf-8?B?dDYrSEtTOTZpalpmOG5pMjBEbE9qakx6dS83RUR2ZXpRWE9tM1NwWkRrNm93?=
- =?utf-8?B?cnZMOXUyRkFqU01LRGhZQ2IvUW1KeUNEb3pMNk5aNUhHR0ZFd0lXMk01dGlo?=
- =?utf-8?B?UlhJRStuY2dITFRoeXhwS0dPNjNpdzkwQWFWTlhPeHJsdlZJUFNISFJ2b3Aw?=
- =?utf-8?B?MExtaDRYY01xTExjNGlmQWpRR2pWOHNMYXJreWFwUFRMSFpWZ2JGZ1JqKzVl?=
- =?utf-8?B?WmRMRTZvK210cTZadWZEMUdnRzlQdERRY1I1NzZtSVRsVElDbEdoVXdlSjE2?=
- =?utf-8?B?OVN4TUhLQ1huMUxnVFc2RG9nakJuMkRkblkxa3Q5QU16R0E1WlRkZjRwVlU5?=
- =?utf-8?B?M2dONE05blhVMFc5d3NZQ2V4TjZEWWZLYzExTllnSk11dWNkdk9yNGx6bnVj?=
- =?utf-8?B?VU9LR1ZsRkowcHZrNHUrMnp5V01uOWYycTVZeHJJR2FuU2didHV3Szc2ZEwz?=
- =?utf-8?B?d3dtQTV2TDl3dlJseXIxY3d6MXRLSnBUajMrRzdiMU1CRWtDbDhOWmxaRUI4?=
- =?utf-8?B?aDhwL0orSHlOc2VMQzliRVN0b3ZaN2dSczdiUS9OZ2ZIZERWUW1GNS9oRnds?=
- =?utf-8?B?dkozRmJlVVJydnJDMTlvZVZUa3hibUQ1a2J3L3QxdTFSb092cXQ2TWswZ1BO?=
- =?utf-8?B?NHg3aVZ5T2k3dUpkMElVLzRqbExhTnZ3YWwrNWFCdkxuaEp3ZGVGc0tXSHMw?=
- =?utf-8?B?UUdscUtMSWFheW9tTk9WWkl3TFZaZ2srUTV6WWZSdFFIZmN3TWRrVXNzQ241?=
- =?utf-8?B?QnFhc0ZxenBybUtpN2txSUVQMTB5Rm15c3pMamZkQ0IyOGc5U00zeTVHZXRP?=
- =?utf-8?B?WmhqSjBKK2JDYndGUGxSbzRmcEJWeWo5YTJ0UjVaWUh1d01xamFMSGlUMEZP?=
- =?utf-8?B?ZXF2Mlg0WkFMbFBRNWs1dU0vR0FFcWd1VDRPYkZPaWk4S2JuNGhVNGhleXlQ?=
- =?utf-8?B?SFlaR0N1SXJDY2lkR3UrSVM0N29wQXprYTl1RTFEengwenR2RE9VdWZ2cGQ3?=
- =?utf-8?B?MVlWUGNyemg3MHlkT1NDSWhnRVM2dzNNQ2lqUDhQbVAyd0pvc3JOREo4enI0?=
- =?utf-8?B?N2hhMG15SUNxazF1U3U4MERJa1BGNzZEVURRa2ZuZkZGamI2NEhIZGRnL3ha?=
- =?utf-8?B?dXhvZFI4cFcxK1JjU21ISlcybE9FNkU5NzVZcFYzcGcrY3V2WllHVTVwei90?=
- =?utf-8?B?Rnc5Y2RrcTl0a2pZb1paTmZaMnZibmZUb1FXc082b1d1eFZSL3BxMm9FWEZQ?=
- =?utf-8?B?QWpTNVRUZjVONnBjNklGK01pYVZZYUdablgyNXJuUEUxbm50ekg0eTF5Sm9S?=
- =?utf-8?B?TG9mMHo4WnVLeWJsRnY5aHJ1T0ExNW5PM2lqK3RWS1lyamkxaVRVb2laT01G?=
- =?utf-8?B?R29HQUhlWVRFRGZrakZHWEVQSkZyYXdXUlB5R0pTQUIwT1p4K0F6cktmdzZz?=
- =?utf-8?B?YjhXeXpSUDVqb2ZtdTZyZ3N6N3NnMFIvUjJIWnNVVkhKWXhNUGV3Z0I0aFVk?=
- =?utf-8?B?bUMyazl3OEJqQmZKeUgzTG05cnhzSE1qM1lETFpjMlI0VHBMUXZZc1oybVFQ?=
- =?utf-8?B?WHo2aVpWKzNLSDIxVVllNnJ6aVY4ZDFsOG02ZVhGK01iS2UyY0RNcUhWczdX?=
- =?utf-8?B?M1kxMnBFdXdwUjFsM3RLU0h6OXJONXk0VG01cUlSVUlsMkZJOHlFT2lvSGNa?=
- =?utf-8?B?WFU3cHNFa1hDR24xR2Jlam9wSEY3bi9CVzJqbVp0NUxyQ2wvWTZNVGwvZVpx?=
- =?utf-8?B?WkNNSWtFdkhRQXRBdEpOSjc1eStiYSt0QXgvSDZ0bEpLSHd3amdtZz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: e3b3877c-05cd-41ca-ff88-08dea4717a97
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Apr 2026 15:27:22.9155 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zpyA+8xOjESN2t4CSL63BiSBpkZCRmdfGn1FLWfroH/hxc4vz7xEB7Gi/H8AxMX5ke9RFBuj79itQdqjHtMgBw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO8P265MB7935
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,108 +100,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Apr 27, 2026 at 3:20 PM BST, Andreas Hindborg wrote:
-> Gary Guo <gary@garyguo.net> writes:
->
->> This carries the size information with the pointer type and metadata, ma=
-kes
->> it possible to use I/O projections and paves the way for IO view types.
->>
->> With this change, minimum size information becomes available through typ=
-es;
->> so `KnownSize::MIN_SIZE` can be used and `IoKnownSize` trait is no longe=
-r
->> necessary. The trait is kept for compatibility and can be removed when
->> users stop using it for bounds.
->>
->> PCI config space uses only offsets and not pointers like MMIO; for this
->> null pointers (with proper size metadata) is used. This is okay as I/O
->> trait impl and I/O projections can operate on invalid pointers, and for =
-PCI
->> config space we will only use address info and ignore the provenance.
->>
->> Signed-off-by: Gary Guo <gary@garyguo.net>
->> ---
->>  rust/kernel/devres.rs |   2 +-
->>  rust/kernel/io.rs     | 123 +++++++++++++++++++++----------------------=
--------
->>  rust/kernel/io/mem.rs |   2 +-
->>  rust/kernel/pci/io.rs |  74 ++++++++++++++++++------------
->>  4 files changed, 99 insertions(+), 102 deletions(-)
->>
->> diff --git a/rust/kernel/devres.rs b/rust/kernel/devres.rs
->> index 3e22c63efb98..ea86e9c62cdf 100644
->> --- a/rust/kernel/devres.rs
->> +++ b/rust/kernel/devres.rs
->> @@ -101,7 +101,7 @@ struct Inner<T> {
->>  /// impl<const SIZE: usize> Drop for IoMem<SIZE> {
->>  ///     fn drop(&mut self) {
->>  ///         // SAFETY: `self.0.addr()` is guaranteed to be properly map=
-ped by `Self::new`.
->> -///         unsafe { bindings::iounmap(self.0.addr() as *mut c_void); }=
-;
->> +///         unsafe { bindings::iounmap(self.0.as_ptr().cast()); };
->>  ///     }
->>  /// }
->>  ///
->> diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
->> index 0b9c97c0a1d7..1682f2a0d20d 100644
->> --- a/rust/kernel/io.rs
->> +++ b/rust/kernel/io.rs
->> @@ -105,8 +105,8 @@ pub fn new_region(addr: usize, size: usize) -> Resul=
-t<Self> {
->>  impl<T: ?Sized + KnownSize> MmioRaw<T> {
->>      /// Returns the base address of the MMIO region.
->>      #[inline]
->> -    pub fn addr(&self) -> usize {
->> -        self.addr.addr()
->> +    pub fn as_ptr(&self) -> *mut T {
->> +        self.addr
->>      }
->> =20
->>      /// Returns the size of the MMIO region.
->> @@ -166,7 +166,7 @@ pub fn size(&self) -> usize {
->>  /// impl<const SIZE: usize> Drop for IoMem<SIZE> {
->>  ///     fn drop(&mut self) {
->>  ///         // SAFETY: `self.0.addr()` is guaranteed to be properly map=
-ped by `Self::new`.
->> -///         unsafe { bindings::iounmap(self.0.addr() as *mut c_void); }=
-;
->> +///         unsafe { bindings::iounmap(self.0.as_ptr().cast()); };
->>  ///     }
->>  /// }
->>  ///
->> @@ -217,14 +217,14 @@ pub trait IoCapable<T> {
->>      /// # Safety
->>      ///
->>      /// The range `[address..address + size_of::<T>()]` must be within =
-the bounds of `Self`.
->> -    unsafe fn io_read(&self, address: usize) -> T;
->> +    unsafe fn io_read(&self, address: *mut T) -> T;
->> =20
->>      /// Performs an I/O write of `value` at `address`.
->>      ///
->>      /// # Safety
->>      ///
->>      /// The range `[address..address + size_of::<T>()]` must be within =
-the bounds of `Self`.
->> -    unsafe fn io_write(&self, value: T, address: usize);
->> +    unsafe fn io_write(&self, value: T, address: *mut T);
->>  }
->> =20
->
-> In v1 you had a requirement for `address` to be aligned. Why did you
-> drop that?
+From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-In v1 Alex wants me to split this part to a separate commit as this is a
-pre-existing requirement that is just not documented. The patch 4 is that
-change.
+Fix the typo "clocks-names" to "clock-names" in the allOf/if conditional
+blocks.
 
-Best,
-Gary
+Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+---
+Note, patch applies on top of next-20260427.
+---
+ .../devicetree/bindings/display/msm/dp-controller.yaml | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
->
->
-> Best regards,
-> Andreas Hindborg
+diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+index 8239adb7f7d3..43ebd053f98c 100644
+--- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+@@ -243,7 +243,7 @@ allOf:
+         clocks:
+           minItems: 5
+           maxItems: 5
+-        clocks-names:
++        clock-names:
+           minItems: 5
+           maxItems: 5
+ 
+@@ -264,7 +264,7 @@ allOf:
+         clocks:
+           minItems: 5
+           maxItems: 6
+-        clocks-names:
++        clock-names:
+           minItems: 5
+           maxItems: 6
+ 
+@@ -286,7 +286,7 @@ allOf:
+         clocks:
+           minItems: 6
+           maxItems: 6
+-        clocks-names:
++        clock-names:
+           minItems: 6
+           maxItems: 6
+ 
+@@ -306,7 +306,7 @@ allOf:
+         clocks:
+           minItems: 6
+           maxItems: 8
+-        clocks-names:
++        clock-names:
+           minItems: 6
+           maxItems: 8
+ 
+@@ -326,7 +326,7 @@ allOf:
+         clocks:
+           minItems: 5
+           maxItems: 6
+-        clocks-names:
++        clock-names:
+           minItems: 5
+           maxItems: 6
+ 
+-- 
+2.54.0
 
