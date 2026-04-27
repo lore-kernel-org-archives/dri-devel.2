@@ -4,102 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83A11FF8860
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 12:19:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEE01FF885E
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 12:43:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E758410E721;
-	Mon, 27 Apr 2026 12:19:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD6F110E72D;
+	Mon, 27 Apr 2026 12:43:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="V3uUE9Mz";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iGIdCW5C";
 	dkim-atps=neutral
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com
- [209.85.160.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1E5D10E720
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 12:19:55 +0000 (UTC)
-Received: by mail-qt1-f178.google.com with SMTP id
- d75a77b69052e-5062fc5d86aso82888071cf.1
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 05:19:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777292395; cv=none;
- d=google.com; s=arc-20240605;
- b=UIDtE1WhSuITPu/LjuV2POSK59MeIf6/WfKi5IrqSm5Ne9O/yaEXclJczX9DnRORv8
- 3pQ63vctJyETOmQKvIpbcWcRxkh7aNmsTavuyVXRx179//ZFvgKiFK7qEiAdgsBfT6F3
- LlHEvyWESMq9yUfKDzekx5zakpD956sTwDEB08RnowGSGX06GZpcgkm9sMUSzhdTE434
- Z1q61zZLR3imNzJNcmlfToMZLfkmmiAIDQkpaEAmNudIB3BmjXUhB/engKpm0RZimzdI
- OUqV3/JTmoFCKLUKX+nNYp1HTDcd1J89QaHRsW3jFjTtXCC7mF+UBU+mTq4WH68ukQej
- tupg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=PJcxGiVkZlfjJqmXJdSpcQcuZLHP2CGOgvZ7uSde88A=;
- fh=zsxDAraH7ovCU1Ru1C+zsdcf27AcS5kGktcBCjaxgSc=;
- b=hXGP2+hE+AW4kEbsTVWbLG32pJGp4E5m4K1WvbpiMiyyDBDU++RoTIfEL+rL5gVuZI
- 212liwV4uVwtLaN7qFr+fUMuzh0nHgcQ3cDLTOeE8Eht83ihx8XMPMVcHH4GH2Cr7FWm
- zc6Em1ZYOKFhRfktuTp6sQTclTZDvUpI2ISeRvH8DvpHna+61BdvneQlPFVr1b4N4HNu
- rSrpDiN3qjHYvnvjCiBY687q05WNiNIjxOpIQiG9u4mCepfUJrrHOIWSLZHw2NJpZYDZ
- sowIJR6LDgB2Fq1I+9ihXHsEYN0nMt4adZjsOZWJ/FW4TH0LTwsUgRLAPotNtTkmFyqk
- nlng==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777292395; x=1777897195; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=PJcxGiVkZlfjJqmXJdSpcQcuZLHP2CGOgvZ7uSde88A=;
- b=V3uUE9MzI180kmHtqMeHGc12gU2t/shpORwmfEzs03fd1hG2ZlSCG2bt50+qOIKoxA
- ZOW78EbHs+c+QJxWddMWEQItSeU4h0qtxnAXjsKSzKYqYrOsEX5MkojYlQp8ZV+Veuci
- sOSFZ0Lb12mKWSSVbPXkxYVAvj/V3WzY7+LaxUbDxZGnWJHSJUDkPXfxPfaOc42mppKE
- EF7Cc/lxY1PpnZIGbHQNk+drQCC152J1JTFvopTv54NPtSnS5/BPbltYEloZX0SadVlK
- nwggDt8MJjxM0nFthxd6P4gXezuSe7Ru+odoO50dqbSa0EfAy6XyP+kJVvi8HPPRQ/lW
- VL+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777292395; x=1777897195;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=PJcxGiVkZlfjJqmXJdSpcQcuZLHP2CGOgvZ7uSde88A=;
- b=ea1u6+xkrli7dEuhBhf46YQNgFm+z6WziCkCiHZClNFU6oHsxtBd5MMFRjAKdPpDkD
- 8CBEoMHo3/gge107YvBS5lI2QrE951aVBTJYThPlHm6rnHkka1bvcT125c3woHxaM4du
- r0BUuYv7ODIwGzPQqAoZBdrDgTg7qRZ/yzkfI8IEJPiUKZl6pYCfVdhE9sCLBH5B0kw2
- 511UAme1iihtcTLSHKc1N61cb6f2Q/IchfMgA+JzQptPqyG29/oOkLfG9MLGS53pBxrU
- ZUg9+V/ss5oMy7gzuJGS65igF8AZgLYCmnMfMy62KxSCi2Jar9lTJT/LtfODGbD366bK
- 6Q3g==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9CrGsAl3MMhXstpAhXnn+FbwbYCKsaF6X0t7rQ3StcggNQjyb8lKtPOuLY/3c2a6ZIka/4M6M+9F4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz5BGajQidiiEzPaxDTbcKLHclNDSseWvp7PGENtulCVFk4qZiG
- eQDo0mNvnT8jsVgYNvy9Vh2xA0gjySA2ifeVZKDTU40IrtIGsMCxRBvYOb6sFfpkWXuLpk54mrf
- +SgnhF2CmE2aQ5/fkqslH45CXxuxYU+Y=
-X-Gm-Gg: AeBDieuwPilmQyZStNaQg3rb2o05u3WGMZfO3GCJ33LM6EOCQSLw0R2abTr9UhRVcc5
- xvYcVZ0YmKXyJGz1UvCy3Vg9FylCX6YFHSWirOmZmwnrLBrjT9ZaE/3z9QFSCY9InuIosC6jbtZ
- eAa3CMO7w0Sr40azlaJt1oaKXUfY4c8JqbIp3TFrhV9YV48ALd1AYwb+BDYZe7tuS71aVYZMPOT
- Bw5R1lu/gG+RbKti41vFGYlogmoRz1OcHQbY0jQHPAQsb0KhS73hYJkr14dr4DtAcCwh6GlgNv5
- f4HRziYkjSiaD1s6bw==
-X-Received: by 2002:ac8:7e8f:0:b0:50f:817c:5d45 with SMTP id
- d75a77b69052e-50f817c676cmr442478311cf.23.1777292391770; Mon, 27 Apr 2026
- 05:19:51 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9828B10E72D;
+ Mon, 27 Apr 2026 12:43:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1777293781; x=1808829781;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=FMeii9FTPUPwD5o05bYuLX8B1nfiiIm7rctGGKFA1Ww=;
+ b=iGIdCW5CHFID1x+sEN5P1xa4Ha4K+PyHuefw2ktRZSNEUM5oaV7nEnDD
+ G7XbOeX0zVmz6pfm+zR9tJVGxvgkHHGthB7F/XusEyENM1hMgGRDVznBM
+ 7tDf6mAD9R+M5OLWa+f+cu1/1jpxVDHmB+SWjjVkTbnxEJJEl4ClHrAP2
+ g1rKixDgROIXL5u9xyl+oNJmb+8lrrLHlyKUgD01hjU/+f0xEujPLMR+O
+ ksI4N6JEpXqdMrRJxejzhICo2EDmHnwLgDPfqPOHhViMd2rXLKzZiYSTj
+ E1Ec3tNVIC3ZDMoiCc0myomg15bcGEwQgHsud1Y+3xhFalSFcwqhAiOJp g==;
+X-CSE-ConnectionGUID: TfHFkVu7RB2alNa+wfe7EQ==
+X-CSE-MsgGUID: mVYKJhB9Rwq/tc4udSfr7Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11768"; a="77885108"
+X-IronPort-AV: E=Sophos;i="6.23,202,1770624000"; d="scan'208";a="77885108"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Apr 2026 05:43:01 -0700
+X-CSE-ConnectionGUID: xjFOkdI4QHeSONYFfLsjGQ==
+X-CSE-MsgGUID: TwisOFDKRzCLrDPLQeDQzg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,202,1770624000"; d="scan'208";a="237954108"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.116])
+ by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Apr 2026 05:42:59 -0700
+Date: Mon, 27 Apr 2026 15:42:55 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [RESEND PATCH 5/7] drm/dp: Store coasting vtotal in struct
+ drm_dp_as_sdp
+Message-ID: <ae9Zzw8dEms2NODz@intel.com>
+References: <20260424093424.3060805-1-ankit.k.nautiyal@intel.com>
+ <20260424093424.3060805-6-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
-References: <20260425031011.2529364-1-dennis@ausil.us>
- <20260425031011.2529364-7-dennis@ausil.us>
-In-Reply-To: <20260425031011.2529364-7-dennis@ausil.us>
-From: Alexey Charkov <alchark@gmail.com>
-Date: Mon, 27 Apr 2026 16:19:37 +0400
-X-Gm-Features: AVHnY4JMQA7P3RUKZV7Q2ZiP4ijZr_0utVOWXuWYUEbZIgaWmckkoQwwj3mXN60
-Message-ID: <CABjd4Yw_bqi-Lj5MX--y34X_4GZPwa+ajwRGim7=nLGdqEOjEA@mail.gmail.com>
-Subject: Re: [PATCH v8 6/6] arm64: dts: rockchip: Add Orange Pi 5 Pro board
- support
-To: Dennis Gilmore <dennis@ausil.us>
-Cc: Heiko Stuebner <heiko@sntech.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, Maxime Ripard <mripard@kernel.org>, 
- devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260424093424.3060805-6-ankit.k.nautiyal@intel.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,34 +75,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, Apr 25, 2026 at 7:10=E2=80=AFAM Dennis Gilmore <dennis@ausil.us> wr=
-ote:
->
-> Add device tree for the Xunlong Orange Pi 5 Pro (RK3588S).
->
-> - eMMC module, you can optionally solder a SPI NOR in place and turn
->  off the eMMC
-> - PCIe-attached NIC (pcie2x1l2)
-> - PCIe NVMe slot (pcie2x1l1)
-> - AP6256 WiFi (BCM43456) via SDIO with mmc-pwrseq
-> - BCM4345C5 Bluetooth
-> - es8388 audio
-> - USB 2.0 and USB 3.0
-> - Two HDMI ports, the second is connected to the SoC's DP controller
->   driven through a Lontium LT8711UXD bridge.
->
-> Vendors schematics are available at:
-> https://drive.google.com/file/d/1qs1DratHuh7C6J6MEtQIwUsiSrg8qgTi/view
->
-> Signed-off-by: Dennis Gilmore <dennis@ausil.us>
+On Fri, Apr 24, 2026 at 03:04:22PM +0530, Ankit Nautiyal wrote:
+> Add new field in struct drm_dp_as_sdp to store coasting vtotal.
+> This is used by the sinks that support Panel Replay and Asynchronous
+> timing during PR Active to derive refresh rate, when AS SDP transmission
+> is stopped by the source.
+> 
+> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 > ---
->  arch/arm64/boot/dts/rockchip/Makefile         |   1 +
->  .../dts/rockchip/rk3588s-orangepi-5-pro.dts   | 440 ++++++++++++++++++
->  2 files changed, 441 insertions(+)
->  create mode 100644 arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-pro.d=
-ts
+>  drivers/gpu/drm/display/drm_dp_helper.c | 1 +
+>  include/drm/display/drm_dp_helper.h     | 1 +
+>  2 files changed, 2 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+> index a697cc227e28..e29958f8b0b6 100644
+> --- a/drivers/gpu/drm/display/drm_dp_helper.c
+> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
+> @@ -3512,6 +3512,7 @@ void drm_dp_as_sdp_log(struct drm_printer *p, const struct drm_dp_as_sdp *as_sdp
+>  	drm_printf(p, "    duration_incr_ms: %d\n", as_sdp->duration_incr_ms);
+>  	drm_printf(p, "    duration_decr_ms: %d\n", as_sdp->duration_decr_ms);
+>  	drm_printf(p, "    operation_mode: %d\n", as_sdp->mode);
+> +	drm_printf(p, "    coasting vtotal: %d\n", as_sdp->coasting_vtotal);
 
-Reviewed-by: Alexey Charkov <alchark@gmail.com>
+For some reason the existing fields are using '_', this one ' '.
+Looks like VSC uses ' ' as well. So the existing stuff in
+drm_dp_as_sdp_log() should be fixed to conform to the common 
+style, in a separate patch.
 
-Best regards,
-Alexey
+Otherwise this looks fine
+Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+
+>  }
+>  EXPORT_SYMBOL(drm_dp_as_sdp_log);
+>  
+> diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
+> index 1d0acd58f486..8c2d77a032f0 100644
+> --- a/include/drm/display/drm_dp_helper.h
+> +++ b/include/drm/display/drm_dp_helper.h
+> @@ -126,6 +126,7 @@ struct drm_dp_as_sdp {
+>  	int duration_decr_ms;
+>  	bool target_rr_divider;
+>  	enum operation_mode mode;
+> +	int coasting_vtotal;
+>  };
+>  
+>  void drm_dp_as_sdp_log(struct drm_printer *p,
+> -- 
+> 2.45.2
+
+-- 
+Ville Syrjälä
+Intel
