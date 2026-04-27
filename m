@@ -4,133 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F329FF885E
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 11:19:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CB49FF885E
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 11:21:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3CEB10E6BB;
-	Mon, 27 Apr 2026 11:19:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D7F910E6BA;
+	Mon, 27 Apr 2026 11:21:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="bcrrVsyy";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="jHvKAoRy";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="bcrrVsyy";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="jHvKAoRy";
+	dkim=pass (1024-bit key; unprotected) header.d=mediatek.com header.i=@mediatek.com header.b="WrX7tz0S";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5DA910E6BB
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 11:19:04 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 6A5226A8EA;
- Mon, 27 Apr 2026 11:19:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1777288743; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=YoeldIJDc4BXHOeSSx/XxqXhjDi3AhqikvEFbM+SOIQ=;
- b=bcrrVsyy/75aEiQ8Ok8fVT1FCz8fpvPf5MlvfKU8Fb9VpWXMzcrPlNkp10hf9ROdDI1iE9
- ZvTP78K1viWqfq+Vanz1pb373u1ZLGCwx6ao2RG7o0uoLvQ54RQ+zUQXDVgIFiXPHEIk5U
- hHWa6vJxH3lgD1oYJ/qiyxzRxY41zFo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1777288743;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=YoeldIJDc4BXHOeSSx/XxqXhjDi3AhqikvEFbM+SOIQ=;
- b=jHvKAoRy8ydtOVBzsiO5UpVFajyF0/VxBvMcVenrfgaupLQqP2Ote5b7LUNm5dxDm/BsWl
- LTJxiAit0Vgy2eBw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1777288743; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=YoeldIJDc4BXHOeSSx/XxqXhjDi3AhqikvEFbM+SOIQ=;
- b=bcrrVsyy/75aEiQ8Ok8fVT1FCz8fpvPf5MlvfKU8Fb9VpWXMzcrPlNkp10hf9ROdDI1iE9
- ZvTP78K1viWqfq+Vanz1pb373u1ZLGCwx6ao2RG7o0uoLvQ54RQ+zUQXDVgIFiXPHEIk5U
- hHWa6vJxH3lgD1oYJ/qiyxzRxY41zFo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1777288743;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=YoeldIJDc4BXHOeSSx/XxqXhjDi3AhqikvEFbM+SOIQ=;
- b=jHvKAoRy8ydtOVBzsiO5UpVFajyF0/VxBvMcVenrfgaupLQqP2Ote5b7LUNm5dxDm/BsWl
- LTJxiAit0Vgy2eBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 152FD593B3;
- Mon, 27 Apr 2026 11:19:03 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id piuZAydG72mCUQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 27 Apr 2026 11:19:03 +0000
-Message-ID: <7947c95e-12ff-4cef-9947-e0fc22cf35ec@suse.de>
-Date: Mon, 27 Apr 2026 13:19:02 +0200
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C275410E6BA
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 11:21:41 +0000 (UTC)
+X-UUID: 40990174422b11f19781c1a04af40193-20260427
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From;
+ bh=uzzuWVlj0FYbiNj+F9T4fZDJbrozBaIDhDqFdpxQrv0=; 
+ b=WrX7tz0SWb1hckN8mnyw6gmTQiX3taGOFWKcMQ0KsTeIHVAsNOd+sGlnMXfDMl9YQS4mhk1HrYNlF4r4ASy7QMMSSPvL1vHIO3zeCufN82hzZ2baDqftwaFU5vGAVAP8hdmXedgCrTRqhywN/Q9fqut7r6XEL7owF9FC0rH3R40=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12, REQID:5f2ff41c-cc52-4508-9df3-0392cd721445, IP:0,
+ U
+ RL:0,TC:0,Content:-25,EDM:-25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACT
+ ION:release,TS:-50
+X-CID-META: VersionHash:e7bac3a, CLOUDID:c38a82be-65a8-4b41-ac18-3671578a914d,
+ B
+ ulkID:nil,BulkQuantity:0,Recheck:0,SF:102|836|865|888|898,TC:-5,Content:0|
+ 15|50,EDM:2,IP:nil,URL:99|1,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI
+ :0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 40990174422b11f19781c1a04af40193-20260427
+Received: from mtkmbs13n2.mediatek.inc [(172.21.101.108)] by
+ mailgw01.mediatek.com (envelope-from <jay.liu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 875733310; Mon, 27 Apr 2026 19:21:35 +0800
+Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
+ MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Mon, 27 Apr 2026 19:21:34 +0800
+Received: from mhfsdcap04.gcn.mediatek.inc (10.17.3.154) by
+ mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Mon, 27 Apr 2026 19:21:33 +0800
+From: Jay Liu <jay.liu@mediatek.com>
+To: Chun-Kuang Hu <chunkuang.hu@kernel.org>, Philipp Zabel
+ <p.zabel@pengutronix.de>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias
+ Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>
+CC: <dri-devel@lists.freedesktop.org>, <linux-mediatek@lists.infradead.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, Jay Liu <jay.liu@mediatek.com>
+Subject: [PATCH v5 0/6] drm/mediatek: Add PQ components support for MT8196
+Date: Mon, 27 Apr 2026 19:20:14 +0800
+Message-ID: <20260427112131.23423-1-jay.liu@mediatek.com>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/bridge: replace use of system_wq with system_percpu_wq
-To: Marco Crivellari <marco.crivellari@suse.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-Cc: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>,
- Frederic Weisbecker <frederic@kernel.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Michal Hocko <mhocko@suse.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Robert Foss <rfoss@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-References: <20251104111339.128685-1-marco.crivellari@suse.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20251104111339.128685-1-marco.crivellari@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-0.990]; MIME_GOOD(-0.10)[text/plain];
- ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[14];
- MIME_TRACE(0.00)[0:+]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- RCVD_TLS_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[kernel.org,gmail.com,linutronix.de,suse.com,intel.com,linux.intel.com,ffwll.ch];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- URIBL_BLOCKED(0.00)[suse.de:mid,suse.de:email,suse.com:url,suse.com:email,imap1.dmz-prg2.suse.org:helo];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, suse.de:email, suse.com:url,
- suse.com:email, imap1.dmz-prg2.suse.org:helo]
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,71 +81,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+This series adds Picture Quality (PQ) component support for the MT8196 SoC,
+including device tree bindings and driver implementations for GAMMA, DITHER,
+CCORR, and TDSHP modules.
 
+Patch 1: Add GAMMA compatible string for MT8196
+Patch 2: Add DITHER compatible string for MT8196
+Patch 3: Add CCORR compatible string for MT8196
+Patch 4: Add TDSHP dt-binding documentation
+Patch 5: Add support for multiple CCORR components
+Patch 6: Add TDSHP driver support for MT8196
 
-Am 04.11.25 um 12:13 schrieb Marco Crivellari:
-> Currently if a user enqueue a work item using schedule_delayed_work() the
-> used wq is "system_wq" (per-cpu wq) while queue_delayed_work() use
-> WORK_CPU_UNBOUND (used when a cpu is not specified). The same applies to
-> schedule_work() that is using system_wq and queue_work(), that makes use
-> again of WORK_CPU_UNBOUND.
->
-> This lack of consistentcy cannot be addressed without refactoring the API.
->
-> This patch continues the effort to refactor worqueue APIs, which has begun
-> with the change introducing new workqueues and a new alloc_workqueue flag:
->
-> commit 128ea9f6ccfb ("workqueue: Add system_percpu_wq and system_dfl_wq")
-> commit 930c2ea566af ("workqueue: Add new WQ_PERCPU flag")
->
-> system_wq should be the per-cpu workqueue, yet in this name nothing makes
-> that clear, so replace system_wq with system_percpu_wq.
->
-> The old wq (system_wq) will be kept for a few release cycles.
->
-> Suggested-by: Tejun Heo <tj@kernel.org>
-> Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
+Architecture notes:
+MT8196 display pipeline includes two CCORR instances that must be chained
+in the hardware path, but the CTM API only configures one. Patch 5 ensures
+the second CCORR instance does not interfere with the configured one.
 
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+Testing:
+- Verified dt-bindings pass dt_binding_check
+- Tested display pipeline with all PQ components on MT8196 EVB
+- Confirmed color correction (CCORR CTM and GAMMA LUT) functionality
+- Confirmed sharpness enhancement (TDSHP) functionality in relay mode
+- Note: dtbs_check will be validated when MT8196 DTS is upstreamed
 
-> ---
->   drivers/gpu/drm/bridge/ite-it6505.c | 2 +-
->   drivers/gpu/drm/bridge/ti-tfp410.c  | 2 +-
->   2 files changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge/ite-it6505.c
-> index a094803ba7aa..37bb8123cf9b 100644
-> --- a/drivers/gpu/drm/bridge/ite-it6505.c
-> +++ b/drivers/gpu/drm/bridge/ite-it6505.c
-> @@ -2048,7 +2048,7 @@ static void it6505_start_hdcp(struct it6505 *it6505)
->   
->   	DRM_DEV_DEBUG_DRIVER(dev, "start");
->   	it6505_reset_hdcp(it6505);
-> -	queue_delayed_work(system_wq, &it6505->hdcp_work,
-> +	queue_delayed_work(system_percpu_wq, &it6505->hdcp_work,
->   			   msecs_to_jiffies(2400));
->   }
->   
-> diff --git a/drivers/gpu/drm/bridge/ti-tfp410.c b/drivers/gpu/drm/bridge/ti-tfp410.c
-> index b80ee089f880..85fa3f8a747e 100644
-> --- a/drivers/gpu/drm/bridge/ti-tfp410.c
-> +++ b/drivers/gpu/drm/bridge/ti-tfp410.c
-> @@ -115,7 +115,7 @@ static void tfp410_hpd_callback(void *arg, enum drm_connector_status status)
->   {
->   	struct tfp410 *dvi = arg;
->   
-> -	mod_delayed_work(system_wq, &dvi->hpd_work,
-> +	mod_delayed_work(system_percpu_wq, &dvi->hpd_work,
->   			 msecs_to_jiffies(HOTPLUG_DEBOUNCE_MS));
->   }
->   
+Changes in v5:
+- Cover letter: Fix subject spelling and add subsystem prefix
+- tdshp dt-binding: Replace 'disp-tdshp' with 'tdshp' in dt-binding (suggested by Krzysztof)
+- Add complete version history and lore links for tracking (suggested by Krzysztof)
+
+Changes in v4:
+- tdshp dt-binding: Remove unused 'Sibling' description (suggested by Krzysztof)
+- tdshp dt-binding: Use enum directly instead of items list for compatible property
+- tdshp dt-binding: Fix indentation and remove extra blank line in example section
+- ccorr driver: Rebase on linux-next to resolve conflicts
+
+Changes in v3:
+- Fix dt_binding_check errors in all binding patches
+- Remove incorrect Signed-off-by line
+- Move standalone ccorr fix out of this series
+
+Changes in v2:
+- Optimize ccorr ctm_set process to avoid affecting other SoCs
+- Remove unnecessary code from tdshp driver
+- Update tdshp dt-bindings (clocks, description, examples)
+
+Link to v4: https://lore.kernel.org/all/20260324125315.4715-1-jay.liu@mediatek.com/
+Link to v3: https://lore.kernel.org/all/20250808125512.9788-1-jay.liu@mediatek.com/
+Link to v2: https://lore.kernel.org/all/20250727071609.26037-1-jay.liu@mediatek.com/
+Link to v1: https://lore.kernel.org/all/20250219092040.11227-1-jay.liu@mediatek.com/
+
+Dependencies:
+This series depends on the MT8196 display pipeline foundation patches [1].
+
+[1] "Add display path components support for MT8196"
+    https://patchwork.kernel.org/project/linux-mediatek/list/?series=955361
+
+Jay Liu (6):
+  dt-bindings: display: mediatek: gamma: Add support for MT8196
+  dt-bindings: display: mediatek: dither: Add support for MT8196
+  dt-bindings: display: mediatek: ccorr: Add support for MT8196
+  dt-bindings: display: mediatek: tdshp: Add support for MT8196
+  drm/mediatek: Support multiple CCORR component
+  drm/mediatek: Add TDSHP component support for MT8196
+
+ .../display/mediatek/mediatek,ccorr.yaml      |  1 +
+ .../display/mediatek/mediatek,dither.yaml     |  1 +
+ .../display/mediatek/mediatek,gamma.yaml      |  1 +
+ .../display/mediatek/mediatek,tdshp.yaml      | 46 ++++++++++++++++
+ drivers/gpu/drm/mediatek/mtk_crtc.c           |  5 +-
+ drivers/gpu/drm/mediatek/mtk_ddp_comp.c       | 52 ++++++++++++++++++-
+ drivers/gpu/drm/mediatek/mtk_ddp_comp.h       |  8 +--
+ drivers/gpu/drm/mediatek/mtk_disp_ccorr.c     |  6 ++-
+ drivers/gpu/drm/mediatek/mtk_disp_drv.h       |  2 +-
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c        |  2 +
+ 10 files changed, 116 insertions(+), 8 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/display/mediatek/mediatek,tdshp.yaml
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
+2.46.0
 
