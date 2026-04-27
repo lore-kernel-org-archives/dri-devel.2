@@ -4,51 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADBBCFF8850
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 05:32:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E33CFF8860
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 05:32:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 043AE10E106;
-	Mon, 27 Apr 2026 05:32:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08D5B10E1E5;
+	Mon, 27 Apr 2026 05:32:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="FkBTAHHB";
+	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="KIi1A8wP";
 	dkim-atps=neutral
 Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
  [185.132.180.163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D2AD10E106
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 05:32:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7999A10E106
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 05:32:33 +0000 (UTC)
 Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
  by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63R4eXbq2475091; Mon, 27 Apr 2026 06:32:13 +0100
+ 63R5OscS2553704; Mon, 27 Apr 2026 06:32:18 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=dk201812; bh=5YjTKXeS/huq0NccY5GvqGx
- Q6YuGs2TdKAZrpVhOjEQ=; b=FkBTAHHBXe5B9mNVq2rwEtR4EVPyuyOdugr0OQP
- SWohyB2fkgrag24WeNVZ3O57jUUT5XujxuBhe3cPGw4EQ2UKGnO96mfvrb/y2ezt
- oZAaRjM3+8yK4s71rNUtwCJf4lHt8/Lzgo6Wa9mAevkNnxH4xJtkY7aeBxLVopCP
- SnDWNFiDvlHh1jWEBLcaen0+PtcMWekaSXmi1fm9wl92yBmQCdgDPYwGt2RyXBVA
- T/2aJ9rpLxrY2AlPXMIXQpGOLkbSjPeK9n6ULFHPp25mIhF1QP9ES3k/WaSqsbzI
- KSoWm7r4oSNG/LAL3BFQwKbmPFjhfwNQRXcLw2VDtN48PzA==
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=dk201812; bh=t
+ eWbYt27UK0lKHeLTFudsB6UkF6HLKwb8Wt3of3Dmps=; b=KIi1A8wP/UAhEVzqa
+ clVt55gGDrQ2/V0j5yWbw4QGu6x6FFqex1lG3JKyhq068FfDeFf5n7JwZdbKeE4h
+ lmGYuKp4eGNr4bqhTm4c4V2L0r6wTOqw31V7EQWJ5/jl62UG9Q6v8wqCMTpsGyvb
+ 2gBICo7/YSCzVQywHE5Gkr/A/TZD1xJFp7LX2ha0W1sEQBIbQvbNXqnLh6OrhJYQ
+ 5sm20v2HwyIae/06+Rmxto2xnIbDvUa3S+TRY5MQmUwvwpW2WxmlNe8zbPykUVvv
+ AO+iqUQRWAhql7cheSbTt1oi2mA7EBOSXGBKL7vT+aCWJ5zZRvaom3/ZEPHVAW1m
+ MsYLA==
 Received: from hhmail01.hh.imgtec.org
  (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4drnpxhdhx-1
+ by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4drnpxhdj1-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 27 Apr 2026 06:32:13 +0100 (BST)
+ Mon, 27 Apr 2026 06:32:17 +0100 (BST)
 Received: from [127.0.1.1] (172.25.128.214) by HHMAIL01.hh.imgtec.org
  (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 27 Apr
- 2026 06:32:09 +0100
+ 2026 06:32:15 +0100
 From: Brajesh Gupta <brajesh.gupta@imgtec.com>
-Subject: [PATCH v3 0/2] drm/imagination: FW trace bug fix and configuration
- update
-Date: Mon, 27 Apr 2026 11:01:36 +0530
-Message-ID: <20260427-ftrace_fix-v3-0-e081530759a8@imgtec.com>
+Date: Mon, 27 Apr 2026 11:01:38 +0530
+Subject: [PATCH v3 2/2] drm/imagination: Restrict init_fw_trace_mask module
+ param to read only
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIALj07mkC/22MywqDMBAAf0X23JRku9HaU/+jlCLJRnPwQSKhR
- fz3Rk8VepyBmQUiB88RbsUCgZOPfhwyXE4FmK4ZWhbeZgaUWEpSlXBzaAy/nH8LbZkqi0RXIyE
- HU+Cs99njmbnzcR7DZ38ntdm/m6SEFLVjx6omXWNz9307szmbsYftk/CnRTq0mFstFZXOaSytP
- rTrun4Bs4QgMOEAAAA=
+Message-ID: <20260427-ftrace_fix-v3-2-e081530759a8@imgtec.com>
+References: <20260427-ftrace_fix-v3-0-e081530759a8@imgtec.com>
+In-Reply-To: <20260427-ftrace_fix-v3-0-e081530759a8@imgtec.com>
 To: Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
@@ -59,30 +58,30 @@ To: Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>,
 CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
  "Brajesh Gupta" <brajesh.gupta@imgtec.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1777267929; l=840;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1777267929; l=1053;
  i=brajesh.gupta@imgtec.com; s=20260417; h=from:subject:message-id;
- bh=Ob9cPBZKPD9VuINPtPCn3pll/oS5J290Fzk1wkdZk5c=;
- b=dQ8yAArsgY8qe5j6yHl3qs5n1cIn+KY5z9kAVJICZp84mFynxAyfYD2Y7PLE7uh8msgxWAHcj
- qyr3p41FB6lCJks/Abd+10XZZ0720MlscU8HVCT1mh3qSmqwCdkIvl4
+ bh=4gehzTP3WYAnCEPh4ybTBACpCA+VsCeH2Ez4viuuwSk=;
+ b=EO6A4Wh6YHkMp10pC/0XoICFSBDwRA4jPIHBj/98qItXiQCtsQlCi7rv3+0fTQJTc51eKRnAa
+ yBf+z1ir8ltDFpOALRKx12Fr6Xa7ULsE0XoRa/u5lUX0TzbewQZezpw
 X-Developer-Key: i=brajesh.gupta@imgtec.com; a=ed25519;
  pk=vDcrSP6vOpWKs914T986xUbB/vY0/cU7mRRb16MRkcg=
 X-Originating-IP: [172.25.128.214]
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI3MDA1NiBTYWx0ZWRfX7Dn+flidcFoA
- zHvAH4Rn4+boSvG113+oph4niIt+U94GBKHqA7HEzLJjkM85ar34Pa+uAYyJFFN4BypIQg0y9qm
- ff2UQSSMZoX1kSP+ma8GvaJwYd6TQgwv7txzE+uuVAEha7TYoapA1btGsrGnSIwEkeqFwWMvRkJ
- 5CkEMBc4LiKzTAcjA31KzWG1v9gb46EoFR+u6I3ZkEuqbKLwKBPi8q09g38fOaC6VTXOcz8LV2d
- oXa5Z7NQpEESJ4p6BuKj1a6ApeKjY6pcpbESuLJbW3rOL9qGCysSdGpNNqPnLC76J4KM6oKeV9I
- XC7Ba78XLq7639GHjg3jhvquBnryXCsWt4wlGgCIlxaisvPW6BVNDsz7wDbBnOMcEP0cG7vSrWC
- M9kQaIPoOErTyvt4dbwiuWv4ci06mCR0DGGZKPfe5OQ1garrVkneekCjNA2j7ro5UTmqDUVCKid
- WsoN9aKGo8ghDI2eDAQ==
-X-Authority-Analysis: v=2.4 cv=G9gs1dk5 c=1 sm=1 tr=0 ts=69eef4dd cx=c_pps
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI3MDA1NiBTYWx0ZWRfX5CRP/Jt7/sWX
+ JbTap8Zmh8Bfh+7EhrpUWJIrJa0+bWlliB6k06vzKyf+1R4PiiBMt78L5ZuPbuD93hW05Xmm8cs
+ aGBFl5Q4mcufEtQiXOJnjPLHEhmqDAbmc164/f5Ale2vr+YkRD0CJgyPq8NFeLLVO9B/evSG4pX
+ +gzUPlkW+7aWSXDzatOd9VynROzAJzo80bO/b6aB0dt5TIq2ioWfqkl3pMYnr34fzj94bfaxDs5
+ m5skZHGcGyI71vj2OUYOrr4dKUq9nUqftjFZHLOA75hLaGcEeCVj1uijqi5ZAynJPgGqoVO6cWh
+ q8r5YstE9POEdFX1aynsYI97HLRiGD4v+cQ6rmBVSiEadDXH5vSeBFeQA3ZCa7lNjeWa/WITShg
+ tY3zNRc6+ej6atML8XXYQ/29UQhsSp2KWbKXa0AVAcx5aCzccsMYrRwvGxKAd9EEx07YKHW3zqB
+ +v9K01t34ohOWt3LT6Q==
+X-Authority-Analysis: v=2.4 cv=G9gs1dk5 c=1 sm=1 tr=0 ts=69eef4e1 cx=c_pps
  a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
  a=aRQ8HefCnzIA:10 a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=VwQbUJbxAAAA:8 a=r_1tXGB3AAAA:8 a=Z6cX24XRCVU5nlZxIyQA:9 a=QEXdDO2ut3YA:10
+ a=r_1tXGB3AAAA:8 a=fKFdgPUslCYRdS_w59YA:9 a=QEXdDO2ut3YA:10
  a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-GUID: WYI7Th4GQFyyaLt7tM06vzPTO69Hw-2a
-X-Proofpoint-ORIG-GUID: WYI7Th4GQFyyaLt7tM06vzPTO69Hw-2a
+X-Proofpoint-GUID: szj2BU4r8uyBj253sKlmu3rWJFmPHrma
+X-Proofpoint-ORIG-GUID: szj2BU4r8uyBj253sKlmu3rWJFmPHrma
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,28 +97,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Param used for setting FW trace mask at module load time. Other debugfs
+entry exist to allow update at run time.
+
 Signed-off-by: Brajesh Gupta <brajesh.gupta@imgtec.com>
 ---
-Changes in v3:
-- Fixed typo in v2 update of commit description.
-- Link to v2: https://lore.kernel.org/r/20260424-ftrace_fix-v2-0-50146ff526d5@imgtec.com
+ drivers/gpu/drm/imagination/pvr_fw_trace.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Changes in v2:
-- Fixed the name of module param in commit description for 2nd patch.
-- Link to v1: https://lore.kernel.org/r/20260417-ftrace_fix-v1-0-9fefe194592a@imgtec.com
+diff --git a/drivers/gpu/drm/imagination/pvr_fw_trace.c b/drivers/gpu/drm/imagination/pvr_fw_trace.c
+index 6193811ef7be..6bb5baa6c41b 100644
+--- a/drivers/gpu/drm/imagination/pvr_fw_trace.c
++++ b/drivers/gpu/drm/imagination/pvr_fw_trace.c
+@@ -77,7 +77,7 @@ const struct kernel_param_ops pvr_fw_trace_init_mask_ops = {
+ };
+ 
+ param_check_hexint(init_fw_trace_mask, &pvr_fw_trace_init_mask);
+-module_param_cb(init_fw_trace_mask, &pvr_fw_trace_init_mask_ops, &pvr_fw_trace_init_mask, 0600);
++module_param_cb(init_fw_trace_mask, &pvr_fw_trace_init_mask_ops, &pvr_fw_trace_init_mask, 0400);
+ __MODULE_PARM_TYPE(init_fw_trace_mask, "hexint");
+ MODULE_PARM_DESC(init_fw_trace_mask,
+ 		 "Enable FW trace for the specified groups at device init time");
 
----
-Brajesh Gupta (2):
-      drm/imagination: Fix segfault when updating ftrace mask
-      drm/imagination: Restrict init_fw_trace_mask module param to read only
-
- drivers/gpu/drm/imagination/pvr_fw_trace.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
----
-base-commit: 3bce3fdd1ff2ba242f76ab66659fff27207299f1
-change-id: 20260417-ftrace_fix-5de47d2448c0
-
-Best regards,
 -- 
-Brajesh Gupta <brajesh.gupta@imgtec.com>
+2.43.0
 
