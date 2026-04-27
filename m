@@ -4,54 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5551FF8860
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 19:02:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44FD5FF8868
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 19:05:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 050F710E8E8;
-	Mon, 27 Apr 2026 19:02:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4A3510E8F3;
+	Mon, 27 Apr 2026 19:05:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="qi0vwyy6";
+	dkim=pass (2048-bit key; unprotected) header.d=outlook.com header.i=@outlook.com header.b="ZOBy950/";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17F6910E8E8
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 19:02:44 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id DA7A443C5A;
- Mon, 27 Apr 2026 19:02:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96BA9C19425;
- Mon, 27 Apr 2026 19:02:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777316563;
- bh=jTWwfj0zZG7bsq6Opv6LU53fDAa+a75QEi6tnfm6hmo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=qi0vwyy6lKqMm8ChV2AS977CuHDGOgXUvJfAPLdcG8y1QT2M1YCJighptIannJWwv
- FdtNpxGVmzFYgMaHvkPxEktcfVxj06I117dTznfVsE+OZiOVBCuNN4G6u1DHdinXmc
- jEcIoM3v04iK9xagvoNGG5t4kYB5tXEr8i6jrKrkDiPJe8Lkt4zvHRevDEgl4KoZZE
- GVwN5W20w5vsmDGXKW11nQHG9zrtKfg5HiL7qZ4i3gnj5FtvGzbpzN86j17dBDroWS
- 29gEIm4HVxVbx7OCHPqDP/YfGN9msTKjeiByeqWr6Au2omR2369F9PmzUXEBTBxC4H
- A9EsYBPLn/ejw==
-Date: Mon, 27 Apr 2026 14:02:39 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Richard Acayan <mailingradian@gmail.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Thierry Reding <thierry.reding@gmail.com>, 
- Sam Ravnborg <sam@ravnborg.org>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, Yifei Zhan <yifei@zhan.science>
-Subject: Re: [PATCH v3 0/5] Support for the Pixel 3a XL with the Tianma panel
-Message-ID: <ae-yXomgNWLd8IcE@baldur>
-References: <20260310002606.16413-1-mailingradian@gmail.com>
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azolkn19010022.outbound.protection.outlook.com [52.103.23.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F1E210E8F3
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 19:05:45 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aa2lqthf/URhID4t+h7OUlA26XEwEtKNBs5c96GNKpgxXmRH4O08SIpUOGBlfvX9WKWUom8a5Z21H/x9opF88cNiz3xkS6U/yUCKcIZSqjCaPeflSfl+PUG2qLmKn3phmjm02sKIcgrFkBf7Rq5o6XZ9/mXbp5phNyBZY+FimLCi+xs/U1gZCVO+/lCculYc+iTOTyMj94adKXB7FNHaNWFuBpnXpocc1QUUHCIBveuxKlAp+FV6zKRJlsMLFW06qDPHeUqR6EFOGQ1STxNYmqD7CNojA6M2jfhK0iK6mKlVcXsFMD4QjRwbwai75+GzxGUY3NE9QuUQj3KsGH5kxg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=O6WUTDrIpNmyQzsep64+q6k5/jKwatOHn3bJdK9djvk=;
+ b=hxHLJodaZokR8AclnlASoxvqGnY3BKqyJvmbLFOZLHaKmf0HDP32SAKhE2rfRU45SJPQalOzfeyQWwAiFqHDFPDlp4Kxv2seixkpuidFtrtIirQ6G7P6ZwotvhCqTTquYgPupUUSteMxsM318ux+yha5DJnlXsIHw4P0CrOC9m4aYvEaU3oH/mHcopNWAoM0eKx9lI3VGL8Q7LAPMiNhHpTk6tXhNwGINoMpXJ0NrlKmsh4BbQFxJYevjCnVKbCROOUFdbXYe5oAeDD0Fiw7z7bdvi3vxirPWJfpDF3BsIk9Y5EFGeZZzInca1JeMfVg2rjlCUWpFSaWWQ7FOHAnig==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=O6WUTDrIpNmyQzsep64+q6k5/jKwatOHn3bJdK9djvk=;
+ b=ZOBy950/L06xypk47360r7dNPULEMuMPK16mUtPS2zCdkqaGkUrZ1cGhVsrFTvXenqhP8WOhIVOc12y3qp6hzY/3P6EEDSGQlEiz2F/TkWXARH+NmiKCRdY4xxjLFab0uVzlyF2MYlrG9rvlTG8eF3Vzjp010DTn9vo/H06UOcetKH2w21LI+bsWYb2XwQz/o5IWNVtGzd3kEpsLrlpR8oOCvL1gro2mWhiFy8lPHiFyIVzjOqR9akQX6U+sVLkRTNRn+FgTWm2fV6bjfedfACuxTEj6X/o+rIK3r04UAajJJcwR97Se1/VWY5420kY6nMo469tTzBYN2pMBwmGMrg==
+Received: from SN6PR02MB4157.namprd02.prod.outlook.com (2603:10b6:805:33::23)
+ by PH0PR02MB8422.namprd02.prod.outlook.com (2603:10b6:510:10f::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.26; Mon, 27 Apr
+ 2026 19:05:40 +0000
+Received: from SN6PR02MB4157.namprd02.prod.outlook.com
+ ([fe80::900:1ccf:2b1e:52b6]) by SN6PR02MB4157.namprd02.prod.outlook.com
+ ([fe80::900:1ccf:2b1e:52b6%6]) with mapi id 15.20.9846.025; Mon, 27 Apr 2026
+ 19:05:40 +0000
+From: Michael Kelley <mhklinux@outlook.com>
+To: Dexuan Cui <DECUI@microsoft.com>, Hamza Mahfooz
+ <hamzamahfooz@linux.microsoft.com>, Saurabh Singh Sengar
+ <ssengar@microsoft.com>
+CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, KY
+ Srinivasan <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, Wei
+ Liu <wei.liu@kernel.org>, Long Li <longli@microsoft.com>, Stefano Garzarella
+ <sgarzare@redhat.com>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Himadri Pandya
+ <himadrispandya@gmail.com>, "linux-hyperv@vger.kernel.org"
+ <linux-hyperv@vger.kernel.org>, "virtualization@lists.linux.dev"
+ <virtualization@lists.linux.dev>, "netdev@vger.kernel.org"
+ <netdev@vger.kernel.org>, Saurabh Sengar <ssengar@linux.microsoft.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Deepak Rawat
+ <drawat.floss@gmail.com>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "stable@kernel.vger.org"
+ <stable@kernel.vger.org>
+Subject: RE: [PATCH 2/2] drm/hyperv: use VMBUS_RING_SIZE()
+Thread-Topic: [PATCH 2/2] drm/hyperv: use VMBUS_RING_SIZE()
+Thread-Index: AQHc1N/oW1x+JxhWuEuJGiYOCEgQVbXwyW4AgAIFNgCAAHLMgIAABMtw
+Date: Mon, 27 Apr 2026 19:05:40 +0000
+Message-ID: <SN6PR02MB41571A5B77A5FDDFE17AEF19D4362@SN6PR02MB4157.namprd02.prod.outlook.com>
+References: <20260425181719.1538483-1-hamzamahfooz@linux.microsoft.com>
+ <20260425181719.1538483-2-hamzamahfooz@linux.microsoft.com>
+ <KUZP153MB14445757C6A5DA5DEDA9A09CBE292@KUZP153MB1444.APCP153.PROD.OUTLOOK.COM>
+ <ae9NxmDBTkzPP3H6@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+ <SA1PR21MB6921B5A2441DB3E9A1312AC0BF362@SA1PR21MB6921.namprd21.prod.outlook.com>
+In-Reply-To: <SA1PR21MB6921B5A2441DB3E9A1312AC0BF362@SA1PR21MB6921.namprd21.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ActionId=866de344-17d1-4da0-ae37-df720ba729ed;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ContentBits=0;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Enabled=true;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Method=Standard;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Name=Internal;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SetDate=2026-04-27T18:37:48Z;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SiteId=72f988bf-86f1-41af-91ab-2d7cd011db47;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Tag=10, 3, 0, 1;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SN6PR02MB4157:EE_|PH0PR02MB8422:EE_
+x-ms-office365-filtering-correlation-id: cc9ecdd9-e3ba-4b65-a5eb-08dea48ff942
+x-microsoft-antispam: BCL:0;
+ ARA:14566002|31061999003|19101099003|55001999006|461199028|13091999003|37011999003|51005399006|2604032031799003|15080799012|8062599012|8060799015|19110799012|40105399003|3412199025|440099028|102099032;
+x-microsoft-antispam-message-info: =?us-ascii?Q?RSabT02Dj/D9uAvexb26j4dAscQPpYbPAtThNO82dk2RFjITzHY1Rhf0o36/?=
+ =?us-ascii?Q?M9500fBtRw/7JqgxwvMRdbk+rGmX1U2l8luXUj88aWii4bVqZPtHaua7h1Qx?=
+ =?us-ascii?Q?TVZQnO4Updu2HtwfvANFx+4Kg9jN+23oNhOQAeTa+FN+Ya7NzBgFLiB5X5yg?=
+ =?us-ascii?Q?a3+SmpcOObn2SQA/5HKVn0Gpvo5XFR2NwizpYh61rvjVf4UvtottMbzMiQlB?=
+ =?us-ascii?Q?u9sMMyLhKMNfQ3rlT74fW3AvWFv5U9LLU3fS/9fe4VHH9LVPmi9FsIje9/fd?=
+ =?us-ascii?Q?YWYqQas5rODrq7A1aEo6f16kh99l3gjgSdNxipBcQBJo660fCuvRRWTa+NSn?=
+ =?us-ascii?Q?kSUHw+go0cilOSKDI24drT7fIQR+9knMO8r9oapnn8vKIyZuWNO3PxVpuOFm?=
+ =?us-ascii?Q?MWKe3HeQcrKzWXCqZXGR+DiF3Q7IpBA63BN/4/NgejrKWQDO8M2DQ8WVCzeZ?=
+ =?us-ascii?Q?oKdXjcMqo/djVq40wB0hj8YaJ13tKRwLJlGQESRLa67YvhZlCicHGxAainfC?=
+ =?us-ascii?Q?DR+W5JmJ1U2Z7aNukLwdH5R0nVee/7ceH+OAA0XBx/oejUbohINa2892hoia?=
+ =?us-ascii?Q?phpuBRgSfT31sRnDiOuMFV4DYRnseb8tYrgdW/BmqvtXzZJZZ6k6l4ZAeNmH?=
+ =?us-ascii?Q?N5pmZEnXtlRMMEhXsO3v2k7TcByavV2iCI7Lc6VrqRSPWvFuaQaCmVwf1ZZu?=
+ =?us-ascii?Q?Y/ocVVS09w2t/p0wncXxHhtPFA4oW9rJtBlEpL++XcilV3c8+rsZPi1YO4nX?=
+ =?us-ascii?Q?87xk79e1DnAUJ3cAgsVTnBTAYy/dDmpl+Y8/h1+HZ5cgDFdXDK54KxpIiuXw?=
+ =?us-ascii?Q?uCwwJijRKwRF+RgV0qlck9Wmjnan2HdRK7BCgtt+1mfgkNfk1Ro7awgDJrZt?=
+ =?us-ascii?Q?BjiLGPeYdp0NXgtw5CBOP2QFwaeUofQgyxGNTu+Vpn3U/e3MEKwSy0EmSvDo?=
+ =?us-ascii?Q?wWXTqYeAFmLcgBU9fwJHSY5Y1sMzkkIydjpsVuW83jrPKBjP1f1rEqOli+2r?=
+ =?us-ascii?Q?t+QuEDdaSoRuuMWDzRxcZ+03q+z9ViSm80rXE2QnvBjSPqNlQUl7/16fTbu7?=
+ =?us-ascii?Q?mAL6QxyeBXUPuZXFx+yDbVj7inlMHg=3D=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?pIXvPSkF82HKSOkv9Vb0Sp3kWex3bjEv85oipGCaeT1kJZnqV0yD3Df9l+hE?=
+ =?us-ascii?Q?RlTQo2n9jgTVIHEtQ3Ssa5gj4zZdxklHSElqR6WjMB2F2m5/HnMjDJNW1RU3?=
+ =?us-ascii?Q?o/HnLkBFA3yurBL6oAQfYwS0XftrMI/HRcsjG8mSSpRuU8bMxCsawrt0F3vh?=
+ =?us-ascii?Q?K/282pDd3yVj9rcDCUvwcdNU87mmCs+AdQW00ur1pDQXr7p4H15RpeVJupP/?=
+ =?us-ascii?Q?Rqsd2BVpkfCn29eZjlaXwWB03y5rKlOZ4l8+C+X3cCVaVZEQ9XjwjcFRm8CX?=
+ =?us-ascii?Q?6eaPbIJhbXfvgBKCmJ+mk/ho7sf3pWLTTLBgwqQpX1NIuI7LdcoYf+XxfEWq?=
+ =?us-ascii?Q?h5iUhinKBbHBLLOCZ5NXyi3HLufEgk5iiJm1Amt6PBE29IRCo1UjWNZCyLTV?=
+ =?us-ascii?Q?gI3XVoPDXaXv+Oya8NVWc2QuajEEk6nhr107iOYE1rzto/ZHH9BDISd1kcET?=
+ =?us-ascii?Q?wZ4+IKSww/P+8Q6eMgOwEiQCOCDtzuYEPLyF7uNR67QC+HvOcYbjGDlluYKw?=
+ =?us-ascii?Q?OP3pgA4lTfrkHN6+z0L3b/B7Canff2jG2kT7PCyHSdxOs789c8pfAl9ICHH3?=
+ =?us-ascii?Q?lYDHDPf1M8dJWU5Fpxpu6YMbZbt1bIa7Q15BHcWLZUsAVmrgv4DZORYANshV?=
+ =?us-ascii?Q?gXNK5c/VQmXsSN/4BH0temDNUaIn1aVQJBY0WUcHn+niwAez0GEQfc3BWKXe?=
+ =?us-ascii?Q?CZjXDLoqEcaIATX7PSpl9VjXNW7I/IQudwlsycl3ZqUKnqYnZ3I2L9XingUn?=
+ =?us-ascii?Q?hY/3tKTfjSBiSfAGq+MhTw3t1b7JvNOLhUCvjNoKi6FlUznYyK2QtUc+eS0e?=
+ =?us-ascii?Q?aW+dVRzXMpzA2835xdv2sEF02r0/+JV06XPHckzMY/Kutnz+On49Ra7cqU5/?=
+ =?us-ascii?Q?A1gK3u1LgWhO/60Mtt6FCBaveVg4qozuzdXOY04CVzam2P6dm+bU3Cf1FSrF?=
+ =?us-ascii?Q?hAPe9d/h3r1Dk3DjRIEyPkbbTb51QHxoDqMo0lsu5IPHoCmeTZu2oMuiY7Gt?=
+ =?us-ascii?Q?mKmfkcszXdegPW9VWHDlyMycu67sOTnh4Hkgb/o4jeDU49TUVSeFzpqybJtr?=
+ =?us-ascii?Q?otLqCJ1h2iT2xX16fElhIWRRhtp8EMY6W0FWrHreQntHpbh4IgEuxU3ilyVR?=
+ =?us-ascii?Q?Uf1SHf9pm/vYXJXZELtDOh3mXS85gV6gCWGeteuBedYPbKO8O15i4E79z+6H?=
+ =?us-ascii?Q?eybEhXscDKwpxh9MFwU8bF+q297EZvGiRPT8uNhGGSu8Vp7L1NkTi4IG9ALx?=
+ =?us-ascii?Q?CVmcBC+cTTkSnByhJtNgufiBO4l1IMhoGBwJS8hzd7Mb5OS8pbCvVZdz3Wad?=
+ =?us-ascii?Q?u2atjw4qlRUUyzETozniGcdzFhzCBpmwwsIkTXkRQn+BgsZiCRB7A9haId+5?=
+ =?us-ascii?Q?IQXeDqE=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260310002606.16413-1-mailingradian@gmail.com>
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR02MB4157.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: cc9ecdd9-e3ba-4b65-a5eb-08dea48ff942
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Apr 2026 19:05:40.2032 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR02MB8422
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,64 +159,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Mar 09, 2026 at 08:26:01PM -0400, Richard Acayan wrote:
-> This expands Pixel 3a support to the Pixel 3a XL, starting with one of
-> the panel variants. The Pixel 3a XL has two variants with panels from
-> Samsung or from Tianma/Novatek.
-> 
-> This series depends on the IMX355 front camera devicetree patches
-> (https://lore.kernel.org/r/20260217002738.133534-1-mailingradian@gmail.com).
+From: Dexuan Cui <DECUI@microsoft.com> Sent: Monday, April 27, 2026 11:42 A=
+M
+>=20
+> > From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+> > Sent: Monday, April 27, 2026 4:52 AM
+> > To: Saurabh Singh Sengar <ssengar@microsoft.com>
+> > ...
+> > On Sun, Apr 26, 2026 at 05:00:24AM +0000, Saurabh Singh Sengar wrote:
+> > > > Subject: [PATCH 2/2] drm/hyperv: use VMBUS_RING_SIZE()
+> > > >
+> > > > VMBUS ring buffers must be page aligned. So, use VMBUS_RING_SIZE() =
+to
+> > > > ensure they are always aligned and large enough to hold all of the =
+relevant
+> > > > data.
+> > > >
+> > > > Cc: stable@kernel.vger.org
+> > > > Fixes: 76c56a5affeb ("drm/hyperv: Add DRM driver for hyperv synthet=
+ic
+> > > >  video device")
+>=20
+> IMO the Fixes tag is unnecessary because the existing VMBUS_RING_BUFSIZE
+> is 256KB, which is already aligned to 4KB, 16KB and 64KB.
+>=20
+> VMBUS_RING_SIZE(256 * 1024) is still 256KB.
 
-Please resubmit the DeviceTree patches once this dependency has been
-resolved.
+Not always. If PAGE_SIZE is 64KiB, VMBUS_RING_SIZE(256 * 1024) is
+320KiB. If PAGE_SIZE is 16KiB or 4KiB, then VMBUS_RING_SIZE(256 * 1024)
+is indeed 256 KiB. See the explanation in the comment for VMBUS_RING_SIZE.
 
-Regards,
-Bjorn
+Michael
 
-> 
-> Changes since v2 (https://lore.kernel.org/r/20260217000854.131242-1-mailingradian@gmail.com):
-> - add support for regulator (Dmitry's review retained) (3/5)
-> - use common set page function (Dmitry's review retained) (3/5)
-> - squash new labels into common dtsi patch (review tags dropped) (4/5)
-> - specify framebuffer in terms of memory region (4/5)
-> - only specify height in XL/non-XL specific devicetrees (4/5, 5/5)
-> - remove status in display devices (4/5, 5/5)
-> - preserve same touchscreen physical width in sargo (4/5)
-> - move entry in Makefile to correct place (5/5)
-> - omit copyright year in new file (4/5)
-> - correct top-of-file comment about which panel is supported (5/5)
-> - explain license identifier change from GPL-2.0 to GPL-2.0-only (4/5)
-> - add review tags (1/5, 3/5, 5/5)
-> 
-> Changes since v1 (https://lore.kernel.org/r/20260210023300.15785-1-mailingradian@gmail.com):
-> - use multi functions in disable callback (3/6)
-> - add and reformat comments about XL differences (5/6)
-> - mention the sdc panel (6/6)
-> - explain google,bonito compatible (1/6)
-> - remove TODO item in code (3/6)
-> - add review and testing tags (2/6, 3/6, 5/6)
-> 
-> Richard Acayan (5):
->   dt-bindings: arm: qcom: document google,bonito-tianma board
->   dt-bindings: panel-simple-dsi: add nt37700f compatible
->   drm/panel: Add Novatek/Tianma NT37700F panel
->   arm64: dts: qcom: sdm670-google: add common device tree include
->   arm64: dts: qcom: add support for pixel 3a xl with the tianma panel
-> 
->  .../devicetree/bindings/arm/qcom.yaml         |   6 +
->  .../display/panel/panel-simple-dsi.yaml       |   2 +
->  arch/arm64/boot/dts/qcom/Makefile             |   1 +
->  .../dts/qcom/sdm670-google-bonito-tianma.dts  |  32 +
->  ...le-sargo.dts => sdm670-google-common.dtsi} |  22 +-
->  .../boot/dts/qcom/sdm670-google-sargo.dts     | 709 +-----------------
->  drivers/gpu/drm/panel/Kconfig                 |   9 +
->  drivers/gpu/drm/panel/Makefile                |   1 +
->  .../gpu/drm/panel/panel-novatek-nt37700f.c    | 299 ++++++++
->  9 files changed, 370 insertions(+), 711 deletions(-)
->  create mode 100644 arch/arm64/boot/dts/qcom/sdm670-google-bonito-tianma.dts
->  copy arch/arm64/boot/dts/qcom/{sdm670-google-sargo.dts => sdm670-google-common.dtsi} (97%)
->  create mode 100644 drivers/gpu/drm/panel/panel-novatek-nt37700f.c
-> 
-> -- 
-> 2.53.0
-> 
+>=20
+> > > > Signed-off-by: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+> > > > ---
+> > > >  drivers/gpu/drm/hyperv/hyperv_drm_proto.c | 2 +-
+> > > >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > > >
+> > > > diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
+> > > > b/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
+> > > > index 051ecc526832..753d97bff76f 100644
+> > > > --- a/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
+> > > > +++ b/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
+> > > > @@ -10,7 +10,7 @@
+> > > >
+> > > >  #include "hyperv_drm.h"
+> > > >
+> > > > -#define VMBUS_RING_BUFSIZE (256 * 1024)
+> > > > +#define VMBUS_RING_BUFSIZE VMBUS_RING_SIZE(256 * 1024)
+> > > >  #define VMBUS_VSP_TIMEOUT (10 * HZ)
+> > > >
+> > > >  #define SYNTHVID_VERSION(major, minor) ((minor) << 16 | (major))
+> > > > --
+> > > > 2.54.0
+> > >
+> > > Although this lgtm, but this may change the behaviour on ARM64 system=
+s
+> > with page size > 4K ?
+>=20
+> Actually the behavior won't change, because
+> VMBUS_RING_SIZE(256 * 1024) is still 256KB.
+>=20
+> > > Have we tested it ?
+> >
+> > Yup, I tested it on an ARM64 windows machine with a 64K page size guest
+> > kernel.
+> >
+> > >
+> > > Reviewed-by: Saurabh Sengar <ssengar@linux.microsoft.com>
+> >
+> > Pushed to drm-misc.
+
