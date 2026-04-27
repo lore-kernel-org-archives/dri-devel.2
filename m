@@ -4,44 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C62EFF8861
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 08:36:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25F80FF885E
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 08:36:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA72710E61D;
-	Mon, 27 Apr 2026 08:36:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07D7210E622;
+	Mon, 27 Apr 2026 08:36:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=qq.com header.i=@qq.com header.b="ECyPV9rG";
+	dkim=pass (1024-bit key; unprotected) header.d=qq.com header.i=@qq.com header.b="hTKL40h5";
 	dkim-atps=neutral
-Received: from out203-205-221-173.mail.qq.com (out203-205-221-173.mail.qq.com
- [203.205.221.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B73C610E191;
- Mon, 27 Apr 2026 06:51:50 +0000 (UTC)
+Received: from out203-205-221-209.mail.qq.com (out203-205-221-209.mail.qq.com
+ [203.205.221.209])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F30510E191;
+ Mon, 27 Apr 2026 06:53:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1777272705; bh=ks8ggYiCLDadKMxcZ8CW+2cQqlh6RyPsgTtN23PYkL0=;
+ t=1777272802; bh=0mkejxnsTB23Jp3d1Q3P2kz8sbot759qpDDeqcIrlvA=;
  h=From:To:Cc:Subject:Date;
- b=ECyPV9rGTiY7Y7rWX2D8ICYsmhJhQu8A0m6MhX7knfQkzfsloo1kmuz6Y0uLESf1x
- 3oxADBBgd+xBoc+p5hgF0sj1cdu3oLs3Kv0zx/MKrYelKuigkHf9QTqzWI9OE1PkNq
- 6AJJBeMUB772WCfOtVEYi+Gg6c37wYqIG9ipCszw=
+ b=hTKL40h5sr0Kd28T8QUNfjkkgu/qhjMXQNMEx8FWzJzxW8tD2DLBYEz7YM5LzqQtN
+ tA74iaqYhbO6wnQ0OilgkSTzD026TkbY85pOxDGF2JKDMOYwCkF/Hs8jRgj3ummIg6
+ vfNMzPe71LQsyjeClDNto7HEMHeKkeoY5cFR+ayQ=
 Received: from NTT-kernel-dev ([60.247.85.88])
- by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
- id CE98AADB; Mon, 27 Apr 2026 14:51:41 +0800
-X-QQ-mid: xmsmtpt1777272701t78vn4y9q
-Message-ID: <tencent_8DBF29E0271CF7880497A344239DA11C2B0A@qq.com>
-X-QQ-XMAILINFO: MRMtjO3A6C9XhMGAw4Y2fX3RcOFCSr9oRvruFjIRTe12uuhbLspCq/SNuxvm7A
- /fk2dEjaYSKw0EedVgPO6nIz6hLkHgVIovQaqi2r98YMvjd3U2/vqzWwcywvrK2hcL8XMVFi5mTr
- aFZyz7oKC2HY+LAukPfbcNgTYO3cPCFsLHpUb88LlzUhakacuGNho12hcp7o1tkkH7SpO82enzTC
- l0rglZjLbzM3vjgjglGL7IwDQNU7U/+KInd23qTD/reO+HdVks9XQNft/Sxih3dBovBCYiwqlwh7
- VWHVMwhILJHDTs/9QmilCLXVHswg0JKsnu7b55aeN4XFb1ZJM9U7iEu15UXsoZNy7ai1EuUIV2s5
- SRlfPND3AQ1Zy3BEShDgJY/qNHnUWu9uFxFGG7SBsGsEstl+uN+bph6AGZ8kajr/6RlJzxs1x30Y
- wsVgutCd1YZb8grk02KL8527aQ7SDXjTjHgtVfYdiYMYj0LBroUGAiz8pDGlfQmYJ5mcAacQeNvv
- q/G1237Jw+nE27gSCTdRFRtpBDQKalmmkFXAxf1SVX2ciLNkbmXVFkeRhCVZxzjM/sZU39Ox4EEN
- dEzbzP581qm8P/KRqZY119BhwP0NTihokx3mIKXDMTrncrEl9DMUSPrWSYQqTk0hRyHmSPt2UwF1
- w0yRTeSJ+Ybj2Nye9IYpODU6cq3/aiCVv3pO6fBZNpGqz2mJbmh6qvE1tKeaMQOl7B8pemJHyYzZ
- 9PM6fFZ0h0WYQIdj5xtVe9ZUi5QLRNVEJ4oRtWtfbPcBGQcxDrsxPKihk/yCDEK5jaey9QixmhQh
- ID90LasAN1l0o+VryfPK7FkJ92QdCtRIffUqMET+vdgBLloEQTd5qyZkz6SQHmrtPt9nd84s072j
- ExqWgGdRNSz9B9yTzEmmsvTiBkpo+/PmN4K1lTmGuogumRLBnJ3vhP3n2e+bnIgNrH9pJbn9f7op
- Mi2kXYMCcsMJ5DBts/0KhejMXs313OQ2R0ENTa6EurJ77/3OqDZAUDM4tdvpx3MR+acCRRR24=
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+ by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
+ id D53116DB; Mon, 27 Apr 2026 14:53:19 +0800
+X-QQ-mid: xmsmtpt1777272799tb3gjvyp1
+Message-ID: <tencent_1AC70A6F0BF843C72D2291E585D1CE675308@qq.com>
+X-QQ-XMAILINFO: OIJV+wUmQOUA22oh1Yi6MfhtC+CyTmbj2Vcjz9/btNRB0f31GKlTZwg7PCGBEE
+ 3JDBXbeS5GQrwmCAkIuzRpyeW0Y3Z3+Qo9HbcRLgNMiYBsHLQWJf9lnrb7vOBFn4tjku9COlH7Fk
+ e7+hK7C4EdvEgnXJ4k/pdFbMeEeU8BDWD8qXKxUlnxiiGDON8gewjeVWfGA4hmwIjr/7hNefnuAt
+ eGOUcYiztH6YBku8fE13OC+DAiX1X2Qc+N2i2+DAFdb1Ua/7eQVB0XCfVONMTpg5b1VAF4GEa94j
+ xC0w+ViNCnJNXA9dMMNjDzqPGXBdTUuFXQVkKcJYEOxw5+fUixeze53lzuSw0O0Zq9q5SZc0ehvB
+ nNUiDLk+7Yn8/xNf7CSq6N8FlGIRGYHXldCqhsQKafp7sCB8ekNM2eix9/8ooNAqaL3ydYfl19e8
+ Mi3uKJafFyOVVatmMhw37MCHYb4kZVbg1T6J2yHc0yZupMU48QeonWqnu7+ke4QscdWzpPhvAUnZ
+ y8rAITOkCtrNho3BUqjacVh3l0ienv/lUURKigXKX+4g5O0hRr4+YQGednJuvmUankmU/vQgXD74
+ EQrdo5BOCJgVKP27HzKLPn5HoeSIiEua6SOFtqqIdBHekS59jYmsHaMNlSqUafgF5kb+WSQEiOtZ
+ /0sY44ffdjW0EGK7JiBMeyMMYSHUldbZ04ncuHkCXG5kUw4IzH3tLDC6cn9A9AvQjn7cUtEtOWOQ
+ 6/2dbQvT5HZR8Fo619DygET+UMLRN+QPP0645K2bZBl/5ZUfZAeeUHmgB0zFKohEjqH6wog/qX2q
+ 3oXHr+w37hm6lfNlM/fZbVeRBMPA7GBCQajSeCur550PmjCoHq7A0KOsYNOEL3itnASXBtTLxn/x
+ xon7eICaSD/a5BCjb7xqL2uC/5FO4smbRFbnlBSfrPCWxQZBDw7XGNzX3lGKahMsYOIGIwCbOzRf
+ VK/C22thM8aETA8D2zhI+TphV2vyaSCnw76t9iZqX3sXqzlT6M66WF2zJCfdpAWKE9Sm8uBO4m21
+ zgm7HUN9J/J2uKMuY8tWPWJVoLtaMw5ECjBttLsuN/vqDMI35JFK031lMdHYWyDb//4H551tJO6h
+ oR5cnK
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
 From: Fang Wang <32840572@qq.com>
 To: gregkh@linuxfoundation.org, stable@vger.kernel.org,
  tvrtko.ursulin@igalia.com
@@ -49,10 +51,10 @@ Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
  alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
  airlied@gmail.com, simona@ffwll.ch, Jesse.Zhang@amd.com,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH 6.12.y 1/2] drm/amdgpu: Use vmemdup_array_user in
+Subject: [PATCH 6.6.y 1/2] drm/amdgpu: Use vmemdup_array_user in
  amdgpu_bo_create_list_entry_array
-Date: Mon, 27 Apr 2026 14:51:41 +0800
-X-OQ-MSGID: <20260427065141.4118590-1-32840572@qq.com>
+Date: Mon, 27 Apr 2026 14:53:18 +0800
+X-OQ-MSGID: <20260427065318.4119528-1-32840572@qq.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -90,10 +92,10 @@ Signed-off-by: Fang Wang <32840572@qq.com>
  1 file changed, 17 insertions(+), 24 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-index 702f6610d024..66fb37b64388 100644
+index 9a53ca555e70..db0a1c828fe1 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-@@ -184,43 +184,36 @@ void amdgpu_bo_list_put(struct amdgpu_bo_list *list)
+@@ -195,43 +195,36 @@ void amdgpu_bo_list_put(struct amdgpu_bo_list *list)
  int amdgpu_bo_create_list_entry_array(struct drm_amdgpu_bo_list_in *in,
  				      struct drm_amdgpu_bo_list_entry **info_param)
  {
