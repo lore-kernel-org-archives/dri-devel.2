@@ -4,119 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91736FF8860
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 16:11:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16A8AFF8868
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 16:23:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D548310E80B;
-	Mon, 27 Apr 2026 16:11:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2EE1410E811;
+	Mon, 27 Apr 2026 16:23:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=arndb.de header.i=@arndb.de header.b="LM+1WQZb";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="rcp5e0Yz";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="i2uK6k4K";
 	dkim-atps=neutral
-X-Greylist: delayed 360 seconds by postgrey-1.36 at gabe;
- Mon, 27 Apr 2026 16:11:26 UTC
-Received: from fout-a3-smtp.messagingengine.com
- (fout-a3-smtp.messagingengine.com [103.168.172.146])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A751310E80B
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 16:11:26 +0000 (UTC)
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
- by mailfout.phl.internal (Postfix) with ESMTP id D7ECAEC0FC1;
- Mon, 27 Apr 2026 12:05:24 -0400 (EDT)
-Received: from phl-imap-02 ([10.202.2.81])
- by phl-compute-04.internal (MEProxy); Mon, 27 Apr 2026 12:05:24 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
- :cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm2; t=1777305924;
- x=1777392324; bh=ZCtou/cEXXCW2EAHTSeZgopr0M/VLaS4+NUan7nzjpo=; b=
- LM+1WQZbjg5FBMii6wK/sxZP2lOaFxRnk3u5Y3RPRDCzwUmZITJVrJYqecL2ip3a
- 4zzSTLCelWjFhL013m4iJHoxS6Qryrlltr0l0KcnCsF0zd8QPA8q6pUln4acYa8M
- 54nuREiojIbbaBaMFMLGNK8a5NR9/kuocofwyDkZm5DW7GuZ/jmqkNE5M3f46zKo
- 5QaTkvQGYhoJdysVmGamXRQKrpuIz7P+dDEeMSCkxebmSIF11REtmkrF47cpziZe
- zenSKG9DiD44E7jJxT04sOGvo0Hmconj/mNLbJlmwwqDLCfLgJ3JyiScecfLsZYk
- HjdD77kIDYfokvaUaH6FTQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1777305924; x=
- 1777392324; bh=ZCtou/cEXXCW2EAHTSeZgopr0M/VLaS4+NUan7nzjpo=; b=r
- cp5e0YzGwabDnLbX/xXlbtzzv9e8OX0XRwm69dlgxbBAO3PGQDnv+gLQ9iNaw41t
- wiog0CQMhPF+ACfM6DLMRENiyAYiJeJm1+ICJB+8quz+E31tQ6nPNQPc/XBiA0pw
- n/cJg9b/IcMhSBopBJbLrEhhxyEQYKBBRMOIyStsB49kW1o929ihCOJ9oxPJS4yR
- mklaN+1vMJ3XdBzCPiiHtUvU0bqlp9z4Q7AZjFEMVRW4SXSTRkvgkYb2ToIN4omR
- 5t/JFUxGzDJDq0qYmldtbIqsLrBi89KCkPrVSmT1gzvgREkXP55VsmGOAjNpoHa2
- dL7fdzim8Bm97btgfIZ5Q==
-X-ME-Sender: <xms:Q4nvabvgD-Y0-q21rj0xIevp3vYtWZ1cxKFvIuxKRHMaTtQTxjGz5A>
- <xme:Q4nvaXSFnWpwpLdH3gTHczIdKeqNIYEdHjDNHzryu4ch2F0apyFIXLg61RMHMZ-b3
- 304p_cMmvtBQBKrtHOzNpIgGPl-vyiY4uum6i7My8pPO5wY649nPVo>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdejleduvdcutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
- ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
- hrpefoggffhffvvefkjghfufgtgfesthhqredtredtjeenucfhrhhomhepfdetrhhnugcu
- uegvrhhgmhgrnhhnfdcuoegrrhhnugesrghrnhgusgdruggvqeenucggtffrrghtthgvrh
- hnpedvhfdvkeeuudevfffftefgvdevfedvleehvddvgeejvdefhedtgeegveehfeeljeen
- ucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpegrrhhnug
- esrghrnhgusgdruggvpdhnsggprhgtphhtthhopeefjedpmhhouggvpehsmhhtphhouhht
- pdhrtghpthhtohepjhgsrghrohhnsegrkhgrmhgrihdrtghomhdprhgtphhtthhopegthh
- hrihhsthhirghnrdhkohgvnhhighesrghmugdrtghomhdprhgtphhtthhopehmphgvsegv
- lhhlvghrmhgrnhdrihgurdgruhdprhgtphhtthhopehsihhmohhnrgdrvhgvthhtvghrse
- hffhiflhhlrdgthhdprhgtphhtthhopehgrghrhiesghgrrhihghhuohdrnhgvthdprhgt
- phhtthhopegurghvihgurdhlrghighhhthdrlhhinhhugiesghhmrghilhdrtghomhdprh
- gtphhtthhopehmkhgthhgruhhrrghssehgmhgrihhlrdgtohhmpdhrtghpthhtohepnhhi
- tghkrdguvghsrghulhhnihgvrhhsodhlkhhmlhesghhmrghilhdrtghomhdprhgtphhtth
- hopehnphhighhgihhnsehgmhgrihhlrdgtohhm
-X-ME-Proxy: <xmx:Q4nvacXMD2rgkFYfQT6xRfjCHHzuIur5ewWkYvLB3s1CPfPeONk9Yg>
- <xmx:Q4nvaY2Is8kGpnqdtzP_bEIxpw2iOsohNjjdyy0uXHi_Xq7T0TrmMg>
- <xmx:Q4nvaeM0ht2htEmAr3ZLvSR44Fg_2_9W52RbXTZcjuamGIomTUJOMg>
- <xmx:Q4nvaQS7xdW9MU6arMT9qKha7QhqS-7qn5T0fzYzrfcy_Nars0aFfg>
- <xmx:RInvaRzrTfYEHKqKGtWlisXUYFSpPribsTZQ5DAa5owond2lsXUold8G>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
- id 3B6AE700065; Mon, 27 Apr 2026 12:05:23 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011019.outbound.protection.outlook.com [52.101.52.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BA8610E811
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 16:23:20 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fuJ5JpzuQ8b+TOHwE71PrhqGAoHHYvd3FmOvNc3JzfWmoaieaIALzdpPXhsPQPd/p46qwmcauBt+VfWVBczp8gGFG54PV0Hwb84uyXpKDWCVsdyHXzT1VrdU6JwEMIN1oZeEvDa39iUcNZnqLwnrNRs1NX3ZkcpSTtHaJlwWc8TzBQArfIzei54HE1GdeVid8ZBWPuUV7VR7YiHhND7pSZECDABbQJIUC5ykfr98zYuCQgUawv+S9lHeFF0FEOQeeXd2t+Ksv8dw/F/7zogz/PI4Bv7tU+um45qe+6LPcrRE97LAnnXbmV5u1NTqdJvM+yhBYSUEsfBm4RD8ahU6gw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fZEYBo+Gn7OdPR71L1iAtyGAAKze3B5rl/serWeGF+c=;
+ b=t9unYIxsSEz4pLoc1XnT4dv2AIHrf1Gspqntsydyu+ZW6tsjrYEVG/xKC/0rwZQgXG1fgq9tJVAMYqcseo+SChU68xz4vFoeYPUL6qSMd+R32s+mWGXvHBCtlBJDCIHrNuyObXS38FQf4LySIBe7epX2KJe2DRh85mFTkiKQVzFCybZUdXVvvl3XLBsNWF/RvanSwVjyhBBOxBcgRetNs81kqimBYxCGj+YffSEuj0754JzpuOMQZU3QO9ynE2JVpR//5JnC6rCjs65KPEgDr6pH4eMG/Yg6w0DL07WRWw7blW1mtRKELdH9wnBlUr7zUCYg2BnYty71QcebFzqnFA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fZEYBo+Gn7OdPR71L1iAtyGAAKze3B5rl/serWeGF+c=;
+ b=i2uK6k4KYoCtcD1K2EYIbipEZci2zUtJeM/QNkhF7WngaWmKqsRUEX3HrscNdF0CvikmTvOcUg1304IYaCaivcEb7VntpLO1sUIpywCsv/LWi+RKk/dtu8ywXuunAZAdaThi8eTCYwDAmtoVzFWh46f8rlJCjEB55+RkAxQWvaw=
+Received: from BLAPR05CA0027.namprd05.prod.outlook.com (2603:10b6:208:335::7)
+ by LV8PR12MB9134.namprd12.prod.outlook.com (2603:10b6:408:180::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.15; Mon, 27 Apr
+ 2026 16:23:16 +0000
+Received: from BN2PEPF00004FBB.namprd04.prod.outlook.com
+ (2603:10b6:208:335:cafe::78) by BLAPR05CA0027.outlook.office365.com
+ (2603:10b6:208:335::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9846.26 via Frontend Transport; Mon,
+ 27 Apr 2026 16:23:15 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN2PEPF00004FBB.mail.protection.outlook.com (10.167.243.181) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9846.18 via Frontend Transport; Mon, 27 Apr 2026 16:23:15 +0000
+Received: from ausmlimonci-lx1.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 27 Apr
+ 2026 11:23:02 -0500
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+CC: <dri-devel@lists.freedesktop.org>, Mario Limonciello
+ <mario.limonciello@amd.com>
+Subject: [PATCH] ttm/pool: Use sentinels in debugfs
+Date: Mon, 27 Apr 2026 11:22:53 -0500
+Message-ID: <20260427162253.682415-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-X-ThreadId: ADiin7Vigcc3
-Date: Mon, 27 Apr 2026 18:05:01 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Link Mauve" <linkmauve@linkmauve.fr>,
- "David Laight" <david.laight.linux@gmail.com>
-Cc: "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>,
- "Madhavan Srinivasan" <maddy@linux.ibm.com>,
- "Michael Ellerman" <mpe@ellerman.id.au>,
- "Nicholas Piggin" <npiggin@gmail.com>,
- "Christophe Leroy" <chleroy@kernel.org>,
- "Peter Zijlstra" <peterz@infradead.org>,
- "Josh Poimboeuf" <jpoimboe@kernel.org>,
- "Jason Baron" <jbaron@akamai.com>, "Alice Ryhl" <aliceryhl@google.com>,
- "Steven Rostedt" <rostedt@goodmis.org>, "Ard Biesheuvel" <ardb@kernel.org>,
- "Sumit Semwal" <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "Miguel Ojeda" <ojeda@kernel.org>, boqun@kernel.org,
- "Gary Guo" <gary@garyguo.net>,
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- "Benno Lossin" <lossin@kernel.org>,
- "Andreas Hindborg" <a.hindborg@kernel.org>,
- "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
- "Nathan Chancellor" <nathan@kernel.org>,
- "Nick Desaulniers" <nick.desaulniers+lkml@gmail.com>,
- "Bill Wendling" <morbo@google.com>,
- "Justin Stitt" <justinstitt@google.com>, tamird@kernel.org,
- "Nicolas Schier" <nsc@kernel.org>, simona.vetter@ffwll.ch,
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, rust-for-linux@vger.kernel.org,
- llvm@lists.linux.dev
-Message-Id: <21348763-ff78-46c6-b0eb-eedce69a839a@app.fastmail.com>
-In-Reply-To: <aes7L3M1d_LvvGKa@luna>
-References: <20260424054742.45832-1-mkchauras@gmail.com>
- <20260424054742.45832-6-mkchauras@gmail.com>
- <20260424101425.6bde0e17@pumpkin> <aes7L3M1d_LvvGKa@luna>
-Subject: Re: [Linaro-mm-sig] Re: [PATCH V13 5/7] rust: Make __udivdi3() and
- __umoddi3() panic
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBB:EE_|LV8PR12MB9134:EE_
+X-MS-Office365-Filtering-Correlation-Id: c2a6bfe6-5441-4b6e-7e07-08dea4794907
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|82310400026|36860700016|13003099007|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 8CZ6u4l28RyMvQ1z/evZ9Pc3v1dHGCCKfHqm3BjVi6YCI3FK+K5B/bzFlVKglZcPL8C9NCitxHhAsMC8EP3Ib7tJYspDtE4SM2l/fKBHgZ1tC2KOKMJ0FgW6mkRNO6pv35pwCouXgrXgzb/dFnVF+YU0Uij0VcCT+Bu8B1Lbq+b3wKHSbWUkTFcRqBjVjJsHDRw8sKbZRTUi6G9XZDKbw5Ndee412+sLOXxghPYri+if9hc9Sy32A1RPZXiOA2Szbzq9Qcfe65McqlZeh4MtAFoWTm3gqq2mUUOi7DGTZstx1F1oItSc6D/Lj18yw9zNtG/kxfOJCVL4IS/EN40yrsTDtFYWuuFX4xCQw66yERQX3h3YhaxnWhBQWw7nAxIk4UqpQGDTsLFrgtZNTzimHBAWD6S2Ww909snhIR9klJHfYXrJYkwopZzStE0gQLuL6Xfb8EXflueMHgGOaViOqayXteQt3srs0cXkpSS3sc69TLp52ebbLrBA43VQV5gSxh2p57SIp8SyEmZvnCzwp+4cS1/Us3o0+4GI9j97IuHSKLyRuL/apDkem8ARj5/d2V2Hf6r864HWEi3LJoZwvcw1BDWWwCbYf42pphVAEzVWBRXLbnVZEA3npyg4eXl3FOGyy5WYgYFp5hKcFbGq+99Ca06zupEXP5Tp+9Dx1DGvTih40rjxUGSiT2w1ToCAX+4BhTiCFM1F+xWTUZOEdhrbG6hEwlZ2x5Vy/JxO7Js=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(82310400026)(36860700016)(13003099007)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: o7RDAK7g7mJR1CShyxijTjHRN//wbXAd2z9FHweF5XhiL56YwJcLvBly2CvndoxkB2zyo6GS0JOCB89Sv+0NW6DQR/gwzN7kkXVoCd1rNySEz3lnQhopq2jcMkEGam77ukMSRhIePf10RLDUPIlMEOaNVIsGBXLixsr6i2eZh6PQp0wV3Umu1c5B/OvpsJr2h5xoMkoTWnl0cHQ237Qu/bUiX9PsMIRgfcIUAwbPS7qZVBx85oMMbsSzsNvO3YU15dZ08XPHZS+tVIRLw8FXCKt1fXXmMOk7+lw71KuwG88Th6pUBoYYd+qK5U3mb24HGf46VzJM343bTIxBTC38+sXEAhxMVezJwFXgvB+z6xBZXcGIi5g/cgX3jjQUl77MS6cdHLfCh93Fwfx/D238Dl91amsvxQs5/en9xnT+KUDxcV2MgYB49Z5rS+tImZw6
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Apr 2026 16:23:15.6012 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c2a6bfe6-5441-4b6e-7e07-08dea4794907
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBB.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9134
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,48 +109,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Apr 24, 2026, at 11:43, Link Mauve wrote:
-> On Fri, Apr 24, 2026 at 10:14:25AM +0100, David Laight wrote:
->> On Fri, 24 Apr 2026 11:17:40 +0530
->> "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com> wrote:
->>=20
->> > From: Link Mauve <linkmauve@linkmauve.fr>
->> >=20
->> > The core crate currently depends on these two functions for i64/u64/
->> > i128/u128/core::time::Duration formatting, but we shouldn=E2=80=99t=
- use that in
->> > the kernel so let=E2=80=99s panic if they are ever called.
->>=20
->> Ugg.
->> Surely you can make it a link-time failure?
->> Or change the underlying code to avoid the divide.
->
-> This is currently a link-time failure, which means if any of the core
-> crate or drm_panic_qr are linked in, the kernel will fail to link.
->
-> And since we rely on core, that means no kernel can be built on PowerPC
-> without this patch.
->
-> A possible solution would be to change the core crate to not divide
-> u64s, but the last time I tried to do that I couldn=E2=80=99t quite fi=
-gure out
-> how to do formatting without it, maybe I will just open an issue again=
-st
-> Rust.
+The values in the `page_pool_shrink` debugfs file should recognize
+the sentinels rather than causing an underflow.
 
-I think you just need to rewrite the patch description, it appears
-that everyone misunderstands what you are doing in the patch:
+Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5218
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ drivers/gpu/drm/ttm/ttm_pool.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-Like on arm32, normal kernel code will continue to cause
-a link failure the same way in Rust as it does in C, and your
-patch does not change that. When you (or Link Mauve) "let's panic",
-I assume this is was just a mistake in summarizing the logic
-that turns the unreachable code from the Rust core crate
-into a runtime assertion since it would be impossible to link
-the kernel otherwise.
+diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
+index 26a3689e5fd90..4e83f4978b136 100644
+--- a/drivers/gpu/drm/ttm/ttm_pool.c
++++ b/drivers/gpu/drm/ttm/ttm_pool.c
+@@ -1335,15 +1335,22 @@ static int ttm_pool_debugfs_shrink_show(struct seq_file *m, void *data)
+ 		.gfp_mask = GFP_NOFS,
+ 		.nr_to_scan = TTM_SHRINKER_BATCH,
+ 	};
+-	unsigned long count;
++	unsigned long count, scanned;
+ 	int nid;
+ 
+ 	fs_reclaim_acquire(GFP_KERNEL);
+ 	for_each_node(nid) {
+ 		sc.nid = nid;
+ 		count = ttm_pool_shrinker_count(mm_shrinker, &sc);
+-		seq_printf(m, "%d: %lu/%lu\n", nid, count,
+-			   ttm_pool_shrinker_scan(mm_shrinker, &sc));
++		scanned = ttm_pool_shrinker_scan(mm_shrinker, &sc);
++
++		/* Convert shrinker API sentinel values to 0 for debugfs output */
++		if (count == SHRINK_EMPTY)
++			count = 0;
++		if (scanned == SHRINK_STOP)
++			scanned = 0;
++
++		seq_printf(m, "%d: %lu/%lu\n", nid, count, scanned);
+ 	}
+ 	fs_reclaim_release(GFP_KERNEL);
+ 
+-- 
+2.43.0
 
-Silently turning a 64-bit division into a panic() for normal
-code would of course be unacceptable, but that's not what
-you are doing here.
-
-    Arnd
