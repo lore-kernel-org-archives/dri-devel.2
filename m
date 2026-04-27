@@ -4,52 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 660F1FF885E
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 11:00:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F329FF885E
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 11:19:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDD9410E09F;
-	Mon, 27 Apr 2026 11:00:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A3CEB10E6BB;
+	Mon, 27 Apr 2026 11:19:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="V4zLCz3Z";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="bcrrVsyy";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="jHvKAoRy";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="bcrrVsyy";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="jHvKAoRy";
 	dkim-atps=neutral
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24E3810E09F
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 11:00:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
- s=gloria202408;
- h=Content-Type:Content-Transfer-Encoding:MIME-Version:
- References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
- bh=4XRJaWFbqSFsmBGRLBmlvpPymX1vBXalsYhJharnm3k=; b=V4zLCz3ZLjDozLT4o/LAggRxW+
- /7tTwM/7AIduZZExmA/N0ISPGIhudlvQr8OIZLfqqpl3dZzFBMZO1+CHO4S8/p8hIQThRYm7H+6Kw
- qUkz/RARTegoCwhvGlEh1G2dMvmMhgeaxaOhhWF1lOqflCgkHilvK6JFcoBJJcc6z7QZTy5pHVYxG
- W9MKn34IY0Srn89vDSGxcQR1sfCsVcWFb3In1Ti8EhUxZReRvvRM0/7nKkCmR621tabBfYgWvbiql
- WQsl/2EmAYv0jtLQJdv8PT+fJNaOnJl8mfbz3nHEmX1FbNG529k3mzs/2eOoeE1awhg2afR8w/mLW
- oKv+HpAA==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org,
- Diederik de Haas <diederik@cknow-tech.com>,
- Maud Spierings <maud_spierings@hotmail.com>
-Subject: Re: [PATCH v5 02/10] drm/bridge: Add detect_ctx hook and
- drm_bridge_detect_ctx() helper
-Date: Mon, 27 Apr 2026 13:00:35 +0200
-Message-ID: <11399494.CDJkKcVGEf@phil>
-In-Reply-To: <20260426-dw-hdmi-qp-scramb-v5-2-d778e70c317b@collabora.com>
-References: <20260426-dw-hdmi-qp-scramb-v5-0-d778e70c317b@collabora.com>
- <20260426-dw-hdmi-qp-scramb-v5-2-d778e70c317b@collabora.com>
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5DA910E6BB
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 11:19:04 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 6A5226A8EA;
+ Mon, 27 Apr 2026 11:19:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1777288743; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=YoeldIJDc4BXHOeSSx/XxqXhjDi3AhqikvEFbM+SOIQ=;
+ b=bcrrVsyy/75aEiQ8Ok8fVT1FCz8fpvPf5MlvfKU8Fb9VpWXMzcrPlNkp10hf9ROdDI1iE9
+ ZvTP78K1viWqfq+Vanz1pb373u1ZLGCwx6ao2RG7o0uoLvQ54RQ+zUQXDVgIFiXPHEIk5U
+ hHWa6vJxH3lgD1oYJ/qiyxzRxY41zFo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1777288743;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=YoeldIJDc4BXHOeSSx/XxqXhjDi3AhqikvEFbM+SOIQ=;
+ b=jHvKAoRy8ydtOVBzsiO5UpVFajyF0/VxBvMcVenrfgaupLQqP2Ote5b7LUNm5dxDm/BsWl
+ LTJxiAit0Vgy2eBw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1777288743; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=YoeldIJDc4BXHOeSSx/XxqXhjDi3AhqikvEFbM+SOIQ=;
+ b=bcrrVsyy/75aEiQ8Ok8fVT1FCz8fpvPf5MlvfKU8Fb9VpWXMzcrPlNkp10hf9ROdDI1iE9
+ ZvTP78K1viWqfq+Vanz1pb373u1ZLGCwx6ao2RG7o0uoLvQ54RQ+zUQXDVgIFiXPHEIk5U
+ hHWa6vJxH3lgD1oYJ/qiyxzRxY41zFo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1777288743;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=YoeldIJDc4BXHOeSSx/XxqXhjDi3AhqikvEFbM+SOIQ=;
+ b=jHvKAoRy8ydtOVBzsiO5UpVFajyF0/VxBvMcVenrfgaupLQqP2Ote5b7LUNm5dxDm/BsWl
+ LTJxiAit0Vgy2eBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 152FD593B3;
+ Mon, 27 Apr 2026 11:19:03 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id piuZAydG72mCUQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 27 Apr 2026 11:19:03 +0000
+Message-ID: <7947c95e-12ff-4cef-9947-e0fc22cf35ec@suse.de>
+Date: Mon, 27 Apr 2026 13:19:02 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/bridge: replace use of system_wq with system_percpu_wq
+To: Marco Crivellari <marco.crivellari@suse.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+Cc: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>,
+ Frederic Weisbecker <frederic@kernel.org>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Michal Hocko <mhocko@suse.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Robert Foss <rfoss@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+References: <20251104111339.128685-1-marco.crivellari@suse.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20251104111339.128685-1-marco.crivellari@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-0.990]; MIME_GOOD(-0.10)[text/plain];
+ ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[14];
+ MIME_TRACE(0.00)[0:+]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RCVD_TLS_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[kernel.org,gmail.com,linutronix.de,suse.com,intel.com,linux.intel.com,ffwll.ch];
+ TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ URIBL_BLOCKED(0.00)[suse.de:mid,suse.de:email,suse.com:url,suse.com:email,imap1.dmz-prg2.suse.org:helo];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, suse.de:email, suse.com:url,
+ suse.com:email, imap1.dmz-prg2.suse.org:helo]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,25 +146,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Am Sonntag, 26. April 2026, 02:20:14 Mitteleurop=C3=A4ische Sommerzeit schr=
-ieb Cristian Ciocaltea:
-> Add an atomic-aware .detect_ctx() callback to drm_bridge_funcs and a
-> drm_bridge_detect_ctx() helper that accepts an optional
-> drm_modeset_acquire_ctx.
->=20
-> This enables bridge drivers to perform operations requiring modeset
-> locking during connector detection, such as SCDC management for HDMI
-> 2.0.  When both ->detect_ctx and ->detect are defined, the former takes
-> precedence.  When ctx is NULL, locking is managed internally with EDEADLK
-> retry.
->=20
-> Tested-by: Diederik de Haas <diederik@cknow-tech.com>
-> Tested-by: Maud Spierings <maud_spierings@hotmail.com>
-> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 
-while this looks sane to me, my drm insights are spotty, so I can
-only provide the lighter
 
-Acked-by: Heiko Stuebner <heiko@sntech.de>
+Am 04.11.25 um 12:13 schrieb Marco Crivellari:
+> Currently if a user enqueue a work item using schedule_delayed_work() the
+> used wq is "system_wq" (per-cpu wq) while queue_delayed_work() use
+> WORK_CPU_UNBOUND (used when a cpu is not specified). The same applies to
+> schedule_work() that is using system_wq and queue_work(), that makes use
+> again of WORK_CPU_UNBOUND.
+>
+> This lack of consistentcy cannot be addressed without refactoring the API.
+>
+> This patch continues the effort to refactor worqueue APIs, which has begun
+> with the change introducing new workqueues and a new alloc_workqueue flag:
+>
+> commit 128ea9f6ccfb ("workqueue: Add system_percpu_wq and system_dfl_wq")
+> commit 930c2ea566af ("workqueue: Add new WQ_PERCPU flag")
+>
+> system_wq should be the per-cpu workqueue, yet in this name nothing makes
+> that clear, so replace system_wq with system_percpu_wq.
+>
+> The old wq (system_wq) will be kept for a few release cycles.
+>
+> Suggested-by: Tejun Heo <tj@kernel.org>
+> Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
+
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+> ---
+>   drivers/gpu/drm/bridge/ite-it6505.c | 2 +-
+>   drivers/gpu/drm/bridge/ti-tfp410.c  | 2 +-
+>   2 files changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge/ite-it6505.c
+> index a094803ba7aa..37bb8123cf9b 100644
+> --- a/drivers/gpu/drm/bridge/ite-it6505.c
+> +++ b/drivers/gpu/drm/bridge/ite-it6505.c
+> @@ -2048,7 +2048,7 @@ static void it6505_start_hdcp(struct it6505 *it6505)
+>   
+>   	DRM_DEV_DEBUG_DRIVER(dev, "start");
+>   	it6505_reset_hdcp(it6505);
+> -	queue_delayed_work(system_wq, &it6505->hdcp_work,
+> +	queue_delayed_work(system_percpu_wq, &it6505->hdcp_work,
+>   			   msecs_to_jiffies(2400));
+>   }
+>   
+> diff --git a/drivers/gpu/drm/bridge/ti-tfp410.c b/drivers/gpu/drm/bridge/ti-tfp410.c
+> index b80ee089f880..85fa3f8a747e 100644
+> --- a/drivers/gpu/drm/bridge/ti-tfp410.c
+> +++ b/drivers/gpu/drm/bridge/ti-tfp410.c
+> @@ -115,7 +115,7 @@ static void tfp410_hpd_callback(void *arg, enum drm_connector_status status)
+>   {
+>   	struct tfp410 *dvi = arg;
+>   
+> -	mod_delayed_work(system_wq, &dvi->hpd_work,
+> +	mod_delayed_work(system_percpu_wq, &dvi->hpd_work,
+>   			 msecs_to_jiffies(HOTPLUG_DEBOUNCE_MS));
+>   }
+>   
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
 
 
