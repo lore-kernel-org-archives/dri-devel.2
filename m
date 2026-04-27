@@ -4,47 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC20AFF8867
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 22:10:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C93DFF8864
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 22:12:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AA9110E965;
-	Mon, 27 Apr 2026 22:10:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70E3710E967;
+	Mon, 27 Apr 2026 22:12:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="luplG3kO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z7nbSyXy";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 252F910E963
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 22:10:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DFAE10E967
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 22:12:08 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id BF8E342D9D;
- Mon, 27 Apr 2026 22:10:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB1CAC2BCC6;
- Mon, 27 Apr 2026 22:10:14 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 53A4743312;
+ Mon, 27 Apr 2026 22:12:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49D48C19425;
+ Mon, 27 Apr 2026 22:12:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777327818;
- bh=/LVJj2hk5eOa1zpWC5tFVDlRCBJ9XrhN5UgxjHMykd4=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=luplG3kO09WLJMuaQ0L/0/Eg5XYFHXgHhkW1TLCD1u0sgU3mmQYRpy98KgzWYmMw/
- 86dPABK5TsUHkKGB8zR2T+Ig4h1a193kZc+ac5+b/KmI5fm/zipjU5pfOwAZ3CJogL
- z1q0gTiBbUc7oPVPjIifzUxTXPLTeb1KGETtJlW2urku8krGEAKSPoed3MjvSb8vTf
- sGohw/hQoqVZYowccpVQbxFoJReg6GvxdtubBItnNKWm+BVtxnCIfVYowE/803zTiR
- g+x18ZBXyS9ONgSzUYN6cwnm7gYnjN8x5r2jkEqZxuv1lYPkT/cBzHGlxPPpZJlZKz
- Vuq7PbrY6MPWA==
+ s=k20201202; t=1777327928;
+ bh=0thXPdShB3t5adcBz1VkWyZ33OoOiYeBGZx1pE9VSCE=;
+ h=From:To:Cc:Subject:Date:From;
+ b=Z7nbSyXy34HFoImwriB49Cku0ZZoA0kXlQ6jBhSYj9BVkWR7Sn4VlBPH3sZXjPE2g
+ m8dDBnZVc9okYF8//vnRWpYKv+KYnEwt15cL/SiYb52pls2wZlLE6lBEIOl45Mx5Zj
+ HRBPuaBrspJtiVYckLKyxs3+F3dl5L819mk1eokoINgUZkq37Ca5e6nGwXM1KvaqrB
+ 7UqWXRUUhhm5V/a0HyxMqqjubV2YBMvL81XPNZ/piO9nWLFwyVjwUYT6PwzsLsNTbz
+ HUtlrVffhg+N9YbCvVgdnQVM5Tpznoon8co4YJxeDtDTMw9z6O2kfn/XUXwQMiPp00
+ I2RG39QWsSeoA==
 From: Danilo Krummrich <dakr@kernel.org>
 To: gregkh@linuxfoundation.org, rafael@kernel.org, acourbot@nvidia.com,
  aliceryhl@google.com, david.m.ertman@intel.com, ira.weiny@intel.com,
- leon@kernel.org, ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
+ leon@kernel.org, viresh.kumar@linaro.org, m.wilczynski@samsung.com,
+ ukleinek@kernel.org, bhelgaas@google.com, kwilczynski@kernel.org,
+ abdiel.janulgue@gmail.com, robin.murphy@arm.com, markus.probst@posteo.de,
+ ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
  bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org,
  tmgross@umich.edu
 Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
  nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, Danilo Krummrich <dakr@kernel.org>
-Subject: [PATCH 2/2] rust: driver core: remove drvdata() and driver_type
-Date: Tue, 28 Apr 2026 00:09:41 +0200
-Message-ID: <20260427221002.2143861-3-dakr@kernel.org>
+ linux-pm@vger.kernel.org, linux-pwm@vger.kernel.org,
+ linux-pci@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ Danilo Krummrich <dakr@kernel.org>
+Subject: [PATCH 00/24] rust: device: Higher-Ranked Lifetime Types for device
+ drivers
+Date: Tue, 28 Apr 2026 00:10:58 +0200
+Message-ID: <20260427221155.2144848-1-dakr@kernel.org>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260427221002.2143861-1-dakr@kernel.org>
-References: <20260427221002.2143861-1-dakr@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -62,174 +66,175 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When drvdata() was introduced in commit 6f61a2637abe ("rust: device:
-introduce Device::drvdata()"), its commit message already noted that a
-direct accessor to the driver's bus device private data is not commonly
-required -- bus callbacks provide access through &self, and other entry
-points (IRQs, workqueues, IOCTLs, etc.) carry their own private data.
+Currently, Rust device drivers access device resources such as PCI BAR mappings
+and I/O memory regions through Devres<T>.
 
-The sole motivation for drvdata() was inter-driver interaction -- an
-auxiliary driver deriving the parent's bus device private data from the
-parent device.
+Devres::access() provides zero-overhead access by taking a &Device<Bound>
+reference as proof that the device is still bound. Since a &Device<Bound> is
+available in almost all contexts by design, Devres is mostly a type-system level
+proof that the resource is valid, but it can also be used from scopes without
+this guarantee through its try_access() accessor.
 
-However, drvdata() exposes the driver's bus device private data beyond
-the driver's own scope. This creates ordering constraints; for instance
-drvdata may not be set yet when the first caller of drvdata() can
-appear. It also forces the driver's bus device private data to outlive
-all registrations that access it, which causes unnecessary
-complications.
+This works well in general, but has a few limitations:
 
-Private data should be private to the entity that issues it, i.e. bus
-device private data belongs to bus callbacks, class device private data
-to class callbacks, IRQ private data to the IRQ handler, etc.
+  - Every access to a device resource goes through Devres::access(), which
+    despite zero cost, adds boilerplate to every access site.
 
-With registration-private data now available through the auxiliary bus,
-there is no remaining user of drvdata(), thus remove it.
+  - Destructors do not receive a &Device<Bound>, so they must use try_access(),
+    which can fail. In practice the access succeeds if teardown ordering is
+    correct, but the type system can't express this, forcing drivers to handle a
+    failure path that should never be taken.
 
-Signed-off-by: Danilo Krummrich <dakr@kernel.org>
----
- drivers/base/base.h   | 16 ------------
- rust/kernel/device.rs | 60 -------------------------------------------
- 2 files changed, 76 deletions(-)
+  - Sharing a resource across components (e.g. passing a BAR to a sub-component)
+    requires Arc<Devres<T>>.
 
-diff --git a/drivers/base/base.h b/drivers/base/base.h
-index 30b416588617..a19f4cda2c83 100644
---- a/drivers/base/base.h
-+++ b/drivers/base/base.h
-@@ -86,18 +86,6 @@ struct driver_private {
- };
- #define to_driver(obj) container_of(obj, struct driver_private, kobj)
- 
--#ifdef CONFIG_RUST
--/**
-- * struct driver_type - Representation of a Rust driver type.
-- */
--struct driver_type {
--	/**
--	 * @id: Representation of core::any::TypeId.
--	 */
--	u8 id[16];
--} __packed;
--#endif
--
- /**
-  * struct device_private - structure to hold the private to the driver core
-  *			   portions of the device structure.
-@@ -115,7 +103,6 @@ struct driver_type {
-  *			   dev_err_probe() for later retrieval via debugfs
-  * @device: pointer back to the struct device that this structure is
-  *	    associated with.
-- * @driver_type: The type of the bound Rust driver.
-  * @dead: This device is currently either in the process of or has been
-  *	  removed from the system. Any asynchronous events scheduled for this
-  *	  device should exit without taking any action.
-@@ -132,9 +119,6 @@ struct device_private {
- 	const struct device_driver *async_driver;
- 	char *deferred_probe_reason;
- 	struct device *device;
--#ifdef CONFIG_RUST
--	struct driver_type driver_type;
--#endif
- 	u8 dead:1;
- };
- #define to_device_private_parent(obj)	\
-diff --git a/rust/kernel/device.rs b/rust/kernel/device.rs
-index 6d5396a43ebe..fd50399aadea 100644
---- a/rust/kernel/device.rs
-+++ b/rust/kernel/device.rs
-@@ -15,16 +15,12 @@
-     }, //
- };
- use core::{
--    any::TypeId,
-     marker::PhantomData,
-     ptr, //
- };
- 
- pub mod property;
- 
--// Assert that we can `read()` / `write()` a `TypeId` instance from / into `struct driver_type`.
--static_assert!(core::mem::size_of::<bindings::driver_type>() >= core::mem::size_of::<TypeId>());
--
- /// The core representation of a device in the kernel's driver model.
- ///
- /// This structure represents the Rust abstraction for a C `struct device`. A [`Device`] can either
-@@ -206,29 +202,12 @@ pub unsafe fn as_bound(&self) -> &Device<Bound> {
- }
- 
- impl Device<CoreInternal> {
--    fn set_type_id<T: 'static>(&self) {
--        // SAFETY: By the type invariants, `self.as_raw()` is a valid pointer to a `struct device`.
--        let private = unsafe { (*self.as_raw()).p };
--
--        // SAFETY: For a bound device (implied by the `CoreInternal` device context), `private` is
--        // guaranteed to be a valid pointer to a `struct device_private`.
--        let driver_type = unsafe { &raw mut (*private).driver_type };
--
--        // SAFETY: `driver_type` is valid for (unaligned) writes of a `TypeId`.
--        unsafe {
--            driver_type
--                .cast::<TypeId>()
--                .write_unaligned(TypeId::of::<T>())
--        };
--    }
--
-     /// Store a pointer to the bound driver's private data.
-     pub fn set_drvdata<T: 'static>(&self, data: impl PinInit<T, Error>) -> Result {
-         let data = KBox::pin_init(data, GFP_KERNEL)?;
- 
-         // SAFETY: By the type invariants, `self.as_raw()` is a valid pointer to a `struct device`.
-         unsafe { bindings::dev_set_drvdata(self.as_raw(), data.into_foreign().cast()) };
--        self.set_type_id::<T>();
- 
-         Ok(())
-     }
-@@ -292,45 +271,6 @@ unsafe fn drvdata_unchecked<T: 'static>(&self) -> Pin<&T> {
-         //   in `into_foreign()`.
-         unsafe { Pin::<KBox<T>>::borrow(ptr.cast()) }
-     }
--
--    fn match_type_id<T: 'static>(&self) -> Result {
--        // SAFETY: By the type invariants, `self.as_raw()` is a valid pointer to a `struct device`.
--        let private = unsafe { (*self.as_raw()).p };
--
--        // SAFETY: For a bound device, `private` is guaranteed to be a valid pointer to a
--        // `struct device_private`.
--        let driver_type = unsafe { &raw mut (*private).driver_type };
--
--        // SAFETY:
--        // - `driver_type` is valid for (unaligned) reads of a `TypeId`.
--        // - A bound device guarantees that `driver_type` contains a valid `TypeId` value.
--        let type_id = unsafe { driver_type.cast::<TypeId>().read_unaligned() };
--
--        if type_id != TypeId::of::<T>() {
--            return Err(EINVAL);
--        }
--
--        Ok(())
--    }
--
--    /// Access a driver's private data.
--    ///
--    /// Returns a pinned reference to the driver's private data or [`EINVAL`] if it doesn't match
--    /// the asserted type `T`.
--    pub fn drvdata<T: 'static>(&self) -> Result<Pin<&T>> {
--        // SAFETY: By the type invariants, `self.as_raw()` is a valid pointer to a `struct device`.
--        if unsafe { bindings::dev_get_drvdata(self.as_raw()) }.is_null() {
--            return Err(ENOENT);
--        }
--
--        self.match_type_id::<T>()?;
--
--        // SAFETY:
--        // - The above check of `dev_get_drvdata()` guarantees that we are called after
--        //   `set_drvdata()`.
--        // - We've just checked that the type of the driver's private data is in fact `T`.
--        Ok(unsafe { self.drvdata_unchecked() })
--    }
- }
- 
- impl<Ctx: DeviceContext> Device<Ctx> {
+  - Device references must be stored as ARef<Device> rather than plain &Device
+    borrows.
+
+These limitations stem from the driver's bus device private data being 'static
+-- the driver struct cannot borrow from the device reference it receives in
+probe(), even though it structurally cannot outlive the device binding.
+
+This series introduces Higher-Ranked Lifetime Types (HRT) for Rust device
+drivers. An HRT is a type that is generic over a lifetime -- it does not have a
+fixed lifetime, but can be instantiated with any lifetime chosen by the caller.
+
+Rust does not directly support types that are generic over a lifetime as type
+parameters; the ForLt trait (contributed by Gary Guo) encodes this internally.
+
+The module_*_driver! macros handle the wrapping, so driver authors just write
+struct MyDriver<'a> and impl Driver<'a>.
+
+With HRT, driver structs carry a lifetime parameter tied to the device binding
+scope -- the interval of a bus device being bound to a driver. Device resources
+like pci::Bar<'a> and IoMem<'a> are handed out with this lifetime, so the
+compiler enforces at build time that they do not escape the binding scope.
+
+Before:
+
+	struct MyDriver {
+	    pdev: ARef<pci::Device>,
+	    bar: Devres<pci::Bar<BAR_SIZE>>,
+	}
+
+	let io = self.bar.access(dev)?;
+	io.read32(OFFSET);
+
+After:
+
+	struct MyDriver<'a> {
+	    pdev: &'a pci::Device,
+	    bar: pci::Bar<'a, BAR_SIZE>,
+	}
+
+	self.bar.read32(OFFSET);
+
+Lifetime-parameterized device resources can be put into a Devres at any point
+via Bar::into_devres() / IoMem::into_devres(), providing the exact same
+semantics as before. This is useful for resources shared across subsystem
+boundaries where revocation is needed.
+
+This also synergizes with the upcoming self-referential initialization support
+in pin-init, which allows one field of the driver struct to borrow another
+during initialization without unsafe code.
+
+The same pattern is applied to auxiliary device registration data as a first
+example beyond bus device private data. Registration<F: ForLt> can hold
+lifetime-parameterized data tied to the parent driver's binding scope. Since the
+auxiliary bus guarantees that the parent remains bound while the auxiliary
+device is registered, the registration data can safely borrow the parent's
+device resources.
+
+More generally, binding resource lifetimes to a registration scope applies to
+every registration that is scoped to a driver binding -- auxiliary devices,
+class devices, IRQ handlers, workqueues.
+
+A follow-up series extends this to class device registrations, starting with
+DRM, so that class device callbacks (IOCTLs, etc.) can safely access device
+resources through the separate registration data bound to the registration's
+lifetime without Devres indirection.
+
+The series contains a few driver patches for reference, indicated by the REF
+suffix.
+
+Thanks to Gary for coming up with the ForLt implementation; thanks to Alice for
+the early discussions around lifetime-parameterized private data that helped
+shape the direction of this work.
+
+This series depends on [1].
+
+[1] https://lore.kernel.org/driver-core/20260427221002.2143861-1-dakr@kernel.org/
+
+Danilo Krummrich (23):
+  rust: driver core: drop drvdata before devres release
+  rust: devres: add ForLt support to Devres
+  rust: device: generalize drvdata methods over ForLt
+  rust: driver: make Adapter trait lifetime-parameterized
+  rust: pci: implement Sync for Device<Bound>
+  rust: platform: implement Sync for Device<Bound>
+  rust: auxiliary: implement Sync for Device<Bound>
+  rust: usb: implement Sync for Device<Bound>
+  rust: device: implement Sync for Device<Bound>
+  rust: pci: make Driver trait lifetime-parameterized
+  rust: platform: make Driver trait lifetime-parameterized
+  rust: auxiliary: make Driver trait lifetime-parameterized
+  rust: auxiliary: generalize Registration over ForLt
+  samples: rust: rust_driver_auxiliary: showcase lifetime-bound
+    registration data
+  rust: usb: make Driver trait lifetime-parameterized
+  rust: i2c: make Driver trait lifetime-parameterized
+  rust: pci: make Bar lifetime-parameterized
+  rust: io: make IoMem and ExclusiveIoMem lifetime-parameterized
+  samples: rust: rust_driver_pci: use HRT lifetime for Bar
+  gpu: nova-core: use HRT lifetime for Bar
+  gpu: nova-core: unregister sysmem flush page from Drop
+  gpu: nova-core: replace ARef<Device> with &'a Device in SysmemFlush
+  gpu: drm: tyr: use HRT lifetime for IoMem
+
+Gary Guo (1):
+  rust: types: add `ForLt` trait for higher-ranked lifetime support
+
+ drivers/base/dd.c                     |   2 +-
+ drivers/cpufreq/rcpufreq_dt.rs        |  10 +-
+ drivers/gpu/drm/nova/driver.rs        |   9 +-
+ drivers/gpu/drm/tyr/driver.rs         |  24 ++-
+ drivers/gpu/drm/tyr/gpu.rs            |  62 ++++---
+ drivers/gpu/drm/tyr/regs.rs           |  21 +--
+ drivers/gpu/nova-core/driver.rs       |  48 ++---
+ drivers/gpu/nova-core/fb.rs           |  31 ++--
+ drivers/gpu/nova-core/gpu.rs          |  32 +---
+ drivers/gpu/nova-core/nova_core.rs    |   4 +-
+ drivers/pwm/pwm_th1520.rs             |  14 +-
+ include/linux/device/driver.h         |   4 +-
+ rust/Makefile                         |   1 +
+ rust/kernel/auxiliary.rs              | 144 ++++++++++-----
+ rust/kernel/cpufreq.rs                |   8 +-
+ rust/kernel/device.rs                 |  84 ++++++---
+ rust/kernel/devres.rs                 |  31 +++-
+ rust/kernel/driver.rs                 |  44 +++--
+ rust/kernel/i2c.rs                    | 121 ++++++++-----
+ rust/kernel/io/mem.rs                 | 118 ++++++-------
+ rust/kernel/pci.rs                    |  88 +++++++---
+ rust/kernel/pci/io.rs                 |  50 +++---
+ rust/kernel/platform.rs               | 101 +++++++----
+ rust/kernel/types.rs                  |   4 +
+ rust/kernel/types/for_lt.rs           | 117 +++++++++++++
+ rust/kernel/usb.rs                    |  93 ++++++----
+ rust/macros/for_lt.rs                 | 242 ++++++++++++++++++++++++++
+ rust/macros/lib.rs                    |  12 ++
+ samples/rust/rust_debugfs.rs          |  10 +-
+ samples/rust/rust_dma.rs              |   9 +-
+ samples/rust/rust_driver_auxiliary.rs |  53 ++++--
+ samples/rust/rust_driver_i2c.rs       |  18 +-
+ samples/rust/rust_driver_pci.rs       |  93 +++++-----
+ samples/rust/rust_driver_platform.rs  |  12 +-
+ samples/rust/rust_driver_usb.rs       |  14 +-
+ samples/rust/rust_i2c_client.rs       |  12 +-
+ samples/rust/rust_soc.rs              |  12 +-
+ 37 files changed, 1182 insertions(+), 570 deletions(-)
+ create mode 100644 rust/kernel/types/for_lt.rs
+ create mode 100644 rust/macros/for_lt.rs
+
 -- 
 2.54.0
 
