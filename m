@@ -4,74 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDF40FF8868
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 16:03:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30223FF8868
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 16:09:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E00010E80C;
-	Mon, 27 Apr 2026 16:03:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F0EB10E04D;
+	Mon, 27 Apr 2026 16:09:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XqziEL16";
+	dkim=pass (2048-bit key; unprotected) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="aUCkBSHw";
 	dkim-atps=neutral
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAF2210E80D
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 16:03:32 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-488af96f6b2so137223715e9.0
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 09:03:32 -0700 (PDT)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC05F10E80D
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 16:09:19 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-488ab2db91aso146614345e9.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 09:09:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777305811; x=1777910611; darn=lists.freedesktop.org;
- h=content-transfer-encoding:subject:from:cc:to:content-language
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to;
- bh=sY/qtHWBBpZgnUzOnZFEF22Aq9WlFymCTaD2R3vOrzo=;
- b=XqziEL16E0FI5sTf2vH+PwBnDFJnbNhyWLcX4+Opj5gJQrJPA7PPBhaODVPj7ucKV8
- pN956HL4mTSDKYzZV4lRucKxNqO0/R1qJYi0g0eF9cAIsUg8ha0d4ixedtld7tnlSGyV
- Wk2je/cWGZJS+qD+ay+oJ1lc5Ry8odWQKTa6wufqaKkknuxQcln9XHukZUeW+ZNqQ2Fq
- lhAA5Tt+nDsBK/1Yy+/HGrrAAF7EK5SO6CoyVuv74GwEvHd+95Q5UsIhhJcbLfmDes0z
- A+kDKoNowY0FlPsImEvpWz0dCH/5CoNg2FHfLnyJOG6dzU6XjKaja+m/27RU7bUVola0
- TrTA==
+ d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1777306158; x=1777910958;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=wmeTZSqYAfsukWTScmRCQsjfxaSwX1dxCUKEsS3UJO4=;
+ b=aUCkBSHwM78zVfSdtSI3Ghs23Mn/vhvvc1oVDFRuCrb4R4rrUE1chz4Lp9YLn7FiAV
+ nMLZb+J95D4gN5t/rG6fsRyCXj0/xSL8Y1vWR1i/ZhE+5xNgQF+Znqv3BSKO3k+ujMOa
+ ix6SZSyNi708DE94J4NxgK9UZhO8HjKWFDmfKBVXg3k4XaIE8JnjR7Wtz6zuZg7fBMa2
+ wgCKpsheTq55W01FuKfUHTnM0qMx6yJt0KZql5BmUvS/K4qNDioDQWymxR2OJhGOcHYh
+ oGAITIypDrCxptRuuBFQZojVcc6EUM2ReBD8Ac8DMhp4rLkcQDUWB1givfFmq/ycsmJu
+ PRgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777305811; x=1777910611;
- h=content-transfer-encoding:subject:from:cc:to:content-language
- :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=sY/qtHWBBpZgnUzOnZFEF22Aq9WlFymCTaD2R3vOrzo=;
- b=fGACApkWVQPLUe/vuEZ5UW0sjXxWlETiVsH200aaZPMYAmj8hXVCW8uEhROGabsRxv
- zPYN7vfV02y7U1oPmfsIyFpgTzCLounRUEnbHrrLxB/1fvssPw1DB0dWFret0jjcV9as
- u9pj10PhGt7q553RSmAAKRF2Ne7w5wYamxSwC0Pg4aF4Ysp+rAbjD1NnZH0M9ElvfjZ3
- qmw5fZE16X7FoT2+GBx+4JIyvbzFfe2RtiExnIF39rY7dFmRoZyGlktwRujPhU/kSD45
- T5hv6gZqBx+8y062EG0HkF3Fqn7Ng5NhjQJPyKmRmnuHJaW2ofDOuCEH1CdJueeGerNK
- XxCw==
-X-Gm-Message-State: AOJu0YyiQyxsvnEBdXSvdDd5ZjzCSHmGewtt3YiPhWYYPmAGBvijCVwM
- jxsVM9okbYd1GKS8RdBYb9rYTheVBoyFS9ltWGF7cQ+j9DRMvshpsfD7PBLUrxYW
-X-Gm-Gg: AeBDievs6sUi9hnXpv9mA/tp2e2mXIZEttSwWNXwWzJBQdrv4Sd7vfG7/xpROt8cZnD
- gyUA0aXoiI8TFrptSLoHBwgEdbEaR5SFgWj8XwZsxzKabOgEJSMOTLRaDsjpKGs1F6LakvrA41F
- SJhXIhp8Fj8xz0wJiiXvQWQse3wUeXBFeuYiPCljPzeNCgYnEGGcUmsmfM2q8vZXu7ewzz8cQgp
- oa3qYu6whf0uMiU7RkVDJEvp06WsEJzXZjtEWYj2aUJLt+pW5Q//FYmW8SMPBpHRbfUSqj4zSFN
- 8RdundTjrsVEVWpUXi2QS0ZGcgocxAHhbU22AJLVS/rvu+W6LEHZAWl6aIItpdsCThOc2vlmrww
- mp3t0Fxs8j6uAzEyON6XAtdxTWEMxr+t8wmvAcK1e4pafE85pOw07TYiLSEIpjNNcEM+aL5FIL/
- SChDA/VPqGoLwbXpvO8KEqtk5dzH+wrafMhh/KcVIrJdbfkE7dqGo85/gjF4ZgLuBzbxylkh6T8
- F8L3E5JJAmG5rCx0IQRvCk=
-X-Received: by 2002:a05:600c:3504:b0:489:1c5f:3a9e with SMTP id
- 5b1f17b1804b1-48a76f5db51mr28175e9.13.1777305810925; 
- Mon, 27 Apr 2026 09:03:30 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:1d:6120:e343:7f34:3778:d262?
- ([2a01:e0a:1d:6120:e343:7f34:3778:d262])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-488fb7b2716sm255444015e9.30.2026.04.27.09.03.30
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Apr 2026 09:03:30 -0700 (PDT)
-Message-ID: <c4ee8cef-5cae-44fd-8b29-dfc92829a5b3@gmail.com>
-Date: Mon, 27 Apr 2026 18:03:29 +0200
+ d=1e100.net; s=20251104; t=1777306158; x=1777910958;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=wmeTZSqYAfsukWTScmRCQsjfxaSwX1dxCUKEsS3UJO4=;
+ b=k4cmpPxnNxzp0PP+SuedfemP28sxFGvTdMXoVgOJAjRypFk6/4pug6nMvfO117u+Zm
+ 2s2IEjcpENhmlZTy5AM0cMXC+GyUo9lBddXfqClBcTpFBU/4Ak7Ak1st1cY+zgM56KRD
+ x9NT6pBTwntJO21j34vZ1hxVBeIQ5+D3Mfqee+mkWWx0eRju7ILEz3a35kDTMSFAcWaI
+ Q6vd303hwl3quQnRo5VG7oEG5fUrhWXE6F2NhWSuDbB8pNW+fSoRyXFB+zhsPGzQ1DDD
+ vowAI+Vtl3Zoh1V18BgS1ytansDtOOH1mrWom27YwpZ23ur6NZrmoOI1YNk4RcGwIr0n
+ Ccmg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9l28vXvNfBhK++5a4PpNTw9CZke+iz/EooX4C4QUjqE4Q/GwML6MT7ecFU5xPuKdNFFkOQnM3hGJg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwHs97op7YyUMrfldJ83RWhLofgh2eMJoGLktpb5Kj357184rhH
+ dOHaeW6hzUbP03MNUaviOcisqtAzW9NOaKRbnf4MvzcSOgKhKzHg1r2AmTv7fNIR9bU=
+X-Gm-Gg: AeBDietvNccI7qSTKV4jxFMSt93OwLu4hO8n9822Ut1AWqwnG3ECL+8Cng0E+8Kwc9a
+ Hsc1SyAuztKwpaVr98mJ7oxivX+B3QfizJvkGSA9kb0lCkfN5o/38IQLvV6brvoAbVBcQF1rU4X
+ fISPDrytL9rDLDki8Izcy/tHdcNw4aIRKCLbA1k07Moru9cj24bL76s8XR1B+K/aw/PQ9lGsiJ1
+ sqmp6J1+nrKsdl2pltFUmNTGvIpMrlvE2H7Thp2KLTF7PtbzdN44KEwmrL6qvxY8uYlTd+f/oOm
+ hRGA9oEe29k8lh11q3M/1Ru4IHR/ptdzH0lOtbID9gfWCmlIT/Qt9dzrk/ryQzNymCHYuOveRpj
+ deGL16m8w2lg2Ll7n/CoSkOR9fW8Yy7sWZJw6HoJxljWwephVLM12F0zfqqVoDFEiMBk2YiBq2z
+ FJ3Dz8/Mglud/Q8xwLPGEDopi0InIQZE5Ttomr0vI+eiL1Bvyibp87tvS70QUqEIj5aWa3pm4Vn
+ OBUT3G4d7vAdB5lKtI9Oe3FDw==
+X-Received: by 2002:a05:600c:444a:b0:487:1520:d107 with SMTP id
+ 5b1f17b1804b1-488fb793580mr586443345e9.31.1777306157742; 
+ Mon, 27 Apr 2026 09:09:17 -0700 (PDT)
+Received: from localhost
+ (p200300f65f114e08ec76e48b71c06d70.dip0.t-ipconnect.de.
+ [2003:f6:5f11:4e08:ec76:e48b:71c0:6d70])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-4891c08faffsm1060922375e9.1.2026.04.27.09.09.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 27 Apr 2026 09:09:17 -0700 (PDT)
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?=
+ <u.kleine-koenig@baylibre.com>
+To: Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/xe: Don't emit UTS_RELEASE as part of device coredump
+Date: Mon, 27 Apr 2026 18:09:03 +0200
+Message-ID: <20260427160902.1126027-2-u.kleine-koenig@baylibre.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: xorg-announce@lists.x.org
-Cc: dri-devel@lists.freedesktop.org
-From: Samuel Pitoiset <samuel.pitoiset@gmail.com>
-Subject: [ANNOUNCE] libdrm 2.4.133
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1843;
+ i=u.kleine-koenig@baylibre.com; h=from:subject;
+ bh=7ULxmc7hUYR1S4INLwOW5K0zoG4kmsPVAlhrpgL4LYE=;
+ b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBp74oelWjG3La0DzZWsmKHlMT5sRuwk2gejY5io
+ fQFBGkJCjKJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCae+KHgAKCRCPgPtYfRL+
+ TnwDB/4m7AsHvYLAqulgtTAdaJFC1fPzTZiVIhtMG9GuQwzAxfx6PhQSBrNFftEA4NiV398Zz4p
+ Ee867km6Wp3+qwvaS9G3CXnpcVIG3xDj+pw4I9gNgcnkRny7EEtD191fpjOVoLbLVbknMfDuBzi
+ X/k3IQX/2CuEcpdrikcoKUA97fLoqGFnZgvdDIneVj+2OvLDwe4hVjLP4EbdoLNxMCpnJxkakuQ
+ PMe5/o6rMRz/ij8/hgn1yS/BdUVjDxFrASzeR7g3xm3aOzYKzpRAsBxVldaI7D4RNu/p1rweXcn
+ KiRLgv8/nuGnQPVNwKEjnLxyW8ZzrTdEIo1U4WISiqo0+XHN
+X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,27 +107,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This release contains few fixes for build errors that weren't caught by CI.
+UTS_RELEASE changes quite easily (e.g. uncommitted changes in the source
+tree or new commits). So when checking if a patch introduces changes to the
+resulting binary each usage of UTS_RELEASE is a source of annoyance as
+it introduces changes not caused by the change under test.
 
-Eric Engestrom (2):
-       ci: fix indentation
-       ci: bump debian from bookworm to trixie
+It's little helpful to emit the kernel version in the device coredump, so
+drop the kernel version line from it.
 
-Rudi Heitbaum (2):
-       amdgpu: fix discards 'const' qualifier from pointer target type
-       modetest: fix discards 'const' qualifier from pointer target type
+Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
+---
+Hello,
 
-Samuel Pitoiset (2):
-       add missing include to util_math.h
-       build: bump version to 2.4.133
+I'm not really sure if my assertion above that the kernel version isn't
+helpful is actually true.
 
-git tag: libdrm-2.4.133
+If yes, there are a few more very similar changes to make:
 
-https://dri.freedesktop.org/libdrm/libdrm-2.4.133.tar.xz
-SHA256: fc68f9d0ba2ea63c9432a299e14fea09fad7a8a66e8039fcd7802ca59f77b4f5 
-libdrm-2.4.133.tar.xz
-SHA512: 
-2b8016f64d2553c6cec4870b01820c48eb3985cadc4e39846bcc54db6bcec9435f65ba7749fc8271020317489bc05625e991383569cba803cca85c686d1f4568 
-libdrm-2.4.133.tar.xz
-PGP:  https://dri.freedesktop.org/libdrm/libdrm-2.4.133.tar.xz.sig
+	$ git grep -E 'drm_p.*UTS_RELEASE' v7.1-rc1 drivers/gpu/
+	v7.1-rc1:drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c:      drm_printf(&p, "kernel: " UTS_RELEASE "\n");
+	v7.1-rc1:drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c:     drm_printf(p, "kernel: " UTS_RELEASE "\n");
+	v7.1-rc1:drivers/gpu/drm/msm/msm_gpu.c: drm_printf(&p, "kernel: " UTS_RELEASE "\n");
+	v7.1-rc1:drivers/gpu/drm/xe/xe_devcoredump.c:   drm_puts(&p, "kernel: " UTS_RELEASE "\n");
+
+Best regards
+Uwe
+
+ drivers/gpu/drm/xe/xe_devcoredump.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/xe/xe_devcoredump.c b/drivers/gpu/drm/xe/xe_devcoredump.c
+index 558a1a9841a0..260e3f19286b 100644
+--- a/drivers/gpu/drm/xe/xe_devcoredump.c
++++ b/drivers/gpu/drm/xe/xe_devcoredump.c
+@@ -101,7 +101,6 @@ static ssize_t __xe_devcoredump_read(char *buffer, ssize_t count,
+ 
+ 	drm_puts(&p, "**** Xe Device Coredump ****\n");
+ 	drm_printf(&p, "Reason: %s\n", ss->reason);
+-	drm_puts(&p, "kernel: " UTS_RELEASE "\n");
+ 	drm_puts(&p, "module: " KBUILD_MODNAME "\n");
+ 
+ 	ts = ktime_to_timespec64(ss->snapshot_time);
+
+base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
+-- 
+2.47.3
 
