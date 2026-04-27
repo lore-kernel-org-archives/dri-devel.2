@@ -4,54 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC6EEFF8860
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 17:31:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78ABCFF8860
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 17:34:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4ADD110E861;
-	Mon, 27 Apr 2026 17:31:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7E4C10E872;
+	Mon, 27 Apr 2026 17:34:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="syeXzU9Q";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="DRLf8Rqb";
 	dkim-atps=neutral
-X-Greylist: delayed 349 seconds by postgrey-1.36 at gabe;
- Mon, 27 Apr 2026 17:31:47 UTC
-Received: from out-186.mta0.migadu.com (out-186.mta0.migadu.com
- [91.218.175.186])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFA3110E861
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 17:31:47 +0000 (UTC)
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1777310756;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=0Wd0ztt1cxde3+fGD/1IJw2pKKT81J5P1qKg+eBGc9A=;
- b=syeXzU9QyDJ8aW3SRcVjkxpVJYsA5gTo25Xq/O/czeK8DZT91hKz+8/wwADDGUF+FaoVZ5
- rznbhciY+O99TZZfU0XZbwlCRBk966EhookPYX1LR+XsXvA8IhxG1OiAOV8NN0BXKNB/d0
- GBsNCLrIOR0Ev4NGkkiuGwJBU5OilNw=
-From: Thorsten Blum <thorsten.blum@linux.dev>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- "T.J. Mercier" <tjmercier@google.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Thorsten Blum <thorsten.blum@linux.dev>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id A074110E872
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 17:34:14 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6EA83202C
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 10:34:08 -0700 (PDT)
+Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ 9954A3F7B4
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 10:34:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1777311253; bh=9ZAuz4dIg08zIU/ZnFoBQ2FI6FptPBY2xJtN4yIPKe4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=DRLf8Rqb0AhSiZt7rs0PxSOAzJPzxzDwXZ/TQPKGPDRX29zgzQV2iSj8sfC9D6Co9
+ Raq5sNnnoKgHR3I053T3tK7Bom7IWU8l45xfMTAV+vR2We6ED7RaPXFHtKJw0UrmAk
+ tlVOS/wt+/eBma1sPy0vIRVwMsQuOgwj2Xjw0cFg=
+Date: Mon, 27 Apr 2026 18:34:11 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Karunika Choo <karunika.choo@arm.com>
+Cc: dri-devel@lists.freedesktop.org, nd@arm.com,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  linux-kernel@vger.kernel.org
-Subject: [PATCH] dma-buf: heaps: use max3() in dma_heap_ioctl
-Date: Mon, 27 Apr 2026 19:25:21 +0200
-Message-ID: <20260427172519.417333-3-thorsten.blum@linux.dev>
+Subject: Re: [PATCH v3 4/8] drm/panthor: Store IRQ register base iomem
+ pointer in panthor_irq
+Message-ID: <ae-eEyw3wj8dSPJo@e142607>
+References: <20260427155934.416502-1-karunika.choo@arm.com>
+ <20260427155934.416502-5-karunika.choo@arm.com>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=755; i=thorsten.blum@linux.dev;
- h=from:subject; bh=JG8mxS9i7QQZ6A/BJBB1M9zNmRM6umvWte7BVTi3Gos=;
- b=owGbwMvMwCUWt7pQ4caZUj3G02pJDJnvZ///y9p5yaFJ4GPc2SNFdnkX35UtEbH1sdt8sLGhL
- 0KQf0ZaRykLgxgXg6yYIsuDWT9m+JbWVG4yidgJM4eVCWQIAxenAEykvIaRoUFa4TD3y46q+Llz
- vjOeXFa80Kq9Z0HER8XzbfMfu4vUSDP8T/mpcPZx0cdCWea9s8uCDGrX8sYunnL80NbUvV0CVoG
- 9/AA=
-X-Developer-Key: i=thorsten.blum@linux.dev; a=openpgp;
- fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+In-Reply-To: <20260427155934.416502-5-karunika.choo@arm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,23 +64,312 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace two nested max() calls with a single max3() in dma_heap_ioctl().
+On Mon, Apr 27, 2026 at 04:59:30PM +0100, Karunika Choo wrote:
+> Update common IRQ handling code to work from an IRQ-local iomem base
+> instead of referencing block-specific interrupt register offsets.
+> 
+> Store the interrupt base address iomem pointer in struct panthor_irq and
+> switch the shared IRQ helpers to use generic INT_* offsets from that
+> local base. This removes the need for each caller to expose absolute IRQ
+> register addresses while keeping the common IRQ flow unchanged.
+> 
+> No functional change intended.
+> 
+> v3:
+> - Clean up definition of pwr->irq.iomem.
+> v2:
+> - Change IRQ request function to accept an iomem pointer instead of
+>   computing it from an offset argument.
+> 
+> Signed-off-by: Karunika Choo <karunika.choo@arm.com>
 
-Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
----
- drivers/dma-buf/dma-heap.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
-diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
-index ac5f8685a649..52eec2ebb2e8 100644
---- a/drivers/dma-buf/dma-heap.c
-+++ b/drivers/dma-buf/dma-heap.c
-@@ -153,7 +153,7 @@ static long dma_heap_ioctl(struct file *file, unsigned int ucmd,
- 		in_size = 0;
- 	if ((ucmd & kcmd & IOC_OUT) == 0)
- 		out_size = 0;
--	ksize = max(max(in_size, out_size), drv_size);
-+	ksize = max3(in_size, out_size, drv_size);
- 
- 	/* If necessary, allocate buffer for ioctl argument */
- 	if (ksize > sizeof(stack_kdata)) {
+Best regards,
+Liviu
+
+> ---
+>  drivers/gpu/drm/panthor/panthor_device.h   | 32 ++++++++++++++--------
+>  drivers/gpu/drm/panthor/panthor_fw.c       |  5 ++--
+>  drivers/gpu/drm/panthor/panthor_fw_regs.h  |  2 ++
+>  drivers/gpu/drm/panthor/panthor_gpu.c      |  6 ++--
+>  drivers/gpu/drm/panthor/panthor_gpu_regs.h |  3 ++
+>  drivers/gpu/drm/panthor/panthor_mmu.c      |  5 ++--
+>  drivers/gpu/drm/panthor/panthor_mmu_regs.h |  3 ++
+>  drivers/gpu/drm/panthor/panthor_pwr.c      |  6 ++--
+>  8 files changed, 42 insertions(+), 20 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
+> index 285bf7e4439e..4e4607bca7cc 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.h
+> +++ b/drivers/gpu/drm/panthor/panthor_device.h
+> @@ -82,6 +82,9 @@ struct panthor_irq {
+>  	/** @ptdev: Panthor device */
+>  	struct panthor_device *ptdev;
+>  
+> +	/** @iomem: CPU mapping of IRQ base address */
+> +	void __iomem *iomem;
+> +
+>  	/** @irq: IRQ number. */
+>  	int irq;
+>  
+> @@ -488,6 +491,11 @@ panthor_exception_is_fault(u32 exception_code)
+>  const char *panthor_exception_name(struct panthor_device *ptdev,
+>  				   u32 exception_code);
+>  
+> +#define INT_RAWSTAT 0x0
+> +#define INT_CLEAR   0x4
+> +#define INT_MASK    0x8
+> +#define INT_STAT    0xc
+> +
+>  /**
+>   * PANTHOR_IRQ_HANDLER() - Define interrupt handlers and the interrupt
+>   * registration function.
+> @@ -498,14 +506,13 @@ const char *panthor_exception_name(struct panthor_device *ptdev,
+>   *
+>   * void (*handler)(struct panthor_device *, u32 status);
+>   */
+> -#define PANTHOR_IRQ_HANDLER(__name, __reg_prefix, __handler)					\
+> +#define PANTHOR_IRQ_HANDLER(__name, __handler)							\
+>  static irqreturn_t panthor_ ## __name ## _irq_raw_handler(int irq, void *data)			\
+>  {												\
+>  	struct panthor_irq *pirq = data;							\
+> -	struct panthor_device *ptdev = pirq->ptdev;						\
+>  	enum panthor_irq_state old_state;							\
+>  												\
+> -	if (!gpu_read(ptdev->iomem, __reg_prefix ## _INT_STAT))					\
+> +	if (!gpu_read(pirq->iomem, INT_STAT))							\
+>  		return IRQ_NONE;								\
+>  												\
+>  	guard(spinlock_irqsave)(&pirq->mask_lock);						\
+> @@ -515,7 +522,7 @@ static irqreturn_t panthor_ ## __name ## _irq_raw_handler(int irq, void *data)
+>  	if (old_state != PANTHOR_IRQ_STATE_ACTIVE)						\
+>  		return IRQ_NONE;								\
+>  												\
+> -	gpu_write(ptdev->iomem, __reg_prefix ## _INT_MASK, 0);					\
+> +	gpu_write(pirq->iomem, INT_MASK, 0);							\
+>  	return IRQ_WAKE_THREAD;									\
+>  }												\
+>  												\
+> @@ -534,7 +541,7 @@ static irqreturn_t panthor_ ## __name ## _irq_threaded_handler(int irq, void *da
+>  		 * right before the HW event kicks in. TLDR; it's all expected races we're	\
+>  		 * covered for.									\
+>  		 */										\
+> -		u32 status = gpu_read(ptdev->iomem, __reg_prefix ## _INT_RAWSTAT) & pirq->mask;	\
+> +		u32 status = gpu_read(pirq->iomem, INT_RAWSTAT) & pirq->mask;			\
+>  												\
+>  		if (!status)									\
+>  			break;									\
+> @@ -550,7 +557,7 @@ static irqreturn_t panthor_ ## __name ## _irq_threaded_handler(int irq, void *da
+>  					   PANTHOR_IRQ_STATE_PROCESSING,			\
+>  					   PANTHOR_IRQ_STATE_ACTIVE);				\
+>  		if (old_state == PANTHOR_IRQ_STATE_PROCESSING)					\
+> -			gpu_write(ptdev->iomem, __reg_prefix ## _INT_MASK, pirq->mask);		\
+> +			gpu_write(pirq->iomem, INT_MASK, pirq->mask);				\
+>  	}											\
+>  												\
+>  	return ret;										\
+> @@ -560,7 +567,7 @@ static inline void panthor_ ## __name ## _irq_suspend(struct panthor_irq *pirq)
+>  {												\
+>  	scoped_guard(spinlock_irqsave, &pirq->mask_lock) {					\
+>  		atomic_set(&pirq->state, PANTHOR_IRQ_STATE_SUSPENDING);				\
+> -		gpu_write(pirq->ptdev->iomem, __reg_prefix ## _INT_MASK, 0);			\
+> +		gpu_write(pirq->iomem, INT_MASK, 0);						\
+>  	}											\
+>  	synchronize_irq(pirq->irq);								\
+>  	atomic_set(&pirq->state, PANTHOR_IRQ_STATE_SUSPENDED);					\
+> @@ -571,17 +578,18 @@ static inline void panthor_ ## __name ## _irq_resume(struct panthor_irq *pirq)
+>  	guard(spinlock_irqsave)(&pirq->mask_lock);						\
+>  												\
+>  	atomic_set(&pirq->state, PANTHOR_IRQ_STATE_ACTIVE);					\
+> -	gpu_write(pirq->ptdev->iomem, __reg_prefix ## _INT_CLEAR, pirq->mask);			\
+> -	gpu_write(pirq->ptdev->iomem, __reg_prefix ## _INT_MASK, pirq->mask);			\
+> +	gpu_write(pirq->iomem, INT_CLEAR, pirq->mask);						\
+> +	gpu_write(pirq->iomem, INT_MASK, pirq->mask);						\
+>  }												\
+>  												\
+>  static int panthor_request_ ## __name ## _irq(struct panthor_device *ptdev,			\
+>  					      struct panthor_irq *pirq,				\
+> -					      int irq, u32 mask)				\
+> +					      int irq, u32 mask, void __iomem *iomem)		\
+>  {												\
+>  	pirq->ptdev = ptdev;									\
+>  	pirq->irq = irq;									\
+>  	pirq->mask = mask;									\
+> +	pirq->iomem = iomem;									\
+>  	spin_lock_init(&pirq->mask_lock);							\
+>  	panthor_ ## __name ## _irq_resume(pirq);						\
+>  												\
+> @@ -603,7 +611,7 @@ static inline void panthor_ ## __name ## _irq_enable_events(struct panthor_irq *
+>  	 * If the IRQ is suspended/suspending, the mask is restored at resume time.		\
+>  	 */											\
+>  	if (atomic_read(&pirq->state) == PANTHOR_IRQ_STATE_ACTIVE)				\
+> -		gpu_write(pirq->ptdev->iomem, __reg_prefix ## _INT_MASK, pirq->mask);		\
+> +		gpu_write(pirq->iomem, INT_MASK, pirq->mask);					\
+>  }												\
+>  												\
+>  static inline void panthor_ ## __name ## _irq_disable_events(struct panthor_irq *pirq, u32 mask)\
+> @@ -617,7 +625,7 @@ static inline void panthor_ ## __name ## _irq_disable_events(struct panthor_irq
+>  	 * If the IRQ is suspended/suspending, the mask is restored at resume time.		\
+>  	 */											\
+>  	if (atomic_read(&pirq->state) == PANTHOR_IRQ_STATE_ACTIVE)				\
+> -		gpu_write(pirq->ptdev->iomem, __reg_prefix ## _INT_MASK, pirq->mask);		\
+> +		gpu_write(pirq->iomem, INT_MASK, pirq->mask);					\
+>  }
+>  
+>  extern struct workqueue_struct *panthor_cleanup_wq;
+> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
+> index 4a0c23e987b6..73ef07a37e22 100644
+> --- a/drivers/gpu/drm/panthor/panthor_fw.c
+> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
+> @@ -1088,7 +1088,7 @@ static void panthor_job_irq_handler(struct panthor_device *ptdev, u32 status)
+>  		trace_gpu_job_irq(ptdev->base.dev, status, duration);
+>  	}
+>  }
+> -PANTHOR_IRQ_HANDLER(job, JOB, panthor_job_irq_handler);
+> +PANTHOR_IRQ_HANDLER(job, panthor_job_irq_handler);
+>  
+>  static int panthor_fw_start(struct panthor_device *ptdev)
+>  {
+> @@ -1470,7 +1470,8 @@ int panthor_fw_init(struct panthor_device *ptdev)
+>  	if (irq <= 0)
+>  		return -ENODEV;
+>  
+> -	ret = panthor_request_job_irq(ptdev, &fw->irq, irq, 0);
+> +	ret = panthor_request_job_irq(ptdev, &fw->irq, irq, 0,
+> +				      ptdev->iomem + JOB_INT_BASE);
+>  	if (ret) {
+>  		drm_err(&ptdev->base, "failed to request job irq");
+>  		return ret;
+> diff --git a/drivers/gpu/drm/panthor/panthor_fw_regs.h b/drivers/gpu/drm/panthor/panthor_fw_regs.h
+> index d523d41e18dd..eeb41aff249b 100644
+> --- a/drivers/gpu/drm/panthor/panthor_fw_regs.h
+> +++ b/drivers/gpu/drm/panthor/panthor_fw_regs.h
+> @@ -15,6 +15,8 @@
+>  #define   MCU_STATUS_HALT				2
+>  #define   MCU_STATUS_FATAL				3
+>  
+> +#define JOB_INT_BASE					0x1000
+> +
+>  #define JOB_INT_RAWSTAT					0x1000
+>  #define JOB_INT_CLEAR					0x1004
+>  #define JOB_INT_MASK					0x1008
+> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
+> index 747ac332be64..f00f3d9be240 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
+> @@ -110,7 +110,7 @@ static void panthor_gpu_irq_handler(struct panthor_device *ptdev, u32 status)
+>  	}
+>  	spin_unlock(&ptdev->gpu->reqs_lock);
+>  }
+> -PANTHOR_IRQ_HANDLER(gpu, GPU, panthor_gpu_irq_handler);
+> +PANTHOR_IRQ_HANDLER(gpu, panthor_gpu_irq_handler);
+>  
+>  /**
+>   * panthor_gpu_unplug() - Called when the GPU is unplugged.
+> @@ -162,7 +162,9 @@ int panthor_gpu_init(struct panthor_device *ptdev)
+>  	if (irq < 0)
+>  		return irq;
+>  
+> -	ret = panthor_request_gpu_irq(ptdev, &ptdev->gpu->irq, irq, GPU_INTERRUPTS_MASK);
+> +	ret = panthor_request_gpu_irq(ptdev, &ptdev->gpu->irq, irq,
+> +				      GPU_INTERRUPTS_MASK,
+> +				      ptdev->iomem + GPU_INT_BASE);
+>  	if (ret)
+>  		return ret;
+>  
+> diff --git a/drivers/gpu/drm/panthor/panthor_gpu_regs.h b/drivers/gpu/drm/panthor/panthor_gpu_regs.h
+> index 75474b7d7341..3f60c45985a7 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gpu_regs.h
+> +++ b/drivers/gpu/drm/panthor/panthor_gpu_regs.h
+> @@ -4,6 +4,8 @@
+>  #ifndef __PANTHOR_GPU_REGS_H__
+>  #define __PANTHOR_GPU_REGS_H__
+>  
+> +#define GPU_CONTROL_BASE				0x0
+> +
+>  #define GPU_ID						0x0
+>  #define   GPU_ARCH_MAJOR(x)				((x) >> 28)
+>  #define   GPU_ARCH_MINOR(x)				(((x) & GENMASK(27, 24)) >> 24)
+> @@ -28,6 +30,7 @@
+>  #define GPU_AS_PRESENT					0x18
+>  #define GPU_CSF_ID					0x1C
+>  
+> +#define GPU_INT_BASE					0x20
+>  #define GPU_INT_RAWSTAT					0x20
+>  #define GPU_INT_CLEAR					0x24
+>  #define GPU_INT_MASK					0x28
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+> index 853f5ebfe5c6..64d53e7cb763 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> @@ -584,7 +584,7 @@ static u32 panthor_mmu_as_fault_mask(struct panthor_device *ptdev, u32 as)
+>  
+>  /* Forward declaration to call helpers within as_enable/disable */
+>  static void panthor_mmu_irq_handler(struct panthor_device *ptdev, u32 status);
+> -PANTHOR_IRQ_HANDLER(mmu, MMU, panthor_mmu_irq_handler);
+> +PANTHOR_IRQ_HANDLER(mmu, panthor_mmu_irq_handler);
+>  
+>  static int panthor_mmu_as_enable(struct panthor_device *ptdev, u32 as_nr,
+>  				 u64 transtab, u64 transcfg, u64 memattr)
+> @@ -3247,7 +3247,8 @@ int panthor_mmu_init(struct panthor_device *ptdev)
+>  		return -ENODEV;
+>  
+>  	ret = panthor_request_mmu_irq(ptdev, &mmu->irq, irq,
+> -				      panthor_mmu_fault_mask(ptdev, ~0));
+> +				      panthor_mmu_fault_mask(ptdev, ~0),
+> +				      ptdev->iomem + MMU_INT_BASE);
+>  	if (ret)
+>  		return ret;
+>  
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu_regs.h b/drivers/gpu/drm/panthor/panthor_mmu_regs.h
+> index cc9cf603cec6..de460042651d 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu_regs.h
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu_regs.h
+> @@ -5,6 +5,9 @@
+>  #define __PANTHOR_MMU_REGS_H__
+>  
+>  /* MMU regs */
+> +
+> +#define MMU_INT_BASE					0x2000
+> +
+>  #define MMU_INT_RAWSTAT					0x2000
+>  #define MMU_INT_CLEAR					0x2004
+>  #define MMU_INT_MASK					0x2008
+> diff --git a/drivers/gpu/drm/panthor/panthor_pwr.c b/drivers/gpu/drm/panthor/panthor_pwr.c
+> index aafb0c5c7d23..705d998447b5 100644
+> --- a/drivers/gpu/drm/panthor/panthor_pwr.c
+> +++ b/drivers/gpu/drm/panthor/panthor_pwr.c
+> @@ -70,7 +70,7 @@ static void panthor_pwr_irq_handler(struct panthor_device *ptdev, u32 status)
+>  	}
+>  	spin_unlock(&ptdev->pwr->reqs_lock);
+>  }
+> -PANTHOR_IRQ_HANDLER(pwr, PWR, panthor_pwr_irq_handler);
+> +PANTHOR_IRQ_HANDLER(pwr, panthor_pwr_irq_handler);
+>  
+>  static void panthor_pwr_write_command(struct panthor_device *ptdev, u32 command, u64 args)
+>  {
+> @@ -464,7 +464,9 @@ int panthor_pwr_init(struct panthor_device *ptdev)
+>  	if (irq < 0)
+>  		return irq;
+>  
+> -	err = panthor_request_pwr_irq(ptdev, &pwr->irq, irq, PWR_INTERRUPTS_MASK);
+> +	err = panthor_request_pwr_irq(
+> +		ptdev, &pwr->irq, irq, PWR_INTERRUPTS_MASK,
+> +		ptdev->iomem + PWR_CONTROL_BASE);
+>  	if (err)
+>  		return err;
+>  
+> -- 
+> 2.43.0
+> 
+
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
