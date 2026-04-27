@@ -4,84 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E67EEFF8860
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 14:05:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFC84FF8868
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 14:29:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04E1D10E2BB;
-	Mon, 27 Apr 2026 14:05:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E980110E2B8;
+	Mon, 27 Apr 2026 14:29:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=sigxcpu.org header.i=@sigxcpu.org header.b="VncJzTTB";
-	dkim=pass (2048-bit key) header.d=sigxcpu.org header.i=@sigxcpu.org header.b="xQhv2aGe";
+	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="EUDXK0UB";
 	dkim-atps=neutral
-Received: from honk.sigxcpu.org (honk.sigxcpu.org [24.134.29.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EB6D10E2AF
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 14:05:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=sigxcpu.org; s=2024;
- t=1777298199; bh=PlVdMq6qW4rUTUiG8piYkHmgJ1TDbkyhmaNDkhl7m00=;
- h=From:Subject:Date:To:Cc:From;
- b=VncJzTTB0oUwh8yfwutxrcJZvA9YSlvCQSi5+xU/pTUKKkSHclyw/urhTWdbKj9gW
- 31ciw5rxNswCYPvsBPT0EAuhjaGkAXTSfv/tIQFRqteICZXRWTG0WkHF52R4pGxdVb
- s5pcgCn51UjVdfbCpi+gxfxKpA4s1cEhkFY/V74P9uLXOZw1mg3Hoaa5fiAUb/8ePU
- q0fa18o1LlurwMM+ZvNOCcC68mFomIPfCVcMN61JWoMrzOvlPGiqr9U7iZxRsIYCQN
- CzoSZzOYBkUzTHvvgJdc4HCQ8pUQAmg/ZEUgdk3I1s2sIeZ0Vq0kSTC5j/kU7wc9sF
- 7F30WIVysOBaw==
-Received: from localhost (localhost [127.0.0.1])
- by honk.sigxcpu.org (Postfix) with ESMTP id B02B0FB05;
- Mon, 27 Apr 2026 15:56:39 +0200 (CEST)
-Received: from honk.sigxcpu.org ([127.0.0.1])
- by localhost (honk.sigxcpu.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id lDsV6zT7T1wQ; Mon, 27 Apr 2026 15:56:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=sigxcpu.org; s=2024;
- t=1777298195; bh=PlVdMq6qW4rUTUiG8piYkHmgJ1TDbkyhmaNDkhl7m00=;
- h=From:Subject:Date:To:Cc:From;
- b=xQhv2aGeR5FalT7NQhvOWBZBgouv9CacGbRkZkBM0a5bM6PpswGDHnq7pIT1XU/Vh
- 3mfEvXPl4zx5osquUnjCytkgUFmX/S0Ujnj9HjiKcEhIXTUhKV52udvcgqF8ySvTTK
- 5uR2PZd/eWg4aUb4ubigSQEg05FuiLxzw4IRk7hXMOSj5jMz7C/8dDhwti/1kjWVn5
- QXdM/JDumOhuzcWJOBj63Ldb5KZQj1nQkAUsKoM2CRkjmFFWIg1+n//4CCJYYEjDJH
- UTJ4A9look4B2VBYwjkblSM8HzurXK0C/i7raJWVr011hC7xp9a5Dq72JaLUzqTAFV
- XHSTCkI3oqLkg==
-From: =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>
-Subject: [PATCH 0/2] drm/panel/visionox-rm69299: Split DSI commands out
- into enable/disable
-Date: Mon, 27 Apr 2026 15:56:05 +0200
-Message-Id: <20260427-visionox-rm69299-enable-v1-0-fa7d62d26d87@sigxcpu.org>
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
+ [67.231.153.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A2D510E2B8
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 14:29:11 +0000 (UTC)
+Received: from pps.filterd (m0528005.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 63R4gxBl1267896
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 07:29:10 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
+ bh=2UYvqcb6I1B7arRH3pzlLzPrPOKAEH8Y0SQKyqL2jag=; b=EUDXK0UBjzGK
+ QKaoX5rIbqufWNaKZdxeAqfPQCkyeDJd2/wFJgapOGZ67xUUMlghtDbf4D/d1LxH
+ 5K8gn8+RpXX2sydNaWxkc5Fg5ZbqRGAsqwVsCp1OE3OWi5+yquLz/58V0qPoBIMB
+ HhedRrHQtQxwKZTwXJUSL7FPjA3ZBGAKGlymgWIYr0yRV3XBk5s5Z4C1y8nt7KML
+ jPg8exqznSgbfD7YbW/T/LWbR/ipKX7cSSMzAc4VFZlAkI+faif4DC/D2wB4c7UM
+ RbXB1a99Y6RAwk67EGD4OMCuU6JKBc5xh1gQ4EhZCgV4Nyiw1GPLWPY/voT8hSRh
+ Zbz3O5ycQA==
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com
+ [209.85.210.70])
+ by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4dsf6ndb6t-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 07:29:09 -0700 (PDT)
+Received: by mail-ot1-f70.google.com with SMTP id
+ 46e09a7af769-7dcc9e6b772so16963471a34.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 07:29:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777300149; cv=none;
+ d=google.com; s=arc-20240605;
+ b=E3vi94iI+7jZN1HnClY/Dtqf8VOmxP2tbpm3DQeTrgKecLIs+/3OLAHBigzqTYjHgz
+ Cg9DGfsCQwmIwdxduE04fCN8gWgPYb7S1OV4CbdJxUwm7DWb+oABko1HBw6HltQkWTBe
+ ApPuyxyVDSbo1mjCpc3P4okPI75sf43OY3aM91kpyjqFqnJRA89L9WnUnlFb6qTBL06j
+ dYl8nNV1P9/InIBOzAPn5j/IwluSo7uuNRKTmLmvy/yE+q40dASZfR7JLb6P3hH7xJza
+ xAdG5XpagiSMlyaJjZ1vr/1R+6JKP30HHXSq6dyeAYR4MIEVpJ+2Yk/IH8aPgEkl9XCs
+ gbxQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version;
+ bh=fc3CIGbC+cnKFtpvmB87XnJppPdvAQ5kyZjnAa4rMk0=;
+ fh=k47xm2mFqQpQzRDQ32HJumuJWi7pGw3tyd5bXeagpo0=;
+ b=CkxJ2JRzYG0TJfrai+jvo451BnUsxyL0klgCaYbyBOys/vSf9ooLpfEQI+0raRYMiu
+ JwzBJK72vfLUdBbSoRHTXtVhf6Boj19eCyDAUSc7wPGCQ5el+1XSuCzN3sa+tHF8qJQ5
+ 1SHkT3sTKMaQ9INGsiMXrOIrCQ9dJ9H506SPvRD/UrzyLfUTDeNP7YhHhpx0yI/f5NRA
+ jWrGfFZon4keQrMXGR6t2o5/rkdo543R2s2m/AqPmisrQspDaGi7IEZdya0/kiAt6Nyk
+ poKfVTue84s4MkHR64AiZkiU9D7C++o1k1A5rG/7tJEuw82fFqoYPVZYmNWv2Vd2IuVI
+ 8c8g==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777300149; x=1777904949;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=fc3CIGbC+cnKFtpvmB87XnJppPdvAQ5kyZjnAa4rMk0=;
+ b=JkQYYn5f6bSMxfQ7D6x+Nu7KlvOthxGbB8d2eHKDAzAsj8JRacFrf7AWIY0YVq4rPg
+ 2RKhikknLE7AcOHYinh/5cvRgWakCK8A+Yj91Q95XZz6PWm3KoWKMTlNpCQqzcVK6lsY
+ LgiBGm41m801yXIAW/THOD6dzh0CGm3ufnQNzLetC2bjAyUvfnt90mxPG1/FaziUQmg4
+ ktmh/6oHXGxLtZrto7pGPUoUg6rD8jGAShjk3+IgYFpOIovnYvbmrDNLM8EybGxmX8mB
+ M6UXmNjqXx8vB5KqT5jMjUbVXbEr5k7lHbOIfWYONRTpxf4AzjkmgERcKoDc/q2dwQBj
+ W1zA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+LhpmNHCj2K+Kgr0kmcEMrHdiKoT4WGCT+eg0mcNPS4gvRdvGS2J0b/Jiw3TbbOQmjpWXYl20TkFY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyDKINyNctXmmIuJSZHgmPnUK72FIe2zS4qiSjsMRl/HFrXV7va
+ 2G+ut00pLjl2jsCokmkkuxz7Cpt9K8//BWVC2ekYAcyfoc0rMaljVcpETgdriIvYFfVyChLEr0a
+ l5zymmgqWQ0ryxOb5Iqjyqc2VyYbF3/VM2bsrc+nJxlhGMmAJ+iAwjoPHNg5Tj77Fsnm8eP/6i9
+ yhVbmecDHq1m25Y5wtCRtewflujbI0dVgjkescy9wCqIQ=
+X-Gm-Gg: AeBDietpkTJFwQBDbspo6QLJJarcj/6IsEmwtrsbTmfWcNTRrX+8ou5bIULwvxG55K+
+ QUbhw8URoDR8526aUb3fZh85sy++5+8JtQtLHJq7jonT2X8KlGQ31oZY35tmFYDlKL9rVtbkQC1
+ YnOCGLmhgP6TVIx7Tx2KRAfuQqe4h/cyVgG8m+6wSoJE+2mkccYlWRVJ9mEa5FEpc36GSJUftZq
+ BOIvjY11AoSXBjQgj5pH475eOJDmQ==
+X-Received: by 2002:a05:6830:82c6:b0:7d7:e3d7:e200 with SMTP id
+ 46e09a7af769-7dc95525104mr20499568a34.6.1777300149201; 
+ Mon, 27 Apr 2026 07:29:09 -0700 (PDT)
+X-Received: by 2002:a05:6830:82c6:b0:7d7:e3d7:e200 with SMTP id
+ 46e09a7af769-7dc95525104mr20499546a34.6.1777300148671; Mon, 27 Apr 2026
+ 07:29:08 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAPVq72kC/yWMWwqAIBAArxL73YJZrNhVoo8eay2UhUIE4d2T+
- hyYmQciB+EIbfFA4EuiHD5DVRYwrYNfGGXODFppUo02+CvHjWEnq61F9sO4MSpy9WxqckQN5Po
- M7OT+zl2f0gu5tPyoaQAAAA==
-X-Change-ID: 20260427-visionox-rm69299-enable-06f3d736f664
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>, 
- =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1181; i=agx@sigxcpu.org;
- h=from:subject:message-id; bh=PlVdMq6qW4rUTUiG8piYkHmgJ1TDbkyhmaNDkhl7m00=;
- b=LS0tLS1CRUdJTiBQR1AgTUVTU0FHRS0tLS0tCgpvd0VCYlFLUy9aQU5Bd0FJQVNXL2hsSksvT
- UhqQWNzbVlnQnA3MnNQZkQ0QTBKRG9vZjFpT3ZlV3drZnQrUlA4CldGMm0xakdzMlRnenp4amZ3
- c0dKQWpNRUFBRUlBQjBXSVFSajlzemZsaUtkQ1NocktzTWx2NFpTU3Z6QjR3VUMKYWU5ckR3QUt
- DUkFsdjRaU1N2ekI0eVpURC93STVDY2VoUlM1QjhIbk1ibjFZWVp5NGhjTmhicVpwZXNYMkh0Sw
- psT0d2WkNFMXFQWnN3WENOcGpaeUhSQ1p4RGsyc3I3TDlYSWxWRUd5ZDQ3VGNYQVpnQVBhTGgrd
- jUxMXI1WG44Cll2ZC9qUlVlYjdpckpIWk5qS0FaWUVISjFDblFJN2VyN3FkQXdrUmlzWTRSTHR5
- RjJmSXdGVmtBbElPRFVkRTcKaE5KMWJEbDN1S3lWQnR1bDE1bW5PQkorZTNuQTVsVGRqY2ZCUVl
- 1UjZsTzhnNVJuYVhMeFlFSXZxV3NyMFNDaQp6cFJmZmRmTkU5Q0Q4R0lGVHFUUkkwdjlrRFlMN0
- RndzZ5bjR4SWJ3dnlPVEozcjZmMDRaNWtiSDVWQmptc1ZHClFUcThtaWpjM2RCcEV4aDRuV3h5R
- 0l6Z2xtZEVHdEJXckIvOHZZMlBFUXJINXVIeUlpNmd1d3d6Z1dwSlUwSU4KME41TmR5Qm11RjZU
- c1FtYnpDOFF2aTU1ejFuQkVLb0E2SlcrRkJ0M09ZUHBiRGIrZGZWUEt2OW02eGhkRGRVMgppazJ
- hL014QW1mRHdmVjZJNzRSd1VrYWxqSDZKQ3dwb3lTcXY2SjRCQ2d5VC93ai9RNVM0OGhkc1VvRj
- ZrRlo1CllXWEpqNUNQMGc5YklSaXlqdURONCs5TFJxNlhpdnhiSmY1WjJ1NnVjZUx4SE5mY0hrQ
- kRWYU80SjlLTVZUTVkKS3AvSFh3UDhvK0paM3IvYUQraFBCYWw2TE5JMHBkZWhSaDgrNkdsMGk3
- SjRaZ1BseTJPZTQ0aXh4TktjaVcxVwpzOXQ0VkFXNDZycDdvdWE4c084YUJNbXI0Z3g2NlZ6R0h
- tV3lOUEFiV0xMNjFhUUpTY3BWT3RBVmVTblY4ZzJCCkZPOVJldz09Cj14R1A4Ci0tLS0tRU5EIF
- BHUCBNRVNTQUdFLS0tLS0K
-X-Developer-Key: i=agx@sigxcpu.org; a=openpgp;
- fpr=0DB3932762F78E592F6522AFBB5A2C77584122D3
+References: <20260420183920.3626389-1-zhipingz@meta.com>
+ <20260420183920.3626389-2-zhipingz@meta.com>
+ <20260422092327.3f629ad6@shazbot.org> <20260427133746.GJ440345@unreal>
+In-Reply-To: <20260427133746.GJ440345@unreal>
+From: Zhiping Zhang <zhipingz@meta.com>
+Date: Mon, 27 Apr 2026 07:28:57 -0700
+X-Gm-Features: AVHnY4JY-sO0J_s7LFL2WwzvQxcK7s_leO-HiTQgItvSXPr8LTKeRFwdBSndRaI
+Message-ID: <CAH3zFs2Sy0mv=QkK4VSV+MVR=ef_CdoxMhTFgzaqoZ+uSOpxoQ@mail.gmail.com>
+Subject: Re: [PATCH v1 1/2] vfio: add callback to get tph info for dma-buf
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Alex Williamson <alex@shazbot.org>, Stanislav Fomichev <sdf@meta.com>,
+ Keith Busch <kbusch@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Bjorn Helgaas <helgaas@kernel.org>, linux-rdma@vger.kernel.org,
+ linux-pci@vger.kernel.org, netdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Yochai Cohen <yochai@nvidia.com>,
+ Yishai Hadas <yishaih@nvidia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI3MDE1NCBTYWx0ZWRfX7sANdQ7flQ9o
+ gP71zRmBZSGeEID7HeqKVrSw+Bu/pfOoR6ccCyHp7G7sKeVFQkBf1uZpBWJMra5OFPGIgEIJdix
+ cSi0Dhc/OETs7qwknS3gNn2CY8qFUyAscQjgq6y55b23V/9+bCuqPOHvSqmXMc/Qh5TEKWrH/Ov
+ gehx/xanhwotXm6wmLgdYBrlRIRn5lWQG4N6wkgKO8GYGmOOpWrFiPhhYmlXBFO/3+tNIXO+Hnq
+ BUXERPl4IptfDm8Ef7zJ4kG1iJOCS/B+ep3uMi9rL7cAcuIdELWnvl9NQ26qHNiF8bxbaABQTSt
+ fOlc9I617q2yl3HZ7zBvtLihElhiOQWwEJrVdJDwWw9wbMNsM6w6RUSpBg9a2drFDtf5LjlyhkU
+ BjQUFnvYr5d/V/zgpuvfB1QcLgU8hEaewnxM3EXXSwcf6QUGSjNAhLwQ3i5OWWCAPWEEtWwYpwB
+ YlD89fkru2+s/DV1/cg==
+X-Authority-Analysis: v=2.4 cv=Cfo4Irrl c=1 sm=1 tr=0 ts=69ef72b5 cx=c_pps
+ a=7uPEO8VhqeOX8vTJ3z8K6Q==:117 a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=jCddH8ec0KUNCymVuxII:22
+ a=VwQbUJbxAAAA:8 a=VabnemYjAAAA:8 a=jaC9V5GCrIjCCUt1bV4A:9 a=QEXdDO2ut3YA:10
+ a=EXS-LbY8YePsIyqnH6vw:22 a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-ORIG-GUID: nlz_fx2_6o2rKRhPy6Mix7p9Fub7F4N-
+X-Proofpoint-GUID: nlz_fx2_6o2rKRhPy6Mix7p9Fub7F4N-
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-27_04,2026-04-21_02,2025-10-01_01
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,34 +139,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The DSI commands should be sent in enable/disable, fix that which also
-fixes various DSI commands failing on screen blank/unblank like:
+On Mon, Apr 27, 2026 at 6:37=E2=80=AFAM Leon Romanovsky <leon@kernel.org> w=
+rote:
+>
+> >
+> On Wed, Apr 22, 2026 at 09:23:27AM -0600, Alex Williamson wrote:
+> > On Mon, 20 Apr 2026 11:39:15 -0700
+> > Zhiping Zhang <zhipingz@meta.com> wrote:
+> >
+> > > Add a dma-buf callback that returns raw TPH metadata from the exporter
+> > > so peer devices can reuse the steering tag and processing hint
+> > > associated with a VFIO-exported buffer.
+> > >
+> > > Keep the existing VFIO_DEVICE_FEATURE_DMA_BUF uAPI layout intact by
+> > > using a flag plus one extra trailing entries[] object for the optional
+> > > TPH metadata. Rename the uAPI field dma_ranges to entries. The
+> > > nr_ranges field remains the DMA range count; when VFIO_DMABUF_FLAG_TPH
+> > > is set the kernel reads one extra entry beyond nr_ranges for the TPH
+> > > metadata.
+> > >
+> > > Add an st_width parameter to get_tph() so the exporter can reject
+> > > steering tags that exceed the consumer's supported width (8 vs 16 bit=
+).
+> > > When no TPH metadata was supplied, make get_tph() return -EOPNOTSUPP.
+> > >
+> > > Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
+> > > ---
+> > >  drivers/vfio/pci/vfio_pci_dmabuf.c | 62 +++++++++++++++++++++++-----=
+--
+> > >  include/linux/dma-buf.h            | 17 ++++++++
+> > >  include/uapi/linux/vfio.h          | 28 ++++++++++++--
+> > >  3 files changed, 89 insertions(+), 18 deletions(-)
+>
+> <...>
+>
+> > > diff --git a/include/uapi/linux/vfio.h b/include/uapi/linux/vfio.h
+> > > index bb7b89330d35..a0bd24623c52 100644
+> > > --- a/include/uapi/linux/vfio.h
+> > > +++ b/include/uapi/linux/vfio.h
+> > > @@ -1490,16 +1490,36 @@ struct vfio_device_feature_bus_master {
+> > >   * open_flags are the typical flags passed to open(2), eg O_RDWR, O_=
+CLOEXEC,
+> > >   * etc. offset/length specify a slice of the region to create the dm=
+abuf from.
+> > >   * nr_ranges is the total number of (P2P DMA) ranges that comprise t=
+he dmabuf.
+> > > + * When VFIO_DMABUF_FLAG_TPH is set, entries[] contains one extra tr=
+ailing
+> > > + * object after the nr_ranges DMA ranges carrying the TPH steering t=
+ag and
+> > > + * processing hint.
+> >
+> > I really don't think we want to design an API where entries is
+> > implicitly one-off from what's actually there.  This feeds back into
+> > the below removal of the __counted by attribute, which is a red flag
+> > that this is the wrong approach.
+>
+> I believe removing `__counted` is a mistake. In my proposal, the intent
+> was to adjust the meaning of the storage object based on the flag bit.
+> The size of the array should still be represented correctly.
+>
+> Thanks
 
-  msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
-  dsi_cmds2buf_tx: cmd dma tx failed, type=0x5, data0=0x28, len=4, ret=-110
-  panel-visionox-rm69299 ae94000.dsi.0: sending DCS SET_DISPLAY_OFF failed: -110
+Thanks Leon =E2=80=94 you're right that __counted_by should be preserved. In
+your approach, when the flag is set, the last entry in the array
+carries the TPH data, so the effective DMA range count is nr_ranges -
+1.
 
-Even with this applied I'm seeing some
+That said, after discussing internally, we're leaning toward
+introducing a new VFIO device feature with dedicated TPH fields (as
+Alex suggested too), to avoid overloading vfio_region_dma_range with a
+union that changes semantics based on position.
 
-   disp_cc_mdss_pclk0_clk status stuck at 'on'
-   disp_cc_mdss_byte0_intf_clk status stuck at 'on'
-   disp_cc_mdss_byte0_clk status stuck at 'on'
-
-on SHIFT6mq once during boot but all DSI timeouts are gone.
-
-Signed-off-by: Guido Günther <agx@sigxcpu.org>
----
-Guido Günther (2):
-      drm/panel: visionox-rm69299: Split DSI commands out into enable/disable
-      drm/panel: visionox-rm69299: Move power_on/off into prepare/unprepare
-
- drivers/gpu/drm/panel/panel-visionox-rm69299.c | 113 ++++++++++++-------------
- 1 file changed, 56 insertions(+), 57 deletions(-)
----
-base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
-change-id: 20260427-visionox-rm69299-enable-06f3d736f664
-
-Best regards,
--- 
-Guido Günther <agx@sigxcpu.org>
-
+Would you have concerns with that direction? I'll post a v3 with the
+new approach.
