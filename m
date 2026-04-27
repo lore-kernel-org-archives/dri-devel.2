@@ -4,132 +4,171 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FA55FF8862
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 07:20:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AD02FF8862
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 07:20:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D063110E5BC;
-	Mon, 27 Apr 2026 07:20:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2DF610E5BD;
+	Mon, 27 Apr 2026 07:20:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="B3wGxsVx";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="E0tk8eQw";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="mkoxrng5";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Ko+SkY8A";
+	dkim=pass (2048-bit key; unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="qZbHVvQj";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D52910E5BC
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 07:20:10 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id E2DFB5BD69;
- Mon, 27 Apr 2026 07:20:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1777274409; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=daZMSAY/9pQ3vP7VgeTX3PmOQp6aIB0U+G72ggcx2JA=;
- b=B3wGxsVx7ZpJ2vyplTLXxv2taJ1zOmpme4dRaHfpqraDer8qK6vDS5vRyfglItid4skVMo
- ATaG676HZIUn3UOgO1E9K4P/3IT6V2yG+/Wn+haNYMyWzkpu+yjnbMWTqpYh+mEfRtfphX
- 8LepUZbqajjfHCtqwNaW3T2iLyadh2k=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1777274409;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=daZMSAY/9pQ3vP7VgeTX3PmOQp6aIB0U+G72ggcx2JA=;
- b=E0tk8eQwtkw4HPGG214x4AFjPYBHEy6asLfbqflpzE/8/ch9FoLyKlTLcbUhPT9Gsrr31p
- B8g4qF0JBpMIr2Bw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1777274408; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=daZMSAY/9pQ3vP7VgeTX3PmOQp6aIB0U+G72ggcx2JA=;
- b=mkoxrng5DORYkgJIPUJLjXj/XkSurgEIBWQcXvSLn4w612X50obJtbUxmyburLk+UqqS+6
- vZU+zswsl85auJ/VY64qIIKihOOMjP+tx9aBe5IeuXX+DIdU57PQQysQc3fzleLtUmdNn9
- LTsX34dmdHOCLocHw9UbDnJPF2aSgT8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1777274408;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=daZMSAY/9pQ3vP7VgeTX3PmOQp6aIB0U+G72ggcx2JA=;
- b=Ko+SkY8AqhB/73uYzegWuGoJ7ms5X/1ZwRp3onVFBfjHKD1wv8rW4qgdEWqvRIGQP71mBE
- n6MhpITcuGjtUQDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6B848593B0;
- Mon, 27 Apr 2026 07:20:08 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 7hZQGCgO72nWTwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 27 Apr 2026 07:20:08 +0000
-Message-ID: <27864583-4211-4553-bdc0-42dadd25d212@suse.de>
-Date: Mon, 27 Apr 2026 09:20:07 +0200
+Received: from MRWPR03CU001.outbound.protection.outlook.com
+ (mail-francesouthazon11011015.outbound.protection.outlook.com
+ [40.107.130.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8967110E5B2;
+ Mon, 27 Apr 2026 07:20:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jfKrQ9XrVv+L2gYC4xCYDY9dymdJ0qC84B3UUhSFFzLO5ol6aNDqoLMIDRPp5Z1tC9iDxrXi29zqSqQkj+sb7iaZjYQPxQ26NBBzzGYdHwssStG05IDnK9Ar63W2AHA41OlL/3OP1+IFyneq489lY5IdUcZa4gev++LH5b2hZMPqafFMpqpvVacOtaXHX+HJXaede2TFx0JfzkaNANYFrAmp/IdOCSVdqnjREPGpFf0S8jRTlBoj/x78xe+RQaYJSvBiGcdAH0ALqnAIj+Qae61GJwoJpAxu5fyG4yCaoltCVHAPj6MxlbX5AxxZI2t7v7Aj6uq6qR0JM+PlRirW3A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gBhaC1RBr5+6/NYOOt7Qzlu1aHl7Fqeg/S9CESwLIE4=;
+ b=kB8Ls+APomvF5SGytNOccnd4YLFIc3rGtqebvUaQEk+58ydXop54/e3GoeADfS7k1lllcacMPd0QTCBIXVQg5ymsd3e7TPLryiouWmzHK2hAceTL5lkQggYYT/B6Vg0x9p5n33wGY8d6N2Zyn3nJAoIdXOOnR0ezLK0UrPjW1/18/trPMN7kdY1wCAF2xXk5FHOfd4S7T1y0U5FcnYrPiFvPU3RUz43El8vzu33vMSEoWBFjX97Kl8YPWUJR9GhVk09FlBW7UqqnmIyP820Mip7HEeItzIa5p+cUrKan11qGGIpJ05SHsGpBWJFbP9Wpul1abawCDVDZTfPI01XhCA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gBhaC1RBr5+6/NYOOt7Qzlu1aHl7Fqeg/S9CESwLIE4=;
+ b=qZbHVvQjwWsc5VAB5eHvIJaUqmFtFy07HZxd3D1IHIeNg5OH4UF2KWQvVq2EV3AnKyA2RvJgkrHD6nZvBrqgxU/JeaNN6/EPwgLjCVZYjCverIJYddf289rscOClfD/V0VLdkCCdsvMswFtO2rRWQdCEMSIQhJFT1rwbfYQniGy+V7zcZyoTsymWD5bcwr33LOhdsunC+i1/5Up8k+Cna8N7JYhSdvmkkwiBP8zYiOeJ2HJpftt1TNHhZ8MAEZy91TmYrrMTCUJB4PziOoxwaIZt94fq4qKdBqeg3OBt5qWgcbFVm2x8pPmFt3xCei3icy01c1rg0KJ8iRh6oU1wCg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV1PR04MB9135.eurprd04.prod.outlook.com (2603:10a6:150:26::19)
+ by DU4PR04MB12299.eurprd04.prod.outlook.com (2603:10a6:10:62b::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.26; Mon, 27 Apr
+ 2026 07:20:26 +0000
+Received: from GV1PR04MB9135.eurprd04.prod.outlook.com
+ ([fe80::3826:2706:1e81:c9e2]) by GV1PR04MB9135.eurprd04.prod.outlook.com
+ ([fe80::3826:2706:1e81:c9e2%5]) with mapi id 15.20.9846.025; Mon, 27 Apr 2026
+ 07:20:26 +0000
+Date: Mon, 27 Apr 2026 10:20:15 +0300
+From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Sasha Finkelstein <fnkl.kernel@gmail.com>, 
+ Janne Grunau <j@jannau.net>, Liu Ying <victor.liu@nxp.com>, 
+ Douglas Anderson <dianders@chromium.org>, Lucas Stach <l.stach@pengutronix.de>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Paul Cercueil <paul@crapouillou.net>, 
+ Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Sandy Huang <hjc@rock-chips.com>, 
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Thierry Reding <thierry.reding@gmail.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Jingoo Han <jingoohan1@gmail.com>, Inki Dae <inki.dae@samsung.com>, 
+ Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
+ Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
+ Jyri Sarha <jyri.sarha@iki.fi>, 
+ Michal Simek <michal.simek@amd.com>, Hui Pu <Hui.Pu@gehealthcare.com>, 
+ Ian Ray <ian.ray@gehealthcare.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ asahi@lists.linux.dev, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-mips@vger.kernel.org, 
+ linux-mediatek@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-tegra@vger.kernel.org, 
+ linux-samsung-soc@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH v2 06/41] drm/imx/dcss: remove now-redundant call to
+ drm_connector_attach_encoder()
+Message-ID: <ybgfrjkjwbjcpc2aw24kodcim2lf7c37qlwwh67as5otiogxp3@c2ndw3f2d6qr>
+References: <20260423-drm-bridge-connector-attach_encoder-v2-0-2ae6ca69b390@bootlin.com>
+ <20260423-drm-bridge-connector-attach_encoder-v2-6-2ae6ca69b390@bootlin.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260423-drm-bridge-connector-attach_encoder-v2-6-2ae6ca69b390@bootlin.com>
+X-ClientProxiedBy: FR4P281CA0433.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:d1::15) To GV1PR04MB9135.eurprd04.prod.outlook.com
+ (2603:10a6:150:26::19)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for drm-misc-fixes v5 2/4] drm/hisilicon/hibmc: fix no
- showing when no connectors connected
-To: Yongbang Shi <shiyongbang@huawei.com>, dmitry.baryshkov@oss.qualcomm.com, 
- tiantao6@hisilicon.com, xinliang.liu@linaro.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- daniel@ffwll.ch, kong.kongxinwei@hisilicon.com
-Cc: liangjian010@huawei.com, chenjianmin@huawei.com, fengsheng5@huawei.com,
- helin52@h-partners.com, shenjian15@huawei.com, shaojijie@huawei.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260423063233.1267631-1-shiyongbang@huawei.com>
- <20260423063233.1267631-3-shiyongbang@huawei.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260423063233.1267631-3-shiyongbang@huawei.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[17];
- MIME_TRACE(0.00)[0:+]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- FREEMAIL_TO(0.00)[huawei.com,oss.qualcomm.com,hisilicon.com,linaro.org,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- URIBL_BLOCKED(0.00)[bootlin.com:url,imap1.dmz-prg2.suse.org:helo,suse.com:url,suse.de:mid];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, bootlin.com:url, suse.com:url,
- imap1.dmz-prg2.suse.org:helo]
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV1PR04MB9135:EE_|DU4PR04MB12299:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3821bb78-7613-4c75-2784-08dea42d73ba
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|19092799006|366016|7416014|376014|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: db5x2kgA0DkMV/TxDKBe/q1GDNYIluCduHX1TZx6q+OwEo35vzqDtS0jNL3+8sSsiGlr+Lyc+X54v0ecOua+L1zIsUUU2XX0tly0B/y0f2LhDFOcnJDcz9KtgxlQCbfOgd769Y09J9gg1NPdByD9D4ir+5hj9BVkxpQ3VFkJNvDMSOOwPS079+WaCdSfvmKjmrAjWjritmwcGLBfAUk92kmm+IwZpKl+E8p4mNsERRLXuP5AGgoSR5P47ei/V8U9eAbJyuMUp0M7a/9wHVnMRiUwncBeB+4q2qi5tS4NCW7I4EvOjX0KlELlh0ljoN9x9ildugSGf3MDMrsSrtUe+VT9c0c6C8g/nWuKQ9Lu18VJvsgrldkMxeEw6FOXIBP9VjbscehehYLMCoYBdxRL9RZStXxxEwebmcuUDF/wX7dfmv//YQhd7RcY60HKfxptHx9h/hPHwJ9e4l5nc1uz1/2xzE0i5NPIpZ7XtxfLaQJL500YRfmtO23/eNH5kHZ6T7dpNjw980SqU7TFxKqOdT7S99bSpR98s3Pzoe8GdJp5EBgbF6QCaVDfMsqnLw/4wmBwOB+9YH8k3mewFu1AyItnbBo4+GnvH+anojLAQwWeZsylNvyOdIdVXLJLB/9Nytk0gMlOAbuNX7the2allNR+V/cufTRfHgRICtgc8Pxv1sQbK/XReXAEBwKTHJT2tPZ7JiXCzHYjcn5FoWP5DC2yY7CKixFFV2NTaEMMhss=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:GV1PR04MB9135.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(19092799006)(366016)(7416014)(376014)(22082099003)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?9WLRojYWt9FM4ds6PakXqpZ/2Btox4BFPoY/7PrkDv72XGQeOQX5e18winbF?=
+ =?us-ascii?Q?bDIWynbRD5L3+N2gvMfdM6yUaIIQ8tEZZE+RQ/ZHnZwvlCY4TlVys3DsUAtJ?=
+ =?us-ascii?Q?PjcinghyI1BYDGEBaPyvqAFUj9Nc6mamszc3Hgq/rw9IBZE2QcgEBkLEIYTc?=
+ =?us-ascii?Q?B9HNfDLLSIyHndp8AMbHhD1zbCMY2/GtK9WEYUZy3gqdK+LWOb143bMpgkZV?=
+ =?us-ascii?Q?JX82/MfhkyQk1in6pa7epTVk7KJ8EOBpHcTNnW4Je/SzxnjVFRXZjJ1cv223?=
+ =?us-ascii?Q?lb6m1fGCGVN0ryGCieWHTSAaGJotHoaLCOfO8Qxi7fpXvBD0Q8Fk2jUzmaqW?=
+ =?us-ascii?Q?Wx9veG2JiQKcukhn10UKwoHInr2NhHULJkVJkvrWI3LkWNCApj2/D1/2F01L?=
+ =?us-ascii?Q?Q40Qcf0gj6W+3PkmyG6+6QeHD4ROIffTCYJX4R1QQ8JDFzqfPyuZK2oWxcet?=
+ =?us-ascii?Q?HIkqScKFbnRNhW1+sBjaTL32msbUlz7XT6RXNP0av7Xjao64imu19jOJoLfK?=
+ =?us-ascii?Q?ltMumOQu92mn5/QOn8hU9s/dtajHauGLxfBVUVSuKl3Xg9yVuOZ77e4bJAGN?=
+ =?us-ascii?Q?/jLDlhWfPd/NU5Ss3O1tVOZKxdTqjiD4rxXeR3H25YXQmFGpacxGrdvv8cVL?=
+ =?us-ascii?Q?LVyuWVizkw5/Qp33w2FfvgUVz9XhPrw9TcsSJRzz80DnV4cZOstHj5Ocs02P?=
+ =?us-ascii?Q?aikUnB+sNBWMP++SuEf00AXgPr38uDZRxQ1q/QWM+82U5Qa4Js+9ZlmCkpF1?=
+ =?us-ascii?Q?hNWwE7kDEy50s3GVoKoBUyKRcmbaHuysTkATdxr2+auCDR/ZhFP+My7AEnD9?=
+ =?us-ascii?Q?u5NlwndzSYWboMUdGCsIeY+kj74G6hiZuthbfCwuCovEB1kFzRV57pt174qI?=
+ =?us-ascii?Q?n9vgbdjZ3rsNSYED2TFWhaJb/CWKPFU/z70ic9hprjpknihXiZHjSX4JdFO3?=
+ =?us-ascii?Q?tsfncGNfmYHnREJnunn0cGTZ2N1RAp55e55+OcvRBthvvCl/1dmskEKpIoTQ?=
+ =?us-ascii?Q?g8Wsc2Z6IXRKlmuFEVjFf1PWbTwk0a3vRexuLbYiaIs7pW4uVx+qI4Zep6Cj?=
+ =?us-ascii?Q?daF90p55pIUjmY3X7KXvCkxD5gPIR4yxUtLmXbR3pC/FgYBGI6dmH2M8zgcM?=
+ =?us-ascii?Q?P5xuO9JDZgXd3dLhiYkFHhHDaCLihKU/qUxeTkzisvwTSPTQaIhHJcBUkP3U?=
+ =?us-ascii?Q?6hwE1HU5btuYsZ+2mPrU6FQzGu+SCvkvi+YRaWQiSvjAqusdd7wmefDdJGCV?=
+ =?us-ascii?Q?pX4NrUtpombBX5YN8CB0lNwmFST1HgfWCHv+Yp31EBAXv9CZXm6eZwcdoney?=
+ =?us-ascii?Q?ff2yuC8N0DuCLgY7maXfOSyf/4EBcUzJqsWjodLaZmT6OzdVr/R1UepIwAdK?=
+ =?us-ascii?Q?gk8MLdEhnykQkuyWR5eGMrqZU1gf01wi46WG7JDYksX7Mwlqakm/CAEAx+W1?=
+ =?us-ascii?Q?RoFP8CqVgqWUHy+GkMIoPLxnYvJ7jtvfSRA/v+ZVIarDtWrUiifRuods3dD4?=
+ =?us-ascii?Q?E5p4eQrH/jzWl7gcoXSJkeMxT9raEvxJrsoOozgSFyveU9b8PR4OROz1eJI2?=
+ =?us-ascii?Q?lmIAPrtoWbBHAtA/bBuFVS3ciRWx7G47+iT4n9XxQgwk5ABdwTmKntWSQ4cJ?=
+ =?us-ascii?Q?6Dde5modogh6WxtPa1ZOiqCA5eOJO3RI075zqq7OuYH1HsDETASdJXD8ibPM?=
+ =?us-ascii?Q?ELn376Q35sf4aL4z59bx8vOY8H1ANWeIsPUJ14fDBdoSqwoxd9Ol+iaEXuUD?=
+ =?us-ascii?Q?RWHPOOWUapMPCb5MQ3AS0XSGyaUgscs=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3821bb78-7613-4c75-2784-08dea42d73ba
+X-MS-Exchange-CrossTenant-AuthSource: GV1PR04MB9135.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Apr 2026 07:20:25.8524 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: w8NBPTOAP+2fWpIT/IlNAsTt+NqRAYj4JNbe01eF1VaHlIR1ntfYyC/e+faaIGHZOrz/43r6IBn+j0mS7fhfPA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB12299
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,262 +184,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+Hi Luca,
 
-sorry for not getting to the review earlier. See my comments below.
+On Thu, Apr 23, 2026 at 11:17:00AM +0200, Luca Ceresoli wrote:
+> drm_connector_attach_encoder() is now called by
+> drm_bridge_connector_init().
+> 
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-
-Am 23.04.26 um 08:32 schrieb Yongbang Shi:
-[...]
-> diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
-> index 31316fe1ea8d..dfaeabd05d46 100644
-> --- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
-> +++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
-> @@ -55,6 +55,7 @@ struct hibmc_dp {
->   	struct drm_dp_aux aux;
->   	struct hibmc_dp_cbar_cfg cfg;
->   	u32 irq_status;
-> +	int phys_state;
-
-I think the correct term is 'status' instead of 'state'.
-
->   };
->   
->   int hibmc_dp_hw_init(struct hibmc_dp *dp);
-> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
-> index 35dff7bfbf76..8fe2eb51a0b3 100644
-> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
-> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
-> @@ -61,27 +61,38 @@ static int hibmc_dp_detect(struct drm_connector *connector,
->   {
->   	struct hibmc_dp *dp = to_hibmc_dp(connector);
->   	struct hibmc_dp_dev *dp_dev = dp->dp_dev;
-> -	int ret;
-> +	int ret = connector_status_disconnected;
->   
->   	if (dp->irq_status) {
-> -		if (dp_dev->hpd_status != HIBMC_HPD_IN)
-> -			return connector_status_disconnected;
-> +		if (dp_dev->hpd_status != HIBMC_HPD_IN) {
-> +			ret = connector_status_disconnected;
-> +			goto exit;
-> +		}
->   	}
->   
-> -	if (!hibmc_dp_get_dpcd(dp_dev))
-> -		return connector_status_disconnected;
-> +	if (!hibmc_dp_get_dpcd(dp_dev)) {
-> +		ret = connector_status_disconnected;
-> +		goto exit;
-> +	}
->   
-> -	if (!dp_dev->is_branch)
-> -		return connector_status_connected;
-> +	if (!dp_dev->is_branch) {
-> +		ret = connector_status_connected;
-> +		goto exit;
-> +	}
->   
->   	if (drm_dp_read_sink_count_cap(connector, dp_dev->dpcd, &dp_dev->desc) &&
->   	    dp_dev->downstream_ports[0] & DP_DS_PORT_HPD) {
->   		ret = drm_dp_read_sink_count(dp_dev->aux);
-> -		if (ret > 0)
-> -			return connector_status_connected;
-> +		if (ret > 0) {
-> +			ret = connector_status_connected;
-> +			goto exit;
-> +		}
->   	}
->   
-> -	return connector_status_disconnected;
-> +exit:
-> +	dp->phys_state = ret;
-> +
-> +	return ret;
->   }
->   
->   static int hibmc_dp_mode_valid(struct drm_connector *connector,
-> @@ -243,5 +254,7 @@ int hibmc_dp_init(struct hibmc_drm_private *priv)
->   
->   	connector->polled = DRM_CONNECTOR_POLL_HPD;
->   
-> +	dp->phys_state = connector_status_disconnected;
-> +
->   	return 0;
->   }
-> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-> index 289304500ab0..d409efc34215 100644
-> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-> @@ -24,6 +24,7 @@
->   #include <drm/drm_managed.h>
->   #include <drm/drm_module.h>
->   #include <drm/drm_vblank.h>
-> +#include <drm/drm_probe_helper.h>
->   
->   #include "hibmc_drm_drv.h"
->   #include "hibmc_drm_regs.h"
-> @@ -162,6 +163,8 @@ static int hibmc_kms_init(struct hibmc_drm_private *priv)
->   	drm_for_each_encoder(encoder, dev)
->   		encoder->possible_clones = clone_mask;
->   
-> +	drm_kms_helper_poll_init(dev);
-
-So I think this is too early. This function will periodically poll 
-connector, but they may have not been set up fully. Rather call this 
-function after drm_mode_config_reset() in hibmc_load().
-
-> +
->   	return 0;
->   }
->   
-> @@ -279,6 +282,7 @@ static int hibmc_hw_init(struct hibmc_drm_private *priv)
->   
->   static void hibmc_unload(struct drm_device *dev)
->   {
-> +	drm_kms_helper_poll_fini(dev);
-
-Init with drmm_kms_helper_poll_init() [1] and avoid this clean-up call 
-entirely.  In DRM we generally prefer managed init/cleanup over manual one.
-
-[1] 
-https://elixir.bootlin.com/linux/v7.0.1/source/drivers/gpu/drm/drm_probe_helper.c#L963
-
->   	drm_atomic_helper_shutdown(dev);
->   }
->   
-> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
-> index ca8502e2760c..6abb49b5107b 100644
-> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
-> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
-> @@ -31,6 +31,7 @@ struct hibmc_vdac {
->   	struct drm_connector connector;
->   	struct i2c_adapter adapter;
->   	struct i2c_algo_bit_data bit_data;
-> +	int phys_state;
-
-'phys_status' would again be more appropriate.
-
->   };
->   
->   struct hibmc_drm_private {
-> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c
-> index 841e81f47b68..dc40018dbd21 100644
-> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c
-> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c
-> @@ -25,27 +25,20 @@
->   static int hibmc_connector_get_modes(struct drm_connector *connector)
->   {
->   	struct hibmc_vdac *vdac = to_hibmc_vdac(connector);
-> -	const struct drm_edid *drm_edid;
-> -	int count;
-> +	int count = 0;
->   
-> -	drm_edid = drm_edid_read_ddc(connector, &vdac->adapter);
-> +	if (vdac->phys_state == connector_status_connected)
-> +		count = drm_connector_helper_get_modes(connector);
->   
-> -	drm_edid_connector_update(connector, drm_edid);
-> -
-> -	if (drm_edid) {
-> -		count = drm_edid_connector_add_modes(connector);
-> -		if (count)
-> -			goto out;
-> -	}
-> +	if (count > 0)
-> +		return count;
-
-There's a problem with the overall logic here: if the physical status is 
-'connected' and the helper could not retrieve any modes, the helper 
-should return 0 here. Then the DRM helpers do the right thing with 
-setting up a few modes or an EDID override as a fallback. See [2]. For 
-example, on my broken test system, I'd be able to provide my display's 
-EDID and get the correct output.
-
-[2] 
-https://elixir.bootlin.com/linux/v7.0.1/source/drivers/gpu/drm/drm_probe_helper.c#L436
-
-Any code below is BMC setup and should run in an else branch, just like 
-in ast.
-
-
->   
-> +	drm_edid_connector_update(connector, NULL);
->   	count = drm_add_modes_noedid(connector,
->   				     connector->dev->mode_config.max_width,
->   				     connector->dev->mode_config.max_height);
->   	drm_set_preferred_mode(connector, 1024, 768);
->   
-> -out:
-> -	drm_edid_free(drm_edid);
-> -
->   	return count;
->   }
->   
-> @@ -57,10 +50,32 @@ static void hibmc_connector_destroy(struct drm_connector *connector)
->   	drm_connector_cleanup(connector);
->   }
->   
-> +static int hibmc_vdac_detect(struct drm_connector *connector,
-> +			     struct drm_modeset_acquire_ctx *ctx,
-> +			     bool force)
-> +{
-> +	struct hibmc_drm_private *priv = to_hibmc_drm_private(connector->dev);
-> +	int state = drm_connector_helper_detect_from_ddc(connector, ctx,
-> +							 force);
-
-'state' -> 'status'
-
-> +	struct hibmc_vdac *vdac = to_hibmc_vdac(connector);
-> +
-> +	if (priv->dp.phys_state == connector_status_connected)
-> +		return vdac->phys_state = state;
-
-Please only one statement per line. First assign, then return.
-
-> +
-> +	if (state != vdac->phys_state)
-> +		++connector->epoch_counter;
-> +	vdac->phys_state = state;
-> +
-> +	/* If both the DP and VDAC physical states are disconnected,
-> +	 * the "connected" status is returned to support KVM display.
-> +	 */
-> +	return connector_status_connected;
-
-I haven't tried, but I think this should also resolve the problems on my 
-test systems. Great, thanks a lot! I might just get default resolutions 
-for now, but that's OK.
-
-Best regards
-Thomas
-
-> +}
-> +
->   static const struct drm_connector_helper_funcs
->   	hibmc_connector_helper_funcs = {
->   	.get_modes = hibmc_connector_get_modes,
-> -	.detect_ctx = drm_connector_helper_detect_from_ddc,
-> +	.detect_ctx = hibmc_vdac_detect,
->   };
->   
->   static const struct drm_connector_funcs hibmc_connector_funcs = {
-> @@ -130,6 +145,8 @@ int hibmc_vdac_init(struct hibmc_drm_private *priv)
->   
->   	connector->polled = DRM_CONNECTOR_POLL_CONNECT | DRM_CONNECTOR_POLL_DISCONNECT;
->   
-> +	vdac->phys_state = connector_status_connected;
-> +
->   	return 0;
->   
->   err:
+Reviewed-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
-
+Thanks,
+Laurentiu
