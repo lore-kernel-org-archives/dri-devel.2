@@ -4,83 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED651FF8850
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 05:32:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F9EAFF8850
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Apr 2026 06:21:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08D0910E1DD;
-	Mon, 27 Apr 2026 05:32:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A24E10E25B;
+	Mon, 27 Apr 2026 06:21:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="N2N5HfXc";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="a8/QvMCO";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="z2hvE5VT";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="LQ2Kxq4s";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="56Q2Gyyf";
 	dkim-atps=neutral
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
- [185.132.180.163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F076210E106
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 05:32:32 +0000 (UTC)
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
- by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63R4eXbr2475091; Mon, 27 Apr 2026 06:32:15 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=dk201812; bh=a
- 2TYZdUNJ6OxzgTGpbG7PpBhsV6LeoTIB5SQIKM3Wcg=; b=N2N5HfXcJ1JKpFge9
- jHlYh6EJytvts3Qp/n07JuD0Mb/kNzduZNwhInbBgG6sYnbloAZ19RV9gaR9qdRl
- UX5Ls6jhc0gvX/SPEHw3BmYmN61INmVkxGvtGWq62K/lfEA1qdysQwXj62Jhyuvu
- PKUQFHorR3rTsiB76GrbvYps3ZMEIoyy0rKTuWuEoH4Hd+a9ZrXc+mfV9/C3hjYB
- I/Z9mpz9M8PHNgCwKKSSX75b6/mXV3TCzfAIJxGZi/4RboHC/3ka1W4Bfschwu8g
- 3lN/M2s7DIIXXEy1/eK3MLIcbgbTxlOw0mzYGLk7Iz3tPoSbe3d1slryrBqtQxx5
- mrFdQ==
-Received: from hhmail01.hh.imgtec.org
- (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4drnpxhdhy-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 27 Apr 2026 06:32:15 +0100 (BST)
-Received: from [127.0.1.1] (172.25.128.214) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 27 Apr
- 2026 06:32:12 +0100
-From: Brajesh Gupta <brajesh.gupta@imgtec.com>
-Date: Mon, 27 Apr 2026 11:01:37 +0530
-Subject: [PATCH v3 1/2] drm/imagination: Fix segfault when updating ftrace mask
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8917E10E25B
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 06:21:55 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id CFBA66A811;
+ Mon, 27 Apr 2026 06:21:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1777270914; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=cZEZt7TCHH+wwJ5U7se0n4LEFWnmTvWqAEh8+bNEVvM=;
+ b=a8/QvMCOy7MnhkFVUqZe863NMkucjYHZ9gvSqNKuEPlgXBsZFdR1wT96zCdsH/GOHb0WzH
+ ib+4/PiVdKigHQaE8q6VQ9rCb6bGi1DgEG1PGkFvIzWE0zPdJi8zb8EFzBfR7ZmwrdPkHl
+ zCLIChQXa9QrjIc9HJ+j9d+nINHP+QY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1777270914;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=cZEZt7TCHH+wwJ5U7se0n4LEFWnmTvWqAEh8+bNEVvM=;
+ b=z2hvE5VTBMcjZF2KCUfIYHtSKwguOElWB40l1aK7p2aU5s1kGex8bUB5rGEiOcZej+z4Ox
+ wfSZ2O8RrkMhVzAg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1777270913; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=cZEZt7TCHH+wwJ5U7se0n4LEFWnmTvWqAEh8+bNEVvM=;
+ b=LQ2Kxq4sLYgGLQhLgsB36cwQ6Eksn49DHpLx3gaGo6PcL/eGFJm2suAW3cbJwx8cKpPJEo
+ hbcs6DQtNjgOVA9abLiXz4BOCBVfdrS/2KlFNu9u2rVF9MeQL8ZSbJiilPFtWz9cTJ1+bJ
+ hHQUmMlVqk78xbbrbJ9AfcTVaTuWnLc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1777270913;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=cZEZt7TCHH+wwJ5U7se0n4LEFWnmTvWqAEh8+bNEVvM=;
+ b=56Q2Gyyfb3KxTbEVd0y44GekdVLBzuCQ3zMFOwnetF1TJnH42OlBtO2PcOx3Yd3h6ReUwL
+ vn658Zw12EdjQ7Cg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 124F7593B0;
+ Mon, 27 Apr 2026 06:21:53 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id yLfkAYEA72lSFgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 27 Apr 2026 06:21:53 +0000
+Message-ID: <46b215b8-4b78-4a84-9474-ca5f852b2c95@suse.de>
+Date: Mon, 27 Apr 2026 08:21:51 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260427-ftrace_fix-v3-1-e081530759a8@imgtec.com>
-References: <20260427-ftrace_fix-v3-0-e081530759a8@imgtec.com>
-In-Reply-To: <20260427-ftrace_fix-v3-0-e081530759a8@imgtec.com>
-To: Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Alessio Belle <alessio.belle@imgtec.com>,
- Alexandru Dadu <alexandru.dadu@imgtec.com>
-CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- "Brajesh Gupta" <brajesh.gupta@imgtec.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1777267929; l=3744;
- i=brajesh.gupta@imgtec.com; s=20260417; h=from:subject:message-id;
- bh=iI4pzedBFuc1gdGmNvqBIOmod0AVVzIXCWdqln1KXCM=;
- b=V+cthLfHfJISc3dpXkT3sXNJspjJuIWdysXK8slrOEJlo5SJiahm8BQOE6pnClKhol9kwxgmR
- gUMHXcbw/G2B39/zujA+N8bZ46i0G0MwbpTMZZNCevJVx6qXbGUZJA9
-X-Developer-Key: i=brajesh.gupta@imgtec.com; a=ed25519;
- pk=vDcrSP6vOpWKs914T986xUbB/vY0/cU7mRRb16MRkcg=
-X-Originating-IP: [172.25.128.214]
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI3MDA1NiBTYWx0ZWRfX5HwtthYubAew
- pNVhPUiMxcAC6XTbbEKBIm/8GzwYf1Wlu04W6flYCf7I8EaCHo7n34ERpkipQhqE94cJ89qOn07
- eJ1mZ90qbz9FFwCQANr2JzEP6jFEOfmAiVIR/5lyxEC5mOfodmknLuggbiuBq77MGx2O+NHCb9A
- Wf0Dw25aOthY/1ZGldepYP93Uo8etlN362uKezE5oLlBpw3p0nwow0Oses0rGpn7Si8aGCB0haT
- QgLQhITs/lRF+jvcjOID2kC1OmnEoqXvWDMB4ceiV4UeXVQdbr+61C53IugFS725h1Lj7GnQclg
- vvGEiIMvFxtc551D1qWlmmlMShMiX7wso6t/+xHU4rbMACQbpXR+/JjhQftFni8OY/9FBq4kqvZ
- o3csHjIXJDRReOGCxCOSRV6cmkvaBxtvkmmUMT33Dxcl6QUvokJvhemelp6U2EcR9MfSXOa/Lbn
- ixqFhrNwrJsJL2mHJgg==
-X-Authority-Analysis: v=2.4 cv=G9gs1dk5 c=1 sm=1 tr=0 ts=69eef4df cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=aRQ8HefCnzIA:10 a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=fGhLjsSNAAAA:8 a=r_1tXGB3AAAA:8 a=vXDThwzsE87Lt0EVRWoA:9 a=QEXdDO2ut3YA:10
- a=LYKFdyShAPKLkGq8p7WX:22 a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-GUID: qtREhG9pIV511lMTTrHXMUBkThlwzxkn
-X-Proofpoint-ORIG-GUID: qtREhG9pIV511lMTTrHXMUBkThlwzxkn
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V1 0/2] Rust DRM build fix
+To: "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch, dakr@kernel.org, aliceryhl@google.com, ojeda@kernel.org,
+ boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com,
+ lossin@kernel.org, a.hindborg@kernel.org, tmgross@umich.edu,
+ daniel.almeida@collabora.com, lina+kernel@asahilina.net, j@jananu.net,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org
+References: <20260426082234.2026908-1-mkchauras@gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260426082234.2026908-1-mkchauras@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ TAGGED_RCPT(0.00)[kernel]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ MIME_TRACE(0.00)[0:+];
+ FREEMAIL_TO(0.00)[gmail.com,linux.intel.com,kernel.org,ffwll.ch,google.com,garyguo.net,protonmail.com,umich.edu,collabora.com,asahilina.net,jananu.net,lists.freedesktop.org,vger.kernel.org];
+ RCPT_COUNT_TWELVE(0.00)[20]; MID_RHS_MATCH_FROM(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com,protonmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ URIBL_BLOCKED(0.00)[suse.de:mid,suse.com:url,imap1.dmz-prg2.suse.org:helo];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.de:mid,
+ suse.com:url]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,76 +145,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Fix invalid data access by passing right data for debugfs entry.
+Hi
 
-[  171.549793] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
-[  171.559248] Mem abort info:
-[  171.562173]   ESR = 0x0000000096000044
-[  171.566227]   EC = 0x25: DABT (current EL), IL = 32 bits
-[  171.573108]   SET = 0, FnV = 0
-[  171.576448]   EA = 0, S1PTW = 0
-[  171.579745]   FSC = 0x04: level 0 translation fault
-[  171.584760] Data abort info:
-[  171.588012]   ISV = 0, ISS = 0x00000044, ISS2 = 0x00000000
-[  171.593734]   CM = 0, WnR = 1, TnD = 0, TagAccess = 0
-[  171.598962]   GCS = 0, Overlay = 0, DirtyBit = 0, Xs = 0
-[  171.604471] user pgtable: 4k pages, 48-bit VAs, pgdp=0000000083837000
-[  171.611358] [0000000000000000] pgd=0000000000000000, p4d=0000000000000000
-[  171.618500] Internal error: Oops: 0000000096000044 [#1]  SMP
-[  171.624222] Modules linked in: powervr drm_shmem_helper drm_gpuvm...
-[  171.656580] CPU: 0 UID: 0 PID: 549 Comm: bash Not tainted 7.0.0-rc2-g730b257ba723-dirty #13 PREEMPT
-[  171.665773] Hardware name: BeagleBoard.org BeaglePlay (DT)
-[  171.671296] pstate: 20000005 (nzCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-[  171.678306] pc : pvr_fw_trace_mask_set+0x78/0x154 [powervr]
-[  171.683959] lr : pvr_fw_trace_mask_set+0x4c/0x154 [powervr]
-[  171.689593] sp : ffff8000835ebb90
-[  171.692929] x29: ffff8000835ebc00 x28: ffff000005c60f80 x27: 0000000000000000
-[  171.700130] x26: 0000000000000000 x25: ffff00000504af28 x24: 0000000000000000
-[  171.707324] x23: ffff00000504af50 x22: 0000000000000203 x21: 0000000000000000
-[  171.714518] x20: ffff000005c44a80 x19: ffff000005c457b8 x18: 0000000000000000
-[  171.721715] x17: 0000000000000000 x16: 0000000000000000 x15: 0000aaaae8887580
-[  171.728908] x14: 0000000000000000 x13: 0000000000000000 x12: ffff8000835ebc30
-[  171.736095] x11: ffff00000504af2a x10: ffff00008504af29 x9 : 0fffffffffffffff
-[  171.743286] x8 : ffff8000835ebbf8 x7 : 0000000000000000 x6 : 000000000000002a
-[  171.750479] x5 : ffff00000504af2e x4 : 0000000000000000 x3 : 0000000000000010
-[  171.757674] x2 : 0000000000000203 x1 : 0000000000000000 x0 : ffff8000835ebba0
-[  171.764871] Call trace:
-[  171.767342]  pvr_fw_trace_mask_set+0x78/0x154 [powervr] (P)
-[  171.772984]  simple_attr_write_xsigned.isra.0+0xe0/0x19c
-[  171.778341]  simple_attr_write+0x18/0x24
-[  171.782296]  debugfs_attr_write+0x50/0x98
-[  171.786341]  full_proxy_write+0x6c/0xa8
-[  171.790208]  vfs_write+0xd4/0x350
-[  171.793561]  ksys_write+0x70/0x108
-[  171.796995]  __arm64_sys_write+0x1c/0x28
-[  171.800952]  invoke_syscall+0x48/0x10c
-[  171.804740]  el0_svc_common.constprop.0+0x40/0xe0
-[  171.809487]  do_el0_svc+0x1c/0x28
-[  171.812834]  el0_svc+0x34/0x108
-[  171.816013]  el0t_64_sync_handler+0xa0/0xe4
-[  171.820237]  el0t_64_sync+0x198/0x19c
-[  171.823939] Code: 32000262 b90ac293 1a931056 9134e293 (b9000036)
-[  171.830073] ---[ end trace 0000000000000000 ]---
+Am 26.04.26 um 10:22 schrieb Mukesh Kumar Chaurasiya (IBM):
+> rust drm gem shmem doesn't builds due to an import error of ARef from
+> types instead of sync.
+>
+> This series fixes that and also makes CONFIG_RUST_DRM_GEM_SHMEM_HELPER
+> dependent of RUST and making it selectable from menuconfig.
 
-Fixes: a331631496a0 ("drm/imagination: Simplify module parameters")
-Signed-off-by: Brajesh Gupta <brajesh.gupta@imgtec.com>
----
- drivers/gpu/drm/imagination/pvr_fw_trace.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Memory managers are selected by drivers, not by users. You have to fix 
+the driver rules instead.
 
-diff --git a/drivers/gpu/drm/imagination/pvr_fw_trace.c b/drivers/gpu/drm/imagination/pvr_fw_trace.c
-index e154cb35f604..6193811ef7be 100644
---- a/drivers/gpu/drm/imagination/pvr_fw_trace.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw_trace.c
-@@ -558,6 +558,6 @@ pvr_fw_trace_debugfs_init(struct pvr_device *pvr_dev, struct dentry *dir)
- 				    &pvr_fw_trace_fops);
- 	}
- 
--	debugfs_create_file("trace_mask", 0600, dir, fw_trace,
-+	debugfs_create_file("trace_mask", 0600, dir, pvr_dev,
- 			    &pvr_fw_trace_mask_fops);
- }
+Best regards
+Thomas
+
+>
+> Mukesh Kumar Chaurasiya (IBM) (2):
+>    rust/drm: import ARef from sync crate
+>    drm: Make CONFIG_RUST_DRM_GEM_SHMEM_HELPER selectable from menuconfig
+>
+>   drivers/gpu/drm/Kconfig      | 4 ++--
+>   rust/kernel/drm/gem/shmem.rs | 2 +-
+>   2 files changed, 3 insertions(+), 3 deletions(-)
+>
 
 -- 
-2.43.0
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
 
