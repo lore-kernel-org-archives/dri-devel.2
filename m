@@ -4,51 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 780B2FF885D
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 07:56:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDFCAFF886D
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 07:59:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0F3F10EA58;
-	Tue, 28 Apr 2026 07:56:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B823C10EA5E;
+	Tue, 28 Apr 2026 07:59:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cY/mOurf";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bC9Ge2DD";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A296A10EA58
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 07:56:35 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id A9CF260142;
- Tue, 28 Apr 2026 07:56:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7D66C2BCAF;
- Tue, 28 Apr 2026 07:56:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777362994;
- bh=Mzlq90K/VTzR+F+26arnfLMjVpYCl7Zu2AB1/5S1PyI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=cY/mOurfmE7MW35rMnA3eBhijxSBFke9z4rkAmG7LU/v+gt2QEXHGRGzRqHqjgZr0
- g9Z9+e1hlmA6psMDM97KuE9wpOGHHHXxVBQwUexE1J6eNwfCXKXAos1HwR93+77Ytr
- FiDLFjoo7k0+HjGtlzLiP2o8bl4JHz5OhXVUnEIPOqgNt6AKn7RINzjY0jqUoyPms5
- nYF1Bl0y59a/A6AuyCSNFc0PtkYsZgntKTPJpcr2KmnjuDOkc5qVHQqjACARtSSwQj
- m5Hibyqhg6s7h9T+2EdLCrGToPTepcMIVU6T6I/hwtc1mDm5Ue66tMdtDwR/JJWAXO
- x4h+gZHrWkx3w==
-Date: Tue, 28 Apr 2026 09:56:31 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Chris Morgan <macroalpha82@gmail.com>
-Cc: linux-rockchip@lists.infradead.org, linux-pm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, xsf@rock-chips.com,
- sre@kernel.org, 
- simona@ffwll.ch, airlied@gmail.com, tzimmermann@suse.de, mripard@kernel.org, 
- maarten.lankhorst@linux.intel.com, jesszhan0024@gmail.com,
- neil.armstrong@linaro.org, 
- heiko@sntech.de, conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org, 
- Chris Morgan <macromorgan@hotmail.com>
-Subject: Re: [PATCH 2/6] power: supply: sgm41542: Add SG Micro sgm41542 charger
-Message-ID: <20260428-vivacious-fearless-monkey-fe433e@quoll>
-References: <20260427170914.5062-1-macroalpha82@gmail.com>
- <20260427170914.5062-3-macroalpha82@gmail.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5D3610EA5B;
+ Tue, 28 Apr 2026 07:59:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1777363177; x=1808899177;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=pgnMgeFHgcdZiD+QYScLixA3JIcWgj6imfhAqT2uDiA=;
+ b=bC9Ge2DDe+MAU2FyPBxB7anL12CC/2W0ZVv4RyHkqAsXnI5hwy2iDvas
+ Ob8LzWn7+SGVFF9X0Y0U3NZQsRU+AsFDp8kBNINRzTEnc9e5Fy166mg/A
+ UfijZP/CRa/73Toy1T3OeDBTSRh7MnefJxlsChpOedSzrXwPwr/K9jKxT
+ hNvf9wPD4TyFeriE61YuI73lNiEp1u/gE+efCgRDW+W6erYsQgSScKzMW
+ 3ajh0y/rOThqmDx2/XHd+Fw0n6QDbeMETV1hL/G2kgzN+PL6hSdnokqQH
+ ixTxM8R1n5XkTKQ5S9eJt/n8fz+A/E1/X9wYnCRlgp6Ki0YNtLHuPmaPD w==;
+X-CSE-ConnectionGUID: bCeC8k29RXul+n1MALeYhw==
+X-CSE-MsgGUID: kIFEcZZkSDmTVyYOinQBsg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11769"; a="82115895"
+X-IronPort-AV: E=Sophos;i="6.23,203,1770624000"; d="scan'208";a="82115895"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Apr 2026 00:59:37 -0700
+X-CSE-ConnectionGUID: waNo1va1ShqjsYYaC3I+Dw==
+X-CSE-MsgGUID: 2brYyKAVSMmHUJfupgwqyQ==
+X-ExtLoop1: 1
+Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
+ by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Apr 2026 00:59:35 -0700
+From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: ville.syrjala@linux.intel.com, jani.nikula@linux.intel.com,
+ Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Subject: [PATCH 0/9] AS SDP cleanups and additions for Panel Replay + VRR
+Date: Tue, 28 Apr 2026 13:14:48 +0530
+Message-ID: <20260428074457.3566918-1-ankit.k.nautiyal@intel.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260427170914.5062-3-macroalpha82@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,62 +67,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Apr 27, 2026 at 12:09:10PM -0500, Chris Morgan wrote:
-> +	strscpy(sgm->model_name, id->name, I2C_NAME_SIZE);
-> +
-> +	sgm->regmap = devm_regmap_init_i2c(client, &sgm4154x_regmap_config);
-> +	if (IS_ERR(sgm->regmap))
-> +		return dev_err_probe(dev, PTR_ERR(sgm->regmap),
-> +				     "Failed to allocate register map\n");
-> +
-> +	i2c_set_clientdata(client, sgm);
-> +
-> +	ret = sgm4154x_hw_chipid_detect(sgm);
-> +	if (ret)
-> +		dev_err_probe(dev, ret, "Unable to read HW ID\n");
-> +
-> +	device_init_wakeup(dev, 1);
-> +
-> +	if (client->irq) {
-> +		ret = devm_request_threaded_irq(dev, client->irq, NULL,
-> +						sgm4154x_irq_handler_thread,
-> +						IRQF_TRIGGER_FALLING |
-> +						IRQF_ONESHOT,
-> +						"sgm41542-irq", sgm);
+This is a subset of patches separated from the series at
+https://patchwork.freedesktop.org/series/164512/ for merging.
 
-Interrupt should be requested and enabled at the end or almost at the
-end. If it is triggered now, which supply are you marking as "changed"?
+These are drm-core (drm/dp) patches that clean up and extend the
+Adaptive Sync SDP definitions and helpers in preparation for
+Panel Replay + VRR support.
 
-Code looks at least correct in relation between interrupt and workqueue,
-but it is not really obvious and thus not following established coding
-practice. Practice is usually: first you allocate driver-like or
-memory-like resources, then you request hardware related resources.
-That's why every probe starts with devm_kzalloc(). Similarly with
-workqueue, initializing power supply etc.
+Rev2:
+ - Refactor SDP logging to use space-separated field and
+   drm_printf_indent. (Ville, Jani)
 
-> +		if (ret)
-> +			return ret;
-> +		enable_irq_wake(client->irq);
-> +	}
-> +
-> +	ret = sgm4154x_power_supply_init(sgm, dev);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to register power supply\n");
-> +
-> +	ret = sgm4154x_hw_init(sgm);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Cannot initialize the chip.\n");
-> +
-> +	sgm->sgm_monitor_wq = alloc_ordered_workqueue("%s",
-> +			WQ_MEM_RECLAIM | WQ_FREEZABLE, "sgm-monitor-wq");
-> +	if (!sgm->sgm_monitor_wq)
-> +		return -EINVAL;
-> +
-> +	ret = devm_add_action_or_reset(dev, sgm4154x_destroy_workqueue,
-> +				       sgm->sgm_monitor_wq);
+Ankit Nautiyal (9):
+  drm/dp: Rename and relocate AS SDP payload field masks
+  drm/dp: Clean up DPRX feature enumeration macros
+  drm/dp: Add bits for AS SDP FAVT Payload Fields Parsing support
+  drm/dp: Add DPCD for configuring AS SDP for PR + VRR
+  drm/dp: Refactor AS SDP logging to use space-separated field names
+  drm/dp: Store coasting vtotal in struct drm_dp_as_sdp
+  drm/dp: Add a helper to get the SDP type as a string
+  drm/dp: Add target_rr_divider field in AS SDP logging
+  drm/dp: Use drm_printf_indent for DP SDP logging
 
-Use rather devm_alloc_ordered_workqueue().
+ drivers/gpu/drm/display/drm_dp_helper.c | 69 ++++++++++++++++++-------
+ drivers/gpu/drm/i915/display/intel_dp.c |  4 +-
+ include/drm/display/drm_dp.h            | 20 ++++---
+ include/drm/display/drm_dp_helper.h     |  1 +
+ 4 files changed, 68 insertions(+), 26 deletions(-)
 
-Best regards,
-Krzysztof
+-- 
+2.45.2
 
