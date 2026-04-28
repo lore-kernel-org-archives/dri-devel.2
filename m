@@ -4,70 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC2BCFF8875
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 10:10:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDE55CCFA1A
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 10:10:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35A3610E21D;
-	Wed, 29 Apr 2026 10:09:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D39E10EF17;
+	Wed, 29 Apr 2026 10:10:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="ANz+d50p";
+	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="SWMyYraZ";
 	dkim-atps=neutral
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05E7910E2CF
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 19:16:11 +0000 (UTC)
-Received: by mail-dl1-f48.google.com with SMTP id
- a92af1059eb24-12c87f1f8c8so702450c88.2
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 12:16:11 -0700 (PDT)
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com
+ [209.85.128.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CFF210E04C
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 23:20:20 +0000 (UTC)
+Received: by mail-yw1-f173.google.com with SMTP id
+ 00721157ae682-79e28507f25so6864057b3.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 16:20:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1777317371; x=1777922171; darn=lists.freedesktop.org;
+ d=usp.br; s=usp-google; t=1777418419; x=1778023219; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=/gnG/TV4QlirwEhC4yr5r/hW1goyUy/VqJ4SZeh+gDg=;
- b=ANz+d50pEOgqZW9ADk7BlDe4vHVc5v1KgJrI70JjWOciAvfrDOQFHVnnXef0T4eqiT
- T8+gAzvVasxJQye+bM/rSvdc1zIpVrClD7ulntQIjPHroxez1zf/+X/BK2Mh/kv2X60j
- 4g+HUlivWnm21k1pb8wqDzBh1lyDwJ6V75z6E6JemCa3m4K9H2Z1sFe/xK43aLdwtOG/
- LCIDrs1B5/0BUglNzlsPW7E+bdVJSukR/OAF8p7tPPepJjSo2D4sXlxFulohAEQvCFpM
- Si+HF3XNa/9G7/LAzE0e9nQhz1hv8dpMI5gGZb2xIfXGIuYm+EXTemp2gZhnph0qZXaP
- CAGA==
+ bh=+rH+HukFVVKTSyLtA3CLcCCBO3teYBV/5ae/ix8Fdr0=;
+ b=SWMyYraZAkATDKFrE+NrQ1T7Kpf5JkfWkL+IU7a6WrfrtXNR/7wMOb5wb8QEeM/sHp
+ ek+SsVeOVNAMginqToLMAOxCLobexREmXqC6cNwkvsQlgxXDNWLmuAQ2vNLTds3+14Ki
+ Oky4vdFhZgLV8/q+njYNiAtmLxshll6TASasCzDrXoFERea+ds/mG9bk/y4KUXVn/P7O
+ 6Jg85BGNFQaoAXdusGnT9UBh4PGt80jDOCahq7yHKqz72eNeCrQyAiJxIjhRy8mxeiQl
+ 3L//gBFmA+AxNpskcdspwDQlYRKg0z0fH57gbO5kDn56ygoItaY6pm1Ok1/YVcm1RDuy
+ yUDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777317371; x=1777922171;
+ d=1e100.net; s=20251104; t=1777418419; x=1778023219;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=/gnG/TV4QlirwEhC4yr5r/hW1goyUy/VqJ4SZeh+gDg=;
- b=OQgB5xx81skbHAWSJ+zvrGbz1l9sgU64FtxL+sJAKD2uIij1ZMLwbznueRFmms2Mf4
- lJlG7+T5LPCIV2PD0f82MDobu8HHTb630cGowO9Dsoz+pmsyTXkf5g2INKuYPLwiO7/y
- Yj5n50DGKl9jwG+1hFWaNE29s2vE6TgWBiZUSyNN0Ssj0uR88pvlsYllNsXkKbHgktVL
- imHFph+LZbLY6r6OrcHdq16oFA9dGemSf694qHpO4VW6Gu183m7V+VKIitiNG5Aaaozq
- MnG6WSJ25DL6mEdGEbxi1EV9zZ82AVITBOjXwLtH04eVYVxREGNhjscxqOSEs2xJJbqo
- cjpQ==
+ bh=+rH+HukFVVKTSyLtA3CLcCCBO3teYBV/5ae/ix8Fdr0=;
+ b=MUKfAfoT18kw101QuEfwoLUQhzDyzRNd7WPHGD23vkNZ+o/vynlXM1zS53YGYoUbDV
+ EWXq91faCLmV9AXt7lLuG4P5G3pl5WRa05dLF6b0jCedi+9ptg/QTn3bPpjjEpDjjthH
+ 6ijHmvQhXrLut6mAB1MFpNmF26i89tbNoX9wMpJjz/UR8aAf6pqmQz8pAE5qd8KTWNSL
+ hccFVsJ1dIwmzKNuVjO1EtFs38fR6c149q6n2pT9sElBQRkj3i2fEtt5Grnd8WwuFsZL
+ L7w8lYT9K/bo7g9lXkDygdqObqV38LiiPszmhWV19UCnJ7JgUP3ISy6bHAlKeV8rjAJe
+ Q16Q==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8XSdiRcDKjfJx/sc3xVJJCg7mN+O/HcH0TAgbp26BHD08RwWHNz4qZq/s0iroqA1V5u9Wn0G8Xga0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzfWK5yLfnp5QnZFk6jnP580W47KwnT8oF1mTB5QNQaJeaxWG1e
- 0iTMWzLlgIsw7cve1At7URZi8eFysf1AdhrXQ6yPOkQB5+/yTSYXV4Ojqbgjwt9gPAE=
-X-Gm-Gg: AeBDievyCt3JPc4gSHEq5jB3ejuREJEwwS5FD9WV24XtpCaCrdv85X56/kmjmmXsUfY
- T4XNuxknMgM8i+RibwN4zRSKywrcpT3lR8lZgWqMRg43xnu3Fvhnds9mQhQenM7x4KrqF2LSFyx
- wQxpy68FxWvm7fx0dDqjGtJbDgNIyEDztyFsHGxYyBuXd4kyjn66w+G/6yN/MJEBZfy6e7MwLCQ
- y58stqLCT0JZBjRam7hGEXp3j878GkaXysB17rWYFfsuJV6QkM/H4aoL8RT0GTmbNzNW7syoz48
- /E0cN94adMqMi58GepGyKwjgRgbg+7ICX2+s7rgF5178W/jqHhNe1CEWTPuHzij6r9XCKPz7Fz5
- Dc0JR20QITX13jE+AJ/xTf9EwQRCuXB90DMbbwSHT0/GARt0nmu2wehRRYwzV4oSktbguOqyRuc
- AjwrDglGyDkOqPbilqKEERzKmzVkgAF05ynINVZs8EAfDq3Fn9RCCtEK3HON/O
-X-Received: by 2002:a05:7022:f8c:b0:12d:b4e2:f566 with SMTP id
- a92af1059eb24-12ddd539d5cmr109672c88.4.1777317370737; 
- Mon, 27 Apr 2026 12:16:10 -0700 (PDT)
-Received: from Haru.. ([2804:1b1:f983:1702:93e0:14bb:90e7:dc5e])
+ AFNElJ8bq2SNt/Vr20leH8DOKdT9u5F6sQpvqKCBO25H5/PxsXhIPuJnZAOHvVaCaanCQoIXNCkU3TuUhcg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxCzNAuC8YcgGNyzQu3mjOJ+ZWH7UYZ/ZK9Uguh16WZR5Mlto/7
+ 07Mes3uGeFKQYimWYOizoLjmEDGvWHNPL9Kd1W2rxtaY14ATRxL+cfky2cLqQVATSuY=
+X-Gm-Gg: AeBDievXbEYoNhvXVIohy71K8Hkr+rdSvBXwgvppnlRmBKNOZE7lSvU1Z7M07O57dBC
+ 8IAzuoC2yRMhTEFXQiDyFQdzdTlpFXCwUiJeamG9Yqih504UqzNyiJ9QH6jMgJemWuYQbu3mhsa
+ sTslPFS4b7nN8Rk8YK0rpv7i2nXhJo90S760HmgF9O0xg4BEpbcVvO+QfMQFc1g6ck4zDch0/N6
+ rjZOCjRwvk2WHgpkPqgAXYVxRPRdD8SzX0DWNeF4qbOyuOBRThyUCgwMehlGOmsDQg5gwDjYXGk
+ oZXQOmTe4O/JohOOz5XuKtA0ypjUMsU3c8GCAnjx2wQv7zVF9sBCqZoCpG6kMnusb/Lhwq7fjJV
+ UC5PQKwnuEFXLgX/Fk96W+uRBvItLyO0ABCsuRCwEUOdrzH8l3hvr5IYq8sCZCjiFLGjBU7JR1p
+ TxBblQOvXuWircLB0q2f2wV/r9gMifaTzWVnzAUR+ow1b61VvIfxhKh5Hi9z8=
+X-Received: by 2002:a05:690c:1d:b0:7a0:5979:8d9c with SMTP id
+ 00721157ae682-7bceddd9463mr39695897b3.6.1777418418990; 
+ Tue, 28 Apr 2026 16:20:18 -0700 (PDT)
+Received: from Haru.. ([2804:1b1:f983:86f3:700:20fe:a71d:1f36])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-12ddd9b1e3bsm144583c88.13.2026.04.27.12.16.05
+ 00721157ae682-7bd252a5a9esm5299417b3.14.2026.04.28.16.20.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Apr 2026 12:16:09 -0700 (PDT)
+ Tue, 28 Apr 2026 16:20:18 -0700 (PDT)
 From: Leonardo Cesar <leonardocesar@usp.br>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
  simona@ffwll.ch
 Cc: Leonardo Cesar <leonardocesar@usp.br>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH v3] drm/amdgpu: deduplicate ring preempt ib function
-Date: Mon, 27 Apr 2026 16:15:19 -0300
-Message-ID: <20260427191556.9672-1-leonardocesar@usp.br>
+Subject: [PATCH v4] drm/amdgpu: deduplicate ring preempt ib function
+Date: Tue, 28 Apr 2026 20:19:44 -0300
+Message-ID: <20260428232009.10737-1-leonardocesar@usp.br>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -95,22 +96,22 @@ duplication and simplify future maintenance.
 Signed-off-by: Leonardo Cesar <leonardocesar@usp.br>
 
 ---
-v2 -> v3:
-- Style fix: Move variable declarations to follow reverse christmas tree and do not initialize 'r' on definition.
+v3 -> v4:
+- Dropped 'r' variable by reordering the return logic
 
  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | ...
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 53 +++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 52 +++++++++++++++++++++++++
  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  2 +
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 52 +-----------------------
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c  | 52 +-----------------------
- 4 files changed, 57 insertions(+), 102 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 52 +------------------------
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c  | 52 +------------------------
+ 4 files changed, 56 insertions(+), 102 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index 2956e45c9..45d41f24d 100644
+index 2956e45c9..f7ebead09 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -2684,3 +2684,56 @@ void amdgpu_debugfs_compute_sched_mask_init(struct amdgpu_device *adev)
+@@ -2684,3 +2684,55 @@ void amdgpu_debugfs_compute_sched_mask_init(struct amdgpu_device *adev)
  #endif
  }
  
@@ -120,9 +121,7 @@ index 2956e45c9..45d41f24d 100644
 +	struct amdgpu_kiq *kiq = &adev->gfx.kiq[0];
 +	struct amdgpu_ring *kiq_ring = &kiq->ring;
 +	unsigned long flags;
-+	int i, r;
-+
-+	r = 0;
++	int i;
 +
 +	if (adev->enable_mes)
 +		return -EINVAL;
@@ -156,14 +155,15 @@ index 2956e45c9..45d41f24d 100644
 +		udelay(1);
 +	}
 +
++	/* deassert preemption condition */
++    amdgpu_ring_set_preempt_cond_exec(ring, true);
++
 +	if (i >= adev->usec_timeout) {
-+		r = -EINVAL;
 +		DRM_ERROR("ring %d failed to preempt ib\n", ring->idx);
++		return -EINVAL;
 +	}
 +
-+	/* deassert preemption condition */
-+	amdgpu_ring_set_preempt_cond_exec(ring, true);
-+	return r;
++	return 0;
 +}
 +
 +
