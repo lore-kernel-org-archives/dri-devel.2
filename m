@@ -4,96 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34CCFFF886D
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 13:59:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CED0FF885A
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 14:02:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D56C10E354;
-	Tue, 28 Apr 2026 13:59:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1A3510E358;
+	Tue, 28 Apr 2026 14:02:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="xh02jKRt";
+	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="QJNbegDt";
 	dkim-atps=neutral
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCDAD10ED03
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 13:59:17 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-488a9033b2cso121099305e9.2
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 06:59:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1777384756; x=1777989556; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=eKZ7iAWIrTA/bQhSyAbJFi9RrHxwT2445JQxA+ahvBs=;
- b=xh02jKRtgUMIRSxka5y5iEw9SEKQRNbNbHdKlfwPwf3g8ZCtW/ajJ/2daJqhrycsf8
- u2NdwEtni3jCLa7xTVz3Oy2yn6DJn7DOKOB1fG+59ij0jfNwY8aETiJtvNG5mNOSWq4q
- 7OiXh0MaVa31nPDtA+cAuMqDBX6IB5q2iHxgZcsLyRmTnddVfpVkzDPCyeKdKfW7/Ffy
- CWJagGtFWN1CQieZs1fGKM8XmBfovZ9PlkcD8Sde0BaMJqtCGKsXPIuzzp3OjoO1DH3F
- NGqK/CzPFzyIuSHkXkb+PUDdkuvW8XGKIn70uG3KLjYfaagwl1hs+zFsozSZ/9W06OFb
- /P9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777384756; x=1777989556;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=eKZ7iAWIrTA/bQhSyAbJFi9RrHxwT2445JQxA+ahvBs=;
- b=EXQezzGMpKUnq3ml89By01/JhjDx7dBI9TIy0A7UojHqejR+fN2HTSzk/GxPevgVQ+
- XzZlqVg4XtODt/cez8ZTA0s19IO8Tbl7awFCo2zQaAhgJu5FutpWEIaE2JMOdbpRk3ho
- kH+8qtO5WqPok/MeDW5muBFqWWnyBxVQxIffW9F5XHfPH1tAIbQBw8psH2BdAYy6qNo2
- t2Hip+OyNkBP1+j8UFLjPBlPVm7nv59QOuuYFQ1dU7HsPuEbw2aM0SlygVjw62ecGmmw
- Pqt3t2PfL596H7aA+MeJkLyeaLgwrJGcQeBw1kflXbVZx1o48XW5e3j12Zxj6uB6klVd
- n8uQ==
-X-Gm-Message-State: AOJu0Ywrf1wPBk9CzbVreHPXe101qUlGQwbGUGoiSpqfpnn5GiMV1i76
- lUKTv/E5fMN1QsZNNM5OIuPKBmcd0kySY/rNlu37q+d8QoEZIoGMg5oaCZBoWqB1GV8=
-X-Gm-Gg: AeBDieuHQw4Qg5mLAqAIzQwSg0FtOVWMnvUYPBbyT3i+NMWQy/xudtEcoB9JytWOXCW
- yuHyPXrgfSqdcfFQznx5TKrsg0kIU3MY1Y/qYftgCpfJMdkoIYdQwROlIKEblL5u5Hb3oHB26dF
- /tSd5fkYKWTsvFMRU5Gt0EwMod2+PEjPCBrPUh0vo6TJOtKoI1hKuPOyitwuUqee09zYhFKU/uX
- psrG8Lss1WNGp9tc0p/7C+1HTsfwdFUe88x5FBWynofzbunhN5TaEDMSZIYWq4+hOx//0fsknZZ
- vEpUGwVnJRa5oMHTEB8AQzdHkYI8P8tPjIA1hFFAU7vm09n/tT2B27uoOQAUCs1YC0klC09T3v8
- pIIFUJ0e0Mia53DU0D8ifXrjsU331y9VCPZPF0uzBKEnIeyWekMz7RiTR9SAzv0ShRYzoLesb5s
- Ng8rqq/mWfvYX3hmYJTZaX9HhcRhjrU8XpLiRSCt5F2fqTOAynMI3o26E=
-X-Received: by 2002:a05:600d:8402:b0:489:149a:f9e7 with SMTP id
- 5b1f17b1804b1-48a77b25340mr41771075e9.27.1777384756154; 
- Tue, 28 Apr 2026 06:59:16 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48a773efe04sm60811155e9.12.2026.04.28.06.59.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Apr 2026 06:59:15 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Tue, 28 Apr 2026 15:59:12 +0200
-Subject: [PATCH 2/2] backlight: Add SY7758 6-channel High Efficiency LED
- Driver support
-MIME-Version: 1.0
+Received: from TYVP286CU001.outbound.protection.outlook.com
+ (mail-japaneastazon11011041.outbound.protection.outlook.com [52.101.125.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30F2F10E358;
+ Tue, 28 Apr 2026 14:02:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jepgfpGV5G/cMpZXen5+bq40tR0HQBE2XgcjhMHPJwHdeFixIumQt+Vf1xYigxKUExQg9E41+zwDq2NsALRw53VA51rLq3OybmXm2466ep834cu3YHilKrfkAxRRaiiQtagcjDhx53HINOqTCMlOAIKZ8lKzOSs2o+UhNNSNNXm9Sjxy8CCjz9ohmJervLUddmh3jBpZDjDNp5OvFfg/wfC/DZmbE3LXbHSifrWZqsQlgwcjxZmLilYhsnIDfOgqhT1MP8tYyvFqsY4lJqfhtPoLWhF4fzSOkxt+FQZXgp/EDRAxb0mJ+X6qLaGRrm1L5Z10GI2dfobVYyNxn3bw+w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LEnHJQHSuZ3V911vt9KV5GWaHc/6ffn4NapCFBSs5uc=;
+ b=rbb3bLcAzGfPxJp1w4SD61arcvbT+tF0e0ItSyNLsdMXl/Iqnh1r+wwtD6VWwV7Gr1XQiBYmLUcyCJmIWwpquMUHQkYE8sXAghm4kmIKH3M1ugVoOToKWhlflUAJCNhh2RFJrRDvMWrsCMpKQGVddFyY1kNqQDLwQvx1sZSzc/VpRqXLExAD8sugHJGhb99wo8KVoj1w7AuhBZdW6KKexkXy4s3elCHsTbo2hCV5bEPvYNb1fS14nyPDuqWx5y+4BTWeqIkBxywI0sgWNcUb9JWrivjuuqAmzsJ8wjH+r49ZPlNEnTqlKFubebAK3cywDa7X6/bJHqyInHVWSkSf7g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LEnHJQHSuZ3V911vt9KV5GWaHc/6ffn4NapCFBSs5uc=;
+ b=QJNbegDtm8N8ptVO5QQO1VZR81MuKd7HF2+AhruihQITuCb26LSqou8LFYuaTInITIu6DezSjpLdC6ZZ3zadMCMvA4KBdsrj2XoaptMmQg03tg1KidfL1Rhol02gCzoRRiRQ3LmDXKT2etAQDPJ46SvVvrp4iQfdiyIperqljzs=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by OSOPR01MB18042.jpnprd01.prod.outlook.com (2603:1096:604:476::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.25; Tue, 28 Apr
+ 2026 14:02:02 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.20.9846.025; Tue, 28 Apr 2026
+ 14:02:02 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, Marijn
+ Suijten <marijn.suijten@somainline.org>, Tian Tao <tiantao6@hisilicon.com>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>, Sumit Semwal
+ <sumit.semwal@linaro.org>, John Stultz <jstultz@google.com>, Andrzej Hajda
+ <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, Robert
+ Foss <rfoss@kernel.org>, laurent.pinchart
+ <laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, Jernej
+ Skrabec <jernej.skrabec@gmail.com>, tomi.valkeinen
+ <tomi.valkeinen@ideasonboard.com>, Michal Simek <michal.simek@amd.com>
+CC: Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+ "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: RE: [PATCH v2 08/11] drm/bridge: adv7511: switch to
+ of_drm_get_bridge_by_endpoint()
+Thread-Topic: [PATCH v2 08/11] drm/bridge: adv7511: switch to
+ of_drm_get_bridge_by_endpoint()
+Thread-Index: AQHc1u/CLMxk+VTSG02AXPmSMDjmUbX0WyoQgAACgvCAABfEgIAAAYVQgAAGVYCAAAKiMA==
+Date: Tue, 28 Apr 2026 14:02:01 +0000
+Message-ID: <TY3PR01MB113465B0308DE16ACC48D1E8186372@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20260428-drm-bridge-alloc-getput-panel_or_bridge-v2-0-4300744a1c47@bootlin.com>
+ <20260428-drm-bridge-alloc-getput-panel_or_bridge-v2-8-4300744a1c47@bootlin.com>
+ <TY3PR01MB113466B70BFD2899AB0CF47AD86372@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <TY3PR01MB1134674FDD088299A4382D3D286372@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <DI4TGV2WURTY.39OXE7WWKRLA1@bootlin.com>
+ <TY3PR01MB11346E82D19FBE8544F51624286372@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <DI4U2DT3OBMR.23T3F7X8P75RU@bootlin.com>
+In-Reply-To: <DI4U2DT3OBMR.23T3F7X8P75RU@bootlin.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|OSOPR01MB18042:EE_
+x-ms-office365-filtering-correlation-id: 080fed9c-b4d7-4610-1f39-08dea52eb8ca
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|7416014|366016|1800799024|18002099003|56012099003|22082099003|38070700021|921020;
+x-microsoft-antispam-message-info: NQ5J7hyT2EcN+cBN8Ou+yXt5gUJLKP42i6kQR93gHBfTqU+THzdcW6/uoekhqHf0rDzW3A08+0f/NoxgWW5czXa3oOgyYbvIoHAauP+O9gEBp2QD/gQX/9cmnxsT366MtIPUh/oEKOfmOlm0jtVi3yT7Q4nolLXXViRIYcC4h17It1GhaD6xVikykzUBe6UYtYYTTYPgL3tCbRsxLi5LzAnOS1ER125Th5ARuTdWLQ8dp8vtpBGtc2HXoFtWi48nw3DwwigkQddz1o3W5SUR153JgAI6IgW/Vpx8qTr4oHrsrB5BB0uvwA5or1MUDyDWSLHOQIF6AGxg5rtzdgTcUx8hadxSrAIwy3aaftP4nc0y/Ke/DlfGoDsyJ7GEVIr9pwtIjgk97HD9NUQ2DDTFjCeXOyOaoxU7anIlpm7aWKG2L9BSjNRCHBx9ilkzXlY7sGThFWasGESFifBxc65pYo69Vj8gvBsCYVYik3S3/nJX0z25z4gxbFrtX5UzeXXKn9dANoWeAgMAmWRPnucPtq2ua/iZRtk6EYGr20vMZ3gfGfRVTyHHV5oM4SOkSneWcsy1FFfeCL63eKKmzpITDUVJhJ9ly6DVn/2BXO8wEgOpqliFKdwTkT1TCQL0NdjvsuLjFpVtk9/ANXfFM74qEYg6hdr/eQZ04iR0BZjwvlkauBadVE+O/lmdj8utXw6xoXIjK57TDQQXk3WMl/vaQxc5DtZ+E4QyIITrfr1pYOmil5H29Wti4FeUUFa2AqiZyDNPSEv4zuk6SxZ9hiVTFA5ZwGX/rG3Kz5ZqYfFsBJyB0kduqJrGUqC9j+AFUeE2
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TY3PR01MB11346.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(366016)(1800799024)(18002099003)(56012099003)(22082099003)(38070700021)(921020);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?cmhyL2ZuazAwa3QyUUFxbzNOWCt0dktVUmRxYTJOYUZtM3BiY0JmeGhNSFA2?=
+ =?utf-8?B?dytEeVpwRDMwTjZjZWZWOEc2MERnMldycUpobUxQcXFzZWk1bUpTQ2YyTFNj?=
+ =?utf-8?B?SWVJWXhPSXR2ckVCc3VBOXE2VzVhTGF5TE5SNnZzVVhFaysvUkRCN2FEa1Vs?=
+ =?utf-8?B?VjVCRzJRV3JXMWJaR2xxbHltNzNZd21hVWl6SkFDVHlEYnA2eVljblMxK2l0?=
+ =?utf-8?B?K2k1R2RwOFA3WVd0THNmcThqUjlWR09KTTRqL3pWL2M5RjR6OEhUN1FZU3p0?=
+ =?utf-8?B?cWZCam0xRGpSTU1Gdnp1b2dUU0ttZHRPa0d3VXdTMUFhNkVocWRGNlpZSm8z?=
+ =?utf-8?B?Z1pyblJaV2FDNU5zWUZlUE0yTWI5M1dwMStTYWhZdm52cjUwRnk0ekhCZXJj?=
+ =?utf-8?B?WE0wWG5ORGN6anhUVlFlbHpLMnBtbGpyeFl0TWxOQmVrV2gvVTZUYXErd29B?=
+ =?utf-8?B?VmNwUkJtQlNma1Vob3dVQTBZRHZKNkNXTHBqWFRqbEtNbmJGTDI1VFZmTVNL?=
+ =?utf-8?B?MDV4SzRQUzZ6KzlJUUdYSmZGYlcwTWkwSm1RR21WdTJtelZOd2pkazk5RUVP?=
+ =?utf-8?B?UmY5SzNOT0QxQlpsemwxYVltZ1hBWDJIQllwS2NaZm1ldGhlbzRXRm9GUEhY?=
+ =?utf-8?B?R0FLazVTNU1GbmNEcEEwTThjbWpuMkdKZWs3U0VUdzlISWVOcHF3VEVlN2oy?=
+ =?utf-8?B?WWRBYkN2VlZrNGxpRHF5Qm9WOXJpRFRhTkd6SWJ4QXBlNzhTOFVDSVhrYWVW?=
+ =?utf-8?B?clVQODV4SStmRUVZZEhaWnFHeGxmeW53amFyWVZEdXVaeFVWS2d0NGhmZXVF?=
+ =?utf-8?B?bjJZQUswa2RBcUM1RXJMeXRWSUgzMytTbnhmejErcDJuRDk5WHErSnBvbGtr?=
+ =?utf-8?B?Y2NmZkdTRjR0cjBySm9ER1hHRDNUbGIvSGZ0WnIwa2o5YnovWlozbm1PTldV?=
+ =?utf-8?B?c2JFQUw3czdKU2FtZFFDUlp5Z3hZc3VrVTNyOTJPQjcrcnIzVVJTTWx5Qk55?=
+ =?utf-8?B?N2UrWGpCWWQyVmtxaWlvRm9xb0ROOG9OekRvR1R2RGZFWjh0Y2FLditOS1hl?=
+ =?utf-8?B?aGFmL0hrSnp3UHN3K2JFZ2xWOStBY1RITGxHaVBBOTRYM2l6MVlPUDNnNkth?=
+ =?utf-8?B?Sk5NN21SVXRuYjdMMEt3Y0ZZNmdtSlFLUjlxWVdZUHdyblgvcHlJSUNKbkYy?=
+ =?utf-8?B?V1ZYTk9NNzlXc2R5Q010ZWcrVklrTXN5U3dYWk9ZR052R3lRcEx3ZHVzSWpK?=
+ =?utf-8?B?RHdVZHdsLzg3YWo2SERRTFhiODlxWU9zc1RCTXY4SlBraG5CSllibU5aaGdv?=
+ =?utf-8?B?R2NDdHVKbnNhbHdEVWt5eDE3cXllcG43N24zdnk3MEdybXBpRk5UK2lSV2lj?=
+ =?utf-8?B?UFRwTEFxSWhqK2cxOHBKTFhhM0RUajUzQXBhdVRkTWdqaStFeThMcDhRNW5w?=
+ =?utf-8?B?UnJjd2ZYVmdNYXBJSDNVQjl0dFd4bnNEL0RGL3lMYmhPL3lsbTlab04xWHRU?=
+ =?utf-8?B?T0lQTmNvSjQrMXluVFlNQ29HQWxEMWJLRE56eC9BRzZCMTdIQmppR2pYb2tD?=
+ =?utf-8?B?KzlBeGlCRllkY3FYZ2pPTkF4VEZXNWhjZE5IU3QzZzNSYVlQSkZ1bHErU0l5?=
+ =?utf-8?B?Qkd4d1JjNGlqMzR2NE9tNWVlNmN6dHRuYlhpMCtGeTZBMUcvNzlKc2JkdVZV?=
+ =?utf-8?B?bDBHTkhqNDR1T0hHS2F2V1lXVW9XMGZzdDRtUWZjeGZiYWNxcVZHMWJqRHlE?=
+ =?utf-8?B?NFgvNDUvMTlmQWxpNitaeDBpNldzZUtuRE5iaFhhQ3VnVTVUTjhtRGlJVXVB?=
+ =?utf-8?B?N0hhZ3R1eXVnVGx0UEh0VUxVWEZFU04vMzY3cTYyaVJSQ3RERDg0UjdPakk2?=
+ =?utf-8?B?b3QyenlvdXgrYmVZTlBRWXg4UVBlUlhmbGM5SllSRWxwNDVvZzJKbnBXU2R2?=
+ =?utf-8?B?d3huN3RmNW9HaHhwS0QrYWRVVjhsZEJ3U0lOVWg2aTRaV2JTc2h2cWVWK1N4?=
+ =?utf-8?B?R1NBL1QyNGhwY1F3VHlNODRnSWhYSTVwaEUwS3gxSEpXcU55L05KaEpEN3lX?=
+ =?utf-8?B?bXJYUnJVSkxCeE5RZlFuQWM0SzUrUlQ5SyttMzRHRlYxWG9Bb2tFK0F5M2R6?=
+ =?utf-8?B?cFVFSVdnTHZoSmpyVk1VSHUxVGk0OEpqcHVIeEJ0Z3hGS2dHSHZ6ZDNvczR6?=
+ =?utf-8?B?QWJEaFcyT0RrcDl1UDBMQnh0cnBRSlhXSC8raStZYXJRUzQ4d3ZpV1E3RVlS?=
+ =?utf-8?B?QmJpdXNEb0FJalBseDNtRXRkYjBpRDh2aFR5TFduazliU1lhVXVieWhtTzAz?=
+ =?utf-8?B?SDhQM3JFVnlHM09FOHhTVmNCam9tbisxSnY5OG53Q1Q5dG5pNDRydz09?=
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260428-topic-sm8650-ayaneo-pocket-s2-sy7758-v1-2-0caade5fdb32@linaro.org>
-References: <20260428-topic-sm8650-ayaneo-pocket-s2-sy7758-v1-0-0caade5fdb32@linaro.org>
-In-Reply-To: <20260428-topic-sm8650-ayaneo-pocket-s2-sy7758-v1-0-0caade5fdb32@linaro.org>
-To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
- Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>
-Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-fbdev@vger.kernel.org, KancyJoe <kancy2333@outlook.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10600;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=XwkwUb/gWDWAE9PtQGUU15EurO7ORw1iWyFV0UYaRgM=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBp8L0w/OVhYkTAXvHRGaCiz8CW7n4IHJz+kTXaca4S
- ut5XKtSJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCafC9MAAKCRB33NvayMhJ0RNRD/
- 4/4h4yOM7I3EarDvjhcxVqPKR9CqLLRXKdDBEN20tTL91KzTiC0rRNlKrObP64R/pyZpLi3g7VO0o5
- Kf0+wXjW+4MxTFIXQbd5KcYMpIwnD88SjwEK0ZLyChCs2+OiwjMhjDMMWfnBDqDO9vpZ/qgaFlhO+G
- 1d639USK2QYY/QwVHtxSSekQ9qVqoQCRVS3YtitYwTFyniDuJJ5wWBaCYcDVALLFCwaC4OJVhTw4NX
- F8A+Fy1ul7wigBan35kV5n6f9ZhzCPOsrkuCvB0mT+qZ0kC2N2hknmvVWkgd2RCdk717yVyrDVc30l
- bnUHfdMXcSEXUGw+njC0SeTiT86oUPCHn82siZoISXN+NyoTf5U+m2o9nGRV50Q8yqCzn30MWGMb9c
- pYGTSOLxDPqmnY4ip7fZEHnkgwbD5mKYsgglAT7YEB0KkMcsx5yp/Uo1+1A5FOxlB2mydnJhAfUluk
- aHEqn/6DjIry4TwcZQk9OUzjEgUDhLGLvIlqm6O0zfieSztc1a3oDBKU4sVHt7GShBdAy3XOAcUSXE
- ah47tWO8lYJ3HXhuFay1UvEV37Vs12Ox+Idmx4ouBIcnyEQzsItok/TlmL1+NGyfVmvrOFdmI3xsgc
- CXhxU//mPkKEY6TFizcMWFnHHjfgieS11gCxS/G/KZz5Dm97IhRrw5xqOKyw==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 080fed9c-b4d7-4610-1f39-08dea52eb8ca
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Apr 2026 14:02:02.0047 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 532kVXVM7QfLPVyuFP3i6lkZY31Q+SaWGT6ZSKt/VkSQ73ihPG3kiSi1hAP+1kiNry5qoAk4Z+Mq0of3B1novpSq/fS/afkKHrgCSyiE0iI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSOPR01MB18042
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,369 +164,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: KancyJoe <kancy2333@outlook.com>
-
-Implement support for the Silergy SY7758 6-channel High Efficiency LED
-Driver used for backlight brightness control in the Ayaneo Pocket S2
-dual-DSI panel.
-
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-Signed-off-by: KancyJoe <kancy2333@outlook.com>
----
- drivers/video/backlight/Kconfig  |   8 +
- drivers/video/backlight/Makefile |   1 +
- drivers/video/backlight/sy7758.c | 311 +++++++++++++++++++++++++++++++++++++++
- 3 files changed, 320 insertions(+)
-
-diff --git a/drivers/video/backlight/Kconfig b/drivers/video/backlight/Kconfig
-index a7a3fbaf7c29..052ac80c8213 100644
---- a/drivers/video/backlight/Kconfig
-+++ b/drivers/video/backlight/Kconfig
-@@ -207,6 +207,14 @@ config BACKLIGHT_KTZ8866
- 		Say Y to enable the backlight driver for the Kinetic KTZ8866
- 		found in Xiaomi Mi Pad 5 series.
- 
-+config BACKLIGHT_SY7758
-+	tristate "Backlight Driver for Silergy SY7758"
-+	depends on I2C
-+	select REGMAP_I2C
-+	help
-+	  Say Y to enable the backlight driver for the Silergy SY7758
-+	  backlight controller found in Ayaneo Socket S2.
-+
- config BACKLIGHT_LM3533
- 	tristate "Backlight Driver for LM3533"
- 	depends on MFD_LM3533
-diff --git a/drivers/video/backlight/Makefile b/drivers/video/backlight/Makefile
-index 794820a98ed4..39ef588b1cf2 100644
---- a/drivers/video/backlight/Makefile
-+++ b/drivers/video/backlight/Makefile
-@@ -56,6 +56,7 @@ obj-$(CONFIG_BACKLIGHT_PWM)		+= pwm_bl.o
- obj-$(CONFIG_BACKLIGHT_QCOM_WLED)	+= qcom-wled.o
- obj-$(CONFIG_BACKLIGHT_RT4831)		+= rt4831-backlight.o
- obj-$(CONFIG_BACKLIGHT_SAHARA)		+= kb3886_bl.o
-+obj-$(CONFIG_BACKLIGHT_SY7758)		+= sy7758.o
- obj-$(CONFIG_BACKLIGHT_SKY81452)	+= sky81452-backlight.o
- obj-$(CONFIG_BACKLIGHT_TPS65217)	+= tps65217_bl.o
- obj-$(CONFIG_BACKLIGHT_WM831X)		+= wm831x_bl.o
-diff --git a/drivers/video/backlight/sy7758.c b/drivers/video/backlight/sy7758.c
-new file mode 100644
-index 000000000000..a3e24bd444b6
---- /dev/null
-+++ b/drivers/video/backlight/sy7758.c
-@@ -0,0 +1,311 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Silergy SY7758 6-channel High Efficiency LED Driver
-+ *
-+ * Copyright (C) 2025 Kancy Joe <kancy2333@outlook.com>
-+ * Copyright (C) 2026 Linaro Limited
-+ * Author: Neil Armstrong <neil.armstrong@linaro.org>
-+ */
-+#include <linux/backlight.h>
-+#include <linux/module.h>
-+#include <linux/i2c.h>
-+#include <linux/of.h>
-+#include <linux/err.h>
-+#include <linux/bits.h>
-+#include <linux/regmap.h>
-+#include <linux/bitfield.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/regulator/consumer.h>
-+
-+#define DEFAULT_BRIGHTNESS 1024
-+#define MAX_BRIGHTNESS 4080
-+#define REG_MAX 0xAE
-+
-+/* Registers */
-+#define REG_BRT_8BIT 0x00
-+#define REG_DEV_CTL 0x01
-+#define REG_STATUS 0x02
-+#define REG_DEV_ID 0x03
-+#define REG_DIRECT_CTL 0x04
-+#define REG_STATUS2 0x05
-+#define REG_BRT_12BIT_L 0x10
-+#define REG_BRT_12BIT_H 0x11
-+#define REG_LED_ENABLE 0x16
-+
-+/* OTP memory */
-+#define REG_OTP_CFG98 0x98
-+#define REG_OTP_CFG9E 0x9E
-+#define REG_OTP_CFG0 0xA0
-+#define REG_OTP_CFG1 0xA1
-+#define REG_OTP_CFG2 0xA2
-+#define REG_OTP_CFG3 0xA3
-+#define REG_OTP_CFG4 0xA4
-+#define REG_OTP_CFG5 0xA5
-+#define REG_OTP_CFG6 0xA6
-+#define REG_OTP_CFG7 0xA7
-+#define REG_OTP_CFG9 0xA9
-+#define REG_OTP_CFGA 0xAA
-+#define REG_OTP_CFGE 0xAE
-+
-+/* Fields */
-+#define BIT_DEV_CTL_FAST BIT(7)
-+#define MSK_DEV_CTL_BRT_MODE GENMASK(2, 1)
-+#define BIT_DEV_CTL_BL_CTLB BIT(0)
-+
-+#define BIT_STATUS_OPEN BIT(7)
-+#define BIT_STATUS_SHORT BIT(6)
-+#define BIT_STATUS_VREF_OK BIT(5)
-+#define BIT_STATUS_VBST_OK BIT(4)
-+#define BIT_STATUS_OVP BIT(3)
-+#define BIT_STATUS_OCP BIT(2)
-+#define BIT_STATUS_TSD BIT(1)
-+#define BIT_STATUS_UVLO BIT(0)
-+
-+#define MSK_DIRECT_CTL_OUT GENMASK(5, 0)
-+
-+#define BIT_STATUS2_OCP50MS_LATCH BIT(0)
-+#define BIT_STATUS2_OCP2 BIT(0)
-+
-+#define MSK_BRT_12BIT_L GENMASK(7, 0)
-+#define MSK_BRT_12BIT_H GENMASK(3, 0)
-+#define MSK_LED_ENABLE GENMASK(5, 0)
-+
-+#define BIT_CFG98_IBST_LIM_2X BIT(7)
-+#define BIT_CFG98_A0_FSETB BIT(0)
-+
-+#define BIT_CFG9E_VBST_RANGE BIT(5)
-+#define MSK_CFG9E_HEADROOM_OFFSET GENMASK(3, 0)
-+
-+#define MSK_CFG0_CURRENT_LOW GENMASK(7, 0)
-+
-+#define BIT_CFG1_PDET_STDBY BIT(7)
-+#define MSK_CFG1_CURRENT_MAX GENMASK(6, 4)
-+#define MSK_CFG1_CURRENT_HIGH GENMASK(3, 0)
-+
-+#define BIT_CFG2_UVLO_EN BIT(5)
-+#define BIT_CFG2_UVLO_TH BIT(4)
-+#define BIT_CFG2_BL_ON BIT(3)
-+#define BIT_CFG2_ISET_EN BIT(2)
-+#define BIT_CFG2_BST_ESET_EN BIT(1)
-+
-+#define MSK_CFG3_SLOPE GENMASK(6, 4)
-+#define MSK_CFG3_FILTER GENMASK(3, 2)
-+#define MSK_CFG3_PWM_INPUT_HYSTERESIS GENMASK(1, 0)
-+#define MSK_CFG4_PWM_TO_I_TH GENMASK(7, 4)
-+
-+#define BIT_CFG5_PWM_DIRECT BIT(7)
-+#define MSK_CFG5_PS_MODE GENMASK(6, 4)
-+#define MSK_CFG5_PWM_FREQ GENMASK(3, 0)
-+
-+#define MSK_CFG6_BST_FREQ GENMASK(7, 6)
-+#define MSK_CFG6_VBST GENMASK(5, 0)
-+
-+#define BIT_CFG7_EN_DRV3 BIT(5)
-+#define BIT_CFG7_EN_DRV2 BIT(4)
-+#define MSK_CFG7_IBST_LIM GENMASK(1, 0)
-+
-+#define MSK_CFG9_VBST_MAX GENMASK(7, 5)
-+#define BIT_CFG9_JUMP_EN BIT(4)
-+#define MSK_CFG9_JUMP_TH GENMASK(3, 2)
-+#define MSK_CFG9_JUMP_VOLTAGE GENMASK(1, 0)
-+
-+#define BIT_CFGA_SSCLK_EN BIT(7)
-+#define BIT_CFGA_ADAPTIVE BIT(3)
-+#define MSK_CFGA_DRIVER_HEADROOM GENMASK(2, 0)
-+#define MSK_CFGE_STEP_UP GENMASK(7, 6)
-+#define MSK_CFGE_STEP_DN GENMASK(5, 4)
-+#define MSK_CFGE_LED_FAULT_TH GENMASK(3, 2)
-+#define MSK_CFGE_LED_COMP_HYST GENMASK(1, 0)
-+
-+struct sy7758 {
-+	struct i2c_client *client;
-+	struct regmap *regmap;
-+	struct gpio_desc *gpio;
-+	struct backlight_device *bl;
-+};
-+
-+static const struct regmap_config sy7758_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.max_register = REG_MAX,
-+};
-+
-+static int sy7758_backlight_update_status(struct backlight_device *backlight_dev)
-+{
-+	struct sy7758 *sydev = bl_get_data(backlight_dev);
-+	unsigned int brightness = backlight_get_brightness(backlight_dev);
-+	int ret;
-+
-+	ret = regmap_write(sydev->regmap, REG_BRT_12BIT_L,
-+			   FIELD_PREP(MSK_BRT_12BIT_L,
-+				      brightness & 0xff));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(sydev->regmap, REG_BRT_12BIT_H,
-+			   FIELD_PREP(MSK_BRT_12BIT_H,
-+				      (brightness >> 8) & 0xf));
-+	if (ret)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+static const struct backlight_ops sy7758_backlight_ops = {
-+	.options = BL_CORE_SUSPENDRESUME,
-+	.update_status = sy7758_backlight_update_status,
-+};
-+
-+static int sy7758_init(struct sy7758 *sydev)
-+{
-+	int ret = 0;
-+
-+	ret = regmap_write(sydev->regmap, REG_DEV_CTL,
-+			   BIT_DEV_CTL_FAST | BIT_DEV_CTL_BL_CTLB |
-+			   FIELD_PREP(MSK_DEV_CTL_BRT_MODE, 2));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(sydev->regmap, REG_BRT_12BIT_L,
-+			   FIELD_PREP(MSK_BRT_12BIT_L,
-+				      DEFAULT_BRIGHTNESS & 0xff));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(sydev->regmap, REG_BRT_12BIT_H,
-+			   FIELD_PREP(MSK_BRT_12BIT_H,
-+				      (DEFAULT_BRIGHTNESS >> 8)));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(sydev->regmap, REG_OTP_CFG5,
-+			   FIELD_PREP(MSK_CFG5_PS_MODE, 6) |
-+			   FIELD_PREP(MSK_CFG5_PWM_FREQ, 4));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(sydev->regmap, REG_OTP_CFG0,
-+			   FIELD_PREP(MSK_CFG0_CURRENT_LOW, 85));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(sydev->regmap, REG_OTP_CFG1,
-+			   BIT_CFG1_PDET_STDBY |
-+			   FIELD_PREP(MSK_CFG1_CURRENT_MAX, 1) |
-+			   FIELD_PREP(MSK_CFG1_CURRENT_HIGH, 10));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(sydev->regmap, REG_OTP_CFG9,
-+			   FIELD_PREP(MSK_CFG9_VBST_MAX, 4));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(sydev->regmap, REG_OTP_CFG2,
-+			   BIT_CFG2_BL_ON | BIT_CFG2_UVLO_EN);
-+	if (ret)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+static int sy7758_probe(struct i2c_client *client)
-+{
-+	struct backlight_properties props = { };
-+	struct device *dev = &client->dev;
-+	struct sy7758 *sydev;
-+	unsigned int dev_id;
-+	int ret;
-+
-+	sydev = devm_kzalloc(dev, sizeof(*sydev), GFP_KERNEL);
-+	if (!sydev)
-+		return -ENOMEM;
-+
-+	i2c_set_clientdata(client, sydev);
-+
-+	/* Initialize regmap */
-+	sydev->client = client;
-+	sydev->regmap = devm_regmap_init_i2c(client, &sy7758_regmap_config);
-+	if (IS_ERR(sydev->regmap))
-+		return dev_err_probe(dev, PTR_ERR(sydev->regmap),
-+				     "failed to init regmap\n");
-+
-+	/* Get and enable regulators */
-+	ret = devm_regulator_get_enable(dev, "vddio");
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to get regulator\n");
-+
-+	usleep_range(100, 200);
-+
-+	/* Get enable GPIO and set to high */
-+	sydev->gpio = devm_gpiod_get(dev, "enable", GPIOD_OUT_HIGH);
-+	if (IS_ERR(sydev->gpio))
-+		return dev_err_probe(dev, PTR_ERR(sydev->gpio),
-+				     "failed to get enable GPIO\n");
-+
-+	usleep_range(100, 200);
-+
-+	/* try read and check device id */
-+	ret = regmap_read(sydev->regmap, REG_DEV_ID, &dev_id);
-+	if (ret < 0)
-+		return dev_err_probe(dev, -EPROBE_DEFER,
-+				     "failed to read device id\n");
-+	if (dev_id != 0x63) {
-+		dev_err(dev, "unexpected device id: 0x%02x\n", dev_id);
-+		return -ENODEV;
-+	}
-+
-+	/* Initialize and set default brightness */
-+	ret = sy7758_init(sydev);
-+	if (ret)
-+		return ret;
-+
-+	props.type = BACKLIGHT_RAW;
-+	props.max_brightness = MAX_BRIGHTNESS;
-+	props.brightness = DEFAULT_BRIGHTNESS;
-+	props.scale = BACKLIGHT_SCALE_LINEAR;
-+
-+	sydev->bl = devm_backlight_device_register(dev, "sy7758-backlight",
-+						   dev, sydev, &sy7758_backlight_ops,
-+						   &props);
-+	if (IS_ERR(sydev->bl))
-+		return dev_err_probe(dev, PTR_ERR(sydev->bl),
-+				     "failed to register backlight device\n");
-+
-+	return backlight_update_status(sydev->bl);
-+}
-+
-+static void sy7758_remove(struct i2c_client *client)
-+{
-+	struct sy7758 *sydev = i2c_get_clientdata(client);
-+
-+	backlight_disable(sydev->bl);
-+}
-+
-+static const struct i2c_device_id sy7758_ids[] = {
-+	{ "sy7758" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, sy7758_ids);
-+
-+static const struct of_device_id sy7758_match_table[] = {
-+	{ .compatible = "silergy,sy7758", },
-+	{ },
-+};
-+MODULE_DEVICE_TABLE(of, sy7758_match_table);
-+
-+static struct i2c_driver sy7758_driver = {
-+	.driver = {
-+		.name = "sy7758",
-+		.of_match_table = sy7758_match_table,
-+	},
-+	.probe = sy7758_probe,
-+	.remove = sy7758_remove,
-+	.id_table = sy7758_ids,
-+};
-+
-+module_i2c_driver(sy7758_driver);
-+
-+MODULE_DESCRIPTION("Silergy SY7758 Backlight Driver");
-+MODULE_AUTHOR("Kancy Joe <kancy2333@outlook.com>");
-+MODULE_LICENSE("GPL");
-
--- 
-2.34.1
-
+SGkgTHVjYSwNCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBMdWNhIENl
+cmVzb2xpIDxsdWNhLmNlcmVzb2xpQGJvb3RsaW4uY29tPg0KPiBTZW50OiAyOCBBcHJpbCAyMDI2
+IDE0OjQ4DQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggdjIgMDgvMTFdIGRybS9icmlkZ2U6IGFkdjc1
+MTE6IHN3aXRjaCB0byBvZl9kcm1fZ2V0X2JyaWRnZV9ieV9lbmRwb2ludCgpDQo+IA0KPiBIZWxs
+bywNCj4gDQo+IE9uIFR1ZSBBcHIgMjgsIDIwMjYgYXQgMzozMSBQTSBDRVNULCBCaWp1IERhcyB3
+cm90ZToNCj4gPj4gPj4gPiBAQCAtMTI1MSwxMCArMTI1MSw5IEBAIHN0YXRpYyBpbnQgYWR2NzUx
+MV9wcm9iZShzdHJ1Y3QNCj4gPj4gPj4gPiBpMmNfY2xpZW50DQo+ID4+ID4+ID4gKmkyYykNCj4g
+Pj4gPj4gPg0KPiA+PiA+PiA+ICAJbWVtc2V0KCZsaW5rX2NvbmZpZywgMCwgc2l6ZW9mKGxpbmtf
+Y29uZmlnKSk7DQo+ID4+ID4+ID4NCj4gPj4gPj4gPiAtCXJldCA9IGRybV9vZl9maW5kX3BhbmVs
+X29yX2JyaWRnZShkZXYtPm9mX25vZGUsIDEsIC0xLCBOVUxMLA0KPiA+PiA+PiA+IC0JCQkJCSAg
+JmFkdjc1MTEtPm5leHRfYnJpZGdlKTsNCj4gPj4gPj4gPiAtCWlmIChyZXQgJiYgcmV0ICE9IC1F
+Tk9ERVYpDQo+ID4+ID4+ID4gLQkJcmV0dXJuIHJldDsNCj4gPj4gPj4gPiArCWFkdjc1MTEtPmJy
+aWRnZS5uZXh0X2JyaWRnZSA9IG9mX2RybV9nZXRfYnJpZGdlX2J5X2VuZHBvaW50KGRldi0+b2Zf
+bm9kZSwgMSwgLTEpOw0KPiA+PiA+PiA+ICsJaWYgKElTX0VSUihhZHY3NTExLT5icmlkZ2UubmV4
+dF9icmlkZ2UpICYmIFBUUl9FUlIoYWR2NzUxMS0+YnJpZGdlLm5leHRfYnJpZGdlKSAhPSAtRU5P
+REVWKQ0KPiA+PiA+PiA+ICsJCXJldHVybiBQVFJfRVJSKGFkdjc1MTEtPmJyaWRnZS5uZXh0X2Jy
+aWRnZSk7DQo+ID4+ID4+DQo+ID4+ID4+IERvZXMgaXQgY3Jhc2gsIGlmIHRoZSBlcnJvciBpcyAg
+LUVQUk9CRV9ERUZFUj8NCj4gPj4gPg0KPiA+PiA+IEkgc2VlIGEgY3Jhc2ggd2l0aCBwYXRjaCBb
+MV0sIHdoaWNoIGlzIGZpeGVkIGJ5IGF2b2lkaW5nIHRoZSBkaXJlY3QgYXNzaWdubWVudC4NCj4g
+Pj4NCj4gPj4gQWgsIGRhbW1pdCEgR29vZCBjYXRjaCwgdGhhbmtzIGZvciB0aGUgcXVpY2sgdGVz
+dGluZyBhbmQgZm9sbG93LXVwIQ0KPiA+Pg0KPiA+PiBJbmRlZWQgdGhpcyBkcml2ZXIgYXNzdW1l
+cyBuZXh0X2JyaWRnZSBpcyBlaXRoZXIgTlVMTCBvciBhIHZhbGlkDQo+ID4+IHBvaW50ZXIsIGJ1
+dCBkdWUgdG8gdGhlICdpZihJU19FUlIoKSAmJiBzb21lX290aGVyX2NvbmRpdGlvbiknIG5vdyBp
+dCBjYW4gYWxzbyBiZSAtRU5PREVWIChub3QgLQ0KPiBFUFJPQkVfREVGRVIsIGJ1dCB0aGF0J3Mg
+aXJyZWxldmFudCkuDQo+ID4+DQo+ID4+IFRoaXMgYWZmZWN0cyB0aGUgbXNtIGFuZCB6eW5xbXBf
+ZHAgcGF0Y2hlcyBlcXVhbGx5Lg0KPiA+Pg0KPiA+PiBJJ20gc2VuZGluZyBhIHYzIHNvb24gd2l0
+aCB0aGVzZSBmaXhlZC4gSSdtIGp1c3Qgbm90IHN1cmUgd2hpY2gNCj4gPj4gYXBwcm9hY2ggdG8g
+dXNlIHRvIGZpeCAoc2FtZSBmb3IgYWxsIHRoZSAzIHBhdGNoZXMpLiBBbHRlcm5hdGl2ZXMgYXJl
+Og0KPiA+Pg0KPiA+PiAgMS4gLUVOT0RFViBpcyBhY2NlcHRlZCwgc2V0IG5leHRfYnJpZGdlIHRv
+IE5VTEwgd2hlbiBpdCBoYXBwZW5zOg0KPiA+Pg0KPiA+PiAgICAgICAtICAgICAgIGlmIChJU19F
+UlIoYWR2NzUxMS0+YnJpZGdlLm5leHRfYnJpZGdlKSAmJiBQVFJfRVJSKGFkdjc1MTEtPmJyaWRn
+ZS5uZXh0X2JyaWRnZSkgIT0gLQ0KPiA+PiBFTk9ERVYpDQo+ID4+ICAgICAgIC0gICAgICAgICAg
+ICAgICByZXR1cm4gUFRSX0VSUihhZHY3NTExLT5icmlkZ2UubmV4dF9icmlkZ2UpOw0KPiA+PiAg
+ICAgICArICAgICAgIGlmIChJU19FUlIoYWR2NzUxMS0+YnJpZGdlLm5leHRfYnJpZGdlKSkgew0K
+PiA+PiAgICAgICArICAgICAgICAgICAgICAgaWYgKFBUUl9FUlIoYWR2NzUxMS0+YnJpZGdlLm5l
+eHRfYnJpZGdlKSA9PSAtRU5PREVWKQ0KPiA+PiAgICAgICArICAgICAgICAgICAgICAgICAgICAg
+ICBhZHY3NTExLT5icmlkZ2UubmV4dF9icmlkZ2UgPSBOVUxMOw0KPiA+PiAgICAgICArICAgICAg
+ICAgICAgICAgZWxzZQ0KPiA+PiAgICAgICArICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4g
+UFRSX0VSUihhZHY3NTExLT5icmlkZ2UubmV4dF9icmlkZ2UpOw0KPiA+DQo+ID4gVGhlIHBvaW50
+IGlzIHlvdSBjYW5ub3QgcmV0dXJuIFBUUl9FUlIgYXMgaXQgd2lsbCBsZWFkIHRvIGNyYXNoLCBp
+ZiBpdA0KPiA+IGlzIGRpcmVjdCBhc3NpZ25tZW50Lg0KPiANCj4gSXQgd291bGQgZGVmaW5pdGVs
+eSBjcmFzaCB3aGVuIHRoZSBuZXh0X2JyaWRnZSBpcyBkZXJlZmVyZW5jZWQgKHdoaWNoIGhhcHBl
+bnMgaW4NCj4gYWR2NzUxMV9icmlkZ2VfYXR0YWNoKCkpIGJ1dCBJIGRvbid0IHNlZSBob3cgaXQg
+Y2FuIGNyYXNoIGhlcmUuIEhlcmUgaXQgX2Nhbl8gYmUgYXNzaWduZWQgLUVOT0RFViwgYnV0DQo+
+IGl0IHdvdWxkIGJlIGltbWVkaWF0ZWx5IGJlIGNsZWFyZWQgdG8gTlVMTCwgb3IgdG8gZW5vdGhl
+ciBlcnJvciwgYnV0IHdlJ2QgaW1tZWRpYXRlbHkgcmV0dXJuLiBBbmQgaW4NCj4gY2FzZSBvZiBy
+ZXR1cm4sIHdoZW4gbmV4dF9icmlkZ2UgaXMgY2xlYXJlZCBieSBfX2RybV9icmlkZ2VfZnJlZSAt
+PiBkcm1fYnJpZGdlX3B1dCwgdGhlIGVycm9yIHZhbHVlDQo+IHdvdWxkIGJlIGlnbm9yZWQgdGhh
+bmtzIHRvIHBhdGNoIDEuDQoNCk9LLCBJIGhhdmVuJ3Qgbm90aWNlZCB0aGUgbmV3bHkgaW50cm9k
+dWNlZCBjaGVjayBpbiBkcm1fYnJpZGdlX3B1dCgpIGluIHBhdGNoIzEuDQoNCkkgZ3Vlc3MsIHdl
+IHNob3VsZCBhdm9pZCBwdXR0aW5nIGVycm9yIHZhbHVlcyBpbiBicmlkZ2UubmV4dF9icmlkZ2Uu
+DQpJdCBzaG91bGQgYmUgZWl0aGVyIE5VTEwgb3IgVmFsaWQgcG9pbnRlciwgbm90IFBUUl9FUlIu
+DQoNCkNoZWVycywNCkJpanUNCg==
