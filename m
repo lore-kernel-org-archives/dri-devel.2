@@ -4,53 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D8A0FF8870
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 09:51:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 302F6FF8868
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 09:55:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB15010EACE;
-	Tue, 28 Apr 2026 09:51:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 732FB10EAC6;
+	Tue, 28 Apr 2026 09:55:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WxTSaql7";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RT5cRL60";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0547510EACB;
- Tue, 28 Apr 2026 09:51:40 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3F2910EAC6;
+ Tue, 28 Apr 2026 09:55:16 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 2871560142;
- Tue, 28 Apr 2026 09:51:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4615BC2BCAF;
- Tue, 28 Apr 2026 09:51:38 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8CF1F43E2C;
+ Tue, 28 Apr 2026 09:55:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9F56C2BCAF;
+ Tue, 28 Apr 2026 09:55:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777369898;
- bh=Qtgzl9uQeZRdCw0Q5qVLT5RiRrK4qvEsHQ3PXE3CYOM=;
+ s=k20201202; t=1777370116;
+ bh=lY/rML6uz9ZIxs4GZnCj1Fq5sJipTf0WSkf6XsU+5fQ=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=WxTSaql7s5o2xq8bLFvL8+8zawGPs9gT0E2KRQkyWx19f907nl6uczr6BRySYHlC4
- LD8vwCChAxOavFoUEClVXC5Y8Fu2ZQq1tcJJtkFaP82QRvncGA+BOJuuWrjzsJJPEl
- XS2uy7hwFFNOV+QziuppXmErCmssY064EObfxEpR6tC2/7eI1IrvlVdCExaIyEJPnI
- xTgBOymGHVZGYKMRlZU1Y7nczVKOQTfzsVJneVbjI2aVekEOc5KMeQqJ9qysE+yLaD
- 1023mUcvfm/cIOwJWutGhvtXrWcG+0YDdgdHr8HjetD+cbU6wqWQc68H8no/sKe0IC
- /ucV8opqnE12Q==
-Date: Tue, 28 Apr 2026 11:51:34 +0200
+ b=RT5cRL60PRur02Ka7Bt2xPa173aOEsxKJHzEsAiNqLrmc1L5JfzjJEeSh0Mby5UHu
+ AzD+yW3MnM2lyhaFyLtxmnKyELftaxVn+DO+yVHeJhQclTHJ+lr1TjLae2xsMlZURE
+ WohT37zr6awZujlqOw8imG40dKFKE22c6lPAESQIKH2IsXc07MoMG9gdOwgx5lRwrr
+ pQNrOXELlyhnUsMNhwAyF6xkxwlqIufvRmsMjUFCyxrlkbixLV+23o0LECPKaX8FlG
+ qo78jBZfYukijVqKqI5RmdvX6RZi4mwgvretNOTakXN2MmXmHhPIZCNszrsusyR0dM
+ NaUd9ZeokEpIw==
+Date: Tue, 28 Apr 2026 11:55:12 +0200
 From: Andi Shyti <andi.shyti@kernel.org>
 To: Matthew Brost <matthew.brost@intel.com>
 Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
  Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <Liam.Howlett@oracle.com>,
- Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/5] mm: Introduce zone_appears_fragmented()
-Message-ID: <afCCCuLglfi70Tgq@zenone.zhora.eu>
+ Carlos Santa <carlos.santa@intel.com>, 
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>, 
+ Matthew Auld <matthew.auld@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Daniel Colascione <dancol@dancol.org>
+Subject: Re: [PATCH v2 2/5] drm/ttm: Issue direct reclaim at beneficial_order
+Message-ID: <afCD6OPH_Q7qe_tx@zenone.zhora.eu>
 References: <20260423055656.1696379-1-matthew.brost@intel.com>
- <20260423055656.1696379-2-matthew.brost@intel.com>
+ <20260423055656.1696379-3-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-15
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260423055656.1696379-2-matthew.brost@intel.com>
+In-Reply-To: <20260423055656.1696379-3-matthew.brost@intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,76 +69,35 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi Matt,
 
-On Wed, Apr 22, 2026 at 10:56:52PM -0700, Matthew Brost wrote:
-> Introduce zone_appears_fragmented() as a lightweight helper to allow
-> subsystems to make coarse decisions about reclaim behavior in the
-> presence of likely fragmentation.
+On Wed, Apr 22, 2026 at 10:56:53PM -0700, Matthew Brost wrote:
+> Triggering kswap at an order higher than beneficial_order makes little
+> sense, as the driver has already indicated the optimal order at which
+> reclaim is effective. Similarly, issuing direct reclaim or triggering
+> kswap at a lower order than beneficial_order is ineffective, since the
+> driver does not benefit from reclaiming lower-order pages.
 > 
-> The helper implements a simple heuristic: if the number of free pages
-> in a zone exceeds twice the high watermark, the zone is considered to
-> have ample free memory and allocation failures are more likely due to
-> fragmentation than overall memory pressure.
+> As a result, direct reclaim should only be issued with __GFP_NORETRY at
+> exactly beneficial_order, or as a fallback, direct reclaim without
+> __GFP_NORETRY at order 0 when failure is not an option.
 > 
-> This is intentionally imprecise and is not meant to replace the core
-> MM compaction or fragmentation accounting logic. Instead, it provides
-> a cheap signal for callers (e.g., shrinkers) that wish to avoid
-> overly aggressive reclaim when sufficient free memory exists but
-> high-order allocations may still fail.
-> 
-> No functional changes; this is a preparatory helper for future users.
-> 
+> Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 > Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> Cc: Andrew Morton <akpm@linux-foundation.org>
-> Cc: David Hildenbrand <david@kernel.org>
-> Cc: Lorenzo Stoakes <ljs@kernel.org>
-> Cc: "Liam R. Howlett" <Liam.Howlett@oracle.com>
-> Cc: Vlastimil Babka <vbabka@kernel.org>
-> Cc: Mike Rapoport <rppt@kernel.org>
-> Cc: Suren Baghdasaryan <surenb@google.com>
-> Cc: Michal Hocko <mhocko@suse.com>
-> Cc: linux-mm@kvack.org
-> Cc: linux-kernel@vger.kernel.org
+> Cc: Carlos Santa <carlos.santa@intel.com>
+> Cc: Christian Koenig <christian.koenig@amd.com>
+> Cc: Huang Rui <ray.huang@amd.com>
+> Cc: Matthew Auld <matthew.auld@intel.com>
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> CC: dri-devel@lists.freedesktop.org
+> Cc: Daniel Colascione <dancol@dancol.org>
 > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> ---
->  include/linux/vmstat.h | 13 +++++++++++++
->  1 file changed, 13 insertions(+)
-> 
-> diff --git a/include/linux/vmstat.h b/include/linux/vmstat.h
-> index 3c9c266cf782..568d9f4f1a1f 100644
-> --- a/include/linux/vmstat.h
-> +++ b/include/linux/vmstat.h
-> @@ -483,6 +483,19 @@ static inline const char *zone_stat_name(enum zone_stat_item item)
->  	return vmstat_text[item];
->  }
->  
-> +static inline bool zone_appears_fragmented(struct zone *zone)
+> Reviewed-by: Christian Koenig <christian.koenig@amd.com>
 
-this is a bit of a strong statement and the function name might
-be misleading. You received some suggestions from David and I
-would rename this function to something like
-"zone_maybe_fragmented()".
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
 
-> +{
-> +	/*
-> +	 * Simple heuristic: if the number of free pages is more than twice the
-> +	 * high watermark, this strongly suggests that the zone is heavily
-> +	 * fragmented when called from a shrinker.
-> +	 */
-
-The commit log explains it a bit better. The heuristic statement
-here is too strong and it still sounds stronger than it should.
-
+Thanks,
 Andi
-
-> +	if (zone_page_state(zone, NR_FREE_PAGES) > high_wmark_pages(zone) * 2)
-> +		return true;
-> +
-> +	return false;
-> +}
-> +
->  #ifdef CONFIG_NUMA
->  static inline const char *numa_stat_name(enum numa_stat_item item)
->  {
-> -- 
-> 2.34.1
-> 
