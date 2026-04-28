@@ -4,137 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B87E2FF886D
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 14:08:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE48AFF885A
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 14:09:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20A2610E34A;
-	Tue, 28 Apr 2026 14:08:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 128C410E289;
+	Tue, 28 Apr 2026 14:09:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="OsbShZSZ";
+	dkim=pass (2048-bit key; unprotected) header.d=hotmail.com header.i=@hotmail.com header.b="h4GhKy4n";
 	dkim-atps=neutral
-Received: from LO2P265CU024.outbound.protection.outlook.com
- (mail-uksouthazon11021120.outbound.protection.outlook.com [52.101.95.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DB0D10E34A;
- Tue, 28 Apr 2026 14:08:49 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazolkn19010043.outbound.protection.outlook.com
+ [52.103.7.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C05DF10E34B
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 14:09:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MmaymhB07wqvKIsDPoeVVPvU6JBZgpuoHjj+J1RnI0btZ+F1FIFj41YDQpL67/uBonAN4fOQUE7MA60KvvP0hVrLTuWLY/Uq+risesrH/Vw+LOgnc2NMQx9p21E8bladnx/PM32CraZZo2KK9lhI3ihptaGsFw/TPx4c6v9hqf081OTr5Oh8SY/ghTaFm3ChWGL+BpuQoeJHRj14R9STvTfIsTX5Ps8/K7jV9Zi07QylyZp6ijq0+cON01dsC7FLUYVmUGTqnU44vTxc5g+rctrLImorVt3KqUyeO5u2/iGqgP73taaJ4nC/8dGbvv6YIDZaxeEfVbOF+8/piXo8dQ==
+ b=Y7SFpk0D3bpz72iROmPYSupSks5csufLprkB7ORBZpsBfeNaUvzinPeYMHON0vQUPRW6bsCJxaJimkGjyOhZjMyGY4b7YtIk8udDQPcyT43LCLx0eOljyekhDBdslPIbXymf1pKeDbfi+nC3wrI8AI3hXv6LzXMv0H9MoU7vs3X9t8afeNYikBPpIYHP765CkEpe7FNhAk1yOn5K9wXxN/al3T+5zt0HyycAefl4uEFVbK6RcgtCziQqhWx8sObAq3ashFltvdvT+h11sc4MCik0ldl1/BHAEuaL+Va9Kglbf9CFSYM1AoaV9MkrfekU9d2bAZSJlLYHUVJWvTHf8Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FwDuMHE/4HHSYPolYYpXbnNdbqbbZXyxT87H71H9lls=;
- b=hFCIkVBMyOVmw1DaOlbIKbyuo5ZYCl/pFeSFtNl5bHECWJvzpPNmwWgKNbzgdp1fieEAYhk/BoR/fPOv4woEcbQ5Zg4nfngH15cBdT+spq9YX+qXWNzsQWQaq3KlXKWwqALPiLwpYBYZBDZ/4elSpM2pYz5kahDUgteYg/esn6GrknCO6UhHtpUGMUx4YJMg31ALeKjlmbmtKgM3Docr1cbPGQ2WkB3Zi8lNHYEOFG8mgt6JaS7C0XLLaymr89BWlCmgdl2VGFZU+X5uW5gdHHF6ub7fslgrdgzykEczPHCf3rTjg0utx2LnzR4skIbdWwcd4MPtQUdE/ohpfqYz/A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ bh=7Ej9TvUCL3Ze9l4edZ1r/QWQgNZ+IAlip5owdlVA7Bs=;
+ b=JbLPOuMoLXc8rhEf32PzBE+FD9dJUelmg5m5nD2qG2p5+SsP8i5ON8OazRjXmkbX+pFAvmSDX84pFEyvyO2+/ctbg8E01sZBCcIoWocF22aPg6060BfgO6kG/L0dQxaLePCpxyBWFDJcPvDW0/oHOKNsEIugMkr48P4HFqveK/o6K7ZsVAlWZFCUBWeReP72heZ9Lf2Rua6pHqBefKXYuC+HSklVkAger7xynOoHndd+vHahawdcQjx5Bsa91wqxCJllbLdjMaki12RtJzzYp0fuxR8CrUeeRDr7DrDE+yBIrZqSJDmzNrdFSnn+SkMd5SIM6QXWY+Ke0WwCSBP9jQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FwDuMHE/4HHSYPolYYpXbnNdbqbbZXyxT87H71H9lls=;
- b=OsbShZSZS/dZTKY9ybBmRokrDrMHpa8aIskI8zBu/LLYL/YLFA5gagmb3caNGlpzM8aOf3J8hSB35+Msskki+SlUAyxVaZLRpprm6KvFMnlKJQiGXmN+xUa/q85Nq3y1NKzoSxxpewC+t98/jx8mtQLJfXHrtoG5unZ0rThVevk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by CWLP265MB6708.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1e9::10)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=7Ej9TvUCL3Ze9l4edZ1r/QWQgNZ+IAlip5owdlVA7Bs=;
+ b=h4GhKy4nBhouXXxvLpgNIGm7vaYcGT4wfrkqZcTL8FQx8MmeG8IWANyxl9SOvwTQxoaT0sNpB9iaYBFQAhojQEz0yhsuDkQzn2r86dRwHh9qGAXspce/2Cx2kkWvNfTdSV8tUaB+DtJUWLCupRcM3JUK6hw8Yt9dR8tWcvkCvLhdt4SaCKoUU69rhTHT5o5d5Wt0NcpLu0XDH/tbC0faVziA1t6/M889AiMaXBqXKFpRaHSHXin/RiIA5Rm0Bb71pSLi5mSzvCmt1qvSH+HOomm8nmw0pt0ePezJY1ejabZ1Xa/HQOkGQyqOLyUW+3VEcHSSh/eMIfRCAAxY9OayXg==
+Received: from PH0PR19MB997338.namprd19.prod.outlook.com
+ (2603:10b6:510:3b1::18) by DM3PR19MB8358.namprd19.prod.outlook.com
+ (2603:10b6:8:1af::5) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.26; Tue, 28 Apr
- 2026 14:08:42 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.20.9846.025; Tue, 28 Apr 2026
- 14:08:42 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 28 Apr 2026 15:08:41 +0100
-Message-Id: <DI4UIGMGKN6H.375657ZERNYB5@garyguo.net>
-From: "Gary Guo" <gary@garyguo.net>
-To: "Andreas Hindborg" <a.hindborg@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, "Danilo Krummrich"
- <dakr@kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, "Abdiel Janulgue" <abdiel.janulgue@gmail.com>,
- "Robin Murphy" <robin.murphy@arm.com>, "Alexandre Courbot"
- <acourbot@nvidia.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>
-Cc: <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <nouveau@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v2 11/11] rust: io: add copying methods
-X-Mailer: aerc 0.21.0
-References: <20260421-io_projection-v2-0-4c251c692ef4@garyguo.net>
- <20260421-io_projection-v2-11-4c251c692ef4@garyguo.net>
- <87lde7p6d9.fsf@t14s.mail-host-address-is-not-set>
-In-Reply-To: <87lde7p6d9.fsf@t14s.mail-host-address-is-not-set>
-X-ClientProxiedBy: LO4P123CA0034.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:151::21) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+ 2026 14:09:34 +0000
+Received: from PH0PR19MB997338.namprd19.prod.outlook.com
+ ([fe80::fd22:ee23:3e25:3172]) by PH0PR19MB997338.namprd19.prod.outlook.com
+ ([fe80::fd22:ee23:3e25:3172%6]) with mapi id 15.20.9846.025; Tue, 28 Apr 2026
+ 14:09:32 +0000
+Date: Tue, 28 Apr 2026 09:09:29 -0500
+From: Chris Morgan <macromorgan@hotmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Chris Morgan <macroalpha82@gmail.com>,
+ linux-rockchip@lists.infradead.org, linux-pm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ xsf@rock-chips.com, sre@kernel.org, simona@ffwll.ch,
+ airlied@gmail.com, tzimmermann@suse.de, mripard@kernel.org,
+ maarten.lankhorst@linux.intel.com, jesszhan0024@gmail.com,
+ neil.armstrong@linaro.org, heiko@sntech.de, conor+dt@kernel.org,
+ krzk+dt@kernel.org, robh@kernel.org
+Subject: Re: [PATCH 1/6] dt-bindings: power: supply: sgm41542: document
+ sgm41542
+Message-ID: <PH0PR19MB997338F0B06B7B99AA0ED3C6C4A5372@PH0PR19MB997338.namprd19.prod.outlook.com>
+References: <20260427170914.5062-1-macroalpha82@gmail.com>
+ <20260427170914.5062-2-macroalpha82@gmail.com>
+ <20260428-bulky-nebulous-reindeer-ed45ed@quoll>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260428-bulky-nebulous-reindeer-ed45ed@quoll>
+X-ClientProxiedBy: SA1P222CA0112.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:806:3c5::25) To PH0PR19MB997338.namprd19.prod.outlook.com
+ (2603:10b6:510:3b1::18)
+X-Microsoft-Original-Message-ID: <afC_md94llV0cKmI@wintermute.localhost.fail>
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CWLP265MB6708:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7a95ef55-85bf-4dd1-8ee7-08dea52fa761
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
+X-MS-TrafficTypeDiagnostic: PH0PR19MB997338:EE_|DM3PR19MB8358:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8abdc3d1-273f-492b-b4be-08dea52fc529
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|10070799003|1800799024|366016|376014|7416014|921020|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: TD9YVgmnLkSI+sVs/iOrwrJo8qMB/FdRmkturYpXDuinsM37YRudyiAwN/Fph3dzxG/eREOOCgqqt1kQi1wWYXMbeoOb62nfS62yl5XcjkgwNZXi7Loy/ohUNlFxXo9GhIY/5ekXNcAP9WChNy9y03rBb0QEKRNpufSOweorm11N92rT6IPuWJNEwSn8nlrm6ariEJBzGi+bZCgGhdfcHw9/GSEbE61i77VCjx7CvnXvEp8oukc6CrjLR6hqlBN4tLiSHsDKDnoceU3kmZZWKm9xyhh42JhSYNd1Qz853JcwyUQLGskDY0K72WVhhSPZhMk6PuTbjEEolFPmQ0MdnR4g3csnJRjqtBTZywhnP0bHsT6gVT6+8qAN8wZTjImRL7Dsm2vxMzUSpuHE/43BOG/vzqQHp0TLeQ2XM9f52J/rhrq5RUUyHdUK8dCKJWwZISwRxKR2fzYE9vFUBXCINc19CJtq3Q0Fp8TAWzsw1AaZD3SyqV5TzF0LZp7hK5gRXa7Juh5TojZ0nQ4g8Q7e+U9rsRs7DFg1phAehWL2fU1dU2RhvaJotrgf4tEqme7siANd++T84XxmQJqW6Hpeag44AZXshZOc9i+3PDtlK8gI08dK9o6gdlwRi3i3BceqNRwQVRExZsf/LL8C5Ac1BVWZDamtDdNI/r9sTa8krdrngkAfwDfdK13D/qozxR1EVKIOQkzlwyi/YRmzlXi6AWNYbrxGRuNWDkwe7OjXsZ6J6lUA67G5hTHyyamelAbPYrTZrOssF/ej2zsMN3ppQw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(1800799024)(366016)(376014)(7416014)(921020)(18002099003)(56012099003)(22082099003);
- DIR:OUT; SFP:1102; 
+ ARA:14566002|41001999006|8060799015|461199028|6090799003|15080799012|19110799012|5072599009|23021999003|10092599007|37011999003|24021099003|51005399006|25031999004|10035399007|440099028|3412199025|40105399003;
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?WcPSMRYf6jRD6KAFVSNMd6cnnry3qM2QC11GlL3Xdn9ua43MJ4c6EZAZMQ1H?=
+ =?us-ascii?Q?hEBK0Km3B5Y3fb/mZWgOQPnWeNfHbj4xj37ov23kfIZSWwfzvYhr/6tOvhVG?=
+ =?us-ascii?Q?PiRNgBC5rc02HCumCL5AYHn90J/h2/CmaNA3YvcPiIxDrdkxOfdOLFxuNK1y?=
+ =?us-ascii?Q?o31DPOtinkRtXQkqO5qk+KoaVY7Ln4YvRvIC+Rbea04HOpkVNVDlh8YxqVH7?=
+ =?us-ascii?Q?BsHGTRN/1GojK5cPEoNMXFBLoc2pXwRGd2ci9Ii9e4PK9Uyv+m+pxGsW4jq7?=
+ =?us-ascii?Q?RGGc8M+qnBBRyQ0lbwZoDUDegC9kcMmzZ8Rl36QGQb5mYYt16KtKeutuV1fZ?=
+ =?us-ascii?Q?bWvni5KAFyxgePaQ0q8+cNZMdI+HNPdDDoVc3r4hDGh8MqhPhQond0j+xjv5?=
+ =?us-ascii?Q?4jbrg0Sq5U9w95v6MaC9wtWzhkKSMgZdEhuo7dzPbkv0lCo2rdvIA3Hkp0KU?=
+ =?us-ascii?Q?yRuXcO6SpOpxjTUAxnTUwuCWfUOqvp6B+PEhoagf3rFOkfpxQ1NRfKzD4N5S?=
+ =?us-ascii?Q?6W/xOrPE4nGaO0vyoDGaPeHh9bUsKUd5j8NQ6GXf+S9KXQCS3XoIMP69lLXu?=
+ =?us-ascii?Q?19oV9mrohUXWedlTmFr2pvUh3KaQb5Pcy6OOOQtU/VVYiYsrxV6CMb9Iw9Ww?=
+ =?us-ascii?Q?o8Te+cMkyzHs0ddT9A1YoxzGyUWqcSgmjuXNA/GBJ0YgB0v/aEJ0RXZBq6l7?=
+ =?us-ascii?Q?fU2RDZRwjsGZzmyuhCmgAzVMHUaG02OQYd69CPGz1nOPbS3pIc/kqL6TRTV1?=
+ =?us-ascii?Q?uKXMoOtEu4MOARtrMt4lsgmkdTyu1l7Ej+E5ajJd9xS8kQp6zoYpCQbav7xH?=
+ =?us-ascii?Q?yK01vRHl3GvH56y6PKRMeRajQuSnQsjF0CzWpDx8LMRHAjyiNan8tzwrzPbd?=
+ =?us-ascii?Q?Cu6VpPSRoQMdBA4SEQYJB69VXdVrMtr+dpbzsPUjl7CIXfNEQKAl8FjsxM7H?=
+ =?us-ascii?Q?p4xrCnxRW9vWDaRub+CVbeteArR/zMfOgXMZWsSXzkgr8kanAcPnbg4OBl/z?=
+ =?us-ascii?Q?lpj2dSLzWzNPMLnXlopX7efzyTCLqxPyw1tXIo+fjPV35atds81HzWrXJpLk?=
+ =?us-ascii?Q?ApVZP6PPLdtySzus4hqKz5L5ipucaQ=3D=3D?=
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?KzdTWnBSdlNZdWY5eUJ4ekJ1NjlJU1V6V1BNVnJrelpyWjFDMVl1d1FtUW9J?=
- =?utf-8?B?YXRtRzFJcmNwcUMzTy93Y0hOT0gyVjVpTm5zeWFNOXYrRllvcmQ0aDFrVFlk?=
- =?utf-8?B?cWJaK2NCdkRaNS9nbkQwV3NVODJ0YXpBL0hrWWsyaEJlcS8rN2JTeWREcmxW?=
- =?utf-8?B?OW5zSnBZSW1ESyt0d3pPTTZwM3hXL3V2TjErRHVQUUNNcXoyaUhteFFvSmtk?=
- =?utf-8?B?Zzh4aE1CV01idTJyd2R2NTFobFNTaFYxUmlIRU82cEJPZzRPbGEwRzE5MGhC?=
- =?utf-8?B?akRpMGp1QWlKSTgycFRDMWx6Q2REU1hKeHFDcUxQUmljVjczR1J3K2RpMWNi?=
- =?utf-8?B?S21vZzgyU01aVnFMdDUzNmh3ODQrdURieGpGSkpvWHh5eE44WEx5REdWRDIv?=
- =?utf-8?B?WXJFa3J2NldWWjhUS3JFL0Y1cFJZeGNqOTM1SlZvUE15aldYamw4amlBNDU3?=
- =?utf-8?B?anh5dVNTalhuNWh4UHdTSTNTQzk4MFo0WTVHb3hBdmtud2NzaUwyYUo3MEh1?=
- =?utf-8?B?c2VyaU1GRG5zYmhmRy9oaWxEYVhEWVNzL1k4TmJkbndtMmJrUSs3SzhSS2F6?=
- =?utf-8?B?VjdpUFRid2FORCs0ZU9SbTI0eFAwMGc0R3c2UmRzOUNLMU9DdFNZYVpyU3dI?=
- =?utf-8?B?aUpOZTV4RGxaZk9paUhxZkMvNEQ4Yyt3bW4xWVhDWnNOaW9CcnhRZjNocVUw?=
- =?utf-8?B?ektkUGdPS20xZ1hGVm1iVjhiTlF3VXZ6YW5INGttL1JuMzRKSG1ZYVlUdllB?=
- =?utf-8?B?emhOa29MYVRyZ0FINURycGltWFR6MC9rN0Y2SFphTC8vRmI0UkVuRGJmaWpF?=
- =?utf-8?B?dFRmR3FhQUI3Q2J1U0I0c2tZdFBFTDVIL1B4VUgxZnJRMDErZGUvWlIxLzdQ?=
- =?utf-8?B?QXgxaEI3dGovNEJqQnRRbnZzRHNnVUk0T2pxZnUvcFpRdEtKWnNNOWZsSG1G?=
- =?utf-8?B?RFVLUndDaGpPVlpoMXZyMWNNTThveE1SYmZ0Qm16WEE4MUdZeXVuSjliMWJp?=
- =?utf-8?B?UzJEWW5lSkhSODloZFlxUHdVM0pPT2l0bFprT00zZkVHZVZqMGNXUEtpSFVr?=
- =?utf-8?B?WmR1QVdNOEtlUnVCUXpkZXl5bk9RN1R0cFYxQjNyYi84TjdVUy8zWEtLeUdk?=
- =?utf-8?B?bjlCVlUwbGwrR0RPOWpRbGY1L01rbXhPUjZVQnRCTGdYakNsTEdnNEtKRHJi?=
- =?utf-8?B?bG53eVVZdVZSWElWOUVaSDBUczQwTWdsZTFSMWtoTUhBcmxlRFFsMlV4Z0tV?=
- =?utf-8?B?bnFHOFB4N1A2a0NnTmJGVGVQTS9wUWRRMkhIVjEvYWJ2NElrNGtwYSs3Snpz?=
- =?utf-8?B?QWpFOVl4bml1Zy9qMEVhVm8wSWJBcU5CZUZvNjFIMGFFd2Z1ZEc1aVEzcnJh?=
- =?utf-8?B?cFZ3WTN5cnRiaU4wVDU2MEUrSUtUQ3ZZQ2U0ZllaV1hvLzJwT1Irazl1THVl?=
- =?utf-8?B?aE9OUEhzdzc5b1ZmVXN6c3NScUJ3aWhxSHZKM3hwTnhEU1B4amw4Vlg2eSt6?=
- =?utf-8?B?OUFHcmZIYm5UOGlVT2J3TTNrbzV4S1hZc0srWUxmdDJPMFFJL291QUNBNkFB?=
- =?utf-8?B?V3A2djNNUkF0M1VxK1RuQUlVV04zZ2xScVhIWFFuZ1N0cXhPTC9XRFRwMXRR?=
- =?utf-8?B?WG1IOU9Qc0Fzc0pQejg2cGJ3dE02ak8yWjJ2RTBWdDB3dFduVEhreDZOcFFj?=
- =?utf-8?B?dlJySFpreWE4MFRNZEE0djFmVllZS2lLaWVjUVBUZGJCUFh1Wnd6RThqQmZX?=
- =?utf-8?B?bzZNTFNWaEtOWWcwZlV6OG5KT1JpWlN5TkZ3aHB1bWdsTHF6aVNvQmNGSFlG?=
- =?utf-8?B?cldRaERBaGFLd0Z3K3JzaUJid0ZFalBnU3dmeWlEcFZxM1ZaczgzM2ZZdzFR?=
- =?utf-8?B?dTdqZHZreUNmaTRkL3QyTVR1ZjBzOHlKb2ZTZWFGaDg2b3pPbS80aVJmSXkw?=
- =?utf-8?B?Y1JLVWNOaUdaYW85d1hpaU1Gc3FudkJnR0J3dG5BS0gvb254NG1FR0dxOUlK?=
- =?utf-8?B?dVFaRWxCMlRvWXMwUUErdy8xNGYrejNlNFNrVExiM05Pb3JzT2pCNnZWTnYx?=
- =?utf-8?B?WjZDSGs0bGQwWTRrZy84OGtqOU5FaDdMUHNJTmpaZm9RSjVDSm8yNHBZN0lE?=
- =?utf-8?B?OTREYWZQei9HQ3ltMTE3L3hNRVFJeEd5N3dKbFczUkVUa2lLRGEwY1RwUllm?=
- =?utf-8?B?aVN3MHBRSkRVZkRKdGdwazhmNUlDMU1vQzVEVzBIeXNzbGxPQzFmWTQ5MUo3?=
- =?utf-8?B?eG9XTGp5bDlLaCtwMUFJMlNQZ3FrTlQyTUFQOEpHRFVGSC92RkxBODdsUVpj?=
- =?utf-8?B?MnpGQ1IzN2tEcm1kb0dyZkxWdW8yT0wxNWI5REx2OUI5YUZOVVR4dz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7a95ef55-85bf-4dd1-8ee7-08dea52fa761
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?H+tNuUJTKvh7AQCVT51Rd8sy2Vrxc4TJXRDnvdNx/InPO2CUsqjZqg5oAZyv?=
+ =?us-ascii?Q?kFL/KFPDPE/XVO4SvXV3LMmITP30HQ8S+QhN2jfrgEZ+iuNNAmPOp/GB0YVK?=
+ =?us-ascii?Q?YIAfM4IOp1L3UgPClppc5hqrWhdJB3KHUhLPOLFmGNoLue7A8/SCkXqE8Qix?=
+ =?us-ascii?Q?ktRoAYDnoDJ//uaM1KNtsfaSqvSeZrAipq//Ml4hrzag4HXpi6XJM1i+7MI+?=
+ =?us-ascii?Q?J9w/NDjQSXdBuV/WrCFqGXFLU+A4qWLbMqKCSEXk8y1eZDhs9oOJofe5JRb/?=
+ =?us-ascii?Q?7Ox4f0gtfLzBx+sQqKmirPHBG4hgmB4NCjRwL4v3vufFOecp2Lfpt6DxH34Z?=
+ =?us-ascii?Q?Pf3/YlL753ClIRfMnxdXJ4zAsaPtgkfS/LhVSJ8GF7nMs9MvxMJ/u3OstRsi?=
+ =?us-ascii?Q?itxk0kc6UpG/UIGOwohICxP19u6hlJ9s0WrEaFofDzAk9uSj6VWBDcIsAY8p?=
+ =?us-ascii?Q?GJJz5PCAzmeoZJf7sPn4rTDkOzWAdDflOcww0zwNrABL9hNJxLeGxe6MWNQF?=
+ =?us-ascii?Q?0/ZQGoeFiTUXF8J6mCw5/SR3Bls6YW7ey8cw7CsGiSHWgC1MZpnO+hhdypwZ?=
+ =?us-ascii?Q?DJBsI0uTkZWKSZvQzVVr3IUNRwft6VQvDrAth427Pna1uf2UD/qmvlW8iBHB?=
+ =?us-ascii?Q?vttZqbbx/5WViI/wIVx08bneny3y1Qx7I6xRDqcX9uR24vehE6D94N+JmV64?=
+ =?us-ascii?Q?66vprQxZ1X2DlpWD+bQXZnnPmUnnaJDmKMDIVkb3AoBmcuvHmsAkxnmqV2Da?=
+ =?us-ascii?Q?OZ8R7hQYEewnrF5slGTMAuuS9MaDDTzgWcgpnybXNpUInzzNEhX3F1T8OrgL?=
+ =?us-ascii?Q?+VsKvBYbk6wVUMIjODGIju0jeX1R2cAr+TAqSCZ2F5qGfpqQtR6WTtUkeDDY?=
+ =?us-ascii?Q?iHhyQDEBTtCAV1FUQdY1xHMw/pl3BX2ZYbDQ+y0Qe6YMZgxeoXYV8hqfze17?=
+ =?us-ascii?Q?Dsopcmqhv/ZxPUs0bdlyPNNZIxhEnviLqfkM+q4UadxtqLhJ638dzs5W21ma?=
+ =?us-ascii?Q?+IHRG+Bd11mhjhTdN0a8k0lxGBc627yfRkhjLqbbWqI+zZzaCbcCHZ1WoAsp?=
+ =?us-ascii?Q?WB/y16HuWGuE8I4CpGbur+00iDW9SBCHXm7I40pbSYOogybDlASiPhrU9AIN?=
+ =?us-ascii?Q?ofIBYjHt0z57WrIbqGtOg5gt0nwqx7a4ZR9yGxUDAMA+MZrzggwEL23kOw7m?=
+ =?us-ascii?Q?z0dBnQH/TI88Yov56UEJhs4BnTelgYN72+n8i13YTQy9on6B3+AvrBWiRRjX?=
+ =?us-ascii?Q?mAFcUFSEO8RPvAcMmxMI9akxA7EsMG6CQrHOLIBDBPMVpxgQ2hxTxDffN98b?=
+ =?us-ascii?Q?EkaJD24hFruYLAfhgDlUAXoCZtqSxKGqyHVdFb3xIEJQUeGmH4gqgiL1BtmR?=
+ =?us-ascii?Q?QYfHw/RL5SH0ZeBrw6EFPJLWFHmODKp9SisKh3M+4DQ9S3c4Eg=3D=3D?=
+X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-990eb.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8abdc3d1-273f-492b-b4be-08dea52fc529
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR19MB997338.namprd19.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2026 14:08:42.4629 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2026 14:09:32.5085 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: R4oIuLD3vk+g8t4clW/+aUU4SX+QsJ+7tLSKfbSrvrUv1iGu9wQ1OZH0X8cmO3hMUQ8VIMGjXeiP0m4nUh2l1g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB6708
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR19MB8358
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,187 +139,172 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Apr 28, 2026 at 2:22 PM BST, Andreas Hindborg wrote:
-> Gary Guo <gary@garyguo.net> writes:
->
->> One feature that was lost from the old `dma_read!()` and `dma_write!()`
->> when moving to `io_read!()` and `io_write!()` was the ability to read/wr=
-ite
->> a large structs. However, the semantics was unclear to begin with, as th=
-ere
->> was no guarantee about their atomicity even for structs that were small
->> enough to fit in u32. Re-introduces the capability in the form of copyin=
-g
->> methods.
->>
->>     dma_read!(foo, bar) -> io_project!(foo, bar).copy_read()
->>     dma_write!(foo, bar, baz) -> io_project!(foo, bar).copy_write(baz)
->>
->> The semantics for these are modelled after memcpy so user has clear
->> expectation of lack of atomicity. As an additional benefit of this chang=
-e,
->> this now works for MMIO as well, which maps to `memcpy_{from,to}io`.
->>
->> For slices, which is unsized so the API above can't work, `copy_from_sli=
-ce`
->> and `copy_to_slice` were added to copy from/to normal memory, and
->> `copy_from_io_slice` and `copy_to_io_slice` were added to copy from/to
->> other `Io` regions. They're optimized if at least one end is mapped to
->> system memory; if none are, the copy occurs with an intermediate stack
->> buffer.
->>
->> Signed-off-by: Gary Guo <gary@garyguo.net>
->> ---
->>  rust/kernel/dma.rs |   8 +-
->>  rust/kernel/io.rs  | 231 ++++++++++++++++++++++++++++++++++++++++++++++=
-+++++++
->>  2 files changed, 238 insertions(+), 1 deletion(-)
->>
->> diff --git a/rust/kernel/dma.rs b/rust/kernel/dma.rs
->> index bbdeb117c145..307f5769ca0a 100644
->> --- a/rust/kernel/dma.rs
->> +++ b/rust/kernel/dma.rs
->> @@ -16,7 +16,8 @@
->>      fs::file,
->>      io::{
->>          Io,
->> -        IoCapable, //
->> +        IoCapable,
->> +        IoCopyable, //
->>      },
->>      prelude::*,
->>      ptr::KnownSize,
->> @@ -997,6 +998,11 @@ unsafe fn io_write(&self, value: $ty, address: *mut=
- $ty) {
->>      u64
->>  );
->> =20
->> +// SAFETY: `Coherent` is mapped to CPU address space.
->> +unsafe impl<T: ?Sized + KnownSize> IoCopyable for Coherent<T> {
->> +    const IS_MAPPED: bool =3D true;
->> +}
->> +
->>  impl<'a, B: ?Sized + KnownSize, T: ?Sized> crate::io::View<'a, Coherent=
-<B>, T> {
->>      /// Returns a DMA handle which may be given to the device as the DM=
-A address base of
->>      /// the region.
->> diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
->> index efcd7e6741d7..0b1ed68c0f9b 100644
->> --- a/rust/kernel/io.rs
->> +++ b/rust/kernel/io.rs
->> @@ -4,6 +4,8 @@
->>  //!
->>  //! C header: [`include/asm-generic/io.h`](srctree/include/asm-generic/=
-io.h)
->> =20
->> +use core::mem::MaybeUninit;
->> +
->>  use crate::{
->>      bindings,
->>      prelude::*,
->> @@ -233,6 +235,55 @@ pub trait IoCapable<T> {
->>      unsafe fn io_write(&self, value: T, address: *mut T);
->>  }
->> =20
->> +/// Trait indicating that an I/O backend supports memory copy operation=
-s.
->> +///
->> +/// # Safety
->> +///
->> +/// If [`IS_MAPPED`] is overridden to true, it must be correct per docu=
-mentation.
->> +pub unsafe trait IoCopyable {
->> +    /// Whether the pointers for this I/O backend are in the CPU addres=
-s space, and are coherently
->> +    /// mapped.
->> +    ///
->> +    /// When this is true, it means that memory can be accessed with by=
-te-wise atomic memory copy.
->> +    const IS_MAPPED: bool =3D false;
->> +
->> +    /// Copy `size` bytes from `address` to `buffer`.
->> +    ///
->> +    /// # Safety
->> +    ///
->> +    /// - The range `[address..address + size]` must be within the boun=
-ds of `Self`.
->
-> We should probably specify what "bounds of `Self`" means here. It's not
-> the bounds of `Self`, it is the bounds of the memory region `Self`
-> represents.
+On Tue, Apr 28, 2026 at 09:47:00AM +0200, Krzysztof Kozlowski wrote:
+> On Mon, Apr 27, 2026 at 12:09:09PM -0500, Chris Morgan wrote:
+> > From: Chris Morgan <macromorgan@hotmail.com>
+> > 
+> > Document the SG Micro sgm41542 battery charger/boost converter.
+> > 
+> > Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
+> > ---
+> >  .../supply/sgmicro,sgm41542-charger.yaml      | 99 +++++++++++++++++++
+> >  1 file changed, 99 insertions(+)
+> >  create mode 100644 Documentation/devicetree/bindings/power/supply/sgmicro,sgm41542-charger.yaml
+> > 
+> > diff --git a/Documentation/devicetree/bindings/power/supply/sgmicro,sgm41542-charger.yaml b/Documentation/devicetree/bindings/power/supply/sgmicro,sgm41542-charger.yaml
+> > new file mode 100644
+> > index 000000000000..3e5041e5b551
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/power/supply/sgmicro,sgm41542-charger.yaml
+> 
+> Filename must match compatible.
 
-I just copied the wording for `IoCapable` methods. That said, I think it's =
-worth
-improving.
+Acknowledged.
 
->
->> +    /// - `buffer` is valid for write for `size` bytes.
->> +    #[inline]
->> +    unsafe fn copy_from_io(&self, address: *mut u8, buffer: *mut u8, si=
-ze: usize) {
->> +        const_assert!(Self::IS_MAPPED);
->> +
->> +        // Use `bindings::memcpy` instead of copy_nonoverlapping for vo=
-latile.
->> +        // SAFETY:
->> +        // - `buffer` is valid for write for `size` bytes.
->> +        // - `IS_MAPPED` guarantees `address` is in CPU address space, =
-with safety requirements
->> +        //   `address` is valid for read for `size` bytes.
->> +        unsafe { bindings::memcpy(buffer.cast(), address.cast(), size) =
-};
->> +    }
->
-> You could just leave out the default impl and implement each case for
-> `Coherent<_>` and `Mmio<_>`. Do you expect more implementers that can
-> share the default impl?
+> 
+> > @@ -0,0 +1,99 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/power/supply/sgmicro,sgm41542-charger.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: SGM41542 Battery Charger
+> > +
+> > +description: |
+> 
+> Do not need '|' unless you need to preserve formatting.
+> 
 
-`copy_from_io_slice` and `copy_to_io_slice` needs `IS_MAPPED`, and also the
-optimization of `copy_read` / `copy_write` too.
+Will fix.
 
-Given that the semantics of `IS_MAPPED` ensures memcpy is always okay, so I
-think it's better to just define it.
+> > +  The SGMicro SGM41542 is a single cell battery charger/boost controller.
+> > +
+> > +maintainers:
+> > +  - Chris Morgan <macromorgan@hotmail.com>
+> > +  - Xu Shengfei <xsf@rock-chips.com>
+> > +
+> > +properties:
+> > +  compatible:
+> > +    const: sgmicro,sgm41542
+> > +
+> > +  input-current-limit-microamp:
+> 
+> Missing vendor prefix.
+> 
 
-The implementation of sys mem would also just use memcpy.
+This *appears* to be a standard value (perhaps not formally, but in use by
+enough devices to suggest a defacto standard), which is why I did not use
+the vendor prefix here. Do I need to add that for this one?
 
->
->> +
->> +    /// Copy `size` bytes from `buffer` to `address`.
->> +    ///
->> +    /// # Safety
->> +    ///
->> +    /// - The range `[address..address + size]` must be within the boun=
-ds of `Self`.
->> +    /// - `buffer` is valid for read for `size` bytes.
->> +    #[inline]
->> +    unsafe fn copy_to_io(&self, address: *mut u8, buffer: *const u8, si=
-ze: usize) {
->> +        const_assert!(Self::IS_MAPPED);
->> +
->> +        // Use `bindings::memcpy` instead of copy_nonoverlapping for vo=
-latile.
->> +        // SAFETY:
->> +        // - `IS_MAPPED` guarantees `address` is in CPU address space, =
-with safety requirements
->> +        //   `address` is valid for write for `size` bytes.
->> +        // - `buffer` is valid for read for `size` bytes.
->> +        unsafe { bindings::memcpy(address.cast(), buffer.cast(), size) =
-};
->> +    }
->> +}
->> +
-> [snip]
->> +
->> +impl<IO: ?Sized + Io + IoCopyable> View<'_, IO, [u8]> {
->> +    /// Copy bytes from slice to I/O memory.
->> +    #[inline]
->> +    pub fn copy_from_slice(self, data: &[u8]) {
->> +        assert_eq!(self.len(), data.len());
->
-> Do you really want a panic here?
+> > +    description:
+> > +      Optional value to clamp the maximum input current limit to for
+> > +      the device. If omitted, the default value for the hardware will
+> > +      be used (2400000).
+> > +    minimum: 100000
+> > +    maximum: 3800000
+> > +
+> > +  input-voltage-limit-microvolt:
+> > +    description:
+> > +      Optional value to clamp the maximum input voltage limit to for
+> > +      the device. If omitted, the default value for the hardware will
+> > +      be used (4500000).
+> > +    minimum: 3900000
+> > +    maximum: 12000000
+> > +
+> > +  interrupts:
+> > +    maxItems: 1
+> > +
+> > +  monitored-battery:
+> 
+> You miss definition of this property. I guess this is power supply, so
+> reference proper schema for power supplies. Look at other bindings to
+> for some example code.
 
-It's the same for core's slice::copy_from_slice.
+I'll look at this some more, I might have a few more questions. But I will
+make the changes requested.
 
-Best,
-Gary
+> 
+> > +    description: |
+> > +        A phandle to a monitored battery node. Values for the following
+> > +        are used by the driver and if not present will result in default
+> > +        values being applied:
+> > +        constant-charge-current-max-microamp
+> > +        constant-charge-voltage-max-microvolt
+> > +        charge-term-current-microamp
+> > +        precharge-current-microamp
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +
+> > +  regulators:
+> 
+> No need for regulators node, just define here otg-vbus directly. But
+> honestly, your example is incomplete or you defined something implied by
+> the compatible. If you have a fixed 5V regulator, what is the point of
+> defining it in the DT?
+
+The regulator can be adjusted within a range around 5V, and is referenced
+by the USB subsystem. Should I still omit it from the device tree or instead
+define the min and max values?
+
+> 
+> > +    type: object
+> > +    properties:
+> > +      otg-vbus:
+> > +        type: object
+> > +        description: OTG boost regulator
+> > +        $ref: /schemas/regulator/regulator.yaml
+> > +        unevaluatedProperties: false
+> > +    additionalProperties: false
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +
+> > +additionalProperties: false
+> > +
+> > +examples:
+> > +  - |
+> > +    battery: battery {
+> > +      compatible = "simple-battery";
+> > +      constant-charge-current-max-microamp = <10000000>;
+> > +      constant-charge-voltage-max-microvolt = <4350000>;
+> > +      precharge-current-microamp = <180000>;
+> > +      charge-term-current-microamp = <300000>;
+> > +    };
+> > +    #include <dt-bindings/gpio/gpio.h>
+> 
+> Drop this one
+
+Will do.
+
+> 
+> > +    #include <dt-bindings/interrupt-controller/irq.h>
+> > +    i2c {
+> > +      #address-cells = <1>;
+> > +      #size-cells = <0>;
+> > +
+> > +      charger@3b {
+> > +        compatible = "sgmicro,sgm41542";
+> > +        reg = <0x3b>;
+> > +        input-current-limit-microamp = <3000000>;
+> > +        input-voltage-limit-microvolt = <4500000>;
+> > +        interrupt-parent = <&gpio0>;
+> > +        interrupts = <26 IRQ_TYPE_EDGE_FALLING>;
+> > +        monitored-battery = <&battery>;
+> > +
+> > +        regulators {
+> > +          otg-vbus {
+> > +            regulator-max-microvolt = <5000000>;
+> > +            regulator-min-microvolt = <5000000>;
+> > +          };
+> > +        };
+> > +      };
+> > +    };
+> > -- 
+> > 2.43.0
+> > 
+
+Thank you for your valuable feedback,
+Chris
