@@ -4,100 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59E9CFF885A
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 14:05:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B87E2FF886D
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 14:08:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66A2810EBB5;
-	Tue, 28 Apr 2026 14:05:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20A2610E34A;
+	Tue, 28 Apr 2026 14:08:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="FftMdlXg";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="OsbShZSZ";
 	dkim-atps=neutral
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
- [209.85.221.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5960C10E34A
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 14:05:54 +0000 (UTC)
-Received: by mail-wr1-f52.google.com with SMTP id
- ffacd0b85a97d-43d77f6092eso8023852f8f.2
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 07:05:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1777385153; x=1777989953; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=FudvciPbQh66CQVlQx9qR0a4iS/GQ4J8s0VZ/c5V0Ws=;
- b=FftMdlXgf2y9M4uqNJxfnT4TQrxw08EwpKT3gTyZ50ZdPNfR1xtzLC8O0eKhASwYgh
- ovMsgioOugOem8ptk2tOLkBwKAjdn5llMk/jdUcqjBGUXQWH/Tbq0l73N/OJXmnTWCPS
- jArIkmmPGbArheSw8jHueCGUbFXgofrOk6yZl7gBSlmXsCPJb/93ZB/uxtHasdAtJN/I
- Nxl8eZyVRIFfe4pOahtTo20KG+Dk6u2nAuMJsPpLlFOQutiJL55Qt0Ss5YPgQTyvw526
- ODGYp93paE0+sI6DVKvC20gkxAYpZkvhXmV2FV6FA/ogGQl4bRIooyp3CYLu8CxFAUUM
- j9Gg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777385153; x=1777989953;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=FudvciPbQh66CQVlQx9qR0a4iS/GQ4J8s0VZ/c5V0Ws=;
- b=DhDZ35qWgMM5C8+8XB6meF5uBxjmI+3AM7UuMRhBZdet0Bem36Vj8yYZAWNHVMvaDY
- OxHn+5HRVd/+03KqlSZSG4cVpxcmkmSVinT4f6psl15vQtQ8RzHEAyh14z+x6cL1kM6B
- oGw9urRBEfmwm0T/kbf1MbSaFZloeAS5/rrJrDGR9JongF6GuVTxVGqQKoYSEPAMx0Z1
- TOZoSSLjssjuacveaby7/ZAWPngwEVAgGqJ2ilScWvJoKyQ2ESohWO6h0BWsGtMY2YB+
- 2SuGhBu7wQh3cMrWLqdmSWZ/jkJgycqb41CDIbuguadAMQgMTWc0MDawKCTYvA6aletM
- E5qg==
-X-Gm-Message-State: AOJu0Ywe+bO0tFARINNsHTipIx4Zx/YB46GvoHeGXHqNg/G8HYaito4V
- L3vLCTuGX9B2lZxk8JjOdpbeQk0gAf+5jxVmPdmu4SiUGmwuCtJWoWmY5faJVWxjZqY=
-X-Gm-Gg: AeBDieu163hL+qxgscss+rSG1Ry7M+5t9WhPgkYpeWGyLY8OA4i/1SnfJp6p4hrT3TP
- 7KD2wlvOuvb57K8k5i5Lc9MeaYQ8pFImjG7gW9XxG+MPh5Tg2t8VwBoDP4siS9yMUum4c4RDxru
- ns5VdN/K00iirFE9mXDaYrSdElxsLPWDAZ98iKOSIdE/Er/JxbYXo9DF8ghSBTRsQv+RgZH/Cqm
- ScPnewlEvWKDX+IWL11jGsv0a5BYnHmL+kFEtmdqO1LaBeZ8FGM9eyiOvfOsWxg2H+6rcob6iDT
- P9pA1K6s3D1+q7N0kzVJ40p4zM8x+1FkcPmilXT8CLaBmhU/otBO63Uu63wmw1D/WLLTshR4Uzz
- ag/2Tkcb9lT/J8QeC2MFTCp+rMywIdppjKhCQvtgbfGfFAoZ4yY6FFsdiOOoBfJxNMtNM6yTZca
- qv5t8MP4FiR7cdXE2WGkWqbmeNbtyef7MT4h0NGk3meo5Ger54W8jO4Ug=
-X-Received: by 2002:a5d:64c3:0:b0:43d:3004:5fef with SMTP id
- ffacd0b85a97d-44648f28ef6mr5714427f8f.7.1777385152430; 
- Tue, 28 Apr 2026 07:05:52 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4464004ed80sm7143264f8f.34.2026.04.28.07.05.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Apr 2026 07:05:52 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Tue, 28 Apr 2026 16:05:47 +0200
-Subject: [PATCH 2/2] drm: panel: add support for the R63419 based dual-DSI
- video mode Display Panels
+Received: from LO2P265CU024.outbound.protection.outlook.com
+ (mail-uksouthazon11021120.outbound.protection.outlook.com [52.101.95.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DB0D10E34A;
+ Tue, 28 Apr 2026 14:08:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MmaymhB07wqvKIsDPoeVVPvU6JBZgpuoHjj+J1RnI0btZ+F1FIFj41YDQpL67/uBonAN4fOQUE7MA60KvvP0hVrLTuWLY/Uq+risesrH/Vw+LOgnc2NMQx9p21E8bladnx/PM32CraZZo2KK9lhI3ihptaGsFw/TPx4c6v9hqf081OTr5Oh8SY/ghTaFm3ChWGL+BpuQoeJHRj14R9STvTfIsTX5Ps8/K7jV9Zi07QylyZp6ijq0+cON01dsC7FLUYVmUGTqnU44vTxc5g+rctrLImorVt3KqUyeO5u2/iGqgP73taaJ4nC/8dGbvv6YIDZaxeEfVbOF+8/piXo8dQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FwDuMHE/4HHSYPolYYpXbnNdbqbbZXyxT87H71H9lls=;
+ b=hFCIkVBMyOVmw1DaOlbIKbyuo5ZYCl/pFeSFtNl5bHECWJvzpPNmwWgKNbzgdp1fieEAYhk/BoR/fPOv4woEcbQ5Zg4nfngH15cBdT+spq9YX+qXWNzsQWQaq3KlXKWwqALPiLwpYBYZBDZ/4elSpM2pYz5kahDUgteYg/esn6GrknCO6UhHtpUGMUx4YJMg31ALeKjlmbmtKgM3Docr1cbPGQ2WkB3Zi8lNHYEOFG8mgt6JaS7C0XLLaymr89BWlCmgdl2VGFZU+X5uW5gdHHF6ub7fslgrdgzykEczPHCf3rTjg0utx2LnzR4skIbdWwcd4MPtQUdE/ohpfqYz/A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FwDuMHE/4HHSYPolYYpXbnNdbqbbZXyxT87H71H9lls=;
+ b=OsbShZSZS/dZTKY9ybBmRokrDrMHpa8aIskI8zBu/LLYL/YLFA5gagmb3caNGlpzM8aOf3J8hSB35+Msskki+SlUAyxVaZLRpprm6KvFMnlKJQiGXmN+xUa/q85Nq3y1NKzoSxxpewC+t98/jx8mtQLJfXHrtoG5unZ0rThVevk=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by CWLP265MB6708.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1e9::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.26; Tue, 28 Apr
+ 2026 14:08:42 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.20.9846.025; Tue, 28 Apr 2026
+ 14:08:42 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 28 Apr 2026 15:08:41 +0100
+Message-Id: <DI4UIGMGKN6H.375657ZERNYB5@garyguo.net>
+From: "Gary Guo" <gary@garyguo.net>
+To: "Andreas Hindborg" <a.hindborg@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, "Bjorn Helgaas"
+ <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, "Abdiel Janulgue" <abdiel.janulgue@gmail.com>,
+ "Robin Murphy" <robin.murphy@arm.com>, "Alexandre Courbot"
+ <acourbot@nvidia.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>
+Cc: <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+ <nouveau@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH v2 11/11] rust: io: add copying methods
+X-Mailer: aerc 0.21.0
+References: <20260421-io_projection-v2-0-4c251c692ef4@garyguo.net>
+ <20260421-io_projection-v2-11-4c251c692ef4@garyguo.net>
+ <87lde7p6d9.fsf@t14s.mail-host-address-is-not-set>
+In-Reply-To: <87lde7p6d9.fsf@t14s.mail-host-address-is-not-set>
+X-ClientProxiedBy: LO4P123CA0034.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:151::21) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260428-topic-sm8650-ayaneo-pocket-s2-r63419-v1-2-981eb5ab5a51@linaro.org>
-References: <20260428-topic-sm8650-ayaneo-pocket-s2-r63419-v1-0-981eb5ab5a51@linaro.org>
-In-Reply-To: <20260428-topic-sm8650-ayaneo-pocket-s2-r63419-v1-0-981eb5ab5a51@linaro.org>
-To: Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- KancyJoe <kancy2333@outlook.com>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=12821;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=Lg2heIFXpUjxNVvz0DHXOITtCdWX7bdwih4yMCzmWj0=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBp8L68afQkKuJn1zxyo60zyCwtAA2LZ5ULoL84Blkb
- W96QN9GJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCafC+vAAKCRB33NvayMhJ0WclD/
- 9rSeNBMq0D1Ph5yHEXqIn0F+kcLO2xZSKMxqaF32QLp64w+TMbpSPLdolnBp9OhchgBPQyy2FzwH39
- GEMrtrmRAZkcfDgN/vxubaUrkCuPo2dPwyVDv5FqkvswXS+CXiAzxH9uwbIKjrY8UGGvoaHnkV6kmH
- 9WervAigDQ7vDk+BzxsuLl27dhC4tiitYyczU2cxwXAHkdg1g17wUEq97Z9VDOm1g7rIi5cEhuJvAI
- gquA0SMCl73I6JiwnWo55CmmHivk7CawISkZs/c9N6W/Lk5hx3+hzjc0dGmh4Wz5yZipvzMPE/NVjs
- AXN3vt6Y0p513oDygP3gca9zwb7N7T1E94xMX6L5I6olYnjuD6JhaXGvKFr4BApbcINwUBBmf7WZSu
- nK5hOEifTkZO5/N9rzfMAMMqRxq1Ilp2VPrbhdvowWS4cQ/3rYNjVrD9Wohz8TYZUKrUdYUaXHh3q7
- 6snm8gp8SCcEJ1QQbHgmrZ7uyVjPnoboB+CGkIdVVLHXr90h0MBDdPecT74CS/nobupX+qt/+qBVei
- fxuO7TDzeNfCLE/J0m+yIBWkpwZqL+ugBlNXkkkg/9XG31tAuEwgUfxq4ZK8YKs8DmppLCqAO0ilmn
- mQsNXPLnfU64zcFxo++Ooagp2HrrIBNxCjFVGzYXvRaIrvt9rBE4mU27HBDA==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CWLP265MB6708:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7a95ef55-85bf-4dd1-8ee7-08dea52fa761
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|10070799003|1800799024|366016|376014|7416014|921020|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info: TD9YVgmnLkSI+sVs/iOrwrJo8qMB/FdRmkturYpXDuinsM37YRudyiAwN/Fph3dzxG/eREOOCgqqt1kQi1wWYXMbeoOb62nfS62yl5XcjkgwNZXi7Loy/ohUNlFxXo9GhIY/5ekXNcAP9WChNy9y03rBb0QEKRNpufSOweorm11N92rT6IPuWJNEwSn8nlrm6ariEJBzGi+bZCgGhdfcHw9/GSEbE61i77VCjx7CvnXvEp8oukc6CrjLR6hqlBN4tLiSHsDKDnoceU3kmZZWKm9xyhh42JhSYNd1Qz853JcwyUQLGskDY0K72WVhhSPZhMk6PuTbjEEolFPmQ0MdnR4g3csnJRjqtBTZywhnP0bHsT6gVT6+8qAN8wZTjImRL7Dsm2vxMzUSpuHE/43BOG/vzqQHp0TLeQ2XM9f52J/rhrq5RUUyHdUK8dCKJWwZISwRxKR2fzYE9vFUBXCINc19CJtq3Q0Fp8TAWzsw1AaZD3SyqV5TzF0LZp7hK5gRXa7Juh5TojZ0nQ4g8Q7e+U9rsRs7DFg1phAehWL2fU1dU2RhvaJotrgf4tEqme7siANd++T84XxmQJqW6Hpeag44AZXshZOc9i+3PDtlK8gI08dK9o6gdlwRi3i3BceqNRwQVRExZsf/LL8C5Ac1BVWZDamtDdNI/r9sTa8krdrngkAfwDfdK13D/qozxR1EVKIOQkzlwyi/YRmzlXi6AWNYbrxGRuNWDkwe7OjXsZ6J6lUA67G5hTHyyamelAbPYrTZrOssF/ej2zsMN3ppQw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(10070799003)(1800799024)(366016)(376014)(7416014)(921020)(18002099003)(56012099003)(22082099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?KzdTWnBSdlNZdWY5eUJ4ekJ1NjlJU1V6V1BNVnJrelpyWjFDMVl1d1FtUW9J?=
+ =?utf-8?B?YXRtRzFJcmNwcUMzTy93Y0hOT0gyVjVpTm5zeWFNOXYrRllvcmQ0aDFrVFlk?=
+ =?utf-8?B?cWJaK2NCdkRaNS9nbkQwV3NVODJ0YXpBL0hrWWsyaEJlcS8rN2JTeWREcmxW?=
+ =?utf-8?B?OW5zSnBZSW1ESyt0d3pPTTZwM3hXL3V2TjErRHVQUUNNcXoyaUhteFFvSmtk?=
+ =?utf-8?B?Zzh4aE1CV01idTJyd2R2NTFobFNTaFYxUmlIRU82cEJPZzRPbGEwRzE5MGhC?=
+ =?utf-8?B?akRpMGp1QWlKSTgycFRDMWx6Q2REU1hKeHFDcUxQUmljVjczR1J3K2RpMWNi?=
+ =?utf-8?B?S21vZzgyU01aVnFMdDUzNmh3ODQrdURieGpGSkpvWHh5eE44WEx5REdWRDIv?=
+ =?utf-8?B?WXJFa3J2NldWWjhUS3JFL0Y1cFJZeGNqOTM1SlZvUE15aldYamw4amlBNDU3?=
+ =?utf-8?B?anh5dVNTalhuNWh4UHdTSTNTQzk4MFo0WTVHb3hBdmtud2NzaUwyYUo3MEh1?=
+ =?utf-8?B?c2VyaU1GRG5zYmhmRy9oaWxEYVhEWVNzL1k4TmJkbndtMmJrUSs3SzhSS2F6?=
+ =?utf-8?B?VjdpUFRid2FORCs0ZU9SbTI0eFAwMGc0R3c2UmRzOUNLMU9DdFNZYVpyU3dI?=
+ =?utf-8?B?aUpOZTV4RGxaZk9paUhxZkMvNEQ4Yyt3bW4xWVhDWnNOaW9CcnhRZjNocVUw?=
+ =?utf-8?B?ektkUGdPS20xZ1hGVm1iVjhiTlF3VXZ6YW5INGttL1JuMzRKSG1ZYVlUdllB?=
+ =?utf-8?B?emhOa29MYVRyZ0FINURycGltWFR6MC9rN0Y2SFphTC8vRmI0UkVuRGJmaWpF?=
+ =?utf-8?B?dFRmR3FhQUI3Q2J1U0I0c2tZdFBFTDVIL1B4VUgxZnJRMDErZGUvWlIxLzdQ?=
+ =?utf-8?B?QXgxaEI3dGovNEJqQnRRbnZzRHNnVUk0T2pxZnUvcFpRdEtKWnNNOWZsSG1G?=
+ =?utf-8?B?RFVLUndDaGpPVlpoMXZyMWNNTThveE1SYmZ0Qm16WEE4MUdZeXVuSjliMWJp?=
+ =?utf-8?B?UzJEWW5lSkhSODloZFlxUHdVM0pPT2l0bFprT00zZkVHZVZqMGNXUEtpSFVr?=
+ =?utf-8?B?WmR1QVdNOEtlUnVCUXpkZXl5bk9RN1R0cFYxQjNyYi84TjdVUy8zWEtLeUdk?=
+ =?utf-8?B?bjlCVlUwbGwrR0RPOWpRbGY1L01rbXhPUjZVQnRCTGdYakNsTEdnNEtKRHJi?=
+ =?utf-8?B?bG53eVVZdVZSWElWOUVaSDBUczQwTWdsZTFSMWtoTUhBcmxlRFFsMlV4Z0tV?=
+ =?utf-8?B?bnFHOFB4N1A2a0NnTmJGVGVQTS9wUWRRMkhIVjEvYWJ2NElrNGtwYSs3Snpz?=
+ =?utf-8?B?QWpFOVl4bml1Zy9qMEVhVm8wSWJBcU5CZUZvNjFIMGFFd2Z1ZEc1aVEzcnJh?=
+ =?utf-8?B?cFZ3WTN5cnRiaU4wVDU2MEUrSUtUQ3ZZQ2U0ZllaV1hvLzJwT1Irazl1THVl?=
+ =?utf-8?B?aE9OUEhzdzc5b1ZmVXN6c3NScUJ3aWhxSHZKM3hwTnhEU1B4amw4Vlg2eSt6?=
+ =?utf-8?B?OUFHcmZIYm5UOGlVT2J3TTNrbzV4S1hZc0srWUxmdDJPMFFJL291QUNBNkFB?=
+ =?utf-8?B?V3A2djNNUkF0M1VxK1RuQUlVV04zZ2xScVhIWFFuZ1N0cXhPTC9XRFRwMXRR?=
+ =?utf-8?B?WG1IOU9Qc0Fzc0pQejg2cGJ3dE02ak8yWjJ2RTBWdDB3dFduVEhreDZOcFFj?=
+ =?utf-8?B?dlJySFpreWE4MFRNZEE0djFmVllZS2lLaWVjUVBUZGJCUFh1Wnd6RThqQmZX?=
+ =?utf-8?B?bzZNTFNWaEtOWWcwZlV6OG5KT1JpWlN5TkZ3aHB1bWdsTHF6aVNvQmNGSFlG?=
+ =?utf-8?B?cldRaERBaGFLd0Z3K3JzaUJid0ZFalBnU3dmeWlEcFZxM1ZaczgzM2ZZdzFR?=
+ =?utf-8?B?dTdqZHZreUNmaTRkL3QyTVR1ZjBzOHlKb2ZTZWFGaDg2b3pPbS80aVJmSXkw?=
+ =?utf-8?B?Y1JLVWNOaUdaYW85d1hpaU1Gc3FudkJnR0J3dG5BS0gvb254NG1FR0dxOUlK?=
+ =?utf-8?B?dVFaRWxCMlRvWXMwUUErdy8xNGYrejNlNFNrVExiM05Pb3JzT2pCNnZWTnYx?=
+ =?utf-8?B?WjZDSGs0bGQwWTRrZy84OGtqOU5FaDdMUHNJTmpaZm9RSjVDSm8yNHBZN0lE?=
+ =?utf-8?B?OTREYWZQei9HQ3ltMTE3L3hNRVFJeEd5N3dKbFczUkVUa2lLRGEwY1RwUllm?=
+ =?utf-8?B?aVN3MHBRSkRVZkRKdGdwazhmNUlDMU1vQzVEVzBIeXNzbGxPQzFmWTQ5MUo3?=
+ =?utf-8?B?eG9XTGp5bDlLaCtwMUFJMlNQZ3FrTlQyTUFQOEpHRFVGSC92RkxBODdsUVpj?=
+ =?utf-8?B?MnpGQ1IzN2tEcm1kb0dyZkxWdW8yT0wxNWI5REx2OUI5YUZOVVR4dz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7a95ef55-85bf-4dd1-8ee7-08dea52fa761
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2026 14:08:42.4629 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: R4oIuLD3vk+g8t4clW/+aUU4SX+QsJ+7tLSKfbSrvrUv1iGu9wQ1OZH0X8cmO3hMUQ8VIMGjXeiP0m4nUh2l1g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB6708
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,417 +150,187 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: KancyJoe <kancy2333@outlook.com>
+On Tue Apr 28, 2026 at 2:22 PM BST, Andreas Hindborg wrote:
+> Gary Guo <gary@garyguo.net> writes:
+>
+>> One feature that was lost from the old `dma_read!()` and `dma_write!()`
+>> when moving to `io_read!()` and `io_write!()` was the ability to read/wr=
+ite
+>> a large structs. However, the semantics was unclear to begin with, as th=
+ere
+>> was no guarantee about their atomicity even for structs that were small
+>> enough to fit in u32. Re-introduces the capability in the form of copyin=
+g
+>> methods.
+>>
+>>     dma_read!(foo, bar) -> io_project!(foo, bar).copy_read()
+>>     dma_write!(foo, bar, baz) -> io_project!(foo, bar).copy_write(baz)
+>>
+>> The semantics for these are modelled after memcpy so user has clear
+>> expectation of lack of atomicity. As an additional benefit of this chang=
+e,
+>> this now works for MMIO as well, which maps to `memcpy_{from,to}io`.
+>>
+>> For slices, which is unsized so the API above can't work, `copy_from_sli=
+ce`
+>> and `copy_to_slice` were added to copy from/to normal memory, and
+>> `copy_from_io_slice` and `copy_to_io_slice` were added to copy from/to
+>> other `Io` regions. They're optimized if at least one end is mapped to
+>> system memory; if none are, the copy occurs with an intermediate stack
+>> buffer.
+>>
+>> Signed-off-by: Gary Guo <gary@garyguo.net>
+>> ---
+>>  rust/kernel/dma.rs |   8 +-
+>>  rust/kernel/io.rs  | 231 ++++++++++++++++++++++++++++++++++++++++++++++=
++++++++
+>>  2 files changed, 238 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/rust/kernel/dma.rs b/rust/kernel/dma.rs
+>> index bbdeb117c145..307f5769ca0a 100644
+>> --- a/rust/kernel/dma.rs
+>> +++ b/rust/kernel/dma.rs
+>> @@ -16,7 +16,8 @@
+>>      fs::file,
+>>      io::{
+>>          Io,
+>> -        IoCapable, //
+>> +        IoCapable,
+>> +        IoCopyable, //
+>>      },
+>>      prelude::*,
+>>      ptr::KnownSize,
+>> @@ -997,6 +998,11 @@ unsafe fn io_write(&self, value: $ty, address: *mut=
+ $ty) {
+>>      u64
+>>  );
+>> =20
+>> +// SAFETY: `Coherent` is mapped to CPU address space.
+>> +unsafe impl<T: ?Sized + KnownSize> IoCopyable for Coherent<T> {
+>> +    const IS_MAPPED: bool =3D true;
+>> +}
+>> +
+>>  impl<'a, B: ?Sized + KnownSize, T: ?Sized> crate::io::View<'a, Coherent=
+<B>, T> {
+>>      /// Returns a DMA handle which may be given to the device as the DM=
+A address base of
+>>      /// the region.
+>> diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
+>> index efcd7e6741d7..0b1ed68c0f9b 100644
+>> --- a/rust/kernel/io.rs
+>> +++ b/rust/kernel/io.rs
+>> @@ -4,6 +4,8 @@
+>>  //!
+>>  //! C header: [`include/asm-generic/io.h`](srctree/include/asm-generic/=
+io.h)
+>> =20
+>> +use core::mem::MaybeUninit;
+>> +
+>>  use crate::{
+>>      bindings,
+>>      prelude::*,
+>> @@ -233,6 +235,55 @@ pub trait IoCapable<T> {
+>>      unsafe fn io_write(&self, value: T, address: *mut T);
+>>  }
+>> =20
+>> +/// Trait indicating that an I/O backend supports memory copy operation=
+s.
+>> +///
+>> +/// # Safety
+>> +///
+>> +/// If [`IS_MAPPED`] is overridden to true, it must be correct per docu=
+mentation.
+>> +pub unsafe trait IoCopyable {
+>> +    /// Whether the pointers for this I/O backend are in the CPU addres=
+s space, and are coherently
+>> +    /// mapped.
+>> +    ///
+>> +    /// When this is true, it means that memory can be accessed with by=
+te-wise atomic memory copy.
+>> +    const IS_MAPPED: bool =3D false;
+>> +
+>> +    /// Copy `size` bytes from `address` to `buffer`.
+>> +    ///
+>> +    /// # Safety
+>> +    ///
+>> +    /// - The range `[address..address + size]` must be within the boun=
+ds of `Self`.
+>
+> We should probably specify what "bounds of `Self`" means here. It's not
+> the bounds of `Self`, it is the bounds of the memory region `Self`
+> represents.
 
-Implement support for the Renesas 63419 based dual-DSI video mode
-Display Panels found in the Ayaneo gaming handled devices.
+I just copied the wording for `IoCapable` methods. That said, I think it's =
+worth
+improving.
 
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-Signed-off-by: KancyJoe <kancy2333@outlook.com>
----
- drivers/gpu/drm/panel/Kconfig                |  12 +
- drivers/gpu/drm/panel/Makefile               |   1 +
- drivers/gpu/drm/panel/panel-renesas-r63419.c | 356 +++++++++++++++++++++++++++
- 3 files changed, 369 insertions(+)
+>
+>> +    /// - `buffer` is valid for write for `size` bytes.
+>> +    #[inline]
+>> +    unsafe fn copy_from_io(&self, address: *mut u8, buffer: *mut u8, si=
+ze: usize) {
+>> +        const_assert!(Self::IS_MAPPED);
+>> +
+>> +        // Use `bindings::memcpy` instead of copy_nonoverlapping for vo=
+latile.
+>> +        // SAFETY:
+>> +        // - `buffer` is valid for write for `size` bytes.
+>> +        // - `IS_MAPPED` guarantees `address` is in CPU address space, =
+with safety requirements
+>> +        //   `address` is valid for read for `size` bytes.
+>> +        unsafe { bindings::memcpy(buffer.cast(), address.cast(), size) =
+};
+>> +    }
+>
+> You could just leave out the default impl and implement each case for
+> `Coherent<_>` and `Mmio<_>`. Do you expect more implementers that can
+> share the default impl?
 
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index d6863b28ddc5..5404d918677f 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -755,6 +755,18 @@ config DRM_PANEL_RENESAS_R61307
- 	  This panel controller can be found in LG Optimus Vu P895 smartphone
- 	  in combination with LCD panel.
- 
-+config DRM_PANEL_RENESAS_R63419
-+	tristate "Renesas R63419 dual-DSI video mode panels"
-+	depends on OF && GPIOLIB
-+	depends on DRM_MIPI_DSI
-+	depends on BACKLIGHT_CLASS_DEVICE
-+	help
-+	  Say Y here if you want to enable support for Ayaneo WT0600 and WT0630
-+	  1440x2560 60Hz dual-DSI video mode display panels with Renesas
-+	  R63419 IC.
-+
-+	  These panels are used in Ayaneo handheld gaming devices.
-+
- config DRM_PANEL_RENESAS_R69328
- 	tristate "Renesas R69328 720x1280 DSI video mode panel"
- 	depends on OF
-diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-index a4291dc3905b..b498ee9b5929 100644
---- a/drivers/gpu/drm/panel/Makefile
-+++ b/drivers/gpu/drm/panel/Makefile
-@@ -75,6 +75,7 @@ obj-$(CONFIG_DRM_PANEL_RAYDIUM_RM68200) += panel-raydium-rm68200.o
- obj-$(CONFIG_DRM_PANEL_RAYDIUM_RM692E5) += panel-raydium-rm692e5.o
- obj-$(CONFIG_DRM_PANEL_RAYDIUM_RM69380) += panel-raydium-rm69380.o
- obj-$(CONFIG_DRM_PANEL_RENESAS_R61307) += panel-renesas-r61307.o
-+obj-$(CONFIG_DRM_PANEL_RENESAS_R63419) += panel-renesas-r63419.o
- obj-$(CONFIG_DRM_PANEL_RENESAS_R69328) += panel-renesas-r69328.o
- obj-$(CONFIG_DRM_PANEL_RONBO_RB070D30) += panel-ronbo-rb070d30.o
- obj-$(CONFIG_DRM_PANEL_SAMSUNG_AMS581VF01) += panel-samsung-ams581vf01.o
-diff --git a/drivers/gpu/drm/panel/panel-renesas-r63419.c b/drivers/gpu/drm/panel/panel-renesas-r63419.c
-new file mode 100644
-index 000000000000..cb4957914241
---- /dev/null
-+++ b/drivers/gpu/drm/panel/panel-renesas-r63419.c
-@@ -0,0 +1,356 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * DRM driver for Renesas R63419 based dual-DSI video mode panels
-+ *
-+ * Copyright (c) 2025, Kancy Joe <kancy2333@outlook.com>
-+ * Copyright (C) 2026 Linaro Limited
-+ * Author: Neil Armstrong <neil.armstrong@linaro.org>
-+ */
-+
-+#include <linux/backlight.h>
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/of_graph.h>
-+#include <linux/regulator/consumer.h>
-+
-+#include <video/mipi_display.h>
-+
-+#include <drm/drm_connector.h>
-+#include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_modes.h>
-+#include <drm/drm_panel.h>
-+#include <drm/drm_probe_helper.h>
-+
-+struct renesas_r63419_panel {
-+	struct drm_panel panel;
-+	struct mipi_dsi_device *dsi[2];
-+	const struct panel_desc *desc;
-+
-+	struct gpio_desc *reset_gpio;
-+	struct regulator_bulk_data *vdd_supplies;
-+	struct regulator_bulk_data *vcc_supplies;
-+	enum drm_panel_orientation orientation;
-+};
-+
-+/* VDDIO/VDD Supplies */
-+static const struct regulator_bulk_data renesas_r63419_vdd_supplies[] = {
-+	{ .supply = "vddio" },
-+	{ .supply = "vdd" },
-+};
-+
-+/* VSP/VSN/VCI Supplies */
-+static const struct regulator_bulk_data renesas_r63419_vcc_supplies[] = {
-+	{ .supply = "vsp" },
-+	{ .supply = "vsn" },
-+	{ .supply = "vci" },
-+};
-+
-+struct panel_desc {
-+	const struct drm_display_mode *mode;
-+	unsigned int lanes;
-+	unsigned long mode_flags;
-+	enum mipi_dsi_pixel_format format;
-+	u16 height_mm;
-+	u16 width_mm;
-+	const struct mipi_dsi_device_info dsi_info;
-+};
-+
-+static const struct drm_display_mode wt0600_mode = {
-+	/* Dual dsi */
-+	.clock = 2 * (720 + 100 + 8 + 40) * (2560 + 15 + 2 + 8) * 60 / 1000,
-+	.hdisplay = 2 * 720,
-+	.hsync_start = 2 * (720 + 100),
-+	.hsync_end = 2 * (720 + 100 + 8),
-+	.htotal = 2 * (720 + 100 + 8 + 40),
-+	.vdisplay = 2560,
-+	.vsync_start = 2560 + 15,
-+	.vsync_end = 2560 + 15 + 2,
-+	.vtotal = 2560 + 15 + 2 + 8,
-+	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
-+};
-+
-+static struct panel_desc wt0600_desc = {
-+	.lanes = 4,
-+	.width_mm = 74,
-+	.height_mm = 131,
-+	.mode = &wt0600_mode,
-+	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
-+		      MIPI_DSI_CLOCK_NON_CONTINUOUS | MIPI_DSI_MODE_LPM,
-+	.format = MIPI_DSI_FMT_RGB888,
-+	.dsi_info = {
-+		.type = "wt0600-2k",
-+		.channel = 0,
-+		.node = NULL,
-+	},
-+};
-+
-+static struct panel_desc wt0630_desc = {
-+	.lanes = 4,
-+	.width_mm = 78,
-+	.height_mm = 140,
-+	.mode = &wt0600_mode,  /* wt0600 only has different screen size */
-+	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
-+		      MIPI_DSI_CLOCK_NON_CONTINUOUS | MIPI_DSI_MODE_LPM,
-+	.format = MIPI_DSI_FMT_RGB888,
-+	.dsi_info = {
-+		.type = "wt0630-2k",
-+		.channel = 0,
-+		.node = NULL,
-+	},
-+};
-+
-+static inline struct renesas_r63419_panel *
-+to_renesas_r63419_panel(struct drm_panel *panel)
-+{
-+	return container_of(panel, struct renesas_r63419_panel, panel);
-+}
-+
-+static int renesas_r63419_on(struct renesas_r63419_panel *ctx)
-+{
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi[0] };
-+	struct mipi_dsi_multi_context dsi_ctx1 = { .dsi = ctx->dsi[1] };
-+
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx1);
-+	mipi_dsi_msleep(&dsi_ctx, 150);
-+
-+	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-+	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx1);
-+	mipi_dsi_msleep(&dsi_ctx, 50);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int renesas_r63419_disable(struct drm_panel *panel)
-+{
-+	struct renesas_r63419_panel *ctx = to_renesas_r63419_panel(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi[0] };
-+	struct mipi_dsi_multi_context dsi_ctx1 = { .dsi = ctx->dsi[1] };
-+
-+	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-+	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx1);
-+	mipi_dsi_msleep(&dsi_ctx, 50);
-+
-+	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-+	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx1);
-+	mipi_dsi_msleep(&dsi_ctx, 120);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int renesas_r63419_prepare(struct drm_panel *panel)
-+{
-+	struct renesas_r63419_panel *ctx = to_renesas_r63419_panel(panel);
-+	int ret;
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(renesas_r63419_vdd_supplies),
-+				    ctx->vdd_supplies);
-+	if (ret < 0)
-+		return ret;
-+
-+	usleep_range(1000, 2000);
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(renesas_r63419_vcc_supplies),
-+				    ctx->vcc_supplies);
-+	if (ret < 0)
-+		return ret;
-+
-+	usleep_range(1000, 2000);
-+
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+
-+	usleep_range(3000, 4000);
-+
-+	ret = renesas_r63419_on(ctx);
-+	if (ret < 0) {
-+		dev_err(panel->dev, "Failed to initialize panel: %d\n", ret);
-+		regulator_bulk_disable(ARRAY_SIZE(renesas_r63419_vcc_supplies),
-+				       ctx->vcc_supplies);
-+		regulator_bulk_disable(ARRAY_SIZE(renesas_r63419_vdd_supplies),
-+				       ctx->vdd_supplies);
-+
-+		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int renesas_r63419_unprepare(struct drm_panel *panel)
-+{
-+	struct renesas_r63419_panel *ctx = to_renesas_r63419_panel(panel);
-+
-+	regulator_bulk_disable(ARRAY_SIZE(renesas_r63419_vcc_supplies), ctx->vcc_supplies);
-+	regulator_bulk_disable(ARRAY_SIZE(renesas_r63419_vdd_supplies), ctx->vdd_supplies);
-+
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+
-+	return 0;
-+}
-+
-+static int renesas_r63419_get_modes(struct drm_panel *panel,
-+				    struct drm_connector *connector)
-+{
-+	struct drm_display_mode *mode;
-+	struct renesas_r63419_panel *ctx = to_renesas_r63419_panel(panel);
-+
-+	mode = drm_mode_duplicate(connector->dev, ctx->desc->mode);
-+	if (!mode)
-+		return -ENOMEM;
-+
-+	/* Update panel size */
-+	mode->width_mm = ctx->desc->width_mm;
-+	mode->height_mm = ctx->desc->height_mm;
-+
-+	drm_mode_set_name(mode);
-+	connector->display_info.width_mm = mode->width_mm;
-+	connector->display_info.height_mm = mode->height_mm;
-+	drm_mode_probed_add(connector, mode);
-+
-+	return 1;
-+}
-+
-+static enum drm_panel_orientation
-+renesas_r63419_get_orientation(struct drm_panel *panel)
-+{
-+	struct renesas_r63419_panel *ctx = to_renesas_r63419_panel(panel);
-+
-+	return ctx->orientation;
-+}
-+
-+static const struct drm_panel_funcs renesas_r63419_panel_funcs = {
-+	.disable = renesas_r63419_disable,
-+	.prepare = renesas_r63419_prepare,
-+	.unprepare = renesas_r63419_unprepare,
-+	.get_modes = renesas_r63419_get_modes,
-+	.get_orientation = renesas_r63419_get_orientation,
-+};
-+
-+static int renesas_r63419_probe(struct mipi_dsi_device *dsi)
-+{
-+	struct device *dev = &dsi->dev;
-+	struct renesas_r63419_panel *ctx;
-+	struct device_node *dsi1_node;
-+	struct mipi_dsi_host *dsi1_host;
-+	int ret, i;
-+
-+	ctx = devm_drm_panel_alloc(dev, struct renesas_r63419_panel, panel,
-+				   &renesas_r63419_panel_funcs, DRM_MODE_CONNECTOR_DSI);
-+	if (IS_ERR(ctx))
-+		return PTR_ERR(ctx);
-+
-+	ctx->desc = of_device_get_match_data(dev);
-+	if (!ctx->desc)
-+		return dev_err_probe(dev, -ENODEV,
-+				     "Failed to get panel description\n");
-+
-+	ret = devm_regulator_bulk_get_const(&dsi->dev,
-+					    ARRAY_SIZE(renesas_r63419_vdd_supplies),
-+					    renesas_r63419_vdd_supplies, &ctx->vdd_supplies);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = devm_regulator_bulk_get_const(&dsi->dev,
-+					    ARRAY_SIZE(renesas_r63419_vcc_supplies),
-+					    renesas_r63419_vcc_supplies, &ctx->vcc_supplies);
-+	if (ret < 0)
-+		return ret;
-+
-+	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
-+	if (IS_ERR(ctx->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
-+				     "Failed to get reset gpio\n");
-+
-+	/* Get second DSI host */
-+	dsi1_node = of_graph_get_remote_node(dsi->dev.of_node, 1, -1);
-+	if (!dsi1_node)
-+		return dev_err_probe(dev, -ENODEV,
-+				     "Failed to get remote node for second DSI\n");
-+
-+	dsi1_host = of_find_mipi_dsi_host_by_node(dsi1_node);
-+	of_node_put(dsi1_node);
-+	if (!dsi1_host)
-+		return dev_err_probe(dev, -EPROBE_DEFER,
-+				     "Failed to find second DSI host\n");
-+
-+	/* Register the second DSI device */
-+	ctx->dsi[1] = devm_mipi_dsi_device_register_full(dev, dsi1_host,
-+							 &ctx->desc->dsi_info);
-+	if (IS_ERR(ctx->dsi[1]))
-+		return dev_err_probe(dev, PTR_ERR(ctx->dsi[1]),
-+				     "Failed to register second DSI device\n");
-+
-+	ctx->dsi[0] = dsi;
-+	mipi_dsi_set_drvdata(dsi, ctx);
-+
-+	/* Get panel orientation */
-+	ret = of_drm_get_panel_orientation(dev->of_node, &ctx->orientation);
-+	if (ret < 0 && ret != -ENODEV)
-+		return dev_err_probe(dev, ret,
-+				     "Failed to get panel orientation\n");
-+
-+	ctx->panel.prepare_prev_first = true;
-+
-+	ret = drm_panel_of_backlight(&ctx->panel);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to get backlight\n");
-+
-+	drm_panel_add(&ctx->panel);
-+
-+	/* Configure and attach both DSI devices */
-+	for (i = 0; i < ARRAY_SIZE(ctx->dsi); i++) {
-+		ctx->dsi[i]->lanes = ctx->desc->lanes;
-+		ctx->dsi[i]->format = ctx->desc->format;
-+		ctx->dsi[i]->mode_flags = ctx->desc->mode_flags;
-+
-+		ret = mipi_dsi_attach(ctx->dsi[i]);
-+		if (ret < 0) {
-+			drm_panel_remove(&ctx->panel);
-+			return dev_err_probe(dev, ret,
-+					     "Failed to attach DSI device %d\n", i);
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+static void renesas_r63419_remove(struct mipi_dsi_device *dsi)
-+{
-+	struct renesas_r63419_panel *ctx = mipi_dsi_get_drvdata(dsi);
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(ctx->dsi); i++)
-+		mipi_dsi_detach(ctx->dsi[i]);
-+
-+	drm_panel_remove(&ctx->panel);
-+}
-+
-+static const struct of_device_id renesas_r63419_of_match[] = {
-+	{
-+		.compatible = "ayaneo,wt0600-2k",
-+		.data = &wt0600_desc,
-+	},
-+	{
-+		.compatible = "ayaneo,wt0630-2k",
-+		.data = &wt0630_desc,
-+	},
-+	{}
-+};
-+MODULE_DEVICE_TABLE(of, renesas_r63419_of_match);
-+
-+static struct mipi_dsi_driver renesas_r63419_driver = {
-+	.probe = renesas_r63419_probe,
-+	.remove = renesas_r63419_remove,
-+	.driver = {
-+		.name = "panel-renesas-r63419",
-+		.of_match_table = renesas_r63419_of_match,
-+	},
-+};
-+module_mipi_dsi_driver(renesas_r63419_driver);
-+
-+MODULE_AUTHOR("Kancy Joe <kancy2333@outlook.com>");
-+MODULE_DESCRIPTION("DRM driver for Renesas R63419 based dual-DSI video mode panels");
-+MODULE_LICENSE("GPL");
+`copy_from_io_slice` and `copy_to_io_slice` needs `IS_MAPPED`, and also the
+optimization of `copy_read` / `copy_write` too.
 
--- 
-2.34.1
+Given that the semantics of `IS_MAPPED` ensures memcpy is always okay, so I
+think it's better to just define it.
 
+The implementation of sys mem would also just use memcpy.
+
+>
+>> +
+>> +    /// Copy `size` bytes from `buffer` to `address`.
+>> +    ///
+>> +    /// # Safety
+>> +    ///
+>> +    /// - The range `[address..address + size]` must be within the boun=
+ds of `Self`.
+>> +    /// - `buffer` is valid for read for `size` bytes.
+>> +    #[inline]
+>> +    unsafe fn copy_to_io(&self, address: *mut u8, buffer: *const u8, si=
+ze: usize) {
+>> +        const_assert!(Self::IS_MAPPED);
+>> +
+>> +        // Use `bindings::memcpy` instead of copy_nonoverlapping for vo=
+latile.
+>> +        // SAFETY:
+>> +        // - `IS_MAPPED` guarantees `address` is in CPU address space, =
+with safety requirements
+>> +        //   `address` is valid for write for `size` bytes.
+>> +        // - `buffer` is valid for read for `size` bytes.
+>> +        unsafe { bindings::memcpy(address.cast(), buffer.cast(), size) =
+};
+>> +    }
+>> +}
+>> +
+> [snip]
+>> +
+>> +impl<IO: ?Sized + Io + IoCopyable> View<'_, IO, [u8]> {
+>> +    /// Copy bytes from slice to I/O memory.
+>> +    #[inline]
+>> +    pub fn copy_from_slice(self, data: &[u8]) {
+>> +        assert_eq!(self.len(), data.len());
+>
+> Do you really want a panic here?
+
+It's the same for core's slice::copy_from_slice.
+
+Best,
+Gary
