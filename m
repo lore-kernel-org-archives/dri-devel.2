@@ -4,63 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB17EFF886F
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 06:14:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3542FFF886F
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 06:25:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D387E10E0A1;
-	Tue, 28 Apr 2026 06:14:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B89A10E2F2;
+	Tue, 28 Apr 2026 06:25:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="AytlwYKe";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="CXGPvzUq";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="MpawiVvA";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="CXGPvzUq";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="MpawiVvA";
 	dkim-atps=neutral
-Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com
- [113.46.200.218])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D230C10E0A1
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 06:14:11 +0000 (UTC)
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
- c=relaxed/relaxed; q=dns/txt; h=From;
- bh=4jtzaZVol03S+yIm5JkpA1F/0hXeP8du+x+1tWAm9/U=;
- b=AytlwYKeyoe7LNdsvlK55dMrwWIy018xQGYFyEMPQpNA60UTAqLWqJmk+kzHVWIPsqaobMubX
- Hbrn/j1bD/O/dCYv2pY4zxzrUbgul1Rwuqu1KUav4kr78r2IwmR37JGChw2zR4Mc1Ol8wi8sG6m
- QGJeZGypRWTnUhbR64lPI6w=
-Received: from mail.maildlp.com (unknown [172.19.162.144])
- by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4g4VMn5K9rzpSvH;
- Tue, 28 Apr 2026 14:07:33 +0800 (CST)
-Received: from dggemv706-chm.china.huawei.com (unknown [10.3.19.33])
- by mail.maildlp.com (Postfix) with ESMTPS id A839840538;
- Tue, 28 Apr 2026 14:14:08 +0800 (CST)
-Received: from kwepemq100007.china.huawei.com (7.202.195.175) by
- dggemv706-chm.china.huawei.com (10.3.19.33) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Tue, 28 Apr 2026 14:14:08 +0800
-Received: from [10.159.167.44] (10.159.167.44) by
- kwepemq100007.china.huawei.com (7.202.195.175) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Tue, 28 Apr 2026 14:14:07 +0800
-Message-ID: <4846f056-dcf8-43ab-a947-2197d89e5494@huawei.com>
-Date: Tue, 28 Apr 2026 14:14:07 +0800
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CAC3710E2F2
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 06:25:34 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 57E6D5BD36;
+ Tue, 28 Apr 2026 06:25:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1777357533; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=CbtKUU66mBpKSuXu5VOYIqLxru08RDNDVdMg2NLLm5I=;
+ b=CXGPvzUq3F/M16jsi5G+dYhtLgZzJr48bjHJ4CFuSt1M8AIni0zoE/0WlnNkcmFdFtGxM1
+ MnyOC9OGkhe9tqGT3XiuyK1OiFHfUEuKP14YoUjFHx7iskf3EfA6ZoMuJQ6wn9mxV3dlGS
+ O1vqWVsXDM//L808kVjnQtPzNR3iWsM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1777357533;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=CbtKUU66mBpKSuXu5VOYIqLxru08RDNDVdMg2NLLm5I=;
+ b=MpawiVvAR/XqR/yjTnaQ0hJSQ3VBQnqGExT93UogXYIEc2X/S1E3p57nNT1ZwkzCNKemsv
+ 7Y3htgWp5+hthdCQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1777357533; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=CbtKUU66mBpKSuXu5VOYIqLxru08RDNDVdMg2NLLm5I=;
+ b=CXGPvzUq3F/M16jsi5G+dYhtLgZzJr48bjHJ4CFuSt1M8AIni0zoE/0WlnNkcmFdFtGxM1
+ MnyOC9OGkhe9tqGT3XiuyK1OiFHfUEuKP14YoUjFHx7iskf3EfA6ZoMuJQ6wn9mxV3dlGS
+ O1vqWVsXDM//L808kVjnQtPzNR3iWsM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1777357533;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=CbtKUU66mBpKSuXu5VOYIqLxru08RDNDVdMg2NLLm5I=;
+ b=MpawiVvAR/XqR/yjTnaQ0hJSQ3VBQnqGExT93UogXYIEc2X/S1E3p57nNT1ZwkzCNKemsv
+ 7Y3htgWp5+hthdCQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D9A56593B0;
+ Tue, 28 Apr 2026 06:25:32 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id DFXqM9xS8GlAOgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 28 Apr 2026 06:25:32 +0000
+Message-ID: <057ebc30-f103-4d24-b5be-bbc9b79050e8@suse.de>
+Date: Tue, 28 Apr 2026 08:25:32 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for drm-misc-fixes v5 4/4] drm/hisilicon/hibmc: use clock
- to look up the PLL value
-To: Thomas Zimmermann <tzimmermann@suse.de>,
- <dmitry.baryshkov@oss.qualcomm.com>, <tiantao6@hisilicon.com>,
- <xinliang.liu@linaro.org>, <maarten.lankhorst@linux.intel.com>,
- <mripard@kernel.org>, <airlied@gmail.com>, <daniel@ffwll.ch>,
- <kong.kongxinwei@hisilicon.com>
-CC: <liangjian010@huawei.com>, <chenjianmin@huawei.com>,
- <fengsheng5@huawei.com>, <helin52@h-partners.com>, <shenjian15@huawei.com>,
- <shaojijie@huawei.com>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <shiyongbang@huawei.com>
+Subject: Re: [PATCH for drm-misc-fixes v5 2/4] drm/hisilicon/hibmc: fix no
+ showing when no connectors connected
+To: Yongbang Shi <shiyongbang@huawei.com>, dmitry.baryshkov@oss.qualcomm.com, 
+ tiantao6@hisilicon.com, xinliang.liu@linaro.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ daniel@ffwll.ch, kong.kongxinwei@hisilicon.com
+Cc: liangjian010@huawei.com, chenjianmin@huawei.com, fengsheng5@huawei.com,
+ helin52@h-partners.com, shenjian15@huawei.com, shaojijie@huawei.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 References: <20260423063233.1267631-1-shiyongbang@huawei.com>
- <20260423063233.1267631-5-shiyongbang@huawei.com>
- <c5d2b5cd-df8b-4bbd-a0cc-4d7e3ad61da3@suse.de>
-From: Yongbang Shi <shiyongbang@huawei.com>
-In-Reply-To: <c5d2b5cd-df8b-4bbd-a0cc-4d7e3ad61da3@suse.de>
-Content-Type: text/plain; charset="UTF-8"
+ <20260423063233.1267631-3-shiyongbang@huawei.com>
+ <27864583-4211-4553-bdc0-42dadd25d212@suse.de>
+ <cc33b5df-4048-423f-97d9-b00ca04b2d99@huawei.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <cc33b5df-4048-423f-97d9-b00ca04b2d99@huawei.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.159.167.44]
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- kwepemq100007.china.huawei.com (7.202.195.175)
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ ARC_NA(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWELVE(0.00)[17];
+ FREEMAIL_TO(0.00)[huawei.com,oss.qualcomm.com,hisilicon.com,linaro.org,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:url,
+ bootlin.com:url, suse.de:mid]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,162 +146,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi
 
-> Hi
-> 
-> Am 23.04.26 um 08:32 schrieb Yongbang Shi:
->> From: Lin He <helin52@huawei.com>
+Am 28.04.26 um 05:58 schrieb Yongbang Shi:
+[...]
+>> There's a problem with the overall logic here: if the physical status is 'connected' and the helper could not retrieve
+>> any modes, the helper should return 0 here. Then the DRM helpers do the right thing with setting up a few modes or an
+>> EDID override as a fallback. See [2]. For example, on my broken test system, I'd be able to provide my display's EDID
+>> and get the correct output.
 >>
->> In the past, we use width and height to look up our PLL value.
->> But actually the actual clock check is also necessnary. There are
->> some resolutions that width and height same, but its clock different.
->> Add the clock check when using pll_table to determine the PLL value.
+>> [2] https://elixir.bootlin.com/linux/v7.0.1/source/drivers/gpu/drm/drm_probe_helper.c#L436
 >>
->> Fixes: da52605eea8f ("drm/hisilicon/hibmc: Add support for display engine")
->> Signed-off-by: Lin He <helin52@huawei.com>
->> Signed-off-by: Yongbang Shi <shiyongbang@huawei.com>
->> ---
->> ChangeLog:
->> v2 -> v3:
->>    - remove unused macro CLOCK_TOLERANCE.
->> v1 -> v2:
->>    - remove tag "Reviewed-by: Tao Tian <tiantao6@hisilicon.com>", witch will
->>      be given in public.
->>    - add 'drm-misc-fixes' in subject prefix.
->> ---
->>   .../gpu/drm/hisilicon/hibmc/hibmc_drm_de.c    | 78 +++++++++++--------
->>   1 file changed, 44 insertions(+), 34 deletions(-)
+>> Any code below is BMC setup and should run in an else branch, just like in ast.
 >>
->> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
->> index 89bed78f1466..1a07e8146eee 100644
->> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
->> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
->> @@ -32,26 +32,43 @@ struct hibmc_display_panel_pll {
->>   struct hibmc_dislay_pll_config {
->>       u64 hdisplay;
->>       u64 vdisplay;
->> +    int clock;
->>       u32 pll1_config_value;
->>       u32 pll2_config_value;
->>   };
->>     static const struct hibmc_dislay_pll_config hibmc_pll_table[] = {
->> -    {640, 480, CRT_PLL1_HS_25MHZ, CRT_PLL2_HS_25MHZ},
->> -    {800, 600, CRT_PLL1_HS_40MHZ, CRT_PLL2_HS_40MHZ},
->> -    {1024, 768, CRT_PLL1_HS_65MHZ, CRT_PLL2_HS_65MHZ},
->> -    {1152, 864, CRT_PLL1_HS_80MHZ_1152, CRT_PLL2_HS_80MHZ},
->> -    {1280, 768, CRT_PLL1_HS_80MHZ, CRT_PLL2_HS_80MHZ},
->> -    {1280, 720, CRT_PLL1_HS_74MHZ, CRT_PLL2_HS_74MHZ},
->> -    {1280, 960, CRT_PLL1_HS_108MHZ, CRT_PLL2_HS_108MHZ},
->> -    {1280, 1024, CRT_PLL1_HS_108MHZ, CRT_PLL2_HS_108MHZ},
->> -    {1440, 900, CRT_PLL1_HS_106MHZ, CRT_PLL2_HS_106MHZ},
->> -    {1600, 900, CRT_PLL1_HS_108MHZ, CRT_PLL2_HS_108MHZ},
->> -    {1600, 1200, CRT_PLL1_HS_162MHZ, CRT_PLL2_HS_162MHZ},
->> -    {1920, 1080, CRT_PLL1_HS_148MHZ, CRT_PLL2_HS_148MHZ},
->> -    {1920, 1200, CRT_PLL1_HS_193MHZ, CRT_PLL2_HS_193MHZ},
->> +    {640, 480, 25000, CRT_PLL1_HS_25MHZ, CRT_PLL2_HS_25MHZ},
->> +    {800, 600, 40000, CRT_PLL1_HS_40MHZ, CRT_PLL2_HS_40MHZ},
->> +    {1024, 768, 65000, CRT_PLL1_HS_65MHZ, CRT_PLL2_HS_65MHZ},
->> +    {1152, 864, 78750, CRT_PLL1_HS_80MHZ_1152, CRT_PLL2_HS_80MHZ},
->> +    {1280, 768, 80000, CRT_PLL1_HS_80MHZ, CRT_PLL2_HS_80MHZ},
->> +    {1280, 720, 74375, CRT_PLL1_HS_74MHZ, CRT_PLL2_HS_74MHZ},
->> +    {1280, 960, 108000, CRT_PLL1_HS_108MHZ, CRT_PLL2_HS_108MHZ},
->> +    {1280, 1024, 108000, CRT_PLL1_HS_108MHZ, CRT_PLL2_HS_108MHZ},
->> +    {1440, 900, 105952, CRT_PLL1_HS_106MHZ, CRT_PLL2_HS_106MHZ},
->> +    {1600, 900, 108000, CRT_PLL1_HS_108MHZ, CRT_PLL2_HS_108MHZ},
->> +    {1600, 1200, 162500, CRT_PLL1_HS_162MHZ, CRT_PLL2_HS_162MHZ},
->> +    {1920, 1080, 148750, CRT_PLL1_HS_148MHZ, CRT_PLL2_HS_148MHZ},
->> +    {1920, 1200, 193750, CRT_PLL1_HS_193MHZ, CRT_PLL2_HS_193MHZ},
->>   };
->>   +static int hibmc_get_best_clock_idx(const struct drm_display_mode *mode)
->> +{
->> +    int i, diff;
->> +
->> +    for (i = 0; i < ARRAY_SIZE(hibmc_pll_table); i++) {
->> +        if (hibmc_pll_table[i].hdisplay == mode->hdisplay &&
->> +            hibmc_pll_table[i].vdisplay == mode->vdisplay) {
->> +            diff = abs(mode->clock - hibmc_pll_table[i].clock);
->> +            if (diff < mode->clock / 100) /* tolerance 1/100 */
->> +                return i;
->> +        }
->> +    }
->> +
->> +    return -EOPNOTSUPP;
-> 
-> This errno code is for sockets.
-> 
-> Rather return -MODE_CLOCK_RANGE here, which you can then return from .mode_valid as well.
-> 
+> The `drm_edid_override_connector_update` interface is used to retrieve an overridden EDID from debugfs or from firmware:
+>    * Debugfs: Requires the user to manually perform file operations to configure it;
+>    * Firmware: Requires the distribution’s operating system or the user to place the EDID binary file in the
+>                `/lib/firmware/` directory, and the `drm.edid_firmware` parameter must be specified in the GRUB boot
+>                parameters;
+>
+> The modification method you provided allows for display even when the EDID cannot be retrieved. But both of these
+> methods require cooperation from the user or the distribution's operating system, making implementation relatively
+> difficult.
 
-Okay. I will fix in v6.
+Yes, it's the established way for users to override the EDID.
 
-Thanks,
-Yongbang.
+>
+> Our use case requires that the KVM's display functionality remain intact even when no VGA or DisplayPort monitor is
+> connected. I believe setting `drm_set_preferred_mode` (1024x768) as the default resolution when no monitor is present
+> would be a more universal solution. Similarly, on your test system, this approach would ensure basic display functionality.
 
-> Best regards
-> Thomas
-> 
-> 
->> +}
->> +
->>   static int hibmc_plane_atomic_check(struct drm_plane *plane,
->>                       struct drm_atomic_state *state)
->>   {
->> @@ -214,17 +231,13 @@ static enum drm_mode_status
->>   hibmc_crtc_mode_valid(struct drm_crtc *crtc,
->>                 const struct drm_display_mode *mode)
->>   {
->> -    size_t i = 0;
->>       int vrefresh = drm_mode_vrefresh(mode);
->>         if (vrefresh < 59 || vrefresh > 61)
->>           return MODE_NOCLOCK;
->>   -    for (i = 0; i < ARRAY_SIZE(hibmc_pll_table); i++) {
->> -        if (hibmc_pll_table[i].hdisplay == mode->hdisplay &&
->> -            hibmc_pll_table[i].vdisplay == mode->vdisplay)
->> -            return MODE_OK;
->> -    }
->> +    if (hibmc_get_best_clock_idx(mode) >= 0)
->> +        return MODE_OK;
->>         return MODE_BAD;
->>   }
->> @@ -281,23 +294,20 @@ static void set_vclock_hisilicon(struct drm_device *dev, u64 pll)
->>       writel(val, priv->mmio + CRT_PLL1_HS);
->>   }
->>   -static void get_pll_config(u64 x, u64 y, u32 *pll1, u32 *pll2)
->> +static void get_pll_config(struct drm_display_mode *mode, u32 *pll1, u32 *pll2)
->>   {
->> -    size_t i;
->> -    size_t count = ARRAY_SIZE(hibmc_pll_table);
->> -
->> -    for (i = 0; i < count; i++) {
->> -        if (hibmc_pll_table[i].hdisplay == x &&
->> -            hibmc_pll_table[i].vdisplay == y) {
->> -            *pll1 = hibmc_pll_table[i].pll1_config_value;
->> -            *pll2 = hibmc_pll_table[i].pll2_config_value;
->> -            return;
->> -        }
->> +    int idx;
->> +
->> +    idx = hibmc_get_best_clock_idx(mode);
->> +    if (idx < 0) {
->> +        /* if found none, we use default value */
->> +        *pll1 = CRT_PLL1_HS_25MHZ;
->> +        *pll2 = CRT_PLL2_HS_25MHZ;
->> +        return;
->>       }
->>   -    /* if found none, we use default value */
->> -    *pll1 = CRT_PLL1_HS_25MHZ;
->> -    *pll2 = CRT_PLL2_HS_25MHZ;
->> +    *pll1 = hibmc_pll_table[idx].pll1_config_value;
->> +    *pll2 = hibmc_pll_table[idx].pll2_config_value;
->>   }
->>     /*
->> @@ -319,7 +329,7 @@ static u32 display_ctrl_adjust(struct drm_device *dev,
->>       x = mode->hdisplay;
->>       y = mode->vdisplay;
->>   -    get_pll_config(x, y, &pll1, &pll2);
->> +    get_pll_config(mode, &pll1, &pll2);
->>       writel(pll2, priv->mmio + CRT_PLL2_HS);
->>       set_vclock_hisilicon(dev, pll1);
->>   
-> 
+If no modes could be detected on the VGA and no EDID has been provided 
+by the user, DRM helpers will install a set of default modes that are 
+suitable for graphics cards. See [1]. The modes installed for the KVM 
+are not all compatible with VGA.  If you rely on DRM helpers, you'll 
+always get correct modes for VGA and KVM.
+
+Generally speaking, the decision of VGA-vs-KVM should be in ->detect. 
+Having phys_state/phys_status does this very well. The ->get_modes 
+function should then use whatever has been detected.
+
+[1] 
+https://elixir.bootlin.com/linux/v7.0.1/source/drivers/gpu/drm/drm_probe_helper.c#L653
+
+Best regards
+Thomas
+
+>
+>>>    +    drm_edid_connector_update(connector, NULL);
+>>>        count = drm_add_modes_noedid(connector,
+>>>                         connector->dev->mode_config.max_width,
+>>>                         connector->dev->mode_config.max_height);
+>>>        drm_set_preferred_mode(connector, 1024, 768);
+>>>    -out:
+>>> -    drm_edid_free(drm_edid);
+>>> -
+>>>        return count;
+>>>    }
+>>>    @@ -57,10 +50,32 @@ static void hibmc_connector_destroy(struct drm_connector *connector)
+>>>        drm_connector_cleanup(connector);
+>>>    }
+>>>    +static int hibmc_vdac_detect(struct drm_connector *connector,
+>>> +                 struct drm_modeset_acquire_ctx *ctx,
+>>> +                 bool force)
+>>> +{
+>>> +    struct hibmc_drm_private *priv = to_hibmc_drm_private(connector->dev);
+>>> +    int state = drm_connector_helper_detect_from_ddc(connector, ctx,
+>>> +                             force);
+>> 'state' -> 'status'
+>>
+> Okay.
+>
+>>> +    struct hibmc_vdac *vdac = to_hibmc_vdac(connector);
+>>> +
+>>> +    if (priv->dp.phys_state == connector_status_connected)
+>>> +        return vdac->phys_state = state;
+>> Please only one statement per line. First assign, then return.
+>>
+> Yes, Sorry about that. According to the Linux kernel coding guidelines, this line of code should be split.
+>
+>
+> Thanks,
+> Yongbang.
+>
+>>> +
+>>> +    if (state != vdac->phys_state)
+>>> +        ++connector->epoch_counter;
+>>> +    vdac->phys_state = state;
+>>> +
+>>> +    /* If both the DP and VDAC physical states are disconnected,
+>>> +     * the "connected" status is returned to support KVM display.
+>>> +     */
+>>> +    return connector_status_connected;
+>> I haven't tried, but I think this should also resolve the problems on my test systems. Great, thanks a lot! I might just
+>> get default resolutions for now, but that's OK.
+>>
+>> Best regards
+>> Thomas
+>>
+>>> +}
+>>> +
+>>>    static const struct drm_connector_helper_funcs
+>>>        hibmc_connector_helper_funcs = {
+>>>        .get_modes = hibmc_connector_get_modes,
+>>> -    .detect_ctx = drm_connector_helper_detect_from_ddc,
+>>> +    .detect_ctx = hibmc_vdac_detect,
+>>>    };
+>>>      static const struct drm_connector_funcs hibmc_connector_funcs = {
+>>> @@ -130,6 +145,8 @@ int hibmc_vdac_init(struct hibmc_drm_private *priv)
+>>>          connector->polled = DRM_CONNECTOR_POLL_CONNECT | DRM_CONNECTOR_POLL_DISCONNECT;
+>>>    +    vdac->phys_state = connector_status_connected;
+>>> +
+>>>        return 0;
+>>>      err:
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
 
