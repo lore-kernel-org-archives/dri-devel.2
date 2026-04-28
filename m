@@ -4,99 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8493DFF885D
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 13:40:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C92DFFF8868
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 13:45:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDF0E10EC23;
-	Tue, 28 Apr 2026 13:40:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20CCA10EC94;
+	Tue, 28 Apr 2026 13:45:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="qRLoVPjW";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="kz+CYTnU";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A32A210EC21;
- Tue, 28 Apr 2026 13:40:11 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 1D7334E42B56;
- Tue, 28 Apr 2026 13:40:10 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id D19BC601D0;
- Tue, 28 Apr 2026 13:40:09 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id C6AAE10728BFF; 
- Tue, 28 Apr 2026 15:39:43 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1777383605; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=DY37OnpoYjjW+GFpmDYkzr+BXySsTF4/pHUAAopHjvA=;
- b=qRLoVPjWicMlOER4CBoXDyZ31IS3N9wzfHFsgyWbAAFF/gci+qsFmTs0vCeqFcMtumISls
- Tj3oY/2Cdf6m/7gztcQrTJLdN0ggRvFVqgt+JH8FxO2/nx+GfiibBB7tr9VdYd2pRAyZX1
- XAXF0QiFbh370lTIQPb7xonACEwx2kQTWqUUcXxmMBeCKnlqHPelpK3fTwkngZn/4NCD/d
- KE58A7C2KizgbREMj4kyFapvuVzo03ASQ8lKHF89cbbYlD9WTUWuW4Ve1tF5Yw+ztjpBH4
- MjEA//3NGYT7/zO8OOYAeAWTnaFj1l+B1bRPPqqwsMjaj7jeo7/wmSi84hXibw==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 28 Apr 2026 15:39:43 +0200
-Message-Id: <DI4TW9XECX53.17TEZPCSWTH1A@bootlin.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH v2 00/41] drm/display: bridge-connector: attach encoder
- to the connector
-Cc: "Hui Pu" <Hui.Pu@gehealthcare.com>, "Ian Ray"
- <ian.ray@gehealthcare.com>, "Thomas Petazzoni"
- <thomas.petazzoni@bootlin.com>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <asahi@lists.linux.dev>,
- <imx@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>,
- <linux-mips@vger.kernel.org>, <linux-mediatek@lists.infradead.org>,
- <linux-amlogic@lists.infradead.org>, <linux-arm-msm@vger.kernel.org>,
- <freedreno@lists.freedesktop.org>, <linux-rockchip@lists.infradead.org>,
- <linux-tegra@vger.kernel.org>, <linux-samsung-soc@vger.kernel.org>,
- <linux-renesas-soc@vger.kernel.org>
-To: "Icenowy Zheng" <zhengxingda@iscas.ac.cn>, "Dmitry Baryshkov"
- <dmitry.baryshkov@oss.qualcomm.com>, "Andrzej Hajda"
- <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
- "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
- <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
- "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Sasha Finkelstein"
- <fnkl.kernel@gmail.com>, "Janne Grunau" <j@jannau.net>, "Liu Ying"
- <victor.liu@nxp.com>, "Douglas Anderson" <dianders@chromium.org>,
- "Laurentiu Palcu" <laurentiu.palcu@oss.nxp.com>, "Lucas Stach"
- <l.stach@pengutronix.de>, "Frank Li" <Frank.Li@nxp.com>, "Sascha Hauer"
- <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
- <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Philipp
- Zabel" <p.zabel@pengutronix.de>, "Paul Cercueil" <paul@crapouillou.net>,
- "Anitha Chrisanthus" <anitha.chrisanthus@intel.com>, "Chun-Kuang Hu"
- <chunkuang.hu@kernel.org>, "Matthias Brugger" <matthias.bgg@gmail.com>,
- "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>,
- "Kevin Hilman" <khilman@baylibre.com>, "Jerome Brunet"
- <jbrunet@baylibre.com>, "Martin Blumenstingl"
- <martin.blumenstingl@googlemail.com>, "Rob Clark"
- <robin.clark@oss.qualcomm.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
- "Abhinav Kumar" <abhinav.kumar@linux.dev>, "Jessica Zhang"
- <jesszhan0024@gmail.com>, "Sean Paul" <sean@poorly.run>, "Marijn Suijten"
- <marijn.suijten@somainline.org>, "Tomi Valkeinen"
- <tomi.valkeinen@ideasonboard.com>, "Sandy Huang" <hjc@rock-chips.com>,
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, "Andy Yan"
- <andy.yan@rock-chips.com>, "Thierry Reding" <thierry.reding@gmail.com>,
- "Mikko Perttunen" <mperttunen@nvidia.com>, "Jonathan Hunter"
- <jonathanh@nvidia.com>, "Jingoo Han" <jingoohan1@gmail.com>, "Inki Dae"
- <inki.dae@samsung.com>, "Seung-Woo Kim" <sw0312.kim@samsung.com>, "Kyungmin
- Park" <kyungmin.park@samsung.com>, "Krzysztof Kozlowski" <krzk@kernel.org>,
- "Alim Akhtar" <alim.akhtar@samsung.com>, "Laurent Pinchart"
- <laurent.pinchart+renesas@ideasonboard.com>, "Tomi Valkeinen"
- <tomi.valkeinen+renesas@ideasonboard.com>, "Kieran Bingham"
- <kieran.bingham+renesas@ideasonboard.com>, "Geert Uytterhoeven"
- <geert+renesas@glider.be>, "Magnus Damm" <magnus.damm@gmail.com>, "Biju
- Das" <biju.das.jz@bp.renesas.com>, "Marek Vasut" <marex@denx.de>, "Stefan
- Agner" <stefan@agner.ch>, "Jyri Sarha" <jyri.sarha@iki.fi>, "Michal Simek"
- <michal.simek@amd.com>
-X-Mailer: aerc 0.20.1
-References: <20260423-drm-bridge-connector-attach_encoder-v2-0-2ae6ca69b390@bootlin.com>
- <cf2c91396eb3017aa51dd9c840badffddca2f7ec.camel@iscas.ac.cn>
-In-Reply-To: <cf2c91396eb3017aa51dd9c840badffddca2f7ec.camel@iscas.ac.cn>
-X-Last-TLS-Session-Version: TLSv1.3
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
+ [209.85.221.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77A2410E0D7
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 13:45:55 +0000 (UTC)
+Received: by mail-wr1-f48.google.com with SMTP id
+ ffacd0b85a97d-43d03db7f87so7821714f8f.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 06:45:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ursulin.net; s=google; t=1777383954; x=1777988754; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=2SyhFOLFL2dAJcka0XiLX/PMkANIMETJaY0FeR170e4=;
+ b=kz+CYTnU0S1Rmob/cMXUqMcZ26pz7pz8GC/90nGGNc34K63SBjtsrKV/VktlddCjG/
+ MXihyJL+32Mi3NvGgU3c4D1jKN+uBoo/cn20JXcX+51Fp0+gdpLG2/C7udOoOYYd2WHm
+ oPEKXnM6U4MpFEJn98860zzA1HI5/psuZzOhH5kQCNq0iwFYFZXoLH82qY+1t4On6Ak+
+ p31e3mmeQojNkEV5bt1S6UnDQikC+wTXA4LpCjfHAZj9l4yYKu3GXo4Ai/XHyOqBll8G
+ 6G3ks5ZQeWR1PfbLP+on6Y7oouFz51RyhwKB8EG2DxS44GwBk80Plylm7jlvh1tl5DiO
+ ButA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777383954; x=1777988754;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=2SyhFOLFL2dAJcka0XiLX/PMkANIMETJaY0FeR170e4=;
+ b=WQ5+eRm8zL2xytksfivd82Q+RujXlan+f0IuYzu6mzPHhOJOBrJHK0rTMu+K94vQq1
+ c2Wo+AAkt4oCqYEx97/fxdnuziyghrU0fz4u9RrOXUnjTGCIDIo6kbroGuXqvqnR/TzG
+ PAz5CFoea8SqgKDCNOkzr1FiPeu2TM9G0u1ZTs6uTXPNf1Iopl15ifhQ0iYvtylrG7Mz
+ ymKY/9Q0T1sXAbCFzKc84Y4dquC5ZFufvl+qqggf5AZO5sD2dH/CaF5VwXVd2Bw9j/H3
+ eB2lyt09Ddk0C07CYF+4WatCCERDqpVceIFj16KL1hwaRKUWsOwkDxK0XSfO6Qq12h7m
+ tb0A==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9iM/3HinSmquXoxTqpqfzh8KYHrxMtBnM+ZYQGGvE+G7SQ5pMTaA7pQYAZmjNuAXR7BQnVasu+ujA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YygBwSYy4jnsZA8ExtPr3ynQlke6t8B+xZNQioAVE97BEQ9IMmS
+ b+scdMMpJSmlQeye74SorPSpsKipD2mxQ1jmGxAPibJUR8P3Osp4SJM/BAmzhRvMErI=
+X-Gm-Gg: AeBDieuVmO0JfTGOSnGXEGlgW3b+OhaGOo7DJjVVuUYeT3eSIkXPvdxVCyKm2voE4xi
+ P09Q3UNTYEB8XB87lSvB0skYsYa5eJRIYygNAcEQ1TRG1mDAWcWHd2UZF1JxV+2yjETkm4KCz/B
+ CcSBoXQQvUynHkA77eqZEN9caCyjhRNnTcr1bpxycGvGjmngMxpsEyT9eZJ1h6YoTa7PoWW0rp0
+ 2ONpMoppnOdNvz6Pq+bnB0Z/WoMggy9gtrlAGXyJHoNCCfev2TqwZgD7ZYy9eNb2I3bhkagjm1E
+ WggX3PCTW2GXrb1Nd2+kxsCY/Frre2SNE0WAHVj8JWY3Bk7pjbDwmIu/TqgnejRV6WjX4WTNCxF
+ MDgSyGMNVn93P0ALIGvWPJrWBO7ihA6gXHPljfRIQR0zhtKJv8S0cBT+Ej6coXdsZo2PV0DEE0O
+ IEiyBN87S3SO/PL2lsMb43xGmT7aG/EK1cryjkopmDNXccjzgxvgBe19b3D7zd96wlCQ==
+X-Received: by 2002:a05:6000:2308:b0:43d:50c:6f18 with SMTP id
+ ffacd0b85a97d-44647dcf11amr5876815f8f.11.1777383953650; 
+ Tue, 28 Apr 2026 06:45:53 -0700 (PDT)
+Received: from [192.168.0.101] ([90.240.106.137])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4463cb59ebasm6516034f8f.8.2026.04.28.06.45.52
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 28 Apr 2026 06:45:53 -0700 (PDT)
+Message-ID: <5bd5ed0a-fef2-4bd4-b7a0-d263bcfb1c7f@ursulin.net>
+Date: Tue, 28 Apr 2026 14:45:52 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] drm/ttm: Issue direct reclaim at beneficial_order
+To: Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Carlos Santa <carlos.santa@intel.com>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Daniel Colascione <dancol@dancol.org>
+References: <20260421012608.1474950-1-matthew.brost@intel.com>
+ <20260421012608.1474950-2-matthew.brost@intel.com>
+ <30c84c41-192c-44ae-a614-2b9951c55727@ursulin.net>
+ <d7dda563-280f-4126-a822-a3d43ce5048e@amd.com>
+ <aekygVvRz7mu+elE@gsse-cloud1.jf.intel.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <aekygVvRz7mu+elE@gsse-cloud1.jf.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,122 +103,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello Icenowy,
 
-On Sat Apr 25, 2026 at 5:22 PM CEST, Icenowy Zheng wrote:
-> =E5=9C=A8 2026-04-23=E5=9B=9B=E7=9A=84 11:16 +0200=EF=BC=8CLuca Ceresoli=
-=E5=86=99=E9=81=93=EF=BC=9A
->> This series simplifies using the bridge-connector by removing the
->> need to
->> attach the newly created connector to the encoder.
+On 22/04/2026 21:41, Matthew Brost wrote:
+> On Wed, Apr 22, 2026 at 09:41:54AM +0200, Christian König wrote:
+>> On 4/22/26 09:32, Tvrtko Ursulin wrote:
+>>>
+>>> On 21/04/2026 02:26, Matthew Brost wrote:
+>>>> Triggering kswap at an order higher than beneficial_order makes little
+>>>> sense, as the driver has already indicated the optimal order at which
+>>>> reclaim is effective. Similarly, issuing direct reclaim or triggering
+>>>> kswap at a lower order than beneficial_order is ineffective, since the
+>>>> driver does not benefit from reclaiming lower-order pages.
+>>>>
+>>>> As a result, direct reclaim should only be issued with __GFP_NORETRY at
+>>>> exactly beneficial_order, or as a fallback, direct reclaim without
+>>>> __GFP_NORETRY at order 0 when failure is not an option.
+>>>>
+>>>> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+>>>> Cc: Carlos Santa <carlos.santa@intel.com>
+>>>> Cc: Christian Koenig <christian.koenig@amd.com>
+>>>> Cc: Huang Rui <ray.huang@amd.com>
+>>>> Cc: Matthew Auld <matthew.auld@intel.com>
+>>>> Cc: Matthew Brost <matthew.brost@intel.com>
+>>>> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>>>> Cc: Maxime Ripard <mripard@kernel.org>
+>>>> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+>>>> Cc: David Airlie <airlied@gmail.com>
+>>>> Cc: Simona Vetter <simona@ffwll.ch>
+>>>> CC: dri-devel@lists.freedesktop.org
+>>>> Cc: Daniel Colascione <dancol@dancol.org>
+>>>> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+>>>> ---
+>>>>    drivers/gpu/drm/ttm/ttm_pool.c | 4 ++--
+>>>>    1 file changed, 2 insertions(+), 2 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
+>>>> index 26a3689e5fd9..8425dbcc6c68 100644
+>>>> --- a/drivers/gpu/drm/ttm/ttm_pool.c
+>>>> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
+>>>> @@ -165,8 +165,8 @@ static struct page *ttm_pool_alloc_page(struct ttm_pool *pool, gfp_t gfp_flags,
+>>>>         * Do not add latency to the allocation path for allocations orders
+>>>>         * device tolds us do not bring them additional performance gains.
+>>>>         */
+>>>> -    if (beneficial_order && order > beneficial_order)
+>>>> -        gfp_flags &= ~__GFP_DIRECT_RECLAIM;
+>>>> +    if (order && beneficial_order && order != beneficial_order)
+>>>> +        gfp_flags &= ~__GFP_RECLAIM;
+>>>>          if (!ttm_pool_uses_dma_alloc(pool)) {
+>>>>            p = alloc_pages_node(pool->nid, gfp_flags, order);
+>>>
+>>> I missed this conversation so don't know if this was discussed -
+> 
+> I meant to CC you here, but missed including you.
+> 
+>>> having less of 64k pages is not a concern? I mean slightly higher TLB pressure etc on hardware which supports this PTE size.
 >>
->> =3D=3D Series description
+>> At least for AMD GPUs 64k doesn't matter at all.
 >>
->> Currently all users of the bridge-connector must call
->> drm_connector_attach_encoder() immediately after a successful
->> drm_bridge_connector_init().
+> 
+> Same on Intel GPUs for system memory mappings - it is either 4k or 2M
+> GPU pages. VRAM can we 64k pages but that isn't involved here.
+> 
+>> There was a large push from the Windows side to use that size, but we have more than enough evidence to prove that this size is actually completely nonsense for almost all use cases.
 >>
->> This is an unnecessary burden for users. Move the call to the end of
->> drm_bridge_connector_init() so all callers can be simplified.
+>> I have no idea how we ended up with that in the first place.
 >>
->> =C2=A0* Patch 1 adds a drm_connector_attach_encoder() call at the end of
->> =C2=A0=C2=A0 drm_bridge_connector_init()
->> =C2=A0* The other patches remove drm_connector_attach_encoder() after al=
-l
->> =C2=A0=C2=A0 drm_bridge_connector_init() calls, ordered from the simples=
-t ones
->> =C2=A0=C2=A0 (only the last one is somewhat non-obvious)
+>> It could be that there is still HW out there which can only handle that size, but in that case such HW should just set beneficial_order to 64k.
 >>
->> The Cc list is huge due to the many drivers touched. I sent v1 to a
->> reduced
->> Cc list to ensure there is an agreement about the overall idea. That
->> seems
->> to be the case, so now it's time to copy all drivers maintainers.
->>
->> It would be nice to apply all of this series at once to avoid
->> duplicated
->> calls to drm_connector_attach_encoder() in the interim. That would be
->> harmless beacuse drm_connector_attach_encoder() is idempotent, but
->> unpleasant.
->>
->> =3D=3D Additional rationale (for the curious)
->>
->> Besides making the usage of the bridge-connector a bit simpler, this
->> series
->> is in preparation for DRM bridge hotplug. Here's why, feel free to
->> skip if
->> you don't care.
->>
->> The old bridge hotplug proposals I have sent in the past [1] were
->> based on
->> a hotplug-bridge driver to sit between the last fixed bridge and the
->> first
->> hotplugged bridge. Discussion with the community led to the need of
->> removing the hotplug-bridge and let common DRM code handle hotplug.
->> The
->> common place of code that appears the most suitable for hotplug
->> handling is
->> the bridge-connector, which is by now the recommended way to handle
->> connector instantiation after a bridge chain.
->>
->> So I'm in the process of extending the bridge-connector to be the
->> central
->> point to handle bridge hotplug. Turns out the need to call
->> drm_connector_attach_encoder() after drm_bridge_connector_init() has
->> returned is adding big headaches to such work. So I'm send this long
->> but
->> simple series to both simplify bridge-connector usage and remove one
->> obstacle from the bridge hotplug work. This series is relevant by
->> itself
->> anyway.
->>
->> [1]
->> https://lore.kernel.org/lkml/20250206-hotplug-drm-bridge-v6-26-9d6f2c9c3=
-058@bootlin.com/
->>
->> =3D=3D Grand plan
->>
->> This is part of the work to support hotplug of DRM bridges. The grand
->> plan
->> was discussed in [0].
->
-> Just see the bridge hotplugging thing, is it possible for DRM drivers
-> to declare bridges attached to themselves after this?
->
-> Loongson 7A1000 PCH can only output DPI signals, so nearly all products
-> with it are shipping with some kind of external bridges, but currently
-> drm/loongson does not support them (all display connectors are now seen
-> as DPI ones, and connectors behind non-transparent bridges won't work).
->
-> The bridges are going to be accessed by the DDC I2C busses of 7A1000,
-> and are not declared with device tree (systems with 7A1000 never ship
-> with device trees, and Linux currently matches a built-in device tree).
-> (Bridges being on the DDC I2C also introduces some dependency for them
-> to depend on the drm/loongson driver.)
->
-> Loongson have defined some kind of VBIOS declaring what bridge is
-> behind, and their non-mainline driver just contains driver codes for
-> all possible bridges. (Sui Jingfeng previously tried to mainline such
-> practice, and of course it's rejected because of code duplicity.)
+> 
+> Or we move to a table config if we find drivers have multiple
+> beneficial_orders.
 
-I'm afraid your question goes a bit beyond my knowledge, the hotplug work
-I'm carrying on is focuses on DT platforms.
+Or a bitmask of direct reclaim orders?
 
-My limited understading of non-DT platforms is that a card driver must
-instantiate all components and tie them together, which assumes it has to
-know them somehow (ACPI, hardcoded, whatever). Others can probably comment
-better about this.
+I am not saying it is required to be "smarter" than this patch does it, 
+for AMD and Intel apparently isn't, but for other drivers I don't know 
+so it does need looking into.
 
-As a general principle, when devices can be mixed and matched by the board
-designer, hardcoding them is a bad design choice. Think of bad old board
-files written in C, which were unmanageable and got replaced exactly by
-device tree. So my opinion is that DRM encoders and bridges should know as
-little as possible about the following bridge, connector or panel that
-follows them.
+Regards,
 
-Luca
+Tvrtko
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+> 
+>>> Also, does clearing __GFP_RECLAIM disable compaction completely and is that wanted?
+>>
+>> Oh good point, most likely not.
+>>
+> 
+> Without completely reverse engineering the core MM, I'm not sure here.
+> 
+> I just read the kernel doc for __GFP_KSWAPD_RECLAIM [1] and this to
+> indicate if this is clear compaction won't be entered.
+> 
+> Matt
+> 
+> [1] https://elixir.bootlin.com/linux/v7.0/source/include/linux/gfp_types.h#L198
+>   
+>> Regards,
+>> Christian.
+>>
+>>>
+>>> Regards,
+>>>
+>>> Tvrtko
+>>>
+>>
+
