@@ -4,63 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64484FF885D
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 07:55:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 780B2FF885D
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 07:56:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B729010EA55;
-	Tue, 28 Apr 2026 07:55:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0F3F10EA58;
+	Tue, 28 Apr 2026 07:56:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="0AylN9PY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cY/mOurf";
 	dkim-atps=neutral
-Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com
- [113.46.200.220])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E46610EA55
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 07:55:20 +0000 (UTC)
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
- c=relaxed/relaxed; q=dns/txt; h=From;
- bh=dMM1zZxzcfqLuXnRjbxvAd9Sn9DUzIuOxrv48y1vvzQ=;
- b=0AylN9PYW5mrS0hudtBiqhOYkG3DzEICJIWBJiL6vNWawOTcIZCrjJjmLcM+Evo0vYjqYj+1W
- DkOGPngQqND++dYtrWVCGD39YLFpXTNyY5cH+Asd+Lezloj0KXdQuhRrxmWoPkf+f6ogMTmcaSk
- lczJ18wrznciEWAZ7q2n+kQ=
-Received: from mail.maildlp.com (unknown [172.19.162.140])
- by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4g4Xbk0W8Mz12LCb;
- Tue, 28 Apr 2026 15:48:02 +0800 (CST)
-Received: from dggemv705-chm.china.huawei.com (unknown [10.3.19.32])
- by mail.maildlp.com (Postfix) with ESMTPS id 0827220333;
- Tue, 28 Apr 2026 15:55:16 +0800 (CST)
-Received: from kwepemq100007.china.huawei.com (7.202.195.175) by
- dggemv705-chm.china.huawei.com (10.3.19.32) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Tue, 28 Apr 2026 15:55:14 +0800
-Received: from [10.159.167.44] (10.159.167.44) by
- kwepemq100007.china.huawei.com (7.202.195.175) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Tue, 28 Apr 2026 15:55:14 +0800
-Message-ID: <bea1d1d3-c326-48f1-a103-559e7e954001@huawei.com>
-Date: Tue, 28 Apr 2026 15:55:13 +0800
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A296A10EA58
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 07:56:35 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id A9CF260142;
+ Tue, 28 Apr 2026 07:56:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7D66C2BCAF;
+ Tue, 28 Apr 2026 07:56:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1777362994;
+ bh=Mzlq90K/VTzR+F+26arnfLMjVpYCl7Zu2AB1/5S1PyI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=cY/mOurfmE7MW35rMnA3eBhijxSBFke9z4rkAmG7LU/v+gt2QEXHGRGzRqHqjgZr0
+ g9Z9+e1hlmA6psMDM97KuE9wpOGHHHXxVBQwUexE1J6eNwfCXKXAos1HwR93+77Ytr
+ FiDLFjoo7k0+HjGtlzLiP2o8bl4JHz5OhXVUnEIPOqgNt6AKn7RINzjY0jqUoyPms5
+ nYF1Bl0y59a/A6AuyCSNFc0PtkYsZgntKTPJpcr2KmnjuDOkc5qVHQqjACARtSSwQj
+ m5Hibyqhg6s7h9T+2EdLCrGToPTepcMIVU6T6I/hwtc1mDm5Ue66tMdtDwR/JJWAXO
+ x4h+gZHrWkx3w==
+Date: Tue, 28 Apr 2026 09:56:31 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Chris Morgan <macroalpha82@gmail.com>
+Cc: linux-rockchip@lists.infradead.org, linux-pm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, xsf@rock-chips.com,
+ sre@kernel.org, 
+ simona@ffwll.ch, airlied@gmail.com, tzimmermann@suse.de, mripard@kernel.org, 
+ maarten.lankhorst@linux.intel.com, jesszhan0024@gmail.com,
+ neil.armstrong@linaro.org, 
+ heiko@sntech.de, conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org, 
+ Chris Morgan <macromorgan@hotmail.com>
+Subject: Re: [PATCH 2/6] power: supply: sgm41542: Add SG Micro sgm41542 charger
+Message-ID: <20260428-vivacious-fearless-monkey-fe433e@quoll>
+References: <20260427170914.5062-1-macroalpha82@gmail.com>
+ <20260427170914.5062-3-macroalpha82@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for drm-misc-fixes v5 3/4] drm/hisilicon/hibmc: move
- display contrl config to hibmc_probe()
-To: Thomas Zimmermann <tzimmermann@suse.de>,
- <dmitry.baryshkov@oss.qualcomm.com>, <tiantao6@hisilicon.com>,
- <xinliang.liu@linaro.org>, <maarten.lankhorst@linux.intel.com>,
- <mripard@kernel.org>, <airlied@gmail.com>, <daniel@ffwll.ch>,
- <kong.kongxinwei@hisilicon.com>
-CC: <liangjian010@huawei.com>, <chenjianmin@huawei.com>,
- <fengsheng5@huawei.com>, <helin52@h-partners.com>, <shenjian15@huawei.com>,
- <shaojijie@huawei.com>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <shiyongbang@huawei.com>
-References: <20260423063233.1267631-1-shiyongbang@huawei.com>
- <20260423063233.1267631-4-shiyongbang@huawei.com>
- <e51bb7e2-0d57-42a1-be53-6560cebf2df6@suse.de>
-From: Yongbang Shi <shiyongbang@huawei.com>
-In-Reply-To: <e51bb7e2-0d57-42a1-be53-6560cebf2df6@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.159.167.44]
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- kwepemq100007.china.huawei.com (7.202.195.175)
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260427170914.5062-3-macroalpha82@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,125 +64,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> Hi
-> 
-> Am 23.04.26 um 08:32 schrieb Yongbang Shi:
->> From: Lin He <helin52@huawei.com>
->>
->> If there's no VGA output, this encoder modeset won't be called, which
->> will cause displaying data from GPU being cut off. It's actually a
->> common display config for DP and VGA, so move the vdac encoder modeset
->> to driver load stage.
->>
->> Fixes: 5294967f4ae4 ("drm/hisilicon/hibmc: Add support for VDAC")
->> Signed-off-by: Lin He <helin52@huawei.com>
->> Signed-off-by: Yongbang Shi <shiyongbang@huawei.com>
->> ---
->> ChangeLog:
->> v1 -> v2:
->>    - remove tag "Reviewed-by: Tao Tian <tiantao6@hisilicon.com>", witch will
->>      be given in public.
->>    - add 'drm-misc-fixes' in subject prefix.
->> ---
->>   .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   | 14 ++++++++++++
->>   .../gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c  | 22 -------------------
->>   2 files changed, 14 insertions(+), 22 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
->> index d409efc34215..f8ab471f92e7 100644
->> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
->> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
->> @@ -217,6 +217,18 @@ void hibmc_set_current_gate(struct hibmc_drm_private *priv, unsigned int gate)
->>       writel(gate, mmio + gate_reg);
->>   }
->>   +static void hibmc_display_ctrl(struct hibmc_drm_private *priv)
->> +{
->> +    u32 reg;
->> +
->> +    reg = readl(priv->mmio + HIBMC_DISPLAY_CONTROL_HISILE);
->> +    reg |= HIBMC_DISPLAY_CONTROL_FPVDDEN(1);
->> +    reg |= HIBMC_DISPLAY_CONTROL_PANELDATE(1);
->> +    reg |= HIBMC_DISPLAY_CONTROL_FPEN(1);
->> +    reg |= HIBMC_DISPLAY_CONTROL_VBIASEN(1);
-> 
-> That might be stupid question: IDK what these bits mean, but the FPVDDEN and FPEN sound like they enable something. If
-> you do this unconditionally in HW init, does it prevent power saving?  And is the system goes through suspend/resume, 
-> does it need to be re-enabled?
-> 
-> My gut feeling would be to put this code into the CRTC.
-> 
+On Mon, Apr 27, 2026 at 12:09:10PM -0500, Chris Morgan wrote:
+> +	strscpy(sgm->model_name, id->name, I2C_NAME_SIZE);
+> +
+> +	sgm->regmap = devm_regmap_init_i2c(client, &sgm4154x_regmap_config);
+> +	if (IS_ERR(sgm->regmap))
+> +		return dev_err_probe(dev, PTR_ERR(sgm->regmap),
+> +				     "Failed to allocate register map\n");
+> +
+> +	i2c_set_clientdata(client, sgm);
+> +
+> +	ret = sgm4154x_hw_chipid_detect(sgm);
+> +	if (ret)
+> +		dev_err_probe(dev, ret, "Unable to read HW ID\n");
+> +
+> +	device_init_wakeup(dev, 1);
+> +
+> +	if (client->irq) {
+> +		ret = devm_request_threaded_irq(dev, client->irq, NULL,
+> +						sgm4154x_irq_handler_thread,
+> +						IRQF_TRIGGER_FALLING |
+> +						IRQF_ONESHOT,
+> +						"sgm41542-irq", sgm);
 
-We discussed this with the chip design team and confirmed, after reviewing the chip's RTL code, that FPVDDEN, FPEN and
-VBIASEN are not used in the chip's RTL implementation; only PANELDATE is used, and this bit controls the output of the
-data, hsync and vsync signals simultaneously. We will remove FPVDDEN, FPEN and VBIASEN in v6, and do some tests.
+Interrupt should be requested and enabled at the end or almost at the
+end. If it is triggered now, which supply are you marking as "changed"?
 
-This PANELDATE should be enabled during initialization. In older versions of the driver, since there was only one
-encoder-connector(VGA), placing it in `encoder_helper` posed no practical issues. Now that it has been moved to the
-initialization phase, it is enabled only once during initialization, in accordance with the chip's original design
-intent, which better aligns with the original design.
+Code looks at least correct in relation between interrupt and workqueue,
+but it is not really obvious and thus not following established coding
+practice. Practice is usually: first you allocate driver-like or
+memory-like resources, then you request hardware related resources.
+That's why every probe starts with devm_kzalloc(). Similarly with
+workqueue, initializing power supply etc.
 
-Regarding suspend/resume operations and power saving, we have implemented `atomic_enable` and `atomic_disable` for CRTC.
-These hook functions configure hsync and vsync for the DPMS switch[1]. Moving the `DISPLAY_CONTROL_HISILE.PANELDATE`
-enable flag to the initialization phase does not affect power saving.
+> +		if (ret)
+> +			return ret;
+> +		enable_irq_wake(client->irq);
+> +	}
+> +
+> +	ret = sgm4154x_power_supply_init(sgm, dev);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to register power supply\n");
+> +
+> +	ret = sgm4154x_hw_init(sgm);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Cannot initialize the chip.\n");
+> +
+> +	sgm->sgm_monitor_wq = alloc_ordered_workqueue("%s",
+> +			WQ_MEM_RECLAIM | WQ_FREEZABLE, "sgm-monitor-wq");
+> +	if (!sgm->sgm_monitor_wq)
+> +		return -EINVAL;
+> +
+> +	ret = devm_add_action_or_reset(dev, sgm4154x_destroy_workqueue,
+> +				       sgm->sgm_monitor_wq);
 
-[1] https://elixir.bootlin.com/linux/v7.0.1/source/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c#L190
+Use rather devm_alloc_ordered_workqueue().
 
-Thanks,
-Yongbang.
-
-> Best regards
-> Thomas
-> 
->> +    writel(reg, priv->mmio + HIBMC_DISPLAY_CONTROL_HISILE);
->> +}
->> +
->>   static void hibmc_hw_config(struct hibmc_drm_private *priv)
->>   {
->>       u32 reg;
->> @@ -248,6 +260,8 @@ static void hibmc_hw_config(struct hibmc_drm_private *priv)
->>       reg |= HIBMC_MSCCTL_LOCALMEM_RESET(1);
->>         writel(reg, priv->mmio + HIBMC_MISC_CTRL);
->> +
->> +    hibmc_display_ctrl(priv);
->>   }
->>     static int hibmc_hw_map(struct hibmc_drm_private *priv)
->> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c
->> index dc40018dbd21..9d924740c110 100644
->> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c
->> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c
->> @@ -86,26 +86,6 @@ static const struct drm_connector_funcs hibmc_connector_funcs = {
->>       .atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
->>   };
->>   -static void hibmc_encoder_mode_set(struct drm_encoder *encoder,
->> -                   struct drm_display_mode *mode,
->> -                   struct drm_display_mode *adj_mode)
->> -{
->> -    u32 reg;
->> -    struct drm_device *dev = encoder->dev;
->> -    struct hibmc_drm_private *priv = to_hibmc_drm_private(dev);
->> -
->> -    reg = readl(priv->mmio + HIBMC_DISPLAY_CONTROL_HISILE);
->> -    reg |= HIBMC_DISPLAY_CONTROL_FPVDDEN(1);
->> -    reg |= HIBMC_DISPLAY_CONTROL_PANELDATE(1);
->> -    reg |= HIBMC_DISPLAY_CONTROL_FPEN(1);
->> -    reg |= HIBMC_DISPLAY_CONTROL_VBIASEN(1);
->> -    writel(reg, priv->mmio + HIBMC_DISPLAY_CONTROL_HISILE);
->> -}
->> -
->> -static const struct drm_encoder_helper_funcs hibmc_encoder_helper_funcs = {
->> -    .mode_set = hibmc_encoder_mode_set,
->> -};
->> -
->>   int hibmc_vdac_init(struct hibmc_drm_private *priv)
->>   {
->>       struct drm_device *dev = &priv->dev;
->> @@ -128,8 +108,6 @@ int hibmc_vdac_init(struct hibmc_drm_private *priv)
->>           goto err;
->>       }
->>   -    drm_encoder_helper_add(encoder, &hibmc_encoder_helper_funcs);
->> -
->>       ret = drm_connector_init_with_ddc(dev, connector,
->>                         &hibmc_connector_funcs,
->>                         DRM_MODE_CONNECTOR_VGA,
-> 
+Best regards,
+Krzysztof
 
