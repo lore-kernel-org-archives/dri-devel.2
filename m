@@ -4,58 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EEB4FF885A
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 08:10:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95E47FF886C
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 08:30:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9754D10EA6A;
-	Tue, 28 Apr 2026 08:10:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 041BC10E03C;
+	Tue, 28 Apr 2026 08:30:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QurhIEsY";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="La15iDXL";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="i+7il6vj";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="M0c5fwLy";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="pmS+6yVb";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66F5A10E09A;
- Tue, 28 Apr 2026 08:10:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777363833; x=1808899833;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=WzG9NeUJ9MAqO55tX19xs/F++pLlzg4Pb+Qbg/U4dTk=;
- b=QurhIEsYV5oZgvDYuPIbrmA3kq969J6nN9WZ0Bxi53qpUjaRP9BVFf6I
- fnsH6t1rOtBIa1jYe5URy700K+e2UF5rTacpP1oIqu+NRSZGvNlE3DgPi
- q+1WnQGxAd6APx9LT/XP1R48MkoNGVf97kguAUL8kOT8Gx0umj04Q9jG0
- qaTAFa1Cjcl7kv+AVZPJjPSQyOCmIxB7LkWpairuYoT6CXWI4vOp4oqLh
- FgVZYw8VdFPfOy8wt3yw/2psiK374sU3LMk0Ds2tBHSqjykK+jDSvFH6F
- xTPjueCITMuwT20D+xLzTXy/5c/266QXogr7rjN1Xp0XtGWDm6+r37pkV A==;
-X-CSE-ConnectionGUID: CKP18vIPTA6nAtFJ70t7Vw==
-X-CSE-MsgGUID: tegxtZbTTJyZVICPPu85vw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11769"; a="88960780"
-X-IronPort-AV: E=Sophos;i="6.23,203,1770624000"; d="scan'208";a="88960780"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Apr 2026 01:10:33 -0700
-X-CSE-ConnectionGUID: ayZSej1IS/WHpis7HTLL8w==
-X-CSE-MsgGUID: FaN76geAS8iuP2xl6TMYJQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,203,1770624000"; d="scan'208";a="229530090"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.244.208])
- by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Apr 2026 01:10:31 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Marc <marclecussano@gmail.com>, intel-xe@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Subject: Re: [BUG] xe: Lunar Lake hard freeze on USB-C DP-altmode (MSI MPG
- 272URX), TC1 PHY pageflip deadlock, no kernel error before lockup
-In-Reply-To: <CAF3NygikxYLtJzcjajSV4o68bjJ-9aPczPqzaHo_=r1OPoeaew@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <CAF3NygikxYLtJzcjajSV4o68bjJ-9aPczPqzaHo_=r1OPoeaew@mail.gmail.com>
-Date: Tue, 28 Apr 2026 11:10:29 +0300
-Message-ID: <2333cf303ab747e96172a6890efe0902f166585d@intel.com>
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BD6610E03C
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 08:30:33 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id AFBAD6A82C;
+ Tue, 28 Apr 2026 08:30:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1777365032; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=avm3G1/rI1tDyvC+d6vGtEifUZQ0JEUFACZWJztxcWQ=;
+ b=La15iDXLw+V2yyUgQg3+rRHYkTuzlf82dRVYa1CzjIBYfrzfn8jxyfFrv/tMFsOaV4Nvdh
+ CM6fMfhmk9j/9AVDqqNkcNnCS30gLr+/WlIByAgz/O1Wmq05ZdKDofamNYkPzC/CYteEeG
+ f6P1YYRZ9l94JwgDI2a2zGMNDBfpsn8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1777365032;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=avm3G1/rI1tDyvC+d6vGtEifUZQ0JEUFACZWJztxcWQ=;
+ b=i+7il6vjAYxBHlaxb0ZKxxICBbE7iOPjsM6qQh19PPZwHqBIA6N2KhXZQyLWINF7/Y+fJs
+ 0bpBC5UWPECyd8Dw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1777365031; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=avm3G1/rI1tDyvC+d6vGtEifUZQ0JEUFACZWJztxcWQ=;
+ b=M0c5fwLyj8v4JkryWbsPvBacdpl7u/E2TG+0Lnz0lZjF93d0bQNp7aooWxL/i3yHUw890h
+ R6+B6dTmCXj6ORB+ACvUMlOmg/wV8ydEAd57lqsDvUTNZYS+QG6SCsp40rcYfQ5Z+uDQ8S
+ UQOwBE2lJXwV2XaAPJzgJY9jzd2dszg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1777365031;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=avm3G1/rI1tDyvC+d6vGtEifUZQ0JEUFACZWJztxcWQ=;
+ b=pmS+6yVbblX+Bv05AS951GRwYjBxtudDtLVItHtbfXUxFZjv3Nk+pVEu9TIi3cw7YdJNev
+ uKxDzctQ7ap44VDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 85555593B0;
+ Tue, 28 Apr 2026 08:30:31 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id nCAqHydw8GnROAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 28 Apr 2026 08:30:31 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: deller@gmx.de
+Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH] lib/fonts: Fix bit position when rotating by 180 degrees
+Date: Tue, 28 Apr 2026 10:28:43 +0200
+Message-ID: <20260428083025.63663-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-3.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-0.998]; MIME_GOOD(-0.10)[text/plain];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmx.de];
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[]; TO_DN_SOME(0.00)[];
+ FREEMAIL_TO(0.00)[gmx.de];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_THREE(0.00)[4]; FROM_EQ_ENVFROM(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; RCVD_TLS_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.de:mid,
+ suse.de:email, lists.freedesktop.org:email, gitlab.freedesktop.org:url]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,19 +106,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, 19 Apr 2026, Marc <marclecussano@gmail.com> wrote:
->   Thanks for any pointers =E2=80=94 happy to file at
->
->   https://gitlab.freedesktop.org/drm/xe/kernel/-/issues if preferred.
+Fix the horizontal bit position when rotating a glyph by 180°. The
+original code in rotate_ud() rounded the value in width up to a
+multiple of 8, aka the bit pitch, and calculated the rotated pixel
+from that value. The new code stores the glyph's pitch in bit_pitch,
+but fails to update the rotated pixel's output accordingly. Simply
+replacing the variable does this.
 
-Yes, please. See [1].
+The bug can be reproduced by setting a font with an unaligned width,
+such as sun12x22, like this:
 
-BR,
-Jani.
+ setfont sun12x22
+ echo 2 > /sys/class/graphics/fbcon/rotate
 
+Without the fix, the font looks distorted.
 
-[1] https://drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bugs.html
+Fixes: a30e9e6b018f ("lib/fonts: Refactor glyph-rotation helpers")
+Closes: https://lore.gitlab.freedesktop.org/drm-ai-reviews/review-patch7-20260407092555.58816-8-tzimmermann@suse.de/
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-fbdev@vger.kernel.org
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+---
+ lib/fonts/font_rotate.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/lib/fonts/font_rotate.c b/lib/fonts/font_rotate.c
+index 065e0fc0667b..275406008823 100644
+--- a/lib/fonts/font_rotate.c
++++ b/lib/fonts/font_rotate.c
+@@ -106,7 +106,7 @@ static void __font_glyph_rotate_180(const unsigned char *glyph,
+ 	for (y = 0; y < height; y++) {
+ 		for (x = 0; x < width; x++) {
+ 			if (font_glyph_test_bit(glyph, x, y, bit_pitch)) {
+-				font_glyph_set_bit(out, width - (1 + x + shift), height - (1 + y),
++				font_glyph_set_bit(out, bit_pitch - 1 - x - shift, height - 1 - y,
+ 						   bit_pitch);
+ 			}
+ 		}
+-- 
+2.54.0
 
---=20
-Jani Nikula, Intel
