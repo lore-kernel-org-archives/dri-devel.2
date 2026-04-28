@@ -4,105 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 162BCFF8868
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 10:01:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E94FFF885D
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 10:02:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0D1810EAE2;
-	Tue, 28 Apr 2026 10:01:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E085C10EAE7;
+	Tue, 28 Apr 2026 10:02:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lh2nuyc4";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Qanm2UHm";
 	dkim-atps=neutral
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
- [209.85.221.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9359110EAE2
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 10:01:48 +0000 (UTC)
-Received: by mail-wr1-f48.google.com with SMTP id
- ffacd0b85a97d-43cf8d550bdso9501086f8f.0
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 03:01:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777370507; cv=none;
- d=google.com; s=arc-20240605;
- b=Xywmt5xTVObCqDb+Mrchjj6nj2bpwzlncGCtPjHuNcJwgBuLOBwLSDf0WU0z7Ljtwx
- lhGs2jKtJv5G64QFr7MBsCJkOre8YTHX0zbMs79IFLf/13MztoN+Yg9s1kU5p34YB42z
- NPGENQvKIj3lmRKjLL7SYr9mwy2FBMISO3JPiB73JDS7KlRkVffb73SxL4yIcNnWqXYV
- 9acF2v4ct7kqD3UPies0kQ6mJtY1Z/wr+PMu9fE7ZeNhk0qPH4jD434r7WU4WU9EKZo6
- sQxJojRMTYVv1zQxP/z7v9kwotXZ8o5ObWTyjQbSc6axnwzdfkc72btBNYRSmNFF7KqC
- ciag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=ejtc31VfVANMim0C7tVw1Ik/Wt16XcH03Us2/bf2BhA=;
- fh=g6XX+IXL8Hwp0bHVvEcrA+sOMVcAu+5J/B5qEviEa/Y=;
- b=anHRXEBZKIwD+Jh4WsQb3z3dGupoTaPqUHir4ofOT9xqBVJEtyxI+6YRhgWYCLpLtu
- uhlb3xYD9LwWb7J5bNHnAPdvWeq9EPPAiO80TmHdgV6fDpKuRqeYWRatwkDZThx1zPXe
- pofdYeLgNhY24h0OtQh8Ir+zLkXnvCKRcOAEuehuAD1h8CacQcP0BzFeSn/6MOA07EC8
- 1MgHEphAkwqKXp3ahbMAubgQTb96QoaD+dsAWojRSpujQH8eSjn5CQQONV7wX1YmUEMt
- 13LSUkQIqJ0f5w0NoRSF5StFicTMxEkoMnIBSnF62FQnvnbZHxukGicv1GkxrqfWGqy+
- elNg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777370507; x=1777975307; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ejtc31VfVANMim0C7tVw1Ik/Wt16XcH03Us2/bf2BhA=;
- b=lh2nuyc4m29YVCnMdRnIjyvzwaYx13sADdoQMzz+4DWRYXA40ZKvDjUBBcc6w/+RZo
- esuOoxz2S1XMfym+lWZFE3h7AlTt2IKytNA3naJCXFC760pviMofqqrdBYrJUzj4LvqL
- cp+K+LlqIkH9NthzfHEXRgzZDOfJVNyyZ0TeLRZasQKbAbPgRiTD57NG//352uz9Ycpr
- wGcNiv2Y4r3zl0vaUfUW5K+JFunCcDJUJ+fUpMZA+ZSy46EO0ZOmgIjqvUaxFH7lX90B
- I/fgAZOQejuri/GLpuvaDd6sjkBOIWj/WSq+hkqWfL8Oc/0kZ3XJG03os0Wy6aJcdQjp
- anFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777370507; x=1777975307;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=ejtc31VfVANMim0C7tVw1Ik/Wt16XcH03Us2/bf2BhA=;
- b=hhV2lRYaCpWagAV+FkIW5Bc3BiwoCNMysqaxdD6HIUpsn3aI/qO+y8sxBQyUutsSwg
- MyUEChmmC5ZhkOno32Q4r8M7+VsIc9WCjXMPrZrXUFs3B6PRLg++bv9uIv81lh6pMNRJ
- Xr3KnkhQiuA8EiRXjFeayz8tAGJ/y/ghk0JsMMUnAdqchcYFzymgFLs7u3ZpM1dvFID8
- nuC8l+/wm6lVpFx/N+uDMfhE1SDYLRLC8gnH1f04bUoTV+SuiIgQlr8FZXP/dZM8VefA
- RHlBpyBMxmGTjk2uGnx4naAtslpu0xyupy3zOuAYrL5DZ9uwOGyKa82zACKOJcqG2URi
- ugcQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ98Zc2xODTb67Yu/FxCs1KMvwrm9Msd0kG7nBbi8zXkj/Q2rK5LvYkwjne+XDfHHvCRWchx1+0jj/8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzqBNKAZk0Tp/VASlau8CgI41Zhk4pzIzDieA9/DEZt2zaHxuk2
- YiDqEgWeTNsCh1Qk1Cmsj/iIm0/Xy3Uji6d24eFb4ofsxzjsQD1vB0/PAgzpRQicKQIjJPBhIBB
- HlbFBgATJJzKDzVGTZsYb/X7F7RqcMo8=
-X-Gm-Gg: AeBDietAB+Lp3J5zjmXJ+qtSwWXbxQ9A5VQNIpQNs8HlKVY+Y0kqLk+eNrr4c9juFEo
- anPyUK536ROp4lT+BnrPpPynlB4vypquYYsNwurqxY0ghZKB4CkV+Ico/49gp4T3jA0gZZCsFav
- ubaZy9Nm7eYaA3Vaq+KNvzXejPPpbFsHO/i7HQDi9WLmsHG8lod5qF0L0UuXPOraYYVG5vyxmS2
- 1Bx18d36GagQWckbvzRRjZD8acgnkH9zL+NKcud7cbGwvSXOoxHU3mimqRjpjYI8Bf1d3b9hwMG
- VmLATUo35PucGDwDfSelI0H7tF/32JZlB3h+np4k8ekXZieAO8jkxVaDbPIvecySGkohKf+Fszx
- tnuGq
-X-Received: by 2002:a05:6000:200b:b0:43c:fde7:f1 with SMTP id
- ffacd0b85a97d-44647cda93cmr4590757f8f.18.1777370502344; Tue, 28 Apr 2026
- 03:01:42 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260427154658.276737-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260428-wise-rat-of-criticism-df0ea3@quoll>
-In-Reply-To: <20260428-wise-rat-of-criticism-df0ea3@quoll>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Tue, 28 Apr 2026 11:01:16 +0100
-X-Gm-Features: AVHnY4I4coMls4qeC6jWH5TZaGYTyTrcejKFlzmjg6GLt3Vrx9kUkLIvEYA6b80
-Message-ID: <CA+V-a8sPi0FAE3V5ijCN4utxfRjcJbfr05Tn7h4xmk9SK4+sxw@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: display/msm: Fix typo in clock-names property
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Kuogee Hsieh <quic_khsieh@quicinc.com>, linux-arm-msm@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF4DB10EAE7;
+ Tue, 28 Apr 2026 10:02:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1777370563; x=1808906563;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=O/fX+/fwObLkLagIKKIXphtPD052eF9ODtQPNirPNA4=;
+ b=Qanm2UHm798g8zlTJ0quh04VdDYKcHH6U/7qjnsW5GtMN0bJR4bCdDY9
+ 7d917Dah+OVWHv57ieqqJpRqVWiAW3zPOEuMRPzJaX7giIMfCulNG9SRo
+ jsLElrMQabZN+xAR2SPzia9v96L+XlFGtHFqYSNo0XPuJ+1UsHDdkR/M9
+ 1fxAp/3XDAf64+6kHQYOPst60QIvqz+T7kFyf/fITxx+o9ZUE0eeWCw/S
+ /Z7vbZ+1DeWfdKP94+lPHc0ogRyrg3ZrxmZ1vHG5Pn1ivIXxPM3mqi9SV
+ Eh5E4fWe8kMxhKav4x9eeDBRnnDRcoBigRPPZ0HjrwKyyAJyI16B7P+qV g==;
+X-CSE-ConnectionGUID: yjSq9uIpRY6AuB9hoyFfNg==
+X-CSE-MsgGUID: QWiSH3wzTIem6jFoD/4nmg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11769"; a="89654111"
+X-IronPort-AV: E=Sophos;i="6.23,203,1770624000"; d="scan'208";a="89654111"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Apr 2026 03:02:40 -0700
+X-CSE-ConnectionGUID: 0QLQBZ8kQU2MR6y1L+2CLQ==
+X-CSE-MsgGUID: zz6QLTN/RV2NA1bgXxOy0A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,203,1770624000"; d="scan'208";a="257222117"
+Received: from abityuts-desk.ger.corp.intel.com (HELO [10.245.245.33])
+ ([10.245.245.33])
+ by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Apr 2026 03:02:36 -0700
+Message-ID: <5d36326b1b9c009cd544fe5ca195ae484dbbc915.camel@linux.intel.com>
+Subject: Re: [PATCH v2 3/4] drm/xe: Wire up dmem cgroup reclaim for VRAM
+ manager
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ intel-xe@lists.freedesktop.org
+Cc: Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner
+ <hannes@cmpxchg.org>,  Tejun Heo <tj@kernel.org>, Michal
+ =?ISO-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>, 	cgroups@vger.kernel.org,
+ Huang Rui <ray.huang@amd.com>, Matthew Brost	 <matthew.brost@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>, Maxime Ripard	 <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter	 <simona@ffwll.ch>,
+ David Airlie <airlied@gmail.com>, Christian =?ISO-8859-1?Q?K=F6nig?=	
+ <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, 	linux-kernel@vger.kernel.org
+Date: Tue, 28 Apr 2026 12:02:31 +0200
+In-Reply-To: <84473cbe-79ad-421e-8c8a-171e5784105f@linux.intel.com>
+References: <20260428073116.15687-1-thomas.hellstrom@linux.intel.com>
+ <20260428073116.15687-4-thomas.hellstrom@linux.intel.com>
+ <84473cbe-79ad-421e-8c8a-171e5784105f@linux.intel.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,30 +83,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Krzysztof,
-
-On Tue, Apr 28, 2026 at 8:41=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.or=
-g> wrote:
->
-> On Mon, Apr 27, 2026 at 04:46:58PM +0100, Prabhakar wrote:
-> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> >
-> > Fix the typo "clocks-names" to "clock-names" in the allOf/if conditiona=
-l
-> > blocks.
-> >
-> > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+On Tue, 2026-04-28 at 11:50 +0200, Maarten Lankhorst wrote:
+>=20
+>=20
+> Den 2026-04-28 kl. 09:31, skrev Thomas Hellstr=C3=B6m:
+> > Register the VRAM manager with the dmem cgroup reclaim
+> > infrastructure
+> > so that lowering dmem.max below current VRAM usage triggers TTM
+> > eviction rather than failing with -EBUSY.
+> >=20
+> > Assisted-by: GitHub Copilot:claude-sonnet-4.6
+> > Signed-off-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
 > > ---
-> > Note, patch applies on top of next-20260427.
->
-> No one can apply on top of next-20260427, there are no such maintainer
-> trees.
->
-Understood. I couldn't find Dmitry's tree so I just added the above note.
+> > =C2=A0drivers/gpu/drm/xe/xe_ttm_vram_mgr.c | 19 ++++++++++++-------
+> > =C2=A01 file changed, 12 insertions(+), 7 deletions(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
+> > b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
+> > index 5fd0d5506a7e..1bdcb3fee901 100644
+> > --- a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
+> > +++ b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
+> > @@ -303,13 +303,6 @@ int __xe_ttm_vram_mgr_init(struct xe_device
+> > *xe, struct xe_ttm_vram_mgr *mgr,
+> > =C2=A0	struct ttm_resource_manager *man =3D &mgr->manager;
+> > =C2=A0	int err;
+> > =C2=A0
+> > -	if (mem_type !=3D XE_PL_STOLEN) {
+> > -		const char *name =3D mem_type =3D=3D XE_PL_VRAM0 ?
+> > "vram0" : "vram1";
+> > -		man->cg =3D drmm_cgroup_register_region(&xe->drm,
+> > name, size);
+> > -		if (IS_ERR(man->cg))
+> > -			return PTR_ERR(man->cg);
+> > -	}
+> > -
+> > =C2=A0	man->func =3D &xe_ttm_vram_mgr_func;
+> > =C2=A0	mgr->mem_type =3D mem_type;
+> > =C2=A0	mutex_init(&mgr->lock);
+> > @@ -318,6 +311,18 @@ int __xe_ttm_vram_mgr_init(struct xe_device
+> > *xe, struct xe_ttm_vram_mgr *mgr,
+> > =C2=A0	mgr->visible_avail =3D io_size;
+> > =C2=A0
+> > =C2=A0	ttm_resource_manager_init(man, &xe->ttm, size);
+> > +
+> > +	if (mem_type !=3D XE_PL_STOLEN) {
+> > +		const char *name =3D mem_type =3D=3D XE_PL_VRAM0 ?
+> > "vram0" : "vram1";
+> > +		struct dmem_cgroup_region *cg =3D
+> > +			drmm_cgroup_register_region(&xe->drm,
+> > name, size);
+> > +
+> > +		if (IS_ERR(cg))
+> > +			return PTR_ERR(cg);
+> > +
+> > +		ttm_resource_manager_set_dmem_region(man, cg);
+> > +	}
+> > +
+> > =C2=A0	err =3D gpu_buddy_init(&mgr->mm, man->size,
+> > default_page_size);
+> > =C2=A0	if (err)
+> > =C2=A0		return err;
+>=20
+> This patch will conflict with=20
+> https://patchwork.freedesktop.org/series/164694/=C2=A0which removes
+> stolen support, can we merge that patch first while we wait for AMD
+> acks?
 
-> Please add Fixes tag.
->
-Ok, I will send a v2 with the fixes tag added.
+Sure, np.
 
-Cheers,
-Prabhakar
+>=20
+> Do I need an ack to get the series through drm-misc?
+
+Which series? The stolen support or this cgroup series?
+
+Thanks,
+Thomas
+
+
+>=20
+> Kind regards,
+> ~Maarten Lankhorst
