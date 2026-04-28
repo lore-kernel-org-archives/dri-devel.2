@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D995FF885A
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 15:32:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCE36FF885A
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 15:32:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7278210EC99;
-	Tue, 28 Apr 2026 15:32:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4165F10ECAB;
+	Tue, 28 Apr 2026 15:32:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="nfq8as+x";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="fePiIdJS";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A36F10EC99;
- Tue, 28 Apr 2026 15:31:59 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F01C10ECA3
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 15:32:03 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id B4262C5EF12;
- Tue, 28 Apr 2026 15:32:41 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 828371A3471;
+ Tue, 28 Apr 2026 15:32:02 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 0C116601D0;
- Tue, 28 Apr 2026 15:31:58 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 55473601D0;
+ Tue, 28 Apr 2026 15:32:02 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 4D0E01072861C; 
- Tue, 28 Apr 2026 17:31:52 +0200 (CEST)
+ with ESMTPSA id E1AA210728E18; 
+ Tue, 28 Apr 2026 17:31:56 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1777390316; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1777390320; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=e4R0jvf1mGByt5z9p68KVY9CzHvtudNHS3mHJr4mzzA=;
- b=nfq8as+xoUh70/n2R9Tc0iT+BXi8uKSfHxPT1/gI+IKLCoU0C5WW2aE9N4cUdokLSHjmom
- q0ZHN6gpcMyFHvdB24m5VVGp6FbyPSONUIkYDB208nGYODtXB+rgc0ZmCSf9PQjTzz2Smr
- dOMxJk4B8I5hxxGIv0yxLt3wB3KcxXOVeFtXe/YbcJ7Tc5Dhpa9gmKrHFbby6lJBX5/uwH
- 1065s3CmH41N5ATLPbkKqO4/+t+0apmReqAYSqpiPdXpp3UbkKLSRe4ibtBOXWdXDRL7Bg
- k6/trvZ4BMAH0uLKB4zFlCLl5aAI5LTuLIZClsHoEzgcwrnfNGpxoZYnowUyiQ==
+ bh=yUEV9MYSt3pHOUbVC0XEstJh+n5Nd9x9JzYSEpAeTFA=;
+ b=fePiIdJSEIYXaxtBJpSc6+bYGjNJSoZUCoxa+WE7erM4o3wtCXzN6Xoi0BZhagzWXDjut6
+ WklTsK7h1pWgAUyC1ON8fVb/S04tLb7jRcAFz5U9IK8nx/80HlernHWWBwUUvn89wdpPiR
+ 2ocNhQF19Opo+3JNCVxJbXSW+nwLwEn9hpn1UFATBlF1Xw6Ws+1icEtoKEkChN08QlXTwX
+ 8ZMXoziP53qsdjlFLpFYHbSm76avbDJ3Mj7X+Exot9MPfd+1K0ZfNNlGnl0XLHA6Vy4p7P
+ AOdrsLgGqM5hHcgJIxSoKv6E0VYlB+PrGQ89Uf0irZ2yY9PiwV0NKfDFyfwVcw==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Tue, 28 Apr 2026 17:30:57 +0200
-Subject: [PATCH v3 08/11] drm/bridge: adv7511: switch to
+Date: Tue, 28 Apr 2026 17:30:58 +0200
+Subject: [PATCH v3 09/11] drm/bridge: lt8713sx: switch to
  of_drm_get_bridge_by_endpoint()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260428-drm-bridge-alloc-getput-panel_or_bridge-v3-8-a537b5567add@bootlin.com>
+Message-Id: <20260428-drm-bridge-alloc-getput-panel_or_bridge-v3-9-a537b5567add@bootlin.com>
 References: <20260428-drm-bridge-alloc-getput-panel_or_bridge-v3-0-a537b5567add@bootlin.com>
 In-Reply-To: <20260428-drm-bridge-alloc-getput-panel_or_bridge-v3-0-a537b5567add@bootlin.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -65,7 +65,8 @@ Cc: Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
  linux-arm-kernel@lists.infradead.org, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
 X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -92,62 +93,47 @@ returned bridge, ensure it is put on removal. To achieve this, instead of
 adding an explicit drm_bridge_put(), migrate to the bridge::next_bridge
 pointer which is automatically put when the bridge is eventually freed.
 
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-
 ---
+ drivers/gpu/drm/bridge/lontium-lt8713sx.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
-Changes in v3:
-- fix ERR_PTR deref when -ENODEV is returned
----
- drivers/gpu/drm/bridge/adv7511/adv7511.h     |  1 -
- drivers/gpu/drm/bridge/adv7511/adv7511_drv.c | 15 +++++++++------
- 2 files changed, 9 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511.h b/drivers/gpu/drm/bridge/adv7511/adv7511.h
-index 8be7266fd4f4..12c95198d9a4 100644
---- a/drivers/gpu/drm/bridge/adv7511/adv7511.h
-+++ b/drivers/gpu/drm/bridge/adv7511/adv7511.h
-@@ -354,7 +354,6 @@ struct adv7511 {
- 	enum drm_connector_status status;
- 	bool powered;
- 
+diff --git a/drivers/gpu/drm/bridge/lontium-lt8713sx.c b/drivers/gpu/drm/bridge/lontium-lt8713sx.c
+index 18fac6a46db4..cee485adf5e5 100644
+--- a/drivers/gpu/drm/bridge/lontium-lt8713sx.c
++++ b/drivers/gpu/drm/bridge/lontium-lt8713sx.c
+@@ -32,7 +32,6 @@ DECLARE_CRC8_TABLE(lt8713sx_crc_table);
+ struct lt8713sx {
+ 	struct device *dev;
+ 	struct drm_bridge bridge;
 -	struct drm_bridge *next_bridge;
- 	struct drm_display_mode curr_mode;
  
- 	unsigned int f_tmds;
-diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
-index 6bd76c1fb007..3c516551e482 100644
---- a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
-+++ b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
-@@ -851,8 +851,8 @@ static int adv7511_bridge_attach(struct drm_bridge *bridge,
- 	struct adv7511 *adv = bridge_to_adv7511(bridge);
- 	int ret = 0;
+ 	struct regmap *regmap;
+ 	/* Protects all accesses to registers by stopping the on-chip MCU */
+@@ -458,7 +457,7 @@ static int lt8713sx_bridge_attach(struct drm_bridge *bridge,
+ 	struct lt8713sx *lt8713sx = container_of(bridge, struct lt8713sx, bridge);
  
--	if (adv->next_bridge) {
--		ret = drm_bridge_attach(encoder, adv->next_bridge, bridge,
-+	if (adv->bridge.next_bridge) {
-+		ret = drm_bridge_attach(encoder, adv->bridge.next_bridge, bridge,
- 					flags | DRM_BRIDGE_ATTACH_NO_CONNECTOR);
- 		if (ret)
- 			return ret;
-@@ -1251,10 +1251,13 @@ static int adv7511_probe(struct i2c_client *i2c)
+ 	return drm_bridge_attach(encoder,
+-				lt8713sx->next_bridge,
++				lt8713sx->bridge.next_bridge,
+ 				bridge, flags);
+ }
  
- 	memset(&link_config, 0, sizeof(link_config));
+@@ -537,10 +536,9 @@ static int lt8713sx_probe(struct i2c_client *client)
+ 	if (IS_ERR(lt8713sx->regmap))
+ 		return dev_err_probe(dev, PTR_ERR(lt8713sx->regmap), "regmap i2c init failed\n");
  
--	ret = drm_of_find_panel_or_bridge(dev->of_node, 1, -1, NULL,
--					  &adv7511->next_bridge);
--	if (ret && ret != -ENODEV)
+-	ret = drm_of_find_panel_or_bridge(lt8713sx->dev->of_node, 1, -1, NULL,
+-					  &lt8713sx->next_bridge);
+-	if (ret < 0)
 -		return ret;
-+	adv7511->bridge.next_bridge = of_drm_get_bridge_by_endpoint(dev->of_node, 1, -1);
-+	if (IS_ERR(adv7511->bridge.next_bridge)) {
-+		if (PTR_ERR(adv7511->bridge.next_bridge) == -ENODEV)
-+			adv7511->bridge.next_bridge = NULL;
-+		else
-+			return PTR_ERR(adv7511->bridge.next_bridge);
-+	}
++	lt8713sx->bridge.next_bridge = of_drm_get_bridge_by_endpoint(lt8713sx->dev->of_node, 1, -1);
++	if (IS_ERR(lt8713sx->bridge.next_bridge))
++		return PTR_ERR(lt8713sx->bridge.next_bridge);
  
- 	if (adv7511->info->link_config)
- 		ret = adv7511_parse_dt(dev->of_node, &link_config);
+ 	ret = lt8713sx_gpio_init(lt8713sx);
+ 	if (ret < 0)
 
 -- 
 2.53.0
