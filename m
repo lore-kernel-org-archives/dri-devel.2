@@ -4,134 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A9B0FF8868
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 16:40:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DC96FF8868
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 16:40:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0C4E10E35D;
-	Tue, 28 Apr 2026 16:40:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1C4310EB78;
+	Tue, 28 Apr 2026 16:40:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="dZycoP5E";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GwIA5fK3";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="XAOIAPWd";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NHk5mkIZ";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8342310EB78
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 16:40:09 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7705010E2F8
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 16:40:36 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63SFsIFa3713150
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 16:40:09 GMT
+ 63SFsCHo3634329
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 16:40:35 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- jSwLJ8qoJ4k0g3ywERijbSEuPMU7O1XadiH6FINTJ3o=; b=dZycoP5EZv6A2AA0
- VQ8Adz/TjFW+tgpAWctWG0d+1Su/2mqSOk9NmtaMfCd7slusLFt04ZOkYqGRs3qc
- nEpucIDhrx2mJHnNjfK9kF8Yr5+0TmPeDY2ucB/jj5qraMieBg1xYUQWy3lSpY7Y
- Xe+wgUKYnF5oHnHmXD6nvfvBsJcV1zmN9w9zwEGc/T7BZ1kY2FXDNTt1/hpLdMJj
- oRoIDgzKAC7U+GLLFCaXkoPE0B35gGjjxb/ilAP6gL018njd9IMurlJBQveEHM2z
- 5nPAfwZPUgZt9g5lEpEe10B38Qq8+9ivNEib58ZpfUAZ+2nDOzfegRBWwz54U4Bl
- YqCTBA==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
- [209.85.210.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dtxb50p6w-1
+ kLFgekwjjAN3eLuAfL7QdjfZhVRek/Ch91VNErfxHxw=; b=XAOIAPWdaZNrgqfv
+ 6qwH9I2uHD0hYKaVwSWn0W4viuxiLiIhsAc/3Feoh6e/NmNfelWfdVaH4f0vGIjq
+ BWMGUvGtbaNj8MVTkkATX4oRvUrUCU/rTNvUL+5ClBBjjAJ2pFJ6VcnrYLTxi+GP
+ Q/FPBJ4O3aaUvpe4NmGRoDiLIR5hutGl+Fvqma+zbtcA5iUAyqA8h/+MXyL27WHF
+ Cw8wJ3ffpgxEh/SMxlTksy01Z6++zZyyyCvW6+XI6A8bTULGQ3i64MZoH1u6RSUE
+ qDyiZcsnPAw3bLeRAXa81LAZL4+ZaEtGAbiGpmMlgOY/Cg7rSBY+/U2opjv/x1oE
+ C3VKZQ==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
+ [209.85.216.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dty87rd70-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 16:40:08 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id
- d2e1a72fcca58-82fa2165c3eso7365521b3a.0
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 09:40:08 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 16:40:35 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id
+ 98e67ed59e1d1-35dacc40f92so11946668a91.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 09:40:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1777394408; x=1777999208;
+ d=oss.qualcomm.com; s=google; t=1777394434; x=1777999234;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:in-reply-to:content-language:from
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=jSwLJ8qoJ4k0g3ywERijbSEuPMU7O1XadiH6FINTJ3o=;
- b=GwIA5fK39hNryPllSMHqAPtWvrq+Lv+WRw9K5LfE3/WAIgqNsP7CAoX1L+7uLu9knQ
- ThX/NeJ7ZmqxZ9QulbzbMt3nt+CYrMmsfwiDrSlO2nG8I/2n98UxBHW4jekjZMVZogy9
- VlMJATYsevKBeBG3gBPzaGBXHWiqU0zRP0fXhaOkq+iIF509wUoe554eKS7o9jV7F0Ni
- RvYRqiGaPT6YEKSXxcQ35Cay8Pj+8EM1iyXLbCTHUDP/ujn6M7oG/hqXbCvfk7pykxuK
- Y/erGzx28IuSJVmt0Fj2Y5AWvLn01WrJPTMujf6pI+cV48NG7Z5qQ45sMYYMr6CI+e5O
- wkhw==
+ bh=kLFgekwjjAN3eLuAfL7QdjfZhVRek/Ch91VNErfxHxw=;
+ b=NHk5mkIZR4m5+sVnknUGJU7QblTy9QU1wa9JgPYrIEuBHrADnAloxG1XrJ3qMyEmaE
+ C1TMM1nNwAIJ9Pxhdwsvww+Gx1kAQ2Rt0PFmFTF4Y+fWPnPXEkPEYZvcNAzF2jc47iCs
+ zBuJ1AR3mzsxky1AnooorQ2mZ8mlKjtL/9nRoxs8MmhQCpiJo0mT7jUXQsk8iHZy6Xk/
+ JC0GZ2qW/VzKn2mVczYkCbj0lshmIwxpwW1ebMoqOXaYM2+YSmWApUc5D+plcCk+A2+H
+ c4vEyYfqnmxOKBjP+lDR+NXf9pymLd//BnMBAn25PP7By4Nnsb0dGalvPo/AAhED4EyD
+ 6+fQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777394408; x=1777999208;
+ d=1e100.net; s=20251104; t=1777394434; x=1777999234;
  h=content-transfer-encoding:in-reply-to:content-language:from
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=jSwLJ8qoJ4k0g3ywERijbSEuPMU7O1XadiH6FINTJ3o=;
- b=Cw11RWW05Rermpyn60bAqrXr/kZKogdPTQeAzG9qg+0ReTQed+JnOcKEqwWeUmcOTV
- 5OuNnKfx2sJ5lN5HUPHFl4pnEq6Y17/rqEi9Nvd3TzP2VVvjgi21iW27/CVmcZkkdpKA
- iuR3JkO7+k/1Y0JUL2AhPeXhaZ1ENovjtmNnOczwmeps0nASxArbMGAEucMPjrWhnMgY
- kXRVWfCnRrex4RgFmtaq94LYyFKWqM6VG8JiQjax4BOCgB1x3QWqFDmnxUrt7lAzW/vf
- Vgt6wdTXQUEPwuUPDlDMMSoOlWp0qKdRUEp7FV7U/W5H2f3UK6DuvVGGCf4cVN7jL2IR
- EkGA==
+ bh=kLFgekwjjAN3eLuAfL7QdjfZhVRek/Ch91VNErfxHxw=;
+ b=eC7fXoZJbNfyuygi2GvJvii8C5/zTCII9FVpACpFi4aY5xYXNzG7vAwoyqufRStm/p
+ DqRx8dO9alL/YdaNycf1O8BdlXMItk3Ni2Uh64bF5UW1XN8FLP6/+YXqsWM5a0Va6UbN
+ XNbZGEHPh5j0jieWGOF72XX5mp+T7XXYYBeNL4nozzaA2iW+/PBglflSsO0YsLYIiCH0
+ bQWnllACa8sZPuF8GZLJ7Y//VGzCNgB7Vyxd/qycRQL7mX5137RCvVfIK4DoenWlAkYV
+ WJRWlXNE7MOmgvNLVdR+RJ8syxruQMud4jWzxlBrhRC/kLQWUNBnBeWXunPa2v4oweQ6
+ JsFA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+ToQTBl1z8QMkuSPVZFVb72VDk6MFrFgNkRS+/3d4jH2RlQ1d4XACFj/JRdhicft2iDyYhfeCPtYc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxr4ERFgUvHJ7cnro7ODeHMfiIE8AzC0TGPGwYSMqoKqSYvlZ8x
- 3jQq8uFkEwu351cwgR1U3z1CcMbmG7/NmB7LBqbkKZ8DgMPUqD+EBgkDFt/e5vl2z0p59cAXAYl
- YkoOESzIfrZ15Ed7JmI7OQI8hSEKH3K+k75dcX9rRGzgpXTTh5hbPS77dPEr9mfEhL2jzf6Q=
-X-Gm-Gg: AeBDiestLQoqFwjbzbADTl4v+QoUlw+NYUprl4dcELH+czRrvOzyRe/dbjWTHw+PCmM
- ONh0f5Fh8oql8wuzsZhVYny5HZ9zsKhdgjeofbk8Iwu8TweOOZ8x6Pgv5L4e+kCkhpvC7VD2IFJ
- moJHynBdaEve9Wk1fH313MvkCGX5kNeF6qlthEslRTGwckQPp2waVetmuqEBcJ2XjyBR87pEY7X
- LeCBhdaBAaAAKWraHMp62xV4Ol7bM3F9XXp0S2Vws5R9JZbOv3cSEvtrfxA5ExY+MV3RIwtAFEO
- Dj8Jo0CTZZI6hDL4/BrAqKfbv9E6/XiSyod+rsGENjP6ndkzMXHNWFnWGHJJxDupyl8FoqfLybD
- BcYOJa2lEcUjm1WPmgj2PK7m9XwxvL2WuLA6I9KDmEUirPiLh7XsKFw==
-X-Received: by 2002:a05:6a00:12c1:b0:82c:eb46:acb9 with SMTP id
- d2e1a72fcca58-834ddbec5d7mr3739930b3a.24.1777394408087; 
- Tue, 28 Apr 2026 09:40:08 -0700 (PDT)
-X-Received: by 2002:a05:6a00:12c1:b0:82c:eb46:acb9 with SMTP id
- d2e1a72fcca58-834ddbec5d7mr3739883b3a.24.1777394407479; 
- Tue, 28 Apr 2026 09:40:07 -0700 (PDT)
+ AFNElJ+wJOieM+KfsxgQDndzL63qzJcTg2Nrd7KDJPhJWTyOTVoQO+bp7WbSUjatlK4hmKW3XrRg/fJ5HEw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyb/ZDYHVWE9PTda8zF8niLr5XJnvJjUldqSsiG1fvSywi8wlhQ
+ hW6JjwaLs0Jt1a9rsbgjQZw4KyWs92zelek/sCyaU2FPAv1KGPJ21ufyTIKkAgw8hwAxaqMowaN
+ FEHCDmB40j0V2mnNFMhFBVNaPb6P6pwxjXbwhMQ8v09DyQCS03LVuTscCi/X59fw+HPasL8E=
+X-Gm-Gg: AeBDiesj0vdRN4FzkH9Yi5l96ONWp+I/AYBeGUq40GeOC6LxLxtzwjynILxxMiaZ/mi
+ g1KyJ5XDcunbqzRtMkSqxRVYoGG/FMX88IYg1A3PAe9Kd4Ufqknd5BaJotu41UVaAHJkUo6R8XP
+ 4PhpkbU9iupemKcMoOvJjvJrp76zVqbmqybFp6n4cV14PnoBa5ijTutdNB3pi18F/e4EZDqgen1
+ zbucsUlLkmidBzL6idnilopNFoDdd1gQ9HBnQebOEUilwgWMfqQ9GNt+ujqNMv8mreYJt2jvLhY
+ KeyHJThXcdHCcYfqmFf1dBi8cpDHubzl6E22WNZA2Km1obImGZ8bKg7FWQQoD2LEJysZFvj460O
+ 9WQIJhdbnZdSyhwk9AwImh5KmK3jABi7ZoxM2bR86dMLGgN9YqAF40g==
+X-Received: by 2002:a17:90b:4cd0:b0:35f:bb33:d72c with SMTP id
+ 98e67ed59e1d1-36491f891f9mr3691696a91.4.1777394433972; 
+ Tue, 28 Apr 2026 09:40:33 -0700 (PDT)
+X-Received: by 2002:a17:90b:4cd0:b0:35f:bb33:d72c with SMTP id
+ 98e67ed59e1d1-36491f891f9mr3691659a91.4.1777394433473; 
+ Tue, 28 Apr 2026 09:40:33 -0700 (PDT)
 Received: from [10.91.112.28] ([202.46.23.19])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-834dae00e40sm4009175b3a.12.2026.04.28.09.39.59
+ 98e67ed59e1d1-364a011512dsm157755a91.4.2026.04.28.09.40.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Apr 2026 09:40:07 -0700 (PDT)
-Message-ID: <59bd0773-5c12-44d1-99b3-9ddfac8b1a4a@oss.qualcomm.com>
-Date: Tue, 28 Apr 2026 22:09:57 +0530
+ Tue, 28 Apr 2026 09:40:32 -0700 (PDT)
+Message-ID: <e1a94dda-1a4a-4034-b695-a7038760c53c@oss.qualcomm.com>
+Date: Tue, 28 Apr 2026 22:10:25 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm: Don't use UTS_RELEASE directly
-To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
- <u.kleine-koenig@baylibre.com>, Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Kees Cook <kees@kernel.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Markus Schneider-Pargmann <msp@baylibre.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260428144553.1103785-2-u.kleine-koenig@baylibre.com>
+Subject: Re: [PATCH] drm/msm/a6xx: Check kzalloc return in
+ a8xx_hfi_send_perf_table
+To: Chen Ni <nichen@iscas.ac.cn>, robin.clark@oss.qualcomm.com,
+ lumag@kernel.org, airlied@gmail.com, simona@ffwll.ch
+Cc: sean@poorly.run, konradybcio@kernel.org, abhinav.kumar@linux.dev,
+ jesszhan0024@gmail.com, marijn.suijten@somainline.org,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+References: <20260428073558.1234238-1-nichen@iscas.ac.cn>
 From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 Content-Language: en-US
-In-Reply-To: <20260428144553.1103785-2-u.kleine-koenig@baylibre.com>
+In-Reply-To: <20260428073558.1234238-1-nichen@iscas.ac.cn>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI4MDE2MCBTYWx0ZWRfX5sDeZCwrKavy
- tRaOUNiLe81YbrVZibNbUqIS4JaqXIWAM8RAfR23xRff+Ikd7v9jyhni0zVXYERhB0A3lg+Jd+f
- IEdgo9S0fM1FaE1TFyTZs/jUNZ4KrUOF98Fe1ItUQB3OX9vSJ49zme7l/qU3RD0ysYZ6eLoJuja
- wZoULsPWsx2MW0gf2DuRpw5Rym+C88kJpvac5ZcBGBD1eW0IYx4j7krQGN69gsw99VfT460kDfB
- rgTvL9C10DMCl9d9ObeGK6zU+EOv8+idioaWxWCiFp2oICJjZwJcq1cSvQW4dPtJC2JSNk6vdjL
- ZPz0ljnqp+rb9OEbQZI26EgUJj5LwCDUyOxoh9TUNYubhwpzYlsSzB8A1J/yJUtLwc3YpBFgjPl
- /iES8XUySRfZkxdyoGqedoWdBdSjw7qwplYbvN8cUcx7BixICDfT5LOE1IbZylqpYf7STeJ+cZg
- 1tn0oJUg80MmwBx3coQ==
-X-Proofpoint-ORIG-GUID: OiuPqJLIjEKA4stEFMIiIRrRkPV3wGNt
-X-Proofpoint-GUID: OiuPqJLIjEKA4stEFMIiIRrRkPV3wGNt
-X-Authority-Analysis: v=2.4 cv=A45c+aWG c=1 sm=1 tr=0 ts=69f0e2e8 cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=abJRWxot c=1 sm=1 tr=0 ts=69f0e303 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
  a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=IpJZQVW2AAAA:8 a=EUspDBNiAAAA:8 a=7nqr_66b8YCbs3nQVBwA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=zc0IvFSfCIW2DFIPzwfm:22 a=IawgGOuG5U0WyFbmm1f5:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=PRwU12TgqmUXp5Sp-ksA:9 a=QEXdDO2ut3YA:10
+ a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-GUID: NayoR-lw-ilbAupMtRJ_UI96GvacAZAs
+X-Proofpoint-ORIG-GUID: NayoR-lw-ilbAupMtRJ_UI96GvacAZAs
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI4MDE2MCBTYWx0ZWRfX63JVIoRbhSRX
+ g6fzlz8skLzil5lx9SjjGLB8sprl09EHpYJO5gPldZpbsKWzrOD8WqizXeuRInsjZ6leuCudzg5
+ weSnq6/WX0q8sruvyQXtiXNwHvQuyyRb5+KdMb0Mx7E97teL1ifjhsCXHbjG59EZKRNCnqrq7cg
+ McvNP7USfU+McPbcar529AhABDavqv8eHK1MT+sghptztgiwRmcfqOh9fDnDrqvf2BK1docmyPX
+ pEQESI8QeFzO8sAzxZZDEvO0nXf8Md+NkjLPju6b7yjNhfNexdesMv/DDV3J/I/Gj3W138jbOLq
+ AFvb9tws41xxn1eSckxwYigwOziyyg+ruoSREtnHcTRoKicV8fRTXi6ldPkIhGA3WPX5DryY5Ad
+ XH5Nwv9Gt2DM9jXC7hQRTIQ4yBMzw7xpbwHW7n7euh9ZXr4FF0rsCW5R6aveiup03k4XBfZ75aA
+ dlF5YGXLkdgk1E7Hhrg==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-04-28_05,2026-04-28_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 impostorscore=0 phishscore=0 adultscore=0
- priorityscore=1501 malwarescore=0 lowpriorityscore=0 bulkscore=0 spamscore=0
+ suspectscore=0 priorityscore=1501 malwarescore=0 impostorscore=0 spamscore=0
+ phishscore=0 bulkscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604280160
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -149,75 +144,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/28/2026 8:15 PM, Uwe Kleine-König (The Capable Hub) wrote:
-> UTS_RELEASE evaluates to a static string and changes quite easily (e.g.
-> uncommitted changes in the source tree or new commits). So when checking
-> if a patch introduces changes to the resulting binary each usage of
-> UTS_RELEASE is source of annoyance.
+On 4/28/2026 1:05 PM, Chen Ni wrote:
+> Check the return value of kzalloc() to prevent a NULL pointer
+> dereference on allocation failure.
 > 
-> Instead of using UTS_RELEASE directly use init_utsname()->release which
-> evaluates to the same string but with that a change of UTS_RELEASE
-> doesn't affect msm_disp_snapshot_util.o or msm_gpu.o.
-> 
-> Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
+> Fixes: 06cfbca0e1c6 ("drm/msm/a6xx: Share dependency vote table with GMU")
+> Signed-off-by: Chen Ni <nichen@iscas.ac.cn>
 
 Reviewed-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 
--Akhil.
+-Akhil
 
 > ---
->  drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c | 4 ++--
->  drivers/gpu/drm/msm/msm_gpu.c                     | 4 ++--
->  2 files changed, 4 insertions(+), 4 deletions(-)
+>  drivers/gpu/drm/msm/adreno/a6xx_hfi.c | 2 ++
+>  1 file changed, 2 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c b/drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c
-> index 427d3ee2b833..c6eda3cf2e62 100644
-> --- a/drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c
-> +++ b/drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c
-> @@ -5,7 +5,7 @@
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+> index 487c2736f2b3..186a73c0b99c 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+> @@ -289,6 +289,8 @@ static int a8xx_hfi_send_perf_table(struct a6xx_gmu *gmu)
+>  		(gmu->nr_gpu_freqs * num_gx_votes * sizeof(gmu->gx_arc_votes[0])) +
+>  		(gmu->nr_gmu_freqs * num_cx_votes * sizeof(gmu->cx_arc_votes[0]));
+>  	tbl = kzalloc(size, GFP_KERNEL);
+> +	if (!tbl)
+> +		return -ENOMEM;
+>  	tbl->type = HFI_TABLE_GPU_PERF;
 >  
->  #define pr_fmt(fmt)	"[drm:%s:%d] " fmt, __func__, __LINE__
->  
-> -#include <generated/utsrelease.h>
-> +#include <linux/utsname.h>
->  
->  #include "msm_disp_snapshot.h"
->  
-> @@ -79,7 +79,7 @@ void msm_disp_state_print(struct msm_disp_state *state, struct drm_printer *p)
->  	}
->  
->  	drm_printf(p, "---\n");
-> -	drm_printf(p, "kernel: " UTS_RELEASE "\n");
-> +	drm_printf(p, "kernel: %s\n", init_utsname()->release);
->  	drm_printf(p, "module: " KBUILD_MODNAME "\n");
->  	drm_printf(p, "dpu devcoredump\n");
->  	drm_printf(p, "time: %ptSp\n", &state->time);
-> diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-> index 930e54d1b0a7..3f3925b11eea 100644
-> --- a/drivers/gpu/drm/msm/msm_gpu.c
-> +++ b/drivers/gpu/drm/msm/msm_gpu.c
-> @@ -13,11 +13,11 @@
->  #include "msm_gpu_trace.h"
->  //#include "adreno/adreno_gpu.h"
->  
-> -#include <generated/utsrelease.h>
->  #include <linux/string_helpers.h>
->  #include <linux/devcoredump.h>
->  #include <linux/sched/task.h>
->  #include <linux/sched/mm.h>
-> +#include <linux/utsname.h>
->  
->  /*
->   * Power Management:
-> @@ -196,7 +196,7 @@ static ssize_t msm_gpu_devcoredump_read(char *buffer, loff_t offset,
->  	p = drm_coredump_printer(&iter);
->  
->  	drm_printf(&p, "---\n");
-> -	drm_printf(&p, "kernel: " UTS_RELEASE "\n");
-> +	drm_printf(&p, "kernel: %s\n", init_utsname()->release);
->  	drm_printf(&p, "module: " KBUILD_MODNAME "\n");
->  	drm_printf(&p, "time: %ptSp\n", &state->time);
->  	if (state->comm)
-> 
-> base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
+>  	/* First fill GX votes */
 
