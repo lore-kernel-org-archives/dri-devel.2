@@ -4,97 +4,144 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54D0DFF885A
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 20:59:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2F2AFF885A
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 21:05:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 983A710E39D;
-	Tue, 28 Apr 2026 20:59:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01C2010E3A3;
+	Tue, 28 Apr 2026 21:05:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rBRCGcWd";
+	dkim=pass (1024-bit key; unprotected) header.d=microsoft.com header.i=@microsoft.com header.b="PUWBq055";
 	dkim-atps=neutral
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5D5910EC2D
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 20:59:55 +0000 (UTC)
-Received: by mail-dl1-f50.google.com with SMTP id
- a92af1059eb24-12dc9b6beceso219573c88.1
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 13:59:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777409995; cv=none;
- d=google.com; s=arc-20240605;
- b=ZXUQTxEXDdTSuFeEZZ+b4qzwKgUFWfvNkKsfA2qXFTo8J4pK/aPMEI5lVqn9P0vKrF
- vwo5GrW+sNT2C5HZe4gOBZ/HbY/sZicf6ufhNgSI4fq7q0VrusVjMJ2smSFI93b3z7rY
- B8gb+K5+6k436upnOEKUGpOhErsscd4j4wqiahmj7FAzP85mPOYFrXCTLAA7z9F9inbW
- pv1/7u8fiKT0KPUU9qUNx7rgcPLum+rHO6vbAMNBgLuAO52p3qeb3WPhBrg9AbUM9B+g
- 2BU8k8K9V8ftcC7Rm5HjmCf5br2VwkErIwxkiZc8aE6YWbr6pHvZLrjFMy4n1zOs0JaR
- XWlw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=NKs7lWUsTkjimUwdR22nNDBlj2tg5RjqYaiPfax+AYI=;
- fh=Q2E9mI3rkhT3EThC0ZkkfqXnMOhy3TbIxhYZaQ5lNN0=;
- b=DbZaKu8j3goAapdrUG5+rKU8Tt4qZDo7qhMLwxBzOgOQmvt9Nq7fHnYjbEDnTtIhU6
- jUrjDfAbp3kQXDKHvAzPWegV74zT4kCMl9ph+7ltMbGFnYxHNkiPVgZip/6K0hI7egaD
- 4DM5nNDwJFs0I+3AZqL5FX/3fWm6+3TZFOdplgifmOvO6kdk5XTjqQnLQhgA+lBiDHrc
- xtLVHsr8LRr2CXkGCZ+0vDyl2kwMLn1Yd1I8HjEtwOx5Q7ZWSAerFe+joEdRv5YzglFA
- MoKqrwoncNEj8mA+FXvIads5w831v3esMJkSknyogMdp1L8JAbgDIBcr5UMk8HwOV63Y
- 9brA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777409995; x=1778014795; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=NKs7lWUsTkjimUwdR22nNDBlj2tg5RjqYaiPfax+AYI=;
- b=rBRCGcWdambCEEWRirtkGiO+7PPesYwvAuXAfXOuybvjkRyapOHVRRWScMZz37eTKC
- rw3ffuFy5v5RRxBZsF4gTOU4dmgXbJaXxD3IbbvvsOYQaEEFUuYljk61UkLhvnp39FpK
- 3xq6ifavNkHC6fu6Hd3BZE7IZDZPQTcCh+YxWwxuRD1gpqJ1oRoW0PvjkR4u1VLeP56D
- FZ/rY6HoHvHO9sMbNkl/XPNv/aiXpQIzVt9yhTmxXtjNPzvs9lzkRSj6Gz2MCJqnMOKp
- ZN9owH+G1c0lfRrvi3cSSsej3+xGJpUF8VRLR+dWYXzDmvXThdZ7UwL/2DF8Vtg3BGDY
- DTOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777409995; x=1778014795;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=NKs7lWUsTkjimUwdR22nNDBlj2tg5RjqYaiPfax+AYI=;
- b=YrPSNxp8bbqDkhVZFYnluaAPNafjZ6ytDJd09OPIQ8bLnCCT+HQi/KSJynPr1Yrt8/
- Sl3ARJFqgTuFtSkD+VzrSY55UzLxy/PLxG+6Sbc4+WIpDpqsTYAuJTYnG73TMZcN+ChV
- nhiClvUq1X6kQE0hiOnsRLopTOlVql4k4Vjq9S16l/bwPJ993MZ06AbODNnXR/uAH7vK
- 992he/rj98f8x9LO4lyft21k9ejj7K4/IR2J+F9wZwxvmmwaKejrSLE4KqCskUhjX64h
- oiDV1ZdmR0smfUgiufqUnlznfpxUDA3P0T94l4zUnjbCexGHNkeXxqAsCQzyDRs+Cl54
- Mn7Q==
-X-Gm-Message-State: AOJu0YyXcdjvn7SoOwMOWzQZkwdPsWqx0soH3/c0RlhZqbfJWqry9WjJ
- XkLHdNZ2WtWpmmc2w2MFeORwv0C1MYjj7Ayu9JMCqjDwrCRqzMi9zAltQJvUuj5FAXffAnDhkDJ
- 1noSbZQnT2sVQw7nlTRaEGPNsp/ackSYIug==
-X-Gm-Gg: AeBDietNmxSIhBRIiwj00sPJQOomV0eQuFcrEjDjFF/R7Lr6mShhVAaBA0KuTiHD6PU
- iZluk+hLs1RfYP//ugIiQg6IuA7PcPleLwjlma1xCYt8UITVvezZXXomte7kAmV5xcSG/6O3k51
- 44zQHYrjSVEF37TBrFsvznn/3IpX9iPO3QpnhFZ5iN9KI2aC+WpC+HKMYYhCHbwPSvVbohlYK2d
- 5n9rpgQctUA+2X0Vc1B7NAq2HJG2MdvouBNWy41n6nzCtgSQhcBH2xPVOgt2AVVSeysw7xUEYJg
- mBtbiF/j7j0ZrDyqMHpx25C1OnNB0SZ9/2YkUOfvlVeCBRoA5eG+X1YPUBMnMJqWaFcqvQwMIE3
- n3lq9
-X-Received: by 2002:a05:7022:618c:b0:12c:888b:aa92 with SMTP id
- a92af1059eb24-12ddd4e40a6mr1174660c88.1.1777409994914; Tue, 28 Apr 2026
- 13:59:54 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260427214122.784024-1-rdunlap@infradead.org>
-In-Reply-To: <20260427214122.784024-1-rdunlap@infradead.org>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 28 Apr 2026 16:59:43 -0400
-X-Gm-Features: AVHnY4LBCnRTesV8aV5lM-5B56beSoaiAnl5S5CRI0bzQtScRkQlt2ShdqkzylI
-Message-ID: <CADnq5_P7tFYcqW8+CZYuGAVpkW_qU4QMu__3oNsy9G=SeMW4_A@mail.gmail.com>
-Subject: Re: [PATCH 1/3 v2] drm/amd/display: dmub_cmd.h: correct typos and
- spellos
-To: Randy Dunlap <rdunlap@infradead.org>
-Cc: dri-devel@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>, 
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- amd-gfx@lists.freedesktop.org, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>
-Content-Type: text/plain; charset="UTF-8"
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11023127.outbound.protection.outlook.com
+ [40.93.196.127])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C73C10E3A3
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 21:05:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gUZ1GCSgnfJXohScMxfpDqqex1u+GE6cuJ+vGqn/dWYYnk4Bv3jyWQbp2oduGMZ+OHf1GX8bBz96QhQ3t8dWT08aGpAW0x+m2FRQCuNfKJAm78uzUMaYrS4UiJ02CVIrdjqzDqVnQ276pZzoE6n85ZSdjTsXVd1TvT23dbAPQxa/wSBUtjxHi666t7yKL1pQJDIFYZZhRig7kLBG3jIvtjYmnbUS2BR+THBRhKZVY9ikJsA9Op6430CC6D3HTB1xxwFAHBaoPkEn1KmbCPIvUYG84ifA7yVEiDOJgLDfM2DC47gw0YkXbPx815lE8q7ms/xz7gRbol1G7+LRgu616Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lVEt/gVh2ZQCFjl+WCZI3ScYTDfHdOHmjSki4Vocg7k=;
+ b=cc83NCrK9HddIlK5RzLVi+JSB4nL4X64frtLDtcuWb5S21IZND2oeK/ft+MmR7VziQNwtpMFpeF7vZFbc/bxqZ5gAJYaFsOkTnlEVJj8+hEcHJ2pZgmWJJa60MIyItZRORUg7iMgufahRtyrQjpMwn9isgT7l6yHakW9miKWbJ9bgCAH2QaGULGUv+XfF3wmJNxStZ4GCEGfCSMmKdgbyQPS7eePU2Ft2YMr9KmMMbXtT3H1EeJQkEjXdEmZQwHtlmcOINbG9Zm8Ri8GiXlxtIriWKxvqhdnCMQAqd1FYfLGHIu7zUjBotbB7wFgLq4Sz9Avs6jat5YmcI5sVRNOGw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=microsoft.com; dmarc=pass action=none
+ header.from=microsoft.com; dkim=pass header.d=microsoft.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lVEt/gVh2ZQCFjl+WCZI3ScYTDfHdOHmjSki4Vocg7k=;
+ b=PUWBq055rUeV6JJv4hR2ud2+Lulot+sZKeOeQjtqMvRfcTbzvXT1u+ipuTURPcaH91mDWLYk+NpzDZndgT8eiNX883fr7M8dphiYZtuj8bRAgBmFwOuijzC2bDBTHihjCEZFvqucbNOThfXFT8/Ss9AjeqFCcA6ZhUbO9NWJ2pQ=
+Received: from SA1PR21MB6921.namprd21.prod.outlook.com (2603:10b6:806:4a7::11)
+ by SA1PR21MB6417.namprd21.prod.outlook.com (2603:10b6:806:4b0::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.2; Tue, 28 Apr
+ 2026 21:05:48 +0000
+Received: from SA1PR21MB6921.namprd21.prod.outlook.com
+ ([fe80::51cf:497c:e5df:f6d]) by SA1PR21MB6921.namprd21.prod.outlook.com
+ ([fe80::51cf:497c:e5df:f6d%2]) with mapi id 15.20.9870.013; Tue, 28 Apr 2026
+ 21:05:47 +0000
+From: Dexuan Cui <DECUI@microsoft.com>
+To: Michael Kelley <mhklinux@outlook.com>, Hamza Mahfooz
+ <hamzamahfooz@linux.microsoft.com>, Saurabh Singh Sengar
+ <ssengar@microsoft.com>
+CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, KY
+ Srinivasan <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, Wei
+ Liu <wei.liu@kernel.org>, Long Li <longli@microsoft.com>, Stefano Garzarella
+ <sgarzare@redhat.com>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Himadri Pandya
+ <himadrispandya@gmail.com>, "linux-hyperv@vger.kernel.org"
+ <linux-hyperv@vger.kernel.org>, "virtualization@lists.linux.dev"
+ <virtualization@lists.linux.dev>, "netdev@vger.kernel.org"
+ <netdev@vger.kernel.org>, Saurabh Sengar <ssengar@linux.microsoft.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Deepak Rawat
+ <drawat.floss@gmail.com>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "stable@kernel.vger.org"
+ <stable@kernel.vger.org>
+Subject: RE: [PATCH 2/2] drm/hyperv: use VMBUS_RING_SIZE()
+Thread-Topic: [PATCH 2/2] drm/hyperv: use VMBUS_RING_SIZE()
+Thread-Index: AQHc1jw02yJrERFkmkeSl7gccH8LxLXzPWxQgAAHyACAAa+UEA==
+Date: Tue, 28 Apr 2026 21:05:47 +0000
+Message-ID: <SA1PR21MB6921427C29C760AEB14D98F2BF372@SA1PR21MB6921.namprd21.prod.outlook.com>
+References: <20260425181719.1538483-1-hamzamahfooz@linux.microsoft.com>
+ <20260425181719.1538483-2-hamzamahfooz@linux.microsoft.com>
+ <KUZP153MB14445757C6A5DA5DEDA9A09CBE292@KUZP153MB1444.APCP153.PROD.OUTLOOK.COM>
+ <ae9NxmDBTkzPP3H6@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+ <SA1PR21MB6921B5A2441DB3E9A1312AC0BF362@SA1PR21MB6921.namprd21.prod.outlook.com>
+ <SN6PR02MB41571A5B77A5FDDFE17AEF19D4362@SN6PR02MB4157.namprd02.prod.outlook.com>
+In-Reply-To: <SN6PR02MB41571A5B77A5FDDFE17AEF19D4362@SN6PR02MB4157.namprd02.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ActionId=866de344-17d1-4da0-ae37-df720ba729ed;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ContentBits=0;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Enabled=true;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Method=Standard;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Name=Internal;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SetDate=2026-04-27T18:37:48Z;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SiteId=72f988bf-86f1-41af-91ab-2d7cd011db47;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Tag=10, 3, 0, 1;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=microsoft.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA1PR21MB6921:EE_|SA1PR21MB6417:EE_
+x-ms-office365-filtering-correlation-id: 67b39463-7336-44cf-3b3c-08dea569ebcc
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|366016|7416014|376014|38070700021|22082099003|56012099003|18002099003;
+x-microsoft-antispam-message-info: jqHJRWR6XTaE+kgp9u8TOzPSP1u5MT3zZXWR9zHPq7z3bOd8ogBiQwNwZVQ4BQILBygIJ3/gchbymYvhga18+AwJND/di6hZEjDlqm17UfQAe0EnVBZOgMxkFiuWfgzWsCdXdtrXMYjgll1+urvkvFajr7w3BOMo52ecddmquSK1L6AvJlBaJTddLfINPPIYNLByoVpqGWY7MjsQtChJhkj+5ZOjb67q2prluiqHKq3GgrfMw+oHOYbsdBOifhMOElvkCdJSq8ueEVWbjJw9ebxrM+TFQDzYhV5fuqspdSn0Mhn01pUO1pL5jDXnnqZcresolIfKxMhKTHLlvCnGOS2u07v1QzGL1SS5K15d49w6ZabzLgdgVtL9dtpspRcMXqffD8fuOWT7U9/1jToLAJ+N50bk+Ao4QEAx7lv+UbwND5SLbcD3wOE64Xs4ziNNcEqYLS5VbPlmVFRoPOG7JjeUDXSVS8NaTNrgzOK2nWbRE0Sec6jNWPp9KhxgHjpk0G+nUdIovvP0eCPIrKEJUzlp7vsc0o4Fc+q1SmZ9Ia4iYtOIfyBW+j6Z0ZN//hW8+L0dVROgcfUkhJgXOr1ldgPGIxRbNddj+4/X+YByw5gFe9ImUooiFDV/zJSLAf+pP+5nAm2hhy2QrxlzdQlxGldrCfCLvYtfEaXV0BSETu3bViA3IJNr4/GV8/eR0QTd2hhb+3MggTaP88rm2x4yEGzvjMAV10DVt3K5GbSkGSioqAHsXlpYrsznmm/hK53PMOEeBBI9zjXF/R8tGYxTvfddZna3pR+F5JJLBMhpxsc=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA1PR21MB6921.namprd21.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(7416014)(376014)(38070700021)(22082099003)(56012099003)(18002099003);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?GDSzZiX8geTn8USva/GENDdgXCSqGb++SUVjvLrDu4hZDmx6ZaWD/PVJyDXw?=
+ =?us-ascii?Q?lKmeIrcie97ui/gqbVfA4K9JnFL/Eu1zJofk1CoW+Uv3oBp56Lhsl0y9Yeyu?=
+ =?us-ascii?Q?jePcVfQaaSpXcdfCACnGq8qKOHgfkPXkTMT+dDgotoyqIol5Rdo40AIUbdNI?=
+ =?us-ascii?Q?qbppby2VDorEcCM7mCWcqXo++XPoSe20JKRtame98Y8pQj9GPoRetMa1Md5J?=
+ =?us-ascii?Q?gGp35T26KEsBFUIdOFTt1sIC+Bbj625Zav3/pkwD3mU3YjpQRmBWlAPa3cU9?=
+ =?us-ascii?Q?3T8l4++aD2ubw+Dm13gSL+lof1dRZ1qQtoxvenrDn2oATbU4fwDaMDXu0qcf?=
+ =?us-ascii?Q?xX2dN6zH5lCnC9izbgvdRSLfZ1ls38u2zpz1081xsHAF97qtyyV/xfCI9lz9?=
+ =?us-ascii?Q?iRV+Q5w43BGim+uyCRiGuD9dejTrCIXzbjlvAdC5p/yV5TDWxNcl4MRARI44?=
+ =?us-ascii?Q?miHagcMcJEV76pqWsCVfphb7Qp+n8tmTHYcbCMaGmHU6Hop0D2HeobFnGTFh?=
+ =?us-ascii?Q?OF3f5UM3a9OyxdGNvpX0mF5hqq/EdEpCz5TMRm9wgxl1cz6/0Fa8PS43qNxt?=
+ =?us-ascii?Q?+UJUOCZfOXcpuplgQqfIoG3JOgo30rmcf9pqn97nWkK0E1YeCONq1qDYBDcA?=
+ =?us-ascii?Q?Ycjp5xtsfquwp9XqxiajGecgbj6ZF2HpiYhtU9qKl/Tpe3UhxVQjvU7TCc7l?=
+ =?us-ascii?Q?aqCvZOXOPq3NrfEFrbaBOvahh96//tG4fObAepp8CqvmI4P9xkKUvrbrPTZQ?=
+ =?us-ascii?Q?jr/cvIhXEsKm8LQnwDNbDBTKIM0Sy4+6pxAfPjc8GnBj6bVjzJyQC7rf029g?=
+ =?us-ascii?Q?72qZY9OqXgPWqy4rTkwnXFlAexx1iTtsKgzYEL2L4YSmOG8DTuvDKjtugyF+?=
+ =?us-ascii?Q?HVF/HGuA3YgDlR0KcySwa4moQJcRVHZyLq0971DherYsCf8aJxlGaKhNhCK5?=
+ =?us-ascii?Q?gyrofLh8GclO/3KTSyVq8nMrlEydfoNGD1WeaH7JP8Zx0m0uWjbPyzSiuS0r?=
+ =?us-ascii?Q?bl4UZnlNNK7iMQjvRZiLaUa25WVUiPqD3um08/2AQZ4OIAD6N+8/L62xL84K?=
+ =?us-ascii?Q?MHySQ6Yq2/qxMZtf/Tpv2WnWEeRZs1diV0kMDfrrJqIs3KOxYssroHZTgDPM?=
+ =?us-ascii?Q?N32u3QvZxsrz1jBhzknPx553pUbjMxan9F+RoZDotHZfQgUSTW0BiuanvqkG?=
+ =?us-ascii?Q?Mz6Z17WRpWKxinrV+pERKjbCmPyy0UZv8Q4OMhHaY97WZIwzT9feGxy45xFT?=
+ =?us-ascii?Q?VbLdNTk2oGrX19wZmSjDgWWDlFVsm6jDkzVaMazeKBYjMEKkXLNTDDqHVdEg?=
+ =?us-ascii?Q?fxDqqd6SffJxfGX7Zdc6QPortKiWXLXvbrLs4wlVreI4HZMBFc8cd6BPYBkP?=
+ =?us-ascii?Q?3IFEAYxC3rrq77y+/zDQ+h7VRq+SzDEu2KZDmTDo1dOyxToudUac2NOL1H1f?=
+ =?us-ascii?Q?FU4bU2nrjWuWshVtUL7gbc7w5sZa54lL1X0hxzjuYL9FWe3qfRXW5ewLPa/f?=
+ =?us-ascii?Q?0GK/QM+4aegaBJU7MkPuQ5sbttAor5A0jcPOdtY7p+31ZwkwKJDISaiSg4XE?=
+ =?us-ascii?Q?Ae5vsVzlIoI6uQmeGKUe/dx+e0mTYLFYZeVZAuAAEvsF28zMusyoC+6duKLq?=
+ =?us-ascii?Q?7KNQWOQP4BNV2LnUt1Xb7Hdqzb+w+tuo7FNnYl2R8f9Q4aF1nPqpDVBnWew6?=
+ =?us-ascii?Q?UM5N3YZmL3yJ5/Kzbnlrm03RWbyDK6DU1ighn0LcVV/ru/Dt?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: microsoft.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR21MB6921.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 67b39463-7336-44cf-3b3c-08dea569ebcc
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Apr 2026 21:05:47.8902 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 72f988bf-86f1-41af-91ab-2d7cd011db47
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 8W6tOQF8u35ggMMJf3sKDYM6n0Df1ECZhLGh4i1jdn9Vf/iy4k1663E8KyKjjJAEqwj2zbEd3C3zXGBvdIuJiA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR21MB6417
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,351 +157,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Applied the series.
+> From: Michael Kelley <mhklinux@outlook.com>
+> Sent: Monday, April 27, 2026 12:06 PM
+> > IMO the Fixes tag is unnecessary because the existing
+> > VMBUS_RING_BUFSIZE
+> > is 256KB, which is already aligned to 4KB, 16KB and 64KB.
+> >
+> > VMBUS_RING_SIZE(256 * 1024) is still 256KB.
+>=20
+> Not always. If PAGE_SIZE is 64KiB, VMBUS_RING_SIZE(256 * 1024) is
+> 320KiB. If PAGE_SIZE is 16KiB or 4KiB, then VMBUS_RING_SIZE(256 * 1024)
+> is indeed 256 KiB. See the explanation in the comment for
+> VMBUS_RING_SIZE.
+>=20
+> Michael
 
-Thanks!
+Thanks for correcting me!
 
-On Mon, Apr 27, 2026 at 5:41=E2=80=AFPM Randy Dunlap <rdunlap@infradead.org=
-> wrote:
->
-> Fix spelling issues that are reported by codespell:
->
-> dmub_cmd.h:332: alighment =3D=3D> alignment
-> dmub_cmd.h:2029: sequeunce =3D=3D> sequence
-> dmub_cmd.h:3684: optimzations =3D=3D> optimizations
-> dmub_cmd.h:4491: isntance =3D=3D> instance
-> dmub_cmd.h:4514: optimzations =3D=3D> optimizations
-> dmub_cmd.h:4604: isntance =3D=3D> instance
-> dmub_cmd.h:4643: isntance =3D=3D> instance
-> dmub_cmd.h:4679: isntance =3D=3D> instance
-> dmub_cmd.h:4699: isntance =3D=3D> instance
-> dmub_cmd.h:4719: isntance =3D=3D> instance
-> dmub_cmd.h:4735: isntance =3D=3D> instance
-> dmub_cmd.h:4749: isntance =3D=3D> instance
-> dmub_cmd.h:4795: isntance =3D=3D> instance
-> dmub_cmd.h:4903: isntance =3D=3D> instance
-> dmub_cmd.h:4936: isntance =3D=3D> instance
-> dmub_cmd.h:5066: re-use =3D=3D> reuse
-> dmub_cmd.h:6552: isntance =3D=3D> instance
-> dmub_cmd.h:6630: isntance =3D=3D> instance
-> dmub_cmd.h:6639: optimzations =3D=3D> optimizations
-> dmub_cmd.h:6720: isntance =3D=3D> instance
-> dmub_cmd.h:6742: isntance =3D=3D> instance
->
-> and fix a few that I found:
->
-> dicated         =3D=3D> dictated (7x)
-> afftet          =3D=3D> after (is this correct?)
->
-> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-> ---
-> v2: fix one more typo; rebase & resend
->
-> Questions:
-> (a) Is one of "negative" or "pos" incorrect?
->
->         /**
->          * Dark negative gain.
->          */
->         uint8_t dark_pos_gain[NUM_AMBI_LEVEL][NUM_AGGR_LEVEL];   // 184B
->
-> (b) Is one of "min" or "Maximum" incorrect?
->
->         uint16_t min_frame_rate;        /**< Maximum frame rate */
->
-> (c) Is one of "max" or "Minimum" incorrect?
->
->         uint16_t max_frame_rate;        /**< Minimum frame rate */
->
-> Cc: Harry Wentland <harry.wentland@amd.com>
-> Cc: Leo Li <sunpeng.li@amd.com>
-> Cc: Rodrigo Siqueira <siqueira@igalia.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Cc: amd-gfx@lists.freedesktop.org
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
->
->
->  drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h |   58 +++++++-------
->  1 file changed, 29 insertions(+), 29 deletions(-)
->
-> --- linux-next-20260427.orig/drivers/gpu/drm/amd/display/dmub/inc/dmub_cm=
-d.h
-> +++ linux-next-20260427/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-> @@ -329,7 +329,7 @@ union dmub_addr {
->
->  /* Flattened structure containing SOC BB parameters stored in the VBIOS
->   * It is not practical to store the entire bounding box in VBIOS since t=
-he bounding box struct can gain new parameters.
-> - * This also prevents alighment issues when new parameters are added to =
-the SoC BB.
-> + * This also prevents alignment issues when new parameters are added to =
-the SoC BB.
->   * The following parameters should be added since these values can't be =
-obtained elsewhere:
->   * -dml2_soc_power_management_parameters
->   * -dml2_soc_vmin_clock_limits
-> @@ -2001,7 +2001,7 @@ struct dmub_rb_cmd_read_modify_write {
->  };
->
->  /*
-> - * Update a register with specified masks and values sequeunce
-> + * Update a register with specified masks and values sequence
->   *
->   * 60 payload bytes can hold address + up to 7 sets of mask/value combo,=
- each take 2 dword
->   *
-> @@ -3483,7 +3483,7 @@ enum dmub_cmd_psr_type {
->
->         /**
->          * Set PSR level.
-> -        * PSR level is a 16-bit value dicated by driver that
-> +        * PSR level is a 16-bit value dictated by driver that
->          * will enable/disable different functionality.
->          */
->         DMUB_CMD__PSR_SET_LEVEL                 =3D 4,
-> @@ -3640,7 +3640,7 @@ struct dmub_cmd_psr_copy_settings_data {
->          */
->         union dmub_psr_debug_flags debug;
->         /**
-> -        * 16-bit value dicated by driver that will enable/disable differ=
-ent functionality.
-> +        * 16-bit value dictated by driver that will enable/disable diffe=
-rent functionality.
->          */
->         uint16_t psr_level;
->         /**
-> @@ -3680,7 +3680,7 @@ struct dmub_cmd_psr_copy_settings_data {
->          */
->         uint8_t aux_inst;
->         /**
-> -        * Determines if SMU optimzations are enabled/disabled.
-> +        * Determines if SMU optimizations are enabled/disabled.
->          */
->         uint8_t smu_optimizations_en;
->         /**
-> @@ -3797,7 +3797,7 @@ struct dmub_rb_cmd_psr_copy_settings {
->   */
->  struct dmub_cmd_psr_set_level_data {
->         /**
-> -        * 16-bit value dicated by driver that will enable/disable differ=
-ent functionality.
-> +        * 16-bit value dictated by driver that will enable/disable diffe=
-rent functionality.
->          */
->         uint16_t psr_level;
->         /**
-> @@ -4175,7 +4175,7 @@ struct dmub_rb_cmd_update_cursor_info {
->   */
->  struct dmub_cmd_psr_set_vtotal_data {
->         /**
-> -        * 16-bit value dicated by driver that indicates the vtotal in PS=
-R active requirement when screen idle..
-> +        * 16-bit value dictated by driver that indicates the vtotal in P=
-SR active requirement when screen idle..
->          */
->         uint16_t psr_vtotal_idle;
->         /**
-> @@ -4189,7 +4189,7 @@ struct dmub_cmd_psr_set_vtotal_data {
->          */
->         uint8_t panel_inst;
->         /*
-> -        * 16-bit value dicated by driver that indicates the vtotal in PS=
-R active requirement when doing SU/FFU.
-> +        * 16-bit value dictated by driver that indicates the vtotal in P=
-SR active requirement when doing SU/FFU.
->          */
->         uint16_t psr_vtotal_su;
->         /**
-> @@ -4489,7 +4489,7 @@ struct dmub_cmd_replay_copy_settings_dat
->         uint8_t aux_inst;
->         /**
->          * Panel Instance.
-> -        * Panel isntance to identify which psr_state to use
-> +        * Panel instance to identify which psr_state to use
->          * Currently the support is only for 0 or 1
->          */
->         uint8_t panel_inst;
-> @@ -4512,7 +4512,7 @@ struct dmub_cmd_replay_copy_settings_dat
->          */
->         uint8_t dpphy_inst;
->         /**
-> -        * Determines if SMU optimzations are enabled/disabled.
-> +        * Determines if SMU optimizations are enabled/disabled.
->          */
->         uint8_t smu_optimizations_en;
->         /**
-> @@ -4602,7 +4602,7 @@ struct dmub_rb_cmd_smart_power_oled_enab
->         uint8_t enable;
->         /**
->          * Panel Instance.
-> -        * Panel isntance to identify which replay_state to use
-> +        * Panel instance to identify which replay_state to use
->          * Currently the support is only for 0 or 1
->          */
->         uint8_t panel_inst;
-> @@ -4641,7 +4641,7 @@ struct dmub_rb_cmd_replay_enable_data {
->         uint8_t enable;
->         /**
->          * Panel Instance.
-> -        * Panel isntance to identify which replay_state to use
-> +        * Panel instance to identify which replay_state to use
->          * Currently the support is only for 0 or 1
->          */
->         uint8_t panel_inst;
-> @@ -4689,7 +4689,7 @@ struct dmub_rb_cmd_replay_enable {
->  struct dmub_cmd_replay_set_power_opt_data {
->         /**
->          * Panel Instance.
-> -        * Panel isntance to identify which replay_state to use
-> +        * Panel instance to identify which replay_state to use
->          * Currently the support is only for 0 or 1
->          */
->         uint8_t panel_inst;
-> @@ -4709,7 +4709,7 @@ struct dmub_cmd_replay_set_power_opt_dat
->  struct dmub_cmd_replay_set_timing_sync_data {
->         /**
->          * Panel Instance.
-> -        * Panel isntance to identify which replay_state to use
-> +        * Panel instance to identify which replay_state to use
->          * Currently the support is only for 0 or 1
->          */
->         uint8_t panel_inst;
-> @@ -4729,7 +4729,7 @@ struct dmub_cmd_replay_set_timing_sync_d
->  struct dmub_cmd_replay_set_pseudo_vtotal {
->         /**
->          * Panel Instance.
-> -        * Panel isntance to identify which replay_state to use
-> +        * Panel instance to identify which replay_state to use
->          * Currently the support is only for 0 or 1
->          */
->         uint8_t panel_inst;
-> @@ -4745,7 +4745,7 @@ struct dmub_cmd_replay_set_pseudo_vtotal
->  struct dmub_cmd_replay_disabled_adaptive_sync_sdp_data {
->         /**
->          * Panel Instance.
-> -        * Panel isntance to identify which replay_state to use
-> +        * Panel instance to identify which replay_state to use
->          * Currently the support is only for 0 or 1
->          */
->         uint8_t panel_inst;
-> @@ -4759,7 +4759,7 @@ struct dmub_cmd_replay_disabled_adaptive
->  struct dmub_cmd_replay_set_general_cmd_data {
->         /**
->          * Panel Instance.
-> -        * Panel isntance to identify which replay_state to use
-> +        * Panel instance to identify which replay_state to use
->          * Currently the support is only for 0 or 1
->          */
->         uint8_t panel_inst;
-> @@ -4796,7 +4796,7 @@ struct dmub_rb_cmd_replay_set_power_opt
->   */
->  struct dmub_cmd_replay_set_coasting_vtotal_data {
->         /**
-> -        * 16-bit value dicated by driver that indicates the coasting vto=
-tal.
-> +        * 16-bit value dictated by driver that indicates the coasting vt=
-otal.
->          */
->         uint16_t coasting_vtotal;
->         /**
-> @@ -4805,12 +4805,12 @@ struct dmub_cmd_replay_set_coasting_vtot
->         uint8_t cmd_version;
->         /**
->          * Panel Instance.
-> -        * Panel isntance to identify which replay_state to use
-> +        * Panel instance to identify which replay_state to use
->          * Currently the support is only for 0 or 1
->          */
->         uint8_t panel_inst;
->         /**
-> -        * 16-bit value dicated by driver that indicates the coasting vto=
-tal high byte part.
-> +        * 16-bit value dictated by driver that indicates the coasting vt=
-otal high byte part.
->          */
->         uint16_t coasting_vtotal_high;
->         /**
-> @@ -4913,7 +4913,7 @@ struct dmub_rb_cmd_replay_set_general_cm
->  struct dmub_cmd_replay_frameupdate_timer_data {
->         /**
->          * Panel Instance.
-> -        * Panel isntance to identify which replay_state to use
-> +        * Panel instance to identify which replay_state to use
->          * Currently the support is only for 0 or 1
->          */
->         uint8_t panel_inst;
-> @@ -4946,7 +4946,7 @@ struct dmub_rb_cmd_replay_set_frameupdat
->  union dmub_replay_cmd_set {
->         /**
->          * Panel Instance.
-> -        * Panel isntance to identify which replay_state to use
-> +        * Panel instance to identify which replay_state to use
->          * Currently the support is only for 0 or 1
->          */
->         uint8_t panel_inst;
-> @@ -5122,7 +5122,7 @@ struct dmub_hw_lock_inst_flags {
->         uint8_t opp_inst;
->         /**
->          * OTG HW instance for global update lock.
-> -        * TODO: Remove, and re-use otg_inst.
-> +        * TODO: Remove, and reuse otg_inst.
->          */
->         uint8_t dig_inst;
->         /**
-> @@ -6609,7 +6609,7 @@ struct dmub_cmd_pr_enable_data {
->         uint8_t enable;
->         /**
->          * Panel Instance.
-> -        * Panel isntance to identify which replay_state to use
-> +        * Panel instance to identify which replay_state to use
->          * Currently the support is only for 0 or 1
->          */
->         uint8_t panel_inst;
-> @@ -6687,7 +6687,7 @@ struct dmub_cmd_pr_copy_settings_data {
->         uint8_t aux_inst;
->         /**
->          * Panel Instance.
-> -        * Panel isntance to identify which psr_state to use
-> +        * Panel instance to identify which psr_state to use
->          * Currently the support is only for 0 or 1
->          */
->         uint8_t panel_inst;
-> @@ -6696,7 +6696,7 @@ struct dmub_cmd_pr_copy_settings_data {
->          */
->         uint8_t dpphy_inst;
->         /**
-> -        * Determines if SMU optimzations are enabled/disabled.
-> +        * Determines if SMU optimizations are enabled/disabled.
->          */
->         uint8_t smu_optimizations_en;
->         /**
-> @@ -6704,7 +6704,7 @@ struct dmub_cmd_pr_copy_settings_data {
->          */
->         uint32_t line_time_in_ns;
->         /*
-> -        * Use FSFT afftet pixel clk
-> +        * Use FSFT after pixel clk
->          */
->         uint32_t pix_clk_100hz;
->         /*
-> @@ -6777,7 +6777,7 @@ union dmub_pr_runtime_flags {
->  struct dmub_cmd_pr_update_state_data {
->         /**
->          * Panel Instance.
-> -        * Panel isntance to identify which psr_state to use
-> +        * Panel instance to identify which psr_state to use
->          * Currently the support is only for 0 or 1
->          */
->         uint8_t panel_inst;
-> @@ -6799,7 +6799,7 @@ struct dmub_cmd_pr_update_state_data {
->  struct dmub_cmd_pr_general_cmd_data {
->         /**
->          * Panel Instance.
-> -        * Panel isntance to identify which psr_state to use
-> +        * Panel instance to identify which psr_state to use
->          * Currently the support is only for 0 or 1
->          */
->         uint8_t panel_inst;
+I didn't realize that sizeof(struct hv_ring_buffer) is based on
+PAGE_SIZE, not on HV_HYP_PAGE_SIZE.
+
+However,  it looks like the Fixes tag is still not needed:
+
+without the patch, we always pass two arguments of 256KB to
+vmbus_open().
+
+with the patch, we still pass 256KB to vmbus_open() in the case of
+PAGE_SIZE=3D4KB or 16KB, and we pass 320KB in the case of
+PAGE_SIZE=3D64KB.
+
+Both 320K and 256KB are multiples of PAGE_SIZE, so
+vmbus_open() -> vmbus_alloc_ring() doesn't return -EINVAL.
+
+In the case of PAGE_SIZE=3D64KB, it's OK to pass 256KB to vmbus_open()
+here since the hyperv-drm driver doesn't really have to use a slightly
+bigger VMBus ringbuffer size.
+
+Thanks,
+Dexuan
+
