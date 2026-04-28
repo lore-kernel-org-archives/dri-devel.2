@@ -4,129 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C47B0FF885A
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 07:55:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64484FF885D
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 07:55:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E78C10E11A;
-	Tue, 28 Apr 2026 07:55:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B729010EA55;
+	Tue, 28 Apr 2026 07:55:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Mt+rXzIv";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XsdXnm5v";
+	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="0AylN9PY";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEA1B10E11A
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 07:55:14 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63S3kSsa2112686
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 07:55:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=S8G8K02HvttZ2MDTZAXU8QDZ
- sZ0XQjEOBIbTjYdF7BY=; b=Mt+rXzIvD0aha3xya6EF0GN1J2glocV6xXKt0yDJ
- T6aJliuJFj6wj9I4hf+GtcKozc7v7lJuU7xtoywi8XLOmjHsXwDNdvJGMcJZNP/p
- c2rdTz4v1BtSXLHKlkKQyFsr+QrkFDamiSK8hoeAXhmNa4kZSQBbfjo11P3VTgor
- 3XSJtObPEDEv9uXPLM+BDtrGy5JRHPrnUkBFdBoFl/aMrK9CPnI7ZQANRS6fNmpf
- BwxuCSuGAkDztKTw9seZEmFJyXrVPf+HFlfmWZa9QyaBodiassGrKN+0ZjuGTcqA
- uewof6mykFAYoIhgDrK7Bh4WlipOnt2GThilLc2xvrPajg==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dtdmbjfxg-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 07:55:14 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-50d58bed44aso239971171cf.3
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 00:55:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1777362913; x=1777967713;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=S8G8K02HvttZ2MDTZAXU8QDZsZ0XQjEOBIbTjYdF7BY=;
- b=XsdXnm5vSmNpZMLLKXQsyz3Uv2zzglyCaf/c9WUVaN3r4xIVg+1GWZFY0Uu5haiJ21
- tEOG8SFwFTXMwakOwfWQLzs3Q6LsezAe2CLBVnCte6M/PtdQX1/JVCIPOvz2Ak/sY4Bp
- 5duSvikabbvEzTPBiqSuUBe+bC83pE33CSDk32jFBMXVWJ2SCQiPvkhCYxeHgZiecJ6l
- 9zLzQBKIcAKJTIE5IfC5f8bH5d2OTFGPmm0/Ufd/ODY1/3nRfVJoc9y8TiaH20kwofOT
- oMz8sDIepFfxr2oYKG+eCJP9smWIG3O8PPb68WquPq5kuF9XdbTRKfgtUjpK6/PDIZdP
- jksg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777362913; x=1777967713;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=S8G8K02HvttZ2MDTZAXU8QDZsZ0XQjEOBIbTjYdF7BY=;
- b=K2UU3yYU++xz+0fadtWuUhm6O8vBG87Au7rYyHZXisGYEF7gG9pl/Ogqer15OHHB0H
- 5oALcMSSWFo8qV0d50md8TX2xXmHU5PzEa10oX6kp9tGi7AvL+aQe/rIVUkGbXIWcOeS
- F9hQ0WvqHVrsobZ2vb375S8Xogbpz7YGHvjfRuioGPmVSKSgbP9B7rS/7b/ahwSz6GeR
- sU3gp+qaCM3sapdIdLX0swiJz6YrZaXiOAlf5cwhlh8aibz/2LoQ22sD+UkKTgqBFwLg
- qLWGEAfKU3TC3JqNRYmmMm5tXwZSAMU9NNQ3ZFaqkSP2XU1eLOTFCQbATo0wLLxzWfLC
- 2S3Q==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+pput1jYAqB0Yr9/t3Dq51RdNu5UVn4t/+k9skYmD1sykO2Y/XLFglr/SmBVOghv4QdK6Mb2qtsQU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyE+0HQ5qzmpUn4rKvqlSXzu8lvdNNUPserK5/IYL/1WiBM8Z5D
- 2/BNPh4cLj9/J89xoad19Hw66fvwEgm+OiZD3tnSiKrnKXee908Ot1sFWhIxbZeyn2H/NXmlAKO
- hWOwAbX7uoaL3zU5ZaS1Be+9mWkP10iz/KTsopCLy/fSR+roCvESVloZwCa7TiFVvNKMYVEg=
-X-Gm-Gg: AeBDietMQNSef9VcCrLiieLfhHygQ9DIuQRtOwWASgZyzoxMglvlFOE0wBrgQqUQj1J
- FxmJT36uum/qVuEhpNvy4V8gLsDskreLdN0OrPiW7t5xklRIupskd4QVUc+bbu8L6xPPgRQONpK
- apH36V1FLqBAZ024/lxefYkvs4FaZaHbnnGJ6qj+VVVX6l2DTXyVgwHTP1nYevoHiVopwWs84//
- uNqIxWqXMz/fpcRwt5IwA0VJ+9r3uKQCy7v8XKxfQYnrA4Hp/1wgqVEjJSLxOS7CPBrvhJw2spr
- aQuJFZqvXr4xb9y4CETawOyCHtOFS3z+eqWOso9zG7r7d6d33SwXQJTyO2M7q1T7NjL2s7RLJQx
- fCKYd3pGBCVxL2gvWZJ5Ce9sVkAPuNrOM/K8cw2MHvPavPsorIDo20kGrfjBct/qCiqAX4sHFr9
- xHFpc08qLGH96JNHd8VcGU/IDSI0D4ION3gHLKCKWvw1HSFA==
-X-Received: by 2002:ac8:7d4e:0:b0:50e:635b:5579 with SMTP id
- d75a77b69052e-5100e125f1emr29274701cf.19.1777362913194; 
- Tue, 28 Apr 2026 00:55:13 -0700 (PDT)
-X-Received: by 2002:ac8:7d4e:0:b0:50e:635b:5579 with SMTP id
- d75a77b69052e-5100e125f1emr29274391cf.19.1777362912796; 
- Tue, 28 Apr 2026 00:55:12 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a7462ca9c5sm423493e87.14.2026.04.28.00.55.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Apr 2026 00:55:11 -0700 (PDT)
-Date: Tue, 28 Apr 2026 10:55:10 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Chen Ni <nichen@iscas.ac.cn>
-Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, airlied@gmail.com,
- simona@ffwll.ch, sean@poorly.run, konradybcio@kernel.org,
- akhilpo@oss.qualcomm.com, abhinav.kumar@linux.dev,
- jesszhan0024@gmail.com, marijn.suijten@somainline.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org
-Subject: Re: [PATCH] drm/msm/a6xx: Check kzalloc return in
- a8xx_hfi_send_perf_table
-Message-ID: <edqrfbce5xt2vcyvm2savf5juhehvzydugklhh2a3vzvobhltv@xhlei77na2vm>
-References: <20260428073558.1234238-1-nichen@iscas.ac.cn>
+Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com
+ [113.46.200.220])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E46610EA55
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 07:55:20 +0000 (UTC)
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+ c=relaxed/relaxed; q=dns/txt; h=From;
+ bh=dMM1zZxzcfqLuXnRjbxvAd9Sn9DUzIuOxrv48y1vvzQ=;
+ b=0AylN9PYW5mrS0hudtBiqhOYkG3DzEICJIWBJiL6vNWawOTcIZCrjJjmLcM+Evo0vYjqYj+1W
+ DkOGPngQqND++dYtrWVCGD39YLFpXTNyY5cH+Asd+Lezloj0KXdQuhRrxmWoPkf+f6ogMTmcaSk
+ lczJ18wrznciEWAZ7q2n+kQ=
+Received: from mail.maildlp.com (unknown [172.19.162.140])
+ by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4g4Xbk0W8Mz12LCb;
+ Tue, 28 Apr 2026 15:48:02 +0800 (CST)
+Received: from dggemv705-chm.china.huawei.com (unknown [10.3.19.32])
+ by mail.maildlp.com (Postfix) with ESMTPS id 0827220333;
+ Tue, 28 Apr 2026 15:55:16 +0800 (CST)
+Received: from kwepemq100007.china.huawei.com (7.202.195.175) by
+ dggemv705-chm.china.huawei.com (10.3.19.32) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Tue, 28 Apr 2026 15:55:14 +0800
+Received: from [10.159.167.44] (10.159.167.44) by
+ kwepemq100007.china.huawei.com (7.202.195.175) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Tue, 28 Apr 2026 15:55:14 +0800
+Message-ID: <bea1d1d3-c326-48f1-a103-559e7e954001@huawei.com>
+Date: Tue, 28 Apr 2026 15:55:13 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260428073558.1234238-1-nichen@iscas.ac.cn>
-X-Proofpoint-GUID: WuDdGtu8EVi-e2OFXogcCY1316FAJI6l
-X-Authority-Analysis: v=2.4 cv=PcrPQChd c=1 sm=1 tr=0 ts=69f067e2 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
- a=JpMRHLQez2RCAVy9sDQA:9 a=CjuIK1q_8ugA:10 a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-ORIG-GUID: WuDdGtu8EVi-e2OFXogcCY1316FAJI6l
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI4MDA3MSBTYWx0ZWRfXzY+B6qWf5zJP
- 2C7ySkU3QL/2NTqxZuN5pgnZrMTrmJc8D3y5DSrGCEezgO6bMtki/zPVgoxphagNkyiHA/KMRwE
- FPAUU8Mo6uyvPShqVCnxlzBnD8mwufvkvm2qHqHSeePTz3oiiCffZCQTxT/We/XAcKmwLnRa6F9
- oyfqaTjSDkuIoI5/iIIB07L0Er7RzTwvLskmuul2Vajm4Cy6S1RJ3HJaxoSjjiffcIoTXHrE28u
- MwY0aPQbkEEdQwGFURsmeszWCoIw+Vr+FU/4wWZQHcR2dCDh04alpYQpwvl7bJrdL7p1Hk+3V2+
- sgBwExvqNlZLabt06dVFomkgG1wYBNAn1VK7hBpyWYhXmYZVWuBuuVdw63aQICXGj6nN0C1WwH8
- SrPZDwPNcykF3zTNR02orANU6BvYn7LHiM6nLxJzMZQdcZ3LPE/pDBsUDb3SYsg5noZPAkAZbMb
- IMzmQcW7sv9+hysWtuQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-28_02,2026-04-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015
- malwarescore=0 adultscore=0 priorityscore=1501 bulkscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604280071
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for drm-misc-fixes v5 3/4] drm/hisilicon/hibmc: move
+ display contrl config to hibmc_probe()
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+ <dmitry.baryshkov@oss.qualcomm.com>, <tiantao6@hisilicon.com>,
+ <xinliang.liu@linaro.org>, <maarten.lankhorst@linux.intel.com>,
+ <mripard@kernel.org>, <airlied@gmail.com>, <daniel@ffwll.ch>,
+ <kong.kongxinwei@hisilicon.com>
+CC: <liangjian010@huawei.com>, <chenjianmin@huawei.com>,
+ <fengsheng5@huawei.com>, <helin52@h-partners.com>, <shenjian15@huawei.com>,
+ <shaojijie@huawei.com>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <shiyongbang@huawei.com>
+References: <20260423063233.1267631-1-shiyongbang@huawei.com>
+ <20260423063233.1267631-4-shiyongbang@huawei.com>
+ <e51bb7e2-0d57-42a1-be53-6560cebf2df6@suse.de>
+From: Yongbang Shi <shiyongbang@huawei.com>
+In-Reply-To: <e51bb7e2-0d57-42a1-be53-6560cebf2df6@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.159.167.44]
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ kwepemq100007.china.huawei.com (7.202.195.175)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,20 +76,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Apr 28, 2026 at 03:35:58PM +0800, Chen Ni wrote:
-> Check the return value of kzalloc() to prevent a NULL pointer
-> dereference on allocation failure.
+> Hi
 > 
-> Fixes: 06cfbca0e1c6 ("drm/msm/a6xx: Share dependency vote table with GMU")
-> Signed-off-by: Chen Ni <nichen@iscas.ac.cn>
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_hfi.c | 2 ++
->  1 file changed, 2 insertions(+)
+> Am 23.04.26 um 08:32 schrieb Yongbang Shi:
+>> From: Lin He <helin52@huawei.com>
+>>
+>> If there's no VGA output, this encoder modeset won't be called, which
+>> will cause displaying data from GPU being cut off. It's actually a
+>> common display config for DP and VGA, so move the vdac encoder modeset
+>> to driver load stage.
+>>
+>> Fixes: 5294967f4ae4 ("drm/hisilicon/hibmc: Add support for VDAC")
+>> Signed-off-by: Lin He <helin52@huawei.com>
+>> Signed-off-by: Yongbang Shi <shiyongbang@huawei.com>
+>> ---
+>> ChangeLog:
+>> v1 -> v2:
+>>    - remove tag "Reviewed-by: Tao Tian <tiantao6@hisilicon.com>", witch will
+>>      be given in public.
+>>    - add 'drm-misc-fixes' in subject prefix.
+>> ---
+>>   .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   | 14 ++++++++++++
+>>   .../gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c  | 22 -------------------
+>>   2 files changed, 14 insertions(+), 22 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+>> index d409efc34215..f8ab471f92e7 100644
+>> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+>> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+>> @@ -217,6 +217,18 @@ void hibmc_set_current_gate(struct hibmc_drm_private *priv, unsigned int gate)
+>>       writel(gate, mmio + gate_reg);
+>>   }
+>>   +static void hibmc_display_ctrl(struct hibmc_drm_private *priv)
+>> +{
+>> +    u32 reg;
+>> +
+>> +    reg = readl(priv->mmio + HIBMC_DISPLAY_CONTROL_HISILE);
+>> +    reg |= HIBMC_DISPLAY_CONTROL_FPVDDEN(1);
+>> +    reg |= HIBMC_DISPLAY_CONTROL_PANELDATE(1);
+>> +    reg |= HIBMC_DISPLAY_CONTROL_FPEN(1);
+>> +    reg |= HIBMC_DISPLAY_CONTROL_VBIASEN(1);
+> 
+> That might be stupid question: IDK what these bits mean, but the FPVDDEN and FPEN sound like they enable something. If
+> you do this unconditionally in HW init, does it prevent power saving?  And is the system goes through suspend/resume, 
+> does it need to be re-enabled?
+> 
+> My gut feeling would be to put this code into the CRTC.
 > 
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+We discussed this with the chip design team and confirmed, after reviewing the chip's RTL code, that FPVDDEN, FPEN and
+VBIASEN are not used in the chip's RTL implementation; only PANELDATE is used, and this bit controls the output of the
+data, hsync and vsync signals simultaneously. We will remove FPVDDEN, FPEN and VBIASEN in v6, and do some tests.
 
+This PANELDATE should be enabled during initialization. In older versions of the driver, since there was only one
+encoder-connector(VGA), placing it in `encoder_helper` posed no practical issues. Now that it has been moved to the
+initialization phase, it is enabled only once during initialization, in accordance with the chip's original design
+intent, which better aligns with the original design.
 
--- 
-With best wishes
-Dmitry
+Regarding suspend/resume operations and power saving, we have implemented `atomic_enable` and `atomic_disable` for CRTC.
+These hook functions configure hsync and vsync for the DPMS switch[1]. Moving the `DISPLAY_CONTROL_HISILE.PANELDATE`
+enable flag to the initialization phase does not affect power saving.
+
+[1] https://elixir.bootlin.com/linux/v7.0.1/source/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c#L190
+
+Thanks,
+Yongbang.
+
+> Best regards
+> Thomas
+> 
+>> +    writel(reg, priv->mmio + HIBMC_DISPLAY_CONTROL_HISILE);
+>> +}
+>> +
+>>   static void hibmc_hw_config(struct hibmc_drm_private *priv)
+>>   {
+>>       u32 reg;
+>> @@ -248,6 +260,8 @@ static void hibmc_hw_config(struct hibmc_drm_private *priv)
+>>       reg |= HIBMC_MSCCTL_LOCALMEM_RESET(1);
+>>         writel(reg, priv->mmio + HIBMC_MISC_CTRL);
+>> +
+>> +    hibmc_display_ctrl(priv);
+>>   }
+>>     static int hibmc_hw_map(struct hibmc_drm_private *priv)
+>> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c
+>> index dc40018dbd21..9d924740c110 100644
+>> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c
+>> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c
+>> @@ -86,26 +86,6 @@ static const struct drm_connector_funcs hibmc_connector_funcs = {
+>>       .atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+>>   };
+>>   -static void hibmc_encoder_mode_set(struct drm_encoder *encoder,
+>> -                   struct drm_display_mode *mode,
+>> -                   struct drm_display_mode *adj_mode)
+>> -{
+>> -    u32 reg;
+>> -    struct drm_device *dev = encoder->dev;
+>> -    struct hibmc_drm_private *priv = to_hibmc_drm_private(dev);
+>> -
+>> -    reg = readl(priv->mmio + HIBMC_DISPLAY_CONTROL_HISILE);
+>> -    reg |= HIBMC_DISPLAY_CONTROL_FPVDDEN(1);
+>> -    reg |= HIBMC_DISPLAY_CONTROL_PANELDATE(1);
+>> -    reg |= HIBMC_DISPLAY_CONTROL_FPEN(1);
+>> -    reg |= HIBMC_DISPLAY_CONTROL_VBIASEN(1);
+>> -    writel(reg, priv->mmio + HIBMC_DISPLAY_CONTROL_HISILE);
+>> -}
+>> -
+>> -static const struct drm_encoder_helper_funcs hibmc_encoder_helper_funcs = {
+>> -    .mode_set = hibmc_encoder_mode_set,
+>> -};
+>> -
+>>   int hibmc_vdac_init(struct hibmc_drm_private *priv)
+>>   {
+>>       struct drm_device *dev = &priv->dev;
+>> @@ -128,8 +108,6 @@ int hibmc_vdac_init(struct hibmc_drm_private *priv)
+>>           goto err;
+>>       }
+>>   -    drm_encoder_helper_add(encoder, &hibmc_encoder_helper_funcs);
+>> -
+>>       ret = drm_connector_init_with_ddc(dev, connector,
+>>                         &hibmc_connector_funcs,
+>>                         DRM_MODE_CONNECTOR_VGA,
+> 
+
