@@ -4,44 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42051FF886D
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 10:42:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8D93FF886D
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 10:42:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 964B510EADF;
-	Tue, 28 Apr 2026 10:42:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4120310EAD9;
+	Tue, 28 Apr 2026 10:42:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QUqY/J5U";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="t6TdL7Xe";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD1A510EADF
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 10:42:32 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF79310EAD8;
+ Tue, 28 Apr 2026 10:42:48 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 15AF760141;
- Tue, 28 Apr 2026 10:42:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E4DCC2BCAF;
- Tue, 28 Apr 2026 10:42:30 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B5AEE448A2;
+ Tue, 28 Apr 2026 10:42:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C818C2BCAF;
+ Tue, 28 Apr 2026 10:42:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777372951;
- bh=VbCd9suTkAq0QTyiaF+WctXyADNMKX2UwVQqlIBS9ok=;
+ s=k20201202; t=1777372968;
+ bh=ftFBoeUNo9XvxtsYcnDiXdJCUTvZ3/oDkUO0Odx4Rr0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=QUqY/J5UE/I0cXMxImdEMMq81tVUpP8i6xo1j08H/KYvAkD1b+1gjRykoWssb72Gn
- ut8M/8hsyC7OAgQr/gO40z6fn9R+Fy9byWQtJPgM1jVzg0TgcD/j1JtLjmGejamcB/
- 70bmzgwARXme9Moc/Sg3/6HMm4DfVXGqXBnMPA9eVtdtwRv/2c9bYKVnAt9NmKfJDN
- x5kD9U7cRd2PVCnSF4sCpG2m+A/KWc9sF8LRDtMlpb1WEgghoKeCc768XW/8LJbCpK
- CfXsUR70VpHVR4s9JOALCYO4zKjwjbXJNdUEy7/+WigVPfulNfB/v4nrVK1qbTxcP1
- RZPiYNdhTYY6Q==
+ b=t6TdL7XeQ0c6Jskuz/zrPlQc3z/Msb1czQ8OiQQ307k3m4ZkE0/yDiLxgxtJW4ztp
+ S10L8fcKzTqBZ+Atpo+jSlo4YaSJoR5AZYHMTOgDrJlxIn3IrkGaZIr7V03cWto6hJ
+ fjE90uLPbCp2MuZk7q1XC0JuNuSj9oSCGJQizxi6OVRN0WGXB0Noa45KyWX7vWY9No
+ a/90s17kxx2JhlVtUZv2y642dpqfp+OLV+5RFMWLA9lObvcMR3J2VwxHgKYK44fKLI
+ VZdkIDgX/s3drxIQObDxpveqD7xFXYvcwld/QKr7OK7bKnjTyggDDJoWEQXRnmSO4Y
+ VzU1OVgpmbKvw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Yuho Choi <dbgh9129@gmail.com>, Myeonghun Pak <mhun512@gmail.com>,
- Ijae Kim <ae878000@gmail.com>, Taegyu Kim <tmk5904@psu.edu>,
- Helge Deller <deller@gmx.de>, Sasha Levin <sashal@kernel.org>,
- adaplas@gmail.com, linux-fbdev@vger.kernel.org,
+Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Austin Zheng <austin.zheng@amd.com>, Roman Li <roman.li@amd.com>,
+ Dan Wheeler <daniel.wheeler@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0-5.10] fbdev: savage: fix probe-path EDID cleanup
- leaks
-Date: Tue, 28 Apr 2026 06:40:52 -0400
-Message-ID: <20260428104133.2858589-41-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 7.0-6.18] drm/amd/display: Fix HostVMMinPageSize unit
+ mismatch in DML2.1
+Date: Tue, 28 Apr 2026 06:41:03 -0400
+Message-ID: <20260428104133.2858589-52-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260428104133.2858589-1-sashal@kernel.org>
 References: <20260428104133.2858589-1-sashal@kernel.org>
@@ -49,7 +52,6 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 7.0.2
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,247 +68,394 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Yuho Choi <dbgh9129@gmail.com>
+From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
-[ Upstream commit 9b8a9a3a6f57edd02b7c8db14a316e6fab7fa772 ]
+[ Upstream commit 5721b5b9c9c792233d7817239bd81925fb3ad9d1 ]
 
-When CONFIG_FB_SAVAGE_I2C is enabled, savagefb_probe() can build both an
-EDID-derived monspecs.modedb and a modelist from it before later failing.
+[Why]
+This was found back on DML2 but was missed when creating DML2.1.
 
-The normal success path frees monspecs.modedb after the initial mode selection,
-but the probe error path only deletes the I2C busses and misses the
-EDID-derived allocations.
+The bottom layer calculation (CalculateHostVMDynamicLevels) expects
+a value in bytes, not KB, but we pass in the value in KB (eg. 4).
 
-Free both the modelist and monspecs.modedb on the failed: unwind path.
+This causes an extra page table level to be required in the prefetch
+bytes which can be significant overhead - preventing some modes
+from being supported that should otherwise be.
 
-Co-developed-by: Myeonghun Pak <mhun512@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Co-developed-by: Taegyu Kim <tmk5904@psu.edu>
-Signed-off-by: Taegyu Kim <tmk5904@psu.edu>
-Signed-off-by: Yuho Choi <dbgh9129@gmail.com>
-Signed-off-by: Helge Deller <deller@gmx.de>
+[How]
+Correct the units by multiplying the input and override values by 1024.
+
+Reviewed-by: Austin Zheng <austin.zheng@amd.com>
+Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Signed-off-by: Roman Li <roman.li@amd.com>
+Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
+Based on my comprehensive analysis, I have enough information to make a
+decision. Let me compile my findings.
+
 ## Phase 1: Commit Message Forensics
-Step 1.1 Record: subsystem `fbdev: savage`; action verb `fix`; claimed
-intent is to free EDID-derived probe-path allocations on
-`savagefb_probe()` failure.
 
-Step 1.2 Record: tags present: `Co-developed-by` Myeonghun Pak, Ijae
-Kim, Taegyu Kim; `Signed-off-by` Myeonghun Pak, Ijae Kim, Taegyu Kim,
-Yuho Choi, Helge Deller. No `Fixes:`, `Reported-by:`, `Tested-by:`,
-`Reviewed-by:`, `Acked-by:`, `Link:`, or `Cc: stable@vger.kernel.org`
-tag in the supplied message.
+**Step 1.1:** Subject parsing
+Record: [drm/amd/display] [Fix] [HostVMMinPageSize unit mismatch in
+DML2.1]
 
-Step 1.3 Record: the body describes a real resource leak when
-`CONFIG_FB_SAVAGE_I2C=y`, EDID parsing creates `info->monspecs.modedb`
-and modelist entries, and later probe failure reaches `failed:` without
-freeing those allocations. Symptom is leaked kernel memory on failed
-probe. No explicit affected kernel versions or user report are provided.
+**Step 1.2:** Tags
+Record:
+- Reviewed-by: Austin Zheng (AMD)
+- Signed-off-by: Nicholas Kazlauskas (author, AMD), Roman Li (AMD DC
+  submaintainer), Alex Deucher (AMD GPU maintainer)
+- Tested-by: Dan Wheeler (AMD test engineer)
+- No Fixes: tag, no Cc: stable tag (expected for review candidates)
 
-Step 1.4 Record: not hidden; this is explicitly a probe error-path
-cleanup leak fix.
+**Step 1.3:** Body analysis
+Record: The bug is that `CalculateHostVMDynamicLevels` expects
+HostVMMinPageSize in bytes (thresholds 2048 and 1048576 = 2KB and 1MB),
+but DML2.1 passes the value in KB (e.g., 4 for 4KB). This causes wrong
+branch selection and adds an extra page table level to prefetch
+overhead, "preventing some modes from being supported that should
+otherwise be." Failure mode = display mode unnecessarily rejected by
+validator.
+
+**Step 1.4:** Hidden bug fix detection
+Record: Not hidden - clearly described as a fix for a unit mismatch. The
+verb "Fix" is explicit.
 
 ## Phase 2: Diff Analysis
-Step 2.1 Record: one file changed,
-`drivers/video/fbdev/savage/savagefb_driver.c`; 2 lines added, 0
-removed; function modified: `savagefb_probe()`; scope is a single-file
-surgical error-path fix.
 
-Step 2.2 Record: before, `failed:` under `CONFIG_FB_SAVAGE_I2C` only
-deleted I2C busses. After, it also calls
-`fb_destroy_modelist(&info->modelist)` and
-`fb_destroy_modedb(info->monspecs.modedb)`. This affects probe unwind
-paths after EDID/modelist setup.
+**Step 2.1:** Inventory
+Record: Single file `dml2_core_dcn4_calcs.c`, 6 lines changed (+6/-6), 6
+hunks. All in `dml_core_ms_prefetch_check`, `dml_core_mode_support`,
+`dml_core_mode_programming`. Scope: surgical single-file fix.
 
-Step 2.3 Record: bug category is resource leak. Verified allocation
-sources: `fb_edid_to_monspecs()` stores `specs->modedb =
-fb_create_modedb(...)`; `fb_create_modedb()` allocates with
-`kzalloc_objs()`/`kmalloc_objs()`; `fb_videomode_to_modelist()` calls
-`fb_add_videomode()`, which allocates `struct fb_modelist`. Verified
-cleanup helpers free those objects.
+**Step 2.2:** Code flow
+Record: Each hunk replaces `hostvm_min_page_size_kbytes` (a value in KB)
+with `hostvm_min_page_size_kbytes * 1024` (converting to bytes). Affects
+calls to `CalculateExtraLatency`,
+`CalculatePrefetchSchedule_params->HostVMMinPageSize`, and
+`CalculateVMRowAndSwath_params->HostVMMinPageSize`.
 
-Step 2.4 Record: fix quality is good: minimal, uses existing fbdev
-cleanup APIs, no new feature/API. Regression risk is very low.
-`fb_destroy_modedb(NULL)` is just `kfree(NULL)`, and
-`fb_destroy_modelist()` safely iterates an initialized empty list.
+**Step 2.3:** Bug mechanism
+Record: Type/unit bug. The receiving function checks `< 2048`, `>= 2048
+&& < 1048576`, `>= 1048576` (bytes thresholds). With KB input (e.g., 4),
+every value falls into the first branch, causing maximum page table
+levels to be added incorrectly, which inflates prefetch bandwidth
+requirements.
+
+**Step 2.4:** Fix quality
+Record: Trivially correct - just multiplying by a constant. No
+regression risk from the fix itself. Same fix pattern was historically
+applied to DML2.0 (commit 22136ff27c4e0/dcf6cd7f35de5) with `Cc:
+stable`.
 
 ## Phase 3: Git History Investigation
-Step 3.1 Record: `git blame` shows the EDID/modelist setup and missing
-`failed:` cleanup originate from very old code, much of it from the
-initial imported history; the local EDID pointer handling was adjusted
-by `0f8a1cae923670` in v5.18-rc1, but the leak pattern existed before
-that with `par->edid`.
 
-Step 3.2 Record: no `Fixes:` tag is present, so no target commit to
-follow.
+**Step 3.1:** File history
+Record: File introduced in commit `70839da636050` (2024-04-19, v6.11)
+"drm/amd/display: Add new DCN401 sources". Bug present since v6.11.
 
-Step 3.3 Record: recent file history includes related probe fixes:
-`e8d35898a78e3` fixed a savage probe leak in 2020, `04e5eac8f3ab`
-handled zero pixclock, and `6ad959b6703e` fixed error handling for
-`savagefb_check_var()`. No prerequisite was found for this cleanup,
-because the failed label and cleanup helpers exist independently.
+**Step 3.2:** Fixes: tag follow-up
+Record: No Fixes: tag, but commit message references DML2 history. Found
+related history:
+- `22136ff27c4e0`/`dcf6cd7f35de5` (Nov 2023): Original DML2 fix with Cc:
+  stable - did exactly this multiplication
+- `d0f639c586939`/`a409c053b0b0c` (Dec 2023): Reverted, claimed spec
+  said KB
+- `bf282eb92b8` (Dec 2023): Re-applied the *1024 fix because revert
+  "causes failure to light up for 1080p eDP + 8k HDMI panel combo"
+This proves the *1024 IS the correct value.
 
-Step 3.4 Record: local history has no commits by Yuho Choi under
-`drivers/video/fbdev`; Helge Deller signed off the supplied commit and
-is verified in `MAINTAINERS` as framebuffer layer maintainer. The S3
-Savage driver entry lists Antonino Daplas as maintainer.
+**Step 3.3:** File history for related changes
+Record: Related patches in same April 2 patch series include:
+- Patch 13: `df9228624afde` "Pass min page size from SOC BB to dml2_1
+  plane config" - related fix but independent
+- Patch 14: `90b05672b7f0e` "Fix DCN42 gpuvm_min_page_size_kbytes in SOC
+  BB" - related but independent
+This patch (11) is self-contained.
 
-Step 3.5 Record: dependency risk is low. The patch only uses
-`fb_destroy_modelist()` and `fb_destroy_modedb()`, both verified present
-in v5.15, v6.1, and v6.6 tags.
+**Step 3.4:** Author context
+Record: Nicholas Kazlauskas is a regular DC contributor and authored the
+related DCN35/DCN401 fixes. Reviewer Austin Zheng is also DC
+contributor. Submitter Roman Li is DC submaintainer.
 
-## Phase 4: Mailing List And External Research
-Step 4.1 Record: no local commit hash was found with `git log --grep`,
-so `b4 dig -c <hash>` could not be performed on a real commit object.
-Attempts to use `b4 dig` with the subject failed: “Cannot find a commit
-matching ...”. Lore `WebFetch` searches were blocked by Anubis; web
-search found no exact subject match.
+**Step 3.5:** Dependencies
+Record: Standalone fix. Multiplication by 1024 is purely a numeric
+correction at call sites. No dependencies.
 
-Step 4.2 Record: `b4 dig -w` could not identify recipients for the same
-reason: no commit object found.
+## Phase 4: Mailing List Research
 
-Step 4.3 Record: no `Link:` or `Reported-by:` tags were supplied; no
-external bug report was verified.
+**Step 4.1:** b4 dig
+Record: b4 dig could not find a match (commit too recent / not yet
+indexed). Found via direct lore search at
+`https://lists.freedesktop.org/archives/amd-gfx/2026-April/142246.html`.
+Posted as PATCH 11/22 of "DC Patches April 02, 2026" by Roman Li on Thu
+Apr 2 18:33:03 UTC 2026.
 
-Step 4.4 Record: no patch series context was verified. Local git history
-suggests this is standalone.
+**Step 4.2:** Reviewers
+Record: Reviewed by Austin Zheng (AMD DC). Sent to amd-gfx list with
+appropriate maintainer CC.
 
-Step 4.5 Record: stable-specific lore search could not be verified
-because lore fetch was blocked; web search found no exact stable
-discussion.
+**Step 4.3:** Bug reports
+Record: No specific Reported-by, no syzbot link, no bugzilla link. Bug
+found internally by AMD when reviewing DML2.1 vs DML2 differences.
+
+**Step 4.4:** Series context
+Record: Part of "DC Patches April 02, 2026" with 22 patches. The
+Nicholas Kazlauskas DML2.1 cluster (patches 11-15) addresses related but
+independent issues. This patch (11) does not depend on the others.
+
+**Step 4.5:** Stable history
+Record: No discussion on stable@vger.kernel.org. Original DML2 fix was
+Cc'd to stable; this DML2.1 version was not.
 
 ## Phase 5: Code Semantic Analysis
-Step 5.1 Record: modified function: `savagefb_probe()`.
 
-Step 5.2 Record: `savagefb_probe()` is assigned as `.probe` in
-`savagefb_driver`; `savagefb_init()` calls
-`pci_register_driver(&savagefb_driver)`; `pci_register_driver` maps to
-`__pci_register_driver()`, which registers the driver with the PCI core.
-Impact is limited to S3 Savage PCI/AGP devices.
+**Step 5.1:** Functions modified
+Record: 3 functions: `dml_core_ms_prefetch_check`,
+`dml_core_mode_support`, `dml_core_mode_programming`. All are core mode
+validation/programming entry points called from DML2.1.
 
-Step 5.3 Record: relevant callees are `savagefb_create_i2c_busses()`,
-`savagefb_probe_i2c_connector()`, `fb_edid_to_monspecs()`,
-`fb_videomode_to_modelist()`, `register_framebuffer()`, and the cleanup
-helpers. Verified `savagefb_probe_i2c_connector()` can obtain EDID via
-DDC or firmware copy.
+**Step 5.2:** Callers
+Record: Called from `dml21_create`/`dml21_reinit`, which are called when
+`using_dml21=true && dce_version >= DCN_VERSION_4_01`. This means:
+DCN401 (RDNA4 / RX 9000 series GPUs) and DCN42 hardware. Reachable from
+every display mode validation.
 
-Step 5.4 Record: reachable during PCI device probe at boot, module load,
-hotplug, or driver bind. I did not verify an unprivileged direct
-trigger; this appears hardware/config/probe-path reachable, not syscall-
-hot-path reachable.
+**Step 5.3:** Callees
+Record: `CalculateExtraLatency` and via params,
+`CalculateHostVMDynamicLevels` (line 1565) which has the byte-threshold
+checks (`< 2048`, `< 1048576`).
 
-Step 5.5 Record: similar cleanup patterns exist in other fbdev drivers:
-`udlfb`, `smscufx`, and `uvesafb` free both `monspecs.modedb` and
-`modelist` on teardown/error paths.
+**Step 5.4:** Reachability
+Record: Every kernel modeset path on DCN401/DCN42 hardware. Highly
+reachable from userspace via DRM modeset ioctls.
 
-## Phase 6: Stable Tree Analysis
-Step 6.1 Record: buggy pattern verified in v4.14, v4.19, v5.10, v5.15,
-v6.1, v6.6, v6.10, and v6.12 tags: EDID/modelist are created, normal
-path destroys `monspecs.modedb`, but `failed:` only deletes I2C busses.
+**Step 5.5:** Similar patterns
+Record: Same fix pattern was previously applied to DML2.0 in current
+mainline (`drivers/gpu/drm/amd/display/dc/dml2_0/display_mode_core.c`
+has `* 1024` at the same kind of call sites).
 
-Step 6.2 Record: expected backport difficulty is clean or minor line-
-offset adjustment. For older trees, EDID is stored as `par->edid`, but
-the new cleanup lines only reference `info`, so no semantic dependency
-on the v5.18 local-variable cleanup.
+## Phase 6: Cross-Referencing
 
-Step 6.3 Record: no related fix for this exact EDID/modelist failed-path
-leak found in local history.
+**Step 6.1:** Code in stable trees
+Record: Buggy code present in v6.11 through v6.18 (and v7.0). Verified
+with `git show v6.18:drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_
+core/dml2_core_dcn4_calcs.c | grep "soc.hostvm_min_page_size_kbytes,"` -
+bug exists.
+
+**Step 6.2:** Backport complications
+Record: Path was renamed from `dml2/dml21/` to `dml2_0/dml21/` in commit
+`e6a8a000cfe6a` (2025-10-21). For stable trees v6.11-v6.18, the file is
+at `drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dc
+n4_calcs.c`. Each `* 1024` change applies cleanly with path translation
+- line numbers vary by tree but contexts are stable. Minor manual rework
+needed for path.
+
+**Step 6.3:** Related fixes already in stable
+Record: No, the DML2.1 version of this fix has not been backported to
+any stable tree.
 
 ## Phase 7: Subsystem Context
-Step 7.1 Record: subsystem is fbdev driver code, specifically S3 Savage
-framebuffer. Criticality is peripheral/driver-specific, but kernel
-memory leaks in probe error paths are still real bugs for affected
-hardware/configurations.
 
-Step 7.2 Record: `drivers/video/fbdev` is active, but
-`drivers/video/fbdev/savage` has low churn. Recent changes are mostly
-small fixes and cleanups.
+**Step 7.1:** Subsystem criticality
+Record: drivers/gpu/drm/amd/display - PERIPHERAL (driver-specific) but
+affects display output, which is user-visible. Users of DCN401 (Navi 4x
+discrete GPUs) and DCN42 (newer APUs) can lose display mode
+availability.
 
-## Phase 8: Impact And Risk
-Step 8.1 Record: affected users are systems with `CONFIG_FB_SAVAGE` and
-`CONFIG_FB_SAVAGE_I2C` using S3 Savage hardware or matching devices.
+**Step 7.2:** Subsystem activity
+Record: Highly active subsystem with frequent DC patch series.
 
-Step 8.2 Record: trigger requires successful EDID-derived allocation
-followed by later `savagefb_probe()` failure, such as mode
-validation/geometry failure or framebuffer registration failure.
-Repeated privileged probe attempts could accumulate leaks; no
-unprivileged trigger was verified.
+## Phase 8: Impact and Risk
 
-Step 8.3 Record: failure mode is kernel memory/resource leak, severity
-medium: not a crash or corruption, but real unreclaimed kernel memory on
-failed probe.
+**Step 8.1:** Affected population
+Record: DRIVER-SPECIFIC: Users with AMD DCN401 (RX 9070, RX 9060XT etc.)
+or DCN42 hardware running v6.11+. As DCN401 is the Navi 4x architecture
+(recent consumer GPU), this is a meaningful but smaller user base than
+core fixes.
 
-Step 8.4 Record: benefit is moderate for affected systems because it
-fixes a verified leak across many stable versions. Risk is very low: two
-cleanup calls in an existing unwind path, using established helpers.
+**Step 8.2:** Trigger conditions
+Record: Triggered on every display mode validation when
+`using_dml21=true` (default). Bug manifests as "mode rejected" only when
+the actual page table level overhead matters, i.e., for high-bandwidth
+modes (high resolution + high refresh rate, multi-display). The DML2
+history shows real-world failure with "1080p eDP + 8k HDMI" combo.
+
+**Step 8.3:** Failure mode severity
+Record: MEDIUM-HIGH. Failure mode is display modes being rejected that
+should work. Not a crash or data corruption, but user-visible feature
+loss (e.g., user cannot enable their monitor's native resolution/refresh
+rate). On laptops with eDP + external display, may prevent multi-monitor
+configurations.
+
+**Step 8.4:** Risk-benefit
+Record:
+- BENEFIT: enables previously-rejected display modes for DCN401/DCN42
+  users (real-world impact demonstrated in DML2 history)
+- RISK: very low - 6 lines of arithmetic correction, well-tested in
+  mainline, identical pattern proven correct in DML2.0
+- Ratio: clearly favors backport
 
 ## Phase 9: Final Synthesis
-Step 9.1 Record: evidence for backporting: verified real leak, tiny
-scoped patch, existing helper APIs, same buggy pattern present in many
-stable tags, no feature/API change, low regression risk. Evidence
-against: driver-specific old hardware, only a probe failure path, no
-verified user report/test/lore review. Unresolved: exact upstream commit
-hash and mailing-list discussion could not be verified.
 
-Step 9.2 Record: stable rules checklist: obviously correct by code
-inspection: yes; fixes a real bug: yes, leaked `modedb` and modelist
-allocations; important issue: medium, resource leak rather than crash;
-small and contained: yes, 2 lines in one function; no new features/APIs:
-yes; can apply to stable: likely yes, helpers and buggy code verified in
-stable tags.
+**Step 9.1:** Evidence
+FOR backporting:
+- Small, surgical, obviously correct fix (just `* 1024`)
+- Bug present in stable trees v6.11+
+- Same fix pattern proven correct via DML2.0 history (revert/re-apply
+  cycle confirmed `*1024` is right)
+- Tested-by, Reviewed-by from AMD team
+- Real user-visible impact demonstrated historically (modes failing to
+  light up)
+- Bug already in mainline since April 2026
+- Fix is mathematical - no behavioral risk
 
-Step 9.3 Record: not a device-ID, quirk, DT, build, or documentation
-exception. It is a standard resource-leak fix.
+AGAINST:
+- No Cc: stable tag from authors
+- Smaller user base (DCN401/DCN42 specific hardware)
+- Path requires translation for older stable trees (`dml2_0/dml21/` ->
+  `dml2/dml21/`)
+- The DML2 version of this fix had a turbulent revert history (though
+  ultimately confirmed correct)
 
-Step 9.4 Decision: backport. The issue is not high severity, but the fix
-is minimal, correct, uses existing cleanup APIs, and addresses a
-verified kernel memory leak present across stable trees.
+UNRESOLVED:
+- Could not run b4 dig successfully (patch too recent for indexing)
+- Could not verify whether AMD will explicitly nominate this for stable
+  in a follow-up
 
-Verification:
-- [Phase 1] Parsed supplied subject/body/tags; confirmed no
-  Fixes/Reported/Tested/Reviewed/Acked/Link/Cc stable tags in the
-  supplied message.
-- [Phase 2] Read `savagefb_probe()` and helper implementations;
-  confirmed missing failed-path cleanup and verified allocation/free
-  behavior.
-- [Phase 3] Ran `git blame`, `git log`, `git show`, and ancestry checks
-  without `--all`; found related savage probe/error-path history and no
-  local candidate commit.
-- [Phase 4] Ran `b4 dig` attempts, web search, and lore fetch attempts;
-  no exact commit/thread verified, lore fetch blocked by Anubis.
-- [Phase 5] Traced `savagefb_probe()` registration through the PCI
-  driver structure and `pci_register_driver()`.
-- [Phase 6] Used tag-scoped `git grep` on v4.14, v4.19, v5.10, v5.15,
-  v6.1, v6.6, v6.10, and v6.12; confirmed the buggy pattern exists.
-- [Phase 7] Checked `MAINTAINERS`; verified fbdev and S3 Savage
-  maintainer entries.
-- [Phase 8] Verified trigger and severity from code paths; unprivileged
-  trigger remains unverified and did not drive the decision.
+**Step 9.2:** Stable rules checklist
+1. Obviously correct? YES - simple multiplication, function clearly
+   expects bytes (thresholds in bytes)
+2. Fixes real bug affecting users? YES - mode validation incorrectly
+   rejects valid modes
+3. Important issue? MEDIUM - prevents some display modes from working,
+   similar pattern caused 1080p+8k failure in DML2
+4. Small and contained? YES - 6 lines, single file
+5. No new features/APIs? YES - pure fix
+6. Applies to stable? YES with minor path translation for v6.11-v6.18
+
+**Step 9.3:** Exception categories
+Not in special exception categories, but qualifies as a regular bug fix.
+
+**Step 9.4:** Decision
+The fix is small, surgical, obviously correct, well-tested, and
+addresses a real bug that affects users of recent AMD GPU/APU hardware.
+The historical precedent in DML2.0 (where the same `*1024` correction
+was eventually applied to stable after extensive testing confirmed it
+was right) strengthens confidence. The risk of regression is minimal
+given the trivial nature of the change.
+
+## Verification
+
+- [Phase 1] Parsed tags: Reviewed-by (Austin Zheng), Tested-by (Dan
+  Wheeler), no Fixes/Cc:stable - verified by reading commit message
+- [Phase 2] Diff analysis: confirmed 6 hunks, all `* 1024` multiplier
+  additions in single file - verified by reading patch
+- [Phase 3] git log + git show: bug code present since `70839da636050`
+  (v6.11, 2024-04-19) - verified
+- [Phase 3] git show 22136ff27c4e0: original DML2 fix with `Cc:
+  stable@vger.kernel.org` did same `*1024` change - verified
+- [Phase 3] git show bf282eb92b8: revert-of-revert for DML2 because
+  *1024 absence broke "1080p eDP + 8k HDMI" - verified
+- [Phase 3] git show e6a8a000cfe6a: path renamed `dml2/dml21/` ->
+  `dml2_0/dml21/` in 2025-10-21 - verified
+- [Phase 3] Local file read at line 1565: `CalculateHostVMDynamicLevels`
+  checks `< 2048`, `< 1048576` (bytes thresholds) - verified
+- [Phase 4] WebFetch lore archive: found patch 11/22 of "DC Patches
+  April 02, 2026" thread - verified
+- [Phase 4] b4 dig -c bd8001acfa62b: failed to find (patch too recent) -
+  acknowledged
+- [Phase 5] Grep for using_dml21: confirmed DML2.1 active for
+  DCN401/DCN42 with `dce_version >= DCN_VERSION_4_01` - verified
+- [Phase 6] git show
+  v6.18:.../dml2/dml21/src/.../dml2_core_dcn4_calcs.c: bug present in
+  v6.18 - verified
+- [Phase 6] git show
+  v6.12:.../dml2/dml21/src/.../dml2_core_dcn4_calcs.c: bug present in
+  v6.12 - verified
+- [Phase 6] dml2_0/display_mode_core.c grep: confirmed `*1024` already
+  applied for DML2.0 - verified
+- [Phase 7] DCN_VERSION_4_01 grep: confirmed dce_version usage gates
+  DML2.1 to DCN401+ hardware - verified
+- UNVERIFIED: Exact mailing list discussion URL - the patch is indexed
+  at lists.freedesktop.org (got the patch text), but lore.kernel.org has
+  not yet indexed it (b4 dig failure)
+- UNVERIFIED: Whether reviewers explicitly suggested stable backport -
+  did not find direct discussion
+
+The fix meets all stable kernel criteria: it is obviously correct, fixes
+a real bug affecting users of recent AMD hardware, is small and
+contained (6 lines, one file), introduces no new features, and applies
+to stable with only minor path translation. The historical DML2
+precedent strongly supports correctness and the user-visible impact.
 
 **YES**
 
- drivers/video/fbdev/savage/savagefb_driver.c | 2 ++
- 1 file changed, 2 insertions(+)
+ .../dml21/src/dml2_core/dml2_core_dcn4_calcs.c       | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/video/fbdev/savage/savagefb_driver.c b/drivers/video/fbdev/savage/savagefb_driver.c
-index ac41f8f37589f..c2f79357c8da0 100644
---- a/drivers/video/fbdev/savage/savagefb_driver.c
-+++ b/drivers/video/fbdev/savage/savagefb_driver.c
-@@ -2322,6 +2322,8 @@ static int savagefb_probe(struct pci_dev *dev, const struct pci_device_id *id)
-  failed:
- #ifdef CONFIG_FB_SAVAGE_I2C
- 	savagefb_delete_i2c_busses(info);
-+	fb_destroy_modelist(&info->modelist);
-+	fb_destroy_modedb(info->monspecs.modedb);
- #endif
- 	fb_alloc_cmap(&info->cmap, 0, 0);
- 	savage_unmap_video(info);
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
+index ca5ac3c0deb56..cdd7c771afff9 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
+@@ -7381,7 +7381,7 @@ static noinline_for_stack void dml_core_ms_prefetch_check(struct dml2_core_inter
+ 		s->tdlut_bytes_per_group,
+ 		s->HostVMInefficiencyFactor,
+ 		s->HostVMInefficiencyFactorPrefetch,
+-		mode_lib->soc.hostvm_min_page_size_kbytes,
++		mode_lib->soc.hostvm_min_page_size_kbytes * 1024,
+ 		mode_lib->soc.qos_parameters.qos_type,
+ 		!(display_cfg->overrides.max_outstanding_when_urgent_expected_disable),
+ 		mode_lib->soc.max_outstanding_reqs,
+@@ -7477,7 +7477,7 @@ static noinline_for_stack void dml_core_ms_prefetch_check(struct dml2_core_inter
+ 			CalculatePrefetchSchedule_params->OutputFormat = display_cfg->stream_descriptors[display_cfg->plane_descriptors[k].stream_index].output.output_format;
+ 			CalculatePrefetchSchedule_params->MaxInterDCNTileRepeaters = mode_lib->ip.max_inter_dcn_tile_repeaters;
+ 			CalculatePrefetchSchedule_params->VStartup = s->MaximumVStartup[k];
+-			CalculatePrefetchSchedule_params->HostVMMinPageSize = mode_lib->soc.hostvm_min_page_size_kbytes;
++			CalculatePrefetchSchedule_params->HostVMMinPageSize = mode_lib->soc.hostvm_min_page_size_kbytes * 1024;
+ 			CalculatePrefetchSchedule_params->DynamicMetadataEnable = display_cfg->plane_descriptors[k].dynamic_meta_data.enable;
+ 			CalculatePrefetchSchedule_params->DynamicMetadataVMEnabled = mode_lib->ip.dynamic_metadata_vm_enabled;
+ 			CalculatePrefetchSchedule_params->DynamicMetadataLinesBeforeActiveRequired = display_cfg->plane_descriptors[k].dynamic_meta_data.lines_before_active_required;
+@@ -8965,7 +8965,7 @@ static bool dml_core_mode_support(struct dml2_core_calcs_mode_support_ex *in_out
+ 	CalculateVMRowAndSwath_params->MALLAllocatedForDCN = mode_lib->soc.mall_allocated_for_dcn_mbytes;
+ 	CalculateVMRowAndSwath_params->SwathWidthY = mode_lib->ms.SwathWidthY;
+ 	CalculateVMRowAndSwath_params->SwathWidthC = mode_lib->ms.SwathWidthC;
+-	CalculateVMRowAndSwath_params->HostVMMinPageSize = mode_lib->soc.hostvm_min_page_size_kbytes;
++	CalculateVMRowAndSwath_params->HostVMMinPageSize = mode_lib->soc.hostvm_min_page_size_kbytes * 1024;
+ 	CalculateVMRowAndSwath_params->DCCMetaBufferSizeBytes = mode_lib->ip.dcc_meta_buffer_size_bytes;
+ 	CalculateVMRowAndSwath_params->mrq_present = mode_lib->ip.dcn_mrq_present;
+ 
+@@ -10755,7 +10755,7 @@ static bool dml_core_mode_programming(struct dml2_core_calcs_mode_programming_ex
+ 	CalculateVMRowAndSwath_params->MALLAllocatedForDCN = mode_lib->soc.mall_allocated_for_dcn_mbytes;
+ 	CalculateVMRowAndSwath_params->SwathWidthY = mode_lib->mp.SwathWidthY;
+ 	CalculateVMRowAndSwath_params->SwathWidthC = mode_lib->mp.SwathWidthC;
+-	CalculateVMRowAndSwath_params->HostVMMinPageSize = mode_lib->soc.hostvm_min_page_size_kbytes;
++	CalculateVMRowAndSwath_params->HostVMMinPageSize = mode_lib->soc.hostvm_min_page_size_kbytes * 1024;
+ 	CalculateVMRowAndSwath_params->DCCMetaBufferSizeBytes = mode_lib->ip.dcc_meta_buffer_size_bytes;
+ 	CalculateVMRowAndSwath_params->mrq_present = mode_lib->ip.dcn_mrq_present;
+ 
+@@ -10971,7 +10971,7 @@ static bool dml_core_mode_programming(struct dml2_core_calcs_mode_programming_ex
+ 		s->tdlut_bytes_per_group,
+ 		s->HostVMInefficiencyFactor,
+ 		s->HostVMInefficiencyFactorPrefetch,
+-		mode_lib->soc.hostvm_min_page_size_kbytes,
++		mode_lib->soc.hostvm_min_page_size_kbytes * 1024,
+ 		mode_lib->soc.qos_parameters.qos_type,
+ 		!(display_cfg->overrides.max_outstanding_when_urgent_expected_disable),
+ 		mode_lib->soc.max_outstanding_reqs,
+@@ -11264,7 +11264,7 @@ static bool dml_core_mode_programming(struct dml2_core_calcs_mode_programming_ex
+ 			CalculatePrefetchSchedule_params->OutputFormat = display_cfg->stream_descriptors[display_cfg->plane_descriptors[k].stream_index].output.output_format;
+ 			CalculatePrefetchSchedule_params->MaxInterDCNTileRepeaters = mode_lib->ip.max_inter_dcn_tile_repeaters;
+ 			CalculatePrefetchSchedule_params->VStartup = s->MaxVStartupLines[k];
+-			CalculatePrefetchSchedule_params->HostVMMinPageSize = mode_lib->soc.hostvm_min_page_size_kbytes;
++			CalculatePrefetchSchedule_params->HostVMMinPageSize = mode_lib->soc.hostvm_min_page_size_kbytes * 1024;
+ 			CalculatePrefetchSchedule_params->DynamicMetadataEnable = display_cfg->plane_descriptors[k].dynamic_meta_data.enable;
+ 			CalculatePrefetchSchedule_params->DynamicMetadataVMEnabled = mode_lib->ip.dynamic_metadata_vm_enabled;
+ 			CalculatePrefetchSchedule_params->DynamicMetadataLinesBeforeActiveRequired = display_cfg->plane_descriptors[k].dynamic_meta_data.lines_before_active_required;
 -- 
 2.53.0
 
