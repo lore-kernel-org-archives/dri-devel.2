@@ -4,69 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48CF7FF8878
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 19:20:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9F8CFF885A
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 19:34:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CEDC10EB30;
-	Tue, 28 Apr 2026 19:20:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0662810E363;
+	Tue, 28 Apr 2026 19:34:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="Hjkf5Tvh";
+	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="sthPP9Di";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27DB310E364
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 19:19:50 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1777403983; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=IbIPdgBkg3eE0bdD/OL77s9hC6ViO2kSQMbPLChOsmql44qnS13K7TU0udpzzeuzkQQSjScgc3FnBVvmPVz5WtVQDAOtFvizZCrsprlcmYHUzOdXKOlQjxYGiJ5CsJxMk5vDFeu3eI1bod2HZ/samTjm0FUEd/Q4iIEW/BKBN0U=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1777403983;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=wLGSvc2M7EuyDUwLLZMuCL0UwqmYT4uqmf47d+D6rF8=; 
- b=drOG1TuZ+G4mbMvSQq1ldHA5tpjx9/ZYDrQOMImoqC47KBQ3mkZQvkzCkPcBnk+BFro1XxkSvMNfjCWMnqvNXjtXyJ6DZb0lAC93ArkY5WJfeWeNQ3f0vPs2j/9hByhMgrxT0FyC+949de8FybE+dOZGSzqum4dVH1fYeNW16Gg=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
- dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1777403983; 
- s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=wLGSvc2M7EuyDUwLLZMuCL0UwqmYT4uqmf47d+D6rF8=;
- b=Hjkf5Tvht5izMS2gVQfxNb1zIKFE9ziv4xsqzu0XCFj/dwjWLls85MqK+ZeQNc7G
- Clez9mGeTdCbHQy7TDwhbsqQtyJLCNaeBJ5BqjctzofYISYkPHBae9l89ocP0gCdbgA
- eevQKVkaa3SKfwnWag05oliNJMnSy8MwubOg5Ggo=
-Received: by mx.zohomail.com with SMTPS id 1777403981907227.00808545959512;
- Tue, 28 Apr 2026 12:19:41 -0700 (PDT)
-From: Deborah Brouwer <deborah.brouwer@collabora.com>
-Date: Tue, 28 Apr 2026 12:19:32 -0700
-Subject: [PATCH 5/5] drm/tyr: add shmem backing for GEM objects
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 952F310E363
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 19:34:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
+ h=Content-Transfer-Encoding: Content-Type: In-Reply-To: From: References:
+ Cc: To: Subject: MIME-Version: Date: Message-ID; q=dns/txt;
+ s=fe-e1b5cab7be; t=1777404871;
+ bh=tyuMmKgL6oRWTBJMy9sHFgkkcCZP0KsDIP4M04imiag=;
+ b=sthPP9DiTNCoFl/eQ24MW/+ikwoABVzC1oG8cZBBn81aWpFBEu9l8poBjBykH2vxxtUre19yP
+ 0K6aFK49EyUQFepmxR/3drEyH8U5j1Jk43F+kVwRaxnmKJL/Yg6/oBAJQgEaZVxLrGsVHHCyYAm
+ W2nbJs3MTry98V86mUAZpMERAkK2i/sKGwb6CCwsVZKItwHe1s2/5KxhJp0gfDzHti3GJ2RnFG0
+ M/n23XoyrH6BCMGCr0/+kC1Xm/ohxmVQFj+Ntis8grEWGJnKEffboPFGUYGuZAA9sixRNF7WLTm
+ ybZMXWDPUOkQUjdfcbjwo0fRQslqRl6jMU1sXx1KyyOA==
+X-Forward-Email-ID: 69f10bc5a2c58f47e2133329
+X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
+ 121.127.44.73
+X-Forward-Email-Version: 2.7.7
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
+Message-ID: <9b4a676e-cf8f-4708-b580-8140a2e7a805@kwiboo.se>
+Date: Tue, 28 Apr 2026 21:34:25 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 09/13] drm: bridge: dw_hdmi: Use delayed_work to
+ debounce hotplug event
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Christian Hewitt <christianshewitt@gmail.com>,
+ Diederik de Haas <diederik@cknow-tech.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-rockchip@lists.infradead.org" <linux-rockchip@lists.infradead.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20260403185303.80748-1-jonas@kwiboo.se>
+ <20260403185303.80748-10-jonas@kwiboo.se>
+ <go5i5iiwra426hydnvc5thhgtknv3fa7ti35q3et6frroxag2n@tfbfiyjmtzkk>
+Content-Language: en-US
+From: Jonas Karlman <jonas@kwiboo.se>
+In-Reply-To: <go5i5iiwra426hydnvc5thhgtknv3fa7ti35q3et6frroxag2n@tfbfiyjmtzkk>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260428-fw-boot-prerequisites-v1-5-c69af9abe1af@collabora.com>
-References: <20260428-fw-boot-prerequisites-v1-0-c69af9abe1af@collabora.com>
-In-Reply-To: <20260428-fw-boot-prerequisites-v1-0-c69af9abe1af@collabora.com>
-To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, boris.brezillon@collabora.com, 
- beata.michalska@arm.com, work@onurozkan.dev, alvin.sun@linux.dev, 
- Deborah Brouwer <deborah.brouwer@collabora.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1796;
- i=deborah.brouwer@collabora.com; h=from:subject:message-id;
- bh=W29CcEg4G/bR/nBkZsGLw9Q//UYR0bu9cBHhR83fmzU=;
- b=owGbwMvMwCVWuULzOU9c7WvG02pJDJkfOdyXPVv4VrSWY6K71LkZhS+KNzRNOdSRG2Ydlv3+L
- 9OHG7LZHaUsDGJcDLJiiixn7Y16xKveG+nO/98MM4eVCWQIAxenAEzkgQ7D/yyWi1crpTdW7nxh
- duby5euGFwMDFk2zazvwcK+decUs2TWMDM9CO5xnKk235PEwUNHWU4iYKXqJPf51S8TmhDjt7ZG
- z+QE=
-X-Developer-Key: i=deborah.brouwer@collabora.com; a=openpgp;
- fpr=CD3F328C177AEF322D9FFF8379A829E70C5E7DEB
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,61 +75,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add support for GEM buffer objects backed by shared memory.
+Hi Dmitry,
 
-This introduces the BoCreateArgs structure for passing creation parameters
-including flags, and adds a flags field to BoData.
+On 4/28/2026 2:38 PM, Dmitry Baryshkov wrote:
+> On Fri, Apr 03, 2026 at 06:52:55PM +0000, Jonas Karlman wrote:
+>> HDMI Specification Version 1.4b chapter 8.5 mentions:
+>>
+>>   An HDMI Sink shall not assert high voltage level on its Hot Plug
+>>   Detect pin when the E-EDID is not available for reading.
+>>
+>>   A Source may use a high voltage level Hot Plug Detect signal to
+>>   initiate the reading of E-EDID data.
+>>
+>>   An HDMI Sink shall indicate any change to the contents of the E-EDID
+>>   by driving a low voltage level pulse on the Hot Plug Detect pin. This
+>>   pulse shall be at least 100 msec.
+>>
+>> Use a work queue to debounce reacting on HPD events to better handle a
+>> HPD low voltage level pulse when a sink changes the EDID.
+>>
+>> The 1100 msec hotplug debounce timeout was arbitrarily picked to match
+>> other drivers using same const, and testing using a Raspberry Pi Monitor
+>> seem to use a 200-300 msec pulse when going from standby to power on
+>> state.
+>>
+>> Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
+>> ---
+>> v3: New patch
+>> ---
+>>  drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 24 +++++++++++++++++++----
+>>  1 file changed, 20 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+>> index f3f8144ae98e..4d079b689b3b 100644
+>> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+>> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+>> @@ -51,6 +51,8 @@
+>>  
+>>  #define HDMI14_MAX_TMDSCLK	340000000
+>>  
+>> +#define HOTPLUG_DEBOUNCE_MS	1100
+>> +
+>>  static const u16 csc_coeff_default[3][4] = {
+>>  	{ 0x2000, 0x0000, 0x0000, 0x0000 },
+>>  	{ 0x0000, 0x2000, 0x0000, 0x0000 },
+>> @@ -192,6 +194,7 @@ struct dw_hdmi {
+>>  	hdmi_codec_plugged_cb plugged_cb;
+>>  	struct device *codec_dev;
+>>  	enum drm_connector_status last_connector_result;
+>> +	struct delayed_work hpd_work;
+>>  };
+>>  
+>>  const struct dw_hdmi_plat_data *dw_hdmi_to_plat_data(struct dw_hdmi *hdmi)
+>> @@ -2528,6 +2531,7 @@ static void dw_hdmi_connector_force(struct drm_connector *connector)
+>>  
+>>  	mutex_lock(&hdmi->mutex);
+>>  	hdmi->force = connector->force;
+>> +	hdmi->last_connector_result = connector->status;
+>>  	dw_hdmi_update_phy_mask(hdmi);
+>>  	mutex_unlock(&hdmi->mutex);
+>>  }
+>> @@ -3046,6 +3050,16 @@ void dw_hdmi_setup_rx_sense(struct dw_hdmi *hdmi, bool hpd, bool rx_sense)
+>>  }
+>>  EXPORT_SYMBOL_GPL(dw_hdmi_setup_rx_sense);
+>>  
+>> +static void dw_hdmi_hpd_work(struct work_struct *work)
+>> +{
+>> +	struct dw_hdmi *hdmi = container_of(work, struct dw_hdmi, hpd_work.work);
+>> +
+>> +	if (hdmi->bridge.dev) {
+>> +		drm_helper_hpd_irq_event(hdmi->bridge.dev);
+> 
+> Nit: please consider this for the followup cleanup. The
+> drm_helper_hpd_irq_event() is not very effective: we already know which
+> bridge (and thus connector) caused the HPD event.
+> 
+> Moreover, the call should be redundant as drm_bridge_hpd_notify will
+> call the registered callback, which normally would be
+> drm_bridge_connector_hpd_cb(). Internally, this function calls
+> drm_kms_helper_connector_hotplug_event().
 
-Co-developed-by: Boris Brezillon <boris.brezillon@collabora.com>
-Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
----
- drivers/gpu/drm/tyr/gem.rs | 22 +++++++++++++++++-----
- 1 file changed, 17 insertions(+), 5 deletions(-)
+I disagree in part, based on my testing, without a call to
+drm_helper_hpd_irq_event() or drm_connector_helper_hpd_irq_event() the
+internal check_connector_changed() never seem to be reached to detect
+any connector->status and/or connector->epoch_counter changes.
 
-diff --git a/drivers/gpu/drm/tyr/gem.rs b/drivers/gpu/drm/tyr/gem.rs
-index 66c427a16c31..1640a161754b 100644
---- a/drivers/gpu/drm/tyr/gem.rs
-+++ b/drivers/gpu/drm/tyr/gem.rs
-@@ -1,4 +1,8 @@
- // SPDX-License-Identifier: GPL-2.0 or MIT
-+//! GEM buffer object management for the Tyr driver.
-+//!
-+//! This module provides buffer object (BO) management functionality using
-+//! DRM's GEM subsystem with shmem backing.
- 
- use kernel::{
-     drm::gem,
-@@ -10,15 +14,23 @@
-     TyrDrmDriver, //
- };
- 
--/// GEM Object inner driver data
-+/// Tyr's DriverObject type for GEM objects.
- #[pin_data]
--pub(crate) struct BoData {}
-+pub(crate) struct BoData {
-+    flags: u32,
-+}
-+
-+/// Provides a way to pass arguments when creating BoData
-+/// as required by the gem::DriverObject trait.
-+pub(crate) struct BoCreateArgs {
-+    flags: u32,
-+}
- 
- impl gem::DriverObject for BoData {
-     type Driver = TyrDrmDriver;
--    type Args = ();
-+    type Args = BoCreateArgs;
- 
--    fn new(_dev: &TyrDrmDevice, _size: usize, _args: ()) -> impl PinInit<Self, Error> {
--        try_pin_init!(BoData {})
-+    fn new(_dev: &TyrDrmDevice, _size: usize, args: BoCreateArgs) -> impl PinInit<Self, Error> {
-+        try_pin_init!(Self { flags: args.flags })
-     }
- }
+In my ongoing work to convert dw-hdmi to become a hdmi bridge, I have 
+actually done the opposite to what you suggest here and instead fully
+dropped the call to drm_bridge_hpd_notify() made here.
 
--- 
-2.53.0
+drm_bridge_connector_detect() calls drm_bridge_connector_hpd_notify()
+so any bridges should already be notified as part of any internal
+check_connector_changed() handling.
+
+Maybe something like following could be an option:
+
+	changed = drm_connector_helper_hpd_irq_event(connector);
+	if (changed)
+		drm_bridge_hpd_notify(bridge, connector->status);
+
+I will likely keep this as-is to keep existing behavior in a v4, as this
+patch was just about de-bouncing the existing calls being made at HPD.
+
+Regards,
+Jonas
+
+> 
+>> +		drm_bridge_hpd_notify(&hdmi->bridge, hdmi->last_connector_result);
+>> +	}
+>> +}
+>> +
+>>  static irqreturn_t dw_hdmi_irq(int irq, void *dev_id)
+>>  {
+>>  	struct dw_hdmi *hdmi = dev_id;
+>> @@ -3097,10 +3111,8 @@ static irqreturn_t dw_hdmi_irq(int irq, void *dev_id)
+>>  			status == connector_status_connected ?
+>>  			"plugin" : "plugout");
+>>  
+>> -		if (hdmi->bridge.dev) {
+>> -			drm_helper_hpd_irq_event(hdmi->bridge.dev);
+>> -			drm_bridge_hpd_notify(&hdmi->bridge, status);
+>> -		}
+>> +		mod_delayed_work(system_percpu_wq, &hdmi->hpd_work,
+>> +				 msecs_to_jiffies(HOTPLUG_DEBOUNCE_MS));
+>>  	}
+>>  
+>>  	hdmi_writeb(hdmi, intr_stat, HDMI_IH_PHY_STAT0);
+>> @@ -3420,6 +3432,8 @@ struct dw_hdmi *dw_hdmi_probe(struct platform_device *pdev,
+>>  		goto err_res;
+>>  	}
+>>  
+>> +	INIT_DELAYED_WORK(&hdmi->hpd_work, dw_hdmi_hpd_work);
+>> +
+>>  	ret = devm_request_threaded_irq(dev, irq, dw_hdmi_hardirq,
+>>  					dw_hdmi_irq, IRQF_SHARED,
+>>  					dev_name(dev), hdmi);
+>> @@ -3552,6 +3566,8 @@ EXPORT_SYMBOL_GPL(dw_hdmi_probe);
+>>  
+>>  void dw_hdmi_remove(struct dw_hdmi *hdmi)
+>>  {
+>> +	disable_delayed_work_sync(&hdmi->hpd_work);
+>> +
+>>  	drm_bridge_remove(&hdmi->bridge);
+>>  
+>>  	if (hdmi->audio && !IS_ERR(hdmi->audio))
+>> -- 
+>> 2.53.0
+>>
+> 
 
