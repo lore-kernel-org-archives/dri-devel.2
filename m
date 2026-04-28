@@ -4,47 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8D93FF886D
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 10:42:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAB8BFF8870
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 10:42:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4120310EAD9;
-	Tue, 28 Apr 2026 10:42:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41ED110EAE6;
+	Tue, 28 Apr 2026 10:42:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="t6TdL7Xe";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="e0wt0I0j";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF79310EAD8;
- Tue, 28 Apr 2026 10:42:48 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29C3610EAE3;
+ Tue, 28 Apr 2026 10:42:53 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id B5AEE448A2;
- Tue, 28 Apr 2026 10:42:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C818C2BCAF;
- Tue, 28 Apr 2026 10:42:46 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 939DF61145;
+ Tue, 28 Apr 2026 10:42:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00F6DC2BCF5;
+ Tue, 28 Apr 2026 10:42:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777372968;
- bh=ftFBoeUNo9XvxtsYcnDiXdJCUTvZ3/oDkUO0Odx4Rr0=;
+ s=k20201202; t=1777372972;
+ bh=WG1aZEtlaChURH5tQWWR04QdRV9xU25WVloCetGhuL8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=t6TdL7XeQ0c6Jskuz/zrPlQc3z/Msb1czQ8OiQQ307k3m4ZkE0/yDiLxgxtJW4ztp
- S10L8fcKzTqBZ+Atpo+jSlo4YaSJoR5AZYHMTOgDrJlxIn3IrkGaZIr7V03cWto6hJ
- fjE90uLPbCp2MuZk7q1XC0JuNuSj9oSCGJQizxi6OVRN0WGXB0Noa45KyWX7vWY9No
- a/90s17kxx2JhlVtUZv2y642dpqfp+OLV+5RFMWLA9lObvcMR3J2VwxHgKYK44fKLI
- VZdkIDgX/s3drxIQObDxpveqD7xFXYvcwld/QKr7OK7bKnjTyggDDJoWEQXRnmSO4Y
- VzU1OVgpmbKvw==
+ b=e0wt0I0j7aZU4QAarex/bWcy2UXt4vgzfrhza72LFswEcF4WLIKRgQtX5nf3eRx1M
+ 9FLInTzplEKqvITiNXX6hdMoAEIfWkLmX2wjFYIb/ZC0xN7hEKhrtYHphprK3CEMif
+ 5AyhjcYw4kDqVRnVsTf2920Tmh6VJubCjnlCg4S5D9L/4rhENUruP4n2EUA1OVj76p
+ zjzhAKdu/AThDrOyVnnEwpBtb7gNtDsYYYo1RSv+XyYOgReH6K+u7tcGO1hxxRssZF
+ A9opYpi6fHNUvGQ40Asx/TF/26Z71dcjpu4nFauIgTKGDAg1ERU1uaEKSZh1929opS
+ 4ygRu+rmuWwog==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Austin Zheng <austin.zheng@amd.com>, Roman Li <roman.li@amd.com>,
- Dan Wheeler <daniel.wheeler@amd.com>,
+Cc: Siwei He <siwei.he@amd.com>, Philip Yang <philip.yang@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
  daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0-6.18] drm/amd/display: Fix HostVMMinPageSize unit
- mismatch in DML2.1
-Date: Tue, 28 Apr 2026 06:41:03 -0400
-Message-ID: <20260428104133.2858589-52-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 7.0] drm/amdgpu: OR init_pte_flags into invalid leaf
+ PTE updates
+Date: Tue, 28 Apr 2026 06:41:05 -0400
+Message-ID: <20260428104133.2858589-54-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260428104133.2858589-1-sashal@kernel.org>
 References: <20260428104133.2858589-1-sashal@kernel.org>
@@ -52,6 +49,7 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 7.0.2
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,394 +66,364 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+From: Siwei He <siwei.he@amd.com>
 
-[ Upstream commit 5721b5b9c9c792233d7817239bd81925fb3ad9d1 ]
+[ Upstream commit 778bf584f2fb0a2b09594f568faf400bf6858091 ]
 
-[Why]
-This was found back on DML2 but was missed when creating DML2.1.
+Invalid leaf clears that only set AMDGPU_PTE_EXECUTABLE match the old
+GMC9 fault-priority workaround but omit adev->gmc.init_pte_flags.
+On GFX12 that includes AMDGPU_PTE_IS_PTE; without it, some cleared
+PTEs can fault as no-retry and bypass the SVM/XNACK handler when a
+VA is reused after a BO unmap.
 
-The bottom layer calculation (CalculateHostVMDynamicLevels) expects
-a value in bytes, not KB, but we pass in the value in KB (eg. 4).
+Apply init_pte_flags in amdgpu_vm_pte_update_flags() alongside
+EXECUTABLE so range-driven clears (e.g. amdgpu_vm_clear_freed) match
+amdgpu_vm_pt_clear() for leaf templates.
 
-This causes an extra page table level to be required in the prefetch
-bytes which can be significant overhead - preventing some modes
-from being supported that should otherwise be.
-
-[How]
-Correct the units by multiplying the input and override values by 1024.
-
-Reviewed-by: Austin Zheng <austin.zheng@amd.com>
-Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Signed-off-by: Roman Li <roman.li@amd.com>
-Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Siwei He <siwei.he@amd.com>
+Reviewed-by: Philip Yang <philip.yang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 9d47b2c36b9a6c6b844c33cab407a5d7ad102234)
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Based on my comprehensive analysis, I have enough information to make a
-decision. Let me compile my findings.
+Now I have all the information needed for a thorough analysis.
 
 ## Phase 1: Commit Message Forensics
 
-**Step 1.1:** Subject parsing
-Record: [drm/amd/display] [Fix] [HostVMMinPageSize unit mismatch in
-DML2.1]
+**Step 1.1 - Subject Line Parse**
+- Subsystem: `drm/amdgpu` (AMD GPU driver, virtual memory page table
+  code)
+- Action verb: "OR" (operator), implies a missing flag combination → bug
+  fix
+- Record: `drm/amdgpu` adds `init_pte_flags` to invalid leaf PTE updates
+  to match `amdgpu_vm_pt_clear()` behavior
 
-**Step 1.2:** Tags
-Record:
-- Reviewed-by: Austin Zheng (AMD)
-- Signed-off-by: Nicholas Kazlauskas (author, AMD), Roman Li (AMD DC
-  submaintainer), Alex Deucher (AMD GPU maintainer)
-- Tested-by: Dan Wheeler (AMD test engineer)
-- No Fixes: tag, no Cc: stable tag (expected for review candidates)
+**Step 1.2 - Tags Inventory**
+- Signed-off-by: Siwei He (author)
+- Reviewed-by: Philip Yang (AMD/amdkfd maintainer)
+- Signed-off-by: Alex Deucher (DRM/amdgpu maintainer)
+- `(cherry picked from commit 9d47b2c36b9a6c6b844c33cab407a5d7ad102234)`
+  — already merged upstream
+- No Fixes:, no Cc: stable, no syzbot/Reported-by (expected per pipeline
+  rules)
+- Record: Reviewed and signed by relevant subsystem maintainers; cherry
+  pick from upstream
 
-**Step 1.3:** Body analysis
-Record: The bug is that `CalculateHostVMDynamicLevels` expects
-HostVMMinPageSize in bytes (thresholds 2048 and 1048576 = 2KB and 1MB),
-but DML2.1 passes the value in KB (e.g., 4 for 4KB). This causes wrong
-branch selection and adds an extra page table level to prefetch
-overhead, "preventing some modes from being supported that should
-otherwise be." Failure mode = display mode unnecessarily rejected by
-validator.
+**Step 1.3 - Commit Body Analysis**
+- Bug description: leaf PTE clears that only set `AMDGPU_PTE_EXECUTABLE`
+  omit `adev->gmc.init_pte_flags`
+- Affected hardware: GFX12 (where `init_pte_flags` includes
+  `AMDGPU_PTE_IS_PTE`)
+- Symptom: cleared PTEs can fault as no-retry and bypass SVM/XNACK
+  handler when VA is reused after BO unmap
+- Root cause: code template inconsistency between `amdgpu_vm_pt_clear()`
+  (already updated) and `amdgpu_vm_pte_update_flags()` (range-driven
+  clear path used by e.g., `amdgpu_vm_clear_freed`)
+- Record: clearly states bug mechanism; affects real GFX12 hardware
+  running SVM/XNACK after BO unmap → VA reuse
 
-**Step 1.4:** Hidden bug fix detection
-Record: Not hidden - clearly described as a fix for a unit mismatch. The
-verb "Fix" is explicit.
+**Step 1.4 - Hidden Bug Fix Detection**
+- Although not titled "fix", the body explicitly describes a fault-
+  handler bypass on GFX12 — this IS a bug fix
+- Record: explicit bug fix (not hidden)
 
 ## Phase 2: Diff Analysis
 
-**Step 2.1:** Inventory
-Record: Single file `dml2_core_dcn4_calcs.c`, 6 lines changed (+6/-6), 6
-hunks. All in `dml_core_ms_prefetch_check`, `dml_core_mode_support`,
-`dml_core_mode_programming`. Scope: surgical single-file fix.
+**Step 2.1 - Inventory**
+- Single file: `drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c`
+- Hunks: 1; lines: net +1 (statement extended), comment expanded
+- Function modified: `amdgpu_vm_pte_update_flags()`
+- Scope: surgical, single-line semantic change in one function
+- Record: tiny single-file fix, ~2 lines of logic change
 
-**Step 2.2:** Code flow
-Record: Each hunk replaces `hostvm_min_page_size_kbytes` (a value in KB)
-with `hostvm_min_page_size_kbytes * 1024` (converting to bytes). Affects
-calls to `CalculateExtraLatency`,
-`CalculatePrefetchSchedule_params->HostVMMinPageSize`, and
-`CalculateVMRowAndSwath_params->HostVMMinPageSize`.
+**Step 2.2 - Code Flow Change**
+- Before: when handling an invalid leaf clear (`level==PTB && !VALID &&
+  !PRT`), `flags |= AMDGPU_PTE_EXECUTABLE`
+- After: `flags |= AMDGPU_PTE_EXECUTABLE | adev->gmc.init_pte_flags`
+- On GFX12.1, `init_pte_flags = AMDGPU_PTE_IS_PTE`; on GMC9 it's 0 (no
+  behavior change there)
+- Record: aligns the leaf-clear template with `amdgpu_vm_pt_clear()`
+  (line 416 already does the same)
 
-**Step 2.3:** Bug mechanism
-Record: Type/unit bug. The receiving function checks `< 2048`, `>= 2048
-&& < 1048576`, `>= 1048576` (bytes thresholds). With KB input (e.g., 4),
-every value falls into the first branch, causing maximum page table
-levels to be added incorrectly, which inflates prefetch bandwidth
-requirements.
+**Step 2.3 - Bug Mechanism**
+- Category: Logic/correctness fix → consistency between two clear paths
+- Mechanism: template mismatch on GFX12 page table clears caused PTEs to
+  be marked without `IS_PTE`, leading to no-retry faults that bypass the
+  SVM/XNACK fault handler
+- Record: same template now used in both leaf-clear sites; this is a
+  hardware-correctness fix
 
-**Step 2.4:** Fix quality
-Record: Trivially correct - just multiplying by a constant. No
-regression risk from the fix itself. Same fix pattern was historically
-applied to DML2.0 (commit 22136ff27c4e0/dcf6cd7f35de5) with `Cc:
-stable`.
+**Step 2.4 - Fix Quality**
+- Obviously correct: mirrors existing pattern at line 416 of same file
+  (`amdgpu_vm_pt_clear`)
+- Minimal/surgical: a single OR with a per-ASIC field that defaults to 0
+- Regression risk: very low — on non-GFX12 hardware `init_pte_flags ==
+  0`, so behavior is unchanged
+- Record: high quality, low regression risk
 
 ## Phase 3: Git History Investigation
 
-**Step 3.1:** File history
-Record: File introduced in commit `70839da636050` (2024-04-19, v6.11)
-"drm/amd/display: Add new DCN401 sources". Bug present since v6.11.
+**Step 3.1 - Blame**
+- The buggy line existed before, but the *omission* was created by
+  `db29ddf6505f3` ("drm/amdgpu: Add per-ASIC PTE init flag", Apr 24,
+  2025) which added `init_pte_flags` and applied it in
+  `amdgpu_vm_pt_clear()` only — not in `amdgpu_vm_pte_update_flags()`
+- Record: bug introduced by db29ddf6505f3
 
-**Step 3.2:** Fixes: tag follow-up
-Record: No Fixes: tag, but commit message references DML2 history. Found
-related history:
-- `22136ff27c4e0`/`dcf6cd7f35de5` (Nov 2023): Original DML2 fix with Cc:
-  stable - did exactly this multiplication
-- `d0f639c586939`/`a409c053b0b0c` (Dec 2023): Reverted, claimed spec
-  said KB
-- `bf282eb92b8` (Dec 2023): Re-applied the *1024 fix because revert
-  "causes failure to light up for 1080p eDP + 8k HDMI panel combo"
-This proves the *1024 IS the correct value.
+**Step 3.2 - Fixes Target**
+- No explicit `Fixes:` tag in this commit, but the underlying fault-
+  handler-bypass bug requires `init_pte_flags` to exist, which only
+  appeared in `db29ddf6505f3`
+- That commit lands in v7.0-rc1 (verified: `git tag --contains
+  db29ddf6505f3` shows v7.0-rc1+ only)
+- Record: bug only exists in v7.0+; older stable trees do not have
+  `init_pte_flags`
 
-**Step 3.3:** File history for related changes
-Record: Related patches in same April 2 patch series include:
-- Patch 13: `df9228624afde` "Pass min page size from SOC BB to dml2_1
-  plane config" - related fix but independent
-- Patch 14: `90b05672b7f0e` "Fix DCN42 gpuvm_min_page_size_kbytes in SOC
-  BB" - related but independent
-This patch (11) is self-contained.
+**Step 3.3 - File History**
+- Last commit on `amdgpu_vm_pt.c`: `db29ddf6505f3` (the very commit that
+  introduced the inconsistency)
+- Record: this fix immediately follows the bug-introducing commit;
+  standalone, no prerequisite missing
 
-**Step 3.4:** Author context
-Record: Nicholas Kazlauskas is a regular DC contributor and authored the
-related DCN35/DCN401 fixes. Reviewer Austin Zheng is also DC
-contributor. Submitter Roman Li is DC submaintainer.
+**Step 3.4 - Author**
+- Siwei He (AMD developer) — the upstream cherry-pick is reviewed by
+  Philip Yang and signed by Alex Deucher (amdgpu maintainer)
+- Record: properly vetted by amdgpu maintainership
 
-**Step 3.5:** Dependencies
-Record: Standalone fix. Multiplication by 1024 is purely a numeric
-correction at call sites. No dependencies.
+**Step 3.5 - Dependencies**
+- Requires `adev->gmc.init_pte_flags` — present in v7.0+ via
+  `db29ddf6505f3`
+- No other dependency
+- Record: standalone fix in v7.0; not applicable to pre-v7.0 stable
+  trees
 
-## Phase 4: Mailing List Research
+## Phase 4: Mailing List / External Research
 
-**Step 4.1:** b4 dig
-Record: b4 dig could not find a match (commit too recent / not yet
-indexed). Found via direct lore search at
-`https://lists.freedesktop.org/archives/amd-gfx/2026-April/142246.html`.
-Posted as PATCH 11/22 of "DC Patches April 02, 2026" by Roman Li on Thu
-Apr 2 18:33:03 UTC 2026.
-
-**Step 4.2:** Reviewers
-Record: Reviewed by Austin Zheng (AMD DC). Sent to amd-gfx list with
-appropriate maintainer CC.
-
-**Step 4.3:** Bug reports
-Record: No specific Reported-by, no syzbot link, no bugzilla link. Bug
-found internally by AMD when reviewing DML2.1 vs DML2 differences.
-
-**Step 4.4:** Series context
-Record: Part of "DC Patches April 02, 2026" with 22 patches. The
-Nicholas Kazlauskas DML2.1 cluster (patches 11-15) addresses related but
-independent issues. This patch (11) does not depend on the others.
-
-**Step 4.5:** Stable history
-Record: No discussion on stable@vger.kernel.org. Original DML2 fix was
-Cc'd to stable; this DML2.1 version was not.
+- `b4 dig -c 9d47b2c36b9a6c6b844c33cab407a5d7ad102234` — SHA not present
+  in local repo (cherry-pick hash from a tree this repo doesn't have)
+- `b4 dig -c db29ddf6505f3` — no lore match found
+- `lore.kernel.org` direct fetch blocked by Anubis bot challenge / 403
+  from raw curl — could not retrieve discussion
+- Record: UNVERIFIED — could not retrieve the original lore discussion
+  thread; relying on the in-tree review trail (Reviewed-by Philip Yang,
+  Signed-off-by Alex Deucher)
 
 ## Phase 5: Code Semantic Analysis
 
-**Step 5.1:** Functions modified
-Record: 3 functions: `dml_core_ms_prefetch_check`,
-`dml_core_mode_support`, `dml_core_mode_programming`. All are core mode
-validation/programming entry points called from DML2.1.
+**Step 5.1 - Functions in Diff**
+- `amdgpu_vm_pte_update_flags()`
 
-**Step 5.2:** Callers
-Record: Called from `dml21_create`/`dml21_reinit`, which are called when
-`using_dml21=true && dce_version >= DCN_VERSION_4_01`. This means:
-DCN401 (RDNA4 / RX 9000 series GPUs) and DCN42 hardware. Reachable from
-every display mode validation.
+**Step 5.2 - Callers**
+- Called from `amdgpu_vm_update_ptes()` (line 909 in the same file)
+- That is called from `amdgpu_vm_update_range()` in `amdgpu_vm.c`
+- `amdgpu_vm_update_range()` is called from many sites:
+  `amdgpu_vm_clear_freed` (line 1573, with flags=0 → exact bug path),
+  `amdgpu_vm_bo_update`, `amdgpu_gem_va_ioctl`, etc.
+- Record: the buggy path is reached on EVERY BO unmap that places
+  mappings on `vm->freed`
 
-**Step 5.3:** Callees
-Record: `CalculateExtraLatency` and via params,
-`CalculateHostVMDynamicLevels` (line 1565) which has the byte-threshold
-checks (`< 2048`, `< 1048576`).
+**Step 5.3 - Callees**
+- Calls `update_funcs->update()` to write PTEs
+- Record: writes the actual page table entries — direct hardware effect
 
-**Step 5.4:** Reachability
-Record: Every kernel modeset path on DCN401/DCN42 hardware. Highly
-reachable from userspace via DRM modeset ioctls.
+**Step 5.4 - Reachability**
+- `amdgpu_vm_clear_freed` runs from normal GEM unmap/CS paths and from
+  KFD memory paths
+- Triggerable by any user/process unmapping a GPU buffer with a VA that
+  gets reused
+- Record: trivially reachable from userspace via standard amdgpu/KFD
+  ioctls
 
-**Step 5.5:** Similar patterns
-Record: Same fix pattern was previously applied to DML2.0 in current
-mainline (`drivers/gpu/drm/amd/display/dc/dml2_0/display_mode_core.c`
-has `* 1024` at the same kind of call sites).
+**Step 5.5 - Similar Patterns**
+- Only two leaf-clear template sites; the other one
+  (`amdgpu_vm_pt_clear` line 416) was already updated to use
+  `init_pte_flags`. This patch makes the second site consistent.
+- Record: closes the only remaining inconsistent site
 
-## Phase 6: Cross-Referencing
+## Phase 6: Cross-Referencing & Stable Tree Analysis
 
-**Step 6.1:** Code in stable trees
-Record: Buggy code present in v6.11 through v6.18 (and v7.0). Verified
-with `git show v6.18:drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_
-core/dml2_core_dcn4_calcs.c | grep "soc.hostvm_min_page_size_kbytes,"` -
-bug exists.
+**Step 6.1 - Bug Presence in Stable Trees**
+- `init_pte_flags` field exists only in v7.0+ — verified by `git tag
+  --contains db29ddf6505f3` showing earliest tag `v7.0-rc1`
+- Pre-v7.0 stable trees (6.6.y, 6.1.y, 5.15.y, 5.10.y) do NOT have this
+  field, so this fix does not apply there and the specific bug being
+  addressed does not exist in that form there
+- Record: target stable tree for this fix is v7.0.y (matches workspace
+  path `linux-autosel-7.0`)
 
-**Step 6.2:** Backport complications
-Record: Path was renamed from `dml2/dml21/` to `dml2_0/dml21/` in commit
-`e6a8a000cfe6a` (2025-10-21). For stable trees v6.11-v6.18, the file is
-at `drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dc
-n4_calcs.c`. Each `* 1024` change applies cleanly with path translation
-- line numbers vary by tree but contexts are stable. Minor manual rework
-needed for path.
+**Step 6.2 - Backport Difficulty**
+- `amdgpu_vm_pte_update_flags()` exists unchanged in v7.0.y; the diff
+  applies cleanly
+- Record: clean apply to 7.0.y
 
-**Step 6.3:** Related fixes already in stable
-Record: No, the DML2.1 version of this fix has not been backported to
-any stable tree.
+**Step 6.3 - Related Fixes Already In Stable**
+- The companion fix at `amdgpu_vm_pt_clear()` (line 416) is part of
+  `db29ddf6505f3` which is in v7.0
+- This commit is the second half of that fix
+- Record: 7.0.y already has half of the pattern; this patch completes it
 
 ## Phase 7: Subsystem Context
 
-**Step 7.1:** Subsystem criticality
-Record: drivers/gpu/drm/amd/display - PERIPHERAL (driver-specific) but
-affects display output, which is user-visible. Users of DCN401 (Navi 4x
-discrete GPUs) and DCN42 (newer APUs) can lose display mode
-availability.
+**Step 7.1 - Subsystem Criticality**
+- `drivers/gpu/drm/amd/amdgpu` — important driver subsystem (large user
+  base for AMD GPUs)
+- This specific code path: GFX12 (RDNA4 / RX 9000 series) SVM/XNACK —
+  real shipping consumer hardware
+- Record: IMPORTANT (driver-specific, affects current AMD hardware)
 
-**Step 7.2:** Subsystem activity
-Record: Highly active subsystem with frequent DC patch series.
+**Step 7.2 - Activity**
+- amdgpu is a very active subsystem with frequent fixes
+- Record: highly active; fixes-quickly-integrated subsystem
 
-## Phase 8: Impact and Risk
+## Phase 8: Impact and Risk Assessment
 
-**Step 8.1:** Affected population
-Record: DRIVER-SPECIFIC: Users with AMD DCN401 (RX 9070, RX 9060XT etc.)
-or DCN42 hardware running v6.11+. As DCN401 is the Navi 4x architecture
-(recent consumer GPU), this is a meaningful but smaller user base than
-core fixes.
+**Step 8.1 - Affected Users**
+- GFX12.1 (RDNA4 / RX 9000 series) hardware users running compute
+  workloads with SVM/XNACK enabled (ROCm, HIP, OpenCL, etc.)
+- Record: driver-specific (GFX12 only with SVM); on other ASICs
+  `init_pte_flags == 0` so no behavior change
 
-**Step 8.2:** Trigger conditions
-Record: Triggered on every display mode validation when
-`using_dml21=true` (default). Bug manifests as "mode rejected" only when
-the actual page table level overhead matters, i.e., for high-bandwidth
-modes (high resolution + high refresh rate, multi-display). The DML2
-history shows real-world failure with "1080p eDP + 8k HDMI" combo.
+**Step 8.2 - Trigger**
+- Trigger: any unmap of a GPU buffer where the VA later gets reused
+- Reachable from unprivileged user code via standard amdgpu/KFD ioctls
+- Common in compute workloads that allocate/free buffers
+- Record: easily triggered from userspace; common in real workloads
 
-**Step 8.3:** Failure mode severity
-Record: MEDIUM-HIGH. Failure mode is display modes being rejected that
-should work. Not a crash or data corruption, but user-visible feature
-loss (e.g., user cannot enable their monitor's native resolution/refresh
-rate). On laptops with eDP + external display, may prevent multi-monitor
-configurations.
+**Step 8.3 - Severity**
+- Failure mode: PTEs faulting as no-retry that bypass the SVM/XNACK
+  handler — the handler is what makes SVM-on-demand actually work, so
+  its bypass leads to incorrect fault behavior on GPU memory accesses
+- Severity: HIGH for affected users (broken SVM/XNACK semantics on new
+  HW); MEDIUM-CRITICAL depending on workload (silent incorrect access
+  vs. application failure)
+- Record: HIGH severity for GFX12 SVM users
 
-**Step 8.4:** Risk-benefit
-Record:
-- BENEFIT: enables previously-rejected display modes for DCN401/DCN42
-  users (real-world impact demonstrated in DML2 history)
-- RISK: very low - 6 lines of arithmetic correction, well-tested in
-  mainline, identical pattern proven correct in DML2.0
-- Ratio: clearly favors backport
+**Step 8.4 - Risk/Benefit**
+- Benefit: high — fixes broken SVM on current shipping AMD hardware
+- Risk: very low — single OR with a field that is 0 on every other ASIC;
+  mirrors a sibling site already in the tree
+- Record: clear net positive for backport
 
 ## Phase 9: Final Synthesis
 
-**Step 9.1:** Evidence
-FOR backporting:
-- Small, surgical, obviously correct fix (just `* 1024`)
-- Bug present in stable trees v6.11+
-- Same fix pattern proven correct via DML2.0 history (revert/re-apply
-  cycle confirmed `*1024` is right)
-- Tested-by, Reviewed-by from AMD team
-- Real user-visible impact demonstrated historically (modes failing to
-  light up)
-- Bug already in mainline since April 2026
-- Fix is mathematical - no behavioral risk
+**Evidence FOR backport**
+- Real bug on real shipping GFX12 hardware (RX 9000 / RDNA4) with
+  SVM/XNACK
+- Trivial 2-line fix; mirrors existing pattern (`amdgpu_vm_pt_clear`) at
+  line 416 of the same file
+- Reviewed by Philip Yang (amdkfd) and signed by Alex Deucher (amdgpu
+  maintainer)
+- Buggy template inconsistency was introduced in v7.0-rc1 by
+  `db29ddf6505f3`; lands cleanly in v7.0.y
+- On non-GFX12 ASICs `init_pte_flags == 0` → guaranteed no behavior
+  change there
+- Reachable via standard userspace ioctls (BO unmap → VA reuse)
 
-AGAINST:
-- No Cc: stable tag from authors
-- Smaller user base (DCN401/DCN42 specific hardware)
-- Path requires translation for older stable trees (`dml2_0/dml21/` ->
-  `dml2/dml21/`)
-- The DML2 version of this fix had a turbulent revert history (though
-  ultimately confirmed correct)
+**Evidence AGAINST backport**
+- No `Fixes:` or `Cc: stable` tag (expected per pipeline rules; not a
+  negative signal)
+- Lore discussion could not be fetched for further verification
+  (UNVERIFIED)
+- Does NOT apply to pre-v7.0 stable trees (no `init_pte_flags` field
+  there); only relevant to 7.0.y
 
-UNRESOLVED:
-- Could not run b4 dig successfully (patch too recent for indexing)
-- Could not verify whether AMD will explicitly nominate this for stable
-  in a follow-up
+**Stable Rules Checklist**
+1. Obviously correct & tested: yes — mirrors a sibling site, very small
+   change, signed off by maintainers
+2. Fixes a real bug: yes — fault-handler bypass on GFX12 SVM/XNACK
+3. Important issue: yes — broken VA-reuse semantics on shipping hardware
+4. Small and contained: yes — single hunk, ~2 lines logic
+5. No new features/APIs: yes — pure consistency fix
+6. Applies to stable: yes for 7.0.y (clean), N/A for older
 
-**Step 9.2:** Stable rules checklist
-1. Obviously correct? YES - simple multiplication, function clearly
-   expects bytes (thresholds in bytes)
-2. Fixes real bug affecting users? YES - mode validation incorrectly
-   rejects valid modes
-3. Important issue? MEDIUM - prevents some display modes from working,
-   similar pattern caused 1080p+8k failure in DML2
-4. Small and contained? YES - 6 lines, single file
-5. No new features/APIs? YES - pure fix
-6. Applies to stable? YES with minor path translation for v6.11-v6.18
-
-**Step 9.3:** Exception categories
-Not in special exception categories, but qualifies as a regular bug fix.
-
-**Step 9.4:** Decision
-The fix is small, surgical, obviously correct, well-tested, and
-addresses a real bug that affects users of recent AMD GPU/APU hardware.
-The historical precedent in DML2.0 (where the same `*1024` correction
-was eventually applied to stable after extensive testing confirmed it
-was right) strengthens confidence. The risk of regression is minimal
-given the trivial nature of the change.
+**Decision**
+This is a small, surgical, maintainer-reviewed fix that closes a
+hardware-correctness gap on shipping AMD GPUs (GFX12 SVM/XNACK) by
+mirroring an already-applied pattern in the same file. The matching
+companion fix is already in 7.0, so this completes that work. Risk is
+essentially nil on non-GFX12 hardware (zero OR'd in).
 
 ## Verification
 
-- [Phase 1] Parsed tags: Reviewed-by (Austin Zheng), Tested-by (Dan
-  Wheeler), no Fixes/Cc:stable - verified by reading commit message
-- [Phase 2] Diff analysis: confirmed 6 hunks, all `* 1024` multiplier
-  additions in single file - verified by reading patch
-- [Phase 3] git log + git show: bug code present since `70839da636050`
-  (v6.11, 2024-04-19) - verified
-- [Phase 3] git show 22136ff27c4e0: original DML2 fix with `Cc:
-  stable@vger.kernel.org` did same `*1024` change - verified
-- [Phase 3] git show bf282eb92b8: revert-of-revert for DML2 because
-  *1024 absence broke "1080p eDP + 8k HDMI" - verified
-- [Phase 3] git show e6a8a000cfe6a: path renamed `dml2/dml21/` ->
-  `dml2_0/dml21/` in 2025-10-21 - verified
-- [Phase 3] Local file read at line 1565: `CalculateHostVMDynamicLevels`
-  checks `< 2048`, `< 1048576` (bytes thresholds) - verified
-- [Phase 4] WebFetch lore archive: found patch 11/22 of "DC Patches
-  April 02, 2026" thread - verified
-- [Phase 4] b4 dig -c bd8001acfa62b: failed to find (patch too recent) -
-  acknowledged
-- [Phase 5] Grep for using_dml21: confirmed DML2.1 active for
-  DCN401/DCN42 with `dce_version >= DCN_VERSION_4_01` - verified
-- [Phase 6] git show
-  v6.18:.../dml2/dml21/src/.../dml2_core_dcn4_calcs.c: bug present in
-  v6.18 - verified
-- [Phase 6] git show
-  v6.12:.../dml2/dml21/src/.../dml2_core_dcn4_calcs.c: bug present in
-  v6.12 - verified
-- [Phase 6] dml2_0/display_mode_core.c grep: confirmed `*1024` already
-  applied for DML2.0 - verified
-- [Phase 7] DCN_VERSION_4_01 grep: confirmed dce_version usage gates
-  DML2.1 to DCN401+ hardware - verified
-- UNVERIFIED: Exact mailing list discussion URL - the patch is indexed
-  at lists.freedesktop.org (got the patch text), but lore.kernel.org has
-  not yet indexed it (b4 dig failure)
-- UNVERIFIED: Whether reviewers explicitly suggested stable backport -
-  did not find direct discussion
+- [Phase 1] Parsed commit message tags and body: identified Reviewed-by
+  Philip Yang, Signed-off-by Alex Deucher; no syzbot, no Fixes
+  (expected)
+- [Phase 2] Read diff and surrounding code at `amdgpu_vm_pt.c:679-721`:
+  confirmed single hunk in `amdgpu_vm_pte_update_flags()`, change is
+  `flags |= AMDGPU_PTE_EXECUTABLE | adev->gmc.init_pte_flags`
+- [Phase 2] Read `amdgpu_vm_pt.c:361-418` to verify the sibling site
+  `amdgpu_vm_pt_clear()` already uses the same template at line 416
+  (`flags = AMDGPU_PTE_EXECUTABLE | adev->gmc.init_pte_flags`)
+- [Phase 3] `git log --oneline --grep="PTE init flag" master` → found
+  `db29ddf6505f3`
+- [Phase 3] `git show db29ddf6505f3` → confirmed it added
+  `init_pte_flags` field, set `init_pte_flags = AMDGPU_PTE_IS_PTE` for
+  GFX12.1, and updated only `amdgpu_vm_pt_clear()` (not
+  `amdgpu_vm_pte_update_flags()`)
+- [Phase 3] `git tag --contains db29ddf6505f3` → earliest tag `v7.0-rc1`
+  — confirms bug lives in v7.0+ only
+- [Phase 3] `git log --oneline --
+  drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c` → no other intermediate
+  fixes between `db29ddf6505f3` and HEAD
+- [Phase 4] `b4 dig -c 9d47b2c36b9a6c6b844c33cab407a5d7ad102234` → SHA
+  not in this repo (cherry-pick hash from elsewhere)
+- [Phase 4] `b4 dig -c db29ddf6505f3` → no lore match found
+- [Phase 4] WebFetch / curl to lore.kernel.org → blocked by Anubis bot
+  challenge / 403 — UNVERIFIED for original mailing list discussion
+  content
+- [Phase 5] `Grep AMDGPU_PTE_EXECUTABLE` and `Grep AMDGPU_PTE_IS_PTE`
+  and `Grep init_pte_flags` across `drivers/gpu/drm/amd` → confirmed
+  only two leaf-clear template sites; `init_pte_flags` is only set non-
+  zero for GFX12.1 (`gmc_v12_0.c:643`)
+- [Phase 5] Read `amdgpu_vm_pt.c:880-921` → verified caller chain:
+  `amdgpu_vm_update_ptes` → `amdgpu_vm_pte_update_flags`
+- [Phase 5] `Grep amdgpu_vm_clear_freed` and read
+  `amdgpu_vm.c:1548-1577` → confirmed `amdgpu_vm_clear_freed` calls
+  `amdgpu_vm_update_range` with flags=0, hitting the patched `else if`
+  branch
+- [Phase 6] `git tag --contains db29ddf6505f3` → confirms
+  `init_pte_flags` only in v7.0+; older stable trees lack the field, fix
+  is not applicable to them
+- [Phase 6] Read of HEAD source confirms `amdgpu_vm_pte_update_flags`
+  exists unchanged in v7.0.1 → diff applies cleanly
+- [Phase 8] Bug mechanism verified via commit body + code: leaf-clear
+  template inconsistency on GFX12 → no-retry faults bypass SVM/XNACK
+  handler on VA reuse
+- UNVERIFIED: original lore discussion (lore blocked by anti-bot)
+- UNVERIFIED: independent reproduction reports / bug-report links (none
+  in commit body)
 
-The fix meets all stable kernel criteria: it is obviously correct, fixes
-a real bug affecting users of recent AMD hardware, is small and
-contained (6 lines, one file), introduces no new features, and applies
-to stable with only minor path translation. The historical DML2
-precedent strongly supports correctness and the user-visible impact.
+The fix is small, obviously correct, addresses a real hardware-
+correctness bug on current AMD GPUs, mirrors a sibling site already in
+v7.0, and is essentially a no-op on non-GFX12 ASICs. It is appropriate
+for the v7.0.y stable tree.
 
 **YES**
 
- .../dml21/src/dml2_core/dml2_core_dcn4_calcs.c       | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-index ca5ac3c0deb56..cdd7c771afff9 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-@@ -7381,7 +7381,7 @@ static noinline_for_stack void dml_core_ms_prefetch_check(struct dml2_core_inter
- 		s->tdlut_bytes_per_group,
- 		s->HostVMInefficiencyFactor,
- 		s->HostVMInefficiencyFactorPrefetch,
--		mode_lib->soc.hostvm_min_page_size_kbytes,
-+		mode_lib->soc.hostvm_min_page_size_kbytes * 1024,
- 		mode_lib->soc.qos_parameters.qos_type,
- 		!(display_cfg->overrides.max_outstanding_when_urgent_expected_disable),
- 		mode_lib->soc.max_outstanding_reqs,
-@@ -7477,7 +7477,7 @@ static noinline_for_stack void dml_core_ms_prefetch_check(struct dml2_core_inter
- 			CalculatePrefetchSchedule_params->OutputFormat = display_cfg->stream_descriptors[display_cfg->plane_descriptors[k].stream_index].output.output_format;
- 			CalculatePrefetchSchedule_params->MaxInterDCNTileRepeaters = mode_lib->ip.max_inter_dcn_tile_repeaters;
- 			CalculatePrefetchSchedule_params->VStartup = s->MaximumVStartup[k];
--			CalculatePrefetchSchedule_params->HostVMMinPageSize = mode_lib->soc.hostvm_min_page_size_kbytes;
-+			CalculatePrefetchSchedule_params->HostVMMinPageSize = mode_lib->soc.hostvm_min_page_size_kbytes * 1024;
- 			CalculatePrefetchSchedule_params->DynamicMetadataEnable = display_cfg->plane_descriptors[k].dynamic_meta_data.enable;
- 			CalculatePrefetchSchedule_params->DynamicMetadataVMEnabled = mode_lib->ip.dynamic_metadata_vm_enabled;
- 			CalculatePrefetchSchedule_params->DynamicMetadataLinesBeforeActiveRequired = display_cfg->plane_descriptors[k].dynamic_meta_data.lines_before_active_required;
-@@ -8965,7 +8965,7 @@ static bool dml_core_mode_support(struct dml2_core_calcs_mode_support_ex *in_out
- 	CalculateVMRowAndSwath_params->MALLAllocatedForDCN = mode_lib->soc.mall_allocated_for_dcn_mbytes;
- 	CalculateVMRowAndSwath_params->SwathWidthY = mode_lib->ms.SwathWidthY;
- 	CalculateVMRowAndSwath_params->SwathWidthC = mode_lib->ms.SwathWidthC;
--	CalculateVMRowAndSwath_params->HostVMMinPageSize = mode_lib->soc.hostvm_min_page_size_kbytes;
-+	CalculateVMRowAndSwath_params->HostVMMinPageSize = mode_lib->soc.hostvm_min_page_size_kbytes * 1024;
- 	CalculateVMRowAndSwath_params->DCCMetaBufferSizeBytes = mode_lib->ip.dcc_meta_buffer_size_bytes;
- 	CalculateVMRowAndSwath_params->mrq_present = mode_lib->ip.dcn_mrq_present;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+index 31a437ce95704..a930f1522f962 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+@@ -693,8 +693,11 @@ static void amdgpu_vm_pte_update_flags(struct amdgpu_vm_update_params *params,
+ 		   !(flags & AMDGPU_PTE_VALID) &&
+ 		   !(flags & AMDGPU_PTE_PRT_FLAG(params->adev))) {
  
-@@ -10755,7 +10755,7 @@ static bool dml_core_mode_programming(struct dml2_core_calcs_mode_programming_ex
- 	CalculateVMRowAndSwath_params->MALLAllocatedForDCN = mode_lib->soc.mall_allocated_for_dcn_mbytes;
- 	CalculateVMRowAndSwath_params->SwathWidthY = mode_lib->mp.SwathWidthY;
- 	CalculateVMRowAndSwath_params->SwathWidthC = mode_lib->mp.SwathWidthC;
--	CalculateVMRowAndSwath_params->HostVMMinPageSize = mode_lib->soc.hostvm_min_page_size_kbytes;
-+	CalculateVMRowAndSwath_params->HostVMMinPageSize = mode_lib->soc.hostvm_min_page_size_kbytes * 1024;
- 	CalculateVMRowAndSwath_params->DCCMetaBufferSizeBytes = mode_lib->ip.dcc_meta_buffer_size_bytes;
- 	CalculateVMRowAndSwath_params->mrq_present = mode_lib->ip.dcn_mrq_present;
+-		/* Workaround for fault priority problem on GMC9 */
+-		flags |= AMDGPU_PTE_EXECUTABLE;
++		/* Workaround for fault priority problem on GMC9 and GFX12,
++		 * EXECUTABLE for GMC9 fault priority and init_pte_flags
++		 * (e.g. AMDGPU_PTE_IS_PTE on GFX12)
++		 */
++		flags |= AMDGPU_PTE_EXECUTABLE | adev->gmc.init_pte_flags;
+ 	}
  
-@@ -10971,7 +10971,7 @@ static bool dml_core_mode_programming(struct dml2_core_calcs_mode_programming_ex
- 		s->tdlut_bytes_per_group,
- 		s->HostVMInefficiencyFactor,
- 		s->HostVMInefficiencyFactorPrefetch,
--		mode_lib->soc.hostvm_min_page_size_kbytes,
-+		mode_lib->soc.hostvm_min_page_size_kbytes * 1024,
- 		mode_lib->soc.qos_parameters.qos_type,
- 		!(display_cfg->overrides.max_outstanding_when_urgent_expected_disable),
- 		mode_lib->soc.max_outstanding_reqs,
-@@ -11264,7 +11264,7 @@ static bool dml_core_mode_programming(struct dml2_core_calcs_mode_programming_ex
- 			CalculatePrefetchSchedule_params->OutputFormat = display_cfg->stream_descriptors[display_cfg->plane_descriptors[k].stream_index].output.output_format;
- 			CalculatePrefetchSchedule_params->MaxInterDCNTileRepeaters = mode_lib->ip.max_inter_dcn_tile_repeaters;
- 			CalculatePrefetchSchedule_params->VStartup = s->MaxVStartupLines[k];
--			CalculatePrefetchSchedule_params->HostVMMinPageSize = mode_lib->soc.hostvm_min_page_size_kbytes;
-+			CalculatePrefetchSchedule_params->HostVMMinPageSize = mode_lib->soc.hostvm_min_page_size_kbytes * 1024;
- 			CalculatePrefetchSchedule_params->DynamicMetadataEnable = display_cfg->plane_descriptors[k].dynamic_meta_data.enable;
- 			CalculatePrefetchSchedule_params->DynamicMetadataVMEnabled = mode_lib->ip.dynamic_metadata_vm_enabled;
- 			CalculatePrefetchSchedule_params->DynamicMetadataLinesBeforeActiveRequired = display_cfg->plane_descriptors[k].dynamic_meta_data.lines_before_active_required;
+ 	/*
 -- 
 2.53.0
 
