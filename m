@@ -4,173 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49324FF885D
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 12:20:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F5E3FF8868
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 12:20:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A659310E32C;
-	Tue, 28 Apr 2026 12:19:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB01110E359;
+	Tue, 28 Apr 2026 12:20:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=deller@gmx.de header.b="neTM6012";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="D47eNbaz";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6612D10E32C
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 12:19:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1777378795; x=1777983595; i=deller@gmx.de;
- bh=5RzPIji8EqdMzLohsKgC3B+xnP6oDuG+qf2TyNGIpNo=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
- References:From:In-Reply-To:Content-Type:
- Content-Transfer-Encoding:cc:content-transfer-encoding:
- content-type:date:from:message-id:mime-version:reply-to:subject:
- to;
- b=neTM6012yZzQUn6//E6vrZmA4cwgM7x9NZYQ9YorCIlifWOdodn9+0jq82P+vORR
- mnKCwJfdxZHzSqDoO36bZGXKoJWKQmnbVghKGBE7IeUKVOAHVWITeutKVNHmvLN28
- 7/R4jPtS2loEzlBu2ShLg8gDiw81z0QY0SL4/xhGewattEK5Feo2wpnmAZmNTJnZ8
- n1my80cSGHT6iZq2lg6zgOo1VUQeH9/3MuzvoqI+8zoQpUOUpCX/VhgQeHg+p9pEv
- P32mrS1+aUZZASNBTF/DiugJfVdQqnzRrJFzYABiREGwdCHGI42OxCa3Odo4DKLLw
- h8sdw7SE9C0V/QNcew==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MiacH-1vfu1s0ij1-00nF5D; Tue, 28
- Apr 2026 14:19:55 +0200
-Message-ID: <ecc5e3c3-5afd-4c14-914c-8714b9278fa4@gmx.de>
-Date: Tue, 28 Apr 2026 14:19:54 +0200
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013029.outbound.protection.outlook.com
+ [40.107.201.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5745110E359
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 12:20:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GXltW8nxglz/8pGGVKEqAzINM+QrWLdazdSPaQGX23E5mt9P/swQdpUqdM21yS3C7l/wWDcklkm8xoW0RUO2lf3kjakBR+DB7m6otHg16DpRkT+2A07bRMNGtKIYhePYbJZ2Ht1zqlNAH+ce/vzOSkLhbi+VpX6eGBRzlIKaw27vDBjMm8abphtN+UXiM8BxCl0P04yd2lLR6r8UxsLRWjLOo8MgICXPwPhYyrchUZ5i/cUdOO9PyGuZoqXs+8CiwlnFm8gStWYyW3Tc1D9WkdePU4RSjyTawEIH0ER3+aA5fSEVydDDjdTwMnXgUUC3LXqdGVpsKrrJNTS9h0qRfw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UhOWJwII4ORqpVG15FHj9jAMQxJTGemYDQms9hqgNGU=;
+ b=ZXsC194ZKvn9AgD7+AxxiEwR8OgY1ikQmrVIr7GZlpmPtbcT0b2LptqbHhQNTMMVL5V9jkVJUX6aGgw7+TdFp4h5FebBulZEvCQbU7+I+ef+HGtoUCVQ6vwQqNWUNOOz/x2i4eV6flcO+IAxotzlUgd3ysTxXSkMZYOs+SuBvKB7va0a+WHYYlRlnYfUePxEamUvPZ+aX7HNZhD2Wzp+3WO8siiG/qowaDyfqGQqeSjr/t61bcqB6d7pBy47WdlygQNxdXLBwIgY3VA1iRkCWabup11kM+9zKyEiib72JuEfJvJm8yVJr1+WEzFDHbFXG5wTxmfnfY062payrlSjpg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UhOWJwII4ORqpVG15FHj9jAMQxJTGemYDQms9hqgNGU=;
+ b=D47eNbaz1tq8WiYe6AF2UCcsBsURGYLI/Nq+olFfdv1rErqG6SGLY1hYoJH3iMBG+XCX6Qda1kxSBSKtgPJ0ykUZxPrmdDRqaDT754LbSfl/npIKJrjNyIgTo/sY8JsVtcHKiWswY+cZ+tZq8DFVOj8VWR5DXWEi9y69md4xTeJuPCMCcQi7gCHpjl2e0fjyg7aedCOxKSHaXchY/kha3V1KzJIVtFB/O8LpiJ6fCI1FBelfBAbad1tQI4KylbuoIfmo0N2kd9BcRE8XEfdjAFebAoO+/f48UDU9T3ApDi+wsxdMhtzwpDDk+403uFSMGgTiVYdIqZisFKd/JbEWRQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
+ by SJ2PR12MB8807.namprd12.prod.outlook.com (2603:10b6:a03:4d0::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.16; Tue, 28 Apr
+ 2026 12:20:37 +0000
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.20.9870.013; Tue, 28 Apr 2026
+ 12:20:37 +0000
+From: Eliot Courtney <ecourtney@nvidia.com>
+Date: Tue, 28 Apr 2026 21:20:21 +0900
+Subject: [PATCH] rust: drm: fix unsound initialization in drm::Device::new
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260428-fix-drm-1-v1-1-755057178066@nvidia.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDEyML3bTMCt2UolxdQ10TU8skM2NT85RUI2MloPqColSgJNis6FgIv7g
+ 0KSs1uQRkAFRFUWphKdCSEqiy2loAvgktqoIAAAA=
+X-Change-ID: 20260428-fix-drm-1-459b6357de23
+To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>
+Cc: Alexandre Courbot <acourbot@nvidia.com>, 
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Eliot Courtney <ecourtney@nvidia.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: TYWPR01CA0007.jpnprd01.prod.outlook.com
+ (2603:1096:400:a9::12) To BL0PR12MB2353.namprd12.prod.outlook.com
+ (2603:10b6:207:4c::31)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] lib/fonts: Fix bit position when rotating by 180 degrees
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org
-References: <20260428083025.63663-1-tzimmermann@suse.de>
-Content-Language: en-US
-From: Helge Deller <deller@gmx.de>
-Autocrypt: addr=deller@gmx.de; keydata=
- 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
-In-Reply-To: <20260428083025.63663-1-tzimmermann@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:pMF3H5Nh3oE/+KqTXLFCBrEnirZsM/IFn0+oa7KNZ5iJ4KtgsmA
- iQ4lYTAegulCno6+HXpyj6IwSETOS4RNQse0w+GJ5qQ3F7pko/ALPtQ/Zus2FjSgDnwRqCN
- U7n08KJXSpgXRtjVd49GDCdO02Cll5bYnyCB68YCieu22pq40fM7y6Vgig5B9pQGeRm6o5G
- Pht1eI2bnjdaG8+YPDGlQ==
-UI-OutboundReport: notjunk:1;M01:P0:R/pygIvY/18=;u1CH+SdIY7zl6X/Yz33PV9zKXh0
- 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
- qN1ZC3UIced4XfnD9n1oHz5Gq1pcOmOVpZvE=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|SJ2PR12MB8807:EE_
+X-MS-Office365-Filtering-Correlation-Id: be2cb56d-64e4-4d5e-124a-08dea5208de4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|7416014|10070799003|921020|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: euzS+ikD08CIdBwM0advOE0XH2apOxjZe7up/A8Rj0HWT5L741PRh5ys1WiK2I1eaFeJLx1Rrww6XYHlRQnKmYOwF4Bl52g56/Y6mlHyFwGTwk8aoyZWu1cn/5UQS1gpQyLq0Ixv4F+qpBqYntuRM68ii2Tj5ssVBOD6JsgUef0UQ7ajrDLQ7zrA4l8J5wvAv/RmOuGCTXKBVkP4HAy3YPubQ7MFs4ZhtKG87KsMZjpVQLdMrsACDmwmiAPivX+idIRYQ1dNzi1bWyVbyTlz85HhgXVLeyuzLXDA1khIXctIa5SPrThl54RhGqYklOS/R4PHxYOL7uloDS9B7jbODOc0y/9oYVrxM0kE3A1peC+IZSJt8Guzqcrq5TlaMVC78gnU4nQbMyPn2PsncR3t1hnhcSoHSE04o4fZiU6tMzG9jgMMNAw9OO6u4sARQW5hJpGW4dqnVcEFHlIJTkQ/Zk9zogMWqZAjQ7dJX3HPFYpxRzr/L4i77Pqb2F6dMmjNE6Lic2i4fkyyegGyhw7mSzAzfh4KewTHotz1oyJGRhdOwyp1xvKPE5XHLrrvrBkwAIXnfRaNUWAVJKgnxioVhxrullw0zc2Q5fXIHp0qlwHam6ha6E1fnkAsXyevFRdQB/fvf+K0PImgRvHTBB10EVBt8/YS2SRyXKMoN42AtsqHPR9uqbHAzcbxikKnNRuFBEf1Y8MlGiLJtNZuwRa5NaOivXmad5Mcc+pwk/MNvfLGQGO+c8o4eXbOXgdIiW7pbkwfdHwggCAQE+MRRGaOxQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(7416014)(10070799003)(921020)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TnhSL3J5eXY0MTZqNXg1eloreWM1UGNhNFR4TzRyY0x4UHZ4WnRETG5jaytK?=
+ =?utf-8?B?UVpUZlhhSnFUcFBhZ21DTlZjcVR6U3RhSFd5bU8yMTBFR3Z3T2x5SUpCcGdT?=
+ =?utf-8?B?ZVBtRHNqNHM0SkQxQjJScloySUJBN25IdzB5ci9vbTRPVXNmM0J3RjNHS1Ay?=
+ =?utf-8?B?UE56YktUMjJxQjhWOHhnQ3ZpdXU0NlQzLzlJOWZUeGhiQzRYWXhtNUJBYkRm?=
+ =?utf-8?B?VG9mNkV6Ti9jM2E3ZVhrQ212bXRtTjhJSmNCRFJwZkx2WGZZaDhVb0Nna3dD?=
+ =?utf-8?B?S3hZMTdiZm5TOWlJTnR3R2xyWVNVM2ZnL1hDV3pnVFdrZmVzcmVHenN2aFFy?=
+ =?utf-8?B?TW1iZ3ZRL1FBZWtWUkhhVEo1Tkt5NUx4RXoxYTh1aE5EU2N5QXdtc2lVbkJR?=
+ =?utf-8?B?TkYvalRXY0c4aXcvQlpzQ3ZHQWhFdmxkTmljalZ0NzQwSUxiR1RlNkRWSGpG?=
+ =?utf-8?B?N1U2RklEMmJLMXc3Z0cwYTZSZ1RVRWgxdWsyOU9YK1hKbkNVZDYxM3ZTMW9y?=
+ =?utf-8?B?UWZHTjFpUVg0RXgzaXBjQUQyWU8wdUFnQUpqaXJLaEI5ME85QkY3Vk40OTJ5?=
+ =?utf-8?B?dXMzeHBTV1lrbmJhb3NvK2U0RWJLeFE5NWpEUytmMlhldVRHTjdsb050WEo1?=
+ =?utf-8?B?WXA4UmdtS25LT1YxcHNaWHlqT1Fsd2Fwd2NRdHV5dFZyVW9hY0NLWDlwOWds?=
+ =?utf-8?B?TG5wNndzWEcrVjR3SUUwcnJsNFJLcS8yRDlUdXpCR0cybU5PdUJpUFpOTDZH?=
+ =?utf-8?B?dGJiQlFlRHgveS91eGlLQnpUQ3VndWFzOFhid3dORThOQW5EaWkvOThKY0Jk?=
+ =?utf-8?B?UWpxZFZxajV3MnNHKzIyd293Z2lxRk40WUxrN0NFN3RzVFBSalhScjRQZ3Nq?=
+ =?utf-8?B?aEsrVVYzL01wR3ZHQkJSbkduNU1nTytYV0wxU3NlSCtxcVNTOGdQbzFGZk5B?=
+ =?utf-8?B?M0wrL0VER3JJcm1DcHlnTTBFUmFManFzcDNiQ1BjVCtCTE90TllnNVQycmlG?=
+ =?utf-8?B?N2NmRnpRVnQyQnpqOElQcFllcUQvajdyUG5aMWs1TFFXY25XMllLVlJlZkVR?=
+ =?utf-8?B?K0tIM2VLZk02NHVxNDR1M3FESE05YTVjcWdKckJ2bXExbE1BQU0xWUNyUk16?=
+ =?utf-8?B?WTFGOXMrcHdEOTllaWIySGZ0eUJXeGxrSHl0R2ErQW9NZVFmSmZOZnlvQyt1?=
+ =?utf-8?B?d1VMU0puM2FrV1pST21LNGdCbU11eHNWRTZzdmZ6MityNFR3U0dXdG1tN2xs?=
+ =?utf-8?B?TXF0VHlOMmZQT1VDVnlSbHhJejlEdm1yQ0Q1dFd6bkRTV3pmSkFNR0lxVVdQ?=
+ =?utf-8?B?SHBmajdCbGJMTWNDZ3A2RGFrTEV2OEdkWDN0dC83eVRLTmNZaVJPQzhPOEp0?=
+ =?utf-8?B?ZUhZbjZXSmE1VHh3MnhMRWIzR1ZBYktoMHk3eXpOUzVxRGpmU1JINHc1Y0RK?=
+ =?utf-8?B?cXovNDNXTXdWcEVFdVVzQUgreUg3L3lnWC9tZjZia0pZd095R09NQUVmQnBr?=
+ =?utf-8?B?SGhkMEpGQ0w5NEV2YXFjemk1Q1RibHM4TmhpNXMyVm5ncGk3ck1jOENOellL?=
+ =?utf-8?B?QkZWajF0MFc2NzdURklvMDdIMW1oMytCbHZma3RhMm1TWVlPQ0JYNnVERFZW?=
+ =?utf-8?B?R0Z2UE9FU2JISjlJS1AvSm13MEh1TFlGWlR4ZkJzeVpSWTFYRHY0M0cyR2Jv?=
+ =?utf-8?B?ZjhFZUJRTDFkakxSamlqZ0dpdXRFc213Z3dCNzJLR1R6RTY5RUtlY3hLWVlN?=
+ =?utf-8?B?WEZhM2lMUE11Ky9pUFhkRjVGV3R2RC9zc1d4TWFXQVZVOGE5Q1YwNEV4WFZY?=
+ =?utf-8?B?b3cySEFxNVZsQTVZc1ltY3ByS25HVUdhdElOWDcwVTVnYXhTWW42cDdPV0xU?=
+ =?utf-8?B?QmhHOXRvM0RtRWZ4MnpFcUJFUm43RmlTcUhmZzFwU1pvMG14emRhTEZzci9z?=
+ =?utf-8?B?WG9VVjFCR3gvdEg3dGd4c3k4YS9JeEF4clI2d05idGh0cnJ3d0pPT0htWHNh?=
+ =?utf-8?B?NUtNc0FwSkpWVnV5K2pEckswVFc3VnlHZTJ1TSszVldORFpJZXZFd2FkLzY4?=
+ =?utf-8?B?STdMbVFxUVgwSmd5cUZlOGRySTJqYVFUTzAvd21NL205UmFiQThybGhENUxC?=
+ =?utf-8?B?NTZHUElRaFFNeTgrM2hzRHB4TGZXSzhlOTY5dTF6MHlrS1l6SHNmcmpzd2I4?=
+ =?utf-8?B?ejV3VXlnU1BhS3RrVFI4MGJjWW96TFRveDlhQmRKbVl4R2h3TmFXOW9YK3RN?=
+ =?utf-8?B?Ui8vOEpxVkc5U096ejFzcG1xUXFITjZpQnNKcHhmTlp4VTZXM2FRbHFiN2dL?=
+ =?utf-8?B?Qmw0YUVkRHAxcjJQZE1BdldFRU9TTkRDUU1lZnRFUWh1OGkxOWFIaWZUeDk4?=
+ =?utf-8?Q?Pe2iFudOoPISPbhkFgk6xRNfbH095xWmmoVY4vzx7gWD4?=
+X-MS-Exchange-AntiSpam-MessageData-1: ttkIXEgrYsPSew==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: be2cb56d-64e4-4d5e-124a-08dea5208de4
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2026 12:20:37.4013 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZkARrkGt9BLc6/yuYpLwkviieseHnwJ8cu5PW6urQiqLgWz4JVlG9GpsqCY3hoZ0k/Hxen5Btf0remtScMHWvg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8807
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -186,32 +147,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/28/26 10:28, Thomas Zimmermann wrote:
-> Fix the horizontal bit position when rotating a glyph by 180=C2=B0. The
-> original code in rotate_ud() rounded the value in width up to a
-> multiple of 8, aka the bit pitch, and calculated the rotated pixel
-> from that value. The new code stores the glyph's pitch in bit_pitch,
-> but fails to update the rotated pixel's output accordingly. Simply
-> replacing the variable does this.
->=20
-> The bug can be reproduced by setting a font with an unaligned width,
-> such as sun12x22, like this:
->=20
->   setfont sun12x22
->   echo 2 > /sys/class/graphics/fbcon/rotate
->=20
-> Without the fix, the font looks distorted.
->=20
-> Fixes: a30e9e6b018f ("lib/fonts: Refactor glyph-rotation helpers")
-> Closes: https://lore.gitlab.freedesktop.org/drm-ai-reviews/review-patch7=
--20260407092555.58816-8-tzimmermann@suse.de/
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linux-fbdev@vger.kernel.org
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> ---
->   lib/fonts/font_rotate.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+If pinned initialization of drm::Device::Data fails, it calls
+drm::Device::release via drm_dev_put. This materializes a reference to
+&drm::Device, but it's not fully constructed yet, because initializing
+`data` failed. It should not be dropped either. Instead, if pinned
+initialization fails, make sure drm::Device::release isn't called.
 
-applied.
-Thanks!
-Helge
+Fixes: 2e9fdbe5ec7a ("rust: drm: device: drop_in_place() the drm::Device in release()")
+Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+---
+ rust/kernel/drm/device.rs | 22 ++++++++++++++++------
+ 1 file changed, 16 insertions(+), 6 deletions(-)
+
+diff --git a/rust/kernel/drm/device.rs b/rust/kernel/drm/device.rs
+index adbafe8db54d..78ea0eb12535 100644
+--- a/rust/kernel/drm/device.rs
++++ b/rust/kernel/drm/device.rs
+@@ -111,6 +111,13 @@ impl<T: drm::Driver> Device<T> {
+         fops: &Self::GEM_FOPS,
+     };
+ 
++    // Use a vtable without a `release` callback until `data` is initialized, so init failure
++    // can release the DRM device without dropping uninitialized fields.
++    const ALLOC_VTABLE: bindings::drm_driver = bindings::drm_driver {
++        release: None,
++        ..Self::VTABLE
++    };
++
+     const GEM_FOPS: bindings::file_operations = drm::gem::create_fops();
+ 
+     /// Create a new `drm::Device` for a `drm::Driver`.
+@@ -120,12 +127,12 @@ pub fn new(dev: &device::Device, data: impl PinInit<T::Data, Error>) -> Result<A
+         let layout = Kmalloc::aligned_layout(Layout::new::<Self>());
+ 
+         // SAFETY:
+-        // - `VTABLE`, as a `const` is pinned to the read-only section of the compilation,
++        // - `ALLOC_VTABLE`, as a `const` is pinned to the read-only section of the compilation,
+         // - `dev` is valid by its type invarants,
+         let raw_drm: *mut Self = unsafe {
+             bindings::__drm_dev_alloc(
+                 dev.as_raw(),
+-                &Self::VTABLE,
++                &Self::ALLOC_VTABLE,
+                 layout.size(),
+                 mem::offset_of!(Self, dev),
+             )
+@@ -133,6 +140,10 @@ pub fn new(dev: &device::Device, data: impl PinInit<T::Data, Error>) -> Result<A
+         .cast();
+         let raw_drm = NonNull::new(from_err_ptr(raw_drm)?).ok_or(ENOMEM)?;
+ 
++        // SAFETY: `raw_drm` is a valid pointer to `Self`, given that `__drm_dev_alloc` was
++        // successful.
++        let drm_dev = unsafe { Self::into_drm_device(raw_drm) };
++
+         // SAFETY: `raw_drm` is a valid pointer to `Self`.
+         let raw_data = unsafe { ptr::addr_of_mut!((*raw_drm.as_ptr()).data) };
+ 
+@@ -140,15 +151,14 @@ pub fn new(dev: &device::Device, data: impl PinInit<T::Data, Error>) -> Result<A
+         // - `raw_data` is a valid pointer to uninitialized memory.
+         // - `raw_data` will not move until it is dropped.
+         unsafe { data.__pinned_init(raw_data) }.inspect_err(|_| {
+-            // SAFETY: `raw_drm` is a valid pointer to `Self`, given that `__drm_dev_alloc` was
+-            // successful.
+-            let drm_dev = unsafe { Self::into_drm_device(raw_drm) };
+-
+             // SAFETY: `__drm_dev_alloc()` was successful, hence `drm_dev` must be valid and the
+             // refcount must be non-zero.
+             unsafe { bindings::drm_dev_put(drm_dev) };
+         })?;
+ 
++        // SAFETY: `drm_dev` is still private to this function.
++        unsafe { (*drm_dev).driver = &Self::VTABLE };
++
+         // SAFETY: The reference count is one, and now we take ownership of that reference as a
+         // `drm::Device`.
+         Ok(unsafe { ARef::from_raw(raw_drm) })
+
+---
+base-commit: d9a6809478f9815b6455a327aa001737ac7b2c09
+change-id: 20260428-fix-drm-1-459b6357de23
+
+Best regards,
+--  
+Eliot Courtney <ecourtney@nvidia.com>
+
