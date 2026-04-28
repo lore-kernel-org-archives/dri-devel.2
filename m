@@ -4,98 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C498AFF886D
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 20:52:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A40AFF886D
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 20:59:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03E1810E075;
-	Tue, 28 Apr 2026 20:52:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2C4410E38A;
+	Tue, 28 Apr 2026 20:59:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="PGmyYgsA";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fdiA/DKN";
 	dkim-atps=neutral
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
- [209.85.218.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91CC510E075
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 20:52:46 +0000 (UTC)
-Received: by mail-ej1-f45.google.com with SMTP id
- a640c23a62f3a-ba51e69988aso1625370366b.0
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 13:52:46 -0700 (PDT)
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C51910E38A
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 20:59:42 +0000 (UTC)
+Received: by mail-dl1-f48.google.com with SMTP id
+ a92af1059eb24-12dca45c95fso239682c88.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 13:59:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777409982; cv=none;
+ d=google.com; s=arc-20240605;
+ b=XWxJT44eJyYk4x7Dub14T4KNkpOzgwniQTP8/YiIw2d1JlxQnvPi/SNlqs5siWeWKw
+ gOJhAcYWqUJxyvG59yRSAwqXpg0XFK2zQeHfhCRm/Pj3X2uDbxALMqpaqAZKSb3POuvV
+ fUsTyT1XG5dRiiRFjeziwkS3Mz9o78AIHiTNf2Sujf5/SYf3mzVkhTz0h5GEgxgSrrPc
+ ccgrU8m/XBAS+xP6qkgD2lBcuSjzkxhblYtkrYjVOY/fCvl4SPbwxeuCHUd2uyL2obKt
+ YiYH10PZod0W4pjK46ykeX6ks7ubkdJl1Iuf+fp1cMmbz38Mkz4iRde7CV9y3bGMPeid
+ esPw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=Dd2PviXpTrO61GEMEfbf5WqfAv6KopI9Qa5OnOzf8yg=;
+ fh=FPtcM82pMRML9g2dXQrSOrRt6qRU/s8k33WKcwOmmdw=;
+ b=V8xZFA7mtxTnokvveCl1h7XSIajPrFbaqngKo0uocxj88QbKsfrjIS7DE2WT46y6p0
+ NUvAZufZRQ0RJNxPqT2ruFdB70FwtgdYrkEUWYSAmiUB+10byrtByhw8QJKzHQZE6TXy
+ RMJcGOBtu7fkMBbmSZ8TeoAIqOdJ6Dwleo0v6maXrvxZZtX30UhYo2oIzynSW7ASpbg0
+ ikMunsKIZY/ID8sxsKfjjLwoRFfxhrScDpC10Cyq5ohR6owxOSJ5jOygHaLWL+mzaSVR
+ +qt9AF4UU5ClRs039lvkH/XwZZPOkrlrrVkqKfev5FBTzLWlcMvdy8d4nci9N2Hd/+NQ
+ 2TIQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1777409561; x=1778014361;
- darn=lists.freedesktop.org; 
+ d=gmail.com; s=20251104; t=1777409982; x=1778014782; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=m374ejHVkN8x1TuhNLKUGmcEUyzd0vEuAltwe0+QC9k=;
- b=PGmyYgsAKW/1yP0xFzI/ooEj5CcOT8e7vAEea3UAAjd6xV+jaJdBehZbtCCrHdieN/
- u07cpJMPcxFJvky0NE7Xkp9Rqd+bBUS7u30XwbzTE3DLZ8JWw3Yex5ruBja8BugPwRSy
- ekMqcTBya/rBn8v4ZuJH7/foz4vIhxLHAvZ7U=
+ bh=Dd2PviXpTrO61GEMEfbf5WqfAv6KopI9Qa5OnOzf8yg=;
+ b=fdiA/DKNOyxjk/C6KuoJx/sZ6X3zGHUT2KCAH8UtzakvELRwJwk7yK0waMQT689L3z
+ oe4eS0K4F4uoRZdDw/dvgkiH56z0rzmZ+/Cg6s/o7JeNdGczBwvQe7pobUen5WkP7m2x
+ LDgY0JZVIIuQlrWrLtw9Df84tqT/VguPRGwrKGPzxw6wxspolIXHuVa4mKLRJeJbCLnC
+ +bhS0T9qFKm4CK3V3KAvLiIqWxPOLcOzZEWAH7No0eRBitVmnBqye4Vr7ZhbEiEBjkXf
+ GWEyZujYD7yy4R9UZYLBD4E8b+M8QEuK95kvg9m3Uy2FXnRQZkIIcV16uxibT+VsCET3
+ tsnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777409561; x=1778014361;
+ d=1e100.net; s=20251104; t=1777409982; x=1778014782;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=m374ejHVkN8x1TuhNLKUGmcEUyzd0vEuAltwe0+QC9k=;
- b=bKCcq61wrMTJ/E1hJIm/G5SRsHRPs78oXNHF4rfRFhG4v/9O1Gzut3rA+zLh0cX1T0
- PQNEeJOYIQvAzr7XRg/AFPNwR9apUFsfuK7QTKyYKZ19RSEc8lbKkRZwHHnRVFXG7FLL
- 6YoK5EqPrVR2vRCorpESCqPAcn7fteXyig0nRDPeyTgdIRl7WEyc+4BDETfYHOIEys2V
- 4HNGKrEDsy5B8FU8T6Q9rRy5uaCqPJaoHzBFammjGq9YMmqSJEpe6zW60we5gz7xczcF
- s+xjkgEnhnBKlXg1FuoFl5cJWhEn0rB41pBuKNrqrh6kS9PhOwDlVGSMVqsjhb2NuBbx
- pRVA==
+ bh=Dd2PviXpTrO61GEMEfbf5WqfAv6KopI9Qa5OnOzf8yg=;
+ b=PhecSCZqyNWr7b9NbZf1WQw+NaTSAvFJ6CcR9EPTbALSofmMuuFoMlk7gILwUKDdg+
+ 4CQfjbi44Niud0vJElajb8gOzJQbI9Yp91Z8CxMAj/TpxyPejjnz93keIHXW2F/PksHc
+ UErvmZ6zbcpGxzHK7VQfni2eVEeOdLkn9PISgfKqoB3yFR67HnmoBRKarIn5UKUanMQP
+ qu94YYfkUzNB9Zq/n12jzOJ7/yAPcqLl65Rlp2yD3sIPfY3WJNheVkYw8lDphjfgq2Nd
+ rTWR7bm14Lg3pW7Xxkuiw6ONtVvzqWzI5ZuXQVD5HtgRbDvyacgFLnRLLKz0Qu8Xmdlo
+ e96w==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+8wz2Vw5B3putyk5rtrVvQIkm5BtrMvFagPzE3schSwdjp/pLrpedsUeKqgE9lwfApqctc65tc6vw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz17wYcSveftg422Huo5P1t5QUmLl/rjio1oGksJn10Hu370NFv
- CCet3ZuGiEKr+LV/fL0FNXkKWH2R7V9CxQtc/+/U2azt/spj0D6Cz8O04ptZZbxqNPPAylYN1My
- /xkd8GVC0
-X-Gm-Gg: AeBDievq7MZACpVI4Oosozx05XXFvA+Qo+YPMnEdSaX7QEgV36MB3neFNjI0lXshEO0
- E3MVWElB1xHYoumTK/puv1KDRfsumYxu0Fbe1aEUHa2nBA3t8cc2xwavNHANVnaSC1oEgvzmCqE
- zRknRzErAqwI2T+PKkS2umVYfIU5QfoTUDkUnXt34xh/Eywmmp5ckJzC5EHVSZODqR2vw+d4Zyx
- pyrQ3QhQmZpCxKfMI2RWUv9hV5YXzhKGyy8RpPS443Yg2EbPL1TuxU/0ynjPFRO+VETv9x8eE8m
- 7tfz6xAFW0WFE20sDRHq62rOc+r4jDDOHF6EsBBkf8atv7sWhCrjKvUMD73bvoSJF82IW7sTw6E
- muEfevsKCsi9gyBhJPnr8oJbWHSc39oGI4WH4Cx5IvVyVFouFMCcp7ytDexlg/dJk4BcwTOWFmp
- AEA2eHISGEwGLKcNL8b7SQNDvnXpZc8xEwZs/A/6xK3k0nUp9uOySQUOBbX0Vood+QoYIU09Ao
-X-Received: by 2002:a17:907:ca13:b0:ba4:d724:1730 with SMTP id
- a640c23a62f3a-bb8027bb403mr202823966b.20.1777409560635; 
- Tue, 28 Apr 2026 13:52:40 -0700 (PDT)
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com.
- [209.85.221.45]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bb808633631sm147125566b.13.2026.04.28.13.52.37
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Apr 2026 13:52:40 -0700 (PDT)
-Received: by mail-wr1-f45.google.com with SMTP id
- ffacd0b85a97d-446fea16729so780489f8f.3
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 13:52:37 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AFNElJ9Ozh/rNZQcfFcwyBKdyZgO6jwcRuxwD0TCQFxxS4ychQT6UQ/IhBW+aelgk8a3xGBD7C0c0ga81A8=@lists.freedesktop.org
-X-Received: by 2002:a05:6000:2f84:b0:43d:1c21:ead5 with SMTP id
- ffacd0b85a97d-4464a16848bmr8613675f8f.22.1777409557072; Tue, 28 Apr 2026
- 13:52:37 -0700 (PDT)
+ AFNElJ8RVAB4EOIBf5P3wN8eahBLLV7jBAxw7iNFc44xZxH8HpBLn7cQNKUuNbc5Enp8362LAqaLGc+qqwU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxS6LUB9YCscwFlQkZSYwwJhw9yeuctY5+y14SuO5+EfUEFkupS
+ epRI4OJIdv6kDRnxnuikZfUFfFY+3dUvWlSG5Cwpm9b9rmKC8KxeQIDWkT83NsX1mu0U3sCyusv
+ VdJg+/qLj2QLaRpoihKR4L9B83b4DIoU=
+X-Gm-Gg: AeBDievmIYlSRiXNbADwNYVqD/hrWCZy7cDEq4NZ9W/Ydr2nOewU3qavgk0OSe2T/Z/
+ k3buB31FRTR3tHEmXawtVllwuUkcZ71/3uU7P/RzxQgkAgoEPKFPvLJIo4NiUs7JiazZURqMGaJ
+ L4ilKhEVOiARRVydhh5/ffbhVuEE8zCRx7NmyGNiK9kYA17EXxKnlE3F6+gl710jzgsqusfpYae
+ sDfxI0ijOvfYm5I/QZaE6stG6HdQpEl9BU6U2hm9QpHO0peQ9tErgl0WOA/QRqIUmM8DlqHkjVE
+ sLn4rs1pI/yUZFlrLK3fg9+Gfca5+8B4cw3rNua+3x/d+4YK/cNY3p1GeFQrFuInZiug8qnbuYA
+ 4/tW5
+X-Received: by 2002:a05:7022:6290:b0:128:e6e2:0 with SMTP id
+ a92af1059eb24-12ddd54e7d0mr1034535c88.6.1777409981634; Tue, 28 Apr 2026
+ 13:59:41 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260425165751.1716569-1-zhengxingda@iscas.ac.cn>
- <CAD=FV=VXD34ZZTH4MJUtZ6xifbbjp1cLRBd_xvz=3T12G4tKYw@mail.gmail.com>
- <d9faab05aab120fee367394edcb35bd131c97646.camel@iscas.ac.cn>
- <CAD=FV=X-FUw_MqE2ufv=ngBS3ho4vg-QKokav+MeP7XAAjXUbg@mail.gmail.com>
- <151c1c1d52fce8c3b1dac3a919be3086ce3426df.camel@iscas.ac.cn>
- <CAD=FV=XPAWEiN4EFvY0sA7uEBqxpc0iiD28Y9BmpguoerG1hpg@mail.gmail.com>
- <d349eb9a8632d847eca48ece1e6c88b717dddde1.camel@iscas.ac.cn>
-In-Reply-To: <d349eb9a8632d847eca48ece1e6c88b717dddde1.camel@iscas.ac.cn>
-From: Doug Anderson <dianders@chromium.org>
-Date: Tue, 28 Apr 2026 13:52:25 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=USy4DWrkKrhqbUGR5JWJzcJz_J1PVt0Z=o_LVn_iON-w@mail.gmail.com>
-X-Gm-Features: AVHnY4LgWSJRzWB0fzS8RfQGwiEMjDHAlIcbWfHHNuwDg0u8vOyHNSvhg_5QJiY
-Message-ID: <CAD=FV=USy4DWrkKrhqbUGR5JWJzcJz_J1PVt0Z=o_LVn_iON-w@mail.gmail.com>
-Subject: Re: [PATCH] drm/panel: himax-hx83102: restore MODE_LPM after sending
- disable cmds
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, 
+References: <20260427183854.672967-1-rdunlap@infradead.org>
+ <9ad1c4bd-6f12-41b6-b6a0-979a0de32e16@amd.com>
+In-Reply-To: <9ad1c4bd-6f12-41b6-b6a0-979a0de32e16@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 28 Apr 2026 16:59:29 -0400
+X-Gm-Features: AVHnY4Kc4F9tFfSbmQ-2NALAJAvwPREYCp2svP_K4DjkjWDSZGPqhSdOB4c-VgA
+Message-ID: <CADnq5_OSHYyEgpZzMjUzQX804a=zb3DPkkn1J3R-Q5W70_QLrQ@mail.gmail.com>
+Subject: Re: [PATCH v3] drm/amdgpu: amdgpu{_reset}.h: fix all kernel-doc
+ warnings
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Randy Dunlap <rdunlap@infradead.org>, dri-devel@lists.freedesktop.org, 
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Cong Yang <yangcong5@huaqin.corp-partner.google.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -113,127 +111,265 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+Applied.  Thanks!
 
-On Tue, Apr 28, 2026 at 9:12=E2=80=AFAM Icenowy Zheng <zhengxingda@iscas.ac=
-.cn> wrote:
+On Mon, Apr 27, 2026 at 3:09=E2=80=AFPM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
 >
-> =E5=9C=A8 2026-04-28=E4=BA=8C=E7=9A=84 08:56 -0700=EF=BC=8CDoug Anderson=
-=E5=86=99=E9=81=93=EF=BC=9A
-> > Hi,
-> >
-> > On Tue, Apr 28, 2026 at 8:53=E2=80=AFAM Icenowy Zheng
-> > <zhengxingda@iscas.ac.cn> wrote:
-> > >
-> > > =E5=9C=A8 2026-04-28=E4=BA=8C=E7=9A=84 08:48 -0700=EF=BC=8CDoug Ander=
-son=E5=86=99=E9=81=93=EF=BC=9A
-> > > > Hi,
-> > > >
-> > > > On Mon, Apr 27, 2026 at 10:49=E2=80=AFPM Icenowy Zheng
-> > > > <zhengxingda@iscas.ac.cn> wrote:
-> > > > >
-> > > > > =E5=9C=A8 2026-04-27=E4=B8=80=E7=9A=84 11:24 -0700=EF=BC=8CDoug A=
-nderson=E5=86=99=E9=81=93=EF=BC=9A
-> > > > > > Hi,
-> > > > > >
-> > > > > > On Sat, Apr 25, 2026 at 9:58=E2=80=AFAM Icenowy Zheng
-> > > > > > <zhengxingda@iscas.ac.cn> wrote:
-> > > > > > >
-> > > > > > > When preparing the panel, it seems that it always expects
-> > > > > > > commands
-> > > > > > > to be
-> > > > > > > transferred in LP mode. However, the disable function
-> > > > > > > removes
-> > > > > > > the
-> > > > > > > MIPI_DSI_MODE_LPM flag, and no other function re-adds it.
-> > > > > > >
-> > > > > > > As the unprepare function contains no DSI commands, re-
-> > > > > > > adding
-> > > > > > > the
-> > > > > > > flag
-> > > > > > > just after disabling the panel should be safe. Add the code
-> > > > > > > re-
-> > > > > > > adding
-> > > > > > > the flag after the two commands for disabling the panel are
-> > > > > > > sent.
-> > > > > > >
-> > > > > > > This fixes screen unblanking (after blanking once) on
-> > > > > > > mt8188-geralt-ciri-sku1 device.
-> > > > > > >
-> > > > > > > Cc: stable@vger.kernel.org # 6.11+
-> > > > > > > Fixes: 0ef94554dc40 ("drm/panel: himax-hx83102: Break out
-> > > > > > > as
-> > > > > > > separate driver")
-> > > > > >
-> > > > > > This "Fixes" looks wrong. The bug was still there even before
-> > > > > > the
-> > > > > > driver was broken out. ...and it looks like the driver that
-> > > > > > this
-> > > > > > was
-> > > > > > broken out of (panel-boe-tv101wum-nl6.c) still has the same
-> > > > > > bug?
-> > > > >
-> > > > > Yes, but I think the fix shouldn't be propagated to the other
-> > > > > driver
-> > > > > because of the same reason with breaking out the original
-> > > > > driver.
-> > > >
-> > > > ...but doesn't all the same logic apply to the other driver?
-> > > > Nothing
-> > > > ever adds MIPI_DSI_MODE_LPM back in.
-> > > >
-> > > > Even if you don't fix the other driver yourself right now, the
-> > > > proper
-> > > > "Fixes" tag is when the problem was introduced, not when the
-> > > > driver
-> > > > forked out.
-> > >
-> > > I think the Fixes tag should point to where the driver is forked
-> > > out,
-> > > and if I'm going to send a patch for panel-boe-tv101wum-nl6, it
-> > > will
-> > > has a Fixes tag pointing to the further commit affecting that
-> > > driver.
-> >
-> > You're free to have your own opinion, but that doesn't match my
-> > understanding of the Fixes tag. If you can convince Neil or some
-> > other
-> > drm-misc committer to land your changes with the Fixes tag as you
-> > have
-> > it, then I won't object, but I won't land it. Best of luck!
 >
-> I checked the forking commit, and the forking process doesn't involve
-> moving a `dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM` clause from the panel-
-> boe-tv101wum-nl6 driver to the panel-himax-hx83102 driver, which means
-> that this clause in the new driver is new, and shouldn't be trivially
-> backported to the old driver (because this process will affect other
-> non-hx83102 panels in that driver). Even if the unblanking issue exists
-> before the forking point, the specific code fixed by this commit is
-> created by the forking point (just by copying), instead of the previous
-> commit introducing the starry panel or the initial addition of the LPM
-> masking code to panel-boe-tv101wum-nl6 .
-
-In general in Linux drivers support more than one device. If you have
-a fix for a driver, then you make the fix. You don't couch your fix
-with "if (this_is_the_device_i_tested) do_my_fix()"
-
-Said another way, if we hadn't forked support of this panel into a
-separate driver, then you'd _have_ to be fixing to
-panel-boe-tv101wum-nl6 driver, correct? You wouldn't add a special
-case just for your panel--you'd fix it for the whole driver.
-
-Another argument here is that someone could (conceivably) still have
-an old kernel built from before the driver forked out. Maybe they care
-about supporting "panel-himax-hx83102" panels on their old kernel.
-They'd want the fix tagged so that they could find it.
-
-
-> In addition, this isn't a regression fix, so Fixes tag is only
-> informative for backporting. The previous paragraph has already proved
-> that pointing it further isn't meaningful for backporting.
-
-Sure, it's not a regression, but it's still a fix for a bug in the
-panel driver. I don't know why someone wouldn't want to backport it if
-they were using this panel.
-
--Doug
+>
+> On 4/27/26 20:38, Randy Dunlap wrote:
+> > Fix all kernel-doc warnings in amdgpu.h and amdgpu_reset.h:
+> > - Use the struct keyword for kernel-doc struct comments.
+> > - Use the correct enum names in enum amd_reset_method.
+> >
+> > This eliminates these warnings:
+> >
+> > Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:477 cannot understand
+> >  function prototype: 'struct amdgpu_wb'
+> > Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
+> >  'AMD_RESET_METHOD_LEGACY' not described in enum 'amd_reset_method'
+> > Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
+> >  'AMD_RESET_METHOD_MODE0' not described in enum 'amd_reset_method'
+> > Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
+> >  'AMD_RESET_METHOD_MODE1' not described in enum 'amd_reset_method'
+> > Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
+> >  'AMD_RESET_METHOD_MODE2' not described in enum 'amd_reset_method'
+> > Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
+> >  'AMD_RESET_METHOD_LINK' not described in enum 'amd_reset_method'
+> > Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
+> >  'AMD_RESET_METHOD_BACO' not described in enum 'amd_reset_method'
+> > Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
+> >  'AMD_RESET_METHOD_PCI' not described in enum 'amd_reset_method'
+> > Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Enum value
+> >  'AMD_RESET_METHOD_ON_INIT' not described in enum 'amd_reset_method'
+> > Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Excess enum value
+> >  '@AMD_RESET_LEGACY' description in 'amd_reset_method'
+> > Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Excess enum value
+> >  '@AMD_RESET_MODE0' description in 'amd_reset_method'
+> > Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Excess enum value
+> >  '@AMD_RESET_MODE1' description in 'amd_reset_method'
+> > Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Excess enum value
+> >  '@AMD_RESET_MODE2' description in 'amd_reset_method'
+> > Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Excess enum value
+> >  '@AMD_RESET_LINK' description in 'amd_reset_method'
+> > Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Excess enum value
+> >  '@AMD_RESET_BACO' description in 'amd_reset_method'
+> > Warning: drivers/gpu/drm/amd/amdgpu/amdgpu.h:576 Excess enum value
+> >  '@AMD_RESET_PCI' description in 'amd_reset_method'
+> >
+> > Also move the enum to amdgpu_reset.h and eventually only forward declar=
+e
+> > it in amdgpu.h. (Christian)
+> >
+> > Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+>
+> Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+>
+> > ---
+> > v2: I moved the enum to amdgpu_reset.h and then #included amdgpu_reset.=
+h
+> >     in amdgpu.h. The simpler method causes build errors.
+> > v3: rebase and resend
+> >
+> > Cc: Alex Deucher <alexander.deucher@amd.com>
+> > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > Cc: amd-gfx@lists.freedesktop.org
+> > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> > Cc: Maxime Ripard <mripard@kernel.org>
+> > Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> > Cc: David Airlie <airlied@gmail.com>
+> > Cc: Simona Vetter <simona@ffwll.ch>
+> >
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu.h       |   42 ------------
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h |   69 +++++++++++++++-----
+> >  2 files changed, 58 insertions(+), 53 deletions(-)
+> >
+> > --- linux-next-20260427.orig/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > +++ linux-next-20260427/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > @@ -464,7 +464,7 @@ int amdgpu_file_to_fpriv(struct file *fi
+> >  #define AMDGPU_MAX_WB 1024   /* Reserve at most 1024 WB slots for amdg=
+pu-owned rings. */
+> >
+> >  /**
+> > - * amdgpu_wb - This struct is used for small GPU memory allocation.
+> > + * struct amdgpu_wb - This struct is used for small GPU memory allocat=
+ion.
+> >   *
+> >   * This struct is used to allocate a small amount of GPU memory that c=
+an be
+> >   * used to shadow certain states into the memory. This is especially u=
+seful for
+> > @@ -538,44 +538,6 @@ struct amdgpu_allowed_register_entry {
+> >       bool grbm_indexed;
+> >  };
+> >
+> > -/**
+> > - * enum amd_reset_method - Methods for resetting AMD GPU devices
+> > - *
+> > - * @AMD_RESET_METHOD_NONE: The device will not be reset.
+> > - * @AMD_RESET_LEGACY: Method reserved for SI, CIK and VI ASICs.
+> > - * @AMD_RESET_MODE0: Reset the entire ASIC. Not currently available fo=
+r the
+> > - *                   any device.
+> > - * @AMD_RESET_MODE1: Resets all IP blocks on the ASIC (SDMA, GFX, VCN,=
+ etc.)
+> > - *                   individually. Suitable only for some discrete GPU=
+, not
+> > - *                   available for all ASICs.
+> > - * @AMD_RESET_MODE2: Resets a lesser level of IPs compared to MODE1. W=
+hich IPs
+> > - *                   are reset depends on the ASIC. Notably doesn't re=
+set IPs
+> > - *                   shared with the CPU on APUs or the memory control=
+lers (so
+> > - *                   VRAM is not lost). Not available on all ASICs.
+> > - * @AMD_RESET_LINK: Triggers SW-UP link reset on other GPUs
+> > - * @AMD_RESET_BACO: BACO (Bus Alive, Chip Off) method powers off and o=
+n the card
+> > - *                  but without powering off the PCI bus. Suitable onl=
+y for
+> > - *                  discrete GPUs.
+> > - * @AMD_RESET_PCI: Does a full bus reset using core Linux subsystem PC=
+I reset
+> > - *                 and does a secondary bus reset or FLR, depending on=
+ what the
+> > - *                 underlying hardware supports.
+> > - *
+> > - * Methods available for AMD GPU driver for resetting the device. Not =
+all
+> > - * methods are suitable for every device. User can override the method=
+ using
+> > - * module parameter `reset_method`.
+> > - */
+> > -enum amd_reset_method {
+> > -     AMD_RESET_METHOD_NONE =3D -1,
+> > -     AMD_RESET_METHOD_LEGACY =3D 0,
+> > -     AMD_RESET_METHOD_MODE0,
+> > -     AMD_RESET_METHOD_MODE1,
+> > -     AMD_RESET_METHOD_MODE2,
+> > -     AMD_RESET_METHOD_LINK,
+> > -     AMD_RESET_METHOD_BACO,
+> > -     AMD_RESET_METHOD_PCI,
+> > -     AMD_RESET_METHOD_ON_INIT,
+> > -};
+> > -
+> >  struct amdgpu_video_codec_info {
+> >       u32 codec_type;
+> >       u32 max_width;
+> > @@ -1373,6 +1335,8 @@ int emu_soc_asic_init(struct amdgpu_devi
+> >  #define RBIOS16(i) (RBIOS8(i) | (RBIOS8((i)+1) << 8))
+> >  #define RBIOS32(i) ((RBIOS16(i)) | (RBIOS16((i)+2) << 16))
+> >
+> > +#include "amdgpu_reset.h"
+> > +
+> >  /*
+> >   * ASICs macro.
+> >   */
+> > --- linux-next-20260427.orig/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
+> > +++ linux-next-20260427/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
+> > @@ -46,6 +46,47 @@ enum AMDGPU_RESET_SRCS {
+> >       AMDGPU_RESET_SRC_USERQ,
+> >  };
+> >
+> > +/**
+> > + * enum amd_reset_method - Methods for resetting AMD GPU devices
+> > + *
+> > + * @AMD_RESET_METHOD_NONE: The device will not be reset.
+> > + * @AMD_RESET_METHOD_LEGACY: Method reserved for SI, CIK and VI ASICs.
+> > + * @AMD_RESET_METHOD_MODE0: Reset the entire ASIC. Not currently avail=
+able for
+> > + *                          the any device.
+> > + * @AMD_RESET_METHOD_MODE1: Resets all IP blocks on the ASIC (SDMA, GF=
+X, VCN,
+> > + *                   etc.) individually. Suitable only for some discre=
+te GPU,
+> > + *                   not available for all ASICs.
+> > + * @AMD_RESET_METHOD_MODE2: Resets a lesser level of IPs compared to M=
+ODE1.
+> > + *                   Which IPs are reset depends on the ASIC. Notably =
+doesn't
+> > + *                   reset IPs shared with the CPU on APUs or the memo=
+ry
+> > + *                   controllers (so VRAM is not lost). Not available =
+on all
+> > + *                   ASICs.
+> > + * @AMD_RESET_METHOD_LINK: Triggers SW-UP link reset on other GPUs
+> > + * @AMD_RESET_METHOD_BACO: BACO (Bus Alive, Chip Off) method powers of=
+f and on
+> > + *                   the card but without powering off the PCI bus. Su=
+itable
+> > + *                   only for discrete GPUs.
+> > + * @AMD_RESET_METHOD_PCI: Does a full bus reset using core Linux subsy=
+stem
+> > + *                   PCI reset and does a secondary bus reset or FLR,
+> > + *                   depending on what the underlying hardware support=
+s.
+> > + * @AMD_RESET_METHOD_ON_INIT: Does a device reset during the driver in=
+it
+> > + *                   sequence.
+> > + *
+> > + * Methods available for AMD GPU driver for resetting the device. Not =
+all
+> > + * methods are suitable for every device. User can override the method=
+ using
+> > + * module parameter `reset_method`.
+> > + */
+> > +enum amd_reset_method {
+> > +     AMD_RESET_METHOD_NONE =3D -1,
+> > +     AMD_RESET_METHOD_LEGACY =3D 0,
+> > +     AMD_RESET_METHOD_MODE0,
+> > +     AMD_RESET_METHOD_MODE1,
+> > +     AMD_RESET_METHOD_MODE2,
+> > +     AMD_RESET_METHOD_LINK,
+> > +     AMD_RESET_METHOD_BACO,
+> > +     AMD_RESET_METHOD_PCI,
+> > +     AMD_RESET_METHOD_ON_INIT,
+> > +};
+> > +
+> >  struct amdgpu_reset_context {
+> >       enum amd_reset_method method;
+> >       struct amdgpu_device *reset_req_dev;
+> > @@ -56,6 +97,20 @@ struct amdgpu_reset_context {
+> >       enum AMDGPU_RESET_SRCS src;
+> >  };
+> >
+> > +struct amdgpu_reset_control {
+> > +     void *handle;
+> > +     struct work_struct reset_work;
+> > +     struct mutex reset_lock;
+> > +     struct amdgpu_reset_handler *(
+> > +             *reset_handlers)[AMDGPU_RESET_MAX_HANDLERS];
+> > +     atomic_t in_reset;
+> > +     enum amd_reset_method active_reset;
+> > +     struct amdgpu_reset_handler *(*get_reset_handler)(
+> > +             struct amdgpu_reset_control *reset_ctl,
+> > +             struct amdgpu_reset_context *context);
+> > +     void (*async_reset)(struct work_struct *work);
+> > +};
+> > +
+> >  struct amdgpu_reset_handler {
+> >       enum amd_reset_method reset_method;
+> >       int (*prepare_env)(struct amdgpu_reset_control *reset_ctl,
+> > @@ -72,20 +127,6 @@ struct amdgpu_reset_handler {
+> >       int (*do_reset)(struct amdgpu_device *adev);
+> >  };
+> >
+> > -struct amdgpu_reset_control {
+> > -     void *handle;
+> > -     struct work_struct reset_work;
+> > -     struct mutex reset_lock;
+> > -     struct amdgpu_reset_handler *(
+> > -             *reset_handlers)[AMDGPU_RESET_MAX_HANDLERS];
+> > -     atomic_t in_reset;
+> > -     enum amd_reset_method active_reset;
+> > -     struct amdgpu_reset_handler *(*get_reset_handler)(
+> > -             struct amdgpu_reset_control *reset_ctl,
+> > -             struct amdgpu_reset_context *context);
+> > -     void (*async_reset)(struct work_struct *work);
+> > -};
+> > -
+> >
+> >  enum amdgpu_reset_domain_type {
+> >       SINGLE_DEVICE,
+>
