@@ -4,47 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 854A2FF885D
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 10:43:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A520FF8868
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 10:43:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA71B10EAE3;
-	Tue, 28 Apr 2026 10:43:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE6D610EAE8;
+	Tue, 28 Apr 2026 10:43:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="c4jthecS";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hsyESaeA";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7309510EAE1;
- Tue, 28 Apr 2026 10:43:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A930010EAEB
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 10:43:14 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 35A44448EE;
- Tue, 28 Apr 2026 10:43:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76C8EC2BCB5;
- Tue, 28 Apr 2026 10:43:06 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 91094418C4;
+ Tue, 28 Apr 2026 10:43:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B373C2BCAF;
+ Tue, 28 Apr 2026 10:43:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777372988;
- bh=z+ubNEiGkyTvzeK84mlK5De1vxwPNmN3CCbIYOlyWaE=;
+ s=k20201202; t=1777372994;
+ bh=Znrx21NGU17OdZVXSWf/ORE426dIdVD8RmoYWbTq1oc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=c4jthecS94mhXjzorhQRDoB6Lc3gquagydnFHUhJv8mcNsYFHrPWQ7V3E9D9OlRdk
- kyq87+nN/Xzvi1GYv+rE+muLjgUblU4nY4paGXNt2rnV/YI71ocmyk4ff04VyjqhDe
- GZs/I7rKbvC9ZlssFivPZiCEAoUUyk3umpTgaYgnJFRBHtlg24DjG5AeNsE4QpAz+1
- egX3ZioUOXL+rh3lXrNJhXvROouWtNh9ffJzNW9l+4tFvjPPseMGPY10ALe3s3WiEt
- bRRQ7y6ET3BX1V+wW/iBJvywhqp/tGK4eNb/4YoCRQY4oQyiveDAnGV+FiDG9iXMkn
- BU4u0Mwy3wG1w==
+ b=hsyESaeARlgFxb+wOfumQ+uYkYC+DVEkciPkGHEKRDnosf24vNbAi56U50dOi2gyk
+ KlApiijcfGzrjytDKOOJ5w6aDi+xzfHVoIi68jKvgl+/KrVP+2OmiSnN3keAzx0rL0
+ FWJEroWieuKDjiOAm76QlOyyws3iqpprw/Ld8d3Wbq9BTeNTM9oBeCaWpTRErB2PIl
+ pA35yg6sSAyk1ettYBoIsycci8BJUFgCVmUsgITLMJokWouCKwD2TesgjRHYckiuVD
+ xx1A44RLz9BuGnifyeYuOki9R8UBq7Q24lqxfQAo3RSQTviNoaGxk9fVO0VFdicFb5
+ fpFhkwsCVBHGQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Alex Hung <alex.hung@amd.com>, "Sun peng (Leo) Li" <sunpeng.li@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Dan Wheeler <daniel.wheeler@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- harry.wentland@amd.com, Rodrigo.Siqueira@amd.com, christian.koenig@amd.com,
- Xinhui.Pan@amd.com, airlied@gmail.com, daniel@ffwll.ch,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+Cc: Artem Lytkin <iprintercanon@gmail.com>,
+ Andy Shevchenko <andriy.shevchenko@intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Sasha Levin <sashal@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
  linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0] drm/amd/display: Use overlay cursor when color
- pipeline is active
-Date: Tue, 28 Apr 2026 06:41:16 -0400
-Message-ID: <20260428104133.2858589-65-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 7.0-5.10] staging: fbtft: fix unchecked write return
+ value in fb_agm1264k-fl
+Date: Tue, 28 Apr 2026 06:41:21 -0400
+Message-ID: <20260428104133.2858589-70-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260428104133.2858589-1-sashal@kernel.org>
 References: <20260428104133.2858589-1-sashal@kernel.org>
@@ -52,6 +50,7 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 7.0.2
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,479 +67,346 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Alex Hung <alex.hung@amd.com>
+From: Artem Lytkin <iprintercanon@gmail.com>
 
-[ Upstream commit d3a549f4df7864bca8612c8bcfce1ec72b2874fb ]
+[ Upstream commit f80760f5fc02c1ab384a974097964aa8e6720331 ]
 
-Force overlay cursor mode when an underlying plane has a non-bypassed
-color pipeline to avoid incorrect cursor transformation.
+The second call to par->fbtftops.write() does not capture the return
+value, so the subsequent error check tests a stale value from the
+first write call. Add the missing assignment so the error check
+applies to the correct write operation.
 
-Reviewed-by: Sun peng (Leo) Li <sunpeng.li@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Artem Lytkin <iprintercanon@gmail.com>
+Acked-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Link: https://patch.msgid.link/20260207220523.3816-1-iprintercanon@gmail.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Now I have enough information for a comprehensive analysis.
+Now I have enough information to complete the analysis.
 
-## Phase 1: COMMIT MESSAGE FORENSICS
+## Analysis
 
-**Step 1.1: Subject line parsing**
-- Subsystem: `drm/amd/display`
-- Action verb: "Use" (implicit "fix" through "to avoid incorrect cursor
-  transformation")
-- Record: drm/amd/display - changes cursor mode selection logic when
-  underlying plane has active color pipeline
+### PHASE 1: COMMIT MESSAGE FORENSICS
 
-**Step 1.2: Tag parsing**
-- Reviewed-by: Sun peng (Leo) Li <sunpeng.li@amd.com> (AMD display
-  maintainer)
-- Signed-off-by: Alex Hung <alex.hung@amd.com> (author)
-- Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com> (AMD)
-- Tested-by: Dan Wheeler <daniel.wheeler@amd.com> (AMD)
-- Signed-off-by: Alex Deucher <alexander.deucher@amd.com> (subsystem
-  maintainer)
-- NO Fixes: tag, NO Cc: stable, NO Reported-by, NO Link
-- Record: Standard AMD development chain, reviewed and tested
-  internally, no external bug report references
+**Step 1.1** - Subject parsing:
+Record: Subsystem `staging: fbtft:`, action verb `fix`, summary:
+"unchecked write return value in fb_agm1264k-fl"
 
-**Step 1.3: Commit body analysis**
-- Bug described: Cursor in NATIVE mode is subjected to color pipeline
-  transformation of underlying plane, causing "incorrect cursor
-  transformation"
-- Solution: Force OVERLAY cursor mode (which uses dedicated DCN pipe)
-  when underlying plane has non-bypassed color pipeline
-- No version info, no stack traces, no reproduction steps
-- Record: Bug = visual incorrectness in cursor color rendering when
-  color pipeline is active. Symptom is described conceptually, not
-  concretely.
+**Step 1.2** - Tags:
+Record:
+- `Signed-off-by: Artem Lytkin <iprintercanon@gmail.com>` (author)
+- `Acked-by: Andy Shevchenko <andriy.shevchenko@intel.com>` (senior
+  reviewer, knowledgeable in staging/fbtft)
+- `Link: https://patch.msgid.link/20260207220523.3816-1-
+  iprintercanon@gmail.com`
+- `Signed-off-by: Greg Kroah-Hartman` (staging maintainer merged it)
+- NO `Fixes:` tag, NO `Reported-by:`, NO `Cc: stable`, NO `Tested-by:`
 
-**Step 1.4: Hidden bug fix detection**
-- "Use overlay cursor when..." -> "to avoid incorrect cursor
-  transformation" reveals this IS a fix, but described as enhancement
-- Record: Fixes a real correctness issue, but framed as adding new code
-  path rather than emergency fix.
+**Step 1.3** - Commit body analysis:
+Record: Author explains that the second `par->fbtftops.write()` call
+does not assign its return to `ret`. The subsequent `if (ret < 0)` check
+therefore tests a stale value from the first write. Fix adds the missing
+assignment. Clear mechanism explanation, no stack trace, no version
+info.
 
-## Phase 2: DIFF ANALYSIS
+**Step 1.4** - Hidden bug detection:
+Record: Not hidden; the commit is explicitly a "fix" and the title says
+so. The mechanism description is honest and clear.
 
-**Step 2.1: Inventory**
-- Single file: `drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c`
-- ~49 lines added, ~4 lines deleted
-- Functions modified: `dm_crtc_get_cursor_mode()`,
-  `amdgpu_dm_atomic_check()` (debug message)
-- New helper: `dm_plane_color_pipeline_active()` (static)
-- Adds `#include <drm/drm_colorop.h>`
-- Record: Surgical, single-file fix, contained.
+### PHASE 2: DIFF ANALYSIS
 
-**Step 2.2: Code flow change**
-- Before: `dm_crtc_get_cursor_mode()` only checked YUV format and scale
-  differences for overlay cursor decision
-- After: Also checks if any plane in z-order has an active (non-
-  bypassed) color pipeline
-- Two checks added: (1) trigger consider_mode_change if color pipeline
-  activity changes between old/new, (2) force OVERLAY mode when
-  underlying plane has active pipeline
-- Record: Adds new condition for selecting OVERLAY cursor mode.
+**Step 2.1** - Inventory:
+Record: Single file `drivers/staging/fbtft/fb_agm1264k-fl.c`, +1/-1
+line, single function `write_vmem()`, scope: surgical one-line fix.
 
-**Step 2.3: Bug mechanism**
-- Category: Logic/correctness fix - missing condition check
-- The native cursor (integrated in DCN hw plane) was being subjected to
-  color pipeline transformations meant for the underlying plane; this
-  corrupts cursor visual rendering
-- Fix forces overlay (separate DCN pipe) which is not subject to
-  underlying plane's color pipeline
-- Record: Visual correctness bug; not a crash/UAF/race/leak
+**Step 2.2** - Code flow change:
+Record: BEFORE: `par->fbtftops.write(par, buf, len);` — return value
+discarded. The following `if (ret < 0)` tests stale `ret` from the prior
+left-half write performed earlier in the same loop iteration.
+AFTER: `ret = par->fbtftops.write(par, buf, len);` — return captured,
+error check now applies to the correct call.
 
-**Step 2.4: Fix quality**
-- Obviously correct: Yes, mirrors existing YUV/scaling check pattern
-- Minimal/surgical: Yes
-- Regression risk: Low - only changes cursor mode selection on a
-  specific narrow condition (active color pipeline)
-- Record: High quality, well-contained.
+**Step 2.3** - Bug mechanism:
+Record: Category (g) Logic/correctness fix — wrong variable (stale)
+used; silent swallowing of errors returned by the write hook. If left
+half succeeds (ret ≥ 0) and right half fails, the error is silently
+ignored and `write_vmem()` returns 0 (success), causing the caller
+`fbtft_update_display()` to also not log its error. Silent write failure
+for the right half of the 128×64 LCD.
 
-## Phase 3: GIT HISTORY INVESTIGATION
+**Step 2.4** - Fix quality:
+Record: Fix is obviously correct; zero chance of regression. It is
+purely an error-reporting/propagation correction — no new branches, no
+new locking, no ABI change.
 
-**Step 3.1: Blame analysis**
-- The `dm_crtc_get_cursor_mode()` function was introduced in commit
-  `1b04dcca4fb1` (drm/amd/display: Introduce overlay cursor mode),
-  pre-v6.18
-- The drm_colorop infrastructure was introduced in commit
-  `cfc27680ee208` (Nov 26, 2025), present from v6.19
-- Record: The function exists since pre-6.18, but the bug only triggers
-  when color pipeline (v6.19+) is active.
+### PHASE 3: GIT HISTORY INVESTIGATION
 
-**Step 3.2: Fixes: tag - N/A, no Fixes: tag**
+**Step 3.1** - git blame on the buggy line:
+Record: The buggy line (379) was introduced by commit `b2ebd4be6fa1d2`
+("staging: fbtft: add fb_agm1264k-fl driver") by Thomas Petazzoni,
+2014-12-31 — first appearing in `v4.0-rc1`. Andy Shevchenko confirmed on
+list: "it was like that from the day 1." The bug has been present for
+~11 years in all stable trees that include this driver.
 
-**Step 3.3: Recent file history**
-- Active development on color pipeline in AMD display driver
-- Several recent color pipeline fixes: `b49814033cb52` (Fix gamma 2.2
-  colorop TFs), `a4fa2355e0add` (Enable DEGAMMA and reject
-  COLOR_PIPELINE+DEGAMMA_LUT), `18a4127e93156` (Disable CRTC degamma
-  when color pipeline is enabled)
-- Standalone fix; not part of an explicit X/Y series
-- Record: Standalone correctness fix in actively developed area
+**Step 3.2** - Follow Fixes: tag:
+Record: No Fixes: tag. Manually identified introducing commit
+`b2ebd4be6fa1d2` via git blame. That commit is present in all stable
+kernels since 4.0.
 
-**Step 3.4: Author**
-- Alex Hung is a regular AMD display contributor; numerous recent
-  commits in this area
-- Record: Trusted developer, area maintainer chain present
+**Step 3.3** - File history:
+Record: Recent changes to the file are almost all cleanups (BIT macro,
+gpio descriptors, style). The line in question has been untouched since
+2014. No series dependencies.
 
-**Step 3.5: Dependencies**
-- Requires: `<drm/drm_colorop.h>`, `for_each_oldnew_colorop_in_state`
-  macro, `drm_colorop_state` struct with `colorop`/`bypass` fields,
-  `drm_colorop` struct with `plane` field
-- All present in v6.19.14 and v7.0.1 stable trees - verified by direct
-  inspection
-- Record: All dependencies present in v6.19.y and v7.0.y; will apply
-  cleanly.
+**Step 3.4** - Author context:
+Record: Artem Lytkin has one other commit (`sm750fb: add missing
+pci_release_region`) — also a staging bug fix. Not a maintainer; a
+newcomer fixing real bugs. The Acked-by comes from Andy Shevchenko who
+is the de facto staging/fbtft reviewer.
 
-## Phase 4: MAILING LIST RESEARCH
+**Step 3.5** - Dependencies:
+Record: None. `par->fbtftops.write` and `ret` exist unchanged in all
+stable trees. Completely standalone, applies cleanly.
 
-**Step 4.1: b4 dig results**
-- `b4 dig -c d3a549f4df786`: "Could not find anything matching commit"
-- `b4 dig -c 5d09aac12d5be`: "Could not find anything matching commit"
-- Manual lore search via search engine: did not find direct submission
-  of this exact patch
-- BUT found relevant prior discussion: lists.freedesktop.org dri-devel
-  April 2025 thread - Harry Wentland confirmed: "Yes, AMD driver is
-  using the overlay cursor (entire dedicated HW pipe) for the cursor
-  when the cursor scaling doesn't match the underlying plane. **The same
-  thing can be done for color operations but it's not implemented
-  yet.**"
-- Record: This commit IMPLEMENTS the missing functionality identified
-  during the original color pipeline patch series review.
+### PHASE 4: MAILING LIST RESEARCH
 
-**Step 4.2: Reviewers**
-- Reviewed-by: Leo Li (AMD display maintainer)
-- Tested-by: Dan Wheeler (AMD QA)
-- Record: Properly reviewed by relevant maintainer.
+**Step 4.1** - b4 dig -c f80760f5fc02c:
+Record: Matched by patch-id. Lore URL: https://lore.kernel.org/all/20260
+207220523.3816-1-iprintercanon@gmail.com/. Only v1 of the patch was
+submitted; no revisions.
 
-**Step 4.3: Bug report - N/A** (no Reported-by, no Link)
+**Step 4.2** - b4 dig -w (recipients):
+Record: Artem Lytkin, Andy Shevchenko, Greg Kroah-Hartman, dri-devel,
+linux-fbdev, linux-staging, linux-kernel — appropriate maintainer/list
+coverage.
 
-**Step 4.4: Series context**
-- Standalone patch (not part of X/Y series)
-- Builds upon entire color pipeline infrastructure already in v6.19+
-- Record: Self-contained; depends only on v6.19+ infrastructure.
+**Step 4.3** - Bug report search:
+Record: No bug report link; no Reported-by; no syzbot. Bug was found by
+code inspection.
 
-**Step 4.5: Stable list - no specific discussion found**
+**Step 4.4** - Series context:
+Record: Single standalone patch. No series.
 
-## Phase 5: CODE SEMANTIC ANALYSIS
+**Step 4.5** - Stable list:
+Record: No stable mailing list discussion found. No reviewer explicitly
+suggested Cc:stable; no one objected either. Andy's comment "it was like
+that from the day 1" is an observation of longevity, not a NAK or
+objection to stable.
 
-**Step 5.1: Key functions**
-- New: `dm_plane_color_pipeline_active(state, plane, use_old)` - checks
-  for non-bypassed colorops on a plane
-- Modified: `dm_crtc_get_cursor_mode()` - cursor mode selection
-- Modified: debug message in `amdgpu_dm_atomic_check()`
+### PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Step 5.2: Callers**
-- `dm_crtc_get_cursor_mode()` is called from `amdgpu_dm_atomic_check()`
-  for every atomic commit when cursor configuration may change on AMD
-  DCN hardware
-- Affects: Every modeset/cursor update path on supported AMD DCN
-  hardware
-- Record: Reachable from userspace via DRM atomic commit syscalls
+**Step 5.1** - Modified function:
+Record: `write_vmem()` in `drivers/staging/fbtft/fb_agm1264k-fl.c`.
 
-**Step 5.3: Callees**
-- `for_each_oldnew_colorop_in_state` (DRM core macro from v6.19+)
-- `drm_atomic_get_plane_state`, `drm_atomic_plane_enabling/disabling`
-- Record: Standard DRM atomic helpers
+**Step 5.2** - Callers:
+Record: `write_vmem` is the driver's `fbtftops.write_vmem` callback
+(registered at line 432), called from `fbtft-core.c:272` in
+`fbtft_update_display()` which in turn is called from the deferred-IO
+workqueue when the framebuffer is dirtied by userspace writes.
 
-**Step 5.4: Reachability**
-- User triggers: opt-in to `DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE` AND
-  configure non-bypassed colorop on a primary plane
-- Modern Wayland compositors are adopting color pipeline API
-- Record: Reachable but requires opt-in to relatively new API
+**Step 5.3** - Callees:
+Record: `par->fbtftops.write` → `write()` local function → bit-bangs
+data onto GPIO lines. Failure path returns negative errno to
+`write_vmem()`.
 
-**Step 5.5: Similar patterns**
-- Existing YUV format check and scaling check follow same pattern
-- The fix is the third "underlying plane property" check, parallel to
-  the existing two
-- Record: Consistent with established pattern.
+**Step 5.4** - Call chain / reachability:
+Record: Userspace mmap/write to /dev/fb* → deferred IO →
+`fbtft_update_display()` → `write_vmem()` → `par->fbtftops.write()`. The
+buggy path is reached for every display refresh whenever `addr_win.xe >=
+xres/2`, i.e. almost every update of any non-empty region.
 
-## Phase 6: CROSS-REFERENCING AND STABLE TREE ANALYSIS
+**Step 5.5** - Similar patterns:
+Record: Inspected sibling fbtft drivers (fb_uc1611, fb_ssd1306,
+fb_pcd8544, etc.) — they call the central `fbtft_write_vmem16_bus8/9/16`
+helpers and don't have this specific split-half bug. The bug is unique
+to `fb_agm1264k-fl` because the AGM1264K-FL has two physically separate
+64-column halves that must be written independently.
 
-**Step 6.1: Code in stable trees**
-- `drm_colorop` infrastructure: NOT in v6.18 or earlier; PRESENT in
-  v6.19.14 and v7.0.1 (verified by `git cat-file -e`)
-- `dm_crtc_get_cursor_mode()`: present in v6.18, v6.19.14, v7.0.1
-  (verified by direct inspection)
-- The bug only manifests in v6.19+ (where colorop is operational on AMD)
-- Record: Stable trees affected: v6.19.y and v7.0.y only. Older stables
-  (v6.18, v6.12, v6.6, v6.1, v5.15, v5.10) DO NOT have the buggy code
-  path because color pipeline didn't exist.
+### PHASE 6: CROSS-REFERENCING STABLE TREES
 
-**Step 6.2: Backport difficulty**
-- `dm_crtc_get_cursor_mode()` structure identical between mainline and
-  v6.19.14/v7.0.1
-- All required infrastructure (`for_each_oldnew_colorop_in_state`,
-  `drm_colorop_state.colorop`, `drm_colorop_state.bypass`,
-  `drm_colorop.plane`) is present in v6.19.14 - verified
-- Record: Expected clean apply to v6.19.y and v7.0.y stable trees.
+**Step 6.1** - Code in stable:
+Record: The driver was added in v4.0 (commit b2ebd4be6fa1d2, Dec 2014)
+with the bug present. The buggy line has been textually unchanged since
+then. Every stable tree that contains this driver (5.4, 5.10, 5.15, 6.1,
+6.6, 6.12) has the bug.
 
-**Step 6.3: Related fixes already in stable**
-- `e180b2af2725c` (drm/amd/display: Fix gamma 2.2 colorop TFs)
-  backported to 6.19.y
-- `083f1f71a9291` (drm/amd/display: Enable DEGAMMA and reject
-  COLOR_PIPELINE+DEGAMMA_LUT) backported to 6.19.y
-- `0b26c7e819c40` (drm/atomic: convert drm_atomic_get_{old,
-  new}_colorop_state() into proper functions) backported to 6.19.y
-- Record: Strong precedent of color pipeline correctness fixes
-  backported to 6.19.y stable.
+**Step 6.2** - Backport complications:
+Record: The file has had only cosmetic/stylistic changes since 2014. The
+1-line change applies cleanly to all stable trees with no adjustments.
+Expected: clean apply.
 
-## Phase 7: SUBSYSTEM AND MAINTAINER CONTEXT
+**Step 6.3** - Related fixes already in stable:
+Record: No prior fix for this specific bug exists in stable.
 
-**Step 7.1: Subsystem**
-- DRM/AMD display - graphics driver
-- Criticality: PERIPHERAL/IMPORTANT - affects many AMD GPU users but
-  only those using new color pipeline feature
-- Record: AMD display driver - impacts user-visible rendering for users
-  who opt-in to color pipeline
+### PHASE 7: SUBSYSTEM CONTEXT
 
-**Step 7.2: Activity**
-- Heavy activity on color pipeline area; multiple recent fixes
-- Record: Very active subsystem; AMD display team actively maintaining
-  color pipeline
+**Step 7.1** - Subsystem & criticality:
+Record: `drivers/staging/fbtft/` — a staging framebuffer driver for
+obscure small LCDs. Criticality: PERIPHERAL (used mainly by hobbyists
+with the specific AGM1264K-FL 128×64 LCD).
 
-## Phase 8: IMPACT AND RISK ASSESSMENT
+**Step 7.2** - Activity:
+Record: Moderately active — mostly cleanups, occasional real bug fixes
+(e.g. `47d3949a9b04c` memory-leak fix in probe, `be26a07c61af5` build
+failure fix). Staging/fbtft sees a steady trickle of commits.
 
-**Step 8.1: Affected users**
-- AMD GPU users with DCN hardware (DCN1+, except DCN401/420 which are
-  exempt)
-- Who use compositors that opt-in to
-  `DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE`
-- Modern Wayland compositors increasingly use the new API
-- Record: Driver-specific (AMD) AND opt-in feature dependent
+### PHASE 8: IMPACT & RISK ASSESSMENT
 
-**Step 8.2: Trigger conditions**
-- Userspace must enable `DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE`
-- A non-cursor plane must have an active (non-bypassed) colorop
-- Cursor must be enabled on the same CRTC
-- Triggerable by unprivileged users via DRM atomic commit
-- Record: Relatively narrow but reachable from userspace
+**Step 8.1** - Affected users:
+Record: Only users of the `fb_agm1264k-fl` driver
+(CONFIG_FB_TFT_AGM1264K_FL), i.e., those with the AGM1264K-FL monochrome
+LCD connected via GPIO. Niche hardware, likely a small number of users.
 
-**Step 8.3: Failure mode severity**
-- Cursor undergoes incorrect color transformation -> cursor renders with
-  wrong colors/visual artifacts
-- No crash, no data corruption, no security implications, no system hang
-- Severity: MEDIUM (visual correctness only)
-- Record: Visual bug only - severity MEDIUM
+**Step 8.2** - Trigger conditions:
+Record: Triggered whenever the underlying `par->fbtftops.write()` fails
+on the right half of the display (I/O error on GPIO/SPI bus, allocation
+failure in bit-bang helper, etc.). Failures of the write hook are rare
+but real — they happen on transient hardware issues. No privilege
+required (userspace framebuffer write eventually drives this).
 
-**Step 8.4: Risk-benefit**
-- BENEFIT: Correct cursor rendering for users of color pipeline; small
-  but real correctness improvement
-- RISK: Very low - single file, ~50 lines, well-contained, reviewed by
-  AMD maintainer, tested
-- Ratio: Low-risk, moderate-benefit fix
-- Record: Favorable risk/benefit for a correctness fix
+**Step 8.3** - Failure mode severity:
+Record: When a right-half write fails: (a) no dev_err logged, (b)
+`write_vmem()` returns 0 falsely indicating success, (c)
+`fbtft_update_display()` also suppresses the error. Net effect is silent
+display corruption with no diagnostic trail. No crash, no memory
+corruption, no security impact, no hang. Severity: LOW — pure error-
+reporting/propagation bug; user-visible only as incorrect display output
+without explanation.
 
-## Phase 9: FINAL SYNTHESIS
+**Step 8.4** - Risk-benefit:
+Record: BENEFIT — low-moderate. Real users of this specific hardware
+gain proper error diagnostics when writes fail. RISK — essentially zero.
+The change is a one-line variable assignment in an error path; it cannot
+introduce new behavior when writes succeed (ret still starts 0), and it
+can only improve diagnostics when writes fail. No locking, no memory, no
+ABI changes. Ratio strongly favors backporting.
 
-**Step 9.1: Evidence compilation**
+### PHASE 9: FINAL SYNTHESIS
 
-Evidence FOR backporting:
-- Real bug fix (incorrect cursor color rendering when color pipeline
-  active)
-- Small (~49 lines), single file, surgical change
-- Reviewed-by AMD display maintainer (Leo Li)
-- Tested-by AMD QA (Dan Wheeler)
-- Clean apply to v6.19.y and v7.0.y stable (all dependencies verified
-  present)
-- Strong precedent: similar color pipeline correctness fixes already
-  backported to 6.19.y
-- Reachable from userspace via standard DRM atomic API
-- Implements functionality explicitly identified as missing during
-  original color pipeline review
+**Step 9.1** - Evidence:
 
-Evidence AGAINST backporting:
-- No Fixes: tag, no Cc: stable
-- No Reported-by from external users (only AMD internal Tested-by)
-- Color pipeline is documented under Documentation/gpu/rfc/ (RFC status)
-- Opt-in feature requiring `DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE`
-- Bug is visual-only (no crash, corruption, security)
-- Commit reads as feature enhancement rather than fix
+FOR:
+- Obviously correct 1-line fix
+- Fixes a real bug (silent write failure, false success return)
+- Acked by knowledgeable reviewer (Andy Shevchenko)
+- Zero regression risk
+- Applies cleanly to all stable trees back to v4.0
+- Clear "fix" language in subject; mechanism explained in commit message
+- Accepted by staging maintainer (Greg KH)
 
-**Step 9.2: Stable rules checklist**
-1. Obviously correct and tested? YES (Reviewed/Tested by AMD)
-2. Fixes a real bug affecting users? YES (visual correctness)
-3. Important issue? BORDERLINE (visual only, but real)
-4. Small and contained? YES (single file, ~50 lines)
-5. No new features/APIs? YES (uses existing APIs)
-6. Can apply to stable trees? YES (verified for v6.19.y and v7.0.y)
+AGAINST:
+- Staging driver (lower priority by convention)
+- Obscure hardware (small user base)
+- Bug is low severity (no crash/corruption/security)
+- No Fixes: tag, no Reported-by:, no Cc: stable
+- Bug has been dormant for 11 years with no user reports, indicating
+  hardware failures that reach this path are extremely rare
 
-**Step 9.3: Exception categories - N/A**
+UNRESOLVED: None.
 
-**Step 9.4: Decision**
-The patch represents a small, well-reviewed correctness fix for cursor
-rendering on AMD hardware when the color pipeline feature is in use.
-While the bug is visual-only (no crashes/corruption/security), the fix
-is exactly the type that has been backported to v6.19.y stable for the
-same color pipeline area (e180b2af2725c, 083f1f71a9291). The fix applies
-cleanly, has appropriate review/test signoffs, and implements a behavior
-that was explicitly identified as needed during the original color
-pipeline review. Affected stable trees are limited to v6.19.y and v7.0.y
-where the colorop infrastructure exists.
+**Step 9.2** - Stable rules checklist:
+1. Obviously correct and tested? YES — trivially correct; tested
+   implicitly by Acked-by and staging tree merge
+2. Fixes a real bug? YES — silent error swallowing in driver error path
+3. Important issue? MARGINAL — not a crash/corruption/security bug, just
+   bad diagnostics and a false success return
+4. Small and contained? YES — 1 line, 1 file, 1 function
+5. No new features/APIs? YES
+6. Applies cleanly? YES — verified 11-year-unchanged context
+
+**Step 9.3** - Exception category:
+Not strictly an exception category (not a device ID, quirk, DT update,
+build, or docs fix), so must stand on merits of being a legitimate bug
+fix.
+
+**Step 9.4** - Decision:
+The fix is obviously correct, minimal (1 line), has zero regression
+risk, and fixes a real if low-severity bug. The absence of
+crash/security/corruption severity pushes this into borderline territory
+for a staging driver; however, the "do no harm" principle of stable
+(conservative about regressions) strongly favors inclusion because there
+is literally no way this change can regress anything — it only changes
+behavior when the write hook actually returns an error, and in that case
+the new behavior is unambiguously better. This matches the profile of
+fixes that AUTOSEL routinely accepts for staging subsystems.
 
 ## Verification
 
-- [Phase 1] Parsed tags: Reviewed-by (AMD maintainer), Tested-by (AMD),
-  Signed-off-by chain through AMD maintainers; NO Fixes:, NO Cc: stable,
-  NO Reported-by, NO Link
-- [Phase 1] Commit body: describes "incorrect cursor transformation" -
-  confirms this is a fix despite enhancement-style subject
-- [Phase 2] Diff inventory verified: 1 file, ~49 insertions, ~4
-  deletions, adds `dm_plane_color_pipeline_active()` helper and modifies
-  `dm_crtc_get_cursor_mode()`
-- [Phase 2] Bug mechanism: native cursor subject to underlying plane's
-  color pipeline transformation -> wrong cursor colors; fix forces
-  overlay mode (separate DCN pipe)
-- [Phase 3] git log on file: confirmed `dm_crtc_get_cursor_mode()`
-  exists in v6.18 and forward
-- [Phase 3] git log search: identified colorop infra introduced by
-  `cfc27680ee208` (Nov 26, 2025), tagged v6.19+
-- [Phase 4] b4 dig -c d3a549f4df786: did not find lore submission
-  directly
-- [Phase 4] Web search: found prior discussion on dri-devel April 2025
-  confirming this functionality was deferred during original color
-  pipeline review
-- [Phase 5] Modified function `dm_crtc_get_cursor_mode()` callable via
-  amdgpu_dm_atomic_check from DRM atomic commit syscall
-- [Phase 6] git cat-file -e v6.19.14:include/drm/drm_colorop.h: EXISTS
-  (bug applicable)
-- [Phase 6] git cat-file -e v7.0.1:include/drm/drm_colorop.h: EXISTS
-  (bug applicable)
-- [Phase 6] git cat-file -e v6.18.24:include/drm/drm_colorop.h: NOT
-  EXISTS (bug N/A for older stables)
-- [Phase 6] Verified `for_each_oldnew_colorop_in_state` macro and
-  `drm_colorop_state.{colorop,bypass}`, `drm_colorop.plane` all present
-  in v6.19.14
-- [Phase 6] git log v6.19..v6.19.14: found e180b2af2725c, 083f1f71a9291,
-  0b26c7e819c40 already backported (precedent for color pipeline fixes)
-- [Phase 8] Failure mode: visual cursor color rendering incorrect; no
-  crash/corruption/security
-- UNVERIFIED: Could not find direct lore submission via b4 dig (commit
-  has not yet appeared in lore search index, possibly because it is a
-  recent merge)
+- [Phase 1] Read full commit message; confirmed tags: Artem Lytkin SOB,
+  Andy Shevchenko Acked-by, GKH SOB, Link to patch.msgid.link. No
+  Fixes/Reported-by/Cc:stable.
+- [Phase 2] Read `drivers/staging/fbtft/fb_agm1264k-fl.c` lines 280-392;
+  confirmed `ret` initialized to 0 at line 283; left-half assigns `ret
+  =` (line 356); right-half lacks assignment (line 379); check on line
+  380 uses stale `ret`; function returns `ret` on line 391.
+- [Phase 3.1] `git blame` on lines 370-390: line 379 (buggy code)
+  introduced in `b2ebd4be6fa1d2` on 2014-12-31.
+- [Phase 3.1] `git describe --contains b2ebd4be6fa1d2` →
+  `v4.0-rc1~82^2~274`, confirming bug present since v4.0.
+- [Phase 3.2] `git show b2ebd4be6fa1d2 --stat`: confirmed it is the
+  original driver add of 471 lines.
+- [Phase 3.3] `git log --oneline --
+  drivers/staging/fbtft/fb_agm1264k-fl.c` showed only cosmetic changes
+  since 2014; line 379 untouched by any intermediate fix.
+- [Phase 3.4] `git log --author="Artem Lytkin" --oneline` returned one
+  other commit (sm750fb pci_release_region fix) — author is a bug-hunter
+  in staging.
+- [Phase 4.1] `b4 dig -c f80760f5fc02c` matched patch-id `a8ded4803c...`
+  → lore thread https://lore.kernel.org/all/20260207220523.3816-1-
+  iprintercanon@gmail.com/.
+- [Phase 4.1] `b4 dig -c f80760f5fc02c -a`: confirmed only v1 submitted;
+  no revisions.
+- [Phase 4.1] Read the saved mbox at `/tmp/fbtft_thread.mbox`: confirmed
+  Andy Shevchenko's reply "Sounds about right, but it was like that from
+  the day 1. Acked-by: Andy Shevchenko". No NAKs, no stable nomination
+  request, no objections.
+- [Phase 4.2] `b4 dig -c f80760f5fc02c -w`: confirmed CC list includes
+  Andy, GKH, dri-devel, linux-fbdev, linux-staging, LKML.
+- [Phase 5] Grep for `write_vmem` across staging/fbtft: confirmed caller
+  is `fbtft-core.c:272` (`fbtft_update_display`), confirmed the callback
+  is registered as `.write_vmem = write_vmem` at line 432 of the driver.
+- [Phase 5] Read `fbtft-core.c:270-276`: confirmed return value is only
+  used for dev_err logging; no propagation to userspace.
+- [Phase 6] Confirmed via blame that the buggy line has been unchanged
+  since 2014; file is present and structurally similar across all stable
+  trees (5.4+).
+- [Phase 7] Read Kconfig help: driver is "FB driver for the AGM1264K-FL
+  LCD display (two Samsung KS0108 compatible chips)" — confirmed two-
+  halves architecture that is the root cause of the split-write bug.
+- [Phase 8] Failure mode verified by code inspection: silent error
+  swallowing + false success return; no crash/corruption/security
+  consequence.
+- UNVERIFIED: The exact number of users running this driver in
+  production (unknowable); did not test runtime behavior on actual
+  hardware.
 
-The fix targets a real correctness issue limited to v6.19+ stable trees,
-applies cleanly, follows the same pattern as previously backported color
-pipeline fixes, and has appropriate review/test signoffs from AMD
-maintainers.
+The commit is a trivial, obviously-correct, zero-risk one-line fix to a
+real (if low-severity) bug present in every stable tree. It meets stable
+kernel rules modulo the "important issue" criterion which is only weakly
+satisfied, but the risk-benefit ratio overwhelmingly favors inclusion
+because the fix cannot regress any working system.
 
 **YES**
 
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 53 +++++++++++++++++--
- 1 file changed, 49 insertions(+), 4 deletions(-)
+ drivers/staging/fbtft/fb_agm1264k-fl.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 2328c1aa0ead1..853e62c67375e 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -94,6 +94,7 @@
- #include <drm/drm_utils.h>
- #include <drm/drm_vblank.h>
- #include <drm/drm_audio_component.h>
-+#include <drm/drm_colorop.h>
- #include <drm/drm_gem_atomic_helper.h>
+diff --git a/drivers/staging/fbtft/fb_agm1264k-fl.c b/drivers/staging/fbtft/fb_agm1264k-fl.c
+index af2dbebefc72b..6fc8f4e9c814d 100644
+--- a/drivers/staging/fbtft/fb_agm1264k-fl.c
++++ b/drivers/staging/fbtft/fb_agm1264k-fl.c
+@@ -376,7 +376,7 @@ static int write_vmem(struct fbtft_par *par, size_t offset, size_t len)
  
- #include <media/cec-notifier.h>
-@@ -12278,6 +12279,38 @@ static int add_affected_mst_dsc_crtcs(struct drm_atomic_state *state, struct drm
-  * available.
-  */
- 
-+/**
-+ * dm_plane_color_pipeline_active() - Check if a plane's color pipeline active.
-+ * @state: DRM atomic state
-+ * @plane: DRM plane to check
-+ * @use_old: if true, inspect the old colorop states; otherwise the new ones
-+ *
-+ * A color pipeline may be selected (color_pipeline != NULL) but still is
-+ * inactive if every colorop in the chain is bypassed.  Only return
-+ * true when at least one colorop has bypass == false, meaning the cursor
-+ * would be subjected to the transformation in native mode.
-+ *
-+ * Return: true if the pipeline modifies pixels, false otherwise.
-+ */
-+static bool dm_plane_color_pipeline_active(struct drm_atomic_state *state,
-+					   struct drm_plane *plane,
-+					   bool use_old)
-+{
-+	struct drm_colorop *colorop;
-+	struct drm_colorop_state *old_colorop_state, *new_colorop_state;
-+	int i;
-+
-+	for_each_oldnew_colorop_in_state(state, colorop, old_colorop_state, new_colorop_state, i) {
-+		struct drm_colorop_state *cstate = use_old ? old_colorop_state : new_colorop_state;
-+
-+		if (cstate->colorop->plane != plane)
-+			continue;
-+		if (!cstate->bypass)
-+			return true;
-+	}
-+	return false;
-+}
-+
- /**
-  * dm_crtc_get_cursor_mode() - Determine the required cursor mode on crtc
-  * @adev: amdgpu device
-@@ -12289,8 +12322,8 @@ static int add_affected_mst_dsc_crtcs(struct drm_atomic_state *state, struct drm
-  * the dm_crtc_state.
-  *
-  * The cursor should be enabled in overlay mode if there exists an underlying
-- * plane - on which the cursor may be blended - that is either YUV formatted, or
-- * scaled differently from the cursor.
-+ * plane - on which the cursor may be blended - that is either YUV formatted,
-+ * scaled differently from the cursor, or has a color pipeline active.
-  *
-  * Since zpos info is required, drm_atomic_normalize_zpos must be called before
-  * calling this function.
-@@ -12327,7 +12360,7 @@ static int dm_crtc_get_cursor_mode(struct amdgpu_device *adev,
- 
- 	/*
- 	 * Cursor mode can change if a plane's format changes, scale changes, is
--	 * enabled/disabled, or z-order changes.
-+	 * enabled/disabled, z-order changes, or color management properties change.
- 	 */
- 	for_each_oldnew_plane_in_state(state, plane, old_plane_state, plane_state, i) {
- 		int new_scale_w, new_scale_h, old_scale_w, old_scale_h;
-@@ -12352,6 +12385,12 @@ static int dm_crtc_get_cursor_mode(struct amdgpu_device *adev,
- 			consider_mode_change = true;
- 			break;
- 		}
-+
-+		if (dm_plane_color_pipeline_active(state, plane, true) !=
-+		    dm_plane_color_pipeline_active(state, plane, false)) {
-+			consider_mode_change = true;
-+			break;
-+		}
- 	}
- 
- 	if (!consider_mode_change && !crtc_state->zpos_changed)
-@@ -12392,6 +12431,12 @@ static int dm_crtc_get_cursor_mode(struct amdgpu_device *adev,
- 			return 0;
- 		}
- 
-+		/* Underlying plane has an active color pipeline - cursor would be transformed */
-+		if (dm_plane_color_pipeline_active(state, plane, false)) {
-+			*cursor_mode = DM_CURSOR_OVERLAY_MODE;
-+			return 0;
-+		}
-+
- 		dm_get_plane_scale(plane_state,
- 				   &underlying_scale_w, &underlying_scale_h);
- 		dm_get_plane_scale(cursor_state,
-@@ -12770,7 +12815,7 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
- 			goto fail;
- 		} else if (required_cursor_mode == DM_CURSOR_OVERLAY_MODE) {
- 			drm_dbg_driver(crtc->dev,
--				       "[CRTC:%d:%s] Cannot enable native cursor due to scaling or YUV restrictions\n",
-+				       "[CRTC:%d:%s] Cannot enable native cursor due to scaling, YUV, or color pipeline restrictions\n",
- 				       crtc->base.id, crtc->name);
- 			ret = -EINVAL;
- 			goto fail;
+ 			/* write bitmap */
+ 			gpiod_set_value(par->RS, 1); /* RS->1 (data mode) */
+-			par->fbtftops.write(par, buf, len);
++			ret = par->fbtftops.write(par, buf, len);
+ 			if (ret < 0)
+ 				dev_err(par->info->device,
+ 					"write failed and returned: %d\n",
 -- 
 2.53.0
 
