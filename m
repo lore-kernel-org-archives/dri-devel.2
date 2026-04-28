@@ -4,133 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3542FFF886F
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 06:25:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 593B7FF885A
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 06:32:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B89A10E2F2;
-	Tue, 28 Apr 2026 06:25:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBAE010E2FF;
+	Tue, 28 Apr 2026 06:32:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="CXGPvzUq";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="MpawiVvA";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="CXGPvzUq";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="MpawiVvA";
+	dkim=pass (2048-bit key; unprotected) header.d=lontium.com header.i=@lontium.com header.b="XHUcy/Z7";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAC3710E2F2
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 06:25:34 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 57E6D5BD36;
- Tue, 28 Apr 2026 06:25:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1777357533; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=CbtKUU66mBpKSuXu5VOYIqLxru08RDNDVdMg2NLLm5I=;
- b=CXGPvzUq3F/M16jsi5G+dYhtLgZzJr48bjHJ4CFuSt1M8AIni0zoE/0WlnNkcmFdFtGxM1
- MnyOC9OGkhe9tqGT3XiuyK1OiFHfUEuKP14YoUjFHx7iskf3EfA6ZoMuJQ6wn9mxV3dlGS
- O1vqWVsXDM//L808kVjnQtPzNR3iWsM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1777357533;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=CbtKUU66mBpKSuXu5VOYIqLxru08RDNDVdMg2NLLm5I=;
- b=MpawiVvAR/XqR/yjTnaQ0hJSQ3VBQnqGExT93UogXYIEc2X/S1E3p57nNT1ZwkzCNKemsv
- 7Y3htgWp5+hthdCQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1777357533; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=CbtKUU66mBpKSuXu5VOYIqLxru08RDNDVdMg2NLLm5I=;
- b=CXGPvzUq3F/M16jsi5G+dYhtLgZzJr48bjHJ4CFuSt1M8AIni0zoE/0WlnNkcmFdFtGxM1
- MnyOC9OGkhe9tqGT3XiuyK1OiFHfUEuKP14YoUjFHx7iskf3EfA6ZoMuJQ6wn9mxV3dlGS
- O1vqWVsXDM//L808kVjnQtPzNR3iWsM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1777357533;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=CbtKUU66mBpKSuXu5VOYIqLxru08RDNDVdMg2NLLm5I=;
- b=MpawiVvAR/XqR/yjTnaQ0hJSQ3VBQnqGExT93UogXYIEc2X/S1E3p57nNT1ZwkzCNKemsv
- 7Y3htgWp5+hthdCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D9A56593B0;
- Tue, 28 Apr 2026 06:25:32 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id DFXqM9xS8GlAOgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 28 Apr 2026 06:25:32 +0000
-Message-ID: <057ebc30-f103-4d24-b5be-bbc9b79050e8@suse.de>
-Date: Tue, 28 Apr 2026 08:25:32 +0200
+Received: from out28-2.mail.aliyun.com (out28-2.mail.aliyun.com [115.124.28.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5833810E2FF
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 06:32:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lontium.com; s=default;
+ t=1777357951; h=From:To:Subject:Date:Message-Id:MIME-Version;
+ bh=1lDrImTp9mJIo503AuFEkRnxI/JUO0PNkk1WhsvyCxg=;
+ b=XHUcy/Z7p8mHKinvb8JYa2Czkv/ZrJB7iLM8EB7n+SBF24CSpgCJogJ9/12CcfK8enE4iGiWlXgCFoJD9MGvMLGuND5KXfv8B40pt82FYw1RnFqyRLYBeUpQaKdaRuQHkmkEaAfULwPClxG5y2/eAx/7Bop/hZyrvSLmRHwJtXo+UgIiGYbLv8/MS7GFPUb5WD+lJOKANRBjNbQV4OtPGnXN03cPx5R6rwWccrYwyHj+mZ+RjIy3pYKVw1qpXudvKftcVh3cyrdg2tM0nZTixA07tlkoMSTabxeQJDj8BpRrmRzqhGSOKP3dJE5xCxCO3TzCx5ViKdj8ppai/EUeig==
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.240612|-1; CH=green; DM=|CONTINUE|false|;
+ DS=CONTINUE|ham_system_inform|0.00668875-0.00019251-0.993119;
+ FP=7856652936164330937|0|0|0|0|-1|-1|-1; HT=maildocker-contentspam011083013073;
+ MF=syyang@lontium.com; NM=1; PH=DS; RN=22; RT=22; SR=0;
+ TI=SMTPD_---.hLqybuf_1777357948; 
+Received: from DESKTOP-V2MKAT2.localdomain(mailfrom:syyang@lontium.com
+ fp:SMTPD_---.hLqybuf_1777357948 cluster:ay29) by smtp.aliyun-inc.com;
+ Tue, 28 Apr 2026 14:32:29 +0800
+From: syyang@lontium.com
+To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+ dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com,
+ rfoss@kernel.org, mripard@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com, tzimmermann@suse.de, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ yangsunyun1993@gmail.com, xmzhu@lontium.corp-partner.google.com,
+ xmzhu@lontium.com, rlyu@lontium.com, xbpeng@lontium.com,
+ Sunyun Yang <syyang@lontium.com>
+Subject: [PATCH v1 0/2] Add Lontiun LT7911EXC eDP to MIPI DSI bridge
+Date: Tue, 28 Apr 2026 14:32:22 +0800
+Message-Id: <20260428063224.3316655-1-syyang@lontium.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for drm-misc-fixes v5 2/4] drm/hisilicon/hibmc: fix no
- showing when no connectors connected
-To: Yongbang Shi <shiyongbang@huawei.com>, dmitry.baryshkov@oss.qualcomm.com, 
- tiantao6@hisilicon.com, xinliang.liu@linaro.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- daniel@ffwll.ch, kong.kongxinwei@hisilicon.com
-Cc: liangjian010@huawei.com, chenjianmin@huawei.com, fengsheng5@huawei.com,
- helin52@h-partners.com, shenjian15@huawei.com, shaojijie@huawei.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260423063233.1267631-1-shiyongbang@huawei.com>
- <20260423063233.1267631-3-shiyongbang@huawei.com>
- <27864583-4211-4553-bdc0-42dadd25d212@suse.de>
- <cc33b5df-4048-423f-97d9-b00ca04b2d99@huawei.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <cc33b5df-4048-423f-97d9-b00ca04b2d99@huawei.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- ARC_NA(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWELVE(0.00)[17];
- FREEMAIL_TO(0.00)[huawei.com,oss.qualcomm.com,hisilicon.com,linaro.org,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:url,
- bootlin.com:url, suse.de:mid]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,126 +59,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+From: Sunyun Yang <syyang@lontium.com>
 
-Am 28.04.26 um 05:58 schrieb Yongbang Shi:
-[...]
->> There's a problem with the overall logic here: if the physical status is 'connected' and the helper could not retrieve
->> any modes, the helper should return 0 here. Then the DRM helpers do the right thing with setting up a few modes or an
->> EDID override as a fallback. See [2]. For example, on my broken test system, I'd be able to provide my display's EDID
->> and get the correct output.
->>
->> [2] https://elixir.bootlin.com/linux/v7.0.1/source/drivers/gpu/drm/drm_probe_helper.c#L436
->>
->> Any code below is BMC setup and should run in an else branch, just like in ast.
->>
-> The `drm_edid_override_connector_update` interface is used to retrieve an overridden EDID from debugfs or from firmware:
->    * Debugfs: Requires the user to manually perform file operations to configure it;
->    * Firmware: Requires the distribution’s operating system or the user to place the EDID binary file in the
->                `/lib/firmware/` directory, and the `drm.edid_firmware` parameter must be specified in the GRUB boot
->                parameters;
->
-> The modification method you provided allows for display even when the EDID cannot be retrieved. But both of these
-> methods require cooperation from the user or the distribution's operating system, making implementation relatively
-> difficult.
+The LT7911EXC is an I2C-controlled bridge that Receiver eDP1.4
+and output signal/dual port mipi. This series introduces:
 
-Yes, it's the established way for users to override the EDID.
+- A device tree binding YAML file describing the hardware
+- A new DRM bridge driver implementing the basic functionality
 
->
-> Our use case requires that the KVM's display functionality remain intact even when no VGA or DisplayPort monitor is
-> connected. I believe setting `drm_set_preferred_mode` (1024x768) as the default resolution when no monitor is present
-> would be a more universal solution. Similarly, on your test system, this approach would ensure basic display functionality.
+Signed-off-by: Sunyun Yang<syyang@lontium.com>
+---
+Change in v1:
+- dt-binding:
+ 1. reset pins use active low.                        [Dmitry]
+- drm/bridge:
+ 1. use atomic_* callbacks.                           [Quentin]
+ 2. fix the incorrect formatting and spaces.
+ 3. add the required header files.                    [Dmitry]
+ 4. remove "enabled" flag.
+ 5. remove *fw from the lt7911exc struct.
+ 6. .max_register and .range_max use actual range.
+ 7. regulator use bulk interface.
+ 8. use dev_err_probe, devm_mutex_init and devm_drm_bridge_add.
+ 9. Replace GPL with GPL v2.
+---
+Sunyun Yang (2):
+  dt-bindings:bridge: Add Lontiun LT7911EXC eDP to MIPI DSI bridge
+  drm:bridge: Add Lontiun LT7911EXC eDP to MIPI DSI bridge
 
-If no modes could be detected on the VGA and no EDID has been provided 
-by the user, DRM helpers will install a set of default modes that are 
-suitable for graphics cards. See [1]. The modes installed for the KVM 
-are not all compatible with VGA.  If you rely on DRM helpers, you'll 
-always get correct modes for VGA and KVM.
-
-Generally speaking, the decision of VGA-vs-KVM should be in ->detect. 
-Having phys_state/phys_status does this very well. The ->get_modes 
-function should then use whatever has been detected.
-
-[1] 
-https://elixir.bootlin.com/linux/v7.0.1/source/drivers/gpu/drm/drm_probe_helper.c#L653
-
-Best regards
-Thomas
-
->
->>>    +    drm_edid_connector_update(connector, NULL);
->>>        count = drm_add_modes_noedid(connector,
->>>                         connector->dev->mode_config.max_width,
->>>                         connector->dev->mode_config.max_height);
->>>        drm_set_preferred_mode(connector, 1024, 768);
->>>    -out:
->>> -    drm_edid_free(drm_edid);
->>> -
->>>        return count;
->>>    }
->>>    @@ -57,10 +50,32 @@ static void hibmc_connector_destroy(struct drm_connector *connector)
->>>        drm_connector_cleanup(connector);
->>>    }
->>>    +static int hibmc_vdac_detect(struct drm_connector *connector,
->>> +                 struct drm_modeset_acquire_ctx *ctx,
->>> +                 bool force)
->>> +{
->>> +    struct hibmc_drm_private *priv = to_hibmc_drm_private(connector->dev);
->>> +    int state = drm_connector_helper_detect_from_ddc(connector, ctx,
->>> +                             force);
->> 'state' -> 'status'
->>
-> Okay.
->
->>> +    struct hibmc_vdac *vdac = to_hibmc_vdac(connector);
->>> +
->>> +    if (priv->dp.phys_state == connector_status_connected)
->>> +        return vdac->phys_state = state;
->> Please only one statement per line. First assign, then return.
->>
-> Yes, Sorry about that. According to the Linux kernel coding guidelines, this line of code should be split.
->
->
-> Thanks,
-> Yongbang.
->
->>> +
->>> +    if (state != vdac->phys_state)
->>> +        ++connector->epoch_counter;
->>> +    vdac->phys_state = state;
->>> +
->>> +    /* If both the DP and VDAC physical states are disconnected,
->>> +     * the "connected" status is returned to support KVM display.
->>> +     */
->>> +    return connector_status_connected;
->> I haven't tried, but I think this should also resolve the problems on my test systems. Great, thanks a lot! I might just
->> get default resolutions for now, but that's OK.
->>
->> Best regards
->> Thomas
->>
->>> +}
->>> +
->>>    static const struct drm_connector_helper_funcs
->>>        hibmc_connector_helper_funcs = {
->>>        .get_modes = hibmc_connector_get_modes,
->>> -    .detect_ctx = drm_connector_helper_detect_from_ddc,
->>> +    .detect_ctx = hibmc_vdac_detect,
->>>    };
->>>      static const struct drm_connector_funcs hibmc_connector_funcs = {
->>> @@ -130,6 +145,8 @@ int hibmc_vdac_init(struct hibmc_drm_private *priv)
->>>          connector->polled = DRM_CONNECTOR_POLL_CONNECT | DRM_CONNECTOR_POLL_DISCONNECT;
->>>    +    vdac->phys_state = connector_status_connected;
->>> +
->>>        return 0;
->>>      err:
+ .../display/bridge/lontium,lt7911exc.yaml     |  89 ++++
+ drivers/gpu/drm/bridge/Kconfig                |  13 +
+ drivers/gpu/drm/bridge/Makefile               |   1 +
+ drivers/gpu/drm/bridge/lontium-lt7911exc.c    | 497 ++++++++++++++++++
+ 4 files changed, 600 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml
+ create mode 100644 drivers/gpu/drm/bridge/lontium-lt7911exc.c
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
+2.34.1
 
