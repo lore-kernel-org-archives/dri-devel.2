@@ -4,56 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA85EFF885D
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 10:11:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4188FF886D
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 10:17:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C55E10E316;
-	Tue, 28 Apr 2026 10:11:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CC3D10EADB;
+	Tue, 28 Apr 2026 10:17:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mYIQSHyp";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Vl8CNF1Z";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAFF110E316
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 10:11:46 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 999604446A;
- Tue, 28 Apr 2026 10:11:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA596C2BCB5;
- Tue, 28 Apr 2026 10:11:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777371106;
- bh=uUVYRe/SWz7CWkhpaj4lEG2QqReNvGmhl1Bi48ffDwE=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To:From;
- b=mYIQSHypxmjuY9JVRb3hTHlbE2NTp6Ym1U26aqZZMnLUIYaneKvzVeqo5G9bUcY2j
- gidiGDIhLUpKl1WZVpicI/s+lm9MNpoRKN2NzvYCfif5yRyMjZkJv7UGAEmf3kNDKu
- fQAgr0Pe6hNLI8OCaZA1hlZJ7vKOiyXroAoVS8TNLPj+HU4oBRw9YecYWEUHigZ8aZ
- nr449W5q6W9qjn6Cnc5qBRtuw81R/E/U/p6WbPPD9+suVuFh1+W5NKBaH2ejoSfWRy
- zSTZ2nCrGHSGaZwbvb1lkhaCYDiMQL4GBvY3I+UbAfHtV+n4aE8kySKH0TtOmmCeVn
- a9nct9/Dr6mMQ==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 28 Apr 2026 12:11:39 +0200
-Message-Id: <DI4PGYYYTNER.BD7J0XRD0BT9@kernel.org>
-Subject: Re: [PATCH 06/24] rust: pci: implement Sync for Device<Bound>
-Cc: <gregkh@linuxfoundation.org>, <rafael@kernel.org>,
- <acourbot@nvidia.com>, <aliceryhl@google.com>, <david.m.ertman@intel.com>,
- <ira.weiny@intel.com>, <leon@kernel.org>, <viresh.kumar@linaro.org>,
- <m.wilczynski@samsung.com>, <ukleinek@kernel.org>, <bhelgaas@google.com>,
- <kwilczynski@kernel.org>, <abdiel.janulgue@gmail.com>,
- <robin.murphy@arm.com>, <markus.probst@posteo.de>, <ojeda@kernel.org>,
- <boqun@kernel.org>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
- <a.hindborg@kernel.org>, <tmgross@umich.edu>,
- <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pm@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
-To: "Gary Guo" <gary@garyguo.net>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260427221155.2144848-1-dakr@kernel.org>
- <20260427221155.2144848-7-dakr@kernel.org>
- <DI4CB68NZI8P.3RA6M7P8XRII4@garyguo.net>
-In-Reply-To: <DI4CB68NZI8P.3RA6M7P8XRII4@garyguo.net>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0AFA810E307;
+ Tue, 28 Apr 2026 10:17:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1777371461; x=1808907461;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=fqgwBRWiQl40IswQSq7+m4k7ZzDJblg+YGYIifM9SaQ=;
+ b=Vl8CNF1Z/wFukUqFuC7Og2aJz7gXREV6LP/sBTdHtxFigMeh1u5oFSSF
+ AW9gZ1venlH9TDMECGGojdS0geHAm0Nl7drMulMc/IWBGBhRe9sJr8bJW
+ Zw9eKl3M3GbsvYkGuv7i1qO/pqUtvpJfs26FUYnV8YC5IBfLsa3gJ4Qsh
+ sHYIfB2LFRu7vgeIdkISEMRqnJeZJcpVAmovfzWhy1mRk5pqkRUe3k2Mp
+ xNTrOuvUt7M/v+Iw7huIj3yZSCpywJKlHrBauEdloYVQPX043hPSUfMom
+ Lsh80aEAZ1sW0FOehcANp/lTBoTGrTqlXZ1YHmRksdHkFs2y0NnXH50+B Q==;
+X-CSE-ConnectionGUID: t0yoMcF4STOAA+FYBG+2vg==
+X-CSE-MsgGUID: jzdAUChzQR6mwq8Y8wSMLg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11769"; a="78165344"
+X-IronPort-AV: E=Sophos;i="6.23,203,1770624000"; d="scan'208";a="78165344"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Apr 2026 03:17:41 -0700
+X-CSE-ConnectionGUID: cnCXHnMbQQGGYItedGyZhA==
+X-CSE-MsgGUID: xlHEt5ERRky2gzyHTmOTfg==
+X-ExtLoop1: 1
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.208])
+ by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Apr 2026 03:17:38 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: ville.syrjala@linux.intel.com, Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Subject: Re: [PATCH 9/9] drm/dp: Use drm_printf_indent for DP SDP logging
+In-Reply-To: <20260428074457.3566918-10-ankit.k.nautiyal@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260428074457.3566918-1-ankit.k.nautiyal@intel.com>
+ <20260428074457.3566918-10-ankit.k.nautiyal@intel.com>
+Date: Tue, 28 Apr 2026 13:17:36 +0300
+Message-ID: <df337712f741896f11b15852597900a4eb3f84b0@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,25 +71,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Apr 28, 2026 at 1:52 AM CEST, Gary Guo wrote:
-> Given that you're now implementing for two ctx marker types, it might wor=
-th changing
-> the existing one to spell out the `Normal` explicitly (also saves you fro=
-m
-> having to spell it out in the comment).
+On Tue, 28 Apr 2026, Ankit Nautiyal <ankit.k.nautiyal@intel.com> wrote:
+> Currently the DP SDP log helpers use spaces for indentation. Switch to
+> tabs for indentation and use drm_printf_indent to keep the format
+> strings readable.
+>
+> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 
-I don't think this belongs in this commit and I'm not sure it is worth crea=
-ting
-new ones for only this purpose.
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
-> It might also make sense to write a comment to say that why it's not the =
-case
-> for `Device<Core>`.
 
-I think the documentation in [1] explains (or at least implies) it. Where d=
-o you
-suggest to put such a comment? It seems a bit repretitive to have it for al=
-l bus
-devices.
+> ---
+>  drivers/gpu/drm/display/drm_dp_helper.c | 36 +++++++++++++------------
+>  1 file changed, 19 insertions(+), 17 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+> index fc550b48fd85..4bf7b783ac39 100644
+> --- a/drivers/gpu/drm/display/drm_dp_helper.c
+> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
+> @@ -3519,15 +3519,16 @@ void drm_dp_vsc_sdp_log(struct drm_printer *p, const struct drm_dp_vsc_sdp *vsc)
+>  {
+>  	drm_printf(p, "DP SDP: %s, revision %u, length %u\n",
+>  		   dp_sdp_type_get_name(vsc->sdp_type), vsc->revision, vsc->length);
+> -	drm_printf(p, "    pixelformat: %s\n",
+> -		   dp_pixelformat_get_name(vsc->pixelformat));
+> -	drm_printf(p, "    colorimetry: %s\n",
+> -		   dp_colorimetry_get_name(vsc->pixelformat, vsc->colorimetry));
+> -	drm_printf(p, "    bpc: %u\n", vsc->bpc);
+> -	drm_printf(p, "    dynamic range: %s\n",
+> -		   dp_dynamic_range_get_name(vsc->dynamic_range));
+> -	drm_printf(p, "    content type: %s\n",
+> -		   dp_content_type_get_name(vsc->content_type));
+> +
+> +	drm_printf_indent(p, 1, "pixelformat: %s\n",
+> +			  dp_pixelformat_get_name(vsc->pixelformat));
+> +	drm_printf_indent(p, 1, "colorimetry: %s\n",
+> +			  dp_colorimetry_get_name(vsc->pixelformat, vsc->colorimetry));
+> +	drm_printf_indent(p, 1, "bpc: %u\n", vsc->bpc);
+> +	drm_printf_indent(p, 1, "dynamic range: %s\n",
+> +			  dp_dynamic_range_get_name(vsc->dynamic_range));
+> +	drm_printf_indent(p, 1, "content type: %s\n",
+> +			  dp_content_type_get_name(vsc->content_type));
+>  }
+>  EXPORT_SYMBOL(drm_dp_vsc_sdp_log);
+>  
+> @@ -3535,14 +3536,15 @@ void drm_dp_as_sdp_log(struct drm_printer *p, const struct drm_dp_as_sdp *as_sdp
+>  {
+>  	drm_printf(p, "DP SDP: %s, revision %u, length %u\n",
+>  		   dp_sdp_type_get_name(as_sdp->sdp_type), as_sdp->revision, as_sdp->length);
+> -	drm_printf(p, "    vtotal: %d\n", as_sdp->vtotal);
+> -	drm_printf(p, "    target rr: %d\n", as_sdp->target_rr);
+> -	drm_printf(p, "    duration increase ms: %d\n", as_sdp->duration_incr_ms);
+> -	drm_printf(p, "    duration decrease ms: %d\n", as_sdp->duration_decr_ms);
+> -	drm_printf(p, "    operation mode: %d\n", as_sdp->mode);
+> -	drm_printf(p, "    target rr divider: %s\n",
+> -		   as_sdp->target_rr_divider ? "1.001" : "1.000");
+> -	drm_printf(p, "    coasting vtotal: %d\n", as_sdp->coasting_vtotal);
+> +
+> +	drm_printf_indent(p, 1, "vtotal: %d\n", as_sdp->vtotal);
+> +	drm_printf_indent(p, 1, "target rr: %d\n", as_sdp->target_rr);
+> +	drm_printf_indent(p, 1, "duration increase ms: %d\n", as_sdp->duration_incr_ms);
+> +	drm_printf_indent(p, 1, "duration decrease ms: %d\n", as_sdp->duration_decr_ms);
+> +	drm_printf_indent(p, 1, "operation mode: %d\n", as_sdp->mode);
+> +	drm_printf_indent(p, 1, "target rr divider: %s\n",
+> +			  as_sdp->target_rr_divider ? "1.001" : "1.000");
+> +	drm_printf_indent(p, 1, "coasting vtotal: %d\n", as_sdp->coasting_vtotal);
+>  }
+>  EXPORT_SYMBOL(drm_dp_as_sdp_log);
 
-[1] https://rust.docs.kernel.org/kernel/device/struct.Core.html
+-- 
+Jani Nikula, Intel
