@@ -4,134 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F5E3FF8868
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 12:20:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9265DFF8868
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 12:21:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB01110E359;
-	Tue, 28 Apr 2026 12:20:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3D7610EB46;
+	Tue, 28 Apr 2026 12:21:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="D47eNbaz";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="lDEouwh7";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013029.outbound.protection.outlook.com
- [40.107.201.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5745110E359
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 12:20:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GXltW8nxglz/8pGGVKEqAzINM+QrWLdazdSPaQGX23E5mt9P/swQdpUqdM21yS3C7l/wWDcklkm8xoW0RUO2lf3kjakBR+DB7m6otHg16DpRkT+2A07bRMNGtKIYhePYbJZ2Ht1zqlNAH+ce/vzOSkLhbi+VpX6eGBRzlIKaw27vDBjMm8abphtN+UXiM8BxCl0P04yd2lLR6r8UxsLRWjLOo8MgICXPwPhYyrchUZ5i/cUdOO9PyGuZoqXs+8CiwlnFm8gStWYyW3Tc1D9WkdePU4RSjyTawEIH0ER3+aA5fSEVydDDjdTwMnXgUUC3LXqdGVpsKrrJNTS9h0qRfw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UhOWJwII4ORqpVG15FHj9jAMQxJTGemYDQms9hqgNGU=;
- b=ZXsC194ZKvn9AgD7+AxxiEwR8OgY1ikQmrVIr7GZlpmPtbcT0b2LptqbHhQNTMMVL5V9jkVJUX6aGgw7+TdFp4h5FebBulZEvCQbU7+I+ef+HGtoUCVQ6vwQqNWUNOOz/x2i4eV6flcO+IAxotzlUgd3ysTxXSkMZYOs+SuBvKB7va0a+WHYYlRlnYfUePxEamUvPZ+aX7HNZhD2Wzp+3WO8siiG/qowaDyfqGQqeSjr/t61bcqB6d7pBy47WdlygQNxdXLBwIgY3VA1iRkCWabup11kM+9zKyEiib72JuEfJvJm8yVJr1+WEzFDHbFXG5wTxmfnfY062payrlSjpg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UhOWJwII4ORqpVG15FHj9jAMQxJTGemYDQms9hqgNGU=;
- b=D47eNbaz1tq8WiYe6AF2UCcsBsURGYLI/Nq+olFfdv1rErqG6SGLY1hYoJH3iMBG+XCX6Qda1kxSBSKtgPJ0ykUZxPrmdDRqaDT754LbSfl/npIKJrjNyIgTo/sY8JsVtcHKiWswY+cZ+tZq8DFVOj8VWR5DXWEi9y69md4xTeJuPCMCcQi7gCHpjl2e0fjyg7aedCOxKSHaXchY/kha3V1KzJIVtFB/O8LpiJ6fCI1FBelfBAbad1tQI4KylbuoIfmo0N2kd9BcRE8XEfdjAFebAoO+/f48UDU9T3ApDi+wsxdMhtzwpDDk+403uFSMGgTiVYdIqZisFKd/JbEWRQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
- by SJ2PR12MB8807.namprd12.prod.outlook.com (2603:10b6:a03:4d0::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.16; Tue, 28 Apr
- 2026 12:20:37 +0000
-Received: from BL0PR12MB2353.namprd12.prod.outlook.com
- ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
- ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.20.9870.013; Tue, 28 Apr 2026
- 12:20:37 +0000
-From: Eliot Courtney <ecourtney@nvidia.com>
-Date: Tue, 28 Apr 2026 21:20:21 +0900
-Subject: [PATCH] rust: drm: fix unsound initialization in drm::Device::new
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260428-fix-drm-1-v1-1-755057178066@nvidia.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDEyML3bTMCt2UolxdQ10TU8skM2NT85RUI2MloPqColSgJNis6FgIv7g
- 0KSs1uQRkAFRFUWphKdCSEqiy2loAvgktqoIAAAA=
-X-Change-ID: 20260428-fix-drm-1-459b6357de23
-To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>
-Cc: Alexandre Courbot <acourbot@nvidia.com>, 
- dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Eliot Courtney <ecourtney@nvidia.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TYWPR01CA0007.jpnprd01.prod.outlook.com
- (2603:1096:400:a9::12) To BL0PR12MB2353.namprd12.prod.outlook.com
- (2603:10b6:207:4c::31)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|SJ2PR12MB8807:EE_
-X-MS-Office365-Filtering-Correlation-Id: be2cb56d-64e4-4d5e-124a-08dea5208de4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|7416014|10070799003|921020|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: euzS+ikD08CIdBwM0advOE0XH2apOxjZe7up/A8Rj0HWT5L741PRh5ys1WiK2I1eaFeJLx1Rrww6XYHlRQnKmYOwF4Bl52g56/Y6mlHyFwGTwk8aoyZWu1cn/5UQS1gpQyLq0Ixv4F+qpBqYntuRM68ii2Tj5ssVBOD6JsgUef0UQ7ajrDLQ7zrA4l8J5wvAv/RmOuGCTXKBVkP4HAy3YPubQ7MFs4ZhtKG87KsMZjpVQLdMrsACDmwmiAPivX+idIRYQ1dNzi1bWyVbyTlz85HhgXVLeyuzLXDA1khIXctIa5SPrThl54RhGqYklOS/R4PHxYOL7uloDS9B7jbODOc0y/9oYVrxM0kE3A1peC+IZSJt8Guzqcrq5TlaMVC78gnU4nQbMyPn2PsncR3t1hnhcSoHSE04o4fZiU6tMzG9jgMMNAw9OO6u4sARQW5hJpGW4dqnVcEFHlIJTkQ/Zk9zogMWqZAjQ7dJX3HPFYpxRzr/L4i77Pqb2F6dMmjNE6Lic2i4fkyyegGyhw7mSzAzfh4KewTHotz1oyJGRhdOwyp1xvKPE5XHLrrvrBkwAIXnfRaNUWAVJKgnxioVhxrullw0zc2Q5fXIHp0qlwHam6ha6E1fnkAsXyevFRdQB/fvf+K0PImgRvHTBB10EVBt8/YS2SRyXKMoN42AtsqHPR9uqbHAzcbxikKnNRuFBEf1Y8MlGiLJtNZuwRa5NaOivXmad5Mcc+pwk/MNvfLGQGO+c8o4eXbOXgdIiW7pbkwfdHwggCAQE+MRRGaOxQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(7416014)(10070799003)(921020)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TnhSL3J5eXY0MTZqNXg1eloreWM1UGNhNFR4TzRyY0x4UHZ4WnRETG5jaytK?=
- =?utf-8?B?UVpUZlhhSnFUcFBhZ21DTlZjcVR6U3RhSFd5bU8yMTBFR3Z3T2x5SUpCcGdT?=
- =?utf-8?B?ZVBtRHNqNHM0SkQxQjJScloySUJBN25IdzB5ci9vbTRPVXNmM0J3RjNHS1Ay?=
- =?utf-8?B?UE56YktUMjJxQjhWOHhnQ3ZpdXU0NlQzLzlJOWZUeGhiQzRYWXhtNUJBYkRm?=
- =?utf-8?B?VG9mNkV6Ti9jM2E3ZVhrQ212bXRtTjhJSmNCRFJwZkx2WGZZaDhVb0Nna3dD?=
- =?utf-8?B?S3hZMTdiZm5TOWlJTnR3R2xyWVNVM2ZnL1hDV3pnVFdrZmVzcmVHenN2aFFy?=
- =?utf-8?B?TW1iZ3ZRL1FBZWtWUkhhVEo1Tkt5NUx4RXoxYTh1aE5EU2N5QXdtc2lVbkJR?=
- =?utf-8?B?TkYvalRXY0c4aXcvQlpzQ3ZHQWhFdmxkTmljalZ0NzQwSUxiR1RlNkRWSGpG?=
- =?utf-8?B?N1U2RklEMmJLMXc3Z0cwYTZSZ1RVRWgxdWsyOU9YK1hKbkNVZDYxM3ZTMW9y?=
- =?utf-8?B?UWZHTjFpUVg0RXgzaXBjQUQyWU8wdUFnQUpqaXJLaEI5ME85QkY3Vk40OTJ5?=
- =?utf-8?B?dXMzeHBTV1lrbmJhb3NvK2U0RWJLeFE5NWpEUytmMlhldVRHTjdsb050WEo1?=
- =?utf-8?B?WXA4UmdtS25LT1YxcHNaWHlqT1Fsd2Fwd2NRdHV5dFZyVW9hY0NLWDlwOWds?=
- =?utf-8?B?TG5wNndzWEcrVjR3SUUwcnJsNFJLcS8yRDlUdXpCR0cybU5PdUJpUFpOTDZH?=
- =?utf-8?B?dGJiQlFlRHgveS91eGlLQnpUQ3VndWFzOFhid3dORThOQW5EaWkvOThKY0Jk?=
- =?utf-8?B?UWpxZFZxajV3MnNHKzIyd293Z2lxRk40WUxrN0NFN3RzVFBSalhScjRQZ3Nq?=
- =?utf-8?B?aEsrVVYzL01wR3ZHQkJSbkduNU1nTytYV0wxU3NlSCtxcVNTOGdQbzFGZk5B?=
- =?utf-8?B?M0wrL0VER3JJcm1DcHlnTTBFUmFManFzcDNiQ1BjVCtCTE90TllnNVQycmlG?=
- =?utf-8?B?N2NmRnpRVnQyQnpqOElQcFllcUQvajdyUG5aMWs1TFFXY25XMllLVlJlZkVR?=
- =?utf-8?B?K0tIM2VLZk02NHVxNDR1M3FESE05YTVjcWdKckJ2bXExbE1BQU0xWUNyUk16?=
- =?utf-8?B?WTFGOXMrcHdEOTllaWIySGZ0eUJXeGxrSHl0R2ErQW9NZVFmSmZOZnlvQyt1?=
- =?utf-8?B?d1VMU0puM2FrV1pST21LNGdCbU11eHNWRTZzdmZ6MityNFR3U0dXdG1tN2xs?=
- =?utf-8?B?TXF0VHlOMmZQT1VDVnlSbHhJejlEdm1yQ0Q1dFd6bkRTV3pmSkFNR0lxVVdQ?=
- =?utf-8?B?SHBmajdCbGJMTWNDZ3A2RGFrTEV2OEdkWDN0dC83eVRLTmNZaVJPQzhPOEp0?=
- =?utf-8?B?ZUhZbjZXSmE1VHh3MnhMRWIzR1ZBYktoMHk3eXpOUzVxRGpmU1JINHc1Y0RK?=
- =?utf-8?B?cXovNDNXTXdWcEVFdVVzQUgreUg3L3lnWC9tZjZia0pZd095R09NQUVmQnBr?=
- =?utf-8?B?SGhkMEpGQ0w5NEV2YXFjemk1Q1RibHM4TmhpNXMyVm5ncGk3ck1jOENOellL?=
- =?utf-8?B?QkZWajF0MFc2NzdURklvMDdIMW1oMytCbHZma3RhMm1TWVlPQ0JYNnVERFZW?=
- =?utf-8?B?R0Z2UE9FU2JISjlJS1AvSm13MEh1TFlGWlR4ZkJzeVpSWTFYRHY0M0cyR2Jv?=
- =?utf-8?B?ZjhFZUJRTDFkakxSamlqZ0dpdXRFc213Z3dCNzJLR1R6RTY5RUtlY3hLWVlN?=
- =?utf-8?B?WEZhM2lMUE11Ky9pUFhkRjVGV3R2RC9zc1d4TWFXQVZVOGE5Q1YwNEV4WFZY?=
- =?utf-8?B?b3cySEFxNVZsQTVZc1ltY3ByS25HVUdhdElOWDcwVTVnYXhTWW42cDdPV0xU?=
- =?utf-8?B?QmhHOXRvM0RtRWZ4MnpFcUJFUm43RmlTcUhmZzFwU1pvMG14emRhTEZzci9z?=
- =?utf-8?B?WG9VVjFCR3gvdEg3dGd4c3k4YS9JeEF4clI2d05idGh0cnJ3d0pPT0htWHNh?=
- =?utf-8?B?NUtNc0FwSkpWVnV5K2pEckswVFc3VnlHZTJ1TSszVldORFpJZXZFd2FkLzY4?=
- =?utf-8?B?STdMbVFxUVgwSmd5cUZlOGRySTJqYVFUTzAvd21NL205UmFiQThybGhENUxC?=
- =?utf-8?B?NTZHUElRaFFNeTgrM2hzRHB4TGZXSzhlOTY5dTF6MHlrS1l6SHNmcmpzd2I4?=
- =?utf-8?B?ejV3VXlnU1BhS3RrVFI4MGJjWW96TFRveDlhQmRKbVl4R2h3TmFXOW9YK3RN?=
- =?utf-8?B?Ui8vOEpxVkc5U096ejFzcG1xUXFITjZpQnNKcHhmTlp4VTZXM2FRbHFiN2dL?=
- =?utf-8?B?Qmw0YUVkRHAxcjJQZE1BdldFRU9TTkRDUU1lZnRFUWh1OGkxOWFIaWZUeDk4?=
- =?utf-8?Q?Pe2iFudOoPISPbhkFgk6xRNfbH095xWmmoVY4vzx7gWD4?=
-X-MS-Exchange-AntiSpam-MessageData-1: ttkIXEgrYsPSew==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: be2cb56d-64e4-4d5e-124a-08dea5208de4
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2026 12:20:37.4013 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZkARrkGt9BLc6/yuYpLwkviieseHnwJ8cu5PW6urQiqLgWz4JVlG9GpsqCY3hoZ0k/Hxen5Btf0remtScMHWvg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8807
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09D0210EB46
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 12:21:44 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 753DC1A3471;
+ Tue, 28 Apr 2026 12:21:42 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 3E459601D0;
+ Tue, 28 Apr 2026 12:21:42 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id EF52010728AA4; 
+ Tue, 28 Apr 2026 14:21:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1777378900; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=FkhJI2u81cWQQKkbpyLd60L537rqdrvEOTTOduSP8fc=;
+ b=lDEouwh70SunD0CIWASRbWeFowTrGybIpcklgMde26dHzbTlVQO4tNpqeNvxp/DTQsoqLf
+ MVjtKrPOCWqpHgHajsl9TS3Z3HbhRIpfUc1ER+yeSnCjIO3sw4GAhoSvOm0qOqbvwlTHrB
+ x+gO9MKBp4xsCHTPNEnL2nYoU4H0Uz7b3WQc5J0o29raPzA+01q4oo01SleqCbz0BDqus+
+ +SOujwJmPYbFV9TLnY1ejbitcPWUig77tZIqCoYyaNv88N+8BWkg4GxKRwHhpKohvAc+Wg
+ QN2E2KsPjss+wNTEiCqCvUKMlcm3LPj/suEerpCepkldM2ueNI7yNcP+xUABCg==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 28 Apr 2026 14:21:35 +0200
+Message-Id: <DI4S8GN9WTCI.75C07G767ZOV@bootlin.com>
+Cc: "Vinod Koul" <vkoul@kernel.org>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Frank Li" <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>,
+ "Pengutronix Kernel Team" <kernel@pengutronix.de>, "Fabio Estevam"
+ <festevam@gmail.com>, <dri-devel@lists.freedesktop.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-phy@lists.infradead.org>, <imx@lists.linux.dev>,
+ <linux-arm-kernel@lists.infradead.org>, <linux@ew.tq-group.com>, "Alexander
+ Stein" <alexander.stein@ew.tq-group.com>, "Ying Liu" <victor.liu@nxp.com>
+To: "Laurentiu Palcu" <laurentiu.palcu@oss.nxp.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH v22 5/8] dt-bindings: phy: Add Freescale iMX8MQ DP and
+ HDMI PHY
+X-Mailer: aerc 0.20.1
+References: <20260424-dcss-hdmi-upstreaming-v22-0-30a28f89298d@oss.nxp.com>
+ <20260424-dcss-hdmi-upstreaming-v22-5-30a28f89298d@oss.nxp.com>
+ <DI3YF5Y2B3GZ.25AP4NKQAXH36@bootlin.com>
+ <f6rf5d6nhglkwendf5yvaklfn2ovlwkqstsz7vvl5zefibtiun@wic7bchohmwv>
+In-Reply-To: <f6rf5d6nhglkwendf5yvaklfn2ovlwkqstsz7vvl5zefibtiun@wic7bchohmwv>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,87 +74,149 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-If pinned initialization of drm::Device::Data fails, it calls
-drm::Device::release via drm_dev_put. This materializes a reference to
-&drm::Device, but it's not fully constructed yet, because initializing
-`data` failed. It should not be dropped either. Instead, if pinned
-initialization fails, make sure drm::Device::release isn't called.
+Hello Laurentiu,
 
-Fixes: 2e9fdbe5ec7a ("rust: drm: device: drop_in_place() the drm::Device in release()")
-Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
----
- rust/kernel/drm/device.rs | 22 ++++++++++++++++------
- 1 file changed, 16 insertions(+), 6 deletions(-)
+On Mon Apr 27, 2026 at 4:35 PM CEST, Laurentiu Palcu wrote:
+> Hi Luca,
+>
+> On Mon, Apr 27, 2026 at 02:59:47PM +0200, Luca Ceresoli wrote:
+>> Hello Laurentiu,
+>>
+>> On Fri Apr 24, 2026 at 1:07 PM CEST, Laurentiu Palcu wrote:
+>> > From: Sandor Yu <Sandor.yu@nxp.com>
+>> >
+>> > Add bindings for Freescale iMX8MQ DP and HDMI PHY.
+>> >
+>> > Signed-off-by: Sandor Yu <Sandor.yu@nxp.com>
+>> > Signed-off-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+>> > ---
+>> >  .../bindings/phy/fsl,imx8mq-hdptx-phy.yaml         | 80 +++++++++++++=
++++++++++
+>> >  1 file changed, 80 insertions(+)
+>> >
+>> > diff --git a/Documentation/devicetree/bindings/phy/fsl,imx8mq-hdptx-ph=
+y.yaml b/Documentation/devicetree/bindings/phy/fsl,imx8mq-hdptx-phy.yaml
+>> > new file mode 100644
+>> > index 0000000000000..a24435139b8b3
+>> > --- /dev/null
+>> > +++ b/Documentation/devicetree/bindings/phy/fsl,imx8mq-hdptx-phy.yaml
+>> > @@ -0,0 +1,80 @@
+>> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> > +%YAML 1.2
+>> > +---
+>> > +$id: http://devicetree.org/schemas/phy/fsl,imx8mq-hdptx-phy.yaml#
+>> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> > +
+>> > +title: Cadence HDP-TX DP/HDMI PHY for Freescale i.MX8MQ SoC
+>> > +
+>> > +maintainers:
+>> > +  - Sandor Yu <sandor.yu@nxp.com>
+>>
+>> Based on what you said in the cover, I guess this line will have to be
+>> changed. Are you willing to maintain this binding?
+>
+> Yes, I'll update it in the next iteration.
+>
+>>
+>> > +description:
+>> > +  The Cadence HDP-TX DP/HDMI PHY is a child node of the MHDP8501 brid=
+ge,
+>> > +  sharing the same MMIO region as the parent bridge node.
+>> > +
+>> > +properties:
+>> > +  compatible:
+>> > +    const: fsl,imx8mq-hdptx-phy
+>> > +
+>> > +  clocks:
+>> > +    items:
+>> > +      - description: PHY reference clock.
+>> > +      - description: APB clock.
+>> > +
+>> > +  clock-names:
+>> > +    items:
+>> > +      - const: ref
+>> > +      - const: apb
+>> > +
+>> > +  "#phy-cells":
+>> > +    const: 0
+>> > +
+>> > +required:
+>> > +  - compatible
+>> > +  - clocks
+>> > +  - clock-names
+>> > +  - "#phy-cells"
+>> > +
+>> > +additionalProperties: false
+>> > +
+>> > +examples:
+>> > +  - |
+>> > +    #include <dt-bindings/clock/imx8mq-clock.h>
+>> > +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+>> > +
+>> > +    display-bridge@32c00000 {
+>> > +        compatible =3D "fsl,imx8mq-mhdp8501";
+>> > +        reg =3D <0x32c00000 0x100000>;
+>> > +        interrupts =3D <GIC_SPI 16 IRQ_TYPE_LEVEL_HIGH>,
+>> > +                     <GIC_SPI 25 IRQ_TYPE_LEVEL_HIGH>;
+>> > +        interrupt-names =3D "plug_in", "plug_out";
+>> > +        clocks =3D <&clk IMX8MQ_CLK_DISP_APB_ROOT>;
+>> > +        phys =3D <&dp_phy>;
+>> > +
+>> > +        ports {
+>> > +            #address-cells =3D <1>;
+>> > +            #size-cells =3D <0>;
+>>
+>> The ports are not mentioned in the properties. I'm not a DT maintainer, =
+but
+>> I think they should, e.g. to mention which port is the input and which i=
+s
+>> the output.
+>>
+>> > +
+>> > +            port@0 {
+>> > +                reg =3D <0>;
+>> > +                endpoint {
+>> > +                    remote-endpoint =3D <&dcss_out>;
+>> > +                };
+>> > +            };
+>> > +
+>> > +            port@1 {
+>> > +                reg =3D <1>;
+>> > +                endpoint {
+>> > +                    data-lanes =3D <2 1 0 3>;
+>>
+>> Having a remote-endpoint property would be nice here, to make the exampl=
+e
+>> more complete.
+>
+> The ports and the remote endpoints are documented in the bridge binding..=
+.
 
-diff --git a/rust/kernel/drm/device.rs b/rust/kernel/drm/device.rs
-index adbafe8db54d..78ea0eb12535 100644
---- a/rust/kernel/drm/device.rs
-+++ b/rust/kernel/drm/device.rs
-@@ -111,6 +111,13 @@ impl<T: drm::Driver> Device<T> {
-         fops: &Self::GEM_FOPS,
-     };
- 
-+    // Use a vtable without a `release` callback until `data` is initialized, so init failure
-+    // can release the DRM device without dropping uninitialized fields.
-+    const ALLOC_VTABLE: bindings::drm_driver = bindings::drm_driver {
-+        release: None,
-+        ..Self::VTABLE
-+    };
-+
-     const GEM_FOPS: bindings::file_operations = drm::gem::create_fops();
- 
-     /// Create a new `drm::Device` for a `drm::Driver`.
-@@ -120,12 +127,12 @@ pub fn new(dev: &device::Device, data: impl PinInit<T::Data, Error>) -> Result<A
-         let layout = Kmalloc::aligned_layout(Layout::new::<Self>());
- 
-         // SAFETY:
--        // - `VTABLE`, as a `const` is pinned to the read-only section of the compilation,
-+        // - `ALLOC_VTABLE`, as a `const` is pinned to the read-only section of the compilation,
-         // - `dev` is valid by its type invarants,
-         let raw_drm: *mut Self = unsafe {
-             bindings::__drm_dev_alloc(
-                 dev.as_raw(),
--                &Self::VTABLE,
-+                &Self::ALLOC_VTABLE,
-                 layout.size(),
-                 mem::offset_of!(Self, dev),
-             )
-@@ -133,6 +140,10 @@ pub fn new(dev: &device::Device, data: impl PinInit<T::Data, Error>) -> Result<A
-         .cast();
-         let raw_drm = NonNull::new(from_err_ptr(raw_drm)?).ok_or(ENOMEM)?;
- 
-+        // SAFETY: `raw_drm` is a valid pointer to `Self`, given that `__drm_dev_alloc` was
-+        // successful.
-+        let drm_dev = unsafe { Self::into_drm_device(raw_drm) };
-+
-         // SAFETY: `raw_drm` is a valid pointer to `Self`.
-         let raw_data = unsafe { ptr::addr_of_mut!((*raw_drm.as_ptr()).data) };
- 
-@@ -140,15 +151,14 @@ pub fn new(dev: &device::Device, data: impl PinInit<T::Data, Error>) -> Result<A
-         // - `raw_data` is a valid pointer to uninitialized memory.
-         // - `raw_data` will not move until it is dropped.
-         unsafe { data.__pinned_init(raw_data) }.inspect_err(|_| {
--            // SAFETY: `raw_drm` is a valid pointer to `Self`, given that `__drm_dev_alloc` was
--            // successful.
--            let drm_dev = unsafe { Self::into_drm_device(raw_drm) };
--
-             // SAFETY: `__drm_dev_alloc()` was successful, hence `drm_dev` must be valid and the
-             // refcount must be non-zero.
-             unsafe { bindings::drm_dev_put(drm_dev) };
-         })?;
- 
-+        // SAFETY: `drm_dev` is still private to this function.
-+        unsafe { (*drm_dev).driver = &Self::VTABLE };
-+
-         // SAFETY: The reference count is one, and now we take ownership of that reference as a
-         // `drm::Device`.
-         Ok(unsafe { ARef::from_raw(raw_drm) })
+Ah, my bad, I reviewed too quickly and mixed the phy and bridge bindings in
+my mind, sorry.
 
----
-base-commit: d9a6809478f9815b6455a327aa001737ac7b2c09
-change-id: 20260428-fix-drm-1-459b6357de23
+>
+> However, I believe I screwed this example up by adding the entire bridge =
+node,
+> instead of just a simple:
+>
+> mhdp {
+>     phy {
+>         compatible =3D "fsl,imx8mq-hdptx-phy";
+>         #phy-cells =3D <0>;
+>         clocks =3D <&hdmi_phy_27m>, <&clk IMX8MQ_CLK_DISP_APB_ROOT>;
+>         clock-names =3D "ref", "apb";
+>     };
+> };
+>
+> I'll simplify the example in the next iteration.
 
-Best regards,
---  
-Eliot Courtney <ecourtney@nvidia.com>
+Yes, I think it would make sense to do it.
 
+Thanks,
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
