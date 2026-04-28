@@ -4,90 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 579EEFF886D
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 16:40:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D23CFFF8868
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 16:42:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DC7010ECAE;
-	Tue, 28 Apr 2026 16:40:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36FDE10E2F8;
+	Tue, 28 Apr 2026 16:42:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=embeddedor.com header.i=@embeddedor.com header.b="PoIIE7t8";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="dYbBmawO";
 	dkim-atps=neutral
-X-Greylist: delayed 427 seconds by postgrey-1.36 at gabe;
- Tue, 28 Apr 2026 16:40:56 UTC
-Received: from omta36.uswest2.a.cloudfilter.net
- (omta36.uswest2.a.cloudfilter.net [35.89.44.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2732910E2F8
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 16:40:56 +0000 (UTC)
-Received: from eig-obgw-5007b.ext.cloudfilter.net ([10.0.29.167])
- by cmsmtp with ESMTPS
- id HdMSwtO7unwj2HlNdwMvvP; Tue, 28 Apr 2026 16:33:49 +0000
-Received: from gator4166.hostgator.com ([108.167.190.91]) by cmsmtp with ESMTPS
- id HlNbw2hMUxUZ2HlNbwfdA8; Tue, 28 Apr 2026 16:33:47 +0000
-X-Authority-Analysis: v=2.4 cv=HJHDFptv c=1 sm=1 tr=0 ts=69f0e16d
- a=vY9Mjuda9oMEc2E4Cx1x2A==:117 a=vY9Mjuda9oMEc2E4Cx1x2A==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=7T7KSl7uo7wA:10 a=c92rfblmAAAA:8
- a=VwQbUJbxAAAA:8 a=-lHa08R6ZhYopAfIOb8A:9 a=QEXdDO2ut3YA:10
- a=GvGzcOZaWPEFPQC_NcjD:22 a=2aFnImwKRvkU0tJ3nQRT:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=embeddedor.com; s=default; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=kSmTUZAfKefQAJxg+Et3xbccxjjS+rHdTDM7iO/aGJg=; b=PoIIE7t8n8jY0K+Mpg66RBRyA8
- 9Fy2G6XGaYrEml+Remx4NKm4lR0Wef0L2dhGw2k5X7eX6RJy05ZE73E+w2vm4t97jj8gq7gZViMPa
- o0Q3ADNqI8PZdbJfRnvD2utGzt7kOGniLg7+EWngjPL0pdnksoKTA0VT/oi2R3lF4lExoeqfz/nAc
- ilNc6ywR9wtoH2a7OWEj9IMaL9pjI3B2GACSI6A+NLJRhMh617wiwV2IgTjKDdBglkuhXIlpDMxK3
- /p5ETmpokgvbQI9D8j8v68TI49yduwZo3vWjzxuHESCRMCMdrhi2z7S5wcUR3ogoz1NVMxLiBR7ww
- v20qHb1g==;
-Received: from [177.238.19.10] (port=48828 helo=[192.168.0.104])
- by gator4166.hostgator.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.99.1)
- (envelope-from <gustavo@embeddedor.com>) id 1wHlNZ-00000002RuV-1Y66;
- Tue, 28 Apr 2026 11:33:45 -0500
-Message-ID: <2d713338-1eb5-4164-816a-6c0f91c8a9e4@embeddedor.com>
-Date: Tue, 28 Apr 2026 10:32:46 -0600
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B290910E2F8
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 16:41:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1777394499; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=HYy/rLMbmbst3Vfjb5hFmZaLPL+TqdQd57PZL7UFGOdqLKDGBtkUD/UOMGXDLTnX7bmW/kFjXC7NZexu8j9x+6k97QhD5Wlt+E8JPdzRfH9mLgpcgEAhIas4LwnJ+h0kylxQ3RareyV8bdV7WRKqtIYOkYuQcSvvcXP4UIzSYSc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1777394499;
+ h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=8aR5apHjzAUOsN70nMOy/vTKyUTNnpXZ3q7JDGCeIlo=; 
+ b=HiX78neaU/HCcbQkTcYd8ivKi9ZRoIlKGdiDcAl9DYg/LEPAgU8X0BzdCG++ZDJgFuvZo/IxS2NTAW42qmlzwyt67QxCCe6WVgkDu9PujhaOlYAFuXLTXff3SopDdA7ANcqZklVIYNBwmLwmCigwwwRu/W1mM691F2qC4hxt1vc=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
+ dmarc=pass header.from=<deborah.brouwer@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1777394499; 
+ s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
+ h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+ bh=8aR5apHjzAUOsN70nMOy/vTKyUTNnpXZ3q7JDGCeIlo=;
+ b=dYbBmawOJYMS9U8rN0DqCeYIVVt8x9TohsUkpydxedP6MmVCYmdYbAK2U3vEHEw3
+ s1y7Y2cBYVECoIXi6MRA1zuSW6CEXzzsQISjvVtDKrvf15RAARxRcyVQ/5iL4Zo2clp
+ ciWmcgX3BrHGbvlnr3gTm6if7hifYBuna22QWESQ=
+Received: by mx.zohomail.com with SMTPS id 1777394497407263.89744176832005;
+ Tue, 28 Apr 2026 09:41:37 -0700 (PDT)
+Date: Tue, 28 Apr 2026 09:41:36 -0700
+From: Deborah Brouwer <deborah.brouwer@collabora.com>
+To: Alice Ryhl <aliceryhl@google.com>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+ Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>,
+ FUJITA Tomonori <fujita.tomonori@gmail.com>,
+ Frederic Weisbecker <frederic@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>,
+ Anna-Maria Behnsen <anna-maria@linutronix.de>,
+ John Stultz <jstultz@google.com>, Stephen Boyd <sboyd@kernel.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, beata.michalska@arm.com,
+ lyude@redhat.com, acourbot@nvidia.com, work@onurozkan.dev,
+ alvin.sun@linux.dev
+Subject: Re: [PATCH v4 00/20] drm/tyr: firmware loading and MCU boot support
+Message-ID: <afDjQMYam_XjGC5q@um790>
+References: <20260424-b4-fw-boot-v4-v4-0-a5d91050789d@collabora.com>
+ <20260427100704.02190859@fedora> <afCSUYIbV2ibZuOM@google.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH][next] drm/i915/gvt: Avoid -Wflex-array-member-not-at-end
- warning
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Zhenyu Wang <zhenyuw.linux@gmail.com>, Zhi Wang <zhi.wang.linux@gmail.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-References: <ae_4GkBsNl_0SYTm@kspp>
- <4d5f5949b34f7bba00ed570ad2098074aa0c05f5@intel.com>
-Content-Language: en-US
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-In-Reply-To: <4d5f5949b34f7bba00ed570ad2098074aa0c05f5@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
-X-AntiAbuse: Original Domain - lists.freedesktop.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - embeddedor.com
-X-BWhitelist: no
-X-Source-IP: 177.238.19.10
-X-Source-L: No
-X-Exim-ID: 1wHlNZ-00000002RuV-1Y66
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: ([192.168.0.104]) [177.238.19.10]:48828
-X-Source-Auth: gustavo@embeddedor.com
-X-Email-Count: 3
-X-Org: HG=hgshared;ORG=hostgator;
-X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfMwLwIDCMZzybVcjT6UQvB1us86KtSoKcXaLJAU45woS9Hvd6Zn0cd7XS5HwH1VF+1uYO9cVGvapNh4JGXF5Jed2OW4DotFOq9dtCo355SRgCBCJQYqs
- LBw/Qc1N5UYlIYuomHf8b5FgPRhF4UlF9LifLWjVACoCwNgIUNmrL8zeGGo9Kl8faujKO4c5FT8m1iMlsMSNYhozBpnjx0B4p9QWPQqXL3GloGSseGI5S+PH
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <afCSUYIbV2ibZuOM@google.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,179 +80,154 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-
-On 4/28/26 01:53, Jani Nikula wrote:
-> On Mon, 27 Apr 2026, "Gustavo A. R. Silva" <gustavoars@kernel.org> wrote:
->> -Wflex-array-member-not-at-end was introduced in GCC-14, and we are
->> getting ready to enable it, globally.
->>
->> Use the TRAILING_OVERLAP() helper to fix the following warning:
->>
->> drivers/gpu/drm/i915/gvt/opregion.c:126:40: warning: structure containing a flexible array member is not at the end of another structure [-Wflex-array-member-not-at-end]
->>
->> This helper creates a union between a flexible-array member (FAM)
->> and a set of members that would otherwise follow it. This overlays
->> the trailing members onto the FAM while preserving the original
->> memory layout.
->>
->> Lastly, the static_assert() ensures the alignment between the FAM and
->> struct efp_child_device_config child0; is not inadvertently changed,
->> and it's intentionally placed inmediately after the related structure
->> (that is, no blank line in between).
->>
->> Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
->> ---
->>   drivers/gpu/drm/i915/gvt/opregion.c | 20 ++++++++++++--------
->>   1 file changed, 12 insertions(+), 8 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/i915/gvt/opregion.c b/drivers/gpu/drm/i915/gvt/opregion.c
->> index d6e76ba31d60..efe457c02788 100644
->> --- a/drivers/gpu/drm/i915/gvt/opregion.c
->> +++ b/drivers/gpu/drm/i915/gvt/opregion.c
->> @@ -122,17 +122,21 @@ struct vbt {
->>   	struct bdb_data_header general_features_header;
->>   	struct bdb_general_features general_features;
->>   
->> -	struct bdb_data_header general_definitions_header;
->> -	struct bdb_general_definitions general_definitions;
->> -
->> -	struct efp_child_device_config child0;
->> -	struct efp_child_device_config child1;
->> -	struct efp_child_device_config child2;
->> -	struct efp_child_device_config child3;
->> -
->>   	struct bdb_data_header driver_features_header;
->>   	struct bdb_driver_features driver_features;
->> +
->> +	struct bdb_data_header general_definitions_header;
->> +
->> +	/* Must be last as it ends in a flexible-array member. */
->> +	TRAILING_OVERLAP(struct bdb_general_definitions, general_definitions, devices,
->> +		struct efp_child_device_config child0;
->> +		struct efp_child_device_config child1;
->> +		struct efp_child_device_config child2;
->> +		struct efp_child_device_config child3;
->> +	);
+On Tue, Apr 28, 2026 at 10:56:17AM +0000, Alice Ryhl wrote:
+> On Mon, Apr 27, 2026 at 10:07:04AM +0200, Boris Brezillon wrote:
+> > On Fri, 24 Apr 2026 16:38:54 -0700
+> > Deborah Brouwer <deborah.brouwer@collabora.com> wrote:
+> > 
+> > > This series adds firmware loading and MCU boot support to the Tyr DRM
+> > > driver. It includes:
+> > >  - A parser for the Mali CSF firmware binary format
+> > >  - A kernel-managed BO type (KernelBo) for internal driver allocations
+> > >  - GPU virtual memory (VM) integration using drm_gpuvm
+> > >  - An MMU module and a generic slot manager
+> > >  - Shmem-backed GEM support for Tyr
+> > >  - Loading firmware, VM activation, and MCU boot at probe()
+> > >  - Initialization of Command Stream Frontend (CSF) firmware interfaces
+> > > 
+> > > Dependencies:
+> > >  - [PATCH v12 0/5] Rust bindings for gem shmem
+> > >     https://lore.kernel.org/rust-for-linux/20260421235346.672794-1-lyude@redhat.com
+> > > 
+> > >  - [PATCH v6 0/5] Rust GPUVM immediate mode
+> > >     https://lore.kernel.org/rust-for-linux/20260409-gpuvm-rust-v6-0-b16e6ada7261@google.com/
+> > > 
+> > >  - [PATCH v6 0/5] Introduce DeviceContext
+> > >     https://lore.kernel.org/rust-for-linux/20260320233645.950190-1-lyude@redhat.com/
+> > > 
+> > >  - [PATCH v5 0/6] drm/tyr: Use register! macro
+> > >     https://lore.kernel.org/rust-for-linux/20260409-b4-tyr-use-register-macro-v5-v5-0-8abfff8a0204@collabora.com/
+> > > 
+> > > Other Prerequisites:
+> > >  This series also depends on additional prerequisite fixes not included in
+> > >  this posting. The full stack (base + prerequisites + this series) is
+> > >  available here:
+> > >   https://gitlab.freedesktop.org/dbrouwer/linux/-/tree/dbrouwer/fw-boot
+> > >     
+> > >   Development history / discussion:
+> > >    https://gitlab.freedesktop.org/panfrost/linux/-/merge_requests/56
+> > >     
+> > > 
+> > > ---
+> > > Changes in v4:
+> > >  New commits:
+> > >   - drm/tyr: program CSF global interface
+> > >   - rust: time: add arch_timer_get_rate wrapper
+> > >   - drm/tyr: add CSF firmware interface support
+> > >   - drm/tyr: validate presence of CSF shared section
+> > >   - drm/tyr: wait for global interface readiness
+> > >   - drm/tyr: add Job IRQ handling
+> > >   - drm/tyr: add Wait type for GPU events
+> > > 
+> > >  The existing commits from v3 remain unchanged.
+> > >  - Link to v3: https://lore.kernel.org/r/20260413-b4-fw-boot-v3-v3-0-b422f3c03885@collabora.com
+> > >     
+> > > Changes in v3:
+> > >  New commits:
+> > >   - drm/tyr: remove unused device from platform data
+> > >   - drm/tyr: use shmem GEM object type in TyrDrmDriver
+> > >     
+> > >  drm/tyr: select required dependencies in Kconfig
+> > >   - Rename commit since the dependencies are not limited to DRM.
+> > >   - Select new RUST_DRM_GEM_SHMEM_HELPER instead of DRM_GEM_SHMEM_HELPER.
+> > >     
+> > >  drm/tyr: set DMA mask using GPU physical address
+> > >   - Use register macro to read pa_bits instead of separate helper function.
+> > >     
+> > >  drm/tyr: add MMU module
+> > >   - Switch MMU code to typed register APIs (TRANSCFG, MEMATTR, STATUS, LOCKADDR, etc.).
+> > >   - Use MmuCommand enum for MMU commands instead of raw constants.
+> > >   - Minor cleanups and renaming (MAX_AS, AS_PRESENT handling).
+> > >     
+> > >  drm/tyr: add GPU virtual memory module
+> > >   - Extract VA/PA bits via typed MMU_FEATURES register.
+> > >   - Update the VM code to match the new GPUVM v6 and shmem GEM v10 APIs.
+> > >     
+> > >  drm/tyr: add a kernel buffer object
+> > >   - Reject zero-sized KernelBo allocations up front.
+> > >     
+> > >  drm/tyr: add firmware loading and MCU boot support
+> > >   - Use typed GPU control registers.
+> > >   - Pass iomem by Arc into Firmware::new() since we store it eventually.
+> > >     
+> > >   - Link to v2: https://lore.kernel.org/rust-for-linux/20260302232500.244489-1-deborah.brouwer@collabora.com/
+> > >     
+> > > Changes in v2:
+> > >  - The whole series is rebased on drm-rust-next including v7.0-rc1.
+> > >  - Each patch has its own changelog.
+> > >     
+> > >  Link to v1: https://lore.kernel.org/rust-for-linux/20260212013713.304343-1-deborah.brouwer@collabora.com/
+> > > 
+> > > Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+> > > 
+> > > ---
+> > > Alvin Sun (1):
+> > >       drm/tyr: use shmem GEM object type in TyrDrmDriver
+> > > 
+> > > Beata Michalska (1):
+> > >       drm/tyr: set DMA mask using GPU physical address
+> > > 
+> > > Boris Brezillon (5):
+> > >       drm/tyr: select required dependencies in Kconfig
+> > >       drm/tyr: rename TyrObject to BoData
+> > >       drm/tyr: Add generic slot manager
+> > >       drm/tyr: add MMU module
+> > >       drm/tyr: add GPU virtual memory module
+> > > 
+> > > Daniel Almeida (1):
+> > >       drm/tyr: add parser for firmware binary
+> > > 
+> > > Deborah Brouwer (12):
+> > >       drm/tyr: remove unused device from platform data
+> > >       drm/tyr: move clock cleanup into Clocks Drop impl
+> > >       drm/tyr: add shmem backing for GEM objects
+> > >       drm/tyr: add a kernel buffer object
+> > >       drm/tyr: add firmware loading and MCU boot support
+> > >       drm/tyr: add Wait type for GPU events
+> > >       drm/tyr: add Job IRQ handling
+> > >       drm/tyr: wait for global interface readiness
+> > >       drm/tyr: validate presence of CSF shared section
+> > >       drm/tyr: add CSF firmware interface support
+> > >       rust: time: add arch_timer_get_rate wrapper
+> > >       drm/tyr: program CSF global interface
+> > 
+> > This series starts to be quite big, and it seems new features have been
+> > added to v4 (interactions with the FW). I'd recommend that we extract
+> > the uncontroversial bits (I'd say patch 1-2, 4-7) or have them applied
+> > to drm-rust-next right away. I know it's tempting to add features
+> > between revisions, but the more you do that the longer it will take to
+> > get the foundation merged.
 > 
-> So this impacts the generation of a binary blob, parsed by the client OS
-> driver. In theory, the order of the BDB blocks shouldn't matter, but who
-> knows.
+> How about I pick up patches 1, 3, 4, 5, 6, 7 for drm-rust-next now?
+
+Don't pick patch 1 because it depends on the Device Context series.
+The DRM device only because redundant once it's Registered, so we can't
+remove it yet.
+
+Patch 3: "drm/tyr: move clock cleanup into Clocks Drop impl" applies
+cleanly to drm-rust-next so that could go.
+
+Patches 4-7 need conflict resolution.
+
+How about I prepare a new series of stuff that could go in
+immediately and that will at least make this fw-boot series shorter?
+
 > 
-> Anyway, I'm more worried about inadvertent padding potentially being
-> introduced. struct vbt should have __packed attribute, which is missing,
-> but I also think the union and the struct within TRAILING_OVERLAP()
-> should also have __packed.
+> Otherwise yeah I agree it's better to split up work and have multiple
+> series that depend on each other, because then I can just pick up whole
+> series on their own as they reach a finished state.
+
+Ack.
+
 > 
-> Like, if struct efp_child_device_config gets extended by one byte,
-> what's going to happen with padding? It's __packed on its own, but IIUC
-> that doesn't automatically apply to the enclosing structs or unions.
-
-We have __TRAILING_OVERLAP() to add attributes like __packed to the
-overlapping group of MEMBERS.
-
-So, the patch would look as follows (including the addition of __packed to
-struct vbt):
-
-diff --git a/drivers/gpu/drm/i915/gvt/opregion.c b/drivers/gpu/drm/i915/gvt/opregion.c
-index d6e76ba31d60..f4fabba56a1b 100644
---- a/drivers/gpu/drm/i915/gvt/opregion.c
-+++ b/drivers/gpu/drm/i915/gvt/opregion.c
-@@ -122,17 +122,21 @@ struct vbt {
-         struct bdb_data_header general_features_header;
-         struct bdb_general_features general_features;
-
--       struct bdb_data_header general_definitions_header;
--       struct bdb_general_definitions general_definitions;
--
--       struct efp_child_device_config child0;
--       struct efp_child_device_config child1;
--       struct efp_child_device_config child2;
--       struct efp_child_device_config child3;
--
-         struct bdb_data_header driver_features_header;
-         struct bdb_driver_features driver_features;
--};
-+
-+       struct bdb_data_header general_definitions_header;
-+
-+       /* Must be last as it ends in a flexible-array member. */
-+       __TRAILING_OVERLAP(struct bdb_general_definitions, general_definitions, devices, __packed,
-+               struct efp_child_device_config child0;
-+               struct efp_child_device_config child1;
-+               struct efp_child_device_config child2;
-+               struct efp_child_device_config child3;
-+       );
-+} __packed;
-+static_assert(offsetof(struct vbt, general_definitions.devices) ==
-+             offsetof(struct vbt, child0));
-
-However, Sashiko says this[1]:
-
-"Does moving these fields physically change the byte-for-byte layout and
-block sequence of the VBT exposed to the guest VM?
-struct vbt represents the exact layout of the synthetic VBT exposed to the
-guest VM via the OpRegion. In intel_vgpu_init_opregion(), the structure is
-directly copied to guest memory:
-drivers/gpu/drm/i915/gvt/opregion.c:intel_vgpu_init_opregion() {
-         ...
-         memcpy(buf + INTEL_GVT_OPREGION_VBT_OFFSET, &v, sizeof(struct vbt));
-         ...
-}"
-
-If shuffling fields around actually causes any issues, I can use a different
-approach, like the one below (thanks to -fms-extensions):
-
-diff --git a/drivers/gpu/drm/i915/display/intel_vbt_defs.h b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-index 0dc13d080e8a..b238636e315e 100644
---- a/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-+++ b/drivers/gpu/drm/i915/display/intel_vbt_defs.h
-@@ -568,7 +568,7 @@ struct child_device_config {
-         u32 edp_data_rate_override_reserved:20;                 /* 263+ */
-  } __packed;
-
--struct bdb_general_definitions {
-+struct bdb_general_definitions_hdr {
-         /* DDC GPIO */
-         u8 crt_ddc_gmbus_pin;
-
-@@ -581,7 +581,10 @@ struct bdb_general_definitions {
-         /* boot device bits */
-         u8 boot_display[2];
-         u8 child_dev_size;
-+} __packed;
-
-+struct bdb_general_definitions {
-+       struct bdb_general_definitions_hdr;
-         /*
-          * Device info:
-          * If TV is present, it'll be at devices[0].
-diff --git a/drivers/gpu/drm/i915/gvt/opregion.c b/drivers/gpu/drm/i915/gvt/opregion.c
-index d6e76ba31d60..3ebdc4c28c5b 100644
---- a/drivers/gpu/drm/i915/gvt/opregion.c
-+++ b/drivers/gpu/drm/i915/gvt/opregion.c
-@@ -123,7 +123,7 @@ struct vbt {
-         struct bdb_general_features general_features;
-
-         struct bdb_data_header general_definitions_header;
--       struct bdb_general_definitions general_definitions;
-+       struct bdb_general_definitions_hdr general_definitions;
-
-         struct efp_child_device_config child0;
-         struct efp_child_device_config child1;
-@@ -132,7 +132,7 @@ struct vbt {
-
-         struct bdb_data_header driver_features_header;
-         struct bdb_driver_features driver_features;
--};
-+} __packed;
-
-  static void virt_vbt_generation(struct vbt *v)
-  {
-
-However, in this particular case, __TRAILING_OVERLAP() is more robust.
-
-Thanks for the feedback!
--Gustavo
-
-[1] https://sashiko.dev/#/patchset/ae_4GkBsNl_0SYTm%40kspp
+> Alice
