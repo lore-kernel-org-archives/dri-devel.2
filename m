@@ -4,80 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EDAEFF8875
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F23BBFF8867
 	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 10:11:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7189410EF31;
-	Wed, 29 Apr 2026 10:11:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A95010EF38;
+	Wed, 29 Apr 2026 10:11:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imd-tec.com header.i=@imd-tec.com header.b="c35S8cEZ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HGsk2SUy";
 	dkim-atps=neutral
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F4F610E7B3
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 15:22:32 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-488b150559bso82589555e9.1
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 08:22:32 -0700 (PDT)
+Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com
+ [209.85.167.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F33710E09A
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 08:12:53 +0000 (UTC)
+Received: by mail-oi1-f175.google.com with SMTP id
+ 5614622812f47-479eb8bcacbso4326047b6e.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 01:12:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777363973; cv=none;
+ d=google.com; s=arc-20240605;
+ b=fC6bLp8Ph04JCuLzlBrvP4v3HQauuUcVZJCLX1bbKVNXq4z6WKkJzsk4Z3lgGEuUJc
+ VOOqaYkbMiUCgvv1OG9tG+0/U8JsEUjLY8L1g0kL/H4RQYKpj2B0IPRDNQJe7HDLYGlP
+ BF+K5j1Pzarlv/cZFSodnKu8Nk6nDhIGhfBA7GeW93X1hTKR0Rf+/7gcOh9CM2/oDMV0
+ VyMhHZXFUBkwg45taURbXga1oWHwI1fwp0wxir1vMVQ0FxJMWfGp6yfEMBmVJ8o/VtD1
+ 6BEZMAEGYH/wSpEUkBS4ZTuKDZxeq5fpbouoMAZ+S/z5GQ4QmMS0FKptQiz3zua8npJy
+ pkvg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=S4SMKua/Q4FYJC/q2iwoO/pP2cuR3lZNeCTatqb8PHw=;
+ fh=fRD8Pw/Vpor7y7Qadpy9XEhpN8PKsSxWVUoAKGMxlak=;
+ b=iKdB3nkNwDsf3zEJRyxdKa0BsHYjWiAiaDjxvcwaC25BE38couElx47gVK+sXoU485
+ 6O9BtoewmfSUHsQAAdTNDTB2GsgQE6nT+BsjFzv0Gqbe5ESOC9eLOSc1TTuwHvTvuqIX
+ SAX8tbZgLIaj7Nl30whN4lv5EYbDoXdPuIo7m1XNeTo4BNmjEyLle9UjlCG/RSu3sbZd
+ +PkLv3Nt+cv6wK7TLnVai8qaH4/n6OyNLa7ML2F76gQMXXABa2GtHGyxo8ZPW12OZ404
+ 510aZROH+SJxAnpUujRVUsMqSsD7ATmBNNzMu510UFeVUY4iv3TxUu2mYhbmctESc0mt
+ 9xMg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=imd-tec.com; s=google; t=1777303351; x=1777908151; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=pie8QbWldg5VNEJDsI0ovz0KroQYVuPXc4fMQ9N0ZIk=;
- b=c35S8cEZ07tvUmR8qjuXDG22112AWb+SUdaT6pFAPc96NWhu7V6YdhgBwbF5nAvScj
- Ay1vnFBTMLw73nxyO7BKldwVj7ZnV/hr9V+I/mWx1rwm+8V1V5H2sn/75At7MPK/4f93
- MkJYNN+5uajeX9eCJNfdH+wpKKcs8cRWP1KwAEZGBmUFKN6k+61blYS8xfazAxOPRMPe
- CrupCM/nSZzwob28h66nq/ewCsYu4WLnaHIbXEyK5pKYhp/qbiXst8bVowKxxTFCJEun
- yx1DXv1XQkrv8R+M3OEnf2bbMrmSGLxQRb1GIM6apO1bBF4PelPtltsLb4RJE3D51Slk
- dhGw==
+ d=gmail.com; s=20251104; t=1777363973; x=1777968773; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=S4SMKua/Q4FYJC/q2iwoO/pP2cuR3lZNeCTatqb8PHw=;
+ b=HGsk2SUyoLlPkr+CUSaiKJBN6gspbPwRGFZl49zALFYJSOONGdgCvoFOJnqlvOq3Wv
+ BeblV9yl1ekQsGAwKP4wncYkh1Bqep0mf6IW60AVOC4DZnaTCoM0FvsAVkCqwHjCTG1K
+ s0rrKIgjBlaTB75WjaiaiB912zUWiJATcFATLDF1i3xSKsDvN6fVLyav0rlzLUqhJpF2
+ bfozydxINhBiwcmjDvDwu/rwUU7sBnGcKjfjOtBgax1S7+op5IAprlR9+HwltvcCB7rY
+ /pkS+3JuX72cYewuV7oJYVzUOENYiUnYWsvPMfp9Z4Mpw8ST/DzlYzmqJVKLrnwJxizn
+ FKPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777303351; x=1777908151;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=pie8QbWldg5VNEJDsI0ovz0KroQYVuPXc4fMQ9N0ZIk=;
- b=PhzFA2+uOWdUbLwQbwE3jkrQNxXUz3nRHW56OvSdGbQIqNg4D9+f1hvfW39AGQlg2q
- L4QciAvtukg4nh/MJsxGfq6JHwEf7JkEuJQSL3mDmG9kdoVSq9hc0XUNW+zphIk6u3Ds
- aubggNjX+VRs0n8h0GMoLPxBQUnafsIyyAQBR0NLI0OpIyX/9D9DzbSKVPGAbYfJyngI
- P1mU9Nh0tzA87g+K8lwvWYq93jb6phuwuc4XGCCOGdgXLyyWYQL/jyOmIgQcJHUTyjMG
- dIw+F9L67esstpmIa0auE2Z5N/ydCrAAqibC75jkN2R448z66eG/jOgh6zec3YHhsTBx
- zGNg==
-X-Gm-Message-State: AOJu0Yw3RVJeVIAv9IqXq0rpFI4CKmXt1Fy6y5U7dfJPQ1mWb3zZPsQb
- 7BtgJs2rwYqpEF58lw35gJ/SWA/8NRrOaFGDphRP5g9SER3t1vcycGPOVtwwrInUFSA=
-X-Gm-Gg: AeBDiesxzUR4rJedDJnYZ1X5iM7kqIRVNpIanPPuZ5K0oJ+MTGvqaHcvvqOHzS39R9d
- wb68S5PKsp1lXV2AguNzb/TldpiX+svYCd7dfDl+38aDhICp8dFvC/JL2DakLulEMq8yHZ865uO
- KysX1YorKNJlOE6kNfQJHW+zXUKmPiU02vJN+1vFAQ09A/f1eodxhnbSrAPxgURanwsDPlmmUYJ
- GMU8QGazjs0wddwebR0S0aPGKh+sVe/ZtI2Jn+UBS1DgPP1weFEtTge/AmDqKbiMotV0BrYaGS1
- FWJ1ES9gs/Bs6LRrB9tZAGa7unFQRXHnFeVCcoGZOFxpSkQIBn/D8ghZrkfLxYwW3mcvLCqyTBN
- 3S9XJQEXyFN37gfHPws9dUetgtCFM78bHfYcwL4aD7O0WPefOdB9FKd7nvrVuBt1ULafcd4+A0H
- wV55xuENT+Jd17dj53duV65+UPuKbiSGlbBXWC7al/cSkKcNBQ0Ap/hPavfY4fmvsS+oPI8reh5
- j3xkByIXMeAVLUSuIZY4FZwWYosNQ==
-X-Received: by 2002:a05:600c:4509:b0:489:e126:b757 with SMTP id
- 5b1f17b1804b1-489e126ba91mr422703385e9.25.1777303350864; 
- Mon, 27 Apr 2026 08:22:30 -0700 (PDT)
-Received: from [127.0.1.1] ([82.71.135.85]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-488fc0f8188sm861247695e9.2.2026.04.27.08.22.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Apr 2026 08:22:30 -0700 (PDT)
-From: William Bright <william.bright@imd-tec.com>
-Date: Mon, 27 Apr 2026 16:21:10 +0100
-Subject: [PATCH 2/2] drm/panel: Add TSD TST070WSBE-196C 7" DSI panel driver
+ d=1e100.net; s=20251104; t=1777363973; x=1777968773;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=S4SMKua/Q4FYJC/q2iwoO/pP2cuR3lZNeCTatqb8PHw=;
+ b=ZuQQdRPy9saeI5fCf+v3BbEkyWuaXzD1sv0syI2V8QIghEkP0RuuEEbLjhjsE4VFcN
+ hMMDXZL8r2g4PbmX+L1giQ2Uql4BAbHk0C/JJQVjB2Zr9xFL/ye7bSfzaYn/rboRL9uR
+ jIqC6n2dylaPLq0iMhiluOpB9SsqfILobFk8gnIwUcQv0v3zspNYNq9fmfD3mpRe/0cA
+ Wp8gc3UXZC+nr27xjsFJ3PWXsAcHtelNqDC5CleP+hfmU67BR0t7iETg+n0CU/NINWtJ
+ 7Pj4u2ZzscR3P28bh6YysgO/2ggargC/hyaH+ndmaUQQE9ivttz8VdDBKenCMHpKce3X
+ WbfA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/U04L3zY4t5gQ1hJb49VRyYqkItsiHxNWakl17zrDZdahmINQlyL6y+Cc24XTPn9hJmRcP+0kCLaQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyTOhl35VpKEy+jRqlZAiQ+Z/KQ1Aky39GNvV4sISRowRcI53cS
+ v/DJp9tuDk/U8aD0ZXL5TsOPLdL2J8KfhVvfhLYMaMRJjZIq3On9/nwkc7JttXGFmuIsu5bO2Cr
+ A+22vkFZXbY5VftRSE6XNAS/2LS321OE=
+X-Gm-Gg: AeBDieunhVZARlbytRfmNeEMSiefp/RLMAypKr0OfAhwRnQivKbMKW+UDKj0Uppub1p
+ SX3n8nCu7nmEDXZJxWAlDHNTWF3/wEHXViTFhHCMG9T9jyLhZOcMmA2frcWLyGesu7OrEDt44X1
+ 3+IRp14Nuj57dv5JB6yzWS6NjDHlSJfHU+Th5y0xiX4R0pEg+nWQZORnA/f92WNEq/IhmYf7vJf
+ fsQ9ba73uRNVyeRdJOaA49H6qkf0tNkty6ImVG+JqfhAvtUF9/MdHFWFnX5BP8Wfqqn6wBCr4xb
+ 7vc0G5P9oZNnMr4Skg==
+X-Received: by 2002:a05:6820:1b05:b0:696:177d:5246 with SMTP id
+ 006d021491bc7-6965ca4bcd0mr937609eaf.5.1777363972642; Tue, 28 Apr 2026
+ 01:12:52 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260427-imdt-dsi-display-v1-2-bb2768de120b@imd-tec.com>
-References: <20260427-imdt-dsi-display-v1-0-bb2768de120b@imd-tec.com>
-In-Reply-To: <20260427-imdt-dsi-display-v1-0-bb2768de120b@imd-tec.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, William Bright <william.bright@imd-tec.com>
-X-Mailer: b4 0.15.2
+References: <20260428063224.3316655-1-syyang@lontium.com>
+ <20260428063224.3316655-3-syyang@lontium.com>
+ <ygxqqtql2puvej5bkmac3vhlwd4lv2f4mcjim2ornq5gj7rsoo@6zfnqckp2d7a>
+In-Reply-To: <ygxqqtql2puvej5bkmac3vhlwd4lv2f4mcjim2ornq5gj7rsoo@6zfnqckp2d7a>
+From: =?UTF-8?B?5p2o5a2Z6L+Q?= <yangsunyun1993@gmail.com>
+Date: Tue, 28 Apr 2026 16:12:40 +0800
+X-Gm-Features: AVHnY4KsepSq0dzd7vJjcut4qHV0tgsykTgs9ixdxu9xepitP8tPT2zTf4tt96I
+Message-ID: <CAFQXuNYV_Jzi26FN23b8zgw-UEsgheo8R4OVzz2TG4YZnJoYcw@mail.gmail.com>
+Subject: Re: [PATCH v1 2/2] drm:bridge: Add Lontiun LT7911EXC eDP to MIPI DSI
+ bridge
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: syyang@lontium.com, robh@kernel.org, krzk+dt@kernel.org, 
+ conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org, 
+ maarten.lankhorst@linux.intel.com, rfoss@kernel.org, mripard@kernel.org, 
+ Laurent.pinchart@ideasonboard.com, tzimmermann@suse.de, jonas@kwiboo.se, 
+ jernej.skrabec@gmail.com, devicetree@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ xmzhu@lontium.corp-partner.google.com, xmzhu@lontium.com, rlyu@lontium.com, 
+ xbpeng@lontium.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Wed, 29 Apr 2026 10:09:58 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,251 +115,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a dedicated panel driver for the TSD TST070WSBE-196C, a 7" 1024x600
-MIPI-DSI TFT LCD panel using an EK79007AD controller.
+Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=E5=B9=B4=
+4=E6=9C=8828=E6=97=A5=E5=91=A8=E4=BA=8C 15:49=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Tue, Apr 28, 2026 at 02:32:24PM +0800, syyang@lontium.com wrote:
+> > From: Sunyun Yang <syyang@lontium.com>
+> >
+> > The LT7911EXC is an I2C-controlled bridge that Receiver eDP1.4
+> > and output signal/dual port mipi.
+> >
+> > Signed-off-by: Sunyun Yang <syyang@lontium.com>
+> > ---
+> >  drivers/gpu/drm/bridge/Kconfig             |  13 +
+> >  drivers/gpu/drm/bridge/Makefile            |   1 +
+> >  drivers/gpu/drm/bridge/lontium-lt7911exc.c | 497 +++++++++++++++++++++
+> >  3 files changed, 511 insertions(+)
+> >  create mode 100644 drivers/gpu/drm/bridge/lontium-lt7911exc.c
+> >
+> > diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kc=
+onfig
+> > index c3209b0f4678..8cff2bf15b09 100644
+> > --- a/drivers/gpu/drm/bridge/Kconfig
+> > +++ b/drivers/gpu/drm/bridge/Kconfig
+> > @@ -132,6 +132,19 @@ config DRM_ITE_IT6505
+> >       help
+> >         ITE IT6505 DisplayPort bridge chip driver.
+> >
+> > +config DRM_LONTIUM_LT7911EXC
+> > +     tristate "Lontium eDP/MIPI bridge"
+> > +     depends on OF
+> > +     select CRC32
+> > +     select FW_LOADER
+> > +     select DRM_PANEL
+> > +     select DRM_KMS_HELPER
+> > +     help
+> > +       DRM driver for the Lontium LT7911EXC bridge chip.
+> > +       The LT7911EXC converts eDP input to single/dual port
+> > +       MIPI DSI output.
+> > +       Please say Y if you have such hardware.
+> > +
+> >  config DRM_LONTIUM_LT8912B
+> >       tristate "Lontium LT8912B DSI/HDMI bridge"
+> >       depends on OF
+> > diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/M=
+akefile
+> > index beab5b695a6e..70ddca75dd3a 100644
+> > --- a/drivers/gpu/drm/bridge/Makefile
+> > +++ b/drivers/gpu/drm/bridge/Makefile
+> > @@ -13,6 +13,7 @@ obj-$(CONFIG_DRM_I2C_NXP_TDA998X) +=3D tda998x.o
+> >  obj-$(CONFIG_DRM_INNO_HDMI) +=3D inno-hdmi.o
+> >  obj-$(CONFIG_DRM_ITE_IT6263) +=3D ite-it6263.o
+> >  obj-$(CONFIG_DRM_ITE_IT6505) +=3D ite-it6505.o
+> > +obj-$(CONFIG_DRM_LONTIUM_LT7911EXC) +=3D lontium-lt7911exc.o
+> >  obj-$(CONFIG_DRM_LONTIUM_LT8912B) +=3D lontium-lt8912b.o
+> >  obj-$(CONFIG_DRM_LONTIUM_LT9211) +=3D lontium-lt9211.o
+> >  obj-$(CONFIG_DRM_LONTIUM_LT9611) +=3D lontium-lt9611.o
+> > diff --git a/drivers/gpu/drm/bridge/lontium-lt7911exc.c b/drivers/gpu/d=
+rm/bridge/lontium-lt7911exc.c
+> > new file mode 100644
+> > index 000000000000..85cb6cedbfa3
+> > --- /dev/null
+> > +++ b/drivers/gpu/drm/bridge/lontium-lt7911exc.c
+> > @@ -0,0 +1,497 @@
+> > +// SPDX-License-Identifier: GPL-2.0
+> > +/*
+> > + * Copyright (C) 2026 Lontium Semiconductor, Inc.
+> > + */
+> > +
+> > +#include <linux/crc32.h>
+> > +#include <linux/firmware.h>
+> > +#include <linux/gpio/consumer.h>
+> > +#include <linux/i2c.h>
+> > +#include <linux/module.h>
+> > +#include <linux/mutex.h>
+> > +#include <linux/of_graph.h>
+> > +#include <linux/platform_device.h>
+> > +#include <linux/regmap.h>
+> > +
+> > +#include <drm/drm_bridge.h>
+> > +#include <drm/drm_mipi_dsi.h>
+> > +#include <drm/drm_of.h>
+> > +
+> > +#define FW_SIZE (64 * 1024)
+> > +#define LT_PAGE_SIZE 32
+> > +#define FW_FILE  "lt7911exc_fw.bin"
+>
+> Do you plan to submit the referene image to linux-firmware?
+>
+I want to submit it, but I don't know how. Please help me.
 
-The driver supports power supply control, reset and enable GPIOs, and
-the backlight framework.
+> > +#define LT7911EXC_PAGE_CONTROL 0xff
+> > +
+>
+> [...]
+>
+> > +
+> > +static void lt7911exc_remove(struct i2c_client *client)
+> > +{}
+>
+> If it's empty, it should be dropped. .remove is an optional callback.
+>
+it will be fixed in next version.
 
-The initial driver was built mostly using
-"linux-mdss-dsi-panel-driver-generator" [1], reading the downstream
-file "dsi-panel-imdt-tst070wsbe165c-video.dtsi" [2].
+> > +
+> > +static const struct i2c_device_id lt7911exc_i2c_table[] =3D {
+> > +     {"lontium, lt7911exc"},
+>
+> Drop  the "lontium, " part. The I2C ids (unlike OF ids) don't have the
+> vendor part.
+>
+it will be fixed in next version.
 
-[1] https://github.com/msm8916-mainline/linux-mdss-dsi-panel-driver-generator
-[2] https://raw.githubusercontent.com/imd-tec/meta-imdt-qcom/refs/heads/kirkstone/recipes-display/displaydevicetree/displaydevicetree/0001-Initial-bringup-of-IMDT-Display-3.patch
-
-Signed-off-by: William Bright <william.bright@imd-tec.com>
----
- MAINTAINERS                                       |   6 +
- drivers/gpu/drm/panel/Kconfig                     |   9 ++
- drivers/gpu/drm/panel/Makefile                    |   1 +
- drivers/gpu/drm/panel/panel-tsd-tst070wsbe-196c.c | 168 ++++++++++++++++++++++
- 4 files changed, 184 insertions(+)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index ae8a01f30ff4..6e80d9916a10 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -8414,6 +8414,12 @@ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
- F:	Documentation/devicetree/bindings/display/panel/tpo,tpg110.yaml
- F:	drivers/gpu/drm/panel/panel-tpo-tpg110.c
- 
-+DRM DRIVER FOR TSD TST070WSBE-196C PANEL
-+M:	William Bright <william.bright@imd-tec.com>
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/display/panel/tsd,tst070wsbe-196c.yaml
-+F:	drivers/gpu/drm/panel/panel-tsd-tst070wsbe-196c.c
-+
- DRM DRIVER FOR USB DISPLAYLINK VIDEO ADAPTERS
- M:	Dave Airlie <airlied@redhat.com>
- R:	Sean Paul <sean@poorly.run>
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index d6863b28ddc5..aef00b43c1f1 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -1227,6 +1227,15 @@ config DRM_PANEL_TRULY_NT35597_WQXGA
- 	  Say Y here if you want to enable support for Truly NT35597 WQXGA Dual DSI
- 	  Video Mode panel
- 
-+config DRM_PANEL_TSD_TST070WSBE_196C
-+	tristate "TSD TST070WSBE-196C DSI panel"
-+	depends on OF
-+	depends on DRM_MIPI_DSI
-+	depends on BACKLIGHT_CLASS_DEVICE
-+	help
-+	  Say Y here if you want to enable support for the TSD TST070WSBE-196C
-+	  1024x600 7" MIPI DSI panel with an EK79007AD controller.
-+
- config DRM_PANEL_VISIONOX_G2647FB105
- 	tristate "Visionox G2647FB105"
- 	depends on OF
-diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-index a4291dc3905b..1653fe7b45c5 100644
---- a/drivers/gpu/drm/panel/Makefile
-+++ b/drivers/gpu/drm/panel/Makefile
-@@ -121,6 +121,7 @@ obj-$(CONFIG_DRM_PANEL_TPO_TD028TTEC1) += panel-tpo-td028ttec1.o
- obj-$(CONFIG_DRM_PANEL_TPO_TD043MTEA1) += panel-tpo-td043mtea1.o
- obj-$(CONFIG_DRM_PANEL_TPO_TPG110) += panel-tpo-tpg110.o
- obj-$(CONFIG_DRM_PANEL_TRULY_NT35597_WQXGA) += panel-truly-nt35597.o
-+obj-$(CONFIG_DRM_PANEL_TSD_TST070WSBE_196C) += panel-tsd-tst070wsbe-196c.o
- obj-$(CONFIG_DRM_PANEL_VISIONOX_G2647FB105) += panel-visionox-g2647fb105.o
- obj-$(CONFIG_DRM_PANEL_VISIONOX_RM69299) += panel-visionox-rm69299.o
- obj-$(CONFIG_DRM_PANEL_VISIONOX_RM692E5) += panel-visionox-rm692e5.o
-diff --git a/drivers/gpu/drm/panel/panel-tsd-tst070wsbe-196c.c b/drivers/gpu/drm/panel/panel-tsd-tst070wsbe-196c.c
-new file mode 100644
-index 000000000000..7b639728b3bf
---- /dev/null
-+++ b/drivers/gpu/drm/panel/panel-tsd-tst070wsbe-196c.c
-@@ -0,0 +1,168 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Generated with linux-mdss-dsi-panel-driver-generator from vendor device tree.
-+ * Copyright (c) 2026 IMD Technologies Ltd <william.bright@imd-tec.com>
-+ */
-+
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/module.h>
-+#include <linux/regulator/consumer.h>
-+
-+#include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_modes.h>
-+#include <drm/drm_panel.h>
-+#include <drm/drm_probe_helper.h>
-+
-+struct tst070wsbe_196c {
-+	struct drm_panel panel;
-+	struct mipi_dsi_device *dsi;
-+	struct regulator *supply;
-+	struct gpio_desc *reset_gpio;
-+};
-+
-+static inline struct tst070wsbe_196c *to_tst070wsbe_196c(struct drm_panel *panel)
-+{
-+	return container_of_const(panel, struct tst070wsbe_196c, panel);
-+}
-+
-+static void tst070wsbe_196c_reset(struct tst070wsbe_196c *ctx)
-+{
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+	msleep(200);
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+	msleep(20);
-+}
-+
-+static int tst070wsbe_196c_prepare(struct drm_panel *panel)
-+{
-+	struct tst070wsbe_196c *ctx = to_tst070wsbe_196c(panel);
-+	int ret;
-+
-+	ret = regulator_enable(ctx->supply);
-+	if (ret < 0)
-+		return ret;
-+
-+	msleep(20);
-+
-+	tst070wsbe_196c_reset(ctx);
-+
-+	return 0;
-+}
-+
-+static int tst070wsbe_196c_unprepare(struct drm_panel *panel)
-+{
-+	struct tst070wsbe_196c *ctx = to_tst070wsbe_196c(panel);
-+
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+	regulator_disable(ctx->supply);
-+
-+	return 0;
-+}
-+
-+static const struct drm_display_mode tst070wsbe_196c_mode = {
-+	.clock = (1024 + 160 + 12 + 160) * (600 + 12 + 10 + 23) * 60 / 1000,
-+	.hdisplay = 1024,
-+	.hsync_start = 1024 + 160,
-+	.hsync_end = 1024 + 160 + 12,
-+	.htotal = 1024 + 160 + 12 + 160,
-+	.vdisplay = 600,
-+	.vsync_start = 600 + 12,
-+	.vsync_end = 600 + 12 + 10,
-+	.vtotal = 600 + 12 + 10 + 23,
-+	.width_mm = 190,
-+	.height_mm = 121,
-+	.type = DRM_MODE_TYPE_DRIVER,
-+};
-+
-+static int tst070wsbe_196c_get_modes(struct drm_panel *panel,
-+				   struct drm_connector *connector)
-+{
-+	return drm_connector_helper_get_modes_fixed(connector,
-+						    &tst070wsbe_196c_mode);
-+}
-+
-+static const struct drm_panel_funcs tst070wsbe_196c_panel_funcs = {
-+	.prepare = tst070wsbe_196c_prepare,
-+	.unprepare = tst070wsbe_196c_unprepare,
-+	.get_modes = tst070wsbe_196c_get_modes,
-+};
-+
-+static int tst070wsbe_196c_probe(struct mipi_dsi_device *dsi)
-+{
-+	struct device *dev = &dsi->dev;
-+	struct tst070wsbe_196c *ctx;
-+	int ret;
-+
-+	ctx = devm_drm_panel_alloc(dev, struct tst070wsbe_196c, panel,
-+				   &tst070wsbe_196c_panel_funcs,
-+				   DRM_MODE_CONNECTOR_DSI);
-+	if (IS_ERR(ctx))
-+		return PTR_ERR(ctx);
-+
-+	ctx->supply = devm_regulator_get(dev, "power");
-+	if (IS_ERR(ctx->supply))
-+		return dev_err_probe(dev, PTR_ERR(ctx->supply),
-+				     "Failed to get power regulator\n");
-+
-+	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
-+	if (IS_ERR(ctx->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
-+				     "Failed to get reset-gpios\n");
-+
-+	ctx->dsi = dsi;
-+	mipi_dsi_set_drvdata(dsi, ctx);
-+
-+	dsi->lanes = 4;
-+	dsi->format = MIPI_DSI_FMT_RGB888;
-+	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_LPM;
-+
-+	ctx->panel.prepare_prev_first = true;
-+
-+	ret = drm_panel_of_backlight(&ctx->panel);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to get backlight\n");
-+
-+	drm_panel_add(&ctx->panel);
-+
-+	ret = mipi_dsi_attach(dsi);
-+	if (ret < 0) {
-+		drm_panel_remove(&ctx->panel);
-+		return dev_err_probe(dev, ret, "Failed to attach to DSI host\n");
-+	}
-+
-+	return 0;
-+}
-+
-+static void tst070wsbe_196c_remove(struct mipi_dsi_device *dsi)
-+{
-+	struct tst070wsbe_196c *ctx = mipi_dsi_get_drvdata(dsi);
-+	int ret;
-+
-+	ret = mipi_dsi_detach(dsi);
-+	if (ret < 0)
-+		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
-+
-+	drm_panel_remove(&ctx->panel);
-+}
-+
-+static const struct of_device_id tst070wsbe_196c_of_match[] = {
-+	{ .compatible = "tsd,tst070wsbe-196c" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, tst070wsbe_196c_of_match);
-+
-+static struct mipi_dsi_driver tst070wsbe_196c_driver = {
-+	.probe = tst070wsbe_196c_probe,
-+	.remove = tst070wsbe_196c_remove,
-+	.driver = {
-+		.name = "panel-tsd-tst070wsbe-196c",
-+		.of_match_table = tst070wsbe_196c_of_match,
-+	},
-+};
-+module_mipi_dsi_driver(tst070wsbe_196c_driver);
-+
-+MODULE_AUTHOR("William Bright <william.bright@imd-tec.com>");
-+MODULE_DESCRIPTION("DRM driver for TSD TST070WSBE-196C 7\" MIPI-DSI panel");
-+MODULE_LICENSE("GPL");
-
--- 
-2.43.0
-
+> > +     {/* sentinel */}
+> > +};
+> > +
+> > +MODULE_DEVICE_TABLE(i2c, lt7911exc_i2c_table);
+> > +
+>
+> --
+> With best wishes
+> Dmitry
