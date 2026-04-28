@@ -4,173 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B647FFF8868
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 12:23:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0193FF8868
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 12:38:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17B3A10EB4F;
-	Tue, 28 Apr 2026 12:23:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E0A110E865;
+	Tue, 28 Apr 2026 12:38:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=deller@gmx.de header.b="tnUt4W9f";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="eE0IdpUo";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MIXtx9/D";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56A0610EB4F
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 12:23:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1777378950; x=1777983750; i=deller@gmx.de;
- bh=1GhGnkKditIL/l87bxaNLRkTxJM2aC8ulrCD7T7s9KM=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
- References:From:In-Reply-To:Content-Type:
- Content-Transfer-Encoding:cc:content-transfer-encoding:
- content-type:date:from:message-id:mime-version:reply-to:subject:
- to;
- b=tnUt4W9f0EV9ZsVbRqiRkqxaMDoS6v5NfkpqoguiziFbp4i2zDqgFdTb6XAHDgGQ
- 17E1XNiDXnnqAPJvSwqrgf0++Wn2OSLlAg2pXYTTnodbkxZesAWm14BuYNeasf86P
- u+01XMltxSTm1SfZzyz46JxrBmoFaqGT8eYBU+WycCuyipiLM016BVVNBDRbjY1tR
- 5PDDo7tmfRqPbSWcmqtV0tzsB18hWK1qqvDRXUquoHMEu8nNQ7jCe+1Y+bTR/mXao
- S4GLLkVK4xrthTw/1wzRV4qiSKXDK/0bPkasQj82/hUYrlhbSZot8RlVWuPc5rMoN
- ob4Gu3gf4+RiVVPvmg==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MwQT9-1vSCpf0dsL-010af1; Tue, 28
- Apr 2026 14:22:30 +0200
-Message-ID: <f36e925b-939f-468d-92c8-0b63636ee955@gmx.de>
-Date: Tue, 28 Apr 2026 14:22:28 +0200
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 87C2C10E865
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 12:38:32 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 63SA2q8q984943
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 12:38:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=IgHL9+K1Yx+1ojCGhO4CLldT
+ N1xaEUCJGfLjuyuMNp0=; b=eE0IdpUoZVbtLFkJmhaL51E79FPijtjtgTZk3hB/
+ +xyXFCfEwQBrzcXJ5Mt35WHeXvJ1NfGlyQKKOsudm8jrCtd0GoJzDW1iItrSyBDN
+ AEK3U0TwEsD8ktK0O80mcAxd8oGsie4lXej1A5c1jwsy8NiUX/qu8N213wolB0k1
+ 6BRbeTv6YRRLE2ZJW21ULv8gFghSvWLtTMekT5RW2S/usVKKRdDRFRYmtWxbCYJI
+ woC/aaJfSqiWkzfdoMTo62Vau3fzijrMw5/OFr7qsqPOGDL4DVoqn2HERuNEpblI
+ i+nNXncHAr0DqnYteUPiFdfVpPuUXD8VUUbXKR3QjMujyw==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dttt2rk4c-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 12:38:31 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id
+ 6a1803df08f44-8aca14d1faaso86497746d6.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 05:38:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1777379911; x=1777984711;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=IgHL9+K1Yx+1ojCGhO4CLldTN1xaEUCJGfLjuyuMNp0=;
+ b=MIXtx9/DxD+MGhO21J6PjB86MDI94H1GTsjrm+UjRB+k5HrnL+Q2gH2gfLHNMiH96t
+ 0wtPKqu6Qo9Z+b8HTiSiMdq4T8F46xt4jfEeHBwOE9f5x/R2qArt3+WKp63qBi+jGrJ+
+ djUp5/7oMfGKruZMGaIRWt7cg6jsuLRwOHBFsyH29Qs8Su1DLrm+0jHzdOp48hB/MEd4
+ c71qr+YpFpH2M7nCtdHpLjDCIAt6d7XypfDJ0ai/nPKllVIvW9WMsnA+p2Hcwxp6ZdwL
+ CE7O5ofQPeKspbXuopsVeKv1sXYsW0dPjX30xXhwoJbOr2Rrz8LXhUUSutURWJQx6BSY
+ pgRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777379911; x=1777984711;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=IgHL9+K1Yx+1ojCGhO4CLldTN1xaEUCJGfLjuyuMNp0=;
+ b=naEMV/Iax+5hq6y1xkNaa5FfZVb1gAF+Z2Tgdw6svjfOavC7N3OtFzuePFX8JAXKpj
+ kM8y8SzWbxpxLAxlDGXkUqpJ8yru/2x4BxVxtD9IaowjqstG+GuZsMMn/Dapb5uVv7yr
+ VKQJLqUfgAEOPoPk5Rxlz9yLooV0n6U/McQXLaIBTIAIVI9LxFcDgmVebffASjnA4K+1
+ qsBI3INt3NK5VpeprF4glfQ3MJ0jEBzX5Q3oZvNAeRGAOJARV0FYWKDk/XK7gEtJgP+O
+ zjNgMObh1jrHRhp9HGJmZ0PoPxeygyesN7DvY0Fmul4Fyt6+Njn4gLERzN4tjNtNrJY4
+ ZQTA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+Ie7qQmJFJVa5edsuSGt8wIFnRRbXE5q1MjI6djobZU/JjeZ9+i7i96JN6LrJQmQ8LtmfkqsnzsEU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywie7A9YXcyV1E9ziGWdrECeizuA7VCiS6BXqbDRfhNIg01HNQn
+ dRSndTWWsJPY0scRqEt453A5HuEADE159lMh5zLfxirwm2Nw6EDxVowTQr7tRF39Xo0UfR0BfFn
+ q8Y1MpWQf4x6//u5Bd+F3t0h89Odvy1w7A63SeOMAFkhGDLyD9UFi42Y8xXnNBHYK8I0J0N4=
+X-Gm-Gg: AeBDietgyOtNoqOYF9P3wQ+dTH8aGdBdcNhNLgw5kRuS0sGydjQLSC0Q57fVqTONzr3
+ H4KY/yq9WU2mcj6ZMPu5sbq7ox3sg+wz9Ovdc5q2dF768CAVWh+Fc/2/3ml8Bo539R7Y7KpgFwx
+ fFAfapi4eS3VtKRZqTImrLOX117qnph0XxLceiCbn5JEWfEpRrhTfe8Ly1iHugXBVDwxYwd89jl
+ quw9EWVO/eDnJWh77W/2LLw1c+Q+atKSNSR98ZYnfKrUOW8DtzYkKKn9BygnBCSUMbXn2jw+W2e
+ TX4JRhr98iDx/FCyKZrEPTygNXO3mqMyPCdubUw57x++wQl+cXFJS/Vw4fBvZmvcE7xRPz5k5V4
+ xN3yjzmkaHR/bKpmX6ODvVyFRbVCG/TRH9ngbbaOQ/okjzwIDC9DFsExkcvs/XvyVI/2wYGw2l+
+ J0ZnGKrfVRCOSQDSWDdI6LDAjdKXL2cBrvO6Gr2C9QCktQaQ==
+X-Received: by 2002:a05:622a:a11:b0:50e:61c1:685f with SMTP id
+ d75a77b69052e-5100e1f7748mr40176021cf.50.1777379910782; 
+ Tue, 28 Apr 2026 05:38:30 -0700 (PDT)
+X-Received: by 2002:a05:622a:a11:b0:50e:61c1:685f with SMTP id
+ d75a77b69052e-5100e1f7748mr40175411cf.50.1777379910267; 
+ Tue, 28 Apr 2026 05:38:30 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a7463f5f4bsm596170e87.49.2026.04.28.05.38.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 28 Apr 2026 05:38:29 -0700 (PDT)
+Date: Tue, 28 Apr 2026 15:38:27 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Jonas Karlman <jonas@kwiboo.se>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Christian Hewitt <christianshewitt@gmail.com>,
+ Diederik de Haas <diederik@cknow-tech.com>,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 09/13] drm: bridge: dw_hdmi: Use delayed_work to
+ debounce hotplug event
+Message-ID: <go5i5iiwra426hydnvc5thhgtknv3fa7ti35q3et6frroxag2n@tfbfiyjmtzkk>
+References: <20260403185303.80748-1-jonas@kwiboo.se>
+ <20260403185303.80748-10-jonas@kwiboo.se>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] gpu: ipu-v3: clean up kernel-doc warnings
-To: Randy Dunlap <rdunlap@infradead.org>, dri-devel@lists.freedesktop.org
-Cc: imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-fbdev@vger.kernel.org
-References: <20260427183236.656902-1-rdunlap@infradead.org>
-Content-Language: en-US
-From: Helge Deller <deller@gmx.de>
-Autocrypt: addr=deller@gmx.de; keydata=
- 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
-In-Reply-To: <20260427183236.656902-1-rdunlap@infradead.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:JnWASr+LpSZT8SoeNqcnoWYlmRUSxRyS10+hui5sAl26Us468nS
- TpWk5sF6RSGGkBVlb1JSt9uMCaKdOfh8+kMxFQv+GdqPZnL/gxxbckcqzjlu7DvPQSRToUu
- 8sj5fWdT6TlteBIDDYf4P6dfbwCTGBey/k2IlJFuSDvWzppoW4ETl7TDKD3A1CN1i/iKQTj
- KqLuZYP4qJs15Vl2VeBtw==
-UI-OutboundReport: notjunk:1;M01:P0:MItF3nY7aVs=;erSpluC/JxFSl/I9+jNk8o7Gnxf
- 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
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260403185303.80748-10-jonas@kwiboo.se>
+X-Authority-Analysis: v=2.4 cv=HbIkiCE8 c=1 sm=1 tr=0 ts=69f0aa47 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=pekZB1wqKdmBCcXpRF0A:9
+ a=CjuIK1q_8ugA:10 a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-ORIG-GUID: d4nm5pZDq6TCTMR1ezAkbut1HXlv-Yhe
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI4MDExNyBTYWx0ZWRfXz5FE9pYr/4T5
+ BEHgX1fw4D+0049KCxNiGevW/ThnJPg5SH9t/3wo+ix8LtOYjwcDFh5Q3rGR+KkN9kr+OEtIPmh
+ p54jjQ/mKOY0ohqHih8r0+g8xV7aY+tSPzbi16c3OgkBMG7eP6D/Eb3EsoJ77ScDpVs/+PBsAq8
+ RBnp7LN7sjigl+YEcY3sZWJcTgsRRW3TpMkaU8PTlBPkAk6jCIXt7vyR3kJKn3AGclJxnOnz6Zn
+ 4Zmv+me3VaasTzXtXmztjiUBId4OWzm7VAQgqKyg8IkLS0REtwLcPTNN8NPxdhfIBsmSW5KIy1s
+ 5KrshMoPFVXMqwnqYqDRg5RRhqRacuWsEw/5etknbWlHAPKhkHNmmE7RMZ1OslQuq/dqo4tOZNv
+ dwBbTEKeiGD9Ig6o1tzb+iarCNyL/y8fAPJA8SCvxhPNF7yOcItn58t+J3L3xRyhghzzjA7+lWj
+ WpwOy7ZEVyWMIBPcvpg==
+X-Proofpoint-GUID: d4nm5pZDq6TCTMR1ezAkbut1HXlv-Yhe
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-28_03,2026-04-28_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 suspectscore=0 adultscore=0 clxscore=1015
+ bulkscore=0 lowpriorityscore=0 spamscore=0 impostorscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604280117
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -186,37 +149,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/27/26 20:32, Randy Dunlap wrote:
-> Correct all kernel-doc warnings:
-> - fix a typedef kernel-doc comment
-> - mark a list_head as private
-> - use Returns: for function return values
->=20
-> Warning: include/video/imx-ipu-image-convert.h:31 struct member 'list' n=
-ot
->   described in 'ipu_image_convert_run'
-> ....
->=20
-> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-> Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
+On Fri, Apr 03, 2026 at 06:52:55PM +0000, Jonas Karlman wrote:
+> HDMI Specification Version 1.4b chapter 8.5 mentions:
+> 
+>   An HDMI Sink shall not assert high voltage level on its Hot Plug
+>   Detect pin when the E-EDID is not available for reading.
+> 
+>   A Source may use a high voltage level Hot Plug Detect signal to
+>   initiate the reading of E-EDID data.
+> 
+>   An HDMI Sink shall indicate any change to the contents of the E-EDID
+>   by driving a low voltage level pulse on the Hot Plug Detect pin. This
+>   pulse shall be at least 100 msec.
+> 
+> Use a work queue to debounce reacting on HPD events to better handle a
+> HPD low voltage level pulse when a sink changes the EDID.
+> 
+> The 1100 msec hotplug debounce timeout was arbitrarily picked to match
+> other drivers using same const, and testing using a Raspberry Pi Monitor
+> seem to use a 200-300 msec pulse when going from standby to power on
+> state.
+> 
+> Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
 > ---
-> v2: add Reviewed-by, update Cc: list, rebase, resend
-> v3: rebase & resend
->=20
-> Cc: Philipp Zabel <p.zabel@pengutronix.de>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> Cc: imx@lists.linux.dev
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: Helge Deller <deller@gmx.de>
-> Cc: linux-fbdev@vger.kernel.org
->=20
->   include/video/imx-ipu-image-convert.h |   16 +++++++++++-----
->   1 file changed, 11 insertions(+), 5 deletions(-)
-applied to fbdev git tree.
+> v3: New patch
+> ---
+>  drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 24 +++++++++++++++++++----
+>  1 file changed, 20 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> index f3f8144ae98e..4d079b689b3b 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> @@ -51,6 +51,8 @@
+>  
+>  #define HDMI14_MAX_TMDSCLK	340000000
+>  
+> +#define HOTPLUG_DEBOUNCE_MS	1100
+> +
+>  static const u16 csc_coeff_default[3][4] = {
+>  	{ 0x2000, 0x0000, 0x0000, 0x0000 },
+>  	{ 0x0000, 0x2000, 0x0000, 0x0000 },
+> @@ -192,6 +194,7 @@ struct dw_hdmi {
+>  	hdmi_codec_plugged_cb plugged_cb;
+>  	struct device *codec_dev;
+>  	enum drm_connector_status last_connector_result;
+> +	struct delayed_work hpd_work;
+>  };
+>  
+>  const struct dw_hdmi_plat_data *dw_hdmi_to_plat_data(struct dw_hdmi *hdmi)
+> @@ -2528,6 +2531,7 @@ static void dw_hdmi_connector_force(struct drm_connector *connector)
+>  
+>  	mutex_lock(&hdmi->mutex);
+>  	hdmi->force = connector->force;
+> +	hdmi->last_connector_result = connector->status;
+>  	dw_hdmi_update_phy_mask(hdmi);
+>  	mutex_unlock(&hdmi->mutex);
+>  }
+> @@ -3046,6 +3050,16 @@ void dw_hdmi_setup_rx_sense(struct dw_hdmi *hdmi, bool hpd, bool rx_sense)
+>  }
+>  EXPORT_SYMBOL_GPL(dw_hdmi_setup_rx_sense);
+>  
+> +static void dw_hdmi_hpd_work(struct work_struct *work)
+> +{
+> +	struct dw_hdmi *hdmi = container_of(work, struct dw_hdmi, hpd_work.work);
+> +
+> +	if (hdmi->bridge.dev) {
+> +		drm_helper_hpd_irq_event(hdmi->bridge.dev);
 
-Thanks!
-Helge
+Nit: please consider this for the followup cleanup. The
+drm_helper_hpd_irq_event() is not very effective: we already know which
+bridge (and thus connector) caused the HPD event.
+
+Moreover, the call should be redundant as drm_bridge_hpd_notify will
+call the registered callback, which normally would be
+drm_bridge_connector_hpd_cb(). Internally, this function calls
+drm_kms_helper_connector_hotplug_event().
+
+> +		drm_bridge_hpd_notify(&hdmi->bridge, hdmi->last_connector_result);
+> +	}
+> +}
+> +
+>  static irqreturn_t dw_hdmi_irq(int irq, void *dev_id)
+>  {
+>  	struct dw_hdmi *hdmi = dev_id;
+> @@ -3097,10 +3111,8 @@ static irqreturn_t dw_hdmi_irq(int irq, void *dev_id)
+>  			status == connector_status_connected ?
+>  			"plugin" : "plugout");
+>  
+> -		if (hdmi->bridge.dev) {
+> -			drm_helper_hpd_irq_event(hdmi->bridge.dev);
+> -			drm_bridge_hpd_notify(&hdmi->bridge, status);
+> -		}
+> +		mod_delayed_work(system_percpu_wq, &hdmi->hpd_work,
+> +				 msecs_to_jiffies(HOTPLUG_DEBOUNCE_MS));
+>  	}
+>  
+>  	hdmi_writeb(hdmi, intr_stat, HDMI_IH_PHY_STAT0);
+> @@ -3420,6 +3432,8 @@ struct dw_hdmi *dw_hdmi_probe(struct platform_device *pdev,
+>  		goto err_res;
+>  	}
+>  
+> +	INIT_DELAYED_WORK(&hdmi->hpd_work, dw_hdmi_hpd_work);
+> +
+>  	ret = devm_request_threaded_irq(dev, irq, dw_hdmi_hardirq,
+>  					dw_hdmi_irq, IRQF_SHARED,
+>  					dev_name(dev), hdmi);
+> @@ -3552,6 +3566,8 @@ EXPORT_SYMBOL_GPL(dw_hdmi_probe);
+>  
+>  void dw_hdmi_remove(struct dw_hdmi *hdmi)
+>  {
+> +	disable_delayed_work_sync(&hdmi->hpd_work);
+> +
+>  	drm_bridge_remove(&hdmi->bridge);
+>  
+>  	if (hdmi->audio && !IS_ERR(hdmi->audio))
+> -- 
+> 2.53.0
+> 
+
+-- 
+With best wishes
+Dmitry
