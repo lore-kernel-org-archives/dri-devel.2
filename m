@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A28B0FF885A
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 15:31:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56776FF8868
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 15:31:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1422710EB9D;
-	Tue, 28 Apr 2026 15:31:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A93C510EC93;
+	Tue, 28 Apr 2026 15:31:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="AVztzYi8";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="yxeoqSF9";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35CCD10EC93
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 15:31:49 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B064710EC99
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 15:31:54 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 2A5681A3472;
- Tue, 28 Apr 2026 15:31:48 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 994794E42B54;
+ Tue, 28 Apr 2026 15:31:53 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id F272F601D0;
- Tue, 28 Apr 2026 15:31:47 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 65C4B601D0;
+ Tue, 28 Apr 2026 15:31:53 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 9E00210728E29; 
- Tue, 28 Apr 2026 17:31:42 +0200 (CEST)
+ with ESMTPSA id B918110728E2A; 
+ Tue, 28 Apr 2026 17:31:46 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1777390306; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1777390311; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=p2/Y7roARxFkweio2HkVO8IrTHGmO9nhgwGPDGzMLOQ=;
- b=AVztzYi8ovBH4Uwj4cMbsl1ePLmEHC5F5cXWkqQ9YWK2FwysTik9Bujy/DxlSJH7HvzKPT
- 1CHUVSlge3Z9/wI0OJpzXUcj5ZJVbCQWaYQaIbohBDcaciaYgt9tH/aGWUj9v8BI3bE5uz
- k/69Drt5aZjcvVgp+3vjHFun69Q7u4IiE4aFH+Zr4n2ErukDAyQfbPGoKWg4i9mQfcdPCz
- iYE5UZTQ3H3xIRw3LWy3HkWvx9WXRrt1jwtG54S7d21+XLB8rFyHugOOpGa1G4FDuto19J
- 7OqR7+6MYavTpV+rC58NF2lodsES4F4QFwg1ODuUh9duEkzkeBHRqqrt1A3ngA==
+ bh=T2up0nNcnVaU0yQbv4uPCscdyC0ZWVrNHuUZWb1EmZw=;
+ b=yxeoqSF9K+Q4fliOa+s+bFBj4JFowTFcmRj4GKKnDfmuvener9LSBbgLhZwiPJW8hLR0Bj
+ 5IZqW7V61auRDBJpl30ZFByIdOFfeZHqFuf0si3vLFbDD+d/IUiDKWlGYse4jTHGTgnbMt
+ oJrMaUmAshs+UpsG8iOH3HwUsgvQvxYg0fVSlBXFskXhmfOH7zfM5W8WE13qLrtubBOguP
+ m2A7CCmjBTSairleSamceBDSt9tiQ/ivPv7l1MMWFM7gF5iR5dqBYb59yNSz4bdNrP5jjd
+ nnWmyzp0DfbcrSy6cZvp4hAn1KgzDswU3WcOM1Td6rqcVLxHZjt1PUuNfwU7uw==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Tue, 28 Apr 2026 17:30:55 +0200
-Subject: [PATCH v3 06/11] drm/bridge: lontium-lt9611uxc: switch to
+Date: Tue, 28 Apr 2026 17:30:56 +0200
+Subject: [PATCH v3 07/11] drm/bridge: lt9611: switch to
  of_drm_get_bridge_by_endpoint()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260428-drm-bridge-alloc-getput-panel_or_bridge-v3-6-a537b5567add@bootlin.com>
+Message-Id: <20260428-drm-bridge-alloc-getput-panel_or_bridge-v3-7-a537b5567add@bootlin.com>
 References: <20260428-drm-bridge-alloc-getput-panel_or_bridge-v3-0-a537b5567add@bootlin.com>
 In-Reply-To: <20260428-drm-bridge-alloc-getput-panel_or_bridge-v3-0-a537b5567add@bootlin.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -96,43 +96,43 @@ pointer which is automatically put when the bridge is eventually freed.
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- drivers/gpu/drm/bridge/lontium-lt9611uxc.c | 9 ++++++---
+ drivers/gpu/drm/bridge/lontium-lt9611.c | 9 ++++++---
  1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/lontium-lt9611uxc.c b/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
-index 11aab07d88df..9427cc2358ae 100644
---- a/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
-+++ b/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
-@@ -35,7 +35,6 @@
- struct lt9611uxc {
+diff --git a/drivers/gpu/drm/bridge/lontium-lt9611.c b/drivers/gpu/drm/bridge/lontium-lt9611.c
+index 4517aee83332..4b4418cc83bf 100644
+--- a/drivers/gpu/drm/bridge/lontium-lt9611.c
++++ b/drivers/gpu/drm/bridge/lontium-lt9611.c
+@@ -37,7 +37,6 @@
+ struct lt9611 {
  	struct device *dev;
  	struct drm_bridge bridge;
 -	struct drm_bridge *next_bridge;
  
  	struct regmap *regmap;
- 	/* Protects all accesses to registers by stopping the on-chip MCU */
-@@ -284,7 +283,7 @@ static int lt9611uxc_bridge_attach(struct drm_bridge *bridge,
- {
- 	struct lt9611uxc *lt9611uxc = bridge_to_lt9611uxc(bridge);
  
--	return drm_bridge_attach(encoder, lt9611uxc->next_bridge,
-+	return drm_bridge_attach(encoder, lt9611uxc->bridge.next_bridge,
+@@ -761,7 +760,7 @@ static int lt9611_bridge_attach(struct drm_bridge *bridge,
+ {
+ 	struct lt9611 *lt9611 = bridge_to_lt9611(bridge);
+ 
+-	return drm_bridge_attach(encoder, lt9611->next_bridge,
++	return drm_bridge_attach(encoder, lt9611->bridge.next_bridge,
  				 bridge, flags);
  }
  
-@@ -487,7 +486,11 @@ static int lt9611uxc_parse_dt(struct device *dev,
+@@ -1058,7 +1057,11 @@ static int lt9611_parse_dt(struct device *dev,
  
- 	lt9611uxc->dsi1_node = of_graph_get_remote_node(dev->of_node, 1, -1);
+ 	lt9611->ac_mode = of_property_read_bool(dev->of_node, "lt,ac-mode");
  
--	return drm_of_find_panel_or_bridge(dev->of_node, 2, -1, NULL, &lt9611uxc->next_bridge);
-+	lt9611uxc->bridge.next_bridge = of_drm_get_bridge_by_endpoint(dev->of_node, 2, -1);
-+	if (IS_ERR(lt9611uxc->bridge.next_bridge))
-+		return PTR_ERR(lt9611uxc->bridge.next_bridge);
+-	return drm_of_find_panel_or_bridge(dev->of_node, 2, -1, NULL, &lt9611->next_bridge);
++	lt9611->bridge.next_bridge = of_drm_get_bridge_by_endpoint(dev->of_node, 2, -1);
++	if (IS_ERR(lt9611->bridge.next_bridge))
++		return PTR_ERR(lt9611->bridge.next_bridge);
 +
 +	return 0;
  }
  
- static int lt9611uxc_gpio_init(struct lt9611uxc *lt9611uxc)
+ static int lt9611_gpio_init(struct lt9611 *lt9611)
 
 -- 
 2.53.0
