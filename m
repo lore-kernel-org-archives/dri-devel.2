@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFF80FF885D
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 09:02:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1A10FF885D
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 09:02:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25B6110EA70;
-	Tue, 28 Apr 2026 09:02:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3747D10EA8F;
+	Tue, 28 Apr 2026 09:02:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="G4uy1uyk";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NAK5XUKF";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3FE810EA70;
- Tue, 28 Apr 2026 09:02:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACB6910EA8F;
+ Tue, 28 Apr 2026 09:02:54 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 2E76860142;
+ by tor.source.kernel.org (Postfix) with ESMTP id 2C4CB6014C;
+ Tue, 28 Apr 2026 09:02:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 850B2C2BCB8;
  Tue, 28 Apr 2026 09:02:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48643C2BCB9;
- Tue, 28 Apr 2026 09:02:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777366967;
- bh=fxgbGHVRz1ywfeOSWG9/OADuVPypGsAnHakjAZLrTgo=;
+ s=k20201202; t=1777366974;
+ bh=8yzRRXLfiwZ2u7ZWEAZNz76TJ2spxwIMhj+GhPigBKI=;
  h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
- b=G4uy1uykTjJRtJifi3TnPMVrhH8Gb3uQuVBFXarQGQ+BxBKIs7aeGa4YcVa5yg2BG
- MuEI5KuJ1ZUIkWhSwrZzPfO9JxSdxf49ZFZeWcvyCfm4AULtXvW96UTDkYggbbn7u8
- gkyanPP3HCQ5eAa86YK0D0KBU7TVZibE0dvxpGr6ZwcXQEP3rWqzU9s0yg2hX+TLTC
- MfXguyzOPJWql8yGB4rLI7UGfSYnvlnJlUO0RZKYoZyEbcfINdIj1i9BOYZL9Zh1kb
- pWwqKWuzUg/O6VYUrDPlRTV+d7V2R/efjHSAszax6DKhVO65phE5PptniMAZ60xmIo
- uNvb/zpuJNxbQ==
+ b=NAK5XUKFRmLvqRelgIUloT12JrGj0EmUjRNIskUaTVK2a5V/ox1zt+THQitdNIg9c
+ RqGpzHBeqlKpoaJq4I4DoXIo/SECYCRRAqBZcxsYI3YegEMHORAK+l/81mLmRYoki7
+ qP4nEhF/iftVYz6t6sSWxhVv63EnzjjbXykiPMSwQxa62dPSmrJH1afsQZoLOkhm/3
+ QE83XQUuL+MeT3hqVsqg3QynmRI9RU8UhyjT0l9o/ucbSFZzLgoTR4liXiKzYHweiE
+ luji4sr8gPkUUwLuCu+dE49xwvCG4M4W9ED397hh5YoBfZJB6l/rMhQ1z4WHhlhtc4
+ +4bziSKpNX6zg==
 From: Andreas Hindborg <a.hindborg@kernel.org>
 To: Gary Guo <gary@garyguo.net>, Greg Kroah-Hartman
  <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
@@ -46,13 +46,13 @@ To: Gary Guo <gary@garyguo.net>, Greg Kroah-Hartman
 Cc: driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
  nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v2 04/11] rust: io: add missing safety requirement in
- `IoCapable` methods
-In-Reply-To: <20260421-io_projection-v2-4-4c251c692ef4@garyguo.net>
+Subject: Re: [PATCH v2 05/11] rust: io: restrict untyped IO access and
+ `register!` to `Region`
+In-Reply-To: <20260421-io_projection-v2-5-4c251c692ef4@garyguo.net>
 References: <20260421-io_projection-v2-0-4c251c692ef4@garyguo.net>
- <20260421-io_projection-v2-4-4c251c692ef4@garyguo.net>
-Date: Tue, 28 Apr 2026 09:16:16 +0200
-Message-ID: <877bprr1vj.fsf@t14s.mail-host-address-is-not-set>
+ <20260421-io_projection-v2-5-4c251c692ef4@garyguo.net>
+Date: Tue, 28 Apr 2026 11:02:34 +0200
+Message-ID: <874ikvqwyd.fsf@t14s.mail-host-address-is-not-set>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -72,51 +72,34 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Gary Guo <gary@garyguo.net> writes:
 
-> The current safety comment on `io_read`/`io_write` does not cover the topic
-> about alignment, although this is guaranteed by checks in `Io`. Add it so
-> it can be relied on by implementor of `IoCapable`.
+> Currently the `Io` trait exposes a bunch of untyped IO accesses, but if the
+> `Io` region itself is typed, then it might be weird to have
 >
-> Signed-off-by: Gary Guo <gary@garyguo.net>
-> ---
->  rust/kernel/io.rs | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
+>     let io: Mmio<u32> = /* ... */;
+>     io.read8(1);
 >
-> diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
-> index 1682f2a0d20d..c6d30c5b4e10 100644
-> --- a/rust/kernel/io.rs
-> +++ b/rust/kernel/io.rs
-> @@ -216,14 +216,16 @@ pub trait IoCapable<T> {
->      ///
->      /// # Safety
->      ///
-> -    /// The range `[address..address + size_of::<T>()]` must be within the bounds of `Self`.
-> +    /// - The range `[address..address + size_of::<T>()]` must be within the bounds of `Self`.
-> +    /// - `address` must be aligned.
->      unsafe fn io_read(&self, address: *mut T) -> T;
->  
->      /// Performs an I/O write of `value` at `address`.
->      ///
->      /// # Safety
->      ///
-> -    /// The range `[address..address + size_of::<T>()]` must be within the bounds of `Self`.
-> +    /// - The range `[address..address + size_of::<T>()]` must be within the bounds of `Self`.
-> +    /// - `address` must be aligned.
->      unsafe fn io_write(&self, value: T, address: *mut T);
->  }
+> while not unsound, it is surely strange. Thus, restrict the untyped methods
+> and also the register macro to `Region` type only.
+>
+> The way it is implemented is by adding a generic type to `IoLoc`. This also
+> paves the way to add typed register blocks in the future; for example, we
+> could use this mechanism to block driver A's `register!()` generated macro
+> from being used on driver B's MMIO. The same mechanism could be used for
+> relative IO registers. These are future opoortunities, and for this patch I
+> just restricted everything to require `IoLoc<Region<SIZE>, _>`.
 
-You should probably update safety comments at call sites in this patch.
-For instance in `Io::try_read`:
+Does this not prevent `usize` from being used to index anything but
+`Mmio<Region<_>>`?
 
-        let address = self.io_addr::<L::IoType>(location.offset())?;
+It is my understanding that the following would work before this patch:
 
-        // SAFETY: `address` has been validated by `io_addr`.
-        Ok(unsafe { self.io_read(address) }.into())
+   fn do_read(io: &Mmio<u32>) -> Result {
+       let v: u32 = io.try_read(8usize)?;
+       Ok(())
+   }
 
-But the documentation for `io_addr` says nothing about the return value
-being aligned:
+But I think this will no longer work with this patch. Is that the intention?
 
-    /// Returns the absolute I/O address for a given `offset`,
-    /// performing runtime bound checks.
 
 Best regards,
 Andreas Hindborg
