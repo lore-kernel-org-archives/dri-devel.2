@@ -4,140 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D47CFF885A
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 19:44:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E3CCFF885A
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 19:55:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 518DF10E38C;
-	Tue, 28 Apr 2026 19:44:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66ECD10E086;
+	Tue, 28 Apr 2026 19:55:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Eexcb2dt";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fYSGWZNm";
+	dkim=pass (2048-bit key; unprotected) header.d=hotmail.com header.i=@hotmail.com header.b="RFlarvXK";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2C3910E38C
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 19:44:15 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63SFsb8f2890746
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 19:44:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- xN5+FvXyhjHZgxw/ab3OvPn3pd5vOjGOlb2vyCAzntI=; b=Eexcb2dtcnaAmQxg
- FOBp+Kc+8StcMY4Dr58+F9Oq1wRQteIE1IyYof1H3ITr9bWPjdgK4q7jzwqsRWqo
- v6w9nYIzg9shCshZYHpqQjrg9/D4XlXzFgttUiRyBtP+LUJptHzwJHHMPCBjmHvA
- KdICCGUMH/IuUoEesGv5yvPcRdnt6E0LZi+iyU0pnU37KyvMiXL1wNK7znCAVkRw
- gUdQQep3hbnIQbLY4RmGK++Fjfa0E8RKFR2z4C2I787LCQydIAMhctQCRmk4hFIJ
- XhCQ1WKqDyDE0VOKR53J7bwcv+OwPnk2FZkO8MQ8089q5sUS6rQhZ9E1MuBu9dgX
- d3k/cw==
-Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com
- [209.85.221.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dttgytbjd-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 19:44:15 +0000 (GMT)
-Received: by mail-vk1-f199.google.com with SMTP id
- 71dfb90a1353d-56aa6d6bb5bso11019751e0c.1
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 12:44:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1777405454; x=1778010254;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=xN5+FvXyhjHZgxw/ab3OvPn3pd5vOjGOlb2vyCAzntI=;
- b=fYSGWZNmJ7vJVVTkmVIiw3BHn+8knqVF1srrNNQdroNKJdfHcFmUatTjyFSUsQ7/SS
- K00Gb8+uyxW76eLMcbjxDWNVwJmLVVuzpfibe0ttdWUgFv2x5qjwwYXS1AgdpRRUSu9R
- 7DB+GEujLItJUmyHyHgxaEGIvjSavEPwb5D8r0tp+n8q8OxK9qxl3NrgO35/wai810t5
- b//XAETjBPrLnUN6Qm/YxpoW9dmcyMHtsNIAK7qJEGHtCYQuKJAlxoB4tlRF7VDJ00N+
- /Sm0vDS65KrF+Nr94rJ/9gur6pQO2cHBCpHEeID6knCI1rjVGVil12mcnlYUZ9EeJR9e
- Ys4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777405454; x=1778010254;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=xN5+FvXyhjHZgxw/ab3OvPn3pd5vOjGOlb2vyCAzntI=;
- b=MeMZe5WXubpcJXmGctr8VMi3koGqmbh+iYPwsCKxWEukdQVh9d6S3RB6D/NcgPVjtr
- QgC1DK+XX6DLYSvGGe/Gox1Lu9OsV3sisTBIjvSlb+evEalkgVJD3/E/Qr1gmybIuXmJ
- 5wCBD3sfp3vXDkG/wH8csfol7lcOfChqO+3j+228uujc6P2jO9mHaqV0Pvfbh8gLSWX0
- b3XQ3Yub7mIhm+H938E6rOYgPcghRo5VzM0oB0gsoTdSh7zu4VOeslahMuXG6wv7rkvM
- 5d6bNeW7/Rr6lSkAtnlh2cizoaAmZS6mfvRKaRWV6WWybzEtzg0qjBjymiz9Kv+mMzt3
- iGTQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/uS9Ly4as/wMTOl6I3QQTnfEK+uENGbyspVqxhHEw7x4AY8vOWQ98zizpXhVtcxX5EhN9wG5P8MV8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzkNVxoQIJaOWjGCQipBPZ0aZOx7/tWzyxGTMj5k4bFsVF+GnBK
- 8u3us/xXoMhiXkXxJPmcWbiEdQUWuLVC4UBxE/2ope3yS/oQY1O5o8wpiz26xdNf2vJwlPCpeda
- kFaCAN2m5xKNtUe7U16plEnMXTvL2EjtVUJB3XEu3q/QY+IJBbEzTd2GZqGcMRq+6yUKjZr8=
-X-Gm-Gg: AeBDieuFS4jyjWZwWEhyqy98gNu0V6Adx8xFnU4yvOZL/kNylEGCaf30Vh8QMyof9Gv
- 5s211AZDYjMHekALd2sO0DsuntDQLltdp8OMDEIdnyvOojn/v8oZePE8XaNKlGiP00Dn2vA98tl
- MiFzViRDzk/hNTFkcusA6U5JGhchtHKe65m4+5wtLN8joU5PUA+0lBxqUUxz7GMZZjvHzpJgIEd
- UWmIPWz86OPoaNV1g0TVlVcLj6xtxX32AglkpDx4ki/zkTqR1shNVCUjxWMkLIUD0TPsXSYbrr7
- DUqGU0lgRlvmu1iEfq7ChX7CPm54JqnmJm0++BhA6I7TCkE1w0VUj8waIk5y/+FapWEjE80mjqN
- IMbuDxutNYu4zvXB69jZebKKifBhMaNarvGCm/sSq0HmaBCsTcsF7AOi6CXKG+YqeplTYizdv2z
- qtTiSHKSpJkHIPE2T70uHcew7HCAyl4b9YE3QiwNwYkhuCbQ==
-X-Received: by 2002:a05:6122:3310:b0:570:f5d3:e499 with SMTP id
- 71dfb90a1353d-573a568ca94mr2636803e0c.10.1777405454020; 
- Tue, 28 Apr 2026 12:44:14 -0700 (PDT)
-X-Received: by 2002:a05:6122:3310:b0:570:f5d3:e499 with SMTP id
- 71dfb90a1353d-573a568ca94mr2636778e0c.10.1777405453562; 
- Tue, 28 Apr 2026 12:44:13 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3924d3ea4d6sm710461fa.41.2026.04.28.12.44.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Apr 2026 12:44:12 -0700 (PDT)
-Date: Tue, 28 Apr 2026 22:44:09 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
- <u.kleine-koenig@baylibre.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Kees Cook <kees@kernel.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Markus Schneider-Pargmann <msp@baylibre.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/msm: Don't use UTS_RELEASE directly
-Message-ID: <mv57z4zk7usobxokpn2xyevag5rzty5oawk3sojmtyjjypcegz@afqkudsy4xfn>
-References: <20260428144553.1103785-2-u.kleine-koenig@baylibre.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazolkn19010044.outbound.protection.outlook.com
+ [52.103.7.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98BA210E086
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 19:55:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fu/W+M7idfwWq/z+QZvCOygORn3cGzKuDnNLUQLYFpLV0yhuLuW+FGxsctQPXh+VmmswIRy+tBNTSp9qq+09H0nUcT6jb6+thusA/YkJKqcO+SKI/6gnGb2p/MeodV8ZUZXkJfSY3ayTPSYvBZCqhIsG+3Y4DIaBoamEawoE8IPXW0TiPaYDSOq0XuGIp/C8AQXbQTsr5D0jE0dVonNFC1D3jKxwJfRZy3fWqUh14/u6WQ1RU935lugvEMdTqlImys1IAHnt4bJGtq6BafmyiKfAUwyIvu80Te677jMKenTylLyLxTX8eu0bF47LRg+yAznSFs1t9N9vFEa5dQvpBA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gdwkifXSfo1jO1LRt/p15VSYC5QkPXq4/uqD6/sFveY=;
+ b=fi2xOXp1iggXvciFKo4TGpDJ92nAe5oN5XIuXQSARlT5xgv2EXWMHaxjODwcFagnRjq+mCL0UJzyMhLexRAH02AhDEc68udSIFNA7o4NumGNCVAnyBx7iy0LwEKy+AACY/DyfQvihIqh1WbJpl4dYZ+dlq4K0kEQYfukvzge7Ve2xwDU15Rsr1EFx7JlKEVWLMQGyUYeD/kIaGNGUXh0evMam848L4odxt2OVw3a/XLTCIk/BNprO7ivm0OPnEoztj3dP0dEBTBlDH2II+kg1noWX/zVfYjbYHOT3aXl5j2sO80nS2eqtDH4kOKrP98U2EzY9+x8MxfQI4Y6t4StXw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gdwkifXSfo1jO1LRt/p15VSYC5QkPXq4/uqD6/sFveY=;
+ b=RFlarvXK8q+IpSAW1cA9F9tC+rOSnE8kQ0NqphufA893aBbxVYDWhIp85R56MHFEGLDpXBDPZokjszU+7uA19J4dJm7AgLpxPdnIes8OfrmTPtkV09zV39/5EDAIRjeRHyCAU79BMArfVRzoTWemPv/oevHffhiGuElWRkBTsFAQfqCn/O/CF2WpBqyZUu1DZzU3HiDwjQB+yeyu41wdIBnzVuFC1LJ+q+y2VY+s4UYLFbyuH99g3YMr+w5de0ZXn9BWd7W87sbiIk/hCWxFxY0bJVga5XClNmhm6PKbSFwLuUu/yPNzCfZ/7gEV8P+mk6LwUz4i28pP1ENfUCP/Fg==
+Received: from PH0PR19MB997338.namprd19.prod.outlook.com
+ (2603:10b6:510:3b1::18) by PH8PR19MB997230.namprd19.prod.outlook.com
+ (2603:10b6:510:3ab::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.26; Tue, 28 Apr
+ 2026 19:54:58 +0000
+Received: from PH0PR19MB997338.namprd19.prod.outlook.com
+ ([fe80::fd22:ee23:3e25:3172]) by PH0PR19MB997338.namprd19.prod.outlook.com
+ ([fe80::fd22:ee23:3e25:3172%6]) with mapi id 15.20.9846.025; Tue, 28 Apr 2026
+ 19:54:58 +0000
+Date: Tue, 28 Apr 2026 14:54:53 -0500
+From: Chris Morgan <macromorgan@hotmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Chris Morgan <macroalpha82@gmail.com>,
+ linux-rockchip@lists.infradead.org, linux-pm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ xsf@rock-chips.com, sre@kernel.org, simona@ffwll.ch,
+ airlied@gmail.com, tzimmermann@suse.de, mripard@kernel.org,
+ maarten.lankhorst@linux.intel.com, jesszhan0024@gmail.com,
+ neil.armstrong@linaro.org, heiko@sntech.de, conor+dt@kernel.org,
+ krzk+dt@kernel.org, robh@kernel.org
+Subject: Re: [PATCH 1/6] dt-bindings: power: supply: sgm41542: document
+ sgm41542
+Message-ID: <PH0PR19MB99733813E0295B511539050BA9A5372@PH0PR19MB997338.namprd19.prod.outlook.com>
+References: <20260427170914.5062-1-macroalpha82@gmail.com>
+ <20260427170914.5062-2-macroalpha82@gmail.com>
+ <20260428-bulky-nebulous-reindeer-ed45ed@quoll>
+ <PH0PR19MB997338F0B06B7B99AA0ED3C6C4A5372@PH0PR19MB997338.namprd19.prod.outlook.com>
+ <534f0795-0002-4c04-a83c-fa1b3ce68216@kernel.org>
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260428144553.1103785-2-u.kleine-koenig@baylibre.com>
-X-Proofpoint-ORIG-GUID: lJ0obHxNtC030WoM25CXig3OCIBBK2SW
-X-Proofpoint-GUID: lJ0obHxNtC030WoM25CXig3OCIBBK2SW
-X-Authority-Analysis: v=2.4 cv=cb7iaHDM c=1 sm=1 tr=0 ts=69f10e0f cx=c_pps
- a=+D9SDfe9YZWTjADjLiQY5g==:117 a=xqWC_Br6kY4A:10 a=8nJEP1OIZ-IA:10
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=IpJZQVW2AAAA:8
- a=EUspDBNiAAAA:8 a=Smz39SCUmq805RTcPQQA:9 a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10
- a=zgiPjhLxNE0A:10 a=vmgOmaN-Xu0dpDh8OwbV:22 a=IawgGOuG5U0WyFbmm1f5:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI4MDE5MiBTYWx0ZWRfXyF5X665tQ3EY
- VOw+1UZUV9RoNoR+BU6iQtvkvbWgbnxky3SaOj9Ckdm1RfaLYf0mz1Rz9ByqiOcgT/N68IZwsT3
- uxUUCS++VEoRSdx5aEUoTpP7Aabk/xT7yyxVP6udRJjGlwZVChKNNz/ZKtcaEJkNsy2wPt7o7S9
- 0nTZaW3y1cJviXIH7eE9GWi248fGuaqRfbKurDG1q4DXuuWvcdCvJLVx/4AxUQRyhqUv02GUojd
- UQNnGmzuod6my15Y3YL1nZC/3xPpHqGOVAkfa6BzNMU4hIs9LT2DjPySmtuasWJJ1hQxcFb4AMI
- ZHgDUQI85f6Z1ln0aXthRDYZs9nRXwyUKZq0QEc5jSuj/WHd+J2l3YQLKv5aTj9dTYUNhqY407p
- 6fXWAHHEFuLFDZvicK3ebdEwC6LDCKbyWeDGZ+WyscsxmqCv9O/G+dFl1Hn8hd+eQSViv52evzD
- nFKltnhAySnZO8ju2PA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-28_05,2026-04-28_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 adultscore=0 clxscore=1015 impostorscore=0 bulkscore=0
- lowpriorityscore=0 suspectscore=0 spamscore=0 priorityscore=1501
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
- definitions=main-2604280192
+In-Reply-To: <534f0795-0002-4c04-a83c-fa1b3ce68216@kernel.org>
+X-ClientProxiedBy: SA1PR02CA0006.namprd02.prod.outlook.com
+ (2603:10b6:806:2cf::15) To PH0PR19MB997338.namprd19.prod.outlook.com
+ (2603:10b6:510:3b1::18)
+X-Microsoft-Original-Message-ID: <afEQjdHClHa8U3Nw@wintermute.localhost.fail>
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR19MB997338:EE_|PH8PR19MB997230:EE_
+X-MS-Office365-Filtering-Correlation-Id: 68e73f53-f0bd-45e6-6ac1-08dea560069c
+X-Microsoft-Antispam: BCL:0;
+ ARA:14566002|37011999003|51005399006|25031999004|10092599007|461199028|23021999003|24021099003|20101099004|8060799015|15001099003|15080799012|5072599009|19110799012|6090799003|40105399003|3412199025|440099028|10035399007;
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Qkha1C4ia48eRZaegwcmDC8asxjBShi8YBnTYFvEP8BHREVvq7IqCFieTF6O?=
+ =?us-ascii?Q?VyrUBp5Jku32sng1MZcoeV/TQrkM3y2wQZmQhNnHW/BjurdcfVosE2Y88Z5q?=
+ =?us-ascii?Q?hGCCroMBH88bTEd4q+I9Ifrgc85mQmZ2b00xJxxB7oDasRlW8SYS6o8ZvxUL?=
+ =?us-ascii?Q?L9kMVl4y906NhY5tKlGI8nmmTP+nRS11krZkc0UHvxr7N2PKwEG1L9SfkKdX?=
+ =?us-ascii?Q?lQOmKd/SfEgSWUjbi75Igzywn041mnvULWnACSHbKCu6XkeXZQrxIATgXo16?=
+ =?us-ascii?Q?Vaayck+7KL8I4mFkMSq0j6uoMcn5Xh+cmnu/SSAJ4cREGE2CqRFQghjbNk8V?=
+ =?us-ascii?Q?WC5KmHvjN3cpMZSvIieFGFy0mqLcpoNASLbTXB32tjJQa1GvAHZfEl7HOi2J?=
+ =?us-ascii?Q?Fwt9pBUgkZBaSuu9dMFPfoNYRGcjQjeNK9qmrV3wTZrbl/3o6UMxDOyEhMk8?=
+ =?us-ascii?Q?S9pQfi1Cd6yQSUWudjIERKq0vgSeR84YajBjBCfX7Q5kkTHb7VIcFUkeqY3N?=
+ =?us-ascii?Q?/Npp0Lo0Dei7rAf+JUL/DnEZjRP+wA+JTpI2C0PWEBF2HEkH6ufl8M9kZtZS?=
+ =?us-ascii?Q?QUafkdAliJ5eVfVhf3jlE9w+z8Z3xDtX3v1mXP+5s2mpIyAeaQUzjWGRqjg0?=
+ =?us-ascii?Q?guGOFDWBfBgu/T/CANut9SXyODyzo4bJCaXfkyKdHugLdSUyUjRU1lIVF6gq?=
+ =?us-ascii?Q?B64mZmzAiCQy9ZjfE3LDMzD43a1T4Gi9C4QgJetIqnRFKuv1HXwS6jeRAzGH?=
+ =?us-ascii?Q?83UYtdOUai3wYWCZJCTS6fAUjf94iVAUCrSECgYnkFikBjN9qBs1gDHcFT0d?=
+ =?us-ascii?Q?eTAXqJpzk000W+XCrvhEE4SwF+WRzImFxtWPmC6zKqMPqLpRzBLhTI25vi+6?=
+ =?us-ascii?Q?XYsRIlMJRzpdLuiKzszArANxh87mcHfhK34cuuCrG3d5ekhxYEM/O7IV817a?=
+ =?us-ascii?Q?Oy5AfLmtJ/7pLNDQuS+FX2v03ctUKmh5qeYThIMKOpx7xw2MFVeG9z2E8Lvc?=
+ =?us-ascii?Q?6p/ID+d6WHkBfE0z9mOC0R6F0fHWAfwyBTIRYIqVq4Lg+UKaY4wWYHhaVQmo?=
+ =?us-ascii?Q?Kk1SA2/spnxb+kdZBbFpz55afYWdvMZaC4zlPdxQWUyy3QjVjU0=3D?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?asuQZw+SuCV74UBzyPyQD9V+iWX9UYWT0RUqpOPstT1hOISEcLwJaHg5it6b?=
+ =?us-ascii?Q?lSJQw96uCU97MJr153wJFHh4UK8ILBBx9SnSOaT8zzTc0MUgKlEde9vCXU8+?=
+ =?us-ascii?Q?uNGq0aEwnDl/ZWFbbmezW6BJC9CTQxwpv/B2+YMs+2cqoTacOtNs1B882EYR?=
+ =?us-ascii?Q?mBPkyoRphV7ump+SZHBOQ0kQC0DfgNPlH3Aqq79B83ktUhjHtkrirE+iTJBt?=
+ =?us-ascii?Q?byGeDry68lT9whBDWGF1+jmACYosBA+6+lEp10lILLRfVCE2JhtyYVlaShnb?=
+ =?us-ascii?Q?G+5bmwZUy7+DuwMLkHVqDaRH7uA4xQ988yLgcy7dtG2+XXkkXilmPd30jkYc?=
+ =?us-ascii?Q?4Q5HcvGV+bBcD8BwmjrFWSERRGTKtPP1+8v7V1VK9lq/H3wCUcC6BapypcJ0?=
+ =?us-ascii?Q?1NxnR4EGKlExRgVuCg2U1ETjFpZoRqOcDMnNB4vFieuoApVvo2HwqSsk1CNm?=
+ =?us-ascii?Q?XoWmOcniOR3WOHPio10YbqEcYiHr7hFH0+G/oaaVMoS+AIDow7A6jZKrjmBH?=
+ =?us-ascii?Q?Zmv1WxIj1fGdwwhh1Si5hae2BAEI2ZDKPVgsZs5H+v25KuKZ8FwOMYv49vY+?=
+ =?us-ascii?Q?Q2ylQ+6cP6ioWfOExWvImiA82er7EG/sazxZsLNfNDz3nhZDGmFeJHMipf7F?=
+ =?us-ascii?Q?VTXTrkjVY8FboDNaBdOnnme4/OXUSSuDTWVQoMfRPxkrZawUWu8uxmptclG3?=
+ =?us-ascii?Q?2kPxu5L496Z8+l/yjKZNDTpFTg84dmuaE//puUdGjHPRqZwwKXnPBPsmuEP/?=
+ =?us-ascii?Q?Djn7UfrlNXvi/FpoICHtBe8SHSTyICwDaPe5NmnBQNr30paoSgB/i794x5yG?=
+ =?us-ascii?Q?XP97IrB+R6h89hk7zt2Owlf3sLRpp1HSzJclOKIwPRV/6M6veI3ZXa0Syqtd?=
+ =?us-ascii?Q?GSpna5cKwomCaB5fvhyy9q/QG1YO9c3+zTby9zIVHYGbGG2gs+RCjWCaZNVu?=
+ =?us-ascii?Q?lKe0U6zCH/401L9VTkA27UxCAHXPJuyAkyje8gSl0vbPcQIzKfqoJI1RPqED?=
+ =?us-ascii?Q?VeUJmrxc9FqYew0/LXmrHIcHEVuOLya+ifoi2KzkVfJrNxpsY+odVSFmV8VP?=
+ =?us-ascii?Q?DOthkTBBsfRivrvNiscrAGHFYS39HuDl0djVLQWzMA4VOBdG0ml5ZRG3ERiw?=
+ =?us-ascii?Q?0BZyYh0FdsvkXH/kpWELXlCH2stzLrcs5t/TOoWuTUYsSLouwLH4M13LM1TU?=
+ =?us-ascii?Q?FSyw7CPQDbAgGpiCm4UUPzNWlb9tk+1oY0xWHalOo5/0nsVU6SGLL0BdtvPE?=
+ =?us-ascii?Q?tjrORnHWrXNPeTbd1Cq0K15aDjGpXCOwb/cav1YMfr38aqf7F05l3J7soLZW?=
+ =?us-ascii?Q?ttWkwFrNA3YnHeQn4RlbIaD1+rob27HVn2Pv4GQqUq6Q1U7ARd3r1U1PrAnw?=
+ =?us-ascii?Q?4leFk563VxO9guLRG60XXdZesYRKkLo8jvGM1e+wNfRFQbBXlA=3D=3D?=
+X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-990eb.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: 68e73f53-f0bd-45e6-6ac1-08dea560069c
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR19MB997338.namprd19.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2026 19:54:58.1682 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR19MB997230
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,26 +141,133 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Apr 28, 2026 at 04:45:53PM +0200, Uwe Kleine-König (The Capable Hub) wrote:
-> UTS_RELEASE evaluates to a static string and changes quite easily (e.g.
-> uncommitted changes in the source tree or new commits). So when checking
-> if a patch introduces changes to the resulting binary each usage of
-> UTS_RELEASE is source of annoyance.
+On Tue, Apr 28, 2026 at 05:09:49PM +0200, Krzysztof Kozlowski wrote:
+> On 28/04/2026 16:09, Chris Morgan wrote:
+> > On Tue, Apr 28, 2026 at 09:47:00AM +0200, Krzysztof Kozlowski wrote:
+> >> On Mon, Apr 27, 2026 at 12:09:09PM -0500, Chris Morgan wrote:
+> >>> From: Chris Morgan <macromorgan@hotmail.com>
+> >>>
+> >>> Document the SG Micro sgm41542 battery charger/boost converter.
+> >>>
+> >>> Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
+> >>> ---
+> >>>  .../supply/sgmicro,sgm41542-charger.yaml      | 99 +++++++++++++++++++
+> >>>  1 file changed, 99 insertions(+)
+> >>>  create mode 100644 Documentation/devicetree/bindings/power/supply/sgmicro,sgm41542-charger.yaml
+> >>>
+> >>> diff --git a/Documentation/devicetree/bindings/power/supply/sgmicro,sgm41542-charger.yaml b/Documentation/devicetree/bindings/power/supply/sgmicro,sgm41542-charger.yaml
+> >>> new file mode 100644
+> >>> index 000000000000..3e5041e5b551
+> >>> --- /dev/null
+> >>> +++ b/Documentation/devicetree/bindings/power/supply/sgmicro,sgm41542-charger.yaml
+> >>
+> >> Filename must match compatible.
+> > 
+> > Acknowledged.
+> > 
+> >>
+> >>> @@ -0,0 +1,99 @@
+> >>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> >>> +%YAML 1.2
+> >>> +---
+> >>> +$id: http://devicetree.org/schemas/power/supply/sgmicro,sgm41542-charger.yaml#
+> >>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> >>> +
+> >>> +title: SGM41542 Battery Charger
+> >>> +
+> >>> +description: |
+> >>
+> >> Do not need '|' unless you need to preserve formatting.
+> >>
+> > 
+> > Will fix.
+> > 
+> >>> +  The SGMicro SGM41542 is a single cell battery charger/boost controller.
+> >>> +
+> >>> +maintainers:
+> >>> +  - Chris Morgan <macromorgan@hotmail.com>
+> >>> +  - Xu Shengfei <xsf@rock-chips.com>
+> >>> +
+> >>> +properties:
+> >>> +  compatible:
+> >>> +    const: sgmicro,sgm41542
+> >>> +
+> >>> +  input-current-limit-microamp:
+> >>
+> >> Missing vendor prefix.
+> >>
+> > 
+> > This *appears* to be a standard value (perhaps not formally, but in use by
+> > enough devices to suggest a defacto standard), which is why I did not use
+> > the vendor prefix here. Do I need to add that for this one?
 > 
-> Instead of using UTS_RELEASE directly use init_utsname()->release which
-> evaluates to the same string but with that a change of UTS_RELEASE
-> doesn't affect msm_disp_snapshot_util.o or msm_gpu.o.
+> I know, I found these other properties but I think they were just coming
+> from old schema.
 > 
-> Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
-> ---
->  drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c | 4 ++--
->  drivers/gpu/drm/msm/msm_gpu.c                     | 4 ++--
->  2 files changed, 4 insertions(+), 4 deletions(-)
+> If it is really a common property, then should be defined in a common
+> schema and this did not happen.
+
+Would now be a good time to add it to the power-supply.yaml document?
+It looks like this value is used by about 10 other devices.
+
+Thank you,
+Chris
+
 > 
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-
-
--- 
-With best wishes
-Dmitry
+> > 
+> >>> +    description:
+> >>> +      Optional value to clamp the maximum input current limit to for
+> >>> +      the device. If omitted, the default value for the hardware will
+> >>> +      be used (2400000).
+> >>> +    minimum: 100000
+> >>> +    maximum: 3800000
+> >>> +
+> >>> +  input-voltage-limit-microvolt:
+> >>> +    description:
+> >>> +      Optional value to clamp the maximum input voltage limit to for
+> >>> +      the device. If omitted, the default value for the hardware will
+> >>> +      be used (4500000).
+> >>> +    minimum: 3900000
+> >>> +    maximum: 12000000
+> >>> +
+> >>> +  interrupts:
+> >>> +    maxItems: 1
+> >>> +
+> >>> +  monitored-battery:
+> >>
+> >> You miss definition of this property. I guess this is power supply, so
+> >> reference proper schema for power supplies. Look at other bindings to
+> >> for some example code.
+> > 
+> > I'll look at this some more, I might have a few more questions. But I will
+> > make the changes requested.
+> > 
+> >>
+> >>> +    description: |
+> >>> +        A phandle to a monitored battery node. Values for the following
+> >>> +        are used by the driver and if not present will result in default
+> >>> +        values being applied:
+> >>> +        constant-charge-current-max-microamp
+> >>> +        constant-charge-voltage-max-microvolt
+> >>> +        charge-term-current-microamp
+> >>> +        precharge-current-microamp
+> >>> +
+> >>> +  reg:
+> >>> +    maxItems: 1
+> >>> +
+> >>> +  regulators:
+> >>
+> >> No need for regulators node, just define here otg-vbus directly. But
+> >> honestly, your example is incomplete or you defined something implied by
+> >> the compatible. If you have a fixed 5V regulator, what is the point of
+> >> defining it in the DT?
+> > 
+> > The regulator can be adjusted within a range around 5V, and is referenced
+> > by the USB subsystem. Should I still omit it from the device tree or instead
+> > define the min and max values?
+> 
+> If it can be adjusted then it's fine, can stay.
+> 
+> 
+> Best regards,
+> Krzysztof
