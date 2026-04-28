@@ -4,58 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4188FF886D
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 10:17:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0F25FF885D
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 10:18:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CC3D10EADB;
-	Tue, 28 Apr 2026 10:17:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 432BE10E307;
+	Tue, 28 Apr 2026 10:18:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Vl8CNF1Z";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ahaIUlJh";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0AFA810E307;
- Tue, 28 Apr 2026 10:17:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777371461; x=1808907461;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=fqgwBRWiQl40IswQSq7+m4k7ZzDJblg+YGYIifM9SaQ=;
- b=Vl8CNF1Z/wFukUqFuC7Og2aJz7gXREV6LP/sBTdHtxFigMeh1u5oFSSF
- AW9gZ1venlH9TDMECGGojdS0geHAm0Nl7drMulMc/IWBGBhRe9sJr8bJW
- Zw9eKl3M3GbsvYkGuv7i1qO/pqUtvpJfs26FUYnV8YC5IBfLsa3gJ4Qsh
- sHYIfB2LFRu7vgeIdkISEMRqnJeZJcpVAmovfzWhy1mRk5pqkRUe3k2Mp
- xNTrOuvUt7M/v+Iw7huIj3yZSCpywJKlHrBauEdloYVQPX043hPSUfMom
- Lsh80aEAZ1sW0FOehcANp/lTBoTGrTqlXZ1YHmRksdHkFs2y0NnXH50+B Q==;
-X-CSE-ConnectionGUID: t0yoMcF4STOAA+FYBG+2vg==
-X-CSE-MsgGUID: jzdAUChzQR6mwq8Y8wSMLg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11769"; a="78165344"
-X-IronPort-AV: E=Sophos;i="6.23,203,1770624000"; d="scan'208";a="78165344"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Apr 2026 03:17:41 -0700
-X-CSE-ConnectionGUID: cnCXHnMbQQGGYItedGyZhA==
-X-CSE-MsgGUID: xlHEt5ERRky2gzyHTmOTfg==
-X-ExtLoop1: 1
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.244.208])
- by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Apr 2026 03:17:38 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: ville.syrjala@linux.intel.com, Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: Re: [PATCH 9/9] drm/dp: Use drm_printf_indent for DP SDP logging
-In-Reply-To: <20260428074457.3566918-10-ankit.k.nautiyal@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260428074457.3566918-1-ankit.k.nautiyal@intel.com>
- <20260428074457.3566918-10-ankit.k.nautiyal@intel.com>
-Date: Tue, 28 Apr 2026 13:17:36 +0300
-Message-ID: <df337712f741896f11b15852597900a4eb3f84b0@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C92E810E307
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 10:18:41 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 9475E44863;
+ Tue, 28 Apr 2026 10:18:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B305BC2BCB5;
+ Tue, 28 Apr 2026 10:18:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1777371521;
+ bh=uHPyZdCkzCI448zeZqMv+wyuQZjfNzjXPtc17YEXI8U=;
+ h=Date:Subject:Cc:To:From:References:In-Reply-To:From;
+ b=ahaIUlJhSg632TunX/r/O68Yo4SbmrVt4yior8VLXk69Jba9ibkONUKWZOOfB1zWw
+ g7lXj77kVrRSt9fD/KiW2ddFAFXjjNUIaqfUMW6xQIGGKxz2tef00LA/dZ+edSb/Pr
+ kw/fkvFY6ff6u01bmbSObWtJsMXPQmyWnWXYx7twjW6YKwkYsJnMURdhIkx0pVlG3y
+ sFdExSiuJ5GgR3VM3L4CoB8LHm4d6YDqcUzR3ErHcOdV6GkKK/gSPldPTm/h+p2pwS
+ gqc5J+9EniuR3uZ+DB+9ohQN5ibMQ8YSf+7EwVrzVZ7rkK2cJnj5DGy9yk1S8+EzYJ
+ AwwMdmK2nYdqQ==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 28 Apr 2026 12:18:36 +0200
+Message-Id: <DI4PMAG5RHC7.165W6MJA3R4TQ@kernel.org>
+Subject: Re: [PATCH 1/2] rust: auxiliary: add registration data to auxiliary
+ devices
+Cc: <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <rust-for-linux@vger.kernel.org>, "Danilo Krummrich" <dakr@kernel.org>
+To: <gregkh@linuxfoundation.org>, <rafael@kernel.org>,
+ <acourbot@nvidia.com>, <aliceryhl@google.com>, <david.m.ertman@intel.com>,
+ <ira.weiny@intel.com>, <leon@kernel.org>, <ojeda@kernel.org>,
+ <boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
+ <lossin@kernel.org>, <a.hindborg@kernel.org>, <tmgross@umich.edu>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260427221002.2143861-1-dakr@kernel.org>
+ <20260427221002.2143861-2-dakr@kernel.org>
+In-Reply-To: <20260427221002.2143861-2-dakr@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,73 +64,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 28 Apr 2026, Ankit Nautiyal <ankit.k.nautiyal@intel.com> wrote:
-> Currently the DP SDP log helpers use spaces for indentation. Switch to
-> tabs for indentation and use drm_printf_indent to keep the format
-> strings readable.
->
-> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+On Tue Apr 28, 2026 at 12:09 AM CEST, Danilo Krummrich wrote:
+> +impl<T: Send + 'static> Registration<T> {
 
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
-
-
-> ---
->  drivers/gpu/drm/display/drm_dp_helper.c | 36 +++++++++++++------------
->  1 file changed, 19 insertions(+), 17 deletions(-)
->
-> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-> index fc550b48fd85..4bf7b783ac39 100644
-> --- a/drivers/gpu/drm/display/drm_dp_helper.c
-> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
-> @@ -3519,15 +3519,16 @@ void drm_dp_vsc_sdp_log(struct drm_printer *p, const struct drm_dp_vsc_sdp *vsc)
->  {
->  	drm_printf(p, "DP SDP: %s, revision %u, length %u\n",
->  		   dp_sdp_type_get_name(vsc->sdp_type), vsc->revision, vsc->length);
-> -	drm_printf(p, "    pixelformat: %s\n",
-> -		   dp_pixelformat_get_name(vsc->pixelformat));
-> -	drm_printf(p, "    colorimetry: %s\n",
-> -		   dp_colorimetry_get_name(vsc->pixelformat, vsc->colorimetry));
-> -	drm_printf(p, "    bpc: %u\n", vsc->bpc);
-> -	drm_printf(p, "    dynamic range: %s\n",
-> -		   dp_dynamic_range_get_name(vsc->dynamic_range));
-> -	drm_printf(p, "    content type: %s\n",
-> -		   dp_content_type_get_name(vsc->content_type));
-> +
-> +	drm_printf_indent(p, 1, "pixelformat: %s\n",
-> +			  dp_pixelformat_get_name(vsc->pixelformat));
-> +	drm_printf_indent(p, 1, "colorimetry: %s\n",
-> +			  dp_colorimetry_get_name(vsc->pixelformat, vsc->colorimetry));
-> +	drm_printf_indent(p, 1, "bpc: %u\n", vsc->bpc);
-> +	drm_printf_indent(p, 1, "dynamic range: %s\n",
-> +			  dp_dynamic_range_get_name(vsc->dynamic_range));
-> +	drm_printf_indent(p, 1, "content type: %s\n",
-> +			  dp_content_type_get_name(vsc->content_type));
->  }
->  EXPORT_SYMBOL(drm_dp_vsc_sdp_log);
->  
-> @@ -3535,14 +3536,15 @@ void drm_dp_as_sdp_log(struct drm_printer *p, const struct drm_dp_as_sdp *as_sdp
->  {
->  	drm_printf(p, "DP SDP: %s, revision %u, length %u\n",
->  		   dp_sdp_type_get_name(as_sdp->sdp_type), as_sdp->revision, as_sdp->length);
-> -	drm_printf(p, "    vtotal: %d\n", as_sdp->vtotal);
-> -	drm_printf(p, "    target rr: %d\n", as_sdp->target_rr);
-> -	drm_printf(p, "    duration increase ms: %d\n", as_sdp->duration_incr_ms);
-> -	drm_printf(p, "    duration decrease ms: %d\n", as_sdp->duration_decr_ms);
-> -	drm_printf(p, "    operation mode: %d\n", as_sdp->mode);
-> -	drm_printf(p, "    target rr divider: %s\n",
-> -		   as_sdp->target_rr_divider ? "1.001" : "1.000");
-> -	drm_printf(p, "    coasting vtotal: %d\n", as_sdp->coasting_vtotal);
-> +
-> +	drm_printf_indent(p, 1, "vtotal: %d\n", as_sdp->vtotal);
-> +	drm_printf_indent(p, 1, "target rr: %d\n", as_sdp->target_rr);
-> +	drm_printf_indent(p, 1, "duration increase ms: %d\n", as_sdp->duration_incr_ms);
-> +	drm_printf_indent(p, 1, "duration decrease ms: %d\n", as_sdp->duration_decr_ms);
-> +	drm_printf_indent(p, 1, "operation mode: %d\n", as_sdp->mode);
-> +	drm_printf_indent(p, 1, "target rr divider: %s\n",
-> +			  as_sdp->target_rr_divider ? "1.001" : "1.000");
-> +	drm_printf_indent(p, 1, "coasting vtotal: %d\n", as_sdp->coasting_vtotal);
->  }
->  EXPORT_SYMBOL(drm_dp_as_sdp_log);
-
--- 
-Jani Nikula, Intel
++ Sync
