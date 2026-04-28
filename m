@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9078CFF8868
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 15:31:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7259BFF885A
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 15:31:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F403F10EC5D;
-	Tue, 28 Apr 2026 15:31:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7BF410EC7F;
+	Tue, 28 Apr 2026 15:31:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="b8DzLl9g";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="NNAJv6nW";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89B2010EB9D
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 15:31:40 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 056EB10EC7F;
+ Tue, 28 Apr 2026 15:31:45 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 7DEDE1A3472;
- Tue, 28 Apr 2026 15:31:39 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id E3AA54E42B5C;
+ Tue, 28 Apr 2026 15:31:43 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 52458601D0;
- Tue, 28 Apr 2026 15:31:39 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id B7F53601D0;
+ Tue, 28 Apr 2026 15:31:43 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id D11D010728E23; 
- Tue, 28 Apr 2026 17:31:33 +0200 (CEST)
+ with ESMTPSA id 1CE8E10728E27; 
+ Tue, 28 Apr 2026 17:31:38 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1777390297; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1777390302; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=EjLii+UVAxxUE1lRMJnRgBpuZnA4/R7NKW2C9QtWbBE=;
- b=b8DzLl9gTG1JT65zLcbVq4R71KdFvjxRWNrzmpI0bttBQqIprm5sh+gU2uu8XtKDRt0Epo
- fBjPRTsL/mTA1Bk1Rb/OxENx2XLmGVSN9Lj5bofvQh095I6lRyAdbm13Y4QH3gT2RSeJ27
- Zdqxl8iSoKNhobWAEtbKrriFhY8+vo+33E8teDVmcL1I5uHRpOsZamLrT//Yq6Xxgn/mwK
- 1CTcx1/3XlFTR9owSKbcMg42RQ9J4+MtYXkMChUDbn6ygsGPiNvCdsNEQA9vpd73AhUhb0
- HyXJ2JWyURD2BQ8t5LzQHbfn30OQ/xWgkX1tsWvHOE7qBDpvRySEa+fSpTuaGQ==
+ bh=CNAywJbD55/79Kay7v4Z9jjJDlDuDprtAGni4uyb1B4=;
+ b=NNAJv6nW5Qz5+LsU45maM5SIA9PGVapKt9FrrakFRoXfbzXyq2ZlAu8NB0zXKYA1NjX7WV
+ 0B3kYHu8KGhNRyiUtROhz7NvCPUwKd1JgD9QB8oBc+t8YoYgyaum7pyVpJxYicnpPv/cln
+ wMm9xoM5Hh4UDufI7UKS5PosJ2scqXIdoDVDtwdJNMn2PC7cAQ9DjvmlDh/hiNtOdFEobG
+ PbV69xbMVI0DIhH1Wwc+X+LkaDYqX4LLGPa2QQTfM0e0mbgDPo/r1kGDqEnNqjJstukG7H
+ aHrp6qZzk3XP0ulxJt644hYEkkX5d156A7xi10JAQZPIKTFeW3HBlWppDHVbGg==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Tue, 28 Apr 2026 17:30:53 +0200
-Subject: [PATCH v3 04/11] drm/hisilicon/kirin: switch to
+Date: Tue, 28 Apr 2026 17:30:54 +0200
+Subject: [PATCH v3 05/11] drm/bridge: chrontel-ch7033: switch to
  of_drm_get_bridge_by_endpoint()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260428-drm-bridge-alloc-getput-panel_or_bridge-v3-4-a537b5567add@bootlin.com>
+Message-Id: <20260428-drm-bridge-alloc-getput-panel_or_bridge-v3-5-a537b5567add@bootlin.com>
 References: <20260428-drm-bridge-alloc-getput-panel_or_bridge-v3-0-a537b5567add@bootlin.com>
 In-Reply-To: <20260428-drm-bridge-alloc-getput-panel_or_bridge-v3-0-a537b5567add@bootlin.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -65,7 +65,8 @@ Cc: Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
  linux-arm-kernel@lists.infradead.org, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
 X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -88,40 +89,110 @@ This driver calls drm_of_find_panel_or_bridge() with a NULL pointer in the
 Replace this call with the simpler of_drm_get_bridge_by_endpoint().
 
 Since of_drm_get_bridge_by_endpoint() increases the refcount of the
-returned bridge, ensure it is put on removal. Here the bridge pointer is
-only stored in a temporary variable, so a cleanup action is enough.
+returned bridge, ensure it is put on removal. To achieve this, instead of
+adding an explicit drm_bridge_put(), migrate to the bridge::next_bridge
+pointer which is automatically put when the bridge is eventually freed.
 
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/bridge/chrontel-ch7033.c | 28 +++++++++++++---------------
+ 1 file changed, 13 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c b/drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c
-index e80debdc4176..ab3cd309505a 100644
---- a/drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c
-+++ b/drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c
-@@ -778,17 +778,16 @@ static int dsi_host_init(struct device *dev, struct dw_dsi *dsi)
- static int dsi_bridge_init(struct drm_device *dev, struct dw_dsi *dsi)
- {
- 	struct drm_encoder *encoder = &dsi->encoder;
--	struct drm_bridge *bridge;
-+	struct drm_bridge *bridge __free(drm_bridge_put) = NULL;
- 	struct device_node *np = dsi->dev->of_node;
--	int ret;
+diff --git a/drivers/gpu/drm/bridge/chrontel-ch7033.c b/drivers/gpu/drm/bridge/chrontel-ch7033.c
+index 54d49d4882c8..a237c65ebd69 100644
+--- a/drivers/gpu/drm/bridge/chrontel-ch7033.c
++++ b/drivers/gpu/drm/bridge/chrontel-ch7033.c
+@@ -199,7 +199,6 @@ enum {
  
- 	/*
- 	 * Get the endpoint node. In our case, dsi has one output port1
- 	 * to which the external HDMI bridge is connected.
- 	 */
--	ret = drm_of_find_panel_or_bridge(np, 1, 0, NULL, &bridge);
+ struct ch7033_priv {
+ 	struct regmap *regmap;
+-	struct drm_bridge *next_bridge;
+ 	struct drm_bridge bridge;
+ 	struct drm_connector connector;
+ };
+@@ -215,7 +214,7 @@ static enum drm_connector_status ch7033_connector_detect(
+ {
+ 	struct ch7033_priv *priv = conn_to_ch7033_priv(connector);
+ 
+-	return drm_bridge_detect(priv->next_bridge, connector);
++	return drm_bridge_detect(priv->bridge.next_bridge, connector);
+ }
+ 
+ static const struct drm_connector_funcs ch7033_connector_funcs = {
+@@ -233,7 +232,7 @@ static int ch7033_connector_get_modes(struct drm_connector *connector)
+ 	const struct drm_edid *drm_edid;
+ 	int ret;
+ 
+-	drm_edid = drm_bridge_edid_read(priv->next_bridge, connector);
++	drm_edid = drm_bridge_edid_read(priv->bridge.next_bridge, connector);
+ 	drm_edid_connector_update(connector, drm_edid);
+ 	if (drm_edid) {
+ 		ret = drm_edid_connector_add_modes(connector);
+@@ -275,7 +274,7 @@ static int ch7033_bridge_attach(struct drm_bridge *bridge,
+ 	struct drm_connector *connector = &priv->connector;
+ 	int ret;
+ 
+-	ret = drm_bridge_attach(encoder, priv->next_bridge, bridge,
++	ret = drm_bridge_attach(encoder, priv->bridge.next_bridge, bridge,
+ 				DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+ 	if (ret)
+ 		return ret;
+@@ -283,15 +282,15 @@ static int ch7033_bridge_attach(struct drm_bridge *bridge,
+ 	if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR)
+ 		return 0;
+ 
+-	if (priv->next_bridge->ops & DRM_BRIDGE_OP_DETECT) {
++	if (priv->bridge.next_bridge->ops & DRM_BRIDGE_OP_DETECT) {
+ 		connector->polled = DRM_CONNECTOR_POLL_HPD;
+ 	} else {
+ 		connector->polled = DRM_CONNECTOR_POLL_CONNECT |
+ 				    DRM_CONNECTOR_POLL_DISCONNECT;
+ 	}
+ 
+-	if (priv->next_bridge->ops & DRM_BRIDGE_OP_HPD) {
+-		drm_bridge_hpd_enable(priv->next_bridge, ch7033_hpd_event,
++	if (priv->bridge.next_bridge->ops & DRM_BRIDGE_OP_HPD) {
++		drm_bridge_hpd_enable(priv->bridge.next_bridge, ch7033_hpd_event,
+ 				      priv);
+ 	}
+ 
+@@ -299,8 +298,8 @@ static int ch7033_bridge_attach(struct drm_bridge *bridge,
+ 				 &ch7033_connector_helper_funcs);
+ 	ret = drm_connector_init_with_ddc(bridge->dev, &priv->connector,
+ 					  &ch7033_connector_funcs,
+-					  priv->next_bridge->type,
+-					  priv->next_bridge->ddc);
++					  priv->bridge.next_bridge->type,
++					  priv->bridge.next_bridge->ddc);
+ 	if (ret) {
+ 		DRM_ERROR("Failed to initialize connector\n");
+ 		return ret;
+@@ -313,8 +312,8 @@ static void ch7033_bridge_detach(struct drm_bridge *bridge)
+ {
+ 	struct ch7033_priv *priv = bridge_to_ch7033_priv(bridge);
+ 
+-	if (priv->next_bridge->ops & DRM_BRIDGE_OP_HPD)
+-		drm_bridge_hpd_disable(priv->next_bridge);
++	if (priv->bridge.next_bridge->ops & DRM_BRIDGE_OP_HPD)
++		drm_bridge_hpd_disable(priv->bridge.next_bridge);
+ 	drm_connector_cleanup(&priv->connector);
+ }
+ 
+@@ -543,10 +542,9 @@ static int ch7033_probe(struct i2c_client *client)
+ 
+ 	dev_set_drvdata(dev, priv);
+ 
+-	ret = drm_of_find_panel_or_bridge(dev->of_node, 1, -1, NULL,
+-					  &priv->next_bridge);
 -	if (ret)
 -		return ret;
-+	bridge = of_drm_get_bridge_by_endpoint(np, 1, 0);
-+	if (IS_ERR(bridge))
-+		return PTR_ERR(bridge);
++	priv->bridge.next_bridge = of_drm_get_bridge_by_endpoint(dev->of_node, 1, -1);
++	if (IS_ERR(priv->bridge.next_bridge))
++		return PTR_ERR(priv->bridge.next_bridge);
  
- 	/* associate the bridge to dsi encoder */
- 	return drm_bridge_attach(encoder, bridge, NULL, 0);
+ 	priv->regmap = devm_regmap_init_i2c(client, &ch7033_regmap_config);
+ 	if (IS_ERR(priv->regmap)) {
 
 -- 
 2.53.0
