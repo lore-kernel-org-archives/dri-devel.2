@@ -4,53 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F1A1FF8868
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 13:14:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E282CFF8868
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 13:14:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B9C410E9D2;
-	Tue, 28 Apr 2026 13:14:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36D9710E9DD;
+	Tue, 28 Apr 2026 13:14:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="dNuxLkdu";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cTPK421+";
 	dkim-atps=neutral
-Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53CC510EB71
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 13:14:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1777382059;
- bh=nTVAk8FVU9/9Iqogqi1Nlg2TfMCF2sxeKJyQ/8j1X+A=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=dNuxLkduwB6bE+D5PePF93PM94aLLhS1Ywf7tnyWekON9xD2WQub3FOhLzs5iPwWo
- FSBWG0HYkaaK7+AiRd7RTCuQUgf4nQy7+GxTrsJXc/shlL4RcABxhbnBBLM3uyT/SE
- 5Jifqsk6NODk5CJt6usjVA8KyL6w9t6MWF80wIMKTZWOqbQYwGZEkjYyJHSht1SE88
- M4ICL940urGpJ4dIpVE4N9/c0lIDuSu7SXLOSMlytVGLM0OZ8yXQsTCDFMAGdWKTgc
- M4l4Iy3TpDEsuY2XJ4O1VTGdyhgKbgswuscHCJ+XWKej5+2so1BfNNlmUP4VUoX1DT
- iGBJCKWphFCJg==
-Message-ID: <e1b698c8-5b9f-4726-9f83-06ed62822bdf@lankhorst.se>
-Date: Tue, 28 Apr 2026 15:14:20 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/6] cgroup,cgroup/dmem: Add
- (dmem_)cgroup_common_ancestor helper
-To: Natalie Vock <natalie.vock@gmx.de>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>
-Cc: Maxime Ripard <mripard@kernel.org>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>,
- cgroups@vger.kernel.org, dri-devel@lists.freedesktop.org
-References: <20260313-dmemcg-aggressive-protect-v6-0-7c71cc1492db@gmx.de>
- <20260313-dmemcg-aggressive-protect-v6-2-7c71cc1492db@gmx.de>
- <cykgy6mf4nu5kkwl3uc6modkj3ppela2xgjy2ijidpyzdsnyn4@cbwivcrqa5kh>
- <911b9bfb-c352-4f6d-93a1-540246ccd5b2@gmx.de>
-Content-Language: en-US
-From: Maarten Lankhorst <dev@lankhorst.se>
-In-Reply-To: <911b9bfb-c352-4f6d-93a1-540246ccd5b2@gmx.de>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DD2810EBAF
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 13:14:24 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id AB54F61335;
+ Tue, 28 Apr 2026 13:14:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C30EC2BCAF;
+ Tue, 28 Apr 2026 13:14:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1777382063;
+ bh=fId8M51eLiEA5R+kZZRBfVGDoJPE40PDpQO/FvKYmkQ=;
+ h=Date:Subject:Cc:To:From:References:In-Reply-To:From;
+ b=cTPK421+E+jI8HRlmLTMG8MYzB5JhrIJ5tmsueJAozatUgbxEQ4wqkQqYzs7i+IHC
+ w34izlUYoBbQgEcEMyKom24HUQY9fHdzABq2989Sxe6X/lwpUcZ326o3iFd/+tZOjW
+ P7gPxvl6kmrE+CSeTCF46fjiuYeibf9V/NFKdpENecwovgqmVH28T4tUnKjDGl7dvY
+ G/DaprRDa0T9Iirz4kmgWf4Zu7YJZ7cn4eCck005wN5sKyFUWS5YR7Dyrlm/Oe8wWw
+ MmiOLjQmBZp4VkVPbHlaeXHOdW6ostFu7NUVoz47o7en03s+nCR5wMACMQYH5pBA8T
+ PIToYoUajX8hQ==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Tue, 28 Apr 2026 15:14:15 +0200
+Message-Id: <DI4TCSCZ215E.16ZCXW7RSXBF@kernel.org>
+Subject: Re: [PATCH 03/24] rust: devres: add ForLt support to Devres
+Cc: <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pm@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
+ <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>, "Danilo
+ Krummrich" <dakr@kernel.org>
+To: <gregkh@linuxfoundation.org>, <rafael@kernel.org>,
+ <acourbot@nvidia.com>, <aliceryhl@google.com>, <david.m.ertman@intel.com>,
+ <ira.weiny@intel.com>, <leon@kernel.org>, <viresh.kumar@linaro.org>,
+ <m.wilczynski@samsung.com>, <ukleinek@kernel.org>, <bhelgaas@google.com>,
+ <kwilczynski@kernel.org>, <abdiel.janulgue@gmail.com>,
+ <robin.murphy@arm.com>, <markus.probst@posteo.de>, <ojeda@kernel.org>,
+ <boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
+ <lossin@kernel.org>, <a.hindborg@kernel.org>, <tmgross@umich.edu>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260427221155.2144848-1-dakr@kernel.org>
+ <20260427221155.2144848-4-dakr@kernel.org>
+In-Reply-To: <20260427221155.2144848-4-dakr@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,36 +68,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hey,
+On Tue Apr 28, 2026 at 12:11 AM CEST, Danilo Krummrich wrote:
+> Use ForLt::cast_ref() in Devres access methods, enabling lifetime
+> shortening for types that are covariant over their lifetime parameter.
+>
+> This is a no-op for 'static types, but prepares Devres for use with
+> lifetime-parameterized types such as pci::Bar<'_, SIZE>.
+>
+> Add DevresGuard as a wrapper around RevocableGuard that applies
+> ForLt::cast_ref() on deref().
+>
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 
-Den 2026-03-16 kl. 09:46, skrev Natalie Vock:
-> On 3/13/26 15:16, Michal Koutný wrote:
->> On Fri, Mar 13, 2026 at 12:40:01PM +0100, Natalie Vock <natalie.vock@gmx.de> wrote:
->>> This helps to find a common subtree of two resources, which is important
->>> when determining whether it's helpful to evict one resource in favor of
->>> another.
->>>
->>> To facilitate this, add a common helper to find the ancestor of two
->>> cgroups using each cgroup's ancestor array.
->>>
->>> Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
->>> ---
->>>   include/linux/cgroup.h      | 21 +++++++++++++++++++++
->>>   include/linux/cgroup_dmem.h |  9 +++++++++
->>>   kernel/cgroup/dmem.c        | 28 ++++++++++++++++++++++++++++
->>>   3 files changed, 58 insertions(+)
->>
->> When the helper is added, the idiom in
->> kernel/cgroup/cgroup.c:cgroup_procs_write_permission() could perhaps be
->> switched to it too (structured in commits) to "optimize" migrations from
->> large depths.
-> 
-> Right. Perhaps better suited as follow-up work though, isn't it?
-> 
-> Thanks,
-> Natalie
+Please disregard this patch, it does nothing for this patch series.
 
-Does this patch need an ack to merge through the drm-misc tree?
+It sneaked in from a subsequent series I work on which makes device resourc=
+e
+types, such as pci::Bar, ForLt!() types themselves.
 
-Kind regards,
-~Maarten Lankhorst
+One difficulty is that ForLt!(Bar<'_, SIZE>) fails when SIZE is a generic c=
+onst
+parameter, as it would require generic_const_exprs.
