@@ -4,83 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 902FAFF8875
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACCC6FF8877
 	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 10:10:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6FF910EF2A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B80CF10EF30;
 	Wed, 29 Apr 2026 10:10:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imd-tec.com header.i=@imd-tec.com header.b="BM64Uoia";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EPf07LE5";
 	dkim-atps=neutral
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
- [209.85.221.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6191710E7B3
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 15:22:30 +0000 (UTC)
-Received: by mail-wr1-f41.google.com with SMTP id
- ffacd0b85a97d-43d73352cf2so8740417f8f.1
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Apr 2026 08:22:30 -0700 (PDT)
+Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com
+ [209.85.160.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A35910EA24
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 07:23:24 +0000 (UTC)
+Received: by mail-oa1-f54.google.com with SMTP id
+ 586e51a60fabf-42fbf95cca8so4746704fac.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 00:23:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777361003; cv=none;
+ d=google.com; s=arc-20240605;
+ b=Jxr4LpmqDgnQV1MKIlj2oq2fdDENykXGSUMO75UPcKFGg5zxY/bGxoLjIwWUqb+eMo
+ aEsF2orzhX8x7tOnI1GQntXz2+lLtyu1gxSptbTC/anwKiCEusYD8mxfEkkbNCe8TTTg
+ ZNZyaPFVdsu5Dw9CpsxrZmtauYmtexNUOnZDlU67YcQNur5hUOlfeZlHjzjvCMp9OHS1
+ jbZdzDVLsbUrwt0sy9e2gkBEjamfYX+Y/Xt6D92bnLpJPNAM1wwVwijceBvHQVnqxK66
+ 0p7FHjMwnmIWscRYf8uQxd/ZM1NuL2pp8RgNBp6j1WVwz+tJbXe+SD4Na8Z8rO4aoVvy
+ 0vnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=aJhMIdHzsLA6WrFu6/600XMZirRWTnyQ0tRk6GsQGCI=;
+ fh=+nw/EtWkdrsfVEx5HYrgC+xuc6+Rba3zieKARVl6FP4=;
+ b=bb4weFhAIb3PVWQ35bqp7XJmGbEUnrpIUXVkZk6Lgn/02UeAlmuh+TZiu7xUzvMj3n
+ 2ynvxNAaw5HXIYq+Vo2+C+FfEg3hkSvBI6PINfp5Xv1h4uil+Uk4Js5wFCKZgKq6hgS6
+ kC6zkTL+tldPEMBciTTIAR2MgJ4dULK1gjtRJYPx9ApVuaOj+0DF4aMmMyBXZ3xL97qj
+ mU688cs8s3nL68Q6zfpMnVZd796Pleo48x81KnWo9uk9IjdQwOnQ8asSSldh8z6EBYt1
+ LAd9eDG2MTTGYBEa47mLS/T6B1iUJP5YZIN1khW6yi2VscrmbPnNavzzY+tNB2massa5
+ XMgw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=imd-tec.com; s=google; t=1777303349; x=1777908149; darn=lists.freedesktop.org;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=9wUtrIXRTfOr+O6nQ8tmIzbVyTOQXWqkfNhpm00D0Vo=;
- b=BM64UoiaaoFHAnFTtD9kbIUZF6ERVdw7hAJRxC2xdNeyiF6/syG2Y4+xYV9DTBOMKx
- hYYksyx5HlIlgEyph5n6FAm3FgV/PcLa7RVLCxgPwtSsKBij3FiDaLSgC1XsL2xcXO7c
- r5L1eIbqBruGfTZJgvrSsJCczd2nzFNG+6yHtwSzlYADxeij3DonhR+G5shyWVeKCn4f
- pA0H/WjQkqYUuWO0RLrHGp4n+s9TdA/vR7v/HOpjxhtJqvJhvP/08BpddxN3TEUcnl4M
- afaafdwVa6G5tpOT1FlqHGlefqDtHhhfvW7jp2//cKNpuaDccKq+LrrOeUJKp3TaxzLi
- hO8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777303349; x=1777908149;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1777361003; x=1777965803; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=9wUtrIXRTfOr+O6nQ8tmIzbVyTOQXWqkfNhpm00D0Vo=;
- b=WnA8g0ZFsRkmyX4XcNEkaJOuZ/kaC+AN5lff70Pl/fu5Jx+FNXmZI2aPgflcltLBpJ
- M+psw/jFvyYgNzXrYwBILzs4BoTL/JN0zahsZih1MTSn4Dv5MKAn+h/rN+SnuXtSvdoB
- Is5Sg2Ja3cpsRzWnACGcxhGkUUdx8FdZ3k1mAPZ9HHXSCBAc7XibrFJ7hRby8JgnND2e
- h07+qONYY5fCbCC13h1VJcfS2djXa24VIXePwTM+QC3ktk7JXo8SXxCyzx+YMbF8FaXV
- wOsTb8BBmbQJ52wy8U+7TjB6tQLbgOU0vd8UDdDGTviHORO+qElzHrjeGY3JlPhNivrf
- xqfg==
-X-Gm-Message-State: AOJu0YwLU5ninXc4+gNd9uSDwQSmyvwpl/Cb/mmv/VUPBOvWqN7F0Vl6
- +YuJtOzFCTNnvoo8T/+8n+2plOrviiQG14+UVdpbfz82Tcn291L9HfuSSDVSrxs8ZBo=
-X-Gm-Gg: AeBDievIXJkIgO2zFcTrN823S9/9zI1q7GOEmcVbxSL+LxYsGU3UrOSSJeE905m2V6D
- hASFg8MIsD+yfLYBcugIUl2qisj6/BnNPPh/pMPCmTaU9s+rsSa2KY2ZLlpejNwswOes+1poeiX
- CoxWBA7H7nXdiacjF2VxwAojJw82oUxfZ6OtPRezwvHAbzKNua0z1sBSeqFmH7jMDZVZsuQsrEU
- x3WcMqxnqaFHz6KPNcWR03/3zB7CtBoGqQrnkjzDfeVHT3tiKLvEHN/wG/IIXt1U4u89aqEulOQ
- Iz0KxYMpfhYGOLVpmMdNWUShHfTgouio0A2ECkT/mD3j4iEWBMaLTYrH/Cb0im8ArrHJO62+zXA
- 79i3vzkilzv4YCqFSAyFYS8v0zTnWSzhiIS9CshTLYh5bfW2wuG3SQmBXs57UxhV+lBhNE1y7Kq
- HS6EIaZJ3XlCdorPoMpq/n0nclVSNAPM9CdF6mKqOIDrkGBb6lqP0D3+ljo/AXzpHNJP8IVDy/O
- Nevt+6XGYYtp89kGpCC7J1/qLt3EkDYmI/CMkMx
-X-Received: by 2002:a05:600d:8408:b0:486:ff92:63e5 with SMTP id
- 5b1f17b1804b1-488fb73dc6fmr483448635e9.6.1777303348718; 
- Mon, 27 Apr 2026 08:22:28 -0700 (PDT)
-Received: from [127.0.1.1] ([82.71.135.85]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-488fc0f8188sm861247695e9.2.2026.04.27.08.22.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Apr 2026 08:22:28 -0700 (PDT)
-From: William Bright <william.bright@imd-tec.com>
-Subject: [PATCH 0/2] drm/panel: Add support for TSD TST070WSBE-196C 8"
- MIPI-DSI panel
-Date: Mon, 27 Apr 2026 16:21:08 +0100
-Message-Id: <20260427-imdt-dsi-display-v1-0-bb2768de120b@imd-tec.com>
+ bh=aJhMIdHzsLA6WrFu6/600XMZirRWTnyQ0tRk6GsQGCI=;
+ b=EPf07LE5yPxaOfppuT+vTaLXM18aCcxIbzpyXxxuqhhUD8fFm9FKvYCfikPzknfaJt
+ VG/Q+TgeBAARPOytgM3LJZkdtpToToE/HK95CnOAGe7Djas9qc7/1HDTN8zgR5HHjq4W
+ 26lkot7nBKcjlnEcH5ynERn7EjvgPLsUrX/MGYeDTbF/g1CZSpSgzTKUaQo2/C/IkaL8
+ i6WhRejtNy4jv6LAKP9T32ys2YcpoOuJokpb/MOqAk9e08G3KB6jTW2diW5Z1rM/fehd
+ +hFzy2iz5puqRzY+IHsvVuSpSFNa41QJ4/D2QlvjdWbHpnhu16g6pM+Hd/T/wntk6Tjv
+ yFYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777361003; x=1777965803;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=aJhMIdHzsLA6WrFu6/600XMZirRWTnyQ0tRk6GsQGCI=;
+ b=Kvqlr0biK95Fu7nXRiJJ0ffRBzW/XIlu05qBCzwh/NpEyTZJfiXrP3BLxVlxp0hSpM
+ Q/Ns1+sYjVBG1q/IBY9k42ztJTSXxUmXYOYRqC8q6rxq64urlx4aK48ZWkpmUY6o9Z5x
+ LuvxrpgGr2LOKVuliwQEKZiAwfla+ESLZN5aEaK5+XHswzxiqsWqWSWnU3sHTUqkJyd4
+ OLTf+BT7ZRvzBMe9vg6gdhtSQeBgmWQQPlDXM38zOrWMz1rX4AHvrCYz2qwB+Yzrnqrq
+ d3NJMTjDmv6YBJODL1ZzqmvDGxdW8hRlYG3swFnInXGFLIVfz3E77oDXlkrOIHkNAbIA
+ JRaQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9Z/wm2DsNcCB45yyIx0596CQ74zm3z0pJdvHaCmrnnupmkpRIWcg1o43c+SgZDSVLlb6PIcr3cjjY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw+Zz/GemTUeoKFhfqKwm0QEHYmKeaclZ5itFC/Jmxtsq8hjLgD
+ klix0/YusB/HgASSGmJiGKtTJi6Kr8zwmKoBWbOnYV2nWNU6D6xPIBl97qDDtvagtlbRWaYP9ZX
+ st5MUB/3Qgo/3lO2JCU56OabSiD9F7fs=
+X-Gm-Gg: AeBDietmMXes7xgaEb/7llADv1zUVZTqrzdDR7T0dhYN5tWaP76YkF9nGLDb9ZiS+1U
+ CWpZ2TvKfyHG9UFNe4vwdMrnrxNiJ3eNhRlbOiZMkwAaNs+VoAMouov8zTo+xm0sHx83JXsuv4R
+ xZ8pVibY+s/GoUmQY9JBlZB2z5cUARG7JCVwyE1zzCtvhijlQD5dstRleOf72nL3FwjBjXemxte
+ seC/kDan3qdO06KBBn4h00uaNz6rDP8+Jb3X2hOfS+gQANzrAJm8aZoJEj87Worbtw0NTQBUGyN
+ AsJSYo5ikLgqXJeUTQ==
+X-Received: by 2002:a05:6820:168e:b0:696:1862:b107 with SMTP id
+ 006d021491bc7-6965cba18cemr927516eaf.53.1777361003089; Tue, 28 Apr 2026
+ 00:23:23 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAOR+72kC/yXMQQqDMBBA0avIrDugUwnBq0gXiZnqiFXJqFjEu
- 5vW5Vv8f4ByFFaosgMib6IyjQnFI4Omc2PLKCEZKCeTl/RE+YQFgwoG0XlwXyTrvXHkTGEtpGy
- O/Jb9v6xft3X1PTfL7wPneQGibHNmdAAAAA==
-X-Change-ID: 20260423-imdt-dsi-display-28bb6a2a6188
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, William Bright <william.bright@imd-tec.com>
-X-Mailer: b4 0.15.2
+References: <20260428063224.3316655-1-syyang@lontium.com>
+In-Reply-To: <20260428063224.3316655-1-syyang@lontium.com>
+From: =?UTF-8?B?5p2o5a2Z6L+Q?= <yangsunyun1993@gmail.com>
+Date: Tue, 28 Apr 2026 15:23:09 +0800
+X-Gm-Features: AVHnY4If7s9xAoiOwj15GEVLV2YCy53Ike0mnT00sCY4Oer4UXH77zMIh6XW9mM
+Message-ID: <CAFQXuNb7++Ft9Cse60NM9oL9aQsojEj_NhVXdJp=J+o3UHFOtw@mail.gmail.com>
+Subject: Re: [PATCH v1 0/2] Add Lontiun LT7911EXC eDP to MIPI DSI bridge
+To: syyang@lontium.com
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+ andrzej.hajda@intel.com, neil.armstrong@linaro.org, 
+ dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com, 
+ rfoss@kernel.org, mripard@kernel.org, Laurent.pinchart@ideasonboard.com, 
+ tzimmermann@suse.de, jonas@kwiboo.se, jernej.skrabec@gmail.com, 
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, xmzhu@lontium.corp-partner.google.com, 
+ xmzhu@lontium.com, rlyu@lontium.com, xbpeng@lontium.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Wed, 29 Apr 2026 10:09:58 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,42 +112,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series adds support for the TSD TST070WSBE-196C, a 7" 1024x600                                                                   
-MIPI-DSI TFT LCD panel module based on the Fitipower EK79007AD                                                                        
-controller. The panel is connected over a 4-lane MIPI-DSI video-mode                                                                  
-interface and uses the RGB888 pixel format.                                                                                           
-                                                                                                                                        
-The driver is a simple non-configurable panel: the EK79007AD comes up                                                                 
-with usable defaults after the power/reset sequence, so no                                                                 
-DCS init sequence is required. It supports a single power supply, a                                                                   
-reset GPIO and the standard backlight framework.
-
-Note that in patch 2, link [2] has the incorrect DTSI name 
-(TST070WSBE-165C.dtsi instead of TST070WSBE-196C.dtsi) even though 
-its for the same panel as this patchset.
-   
-Patch 1 adds the dt-binding for the panel.                                                                                            
-Patch 2 adds the panel driver, Kconfig/Makefile entries and a                                                                       
-MAINTAINERS entry.                                                                                                                    
-                                                                                                                                      
-
-Signed-off-by: William Bright <william.bright@imd-tec.com>
----
-William Bright (2):
-      dt-bindings: display: panel: Add TSD TST070WSBE-196C panel
-      drm/panel: Add TSD TST070WSBE-196C 7" DSI panel driver
-
- .../display/panel/tsd,tst070wsbe-196c.yaml         |  64 ++++++++
- MAINTAINERS                                        |   6 +
- drivers/gpu/drm/panel/Kconfig                      |   9 ++
- drivers/gpu/drm/panel/Makefile                     |   1 +
- drivers/gpu/drm/panel/panel-tsd-tst070wsbe-196c.c  | 168 +++++++++++++++++++++
- 5 files changed, 248 insertions(+)
----
-base-commit: f6c73e7156b54d8b9ddf1a27f4e93d3a1e49a73e
-change-id: 20260423-imdt-dsi-display-28bb6a2a6188
-
-Best regards,
---  
-William Bright <william.bright@imd-tec.com>
-
+<syyang@lontium.com> =E4=BA=8E2026=E5=B9=B44=E6=9C=8828=E6=97=A5=E5=91=A8=
+=E4=BA=8C 14:32=E5=86=99=E9=81=93=EF=BC=9A
+>
+> From: Sunyun Yang <syyang@lontium.com>
+>
+> The LT7911EXC is an I2C-controlled bridge that Receiver eDP1.4
+> and output signal/dual port mipi. This series introduces:
+>
+> - A device tree binding YAML file describing the hardware
+> - A new DRM bridge driver implementing the basic functionality
+>
+> Signed-off-by: Sunyun Yang<syyang@lontium.com>
+> ---
+> Change in v1:
+> - dt-binding:
+>  1. reset pins use active low.                        [Dmitry]
+> - drm/bridge:
+>  1. use atomic_* callbacks.                           [Quentin]
+>  2. fix the incorrect formatting and spaces.
+>  3. add the required header files.                    [Dmitry]
+>  4. remove "enabled" flag.
+>  5. remove *fw from the lt7911exc struct.
+>  6. .max_register and .range_max use actual range.
+>  7. regulator use bulk interface.
+>  8. use dev_err_probe, devm_mutex_init and devm_drm_bridge_add.
+>  9. Replace GPL with GPL v2.
+- Link to init code:
+https://lore.kernel.org/lkml/20260420023354.1192642-1-syyang@lontium.com/
+> ---
+> Sunyun Yang (2):
+>   dt-bindings:bridge: Add Lontiun LT7911EXC eDP to MIPI DSI bridge
+>   drm:bridge: Add Lontiun LT7911EXC eDP to MIPI DSI bridge
+>
+>  .../display/bridge/lontium,lt7911exc.yaml     |  89 ++++
+>  drivers/gpu/drm/bridge/Kconfig                |  13 +
+>  drivers/gpu/drm/bridge/Makefile               |   1 +
+>  drivers/gpu/drm/bridge/lontium-lt7911exc.c    | 497 ++++++++++++++++++
+>  4 files changed, 600 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/bridge/lont=
+ium,lt7911exc.yaml
+>  create mode 100644 drivers/gpu/drm/bridge/lontium-lt7911exc.c
+>
+> --
+> 2.34.1
+>
