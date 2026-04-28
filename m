@@ -4,55 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A6ADFF8870
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 08:00:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E95D9FF885D
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 08:08:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B164810EA7B;
-	Tue, 28 Apr 2026 07:59:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A52110EA88;
+	Tue, 28 Apr 2026 08:08:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZqVzOWnz";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jVclxR6r";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDD1D10EA7F;
- Tue, 28 Apr 2026 07:59:56 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C73EC10E30D;
+ Tue, 28 Apr 2026 08:08:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777363196; x=1808899196;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=OKHzVlsKok+QZVWV/dSh2CtfkOOK6/cQ95XjlS1qiec=;
- b=ZqVzOWnzIcK5FhW3l838SsBU44FkuTdkD14/hdPxngpYIzqCUz30URsR
- iq1QWVprNhhtluArV4tD2nj7pKciXgnL2IqLsIJ+z+MUsDbB+bCwR/Pvw
- pt9uDKBAZMsrq1LYnRQOLUa1DE6muf/rJlReIqaZIOz+iUFq9q2S1bnG7
- OaRpenEeeGN7x5wL0P2ffDvHtN+O4FDu1kJz48WsrQvrJmxLix2pqwFPq
- j2ri8O3LLCaSU6+rYO6JpQDh3Oc00x7Fxb4VcJ0hfJndyAc1jQfbInkau
- vHXKGfJTv0cqukUW0IJoio9tLvXSjuavxTiqraoGSiJx+naRhSRUkSfTF A==;
-X-CSE-ConnectionGUID: WrvQonVeSkiuqU/CbCKzuA==
-X-CSE-MsgGUID: X4vOP1fNRquEfpp9wDwAIw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11769"; a="82115920"
-X-IronPort-AV: E=Sophos;i="6.23,203,1770624000"; d="scan'208";a="82115920"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Apr 2026 00:59:56 -0700
-X-CSE-ConnectionGUID: QjYTgiMwSBuRw7QFSgDoXA==
-X-CSE-MsgGUID: baGbELLwQu2agKf+0YvWqw==
+ t=1777363707; x=1808899707;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=fzGOc8yrRwhH4cK53Ssfj+EHs4gcJvOuup0Tc7OURec=;
+ b=jVclxR6rSpVtRGHGeheE+fpRAsVhtcXd/bBuzUKlz8WQhjnGeyaY+Nlv
+ kZSv301oUYfx1GbgY6aBgRAwVutKUzrMSSjGdkNdkdDL3tvCZ2+vRWsTe
+ 5fSGcRgzDDTYAcp7pS/WqI5iquNQY7Qv+3eNsdhx4nEOvl80+zBTQSJxG
+ 2BGcA1l2uOedypB/wv6CK7j3QwZQF6sbMl7fhk80p33LDRZw5yB7ki+df
+ hBcuYo41DyYuxtAaY41sEhYzNbIe63kiHaD1UNzNBDZ8u3MpKCLLetlOw
+ mIDsXTe+dYDrnZAspQ51jrgiQ09H4YgC3cYoZ3vv6pcacXLXUiZLNdy0i Q==;
+X-CSE-ConnectionGUID: XAS6R4ylSjCqwBj0vNDN4g==
+X-CSE-MsgGUID: McwX2j4HR66vxaRapRe1Tw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11769"; a="78143683"
+X-IronPort-AV: E=Sophos;i="6.23,203,1770624000"; d="scan'208";a="78143683"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Apr 2026 01:08:26 -0700
+X-CSE-ConnectionGUID: pIuhJKFrT+yBg1kd06mbfw==
+X-CSE-MsgGUID: /lpu6fYaSwOOIVb4qA808A==
 X-ExtLoop1: 1
-Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
- by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Apr 2026 00:59:54 -0700
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: ville.syrjala@linux.intel.com, jani.nikula@linux.intel.com,
- Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH 9/9] drm/dp: Use drm_printf_indent for DP SDP logging
-Date: Tue, 28 Apr 2026 13:14:57 +0530
-Message-ID: <20260428074457.3566918-10-ankit.k.nautiyal@intel.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20260428074457.3566918-1-ankit.k.nautiyal@intel.com>
-References: <20260428074457.3566918-1-ankit.k.nautiyal@intel.com>
+X-IronPort-AV: E=Sophos;i="6.23,203,1770624000"; d="scan'208";a="231240123"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.208])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Apr 2026 01:08:24 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Rodrigo Vivi <rodrigo.vivi@intel.com>, =?utf-8?Q?Uwe_Kleine-K=C3=B6nig?=
+ =?utf-8?Q?_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>
+Cc: Matthew Brost <matthew.brost@intel.com>, Thomas
+ =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/xe: Don't emit UTS_RELEASE as part of device coredump
+In-Reply-To: <ae_dpnVNS4liMfxe@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260427160902.1126027-2-u.kleine-koenig@baylibre.com>
+ <ae_dpnVNS4liMfxe@intel.com>
+Date: Tue, 28 Apr 2026 11:08:21 +0300
+Message-ID: <9c7244e954a12e2026d1148e4e9c75f02f9d6071@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,69 +76,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Currently the DP SDP log helpers use spaces for indentation. Switch to
-tabs for indentation and use drm_printf_indent to keep the format
-strings readable.
+On Mon, 27 Apr 2026, Rodrigo Vivi <rodrigo.vivi@intel.com> wrote:
+> On Mon, Apr 27, 2026 at 06:09:03PM +0200, Uwe Kleine-K=C3=B6nig (The Capa=
+ble Hub) wrote:
+>> UTS_RELEASE changes quite easily (e.g. uncommitted changes in the source
+>
+> we know, this is exactly why we use it ;)
+> We want to be able to differentiate if it is a distro build versus custom=
+ build.
+>
+>> tree or new commits). So when checking if a patch introduces changes to =
+the
+>> resulting binary each usage of UTS_RELEASE is a source of annoyance as
+>> it introduces changes not caused by the change under test.
 
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
----
- drivers/gpu/drm/display/drm_dp_helper.c | 36 +++++++++++++------------
- 1 file changed, 19 insertions(+), 17 deletions(-)
+Would it help to use init_uts_ns.name.release from
+init/version-timestamp.c instead of UTS_RELEASE? No rebuilds, info
+retained.
 
-diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-index fc550b48fd85..4bf7b783ac39 100644
---- a/drivers/gpu/drm/display/drm_dp_helper.c
-+++ b/drivers/gpu/drm/display/drm_dp_helper.c
-@@ -3519,15 +3519,16 @@ void drm_dp_vsc_sdp_log(struct drm_printer *p, const struct drm_dp_vsc_sdp *vsc)
- {
- 	drm_printf(p, "DP SDP: %s, revision %u, length %u\n",
- 		   dp_sdp_type_get_name(vsc->sdp_type), vsc->revision, vsc->length);
--	drm_printf(p, "    pixelformat: %s\n",
--		   dp_pixelformat_get_name(vsc->pixelformat));
--	drm_printf(p, "    colorimetry: %s\n",
--		   dp_colorimetry_get_name(vsc->pixelformat, vsc->colorimetry));
--	drm_printf(p, "    bpc: %u\n", vsc->bpc);
--	drm_printf(p, "    dynamic range: %s\n",
--		   dp_dynamic_range_get_name(vsc->dynamic_range));
--	drm_printf(p, "    content type: %s\n",
--		   dp_content_type_get_name(vsc->content_type));
-+
-+	drm_printf_indent(p, 1, "pixelformat: %s\n",
-+			  dp_pixelformat_get_name(vsc->pixelformat));
-+	drm_printf_indent(p, 1, "colorimetry: %s\n",
-+			  dp_colorimetry_get_name(vsc->pixelformat, vsc->colorimetry));
-+	drm_printf_indent(p, 1, "bpc: %u\n", vsc->bpc);
-+	drm_printf_indent(p, 1, "dynamic range: %s\n",
-+			  dp_dynamic_range_get_name(vsc->dynamic_range));
-+	drm_printf_indent(p, 1, "content type: %s\n",
-+			  dp_content_type_get_name(vsc->content_type));
- }
- EXPORT_SYMBOL(drm_dp_vsc_sdp_log);
- 
-@@ -3535,14 +3536,15 @@ void drm_dp_as_sdp_log(struct drm_printer *p, const struct drm_dp_as_sdp *as_sdp
- {
- 	drm_printf(p, "DP SDP: %s, revision %u, length %u\n",
- 		   dp_sdp_type_get_name(as_sdp->sdp_type), as_sdp->revision, as_sdp->length);
--	drm_printf(p, "    vtotal: %d\n", as_sdp->vtotal);
--	drm_printf(p, "    target rr: %d\n", as_sdp->target_rr);
--	drm_printf(p, "    duration increase ms: %d\n", as_sdp->duration_incr_ms);
--	drm_printf(p, "    duration decrease ms: %d\n", as_sdp->duration_decr_ms);
--	drm_printf(p, "    operation mode: %d\n", as_sdp->mode);
--	drm_printf(p, "    target rr divider: %s\n",
--		   as_sdp->target_rr_divider ? "1.001" : "1.000");
--	drm_printf(p, "    coasting vtotal: %d\n", as_sdp->coasting_vtotal);
-+
-+	drm_printf_indent(p, 1, "vtotal: %d\n", as_sdp->vtotal);
-+	drm_printf_indent(p, 1, "target rr: %d\n", as_sdp->target_rr);
-+	drm_printf_indent(p, 1, "duration increase ms: %d\n", as_sdp->duration_incr_ms);
-+	drm_printf_indent(p, 1, "duration decrease ms: %d\n", as_sdp->duration_decr_ms);
-+	drm_printf_indent(p, 1, "operation mode: %d\n", as_sdp->mode);
-+	drm_printf_indent(p, 1, "target rr divider: %s\n",
-+			  as_sdp->target_rr_divider ? "1.001" : "1.000");
-+	drm_printf_indent(p, 1, "coasting vtotal: %d\n", as_sdp->coasting_vtotal);
- }
- EXPORT_SYMBOL(drm_dp_as_sdp_log);
- 
--- 
-2.45.2
+BR,
+Jani.
 
+
+
+>>=20
+>> It's little helpful to emit the kernel version in the device coredump, so
+>> drop the kernel version line from it.
+>
+> That's a driver decision, no?!
+> We think it is useful and this change breaks the tools that are parsing i=
+t.
+> So, please drop this patch.
+>
+> Thanks,
+> Rodrigo.
+>
+>>=20
+>> Signed-off-by: Uwe Kleine-K=C3=B6nig (The Capable Hub) <u.kleine-koenig@=
+baylibre.com>
+>> ---
+>> Hello,
+>>=20
+>> I'm not really sure if my assertion above that the kernel version isn't
+>> helpful is actually true.
+>>=20
+>> If yes, there are a few more very similar changes to make:
+>>=20
+>> 	$ git grep -E 'drm_p.*UTS_RELEASE' v7.1-rc1 drivers/gpu/
+>> 	v7.1-rc1:drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c:      drm_pri=
+ntf(&p, "kernel: " UTS_RELEASE "\n");
+>> 	v7.1-rc1:drivers/gpu/drm/msm/disp/msm_disp_snapshot_util.c:     drm_pri=
+ntf(p, "kernel: " UTS_RELEASE "\n");
+>> 	v7.1-rc1:drivers/gpu/drm/msm/msm_gpu.c: drm_printf(&p, "kernel: " UTS_R=
+ELEASE "\n");
+>> 	v7.1-rc1:drivers/gpu/drm/xe/xe_devcoredump.c:   drm_puts(&p, "kernel: "=
+ UTS_RELEASE "\n");
+>>=20
+>> Best regards
+>> Uwe
+>>=20
+>>  drivers/gpu/drm/xe/xe_devcoredump.c | 1 -
+>>  1 file changed, 1 deletion(-)
+>>=20
+>> diff --git a/drivers/gpu/drm/xe/xe_devcoredump.c b/drivers/gpu/drm/xe/xe=
+_devcoredump.c
+>> index 558a1a9841a0..260e3f19286b 100644
+>> --- a/drivers/gpu/drm/xe/xe_devcoredump.c
+>> +++ b/drivers/gpu/drm/xe/xe_devcoredump.c
+>> @@ -101,7 +101,6 @@ static ssize_t __xe_devcoredump_read(char *buffer, s=
+size_t count,
+>>=20=20
+>>  	drm_puts(&p, "**** Xe Device Coredump ****\n");
+>>  	drm_printf(&p, "Reason: %s\n", ss->reason);
+>> -	drm_puts(&p, "kernel: " UTS_RELEASE "\n");
+>>  	drm_puts(&p, "module: " KBUILD_MODNAME "\n");
+>>=20=20
+>>  	ts =3D ktime_to_timespec64(ss->snapshot_time);
+>>=20
+>> base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
+>> --=20
+>> 2.47.3
+>>=20
+
+--=20
+Jani Nikula, Intel
