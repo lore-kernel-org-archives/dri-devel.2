@@ -4,98 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08D8AFF885A
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 15:10:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38730FF885A
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 15:19:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4496610ED31;
-	Tue, 28 Apr 2026 15:10:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CCF910E355;
+	Tue, 28 Apr 2026 15:19:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Pw5gTGfa";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="gVVwineO";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 488C210E110
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 15:09:56 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id E9D1243929;
- Tue, 28 Apr 2026 15:09:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63A36C2BCAF;
- Tue, 28 Apr 2026 15:09:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777388995;
- bh=6Wn5RlgVJ7Tb8uQ9GRdxiAw+akTPiDx9gaJheqB2gfw=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=Pw5gTGfaVCzIb3NLSczGXOmu2MwATrBI5cEWgRCc2w92/GygUUobT0mRn64L/X/Zs
- qL6dFgnUIkx9mP+TQRkDEVfv+WW3EnvTQZazvLidM7wsmxVWxSbAytDQEVxoWqsrDL
- IkRQXgQ0hVysvPXX/tY1rzl/mmqoZIauopLlq+SH/qdS0YrA8qKN4M5qTRJiI8HOc8
- 73zugE83OnDvWOVHOGUbym0Pmi4wQHdJiAZYvzAaa5yn0g5i1bLjV7QOUIBYQjHejp
- k1Jrk2OmAqJSPtxblv8DnAEFPZiuyWPCoamTTAz7g7iigCvul345fPPKc5jMxHNqvM
- xRp8CUvhuNtEQ==
-Message-ID: <534f0795-0002-4c04-a83c-fa1b3ce68216@kernel.org>
-Date: Tue, 28 Apr 2026 17:09:49 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] dt-bindings: power: supply: sgm41542: document
- sgm41542
-To: Chris Morgan <macromorgan@hotmail.com>
-Cc: Chris Morgan <macroalpha82@gmail.com>,
- linux-rockchip@lists.infradead.org, linux-pm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- xsf@rock-chips.com, sre@kernel.org, simona@ffwll.ch, airlied@gmail.com,
- tzimmermann@suse.de, mripard@kernel.org, maarten.lankhorst@linux.intel.com,
- jesszhan0024@gmail.com, neil.armstrong@linaro.org, heiko@sntech.de,
- conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org
-References: <20260427170914.5062-1-macroalpha82@gmail.com>
- <20260427170914.5062-2-macroalpha82@gmail.com>
- <20260428-bulky-nebulous-reindeer-ed45ed@quoll>
- <PH0PR19MB997338F0B06B7B99AA0ED3C6C4A5372@PH0PR19MB997338.namprd19.prod.outlook.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <PH0PR19MB997338F0B06B7B99AA0ED3C6C4A5372@PH0PR19MB997338.namprd19.prod.outlook.com>
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0249310E355
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 15:19:49 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 713CB1A3470;
+ Tue, 28 Apr 2026 15:19:48 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 405A9601D0;
+ Tue, 28 Apr 2026 15:19:48 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 1450210728DF4; 
+ Tue, 28 Apr 2026 17:19:33 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1777389585; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=RAgbK/PFrZxkYcwrI5Pr+C2og+72bnYc7J9cHzu5HUQ=;
+ b=gVVwineOM5SHRwLBuAnvbzeR1iW8sBeVyQOCO6ydDiC+I6Q6noSoS14xqbfcbsc6Bq+XMh
+ Jwt4B0Fpl3gGy3IymaPF/ZFT8FwKtuGn/v+SQ90iC48Uxw29etQeF8YLFXM3dVfjnyvU91
+ hg8zcXvJTlsYixVfQiKLFI+gcN+KJA7Kry+E1efUTE6iTJschzAPdGnz4DigimH/pzLS9X
+ KiRN1Qh6EHso0o/4V22kHeag1HWcNtY/MOmt7hj092mW1y6KB75TaUorTkoo2/VmrGw8xg
+ vKMzjq4xnXHQEXVNp/inBkeFygQdRZu48q2SMQElkOno5REAIgLdWi7rUD50ow==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Date: Tue, 28 Apr 2026 17:19:32 +0200
+Message-Id: <DI4W0PE0FD0H.19OLT7KIRBT7H@bootlin.com>
+Cc: "Hui Pu" <Hui.Pu@gehealthcare.com>, "Ian Ray"
+ <ian.ray@gehealthcare.com>, "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "linux-arm-msm@vger.kernel.org"
+ <linux-arm-msm@vger.kernel.org>, "freedreno@lists.freedesktop.org"
+ <freedreno@lists.freedesktop.org>, "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>
+To: "Biju Das" <biju.das.jz@bp.renesas.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Rob Clark"
+ <robin.clark@oss.qualcomm.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
+ "Abhinav Kumar" <abhinav.kumar@linux.dev>, "Jessica Zhang"
+ <jesszhan0024@gmail.com>, "Sean Paul" <sean@poorly.run>, "Marijn Suijten"
+ <marijn.suijten@somainline.org>, "Tian Tao" <tiantao6@hisilicon.com>,
+ "Xinwei Kong" <kong.kongxinwei@hisilicon.com>, "Sumit Semwal"
+ <sumit.semwal@linaro.org>, "John Stultz" <jstultz@google.com>, "Andrzej
+ Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>,
+ "laurent.pinchart" <laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
+ <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>,
+ "tomi.valkeinen" <tomi.valkeinen@ideasonboard.com>, "Michal Simek"
+ <michal.simek@amd.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH v2 08/11] drm/bridge: adv7511: switch to
+ of_drm_get_bridge_by_endpoint()
+X-Mailer: aerc 0.20.1
+References: <20260428-drm-bridge-alloc-getput-panel_or_bridge-v2-0-4300744a1c47@bootlin.com>
+ <20260428-drm-bridge-alloc-getput-panel_or_bridge-v2-8-4300744a1c47@bootlin.com>
+ <TY3PR01MB113466B70BFD2899AB0CF47AD86372@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <TY3PR01MB1134674FDD088299A4382D3D286372@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <DI4TGV2WURTY.39OXE7WWKRLA1@bootlin.com>
+ <TY3PR01MB11346E82D19FBE8544F51624286372@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <DI4U2DT3OBMR.23T3F7X8P75RU@bootlin.com>
+ <TY3PR01MB113465B0308DE16ACC48D1E8186372@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <TY3PR01MB11346293C9AAF8BC4B3FCAD6586372@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <TY3PR01MB113466FD12513A25C0126A55F86372@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+In-Reply-To: <TY3PR01MB113466FD12513A25C0126A55F86372@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,125 +93,144 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 28/04/2026 16:09, Chris Morgan wrote:
-> On Tue, Apr 28, 2026 at 09:47:00AM +0200, Krzysztof Kozlowski wrote:
->> On Mon, Apr 27, 2026 at 12:09:09PM -0500, Chris Morgan wrote:
->>> From: Chris Morgan <macromorgan@hotmail.com>
->>>
->>> Document the SG Micro sgm41542 battery charger/boost converter.
->>>
->>> Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
->>> ---
->>>  .../supply/sgmicro,sgm41542-charger.yaml      | 99 +++++++++++++++++++
->>>  1 file changed, 99 insertions(+)
->>>  create mode 100644 Documentation/devicetree/bindings/power/supply/sgmicro,sgm41542-charger.yaml
->>>
->>> diff --git a/Documentation/devicetree/bindings/power/supply/sgmicro,sgm41542-charger.yaml b/Documentation/devicetree/bindings/power/supply/sgmicro,sgm41542-charger.yaml
->>> new file mode 100644
->>> index 000000000000..3e5041e5b551
->>> --- /dev/null
->>> +++ b/Documentation/devicetree/bindings/power/supply/sgmicro,sgm41542-charger.yaml
->>
->> Filename must match compatible.
-> 
-> Acknowledged.
-> 
->>
->>> @@ -0,0 +1,99 @@
->>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->>> +%YAML 1.2
->>> +---
->>> +$id: http://devicetree.org/schemas/power/supply/sgmicro,sgm41542-charger.yaml#
->>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>> +
->>> +title: SGM41542 Battery Charger
->>> +
->>> +description: |
->>
->> Do not need '|' unless you need to preserve formatting.
->>
-> 
-> Will fix.
-> 
->>> +  The SGMicro SGM41542 is a single cell battery charger/boost controller.
->>> +
->>> +maintainers:
->>> +  - Chris Morgan <macromorgan@hotmail.com>
->>> +  - Xu Shengfei <xsf@rock-chips.com>
->>> +
->>> +properties:
->>> +  compatible:
->>> +    const: sgmicro,sgm41542
->>> +
->>> +  input-current-limit-microamp:
->>
->> Missing vendor prefix.
->>
-> 
-> This *appears* to be a standard value (perhaps not formally, but in use by
-> enough devices to suggest a defacto standard), which is why I did not use
-> the vendor prefix here. Do I need to add that for this one?
+Hello Biju,
 
-I know, I found these other properties but I think they were just coming
-from old schema.
-
-If it is really a common property, then should be defined in a common
-schema and this did not happen.
-
-> 
->>> +    description:
->>> +      Optional value to clamp the maximum input current limit to for
->>> +      the device. If omitted, the default value for the hardware will
->>> +      be used (2400000).
->>> +    minimum: 100000
->>> +    maximum: 3800000
->>> +
->>> +  input-voltage-limit-microvolt:
->>> +    description:
->>> +      Optional value to clamp the maximum input voltage limit to for
->>> +      the device. If omitted, the default value for the hardware will
->>> +      be used (4500000).
->>> +    minimum: 3900000
->>> +    maximum: 12000000
->>> +
->>> +  interrupts:
->>> +    maxItems: 1
->>> +
->>> +  monitored-battery:
+On Tue Apr 28, 2026 at 4:45 PM CEST, Biju Das wrote:
+> Hi Luca,
+>
+>> -----Original Message-----
+>> From: dri-devel <dri-devel-bounces@lists.freedesktop.org> On Behalf Of B=
+iju Das
+>> Sent: 28 April 2026 15:39
+>> Subject: RE: [PATCH v2 08/11] drm/bridge: adv7511: switch to of_drm_get_=
+bridge_by_endpoint()
 >>
->> You miss definition of this property. I guess this is power supply, so
->> reference proper schema for power supplies. Look at other bindings to
->> for some example code.
-> 
-> I'll look at this some more, I might have a few more questions. But I will
-> make the changes requested.
-> 
 >>
->>> +    description: |
->>> +        A phandle to a monitored battery node. Values for the following
->>> +        are used by the driver and if not present will result in default
->>> +        values being applied:
->>> +        constant-charge-current-max-microamp
->>> +        constant-charge-voltage-max-microvolt
->>> +        charge-term-current-microamp
->>> +        precharge-current-microamp
->>> +
->>> +  reg:
->>> +    maxItems: 1
->>> +
->>> +  regulators:
 >>
->> No need for regulators node, just define here otg-vbus directly. But
->> honestly, your example is incomplete or you defined something implied by
->> the compatible. If you have a fixed 5V regulator, what is the point of
->> defining it in the DT?
-> 
-> The regulator can be adjusted within a range around 5V, and is referenced
-> by the USB subsystem. Should I still omit it from the device tree or instead
-> define the min and max values?
+>> > -----Original Message-----
+>> > From: Biju Das
+>> > Sent: 28 April 2026 15:02
+>> > Subject: RE: [PATCH v2 08/11] drm/bridge: adv7511: switch to
+>> > of_drm_get_bridge_by_endpoint()
+>> >
+>> > Hi Luca,
+>> >
+>> > > -----Original Message-----
+>> > > From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+>> > > Sent: 28 April 2026 14:48
+>> > > Subject: Re: [PATCH v2 08/11] drm/bridge: adv7511: switch to
+>> > > of_drm_get_bridge_by_endpoint()
+>> > >
+>> > > Hello,
+>> > >
+>> > > On Tue Apr 28, 2026 at 3:31 PM CEST, Biju Das wrote:
+>> > > >> >> > @@ -1251,10 +1251,9 @@ static int adv7511_probe(struct
+>> > > >> >> > i2c_client
+>> > > >> >> > *i2c)
+>> > > >> >> >
+>> > > >> >> >  	memset(&link_config, 0, sizeof(link_config));
+>> > > >> >> >
+>> > > >> >> > -	ret =3D drm_of_find_panel_or_bridge(dev->of_node, 1, -1, N=
+ULL,
+>> > > >> >> > -					  &adv7511->next_bridge);
+>> > > >> >> > -	if (ret && ret !=3D -ENODEV)
+>> > > >> >> > -		return ret;
+>> > > >> >> > +	adv7511->bridge.next_bridge =3D of_drm_get_bridge_by_endpo=
+int(dev->of_node, 1, -1);
+>> > > >> >> > +	if (IS_ERR(adv7511->bridge.next_bridge) && PTR_ERR(adv7511=
+->bridge.next_bridge) !=3D -
+>> ENODEV)
+>> > > >> >> > +		return PTR_ERR(adv7511->bridge.next_bridge);
+>> > > >> >>
+>> > > >> >> Does it crash, if the error is  -EPROBE_DEFER?
+>> > > >> >
+>> > > >> > I see a crash with patch [1], which is fixed by avoiding the di=
+rect assignment.
+>> > > >>
+>> > > >> Ah, dammit! Good catch, thanks for the quick testing and follow-u=
+p!
+>> > > >>
+>> > > >> Indeed this driver assumes next_bridge is either NULL or a valid
+>> > > >> pointer, but due to the 'if(IS_ERR() && some_other_condition)'
+>> > > >> now it can also be -ENODEV (not -
+>> > > EPROBE_DEFER, but that's irrelevant).
+>> > > >>
+>> > > >> This affects the msm and zynqmp_dp patches equally.
+>> > > >>
+>> > > >> I'm sending a v3 soon with these fixed. I'm just not sure which
+>> > > >> approach to use to fix (same for all the 3 patches). Alternatives=
+ are:
+>> > > >>
+>> > > >>  1. -ENODEV is accepted, set next_bridge to NULL when it happens:
+>> > > >>
+>> > > >>       -       if (IS_ERR(adv7511->bridge.next_bridge) && PTR_ERR(=
+adv7511->bridge.next_bridge) !=3D
+>> -
+>> > > >> ENODEV)
+>> > > >>       -               return PTR_ERR(adv7511->bridge.next_bridge)=
+;
+>> > > >>       +       if (IS_ERR(adv7511->bridge.next_bridge)) {
+>> > > >>       +               if (PTR_ERR(adv7511->bridge.next_bridge) =
+=3D=3D -ENODEV)
+>> > > >>       +                       adv7511->bridge.next_bridge =3D NUL=
+L;
+>> > > >>       +               else
+>> > > >>       +                       return PTR_ERR(adv7511->bridge.next=
+_bridge);
+>> > > >
+>> > > > The point is you cannot return PTR_ERR as it will lead to crash,
+>> > > > if it is direct assignment.
+>> > >
+>> > > It would definitely crash when the next_bridge is dereferenced
+>> > > (which happens in
+>> > > adv7511_bridge_attach()) but I don't see how it can crash here. Here
+>> > > it _can_ be assigned -ENODEV, but it would be immediately be cleared
+>> > > to NULL, or to enother error, but we'd immediately return. And in
+>> > > case of return, when next_bridge is cleared by __drm_bridge_free ->
+>> > > drm_bridge_put, the error value would
+>> > be ignored thanks to patch 1.
+>> >
+>> > OK, I haven't noticed the newly introduced check in drm_bridge_put() i=
+n patch#1.
+>> >
+>> > I guess, we should avoid putting error values in bridge.next_bridge.
+>> > It should be either NULL or Valid pointer, not PTR_ERR.
+>>
+>> FTR, I get a crash in attach. I will apply the suggested changes and wil=
+l let you know the result.
+>>
+>> [   18.957324] pc : drm_bridge_attach+0x34/0x210 [drm]
+>> [   18.969425] lr : adv7511_bridge_attach+0x38/0xb8 [adv7511]
+>>
+>> [   18.969610]  drm_bridge_attach+0x34/0x210 [drm] (P)
+>> [   18.969845]  adv7511_bridge_attach+0x38/0xb8 [adv7511]
+>> [   18.969867]  drm_bridge_attach+0xf0/0x210 [drm]
+>> [   18.970042]  rzg2l_mipi_dsi_attach+0x24/0x3c [rzg2l_mipi_dsi]
+>> [   18.970064]  drm_bridge_attach+0xf0/0x210 [drm]
+>> [   18.970262]  rzg2l_du_encoder_init+0x9c/0x250 [rzg2l_du_drm]
+>> [   18.970293]  rzg2l_du_modeset_init+0x30c/0x4d0 [rzg2l_du_drm]
+>> [   18.970307]  rzg2l_du_probe+0xc8/0x174 [rzg2l_du_drm]
+>> [   18.970321]  platform_probe+0x5c/0xa4
+>> [   18.970336]  really_probe+0xbc/0x2c0
+>> [   18.970348]  __driver_probe_device+0x80/0x14c
+>> [   18.970359]  driver_probe_device+0x3c/0x164
+>> [   18.970369]  __driver_attach+0x90/0x1a4
+>> [   18.970379]  bus_for_each_dev+0x7c/0xdc
+>> [   18.970388]  driver_attach+0x24/0x30
+>> [   18.970397]  bus_add_driver+0xe4/0x208
+>> [   18.970406]  driver_register+0x68/0x130
+>> [   18.970416]  __platform_driver_register+0x24/0x30
+>>
+>
+> I confirm the crash is fixed by your suggested changes for V3.
 
-If it can be adjusted then it's fine, can stay.
+Very quick feedback loop! Thanks a lot Biju.
 
+Sending v3 in a moment.
 
-Best regards,
-Krzysztof
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
