@@ -4,84 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FE14FF8875
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 10:10:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0449BFF8867
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 10:10:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA79C10EF2B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9FF010EF2C;
 	Wed, 29 Apr 2026 10:10:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lzYvYgZh";
+	dkim=pass (1024-bit key; unprotected) header.d=yandex.ru header.i=@yandex.ru header.b="aNrmgChc";
 	dkim-atps=neutral
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
- [209.85.216.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C591510E26E
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 05:08:46 +0000 (UTC)
-Received: by mail-pj1-f54.google.com with SMTP id
- 98e67ed59e1d1-35d965648a2so10862282a91.0
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 22:08:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777439326; x=1778044126; darn=lists.freedesktop.org;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=KPbd8CPced3p+R7AG2gDS8UVQl+Rhqk52G90qEr4h9s=;
- b=lzYvYgZhlTRProbdG7MlzwF/4Fh/MWp4pzVU2+HW+BAouYmYr8JdpmvXu8qEW44lRh
- xrogadOpLqMHte40sxuw15erpkBzR7UUgn1MtYhS1fQ72MhYtiTka7rUkrrms8G4aneu
- kcAvbYnq1n/8f8wK5O7DBNt56zeQBKfG33DyhRSXJ4Io7rnMOW5dofIVCVk8uBtjVdcg
- kRvAYO9H14YrraetxivL5vrIJxZa7ApDD7OUsjM/p9RpFPsOEQOgY7MINY2QlsOxgUGq
- Ik268jzUqJSoUZd4rTi/43kgeYpZUUqsZYO4r9CtfxPho+xhNh9UYnS/7NJtuC8ySTXj
- T6Kw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777439326; x=1778044126;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=KPbd8CPced3p+R7AG2gDS8UVQl+Rhqk52G90qEr4h9s=;
- b=RYV6ppjvQCMCYCl8DhchItVQGkrOeqZldhyhPCWGmAXtCrh7MDfyIDJhYg34XLwOgz
- 0tmfRTrUfJJghSLvXtpC/lE9/PqlM5DdOa1fgJbt3Y1XAuTdmIXQK3BIupNCclCLZzTq
- k8FdXJkONDEb2P29y6WaZuRYa/fgB7fVfqTAkMW0KnEuiYhmgIeESH74mzNvMLzL/kmi
- +NnhZ+pWfEnPawbRp6pMl33MU5wath0qdiWbD6kaDlQQHpZAliu2roeQ4Z3L5mSojBlc
- PdOjcNrOkQCFk8A3CbJxOqPsAhqNsTOGVZZj4uYWbIubySQUjF7r0ZLbOuTTMLqkbBz3
- nusg==
-X-Gm-Message-State: AOJu0Yx5YriRCJTC/GNjSgNGH5wMf2/AXj37kRwVY+s/XfJk+cPKIGfz
- uWvndSWQVAgZqBPNZnO2AbIG5AJ1j7BS+HSEQPo9UgISGudnnDx2STz4
-X-Gm-Gg: AeBDiet3zaTz4q+1SAGmCEJDDb1H+dUlu7PhFTC9Zbz8cQtwaeQd09dfGTnq5pJnRzs
- 61ZsukbMokx6xi5fVlz4aHCi/1mBUkIOOGhzQKjhLSs6JbLxRlLbSczerpQS8Ycqxw4W120Doq0
- tPucMrs4gd+Cv3gOrmaA1FxYd8mmjQcqTZQGWly5Z0XMTAmCN46ZiOHz5gMhTjijvdxDxVP+5Wt
- 2N10re8hpr8s05fnz6kTF/3GJcwHZd5r7Reqt3DPcBFszlp3MR5Ujaj/xUagNWUt3rdLrB9jzHJ
- OtgGr5ogduNFCFlGGgz4A39qOAHAh9iSo4YdtH6vJKMhjMxYViCAU2q8Q7cN2/5LM3qLoZJTpWB
- s11F4NM6EgWscYQ/G4s6LyVhW8W5r6vS09v0fwgnpYtFHQNmyj9DFwaEcM+5eHKppOWEDRw78pc
- nEn4Pga26srlAdm+D/5CmJ1P3XBRYiDQxLnmRQ5GM44kcGkng=
-X-Received: by 2002:a17:90b:1a8e:b0:35b:9b77:d7c with SMTP id
- 98e67ed59e1d1-364a0d08580mr2433235a91.14.1777439326204; 
- Tue, 28 Apr 2026 22:08:46 -0700 (PDT)
-Received: from yuwhisper-pc. ([49.213.140.88])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-364a4152b85sm1158871a91.4.2026.04.28.22.08.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Apr 2026 22:08:45 -0700 (PDT)
-From: Hsiu Che Yu <yu.whisper.personal@gmail.com>
-Date: Wed, 29 Apr 2026 13:08:14 +0800
-Subject: [PATCH] rust: drm: fix incorrect type name in `Device` doc comment
+X-Greylist: delayed 314 seconds by postgrey-1.36 at gabe;
+ Tue, 28 Apr 2026 19:09:19 UTC
+Received: from forward203a.mail.yandex.net (forward203a.mail.yandex.net
+ [178.154.239.90])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EADB410E377;
+ Tue, 28 Apr 2026 19:09:19 +0000 (UTC)
+Received: from forward103a.mail.yandex.net (forward103a.mail.yandex.net
+ [IPv6:2a02:6b8:c0e:500:1:45:d181:d103])
+ by forward203a.mail.yandex.net (Yandex) with ESMTPS id 9F2A9869C3;
+ Tue, 28 Apr 2026 22:04:05 +0300 (MSK)
+Received: from mail-nwsmtp-smtp-production-main-68.vla.yp-c.yandex.net
+ (mail-nwsmtp-smtp-production-main-68.vla.yp-c.yandex.net
+ [IPv6:2a02:6b8:c1d:6281:0:640:c935:0])
+ by forward103a.mail.yandex.net (Yandex) with ESMTPS id 52E1F806AD;
+ Tue, 28 Apr 2026 22:04:02 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-68.vla.yp-c.yandex.net (smtp)
+ with ESMTPSA id i3f98gObjmI0-kMIkEECX; 
+ Tue, 28 Apr 2026 22:04:01 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
+ t=1777403041; bh=tr9ncHDLQsp/htwG5JIQTALMzIL3/WgOspiEBUJqEko=;
+ h=Message-ID:Date:Cc:Subject:To:From;
+ b=aNrmgChc8Uj4xd9AlRNV1rVyvXv1Hfj3u7RQtuXI6XNxd+/rZZ1L8vTcz1MPo4b+U
+ cvOBt3o6gp8fam6uxhWXtahexc2YMgVue1Rg4ewLQRSFlwO0MbiEHYuSHHTDfgkDJU
+ MmPzkwJv8XBbR0r9rUou8K1BsQfy0C9webtLwmG4=
+Authentication-Results: mail-nwsmtp-smtp-production-main-68.vla.yp-c.yandex.net;
+ dkim=pass header.i=@yandex.ru
+From: Evgenii Burenchev <evg28bur@yandex.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Evgenii Burenchev <evg28bur@yandex.ru>, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/radeon/rs780: prevent division by zero in refresh rate
+ calculation
+Date: Tue, 28 Apr 2026 22:03:18 +0300
+Message-ID: <20260428190318.34413-1-evg28bur@yandex.ru>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260429-fix-drm-device-comment-v1-1-d8876b44d688@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAD2S8WkC/yWMQQqDMBAAvyJ7dkFTK9GviIe6WesKiSWxRRD/7
- lqPAzOzQ+IonKDNdoj8kyRLUCjzDGh6hTejOGUwhamLyjQ4yoYuenQqEyMt3nNYsSrts7H24Wg
- cQONPZDX/466/OX2HmWm9bnAcJ00Rqed6AAAA
-X-Change-ID: 20260429-fix-drm-device-comment-41859883dcfb
-To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Maxime Ripard <mripard@kernel.org>, 
- Asahi Lina <lina+kernel@asahilina.net>, Lyude Paul <lyude@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Hsiu Che Yu <yu.whisper.personal@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 29 Apr 2026 10:09:58 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,53 +69,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The invariant documentation incorrectly referenced `struct device`
-instead of `struct drm_device`. Fix it.
+drm_mode_vrefresh() may return zero when mode clock is zero even if
+htotal and vtotal are non-zero. Current code checks only htotal and
+vtotal, allowing refresh_rate to become zero and subsequently causing
+division by zero in rs780_program_at().
 
-Fixes: 1e4b8896c0f3c ("rust: drm: add device abstraction")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hsiu Che Yu <yu.whisper.personal@gmail.com>
+Fix by adding mode clock validation and fallback to default 60Hz in
+rs780_get_pm_mode_parameters(). Add WARN_ON in rs780_program_at() to
+catch such cases during development, ensuring safe fallback in all
+scenarios.
+
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
+
+Signed-off-by: Evgenii Burenchev <evg28bur@yandex.ru>
 ---
- rust/kernel/drm/device.rs | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/radeon/rs780_dpm.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/rust/kernel/drm/device.rs b/rust/kernel/drm/device.rs
-index adbafe8db54d..301c9f7859e2 100644
---- a/rust/kernel/drm/device.rs
-+++ b/rust/kernel/drm/device.rs
-@@ -72,7 +72,7 @@ macro_rules! drm_legacy_fields {
- ///
- /// # Invariants
- ///
--/// `self.dev` is a valid instance of a `struct device`.
-+/// `self.dev` is a valid instance of a `struct drm_device`.
- #[repr(C)]
- pub struct Device<T: drm::Driver> {
-     dev: Opaque<bindings::drm_device>,
-@@ -160,7 +160,7 @@ pub(crate) fn as_raw(&self) -> *mut bindings::drm_device {
+diff --git a/drivers/gpu/drm/radeon/rs780_dpm.c b/drivers/gpu/drm/radeon/rs780_dpm.c
+index 64bb4cafb8b5..fe45b7dac9f4 100644
+--- a/drivers/gpu/drm/radeon/rs780_dpm.c
++++ b/drivers/gpu/drm/radeon/rs780_dpm.c
+@@ -65,6 +65,8 @@ static void rs780_get_pm_mode_parameters(struct radeon_device *rdev)
+ 			pi->crtc_id = radeon_crtc->crtc_id;
+ 			if (crtc->mode.htotal && crtc->mode.vtotal)
+ 				pi->refresh_rate = drm_mode_vrefresh(&crtc->mode);
++				if (pi->refresh_rate == 0)
++					pi->refresh_rate = 60;
+ 			break;
+ 		}
+ 	}
+@@ -363,6 +365,8 @@ static void rs780_program_at(struct radeon_device *rdev)
+ {
+ 	struct igp_power_info *pi = rs780_get_pi(rdev);
  
-     /// # Safety
-     ///
--    /// `ptr` must be a valid pointer to a `struct device` embedded in `Self`.
-+    /// `ptr` must be a valid pointer to a `struct drm_device` embedded in `Self`.
-     unsafe fn from_drm_device(ptr: *const bindings::drm_device) -> *mut Self {
-         // SAFETY: By the safety requirements of this function `ptr` is a valid pointer to a
-         // `struct drm_device` embedded in `Self`.
-@@ -184,7 +184,7 @@ unsafe fn into_drm_device(ptr: NonNull<Self>) -> *mut bindings::drm_device {
-     /// to can't drop to zero, for the duration of this function call and the entire duration when
-     /// the returned reference exists.
-     ///
--    /// Additionally, callers must ensure that the `struct device`, `ptr` is pointing to, is
-+    /// Additionally, callers must ensure that the `struct drm_device`, `ptr` is pointing to, is
-     /// embedded in `Self`.
-     #[doc(hidden)]
-     pub unsafe fn from_raw<'a>(ptr: *const bindings::drm_device) -> &'a Self {
-
----
-base-commit: b4e07588e743c989499ca24d49e752c074924a9a
-change-id: 20260429-fix-drm-device-comment-41859883dcfb
-
-Best regards,
---  
-Hsiu Che Yu <yu.whisper.personal@gmail.com>
++	WARN_ON(pi->refresh_rate == 0);
++
+ 	WREG32(FVTHROT_TARGET_REG, 30000000 / pi->refresh_rate);
+ 	WREG32(FVTHROT_CB1, 1000000 * 5 / pi->refresh_rate);
+ 	WREG32(FVTHROT_CB2, 1000000 * 10 / pi->refresh_rate);
+-- 
+2.43.0
 
