@@ -4,98 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B6E4FF886D
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 17:39:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7ED3FF886D
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 18:31:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A38110E35A;
-	Tue, 28 Apr 2026 17:39:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09FA310E33B;
+	Tue, 28 Apr 2026 18:31:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JJDdgTdE";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="KxCGskXX";
 	dkim-atps=neutral
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com
- [74.125.82.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9AB710E35A
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 17:39:56 +0000 (UTC)
-Received: by mail-dy1-f180.google.com with SMTP id
- 5a478bee46e88-2df943e0a96so606430eec.0
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 10:39:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777397996; cv=none;
- d=google.com; s=arc-20240605;
- b=Kse2JAVhCCGgptYLlbMgXY6uDBjdWCXHFG2SXfL/efBax+clR+eFTSlMzxRgb0u+IS
- i5yRm/dkfMpdxN1un1Kd0dKVMuLPLEOEO1q48WTDsmSOD3kkAk+MO8NhyaH7V7CG4tiG
- RB4fuDUIMbW4rcjGQXQFLKrKJNSAdnNvGiOoGvTQ3FYv/O08qzn8TLODg3nxROvMlO6F
- uQHdEo6MSi8/tHBlnxeWVUdTfhfh4BAWNsNRzWX5L/lWk070NKvyf7eF18xdP7scGdh0
- Nz84JbwshG7WYxKXPponaiblsEK6qdoMj/5GD5wBWmYU4d884MRx3XSM5kl0X1r6X2+F
- 1NVA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=QJ5j2CybmJl3sUEm95KbaW1R2+wK5TN85G+0F72B7oI=;
- fh=OuKJidMaOITfm5cPF1EedD19tuTq478AY0F/DZHgJNE=;
- b=M40lBFFTcRVMufg6i7pXrOqir5a+tbh+1OCkEES28O/8DU1GpkYxLX1Sx+l+FhnSV/
- fW/80/S2kO+sNMYcvHULYNEn0LPlLsXecsyyi2YDJy2RGbYRHuVdfLujUva4gBI5Szuo
- lxKs3Q1qIHcuTGRE40BVg7h3naXDfkXYLjP+0zgtcO0Yqdy88vkkiVJZB92TLLLz6L5Y
- q7h2++dF6r/kIJpcoDdAhdYmlJMRncOX7Es1Zi2l61stFiqU+g4hOTVCQbYrmurNqexo
- 9jBLWmxFhpAez89teNWSO3dEgNN9XTJIbGeLs6M3ZvDpaGwxkBTGYB+MizzUMgxBmko0
- Jacg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7806D10E33B
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 18:31:31 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-4896c22fcbaso89532185e9.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 11:31:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777397996; x=1778002796; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=QJ5j2CybmJl3sUEm95KbaW1R2+wK5TN85G+0F72B7oI=;
- b=JJDdgTdEXDGxfbo08XlhROvJaTcJf/u3NKGtE0uzIpk5YQMImZuiQEnaHdO2kvV1V2
- 9tngiXhF1SCfr3KI7IrKZ/m7IOy+WzROqlYJTAeTJDEt9LdgsdoIdYsOFc/gCp9mpGUC
- Wig9wTPv1jn+N+h47iOqgVvaCa2mpXDs84emly5Y7bcMK8ZK3+QReF8fVQIS3C/VxvS6
- 5EernaaTSIpPkk4cZLCUxjhkDuPD0xyH651SAyQf86dzAwvCoVj/sopgJptWPYOkfDgt
- UhBM3bKF1rPOu6PVYQ1iXe5M8L3vqifVpZxBl2dS6/xu3zEeJm5BEGGtaIquJ/nndK7j
- XnWQ==
+ d=linaro.org; s=google; t=1777401090; x=1778005890; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=vEQVGIrIBH0Yz8YaiGUBUBvBwiXNHUR5MrPKG8s+11g=;
+ b=KxCGskXX7qP9FBm6DO+sVb+I+teKNBesWZvGV1EK3kKot1bFZ8X7TZGWGCc45gDivS
+ qd3DJDcZtuwirLDM27oBH0F9dH84Io0w02KfxFjXka7SN1bjq1JuYMqf5xqcQcH390k+
+ tny24OCcvBjYlJ5RWEb+XOpkPRpGJiX4f0QEtBd3gsmwtvG2LM1i3hBQ+twtci0hB30/
+ 5bs0T+hNKb/NSnzVsWH7C73UbK8KZZE+00EFwciOmmFhpIYdcJMt4f5Q9bpCAZuEHTlw
+ 6ygmClcJunSmAwCxL3jaaDb7Y6pMbLY0FLZrh66J1EQlUk3Nd/MK0N2wLP/dCyzyPTeT
+ PDIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777397996; x=1778002796;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=QJ5j2CybmJl3sUEm95KbaW1R2+wK5TN85G+0F72B7oI=;
- b=YxQRavXyvbkFlz4VLFdYgtt1S3EliRT9tRhH/qbFtSZFAWvdxhfIcLGuvHd8L7QBhY
- qjLqxnU58hjLllAVnGhrJMS0P9M20PsETNvup6tqHqr48SqQemoXM4YP6HtS3KhpEnP7
- /ZCKgWe/7OZ5ZIm9es/mLI+o0JspitLRAIPgkvvIx3d/zApRngZ4FA0GW2TcXDHavRXb
- s6adPki+Y8kwjYAL2hZmkZlD9gFaJfwmJTjeDQ6uMZfSXh4gIWO6M8JekImNDemfISjK
- k/UD7+PAb2am+k4vXoYOXh7LdpBeLf+VXdnbnKRAWfU1P8wQDtwT7yJzp61xL9oWSrUI
- qGng==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+1AZDkbpnLgoNz251aygExNNSFg3AhPd2jzUI9C7DNW2kheTmPZZbUtbypnQZLUGFgc7Hgdy+voHw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxmpLuP2eFmeur0+QlE/FfCCMdYaWflGjdOy9fj6ZE5O0Oy+yl+
- ehgDUu4QKvK0bjhVJBnHd42XhbJ6PSDHnfuGt5couDZLn69h6Dnqfz2uo3DPilHWoZeT6hgb6U0
- qlrXaoTbSkK9mPNwj2bXwwS2yWljAP38=
-X-Gm-Gg: AeBDieuU47d4ClDPoIVQ/duBZFV8jK8/20eoegnve9XuokS3SLk0pGdPMaLmaGkuo/w
- eyl1Hf/Wxqd1gkPQ/Dm1g0jZMAe4hrGMaBAgTcFv5Fzr2F2PsjaN5RfIzHqoOyivbe/FcxR5SBp
- sgrLu5AEAv84qMR7Mk7vB0jf2Zy6U+rj4jCr1bCUWnLccrOri/Qp5BMhGRuqwUDpkm3/ZXVW8UI
- niTdbdi9Vai6C+JWYaaDF9tSjMpiqsmyje8jasAGF1psUsfSCRZIlwZfoUNvazTnBrHBFlxGirx
- JONVPzfz++E9z4eLLmyQBD7DSWVEJe5WZl2W0R6U3dXDtXQAwtc9gxk500E0vbc/E/CNt1WvlGK
- rA7Tj
-X-Received: by 2002:a05:7022:6289:b0:11b:ad6a:6e39 with SMTP id
- a92af1059eb24-12ddd54cabemr793879c88.5.1777397995947; Tue, 28 Apr 2026
- 10:39:55 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1777401090; x=1778005890;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=vEQVGIrIBH0Yz8YaiGUBUBvBwiXNHUR5MrPKG8s+11g=;
+ b=KVGpUAvtU/3BAWVusEqhuaS3mBCkTxGfa5s+4/QgOkO5+wLZoluwRmtAM3uqDoT/7e
+ hsqXwN1GN/ohPiOK57JtxCAtDS9KHPdoycdeslYqw9m2esvy3jdqaGkeKwwMq2QM3IKX
+ tJ+qwsFuu2Tkf/3tTi61gOlS1U6GrDWhexXf50XsRm95jchMZhoa55YjcUfI5+vEhPgw
+ t2rKNk4oyQY3k1/y7kxEMH4fzjLe20sIOkrBXigxqaMTucJW+XurFdCfKQLy7GRKKTQw
+ j+yVj3SpJIzEcml3rUxuqGPlQDc1ptbt5f61DM4ROwqqYRgP6SjS0bshNr9JDiZWNO20
+ H7oQ==
+X-Gm-Message-State: AOJu0YyqfCpkrAW8IpM5C/aaMlzX8vKQHGdEq55l5lx8qAUn9P/JZNe2
+ IUqBJnWsVgY3AWTnfezZG3Rk1zZ8+voEEuY0Ike+Spmpbe59RLXm+I8yJMQ5b4QOHRY=
+X-Gm-Gg: AeBDies8eT+/0U0TfmlbiWXzbcLxh/FrQkLBz2Kn4rNbUijDxs0l1tw/432MG5auy45
+ b7zjb/HNggZumfKYgeG37LofmyTBYCbA8vf+PzCUsFJBsuD6QBgT/lloZ1No2Z+VzIml6GMiB7u
+ BvpUA2X1E5OG048yoWeSlI29bBU6SwogFqyjVtI14TXmtVVNTsRyXfK3EVpr4VSNiNDb399Ftvo
+ yU2CIAf6YKpUNCgPunlF79bPsG+jT+tfJIC+TPhHQM/X2uNuPsK1GPJOzFK1rLagRa7Ots9qUDl
+ V3bZRrxtzBkjMdtAdCrwH28KXowtl+FQhyJm0/XeL1yiNAK041omSmL27RDtI3zmI0y5uBxwzPV
+ XyEUNua1rzeYMKUgbfMGvfXbuhcgkcQpKG11lnWuDrA6oInSrJ8oXFLF+QnlKvm6Y/YGgh9z9/0
+ 2CwDqryNUs5gZPGLmLQfTGoprGWOfURSDp5k9mpI6sK+GcbivRlkyULYlIVUzZp+LTW9YT/wt1L
+ 98WAnrXFDiceCnaqg==
+X-Received: by 2002:a05:600c:3541:b0:489:a4:e578 with SMTP id
+ 5b1f17b1804b1-48a77b19c77mr68824085e9.14.1777401089712; 
+ Tue, 28 Apr 2026 11:31:29 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:48b8:3c11:f42e:f0c3?
+ ([2a01:e0a:106d:1080:48b8:3c11:f42e:f0c3])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4463fa890a6sm7481259f8f.30.2026.04.28.11.31.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 28 Apr 2026 11:31:29 -0700 (PDT)
+Message-ID: <efd6dd15-ab9a-45a3-8f53-2a5516284830@linaro.org>
+Date: Tue, 28 Apr 2026 20:31:28 +0200
 MIME-Version: 1.0
-References: <20260428024942.452389-1-ynorov@nvidia.com>
- <f5581e5c-c83c-4c8a-bfb7-9fa029ba1a2f@suse.de>
-In-Reply-To: <f5581e5c-c83c-4c8a-bfb7-9fa029ba1a2f@suse.de>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 28 Apr 2026 13:39:44 -0400
-X-Gm-Features: AVHnY4Izprew7Q-7yC_gp9kOM36lMG7cLA8Q-7YvS_NSjN9PYa41VUspQNnKQ1Q
-Message-ID: <CADnq5_PHg1Wgks8gwFARnFO0tEx44zUt=UFCvneL4aJYEsPXYg@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu: fix build for CONFIG_DRM_FBDEV_EMULATION=n
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Yury Norov <ynorov@nvidia.com>, Dave Airlie <airlied@redhat.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 1/2] dt-bindings: regulator: document the R63419 based
+ dual-DSI video mode Display Panels
+To: Jessica Zhang <jesszhan0024@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Yury Norov <yury.norov@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+References: <20260428-topic-sm8650-ayaneo-pocket-s2-r63419-v1-0-981eb5ab5a51@linaro.org>
+ <20260428-topic-sm8650-ayaneo-pocket-s2-r63419-v1-1-981eb5ab5a51@linaro.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260428-topic-sm8650-ayaneo-pocket-s2-r63419-v1-1-981eb5ab5a51@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,76 +123,121 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On 4/28/26 16:05, Neil Armstrong wrote:
+> Document the Reneasa 63419 based dual-DSI video mode Display Panels found
+> in the Ayaneo gaming handled devices.
+> 
+> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+> ---
+>   .../bindings/display/panel/renesas,r63419.yaml     | 92 ++++++++++++++++++++++
+>   1 file changed, 92 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/panel/renesas,r63419.yaml b/Documentation/devicetree/bindings/display/panel/renesas,r63419.yaml
+> new file mode 100644
+> index 000000000000..5777930aac78
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/panel/renesas,r63419.yaml
+> @@ -0,0 +1,92 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/panel/renesas,r63419.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Renesas R63419 based dual-DSI video mode Display Panel
+> +
+> +maintainers:
+> +  - Neil Armstrong <neil.armstrong@linaro.org>
+> +
+> +description:
+> +  The Renesas R63419 is a generic DDIC used to control dual-DSI LCD panels.
+> +
+> +allOf:
+> +  - $ref: panel-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - ayaneo,wt0600-2k
+> +      - ayaneo,wt0630-2k
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  vdd-supply: true
+> +  vddio-supply: true
+> +  vsp-supply: true
+> +  vsn-supply: true
+> +  vci-supply: true
+> +
+> +  backlight: true
+> +  reset-gpios: true
+> +  ports: true
 
-Alex
+Please ignore this patch, I forgot the rotation property.
 
-On Tue, Apr 28, 2026 at 2:59=E2=80=AFAM Thomas Zimmermann <tzimmermann@suse=
-.de> wrote:
->
->
->
-> Am 28.04.26 um 04:49 schrieb Yury Norov:
-> > The merge-commit 02e778f12359 ("Merge tag 'amd-drm-next-7.1-2026-03-12'=
- of
-> > https://gitlab.freedesktop.org/agd5f/linux into drm-next") removes the =
-stub
-> > for drm_fb_helper_gem_is_fb(), so the buld gets broken if DRM_FBDEV_EMU=
-LATION
-> > is not set.
-> >
-> > =E2=80=98drm_fb_helper_gem_is_fb=E2=80=99; did you mean =E2=80=98drm_fb=
-_helper_from_client=E2=80=99? [-Wimplicit-function-declaration]
-> >   1777 |                 if (!drm_fb_helper_gem_is_fb(dev->fb_helper, f=
-b->obj[0])) {
-> >        |                      ^~~~~~~~~~~~~~~~~~~~~~~
-> >        |                      drm_fb_helper_from_client
-> >
-> > Restore it.
-> >
-> > Fixes: 02e778f12359 ("Merge tag 'amd-drm-next-7.1-2026-03-12' of https:=
-//gitlab.freedesktop.org/agd5f/linux into drm-next")
-> > Signed-off-by: Yury Norov <ynorov@nvidia.com>
->
-> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
->
-> > ---
-> > v2: restore only drm_fb_helper_gem_is_fb() (Thomas)
-> >
-> >   include/drm/drm_fb_helper.h | 6 ++++++
-> >   1 file changed, 6 insertions(+)
-> >
-> > diff --git a/include/drm/drm_fb_helper.h b/include/drm/drm_fb_helper.h
-> > index bf391903443d..0c5e5ed7b5e7 100644
-> > --- a/include/drm/drm_fb_helper.h
-> > +++ b/include/drm/drm_fb_helper.h
-> > @@ -273,6 +273,12 @@ int drm_fb_helper_hotplug_event(struct drm_fb_help=
-er *fb_helper);
-> >   int drm_fb_helper_initial_config(struct drm_fb_helper *fb_helper);
-> >   bool drm_fb_helper_gem_is_fb(const struct drm_fb_helper *fb_helper,
-> >                            const struct drm_gem_object *obj);
-> > +#else
-> > +static inline bool drm_fb_helper_gem_is_fb(const struct drm_fb_helper =
-*fb_helper,
-> > +                                        const struct drm_gem_object *o=
-bj)
-> > +{
-> > +     return false;
-> > +}
-> >   #endif
-> >
-> >   #endif
->
-> --
-> --
-> Thomas Zimmermann
-> Graphics Driver Developer
-> SUSE Software Solutions Germany GmbH
-> Frankenstr. 146, 90461 N=C3=BCrnberg, Germany, www.suse.com
-> GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG N=C3=
-=BCrnberg)
->
->
+Neil
+
+> +
+> +required:
+> +  - compatible
+> +  - vdd-supply
+> +  - vddio-supply
+> +  - vsp-supply
+> +  - vsn-supply
+> +  - vci-supply
+> +  - backlight
+> +  - reset-gpios
+> +  - ports
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
+> +    dsi {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        panel@0 {
+> +            compatible = "ayaneo,wt0600-2k";
+> +            reg = <0>;
+> +
+> +            reset-gpios = <&gpio 176 GPIO_ACTIVE_LOW>;
+> +
+> +            vdd-supply = <&vdd_3v0_lcd>;
+> +            vddio-supply = <&vdd_1v8_io>;
+> +            vsn-supply = <&vdd_5v0_pos>;
+> +            vsp-supply = <&vdd_5v0_neg>;
+> +            vci-supply = <&vdd_3v0_vci>;
+> +
+> +            backlight = <&backlight>;
+> +
+> +            ports {
+> +                #address-cells = <1>;
+> +                #size-cells = <0>;
+> +
+> +                port@0 {
+> +                    reg = <0>;
+> +                    panel_in0: endpoint {
+> +                        remote-endpoint = <&dsi0_out>;
+> +                    };
+> +                };
+> +
+> +                port@1 {
+> +                    reg = <1>;
+> +                    panel_in1: endpoint {
+> +                        remote-endpoint = <&dsi1_out>;
+> +                    };
+> +                };
+> +            };
+> +        };
+> +    };
+> +...
+> 
+
