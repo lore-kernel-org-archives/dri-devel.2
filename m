@@ -4,55 +4,111 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E282CFF8868
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 13:14:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2596FF885D
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 13:18:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36D9710E9DD;
-	Tue, 28 Apr 2026 13:14:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FD0710E104;
+	Tue, 28 Apr 2026 13:18:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cTPK421+";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="I4mJqBhT";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DD2810EBAF
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 13:14:24 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id AB54F61335;
- Tue, 28 Apr 2026 13:14:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C30EC2BCAF;
- Tue, 28 Apr 2026 13:14:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777382063;
- bh=fId8M51eLiEA5R+kZZRBfVGDoJPE40PDpQO/FvKYmkQ=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To:From;
- b=cTPK421+E+jI8HRlmLTMG8MYzB5JhrIJ5tmsueJAozatUgbxEQ4wqkQqYzs7i+IHC
- w34izlUYoBbQgEcEMyKom24HUQY9fHdzABq2989Sxe6X/lwpUcZ326o3iFd/+tZOjW
- P7gPxvl6kmrE+CSeTCF46fjiuYeibf9V/NFKdpENecwovgqmVH28T4tUnKjDGl7dvY
- G/DaprRDa0T9Iirz4kmgWf4Zu7YJZ7cn4eCck005wN5sKyFUWS5YR7Dyrlm/Oe8wWw
- MmiOLjQmBZp4VkVPbHlaeXHOdW6ostFu7NUVoz47o7en03s+nCR5wMACMQYH5pBA8T
- PIToYoUajX8hQ==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 28 Apr 2026 15:14:15 +0200
-Message-Id: <DI4TCSCZ215E.16ZCXW7RSXBF@kernel.org>
-Subject: Re: [PATCH 03/24] rust: devres: add ForLt support to Devres
-Cc: <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pm@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>, "Danilo
- Krummrich" <dakr@kernel.org>
-To: <gregkh@linuxfoundation.org>, <rafael@kernel.org>,
- <acourbot@nvidia.com>, <aliceryhl@google.com>, <david.m.ertman@intel.com>,
- <ira.weiny@intel.com>, <leon@kernel.org>, <viresh.kumar@linaro.org>,
- <m.wilczynski@samsung.com>, <ukleinek@kernel.org>, <bhelgaas@google.com>,
- <kwilczynski@kernel.org>, <abdiel.janulgue@gmail.com>,
- <robin.murphy@arm.com>, <markus.probst@posteo.de>, <ojeda@kernel.org>,
- <boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
- <lossin@kernel.org>, <a.hindborg@kernel.org>, <tmgross@umich.edu>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260427221155.2144848-1-dakr@kernel.org>
- <20260427221155.2144848-4-dakr@kernel.org>
-In-Reply-To: <20260427221155.2144848-4-dakr@kernel.org>
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
+ [209.85.215.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6176110E104
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 13:18:27 +0000 (UTC)
+Received: by mail-pg1-f176.google.com with SMTP id
+ 41be03b00d2f7-c795f096fa5so4477252a12.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 06:18:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777382307; cv=none;
+ d=google.com; s=arc-20240605;
+ b=CwoFvrwblOV3gwMUbzOeGYH120gAz/nPmaN+btKuf5lxBeTfQHie4joP7FDlglwT5B
+ 46C7zQ1tx81yFR6JVs0aoHqHh8pNqKYlAgCtwWN238c2IPgF9s3EuiXpee2KzOdsRbvy
+ A2RsZjlZq5xuQbHNDwG4nhJSVGZGGOXVm5KPE6w+gyMeytivW09+n884INXwKz1b0aQY
+ 8IhdxDgtrj1l0s4DAzVUbsQNbPZ2cZjYYqn09GoUgz+JRslvjd5trGNt8FGpk9YqOwnW
+ 3OdA3iAGGgrU5X7XqdqEikJ4ZHTNSLjqaqhB4G42GKroOPQ5yHl4MzGYZa2Hgaf2sWpE
+ OvlA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=0JylD0eUAei9HWh+O1vGMAbkkUnXs7zMRuNaLki22TM=;
+ fh=HvS6KCxBIU8WTyuR2waq3TQkUh1fYk1jHzdxUiVk9gE=;
+ b=kF4wh587lvyb7UA+1dCZJGE+KTb8od8OL8ASdKaBdIRMFNdLvSeYTVggt1e8MqM01T
+ Jr/n+wJaEpg6ZH3RCbdpuj0Vc70fa5iVy24A9KLJjY3clklmdH7eI3EPX94FFPS9BX+1
+ aKmVyT0fIuhK3JDMWNN7zu4nSshpKl7VULi9CWBkJSNRUU2DFJhkOKLbXnBQWXbty6Mw
+ lNmqj3Rkpq9nA/n04hI9W1VybHdBJVjcjk935kdNq5K2PdumfFt4SMBIBbFvngL6D2Ps
+ boseE/XH09kH6bn0ySK0vM5psIhaK35EDb66bSQ+kKdZpZlTrHygENuajiv082ByOKJy
+ LwRA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1777382307; x=1777987107; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=0JylD0eUAei9HWh+O1vGMAbkkUnXs7zMRuNaLki22TM=;
+ b=I4mJqBhT46DUahlC6bvWkVQq1DZYK1pq64f+J57p+vIobKo93yq0a3GHAZuNor9iun
+ RyUl3KLTPTAdI459eFW0OJNVBxxHTIvmiRccXYzcXqyO56gu41MVtg/fIIxdeBAv1+pw
+ 4IcZ40fAmnbckm7huYGNljzN80WYpGAr6Uj2PsFP/s/9ECX4+8YpKdhBq8FDD4nK694g
+ 6aL++9TuJ6DsmrnOzaNLITE4SsOhwSMODjK8lrQhAfaTFGXM9XqqbLG1QRAXUi1SjQvu
+ qy4ittTH1q15xn4j2cpglR/R2EFO4nf5ZbuQUR/HhFuM3EsSefCrjd4n/zPK/Nx43Yxk
+ qVkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777382307; x=1777987107;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=0JylD0eUAei9HWh+O1vGMAbkkUnXs7zMRuNaLki22TM=;
+ b=Hgm6GeDTJXEXsEd+D0DtBql8VXygUlUq2saBfVs0O/vfgPsMZr/5Ue+gVuuwrkH+1M
+ MTMpAGBph3fZ2fEaQ+MhXnFWHQzZULwAas7crYr7G6RSMTYOWlyoUAkz65/vYxjtz54E
+ k1DzfV36KaB5CqqRdQPBYmi7MoNjJ6v0P48/bUC/7umdfe5kRCaqO6V+OX1FF+opl3Lf
+ oHpE0tN/ePuT/qOaofr+ogSfm4sY+fWGriYIUBH43Bk+NUvsJbgX6bD7mSbASR3Y1CsV
+ PQJTbs9oxyVuR1SAjIBghqcOHLANua2DNdUWMgakBKXzki0sLcz55VTvZv5zZmhK6vG9
+ WgyQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ97aEae4OuXs7yOfpgCVCzw4MYEo/tWD2hxuABvYGhfYTPlMNRZHxwjylKp5ox/XPnBEygeCGhtnxA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywnbl9D6A1nfZzyUVNYKuPzidLaIxm0p4r8YmVy6xe+iTagC5uz
+ 6/Fr/dLMKhe7p3H0897C1Oc7tKE4ok7dZvE/sXuCJpMFdwOfCL0U7nl42JfQuwogA2Bzmv2IlfK
+ K7R472bJIOzTNy/0YSD9sy1jCxxMGWmM=
+X-Gm-Gg: AeBDiet3mqNFZcaMY+QeVaafBhCbvyMsKq6lF7JT+Pe6rITOrkbHVJpqX+YX8i2zPwB
+ 2Pc5cEb/NFdKUkAieRflYEslLvKWNGApyLJAUfgW73j5/Mpi2aMUjXFP6jLASZhqtz30/y3yMZQ
+ hZUY7ytl5GcfvX8o/sBiNIRgocG8IRuUVhyxNTmZnK6NTxdkB3fO7yNtyf/4ZVClOridhBqwUn4
+ X3NQhKbQuEG7mQiVuqBb6ZkdKtBpQ1uwyasWJbCaUtHbD496EGFmq2M9dxnB1csmFpuEbOIfG4z
+ A9titoYQYUtg+QUYPx/+gIcDGzWzr9q+gD6XCE9AtnatWyMdXhneSHkt2EhGVg==
+X-Received: by 2002:a17:903:2c8:b0:2b4:5b82:a8e3 with SMTP id
+ d9443c01a7336-2b97c460ff4mr29301325ad.24.1777382306648; Tue, 28 Apr 2026
+ 06:18:26 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260428-drm-bridge-alloc-getput-panel_or_bridge-v2-0-4300744a1c47@bootlin.com>
+ <20260428-drm-bridge-alloc-getput-panel_or_bridge-v2-7-4300744a1c47@bootlin.com>
+In-Reply-To: <20260428-drm-bridge-alloc-getput-panel_or_bridge-v2-7-4300744a1c47@bootlin.com>
+From: Gyeyoung Baek <gye976@gmail.com>
+Date: Tue, 28 Apr 2026 22:18:14 +0900
+X-Gm-Features: AVHnY4KhpSU0AnRDYEBltd_yLgO1x75YnlNnv3pVSwzFIbBw0RqhN0C4ay4P_HY
+Message-ID: <CAKbEznt-PUvg48tegibw+0xYCCvK+1jwESnuHx9+MG0p3MD5gA@mail.gmail.com>
+Subject: Re: [PATCH v2 07/11] drm/bridge: lt9611: switch to
+ of_drm_get_bridge_by_endpoint()
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ Tian Tao <tiantao6@hisilicon.com>, Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, John Stultz <jstultz@google.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Michal Simek <michal.simek@amd.com>, 
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,24 +124,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Apr 28, 2026 at 12:11 AM CEST, Danilo Krummrich wrote:
-> Use ForLt::cast_ref() in Devres access methods, enabling lifetime
-> shortening for types that are covariant over their lifetime parameter.
 >
-> This is a no-op for 'static types, but prepares Devres for use with
-> lifetime-parameterized types such as pci::Bar<'_, SIZE>.
+> @@ -1058,7 +1057,11 @@ static int lt9611_parse_dt(struct device *dev,
 >
-> Add DevresGuard as a wrapper around RevocableGuard that applies
-> ForLt::cast_ref() on deref().
+>         lt9611->ac_mode = of_property_read_bool(dev->of_node, "lt,ac-mode");
 >
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+> -       return drm_of_find_panel_or_bridge(dev->of_node, 2, -1, NULL, &lt9611->next_bridge);
+> +       lt9611->bridge.next_bridge = of_drm_get_bridge_by_endpoint(dev->of_node, 2, -1);
+> +       if (IS_ERR(lt9611->bridge.next_bridge))
+> +               return PTR_ERR(lt9611->bridge.next_bridge);
+> +
+> +       return 0;
+>  }
 
-Please disregard this patch, it does nothing for this patch series.
+Hello Luca,
+Could you take a look at this alternative?
+------
+struct drm_bridge *next_bridge =
+    of_drm_get_bridge_by_endpoint(dev->of_node, 2, -1);
 
-It sneaked in from a subsequent series I work on which makes device resourc=
-e
-types, such as pci::Bar, ForLt!() types themselves.
+if (IS_ERR(next_bridge))
+    return PTR_ERR(next_bridge);
 
-One difficulty is that ForLt!(Bar<'_, SIZE>) fails when SIZE is a generic c=
-onst
-parameter, as it would require generic_const_exprs.
+lt9611->bridge.next_bridge = next_bridge;
+return 0;
+------
+
+ I think it reads a bit cleaner and avoids holding the ERR_PTR in the struct.
+
+-- 
+Thanks,
+Gyeyoung
