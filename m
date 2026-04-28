@@ -4,55 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CB35FF885D
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 09:05:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AE66FF8868
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 09:16:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FE2D10EA83;
-	Tue, 28 Apr 2026 09:05:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F33D10EA74;
+	Tue, 28 Apr 2026 09:16:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="GRSO+vhO";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="TzZlKvGu";
 	dkim-atps=neutral
 Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CB4410EA83
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 09:05:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29B1210EA74
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 09:16:11 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id D5F5CC5CD52;
- Tue, 28 Apr 2026 09:05:55 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 1C5F1C5EF07;
+ Tue, 28 Apr 2026 09:16:53 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 3841F601D0;
- Tue, 28 Apr 2026 09:05:12 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 6B354601D0;
+ Tue, 28 Apr 2026 09:16:09 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 4FDD3107285DA; 
- Tue, 28 Apr 2026 11:05:05 +0200 (CEST)
+ with ESMTPSA id 26FEA10728590; 
+ Tue, 28 Apr 2026 11:15:57 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1777367111; h=from:subject:date:message-id:to:cc:mime-version:
- content-transfer-encoding; bh=p1EUV+7JqOJA6Mt015DMFL7T8iYybFOyWHpjGpeH4TQ=;
- b=GRSO+vhObFNOumMrxBJsyWAYCLh4I1FeO7jD0Gv1slaTl18QmGh6eA2Lyg/fjECGJpXTP1
- c/C/dSBBbXXPSh1wO/kHUN0OncYt3elltbFDswXm1NQX315886PpbYXN7zQFLTvZmXXRnP
- XQBpuysoqnApXKqO6tp5ngDaIB4vny8HIE/gexbupVMKpECN7th8jJ9xV4enpXK4m+L7dJ
- WxQirP/4aUauaHD7sQpc3bBrxUbgiTGhcBBPmkdRIfpO9r7EE9xafeVo261eLKAHtSC3ro
- Jg697rCx16eJ29OCdNtm8eJmG7k6/zmkan9DW+em/IRUkDpi0+D5qosHIPDRGA==
-From: Kory Maincent <kory.maincent@bootlin.com>
-To: Jyri Sarha <jsarha@ti.com>, Russell King <rmk+kernel@armlinux.org.uk>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: Bajjuri Praneeth <praneeth@ti.com>,
- "Kory Maincent (TI)" <kory.maincent@bootlin.com>, stable@vger.kernel.org,
- thomas.petazzoni@bootlin.com, Russell King <linux@armlinux.org.uk>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Subject: [PATCH v2] drm/bridge: tda998x: Use __be32 for audio port OF property
- pointer
-Date: Tue, 28 Apr 2026 11:04:56 +0200
-Message-ID: <20260428090457.121894-1-kory.maincent@bootlin.com>
-X-Mailer: git-send-email 2.43.0
+ t=1777367767; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding; bh=dkhIW77Yh2FAE70dgLvbC4t3pinG2sG9dM7gIueWcBs=;
+ b=TzZlKvGu45dA/PBtvB/PyfKPxkyj37e6mUnL2ht76EwC3uc7w7h2g3gVTRhMtZB0wK3QhW
+ bGQkdEfhYwHHZ8B9Qkiajss0FyFXh8Iw+KTcAoxkaVluDkxZTIFLiIuGX4ke4OoYkDRyIy
+ +JzrP5hjQtkwFSkvljWjxqYTHwcMfY8X2dknhhgusD1ITHMSQMYlQKQM+n9dzaXcjNMo07
+ XD7tsBMfLeq4kZJaVhimAxB92gajaO6hmCKr/jZowmqhJp1TrfqCCOqpFDyAaKfWghheg3
+ JufT9qSk4JB9ZATa40SCvLew1tIKQtLqhMzo4LDrsInuphkgqtwTn6mmLZa4eQ==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Subject: [PATCH v2 00/11] drm/bridge: handle refcounting for bridge-only
+ callers of drm_of_find_panel_or_bridge()
+Date: Tue, 28 Apr 2026 11:15:46 +0200
+Message-Id: <20260428-drm-bridge-alloc-getput-panel_or_bridge-v2-0-4300744a1c47@bootlin.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAMJ68GkC/42Oyw6CMBREf4V0bU1b8LnyPwwhfVzgGmhJW4iG8
+ O8W1L3Lk5nMmZkE8AiBXLOZeJgwoLMJxC4jupW2AYomMRFMHFnBGTW+p8qjSYnsOqdpA3EYIx2
+ kha5yvvqGhTgwrvIzSGlIWhs81PjcTPfyw2FUD9BxnV8bLYbo/Gu7MvG197Pmf1snThmV2jCuz
+ ekieX1TzsUO7V67npTLsrwBcY5hW/IAAAA=
+X-Change-ID: 20260410-drm-bridge-alloc-getput-panel_or_bridge-42501b38eaad
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Tian Tao <tiantao6@hisilicon.com>, 
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, John Stultz <jstultz@google.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Michal Simek <michal.simek@amd.com>
+Cc: Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ linux-arm-kernel@lists.infradead.org, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
 X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,34 +87,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: "Kory Maincent (TI)" <kory.maincent@bootlin.com>
+This series converts all the bridge-only callers of the deprecated
+drm_of_find_panel_or_bridge() API to a new, simpler API that handles bridge
+refcounting.
 
-of_get_property() returns a pointer to big-endian (__be32) data, but
-port_data in tda998x_get_audio_ports() was declared as const u32 *,
-causing a sparse endianness type mismatch warning. Fix the declaration
-to use const __be32 *.
+== Series description
 
-Fixes: 7e567624dc5a4 ("drm/i2c: tda998x: Register ASoC hdmi-codec and add audio DT binding")
-Cc: stable@vger.kernel.org
-Signed-off-by: Kory Maincent (TI) <kory.maincent@bootlin.com>
-Reviewed-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+ * Patch 1 (new in v2) makes drm_bridge_get/put() ignore ERR_PTR pointers,
+   not only NULL pointers
+ * Patch 2 introduces of_drm_get_bridge_by_endpoint() as a replacement for
+   bridge-only calls to drm_of_find_panel_or_bridge(); the new function
+   refcounts the bridge and is simpler
+ * The following patches convert all bridge-only users to the new API
+ * The last patch forbids new bridge-only calls to
+   drm_of_find_panel_or_bridge()
+
+== Grand plan
+
+This is part of the work to support hotplug of DRM bridges. The grand plan
+was discussed in [0].
+
+Here's the work breakdown (➜ marks the current series):
+
+ 1. ➜ add refcounting to DRM bridges struct drm_bridge,
+      based on devm_drm_bridge_alloc()
+    A. ✔ add new alloc API and refcounting (v6.16)
+    B. ✔ convert all bridge drivers to new API (v6.17)
+    C. ✔ kunit tests (v6.17)
+    D. ✔ add get/put to drm_bridge_add/remove() + attach/detach()
+         and warn on old allocation pattern (v6.17)
+    E. ➜ add get/put on drm_bridge accessors
+       1. ✔ drm_bridge_chain_get_first_bridge(), add cleanup action (v6.18)
+       2. ✔ drm_bridge_get_prev_bridge() (v6.18)
+       3. ✔ drm_bridge_get_next_bridge() (v6.19)
+       4. ✔ drm_for_each_bridge_in_chain() (v6.19)
+       5. ✔ drm_bridge_connector_init (v6.19)
+       6. ✔ protect encoder bridge chain with a mutex (v7.2)
+       7. ➜ of_drm_find_bridge
+          a. ✔ add of_drm_get_bridge() (v7.0),
+               convert basic direct users (v7.0-v7.1)
+          b. ✔ convert direct of_drm_get_bridge() users, part 2 (v7.0)
+          c. ✔ convert direct of_drm_get_bridge() users, part 3 (v7.0)
+          d. ✔ convert direct of_drm_get_bridge() users, part 4 (v7.1-v7.2)
+          e. ➜ convert bridge-only drm_of_find_panel_or_bridge() users
+       8. drm_of_find_panel_or_bridge, *_of_get_bridge
+       9. ✔ enforce drm_bridge_add before drm_bridge_attach (v6.19)
+    F. ✔ debugfs improvements
+       1. ✔ add top-level 'bridges' file (v6.16)
+       2. ✔ show refcount and list lingering bridges (v6.19)
+ 2. … handle gracefully atomic updates during bridge removal
+    A. ✔ Add drm_bridge_enter/exit() to protect device resources (v7.0)
+    B. … protect private_obj removal from list
+    C. ✔ Add drm_bridge_clear_and_put() (v7.1)
+ 3. … DSI host-device driver interaction
+ 4. ✔ removing the need for the "always-disconnected" connector
+ 5. ✔ Migrate i.MX LCDIF driver to bridge-connector (v7.2)
+ 6. … DRM bridge hotplug
+    A. … Bridge hotplug management in the DRM core
+       1. … bridge-connector: attach encoder to the connector
+    B.   Device tree description
+
+[0] https://lore.kernel.org/lkml/20250206-hotplug-drm-bridge-v6-0-9d6f2c9c3058@bootlin.com/#t
+
+Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- drivers/gpu/drm/bridge/tda998x_drv.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changes in v2:
+- Added patch to ignore ERR_PTR values in drm_bridge_get/put()
+- Changed API to return the bridge (or a ERR_PTR) in the return value,
+  not as a double-pointer output parameter
+- Adapted all patches to the new API, dropped Dmitry's review tags as the
+  patches are all modified
+- Removed bouncing addresses from Cc list
+- Link to v1: https://patch.msgid.link/20260413-drm-bridge-alloc-getput-panel_or_bridge-v1-0-acd01cd79a1f@bootlin.com
 
-diff --git a/drivers/gpu/drm/bridge/tda998x_drv.c b/drivers/gpu/drm/bridge/tda998x_drv.c
-index 367a46c057e41..6c427bc75896b 100644
---- a/drivers/gpu/drm/bridge/tda998x_drv.c
-+++ b/drivers/gpu/drm/bridge/tda998x_drv.c
-@@ -1762,7 +1762,7 @@ static const struct drm_bridge_funcs tda998x_bridge_funcs = {
- static int tda998x_get_audio_ports(struct tda998x_priv *priv,
- 				   struct device_node *np)
- {
--	const u32 *port_data;
-+	const __be32 *port_data;
- 	u32 size;
- 	int i;
- 
--- 
-2.43.0
+---
+Luca Ceresoli (11):
+      drm/bridge: drm_bridge_get/put(): ignore ERR_PTR
+      drm/bridge: add of_drm_get_bridge_by_endpoint()
+      drm/msm/hdmi: switch to of_drm_get_bridge_by_endpoint()
+      drm/hisilicon/kirin: switch to of_drm_get_bridge_by_endpoint()
+      drm/bridge: chrontel-ch7033: switch to of_drm_get_bridge_by_endpoint()
+      drm/bridge: lontium-lt9611uxc: switch to of_drm_get_bridge_by_endpoint()
+      drm/bridge: lt9611: switch to of_drm_get_bridge_by_endpoint()
+      drm/bridge: adv7511: switch to of_drm_get_bridge_by_endpoint()
+      drm/bridge: lt8713sx: switch to of_drm_get_bridge_by_endpoint()
+      drm: zynqmp_dp: switch to of_drm_get_bridge_by_endpoint()
+      drm: of: forbid bridge-only calls to drm_of_find_panel_or_bridge()
+
+ drivers/gpu/drm/bridge/adv7511/adv7511.h     |  1 -
+ drivers/gpu/drm/bridge/adv7511/adv7511_drv.c | 11 +++---
+ drivers/gpu/drm/bridge/chrontel-ch7033.c     | 28 +++++++--------
+ drivers/gpu/drm/bridge/lontium-lt8713sx.c    | 10 +++---
+ drivers/gpu/drm/bridge/lontium-lt9611.c      |  9 +++--
+ drivers/gpu/drm/bridge/lontium-lt9611uxc.c   |  9 +++--
+ drivers/gpu/drm/drm_bridge.c                 | 53 ++++++++++++++++++++++++----
+ drivers/gpu/drm/drm_of.c                     | 26 +++++++-------
+ drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c |  9 +++--
+ drivers/gpu/drm/msm/hdmi/hdmi.c              |  7 ++--
+ drivers/gpu/drm/xlnx/zynqmp_dp.c             | 13 ++++---
+ include/drm/drm_bridge.h                     |  8 +++++
+ 12 files changed, 115 insertions(+), 69 deletions(-)
+---
+base-commit: 6dbe0c5375e4f88c8d7c90790e0ea29d565b5d0a
+change-id: 20260410-drm-bridge-alloc-getput-panel_or_bridge-42501b38eaad
+
+Best regards,
+--  
+Luca Ceresoli <luca.ceresoli@bootlin.com>
 
