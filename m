@@ -4,44 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAB8BFF8870
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 10:42:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 854A2FF885D
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 10:43:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41ED110EAE6;
-	Tue, 28 Apr 2026 10:42:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA71B10EAE3;
+	Tue, 28 Apr 2026 10:43:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="e0wt0I0j";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="c4jthecS";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29C3610EAE3;
- Tue, 28 Apr 2026 10:42:53 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7309510EAE1;
+ Tue, 28 Apr 2026 10:43:08 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 939DF61145;
- Tue, 28 Apr 2026 10:42:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00F6DC2BCF5;
- Tue, 28 Apr 2026 10:42:50 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 35A44448EE;
+ Tue, 28 Apr 2026 10:43:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76C8EC2BCB5;
+ Tue, 28 Apr 2026 10:43:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777372972;
- bh=WG1aZEtlaChURH5tQWWR04QdRV9xU25WVloCetGhuL8=;
+ s=k20201202; t=1777372988;
+ bh=z+ubNEiGkyTvzeK84mlK5De1vxwPNmN3CCbIYOlyWaE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=e0wt0I0j7aZU4QAarex/bWcy2UXt4vgzfrhza72LFswEcF4WLIKRgQtX5nf3eRx1M
- 9FLInTzplEKqvITiNXX6hdMoAEIfWkLmX2wjFYIb/ZC0xN7hEKhrtYHphprK3CEMif
- 5AyhjcYw4kDqVRnVsTf2920Tmh6VJubCjnlCg4S5D9L/4rhENUruP4n2EUA1OVj76p
- zjzhAKdu/AThDrOyVnnEwpBtb7gNtDsYYYo1RSv+XyYOgReH6K+u7tcGO1hxxRssZF
- A9opYpi6fHNUvGQ40Asx/TF/26Z71dcjpu4nFauIgTKGDAg1ERU1uaEKSZh1929opS
- 4ygRu+rmuWwog==
+ b=c4jthecS94mhXjzorhQRDoB6Lc3gquagydnFHUhJv8mcNsYFHrPWQ7V3E9D9OlRdk
+ kyq87+nN/Xzvi1GYv+rE+muLjgUblU4nY4paGXNt2rnV/YI71ocmyk4ff04VyjqhDe
+ GZs/I7rKbvC9ZlssFivPZiCEAoUUyk3umpTgaYgnJFRBHtlg24DjG5AeNsE4QpAz+1
+ egX3ZioUOXL+rh3lXrNJhXvROouWtNh9ffJzNW9l+4tFvjPPseMGPY10ALe3s3WiEt
+ bRRQ7y6ET3BX1V+wW/iBJvywhqp/tGK4eNb/4YoCRQY4oQyiveDAnGV+FiDG9iXMkn
+ BU4u0Mwy3wG1w==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Siwei He <siwei.he@amd.com>, Philip Yang <philip.yang@amd.com>,
+Cc: Alex Hung <alex.hung@amd.com>, "Sun peng (Leo) Li" <sunpeng.li@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Dan Wheeler <daniel.wheeler@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0] drm/amdgpu: OR init_pte_flags into invalid leaf
- PTE updates
-Date: Tue, 28 Apr 2026 06:41:05 -0400
-Message-ID: <20260428104133.2858589-54-sashal@kernel.org>
+ harry.wentland@amd.com, Rodrigo.Siqueira@amd.com, christian.koenig@amd.com,
+ Xinhui.Pan@amd.com, airlied@gmail.com, daniel@ffwll.ch,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 7.0] drm/amd/display: Use overlay cursor when color
+ pipeline is active
+Date: Tue, 28 Apr 2026 06:41:16 -0400
+Message-ID: <20260428104133.2858589-65-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260428104133.2858589-1-sashal@kernel.org>
 References: <20260428104133.2858589-1-sashal@kernel.org>
@@ -49,7 +52,6 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 7.0.2
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,364 +68,479 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Siwei He <siwei.he@amd.com>
+From: Alex Hung <alex.hung@amd.com>
 
-[ Upstream commit 778bf584f2fb0a2b09594f568faf400bf6858091 ]
+[ Upstream commit d3a549f4df7864bca8612c8bcfce1ec72b2874fb ]
 
-Invalid leaf clears that only set AMDGPU_PTE_EXECUTABLE match the old
-GMC9 fault-priority workaround but omit adev->gmc.init_pte_flags.
-On GFX12 that includes AMDGPU_PTE_IS_PTE; without it, some cleared
-PTEs can fault as no-retry and bypass the SVM/XNACK handler when a
-VA is reused after a BO unmap.
+Force overlay cursor mode when an underlying plane has a non-bypassed
+color pipeline to avoid incorrect cursor transformation.
 
-Apply init_pte_flags in amdgpu_vm_pte_update_flags() alongside
-EXECUTABLE so range-driven clears (e.g. amdgpu_vm_clear_freed) match
-amdgpu_vm_pt_clear() for leaf templates.
-
-Signed-off-by: Siwei He <siwei.he@amd.com>
-Reviewed-by: Philip Yang <philip.yang@amd.com>
+Reviewed-by: Sun peng (Leo) Li <sunpeng.li@amd.com>
+Signed-off-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 9d47b2c36b9a6c6b844c33cab407a5d7ad102234)
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Now I have all the information needed for a thorough analysis.
+Now I have enough information for a comprehensive analysis.
 
-## Phase 1: Commit Message Forensics
+## Phase 1: COMMIT MESSAGE FORENSICS
 
-**Step 1.1 - Subject Line Parse**
-- Subsystem: `drm/amdgpu` (AMD GPU driver, virtual memory page table
-  code)
-- Action verb: "OR" (operator), implies a missing flag combination → bug
-  fix
-- Record: `drm/amdgpu` adds `init_pte_flags` to invalid leaf PTE updates
-  to match `amdgpu_vm_pt_clear()` behavior
+**Step 1.1: Subject line parsing**
+- Subsystem: `drm/amd/display`
+- Action verb: "Use" (implicit "fix" through "to avoid incorrect cursor
+  transformation")
+- Record: drm/amd/display - changes cursor mode selection logic when
+  underlying plane has active color pipeline
 
-**Step 1.2 - Tags Inventory**
-- Signed-off-by: Siwei He (author)
-- Reviewed-by: Philip Yang (AMD/amdkfd maintainer)
-- Signed-off-by: Alex Deucher (DRM/amdgpu maintainer)
-- `(cherry picked from commit 9d47b2c36b9a6c6b844c33cab407a5d7ad102234)`
-  — already merged upstream
-- No Fixes:, no Cc: stable, no syzbot/Reported-by (expected per pipeline
-  rules)
-- Record: Reviewed and signed by relevant subsystem maintainers; cherry
-  pick from upstream
-
-**Step 1.3 - Commit Body Analysis**
-- Bug description: leaf PTE clears that only set `AMDGPU_PTE_EXECUTABLE`
-  omit `adev->gmc.init_pte_flags`
-- Affected hardware: GFX12 (where `init_pte_flags` includes
-  `AMDGPU_PTE_IS_PTE`)
-- Symptom: cleared PTEs can fault as no-retry and bypass SVM/XNACK
-  handler when VA is reused after BO unmap
-- Root cause: code template inconsistency between `amdgpu_vm_pt_clear()`
-  (already updated) and `amdgpu_vm_pte_update_flags()` (range-driven
-  clear path used by e.g., `amdgpu_vm_clear_freed`)
-- Record: clearly states bug mechanism; affects real GFX12 hardware
-  running SVM/XNACK after BO unmap → VA reuse
-
-**Step 1.4 - Hidden Bug Fix Detection**
-- Although not titled "fix", the body explicitly describes a fault-
-  handler bypass on GFX12 — this IS a bug fix
-- Record: explicit bug fix (not hidden)
-
-## Phase 2: Diff Analysis
-
-**Step 2.1 - Inventory**
-- Single file: `drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c`
-- Hunks: 1; lines: net +1 (statement extended), comment expanded
-- Function modified: `amdgpu_vm_pte_update_flags()`
-- Scope: surgical, single-line semantic change in one function
-- Record: tiny single-file fix, ~2 lines of logic change
-
-**Step 2.2 - Code Flow Change**
-- Before: when handling an invalid leaf clear (`level==PTB && !VALID &&
-  !PRT`), `flags |= AMDGPU_PTE_EXECUTABLE`
-- After: `flags |= AMDGPU_PTE_EXECUTABLE | adev->gmc.init_pte_flags`
-- On GFX12.1, `init_pte_flags = AMDGPU_PTE_IS_PTE`; on GMC9 it's 0 (no
-  behavior change there)
-- Record: aligns the leaf-clear template with `amdgpu_vm_pt_clear()`
-  (line 416 already does the same)
-
-**Step 2.3 - Bug Mechanism**
-- Category: Logic/correctness fix → consistency between two clear paths
-- Mechanism: template mismatch on GFX12 page table clears caused PTEs to
-  be marked without `IS_PTE`, leading to no-retry faults that bypass the
-  SVM/XNACK fault handler
-- Record: same template now used in both leaf-clear sites; this is a
-  hardware-correctness fix
-
-**Step 2.4 - Fix Quality**
-- Obviously correct: mirrors existing pattern at line 416 of same file
-  (`amdgpu_vm_pt_clear`)
-- Minimal/surgical: a single OR with a per-ASIC field that defaults to 0
-- Regression risk: very low — on non-GFX12 hardware `init_pte_flags ==
-  0`, so behavior is unchanged
-- Record: high quality, low regression risk
-
-## Phase 3: Git History Investigation
-
-**Step 3.1 - Blame**
-- The buggy line existed before, but the *omission* was created by
-  `db29ddf6505f3` ("drm/amdgpu: Add per-ASIC PTE init flag", Apr 24,
-  2025) which added `init_pte_flags` and applied it in
-  `amdgpu_vm_pt_clear()` only — not in `amdgpu_vm_pte_update_flags()`
-- Record: bug introduced by db29ddf6505f3
-
-**Step 3.2 - Fixes Target**
-- No explicit `Fixes:` tag in this commit, but the underlying fault-
-  handler-bypass bug requires `init_pte_flags` to exist, which only
-  appeared in `db29ddf6505f3`
-- That commit lands in v7.0-rc1 (verified: `git tag --contains
-  db29ddf6505f3` shows v7.0-rc1+ only)
-- Record: bug only exists in v7.0+; older stable trees do not have
-  `init_pte_flags`
-
-**Step 3.3 - File History**
-- Last commit on `amdgpu_vm_pt.c`: `db29ddf6505f3` (the very commit that
-  introduced the inconsistency)
-- Record: this fix immediately follows the bug-introducing commit;
-  standalone, no prerequisite missing
-
-**Step 3.4 - Author**
-- Siwei He (AMD developer) — the upstream cherry-pick is reviewed by
-  Philip Yang and signed by Alex Deucher (amdgpu maintainer)
-- Record: properly vetted by amdgpu maintainership
-
-**Step 3.5 - Dependencies**
-- Requires `adev->gmc.init_pte_flags` — present in v7.0+ via
-  `db29ddf6505f3`
-- No other dependency
-- Record: standalone fix in v7.0; not applicable to pre-v7.0 stable
-  trees
-
-## Phase 4: Mailing List / External Research
-
-- `b4 dig -c 9d47b2c36b9a6c6b844c33cab407a5d7ad102234` — SHA not present
-  in local repo (cherry-pick hash from a tree this repo doesn't have)
-- `b4 dig -c db29ddf6505f3` — no lore match found
-- `lore.kernel.org` direct fetch blocked by Anubis bot challenge / 403
-  from raw curl — could not retrieve discussion
-- Record: UNVERIFIED — could not retrieve the original lore discussion
-  thread; relying on the in-tree review trail (Reviewed-by Philip Yang,
-  Signed-off-by Alex Deucher)
-
-## Phase 5: Code Semantic Analysis
-
-**Step 5.1 - Functions in Diff**
-- `amdgpu_vm_pte_update_flags()`
-
-**Step 5.2 - Callers**
-- Called from `amdgpu_vm_update_ptes()` (line 909 in the same file)
-- That is called from `amdgpu_vm_update_range()` in `amdgpu_vm.c`
-- `amdgpu_vm_update_range()` is called from many sites:
-  `amdgpu_vm_clear_freed` (line 1573, with flags=0 → exact bug path),
-  `amdgpu_vm_bo_update`, `amdgpu_gem_va_ioctl`, etc.
-- Record: the buggy path is reached on EVERY BO unmap that places
-  mappings on `vm->freed`
-
-**Step 5.3 - Callees**
-- Calls `update_funcs->update()` to write PTEs
-- Record: writes the actual page table entries — direct hardware effect
-
-**Step 5.4 - Reachability**
-- `amdgpu_vm_clear_freed` runs from normal GEM unmap/CS paths and from
-  KFD memory paths
-- Triggerable by any user/process unmapping a GPU buffer with a VA that
-  gets reused
-- Record: trivially reachable from userspace via standard amdgpu/KFD
-  ioctls
-
-**Step 5.5 - Similar Patterns**
-- Only two leaf-clear template sites; the other one
-  (`amdgpu_vm_pt_clear` line 416) was already updated to use
-  `init_pte_flags`. This patch makes the second site consistent.
-- Record: closes the only remaining inconsistent site
-
-## Phase 6: Cross-Referencing & Stable Tree Analysis
-
-**Step 6.1 - Bug Presence in Stable Trees**
-- `init_pte_flags` field exists only in v7.0+ — verified by `git tag
-  --contains db29ddf6505f3` showing earliest tag `v7.0-rc1`
-- Pre-v7.0 stable trees (6.6.y, 6.1.y, 5.15.y, 5.10.y) do NOT have this
-  field, so this fix does not apply there and the specific bug being
-  addressed does not exist in that form there
-- Record: target stable tree for this fix is v7.0.y (matches workspace
-  path `linux-autosel-7.0`)
-
-**Step 6.2 - Backport Difficulty**
-- `amdgpu_vm_pte_update_flags()` exists unchanged in v7.0.y; the diff
-  applies cleanly
-- Record: clean apply to 7.0.y
-
-**Step 6.3 - Related Fixes Already In Stable**
-- The companion fix at `amdgpu_vm_pt_clear()` (line 416) is part of
-  `db29ddf6505f3` which is in v7.0
-- This commit is the second half of that fix
-- Record: 7.0.y already has half of the pattern; this patch completes it
-
-## Phase 7: Subsystem Context
-
-**Step 7.1 - Subsystem Criticality**
-- `drivers/gpu/drm/amd/amdgpu` — important driver subsystem (large user
-  base for AMD GPUs)
-- This specific code path: GFX12 (RDNA4 / RX 9000 series) SVM/XNACK —
-  real shipping consumer hardware
-- Record: IMPORTANT (driver-specific, affects current AMD hardware)
-
-**Step 7.2 - Activity**
-- amdgpu is a very active subsystem with frequent fixes
-- Record: highly active; fixes-quickly-integrated subsystem
-
-## Phase 8: Impact and Risk Assessment
-
-**Step 8.1 - Affected Users**
-- GFX12.1 (RDNA4 / RX 9000 series) hardware users running compute
-  workloads with SVM/XNACK enabled (ROCm, HIP, OpenCL, etc.)
-- Record: driver-specific (GFX12 only with SVM); on other ASICs
-  `init_pte_flags == 0` so no behavior change
-
-**Step 8.2 - Trigger**
-- Trigger: any unmap of a GPU buffer where the VA later gets reused
-- Reachable from unprivileged user code via standard amdgpu/KFD ioctls
-- Common in compute workloads that allocate/free buffers
-- Record: easily triggered from userspace; common in real workloads
-
-**Step 8.3 - Severity**
-- Failure mode: PTEs faulting as no-retry that bypass the SVM/XNACK
-  handler — the handler is what makes SVM-on-demand actually work, so
-  its bypass leads to incorrect fault behavior on GPU memory accesses
-- Severity: HIGH for affected users (broken SVM/XNACK semantics on new
-  HW); MEDIUM-CRITICAL depending on workload (silent incorrect access
-  vs. application failure)
-- Record: HIGH severity for GFX12 SVM users
-
-**Step 8.4 - Risk/Benefit**
-- Benefit: high — fixes broken SVM on current shipping AMD hardware
-- Risk: very low — single OR with a field that is 0 on every other ASIC;
-  mirrors a sibling site already in the tree
-- Record: clear net positive for backport
-
-## Phase 9: Final Synthesis
-
-**Evidence FOR backport**
-- Real bug on real shipping GFX12 hardware (RX 9000 / RDNA4) with
-  SVM/XNACK
-- Trivial 2-line fix; mirrors existing pattern (`amdgpu_vm_pt_clear`) at
-  line 416 of the same file
-- Reviewed by Philip Yang (amdkfd) and signed by Alex Deucher (amdgpu
+**Step 1.2: Tag parsing**
+- Reviewed-by: Sun peng (Leo) Li <sunpeng.li@amd.com> (AMD display
   maintainer)
-- Buggy template inconsistency was introduced in v7.0-rc1 by
-  `db29ddf6505f3`; lands cleanly in v7.0.y
-- On non-GFX12 ASICs `init_pte_flags == 0` → guaranteed no behavior
-  change there
-- Reachable via standard userspace ioctls (BO unmap → VA reuse)
+- Signed-off-by: Alex Hung <alex.hung@amd.com> (author)
+- Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com> (AMD)
+- Tested-by: Dan Wheeler <daniel.wheeler@amd.com> (AMD)
+- Signed-off-by: Alex Deucher <alexander.deucher@amd.com> (subsystem
+  maintainer)
+- NO Fixes: tag, NO Cc: stable, NO Reported-by, NO Link
+- Record: Standard AMD development chain, reviewed and tested
+  internally, no external bug report references
 
-**Evidence AGAINST backport**
-- No `Fixes:` or `Cc: stable` tag (expected per pipeline rules; not a
-  negative signal)
-- Lore discussion could not be fetched for further verification
-  (UNVERIFIED)
-- Does NOT apply to pre-v7.0 stable trees (no `init_pte_flags` field
-  there); only relevant to 7.0.y
+**Step 1.3: Commit body analysis**
+- Bug described: Cursor in NATIVE mode is subjected to color pipeline
+  transformation of underlying plane, causing "incorrect cursor
+  transformation"
+- Solution: Force OVERLAY cursor mode (which uses dedicated DCN pipe)
+  when underlying plane has non-bypassed color pipeline
+- No version info, no stack traces, no reproduction steps
+- Record: Bug = visual incorrectness in cursor color rendering when
+  color pipeline is active. Symptom is described conceptually, not
+  concretely.
 
-**Stable Rules Checklist**
-1. Obviously correct & tested: yes — mirrors a sibling site, very small
-   change, signed off by maintainers
-2. Fixes a real bug: yes — fault-handler bypass on GFX12 SVM/XNACK
-3. Important issue: yes — broken VA-reuse semantics on shipping hardware
-4. Small and contained: yes — single hunk, ~2 lines logic
-5. No new features/APIs: yes — pure consistency fix
-6. Applies to stable: yes for 7.0.y (clean), N/A for older
+**Step 1.4: Hidden bug fix detection**
+- "Use overlay cursor when..." -> "to avoid incorrect cursor
+  transformation" reveals this IS a fix, but described as enhancement
+- Record: Fixes a real correctness issue, but framed as adding new code
+  path rather than emergency fix.
 
-**Decision**
-This is a small, surgical, maintainer-reviewed fix that closes a
-hardware-correctness gap on shipping AMD GPUs (GFX12 SVM/XNACK) by
-mirroring an already-applied pattern in the same file. The matching
-companion fix is already in 7.0, so this completes that work. Risk is
-essentially nil on non-GFX12 hardware (zero OR'd in).
+## Phase 2: DIFF ANALYSIS
+
+**Step 2.1: Inventory**
+- Single file: `drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c`
+- ~49 lines added, ~4 lines deleted
+- Functions modified: `dm_crtc_get_cursor_mode()`,
+  `amdgpu_dm_atomic_check()` (debug message)
+- New helper: `dm_plane_color_pipeline_active()` (static)
+- Adds `#include <drm/drm_colorop.h>`
+- Record: Surgical, single-file fix, contained.
+
+**Step 2.2: Code flow change**
+- Before: `dm_crtc_get_cursor_mode()` only checked YUV format and scale
+  differences for overlay cursor decision
+- After: Also checks if any plane in z-order has an active (non-
+  bypassed) color pipeline
+- Two checks added: (1) trigger consider_mode_change if color pipeline
+  activity changes between old/new, (2) force OVERLAY mode when
+  underlying plane has active pipeline
+- Record: Adds new condition for selecting OVERLAY cursor mode.
+
+**Step 2.3: Bug mechanism**
+- Category: Logic/correctness fix - missing condition check
+- The native cursor (integrated in DCN hw plane) was being subjected to
+  color pipeline transformations meant for the underlying plane; this
+  corrupts cursor visual rendering
+- Fix forces overlay (separate DCN pipe) which is not subject to
+  underlying plane's color pipeline
+- Record: Visual correctness bug; not a crash/UAF/race/leak
+
+**Step 2.4: Fix quality**
+- Obviously correct: Yes, mirrors existing YUV/scaling check pattern
+- Minimal/surgical: Yes
+- Regression risk: Low - only changes cursor mode selection on a
+  specific narrow condition (active color pipeline)
+- Record: High quality, well-contained.
+
+## Phase 3: GIT HISTORY INVESTIGATION
+
+**Step 3.1: Blame analysis**
+- The `dm_crtc_get_cursor_mode()` function was introduced in commit
+  `1b04dcca4fb1` (drm/amd/display: Introduce overlay cursor mode),
+  pre-v6.18
+- The drm_colorop infrastructure was introduced in commit
+  `cfc27680ee208` (Nov 26, 2025), present from v6.19
+- Record: The function exists since pre-6.18, but the bug only triggers
+  when color pipeline (v6.19+) is active.
+
+**Step 3.2: Fixes: tag - N/A, no Fixes: tag**
+
+**Step 3.3: Recent file history**
+- Active development on color pipeline in AMD display driver
+- Several recent color pipeline fixes: `b49814033cb52` (Fix gamma 2.2
+  colorop TFs), `a4fa2355e0add` (Enable DEGAMMA and reject
+  COLOR_PIPELINE+DEGAMMA_LUT), `18a4127e93156` (Disable CRTC degamma
+  when color pipeline is enabled)
+- Standalone fix; not part of an explicit X/Y series
+- Record: Standalone correctness fix in actively developed area
+
+**Step 3.4: Author**
+- Alex Hung is a regular AMD display contributor; numerous recent
+  commits in this area
+- Record: Trusted developer, area maintainer chain present
+
+**Step 3.5: Dependencies**
+- Requires: `<drm/drm_colorop.h>`, `for_each_oldnew_colorop_in_state`
+  macro, `drm_colorop_state` struct with `colorop`/`bypass` fields,
+  `drm_colorop` struct with `plane` field
+- All present in v6.19.14 and v7.0.1 stable trees - verified by direct
+  inspection
+- Record: All dependencies present in v6.19.y and v7.0.y; will apply
+  cleanly.
+
+## Phase 4: MAILING LIST RESEARCH
+
+**Step 4.1: b4 dig results**
+- `b4 dig -c d3a549f4df786`: "Could not find anything matching commit"
+- `b4 dig -c 5d09aac12d5be`: "Could not find anything matching commit"
+- Manual lore search via search engine: did not find direct submission
+  of this exact patch
+- BUT found relevant prior discussion: lists.freedesktop.org dri-devel
+  April 2025 thread - Harry Wentland confirmed: "Yes, AMD driver is
+  using the overlay cursor (entire dedicated HW pipe) for the cursor
+  when the cursor scaling doesn't match the underlying plane. **The same
+  thing can be done for color operations but it's not implemented
+  yet.**"
+- Record: This commit IMPLEMENTS the missing functionality identified
+  during the original color pipeline patch series review.
+
+**Step 4.2: Reviewers**
+- Reviewed-by: Leo Li (AMD display maintainer)
+- Tested-by: Dan Wheeler (AMD QA)
+- Record: Properly reviewed by relevant maintainer.
+
+**Step 4.3: Bug report - N/A** (no Reported-by, no Link)
+
+**Step 4.4: Series context**
+- Standalone patch (not part of X/Y series)
+- Builds upon entire color pipeline infrastructure already in v6.19+
+- Record: Self-contained; depends only on v6.19+ infrastructure.
+
+**Step 4.5: Stable list - no specific discussion found**
+
+## Phase 5: CODE SEMANTIC ANALYSIS
+
+**Step 5.1: Key functions**
+- New: `dm_plane_color_pipeline_active(state, plane, use_old)` - checks
+  for non-bypassed colorops on a plane
+- Modified: `dm_crtc_get_cursor_mode()` - cursor mode selection
+- Modified: debug message in `amdgpu_dm_atomic_check()`
+
+**Step 5.2: Callers**
+- `dm_crtc_get_cursor_mode()` is called from `amdgpu_dm_atomic_check()`
+  for every atomic commit when cursor configuration may change on AMD
+  DCN hardware
+- Affects: Every modeset/cursor update path on supported AMD DCN
+  hardware
+- Record: Reachable from userspace via DRM atomic commit syscalls
+
+**Step 5.3: Callees**
+- `for_each_oldnew_colorop_in_state` (DRM core macro from v6.19+)
+- `drm_atomic_get_plane_state`, `drm_atomic_plane_enabling/disabling`
+- Record: Standard DRM atomic helpers
+
+**Step 5.4: Reachability**
+- User triggers: opt-in to `DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE` AND
+  configure non-bypassed colorop on a primary plane
+- Modern Wayland compositors are adopting color pipeline API
+- Record: Reachable but requires opt-in to relatively new API
+
+**Step 5.5: Similar patterns**
+- Existing YUV format check and scaling check follow same pattern
+- The fix is the third "underlying plane property" check, parallel to
+  the existing two
+- Record: Consistent with established pattern.
+
+## Phase 6: CROSS-REFERENCING AND STABLE TREE ANALYSIS
+
+**Step 6.1: Code in stable trees**
+- `drm_colorop` infrastructure: NOT in v6.18 or earlier; PRESENT in
+  v6.19.14 and v7.0.1 (verified by `git cat-file -e`)
+- `dm_crtc_get_cursor_mode()`: present in v6.18, v6.19.14, v7.0.1
+  (verified by direct inspection)
+- The bug only manifests in v6.19+ (where colorop is operational on AMD)
+- Record: Stable trees affected: v6.19.y and v7.0.y only. Older stables
+  (v6.18, v6.12, v6.6, v6.1, v5.15, v5.10) DO NOT have the buggy code
+  path because color pipeline didn't exist.
+
+**Step 6.2: Backport difficulty**
+- `dm_crtc_get_cursor_mode()` structure identical between mainline and
+  v6.19.14/v7.0.1
+- All required infrastructure (`for_each_oldnew_colorop_in_state`,
+  `drm_colorop_state.colorop`, `drm_colorop_state.bypass`,
+  `drm_colorop.plane`) is present in v6.19.14 - verified
+- Record: Expected clean apply to v6.19.y and v7.0.y stable trees.
+
+**Step 6.3: Related fixes already in stable**
+- `e180b2af2725c` (drm/amd/display: Fix gamma 2.2 colorop TFs)
+  backported to 6.19.y
+- `083f1f71a9291` (drm/amd/display: Enable DEGAMMA and reject
+  COLOR_PIPELINE+DEGAMMA_LUT) backported to 6.19.y
+- `0b26c7e819c40` (drm/atomic: convert drm_atomic_get_{old,
+  new}_colorop_state() into proper functions) backported to 6.19.y
+- Record: Strong precedent of color pipeline correctness fixes
+  backported to 6.19.y stable.
+
+## Phase 7: SUBSYSTEM AND MAINTAINER CONTEXT
+
+**Step 7.1: Subsystem**
+- DRM/AMD display - graphics driver
+- Criticality: PERIPHERAL/IMPORTANT - affects many AMD GPU users but
+  only those using new color pipeline feature
+- Record: AMD display driver - impacts user-visible rendering for users
+  who opt-in to color pipeline
+
+**Step 7.2: Activity**
+- Heavy activity on color pipeline area; multiple recent fixes
+- Record: Very active subsystem; AMD display team actively maintaining
+  color pipeline
+
+## Phase 8: IMPACT AND RISK ASSESSMENT
+
+**Step 8.1: Affected users**
+- AMD GPU users with DCN hardware (DCN1+, except DCN401/420 which are
+  exempt)
+- Who use compositors that opt-in to
+  `DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE`
+- Modern Wayland compositors increasingly use the new API
+- Record: Driver-specific (AMD) AND opt-in feature dependent
+
+**Step 8.2: Trigger conditions**
+- Userspace must enable `DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE`
+- A non-cursor plane must have an active (non-bypassed) colorop
+- Cursor must be enabled on the same CRTC
+- Triggerable by unprivileged users via DRM atomic commit
+- Record: Relatively narrow but reachable from userspace
+
+**Step 8.3: Failure mode severity**
+- Cursor undergoes incorrect color transformation -> cursor renders with
+  wrong colors/visual artifacts
+- No crash, no data corruption, no security implications, no system hang
+- Severity: MEDIUM (visual correctness only)
+- Record: Visual bug only - severity MEDIUM
+
+**Step 8.4: Risk-benefit**
+- BENEFIT: Correct cursor rendering for users of color pipeline; small
+  but real correctness improvement
+- RISK: Very low - single file, ~50 lines, well-contained, reviewed by
+  AMD maintainer, tested
+- Ratio: Low-risk, moderate-benefit fix
+- Record: Favorable risk/benefit for a correctness fix
+
+## Phase 9: FINAL SYNTHESIS
+
+**Step 9.1: Evidence compilation**
+
+Evidence FOR backporting:
+- Real bug fix (incorrect cursor color rendering when color pipeline
+  active)
+- Small (~49 lines), single file, surgical change
+- Reviewed-by AMD display maintainer (Leo Li)
+- Tested-by AMD QA (Dan Wheeler)
+- Clean apply to v6.19.y and v7.0.y stable (all dependencies verified
+  present)
+- Strong precedent: similar color pipeline correctness fixes already
+  backported to 6.19.y
+- Reachable from userspace via standard DRM atomic API
+- Implements functionality explicitly identified as missing during
+  original color pipeline review
+
+Evidence AGAINST backporting:
+- No Fixes: tag, no Cc: stable
+- No Reported-by from external users (only AMD internal Tested-by)
+- Color pipeline is documented under Documentation/gpu/rfc/ (RFC status)
+- Opt-in feature requiring `DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE`
+- Bug is visual-only (no crash, corruption, security)
+- Commit reads as feature enhancement rather than fix
+
+**Step 9.2: Stable rules checklist**
+1. Obviously correct and tested? YES (Reviewed/Tested by AMD)
+2. Fixes a real bug affecting users? YES (visual correctness)
+3. Important issue? BORDERLINE (visual only, but real)
+4. Small and contained? YES (single file, ~50 lines)
+5. No new features/APIs? YES (uses existing APIs)
+6. Can apply to stable trees? YES (verified for v6.19.y and v7.0.y)
+
+**Step 9.3: Exception categories - N/A**
+
+**Step 9.4: Decision**
+The patch represents a small, well-reviewed correctness fix for cursor
+rendering on AMD hardware when the color pipeline feature is in use.
+While the bug is visual-only (no crashes/corruption/security), the fix
+is exactly the type that has been backported to v6.19.y stable for the
+same color pipeline area (e180b2af2725c, 083f1f71a9291). The fix applies
+cleanly, has appropriate review/test signoffs, and implements a behavior
+that was explicitly identified as needed during the original color
+pipeline review. Affected stable trees are limited to v6.19.y and v7.0.y
+where the colorop infrastructure exists.
 
 ## Verification
 
-- [Phase 1] Parsed commit message tags and body: identified Reviewed-by
-  Philip Yang, Signed-off-by Alex Deucher; no syzbot, no Fixes
-  (expected)
-- [Phase 2] Read diff and surrounding code at `amdgpu_vm_pt.c:679-721`:
-  confirmed single hunk in `amdgpu_vm_pte_update_flags()`, change is
-  `flags |= AMDGPU_PTE_EXECUTABLE | adev->gmc.init_pte_flags`
-- [Phase 2] Read `amdgpu_vm_pt.c:361-418` to verify the sibling site
-  `amdgpu_vm_pt_clear()` already uses the same template at line 416
-  (`flags = AMDGPU_PTE_EXECUTABLE | adev->gmc.init_pte_flags`)
-- [Phase 3] `git log --oneline --grep="PTE init flag" master` → found
-  `db29ddf6505f3`
-- [Phase 3] `git show db29ddf6505f3` → confirmed it added
-  `init_pte_flags` field, set `init_pte_flags = AMDGPU_PTE_IS_PTE` for
-  GFX12.1, and updated only `amdgpu_vm_pt_clear()` (not
-  `amdgpu_vm_pte_update_flags()`)
-- [Phase 3] `git tag --contains db29ddf6505f3` → earliest tag `v7.0-rc1`
-  — confirms bug lives in v7.0+ only
-- [Phase 3] `git log --oneline --
-  drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c` → no other intermediate
-  fixes between `db29ddf6505f3` and HEAD
-- [Phase 4] `b4 dig -c 9d47b2c36b9a6c6b844c33cab407a5d7ad102234` → SHA
-  not in this repo (cherry-pick hash from elsewhere)
-- [Phase 4] `b4 dig -c db29ddf6505f3` → no lore match found
-- [Phase 4] WebFetch / curl to lore.kernel.org → blocked by Anubis bot
-  challenge / 403 — UNVERIFIED for original mailing list discussion
-  content
-- [Phase 5] `Grep AMDGPU_PTE_EXECUTABLE` and `Grep AMDGPU_PTE_IS_PTE`
-  and `Grep init_pte_flags` across `drivers/gpu/drm/amd` → confirmed
-  only two leaf-clear template sites; `init_pte_flags` is only set non-
-  zero for GFX12.1 (`gmc_v12_0.c:643`)
-- [Phase 5] Read `amdgpu_vm_pt.c:880-921` → verified caller chain:
-  `amdgpu_vm_update_ptes` → `amdgpu_vm_pte_update_flags`
-- [Phase 5] `Grep amdgpu_vm_clear_freed` and read
-  `amdgpu_vm.c:1548-1577` → confirmed `amdgpu_vm_clear_freed` calls
-  `amdgpu_vm_update_range` with flags=0, hitting the patched `else if`
-  branch
-- [Phase 6] `git tag --contains db29ddf6505f3` → confirms
-  `init_pte_flags` only in v7.0+; older stable trees lack the field, fix
-  is not applicable to them
-- [Phase 6] Read of HEAD source confirms `amdgpu_vm_pte_update_flags`
-  exists unchanged in v7.0.1 → diff applies cleanly
-- [Phase 8] Bug mechanism verified via commit body + code: leaf-clear
-  template inconsistency on GFX12 → no-retry faults bypass SVM/XNACK
-  handler on VA reuse
-- UNVERIFIED: original lore discussion (lore blocked by anti-bot)
-- UNVERIFIED: independent reproduction reports / bug-report links (none
-  in commit body)
+- [Phase 1] Parsed tags: Reviewed-by (AMD maintainer), Tested-by (AMD),
+  Signed-off-by chain through AMD maintainers; NO Fixes:, NO Cc: stable,
+  NO Reported-by, NO Link
+- [Phase 1] Commit body: describes "incorrect cursor transformation" -
+  confirms this is a fix despite enhancement-style subject
+- [Phase 2] Diff inventory verified: 1 file, ~49 insertions, ~4
+  deletions, adds `dm_plane_color_pipeline_active()` helper and modifies
+  `dm_crtc_get_cursor_mode()`
+- [Phase 2] Bug mechanism: native cursor subject to underlying plane's
+  color pipeline transformation -> wrong cursor colors; fix forces
+  overlay mode (separate DCN pipe)
+- [Phase 3] git log on file: confirmed `dm_crtc_get_cursor_mode()`
+  exists in v6.18 and forward
+- [Phase 3] git log search: identified colorop infra introduced by
+  `cfc27680ee208` (Nov 26, 2025), tagged v6.19+
+- [Phase 4] b4 dig -c d3a549f4df786: did not find lore submission
+  directly
+- [Phase 4] Web search: found prior discussion on dri-devel April 2025
+  confirming this functionality was deferred during original color
+  pipeline review
+- [Phase 5] Modified function `dm_crtc_get_cursor_mode()` callable via
+  amdgpu_dm_atomic_check from DRM atomic commit syscall
+- [Phase 6] git cat-file -e v6.19.14:include/drm/drm_colorop.h: EXISTS
+  (bug applicable)
+- [Phase 6] git cat-file -e v7.0.1:include/drm/drm_colorop.h: EXISTS
+  (bug applicable)
+- [Phase 6] git cat-file -e v6.18.24:include/drm/drm_colorop.h: NOT
+  EXISTS (bug N/A for older stables)
+- [Phase 6] Verified `for_each_oldnew_colorop_in_state` macro and
+  `drm_colorop_state.{colorop,bypass}`, `drm_colorop.plane` all present
+  in v6.19.14
+- [Phase 6] git log v6.19..v6.19.14: found e180b2af2725c, 083f1f71a9291,
+  0b26c7e819c40 already backported (precedent for color pipeline fixes)
+- [Phase 8] Failure mode: visual cursor color rendering incorrect; no
+  crash/corruption/security
+- UNVERIFIED: Could not find direct lore submission via b4 dig (commit
+  has not yet appeared in lore search index, possibly because it is a
+  recent merge)
 
-The fix is small, obviously correct, addresses a real hardware-
-correctness bug on current AMD GPUs, mirrors a sibling site already in
-v7.0, and is essentially a no-op on non-GFX12 ASICs. It is appropriate
-for the v7.0.y stable tree.
+The fix targets a real correctness issue limited to v6.19+ stable trees,
+applies cleanly, follows the same pattern as previously backported color
+pipeline fixes, and has appropriate review/test signoffs from AMD
+maintainers.
 
 **YES**
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 53 +++++++++++++++++--
+ 1 file changed, 49 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-index 31a437ce95704..a930f1522f962 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-@@ -693,8 +693,11 @@ static void amdgpu_vm_pte_update_flags(struct amdgpu_vm_update_params *params,
- 		   !(flags & AMDGPU_PTE_VALID) &&
- 		   !(flags & AMDGPU_PTE_PRT_FLAG(params->adev))) {
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 2328c1aa0ead1..853e62c67375e 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -94,6 +94,7 @@
+ #include <drm/drm_utils.h>
+ #include <drm/drm_vblank.h>
+ #include <drm/drm_audio_component.h>
++#include <drm/drm_colorop.h>
+ #include <drm/drm_gem_atomic_helper.h>
  
--		/* Workaround for fault priority problem on GMC9 */
--		flags |= AMDGPU_PTE_EXECUTABLE;
-+		/* Workaround for fault priority problem on GMC9 and GFX12,
-+		 * EXECUTABLE for GMC9 fault priority and init_pte_flags
-+		 * (e.g. AMDGPU_PTE_IS_PTE on GFX12)
-+		 */
-+		flags |= AMDGPU_PTE_EXECUTABLE | adev->gmc.init_pte_flags;
- 	}
+ #include <media/cec-notifier.h>
+@@ -12278,6 +12279,38 @@ static int add_affected_mst_dsc_crtcs(struct drm_atomic_state *state, struct drm
+  * available.
+  */
+ 
++/**
++ * dm_plane_color_pipeline_active() - Check if a plane's color pipeline active.
++ * @state: DRM atomic state
++ * @plane: DRM plane to check
++ * @use_old: if true, inspect the old colorop states; otherwise the new ones
++ *
++ * A color pipeline may be selected (color_pipeline != NULL) but still is
++ * inactive if every colorop in the chain is bypassed.  Only return
++ * true when at least one colorop has bypass == false, meaning the cursor
++ * would be subjected to the transformation in native mode.
++ *
++ * Return: true if the pipeline modifies pixels, false otherwise.
++ */
++static bool dm_plane_color_pipeline_active(struct drm_atomic_state *state,
++					   struct drm_plane *plane,
++					   bool use_old)
++{
++	struct drm_colorop *colorop;
++	struct drm_colorop_state *old_colorop_state, *new_colorop_state;
++	int i;
++
++	for_each_oldnew_colorop_in_state(state, colorop, old_colorop_state, new_colorop_state, i) {
++		struct drm_colorop_state *cstate = use_old ? old_colorop_state : new_colorop_state;
++
++		if (cstate->colorop->plane != plane)
++			continue;
++		if (!cstate->bypass)
++			return true;
++	}
++	return false;
++}
++
+ /**
+  * dm_crtc_get_cursor_mode() - Determine the required cursor mode on crtc
+  * @adev: amdgpu device
+@@ -12289,8 +12322,8 @@ static int add_affected_mst_dsc_crtcs(struct drm_atomic_state *state, struct drm
+  * the dm_crtc_state.
+  *
+  * The cursor should be enabled in overlay mode if there exists an underlying
+- * plane - on which the cursor may be blended - that is either YUV formatted, or
+- * scaled differently from the cursor.
++ * plane - on which the cursor may be blended - that is either YUV formatted,
++ * scaled differently from the cursor, or has a color pipeline active.
+  *
+  * Since zpos info is required, drm_atomic_normalize_zpos must be called before
+  * calling this function.
+@@ -12327,7 +12360,7 @@ static int dm_crtc_get_cursor_mode(struct amdgpu_device *adev,
  
  	/*
+ 	 * Cursor mode can change if a plane's format changes, scale changes, is
+-	 * enabled/disabled, or z-order changes.
++	 * enabled/disabled, z-order changes, or color management properties change.
+ 	 */
+ 	for_each_oldnew_plane_in_state(state, plane, old_plane_state, plane_state, i) {
+ 		int new_scale_w, new_scale_h, old_scale_w, old_scale_h;
+@@ -12352,6 +12385,12 @@ static int dm_crtc_get_cursor_mode(struct amdgpu_device *adev,
+ 			consider_mode_change = true;
+ 			break;
+ 		}
++
++		if (dm_plane_color_pipeline_active(state, plane, true) !=
++		    dm_plane_color_pipeline_active(state, plane, false)) {
++			consider_mode_change = true;
++			break;
++		}
+ 	}
+ 
+ 	if (!consider_mode_change && !crtc_state->zpos_changed)
+@@ -12392,6 +12431,12 @@ static int dm_crtc_get_cursor_mode(struct amdgpu_device *adev,
+ 			return 0;
+ 		}
+ 
++		/* Underlying plane has an active color pipeline - cursor would be transformed */
++		if (dm_plane_color_pipeline_active(state, plane, false)) {
++			*cursor_mode = DM_CURSOR_OVERLAY_MODE;
++			return 0;
++		}
++
+ 		dm_get_plane_scale(plane_state,
+ 				   &underlying_scale_w, &underlying_scale_h);
+ 		dm_get_plane_scale(cursor_state,
+@@ -12770,7 +12815,7 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 			goto fail;
+ 		} else if (required_cursor_mode == DM_CURSOR_OVERLAY_MODE) {
+ 			drm_dbg_driver(crtc->dev,
+-				       "[CRTC:%d:%s] Cannot enable native cursor due to scaling or YUV restrictions\n",
++				       "[CRTC:%d:%s] Cannot enable native cursor due to scaling, YUV, or color pipeline restrictions\n",
+ 				       crtc->base.id, crtc->name);
+ 			ret = -EINVAL;
+ 			goto fail;
 -- 
 2.53.0
 
