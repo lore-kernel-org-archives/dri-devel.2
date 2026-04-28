@@ -4,73 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09970FF886D
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 13:59:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C5A2FF886D
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 13:59:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E3EC10ECFA;
-	Tue, 28 Apr 2026 13:59:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B0FA10ED03;
+	Tue, 28 Apr 2026 13:59:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="VpN4TfL5";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="PawsPU7i";
 	dkim-atps=neutral
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7EF510ECFA
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 13:59:15 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-488b0e1b870so195893855e9.2
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 06:59:15 -0700 (PDT)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAF8810ED03
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 13:59:16 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-4891c00e7aeso87914035e9.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 06:59:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1777384754; x=1777989554; darn=lists.freedesktop.org;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=udhA8FYIygeULMf2spSguXELNb0LFsPfqpfV0jbfFB0=;
- b=VpN4TfL5bW6NuAF5RWUhJh+v+XHI0YUqSSka7nhjmx+KtbCEiM1sIajpjldL5eVdYW
- FTjs0b2im3YObR5YfOfY1cfTM6qIO9D/XXY/T0vLrb5lNV0FRM3B4eoOGwYgkz3Lbf9z
- g9g/rWxWs6UEXc/nYrkRJoZ8uvXuGIS0aMYnijnA3sG05w+6eH7KJccHsAwrdzh2a8Z7
- 2slqu2GU77fwlQtuHZQZoexVpfOXPOpbUKQEnAzWdy08w3dEHoRDvQCoGaJqNmCQ+aPt
- vopR3d62Lrp0XJWh3SNP5u9bxnXjYPeeGWDzHWRlnwke3kwbR24u9ouD2qANa36gUcfe
- rO9w==
+ d=linaro.org; s=google; t=1777384755; x=1777989555; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=3cNFpNsHWTlH2CArmHKw2g8Cqw++ZFKef2xJKHsmC7s=;
+ b=PawsPU7iCPaDEWEZVvqnyHjkI0Qu/EWIHPfSQghYyWmQjzEEfHCERqPPFRJ6OFUYPC
+ TpDWBNPNZ7Q0N3uqppZjUWczmxscrnkid9t3pWA5Ow0xKyftxVooE1PMlLo7zvq3ZVO6
+ cNmBFxuO9cUMYDjW1LWryleFPVdYg2NPxg6pN+/Mdrtpsb4nAGPM25hdO9awBunBie1e
+ BegTVzYXJFddG8swIy+/1L9Kfem9kg3p9Yad0QRrvSR0272T4HB6eQ6eoU9wjPg6Btox
+ YHSaOLCN4F4Dt1WNoEyWaSyxH9YRF8FjnsQPAJQHk/OxYeBXJze3F/S5JGB9hdbBYcUZ
+ XXUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777384754; x=1777989554;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=udhA8FYIygeULMf2spSguXELNb0LFsPfqpfV0jbfFB0=;
- b=NURkkCB4x2I5ubnqN2AGScA3XKcnO0zawdJ5D9BMJXqD/JYcrjE9OU53f1BXdeAtwG
- BZQpIbYSthK6ubIm50oEHoqbT4pORofFZibxT6dIer/NCLeEyCoPPGX4D3ODIoR5fY+M
- ebMCH1Gw+J4qkt1SdTj3xnPkzjkwzamtophIdkghgEIkhrH76UbXmRZKEQ51kDJ9xeF5
- 7clP3e8xmYI1+tqZ+TbbO/AMaShzYq0/BPmMP9AZNzdlZYS8hfT/dgowdzDghvdeubH9
- 9ja1lC50C54tksPMfj0KEZTs9OSnE5/nnnEVHgWCMXJtvAXnTCLZcoqVGpLgZO9YgTJ4
- ocPQ==
-X-Gm-Message-State: AOJu0Yy4Qf0dev8GPp38SNXBC/V0Z12b/8naWgyYz/nngOe8G8yY5YW1
- 97yNUUkiIrWm5/JqkqtHr3DeI/7OirlcmBuhOsVn5yrsUp4S5rg9f4A9/SF+DCgfU1k=
-X-Gm-Gg: AeBDiet1qyGJ0B3LDNDYcvDAzG5r2u22d4RO0wFac/3jC3aN72XJTk2Ios46HXneOwZ
- ThL8KrJVBy2octUjwoWOrP7rDtFz5eGp8ng5E4Vca8Lq3ZquHlXbAuqr+2CRQUMrspMHiVOrOOb
- hbw5iVjdSBfHsxqeWqyAQjBXFQBbUSkl9AelQCtDDmO8TMLYp3LLGtEjPvMWvxI/c/PTqGJaLLa
- //SkYYSt+Kv9R8eOtmRrLB22rkBOwckNCg18rW0ENcxSbn67BipXc0yC32EAdzXXgVK7BUF26rM
- F1SLI0x/077IQ2KstLHYw+oSHCKSHtBUvjU64qdNImOsSM9ECrVn7m26pZJvT2mEs5G/5e+gKi9
- IaDYwwFiAYwlMqSqkPKPXhYv43dksi55SfUauj5/RfH4NtVG9iCDoFWzys6h24mk1N6dUfYkSdS
- YWt8gH4/49ScUxn4oTLtp+hMXEcB0AK63VWePIPOQmAt0NE1x8vDzqSz9JXXylJZS21Q==
-X-Received: by 2002:a05:600c:8b2f:b0:485:3b9e:caa7 with SMTP id
- 5b1f17b1804b1-48a77b19d6fmr55500725e9.23.1777384754118; 
- Tue, 28 Apr 2026 06:59:14 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1777384755; x=1777989555;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=3cNFpNsHWTlH2CArmHKw2g8Cqw++ZFKef2xJKHsmC7s=;
+ b=cbzVchZ2KBNBWMP+rn6G28pTaRPDbqlfYpEimBGYFRUzuzHqMPkRZEgP/mINSi4MBf
+ 7Lno6s4+hW0xL/Rza3rM7rqMswdjAgvqRtUzgHg0BooCCK4Aj+c7H+Gs1q+gsmEQ/imF
+ 1yAM6jhgbUn47In/QSmANuyN+r7TN+o58MbycZkypaJ1pfDs86+Qw+DxY8ItyaifTve5
+ /xaCGNIJ1ykuC2DRmhtb1l17hMBCSefDYa/XTRw56LTVTjQNbbkQJ5ZrGHo5/BA+/f54
+ VkK2oxWzYkFZd1ZACRgR6I7I0uyaXVpEiQY+6iirc5XHiXqNnkEQcaitfNC9cYyoM6PO
+ 84ZA==
+X-Gm-Message-State: AOJu0YyNZhywYW7q/eYQf6xF+jodgr2kTk2xl24k0oAGm8Ce5CUtgpxx
+ mshPqwOKjrCZD2s8FF4GCIS63bbIOX2m9SCuwVRvy6otktCPKz8HmYetqgUhhqbRUK4=
+X-Gm-Gg: AeBDies43/yvwxncX9nqhIlGgwURj212xrywN9R1YE6I9NYBBOSlcqJuS3vKTLF1D1D
+ DpK+CkmqlXmos970ihSZMxnAUcKO5cLi/K5wxvEz5ozNpHZyPoyPYWZjzFfMbCJ3IWiStB7bFeY
+ Ue+YWirUFK3C4TM6T4nU/ulDk2qif9OXgxGnntUar7c597P4pLDQODVns7WZFqQOQyRzxQVemN/
+ KQ5EK0mBDBd0ER6GmGCvHv3OX6ILNFt5uOfsroEBRPYgdCClq+dG1ZL5yYksh/in+5XB7reB0DS
+ C425oPDQ/9Db9bnYbL2f2WmybvCIGaUjY6J8WE7I2koYiFzQNUgZyy/1+oDrvg4Q5hu5mk+pt+m
+ COiWCmLmDQlD2AT0hqC9/Hbp2yLjhWDwGpmuzsTr0V6Lv1iBT02/qt/E/zOQbuIFtp0LKk7ISi/
+ 1arYvM3nqWbw4KF4XgUMRrt4cmdWsNv2NFZbOixvH0eoB/fTL+x4n7hxQ=
+X-Received: by 2002:a05:600c:3507:b0:488:af7f:7707 with SMTP id
+ 5b1f17b1804b1-48a77b1db5emr53077915e9.18.1777384755114; 
+ Tue, 28 Apr 2026 06:59:15 -0700 (PDT)
 Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48a773efe04sm60811155e9.12.2026.04.28.06.59.13
+ 5b1f17b1804b1-48a773efe04sm60811155e9.12.2026.04.28.06.59.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Apr 2026 06:59:13 -0700 (PDT)
+ Tue, 28 Apr 2026 06:59:14 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: [PATCH 0/2] backlight: Add SY7758 6-channel High Efficiency LED
- Driver support
-Date: Tue, 28 Apr 2026 15:59:10 +0200
-Message-Id: <20260428-topic-sm8650-ayaneo-pocket-s2-sy7758-v1-0-0caade5fdb32@linaro.org>
+Date: Tue, 28 Apr 2026 15:59:11 +0200
+Subject: [PATCH 1/2] dt-bindings: regulator: document the SY7758 6-channel
+ High Efficiency LED Driver
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAC698GkC/yXNQQ7CIBBA0as0s3YSQCnEqxgXiFMdjUAYNDZN7
- y7q8m3+X0CoMgnshwUqvVg4pw69GSBeQ7oQ8rkbjDKj2hmPLReOKA8/WoVhDokylhzv1FAMyuy
- c9bhVXhO5SZOx0FOl0sTv3+Zw/FuepxvF9m3Dun4AbzFq8IgAAAA=
-X-Change-ID: 20260428-topic-sm8650-ayaneo-pocket-s2-sy7758-3081ee7f1e25
+Message-Id: <20260428-topic-sm8650-ayaneo-pocket-s2-sy7758-v1-1-0caade5fdb32@linaro.org>
+References: <20260428-topic-sm8650-ayaneo-pocket-s2-sy7758-v1-0-0caade5fdb32@linaro.org>
+In-Reply-To: <20260428-topic-sm8650-ayaneo-pocket-s2-sy7758-v1-0-0caade5fdb32@linaro.org>
 To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
  Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -80,20 +78,20 @@ Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
  linux-fbdev@vger.kernel.org, KancyJoe <kancy2333@outlook.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=928;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1753;
  i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=fStomxOM1crQBf2dh5jW011uYO0a7/MEjHDN74nHXvk=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBp8L0vzGcnPNa1ZX01cDX2xFb+HU61fFeMMwl6DH2F
- niCN/+KJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCafC9LwAKCRB33NvayMhJ0S/1D/
- 9IGhCG7NAXzhBOSkBWur+HPJ04e478uoCh3E5AtZa7bb7QZDxv2o5d6Ior4uxN4kmXwBkRB2xvOB9e
- ty9eMPNe2OUD5P8ldWalWQxt0ez1fe2MF5woGGODSG+CVmnx8TIjsU0QZHrIqZPyECCoeLgCewIZ1f
- ASbx1dFC6OBW3GD5O+Pt84j+a7NzC35fJX4AFr0LQPS1PBez1rnOtsiXbhuKQw5f7TvBf5ANjTSTuH
- R0h6a/Ob7RAAcnzg+BXizPUmGTSyFaSgyhGIl3kznUYZae5HwmxLRao4J8z+RoYUhIQOqB+GEvMWkK
- n/O5r5zqzfQkMqU2X9iHzADB1XGGAQon4RSO/znZjDtvMlNVN46/dJPnFSnKMlCL1jjPgnSkfsg1CJ
- SvxfH4G9LjLAu5myBS1wh9JNvzoYzveq4CReN9UqJLYLYEE507y/UCbhMD/8RmzqazWyvp8nm+3ahs
- gYhiO9UuVSMMJCXdhjIpS1NuLPUPDNdddaZOhOAXtXcBQD3kHDOSogHFBI15hLemEGX/GxOy/J2QvP
- CQIO2cC53n/Uf48FWz4leqpsmQE4z/0NuHyTXfV/SgAVyfOhKvn9TyB6oKAmSDajmDBprAwUye4Tbk
- 9rvsoSN7ThYC75Xt2qIu2z5c5UmLJrkwqmRxH+fOVC0w/6fgmWKGP3qH/GWg==
+ bh=333uUG2C6Ne2A4QjGhhNw1YJTlVuEP5rcGs1oRWNx80=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBp8L0wK6EZCu2c15EL7r3pT23eeIFET1SCFmxKUwzL
+ E4ZkWL2JAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCafC9MAAKCRB33NvayMhJ0X21D/
+ 9uPq2s4LaBUNeHgTZA6TA2qn8iA2HAkkGx+vn4HSGvvBXuk7CMpE6eC7Ib+dhvcNT6oN20/7nMCjiA
+ l0iU6+x7sItuA8TueTBzkmSb6typOWrxFSMeEDPj7PPhnJNJOQXrEzVR5So4jaiUz19D9NEq+m2+Er
+ ztoTSZNaNxbMAilz6bJXtRkhFTgrM7qsic1ZTLJho3d3LH7P0xWMBP2mY3bgw/7lF+pzhtIhYsEBD3
+ 9lgMXa9sbqm7UHbXePZ7uBDoYwMGeGK83+VC2SOxcTSgMdP4/1ox2BDC5niOpqayIKnfvB16zN873P
+ rRKrjQg3aTnTWnoXG2n6eV0wDc/zowYZJg4BjEt/7scw3FqbDhniHS8QaYenAPcEt6VTwZIH6O7DDl
+ zPkaa5NVUncIBKso8yhCRzxagqJ1bK9ju1hexM7qw5e4suNM7WBn5N0qKI3ym7Dgh6RbLU7iiVzhbI
+ joVAwGp2Z7vBBMVvjV8FElPbXEuigqAp3e+daggvy6fgj6kc4/dYjatMY/EQaCJ7zlEFFZ7iDBiDU8
+ 9dI2lLspdfVJDk3XFkvsvI7ed1v7xvFc9Yunj4Lw0YGkBk289oBQO8AHgpV66DBkM1iTTs3S9uo5R6
+ mJKYMYxqAgXmRILL0dPfslptoi1Iu6xMlinE9V/wBsEYNn1kbD0i5eT57gmQ==
 X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
  fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -111,27 +109,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Implement support for the Silergy SY7758 6-channel High Efficiency LED Driver
-used for backlight brightness control in the Ayaneo Pocket S2 dual-DSI panel.
+Document the Silergy SY7758 6-channel High Efficiency LED Driver
+used for backlight brightness control.
 
 Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
-KancyJoe (1):
-      backlight: Add SY7758 6-channel High Efficiency LED Driver support
+ .../bindings/leds/backlight/silergy,sy7758.yaml    | 53 ++++++++++++++++++++++
+ 1 file changed, 53 insertions(+)
 
-Neil Armstrong (1):
-      dt-bindings: regulator: document the SY7758 6-channel High Efficiency LED Driver
+diff --git a/Documentation/devicetree/bindings/leds/backlight/silergy,sy7758.yaml b/Documentation/devicetree/bindings/leds/backlight/silergy,sy7758.yaml
+new file mode 100644
+index 000000000000..dc44b3b502e2
+--- /dev/null
++++ b/Documentation/devicetree/bindings/leds/backlight/silergy,sy7758.yaml
+@@ -0,0 +1,53 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/leds/backlight/silergy,sy7758.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Silergy SY7758 6-channel High Efficiency LED Driver
++
++maintainers:
++  - Neil Armstrong <neil.armstrong@linaro.org>
++
++description: |
++  Silergy SY7758 is a high efficiency 6-channels LED backlight
++  driver with I2C brightness control.
++
++allOf:
++  - $ref: common.yaml#
++
++properties:
++  compatible:
++    const: silergy,sy7758
++
++  reg:
++    maxItems: 1
++
++  vddio-supply: true
++
++  enable-gpios:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - vddio-supply
++  - enable-gpios
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        backlight@11 {
++            compatible = "silergy,sy7758";
++            reg = <0x11>;
++            vddio-supply = <&bl_vddio>;
++            enable-gpios = <&gpio 16 GPIO_ACTIVE_HIGH>;
++        };
++    };
 
- .../bindings/leds/backlight/silergy,sy7758.yaml    |  53 ++++
- drivers/video/backlight/Kconfig                    |   8 +
- drivers/video/backlight/Makefile                   |   1 +
- drivers/video/backlight/sy7758.c                   | 311 +++++++++++++++++++++
- 4 files changed, 373 insertions(+)
----
-base-commit: 39704f00f747aba3144289870b5fd8ac230a9aaf
-change-id: 20260428-topic-sm8650-ayaneo-pocket-s2-sy7758-3081ee7f1e25
-
-Best regards,
---  
-Neil Armstrong <neil.armstrong@linaro.org>
+-- 
+2.34.1
 
