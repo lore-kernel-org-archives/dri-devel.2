@@ -4,86 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76D7DFF8868
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 13:32:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DA87FF885D
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 13:36:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBABD10E2C1;
-	Tue, 28 Apr 2026 13:32:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3B4210E332;
+	Tue, 28 Apr 2026 13:36:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="aHGBJAy4";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="MyCUtIiO";
 	dkim-atps=neutral
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC53310E332
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 13:32:15 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-4891c00e7aeso87577395e9.2
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 06:32:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1777383134; x=1777987934;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=l7QR1wYD5I11EeP6iTvNmbLy1lgTXchC2dI25BuZcVk=;
- b=aHGBJAy4A1EscMrXjNM1WeoNmrkoO5HsuLZcbSsX594mJq9R+sBu8/uEdnMOefJJF0
- SZ17+Qh1vEuqpSsoh/hUGBibCs1w7vh87hOmqwsiFHqUwFiJlyIM9ea9v0IzjmVdhcuh
- Ugb0r0fkydheK5ALdF2ymFH+uAFZE2N2lHujJvSoHldVDKM/DC4twc9Ar47Mwmi4c3Sk
- 3tQpCnDcPimuyM2cJ4Iszk9EtDgNz5lHBCFepbdTuGAoLYKKjxQqf69LNgZ3d+6Db4XZ
- e1k48lWkuK+p1aYbCiPq/FmNlI05n9qVMYyiBBQF8+yi6zaA7+IAuR5uP+ggIheFtjbB
- R23w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777383134; x=1777987934;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=l7QR1wYD5I11EeP6iTvNmbLy1lgTXchC2dI25BuZcVk=;
- b=OdhVURJHxsc/egH/g2GHDPiQhPCPN6nPPMTE7PGoI+bpJF9yOYsgwvsdtbQa9ULLdS
- SXHGCSoMBAbm7GL1yEhI1+xFSpCuIQB5Shqhwsr0uvyL7OUMLUrKLYm0TtJaCTMyZg64
- RByATdzghSe62IAa72uectav+sEc7ILJvDbKFFgTNJcOY893y57XP0smX/YICYMuaE8v
- KaEQeTFA1ksYMYIOwJ4cIkQrnQBexQ6YT6/a0XPqo6yPDFGPejfwPgAu6OfsaeYrOAT6
- Z8Z3jshC3BvGr1rJAikXarG5yoTjVsUstzdotyrkE/0E71IYYLyNh4lf65FjyZR3lC6p
- wVKQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/bldlLkJkjbmgNEymt0YAePKd0T7hKp2z1USYkT6oSLQ54wRDw8iwacKFbqPmAbf0WT+tSqL/bIt8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwyIS3AUB3t6GdP3PLLLLUAc2a8O24Q4nD4IPU/A3z5qaj5BdBB
- O+G6KQBTn6v9T4rea97NU1KntQw9ioZopfrWN2AY9rbuclJfvIYzQsSGWATwGi83iHw=
-X-Gm-Gg: AeBDietw3+8NvfkPLnLwQzD2UqLjuY6US2HldMjIpJ7wqPxoGvOVKwt4b6h6CPxoReR
- puCMBrjO0bE+gslJ+TemSC//cdfZso5ju8WBcHLOMGaQMp6QKj8SiWsMPauFqAzOMUcU+4aWoKm
- tflKOP7L9J50dD+tfjMyvmVes8zluunflc05Tfi8H1qDtFnRvIJAwiRFyuteU4+WFMpMSJBI4CW
- ykwgwFjFKTUEgY530P9AtEqM4S8SAVPiVFdeRglwo6pwE6I8z2zgQ4CJKZM1dFSb8OCUTLR6Tv8
- uy3LqzbgmzHARhpnLdwz9QLun9prNjs7MVT+70myKKvTC891fYbQ6MvykzoHYs3wVUEOz9cpxOb
- YbcjmUV9oNIsHp2hoRs3F/Clk4wFOcANRhMh2U07LveXmQW7izY/OKAEcS4yVv7WqtK5KhABWw+
- 4Ucwl6ejHCVyHUKBoPdH6MChF+fSNf7aHWRkUPr5gy+7iYCjZ5+OQouC/dwYoPOhmy8HYpL0lHD
- hLP0gxfZ5UZOn5r6/KR+iuHTQ==
-X-Received: by 2002:a05:600c:6814:b0:488:a977:8d6 with SMTP id
- 5b1f17b1804b1-48a77b1dac1mr52885775e9.19.1777383134040; 
- Tue, 28 Apr 2026 06:32:14 -0700 (PDT)
-Received: from localhost
- (p200300f65f114e083adbfb3674088b9a.dip0.t-ipconnect.de.
- [2003:f6:5f11:4e08:3adb:fb36:7408:8b9a])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-48a775eb93esm18306035e9.22.2026.04.28.06.32.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Apr 2026 06:32:13 -0700 (PDT)
-Date: Tue, 28 Apr 2026 15:32:12 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
- <u.kleine-koenig@baylibre.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Matthew Brost <matthew.brost@intel.com>, 
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- intel-xe@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] drm/xe: Don't use UTS_RELEASE directly
-Message-ID: <afC2Y8ZMEc2T-tVp@monoceros>
-References: <20260428102527.189593-2-u.kleine-koenig@baylibre.com>
- <be82fd356047513f23a3193d8007a2e5e8d97e35@intel.com>
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010025.outbound.protection.outlook.com
+ [40.93.198.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8FBE710E332
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 13:36:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vfBWT2YBFve7CyX0S2hZCaYa7aHYMHsNr3vdPDgHnfnBtSMYMNKU+H3BdcZvrW+Z5RaPo4zYh8LKJ0lzyHkphj70Fn/LcUDCXvsAReG39x9mj9OzXBL4YBGKzsg8xXcnJln02BQen8aC7OWrz56KCvQ81RZGFAxDc0G127tcy6DOnMwZGF21aPUM2GD4d1vAuqGw0oClpdCa7irjivDsIGvIA8FASA8sRYpiSwmu2ccdZrhcJtbPUVEKvf3qJPMN1nbqxtruLhc88P5XM1UHzAIRclNT/GDUwD9FK2oGwe0nkITIsdpPFWIlwfq+0iiJT3D5oiOvtW1T2fnWdWuS6w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rANpO7KDVPM/BQncdoa1s801SKltJAphrCAlFdTfkOg=;
+ b=sgy/mY9nX/XQrpvngMKVbs8NWz2fkGrg2bPXVhSFzd582pT08aGgHiSdoE0ZAxsdtL9pYE2P9dLi12UxBSVTAoL+dck6TDRr46FydAuVbDCGyTtARmmwElOyjtJeyrdEPvaM1SbaiWYhLgspOmg/52bqzwRabO7YOkZHc4gH2p7cOk2vu2ob8z2vPdV1f63yTgG1J1LRJsJXLWwtUuBQqZytcX5EDbJz0EVKBjvCajGmduy0u3m95GdiUejU46GJlz4u5ZzcCvCRXOc8dCWcf8/J3ccrAtanwAWIIct3JUnz1ag1fLzMqmKkeWpPUvwazSYBvYrtfVJ0XkNjIC3Piw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rANpO7KDVPM/BQncdoa1s801SKltJAphrCAlFdTfkOg=;
+ b=MyCUtIiOmkHR8N/atriUxOnym8JGgSQ9A5pUXtJukM5wMEy412fb85sM4RQcWcgNuxn8psT6ZRbSy+D8XniKoIshhT7rsm29A0fioXETN1X5LWKefLLfhfBtbwr4FkYZR+aRVQ28coQ4ynQ6d0xj+kEYRebcp/yigGJi4XX3ek2fWKU6or1sX2eaQ+cUp0sh8K0nmtIyAyzALqayIHyy6VP04OCINcYHXW2EOAfazwTtnuEpjD414yLPYpoYd8msnyI17czxj69CZYXvkv5C5QrWfNLWVUm1OStxdE89vOSKJdViaOdI/Dh6XIJJSTuKnxDZNmlvQErInv5p7IqlXA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by IA1PR12MB8079.namprd12.prod.outlook.com (2603:10b6:208:3fb::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.17; Tue, 28 Apr
+ 2026 13:36:28 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.20.9870.013; Tue, 28 Apr 2026
+ 13:36:28 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 28 Apr 2026 22:36:24 +0900
+Message-Id: <DI4TTQIJT6KR.25V8A71BT173G@nvidia.com>
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Dave Airlie" <airlied@gmail.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Joel
+ Fernandes" <joelagnelf@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Eliot
+ Courtney" <ecourtney@nvidia.com>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH v4 6/8] gpu: nova-core: gsp: shuffle boot code a bit to
+ keep chipset-specific parts close
+References: <20260427-nova-unload-v4-0-e145ccddae66@nvidia.com>
+ <20260427-nova-unload-v4-6-e145ccddae66@nvidia.com>
+ <CAPM=9tx_QJf1VNh7TDMFuaWoaZqAhte5ybADef7vfroeB5HSew@mail.gmail.com>
+In-Reply-To: <CAPM=9tx_QJf1VNh7TDMFuaWoaZqAhte5ybADef7vfroeB5HSew@mail.gmail.com>
+X-ClientProxiedBy: OSTPR01CA0063.jpnprd01.prod.outlook.com
+ (2603:1096:604:21a::6) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="kfwcih2ewprx56b2"
-Content-Disposition: inline
-In-Reply-To: <be82fd356047513f23a3193d8007a2e5e8d97e35@intel.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|IA1PR12MB8079:EE_
+X-MS-Office365-Filtering-Correlation-Id: bbce19df-1207-4348-c200-08dea52b2630
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|10070799003|366016|1800799024|376014|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: zOYXHUOBg1CsPpyi1Z5PYeW2j6qERIp3h++NEuI4tqlxf3OVG+CScMvKLeqevQ3/wEgwxg3KeHrR8gi2iD6JlmrNo+DwC0Sahe8z5IPA4uO958Ae8f6/XnlUi2Lgpcy9uPLf8XQwkI/qkQ63pe3rLqO7fcEKxSrSD3UdR155iIaWYnNzl9gITfYNWBU3k5FhPbODUzXOLkUcD5C4mNpPFafTc5OtGSaqb5J2MGCAU3t4Ig8XtxKqtnjv0WZEk+sG8EAYqoKrMjpvKMZZhC3AtNwMH0zoeMT2fai1a1LMQ7q1Nes+s+1kbauXsKYRIyHSHlA15ZkMKaHVqmDYazLIiwTkJEtwQV9BaUcn2dmeAcXaG0d5eaK7Tw4f/ciFA9PYICItfWkLHZQGG9Yfe6AWkAxBuIK86wg5Bi3W2SUPXKCg0VZeqnFTUN7cDUiSQbzrBSge8jqc7Vm39xeZvKiQALM+7+HEr1yuH5ZG8YBJGrWzpmzYJ6bL+SJVAeqWtfcY5kZbsSPIL39PMsRjbNRyczcugr1/6VSJHy9eaJ0YcFBFqhyld+EruTuwesepAmLAr3uneDj336oux1iZCIOeJ8lEFTXxR09JEqNA6U/zJxsjDo4CiofZvipA70Qu0BU1omEpBytWZuSunQARQLr7Q8ttH2Dq9qeru4Q+bjAa4LhEiqezgMeudPq6LteW+cj6PKr8onpZqz1fZMEDkfA7lDwZk8AjcBBlq055Z1BQkiQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(10070799003)(366016)(1800799024)(376014)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dXVHd1dsajY3UnFCb0ZveHkvbmJtQ1ZENnhva0NLTlFFK01qaUwvZWY4bEVG?=
+ =?utf-8?B?QkYzTmdLKytvWWxqUjJJUWJZS3dmbU5FMk9BUUlja2c2a1dLQ2I5OWtEaEtY?=
+ =?utf-8?B?QVNTVWkzWWVQdXN4Y1BoNVJGRmhpV3lReVQzVWVrSUpjUU9NbnV5cVJiaG9G?=
+ =?utf-8?B?YkZvNmduYnRSb2MrOHBpdkd3c3RPaUpoYTdwRVplcXFZK1dpcXFMTGxPL3ZJ?=
+ =?utf-8?B?Qk54c3hZclRxdlFhcEd6QUxsMHZpNTc0RVlCSFN0KzVhTWdLWjNibWxEamZo?=
+ =?utf-8?B?eWx2MXBCMDF1KzAwL0VabFF3VmhWcytoN1A4Mmprc3l4TDVsMmtBL0lRZUZR?=
+ =?utf-8?B?RjV3ajR4VURQYWdxaWplMjhZNHF5MGw2czBLRzk5cFVBeFZVTEtUOEU1bW44?=
+ =?utf-8?B?dk0xS0hCTzBYU0diUFNCMVk0Y1RqbFQ2TmVJeWxGQWc0SXd1VGRwQ0JoY1N2?=
+ =?utf-8?B?bkxNM2lUdGVXM0xCRmVxUUpIbVJsSFhpSmxiUUFtV1BkN1Q0NVJHMm1vUGxG?=
+ =?utf-8?B?VTlmRm9JQ3o2cEd6YmxtMnh2WVZmVHdrOHpiZHFtVHNweElRVDdmWmtSS3k5?=
+ =?utf-8?B?T2JTaUt1ZTZuem9JMU1lN1I4TXR2Znh2L0krSm9STjBxSG5GU1pIQzhNNU1a?=
+ =?utf-8?B?QnZwWk1HclV2ZENBUDFoNzdndHpXTHY5T1VEbjFlcFZPWXBUTkE0aVdyWCt5?=
+ =?utf-8?B?WjBIMWNVTGMvZDdibjk2eUI2MWRMa29wbG1nNkhFd2VQUzQ1UE5mV3dZVjNw?=
+ =?utf-8?B?WjV6VCtncUdKdGhzU0huMUNUb210VWt4WUxOaE5HbjBUeUVmaHJJQVRJbzBt?=
+ =?utf-8?B?eTFmY1FYTEFEMlpvdDRoVXdYOUdhRXQzWkU3SWtSSWUzeXcybU5TcXcwZFpz?=
+ =?utf-8?B?TWoxd0FGcjM4Q2lka0sxczVjV3lXK0lsNlIveXFwZWFmb1NhWUZkdTFFZU1P?=
+ =?utf-8?B?cTVKS2ErQllVTm1BcVJIOW1ZK2pvVXN5c1RKbHk3dTc1TjNEMHJwNGxJRk9W?=
+ =?utf-8?B?TDRvVWx6Mm05QUxSb3JiN0c3cDlwTzFoakFjaXlsSzVYclpUQklUSzg0Tnhs?=
+ =?utf-8?B?RndQN0V6cFpjQVRTUzIyZUpOOGFaTTg0MFYvOHMzZTRJdU5vdXFFcGMrNWVQ?=
+ =?utf-8?B?WkZDRHpjOW13ZDNYYkxBK3BWMW5nRkdzb085aGVSQWNjeERxQmt5a1RRUkc1?=
+ =?utf-8?B?aXRzSUpnK1pjNkRRMFk3aG1mdTlwUUlRZ2l0NEpxeWw5a0dMbnB4OHpFWUdJ?=
+ =?utf-8?B?Yk5mbGw3Q2U0R29ObGU0RVpOamRNNGhRZkMwaEVpWTFNeFEybnZIcmNFTVZI?=
+ =?utf-8?B?OFBwazl3SWIvTTQyRHd0Y2kxUm9CbkNTekVyVjZQQjlxaS8rY2h4bjY5Wndm?=
+ =?utf-8?B?TXFpZ2trRFZhUEpGMWtjZFBSNXQydmY2ZUdHWGhPVTdRenpyWXdSazNKai9H?=
+ =?utf-8?B?RFMzSXhpQTBURmNIb29XUElzOUVhK3ZwOFVKdmpBeFZ0cGM5aWJIRGhRMktp?=
+ =?utf-8?B?TUwzRHZic2pDa3B6Tm43RDdjMHY0cU9jc0JQNGMzQk4rVUt5TVp1OE9oSDZR?=
+ =?utf-8?B?VG91TUJ5ODVDTnhsMDMwQnUvS3ppdkFza3E4ZVFaTFp4cHR0ejlBZTNLK0VV?=
+ =?utf-8?B?dndlUnhya0VGMXc5Si84blR6dzdTOG5YeWRmMXg3MTBhN2dlem5Cdkd6VVhK?=
+ =?utf-8?B?M2xyZzVVYzAxVjVWUXhMZHJQTHlQckdiNXU0WTB6T0JPMnVSWlFoV2tCR1Vj?=
+ =?utf-8?B?aVZNdmx4SXBaVlE3eVNkTlRFejdYZnNBd0kxMXJCMnB5RFBDTnpDUCtscHhh?=
+ =?utf-8?B?R0RLU0NXR2o1WEI5Nm1tNWhDaUtvdzhsWkQrYUR6Q1htTXhFeXJtYmFhQnRo?=
+ =?utf-8?B?UW9jazQyQmh1VmZQcXhNNGk0aVRwVUVJR29WWEMrZ012TVUxdmZZSmZGbWc4?=
+ =?utf-8?B?MXdEeWFKVzdHWUpGVllaVHZzaWwvVkdFV2tQZDl0Y1diaVVQNnFaa1hHQlRa?=
+ =?utf-8?B?MHQwSWtzMkVkMkticG5OdUl6dFovUTFaeUh0R3Brd3IrWEVYNjg2WkJIeVNF?=
+ =?utf-8?B?V1hSUXJiOENRaVREWnIwMWhxdHpXMEZjRXd1OFg0QlNMM0V4K2RSbU5GdHFF?=
+ =?utf-8?B?QU9BZG8zQ0hQcitzMUxveDFuZ0FpTjFPUFROa01weHUvR3VObnlLNGU1VjJv?=
+ =?utf-8?B?YzZtZ0IwdmVlbWtqMGxrRUM4Q2xhQ3NKdTFUWEl5d053WHlKSUpndnQ0U2R3?=
+ =?utf-8?B?NS9XN2xDUDZUTExnVTdyNUk2WitmcG5WaFJvdGJqb2hhZktFTnVHSnB1QlF5?=
+ =?utf-8?B?WktDbWRraTJkaUE4eko3enNiM0pjbk9TVHhmS0VXTHM0UXQ1SnRiME9jYnlW?=
+ =?utf-8?Q?K9jrJUkc7XqWs160sIxSWSGclOysaE4EwrZugQvGqKSO0?=
+X-MS-Exchange-AntiSpam-MessageData-1: Py2SOEY1Tnm7EQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bbce19df-1207-4348-c200-08dea52b2630
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2026 13:36:27.9760 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HYp81Gvj9yUlq9Hsuz5jb6+bUsBy71Hcj7zqZ+AqnU8QlkE1WD8NgYrbb9x/Wx8whLqULIezVzS5Dvd5lMpCRA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8079
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,64 +145,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Tue Apr 28, 2026 at 4:13 PM JST, Dave Airlie wrote:
+> On Mon, 27 Apr 2026 at 16:57, Alexandre Courbot <acourbot@nvidia.com> wro=
+te:
+>>
+>> Some parts of the GSP boot process are chip-specific actions, whereas
+>> others (like sending the initial post-boot messages) deal directly with
+>> the working GSP.
+>>
+>> Reorganize the boot code a bit so the chipset-specific parts are clumped
+>> together, which will make their extraction into a HAL easier.
+>>
+>> This has no effect on the GSP boot process.
+>
+> So this is something that has changed in open-gpu over firmwares.
+>
+> Older firmwares pre-595 always queued up the async messages before
+> hitting the boot sequence,
+>
+> on 595 and later you send the async message later in the boot process
+> once GSP is booted.
+>
+> I can't read enough context in this patch to know if that matters, but
+> I just thought I'd point it out.
 
---kfwcih2ewprx56b2
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2] drm/xe: Don't use UTS_RELEASE directly
-MIME-Version: 1.0
+Indeed. I started this after being a bit confused that the code for the
+Blackwell series had a conditional to queue the messages *after* the GSP
+was booted on chips using the FSP path, but *before* for chips using
+SEC2. Looking at OpenRM it indeed seems to be linked to the firmware
+version rather than the architecture, meaning that John probably used a
+more recent OpenRM for reference when writing the Blackwell code.
 
-On Tue, Apr 28, 2026 at 02:09:31PM +0300, Jani Nikula wrote:
-> On Tue, 28 Apr 2026, Uwe Kleine-K=F6nig (The Capable Hub) <u.kleine-koeni=
-g@baylibre.com> wrote:
-> > UTS_RELEASE evaluates to a static string and changes quite easily (e.g.
-> > uncommitted changes in the source tree or new commits). So when checking
-> > if a patch introduces changes to the resulting binary each usage of
-> > UTS_RELEASE is source of annoyance.
-> >
-> > Instead of using UTS_RELEASE directly use init_utsname()->release which
-> > evaluates to the same string but with that a change of UTS_RELEASE
-> > doesn't affect xe_devcoredump.o.
-> >
-> > Signed-off-by: Uwe Kleine-K=F6nig (The Capable Hub) <u.kleine-koenig@ba=
-ylibre.com>
->=20
-> Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+In practice, unless GSP-RM does something really funny, it shouldn't
+matter whether there already are messages on its message queue when it
+boots or whether they arrive a bit later. I tested both options on both
+SEC2 and FSP hardware, and they both booted successfully for both cases.
 
-Thanks!
-
-> > (implicit) v1 of this patch is available at=20
-> > https://lore.kernel.org/20260427160902.1126027-2-u.kleine-koenig%40bayl=
-ibre.com.
-> >
-> > The only changes since then is that instead of dropping the kernel line,
-> > init_utsname()->release is used, which is nearly what Jani Nikula
-> > suggested.
->=20
-> Almost the same, but better. ;)
->=20
-> I wonder if most UTS_RELEASE uses in the kernel should be changed the
-> same way?
-
-I have adapting these on my todo list.
-
-Best regards
-Uwe
-
---kfwcih2ewprx56b2
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmnwttoACgkQj4D7WH0S
-/k6BMgf/cVZ4MEithHfIvnCDQ9coHA5fBbFzfrXAF/eV6S0i43uU0d7FDiWYEApC
-9MevmcEk1C5jMG1HH6n7GusNVe6B2dh0UhsdoRm7SeJIvNhLVH7y9an2CTtSlRqF
-nkw3Dn1TUNtssUdpE+AT2FLDJ/xZM/mLCWQ7I3lareyatwxp9mG8JiBcIonXSyWz
-Ws7I5YCxrwEqGka+T6cwx451fx+H6A086Eg0NKCgy/tplm5TZd5eqH4jkKW6/afC
-upcExMmT7/UpmmgqQ4Jn4wWb/CE57NW+ykytmt9ldIAF8bicZQC4A5Dx7ejwlIBB
-Ehd8TiKip26WzkcjTGnQOd/mbt/l2w==
-=z5vP
------END PGP SIGNATURE-----
-
---kfwcih2ewprx56b2--
+So I opted for the latter since this is what OpenRM currently does, and
+the first firmware we will actually support long-term will be post-595.
