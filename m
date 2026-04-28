@@ -4,98 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4538FF8868
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 14:47:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70FC9FF885A
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 14:50:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 142CC10E0D5;
-	Tue, 28 Apr 2026 14:47:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C414410EC1D;
+	Tue, 28 Apr 2026 14:50:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="z872g9Zm";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="snChwm8/";
 	dkim-atps=neutral
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
- [209.85.221.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BD3610E0D5
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 14:47:17 +0000 (UTC)
-Received: by mail-wr1-f41.google.com with SMTP id
- ffacd0b85a97d-446fea16729so478988f8f.3
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 07:47:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1777387635; x=1777992435;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=ctIsKyjLGAxorg+U+rmNLCdOJMyrX/ml0WoUktvYWis=;
- b=z872g9Zmd0iwVJxrJUmAvMdLRsNPyv3kwDa06ZmW+NgTaLAoQ/Ae+VmOOVhTCulaHZ
- 3D3u9l4Eqckq3qvbx5Jldy8UjiGoLUnzQn8808PO2SrN6eO/+/wHMljzvAwKUaGCr2dB
- lVJCC6R2yn49vx3KA6Y9SGyghpxMk9kRywkuMj5jpUBiZxOc31+L51f4JT3ZrWQ1zrpk
- 2vAJRsbefNumXCbpJN97WyDwNxTBTZYiC7wQihtVi1n+lwAKfeWje5WzlUxv67L9nGat
- Y+lpechD02o23xr8hXJtb/JPeR2u2NY4kHj7htHUF5nrJ89vp38IRU4hG32i4gnfCF2P
- fwfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777387635; x=1777992435;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ctIsKyjLGAxorg+U+rmNLCdOJMyrX/ml0WoUktvYWis=;
- b=q7WOmRGcnTJIJ1JEjo1ewk0nkW3m094lihux/y8TpYHcvGbDNzcmL0stsy8QoX1hzu
- 0VIzW5uq8J+pZUJFMAVmHqNrXsMgaw48I8pqZB1lFcO1PFmkIlFPwpKcxGF4oepQ/MRW
- hCuPGnEpGeIX20vbzLKbujh6OUpa3I0B9oFiuSMyNqFTSXJrJFKNhIjJDIxCltqguez+
- O3AohXczRri+jtW/z5DfO+q5KZTIKJttbpNXxbQp6x2/z9p6+Wr87lZpBFXOMm4g5zuY
- rYic4uFr88oVVPprEtu/RYq3xG8QVAUYGnR6tLSh+9NR6QyPCHQgE3kER97F0msKxktR
- Z1Vg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8Q+dZXP/QslMwCpkTx2tCq/vcpwJBurHyiCd5q6TR732QwdAayxc2J1LtLNYh4H4v/yR/dqmcIEmo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxX7ksGt/xUnN8W21w8mGbTno7tGa1Xn7skrkQDSBHO7Tls72jk
- gae3pTl5GszJPlDPGAI7H89499rRa2Gc7K633LGU33Tx75E/dZN+H0DhBUgLwuTa6jE=
-X-Gm-Gg: AeBDiesoF8auqrDc4JO4QJaLoiJ4+DrF2K3RkTXGNUDxR/3QND8xLWBD/HHo+7LPnbC
- r/u6xUxhSMrUs6IT9UFAFGoU1OVRHRGgQyvwYdt8D0x49TS5yGd6IeGOlOitiuCbdw+WysgDvSC
- 3aLLeQJ3vm4gQ4TBoYwnpafIkWOuu0plVHrfpqOq6Jd2Hjkp2Y2quhDRvXJpeJQw9evOhLM1HUc
- JJ+yMPeMoLrUSZn4DRHFNLCOtwUU6+JvKuiFON+Id9M0QuRqzR6oB+zslX0WeOBccLGzjYZyfiV
- 1ls+LSX1KYE9Y2j4F80FI2+q2CeB06Ou/9GugpojcgD5FEGQ3RrftL6vjViiQf8yKncHUOAOygi
- mjdhvrObVBOLfjMWPZgrwMkPOt4SFzUwFfswu4lXv8ttlvvFcTV/oxKO2eKDJORoKdMoV/KqAnS
- br8vIMg5SAmw8zs7IuTgQcmGnrTdJJGiqTSa5GKeq+EugBx4LZ79cyQXnidhZF9nvavrhncZWDT
- rMmHn4a1JIvP7I9zonh3VNtZw==
-X-Received: by 2002:a05:6000:3107:b0:43b:5b25:67f8 with SMTP id
- ffacd0b85a97d-44648963af5mr6294818f8f.20.1777387635558; 
- Tue, 28 Apr 2026 07:47:15 -0700 (PDT)
-Received: from localhost
- (p200300f65f114e083adbfb3674088b9a.dip0.t-ipconnect.de.
- [2003:f6:5f11:4e08:3adb:fb36:7408:8b9a])
- by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-4463cb59e65sm7467306f8f.1.2026.04.28.07.47.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Apr 2026 07:47:14 -0700 (PDT)
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?=
- <u.kleine-koenig@baylibre.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Jesse Zhang <Jesse.Zhang@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>, Kees Cook <kees@kernel.org>,
- =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
- "Mario Limonciello (AMD)" <superm1@kernel.org>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amdgpu: Don't use UTS_RELEASE directly
-Date: Tue, 28 Apr 2026 16:47:03 +0200
-Message-ID: <20260428144704.1114562-2-u.kleine-koenig@baylibre.com>
-X-Mailer: git-send-email 2.47.3
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010032.outbound.protection.outlook.com
+ [52.101.193.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C2B410E110
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 14:50:12 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oONUpAJ/IkLx1ZRUDVaCRkiShIHF00GyyVs+aqqK8UyzTYL2lmcztrUjFrYA/xDhoxTmjf7nZO+6EYwh3K6LBmUW6hefLLPgVLlhohzCzSVXC1FTpwwhlyhaOi5SEgCVJWexc/IPigyyHy+V/JCv9Of+om83JW8xBziXAL2L2v9+Hnd/TRVL4Y6N7sSxHcip7NVYBWk7J6wITHHflyzjQZbAxlMpeSq8xZ1e08VToGurBkJ7cSN9x/+SdVuTBZP2W3Dww7FZGyd6CgN+JZzsuBnBWPgIUuLVVr4mPEHcJqoIKvJSwtKW/p/HDEhwiOCC95nYb8dDr6+6oPfDv2zyGQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JISOuXFUFeYdIwH3bLoxBOK88ZZ5I8K9XY54ydtK4OM=;
+ b=HB42Xpfpfiif1YEVK+wgJMw6X058/yTxxtPq/+ODCyDmKNfewOVojnwlX1kMdJ5azvM4VF1+zeoVbGkRd8RyxnKcbMyTwBSxvEK8a3l2AYYcMp53wQ92YAoCNCse2fLRCcJJi7KzYzvDVXo/nKIaM39+C3lXQGQOc2xVg7sk9n+RDYPU+OiPGJT0rv+M7J3yPBC+hSvOJe2AwCSXTwFKBcCaBerk6/51Sm/SGKPZZt54H8L5YwdRKpzEJ60ZDti8On+/fJ8kWy+XpFTMgxfSg6NFoxEukhT3XxUUxrhdzol+Y6rJcPEJGOF7iRlzP5httmYsVDlgy1bsQyLIUrdpKQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JISOuXFUFeYdIwH3bLoxBOK88ZZ5I8K9XY54ydtK4OM=;
+ b=snChwm8/dNCm9JmFX9yUGEecUVlEmPBBBPE9vHnweK/nSxgpLJ11sDVerNUuYvvYjPDGpLZoZ+wajWu4sjisJGa/skezq45BaM9idLyvk4ArKHxXJxnRqlo+LVQH+y93iadzPgAB8oCamlV3uCXV116YrrCt6MiyygRIUcsQQLw=
+Received: from SA0PR11CA0072.namprd11.prod.outlook.com (2603:10b6:806:d2::17)
+ by PH8PR12MB8430.namprd12.prod.outlook.com (2603:10b6:510:259::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.17; Tue, 28 Apr
+ 2026 14:50:03 +0000
+Received: from SN1PEPF000397B3.namprd05.prod.outlook.com
+ (2603:10b6:806:d2:cafe::50) by SA0PR11CA0072.outlook.office365.com
+ (2603:10b6:806:d2::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9846.28 via Frontend Transport; Tue,
+ 28 Apr 2026 14:50:01 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SN1PEPF000397B3.mail.protection.outlook.com (10.167.248.57) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9846.18 via Frontend Transport; Tue, 28 Apr 2026 14:50:00 +0000
+Received: from fdavid-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 28 Apr
+ 2026 09:50:00 -0500
+From: David Francis <David.Francis@amd.com>
+To: <dri-devel@lists.freedesktop.org>
+CC: <Christian.Koenig@amd.com>, <simona@ffwll.ch>, David Francis
+ <David.Francis@amd.com>
+Subject: [PATCH] drm: Preload IDR during change_handle
+Date: Tue, 28 Apr 2026 10:49:46 -0400
+Message-ID: <20260428144946.318274-1-David.Francis@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1607;
- i=u.kleine-koenig@baylibre.com; h=from:subject;
- bh=T/ApXNSXXSl6FROM6HS9+qFlZCnlOYwqQBBavKeuaVg=;
- b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBp8MhozzAn6fh0oyFbng3DD+O55AKxKYvMEvAX0
- fNJRcIZd52JATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCafDIaAAKCRCPgPtYfRL+
- TsF0B/9wmHtE3j+P3DMorqCIPp2H5O0klH3BBl5IqPL608ZWjPOoYQx4q+H15H36JxjFRz1m02n
- q6j03BUVSvrDEqZQy7oAF+hub7dL/giJv3xM3k+sfnc5RKQWFwMpvUc+gpAwapy3wXQxneyEdE1
- HDWEkU9qD1EfDDWGOPAPjNrYFlqEsdfBOBjfLFNkMOQZfqYf6iMFrIbrjDtrY2DwK9S1YL5Wpue
- Xkz81bhbjI7ibXVqC64R66M+L/50hpY3m5Uiicnrnn10UpFO8E5t97FC/H8zjlsZYdSyM2O927h
- DLyI72a2bghslevEdLu6Hq3DrHt4BZuqE/ax0kebn6r66Poz
-X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp;
- fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF000397B3:EE_|PH8PR12MB8430:EE_
+X-MS-Office365-Filtering-Correlation-Id: e390b5f3-ff9d-40a4-8746-08dea5356cc3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|36860700016|82310400026|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: cWFtussfIb91Y4LhVeSzP8DIbomb6uCBb/MFUccVEqdEI4HU6wpICbsH99yNI2SioZ71qMoezzcZScjk/aegQ4wIGGGkHgIKSPEGJeykgltNHdMz4bst8XJP8O7jQqwaWomWDB4fhk29It8Pp1FOY2Q9MViSng4+VZRjfqB/kK7UwqXP85IAp3oAEsB1vZpaO5+Ahh7pRuYwMNaruf6ACu+GYA8V8YT0kribCumpejM5XknEI9AlAjf/FYHlKBo/q9Cfjb0u/nyq4zc4RLWIThWkunlykCvemvVYbrBdOe/O+C8KwLuM88j928jE5O4/IMXLt6k9kNtbAB4+xiQFWmV703RW8/EouCrhCHLQYtZk5FDYaV2NkOuR6IF7FQbIOyipWmhjuyRtbjCk9XAXwk0vSYKOHtDGmTyVEh3ExV+23TNpeoImMwPka1yMS5IOTOY09cJvUS1f05adBG0WroEglVrSfx24JXCulxrgB7X/l0jnEPwobN5fjwZj3wwG36OO7e6YTyUMzCGTOlH8sRFdM9h0pJKpjab09olIHTtOq0wo0xysZKaGxfTx/fBCR1aAaVOMuV8U50jqZ34qlHUM2dDKPBGdSGCxwRwSDDfII3KsI69BbJzQYru3wJUAPbrEekakXBtNUkKFiVdozYoqQhiGF0wwX1proDx0xJXbQwVLtMAHQ/grVEItg9Hc3ExfAAwM47OFBRe9IvkqCUWuFP9uPKcc+ehKdIQFUIp2p93J+JfTWvu4H5SP2l9xMP0GbsPLMK4xhofCV5P7NQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(36860700016)(82310400026)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: WjGqtvDteBK4zRcUfBTbA3/yDeuQd4mXT3KFbcxuCAksDYQ4woBd7kd1Q5RTT0CgaVzJMELeOehXNk+YaxEL+gqH1ssiUpNTYukgIwk2OUfJnftjXBegEloH5cvzLsNRVeFet0YogbJXfdA9rmi8vpguZYyTz2HdmAEPvFZbWaYTz4Ibybwp2+2bJTXifQnHFB6xti6a7swGKorVot+bHB37CwdjJicwwZDWEYPCPc6wTJ3ziVArqn2tqPZR2u8MRP9xinpuMZRhp4xNR0tCPhRrB9hUroFTOdfLte25Us0M6KIX2pXYSqzW+YdvOP8gsTPuiZr2DMZVxAuk0MWGJ9BJqHA5fxc09A8WB71Qt8/9WsoL1hySDhS+v3HU4HNqrjMmqSHRVI646ZORdeGoubzO5wVGpdubCBe5SNKlt4Dpg1463K5dEK9deSax9A/f
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2026 14:50:00.9138 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e390b5f3-ff9d-40a4-8746-08dea5356cc3
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000397B3.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB8430
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,45 +110,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-UTS_RELEASE evaluates to a static string and changes quite easily (e.g.
-uncommitted changes in the source tree or new commits). So when checking
-if a patch introduces changes to the resulting binary each usage of
-UTS_RELEASE is source of annoyance.
+change_handle mistakenly had an idr allocation using GFP_NOWAIT
+without preload. This could lead to idr being unable to allocate
+needed memory.
 
-Instead of using UTS_RELEASE directly use init_utsname()->release which
-evaluates to the same string but with that a change of UTS_RELEASE
-doesn't affect amdgpu_dev_coredump.o.
+Use idr_preload to prevent this (as in create_tail)
 
-Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
+Signed-off-by: David Francis <David.Francis@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/drm_gem.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-index d386bc775d03..20ae2bd4617a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-@@ -22,8 +22,8 @@
-  *
-  */
+diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+index 3985def993af..251048d3a3a7 100644
+--- a/drivers/gpu/drm/drm_gem.c
++++ b/drivers/gpu/drm/drm_gem.c
+@@ -1039,10 +1039,14 @@ int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
  
--#include <generated/utsrelease.h>
- #include <linux/devcoredump.h>
-+#include <linux/utsname.h>
- #include "amdgpu_dev_coredump.h"
- #include "atom.h"
+ 	mutex_lock(&file_priv->prime.lock);
  
-@@ -236,7 +236,7 @@ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_inf
++	idr_preload(GFP_KERNEL);
+ 	spin_lock(&file_priv->table_lock);
++
+ 	ret = idr_alloc(&file_priv->object_idr, obj, handle, handle + 1,
+ 			GFP_NOWAIT);
++
+ 	spin_unlock(&file_priv->table_lock);
++	idr_preload_end();
  
- 	drm_printf(&p, "**** AMDGPU Device Coredump ****\n");
- 	drm_printf(&p, "version: " AMDGPU_COREDUMP_VERSION "\n");
--	drm_printf(&p, "kernel: " UTS_RELEASE "\n");
-+	drm_printf(&p, "kernel: %s\n", init_utsname()->release);
- 	drm_printf(&p, "module: " KBUILD_MODNAME "\n");
- 	drm_printf(&p, "time: %ptSp\n", &coredump->reset_time);
- 
-
-base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
+ 	if (ret < 0)
+ 		goto out_unlock;
 -- 
-2.47.3
+2.34.1
 
