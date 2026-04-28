@@ -4,76 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0B2CFF886D
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 13:47:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94529FF885A
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Apr 2026 13:51:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FAC410EC9E;
-	Tue, 28 Apr 2026 13:47:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D175F10E32A;
+	Tue, 28 Apr 2026 13:51:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="MaQ93KGS";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="LEmcaE/Q";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BA1C10EC9D;
- Tue, 28 Apr 2026 13:47:53 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 3168BC5EF0B;
- Tue, 28 Apr 2026 13:48:35 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 625B2601D0;
- Tue, 28 Apr 2026 13:47:51 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id ACB6C10728C08; 
- Tue, 28 Apr 2026 15:47:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1777384070; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=8hH5f9pRWZjIKa7upLj6O1FMpKJtS+Zt3OkL4sYouao=;
- b=MaQ93KGSH+Hk8abA6MbWHlda1aC2uqGX/4nTQBQA//FFqhT5t6lxHiZAYhudeVv24bAcD5
- +G529G8DcjVQCvZ6Re1R8BX0iwjTpBm/zn6H4ufwwZu9XJZWY0o9lZJBOYADSOOX2eMsNg
- O35B1w4pJ1d2XnuAlOPaVvL7Ur0NlIhodLk8jTJOzrDDLV4OH5CeU3InEdnDiS8kQ0S98H
- 0FCfEbRGWyo/1C5x3+YL2T4Z+YsB9IcvDrtlnIgcKhUhqsmOxqvTD+NWyf5q8B76mXUEN5
- 5oNzad17rT+3SHX03p3YtPB5IYEtUY88RnIRW9qAggvL74Ih7I506P8YyCBR1w==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A691B10E32A
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 13:51:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1777384307;
+ bh=sU4/cbZTlYJ898JgkXkK5rJKdiUsQhuw4mg7I7NDGRk=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=LEmcaE/Qtt4L/l/wrTpaUoSyt1Uj387RyZH9OWWOqS5rEqDH6huIUWxMvCAXBfXmx
+ ULPzJ9uTvJUJ3y6bXC6G9tCvWjlSxrWhZj+piKtgjQy6AeBp9QP6JcYatLLtnPYsEo
+ qMnKSHTbzcd9F3nrKKyNNrAZeaB4hNo5yLjpwP916WULJDlK6sGdHCVHI5H6voltQF
+ yp5k46alurfNpChtLk6Ew0zLAxqm+snYVCg86AZFC5Pm9u0oUzWK32tjoqgoSXy4iS
+ 676lVsMhPQ7fL+alBm+4S26VaM9eyiD+oXgKSfgvFgkcQYjonm+l+h3civ1kf8zvFF
+ LMUoH3sFCvKtQ==
+Received: from [100.64.0.241] (unknown [100.64.0.241])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: cristicc)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 1F55917E128F;
+ Tue, 28 Apr 2026 15:51:47 +0200 (CEST)
+Message-ID: <539f1bb9-6509-40c7-8692-bb3cdee33f91@collabora.com>
+Date: Tue, 28 Apr 2026 16:51:46 +0300
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 05/10] drm/bridge: dw-hdmi-qp: Add HDMI 2.0 SCDC
+ scrambling and high TMDS clock ratio support
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
+ <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>, kernel@collabora.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ Diederik de Haas <diederik@cknow-tech.com>,
+ Maud Spierings <maud_spierings@hotmail.com>
+References: <20260426-dw-hdmi-qp-scramb-v5-0-d778e70c317b@collabora.com>
+ <20260426-dw-hdmi-qp-scramb-v5-5-d778e70c317b@collabora.com>
+ <m5fxlfktxtvki5yaxhkx4h3hsjj5266stwvfdykhqkgcjbz5bk@s5gggcd45abm>
+Content-Language: en-US
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <m5fxlfktxtvki5yaxhkx4h3hsjj5266stwvfdykhqkgcjbz5bk@s5gggcd45abm>
 Content-Type: text/plain; charset=UTF-8
-Date: Tue, 28 Apr 2026 15:47:41 +0200
-Message-Id: <DI4U2DT3OBMR.23T3F7X8P75RU@bootlin.com>
-Subject: Re: [PATCH v2 08/11] drm/bridge: adv7511: switch to
- of_drm_get_bridge_by_endpoint()
-Cc: "Hui Pu" <Hui.Pu@gehealthcare.com>, "Ian Ray"
- <ian.ray@gehealthcare.com>, "Thomas Petazzoni"
- <thomas.petazzoni@bootlin.com>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "linux-arm-msm@vger.kernel.org"
- <linux-arm-msm@vger.kernel.org>, "freedreno@lists.freedesktop.org"
- <freedreno@lists.freedesktop.org>, "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>
-To: "Biju Das" <biju.das.jz@bp.renesas.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Rob Clark"
- <robin.clark@oss.qualcomm.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
- "Abhinav Kumar" <abhinav.kumar@linux.dev>, "Jessica Zhang"
- <jesszhan0024@gmail.com>, "Sean Paul" <sean@poorly.run>, "Marijn Suijten"
- <marijn.suijten@somainline.org>, "Tian Tao" <tiantao6@hisilicon.com>,
- "Xinwei Kong" <kong.kongxinwei@hisilicon.com>, "Sumit Semwal"
- <sumit.semwal@linaro.org>, "John Stultz" <jstultz@google.com>, "Andrzej
- Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>,
- "laurent.pinchart" <laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
- <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>,
- "tomi.valkeinen" <tomi.valkeinen@ideasonboard.com>, "Michal Simek"
- <michal.simek@amd.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.20.1
-References: <20260428-drm-bridge-alloc-getput-panel_or_bridge-v2-0-4300744a1c47@bootlin.com>
- <20260428-drm-bridge-alloc-getput-panel_or_bridge-v2-8-4300744a1c47@bootlin.com>
- <TY3PR01MB113466B70BFD2899AB0CF47AD86372@TY3PR01MB11346.jpnprd01.prod.outlook.com>
- <TY3PR01MB1134674FDD088299A4382D3D286372@TY3PR01MB11346.jpnprd01.prod.outlook.com>
- <DI4TGV2WURTY.39OXE7WWKRLA1@bootlin.com>
- <TY3PR01MB11346E82D19FBE8544F51624286372@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-In-Reply-To: <TY3PR01MB11346E82D19FBE8544F51624286372@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,95 +75,301 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello,
+Hi Dmitry,
 
-On Tue Apr 28, 2026 at 3:31 PM CEST, Biju Das wrote:
->> >> > @@ -1251,10 +1251,9 @@ static int adv7511_probe(struct i2c_client
->> >> > *i2c)
->> >> >
->> >> >  	memset(&link_config, 0, sizeof(link_config));
->> >> >
->> >> > -	ret =3D drm_of_find_panel_or_bridge(dev->of_node, 1, -1, NULL,
->> >> > -					  &adv7511->next_bridge);
->> >> > -	if (ret && ret !=3D -ENODEV)
->> >> > -		return ret;
->> >> > +	adv7511->bridge.next_bridge =3D of_drm_get_bridge_by_endpoint(dev=
-->of_node, 1, -1);
->> >> > +	if (IS_ERR(adv7511->bridge.next_bridge) && PTR_ERR(adv7511->bridg=
-e.next_bridge) !=3D -ENODEV)
->> >> > +		return PTR_ERR(adv7511->bridge.next_bridge);
->> >>
->> >> Does it crash, if the error is  -EPROBE_DEFER?
->> >
->> > I see a crash with patch [1], which is fixed by avoiding the direct as=
-signment.
->>
->> Ah, dammit! Good catch, thanks for the quick testing and follow-up!
->>
->> Indeed this driver assumes next_bridge is either NULL or a valid pointer=
-, but due to the 'if(IS_ERR()
->> && some_other_condition)' now it can also be -ENODEV (not -EPROBE_DEFER,=
- but that's irrelevant).
->>
->> This affects the msm and zynqmp_dp patches equally.
->>
->> I'm sending a v3 soon with these fixed. I'm just not sure which approach=
- to use to fix (same for all
->> the 3 patches). Alternatives are:
->>
->>  1. -ENODEV is accepted, set next_bridge to NULL when it happens:
->>
->>       -       if (IS_ERR(adv7511->bridge.next_bridge) && PTR_ERR(adv7511=
-->bridge.next_bridge) !=3D -
->> ENODEV)
->>       -               return PTR_ERR(adv7511->bridge.next_bridge);
->>       +       if (IS_ERR(adv7511->bridge.next_bridge)) {
->>       +               if (PTR_ERR(adv7511->bridge.next_bridge) =3D=3D -E=
-NODEV)
->>       +                       adv7511->bridge.next_bridge =3D NULL;
->>       +               else
->>       +                       return PTR_ERR(adv7511->bridge.next_bridge=
-);
->
-> The point is you cannot return PTR_ERR as it will lead to crash, if it is
-> direct assignment.
+Thanks for taking the time to review the series!
 
-It would definitely crash when the next_bridge is dereferenced (which
-happens in adv7511_bridge_attach()) but I don't see how it can crash
-here. Here it _can_ be assigned -ENODEV, but it would be immediately be
-cleared to NULL, or to enother error, but we'd immediately return. And in
-case of return, when next_bridge is cleared by __drm_bridge_free ->
-drm_bridge_put, the error value would be ignored thanks to patch 1.
-
->
->    if (IS_ERR(adv7511->bridge.next_bridge)) {
-> 	int err =3D PTR_ERR(adv7511->bridge.next_bridge);
-> 	adv7511->bridge.next_bridge =3D NULL;
-> 	return err;
->   }
-
-Is this if() condition wrong? The driver needs to accept the -ENODEV return
-value, the next_bridge is conditional in the curent driver code.
-
->
-> Cheers,
-> Biju
->
->>  2. let nexxt_bridge hold -ENODEV but ignore it when it is used (only in
->>     the attach op, for all 3 drivers):
+On 4/28/26 4:38 AM, Dmitry Baryshkov wrote:
+> On Sun, Apr 26, 2026 at 03:20:17AM +0300, Cristian Ciocaltea wrote:
+>> Enable HDMI 2.0 display modes (e.g. 4K@60Hz) by adding SCDC management
+>> for the high TMDS clock ratio and scrambling, required when the TMDS
+>> character rate exceeds the 340 MHz HDMI 1.4b limit.
 >>
->>       -       if (adv->bridge.next_bridge) {
->>       +       if (!IS_ERR_OR_NULL(adv->bridge.next_bridge)) {
+>> A periodic work item monitors the sink's scrambling status to recover
+>> from sink-side resets.  On hotplug detect, if SCDC scrambling state is
+>> out of sync with the driver, trigger a CRTC reset to re-establish the
+>> link.
 >>
->> While the latter approach involves less code, it might let errors sneak =
-in in case new usages of
->> next_bridge are added with just a NULL check.
+>> Reject modes requiring TMDS rates above 600 MHz, as those fall in the
+>> HDMI 2.1 FRL domain which is not supported. In no_hpd configurations,
+>> further restrict to 340 MHz since SCDC requires a connected sink.
 >>
->> Opinions about the two?
+>> Tested-by: Diederik de Haas <diederik@cknow-tech.com>
+>> Tested-by: Maud Spierings <maud_spierings@hotmail.com>
+>> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+>> ---
+>>  drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 188 ++++++++++++++++++++++++---
+>>  1 file changed, 172 insertions(+), 16 deletions(-)
+> 
+> My main issue with this patch (sorry) is that this adds yet another copy
+> of SCDC-related helpers into the driver which already OP_HDMI and other
+> helpers.
+> 
+>> @@ -39,7 +42,9 @@
+>>  #define DDC_SEGMENT_ADDR	0x30
+>>  
+>>  #define HDMI14_MAX_TMDSCLK	340000000
+>> +#define HDMI20_MAX_TMDSRATE	600000000
+>>  
+>> +#define SCDC_MAX_SOURCE_VERSION	0x1
+>>  #define SCRAMB_POLL_DELAY_MS	3000
+>>  
+>>  /*
+>> @@ -164,6 +169,11 @@ struct dw_hdmi_qp {
+>>  	} phy;
+>>  
+>>  	unsigned long ref_clk_rate;
+>> +
+>> +	struct drm_connector *curr_conn;
+>> +	struct delayed_work scramb_work;
+>> +	bool scramb_enabled;
+> 
+> s/scramb/scrambler/
+> 
+> Can we move those two to the drm_connector_hdmi
 
-Luca
+Sure, will do.
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+>> +
+>>  	struct regmap *regm;
+>>  	int main_irq;
+>>  
+>> @@ -749,28 +759,124 @@ static struct i2c_adapter *dw_hdmi_qp_i2c_adapter(struct dw_hdmi_qp *hdmi)
+>>  	return adap;
+>>  }
+>>  
+>> +static bool dw_hdmi_qp_supports_scrambling(struct drm_display_info *display)
+>> +{
+>> +	if (!display->is_hdmi)
+>> +		return false;
+>> +
+>> +	return display->hdmi.scdc.supported &&
+>> +		display->hdmi.scdc.scrambling.supported;
+>> +}
+>> +
+>> +static int dw_hdmi_qp_set_scramb(struct dw_hdmi_qp *hdmi)
+>> +{
+>> +	bool done;
+>> +
+>> +	dev_dbg(hdmi->dev, "set scrambling\n");
+>> +
+>> +	done = drm_scdc_set_high_tmds_clock_ratio(hdmi->curr_conn, true);
+>> +	if (!done)
+>> +		return -EIO;
+>> +
+>> +	done = drm_scdc_set_scrambling(hdmi->curr_conn, true);
+>> +	if (!done) {
+>> +		drm_scdc_set_high_tmds_clock_ratio(hdmi->curr_conn, false);
+>> +		return -EIO;
+>> +	}
+>> +
+>> +	schedule_delayed_work(&hdmi->scramb_work,
+>> +			      msecs_to_jiffies(SCRAMB_POLL_DELAY_MS));
+>> +	return 0;
+>> +}
+>> +
+>> +static void dw_hdmi_qp_scramb_work(struct work_struct *work)
+>> +{
+>> +	struct dw_hdmi_qp *hdmi = container_of(to_delayed_work(work),
+>> +					       struct dw_hdmi_qp,
+>> +					       scramb_work);
+>> +	if (READ_ONCE(hdmi->scramb_enabled) &&
+>> +	    !drm_scdc_get_scrambling_status(hdmi->curr_conn))
+>> +		dw_hdmi_qp_set_scramb(hdmi);
+>> +}
+>> +
+>> +static void dw_hdmi_qp_enable_scramb(struct dw_hdmi_qp *hdmi)
+>> +{
+>> +	int ret;
+>> +	u8 ver;
+>> +
+>> +	if (!dw_hdmi_qp_supports_scrambling(&hdmi->curr_conn->display_info))
+>> +		return;
+>> +
+>> +	ret = drm_scdc_readb(hdmi->bridge.ddc, SCDC_SINK_VERSION, &ver);
+>> +	if (ret) {
+>> +		dev_err(hdmi->dev, "Failed to read SCDC_SINK_VERSION: %d\n", ret);
+>> +		return;
+>> +	}
+>> +
+>> +	ret = drm_scdc_writeb(hdmi->bridge.ddc, SCDC_SOURCE_VERSION,
+>> +			      min_t(u8, ver, SCDC_MAX_SOURCE_VERSION));
+>> +	if (ret) {
+>> +		dev_err(hdmi->dev, "Failed to write SCDC_SOURCE_VERSION: %d\n", ret);
+>> +		return;
+>> +	}
+>> +
+>> +	WRITE_ONCE(hdmi->scramb_enabled, true);
+>> +
+>> +	ret = dw_hdmi_qp_set_scramb(hdmi);
+>> +	if (ret) {
+>> +		hdmi->scramb_enabled = false;
+>> +		return;
+>> +	}
+>> +
+>> +	dw_hdmi_qp_write(hdmi, 1, SCRAMB_CONFIG0);
+>> +
+>> +	/* Wait at least 1 ms before resuming TMDS transmission */
+>> +	usleep_range(1000, 5000);
+>> +}
+>> +
+>> +static void dw_hdmi_qp_disable_scramb(struct dw_hdmi_qp *hdmi)
+>> +{
+>> +	if (!hdmi->scramb_enabled)
+>> +		return;
+>> +
+>> +	dev_dbg(hdmi->dev, "disable scrambling\n");
+>> +
+>> +	WRITE_ONCE(hdmi->scramb_enabled, false);
+>> +	cancel_delayed_work_sync(&hdmi->scramb_work);
+>> +
+>> +	dw_hdmi_qp_write(hdmi, 0, SCRAMB_CONFIG0);
+>> +
+>> +	if (hdmi->curr_conn->status == connector_status_connected) {
+>> +		drm_scdc_set_scrambling(hdmi->curr_conn, false);
+>> +		drm_scdc_set_high_tmds_clock_ratio(hdmi->curr_conn, false);
+>> +	}
+>> +}
+> 
+> All of these feel like generic helpers.
+
+I'll factor these out.
+
+>> +
+>>  static void dw_hdmi_qp_bridge_atomic_enable(struct drm_bridge *bridge,
+>>  					    struct drm_atomic_state *state)
+>>  {
+>>  	struct dw_hdmi_qp *hdmi = bridge->driver_private;
+>>  	struct drm_connector_state *conn_state;
+>> -	struct drm_connector *connector;
+>>  	unsigned int op_mode;
+>>  
+>> -	connector = drm_atomic_get_new_connector_for_encoder(state, bridge->encoder);
+>> -	if (WARN_ON(!connector))
+>> +	hdmi->curr_conn = drm_atomic_get_new_connector_for_encoder(state,
+>> +								   bridge->encoder);
+>> +	if (WARN_ON(!hdmi->curr_conn))
+>>  		return;
+>>  
+>> -	conn_state = drm_atomic_get_new_connector_state(state, connector);
+>> +	conn_state = drm_atomic_get_new_connector_state(state, hdmi->curr_conn);
+>>  	if (WARN_ON(!conn_state))
+>>  		return;
+>>  
+>> -	if (connector->display_info.is_hdmi) {
+>> +	if (hdmi->curr_conn->display_info.is_hdmi) {
+>>  		dev_dbg(hdmi->dev, "%s mode=HDMI %s rate=%llu bpc=%u\n", __func__,
+>>  			drm_hdmi_connector_get_output_format_name(conn_state->hdmi.output_format),
+>>  			conn_state->hdmi.tmds_char_rate, conn_state->hdmi.output_bpc);
+>>  		op_mode = 0;
+>>  		hdmi->tmds_char_rate = conn_state->hdmi.tmds_char_rate;
+>> +
+>> +		if (conn_state->hdmi.tmds_char_rate > HDMI14_MAX_TMDSCLK)
+>> +			dw_hdmi_qp_enable_scramb(hdmi);
+>>  	} else {
+>>  		dev_dbg(hdmi->dev, "%s mode=DVI\n", __func__);
+>>  		op_mode = OPMODE_DVI;
+>> @@ -781,7 +887,7 @@ static void dw_hdmi_qp_bridge_atomic_enable(struct drm_bridge *bridge,
+>>  	dw_hdmi_qp_mod(hdmi, HDCP2_BYPASS, HDCP2_BYPASS, HDCP2LOGIC_CONFIG0);
+>>  	dw_hdmi_qp_mod(hdmi, op_mode, OPMODE_DVI, LINK_CONFIG0);
+>>  
+>> -	drm_atomic_helper_connector_hdmi_update_infoframes(connector, state);
+>> +	drm_atomic_helper_connector_hdmi_update_infoframes(hdmi->curr_conn, state);
+>>  }
+>>  
+>>  static void dw_hdmi_qp_bridge_atomic_disable(struct drm_bridge *bridge,
+>> @@ -791,14 +897,49 @@ static void dw_hdmi_qp_bridge_atomic_disable(struct drm_bridge *bridge,
+>>  
+>>  	hdmi->tmds_char_rate = 0;
+>>  
+>> +	dw_hdmi_qp_disable_scramb(hdmi);
+>> +
+>> +	hdmi->curr_conn = NULL;
+>>  	hdmi->phy.ops->disable(hdmi, hdmi->phy.data);
+>>  }
+>>  
+>> -static enum drm_connector_status
+>> -dw_hdmi_qp_bridge_detect(struct drm_bridge *bridge, struct drm_connector *connector)
+>> +static int dw_hdmi_qp_reset_crtc(struct dw_hdmi_qp *hdmi,
+>> +				 struct drm_connector *connector,
+>> +				 struct drm_modeset_acquire_ctx *ctx)
+>> +{
+>> +	u8 config;
+>> +	int ret;
+>> +
+>> +	ret = drm_scdc_readb(hdmi->bridge.ddc, SCDC_TMDS_CONFIG, &config);
+>> +	if (ret < 0) {
+>> +		dev_err(hdmi->dev, "Failed to read TMDS config: %d\n", ret);
+>> +		return ret;
+>> +	}
+>> +
+>> +	if (!!(config & SCDC_SCRAMBLING_ENABLE) == hdmi->scramb_enabled)
+>> +		return 0;
+> 
+> Also please check the high TMDS clock ration bit.
+
+Ack.
+
+>> +
+>> +	drm_atomic_helper_connector_hdmi_hotplug(connector,
+>> +						 connector_status_connected);
+> 
+> I don't see a forced hotplug event in the existing drivers. Why is it
+> necessary? This function is being called from the detect() path.
+
+For some reason, without it, the connector seems to lose its state after reset:
+
+[ 2142.982967] dwhdmiqp-rockchip fde80000.hdmi: resetting crtc
+[ 2142.994132] rockchip-drm display-subsystem: [drm] HDMI Sink doesn't support RGB, something's wrong.
+[ 2143.140827] dwhdmiqp-rockchip fde80000.hdmi: dw_hdmi_qp_bridge_atomic_enable mode=DVI
+
+Will recheck if that's still the case after the HPD handling rework.
+
+> 
+>> +	/*
+>> +	 * Conform to HDMI 2.0 spec by ensuring scrambled data is not sent
+>> +	 * before configuring the sink scrambling, as well as suspending any
+>> +	 * TMDS transmission while changing the TMDS clock rate in the sink.
+>> +	 */
+>> +
+>> +	dev_dbg(hdmi->dev, "resetting crtc\n");
+>> +
+>> +	return drm_bridge_helper_reset_crtc(&hdmi->bridge, ctx);
+>> +}
+>> +
+>> +static int dw_hdmi_qp_bridge_detect_ctx(struct drm_bridge *bridge,
+>> +					struct drm_connector *connector,
+>> +					struct drm_modeset_acquire_ctx *ctx)
+>>  {
+>>  	struct dw_hdmi_qp *hdmi = bridge->driver_private;
+>> +	enum drm_connector_status status;
+>>  	const struct drm_edid *drm_edid;
+>> +	int ret;
+>>  
+>>  	if (hdmi->no_hpd) {
+>>  		drm_edid = drm_edid_read_ddc(connector, bridge->ddc);
+>> @@ -808,7 +949,20 @@ dw_hdmi_qp_bridge_detect(struct drm_bridge *bridge, struct drm_connector *connec
+>>  			return connector_status_disconnected;
+>>  	}
+>>  
+>> -	return hdmi->phy.ops->read_hpd(hdmi, hdmi->phy.data);
+>> +	status = hdmi->phy.ops->read_hpd(hdmi, hdmi->phy.data);
+>> +
+>> +	dev_dbg(hdmi->dev, "%s status=%d scramb=%d\n", __func__,
+>> +		status, hdmi->scramb_enabled);
+>> +
+>> +	if (status == connector_status_connected && hdmi->scramb_enabled) {
+>> +		ret = dw_hdmi_qp_reset_crtc(hdmi, connector, ctx);
+>> +		if (ret == -EDEADLK)
+>> +			return ret;
+>> +		if (ret < 0)
+>> +			status = connector_status_unknown;
+> 
+> Ideally this should go to the drm_atomic_helper_connector_hdmi_update().
+> And once it goes, I don't think we'd need the detect_ctx() callback for
+> bridges.
+
+Ok, I'll try that.
+
+Regards,
+Cristian
