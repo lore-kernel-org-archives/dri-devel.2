@@ -4,68 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C33AFF8875
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 10:37:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF50FFF8867
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 10:45:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDA9010EF55;
-	Wed, 29 Apr 2026 10:37:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17E0310EEDD;
+	Wed, 29 Apr 2026 10:45:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="syDuJ2eb";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="nmOgx7yW";
 	dkim-atps=neutral
-X-Greylist: delayed 723 seconds by postgrey-1.36 at gabe;
- Wed, 29 Apr 2026 10:37:39 UTC
-Received: from out-170.mta1.migadu.com (out-170.mta1.migadu.com
- [95.215.58.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B057A10EF65
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 10:37:39 +0000 (UTC)
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1777458333;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=0ubnPqyEuUH+bb9tWP9+TOUp+n6C5onOR58LCuBDEiw=;
- b=syDuJ2ebh9z2sjffREH58o0aT6Ajjew8W5I8ReEUtvp2EQkdghmYv8iT9JcU1iX87oMIbX
- D+xmbMoFNHgWVKDoL6XEe6kPFjJgAeA5FQrv1tK/6uUbSyjmFqItMdxDS/n3eJA5ihtrWC
- pDy1LXDxeyfrSgRVjezaD0bM6Fa+Scc=
-From: Usama Arif <usama.arif@linux.dev>
-To: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-Cc: Usama Arif <usama.arif@linux.dev>, Yury Norov <ynorov@nvidia.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- David Laight <david.laight.linux@gmail.com>,
- Thomas Gleixner <tglx@linutronix.de>, linux-alpha@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-snps-arc@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
- linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
- sparclinux@vger.kernel.org, linux-um@lists.infradead.org,
- dmaengine@vger.kernel.org, linux-efi@vger.kernel.org,
- linux-fsi@lists.ozlabs.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-wpan@vger.kernel.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, linux-spi@vger.kernel.org,
- linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
- linux-serial@vger.kernel.org, linux-usb@vger.kernel.org,
- xen-devel@lists.xenproject.org, linux-fsdevel@vger.kernel.org,
- ocfs2-devel@lists.linux.dev, bpf@vger.kernel.org,
- kasan-dev@googlegroups.com, linux-mm@kvack.org, linux-x25@vger.kernel.org,
- rust-for-linux@vger.kernel.org, linux-sound@vger.kernel.org,
- sound-open-firmware@alsa-project.org, linux-csky@vger.kernel.org,
- linux-hexagon@vger.kernel.org, loongarch@lists.linux.dev,
- linux-m68k@lists.linux-m68k.org, linux-openrisc@vger.kernel.org,
- linux-parisc@vger.kernel.org, linux-sh@vger.kernel.org,
- linux-arch@vger.kernel.org
-Subject: Re: [RFC PATCH v1 7/9] x86: Add unsafe_copy_from_user()
-Date: Wed, 29 Apr 2026 03:25:19 -0700
-Message-ID: <20260429102520.1617327-1-usama.arif@linux.dev>
-In-Reply-To: <0ee46bb228d97163fbdc14f2a7c52b93d8bc34ce.1777306795.git.chleroy@kernel.org>
-References: 
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B286010EEDD
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 10:45:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=dFo9TUsqnW4ITaES3qRH9rTodjAjKR1gXdmM2ZYNjwg=; b=nmOgx7yWtiA4TkbK1BXBb1ONc8
+ bx0B+9V1t86Qmn4fWbYwIiweKmD3fJTZeWbA5xsfMsBf0GtdKR8vnVNbX8MwMgyr/Z3kec0lNRSoZ
+ kV4r3abl1ztQSjM9S2WU7qmBXwhOdj1rA881WqrjWSvDed6fX4WVmhyG29vQ6JkxUCtTQ1SIBvC7v
+ g0EEOLdk39T6tI0Q0pIfABT0pS9PJ6zf4ADJKUjumTIre7+76fZyi1Gm/F7ZPVRhUYxAuCoyqvexE
+ UzRAI8A8Q+/bcT0kalO4GsNs8iWM226SN9GT1z0g4QUil+Ua7WBEylXmqvolt/QX4Q3yGYhVQmnUN
+ ZEw2ShJA==;
+Received: from [90.240.106.137] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wI2Ps-003tOj-Eo; Wed, 29 Apr 2026 12:45:15 +0200
+Message-ID: <6cc225d0-774d-406d-a528-ddf89cbdf04a@igalia.com>
+Date: Wed, 29 Apr 2026 11:45:14 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm: Drop unused drm_device_class_(un)register API
+To: Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org, 
+ Hans de Goede <hansg@kernel.org>
+Cc: kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+References: <20260429085726.69842-1-tvrtko.ursulin@igalia.com>
+ <4b1e0f32-36b7-41be-8ce1-95e6f023b62d@suse.de>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <4b1e0f32-36b7-41be-8ce1-95e6f023b62d@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,70 +66,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 27 Apr 2026 19:13:48 +0200 "Christophe Leroy (CS GROUP)" <chleroy@kernel.org> wrote:
 
-> At the time being, x86 and arm64 are missing unsafe_copy_from_user().
+On 29/04/2026 10:35, Thomas Zimmermann wrote:
+> Hi
 > 
-> Add it.
+> Am 29.04.26 um 10:57 schrieb Tvrtko Ursulin:
+>> The API has been unused since commit
+>> ed89fff97382 ("drm/ttm: drop sysfs directory")
+>> so lets remove it.
 > 
-> Signed-off-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
-> ---
->  arch/x86/include/asm/uaccess.h | 29 ++++++++++++++++++++++++-----
->  1 file changed, 24 insertions(+), 5 deletions(-)
-> 
-> diff --git a/arch/x86/include/asm/uaccess.h b/arch/x86/include/asm/uaccess.h
-> index 3a0dd3c2b233..10c458ffa399 100644
-> --- a/arch/x86/include/asm/uaccess.h
-> +++ b/arch/x86/include/asm/uaccess.h
-> @@ -598,7 +598,7 @@ _label:									\
->   * We want the unsafe accessors to always be inlined and use
->   * the error labels - thus the macro games.
->   */
-> -#define unsafe_copy_loop(dst, src, len, type, label)				\
-> +#define unsafe_put_loop(dst, src, len, type, label)				\
->  	while (len >= sizeof(type)) {						\
->  		unsafe_put_user(*(type *)(src),(type __user *)(dst),label);	\
->  		dst += sizeof(type);						\
-> @@ -611,10 +611,29 @@ do {									\
->  	char __user *__ucu_dst = (_dst);				\
->  	const char *__ucu_src = (_src);					\
->  	size_t __ucu_len = (_len);					\
-> -	unsafe_copy_loop(__ucu_dst, __ucu_src, __ucu_len, u64, label);	\
-> -	unsafe_copy_loop(__ucu_dst, __ucu_src, __ucu_len, u32, label);	\
-> -	unsafe_copy_loop(__ucu_dst, __ucu_src, __ucu_len, u16, label);	\
-> -	unsafe_copy_loop(__ucu_dst, __ucu_src, __ucu_len, u8, label);	\
-> +	unsafe_put_loop(__ucu_dst, __ucu_src, __ucu_len, u64, label);	\
-> +	unsafe_put_loop(__ucu_dst, __ucu_src, __ucu_len, u32, label);	\
-> +	unsafe_put_loop(__ucu_dst, __ucu_src, __ucu_len, u16, label);	\
-> +	unsafe_put_loop(__ucu_dst, __ucu_src, __ucu_len, u8, label);	\
-> +} while (0)
-> +
-> +#define unsafe_get_loop(dst, src, len, type, label)				\
-> +	while (len >= sizeof(type)) {						\
-> +		unsafe_get_user(*(type __user *)(src),(type *)(dst),label);	\
+> drm_privacy_screen_register() uses the same pattern. [1] If that helper 
+> is being converted over to drm_class_device_register(), the global 
+> drm_class could be internalized into drm_sysfb.c. Personally, I think 
+> this is the better solution, but either seems fine. [1] https:// 
+> elixir.bootlin.com/linux/v7.0.1/source/drivers/gpu/drm/ 
+> drm_privacy_screen.c#L405
 
-Hi,
+I did not spot that one. The alternative sounds reasonable to me. Adding 
+Hans to check if he wants to take over converting this driver.
 
-Just wanted to check if src and dst need to be swapped? Same for arm64 patch.
+Regards,
 
-> +		dst += sizeof(type);						\
-> +		src += sizeof(type);						\
-> +		len -= sizeof(type);						\
-> +	}
-> +
-> +#define unsafe_copy_from_user(_dst,_src,_len,label)			\
-> +do {									\
-> +	char *__ucu_dst = (_dst);					\
-> +	const char __user *__ucu_src = (_src);				\
-> +	size_t __ucu_len = (_len);					\
-> +	unsafe_get_loop(__ucu_dst, __ucu_src, __ucu_len, u64, label);	\
-> +	unsafe_get_loop(__ucu_dst, __ucu_src, __ucu_len, u32, label);	\
-> +	unsafe_get_loop(__ucu_dst, __ucu_src, __ucu_len, u16, label);	\
-> +	unsafe_get_loop(__ucu_dst, __ucu_src, __ucu_len, u8, label);	\
->  } while (0)
->  
->  #ifdef CONFIG_CC_HAS_ASM_GOTO_OUTPUT
-> -- 
-> 2.49.0
+Tvrtko
+>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>> Cc: Christian König <christian.koenig@amd.com>
+>> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>> Cc: Maxime Ripard <mripard@kernel.org>
+>> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+>> Cc: David Airlie <airlied@gmail.com>
+>> Cc: Simona Vetter <simona@ffwll.ch>
+>> ---
+>>   drivers/gpu/drm/drm_sysfs.c | 32 --------------------------------
+>>   include/drm/drm_sysfs.h     |  4 ----
+>>   2 files changed, 36 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/drm_sysfs.c b/drivers/gpu/drm/drm_sysfs.c
+>> index 43b2c3eaa7e4..7433bf8136cc 100644
+>> --- a/drivers/gpu/drm/drm_sysfs.c
+>> +++ b/drivers/gpu/drm/drm_sysfs.c
+>> @@ -645,35 +645,3 @@ struct device *drm_sysfs_minor_alloc(struct 
+>> drm_minor *minor)
+>>       put_device(kdev);
+>>       return ERR_PTR(r);
+>>   }
+>> -
+>> -/**
+>> - * drm_class_device_register - register new device with the DRM sysfs 
+>> class
+>> - * @dev: device to register
+>> - *
+>> - * Registers a new &struct device within the DRM sysfs class. 
+>> Essentially only
+>> - * used by ttm to have a place for its global settings. Drivers 
+>> should never use
+>> - * this.
+>> - */
+>> -int drm_class_device_register(struct device *dev)
+>> -{
+>> -    if (!drm_class || IS_ERR(drm_class))
+>> -        return -ENOENT;
+>> -
+>> -    dev->class = drm_class;
+>> -    return device_register(dev);
+>> -}
+>> -EXPORT_SYMBOL_GPL(drm_class_device_register);
+>> -
+>> -/**
+>> - * drm_class_device_unregister - unregister device with the DRM sysfs 
+>> class
+>> - * @dev: device to unregister
+>> - *
+>> - * Unregisters a &struct device from the DRM sysfs class. Essentially 
+>> only used
+>> - * by ttm to have a place for its global settings. Drivers should 
+>> never use
+>> - * this.
+>> - */
+>> -void drm_class_device_unregister(struct device *dev)
+>> -{
+>> -    return device_unregister(dev);
+>> -}
+>> -EXPORT_SYMBOL_GPL(drm_class_device_unregister);
+>> diff --git a/include/drm/drm_sysfs.h b/include/drm/drm_sysfs.h
+>> index 96a5d858404b..7695873a9456 100644
+>> --- a/include/drm/drm_sysfs.h
+>> +++ b/include/drm/drm_sysfs.h
+>> @@ -3,13 +3,9 @@
+>>   #define _DRM_SYSFS_H_
+>>   struct drm_device;
+>> -struct device;
+>>   struct drm_connector;
+>>   struct drm_property;
+>> -int drm_class_device_register(struct device *dev);
+>> -void drm_class_device_unregister(struct device *dev);
+>> -
+>>   void drm_sysfs_hotplug_event(struct drm_device *dev);
+>>   void drm_sysfs_connector_hotplug_event(struct drm_connector 
+>> *connector);
+>>   void drm_sysfs_connector_property_event(struct drm_connector 
+>> *connector,
 > 
-> 
+
