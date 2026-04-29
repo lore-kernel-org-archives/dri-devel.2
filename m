@@ -4,46 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACE33CD13D3
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 07:37:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FE76FF8875
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 07:38:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1134110F22D;
-	Thu, 30 Apr 2026 07:37:57 +0000 (UTC)
-X-Greylist: delayed 399 seconds by postgrey-1.36 at gabe;
- Wed, 29 Apr 2026 16:14:30 UTC
-Received: from arkamax.eu (128-116-240-228.dyn.eolo.it [128.116.240.228])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30EB010F093
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 16:14:30 +0000 (UTC)
-Received: from localhost (128-116-240-228.dyn.eolo.it [128.116.240.228])
- by arkamax.eu (OpenSMTPD) with ESMTPSA id 8ebc5e10
- (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO); 
- Wed, 29 Apr 2026 18:07:48 +0200 (CEST)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 29 Apr 2026 18:07:47 +0200
-Message-Id: <DI5RO76D5IWR.19K0ES58HUIVS@arkamax.eu>
-From: "Maurizio Lombardi" <mlombard@arkamax.eu>
-To: "Pavel Begunkov" <asml.silence@gmail.com>, "Jens Axboe"
- <axboe@kernel.dk>, "Keith Busch" <kbusch@kernel.org>, "Christoph Hellwig"
- <hch@lst.de>, "Sagi Grimberg" <sagi@grimberg.me>, "Alexander Viro"
- <viro@zeniv.linux.org.uk>, "Christian Brauner" <brauner@kernel.org>,
- "Andrew Morton" <akpm@linux-foundation.org>, "Sumit Semwal"
- <sumit.semwal@linaro.org>, =?utf-8?q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, <linux-block@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-nvme@lists.infradead.org>,
- <linux-fsdevel@vger.kernel.org>, <io-uring@vger.kernel.org>,
- <linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linaro-mm-sig@lists.linaro.org>
-Cc: "Nitesh Shetty" <nj.shetty@samsung.com>, "Kanchan Joshi"
- <joshi.k@samsung.com>, "Anuj Gupta" <anuj20.g@samsung.com>, "Tushar Gohad"
- <tushar.gohad@intel.com>, "William Power" <william.power@intel.com>, "Phil
- Cayton" <phil.cayton@intel.com>, "Jason Gunthorpe" <jgg@nvidia.com>
-Subject: Re: [PATCH v3 07/10] nvme-pci: implement dma_token backed requests
-X-Mailer: aerc 0.21.0
-References: <cover.1777475843.git.asml.silence@gmail.com>
- <5cecb1157ab784f9f303a91449fdf11b03aa6002.1777475843.git.asml.silence@gmail.com>
-In-Reply-To: <5cecb1157ab784f9f303a91449fdf11b03aa6002.1777475843.git.asml.silence@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E528A10E102;
+	Thu, 30 Apr 2026 07:37:56 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=web04.chillydomains.com header.i=@web04.chillydomains.com header.b="lrxD/WNw";
+	dkim-atps=neutral
+Received: from web04.chillydomains.com (web04.chillydomains.com
+ [193.19.92.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B58C510E400
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 20:00:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=web04.chillydomains.com; s=dkim; h=From:To:Cc:Subject:Date:
+ Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+ Content-Transfer-Encoding; bh=+BMPRzE2ZaYndt8PUP9j3vTLvi6F1/BIe/
+ +XCjPPh4w=; b=lrxD/WNwHIEekuNqi8vyqW3sAshhJYlyBWCJnbqSeTMYEytjp+
+ UyGR2ATf8nRI1fDgeTXCln6LGbfU4BNAUXh/sUDzdti6LlZajf/4fLrePDzBpnfR
+ Zo7FfaU9+6/4cWOP1EtpX0Nzmz3AyYUTl73wrxubhby8h1gzOUF1xTtmF0vyGvLV
+ CjZU8gbZvp74M1UX9jJuJSqdVC+xjGUQYsICFy+ocDlBL0TMO0Ua+6ZF5cHRPUD/
+ DjvymalihIlfMzkrStbDUkw4uHkM/LTqfTPDlJT+m0gGPrUxqjE7F2chM01iLOPb
+ OTNNJgyb9YhYocCpHiL/e7PC4y/B+Zw4YCyA==
+Received: (qmail 2739579 invoked by uid 7799); 29 Apr 2026 21:53:28 +0200
+Received: by simscan 1.4.0 ppid: 2739543, pid: 2739553, t: 0.6181s
+ scanners: clamav: 0.103.9/m:62/d:27778
+Received: from 31.29.52.71.dynamic-pppoe.dt.ipv4.wtnet.de (HELO localhost)
+ (automation@reauktion.de@31.29.52.71) by web04.chillydomains.com with SMTP
+ [61968]; 29 Apr 2026 21:53:28 +0200
+From: Markus Fritsche <mfritsche@reauktion.de>
+To: Tomasz Figa <tfiga@chromium.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Jacob Chen <jacob-chen@iotwrt.com>,
+ Heiko Stuebner <heiko@sntech.de>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+Subject: [PATCH RFC 2/3] media: hantro: attach dma_resv release fence at
+ buf_queue
+Date: Wed, 29 Apr 2026 19:53:05 +0000
+Message-ID: <20260429195306.239666-3-mfritsche@reauktion.de>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260429195306.239666-1-mfritsche@reauktion.de>
+References: <20260429195306.239666-1-mfritsche@reauktion.de>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 30 Apr 2026 07:37:56 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,347 +69,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed Apr 29, 2026 at 5:25 PM CEST, Pavel Begunkov wrote:
-> Enable BIO_DMABUF_MAP backed requests. It creates a prp list for the
-> dmabuf when it's mapped, which is then used to initialise requests.
->
-> Suggested-by: Keith Busch <kbusch@kernel.org>
-> Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
-> ---
->  drivers/nvme/host/pci.c | 282 ++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 282 insertions(+)
->
-> diff --git a/drivers/nvme/host/pci.c b/drivers/nvme/host/pci.c
-> index db5fc9bf6627..d2629853a972 100644
-> --- a/drivers/nvme/host/pci.c
-> +++ b/drivers/nvme/host/pci.c
-> @@ -27,6 +27,8 @@
->  #include <linux/io-64-nonatomic-lo-hi.h>
->  #include <linux/io-64-nonatomic-hi-lo.h>
->  #include <linux/sed-opal.h>
-> +#include <linux/io_dmabuf_token.h>
-> +#include <linux/dma-resv.h>
-> =20
->  #include "trace.h"
->  #include "nvme.h"
-> @@ -393,6 +395,17 @@ struct nvme_queue {
->  	struct completion delete_done;
->  };
-> =20
-> +struct nvme_dmabuf_token {
-> +	struct dma_buf_attachment *attach;
-> +};
-> +
-> +struct nvme_dmabuf_map {
-> +	struct io_dmabuf_map base;
-> +	dma_addr_t *dma_list;
-> +	struct sg_table *sgt;
-> +	unsigned nr_entries;
-> +};
-> +
->  /* bits for iod->flags */
->  enum nvme_iod_flags {
->  	/* this command has been aborted by the timeout handler */
-> @@ -854,6 +867,134 @@ static void nvme_free_descriptors(struct request *r=
-eq)
->  	}
->  }
-> =20
-> +static void nvme_dmabuf_map_sync(struct nvme_dev *nvme_dev, struct reque=
-st *req,
-> +				 bool for_cpu)
-> +{
-> +	int length =3D blk_rq_payload_bytes(req);
-> +	struct device *dev =3D nvme_dev->dev;
-> +	enum dma_data_direction dma_dir;
-> +	struct bio *bio =3D req->bio;
-> +	struct nvme_dmabuf_map *map;
-> +	dma_addr_t *dma_list;
-> +	int offset, map_idx;
-> +
-> +	dma_dir =3D rq_data_dir(req) =3D=3D READ ? DMA_FROM_DEVICE : DMA_TO_DEV=
-ICE;
-> +	map =3D container_of(bio->dmabuf_map, struct nvme_dmabuf_map, base);
-> +	dma_list =3D map->dma_list;
-> +
-> +	offset =3D bio->bi_iter.bi_bvec_done;
-> +	map_idx =3D offset / NVME_CTRL_PAGE_SIZE;
-> +	length +=3D offset & (NVME_CTRL_PAGE_SIZE - 1);
-> +
-> +	while (length > 0) {
-> +		u64 dma_addr =3D dma_list[map_idx++];
-> +
-> +		if (for_cpu)
-> +			__dma_sync_single_for_cpu(dev, dma_addr,
-> +						  NVME_CTRL_PAGE_SIZE, dma_dir);
-> +		else
-> +			__dma_sync_single_for_device(dev, dma_addr,
-> +						     NVME_CTRL_PAGE_SIZE,
-> +						     dma_dir);
-> +		length -=3D NVME_CTRL_PAGE_SIZE;
-> +	}
-> +}
-> +
-> +static void nvme_rq_clean_dmabuf_map(struct nvme_dev *dev,
-> +				      struct request *req)
-> +{
-> +	struct nvme_iod *iod =3D blk_mq_rq_to_pdu(req);
-> +
-> +	nvme_dmabuf_map_sync(dev, req, true);
-> +
-> +	if (!(iod->flags & IOD_SINGLE_SEGMENT))
-> +		nvme_free_descriptors(req);
-> +}
-> +
-> +static blk_status_t nvme_rq_setup_dmabuf_map(struct request *req,
-> +					     struct nvme_queue *nvmeq)
-> +{
-> +	struct nvme_iod *iod =3D blk_mq_rq_to_pdu(req);
-> +	int length =3D blk_rq_payload_bytes(req);
-> +	u64 dma_addr, prp1_dma, prp2_dma;
-> +	struct bio *bio =3D req->bio;
-> +	struct nvme_dmabuf_map *map;
-> +	dma_addr_t *dma_list;
-> +	dma_addr_t prp_dma;
-> +	__le64 *prp_list;
-> +	int i, map_idx;
-> +	int offset;
-> +
-> +	nvme_dmabuf_map_sync(nvmeq->dev, req, false);
-> +
-> +	map =3D container_of(bio->dmabuf_map, struct nvme_dmabuf_map, base);
-> +	dma_list =3D map->dma_list;
-> +
-> +	offset =3D bio->bi_iter.bi_bvec_done;
-> +	map_idx =3D offset / NVME_CTRL_PAGE_SIZE;
-> +	offset &=3D (NVME_CTRL_PAGE_SIZE - 1);
-> +	prp1_dma =3D dma_list[map_idx++] + offset;
-> +
-> +	length -=3D (NVME_CTRL_PAGE_SIZE - offset);
-> +	if (length <=3D 0) {
-> +		prp2_dma =3D 0;
-> +		goto done;
-> +	}
-> +
-> +	if (length <=3D NVME_CTRL_PAGE_SIZE) {
-> +		prp2_dma =3D dma_list[map_idx];
-> +		goto done;
-> +	}
-> +
-> +	if (DIV_ROUND_UP(length, NVME_CTRL_PAGE_SIZE) <=3D
-> +	    NVME_SMALL_POOL_SIZE / sizeof(__le64))
-> +		iod->flags |=3D IOD_SMALL_DESCRIPTOR;
-> +
-> +	prp_list =3D dma_pool_alloc(nvme_dma_pool(nvmeq, iod), GFP_ATOMIC,
-> +			&prp_dma);
-> +	if (!prp_list)
-> +		return BLK_STS_RESOURCE;
-> +
-> +	iod->descriptors[iod->nr_descriptors++] =3D prp_list;
-> +	prp2_dma =3D prp_dma;
-> +	i =3D 0;
-> +	for (;;) {
-> +		if (i =3D=3D NVME_CTRL_PAGE_SIZE >> 3) {
-> +			__le64 *old_prp_list =3D prp_list;
-> +
-> +			prp_list =3D dma_pool_alloc(nvmeq->descriptor_pools.large,
-> +					GFP_ATOMIC, &prp_dma);
-> +			if (!prp_list)
-> +				goto free_prps;
-> +			iod->descriptors[iod->nr_descriptors++] =3D prp_list;
-> +			prp_list[0] =3D old_prp_list[i - 1];
-> +			old_prp_list[i - 1] =3D cpu_to_le64(prp_dma);
-> +			i =3D 1;
-> +		}
-> +
-> +		dma_addr =3D dma_list[map_idx++];
-> +		prp_list[i++] =3D cpu_to_le64(dma_addr);
-> +
-> +		length -=3D NVME_CTRL_PAGE_SIZE;
-> +		if (length <=3D 0)
-> +			break;
-> +	}
-> +done:
-> +	iod->cmd.common.dptr.prp1 =3D cpu_to_le64(prp1_dma);
-> +	iod->cmd.common.dptr.prp2 =3D cpu_to_le64(prp2_dma);
-> +	return BLK_STS_OK;
-> +free_prps:
-> +	nvme_free_descriptors(req);
-> +	return BLK_STS_RESOURCE;
-> +}
-> +
-> +static inline bool nvme_rq_is_dmabuf_attached(struct request *req)
-> +{
-> +	if (!IS_ENABLED(CONFIG_DMABUF_TOKEN))
-> +		return false;
-> +	return req->bio && bio_flagged(req->bio, BIO_DMABUF_MAP);
-> +}
-> +
->  static void nvme_free_prps(struct request *req, unsigned int attrs)
->  {
->  	struct nvme_iod *iod =3D blk_mq_rq_to_pdu(req);
-> @@ -932,6 +1073,11 @@ static void nvme_unmap_data(struct request *req)
->  	struct device *dma_dev =3D nvmeq->dev->dev;
->  	unsigned int attrs =3D 0;
-> =20
-> +	if (nvme_rq_is_dmabuf_attached(req)) {
-> +		nvme_rq_clean_dmabuf_map(nvmeq->dev, req);
-> +		return;
-> +	}
-> +
->  	if (iod->flags & IOD_SINGLE_SEGMENT) {
->  		static_assert(offsetof(union nvme_data_ptr, prp1) =3D=3D
->  				offsetof(union nvme_data_ptr, sgl.addr));
-> @@ -1222,6 +1368,9 @@ static blk_status_t nvme_map_data(struct request *r=
-eq)
->  	struct blk_dma_iter iter;
->  	blk_status_t ret;
-> =20
-> +	if (nvme_rq_is_dmabuf_attached(req))
-> +		return nvme_rq_setup_dmabuf_map(req, nvmeq);
-> +
->  	/*
->  	 * Try to skip the DMA iterator for single segment requests, as that
->  	 * significantly improves performances for small I/O sizes.
-> @@ -2238,6 +2387,134 @@ static int nvme_create_queue(struct nvme_queue *n=
-vmeq, int qid, bool polled)
->  	return result;
->  }
-> =20
-> +#ifdef CONFIG_DMABUF_TOKEN
-> +static void nvme_dmabuf_invalidate_mappings(struct dma_buf_attachment *a=
-ttach)
-> +{
-> +	struct io_dmabuf_token *token =3D attach->importer_priv;
-> +
-> +	io_dmabuf_token_invalidate_mappings(token);
-> +}
-> +
-> +const struct dma_buf_attach_ops nvme_dmabuf_importer_ops =3D {
-> +	.invalidate_mappings	=3D nvme_dmabuf_invalidate_mappings,
-> +	.allow_peer2peer	=3D true,
-> +};
-> +
-> +static struct io_dmabuf_map *nvme_dmabuf_token_map(struct io_dmabuf_toke=
-n *token)
-> +{
-> +	struct nvme_dmabuf_token *data =3D token->dev_priv;
-> +	struct dma_buf_attachment *attach =3D data->attach;
-> +	dma_addr_t *dma_list =3D NULL;
-> +	unsigned long tmp, i =3D 0;
-> +	struct nvme_dmabuf_map *map;
-> +	struct scatterlist *sg;
-> +	struct sg_table *sgt;
-> +	unsigned nr_entries;
-> +	int ret;
-> +
-> +	dma_resv_assert_held(token->dmabuf->resv);
-> +
-> +	map =3D kmalloc(sizeof(*map), GFP_KERNEL);
-> +	if (!map)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	nr_entries =3D token->dmabuf->size / NVME_CTRL_PAGE_SIZE;
-> +	dma_list =3D kmalloc_array(nr_entries, sizeof(dma_list[0]), GFP_KERNEL)=
-;
-> +	if (!dma_list) {
-> +		ret =3D -ENOMEM;
-> +		goto err;
-> +	}
-> +
-> +	sgt =3D dma_buf_map_attachment(attach, token->dir);
-> +	if (IS_ERR(sgt)) {
-> +		ret =3D PTR_ERR(sgt);
-> +		sgt =3D NULL;
-> +		goto err;
-> +	}
-> +
-> +	for_each_sgtable_dma_sg(sgt, sg, tmp) {
-> +		dma_addr_t dma_addr =3D sg_dma_address(sg);
-> +		unsigned long sg_len =3D sg_dma_len(sg);
-> +
-> +		if (sg_len % NVME_CTRL_PAGE_SIZE) {
-> +			ret =3D -EINVAL;
-> +			goto err;
-> +		}
-> +
-> +		while (sg_len) {
-> +			dma_list[i++] =3D dma_addr;
-> +			dma_addr +=3D NVME_CTRL_PAGE_SIZE;
-> +			sg_len -=3D NVME_CTRL_PAGE_SIZE;
-> +		}
-> +	}
-> +
-> +	ret =3D io_dmabuf_init_map(token, &map->base);
-> +	if (ret)
-> +		goto err;
-> +	map->nr_entries =3D nr_entries;
-> +	map->dma_list =3D dma_list;
-> +	map->sgt =3D sgt;
-> +	return &map->base;
-> +err:
-> +	if (sgt)
-> +		dma_buf_unmap_attachment(attach, sgt, token->dir);
-> +	kfree(map);
-> +	kfree(dma_list);
-> +	return ERR_PTR(ret);
-> +}
-> +
-> +static void nvme_dmabuf_token_unmap(struct io_dmabuf_token *token,
-> +				 struct io_dmabuf_map *map_base)
-> +{
-> +	struct nvme_dmabuf_token *data =3D token->dev_priv;
-> +	struct nvme_dmabuf_map *map =3D container_of(map_base,
-> +						struct nvme_dmabuf_map, base);
-> +
-> +	dma_resv_assert_held(token->dmabuf->resv);
-> +
-> +	dma_buf_unmap_attachment(data->attach, map->sgt, token->dir);
-> +	kfree(map->dma_list);
-> +}
-> +
-> +static void nvme_dmabuf_token_release(struct io_dmabuf_token *token)
-> +{
-> +	struct nvme_dmabuf_token *data =3D token->dev_priv;
-> +
-> +	dma_buf_detach(token->dmabuf, data->attach);
-> +	kfree(data);
-> +}
-> +
-> +const struct io_dmabuf_token_dev_ops nvme_dma_token_ops =3D {
-> +	.map		=3D nvme_dmabuf_token_map,
-> +	.unmap		=3D nvme_dmabuf_token_unmap,
-> +	.release	=3D nvme_dmabuf_token_release,
-> +};
-> +
-> +static int nvme_create_dmabuf_token(struct request_queue *q,
-> +				 struct io_dmabuf_token *token)
-> +{
-> +	struct nvme_dmabuf_token *data;
-> +	struct dma_buf_attachment *attach;
-> +	struct nvme_ns *ns =3D q->queuedata;
-> +	struct nvme_dev *dev =3D to_nvme_dev(ns->ctrl);
-> +	struct dma_buf *dmabuf =3D token->dmabuf;
-> +
-> +	data =3D kzalloc(sizeof(data), GFP_KERNEL);
-> +	if (!data)
-> +		return -ENOMEM;
+Opt the hantro driver into the new vb2 release-fence helper.
 
-Shouldn't this be kzalloc(sizeof(*data)...) ?
+When userspace QBUFs a buffer to hantro, the buffer is added to the
+driver's m2m queue via v4l2_m2m_buf_queue. We additionally call
+vb2_buffer_attach_release_fence() so each plane's dmabuf->resv
+gets a real producer fence attached. The fence is signalled by
+vb2_buffer_done when hantro completes the decode (via
+v4l2_m2m_buf_done_and_job_finish in hantro_drv.c, which converges
+on vb2_buffer_done).
 
-Also, checkpatch generates a warning because kzalloc_obj() should be
-preferred for this kind of memory allocations over kzalloc().
+Wayland compositors (and any other userspace) that import hantro
+CAPTURE buffers and wait on the dmabuf's implicit-sync fence now
+wait on a real fence representing the producer's actual completion,
+not a stub. Validated end-to-end on PineTab2 (RK3566 / Mali-G52 /
+mainline 6.19 with this series backported) playing 1080p30 H.264 in
+chromium under stock KDE Plasma 6.6.4 Wayland: KWin's
+Transaction::watchDmaBuf wait completes correctly the moment
+hantro's IRQ fires, instead of falling back to a stub-resolved
+poll.
 
-> +
-> +	token->dev_priv =3D data;
-> +	token->dev_ops =3D &nvme_dma_token_ops;
-> +
-> +	attach =3D dma_buf_dynamic_attach(dmabuf, dev->dev,
-> +					&nvme_dmabuf_importer_ops, token);
-> +	if (IS_ERR(attach))
-> +		return PTR_ERR(attach);
+Signed-off-by: Markus Fritsche <mfritsche@reauktion.de>
+---
+ drivers/media/platform/verisilicon/hantro_v4l2.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-Supposing dma_buf_dynamic_attach() returns an error, won't the 'data'
-pointer be leaked?
+diff --git a/drivers/media/platform/verisilicon/hantro_v4l2.c b/drivers/media/platform/verisilicon/hantro_v4l2.c
+index 62d3962c1..e95a3433a 100644
+--- a/drivers/media/platform/verisilicon/hantro_v4l2.c
++++ b/drivers/media/platform/verisilicon/hantro_v4l2.c
+@@ -877,6 +877,18 @@ static void hantro_buf_queue(struct vb2_buffer *vb)
+ 	}
+ 
+ 	v4l2_m2m_buf_queue(ctx->fh.m2m_ctx, vbuf);
++
++	/*
++	 * Opt in to vb2's dma_resv release-fence path. Userspace
++	 * consumers that imported this buffer's dmabuf and wait on
++	 * its implicit-sync fence (poll(POLLIN) or
++	 * DMA_BUF_IOCTL_EXPORT_SYNC_FILE) get a real producer fence
++	 * representing this device's completion, instead of the stub
++	 * fence dma_buf_export_sync_file substitutes when dma_resv
++	 * is empty. Best-effort: a fence-allocation failure means we
++	 * lose implicit-sync precision, no functional regression.
++	 */
++	(void)vb2_buffer_attach_release_fence(vb);
+ }
+ 
+ static bool hantro_vq_is_coded(struct vb2_queue *q)
+-- 
+2.47.3
 
-Maurizio
