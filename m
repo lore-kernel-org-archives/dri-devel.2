@@ -4,65 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A777CCFA13
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 19:17:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 294B6FF8873
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 20:46:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C97FF10E009;
-	Wed, 29 Apr 2026 19:17:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 504F010F174;
+	Wed, 29 Apr 2026 20:46:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QJfJTrkG";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cS5ZSkTn";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA63810E009
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 19:17:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777490265; x=1809026265;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=NdpsqONRcUyfFA6AEfEks0J8pgr3wqXMW8S2nukC6KA=;
- b=QJfJTrkGN1o9vqsEgW/RizyZklWxGINInpleazYe91q1IbA8Li6eduA5
- K5iw1uajM/8HQdDe0DjUUSeHTC39dQ8K36qhpJqmu/So1B47b9yXFJCYq
- AtzU3JCYVhpm4EOjRcfK9GKGpWXpTRXenEF1dQalbPX6JM+ci2xSadeOK
- 3lbLKEGU3rIAwKwKwqL1caNmG4ewXsNf0gnA+VVyO4TBvtXfKcjBBIx7P
- bXuxNKIkC8caNXbJkU/tWs9yoHG34U6bKothSKBwCPwKwbOypFj2Sr/QI
- nzVjnL2qDsZoVmG0ZlcAJhPHGjiv9CcF8Adh+FNqGmJq2naK2uYeVVioL w==;
-X-CSE-ConnectionGUID: c6Y64/DCS9ecD1DQAOiOdg==
-X-CSE-MsgGUID: CBshppDcRKGCrT2Uf+CNCQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11771"; a="88740402"
-X-IronPort-AV: E=Sophos;i="6.23,206,1770624000"; d="scan'208";a="88740402"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Apr 2026 12:17:44 -0700
-X-CSE-ConnectionGUID: aK74WFK+QzebuweuuQA/3A==
-X-CSE-MsgGUID: 6yJPyYGCSE6P+PZJKdWO/A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,206,1770624000"; d="scan'208";a="238684543"
-Received: from lkp-server01.sh.intel.com (HELO aa799cca880d) ([10.239.97.150])
- by orviesa004.jf.intel.com with ESMTP; 29 Apr 2026 12:17:42 -0700
-Received: from kbuild by aa799cca880d with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1wIAPi-00000000BRk-2oCL;
- Wed, 29 Apr 2026 19:17:38 +0000
-Date: Thu, 30 Apr 2026 03:17:08 +0800
-From: kernel test robot <lkp@intel.com>
-To: =?utf-8?B?67CV66qF7ZuI?= <mhun512@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: oe-kbuild-all@lists.linux.dev, Myeonghun Pak <mhun512@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Ijae Kim <ae878000@gmail.com>
-Subject: Re: [PATCH] drm/panel: tdo-tl070wsh30: Use devm_drm_panel_add()
-Message-ID: <202604300328.1HVE9S0R-lkp@intel.com>
-References: <20260428131855.3501-1-pakmyeonghun@bagmyeonghun-ui-MacBookPro.local>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5CE6C10E061;
+ Wed, 29 Apr 2026 20:46:42 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 5906E6015B;
+ Wed, 29 Apr 2026 20:46:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CBC3C19425;
+ Wed, 29 Apr 2026 20:46:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1777495601;
+ bh=F70MUsM23vkCIM13pxF5Tha5sxcIj21SpuVSHYz6MC0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=cS5ZSkTn2/ybqBi1sQfuKxtBYuIZHehRk4/7UtLeVIy/Ks3oFeKEHVpBS7HCwiq3k
+ kJFhhD8drEFzcb/h/uhY7ePh1JTndf+jt+zlsv+FXMxVtcFU7ormseKrq7HJRevfdQ
+ tV4hOu1iDclJdtQMrtNq9oYhV4hmA+zKvwavI7HfNUIEY1ZbiDuuVu/nsx7oDPYSpn
+ TbDG4SPMvWdzL7k3TQDRKQBQo3cY6Vx/HUtlFjjYAqbyr10V3g80tnsymh1A73T961
+ fGJDS0mXbqpDa5FEZocYA3LanYMxW6P7YRVNky/n9GemQE9wOE2O+XwWlrv21UaJlX
+ mRvN8bTqVC0mw==
+Date: Wed, 29 Apr 2026 13:46:37 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+Subject: Re: [PATCH v7 1/5] drm/gpusvm: Use dma-map IOVA alloc, link, and
+ sync API in GPU SVM
+Message-ID: <20260429204637.GA3588527@ax162>
+References: <20260410205929.3914474-1-matthew.brost@intel.com>
+ <20260410205929.3914474-2-matthew.brost@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260428131855.3501-1-pakmyeonghun@bagmyeonghun-ui-MacBookPro.local>
+In-Reply-To: <20260410205929.3914474-2-matthew.brost@intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,50 +59,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi 박명훈,
+Hi Matthew,
 
-kernel test robot noticed the following build warnings:
+On Fri, Apr 10, 2026 at 01:59:25PM -0700, Matthew Brost wrote:
+> diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
+> index 7993e85c0566..365a9c0b522a 100644
+> --- a/drivers/gpu/drm/drm_gpusvm.c
+> +++ b/drivers/gpu/drm/drm_gpusvm.c
+> @@ -1544,13 +1554,33 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
+>  				goto err_unmap;
+>  			}
+>  
+> -			addr = dma_map_page(gpusvm->drm->dev,
+> -					    page, 0,
+> -					    PAGE_SIZE << order,
+> -					    dma_dir);
+> -			if (dma_mapping_error(gpusvm->drm->dev, addr)) {
+> -				err = -EFAULT;
+> -				goto err_unmap;
+> +			if (!i)
+> +				dma_iova_try_alloc(gpusvm->drm->dev, state,
+> +						   npages * PAGE_SIZE >=
+> +						   HPAGE_PMD_SIZE ?
+> +						   HPAGE_PMD_SIZE : 0,
+> +						   npages * PAGE_SIZE);
 
-[auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on linus/master v7.1-rc1 next-20260428]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+This patch is in -next as commit 37ad039fb367 ("drm/gpusvm: Use dma-map
+IOVA alloc, link, and sync API in GPU SVM"), where it breaks the build
+for certain platforms such as ARM.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/drm-panel-tdo-tl070wsh30-Use-devm_drm_panel_add/20260428-215942
-base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link:    https://lore.kernel.org/r/20260428131855.3501-1-pakmyeonghun%40bagmyeonghun-ui-MacBookPro.local
-patch subject: [PATCH] drm/panel: tdo-tl070wsh30: Use devm_drm_panel_add()
-config: nios2-randconfig-001-20260430 (https://download.01.org/0day-ci/archive/20260430/202604300328.1HVE9S0R-lkp@intel.com/config)
-compiler: nios2-linux-gcc (GCC) 11.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260430/202604300328.1HVE9S0R-lkp@intel.com/reproduce)
+  $ make -skj"$(nproc)" ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- mrproper allmodconfig drivers/gpu/drm/drm_gpusvm.o
+  In file included from <command-line>:
+  drivers/gpu/drm/drm_gpusvm.c: In function 'drm_gpusvm_get_pages':
+  include/linux/compiler_types.h:699:45: error: call to '__compiletime_assert_361' declared with attribute error: BUILD_BUG failed
+    699 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+        |                                             ^
+  include/linux/compiler_types.h:680:25: note: in definition of macro '__compiletime_assert'
+    680 |                         prefix ## suffix();                             \
+        |                         ^~~~~~
+  include/linux/compiler_types.h:699:9: note: in expansion of macro '_compiletime_assert'
+    699 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+        |         ^~~~~~~~~~~~~~~~~~~
+  include/linux/build_bug.h:40:37: note: in expansion of macro 'compiletime_assert'
+     40 | #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
+        |                                     ^~~~~~~~~~~~~~~~~~
+  include/linux/build_bug.h:60:21: note: in expansion of macro 'BUILD_BUG_ON_MSG'
+     60 | #define BUILD_BUG() BUILD_BUG_ON_MSG(1, "BUILD_BUG failed")
+        |                     ^~~~~~~~~~~~~~~~
+  include/linux/huge_mm.h:113:28: note: in expansion of macro 'BUILD_BUG'
+    113 | #define HPAGE_PMD_SHIFT ({ BUILD_BUG(); 0; })
+        |                            ^~~~~~~~~
+  include/linux/huge_mm.h:120:35: note: in expansion of macro 'HPAGE_PMD_SHIFT'
+    120 | #define HPAGE_PMD_SIZE  ((1UL) << HPAGE_PMD_SHIFT)
+        |                                   ^~~~~~~~~~~~~~~
+  drivers/gpu/drm/drm_gpusvm.c:1560:52: note: in expansion of macro 'HPAGE_PMD_SIZE'
+   1560 |                                                    HPAGE_PMD_SIZE ?
+        |                                                    ^~~~~~~~~~~~~~
+  make[7]: *** [scripts/Makefile.build:289: drivers/gpu/drm/drm_gpusvm.o] Error 1
+  ...
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202604300328.1HVE9S0R-lkp@intel.com/
+I think use of HPAGE_PMD_SIZE is expected to be gated by
+CONFIG_TRANSPARENT_HUGEPAGE ifdefs?
 
-All warnings (new ones prefixed by >>):
-
-   drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c: In function 'tdo_tl070wsh30_panel_remove':
->> drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c:201:38: warning: unused variable 'tdo_tl070wsh30' [-Wunused-variable]
-     201 |         struct tdo_tl070wsh30_panel *tdo_tl070wsh30 = mipi_dsi_get_drvdata(dsi);
-         |                                      ^~~~~~~~~~~~~~
-
-
-vim +/tdo_tl070wsh30 +201 drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c
-
-cf40c66005920a Neil Armstrong   2020-09-15  198  
-79abca2b399009 Uwe Kleine-König 2022-07-08  199  static void tdo_tl070wsh30_panel_remove(struct mipi_dsi_device *dsi)
-cf40c66005920a Neil Armstrong   2020-09-15  200  {
-cf40c66005920a Neil Armstrong   2020-09-15 @201  	struct tdo_tl070wsh30_panel *tdo_tl070wsh30 = mipi_dsi_get_drvdata(dsi);
-cf40c66005920a Neil Armstrong   2020-09-15  202  	int err;
-cf40c66005920a Neil Armstrong   2020-09-15  203  
-cf40c66005920a Neil Armstrong   2020-09-15  204  	err = mipi_dsi_detach(dsi);
-cf40c66005920a Neil Armstrong   2020-09-15  205  	if (err < 0)
-cf40c66005920a Neil Armstrong   2020-09-15  206  		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", err);
-cf40c66005920a Neil Armstrong   2020-09-15  207  
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Cheers,
+Nathan
