@@ -4,143 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F5E3CCFA13
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 13:32:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A01BCFF8867
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 13:32:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B58D710F010;
-	Wed, 29 Apr 2026 13:32:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0852B10EFFD;
+	Wed, 29 Apr 2026 13:32:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="b4ShSk6m";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OH7uEWub";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="EDbyTLJC";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CA4010F010
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 13:32:18 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63T8qEh33066969
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 13:32:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=zlXmXqOMWysl75wyJsPWf9ub
- 9kxU1RPWgNiLMjMjO54=; b=b4ShSk6mKXAOrKXOdRb8rgeM9x0E3AOsUVpGffLX
- YHTR3NG/VHJbPyYcC95HQFsUhNe0VmjCUK0JBtUkd5xLFcFUvZngpyRLOUulQDSn
- nhS0ymk5Q/TAqTVAiCkTu/K2KoGMmZd4ITeT38pEf4r1FLCOVVHy8E6SudEJgvCz
- sI9DUmIPcJBOLQH36FG8SrtbCgHiNJttNS8RBr4nrKjz79AgT6VAzVj2EmgqUN5c
- AYY8mOcO8yx/QLoMEJWhB7hiq7WTX1D0YnsBoA1Ov1EpE1a3KvY9F8ZZNhTwA9ez
- 4ag4G9vhGXxwOxTZimD4kr4NPA+7utKXEk+8SArbJOKdPQ==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
- [209.85.214.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4du7sxapr8-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 13:32:17 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id
- d9443c01a7336-2b2eba42b8dso112355325ad.0
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 06:32:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1777469537; x=1778074337;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=zlXmXqOMWysl75wyJsPWf9ub9kxU1RPWgNiLMjMjO54=;
- b=OH7uEWubGw0bVqp7vvwenmf2pPrZMbrSXCSZgR7aFmlXVIn7zhgXCxiyHXggBj14Zm
- bAe8CKVLNvLcHNxy3JRdHhaPkuAxNcqZjkiELfwcqbDLWWp0XMRnwlmEDfapoSyqTgef
- 0JclJlSRqLNC/fT74HagZWaGK6nxPPig19lI7fFy+ADiz/3kAKt9fNWEJ1jO14fI/AQR
- fZi3qXGcWEYZiqwvFfK9o0obC11vXH6n77Ml6klwV4p2iC4mfQpdoy7Ck4KvKraavKhP
- X5/IZgFoZq1L9TxJU7wUhJdoUYPD7kej/stQiWjAbqqSEk7jEzpsZ6fXogEomqR+0LCy
- 9vEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777469537; x=1778074337;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=zlXmXqOMWysl75wyJsPWf9ub9kxU1RPWgNiLMjMjO54=;
- b=IYqH229BzxoGvfcZrwaROurypEd8rinEk1MmwBgxFpku4OzeFDMc+u8rs3zd0ttY9A
- kLpRboKx6gGIJ6r84Pp/OFRW4VvwCKeCTQ8wMLDYW1ToBzoxEPwNd+8SkRXwMxuKHQ66
- 0WB6Rgb5Wr04QPyh+IhxCRv15HTADu+s+wMeMtmVrdAJM0OHqjJNLS6XniGZgfoU7cfY
- CemVrDqyLX4DpB2gTbgJlT0bhmKxvRjlS2Kz5QTxo5t6TNTKq6JioEqzwaUPM/8OIas5
- 2w2x/q7EnXctTLymI2ua+N5Rh0+EyqmjtjUrr6UDLcmsag3KTDDeSeJGOExAQTlkv7M8
- nDZg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/ZtQ3nLXawoaUkjQtX7+BiijxrtaVqFufhPOz6310Q/ZNTd86qNo1fBpNmV7T+VP9+G2YuSRKSvrk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx7BTvm0SElzjnDZTmm6gKoa2pZHY2k23LEsDA1wz+2Xmsu0emG
- ib8watn3ejZURDzqthPIjhQ3llETO+5WQOJ083bcQWavak6sCdpY7mcT1QmICP4KEiKI40kWUJK
- sy8BBecY53UEjsbdVX0KatwWQXmbpya78MAS/NJUz0pEVzYXtu5W7TCVWnC8PB3neracwDfI=
-X-Gm-Gg: AeBDies4346nsqDekmcAhsnJ8Jq1mkwZ2wNs8ACHSaiRf1H5T31hbZPWftPaBTivD5l
- NME6K3JcFn58J7RCsxhe8F+1l1cn0vPdLzR9L66fhQbsDZ01+vgi8+iFD8leJ6rRSQ+Cqs7EScS
- fN+AfsBE9NXZEiONcum2EkcWYmAtkb+0jdQvGx3PLUfTQJmjtvI2+LM0IkBHySiyln6WNOmaP5S
- Nfvp5LO9M5bJ2aF9HRAjpF7SSlT2xFsr/122B2sC9W30ZWOTOsLZN5QSS7B3rPTeamSLgHhQ+uF
- wEVvQP09anRxXkU9IJ4M6l5D1/6kYbTWvJijwI1lylfZgtAzJ55oRWd9Kp7cR6eofIL1M9ww/Jd
- c0fytvdt64JmgYK+/lsxO24+FJIL61XUqj3xd2VA/HW8hJk7Rtx45twCP2SI=
-X-Received: by 2002:a17:903:2283:b0:2b9:86ca:5bf2 with SMTP id
- d9443c01a7336-2b986ca5cd1mr44795355ad.30.1777469536335; 
- Wed, 29 Apr 2026 06:32:16 -0700 (PDT)
-X-Received: by 2002:a17:903:2283:b0:2b9:86ca:5bf2 with SMTP id
- d9443c01a7336-2b986ca5cd1mr44794745ad.30.1777469535665; 
- Wed, 29 Apr 2026 06:32:15 -0700 (PDT)
-Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2b98893f0b7sm25818105ad.40.2026.04.29.06.32.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 Apr 2026 06:32:13 -0700 (PDT)
-Date: Wed, 29 Apr 2026 19:01:57 +0530
-From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-To: Sumit Garg <sumit.garg@kernel.org>
-Cc: andersson@kernel.org, konradybcio@kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-media@vger.kernel.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
- linux-remoteproc@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
- akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jesszhan0024@gmail.com, marijn.suijten@somainline.org,
- airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
- dikshita.agarwal@oss.qualcomm.com, bod@kernel.org, mchehab@kernel.org,
- elder@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- jjohnson@kernel.org, mathieu.poirier@linaro.org,
- trilokkumar.soni@oss.qualcomm.com, pavan.kondeti@oss.qualcomm.com,
- jorge.ramirez@oss.qualcomm.com, tonyh@qti.qualcomm.com,
- vignesh.viswanathan@oss.qualcomm.com, srinivas.kandagatla@oss.qualcomm.com,
- amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
- op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
- skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
- Sumit Garg <sumit.garg@oss.qualcomm.com>
-Subject: Re: [PATCH v4 06/15] remoteproc: qcom_q6v5_mss: Switch to generic
- PAS TZ APIs
-Message-ID: <20260429133157.lopr6n5vaik36466@hu-mojha-hyd.qualcomm.com>
-References: <20260427095603.1157963-1-sumit.garg@kernel.org>
- <20260427095603.1157963-7-sumit.garg@kernel.org>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 7C4A510EFFD
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 13:32:48 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5374E2574
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 06:32:42 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ 899573F62B
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 06:32:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1777469567; bh=3dXqKoJqwgm37N7FLXaKeBBy5Wv7SRCuC+mUA6/f2+I=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=EDbyTLJC4CD5kKFmSRNqUOjlQx/ZDd5l9F+DX8xDEiRiKAC3uc9npQYmIvcmY4Yqt
+ c3Kg0K6kAdx0Oxz5bJnTP3o9E8xMr1r4iNhajJqOgRtNMbnTRvIQ5GdwSrsKJoLMpD
+ WBSCzoTQTC5rRXMlVfxMWsBcucrt/1ZOOcoC9zYQ=
+Date: Wed, 29 Apr 2026 14:32:39 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Steven Price <steven.price@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 04/10] drm/panthor: Extend the IRQ logic to allow
+ fast/raw IRQ handlers
+Message-ID: <afIId-2Ej-WGBN1b@e142607>
+References: <20260429-panthor-signal-from-irq-v1-0-4b92ae4142d2@collabora.com>
+ <20260429-panthor-signal-from-irq-v1-4-4b92ae4142d2@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260427095603.1157963-7-sumit.garg@kernel.org>
-X-Proofpoint-GUID: NIELohJqaspIeGsMNFkDjFP8mEeWhHlG
-X-Authority-Analysis: v=2.4 cv=eeANubEH c=1 sm=1 tr=0 ts=69f20861 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=kj9zAlcOel0A:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=UXi9AHVq_sPz40Hf2JYA:9 a=CjuIK1q_8ugA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI5MDEzNyBTYWx0ZWRfX4P4BtvityhMg
- Ak7lZxcX9vg9riamwdp7htA7rJLp6dUnNzD50ymEOyPRhX9aAtsR2pZJbmiXwA8zOqWpG3IG8SF
- 5Pxo7JOfGcA7IMvtDFkwCKq9k+gTn9O0Xic962HEugyY6v6AolJ5k638YRBc77uhGZi9ZJ09fxu
- iIMhhrJ5GnLLC97x9qIBS3ZvVR1a2gmIk50PH1eqDrvQRJAKeBBWeDStBL1VcRVo4DmzrnKBG+9
- CLmQFYecmrPKQG8h3K4xH1uU4ad3x65qB4/aT0KgynbNmF47VaCf/aiaiWqbNwTmOnc6oGsYd3s
- hC2zM5GnBq+iSwy0fLh9vS4xo9fZu3E7kIqmQvhq96V/NaRh7f5cyiORC//EU4qg7occtPz+UV0
- jvupOow+/T5AF+N2zXgB2FEnXuuJ7JbxSuOq8VoPTvFZ8FLNJH+58YahJKKCYpVhZlFB9uEBmdn
- vXyZ20QQmaPOkjpKQqg==
-X-Proofpoint-ORIG-GUID: NIELohJqaspIeGsMNFkDjFP8mEeWhHlG
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-28_05,2026-04-28_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 clxscore=1015 malwarescore=0 impostorscore=0
- phishscore=0 suspectscore=0 lowpriorityscore=0 bulkscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604290137
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260429-panthor-signal-from-irq-v1-4-4b92ae4142d2@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,58 +62,135 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Apr 27, 2026 at 03:25:54PM +0530, Sumit Garg wrote:
-> From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+On Wed, Apr 29, 2026 at 11:38:31AM +0200, Boris Brezillon wrote:
+> All drivers except panthor signal their fences from their interrupt
+> handler to minimize latency. We could do the same from the interrupt
+> handler, but the latency is still quite high in that case, so let's
+> allow components to choose the context they want their IRQ handler
+> to run in.
+
+Starting here
+
 > 
-> Switch qcom_q6v5_mss client driver over to generic PAS TZ APIs. Generic PAS
-> TZ service allows to support multiple TZ implementation backends like QTEE
-> based SCM PAS service, OP-TEE based PAS service and any further future TZ
-> backend service.
+> This takes the form of an extra fast_handler() returning an irqreturn_t
+> reflecting the need to wake-up a thread or not.
+> A new PANTHOR_IRQ_ADV_HANDLER() macro taking this extra fast_handler
+> argument is added, PANTHOR_IRQ_HANDLER() is implemented as a wrapper
+> around PANTHOR_IRQ_ADV_HANDLER() with a default fast_handler
+> returning IRQ_WAKE_THREAD.
+
+up to here: there is no code matching the description. Left over from
+earlier iteration?
+
+> The fast and slow handler are still assumed
+> to be mutually exclusive. In case a fast handler is provided, the
+> slow_handler is expected to be run when the event can't be processed
+> directly in the fast handler, or when the driver thinks it would be
+> beneficial to coalesce interrupts by polling in the thread rather than
+> re-enabling interrupts immediately.
+
+This part is not really describing any code, just the intent. Maybe worth
+moving it inside the code as a comment?
+
+Otherwise, the change looks fine to me.
+
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+
+Best regards,
+Liviu
+
 > 
-> Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 > ---
->  drivers/remoteproc/qcom_q6v5_mss.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/panthor/panthor_device.h | 5 ++---
+>  drivers/gpu/drm/panthor/panthor_fw.c     | 1 +
+>  drivers/gpu/drm/panthor/panthor_gpu.c    | 1 +
+>  drivers/gpu/drm/panthor/panthor_mmu.c    | 1 +
+>  drivers/gpu/drm/panthor/panthor_pwr.c    | 1 +
+>  5 files changed, 6 insertions(+), 3 deletions(-)
 > 
-> diff --git a/drivers/remoteproc/qcom_q6v5_mss.c b/drivers/remoteproc/qcom_q6v5_mss.c
-> index ae78f5c7c1b6..96888007faa8 100644
-> --- a/drivers/remoteproc/qcom_q6v5_mss.c
-> +++ b/drivers/remoteproc/qcom_q6v5_mss.c
-> @@ -34,6 +34,7 @@
->  #include "qcom_pil_info.h"
->  #include "qcom_q6v5.h"
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
+> index afa202546316..1c130b8394ab 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.h
+> +++ b/drivers/gpu/drm/panthor/panthor_device.h
+> @@ -672,6 +672,7 @@ static inline void panthor_irq_disable_events(struct panthor_irq *pirq, u32 mask
+>  static inline int
+>  panthor_irq_request(struct panthor_device *ptdev, struct panthor_irq *pirq,
+>  		    int irq, u32 mask, void __iomem *iomem, const char *name,
+> +		    irqreturn_t (*raw_handler)(int, void *data),
+>  		    irqreturn_t (*threaded_handler)(int, void *data))
+>  {
+>  	const char *full_name;
+> @@ -687,9 +688,7 @@ panthor_irq_request(struct panthor_device *ptdev, struct panthor_irq *pirq,
+>  	if (!full_name)
+>  		return -ENOMEM;
 >  
-> +#include <linux/firmware/qcom/qcom_pas.h>
->  #include <linux/firmware/qcom/qcom_scm.h>
-
-same here., whether it is needed now ?
-
+> -	return devm_request_threaded_irq(ptdev->base.dev, irq,
+> -					 panthor_irq_default_raw_handler,
+> -					 threaded_handler,
+> +	return devm_request_threaded_irq(ptdev->base.dev, irq, raw_handler, threaded_handler,
+>  					 IRQF_SHARED, full_name, pirq);
+>  }
 >  
->  #define MPSS_CRASH_REASON_SMEM		421
-> @@ -1480,7 +1481,7 @@ static int q6v5_mpss_load(struct q6v5 *qproc)
->  	}
+> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
+> index eaf599b0a887..8239a6951569 100644
+> --- a/drivers/gpu/drm/panthor/panthor_fw.c
+> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
+> @@ -1483,6 +1483,7 @@ int panthor_fw_init(struct panthor_device *ptdev)
 >  
->  	if (qproc->need_pas_mem_setup) {
-> -		ret = qcom_scm_pas_mem_setup(MPSS_PAS_ID, qproc->mpss_phys, qproc->mpss_size);
-> +		ret = qcom_pas_mem_setup(MPSS_PAS_ID, qproc->mpss_phys, qproc->mpss_size);
->  		if (ret) {
->  			dev_err(qproc->dev,
->  				"setting up mpss memory failed: %d\n", ret);
-> @@ -2077,7 +2078,7 @@ static int q6v5_probe(struct platform_device *pdev)
->  	if (!desc)
->  		return -EINVAL;
->  
-> -	if (desc->need_mem_protection && !qcom_scm_is_available())
-> +	if (desc->need_mem_protection && !qcom_pas_is_available())
->  		return -EPROBE_DEFER;
->  
->  	mba_image = desc->hexagon_mba_image;
-
-Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-
+>  	ret = panthor_irq_request(ptdev, &fw->irq, irq, 0,
+>  				  ptdev->iomem + JOB_INT_BASE, "job",
+> +				  panthor_irq_default_raw_handler,
+>  				  panthor_job_irq_threaded_handler);
+>  	if (ret) {
+>  		drm_err(&ptdev->base, "failed to request job irq");
+> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
+> index ce208e384762..d0be758ea3e1 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
+> @@ -177,6 +177,7 @@ int panthor_gpu_init(struct panthor_device *ptdev)
+>  	ret = panthor_irq_request(ptdev, &ptdev->gpu->irq, irq,
+>  				  GPU_INTERRUPTS_MASK,
+>  				  ptdev->iomem + GPU_INT_BASE, "gpu",
+> +				  panthor_irq_default_raw_handler,
+>  				  panthor_gpu_irq_threaded_handler);
+>  	if (ret)
+>  		return ret;
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+> index a0d0a9b2926f..2cb07933b629 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> @@ -3260,6 +3260,7 @@ int panthor_mmu_init(struct panthor_device *ptdev)
+>  	ret = panthor_irq_request(ptdev, &mmu->irq, irq,
+>  				  panthor_mmu_fault_mask(ptdev, ~0),
+>  				  ptdev->iomem + MMU_INT_BASE, "mmu",
+> +				  panthor_irq_default_raw_handler,
+>  				  panthor_mmu_irq_threaded_handler);
+>  	if (ret)
+>  		return ret;
+> diff --git a/drivers/gpu/drm/panthor/panthor_pwr.c b/drivers/gpu/drm/panthor/panthor_pwr.c
+> index 80cf78007896..1efb7f3482ba 100644
+> --- a/drivers/gpu/drm/panthor/panthor_pwr.c
+> +++ b/drivers/gpu/drm/panthor/panthor_pwr.c
+> @@ -491,6 +491,7 @@ int panthor_pwr_init(struct panthor_device *ptdev)
+>  	err = panthor_irq_request(
+>  		ptdev, &pwr->irq, irq, PWR_INTERRUPTS_MASK,
+>  		pwr->iomem + PWR_INT_BASE, "pwr",
+> +		panthor_irq_default_raw_handler,
+>  		panthor_pwr_irq_threaded_handler);
+>  	if (err)
+>  		return err;
+> 
 > -- 
-> 2.51.0
+> 2.53.0
 > 
 
 -- 
--Mukesh Ojha
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
