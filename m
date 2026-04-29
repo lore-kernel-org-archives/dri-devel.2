@@ -4,58 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DDFDCCFA13
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 18:50:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45AF5CCFA13
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 19:04:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D52EA10E004;
-	Wed, 29 Apr 2026 18:50:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44F9D10F144;
+	Wed, 29 Apr 2026 19:04:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZiKs4+Ko";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="k2QUmowe";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D61FB10E004
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 18:50:01 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 349D36015B;
- Wed, 29 Apr 2026 18:50:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BEF6C19425;
- Wed, 29 Apr 2026 18:50:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777488600;
- bh=SJYZ4NAfB0jKA2r12K3oUXg2EYSzdPCWQ44kjGJMgLo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ZiKs4+KokO+v2SHr7cJRFjeswZtDWAzjDIi7YJZLFDicOWa42t0FtJ97scrmoiUiL
- YsjvGJNaROhTcz31Xxw3IN36HhQVVkTcvWofiM/u+JdnNoCJi51qAjuL9iY8yXa9Cz
- Lb9/EVcoz/DZ+6UJcQJsHcrbjdeaCuXDVqP+XDLo6nc+fEiZO+5RR09YgxNVqmsRE6
- f2xwQcVnUTNF42WTKHXUSjGizaJUfdHMQHie5vUwjbIFkMu4R84ualDCvczf7C1DBq
- GgfoEPpj4WRW5lJCJtmyi77fcvlk4IwucF/VAif6QEZdu8VOln9b5y5Cz4cpHWGcEl
- 285blVyaIgMGw==
-Date: Wed, 29 Apr 2026 20:49:58 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Maxime Ripard <mripard@redhat.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Sumit Semwal <sumit.semwal@linaro.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, 
- John Stultz <jstultz@google.com>, "T . J . Mercier" <tjmercier@google.com>, 
- Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@redhat.com>,
- Mike Rapoport <rppt@kernel.org>, Sumit Garg <sumit.garg@kernel.org>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-tegra@vger.kernel.org, 
- linaro-mm-sig@lists.linaro.org, linux-mm@kvack.org
-Subject: Re: [PATCH v2 06/10] dma-buf: heaps: Add support for Tegra VPR
-Message-ID: <afJSQbArB8USb6mt@orome>
-References: <20260122161009.3865888-1-thierry.reding@kernel.org>
- <20260122161009.3865888-7-thierry.reding@kernel.org>
- <20260123-meteoric-butterfly-of-imagination-fd691f@houat>
- <aY3nov29aBGWw93Y@orome>
- <20260218-voracious-orchid-malamute-febce0@houat>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52C6310E3F4;
+ Wed, 29 Apr 2026 19:04:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1777489486; x=1809025486;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=tsidYZBHseBKOISqltd/eKHnliZi9ZyEiXutHjbxvS0=;
+ b=k2QUmowePQJYtexxH//yyHi8DUMMJF/dHdT01a7gK0DIdqkmM9J6XjC9
+ /iEjVdMSCyxW1JuaCyD11ST3CIxh1i84mJP9oqkSNirrhao/LxUKVWsQr
+ Pp9yH6vTlhLsxUrJzJ4++H7zaKuOdG1QWQR1d0FbPF/cJOc/XVsXdkAas
+ By3cZv6YUQ30kng1fi0CACMzc9h4tIGVs3++8b9T4mpSTUzvD1eSj5hh5
+ 23G0vts2pj4jxs1rkLxkrIe/9QwRUZM0+57vISpXPz9niCerdbuupHQ4c
+ 5PbKIRsxo7augUoimnjisWGZb7Fmin2JuJZyCPz7vbH6vcYwjP4enTKSI w==;
+X-CSE-ConnectionGUID: Mjdtlg9+Q7qm2hRJHWCKwA==
+X-CSE-MsgGUID: 7pXjNAXEQ62fPmaxGEr6RQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11771"; a="78536924"
+X-IronPort-AV: E=Sophos;i="6.23,206,1770624000"; d="scan'208";a="78536924"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Apr 2026 12:04:45 -0700
+X-CSE-ConnectionGUID: wUoF0Hs8Tr2pd2NJYUbiCg==
+X-CSE-MsgGUID: 1aNgzHMcQSSPenipv5Uycg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,206,1770624000"; d="scan'208";a="272481706"
+Received: from lkp-server01.sh.intel.com (HELO aa799cca880d) ([10.239.97.150])
+ by orviesa001.jf.intel.com with ESMTP; 29 Apr 2026 12:04:42 -0700
+Received: from kbuild by aa799cca880d with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1wIAD7-00000000BRA-48UD;
+ Wed, 29 Apr 2026 19:04:37 +0000
+Date: Thu, 30 Apr 2026 03:04:13 +0800
+From: kernel test robot <lkp@intel.com>
+To: Evgenii Burenchev <evg28bur@yandex.ru>, stable@vger.kernel.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: oe-kbuild-all@lists.linux.dev, Evgenii Burenchev <evg28bur@yandex.ru>,
+ alexander.deucher@amd.com, christian.koenig@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/radeon/rs780: prevent division by zero in refresh
+ rate calculation
+Message-ID: <202604300247.Gzeia1bh-lkp@intel.com>
+References: <20260428190318.34413-1-evg28bur@yandex.ru>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="d2myfaz5io3m7bs5"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260218-voracious-orchid-malamute-febce0@houat>
+In-Reply-To: <20260428190318.34413-1-evg28bur@yandex.ru>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,126 +74,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi Evgenii,
 
---d2myfaz5io3m7bs5
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 06/10] dma-buf: heaps: Add support for Tegra VPR
-MIME-Version: 1.0
+kernel test robot noticed the following build warnings:
 
-On Wed, Feb 18, 2026 at 10:42:22AM +0100, Maxime Ripard wrote:
-> On Thu, Feb 12, 2026 at 03:50:09PM +0100, Thierry Reding wrote:
-> > On Fri, Jan 23, 2026 at 02:30:14PM +0100, Maxime Ripard wrote:
-> > > Hi,
-> > >=20
-> > > On Thu, Jan 22, 2026 at 05:10:05PM +0100, Thierry Reding wrote:
-> > > > From: Thierry Reding <treding@nvidia.com>
-> > > >=20
-> > > > NVIDIA Tegra SoCs commonly define a Video-Protection-Region, which =
-is a
-> > > > region of memory dedicated to content-protected video decode and
-> > > > playback. This memory cannot be accessed by the CPU and only certain
-> > > > hardware devices have access to it.
-> > > >=20
-> > > > Expose the VPR as a DMA heap so that applications and drivers can
-> > > > allocate buffers from this region for use-cases that require this k=
-ind
-> > > > of protected memory.
-> > > >=20
-> > > > VPR has a few very critical peculiarities. First, it must be a sing=
-le
-> > > > contiguous region of memory (there is a single pair of registers th=
-at
-> > > > set the base address and size of the region), which is configured by
-> > > > calling back into the secure monitor. The memory region also needs =
-to
-> > > > quite large for some use-cases because it needs to fit multiple vid=
-eo
-> > > > frames (8K video should be supported), so VPR sizes of ~2 GiB are
-> > > > expected. However, some devices cannot afford to reserve this amount
-> > > > of memory for a particular use-case, and therefore the VPR must be
-> > > > resizable.
-> > > >=20
-> > > > Unfortunately, resizing the VPR is slightly tricky because the GPU =
-found
-> > > > on Tegra SoCs must be in reset during the VPR resize operation. Thi=
-s is
-> > > > currently implemented by freezing all userspace processes and calli=
-ng
-> > > > invoking the GPU's freeze() implementation, resizing and the thawin=
-g the
-> > > > GPU and userspace processes. This is quite heavy-handed, so eventua=
-lly
-> > > > it might be better to implement thawing/freezing in the GPU driver =
-in
-> > > > such a way that they block accesses to the GPU so that the VPR resi=
-ze
-> > > > operation can happen without suspending all userspace.
-> > > >=20
-> > > > In order to balance the memory usage versus the amount of resizing =
-that
-> > > > needs to happen, the VPR is divided into multiple chunks. Each chun=
-k is
-> > > > implemented as a CMA area that is completely allocated on first use=
- to
-> > > > guarantee the contiguity of the VPR. Once all buffers from a chunk =
-have
-> > > > been freed, the CMA area is deallocated and the memory returned to =
-the
-> > > > system.
-> > > >=20
-> > > > Signed-off-by: Thierry Reding <treding@nvidia.com>
-> > >=20
-> > > Aside from the discussion on CMA, it doesn't look like the heap defin=
-es
-> > > anywhere the attributes of the allocated buffers this heap provides.
-> >=20
-> > Attributes like what? Where would you expect the driver to define this?
-> > I don't see anything in struct drm_heap_export_info that sounds like
-> > what you expect, nor does the allocation ABI provide any means of
-> > reporting attributes.
-> >=20
-> > There's also not a whole lot to this, other than that the memory
-> > allocated by this can't be accessed by anything other than a select set
-> > of devices. You can't have any CPU access to these buffers (the hardware
-> > will refuse to let the CPU read from this memory) either, which is
-> > hinted at by the fact that no mmap() operations are allowed.
-> >=20
-> > Can you elaborate what you're looking for?
->=20
-> Are the buffers you're getting when allocating cacheable? uncacheable?
-> mappable? physically or virtually contiguous? etc.
->=20
-> See
-> https://docs.kernel.org/userspace-api/dma-buf-heaps.html#heaps
+[auto build test WARNING on drm-misc/drm-misc-next]
+[also build test WARNING on linus/master v7.1-rc1 next-20260428]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-The CPU doesn't have access to the contents of these buffers, so
-cacheable or uncacheable aren't really meaningful, but I guess they are
-unmappable in that sense. The buffers are physically contiguous, but I
-think "protected" is the right name for the heap since it most
-accurately describes what the purpose (and access pattern) is.
+url:    https://github.com/intel-lab-lkp/linux/commits/Evgenii-Burenchev/drm-radeon-rs780-prevent-division-by-zero-in-refresh-rate-calculation/20260429-055830
+base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+patch link:    https://lore.kernel.org/r/20260428190318.34413-1-evg28bur%40yandex.ru
+patch subject: [PATCH] drm/radeon/rs780: prevent division by zero in refresh rate calculation
+config: parisc-defconfig (https://download.01.org/0day-ci/archive/20260430/202604300247.Gzeia1bh-lkp@intel.com/config)
+compiler: hppa-linux-gcc (GCC) 15.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260430/202604300247.Gzeia1bh-lkp@intel.com/reproduce)
 
-Thierry
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202604300247.Gzeia1bh-lkp@intel.com/
 
---d2myfaz5io3m7bs5
-Content-Type: application/pgp-signature; name="signature.asc"
+All warnings (new ones prefixed by >>):
 
------BEGIN PGP SIGNATURE-----
+   drivers/gpu/drm/radeon/rs780_dpm.c: In function 'rs780_get_pm_mode_parameters':
+>> drivers/gpu/drm/radeon/rs780_dpm.c:66:25: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+      66 |                         if (crtc->mode.htotal && crtc->mode.vtotal)
+         |                         ^~
+   drivers/gpu/drm/radeon/rs780_dpm.c:68:33: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+      68 |                                 if (pi->refresh_rate == 0)
+         |                                 ^~
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmnyUtYACgkQ3SOs138+
-s6FR+g/+KsYWfQUZ129aKCUNsoLuGu/cyN7j8T6Z/3ilgL0EC9R58tbva6UNIcs8
-8r2onzdPn4w0huB+6STgpihIyHcmj/Uz+Oe99KMc9dtsU9ZJQ3ZXimgI74FU+Rpw
-etJC0iu8ZzUj4E46mO2wUxhq1Hw9v/+ozBlejV1Z2+07PrfxYANnB6AfrJctpWfR
-oHSChS/KXwfgBN4VJUcDr9Oe9ldyzolQp/8zUNYjfIn7U8y/RzJrm/qk6llDpqmX
-JVnqBG6sPty/tCi48FH6zyrD3xTi83Od3oxpLVTPk/wIOJANhJ1EMDXWicQwrWLc
-eeGvG0WWTNx7+8Ej95VB/LPguytkBN3QwJwZb9d9gBOYKewiKLM41fSMhSpIjz+j
-3g0DhGqKSSlk4mVqw1BQik6+wIBGCSQSZxXnqjtwOoCy7XREJbU+POiSKnczfm7/
-5+YVt7Se5070nu3fc1Pl9m0vlacUB6PfYKpR47BJE8KbT5hcyDUpAK96Spo4d1L0
-B+mC14GNVj1/cAV9X82JR8MhB+IsZLgWKoXV7VKQOmrQmmN7WF78iCiiYWQ0/1CY
-f98vLHUgPFfpyp2laMldeuILA1YYOX73cANruKUqSz2baWdNV/YEAkShnVJxDynq
-sUPyc9EarzQeCDHok0jWlg+/+IlZJoXgOHIt3ToaY3R0kns97JI=
-=hyUh
------END PGP SIGNATURE-----
 
---d2myfaz5io3m7bs5--
+vim +/if +66 drivers/gpu/drm/radeon/rs780_dpm.c
+
+9d67006e6ebc6c Alex Deucher      2013-04-12  48  
+9d67006e6ebc6c Alex Deucher      2013-04-12  49  static void rs780_get_pm_mode_parameters(struct radeon_device *rdev)
+9d67006e6ebc6c Alex Deucher      2013-04-12  50  {
+9d67006e6ebc6c Alex Deucher      2013-04-12  51  	struct igp_power_info *pi = rs780_get_pi(rdev);
+9d67006e6ebc6c Alex Deucher      2013-04-12  52  	struct radeon_mode_info *minfo = &rdev->mode_info;
+9d67006e6ebc6c Alex Deucher      2013-04-12  53  	struct drm_crtc *crtc;
+9d67006e6ebc6c Alex Deucher      2013-04-12  54  	struct radeon_crtc *radeon_crtc;
+9d67006e6ebc6c Alex Deucher      2013-04-12  55  	int i;
+9d67006e6ebc6c Alex Deucher      2013-04-12  56  
+9d67006e6ebc6c Alex Deucher      2013-04-12  57  	/* defaults */
+9d67006e6ebc6c Alex Deucher      2013-04-12  58  	pi->crtc_id = 0;
+9d67006e6ebc6c Alex Deucher      2013-04-12  59  	pi->refresh_rate = 60;
+9d67006e6ebc6c Alex Deucher      2013-04-12  60  
+9d67006e6ebc6c Alex Deucher      2013-04-12  61  	for (i = 0; i < rdev->num_crtc; i++) {
+9d67006e6ebc6c Alex Deucher      2013-04-12  62  		crtc = (struct drm_crtc *)minfo->crtcs[i];
+9d67006e6ebc6c Alex Deucher      2013-04-12  63  		if (crtc && crtc->enabled) {
+9d67006e6ebc6c Alex Deucher      2013-04-12  64  			radeon_crtc = to_radeon_crtc(crtc);
+9d67006e6ebc6c Alex Deucher      2013-04-12  65  			pi->crtc_id = radeon_crtc->crtc_id;
+9d67006e6ebc6c Alex Deucher      2013-04-12 @66  			if (crtc->mode.htotal && crtc->mode.vtotal)
+c3eaa088277709 Alex Deucher      2013-09-13  67  				pi->refresh_rate = drm_mode_vrefresh(&crtc->mode);
+0d99a77de43b3f Evgenii Burenchev 2026-04-28  68  				if (pi->refresh_rate == 0)
+0d99a77de43b3f Evgenii Burenchev 2026-04-28  69  					pi->refresh_rate = 60;
+9d67006e6ebc6c Alex Deucher      2013-04-12  70  			break;
+9d67006e6ebc6c Alex Deucher      2013-04-12  71  		}
+9d67006e6ebc6c Alex Deucher      2013-04-12  72  	}
+9d67006e6ebc6c Alex Deucher      2013-04-12  73  }
+9d67006e6ebc6c Alex Deucher      2013-04-12  74  
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
