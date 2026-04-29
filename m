@@ -4,60 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C51BFF8867
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 12:57:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74A1AFF8875
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 13:07:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2A7610E664;
-	Wed, 29 Apr 2026 12:57:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C827510E9B3;
+	Wed, 29 Apr 2026 13:07:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FX9GUlUb";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="WUmCWDUL";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2404210E664
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 12:57:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777467465; x=1809003465;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=55eTgoMHWKIoeSkzmKaw4s+Bfn69LGKpEZLYbDuEK+Y=;
- b=FX9GUlUbtwMCWpZ+4ex1apQ4TeAgLSIh6rnXBXSM75H9dFCs0+73maaF
- IWZpgI3y/kfIWc9fMFoVFpUCITfgohMnRKrwFDHg6acrm5wkzzJQT1xQ8
- pY0cn/aRJ8yAH8wVgOnc0g1Lrups59y6bdqJkcvlX5/B1w/GjHJObzlXu
- Mo2DcLRFe3jb/1vPOO3NFGGTjRXVL30QZRE4maRKHxZujFCel5bSzMilV
- 6SjheaFVUylrzbIjaVWiOITYZA1s2HxggcR0aA1Pgsueknv3U8nsYiHHX
- YF8+LVZWYdICQdthvGhsYTil9Z2q8CfqovhICJIxNqO9Knx28por/dfnL Q==;
-X-CSE-ConnectionGUID: dcX/dv4VSW2h1iTZzpX6KA==
-X-CSE-MsgGUID: lmVcH8f4QEyDo+2kvJioLQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11771"; a="80968137"
-X-IronPort-AV: E=Sophos;i="6.23,206,1770624000"; d="scan'208";a="80968137"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Apr 2026 05:57:44 -0700
-X-CSE-ConnectionGUID: GpctQaS4TKa+FlbSWauJVA==
-X-CSE-MsgGUID: IUGJVGDKQ/eLrqLULEybFg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,206,1770624000"; d="scan'208";a="236037214"
-Received: from ksoboci-mobl.ger.corp.intel.com (HELO [10.246.22.156])
- ([10.246.22.156])
- by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Apr 2026 05:57:43 -0700
-Message-ID: <f99a346a-b5e1-47f9-9d49-2dd90d655044@linux.intel.com>
-Date: Wed, 29 Apr 2026 14:57:30 +0200
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09F7410E3D1;
+ Wed, 29 Apr 2026 13:07:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=rjD3vHRhB7ZvQTRvyQpEWW7zvgXKCVf8WWT2trJiZec=; b=WUmCWDULHcfE+6wzWYmOd1dL6r
+ 7ynW233fH3jPm6meum0EFboCJ9iKIu8ydlkKJtMoZH3vmjbIJsSnM6JHUUw+10py9cYAC2fBTrkWj
+ pK7KvB+BQ6fcxCTHuikHgkIPepX+NIpFF9/rVVxIpclLgM5j3z0uaywp+1ZHAaDroozq64v69hjbx
+ F0Yn2KPPk5Y9aI76tHU49dDHtMb5GHV3vjIzCLsTEnt9EJAvVhSqkU/UUESRPnlEPdsa8qRAJDYHu
+ vYPN2REBodwxhgh46x6/QhMzhhMBzxR9HRYDPnwwSni8ubVwo3V7dQqZ3aF2S9+DipwdFhWQJpGTY
+ QZL+ijZQ==;
+Received: from [90.240.106.137] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wI4d4-003wV3-4D; Wed, 29 Apr 2026 15:07:01 +0200
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+To: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com,
+	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Subject: [RFC 0/2] DRM standardized memory stats
+Date: Wed, 29 Apr 2026 14:06:51 +0100
+Message-ID: <20260429130653.73854-1-tvrtko.ursulin@igalia.com>
+X-Mailer: git-send-email 2.52.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] MAINTAINERS: accel/ivpu: Remove myself and add Andrzej as
- maintainer
-To: Maciej Falkowski <maciej.falkowski@linux.intel.com>,
- dri-devel@lists.freedesktop.org
-Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com,
- karol.wachowski@linux.intel.com, lizhi.hou@amd.com
-References: <20260429083958.2148777-1-maciej.falkowski@linux.intel.com>
-Content-Language: en-US
-From: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
-In-Reply-To: <20260429083958.2148777-1-maciej.falkowski@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,30 +59,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 29-Apr-26 10:39 AM, Maciej Falkowski wrote:
-> As I will be departing from my current position, I will
-> no longer maintain the driver, and remove myself from
-> ivpu's maintainers entry. Andrzej will support Karol
-> in maintaining the driver.
-> 
-> Signed-off-by: Maciej Falkowski <maciej.falkowski@linux.intel.com>
-> ---
->   MAINTAINERS | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 74d114884b34..54b941d6e8b2 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -7835,8 +7835,8 @@ F:	drivers/soc/ti/smartreflex.c
->   F:	include/linux/power/smartreflex.h
->   
->   DRM ACCEL DRIVERS FOR INTEL VPU
-> -M:	Maciej Falkowski <maciej.falkowski@linux.intel.com>
->   M:	Karol Wachowski <karol.wachowski@linux.intel.com>
-> +M:	Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
->   L:	dri-devel@lists.freedesktop.org
->   S:	Supported
->   T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
+Floating a simple idea born from an user interest to be able to correctly size
+the swap space during OS installation, based on the size of the VRAM a discrete
+GPU might have. And to be able to do it in a vendor agnostic way.
 
-Reviewed-by: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
+Idea is to expose a standardized scheme in sysfs, under the DRM class card, and
+under a new 'memstat' directory. Such as, example from amdgpu:
+
+/sys/class/drm/card1/memstat/
+├── gtt
+│   ├── total_mb
+│   └── used_mb
+└── vram
+    ├── total_mb
+    └── used_mb
+
+Or with concrete numbers:
+
+$ grep -Hr . /sys/class/drm/card1/memstat/
+/sys/class/drm/card1/memstat/vram/total_mb:1024
+/sys/class/drm/card1/memstat/vram/used_mb:445
+/sys/class/drm/card1/memstat/gtt/total_mb:7394
+/sys/class/drm/card1/memstat/gtt/used_mb:71
+
+Drivers need to implement a simple DRM driver level callback which needs to
+report a stable list of interesting memory regions and their respective stats.
+The region names then become sub-directory names under the new 'memstat'
+directory, with each region exposing the total size and the current usage.
+
+Similar data can already be queried if the dmem cgroup controller is enabled,
+also only for the participating drivers, by querying the root cgroup. But
+perhaps sysfs is easier, or perhaps it is too much code for too little benefit.
+I am curious to hear any opinions.
+
+Tvrtko Ursulin (2):
+  drm: Allow drivers to report standardized memory stats
+  drm/amdgpu: Wire up DRM memory stats reporting
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        |   6 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c |  40 +++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    |  37 +++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h    |   3 +
+ drivers/gpu/drm/drm_drv.c                  |  10 ++
+ drivers/gpu/drm/drm_sysfs.c                | 123 +++++++++++++++++++++
+ include/drm/drm_device.h                   |  19 ++++
+ include/drm/drm_drv.h                      |   8 ++
+ include/drm/drm_file.h                     |   9 ++
+ include/drm/drm_sysfs.h                    |   4 +
+ 11 files changed, 248 insertions(+), 13 deletions(-)
+
+-- 
+2.52.0
+
