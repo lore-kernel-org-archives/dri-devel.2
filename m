@@ -4,130 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23042CCFA13
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 13:50:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC68CFF8867
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 13:51:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FB7F10F030;
-	Wed, 29 Apr 2026 13:50:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18EB110F033;
+	Wed, 29 Apr 2026 13:51:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="uUwiLTbs";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bvXhZRvF";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010001.outbound.protection.outlook.com
- [40.93.198.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E2B0E10F030
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 13:50:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GtoxuiLCqzCf4WGSypFwuf4CM7I13+L/mCRkrQ7QTyZRSE5KMTNmFoSS5gPcCG8HNMhJetu99FaQMMbRVnuqe7VSvDV3Q6TSGX1jl7pvTwL1QPpOj+nZIjHNKI3V0DJHetyagcBqyczlZwygjjXSdJKBo5FWG2BGwkx5w3rLTfTQMLatnjuuymFQj4vUXK6sLzYwc/pnrHB7xcL3tL5vK5Ivnnq9VJAYbYyejhJ57JLvktPYQS+hgjg0a/BfXpcankAs2TTsFMCho7gUL3201tasS5W7T6OFMIFatzTFqeTYQDbnFUPLKiaN1d0/TzH3pmsqnRsAjJ9ZE/Q5/c10zQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=v/+jGbJ9l/ZdW+MlZVj2CWjOpIZqqYhtLl6YtI8S1JQ=;
- b=trLr7MrFWL1glA8EsqTadq4g+uHIXUT6l78T9i5Ir5IA+SauiiRVsUoc6VXl9OI1ht/ohxgvwmW9KpPSUgcsrHdgIzdZZtozjasBcP9MqENqMVxnWG26ETMzNhdL/6GyIbNYjCmflzG+oSA1OX95JQtSLiodW7cXkpAYAvmNCLgsclEBYK/lSlKrydbY/Hcz+3PfepOe+qasjIpVVV2SCLAbYPUl+eaGCHiXZaF1qRCnayuSqD+V58vUGX5tum6up441JYXsLguI43RtgsCUqZTefMZ8jPuFWpDrmCE7vlmeNqiHarSpD2lPZ7Dil+GPeFy5egzKHTnFR8kT7nF1IQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=v/+jGbJ9l/ZdW+MlZVj2CWjOpIZqqYhtLl6YtI8S1JQ=;
- b=uUwiLTbs/b7LNYFvNKzIQT3HEOb0VLqsRXwHukABtSndmJMhj5eZqxmTS0/vmxD/d/cNqFCYOIdNEk6dqc9k3kIZXSLLkf9e34DA06XXwdtL0tatCRMizxC+6CkxNgaHCUuHMhuCA6lYYxuQEARkF/h6OzDHr2xzxdg9g+Roux5yfInRrI/ImpiwwuAD2JQUfKsW1JgGbri5WDNU6JOMxlIZwdh6z68FIdHQ5I/75XwbEz1tFC5XLIBNm/KrMmdjZRlFISzGIVd9Vn8vgqjXEQmUuEjTaNNRRpILWzFJLXqnStY8V2uljd0UFqPXvB3r1Nn+4xR2ZrmfWkukvwfsEg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by BY5PR12MB4273.namprd12.prod.outlook.com (2603:10b6:a03:212::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.20; Wed, 29 Apr
- 2026 13:50:24 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.20.9870.013; Wed, 29 Apr 2026
- 13:50:23 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 29 Apr 2026 22:50:20 +0900
-Message-Id: <DI5OQY5NQYB6.233U92ZQHTZHC@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Joel Fernandes" <joelagnelf@nvidia.com>, "John Hubbard"
- <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
- <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3 03/11] gpu: nova-core: vbios: use checked ops and
- accesses in `FwSecBiosImage::ucode`
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Eliot Courtney" <ecourtney@nvidia.com>
-References: <20260421-fix-vbios-v3-0-8f648aef7a85@nvidia.com>
- <20260421-fix-vbios-v3-3-8f648aef7a85@nvidia.com>
-In-Reply-To: <20260421-fix-vbios-v3-3-8f648aef7a85@nvidia.com>
-X-ClientProxiedBy: TYCP286CA0016.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:263::6) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77AC710F033
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 13:51:25 +0000 (UTC)
+Received: by mail-dl1-f43.google.com with SMTP id
+ a92af1059eb24-12714f01940so851283c88.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 06:51:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777470685; cv=none;
+ d=google.com; s=arc-20240605;
+ b=iV5OF7o+6UCY4j7hyL0eQCueG+r+rL88+94yvtOdl21TQVVXeaOMy1eighHQ4ofO/M
+ GG50lEffCKP8+i+2+ZphU+4DIQ1IcsAnKmmKj8uPQYx9WNI2I73+QDLOYcY2eC+CUUw4
+ nDKsNhgp+DzjuLQzd9JT59XK1/ACgyOS2WspXMPatCGdBsqBfmLnTzQePWZ0jpa/lfNN
+ N8U/zQQLG57mKGjJxg1/YHHZ2duzCC4Fpkzrw6iJBQQX9iyDoHTSpBMvD31/UyZ+c9UK
+ ifGEsIMQDGf3I06H70DIt2JLhkidNV6pVEkkknEkBpVZY0PYNACY9FWkIuMm/JOsAFhW
+ AyxA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=QaoAn8DS0yZuY6OqaxjQw7MLX36SlFZ88L9O11T0AXQ=;
+ fh=G2aggllH915J9XjlmXHJTB9nqRLGUCL3ezAFFWPYIf8=;
+ b=QOzea2gaTshpyJkHUwA/DU2MiNrGEVYtBafUgfd4uPWqFqvPYYY50vqkzi51WCzkFX
+ HadkyizNmkg1IjNup5q7gzKBn3WgAaG3n9rMBTFTNqh9oqfNDUi10wMAcQizY4g0oiNW
+ JrTFWiTboCO8RqDyS4LnWbGxz6+MMQewiw3k9lNH0Sfo8QvYXc2wZ7C2KJJQyme2M79a
+ 3tGlcU1eLIYXiY+e8xeiMaW6LgWOjjjRRyyCEcJgYezbu+N4Yi6ONteTiM3RqgpROSiJ
+ EV3nq6edwiom4ALRbTh/WJJXibU+r7AM/7sHXLQGAexqtd/6nNXiDsfhwTVc8N2061sx
+ VKKA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1777470685; x=1778075485; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=QaoAn8DS0yZuY6OqaxjQw7MLX36SlFZ88L9O11T0AXQ=;
+ b=bvXhZRvFqIV6NLXNnYup+HKVxfVXeulObaKaA2zCGDDRuPX2wXbAq+H4XoLliMOhjp
+ lPz0iyaW0hmL2t3qHuPWywaF/uqPQh+1338Dq/Tcy9HuNwNNdx/fn9kOQy7sdCYPoNNX
+ tih7RSuKlxAjto4KNkXnizzZRWWGqbUAWXmBMTW5YVNytSzewOMRQpTauMwTliKdYNmk
+ wSN7O2jILAD6QdeEsOJ1DQh5cQbiZc8LYSeqOOh/vt8pACyzb/Zeh95fhcQLGmQNQI1D
+ RhyAna+TRPgBiFVou7iXmkOFQ8r/LIWaNz3mhWpJaYNLvbyJJ0BCq5CggCdFeG8ZfuT8
+ /vvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777470685; x=1778075485;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=QaoAn8DS0yZuY6OqaxjQw7MLX36SlFZ88L9O11T0AXQ=;
+ b=OLCf+PdMTE4GLZyD+9SDg3aPZY9dHOAgpYphkdgTuljpqs6/r087roQKx4eaLHjYmQ
+ GZhT3n2RWZBu6gRCUCmIlSL3O0gmZaMz4AdMviaywIgqg98Z0+v5PZX+6Gx+CzSC+pt+
+ ZHZCTDvV//RI36htM8kXYqMYTQ8rzP68rz67vo3buFkniojgi35XPkpdlbYUqVap0fRK
+ jG+6e92ZG7Tfs/3oNgFxu8iRqtIuGJP+xEM4ErEbuwy2LmRkvGSxF78+6W9NoH4uHHq5
+ PgFDq0Pyudf+2TTy14eILBsMDpwib/gIgr8whZENYI+a6glI+QHEthHIw+3aEBncSDqI
+ og/g==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ88/HtYllWBxfDYoMjtWDBaZU5jSAcvrnB1BFl1gH+vBPSy3kGXUsI2kn1rzFVw2I/oZyAuf4YAgNo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwnD/0f+D4jp/4vnRCBCPVxD0BXX8Y+eYhRwskEeups/5Rq33bx
+ QJI+gymeottD+I80xORPJpgM0mr9Go6Zidy3A3Z7UUeGketp492z/j1k/kgXx5Yhf9BZLX+Krq4
+ IFwNmflG4JVxYBgOzKLUOD3Xb0fk7ydY=
+X-Gm-Gg: AeBDieuZvHR6rwZ+AzmQRpe0kc2Ccp9YzEGUmCknY0iEYO0cSeWK/e5hV+hKnxKIB1q
+ mBUG20f3gn0QoSyBx+Zd8+hG52FxqMYcxljld9AG3RcrLqzDq+IEYO7BZ/q8dlArSgSvGGzjE9V
+ McXW+rI99+pvdkXiiihCW2umS1SQRQ7wza2p7Rodfe6bdpBMtbZhRJEBvxPgNfrIqvwNppcHeqY
+ 9Ghm5lvY65CULOtSOIh/epWq9MIT1hmj47bUcbBIuxPTDw7DXOg8k7jxOUT7VvsmiFOVOiTWjmW
+ bUXUTcEs2MEUHf3K+zqd351+0bBNpblAwhddALD6IwnunEtJN7rZ2dkLAC6PrsoJuOWrkZRAL68
+ cLwwM
+X-Received: by 2002:a05:7022:6089:b0:12b:f899:7178 with SMTP id
+ a92af1059eb24-12ddd54ed39mr1623295c88.7.1777470684470; Wed, 29 Apr 2026
+ 06:51:24 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|BY5PR12MB4273:EE_
-X-MS-Office365-Filtering-Correlation-Id: 25902660-8f25-4f49-6d35-08dea5f642cf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|10070799003|1800799024|366016|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: REiaqMXmuklUe+tn1cUHdjeLUcAT5nwt/7m/SZFi7GWPuN1Qh6udVNPJFfwd9QoQD3xQ9e4Ykfypqrdrh5d1nzWiJgabxy8RqPQSCnvKivk7fMusc/P7/WyTzCyIgCmhEuYzXmJkBGqfZw3KkMPQIAOtRkfajCN4CTIQ0xAx57nRFpRPh55WCsW/gU+Nt5mJT6T6K9QEN3XbAcd3dQmkwyfXt+PTgKKGHLUPb4zcSjSJ+ObI8EOaLLUkfofWseRbrG39ye/eyhrul9NtPmKtOEbLFxYzMpNE4ZaDfbxjU/RMsYArgLOAUTNHD8zVPbX1Mk1JhcHtpkV8fyyqR5v5zOWrUhQtSrLHTRXfrRRUl+GoNjUpxEZUKTbX6qFWYjRb86N2WLvaYlzVmgfFo+bCrb29m5vyyPUHh5cmz1Y9EwpZybRb7jU8mwKrKL890uLT/FDk52M9w1EU+XhxRxuK4+DMdgZgUNtwrYiJwgjv3kkbq+pSzPcREigr58FBTM6e4VcEgE74jdJ6E+NrUI8iJMKeqzovtU1SZh/sFEuXLVgTPQvQdpl5SqrIjWVJny/y3+zr3ix1HXQ5bihk8qZcVIh1YbXuUBCfPa+c5EzWDVHEcbUVRW1efmQPUZsvK7gPwPALZjByCBcxuw7kCdQgF87v/yzizEWWQJSOEPrsGPuJBWVeQkXG6ue79bIg1pTaDIQpY4jxvlXSTKO3FEQqCTb7RJwsvZEiWe9h3SjtnE4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(10070799003)(1800799024)(366016)(22082099003)(18002099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aXJiQ1RsMnpFZklWRXNuK1hSNkYrQVhEdnVDSk1ncTdUd3NPdURmb09MT0VW?=
- =?utf-8?B?NzIzSWo3N2lmZElFWWQzMWd6SDdBOUY5YXpldThGSS9GdHVlNDdiUFdmYnFO?=
- =?utf-8?B?K2dmU0ZCaDZ4NlpSVW5XM2FqQVJzYnhORURNeFYyb0IwR1EybGNBL1hFR1Fr?=
- =?utf-8?B?VkdxL1RUcjcrb05VR014dDhvYitMWHpkUGFBcUw4ZVVIZHVvTHY5V2hKTURv?=
- =?utf-8?B?MzhTN2pjbnVkcVJFUUd2MUxSWHNHZURnQWxzTjEvR3ZsaE4yR0FaYTBySHBO?=
- =?utf-8?B?eGpxSVFVd0J2WGhEMDRydW04VmdSV1lOdmtaUndHOTlidzZKelQra0FteEVw?=
- =?utf-8?B?dUhsWklrT3JpMnNZZ1VNTzB1WCtWa2Vvd2Y2SFlJa2NDSUhSaEsyZ1pVYXhj?=
- =?utf-8?B?aFNTNkVGUjZxdXpKVmNYUkZibGhmaWVYRVRTZDdYZVVseU8yV3lmMHlEdjJ1?=
- =?utf-8?B?SFg4bG5BbSs4cHFURGpOWGFCSGhOckRyM09QMkE3TVRnMVhCQmIxYnRROFUy?=
- =?utf-8?B?MVlFUTJNUTJLZTJtTGpLMzA0ZWUycUlmRDB3Z2xCWEFlMzg2b0NrRGJDUHpE?=
- =?utf-8?B?UkMwY0JDWURRRk9qZlU3WG9SYXM2MGgzRFp4WVQ5QnQyZkdRenAvTnlST2xj?=
- =?utf-8?B?YkZURk9mVVVqdkhCK0Q2Z29BUlhWcEZHam9mL1MwQllFbitwcHZqTG12aGtY?=
- =?utf-8?B?SEhIQ1UrMHZQS0tPeVpVRUtLQm9TVHBJajJBdDA4RnNOZG1SRk9lL1Q3U25V?=
- =?utf-8?B?azNjRkVwL3ExaXREVFhrR3FZL2x5ZjV1YnV4RTk3cU5KbTlKNmN4N1lnMDR6?=
- =?utf-8?B?eUFua29FOXhMQVlGV2gvelJTM01vN05LdFJxTEVpdjFBVkNPNFVPQnB4ZFFJ?=
- =?utf-8?B?WTc4Mm81OVVJM1dMbEs1QWNXaTlQd1E5Z2hPeHRYYlBTajZUd0tsMGlFV0NY?=
- =?utf-8?B?bGdCVSt4MlRoMEpWdVI2dWt6NGYyVXJBTUdZMjJjQU15VmlhUmdZcUpuYmtq?=
- =?utf-8?B?YlFLUmp4VTg5a1dUNnBob1dzWU1ZRkhzbTZBS3dnMWN6VGNlMUM2ais0NUVD?=
- =?utf-8?B?QjF3UE96MjJjeUU4MG56NmJTNktSdnFhVlZpQzVvaDRLM3JoV3BDZHFvZ2h5?=
- =?utf-8?B?enNDMTYvUXVNNmZTNW5UMy9XWDJtQjE1T012Znd4MXY3cjdzeER6ZU9HTW9Z?=
- =?utf-8?B?M3BDbXRUZ2RDUm02cUlsK0ZwaGFCdi9kLytXU293b1MxUTAwcnBONkJuY1RQ?=
- =?utf-8?B?NmxVUXVJdHA5WEFxZDZrL2hwdmNHT3p2MHpnajJsZ1VIT3V1SFQ1NjhlT2VV?=
- =?utf-8?B?N2ZibHFpMmlFdGFVaVBnQmh6dWtvQUtsVzhvNWVGanh3VFBnZWI4L0pCYkw3?=
- =?utf-8?B?cm9uWktCZHQ2bDRXOVpwaXJrNzhHZ0huZzRiN1NPRGlYT1kvcWNVelJySlpu?=
- =?utf-8?B?SGtTYStESDMxcW5DR3BQUXZFZjRUVHI2NkpSZ0RuVVJNLzhvbDFlQVRwNzF4?=
- =?utf-8?B?enduQkdUbzNRV3RjTURLVXhHMHc2Wit0a0RXWnQ5bDd2a0IyRzZWV1lZMUNv?=
- =?utf-8?B?WmUzb0E4Wks3UkxUcy9ieXI2bkhlK3U2NnFKeHYzeXdvK2Z1aVZkOUNJY2lx?=
- =?utf-8?B?SGR5VHo4bDdWUVRWNlNWc3FyMjNxZ2NGNWNiYWxmeHRVbVpJVTZIWGh3U05P?=
- =?utf-8?B?eXRKRklSQVRGa2NjWHA1TDFyNDhvMTlFbDJZWUx5cDBRaUkrMnVnSkIreno1?=
- =?utf-8?B?d3V4dWdoWFRUUEh6VXhEWXJTQUtmTzBMYWVBZTFwUTRIamZtdVhQekFBcDZL?=
- =?utf-8?B?ZnNKQVRHYjlnTDhOUVVjSmRJZVpiSS9xSU5oUU9XUXlBVDc0YzlRRXNmVk9D?=
- =?utf-8?B?RExCL2c2UGNtQ05jOURqVUdKcmlHS29sUno1Q1BwdUkyTlVLdWhQRjVWNnZZ?=
- =?utf-8?B?NE84T1pGRXNDMEZxV1FIazdBN0J6T2RiUGltSlNWUUJBTFpjbmdvYVhEbVBU?=
- =?utf-8?B?cTM5UXJrcXVJWko0VFVmalkwcjZUeWdDbVgrMTUreXNZQkFrMUttZ1ltZ3ZC?=
- =?utf-8?B?cWQyZURrcktQdldNMGN6ZVh1b1kzdnczYmQydGdPcGo4dkx4WmErMkJqQVdI?=
- =?utf-8?B?NlhhUVZhYmMxS3F2aEsxaEYxSHk3NHFkUndyUHNQd2Fjd3ovUUl0UWhPcFUy?=
- =?utf-8?B?ZUhUS2JQVGxCc1N5S3NEVnlnTnFXODUwUDRibVc4eDB1Nk5WNVFaNlZPNCtU?=
- =?utf-8?B?WjVMRjNiZ0RTbVpYdHJOTFp1Q0xiMjJENVAxczNuaHNYUlBvM2dwZHVta09O?=
- =?utf-8?B?R1VKYWJ6MzRrdTVBOVF4bjRKMFJDSXJrbXY2SjJ5L3o0cEZraXFXemxZZVlD?=
- =?utf-8?Q?rPGMmtVMQlUQAbwDUGubmINp8oB51TMNyb7D4vpHId6Qt?=
-X-MS-Exchange-AntiSpam-MessageData-1: AV3mJTRYUU92sQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 25902660-8f25-4f49-6d35-08dea5f642cf
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2026 13:50:23.8596 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SIaKFz/OXF3XWQFUoiXodfOhQDkyR+pf2KH/4+r1rwj1EtN7uO37HSbIbyTSG56AZYRb4vrxprQzsqBxbO+vpQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4273
+References: <20260428232009.10737-1-leonardocesar@usp.br>
+ <38b716ff-fac9-4921-8121-4a76cf1cef18@amd.com>
+In-Reply-To: <38b716ff-fac9-4921-8121-4a76cf1cef18@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 29 Apr 2026 09:51:12 -0400
+X-Gm-Features: AVHnY4JVsTc-BelPZacFiBBEXrzxLXfPvi6gaNF6uJlEwkAtJr4aRjJIq6CTwck
+Message-ID: <CADnq5_Nvfj-WMc039YvjoWfYiXcQ5estN573dO1Y2LtwPMiNRA@mail.gmail.com>
+Subject: Re: [PATCH v4] drm/amdgpu: deduplicate ring preempt ib function
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Leonardo Cesar <leonardocesar@usp.br>, alexander.deucher@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,78 +107,262 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Apr 21, 2026 at 5:20 PM JST, Eliot Courtney wrote:
-> Use checked arithmetic and access for extracting the microcode since the
-> offsets are firmware derived.
+Applied.  Thanks!
+
+On Wed, Apr 29, 2026 at 9:19=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
 >
-> Fixes: 47c4846e4319 ("gpu: nova-core: vbios: Add support for FWSEC ucode =
-extraction")
-> Reviewed-by: Joel Fernandes <joelagnelf@nvidia.com>
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
-> ---
->  drivers/gpu/nova-core/vbios.rs | 19 ++++++++++++-------
->  1 file changed, 12 insertions(+), 7 deletions(-)
+> On 4/29/26 01:19, Leonardo Cesar wrote:
+> > The ring preemption function is identical for both gfx_v11_0 and
+> > gfx_v12_0. This patch refactors the code by moving the core logic
+> > into a generic function inside amdgpu_gfx.c to reduce code
+> > duplication and simplify future maintenance.
+> >
+> > Signed-off-by: Leonardo Cesar <leonardocesar@usp.br>
 >
-> diff --git a/drivers/gpu/nova-core/vbios.rs b/drivers/gpu/nova-core/vbios=
-.rs
-> index de856000de23..632c8a90ea76 100644
-> --- a/drivers/gpu/nova-core/vbios.rs
-> +++ b/drivers/gpu/nova-core/vbios.rs
-> @@ -1029,16 +1029,21 @@ pub(crate) fn header(&self) -> Result<FalconUCode=
-Desc> {
-> =20
->      /// Get the ucode data as a byte slice
->      pub(crate) fn ucode(&self, desc: &FalconUCodeDesc) -> Result<&[u8]> =
-{
-> -        let falcon_ucode_offset =3D self.falcon_ucode_offset;
-> -
->          // The ucode data follows the descriptor.
-> -        let ucode_data_offset =3D falcon_ucode_offset + desc.size();
-> -        let size =3D usize::from_safe_cast(desc.imem_load_size() + desc.=
-dmem_load_size());
-> +        let data =3D self
-> +            .base
-> +            .data
-> +            .get(self.falcon_ucode_offset..)
-> +            .ok_or(ERANGE)?;
-> +        let size =3D usize::from_safe_cast(
-> +            desc.imem_load_size()
-> +                .checked_add(desc.dmem_load_size())
-> +                .ok_or(ERANGE)?,
-> +        );
-> =20
->          // Get the data slice, checking bounds in a single operation.
-> -        self.base
-> -            .data
-> -            .get(ucode_data_offset..ucode_data_offset + size)
-> +        data.get(desc.size()..)
-> +            .and_then(|data| data.get(..size))
->              .ok_or(ERANGE)
->              .inspect_err(|_| {
->                  dev_err!(
-
-This looks like we are doing part of the operation, stop to compute
-size, and then resume the operation. As a result the `inspect_err` only
-applies to the last `get` operation.
-
-The following would flow better IMHO:
-
-    let size =3D usize::from_safe_cast(
-        desc.imem_load_size()
-            .checked_add(desc.dmem_load_size())
-            .ok_or(ERANGE)?
-    );
-
-    self.base
-        .data
-        .get(self.falcon_ucode_offset..)
-        .and_then(|data| data.get(desc.size()..))
-        .and_then(|data| data.get(..size))
-        .ok_or(ERANGE)
-        .inspect_err(|_| {
-            dev_err!(
-                self.base.dev,
-                "fwsec ucode data not contained within BIOS bounds\n"
-            )
-        })
-
+> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+>
+> >
+> > ---
+> > v3 -> v4:
+> > - Dropped 'r' variable by reordering the return logic
+> >
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | ...
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 52 +++++++++++++++++++++++++
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  2 +
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 52 +------------------------
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c  | 52 +------------------------
+> >  4 files changed, 56 insertions(+), 102 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_gfx.c
+> > index 2956e45c9..f7ebead09 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> > @@ -2684,3 +2684,55 @@ void amdgpu_debugfs_compute_sched_mask_init(stru=
+ct amdgpu_device *adev)
+> >  #endif
+> >  }
+> >
+> > +int amdgpu_gfx_ring_preempt_ib(struct amdgpu_ring *ring)
+> > +{
+> > +     struct amdgpu_device *adev =3D ring->adev;
+> > +     struct amdgpu_kiq *kiq =3D &adev->gfx.kiq[0];
+> > +     struct amdgpu_ring *kiq_ring =3D &kiq->ring;
+> > +     unsigned long flags;
+> > +     int i;
+> > +
+> > +     if (adev->enable_mes)
+> > +             return -EINVAL;
+> > +
+> > +     if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
+> > +             return -EINVAL;
+> > +
+> > +     spin_lock_irqsave(&kiq->ring_lock, flags);
+> > +
+> > +     if (amdgpu_ring_alloc(kiq_ring, kiq->pmf->unmap_queues_size)) {
+> > +             spin_unlock_irqrestore(&kiq->ring_lock, flags);
+> > +             return -ENOMEM;
+> > +     }
+> > +
+> > +     /* assert preemption condition */
+> > +     amdgpu_ring_set_preempt_cond_exec(ring, false);
+> > +
+> > +     /* assert IB preemption, emit the trailing fence */
+> > +     kiq->pmf->kiq_unmap_queues(kiq_ring, ring, PREEMPT_QUEUES_NO_UNMA=
+P,
+> > +                                     ring->trail_fence_gpu_addr,
+> > +                                     ++ring->trail_seq);
+> > +     amdgpu_ring_commit(kiq_ring);
+> > +
+> > +     spin_unlock_irqrestore(&kiq->ring_lock, flags);
+> > +
+> > +     /* poll the trailing fence */
+> > +     for (i =3D 0; i < adev->usec_timeout; i++) {
+> > +             if (ring->trail_seq =3D=3D
+> > +                     le32_to_cpu(*(ring->trail_fence_cpu_addr)))
+> > +                     break;
+> > +             udelay(1);
+> > +     }
+> > +
+> > +     /* deassert preemption condition */
+> > +    amdgpu_ring_set_preempt_cond_exec(ring, true);
+> > +
+> > +     if (i >=3D adev->usec_timeout) {
+> > +             DRM_ERROR("ring %d failed to preempt ib\n", ring->idx);
+> > +             return -EINVAL;
+> > +     }
+> > +
+> > +     return 0;
+> > +}
+> > +
+> > +
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_gfx.h
+> > index a0cf0a3b4..77050f988 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> > @@ -664,6 +664,8 @@ void amdgpu_gfx_csb_preamble_end(u32 *buffer, u32 c=
+ount);
+> >  void amdgpu_debugfs_gfx_sched_mask_init(struct amdgpu_device *adev);
+> >  void amdgpu_debugfs_compute_sched_mask_init(struct amdgpu_device *adev=
+);
+> >
+> > +int amdgpu_gfx_ring_preempt_ib(struct amdgpu_ring *ring);
+> > +
+> >  static inline const char *amdgpu_gfx_compute_mode_desc(int mode)
+> >  {
+> >       switch (mode) {
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/a=
+md/amdgpu/gfx_v11_0.c
+> > index 5097de940..1ba848bfa 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> > @@ -6206,56 +6206,6 @@ static void gfx_v11_0_ring_emit_gfx_shadow(struc=
+t amdgpu_ring *ring,
+> >       ring->set_q_mode_offs =3D offs;
+> >  }
+> >
+> > -static int gfx_v11_0_ring_preempt_ib(struct amdgpu_ring *ring)
+> > -{
+> > -     int i, r =3D 0;
+> > -     struct amdgpu_device *adev =3D ring->adev;
+> > -     struct amdgpu_kiq *kiq =3D &adev->gfx.kiq[0];
+> > -     struct amdgpu_ring *kiq_ring =3D &kiq->ring;
+> > -     unsigned long flags;
+> > -
+> > -     if (adev->enable_mes)
+> > -             return -EINVAL;
+> > -
+> > -     if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
+> > -             return -EINVAL;
+> > -
+> > -     spin_lock_irqsave(&kiq->ring_lock, flags);
+> > -
+> > -     if (amdgpu_ring_alloc(kiq_ring, kiq->pmf->unmap_queues_size)) {
+> > -             spin_unlock_irqrestore(&kiq->ring_lock, flags);
+> > -             return -ENOMEM;
+> > -     }
+> > -
+> > -     /* assert preemption condition */
+> > -     amdgpu_ring_set_preempt_cond_exec(ring, false);
+> > -
+> > -     /* assert IB preemption, emit the trailing fence */
+> > -     kiq->pmf->kiq_unmap_queues(kiq_ring, ring, PREEMPT_QUEUES_NO_UNMA=
+P,
+> > -                                ring->trail_fence_gpu_addr,
+> > -                                ++ring->trail_seq);
+> > -     amdgpu_ring_commit(kiq_ring);
+> > -
+> > -     spin_unlock_irqrestore(&kiq->ring_lock, flags);
+> > -
+> > -     /* poll the trailing fence */
+> > -     for (i =3D 0; i < adev->usec_timeout; i++) {
+> > -             if (ring->trail_seq =3D=3D
+> > -                 le32_to_cpu(*(ring->trail_fence_cpu_addr)))
+> > -                     break;
+> > -             udelay(1);
+> > -     }
+> > -
+> > -     if (i >=3D adev->usec_timeout) {
+> > -             r =3D -EINVAL;
+> > -             DRM_ERROR("ring %d failed to preempt ib\n", ring->idx);
+> > -     }
+> > -
+> > -     /* deassert preemption condition */
+> > -     amdgpu_ring_set_preempt_cond_exec(ring, true);
+> > -     return r;
+> > -}
+> > -
+> >  static void gfx_v11_0_ring_emit_de_meta(struct amdgpu_ring *ring, bool=
+ resume)
+> >  {
+> >       struct amdgpu_device *adev =3D ring->adev;
+> > @@ -7295,7 +7245,7 @@ static const struct amdgpu_ring_funcs gfx_v11_0_r=
+ing_funcs_gfx =3D {
+> >       .emit_cntxcntl =3D gfx_v11_0_ring_emit_cntxcntl,
+> >       .emit_gfx_shadow =3D gfx_v11_0_ring_emit_gfx_shadow,
+> >       .init_cond_exec =3D gfx_v11_0_ring_emit_init_cond_exec,
+> > -     .preempt_ib =3D gfx_v11_0_ring_preempt_ib,
+> > +     .preempt_ib =3D amdgpu_gfx_ring_preempt_ib,
+> >       .emit_frame_cntl =3D gfx_v11_0_ring_emit_frame_cntl,
+> >       .emit_wreg =3D gfx_v11_0_ring_emit_wreg,
+> >       .emit_reg_wait =3D gfx_v11_0_ring_emit_reg_wait,
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/a=
+md/amdgpu/gfx_v12_0.c
+> > index 65c33823a..6cf244349 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> > @@ -4611,56 +4611,6 @@ static unsigned gfx_v12_0_ring_emit_init_cond_ex=
+ec(struct amdgpu_ring *ring,
+> >       return ret;
+> >  }
+> >
+> > -static int gfx_v12_0_ring_preempt_ib(struct amdgpu_ring *ring)
+> > -{
+> > -     int i, r =3D 0;
+> > -     struct amdgpu_device *adev =3D ring->adev;
+> > -     struct amdgpu_kiq *kiq =3D &adev->gfx.kiq[0];
+> > -     struct amdgpu_ring *kiq_ring =3D &kiq->ring;
+> > -     unsigned long flags;
+> > -
+> > -     if (adev->enable_mes)
+> > -             return -EINVAL;
+> > -
+> > -     if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
+> > -             return -EINVAL;
+> > -
+> > -     spin_lock_irqsave(&kiq->ring_lock, flags);
+> > -
+> > -     if (amdgpu_ring_alloc(kiq_ring, kiq->pmf->unmap_queues_size)) {
+> > -             spin_unlock_irqrestore(&kiq->ring_lock, flags);
+> > -             return -ENOMEM;
+> > -     }
+> > -
+> > -     /* assert preemption condition */
+> > -     amdgpu_ring_set_preempt_cond_exec(ring, false);
+> > -
+> > -     /* assert IB preemption, emit the trailing fence */
+> > -     kiq->pmf->kiq_unmap_queues(kiq_ring, ring, PREEMPT_QUEUES_NO_UNMA=
+P,
+> > -                                ring->trail_fence_gpu_addr,
+> > -                                ++ring->trail_seq);
+> > -     amdgpu_ring_commit(kiq_ring);
+> > -
+> > -     spin_unlock_irqrestore(&kiq->ring_lock, flags);
+> > -
+> > -     /* poll the trailing fence */
+> > -     for (i =3D 0; i < adev->usec_timeout; i++) {
+> > -             if (ring->trail_seq =3D=3D
+> > -                 le32_to_cpu(*(ring->trail_fence_cpu_addr)))
+> > -                     break;
+> > -             udelay(1);
+> > -     }
+> > -
+> > -     if (i >=3D adev->usec_timeout) {
+> > -             r =3D -EINVAL;
+> > -             DRM_ERROR("ring %d failed to preempt ib\n", ring->idx);
+> > -     }
+> > -
+> > -     /* deassert preemption condition */
+> > -     amdgpu_ring_set_preempt_cond_exec(ring, true);
+> > -     return r;
+> > -}
+> > -
+> >  static void gfx_v12_0_ring_emit_rreg(struct amdgpu_ring *ring, uint32_=
+t reg,
+> >                                    uint32_t reg_val_offs)
+> >  {
+> > @@ -5539,7 +5489,7 @@ static const struct amdgpu_ring_funcs gfx_v12_0_r=
+ing_funcs_gfx =3D {
+> >       .pad_ib =3D amdgpu_ring_generic_pad_ib,
+> >       .emit_cntxcntl =3D gfx_v12_0_ring_emit_cntxcntl,
+> >       .init_cond_exec =3D gfx_v12_0_ring_emit_init_cond_exec,
+> > -     .preempt_ib =3D gfx_v12_0_ring_preempt_ib,
+> > +     .preempt_ib =3D amdgpu_gfx_ring_preempt_ib,
+> >       .emit_wreg =3D gfx_v12_0_ring_emit_wreg,
+> >       .emit_reg_wait =3D gfx_v12_0_ring_emit_reg_wait,
+> >       .emit_reg_write_reg_wait =3D gfx_v12_0_ring_emit_reg_write_reg_wa=
+it,
+>
