@@ -4,142 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3EC5FF8864
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 06:59:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90CD7FF8867
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 07:46:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 146E710E103;
-	Wed, 29 Apr 2026 06:59:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E691610EEAA;
+	Wed, 29 Apr 2026 07:46:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="g438JSka";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="j3siFXct";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QQ/WbU8p";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8EBEB10E0DD
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 06:59:45 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63T6F2uC1282820
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 06:59:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=rpnLGvqaOGowhqbh0BhtKXXR
- xHvBmmvOGqR1wADwXo8=; b=g438JSkanjOpVQqT4BPx3R6bpd1VJbbmWFD6dKOd
- jFfFB+w7o2BFIQkM8DUi3dk+eLi2MmG2yFu2mvJoaVjZRpuKpKC8SOHGN1T4k6HZ
- eH9ZrtpUlQslZMlhYlYVUFi72Xrodhf1bXWVnE64mFiuiPhsLVRgk76DPLSLdQOe
- 3wpSPbqj+929j7SchNlWiT/Mvmx2f3w9te7+sxffPyvR3SZ4QpMR9dvdKxnbHoHd
- r/5cgF5H5psWIcz6rpRnrZ7KiVHDlYy0AVG7IKRCWWDzx4ABdZYlug/nS7Nc/tDD
- /Al6A+BepM0Qxu+178Yh7cY8Ecg/Vm71wutdCwmhxrioxQ==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
- [209.85.214.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ducj8058y-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 06:59:44 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id
- d9443c01a7336-2b465bf993cso124974835ad.1
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 23:59:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1777445983; x=1778050783;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=rpnLGvqaOGowhqbh0BhtKXXRxHvBmmvOGqR1wADwXo8=;
- b=j3siFXctpZ2S9nad6Y6tvTKQAR4nQCjZp2+smEHLx9h5kggsxaf2nsNeiEBjL4l916
- LHGIVxSIzt99b56YX7Nl+3HrIwfxdY5mLAt+VdF3EiCnBJEWAIyLn2LpFv8zILO9budF
- 9v6yqyQyUDhzofeBOgHawvogn5TLgxCYnkbjx0RffDzn5cYmqX9rc48nW5VgETTnwL7g
- yFOSNbR6xicKwcOyM1YgtcLLBfbrFTU1+RXgqi5AoaQOOhu/HEDpZCPPMtjp2/G/3I1M
- uATvXwzhUEvALCcqWnGeqsoK1nbD7smOXQk3013J+pT2aElgxitF5ghnYaqolplidhvv
- IbvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777445983; x=1778050783;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=rpnLGvqaOGowhqbh0BhtKXXRxHvBmmvOGqR1wADwXo8=;
- b=RjOMtjJJCa1AkhXEQU7dWe2SvARcFORdc/C7AM+QFKA5n43rydnsHgIDcETW8HzNaU
- ZPgJCLtyrWFKhovNKFn0cieDMIgMEJozAFMXvRyEbV4i9TRIMt/oVEjzZZk6G1L/DtC+
- rpCrVkOwmXY4MSFLvqBY76ZZh3IddfVeGlE9G8bp2tbUq7pJWoxg/9crbIq0imDSp1/c
- Yj5x2R8dag27U6noIhPpGeEmIhuqfSLzOedr0dkep+ZN0WRDX3pqsL1uVTNZacyczsOp
- 87pyRmUvIf091FjvmQo4mCD2xgXtPW5JMuKdt+462ZR/ybnSAdOc/XDAlAMyXtC6S3Z9
- Qk1Q==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8eh4tQNlT1ZoCUdmNV8SJUFSlsEa84KLNQ7i35M82hFjl2t68Q0cMYxkcrAkSy4BSFV9gQdXC4glg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyjkF8pJntu4Qaqxy2uJij5SKtmhf4OpFPk51mOatoaUEEsGCbf
- clXXRDD70PEmL0Q7B0l5GWK9Yoao9yPHBh15LeKVHWi1xf4cmQutj4fZmAx5IcFSw0kqg/hXYyp
- WosCZZZ626Fx6fvebmW03Q+8SBZYFC+DXDHjTGgD4jYFGuJzZzBW1WB/fyFHLZ7TOseieUv0=
-X-Gm-Gg: AeBDieuz/VbjabYVG3dqFJog5nW5LC9T2sC20hUScN5YVumV+y7KZyY3Q3ffigaulq/
- ZyrVyfJX5jL1f6Zt5VNNF7Naeq/eMNXqhnAMyP6esiWpbWatu7kj9BcmUci5GdIgSVlRu9kGHVp
- LSSKa6TltWl0d8kUMjueY8QQhA/BXsHoeQDT3v8aVQt/cXU5z/DUYq0HKXQG6YCnR/dU4bpXsGm
- mY5ro+2SKeIGOFXCbjURapI+Kc3mFVtUR4atEzzlUvRVbonHoFW3j+m5qHj70GgsQriqJdcb5LX
- jvptXbwLv0GWDq4ddtcrfQssGm7LGLJTzFW5s18aVxNvad+AnAiJEHoRfNlCcNz6eLjnfBtD7Wd
- YkW1DpZY/w6FlStlPGs0DAe7kMmu4Er3cqOLfAhSdNhIOsiNGP6UE4BaFSI4=
-X-Received: by 2002:a17:903:984:b0:2b2:ec31:25b0 with SMTP id
- d9443c01a7336-2b98741da0dmr24709075ad.29.1777445983169; 
- Tue, 28 Apr 2026 23:59:43 -0700 (PDT)
-X-Received: by 2002:a17:903:984:b0:2b2:ec31:25b0 with SMTP id
- d9443c01a7336-2b98741da0dmr24708625ad.29.1777445982436; 
- Tue, 28 Apr 2026 23:59:42 -0700 (PDT)
-Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2b988971938sm11669805ad.71.2026.04.28.23.59.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Apr 2026 23:59:42 -0700 (PDT)
-Date: Wed, 29 Apr 2026 12:29:26 +0530
-From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-To: Sumit Garg <sumit.garg@kernel.org>
-Cc: andersson@kernel.org, konradybcio@kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-media@vger.kernel.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
- linux-remoteproc@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
- akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jesszhan0024@gmail.com, marijn.suijten@somainline.org,
- airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
- dikshita.agarwal@oss.qualcomm.com, bod@kernel.org, mchehab@kernel.org,
- elder@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- jjohnson@kernel.org, mathieu.poirier@linaro.org,
- trilokkumar.soni@oss.qualcomm.com, pavan.kondeti@oss.qualcomm.com,
- jorge.ramirez@oss.qualcomm.com, tonyh@qti.qualcomm.com,
- vignesh.viswanathan@oss.qualcomm.com, srinivas.kandagatla@oss.qualcomm.com,
- amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
- op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
- skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
- Sumit Garg <sumit.garg@oss.qualcomm.com>
-Subject: Re: [PATCH v4 00/15] firmware: qcom: Add OP-TEE PAS service support
-Message-ID: <20260429065926.5iliebd3d2j6bong@hu-mojha-hyd.qualcomm.com>
-References: <20260427095603.1157963-1-sumit.garg@kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE97710EEAB
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 07:46:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1777448766; x=1808984766;
+ h=message-id:date:mime-version:subject:from:to:cc:
+ references:in-reply-to:content-transfer-encoding;
+ bh=Of4nG8RWpFtuiDCR055bYxsB76mYKjCle3kY9z8CES8=;
+ b=QQ/WbU8ptR2qtnAeelLr4T5DdzYziuOiXuZ/JcPFtoPyowyE1ls8kZG8
+ PHGXF65eYU+Pl4bAo7QkPUFMgA2yv++li9RQwzT/kSawqqzY0tQ2sNCMv
+ G3VJqhCTTL6Sq6GyNbX+c6XIvC0ES8q+HG8+5OUSEWy3xEPwqL306rRTC
+ 2Ci6vP1U4fbXrIBk455U86V2NHE9fQS3pavAPczcGLUypZGFLHxvZo1tS
+ uslO7qAvvCc6Efj1ypiTJBpqqBYokXqWAoqdjqEZ2RRDoylTNW+Y0WrRt
+ L0jHPMNobhHhuTCCXNwOICDTm2uNFnZ8KXXzdO7dIifuLGcwHEREMILpn g==;
+X-CSE-ConnectionGUID: gI/y33INRgCcWGDyOKTjMw==
+X-CSE-MsgGUID: NQJmPhs/S2qtlUXzme+FFg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11770"; a="103826877"
+X-IronPort-AV: E=Sophos;i="6.23,205,1770624000"; d="scan'208";a="103826877"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Apr 2026 00:46:06 -0700
+X-CSE-ConnectionGUID: XXekxqKKTCamtieFqbCdlg==
+X-CSE-MsgGUID: CZhabxqjTxiWtP/xd7ukGw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,205,1770624000"; d="scan'208";a="257747376"
+Received: from unknown (HELO [10.102.88.27]) ([10.102.88.27])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Apr 2026 00:46:04 -0700
+Message-ID: <2cbb178c-6bfa-4bb6-b52c-aa890d5dd55b@linux.intel.com>
+Date: Wed, 29 Apr 2026 09:46:02 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260427095603.1157963-1-sumit.garg@kernel.org>
-X-Proofpoint-ORIG-GUID: l9b4OKVSU3EqtGepzTx_Eath_KaryBDj
-X-Authority-Analysis: v=2.4 cv=RI6D2Yi+ c=1 sm=1 tr=0 ts=69f1ac60 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=kj9zAlcOel0A:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=NEAV23lmAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=IpgJVh4PXWExouJfQAQA:9
- a=CjuIK1q_8ugA:10 a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-GUID: l9b4OKVSU3EqtGepzTx_Eath_KaryBDj
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI5MDA2NyBTYWx0ZWRfX9+RcrcmG0rwG
- xsok5epR2aTCbK1kP2Fg4lPcMA8V4bJuMYVaKdDV5TQahOCDKpj3iqxt8L998NcxIi+CssCVVW7
- +Py4HFUKtDE/774qAHGs6yXNwI1KSAJcP4tHuq+fur+KDmxhGW9Ga4ADTZjsz8A811PMzLFZg/c
- 5aydnLCyxZjwRp5FfeDbStePq8nvOamyC8IqsS0KS8T3xpf55T404Dg7aPKfgL1BWXU6OgA3Ylz
- 8YJLIBQH9qpfCaWjcm8TWUyOBcqoWP8LM5fE0Ad7wGdvxnfXVBZ1glbYSv0HPOVgwCJOvkk5F48
- xEKxk3GUeMgJ53XzPo3PrasIz/8ywdCiQhdApxu5rEDIPcKtrl+BwIGRz3ikyy5Fa6fzc9Q2Ind
- Ud0MniDrYGoOfzc1Aim4maK5KYgWXhodYBLJgJ5g+60BlEIy60TAcVYF4e9fJooLU3dE5z/i1hj
- HuScKb8ix0JQTC5vC+Q==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-28_05,2026-04-28_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 malwarescore=0 suspectscore=0
- lowpriorityscore=0 adultscore=0 clxscore=1015 impostorscore=0 bulkscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
- definitions=main-2604290067
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] accel/ivpu: Add support for limiting NPU frequency
+From: Karol Wachowski <karol.wachowski@linux.intel.com>
+To: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
+ dri-devel@lists.freedesktop.org
+Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com, lizhi.hou@amd.com,
+ maciej.falkowski@linux.intel.com
+References: <20260408150152.2093638-1-andrzej.kacprowski@linux.intel.com>
+ <8ad49526-f05d-4a65-8fe5-396b62d02c86@linux.intel.com>
+Content-Language: en-US
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298
+ Gdansk - KRS 101882 - NIP 957-07-52-316
+In-Reply-To: <8ad49526-f05d-4a65-8fe5-396b62d02c86@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,152 +74,859 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Apr 27, 2026 at 03:25:48PM +0530, Sumit Garg wrote:
-> From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+On 4/20/2026 10:17 AM, Karol Wachowski wrote:
+> On 4/8/2026 5:01 PM, Andrzej Kacprowski wrote:
+>> Add configurable frequency limits to allow users to constrain the NPU
+>> operating frequency range for power and thermal management. This support
+>> requires firmware API version 3.34.0 or newer.
+>>
+>> New sysfs interface:
+>>
+>> The freq/ subdirectory contains the following attributes:
+>>
+>> - hw_min_freq: Minimum frequency supported by hardware (read-only)
+>> - hw_max_freq: Maximum frequency supported by hardware (read-only)
+>> - hw_efficient_freq: Hardware's optimal operating frequency (read-only)
+>> - current_freq: Current NPU frequency in MHz (read-only)
+>> - set_min_freq: Configure minimum operating frequency (50XX+ devices)
+>> - set_max_freq: Configure maximum operating frequency (50XX+ devices)
+>>
+>> Legacy attributes npu_max_frequency_mhz and npu_current_frequency_mhz
+>> are maintained for backward compatibility.
+>>
+>> Implementation details:
+>>
+>> - Frequency configuration is communicated to firmware via JSM messages
+>> - User-specified frequency values are clamped to hardware limits
+>> - Power-efficient frequency (pn_ratio) is adjusted dynamically to stay
+>>   within the configured range
+>> - Frequency configuration is initialized during device boot
+>> - The JSM API header is updated to version 3.34.0 to support the new
+>>   VPU_JSM_MSG_FREQ_CONFIG firmware message
+>>
+>> Added description for the sysfs attributes in the Documentation/ABI.
+>>
+>> Signed-off-by: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
+>> ---
 > 
-> Qcom platforms has the legacy of using non-standard SCM calls
-> splintered over the various kernel drivers. These SCM calls aren't
-> compliant with the standard SMC calling conventions which is a
-> prerequisite to enable migration to the FF-A specifications from Arm.
+> Reviewed-by: Karol Wachowski <karol.wachowski@linux.intel.com>
 > 
-> OP-TEE as an alternative trusted OS to Qualcomm TEE (QTEE) can't
-> support these non-standard SCM calls. And even for newer architectures
-> using S-EL2 with Hafnium support, QTEE won't be able to support SCM
-> calls either with FF-A requirements coming in. And with both OP-TEE
-> and QTEE drivers well integrated in the TEE subsystem, it makes further
-> sense to reuse the TEE bus client drivers infrastructure.
+>> Changes in v3:
+>> - Fixed documentation of npu_max_frequency_mhz, it is an alias for
+>>   hw_max_freq, not hw_min_freq.
+>> - Remove duplicate declaration of ivpu_jsm_msg_freq_config()
+>>
+>> Changes in v2:
+>> - Added sysfs attribute documentation in Documentation/ABI.
+>> - Updated MAINTAINERS to include the new documentation files.
+>>
+>>  Documentation/ABI/obsolete/sysfs-driver-ivpu |  30 +++
+>>  Documentation/ABI/testing/sysfs-driver-ivpu  |  65 +++++++
+>>  MAINTAINERS                                  |   2 +
+>>  drivers/accel/ivpu/ivpu_drv.c                |   8 +-
+>>  drivers/accel/ivpu/ivpu_hw.h                 |  16 +-
+>>  drivers/accel/ivpu/ivpu_hw_btrs.c            | 112 ++++++++---
+>>  drivers/accel/ivpu/ivpu_hw_btrs.h            |  10 +-
+>>  drivers/accel/ivpu/ivpu_jsm_msg.c            |  18 +-
+>>  drivers/accel/ivpu/ivpu_jsm_msg.h            |   3 +-
+>>  drivers/accel/ivpu/ivpu_sysfs.c              | 186 ++++++++++++++++---
+>>  drivers/accel/ivpu/vpu_jsm_api.h             |  34 +++-
+>>  11 files changed, 419 insertions(+), 65 deletions(-)
+>>  create mode 100644 Documentation/ABI/obsolete/sysfs-driver-ivpu
+>>  create mode 100644 Documentation/ABI/testing/sysfs-driver-ivpu
+>>
+>> diff --git a/Documentation/ABI/obsolete/sysfs-driver-ivpu b/Documentation/ABI/obsolete/sysfs-driver-ivpu
+>> new file mode 100644
+>> index 000000000000..b906e7149729
+>> --- /dev/null
+>> +++ b/Documentation/ABI/obsolete/sysfs-driver-ivpu
+>> @@ -0,0 +1,30 @@
+>> +What:		/sys/bus/pci/drivers/intel_vpu/.../sched_mode
+>> +Date:		October 2024
+>> +KernelVersion:	6.12
+>> +Contact:	dri-devel@lists.freedesktop.org
+>> +Description:	Current NPU scheduling mode. Returns one of the following strings:
+>> +		- "HW" - Hardware Scheduler mode
+>> +		- "OS" - Operating System Scheduler mode
+>> +		Read-only.
+>> +		Deprecated since the "OS" scheduling mode is not usable
+>> +		and will be removed from future versions of the driver.
+>> +		Will be removed in 2027
+>> +
+>> +What:		/sys/bus/pci/drivers/intel_vpu/.../npu_max_frequency_mhz
+>> +Date:		April 2025
+>> +KernelVersion:	6.15
+>> +Contact:	dri-devel@lists.freedesktop.org
+>> +Description:	Legacy alias for /sys/bus/pci/drivers/intel_vpu/.../freq/hw_max_freq.
+>> +		Shows maximum frequency in MHz of the NPU's data processing unit.
+>> +		Read-only.
+>> +		Will be removed in 2027
+>> +
+>> +What:		/sys/bus/pci/drivers/intel_vpu/.../npu_current_frequency_mhz
+>> +Date:		April 2025
+>> +KernelVersion:	6.15
+>> +Contact:	dri-devel@lists.freedesktop.org
+>> +Description:	Legacy alias for /sys/bus/pci/drivers/intel_vpu/.../freq/current_freq.
+>> +		Shows current frequency in MHz of the NPU's data processing unit.
+>> +		The value is read only when the device is active; otherwise it returns 0.
+>> +		Read-only.
+>> +		Will be removed in 2027
+>> diff --git a/Documentation/ABI/testing/sysfs-driver-ivpu b/Documentation/ABI/testing/sysfs-driver-ivpu
+>> new file mode 100644
+>> index 000000000000..91685774edfc
+>> --- /dev/null
+>> +++ b/Documentation/ABI/testing/sysfs-driver-ivpu
+>> @@ -0,0 +1,65 @@
+>> +What:		/sys/bus/pci/drivers/intel_vpu/.../npu_busy_time_us
+>> +Date:		May 2024
+>> +KernelVersion:	6.11
+>> +Contact:	dri-devel@lists.freedesktop.org
+>> +Description:	Time in microseconds that the device spent executing jobs. The time is
+>> +		counted when and only when there are jobs submitted to firmware. This time
+>> +		can be used to measure the utilization of NPU, either by calculating the
+>> +		difference between two timepoints or monitoring utilization percentage by
+>> +		reading periodically. Recommended read period is 1 second to avoid impact
+>> +		on job submission performance. Read-only.
+>> +
+>> +What:		/sys/bus/pci/drivers/intel_vpu/.../npu_memory_utilization
+>> +Date:		Jan 2025
+>> +KernelVersion:	6.15
+>> +Contact:	dri-devel@lists.freedesktop.org
+>> +Description:	Current NPU memory utilization in bytes. Reports the total size of all
+>> +		resident buffer objects allocated for NPU use. Read-only.
+>> +
+>> +What:		/sys/bus/pci/drivers/intel_vpu/.../freq/hw_min_freq
+>> +Date:		April 2026
+>> +KernelVersion:	7.2
+>> +Contact:	dri-devel@lists.freedesktop.org
+>> +Description:	Minimum frequency in MHz supported by the NPU hardware. This is a
+>> +		hardware capability and cannot be changed. Read-only.
+>> +
+>> +What:		/sys/bus/pci/drivers/intel_vpu/.../freq/hw_efficient_freq
+>> +Date:		April 2026
+>> +KernelVersion:	7.2
+>> +Contact:	dri-devel@lists.freedesktop.org
+>> +Description:	Most efficient operating frequency in MHz for the NPU. This represents
+>> +		the frequency at which the NPU operates most efficiently in terms of power
+>> +		and performance. Read-only.
+>> +
+>> +What:		/sys/bus/pci/drivers/intel_vpu/.../freq/hw_max_freq
+>> +Date:		April 2026
+>> +KernelVersion:	7.2
+>> +Contact:	dri-devel@lists.freedesktop.org
+>> +Description:	Maximum frequency in MHz supported by the NPU hardware. This is a
+>> +		hardware capability and cannot be changed. Read-only.
+>> +
+>> +What:		/sys/bus/pci/drivers/intel_vpu/.../freq/current_freq
+>> +Date:		April 2026
+>> +KernelVersion:	7.2
+>> +Contact:	dri-devel@lists.freedesktop.org
+>> +Description:	Current operating frequency in MHz of the NPU. The value is valid only
+>> +		when the device is active; returns 0 when idle. The actual frequency may
+>> +		be lower than the requested range due to power or thermal constraints.
+>> +		Read-only.
+>> +
+>> +What:		/sys/bus/pci/drivers/intel_vpu/.../freq/set_min_freq
+>> +Date:		April 2026
+>> +KernelVersion:	7.2
+>> +Contact:	dri-devel@lists.freedesktop.org
+>> +Description:	Configured minimum operating frequency in MHz (50XX devices and newer).
+>> +		Values written are clamped to hardware limits (hw_min_freq to hw_max_freq).
+>> +		If set_min_freq exceeds set_max_freq, the driver clamps set_min_freq to
+>> +		set_max_freq when selecting the operating frequency. Read-write.
+>> +
+>> +What:		/sys/bus/pci/drivers/intel_vpu/.../freq/set_max_freq
+>> +Date:		April 2026
+>> +KernelVersion:	7.2
+>> +Contact:	dri-devel@lists.freedesktop.org
+>> +Description:	Configured maximum operating frequency in MHz (50XX devices and newer).
+>> +		Values written are clamped to hardware limits (hw_min_freq to hw_max_freq).
+>> +		Read-write.
+>> diff --git a/MAINTAINERS b/MAINTAINERS
+>> index ae8a01f30ff4..359456c4a96e 100644
+>> --- a/MAINTAINERS
+>> +++ b/MAINTAINERS
+>> @@ -7837,6 +7837,8 @@ M:	Karol Wachowski <karol.wachowski@linux.intel.com>
+>>  L:	dri-devel@lists.freedesktop.org
+>>  S:	Supported
+>>  T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
+>> +F:	Documentation/ABI/obsolete/sysfs-driver-ivpu
+>> +F:	Documentation/ABI/testing/sysfs-driver-ivpu
+>>  F:	drivers/accel/ivpu/
+>>  F:	include/uapi/drm/ivpu_accel.h
+>>  
+>> diff --git a/drivers/accel/ivpu/ivpu_drv.c b/drivers/accel/ivpu/ivpu_drv.c
+>> index 2801378e3e19..e6d631108145 100644
+>> --- a/drivers/accel/ivpu/ivpu_drv.c
+>> +++ b/drivers/accel/ivpu/ivpu_drv.c
+>> @@ -1,6 +1,6 @@
+>>  // SPDX-License-Identifier: GPL-2.0-only
+>>  /*
+>> - * Copyright (C) 2020-2025 Intel Corporation
+>> + * Copyright (C) 2020-2026 Intel Corporation
+>>   */
+>>  
+>>  #include <linux/firmware.h>
+>> @@ -234,7 +234,7 @@ static int ivpu_get_param_ioctl(struct drm_device *dev, void *data, struct drm_f
+>>  		args->value = vdev->platform;
+>>  		break;
+>>  	case DRM_IVPU_PARAM_CORE_CLOCK_RATE:
+>> -		args->value = ivpu_hw_dpu_max_freq_get(vdev);
+>> +		args->value = ivpu_hw_btrs_pll_ratio_to_hz(vdev, vdev->hw->pll.max_ratio);
+>>  		break;
+>>  	case DRM_IVPU_PARAM_NUM_CONTEXTS:
+>>  		args->value = file_priv->user_limits->max_ctx_count;
+>> @@ -487,6 +487,10 @@ int ivpu_boot(struct ivpu_device *vdev)
+>>  		ret = ivpu_hw_sched_init(vdev);
+>>  		if (ret)
+>>  			goto err_disable_ipc;
+>> +
+>> +		ret = ivpu_hw_btrs_cfg_freq_init(vdev);
+>> +		if (ret)
+>> +			goto err_disable_ipc;
+>>  	}
+>>  
+>>  	return 0;
+>> diff --git a/drivers/accel/ivpu/ivpu_hw.h b/drivers/accel/ivpu/ivpu_hw.h
+>> index b6d0f0d0dccc..487a918e2fa9 100644
+>> --- a/drivers/accel/ivpu/ivpu_hw.h
+>> +++ b/drivers/accel/ivpu/ivpu_hw.h
+>> @@ -1,6 +1,6 @@
+>>  /* SPDX-License-Identifier: GPL-2.0-only */
+>>  /*
+>> - * Copyright (C) 2020-2025 Intel Corporation
+>> + * Copyright (C) 2020-2026 Intel Corporation
+>>   */
+>>  
+>>  #ifndef __IVPU_HW_H__
+>> @@ -28,6 +28,7 @@ struct ivpu_hw_info {
+>>  		struct ivpu_addr_range dma;
+>>  	} ranges;
+>>  	struct {
+>> +		/* Hardware min and max pll ratio */
+>>  		u8 min_ratio;
+>>  		u8 max_ratio;
+>>  		/*
+>> @@ -35,6 +36,9 @@ struct ivpu_hw_info {
+>>  		 * performance to power ratio at this frequency.
+>>  		 */
+>>  		u8 pn_ratio;
+>> +		/* Pll ratios configured via sysfs interface */
+>> +		u8 cfg_min_ratio;
+>> +		u8 cfg_max_ratio;
+>>  		u32 profiling_freq;
+>>  	} pll;
+>>  	struct {
+>> @@ -80,16 +84,6 @@ static inline u64 ivpu_hw_range_size(const struct ivpu_addr_range *range)
+>>  	return range->end - range->start;
+>>  }
+>>  
+>> -static inline u32 ivpu_hw_dpu_max_freq_get(struct ivpu_device *vdev)
+>> -{
+>> -	return ivpu_hw_btrs_dpu_max_freq_get(vdev);
+>> -}
+>> -
+>> -static inline u32 ivpu_hw_dpu_freq_get(struct ivpu_device *vdev)
+>> -{
+>> -	return ivpu_hw_btrs_dpu_freq_get(vdev);
+>> -}
+>> -
+>>  static inline void ivpu_hw_irq_clear(struct ivpu_device *vdev)
+>>  {
+>>  	ivpu_hw_ip_irq_clear(vdev);
+>> diff --git a/drivers/accel/ivpu/ivpu_hw_btrs.c b/drivers/accel/ivpu/ivpu_hw_btrs.c
+>> index 06e65c592618..dac935164e11 100644
+>> --- a/drivers/accel/ivpu/ivpu_hw_btrs.c
+>> +++ b/drivers/accel/ivpu/ivpu_hw_btrs.c
+>> @@ -1,6 +1,6 @@
+>>  // SPDX-License-Identifier: GPL-2.0-only
+>>  /*
+>> - * Copyright (C) 2020-2025 Intel Corporation
+>> + * Copyright (C) 2020-2026 Intel Corporation
+>>   */
+>>  
+>>  #include <linux/units.h>
+>> @@ -11,6 +11,7 @@
+>>  #include "ivpu_hw_btrs_lnl_reg.h"
+>>  #include "ivpu_hw_btrs_mtl_reg.h"
+>>  #include "ivpu_hw_reg_io.h"
+>> +#include "ivpu_jsm_msg.h"
+>>  #include "ivpu_pm.h"
+>>  
+>>  #define BTRS_MTL_IRQ_MASK ((REG_FLD(VPU_HW_BTRS_MTL_INTERRUPT_STAT, ATS_ERR)) | \
+>> @@ -33,8 +34,7 @@
+>>  
+>>  #define PLL_CDYN_DEFAULT               0x80
+>>  #define PLL_EPP_DEFAULT                0x80
+>> -#define PLL_REF_CLK_FREQ               50000000ull
+>> -#define PLL_RATIO_TO_FREQ(x)           ((x) * PLL_REF_CLK_FREQ)
+>> +#define PLL_REF_CLK_FREQ_MHZ           50
+>>  
+>>  #define PLL_TIMEOUT_US		       (1500 * USEC_PER_MSEC)
+>>  #define IDLE_TIMEOUT_US		       (5 * USEC_PER_MSEC)
+>> @@ -59,8 +59,6 @@
+>>  #define DCT_ENABLE                     0x1
+>>  #define DCT_DISABLE                    0x0
+>>  
+>> -static u32 pll_ratio_to_dpu_freq(struct ivpu_device *vdev, u32 ratio);
+>> -
+>>  int ivpu_hw_btrs_irqs_clear_with_0_mtl(struct ivpu_device *vdev)
+>>  {
+>>  	REGB_WR32(VPU_HW_BTRS_MTL_INTERRUPT_STAT, BTRS_MTL_ALL_IRQ_MASK);
+>> @@ -111,6 +109,8 @@ void ivpu_hw_btrs_freq_ratios_init(struct ivpu_device *vdev)
+>>  	hw->pll.min_ratio = clamp_t(u8, ivpu_pll_min_ratio, hw->pll.min_ratio, hw->pll.max_ratio);
+>>  	hw->pll.max_ratio = clamp_t(u8, ivpu_pll_max_ratio, hw->pll.min_ratio, hw->pll.max_ratio);
+>>  	hw->pll.pn_ratio = clamp_t(u8, hw->pll.pn_ratio, hw->pll.min_ratio, hw->pll.max_ratio);
+>> +	hw->pll.cfg_max_ratio = hw->pll.max_ratio;
+>> +	hw->pll.cfg_min_ratio = hw->pll.min_ratio;
+>>  }
+>>  
+>>  static bool tile_disable_check(u32 config)
+>> @@ -341,8 +341,8 @@ int ivpu_hw_btrs_wp_drive(struct ivpu_device *vdev, bool enable)
+>>  
+>>  	prepare_wp_request(vdev, &wp, enable);
+>>  
+>> -	ivpu_dbg(vdev, PM, "PLL workpoint request: %lu MHz, config: 0x%x, epp: 0x%x, cdyn: 0x%x\n",
+>> -		 pll_ratio_to_dpu_freq(vdev, wp.target) / HZ_PER_MHZ, wp.cfg, wp.epp, wp.cdyn);
+>> +	ivpu_dbg(vdev, PM, "PLL workpoint request: %u MHz, config: 0x%x, epp: 0x%x, cdyn: 0x%x\n",
+>> +		 ivpu_hw_btrs_pll_ratio_to_mhz(vdev, wp.target), wp.cfg, wp.epp, wp.cdyn);
+>>  
+>>  	ret = wp_request_send(vdev, &wp);
+>>  	if (ret) {
+>> @@ -598,35 +598,101 @@ static u32 pll_config_get_lnl(struct ivpu_device *vdev)
+>>  	return REGB_RD32(VPU_HW_BTRS_LNL_PLL_FREQ);
+>>  }
+>>  
+>> -static u32 pll_ratio_to_dpu_freq_mtl(u16 ratio)
+>> +static u32 pll_ratio_to_mhz_mtl(u8 pll_ratio)
+>>  {
+>> -	return (PLL_RATIO_TO_FREQ(ratio) * 2) / 3;
+>> +	return (pll_ratio * PLL_REF_CLK_FREQ_MHZ * 2) / 3;
+>>  }
+>>  
+>> -static u32 pll_ratio_to_dpu_freq_lnl(u16 ratio)
+>> +static u32 pll_ratio_to_mhz_lnl(u8 pll_ratio)
+>>  {
+>> -	return PLL_RATIO_TO_FREQ(ratio) / 2;
+>> +	return (pll_ratio * PLL_REF_CLK_FREQ_MHZ) / 2;
+>>  }
+>>  
+>> -static u32 pll_ratio_to_dpu_freq(struct ivpu_device *vdev, u32 ratio)
+>> +u32 ivpu_hw_btrs_pll_ratio_to_mhz(struct ivpu_device *vdev, u8 pll_ratio)
+>>  {
+>>  	if (ivpu_hw_btrs_gen(vdev) == IVPU_HW_BTRS_MTL)
+>> -		return pll_ratio_to_dpu_freq_mtl(ratio);
+>> +		return pll_ratio_to_mhz_mtl(pll_ratio);
+>>  	else
+>> -		return pll_ratio_to_dpu_freq_lnl(ratio);
+>> +		return pll_ratio_to_mhz_lnl(pll_ratio);
+>>  }
+>>  
+>> -u32 ivpu_hw_btrs_dpu_max_freq_get(struct ivpu_device *vdev)
+>> +u32 ivpu_hw_btrs_pll_ratio_to_hz(struct ivpu_device *vdev, u8 pll_ratio)
+>>  {
+>> -	return pll_ratio_to_dpu_freq(vdev, vdev->hw->pll.max_ratio);
+>> +	return ivpu_hw_btrs_pll_ratio_to_mhz(vdev, pll_ratio) * HZ_PER_MHZ;
+>>  }
+>>  
+>> -u32 ivpu_hw_btrs_dpu_freq_get(struct ivpu_device *vdev)
+>> +u32 ivpu_hw_btrs_current_freq_get(struct ivpu_device *vdev)
+>>  {
+>>  	if (ivpu_hw_btrs_gen(vdev) == IVPU_HW_BTRS_MTL)
+>> -		return pll_ratio_to_dpu_freq_mtl(pll_config_get_mtl(vdev));
+>> +		return pll_ratio_to_mhz_mtl(pll_config_get_mtl(vdev));
+>>  	else
+>> -		return pll_ratio_to_dpu_freq_lnl(pll_config_get_lnl(vdev));
+>> +		return pll_ratio_to_mhz_lnl(pll_config_get_lnl(vdev));
+>> +}
+>> +
+>> +static int ivpu_hw_btrs_cfg_freq_set(struct ivpu_device *vdev, u8 cfg_min_ratio, u8 cfg_max_ratio)
+>> +{
+>> +	u8 min_ratio = clamp_t(u8, cfg_min_ratio, vdev->hw->pll.min_ratio, cfg_max_ratio);
+>> +	u8 pn_ratio = clamp_t(u8, vdev->hw->pll.pn_ratio, min_ratio, cfg_max_ratio);
+>> +	int ret;
+>> +
+>> +	ivpu_dbg(vdev, PM, "Set frequency range to min: %u, pn: %u, max: %u MHz\n",
+>> +		 ivpu_hw_btrs_pll_ratio_to_mhz(vdev, min_ratio),
+>> +		 ivpu_hw_btrs_pll_ratio_to_mhz(vdev, pn_ratio),
+>> +		 ivpu_hw_btrs_pll_ratio_to_mhz(vdev, cfg_max_ratio));
+>> +
+>> +	ret = ivpu_rpm_get(vdev);
+>> +	if (ret < 0)
+>> +		return ret;
+>> +
+>> +	ret = ivpu_jsm_msg_freq_config(vdev, min_ratio, pn_ratio, cfg_max_ratio);
+>> +	ivpu_rpm_put(vdev);
+>> +
+>> +	if (ret) {
+>> +		ivpu_warn(vdev,
+>> +			  "Failed to set frequency to min: %u, pn: %u, max: %u MHz, ret %d\n",
+>> +			  ivpu_hw_btrs_pll_ratio_to_mhz(vdev, min_ratio),
+>> +			  ivpu_hw_btrs_pll_ratio_to_mhz(vdev, pn_ratio),
+>> +			  ivpu_hw_btrs_pll_ratio_to_mhz(vdev, cfg_max_ratio),
+>> +			  ret);
+>> +		return ret;
+>> +	}
+>> +
+>> +	vdev->hw->pll.cfg_min_ratio = cfg_min_ratio;
+>> +	vdev->hw->pll.cfg_max_ratio = cfg_max_ratio;
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static u8 dpu_mhz_to_pll_ratio_lnl(u32 freq_mhz)
+>> +{
+>> +	return clamp_t(u32, freq_mhz / (PLL_REF_CLK_FREQ_MHZ / 2), 0, U8_MAX);
+>> +}
+>> +
+>> +int ivpu_hw_btrs_cfg_max_freq_set(struct ivpu_device *vdev, u32 max_freq_mhz)
+>> +{
+>> +	u8 ratio = dpu_mhz_to_pll_ratio_lnl(max_freq_mhz);
+>> +	u8 cfg_max_ratio = clamp_t(u8, ratio, vdev->hw->pll.min_ratio, vdev->hw->pll.max_ratio);
+>> +
+>> +	return ivpu_hw_btrs_cfg_freq_set(vdev, vdev->hw->pll.cfg_min_ratio, cfg_max_ratio);
+>> +}
+>> +
+>> +int ivpu_hw_btrs_cfg_min_freq_set(struct ivpu_device *vdev, u32 min_freq_mhz)
+>> +{
+>> +	u8 ratio = dpu_mhz_to_pll_ratio_lnl(min_freq_mhz);
+>> +	u8 cfg_min_ratio = clamp_t(u8, ratio, vdev->hw->pll.min_ratio, vdev->hw->pll.max_ratio);
+>> +
+>> +	return ivpu_hw_btrs_cfg_freq_set(vdev, cfg_min_ratio, vdev->hw->pll.cfg_max_ratio);
+>> +}
+>> +
+>> +int ivpu_hw_btrs_cfg_freq_init(struct ivpu_device *vdev)
+>> +{
+>> +	if (vdev->hw->pll.min_ratio == vdev->hw->pll.cfg_min_ratio &&
+>> +	    vdev->hw->pll.max_ratio == vdev->hw->pll.cfg_max_ratio)
+>> +		return 0;
+>> +
+>> +	return ivpu_hw_btrs_cfg_freq_set(vdev,
+>> +					 vdev->hw->pll.cfg_min_ratio,
+>> +					 vdev->hw->pll.cfg_max_ratio);
+>>  }
+>>  
+>>  /* Handler for IRQs from Buttress core (irqB) */
+>> @@ -641,8 +707,8 @@ bool ivpu_hw_btrs_irq_handler_mtl(struct ivpu_device *vdev, int irq)
+>>  	if (REG_TEST_FLD(VPU_HW_BTRS_MTL_INTERRUPT_STAT, FREQ_CHANGE, status)) {
+>>  		u32 pll = pll_config_get_mtl(vdev);
+>>  
+>> -		ivpu_dbg(vdev, IRQ, "FREQ_CHANGE irq, wp %08x, %lu MHz",
+>> -			 pll, pll_ratio_to_dpu_freq_mtl(pll) / HZ_PER_MHZ);
+>> +		ivpu_dbg(vdev, IRQ, "FREQ_CHANGE irq, wp %08x, %u MHz",
+>> +			 pll, pll_ratio_to_mhz_mtl(pll));
+>>  	}
+>>  
+>>  	if (REG_TEST_FLD(VPU_HW_BTRS_MTL_INTERRUPT_STAT, ATS_ERR, status)) {
+>> @@ -695,8 +761,8 @@ bool ivpu_hw_btrs_irq_handler_lnl(struct ivpu_device *vdev, int irq)
+>>  	if (REG_TEST_FLD(VPU_HW_BTRS_LNL_INTERRUPT_STAT, FREQ_CHANGE, status)) {
+>>  		u32 pll = pll_config_get_lnl(vdev);
+>>  
+>> -		ivpu_dbg(vdev, IRQ, "FREQ_CHANGE irq, wp %08x, %lu MHz",
+>> -			 pll, pll_ratio_to_dpu_freq_lnl(pll) / HZ_PER_MHZ);
+>> +		ivpu_dbg(vdev, IRQ, "FREQ_CHANGE irq, wp %08x, %u MHz",
+>> +			 pll, pll_ratio_to_mhz_lnl(pll));
+>>  	}
+>>  
+>>  	if (REG_TEST_FLD(VPU_HW_BTRS_LNL_INTERRUPT_STAT, ATS_ERR, status)) {
+>> diff --git a/drivers/accel/ivpu/ivpu_hw_btrs.h b/drivers/accel/ivpu/ivpu_hw_btrs.h
+>> index c4c10e22f30f..d6343d734570 100644
+>> --- a/drivers/accel/ivpu/ivpu_hw_btrs.h
+>> +++ b/drivers/accel/ivpu/ivpu_hw_btrs.h
+>> @@ -1,6 +1,6 @@
+>>  /* SPDX-License-Identifier: GPL-2.0-only */
+>>  /*
+>> - * Copyright (C) 2020-2025 Intel Corporation
+>> + * Copyright (C) 2020-2026 Intel Corporation
+>>   */
+>>  
+>>  #ifndef __IVPU_HW_BTRS_H__
+>> @@ -31,8 +31,12 @@ int ivpu_hw_btrs_ip_reset(struct ivpu_device *vdev);
+>>  void ivpu_hw_btrs_profiling_freq_reg_set_lnl(struct ivpu_device *vdev);
+>>  void ivpu_hw_btrs_ats_print_lnl(struct ivpu_device *vdev);
+>>  void ivpu_hw_btrs_clock_relinquish_disable_lnl(struct ivpu_device *vdev);
+>> -u32 ivpu_hw_btrs_dpu_max_freq_get(struct ivpu_device *vdev);
+>> -u32 ivpu_hw_btrs_dpu_freq_get(struct ivpu_device *vdev);
+>> +u32 ivpu_hw_btrs_pll_ratio_to_mhz(struct ivpu_device *vdev, u8 pll_ratio);
+>> +u32 ivpu_hw_btrs_pll_ratio_to_hz(struct ivpu_device *vdev, u8 pll_ratio);
+>> +u32 ivpu_hw_btrs_current_freq_get(struct ivpu_device *vdev);
+>> +int ivpu_hw_btrs_cfg_min_freq_set(struct ivpu_device *vdev, u32 freq_mhz);
+>> +int ivpu_hw_btrs_cfg_max_freq_set(struct ivpu_device *vdev, u32 freq_mhz);
+>> +int ivpu_hw_btrs_cfg_freq_init(struct ivpu_device *vdev);
+>>  bool ivpu_hw_btrs_irq_handler_mtl(struct ivpu_device *vdev, int irq);
+>>  bool ivpu_hw_btrs_irq_handler_lnl(struct ivpu_device *vdev, int irq);
+>>  int ivpu_hw_btrs_dct_get_request(struct ivpu_device *vdev, bool *enable);
+>> diff --git a/drivers/accel/ivpu/ivpu_jsm_msg.c b/drivers/accel/ivpu/ivpu_jsm_msg.c
+>> index 07b1d6f615a9..17b42a76aef9 100644
+>> --- a/drivers/accel/ivpu/ivpu_jsm_msg.c
+>> +++ b/drivers/accel/ivpu/ivpu_jsm_msg.c
+>> @@ -1,6 +1,6 @@
+>>  // SPDX-License-Identifier: GPL-2.0-only
+>>  /*
+>> - * Copyright (C) 2020-2024 Intel Corporation
+>> + * Copyright (C) 2020-2026 Intel Corporation
+>>   */
+>>  
+>>  #include "ivpu_drv.h"
+>> @@ -86,6 +86,9 @@ const char *ivpu_jsm_msg_type_to_str(enum vpu_ipc_msg_type type)
+>>  	IVPU_CASE_TO_STR(VPU_JSM_MSG_DCT_ENABLE_DONE);
+>>  	IVPU_CASE_TO_STR(VPU_JSM_MSG_DCT_DISABLE);
+>>  	IVPU_CASE_TO_STR(VPU_JSM_MSG_DCT_DISABLE_DONE);
+>> +	IVPU_CASE_TO_STR(VPU_JSM_MSG_FREQ_CONFIG);
+>> +	IVPU_CASE_TO_STR(VPU_JSM_MSG_FREQ_CONFIG_RSP);
+>> +	IVPU_CASE_TO_STR(VPU_JSM_MSG_RESERVED_111E);
+>>  	}
+>>  	#undef IVPU_CASE_TO_STR
+>>  
+>> @@ -571,3 +574,16 @@ int ivpu_jsm_state_dump_no_reply(struct ivpu_device *vdev)
+>>  	return ivpu_ipc_send_and_wait(vdev, &req, VPU_IPC_CHAN_ASYNC_CMD,
+>>  				      vdev->timeout.state_dump_msg);
+>>  }
+>> +
+>> +int ivpu_jsm_msg_freq_config(struct ivpu_device *vdev, u16 min_ratio, u16 pn_ratio, u16 max_ratio)
+>> +{
+>> +	struct vpu_jsm_msg req = { .type = VPU_JSM_MSG_FREQ_CONFIG};
+>> +	struct vpu_jsm_msg resp;
+>> +
+>> +	req.payload.freq_config.min_freq_pll_ratio = min_ratio;
+>> +	req.payload.freq_config.pn_freq_pll_ratio = pn_ratio;
+>> +	req.payload.freq_config.max_freq_pll_ratio = max_ratio;
+>> +
+>> +	return ivpu_ipc_send_receive_internal(vdev, &req, VPU_JSM_MSG_FREQ_CONFIG_RSP, &resp,
+>> +					      VPU_IPC_CHAN_ASYNC_CMD, vdev->timeout.jsm);
+>> +}
+>> diff --git a/drivers/accel/ivpu/ivpu_jsm_msg.h b/drivers/accel/ivpu/ivpu_jsm_msg.h
+>> index a74f5a0b0d93..28ffe07422b0 100644
+>> --- a/drivers/accel/ivpu/ivpu_jsm_msg.h
+>> +++ b/drivers/accel/ivpu/ivpu_jsm_msg.h
+>> @@ -1,6 +1,6 @@
+>>  /* SPDX-License-Identifier: GPL-2.0-only */
+>>  /*
+>> - * Copyright (C) 2020-2024 Intel Corporation
+>> + * Copyright (C) 2020-2026 Intel Corporation
+>>   */
+>>  
+>>  #ifndef __IVPU_JSM_MSG_H__
+>> @@ -45,5 +45,6 @@ int ivpu_jsm_dct_enable(struct ivpu_device *vdev, u32 active_us, u32 inactive_us
+>>  int ivpu_jsm_dct_disable(struct ivpu_device *vdev);
+>>  int ivpu_jsm_state_dump(struct ivpu_device *vdev);
+>>  int ivpu_jsm_state_dump_no_reply(struct ivpu_device *vdev);
+>> +int ivpu_jsm_msg_freq_config(struct ivpu_device *vdev, u16 min_ratio, u16 pn_ratio, u16 max_ratio);
+>>  
+>>  #endif
+>> diff --git a/drivers/accel/ivpu/ivpu_sysfs.c b/drivers/accel/ivpu/ivpu_sysfs.c
+>> index d250a10caca9..95d201b3b8aa 100644
+>> --- a/drivers/accel/ivpu/ivpu_sysfs.c
+>> +++ b/drivers/accel/ivpu/ivpu_sysfs.c
+>> @@ -1,6 +1,6 @@
+>>  // SPDX-License-Identifier: GPL-2.0-only
+>>  /*
+>> - * Copyright (C) 2024-2025 Intel Corporation
+>> + * Copyright (C) 2024-2026 Intel Corporation
+>>   */
+>>  
+>>  #include <linux/device.h>
+>> @@ -82,8 +82,7 @@ static DEVICE_ATTR_RO(npu_memory_utilization);
+>>   * - "OS"		- Operating System Scheduler mode
+>>   *
+>>   */
+>> -static ssize_t
+>> -sched_mode_show(struct device *dev, struct device_attribute *attr, char *buf)
+>> +static ssize_t sched_mode_show(struct device *dev, struct device_attribute *attr, char *buf)
+>>  {
+>>  	struct drm_device *drm = dev_get_drvdata(dev);
+>>  	struct ivpu_device *vdev = to_ivpu_device(drm);
+>> @@ -94,47 +93,162 @@ sched_mode_show(struct device *dev, struct device_attribute *attr, char *buf)
+>>  static DEVICE_ATTR_RO(sched_mode);
+>>  
+>>  /**
+>> - * DOC: npu_max_frequency
+>> + * DOC: NPU frequency control and information
+>> + *
+>> + * Hardware frequency capabilities:
+>> + * freq/hw_min_freq - Minimum frequency supported by the NPU hardware.
+>> + * freq/hw_max_freq - Maximum frequency supported by the NPU hardware.
+>> + * freq/hw_efficient_freq - Most efficient operating frequency for the NPU.
+>> + *
+>> + * Configurable frequency limits (50XX devices and newer):
+>> + * freq/set_min_freq - Configured minimum operating frequency.
+>> + * freq/set_max_freq - Configured maximum operating frequency.
+>> + *
+>> + * Clamping behavior: Values written to set_min_freq and set_max_freq are
+>> + * clamped to hardware limits. If set_min_freq exceeds set_max_freq, the driver
+>> + * clamps set_min_freq to set_max_freq when selecting the operating frequency.
+>> + *
+>> + * Current operating frequency:
+>> + * freq/current_freq - Current frequency in MHz. Valid only when the device is
+>> + * active; returns 0 when idle. May be lower than the requested range due to
+>> + * power or thermal constraints.
+>>   *
+>> - * The npu_max_frequency shows maximum frequency in MHz of the NPU's data
+>> - * processing unit
+>> + * Legacy attributes (backward compatibility):
+>> + * npu_max_frequency_mhz - Alias for freq/hw_max_freq.
+>> + * npu_current_frequency_mhz - Alias for freq/current_freq.
+>>   */
+>> +
+>> +static ssize_t hw_min_freq_show(struct device *dev, struct device_attribute *attr, char *buf)
+>> +{
+>> +	struct drm_device *drm = dev_get_drvdata(dev);
+>> +	struct ivpu_device *vdev = to_ivpu_device(drm);
+>> +	u32 freq_mhz = ivpu_hw_btrs_pll_ratio_to_mhz(vdev, vdev->hw->pll.min_ratio);
+>> +
+>> +	return sysfs_emit(buf, "%u\n", freq_mhz);
+>> +}
+>> +
+>> +static DEVICE_ATTR_RO(hw_min_freq);
+>> +
+>> +static ssize_t hw_efficient_freq_show(struct device *dev, struct device_attribute *attr, char *buf)
+>> +{
+>> +	struct drm_device *drm = dev_get_drvdata(dev);
+>> +	struct ivpu_device *vdev = to_ivpu_device(drm);
+>> +	u32 freq_mhz = ivpu_hw_btrs_pll_ratio_to_mhz(vdev, vdev->hw->pll.pn_ratio);
+>> +
+>> +	return sysfs_emit(buf, "%u\n", freq_mhz);
+>> +}
+>> +
+>> +static DEVICE_ATTR_RO(hw_efficient_freq);
+>> +
+>> +static ssize_t hw_max_freq_show(struct device *dev, struct device_attribute *attr, char *buf)
+>> +{
+>> +	struct drm_device *drm = dev_get_drvdata(dev);
+>> +	struct ivpu_device *vdev = to_ivpu_device(drm);
+>> +	u32 freq_mhz = ivpu_hw_btrs_pll_ratio_to_mhz(vdev, vdev->hw->pll.max_ratio);
+>> +
+>> +	return sysfs_emit(buf, "%u\n", freq_mhz);
+>> +}
+>> +
+>> +static DEVICE_ATTR_RO(hw_max_freq);
+>> +
+>> +static ssize_t set_min_freq_show(struct device *dev, struct device_attribute *attr, char *buf)
+>> +{
+>> +	struct drm_device *drm = dev_get_drvdata(dev);
+>> +	struct ivpu_device *vdev = to_ivpu_device(drm);
+>> +	u32 freq_mhz = ivpu_hw_btrs_pll_ratio_to_mhz(vdev, vdev->hw->pll.cfg_min_ratio);
+>> +
+>> +	return sysfs_emit(buf, "%u\n", freq_mhz);
+>> +}
+>> +
+>>  static ssize_t
+>> -npu_max_frequency_mhz_show(struct device *dev, struct device_attribute *attr, char *buf)
+>> +set_min_freq_store(struct device *dev, struct device_attribute *attr, const char *buf, size_t count)
+>>  {
+>>  	struct drm_device *drm = dev_get_drvdata(dev);
+>>  	struct ivpu_device *vdev = to_ivpu_device(drm);
+>> -	u32 freq = ivpu_hw_dpu_max_freq_get(vdev);
+>> +	u32 freq_mhz;
+>> +	int ret;
+>> +
+>> +	ret = kstrtou32(buf, 10, &freq_mhz);
+>> +	if (ret)
+>> +		return ret;
+>>  
+>> -	return sysfs_emit(buf, "%lu\n", freq / HZ_PER_MHZ);
+>> +	ret = ivpu_hw_btrs_cfg_min_freq_set(vdev, freq_mhz);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	return count;
+>>  }
+>>  
+>> -static DEVICE_ATTR_RO(npu_max_frequency_mhz);
+>> +static DEVICE_ATTR_RW(set_min_freq);
+>> +
+>> +static ssize_t set_max_freq_show(struct device *dev, struct device_attribute *attr, char *buf)
+>> +{
+>> +	struct drm_device *drm = dev_get_drvdata(dev);
+>> +	struct ivpu_device *vdev = to_ivpu_device(drm);
+>> +	u32 freq_mhz = ivpu_hw_btrs_pll_ratio_to_mhz(vdev, vdev->hw->pll.cfg_max_ratio);
+>> +
+>> +	return sysfs_emit(buf, "%u\n", freq_mhz);
+>> +}
+>>  
+>> -/**
+>> - * DOC: npu_current_frequency_mhz
+>> - *
+>> - * The npu_current_frequency_mhz shows current frequency in MHz of the NPU's
+>> - * data processing unit
+>> - */
+>>  static ssize_t
+>> -npu_current_frequency_mhz_show(struct device *dev, struct device_attribute *attr, char *buf)
+>> +set_max_freq_store(struct device *dev, struct device_attribute *attr, const char *buf, size_t count)
+>> +{
+>> +	struct drm_device *drm = dev_get_drvdata(dev);
+>> +	struct ivpu_device *vdev = to_ivpu_device(drm);
+>> +	u32 freq_mhz;
+>> +	int ret;
+>> +
+>> +	ret = kstrtou32(buf, 10, &freq_mhz);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	/* Convert MHz to Hz and set max frequency */
+>> +	ret = ivpu_hw_btrs_cfg_max_freq_set(vdev, freq_mhz);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	return count;
+>> +}
+>> +
+>> +static DEVICE_ATTR_RW(set_max_freq);
+>> +
+>> +static ssize_t current_freq_show(struct device *dev, struct device_attribute *attr, char *buf)
+>>  {
+>>  	struct drm_device *drm = dev_get_drvdata(dev);
+>>  	struct ivpu_device *vdev = to_ivpu_device(drm);
+>> -	u32 freq = 0;
+>> +	u32 freq_mhz = 0;
+>>  
+>>  	/* Read frequency only if device is active, otherwise frequency is 0 */
+>>  	if (pm_runtime_get_if_active(vdev->drm.dev) > 0) {
+>> -		freq = ivpu_hw_dpu_freq_get(vdev);
+>> +		freq_mhz = ivpu_hw_btrs_current_freq_get(vdev);
+>>  
+>>  		pm_runtime_put_autosuspend(vdev->drm.dev);
+>>  	}
+>>  
+>> -	return sysfs_emit(buf, "%lu\n", freq / HZ_PER_MHZ);
+>> +	return sysfs_emit(buf, "%u\n", freq_mhz);
+>>  }
+>>  
+>> -static DEVICE_ATTR_RO(npu_current_frequency_mhz);
+>> +static DEVICE_ATTR_RO(current_freq);
+>> +
+>> +/* Alias to current_freq for legacy compat */
+>> +static struct device_attribute dev_attr_npu_max_frequency_mhz =
+>> +	__ATTR(npu_max_frequency_mhz, 0444, hw_max_freq_show, NULL);
+>> +
+>> +static struct device_attribute dev_attr_npu_current_frequency_mhz =
+>> +	__ATTR(npu_current_frequency_mhz, 0444, current_freq_show, NULL);
+>> +
+>> +static struct attribute *ivpu_freq_attrs[] = {
+>> +	&dev_attr_hw_min_freq.attr,
+>> +	&dev_attr_hw_efficient_freq.attr,
+>> +	&dev_attr_hw_max_freq.attr,
+>> +	&dev_attr_current_freq.attr,
+>> +	NULL,
+>> +};
+>> +
+>> +static struct attribute_group ivpu_freq_attr_group = {
+>> +	.name = "freq",
+>> +	.attrs = ivpu_freq_attrs,
+>> +};
+>>  
+>>  static struct attribute *ivpu_dev_attrs[] = {
+>>  	&dev_attr_npu_busy_time_us.attr,
+>> @@ -154,6 +268,32 @@ void ivpu_sysfs_init(struct ivpu_device *vdev)
+>>  	int ret;
+>>  
+>>  	ret = devm_device_add_group(vdev->drm.dev, &ivpu_dev_attr_group);
+>> -	if (ret)
+>> -		ivpu_warn(vdev, "Failed to add group to device, ret %d", ret);
+>> +	if (ret) {
+>> +		ivpu_warn(vdev, "Failed to add sysfs group to device, ret %d", ret);
+>> +		return;
+>> +	}
+>> +
+>> +	ret = devm_device_add_group(vdev->drm.dev, &ivpu_freq_attr_group);
+>> +	if (ret) {
+>> +		ivpu_warn(vdev, "Failed to add sysfs freq group, ret %d", ret);
+>> +		return;
+>> +	}
+>> +
+>> +	if (ivpu_hw_ip_gen(vdev) >= IVPU_HW_IP_50XX) {
+>> +		ret = sysfs_add_file_to_group(&vdev->drm.dev->kobj,
+>> +					      &dev_attr_set_min_freq.attr,
+>> +					      "freq");
+>> +		if (ret) {
+>> +			ivpu_warn(vdev, "Failed to add sysfs set_min_freq to device, ret %d", ret);
+>> +			return;
+>> +		}
+>> +
+>> +		ret = sysfs_add_file_to_group(&vdev->drm.dev->kobj,
+>> +					      &dev_attr_set_max_freq.attr,
+>> +					      "freq");
+>> +		if (ret) {
+>> +			ivpu_warn(vdev, "Failed to add sysfs set_max_freq to device, ret %d", ret);
+>> +			return;
+>> +		}
+>> +	}
+>>  }
+>> diff --git a/drivers/accel/ivpu/vpu_jsm_api.h b/drivers/accel/ivpu/vpu_jsm_api.h
+>> index bca6a44dc041..6d58d04cc0c4 100644
+>> --- a/drivers/accel/ivpu/vpu_jsm_api.h
+>> +++ b/drivers/accel/ivpu/vpu_jsm_api.h
+>> @@ -23,7 +23,7 @@
+>>  /*
+>>   * Minor version changes when API backward compatibility is preserved.
+>>   */
+>> -#define VPU_JSM_API_VER_MINOR 33
+>> +#define VPU_JSM_API_VER_MINOR 34
+>>  
+>>  /*
+>>   * API header changed (field names, documentation, formatting) but API itself has not been changed
+>> @@ -604,6 +604,16 @@ enum vpu_ipc_msg_type {
+>>  	 * This command has no payload
+>>  	 */
+>>  	VPU_JSM_MSG_DCT_DISABLE = 0x111d,
+>> +	/**
+>> +	 * Reserved command ID to ensure that the following command requests /
+>> +	 * responses have the same lower byte value.
+>> +	 */
+>> +	VPU_JSM_MSG_RESERVED_111E = 0x111e,
+>> +	/**
+>> +	 * Control command: Configure VPU frequency scaling parameters.
+>> +	 * @see vpu_ipc_msg_payload_freq_config
+>> +	 */
+>> +	VPU_JSM_MSG_FREQ_CONFIG = 0x111f,
+>>  	/**
+>>  	 * Dump VPU state. To be used for debug purposes only.
+>>  	 * This command has no payload.
+>> @@ -766,6 +776,11 @@ enum vpu_ipc_msg_type {
+>>  	 * This command has no payload
+>>  	 */
+>>  	VPU_JSM_MSG_DCT_DISABLE_DONE = 0x221e,
+>> +	/**
+>> +	 * Response to control command: Configure VPU frequency scaling parameters.
+>> +	 * @see vpu_ipc_msg_payload_freq_config
+>> +	 */
+>> +	VPU_JSM_MSG_FREQ_CONFIG_RSP = 0x221f,
+>>  	/**
+>>  	 * Response to state dump control command.
+>>  	 * This command has no payload.
+>> @@ -1650,6 +1665,22 @@ struct vpu_ipc_msg_payload_pwr_dct_control {
+>>  	u32 dct_inactive_us;
+>>  };
+>>  
+>> +/**
+>> + * Payload for @ref VPU_JSM_MSG_FREQ_CONFIG message.
+>> + *
+>> + * This payload allows the host to configure the VPU frequency scaling parameters.
+>> + */
+>> +struct vpu_ipc_msg_payload_freq_config {
+>> +	/** Minimum frequency PLL ratio */
+>> +	u32 min_freq_pll_ratio;
+>> +	/** Efficiency frequency PLL ratio */
+>> +	u32 pn_freq_pll_ratio;
+>> +	/** Maximum frequency PLL ratio */
+>> +	u32 max_freq_pll_ratio;
+>> +	/** Reserved for 64-bit alignment */
+>> +	u32 reserved_0;
+>> +};
+>> +
+>>  /*
+>>   * Payloads union, used to define complete message format.
+>>   */
+>> @@ -1692,6 +1723,7 @@ union vpu_ipc_msg_payload {
+>>  	struct vpu_ipc_msg_payload_hws_resume_engine hws_resume_engine;
+>>  	struct vpu_ipc_msg_payload_pwr_d0i3_enter pwr_d0i3_enter;
+>>  	struct vpu_ipc_msg_payload_pwr_dct_control pwr_dct_control;
+>> +	struct vpu_ipc_msg_payload_freq_config freq_config;
+>>  };
+>>  
+>>  /**
 > 
-> The added benefit of TEE bus infrastructure is that there is support
-> for discoverable/enumerable services. With that client drivers don't
-> have to manually invoke a special SCM call to know the service status.
-> 
-> So enable the generic Peripheral Authentication Service (PAS) provided
-> by the firmware. It acts as the common layer with different TZ
-> backends plugged in whether it's an SCM implementation or a proper
-> TEE bus based PAS service implementation.
-> 
-> The TEE PAS service ABI is designed to be extensible with additional API
-> as PTA_QCOM_PAS_CAPABILITIES. This allows to accommodate any future
-> extensions of the PAS service needed while still maintaining backwards
-> compatibility.
-> 
-> Currently OP-TEE support is being added to provide the backend PAS
-> service implementation which can be found as part of this PR [1].
-> This implementation has been tested on Kodiak/RB3Gen2 board with lemans
-> EVK board being the next target. In addition to that WIN/IPQ targets
-> planning to use OP-TEE will use this service too. Surely the backwards
-> compatibility is maintained and tested for SCM backend.
-> 
-> Note that kernel PAS service support while running in EL2 is at parity
-> among OP-TEE vs QTEE. Especially the media (venus/iris) support depends
-> on proper IOMMU support being worked out on the PAS client end.
-> 
-> Patch summary:
-> - Patch #1: adds Kodiak EL2 overlay since boot stack with TF-A/OP-TEE
->   only allow UEFI and Linux to boot in EL2.
-> - Patch #2: adds generic PAS service.
-> - Patch #3: migrates SCM backend to generic PAS service.
-> - Patch #4: adds TEE/OP-TEE backend for generic PAS service.
-> - Patch #5-#13: migrates all client drivers to generic PAS service.
-> - Patch #14: drops legacy PAS SCM exported APIs.
 
+Applied to drm-misc-next.
 
-Gave it a try to test the series on Lemans with Gunyah as well as KVM
-hypervisor and all the remote processor are coming up successfully.
-
-Feel free to carry 
-
-Tested-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com> # Lemans
-
-for the Series.
-
-
-> The patch-set is based on v7.1-rc1 tag and can be found in git tree here
-> [2].
-> 
-> Merge strategy:
-> 
-> It is expected due to APIs dependency, the entire patch-set to go via
-> the Qcom tree. All other subsystem maintainers, it will be great if I
-> can get acks for the corresponding subsystem patches.
-> 
-> [1] https://github.com/OP-TEE/optee_os/pull/7721
-> [2] https://git.kernel.org/pub/scm/linux/kernel/git/sumit.garg/linux.git/log/?h=qcom-pas-v4
-> 
-> ---
-> Changes in v4:
-> - Incorporate misc. comments on patch #4.
-> - Picked up an ack for patch #10.
-> - Clarify in cover letter about state of media support.
-> 
-> Changes in v3:
-> - Incorporated some style and misc. comments for patch #2, #3 and #4.
-> - Add QCOM_PAS Kconfig dependency for various subsystems.
-> - Switch from pseudo TA to proper TA invoke commands.
-> 
-> Changes in v2:
-> - Fixed kernel doc warnings.
-> - Polish commit message and comments for patch #2.
-> - Pass proper PAS ID in set_remote_state API for media firmware drivers.
-> - Added Maintainer entry and dropped MODULE_AUTHOR.
-> 
-> Mukesh Ojha (1):
->   arm64: dts: qcom: kodiak: Add EL2 overlay
-> 
-> Sumit Garg (14):
->   firmware: qcom: Add a generic PAS service
->   firmware: qcom_scm: Migrate to generic PAS service
->   firmware: qcom: Add a PAS TEE service
->   remoteproc: qcom_q6v5_pas: Switch over to generic PAS TZ APIs
->   remoteproc: qcom_q6v5_mss: Switch to generic PAS TZ APIs
->   soc: qcom: mdtloader: Switch to generic PAS TZ APIs
->   remoteproc: qcom_wcnss: Switch to generic PAS TZ APIs
->   remoteproc: qcom: Select QCOM_PAS generic service
->   drm/msm: Switch to generic PAS TZ APIs
->   media: qcom: Switch to generic PAS TZ APIs
->   net: ipa: Switch to generic PAS TZ APIs
->   wifi: ath12k: Switch to generic PAS TZ APIs
->   firmware: qcom_scm: Remove SCM PAS wrappers
->   MAINTAINERS: Add maintainer entry for Qualcomm PAS TZ service
-> 
->  MAINTAINERS                                   |   9 +
->  arch/arm64/boot/dts/qcom/Makefile             |   2 +
->  arch/arm64/boot/dts/qcom/kodiak-el2.dtso      |  35 ++
->  drivers/firmware/qcom/Kconfig                 |  19 +
->  drivers/firmware/qcom/Makefile                |   2 +
->  drivers/firmware/qcom/qcom_pas.c              | 288 +++++++++++
->  drivers/firmware/qcom/qcom_pas.h              |  50 ++
->  drivers/firmware/qcom/qcom_pas_tee.c          | 479 ++++++++++++++++++
->  drivers/firmware/qcom/qcom_scm.c              | 302 ++++-------
->  drivers/gpu/drm/msm/Kconfig                   |   1 +
->  drivers/gpu/drm/msm/adreno/a5xx_gpu.c         |   4 +-
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c       |  11 +-
->  drivers/media/platform/qcom/iris/Kconfig      |  25 +-
->  .../media/platform/qcom/iris/iris_firmware.c  |   9 +-
->  drivers/media/platform/qcom/venus/Kconfig     |   1 +
->  drivers/media/platform/qcom/venus/firmware.c  |  11 +-
->  drivers/net/ipa/Kconfig                       |   2 +-
->  drivers/net/ipa/ipa_main.c                    |  13 +-
->  drivers/net/wireless/ath/ath12k/Kconfig       |   2 +-
->  drivers/net/wireless/ath/ath12k/ahb.c         |   8 +-
->  drivers/remoteproc/Kconfig                    |   1 +
->  drivers/remoteproc/qcom_q6v5_mss.c            |   5 +-
->  drivers/remoteproc/qcom_q6v5_pas.c            |  51 +-
->  drivers/remoteproc/qcom_wcnss.c               |  12 +-
->  drivers/soc/qcom/mdt_loader.c                 |  12 +-
->  include/linux/firmware/qcom/qcom_pas.h        |  43 ++
->  include/linux/firmware/qcom/qcom_scm.h        |  29 --
->  include/linux/soc/qcom/mdt_loader.h           |   6 +-
->  28 files changed, 1115 insertions(+), 317 deletions(-)
->  create mode 100644 arch/arm64/boot/dts/qcom/kodiak-el2.dtso
->  create mode 100644 drivers/firmware/qcom/qcom_pas.c
->  create mode 100644 drivers/firmware/qcom/qcom_pas.h
->  create mode 100644 drivers/firmware/qcom/qcom_pas_tee.c
->  create mode 100644 include/linux/firmware/qcom/qcom_pas.h
-> 
-> -- 
-> 2.51.0
-> 
-
--- 
--Mukesh Ojha
+Karol
