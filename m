@@ -4,71 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5BEEFF8867
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 08:03:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6358FF8864
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 08:04:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C68410EEB8;
-	Wed, 29 Apr 2026 08:03:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F66110EEAB;
+	Wed, 29 Apr 2026 08:04:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="ktQByFEQ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LeUJuCmi";
 	dkim-atps=neutral
-Received: from mail-wm1-f73.google.com (mail-wm1-f73.google.com
- [209.85.128.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8A4810E0B0
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 08:03:05 +0000 (UTC)
-Received: by mail-wm1-f73.google.com with SMTP id
- 5b1f17b1804b1-488c0fcc6deso79177455e9.2
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 01:03:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1777449784; x=1778054584;
- darn=lists.freedesktop.org; 
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=VEG/I8pPPYBATQ/hJAtxhRYJOnBvxSA+K2ZLFC/1AAs=;
- b=ktQByFEQTtkVhAXGhXHlpjNaBHKY6+MoOiSXC/0xs3VYaAjLvALIkVIlnZr8pg83WT
- nXg7ciYB9/VuT0xlYWEwmz7Wy0x24nOAG7eD/LKmseae5FnIM1enOmDq8d1H7NfPUPhm
- 02Gfffo2d14d70K2MDpPkIoil49uST/gj1UnpG4wPrBdeoYT+YmLL6GeszATgP11Ox7w
- zejD55AyksxgpJWd4xQUjHyoIiHx67wWTCdh0KXBkJ+r4Yi7E+LBHlNVFMJlKS6Ltx0G
- XctSz0h8Msfs+gdVN990oYK7JJT6/P5YFfKNCxAM8o67LYe7KcF390RLJiLMy+bFVxO5
- y/yg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777449784; x=1778054584;
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=VEG/I8pPPYBATQ/hJAtxhRYJOnBvxSA+K2ZLFC/1AAs=;
- b=kKSjFG0CkCWsEn8wKq7E9o4AxVWTPKURcu51pBE2OnbdW933A6r3mduZDymjIPVBml
- +qr+sF8oAd9f+MKVBMrFMivMqTe1zsgSNWJ1Ozz2TZfjtJtjYseht/Fcr7+n9pgmvaOI
- klVnogS1GnDPwFehW78e8QF/3ayTG5AEWSe0h3EVfj83Y4BBHHRjUTU6erOD52knd0OB
- xczQjlEtStQ5XIwHo+oUFGz7fatyR6jatx8Xhks/sHg10+BRHXoPCnQacKiHCmXkvxpj
- DWqMzkKZc1Fnc7JJ05t3XgJCaKjrCZp6hgirRRTSZ0PtcfW56SV6GvryoZAEq11Pa6PE
- ndSw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ80rmtn0Iw7+z7JD/N+j9J4FnXdleYitduSiAW15XXUWYwIAK2ZIDa9+MztYI1qRm7ahYEbqfJqbDM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx6c+ngHr9LwEzmPEz4ZRlkaaaUgweNN8QGt32jmiEVAxu3Ftpn
- n6FTNCv5jyQrKuvhUa4GACxJMQwV/uMYSRgtL5Tv+Bn+iEr7c7pDoPFzE9mIechkdREvJ+vK5/M
- +DEDPwzpDP2oB7lyxpA==
-X-Received: from wmdd17.prod.google.com ([2002:a05:600c:a211:b0:488:c696:8bf2])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:1d1a:b0:489:201c:dc46 with SMTP id
- 5b1f17b1804b1-48a77b04774mr98771505e9.12.1777449784107; 
- Wed, 29 Apr 2026 01:03:04 -0700 (PDT)
-Date: Wed, 29 Apr 2026 08:03:02 +0000
-In-Reply-To: <20260428-fix-drm-1-v1-1-755057178066@nvidia.com>
-Mime-Version: 1.0
-References: <20260428-fix-drm-1-v1-1-755057178066@nvidia.com>
-Message-ID: <afG7Np4Lmv9k7D1U@google.com>
-Subject: Re: [PATCH] rust: drm: fix unsound initialization in drm::Device::new
-From: Alice Ryhl <aliceryhl@google.com>
-To: Eliot Courtney <ecourtney@nvidia.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Danilo Krummrich <dakr@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- "=?utf-8?B?QmrDtnJu?= Roy Baron" <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, 
- Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
- Alexandre Courbot <acourbot@nvidia.com>, dri-devel@lists.freedesktop.org, 
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E48DE10E0B0;
+ Wed, 29 Apr 2026 08:04:14 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id E660960180;
+ Wed, 29 Apr 2026 08:04:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06159C19425;
+ Wed, 29 Apr 2026 08:04:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1777449853;
+ bh=GGIlJocKNB3iRq8vZ2TS6Y48JRlqzlQLb6ETaP74nU0=;
+ h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+ b=LeUJuCmic1zvLoN87Fkn17i0m2S/j3AsHuwJQ+ZKmDHh0X/bfkURdCdh9kz0hcv5S
+ bldFD+DqtrolQRrFA2GkXnLJXwrM8TQNOhh29xnE2m+NtVKt4pHuDIi6NsJl0iEzVE
+ zqUBQ2j5fljSSjhvICtZmlP0APNRn4dLF/p31aw5BmZ0uSf9fmCLH3TI4Q33YYO+VF
+ SHQD4q7hlTbAsUHuHKvzTsPnQU5vgJ82xRv7mmNrs0c3wPDzzzGOMCOMWKmb36lftZ
+ Z4sDeZbHU/MYtVmsSfob24lP7eJ+0pE0kz7jdnTkEqaTgvsHheCQEwGjclJqKvJtG8
+ 3wCesWXFOxACA==
+From: Andreas Hindborg <a.hindborg@kernel.org>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Gary Guo <gary@garyguo.net>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ =?utf-8?Q?Bj=C3=B6rn?= Roy
+ Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Alice
+ Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Daniel
+ Almeida <daniel.almeida@collabora.com>, Bjorn Helgaas
+ <bhelgaas@google.com>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, Abdiel
+ Janulgue <abdiel.janulgue@gmail.com>, Robin Murphy <robin.murphy@arm.com>,
+ Alexandre Courbot <acourbot@nvidia.com>, David
+ Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
+ nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v2 05/11] rust: io: restrict untyped IO access and
+ `register!` to `Region`
+In-Reply-To: <DI4VHH97CABG.3VW1RVS2O10K7@kernel.org>
+References: <20260421-io_projection-v2-0-4c251c692ef4@garyguo.net>
+ <20260421-io_projection-v2-5-4c251c692ef4@garyguo.net>
+ <874ikvqwyd.fsf@t14s.mail-host-address-is-not-set>
+ <vYp32vOGPut322JQ-5jSBZQNd6eXvnOvg8b6YDhYcYzBqTBVUvSajCJng33oXSQ9wiMvb62VLERzLYSa4g2pJQ==@protonmail.internalid>
+ <DI4QT2U1098S.3K9K7INQ86M0Q@garyguo.net>
+ <87tssvp9sq.fsf@t14s.mail-host-address-is-not-set>
+ <DI4SY1NXU1XW.2VHPFEKIFBQVW@garyguo.net>
+ <87ik9bp2og.fsf@t14s.mail-host-address-is-not-set>
+ <DI4VHH97CABG.3VW1RVS2O10K7@kernel.org>
+Date: Wed, 29 Apr 2026 10:04:02 +0200
+Message-ID: <87fr4ep4zx.fsf@t14s.mail-host-address-is-not-set>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,84 +79,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Apr 28, 2026 at 09:20:21PM +0900, Eliot Courtney wrote:
-> If pinned initialization of drm::Device::Data fails, it calls
-> drm::Device::release via drm_dev_put. This materializes a reference to
-> &drm::Device, but it's not fully constructed yet, because initializing
-> `data` failed. It should not be dropped either. Instead, if pinned
-> initialization fails, make sure drm::Device::release isn't called.
-> 
-> Fixes: 2e9fdbe5ec7a ("rust: drm: device: drop_in_place() the drm::Device in release()")
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+"Danilo Krummrich" <dakr@kernel.org> writes:
 
-For the concerns about duplicating vtables, could the temporary vtable
-be a stack variable?
+> On Tue Apr 28, 2026 at 4:41 PM CEST, Andreas Hindborg wrote:
+>> That is probably a good call =F0=9F=98=85 Going over the pieces again, I=
+ am not
+>> sure when and where I decided this was an index rather than a byte
+>> offset.
+>
+> This is not the first time I see someone stumble over this, assuming this=
+ has
+> index semantics, i.e. I assume there might be something creating this
+> impression.
+>
+> However, I can't see what that might be (probably I'm too used to the C
+> primitives). In case you know, I'd be interesting for me to know.
 
->  rust/kernel/drm/device.rs | 22 ++++++++++++++++------
->  1 file changed, 16 insertions(+), 6 deletions(-)
-> 
-> diff --git a/rust/kernel/drm/device.rs b/rust/kernel/drm/device.rs
-> index adbafe8db54d..78ea0eb12535 100644
-> --- a/rust/kernel/drm/device.rs
-> +++ b/rust/kernel/drm/device.rs
-> @@ -111,6 +111,13 @@ impl<T: drm::Driver> Device<T> {
->          fops: &Self::GEM_FOPS,
->      };
->  
-> +    // Use a vtable without a `release` callback until `data` is initialized, so init failure
-> +    // can release the DRM device without dropping uninitialized fields.
-> +    const ALLOC_VTABLE: bindings::drm_driver = bindings::drm_driver {
-> +        release: None,
-> +        ..Self::VTABLE
-> +    };
-> +
->      const GEM_FOPS: bindings::file_operations = drm::gem::create_fops();
->  
->      /// Create a new `drm::Device` for a `drm::Driver`.
-> @@ -120,12 +127,12 @@ pub fn new(dev: &device::Device, data: impl PinInit<T::Data, Error>) -> Result<A
->          let layout = Kmalloc::aligned_layout(Layout::new::<Self>());
->  
->          // SAFETY:
-> -        // - `VTABLE`, as a `const` is pinned to the read-only section of the compilation,
-> +        // - `ALLOC_VTABLE`, as a `const` is pinned to the read-only section of the compilation,
->          // - `dev` is valid by its type invarants,
->          let raw_drm: *mut Self = unsafe {
->              bindings::__drm_dev_alloc(
->                  dev.as_raw(),
-> -                &Self::VTABLE,
-> +                &Self::ALLOC_VTABLE,
->                  layout.size(),
->                  mem::offset_of!(Self, dev),
->              )
-> @@ -133,6 +140,10 @@ pub fn new(dev: &device::Device, data: impl PinInit<T::Data, Error>) -> Result<A
->          .cast();
->          let raw_drm = NonNull::new(from_err_ptr(raw_drm)?).ok_or(ENOMEM)?;
->  
-> +        // SAFETY: `raw_drm` is a valid pointer to `Self`, given that `__drm_dev_alloc` was
-> +        // successful.
-> +        let drm_dev = unsafe { Self::into_drm_device(raw_drm) };
-> +
->          // SAFETY: `raw_drm` is a valid pointer to `Self`.
->          let raw_data = unsafe { ptr::addr_of_mut!((*raw_drm.as_ptr()).data) };
->  
-> @@ -140,15 +151,14 @@ pub fn new(dev: &device::Device, data: impl PinInit<T::Data, Error>) -> Result<A
->          // - `raw_data` is a valid pointer to uninitialized memory.
->          // - `raw_data` will not move until it is dropped.
->          unsafe { data.__pinned_init(raw_data) }.inspect_err(|_| {
-> -            // SAFETY: `raw_drm` is a valid pointer to `Self`, given that `__drm_dev_alloc` was
-> -            // successful.
-> -            let drm_dev = unsafe { Self::into_drm_device(raw_drm) };
-> -
->              // SAFETY: `__drm_dev_alloc()` was successful, hence `drm_dev` must be valid and the
->              // refcount must be non-zero.
->              unsafe { bindings::drm_dev_put(drm_dev) };
->          })?;
->  
-> +        // SAFETY: `drm_dev` is still private to this function.
-> +        unsafe { (*drm_dev).driver = &Self::VTABLE };
+Not sure, I think I just conflated things from `CoherentAllocation`
+where we used to have `item_from_index`. Once the mind is in that frame
+of understanding, it is easy to read `ptr.wrapping_byte_add` as
+`ptr.wrapping_add`.
 
-It would be bad if this ended up being a reference to a local variable.
-Please use `&const { Self::VTABLE }` so that it doesn't compile if this
-occurs.
 
-Alice
+Best regards,
+Andreas Hindborg
+
+
