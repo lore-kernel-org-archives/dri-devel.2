@@ -4,52 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8D11FF886F
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 03:00:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5735FF886F
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 03:04:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B365E10E3A8;
-	Wed, 29 Apr 2026 03:00:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44D2310E4A7;
+	Wed, 29 Apr 2026 03:04:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fpACxcMJ";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="dC9uAFef";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAEB410E3A8
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 03:00:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777431621; x=1808967621;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=dfl9nC1Exc3AqWuntxQXKXMjbEeUtj6NKVJat3VsSDE=;
- b=fpACxcMJuTSNA7cJKA3JXG5mQZkJgpyQ/IG/UQYHijZzKnltV7okKhC8
- ut4bH8neGW64od5HaORmJ8NoqqM1WRiXbMtyEN94wOx2T7v1qExzx/I14
- C70RHtfs9rWqJAHKWw65WfWFbbEcOjRi18TK+6BdKfSu2EMhf+uh+ma9T
- t+9fDsRUTUbPrEPbnOEC0D77lKEhxev28oyW9uxEcm3O35bgbcr7YfNud
- S3QKi4g4UbJ94M43SBDSP/2CXddTz6A7J6SaA8xwFLQaJ7NHxJUfxz4M/
- Coy4AuX8lFvrtB72pMGI68qG/lef0buUgcxf9lArdx+6LWTuxvOgR3Q5L A==;
-X-CSE-ConnectionGUID: EkVsZbzQQy6sp7RjyYKvpg==
-X-CSE-MsgGUID: 72HNmhqTSqurDa0h7oQGlA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11770"; a="95770103"
-X-IronPort-AV: E=Sophos;i="6.23,205,1770624000"; d="scan'208";a="95770103"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Apr 2026 20:00:21 -0700
-X-CSE-ConnectionGUID: PPQeXzXOQemupcDdHZN1lw==
-X-CSE-MsgGUID: 662p2jXDTBKgxCNA8rNirA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,205,1770624000"; d="scan'208";a="257690521"
-Received: from otc-chromeosbuild-8.ostc.intel.com (HELO
- otc-chromeosbuild-8.intel.com) ([10.54.29.153])
- by fmviesa001.fm.intel.com with ESMTP; 28 Apr 2026 20:00:20 -0700
-From: george.d.sworo@intel.com
-To: maarten.lankhorst@linux.intel.com
-Cc: dri-devel@lists.freedesktop.org, George D Sworo <george.d.sworo@intel.com>
-Subject: [PATCH] drm/modeset_lock: add NULL check for ctx before WARN_ON
-Date: Tue, 28 Apr 2026 19:59:52 -0700
-Message-Id: <20260429025952.1202080-1-george.d.sworo@intel.com>
-X-Mailer: git-send-email 2.34.1
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 177DA10E4A7
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 03:04:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1777431871;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=ldwwJIVF7m6VyRD35VYHAOudLjUCD6MJS07MQJZaKIw=;
+ b=dC9uAFefB3UMv5nsVaxII1EGdPou3P/qyrBqNC0AXhFR18RyDHq+BgdBStf88LuHwTwCxN
+ tUL60CFOzSPLqXuWGB8lvAVEvJk6HbAhQRXKwDjTkJO9zsZqro14xHFz2FfLSpHhkjYQml
+ qSyMAFw8cWPL6J4o/whhXiOuTmq5AuI=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-104-OmYw-u2QM62O1aSfJHEcfQ-1; Tue,
+ 28 Apr 2026 23:04:24 -0400
+X-MC-Unique: OmYw-u2QM62O1aSfJHEcfQ-1
+X-Mimecast-MFC-AGG-ID: OmYw-u2QM62O1aSfJHEcfQ_1777431862
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 94521195609F; Wed, 29 Apr 2026 03:04:21 +0000 (UTC)
+Received: from GoldenWind.lan (unknown [10.22.88.40])
+ by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id C0B31180047F; Wed, 29 Apr 2026 03:04:17 +0000 (UTC)
+From: Lyude Paul <lyude@redhat.com>
+To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: Ben Skeggs <bskeggs@redhat.com>, Dave Airlie <airlied@redhat.com>,
+ Timur Tabi <ttabi@nvidia.com>, Ben Skeggs <bskeggs@nvidia.com>,
+ James Jones <jajones@nvidia.com>,
+ Faith Ekstrand <faith.ekstrand@collabora.com>,
+ Suraj Kandpal <suraj.kandpal@intel.com>,
+ Aaron Kling <webgeek1234@gmail.com>, Danilo Krummrich <dakr@kernel.org>,
+ Zhang Enpei <zhang.enpei@zte.com.cn>, stable@vger.kernel.org,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
+ "Kees Cook" <kees@kernel.org>, "Simona Vetter" <simona@ffwll.ch>,
+ "David Airlie" <airlied@gmail.com>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>,
+ "Maxime Ripard" <mripard@kernel.org>, "Lyude Paul" <lyude@redhat.com>
+Subject: [PATCH] drm/nouveau/disp/r535: Add scanline position support + head
+ state support
+Date: Tue, 28 Apr 2026 23:03:40 -0400
+Message-ID: <20260429030348.3930866-1-lyude@redhat.com>
 MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+X-Mimecast-MFC-PROC-ID: 7L4ZK0YovY2gXOyQr_ypjPke3v24akVq9F1Fo4RNlas_1777431862
+X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
+content-type: text/plain; charset="US-ASCII"; x-default=true
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,32 +82,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: George D Sworo <george.d.sworo@intel.com>
+That's right! It looks like this never actually got finished, something
+which I just noticed today when I saw this fun message spamming one of my
+test machine's kernel logs when enabling display debug output for nouveau:
 
-modeset_lock() and drm_modeset_drop_locks() do not validate
-the ctx pointer before dereferencing it in WARN_ON(ctx->contended),
-which can lead to a NULL pointer dereference if ctx is NULL.
+  [drm:drm_crtc_vblank_helper_get_vblank_timestamp_internal] crtc 0 : scanoutpos query failed.
 
-Add a NULL check to prevent this.
+So it looks like we've been falling back to DRM's core fallback for a while
+now, whoops.
 
-Signed-off-by: George D Sworo <george.d.sworo@intel.com>
+So, while it seems that we do have the option of doing this through GSP -
+that doesn't seem like a great idea. Mainly because reading this from GSP
+would involve a lot more latency then we should have for vblank handling
+due to the RPC communication. So instead of implementing that, just use
+gv100_head_state and gv100_head_rgpos for implementing .state and .rgpos.
+It seems to work perfectly fine!
+
+Fixes: 9e9944449023 ("drm/nouveau/disp/r535: initial support")
+Cc: Ben Skeggs <bskeggs@redhat.com>
+Cc: Dave Airlie <airlied@redhat.com>
+Cc: Timur Tabi <ttabi@nvidia.com>
+Cc: Ben Skeggs <bskeggs@nvidia.com>
+Cc: James Jones <jajones@nvidia.com>
+Cc: Faith Ekstrand <faith.ekstrand@collabora.com>
+Cc: Suraj Kandpal <suraj.kandpal@intel.com>
+Cc: Lyude Paul <lyude@redhat.com>
+Cc: Aaron Kling <webgeek1234@gmail.com>
+Cc: Danilo Krummrich <dakr@kernel.org>
+Cc: Zhang Enpei <zhang.enpei@zte.com.cn>
+Cc: <stable@vger.kernel.org> # v6.7+
+Signed-off-by: Lyude Paul <lyude@redhat.com>
 ---
- drivers/gpu/drm/drm_modeset_lock.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/nouveau/nvkm/engine/disp/gv100.c       | 4 ++--
+ drivers/gpu/drm/nouveau/nvkm/engine/disp/head.h        | 2 ++
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c | 8 ++------
+ 3 files changed, 6 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_modeset_lock.c b/drivers/gpu/drm/drm_modeset_lock.c
-index beb91a13a312..2052bb9bb9e5 100644
---- a/drivers/gpu/drm/drm_modeset_lock.c
-+++ b/drivers/gpu/drm/drm_modeset_lock.c
-@@ -295,7 +295,7 @@ static inline int modeset_lock(struct drm_modeset_lock *lock,
+diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/disp/gv100.c b/drivers/gpu/drm/nouveau/nvkm/engine/disp/gv100.c
+index dbd984da75014..0608266188d3e 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/engine/disp/gv100.c
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/disp/gv100.c
+@@ -253,7 +253,7 @@ gv100_head_vblank_get(struct nvkm_head *head)
+ 	nvkm_mask(device, 0x611d80 + (head->id * 4), 0x00000004, 0x00000004);
+ }
+ 
+-static void
++void
+ gv100_head_rgpos(struct nvkm_head *head, u16 *hline, u16 *vline)
  {
- 	int ret;
+ 	struct nvkm_device *device = head->disp->engine.subdev.device;
+@@ -263,7 +263,7 @@ gv100_head_rgpos(struct nvkm_head *head, u16 *hline, u16 *vline)
+ 	*hline = nvkm_rd32(device, 0x616334 + hoff) & 0x0000ffff;
+ }
  
--	if (WARN_ON(ctx->contended))
-+	if (ctx && WARN_ON(ctx->contended))
- 		__drm_stack_depot_print(ctx->stack_depot);
+-static void
++void
+ gv100_head_state(struct nvkm_head *head, struct nvkm_head_state *state)
+ {
+ 	struct nvkm_device *device = head->disp->engine.subdev.device;
+diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/disp/head.h b/drivers/gpu/drm/nouveau/nvkm/engine/disp/head.h
+index 856252bf559a4..b642729c254fe 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/engine/disp/head.h
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/disp/head.h
+@@ -53,6 +53,8 @@ void gf119_head_rgclk(struct nvkm_head *, int);
  
- 	if (ctx->trylock_only) {
+ int gv100_head_cnt(struct nvkm_disp *, unsigned long *);
+ int gv100_head_new(struct nvkm_disp *, int id);
++void gv100_head_state(struct nvkm_head *head, struct nvkm_head_state *state);
++void gv100_head_rgpos(struct nvkm_head *head, u16 *hline, u16 *vline);
+ 
+ #define HEAD_MSG(h,l,f,a...) do {                                              \
+ 	struct nvkm_head *_h = (h);                                            \
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
+index 6e63df816d855..49a1eef9bdf14 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
+@@ -625,14 +625,10 @@ r535_head_vblank_get(struct nvkm_head *head)
+ 	nvkm_mask(device, 0x611d80 + (head->id * 4), 0x00000002, 0x00000002);
+ }
+ 
+-static void
+-r535_head_state(struct nvkm_head *head, struct nvkm_head_state *state)
+-{
+-}
+-
+ static const struct nvkm_head_func
+ r535_head = {
+-	.state = r535_head_state,
++	.state = gv100_head_state,
++	.rgpos = gv100_head_rgpos,
+ 	.vblank_get = r535_head_vblank_get,
+ 	.vblank_put = r535_head_vblank_put,
+ };
+
+base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
 -- 
-2.34.1
+2.54.0
 
