@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9127FF8873
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 04:15:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D89F2CCFA13
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 04:15:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 484BF10EE52;
-	Wed, 29 Apr 2026 04:15:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 464A610EE53;
+	Wed, 29 Apr 2026 04:15:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ausil.us header.i=@ausil.us header.b="fcjCNlbE";
+	dkim=pass (2048-bit key; unprotected) header.d=ausil.us header.i=@ausil.us header.b="Kj4zpG3A";
 	dkim-atps=neutral
-Received: from mail-oo1-f97.google.com (mail-oo1-f97.google.com
- [209.85.161.97])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51A6010EE3E
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 04:15:39 +0000 (UTC)
-Received: by mail-oo1-f97.google.com with SMTP id
- 006d021491bc7-67e0d3f288aso7369946eaf.0
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 21:15:39 -0700 (PDT)
+Received: from mail-oo1-f98.google.com (mail-oo1-f98.google.com
+ [209.85.161.98])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2CA2410EE3E
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 04:15:38 +0000 (UTC)
+Received: by mail-oo1-f98.google.com with SMTP id
+ 006d021491bc7-67c250805ccso4567100eaf.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 21:15:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ausil.us; s=google; t=1777436138; x=1778040938; darn=lists.freedesktop.org; 
+ d=ausil.us; s=google; t=1777436137; x=1778040937; darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=x93/l1w2YfvuQmLZ4l2/nRL+2Tpf+p0vaW0AsgHcapU=;
- b=fcjCNlbEfvhMGpcEEQSax0BI7YY0h7CToUQyvwyeygiyO0y2bGkIK5V54l9/bXFWF8
- WM78mv2XcfafRV37CYtx/Ev+5SiV8ab+85Cr3Fgyw6oeOESkgEzG24OeGctBXb30WoaD
- NP4FVWMb6sUC0Ad5Y8pDQAnXoG5dDwHvAQx8R+VTfY7aLZQEBxtAtcZA47EwcxrD3bvr
- 5NzPSlrjsIbr/jW5DImxzRGGjCloVZKpPyv1CwMK88GgaLavHaOVvPFDMLQ7aooZkptm
- 5Hs+wnczpxobgtALfldl3GnO8GA2tcVubWATn1KGCo/uo2vK15wO7UkWhtSP9nr9Rv+B
- jc2A==
+ bh=MhsANxfjmjB7vk5bKYmWUGk+7KV8pJM6GvanWdmMMRI=;
+ b=Kj4zpG3AQ0mnhCKEC+Rst6tugNNU18O0+oOEZBBlf7SIfaqkp5bKYJY+fxZ8knuS72
+ wPEE+d56Yb1dyMahM8mHubc8XrnXt1w/PDoXD9lEHwrzhJWj7LWUSnNPFS5sVcZLg7Kf
+ cjRG6uu9uzaiPy0dTTc98VAYUfk4GK210XeokcHbZduRYm73p/i/xp1mrdqT3GkOuhCg
+ dHfRZMlBoqGdkS5gxUBwlCBIbZygU/ILgRoNNnQWxj8ss36zgup/qJXrTjY/aBPL/nsj
+ JhXJki/fry+x9e/+8Nq8aBkM4Gs4JTdI462IX57AdWGZIhIaujBJZUBhAqSHxCNfs/cx
+ Z06Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777436138; x=1778040938;
+ d=1e100.net; s=20251104; t=1777436137; x=1778040937;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=x93/l1w2YfvuQmLZ4l2/nRL+2Tpf+p0vaW0AsgHcapU=;
- b=gzqs4uFvalE2kWnzM2sg3Ql8UMSEXBQUOUD8twmA2qqqJjYAljhMCL9cGV1sq9bSdB
- v6PxxWmtBjZVVaYWjTqtAMKibRp+Rb3FPorP9Thl90Dy4QD4CgeVIAHa6Des7GHjeETK
- 0yAtRU9QFoSfoIbnz9dSYwdelDfZXBYc4xBjkwAOwFkMUOrshF2KlxpVjjruE3HgRglX
- lclo1+NujHiwkkSdKA4SS+JyetapSjqwB/6lIdYlfCo3yRoAfjewd4FPECssqY7aZQTu
- Mm6YxM3mXHC57Zs8KJNgiSaYn0OVHQRgrgB24x1wODKqtlIZaIK1s8qphN/4/2SuM0zn
- aepg==
+ bh=MhsANxfjmjB7vk5bKYmWUGk+7KV8pJM6GvanWdmMMRI=;
+ b=d7yzdnXqxfYDZkz80ReKHsQmT9K5YyZEJS0Gruujz0nNB2Q705OOYYylbhwJoMKS7L
+ /JQDiscYJyefDv4KTv/r67h8gXdsKx64yhSpDcEV7MBxd1zpUaEGw6qNxCtFeLq4khq8
+ 1NT4Gjuw50ljAOD6xvsQqlss8J3XxCktbIP2Q1ied+5PLTrDfRQBZXl4yvUukhub064X
+ H8X5jNP7r/GW4VCfMqlL1dsVSxaun13HskowbSh38I4GLIJvIcjURK9DZUiuZPCIVJvD
+ lUcZV+xBMwVlf2Mkg95ktsLAhoEcyC4ZSEoP3Pczc3a3zX+02dwibdrugsq7TIQXVq/o
+ ehkQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+vC/7vii3b0juKKMp0efZZjSUnP/WHNUW4dnO8dxleYRNWU3b2hmYaoMtdyY8KrnvqTqFfpbls+yg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy4dOX/Ey00RLR+XKOUNzuAUOXjUbh1p56rVHXadUWMYuZyBZBq
- iIlYA9RVZPGdskEL3FyxToFkNwfAw4jjOJ7GU58O2DB+/PQVALoE26+MRnTd6G4t3e6hLcN/8xV
- e04k0zHm/LweO5G+SLTNUF/6Kz4AQzj0JYUvT
-X-Gm-Gg: AeBDietRSo6hSQkAFwtaWEmWWpVXUauZDWRBLxor2XkzDApKC43+FdDv4tS1mYRqO+C
- 5ddvWSjvy58Zrz4otBcFfiKcKOgCAWd0z7CGWbmKCI8/dOjbwbJi8ivatKiPCjPpg/eeLh4LmM2
- 6YNqH4ZENea3smYVRwcn7/83MuKuaQOVkgbf01LYYCWxuxWjRetwp4uPB4edfGN7sgPUPpwWcFv
- LqW7rJ5okD5tUZhNZQEaS1XxJ5EZLnbg791oIzThZuTAaRoMYeblCxhWFxZLhoLuk7siE1sSS3u
- KIdh0tySQpCLrR6OyBrj/uOptmRSumYfia4ktqKwKdlw6hikrbhuWVhbk+XGrP8HckYWMKQN/yq
- v9vlu7pne5zJgj7TPW1XWgDDXGuaS6g881+rw4oEladvHzwXkKPbQZpw=
-X-Received: by 2002:a05:6820:2908:b0:694:92fe:54f1 with SMTP id
- 006d021491bc7-6966854819amr1134201eaf.54.1777436138476; 
- Tue, 28 Apr 2026 21:15:38 -0700 (PDT)
+ AFNElJ/O+o/DxPwjGUquobR5gdgJS7MS7FJ0pFI4sz0ctAOyfKY/n9bd8j02tQTipS6OdVzlApZ05zuKjmg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzZa1PPzBJmqEDwAxLAZ/OQ7n8dYr/jsRjBvg/REWtswY4+Rx+6
+ rRfHejCUlQBLIS4JmWRTtLQcyWydicHlzMUss89OdONL1bQzOCRaveWTHRZ49zsFPOGbVOD7ky9
+ Byk9M5t8JdeI+Yv+A/6zWCXgdwWaZTNzNDQZ1
+X-Gm-Gg: AeBDiesA7ODXY75+wkBk1G5GIq/mtCXvLlYFKDKKH+9hVeN1ibK9rYTUS1SbgKHXaNF
+ HLQIVWHdSl71jAcYX3ShU/ezTk4k9hp3hbUljuPEfIfE/+a53k1TAUL9nVXEedYrtEWhppuwgoo
+ P7s4r86Rn8755lDJJ3IcEGvSPMwNIS6ZX/vVe3MfdHvjwLuwT8qcebga4NEV08pQMIXTKJM+NbG
+ 2hPIYAH8MbKSiF/aCoank0Q7kPOFmqCP621ljbaw+vECXYz4sk2TELGvwK2gWYcQxOK/i47oyYr
+ lCQpGYGC9d7Ekyg8VMOWb7nU4xV22cQ4PjN7XFJ0OnwYNzJvf4xxC+50ehWeB91kCduAhwR8mI5
+ CDFtgM6iQyMb7dJ2JDvECX23KxzSFloDy7teBhskbN07iRGiap3yf3/E=
+X-Received: by 2002:a05:6820:4b13:b0:696:1bda:5dbe with SMTP id
+ 006d021491bc7-6965cbce522mr2941455eaf.56.1777436137366; 
+ Tue, 28 Apr 2026 21:15:37 -0700 (PDT)
 Received: from ryac.ausil.us (207-179-239-100.mtco.net. [207.179.239.100])
  by smtp-relay.gmail.com with ESMTPS id
- 006d021491bc7-6966baf952asm41557eaf.9.2026.04.28.21.15.37
+ 006d021491bc7-6966baf952asm41557eaf.9.2026.04.28.21.15.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Apr 2026 21:15:38 -0700 (PDT)
+ Tue, 28 Apr 2026 21:15:37 -0700 (PDT)
 X-Relaying-Domain: ausil.us
 From: Dennis Gilmore <dennis@ausil.us>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
@@ -77,11 +77,12 @@ Cc: Alexey Charkov <alchark@gmail.com>, dri-devel@lists.freedesktop.org,
  Peter Robinson <pbrobinson@gmail.com>, Jonas Karlman <jonas@kwiboo.se>,
  Jernej Skrabec <jernej.skrabec@gmail.com>,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Dennis Gilmore <dennis@ausil.us>
-Subject: [PATCH 3/3] arm64: dts: rockchip: orangepi-5-pro: Add LT8711UXD
- DP-to-HDMI bridge
-Date: Tue, 28 Apr 2026 23:15:28 -0500
-Message-ID: <20260429041528.558254-4-dennis@ausil.us>
+ Dennis Gilmore <dennis@ausil.us>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: [PATCH 2/3] drm/bridge: simple: Add the Lontium LT8711UXD DP-to-HDMI
+ bridge
+Date: Tue, 28 Apr 2026 23:15:27 -0500
+Message-ID: <20260429041528.558254-3-dennis@ausil.us>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260429041528.558254-1-dennis@ausil.us>
 References: <20260429041528.558254-1-dennis@ausil.us>
@@ -102,149 +103,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Wire up the second HDMI port on the Orange Pi 5 Pro. It uses a Lontium
-LT8711UXD high performance two lane Type-C/DP1.4 to HDMI2.0 converter,
-designed to connect a USB Type-C source or a DP1.4 source to an HDMI2.0
-sink. The bridge can be controlled via i2c or run as an autonomous device.
-
-The Orange Pi 5 Pro has i2c wired up to i2c6, however there are 10k
-resistors left off of R9 and R17 to enable MODE_SEL, and R27 for
-I2C_ADDR resulting in MODE_SEL going to GND and the bridge let in
-autonomous mode. As shipped I verified that the bridge does not show up
-on the i2c bus.
+The Lontium LT8711UXD is a high performance two lane Type-C/DP1.4 to
+HDMI2.0 converter, designed to connect a USB Type-C source or a DP1.4
+source to an HDMI2.0 sink. The device can be run uncontrolled or it can
+be attached over I2C, this supports the uncontrolled mode.
 
 Signed-off-by: Dennis Gilmore <dennis@ausil.us>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- .../dts/rockchip/rk3588s-orangepi-5-pro.dts   | 88 ++++++++++++++++++-
- 1 file changed, 85 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/bridge/simple-bridge.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-pro.dts b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-pro.dts
-index 895d954a9f23..67363709c4ca 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-pro.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-pro.dts
-@@ -14,6 +14,44 @@ aliases {
- 		mmc2 = &sdio;
- 	};
- 
-+	hdmi1-con {
-+		compatible = "hdmi-connector";
-+		label = "HDMI1 OUT";
-+		type = "a";
-+
-+		port {
-+			hdmi1_con_in: endpoint {
-+				remote-endpoint = <&lt8711uxd_out>;
-+			};
-+		};
-+	};
-+
-+	hdmi-bridge {
-+		compatible = "lontium,lt8711uxd";
-+		vdd-supply = <&vcc3v3_dp>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+
-+				lt8711uxd_in: endpoint {
-+					remote-endpoint = <&dp0_out_con>;
-+				};
-+			};
-+
-+			port@1 {
-+				reg = <1>;
-+
-+				lt8711uxd_out: endpoint {
-+					remote-endpoint = <&hdmi1_con_in>;
-+				};
-+			};
-+		};
-+	};
-+
- 	analog-sound {
- 		compatible = "simple-audio-card";
- 		pinctrl-names = "default";
-@@ -72,6 +110,19 @@ fan: pwm-fan {
- 		pwms = <&pwm2 0 20000000 0>;
- 	};
- 
-+	vcc3v3_dp: regulator-vcc3v3-dp {
-+		compatible = "regulator-fixed";
-+		enable-active-high;
-+		gpios = <&gpio3 RK_PC2 GPIO_ACTIVE_HIGH>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&dp_bridge_en>;
-+		regulator-max-microvolt = <3300000>;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-name = "vcc3v3_dp";
-+		regulator-always-on;
-+		vin-supply = <&vcc_3v3_s3>;
-+	};
-+
- 	vcc3v3_eth: regulator-vcc3v3-eth {
- 		compatible = "regulator-fixed";
- 		enable-active-high;
-@@ -116,6 +167,24 @@ typea_con: usb-a-connector {
- 	};
- };
- 
-+&dp0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&dp0m0_pins>;
-+	status = "okay";
-+};
-+
-+&dp0_in {
-+	dp0_in_vp1: endpoint {
-+		remote-endpoint = <&vp1_out_dp0>;
-+	};
-+};
-+
-+&dp0_out {
-+	dp0_out_con: endpoint {
-+		remote-endpoint = <&lt8711uxd_in>;
-+	};
-+};
-+
- &i2c1 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&i2c1m4_xfer>;
-@@ -217,6 +286,12 @@ bt_wake_host_irq: bt-wake-host-irq {
- 		};
- 	};
- 
-+	dp {
-+		dp_bridge_en: dp-bridge-en {
-+			rockchip,pins = <3 RK_PC2 RK_FUNC_GPIO &pcfg_pull_down>;
-+		};
-+	};
-+
- 	ethernet {
- 		ethernet_en: ethernet-en {
- 			rockchip,pins = <3 RK_PB7 RK_FUNC_GPIO &pcfg_pull_down>;
-@@ -350,9 +425,16 @@ &usb_host0_xhci {
- 
- &usbdp_phy0 {
- 	/*
--	 * The USB3 Type-A host connector is wired to PHY lanes 2/3. Lanes 0/1
--	 * are connected to the LT8711UXD DP-to-HDMI bridge on the board.
--	 * dp-lane-mux routes USB3 SuperSpeed to the correct lanes.
-+	 * USBDP PHY0 is wired to a USB3 Type-A host connector via lanes 2/3.
-+	 * Additionally lanes 0/1 and the aux channel are wired to the
-+	 * Lontium LT8711UXD DP-to-HDMI bridge feeding the HDMI1 connector.
- 	 */
- 	rockchip,dp-lane-mux = <0 1>;
- };
-+
-+&vp1 {
-+	vp1_out_dp0: endpoint@a {
-+		reg = <ROCKCHIP_VOP2_EP_DP0>;
-+		remote-endpoint = <&dp0_in_vp1>;
-+	};
-+};
+diff --git a/drivers/gpu/drm/bridge/simple-bridge.c b/drivers/gpu/drm/bridge/simple-bridge.c
+index 8aa31ca3c72d..42c1f3d5ba0c 100644
+--- a/drivers/gpu/drm/bridge/simple-bridge.c
++++ b/drivers/gpu/drm/bridge/simple-bridge.c
+@@ -270,6 +270,11 @@ static const struct of_device_id simple_bridge_match[] = {
+ 		.data = &(const struct simple_bridge_info) {
+ 			.connector_type = DRM_MODE_CONNECTOR_HDMIA,
+ 		},
++	}, {
++		.compatible = "lontium,lt8711uxd",
++		.data = &(const struct simple_bridge_info) {
++			.connector_type = DRM_MODE_CONNECTOR_HDMIA,
++		},
+ 	}, {
+ 		.compatible = "parade,ps185hdm",
+ 		.data = &(const struct simple_bridge_info) {
 -- 
 2.54.0
 
