@@ -4,91 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EE70CD13D3
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 17:00:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93FB0FF887E
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 17:16:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE1A410F0D6;
-	Wed, 29 Apr 2026 17:00:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B883A10E34F;
+	Wed, 29 Apr 2026 17:16:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="USUgyqVE";
+	dkim=pass (2048-bit key; unprotected) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="Md5gNrGt";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB0C510F0F7
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 17:00:23 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-48a7fe4f40bso3260675e9.0
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 10:00:23 -0700 (PDT)
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
+ [209.85.221.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74FCC10F0CF
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 17:16:53 +0000 (UTC)
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-43cfde3c3f3so40976f8f.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 10:16:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777482022; x=1778086822; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=OPI/IWDY5AjEaKDZ824ZagzMhOb02JbM6Y93TiTFTTk=;
- b=USUgyqVERUt0NSum5Etm02sKakdJQCU0wzPQyRdaiWMg4ly46Y2j7f/AY1rMn9nYvb
- 4b1dugfC9a9o6fqkQIZip2H5uRMjlNyYdS3WWnXbV2xLCw6NlTSz+rctejf3fWgzJsr/
- n90NPF+ri0FUZqzedYe+4WHMUeJyAck1pZWd75tgGwfRvXMnmJTyOHU2lH85utX412AE
- DfVOX/ONOYaGhgzJJ13wo67pnYC5ltNTzKzwa/yG/a4YVVBm+VKiFg7apm1LhaMwsZs6
- FWkwBbX9dB0V7n/HeUF00xgw9XaPBhMztvLlYh0i27tloQ5eCIioQkSTtVqAiCMsJMyJ
- Zi6w==
+ d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1777483012; x=1778087812;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=fURcRTpJAse9Xxb8caLwT/PbiazdisqtC7oZm1DuK1w=;
+ b=Md5gNrGt441M/wKWCLkV0b4cE4Q1pm32FxJ9yN8A4reRHDJdtCYv9yzNHFX+gI/6tu
+ BA3KVdXe+LvjwxmVtrBSvzKEIn9qk7T7lDqviUZVFW/pXgCVTbdyMAB9V7kZJWBtX8OH
+ xkRAEMGID7rg5wFJlQkRhjBRZxjUY6dyMyGjH8Z9stveICEPs7CP/XDZjs2XPRlNyx+I
+ v9CJqqGQgPOh7Elrv+FEYeNxB/4lmR7sBLotDDUFk7VfLRyvtyjGdqL/fqap8hrYO3iN
+ sX/7TMc5Ajh9Lq5hbHOGTNAye+2oOmctdHiMyp+i1zau8cRi/JA1yaJfa2Rag7LWSQ4O
+ kI/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777482022; x=1778086822;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=OPI/IWDY5AjEaKDZ824ZagzMhOb02JbM6Y93TiTFTTk=;
- b=bKcuc6KumApbwLnttbUVMUu0L0eOpnsR1V+03ymjqLgTXO/mB8WTfhS0QguwdHHYSu
- fx1anUUyZZz17wXr0C3IrdTYB1N4mTWOYLjqLnGC/27fLCJ+BgP8WUK9XZhG33c2nQzY
- E3ldpZQznps/rsWeNKlC3G87NnKXnnYtFn+WcaD69bR3rIZj9vOyUBKjpjimeAjDTZOb
- +IF0l8Tu3CbUpiJ5lbXF9YtqPFUoKK/DpZUGXgz6hdtI6VQ/0CMNEZKZCmtDsAJhNliu
- Bw9T/YtV5EnDLxJOC+dvOH3g53T4A00JpA376hZaA5x/KQODDhG9nzoNkKbogYt9sj8K
- YaUg==
+ d=1e100.net; s=20251104; t=1777483012; x=1778087812;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=fURcRTpJAse9Xxb8caLwT/PbiazdisqtC7oZm1DuK1w=;
+ b=QehIvppiadPoVc9dtxlktZJDwwIH7d3hOxGoNx6YTIk9DLqQZGciGVloxvM39YLd0i
+ khgZPaFYPPR9+P2wrwVCsbotseMVCaJxpSoZhpnGo3CzU52uTMhdS8tqrIushnQL0I1e
+ fYDHaB9OTW318PFMebQbs+htM3fbqR6v6xCZuGmC2HzSQYVLT38EDCpLKiFGHNxBXDQl
+ XZuplwm9wrmh6+3LDhZM3mGnTl7benIJUXKoIqlj6TOHUqeBui1RXEmurvGUHyoRvDFY
+ iYhopq3Yqt+OsRXpxUT35uCgBMvnd2nVPiHXsgqr/gOk5bgFgqJxwrD1FU8lMqsZcd1F
+ lYDg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+tbPQN0I1zIaQXVkvHl5HebVNSgA1OnphYIDTSX751HzjC+Jcv3jw4M5B07ckkMgIftYQxW58b6IM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwAH5ev37Qay/+xX2OaWxzyc6cUAGHilI446eyl/UqsTRCEhVDj
- AlTeV7Tpl+g/ANmcbshw1xUW3/MrdW9pg67xsw015W/xGNZVCZxMnYia
-X-Gm-Gg: AeBDieu4m3eOgHtXCt9Rnz//Ezfo4hzRQStZMIounxo0qTkrYw3fzqN5VkN5NWfpKQo
- 4pCToyfMnLViRDore/Fid9ypRLip8lfuLyL1/ZFu8VO4XZjZqV9hE+mFUwLsa8slp7yjL9t53DP
- L42tXZAkFw2DcRzMJiIUZh5vlgIzZmjr/cvXTs6E0bnJIK+cPobBWGhEahpptKCGAOd7rDcMiZv
- dFslxkCuuzlYSArBi3ZcpEvcXWIeukHz7jUEWMM5dexOAm4Em9tP+PZJFmSOJXHzkJOdEr3HcfW
- CuBDeq10qJDEquxI1yUZpOiTRqOtADuJ/U2hxSorqJFGM/ZpIbCRjg2YX/jWvz19oWRuL2/SdqQ
- KAky1tDyLUbsUYKYupCeudLYVTQ8FZmZoGyDoHpyBn08DhRxGFe08LjYopXo8LQh093WQmca7N5
- 86Zyvbcj0anq4UD/j7lYoW6nqCILA1MmjDD1Ct1rWQ4khfYSAXlQcFqqDA94yPIIjfmm14pXQPl
- mGoC64j+TxItwh1RXrpB4a3Pmm7v/Nb2p45qVdaeHNvGKzs
-X-Received: by 2002:a05:600c:b90:b0:489:1e8a:90b4 with SMTP id
- 5b1f17b1804b1-48a7b53ca8fmr80064815e9.21.1777482021927; 
- Wed, 29 Apr 2026 10:00:21 -0700 (PDT)
-Received: from iku.Home ([2a06:5906:61b:2d00:212b:3a69:4f2c:3897])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48a820c856dsm4809755e9.6.2026.04.29.10.00.21
+ AFNElJ//lJdyB1F6DagqKEDZS+26nJC+uUJuezUbNWa+XDOJtB3vOTMPDB03+9SE83mjtLv7xStKqhGao+Y=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz25BosHNJ6PFoWu9I1JfGNa6w0v925TQqFol2gkBTRwDOdoQwN
+ 4mHMpMlRxvGPqgUdP2UVXEfKjLD/aA2ThHkeftnDgH4nE2S+Se0F44Ts7SnEGHmtC4M=
+X-Gm-Gg: AeBDieuty2TWwLREpMwBrQocY6VVpQGBy3xMbCgu3ATm2hdzSD9IVf/HzgA1jPwMs5s
+ f+1Wzm0FpfJ81RdzfpWNlgvmmHuab8vkNq/YYbmr8N4+ZtJRTzZhA0BZhCPIxDinZ7oH/tI3ver
+ AQNJZaM7WJEPmKxMkVKlXA47eg2G1xqtiXQyX790z/SBFxw9P3oyZuAJ+E8EwD/GPOx0DEhXPDU
+ YLJ28Qb8mP9mMTuZW8kcN3AUlpnczWsO3ARwtBwTSZ6LY/x39WhKyW7WoYDurUcoNYwMz5Gz0yR
+ muLFH00eOFSE6U43regBcekdUBlo/vLSvS/J8QUcyMyL3X9xHzSrMGiG2EkciHD1e4W1lLCp1ef
+ OY/SMyu3SHC9+1tyvcAwySqs7PHireuLrg+9WrtMN1m/Bj9DecVzuUZMy/jicfASRwUEfetNExs
+ lmRn+6QtvwChh1MPG5ZcaNHEMrrvc9E0Rq5AVihj4loCH8kJ2+/kmvXUhlcuONdMirIYH4TwBO/
+ hCHbxWGyLS9j818ld6L1i1vpA==
+X-Received: by 2002:a05:6000:40cb:b0:43d:184:8a9c with SMTP id
+ ffacd0b85a97d-44647be5f1amr14944569f8f.12.1777483011252; 
+ Wed, 29 Apr 2026 10:16:51 -0700 (PDT)
+Received: from localhost
+ (p200300f65f114e0863aeabccc171bdd2.dip0.t-ipconnect.de.
+ [2003:f6:5f11:4e08:63ae:abcc:c171:bdd2])
+ by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-447b7ca664csm7444563f8f.35.2026.04.29.10.16.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 Apr 2026 10:00:21 -0700 (PDT)
-From: Prabhakar <prabhakar.csengg@gmail.com>
-X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: Biju Das <biju.das.jz@bp.renesas.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- dri-devel@lists.freedesktop.org
-Cc: linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Prabhakar <prabhakar.csengg@gmail.com>,
- Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
- Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH 3/4] drm: renesas: rz-du: Move mode_valid logic to per-SoC
- clock limits
-Date: Wed, 29 Apr 2026 18:00:11 +0100
-Message-ID: <20260429170012.366537-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260429170012.366537-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260429170012.366537-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ Wed, 29 Apr 2026 10:16:50 -0700 (PDT)
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?=
+ <u.kleine-koenig@baylibre.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Markus Schneider-Pargmann <msp@baylibre.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amdgpu: Consistently define pci_device_ids using named
+ initializers
+Date: Wed, 29 Apr 2026 19:16:44 +0200
+Message-ID: <20260429171644.8406-2-u.kleine-koenig@baylibre.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=46669;
+ i=u.kleine-koenig@baylibre.com; h=from:subject;
+ bh=f+QeEXNvi5KNQhnIAw3SeS/AzSkJ18kLoUUlU5IUBgI=;
+ b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBp8jz8luyvYolv90hYhO3yyXWQtwaeLmKfeRA8J
+ rkyOxlFM+2JATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCafI8/AAKCRCPgPtYfRL+
+ ThUDB/9JGBW97z9FzSGbXGCl3iiW+MxFsHj5D9AeAaIHma4uDnL6M20uzOpzhlL9qxtaZzIhrUi
+ 0kc3thO8DP+95JtQocMoF14bYx+//rkXZMfokQNp+7t2KtorETNMPyYwV1wIdZshI0r4E+aN8rc
+ ouorxma5jib+J5He6qSNDpNJFJxXO5cROpr3CwNsDHaS0fwTyWGhZp23puhYJm83UQpvzlP3UQZ
+ c+EbLdaXMlRc1NCehLhZHEVr77szy70UMYl26c3yhFxrRfUehTV+9PPp0rYBT9B8pcflcRGWgG8
+ 5S0E4ZCkRq0OPvJlcbceDED+WuTq6bfKMtdoa6+l2C53T3/w
+X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -105,107 +107,720 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+... and PCI device helpers.
 
-Move pixel clock validation from a fixed encoder check to per SoC
-constraints stored in rzg2l_du_device_info.
+The struct pci_device_id array of supported device was initialized
+by list expressions. This isn't easily readable if you're not into PCI.
 
-Pixel clock limits differ across SoCs in the RZ DU family and cannot be
-expressed by a single shared rule. For example, RZ/G2UL (R9A07G043U)
-limits the DPAD0 pixel clock to 83.5 MHz, while other SoCs such as
-RZ/T2H require a wider operating range.
+Use PCI_DEVICE* helper macros and named initializers which is more
+explicit and thus easier to parse. Also skip explicit assignments of 0
+(which the compiler then takes care of).
 
-Add mode_clock_min and mode_clock_max fields to rzg2l_du_device_info to
-describe the supported pixel clock range for each SoC. Update
-rzg2l_du_encoder_mode_valid() to return MODE_CLOCK_LOW when the pixel
-clock falls below mode_clock_min and MODE_CLOCK_HIGH when it exceeds
-mode_clock_max.
+The secret plan is to make struct pci_device_id::driver_data an
+anonymous union (similar to
+https://lore.kernel.org/all/cover.1776579304.git.u.kleine-koenig@baylibre.com/)
+and that requires named initializers. But it's also a nice cleanup on
+its own.
 
-Set the pixel clock limits for RZ/G2UL(R9A07G043U) to 20.875MHz minimum
-and 83.5MHz maximum.
+This change doesn't introduce changes to the compiled pci_device_id
+array. Tested on x86 and arm64.
 
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
 ---
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c     | 2 ++
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h     | 4 ++++
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c | 6 +++++-
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.h | 2 ++
- 4 files changed, 13 insertions(+), 1 deletion(-)
+Hello,
 
-diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-index 0fef33a5a089..3b7162c6e1f4 100644
---- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-+++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-@@ -35,6 +35,8 @@ static const struct rzg2l_du_device_info rzg2l_du_r9a07g043u_info = {
- 			.port = 0,
- 		},
- 	},
-+	.mode_clock_min = 20875,
-+	.mode_clock_max = 83500,
+the mentioned follow-up quest isn't relevant to this driver. For other
+drivers it allows to do
+
+	-	{ PCI_VDEVICE(TTI, 0x3220), .driver_data = (kernel_ulong_t)&hptiop_itl_ops },
+	+	{ PCI_VDEVICE(TTI, 0x3220), .driver_data_ptr = &hptiop_itl_ops },
+
+which gets rid of a bunch of casts and so brings a little bit more type
+safety. This patch is a preparation for that.
+
+Best regards
+Uwe
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 618 ++++++++++++------------
+ 1 file changed, 309 insertions(+), 309 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index e47921e2a9af..8b71834a73df 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -1825,353 +1825,353 @@ static const u16 amdgpu_unsupported_pciidlist[] = {
  };
  
- static const struct rzg2l_du_device_info rzg2l_du_r9a07g044_info = {
-diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
-index 58806c2a8f2b..885558eb9547 100644
---- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
-+++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
-@@ -44,10 +44,14 @@ struct rzg2l_du_output_routing {
-  * struct rzg2l_du_device_info - DU model-specific information
-  * @channels_mask: bit mask of available DU channels
-  * @routes: array of CRTC to output routes, indexed by output (RZG2L_DU_OUTPUT_*)
-+ * @mode_clock_min: minimum pixel clock in kHz
-+ * @mode_clock_max: maximum pixel clock in kHz
-  */
- struct rzg2l_du_device_info {
- 	unsigned int channels_mask;
- 	struct rzg2l_du_output_routing routes[RZG2L_DU_OUTPUT_MAX];
-+	u32 mode_clock_min;
-+	u32 mode_clock_max;
+ static const struct pci_device_id pciidlist[] = {
+-	{0x1002, 0x6780, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TAHITI},
+-	{0x1002, 0x6784, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TAHITI},
+-	{0x1002, 0x6788, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TAHITI},
+-	{0x1002, 0x678A, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TAHITI},
+-	{0x1002, 0x6790, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TAHITI},
+-	{0x1002, 0x6791, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TAHITI},
+-	{0x1002, 0x6792, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TAHITI},
+-	{0x1002, 0x6798, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TAHITI},
+-	{0x1002, 0x6799, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TAHITI},
+-	{0x1002, 0x679A, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TAHITI},
+-	{0x1002, 0x679B, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TAHITI},
+-	{0x1002, 0x679E, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TAHITI},
+-	{0x1002, 0x679F, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TAHITI},
+-	{0x1002, 0x6800, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_PITCAIRN|AMD_IS_MOBILITY},
+-	{0x1002, 0x6801, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_PITCAIRN|AMD_IS_MOBILITY},
+-	{0x1002, 0x6802, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_PITCAIRN|AMD_IS_MOBILITY},
+-	{0x1002, 0x6806, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_PITCAIRN},
+-	{0x1002, 0x6808, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_PITCAIRN},
+-	{0x1002, 0x6809, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_PITCAIRN},
+-	{0x1002, 0x6810, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_PITCAIRN},
+-	{0x1002, 0x6811, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_PITCAIRN},
+-	{0x1002, 0x6816, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_PITCAIRN},
+-	{0x1002, 0x6817, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_PITCAIRN},
+-	{0x1002, 0x6818, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_PITCAIRN},
+-	{0x1002, 0x6819, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_PITCAIRN},
+-	{0x1002, 0x6600, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_OLAND|AMD_IS_MOBILITY},
+-	{0x1002, 0x6601, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_OLAND|AMD_IS_MOBILITY},
+-	{0x1002, 0x6602, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_OLAND|AMD_IS_MOBILITY},
+-	{0x1002, 0x6603, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_OLAND|AMD_IS_MOBILITY},
+-	{0x1002, 0x6604, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_OLAND|AMD_IS_MOBILITY},
+-	{0x1002, 0x6605, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_OLAND|AMD_IS_MOBILITY},
+-	{0x1002, 0x6606, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_OLAND|AMD_IS_MOBILITY},
+-	{0x1002, 0x6607, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_OLAND|AMD_IS_MOBILITY},
+-	{0x1002, 0x6608, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_OLAND},
+-	{0x1002, 0x6610, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_OLAND},
+-	{0x1002, 0x6611, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_OLAND},
+-	{0x1002, 0x6613, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_OLAND},
+-	{0x1002, 0x6617, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_OLAND|AMD_IS_MOBILITY},
+-	{0x1002, 0x6620, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_OLAND|AMD_IS_MOBILITY},
+-	{0x1002, 0x6621, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_OLAND|AMD_IS_MOBILITY},
+-	{0x1002, 0x6623, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_OLAND|AMD_IS_MOBILITY},
+-	{0x1002, 0x6631, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_OLAND},
+-	{0x1002, 0x6820, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VERDE|AMD_IS_MOBILITY},
+-	{0x1002, 0x6821, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VERDE|AMD_IS_MOBILITY},
+-	{0x1002, 0x6822, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VERDE|AMD_IS_MOBILITY},
+-	{0x1002, 0x6823, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VERDE|AMD_IS_MOBILITY},
+-	{0x1002, 0x6824, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VERDE|AMD_IS_MOBILITY},
+-	{0x1002, 0x6825, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VERDE|AMD_IS_MOBILITY},
+-	{0x1002, 0x6826, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VERDE|AMD_IS_MOBILITY},
+-	{0x1002, 0x6827, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VERDE|AMD_IS_MOBILITY},
+-	{0x1002, 0x6828, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VERDE},
+-	{0x1002, 0x6829, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VERDE},
+-	{0x1002, 0x682A, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VERDE|AMD_IS_MOBILITY},
+-	{0x1002, 0x682B, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VERDE|AMD_IS_MOBILITY},
+-	{0x1002, 0x682C, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VERDE},
+-	{0x1002, 0x682D, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VERDE|AMD_IS_MOBILITY},
+-	{0x1002, 0x682F, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VERDE|AMD_IS_MOBILITY},
+-	{0x1002, 0x6830, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VERDE|AMD_IS_MOBILITY},
+-	{0x1002, 0x6831, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VERDE|AMD_IS_MOBILITY},
+-	{0x1002, 0x6835, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VERDE},
+-	{0x1002, 0x6837, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VERDE},
+-	{0x1002, 0x6838, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VERDE},
+-	{0x1002, 0x6839, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VERDE},
+-	{0x1002, 0x683B, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VERDE},
+-	{0x1002, 0x683D, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VERDE},
+-	{0x1002, 0x683F, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VERDE},
+-	{0x1002, 0x6660, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_HAINAN|AMD_IS_MOBILITY},
+-	{0x1002, 0x6663, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_HAINAN|AMD_IS_MOBILITY},
+-	{0x1002, 0x6664, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_HAINAN|AMD_IS_MOBILITY},
+-	{0x1002, 0x6665, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_HAINAN|AMD_IS_MOBILITY},
+-	{0x1002, 0x6667, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_HAINAN|AMD_IS_MOBILITY},
+-	{0x1002, 0x666F, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_HAINAN|AMD_IS_MOBILITY},
++	{ PCI_DEVICE(0x1002, 0x6780), .driver_data = CHIP_TAHITI },
++	{ PCI_DEVICE(0x1002, 0x6784), .driver_data = CHIP_TAHITI },
++	{ PCI_DEVICE(0x1002, 0x6788), .driver_data = CHIP_TAHITI },
++	{ PCI_DEVICE(0x1002, 0x678A), .driver_data = CHIP_TAHITI },
++	{ PCI_DEVICE(0x1002, 0x6790), .driver_data = CHIP_TAHITI },
++	{ PCI_DEVICE(0x1002, 0x6791), .driver_data = CHIP_TAHITI },
++	{ PCI_DEVICE(0x1002, 0x6792), .driver_data = CHIP_TAHITI },
++	{ PCI_DEVICE(0x1002, 0x6798), .driver_data = CHIP_TAHITI },
++	{ PCI_DEVICE(0x1002, 0x6799), .driver_data = CHIP_TAHITI },
++	{ PCI_DEVICE(0x1002, 0x679A), .driver_data = CHIP_TAHITI },
++	{ PCI_DEVICE(0x1002, 0x679B), .driver_data = CHIP_TAHITI },
++	{ PCI_DEVICE(0x1002, 0x679E), .driver_data = CHIP_TAHITI },
++	{ PCI_DEVICE(0x1002, 0x679F), .driver_data = CHIP_TAHITI },
++	{ PCI_DEVICE(0x1002, 0x6800), .driver_data = CHIP_PITCAIRN|AMD_IS_MOBILITY },
++	{ PCI_DEVICE(0x1002, 0x6801), .driver_data = CHIP_PITCAIRN|AMD_IS_MOBILITY },
++	{ PCI_DEVICE(0x1002, 0x6802), .driver_data = CHIP_PITCAIRN|AMD_IS_MOBILITY },
++	{ PCI_DEVICE(0x1002, 0x6806), .driver_data = CHIP_PITCAIRN },
++	{ PCI_DEVICE(0x1002, 0x6808), .driver_data = CHIP_PITCAIRN },
++	{ PCI_DEVICE(0x1002, 0x6809), .driver_data = CHIP_PITCAIRN },
++	{ PCI_DEVICE(0x1002, 0x6810), .driver_data = CHIP_PITCAIRN },
++	{ PCI_DEVICE(0x1002, 0x6811), .driver_data = CHIP_PITCAIRN },
++	{ PCI_DEVICE(0x1002, 0x6816), .driver_data = CHIP_PITCAIRN },
++	{ PCI_DEVICE(0x1002, 0x6817), .driver_data = CHIP_PITCAIRN },
++	{ PCI_DEVICE(0x1002, 0x6818), .driver_data = CHIP_PITCAIRN },
++	{ PCI_DEVICE(0x1002, 0x6819), .driver_data = CHIP_PITCAIRN },
++	{ PCI_DEVICE(0x1002, 0x6600), .driver_data = CHIP_OLAND|AMD_IS_MOBILITY },
++	{ PCI_DEVICE(0x1002, 0x6601), .driver_data = CHIP_OLAND|AMD_IS_MOBILITY },
++	{ PCI_DEVICE(0x1002, 0x6602), .driver_data = CHIP_OLAND|AMD_IS_MOBILITY },
++	{ PCI_DEVICE(0x1002, 0x6603), .driver_data = CHIP_OLAND|AMD_IS_MOBILITY },
++	{ PCI_DEVICE(0x1002, 0x6604), .driver_data = CHIP_OLAND|AMD_IS_MOBILITY },
++	{ PCI_DEVICE(0x1002, 0x6605), .driver_data = CHIP_OLAND|AMD_IS_MOBILITY },
++	{ PCI_DEVICE(0x1002, 0x6606), .driver_data = CHIP_OLAND|AMD_IS_MOBILITY },
++	{ PCI_DEVICE(0x1002, 0x6607), .driver_data = CHIP_OLAND|AMD_IS_MOBILITY },
++	{ PCI_DEVICE(0x1002, 0x6608), .driver_data = CHIP_OLAND },
++	{ PCI_DEVICE(0x1002, 0x6610), .driver_data = CHIP_OLAND },
++	{ PCI_DEVICE(0x1002, 0x6611), .driver_data = CHIP_OLAND },
++	{ PCI_DEVICE(0x1002, 0x6613), .driver_data = CHIP_OLAND },
++	{ PCI_DEVICE(0x1002, 0x6617), .driver_data = CHIP_OLAND|AMD_IS_MOBILITY },
++	{ PCI_DEVICE(0x1002, 0x6620), .driver_data = CHIP_OLAND|AMD_IS_MOBILITY },
++	{ PCI_DEVICE(0x1002, 0x6621), .driver_data = CHIP_OLAND|AMD_IS_MOBILITY },
++	{ PCI_DEVICE(0x1002, 0x6623), .driver_data = CHIP_OLAND|AMD_IS_MOBILITY },
++	{ PCI_DEVICE(0x1002, 0x6631), .driver_data = CHIP_OLAND },
++	{ PCI_DEVICE(0x1002, 0x6820), .driver_data = CHIP_VERDE|AMD_IS_MOBILITY },
++	{ PCI_DEVICE(0x1002, 0x6821), .driver_data = CHIP_VERDE|AMD_IS_MOBILITY },
++	{ PCI_DEVICE(0x1002, 0x6822), .driver_data = CHIP_VERDE|AMD_IS_MOBILITY },
++	{ PCI_DEVICE(0x1002, 0x6823), .driver_data = CHIP_VERDE|AMD_IS_MOBILITY },
++	{ PCI_DEVICE(0x1002, 0x6824), .driver_data = CHIP_VERDE|AMD_IS_MOBILITY },
++	{ PCI_DEVICE(0x1002, 0x6825), .driver_data = CHIP_VERDE|AMD_IS_MOBILITY },
++	{ PCI_DEVICE(0x1002, 0x6826), .driver_data = CHIP_VERDE|AMD_IS_MOBILITY },
++	{ PCI_DEVICE(0x1002, 0x6827), .driver_data = CHIP_VERDE|AMD_IS_MOBILITY },
++	{ PCI_DEVICE(0x1002, 0x6828), .driver_data = CHIP_VERDE },
++	{ PCI_DEVICE(0x1002, 0x6829), .driver_data = CHIP_VERDE },
++	{ PCI_DEVICE(0x1002, 0x682A), .driver_data = CHIP_VERDE|AMD_IS_MOBILITY },
++	{ PCI_DEVICE(0x1002, 0x682B), .driver_data = CHIP_VERDE|AMD_IS_MOBILITY },
++	{ PCI_DEVICE(0x1002, 0x682C), .driver_data = CHIP_VERDE },
++	{ PCI_DEVICE(0x1002, 0x682D), .driver_data = CHIP_VERDE|AMD_IS_MOBILITY },
++	{ PCI_DEVICE(0x1002, 0x682F), .driver_data = CHIP_VERDE|AMD_IS_MOBILITY },
++	{ PCI_DEVICE(0x1002, 0x6830), .driver_data = CHIP_VERDE|AMD_IS_MOBILITY },
++	{ PCI_DEVICE(0x1002, 0x6831), .driver_data = CHIP_VERDE|AMD_IS_MOBILITY },
++	{ PCI_DEVICE(0x1002, 0x6835), .driver_data = CHIP_VERDE },
++	{ PCI_DEVICE(0x1002, 0x6837), .driver_data = CHIP_VERDE },
++	{ PCI_DEVICE(0x1002, 0x6838), .driver_data = CHIP_VERDE },
++	{ PCI_DEVICE(0x1002, 0x6839), .driver_data = CHIP_VERDE },
++	{ PCI_DEVICE(0x1002, 0x683B), .driver_data = CHIP_VERDE },
++	{ PCI_DEVICE(0x1002, 0x683D), .driver_data = CHIP_VERDE },
++	{ PCI_DEVICE(0x1002, 0x683F), .driver_data = CHIP_VERDE },
++	{ PCI_DEVICE(0x1002, 0x6660), .driver_data = CHIP_HAINAN|AMD_IS_MOBILITY },
++	{ PCI_DEVICE(0x1002, 0x6663), .driver_data = CHIP_HAINAN|AMD_IS_MOBILITY },
++	{ PCI_DEVICE(0x1002, 0x6664), .driver_data = CHIP_HAINAN|AMD_IS_MOBILITY },
++	{ PCI_DEVICE(0x1002, 0x6665), .driver_data = CHIP_HAINAN|AMD_IS_MOBILITY },
++	{ PCI_DEVICE(0x1002, 0x6667), .driver_data = CHIP_HAINAN|AMD_IS_MOBILITY },
++	{ PCI_DEVICE(0x1002, 0x666F), .driver_data = CHIP_HAINAN|AMD_IS_MOBILITY },
+ 	/* Kaveri */
+-	{0x1002, 0x1304, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_KAVERI|AMD_IS_MOBILITY|AMD_IS_APU},
+-	{0x1002, 0x1305, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_KAVERI|AMD_IS_APU},
+-	{0x1002, 0x1306, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_KAVERI|AMD_IS_MOBILITY|AMD_IS_APU},
+-	{0x1002, 0x1307, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_KAVERI|AMD_IS_APU},
+-	{0x1002, 0x1309, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_KAVERI|AMD_IS_MOBILITY|AMD_IS_APU},
+-	{0x1002, 0x130A, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_KAVERI|AMD_IS_MOBILITY|AMD_IS_APU},
+-	{0x1002, 0x130B, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_KAVERI|AMD_IS_MOBILITY|AMD_IS_APU},
+-	{0x1002, 0x130C, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_KAVERI|AMD_IS_MOBILITY|AMD_IS_APU},
+-	{0x1002, 0x130D, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_KAVERI|AMD_IS_MOBILITY|AMD_IS_APU},
+-	{0x1002, 0x130E, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_KAVERI|AMD_IS_MOBILITY|AMD_IS_APU},
+-	{0x1002, 0x130F, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_KAVERI|AMD_IS_APU},
+-	{0x1002, 0x1310, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_KAVERI|AMD_IS_APU},
+-	{0x1002, 0x1311, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_KAVERI|AMD_IS_APU},
+-	{0x1002, 0x1312, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_KAVERI|AMD_IS_APU},
+-	{0x1002, 0x1313, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_KAVERI|AMD_IS_APU},
+-	{0x1002, 0x1315, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_KAVERI|AMD_IS_APU},
+-	{0x1002, 0x1316, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_KAVERI|AMD_IS_APU},
+-	{0x1002, 0x1317, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_KAVERI|AMD_IS_MOBILITY|AMD_IS_APU},
+-	{0x1002, 0x1318, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_KAVERI|AMD_IS_MOBILITY|AMD_IS_APU},
+-	{0x1002, 0x131B, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_KAVERI|AMD_IS_APU},
+-	{0x1002, 0x131C, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_KAVERI|AMD_IS_APU},
+-	{0x1002, 0x131D, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_KAVERI|AMD_IS_APU},
++	{ PCI_DEVICE(0x1002, 0x1304), .driver_data = CHIP_KAVERI|AMD_IS_MOBILITY|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x1305), .driver_data = CHIP_KAVERI|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x1306), .driver_data = CHIP_KAVERI|AMD_IS_MOBILITY|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x1307), .driver_data = CHIP_KAVERI|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x1309), .driver_data = CHIP_KAVERI|AMD_IS_MOBILITY|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x130A), .driver_data = CHIP_KAVERI|AMD_IS_MOBILITY|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x130B), .driver_data = CHIP_KAVERI|AMD_IS_MOBILITY|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x130C), .driver_data = CHIP_KAVERI|AMD_IS_MOBILITY|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x130D), .driver_data = CHIP_KAVERI|AMD_IS_MOBILITY|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x130E), .driver_data = CHIP_KAVERI|AMD_IS_MOBILITY|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x130F), .driver_data = CHIP_KAVERI|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x1310), .driver_data = CHIP_KAVERI|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x1311), .driver_data = CHIP_KAVERI|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x1312), .driver_data = CHIP_KAVERI|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x1313), .driver_data = CHIP_KAVERI|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x1315), .driver_data = CHIP_KAVERI|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x1316), .driver_data = CHIP_KAVERI|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x1317), .driver_data = CHIP_KAVERI|AMD_IS_MOBILITY|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x1318), .driver_data = CHIP_KAVERI|AMD_IS_MOBILITY|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x131B), .driver_data = CHIP_KAVERI|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x131C), .driver_data = CHIP_KAVERI|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x131D), .driver_data = CHIP_KAVERI|AMD_IS_APU },
+ 	/* Bonaire */
+-	{0x1002, 0x6640, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_BONAIRE|AMD_IS_MOBILITY},
+-	{0x1002, 0x6641, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_BONAIRE|AMD_IS_MOBILITY},
+-	{0x1002, 0x6646, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_BONAIRE|AMD_IS_MOBILITY},
+-	{0x1002, 0x6647, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_BONAIRE|AMD_IS_MOBILITY},
+-	{0x1002, 0x6649, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_BONAIRE},
+-	{0x1002, 0x6650, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_BONAIRE},
+-	{0x1002, 0x6651, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_BONAIRE},
+-	{0x1002, 0x6658, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_BONAIRE},
+-	{0x1002, 0x665c, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_BONAIRE},
+-	{0x1002, 0x665d, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_BONAIRE},
+-	{0x1002, 0x665f, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_BONAIRE},
++	{ PCI_DEVICE(0x1002, 0x6640), .driver_data = CHIP_BONAIRE|AMD_IS_MOBILITY },
++	{ PCI_DEVICE(0x1002, 0x6641), .driver_data = CHIP_BONAIRE|AMD_IS_MOBILITY },
++	{ PCI_DEVICE(0x1002, 0x6646), .driver_data = CHIP_BONAIRE|AMD_IS_MOBILITY },
++	{ PCI_DEVICE(0x1002, 0x6647), .driver_data = CHIP_BONAIRE|AMD_IS_MOBILITY },
++	{ PCI_DEVICE(0x1002, 0x6649), .driver_data = CHIP_BONAIRE },
++	{ PCI_DEVICE(0x1002, 0x6650), .driver_data = CHIP_BONAIRE },
++	{ PCI_DEVICE(0x1002, 0x6651), .driver_data = CHIP_BONAIRE },
++	{ PCI_DEVICE(0x1002, 0x6658), .driver_data = CHIP_BONAIRE },
++	{ PCI_DEVICE(0x1002, 0x665c), .driver_data = CHIP_BONAIRE },
++	{ PCI_DEVICE(0x1002, 0x665d), .driver_data = CHIP_BONAIRE },
++	{ PCI_DEVICE(0x1002, 0x665f), .driver_data = CHIP_BONAIRE },
+ 	/* Hawaii */
+-	{0x1002, 0x67A0, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_HAWAII},
+-	{0x1002, 0x67A1, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_HAWAII},
+-	{0x1002, 0x67A2, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_HAWAII},
+-	{0x1002, 0x67A8, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_HAWAII},
+-	{0x1002, 0x67A9, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_HAWAII},
+-	{0x1002, 0x67AA, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_HAWAII},
+-	{0x1002, 0x67B0, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_HAWAII},
+-	{0x1002, 0x67B1, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_HAWAII},
+-	{0x1002, 0x67B8, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_HAWAII},
+-	{0x1002, 0x67B9, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_HAWAII},
+-	{0x1002, 0x67BA, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_HAWAII},
+-	{0x1002, 0x67BE, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_HAWAII},
++	{ PCI_DEVICE(0x1002, 0x67A0), .driver_data = CHIP_HAWAII },
++	{ PCI_DEVICE(0x1002, 0x67A1), .driver_data = CHIP_HAWAII },
++	{ PCI_DEVICE(0x1002, 0x67A2), .driver_data = CHIP_HAWAII },
++	{ PCI_DEVICE(0x1002, 0x67A8), .driver_data = CHIP_HAWAII },
++	{ PCI_DEVICE(0x1002, 0x67A9), .driver_data = CHIP_HAWAII },
++	{ PCI_DEVICE(0x1002, 0x67AA), .driver_data = CHIP_HAWAII },
++	{ PCI_DEVICE(0x1002, 0x67B0), .driver_data = CHIP_HAWAII },
++	{ PCI_DEVICE(0x1002, 0x67B1), .driver_data = CHIP_HAWAII },
++	{ PCI_DEVICE(0x1002, 0x67B8), .driver_data = CHIP_HAWAII },
++	{ PCI_DEVICE(0x1002, 0x67B9), .driver_data = CHIP_HAWAII },
++	{ PCI_DEVICE(0x1002, 0x67BA), .driver_data = CHIP_HAWAII },
++	{ PCI_DEVICE(0x1002, 0x67BE), .driver_data = CHIP_HAWAII },
+ 	/* Kabini */
+-	{0x1002, 0x9830, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_KABINI|AMD_IS_MOBILITY|AMD_IS_APU},
+-	{0x1002, 0x9831, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_KABINI|AMD_IS_APU},
+-	{0x1002, 0x9832, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_KABINI|AMD_IS_MOBILITY|AMD_IS_APU},
+-	{0x1002, 0x9833, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_KABINI|AMD_IS_APU},
+-	{0x1002, 0x9834, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_KABINI|AMD_IS_MOBILITY|AMD_IS_APU},
+-	{0x1002, 0x9835, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_KABINI|AMD_IS_APU},
+-	{0x1002, 0x9836, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_KABINI|AMD_IS_MOBILITY|AMD_IS_APU},
+-	{0x1002, 0x9837, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_KABINI|AMD_IS_APU},
+-	{0x1002, 0x9838, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_KABINI|AMD_IS_MOBILITY|AMD_IS_APU},
+-	{0x1002, 0x9839, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_KABINI|AMD_IS_MOBILITY|AMD_IS_APU},
+-	{0x1002, 0x983a, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_KABINI|AMD_IS_APU},
+-	{0x1002, 0x983b, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_KABINI|AMD_IS_MOBILITY|AMD_IS_APU},
+-	{0x1002, 0x983c, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_KABINI|AMD_IS_APU},
+-	{0x1002, 0x983d, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_KABINI|AMD_IS_APU},
+-	{0x1002, 0x983e, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_KABINI|AMD_IS_APU},
+-	{0x1002, 0x983f, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_KABINI|AMD_IS_APU},
++	{ PCI_DEVICE(0x1002, 0x9830), .driver_data = CHIP_KABINI|AMD_IS_MOBILITY|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x9831), .driver_data = CHIP_KABINI|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x9832), .driver_data = CHIP_KABINI|AMD_IS_MOBILITY|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x9833), .driver_data = CHIP_KABINI|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x9834), .driver_data = CHIP_KABINI|AMD_IS_MOBILITY|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x9835), .driver_data = CHIP_KABINI|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x9836), .driver_data = CHIP_KABINI|AMD_IS_MOBILITY|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x9837), .driver_data = CHIP_KABINI|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x9838), .driver_data = CHIP_KABINI|AMD_IS_MOBILITY|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x9839), .driver_data = CHIP_KABINI|AMD_IS_MOBILITY|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x983a), .driver_data = CHIP_KABINI|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x983b), .driver_data = CHIP_KABINI|AMD_IS_MOBILITY|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x983c), .driver_data = CHIP_KABINI|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x983d), .driver_data = CHIP_KABINI|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x983e), .driver_data = CHIP_KABINI|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x983f), .driver_data = CHIP_KABINI|AMD_IS_APU },
+ 	/* mullins */
+-	{0x1002, 0x9850, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_MULLINS|AMD_IS_MOBILITY|AMD_IS_APU},
+-	{0x1002, 0x9851, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_MULLINS|AMD_IS_MOBILITY|AMD_IS_APU},
+-	{0x1002, 0x9852, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_MULLINS|AMD_IS_MOBILITY|AMD_IS_APU},
+-	{0x1002, 0x9853, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_MULLINS|AMD_IS_MOBILITY|AMD_IS_APU},
+-	{0x1002, 0x9854, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_MULLINS|AMD_IS_MOBILITY|AMD_IS_APU},
+-	{0x1002, 0x9855, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_MULLINS|AMD_IS_MOBILITY|AMD_IS_APU},
+-	{0x1002, 0x9856, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_MULLINS|AMD_IS_MOBILITY|AMD_IS_APU},
+-	{0x1002, 0x9857, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_MULLINS|AMD_IS_MOBILITY|AMD_IS_APU},
+-	{0x1002, 0x9858, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_MULLINS|AMD_IS_MOBILITY|AMD_IS_APU},
+-	{0x1002, 0x9859, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_MULLINS|AMD_IS_MOBILITY|AMD_IS_APU},
+-	{0x1002, 0x985A, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_MULLINS|AMD_IS_MOBILITY|AMD_IS_APU},
+-	{0x1002, 0x985B, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_MULLINS|AMD_IS_MOBILITY|AMD_IS_APU},
+-	{0x1002, 0x985C, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_MULLINS|AMD_IS_MOBILITY|AMD_IS_APU},
+-	{0x1002, 0x985D, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_MULLINS|AMD_IS_MOBILITY|AMD_IS_APU},
+-	{0x1002, 0x985E, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_MULLINS|AMD_IS_MOBILITY|AMD_IS_APU},
+-	{0x1002, 0x985F, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_MULLINS|AMD_IS_MOBILITY|AMD_IS_APU},
++	{ PCI_DEVICE(0x1002, 0x9850), .driver_data = CHIP_MULLINS|AMD_IS_MOBILITY|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x9851), .driver_data = CHIP_MULLINS|AMD_IS_MOBILITY|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x9852), .driver_data = CHIP_MULLINS|AMD_IS_MOBILITY|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x9853), .driver_data = CHIP_MULLINS|AMD_IS_MOBILITY|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x9854), .driver_data = CHIP_MULLINS|AMD_IS_MOBILITY|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x9855), .driver_data = CHIP_MULLINS|AMD_IS_MOBILITY|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x9856), .driver_data = CHIP_MULLINS|AMD_IS_MOBILITY|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x9857), .driver_data = CHIP_MULLINS|AMD_IS_MOBILITY|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x9858), .driver_data = CHIP_MULLINS|AMD_IS_MOBILITY|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x9859), .driver_data = CHIP_MULLINS|AMD_IS_MOBILITY|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x985A), .driver_data = CHIP_MULLINS|AMD_IS_MOBILITY|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x985B), .driver_data = CHIP_MULLINS|AMD_IS_MOBILITY|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x985C), .driver_data = CHIP_MULLINS|AMD_IS_MOBILITY|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x985D), .driver_data = CHIP_MULLINS|AMD_IS_MOBILITY|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x985E), .driver_data = CHIP_MULLINS|AMD_IS_MOBILITY|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x985F), .driver_data = CHIP_MULLINS|AMD_IS_MOBILITY|AMD_IS_APU },
+ 	/* topaz */
+-	{0x1002, 0x6900, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TOPAZ},
+-	{0x1002, 0x6901, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TOPAZ},
+-	{0x1002, 0x6902, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TOPAZ},
+-	{0x1002, 0x6903, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TOPAZ},
+-	{0x1002, 0x6907, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TOPAZ},
++	{ PCI_DEVICE(0x1002, 0x6900), .driver_data = CHIP_TOPAZ },
++	{ PCI_DEVICE(0x1002, 0x6901), .driver_data = CHIP_TOPAZ },
++	{ PCI_DEVICE(0x1002, 0x6902), .driver_data = CHIP_TOPAZ },
++	{ PCI_DEVICE(0x1002, 0x6903), .driver_data = CHIP_TOPAZ },
++	{ PCI_DEVICE(0x1002, 0x6907), .driver_data = CHIP_TOPAZ },
+ 	/* tonga */
+-	{0x1002, 0x6920, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TONGA},
+-	{0x1002, 0x6921, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TONGA},
+-	{0x1002, 0x6928, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TONGA},
+-	{0x1002, 0x6929, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TONGA},
+-	{0x1002, 0x692B, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TONGA},
+-	{0x1002, 0x692F, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TONGA},
+-	{0x1002, 0x6930, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TONGA},
+-	{0x1002, 0x6938, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TONGA},
+-	{0x1002, 0x6939, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_TONGA},
++	{ PCI_DEVICE(0x1002, 0x6920), .driver_data = CHIP_TONGA },
++	{ PCI_DEVICE(0x1002, 0x6921), .driver_data = CHIP_TONGA },
++	{ PCI_DEVICE(0x1002, 0x6928), .driver_data = CHIP_TONGA },
++	{ PCI_DEVICE(0x1002, 0x6929), .driver_data = CHIP_TONGA },
++	{ PCI_DEVICE(0x1002, 0x692B), .driver_data = CHIP_TONGA },
++	{ PCI_DEVICE(0x1002, 0x692F), .driver_data = CHIP_TONGA },
++	{ PCI_DEVICE(0x1002, 0x6930), .driver_data = CHIP_TONGA },
++	{ PCI_DEVICE(0x1002, 0x6938), .driver_data = CHIP_TONGA },
++	{ PCI_DEVICE(0x1002, 0x6939), .driver_data = CHIP_TONGA },
+ 	/* fiji */
+-	{0x1002, 0x7300, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_FIJI},
+-	{0x1002, 0x730F, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_FIJI},
++	{ PCI_DEVICE(0x1002, 0x7300), .driver_data = CHIP_FIJI },
++	{ PCI_DEVICE(0x1002, 0x730F), .driver_data = CHIP_FIJI },
+ 	/* carrizo */
+-	{0x1002, 0x9870, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_CARRIZO|AMD_IS_APU},
+-	{0x1002, 0x9874, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_CARRIZO|AMD_IS_APU},
+-	{0x1002, 0x9875, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_CARRIZO|AMD_IS_APU},
+-	{0x1002, 0x9876, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_CARRIZO|AMD_IS_APU},
+-	{0x1002, 0x9877, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_CARRIZO|AMD_IS_APU},
++	{ PCI_DEVICE(0x1002, 0x9870), .driver_data = CHIP_CARRIZO|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x9874), .driver_data = CHIP_CARRIZO|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x9875), .driver_data = CHIP_CARRIZO|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x9876), .driver_data = CHIP_CARRIZO|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x9877), .driver_data = CHIP_CARRIZO|AMD_IS_APU },
+ 	/* stoney */
+-	{0x1002, 0x98E4, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_STONEY|AMD_IS_APU},
++	{ PCI_DEVICE(0x1002, 0x98E4), .driver_data = CHIP_STONEY|AMD_IS_APU },
+ 	/* Polaris11 */
+-	{0x1002, 0x67E0, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS11},
+-	{0x1002, 0x67E3, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS11},
+-	{0x1002, 0x67E8, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS11},
+-	{0x1002, 0x67EB, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS11},
+-	{0x1002, 0x67EF, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS11},
+-	{0x1002, 0x67FF, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS11},
+-	{0x1002, 0x67E1, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS11},
+-	{0x1002, 0x67E7, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS11},
+-	{0x1002, 0x67E9, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS11},
++	{ PCI_DEVICE(0x1002, 0x67E0), .driver_data = CHIP_POLARIS11 },
++	{ PCI_DEVICE(0x1002, 0x67E3), .driver_data = CHIP_POLARIS11 },
++	{ PCI_DEVICE(0x1002, 0x67E8), .driver_data = CHIP_POLARIS11 },
++	{ PCI_DEVICE(0x1002, 0x67EB), .driver_data = CHIP_POLARIS11 },
++	{ PCI_DEVICE(0x1002, 0x67EF), .driver_data = CHIP_POLARIS11 },
++	{ PCI_DEVICE(0x1002, 0x67FF), .driver_data = CHIP_POLARIS11 },
++	{ PCI_DEVICE(0x1002, 0x67E1), .driver_data = CHIP_POLARIS11 },
++	{ PCI_DEVICE(0x1002, 0x67E7), .driver_data = CHIP_POLARIS11 },
++	{ PCI_DEVICE(0x1002, 0x67E9), .driver_data = CHIP_POLARIS11 },
+ 	/* Polaris10 */
+-	{0x1002, 0x67C0, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS10},
+-	{0x1002, 0x67C1, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS10},
+-	{0x1002, 0x67C2, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS10},
+-	{0x1002, 0x67C4, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS10},
+-	{0x1002, 0x67C7, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS10},
+-	{0x1002, 0x67D0, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS10},
+-	{0x1002, 0x67DF, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS10},
+-	{0x1002, 0x67C8, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS10},
+-	{0x1002, 0x67C9, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS10},
+-	{0x1002, 0x67CA, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS10},
+-	{0x1002, 0x67CC, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS10},
+-	{0x1002, 0x67CF, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS10},
+-	{0x1002, 0x6FDF, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS10},
++	{ PCI_DEVICE(0x1002, 0x67C0), .driver_data = CHIP_POLARIS10 },
++	{ PCI_DEVICE(0x1002, 0x67C1), .driver_data = CHIP_POLARIS10 },
++	{ PCI_DEVICE(0x1002, 0x67C2), .driver_data = CHIP_POLARIS10 },
++	{ PCI_DEVICE(0x1002, 0x67C4), .driver_data = CHIP_POLARIS10 },
++	{ PCI_DEVICE(0x1002, 0x67C7), .driver_data = CHIP_POLARIS10 },
++	{ PCI_DEVICE(0x1002, 0x67D0), .driver_data = CHIP_POLARIS10 },
++	{ PCI_DEVICE(0x1002, 0x67DF), .driver_data = CHIP_POLARIS10 },
++	{ PCI_DEVICE(0x1002, 0x67C8), .driver_data = CHIP_POLARIS10 },
++	{ PCI_DEVICE(0x1002, 0x67C9), .driver_data = CHIP_POLARIS10 },
++	{ PCI_DEVICE(0x1002, 0x67CA), .driver_data = CHIP_POLARIS10 },
++	{ PCI_DEVICE(0x1002, 0x67CC), .driver_data = CHIP_POLARIS10 },
++	{ PCI_DEVICE(0x1002, 0x67CF), .driver_data = CHIP_POLARIS10 },
++	{ PCI_DEVICE(0x1002, 0x6FDF), .driver_data = CHIP_POLARIS10 },
+ 	/* Polaris12 */
+-	{0x1002, 0x6980, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS12},
+-	{0x1002, 0x6981, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS12},
+-	{0x1002, 0x6985, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS12},
+-	{0x1002, 0x6986, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS12},
+-	{0x1002, 0x6987, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS12},
+-	{0x1002, 0x6995, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS12},
+-	{0x1002, 0x6997, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS12},
+-	{0x1002, 0x699F, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_POLARIS12},
++	{ PCI_DEVICE(0x1002, 0x6980), .driver_data = CHIP_POLARIS12 },
++	{ PCI_DEVICE(0x1002, 0x6981), .driver_data = CHIP_POLARIS12 },
++	{ PCI_DEVICE(0x1002, 0x6985), .driver_data = CHIP_POLARIS12 },
++	{ PCI_DEVICE(0x1002, 0x6986), .driver_data = CHIP_POLARIS12 },
++	{ PCI_DEVICE(0x1002, 0x6987), .driver_data = CHIP_POLARIS12 },
++	{ PCI_DEVICE(0x1002, 0x6995), .driver_data = CHIP_POLARIS12 },
++	{ PCI_DEVICE(0x1002, 0x6997), .driver_data = CHIP_POLARIS12 },
++	{ PCI_DEVICE(0x1002, 0x699F), .driver_data = CHIP_POLARIS12 },
+ 	/* VEGAM */
+-	{0x1002, 0x694C, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VEGAM},
+-	{0x1002, 0x694E, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VEGAM},
+-	{0x1002, 0x694F, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VEGAM},
++	{ PCI_DEVICE(0x1002, 0x694C), .driver_data = CHIP_VEGAM },
++	{ PCI_DEVICE(0x1002, 0x694E), .driver_data = CHIP_VEGAM },
++	{ PCI_DEVICE(0x1002, 0x694F), .driver_data = CHIP_VEGAM },
+ 	/* Vega 10 */
+-	{0x1002, 0x6860, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VEGA10},
+-	{0x1002, 0x6861, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VEGA10},
+-	{0x1002, 0x6862, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VEGA10},
+-	{0x1002, 0x6863, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VEGA10},
+-	{0x1002, 0x6864, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VEGA10},
+-	{0x1002, 0x6867, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VEGA10},
+-	{0x1002, 0x6868, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VEGA10},
+-	{0x1002, 0x6869, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VEGA10},
+-	{0x1002, 0x686a, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VEGA10},
+-	{0x1002, 0x686b, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VEGA10},
+-	{0x1002, 0x686c, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VEGA10},
+-	{0x1002, 0x686d, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VEGA10},
+-	{0x1002, 0x686e, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VEGA10},
+-	{0x1002, 0x686f, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VEGA10},
+-	{0x1002, 0x687f, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VEGA10},
++	{ PCI_DEVICE(0x1002, 0x6860), .driver_data = CHIP_VEGA10 },
++	{ PCI_DEVICE(0x1002, 0x6861), .driver_data = CHIP_VEGA10 },
++	{ PCI_DEVICE(0x1002, 0x6862), .driver_data = CHIP_VEGA10 },
++	{ PCI_DEVICE(0x1002, 0x6863), .driver_data = CHIP_VEGA10 },
++	{ PCI_DEVICE(0x1002, 0x6864), .driver_data = CHIP_VEGA10 },
++	{ PCI_DEVICE(0x1002, 0x6867), .driver_data = CHIP_VEGA10 },
++	{ PCI_DEVICE(0x1002, 0x6868), .driver_data = CHIP_VEGA10 },
++	{ PCI_DEVICE(0x1002, 0x6869), .driver_data = CHIP_VEGA10 },
++	{ PCI_DEVICE(0x1002, 0x686a), .driver_data = CHIP_VEGA10 },
++	{ PCI_DEVICE(0x1002, 0x686b), .driver_data = CHIP_VEGA10 },
++	{ PCI_DEVICE(0x1002, 0x686c), .driver_data = CHIP_VEGA10 },
++	{ PCI_DEVICE(0x1002, 0x686d), .driver_data = CHIP_VEGA10 },
++	{ PCI_DEVICE(0x1002, 0x686e), .driver_data = CHIP_VEGA10 },
++	{ PCI_DEVICE(0x1002, 0x686f), .driver_data = CHIP_VEGA10 },
++	{ PCI_DEVICE(0x1002, 0x687f), .driver_data = CHIP_VEGA10 },
+ 	/* Vega 12 */
+-	{0x1002, 0x69A0, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VEGA12},
+-	{0x1002, 0x69A1, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VEGA12},
+-	{0x1002, 0x69A2, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VEGA12},
+-	{0x1002, 0x69A3, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VEGA12},
+-	{0x1002, 0x69AF, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VEGA12},
++	{ PCI_DEVICE(0x1002, 0x69A0), .driver_data = CHIP_VEGA12 },
++	{ PCI_DEVICE(0x1002, 0x69A1), .driver_data = CHIP_VEGA12 },
++	{ PCI_DEVICE(0x1002, 0x69A2), .driver_data = CHIP_VEGA12 },
++	{ PCI_DEVICE(0x1002, 0x69A3), .driver_data = CHIP_VEGA12 },
++	{ PCI_DEVICE(0x1002, 0x69AF), .driver_data = CHIP_VEGA12 },
+ 	/* Vega 20 */
+-	{0x1002, 0x66A0, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VEGA20},
+-	{0x1002, 0x66A1, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VEGA20},
+-	{0x1002, 0x66A2, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VEGA20},
+-	{0x1002, 0x66A3, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VEGA20},
+-	{0x1002, 0x66A4, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VEGA20},
+-	{0x1002, 0x66A7, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VEGA20},
+-	{0x1002, 0x66AF, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VEGA20},
++	{ PCI_DEVICE(0x1002, 0x66A0), .driver_data = CHIP_VEGA20 },
++	{ PCI_DEVICE(0x1002, 0x66A1), .driver_data = CHIP_VEGA20 },
++	{ PCI_DEVICE(0x1002, 0x66A2), .driver_data = CHIP_VEGA20 },
++	{ PCI_DEVICE(0x1002, 0x66A3), .driver_data = CHIP_VEGA20 },
++	{ PCI_DEVICE(0x1002, 0x66A4), .driver_data = CHIP_VEGA20 },
++	{ PCI_DEVICE(0x1002, 0x66A7), .driver_data = CHIP_VEGA20 },
++	{ PCI_DEVICE(0x1002, 0x66AF), .driver_data = CHIP_VEGA20 },
+ 	/* Raven */
+-	{0x1002, 0x15dd, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_RAVEN|AMD_IS_APU},
+-	{0x1002, 0x15d8, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_RAVEN|AMD_IS_APU},
++	{ PCI_DEVICE(0x1002, 0x15dd), .driver_data = CHIP_RAVEN|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x15d8), .driver_data = CHIP_RAVEN|AMD_IS_APU },
+ 	/* Arcturus */
+-	{0x1002, 0x738C, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_ARCTURUS},
+-	{0x1002, 0x7388, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_ARCTURUS},
+-	{0x1002, 0x738E, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_ARCTURUS},
+-	{0x1002, 0x7390, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_ARCTURUS},
++	{ PCI_DEVICE(0x1002, 0x738C), .driver_data = CHIP_ARCTURUS },
++	{ PCI_DEVICE(0x1002, 0x7388), .driver_data = CHIP_ARCTURUS },
++	{ PCI_DEVICE(0x1002, 0x738E), .driver_data = CHIP_ARCTURUS },
++	{ PCI_DEVICE(0x1002, 0x7390), .driver_data = CHIP_ARCTURUS },
+ 	/* Navi10 */
+-	{0x1002, 0x7310, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVI10},
+-	{0x1002, 0x7312, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVI10},
+-	{0x1002, 0x7318, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVI10},
+-	{0x1002, 0x7319, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVI10},
+-	{0x1002, 0x731A, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVI10},
+-	{0x1002, 0x731B, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVI10},
+-	{0x1002, 0x731E, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVI10},
+-	{0x1002, 0x731F, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVI10},
++	{ PCI_DEVICE(0x1002, 0x7310), .driver_data = CHIP_NAVI10 },
++	{ PCI_DEVICE(0x1002, 0x7312), .driver_data = CHIP_NAVI10 },
++	{ PCI_DEVICE(0x1002, 0x7318), .driver_data = CHIP_NAVI10 },
++	{ PCI_DEVICE(0x1002, 0x7319), .driver_data = CHIP_NAVI10 },
++	{ PCI_DEVICE(0x1002, 0x731A), .driver_data = CHIP_NAVI10 },
++	{ PCI_DEVICE(0x1002, 0x731B), .driver_data = CHIP_NAVI10 },
++	{ PCI_DEVICE(0x1002, 0x731E), .driver_data = CHIP_NAVI10 },
++	{ PCI_DEVICE(0x1002, 0x731F), .driver_data = CHIP_NAVI10 },
+ 	/* Navi14 */
+-	{0x1002, 0x7340, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVI14},
+-	{0x1002, 0x7341, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVI14},
+-	{0x1002, 0x7347, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVI14},
+-	{0x1002, 0x734F, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVI14},
++	{ PCI_DEVICE(0x1002, 0x7340), .driver_data = CHIP_NAVI14 },
++	{ PCI_DEVICE(0x1002, 0x7341), .driver_data = CHIP_NAVI14 },
++	{ PCI_DEVICE(0x1002, 0x7347), .driver_data = CHIP_NAVI14 },
++	{ PCI_DEVICE(0x1002, 0x734F), .driver_data = CHIP_NAVI14 },
+ 
+ 	/* Renoir */
+-	{0x1002, 0x15E7, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_RENOIR|AMD_IS_APU},
+-	{0x1002, 0x1636, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_RENOIR|AMD_IS_APU},
+-	{0x1002, 0x1638, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_RENOIR|AMD_IS_APU},
+-	{0x1002, 0x164C, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_RENOIR|AMD_IS_APU},
++	{ PCI_DEVICE(0x1002, 0x15E7), .driver_data = CHIP_RENOIR|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x1636), .driver_data = CHIP_RENOIR|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x1638), .driver_data = CHIP_RENOIR|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x164C), .driver_data = CHIP_RENOIR|AMD_IS_APU },
+ 
+ 	/* Navi12 */
+-	{0x1002, 0x7360, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVI12},
+-	{0x1002, 0x7362, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVI12},
++	{ PCI_DEVICE(0x1002, 0x7360), .driver_data = CHIP_NAVI12 },
++	{ PCI_DEVICE(0x1002, 0x7362), .driver_data = CHIP_NAVI12 },
+ 
+ 	/* Sienna_Cichlid */
+-	{0x1002, 0x73A0, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID},
+-	{0x1002, 0x73A1, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID},
+-	{0x1002, 0x73A2, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID},
+-	{0x1002, 0x73A3, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID},
+-	{0x1002, 0x73A5, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID},
+-	{0x1002, 0x73A8, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID},
+-	{0x1002, 0x73A9, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID},
+-	{0x1002, 0x73AB, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID},
+-	{0x1002, 0x73AC, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID},
+-	{0x1002, 0x73AD, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID},
+-	{0x1002, 0x73AE, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID},
+-	{0x1002, 0x73AF, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID},
+-	{0x1002, 0x73BF, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_SIENNA_CICHLID},
++	{ PCI_DEVICE(0x1002, 0x73A0), .driver_data = CHIP_SIENNA_CICHLID },
++	{ PCI_DEVICE(0x1002, 0x73A1), .driver_data = CHIP_SIENNA_CICHLID },
++	{ PCI_DEVICE(0x1002, 0x73A2), .driver_data = CHIP_SIENNA_CICHLID },
++	{ PCI_DEVICE(0x1002, 0x73A3), .driver_data = CHIP_SIENNA_CICHLID },
++	{ PCI_DEVICE(0x1002, 0x73A5), .driver_data = CHIP_SIENNA_CICHLID },
++	{ PCI_DEVICE(0x1002, 0x73A8), .driver_data = CHIP_SIENNA_CICHLID },
++	{ PCI_DEVICE(0x1002, 0x73A9), .driver_data = CHIP_SIENNA_CICHLID },
++	{ PCI_DEVICE(0x1002, 0x73AB), .driver_data = CHIP_SIENNA_CICHLID },
++	{ PCI_DEVICE(0x1002, 0x73AC), .driver_data = CHIP_SIENNA_CICHLID },
++	{ PCI_DEVICE(0x1002, 0x73AD), .driver_data = CHIP_SIENNA_CICHLID },
++	{ PCI_DEVICE(0x1002, 0x73AE), .driver_data = CHIP_SIENNA_CICHLID },
++	{ PCI_DEVICE(0x1002, 0x73AF), .driver_data = CHIP_SIENNA_CICHLID },
++	{ PCI_DEVICE(0x1002, 0x73BF), .driver_data = CHIP_SIENNA_CICHLID },
+ 
+ 	/* Yellow Carp */
+-	{0x1002, 0x164D, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_YELLOW_CARP|AMD_IS_APU},
+-	{0x1002, 0x1681, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_YELLOW_CARP|AMD_IS_APU},
++	{ PCI_DEVICE(0x1002, 0x164D), .driver_data = CHIP_YELLOW_CARP|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x1681), .driver_data = CHIP_YELLOW_CARP|AMD_IS_APU },
+ 
+ 	/* Navy_Flounder */
+-	{0x1002, 0x73C0, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVY_FLOUNDER},
+-	{0x1002, 0x73C1, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVY_FLOUNDER},
+-	{0x1002, 0x73C3, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVY_FLOUNDER},
+-	{0x1002, 0x73DA, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVY_FLOUNDER},
+-	{0x1002, 0x73DB, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVY_FLOUNDER},
+-	{0x1002, 0x73DC, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVY_FLOUNDER},
+-	{0x1002, 0x73DD, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVY_FLOUNDER},
+-	{0x1002, 0x73DE, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVY_FLOUNDER},
+-	{0x1002, 0x73DF, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_NAVY_FLOUNDER},
++	{ PCI_DEVICE(0x1002, 0x73C0), .driver_data = CHIP_NAVY_FLOUNDER },
++	{ PCI_DEVICE(0x1002, 0x73C1), .driver_data = CHIP_NAVY_FLOUNDER },
++	{ PCI_DEVICE(0x1002, 0x73C3), .driver_data = CHIP_NAVY_FLOUNDER },
++	{ PCI_DEVICE(0x1002, 0x73DA), .driver_data = CHIP_NAVY_FLOUNDER },
++	{ PCI_DEVICE(0x1002, 0x73DB), .driver_data = CHIP_NAVY_FLOUNDER },
++	{ PCI_DEVICE(0x1002, 0x73DC), .driver_data = CHIP_NAVY_FLOUNDER },
++	{ PCI_DEVICE(0x1002, 0x73DD), .driver_data = CHIP_NAVY_FLOUNDER },
++	{ PCI_DEVICE(0x1002, 0x73DE), .driver_data = CHIP_NAVY_FLOUNDER },
++	{ PCI_DEVICE(0x1002, 0x73DF), .driver_data = CHIP_NAVY_FLOUNDER },
+ 
+ 	/* DIMGREY_CAVEFISH */
+-	{0x1002, 0x73E0, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_DIMGREY_CAVEFISH},
+-	{0x1002, 0x73E1, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_DIMGREY_CAVEFISH},
+-	{0x1002, 0x73E2, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_DIMGREY_CAVEFISH},
+-	{0x1002, 0x73E3, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_DIMGREY_CAVEFISH},
+-	{0x1002, 0x73E8, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_DIMGREY_CAVEFISH},
+-	{0x1002, 0x73E9, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_DIMGREY_CAVEFISH},
+-	{0x1002, 0x73EA, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_DIMGREY_CAVEFISH},
+-	{0x1002, 0x73EB, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_DIMGREY_CAVEFISH},
+-	{0x1002, 0x73EC, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_DIMGREY_CAVEFISH},
+-	{0x1002, 0x73ED, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_DIMGREY_CAVEFISH},
+-	{0x1002, 0x73EF, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_DIMGREY_CAVEFISH},
+-	{0x1002, 0x73FF, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_DIMGREY_CAVEFISH},
++	{ PCI_DEVICE(0x1002, 0x73E0), .driver_data = CHIP_DIMGREY_CAVEFISH },
++	{ PCI_DEVICE(0x1002, 0x73E1), .driver_data = CHIP_DIMGREY_CAVEFISH },
++	{ PCI_DEVICE(0x1002, 0x73E2), .driver_data = CHIP_DIMGREY_CAVEFISH },
++	{ PCI_DEVICE(0x1002, 0x73E3), .driver_data = CHIP_DIMGREY_CAVEFISH },
++	{ PCI_DEVICE(0x1002, 0x73E8), .driver_data = CHIP_DIMGREY_CAVEFISH },
++	{ PCI_DEVICE(0x1002, 0x73E9), .driver_data = CHIP_DIMGREY_CAVEFISH },
++	{ PCI_DEVICE(0x1002, 0x73EA), .driver_data = CHIP_DIMGREY_CAVEFISH },
++	{ PCI_DEVICE(0x1002, 0x73EB), .driver_data = CHIP_DIMGREY_CAVEFISH },
++	{ PCI_DEVICE(0x1002, 0x73EC), .driver_data = CHIP_DIMGREY_CAVEFISH },
++	{ PCI_DEVICE(0x1002, 0x73ED), .driver_data = CHIP_DIMGREY_CAVEFISH },
++	{ PCI_DEVICE(0x1002, 0x73EF), .driver_data = CHIP_DIMGREY_CAVEFISH },
++	{ PCI_DEVICE(0x1002, 0x73FF), .driver_data = CHIP_DIMGREY_CAVEFISH },
+ 
+ 	/* Aldebaran */
+-	{0x1002, 0x7408, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_ALDEBARAN},
+-	{0x1002, 0x740C, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_ALDEBARAN},
+-	{0x1002, 0x740F, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_ALDEBARAN},
+-	{0x1002, 0x7410, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_ALDEBARAN},
++	{ PCI_DEVICE(0x1002, 0x7408), .driver_data = CHIP_ALDEBARAN },
++	{ PCI_DEVICE(0x1002, 0x740C), .driver_data = CHIP_ALDEBARAN },
++	{ PCI_DEVICE(0x1002, 0x740F), .driver_data = CHIP_ALDEBARAN },
++	{ PCI_DEVICE(0x1002, 0x7410), .driver_data = CHIP_ALDEBARAN },
+ 
+ 	/* CYAN_SKILLFISH */
+-	{0x1002, 0x13DB, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_CYAN_SKILLFISH|AMD_IS_APU},
+-	{0x1002, 0x13F9, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_CYAN_SKILLFISH|AMD_IS_APU},
+-	{0x1002, 0x13FA, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_CYAN_SKILLFISH|AMD_IS_APU},
+-	{0x1002, 0x13FB, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_CYAN_SKILLFISH|AMD_IS_APU},
+-	{0x1002, 0x13FC, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_CYAN_SKILLFISH|AMD_IS_APU},
+-	{0x1002, 0x13FE, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_CYAN_SKILLFISH|AMD_IS_APU},
+-	{0x1002, 0x143F, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_CYAN_SKILLFISH|AMD_IS_APU},
++	{ PCI_DEVICE(0x1002, 0x13DB), .driver_data = CHIP_CYAN_SKILLFISH|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x13F9), .driver_data = CHIP_CYAN_SKILLFISH|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x13FA), .driver_data = CHIP_CYAN_SKILLFISH|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x13FB), .driver_data = CHIP_CYAN_SKILLFISH|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x13FC), .driver_data = CHIP_CYAN_SKILLFISH|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x13FE), .driver_data = CHIP_CYAN_SKILLFISH|AMD_IS_APU },
++	{ PCI_DEVICE(0x1002, 0x143F), .driver_data = CHIP_CYAN_SKILLFISH|AMD_IS_APU },
+ 
+ 	/* BEIGE_GOBY */
+-	{0x1002, 0x7420, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_BEIGE_GOBY},
+-	{0x1002, 0x7421, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_BEIGE_GOBY},
+-	{0x1002, 0x7422, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_BEIGE_GOBY},
+-	{0x1002, 0x7423, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_BEIGE_GOBY},
+-	{0x1002, 0x7424, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_BEIGE_GOBY},
+-	{0x1002, 0x743F, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_BEIGE_GOBY},
++	{ PCI_DEVICE(0x1002, 0x7420), .driver_data = CHIP_BEIGE_GOBY },
++	{ PCI_DEVICE(0x1002, 0x7421), .driver_data = CHIP_BEIGE_GOBY },
++	{ PCI_DEVICE(0x1002, 0x7422), .driver_data = CHIP_BEIGE_GOBY },
++	{ PCI_DEVICE(0x1002, 0x7423), .driver_data = CHIP_BEIGE_GOBY },
++	{ PCI_DEVICE(0x1002, 0x7424), .driver_data = CHIP_BEIGE_GOBY },
++	{ PCI_DEVICE(0x1002, 0x743F), .driver_data = CHIP_BEIGE_GOBY },
+ 
+ 	{ PCI_DEVICE(0x1002, PCI_ANY_ID),
+ 	  .class = PCI_CLASS_DISPLAY_VGA << 8,
+@@ -2188,7 +2188,7 @@ static const struct pci_device_id pciidlist[] = {
+ 	  .class_mask = 0xffffff,
+ 	  .driver_data = CHIP_IP_DISCOVERY },
+ 
+-	{0, 0, 0}
++	{ }
  };
  
- #define RZG2L_DU_MAX_CRTCS		1
-diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
-index d53068733c66..ad02efec1c23 100644
---- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
-+++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
-@@ -50,8 +50,11 @@ rzg2l_du_encoder_mode_valid(struct drm_encoder *encoder,
- 			    const struct drm_display_mode *mode)
- {
- 	struct rzg2l_du_encoder *renc = to_rzg2l_encoder(encoder);
-+	const struct rzg2l_du_device_info *info = renc->info;
- 
--	if (renc->output == RZG2L_DU_OUTPUT_DPAD0 && mode->clock > 83500)
-+	if (info->mode_clock_min && mode->clock < info->mode_clock_min)
-+		return MODE_CLOCK_LOW;
-+	if (info->mode_clock_max && mode->clock > info->mode_clock_max)
- 		return MODE_CLOCK_HIGH;
- 
- 	return MODE_OK;
-@@ -107,6 +110,7 @@ int rzg2l_du_encoder_init(struct rzg2l_du_device  *rcdu,
- 	if (IS_ERR(renc))
- 		return PTR_ERR(renc);
- 
-+	renc->info = rcdu->info;
- 	renc->output = output;
- 	drm_encoder_helper_add(&renc->base, &rzg2l_du_encoder_helper_funcs);
- 
-diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.h b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.h
-index 3e430c1f6132..39a1d178b856 100644
---- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.h
-+++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.h
-@@ -14,10 +14,12 @@
- #include <linux/container_of.h>
- 
- struct rzg2l_du_device;
-+struct rzg2l_du_device_info;
- 
- struct rzg2l_du_encoder {
- 	struct drm_encoder base;
- 	enum rzg2l_du_output output;
-+	const struct rzg2l_du_device_info *info;
- };
- 
- static inline struct rzg2l_du_encoder *to_rzg2l_encoder(struct drm_encoder *e)
+ MODULE_DEVICE_TABLE(pci, pciidlist);
+
+base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
 -- 
-2.54.0
+2.47.3
 
