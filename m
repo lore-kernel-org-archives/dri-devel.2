@@ -4,55 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77273CD3421
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 07:38:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27885CD3424
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 07:38:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C65710F267;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CCA910F268;
 	Thu, 30 Apr 2026 07:38:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=web04.chillydomains.com header.i=@web04.chillydomains.com header.b="nGSlbyXY";
+	dkim=pass (2048-bit key; unprotected) header.d=wp.pl header.i=@wp.pl header.b="JHtPYgh1";
 	dkim-atps=neutral
-Received: from web04.chillydomains.com (web04.chillydomains.com
- [193.19.92.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A845610E400
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 20:00:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=web04.chillydomains.com; s=dkim; h=From:To:Cc:Subject:Date:
- Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
- Content-Transfer-Encoding; bh=OaxA1KOQqFLnJwD8i8nhUbyHPWKOXYrj9Z
- YYoAP/kX0=; b=nGSlbyXYUKfQkPQwkan4V4FLTl1ALcyBc3+tUwIgRQWWxv/h2n
- pesTI414bf4N64kRjBeEU7tiq8EUc8Lt3K2VyQKx7gi/uE4xPiUZHDrY7kp9b/F4
- oHJit6O9XlrqQYW4MFIBZkv9UdCHcSUMc/OMHRIvBSZtRhCECuv3o9eU3XyLpG9V
- TmJpMAYX7743WkMFHRFlvFATt01iFwwFinKlU6eewGwo3VYsymZlNMdFiI2mRIYh
- 3iMb+uUxr9SNY/mp3eHMABzA11kKqFvixLvby1WpBK3B2ddPiE27Vcc8VDeuGFsT
- ba9CvK9bEPNHt4W5Utk1BeuDJEL0QbRF4MgA==
-Received: (qmail 2740071 invoked by uid 7799); 29 Apr 2026 21:53:35 +0200
-Received: by simscan 1.4.0 ppid: 2740007, pid: 2740026, t: 0.6149s
- scanners: clamav: 0.103.9/m:62/d:27778
-Received: from 31.29.52.71.dynamic-pppoe.dt.ipv4.wtnet.de (HELO localhost)
- (automation@reauktion.de@31.29.52.71) by web04.chillydomains.com with SMTP
- [64183]; 29 Apr 2026 21:53:35 +0200
-From: Markus Fritsche <mfritsche@reauktion.de>
-To: Tomasz Figa <tfiga@chromium.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
- Philipp Zabel <p.zabel@pengutronix.de>, Jacob Chen <jacob-chen@iotwrt.com>,
- Heiko Stuebner <heiko@sntech.de>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org
-Subject: [PATCH RFC 3/3] media: rockchip-rga: attach dma_resv release fence at
- buf_queue
-Date: Wed, 29 Apr 2026 19:53:06 +0000
-Message-ID: <20260429195306.239666-4-mfritsche@reauktion.de>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260429195306.239666-1-mfritsche@reauktion.de>
-References: <20260429195306.239666-1-mfritsche@reauktion.de>
+X-Greylist: delayed 398 seconds by postgrey-1.36 at gabe;
+ Wed, 29 Apr 2026 14:59:50 UTC
+Received: from mx4.wp.pl (mx4.wp.pl [212.77.101.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCFF510E3D2
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 14:59:50 +0000 (UTC)
+Received: (wp-smtpd smtp.wp.pl 12595 invoked from network);
+ 29 Apr 2026 16:53:09 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wp.pl; s=20241105;
+ t=1777474389; bh=2EzLsK3dPdwQhRqtgs1uQhBX7/rO+UXVSA0tgiKAW+o=;
+ h=From:To:Cc:Subject;
+ b=JHtPYgh1MlDjCXYn190Tbn9TSHTjqBI+dLtSyA1EAMun+KnAWbO+4fcomlbdI8Vgd
+ hsLsuMLos6R8/O/i1IlQBA5j2VxCHq4MbJ72qhnMlP6p64EPAJNPxNRlpi5r6MZVZE
+ cqpmXpvzROncxCn5UGLVapRteibqNB+PWObGI7hamDtuCA/QYwCIEH6eh+Y4K/ft1O
+ y8rfFKq30unYi31igmEt7+tSAiOpntXU5ByOb+4jVkroA1LahMUkD8FWMnKbBU42DN
+ xSeAjNLhPgFoala23XmCAtvJ6gXG+dZ3LnRGs/XdBD/p436Q/vGqFsznFMvekbkYv1
+ rldRjzwpx1uOQ==
+Received: from host18560247242.static.ssm.silesia.pl (HELO
+ ad-Inspiron-14-5441) (adamszyma@wp.pl@[185.60.247.242])
+ (envelope-sender <adamszyma@wp.pl>)
+ by smtp.wp.pl (WP-SMTPD) with TLS_AES_256_GCM_SHA384 encrypted SMTP
+ for <dri-devel@lists.freedesktop.org>; 29 Apr 2026 16:53:09 +0200
+From: Adam Szyma <adamszyma@wp.pl>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Adam Szyma <adamszyma@wp.pl>
+Subject: [PATCH] drm/panel/panel-edp: Add CSOT MPP36 T9 eDP panel
+Date: Wed, 29 Apr 2026 16:52:51 +0200
+Message-ID: <20260429145251.8445-1-adamszyma@wp.pl>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-WP-DKIM-Status: good (id: wp.pl) 
+X-WP-MailID: 52877e715a37717fcd09a35489c6c1be
+X-WP-AV: skaner antywirusowy Poczty Wirtualnej Polski
+X-WP-SPAM: NO 0000000 [YVPN]                               
 X-Mailman-Approved-At: Thu, 30 Apr 2026 07:37:56 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,45 +66,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Opt the Rockchip RGA driver into the new vb2 release-fence helper.
+Add support for the CSOT MPP36 T9 eDP panel (manufacturer ID: CSW,
+product ID: 0x143d) used in the Dell Inspiron 14 Plus 5441 laptop.
 
-Same shape as the hantro patch: rga_buf_queue enqueues the buffer
-in the driver's m2m queue via v4l2_m2m_buf_queue and additionally
-attaches a release fence to each plane's dmabuf->resv via
-vb2_buffer_attach_release_fence(). vb2_buffer_done signals the
-fence when RGA completes the M2M operation.
+Without this entry the kernel logs:
+  panel-simple-dp-aux: Unknown panel CSW 0x143d, using conservative timings
 
-Userspace consumers of RGA-produced dmabufs (image-processing
-pipelines, screen-rotation servers, gstreamer flows on Rockchip
-boards) get spec-clean implicit-sync semantics, matching what
-hantro now does in the same patch series.
+and brightness control is non-functional on affected devices.
 
-Signed-off-by: Markus Fritsche <mfritsche@reauktion.de>
+Tested-by: Adam Szyma <adamszyma@wp.pl>
+Signed-off-by: Adam Szyma <adamszyma@wp.pl>
 ---
- drivers/media/platform/rockchip/rga/rga-buf.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/gpu/drm/panel/panel-edp.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/media/platform/rockchip/rga/rga-buf.c b/drivers/media/platform/rockchip/rga/rga-buf.c
-index 70808049d..5557ca632 100644
---- a/drivers/media/platform/rockchip/rga/rga-buf.c
-+++ b/drivers/media/platform/rockchip/rga/rga-buf.c
-@@ -153,6 +153,16 @@ static void rga_buf_queue(struct vb2_buffer *vb)
- 	struct rga_ctx *ctx = vb2_get_drv_priv(vb->vb2_queue);
- 
- 	v4l2_m2m_buf_queue(ctx->fh.m2m_ctx, vbuf);
-+
-+	/*
-+	 * Opt in to vb2's dma_resv release-fence path so userspace
-+	 * consumers of RGA-produced dmabufs get a real producer fence
-+	 * to wait on instead of the dma_buf core's stub fence. See
-+	 * the leading patch in this series for rationale. Best-effort:
-+	 * fence-allocation failure means we lose implicit-sync
-+	 * precision but the m2m operation itself proceeds normally.
-+	 */
-+	(void)vb2_buffer_attach_release_fence(vb);
- }
- 
- static void rga_buf_cleanup(struct vb2_buffer *vb)
+diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
+index f3cdaea89..0d0072f29 100644
+--- a/drivers/gpu/drm/panel/panel-edp.c
++++ b/drivers/gpu/drm/panel/panel-edp.c
+@@ -2073,6 +2073,7 @@ static const struct edp_panel_entry edp_panels[] = {
+ 	EDP_PANEL_ENTRY('C', 'S', 'W', 0x1103, &delay_200_500_e80_d50, "MNB601LS1-3"),
+ 	EDP_PANEL_ENTRY('C', 'S', 'W', 0x1104, &delay_200_500_e50_d100, "MNB601LS1-4"),
+ 	EDP_PANEL_ENTRY('C', 'S', 'W', 0x110a, &delay_200_500_e50, "PNB601LS1-2"),
++	EDP_PANEL_ENTRY('C', 'S', 'W', 0x143d, &delay_200_500_e50, "MPP36 CSOT T9"),
+ 	EDP_PANEL_ENTRY('C', 'S', 'W', 0x143f, &delay_200_500_e50, "MNE007QS3-6"),
+ 	EDP_PANEL_ENTRY('C', 'S', 'W', 0x1448, &delay_200_500_e50, "MNE007QS3-7"),
+ 	EDP_PANEL_ENTRY('C', 'S', 'W', 0x144b, &delay_200_500_e80, "MNE001BS1-4"),
 -- 
-2.47.3
+2.53.0
 
