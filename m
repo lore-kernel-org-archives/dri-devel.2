@@ -4,54 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D6CFCD1297
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 13:40:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C2DEFF8867
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 13:41:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09F3610F012;
-	Wed, 29 Apr 2026 13:40:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7038410F015;
+	Wed, 29 Apr 2026 13:41:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="RZZ+cyIc";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lX7oNLJb";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6824710F01E
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 13:40:22 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 85488C5EF2A;
- Wed, 29 Apr 2026 13:41:04 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 66378601DF;
- Wed, 29 Apr 2026 13:40:20 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id BB82E10729DF7; 
- Wed, 29 Apr 2026 15:40:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1777470015; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:content-language:in-reply-to:references;
- bh=PT9GRRbeJ/cph6+zH69L1Yz0rfwQkgNxdEF+Q//Gyeg=;
- b=RZZ+cyIc2VvXLM6buu74ESrr0/OnXsrkuOqg9n3ht9wjJqfmHQnQLzwa0ZsgLIU0JNsw6C
- XTFDLzQJqychAvQRNcmq1htXkf9GlEZ6PCdQVYd+DiB+ard/8gN6U44Acg/zHWN7PWVbAA
- 6CblIB2JRg/aGyfFXwwcwY3/OhBqp+sBNkjRs1ghV0DSlrBDIDVJaLQGwJGTFQiE93hIuM
- GcBXFQ5fp3N+TKUj8j/qGzysN622iCqcciP/Eowd92DFVTmfM6vzt7uEipHAkSl95GwPjb
- LcTzPSc2NbZcCMgqDpys8+Nt9wZgWUDrRhpctIDV+2GBjR4/VIO12JACg0uR8A==
-Message-ID: <a30256a6-e451-4258-89e8-c92a83db6162@bootlin.com>
-Date: Wed, 29 Apr 2026 15:39:30 +0200
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DAEB10F015
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 13:41:01 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-4891b0786beso91458285e9.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 06:41:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1777470059; x=1778074859; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=SE1WBDEAJ1UYNmcfE47F7BEz7WO16H1bRtYL6mvQ6Xs=;
+ b=lX7oNLJbCgDx+iA3Bj20OQQV2n3xgdVoRx+fox6VUp13XH5DJ1hfdEU9WSQe+502e6
+ dpQhHRE5iLv5isMAacbeBmpxK9AY/2Qu3X/dmtHaN6gspCvPqpcE8J+1QPsd+D4V95yQ
+ MF5WQSdT3Nagm9ibtsj4Dy5NrVuWWm+gdamNBhP7IQzwVZSG1aCPqdqcaGUqiutZWL5H
+ ycRswKOoFnBhEORpDVctCi0HneWyR1XN9MeoDeNG8Df1jo2wfmiZyxCmoei73pe4zpKk
+ FHFI2eQIkrqQVzwrP++ahO/HDF2MxvzKB+G5Cks3Q8FVQYE/vupJtxVIyObUQ3p4/gaj
+ l3hw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777470059; x=1778074859;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=SE1WBDEAJ1UYNmcfE47F7BEz7WO16H1bRtYL6mvQ6Xs=;
+ b=Uaa6Gsm4+XWnMB/1wnF3tybnRBarI9mD37s/bb7LiiDZY0UHyeGZzzJ3zEwL/qZbBT
+ TGKlXWJHUdQf9jCRDrDPxqg0xQjnbAbBM8XfclP+o0+NIMHpbBAnjD8ryY80OAEqh0Ql
+ 8kTmaTGiFckoaYrcjTM0gvzoiXoGNXGmBQ+Bix1X/ejfEnEpXs01WMo4pIiWQg9Fv4nl
+ yoh3ShNVx3WORv/2JXRA3ODgYS/zbzTEJxYnteuZSk1Hv6QDW4dCVgp8PIRov4hOXnZs
+ aM5wKOfWiMeij6qiymcXG+6xU5mUIRtsTCVNDJ05mFmavGt0sPdaWpE5tVZ2FHdLBhnv
+ ho2g==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8zeijNJ45uqHeYGNKKVfYyeEygq5PcA1SzSSCDl6td1Y1T505tVzf7+pClz/Ad4qLmGYuR8sBxOUw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx3/Ye4XcKZooRvmyVhZ4+E3Q3Dm91PYdu2VETpRltigelM43fu
+ C/NIi24xSxMFux5JOblGnEIz56PYTciuFIcWunDnmS+Hg0rk/fPACZi1
+X-Gm-Gg: AeBDieuMexr8I8lz+oUiTLanFFXoH5AhDPrs5ya6mwBm23mJJ3qHyVdF2ELso1PHVOf
+ lRqCNMOT/cJIA8txKkfsZeFYvj/Q0pGXIw3Qc1gnujPtw5QRPpfIQRY4YHRSVliSCUX2zlT5mG1
+ /uqifuzJ8baq0qXhqCFGYky9cFcFmRdwViMwUdIvrKfCb4fc4PdJlkGRxUmkMmhqfqR42E7i9UR
+ sN8FtH+AP1iuSIganP6HXEpwdxMdDIzFelzpEmeqCxuhgi1lcymH7Q8CzhhbATloLATTKkKDIOU
+ cqL5K0fg/a1NaJIMnO3xRc34t+LTa90EZaHz6uLEL/NT4K8PLOb4U5+wnWeThp8nY0JassBPjrj
+ ABeIibi3nku/HhOvr6KqkFhxIByHODeFUwSehTBs8H7clwWZXTCi1vuqnq7z/GMGpclSmO7lqaF
+ BHctqOuUSIM8W0CxtNNHd7xN7e3qd3WvdlDrOUb/vylJ/56eVIY/KeoMKbPmO6ylComydI2sdPs
+ /hOr1FEJw==
+X-Received: by 2002:a05:600c:4e4b:b0:488:be58:bb5b with SMTP id
+ 5b1f17b1804b1-48a7b547375mr70268735e9.24.1777470059359; 
+ Wed, 29 Apr 2026 06:40:59 -0700 (PDT)
+Received: from ?IPV6:2001:861:3385:e20:f99c:d6cf:27e6:2b03?
+ ([2001:861:3385:e20:f99c:d6cf:27e6:2b03])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-48a7c57b579sm56656275e9.4.2026.04.29.06.40.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 29 Apr 2026 06:40:58 -0700 (PDT)
+Message-ID: <2d81e7f6-b6e4-4e3e-bd75-315c696c003a@gmail.com>
+Date: Wed, 29 Apr 2026 15:40:28 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm: Fix DYNAMIC_DEBUG_MODULE propagation to
- subdirectories
-To: Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org
-Cc: Sean Paul <seanpaul@google.com>,
+Subject: Re: [PATCH v3 1/3] drm/sti: remove bridge when sti_hda component_add
+ fails
+To: Osama Abdelkader <osama.abdelkader@gmail.com>, luca.ceresoli@bootlin.com, 
+ Alain Volmat <alain.volmat@foss.st.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jim Cromie <jim.cromie@gmail.com>
-References: <20260420160425.3919114-1-sean@poorly.run>
-From: Louis Chauvet <louis.chauvet@bootlin.com>
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+References: <20260423200622.325076-1-osama.abdelkader@gmail.com>
 Content-Language: en-US
-In-Reply-To: <20260420160425.3919114-1-sean@poorly.run>
+From: =?UTF-8?Q?Rapha=C3=ABl_Gallais-Pou?= <rgallaispou@gmail.com>
+In-Reply-To: <20260423200622.325076-1-osama.abdelkader@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,39 +101,20 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 
-On 4/20/26 18:04, Sean Paul wrote:
-> From: Sean Paul <seanpaul@google.com>
+On 4/23/26 22:06, Osama Abdelkader wrote:
+> Use devm_drm_bridge_add() so the bridge is released if probe fails after
+> registration, and drop the manual drm_bridge_remove() in remove().
 > 
-> Switch incompatible CFLAGS-y to ccflags-* and propagate the flag
-> to subdirectories to avoid implicit declaration errors for
-> _dynamic_func_call_cls when DRM_USE_DYNAMIC_DEBUG is enabled.
+> Check the return value of devm_drm_bridge_add().
 > 
-> Note that this flag is still disabled due to depends on BROKEN.
-> 
-> Fixes: 84ec67288c10 ("drm_print: wrap drm_*_dbg in dyndbg descriptor factory macro")
-> Signed-off-by: Sean Paul <seanpaul@google.com>
-
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
-
+> Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+> Fixes: d28726efc637 ("drm/sti: hda: add bridge before attaching")
+> Cc: stable@vger.kernel.org
 > ---
-> 
-> a wild seanpaul appears...
-> 
->   drivers/gpu/drm/Makefile | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-> index e97faabcd783..7082ff6449fb 100644
-> --- a/drivers/gpu/drm/Makefile
-> +++ b/drivers/gpu/drm/Makefile
-> @@ -3,7 +3,8 @@
->   # Makefile for the drm device driver.  This driver provides support for the
->   # Direct Rendering Infrastructure (DRI) in XFree86 4.1.0 and higher.
->   
-> -CFLAGS-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)	+= -DDYNAMIC_DEBUG_MODULE
-> +ccflags-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)	+= -DDYNAMIC_DEBUG_MODULE
-> +subdir-ccflags-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)	+= -DDYNAMIC_DEBUG_MODULE
->   
->   # Unconditionally enable W=1 warnings locally
->   # --- begin copy-paste W=1 warnings from scripts/Makefile.warn
+Hi Osama,
 
+Acked-by: Raphaël Gallais-Pou <rgallaispou@gmail.com>
+
+Thanks,
+Best regards,
+Raphaël
