@@ -4,52 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDD59CCFA13
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 18:33:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED7C0CCFA13
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 18:33:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3775610F11C;
-	Wed, 29 Apr 2026 18:33:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 506E310F11F;
+	Wed, 29 Apr 2026 18:33:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="KuwVpW3Q";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="JAjJ3VFk";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66DDE10F11C
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 18:33:21 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1777487591; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9FDF10F11C
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 18:33:24 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1777487593; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=k17E9lZP1Tpc0njckUItHmyGVrDsqhjpsmoawJ7eimxPeN9bhPOb9ol20wWtEq7kG6UkCmjr/G/QMw5rdl7mAgvKJr/ZXmW2LMRVnEmoW/f64VWPGN8Hf24n/iTPxX2atoSoa/HISfCkV+fuDYvf+AhGk1fWcuqqAzc6ofZla98=
+ b=b6Afx1RoUZjM0HdtpKY8ZAwnxt2w4ohYe6ro8wxNUwyP4cUhmJLkH+rvg2rQBILJrNmzDDrmK1gMEBHf75O6O/YBzgm5OxpHdzN581doUpSRVpePI2+pg0xbXcLF50SCnEjSHKTkhC+Oxc7ehEL56yzylp3cyWpjDMgC4C/+/vs=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1777487591;
+ s=zohoarc; t=1777487593;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=TDrcB9ymQKzDhvp0iWYAQfC2xlKOmF7TeTcK83C1p1Q=; 
- b=VS3C221fGN/vLZpFXG1mPHUoS9zem3KmXs5j6Wc+rFh5yC7QvU/hPefRLGtDEyGi/2NBfBuSGPQ71U7Zq7nP9V6NvN2SXfQXSSCbTTZF15WLm+8Mn/3QcERv1S7GATLF8BoyRxsztBtBtdWUscy+vCb94TXIVUUcRbsKPJrnbYg=
+ bh=do/tIM3Ojb1Vv1appOYmHiLTKOw9/ngQpz7qtd/LP/Q=; 
+ b=VHE1Rdd36UtQTdbTN9XPIWSCVixgNcpxSvz3YkhTs3J36MJ76YEvNE0qK8sS3g8TmZcR35xoveBd/DdJOrVGo3PCjNOvCECd44PYIl+0Pz+QSJMdBavCAejLM1qgA3ZwOvnfhkF9TIA58ZHHKcZ7BTFJFwG8/8UbbZpEUnibAQE=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
  dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1777487591; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1777487593; 
  s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
  h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=TDrcB9ymQKzDhvp0iWYAQfC2xlKOmF7TeTcK83C1p1Q=;
- b=KuwVpW3QBBOInMrAJGJwm/LaiftKiBnOtO6dXeLxdTFGkqEzbgYEiMaHbj36J8uF
- 5qoHo4pXKKCL2rgqyW+PMpVVSMUAHerypGXCOZLTdw3WH5XCje6woOyFoI6HqNheUsW
- SA0lqqceusHXVkBLt6P/A5qfbYuTVNdxoQFkqVEU=
-Received: by mx.zohomail.com with SMTPS id 1777487588957587.4463914004434;
- Wed, 29 Apr 2026 11:33:08 -0700 (PDT)
+ bh=do/tIM3Ojb1Vv1appOYmHiLTKOw9/ngQpz7qtd/LP/Q=;
+ b=JAjJ3VFkcXmxZtM2c2L3wcFh1xQ8gnzZV4lXc4snrxt7bxysHn4IB3J217P1JnLI
+ XdgdidY7bB8s2u8nYfRF/lVi+7pCXqTQ8o43HeJWKEoM2yU0AysRJXydSRZnoHEYWkz
+ lsnE3x99XsUAKIbZ/Mekblb62eNRG+Wm+X6gqBQI=
+Received: by mx.zohomail.com with SMTPS id 1777487592130183.52737405411426;
+ Wed, 29 Apr 2026 11:33:12 -0700 (PDT)
 From: =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>
 To: linux-kernel@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org, Steven Price <steven.price@arm.com>,
  Boris Brezillon <boris.brezillon@collabora.com>, kernel@collabora.com,
  =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>,
  Liviu Dudau <liviu.dudau@arm.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Subject: [PATCH v10 2/6] drm/panthor: Pass vm_bind_op to vm_prepare_map_op_ctx
-Date: Wed, 29 Apr 2026 19:32:14 +0100
-Message-ID: <20260429183253.66422-3-adrian.larumbe@collabora.com>
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v10 3/6] drm/panthor: Delete spurious whitespace from uAPI
+ header
+Date: Wed, 29 Apr 2026 19:32:15 +0100
+Message-ID: <20260429183253.66422-4-adrian.larumbe@collabora.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260429183253.66422-1-adrian.larumbe@collabora.com>
 References: <20260429183253.66422-1-adrian.larumbe@collabora.com>
@@ -71,95 +73,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Instead of passing its constituent elements, pass the whole struct to
-simplify the function prototype.
+There's no extra blank line after the last member of any other uAPI
+structures, so delete it.
 
 Reviewed-by: Steven Price <steven.price@arm.com>
 Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 ---
- drivers/gpu/drm/panthor/panthor_mmu.c | 27 ++++++++++++++-------------
- 1 file changed, 14 insertions(+), 13 deletions(-)
+ include/uapi/drm/panthor_drm.h | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-index 9b526b61d96d..d35e65cab2b1 100644
---- a/drivers/gpu/drm/panthor/panthor_mmu.c
-+++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-@@ -1275,9 +1275,7 @@ static int panthor_vm_op_ctx_prealloc_pts(struct panthor_vm_op_ctx *op_ctx)
- static int panthor_vm_prepare_map_op_ctx(struct panthor_vm_op_ctx *op_ctx,
- 					 struct panthor_vm *vm,
- 					 struct panthor_gem_object *bo,
--					 u64 offset,
--					 u64 size, u64 va,
--					 u32 flags)
-+					 const struct drm_panthor_vm_bind_op *op)
- {
- 	struct drm_gpuvm_bo *preallocated_vm_bo;
- 	struct sg_table *sgt = NULL;
-@@ -1286,12 +1284,12 @@ static int panthor_vm_prepare_map_op_ctx(struct panthor_vm_op_ctx *op_ctx,
- 	if (!bo)
- 		return -EINVAL;
+diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
+index b462752c793d..14a93a4ef6ff 100644
+--- a/include/uapi/drm/panthor_drm.h
++++ b/include/uapi/drm/panthor_drm.h
+@@ -677,7 +677,6 @@ struct drm_panthor_vm_bind_op {
+ 	 * This array shall not be empty for sync-only operations.
+ 	 */
+ 	struct drm_panthor_obj_array syncs;
+-
+ };
  
--	if ((flags & ~PANTHOR_VM_BIND_OP_MAP_FLAGS) ||
--	    (flags & DRM_PANTHOR_VM_BIND_OP_TYPE_MASK) != DRM_PANTHOR_VM_BIND_OP_TYPE_MAP)
-+	if ((op->flags & ~PANTHOR_VM_BIND_OP_MAP_FLAGS) ||
-+	    (op->flags & DRM_PANTHOR_VM_BIND_OP_TYPE_MASK) != DRM_PANTHOR_VM_BIND_OP_TYPE_MAP)
- 		return -EINVAL;
- 
- 	/* Make sure the VA and size are in-bounds. */
--	if (size > bo->base.size || offset > bo->base.size - size)
-+	if (op->size > bo->base.size || op->bo_offset > bo->base.size - op->size)
- 		return -EINVAL;
- 
- 	/* If the BO has an exclusive VM attached, it can't be mapped to other VMs. */
-@@ -1299,7 +1297,7 @@ static int panthor_vm_prepare_map_op_ctx(struct panthor_vm_op_ctx *op_ctx,
- 	    bo->exclusive_vm_root_gem != panthor_vm_root_gem(vm))
- 		return -EINVAL;
- 
--	panthor_vm_init_op_ctx(op_ctx, size, va, flags);
-+	panthor_vm_init_op_ctx(op_ctx, op->size, op->va, op->flags);
- 
- 	ret = panthor_vm_op_ctx_prealloc_vmas(op_ctx);
- 	if (ret)
-@@ -1328,7 +1326,7 @@ static int panthor_vm_prepare_map_op_ctx(struct panthor_vm_op_ctx *op_ctx,
- 	}
- 
- 	op_ctx->map.vm_bo = drm_gpuvm_bo_obtain_prealloc(preallocated_vm_bo);
--	op_ctx->map.bo_offset = offset;
-+	op_ctx->map.bo_offset = op->bo_offset;
- 
- 	ret = panthor_vm_op_ctx_prealloc_pts(op_ctx);
- 	if (ret)
-@@ -2848,10 +2846,7 @@ panthor_vm_bind_prepare_op_ctx(struct drm_file *file,
- 		gem = drm_gem_object_lookup(file, op->bo_handle);
- 		ret = panthor_vm_prepare_map_op_ctx(op_ctx, vm,
- 						    gem ? to_panthor_bo(gem) : NULL,
--						    op->bo_offset,
--						    op->size,
--						    op->va,
--						    op->flags);
-+						    op);
- 		drm_gem_object_put(gem);
- 		return ret;
- 
-@@ -3047,10 +3042,16 @@ int panthor_vm_bind_exec_sync_op(struct drm_file *file,
- int panthor_vm_map_bo_range(struct panthor_vm *vm, struct panthor_gem_object *bo,
- 			    u64 offset, u64 size, u64 va, u32 flags)
- {
-+	struct drm_panthor_vm_bind_op op = {
-+		.bo_offset = offset,
-+		.size = size,
-+		.va = va,
-+		.flags = flags,
-+	};
- 	struct panthor_vm_op_ctx op_ctx;
- 	int ret;
- 
--	ret = panthor_vm_prepare_map_op_ctx(&op_ctx, vm, bo, offset, size, va, flags);
-+	ret = panthor_vm_prepare_map_op_ctx(&op_ctx, vm, bo, &op);
- 	if (ret)
- 		return ret;
- 
+ /**
 -- 
 2.53.0
 
