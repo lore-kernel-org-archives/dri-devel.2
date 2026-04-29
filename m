@@ -4,46 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 294B6FF8873
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 20:46:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDCCDFF8875
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 20:52:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 504F010F174;
-	Wed, 29 Apr 2026 20:46:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CC5010F177;
+	Wed, 29 Apr 2026 20:52:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cS5ZSkTn";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ehVv79fg";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CE6C10E061;
- Wed, 29 Apr 2026 20:46:42 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 5906E6015B;
- Wed, 29 Apr 2026 20:46:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CBC3C19425;
- Wed, 29 Apr 2026 20:46:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777495601;
- bh=F70MUsM23vkCIM13pxF5Tha5sxcIj21SpuVSHYz6MC0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=cS5ZSkTn2/ybqBi1sQfuKxtBYuIZHehRk4/7UtLeVIy/Ks3oFeKEHVpBS7HCwiq3k
- kJFhhD8drEFzcb/h/uhY7ePh1JTndf+jt+zlsv+FXMxVtcFU7ormseKrq7HJRevfdQ
- tV4hOu1iDclJdtQMrtNq9oYhV4hmA+zKvwavI7HfNUIEY1ZbiDuuVu/nsx7oDPYSpn
- TbDG4SPMvWdzL7k3TQDRKQBQo3cY6Vx/HUtlFjjYAqbyr10V3g80tnsymh1A73T961
- fGJDS0mXbqpDa5FEZocYA3LanYMxW6P7YRVNky/n9GemQE9wOE2O+XwWlrv21UaJlX
- mRvN8bTqVC0mw==
-Date: Wed, 29 Apr 2026 13:46:37 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-Subject: Re: [PATCH v7 1/5] drm/gpusvm: Use dma-map IOVA alloc, link, and
- sync API in GPU SVM
-Message-ID: <20260429204637.GA3588527@ax162>
-References: <20260410205929.3914474-1-matthew.brost@intel.com>
- <20260410205929.3914474-2-matthew.brost@intel.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E04B210F177
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 20:52:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1777495967; x=1809031967;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=t6J/QpgKhqo+g3UxMSpwxIik3Rxf3VDliWWE7SALjD4=;
+ b=ehVv79fgZYzFVlD7c6tba9cFZEI6WJOT4qH4zDFlReczXeuSHFiaMH9u
+ C+l1u+tNywi4fNs2OaUI8/o5eX9PegvBw2PKxQy+pazM3zT9EHw0rbLYO
+ EoHM2mnC5py72lgYz+uKylzOXNuDRWPDPoTHROHAD+TyzbAAAhMoYnSbD
+ 302Z1v//km5s71fNbivOBqK4xTtILq9vNml1pRcK3faEFUyHKCLRc5hlh
+ RkvRmbF3uV0lIG2P9C0l2bRrq2dViwirqAejCIUkNMuE2J3PYVGYp3Jr5
+ DIGRvYg3aE3P3/ygt9VPx/7t3nZ35MIxtnUuuxJvLJLsVkQ9pyW1SjWA3 g==;
+X-CSE-ConnectionGUID: +RT8Uin2Q7yJQnqFT2AcJw==
+X-CSE-MsgGUID: l/4KTxyqT0qUgnt3h76Qqw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11771"; a="78490691"
+X-IronPort-AV: E=Sophos;i="6.23,206,1770624000"; d="scan'208";a="78490691"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Apr 2026 13:52:46 -0700
+X-CSE-ConnectionGUID: eUkiPU78Qr68qqHBWP/j7w==
+X-CSE-MsgGUID: nlvkbJkPQOix3Lyz/91o7g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,206,1770624000"; d="scan'208";a="272499912"
+Received: from dongwonk-z390-aorus-ultra.fm.intel.com ([10.105.158.5])
+ by orviesa001.jf.intel.com with ESMTP; 29 Apr 2026 13:52:46 -0700
+From: dongwon.kim@intel.com
+To: dri-devel@lists.freedesktop.org, airlied@redhat.com, kraxel@redhat.com,
+ dmitry.osipenko@collabora.com
+Subject: [PATCH v8 1/3] drm/virtio: Freeze and restore hooks to support
+ suspend and resume
+Date: Wed, 29 Apr 2026 13:47:27 -0700
+Message-Id: <20260429204729.993669-2-dongwon.kim@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260429204729.993669-1-dongwon.kim@intel.com>
+References: <20260429204729.993669-1-dongwon.kim@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260410205929.3914474-2-matthew.brost@intel.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,67 +67,175 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Matthew,
+From: Dongwon Kim <dongwon.kim@intel.com>
 
-On Fri, Apr 10, 2026 at 01:59:25PM -0700, Matthew Brost wrote:
-> diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
-> index 7993e85c0566..365a9c0b522a 100644
-> --- a/drivers/gpu/drm/drm_gpusvm.c
-> +++ b/drivers/gpu/drm/drm_gpusvm.c
-> @@ -1544,13 +1554,33 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
->  				goto err_unmap;
->  			}
->  
-> -			addr = dma_map_page(gpusvm->drm->dev,
-> -					    page, 0,
-> -					    PAGE_SIZE << order,
-> -					    dma_dir);
-> -			if (dma_mapping_error(gpusvm->drm->dev, addr)) {
-> -				err = -EFAULT;
-> -				goto err_unmap;
-> +			if (!i)
-> +				dma_iova_try_alloc(gpusvm->drm->dev, state,
-> +						   npages * PAGE_SIZE >=
-> +						   HPAGE_PMD_SIZE ?
-> +						   HPAGE_PMD_SIZE : 0,
-> +						   npages * PAGE_SIZE);
+virtio device needs to delete before VM suspend happens
+then reinitialize all virtqueues again upon resume
 
-This patch is in -next as commit 37ad039fb367 ("drm/gpusvm: Use dma-map
-IOVA alloc, link, and sync API in GPU SVM"), where it breaks the build
-for certain platforms such as ARM.
+v2: 10ms sleep was added in virtgpu_freeze to avoid the situation
+    the driver is locked up during resumption.
 
-  $ make -skj"$(nproc)" ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- mrproper allmodconfig drivers/gpu/drm/drm_gpusvm.o
-  In file included from <command-line>:
-  drivers/gpu/drm/drm_gpusvm.c: In function 'drm_gpusvm_get_pages':
-  include/linux/compiler_types.h:699:45: error: call to '__compiletime_assert_361' declared with attribute error: BUILD_BUG failed
-    699 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-        |                                             ^
-  include/linux/compiler_types.h:680:25: note: in definition of macro '__compiletime_assert'
-    680 |                         prefix ## suffix();                             \
-        |                         ^~~~~~
-  include/linux/compiler_types.h:699:9: note: in expansion of macro '_compiletime_assert'
-    699 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-        |         ^~~~~~~~~~~~~~~~~~~
-  include/linux/build_bug.h:40:37: note: in expansion of macro 'compiletime_assert'
-     40 | #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
-        |                                     ^~~~~~~~~~~~~~~~~~
-  include/linux/build_bug.h:60:21: note: in expansion of macro 'BUILD_BUG_ON_MSG'
-     60 | #define BUILD_BUG() BUILD_BUG_ON_MSG(1, "BUILD_BUG failed")
-        |                     ^~~~~~~~~~~~~~~~
-  include/linux/huge_mm.h:113:28: note: in expansion of macro 'BUILD_BUG'
-    113 | #define HPAGE_PMD_SHIFT ({ BUILD_BUG(); 0; })
-        |                            ^~~~~~~~~
-  include/linux/huge_mm.h:120:35: note: in expansion of macro 'HPAGE_PMD_SHIFT'
-    120 | #define HPAGE_PMD_SIZE  ((1UL) << HPAGE_PMD_SHIFT)
-        |                                   ^~~~~~~~~~~~~~~
-  drivers/gpu/drm/drm_gpusvm.c:1560:52: note: in expansion of macro 'HPAGE_PMD_SIZE'
-   1560 |                                                    HPAGE_PMD_SIZE ?
-        |                                                    ^~~~~~~~~~~~~~
-  make[7]: *** [scripts/Makefile.build:289: drivers/gpu/drm/drm_gpusvm.o] Error 1
-  ...
+v3: Plain 10ms delay was replaced with wait calls which wait until
+    the virtio queue is empty.
+    (Dmitry Osipenko)
 
-I think use of HPAGE_PMD_SIZE is expected to be gated by
-CONFIG_TRANSPARENT_HUGEPAGE ifdefs?
+v4: Change wait_event to wait_event_timeout to prevent permanent wait
+    (Nirmoy Das)
 
-Cheers,
-Nathan
+Suggested-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Tested-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Cc: Vivek Kasireddy <vivek.kasireddy@intel.com>
+Cc: Nirmoy Das <nirmoyd@nvidia.com>
+Signed-off-by: Dongwon Kim <dongwon.kim@intel.com>
+---
+ drivers/gpu/drm/virtio/virtgpu_drv.c | 62 +++++++++++++++++++++++++++-
+ drivers/gpu/drm/virtio/virtgpu_drv.h |  1 +
+ drivers/gpu/drm/virtio/virtgpu_kms.c | 23 ++++++++---
+ 3 files changed, 79 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virtio/virtgpu_drv.c
+index a5ce96fb8a1d..397f3d4f5906 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_drv.c
++++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
+@@ -164,6 +164,62 @@ static unsigned int features[] = {
+ 	VIRTIO_GPU_F_RESOURCE_BLOB,
+ 	VIRTIO_GPU_F_CONTEXT_INIT,
+ };
++
++#ifdef CONFIG_PM_SLEEP
++static int virtgpu_freeze(struct virtio_device *vdev)
++{
++	struct drm_device *dev = vdev->priv;
++	struct virtio_gpu_device *vgdev = dev->dev_private;
++	int error;
++
++	error = drm_mode_config_helper_suspend(dev);
++	if (error) {
++		DRM_ERROR("suspend error %d\n", error);
++		return error;
++	}
++
++	flush_work(&vgdev->obj_free_work);
++	flush_work(&vgdev->ctrlq.dequeue_work);
++	flush_work(&vgdev->cursorq.dequeue_work);
++	flush_work(&vgdev->config_changed_work);
++
++	wait_event_timeout(vgdev->ctrlq.ack_queue,
++		vgdev->ctrlq.vq->num_free == vgdev->ctrlq.vq->num_max,
++		5 * HZ);
++
++	wait_event_timeout(vgdev->cursorq.ack_queue,
++		vgdev->cursorq.vq->num_free == vgdev->cursorq.vq->num_max,
++		5 * HZ);
++
++	vdev->config->del_vqs(vdev);
++
++	return 0;
++}
++
++static int virtgpu_restore(struct virtio_device *vdev)
++{
++	struct drm_device *dev = vdev->priv;
++	struct virtio_gpu_device *vgdev = dev->dev_private;
++	int error;
++
++	error = virtio_gpu_find_vqs(vgdev);
++	if (error) {
++		DRM_ERROR("failed to find virt queues\n");
++		return error;
++	}
++
++	virtio_device_ready(vdev);
++
++	error = drm_mode_config_helper_resume(dev);
++	if (error) {
++		DRM_ERROR("resume error %d\n", error);
++		return error;
++	}
++
++	return 0;
++}
++#endif
++
+ static struct virtio_driver virtio_gpu_driver = {
+ 	.feature_table = features,
+ 	.feature_table_size = ARRAY_SIZE(features),
+@@ -172,7 +228,11 @@ static struct virtio_driver virtio_gpu_driver = {
+ 	.probe = virtio_gpu_probe,
+ 	.remove = virtio_gpu_remove,
+ 	.shutdown = virtio_gpu_shutdown,
+-	.config_changed = virtio_gpu_config_changed
++	.config_changed = virtio_gpu_config_changed,
++#ifdef CONFIG_PM_SLEEP
++	.freeze = virtgpu_freeze,
++	.restore = virtgpu_restore,
++#endif
+ };
+ 
+ static int __init virtio_gpu_driver_init(void)
+diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
+index f17660a71a3e..1279f998c8e0 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_drv.h
++++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
+@@ -300,6 +300,7 @@ void virtio_gpu_deinit(struct drm_device *dev);
+ void virtio_gpu_release(struct drm_device *dev);
+ int virtio_gpu_driver_open(struct drm_device *dev, struct drm_file *file);
+ void virtio_gpu_driver_postclose(struct drm_device *dev, struct drm_file *file);
++int virtio_gpu_find_vqs(struct virtio_gpu_device *vgdev);
+ 
+ /* virtgpu_gem.c */
+ int virtio_gpu_gem_object_open(struct drm_gem_object *obj,
+diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virtio/virtgpu_kms.c
+index 80ba69b4860b..90634a5b0ad7 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_kms.c
++++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
+@@ -115,15 +115,28 @@ static void virtio_gpu_get_capsets(struct virtio_gpu_device *vgdev,
+ 	vgdev->num_capsets = num_capsets;
+ }
+ 
+-int virtio_gpu_init(struct virtio_device *vdev, struct drm_device *dev)
++int virtio_gpu_find_vqs(struct virtio_gpu_device *vgdev)
+ {
+ 	struct virtqueue_info vqs_info[] = {
+ 		{ "control", virtio_gpu_ctrl_ack },
+ 		{ "cursor", virtio_gpu_cursor_ack },
+ 	};
+-	struct virtio_gpu_device *vgdev;
+-	/* this will expand later */
+ 	struct virtqueue *vqs[2];
++	int ret;
++
++	ret = virtio_find_vqs(vgdev->vdev, 2, vqs, vqs_info, NULL);
++	if (ret)
++		return ret;
++
++	vgdev->ctrlq.vq = vqs[0];
++	vgdev->cursorq.vq = vqs[1];
++
++	return 0;
++}
++
++int virtio_gpu_init(struct virtio_device *vdev, struct drm_device *dev)
++{
++	struct virtio_gpu_device *vgdev;
+ 	u32 num_scanouts, num_capsets;
+ 	int ret = 0;
+ 
+@@ -207,13 +220,11 @@ int virtio_gpu_init(struct virtio_device *vdev, struct drm_device *dev)
+ 	DRM_INFO("features: %ccontext_init\n",
+ 		 vgdev->has_context_init ? '+' : '-');
+ 
+-	ret = virtio_find_vqs(vgdev->vdev, 2, vqs, vqs_info, NULL);
++	ret = virtio_gpu_find_vqs(vgdev);
+ 	if (ret) {
+ 		DRM_ERROR("failed to find virt queues\n");
+ 		goto err_vqs;
+ 	}
+-	vgdev->ctrlq.vq = vqs[0];
+-	vgdev->cursorq.vq = vqs[1];
+ 	ret = virtio_gpu_alloc_vbufs(vgdev);
+ 	if (ret) {
+ 		DRM_ERROR("failed to alloc vbufs\n");
+-- 
+2.34.1
+
