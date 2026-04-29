@@ -4,157 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87944FF8867
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 05:53:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 659D1FF8864
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 06:04:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE4E610EE5F;
-	Wed, 29 Apr 2026 05:53:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9C1910EE63;
+	Wed, 29 Apr 2026 06:04:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YchHr0+Y";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="RzSRZLXk";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59C6210E054;
- Wed, 29 Apr 2026 05:53:48 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99D0110EE63
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 06:04:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777442029; x=1808978029;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=IapnG3BdyOxSF7A0diXUW7tsetKXzvnadEU2zbq21Tk=;
- b=YchHr0+YojC6vHQwgs832PBn7MWwsfOYOoS3Jr7xeQNrQcqzfkIMgl9c
- JWAxM2atgkr1t6HGpE57r2lq9AagHtbN7YPzVjiZB2NYA7lD1RQHzj0MD
- VIcsrF+WD+Mk/95mg2RzcLx416ZsBrsC/r11OL+dyVMhR4V/dm5i4mEdR
- Xfeh5i/3Ts0oQpmGn/uZI/W69wjEPyzOO/3cL+u7irEU4M9CWHzxltl1w
- jAu/o3AIiT5rPvP1NIJ1gqL9qtuAZYj4rN3qXSG6crnVxIIVPS+sIzCAo
- qDykn0b5finBinZFTTAYadrOhZqi+G798ZRfl6IR0Fjs7ryQlWxjGjPKW w==;
-X-CSE-ConnectionGUID: LhZ1HyD1Tdak0lY/iTIw2w==
-X-CSE-MsgGUID: kaaL2k4cRACKHnqEsetSFQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11770"; a="89452884"
-X-IronPort-AV: E=Sophos;i="6.23,205,1770624000"; d="scan'208";a="89452884"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Apr 2026 22:53:48 -0700
-X-CSE-ConnectionGUID: dnVyUtq6Rsi92tp90JZvYg==
-X-CSE-MsgGUID: Prh9gUAPRgKtDCu0vGj2sw==
+ t=1777442682; x=1808978682;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=IAmWhEXz3C5689FJGk7InC53wboRn6mLT3JhEFafqOU=;
+ b=RzSRZLXk0HrepIAz/QTYbiKttl3bNMKfyP01mVhmwARsCtrDIPtY9+fW
+ dVB0NTcDVP9Tlc82kydFvDHL+pCpt+SQYcTRRr6QcVLDw/xosdKWbmjAH
+ IjaaqYs+2HRP3//1r5FWBCtKmJFFZhJElJeeZP8phd0ZoLP/GfxIgd3ij
+ Is9Wi2EeV+1lEWFfW1No6nHPqhB6Pa+niE0GoBGpa4dwwnCAbsH0YJEA4
+ u/u79TEHv9wd1f/RVtT33x5xmSX1+LlK8SZg6f7u4amHnDLssTMGF9Tth
+ jxs6dBF3eF7Q4eFtkpfjvCSkCeMq4sqH9j/9JZtXDHIeR3o5CyvDE9tIG Q==;
+X-CSE-ConnectionGUID: da/tnBZQRpSZoydptOVMDw==
+X-CSE-MsgGUID: IOCICka+Qy+8M8Apo2Pvig==
+X-IronPort-AV: E=McAfee;i="6800,10657,11770"; a="88672081"
+X-IronPort-AV: E=Sophos;i="6.23,205,1770624000"; d="scan'208";a="88672081"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Apr 2026 23:04:42 -0700
+X-CSE-ConnectionGUID: blbSywj2Sx6/FIp4/NhIMg==
+X-CSE-MsgGUID: 9dX2/qe2QYi9ov0JNTpevA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,205,1770624000"; d="scan'208";a="238139645"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
- by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Apr 2026 22:53:48 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 28 Apr 2026 22:53:47 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Tue, 28 Apr 2026 22:53:47 -0700
-Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.42) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 28 Apr 2026 22:53:45 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FdGVVUjo1nFQbuI9/4nkdxeFyOyIiNSdipuDPkjCHneHxEP6SqvQnGaD2B8h3DFNQB/obDVP3lCsekMrFBgbe0zUGDxdNR5vFa5hYtzDeLQbrjUtVznEtT+XQy5RYihbZuW7d6JkzMDJ9d71q7ppamd6HI/iPtvksFXnRb5p5CYwOiv3ZMkJVMuVY1sf7a/br9UgcTXa221npccV+xQrNp9+GhRBYo18GXz340zwqNRkhZkrsyYcVP/8/OJcJrsAPc56wVdWbNGnViYppR7ndYhG4NYpEsBx5Iij4uPCyeM6KjLL3GH4NlGZfbT1eL4U1ZwJj671R+J2zEW6F7uRKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tDGxnZJLbBtNJWyda/VCxsBy5zyRWhZr8Watl+WNKlk=;
- b=k/Pe9f8HvxdZi15oQRV2ijTZWCBN6mVt9kUKHcgbKorm2AFejetThNg3AFjQW5/pECbBL3qckSynPCd9YQi8sAj0q4nMbh5kCc/C6FsDnOUy376HplAVEz+lujCW0c/aeSd8JfkMUWCGhnDHjZ/1mkmUNAlMiyJY+dczmbUOQy1nvq2alz9mUI/wlAGn6FXD+Y54sI0ORcRjuXmcbZiUdHdceLbERPVhAVB36qk8kvCZsb92g0OqDu2xAQIyGYjLuog9SwA8dMGWGqmWrWqrBaL+VtnMh6sqdFyc190UczyG2THbkDwyqIVuHANpO/yxPvJMGWBltAoe88xArxaq2w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SJ1PR11MB6129.namprd11.prod.outlook.com (2603:10b6:a03:488::12)
- by SJ1PR11MB6228.namprd11.prod.outlook.com (2603:10b6:a03:459::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.20; Wed, 29 Apr
- 2026 05:53:43 +0000
-Received: from SJ1PR11MB6129.namprd11.prod.outlook.com
- ([fe80::45f:5907:efdb:cb5b]) by SJ1PR11MB6129.namprd11.prod.outlook.com
- ([fe80::45f:5907:efdb:cb5b%3]) with mapi id 15.20.9870.016; Wed, 29 Apr 2026
- 05:53:43 +0000
-Message-ID: <28c0074e-175f-456d-bd6b-d81dd8f9b0b7@intel.com>
-Date: Wed, 29 Apr 2026 11:23:35 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/bridge: prefer drm_printf_indent() over inline \t
-Content-Language: en-GB
-To: Jani Nikula <jani.nikula@intel.com>, <dri-devel@lists.freedesktop.org>
-CC: <intel-gfx@lists.freedesktop.org>
-References: <20260408082211.3040194-1-jani.nikula@intel.com>
- <20260408082211.3040194-2-jani.nikula@intel.com>
-From: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
-In-Reply-To: <20260408082211.3040194-2-jani.nikula@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA1PR01CA0173.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:d::14) To SJ1PR11MB6129.namprd11.prod.outlook.com
- (2603:10b6:a03:488::12)
+X-IronPort-AV: E=Sophos;i="6.23,205,1770624000"; d="scan'208";a="264562052"
+Received: from otc-chromeosbuild-8.ostc.intel.com (HELO
+ otc-chromeosbuild-8.intel.com) ([10.54.29.153])
+ by orviesa002.jf.intel.com with ESMTP; 28 Apr 2026 23:04:41 -0700
+From: george.d.sworo@intel.com
+To: maarten.lankhorst@linux.intel.com
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ George D Sworo <george.d.sworo@intel.com>
+Subject: [PATCH v2 0/2] drm/i915/modeset: fix NULL/ctx handling in lock paths
+Date: Tue, 28 Apr 2026 23:04:29 -0700
+Message-Id: <20260429060431.1462589-1-george.d.sworo@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260429025952.1202080-1-george.d.sworo@intel.com>
+References: <20260429025952.1202080-1-george.d.sworo@intel.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PR11MB6129:EE_|SJ1PR11MB6228:EE_
-X-MS-Office365-Filtering-Correlation-Id: 03b5a5f2-48f9-40f0-853f-08dea5b3ab9f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|22082099003|56012099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: XJ3bJZxmewW1afrVbWpReWTnTX4fM9QLrSXwlTPz4KSfOxtYcD9b09zbtqDnzxTXZmoZlXVn/o+1nrKnxG5OjsWJt7agJQZgibrfCCv1yXPKjPHYhl6AapN6zHEqETdPCmf/77dtV2O2aRw6SwvbqnfY/qsfg4sSVt+3C0EAs+8qxr8UwvZjnRKvpzdubH8HF0YtlvwJuw0rmiqUyLm4TVC2Q3rpRwWXv102CJg/tBmLO+g5rw8B41acVfWpyH2a/W3jCD0zDEp4yrnxep3QcY3YySvFQvyqnBDWJBobI7CbRX2cph1RHMZrrPhtFryHFEBhHCzux1VhopeoJn6M3mA4UqLpXPHlYq/kYorVYjIi90C7/affArwTiRADudByJqv0DSlMkAIbHRixEAuk1iGfXhC975gcF+AL/Ea2f+zEGf1pwTW3818IglVpGUnb+JOGqyhDsdm1LP4R/HmokFOYqifMh4xCJFv5drmt6VkPrV5D1Gktaw7z+V+DYGmsi1aG5ZRQfpum1Z2he/eOyT/VWkVtPpDcig/OHcyJt4/WZqrfV7uk9GDsxDShBJNgqOQGMYXhUQWj5OgRcVeXrENljtCzkIgyoHfH33GtDKP6umjIuIGW4lTNgvLAASxiCMe1/78+Y4U2qy/OcUY8yQmfUBQKa/iH2PBXRwdJ7HfVItmoCCmOqjgQBNkBUI9uJxetHakmYqBWi5Eh2Az+jjzHWDYb6OQPWl+kTbbN+ks=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ1PR11MB6129.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(22082099003)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UVJ1UXVjZy84WExEeTZ3N0ZpTXhadThqK1FHa2ZMbXZYZ3dZajgwRFVFakRH?=
- =?utf-8?B?ZG01WURndU1JUVBLRzVIQmIrc25xQnBYNkRxVHhXM2RsMkpmdTB4QnBqS2xC?=
- =?utf-8?B?RjN6Wm0zMTdVM1A4UFJXY0hPTGU1c3lCKzUxSzBRR25lUFdVMmh3YTlQNWY0?=
- =?utf-8?B?bDNTVXlCcDM0cnFzMTFuYkJ4aFRqUWx3R1o5UXBMb1BJWlhRcHZXSnYxdlpR?=
- =?utf-8?B?MDlXNDN6U050VFhMYU5KS1hRMHNiRmZxUEZDV2pMdVA2NklLcVkvdGUrRDhm?=
- =?utf-8?B?SDJxblZyUDB2NHlLblJpR1Z3clVOR0xEa0JoTkZmYW56UkNyaFhEVWRua1E3?=
- =?utf-8?B?MDNsQzNMTXl0djJJQUxZcVUzOG1TT0NGelhaQUJuWnROcExpVm82Sllqc3Yz?=
- =?utf-8?B?TUc1c3IzTWNsa09XZW9hamE2MWttOGp0S1M4SzdoUXh1aXU5ay8xcXc0NUxQ?=
- =?utf-8?B?WVVISVB4dnBLN29jZEhOUlJnN3hOY3AyeHRUN25HTkZLT2NxWDV4SHNQZzZx?=
- =?utf-8?B?MUVpRi96M3VUM1dTc243SU9kbDdzZkdVSlphMnRyUldMdVRSUGZuUVdHRTR3?=
- =?utf-8?B?TWFERU9HWlVWMUJBZ2ZDc3Y2dWRvV1IxVVBrd3UzWVhNWGRNblQ2Mnp5UFpB?=
- =?utf-8?B?clA3LzR5cWJITjNnanpRNTY4WlZVTWZ4T0N2cnpUTDhmWkkwRllPOFAwNUs5?=
- =?utf-8?B?UWxGeFBzZ1YzNEplZDd1QUowRDRZNjhidkZWNHg3UEowb2JGalJ4bUlIL3NT?=
- =?utf-8?B?dGlKNVlCY1dMVzd6cm1IOEdpZzhPSGc1N0NSa0VsTzBBOTdYemZYRjFDa3FH?=
- =?utf-8?B?MCtzVXYyMnJrZnVsZGU0OGhDb21KYytmQTdIVHJiNStCRTZCVVF4VUQwbjZn?=
- =?utf-8?B?d3l5RHRtSFR1RFBVVHlIV09uc3NoUWpaZXQxczdKcFlNd3dwclF5Q0N6WlBt?=
- =?utf-8?B?UnZacWlONjc0ZzhVTWFrejBkTTFJRHV0czN3dFRkV1l4NjZFUTZnMXJ1cGdH?=
- =?utf-8?B?L3hZbHVaRUllU0loRm9VTm5ITnYybFZrQXRuTHZOb1lTWFNrc1A1d2ZGY0Jx?=
- =?utf-8?B?Y3F1UG1hdUtZQUI0eTZJWFNjS3I2Yzc2QjNDaFZEY3Q3bTFUVElYK0hCMitS?=
- =?utf-8?B?SXNoMGl6Vk1VdVJScWJJZCs1Wjh0V0NTbkFqaWtWWEJFUDN1c1l6RVdjb0tV?=
- =?utf-8?B?Z1ZoRnZ3RXBzcEVYeGRMM09aNG5vOTRaUmM5YzV4bFlsMjhKSXlCNXpJVjBl?=
- =?utf-8?B?YWl3TVYrTGdnYmVrbkh5T3JqOVl4SS90L0ZydnJvUCsxamJaeVlWcHl3NWxR?=
- =?utf-8?B?UzhlYzdDdTRIZzdUdktiejR0OXdTTVN6SnhOazJXM0NSa3ltVWQ1MTFMNEJu?=
- =?utf-8?B?NjlsUFBjeVJvaGdOWGVvNVh5MndEOXg5aG5VamZabjNBLzBGeHlKOEp4RWkw?=
- =?utf-8?B?WE5ldGgyc2dITS9pcXJmbi9KQmJ0ZVhZcWJNS1VCYnlZV2U3Y2RTSmdFVkVv?=
- =?utf-8?B?WjhkU3J1bG1wZzkxRy8xbTBWOUh4N1NuaE1vSENWVU9MSXJ2SWVyY0JVR1Bs?=
- =?utf-8?B?bHp3TWRIR2hNQzZrUDAvTnppSWNRRkRhY2cxeFZiY2I0WEgzUjNmQUF6L0sz?=
- =?utf-8?B?aG1Kd1g1VkkybzU3M29NM244LzN2MU1Vd2YwSHNOcmlXMlV4dE5uTGZlUnBx?=
- =?utf-8?B?NzM5N1VobWROQ3gvTG4wZ0RhZUpnV0FhRkVLQ2IweTV2M3BlbWxwNEM0V0Nw?=
- =?utf-8?B?THNZVVFxVVJ2UXJHUGVBdUhoWk16Yk10Wmh0Zm81TFdOZmFWL3E0aDIvY25u?=
- =?utf-8?B?cFhqL3hvMHRFeXJKbGZJMTN1VTRoRVd4RXAxeWpoVlBkdis1TlF3aU5zQXdU?=
- =?utf-8?B?SS8rSG85bWJod3BuaEJTdU42MnBOMEZ2NmxBM3NtMEFSckNLcU1aSmpTL3ZS?=
- =?utf-8?B?OXU5NFVWQWpTSDlXOFQ0L3ZHT2pNclplQXFoN1FZVUwxREhiUFM4TEkwR2dm?=
- =?utf-8?B?M1c1NHJmUjFPTHdERjhLSjVLaDVoWW04TitQOWZOT1gwblk3U3Y0MmVGRUMz?=
- =?utf-8?B?dFQ4SWRvbmlERXE5QXBLV3FPNzgzMEQ0RlAyc3VvRkNHYURzMUxocmRMU09Y?=
- =?utf-8?B?U3pweW9Lc1hEUmxQbnBQU1Z5M0ZQYjdYc2s1RjliMUtXUmZwUTBCQ3JzNkFh?=
- =?utf-8?B?bjdrTk9yYjRpUHcwRU0xMUdRWVRsRVdxblVsdCtXdkhRWVNkNlVVemNya1A3?=
- =?utf-8?B?aGgyVy8rYjFZVjQ2ekphNmRWelBIZXFybmVldzV4a2JGZTFNZlp3Z0kyQm5h?=
- =?utf-8?B?ZHlUQlM4ZnE0SkdYZHBzUHV0WGlGVTc0SFlMWFVIYUJHSWpzT0tEVW9NZ0FX?=
- =?utf-8?Q?Kha5DQS4l3brid0iGThdGFV19A0AKFgAwD2XC?=
-X-Exchange-RoutingPolicyChecked: urc1m4gPUhb3YpJdn0FGWQBDxqL9DfXoupGpFkULQIdodoHGMZyaDIluF7/piE0n86BcnHHD+fp5e8BuF9AQXI8PK4xtiaNtOxsiJIsZ/mrLrm1Xwac+b3s0VmxcK7cKl4/JbE3Vqd6GCXpUUwXqgThSq4ky165avHhuN7A7abKTpiwq0Zc6UjrZiZxEEsR6BoY7aQ4t+8AcM3J+hBSJ1vG6bw7xSzafTT2SWk57kx/QTriNgs/Cv0R0wO1SrKWI17xSZGgaA2XRT2TqotqBQEOdhAKef8/W8A+Stvba3I2Zz1M2/AM0IYJBoC7jcQhSodr1SDkz+uYn9ZCGZ+UtJQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 03b5a5f2-48f9-40f0-853f-08dea5b3ab9f
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PR11MB6129.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2026 05:53:43.4121 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vvU6ptbnigIW3MLJIUB0M+CeJUGpeqdDktNie2H7SbEmIAuXVn6pszJi+xqMTsurydQAAuHfFVNf0p68L6Elg17ZfZ6KL5stLhmslTAr4oQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR11MB6228
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -170,50 +68,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+From: George D Sworo <george.d.sworo@intel.com>
 
+Hi,
 
-On 4/8/2026 1:52 PM, Jani Nikula wrote:
-> We have a helper drm_printf_indent() for tab indenting the prints. It
-> makes the actual strings more readable, and highlights the indented
-> parts better in source.
+This series addresses lock-context robustness seen in HDCP/MST paths,
+where modeset locking can be reached with invalid or stale acquire_ctx
+state and trigger WARN/Oops in modeset_lock().
 
-LGTM.
+Patch 1 keeps the original fix from v1.
+Patch 2 adds a defensive fix for the additional ctx handling issue.
 
-Reviewed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+Changes in v2:
+- Added patch 2 to handle NULL ctx defensively in modeset lock helper
+  path.
+- Kept patch 1 from v1 (no functional change) for complete series
+  resend.
+- Updated commit messages for clearer rationale and call-path context.
+- Linked previous posting:
+  https://patchwork.freedesktop.org/patch/721791/
 
-> 
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-> ---
->   drivers/gpu/drm/drm_bridge.c | 13 ++++++-------
->   1 file changed, 6 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-> index d6f512b73389..bac1aae497e0 100644
-> --- a/drivers/gpu/drm/drm_bridge.c
-> +++ b/drivers/gpu/drm/drm_bridge.c
-> @@ -1613,18 +1613,17 @@ static void drm_bridge_debugfs_show_bridge(struct drm_printer *p,
->   
->   	drm_printf(p, "bridge[%u]: %ps\n", idx, bridge->funcs);
->   
-> -	drm_printf(p, "\trefcount: %u%s\n", refcount,
-> -		   lingering ? " [lingering]" : "");
-> +	drm_printf_indent(p, 1, "refcount: %u%s\n", refcount,
-> +			  lingering ? " [lingering]" : "");
->   
-> -	drm_printf(p, "\ttype: [%d] %s\n",
-> -		   bridge->type,
-> -		   drm_get_connector_type_name(bridge->type));
-> +	drm_printf_indent(p, 1, "type: [%d] %s\n", bridge->type,
-> +			  drm_get_connector_type_name(bridge->type));
->   
->   	/* The OF node could be freed after drm_bridge_remove() */
->   	if (bridge->of_node && !lingering)
-> -		drm_printf(p, "\tOF: %pOFfc\n", bridge->of_node);
-> +		drm_printf_indent(p, 1, "OF: %pOFfc\n", bridge->of_node);
->   
-> -	drm_printf(p, "\tops: [0x%x]", bridge->ops);
-> +	drm_printf_indent(p, 1, "ops: [0x%x]", bridge->ops);
->   	if (bridge->ops & DRM_BRIDGE_OP_DETECT)
->   		drm_puts(p, " detect");
->   	if (bridge->ops & DRM_BRIDGE_OP_EDID)
+Patch overview:
+  drm/modeset_lock: add NULL check for ctx before WARN_ON
+  drm/modeset: harden modeset_lock() against NULL ctx
+
+ drivers/gpu/drm/drm_modeset_lock.c | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
+
+-- 
+2.34.1
 
