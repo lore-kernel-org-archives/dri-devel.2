@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 926FFCCFA13
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 18:33:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DDFDCCFA13
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 18:50:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8C7610F12C;
-	Wed, 29 Apr 2026 18:33:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D52EA10E004;
+	Wed, 29 Apr 2026 18:50:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="IeChdeJN";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZiKs4+Ko";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AAAB10F123
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 18:33:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1777487603; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=W0rXPXzhBE6ZG2GlNh2kwDx0UcHmZRPwvuLWUPyaItlVbg7yLzFJGtdWFABMAb3gM8N9PSLq59QGism2/eosmloBv3KmH9aSItA+JuYnYN7Hv+MV1RLl7iXrP9N6vJttgSkXC/vUWf5wWRntTqsSVyLDmj7pyDgR5GpSgqvFBT0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1777487603;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=Gxu2RKOk6gkA1gr83XuOmlXlcBYUHMKm8aZ599S4H5g=; 
- b=f14bOtQVHupk0DpchKx4PJmOzMzdqxUnjPkcF4JMfihsCZwSE6zeF/Lca6OA29JQ536QevKA0vsQsanMEkWjSBqO/kyZz2zsWRDbopnTd9kwDoKpBmv9PZmVAse7taqScV8u2FXbkCGLo7IdwsMB/fxOVgnk+29AG8SikETkxZ8=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
- dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1777487603; 
- s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=Gxu2RKOk6gkA1gr83XuOmlXlcBYUHMKm8aZ599S4H5g=;
- b=IeChdeJNv2IjB8nx+07d1u071P7loJ/9u3NmdcCtI0KqkDQ8ZL8fXxurk6gL/ErT
- /RoZ1Av8k3EvJAMAG3l6L9bEhL0s6I1OlVpgrn1ZijW7w0CGMaRCDOz8yyRTkE/TrWi
- x0/uiUKA4jZ/iIHu8zSwDuoZPHf7I1BPHHICCJ/0=
-Received: by mx.zohomail.com with SMTPS id 1777487601115879.2835951562766;
- Wed, 29 Apr 2026 11:33:21 -0700 (PDT)
-From: =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>
-To: linux-kernel@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org, Steven Price <steven.price@arm.com>,
- Boris Brezillon <boris.brezillon@collabora.com>, kernel@collabora.com,
- =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Subject: [PATCH v10 6/6] drm/panthor: Bump the driver version to 1.9
-Date: Wed, 29 Apr 2026 19:32:18 +0100
-Message-ID: <20260429183253.66422-7-adrian.larumbe@collabora.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260429183253.66422-1-adrian.larumbe@collabora.com>
-References: <20260429183253.66422-1-adrian.larumbe@collabora.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D61FB10E004
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 18:50:01 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 349D36015B;
+ Wed, 29 Apr 2026 18:50:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BEF6C19425;
+ Wed, 29 Apr 2026 18:50:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1777488600;
+ bh=SJYZ4NAfB0jKA2r12K3oUXg2EYSzdPCWQ44kjGJMgLo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=ZiKs4+KokO+v2SHr7cJRFjeswZtDWAzjDIi7YJZLFDicOWa42t0FtJ97scrmoiUiL
+ YsjvGJNaROhTcz31Xxw3IN36HhQVVkTcvWofiM/u+JdnNoCJi51qAjuL9iY8yXa9Cz
+ Lb9/EVcoz/DZ+6UJcQJsHcrbjdeaCuXDVqP+XDLo6nc+fEiZO+5RR09YgxNVqmsRE6
+ f2xwQcVnUTNF42WTKHXUSjGizaJUfdHMQHie5vUwjbIFkMu4R84ualDCvczf7C1DBq
+ GgfoEPpj4WRW5lJCJtmyi77fcvlk4IwucF/VAif6QEZdu8VOln9b5y5Cz4cpHWGcEl
+ 285blVyaIgMGw==
+Date: Wed, 29 Apr 2026 20:49:58 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Maxime Ripard <mripard@redhat.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, 
+ John Stultz <jstultz@google.com>, "T . J . Mercier" <tjmercier@google.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@redhat.com>,
+ Mike Rapoport <rppt@kernel.org>, Sumit Garg <sumit.garg@kernel.org>, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-tegra@vger.kernel.org, 
+ linaro-mm-sig@lists.linaro.org, linux-mm@kvack.org
+Subject: Re: [PATCH v2 06/10] dma-buf: heaps: Add support for Tegra VPR
+Message-ID: <afJSQbArB8USb6mt@orome>
+References: <20260122161009.3865888-1-thierry.reding@kernel.org>
+ <20260122161009.3865888-7-thierry.reding@kernel.org>
+ <20260123-meteoric-butterfly-of-imagination-fd691f@houat>
+ <aY3nov29aBGWw93Y@orome>
+ <20260218-voracious-orchid-malamute-febce0@houat>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="d2myfaz5io3m7bs5"
+Content-Disposition: inline
+In-Reply-To: <20260218-voracious-orchid-malamute-febce0@houat>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,38 +71,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Bump the driver version to reflect the new MMU info query ioctl
-parameter and the VM_BIND map sparse flag.
 
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-Reviewed-by: Steven Price <steven.price@arm.com>
-Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
----
- drivers/gpu/drm/panthor/panthor_drv.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+--d2myfaz5io3m7bs5
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 06/10] dma-buf: heaps: Add support for Tegra VPR
+MIME-Version: 1.0
 
-diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-index beca75b34293..d0070a28a634 100644
---- a/drivers/gpu/drm/panthor/panthor_drv.c
-+++ b/drivers/gpu/drm/panthor/panthor_drv.c
-@@ -1787,6 +1787,8 @@ static void panthor_debugfs_init(struct drm_minor *minor)
-  *       - adds DRM_IOCTL_PANTHOR_BO_QUERY_INFO ioctl
-  *       - adds drm_panthor_gpu_info::selected_coherency
-  * - 1.8 - extends DEV_QUERY_TIMESTAMP_INFO with flags
-+ * - 1.9 - adds DRM_PANTHOR_DEV_QUERY_MMU_INFO query
-+ *       - adds DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE flag
-  */
- static const struct drm_driver panthor_drm_driver = {
- 	.driver_features = DRIVER_RENDER | DRIVER_GEM | DRIVER_SYNCOBJ |
-@@ -1800,7 +1802,7 @@ static const struct drm_driver panthor_drm_driver = {
- 	.name = "panthor",
- 	.desc = "Panthor DRM driver",
- 	.major = 1,
--	.minor = 8,
-+	.minor = 9,
- 
- 	.gem_prime_import_sg_table = panthor_gem_prime_import_sg_table,
- 	.gem_prime_import = panthor_gem_prime_import,
--- 
-2.53.0
+On Wed, Feb 18, 2026 at 10:42:22AM +0100, Maxime Ripard wrote:
+> On Thu, Feb 12, 2026 at 03:50:09PM +0100, Thierry Reding wrote:
+> > On Fri, Jan 23, 2026 at 02:30:14PM +0100, Maxime Ripard wrote:
+> > > Hi,
+> > >=20
+> > > On Thu, Jan 22, 2026 at 05:10:05PM +0100, Thierry Reding wrote:
+> > > > From: Thierry Reding <treding@nvidia.com>
+> > > >=20
+> > > > NVIDIA Tegra SoCs commonly define a Video-Protection-Region, which =
+is a
+> > > > region of memory dedicated to content-protected video decode and
+> > > > playback. This memory cannot be accessed by the CPU and only certain
+> > > > hardware devices have access to it.
+> > > >=20
+> > > > Expose the VPR as a DMA heap so that applications and drivers can
+> > > > allocate buffers from this region for use-cases that require this k=
+ind
+> > > > of protected memory.
+> > > >=20
+> > > > VPR has a few very critical peculiarities. First, it must be a sing=
+le
+> > > > contiguous region of memory (there is a single pair of registers th=
+at
+> > > > set the base address and size of the region), which is configured by
+> > > > calling back into the secure monitor. The memory region also needs =
+to
+> > > > quite large for some use-cases because it needs to fit multiple vid=
+eo
+> > > > frames (8K video should be supported), so VPR sizes of ~2 GiB are
+> > > > expected. However, some devices cannot afford to reserve this amount
+> > > > of memory for a particular use-case, and therefore the VPR must be
+> > > > resizable.
+> > > >=20
+> > > > Unfortunately, resizing the VPR is slightly tricky because the GPU =
+found
+> > > > on Tegra SoCs must be in reset during the VPR resize operation. Thi=
+s is
+> > > > currently implemented by freezing all userspace processes and calli=
+ng
+> > > > invoking the GPU's freeze() implementation, resizing and the thawin=
+g the
+> > > > GPU and userspace processes. This is quite heavy-handed, so eventua=
+lly
+> > > > it might be better to implement thawing/freezing in the GPU driver =
+in
+> > > > such a way that they block accesses to the GPU so that the VPR resi=
+ze
+> > > > operation can happen without suspending all userspace.
+> > > >=20
+> > > > In order to balance the memory usage versus the amount of resizing =
+that
+> > > > needs to happen, the VPR is divided into multiple chunks. Each chun=
+k is
+> > > > implemented as a CMA area that is completely allocated on first use=
+ to
+> > > > guarantee the contiguity of the VPR. Once all buffers from a chunk =
+have
+> > > > been freed, the CMA area is deallocated and the memory returned to =
+the
+> > > > system.
+> > > >=20
+> > > > Signed-off-by: Thierry Reding <treding@nvidia.com>
+> > >=20
+> > > Aside from the discussion on CMA, it doesn't look like the heap defin=
+es
+> > > anywhere the attributes of the allocated buffers this heap provides.
+> >=20
+> > Attributes like what? Where would you expect the driver to define this?
+> > I don't see anything in struct drm_heap_export_info that sounds like
+> > what you expect, nor does the allocation ABI provide any means of
+> > reporting attributes.
+> >=20
+> > There's also not a whole lot to this, other than that the memory
+> > allocated by this can't be accessed by anything other than a select set
+> > of devices. You can't have any CPU access to these buffers (the hardware
+> > will refuse to let the CPU read from this memory) either, which is
+> > hinted at by the fact that no mmap() operations are allowed.
+> >=20
+> > Can you elaborate what you're looking for?
+>=20
+> Are the buffers you're getting when allocating cacheable? uncacheable?
+> mappable? physically or virtually contiguous? etc.
+>=20
+> See
+> https://docs.kernel.org/userspace-api/dma-buf-heaps.html#heaps
 
+The CPU doesn't have access to the contents of these buffers, so
+cacheable or uncacheable aren't really meaningful, but I guess they are
+unmappable in that sense. The buffers are physically contiguous, but I
+think "protected" is the right name for the heap since it most
+accurately describes what the purpose (and access pattern) is.
+
+Thierry
+
+--d2myfaz5io3m7bs5
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmnyUtYACgkQ3SOs138+
+s6FR+g/+KsYWfQUZ129aKCUNsoLuGu/cyN7j8T6Z/3ilgL0EC9R58tbva6UNIcs8
+8r2onzdPn4w0huB+6STgpihIyHcmj/Uz+Oe99KMc9dtsU9ZJQ3ZXimgI74FU+Rpw
+etJC0iu8ZzUj4E46mO2wUxhq1Hw9v/+ozBlejV1Z2+07PrfxYANnB6AfrJctpWfR
+oHSChS/KXwfgBN4VJUcDr9Oe9ldyzolQp/8zUNYjfIn7U8y/RzJrm/qk6llDpqmX
+JVnqBG6sPty/tCi48FH6zyrD3xTi83Od3oxpLVTPk/wIOJANhJ1EMDXWicQwrWLc
+eeGvG0WWTNx7+8Ej95VB/LPguytkBN3QwJwZb9d9gBOYKewiKLM41fSMhSpIjz+j
+3g0DhGqKSSlk4mVqw1BQik6+wIBGCSQSZxXnqjtwOoCy7XREJbU+POiSKnczfm7/
+5+YVt7Se5070nu3fc1Pl9m0vlacUB6PfYKpR47BJE8KbT5hcyDUpAK96Spo4d1L0
+B+mC14GNVj1/cAV9X82JR8MhB+IsZLgWKoXV7VKQOmrQmmN7WF78iCiiYWQ0/1CY
+f98vLHUgPFfpyp2laMldeuILA1YYOX73cANruKUqSz2baWdNV/YEAkShnVJxDynq
+sUPyc9EarzQeCDHok0jWlg+/+IlZJoXgOHIt3ToaY3R0kns97JI=
+=hyUh
+-----END PGP SIGNATURE-----
+
+--d2myfaz5io3m7bs5--
