@@ -4,86 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C2DEFF8867
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 13:41:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B909BFF8867
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 13:42:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7038410F015;
-	Wed, 29 Apr 2026 13:41:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CD0410F01F;
+	Wed, 29 Apr 2026 13:42:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lX7oNLJb";
+	dkim=pass (2048-bit key; unprotected) header.d=dolcini.it header.i=@dolcini.it header.b="WLNb6D/4";
 	dkim-atps=neutral
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DAEB10F015
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 13:41:01 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-4891b0786beso91458285e9.1
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 06:41:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777470059; x=1778074859; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=SE1WBDEAJ1UYNmcfE47F7BEz7WO16H1bRtYL6mvQ6Xs=;
- b=lX7oNLJbCgDx+iA3Bj20OQQV2n3xgdVoRx+fox6VUp13XH5DJ1hfdEU9WSQe+502e6
- dpQhHRE5iLv5isMAacbeBmpxK9AY/2Qu3X/dmtHaN6gspCvPqpcE8J+1QPsd+D4V95yQ
- MF5WQSdT3Nagm9ibtsj4Dy5NrVuWWm+gdamNBhP7IQzwVZSG1aCPqdqcaGUqiutZWL5H
- ycRswKOoFnBhEORpDVctCi0HneWyR1XN9MeoDeNG8Df1jo2wfmiZyxCmoei73pe4zpKk
- FHFI2eQIkrqQVzwrP++ahO/HDF2MxvzKB+G5Cks3Q8FVQYE/vupJtxVIyObUQ3p4/gaj
- l3hw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777470059; x=1778074859;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=SE1WBDEAJ1UYNmcfE47F7BEz7WO16H1bRtYL6mvQ6Xs=;
- b=Uaa6Gsm4+XWnMB/1wnF3tybnRBarI9mD37s/bb7LiiDZY0UHyeGZzzJ3zEwL/qZbBT
- TGKlXWJHUdQf9jCRDrDPxqg0xQjnbAbBM8XfclP+o0+NIMHpbBAnjD8ryY80OAEqh0Ql
- 8kTmaTGiFckoaYrcjTM0gvzoiXoGNXGmBQ+Bix1X/ejfEnEpXs01WMo4pIiWQg9Fv4nl
- yoh3ShNVx3WORv/2JXRA3ODgYS/zbzTEJxYnteuZSk1Hv6QDW4dCVgp8PIRov4hOXnZs
- aM5wKOfWiMeij6qiymcXG+6xU5mUIRtsTCVNDJ05mFmavGt0sPdaWpE5tVZ2FHdLBhnv
- ho2g==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8zeijNJ45uqHeYGNKKVfYyeEygq5PcA1SzSSCDl6td1Y1T505tVzf7+pClz/Ad4qLmGYuR8sBxOUw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx3/Ye4XcKZooRvmyVhZ4+E3Q3Dm91PYdu2VETpRltigelM43fu
- C/NIi24xSxMFux5JOblGnEIz56PYTciuFIcWunDnmS+Hg0rk/fPACZi1
-X-Gm-Gg: AeBDieuMexr8I8lz+oUiTLanFFXoH5AhDPrs5ya6mwBm23mJJ3qHyVdF2ELso1PHVOf
- lRqCNMOT/cJIA8txKkfsZeFYvj/Q0pGXIw3Qc1gnujPtw5QRPpfIQRY4YHRSVliSCUX2zlT5mG1
- /uqifuzJ8baq0qXhqCFGYky9cFcFmRdwViMwUdIvrKfCb4fc4PdJlkGRxUmkMmhqfqR42E7i9UR
- sN8FtH+AP1iuSIganP6HXEpwdxMdDIzFelzpEmeqCxuhgi1lcymH7Q8CzhhbATloLATTKkKDIOU
- cqL5K0fg/a1NaJIMnO3xRc34t+LTa90EZaHz6uLEL/NT4K8PLOb4U5+wnWeThp8nY0JassBPjrj
- ABeIibi3nku/HhOvr6KqkFhxIByHODeFUwSehTBs8H7clwWZXTCi1vuqnq7z/GMGpclSmO7lqaF
- BHctqOuUSIM8W0CxtNNHd7xN7e3qd3WvdlDrOUb/vylJ/56eVIY/KeoMKbPmO6ylComydI2sdPs
- /hOr1FEJw==
-X-Received: by 2002:a05:600c:4e4b:b0:488:be58:bb5b with SMTP id
- 5b1f17b1804b1-48a7b547375mr70268735e9.24.1777470059359; 
- Wed, 29 Apr 2026 06:40:59 -0700 (PDT)
-Received: from ?IPV6:2001:861:3385:e20:f99c:d6cf:27e6:2b03?
- ([2001:861:3385:e20:f99c:d6cf:27e6:2b03])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48a7c57b579sm56656275e9.4.2026.04.29.06.40.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 29 Apr 2026 06:40:58 -0700 (PDT)
-Message-ID: <2d81e7f6-b6e4-4e3e-bd75-315c696c003a@gmail.com>
-Date: Wed, 29 Apr 2026 15:40:28 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] drm/sti: remove bridge when sti_hda component_add
- fails
-To: Osama Abdelkader <osama.abdelkader@gmail.com>, luca.ceresoli@bootlin.com, 
- Alain Volmat <alain.volmat@foss.st.com>,
+X-Greylist: delayed 518 seconds by postgrey-1.36 at gabe;
+ Wed, 29 Apr 2026 13:42:18 UTC
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9624010F01E
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 13:42:18 +0000 (UTC)
+Received: from francesco-nb (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
+ by mail11.truemail.it (Postfix) with ESMTPA id 3AF081FB70;
+ Wed, 29 Apr 2026 15:33:37 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+ s=default; t=1777469617;
+ bh=ZFHuOmltmFo8Rwni2y+lGo+CzUf7wYN17q7s/CcnxnM=; h=From:To:Subject;
+ b=WLNb6D/4K8Sp57Kr3Ua0gfYVJN1Kb0QT3PRUh9sMP/h3wEvTvU/K5bTaHSPLp+Ngn
+ bFFaYSWWz9C2TOsYHCvo9QyyWTgw4Tusv8iphsoxeBD6MvItiCVldUlFpRFAkz4lJ7
+ 3Vqs5yHtvsYLvcF00GKaSETZHlw2JS+xpNmp9uPt/N6XUBOd1nU70/Zxi0v4sgSZuz
+ QMcyRYk/NHy8Hk7BbltkYcZXIwDz1IhfjXhGzVJdhk1NAB32U2QFHNELk3ognz51dh
+ h79REnjTpwkSxPorFNaDVeKGA5iRkgZ7Q7iL2ce+3FbOcDC9wSN12BwDHRp695DIGI
+ sDdqgV0+Ow3mg==
+Date: Wed, 29 Apr 2026 15:33:33 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: max.oss.09@gmail.com, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Adrien Grassein <adrien.grassein@gmail.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, David Airlie <airlied@gmail.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-References: <20260423200622.325076-1-osama.abdelkader@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Rapha=C3=ABl_Gallais-Pou?= <rgallaispou@gmail.com>
-In-Reply-To: <20260423200622.325076-1-osama.abdelkader@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ Maxime Ripard <mripard@kernel.org>, Robert Foss <rfoss@kernel.org>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/bridge: lontium-lt8912b: Do not generate HFP
+Message-ID: <20260429133333.GA68737@francesco-nb>
+References: <20250728150059.2642055-1-max.oss.09@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250728150059.2642055-1-max.oss.09@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,22 +65,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
++Dmitry, Luca
 
+Hello all,
+how to get this patch considered and eventually merged? I see that this
+is not moving since long.
 
-On 4/23/26 22:06, Osama Abdelkader wrote:
-> Use devm_drm_bridge_add() so the bridge is released if probe fails after
-> registration, and drop the manual drm_bridge_remove() in remove().
+Considering that Adrien Grassein is not visible on the mailing list
+since 2022, and that I have various HW available that is using this
+combination (on TI Sitara and Jacinto, on a DPI-DSI tc358768 bridge,
+and NXP i.MX), I have access to the (little) documentation that is
+available from Lontium I can propose myself as a maintainer here.
+
+I assume being able to ack patches would help the maintenance here, or
+is this just a glitch and a ping was enough?
+
+Dmitry, Luca: looking at the recent commits you are the one who merged
+the most patches on drivers/gpu/drm/bridge lately, what's you advise?
+
+Francesco
+
+On Mon, Jul 28, 2025 at 05:00:50PM +0200, max.oss.09@gmail.com wrote:
+> From: Max Krummenacher <max.krummenacher@toradex.com>
 > 
-> Check the return value of devm_drm_bridge_add().
+> The datasheet of lontium-lt8912b doesn't require blanking during
+> the HFP period. Thus use LP during HFP.
 > 
-> Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
-> Fixes: d28726efc637 ("drm/sti: hda: add bridge before attaching")
-> Cc: stable@vger.kernel.org
+> Tested with a samsung-dsim (i.MX8 MM) and a tc358768 DPI to DSI bridge
+> as the DSI host.
+> 
+> Signed-off-by: Max Krummenacher <max.krummenacher@toradex.com>
+> 
 > ---
-Hi Osama,
-
-Acked-by: Raphaël Gallais-Pou <rgallaispou@gmail.com>
-
-Thanks,
-Best regards,
-Raphaël
+> 
+>  drivers/gpu/drm/bridge/lontium-lt8912b.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/gpu/drm/bridge/lontium-lt8912b.c b/drivers/gpu/drm/bridge/lontium-lt8912b.c
+> index 3e49d855b364..760d89493276 100644
+> --- a/drivers/gpu/drm/bridge/lontium-lt8912b.c
+> +++ b/drivers/gpu/drm/bridge/lontium-lt8912b.c
+> @@ -494,6 +494,7 @@ static int lt8912_attach_dsi(struct lt8912 *lt)
+>  
+>  	dsi->mode_flags = MIPI_DSI_MODE_VIDEO |
+>  			  MIPI_DSI_MODE_LPM |
+> +			  MIPI_DSI_MODE_VIDEO_NO_HFP |
+>  			  MIPI_DSI_MODE_NO_EOT_PACKET;
+>  
+>  	ret = devm_mipi_dsi_attach(dev, dsi);
+> -- 
+> 2.42.0
+> 
