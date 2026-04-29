@@ -4,141 +4,142 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1C45FF8864
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 06:40:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3EC5FF8864
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 06:59:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B05010E115;
-	Wed, 29 Apr 2026 06:40:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 146E710E103;
+	Wed, 29 Apr 2026 06:59:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="PsUlJ7Zt";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="6Yl91jvq";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="PsUlJ7Zt";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="6Yl91jvq";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="g438JSka";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="j3siFXct";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F050D10E115
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 06:40:08 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B26925BD38;
- Wed, 29 Apr 2026 06:40:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1777444807; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=wb2CT0+vsQ+U0x7l8lO9NhjgtzBOwnqopQ6rEjw1ut8=;
- b=PsUlJ7ZtcGKHbZI/fA59FFPxFIrLPWKaA8WNe4jy5V0FwQu+Grp+QUTP1EPuklkmqajl0I
- TiXhIdRBT6AYuRKsU03f9bZ71gsU5ACqoLuxg5l9FJm8sdAhaZJBej4L4f/rtQWblqoaS+
- 6uPjfPLEfQPiHdTiDaFfD5Mr/Dxwqa4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1777444807;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=wb2CT0+vsQ+U0x7l8lO9NhjgtzBOwnqopQ6rEjw1ut8=;
- b=6Yl91jvqDuVxXMS8+7MVCA7BDQCQ3PFd2twbX2R2uZYEWL1BmGpiWhHtooFmHMGMxk/XUD
- oAlBpzCfsBDiATCg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1777444807; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=wb2CT0+vsQ+U0x7l8lO9NhjgtzBOwnqopQ6rEjw1ut8=;
- b=PsUlJ7ZtcGKHbZI/fA59FFPxFIrLPWKaA8WNe4jy5V0FwQu+Grp+QUTP1EPuklkmqajl0I
- TiXhIdRBT6AYuRKsU03f9bZ71gsU5ACqoLuxg5l9FJm8sdAhaZJBej4L4f/rtQWblqoaS+
- 6uPjfPLEfQPiHdTiDaFfD5Mr/Dxwqa4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1777444807;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=wb2CT0+vsQ+U0x7l8lO9NhjgtzBOwnqopQ6rEjw1ut8=;
- b=6Yl91jvqDuVxXMS8+7MVCA7BDQCQ3PFd2twbX2R2uZYEWL1BmGpiWhHtooFmHMGMxk/XUD
- oAlBpzCfsBDiATCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 803A4593B0;
- Wed, 29 Apr 2026 06:40:07 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id pAzhHcen8WnhXwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 29 Apr 2026 06:40:07 +0000
-Message-ID: <be197b30-cade-4217-a641-783b659918b2@suse.de>
-Date: Wed, 29 Apr 2026 08:40:07 +0200
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8EBEB10E0DD
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 06:59:45 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 63T6F2uC1282820
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 06:59:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=rpnLGvqaOGowhqbh0BhtKXXR
+ xHvBmmvOGqR1wADwXo8=; b=g438JSkanjOpVQqT4BPx3R6bpd1VJbbmWFD6dKOd
+ jFfFB+w7o2BFIQkM8DUi3dk+eLi2MmG2yFu2mvJoaVjZRpuKpKC8SOHGN1T4k6HZ
+ eH9ZrtpUlQslZMlhYlYVUFi72Xrodhf1bXWVnE64mFiuiPhsLVRgk76DPLSLdQOe
+ 3wpSPbqj+929j7SchNlWiT/Mvmx2f3w9te7+sxffPyvR3SZ4QpMR9dvdKxnbHoHd
+ r/5cgF5H5psWIcz6rpRnrZ7KiVHDlYy0AVG7IKRCWWDzx4ABdZYlug/nS7Nc/tDD
+ /Al6A+BepM0Qxu+178Yh7cY8Ecg/Vm71wutdCwmhxrioxQ==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
+ [209.85.214.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ducj8058y-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 06:59:44 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id
+ d9443c01a7336-2b465bf993cso124974835ad.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Apr 2026 23:59:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1777445983; x=1778050783;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=rpnLGvqaOGowhqbh0BhtKXXRxHvBmmvOGqR1wADwXo8=;
+ b=j3siFXctpZ2S9nad6Y6tvTKQAR4nQCjZp2+smEHLx9h5kggsxaf2nsNeiEBjL4l916
+ LHGIVxSIzt99b56YX7Nl+3HrIwfxdY5mLAt+VdF3EiCnBJEWAIyLn2LpFv8zILO9budF
+ 9v6yqyQyUDhzofeBOgHawvogn5TLgxCYnkbjx0RffDzn5cYmqX9rc48nW5VgETTnwL7g
+ yFOSNbR6xicKwcOyM1YgtcLLBfbrFTU1+RXgqi5AoaQOOhu/HEDpZCPPMtjp2/G/3I1M
+ uATvXwzhUEvALCcqWnGeqsoK1nbD7smOXQk3013J+pT2aElgxitF5ghnYaqolplidhvv
+ IbvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777445983; x=1778050783;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=rpnLGvqaOGowhqbh0BhtKXXRxHvBmmvOGqR1wADwXo8=;
+ b=RjOMtjJJCa1AkhXEQU7dWe2SvARcFORdc/C7AM+QFKA5n43rydnsHgIDcETW8HzNaU
+ ZPgJCLtyrWFKhovNKFn0cieDMIgMEJozAFMXvRyEbV4i9TRIMt/oVEjzZZk6G1L/DtC+
+ rpCrVkOwmXY4MSFLvqBY76ZZh3IddfVeGlE9G8bp2tbUq7pJWoxg/9crbIq0imDSp1/c
+ Yj5x2R8dag27U6noIhPpGeEmIhuqfSLzOedr0dkep+ZN0WRDX3pqsL1uVTNZacyczsOp
+ 87pyRmUvIf091FjvmQo4mCD2xgXtPW5JMuKdt+462ZR/ybnSAdOc/XDAlAMyXtC6S3Z9
+ Qk1Q==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8eh4tQNlT1ZoCUdmNV8SJUFSlsEa84KLNQ7i35M82hFjl2t68Q0cMYxkcrAkSy4BSFV9gQdXC4glg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyjkF8pJntu4Qaqxy2uJij5SKtmhf4OpFPk51mOatoaUEEsGCbf
+ clXXRDD70PEmL0Q7B0l5GWK9Yoao9yPHBh15LeKVHWi1xf4cmQutj4fZmAx5IcFSw0kqg/hXYyp
+ WosCZZZ626Fx6fvebmW03Q+8SBZYFC+DXDHjTGgD4jYFGuJzZzBW1WB/fyFHLZ7TOseieUv0=
+X-Gm-Gg: AeBDieuz/VbjabYVG3dqFJog5nW5LC9T2sC20hUScN5YVumV+y7KZyY3Q3ffigaulq/
+ ZyrVyfJX5jL1f6Zt5VNNF7Naeq/eMNXqhnAMyP6esiWpbWatu7kj9BcmUci5GdIgSVlRu9kGHVp
+ LSSKa6TltWl0d8kUMjueY8QQhA/BXsHoeQDT3v8aVQt/cXU5z/DUYq0HKXQG6YCnR/dU4bpXsGm
+ mY5ro+2SKeIGOFXCbjURapI+Kc3mFVtUR4atEzzlUvRVbonHoFW3j+m5qHj70GgsQriqJdcb5LX
+ jvptXbwLv0GWDq4ddtcrfQssGm7LGLJTzFW5s18aVxNvad+AnAiJEHoRfNlCcNz6eLjnfBtD7Wd
+ YkW1DpZY/w6FlStlPGs0DAe7kMmu4Er3cqOLfAhSdNhIOsiNGP6UE4BaFSI4=
+X-Received: by 2002:a17:903:984:b0:2b2:ec31:25b0 with SMTP id
+ d9443c01a7336-2b98741da0dmr24709075ad.29.1777445983169; 
+ Tue, 28 Apr 2026 23:59:43 -0700 (PDT)
+X-Received: by 2002:a17:903:984:b0:2b2:ec31:25b0 with SMTP id
+ d9443c01a7336-2b98741da0dmr24708625ad.29.1777445982436; 
+ Tue, 28 Apr 2026 23:59:42 -0700 (PDT)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2b988971938sm11669805ad.71.2026.04.28.23.59.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 28 Apr 2026 23:59:42 -0700 (PDT)
+Date: Wed, 29 Apr 2026 12:29:26 +0530
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: Sumit Garg <sumit.garg@kernel.org>
+Cc: andersson@kernel.org, konradybcio@kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-media@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+ linux-remoteproc@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
+ akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ jesszhan0024@gmail.com, marijn.suijten@somainline.org,
+ airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
+ dikshita.agarwal@oss.qualcomm.com, bod@kernel.org, mchehab@kernel.org,
+ elder@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ jjohnson@kernel.org, mathieu.poirier@linaro.org,
+ trilokkumar.soni@oss.qualcomm.com, pavan.kondeti@oss.qualcomm.com,
+ jorge.ramirez@oss.qualcomm.com, tonyh@qti.qualcomm.com,
+ vignesh.viswanathan@oss.qualcomm.com, srinivas.kandagatla@oss.qualcomm.com,
+ amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
+ op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
+ skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
+ Sumit Garg <sumit.garg@oss.qualcomm.com>
+Subject: Re: [PATCH v4 00/15] firmware: qcom: Add OP-TEE PAS service support
+Message-ID: <20260429065926.5iliebd3d2j6bong@hu-mojha-hyd.qualcomm.com>
+References: <20260427095603.1157963-1-sumit.garg@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: further issues with MGA G200 graphics chipset
-To: stuart hayes <stuart.w.hayes@gmail.com>,
- Jacob Keller <jacob.e.keller@intel.com>,
- Jocelyn Falempe <jfalempe@redhat.com>,
- "airlied@redhat.com" <airlied@redhat.com>
-Cc: dri-devel@lists.freedesktop.org,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Pasi Vaananen <pvaanane@redhat.com>
-References: <76aba88d-ec23-4b3c-ad91-83face0c3e94@intel.com>
- <a9d176ec-d19b-4f41-af16-cdc4e475a8cc@suse.de>
- <6ec01703-31e0-4998-9508-a5a115ae7bc9@intel.com>
- <14aa4840-29c4-46df-b60d-8e1b92494ad2@redhat.com>
- <e9cca01c-960d-495c-aaba-327eac43cad6@intel.com>
- <a23413a4-f939-4a23-996f-4ba5c8294c59@suse.de>
- <5155f29b-bc4d-4e60-9a26-22d568c43e46@redhat.com>
- <0be82b55-0f78-4ef9-8b50-f068ec36ec4f@suse.de>
- <df849883-f61d-484a-bd4c-32da52473ad3@intel.com>
- <3def4337-4297-45fa-8825-4147abda49f4@suse.de>
- <be1f1005-a7ed-4a5b-904b-35541b19658a@gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <be1f1005-a7ed-4a5b-904b-35541b19658a@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- FUZZY_RATELIMITED(0.00)[rspamd.com];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- TO_DN_EQ_ADDR_SOME(0.00)[]; TAGGED_RCPT(0.00)[];
- MIME_TRACE(0.00)[0:+];
- FREEMAIL_TO(0.00)[gmail.com,intel.com,redhat.com];
- MID_RHS_MATCH_FROM(0.00)[]; TO_DN_SOME(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- RCPT_COUNT_SEVEN(0.00)[7]; RCVD_TLS_ALL(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, imap1.dmz-prg2.suse.org:helo,
- suse.com:url]
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260427095603.1157963-1-sumit.garg@kernel.org>
+X-Proofpoint-ORIG-GUID: l9b4OKVSU3EqtGepzTx_Eath_KaryBDj
+X-Authority-Analysis: v=2.4 cv=RI6D2Yi+ c=1 sm=1 tr=0 ts=69f1ac60 cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=kj9zAlcOel0A:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=NEAV23lmAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=IpgJVh4PXWExouJfQAQA:9
+ a=CjuIK1q_8ugA:10 a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-GUID: l9b4OKVSU3EqtGepzTx_Eath_KaryBDj
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI5MDA2NyBTYWx0ZWRfX9+RcrcmG0rwG
+ xsok5epR2aTCbK1kP2Fg4lPcMA8V4bJuMYVaKdDV5TQahOCDKpj3iqxt8L998NcxIi+CssCVVW7
+ +Py4HFUKtDE/774qAHGs6yXNwI1KSAJcP4tHuq+fur+KDmxhGW9Ga4ADTZjsz8A811PMzLFZg/c
+ 5aydnLCyxZjwRp5FfeDbStePq8nvOamyC8IqsS0KS8T3xpf55T404Dg7aPKfgL1BWXU6OgA3Ylz
+ 8YJLIBQH9qpfCaWjcm8TWUyOBcqoWP8LM5fE0Ad7wGdvxnfXVBZ1glbYSv0HPOVgwCJOvkk5F48
+ xEKxk3GUeMgJ53XzPo3PrasIz/8ywdCiQhdApxu5rEDIPcKtrl+BwIGRz3ikyy5Fa6fzc9Q2Ind
+ Ud0MniDrYGoOfzc1Aim4maK5KYgWXhodYBLJgJ5g+60BlEIy60TAcVYF4e9fJooLU3dE5z/i1hj
+ HuScKb8ix0JQTC5vC+Q==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-28_05,2026-04-28_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 priorityscore=1501 malwarescore=0 suspectscore=0
+ lowpriorityscore=0 adultscore=0 clxscore=1015 impostorscore=0 bulkscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2604290067
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,105 +155,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+On Mon, Apr 27, 2026 at 03:25:48PM +0530, Sumit Garg wrote:
+> From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> 
+> Qcom platforms has the legacy of using non-standard SCM calls
+> splintered over the various kernel drivers. These SCM calls aren't
+> compliant with the standard SMC calling conventions which is a
+> prerequisite to enable migration to the FF-A specifications from Arm.
+> 
+> OP-TEE as an alternative trusted OS to Qualcomm TEE (QTEE) can't
+> support these non-standard SCM calls. And even for newer architectures
+> using S-EL2 with Hafnium support, QTEE won't be able to support SCM
+> calls either with FF-A requirements coming in. And with both OP-TEE
+> and QTEE drivers well integrated in the TEE subsystem, it makes further
+> sense to reuse the TEE bus client drivers infrastructure.
+> 
+> The added benefit of TEE bus infrastructure is that there is support
+> for discoverable/enumerable services. With that client drivers don't
+> have to manually invoke a special SCM call to know the service status.
+> 
+> So enable the generic Peripheral Authentication Service (PAS) provided
+> by the firmware. It acts as the common layer with different TZ
+> backends plugged in whether it's an SCM implementation or a proper
+> TEE bus based PAS service implementation.
+> 
+> The TEE PAS service ABI is designed to be extensible with additional API
+> as PTA_QCOM_PAS_CAPABILITIES. This allows to accommodate any future
+> extensions of the PAS service needed while still maintaining backwards
+> compatibility.
+> 
+> Currently OP-TEE support is being added to provide the backend PAS
+> service implementation which can be found as part of this PR [1].
+> This implementation has been tested on Kodiak/RB3Gen2 board with lemans
+> EVK board being the next target. In addition to that WIN/IPQ targets
+> planning to use OP-TEE will use this service too. Surely the backwards
+> compatibility is maintained and tested for SCM backend.
+> 
+> Note that kernel PAS service support while running in EL2 is at parity
+> among OP-TEE vs QTEE. Especially the media (venus/iris) support depends
+> on proper IOMMU support being worked out on the PAS client end.
+> 
+> Patch summary:
+> - Patch #1: adds Kodiak EL2 overlay since boot stack with TF-A/OP-TEE
+>   only allow UEFI and Linux to boot in EL2.
+> - Patch #2: adds generic PAS service.
+> - Patch #3: migrates SCM backend to generic PAS service.
+> - Patch #4: adds TEE/OP-TEE backend for generic PAS service.
+> - Patch #5-#13: migrates all client drivers to generic PAS service.
+> - Patch #14: drops legacy PAS SCM exported APIs.
 
-Am 28.04.26 um 21:12 schrieb stuart hayes:
-> On 4/27/2026 7:14 AM, Thomas Zimmermann wrote:
->> Hi
->>
->> Am 25.04.26 um 01:29 schrieb Jacob Keller:
->> [...]
->>>>
->>>> So I suggest to pick Manufacturer, Product, Version as key. I'd be
->>>> surprised if we find more than a hand full of systems with the 
->>>> issue. If
->>>> we see a trend or common pattern, we can generalize later on.
->>>>
->>> I think this is the best solution. Keep it focused for now. I believe
->>> Intel has two major platforms that we care about with respect to this
->>> issue. I'll see if I can dig up the data. The systems install the MGA
->>> G200 for BMC use but don't seem to expose the VGA connection.
->>>
->>> For the specific system I have that was faulty, we have the following:
->>>
->>> $ for t in system-manufacturer system-product-name system-version ; \
->>>      do dmidecode -s ${t}; \
->>> done
->>> Dell Inc.
->>> PowerEdge XR8720t
->>> Not Specified
->>>
->>>
->>>
->>> I believe there was also some concern about HP systems which similarly
->>> use this chipset, but I don't have the DMI data for that one off hand.
->>> I've asked some colleagues to confirm the situation and obtain that
->>> data. I'll get back early next week if we think there are any other
->>> systems possibly affected.
->>>
->>> In the mean time, I'm happy to have our team test any patch to confirm
->>> that it behaves as expected and resolves the service interruptions.
->>
->> For now, I've modified the two places that have BMC support in the 
->> driver. Could you please also tell me your system's exact Matrox 
->> chipset or its PCI id?
->>
->> The patch is attached for your testing. It would work against drm-tip 
->> or v7.1-rc1.
->>
->> I've also found the page at [1], which claims that there's a Mini-DP 
->> port at the front. If so, I'd assume that there's also an extra 
->> encoder chip to replace the VGA. If we ever get specs for that, we 
->> could implement real support in the driver.
->>
->> In the meantime, the current fix should work. In the worst case, that 
->> Mini-DP port would give a lower default resolution.
->>
->> [1] https://www.dell.com/en-us/shop/ipovw/poweredge-xr8720t? 
->> hve=shop+now#techspecs_section
->>
->> Best regards
->> Thomas
->>
->>
->
-> So this patch disables DDC polling if the dmi_check_system() matches. 
-> If this was to happen on systems that _do_ have a physical VGA 
-> connector, will that port still be active, just with a resolution that 
-> may not be compatible with the monitor that's plugged in?
 
-The DMI test is supposed to only match on affected systems. If there's a 
-matched system with a VGA port, or possibly that Mini-DP port, users 
-will get a number of bogus display modes at the worst. But the default 
-mode is 1024x768, which should work on any display.
+Gave it a try to test the series on Lemans with Gunyah as well as KVM
+hypervisor and all the remote processor are coming up successfully.
 
->
-> I don't see anyone say that the DDC polling doesn't cause too much 
-> latency for real time kernels on other systems that do have a VGA 
-> connector... did I miss that, or is there a chance that a lot of other 
-> systems that use this driver might also have issues with a real time 
-> kernel?
-That missing VGA port is a problem on any workload. So we fix it as far 
-as possible. Where the connector polling interferes with RT, it can also 
-be disabled with drm_kms_helper.poll=0. Best regards Thomas
->
->
->>
->>
->>>
->>> Appreciate all the feedback on this thread.
->>>
->>> Thanks,
->>> Jake
->>
->
+Feel free to carry 
+
+Tested-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com> # Lemans
+
+for the Series.
+
+
+> The patch-set is based on v7.1-rc1 tag and can be found in git tree here
+> [2].
+> 
+> Merge strategy:
+> 
+> It is expected due to APIs dependency, the entire patch-set to go via
+> the Qcom tree. All other subsystem maintainers, it will be great if I
+> can get acks for the corresponding subsystem patches.
+> 
+> [1] https://github.com/OP-TEE/optee_os/pull/7721
+> [2] https://git.kernel.org/pub/scm/linux/kernel/git/sumit.garg/linux.git/log/?h=qcom-pas-v4
+> 
+> ---
+> Changes in v4:
+> - Incorporate misc. comments on patch #4.
+> - Picked up an ack for patch #10.
+> - Clarify in cover letter about state of media support.
+> 
+> Changes in v3:
+> - Incorporated some style and misc. comments for patch #2, #3 and #4.
+> - Add QCOM_PAS Kconfig dependency for various subsystems.
+> - Switch from pseudo TA to proper TA invoke commands.
+> 
+> Changes in v2:
+> - Fixed kernel doc warnings.
+> - Polish commit message and comments for patch #2.
+> - Pass proper PAS ID in set_remote_state API for media firmware drivers.
+> - Added Maintainer entry and dropped MODULE_AUTHOR.
+> 
+> Mukesh Ojha (1):
+>   arm64: dts: qcom: kodiak: Add EL2 overlay
+> 
+> Sumit Garg (14):
+>   firmware: qcom: Add a generic PAS service
+>   firmware: qcom_scm: Migrate to generic PAS service
+>   firmware: qcom: Add a PAS TEE service
+>   remoteproc: qcom_q6v5_pas: Switch over to generic PAS TZ APIs
+>   remoteproc: qcom_q6v5_mss: Switch to generic PAS TZ APIs
+>   soc: qcom: mdtloader: Switch to generic PAS TZ APIs
+>   remoteproc: qcom_wcnss: Switch to generic PAS TZ APIs
+>   remoteproc: qcom: Select QCOM_PAS generic service
+>   drm/msm: Switch to generic PAS TZ APIs
+>   media: qcom: Switch to generic PAS TZ APIs
+>   net: ipa: Switch to generic PAS TZ APIs
+>   wifi: ath12k: Switch to generic PAS TZ APIs
+>   firmware: qcom_scm: Remove SCM PAS wrappers
+>   MAINTAINERS: Add maintainer entry for Qualcomm PAS TZ service
+> 
+>  MAINTAINERS                                   |   9 +
+>  arch/arm64/boot/dts/qcom/Makefile             |   2 +
+>  arch/arm64/boot/dts/qcom/kodiak-el2.dtso      |  35 ++
+>  drivers/firmware/qcom/Kconfig                 |  19 +
+>  drivers/firmware/qcom/Makefile                |   2 +
+>  drivers/firmware/qcom/qcom_pas.c              | 288 +++++++++++
+>  drivers/firmware/qcom/qcom_pas.h              |  50 ++
+>  drivers/firmware/qcom/qcom_pas_tee.c          | 479 ++++++++++++++++++
+>  drivers/firmware/qcom/qcom_scm.c              | 302 ++++-------
+>  drivers/gpu/drm/msm/Kconfig                   |   1 +
+>  drivers/gpu/drm/msm/adreno/a5xx_gpu.c         |   4 +-
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c       |  11 +-
+>  drivers/media/platform/qcom/iris/Kconfig      |  25 +-
+>  .../media/platform/qcom/iris/iris_firmware.c  |   9 +-
+>  drivers/media/platform/qcom/venus/Kconfig     |   1 +
+>  drivers/media/platform/qcom/venus/firmware.c  |  11 +-
+>  drivers/net/ipa/Kconfig                       |   2 +-
+>  drivers/net/ipa/ipa_main.c                    |  13 +-
+>  drivers/net/wireless/ath/ath12k/Kconfig       |   2 +-
+>  drivers/net/wireless/ath/ath12k/ahb.c         |   8 +-
+>  drivers/remoteproc/Kconfig                    |   1 +
+>  drivers/remoteproc/qcom_q6v5_mss.c            |   5 +-
+>  drivers/remoteproc/qcom_q6v5_pas.c            |  51 +-
+>  drivers/remoteproc/qcom_wcnss.c               |  12 +-
+>  drivers/soc/qcom/mdt_loader.c                 |  12 +-
+>  include/linux/firmware/qcom/qcom_pas.h        |  43 ++
+>  include/linux/firmware/qcom/qcom_scm.h        |  29 --
+>  include/linux/soc/qcom/mdt_loader.h           |   6 +-
+>  28 files changed, 1115 insertions(+), 317 deletions(-)
+>  create mode 100644 arch/arm64/boot/dts/qcom/kodiak-el2.dtso
+>  create mode 100644 drivers/firmware/qcom/qcom_pas.c
+>  create mode 100644 drivers/firmware/qcom/qcom_pas.h
+>  create mode 100644 drivers/firmware/qcom/qcom_pas_tee.c
+>  create mode 100644 include/linux/firmware/qcom/qcom_pas.h
+> 
+> -- 
+> 2.51.0
+> 
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
-
+-Mukesh Ojha
