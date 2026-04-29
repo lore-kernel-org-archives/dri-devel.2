@@ -4,77 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DB5BFF8867
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 14:37:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B11ACCFA13
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 15:26:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D689810E9D9;
-	Wed, 29 Apr 2026 14:37:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5FED10E3FB;
+	Wed, 29 Apr 2026 15:26:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qGswkzT0";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YQJhuC6W";
 	dkim-atps=neutral
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
- [209.85.167.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C58310E9D9
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 14:37:50 +0000 (UTC)
-Received: by mail-lf1-f47.google.com with SMTP id
- 2adb3069b0e04-5a283c44478so19703477e87.3
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 07:37:50 -0700 (PDT)
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D6EC10E3FB
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 15:26:19 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-488b0046078so114871945e9.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 08:26:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777473468; x=1778078268; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1777476378; x=1778081178; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=jll39Xqy18SFNSEMkkDeWu7wM9j7NCAIvdDzP0v4P/M=;
- b=qGswkzT0C4EAqR07uu4ATAfwD3ofyy6UZnWUV43N5OKIwfMKeGcCN7MdkDTn7RWGcU
- yGfOvRZoBzrR0W3V4RQ+Aa/S/l0TKRKvcC1jQ6iEeNrrnXXYVBX0H6jz0e2pcM/ncFxn
- heNWV9hLMH58tKeqzQ9DEbiIchkf6EgCis66p5+fZHjh4gHUmZ60VQJLTKrduCdJiODn
- GOjy8HV6SCtJPJB5licgwTiNds14glk9KyRT3sENptGhlgcA81vAgzAxMRcXM62BYDjw
- VBqxzdR3wfoVJ/FZI7NEktfFYLBv0/ayhYPYKsIDsxdxOyDN97mB7x0UnY26P4JvsVP9
- 6ADg==
+ bh=G9kqbgnidQC23bEvrBAVDYa4e7L0vOouqvUY0ysfe8Y=;
+ b=YQJhuC6WO4DCECoPgWYklhrt53tome96fPUjPq0BN4iBTAfICM3gn55fqjZs3HOsdK
+ 2lwJkhIFfJyRpwAFb1mzRrZmjT9makrbgOfW7E8/VU5fI0/zDj63ljB6XhcnkXsa0/RO
+ y0ATGXDRrEjtCQNAvO24cCn6O23FThVGv+Vxh9KlZ21qmsGVnOKlwWzyAlC6octEzg76
+ rLTjkIWNY6JqYFUDutrD+YJH1sgfqzu9GFT5gnp80Aw7ksP1TWMMoJrwJWmjPAtlLCoT
+ YOHKlN3Igd1hHJPgJXjxny+KJ1IiolrCtXKaCUdbmjXoo4UdzeFk8J72ZzG8jODD89u6
+ GNhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777473468; x=1778078268;
+ d=1e100.net; s=20251104; t=1777476378; x=1778081178;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=jll39Xqy18SFNSEMkkDeWu7wM9j7NCAIvdDzP0v4P/M=;
- b=VG0dYrm+FgZ0mEc3j7A/1Pb6mNEpuv4DslBJarAS2EwC33ldnz5cM++PqOMkBEBHp/
- G0QRbsGbt42PdERxej0jaZqysu7v0TxyuCEr4y8l5PVOU/EvuVLzAqevx5kjf5s1S8Qc
- A71O1aLRYSUdD3uAw/RqdeJwvedsA57RbUSmTB3qwUtB/dwFFCVhbfBEg57yadev5G+N
- YIJCD/qqQEkn/XggZflrFZh+xFK6bVbdZsiGNFjwl2x7ng79VolrwgiHzYjMS0AfKYTT
- t2pHnI00fWKncI/25pncGaIulvH0UordX01AqztpsFPa5q/7YGwON4CF2gfNk7xuFsMe
- FA8g==
+ bh=G9kqbgnidQC23bEvrBAVDYa4e7L0vOouqvUY0ysfe8Y=;
+ b=kYD1lZcrNx4vGME9F8kHhMp2nWXavq0UicdOUCsDP4H1EmHj/tMRHCWit0jCfAFdI1
+ ++Bn84wry7NvGqs73Qmf7Wbl0X1GlWKgUqdrncMh0mjKNWnJmZQLQGRdoZOdp/lxmEMy
+ VoNFDVghT3tH7QyYrFDxnSfs2oRFWBDzlhdMAPc+krEWURH5+fCJ5rdWgIGoF20juLFg
+ ycNUcrqX7mxCcvk37JL7YtDvsAXNOA24arMfFNMBNpoQa0EWNsiEZSH7gnhhjFoZNJRi
+ p0ehqs4atpQHIJEZ/fOTxCSL4q+t9VLAW/gfuknvJ0hRhiyP9nI6Jpbo3S0OkOy6ZqJb
+ nqdA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8YidCz4pYZlgAVZfVAogaDz0H9AfCx+PZu7SQV1TM64YLNKjtrRYymLIuKmInlNCA+EemBoAkWp/8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwooyTdXFjnAV1A7zzqmdx3V1aGETdIATZPXBdTkO2rjhgDgEbp
- GRWOc5oFOUabvEueP3T3O7ChZfEW+RqWWcpYroswYGw01xYD6U1ciYfw
-X-Gm-Gg: AeBDiesGLUmKXspZ3eryIDLseLyDLwjqL3LuZ1hSe6476sQPuzpYjoUGYZNyY2Yu6Zm
- m+OfBgnG8G+u8Y5fT5rMBUsKA9oiLfT/MICM+oD/1HpH5alxAt0CpBwJWg/mMofhH9prCiB31dv
- cwTvO8NYXaElkb1mt56Agu6cgQgd0WtQ+qek7jZA/z89QrMAauYIY7vz+Jt9AEQIGkna7Oda1Ee
- U+7TYOtpvmOtSdvfDpZTxFix28uUiTN0tSxcDIfaTnwqsZ3FnENLKt/BRi58ouqOi+V3rYqHXJb
- wjDdgUW1/OYEOzq8lk20omLBF/9Vv0P/HK4KKFBMqwzo2YN4acjjDmRPsKnaVuc2sZtrx501LCW
- n5ySfwadFSGef8/PJTNT/HfhOjqoxc/fKyU21+uvpDF26SJctI8pYHQJ54A3Mi2QWcMljTj5Fhi
- exPXFwYFH2C7+t4wB0EQkZ1kU0gYPVabuSdAcGSYluIxUF
-X-Received: by 2002:a05:6512:3502:b0:5a2:86a3:709f with SMTP id
- 2adb3069b0e04-5a74660cd3amr3134081e87.17.1777473467800; 
- Wed, 29 Apr 2026 07:37:47 -0700 (PDT)
-Received: from localhost ([188.234.148.119]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a74a6f3019sm607425e87.20.2026.04.29.07.37.46
+ AFNElJ9kzyYxYJ9ZkFlR/mJUuV3kJTfW4HQMSiEvdVQAXLazuMUgoh29yIh6KIHBw7IcuFfjlv/Y1ilAfs0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzdep31lOZ+icgepQOFaiqE60yzQvcMrs4HXKqAKBRjz+2EXtTi
+ FiJ2C1NRJrH4PehtBNGa/ZwZ/9s70nNgPVNOHPewQLwy+dPoO1tH8TtT
+X-Gm-Gg: AeBDietvGMdT9TYV4JPXrY9fnBuQjAbpK3QyAHJd6d7WY1nlKI1GgmS5PwL/KKHX/rI
+ a3ltGicrztaDEZycOvx96NQb4MV9qvRhaUjM9nzrbRN27XhZdwr99JBUSQy1yeKaprDMbaANExD
+ 9J2L2xUel0I8eCKKUdktWwihFzk6lM+U+Jn4PoJP3viSwnWZK1rycL/xvV5uWDgOhdyV6M4oiRr
+ 4IHsQ3sPxml2cQ8EBRQFwa2Lqe0jIh8MxWwLPEVSq6xKtXoJoOQHaajOuX+pYTh7PYVh3PMQ0nS
+ dFgugJw6tdQ3ea+zniwTD4XUL4/2d7h6NJew9hZNPn4Z2oovNWr/BYPdJfEIeKkfc9KiJZYAU3R
+ AOD4sC8U/pP6SxpaTUdAob+fixogAvpRerT4pHrHC6ACzfHdi1VBx0N29P1/OKINJY4GyfsKb9J
+ whacgliM8ZAmI58IrqO2S22FFhfZcds/MBICSadHVLG7+iuvNpmWKgy0NT51+A1UdbP5i26Vy4f
+ FWhV+TCq3WYET9wQYcwRL2KaQuEX5JGWLDB9ypmj/JJ
+X-Received: by 2002:a05:600c:4f92:b0:489:1ff1:74df with SMTP id
+ 5b1f17b1804b1-48a77ae5430mr125646225e9.1.1777476377153; 
+ Wed, 29 Apr 2026 08:26:17 -0700 (PDT)
+Received: from 127.0.0.1localhost ([82.132.184.31])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-447b76e5c22sm6382951f8f.28.2026.04.29.08.26.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 Apr 2026 07:37:47 -0700 (PDT)
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>, stable@vger.kernel.org,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Wed, 29 Apr 2026 08:26:16 -0700 (PDT)
+From: Pavel Begunkov <asml.silence@gmail.com>
+To: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
  Sumit Semwal <sumit.semwal@linaro.org>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-Subject: [PATCH] drm/amdgpu: fix recursive ww_mutex acquire in
- amdgpu_devcoredump_format
-Date: Wed, 29 Apr 2026 19:37:43 +0500
-Message-ID: <20260429143743.50743-1-mikhail.v.gavrilov@gmail.com>
-X-Mailer: git-send-email 2.54.0
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org,
+ io-uring@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org
+Cc: asml.silence@gmail.com, Nitesh Shetty <nj.shetty@samsung.com>,
+ Kanchan Joshi <joshi.k@samsung.com>, Anuj Gupta <anuj20.g@samsung.com>,
+ Tushar Gohad <tushar.gohad@intel.com>,
+ William Power <william.power@intel.com>,
+ Phil Cayton <phil.cayton@intel.com>, Jason Gunthorpe <jgg@nvidia.com>
+Subject: [PATCH v3 00/10] Add dmabuf read/write via io_uring
+Date: Wed, 29 Apr 2026 16:25:46 +0100
+Message-ID: <cover.1777475843.git.asml.silence@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -92,292 +100,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When dumping IB contents from a hung job, amdgpu_devcoredump_format()
-acquires the VM root PD's reservation lock via amdgpu_vm_lock_by_pasid()
-and then, for each IB referenced by the job, calls amdgpu_bo_reserve()
-on the BO that backs the IB.  Both reservations are taken on
-reservation_ww_class_mutex objects but neither uses a ww_acquire_ctx,
-which trips lockdep:
+The patch set allows to register a dmabuf to an io_uring instance for
+a specified file and use it with io_uring read / write requests. The
+infrastructure is not tied to io_uring and there could be more users
+in the future. A similar idea was attempted some years ago by Keith [1],
+from where I borrowed a good number of changes, and later was brough up
+by Tushar and Vishal from Intel.
 
-  WARNING: possible recursive locking detected
-  --------------------------------------------
-  kworker/u128:0 is trying to acquire lock:
-  ffff88838b16e1f0 (reservation_ww_class_mutex){+.+.}-{4:4},
-    at: amdgpu_devcoredump_format+0x1594/0x23f0 [amdgpu]
+It's an opt-in feature for files, and they need to implement a new
+file operation to use it. Only NVMe block devices are supported in this
+series. The user API is built on top of io_uring's "registered buffers",
+where a dmabuf is registered in a special way, but after it can be used
+as any other "registered buffer" with IORING_OP_{READ,WRITE}_FIXED
+requests. It's created via a new file operation and the resulted map is
+then passed through the I/O stack in a new iterator type. There is some
+additional infrastructure to bind it all, which also counts requests
+using a dmabuf map and managing lifetimes, which is used to implement
+map invalidation.
 
-  but task is already holding lock:
-  ffff8882f82681f0 (reservation_ww_class_mutex){+.+.}-{4:4},
-    at: amdgpu_devcoredump_format+0x1594/0x23f0 [amdgpu]
+It was tested for GPU <-> NVMe transfers. Also, as it maintains a
+long-term dma mapping, it helps with the IOMMU cost. The numbers
+below are for udmabuf reads previously run by Anuj for different
+IOMMU modes:
 
-   Possible unsafe locking scenario:
-         CPU0
-         ----
-    lock(reservation_ww_class_mutex);
-    lock(reservation_ww_class_mutex);
+- STRICT: before = 570 KIOPS, after = 5.01 MIOPS
+- LAZY: before = 1.93 MIOPS, after = 5.01 MIOPS
+- PASSTHROUGH: before = 5.01 MIOPS, after = 5.01 MIOPS
 
-   *** DEADLOCK ***
-   May be due to missing lock nesting notation
+There are some liburing tests that can serve as an example:
+git: https://github.com/isilence/liburing.git rw-dmabuf-tests-v3
+url: https://github.com/isilence/liburing/tree/rw-dmabuf-tests-v3
 
-  Workqueue: events_unbound amdgpu_devcoredump_deferred_work [amdgpu]
-  Call Trace:
-   __ww_mutex_lock.constprop.0
-   ww_mutex_lock
-   amdgpu_bo_reserve
-   amdgpu_devcoredump_format+0x1594 [amdgpu]
-   amdgpu_devcoredump_deferred_work+0xea [amdgpu]
-   process_one_work
-   worker_thread
-   kthread
+[1] https://lore.kernel.org/io-uring/20220805162444.3985535-1-kbusch@fb.com/
 
-The two reservations are on different BOs in the captured trace, so the
-splat is a lockdep-correctness warning, not an observed deadlock.  It
-becomes a real self-deadlock whenever the IB BO shares its dma_resv
-with the root PD (the always-valid case, see
-amdgpu_vm_is_bo_always_valid()): amdgpu_bo_reserve(abo) re-acquires the
-same ww_mutex without a ticket and blocks forever.
+v3: - Rework io_uring registration
+    - Move token/map infrastructure code out of blk-mq
+    - Simplify callbacks: remove a separate blk-mq table, which was
+      mostly just forwarding calls (to nvme).
+    - Don't skip dma sync depending on request direction
+    - Fix a couple of hangs
+    - Rename s/dma/dmabuf/
+    - Other small changes
 
-With amdgpu.gpu_recovery=0 the timeout handler refires every ~2 s and
-each invocation produces this splat, drowning the kernel ring buffer.
+v2: - Don't pass raw dma addresses, wrap it into a driver specific object
+    - Split into two objects: token and map
+    - Implement move_notify
 
-Fix it by collecting the per-IB BO references under the root PD's
-reservation, then releasing the root before reserving each IB BO
-individually.  The walk over the VM mapping tree must remain under the
-root lock (mappings can be torn down without it), but the actual
-content copies do not need to nest inside it.  Each per-IB reservation
-is now an independent top-level acquire, eliminating the nested
-ww_mutex.
+Pavel Begunkov (10):
+  file: add callback for creating long-term dmabuf maps
+  iov_iter: add iterator type for dmabuf maps
+  block: move bvec init into __bio_clone
+  block: introduce dma map backed bio type
+  lib: add dmabuf token infrastructure
+  block: forward create_dmabuf_token to drivers
+  nvme-pci: implement dma_token backed requests
+  io_uring/rsrc: introduce buf registration structure
+  io_uring/rsrc: extend buffer update
+  io_uring/rsrc: add dmabuf backed registered buffers
 
-The collect/release logic is factored out into two small helpers
-(amdgpu_devcoredump_collect_ib_refs / amdgpu_devcoredump_release_ib_refs)
-to keep the main function's indentation reasonable.
+ block/bio.c                     |  28 +++-
+ block/blk-merge.c               |  14 ++
+ block/blk.h                     |   3 +-
+ block/fops.c                    |  16 ++
+ drivers/nvme/host/pci.c         | 282 ++++++++++++++++++++++++++++++++
+ include/linux/bio.h             |  19 ++-
+ include/linux/blk-mq.h          |   9 +
+ include/linux/blk_types.h       |   8 +-
+ include/linux/fs.h              |   2 +
+ include/linux/io_dmabuf_token.h |  92 +++++++++++
+ include/linux/io_uring_types.h  |   5 +
+ include/linux/uio.h             |  11 ++
+ include/uapi/linux/io_uring.h   |  31 +++-
+ io_uring/io_uring.c             |   3 +-
+ io_uring/rsrc.c                 | 266 +++++++++++++++++++++++++-----
+ io_uring/rsrc.h                 |  30 +++-
+ io_uring/rw.c                   |   4 +-
+ lib/Kconfig                     |   4 +
+ lib/Makefile                    |   2 +
+ lib/io_dmabuf_token.c           | 272 ++++++++++++++++++++++++++++++
+ lib/iov_iter.c                  |  29 +++-
+ 21 files changed, 1071 insertions(+), 59 deletions(-)
+ create mode 100644 include/linux/io_dmabuf_token.h
+ create mode 100644 lib/io_dmabuf_token.c
 
-This also fixes a BO refcount leak in the original code: when
-amdgpu_bo_reserve() failed, control jumped to free_ib_content without
-running amdgpu_bo_unref().  In the new structure the per-IB BO refs
-are released unconditionally in the cleanup helper.
-
-Reproducer (~150 LoC libdrm_amdgpu): submit a single GFX IB containing
-PACKET3_INDIRECT_BUFFER chained at GPU VA 0 and wait for the fence.
-The TDR fires within ~10 s and the deferred coredump worker produces
-the splat above on every invocation.
-
-Fixes: 7b15fc2d1f1a ("drm/amdgpu: dump job ibs in the devcoredump")
-Cc: stable@vger.kernel.org # 7.1
-Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
----
- .../gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c  | 147 +++++++++++++-----
- 1 file changed, 110 insertions(+), 37 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-index d386bc775d03..f6bb968de756 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-@@ -207,6 +207,72 @@ static void amdgpu_devcoredump_fw_info(struct amdgpu_device *adev,
- 	}
- }
- 
-+struct amdgpu_devcoredump_ib_ref {
-+	struct amdgpu_bo	*bo;
-+	u64			offset;
-+};
-+
-+/*
-+ * Walk the VM's mapping tree under the root PD's reservation to obtain the BO
-+ * that backs each IB and pin it with a refcount. The root PD reservation is
-+ * dropped before this function returns; the caller can then reserve each IB
-+ * BO individually without nesting ww_mutex acquires on
-+ * reservation_ww_class_mutex.
-+ *
-+ * Returns an array of num_ibs entries (each ib_refs[i].bo may be NULL if its
-+ * mapping was not found), or NULL on allocation failure / VM lookup failure.
-+ * The caller must release the BO refs and free the array.
-+ */
-+static struct amdgpu_devcoredump_ib_ref *
-+amdgpu_devcoredump_collect_ib_refs(struct amdgpu_device *adev,
-+				   struct amdgpu_coredump_info *coredump)
-+{
-+	struct amdgpu_devcoredump_ib_ref *ib_refs;
-+	struct amdgpu_bo_va_mapping *mapping;
-+	struct amdgpu_bo *root;
-+	struct amdgpu_vm *vm;
-+	u64 va_start;
-+
-+	ib_refs = kcalloc(coredump->num_ibs, sizeof(*ib_refs), GFP_KERNEL);
-+	if (!ib_refs)
-+		return NULL;
-+
-+	vm = amdgpu_vm_lock_by_pasid(adev, &root, coredump->pasid);
-+	if (!vm) {
-+		kfree(ib_refs);
-+		return NULL;
-+	}
-+
-+	for (int i = 0; i < coredump->num_ibs; i++) {
-+		va_start = coredump->ibs[i].gpu_addr & AMDGPU_GMC_HOLE_MASK;
-+		mapping = amdgpu_vm_bo_lookup_mapping(vm, va_start / AMDGPU_GPU_PAGE_SIZE);
-+		if (!mapping)
-+			continue;
-+
-+		ib_refs[i].bo = amdgpu_bo_ref(mapping->bo_va->base.bo);
-+		ib_refs[i].offset = va_start -
-+				    mapping->start * AMDGPU_GPU_PAGE_SIZE;
-+	}
-+
-+	amdgpu_bo_unreserve(root);
-+	amdgpu_bo_unref(&root);
-+
-+	return ib_refs;
-+}
-+
-+static void
-+amdgpu_devcoredump_release_ib_refs(struct amdgpu_devcoredump_ib_ref *ib_refs,
-+				   int num_ibs)
-+{
-+	if (!ib_refs)
-+		return;
-+
-+	for (int i = 0; i < num_ibs; i++)
-+		if (ib_refs[i].bo)
-+			amdgpu_bo_unref(&ib_refs[i].bo);
-+	kfree(ib_refs);
-+}
-+
- static ssize_t
- amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_info *coredump)
- {
-@@ -214,13 +280,11 @@ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_inf
- 	struct drm_printer p;
- 	struct drm_print_iterator iter;
- 	struct amdgpu_vm_fault_info *fault_info;
--	struct amdgpu_bo_va_mapping *mapping;
- 	struct amdgpu_ip_block *ip_block;
- 	struct amdgpu_res_cursor cursor;
--	struct amdgpu_bo *abo, *root;
--	uint64_t va_start, offset;
-+	struct amdgpu_bo *abo;
-+	uint64_t offset;
- 	struct amdgpu_ring *ring;
--	struct amdgpu_vm *vm;
- 	u32 *ib_content;
- 	uint8_t *kptr;
- 	int ver, i, j, r;
-@@ -343,43 +407,52 @@ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_inf
- 		drm_printf(&p, "VRAM is lost due to GPU reset!\n");
- 
- 	if (coredump->num_ibs) {
--		/* Don't try to lookup the VM or map the BOs when calculating the
--		 * size required to store the devcoredump.
-+		struct amdgpu_devcoredump_ib_ref *ib_refs = NULL;
-+
-+		/*
-+		 * Snapshot per-IB BO references under the root PD's reservation,
-+		 * then release the root before reserving each IB BO individually
-+		 * to copy its contents.
-+		 *
-+		 * Reserving an IB BO while the root PD is still reserved would
-+		 * be a nested ww_mutex acquire on reservation_ww_class_mutex
-+		 * without a ww_acquire_ctx, which trips lockdep's recursive-
-+		 * locking check and self-deadlocks for IB BOs that share their
-+		 * dma_resv with the root PD (always-valid BOs).
-+		 *
-+		 * Skip lookup/reservation entirely on the sizing pass: it does
-+		 * not write IB content, and the size estimate doesn't depend on
-+		 * whether the BOs are reachable.
- 		 */
--		if (sizing_pass)
--			vm = NULL;
--		else
--			vm = amdgpu_vm_lock_by_pasid(adev, &root, coredump->pasid);
-+		if (!sizing_pass)
-+			ib_refs = amdgpu_devcoredump_collect_ib_refs(adev, coredump);
- 
--		for (int i = 0; i < coredump->num_ibs && (sizing_pass || vm); i++) {
-+		for (int i = 0; i < coredump->num_ibs; i++) {
- 			ib_content = kvmalloc_array(coredump->ibs[i].ib_size_dw, 4,
- 						    GFP_KERNEL);
- 			if (!ib_content)
- 				continue;
- 
--			/* vm=NULL can only happen when 'sizing_pass' is true. Skip to the
--			 * drm_printf() calls (ib_content doesn't need to be initialized
--			 * as its content won't be written anywhere).
--			 */
--			if (!vm)
-+			if (sizing_pass)
- 				goto output_ib_content;
- 
--			va_start = coredump->ibs[i].gpu_addr & AMDGPU_GMC_HOLE_MASK;
--			mapping = amdgpu_vm_bo_lookup_mapping(vm, va_start / AMDGPU_GPU_PAGE_SIZE);
--			if (!mapping)
--				goto free_ib_content;
-+			if (!ib_refs || !ib_refs[i].bo)
-+				goto output_ib_content;
-+
-+			abo = ib_refs[i].bo;
-+			offset = ib_refs[i].offset;
- 
--			offset = va_start - (mapping->start * AMDGPU_GPU_PAGE_SIZE);
--			abo = amdgpu_bo_ref(mapping->bo_va->base.bo);
- 			r = amdgpu_bo_reserve(abo, false);
- 			if (r)
--				goto free_ib_content;
-+				goto output_ib_content;
- 
- 			if (abo->flags & AMDGPU_GEM_CREATE_NO_CPU_ACCESS) {
- 				off = 0;
- 
--				if (abo->tbo.resource->mem_type != TTM_PL_VRAM)
--					goto unreserve_abo;
-+				if (abo->tbo.resource->mem_type != TTM_PL_VRAM) {
-+					amdgpu_bo_unreserve(abo);
-+					goto output_ib_content;
-+				}
- 
- 				amdgpu_res_first(abo->tbo.resource, offset,
- 						 coredump->ibs[i].ib_size_dw * 4,
-@@ -395,8 +468,10 @@ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_inf
- 				r = ttm_bo_kmap(&abo->tbo, 0,
- 						PFN_UP(abo->tbo.base.size),
- 						&abo->kmap);
--				if (r)
--					goto unreserve_abo;
-+				if (r) {
-+					amdgpu_bo_unreserve(abo);
-+					goto output_ib_content;
-+				}
- 
- 				kptr = amdgpu_bo_kptr(abo);
- 				kptr += offset;
-@@ -406,21 +481,19 @@ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_inf
- 				amdgpu_bo_kunmap(abo);
- 			}
- 
-+			amdgpu_bo_unreserve(abo);
-+
- output_ib_content:
- 			drm_printf(&p, "\nIB #%d 0x%llx %d dw\n",
- 				   i, coredump->ibs[i].gpu_addr, coredump->ibs[i].ib_size_dw);
--			for (int j = 0; j < coredump->ibs[i].ib_size_dw; j++)
--				drm_printf(&p, "0x%08x\n", ib_content[j]);
--unreserve_abo:
--			if (vm)
--				amdgpu_bo_unreserve(abo);
--free_ib_content:
-+			if (!sizing_pass && ib_refs && ib_refs[i].bo) {
-+				for (int j = 0; j < coredump->ibs[i].ib_size_dw; j++)
-+					drm_printf(&p, "0x%08x\n", ib_content[j]);
-+			}
- 			kvfree(ib_content);
- 		}
--		if (vm) {
--			amdgpu_bo_unreserve(root);
--			amdgpu_bo_unref(&root);
--		}
-+
-+		amdgpu_devcoredump_release_ib_refs(ib_refs, coredump->num_ibs);
- 	}
- 
- 	return count - iter.remain;
 -- 
-2.54.0
+2.53.0
 
