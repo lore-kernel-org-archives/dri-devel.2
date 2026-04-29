@@ -4,84 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3ED0CD13D2
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 18:22:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6E38FF8875
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 18:33:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D315810F118;
-	Wed, 29 Apr 2026 18:22:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13B0510F112;
+	Wed, 29 Apr 2026 18:33:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Vq9Z1GOB";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="R7w8KRfN";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0055D10E0AE
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 18:22:02 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 6C63344592;
- Wed, 29 Apr 2026 18:22:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 330CBC2BCC6;
- Wed, 29 Apr 2026 18:22:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777486922;
- bh=c1G8sdJh0CL1LI9CYozv7OslA1FCeWLsoDwfTfXFxao=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=Vq9Z1GOBRZiVfE8VGiiv1rrniHaRH6YXw0STgf0F7kdMxFIOnZKwVhQrp/VP3LdlK
- SDfGlCcxbylzGVxzW2VaXhtup/mDI1o84MLAnik/xEHY6gmgC3OMyavJiBdEoRiNWo
- 5lAmTdnStrqMiUWVT/luEkuyH+po5TPnCgjiNRtO0GjdUpCUIrAzyKWPMzNVqvqLqK
- de9dEWwb4lWZ3vbh/wRnhDCkRjIVEI9WPyaALjplCJRupBSPqMUHji69OQ4d4FmSRG
- qCgIM97JS9DAoM/szvcVQfZTjuZ8CoKJvx+C0CGIw3RhS6El1F/mwrb285oXckdnL2
- oQO0Og4FqeHvQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 18CB4CD13DA;
- Wed, 29 Apr 2026 18:22:02 +0000 (UTC)
-From: Markus Probst via B4 Relay <devnull+markus.probst.posteo.de@kernel.org>
-Date: Wed, 29 Apr 2026 20:21:34 +0200
-Subject: [PATCH v7 4/4] samples: rust: add Rust serial device bus sample
- device driver
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E022C10F112
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 18:33:10 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1777487583; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=VxzSigshzm8N+XLgnwvlraQ7KiJSYTlIgWgIth2i7aqDOo3X7E2jlb2GeDhvuGjNfGHbbd2zHuxEo5cCeZ7Vipk4DfP6jfRhomituOoEzC2/ZksWB49KWrVZAUMVZlenaFkmpQJSyaPqzecyHmoYkr/+RCwIsDKynhCUIQYIzbI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1777487583;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=T1XAvqKQ8kNl1pfBdBhLcZ+NAaNaR/wGfnRQ6tTjurE=; 
+ b=h1lJc6QNWQABTMres1XJfMngmy4GY4DgfEyCKqaZGIJXOUeDE9cRQmpjNQvmL/j0yYv2nFl160pf1ENVBbbXCPTZW+ksh8lYeRf/XuooWG0JkSSl6tFQbTgUB95jXzL4wMbdC6emsrHsBAWeT57/rf5lX+YzlrbtUua2GzcskXI=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+ dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1777487583; 
+ s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=T1XAvqKQ8kNl1pfBdBhLcZ+NAaNaR/wGfnRQ6tTjurE=;
+ b=R7w8KRfNo+kIPhxiclWJk8HT9dj1iVHa9/ZhXjLd7nJ0nDVtkpMdHua5jSjhOYzJ
+ +4YaosJhC6cMegCykIXFsGYt5/8wbYv15AzScHuARPR59ofAbGzKFch2WBfjanlceSK
+ 2IdHm+xAY62r5Ru3YInDBUSnZhvDnlmd/mB6LndI=
+Received: by mx.zohomail.com with SMTPS id 177748758255049.62677130764098;
+ Wed, 29 Apr 2026 11:33:02 -0700 (PDT)
+From: =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>
+To: linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, Steven Price <steven.price@arm.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>, kernel@collabora.com,
+ =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>
+Subject: [PATCH v10 0/6] Support sparse mappings in Panthor
+Date: Wed, 29 Apr 2026 19:32:12 +0100
+Message-ID: <20260429183253.66422-1-adrian.larumbe@collabora.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260429-rust_serdev-v7-4-0d89c791b5c8@posteo.de>
-References: <20260429-rust_serdev-v7-0-0d89c791b5c8@posteo.de>
-In-Reply-To: <20260429-rust_serdev-v7-0-0d89c791b5c8@posteo.de>
-To: Rob Herring <robh@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Kari Argillander <kari.argillander@gmail.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Viresh Kumar <viresh.kumar@linaro.org>, Boqun Feng <boqun@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Boqun Feng <boqun@kernel.org>
-Cc: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, linux-pm@vger.kernel.org, 
- driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- Markus Probst <markus.probst@posteo.de>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4264;
- i=markus.probst@posteo.de; h=from:subject:message-id;
- bh=ou+gfdCBhxJ76kbzVf5IO+8JF7WjVK31ujX01kwK5wI=;
- b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBp8kxHkRff2LTNQNrlQO0C+eM5ZARNc0YvxmC3C
- /WpacjS6BaJAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCafJMRxsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9KC5A//T2TNQEKCMsoAwbNcLxxRapj3uV7GPbO
- 8BEqs/fzM9BqbwUJwARU0Us8W9CdsSS6oz33F9i3p0c1j2rGk0tgZl4vFIm1km0uHkB0N3nmotf
- bO6dfN3G2BTM2VNHWkbaTuwgODb+d3j0kdV0yApfGJGKfD3p9YPwAVbesu6tFjoovu0tGYs81LW
- gGrFkpTwdZU2L4lAMTY7sO5T6KpO0jsA1R1HHSrjcUU+s9DjQH5GNmLMtS+TM8B4qMYe6UlqZpI
- h2BgEsvIMbsEHOihCPqATpDdzit3OP4Yoboo6McEgiwli0iLFmSwJS/58BYQsDVTD4Bi7BUATzc
- Ws8hOu4EmcnJsfUiHxnLTbL9pa2xMZRo6QfF+T57+/mOAdELmA+VVxqwWvEW8sXwkloA6YMSa5+
- An5f5onlM7fBaL+qb847q6DGE6ehmBHozJQOQMRPg9xD/1pLrcBPrgZQmsMZAQSBbAg2LkiChsI
- rPmDLEDlbvI32XiRZ7f9SBUDhsHwyUMTXNReZNsqT0g3H7QN4tDc5Blk1dk/TFtkjnY5urgkGo/
- bMus5gDlqM/O6F+a+Ej+qxD9fo7CcIaX5oMjidAUEub7NM4CVcgiWnySYuZAi1/YYSXtZZoInKp
- y7CXvweyox2RUSwjJP8V9mrCQ7x9F5XMxRR7iOZdhk1TgeC+gSKo=
-X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
- fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
-X-Endpoint-Received: by B4 Relay for markus.probst@posteo.de/default with
- auth_id=680
-X-Original-From: Markus Probst <markus.probst@posteo.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,153 +61,107 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: markus.probst@posteo.de
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Markus Probst <markus.probst@posteo.de>
+This patch series implements sparse mappings in Panthor. Owing to the lack of HW MMU
+features for sparse page table entries, this had to be implemented using a dummy object
+over which sparse mappings requested over VM_BIND are mapped cyclically.
 
-Add a sample Rust serial device bus device driver illustrating the usage
-of the serial device bus abstractions.
+To that end, a new VM_BIND flag was added in the driver's uAPI.
 
-This drivers probes through either a match of device / driver name or a
-match within the OF ID table.
+The end goal of this patch series is to improve support of Vulkan sparse
+resources. At the moment, to implement this feature on Mali hardware, Vulkan
+sparse map is implemented by mapping the specified region to a "dummy bo" so
+that the accesses do not fault. A newly created sparse resource starts off
+unmapped, and therefore also has to be mapped to the "dummy bo".  This "dummy
+bo" is small (a page size) in comparison to the sizes of va ranges that we might
+want to map to it, and a large number of vm_bind ops can be necessary. For
+example, if the user were to create a 100e6-byte sparse resident resource, we'd
+have to poke VM_BIND with ceil(100e6/0x1000)=24415 map operations.
 
-Signed-off-by: Markus Probst <markus.probst@posteo.de>
----
- samples/rust/Kconfig               | 11 +++++
- samples/rust/Makefile              |  1 +
- samples/rust/rust_driver_serdev.rs | 86 ++++++++++++++++++++++++++++++++++++++
- 3 files changed, 98 insertions(+)
+The new VM_BIND sparse mapping feature addresses this particular inefficiency by
+letting us implement a single Vulkan sparse map operation and sparse resident
+resource initialization with just one map operation.
 
-diff --git a/samples/rust/Kconfig b/samples/rust/Kconfig
-index c49ab9106345..31d62533ef25 100644
---- a/samples/rust/Kconfig
-+++ b/samples/rust/Kconfig
-@@ -161,6 +161,17 @@ config SAMPLE_RUST_DRIVER_AUXILIARY
- 
- 	  If unsure, say N.
- 
-+config SAMPLE_RUST_DRIVER_SERDEV
-+	tristate "Serial Device Bus Device Driver"
-+	select RUST_SERIAL_DEV_BUS_ABSTRACTIONS
-+	help
-+	  This option builds the Rust serial device bus driver sample.
-+
-+	  To compile this as a module, choose M here:
-+	  the module will be called rust_driver_serdev.
-+
-+	  If unsure, say N.
-+
- config SAMPLE_RUST_SOC
- 	tristate "SoC Driver"
- 	select SOC_BUS
-diff --git a/samples/rust/Makefile b/samples/rust/Makefile
-index 6c0aaa58cccc..b986b681cde5 100644
---- a/samples/rust/Makefile
-+++ b/samples/rust/Makefile
-@@ -14,6 +14,7 @@ obj-$(CONFIG_SAMPLE_RUST_DRIVER_PLATFORM)	+= rust_driver_platform.o
- obj-$(CONFIG_SAMPLE_RUST_DRIVER_USB)		+= rust_driver_usb.o
- obj-$(CONFIG_SAMPLE_RUST_DRIVER_FAUX)		+= rust_driver_faux.o
- obj-$(CONFIG_SAMPLE_RUST_DRIVER_AUXILIARY)	+= rust_driver_auxiliary.o
-+obj-$(CONFIG_SAMPLE_RUST_DRIVER_SERDEV)		+= rust_driver_serdev.o
- obj-$(CONFIG_SAMPLE_RUST_CONFIGFS)		+= rust_configfs.o
- obj-$(CONFIG_SAMPLE_RUST_SOC)			+= rust_soc.o
- 
-diff --git a/samples/rust/rust_driver_serdev.rs b/samples/rust/rust_driver_serdev.rs
-new file mode 100644
-index 000000000000..956ca62831fe
---- /dev/null
-+++ b/samples/rust/rust_driver_serdev.rs
-@@ -0,0 +1,86 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! Rust Serial device bus device driver sample.
-+
-+use kernel::{
-+    acpi,
-+    device::{
-+        Bound,
-+        Core, //
-+    },
-+    of,
-+    prelude::*,
-+    serdev,
-+    sync::aref::ARef, //
-+};
-+
-+struct SampleDriver {
-+    sdev: ARef<serdev::Device>,
-+}
-+
-+kernel::of_device_table!(
-+    OF_TABLE,
-+    MODULE_OF_TABLE,
-+    <SampleDriver as serdev::Driver<'_>>::IdInfo,
-+    [(of::DeviceId::new(c"test,rust_driver_serdev"), ())]
-+);
-+
-+kernel::acpi_device_table!(
-+    ACPI_TABLE,
-+    MODULE_ACPI_TABLE,
-+    <SampleDriver as serdev::Driver<'_>>::IdInfo,
-+    [(acpi::DeviceId::new(c"LNUXBEEF"), ())]
-+);
-+
-+#[vtable]
-+impl<'a> serdev::Driver<'a> for SampleDriver {
-+    type IdInfo = ();
-+    const OF_ID_TABLE: Option<of::IdTable<Self::IdInfo>> = Some(&OF_TABLE);
-+    const ACPI_ID_TABLE: Option<acpi::IdTable<Self::IdInfo>> = Some(&ACPI_TABLE);
-+
-+    fn probe(
-+        sdev: &'a serdev::Device<Core>,
-+        _info: Option<&'a Self::IdInfo>,
-+    ) -> impl PinInit<Self, Error> + 'a {
-+        let dev = sdev.as_ref();
-+
-+        dev_dbg!(dev, "Probe Rust Serial device bus device driver sample.\n");
-+
-+        if sdev
-+            .set_baudrate(
-+                dev.fwnode()
-+                    .and_then(|fwnode| fwnode.property_read(c"baudrate").optional())
-+                    .unwrap_or(115200),
-+            )
-+            .is_err()
-+        {
-+            return Err(EINVAL);
-+        }
-+        sdev.set_flow_control(false);
-+        sdev.set_parity(serdev::Parity::None)?;
-+
-+        Ok(Self { sdev: sdev.into() })
-+    }
-+
-+    fn receive(sdev: &serdev::Device<Bound>, _this: Pin<&Self>, data: &[u8]) -> usize {
-+        let _ = sdev.write_all(data, serdev::Timeout::Max);
-+        data.len()
-+    }
-+}
-+
-+impl Drop for SampleDriver {
-+    fn drop(&mut self) {
-+        dev_dbg!(
-+            self.sdev.as_ref(),
-+            "Remove Rust Serial device bus device driver sample.\n"
-+        );
-+    }
-+}
-+
-+kernel::module_serdev_device_driver! {
-+    type: SampleDriver,
-+    name: "rust_driver_serdev",
-+    authors: ["Markus Probst"],
-+    description: "Rust Serial device bus device driver",
-+    license: "GPL v2",
-+}
+Link to the conversation for the previous patch series revision at:
+https://lore.kernel.org/dri-devel/20260422122538.3117380-1-adrian.larumbe@collabora.com
 
--- 
+Changes in v10:
+ - Fixed uAPI enum ordering issue
+ - Reworked sparse mapping by hardcoding size of dummy object.
+ - Added missing cleanup in case dummy object fails to allocate
+ - Other minor fixes.
+
+Changes in v9:
+ - Addressed some nits.
+ - Rearranged argument checks for vm_bind to profit from compiler optimisations.
+ - Added some further comments.
+
+Changes in v8:
+ - Allocate a single 2MiB BO as a dummy buffer for sparse mappings. Let its pages
+ be retrieved just like for any other BO during a map operation.
+ - Removed locking around allocation of the dummy BO by doing it right at the
+  time of a VMA pool creation.
+ - Some minor style fixes.
+ - Refactor low level page mapping code in sm_remap and sm_map.
+ - Made NO_EXEC a mandatory flag for sparse mappings.
+ - Actually bumped the driver's minor revision number.
+
+Changes in v7:
+ - Switched back to Panthor BO-backed dummy object instead of raw pages so as to profit from
+ the existing shrinker reclaim paths.
+ - Created Dummy BO's per file context to avoid information leaking between them.
+ - Reorganised some of the low-level page mapping code.
+ - Added commits deleting spurious white space and unused op contex field.
+
+Changes in v6:
+ - Moved all the GPUVM core code into the driver backend.
+ - Discarded commits that touch on the gpuvm core too.
+ - Redesigned the uAPI so that no repeat range or user BO is supplied for sparse mappings.
+ - Replaced user-supplied BO with a kernel-allocated array of raw pages.
+
+Changes in v5:
+ - Minor fixes to drm_gpuvm.c.
+ - Add panthor MMU page sizes device queriable param.
+ - Add helper to make sure unmaps of repeated regions are correct.
+ - Some fixes to Panthor's repeat mappings implementation.
+ - Lump arguments to panthor_vm_prepare_map_op_ctx into a single struct.
+
+Changes in v4:
+ - Fixed the warnings reported by the kernel test robot.
+  https://lore.kernel.org/oe-kbuild-all/202507041635.WyDu3TQ1-lkp@intel.com/
+ - Fixed the warnings reported by the CI.
+  https://patchwork.freedesktop.org/series/151264/
+
+No changes in v3.
+
+Changes in v2:
+ - Make panthor use this stuff.
+ - Make it possible to express a repeated mappina of any suitably sized
+  and aligned range of a BO, rather than strictly the page size -sized
+  prefix, generalizing the API. Rename DRM_GPUVA_SINGLE_PAGE to
+  DRM_GPUVA_REPEAT.
+ - Clean up parts of drm/gpuvm affected by these changes.
+
+Adrián Larumbe (6):
+  drm/panthor: Expose GPU page sizes to UM
+  drm/panthor: Pass vm_bind_op to vm_prepare_map_op_ctx
+  drm/panthor: Delete spurious whitespace from uAPI header
+  drm/panthor: Remove unused operation context field
+  drm/panthor: Support sparse mappings
+  drm/panthor: Bump the driver version to 1.9
+
+ drivers/gpu/drm/panthor/panthor_device.h |   3 +
+ drivers/gpu/drm/panthor/panthor_drv.c    |  12 +-
+ drivers/gpu/drm/panthor/panthor_gem.c    |  18 ++
+ drivers/gpu/drm/panthor/panthor_gem.h    |   2 +
+ drivers/gpu/drm/panthor/panthor_mmu.c    | 201 ++++++++++++++++++-----
+ include/uapi/drm/panthor_drm.h           |  26 ++-
+ 6 files changed, 218 insertions(+), 44 deletions(-)
+
+
+base-commit: 9a096b8879801a597c06c1a69d41c827458cea60
+prerequisite-patch-id: 0000000000000000000000000000000000000000
+--
 2.53.0
-
-
