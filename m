@@ -4,50 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09E79FF8875
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3ED0CD13D2
 	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 18:22:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6528110F116;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D315810F118;
 	Wed, 29 Apr 2026 18:22:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZT+JMtaK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Vq9Z1GOB";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0826510F0FA
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 18:22:03 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0055D10E0AE
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 18:22:02 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 243256024D;
+ by sea.source.kernel.org (Postfix) with ESMTP id 6C63344592;
  Wed, 29 Apr 2026 18:22:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id BC87FC2BCC4;
- Wed, 29 Apr 2026 18:22:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 330CBC2BCC6;
+ Wed, 29 Apr 2026 18:22:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777486921;
- bh=oK5pms9uVEMP/3te4JTH9eo/pbWJdjojqvXsoKHPuoc=;
- h=From:Subject:Date:To:Cc:Reply-To:From;
- b=ZT+JMtaKcKrQ8/vbWXgJWayChR83Sxg0r7Kf62JgweJKpu+7Rc4HkMTp/h5D0XrSP
- rmRIlNvyAWtTI8metgXWpYznkO/lQVRKBiyK0beohpd7N20ftuOz3iRVisws72YMmI
- 6V+hTHiBmJ1cmIiuUyHznm+bDow9bi8FDRIH66FohFPyeWtZZEEFjDVSJ13t8KvVDG
- ZYIu8fP1iFHxKlkxaGVpTvQLE1r7C4QlKy3wWLu4EPnLSHkVxJJInBD7eSL5uiU+9o
- Ebk9PvOqJJm/rSvsFxfJu89WnUMrxJpIXVOxbFKg+an8E5OZv6B8MlD66DJwtfpTQK
- Di0Z610+nfzNw==
+ s=k20201202; t=1777486922;
+ bh=c1G8sdJh0CL1LI9CYozv7OslA1FCeWLsoDwfTfXFxao=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=Vq9Z1GOBRZiVfE8VGiiv1rrniHaRH6YXw0STgf0F7kdMxFIOnZKwVhQrp/VP3LdlK
+ SDfGlCcxbylzGVxzW2VaXhtup/mDI1o84MLAnik/xEHY6gmgC3OMyavJiBdEoRiNWo
+ 5lAmTdnStrqMiUWVT/luEkuyH+po5TPnCgjiNRtO0GjdUpCUIrAzyKWPMzNVqvqLqK
+ de9dEWwb4lWZ3vbh/wRnhDCkRjIVEI9WPyaALjplCJRupBSPqMUHji69OQ4d4FmSRG
+ qCgIM97JS9DAoM/szvcVQfZTjuZ8CoKJvx+C0CGIw3RhS6El1F/mwrb285oXckdnL2
+ oQO0Og4FqeHvQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id A5923FF8875;
- Wed, 29 Apr 2026 18:22:01 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 18CB4CD13DA;
+ Wed, 29 Apr 2026 18:22:02 +0000 (UTC)
 From: Markus Probst via B4 Relay <devnull+markus.probst.posteo.de@kernel.org>
-Subject: [PATCH v7 0/4] rust: add basic serial device bus abstractions
-Date: Wed, 29 Apr 2026 20:21:30 +0200
-Message-Id: <20260429-rust_serdev-v7-0-0d89c791b5c8@posteo.de>
+Date: Wed, 29 Apr 2026 20:21:34 +0200
+Subject: [PATCH v7 4/4] samples: rust: add Rust serial device bus sample
+ device driver
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIACpM8mkC/3XRTW7CMBAF4KtEXteRZ/wbVtyjqionmUBEIWAHq
- xXi7nWgqCRql2Ppe/LMu7BIoafIVsWFBUp97IdDHuxLwZqtP2yI922eGQrUgGB5OMfxPaOWEif
- SygFVwumGZXEM1PWft7TXtzxv+zgO4esWnmB6/clBMctJwAUnpYzS1liDsD4OcaShbIlNOQkf1
- ggpzNziZKsaZa2wRq2XVj5ZkHMrs20qL32HoDrbLa36tQpgblW2TmmqjGiMQbu0+sku99XZaku
- u9kJD1cmlNc92fvNksgUrbeVaTeBn9novIdDpnJsc702wPcXob02uikcmIgiBZV5bOgMceOt3Y
- b2jcKCPcgibqc5/HGg9OeWU+9vVPhJvhv2+H1dFsmU+XAP5c9dvhJxzN24CAAA=
-X-Change-ID: 20251217-rust_serdev-ee5481e9085c
+Message-Id: <20260429-rust_serdev-v7-4-0d89c791b5c8@posteo.de>
+References: <20260429-rust_serdev-v7-0-0d89c791b5c8@posteo.de>
+In-Reply-To: <20260429-rust_serdev-v7-0-0d89c791b5c8@posteo.de>
 To: Rob Herring <robh@kernel.org>, 
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
  Jiri Slaby <jirislaby@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
@@ -66,21 +62,21 @@ Cc: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
  driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org, 
  Markus Probst <markus.probst@posteo.de>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5457;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4264;
  i=markus.probst@posteo.de; h=from:subject:message-id;
- bh=oK5pms9uVEMP/3te4JTH9eo/pbWJdjojqvXsoKHPuoc=;
- b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBp8kxHBzqHPk16mBaErmeqnqv5EIEd9OpEUXPlr
- 30+9hosimWJAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCafJMRxsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9JoYg//ZbQae5uhbRVIAsl7El1cMu6wwgX2d4X
- W7FKaoZlupCzASxnyCrznyMLmV37wBQ3wg9Gq7OautEqryG7bjoGzR3skJ4IZY6gt0FdRH9LOsj
- j6IVr9vKAkvWk9uXobkTyul2MfL3nxtKCCFAhFUznf11aaiEtsjXT1yvKdgcfJmR/qFH3nzXFe/
- HlRBumC8oETC0G6Nl/d7UFpGhXnYELWc+ZCFPLfS/KRPF4eGs7jLPsa3HWL2wzvm/97goZJa6KN
- twadXdACFiQNu1Lw/GVJl50QoN6hwZmIwC+GF7Pl9naTS0kQ+ULgeC31KpVtiE7dDIFd4JyHOok
- TwI4GowcCdMUzNXxoPr1aX2eHWlhx3+cjhvK7+4UBP0OjXJXw6b36iIA2H0RmruAPtaszMnFswB
- rOxh02YYC68z7JTiqA/dQkBz5dTuL8TWy1vWh+0wlvbBAbgtynL3PTRazMxwmAflOFLg9Vssd+o
- N1wfrtTCJCjg9D6KhNrjYRM7oyCTNfuekkGTo10VJ0bwuFEyoVDLmbwKTJEGTXnRB3G0Ob9rRMn
- zDoeiQHwX8MLbWnZg+F7SR9vTqu/Y8zHCpMTALdSv5xb8mrVwdy/f6uMLcAJt/xfDZMVGCpbUmc
- AIsolueDT7n4ZPRRZfK0DSumycpDD8wenJm3+xAm5iAzTHzz8Tds=
+ bh=ou+gfdCBhxJ76kbzVf5IO+8JF7WjVK31ujX01kwK5wI=;
+ b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBp8kxHkRff2LTNQNrlQO0C+eM5ZARNc0YvxmC3C
+ /WpacjS6BaJAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCafJMRxsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9KC5A//T2TNQEKCMsoAwbNcLxxRapj3uV7GPbO
+ 8BEqs/fzM9BqbwUJwARU0Us8W9CdsSS6oz33F9i3p0c1j2rGk0tgZl4vFIm1km0uHkB0N3nmotf
+ bO6dfN3G2BTM2VNHWkbaTuwgODb+d3j0kdV0yApfGJGKfD3p9YPwAVbesu6tFjoovu0tGYs81LW
+ gGrFkpTwdZU2L4lAMTY7sO5T6KpO0jsA1R1HHSrjcUU+s9DjQH5GNmLMtS+TM8B4qMYe6UlqZpI
+ h2BgEsvIMbsEHOihCPqATpDdzit3OP4Yoboo6McEgiwli0iLFmSwJS/58BYQsDVTD4Bi7BUATzc
+ Ws8hOu4EmcnJsfUiHxnLTbL9pa2xMZRo6QfF+T57+/mOAdELmA+VVxqwWvEW8sXwkloA6YMSa5+
+ An5f5onlM7fBaL+qb847q6DGE6ehmBHozJQOQMRPg9xD/1pLrcBPrgZQmsMZAQSBbAg2LkiChsI
+ rPmDLEDlbvI32XiRZ7f9SBUDhsHwyUMTXNReZNsqT0g3H7QN4tDc5Blk1dk/TFtkjnY5urgkGo/
+ bMus5gDlqM/O6F+a+Ej+qxD9fo7CcIaX5oMjidAUEub7NM4CVcgiWnySYuZAi1/YYSXtZZoInKp
+ y7CXvweyox2RUSwjJP8V9mrCQ7x9F5XMxRR7iOZdhk1TgeC+gSKo=
 X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
  fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
 X-Endpoint-Received: by B4 Relay for markus.probst@posteo.de/default with
@@ -102,123 +98,149 @@ Reply-To: markus.probst@posteo.de
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This patch series adds the serdev device bus rust abstraction into the
-kernel.
+From: Markus Probst <markus.probst@posteo.de>
 
-This abstraction will be used by a driver,
-which targets the MCU devices in Synology devices.
+Add a sample Rust serial device bus device driver illustrating the usage
+of the serial device bus abstractions.
 
-Kari Argillander also messaged me, stating that he wants to write a
-watchdog driver with this abstraction (needing initial device data).
-
-@Rob: Are you willing to maintain these rust abstractions yourself,
-as you are the expert on this subsystem, otherwise I would take care of
-it with a "SERIAL DEVICE BUS [RUST]" section in the MAINTAINERS file. In
-the second case, I assume you are going to pick those patches as-is into
-your tree, after they have been reviewed?
-
-This series depends on [1].
-
-[1]
-https://lore.kernel.org/driver-core/20260427221155.2144848-1-dakr@kernel.org/
+This drivers probes through either a match of device / driver name or a
+match within the OF ID table.
 
 Signed-off-by: Markus Probst <markus.probst@posteo.de>
 ---
-Changes in v7:
-- adapted to driver-lifetime patch series
-- Link to v6: https://patch.msgid.link/20260427-rust_serdev-v6-0-173798d5e1a3@posteo.de
+ samples/rust/Kconfig               | 11 +++++
+ samples/rust/Makefile              |  1 +
+ samples/rust/rust_driver_serdev.rs | 86 ++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 98 insertions(+)
 
-Changes in v6:
-- rebased onto v7.1-rc1
-- Link to v5: https://patch.msgid.link/20260420-rust_serdev-v5-0-57e8ba0519f3@posteo.de
+diff --git a/samples/rust/Kconfig b/samples/rust/Kconfig
+index c49ab9106345..31d62533ef25 100644
+--- a/samples/rust/Kconfig
++++ b/samples/rust/Kconfig
+@@ -161,6 +161,17 @@ config SAMPLE_RUST_DRIVER_AUXILIARY
+ 
+ 	  If unsure, say N.
+ 
++config SAMPLE_RUST_DRIVER_SERDEV
++	tristate "Serial Device Bus Device Driver"
++	select RUST_SERIAL_DEV_BUS_ABSTRACTIONS
++	help
++	  This option builds the Rust serial device bus driver sample.
++
++	  To compile this as a module, choose M here:
++	  the module will be called rust_driver_serdev.
++
++	  If unsure, say N.
++
+ config SAMPLE_RUST_SOC
+ 	tristate "SoC Driver"
+ 	select SOC_BUS
+diff --git a/samples/rust/Makefile b/samples/rust/Makefile
+index 6c0aaa58cccc..b986b681cde5 100644
+--- a/samples/rust/Makefile
++++ b/samples/rust/Makefile
+@@ -14,6 +14,7 @@ obj-$(CONFIG_SAMPLE_RUST_DRIVER_PLATFORM)	+= rust_driver_platform.o
+ obj-$(CONFIG_SAMPLE_RUST_DRIVER_USB)		+= rust_driver_usb.o
+ obj-$(CONFIG_SAMPLE_RUST_DRIVER_FAUX)		+= rust_driver_faux.o
+ obj-$(CONFIG_SAMPLE_RUST_DRIVER_AUXILIARY)	+= rust_driver_auxiliary.o
++obj-$(CONFIG_SAMPLE_RUST_DRIVER_SERDEV)		+= rust_driver_serdev.o
+ obj-$(CONFIG_SAMPLE_RUST_CONFIGFS)		+= rust_configfs.o
+ obj-$(CONFIG_SAMPLE_RUST_SOC)			+= rust_soc.o
+ 
+diff --git a/samples/rust/rust_driver_serdev.rs b/samples/rust/rust_driver_serdev.rs
+new file mode 100644
+index 000000000000..956ca62831fe
+--- /dev/null
++++ b/samples/rust/rust_driver_serdev.rs
+@@ -0,0 +1,86 @@
++// SPDX-License-Identifier: GPL-2.0
++
++//! Rust Serial device bus device driver sample.
++
++use kernel::{
++    acpi,
++    device::{
++        Bound,
++        Core, //
++    },
++    of,
++    prelude::*,
++    serdev,
++    sync::aref::ARef, //
++};
++
++struct SampleDriver {
++    sdev: ARef<serdev::Device>,
++}
++
++kernel::of_device_table!(
++    OF_TABLE,
++    MODULE_OF_TABLE,
++    <SampleDriver as serdev::Driver<'_>>::IdInfo,
++    [(of::DeviceId::new(c"test,rust_driver_serdev"), ())]
++);
++
++kernel::acpi_device_table!(
++    ACPI_TABLE,
++    MODULE_ACPI_TABLE,
++    <SampleDriver as serdev::Driver<'_>>::IdInfo,
++    [(acpi::DeviceId::new(c"LNUXBEEF"), ())]
++);
++
++#[vtable]
++impl<'a> serdev::Driver<'a> for SampleDriver {
++    type IdInfo = ();
++    const OF_ID_TABLE: Option<of::IdTable<Self::IdInfo>> = Some(&OF_TABLE);
++    const ACPI_ID_TABLE: Option<acpi::IdTable<Self::IdInfo>> = Some(&ACPI_TABLE);
++
++    fn probe(
++        sdev: &'a serdev::Device<Core>,
++        _info: Option<&'a Self::IdInfo>,
++    ) -> impl PinInit<Self, Error> + 'a {
++        let dev = sdev.as_ref();
++
++        dev_dbg!(dev, "Probe Rust Serial device bus device driver sample.\n");
++
++        if sdev
++            .set_baudrate(
++                dev.fwnode()
++                    .and_then(|fwnode| fwnode.property_read(c"baudrate").optional())
++                    .unwrap_or(115200),
++            )
++            .is_err()
++        {
++            return Err(EINVAL);
++        }
++        sdev.set_flow_control(false);
++        sdev.set_parity(serdev::Parity::None)?;
++
++        Ok(Self { sdev: sdev.into() })
++    }
++
++    fn receive(sdev: &serdev::Device<Bound>, _this: Pin<&Self>, data: &[u8]) -> usize {
++        let _ = sdev.write_all(data, serdev::Timeout::Max);
++        data.len()
++    }
++}
++
++impl Drop for SampleDriver {
++    fn drop(&mut self) {
++        dev_dbg!(
++            self.sdev.as_ref(),
++            "Remove Rust Serial device bus device driver sample.\n"
++        );
++    }
++}
++
++kernel::module_serdev_device_driver! {
++    type: SampleDriver,
++    name: "rust_driver_serdev",
++    authors: ["Markus Probst"],
++    description: "Rust Serial device bus device driver",
++    license: "GPL v2",
++}
 
-Changes in v5:
-- fix typo in documentation
-- Link to v4: https://lore.kernel.org/r/20260411-rust_serdev-v4-0-845e960c6627@posteo.de
-
-Changes in v4:
-- fixed not selecting rust serdev abstraction in sample
-- Link to v3: https://lore.kernel.org/r/20260313-rust_serdev-v3-0-c9a3af214f7f@posteo.de
-
-Changes in v3:
-- fix vertical import style
-- add Kconfig entry for the rust abstraction
-- fix documentation in include/linux/serdev.h
-- rename private_data to rust_private_data
-- fix `complete_all` <-> `wait_for_completion` typo
-- move drvdata_borrow call after the completion
-- Link to v2: https://lore.kernel.org/r/20260306-rust_serdev-v2-0-e9b23b42b255@posteo.de
-
-Changes in v2:
-- fix documentation in `serdev::Driver::write` and
-  `serdev::Driver::write_all`
-- remove use of `dev_info` in probe from the sample
-- remove `properties_parse` from the sample
-- add optional `baudrate` property to the sample
-- remove 1. patch
-- remove `TryFrom<&device::Device<Ctx>> for &serdev::Device<Ctx>`
-  implementation
-- fix import style
-- add patch to return reference in `devres::register` to fix safety
-  issue
-- add patch to add private data to serdev_device, to fix
-  `Device.drvdata()` from failing
-- simplify abstraction by removing ability to receive the initial
-  transmission. It may be added later in a separate patch series if
-  needed.
-- Link to v1: https://lore.kernel.org/r/20251220-rust_serdev-v1-0-e44645767621@posteo.de
-
----
-Markus Probst (4):
-      rust: devres: return reference in `devres::register`
-      serdev: add rust private data to serdev_device
-      rust: add basic serial device bus abstractions
-      samples: rust: add Rust serial device bus sample device driver
-
- drivers/tty/serdev/Kconfig         |   7 +
- include/linux/serdev.h             |  15 +-
- rust/bindings/bindings_helper.h    |   1 +
- rust/helpers/helpers.c             |   1 +
- rust/helpers/serdev.c              |  22 ++
- rust/kernel/cpufreq.rs             |   3 +-
- rust/kernel/devres.rs              |  15 +-
- rust/kernel/drm/driver.rs          |   3 +-
- rust/kernel/lib.rs                 |   2 +
- rust/kernel/serdev.rs              | 571 +++++++++++++++++++++++++++++++++++++
- samples/rust/Kconfig               |  11 +
- samples/rust/Makefile              |   1 +
- samples/rust/rust_driver_serdev.rs |  86 ++++++
- 13 files changed, 728 insertions(+), 10 deletions(-)
----
-base-commit: 5e9b7d093f3f77cb0af4409559e3d139babfb443
-change-id: 20251217-rust_serdev-ee5481e9085c
-prerequisite-message-id: 20260427221002.2143861-1-dakr@kernel.org
-prerequisite-patch-id: 925690ac15ddd64777b2da34b343d2547bbf79e8
-prerequisite-patch-id: 67318671a5eed5fb4ad23a450f1cf0e442bf8ca2
-prerequisite-message-id: 20260427221155.2144848-1-dakr@kernel.org
-prerequisite-patch-id: 87127047dbf7d948ae98f1ff0f4a782214a516e2
-prerequisite-patch-id: 7664165039fb510368a721edfe60f5b67449b7b6
-prerequisite-patch-id: 1e8c97720bab512d8646409c129edd6047164c4c
-prerequisite-patch-id: f0fdd1e9912f31a3945f1c0f227dcb64cf71885d
-prerequisite-patch-id: be515f7e13f7800eaadb3ed85dec6a9ddb733828
-prerequisite-patch-id: 3a3c7749e017d9335f58497404d1350e96caf471
-prerequisite-patch-id: 3526c9154f581497a11465b936d83ef61a875454
-prerequisite-patch-id: 65d8c757b52475c2acc7d22ddc92cd3f0152b55d
-prerequisite-patch-id: 4bd31f1414d5248dc080884caadf5f21684a8427
-prerequisite-patch-id: 7beadbb0da3e589ed86d12f512d1c83427dd82b4
-prerequisite-patch-id: f04f5427c592cb078c08ee071b965ef6fd4a9a48
-prerequisite-patch-id: 64c0098c3d2420f82c89f44fccd3eed459557bfc
-prerequisite-patch-id: 3294340ecd964b8e3e87e5a787ff1ffa28e0b698
-prerequisite-patch-id: b2c14d06f068dc6a52814fc55d1188737dc29861
-prerequisite-patch-id: c7fd96983b606bc42cc5b003022b8fa2bb1c0c34
-prerequisite-patch-id: 8e9f4c2d5521fb6cdc5bed2d6661f4bbed5eb63d
-prerequisite-patch-id: d868f7925ee9dfe44c5ddf50f4deb50263ff203f
-prerequisite-patch-id: 5677248690560ec45e512a8cdbbf8aecfad62d77
-prerequisite-patch-id: 5d9674da330ee9d0f4c91edb8acc20727ba1cd9c
-prerequisite-patch-id: d5f29453bfd2e3354fb96b57d7a55521bedb2b0b
-prerequisite-patch-id: 9d6f96e26fe651304e950766d6bc2006dd33e86a
-prerequisite-patch-id: c7a73c58c6d4ca8556d29ce651ad78cc647f6f31
-prerequisite-patch-id: c5f35030637e78ab6f5fa489172f1506493fbae1
-prerequisite-patch-id: aad19e48d4fa45734050bba927a5b72d6def9673
+-- 
+2.53.0
 
 
