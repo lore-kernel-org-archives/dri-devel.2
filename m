@@ -4,49 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EF31FF8875
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 08:57:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65158FF8867
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 09:03:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BFD810EECE;
-	Wed, 29 Apr 2026 08:57:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC55710EED3;
+	Wed, 29 Apr 2026 09:03:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="npahlUNW";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="wG8ufrAS";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B82E10EECE
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 08:57:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=Pml9WieQ5se4QU31zJ7KhqjKVftm7cMQ8+RFA9TIDWQ=; b=npahlUNW2QKb7g9fnCtzE/qOAs
- 8bJeaZQnWwRDHyBZVklIB0DaSczVKl3JlRm1huJcTOhVcXogPnk5qZeYTX2SUbt7wEMMpzbg9HdVQ
- 3PgEWiTh59Hl9twmuB4IA6fo9osKaDA1dlWLj446xokV33dInetxqjHV+w03gdYqD4o9D9ve78gAC
- Pmj9CpBrDXgCla/siAHEc+QXLt3cTDs6Ep2YsYYYCaAEvCj92zRhhiaTkYUbFqAY0j7k1lGueFO4G
- rvon3xsfjZTpLjDl7s+ROpBrzsTGgv3Py/sqR1EnJBW8NWWHhI6jwimgCzxMnwadE2f/VEL7FfLvF
- V7sBv7Dg==;
-Received: from [90.240.106.137] (helo=localhost)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wI0ja-003pnG-S5; Wed, 29 Apr 2026 10:57:30 +0200
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-To: dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Subject: [PATCH] drm: Drop unused drm_device_class_(un)register API
-Date: Wed, 29 Apr 2026 09:57:26 +0100
-Message-ID: <20260429085726.69842-1-tvrtko.ursulin@igalia.com>
-X-Mailer: git-send-email 2.52.0
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
+ [209.85.221.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0359510EED3
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 09:03:53 +0000 (UTC)
+Received: by mail-wr1-f49.google.com with SMTP id
+ ffacd0b85a97d-43fe3e22e33so7902552f8f.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 02:03:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1777453431; x=1778058231; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=RSpsznma6FPd297vSkEgjiyMuhjrOLr3Zucu2Me0roU=;
+ b=wG8ufrASnTNYxxoAVNXmNcTWj41ueGmGIE5jh/Ir6+pbRV9U+Y2YPZRWNZsgtoU1m5
+ aJ+3rSTFG9PgISahQzCtprL7CMgNrMM1s34HuSTACHUVIjDhfeEg8I2b6b8EP1j0GPLh
+ +QXxRcktToKl7VvNUmmGLjjQDFWA8sjdq/jHTvqYIhUCYr76w1ME23/FyF4APfGWRAR8
+ vh0yG7Sjir0xesaXO3v6Bssg1QBMMdJEXcaji45Ui2V6T93jBNgXrtR/9ZOwK4/3bM14
+ aSZKjFnBWVIJ25+w1jXW5+RSCxDXcNJlfoKymRq8ZXFxUmZxpjlsd6oCCyuqT9V+ml7q
+ x58g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777453431; x=1778058231;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=RSpsznma6FPd297vSkEgjiyMuhjrOLr3Zucu2Me0roU=;
+ b=DWCnZ41Pc56GSXbweRsL+N6wxnczjPnj/oVzrxWRgEVfYerFdMBqSoxrQ2Epv5rr8e
+ HFM5yOkLAS7sHnmQNUE8aXkdHKQUSUrwJU0TXADr0rFyKCAsc8hW9DVYYi8ze2H4zUIR
+ 5+LCrQ6Lcef2K4rojH6KrAcYbZTQYi3tZi6mt6fbgg3iv1+6olsBkEFVYsi23cO0qQk1
+ s1dPO8cDxH7ab4eX1VipdsABSXwIzC2Q1gCTxHFCqhWmLmvKSNA0q8rKKVpfgsfkE1jf
+ +eg6RoQcROsjcl0pYwKgD8o2WtnUsLUwqBhSaHcxUBMx8LbVaGtun80KVMRyhNLOV/lb
+ fpJg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/YrwdRo+vzLEVjHy1kG7zJwBBG4eygxJe9vzvXKhO/IWXoUDPL5dQ90NtxI9DbFt6XPHfhY9DDiNQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwNi7zo1Qlrqs3S1r/N/aNR132gjKBdxijN53lIU5TZnZlml9bk
+ Pyeh9UR5YaCtmOCrsXzma4L+T+9HRwapgfe3oIMeStSAivYfqrAcDy26gvvll/Odk54=
+X-Gm-Gg: AeBDieul0dzGhiWs8kzCDomKXJorLZN9tgq+NFkvbDbaLnh9Uo4XWareMSAxmDcPm9h
+ RSj/dhOHNcQ9nLNi+cZ8mHKrtO/8Ps9cv7c/hKXCUtKJvF44x+VwAjbAzz4j0WvePETQEXlo3Rg
+ VuFb9v0SxaHsuwOANe1yM+HoL0nXdYfp4gLjZOc/w52HHwcbyvdO7sUyzXLOH5+61LfNp5igpBZ
+ +iOZs1VRJNJPD+Wkmeoape27o62T6kcy0mgcFrWY+bmoVInW4BzkM4k+Vd3XiDZPWsejouSCXVg
+ fPbuq69Jdr/LOoVPZkOVR+aleRqiUnvJxOAEcoNPvXI8MDfHzwZzwpQD575Eln1sIQ1Uql5feqA
+ AFGqzIh4bOJf7EaryrXvjDMRixjQTbt7fqlOsT+Ajr27RLM8ldaQIxu3n19bbpckmb6QUcU6hIl
+ 8kcbMf1WBv3YLl/7ifToULpb2EtEdtdeuDaB9Vqn2YuddqOuYm5L9b+0an7YmE5bTtqQmroFb2x
+ 7S23XkrISQ3XylKpA==
+X-Received: by 2002:a05:6000:2dc2:b0:43d:7403:4b65 with SMTP id
+ ffacd0b85a97d-44648f28e88mr11536798f8f.6.1777453431182; 
+ Wed, 29 Apr 2026 02:03:51 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:b679:2e1c:a552:545b?
+ ([2a01:e0a:106d:1080:b679:2e1c:a552:545b])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-447b76e5bf2sm4322188f8f.27.2026.04.29.02.03.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 29 Apr 2026 02:03:50 -0700 (PDT)
+Message-ID: <bac23b70-758f-4944-b040-753fc40a53c5@linaro.org>
+Date: Wed, 29 Apr 2026 11:03:49 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 2/2] backlight: Add SY7758 6-channel High Efficiency LED
+ Driver support
+To: Gyeyoung Baek <gye976@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>,
+ dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, KancyJoe <kancy2333@outlook.com>
+References: <20260428-topic-sm8650-ayaneo-pocket-s2-sy7758-v1-0-0caade5fdb32@linaro.org>
+ <20260428-topic-sm8650-ayaneo-pocket-s2-sy7758-v1-2-0caade5fdb32@linaro.org>
+ <CAKbEznvPAYFUt-ykH7rCQwMFUq6N68B9x7Dd97WRDm3Mvj34fw@mail.gmail.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <CAKbEznvPAYFUt-ykH7rCQwMFUq6N68B9x7Dd97WRDm3Mvj34fw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,83 +124,37 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The API has been unused since commit
-ed89fff97382 ("drm/ttm: drop sysfs directory")
-so lets remove it.
+On 4/29/26 01:35, Gyeyoung Baek wrote:
+> Hi,
+> 
+>> +
+>> +static int sy7758_probe(struct i2c_client *client)
+>> +{
+> 
+>> +
+>> +       /* try read and check device id */
+>> +       ret = regmap_read(sydev->regmap, REG_DEV_ID, &dev_id);
+>> +       if (ret < 0)
+>> +               return dev_err_probe(dev, -EPROBE_DEFER,
+>> +                                    "failed to read device id\n");
+> 
+> regmap_read() seems it can return errors other than -EPROBE_DEFER
+> (like -EINVAL,), and hardcoding -EPROBE_DEFER here might drop the
+> actual error.
+> And maybe would keep retrying probe forever
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
----
- drivers/gpu/drm/drm_sysfs.c | 32 --------------------------------
- include/drm/drm_sysfs.h     |  4 ----
- 2 files changed, 36 deletions(-)
+I forgot to change it, initially the powering was clunky and we had a read error
+in the first probe, but now it's solved so I'll remove it.
 
-diff --git a/drivers/gpu/drm/drm_sysfs.c b/drivers/gpu/drm/drm_sysfs.c
-index 43b2c3eaa7e4..7433bf8136cc 100644
---- a/drivers/gpu/drm/drm_sysfs.c
-+++ b/drivers/gpu/drm/drm_sysfs.c
-@@ -645,35 +645,3 @@ struct device *drm_sysfs_minor_alloc(struct drm_minor *minor)
- 	put_device(kdev);
- 	return ERR_PTR(r);
- }
--
--/**
-- * drm_class_device_register - register new device with the DRM sysfs class
-- * @dev: device to register
-- *
-- * Registers a new &struct device within the DRM sysfs class. Essentially only
-- * used by ttm to have a place for its global settings. Drivers should never use
-- * this.
-- */
--int drm_class_device_register(struct device *dev)
--{
--	if (!drm_class || IS_ERR(drm_class))
--		return -ENOENT;
--
--	dev->class = drm_class;
--	return device_register(dev);
--}
--EXPORT_SYMBOL_GPL(drm_class_device_register);
--
--/**
-- * drm_class_device_unregister - unregister device with the DRM sysfs class
-- * @dev: device to unregister
-- *
-- * Unregisters a &struct device from the DRM sysfs class. Essentially only used
-- * by ttm to have a place for its global settings. Drivers should never use
-- * this.
-- */
--void drm_class_device_unregister(struct device *dev)
--{
--	return device_unregister(dev);
--}
--EXPORT_SYMBOL_GPL(drm_class_device_unregister);
-diff --git a/include/drm/drm_sysfs.h b/include/drm/drm_sysfs.h
-index 96a5d858404b..7695873a9456 100644
---- a/include/drm/drm_sysfs.h
-+++ b/include/drm/drm_sysfs.h
-@@ -3,13 +3,9 @@
- #define _DRM_SYSFS_H_
- 
- struct drm_device;
--struct device;
- struct drm_connector;
- struct drm_property;
- 
--int drm_class_device_register(struct device *dev);
--void drm_class_device_unregister(struct device *dev);
--
- void drm_sysfs_hotplug_event(struct drm_device *dev);
- void drm_sysfs_connector_hotplug_event(struct drm_connector *connector);
- void drm_sysfs_connector_property_event(struct drm_connector *connector,
--- 
-2.52.0
+Neil
+
+> 
+> How about this?
+>> +               return dev_err_probe(dev, ret, "failed to read device id\n");
+> 
+> 
 
