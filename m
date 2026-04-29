@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A01BCFF8867
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 13:32:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46948CCFA13
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Apr 2026 13:34:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0852B10EFFD;
-	Wed, 29 Apr 2026 13:32:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B699B10E3E9;
+	Wed, 29 Apr 2026 13:33:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="EDbyTLJC";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="etTLiPUA";
 	dkim-atps=neutral
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 7C4A510EFFD
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 13:32:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 2057F10E3E9
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 13:33:59 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5374E2574
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 06:32:42 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1A7162574
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 06:33:53 -0700 (PDT)
 Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
  by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- 899573F62B
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 06:32:47 -0700 (PDT)
+ 504923F62B
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 06:33:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1777469567; bh=3dXqKoJqwgm37N7FLXaKeBBy5Wv7SRCuC+mUA6/f2+I=;
+ t=1777469638; bh=5te7r2BHOvYm4RuayRqfKSycIm9FG1qfCbfy8BvsfgU=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=EDbyTLJC4CD5kKFmSRNqUOjlQx/ZDd5l9F+DX8xDEiRiKAC3uc9npQYmIvcmY4Yqt
- c3Kg0K6kAdx0Oxz5bJnTP3o9E8xMr1r4iNhajJqOgRtNMbnTRvIQ5GdwSrsKJoLMpD
- WBSCzoTQTC5rRXMlVfxMWsBcucrt/1ZOOcoC9zYQ=
-Date: Wed, 29 Apr 2026 14:32:39 +0100
+ b=etTLiPUAxfCpk3COCGGhVEc2hpvC8ASKV1kKUoCXarBA4EKdLeldGJLzQtuZYUduq
+ dcraLAnFzhZ+/Oz3iVYX69IC0VCeFqEIMXXkLG8oCcBbTLzrontRxt8aDmdcoxzsj9
+ xF3wT65CHhteA6uVXV0q7gvv9QqHXln4UP+TJiFE=
+Date: Wed, 29 Apr 2026 14:33:50 +0100
 From: Liviu Dudau <liviu.dudau@arm.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>
 Cc: Steven Price <steven.price@arm.com>,
@@ -37,16 +37,16 @@ Cc: Steven Price <steven.price@arm.com>,
  Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 04/10] drm/panthor: Extend the IRQ logic to allow
- fast/raw IRQ handlers
-Message-ID: <afIId-2Ej-WGBN1b@e142607>
+Subject: Re: [PATCH 05/10] drm/panthor: Make
+ panthor_fw_{update,toggle}_reqs() callable from IRQ context
+Message-ID: <afIIvrGK-t3t9TgF@e142607>
 References: <20260429-panthor-signal-from-irq-v1-0-4b92ae4142d2@collabora.com>
- <20260429-panthor-signal-from-irq-v1-4-4b92ae4142d2@collabora.com>
+ <20260429-panthor-signal-from-irq-v1-5-4b92ae4142d2@collabora.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260429-panthor-signal-from-irq-v1-4-4b92ae4142d2@collabora.com>
+In-Reply-To: <20260429-panthor-signal-from-irq-v1-5-4b92ae4142d2@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,124 +62,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Apr 29, 2026 at 11:38:31AM +0200, Boris Brezillon wrote:
-> All drivers except panthor signal their fences from their interrupt
-> handler to minimize latency. We could do the same from the interrupt
-> handler, but the latency is still quite high in that case, so let's
-> allow components to choose the context they want their IRQ handler
-> to run in.
-
-Starting here
-
+On Wed, Apr 29, 2026 at 11:38:32AM +0200, Boris Brezillon wrote:
+> If we want some FW events to be processed in the interrupt path, we need
+> the helpers manipulating req regs to be IRQ-safe, which implies using
+> spin_lock_irqsave instead of spinlock. While at it, use guards instead
+> of plain spin_lock/unlock calls.
 > 
-> This takes the form of an extra fast_handler() returning an irqreturn_t
-> reflecting the need to wake-up a thread or not.
-> A new PANTHOR_IRQ_ADV_HANDLER() macro taking this extra fast_handler
-> argument is added, PANTHOR_IRQ_HANDLER() is implemented as a wrapper
-> around PANTHOR_IRQ_ADV_HANDLER() with a default fast_handler
-> returning IRQ_WAKE_THREAD.
-
-up to here: there is no code matching the description. Left over from
-earlier iteration?
-
-> The fast and slow handler are still assumed
-> to be mutually exclusive. In case a fast handler is provided, the
-> slow_handler is expected to be run when the event can't be processed
-> directly in the fast handler, or when the driver thinks it would be
-> beneficial to coalesce interrupts by polling in the thread rather than
-> re-enabling interrupts immediately.
-
-This part is not really describing any code, just the intent. Maybe worth
-moving it inside the code as a comment?
-
-Otherwise, the change looks fine to me.
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 
 Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
 Best regards,
 Liviu
 
-> 
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 > ---
->  drivers/gpu/drm/panthor/panthor_device.h | 5 ++---
->  drivers/gpu/drm/panthor/panthor_fw.c     | 1 +
->  drivers/gpu/drm/panthor/panthor_gpu.c    | 1 +
->  drivers/gpu/drm/panthor/panthor_mmu.c    | 1 +
->  drivers/gpu/drm/panthor/panthor_pwr.c    | 1 +
->  5 files changed, 6 insertions(+), 3 deletions(-)
+>  drivers/gpu/drm/panthor/panthor_fw.h | 9 +++------
+>  1 file changed, 3 insertions(+), 6 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-> index afa202546316..1c130b8394ab 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.h
-> +++ b/drivers/gpu/drm/panthor/panthor_device.h
-> @@ -672,6 +672,7 @@ static inline void panthor_irq_disable_events(struct panthor_irq *pirq, u32 mask
->  static inline int
->  panthor_irq_request(struct panthor_device *ptdev, struct panthor_irq *pirq,
->  		    int irq, u32 mask, void __iomem *iomem, const char *name,
-> +		    irqreturn_t (*raw_handler)(int, void *data),
->  		    irqreturn_t (*threaded_handler)(int, void *data))
->  {
->  	const char *full_name;
-> @@ -687,9 +688,7 @@ panthor_irq_request(struct panthor_device *ptdev, struct panthor_irq *pirq,
->  	if (!full_name)
->  		return -ENOMEM;
+> diff --git a/drivers/gpu/drm/panthor/panthor_fw.h b/drivers/gpu/drm/panthor/panthor_fw.h
+> index a99a9b6f4825..e56b7fe15bb3 100644
+> --- a/drivers/gpu/drm/panthor/panthor_fw.h
+> +++ b/drivers/gpu/drm/panthor/panthor_fw.h
+> @@ -432,12 +432,11 @@ struct panthor_fw_global_iface {
+>  #define panthor_fw_toggle_reqs(__iface, __in_reg, __out_reg, __mask) \
+>  	do { \
+>  		u32 __cur_val, __new_val, __out_val; \
+> -		spin_lock(&(__iface)->lock); \
+> +		guard(spinlock_irqsave)(&(__iface)->lock); \
+>  		__cur_val = READ_ONCE((__iface)->input->__in_reg); \
+>  		__out_val = READ_ONCE((__iface)->output->__out_reg); \
+>  		__new_val = ((__out_val ^ (__mask)) & (__mask)) | (__cur_val & ~(__mask)); \
+>  		WRITE_ONCE((__iface)->input->__in_reg, __new_val); \
+> -		spin_unlock(&(__iface)->lock); \
+>  	} while (0)
 >  
-> -	return devm_request_threaded_irq(ptdev->base.dev, irq,
-> -					 panthor_irq_default_raw_handler,
-> -					 threaded_handler,
-> +	return devm_request_threaded_irq(ptdev->base.dev, irq, raw_handler, threaded_handler,
->  					 IRQF_SHARED, full_name, pirq);
->  }
+>  /**
+> @@ -458,21 +457,19 @@ struct panthor_fw_global_iface {
+>  #define panthor_fw_update_reqs(__iface, __in_reg, __val, __mask) \
+>  	do { \
+>  		u32 __cur_val, __new_val; \
+> -		spin_lock(&(__iface)->lock); \
+> +		guard(spinlock_irqsave)(&(__iface)->lock); \
+>  		__cur_val = READ_ONCE((__iface)->input->__in_reg); \
+>  		__new_val = (__cur_val & ~(__mask)) | ((__val) & (__mask)); \
+>  		WRITE_ONCE((__iface)->input->__in_reg, __new_val); \
+> -		spin_unlock(&(__iface)->lock); \
+>  	} while (0)
 >  
-> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
-> index eaf599b0a887..8239a6951569 100644
-> --- a/drivers/gpu/drm/panthor/panthor_fw.c
-> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
-> @@ -1483,6 +1483,7 @@ int panthor_fw_init(struct panthor_device *ptdev)
+>  #define panthor_fw_update_reqs64(__iface, __in_reg, __val, __mask) \
+>  	do { \
+>  		u64 __cur_val, __new_val; \
+> -		spin_lock(&(__iface)->lock); \
+> +		guard(spinlock_irqsave)(&(__iface)->lock); \
+>  		__cur_val = READ_ONCE((__iface)->input->__in_reg); \
+>  		__new_val = (__cur_val & ~(__mask)) | ((__val) & (__mask)); \
+>  		WRITE_ONCE((__iface)->input->__in_reg, __new_val); \
+> -		spin_unlock(&(__iface)->lock); \
+>  	} while (0)
 >  
->  	ret = panthor_irq_request(ptdev, &fw->irq, irq, 0,
->  				  ptdev->iomem + JOB_INT_BASE, "job",
-> +				  panthor_irq_default_raw_handler,
->  				  panthor_job_irq_threaded_handler);
->  	if (ret) {
->  		drm_err(&ptdev->base, "failed to request job irq");
-> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
-> index ce208e384762..d0be758ea3e1 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
-> @@ -177,6 +177,7 @@ int panthor_gpu_init(struct panthor_device *ptdev)
->  	ret = panthor_irq_request(ptdev, &ptdev->gpu->irq, irq,
->  				  GPU_INTERRUPTS_MASK,
->  				  ptdev->iomem + GPU_INT_BASE, "gpu",
-> +				  panthor_irq_default_raw_handler,
->  				  panthor_gpu_irq_threaded_handler);
->  	if (ret)
->  		return ret;
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> index a0d0a9b2926f..2cb07933b629 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -3260,6 +3260,7 @@ int panthor_mmu_init(struct panthor_device *ptdev)
->  	ret = panthor_irq_request(ptdev, &mmu->irq, irq,
->  				  panthor_mmu_fault_mask(ptdev, ~0),
->  				  ptdev->iomem + MMU_INT_BASE, "mmu",
-> +				  panthor_irq_default_raw_handler,
->  				  panthor_mmu_irq_threaded_handler);
->  	if (ret)
->  		return ret;
-> diff --git a/drivers/gpu/drm/panthor/panthor_pwr.c b/drivers/gpu/drm/panthor/panthor_pwr.c
-> index 80cf78007896..1efb7f3482ba 100644
-> --- a/drivers/gpu/drm/panthor/panthor_pwr.c
-> +++ b/drivers/gpu/drm/panthor/panthor_pwr.c
-> @@ -491,6 +491,7 @@ int panthor_pwr_init(struct panthor_device *ptdev)
->  	err = panthor_irq_request(
->  		ptdev, &pwr->irq, irq, PWR_INTERRUPTS_MASK,
->  		pwr->iomem + PWR_INT_BASE, "pwr",
-> +		panthor_irq_default_raw_handler,
->  		panthor_pwr_irq_threaded_handler);
->  	if (err)
->  		return err;
+>  struct panthor_fw_global_iface *
 > 
 > -- 
 > 2.53.0
