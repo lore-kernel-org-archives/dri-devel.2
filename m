@@ -4,103 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4C68FF886F
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 09:12:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E47BFF8875
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 09:12:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 035EF10F2B1;
-	Thu, 30 Apr 2026 09:12:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CAD4D10F2B4;
+	Thu, 30 Apr 2026 09:12:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HmExZPES";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="ezr6zvFA";
 	dkim-atps=neutral
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com
- [209.85.160.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57A5A10F2B1
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 09:12:37 +0000 (UTC)
-Received: by mail-qt1-f169.google.com with SMTP id
- d75a77b69052e-50fb8e9a4edso7733111cf.1
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 02:12:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777540356; cv=none;
- d=google.com; s=arc-20240605;
- b=dFJxJURoyTFYMdPo47WTG5JRns85R7Ci0Mob6yeiJtn3QGdBMjL4q0PLd2s1onihfK
- J6rZTRB08hJTTo+JuEt0uHeJjuNrTD6zRi211wTaCWFSOS85gzUiWs98sg/MHoi70017
- o/Jzrv8R9lb/5QVwxitW5nU1SnO/EPL9efdzFKpLSSJf+AmMW5gGfT6cxj4NcMtbA9st
- nyr9wlP3ZU6uRmzWVFAc6M9OO00kSE9gFOsdK72uH30kU0qBTOL7IdZ9kPAfogOiH+QP
- NTCpfxR4x35nhinkszYdMsFfXUO8VhUeavAZsnvlv9oatinDX6Kj0tRATf6tLJCC1iTm
- +tog==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=CBO+qP2fp4ZIZ2hbTpo8BAvLBsmEh447VHA/0NJ5kAY=;
- fh=3z0zmwDKR5VzHCAi4gKlGadrssom6TxfVuNfnBlOdGo=;
- b=jfnBx4G6sS8iv1PIWIoaEGRccmRQa8khjSZOjqL3SDM3weTvQ0E0apuUUcKGwJjGAZ
- gS8Ay/aYZJnLYZ5n/5v+wJo2IVkpmIv8JACPwCYAixaLUGjZ0nMgoL2THbj6LruP2iHM
- wTHrv3//RG3dwuSB+NHFeavhzKJsMKW/QTWs2ip1H55EQU8y5rM3+JG1j0gMSVEYpCL3
- oWaxrwmPhZvpIioqQ66fafCDyvufjfsdERrbNFRWxTj1FSYihpmu6bY2+61J8smli3o8
- 21Q9+Fj2SfEVPAu+e4/C+zY7vcz8unP4ZB3raxDtps4RCTLH/+yGX8WKdG9rVUcQjn1a
- oB7w==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-wr1-f73.google.com (mail-wr1-f73.google.com
+ [209.85.221.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB8ED10F2B4
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 09:12:43 +0000 (UTC)
+Received: by mail-wr1-f73.google.com with SMTP id
+ ffacd0b85a97d-43ff0eb2b2aso582760f8f.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 02:12:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777540356; x=1778145156; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=CBO+qP2fp4ZIZ2hbTpo8BAvLBsmEh447VHA/0NJ5kAY=;
- b=HmExZPESbZF+gjzNCCT1DAdlgMls2p5g5I9wAu4dUkOdyWnFBGcdhT3U5+4dZyzu2B
- EcBYxu5I6xo9yXs/cn4vTIsyOnK6zUNYrpzbVg3+4EXyNIs/YJBwkfbg8S2ZKMsg4nVH
- jK8/wSdhSi5Yx51DeYG0THZsV9Exm1YQ4qO9ueHfN/baNCv14ejrpSwu3CSm9Wj+Nu3O
- Txne2NTo56cUBeCX9N1ebYBOBHvAQGnS70BvZ7c0DdS0LvBFLDCN7PPclad4/ALLo2cv
- nMEauQed/7DW7U7Tb9SOKCPvTgvB1v/UcDUwTlid9FhtwljMFlU7dSqhq38BPHd192jc
- YYaA==
+ d=google.com; s=20251104; t=1777540362; x=1778145162;
+ darn=lists.freedesktop.org; 
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=Vy8Z/q685PmwcT3tK0xjwvFofcgEB05Cfirscbd47U4=;
+ b=ezr6zvFAiSs37VH5tLtVszaFnhK1NIj6lAV3FZ8sI+AhqqG/SWnjlg26exR8ElKBzv
+ ozZuPjpHFNyw4tblTAU0J8Rl/3szNtUntDKLhZuu5hakLDpHkPDyg2WZ9iL7nmbp9XFS
+ 6YVgTkSGvo/4ZElVBhvy2emS8dwwu4sPTNMROo3rUbtrziNkoUva1D7WUYf4tijxhrzi
+ YjvY4igYUqBX/LOmjsVjchMEO1dstszKVnDMw18VBhExJ+buWv9J46dMVsdRHZpJTi5/
+ dv7T9q3YahmS0aKuPCi6HFWJiHa9xNHgUA8mZu5W6pVXCRDsby2NMOkLNPk6PlbzneA5
+ ckmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777540356; x=1778145156;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=CBO+qP2fp4ZIZ2hbTpo8BAvLBsmEh447VHA/0NJ5kAY=;
- b=EwLksZowmhnqNBi8xKcVKgXJmGRQnHU2SKVunDxDF9NbQbNtiDCZQMzvHP/5+INTIE
- m+GjobqqISmNFq9NDGaumu66tM9a+W+h/ksfzelrL21V4LOHvckADAFwVuQ+CC+eDPWn
- HBsbfh8UtFOyxgI441jHO1HILZ7ml/99GfWXdaTcgYQnOVZClxQaYW+rESrO4QloQFfQ
- nB/tA0hSOfChPiCLu6pXT4aItyRfgOzAZzDHYjAMEGqR/Spc/URCOcjYqJklNEFIpBfX
- YEiUrvAVF7bzU3eR5D7KJI6Ea0EbpHWW9sp0epQbbD7h2kFbToUq6p/bFzflnXDbJR3H
- NoBw==
+ d=1e100.net; s=20251104; t=1777540362; x=1778145162;
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Vy8Z/q685PmwcT3tK0xjwvFofcgEB05Cfirscbd47U4=;
+ b=MLKSVagxI7PzozAKXydSyc3CbbmC8yDAfYGO8HmrPnrqSTOt0ni6dQLfqbxvuaSV76
+ hMW15u+4yotG5vquBZAkG5F1JjUpwneDh2fSKTYI8Eu2n4X4Ib3UtMUAnYq5pbtAGkUU
+ 5NI/IDEW4r3rW+NC4QKqV8LQJE3/3OiSex/8qhl2VE5MJrCV0UsjSQK49wDpESo2kB1f
+ VebqNCvJBVcwzTY/W3KotzQDrLvuSRa/fJjsQA6V6h0NWZV+iX26OZ1faUWi7VZIC1ID
+ q5wSTF4mroNHPIkH4Uv4mFpe33LjWoTY7vBeLRMETYk1zvn75WiSVOabCIdOpfsIcYdm
+ NVFw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8CdJSuwEF36uTZU0417mt9RH8Bl9sR5piknjcFFTWQZ3SncPsV2HKlKdPrFdHlfWja4iZgdak65jI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzknd9wptYoQvk0KDMas9czaBmFiM1obY2agpqSS2YzOcR/Vq5o
- amSMrFaeyfT8nuvV8rf1n+mFPznLncn0hERQhylPGc5VZqruUclPxv9Y8OLtGFXs24SnVCUIf/l
- /bL/o8uRuSE4zibpfoxkxtPaqTdVjCA0=
-X-Gm-Gg: AeBDietEFV+2aYK2Oxm8z/n8cylmugBgxTMb8EMwLQ57GyfgWJFV1U64JAM9SOccEHr
- AqQN4yBCwrTazW6tLWHS6iDN6BZAF6ttGyS7FrlvqORHRRc6ZO+Z+K9HOV3H4WoFiZNFEl9Tnkx
- bCKh5UYktG+lUngOU+5EDhanTNDcJomVKxvMTrZzF9vJGCY35MyDV+STB7/zal7Obd0511R/0Ba
- R99/d9UZ8nqtRU8N/FxgTpBpYcBQuX/5W5Ju0E3bTyXcQUzoaJORc31hxqOHcm77GN5/skJRqxb
- weX27QkJNEWNbwefcbKsu1ImFGcQ
-X-Received: by 2002:a05:622a:a14:b0:50d:edcd:4f39 with SMTP id
- d75a77b69052e-5102adc7d9bmr26633321cf.40.1777540356421; Thu, 30 Apr 2026
- 02:12:36 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260430085344.34271-1-francesco@dolcini.it>
- <DI6DC1OD5S7N.2EXPCKI13OZNM@bootlin.com>
-In-Reply-To: <DI6DC1OD5S7N.2EXPCKI13OZNM@bootlin.com>
-From: Adrien Grassein <adrien.grassein@gmail.com>
-Date: Thu, 30 Apr 2026 11:12:23 +0200
-X-Gm-Features: AVHnY4KIb3EZwtjEuyVikwUpvIR2bFalintX6aFwcVP1HD24fqoAZ-swyGdJ3zk
-Message-ID: <CABkfQAHWPwr55dzfMyiJfK2XSat-Eqf+8d1qceHMMFaM9v-2iA@mail.gmail.com>
-Subject: Re: [PATCH] MAINTAINERS: Update maintainer for LT8912B DRM HDMI bridge
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Francesco Dolcini <francesco@dolcini.it>,
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Francesco Dolcini <francesco.dolcini@toradex.com>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ AFNElJ9rpaanM3/0G077KfaFRvJzuObeyFzWhV4Ao5luIGSYI2W+omV6nZixSwaJ2fbn9VqpBUM45blEL+Q=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxykFOsQ2qXWT8EI8uskIqWkYvkGaGDp0Gn30tWip5+N03w/hRT
+ 8prJRUoxBw2Stdpe1LFTmfOqOmVCr/gFeJ3yWaDzm+scGaCb+/M5sGxx4k8T+JarYJaVonnRf97
+ 8mLAO1q4JZdsYa00Bqg==
+X-Received: from wrtw10.prod.google.com ([2002:a5d:608a:0:b0:439:d5c9:3b63])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a5d:5f89:0:b0:43f:e22e:e8da with SMTP id
+ ffacd0b85a97d-4493d7fa1b5mr3355911f8f.5.1777540362054; 
+ Thu, 30 Apr 2026 02:12:42 -0700 (PDT)
+Date: Thu, 30 Apr 2026 09:12:41 +0000
+In-Reply-To: <20260427221155.2144848-2-dakr@kernel.org>
+Mime-Version: 1.0
+References: <20260427221155.2144848-1-dakr@kernel.org>
+ <20260427221155.2144848-2-dakr@kernel.org>
+Message-ID: <afMdCU06-Y2d_LXh@google.com>
+Subject: Re: [PATCH 01/24] rust: driver core: drop drvdata before devres
+ release
+From: Alice Ryhl <aliceryhl@google.com>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: gregkh@linuxfoundation.org, rafael@kernel.org, acourbot@nvidia.com, 
+ david.m.ertman@intel.com, ira.weiny@intel.com, leon@kernel.org, 
+ viresh.kumar@linaro.org, m.wilczynski@samsung.com, ukleinek@kernel.org, 
+ bhelgaas@google.com, kwilczynski@kernel.org, abdiel.janulgue@gmail.com, 
+ robin.murphy@arm.com, markus.probst@posteo.de, ojeda@kernel.org, 
+ boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com, 
+ lossin@kernel.org, a.hindborg@kernel.org, tmgross@umich.edu, 
+ driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ linux-pm@vger.kernel.org, linux-pwm@vger.kernel.org, 
+ linux-pci@vger.kernel.org, rust-for-linux@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,28 +89,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Le jeu. 30 avr. 2026 =C3=A0 11:06, Luca Ceresoli
-<luca.ceresoli@bootlin.com> a =C3=A9crit :
->
-> On Thu Apr 30, 2026 at 10:53 AM CEST, Francesco Dolcini wrote:
-> > From: Francesco Dolcini <francesco.dolcini@toradex.com>
-> >
-> > Update the maintainer from Adrien to Francesco.  Adrien is not
-> > interested in maintaining this driver anymore, Francesco has access to
-> > various hardware devices using this component and the vendor
-> > documentation.
-> >
-> > Cc: Adrien Grassein <adrien.grassein@gmail.com>
-> > Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
-Acked-by: Adrien Grassein adrien.grassein@gmail.com
->
-> FWIW:
-> Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
->
-> --
-> Luca Ceresoli, Bootlin
-> Embedded Linux and Kernel engineering
-> https://bootlin.com
+On Tue, Apr 28, 2026 at 12:10:59AM +0200, Danilo Krummrich wrote:
+> Move the post_unbind_rust callback before devres_release_all() in
+> device_unbind_cleanup().
+> 
+> With drvdata() removed, the driver's bus device private data is only
+> accessible by the owning driver itself. It is hence safe to drop the
+> driver's bus device private data before devres actions are released.
+> 
+> This reordering is the key enabler for Higher-Ranked Lifetime Types
+> (HRT) in Rust device drivers -- it allows driver structs to hold direct
+> references to devres-managed resources, because the bus device private
+> data (and with it all such references) is guaranteed to be dropped while
+> the underlying devres resources are still alive.
+> 
+> Without this change, devres resources would be freed first, leaving the
+> driver's bus device private data with dangling references during its
+> destructor.
+> 
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+> ---
+>  drivers/base/dd.c             | 2 +-
+>  include/linux/device/driver.h | 4 ++--
+>  rust/kernel/driver.rs         | 4 ++--
+>  3 files changed, 5 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/base/dd.c b/drivers/base/dd.c
+> index 5799a60fd058..be59d2e13a15 100644
+> --- a/drivers/base/dd.c
+> +++ b/drivers/base/dd.c
+> @@ -593,9 +593,9 @@ static DEVICE_ATTR_RW(state_synced);
+>  
+>  static void device_unbind_cleanup(struct device *dev)
+>  {
+> -	devres_release_all(dev);
+>  	if (dev->driver->p_cb.post_unbind_rust)
+>  		dev->driver->p_cb.post_unbind_rust(dev);
+> +	devres_release_all(dev);
+>  	arch_teardown_dma_ops(dev);
+>  	kfree(dev->dma_range_map);
+>  	dev->dma_range_map = NULL;
 
-Thanks,
-Adrien
+I seem to recall that we discussed a plan to have two classes of devres
+callbacks where device unbind proceeds as follows:
+
+1. Run first class of devres callbacks.
+2. Device is now considered unbound.
+3. Run second class of devres callbacks.
+
+Is that still the plan?
+
+Alice
