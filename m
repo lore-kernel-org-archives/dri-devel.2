@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C0E0FF886F
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 22:21:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39C3FFF886F
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 22:21:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9D3610E4A0;
-	Thu, 30 Apr 2026 22:21:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E55A10F47A;
+	Thu, 30 Apr 2026 22:21:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="exk7D8tz";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="GWI+Riet";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B31C10E492
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2B0710E495
  for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 22:20:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
  s=mail; t=1777587637;
- bh=cpcF5zUbexmKNtAoNveJG8/W7/tWjI3iG9vDWZ5yK84=;
+ bh=RoqNrdAtIntnzN4QOoLbPlCuBCUoD2sMXqW3kckpQAE=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=exk7D8tzF3LNnFdk3smrtotA/j11atwaTApdGB8UJvuFQR53AbKn3LhQfEcK1ZHjc
- y6k61hJerZ9sNtdTvijUX9/KcXdS4njhUZmzqxnhLQdWW/Kzz3Gl1erCD0CC4kwFjf
- WwtCp/7iwZ/5rV2jjEVWfI+JOBJhAVTxWLQGtDWnDfQa9HFpCmjI6hftkpFBhVeAlL
- BZgq86PaWvZEoki7ORLgCy+3NTSAbtxHmnt3tJASsbyLOZG47GfDCysEXWCVohwrOZ
- Cgabh1P/Rwp2Efs8H5doqkWmG3Ar8bMksyNyQzv0UPudMszQjUPUEuIUCjostfFdoR
- 8VB6DqST9x1RA==
+ b=GWI+RietXIAZYicTQXGoKZhc2qZkXpjGOgSuGzni4ZQ9budFThyBRHSDhus+A9Ynr
+ 1UD4QvK05mL7AREeY2y3wdJLTPHl58qHsMMMzNKi8PthFbqCQl772aKNpqc4DHj7dN
+ 5Rt0pnj3FlTnyLIZHEDJiWGx7/B1ov9TYNKei/YMgiW9Ewtqt+Md3tybeGZfrNpYeo
+ 9YoaB6FivXn2z31bEpJuP9wbfEKkaMjB9OTGYYPpsrOTuT3ZWgG+vEiiO9UVrrvbr8
+ NaPySu+DvkzIVUjeMpVFUMri48FPOnRYe3GYzPw07QpI+/ro1j+2BdGHDK9iM91Hkp
+ yLnYMww1DOtGA==
 Received: from jupiter.universe (unknown [100.64.1.62])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: sre)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 5E6CA17E12E5;
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 6238217E1562;
  Fri,  1 May 2026 00:20:37 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
- id 10AC048002F; Fri, 01 May 2026 00:20:37 +0200 (CEST)
+ id 13F5C480035; Fri, 01 May 2026 00:20:37 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Fri, 01 May 2026 00:20:29 +0200
-Subject: [PATCH v2 02/12] drm/rockchip: dw_dp: Release core resources
+Date: Fri, 01 May 2026 00:20:31 +0200
+Subject: [PATCH v2 04/12] drm/bridge: synopsys: dw-dp: Support
+ MEDIA_BUS_FMT_FIXED
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260501-synopsys-dw-dp-improvements-v2-2-d7e7f6bac77f@collabora.com>
+Message-Id: <20260501-synopsys-dw-dp-improvements-v2-4-d7e7f6bac77f@collabora.com>
 References: <20260501-synopsys-dw-dp-improvements-v2-0-d7e7f6bac77f@collabora.com>
 In-Reply-To: <20260501-synopsys-dw-dp-improvements-v2-0-d7e7f6bac77f@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -65,21 +66,21 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  linux-arm-kernel@lists.infradead.org, 
  Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3483;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1544;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=vNsF0Md05O3s39Img/mjC1c3hq74IIYjs7Fbd6owcc0=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGnz1bRJMtB3Lu8wN5zXTxQapdDYqzOvfzlDY
- hP1cPoCv/XrlokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJp89W0AAoJENju1/PI
- O/qaMRIP/i1c299tP1z4DDXkqJ91EmVeJ84znCoY5fMZz0W8jplMsHWDE8bVHyR42RP22IG67+4
- QYPbP2CGfyD+x6Qj3mh1DWpqnXWR0uJHePi4iAkMu4qNJbjxwM5Ub8i8ANoJW48p9+TpUiuKVRF
- J9j5NFREtmqNs+hYBoIAmej5xrflYPm6DbIFmyZo5BWcJToZctOWsIImlLfsT094klpaSwrtDzb
- 7Fj12udVSjr2dvHeAOGf85sRVd4Asf+l5H/v+tZg78+Nfnc6XldRTVTRq/m/hleko34hHmtZLXp
- vhV/TH7jRNbKs0UPjgSA2wD4YNEu6XinaHeoQFKD6bIRwWnzuSngt4k353ap1jABD/9VJVTlQsI
- ExzPT2VVcRleNh6km1MVwO8yGOn+yCeP4SyIsEtoOMkhlFF1tHBlzxcb2+FJYe34ZYxiFn+xWOm
- NO0hZsMcPzxLkM5ncA9rMK3NSEPATelRi4r5cKdB7KdHuq6C/e6k1SNIYvkKfk+vDfSCFoEXh3F
- BV0BSSWG0zV60u9VrPCX4Ize2Ar9NBa2VR418tHd6bUp/4J5M/JTbbY3U7/uzVKg+X04E7ZsYM6
- PvRzN5B9q4ovRjEtQHprZr6xLVmMDYvieOAcfmpqI+N7x0PpjAvJHafwtFO2qjWY9QAliYOxD68
- 1zkJKU9yJZdrVdUrv3sQynA==
+ bh=RoqNrdAtIntnzN4QOoLbPlCuBCUoD2sMXqW3kckpQAE=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGnz1bTefDuFjSHuihDXrELYSzaun7I+ZlT+m
+ mxxpvWrYpdWN4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJp89W0AAoJENju1/PI
+ O/qaa5sP/iwrvtecrjTownz8Bo0+JyHuIwTUhK5bIst+pr9q3+WvFHbhZOTcYmpkzK+X59Jufvz
+ 2DXyGs1S2nXnHgRDLR6xct6pFSGtNI0OB9etoPDlDLrex24L6G04rhx+bCDOz2opPwIA+re9od/
+ Zxd55iPCVnaM93gR9lLvWSi1JedK72llKvAvnHhlCfRFWfTX5354xvi/vg7bl+QYRGXpLdUlPKS
+ tfpR8riYvMIz2fri1NQLWv7IKZogfWzI4rtPqQMlgW7g2gRFPWlCMY7KUcIT9xW8RUShdo25VUx
+ I1y+2ArSbrwabIubYkIidpUIAisNd6u2Pa3lAhohlaojw3X/cxgc6UV4sd3vZEuolXd27+JGnxQ
+ qSHTwGKxRzO5rXhK1tfVKMq7pfi5DOTbSutnlPa+toLqtEsTmP/ViUZeofxEbYOpEPbQA0tJcbp
+ DSY6dF8vNfwzH85UubNKxPwNeV9+7deMxNfGSaH66/3w1CPqH2LIV6z2MqxQGe96y4LSTlyrMWs
+ wOZcFVy2Ls1aLdlnk3MF5r7aEXC+Yi9UkBaECYvmstOoGpXmm6NpW0g5gB/MqQ5AA+Yvwe1aDiS
+ b3956nSzw83cQ7tQuDtfQmqT4K3ZX76/RmqBPti99o+zZdzNiFhIJsCwDvRq0ltVQrPXSSPdjYH
+ RI5+yReX6L6ky8hC1g9Y3lQ==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -97,89 +98,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Add support for MEDIA_BUS_FMT_FIXED, which is e.g. requested for USB-C
+DP chains as the last bridge in the chain (aux-hpd-bridge) does not
+implement atomic_get_output_bus_fmts(), which results in the generic
+drm_atomic_bridge_chain_select_bus_fmts() code using MEDIA_BUS_FMT_FIXED
+instead.
 
-Core resources such as the DisplayPort AUX channel get initialized and
-registered during dw_dp_bind(), but are never unregistered, which may
-lead to memory leaks and/or use-after-free:
-
-[  224.661371] BUG: KASAN: slab-use-after-free in device_is_dependent+0xe0/0x2b0
-[  224.662015] Read of size 8 at addr ffff00011aee8550 by task modprobe/658
-[  224.662612]
-[  224.662752] CPU: 7 UID: 0 PID: 658 Comm: modprobe Not tainted 7.0.0-rc2-next-20260305 #14 PREEMPT
-[  224.662759] Hardware name: Radxa ROCK 5B (DT)
-[  224.662762] Call trace:
-[  224.662764]  show_stack+0x20/0x38 (C)
-[  224.662772]  dump_stack_lvl+0x6c/0x98
-[  224.662777]  print_report+0x160/0x4b8
-[  224.662783]  kasan_report+0xb4/0xe0
-[  224.662790]  __asan_report_load8_noabort+0x20/0x30
-[  224.662796]  device_is_dependent+0xe0/0x2b0
-[  224.662802]  device_is_dependent+0x108/0x2b0
-[  224.662808]  device_link_add+0x1f8/0x10b0
-[  224.662813]  devm_of_phy_get_by_index+0x120/0x200
-[  224.662819]  dw_dp_bind+0x34c/0xb10 [dw_dp]
-[  224.662830]  dw_dp_rockchip_bind+0x194/0x250 [rockchipdrm]
-[  224.662864]  component_bind_all+0x3a8/0x720
-[  224.662869]  rockchip_drm_bind+0x120/0x390 [rockchipdrm]
-[  224.662899]  try_to_bring_up_aggregate_device+0x76c/0x838
-[  224.662904]  component_master_add_with_match+0x1f4/0x230
-[  224.662909]  rockchip_drm_platform_probe+0x420/0x538 [rockchipdrm]
-[  224.662939]  platform_probe+0xe8/0x168
-[  224.662945]  really_probe+0x340/0x828
-[  224.662950]  __driver_probe_device+0x2e0/0x350
-[  224.662954]  driver_probe_device+0x80/0x140
-[  224.662959]  __driver_attach+0x398/0x460
-[  224.662964]  bus_for_each_dev+0xe0/0x198
-[  224.662968]  driver_attach+0x50/0x68
-[  224.662972]  bus_add_driver+0x2a0/0x4c0
-[  224.662977]  driver_register+0x294/0x360
-[  224.662982]  __platform_driver_register+0x7c/0x98
-[  224.662987]  rockchip_drm_init+0xc4/0xff8 [rockchipdrm]
-
-Since a previous commit exported dw_dp_unbind() function in DW DP core
-library to take care of the necessary cleanup, use this in the
-component's unbind() callback, as well as in its bind() error path.
-
-Fixes: d68ba7bac955 ("drm/rockchip: Add RK3588 DPTX output support")
-Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/rockchip/dw_dp-rockchip.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-index a9a8bf43aa1d..150c2da8fee5 100644
---- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-@@ -107,15 +107,26 @@ static int dw_dp_rockchip_bind(struct device *dev, struct device *master, void *
- 		return PTR_ERR(dp->base);
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+index 6211ba6ba7bd..fc4ddb7792d7 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+@@ -1528,6 +1528,7 @@ static int dw_dp_bridge_atomic_check(struct drm_bridge *bridge,
+ 				     struct drm_connector_state *conn_state)
+ {
+ 	struct drm_display_mode *adjusted_mode = &crtc_state->adjusted_mode;
++	unsigned int out_bus_format = bridge_state->output_bus_cfg.format;
+ 	struct dw_dp *dp = bridge_to_dp(bridge);
+ 	struct dw_dp_bridge_state *state;
+ 	const struct dw_dp_output_format *fmt;
+@@ -1538,7 +1539,10 @@ static int dw_dp_bridge_atomic_check(struct drm_bridge *bridge,
+ 	state = to_dw_dp_bridge_state(bridge_state);
+ 	mode = &state->mode;
  
- 	connector = drm_bridge_connector_init(drm_dev, encoder);
--	if (IS_ERR(connector))
-+	if (IS_ERR(connector)) {
-+		dw_dp_unbind(dp->base);
- 		return dev_err_probe(dev, PTR_ERR(connector),
- 				     "Failed to init bridge connector");
-+	}
- 
- 	return 0;
- }
- 
-+static void dw_dp_rockchip_unbind(struct device *dev, struct device *master,
-+				  void *data)
-+{
-+	struct rockchip_dw_dp *dp = dev_get_drvdata(dev);
+-	fmt = dw_dp_get_output_format(bridge_state->output_bus_cfg.format);
++	if (out_bus_format == MEDIA_BUS_FMT_FIXED)
++		out_bus_format = MEDIA_BUS_FMT_RGB888_1X24;
 +
-+	dw_dp_unbind(dp->base);
-+}
-+
- static const struct component_ops dw_dp_rockchip_component_ops = {
- 	.bind = dw_dp_rockchip_bind,
-+	.unbind = dw_dp_rockchip_unbind,
- };
++	fmt = dw_dp_get_output_format(out_bus_format);
+ 	if (!fmt)
+ 		return -EINVAL;
  
- static int dw_dp_probe(struct platform_device *pdev)
 
 -- 
 2.53.0
