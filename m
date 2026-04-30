@@ -4,82 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA0D9FF8873
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 17:06:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F68CCD13D3
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 17:06:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9022710E47A;
-	Thu, 30 Apr 2026 17:06:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9376910E476;
+	Thu, 30 Apr 2026 17:06:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="RgEvtHeO";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZxkGCFNO";
 	dkim-atps=neutral
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDBA910E428
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 15:35:38 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-488ab2db91aso13267295e9.3
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 08:35:38 -0700 (PDT)
+Received: from mail-dy1-f195.google.com (mail-dy1-f195.google.com
+ [74.125.82.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 660EC10E112
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 10:25:46 +0000 (UTC)
+Received: by mail-dy1-f195.google.com with SMTP id
+ 5a478bee46e88-2d9916deb14so172547eec.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 03:25:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1777563337; x=1778168137;
- darn=lists.freedesktop.org; 
- h=mime-version:user-agent:content-transfer-encoding:organization
- :references:in-reply-to:date:to:from:subject:message-id:from:to:cc
- :subject:date:message-id:reply-to;
- bh=NlhbRUl79f9tq9R3YugScP6gF9vXwrtrDCSId5OhOrU=;
- b=RgEvtHeOpSuTL/8qu1gWbVYi2NpaVbtiamNPUsJU2syXAkSHxqm7WGyv7IottSS+4c
- /2q6HJuwglyBQ3hLJFyFUsaniWHgyLggm0cWdWREJRZ7Ls+MtAm6sdO/6R2ebbrVGmIK
- oG30ADK7VfNvkLRgkG+PEawKaEuWWvW/9GxhLBM/xsLgkFt6aNjv0bV/HRITqNKUGkDl
- ecjPUuCc/HhTlsHt6MiGyRlqY9cAykXoMo6NxuPQxCnTofhS6c5VgDwPjy2lh9bchv5h
- a1zZzQbfPHQzQyge1rlrZnTmfJR+Xyf4Ia0f0ETPY54Zqz+XeyKexlN6U38/zAKD/Zx0
- mMwA==
+ d=gmail.com; s=20251104; t=1777544745; x=1778149545; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=uyYaWTV5ahYl27fxYzw7aiTm9/pi+cupE4KnUEMoGHo=;
+ b=ZxkGCFNOEhHnzbJtTa6WW3VoKvPYsgeC2fjRRKCOlILgMCKh4LplpEeF8Rv+NlCsvw
+ p8JCh2zOT57x2dynoci7GJGmUDbniMGaR7Cil7kn1Vhv+JiDnxXbGU0o05O/UGJVlUBr
+ y8m+r0emMypZILRlRWgzWd/6Q80d3v99BeFfSRGRlkq9RTKJSrV2iTxSzHcvr1poyDZY
+ 40c8MgvTAJDUhSryntqbCiUiYbQ4V+8SgNpm+HyjTeyXA/eor03Z+bYi+JIrKd2qH7PX
+ LOQe/1UuK1oi69w/Gtvhbm8u7BC0WmbnEYmT82+m8w7IHgd8wb8J2aIunDlVhOPqFAyj
+ Mc6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777563337; x=1778168137;
- h=mime-version:user-agent:content-transfer-encoding:organization
- :references:in-reply-to:date:to:from:subject:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=NlhbRUl79f9tq9R3YugScP6gF9vXwrtrDCSId5OhOrU=;
- b=AVqX+teCzL6YJnZqARUyRWZS9flTieqNwUc9zpd/rJr675NM22LmAgMzmYnI1zw4rf
- cEDQiZCaqi7hzxEJguVKER0SEmRm6Aq2H/PCITqLbEGs2Ak/z2x9CBlpv93E63vFQzWN
- 2lQGzdciQVy5pzP+8gkEzDqQQoimbvPdVaEkblamaXUD5aPIWc3xYXKW9KnNqi2Go1av
- MTDIuZJkHEsP+zZFdvP8ep5oXXAn3gkOm0KN0kuN1oqJFzWJQDVeqcDG0hVYtWMGBkzR
- vj4/58y0gIHOln6ONermgxjMtCJwlahuAD3ulScWWru8eO7WelXy0JfHW7gCOowYYVXf
- QKUQ==
+ d=1e100.net; s=20251104; t=1777544745; x=1778149545;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=uyYaWTV5ahYl27fxYzw7aiTm9/pi+cupE4KnUEMoGHo=;
+ b=Hcl3ATWZ+hcoCeZ9smV9ElTBkP8dx+qkDYL0X/2QROgnWiUtPDBx9/yWnguyiMOCsO
+ x2MDkyU2A5g4itQ/yx7981KeEbFucNowCeQpsu6ZwFRQKCOx9aT67UDu1KpBVsUvT7oJ
+ odQk89ZeZ8ylZwrURkbSp6g8214OdwMy55lE87UWQfhI2BwjOfEVgcyxnMFjwX8F5Lfi
+ sQVynfYMYpWl8Ty1KpSNjW4d+MRJq77u/GpGSB6BsSRNH4iwUnrm95otU+m//xY0BPkl
+ LtMk6gWsNFk4SwEzCBvBNZ9CRs88yKNm7erX3S7kTD0TDGqsjhI+6/u9VuRU2ijCm40Y
+ 5wNw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9DUKKbFqWXbqoiuqyILbugfB+uq4kTGd16wHDGDpZ/mzJPFzu4gsFEKgAsw/43U4plAMn+cqyAqcw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzVpVDont23z3LDnVZ76gsp8PabLzOdxa4JYMROSpFx25naRFNe
- G/e2M3E7SafD5VR5yvHHfXWw44ukRId/IWPpFKzKrOnZsL7vaQ/Wqafv9kNG/oZVvms=
-X-Gm-Gg: AeBDietv6v54GJJEaSPC6RDyuvrBHOHl84FIES0D4TZsptRIL2T+Rzy6TmWmLGnloOe
- 7HB+sXFv6jisg70rlW5RtwJhHk5T0LX6HQH6s4nUGjqSKSAGVWTKvqIApb3NS90Vr8KWUHrirMZ
- 08Hka8rH5nHBVuKiyn/hV03QSxBG494BY+5JjtLMqr0DETbo0mkZqy+HzwX8duFYbnGEE7PJXqY
- 52YG7/Ziv7kHVUJJpoPun0QUwrzSIREjFzywMNl86wIa0iZ20txnmdxm6brY9JfjZYejmG1ZzOy
- qMneIm+guzC/iEGy952F3E10wmgEITvhWtFDNIfnDrpivpfJAky+PDGxRERVBd1OyLyD1bCxGBv
- hu3qojfnlA2xt2fILLEgqlH6UxnEEuOSgFRXAOcVzP8GEMNvYdaXjMqNVzrK3vyX5aFx1HCiCy5
- djlM4wwILChfkxZaVJk0vSXD+9
-X-Received: by 2002:a05:600c:c0c2:b0:489:1ff5:edda with SMTP id
- 5b1f17b1804b1-48a83d66d38mr42439965e9.6.1777563337249; 
- Thu, 30 Apr 2026 08:35:37 -0700 (PDT)
-Received: from [10.19.106.145] ([151.19.88.6])
+ AFNElJ8Gb4uicdtGmJh5mg7F/ymWUozYt5ig+iaXNipsdCTCw96l2mPP3ghqOvcRrJboCAMVfUKcbII+2FY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx8XIq9O6wSp4aLMn7Rq6YuG6/EmICJNQawnfLk392VE5/tlyvG
+ JBv7miK0rU662LP85ESoX6XAG7go/Bkjc7CQkP/QWslyrWUQQBujyspV
+X-Gm-Gg: AeBDieuMMcpE2Pn+fEUXOwUeMW+ZDtEWU18K4EEm3PmOdRxxTUQnLoDkG72DlTjFAYd
+ wOO2cGXZjhurjCBwJxPjMUl265kLYPAP8HyXa+faKE/c2f9vvCSFxlXsDsaFPZZ+tj+qW5Z8CFk
+ y1hKS8hm6taPKQN311PX5wYglUjvDB4KWvEmGJ5njJ9T0GLioZXHyLnIQEDqUmzkc45xDr6a329
+ puO76rqFXFOQGucwVIdR9bmLAZehya8VmgAtiXpXV4HpJO99VHLX03uWMbjBm1L1+siGFV4ZaCC
+ zC1e8AJMn25dLNpxHXolhmTuyoXUWCbDh6onfyVop0h0hrKxx6zh2FFKpr2R2DClsHFKGQtH1nB
+ AF6UnWUkak697Q4pTLMnOQD0N4ADPgpkWdPszNuIyIWXIRuoJhRTXK3Y0dI9QooSvF6hkHIG2IU
+ 6XYwoLT4/yoDgVmyRIALhtNd0BcMFwcrf6ib517ZRA76vV8KjF5uYupZDNZWf9RYo2rw==
+X-Received: by 2002:a05:7300:e614:b0:2e6:4d6e:2cbd with SMTP id
+ 5a478bee46e88-2ed3bef29dcmr951391eec.8.1777544745512; 
+ Thu, 30 Apr 2026 03:25:45 -0700 (PDT)
+Received: from localhost.localdomain ([76.32.119.210])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48a822c832fsm122768725e9.10.2026.04.30.08.35.35
+ 5a478bee46e88-2ed1bf6d419sm6191614eec.2.2026.04.30.03.25.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Apr 2026 08:35:36 -0700 (PDT)
-Message-ID: <b3c77e37128f8cc642ac7c14a5c269cd43c87cc4.camel@baylibre.com>
-Subject: Re: [PATCH] drm/fb-helper: Fix clipping when damage area spans a
- single scanline
-From: Francesco Lavra <flavra@baylibre.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Javier Martinez
- Canillas <javierm@redhat.com>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Date: Thu, 30 Apr 2026 17:35:34 +0200
-In-Reply-To: <20260210173545.733937-1-flavra@baylibre.com>
-References: <20260210173545.733937-1-flavra@baylibre.com>
-Organization: BayLibre
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.46.4-2 
+ Thu, 30 Apr 2026 03:25:44 -0700 (PDT)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: andy@kernel.org, dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Hungyu Lin <dennylin0707@gmail.com>
+Subject: [PATCH] staging: fbtft: remove unused function
+ fbtft_write_gpio16_wr_latched
+Date: Thu, 30 Apr 2026 10:25:29 +0000
+Message-Id: <20260430102529.25019-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 30 Apr 2026 17:06:40 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,47 +89,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Friendly ping
+The function fbtft_write_gpio16_wr_latched is not referenced anywhere
+in the driver and only contains a stub implementation.
 
-On Tue, 2026-02-10 at 18:35 +0100, Francesco Lavra wrote:
-> When the damage area resulting from a dirty memory range spans a single
-> scanline, the width of the rectangle is calculated dynamically because it
-> may not coincide with the framebuffer width.
-> If the dirty range ends exactly at the end of the scanline, the `bit_end`
-> variable is incorrectly assigned a 0 value, which results in a bogus clip
-> rectangle where the x2 coordinate is 0. This prevents the dirty scanline
-> from being flushed to the hardware.
-> Change the calculation of the `bit_end` value to fix the x2 coordinate
-> value in the above edge case.
->=20
-> Fixes: ded74cafeea9 ("drm/fb-helper: Clip damage area horizontally")
-> Signed-off-by: Francesco Lavra <flavra@baylibre.com>
-> ---
-> =C2=A0drivers/gpu/drm/drm_fb_helper.c | 2 +-
-> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/drm_fb_helper.c
-> b/drivers/gpu/drm/drm_fb_helper.c
-> index 4b47aa0dab35..d545342d24b3 100644
-> --- a/drivers/gpu/drm/drm_fb_helper.c
-> +++ b/drivers/gpu/drm/drm_fb_helper.c
-> @@ -608,7 +608,7 @@ static void drm_fb_helper_memory_range_to_clip(struct
-> fb_info *info, off_t off,
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 * the number of horizontal pixels that need an upd=
-ate.
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 */
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0off_t bit_off =3D (off % line_length) * 8;
-> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0off_t bit_end =3D (end % line_length) * 8;
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0off_t bit_end =3D bit_off + len * 8;
-> =C2=A0
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0x1 =3D bit_off / info->var.bits_per_pixel;
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0x2 =3D DIV_ROUND_UP(bit_end, info->var.bits_per_pix=
-el);
+Remove it from the driver.
+
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+---
+ drivers/staging/fbtft/fbtft-io.c | 7 -------
+ drivers/staging/fbtft/fbtft.h    | 1 -
+ 2 files changed, 8 deletions(-)
+
+diff --git a/drivers/staging/fbtft/fbtft-io.c b/drivers/staging/fbtft/fbtft-io.c
+index de1904a443c2..7d331eba947a 100644
+--- a/drivers/staging/fbtft/fbtft-io.c
++++ b/drivers/staging/fbtft/fbtft-io.c
+@@ -227,10 +227,3 @@ int fbtft_write_gpio16_wr(struct fbtft_par *par, void *buf, size_t len)
+ 	return 0;
+ }
+ EXPORT_SYMBOL(fbtft_write_gpio16_wr);
+-
+-int fbtft_write_gpio16_wr_latched(struct fbtft_par *par, void *buf, size_t len)
+-{
+-	dev_err(par->info->device, "%s: function not implemented\n", __func__);
+-	return -1;
+-}
+-EXPORT_SYMBOL(fbtft_write_gpio16_wr_latched);
+diff --git a/drivers/staging/fbtft/fbtft.h b/drivers/staging/fbtft/fbtft.h
+index 317be17b95c1..c7afb0fd3943 100644
+--- a/drivers/staging/fbtft/fbtft.h
++++ b/drivers/staging/fbtft/fbtft.h
+@@ -262,7 +262,6 @@ int fbtft_write_spi_emulate_9(struct fbtft_par *par, void *buf, size_t len);
+ int fbtft_read_spi(struct fbtft_par *par, void *buf, size_t len);
+ int fbtft_write_gpio8_wr(struct fbtft_par *par, void *buf, size_t len);
+ int fbtft_write_gpio16_wr(struct fbtft_par *par, void *buf, size_t len);
+-int fbtft_write_gpio16_wr_latched(struct fbtft_par *par, void *buf, size_t len);
+ 
+ /* fbtft-bus.c */
+ int fbtft_write_vmem8_bus8(struct fbtft_par *par, size_t offset, size_t len);
+-- 
+2.34.1
 
