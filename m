@@ -4,88 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62872FF8873
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 17:06:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19690CD13D3
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 17:06:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7279010E3A5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80C2810E466;
 	Thu, 30 Apr 2026 17:06:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="oVmeKysL";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="T72TlFsv";
 	dkim-atps=neutral
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com
- [209.85.210.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F81310F2A3
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 08:43:55 +0000 (UTC)
-Received: by mail-ot1-f41.google.com with SMTP id
- 46e09a7af769-7dbd23bc684so454109a34.2
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 01:43:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777538634; cv=none;
+Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com
+ [209.85.161.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF20E10F2A3
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 08:55:35 +0000 (UTC)
+Received: by mail-oo1-f46.google.com with SMTP id
+ 006d021491bc7-682fce74c06so582753eaf.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 01:55:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777539335; cv=none;
  d=google.com; s=arc-20240605;
- b=NoE7HKJxvkHUotOWNU7aTJVsMOQk2d9zn3D7T9qMAPOiN8gw5D5AoWunOjSmqHaklK
- /vBHHVOmmWW5Cigpwt1bcusl1i8T9KF5JSHqB5cQKmz1mSid8/Z8+o3Xf+DIhmK03d4b
- aSPaUN1LNA2uF/Dk8a7onM8kF80VPefLtOGr8mrH3y8NMBthAGMEwhNJyEgHDBfpdyTT
- FjvxPmvzb0rtBnbudG2u/bvgBiDsySTEFTPcEN6O1VBL2GMoHLI0hnj87hWMlSOZ5M3S
- g0Cu5NhUKgnHva9Z1Eua+lgG+boS/mqW+AJU1G2m2BB2YKoOozhsMuEpE8I6243GeCeQ
- p5Fw==
+ b=YWJNVHqqV95/gIwIR6P/el8J/VoYLDXqdbMnDPoKoBn+8kyH3ATi8cWMXR1I883boX
+ 7e340JbLnyTMZrEkyNsRwLFXe3ZKxxp78UD7qyOVq7xw8+GaHRczIF4crB6QIX1R9glL
+ 2t8XRKLBWgBqW5w9WYF48Wt6OzMwLt5wa8OQjFly/mtg7hPiUJ3qTpEpILRK6IUNbGq8
+ vno1S3LCJGarWLG+h4S7BZ952p1qV0q+cQMxBqLyZ5ZOsf1YQ7e4fSMbOaDT5fPokXWC
+ ng6Tp8YmARwDe1btHWZ9ZdFPVL+6vZ6uPkjt+Eyuq8V7oiByQ/6UQAqgEUInoB14RAwD
+ KOdQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=teejJxdHGs87pRJ1scnACJwACTu7quoERKWQueEhPsQ=;
- fh=9qwwfMPf6grKsns+8Sc0w5mu7K5pmoQKDZE8veO0tic=;
- b=kkiWNui/2UdY+jYr7uhg+kaBR3r/YiykKYdTfRahzMlLUtBBoJX6LUuQVUgcSfBDnK
- pNEiIKcfjpdQGKfy7iwIHQbwvN6FSvlqvGGPwM/FX2uKYNNIvROOS/F79Wnq3hLUDevA
- qXFix7or2Rq3K+hKm4kptIpnXNZ40t4/PONHNPpWCxtVktBA3pkqXbWQgWg5g9Obd+gy
- zK0+vOVuFKXucZ8aq4ynhbjQPUDnVcEVP3nBxdH9IALmi7yMQQ2LIP8rdpam4RHFovb4
- hvYaoLk5xvLhwz2epURQjBWmWEI0qumgvuYfFqE7IFv0NpgQmU5+DyVvNYjEgDAkSQu2
- 3HAQ==; darn=lists.freedesktop.org
+ bh=6F3SW0LEcxR5KNp5mL/u22r1H9M5kFSrUg1f1ie4v4U=;
+ fh=CSjDVWZWld15LPuBScaM2+qZLL6VgaPDS1HisXSf8II=;
+ b=bf5WdNU265spm8vPTzxpyUywZMe8Sv+SVTfMG+mel6/f2qerD3aGhV0ID6+S2VKVBr
+ OgDwGbSJ2YyaEQmPZx729yQOIOWerfaJGfZ/dN5lcXPBbwnRXZKaPMhpQr6UjLwGgFtS
+ zp+tHEjDlqTMUqH/xPhzYVI7swegBuzoFrjuOKwlSdot/gYpYQU41sMZM16Fh1OBmOe9
+ Z6YgXDrg7y6ZV6J32HlvuhWIEVOvHPizUw+J6gNY4WdmCqq4YQPbJP4RAvFXRS+Q2nMs
+ AP9Nhd7fbddSF2daym3gjklCxtk+QGx8OUUrKrb7GDRhtnH5MsIDyDBVMGQ3kfjTYdok
+ dtsQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777538634; x=1778143434; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1777539335; x=1778144135; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=teejJxdHGs87pRJ1scnACJwACTu7quoERKWQueEhPsQ=;
- b=oVmeKysLj3zEhSxwTJZQ6gcos0ur8oXS8JJ2fq78CSr6n4b+smNnLCOS4PYjA7RKeq
- zuUKPCyq7QuLFG2hb6xGiB5V/J2yHznZszB6KlPrJ8XUS4hTquXTJyItc5vrm5+yPOYR
- gwrJFJLE9eCETddvzxECznu+QISbopMslFIW1ys0po9OMkDopPUjYO3YiwOHr1chJ/qt
- f1dbk/mEdtaj2e9+sfon7q4EtiZR8tkIIbsjiTPRYXt9c+3E6kqlIcMAwN6vsJU69x9U
- FKc6zLsAHPT8XdH3mGKgQfzKB9r7LrrfuYiui00rrtsHreNt25xcwaHP07thaf4IY8iV
- FHFw==
+ bh=6F3SW0LEcxR5KNp5mL/u22r1H9M5kFSrUg1f1ie4v4U=;
+ b=T72TlFsvI8y6v7Eb7eXGyE4gDDHVqxulGpkcg5yhmbvsQ6aug3VtDTRhyGy/LXubxD
+ VO6DKnFf62jWhLOK4ip/JeN3q1b4vxMKO2X7FEhzPfvxndtl9aCuhf8mwKt/CnyReXpM
+ m1XyaHXhKsN1dBDePgSCn5mn7Z1hlajFHkZwEaQ5grLyB8vPC6x9YpQUfY1i8WJJ8vFT
+ 60InzwdQBevMq81g2iq2AfrzrkCDdme6vUU5RPeRJnOhsz7j2kU+siiBJa2zLK7Tvs0a
+ FGJyLqAMvW4qSz3KrVb0xQmfXlkQj8kjPhqcRhAMg8m95zL8gwM7Nc6dYcHkCdfcwxKa
+ RThQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777538634; x=1778143434;
+ d=1e100.net; s=20251104; t=1777539335; x=1778144135;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=teejJxdHGs87pRJ1scnACJwACTu7quoERKWQueEhPsQ=;
- b=G/ns49ruOB7/8efi0FySmVChjfoiTBnzO41AA36iVLZSQ5fbap+582NlBL9aTP0+Rr
- IKUC9+/aayRgdWu8SVPC5DSx7x9pCFzYzL6wvtrUYHQmRutgQxvo2jgG0oTXTXeQUFt8
- THay9BjbgNyJuqpfBmHifywSB97WEs19r6k5RlKkTa7/jeqZBW06bP3ZyDEeFwE1t0Pl
- ywRYHl4+JPApEr1BFlmgQrKUBcjAsS+XFGviTr+KhRYm7XErrUYkzvIe1uPCHGRB9NzU
- JBkZNN/kYqhmWUBOkqy79Oy6fACI5gie2pZZPbPwhgtJIDZMn/M78QKQ+Nd+N8WoUZS/
- MgBQ==
+ bh=6F3SW0LEcxR5KNp5mL/u22r1H9M5kFSrUg1f1ie4v4U=;
+ b=DxiJGgpSV8HLs1ajLSl3L8nza1BZ55z0tk8VbAOkTiRxGnTkui2S8P2wGzcMind+pi
+ LoNcOEYdW/sCs0d+jTkVzE0Wg6xEdzQIVuhNIpvsQimp2+YXFQxUBoITeGGM1LWKDrbO
+ 80xhS1jhu5LkxmI3ygGJHMoZ0OHPhx/Avbpsr5uSKn7Z/SmsX8iQn7OZrFRgmwbnJguX
+ 1Dx+4Kon1V6ftBRES2Cg59TorL52tTv3DZBHzB3TOBFO/jiBFX0dJqwrOdQHDYxgD0/A
+ au5zLEFYU6dgWRRw4l7Wge+uXc2h7edBAv+Vs9LHKm6yt18OwTDvNuSc8HksQOiZu7PM
+ DqkA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9P/uhGS3ibX6OpWM14MYVLxoTxbVyneJbViwD0PGZxNLqbDSgPHxDLAV17Abd3zlto8NU2HGD9rbY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YymqlZoOIuREMznBCKhwT8HEwz8zawl8BsAx0mtVujz1srO8dMO
- S4iV5SrNWCFwyRtj/pkEGoyQob0CcuEdn0tno0XaZAnfTQiuMI5yCj+Zued6IA2B1MDJPiORUBY
- XRc6GRS74236QlxqU/3WwDG+WGdkUEGc=
-X-Gm-Gg: AeBDietr4qGiEbeqfXnZIv8fkBaUA9yJiyGvs3/NsBJCu+FdCno2MZTSPblExyVtuKE
- 2PVmDWFHvg2FzAwU1BOMZFC78PwrPzMsMjdSaZXYvLQaKJ5Oq09/kebGZzMXAMqnA9x6q2nxjL7
- LngyY1ZK7Zfyhs/gnxGWCYU/++/Lk5hTrOVo/juFTWVLswGHzu9wv3Au66PoUb0khTwE6HHvp9+
- bHtG9PGYj1UaTmlNqsPdBKWxuKSrQNrMYUT+Y4qp9gD19SAPjiJiq5shyZGDO5yLqCoipZxWvIq
- kwFmvCOIfV03FviFXA==
-X-Received: by 2002:a05:6820:16a3:b0:692:61:b486 with SMTP id
- 006d021491bc7-6967a4ad53emr826876eaf.11.1777538634095; Thu, 30 Apr 2026
- 01:43:54 -0700 (PDT)
+ AFNElJ/aDTO4NDE5JzZuleYZvLpX4ZCk4icTGxcFL3CcCawP+2aN0bA8g2oED0sVsmfdGuS97WCP25FrDk8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyLftdHnf9AgHGRm3Rd10pSJaMXQz1QMfOb9BMOjIxc2tMuFGNC
+ n7KFQD0SVD47PyDyaiAI1teclFNmzziGSorPN3eEVgqeqKTCub2jDY+lyDGk7miEed5nW6hqQKz
+ yrnMIWZu927oUqsVkC7sbNk5/d7/YW4U=
+X-Gm-Gg: AeBDieu3lc+JziQTkVkcB36qnprOywc9+DPthhNjgBBY9bx+6ArGj5BXJoYJXTdXdOQ
+ DUbpwkwYE9eXj5Ilj72tpKHs734xpsMA7YFE+Njdzn6nJE8DsLAF13yrU8EomLzvT/ylePfK/4X
+ AuXPApW76bdPyT4O4cTgR8mQIBLqXU7XRwEddCrNBb42XhTK4QHCX60cRoiKILm5r9uTcORrKGu
+ DlE6O4jDZVkzPUbrIlNbQrvs0yb5gptdYIBCmsgFqqGAFigHkAPyUUhe1ryLcBsJjTHFWSSVTRh
+ /PPZ2WsGDXF56D4DhQ==
+X-Received: by 2002:a05:6820:1690:b0:696:70f0:7ada with SMTP id
+ 006d021491bc7-6967a4b77b9mr848411eaf.11.1777539334862; Thu, 30 Apr 2026
+ 01:55:34 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260429040541.3404116-1-syyang@lontium.com>
  <20260429040541.3404116-2-syyang@lontium.com>
  <20260430-gainful-hopping-quokka-da7e7b@quoll>
-In-Reply-To: <20260430-gainful-hopping-quokka-da7e7b@quoll>
+ <CAFQXuNZ-+0dKFrViisWG4NK=yk2zJ5tn21RZZ3ze7ctsV6Ruew@mail.gmail.com>
+In-Reply-To: <CAFQXuNZ-+0dKFrViisWG4NK=yk2zJ5tn21RZZ3ze7ctsV6Ruew@mail.gmail.com>
 From: =?UTF-8?B?5p2o5a2Z6L+Q?= <yangsunyun1993@gmail.com>
-Date: Thu, 30 Apr 2026 16:43:41 +0800
-X-Gm-Features: AVHnY4Kxt8XNmGTYKSZA8jkq92TzjHK0M8QbzkPs5wku5fPgONc019FE_ckolQ8
-Message-ID: <CAFQXuNZ-+0dKFrViisWG4NK=yk2zJ5tn21RZZ3ze7ctsV6Ruew@mail.gmail.com>
+Date: Thu, 30 Apr 2026 16:55:23 +0800
+X-Gm-Features: AVHnY4JVp6wvmjhYEcmx2St3LTne9Y_ZRg2uwyrEugHA3vkFEyI9m4Aurz6GNe8
+Message-ID: <CAFQXuNbAxdfy=9bBWAsy1Gx3Chgq+d3YpzaP+EBneEEsKok5tw@mail.gmail.com>
 Subject: Re: [PATCH v3 1/2] dt-bindings:bridge: Add Lontiun LT7911EXC eDP to
  MIPI DSI bridge
 To: Krzysztof Kozlowski <krzk@kernel.org>
@@ -115,81 +116,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=B44=E6=9C=8830=E6=
-=97=A5=E5=91=A8=E5=9B=9B 15:56=E5=86=99=E9=81=93=EF=BC=9A
+=E6=9D=A8=E5=AD=99=E8=BF=90 <yangsunyun1993@gmail.com> =E4=BA=8E2026=E5=B9=
+=B44=E6=9C=8830=E6=97=A5=E5=91=A8=E5=9B=9B 16:43=E5=86=99=E9=81=93=EF=BC=9A
 >
-> On Wed, Apr 29, 2026 at 12:05:40PM +0800, syyang@lontium.com wrote:
-> > From: Sunyun Yang <syyang@lontium.com>
+> Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=B44=E6=9C=8830=
+=E6=97=A5=E5=91=A8=E5=9B=9B 15:56=E5=86=99=E9=81=93=EF=BC=9A
 > >
-> > The LT7911EXC is an I2C-controlled bridge that Receiver eDP1.4
-> > and output signal/dual port mipi.
+> > On Wed, Apr 29, 2026 at 12:05:40PM +0800, syyang@lontium.com wrote:
+> > > From: Sunyun Yang <syyang@lontium.com>
+> > >
+> > > The LT7911EXC is an I2C-controlled bridge that Receiver eDP1.4
+> > > and output signal/dual port mipi.
+> > >
+> > > Signed-off-by: Sunyun Yang <syyang@lontium.com>
 > >
-> > Signed-off-by: Sunyun Yang <syyang@lontium.com>
->
-> Missing space after ':' in subject.
->
-it will be fixed in next version.
-> ...
->
-> > +  ports:
-> > +    $ref: /schemas/graph.yaml#/properties/ports
-> > +
-> > +    properties:
-> > +      port@0:
-> > +        $ref: /schemas/graph.yaml#/properties/port
-> > +        description: Video port for MIPI DSI output.
->
-> Wrong description, first is input. Look at your DTS.
->
-yes, you are right, I didn't notice this place.
+> > Missing space after ':' in subject.
+> >
 
-it will be fixed in next version.
-thanks Krzysztof Kozlowski
+> it will be fixed in next version.
 
-> > +
-> > +      port@1:
-> > +        $ref: /schemas/graph.yaml#/properties/port
-> > +        description: Video port for eDP input.
-> > +
-> > +    required:
-> > +      - port@0
-> > +      - port@1
-> > +
-> > +required:
-> > +  - compatible
-> > +  - reg
-> > +  - reset-gpios
-> > +  - vdd-supply
-> > +  - vcc-supply
-> > +  - ports
-> > +
-> > +additionalProperties: false
-> > +
-> > +examples:
-> > +  - |
-> > +    #include <dt-bindings/gpio/gpio.h>
-> > +    i2c {
-> > +        #address-cells =3D <1>;
-> > +        #size-cells =3D <0>;
-> > +
-> > +        mipi-bridge@41 {
-> > +            compatible =3D "lontium,lt7911exc";
-> > +            reg =3D <0x41>;
-> > +            reset-gpios =3D <&gpy8 8 GPIO_ACTIVE_LOW>;
-> > +            vdd-supply =3D <&lt7911exc_1v2>;
-> > +            vcc-supply =3D <&lt7911exc_3v3>;
-> > +
-> > +            ports {
-> > +                #address-cells =3D <1>;
-> > +                #size-cells =3D <0>;
-> > +
-> > +                port@0 {
-> > +                    reg =3D <0>;
-> > +                    bridge_in: endpoint {
-> > +                        remote-endpoint =3D <&edp_out>;
-> > +                    };
-> > +                };
+sorry, Where is the missing space? I didn't find it.
+
+is:
+Subject: [PATCH v3 1/2] dt-bindings:bridge: Add Lontiun LT7911EXC eDP
+to MIPI DSI
+?
+
+> > ...
+> >
+> > > +  ports:
+> > > +    $ref: /schemas/graph.yaml#/properties/ports
+> > > +
+> > > +    properties:
+> > > +      port@0:
+> > > +        $ref: /schemas/graph.yaml#/properties/port
+> > > +        description: Video port for MIPI DSI output.
+> >
+> > Wrong description, first is input. Look at your DTS.
+> >
+> yes, you are right, I didn't notice this place.
 >
-> Best regards,
-> Krzysztof
+> it will be fixed in next version.
+> thanks Krzysztof Kozlowski
 >
+> > > +
+> > > +      port@1:
+> > > +        $ref: /schemas/graph.yaml#/properties/port
+> > > +        description: Video port for eDP input.
+> > > +
+> > > +    required:
+> > > +      - port@0
+> > > +      - port@1
+> > > +
+> > > +required:
+> > > +  - compatible
+> > > +  - reg
+> > > +  - reset-gpios
+> > > +  - vdd-supply
+> > > +  - vcc-supply
+> > > +  - ports
+> > > +
+> > > +additionalProperties: false
+> > > +
+> > > +examples:
+> > > +  - |
+> > > +    #include <dt-bindings/gpio/gpio.h>
+> > > +    i2c {
+> > > +        #address-cells =3D <1>;
+> > > +        #size-cells =3D <0>;
+> > > +
+> > > +        mipi-bridge@41 {
+> > > +            compatible =3D "lontium,lt7911exc";
+> > > +            reg =3D <0x41>;
+> > > +            reset-gpios =3D <&gpy8 8 GPIO_ACTIVE_LOW>;
+> > > +            vdd-supply =3D <&lt7911exc_1v2>;
+> > > +            vcc-supply =3D <&lt7911exc_3v3>;
+> > > +
+> > > +            ports {
+> > > +                #address-cells =3D <1>;
+> > > +                #size-cells =3D <0>;
+> > > +
+> > > +                port@0 {
+> > > +                    reg =3D <0>;
+> > > +                    bridge_in: endpoint {
+> > > +                        remote-endpoint =3D <&edp_out>;
+> > > +                    };
+> > > +                };
+> >
+> > Best regards,
+> > Krzysztof
+> >
