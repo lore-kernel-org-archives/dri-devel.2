@@ -4,97 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37E7EFF886F
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 09:47:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 053B0FF8875
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 09:55:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9146510F2D9;
-	Thu, 30 Apr 2026 09:47:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCCCF10E0FB;
+	Thu, 30 Apr 2026 09:55:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ZupO04eT";
+	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="C1viHSKl";
 	dkim-atps=neutral
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 610C110F2CD
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 09:47:24 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-48896199cbaso5953095e9.1
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 02:47:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1777542443; x=1778147243; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=fFOILrRBRgckVtvDGiEi9gDf/W6MgY2gnxmqTdTmRWk=;
- b=ZupO04eThmVNHqFsN82EMGrk702EKILKdQQc098dOHi+ZE2MFGWhEmD+NLaF68Kbx+
- 5Ve+UoAH2vQOELHqzWlpAqOgfHttfDsagNjoexWRZiFsQUYFw5cdXT4znYOi9C6+mKdM
- bvbayqVGpA7I0+M/efgGEsvYYIT436mh482b7uFS/YT4gaB+1j+igxwyuI1YU9cPaBPQ
- rGfqLvmIE1T+PpCO2tyO2z/TtlQA/avcIvdlgnGn7wTrzALCo8yN+A8DNjNfVTAbok+T
- dPjY8YkXeUmvWEddMa6Yera4gsnhe66o5JcbtrUZ8UgJtQ0TLt+3MA+YRzMVh1O5UnzO
- 7LUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777542443; x=1778147243;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=fFOILrRBRgckVtvDGiEi9gDf/W6MgY2gnxmqTdTmRWk=;
- b=Y+wIDCXYTB5Us/db4q7Nh08F4DksWpV6BO+YQuQjaYwIH3PygXUfQu6Z1mqA5cBwdq
- mTDbV9lqu4d5/1qIZYHCGR3z1Kj2UAcxgN9JZhZDyyQYJROetyBHe33km9TyQluyp9hZ
- 7AjnuyFIl2Ogs5rL1aXbwEMzlHTPg5AvTnTYOCi+6hinb6TlrYwfC5UoNFpJMM3Z4Hcg
- fzTYkHwilXa9h0mijHN9Rd8jtckdByZi0ym16qWE/Km8mlpm9B7xzKZ7b7XTTHra64Mo
- avIrfgxLq3/+TJPZX7A9nmV/3AI9A/zhCirEMEirkVbOITBcPBGGbjPsHrDFwUGPlazp
- hvuQ==
-X-Gm-Message-State: AOJu0YwPSwTnog/Hcic+LuPrOwkBCxWbJv7vGIbTWzFP4/cbkB2061ns
- tbo887NHvU91TK7VHFYZt0E3L6n7QiLTSQAs8IyW0AOUdNZTehjut3BnvN/QffCeg48=
-X-Gm-Gg: AeBDiesZ4q4DFVFS5TY1+BY5oXj1gxEdBrswdPdQEwFwOg2qACgZYCPg/nDV0z4c81t
- 9gHZOyx57AAQVI29C0pbefXDFFnvHF24HDRl0JJI0TZYfsLTv8n3+f+0lV+sFZiIjMIY0thyndf
- 6FhUZDA0hMuyUcM7RO2Yeor5HesC4Et9NK4xLGtQMMAUKAXNwhHiLm1AkFBMQYZ7KJijtZa4cfC
- ZStxor50it1nqQeHyX5t5+nawePfSq/8zYrjEDKKnQsZEjwiocRivv3Gbb36hcl2LNUxF1fevew
- ZvAv/SAbfbnWelm2K5/7DO9PLrqKP7M1Iz+8UZyYjG57p3Af5zOVwOWtk7nONCTU1LjehFlMCU4
- QS3N58Zpk+NfMN6iDVkNzXvmNbKTiW10lRG8RP46/sREfE+wfO8Rm2Y2FxyL0Op7t8tTIij1kJE
- Zt04rqj6CmnB2a6WcNa2z/KInJSl5NciQZV+EAJFfYPP23zc3n6NloGb8=
-X-Received: by 2002:a05:600c:1d1a:b0:485:30d4:6b9e with SMTP id
- 5b1f17b1804b1-48a84458d16mr38530725e9.21.1777542442688; 
- Thu, 30 Apr 2026 02:47:22 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48a81b9493bsm48984745e9.0.2026.04.30.02.47.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Apr 2026 02:47:22 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Thu, 30 Apr 2026 11:47:15 +0200
-Subject: [PATCH v2 1/2] dt-bindings: leds: backlight: document the SY7758
- 6-channel High Efficiency LED Driver
+Received: from AM0PR02CU008.outbound.protection.outlook.com
+ (mail-westeuropeazon11013045.outbound.protection.outlook.com [52.101.72.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A996A10E0FB
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 09:55:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oGZk/QXuu2OUOGzXPzze58TmeMKsjuydILWdiU8Jly/7U9FvE/PDhSZ0ZY9RvRKaOYgqt+x5C04orRSrp8n5nOexpfVSfH4Dw4noTlQTc/V+Sz2WMlGRLIUVbejKxD1UmjWe3cM7siufRdu34pLIEJhcN5OtzQTJShV+xFBr1Zv1SY1mblzQP5yH52hU04XFTs3xbpoe1oxV7vNqNO+wk5TUCa4ra7ObhyIwQOPOZh+/V7Ohk97+t1zwbN+Xxnz2BLmyaNUiu345SznSMIjSGZg7qhv915XZhBZOhvE2E6ygVkG2ArNMfiJ5+0CMW6JfXaYJq6/YfCTxfuWL9yNLDQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=j0fJ6hyJBzrIoyM0S1bpBMnJS6i3WLAb8h398kBtl60=;
+ b=EPe5llfsLFsWy+g0gRVU6lmMn3oYmR7m1Y8RZLE9lGubRppjAvp16M1JePOP7WLmRlC165eYDOpYA86PlncV0Ev+1zD3WcpSE8pulQnlXPgK/ZPfDvcMp16NztQHzLZ5D9wIeU+IsWO1SIvakbs1z5kiaEZss0/5OmL/mvlUQ4HZWX0tG10+hOD2qXX78Cq8WPWZf8AA8Gt/1jFBOqdfieMAYmEx3sLISjvp2c4v/ha+MV4LbiyATXvIJuDzbyMhYvzJOLzOg810CI/2t8HrYGJOTaxqOWYtmESTT1PElkaeuBw0QW2Oh6jBZWPiWRQ/On3+Pq5PKghHbAGAJzgeMA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=j0fJ6hyJBzrIoyM0S1bpBMnJS6i3WLAb8h398kBtl60=;
+ b=C1viHSKly6jz15xpUm/TgOL/x3/KkI3mFJuoFN1nNA3Tjo4+zUA+H+IMycJ0zOnpKxhjMY6nOhomRylDuYDocKCrnOe+I+TNbx7FmulSiRe7RAYm/UgPqJu+dnd29oEkUqOQhc07sbJkIS1OB59TjnIlAdomWtI8A/p2xL5aiOht5rLux6XrajQm2yzUgntZQycIgBI0SM4EjbCJxu3zvvmyVWrGpAU5uIbQbxU81j+5sKh1y2w2/LayGO3FlGerNSctvw1YscpDDDpqYpFu8RmMpH06gVXBMHVbXIj5vjmt8eq64QbGYMH9LM4l7Q93jVSXJ3g48c9NxDUE9vM7gg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AS1PR04MB9287.eurprd04.prod.outlook.com (2603:10a6:20b:4dd::8)
+ by PA2PR04MB10411.eurprd04.prod.outlook.com (2603:10a6:102:424::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.18; Thu, 30 Apr
+ 2026 09:55:25 +0000
+Received: from AS1PR04MB9287.eurprd04.prod.outlook.com
+ ([fe80::6f30:763d:17d2:b79c]) by AS1PR04MB9287.eurprd04.prod.outlook.com
+ ([fe80::6f30:763d:17d2:b79c%3]) with mapi id 15.20.9870.016; Thu, 30 Apr 2026
+ 09:55:25 +0000
+Date: Thu, 30 Apr 2026 17:56:45 +0800
+From: Liu Ying <victor.liu@nxp.com>
+To: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+Cc: Marek Vasut <marex@nabladev.com>, Marco Felsch <m.felsch@pengutronix.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: display: bridge: ldb: Require reg property
+ only for i.MX6SX/8MP LDBs
+Message-ID: <afMnXQCRX4WEhxfu@raspi>
+References: <20260329-fsl_ldb_schema_fix-v1-1-351372754bc0@nxp.com>
+ <crqzju5cqhvmy5msxvuquydmnpb2ft2t3gsyr6qsre6ccqjvzz@46gfcrelczsr>
+ <0d7c7403-4b77-42f3-82d6-eaf2be8e5b1e@nabladev.com>
+ <excxf6kxwx44kepc22smvvnirptc4kxpubioxoto7nqleqhoiq@ymch4y6dd5n5>
+ <bc7d5955-600a-48eb-b897-3928ace275a5@nabladev.com>
+ <7hysu6kamrsltsfcp5hyx23o5nbqbds22jhv65266w2qmps6ft@4tpbs4gfnzx4>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <7hysu6kamrsltsfcp5hyx23o5nbqbds22jhv65266w2qmps6ft@4tpbs4gfnzx4>
+X-ClientProxiedBy: SG2PR02CA0046.apcprd02.prod.outlook.com
+ (2603:1096:3:18::34) To AS1PR04MB9287.eurprd04.prod.outlook.com
+ (2603:10a6:20b:4dd::8)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260430-topic-sm8650-ayaneo-pocket-s2-sy7758-v2-1-308140640de9@linaro.org>
-References: <20260430-topic-sm8650-ayaneo-pocket-s2-sy7758-v2-0-308140640de9@linaro.org>
-In-Reply-To: <20260430-topic-sm8650-ayaneo-pocket-s2-sy7758-v2-0-308140640de9@linaro.org>
-To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
- Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>
-Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-fbdev@vger.kernel.org, KancyJoe <kancy2333@outlook.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1824;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=8cCbXbkb6HowjU8II83CA2d+DXwOgvOAWQTPrH5Iibs=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBp8yUnzS9s/rNYIg4dn9FI8VZvUMuIuqoBd+WZtYZI
- QPZ3Z6eJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCafMlJwAKCRB33NvayMhJ0eVOD/
- 4iGxCE+8I/QFYrllxJKnhUZFHl8HMTtdxoFG7PFzk+6AybCIPeTgtXhV628A+jBtobbwOmpa8lYmTw
- bw5tb0FkOZw/kL6p6ukGxjwco5q5ugX0hz9/FynTkud8ZA9audIzPz71rbv12BYNHSWZ99usLzVm7K
- DGQhfdRnczkmhK9O87HOO/dLd4rk/t6PRwYcy9WIKUawl11vZnvxePmBid56ePdc/JvP5+21nv+QtQ
- b9cH7qagTCEqGjMzbJKXMISqn4yYYQUvVww4UDmuUleN03Fe6F/4xzKK987/Z9+/8fbl2ZG+I39RB6
- wnwXNWQ+jDAU4r7Hv46jh2eriog2NLULu1KmbV5vtc87au1OYzUKjxcRmOPoVZgE8roCwI5apcZQri
- uC709c3kvzNVFIhLHnRomoTHAleHemKFNJobfAOaj0JGZE2FERK443MmcB20oKSNcl4EE8pV7wDpq5
- R9xYgmrskFChg35b6q0CygN7e1AA6Zn0Mnwd8b0NH251vrv8FZFIdMz3jCyUWkN+EtzHKXELoo7Uz6
- 9mporJIAv7Sk8deTPHunmWbKkkdfUfFcunUPy3gdhcfFm4cqZhyAXV6oHB0Dra3jIhQqFf1fVK15QQ
- y4bGSD4xh54d5p5ngNo55iIK0Pr9Wao00VF+bLK4PUxzFnWYVVQjXKAxlDfg==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS1PR04MB9287:EE_|PA2PR04MB10411:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2d29a1b6-bb35-4558-1170-08dea69e99b0
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|19092799006|376014|7416014|1800799024|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: ujQiW075ld2s3HVwEBsLVpaVnEFz6fpUidmR7f7xPFROKOHoG1k5VOpBH3+WRNL5zTZyWS/oNrTJ/UO+R/ij9XIVKkUKeSxQ1Bdpy9GZ/WDwOYGYwmGhvTnsJDnCeecl5k+c2rI7TlZmqftx2c3cWuN66h+3KT9kGHfnqMill1HOZ64LzerJLDuNXt09ijZBNOWG399jPWYDnuYmRArlKLigGY5bXwAOA3bX+ZlRDjodC6N3G9OJqjwwP4ZSa3cpv2R5Xrc8b3op7QpY6gs/Fx0nNXX+NS4b9pzcbf0/YDLwQQcGJyWp6J549mbGcHoH6L6e2PUtG/u09r9UUBJlTSdNBBFj/WxJbnSZs5UEhLU4b/1xs8lYyHz/aENUXMdkW4tkgRdTV24DIfBEWsSUx9n/RbM+i65Dw0CY+BPwfQLjt259Ktmld++ocaorHUVEz5TWx0HHgPVS8SWuy3zuq6GjE2paW0c70aKwnCy3plyTq6SR8tvKSewByf/6DMuVGq512tNREhKgOdfox8eVfPoYp28EQowcsif3gdNmLfEqSduuqm+GT9AvtJqJq6weEDCvaQPHM9QosVD1uXormAF/oUiKg5rbUCAaUy7LD6Tm1ATJn0sCKrABZn1Q78ZhSfvsVSFl2MFaDou31sfAanRDpARj3amSqi7c1AjQuuwsjAnmBtGtC1BdROgR8rJs
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:AS1PR04MB9287.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(19092799006)(376014)(7416014)(1800799024)(22082099003)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SmpucUlzNHMvSTg3YzQzYXNnVC9rSm9SUEd1Zm5VYmhYR0hncGxJWlFIdEk1?=
+ =?utf-8?B?ak81Y1Z6N1R0TUdaNThUbm1jTXZEcjJxb3B3OFdaWlVBTmo4VlZDQnE0MnJs?=
+ =?utf-8?B?VEJLUjNEWk13OC8xV081ckwwVXFiVlo3R1krb3lOZTJUU09qdWVXVlhOcVJl?=
+ =?utf-8?B?eFROWHRmcFlKeWlNaDF5NDk0akhFYVVhMSs5bFJRU1Fmc2VRMFMyUEF0K0Zs?=
+ =?utf-8?B?bWdTVWd2YWpURFJsOThZYkVuYWRlRDEzMXRRTWNtcGFZV3dERTZnQzFwOFJL?=
+ =?utf-8?B?MExFMGZQZ1ZqZm5JOXpnN1ZDK1REWURhVHB4WUNQU1kvNXdtRG5FclpNaDZC?=
+ =?utf-8?B?NmFBR2pVVko2alhuaE5MMVNhRy9NOGxFTklFeHg3UTRnZG1QRnhYbWFRTEp0?=
+ =?utf-8?B?Q0tWMHVoT3crZTNJNDEwY2l3L01nYTRRSGpSU3dKdTNUWVV4OWRxVGJtVGdS?=
+ =?utf-8?B?aFRZOXlBQ3NxaFYzNjJUYzZVZTNwZlpMSUJERHBnOWpLdDNpV3hHdUNFMEhV?=
+ =?utf-8?B?NVRKdy9SUDJGTDdkY3RKVy85VFdzbldDTmlWSFBheDJHVVU2MzFGYUQxSkMr?=
+ =?utf-8?B?eFdxcW5SUCswMDlHNDFKLzFzc1NodWJScjlxT2U3NFNQNVJMUXlqdWNDdlNT?=
+ =?utf-8?B?Y0RMYk0zU1hsUHEvMGZtRGE4QW9CS05FYTZMRGE2THRoZjJ6N2tvRThWcWRs?=
+ =?utf-8?B?RmJObkl5S0MxQzgyMWxHS3NSTklUc0luZXdBUWpUbERRc2dENDJvUzlRWEVq?=
+ =?utf-8?B?S3ZLeUEwTU5INkJzZFlXK09TblNmVnp3eWQ2R2Z6WDUvd09wUm1pRyt0V1Rh?=
+ =?utf-8?B?OWptSys5SHN2TlRvTUdteEwrNHZPUTIrY2xjT05pSUIyU1pCY0phOFl4b29z?=
+ =?utf-8?B?NXJxNlYyYmFMNHNiMWMycjBtamRpdEdPUE5NM21hS2VoYlNRTkxJajY0ZmhW?=
+ =?utf-8?B?d2J0aVNKWkhTV1NXTmE2QXlJNlZBZWw1Q2FnTzNIaEQ1aHBNbjhCMkpvcW9j?=
+ =?utf-8?B?dWVGQkZSd1I3c0xYMzJVVHVPanF3YUpFczRUU01weWplRjdGWGFlTWQ0RGJv?=
+ =?utf-8?B?T0dwZmdZUFpMRzdmZXJCUGJ6dmV4YW41blU3Uk1BWks1dlVHOHVUemxXenpt?=
+ =?utf-8?B?aHJNLzFnL2xLZjZSeFhUajBWQjVtQmc5aUsxODFhdTk0cEQxemNVTVhuTmtS?=
+ =?utf-8?B?WTVTUlp2OVZSZjk2blZkWjhVeDlZZ3FOZnV2Umdlck1jZUFVTnFObGJxRFVh?=
+ =?utf-8?B?cHlRWU55ZXFsakc4Qm5YRkFVb3BCNWErR2dJU3l6NDRueXNqNnFiOGUvY211?=
+ =?utf-8?B?RnNRUXhESXpCUW5iVHA3SWZ3NFhPVzBaeERRMTNSMFNmalU3VktYOEUrYXJh?=
+ =?utf-8?B?cUVVcWd2NmtEczJRVWlkcHRkbXZWMG1MeXEzK2crWk9CZEZ0Z2NhU05GaXBQ?=
+ =?utf-8?B?ZU9TcUw4ZzBNVC9QUWJLbUQ3K2RHY3pVeFRnRFNTaGtKaU1Va3IzcmNxSGw3?=
+ =?utf-8?B?ckFuU2tRMWxXdVlWanhkQ0ZPYmkyUjVKVEJRN29QcFM5TG9ERzJkQUFzbFBL?=
+ =?utf-8?B?czVYN1Y3RlBnaEdXc0JVQ3p5YkxwS093b3BKQktTOTNjSXg5Q3dDKzhsV1Rh?=
+ =?utf-8?B?aFM4K3g3aGtEYjhabDlCOGNwU1ZtdVlUSU9icDZtMmRJSWdpTEFQNDZuSEcv?=
+ =?utf-8?B?cUpvbkEvdUxYS2JiV3NrMjJGZWphV3VQV1BSV2xOV3UyaS9kSldoUlcxNm9s?=
+ =?utf-8?B?a0p3SzVKcGwxWHpZazVRK1NKakU0RjluSGFPajZ1aTZEMjcyd09HWi9oVGhq?=
+ =?utf-8?B?dCt2V1BYTEZuWE90UU1wWEUxOHJjUUl4cVFhaVo5Y0o1Skx0UXY4SFE4dFdL?=
+ =?utf-8?B?N0UrTXdZM0hBZVpZUmJGWi9SVUlyamVTOEZyK29ZWkZabHAvN1ZGMVl2RmVm?=
+ =?utf-8?B?c2pUek9yQjRQbktlNU0veFpRL0F4cUo0dFJPTkgrR1hIUGxxZzRXSW5tNEJo?=
+ =?utf-8?B?STB3SEk4TkFmNGh6WDNNUVBvT2hpNkpjNnBTSmVmS2MweEhURXZwUVUxVXM2?=
+ =?utf-8?B?Nzl2N1lVakNMZmtUUGtjU0VxT2hTVlpocENxU0tyWkZXOGt2Q28zeW1tU0Vz?=
+ =?utf-8?B?Ym9xbHZlV3hGbXlaUy9jd0FyMGJyQXJwU3hVdUpVaGxXQ2NZV3gxVGpXZGpI?=
+ =?utf-8?B?Szk1SWRrYTJzK1ZIUUcvOFFOTVJqNnlxQVc0bUsxVDMxVGxJdm1BN2JsaU9X?=
+ =?utf-8?B?OWlRV0xyMUF6bks5aFdoaU9rdTJ2TEhhcUgrMFJwWEw3UzZWWkFZazZBRE1m?=
+ =?utf-8?B?eTZaeVFSaXVablJBS21idFdVSm5TYTJGRUdvT2wrcndJSEFpWEd0UT09?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2d29a1b6-bb35-4558-1170-08dea69e99b0
+X-MS-Exchange-CrossTenant-AuthSource: AS1PR04MB9287.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2026 09:55:25.1838 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: EPTWqCzd6SwcwVSfQabKp8a+ppO+TZrDKGGZPIXLYagHWs397DPT6/e/ly/QLWh/OW1ohS+dCHokjRmfHeeEqA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA2PR04MB10411
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,75 +152,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Document the Silergy SY7758 6-channel High Efficiency LED Driver
-used for backlight brightness control.
+On Thu, Apr 16, 2026 at 01:20:20PM +0300, Laurentiu Palcu wrote:
+> Hi Marco, Marek, Ying,
+> 
+> On Tue, Mar 31, 2026 at 01:22:19AM +0200, Marek Vasut wrote:
+> > On 3/30/26 8:29 AM, Marco Felsch wrote:
+> > 
+> > Hello Marco,
+> > 
+> > > > > On 26-03-29, Liu Ying wrote:
+> > > > > > LDB's parent device could be a syscon which doesn't allow a reg property
+> > > > > > to be present in it's child devices, e.g., NXP i.MX93 Media blk-ctrl
+> > > > > > has a child device NXP i.MX93 Parallel Display Format Configuration(PDFC)
+> > > > > > without a reg property(LDB is also a child device of the Media blk-ctrl).
+> > > > > > To make the LDB schema be able to describe LDBs without the reg property
+> > > > > > like i.MX93 LDB, require the reg property only for i.MX6SX/8MP LDBs.
+> > > > > 
+> > > > > NACK, we want to describe the HW and from HW PoV the LDB is and was
+> > > > > always part of a syscon. This is the case for all SoCs i.MX6SX/8MP/93.
+> > > > > 
+> > > > > > Fixes: 8aa2f0ac08d3 ("dt-bindings: display: bridge: ldb: Add check for reg and reg-names")
+> > > > > 
+> > > > > Therefore I would just revert this patch completely.
+> > > > Last time, I pointed out the hardware is part of syscon, but as a subnode
+> > > > and therefore with reg properties. What is the problem there ?
+> > > 
+> > > To quote the DT spec here:
+> > > 
+> > > """
+> > > The reg property describes the address of the device’s resources within
+> > > the address space defined by its parent bus.
+> > > """
+> > 
+> > That parent bus would be the syscon, wouldn't it.
+> > 
+> > > The parent bus is not the parent iomuxc (i.MX6X) nor the blk-ctrl
+> > > (i.MX8MP/93) device. Therefore this is wrong IMHO and should be dropped.
+> > 
+> > How so ? What is the parent bus ?
+> 
+> It looks like the discussion is stuck on 2 things:
+> 
+> 1. DT spec argument hasn't been fully addressed: Marek asked "what is
+>    the parent bus if not the syscon?". That question is still open. Syscon
+>    children carrying 'reg' to express their offset within the parent's MMIO
+>    range is a common upstream pattern. Marco, can you explain why syscon
+>    doesn't qualify as the address space provider here?
+> 
+> 2. Regardless of (1), removing 'reg' from the imx6sx/imx8mp DT nodes is
+>    an ABI break, those nodes are already upstream. Ying's patch is
+>    the minimal fix that respects that constraint while unblocking imx93.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
----
- .../bindings/leds/backlight/silergy,sy7758.yaml    | 53 ++++++++++++++++++++++
- 1 file changed, 53 insertions(+)
+Yes, I don't want to break ABI by removing the 'reg' property from i.MX6SX
+and i.MX8MP LDB DT nodes.  And, I don't see a way to remove it, which
+doesn't break ABI.
 
-diff --git a/Documentation/devicetree/bindings/leds/backlight/silergy,sy7758.yaml b/Documentation/devicetree/bindings/leds/backlight/silergy,sy7758.yaml
-new file mode 100644
-index 000000000000..80e978d691c2
---- /dev/null
-+++ b/Documentation/devicetree/bindings/leds/backlight/silergy,sy7758.yaml
-@@ -0,0 +1,53 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/leds/backlight/silergy,sy7758.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Silergy SY7758 6-channel High Efficiency LED Driver
-+
-+maintainers:
-+  - Neil Armstrong <neil.armstrong@linaro.org>
-+
-+description:
-+  Silergy SY7758 is a high efficiency 6-channels LED backlight
-+  driver with I2C brightness control.
-+
-+allOf:
-+  - $ref: common.yaml#
-+
-+properties:
-+  compatible:
-+    const: silergy,sy7758
-+
-+  reg:
-+    maxItems: 1
-+
-+  vddio-supply: true
-+
-+  enable-gpios:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - vddio-supply
-+  - enable-gpios
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        backlight@11 {
-+            compatible = "silergy,sy7758";
-+            reg = <0x11>;
-+            vddio-supply = <&bl_vddio>;
-+            enable-gpios = <&gpio 16 GPIO_ACTIVE_HIGH>;
-+        };
-+    };
+Laurentiu, Marek, can you please provide your A-b or R-b tags if you are
+fine with my patch?  I see your positive opinion on the idea of this
+patch, based on previous discussion[1][2].
+
+[1] https://lore.kernel.org/all/p7glzm344tiu76zm5aa7qq4lswdcjuqlqel3hl3tr3s2cllltj@i2eyzuux4cj3/
+[2] https://lore.kernel.org/all/a4a5284d-6004-46c5-b5a3-f8eb4d9b3680@nabladev.com/
+
+> 
+> Marco, a broader cleanup of 'reg' from imx6sx/imx8mp would need to be a
+> separate patch with an explicit plan for the ABI impact... So, for now, my
+> suggestion is to move forward with Ying's solution.
+
+I'm open to any better idea than my patch to support i.MX93 LDB in DT.
+If there is any, I'd like to see plan/discussion/patch for that.
+
+> 
+> -- 
+> Thanks,
+> Laurentiu
 
 -- 
-2.34.1
-
+Regards,
+Liu Ying
