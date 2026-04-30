@@ -4,102 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19690CD13D3
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 17:06:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA0D9FF8873
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 17:06:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80C2810E466;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9022710E47A;
 	Thu, 30 Apr 2026 17:06:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="T72TlFsv";
+	dkim=pass (2048-bit key; unprotected) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="RgEvtHeO";
 	dkim-atps=neutral
-Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com
- [209.85.161.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF20E10F2A3
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 08:55:35 +0000 (UTC)
-Received: by mail-oo1-f46.google.com with SMTP id
- 006d021491bc7-682fce74c06so582753eaf.3
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 01:55:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777539335; cv=none;
- d=google.com; s=arc-20240605;
- b=YWJNVHqqV95/gIwIR6P/el8J/VoYLDXqdbMnDPoKoBn+8kyH3ATi8cWMXR1I883boX
- 7e340JbLnyTMZrEkyNsRwLFXe3ZKxxp78UD7qyOVq7xw8+GaHRczIF4crB6QIX1R9glL
- 2t8XRKLBWgBqW5w9WYF48Wt6OzMwLt5wa8OQjFly/mtg7hPiUJ3qTpEpILRK6IUNbGq8
- vno1S3LCJGarWLG+h4S7BZ952p1qV0q+cQMxBqLyZ5ZOsf1YQ7e4fSMbOaDT5fPokXWC
- ng6Tp8YmARwDe1btHWZ9ZdFPVL+6vZ6uPkjt+Eyuq8V7oiByQ/6UQAqgEUInoB14RAwD
- KOdQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=6F3SW0LEcxR5KNp5mL/u22r1H9M5kFSrUg1f1ie4v4U=;
- fh=CSjDVWZWld15LPuBScaM2+qZLL6VgaPDS1HisXSf8II=;
- b=bf5WdNU265spm8vPTzxpyUywZMe8Sv+SVTfMG+mel6/f2qerD3aGhV0ID6+S2VKVBr
- OgDwGbSJ2YyaEQmPZx729yQOIOWerfaJGfZ/dN5lcXPBbwnRXZKaPMhpQr6UjLwGgFtS
- zp+tHEjDlqTMUqH/xPhzYVI7swegBuzoFrjuOKwlSdot/gYpYQU41sMZM16Fh1OBmOe9
- Z6YgXDrg7y6ZV6J32HlvuhWIEVOvHPizUw+J6gNY4WdmCqq4YQPbJP4RAvFXRS+Q2nMs
- AP9Nhd7fbddSF2daym3gjklCxtk+QGx8OUUrKrb7GDRhtnH5MsIDyDBVMGQ3kfjTYdok
- dtsQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CDBA910E428
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 15:35:38 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-488ab2db91aso13267295e9.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 08:35:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777539335; x=1778144135; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=6F3SW0LEcxR5KNp5mL/u22r1H9M5kFSrUg1f1ie4v4U=;
- b=T72TlFsvI8y6v7Eb7eXGyE4gDDHVqxulGpkcg5yhmbvsQ6aug3VtDTRhyGy/LXubxD
- VO6DKnFf62jWhLOK4ip/JeN3q1b4vxMKO2X7FEhzPfvxndtl9aCuhf8mwKt/CnyReXpM
- m1XyaHXhKsN1dBDePgSCn5mn7Z1hlajFHkZwEaQ5grLyB8vPC6x9YpQUfY1i8WJJ8vFT
- 60InzwdQBevMq81g2iq2AfrzrkCDdme6vUU5RPeRJnOhsz7j2kU+siiBJa2zLK7Tvs0a
- FGJyLqAMvW4qSz3KrVb0xQmfXlkQj8kjPhqcRhAMg8m95zL8gwM7Nc6dYcHkCdfcwxKa
- RThQ==
+ d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1777563337; x=1778168137;
+ darn=lists.freedesktop.org; 
+ h=mime-version:user-agent:content-transfer-encoding:organization
+ :references:in-reply-to:date:to:from:subject:message-id:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=NlhbRUl79f9tq9R3YugScP6gF9vXwrtrDCSId5OhOrU=;
+ b=RgEvtHeOpSuTL/8qu1gWbVYi2NpaVbtiamNPUsJU2syXAkSHxqm7WGyv7IottSS+4c
+ /2q6HJuwglyBQ3hLJFyFUsaniWHgyLggm0cWdWREJRZ7Ls+MtAm6sdO/6R2ebbrVGmIK
+ oG30ADK7VfNvkLRgkG+PEawKaEuWWvW/9GxhLBM/xsLgkFt6aNjv0bV/HRITqNKUGkDl
+ ecjPUuCc/HhTlsHt6MiGyRlqY9cAykXoMo6NxuPQxCnTofhS6c5VgDwPjy2lh9bchv5h
+ a1zZzQbfPHQzQyge1rlrZnTmfJR+Xyf4Ia0f0ETPY54Zqz+XeyKexlN6U38/zAKD/Zx0
+ mMwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777539335; x=1778144135;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=6F3SW0LEcxR5KNp5mL/u22r1H9M5kFSrUg1f1ie4v4U=;
- b=DxiJGgpSV8HLs1ajLSl3L8nza1BZ55z0tk8VbAOkTiRxGnTkui2S8P2wGzcMind+pi
- LoNcOEYdW/sCs0d+jTkVzE0Wg6xEdzQIVuhNIpvsQimp2+YXFQxUBoITeGGM1LWKDrbO
- 80xhS1jhu5LkxmI3ygGJHMoZ0OHPhx/Avbpsr5uSKn7Z/SmsX8iQn7OZrFRgmwbnJguX
- 1Dx+4Kon1V6ftBRES2Cg59TorL52tTv3DZBHzB3TOBFO/jiBFX0dJqwrOdQHDYxgD0/A
- au5zLEFYU6dgWRRw4l7Wge+uXc2h7edBAv+Vs9LHKm6yt18OwTDvNuSc8HksQOiZu7PM
- DqkA==
+ d=1e100.net; s=20251104; t=1777563337; x=1778168137;
+ h=mime-version:user-agent:content-transfer-encoding:organization
+ :references:in-reply-to:date:to:from:subject:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=NlhbRUl79f9tq9R3YugScP6gF9vXwrtrDCSId5OhOrU=;
+ b=AVqX+teCzL6YJnZqARUyRWZS9flTieqNwUc9zpd/rJr675NM22LmAgMzmYnI1zw4rf
+ cEDQiZCaqi7hzxEJguVKER0SEmRm6Aq2H/PCITqLbEGs2Ak/z2x9CBlpv93E63vFQzWN
+ 2lQGzdciQVy5pzP+8gkEzDqQQoimbvPdVaEkblamaXUD5aPIWc3xYXKW9KnNqi2Go1av
+ MTDIuZJkHEsP+zZFdvP8ep5oXXAn3gkOm0KN0kuN1oqJFzWJQDVeqcDG0hVYtWMGBkzR
+ vj4/58y0gIHOln6ONermgxjMtCJwlahuAD3ulScWWru8eO7WelXy0JfHW7gCOowYYVXf
+ QKUQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/aDTO4NDE5JzZuleYZvLpX4ZCk4icTGxcFL3CcCawP+2aN0bA8g2oED0sVsmfdGuS97WCP25FrDk8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyLftdHnf9AgHGRm3Rd10pSJaMXQz1QMfOb9BMOjIxc2tMuFGNC
- n7KFQD0SVD47PyDyaiAI1teclFNmzziGSorPN3eEVgqeqKTCub2jDY+lyDGk7miEed5nW6hqQKz
- yrnMIWZu927oUqsVkC7sbNk5/d7/YW4U=
-X-Gm-Gg: AeBDieu3lc+JziQTkVkcB36qnprOywc9+DPthhNjgBBY9bx+6ArGj5BXJoYJXTdXdOQ
- DUbpwkwYE9eXj5Ilj72tpKHs734xpsMA7YFE+Njdzn6nJE8DsLAF13yrU8EomLzvT/ylePfK/4X
- AuXPApW76bdPyT4O4cTgR8mQIBLqXU7XRwEddCrNBb42XhTK4QHCX60cRoiKILm5r9uTcORrKGu
- DlE6O4jDZVkzPUbrIlNbQrvs0yb5gptdYIBCmsgFqqGAFigHkAPyUUhe1ryLcBsJjTHFWSSVTRh
- /PPZ2WsGDXF56D4DhQ==
-X-Received: by 2002:a05:6820:1690:b0:696:70f0:7ada with SMTP id
- 006d021491bc7-6967a4b77b9mr848411eaf.11.1777539334862; Thu, 30 Apr 2026
- 01:55:34 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260429040541.3404116-1-syyang@lontium.com>
- <20260429040541.3404116-2-syyang@lontium.com>
- <20260430-gainful-hopping-quokka-da7e7b@quoll>
- <CAFQXuNZ-+0dKFrViisWG4NK=yk2zJ5tn21RZZ3ze7ctsV6Ruew@mail.gmail.com>
-In-Reply-To: <CAFQXuNZ-+0dKFrViisWG4NK=yk2zJ5tn21RZZ3ze7ctsV6Ruew@mail.gmail.com>
-From: =?UTF-8?B?5p2o5a2Z6L+Q?= <yangsunyun1993@gmail.com>
-Date: Thu, 30 Apr 2026 16:55:23 +0800
-X-Gm-Features: AVHnY4JVp6wvmjhYEcmx2St3LTne9Y_ZRg2uwyrEugHA3vkFEyI9m4Aurz6GNe8
-Message-ID: <CAFQXuNbAxdfy=9bBWAsy1Gx3Chgq+d3YpzaP+EBneEEsKok5tw@mail.gmail.com>
-Subject: Re: [PATCH v3 1/2] dt-bindings:bridge: Add Lontiun LT7911EXC eDP to
- MIPI DSI bridge
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: syyang@lontium.com, robh@kernel.org, krzk+dt@kernel.org, 
- conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org, 
- dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com, 
- rfoss@kernel.org, mripard@kernel.org, Laurent.pinchart@ideasonboard.com, 
- tzimmermann@suse.de, jonas@kwiboo.se, jernej.skrabec@gmail.com, 
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, xmzhu@lontium.corp-partner.google.com, 
- xmzhu@lontium.com, rlyu@lontium.com, xbpeng@lontium.com
+ AFNElJ9DUKKbFqWXbqoiuqyILbugfB+uq4kTGd16wHDGDpZ/mzJPFzu4gsFEKgAsw/43U4plAMn+cqyAqcw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzVpVDont23z3LDnVZ76gsp8PabLzOdxa4JYMROSpFx25naRFNe
+ G/e2M3E7SafD5VR5yvHHfXWw44ukRId/IWPpFKzKrOnZsL7vaQ/Wqafv9kNG/oZVvms=
+X-Gm-Gg: AeBDietv6v54GJJEaSPC6RDyuvrBHOHl84FIES0D4TZsptRIL2T+Rzy6TmWmLGnloOe
+ 7HB+sXFv6jisg70rlW5RtwJhHk5T0LX6HQH6s4nUGjqSKSAGVWTKvqIApb3NS90Vr8KWUHrirMZ
+ 08Hka8rH5nHBVuKiyn/hV03QSxBG494BY+5JjtLMqr0DETbo0mkZqy+HzwX8duFYbnGEE7PJXqY
+ 52YG7/Ziv7kHVUJJpoPun0QUwrzSIREjFzywMNl86wIa0iZ20txnmdxm6brY9JfjZYejmG1ZzOy
+ qMneIm+guzC/iEGy952F3E10wmgEITvhWtFDNIfnDrpivpfJAky+PDGxRERVBd1OyLyD1bCxGBv
+ hu3qojfnlA2xt2fILLEgqlH6UxnEEuOSgFRXAOcVzP8GEMNvYdaXjMqNVzrK3vyX5aFx1HCiCy5
+ djlM4wwILChfkxZaVJk0vSXD+9
+X-Received: by 2002:a05:600c:c0c2:b0:489:1ff5:edda with SMTP id
+ 5b1f17b1804b1-48a83d66d38mr42439965e9.6.1777563337249; 
+ Thu, 30 Apr 2026 08:35:37 -0700 (PDT)
+Received: from [10.19.106.145] ([151.19.88.6])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-48a822c832fsm122768725e9.10.2026.04.30.08.35.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 Apr 2026 08:35:36 -0700 (PDT)
+Message-ID: <b3c77e37128f8cc642ac7c14a5c269cd43c87cc4.camel@baylibre.com>
+Subject: Re: [PATCH] drm/fb-helper: Fix clipping when damage area spans a
+ single scanline
+From: Francesco Lavra <flavra@baylibre.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Javier Martinez
+ Canillas <javierm@redhat.com>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Date: Thu, 30 Apr 2026 17:35:34 +0200
+In-Reply-To: <20260210173545.733937-1-flavra@baylibre.com>
+References: <20260210173545.733937-1-flavra@baylibre.com>
+Organization: BayLibre
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.4-2 
+MIME-Version: 1.0
 X-Mailman-Approved-At: Thu, 30 Apr 2026 17:06:40 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -116,93 +96,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E6=9D=A8=E5=AD=99=E8=BF=90 <yangsunyun1993@gmail.com> =E4=BA=8E2026=E5=B9=
-=B44=E6=9C=8830=E6=97=A5=E5=91=A8=E5=9B=9B 16:43=E5=86=99=E9=81=93=EF=BC=9A
->
-> Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=B44=E6=9C=8830=
-=E6=97=A5=E5=91=A8=E5=9B=9B 15:56=E5=86=99=E9=81=93=EF=BC=9A
-> >
-> > On Wed, Apr 29, 2026 at 12:05:40PM +0800, syyang@lontium.com wrote:
-> > > From: Sunyun Yang <syyang@lontium.com>
-> > >
-> > > The LT7911EXC is an I2C-controlled bridge that Receiver eDP1.4
-> > > and output signal/dual port mipi.
-> > >
-> > > Signed-off-by: Sunyun Yang <syyang@lontium.com>
-> >
-> > Missing space after ':' in subject.
-> >
+Friendly ping
 
-> it will be fixed in next version.
+On Tue, 2026-02-10 at 18:35 +0100, Francesco Lavra wrote:
+> When the damage area resulting from a dirty memory range spans a single
+> scanline, the width of the rectangle is calculated dynamically because it
+> may not coincide with the framebuffer width.
+> If the dirty range ends exactly at the end of the scanline, the `bit_end`
+> variable is incorrectly assigned a 0 value, which results in a bogus clip
+> rectangle where the x2 coordinate is 0. This prevents the dirty scanline
+> from being flushed to the hardware.
+> Change the calculation of the `bit_end` value to fix the x2 coordinate
+> value in the above edge case.
+>=20
+> Fixes: ded74cafeea9 ("drm/fb-helper: Clip damage area horizontally")
+> Signed-off-by: Francesco Lavra <flavra@baylibre.com>
+> ---
+> =C2=A0drivers/gpu/drm/drm_fb_helper.c | 2 +-
+> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/drm_fb_helper.c
+> b/drivers/gpu/drm/drm_fb_helper.c
+> index 4b47aa0dab35..d545342d24b3 100644
+> --- a/drivers/gpu/drm/drm_fb_helper.c
+> +++ b/drivers/gpu/drm/drm_fb_helper.c
+> @@ -608,7 +608,7 @@ static void drm_fb_helper_memory_range_to_clip(struct
+> fb_info *info, off_t off,
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 * the number of horizontal pixels that need an upd=
+ate.
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 */
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0off_t bit_off =3D (off % line_length) * 8;
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0off_t bit_end =3D (end % line_length) * 8;
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0off_t bit_end =3D bit_off + len * 8;
+> =C2=A0
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0x1 =3D bit_off / info->var.bits_per_pixel;
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0x2 =3D DIV_ROUND_UP(bit_end, info->var.bits_per_pix=
+el);
 
-sorry, Where is the missing space? I didn't find it.
-
-is:
-Subject: [PATCH v3 1/2] dt-bindings:bridge: Add Lontiun LT7911EXC eDP
-to MIPI DSI
-?
-
-> > ...
-> >
-> > > +  ports:
-> > > +    $ref: /schemas/graph.yaml#/properties/ports
-> > > +
-> > > +    properties:
-> > > +      port@0:
-> > > +        $ref: /schemas/graph.yaml#/properties/port
-> > > +        description: Video port for MIPI DSI output.
-> >
-> > Wrong description, first is input. Look at your DTS.
-> >
-> yes, you are right, I didn't notice this place.
->
-> it will be fixed in next version.
-> thanks Krzysztof Kozlowski
->
-> > > +
-> > > +      port@1:
-> > > +        $ref: /schemas/graph.yaml#/properties/port
-> > > +        description: Video port for eDP input.
-> > > +
-> > > +    required:
-> > > +      - port@0
-> > > +      - port@1
-> > > +
-> > > +required:
-> > > +  - compatible
-> > > +  - reg
-> > > +  - reset-gpios
-> > > +  - vdd-supply
-> > > +  - vcc-supply
-> > > +  - ports
-> > > +
-> > > +additionalProperties: false
-> > > +
-> > > +examples:
-> > > +  - |
-> > > +    #include <dt-bindings/gpio/gpio.h>
-> > > +    i2c {
-> > > +        #address-cells =3D <1>;
-> > > +        #size-cells =3D <0>;
-> > > +
-> > > +        mipi-bridge@41 {
-> > > +            compatible =3D "lontium,lt7911exc";
-> > > +            reg =3D <0x41>;
-> > > +            reset-gpios =3D <&gpy8 8 GPIO_ACTIVE_LOW>;
-> > > +            vdd-supply =3D <&lt7911exc_1v2>;
-> > > +            vcc-supply =3D <&lt7911exc_3v3>;
-> > > +
-> > > +            ports {
-> > > +                #address-cells =3D <1>;
-> > > +                #size-cells =3D <0>;
-> > > +
-> > > +                port@0 {
-> > > +                    reg =3D <0>;
-> > > +                    bridge_in: endpoint {
-> > > +                        remote-endpoint =3D <&edp_out>;
-> > > +                    };
-> > > +                };
-> >
-> > Best regards,
-> > Krzysztof
-> >
