@@ -4,104 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CE14FF886F
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 09:18:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 391DBFF886F
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 09:21:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C17F10E105;
-	Thu, 30 Apr 2026 09:18:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46D1A10F2C2;
+	Thu, 30 Apr 2026 09:21:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="jl75Y6bE";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="FXFoHt+U";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70C0510E105
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 09:18:51 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 165404E42B74;
- Thu, 30 Apr 2026 09:18:50 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id CBD7660495;
- Thu, 30 Apr 2026 09:18:49 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id E3A8E1072B84F; 
- Thu, 30 Apr 2026 11:18:24 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1777540726; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=kPzFTYl8s/0qzQL977XUmLm+EjuPVHwAvy6zvNV2190=;
- b=jl75Y6bEL+7XH1zwiNW+c6qdRlqqlGGwLUpQ85RtTJdu9EpHAcCly7th2dkRJqgvBNtrOi
- m2QfOXlLwq71dPBT0OgjxI68dJM3R2cB+iqkYi+0XspHjpHCoF+EBBUkZg5KaK9Ge507iz
- kqv6ZoGGXkW8Sf95ZaByPAT/w9zxdFH418OSOYfew2Xz2glDUB3n85brvXZfGs5i95VpeD
- 3qzwbW2V/v/ub1Uw3wAAOmhwm9AQuiqFqc4ERnz9TZ2T+PdNiUahf2hsk6fdwzSWKMnhlC
- YsCVptaZkFgjdrCmR7033Fh8MbPK2PhMdRWJYtWVA5m52jQShDFOY9mIO9MHIA==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Janne Grunau <j@jannau.net>, Liu Ying <victor.liu@nxp.com>, 
- Douglas Anderson <dianders@chromium.org>, 
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
- Lucas Stach <l.stach@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
- Paul Cercueil <paul@crapouillou.net>, 
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>, 
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Thierry Reding <thierry.reding@gmail.com>, 
- Mikko Perttunen <mperttunen@nvidia.com>, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Icenowy Zheng <zhengxingda@iscas.ac.cn>, Jingoo Han <jingoohan1@gmail.com>, 
- Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
- Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
- Jyri Sarha <jyri.sarha@iki.fi>, Michal Simek <michal.simek@amd.com>, 
- Sasha Finkelstein <k@chaosmail.tech>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- asahi@lists.linux.dev, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org, 
- linux-mediatek@lists.infradead.org, linux-amlogic@lists.infradead.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org, 
- linux-samsung-soc@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-In-Reply-To: <20260423-drm-bridge-connector-attach_encoder-v2-0-2ae6ca69b390@bootlin.com>
-References: <20260423-drm-bridge-connector-attach_encoder-v2-0-2ae6ca69b390@bootlin.com>
-Subject: Re: [PATCH v2 00/41] drm/display: bridge-connector: attach encoder
- to the connector
-Message-Id: <177754070456.1321073.15208749896191583310.b4-ty@b4>
-Date: Thu, 30 Apr 2026 11:18:24 +0200
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id DFD4510E117
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 09:21:31 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D29391A9A;
+ Thu, 30 Apr 2026 02:21:25 -0700 (PDT)
+Received: from [10.1.25.33] (e122027.cambridge.arm.com [10.1.25.33])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 549C33F7B4;
+ Thu, 30 Apr 2026 02:21:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1777540891; bh=kzoQM5LAvrVuWHQGeWKDcnbTntZjwbCSl6gP9WiZoLs=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=FXFoHt+UEhCo8PtRRe1R5U/bzjUSsAS5LqvGmuwitB3MRCdEgVa99Njqolr4RZ7qo
+ 6fWz0BH/LBiNjx1If8EpbcHKo6dfk1wmiQjiv2lYsJKKaPAhDKLBdfoWMStlqTjAHz
+ HUEI0KLmrlG6tYVBOVQqWqGhFJ2uV83fIIX14F4c=
+Message-ID: <cfe487b4-6afe-46af-b1a1-938b28f951fd@arm.com>
+Date: Thu, 30 Apr 2026 10:21:25 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 4/8] drm/panthor: Store IRQ register base iomem pointer
+ in panthor_irq
+To: Karunika Choo <karunika.choo@arm.com>, dri-devel@lists.freedesktop.org
+Cc: nd@arm.com, Boris Brezillon <boris.brezillon@collabora.com>,
+ Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org
+References: <20260427155934.416502-1-karunika.choo@arm.com>
+ <20260427155934.416502-5-karunika.choo@arm.com>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260427155934.416502-5-karunika.choo@arm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
-X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,105 +62,297 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-On Thu, 23 Apr 2026 11:16:54 +0200, Luca Ceresoli wrote:
-> This series simplifies using the bridge-connector by removing the need to
-> attach the newly created connector to the encoder.
+On 27/04/2026 16:59, Karunika Choo wrote:
+> Update common IRQ handling code to work from an IRQ-local iomem base
+> instead of referencing block-specific interrupt register offsets.
 > 
-> == Series description
+> Store the interrupt base address iomem pointer in struct panthor_irq and
+> switch the shared IRQ helpers to use generic INT_* offsets from that
+> local base. This removes the need for each caller to expose absolute IRQ
+> register addresses while keeping the common IRQ flow unchanged.
 > 
-> Currently all users of the bridge-connector must call
-> drm_connector_attach_encoder() immediately after a successful
-> drm_bridge_connector_init().
+> No functional change intended.
 > 
-> [...]
+> v3:
+> - Clean up definition of pwr->irq.iomem.
+> v2:
+> - Change IRQ request function to accept an iomem pointer instead of
+>   computing it from an offset argument.
+> 
+> Signed-off-by: Karunika Choo <karunika.choo@arm.com>
 
-Applied, thanks!
+Reviewed-by: Steven Price <steven.price@arm.com>
 
-[01/41] drm/display: bridge-connector: attach the encoder to the created connector
-        commit: dcad6dd16e87a6dcc78ab05f64c704cec2809db9
-[02/41] drm: adp: remove now-redundant call to drm_connector_attach_encoder()
-        commit: f96e621e90dfeb35676604b223f42f721e7c364f
-[03/41] drm/bridge: adv7511: remove now-redundant call to drm_connector_attach_encoder()
-        commit: 4f88126e09160fa5c226e786982d433aba0345c4
-[04/41] drm/bridge: ite-it6263: remove now-redundant call to drm_connector_attach_encoder()
-        commit: 7ecf62396ed7883eda3bb949df7f95e5a1048b17
-[05/41] drm/bridge: ti-sn65dsi86: remove now-redundant call to drm_connector_attach_encoder()
-        commit: 1977688f60eab4c92dca15c8b7e6b19635902ee0
-[06/41] drm/imx/dcss: remove now-redundant call to drm_connector_attach_encoder()
-        commit: 4b29d25b55fc28ab6065500a60693b093ad05366
-[07/41] drm/imx: ldb: remove now-redundant call to drm_connector_attach_encoder()
-        commit: dd7784328061fba1fba919d8879ed65ea30feeae
-[08/41] drm/imx: parallel-display: remove now-redundant call to drm_connector_attach_encoder()
-        commit: 5c18883f8050b1f6fdb35050cf9dad64779f6ee9
-[09/41] drm/imx/lcdc: remove now-redundant call to drm_connector_attach_encoder()
-        commit: b490bc69f1c11d8335dbd628d5e32db8986f848c
-[10/41] drm/ingenic: remove now-redundant call to drm_connector_attach_encoder()
-        commit: bc9e6392403e316c9d6e337b7cf28543051cb28e
-[11/41] drm/kmb/dsi: remove now-redundant call to drm_connector_attach_encoder()
-        commit: d731d87126d43936ab74804785446f67a2d60d0c
-[12/41] drm/mediatek: mtk_dpi: remove now-redundant call to drm_connector_attach_encoder()
-        commit: c21f9adc83c5edf0b990cd068283d3c831b43074
-[13/41] drm/mediatek: mtk_dsi: remove now-redundant call to drm_connector_attach_encoder()
-        commit: 41bfe06bb3cae68c0b3e21c5181c49f68db67e18
-[14/41] drm/meson: encoder_cvbs: remove now-redundant call to drm_connector_attach_encoder()
-        commit: 82da98ea371dff7a9ece58083846556b043bec9a
-[15/41] drm/meson: encoder_hdmi: remove now-redundant call to drm_connector_attach_encoder()
-        commit: 013adec1a93dcd052c6eb1769609eee661983ca9
-[16/41] drm/msm/dp: remove now-redundant call to drm_connector_attach_encoder()
-        commit: 6108b5b7219e3f3f947922f4faa8ccbc570210d2
-[17/41] drm/msm/hdmi: remove now-redundant call to drm_connector_attach_encoder()
-        commit: f7ed1d3dde56b98e065b950d1044a0f655b194ba
-[18/41] drm/omapdrm: remove now-redundant call to drm_connector_attach_encoder()
-        commit: 7b229305be6300c90e6f005784f9f53d4d23d579
-[19/41] rm/rockchip: cdn-dp: remove now-redundant call to drm_connector_attach_encoder()
-        commit: 86909f184b4f045f4d85dd2ca957811c1184aa1c
-[20/41] drm/rockchip: rk3066_hdmi: remove now-redundant call to drm_connector_attach_encoder()
-        commit: d5304653b60edb79bfb71209ebbd4b57001ab003
-[21/41] drm/tegra: hdmi: remove now-redundant call to drm_connector_attach_encoder()
-        commit: c0670fc1e75782a9dd0cd94acb7b262077b3f720
-[22/41] drm/tegra: rgb: remove now-redundant call to drm_connector_attach_encoder()
-        commit: 04ce2e375f6dde267f53995d81c48ab31dc06b52
-[23/41] drm/tests: bridge: remove now-redundant call to drm_connector_attach_encoder()
-        commit: 6d303956b41f870240a23d4896ec12e420026637
-[24/41] drm: verisilicon: remove now-redundant call to drm_connector_attach_encoder()
-        commit: 6d65baa60f0d7c305eb63b738163c1e35d0eef20
-[25/41] drm/exynos: exynos_dp: remove now-redundant call to drm_connector_attach_encoder()
-        commit: d627f7e6318906da2b95ac60616af7501d5145a5
-[26/41] drm: rcar-du: encoder: remove now-redundant call to drm_connector_attach_encoder()
-        commit: fa38bb8dc2e852e2979593b965779b8cca532014
-[27/41] drm: renesas: rz-du: rzg2l_du_encoder: remove now-redundant call to drm_connector_attach_encoder()
-        commit: 88bcd924cd85a29658a60418f6e60a0f912f990c
-[28/41] drm/rockchip: analogix_dp: remove now-redundant call to drm_connector_attach_encoder()
-        commit: b7e25e250ea405f1c65256494b56e0f6443cc96a
-[29/41] drm/rockchip: dw_dp: remove now-redundant call to drm_connector_attach_encoder()
-        commit: 8015bfccca36672e412dae4240886c71278c5b3c
-[30/41] drm/rockchip: dw_hdmi_qp: remove now-redundant call to drm_connector_attach_encoder()
-        commit: 14a25df41b19aba228e66c0d9578e6e6b3cc58f9
-[31/41] drm/rockchip: inno-hdmi: remove now-redundant call to drm_connector_attach_encoder()
-        commit: 6db094d4ce87fb4caf90db9863bb6a8b427b15c9
-[32/41] drm/msm/mdp4: remove now-redundant call to drm_connector_attach_encoder()
-        commit: 4e833e078f3d40d4f4a24c162210a1b7855f1539
-[33/41] drm/msm/dsi: remove now-redundant call to drm_connector_attach_encoder()
-        commit: f9274ba1dff8b0adff22e8d877ec1e85bb14d0c3
-[34/41] drm/mxsfb/lcdif: remove now-redundant call to drm_connector_attach_encoder()
-        commit: da3918b645a5efe6fad2aa53b84a4d98c3df999c
-[35/41] drm/rockchip: lvds: remove now-redundant call to drm_connector_attach_encoder()
-        commit: 24202edb689ead20411568251792a31103b9bde0
-[35/41] drm/rockchip: lvds: remove now-redundant call to drm_connector_attach_encoder()
-        commit: 24202edb689ead20411568251792a31103b9bde0
-[37/41] drm/tilcdc: remove now-redundant call to drm_connector_attach_encoder()
-        commit: 055673da01cdb130732ee556db58f7408392c1b8
-[38/41] drm: zynqmp_kms: remove now-redundant call to drm_connector_attach_encoder()
-        commit: 42ccccb38ca8bac394faeb30c924ad542f5f1bee
-[39/41] drm/imx: remove now-redundant call to drm_connector_attach_encoder()
-        commit: 2b727270b955b72cf6f47c5883bdc6f997f0e06f
-[40/41] drm/rockchip: rgb: remove now-redundant call to drm_connector_attach_encoder()
-        commit: d5d8e04dc0557437b19039206012305166df2bf7
-[41/41] drm: renesas: shmobile: remove now-redundant call to drm_connector_attach_encoder()
-        commit: 6533278b0deb14de860035dd1913e1e55e781e60
-
-Best regards,
--- 
-Luca Ceresoli <luca.ceresoli@bootlin.com>
+> ---
+>  drivers/gpu/drm/panthor/panthor_device.h   | 32 ++++++++++++++--------
+>  drivers/gpu/drm/panthor/panthor_fw.c       |  5 ++--
+>  drivers/gpu/drm/panthor/panthor_fw_regs.h  |  2 ++
+>  drivers/gpu/drm/panthor/panthor_gpu.c      |  6 ++--
+>  drivers/gpu/drm/panthor/panthor_gpu_regs.h |  3 ++
+>  drivers/gpu/drm/panthor/panthor_mmu.c      |  5 ++--
+>  drivers/gpu/drm/panthor/panthor_mmu_regs.h |  3 ++
+>  drivers/gpu/drm/panthor/panthor_pwr.c      |  6 ++--
+>  8 files changed, 42 insertions(+), 20 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
+> index 285bf7e4439e..4e4607bca7cc 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.h
+> +++ b/drivers/gpu/drm/panthor/panthor_device.h
+> @@ -82,6 +82,9 @@ struct panthor_irq {
+>  	/** @ptdev: Panthor device */
+>  	struct panthor_device *ptdev;
+>  
+> +	/** @iomem: CPU mapping of IRQ base address */
+> +	void __iomem *iomem;
+> +
+>  	/** @irq: IRQ number. */
+>  	int irq;
+>  
+> @@ -488,6 +491,11 @@ panthor_exception_is_fault(u32 exception_code)
+>  const char *panthor_exception_name(struct panthor_device *ptdev,
+>  				   u32 exception_code);
+>  
+> +#define INT_RAWSTAT 0x0
+> +#define INT_CLEAR   0x4
+> +#define INT_MASK    0x8
+> +#define INT_STAT    0xc
+> +
+>  /**
+>   * PANTHOR_IRQ_HANDLER() - Define interrupt handlers and the interrupt
+>   * registration function.
+> @@ -498,14 +506,13 @@ const char *panthor_exception_name(struct panthor_device *ptdev,
+>   *
+>   * void (*handler)(struct panthor_device *, u32 status);
+>   */
+> -#define PANTHOR_IRQ_HANDLER(__name, __reg_prefix, __handler)					\
+> +#define PANTHOR_IRQ_HANDLER(__name, __handler)							\
+>  static irqreturn_t panthor_ ## __name ## _irq_raw_handler(int irq, void *data)			\
+>  {												\
+>  	struct panthor_irq *pirq = data;							\
+> -	struct panthor_device *ptdev = pirq->ptdev;						\
+>  	enum panthor_irq_state old_state;							\
+>  												\
+> -	if (!gpu_read(ptdev->iomem, __reg_prefix ## _INT_STAT))					\
+> +	if (!gpu_read(pirq->iomem, INT_STAT))							\
+>  		return IRQ_NONE;								\
+>  												\
+>  	guard(spinlock_irqsave)(&pirq->mask_lock);						\
+> @@ -515,7 +522,7 @@ static irqreturn_t panthor_ ## __name ## _irq_raw_handler(int irq, void *data)
+>  	if (old_state != PANTHOR_IRQ_STATE_ACTIVE)						\
+>  		return IRQ_NONE;								\
+>  												\
+> -	gpu_write(ptdev->iomem, __reg_prefix ## _INT_MASK, 0);					\
+> +	gpu_write(pirq->iomem, INT_MASK, 0);							\
+>  	return IRQ_WAKE_THREAD;									\
+>  }												\
+>  												\
+> @@ -534,7 +541,7 @@ static irqreturn_t panthor_ ## __name ## _irq_threaded_handler(int irq, void *da
+>  		 * right before the HW event kicks in. TLDR; it's all expected races we're	\
+>  		 * covered for.									\
+>  		 */										\
+> -		u32 status = gpu_read(ptdev->iomem, __reg_prefix ## _INT_RAWSTAT) & pirq->mask;	\
+> +		u32 status = gpu_read(pirq->iomem, INT_RAWSTAT) & pirq->mask;			\
+>  												\
+>  		if (!status)									\
+>  			break;									\
+> @@ -550,7 +557,7 @@ static irqreturn_t panthor_ ## __name ## _irq_threaded_handler(int irq, void *da
+>  					   PANTHOR_IRQ_STATE_PROCESSING,			\
+>  					   PANTHOR_IRQ_STATE_ACTIVE);				\
+>  		if (old_state == PANTHOR_IRQ_STATE_PROCESSING)					\
+> -			gpu_write(ptdev->iomem, __reg_prefix ## _INT_MASK, pirq->mask);		\
+> +			gpu_write(pirq->iomem, INT_MASK, pirq->mask);				\
+>  	}											\
+>  												\
+>  	return ret;										\
+> @@ -560,7 +567,7 @@ static inline void panthor_ ## __name ## _irq_suspend(struct panthor_irq *pirq)
+>  {												\
+>  	scoped_guard(spinlock_irqsave, &pirq->mask_lock) {					\
+>  		atomic_set(&pirq->state, PANTHOR_IRQ_STATE_SUSPENDING);				\
+> -		gpu_write(pirq->ptdev->iomem, __reg_prefix ## _INT_MASK, 0);			\
+> +		gpu_write(pirq->iomem, INT_MASK, 0);						\
+>  	}											\
+>  	synchronize_irq(pirq->irq);								\
+>  	atomic_set(&pirq->state, PANTHOR_IRQ_STATE_SUSPENDED);					\
+> @@ -571,17 +578,18 @@ static inline void panthor_ ## __name ## _irq_resume(struct panthor_irq *pirq)
+>  	guard(spinlock_irqsave)(&pirq->mask_lock);						\
+>  												\
+>  	atomic_set(&pirq->state, PANTHOR_IRQ_STATE_ACTIVE);					\
+> -	gpu_write(pirq->ptdev->iomem, __reg_prefix ## _INT_CLEAR, pirq->mask);			\
+> -	gpu_write(pirq->ptdev->iomem, __reg_prefix ## _INT_MASK, pirq->mask);			\
+> +	gpu_write(pirq->iomem, INT_CLEAR, pirq->mask);						\
+> +	gpu_write(pirq->iomem, INT_MASK, pirq->mask);						\
+>  }												\
+>  												\
+>  static int panthor_request_ ## __name ## _irq(struct panthor_device *ptdev,			\
+>  					      struct panthor_irq *pirq,				\
+> -					      int irq, u32 mask)				\
+> +					      int irq, u32 mask, void __iomem *iomem)		\
+>  {												\
+>  	pirq->ptdev = ptdev;									\
+>  	pirq->irq = irq;									\
+>  	pirq->mask = mask;									\
+> +	pirq->iomem = iomem;									\
+>  	spin_lock_init(&pirq->mask_lock);							\
+>  	panthor_ ## __name ## _irq_resume(pirq);						\
+>  												\
+> @@ -603,7 +611,7 @@ static inline void panthor_ ## __name ## _irq_enable_events(struct panthor_irq *
+>  	 * If the IRQ is suspended/suspending, the mask is restored at resume time.		\
+>  	 */											\
+>  	if (atomic_read(&pirq->state) == PANTHOR_IRQ_STATE_ACTIVE)				\
+> -		gpu_write(pirq->ptdev->iomem, __reg_prefix ## _INT_MASK, pirq->mask);		\
+> +		gpu_write(pirq->iomem, INT_MASK, pirq->mask);					\
+>  }												\
+>  												\
+>  static inline void panthor_ ## __name ## _irq_disable_events(struct panthor_irq *pirq, u32 mask)\
+> @@ -617,7 +625,7 @@ static inline void panthor_ ## __name ## _irq_disable_events(struct panthor_irq
+>  	 * If the IRQ is suspended/suspending, the mask is restored at resume time.		\
+>  	 */											\
+>  	if (atomic_read(&pirq->state) == PANTHOR_IRQ_STATE_ACTIVE)				\
+> -		gpu_write(pirq->ptdev->iomem, __reg_prefix ## _INT_MASK, pirq->mask);		\
+> +		gpu_write(pirq->iomem, INT_MASK, pirq->mask);					\
+>  }
+>  
+>  extern struct workqueue_struct *panthor_cleanup_wq;
+> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
+> index 4a0c23e987b6..73ef07a37e22 100644
+> --- a/drivers/gpu/drm/panthor/panthor_fw.c
+> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
+> @@ -1088,7 +1088,7 @@ static void panthor_job_irq_handler(struct panthor_device *ptdev, u32 status)
+>  		trace_gpu_job_irq(ptdev->base.dev, status, duration);
+>  	}
+>  }
+> -PANTHOR_IRQ_HANDLER(job, JOB, panthor_job_irq_handler);
+> +PANTHOR_IRQ_HANDLER(job, panthor_job_irq_handler);
+>  
+>  static int panthor_fw_start(struct panthor_device *ptdev)
+>  {
+> @@ -1470,7 +1470,8 @@ int panthor_fw_init(struct panthor_device *ptdev)
+>  	if (irq <= 0)
+>  		return -ENODEV;
+>  
+> -	ret = panthor_request_job_irq(ptdev, &fw->irq, irq, 0);
+> +	ret = panthor_request_job_irq(ptdev, &fw->irq, irq, 0,
+> +				      ptdev->iomem + JOB_INT_BASE);
+>  	if (ret) {
+>  		drm_err(&ptdev->base, "failed to request job irq");
+>  		return ret;
+> diff --git a/drivers/gpu/drm/panthor/panthor_fw_regs.h b/drivers/gpu/drm/panthor/panthor_fw_regs.h
+> index d523d41e18dd..eeb41aff249b 100644
+> --- a/drivers/gpu/drm/panthor/panthor_fw_regs.h
+> +++ b/drivers/gpu/drm/panthor/panthor_fw_regs.h
+> @@ -15,6 +15,8 @@
+>  #define   MCU_STATUS_HALT				2
+>  #define   MCU_STATUS_FATAL				3
+>  
+> +#define JOB_INT_BASE					0x1000
+> +
+>  #define JOB_INT_RAWSTAT					0x1000
+>  #define JOB_INT_CLEAR					0x1004
+>  #define JOB_INT_MASK					0x1008
+> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
+> index 747ac332be64..f00f3d9be240 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
+> @@ -110,7 +110,7 @@ static void panthor_gpu_irq_handler(struct panthor_device *ptdev, u32 status)
+>  	}
+>  	spin_unlock(&ptdev->gpu->reqs_lock);
+>  }
+> -PANTHOR_IRQ_HANDLER(gpu, GPU, panthor_gpu_irq_handler);
+> +PANTHOR_IRQ_HANDLER(gpu, panthor_gpu_irq_handler);
+>  
+>  /**
+>   * panthor_gpu_unplug() - Called when the GPU is unplugged.
+> @@ -162,7 +162,9 @@ int panthor_gpu_init(struct panthor_device *ptdev)
+>  	if (irq < 0)
+>  		return irq;
+>  
+> -	ret = panthor_request_gpu_irq(ptdev, &ptdev->gpu->irq, irq, GPU_INTERRUPTS_MASK);
+> +	ret = panthor_request_gpu_irq(ptdev, &ptdev->gpu->irq, irq,
+> +				      GPU_INTERRUPTS_MASK,
+> +				      ptdev->iomem + GPU_INT_BASE);
+>  	if (ret)
+>  		return ret;
+>  
+> diff --git a/drivers/gpu/drm/panthor/panthor_gpu_regs.h b/drivers/gpu/drm/panthor/panthor_gpu_regs.h
+> index 75474b7d7341..3f60c45985a7 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gpu_regs.h
+> +++ b/drivers/gpu/drm/panthor/panthor_gpu_regs.h
+> @@ -4,6 +4,8 @@
+>  #ifndef __PANTHOR_GPU_REGS_H__
+>  #define __PANTHOR_GPU_REGS_H__
+>  
+> +#define GPU_CONTROL_BASE				0x0
+> +
+>  #define GPU_ID						0x0
+>  #define   GPU_ARCH_MAJOR(x)				((x) >> 28)
+>  #define   GPU_ARCH_MINOR(x)				(((x) & GENMASK(27, 24)) >> 24)
+> @@ -28,6 +30,7 @@
+>  #define GPU_AS_PRESENT					0x18
+>  #define GPU_CSF_ID					0x1C
+>  
+> +#define GPU_INT_BASE					0x20
+>  #define GPU_INT_RAWSTAT					0x20
+>  #define GPU_INT_CLEAR					0x24
+>  #define GPU_INT_MASK					0x28
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+> index 853f5ebfe5c6..64d53e7cb763 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> @@ -584,7 +584,7 @@ static u32 panthor_mmu_as_fault_mask(struct panthor_device *ptdev, u32 as)
+>  
+>  /* Forward declaration to call helpers within as_enable/disable */
+>  static void panthor_mmu_irq_handler(struct panthor_device *ptdev, u32 status);
+> -PANTHOR_IRQ_HANDLER(mmu, MMU, panthor_mmu_irq_handler);
+> +PANTHOR_IRQ_HANDLER(mmu, panthor_mmu_irq_handler);
+>  
+>  static int panthor_mmu_as_enable(struct panthor_device *ptdev, u32 as_nr,
+>  				 u64 transtab, u64 transcfg, u64 memattr)
+> @@ -3247,7 +3247,8 @@ int panthor_mmu_init(struct panthor_device *ptdev)
+>  		return -ENODEV;
+>  
+>  	ret = panthor_request_mmu_irq(ptdev, &mmu->irq, irq,
+> -				      panthor_mmu_fault_mask(ptdev, ~0));
+> +				      panthor_mmu_fault_mask(ptdev, ~0),
+> +				      ptdev->iomem + MMU_INT_BASE);
+>  	if (ret)
+>  		return ret;
+>  
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu_regs.h b/drivers/gpu/drm/panthor/panthor_mmu_regs.h
+> index cc9cf603cec6..de460042651d 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu_regs.h
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu_regs.h
+> @@ -5,6 +5,9 @@
+>  #define __PANTHOR_MMU_REGS_H__
+>  
+>  /* MMU regs */
+> +
+> +#define MMU_INT_BASE					0x2000
+> +
+>  #define MMU_INT_RAWSTAT					0x2000
+>  #define MMU_INT_CLEAR					0x2004
+>  #define MMU_INT_MASK					0x2008
+> diff --git a/drivers/gpu/drm/panthor/panthor_pwr.c b/drivers/gpu/drm/panthor/panthor_pwr.c
+> index aafb0c5c7d23..705d998447b5 100644
+> --- a/drivers/gpu/drm/panthor/panthor_pwr.c
+> +++ b/drivers/gpu/drm/panthor/panthor_pwr.c
+> @@ -70,7 +70,7 @@ static void panthor_pwr_irq_handler(struct panthor_device *ptdev, u32 status)
+>  	}
+>  	spin_unlock(&ptdev->pwr->reqs_lock);
+>  }
+> -PANTHOR_IRQ_HANDLER(pwr, PWR, panthor_pwr_irq_handler);
+> +PANTHOR_IRQ_HANDLER(pwr, panthor_pwr_irq_handler);
+>  
+>  static void panthor_pwr_write_command(struct panthor_device *ptdev, u32 command, u64 args)
+>  {
+> @@ -464,7 +464,9 @@ int panthor_pwr_init(struct panthor_device *ptdev)
+>  	if (irq < 0)
+>  		return irq;
+>  
+> -	err = panthor_request_pwr_irq(ptdev, &pwr->irq, irq, PWR_INTERRUPTS_MASK);
+> +	err = panthor_request_pwr_irq(
+> +		ptdev, &pwr->irq, irq, PWR_INTERRUPTS_MASK,
+> +		ptdev->iomem + PWR_CONTROL_BASE);
+>  	if (err)
+>  		return err;
+>  
 
