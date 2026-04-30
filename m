@@ -4,55 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1EFFCD13D2
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 10:45:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71E91CD13D2
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 10:45:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A25810F312;
-	Thu, 30 Apr 2026 10:45:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D356910F2FD;
+	Thu, 30 Apr 2026 10:45:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="eZ6HpAfi";
+	dkim=pass (2048-bit key; unprotected) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="e2+NOuif";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AFAD10F301
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 10:45:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1777545920;
- bh=SpLQSn+5rUGX26OZoolQ8wREsGXnphb9uQVa6v9dEaI=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=eZ6HpAfiKRo3+FoVxzOWhO23AIGDrltaVRPNPK2tborh7O94c/3LsoGSrogdzZ5+F
- DQQ49wOyp6Be9GdsMfhaHXFrITv58AZUGNqX2N83Pt829IwNESmrcfOyrU40n70Ni5
- Th81kfHMUp1KZObF9plrNq0mwSsMfdKDVJArux7yI7QQYAbK6uwaFEcamAtrpSxrc1
- 1PIydN/NsedFAEgWILs8hFl+AQhQsPCbhl8Kc1KKNUsjDEtjLRBNbfER6mxlA2na3/
- RG3ABCzf4uAxEeUb0cyVPEtSMoJ9P0c2A5FNcACYYJ4wDb+nA3XzyFWWWg3WZRujJF
- C3n4HWSRAh8MA==
-Received: from fedora (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 6E1D517E0EBB;
- Thu, 30 Apr 2026 12:45:20 +0200 (CEST)
-Date: Thu, 30 Apr 2026 12:45:16 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Karunika Choo <karunika.choo@arm.com>
-Cc: dri-devel@lists.freedesktop.org, nd@arm.com, Steven Price
- <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/8] drm/panthor: Replace cross-component register
- accesses with helpers
-Message-ID: <20260430124516.226aa4dc@fedora>
-In-Reply-To: <20260427155934.416502-4-karunika.choo@arm.com>
-References: <20260427155934.416502-1-karunika.choo@arm.com>
- <20260427155934.416502-4-karunika.choo@arm.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 754B210F2FD
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 10:45:34 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-488a8ca4aadso8219755e9.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 03:45:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1777545933; x=1778150733;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=tuw4DQUQ8wFwSodwVVRsikXJG5LLCcS+5kiwz8365jg=;
+ b=e2+NOuifSs++QfvJif6ThAHuz7mdTPkBB/rX9wyeYAtZs/2mB8v1hPdmCHC33k0pPy
+ BbTavMRyDv0M+qsAknYWTLICaW4Ol63i2C5waqcjmL1CbNiNE3m+IrND0KFJer84j6Hx
+ T8ySK1mbt6AA629LMXtEtaZzYG00OnDzOBSB0XdvHvHDYcUOxYArKh3BtoiGi9LtNrC6
+ IbK3zPszHkiZgPp1OHxJxvb495Kvs/tNJ1qMoR+NXpW6oOl/c69kimTHLiKs8g8AdoEo
+ XlnwLDDOWO2hjnBA7Cy6TdDl7x+JkfcGqyLLGhREByMIvUVAYuc1GxSH2lGlTeKKn45Z
+ 13fg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777545933; x=1778150733;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=tuw4DQUQ8wFwSodwVVRsikXJG5LLCcS+5kiwz8365jg=;
+ b=ipF8JVM92ftaZIQaSIAvj4dww4duk0MlaVvDpqlMdZLFJRjBjieA37Jwo1oEsmJxui
+ /gkoxqmR8vBDGoejXkCklI/v7/NBI0lp4U0JUl8NaxzA8dj8Tv38dm+1gND3Kvt1B2K6
+ u/6DTouIF2c1xEDFV87bkT5sZAK0jLWZKvfb3+Qz5YGOiCQM9ZaXFueoJ9S+OWe0glhH
+ P/uQxHnMvkS+yBDEiWk6+vq/mADKg3Dg0WnBEVcMAPomwLcUOsWr3oekBF1KfhRe1SwX
+ sDjFWFhb9eP9jzQz/OfC5Q/opJAKaw/8KgtQxc9yjG24eaSWiwD7P1NFmpwwPvIXmo5b
+ THXQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+OYrcMEWbEbvy6VxWTPpAb6G2U6OdGnvDHMOiy2qHNy+pTAPNIX7eOqkroMoDpiLBI9g22a2zBv/c=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzfUUeq68xqtOJANIR66Ttl6fnYkFqNtkIk3M5mgE3p30Gy3znp
+ IwUK1neuwR5xsbvGUnS8PdQV9EggAe6DwahRfTyWSou3F5Dcqu1UN/Duai5IifmPxSs=
+X-Gm-Gg: AeBDieut2wjlYBh5xCnkqVvm4V+lXAFDpUJxUSW1pZdH0P52MX6O7EABm3wMypfvhF+
+ wuRUhqchwFSZvculRGljPy1NmOF8l0Hi3xt7Ffuk4cxW9a/G01TfctshuUEzDz1v1tZCoelT1oL
+ vY6OioNW31r9RoJlWSVhAzWZCERCa4Tprbm1LPrXtgpLIzHoo+dQZ2H5vRd1cZW9yxKu3hNePLZ
+ slt3Wxnf3g4suTSZ3MKLtalNqn+0y28J6V+gQIQx3geW8lSKOLcQBJTdX5GNuL79f4eS/+QH/Uv
+ Xt8Jvk7DlXfNfgaPlk9B4LELUWM8u6pEfk3FAhze8OdT8MVN7YYHPMDLVkBd2vZrWh/U+fJxJop
+ 5PGUdxY0OVM1qdCoUXKJp2NLU0OEC6J0bGNcEw1r2mlFFd6eo/ASAbLFUJQLQt+BNAMQiBfVW1u
+ W2ZCDKE2sY0KxBo/1r7Tn3p9IA8qTtGh7l/wRRg1AphqQ/tfJVPVu+BI2wTr/gB3s/cBfp6TGkr
+ OICIS9szBo/vU3FO/CUbGSZs6JFAllFzPvR
+X-Received: by 2002:a05:600c:a30b:b0:488:c014:34da with SMTP id
+ 5b1f17b1804b1-48a8449dee7mr30397465e9.26.1777545932923; 
+ Thu, 30 Apr 2026 03:45:32 -0700 (PDT)
+Received: from localhost
+ (p200300f65f114e08c77bcc4a3b99186a.dip0.t-ipconnect.de.
+ [2003:f6:5f11:4e08:c77b:cc4a:3b99:186a])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-48a82307f28sm92585885e9.13.2026.04.30.03.45.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 Apr 2026 03:45:32 -0700 (PDT)
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?=
+ <u.kleine-koenig@baylibre.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Dave Airlie <airlied@redhat.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Markus Schneider-Pargmann <msp@baylibre.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Jocelyn Falempe <jfalempe@redhat.com>
+Subject: [PATCH v1 0/3] drm: Drop unused include of <drm/drm_pciids.h>
+Date: Thu, 30 Apr 2026 12:45:12 +0200
+Message-ID: <cover.1777545446.git.u.kleine-koenig@baylibre.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1078;
+ i=u.kleine-koenig@baylibre.com; h=from:subject:message-id;
+ bh=l+YDHlVs7ftuNxR+PsZazTu554cMr6hKc5EqbljDrkM=;
+ b=owGbwMvMwMXY3/A7olbonx/jabUkhszPRjsfzrV/+Pl/U2m10H+L4CmVpbMrag5Msun/t7r47
+ TIJFuuXnYzGLAyMXAyyYoos9o1rMq2q5CI71/67DDOIlQlkCgMXpwBM5MNn9n/K1s3zmN58X1lQ
+ 9ffp+jypjMWr2L4ZOC9q3+s60+/l5ce1si8karo41LO8Ntkm6NxWi9Wfb/nsTfjlZb6FzdNzjWQ
+ qSvoYGPq6U76vkJMTZv7qGXnxuWkfx92jwnm2ibsuq/nkhp1v/Ou84O6Mv0c7P8cwigmELlc3um
+ lUp1TB0uD7e9bl1AinjrBTtpvTtsbvzPnWvj/+TNhdXZ/Cr7XbD53nsbEumWeZtvpxm8WX3qX6/
+ g+Xvy9Z1G+abxHGzfYybOVl2cIHNenb7b5oWi55XD2d8bmxqm/qWw8HgamOF/MWPBG39d6/jTMz
+ Z2X6sc2WPc2dPycX8qtf03dJrcw97fqOb6H/hBQuY/ZSAA==
+X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,276 +112,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 27 Apr 2026 16:59:29 +0100
-Karunika Choo <karunika.choo@arm.com> wrote:
+Hello,
 
-> Stop reaching into other components' registers directly and route those
-> operations through the component that owns them.
-> 
-> Move the timestamp/coherency helpers into panthor_gpu, add a doorbell
-> helper, and update call sites accordingly. This keeps register knowledge
-> local to each block and avoids spreading cross-component register
-> accesses across the driver.
-> 
-> This is a preparatory cleanup for using per-component iomem bases.
-> 
-> v3:
-> - Pick up Ack from Boris and R-bs from Liviu and Steve
-> v2:
-> - Fix incorrect spelling of timestamp helpers
-> - Fix unintended trailing backslash
-> 
-> Reviewed-by: Steven Price <steven.price@arm.com>
-> Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-> Acked-by: Boris Brezillon <boris.brezillon@collabora.com>
-> Signed-off-by: Karunika Choo <karunika.choo@arm.com>
+<drm/drm_pciids.h> is only actually used in the radeon driver but
+included in several others. This series drops these includes.
 
-Tested-by: Boris Brezillon <boris.brezillon@collabora.com>
+The obvious continuation would be to fold the definition of
+radeon_PCI_IDS into the only .c file using it. But I post-pone that
+until
+https://lore.kernel.org/all/20260430102958.136859-2-u.kleine-koenig@baylibre.com/
+is out of the way.
 
-> ---
->  drivers/gpu/drm/panthor/panthor_device.c | 27 ----------------
->  drivers/gpu/drm/panthor/panthor_drv.c    |  7 ++---
->  drivers/gpu/drm/panthor/panthor_fw.c     | 13 +++++---
->  drivers/gpu/drm/panthor/panthor_fw.h     |  1 +
->  drivers/gpu/drm/panthor/panthor_gpu.c    | 40 ++++++++++++++++++++++++
->  drivers/gpu/drm/panthor/panthor_gpu.h    |  6 ++++
->  drivers/gpu/drm/panthor/panthor_pwr.c    |  2 +-
->  drivers/gpu/drm/panthor/panthor_sched.c  |  2 +-
->  8 files changed, 61 insertions(+), 37 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
-> index f876b13492ae..bd417d6ae8c0 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.c
-> +++ b/drivers/gpu/drm/panthor/panthor_device.c
-> @@ -22,38 +22,11 @@
->  #include "panthor_fw_regs.h"
->  #include "panthor_gem.h"
->  #include "panthor_gpu.h"
-> -#include "panthor_gpu_regs.h"
->  #include "panthor_hw.h"
->  #include "panthor_mmu.h"
->  #include "panthor_pwr.h"
->  #include "panthor_sched.h"
->  
-> -static int panthor_gpu_coherency_init(struct panthor_device *ptdev)
-> -{
-> -	BUILD_BUG_ON(GPU_COHERENCY_NONE != DRM_PANTHOR_GPU_COHERENCY_NONE);
-> -	BUILD_BUG_ON(GPU_COHERENCY_ACE_LITE != DRM_PANTHOR_GPU_COHERENCY_ACE_LITE);
-> -	BUILD_BUG_ON(GPU_COHERENCY_ACE != DRM_PANTHOR_GPU_COHERENCY_ACE);
-> -
-> -	/* Start with no coherency, and update it if the device is flagged coherent. */
-> -	ptdev->gpu_info.selected_coherency = GPU_COHERENCY_NONE;
-> -	ptdev->coherent = device_get_dma_attr(ptdev->base.dev) == DEV_DMA_COHERENT;
-> -
-> -	if (!ptdev->coherent)
-> -		return 0;
-> -
-> -	/* Check if the ACE-Lite coherency protocol is actually supported by the GPU.
-> -	 * ACE protocol has never been supported for command stream frontend GPUs.
-> -	 */
-> -	if ((gpu_read(ptdev->iomem, GPU_COHERENCY_FEATURES) &
-> -		      GPU_COHERENCY_PROT_BIT(ACE_LITE))) {
-> -		ptdev->gpu_info.selected_coherency = GPU_COHERENCY_ACE_LITE;
-> -		return 0;
-> -	}
-> -
-> -	drm_err(&ptdev->base, "Coherency not supported by the device");
-> -	return -ENOTSUPP;
-> -}
-> -
->  static int panthor_clk_init(struct panthor_device *ptdev)
->  {
->  	ptdev->clks.core = devm_clk_get(ptdev->base.dev, NULL);
-> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-> index e63210b01e6e..66996c9147c2 100644
-> --- a/drivers/gpu/drm/panthor/panthor_drv.c
-> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
-> @@ -34,7 +34,6 @@
->  #include "panthor_fw.h"
->  #include "panthor_gem.h"
->  #include "panthor_gpu.h"
-> -#include "panthor_gpu_regs.h"
->  #include "panthor_heap.h"
->  #include "panthor_mmu.h"
->  #include "panthor_sched.h"
-> @@ -839,7 +838,7 @@ static int panthor_query_timestamp_info(struct panthor_device *ptdev,
->  	}
->  
->  	if (flags & DRM_PANTHOR_TIMESTAMP_GPU_OFFSET)
-> -		arg->timestamp_offset = gpu_read64(ptdev->iomem, GPU_TIMESTAMP_OFFSET);
-> +		arg->timestamp_offset = panthor_gpu_get_timestamp_offset(ptdev);
->  	else
->  		arg->timestamp_offset = 0;
->  
-> @@ -854,7 +853,7 @@ static int panthor_query_timestamp_info(struct panthor_device *ptdev,
->  		query_start_time = 0;
->  
->  	if (flags & DRM_PANTHOR_TIMESTAMP_GPU)
-> -		arg->current_timestamp = gpu_read64_counter(ptdev->iomem, GPU_TIMESTAMP);
-> +		arg->current_timestamp = panthor_gpu_get_timestamp(ptdev);
->  	else
->  		arg->current_timestamp = 0;
->  
-> @@ -870,7 +869,7 @@ static int panthor_query_timestamp_info(struct panthor_device *ptdev,
->  	}
->  
->  	if (flags & DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT)
-> -		arg->cycle_count = gpu_read64_counter(ptdev->iomem, GPU_CYCLE_COUNT);
-> +		arg->cycle_count = panthor_gpu_get_cycle_count(ptdev);
->  	else
->  		arg->cycle_count = 0;
->  
-> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
-> index 4704275b9c8f..4a0c23e987b6 100644
-> --- a/drivers/gpu/drm/panthor/panthor_fw.c
-> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
-> @@ -1054,7 +1054,7 @@ static void panthor_fw_init_global_iface(struct panthor_device *ptdev)
->  			       GLB_CFG_POWEROFF_TIMER |
->  			       GLB_CFG_PROGRESS_TIMER);
->  
-> -	gpu_write(ptdev->iomem, CSF_DOORBELL(CSF_GLB_DOORBELL_ID), 1);
-> +	panthor_fw_ring_doorbell(ptdev, CSF_GLB_DOORBELL_ID);
->  
->  	/* Kick the watchdog. */
->  	mod_delayed_work(ptdev->reset.wq, &ptdev->fw->watchdog.ping_work,
-> @@ -1156,7 +1156,7 @@ static void panthor_fw_halt_mcu(struct panthor_device *ptdev)
->  	else
->  		panthor_fw_update_reqs(glb_iface, req, GLB_HALT, GLB_HALT);
->  
-> -	gpu_write(ptdev->iomem, CSF_DOORBELL(CSF_GLB_DOORBELL_ID), 1);
-> +	panthor_fw_ring_doorbell(ptdev, CSF_GLB_DOORBELL_ID);
->  }
->  
->  static bool panthor_fw_wait_mcu_halted(struct panthor_device *ptdev)
-> @@ -1400,6 +1400,11 @@ int panthor_fw_csg_wait_acks(struct panthor_device *ptdev, u32 csg_slot,
->  	return ret;
->  }
->  
-> +void panthor_fw_ring_doorbell(struct panthor_device *ptdev, u32 doorbell_id)
-> +{
-> +	gpu_write(ptdev->iomem, CSF_DOORBELL(doorbell_id), 1);
-> +}
-> +
->  /**
->   * panthor_fw_ring_csg_doorbells() - Ring command stream group doorbells.
->   * @ptdev: Device.
-> @@ -1414,7 +1419,7 @@ void panthor_fw_ring_csg_doorbells(struct panthor_device *ptdev, u32 csg_mask)
->  	struct panthor_fw_global_iface *glb_iface = panthor_fw_get_glb_iface(ptdev);
->  
->  	panthor_fw_toggle_reqs(glb_iface, doorbell_req, doorbell_ack, csg_mask);
-> -	gpu_write(ptdev->iomem, CSF_DOORBELL(CSF_GLB_DOORBELL_ID), 1);
-> +	panthor_fw_ring_doorbell(ptdev, CSF_GLB_DOORBELL_ID);
->  }
->  
->  static void panthor_fw_ping_work(struct work_struct *work)
-> @@ -1429,7 +1434,7 @@ static void panthor_fw_ping_work(struct work_struct *work)
->  		return;
->  
->  	panthor_fw_toggle_reqs(glb_iface, req, ack, GLB_PING);
-> -	gpu_write(ptdev->iomem, CSF_DOORBELL(CSF_GLB_DOORBELL_ID), 1);
-> +	panthor_fw_ring_doorbell(ptdev, CSF_GLB_DOORBELL_ID);
->  
->  	ret = panthor_fw_glb_wait_acks(ptdev, GLB_PING, &acked, 100);
->  	if (ret) {
-> diff --git a/drivers/gpu/drm/panthor/panthor_fw.h b/drivers/gpu/drm/panthor/panthor_fw.h
-> index fbdc21469ba3..a99a9b6f4825 100644
-> --- a/drivers/gpu/drm/panthor/panthor_fw.h
-> +++ b/drivers/gpu/drm/panthor/panthor_fw.h
-> @@ -500,6 +500,7 @@ int panthor_fw_csg_wait_acks(struct panthor_device *ptdev, u32 csg_id, u32 req_m
->  int panthor_fw_glb_wait_acks(struct panthor_device *ptdev, u32 req_mask, u32 *acked,
->  			     u32 timeout_ms);
->  
-> +void panthor_fw_ring_doorbell(struct panthor_device *ptdev, u32 doorbell_id);
->  void panthor_fw_ring_csg_doorbells(struct panthor_device *ptdev, u32 csg_slot);
->  
->  struct panthor_kernel_bo *
-> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
-> index fecc30747acf..747ac332be64 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
-> @@ -427,3 +427,43 @@ void panthor_gpu_resume(struct panthor_device *ptdev)
->  	panthor_hw_l2_power_on(ptdev);
->  }
->  
-> +u64 panthor_gpu_get_timestamp(struct panthor_device *ptdev)
-> +{
-> +	return gpu_read64_counter(ptdev->iomem, GPU_TIMESTAMP);
-> +}
-> +
-> +u64 panthor_gpu_get_timestamp_offset(struct panthor_device *ptdev)
-> +{
-> +	return gpu_read64(ptdev->iomem, GPU_TIMESTAMP_OFFSET);
-> +}
-> +
-> +u64 panthor_gpu_get_cycle_count(struct panthor_device *ptdev)
-> +{
-> +	return gpu_read64_counter(ptdev->iomem, GPU_CYCLE_COUNT);
-> +}
-> +
-> +int panthor_gpu_coherency_init(struct panthor_device *ptdev)
-> +{
-> +	BUILD_BUG_ON(GPU_COHERENCY_NONE != DRM_PANTHOR_GPU_COHERENCY_NONE);
-> +	BUILD_BUG_ON(GPU_COHERENCY_ACE_LITE != DRM_PANTHOR_GPU_COHERENCY_ACE_LITE);
-> +	BUILD_BUG_ON(GPU_COHERENCY_ACE != DRM_PANTHOR_GPU_COHERENCY_ACE);
-> +
-> +	/* Start with no coherency, and update it if the device is flagged coherent. */
-> +	ptdev->gpu_info.selected_coherency = GPU_COHERENCY_NONE;
-> +	ptdev->coherent = device_get_dma_attr(ptdev->base.dev) == DEV_DMA_COHERENT;
-> +
-> +	if (!ptdev->coherent)
-> +		return 0;
-> +
-> +	/* Check if the ACE-Lite coherency protocol is actually supported by the GPU.
-> +	 * ACE protocol has never been supported for command stream frontend GPUs.
-> +	 */
-> +	if ((gpu_read(ptdev->iomem, GPU_COHERENCY_FEATURES) &
-> +		      GPU_COHERENCY_PROT_BIT(ACE_LITE))) {
-> +		ptdev->gpu_info.selected_coherency = GPU_COHERENCY_ACE_LITE;
-> +		return 0;
-> +	}
-> +
-> +	drm_err(&ptdev->base, "Coherency not supported by the device");
-> +	return -ENOTSUPP;
-> +}
-> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.h b/drivers/gpu/drm/panthor/panthor_gpu.h
-> index 12c263a39928..f615feb05609 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gpu.h
-> +++ b/drivers/gpu/drm/panthor/panthor_gpu.h
-> @@ -54,4 +54,10 @@ int panthor_gpu_soft_reset(struct panthor_device *ptdev);
->  void panthor_gpu_power_changed_off(struct panthor_device *ptdev);
->  int panthor_gpu_power_changed_on(struct panthor_device *ptdev);
->  
-> +u64 panthor_gpu_get_timestamp(struct panthor_device *ptdev);
-> +u64 panthor_gpu_get_timestamp_offset(struct panthor_device *ptdev);
-> +u64 panthor_gpu_get_cycle_count(struct panthor_device *ptdev);
-> +
-> +int panthor_gpu_coherency_init(struct panthor_device *ptdev);
-> +
->  #endif
-> diff --git a/drivers/gpu/drm/panthor/panthor_pwr.c b/drivers/gpu/drm/panthor/panthor_pwr.c
-> index 306592ff2227..aafb0c5c7d23 100644
-> --- a/drivers/gpu/drm/panthor/panthor_pwr.c
-> +++ b/drivers/gpu/drm/panthor/panthor_pwr.c
-> @@ -199,7 +199,7 @@ static int panthor_pwr_domain_wait_transition(struct panthor_device *ptdev, u32
->  
->  static void panthor_pwr_debug_info_show(struct panthor_device *ptdev)
->  {
-> -	drm_info(&ptdev->base, "GPU_FEATURES:    0x%016llx", gpu_read64(ptdev->iomem, GPU_FEATURES));
-> +	drm_info(&ptdev->base, "GPU_FEATURES:    0x%016llx", ptdev->gpu_info.gpu_features);
->  	drm_info(&ptdev->base, "PWR_STATUS:      0x%016llx", gpu_read64(ptdev->iomem, PWR_STATUS));
->  	drm_info(&ptdev->base, "L2_PRESENT:      0x%016llx", gpu_read64(ptdev->iomem, PWR_L2_PRESENT));
->  	drm_info(&ptdev->base, "L2_PWRTRANS:     0x%016llx", gpu_read64(ptdev->iomem, PWR_L2_PWRTRANS));
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-> index 530e1f0254b1..5b34032deff8 100644
-> --- a/drivers/gpu/drm/panthor/panthor_sched.c
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-> @@ -3373,7 +3373,7 @@ queue_run_job(struct drm_sched_job *sched_job)
->  		if (resume_tick)
->  			sched_resume_tick(ptdev);
->  
-> -		gpu_write(ptdev->iomem, CSF_DOORBELL(queue->doorbell_id), 1);
-> +		panthor_fw_ring_doorbell(ptdev, queue->doorbell_id);
->  		if (!sched->pm.has_ref &&
->  		    !(group->blocked_queues & BIT(job->queue_idx))) {
->  			pm_runtime_get(ptdev->base.dev);
+There are no dependencies between the patches, so I suggest that each
+maintainer team applies their material to their own tree at their own
+pace.
+
+To state the obvious: This is merge window material.
+
+Best regards
+Uwe
+
+Uwe Kleine-König (The Capable Hub) (3):
+  drm/amdgpu: Drop unused include of <drm/drm_pciids.h>
+  drm/gma500: Drop unused include of <drm/drm_pciids.h>
+  drm/mgag200: Drop unused include of <drm/drm_pciids.h>
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 1 -
+ drivers/gpu/drm/gma500/psb_drv.c        | 1 -
+ drivers/gpu/drm/mgag200/mgag200_drv.c   | 1 -
+ 3 files changed, 3 deletions(-)
+
+
+base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
+-- 
+2.47.3
 
