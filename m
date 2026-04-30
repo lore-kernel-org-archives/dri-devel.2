@@ -4,104 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57DAACD13D9
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 06:45:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74349CD13D3
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 06:51:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0ED4510F21F;
-	Thu, 30 Apr 2026 06:45:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB9A810E02E;
+	Thu, 30 Apr 2026 06:51:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="oxx8+QbW";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="+EgL3tFe";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="X49V+yD7";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="3gMVT/m2";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="aPQl8tf1";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7829110F21F
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 06:45:24 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id DC3955BD70;
- Thu, 30 Apr 2026 06:45:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1777531523; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=xRE7UVjujoUmBJVmUi3xYYjT8iJlV9tALry80/foyNE=;
- b=oxx8+QbW68S/gzE83Z702vPYBLSP9k4KB0GcshagxCG51mVUe8IvvgKICiWg6J3+WDs0Ox
- 7cEGL0dRqN8NpVZKYauvghpElAI1YQXl/g8SccNxiVGvi0/caaqCObNMQ2kH5INqtmFOA7
- 13tvdvUzIKJBVYMyspMF3XctKawQ/1A=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1777531523;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=xRE7UVjujoUmBJVmUi3xYYjT8iJlV9tALry80/foyNE=;
- b=+EgL3tFeejl7nC1llfqwGQijRn+LuN0nXA6XP8FvM69cYhElgKNUadIYJjR3o9fpDwqKRk
- O1AZEeJ3KK8qXhDQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1777531522; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=xRE7UVjujoUmBJVmUi3xYYjT8iJlV9tALry80/foyNE=;
- b=X49V+yD7xvLP7dH1UoZgRGL0rXGr2PlQqfEE745mzJceePstH9d66IN/A78yFj7O5gRvAf
- RFq1zTtCYKINVL7G4euuDag1szIgW9jwM8PczhMor/BxyErugVyGXtUYVNFR5rBQxv04mt
- aHW8R26o3bpb9/zvVklOmLAKOzP+J1o=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1777531522;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=xRE7UVjujoUmBJVmUi3xYYjT8iJlV9tALry80/foyNE=;
- b=3gMVT/m2pd0i+6OxwoZVY36/QLL8VbjBxU8TpJo+m0KHfqd/zPMqif4dgFf2Nt+dj0JwKZ
- NcRfxKFjf6/a1gAQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7C3FB593B0;
- Thu, 30 Apr 2026 06:45:22 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id T4z9HIL68mnXHgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 30 Apr 2026 06:45:22 +0000
-Date: Thu, 30 Apr 2026 08:45:21 +0200
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dim-tools@lists.freedesktop.org
-Subject: [PULL] drm-misc-fixes
-Message-ID: <20260430064521.GA14957@linux.fritz.box>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010070.outbound.protection.outlook.com [52.101.85.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C075B10E02E
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 06:51:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Sr1K2OdvGTvgPdAwka6RyO2fZRnjvg5UI81YY3IM1+8AHjNjIq2YuAwuCY7OSONk0YWwkarjjozMpT92AT1itEXFKSMC3pHLR9aLiFqN0pdAytuSdVcFW4fv9rE/GSFH/lTfUY2NGlVbt7PbZ6uLJIZjWSCZVstkloTWZZy6hyk0nB/dp4aW8WDjTEzq1YV/je8dk8EHrE6VQOW+XY8n8o/MnxEca8JgMyLQGlM1ZGwxvbMQX4MMOGnfiT60L9IYIRYhEXKGUrNNwF3Ts/LobVKV6S5hltviWooVinZJYUgT6zN5LnUJ448OvEDYOvUgrKrxvfXzZ7pN82Miwm5Ffg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5Krw4Q4OuXK0oCTY3JCtD5HpeU+6a7h2eI/rUyGjjeA=;
+ b=mECEOsxk9wrVnArt4UdqQUozDwI1u0nrV0WKiq4kkrQLF2p0ijHGj2Ipx6ECpfFw58aGorr6c5rfnSc3baWLIzyGwoBXP0tRBJqu/ZDPuUSMcXHHR7NVplcxUw5ad1nT/PXKQSDmJI5y6wdMSJtXRxHM7Ffh3zGC+k5Qm5f1rjiJVvo/Ahpp7dlDejHCXmMVUgMjfIElDfPu+Ch9zdlywW9Q0KlDobeoZFgUICpx4Qp7w7D14cU30lOHoqNT4G5QG06TXg5P+77vorF4J1pmykhc49RSq7Uf662ZqcsT2LT1AxSdcehgEy3LcJD/8NOzGsYhECaEzNK2aX6bNJjveg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5Krw4Q4OuXK0oCTY3JCtD5HpeU+6a7h2eI/rUyGjjeA=;
+ b=aPQl8tf1lgTlHuBJkoDeIRNVgt5C7z72gKNjx/1vYv8xS3f/xaWUy88i8rqmZcZ6PiidZeP01QvEiTK5eE6+wp5od4tIAdtUQyEsDqfTsHDxYWslRe2OKJwC/roHqwV44hhfx+02e3AsVfb+VvB/33xVDRFycOl77dRF6aKIPj0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SN7PR12MB8059.namprd12.prod.outlook.com (2603:10b6:806:32b::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.16; Thu, 30 Apr
+ 2026 06:51:11 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9870.020; Thu, 30 Apr 2026
+ 06:51:09 +0000
+Message-ID: <4c63c81b-14f7-4e6b-a733-2f98e6055ca8@amd.com>
+Date: Thu, 30 Apr 2026 08:51:02 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 0/3] media: videobuf2: opt-in dma_resv producer fences
+ for V4L2 dmabuf exports
+To: Nicolas Dufresne <nicolas@ndufresne.ca>,
+ Markus Fritsche <mfritsche@reauktion.de>, Tomasz Figa <tfiga@chromium.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Jacob Chen <jacob-chen@iotwrt.com>,
+ Heiko Stuebner <heiko@sntech.de>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+References: <20260429195306.239666-1-mfritsche@reauktion.de>
+ <3d8deeb15581b754e4c061d4c4a13657aa08bc3c.camel@ndufresne.ca>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <3d8deeb15581b754e4c061d4c4a13657aa08bc3c.camel@ndufresne.ca>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MISSING_XM_UA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWELVE(0.00)[16];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
- FREEMAIL_TO(0.00)[gmail.com,ffwll.ch];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, imap1.dmz-prg2.suse.org:helo,
- gitlab.freedesktop.org:url]
+X-ClientProxiedBy: FR4P281CA0404.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:cf::6) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB8059:EE_
+X-MS-Office365-Filtering-Correlation-Id: 804581ca-52b4-4f80-6397-08dea684dc44
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|7416014|366016|921020|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info: 4R8qL1A5Ok91ZSIsrixXzNbuo8WOy3G4vQy3xQ0irS1uOdFE7/neroH4jbE/Zjs1pz29l9Z11LQIrCZlihD9WzX74aYilRdSPK4hehnQAtGDecsZ5BK+mxTugDsvLc27z/eSiZofBLW6wHi2qWDCl5It4ZQZyZBxBk81UANqCUPEl4A7nksQLldDgLU9QXUuXUFyXBceZGvqcQMQgcDIe7AaNxlIan2KzJU2GgsrGxCueEqvOSMOsj31pDsJ3qCIDSVZ/PR31CqE4rZVMF+EyWoCSITip3laRtpU2DPJx2gnD4sMU2S8mwowxWWUhTa4K/0hG8E2fblCqXDfP+3MBbyn4K+ijwP3pe0uQQGozAmgCIwrAYgGYwuO01pX4zxXG2ygGWXbmbMewWVqqrmkRLnWOxCoaNLkmOpOkDatcmpEAax87aYS/LVbKhRXPbUtAkYQHLOCkDd6obYQ2tbVwwY9U9Pa+w3bNDFVIRUbQOvRg44ZzAz0hDItZdsnwRG2Tm7yvu+2KeDYEX2ORZbYYcU4tggmoM1hmzRfG8UL8nSnTlfJ6JiadkWX2uNBlx+owjgBm+uKK672UAi/9h+3jveLLRDO1Jpjnkh6VSK6/jxY3BdVoc1NgJcEsqB7jxKU8wjQl/22TCepKGFbjLLr1cunpp35zZbgHP7o2tBQjQ0REM7zOn/e0laFzZQJiwYtbf/d88coFefCR1UWYp8zUiB8ho7f1luoenClEnM2MRkzePBnp5lf4xdXTb+BklW5ghasq0ok2/+unF8zObm2fRwiEvPEcpycZUcte2Jatxs=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(7416014)(366016)(921020)(18002099003)(22082099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SVdzeng5MUxEL2hwUDlZSVZTemNrQmQzYmdmUHhyK0lVRE9ySzdrcHNNR3Ji?=
+ =?utf-8?B?cWpRL1hZdjVQQUdEMUYrcis3R3I2RWwzdTNOdlNvVlhWRUxtbjY1Z0E1M1Yv?=
+ =?utf-8?B?UFUxU0NWYk94YS9wT0pmaUVQaDQ5UXM5KzB1V1VLOTZ5SlBvdzZST3lURVVR?=
+ =?utf-8?B?clJpZDVvekc0U2R0MCtsYTdaZ1RTVkVsR3BRQStPcS9QZ1lacXRhOXE2SStC?=
+ =?utf-8?B?c0tJNW1TNGJWci9DZ1BnRGNnT3p5MkJycHBiamlqVm5XVlo1NjdOdE16dGRB?=
+ =?utf-8?B?U1pKTWNRelBZbXk4czdnUzQzYkVjWmVBV2ZyUW1qbDdkZG1PUXU4cnIweXd0?=
+ =?utf-8?B?OXVWeGc4Nk1sdzdXblgxR1NxVEtGeGZDelIyYTQ3ZFZyaktUQnVtRFhDU1dq?=
+ =?utf-8?B?YmNQbW8vc2d2Y2Z1djZldTNrUjd6Q3VJaFp0WjhCdGNFSnZWYjJGd1J0a0Vj?=
+ =?utf-8?B?VHQxcC9UUzF5ZHcwT2JUS3JZTGRNOFJIdjMwNG1CVkdJVGRHNEphNHYvbm5p?=
+ =?utf-8?B?THdrcHVOUXNuY3AvL1liRUxwakZNVWtPaUJiVlVjdzZ6R3lvdkJLRjJnVkFP?=
+ =?utf-8?B?c2ZoT1A1Sm0yQlFvbzFwVVRXYXI0NXlQRXVsMnozQW5tTmtuRVZXUGdtQ2E2?=
+ =?utf-8?B?ekVGRHVjTi9YQWFNeWNXLzlzT3JJd2ZyMllVeUUydlJGMEdrSkRVYzlPcHdP?=
+ =?utf-8?B?TmxrbFZ3Uzd6RVRpUDJNZmdHdDFwUWRkUXA5NEFBckM3MXZXZGFKWGJ1VlRJ?=
+ =?utf-8?B?MVN5VGt4WVdIV2hHUGxyN0p6d1grRVVhOWRidm42NzBOWEZpS3h2bTkvcXBZ?=
+ =?utf-8?B?anRPaTlGY0g3V203NWwzZVFCNEEwMTFHZUszQkxuQkp0OFFqckNWTnBDMC9T?=
+ =?utf-8?B?WGlad3U0ZWl4YkNPWU9tdkFiNm5laXpoRDU3WTBZclhIa3VFS3ZxZm9ZOXRx?=
+ =?utf-8?B?S1E4TDdIQWFYVENWeEpjMHlzVXNuS0ZqRnVEbjZ4cGJoeUJyZkhmTGtMV1c4?=
+ =?utf-8?B?NHBKajZJVHBVK1cvZG02Qi9WUnJCVDFaQjRLYmZzWVg2d1B5WWxsN0FvUnVQ?=
+ =?utf-8?B?SUpaOHJmblIxZjdYZVRwVlB6KzZWQUtjamI3enNMT0phd3hyNmNMSU5HMzFo?=
+ =?utf-8?B?MkE5MGhhdUpqY1FTdHZTMEovbkZmUlNhREszbzRrbkNXUDcxaHUycjBRN0Ir?=
+ =?utf-8?B?aSt4Yk01K1lsR2FacHNwU3JnSFZlSmkrNGJmZFhmV0w3cDFCd2VFeG1GekVF?=
+ =?utf-8?B?TVdhUnZtaXJNditDYUY1VWRPUUtsZ1RyN2hZOERFZzJKeXVQUFNpb2tCZFlU?=
+ =?utf-8?B?TjMveC9DSXpvYis4cVRuM0g2ZmtsdzBuRW9ybExRb2RiMlhzNTRJVDZteVlD?=
+ =?utf-8?B?WnlOMlNXNE5MdG9vRDQ4QmFGZVRhQTJIREtyTDFabzFHdW5jWkgrdWwwQjlG?=
+ =?utf-8?B?cGdKdmM2eGhWbmtwZGpVcnQ1V0Q1L1RXQlVzcVhFSUxWL085UmwwT0xvWkhT?=
+ =?utf-8?B?bFdZclNLQ2hnaWR3OEVVeGl1cE9XYjJjTmhGVWxTZDBCQ0g5bHQ5MUtnNFRj?=
+ =?utf-8?B?OGlWdUN0VWM1bElEVWUzWi9UK2tmRk1tSTV1SzFJUStYMUpqa0RER0dnL3Ux?=
+ =?utf-8?B?cUxETFpScTJjUTV0cEttVEY2bFJSMFptSUVKdVlPZVo0ZVNVeFQwL2VFNUFs?=
+ =?utf-8?B?aE9zZVNXeDFBT3NoQkZ5ZXNRczg1NTNQOWEzVFcxeWsxYzJmOEtBVDcvb1F0?=
+ =?utf-8?B?MHRVVGwzZGFXcmVhTGJoQkl0SEVTUmowMFlYRmh0VlRaaHRKdkNjNmlsTU5S?=
+ =?utf-8?B?S0liQWYzdU1sdXRwYXBCeU8vekY5RmlsVVc0UlVMRjRLWUZqbXFndk5mMXJQ?=
+ =?utf-8?B?T0doMzlNZDMyWGkwN3pqMk9ZN09NK3VGS0RPa2hhTjhOamhGeG5rWm1HaHJ3?=
+ =?utf-8?B?VnI5SzVYU2R5YWQ4aUdYUlJVbXBYcUFHcklsTk1FN1kyZTRuRnZMYWNhbGo3?=
+ =?utf-8?B?dkFTbmJiUmZhSi9uZTRUK1drakphSFVzSE10WTJhVm54ZTMwUGlXM3dzTGFV?=
+ =?utf-8?B?VnZ1T0hjWDh0a1BOaExjSDJGUG5WU2MwOUg2Zkx3L2JoV0FSckdjSDdFVnB1?=
+ =?utf-8?B?b3cyQ1BWaElDK051VldVWENlWWJ6SGdnY0E0dnE1NzJucHJEYXlvclIyZ0RG?=
+ =?utf-8?B?Y2w2bU5wRWlRLzM3STZ1TnFxajR1QUUwQk9JdE5xZ3FMUVR6MEdRYU03dkpt?=
+ =?utf-8?B?L3Y2WmhWS2ZPMDhtcmlqWjVZRit4V1NBeGw1d1U4S1UwSDhCZE5VMXdMa01p?=
+ =?utf-8?Q?o4VYBt5QaT4rH4DJNY?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 804581ca-52b4-4f80-6397-08dea684dc44
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2026 06:51:09.7266 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wt1eK0zZOMNaqCYjU19BNpzevHLBjE+RRdPn+rxUv5Sgci/aTLnz5oaJDRCPTJON
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8059
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,114 +145,220 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Dave, Sima,
+On 4/29/26 23:22, Nicolas Dufresne wrote:
+> Hi Markus,
+> 
+> Le mercredi 29 avril 2026 à 19:53 +0000, Markus Fritsche a écrit :
+>> Hi,
+>>
+>> This series proposes a small opt-in API in videobuf2-core that lets V4L2
+>> drivers populate a dma_resv exclusive write fence on the dmabufs they
+>> export to userspace, signalled when the buffer transitions to
+>> VB2_BUF_STATE_DONE. Two example drivers (hantro, rockchip-rga) opt in
+>> to demonstrate the call shape; the change is no-op for every other
+>> driver.
+> 
+> Thanks for attempting again this feat. I see you went for implicit fencing, but
+> in the past we've been recommend to stay away from these and adopt an explicit
+> fencing model. Is this something you have started to think about, have you
+> reviewed past proposal in regard to fences ?
 
-this is the first drm-misc-fixes for the new v7.0 kernel.
+Yeah agree, I just wanted to note something similar.
 
-Best regards
-Thomas
+Implicit fencing is basically just a workaround how the GPU HW used to work ~20years ago and only rarely makes sense today.
 
-drm-misc-fixes-2026-04-30:
-Short summary of fixes pull:
+On the other hand putting it behind a flag might be acceptable when you want to interact with implicit synced HW, e.g. a GPU.
 
-DRM core and helpers:
-- calculate framebuffer geometry with format helpers
-- fix docs
+If you want to expose a dma_fence to userspace then using a sync_file as output from the IOCTL which kicks of the operation is usually the better approach.
 
-appletbdrm:
-- allocate protocol buffers with kvzalloc()
+>>
+>> Why
+>> ---
+>> Modern Wayland compositors and any other userspace consumers that
+>> import V4L2-produced dmabufs and want to do implicit synchronization
+>> the spec-clean way (poll(POLLIN) on the dmabuf fd, or
+>> DMA_BUF_IOCTL_EXPORT_SYNC_FILE for a sync_file) currently get either:
+>>
+>> 1. A stub fence from dma_buf_export_sync_file(), because the dmabuf's
+>>    dma_resv has no fences populated. The kernel substitutes
+>>    dma_fence_get_stub() which is permanently signalled. The compositor
+>>    "successfully" waits on a fence that represents nothing real about
+>>    the producer's state.
+>> 2. A poll(POLLIN) on the dmabuf fd that returns immediately for the
+>>    same reason — dma_buf_poll_add_cb finds zero fences in the resv,
+>>    triggers the wake callback inline, and reports POLLIN ready before
+>>    the producer has actually said anything.
+>>
+>> Today this works as a happy accident on most paths because clients
+>> attach buffers after VIDIOC_DQBUF, which the userspace V4L2 contract
+>> guarantees only returns a buffer after the producer is done. So the
+>> implicit "the kernel's stub fence is fine because the buffer is
+>> already complete by the time anyone polls it" assumption has held.
+> 
+> There is no accident, just saying. Have you studied also the other side of
+> fences, the one that actually cause problem with Freedreno and Etnaviv ? To me
+> these would be higher priority since they are known to cause "back flash" kind
+> of bugs, specially for compositor that are not expecting GL driver to place
+> implicit fences on imported (v4l2 allocated) buffers.
+> 
+>>
+>> But:
+>>
+>> - It's a contract gap. The kernel claims to expose implicit sync; it
+>>   does not, for V4L2 producers.
+>> - It paid latency for nothing. Every Wayland frame from a V4L2
+>>   producer pays a DMA_BUF_IOCTL_EXPORT_SYNC_FILE round-trip for a
+>>   fence that's stub-signalled. On Mali-class hardware (RK3566 Wayland
+>>   chrome video playback), this contributed to compositor stalls.
+>>   Removing the wait at the compositor level is a workaround, not a
+>>   fix.
+>> - It blocks downstream consumers from doing the right thing. A
+>>   Wayland compositor that defensively waits on a sync_file gets a
+>>   stub-fence pass-through with no actual gating; if the V4L2 driver
+>>   ever has an out-of-band path that releases the buffer before
+>>   finishing the write, there is no fence to gate on.
+> 
+> Some things don't add up here. I think I want to remind that there is a contract
+> in regard to delivering a fence to userspace. One of the most important aspect
+> of fences is that they must in finit time be signaled, regardless what userspace
+> decided to do next. And for that reason, you shouldn't deliver a fence to
+> userspace if its not armed. In my reading, you are delivering that fence at
+> QBUF(capture) time, just like what Gustavo was trying to do previously. Its even
+> worse if you deliver it to your compositor allowing that compositor to hang
+> forever by not feeding any bitstream.
 
-dma-buf:
-- fix docs
++1
 
-imagination:
-- avoid segfault in debugfs
+> Let's take Hantro driver as an example. The right moment to deliver the fence is
+> either right before we set the DEC bit on the control register, or somewhere
+> before that when you have bitstream, parameters and request queued. At that
+> moment, you are guarantied that the decode will either finish or fail (yes, it
+> can fail, and its extremely common with live stream, or when application calls
+> streamoff, since in v4l2, we cancel work). Prior to that, user may starve the
+> OUTPUT queue (the bitstream) and cause the fence to hold forever. This would
+> break the contract I mention earlier.
 
-ofdrm:
-- put PCI device reference on errors
+Exactly that yes.
 
-udl:
-- increase USB timeout
-The following changes since commit 254f49634ee16a731174d2ae34bc50bd5f45e731:
+Regarding failed or canceled submission handling that is not so much of a problem since we also have proper error signaling on fences.
 
-  Linux 7.1-rc1 (2026-04-26 14:19:00 -0700)
+But what is usually problematic as well are things like dynamic memory management, e.g. when HW uses the PCIe PRI interface or similar functionality on other bus systems.
 
-are available in the Git repository at:
+Getting the contract right is indeed really tricky but unfortunately mandatory because you otherwise run into deadlocks sooner or later.
 
-  https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-fixes-2026-04-30
+> Though, if you attach the fence at that moment, you will need to design how to
+> signal the fence readiness (rather then the data readiness). One idea would be
+> (with userspace opting-in) to signal the queue at that moment. But then you
+> can't do the memory management operation you would normally do in DQBUF. This of
+> course don't apply to hantro, which has no device cache, but we can't design
+> something in vb2 for the old HW. So we'd need to move memory management somwhere
+> else, maybe buffer_done, though you have to carefully make sure in which context
+> you do that, you can't sleep in an IRQ.
+> 
+> There is an obvious benefit of basing your solution on
+> DMA_BUF_IOCTL_EXPORT_SYNC_FILE, once you get there, you'll discover that there
+> is very little room in v4l2_buffer, and that was causing a lot of headache to
+> previous people attempting this. Though, if we look forward, we could also
+> consider this a feature of the media_request. Queuing a request could maybe
+> deliver a fence, assuming few pre-condition that guarantee execution (or
+> failure) are met. We've seen with DW100 recently that its rather easy to convert
+> an existing m2m driver to request. The media API is a much more open canvas to
+> design new mechanism. We could have a really simple ioctl that attach out fences
+> to request, and in a future hook it to our own depedency manager.
 
-for you to fetch changes up to ac2c996675755c725a0065dbe3e2ebffded9080b:
+My request with the DMA-buf maintainer hat on would be to correctly annotate your fence submission path the with lockdep primitives Sima wrote and then make a few test runs with lockdep enabled.
 
-  drm/udl: Increase GET_URB_TIMEOUT (2026-04-28 10:50:41 +0200)
+It's not a prove of correctness but this at least gives you a good hint if your locking order and memory allocation paths are correct.
 
-----------------------------------------------------------------
-Short summary of fixes pull:
+Regards,
+Christian.
 
-DRM core and helpers:
-- calculate framebuffer geometry with format helpers
-- fix docs
+> 
+> I'm simply throwing ideas, I could have missed few things in your PoC, let me
+> know.
+> 
+> Nicolas
+> 
+>> What
+>> ----
+>> Patch 1 adds:
+>>
+>> - struct dma_fence *release_fence to struct vb2_buffer
+>> - u64 dma_resv_fence_context + atomic64_t dma_resv_fence_seqno +
+>>   spinlock_t dma_resv_fence_lock to struct vb2_queue
+>> - vb2_buffer_attach_release_fence(vb) — drivers call this from their
+>>   buf_queue callback. Allocates a dma_fence on the queue's fence
+>>   context, attaches it as DMA_RESV_USAGE_WRITE on each plane's
+>>   dmabuf->resv. No-op for buffers without exported dmabufs.
+>> - vb2_buffer_done() extended to signal+put the fence if attached,
+>>   so the producer's completion signal lands in the resv synchronously
+>>   with the userspace DQBUF wakeup.
+>>
+>> Patches 2 and 3 add a single call to the helper from hantro_buf_queue
+>> and rga_buf_queue respectively. Both are demonstration drivers; other
+>> vb2 drivers can opt in incrementally with the same one-line change.
+>>
+>> Tested on
+>> ---------
+>> PineTab2 (RK3566 / Mali-G52 panfrost / mainline 6.19.10, this series
+>> backported), playing 1080p30 H.264 in chromium under KDE Plasma 6.6.4
+>> Wayland. The test harness is the chromium-fourier patch series at
+>> https://github.com/marfrit/fourier — chromium plus a KWin patch
+>> that *previously bypassed* Transaction::watchDmaBuf because the
+>> kernel-side fence was stub-signalled. With this series applied, the
+>> bypass becomes unnecessary; KWin's fence wait completes correctly
+>> because the fence now signals when hantro completes the capture
+>> buffer write.
+>>
+>> End-to-end result before the kernel patch (chromium + Qt 6 patches +
+>> KWin watchDmaBuf bypass): 1080p30 H.264 plays through, ~81% combined
+>> chrome CPU, but the watchDmaBuf bypass weakens KWin's defenses against
+>> misbehaving clients.
+>>
+>> End-to-end result after the kernel patch (chromium + Qt 6 patches +
+>> plain unmodified KWin): 1080p30 H.264 plays through with the same CPU
+>> profile, KWin's watchDmaBuf wait completes within microseconds against
+>> the now-real producer fence, no defenses weakened.
+>>
+>> What's missing in this RFC
+>> --------------------------
+>> - Other vb2-using drivers don't opt in. Each maintainer should look
+>>   at their driver and decide. The hantro + rga patches show the
+>>   shape; copying it to other drivers should be straightforward.
+>> - For drivers that have intermediate image-processor stages (e.g.
+>>   CSI -> ISP -> user), the fence semantics across stage boundaries
+>>   are out of scope here. This series only addresses the producer-to-
+>>   userspace edge.
+>> - No selftest. videobuf2 doesn't have a great in-tree selftest harness
+>>   for dmabuf flows; the validation is end-to-end at the userspace
+>>   consumer level (KWin, in our case).
+>>
+>> Reviews especially welcome on:
+>>
+>> - The decision to make this opt-in per driver vs. automatic for all
+>>   vb2-CAPTURE queues. Auto-on would force every driver to be audited;
+>>   opt-in is incremental and safer but leaves the contract gap for
+>>   drivers nobody touches.
+>> - Whether vb2_buffer_done is the right place to signal vs. an earlier
+>>   hook (e.g. immediately after DMA-from-device finishes). For hantro
+>>   the two are effectively the same; for drivers with asynchronous
+>>   post-processing they may differ.
+>> - The choice of DMA_RESV_USAGE_WRITE — we are emitting the producer's
+>>   write completion, so WRITE matches dma-buf documentation, but a
+>>   sanity check is welcome.
+>>
+>> Cheers,
+>> Markus
+>>
+>>
+>> Markus Fritsche (3):
+>>   media: videobuf2: add dma_resv release-fence helper
+>>   media: hantro: attach dma_resv release fence at buf_queue
+>>   media: rockchip-rga: attach dma_resv release fence at buf_queue
+>>
+>>  .../media/common/videobuf2/videobuf2-core.c   | 95 +++++++++++++++++++
+>>  drivers/media/platform/rockchip/rga/rga-buf.c | 10 ++
+>>  .../media/platform/verisilicon/hantro_v4l2.c  | 12 +++
+>>  include/media/videobuf2-core.h                | 29 ++++++
+>>  4 files changed, 146 insertions(+)
 
-appletbdrm:
-- allocate protocol buffers with kvzalloc()
-
-dma-buf:
-- fix docs
-
-imagination:
-- avoid segfault in debugfs
-
-ofdrm:
-- put PCI device reference on errors
-
-udl:
-- increase USB timeout
-
-----------------------------------------------------------------
-Aditya Garg (1):
-      MAINTAINERS, mailmap: update Aditya Garg's email address
-
-Ashutosh Desai (1):
-      drm/gem: Fix inconsistent plane dimension calculation in drm_gem_fb_init_with_funcs()
-
-Brajesh Gupta (1):
-      drm/imagination: Fix segfault when updating ftrace mask
-
-Geert Uytterhoeven (1):
-      drm/color-mgmt: Typo s/R332/RGB332/
-
-Maxime Ripard (1):
-      Merge drm/drm-fixes into drm-misc-fixes
-
-Sasha Finkelstein (1):
-      drm/appletbdrm: Use kvzalloc for big allocations
-
-Shixiong Ou (1):
-      drm/udl: Increase GET_URB_TIMEOUT
-
-Thomas Zimmermann (1):
-      Merge drm/drm-fixes into drm-misc-fixes
-
-Xiang Gao (1):
-      dma-buf: fix stale @lock references in struct dma_buf documentation
-
-Yuho Choi (1):
-      drm/sysfb: ofdrm: fix PCI device reference leaks
-
- .mailmap                                     | 1 +
- MAINTAINERS                                  | 2 +-
- drivers/gpu/drm/drm_color_mgmt.c             | 2 +-
- drivers/gpu/drm/drm_gem_framebuffer_helper.c | 4 ++--
- drivers/gpu/drm/imagination/pvr_fw_trace.c   | 2 +-
- drivers/gpu/drm/sysfb/ofdrm.c                | 2 ++
- drivers/gpu/drm/tiny/appletbdrm.c            | 4 ++--
- drivers/gpu/drm/udl/udl_main.c               | 3 +--
- drivers/gpu/drm/udl/udl_modeset.c            | 5 ++++-
- include/linux/dma-buf.h                      | 4 ++--
- 10 files changed, 17 insertions(+), 12 deletions(-)
-
--- 
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 N�rnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG N�rnberg)
