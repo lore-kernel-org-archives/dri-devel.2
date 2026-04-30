@@ -4,124 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B47BCCFA13
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 11:08:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B83C5CCFA13
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 11:16:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69B0710F33E;
-	Thu, 30 Apr 2026 11:08:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01D1010E136;
+	Thu, 30 Apr 2026 11:16:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="nIXrWL0g";
+	dkim=pass (2048-bit key; unprotected) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="DUKJ+/O0";
 	dkim-atps=neutral
-Received: from AM0PR83CU005.outbound.protection.outlook.com
- (mail-westeuropeazon11010060.outbound.protection.outlook.com [52.101.69.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C20A810F32B;
- Thu, 30 Apr 2026 11:07:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tlogc92viRRX6NVkdL7QyvVkEFPo+7bBphZOqKoMxGx2JkugfQoosZ2XUCsC9OqvpkhYwBKcPGUABQKMiaXaOCh0617H31qYOPMGA1LXtUJoDCTItJv15Rqcs4zBsfbaSpMBat8eyNNiVeeb2sxAoAl6+S8cXFMNGWehzQCRxP6Qq6uExhy76inD+ymdmO5YyinM3Ak6a0f429Dr1C+ZM+AC+AAEDgj+Vi90kw5M0g9T4KznYOGMtVcuO960BhrPgjJO/FbwwZk9bDSW1w1gdWWBgQGLWf0m3GaLXipZXhTjYtBKTzGfAJYDH9SqI6YZIWycfLWBDE+P6uJ7UJ2QyQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Aw+tzUWkdGxHwsZHV1VOFzmJV9YlUMwQep2fyXYC79Y=;
- b=CSEQVkAqKCx5fW0lo7v3MrkAopvSuPPg2xYGELHRSIYcwQJ2jKEhrdIhHQb+PZKO6cIH/X93P41A60KVEXzbsUOFBAE7C+HGBEHAXYqJRv/ZNrRvU6NfMDd7xJS/qQV5IEXWeWGka0KvFaTTKZjoUdZZGo4r5f/+SRmKECoqvTbVnSI3132EjA60QS1eYJyT2t711toWlljOGSwPs6yCO56JV/gXIia21epoiiPAArYj3alR/ZoKHp1xgDAFIeT91dWNXoROdZathZYAZ5wTwdzU2mtNcpwY3sI4CWWouSSTSNWuZ6T5mLT0nGO+AnT1YvBDyA/xs6HnIt64niMidg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Aw+tzUWkdGxHwsZHV1VOFzmJV9YlUMwQep2fyXYC79Y=;
- b=nIXrWL0gYGB6C9Ib/u0wJMRwtrcObqBRWfdvjEEBcU2gGZ5+CQCG2oINYVI2xWg81NTw5vWbRijM/api0fu07ZPjRCLhe99jKKDECUzeBdsgbx9Cm/c6lj0BqmPOBssLs2z+XuLM2flylcPplB6oDM+Vb2RYqLCIgXr2wsw6uz+PzHkvR8WedM6wO5wMS/aQ9qEl4j6IJaRgvyvXQ/PacqhusRiIBcQ3XZkGtTViNI0LyM/ZMdZjevlvrLtNBxQ5dCLIvmGjBqNRrqJOxUUSMgLYkrnSMSLwxsSBbnsalLe9LFw7X2o8IlPAa1LdTT/+fUKLsptTrU+WCESz03wS1g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM9PR04MB8585.eurprd04.prod.outlook.com (2603:10a6:20b:438::13)
- by GV1PR04MB10583.eurprd04.prod.outlook.com (2603:10a6:150:203::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.18; Thu, 30 Apr
- 2026 11:07:41 +0000
-Received: from AM9PR04MB8585.eurprd04.prod.outlook.com
- ([fe80::f010:fca8:7ef:62f4]) by AM9PR04MB8585.eurprd04.prod.outlook.com
- ([fe80::f010:fca8:7ef:62f4%4]) with mapi id 15.20.9846.025; Thu, 30 Apr 2026
- 11:07:41 +0000
-From: Vladimir Oltean <vladimir.oltean@nxp.com>
-To: linux-phy@lists.infradead.org
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- linux-can@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-riscv@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-sunxi@lists.linux.dev,
- linux-tegra@vger.kernel.org, linux-usb@vger.kernel.org,
- netdev@vger.kernel.org, spacemit@lists.linux.dev,
- UNGLinuxDriver@microchip.com,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Shawn Lin <shawn.lin@rock-chips.com>
-Subject: [PATCH v7 phy-next 25/27] phy: include PHY provider header (2/2)
-Date: Thu, 30 Apr 2026 14:06:50 +0300
-Message-Id: <20260430110652.558622-26-vladimir.oltean@nxp.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260430110652.558622-1-vladimir.oltean@nxp.com>
-References: <20260430110652.558622-1-vladimir.oltean@nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: AS4P189CA0022.EURP189.PROD.OUTLOOK.COM
- (2603:10a6:20b:5db::6) To AM9PR04MB8585.eurprd04.prod.outlook.com
- (2603:10a6:20b:438::13)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9325910E136
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 11:16:54 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-488a14c31eeso5612495e9.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 04:16:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1777547813; x=1778152613;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=YFpDe3yLsIQBoj9o9DIep0n+3MllwodoaC7QJ4zZl2w=;
+ b=DUKJ+/O0MpKOfTCuAeZXcI2wjTR1fZOW0ICo168cTmNedmrLn1LJwq/U2w6TjjBsIi
+ IQmZ6I4io+5xasM9fxuMvRFSxcOmogPDTgXAXYODZzG5tQkpxb1HJ4xrqJl4yikekE9d
+ LTzpIAz1JUshXaXE9lnIBXMx5dU2sxMr44vD5Kc/L4jo/Nu5iVZRQ+S4eMjHDP9WcW87
+ TCWGkCZY544ERcXHnILTslI2lH9PXuv2hTWg6+OgalceyuxsAtVFMGQsz+Gw9pTRzCiL
+ T0FdxtAHJWdKJNtzz4wgolFyl7AAaqlbePA9M/Suss9rnfBIN3SZ+QJ6JkmDOQMGZuAe
+ 0GVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777547813; x=1778152613;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=YFpDe3yLsIQBoj9o9DIep0n+3MllwodoaC7QJ4zZl2w=;
+ b=VkxXZ1lNI3Vy/mzSY55Tp7skCkS/nVu5T1SjWxLpY4+GgZCMVlgwlqw5YTlbfeXTdf
+ l74sF77uhjoL4bjiCuSNfhzLstZkww6ygbCACqsZ+9Nlj5hfFYyRSJ/ULi8wpe8FAV0H
+ iFs9t+Al6Jq7zzMZfY8QVOhSeMaxbOJMsep7WgxSlnVr4V3ztBCBcE/16GZMXmNeiHoL
+ N8egH5ek9D51w/wZQwFcazh3OWtrjLfzTRXRr6QGAR+IVXbg6onMYY9bSKxv/Z3m6cXq
+ fCxfY63yCu9+bmXG7K5nxM7WnNwbCps9xgTsqT3O7VnyxreV4RzO+bCJm9jjBeRGyfgV
+ nUhw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8eBT08dxElFVMxVcZVf6p5wCdgInaf8jgF2TLCJ9rY4pxewlC0yKdmUvNNP0SPpjy+lUJvYksgtEE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwL2nEWAi6hzCj5wE1yAVzGIx3wZetpk3PxsXHJsZlNcJ6pEXR/
+ Day2ibPLN5Ab9+al0hHO9V/2sDcBT2qSOeYD5UlsoQuFvGKB2RTSgZk1ad7EzUIuuNo=
+X-Gm-Gg: AeBDieuqyMYlYi8d/d8xcwS4CrhtcNXqvQdoVC9O+g0OU1wVy+gCbnP/8vwb6cyF2Qd
+ vh88P+Y+Op90F+z9PAd6x9DlTcZcwSJPqiWp9cyPAsLlr+MERbY4DJ9rS05/RqXKTwRhEoUrGUC
+ P5H0Z2GyY4Uf7V3o0nlgBJbLBO6TbQWwWiTmTijXD76GbEwCyaF4yQVavExgtwNIfq3gio1d0mT
+ otCej2/9dOIZrn4bGbAR4PKXB0LJiDq+XYCbgASexmqRvlg5zH6dieUcGlFWYPUyh4oQWHemZdf
+ Jft/BpQ7GMQOXyJuE1QrO21iwOhHeNbJuCOXlSKruaVbsULgv6YP3PQkwZGGGm0TJnsW7Hk2hyd
+ fdXHA3aZjQrFx/TUP+zkfsdmNxU5E5tdEQn2HCKSGwveQxVP2Mc5mmIRCO60ljUKCJi6XlW7EZU
+ X+WBKeaNQfzhtSHLLaC3/LCkLeASu4oN4Rd0LOVVEjlEzja4saoWjdrN3u5LoXOT4WslvcXL/iJ
+ eQ4E0t2quiUEcP4DeugJaK8qQ==
+X-Received: by 2002:a05:600c:6088:b0:489:1cd2:610a with SMTP id
+ 5b1f17b1804b1-48a844ec847mr40902955e9.9.1777547812685; 
+ Thu, 30 Apr 2026 04:16:52 -0700 (PDT)
+Received: from localhost
+ (p200300f65f114e08c77bcc4a3b99186a.dip0.t-ipconnect.de.
+ [2003:f6:5f11:4e08:c77b:cc4a:3b99:186a])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-48a822c82f2sm58792695e9.11.2026.04.30.04.16.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 Apr 2026 04:16:52 -0700 (PDT)
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?=
+ <u.kleine-koenig@baylibre.com>
+To: Helge Deller <deller@gmx.de>
+Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Russell King <linux@armlinux.org.uk>, Andres Salomon <dilinger@queued.net>,
+ Antonino Daplas <adaplas@gmail.com>, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-geode@lists.infradead.org,
+ Markus Schneider-Pargmann <msp@baylibre.com>
+Subject: [PATCH] fbdev: Consistently define pci_device_ids using named
+ initializers
+Date: Thu, 30 Apr 2026 13:16:36 +0200
+Message-ID: <20260430111637.211336-2-u.kleine-koenig@baylibre.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM9PR04MB8585:EE_|GV1PR04MB10583:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8279c39f-9c17-4ba9-dea0-08dea6a8b22a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|19092799006|376014|7416014|10070799003|1800799024|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: YEIkVjEr65CfdpTdU1t/VlDeG8zzW0RyXExsqSBhxaXkS/g8tcPYpkwzscrnx8A4g/m+FV8SH6cS24qtCIzvhhz4DFfgloTm+QYq9vdxjRJ3CmW9Kg4qfr6ncUuOoYO7o8CvtPVlZEm6phlaqPn0lxqQ+XUfYmYWHjNkzniO4b90V7Eh6Uhx943xxgAcbbC49oPh3sEgng+uX3ofUCkjcHweuTH63tWoUdlohdvtuDb21Fxu4DsESO2e63U/MJZZD6ex2GZAV6yLtNIwoSeeqYazYJ/EjaMFWheQVWrBEDT8SS90KA+K5+Hj8S1F4Xx3alzyDvtEpgKXv7yzIQfzYTxL5fF1+RjjTp3FZTcOPPrqwOFZMjSsYPYjxD+iTTbYNDETVbzCNfzFCrtEOTFeT0vQkVRuB/+87x0Na6Ovj9oYmb19QakQ1IdSLri4Ur86GeQHUZtd0FIlG6oONdkRYr62v59gevUcU2fx/64KHYEzhOdMnBsLmTN8dBeJElf95qgIPYqY3F5bxxxsoMs1wWM0ck2RX2WMqmVgh/LSO8mpayo9LU5YHL57JP6DlV4nHI2GJ9Flx8t/BZ4tKzbE1AXLjQgz3lruwK2KDB67fzF7cNuIKlLCv78x74KmpM7uazqPMWUBOKjDv3s1RPFLQFbH5SSAGb4lICytVjy9RCai8MD9jzf02bidCbxzyrU2fXAHKwvaQhI9kR7axfc36pgPzQVn2SwEuBFcEEbgJ10=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM9PR04MB8585.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(19092799006)(376014)(7416014)(10070799003)(1800799024)(22082099003)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?0Ze9xzbgZrIOvnGbFkIOoF77+6GeMbQRmAaLVCwmrf/Xu9GJMPne+7V00/RH?=
- =?us-ascii?Q?O9pCxw81TdiPpEoushCRuL+lTCwuiHnW1jyxou1F+RDrfnasnsk0AIR+XYGg?=
- =?us-ascii?Q?D8pU6jA6j/w9oOp/LJHgQk6mhTA/laab8zoHxLIt9KB9zyslEHOnmeLzqAHH?=
- =?us-ascii?Q?iIKuV/E+Ox8l2X8l5ZO0YMVX6bHDA8L+4z9WKKp7kEyXyjQ3gP/ejz64p5fT?=
- =?us-ascii?Q?uXAGY67x451PLTo8XzPY1BOA95S003Rs1GCSskks80bLuWD9iiNrA3zjvKj9?=
- =?us-ascii?Q?3Y1j46V2dC8ZdgLS29ER4yL5AfY/0+DuWmZR/LDbHU8IxJ5Gmt85g//iSY8o?=
- =?us-ascii?Q?yVu6k4UJkFAuABtX4KMfG4TEkwx3qdGhEn5tI9MPCAmtYaDJGhIrYIYpFRHk?=
- =?us-ascii?Q?Yn4mT/vaSHs1do5AdnCwhJgFDXrmWPbNcmn30ByKL3Zft1XCuo9AIUQcsn44?=
- =?us-ascii?Q?kPkvDOm0EfFDLCdyK9hCCiAItTDg/xSUiU9WPTo5B6OxDBOjWs307pkbGmab?=
- =?us-ascii?Q?q1mjSxKin2uNDQj2LFY38ngx1k9f7kslipojCeAhteILPoaCrpUO7iyIkkna?=
- =?us-ascii?Q?DyzLNkOSwexG3Vp4DtJgOafCWwqov0YleLK3OhnjmhVQIw9j8MxWUao4qqYz?=
- =?us-ascii?Q?LAq1uiG1NvjRrOTvksK/dE1rkVP0T1Kzq1t1iUYqQy2pmdpvg6W6BK1Rx6+b?=
- =?us-ascii?Q?CljQtL+0C7Wis26ZUNQ15bFrDM4dxc6pRcwvqouKKiERPLtfdbuAu4+gP8Cm?=
- =?us-ascii?Q?sH9ozPa/SOEOGnW8OMdO5JwsHccJRs02vfWx/iBfWvOJFSIxet2c7Zi08OAX?=
- =?us-ascii?Q?Wzi1hNZ7Ky09VlsqL2nvdBohY4fPzSnhv7xW6m7zrjyFStgYMEv6y4ZJJFNN?=
- =?us-ascii?Q?gYbZ1g4uuGuLc8qSQmtHI+3D34igjA2/lMHgDScfKuNf2/UMX5DmYpZD4lJ9?=
- =?us-ascii?Q?9IcDyQPBlOkxNuBXzsUHwplFzLTRHCEgK/3LOxZjs+zGhfM2uvraQu7Ge0fM?=
- =?us-ascii?Q?fWkMidxWZTWInSkS8jmiVGWGLMrzpOKyjl6Z2aPAi7cY/c6x74uaPvU7l66w?=
- =?us-ascii?Q?eVScMYLmNb8R9ojN+M/9KV+asTFwiZJmvP+v4I8T8+u05BBi0WO0m/7oZrDJ?=
- =?us-ascii?Q?I5FjWWvCG+Amkdgg9OpLaIV7diT9Kw3vdjRBL9OGn/zJAfWLdGoVZG+K8hmG?=
- =?us-ascii?Q?lSYp8EEn3YPlmmQaSiglHp/DZS1VBR01u9XH60Z/xKdgiDD3n6Y+85pcjKVA?=
- =?us-ascii?Q?v4Amlsge8nKfYgvoVlKH6gafT5QvHThv55DuaSYc3vF6BqzlNYWBgXABdIdq?=
- =?us-ascii?Q?wCAsr/AfEbUjDb+vcJgPWvB/WSjLKrqa0iVHfD4wJiXawhOlsaeFKLYERoyp?=
- =?us-ascii?Q?Ku4ThZVhmrEzv0qzGuMuRUBQGeCEUq8zWdGAiFe6lo+VCZQa604VsvHe9EyR?=
- =?us-ascii?Q?+GLyXhInJEUNRKt0aQoX/lnQzsi9WVbq2Wc9rzkp4ievlaAV/IFFIW6wUfHp?=
- =?us-ascii?Q?Sl6y+7zAn/COf6ZUK4Ir/YgKdEU2EVO4N+lmOFy1YpwKDXylG203oh3LKtUl?=
- =?us-ascii?Q?rtmnLMuDdoIJ1p9kLXK2SWjRf+DAUXsNjFyws1avX9+rsa6cpwjOnDtO9Lgx?=
- =?us-ascii?Q?5hdUPpkX5ApbAblsSOXyiaKXmnwjmA4inYsuAaeVNFVyixL6SX8aF4CJbS+2?=
- =?us-ascii?Q?pZohRmBpDfhVDojOkEYVdqe0v9lsPSDEJOb4IReqE0Q3lWBYkIrNcwfT31SE?=
- =?us-ascii?Q?RFNfRRyDvnZFvCOMrJQpJ+YAglBxBrWUlbptbmBMku+FtoypMICv?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8279c39f-9c17-4ba9-dea0-08dea6a8b22a
-X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8585.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2026 11:07:40.9302 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AKpGvuM5yUt0ZX7iMXU82pyECFWGNnldzxhobDQvQpp35wSw3p7bdMGWBom/x737JXmJDz14wqO0DOCnRFHylQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB10583
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=46533;
+ i=u.kleine-koenig@baylibre.com; h=from:subject;
+ bh=kfgVszV2/VOdETl3YqTPRaaIHR4ZV+GOcPVLtdHBm+4=;
+ b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBp8zoVa50c4TDozs24luqT21afUuCwhkS7gye86
+ eTlSIqC8FSJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCafM6FQAKCRCPgPtYfRL+
+ ThAYB/9wPCLjuiLMIyeJ4l9POUKi8F+AeJgN9+SADYOw1jUrZ26PvHG1jDFhMvgCNX1pk6u/VGj
+ /rkjscjuciufWNIC+yL9zUDE/3hHO7IDTcNFBHBTcaGiyIKcA8on+HaTznWVV1pr/J1Wu00X2Pu
+ NP1MEYOS5SOQttVG6cs5z8n/DOvQS9nPveEvIJqBYQxzkXXoY+mRsrWgdua6aqFLUztJQN5eY8M
+ uuPeVfe+S5AZxQgcc/93tDES+4wPnhPs5b2WiFoIIKWBz+pVkzGRG8d492+yUPdGL8ptq1Xvl5F
+ 8+FptosLeEmaXUdNRtvUrkHt/6wTSeLHgaIAAh8idAlJDqkE
+X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,1899 +109,1012 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The majority of PHY drivers are PHY providers (obviously).
+... and PCI device helpers.
 
-Some are chained PHY provider+consumer (phy-qcom-m31-eusb2.c,
-phy-exynos5-usbdrd.c).
+The various struct pci_device_id arrays were initialized mostly by list
+expressions. This isn't easily readable if you're not into PCI. Using
+named initializers is more explicit and thus easier to parse. Also use
+PCI_DEVICE* helper macros to assign .vendor, .device, .subvendor and
+.subdevice where appropriate and skip explicit assignments of 0 (which
+the compiler takes care of).
 
-Others include <linux/phy/phy.h> because they call consumer functions
-such as phy_pm_runtime_get() - phy-mapphone-mdm6600.c. See commit
-2ad2af081622 ("phy: mapphone-mdm6600: Improve phy related runtime PM
-calls") for the story behind that. My understanding is it's a pragmatic
-shortcut, but it doesn't bother much.
+The secret plan is to make struct pci_device_id::driver_data an
+anonymous union (similar to
+https://lore.kernel.org/all/cover.1776579304.git.u.kleine-koenig@baylibre.com/)
+and that requires named initializers. But it's also a nice cleanup on
+its own.
 
-Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> #phy/qualcomm
-Acked-by: Shawn Lin <shawn.lin@rock-chips.com>
+This change doesn't introduce changes to the compiled pci_device_id
+array. Tested on x86 and arm64.
+
+Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
 ---
-v6->v7:
-- manually resolved conflict in
-  drivers/phy/qualcomm/phy-qcom-sgmii-eth.c with commit 4ff5801f45b4
-  ("phy: qcom-sgmii-eth: add .set_mode() and .validate() methods"), now
-  present in linux-phy/next.
-v4->v6: none
-v3->v4:
-- fix phy-provider.h path from drivers/phy/qualcomm/phy-qcom-ipq806x-sata.c
-- make sure include/linux/phy/tegra/xusb.h is not reliant upon an
-  external "struct phy" definition
-v2->v3: none
-v1->v2: split in two parts to pass through linux-phy mailing list
-moderation. The split is at letter 'q' (Qualcomm)
----
- drivers/phy/qualcomm/phy-ath79-usb.c               | 3 ++-
- drivers/phy/qualcomm/phy-qcom-apq8064-sata.c       | 3 ++-
- drivers/phy/qualcomm/phy-qcom-edp.c                | 3 ++-
- drivers/phy/qualcomm/phy-qcom-eusb2-repeater.c     | 3 ++-
- drivers/phy/qualcomm/phy-qcom-ipq4019-usb.c        | 3 ++-
- drivers/phy/qualcomm/phy-qcom-ipq806x-sata.c       | 3 ++-
- drivers/phy/qualcomm/phy-qcom-ipq806x-usb.c        | 3 ++-
- drivers/phy/qualcomm/phy-qcom-m31-eusb2.c          | 2 ++
- drivers/phy/qualcomm/phy-qcom-m31.c                | 3 ++-
- drivers/phy/qualcomm/phy-qcom-pcie2.c              | 3 ++-
- drivers/phy/qualcomm/phy-qcom-qmp-combo.c          | 3 ++-
- drivers/phy/qualcomm/phy-qcom-qmp-pcie-msm8996.c   | 3 ++-
- drivers/phy/qualcomm/phy-qcom-qmp-pcie.c           | 3 ++-
- drivers/phy/qualcomm/phy-qcom-qmp-ufs.c            | 3 ++-
- drivers/phy/qualcomm/phy-qcom-qmp-usb-legacy.c     | 3 ++-
- drivers/phy/qualcomm/phy-qcom-qmp-usb.c            | 3 ++-
- drivers/phy/qualcomm/phy-qcom-qmp-usbc.c           | 3 ++-
- drivers/phy/qualcomm/phy-qcom-qusb2.c              | 4 ++--
- drivers/phy/qualcomm/phy-qcom-sgmii-eth.c          | 3 ++-
- drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c      | 3 ++-
- drivers/phy/qualcomm/phy-qcom-uniphy-pcie-28lp.c   | 3 ++-
- drivers/phy/qualcomm/phy-qcom-usb-hs-28nm.c        | 3 ++-
- drivers/phy/qualcomm/phy-qcom-usb-hs.c             | 3 ++-
- drivers/phy/qualcomm/phy-qcom-usb-hsic.c           | 3 ++-
- drivers/phy/qualcomm/phy-qcom-usb-ss.c             | 3 ++-
- drivers/phy/ralink/phy-mt7621-pci.c                | 3 ++-
- drivers/phy/ralink/phy-ralink-usb.c                | 3 ++-
- drivers/phy/realtek/phy-rtk-usb2.c                 | 3 ++-
- drivers/phy/realtek/phy-rtk-usb3.c                 | 3 ++-
- drivers/phy/renesas/phy-rcar-gen2.c                | 3 ++-
- drivers/phy/renesas/phy-rcar-gen3-pcie.c           | 3 ++-
- drivers/phy/renesas/phy-rcar-gen3-usb2.c           | 3 ++-
- drivers/phy/renesas/phy-rcar-gen3-usb3.c           | 3 ++-
- drivers/phy/renesas/phy-rzg3e-usb3.c               | 3 ++-
- drivers/phy/renesas/r8a779f0-ether-serdes.c        | 3 ++-
- drivers/phy/rockchip/phy-rockchip-dp.c             | 3 ++-
- drivers/phy/rockchip/phy-rockchip-dphy-rx0.c       | 3 ++-
- drivers/phy/rockchip/phy-rockchip-emmc.c           | 3 ++-
- drivers/phy/rockchip/phy-rockchip-inno-csidphy.c   | 3 ++-
- drivers/phy/rockchip/phy-rockchip-inno-dsidphy.c   | 4 ++--
- drivers/phy/rockchip/phy-rockchip-inno-hdmi.c      | 2 ++
- drivers/phy/rockchip/phy-rockchip-inno-usb2.c      | 3 ++-
- drivers/phy/rockchip/phy-rockchip-naneng-combphy.c | 3 ++-
- drivers/phy/rockchip/phy-rockchip-pcie.c           | 2 +-
- drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c  | 3 ++-
- drivers/phy/rockchip/phy-rockchip-samsung-hdptx.c  | 2 ++
- drivers/phy/rockchip/phy-rockchip-snps-pcie3.c     | 3 ++-
- drivers/phy/rockchip/phy-rockchip-typec.c          | 4 ++--
- drivers/phy/rockchip/phy-rockchip-usb.c            | 3 ++-
- drivers/phy/rockchip/phy-rockchip-usbdp.c          | 2 ++
- drivers/phy/samsung/phy-exynos-dp-video.c          | 3 ++-
- drivers/phy/samsung/phy-exynos-mipi-video.c        | 3 ++-
- drivers/phy/samsung/phy-exynos-pcie.c              | 3 ++-
- drivers/phy/samsung/phy-exynos4210-usb2.c          | 3 ++-
- drivers/phy/samsung/phy-exynos4x12-usb2.c          | 3 ++-
- drivers/phy/samsung/phy-exynos5-usbdrd.c           | 2 ++
- drivers/phy/samsung/phy-exynos5250-sata.c          | 3 ++-
- drivers/phy/samsung/phy-exynos5250-usb2.c          | 3 ++-
- drivers/phy/samsung/phy-s5pv210-usb2.c             | 3 ++-
- drivers/phy/samsung/phy-samsung-ufs.c              | 2 +-
- drivers/phy/samsung/phy-samsung-ufs.h              | 3 ++-
- drivers/phy/samsung/phy-samsung-usb2.c             | 2 ++
- drivers/phy/samsung/phy-samsung-usb2.h             | 3 ++-
- drivers/phy/socionext/phy-uniphier-ahci.c          | 3 ++-
- drivers/phy/socionext/phy-uniphier-pcie.c          | 3 ++-
- drivers/phy/socionext/phy-uniphier-usb2.c          | 3 ++-
- drivers/phy/socionext/phy-uniphier-usb3hs.c        | 3 ++-
- drivers/phy/socionext/phy-uniphier-usb3ss.c        | 3 ++-
- drivers/phy/sophgo/phy-cv1800-usb2.c               | 3 ++-
- drivers/phy/spacemit/phy-k1-pcie.c                 | 4 ++--
- drivers/phy/spacemit/phy-k1-usb2.c                 | 3 ++-
- drivers/phy/st/phy-miphy28lp.c                     | 4 ++--
- drivers/phy/st/phy-spear1310-miphy.c               | 3 ++-
- drivers/phy/st/phy-spear1340-miphy.c               | 3 ++-
- drivers/phy/st/phy-stih407-usb.c                   | 3 ++-
- drivers/phy/st/phy-stm32-combophy.c                | 3 ++-
- drivers/phy/st/phy-stm32-usbphyc.c                 | 2 ++
- drivers/phy/starfive/phy-jh7110-dphy-rx.c          | 3 ++-
- drivers/phy/starfive/phy-jh7110-dphy-tx.c          | 3 ++-
- drivers/phy/starfive/phy-jh7110-pcie.c             | 3 ++-
- drivers/phy/starfive/phy-jh7110-usb.c              | 3 ++-
- drivers/phy/sunplus/phy-sunplus-usb2.c             | 3 ++-
- drivers/phy/tegra/phy-tegra194-p2u.c               | 3 ++-
- drivers/phy/tegra/xusb-tegra124.c                  | 2 +-
- drivers/phy/tegra/xusb-tegra186.c                  | 2 +-
- drivers/phy/tegra/xusb-tegra210.c                  | 2 +-
- drivers/phy/tegra/xusb.c                           | 2 +-
- drivers/phy/ti/phy-am654-serdes.c                  | 3 ++-
- drivers/phy/ti/phy-da8xx-usb.c                     | 3 ++-
- drivers/phy/ti/phy-dm816x-usb.c                    | 3 ++-
- drivers/phy/ti/phy-gmii-sel.c                      | 3 ++-
- drivers/phy/ti/phy-omap-usb2.c                     | 3 ++-
- drivers/phy/ti/phy-ti-pipe3.c                      | 3 ++-
- drivers/phy/ti/phy-twl4030-usb.c                   | 3 ++-
- drivers/phy/xilinx/phy-zynqmp.c                    | 4 ++--
- include/linux/phy/phy-sun4i-usb.h                  | 2 +-
- include/linux/phy/tegra/xusb.h                     | 1 +
- include/linux/phy/ulpi_phy.h                       | 2 +-
- 98 files changed, 187 insertions(+), 96 deletions(-)
+Hello,
 
-diff --git a/drivers/phy/qualcomm/phy-ath79-usb.c b/drivers/phy/qualcomm/phy-ath79-usb.c
-index f8d0199c6e78..2f07241be600 100644
---- a/drivers/phy/qualcomm/phy-ath79-usb.c
-+++ b/drivers/phy/qualcomm/phy-ath79-usb.c
-@@ -8,9 +8,10 @@
- #include <linux/mod_devicetable.h>
- #include <linux/module.h>
- #include <linux/platform_device.h>
--#include <linux/phy/phy.h>
- #include <linux/reset.h>
- 
-+#include "../phy-provider.h"
-+
- struct ath79_usb_phy {
- 	struct reset_control *reset;
- 	/* The suspend override logic is inverted, hence the no prefix
-diff --git a/drivers/phy/qualcomm/phy-qcom-apq8064-sata.c b/drivers/phy/qualcomm/phy-qcom-apq8064-sata.c
-index cae290a6e19f..dd73ecbb6c1e 100644
---- a/drivers/phy/qualcomm/phy-qcom-apq8064-sata.c
-+++ b/drivers/phy/qualcomm/phy-qcom-apq8064-sata.c
-@@ -13,7 +13,8 @@
- #include <linux/clk.h>
- #include <linux/slab.h>
- #include <linux/platform_device.h>
--#include <linux/phy/phy.h>
-+
-+#include "../phy-provider.h"
- 
- /* PHY registers */
- #define UNIPHY_PLL_REFCLK_CFG		0x000
-diff --git a/drivers/phy/qualcomm/phy-qcom-edp.c b/drivers/phy/qualcomm/phy-qcom-edp.c
-index 7372de05a0b8..faddba0f20c7 100644
---- a/drivers/phy/qualcomm/phy-qcom-edp.c
-+++ b/drivers/phy/qualcomm/phy-qcom-edp.c
-@@ -13,7 +13,6 @@
- #include <linux/kernel.h>
- #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/phy/phy.h>
- #include <linux/phy/phy-dp.h>
- #include <linux/platform_device.h>
- #include <linux/regulator/consumer.h>
-@@ -22,6 +21,8 @@
- 
- #include <dt-bindings/phy/phy.h>
- 
-+#include "../phy-provider.h"
-+
- #include "phy-qcom-qmp-dp-phy.h"
- #include "phy-qcom-qmp-qserdes-com-v4.h"
- #include "phy-qcom-qmp-qserdes-com-v6.h"
-diff --git a/drivers/phy/qualcomm/phy-qcom-eusb2-repeater.c b/drivers/phy/qualcomm/phy-qcom-eusb2-repeater.c
-index efeec4709a15..5783bdabc287 100644
---- a/drivers/phy/qualcomm/phy-qcom-eusb2-repeater.c
-+++ b/drivers/phy/qualcomm/phy-qcom-eusb2-repeater.c
-@@ -8,7 +8,8 @@
- #include <linux/regulator/consumer.h>
- #include <linux/regmap.h>
- #include <linux/of.h>
--#include <linux/phy/phy.h>
-+
-+#include "../phy-provider.h"
- 
- /* eUSB2 status registers */
- #define EUSB2_RPTR_STATUS		0x08
-diff --git a/drivers/phy/qualcomm/phy-qcom-ipq4019-usb.c b/drivers/phy/qualcomm/phy-qcom-ipq4019-usb.c
-index da6f290af722..f1c1c2969e37 100644
---- a/drivers/phy/qualcomm/phy-qcom-ipq4019-usb.c
-+++ b/drivers/phy/qualcomm/phy-qcom-ipq4019-usb.c
-@@ -14,10 +14,11 @@
- #include <linux/module.h>
- #include <linux/mutex.h>
- #include <linux/of.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/reset.h>
- 
-+#include "../phy-provider.h"
-+
- struct ipq4019_usb_phy {
- 	struct device		*dev;
- 	struct phy		*phy;
-diff --git a/drivers/phy/qualcomm/phy-qcom-ipq806x-sata.c b/drivers/phy/qualcomm/phy-qcom-ipq806x-sata.c
-index f5eb0bdac418..d5407784c18f 100644
---- a/drivers/phy/qualcomm/phy-qcom-ipq806x-sata.c
-+++ b/drivers/phy/qualcomm/phy-qcom-ipq806x-sata.c
-@@ -13,7 +13,8 @@
- #include <linux/clk.h>
- #include <linux/slab.h>
- #include <linux/platform_device.h>
--#include <linux/phy/phy.h>
-+
-+#include "../phy-provider.h"
- 
- struct qcom_ipq806x_sata_phy {
- 	void __iomem *mmio;
-diff --git a/drivers/phy/qualcomm/phy-qcom-ipq806x-usb.c b/drivers/phy/qualcomm/phy-qcom-ipq806x-usb.c
-index f22c0000479f..54144f0547f0 100644
---- a/drivers/phy/qualcomm/phy-qcom-ipq806x-usb.c
-+++ b/drivers/phy/qualcomm/phy-qcom-ipq806x-usb.c
-@@ -5,13 +5,14 @@
- #include <linux/io.h>
- #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/delay.h>
- #include <linux/regmap.h>
- #include <linux/mfd/syscon.h>
- #include <linux/bitfield.h>
- 
-+#include "../phy-provider.h"
-+
- /* USB QSCRATCH Hardware registers */
- #define QSCRATCH_GENERAL_CFG		(0x08)
- #define HSUSB_PHY_CTRL_REG		(0x10)
-diff --git a/drivers/phy/qualcomm/phy-qcom-m31-eusb2.c b/drivers/phy/qualcomm/phy-qcom-m31-eusb2.c
-index 68f1ba8fec4a..9e3a911023cd 100644
---- a/drivers/phy/qualcomm/phy-qcom-m31-eusb2.c
-+++ b/drivers/phy/qualcomm/phy-qcom-m31-eusb2.c
-@@ -18,6 +18,8 @@
- 
- #include <linux/regulator/consumer.h>
- 
-+#include "../phy-provider.h"
-+
- #define USB_PHY_UTMI_CTRL0		(0x3c)
- #define SLEEPM				BIT(0)
- 
-diff --git a/drivers/phy/qualcomm/phy-qcom-m31.c b/drivers/phy/qualcomm/phy-qcom-m31.c
-index 168ea980fda0..1a63a5807d37 100644
---- a/drivers/phy/qualcomm/phy-qcom-m31.c
-+++ b/drivers/phy/qualcomm/phy-qcom-m31.c
-@@ -10,11 +10,12 @@
- #include <linux/kernel.h>
- #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/reset.h>
- #include <linux/slab.h>
- 
-+#include "../phy-provider.h"
-+
- #define USB2PHY_PORT_UTMI_CTRL1		0x40
- 
- #define USB2PHY_PORT_UTMI_CTRL2		0x44
-diff --git a/drivers/phy/qualcomm/phy-qcom-pcie2.c b/drivers/phy/qualcomm/phy-qcom-pcie2.c
-index 11a2bb958681..4c74d8e7722d 100644
---- a/drivers/phy/qualcomm/phy-qcom-pcie2.c
-+++ b/drivers/phy/qualcomm/phy-qcom-pcie2.c
-@@ -8,11 +8,12 @@
- #include <linux/clk.h>
- #include <linux/iopoll.h>
- #include <linux/module.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/reset.h>
- #include <linux/slab.h>
- 
-+#include "../phy-provider.h"
-+
- #include <dt-bindings/phy/phy.h>
- 
- #define PCIE20_PARF_PHY_STTS         0x3c
-diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-index b9ea7d058e93..04c54c229f08 100644
---- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-+++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-@@ -14,7 +14,6 @@
- #include <linux/of.h>
- #include <linux/of_address.h>
- #include <linux/of_graph.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/regulator/consumer.h>
-@@ -28,6 +27,8 @@
- 
- #include <dt-bindings/phy/phy-qcom-qmp.h>
- 
-+#include "../phy-provider.h"
-+
- #include "phy-qcom-qmp-common.h"
- 
- #include "phy-qcom-qmp.h"
-diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-pcie-msm8996.c b/drivers/phy/qualcomm/phy-qcom-qmp-pcie-msm8996.c
-index a7c65cfe31df..df38d5b6d5be 100644
---- a/drivers/phy/qualcomm/phy-qcom-qmp-pcie-msm8996.c
-+++ b/drivers/phy/qualcomm/phy-qcom-qmp-pcie-msm8996.c
-@@ -13,12 +13,13 @@
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/of_address.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/regulator/consumer.h>
- #include <linux/reset.h>
- #include <linux/slab.h>
- 
-+#include "../phy-provider.h"
-+
- #include "phy-qcom-qmp-common.h"
- 
- #include "phy-qcom-qmp.h"
-diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c b/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c
-index fed2fc9bb311..06680151360e 100644
---- a/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c
-+++ b/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c
-@@ -15,7 +15,6 @@
- #include <linux/of.h>
- #include <linux/of_address.h>
- #include <linux/phy/pcie.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
- #include <linux/regulator/consumer.h>
-@@ -24,6 +23,8 @@
- 
- #include <dt-bindings/phy/phy-qcom-qmp.h>
- 
-+#include "../phy-provider.h"
-+
- #include "phy-qcom-qmp-common.h"
- 
- #include "phy-qcom-qmp.h"
-diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-ufs.c b/drivers/phy/qualcomm/phy-qcom-qmp-ufs.c
-index 771bc7c2ab50..8fda189774e6 100644
---- a/drivers/phy/qualcomm/phy-qcom-qmp-ufs.c
-+++ b/drivers/phy/qualcomm/phy-qcom-qmp-ufs.c
-@@ -13,7 +13,6 @@
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/of_address.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/regulator/consumer.h>
- #include <linux/reset.h>
-@@ -21,6 +20,8 @@
- 
- #include <ufs/unipro.h>
- 
-+#include "../phy-provider.h"
-+
- #include "phy-qcom-qmp-common.h"
- 
- #include "phy-qcom-qmp.h"
-diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-usb-legacy.c b/drivers/phy/qualcomm/phy-qcom-qmp-usb-legacy.c
-index 2bd5862c5ba8..a682b30db03e 100644
---- a/drivers/phy/qualcomm/phy-qcom-qmp-usb-legacy.c
-+++ b/drivers/phy/qualcomm/phy-qcom-qmp-usb-legacy.c
-@@ -14,13 +14,14 @@
- #include <linux/of.h>
- #include <linux/of_device.h>
- #include <linux/of_address.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/regulator/consumer.h>
- #include <linux/reset.h>
- #include <linux/slab.h>
- 
-+#include "../phy-provider.h"
-+
- #include "phy-qcom-qmp.h"
- #include "phy-qcom-qmp-pcs-misc-v3.h"
- #include "phy-qcom-qmp-pcs-usb-v4.h"
-diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-usb.c b/drivers/phy/qualcomm/phy-qcom-qmp-usb.c
-index d88b8a415e85..3db0a5282dbf 100644
---- a/drivers/phy/qualcomm/phy-qcom-qmp-usb.c
-+++ b/drivers/phy/qualcomm/phy-qcom-qmp-usb.c
-@@ -13,13 +13,14 @@
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/of_address.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/regulator/consumer.h>
- #include <linux/reset.h>
- #include <linux/slab.h>
- 
-+#include "../phy-provider.h"
-+
- #include "phy-qcom-qmp-common.h"
- 
- #include "phy-qcom-qmp.h"
-diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-usbc.c b/drivers/phy/qualcomm/phy-qcom-qmp-usbc.c
-index f62e1f6ecc07..b77007f8fee3 100644
---- a/drivers/phy/qualcomm/phy-qcom-qmp-usbc.c
-+++ b/drivers/phy/qualcomm/phy-qcom-qmp-usbc.c
-@@ -14,7 +14,6 @@
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/of_address.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/regmap.h>
-@@ -25,6 +24,8 @@
- #include <linux/usb/typec_mux.h>
- #include <dt-bindings/phy/phy-qcom-qmp.h>
- 
-+#include "../phy-provider.h"
-+
- #include "phy-qcom-qmp-common.h"
- 
- #include "phy-qcom-qmp.h"
-diff --git a/drivers/phy/qualcomm/phy-qcom-qusb2.c b/drivers/phy/qualcomm/phy-qcom-qusb2.c
-index 191040f6d60f..e5516099b911 100644
---- a/drivers/phy/qualcomm/phy-qcom-qusb2.c
-+++ b/drivers/phy/qualcomm/phy-qcom-qusb2.c
-@@ -3,6 +3,7 @@
-  * Copyright (c) 2017, 2019, The Linux Foundation. All rights reserved.
-  */
- 
-+#include <dt-bindings/phy/phy-qcom-qusb2.h>
- #include <linux/clk.h>
- #include <linux/delay.h>
- #include <linux/err.h>
-@@ -12,7 +13,6 @@
- #include <linux/module.h>
- #include <linux/nvmem-consumer.h>
- #include <linux/of.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/regmap.h>
-@@ -20,7 +20,7 @@
- #include <linux/reset.h>
- #include <linux/slab.h>
- 
--#include <dt-bindings/phy/phy-qcom-qusb2.h>
-+#include "../phy-provider.h"
- 
- #define QUSB2PHY_PLL			0x0
- #define QUSB2PHY_PLL_TEST		0x04
-diff --git a/drivers/phy/qualcomm/phy-qcom-sgmii-eth.c b/drivers/phy/qualcomm/phy-qcom-sgmii-eth.c
-index f48faa2929a6..9886500e0272 100644
---- a/drivers/phy/qualcomm/phy-qcom-sgmii-eth.c
-+++ b/drivers/phy/qualcomm/phy-qcom-sgmii-eth.c
-@@ -8,10 +8,11 @@
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/phy.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
- 
-+#include "../phy-provider.h"
-+
- #include "phy-qcom-qmp-pcs-sgmii.h"
- #include "phy-qcom-qmp-qserdes-com-v5.h"
- #include "phy-qcom-qmp-qserdes-txrx-v5.h"
-diff --git a/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c b/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c
-index 8915fa250e81..17a33e545008 100644
---- a/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c
-+++ b/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c
-@@ -10,7 +10,6 @@
- #include <linux/kernel.h>
- #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/regmap.h>
-@@ -18,6 +17,8 @@
- #include <linux/reset.h>
- #include <linux/slab.h>
- 
-+#include "../phy-provider.h"
-+
- #define USB2_PHY_USB_PHY_UTMI_CTRL0		(0x3c)
- #define SLEEPM					BIT(0)
- #define OPMODE_MASK				GENMASK(4, 3)
-diff --git a/drivers/phy/qualcomm/phy-qcom-uniphy-pcie-28lp.c b/drivers/phy/qualcomm/phy-qcom-uniphy-pcie-28lp.c
-index 324c0a5d658e..13828d4f788e 100644
---- a/drivers/phy/qualcomm/phy-qcom-uniphy-pcie-28lp.c
-+++ b/drivers/phy/qualcomm/phy-qcom-uniphy-pcie-28lp.c
-@@ -12,12 +12,13 @@
- #include <linux/module.h>
- #include <linux/of_device.h>
- #include <linux/of.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
- #include <linux/reset.h>
- #include <linux/units.h>
- 
-+#include "../phy-provider.h"
-+
- #define RST_ASSERT_DELAY_MIN_US		100
- #define RST_ASSERT_DELAY_MAX_US		150
- #define PIPE_CLK_DELAY_MIN_US		5000
-diff --git a/drivers/phy/qualcomm/phy-qcom-usb-hs-28nm.c b/drivers/phy/qualcomm/phy-qcom-usb-hs-28nm.c
-index a52a9bf13b75..ce317deaeacb 100644
---- a/drivers/phy/qualcomm/phy-qcom-usb-hs-28nm.c
-+++ b/drivers/phy/qualcomm/phy-qcom-usb-hs-28nm.c
-@@ -11,12 +11,13 @@
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/of_graph.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/regulator/consumer.h>
- #include <linux/reset.h>
- #include <linux/slab.h>
- 
-+#include "../phy-provider.h"
-+
- /* PHY register and bit definitions */
- #define PHY_CTRL_COMMON0		0x078
- #define SIDDQ				BIT(2)
-diff --git a/drivers/phy/qualcomm/phy-qcom-usb-hs.c b/drivers/phy/qualcomm/phy-qcom-usb-hs.c
-index 98a18987f1be..95581926023f 100644
---- a/drivers/phy/qualcomm/phy-qcom-usb-hs.c
-+++ b/drivers/phy/qualcomm/phy-qcom-usb-hs.c
-@@ -8,11 +8,12 @@
- #include <linux/clk.h>
- #include <linux/regulator/consumer.h>
- #include <linux/of.h>
--#include <linux/phy/phy.h>
- #include <linux/reset.h>
- #include <linux/extcon.h>
- #include <linux/notifier.h>
- 
-+#include "../phy-provider.h"
-+
- #define ULPI_PWR_CLK_MNG_REG		0x88
- # define ULPI_PWR_OTG_COMP_DISABLE	BIT(0)
- 
-diff --git a/drivers/phy/qualcomm/phy-qcom-usb-hsic.c b/drivers/phy/qualcomm/phy-qcom-usb-hsic.c
-index 20f6dd37c7c1..fe9315a2f207 100644
---- a/drivers/phy/qualcomm/phy-qcom-usb-hsic.c
-+++ b/drivers/phy/qualcomm/phy-qcom-usb-hsic.c
-@@ -5,12 +5,13 @@
- #include <linux/module.h>
- #include <linux/ulpi/driver.h>
- #include <linux/ulpi/regs.h>
--#include <linux/phy/phy.h>
- #include <linux/pinctrl/consumer.h>
- #include <linux/pinctrl/pinctrl-state.h>
- #include <linux/delay.h>
- #include <linux/clk.h>
- 
-+#include "../phy-provider.h"
-+
- #define ULPI_HSIC_CFG		0x30
- #define ULPI_HSIC_IO_CAL	0x33
- 
-diff --git a/drivers/phy/qualcomm/phy-qcom-usb-ss.c b/drivers/phy/qualcomm/phy-qcom-usb-ss.c
-index a3a6d3ce7ea1..17ca14a0b34d 100644
---- a/drivers/phy/qualcomm/phy-qcom-usb-ss.c
-+++ b/drivers/phy/qualcomm/phy-qcom-usb-ss.c
-@@ -11,12 +11,13 @@
- #include <linux/kernel.h>
- #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/regulator/consumer.h>
- #include <linux/reset.h>
- #include <linux/slab.h>
- 
-+#include "../phy-provider.h"
-+
- #define PHY_CTRL0			0x6C
- #define PHY_CTRL1			0x70
- #define PHY_CTRL2			0x74
-diff --git a/drivers/phy/ralink/phy-mt7621-pci.c b/drivers/phy/ralink/phy-mt7621-pci.c
-index a591ad95347c..4865a264136d 100644
---- a/drivers/phy/ralink/phy-mt7621-pci.c
-+++ b/drivers/phy/ralink/phy-mt7621-pci.c
-@@ -10,11 +10,12 @@
- #include <linux/bitops.h>
- #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
- #include <linux/sys_soc.h>
- 
-+#include "../phy-provider.h"
-+
- #define RG_PE1_PIPE_REG				0x02c
- #define RG_PE1_PIPE_RST				BIT(12)
- #define RG_PE1_PIPE_CMD_FRC			BIT(4)
-diff --git a/drivers/phy/ralink/phy-ralink-usb.c b/drivers/phy/ralink/phy-ralink-usb.c
-index 0ff07e210769..cc61139ce157 100644
---- a/drivers/phy/ralink/phy-ralink-usb.c
-+++ b/drivers/phy/ralink/phy-ralink-usb.c
-@@ -14,11 +14,12 @@
- #include <linux/module.h>
- #include <linux/mutex.h>
- #include <linux/of.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
- #include <linux/reset.h>
- 
-+#include "../phy-provider.h"
-+
- #define RT_SYSC_REG_SYSCFG1		0x014
- #define RT_SYSC_REG_CLKCFG1		0x030
- #define RT_SYSC_REG_USB_PHY_CFG		0x05c
-diff --git a/drivers/phy/realtek/phy-rtk-usb2.c b/drivers/phy/realtek/phy-rtk-usb2.c
-index 248550ef98ca..a0431f11972e 100644
---- a/drivers/phy/realtek/phy-rtk-usb2.c
-+++ b/drivers/phy/realtek/phy-rtk-usb2.c
-@@ -16,9 +16,10 @@
- #include <linux/regmap.h>
- #include <linux/sys_soc.h>
- #include <linux/mfd/syscon.h>
--#include <linux/phy/phy.h>
- #include <linux/usb.h>
- 
-+#include "../phy-provider.h"
-+
- /* GUSB2PHYACCn register */
- #define PHY_NEW_REG_REQ BIT(25)
- #define PHY_VSTS_BUSY   BIT(23)
-diff --git a/drivers/phy/realtek/phy-rtk-usb3.c b/drivers/phy/realtek/phy-rtk-usb3.c
-index cce453686db2..3f565c4d96be 100644
---- a/drivers/phy/realtek/phy-rtk-usb3.c
-+++ b/drivers/phy/realtek/phy-rtk-usb3.c
-@@ -16,9 +16,10 @@
- #include <linux/regmap.h>
- #include <linux/sys_soc.h>
- #include <linux/mfd/syscon.h>
--#include <linux/phy/phy.h>
- #include <linux/usb.h>
- 
-+#include "../phy-provider.h"
-+
- #define USB_MDIO_CTRL_PHY_BUSY BIT(7)
- #define USB_MDIO_CTRL_PHY_WRITE BIT(0)
- #define USB_MDIO_CTRL_PHY_ADDR_SHIFT 8
-diff --git a/drivers/phy/renesas/phy-rcar-gen2.c b/drivers/phy/renesas/phy-rcar-gen2.c
-index 6c671254c625..ca5498986120 100644
---- a/drivers/phy/renesas/phy-rcar-gen2.c
-+++ b/drivers/phy/renesas/phy-rcar-gen2.c
-@@ -12,11 +12,12 @@
- #include <linux/io.h>
- #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/spinlock.h>
- #include <linux/atomic.h>
- 
-+#include "../phy-provider.h"
-+
- #define USBHS_LPSTS			0x02
- #define USBHS_UGCTRL			0x80
- #define USBHS_UGCTRL2			0x84
-diff --git a/drivers/phy/renesas/phy-rcar-gen3-pcie.c b/drivers/phy/renesas/phy-rcar-gen3-pcie.c
-index 3e2cf59ad480..747a1cd74639 100644
---- a/drivers/phy/renesas/phy-rcar-gen3-pcie.c
-+++ b/drivers/phy/renesas/phy-rcar-gen3-pcie.c
-@@ -9,11 +9,12 @@
- #include <linux/io.h>
- #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/spinlock.h>
- 
-+#include "../phy-provider.h"
-+
- #define PHY_CTRL		0x4000		/* R8A77980 only */
- 
- /* PHY control register (PHY_CTRL) */
-diff --git a/drivers/phy/renesas/phy-rcar-gen3-usb2.c b/drivers/phy/renesas/phy-rcar-gen3-usb2.c
-index 79e820e2fe55..88b4a47677a5 100644
---- a/drivers/phy/renesas/phy-rcar-gen3-usb2.c
-+++ b/drivers/phy/renesas/phy-rcar-gen3-usb2.c
-@@ -19,7 +19,6 @@
- #include <linux/mutex.h>
- #include <linux/mux/consumer.h>
- #include <linux/of.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/regulator/consumer.h>
-@@ -29,6 +28,8 @@
- #include <linux/usb/of.h>
- #include <linux/workqueue.h>
- 
-+#include "../phy-provider.h"
-+
- /******* USB2.0 Host registers (original offset is +0x200) *******/
- #define USB2_INT_ENABLE		0x000
- #define USB2_AHB_BUS_CTR	0x008
-diff --git a/drivers/phy/renesas/phy-rcar-gen3-usb3.c b/drivers/phy/renesas/phy-rcar-gen3-usb3.c
-index 0420f5b283ce..3511831e95d2 100644
---- a/drivers/phy/renesas/phy-rcar-gen3-usb3.c
-+++ b/drivers/phy/renesas/phy-rcar-gen3-usb3.c
-@@ -10,10 +10,11 @@
- #include <linux/io.h>
- #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- 
-+#include "../phy-provider.h"
-+
- #define USB30_CLKSET0		0x034
- #define USB30_CLKSET1		0x036
- #define USB30_SSC_SET		0x038
-diff --git a/drivers/phy/renesas/phy-rzg3e-usb3.c b/drivers/phy/renesas/phy-rzg3e-usb3.c
-index 6b3453ea0004..1c9e2276bb73 100644
---- a/drivers/phy/renesas/phy-rzg3e-usb3.c
-+++ b/drivers/phy/renesas/phy-rzg3e-usb3.c
-@@ -11,11 +11,12 @@
- #include <linux/iopoll.h>
- #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/reset.h>
- 
-+#include "../phy-provider.h"
-+
- #define USB3_TEST_RESET				0x0000
- #define USB3_TEST_UTMICTRL2			0x0b04
- #define USB3_TEST_PRMCTRL5_R			0x0c10
-diff --git a/drivers/phy/renesas/r8a779f0-ether-serdes.c b/drivers/phy/renesas/r8a779f0-ether-serdes.c
-index c34427ac4fdb..807af518aeda 100644
---- a/drivers/phy/renesas/r8a779f0-ether-serdes.c
-+++ b/drivers/phy/renesas/r8a779f0-ether-serdes.c
-@@ -10,11 +10,12 @@
- #include <linux/kernel.h>
- #include <linux/of.h>
- #include <linux/phy.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/reset.h>
- 
-+#include "../phy-provider.h"
-+
- #define R8A779F0_ETH_SERDES_NUM			3
- #define R8A779F0_ETH_SERDES_OFFSET		0x0400
- #define R8A779F0_ETH_SERDES_BANK_SELECT		0x03fc
-diff --git a/drivers/phy/rockchip/phy-rockchip-dp.c b/drivers/phy/rockchip/phy-rockchip-dp.c
-index 592aa956eead..63e972969379 100644
---- a/drivers/phy/rockchip/phy-rockchip-dp.c
-+++ b/drivers/phy/rockchip/phy-rockchip-dp.c
-@@ -10,10 +10,11 @@
- #include <linux/mfd/syscon.h>
- #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
- 
-+#include "../phy-provider.h"
-+
- #define GRF_SOC_CON12                           0x0274
- 
- #define GRF_EDP_REF_CLK_SEL_INTER_HIWORD_MASK   BIT(20)
-diff --git a/drivers/phy/rockchip/phy-rockchip-dphy-rx0.c b/drivers/phy/rockchip/phy-rockchip-dphy-rx0.c
-index e6a768bbb9b3..de7e00580e20 100644
---- a/drivers/phy/rockchip/phy-rockchip-dphy-rx0.c
-+++ b/drivers/phy/rockchip/phy-rockchip-dphy-rx0.c
-@@ -21,11 +21,12 @@
- #include <linux/mfd/syscon.h>
- #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/phy/phy.h>
- #include <linux/phy/phy-mipi-dphy.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
- 
-+#include "../phy-provider.h"
-+
- #define RK3399_GRF_SOC_CON9		0x6224
- #define RK3399_GRF_SOC_CON21		0x6254
- #define RK3399_GRF_SOC_CON22		0x6258
-diff --git a/drivers/phy/rockchip/phy-rockchip-emmc.c b/drivers/phy/rockchip/phy-rockchip-emmc.c
-index 5187983c58e5..fd292f063f48 100644
---- a/drivers/phy/rockchip/phy-rockchip-emmc.c
-+++ b/drivers/phy/rockchip/phy-rockchip-emmc.c
-@@ -13,10 +13,11 @@
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/of_address.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
- 
-+#include "../phy-provider.h"
-+
- /*
-  * The higher 16-bit of this register is used for write protection
-  * only if BIT(x + 16) set to 1 the BIT(x) can be written.
-diff --git a/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c b/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c
-index c79fb53d8ee5..3b5d86b07564 100644
---- a/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c
-+++ b/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c
-@@ -13,13 +13,14 @@
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/of_platform.h>
--#include <linux/phy/phy.h>
- #include <linux/phy/phy-mipi-dphy.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/regmap.h>
- #include <linux/reset.h>
- 
-+#include "../phy-provider.h"
-+
- /* GRF */
- #define RK1808_GRF_PD_VI_CON_OFFSET	0x0430
- 
-diff --git a/drivers/phy/rockchip/phy-rockchip-inno-dsidphy.c b/drivers/phy/rockchip/phy-rockchip-inno-dsidphy.c
-index 30d5e5ddff4a..5613b34958fe 100644
---- a/drivers/phy/rockchip/phy-rockchip-inno-dsidphy.c
-+++ b/drivers/phy/rockchip/phy-rockchip-inno-dsidphy.c
-@@ -15,13 +15,13 @@
- #include <linux/mfd/syscon.h>
- #include <linux/module.h>
- #include <linux/of.h>
-+#include <linux/phy/phy-mipi-dphy.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/reset.h>
- #include <linux/time64.h>
- 
--#include <linux/phy/phy.h>
--#include <linux/phy/phy-mipi-dphy.h>
-+#include "../phy-provider.h"
- 
- #define UPDATE(x, h, l)	(((x) << (l)) & GENMASK((h), (l)))
- 
-diff --git a/drivers/phy/rockchip/phy-rockchip-inno-hdmi.c b/drivers/phy/rockchip/phy-rockchip-inno-hdmi.c
-index 1483907413fa..82b5e7434f83 100644
---- a/drivers/phy/rockchip/phy-rockchip-inno-hdmi.c
-+++ b/drivers/phy/rockchip/phy-rockchip-inno-hdmi.c
-@@ -20,6 +20,8 @@
- #include <linux/phy/phy.h>
- #include <linux/slab.h>
- 
-+#include "../phy-provider.h"
-+
- #define UPDATE(x, h, l)		(((x) << (l)) & GENMASK((h), (l)))
- 
- /* REG: 0x00 */
-diff --git a/drivers/phy/rockchip/phy-rockchip-inno-usb2.c b/drivers/phy/rockchip/phy-rockchip-inno-usb2.c
-index 8f4c08e599aa..f88e09f61994 100644
---- a/drivers/phy/rockchip/phy-rockchip-inno-usb2.c
-+++ b/drivers/phy/rockchip/phy-rockchip-inno-usb2.c
-@@ -18,7 +18,6 @@
- #include <linux/mutex.h>
- #include <linux/of.h>
- #include <linux/of_irq.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/power_supply.h>
- #include <linux/regmap.h>
-@@ -27,6 +26,8 @@
- #include <linux/usb/of.h>
- #include <linux/usb/otg.h>
- 
-+#include "../phy-provider.h"
-+
- #define BIT_WRITEABLE_SHIFT	16
- #define SCHEDULE_DELAY		(60 * HZ)
- #define OTG_SCHEDULE_DELAY	(2 * HZ)
-diff --git a/drivers/phy/rockchip/phy-rockchip-naneng-combphy.c b/drivers/phy/rockchip/phy-rockchip-naneng-combphy.c
-index b60d6bf3f33c..2deb2666acb1 100644
---- a/drivers/phy/rockchip/phy-rockchip-naneng-combphy.c
-+++ b/drivers/phy/rockchip/phy-rockchip-naneng-combphy.c
-@@ -9,12 +9,13 @@
- #include <linux/clk.h>
- #include <linux/mfd/syscon.h>
- #include <linux/of.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
- #include <linux/reset.h>
- #include <linux/units.h>
- 
-+#include "../phy-provider.h"
-+
- #define BIT_WRITEABLE_SHIFT		16
- #define REF_CLOCK_24MHz			(24 * HZ_PER_MHZ)
- #define REF_CLOCK_25MHz			(25 * HZ_PER_MHZ)
-diff --git a/drivers/phy/rockchip/phy-rockchip-pcie.c b/drivers/phy/rockchip/phy-rockchip-pcie.c
-index 126306c01454..604ff00653b0 100644
---- a/drivers/phy/rockchip/phy-rockchip-pcie.c
-+++ b/drivers/phy/rockchip/phy-rockchip-pcie.c
-@@ -13,12 +13,12 @@
- #include <linux/mfd/syscon.h>
- #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/property.h>
- #include <linux/regmap.h>
- #include <linux/reset.h>
- 
-+#include "../phy-provider.h"
- 
- #define PHY_MAX_LANE_NUM      4
- #define PHY_CFG_DATA_MASK     GENMASK(10, 7)
-diff --git a/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c b/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
-index 0f69060aa5d5..78a0446b81df 100644
---- a/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
-+++ b/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
-@@ -15,12 +15,13 @@
- #include <linux/module.h>
- #include <linux/mod_devicetable.h>
- #include <linux/of.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/regmap.h>
- #include <linux/reset.h>
- 
-+#include "../phy-provider.h"
-+
- #define BIAS_CON0		0x0000
- #define I_RES_CNTL_MASK		GENMASK(6, 4)
- #define I_RES_CNTL(x)		FIELD_PREP(I_RES_CNTL_MASK, x)
-diff --git a/drivers/phy/rockchip/phy-rockchip-samsung-hdptx.c b/drivers/phy/rockchip/phy-rockchip-samsung-hdptx.c
-index 2d973bc37f07..01801a4dc436 100644
---- a/drivers/phy/rockchip/phy-rockchip-samsung-hdptx.c
-+++ b/drivers/phy/rockchip/phy-rockchip-samsung-hdptx.c
-@@ -21,6 +21,8 @@
- #include <linux/regmap.h>
- #include <linux/reset.h>
- 
-+#include "../phy-provider.h"
-+
- #define GRF_HDPTX_CON0			0x00
- #define LC_REF_CLK_SEL			BIT(11)
- #define HDPTX_I_PLL_EN			BIT(7)
-diff --git a/drivers/phy/rockchip/phy-rockchip-snps-pcie3.c b/drivers/phy/rockchip/phy-rockchip-snps-pcie3.c
-index 4e8ffd173096..029566330aa0 100644
---- a/drivers/phy/rockchip/phy-rockchip-snps-pcie3.c
-+++ b/drivers/phy/rockchip/phy-rockchip-snps-pcie3.c
-@@ -14,11 +14,12 @@
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/phy/pcie.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
- #include <linux/reset.h>
- 
-+#include "../phy-provider.h"
-+
- /* Register for RK3568 */
- #define GRF_PCIE30PHY_CON1			0x4
- #define GRF_PCIE30PHY_CON6			0x18
-diff --git a/drivers/phy/rockchip/phy-rockchip-typec.c b/drivers/phy/rockchip/phy-rockchip-typec.c
-index 0a318ccf1bbf..4a9756ca4f68 100644
---- a/drivers/phy/rockchip/phy-rockchip-typec.c
-+++ b/drivers/phy/rockchip/phy-rockchip-typec.c
-@@ -43,6 +43,7 @@
- #include <linux/io.h>
- #include <linux/iopoll.h>
- #include <linux/kernel.h>
-+#include <linux/mfd/syscon.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
- #include <linux/of.h>
-@@ -53,8 +54,7 @@
- #include <linux/regmap.h>
- #include <linux/reset.h>
- 
--#include <linux/mfd/syscon.h>
--#include <linux/phy/phy.h>
-+#include "../phy-provider.h"
- 
- #define CMN_SSM_BANDGAP			(0x21 << 2)
- #define CMN_SSM_BIAS			(0x22 << 2)
-diff --git a/drivers/phy/rockchip/phy-rockchip-usb.c b/drivers/phy/rockchip/phy-rockchip-usb.c
-index cef96739cf3f..0652f821332b 100644
---- a/drivers/phy/rockchip/phy-rockchip-usb.c
-+++ b/drivers/phy/rockchip/phy-rockchip-usb.c
-@@ -14,7 +14,6 @@
- #include <linux/module.h>
- #include <linux/mutex.h>
- #include <linux/of.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/property.h>
- #include <linux/regulator/consumer.h>
-@@ -23,6 +22,8 @@
- #include <linux/mfd/syscon.h>
- #include <linux/delay.h>
- 
-+#include "../phy-provider.h"
-+
- static int enable_usb_uart;
- 
- #define UOC_CON0					0x00
-diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-index fba35510d88c..cf2abf29512f 100644
---- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
-+++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-@@ -25,6 +25,8 @@
- #include <linux/usb/typec_dp.h>
- #include <linux/usb/typec_mux.h>
- 
-+#include "../phy-provider.h"
-+
- /* USBDP PHY Register Definitions */
- #define UDPHY_PCS				0x4000
- #define UDPHY_PMA				0x8000
-diff --git a/drivers/phy/samsung/phy-exynos-dp-video.c b/drivers/phy/samsung/phy-exynos-dp-video.c
-index a636dee07585..00d0ed82a620 100644
---- a/drivers/phy/samsung/phy-exynos-dp-video.c
-+++ b/drivers/phy/samsung/phy-exynos-dp-video.c
-@@ -12,11 +12,12 @@
- #include <linux/module.h>
- #include <linux/mfd/syscon.h>
- #include <linux/of.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
- #include <linux/soc/samsung/exynos-regs-pmu.h>
- 
-+#include "../phy-provider.h"
-+
- struct exynos_dp_video_phy_drvdata {
- 	u32 phy_ctrl_offset;
+There is no benefit for radeon of the mentioned follow up quest as it
+doesn't use pointers in .driver_data. Other drivers benefit from
+
+	-	{ PCI_VDEVICE(TTI, 0x3220), .driver_data = (kernel_ulong_t)&hptiop_itl_ops },
+	+	{ PCI_VDEVICE(TTI, 0x3220), .driver_data_ptr = &hptiop_itl_ops },
+
+which gets rid of a bunch of casts and so brings a little bit more type
+safety. This patch is a preparation for that.
+
+I assume a single patch for all of drivers/video/fbdev is fine. If not I
+can split per driver.
+
+ drivers/video/fbdev/arkfb.c                  |   4 +-
+ drivers/video/fbdev/aty/aty128fb.c           | 143 +++++++------------
+ drivers/video/fbdev/aty/radeon_base.c        |   2 +-
+ drivers/video/fbdev/carminefb.c              |   5 +-
+ drivers/video/fbdev/cirrusfb.c               |   2 +-
+ drivers/video/fbdev/cyber2000fb.c            |  24 ++--
+ drivers/video/fbdev/geode/gx1fb_core.c       |  10 +-
+ drivers/video/fbdev/kyro/fbdev.c             |   5 +-
+ drivers/video/fbdev/matrox/matroxfb_base.c   |  38 ++---
+ drivers/video/fbdev/neofb.c                  |  29 ++--
+ drivers/video/fbdev/nvidia/nvidia.c          |   9 +-
+ drivers/video/fbdev/pm2fb.c                  |  11 +-
+ drivers/video/fbdev/pm3fb.c                  |   5 +-
+ drivers/video/fbdev/pvr2fb.c                 |   5 +-
+ drivers/video/fbdev/riva/fbdev.c             | 128 ++++++-----------
+ drivers/video/fbdev/s3fb.c                   |  32 ++---
+ drivers/video/fbdev/savage/savagefb_driver.c | 140 +++++++++---------
+ drivers/video/fbdev/sis/sis_main.h           |  26 ++--
+ drivers/video/fbdev/tdfxfb.c                 |  21 +--
+ drivers/video/fbdev/tridentfb.c              |  44 +++---
+ drivers/video/fbdev/vt8623fb.c               |   4 +-
+ 21 files changed, 292 insertions(+), 395 deletions(-)
+
+diff --git a/drivers/video/fbdev/arkfb.c b/drivers/video/fbdev/arkfb.c
+index 866c1165704e..195dbf4a5142 100644
+--- a/drivers/video/fbdev/arkfb.c
++++ b/drivers/video/fbdev/arkfb.c
+@@ -1167,8 +1167,8 @@ static const struct dev_pm_ops ark_pci_pm_ops = {
+ /* List of boards that we are trying to support */
+ 
+ static const struct pci_device_id ark_devices[] = {
+-	{PCI_DEVICE(0xEDD8, 0xA099)},
+-	{0, 0, 0, 0, 0, 0, 0}
++	{ PCI_DEVICE(0xEDD8, 0xA099) },
++	{ }
  };
-diff --git a/drivers/phy/samsung/phy-exynos-mipi-video.c b/drivers/phy/samsung/phy-exynos-mipi-video.c
-index be925508ed97..ce8a258a104e 100644
---- a/drivers/phy/samsung/phy-exynos-mipi-video.c
-+++ b/drivers/phy/samsung/phy-exynos-mipi-video.c
-@@ -11,13 +11,14 @@
- #include <linux/kernel.h>
- #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
- #include <linux/spinlock.h>
- #include <linux/soc/samsung/exynos-regs-pmu.h>
- #include <linux/mfd/syscon.h>
  
-+#include "../phy-provider.h"
-+
- enum exynos_mipi_phy_id {
- 	EXYNOS_MIPI_PHY_ID_NONE = -1,
- 	EXYNOS_MIPI_PHY_ID_CSIS0,
-diff --git a/drivers/phy/samsung/phy-exynos-pcie.c b/drivers/phy/samsung/phy-exynos-pcie.c
-index 53c9230c2907..9dd3a4a90fa7 100644
---- a/drivers/phy/samsung/phy-exynos-pcie.c
-+++ b/drivers/phy/samsung/phy-exynos-pcie.c
-@@ -12,9 +12,10 @@
- #include <linux/mfd/syscon.h>
- #include <linux/of_platform.h>
- #include <linux/platform_device.h>
--#include <linux/phy/phy.h>
- #include <linux/regmap.h>
  
-+#include "../phy-provider.h"
-+
- #define PCIE_PHY_OFFSET(x)		((x) * 0x4)
+diff --git a/drivers/video/fbdev/aty/aty128fb.c b/drivers/video/fbdev/aty/aty128fb.c
+index f55b4c7609a8..bcb10e66221c 100644
+--- a/drivers/video/fbdev/aty/aty128fb.c
++++ b/drivers/video/fbdev/aty/aty128fb.c
+@@ -180,101 +180,54 @@ static const struct dev_pm_ops aty128_pci_pm_ops = {
  
- /* Sysreg FSYS register offsets and bits for Exynos5433 */
-diff --git a/drivers/phy/samsung/phy-exynos4210-usb2.c b/drivers/phy/samsung/phy-exynos4210-usb2.c
-index 3898a7f58217..beb2f96bebbf 100644
---- a/drivers/phy/samsung/phy-exynos4210-usb2.c
-+++ b/drivers/phy/samsung/phy-exynos4210-usb2.c
-@@ -8,8 +8,9 @@
+ /* supported Rage128 chipsets */
+ static const struct pci_device_id aty128_pci_tbl[] = {
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_LE,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_M3_pci },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_LF,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_M3 },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_MF,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_M4 },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_ML,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_M4 },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_PA,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128_pro },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_PB,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128_pro },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_PC,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128_pro },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_PD,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128_pro_pci },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_PE,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128_pro },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_PF,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128_pro },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_PG,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128_pro },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_PH,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128_pro },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_PI,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128_pro },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_PJ,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128_pro },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_PK,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128_pro },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_PL,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128_pro },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_PM,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128_pro },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_PN,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128_pro },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_PO,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128_pro },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_PP,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128_pro_pci },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_PQ,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128_pro },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_PR,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128_pro_pci },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_PS,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128_pro },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_PT,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128_pro },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_PU,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128_pro },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_PV,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128_pro },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_PW,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128_pro },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_PX,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128_pro },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_RE,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128_pci },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_RF,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128 },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_RG,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128 },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_RK,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128_pci },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_RL,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128 },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_SE,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128 },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_SF,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128_pci },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_SG,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128 },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_SH,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128 },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_SK,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128 },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_SL,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128 },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_SM,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128 },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_SN,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128 },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_TF,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128_ultra },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_TL,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128_ultra },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_TR,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128_ultra },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_TS,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128_ultra },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_TT,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128_ultra },
+-	{ PCI_VENDOR_ID_ATI, PCI_DEVICE_ID_ATI_RAGE128_TU,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, rage_128_ultra },
+-	{ 0, }
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_LE), .driver_data = rage_M3_pci },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_LF), .driver_data = rage_M3 },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_MF), .driver_data = rage_M4 },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_ML), .driver_data = rage_M4 },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_PA), .driver_data = rage_128_pro },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_PB), .driver_data = rage_128_pro },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_PC), .driver_data = rage_128_pro },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_PD), .driver_data = rage_128_pro_pci },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_PE), .driver_data = rage_128_pro },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_PF), .driver_data = rage_128_pro },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_PG), .driver_data = rage_128_pro },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_PH), .driver_data = rage_128_pro },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_PI), .driver_data = rage_128_pro },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_PJ), .driver_data = rage_128_pro },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_PK), .driver_data = rage_128_pro },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_PL), .driver_data = rage_128_pro },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_PM), .driver_data = rage_128_pro },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_PN), .driver_data = rage_128_pro },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_PO), .driver_data = rage_128_pro },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_PP), .driver_data = rage_128_pro_pci },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_PQ), .driver_data = rage_128_pro },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_PR), .driver_data = rage_128_pro_pci },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_PS), .driver_data = rage_128_pro },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_PT), .driver_data = rage_128_pro },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_PU), .driver_data = rage_128_pro },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_PV), .driver_data = rage_128_pro },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_PW), .driver_data = rage_128_pro },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_PX), .driver_data = rage_128_pro },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_RE), .driver_data = rage_128_pci },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_RF), .driver_data = rage_128 },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_RG), .driver_data = rage_128 },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_RK), .driver_data = rage_128_pci },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_RL), .driver_data = rage_128 },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_SE), .driver_data = rage_128 },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_SF), .driver_data = rage_128_pci },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_SG), .driver_data = rage_128 },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_SH), .driver_data = rage_128 },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_SK), .driver_data = rage_128 },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_SL), .driver_data = rage_128 },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_SM), .driver_data = rage_128 },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_SN), .driver_data = rage_128 },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_TF), .driver_data = rage_128_ultra },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_TL), .driver_data = rage_128_ultra },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_TR), .driver_data = rage_128_ultra },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_TS), .driver_data = rage_128_ultra },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_TT), .driver_data = rage_128_ultra },
++	{ PCI_VDEVICE(ATI, PCI_DEVICE_ID_ATI_RAGE128_TU), .driver_data = rage_128_ultra },
++	{ }
+ };
  
- #include <linux/delay.h>
- #include <linux/io.h>
--#include <linux/phy/phy.h>
- #include <linux/regmap.h>
-+
-+#include "../phy-provider.h"
- #include "phy-samsung-usb2.h"
+ MODULE_DEVICE_TABLE(pci, aty128_pci_tbl);
+diff --git a/drivers/video/fbdev/aty/radeon_base.c b/drivers/video/fbdev/aty/radeon_base.c
+index cb006484831b..adb03489bedf 100644
+--- a/drivers/video/fbdev/aty/radeon_base.c
++++ b/drivers/video/fbdev/aty/radeon_base.c
+@@ -95,7 +95,7 @@
+ #define MIN_MAPPED_VRAM	(1024*768*1)
  
- /* Exynos USB PHY registers */
-diff --git a/drivers/phy/samsung/phy-exynos4x12-usb2.c b/drivers/phy/samsung/phy-exynos4x12-usb2.c
-index b528a5d037fe..a402f80d0aab 100644
---- a/drivers/phy/samsung/phy-exynos4x12-usb2.c
-+++ b/drivers/phy/samsung/phy-exynos4x12-usb2.c
-@@ -8,8 +8,9 @@
+ #define CHIP_DEF(id, family, flags)					\
+-	{ PCI_VENDOR_ID_ATI, id, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (flags) | (CHIP_FAMILY_##family) }
++	{ PCI_DEVICE(PCI_VENDOR_ID_ATI, id), .driver_data = (flags) | (CHIP_FAMILY_##family) }
  
- #include <linux/delay.h>
- #include <linux/io.h>
--#include <linux/phy/phy.h>
- #include <linux/regmap.h>
-+
-+#include "../phy-provider.h"
- #include "phy-samsung-usb2.h"
+ static const struct pci_device_id radeonfb_pci_table[] = {
+         /* Radeon Xpress 200m */
+diff --git a/drivers/video/fbdev/carminefb.c b/drivers/video/fbdev/carminefb.c
+index bd4bff6a2484..5f13f1cc79d3 100644
+--- a/drivers/video/fbdev/carminefb.c
++++ b/drivers/video/fbdev/carminefb.c
+@@ -753,9 +753,8 @@ static void carminefb_remove(struct pci_dev *dev)
  
- /* Exynos USB PHY registers */
-diff --git a/drivers/phy/samsung/phy-exynos5-usbdrd.c b/drivers/phy/samsung/phy-exynos5-usbdrd.c
-index 5a181cb4597e..cb476d007e3f 100644
---- a/drivers/phy/samsung/phy-exynos5-usbdrd.c
-+++ b/drivers/phy/samsung/phy-exynos5-usbdrd.c
-@@ -26,6 +26,8 @@
- #include <linux/usb/typec.h>
- #include <linux/usb/typec_mux.h>
+ #define PCI_VENDOR_ID_FUJITU_LIMITED 0x10cf
+ static struct pci_device_id carmine_devices[] = {
+-{
+-	PCI_DEVICE(PCI_VENDOR_ID_FUJITU_LIMITED, 0x202b)},
+-	{0, 0, 0, 0, 0, 0, 0}
++	{ PCI_DEVICE(PCI_VENDOR_ID_FUJITU_LIMITED, 0x202b) },
++	{ }
+ };
  
-+#include "../phy-provider.h"
-+
- /* Exynos USB PHY registers */
- #define EXYNOS5_FSEL_9MHZ6		0x0
- #define EXYNOS5_FSEL_10MHZ		0x1
-diff --git a/drivers/phy/samsung/phy-exynos5250-sata.c b/drivers/phy/samsung/phy-exynos5250-sata.c
-index 595adba5fb8f..0f85ae0a5901 100644
---- a/drivers/phy/samsung/phy-exynos5250-sata.c
-+++ b/drivers/phy/samsung/phy-exynos5250-sata.c
-@@ -15,12 +15,13 @@
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/of_address.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
- #include <linux/spinlock.h>
- #include <linux/mfd/syscon.h>
+ MODULE_DEVICE_TABLE(pci, carmine_devices);
+diff --git a/drivers/video/fbdev/cirrusfb.c b/drivers/video/fbdev/cirrusfb.c
+index e29217e476ea..2693b5cc053f 100644
+--- a/drivers/video/fbdev/cirrusfb.c
++++ b/drivers/video/fbdev/cirrusfb.c
+@@ -253,7 +253,7 @@ static const struct cirrusfb_board_info_rec {
  
-+#include "../phy-provider.h"
-+
- #define SATAPHY_CONTROL_OFFSET		0x0724
- #define EXYNOS5_SATAPHY_PMU_ENABLE	BIT(0)
- #define EXYNOS5_SATA_RESET		0x4
-diff --git a/drivers/phy/samsung/phy-exynos5250-usb2.c b/drivers/phy/samsung/phy-exynos5250-usb2.c
-index 21b06072f866..04815633f290 100644
---- a/drivers/phy/samsung/phy-exynos5250-usb2.c
-+++ b/drivers/phy/samsung/phy-exynos5250-usb2.c
-@@ -8,8 +8,9 @@
+ #ifdef CONFIG_PCI
+ #define CHIP(id, btype) \
+-	{ PCI_VENDOR_ID_CIRRUS, id, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (btype) }
++	{ PCI_VDEVICE(CIRRUS, id), .driver_data = (btype) }
  
- #include <linux/delay.h>
- #include <linux/io.h>
--#include <linux/phy/phy.h>
- #include <linux/regmap.h>
-+
-+#include "../phy-provider.h"
- #include "phy-samsung-usb2.h"
+ static struct pci_device_id cirrusfb_pci_table[] = {
+ 	CHIP(PCI_DEVICE_ID_CIRRUS_5436, BT_ALPINE),
+diff --git a/drivers/video/fbdev/cyber2000fb.c b/drivers/video/fbdev/cyber2000fb.c
+index 2d12f8e96c7e..3daba94c6c13 100644
+--- a/drivers/video/fbdev/cyber2000fb.c
++++ b/drivers/video/fbdev/cyber2000fb.c
+@@ -1796,16 +1796,22 @@ static int __maybe_unused cyberpro_pci_resume(struct device *dev)
  
- /* Exynos USB PHY registers */
-diff --git a/drivers/phy/samsung/phy-s5pv210-usb2.c b/drivers/phy/samsung/phy-s5pv210-usb2.c
-index 32be62e49804..4d72559d29a9 100644
---- a/drivers/phy/samsung/phy-s5pv210-usb2.c
-+++ b/drivers/phy/samsung/phy-s5pv210-usb2.c
-@@ -8,7 +8,8 @@
- 
- #include <linux/delay.h>
- #include <linux/io.h>
--#include <linux/phy/phy.h>
-+
-+#include "../phy-provider.h"
- #include "phy-samsung-usb2.h"
- 
- /* Exynos USB PHY registers */
-diff --git a/drivers/phy/samsung/phy-samsung-ufs.c b/drivers/phy/samsung/phy-samsung-ufs.c
-index ee665f26c236..b55a726cd44e 100644
---- a/drivers/phy/samsung/phy-samsung-ufs.c
-+++ b/drivers/phy/samsung/phy-samsung-ufs.c
-@@ -15,10 +15,10 @@
- #include <linux/iopoll.h>
- #include <linux/mfd/syscon.h>
- #include <linux/module.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
- 
-+#include "../phy-provider.h"
- #include "phy-samsung-ufs.h"
- 
- #define for_each_phy_lane(phy, i) \
-diff --git a/drivers/phy/samsung/phy-samsung-ufs.h b/drivers/phy/samsung/phy-samsung-ufs.h
-index f2c2e744e5ba..90f4d4cef631 100644
---- a/drivers/phy/samsung/phy-samsung-ufs.h
-+++ b/drivers/phy/samsung/phy-samsung-ufs.h
-@@ -10,9 +10,10 @@
- #ifndef _PHY_SAMSUNG_UFS_
- #define _PHY_SAMSUNG_UFS_
- 
--#include <linux/phy/phy.h>
- #include <linux/regmap.h>
- 
-+#include "../phy-provider.h"
-+
- #define PHY_COMN_BLK	1
- #define PHY_TRSV_BLK	2
- #define END_UFS_PHY_CFG { 0 }
-diff --git a/drivers/phy/samsung/phy-samsung-usb2.c b/drivers/phy/samsung/phy-samsung-usb2.c
-index d2749b67cf8f..362dd4ae3cab 100644
---- a/drivers/phy/samsung/phy-samsung-usb2.c
-+++ b/drivers/phy/samsung/phy-samsung-usb2.c
-@@ -13,6 +13,8 @@
- #include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/spinlock.h>
-+
-+#include "../phy-provider.h"
- #include "phy-samsung-usb2.h"
- 
- static int samsung_usb2_phy_power_on(struct phy *phy)
-diff --git a/drivers/phy/samsung/phy-samsung-usb2.h b/drivers/phy/samsung/phy-samsung-usb2.h
-index ebaf43bfc5a2..515c7938fccd 100644
---- a/drivers/phy/samsung/phy-samsung-usb2.h
-+++ b/drivers/phy/samsung/phy-samsung-usb2.h
-@@ -10,12 +10,13 @@
- #define _PHY_EXYNOS_USB2_H
- 
- #include <linux/clk.h>
--#include <linux/phy/phy.h>
- #include <linux/device.h>
- #include <linux/regmap.h>
- #include <linux/spinlock.h>
- #include <linux/regulator/consumer.h>
- 
-+#include "../phy-provider.h"
-+
- #define KHZ 1000
- #define MHZ (KHZ * KHZ)
- 
-diff --git a/drivers/phy/socionext/phy-uniphier-ahci.c b/drivers/phy/socionext/phy-uniphier-ahci.c
-index 28cf3efe0695..6b3ce56c7f0c 100644
---- a/drivers/phy/socionext/phy-uniphier-ahci.c
-+++ b/drivers/phy/socionext/phy-uniphier-ahci.c
-@@ -12,10 +12,11 @@
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/of_platform.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/reset.h>
- 
-+#include "../phy-provider.h"
-+
- struct uniphier_ahciphy_priv {
- 	struct device *dev;
- 	void __iomem  *base;
-diff --git a/drivers/phy/socionext/phy-uniphier-pcie.c b/drivers/phy/socionext/phy-uniphier-pcie.c
-index c19173492b79..00f6cdf846f1 100644
---- a/drivers/phy/socionext/phy-uniphier-pcie.c
-+++ b/drivers/phy/socionext/phy-uniphier-pcie.c
-@@ -12,12 +12,13 @@
- #include <linux/mfd/syscon.h>
- #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
- #include <linux/reset.h>
- #include <linux/resource.h>
- 
-+#include "../phy-provider.h"
-+
- /* PHY */
- #define PCL_PHY_CLKCTRL		0x0000
- #define PORT_SEL_MASK		GENMASK(11, 9)
-diff --git a/drivers/phy/socionext/phy-uniphier-usb2.c b/drivers/phy/socionext/phy-uniphier-usb2.c
-index c49d432e526b..6ee566478be0 100644
---- a/drivers/phy/socionext/phy-uniphier-usb2.c
-+++ b/drivers/phy/socionext/phy-uniphier-usb2.c
-@@ -10,11 +10,12 @@
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/of_platform.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
- #include <linux/regulator/consumer.h>
- 
-+#include "../phy-provider.h"
-+
- #define SG_USBPHY1CTRL		0x500
- #define SG_USBPHY1CTRL2		0x504
- #define SG_USBPHY2CTRL		0x508
-diff --git a/drivers/phy/socionext/phy-uniphier-usb3hs.c b/drivers/phy/socionext/phy-uniphier-usb3hs.c
-index 8c8673df0084..a08db863223f 100644
---- a/drivers/phy/socionext/phy-uniphier-usb3hs.c
-+++ b/drivers/phy/socionext/phy-uniphier-usb3hs.c
-@@ -17,12 +17,13 @@
- #include <linux/nvmem-consumer.h>
- #include <linux/of.h>
- #include <linux/of_platform.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/regulator/consumer.h>
- #include <linux/reset.h>
- #include <linux/slab.h>
- 
-+#include "../phy-provider.h"
-+
- #define HSPHY_CFG0		0x0
- #define HSPHY_CFG0_HS_I_MASK	GENMASK(31, 28)
- #define HSPHY_CFG0_HSDISC_MASK	GENMASK(27, 26)
-diff --git a/drivers/phy/socionext/phy-uniphier-usb3ss.c b/drivers/phy/socionext/phy-uniphier-usb3ss.c
-index f402ed8732fd..8829305e9d4c 100644
---- a/drivers/phy/socionext/phy-uniphier-usb3ss.c
-+++ b/drivers/phy/socionext/phy-uniphier-usb3ss.c
-@@ -16,11 +16,12 @@
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/of_platform.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/regulator/consumer.h>
- #include <linux/reset.h>
- 
-+#include "../phy-provider.h"
-+
- #define SSPHY_TESTI		0x0
- #define TESTI_DAT_MASK		GENMASK(13, 6)
- #define TESTI_ADR_MASK		GENMASK(5, 1)
-diff --git a/drivers/phy/sophgo/phy-cv1800-usb2.c b/drivers/phy/sophgo/phy-cv1800-usb2.c
-index 6fe846534e9c..1fd7bba498ad 100644
---- a/drivers/phy/sophgo/phy-cv1800-usb2.c
-+++ b/drivers/phy/sophgo/phy-cv1800-usb2.c
-@@ -12,10 +12,11 @@
- #include <linux/of.h>
- #include <linux/of_address.h>
- #include <linux/platform_device.h>
--#include <linux/phy/phy.h>
- #include <linux/regmap.h>
- #include <linux/spinlock.h>
- 
-+#include "../phy-provider.h"
-+
- #define REG_USB_PHY_CTRL		0x048
- 
- #define PHY_VBUS_POWER_EN		BIT(0)
-diff --git a/drivers/phy/spacemit/phy-k1-pcie.c b/drivers/phy/spacemit/phy-k1-pcie.c
-index 75477bea7f70..6f8f2f39f7f8 100644
---- a/drivers/phy/spacemit/phy-k1-pcie.c
-+++ b/drivers/phy/spacemit/phy-k1-pcie.c
-@@ -5,6 +5,7 @@
-  * Copyright (C) 2025 by RISCstar Solutions Corporation.  All rights reserved.
+ static struct pci_device_id cyberpro_pci_table[] = {
+ /*	Not yet
+- *	{ PCI_VENDOR_ID_INTERG, PCI_DEVICE_ID_INTERG_1682,
+- *		PCI_ANY_ID, PCI_ANY_ID, 0, 0, ID_IGA_1682 },
++ *	{
++ *		PCI_VDEVICE(INTERG, PCI_DEVICE_ID_INTERG_1682),
++ *		.driver_data = ID_IGA_1682,
++ *	},
   */
+-	{ PCI_VENDOR_ID_INTERG, PCI_DEVICE_ID_INTERG_2000,
+-		PCI_ANY_ID, PCI_ANY_ID, 0, 0, ID_CYBERPRO_2000 },
+-	{ PCI_VENDOR_ID_INTERG, PCI_DEVICE_ID_INTERG_2010,
+-		PCI_ANY_ID, PCI_ANY_ID, 0, 0, ID_CYBERPRO_2010 },
+-	{ PCI_VENDOR_ID_INTERG, PCI_DEVICE_ID_INTERG_5000,
+-		PCI_ANY_ID, PCI_ANY_ID, 0, 0, ID_CYBERPRO_5000 },
+-	{ 0, }
++	{
++		PCI_VDEVICE(INTERG, PCI_DEVICE_ID_INTERG_2000),
++		.driver_data = ID_CYBERPRO_2000,
++	}, {
++		PCI_VDEVICE(INTERG, PCI_DEVICE_ID_INTERG_2010),
++		.driver_data = ID_CYBERPRO_2010,
++	}, {
++		PCI_VDEVICE(INTERG, PCI_DEVICE_ID_INTERG_5000),
++		.driver_data = ID_CYBERPRO_5000,
++	},
++	{ }
+ };
  
-+#include <dt-bindings/phy/phy.h>
- #include <linux/bitfield.h>
- #include <linux/clk.h>
- #include <linux/clk-provider.h>
-@@ -12,12 +13,11 @@
- #include <linux/kernel.h>
- #include <linux/mfd/syscon.h>
- #include <linux/module.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
- #include <linux/reset.h>
+ MODULE_DEVICE_TABLE(pci, cyberpro_pci_table);
+diff --git a/drivers/video/fbdev/geode/gx1fb_core.c b/drivers/video/fbdev/geode/gx1fb_core.c
+index a1919c1934ac..7cca46891aef 100644
+--- a/drivers/video/fbdev/geode/gx1fb_core.c
++++ b/drivers/video/fbdev/geode/gx1fb_core.c
+@@ -423,10 +423,12 @@ static void __init gx1fb_setup(char *options)
+ #endif
  
--#include <dt-bindings/phy/phy.h>
-+#include "../phy-provider.h"
+ static struct pci_device_id gx1fb_id_table[] = {
+-	{ PCI_VENDOR_ID_CYRIX, PCI_DEVICE_ID_CYRIX_5530_VIDEO,
+-	  PCI_ANY_ID, PCI_ANY_ID, PCI_BASE_CLASS_DISPLAY << 16,
+-	  0xff0000, 0 },
+-	{ 0, }
++	{
++		PCI_DEVICE(PCI_VENDOR_ID_CYRIX, PCI_DEVICE_ID_CYRIX_5530_VIDEO),
++		.class = PCI_BASE_CLASS_DISPLAY << 16,
++		.class_mask = 0xff0000,
++	},
++	{ }
+ };
  
- /*
-  * Three PCIe ports are supported in the SpacemiT K1 SoC, and this driver
-diff --git a/drivers/phy/spacemit/phy-k1-usb2.c b/drivers/phy/spacemit/phy-k1-usb2.c
-index 01af310d6683..c897d80de41a 100644
---- a/drivers/phy/spacemit/phy-k1-usb2.c
-+++ b/drivers/phy/spacemit/phy-k1-usb2.c
-@@ -9,11 +9,12 @@
- #include <linux/bitfield.h>
- #include <linux/clk.h>
- #include <linux/iopoll.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
- #include <linux/usb/of.h>
+ MODULE_DEVICE_TABLE(pci, gx1fb_id_table);
+diff --git a/drivers/video/fbdev/kyro/fbdev.c b/drivers/video/fbdev/kyro/fbdev.c
+index c8b1dfa456a3..d756b3603fa6 100644
+--- a/drivers/video/fbdev/kyro/fbdev.c
++++ b/drivers/video/fbdev/kyro/fbdev.c
+@@ -645,9 +645,8 @@ static int kyrofb_ioctl(struct fb_info *info,
+ }
  
-+#include "../phy-provider.h"
-+
- #define PHY_RST_MODE_CTRL		0x04
- #define  PHY_PLL_RDY			BIT(0)
- #define  PHY_CLK_CDR_EN			BIT(1)
-diff --git a/drivers/phy/st/phy-miphy28lp.c b/drivers/phy/st/phy-miphy28lp.c
-index 43cef89af55e..e9792deb629a 100644
---- a/drivers/phy/st/phy-miphy28lp.c
-+++ b/drivers/phy/st/phy-miphy28lp.c
-@@ -7,6 +7,7 @@
-  * Author: Alexandre Torgue <alexandre.torgue@st.com>
-  */
+ static const struct pci_device_id kyrofb_pci_tbl[] = {
+-	{ PCI_VENDOR_ID_ST, PCI_DEVICE_ID_STG4000,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ 0, }
++	{ PCI_DEVICE(PCI_VENDOR_ID_ST, PCI_DEVICE_ID_STG4000) },
++	{ }
+ };
  
-+#include <dt-bindings/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/io.h>
- #include <linux/iopoll.h>
-@@ -16,13 +17,12 @@
- #include <linux/of_platform.h>
- #include <linux/of_address.h>
- #include <linux/clk.h>
--#include <linux/phy/phy.h>
- #include <linux/delay.h>
- #include <linux/mfd/syscon.h>
- #include <linux/regmap.h>
- #include <linux/reset.h>
+ MODULE_DEVICE_TABLE(pci, kyrofb_pci_tbl);
+diff --git a/drivers/video/fbdev/matrox/matroxfb_base.c b/drivers/video/fbdev/matrox/matroxfb_base.c
+index e1a4bc7c2318..22774eb1b14c 100644
+--- a/drivers/video/fbdev/matrox/matroxfb_base.c
++++ b/drivers/video/fbdev/matrox/matroxfb_base.c
+@@ -1642,7 +1642,7 @@ static int initMatrox2(struct matrox_fb_info *minfo, struct board *b)
+ 	int err;
  
--#include <dt-bindings/phy/phy.h>
-+#include "../phy-provider.h"
+ 	static const struct pci_device_id intel_82437[] = {
+-		{ PCI_DEVICE(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_82437) },
++		{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_82437) },
+ 		{ },
+ 	};
  
- /* MiPHY registers */
- #define MIPHY_CONF_RESET		0x00
-diff --git a/drivers/phy/st/phy-spear1310-miphy.c b/drivers/phy/st/phy-spear1310-miphy.c
-index c661ab63505f..86acc2412c46 100644
---- a/drivers/phy/st/phy-spear1310-miphy.c
-+++ b/drivers/phy/st/phy-spear1310-miphy.c
-@@ -14,10 +14,11 @@
- #include <linux/mfd/syscon.h>
- #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
+@@ -2135,35 +2135,23 @@ static void pci_remove_matrox(struct pci_dev* pdev) {
  
-+#include "../phy-provider.h"
-+
- /* SPEAr1310 Registers */
- #define SPEAR1310_PCIE_SATA_CFG			0x3A4
- 	#define SPEAR1310_PCIE_SATA2_SEL_PCIE		(0 << 31)
-diff --git a/drivers/phy/st/phy-spear1340-miphy.c b/drivers/phy/st/phy-spear1340-miphy.c
-index 85a60d64ebb7..4dbd3158c060 100644
---- a/drivers/phy/st/phy-spear1340-miphy.c
-+++ b/drivers/phy/st/phy-spear1340-miphy.c
-@@ -14,10 +14,11 @@
- #include <linux/mfd/syscon.h>
- #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
+ static const struct pci_device_id matroxfb_devices[] = {
+ #ifdef CONFIG_FB_MATROX_MILLENIUM
+-	{PCI_VENDOR_ID_MATROX,	PCI_DEVICE_ID_MATROX_MIL,
+-		PCI_ANY_ID,	PCI_ANY_ID,	0, 0, 0},
+-	{PCI_VENDOR_ID_MATROX,	PCI_DEVICE_ID_MATROX_MIL_2,
+-		PCI_ANY_ID,	PCI_ANY_ID,	0, 0, 0},
+-	{PCI_VENDOR_ID_MATROX,	PCI_DEVICE_ID_MATROX_MIL_2_AGP,
+-		PCI_ANY_ID,	PCI_ANY_ID,	0, 0, 0},
++	{ PCI_VDEVICE(MATROX, PCI_DEVICE_ID_MATROX_MIL) },
++	{ PCI_VDEVICE(MATROX, PCI_DEVICE_ID_MATROX_MIL_2) },
++	{ PCI_VDEVICE(MATROX, PCI_DEVICE_ID_MATROX_MIL_2_AGP) },
+ #endif
+ #ifdef CONFIG_FB_MATROX_MYSTIQUE
+-	{PCI_VENDOR_ID_MATROX,	PCI_DEVICE_ID_MATROX_MYS,
+-		PCI_ANY_ID,	PCI_ANY_ID,	0, 0, 0},
++	{ PCI_VDEVICE(MATROX, PCI_DEVICE_ID_MATROX_MYS) },
+ #endif
+ #ifdef CONFIG_FB_MATROX_G
+-	{PCI_VENDOR_ID_MATROX,	PCI_DEVICE_ID_MATROX_G100_MM,
+-		PCI_ANY_ID,	PCI_ANY_ID,	0, 0, 0},
+-	{PCI_VENDOR_ID_MATROX,	PCI_DEVICE_ID_MATROX_G100_AGP,
+-		PCI_ANY_ID,	PCI_ANY_ID,	0, 0, 0},
+-	{PCI_VENDOR_ID_MATROX,	PCI_DEVICE_ID_MATROX_G200_PCI,
+-		PCI_ANY_ID,	PCI_ANY_ID,	0, 0, 0},
+-	{PCI_VENDOR_ID_MATROX,	0x0532,
+-		PCI_ANY_ID,	PCI_ANY_ID,	0, 0, 0},
+-	{PCI_VENDOR_ID_MATROX,	PCI_DEVICE_ID_MATROX_G200_AGP,
+-		PCI_ANY_ID,	PCI_ANY_ID,	0, 0, 0},
+-	{PCI_VENDOR_ID_MATROX,	PCI_DEVICE_ID_MATROX_G400,
+-		PCI_ANY_ID,	PCI_ANY_ID,	0, 0, 0},
+-	{PCI_VENDOR_ID_MATROX,	PCI_DEVICE_ID_MATROX_G550,
+-		PCI_ANY_ID,	PCI_ANY_ID,	0, 0, 0},
++	{ PCI_VDEVICE(MATROX, PCI_DEVICE_ID_MATROX_G100_MM) },
++	{ PCI_VDEVICE(MATROX, PCI_DEVICE_ID_MATROX_G100_AGP) },
++	{ PCI_VDEVICE(MATROX, PCI_DEVICE_ID_MATROX_G200_PCI) },
++	{ PCI_VDEVICE(MATROX, 0x0532) },
++	{ PCI_VDEVICE(MATROX, PCI_DEVICE_ID_MATROX_G200_AGP) },
++	{ PCI_VDEVICE(MATROX, PCI_DEVICE_ID_MATROX_G400) },
++	{ PCI_VDEVICE(MATROX, PCI_DEVICE_ID_MATROX_G550) },
+ #endif
+-	{0,			0,
+-		0,		0,		0, 0, 0}
++	{ }
+ };
  
-+#include "../phy-provider.h"
-+
- /* SPEAr1340 Registers */
- /* Power Management Registers */
- #define SPEAR1340_PCM_CFG			0x100
-diff --git a/drivers/phy/st/phy-stih407-usb.c b/drivers/phy/st/phy-stih407-usb.c
-index 7a3e4584895c..497f9aa4139d 100644
---- a/drivers/phy/st/phy-stih407-usb.c
-+++ b/drivers/phy/st/phy-stih407-usb.c
-@@ -16,7 +16,8 @@
- #include <linux/regmap.h>
- #include <linux/reset.h>
- #include <linux/mfd/syscon.h>
--#include <linux/phy/phy.h>
-+
-+#include "../phy-provider.h"
+ MODULE_DEVICE_TABLE(pci, matroxfb_devices);
+diff --git a/drivers/video/fbdev/neofb.c b/drivers/video/fbdev/neofb.c
+index c1cd028b8991..e0b8d4d6ce79 100644
+--- a/drivers/video/fbdev/neofb.c
++++ b/drivers/video/fbdev/neofb.c
+@@ -2126,34 +2126,25 @@ static void neofb_remove(struct pci_dev *dev)
+ }
  
- #define PHYPARAM_REG	0
- #define PHYCTRL_REG	1
-diff --git a/drivers/phy/st/phy-stm32-combophy.c b/drivers/phy/st/phy-stm32-combophy.c
-index 607b4d607eb5..8757b1993e90 100644
---- a/drivers/phy/st/phy-stm32-combophy.c
-+++ b/drivers/phy/st/phy-stm32-combophy.c
-@@ -10,12 +10,13 @@
- #include <linux/clk.h>
- #include <linux/mfd/syscon.h>
- #include <linux/platform_device.h>
--#include <linux/phy/phy.h>
- #include <linux/pm_runtime.h>
- #include <linux/regmap.h>
- #include <linux/reset.h>
- #include <dt-bindings/phy/phy.h>
+ static const struct pci_device_id neofb_devices[] = {
+-	{PCI_VENDOR_ID_NEOMAGIC, PCI_CHIP_NM2070,
+-	 PCI_ANY_ID, PCI_ANY_ID, 0, 0, FB_ACCEL_NEOMAGIC_NM2070},
++	{ PCI_VDEVICE(NEOMAGIC, PCI_CHIP_NM2070), .driver_data = FB_ACCEL_NEOMAGIC_NM2070 },
  
-+#include "../phy-provider.h"
-+
- #define SYSCFG_COMBOPHY_CR1 0x4c00
- #define SYSCFG_COMBOPHY_CR2 0x4c04
- #define SYSCFG_COMBOPHY_CR4 0x4c0c
-diff --git a/drivers/phy/st/phy-stm32-usbphyc.c b/drivers/phy/st/phy-stm32-usbphyc.c
-index b44afbff8616..647fbbe5c734 100644
---- a/drivers/phy/st/phy-stm32-usbphyc.c
-+++ b/drivers/phy/st/phy-stm32-usbphyc.c
-@@ -18,6 +18,8 @@
- #include <linux/reset.h>
- #include <linux/units.h>
+-	{PCI_VENDOR_ID_NEOMAGIC, PCI_CHIP_NM2090,
+-	 PCI_ANY_ID, PCI_ANY_ID, 0, 0, FB_ACCEL_NEOMAGIC_NM2090},
++	{ PCI_VDEVICE(NEOMAGIC, PCI_CHIP_NM2090), .driver_data = FB_ACCEL_NEOMAGIC_NM2090 },
  
-+#include "../phy-provider.h"
-+
- #define STM32_USBPHYC_PLL	0x0
- #define STM32_USBPHYC_MISC	0x8
- #define STM32_USBPHYC_MONITOR(X) (0x108 + ((X) * 0x100))
-diff --git a/drivers/phy/starfive/phy-jh7110-dphy-rx.c b/drivers/phy/starfive/phy-jh7110-dphy-rx.c
-index 0b039e1f71c5..099a1ebf6194 100644
---- a/drivers/phy/starfive/phy-jh7110-dphy-rx.c
-+++ b/drivers/phy/starfive/phy-jh7110-dphy-rx.c
-@@ -13,11 +13,12 @@
- #include <linux/io.h>
- #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/reset.h>
+-	{PCI_VENDOR_ID_NEOMAGIC, PCI_CHIP_NM2093,
+-	 PCI_ANY_ID, PCI_ANY_ID, 0, 0, FB_ACCEL_NEOMAGIC_NM2093},
++	{ PCI_VDEVICE(NEOMAGIC, PCI_CHIP_NM2093), .driver_data = FB_ACCEL_NEOMAGIC_NM2093 },
  
-+#include "../phy-provider.h"
-+
- #define STF_DPHY_APBCFGSAIF_SYSCFG(x)		(x)
+-	{PCI_VENDOR_ID_NEOMAGIC, PCI_CHIP_NM2097,
+-	 PCI_ANY_ID, PCI_ANY_ID, 0, 0, FB_ACCEL_NEOMAGIC_NM2097},
++	{ PCI_VDEVICE(NEOMAGIC, PCI_CHIP_NM2097), .driver_data = FB_ACCEL_NEOMAGIC_NM2097 },
  
- #define STF_DPHY_ENABLE_CLK			BIT(6)
-diff --git a/drivers/phy/starfive/phy-jh7110-dphy-tx.c b/drivers/phy/starfive/phy-jh7110-dphy-tx.c
-index c64d1c91b130..a5faf06b6d14 100644
---- a/drivers/phy/starfive/phy-jh7110-dphy-tx.c
-+++ b/drivers/phy/starfive/phy-jh7110-dphy-tx.c
-@@ -15,12 +15,13 @@
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/of_device.h>
--#include <linux/phy/phy.h>
- #include <linux/phy/phy-mipi-dphy.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/reset.h>
+-	{PCI_VENDOR_ID_NEOMAGIC, PCI_CHIP_NM2160,
+-	 PCI_ANY_ID, PCI_ANY_ID, 0, 0, FB_ACCEL_NEOMAGIC_NM2160},
++	{ PCI_VDEVICE(NEOMAGIC, PCI_CHIP_NM2160), .driver_data = FB_ACCEL_NEOMAGIC_NM2160 },
  
-+#include "../phy-provider.h"
-+
- #define STF_DPHY_APBIFSAIF_SYSCFG(x)			(x)
+-	{PCI_VENDOR_ID_NEOMAGIC, PCI_CHIP_NM2200,
+-	 PCI_ANY_ID, PCI_ANY_ID, 0, 0, FB_ACCEL_NEOMAGIC_NM2200},
++	{ PCI_VDEVICE(NEOMAGIC, PCI_CHIP_NM2200), .driver_data = FB_ACCEL_NEOMAGIC_NM2200 },
  
- #define STF_DPHY_AON_POWER_READY_N_ACTIVE		0
-diff --git a/drivers/phy/starfive/phy-jh7110-pcie.c b/drivers/phy/starfive/phy-jh7110-pcie.c
-index 734c8e007727..d68d396ac3cc 100644
---- a/drivers/phy/starfive/phy-jh7110-pcie.c
-+++ b/drivers/phy/starfive/phy-jh7110-pcie.c
-@@ -12,10 +12,11 @@
- #include <linux/io.h>
- #include <linux/module.h>
- #include <linux/mfd/syscon.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
+-	{PCI_VENDOR_ID_NEOMAGIC, PCI_CHIP_NM2230,
+-	 PCI_ANY_ID, PCI_ANY_ID, 0, 0, FB_ACCEL_NEOMAGIC_NM2230},
++	{ PCI_VDEVICE(NEOMAGIC, PCI_CHIP_NM2230), .driver_data = FB_ACCEL_NEOMAGIC_NM2230 },
  
-+#include "../phy-provider.h"
-+
- #define PCIE_KVCO_LEVEL_OFF		0x28
- #define PCIE_USB3_PHY_PLL_CTL_OFF	0x7c
- #define PCIE_KVCO_TUNE_SIGNAL_OFF	0x80
-diff --git a/drivers/phy/starfive/phy-jh7110-usb.c b/drivers/phy/starfive/phy-jh7110-usb.c
-index b505d89860b4..5762586e5c7d 100644
---- a/drivers/phy/starfive/phy-jh7110-usb.c
-+++ b/drivers/phy/starfive/phy-jh7110-usb.c
-@@ -12,11 +12,12 @@
- #include <linux/io.h>
- #include <linux/mfd/syscon.h>
- #include <linux/module.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
- #include <linux/usb/of.h>
+-	{PCI_VENDOR_ID_NEOMAGIC, PCI_CHIP_NM2360,
+-	 PCI_ANY_ID, PCI_ANY_ID, 0, 0, FB_ACCEL_NEOMAGIC_NM2360},
++	{ PCI_VDEVICE(NEOMAGIC, PCI_CHIP_NM2360), .driver_data = FB_ACCEL_NEOMAGIC_NM2360 },
  
-+#include "../phy-provider.h"
-+
- #define USB_125M_CLK_RATE		125000000
- #define USB_CLK_MODE_OFF		0x0
- #define USB_CLK_MODE_RX_NORMAL_PWR	BIT(1)
-diff --git a/drivers/phy/sunplus/phy-sunplus-usb2.c b/drivers/phy/sunplus/phy-sunplus-usb2.c
-index 637a5fbae6d9..2ddbc37d09ee 100644
---- a/drivers/phy/sunplus/phy-sunplus-usb2.c
-+++ b/drivers/phy/sunplus/phy-sunplus-usb2.c
-@@ -17,10 +17,11 @@
- #include <linux/module.h>
- #include <linux/nvmem-consumer.h>
- #include <linux/of.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/reset.h>
+-	{PCI_VENDOR_ID_NEOMAGIC, PCI_CHIP_NM2380,
+-	 PCI_ANY_ID, PCI_ANY_ID, 0, 0, FB_ACCEL_NEOMAGIC_NM2380},
++	{ PCI_VDEVICE(NEOMAGIC, PCI_CHIP_NM2380), .driver_data = FB_ACCEL_NEOMAGIC_NM2380 },
  
-+#include "../phy-provider.h"
-+
- #define HIGH_MASK_BITS				GENMASK(31, 16)
- #define LOW_MASK_BITS				GENMASK(15, 0)
- #define OTP_DISC_LEVEL_DEFAULT			0xd
-diff --git a/drivers/phy/tegra/phy-tegra194-p2u.c b/drivers/phy/tegra/phy-tegra194-p2u.c
-index f49b417c9eb6..467b6b97e53d 100644
---- a/drivers/phy/tegra/phy-tegra194-p2u.c
-+++ b/drivers/phy/tegra/phy-tegra194-p2u.c
-@@ -11,9 +11,10 @@
- #include <linux/io.h>
- #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
+-	{0, 0, 0, 0, 0, 0, 0}
++	{ }
+ };
  
-+#include "../phy-provider.h"
-+
- #define P2U_CONTROL_CMN			0x74
- #define P2U_CONTROL_CMN_ENABLE_L2_EXIT_RATE_CHANGE		BIT(13)
- #define P2U_CONTROL_CMN_SKP_SIZE_PROTECTION_EN			BIT(20)
-diff --git a/drivers/phy/tegra/xusb-tegra124.c b/drivers/phy/tegra/xusb-tegra124.c
-index 70b6213370a8..21686c6fb2d7 100644
---- a/drivers/phy/tegra/xusb-tegra124.c
-+++ b/drivers/phy/tegra/xusb-tegra124.c
-@@ -8,7 +8,6 @@
- #include <linux/mailbox_client.h>
- #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/regulator/consumer.h>
- #include <linux/reset.h>
-@@ -16,6 +15,7 @@
+ MODULE_DEVICE_TABLE(pci, neofb_devices);
+diff --git a/drivers/video/fbdev/nvidia/nvidia.c b/drivers/video/fbdev/nvidia/nvidia.c
+index 72b85f475605..da2d486022e8 100644
+--- a/drivers/video/fbdev/nvidia/nvidia.c
++++ b/drivers/video/fbdev/nvidia/nvidia.c
+@@ -58,9 +58,12 @@
+ #define MAX_CURS		32
  
- #include <soc/tegra/fuse.h>
+ static const struct pci_device_id nvidiafb_pci_tbl[] = {
+-	{PCI_VENDOR_ID_NVIDIA, PCI_ANY_ID, PCI_ANY_ID, PCI_ANY_ID,
+-	 PCI_BASE_CLASS_DISPLAY << 16, 0xff0000, 0},
+-	{ 0, }
++	{
++		PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_ANY_ID),
++		.class = PCI_BASE_CLASS_DISPLAY << 16,
++		.class_mask = 0xff0000
++	},
++	{ }
+ };
+ MODULE_DEVICE_TABLE(pci, nvidiafb_pci_tbl);
  
-+#include "../phy-provider.h"
- #include "xusb.h"
+diff --git a/drivers/video/fbdev/pm2fb.c b/drivers/video/fbdev/pm2fb.c
+index f34429829b7d..412ff249b5c7 100644
+--- a/drivers/video/fbdev/pm2fb.c
++++ b/drivers/video/fbdev/pm2fb.c
+@@ -1748,13 +1748,10 @@ static void pm2fb_remove(struct pci_dev *pdev)
+ }
  
- #define FUSE_SKU_CALIB_HS_CURR_LEVEL_PADX_SHIFT(x) ((x) ? 15 : 0)
-diff --git a/drivers/phy/tegra/xusb-tegra186.c b/drivers/phy/tegra/xusb-tegra186.c
-index 1ddf11265974..e017cb1ff484 100644
---- a/drivers/phy/tegra/xusb-tegra186.c
-+++ b/drivers/phy/tegra/xusb-tegra186.c
-@@ -7,7 +7,6 @@
- #include <linux/io.h>
- #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/phy/phy.h>
- #include <linux/regulator/consumer.h>
- #include <linux/platform_device.h>
- #include <linux/clk.h>
-@@ -15,6 +14,7 @@
+ static const struct pci_device_id pm2fb_id_table[] = {
+-	{ PCI_VENDOR_ID_TI, PCI_DEVICE_ID_TI_TVP4020,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_3DLABS, PCI_DEVICE_ID_3DLABS_PERMEDIA2,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_3DLABS, PCI_DEVICE_ID_3DLABS_PERMEDIA2V,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ 0, }
++	{ PCI_VDEVICE(TI, PCI_DEVICE_ID_TI_TVP4020) },
++	{ PCI_VDEVICE(3DLABS, PCI_DEVICE_ID_3DLABS_PERMEDIA2) },
++	{ PCI_VDEVICE(3DLABS, PCI_DEVICE_ID_3DLABS_PERMEDIA2V) },
++	{ }
+ };
  
- #include <soc/tegra/fuse.h>
+ static struct pci_driver pm2fb_driver = {
+diff --git a/drivers/video/fbdev/pm3fb.c b/drivers/video/fbdev/pm3fb.c
+index 6e55e42514d6..6f552ae36219 100644
+--- a/drivers/video/fbdev/pm3fb.c
++++ b/drivers/video/fbdev/pm3fb.c
+@@ -1486,9 +1486,8 @@ static void pm3fb_remove(struct pci_dev *dev)
+ }
  
-+#include "../phy-provider.h"
- #include "xusb.h"
+ static const struct pci_device_id pm3fb_id_table[] = {
+-	{ PCI_VENDOR_ID_3DLABS, 0x0a,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ 0, }
++	{ PCI_VDEVICE(3DLABS, 0x000a) },
++	{ }
+ };
  
- /* FUSE USB_CALIB registers */
-diff --git a/drivers/phy/tegra/xusb-tegra210.c b/drivers/phy/tegra/xusb-tegra210.c
-index 1abc5913ec49..006aba47b93d 100644
---- a/drivers/phy/tegra/xusb-tegra210.c
-+++ b/drivers/phy/tegra/xusb-tegra210.c
-@@ -12,7 +12,6 @@
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/of_platform.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
- #include <linux/regulator/consumer.h>
-@@ -21,6 +20,7 @@
+ /* For PCI drivers */
+diff --git a/drivers/video/fbdev/pvr2fb.c b/drivers/video/fbdev/pvr2fb.c
+index 3f6384e631b1..06aefad75f46 100644
+--- a/drivers/video/fbdev/pvr2fb.c
++++ b/drivers/video/fbdev/pvr2fb.c
+@@ -993,9 +993,8 @@ static void pvr2fb_pci_remove(struct pci_dev *pdev)
+ }
  
- #include <soc/tegra/fuse.h>
+ static const struct pci_device_id pvr2fb_pci_tbl[] = {
+-	{ PCI_VENDOR_ID_NEC, PCI_DEVICE_ID_NEC_NEON250,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ 0, },
++	{ PCI_VDEVICE(NEC, PCI_DEVICE_ID_NEC_NEON250), },
++	{ },
+ };
  
-+#include "../phy-provider.h"
- #include "xusb.h"
+ MODULE_DEVICE_TABLE(pci, pvr2fb_pci_tbl);
+diff --git a/drivers/video/fbdev/riva/fbdev.c b/drivers/video/fbdev/riva/fbdev.c
+index 1e377b2ec089..2268fea4d807 100644
+--- a/drivers/video/fbdev/riva/fbdev.c
++++ b/drivers/video/fbdev/riva/fbdev.c
+@@ -103,92 +103,50 @@ static int rivafb_blank(int blank, struct fb_info *info);
+  * ------------------------------------------------------------------------- */
  
- #define FUSE_SKU_CALIB_HS_CURR_LEVEL_PADX_SHIFT(x) \
-diff --git a/drivers/phy/tegra/xusb.c b/drivers/phy/tegra/xusb.c
-index 9d74c0ecc31b..07a2f5a4dbee 100644
---- a/drivers/phy/tegra/xusb.c
-+++ b/drivers/phy/tegra/xusb.c
-@@ -9,7 +9,6 @@
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/of_platform.h>
--#include <linux/phy/phy.h>
- #include <linux/phy/tegra/xusb.h>
- #include <linux/platform_device.h>
- #include <linux/regulator/consumer.h>
-@@ -19,6 +18,7 @@
+ static const struct pci_device_id rivafb_pci_tbl[] = {
+-	{ PCI_VENDOR_ID_NVIDIA_SGS, PCI_DEVICE_ID_NVIDIA_SGS_RIVA128,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_TNT,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_TNT2,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_UTNT2,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_VTNT2,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_UVTNT2,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_ITNT2,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE_SDR,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE_DDR,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_QUADRO,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE2_MX,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE2_MX2,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE2_GO,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_QUADRO2_MXR,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE2_GTS,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE2_GTS2,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE2_ULTRA,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_QUADRO2_PRO,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE4_MX_460,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE4_MX_440,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA_SGS, PCI_DEVICE_ID_NVIDIA_SGS_RIVA128) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_TNT) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_TNT2) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_UTNT2) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_VTNT2) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_UVTNT2) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_ITNT2) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE_SDR) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE_DDR) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_QUADRO) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE2_MX) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE2_MX2) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE2_GO) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_QUADRO2_MXR) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE2_GTS) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE2_GTS2) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE2_ULTRA) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_QUADRO2_PRO) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE4_MX_460) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE4_MX_440) },
+ 	// NF2/IGP version, GeForce 4 MX, NV18
+-	{ PCI_VENDOR_ID_NVIDIA, 0x01f0,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE4_MX_420,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE4_440_GO,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE4_420_GO,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE4_420_GO_M32,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_QUADRO4_500XGL,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE4_440_GO_M64,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_QUADRO4_200,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_QUADRO4_550XGL,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_QUADRO4_500_GOGL,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_IGEFORCE2,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE3,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE3_1,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE3_2,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_QUADRO_DDC,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE4_TI_4600,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE4_TI_4400,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE4_TI_4200,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+- 	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_QUADRO4_900XGL,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_QUADRO4_750XGL,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_QUADRO4_700XGL,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE_FX_GO_5200,
+-	  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0 },
+-	{ 0, } /* terminate list */
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, 0x01f0) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE4_MX_420) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE4_440_GO) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE4_420_GO) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE4_420_GO_M32) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_QUADRO4_500XGL) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE4_440_GO_M64) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_QUADRO4_200) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_QUADRO4_550XGL) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_QUADRO4_500_GOGL) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_IGEFORCE2) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE3) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE3_1) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE3_2) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_QUADRO_DDC) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE4_TI_4600) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE4_TI_4400) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE4_TI_4200) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_QUADRO4_900XGL) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_QUADRO4_750XGL) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_QUADRO4_700XGL) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_NVIDIA, PCI_DEVICE_ID_NVIDIA_GEFORCE_FX_GO_5200) },
++	{ } /* terminate list */
+ };
+ MODULE_DEVICE_TABLE(pci, rivafb_pci_tbl);
  
- #include <soc/tegra/fuse.h>
+diff --git a/drivers/video/fbdev/s3fb.c b/drivers/video/fbdev/s3fb.c
+index ba30e5568cab..831e9e6861b1 100644
+--- a/drivers/video/fbdev/s3fb.c
++++ b/drivers/video/fbdev/s3fb.c
+@@ -1563,24 +1563,24 @@ static const struct dev_pm_ops s3_pci_pm_ops = {
+ /* List of boards that we are trying to support */
  
-+#include "../phy-provider.h"
- #include "xusb.h"
+ static const struct pci_device_id s3_devices[] = {
+-	{PCI_DEVICE(PCI_VENDOR_ID_S3, 0x8810), .driver_data = CHIP_XXX_TRIO},
+-	{PCI_DEVICE(PCI_VENDOR_ID_S3, 0x8811), .driver_data = CHIP_XXX_TRIO},
+-	{PCI_DEVICE(PCI_VENDOR_ID_S3, 0x8812), .driver_data = CHIP_M65_AURORA64VP},
+-	{PCI_DEVICE(PCI_VENDOR_ID_S3, 0x8814), .driver_data = CHIP_767_TRIO64UVP},
+-	{PCI_DEVICE(PCI_VENDOR_ID_S3, 0x8901), .driver_data = CHIP_XXX_TRIO64V2_DXGX},
+-	{PCI_DEVICE(PCI_VENDOR_ID_S3, 0x8902), .driver_data = CHIP_551_PLATO_PX},
++	{ PCI_VDEVICE(S3, 0x8810), .driver_data = CHIP_XXX_TRIO },
++	{ PCI_VDEVICE(S3, 0x8811), .driver_data = CHIP_XXX_TRIO },
++	{ PCI_VDEVICE(S3, 0x8812), .driver_data = CHIP_M65_AURORA64VP },
++	{ PCI_VDEVICE(S3, 0x8814), .driver_data = CHIP_767_TRIO64UVP },
++	{ PCI_VDEVICE(S3, 0x8901), .driver_data = CHIP_XXX_TRIO64V2_DXGX },
++	{ PCI_VDEVICE(S3, 0x8902), .driver_data = CHIP_551_PLATO_PX },
  
- static struct phy *tegra_xusb_pad_of_xlate(struct device *dev,
-diff --git a/drivers/phy/ti/phy-am654-serdes.c b/drivers/phy/ti/phy-am654-serdes.c
-index 5b6c27aa7e8b..8990b715525e 100644
---- a/drivers/phy/ti/phy-am654-serdes.c
-+++ b/drivers/phy/ti/phy-am654-serdes.c
-@@ -15,11 +15,12 @@
- #include <linux/mfd/syscon.h>
- #include <linux/mux/consumer.h>
- #include <linux/of_address.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/regmap.h>
+-	{PCI_DEVICE(PCI_VENDOR_ID_S3, 0x5631), .driver_data = CHIP_325_VIRGE},
+-	{PCI_DEVICE(PCI_VENDOR_ID_S3, 0x883D), .driver_data = CHIP_988_VIRGE_VX},
+-	{PCI_DEVICE(PCI_VENDOR_ID_S3, 0x8A01), .driver_data = CHIP_XXX_VIRGE_DXGX},
+-	{PCI_DEVICE(PCI_VENDOR_ID_S3, 0x8A10), .driver_data = CHIP_357_VIRGE_GX2},
+-	{PCI_DEVICE(PCI_VENDOR_ID_S3, 0x8A11), .driver_data = CHIP_359_VIRGE_GX2P},
+-	{PCI_DEVICE(PCI_VENDOR_ID_S3, 0x8A12), .driver_data = CHIP_359_VIRGE_GX2P},
+-	{PCI_DEVICE(PCI_VENDOR_ID_S3, 0x8A13), .driver_data = CHIP_36X_TRIO3D_1X_2X},
+-	{PCI_DEVICE(PCI_VENDOR_ID_S3, 0x8904), .driver_data = CHIP_365_TRIO3D},
+-	{PCI_DEVICE(PCI_VENDOR_ID_S3, 0x8C01), .driver_data = CHIP_260_VIRGE_MX},
++	{ PCI_VDEVICE(S3, 0x5631), .driver_data = CHIP_325_VIRGE },
++	{ PCI_VDEVICE(S3, 0x883D), .driver_data = CHIP_988_VIRGE_VX },
++	{ PCI_VDEVICE(S3, 0x8A01), .driver_data = CHIP_XXX_VIRGE_DXGX },
++	{ PCI_VDEVICE(S3, 0x8A10), .driver_data = CHIP_357_VIRGE_GX2 },
++	{ PCI_VDEVICE(S3, 0x8A11), .driver_data = CHIP_359_VIRGE_GX2P },
++	{ PCI_VDEVICE(S3, 0x8A12), .driver_data = CHIP_359_VIRGE_GX2P },
++	{ PCI_VDEVICE(S3, 0x8A13), .driver_data = CHIP_36X_TRIO3D_1X_2X },
++	{ PCI_VDEVICE(S3, 0x8904), .driver_data = CHIP_365_TRIO3D },
++	{ PCI_VDEVICE(S3, 0x8C01), .driver_data = CHIP_260_VIRGE_MX },
  
-+#include "../phy-provider.h"
-+
- #define CMU_R004		0x4
- #define CMU_R060		0x60
- #define CMU_R07C		0x7c
-diff --git a/drivers/phy/ti/phy-da8xx-usb.c b/drivers/phy/ti/phy-da8xx-usb.c
-index 62fa6f89c0e6..261b65abd38b 100644
---- a/drivers/phy/ti/phy-da8xx-usb.c
-+++ b/drivers/phy/ti/phy-da8xx-usb.c
-@@ -11,12 +11,13 @@
- #include <linux/mfd/da8xx-cfgchip.h>
- #include <linux/mfd/syscon.h>
- #include <linux/module.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_data/phy-da8xx-usb.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/regmap.h>
+-	{0, 0, 0, 0, 0, 0, 0}
++	{ }
+ };
  
-+#include "../phy-provider.h"
-+
- #define PHY_INIT_BITS	(CFGCHIP2_SESENDEN | CFGCHIP2_VBDTCTEN)
  
- struct da8xx_usb_phy {
-diff --git a/drivers/phy/ti/phy-dm816x-usb.c b/drivers/phy/ti/phy-dm816x-usb.c
-index d274831b731c..515ef7812bde 100644
---- a/drivers/phy/ti/phy-dm816x-usb.c
-+++ b/drivers/phy/ti/phy-dm816x-usb.c
-@@ -12,10 +12,11 @@
- #include <linux/err.h>
- #include <linux/pm_runtime.h>
- #include <linux/delay.h>
--#include <linux/phy/phy.h>
+diff --git a/drivers/video/fbdev/savage/savagefb_driver.c b/drivers/video/fbdev/savage/savagefb_driver.c
+index c2f79357c8da..7789196d2eb5 100644
+--- a/drivers/video/fbdev/savage/savagefb_driver.c
++++ b/drivers/video/fbdev/savage/savagefb_driver.c
+@@ -2449,76 +2449,78 @@ static const struct dev_pm_ops savagefb_pm_ops = {
+ };
  
- #include <linux/mfd/syscon.h>
+ static const struct pci_device_id savagefb_devices[] = {
+-	{PCI_VENDOR_ID_S3, PCI_CHIP_SUPSAV_MX128,
+-	 PCI_ANY_ID, PCI_ANY_ID, 0, 0, FB_ACCEL_SUPERSAVAGE},
++	{
++		PCI_VDEVICE(S3, PCI_CHIP_SUPSAV_MX128),
++		.driver_data = FB_ACCEL_SUPERSAVAGE,
++	}, {
++		PCI_VDEVICE(S3, PCI_CHIP_SUPSAV_MX64),
++		.driver_data = FB_ACCEL_SUPERSAVAGE,
++	}, {
++		PCI_VDEVICE(S3, PCI_CHIP_SUPSAV_MX64C),
++		.driver_data = FB_ACCEL_SUPERSAVAGE,
++	}, {
++		PCI_VDEVICE(S3, PCI_CHIP_SUPSAV_IX128SDR),
++		.driver_data = FB_ACCEL_SUPERSAVAGE,
++	}, {
++		PCI_VDEVICE(S3, PCI_CHIP_SUPSAV_IX128DDR),
++		.driver_data = FB_ACCEL_SUPERSAVAGE,
++	}, {
++		PCI_VDEVICE(S3, PCI_CHIP_SUPSAV_IX64SDR),
++		.driver_data = FB_ACCEL_SUPERSAVAGE,
++	}, {
++		PCI_VDEVICE(S3, PCI_CHIP_SUPSAV_IX64DDR),
++		.driver_data = FB_ACCEL_SUPERSAVAGE,
++	}, {
++		PCI_VDEVICE(S3, PCI_CHIP_SUPSAV_IXCSDR),
++		.driver_data = FB_ACCEL_SUPERSAVAGE,
++	}, {
++		PCI_VDEVICE(S3, PCI_CHIP_SUPSAV_IXCDDR),
++		.driver_data = FB_ACCEL_SUPERSAVAGE,
++	}, {
++		PCI_VDEVICE(S3, PCI_CHIP_SAVAGE4),
++		.driver_data = FB_ACCEL_SAVAGE4,
++	}, {
++		PCI_VDEVICE(S3, PCI_CHIP_SAVAGE3D),
++		.driver_data = FB_ACCEL_SAVAGE3D,
++	}, {
++		PCI_VDEVICE(S3, PCI_CHIP_SAVAGE3D_MV),
++		.driver_data = FB_ACCEL_SAVAGE3D_MV,
++	}, {
++		PCI_VDEVICE(S3, PCI_CHIP_SAVAGE2000),
++		.driver_data = FB_ACCEL_SAVAGE2000,
++	}, {
++		PCI_VDEVICE(S3, PCI_CHIP_SAVAGE_MX_MV),
++		.driver_data = FB_ACCEL_SAVAGE_MX_MV,
++	}, {
++		PCI_VDEVICE(S3, PCI_CHIP_SAVAGE_MX),
++		.driver_data = FB_ACCEL_SAVAGE_MX,
++	}, {
++		PCI_VDEVICE(S3, PCI_CHIP_SAVAGE_IX_MV),
++		.driver_data = FB_ACCEL_SAVAGE_IX_MV,
++	}, {
++		PCI_VDEVICE(S3, PCI_CHIP_SAVAGE_IX),
++		.driver_data = FB_ACCEL_SAVAGE_IX,
++	}, {
++		PCI_VDEVICE(S3, PCI_CHIP_PROSAVAGE_PM),
++		.driver_data = FB_ACCEL_PROSAVAGE_PM,
++	}, {
++		PCI_VDEVICE(S3, PCI_CHIP_PROSAVAGE_KM),
++		.driver_data = FB_ACCEL_PROSAVAGE_KM,
++	}, {
++		PCI_VDEVICE(S3, PCI_CHIP_S3TWISTER_P),
++		.driver_data = FB_ACCEL_S3TWISTER_P,
++	}, {
++		PCI_VDEVICE(S3, PCI_CHIP_S3TWISTER_K),
++		.driver_data = FB_ACCEL_S3TWISTER_K,
++	}, {
++		PCI_VDEVICE(S3, PCI_CHIP_PROSAVAGE_DDR),
++		.driver_data = FB_ACCEL_PROSAVAGE_DDR,
++	}, {
++		PCI_VDEVICE(S3, PCI_CHIP_PROSAVAGE_DDRK),
++		.driver_data = FB_ACCEL_PROSAVAGE_DDRK,
++	},
  
-+#include "../phy-provider.h"
-+
- /*
-  * TRM has two sets of USB_CTRL registers.. The correct register bits
-  * are in TRM section 24.9.8.2 USB_CTRL Register. The TRM documents the
-diff --git a/drivers/phy/ti/phy-gmii-sel.c b/drivers/phy/ti/phy-gmii-sel.c
-index 6213c2b6005a..ce7dc692d7be 100644
---- a/drivers/phy/ti/phy-gmii-sel.c
-+++ b/drivers/phy/ti/phy-gmii-sel.c
-@@ -14,9 +14,10 @@
- #include <linux/of_address.h>
- #include <linux/of_net.h>
- #include <linux/phy.h>
--#include <linux/phy/phy.h>
- #include <linux/regmap.h>
+-	{PCI_VENDOR_ID_S3, PCI_CHIP_SUPSAV_MX64,
+-	 PCI_ANY_ID, PCI_ANY_ID, 0, 0, FB_ACCEL_SUPERSAVAGE},
+-
+-	{PCI_VENDOR_ID_S3, PCI_CHIP_SUPSAV_MX64C,
+-	 PCI_ANY_ID, PCI_ANY_ID, 0, 0, FB_ACCEL_SUPERSAVAGE},
+-
+-	{PCI_VENDOR_ID_S3, PCI_CHIP_SUPSAV_IX128SDR,
+-	 PCI_ANY_ID, PCI_ANY_ID, 0, 0, FB_ACCEL_SUPERSAVAGE},
+-
+-	{PCI_VENDOR_ID_S3, PCI_CHIP_SUPSAV_IX128DDR,
+-	 PCI_ANY_ID, PCI_ANY_ID, 0, 0, FB_ACCEL_SUPERSAVAGE},
+-
+-	{PCI_VENDOR_ID_S3, PCI_CHIP_SUPSAV_IX64SDR,
+-	 PCI_ANY_ID, PCI_ANY_ID, 0, 0, FB_ACCEL_SUPERSAVAGE},
+-
+-	{PCI_VENDOR_ID_S3, PCI_CHIP_SUPSAV_IX64DDR,
+-	 PCI_ANY_ID, PCI_ANY_ID, 0, 0, FB_ACCEL_SUPERSAVAGE},
+-
+-	{PCI_VENDOR_ID_S3, PCI_CHIP_SUPSAV_IXCSDR,
+-	 PCI_ANY_ID, PCI_ANY_ID, 0, 0, FB_ACCEL_SUPERSAVAGE},
+-
+-	{PCI_VENDOR_ID_S3, PCI_CHIP_SUPSAV_IXCDDR,
+-	 PCI_ANY_ID, PCI_ANY_ID, 0, 0, FB_ACCEL_SUPERSAVAGE},
+-
+-	{PCI_VENDOR_ID_S3, PCI_CHIP_SAVAGE4,
+-	 PCI_ANY_ID, PCI_ANY_ID, 0, 0, FB_ACCEL_SAVAGE4},
+-
+-	{PCI_VENDOR_ID_S3, PCI_CHIP_SAVAGE3D,
+-	 PCI_ANY_ID, PCI_ANY_ID, 0, 0, FB_ACCEL_SAVAGE3D},
+-
+-	{PCI_VENDOR_ID_S3, PCI_CHIP_SAVAGE3D_MV,
+-	 PCI_ANY_ID, PCI_ANY_ID, 0, 0, FB_ACCEL_SAVAGE3D_MV},
+-
+-	{PCI_VENDOR_ID_S3, PCI_CHIP_SAVAGE2000,
+-	 PCI_ANY_ID, PCI_ANY_ID, 0, 0, FB_ACCEL_SAVAGE2000},
+-
+-	{PCI_VENDOR_ID_S3, PCI_CHIP_SAVAGE_MX_MV,
+-	 PCI_ANY_ID, PCI_ANY_ID, 0, 0, FB_ACCEL_SAVAGE_MX_MV},
+-
+-	{PCI_VENDOR_ID_S3, PCI_CHIP_SAVAGE_MX,
+-	 PCI_ANY_ID, PCI_ANY_ID, 0, 0, FB_ACCEL_SAVAGE_MX},
+-
+-	{PCI_VENDOR_ID_S3, PCI_CHIP_SAVAGE_IX_MV,
+-	 PCI_ANY_ID, PCI_ANY_ID, 0, 0, FB_ACCEL_SAVAGE_IX_MV},
+-
+-	{PCI_VENDOR_ID_S3, PCI_CHIP_SAVAGE_IX,
+-	 PCI_ANY_ID, PCI_ANY_ID, 0, 0, FB_ACCEL_SAVAGE_IX},
+-
+-	{PCI_VENDOR_ID_S3, PCI_CHIP_PROSAVAGE_PM,
+-	 PCI_ANY_ID, PCI_ANY_ID, 0, 0, FB_ACCEL_PROSAVAGE_PM},
+-
+-	{PCI_VENDOR_ID_S3, PCI_CHIP_PROSAVAGE_KM,
+-	 PCI_ANY_ID, PCI_ANY_ID, 0, 0, FB_ACCEL_PROSAVAGE_KM},
+-
+-	{PCI_VENDOR_ID_S3, PCI_CHIP_S3TWISTER_P,
+-	 PCI_ANY_ID, PCI_ANY_ID, 0, 0, FB_ACCEL_S3TWISTER_P},
+-
+-	{PCI_VENDOR_ID_S3, PCI_CHIP_S3TWISTER_K,
+-	 PCI_ANY_ID, PCI_ANY_ID, 0, 0, FB_ACCEL_S3TWISTER_K},
+-
+-	{PCI_VENDOR_ID_S3, PCI_CHIP_PROSAVAGE_DDR,
+-	 PCI_ANY_ID, PCI_ANY_ID, 0, 0, FB_ACCEL_PROSAVAGE_DDR},
+-
+-	{PCI_VENDOR_ID_S3, PCI_CHIP_PROSAVAGE_DDRK,
+-	 PCI_ANY_ID, PCI_ANY_ID, 0, 0, FB_ACCEL_PROSAVAGE_DDRK},
+-
+-	{0, 0, 0, 0, 0, 0, 0}
++	{ }
+ };
  
-+#include "../phy-provider.h"
-+
- /* AM33xx SoC specific definitions for the CONTROL port */
- #define AM33XX_GMII_SEL_MODE_MII	0
- #define AM33XX_GMII_SEL_MODE_RMII	1
-diff --git a/drivers/phy/ti/phy-omap-usb2.c b/drivers/phy/ti/phy-omap-usb2.c
-index 1eb252604441..318f51d09c28 100644
---- a/drivers/phy/ti/phy-omap-usb2.c
-+++ b/drivers/phy/ti/phy-omap-usb2.c
-@@ -16,7 +16,6 @@
- #include <linux/of_platform.h>
- #include <linux/phy/omap_control_phy.h>
- #include <linux/phy/omap_usb.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/property.h>
-@@ -25,6 +24,8 @@
- #include <linux/sys_soc.h>
- #include <linux/usb/phy_companion.h>
+ MODULE_DEVICE_TABLE(pci, savagefb_devices);
+diff --git a/drivers/video/fbdev/sis/sis_main.h b/drivers/video/fbdev/sis/sis_main.h
+index 0965db9fad6a..4ca487f48205 100644
+--- a/drivers/video/fbdev/sis/sis_main.h
++++ b/drivers/video/fbdev/sis/sis_main.h
+@@ -102,22 +102,22 @@ static struct sisfb_chip_info {
  
-+#include "../phy-provider.h"
-+
- #define USB2PHY_ANA_CONFIG1		0x4c
- #define USB2PHY_DISCON_BYP_LATCH	BIT(31)
+ static struct pci_device_id sisfb_pci_table[] = {
+ #ifdef CONFIG_FB_SIS_300
+-	{ PCI_VENDOR_ID_SI, PCI_DEVICE_ID_SI_300,     PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
+-	{ PCI_VENDOR_ID_SI, PCI_DEVICE_ID_SI_540_VGA, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 1},
+-	{ PCI_VENDOR_ID_SI, PCI_DEVICE_ID_SI_630_VGA, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 2},
++	{ PCI_VDEVICE(SI, PCI_DEVICE_ID_SI_300), .driver_data = 0 },
++	{ PCI_VDEVICE(SI, PCI_DEVICE_ID_SI_540_VGA), .driver_data = 1 },
++	{ PCI_VDEVICE(SI, PCI_DEVICE_ID_SI_630_VGA), .driver_data = 2 },
+ #endif
+ #ifdef CONFIG_FB_SIS_315
+-	{ PCI_VENDOR_ID_SI, PCI_DEVICE_ID_SI_315H,    PCI_ANY_ID, PCI_ANY_ID, 0, 0, 3},
+-	{ PCI_VENDOR_ID_SI, PCI_DEVICE_ID_SI_315,     PCI_ANY_ID, PCI_ANY_ID, 0, 0, 4},
+-	{ PCI_VENDOR_ID_SI, PCI_DEVICE_ID_SI_315PRO,  PCI_ANY_ID, PCI_ANY_ID, 0, 0, 5},
+-	{ PCI_VENDOR_ID_SI, PCI_DEVICE_ID_SI_550_VGA, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 6},
+-	{ PCI_VENDOR_ID_SI, PCI_DEVICE_ID_SI_650_VGA, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 7},
+-	{ PCI_VENDOR_ID_SI, PCI_DEVICE_ID_SI_330,     PCI_ANY_ID, PCI_ANY_ID, 0, 0, 8},
+-	{ PCI_VENDOR_ID_SI, PCI_DEVICE_ID_SI_660_VGA, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 9},
+-	{ PCI_VENDOR_ID_XGI,PCI_DEVICE_ID_XGI_20,     PCI_ANY_ID, PCI_ANY_ID, 0, 0,10},
+-	{ PCI_VENDOR_ID_XGI,PCI_DEVICE_ID_XGI_40,     PCI_ANY_ID, PCI_ANY_ID, 0, 0,11},
++	{ PCI_VDEVICE(SI, PCI_DEVICE_ID_SI_315H), .driver_data = 3 },
++	{ PCI_VDEVICE(SI, PCI_DEVICE_ID_SI_315), .driver_data = 4 },
++	{ PCI_VDEVICE(SI, PCI_DEVICE_ID_SI_315PRO), .driver_data = 5 },
++	{ PCI_VDEVICE(SI, PCI_DEVICE_ID_SI_550_VGA), .driver_data = 6 },
++	{ PCI_VDEVICE(SI, PCI_DEVICE_ID_SI_650_VGA), .driver_data = 7 },
++	{ PCI_VDEVICE(SI, PCI_DEVICE_ID_SI_330), .driver_data = 8 },
++	{ PCI_VDEVICE(SI, PCI_DEVICE_ID_SI_660_VGA), .driver_data = 9 },
++	{ PCI_VDEVICE(XGI, PCI_DEVICE_ID_XGI_20), .driver_data = 10 },
++	{ PCI_VDEVICE(XGI, PCI_DEVICE_ID_XGI_40), .driver_data = 11 },
+ #endif
+-	{ 0 }
++	{ }
+ };
  
-diff --git a/drivers/phy/ti/phy-ti-pipe3.c b/drivers/phy/ti/phy-ti-pipe3.c
-index b5543b5c674c..d63c8e872d5b 100644
---- a/drivers/phy/ti/phy-ti-pipe3.c
-+++ b/drivers/phy/ti/phy-ti-pipe3.c
-@@ -10,7 +10,6 @@
- #include <linux/platform_device.h>
- #include <linux/property.h>
- #include <linux/slab.h>
--#include <linux/phy/phy.h>
- #include <linux/of.h>
- #include <linux/clk.h>
- #include <linux/err.h>
-@@ -22,6 +21,8 @@
- #include <linux/mfd/syscon.h>
- #include <linux/regmap.h>
+ MODULE_DEVICE_TABLE(pci, sisfb_pci_table);
+diff --git a/drivers/video/fbdev/tdfxfb.c b/drivers/video/fbdev/tdfxfb.c
+index 4c4e53aaea3a..a6b63c09b48f 100644
+--- a/drivers/video/fbdev/tdfxfb.c
++++ b/drivers/video/fbdev/tdfxfb.c
+@@ -124,16 +124,17 @@ static int tdfxfb_probe(struct pci_dev *pdev, const struct pci_device_id *id);
+ static void tdfxfb_remove(struct pci_dev *pdev);
  
-+#include "../phy-provider.h"
-+
- #define	PLL_STATUS		0x00000004
- #define	PLL_GO			0x00000008
- #define	PLL_CONFIGURATION1	0x0000000C
-diff --git a/drivers/phy/ti/phy-twl4030-usb.c b/drivers/phy/ti/phy-twl4030-usb.c
-index a26aec3ab29e..67c9883691fc 100644
---- a/drivers/phy/ti/phy-twl4030-usb.c
-+++ b/drivers/phy/ti/phy-twl4030-usb.c
-@@ -20,7 +20,6 @@
- #include <linux/io.h>
- #include <linux/delay.h>
- #include <linux/usb/otg.h>
--#include <linux/phy/phy.h>
- #include <linux/pm_runtime.h>
- #include <linux/usb/musb.h>
- #include <linux/usb/ulpi.h>
-@@ -29,6 +28,8 @@
- #include <linux/err.h>
- #include <linux/slab.h>
+ static const struct pci_device_id tdfxfb_id_table[] = {
+-	{ PCI_VENDOR_ID_3DFX, PCI_DEVICE_ID_3DFX_BANSHEE,
+-	  PCI_ANY_ID, PCI_ANY_ID, PCI_BASE_CLASS_DISPLAY << 16,
+-	  0xff0000, 0 },
+-	{ PCI_VENDOR_ID_3DFX, PCI_DEVICE_ID_3DFX_VOODOO3,
+-	  PCI_ANY_ID, PCI_ANY_ID, PCI_BASE_CLASS_DISPLAY << 16,
+-	  0xff0000, 0 },
+-	{ PCI_VENDOR_ID_3DFX, PCI_DEVICE_ID_3DFX_VOODOO5,
+-	  PCI_ANY_ID, PCI_ANY_ID, PCI_BASE_CLASS_DISPLAY << 16,
+-	  0xff0000, 0 },
+-	{ 0, }
++	{
++		PCI_DEVICE(PCI_VENDOR_ID_3DFX, PCI_DEVICE_ID_3DFX_BANSHEE),
++		.class = PCI_BASE_CLASS_DISPLAY << 16, .class_mask = 0xff0000,
++	}, {
++		PCI_DEVICE(PCI_VENDOR_ID_3DFX, PCI_DEVICE_ID_3DFX_VOODOO3),
++		.class = PCI_BASE_CLASS_DISPLAY << 16, .class_mask = 0xff0000,
++	}, {
++		PCI_DEVICE(PCI_VENDOR_ID_3DFX, PCI_DEVICE_ID_3DFX_VOODOO5),
++		.class = PCI_BASE_CLASS_DISPLAY << 16, .class_mask = 0xff0000,
++	},
++	{ }
+ };
  
-+#include "../phy-provider.h"
-+
- /* Register defines */
+ static struct pci_driver tdfxfb_driver = {
+diff --git a/drivers/video/fbdev/tridentfb.c b/drivers/video/fbdev/tridentfb.c
+index 17b7253b8fbe..a8fdbae83a80 100644
+--- a/drivers/video/fbdev/tridentfb.c
++++ b/drivers/video/fbdev/tridentfb.c
+@@ -1736,28 +1736,28 @@ static void trident_pci_remove(struct pci_dev *dev)
  
- #define MCPC_CTRL			0x30
-diff --git a/drivers/phy/xilinx/phy-zynqmp.c b/drivers/phy/xilinx/phy-zynqmp.c
-index fe6b4925d166..db40594622da 100644
---- a/drivers/phy/xilinx/phy-zynqmp.c
-+++ b/drivers/phy/xilinx/phy-zynqmp.c
-@@ -12,6 +12,7 @@
-  * PCIe should also work but that is experimental as of now.
-  */
+ /* List of boards that we are trying to support */
+ static const struct pci_device_id trident_devices[] = {
+-	{PCI_VENDOR_ID_TRIDENT,	BLADE3D, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
+-	{PCI_VENDOR_ID_TRIDENT,	CYBERBLADEi7, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
+-	{PCI_VENDOR_ID_TRIDENT,	CYBERBLADEi7D, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
+-	{PCI_VENDOR_ID_TRIDENT,	CYBERBLADEi1, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
+-	{PCI_VENDOR_ID_TRIDENT,	CYBERBLADEi1D, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
+-	{PCI_VENDOR_ID_TRIDENT,	CYBERBLADEAi1, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
+-	{PCI_VENDOR_ID_TRIDENT,	CYBERBLADEAi1D, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
+-	{PCI_VENDOR_ID_TRIDENT,	CYBERBLADEE4, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
+-	{PCI_VENDOR_ID_TRIDENT,	TGUI9440, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
+-	{PCI_VENDOR_ID_TRIDENT,	TGUI9660, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
+-	{PCI_VENDOR_ID_TRIDENT,	IMAGE975, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
+-	{PCI_VENDOR_ID_TRIDENT,	IMAGE985, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
+-	{PCI_VENDOR_ID_TRIDENT,	CYBER9320, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
+-	{PCI_VENDOR_ID_TRIDENT,	CYBER9388, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
+-	{PCI_VENDOR_ID_TRIDENT,	CYBER9520, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
+-	{PCI_VENDOR_ID_TRIDENT,	CYBER9525DVD, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
+-	{PCI_VENDOR_ID_TRIDENT,	CYBER9397, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
+-	{PCI_VENDOR_ID_TRIDENT,	CYBER9397DVD, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
+-	{PCI_VENDOR_ID_TRIDENT,	CYBERBLADEXPAi1, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
+-	{PCI_VENDOR_ID_TRIDENT,	CYBERBLADEXPm8, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
+-	{PCI_VENDOR_ID_TRIDENT,	CYBERBLADEXPm16, PCI_ANY_ID, PCI_ANY_ID, 0, 0, 0},
+-	{0,}
++	{ PCI_VDEVICE(TRIDENT, BLADE3D) },
++	{ PCI_VDEVICE(TRIDENT, CYBERBLADEi7) },
++	{ PCI_VDEVICE(TRIDENT, CYBERBLADEi7D) },
++	{ PCI_VDEVICE(TRIDENT, CYBERBLADEi1) },
++	{ PCI_VDEVICE(TRIDENT, CYBERBLADEi1D) },
++	{ PCI_VDEVICE(TRIDENT, CYBERBLADEAi1) },
++	{ PCI_VDEVICE(TRIDENT, CYBERBLADEAi1D) },
++	{ PCI_VDEVICE(TRIDENT, CYBERBLADEE4) },
++	{ PCI_VDEVICE(TRIDENT, TGUI9440) },
++	{ PCI_VDEVICE(TRIDENT, TGUI9660) },
++	{ PCI_VDEVICE(TRIDENT, IMAGE975) },
++	{ PCI_VDEVICE(TRIDENT, IMAGE985) },
++	{ PCI_VDEVICE(TRIDENT, CYBER9320) },
++	{ PCI_VDEVICE(TRIDENT, CYBER9388) },
++	{ PCI_VDEVICE(TRIDENT, CYBER9520) },
++	{ PCI_VDEVICE(TRIDENT, CYBER9525DVD) },
++	{ PCI_VDEVICE(TRIDENT, CYBER9397) },
++	{ PCI_VDEVICE(TRIDENT, CYBER9397DVD) },
++	{ PCI_VDEVICE(TRIDENT, CYBERBLADEXPAi1) },
++	{ PCI_VDEVICE(TRIDENT, CYBERBLADEXPm8) },
++	{ PCI_VDEVICE(TRIDENT, CYBERBLADEXPm16) },
++	{ }
+ };
  
-+#include <dt-bindings/phy/phy.h>
- #include <linux/clk.h>
- #include <linux/debugfs.h>
- #include <linux/delay.h>
-@@ -19,12 +20,11 @@
- #include <linux/kernel.h>
- #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/slab.h>
+ MODULE_DEVICE_TABLE(pci, trident_devices);
+diff --git a/drivers/video/fbdev/vt8623fb.c b/drivers/video/fbdev/vt8623fb.c
+index df984f3a7ff6..9708d968970a 100644
+--- a/drivers/video/fbdev/vt8623fb.c
++++ b/drivers/video/fbdev/vt8623fb.c
+@@ -900,8 +900,8 @@ static const struct dev_pm_ops vt8623_pci_pm_ops = {
+ /* List of boards that we are trying to support */
  
--#include <dt-bindings/phy/phy.h>
-+#include "../phy-provider.h"
+ static const struct pci_device_id vt8623_devices[] = {
+-	{PCI_DEVICE(PCI_VENDOR_ID_VIA, 0x3122)},
+-	{0, 0, 0, 0, 0, 0, 0}
++	{ PCI_DEVICE(PCI_VENDOR_ID_VIA, 0x3122) },
++	{ }
+ };
  
- /*
-  * Lane Registers
-diff --git a/include/linux/phy/phy-sun4i-usb.h b/include/linux/phy/phy-sun4i-usb.h
-index f3e7b13608e4..66612be0dac5 100644
---- a/include/linux/phy/phy-sun4i-usb.h
-+++ b/include/linux/phy/phy-sun4i-usb.h
-@@ -6,7 +6,7 @@
- #ifndef PHY_SUN4I_USB_H_
- #define PHY_SUN4I_USB_H_
- 
--#include "phy.h"
-+struct phy;
- 
- /**
-  * sun4i_usb_phy_set_squelch_detect() - Enable/disable squelch detect
-diff --git a/include/linux/phy/tegra/xusb.h b/include/linux/phy/tegra/xusb.h
-index 6ca51e0080ec..e6c613f9bef2 100644
---- a/include/linux/phy/tegra/xusb.h
-+++ b/include/linux/phy/tegra/xusb.h
-@@ -8,6 +8,7 @@
- 
- struct tegra_xusb_padctl;
- struct device;
-+struct phy;
- enum usb_device_speed;
- 
- struct tegra_xusb_padctl *tegra_xusb_padctl_get(struct device *dev);
-diff --git a/include/linux/phy/ulpi_phy.h b/include/linux/phy/ulpi_phy.h
-index 7054b440347c..0f9e8430d398 100644
---- a/include/linux/phy/ulpi_phy.h
-+++ b/include/linux/phy/ulpi_phy.h
-@@ -1,5 +1,5 @@
- /* SPDX-License-Identifier: GPL-2.0 */
--#include <linux/phy/phy.h>
-+#include "../../drivers/phy/phy-provider.h"
- 
- /**
-  * Helper that registers PHY for a ULPI device and adds a lookup for binding it
+ MODULE_DEVICE_TABLE(pci, vt8623_devices);
+
+base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
 -- 
-2.34.1
+2.47.3
 
