@@ -4,110 +4,197 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B0AACD13D3
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 17:07:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 734F7FF8873
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 17:07:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4753910E8E1;
-	Thu, 30 Apr 2026 17:07:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B552C10F182;
+	Thu, 30 Apr 2026 17:07:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=prodrive-technologies.com header.i=@prodrive-technologies.com header.b="b/J5JlbZ";
+	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="BS5Y1Ai/";
 	dkim-atps=neutral
 Received: from DU2PR03CU002.outbound.protection.outlook.com
- (mail-northeuropeazon11021137.outbound.protection.outlook.com
- [52.101.65.137])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1544010F355
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 14:35:51 +0000 (UTC)
+ (mail-northeuropeazon11011067.outbound.protection.outlook.com [52.101.65.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3744810F32B;
+ Thu, 30 Apr 2026 11:07:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gRafwuduajxkB6LHgN4pEGxfH2RaDwaTpYjsJ4/5HIWGll3IPJnALBP70w6QvmIfas80PsZ3++pleWqfPj7e8b9LJHAooq1ho7pLUWqKRvrwXUvNxEHGm0y5B+8XNSJQDMyQjqa/RaPWAlJOFrWCr9+an25dpnDcJWZgRpxbCF53nLbIFLCv4EnpXax9VgO82c4LEc7jKvZURbPcVXygf7u/oc5Jv0PH3p+XtfxS+CnSr8B6+Y9oQMxG9k7MB8P6wH2KKpJCXDuduz6c5kIk7Wr3STi1mDvyMSwP2A9dW9td4uD0wY70U02CPjRV4han7n3Udi6o1ii+a9Y/8YTcMQ==
+ b=rIyFbXxqyf3bYdWx+icI2S3mLExqAQQZcyKRuhr8PrIHI2xzLS8rlXJMRZsTjnJ9Fba/+0j7uNJ5AfcQRFHAAZSD3ev1f+NVkfhBsVkACH5rOxXxNah9ChFyT57I/kWF6heKdzY/anNGU6pBiQ36D91rou+yu2WlZyzihFlCrxHrcw3X1SD1qXIFREcGGDLoeTwUU7QD26yXdgg1rRg9cbQIxy72e3JwKlb0eCimNiYF1fM3ZbRxTDMMPGa4gDKEcn1LxYAOwewAC8pocNCEccofpG0bSe86XUWlqRw8kaXlWbl9qRAIMHeO8bzPD/RIvuz4Mh6rZ0q7fgQklfK4Tw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xyqWG5o+IUD4QFpF7NY6d9K3XqkvqTQfgarfhYcXc+8=;
- b=AxM5d+KMgvP46ZGa/oOkDg9OX6HFyBWdGvOf7x0ub/pCXKjIFpsg3ba3BTa+xc+E1DsTRR2B06bT0IGzB44F2mUZm4jmes7X8zsLISOLs8+/tm5yZ7hOByJXvqn2RrkbfroTZk+EFqF17ymmCWEpyhoJK2VxqCpMfC8FNuN5tEWp7K+jv4wzQnOEcQGxZrplZsng3h0ell++1s3EnlxhJnm/WqVu0NPKho8VnKNuY5dYt9Er5iCu3KHpcDDBWEBkT5pmf/dXvs/gxh0iFqWy/ptEsfASFM6emcFqFZgHcAWtHhjeeygvY4Mxazzhl5fAaRsKdet09u94IVa7tqHixw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 212.61.153.67) smtp.rcpttodomain=intel.com
- smtp.mailfrom=prodrive-technologies.com; dmarc=pass (p=reject sp=reject
- pct=100) action=none header.from=prodrive-technologies.com; dkim=none
- (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=prodrive-technologies.com; s=selector1;
+ bh=Si6UMc96n2N2DF/XC4cnF9nZvr3A9AlpPHbLG67E9R8=;
+ b=fnrtMy5Vpv6XciWbZ9Uk5AKp31YZIvfqeAy9NE5QkG+jL1c7CQlIamir3QY2TCOVfi3/9vF7qSnecJLelYQ7e+Trxo+bYB2t8B9DJ11e6qQCc5lvWVlD4vL8yrFlEXZtUG8n0kCRFQg7iE1T+YbA2/zqwDszmkBbDqvM6YZyA2ETiA8hpXH486kubEWkh849QYuQxlYFtlNDXLi2PIAJZWtmKuRLbb0dyfsi/Zx5qgcdb8RI6K5NkWbTj27iEx361kb6sUa681PBpc0OliU6C8C5MvgWbAL5B5SD2UvDcNDABP6hrr6Kx9PCbzUYSQKL5ZQpJLoCc6yF3cw8gEtfrg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xyqWG5o+IUD4QFpF7NY6d9K3XqkvqTQfgarfhYcXc+8=;
- b=b/J5JlbZNB+6raYfmrda9lpBAj78QfTa2QR6Z3yzcpg0mHODNuO5CtkqdunpF1YJ0AeqlEpcnpWnw30HbP1tp6lK2l/urierg7b7YZSSNn/Gq2gXDMEZqM38MOdI9uYsIDHlyTol3xPsiq7CpVHrYbEHR472vwxSOd0kCgFGbns=
-Received: from DU6P191CA0012.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:540::12)
- by DU4PR02MB12227.eurprd02.prod.outlook.com (2603:10a6:10:631::23) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=Si6UMc96n2N2DF/XC4cnF9nZvr3A9AlpPHbLG67E9R8=;
+ b=BS5Y1Ai//6ZqNt7M/YVk29LITvOeHBwWNiFRrNd3fusAX3BY10B7sQpxVri6Y0/Hi2/ptrRGx0fjMr+Tqn0plkrTZpG/HrZ/S6d0FAe8siDwo+UORz7S+ouGVo0yHTzJ4iFjG5JUTtL6za9F54ZwDoTXoUasLYj0IdVbIWC5QwyYMU9cV/yKSh3MAc1AS7so9sC4w0Nu1DzjtnGKc6SJnYsmdzKDgdwfMxf73fUTwKzwWPcN9eCvVAW7nsBcpK7rbZKfHDih5W7GtcLA2tii8dJdPV4e5D49g2xbbfPm4DUAA78GJnMXUGum5n+6cYqEaHSuQaGwIZbEJ4ALQmbQMQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM9PR04MB8585.eurprd04.prod.outlook.com (2603:10a6:20b:438::13)
+ by GV1PR04MB10583.eurprd04.prod.outlook.com (2603:10a6:150:203::7)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.18; Thu, 30 Apr
- 2026 14:35:45 +0000
-Received: from DU2PEPF00028D09.eurprd03.prod.outlook.com
- (2603:10a6:10:540:cafe::c0) by DU6P191CA0012.outlook.office365.com
- (2603:10a6:10:540::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9846.30 via Frontend Transport; Thu,
- 30 Apr 2026 14:35:45 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 212.61.153.67)
- smtp.mailfrom=prodrive-technologies.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=prodrive-technologies.com;
-Received-SPF: Pass (protection.outlook.com: domain of
- prodrive-technologies.com designates 212.61.153.67 as permitted sender)
- receiver=protection.outlook.com; client-ip=212.61.153.67;
- helo=webmail.prodrive.nl; pr=C
-Received: from webmail.prodrive.nl (212.61.153.67) by
- DU2PEPF00028D09.mail.protection.outlook.com (10.167.242.169) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9846.18 via Frontend Transport; Thu, 30 Apr 2026 14:35:45 +0000
-Received: from EXCOP02.bk.prodrive.nl (10.1.0.91) by EXCOP02.bk.prodrive.nl
- (10.1.0.91) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.39; Thu, 30 Apr
- 2026 16:35:44 +0200
-Received: from lnxdevrm02.bk.prodrive.nl (10.1.1.121) by
- EXCOP02.bk.prodrive.nl (10.1.0.91) with Microsoft SMTP Server id 15.2.1748.39
- via Frontend Transport; Thu, 30 Apr 2026 16:35:44 +0200
-Received: from paugeu by lnxdevrm02.bk.prodrive.nl with local (Exim 4.96)
- (envelope-from <paul.geurts@prodrive-technologies.com>)
- id 1wISUS-009ZEG-0a; Thu, 30 Apr 2026 16:35:44 +0200
-From: Paul Geurts <paul.geurts@prodrive-technologies.com>
-To: <andrzej.hajda@intel.com>, <neil.armstrong@linaro.org>,
- <rfoss@kernel.org>, <Laurent.pinchart@ideasonboard.com>, <jonas@kwiboo.se>,
- <jernej.skrabec@gmail.com>, <maarten.lankhorst@linux.intel.com>,
- <mripard@kernel.org>, <tzimmermann@suse.de>, <airlied@gmail.com>,
- <simona@ffwll.ch>, <frieder.schrempf@kontron.de>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-CC: Paul Geurts <paul.geurts@prodrive-technologies.com>
-Subject: [PATCH] drm/bridge: ti-sn65dsi83: Move PLL initialization to
- atomic_enable
-Date: Thu, 30 Apr 2026 16:35:42 +0200
-Message-ID: <20260430143542.2279584-1-paul.geurts@prodrive-technologies.com>
-X-Mailer: git-send-email 2.39.2
-MIME-Version: 1.0
+ 2026 11:07:43 +0000
+Received: from AM9PR04MB8585.eurprd04.prod.outlook.com
+ ([fe80::f010:fca8:7ef:62f4]) by AM9PR04MB8585.eurprd04.prod.outlook.com
+ ([fe80::f010:fca8:7ef:62f4%4]) with mapi id 15.20.9846.025; Thu, 30 Apr 2026
+ 11:07:42 +0000
+From: Vladimir Oltean <vladimir.oltean@nxp.com>
+To: linux-phy@lists.infradead.org
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ linux-can@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, linux-riscv@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-sunxi@lists.linux.dev,
+ linux-tegra@vger.kernel.org, linux-usb@vger.kernel.org,
+ netdev@vger.kernel.org, spacemit@lists.linux.dev,
+ UNGLinuxDriver@microchip.com,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ =?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Andy Yan <andy.yan@rock-chips.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Chanho Park <chanho61.park@samsung.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Damien Le Moal <dlemoal@kernel.org>,
+ Daniel Machon <daniel.machon@microchip.com>,
+ David Airlie <airlied@gmail.com>, "David S. Miller" <davem@davemloft.net>,
+ Dmitry Baryshkov <lumag@kernel.org>, Eric Dumazet <edumazet@google.com>,
+ Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+ Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>,
+ Jakub Kicinski <kuba@kernel.org>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ JC Kuo <jckuo@nvidia.com>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Joe Perches <joe@perches.com>,
+ Johan Hovold <johan+linaro@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Kevin Xie <kevin.xie@starfivetech.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Linus Walleij <linusw@kernel.org>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Marc Kleine-Budde <mkl@pengutronix.de>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Markus Schneider-Pargmann <msp@baylibre.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Mathias Nyman <mathias.nyman@intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Maxime Ripard <mripard@kernel.org>,
+ Michael Dege <michael.dege@renesas.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Niklas Cassel <cassel@kernel.org>, Nitin Rawat <quic_nitirawa@quicinc.com>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Peter Chen <peter.chen@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Robert Foss <rfoss@kernel.org>,
+ Rob Herring <robh@kernel.org>,
+ "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+ Samuel Holland <samuel@sholland.org>, Sandy Huang <hjc@rock-chips.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Sean Paul <sean@poorly.run>,
+ Sebastian Reichel <sre@kernel.org>, Shawn Guo <shawn.guo@linaro.org>,
+ Shawn Lin <shawn.lin@rock-chips.com>, Simona Vetter <simona@ffwll.ch>,
+ Steen Hegelund <Steen.Hegelund@microchip.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Tudor Ambarus <tudor.ambarus@linaro.org>,
+ Vincent Mailhol <mailhol@kernel.org>, Yixun Lan <dlan@kernel.org>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+Subject: [PATCH v7 phy-next 26/27] phy: remove temporary provider
+ compatibility from consumer header
+Date: Thu, 30 Apr 2026 14:06:51 +0300
+Message-Id: <20260430110652.558622-27-vladimir.oltean@nxp.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260430110652.558622-1-vladimir.oltean@nxp.com>
+References: <20260430110652.558622-1-vladimir.oltean@nxp.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: AS4P250CA0026.EURP250.PROD.OUTLOOK.COM
+ (2603:10a6:20b:5e3::14) To AM9PR04MB8585.eurprd04.prod.outlook.com
+ (2603:10a6:20b:438::13)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PEPF00028D09:EE_|DU4PR02MB12227:EE_
-X-MS-Office365-Filtering-Correlation-Id: f64f82d5-3d71-4a4b-2513-08dea6c5c397
+X-MS-TrafficTypeDiagnostic: AM9PR04MB8585:EE_|GV1PR04MB10583:EE_
+X-MS-Office365-Filtering-Correlation-Id: a2f5fde0-ba0f-4971-6717-08dea6a8b343
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|30052699003|7416014|1800799024|36860700016|376014|921020|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: qBOB0Bi1QKgcKsgcP+vD/nUyTGZqhy3QnKoFL+k2nRZlCd7r73uTHyxVrfwHVC4TFChCNQgsVqnBS9uX7RVmnP+QS5jSqX81TGiO9b9LzVCaYNg0IpSdUe/V2MdUTU25fqj6pDX9H+u9AE2cpOVvnht1khLRaO/RxVJW9qGOfQWo20QxIR643f0xRYwu3aQ8QSY+aYvORn/p6X7dkBTpuXRhcLJYf6SHZBYqGrb0/0+FM0YLfkHl2E547D5RE4lKWuqtvEQR2XkQC6U4lss4GZWj1f6Bu8SqopmPRgxmzASWxacA76ZHJPWG7UlQIVU7HOa5Q6NU88Czucc/W0iaFDJKRsWtFnO4jVUdfeOMoYjwUklOWnmcUR5zQkbWRMS3XDXz12tLEIT9gY4WkkpGSDQo5GACFQd3zophR0nW+B7Id8tX6oeAjGRhvriBLiewS6dPgoLx5BkihCHMsNGpSAgQbYbWL3oC7DbL2M1X49846f1bMY6AXsnj9etQZRgRkpbxEcQtx5nZiuuYMZK/RU0asre9XfEV5/J0HnxvNt8Tm8gbH/8ih2OEb70mjqzGi8nuzOJ/a5Fd/XzI0SPYY8c7ffAMo7QT0Q9AOKgEwJtCSj/zv1+oGfeLHLFTBDdLR58Dz8s9vtOKlAn1c8oUxSY8F6/FYEuhSnCMqb9KWKnVx3qWQcMHOBbfm1eXsbEWFThXfADui5t1b/DVNEZPA5OoaW/Vzb1bBI8bxVgbc5Kaw4fycOQP9Jg12zlQNg6X4Yu/dJPJldmoxH4gAuRV5pkpJAtY+LkiYmf1/AlHT7kOokIc28XiXLoIdnnh2TOb
-X-Forefront-Antispam-Report: CIP:212.61.153.67; CTRY:NL; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:webmail.prodrive.nl; PTR:mail.prodrive-technologies.com;
- CAT:NONE;
- SFS:(13230040)(82310400026)(30052699003)(7416014)(1800799024)(36860700016)(376014)(921020)(56012099003)(18002099003);
- DIR:OUT; SFP:1102; 
+ ARA:13230040|366016|19092799006|376014|7416014|10070799003|1800799024|22082099003|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: bjDhtYlwTEjLGAG6PD8fzABylAebhnFcZ+11DQ5eWy476jzU7w8Pu57C4FqUfkvLEqhk1ygyV4jWFwHlZFIUQTsXrF1EzuNRHCkgZWQzt/B3kEXgoK6rkylQSKzyoX5LJB1uGojv6/yY7dEswy7krIaure2AJEg+U9n63r9Tm7U44TLbT8Or6GGTDjSkPg2u9DBl5KGR+hLrXcbasbAOmeo4nsVNDdO/FVPsRGRPZRnqrg0qtoGDqzbadVcO6zVohoinb195wTtpNhqF5k7VblzQI7ELe5dmgSHrUeNJ52MW0a7soWiuSjTbKQT4+dmgqjtM4xXC2va2PXXn9xCIgVTSeel8m8BpXY3qhvZyaLLOnOhggl1Qh0EbfhlNHrr/lb+H6kscSA7VJhfE7bbpoFrzVl8QfMVHucWJIRtZRYHKatInJklU9Rt0ZqX2lcIumm67ZuwnoDS0Axz6/XTUQQQaeiKtXPZQL0zug6j2qmtCwHzbBBmEgJWEY6ZjB8kBYwWuXett42GF2fBwa8ZTsFRlCJfbuxr6QeDWbJf87RUajjZjabJcfSlk3ouLJM8FKAcSqouY6RR1o58KeDEy0fs3Y96vAsMD+oQ4/oFDurzP1d1WqsEwUeHkfmB9ZFgvhVFLjCRSSrAc3XRpJ12epa90JcNEjMKclOubikCj8JFY7pKTqCxVLwvbaiQKinsznczaTWXiqlE3d3BLW7MSH6atPIKcZy6CHX8Mfj2BNuo=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:AM9PR04MB8585.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(19092799006)(376014)(7416014)(10070799003)(1800799024)(22082099003)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: F88Tji8Z+Gysz2RHiahGAsxXt6+HVBYXDEpzM7xagHIDOKa6tPyxcA/v8J4laoIr6xES5OweWRz9FJKb//hkjxNTJljZqPgAUl7s27Eq6pgvjfrcxiWekfqWiSmfpBFvpZY+bj0v9WRkQQtAS9AWlTMvaGC6nVwUXNtNvYKxa4QkB8SBUFyJvZ2EIUCF9sW2dNNUKBKLuC+uQuI2Osk54iC/R1sAVtl/yyJK0AOHQnTt31a/T8rcyoU9TRw0jKMFEl04JM2IeH/cXB+nFmJCF+BBftb+rYThcFs1mESDzWPIagOqlD2SjH+b6vminC2rphT4P9zotO34LlKavyd4ku4IX+sW5em5zFcwg3pMG7+AFmfYLw4uydr4SB0AQwCoz2v92/ydZXY7lKt88QmT8Yoo20es5FR3ujmvXEl1A+bTaF/VXPDIonqszzEZUEs5
-X-OriginatorOrg: prodrive-technologies.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2026 14:35:45.2799 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f64f82d5-3d71-4a4b-2513-08dea6c5c397
-X-MS-Exchange-CrossTenant-Id: 612607c9-5af7-4e7f-8976-faf1ae77be60
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=612607c9-5af7-4e7f-8976-faf1ae77be60; Ip=[212.61.153.67];
- Helo=[webmail.prodrive.nl]
-X-MS-Exchange-CrossTenant-AuthSource: DU2PEPF00028D09.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR02MB12227
-X-Mailman-Approved-At: Thu, 30 Apr 2026 17:06:40 +0000
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SFRCRVBraWMrQWxFUWZTU2xBNElELzFsWHdRbVl3R0tlY28zbGg0MzFrbTNX?=
+ =?utf-8?B?cHZDOEo4RXUwYlJKbFFndS9MSm9JMGtmbWJuSWlDZHZYTElRSzBoL0I3amdK?=
+ =?utf-8?B?WnBPKzZBdEIvcG14NitoZy9tSGJXWlE4NXBBZXNJb0tpUVUwSXdmQmF3Vmxh?=
+ =?utf-8?B?bjk4bUs0OWVKdUxnMDF0U2tCcFRXbFpnMjhkTkxqT1NUaHJmdnpYc1BoV1A1?=
+ =?utf-8?B?WVMzNVNmTnlSaklNcDI3eTBPeU15YkcxVU1RUEhmY2Q3cXgzZ1dXNDBJOVBi?=
+ =?utf-8?B?cDZ4STNPUEFsS1BSbkowY3FtazRtblZlRUg5dUFpcjQwSkIzS3JRK2dFWHFm?=
+ =?utf-8?B?ZHU3Z1dYQjZHMzJwRytSU1E4eStkNHZYeVB5Y0lCVDZycTN6eEZIU3BZZjA4?=
+ =?utf-8?B?clF6SG1CSGFmSXQ0UXBaVGVQc0cxNEtUZWpubTVKR0VjQWNOQkhQVCtmVTZi?=
+ =?utf-8?B?dHU3dHkzcEYvVDVoR0NyOXdLMzJ3RUtTV1A2YzVvYWFiNFNlSGdLQXRYU2JM?=
+ =?utf-8?B?Y21xbTV3LzUwRzgzMWlwNnVCODJyUFN6UzZrNkI1c0xKTE1pZ3hBeVBFUW9D?=
+ =?utf-8?B?ZWxGNmpYVGkrYVg5dmtMbTFyTE45YnJqbEk4dlRLNEI2KzRZN2dXSnpBZ0Z6?=
+ =?utf-8?B?WUdkbHpWUVlucmtSNmFIQ2tuTSt1QThHMTczYjY1UHp0YjMyRW1BZ25zZmk1?=
+ =?utf-8?B?MUltUWhweVpLZ3Vxam1jMUJqM2Z1dWNTQ2xCWksvYXJ3UllvSXpKQ1FkbVVI?=
+ =?utf-8?B?Y1VvVWFQL3FEY1ZhRWQ1OEZiMlBQbzl6a1BFTTZTelU3RVg1ZjdWT1EwRDRp?=
+ =?utf-8?B?Z2RYdGNqOUlIanZPWTBFdmcwMDdseDFUY1NJRTdUOUZoak9MRURRTERJeWNw?=
+ =?utf-8?B?VmhlSkVwQU0zdmRCRVg0V2pPREx2QkJrOHkvM25BVUpqODd0dkxUeHdQVzNI?=
+ =?utf-8?B?WWdRYXRWbVRtOTFUTFJPYUxPcFZ5NTFQbW1ZN0hZYy9vazBjK0xGdmRHa3BH?=
+ =?utf-8?B?Z0Z1QmRld0Ivb29NRVQ4Uy9yRWJRdXgyVE45dHgvZTg2VUszMThxZlFhSTYr?=
+ =?utf-8?B?dG4wMFdWOGF6Ny90L1EwdTVQamFoMER3elVWekFKeTFtMU5pakVDcWNYZVdL?=
+ =?utf-8?B?bTRGWDZKcnk1L1pYdGs5N0kxVmt0dU9VV1k4UG01ZkpqcmRsRURVd3ZlUjlt?=
+ =?utf-8?B?bXJKalVsYjVLNTZEVnJxUHUrOHgvZGliSG9KTFA4YXFEQUxQZEFFMVpzTDRD?=
+ =?utf-8?B?WmEzbU12RXVjbnRmNVREK25tbTZYTlM5YWZ1ZWlZY0h6QXJsMDJxa2NXSGZy?=
+ =?utf-8?B?em0yWlVTZjhKQTQxS1JMSGl5WmVyWFlibkloajV0VHErR2JQQWhlcGdMdXRG?=
+ =?utf-8?B?TTFPNGY1eExLeENWSGRkMUpJaGtTbUdlWmYxZlRrc3orcXhKaWhwbmhsTlhU?=
+ =?utf-8?B?K3pncWtscHY0dVpjT3loVUxsYlU5SVVLMDBsekJDTS9PdHd3TURMUzZpNzFD?=
+ =?utf-8?B?bjNON0dZbkJSemdHdEZNTGlNL3VLM1cyTllrdTllcUtpWTJ3cVROcng5UFYz?=
+ =?utf-8?B?NUFUeTNEOW1VWHE0Uzg3YWhLRnVvMHhWczNVMG1Pb0hMZUpRWHBsbWlmTXJs?=
+ =?utf-8?B?bkQ2cUlza0J0ZkgrbHAzUzZ0STU3QzE5b0Z3blRSclVCNnhiV1dRQmhqc1BQ?=
+ =?utf-8?B?MjZIbmY4SUhnaHZsSmMwRzB0NW1rakNTMmM5UExKV2ZuNncvZ24xbGtVSk1B?=
+ =?utf-8?B?NVA2bHNOWVVzRzhGdXdXdU1NdENFY0JPUTVwa0dhVDFZQWE2eVFQZUIxbkEw?=
+ =?utf-8?B?eVNScXJSVnA4M1VIcG90T2R2TXU0d3crZ3IvNlk4OFN1Y1ArNlh4ZEtuMjlD?=
+ =?utf-8?B?N1NZMmZNZzNxandrSUpmTFRvRTR0eldpcVUybVEvOWI5LzFHWGtkeGJNMkQ5?=
+ =?utf-8?B?ZzNnNlV0STlnb3VzWVZGUVFqa0ZpbDVYL0VMTHRwYlBkeEs4ejJBOEFadWN2?=
+ =?utf-8?B?NkdVQ1JPQUJQT0dLUHZuc05oenViTmF2bUdMRnZSS1ZvWGc0QldOOWJQdTJB?=
+ =?utf-8?B?QmxxZGFqckwrVnZQaFE1bWhkVGdheXdFZFBXM1Ntczg4UzQ4MWRjb1VoYitP?=
+ =?utf-8?B?VzVvNFpPNVZZbUc1MnFrcnRBa2RvcUVpUnBBNFUwNFZuTHF0WW1CT1A0Z3ZJ?=
+ =?utf-8?B?QjhieW5XNlJuSjl4U3JvS0hiUE94d2lpYmM5WjdYeVRDdVlURzIzUjdSQno2?=
+ =?utf-8?B?M0lna2JDbzZYcHd4eGxsK1RYaEZoSW1lOUQ5ZXM4QjQ0K0dQTlJZd28vRkZs?=
+ =?utf-8?B?MWZxMjRNVk5TaENMa3d2dGhmVlRycmpVcFpYVzE1TU56T0g1MGdUQ3VTRXlR?=
+ =?utf-8?Q?O2k9QUQTo3urSp9MmsvYAffK9GCzd+ALIrnsl?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a2f5fde0-ba0f-4971-6717-08dea6a8b343
+X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8585.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2026 11:07:42.7151 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4Cg3c80wgXqplKxSJmmolV7blTeRNxwjaIsz9Q2dSHRgX1MeYE3tXm5nbpUyTCuQxP8aCc+nXnz6acXnGfeA3g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB10583
+X-Mailman-Approved-At: Thu, 30 Apr 2026 17:07:41 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,94 +210,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Some MIPI DSI encoder drivers, like the Samsung DSI controller found in
-i.MX8M Mini, enable the DSI clock on encoder enable. The sn65dsi83
-pre_enable is executed before the DSIM encoder enable. As the DSI input
-clock is the PLL input clock, the PLL cannot be locked in pre_enable.
+Now that all consumers have been updated to no longer dereference fields
+inside struct phy, we can hide its definition altogether from public view.
 
-Enable and lock the PLL in enable instead of pre_enable, to make sure
-the input clock is available.
-
-Fixes: dd9e329af723 ("drm/bridge: ti-sn65dsi83: Fix enable/disable flow to meet spec")
-Signed-off-by: Paul Geurts <paul.geurts@prodrive-technologies.com>
+Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/gpu/drm/bridge/ti-sn65dsi83.c | 35 +++++++++++++--------------
- 1 file changed, 17 insertions(+), 18 deletions(-)
+Cc: Abhinav Kumar <abhinav.kumar@linux.dev>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: "André Draszik" <andre.draszik@linaro.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>
+Cc: Andy Yan <andy.yan@rock-chips.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>
+Cc: Chanho Park <chanho61.park@samsung.com>
+Cc: Chen-Yu Tsai <wens@kernel.org>
+Cc: Claudiu Beznea <claudiu.beznea@tuxon.dev>
+Cc: Damien Le Moal <dlemoal@kernel.org>
+Cc: Daniel Machon <daniel.machon@microchip.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Dmitry Baryshkov <lumag@kernel.org>
+Cc: Eric Dumazet <edumazet@google.com>
+Cc: Fabio Estevam <festevam@gmail.com>
+Cc: Frank Li <Frank.Li@nxp.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: "Heiko Stübner" <heiko@sntech.de>
+Cc: Inki Dae <inki.dae@samsung.com>
+Cc: Jagan Teki <jagan@amarulasolutions.com>
+Cc: Jakub Kicinski <kuba@kernel.org>
+Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: JC Kuo <jckuo@nvidia.com>
+Cc: Jernej Skrabec <jernej.skrabec@gmail.com>
+Cc: Jessica Zhang <jesszhan0024@gmail.com>
+Cc: Joe Perches <joe@perches.com>
+Cc: Johan Hovold <johan+linaro@kernel.org>
+Cc: Jonas Karlman <jonas@kwiboo.se>
+Cc: Jonathan Hunter <jonathanh@nvidia.com>
+Cc: Kevin Xie <kevin.xie@starfivetech.com>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: Linus Walleij <linusw@kernel.org>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>
+Cc: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Marc Kleine-Budde <mkl@pengutronix.de>
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Marijn Suijten <marijn.suijten@somainline.org>
+Cc: Markus Schneider-Pargmann <msp@baylibre.com>
+Cc: "Martin K. Petersen" <martin.petersen@oracle.com>
+Cc: Mathias Nyman <mathias.nyman@intel.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Michael Dege <michael.dege@renesas.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Nicolas Ferre <nicolas.ferre@microchip.com>
+Cc: Niklas Cassel <cassel@kernel.org>
+Cc: Nitin Rawat <quic_nitirawa@quicinc.com>
+Cc: Paolo Abeni <pabeni@redhat.com>
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
+Cc: Peter Chen <peter.chen@kernel.org>
+Cc: Peter Griffin <peter.griffin@linaro.org>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: Robert Foss <rfoss@kernel.org>
+Cc: Rob Herring <robh@kernel.org>
+Cc: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Cc: Samuel Holland <samuel@sholland.org>
+Cc: Sandy Huang <hjc@rock-chips.com>
+Cc: Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Sean Paul <sean@poorly.run>
+Cc: Sebastian Reichel <sre@kernel.org>
+Cc: Shawn Guo <shawn.guo@linaro.org>
+Cc: Shawn Lin <shawn.lin@rock-chips.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: Steen Hegelund <Steen.Hegelund@microchip.com>
+Cc: Thierry Reding <thierry.reding@gmail.com>
+Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Tudor Ambarus <tudor.ambarus@linaro.org>
+Cc: Vincent Mailhol <mailhol@kernel.org>
+Cc: Yixun Lan <dlan@kernel.org>
+Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
 
-diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-index 17a885244e1e..018e524c473c 100644
---- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-+++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-@@ -525,7 +525,6 @@ static void sn65dsi83_atomic_pre_enable(struct drm_bridge *bridge,
- 	struct drm_crtc *crtc;
- 	bool lvds_format_24bpp;
- 	bool lvds_format_jeida;
--	unsigned int pval;
- 	__le16 le16val;
- 	u16 val;
- 	int ret;
-@@ -670,6 +669,21 @@ static void sn65dsi83_atomic_pre_enable(struct drm_bridge *bridge,
- 		     mode->vsync_start - mode->vdisplay);
- 	regmap_write(ctx->regmap, REG_VID_CHA_TEST_PATTERN, 0x00);
+v2->v7: none
+v1->v2: collect tag
+---
+ include/linux/phy/phy.h | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/include/linux/phy/phy.h b/include/linux/phy/phy.h
+index 34b656084caf..0fdcefaa3f55 100644
+--- a/include/linux/phy/phy.h
++++ b/include/linux/phy/phy.h
+@@ -12,8 +12,6 @@
  
-+	devm_add_action(ctx->dev, sn65dsi83_release_resources, ctx);
-+err_exit:
-+	drm_bridge_exit(idx);
-+}
-+
-+static void sn65dsi83_atomic_enable(struct drm_bridge *bridge,
-+				    struct drm_atomic_state *state)
-+{
-+	struct sn65dsi83 *ctx = bridge_to_sn65dsi83(bridge);
-+	unsigned int pval;
-+	int idx, ret;
-+
-+	if (!drm_bridge_enter(bridge, &idx))
-+		return;
-+
- 	/* Enable PLL */
- 	regmap_write(ctx->regmap, REG_RC_PLL_EN, REG_RC_PLL_EN_PLL_EN);
- 	usleep_range(3000, 4000);
-@@ -680,7 +694,7 @@ static void sn65dsi83_atomic_pre_enable(struct drm_bridge *bridge,
- 		dev_err(ctx->dev, "failed to lock PLL, ret=%i\n", ret);
- 		/* On failure, disable PLL again and exit. */
- 		regmap_write(ctx->regmap, REG_RC_PLL_EN, 0x00);
--		goto err_add_action;
-+		goto out;
- 	}
+ #include <linux/phy/phy-props.h>
  
- 	/* Trigger reset after CSR register update. */
-@@ -689,22 +703,6 @@ static void sn65dsi83_atomic_pre_enable(struct drm_bridge *bridge,
- 	/* Wait for 10ms after soft reset as specified in datasheet */
- 	usleep_range(10000, 12000);
- 
--err_add_action:
--	devm_add_action(ctx->dev, sn65dsi83_release_resources, ctx);
--err_exit:
--	drm_bridge_exit(idx);
--}
+-#include "../../../drivers/phy/phy-provider.h"
 -
--static void sn65dsi83_atomic_enable(struct drm_bridge *bridge,
--				    struct drm_atomic_state *state)
--{
--	struct sn65dsi83 *ctx = bridge_to_sn65dsi83(bridge);
--	unsigned int pval;
--	int idx;
--
--	if (!drm_bridge_enter(bridge, &idx))
--		return;
--
- 	/* Clear all errors that got asserted during initialization. */
- 	regmap_read(ctx->regmap, REG_IRQ_STAT, &pval);
- 	regmap_write(ctx->regmap, REG_IRQ_STAT, pval);
-@@ -724,6 +722,7 @@ static void sn65dsi83_atomic_enable(struct drm_bridge *bridge,
- 		sn65dsi83_monitor_start(ctx);
- 	}
- 
-+out:
- 	drm_bridge_exit(idx);
- }
- 
+ struct device;
+ struct device_node;
+ struct phy;
 -- 
-2.39.2
+2.34.1
 
