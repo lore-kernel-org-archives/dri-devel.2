@@ -4,175 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7D3AFF8864
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 03:12:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCDE5FF8864
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 03:25:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55DD310F1F2;
-	Thu, 30 Apr 2026 03:12:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0108310E021;
+	Thu, 30 Apr 2026 03:25:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ilwN/1E3";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="V5dcZx5w";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D4DF10F1E1;
- Thu, 30 Apr 2026 03:12:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777518761; x=1809054761;
- h=date:from:to:cc:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=e/Z+2QgZ+RRY3JDUqbTE5piHHgvGMrK9NH2kLAUDCsI=;
- b=ilwN/1E3ocf7lsGfqixkpab9TmzflZy1V9u8lR2Kw7WC24JJc20Z1kB8
- EAHw4/ouEgpFBdZX04oF3DT/ng1Uzl1OEDEDtIr7JU+9shMPy1Cjdfm94
- TZgmMiWRRWEcveMZJAvK1/owke8JBmb8nZWdPGBoM4/hNrwJ2/4Mk6ITm
- vVJVOKc5wnXzHgxY+sd4JIN1sRad53S8r3nEB49zpfGE1FDIiVDlNMjYj
- s8J5Pvp6SfzBygQiOv6/8CT3C0PP+dm0jqkBuT2g1MflnotmvqU4tHXAb
- DfFWNU0ps+xNMKEP96S+wIvPlpadq1Zdbb1/VYH+rn+ETn0JVB2GRI5kk g==;
-X-CSE-ConnectionGUID: S400rRBNSSGpkmP2kbm3Tw==
-X-CSE-MsgGUID: to6orwK0RDG35QXj895TYg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11771"; a="78513486"
-X-IronPort-AV: E=Sophos;i="6.23,207,1770624000"; d="scan'208";a="78513486"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Apr 2026 20:12:39 -0700
-X-CSE-ConnectionGUID: fl8rHdJsRnu2baNxROAIJQ==
-X-CSE-MsgGUID: koCDFQDRQxO5PNMQEH07HQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,207,1770624000"; d="scan'208";a="231311742"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
- by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Apr 2026 20:12:39 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Wed, 29 Apr 2026 20:12:38 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Wed, 29 Apr 2026 20:12:38 -0700
-Received: from DM5PR21CU001.outbound.protection.outlook.com (52.101.62.9) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Wed, 29 Apr 2026 20:12:38 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oVTPwN9vj6sOA27l8yRzf/4HGNOODxxZI9NEgZhJ6xn9MzLDtrIebsuCFszGT8wqH9wZ3GqQDg7erUkHBIF0cQVif+IrKdtDWvShyDDqa0/Kept+Jml+iDxX9ncQ3yzvY9I2bXWEjr+pFz+yTZIra+tgqJ+SN8ZzcJS4Vd2kyI8rYF6iPo2fNw4QCCQ7vNYn89R/uIpHiOM4WGE9s2RTar2weSYtONPV85MarMkCM+c0FOBzohuszANlswsVAiPGFrbtJxWrjY0AWla4exTNrexCV3NhKv95JMlOcpnFgELXgKzQyTG8Hk49jsfSAqQNi7VAyEXlffTBMMRq1L6pDw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tF3ZOeeb9uXMahbuUshgfCo2IRa++FSSYi0YNO12MSc=;
- b=I90Lj9ut6oaMYegvfqDmgDA5WGTjMdems83XfZE77Utt6nkncz+VGD3CFUHo/2/kOMC3Fa+jZ8h+LyPCzSUBbXxBbLOvJn0nsyoAkc6uitSBmxSTlxAHM8iUoaDs20GtYGR/u6tPp8bRqYKENuF0vDRgip4+ATcl2nlF7PzOeddPmulVMjBox9XQvvDgHzUQmCLJy1IM8IwL/Gw6Kc/KbtRUaR/0U2tO0whQYYHqN5L7u0DKi1b55WMZA26pqcF35qD3HykvqErbN1PhSS177NjKNgBn1ybNfLC5fDtkhrnzvrF08+8eBMvOKw/LneLQttbtVaweycB3FRqohjK0NA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
- by CH3PR11MB8413.namprd11.prod.outlook.com (2603:10b6:610:170::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.17; Thu, 30 Apr
- 2026 03:12:35 +0000
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c%7]) with mapi id 15.20.9870.016; Thu, 30 Apr 2026
- 03:12:34 +0000
-Date: Wed, 29 Apr 2026 20:12:31 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: "Huang, Honglei1" <honghuan@amd.com>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Kuehling, Felix"
- <Felix.Kuehling@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
- "Zeng, Oak" <Oak.Zeng@amd.com>, "Liu, Jenny (Jing)" <Jenny-Jing.Liu@amd.com>, 
- "Yang, Philip" <Philip.Yang@amd.com>, "Chen, Xiaogang"
- <Xiaogang.Chen@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>, "Zhu, Lingshan"
- <Lingshan.Zhu@amd.com>, "Shen, Junhua" <Junhua.Shen@amd.com>,
- <yiru.ma@amd.com>, "sima@ffwll.ch" <sima@ffwll.ch>, "rodrigo.vivi@intel.com"
- <rodrigo.vivi@intel.com>, "thomas.hellstrom@linux.intel.com"
- <thomas.hellstrom@linux.intel.com>, "dakr@kernel.org" <dakr@kernel.org>,
- "aliceryhl@google.com" <aliceryhl@google.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-Subject: Re: [RFC/POC PATCH 00/12] POC SVM implementation in AMDGPU based on
- drm_gpusvm
-Message-ID: <afLInxpNTkA2yOZn@gsse-cloud1.jf.intel.com>
-References: <e21e8e1a-4d2e-40e9-bbb7-2764cf33e760@amd.com>
- <ae5fe946-4756-43b4-848f-3b545ac61ba7@amd.com>
- <abuE0KBPtAZM9Bo0@lstrano-desk.jf.intel.com>
- <098d5d68-f218-4cee-8b73-201e7012a287@amd.com>
- <acDeRhCTh/ehOUyu@lstrano-desk.jf.intel.com>
- <a9d979e7-6ff1-47c5-87c5-b905e5c84ded@amd.com>
- <aenBy61U66DkSZUl@gsse-cloud1.jf.intel.com>
- <7a1ba278-1201-4585-b35b-3fb2cec6035f@amd.com>
- <5e44f013-a1c1-4621-9eea-e4f2459f223e@amd.com>
- <02ded343-38bd-4621-83fd-78a027eb96e2@amd.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 713B010E021;
+ Thu, 30 Apr 2026 03:25:46 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id ABA5B4447A;
+ Thu, 30 Apr 2026 03:25:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FEFFC2BCB9;
+ Thu, 30 Apr 2026 03:25:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1777519545;
+ bh=Ut5G69bc29PiPzWoT/741NVv5Kk/lOmdOdb5wKBmZHY=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=V5dcZx5w6ZsNbkLQRDMzB2RWL/aoneaFsqWWBCOjQU9YtIWRYDD+T+yLL0c1uuBhY
+ qEq09wxP51HP2ucG5VcbFYEWu1xwrI3mLVWalChYNFLQKJVV2/uPNO5bNsVTmGtBYW
+ y+MFexZXsUKBzIR9VcaG11CGAPdXCh5mrQ4ITyVmu2dzJeTpqYPZZKRQaFN8mTUumj
+ qe1015WQ5bGNHETaFFAMkfQbXS+479tE5rufj5GTm7FfEY/F/wwiBzlApZyMLXQ7Xj
+ eN4jVc9crSFreUj8YqywmtdyQ9MC4GHMaLaL9pIVAuwmWk3hGgC+ZxtKtJbApg/ERF
+ YZVQLUUCYw1Pw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ DA1FF3809A07; Thu, 30 Apr 2026 03:25:01 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <02ded343-38bd-4621-83fd-78a027eb96e2@amd.com>
-X-ClientProxiedBy: MW4PR04CA0146.namprd04.prod.outlook.com
- (2603:10b6:303:84::31) To PH7PR11MB6522.namprd11.prod.outlook.com
- (2603:10b6:510:212::12)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|CH3PR11MB8413:EE_
-X-MS-Office365-Filtering-Correlation-Id: ec3ad476-5e8d-4867-a499-08dea6665350
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|7416014|376014|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: uo8QRL8t8SprSL1dsSD+CbgVyrmZJnALP664hbsabZnliRmfFRhrzicVfT4NAcDK/fZbfuXT3eRIt9r6DvswGJ5ZAjldOZAVYANYCEj/m6QqWIdC1cAqnUHjcimNEy/3piDShZaxk5nsj2RA0BsdrkxAjqf32Tv5W1lnGVVkqAhZbdRKI30FHYw2Wpp6JekK0w6sD4oh2n35uK96qLcfyopX3vp20rG3aZL2hdziEeRDP7joArJq3qyTrBsayO5AdtI0Nr2ACucZY70up9k+HRDHUxMyJy205EyPEIkzkmS1mHcGV3H2UdRL1cWVec25FWQhVDCSSDB/S7Ew6FM4QdVVSlG02jS35feabWVPe3befwUqQ6pHGm6l4Gscc2fWzuyvOR2QOZo9VvY6Vq9Gg1N/0DKOGOxj7+jWWnMxW0DmVIsyt8ThoHYtcxA17YnCATcpOx/FWwOwNREDnhSg0N3XSdSPx6kG0AVttd37acV+VwMQA8U4C2KvNmyW+RGwu2oYIXn3BURifzqRkhZ1wz+Eq9HPweuhitDa4WPdkAFmdvw55MazoIRHHSEShrc+upwM9BCP9NXYnNU+QS+YRauffSPUFchJdY4tTh7vGOUzNfbDyK8Gd1VzvqP6q7TOLrch+f8uTjV1O9lWrOOTEcfMTJLEkru48xZ0wULT5Ry09hsISTPuU64lMnqysId8
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(7416014)(376014)(56012099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YWpucGgvSmNhdFNaK2JJMTdZdkRubzB0cmdkLzdOdlhLaGZueUh6NmdueWFm?=
- =?utf-8?B?eHVscEtNdEdYT2UydmltaUVCVmF6OFlhQkdSbnlTU3NGd3hIbFVBSXFhVGFY?=
- =?utf-8?B?eHFsUlJFSFlBMUR5ek1YandhNU1BdTMrUzZlYXkxOVBUTnNjQjJZcEs4cUJh?=
- =?utf-8?B?T2dVQmJGNTY3RTlIQ3h5L1ZMKzZ2bGZWY2F4NjVBSmlBb3M3dTJBYTcwMUtn?=
- =?utf-8?B?aHlFdHN3eWc1UW5jSnVpWHpqUjgvSUIrTFQrTlpqVU1VYmxXTVdaTGFXQTZL?=
- =?utf-8?B?Vm5sMWZZM0NZTmltSjQzSlB3cUVmNVl5dStYU2tWZS9OOUJhcmp4UlpVM3ND?=
- =?utf-8?B?eGxlU0lMMzlqU3dYRVFpK3NBWVlRVDhZRm1pY09ldU1SUWxHbGMrV0VubW5K?=
- =?utf-8?B?WkIyQnFpZ3pQYWdHUjNCdFVsWFlkWitGNTc4WHhyNHd3S1JGbEVLb1BERUEr?=
- =?utf-8?B?c1poT0d2Z2xJRVBFNGZaSGY4WWcyU005U2UyVE5RdUNTeFlFTUtrdXZWZ1JY?=
- =?utf-8?B?Zzk3dDlRRDJKRzd0dEpxY085dEowdFk3emZYcEUvekNTTFhNeEphMUNST1hI?=
- =?utf-8?B?dlhpTXlLcjlQc1FRK3RmaUovNVJrNDc2QjNieFJKL0xzK3o0VmUveEM2WEtJ?=
- =?utf-8?B?OC81dElZNDNQbkt5Y2pKUG1Nc2Z5Unlid2VMYWJyNVJwZkEzNlAveWZ5WDdT?=
- =?utf-8?B?cU5YSURqRW1kTGNEV3c2ZGxTc2pXWXRhL2FkdW5QcTNuenROb251dHpVdDlq?=
- =?utf-8?B?SmtLMjlnajdQMW5KajFkeFcyQ2pRaUNLR2NmRlprSFR2bFdCZ1RPZ1oyYy9p?=
- =?utf-8?B?NjU2cDNXMzREd044cE43amlBcEtNcFc1YkxGVDdtYkJwaWxoMndhd0E1QlQ3?=
- =?utf-8?B?N2R3OXMvZi9sNVFlbThid0dMbGg2N24xMndPTlQ5eGZXbjVVckg3Q01kUXJ1?=
- =?utf-8?B?VWlEQXBwQ2h3eFhtbU5GMlpzaGw3NW1lSDFMaTFqV1RRK29mZitrY0RVZFlk?=
- =?utf-8?B?WGxLMjBaaGdSbU9hd2JhSWNDUHdpVy9rc2dQYkwyVW1oK0J4WUoxOERTR3h1?=
- =?utf-8?B?YnNtWG4raW1xcHF3V0lUWlZ6eTF5czN6NzJLZVF4K0pwWWdjS1NkMTI0U2ZN?=
- =?utf-8?B?YWxNaXl3b1BydUNDOVRUODYyaTdnU3Jram9hMFRVbzhIL3JhSEdSU3RuWW83?=
- =?utf-8?B?dk8wRWNBcDR5dWkwTEl3bDdUY1pVK3ZtQnNIREhWempRQ2M3Z1BoeGF2YW1V?=
- =?utf-8?B?dmYvcDlyQmp2SlFNUllqRjhUOFlsSDdPVmVQbEJBU0ZTSUs2TGxQLy9NOXRT?=
- =?utf-8?B?WndJWTdNaTNLaXA1eW5nRHF5RHF5cnJhR3BpSVMwcVVOV0VhS1lDL2l2azJ1?=
- =?utf-8?B?Ri9pelNnODJMaTRhbzUrci9rRzNUNTdya3BKZnkrdlVDQ2c1a0VBc1grMXBL?=
- =?utf-8?B?SzU1YTRQSVY1clJuNFpkWENPQ01GOHVubFNsZFV3d1krOHYwQms0Q2tuSUlk?=
- =?utf-8?B?clluYlFxZng0R2M0RzJZQncydTI0ajkySmtoOXJtbEJ3Z3ZXTXBVM1drWHBX?=
- =?utf-8?B?dm0vZHhjd1RLd1hQR0Q1eXUycnl4cjJYb1lDdWVxVEdnUnBSUG00dTRFYnJx?=
- =?utf-8?B?dm5GS3ZWYjBVVy9qOExvNEJtVHA1ZUpaaGZQKytlQ2VCV1Y4aFdIOXhEL21s?=
- =?utf-8?B?VWJIZkxRTDVKMmpxWGw4b1lmb2ZKdUVKMjd6cUtSUkIxSW9WYzBUMERLM3ha?=
- =?utf-8?B?dVAwdEV5cWxTMDkvcG0yRzJXODdGT1lIaHpKUWlMT0pzRXpHNWVvamNiQ1ZY?=
- =?utf-8?B?WjdqVTJEOWZueGdaaWUzUkcycVZ2UHd2S1VrOUZvYkoxTVBNUFliL2c3TUF4?=
- =?utf-8?B?dGc0RGg4V3NXcVJuczZNNG5veGV4OGladDV5b2FtZWJPMnl1cDlBVnlaRjli?=
- =?utf-8?B?Z05OWjBkdmZsaDBuMU54Mzd0ek5EOFdCcDBXR2x2eXpLaHl1bTZCdUtLR1FB?=
- =?utf-8?B?U2xMc3JHTys2TXR3WlJoZDExRWVJenN3SGRMbkticWJMRjdBVUc1c1FGbUJx?=
- =?utf-8?B?LytjRGIyZ1JPcXR0amttVTR1VWVBY2RIQ3FGSGY5MVE5SnVNaEdsSURQenlD?=
- =?utf-8?B?QzRRYW5VdGJQSnhFdEM5Mk1EYnlPRHRya25oQWxNdTYyWHgvdnhlcmFLc2ZG?=
- =?utf-8?B?eU85T2tTbzh5QnpDMDRLelI2MWMyQmJlb2VWN2VqNGVicjBObzZQbzBZWUpC?=
- =?utf-8?B?UmFMaTJMejZkU1lVL3lzWEJ0ZVZUNFlVSmwwdnJWNE1Na2FPcnNpaWRpN0xu?=
- =?utf-8?B?M0JpQ2pNc2tMMDdKWmR5Q3VPVHJIY0w1dzhhQUtvWlNJMjZNSWxaZz09?=
-X-Exchange-RoutingPolicyChecked: X6WLnuWCgXDNIfWqwHI6dp2dLMXF+MxREHsb1OI14FIOoNIziGqGjLa/XNjmpvGDd7tnS5MUONd9nhYhjIwhDjxz7IFalg+Q2iP0hvsObPdheEpyNy2B9+QSAytBi5HoCcf4N3SJAaalOErNOkQZ67kH2GQ1BK+07ohc4eeibiiC+IJuMzVyb2DRVrcv5UyVFqg+DPgzHAFC3mGISnsp9xszmsK/y19PRevt5v2znSa46F02UOWS0ZnJP/7ugVV+t3Xt0wzaa0vJu0kdKye5YyDq/69tj+DomDe4igJ7ne3Fn74t1L6CMuotDUXwOKZH7MeRHQWbYCAQD1aWCP5O6A==
-X-MS-Exchange-CrossTenant-Network-Message-Id: ec3ad476-5e8d-4867-a499-08dea6665350
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2026 03:12:34.9321 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: G6R+GSh3NELYXEe+M5Mct8Uk/bjOnY1kcNm4nPHGWxoSIQf79vDJfFCJHewa1FQSSZxO6C7LU5cEZY3bNSqbgg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB8413
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v2 00/33] rust: bump minimum Rust and `bindgen` versions
+From: patchwork-bot+linux-riscv@kernel.org
+Message-Id: <177751950055.2274119.12088060080551439561.git-patchwork-notify@kernel.org>
+Date: Thu, 30 Apr 2026 03:25:00 +0000
+References: <20260405235309.418950-1-ojeda@kernel.org>
+In-Reply-To: <20260405235309.418950-1-ojeda@kernel.org>
+To: Miguel Ojeda <ojeda@kernel.org>
+Cc: linux-riscv@lists.infradead.org, nathan@kernel.org, nsc@kernel.org,
+ dakr@kernel.org, a.hindborg@kernel.org, catalin.marinas@arm.com,
+ will@kernel.org, pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
+ acourbot@nvidia.com, airlied@gmail.com, simona@ffwll.ch,
+ brendan.higgins@linux.dev, david@davidgow.net, gregkh@linuxfoundation.org,
+ arve@android.com, tkjos@android.com, christian@brauner.io,
+ cmllamas@google.com, aliceryhl@google.com, corbet@lwn.net, boqun@kernel.org,
+ gary@garyguo.net, bjorn3_gh@protonmail.com, lossin@kernel.org,
+ tmgross@umich.edu, rust-for-linux@vger.kernel.org,
+ linux-kbuild@vger.kernel.org, lorenzo.stoakes@oracle.com, vbabka@kernel.org,
+ Liam.Howlett@oracle.com, urezki@gmail.com, linux-block@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, alex@ghiti.fr,
+ nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ raemoar63@gmail.com, linux-kselftest@vger.kernel.org,
+ kunit-dev@googlegroups.com, nick.desaulniers+lkml@gmail.com,
+ morbo@google.com, justinstitt@google.com, llvm@lists.linux.dev,
+ linux-kernel@vger.kernel.org, skhan@linuxfoundation.org,
+ linux-doc@vger.kernel.org
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -188,261 +76,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Apr 30, 2026 at 10:56:47AM +0800, Huang, Honglei1 wrote:
-> 
-> 
-> On 4/29/2026 5:56 PM, Huang, Honglei1 wrote:
-> > 
-> > 
-> > On 4/23/2026 4:22 PM, Huang, Honglei1 wrote:
-> > ...
-> > > > > > > > > > > 
-> > > > > > > > > > > This patch series implements basic
-> > > > > > > > > > > SVM support with the following
-> > > > > > > > > > > features:
-> > > > > > > > > > > 
-> > > > > > > > > > >       1. attributes sepatarated from physical page management:
-> > > > > > > > > > > 
-> > > > > > > > > > >         - Attribute layer
-> > > > > > > > > > > (amdgpu_svm_attr_tree): a driver
-> > > > > > > > > > > side interval
-> > > > > > > > > > >           tree that stores SVM
-> > > > > > > > > > > attributes. Managed through the
-> > > > > > > > > > > SET_ATTR,
-> > > > > > > > > > >           and mmu notifier callback.
-> > > > > > > > 
-> > > > > > > > Can you explain the mmu notifier callback
-> > > > > > > > interaction here? See below in
-> > > > > > > > Xe the attribute tree is existing VMA tree (gpuvm).
-> > > > > > > > 
-> > > > > > > 
-> > > > > > > Let me try to explain, apologies if the description is not fully
-> > > > > > > precise.
-> > > > > > > 
-> > > > > > > In current implementation, the MMU notifier callback
-> > > > > > > interacts with the attr
-> > > > > > > tree only in the munmap path remove the corresponding attribute
-> > > > > > > entries from the attr tree so that stale attributes
-> > > > > > > do not persist for
-> > > > > > > freed address space.
-> > > > > > > 
-> > > > > > 
-> > > > > > Ah, yes. We reset our attributes upon munmap too. We
-> > > > > > actually don't this
-> > > > > > 100% correct quite either and series in flight to fix [1].
-> > > > > > 
-> > > > > > [1] https://patchwork.freedesktop.org/series/161815/
-> > > > > 
-> > > > > Hi matt,
-> > > > > 
-> > > > > It seems like you are tring to modify the implementation
-> > > > > into remove the
-> > > > > attributes when munmap.
-> > > > > 
-> > > > > Actuall we have a discussion internally that does the driver
-> > > > > need to remove
-> > > > > the attributes when munmap.
-> > > > > 
-> > > > > So there servel ideas:
-> > > > > 
-> > > > > 1. attribute need keep: attributes may be needed again when a new VMA
-> > > > > appears or on subsequent faults.
-> > > > > 2.attribute need keep: attributes can be set independent of
-> > > > > whether memory
-> > > > > is currently mapped; attributes persist and are modified explicitly via
-> > > > > ioctl, not implicitly by notifier callbacks.
-> > > > > 3. attribute need remove: casue VMA is gone, driver can do
-> > > > > nothing without
-> > > > > VMA.
-> > > > > 
-> > > > > and I saw xe_svm set default attribute in the previous
-> > > > > version, this is also
-> > > > > a option.
-> > > > > 
-> > > > > Can you please help to give some information that why xe_svm
-> > > > > is turing to
-> > > > > remove the attribute when munmap? And does keeping attribute
-> > > > > is a valid way?
-> > > > > 
-> > > > 
-> > > > This is a semantic choice, and we’re trying to match the semantics of
-> > > > CPU madvise. I believe any semantic an individual driver stack wants to
-> > > > define is valid, but if vendors mismatch sematics this will create a
-> > > > level of vendor lock in which may (cough Nvidia, CUDA) or may not (open
-> > > > source) be desired.
-> > > > 
-> > > > AFAIK, if you do something like this in C (a CPU-only program):
-> > > > 
-> > > > mmap(addr_range);
-> > > > madvise(addr_range, some_flags);
-> > > > munmap(addr_range);
-> > > > 
-> > > > mmap(addr_range); /* Here the madvise attributes are reset */
-> > > > 
-> > > > Also, AFAIK, the CUDA GPU madvise API works this way as well.
-> > > > 
-> > > > That said, making this work 100% reliably is quite difficult, especially
-> > > > with a rude user.
-> > > > 
-> > > > For example:
-> > > > 
-> > > > mmap(addr_range);
-> > > > gpu_madvise(addr_range, some_flags);
-> > > > /* GPU never actually touches memory */
-> > > > munmap(addr_range);
-> > > > 
-> > > > So we have an opt-in VM bind flag,
-> > > > DRM_XE_VM_BIND_FLAG_MADVISE_AUTORESET, which we’re working on to mostly
-> > > > handle the “rude” case above. Maybe we can reach 100% correctness, but
-> > > > again, this is a difficult problem is WIP.
-> > > > 
-> > > 
-> > > I think the current amdgpu SVM draft version also has the issue for
-> > > the rude user situlation. Maybe this is caused by the separation of
-> > > attribute layer and physical layer. Seems like KFD_SVM doesn't have
-> > > this issue.
-> > > 
-> > > Maybe driver can find_or_insert in madvise ioctl path, to add a MMU
-> > > notifier but do not to get_page, and then clean the attribyte in mmu
-> > > notifier callback instead of GC. This is just my thought.
-> > > 
-> > > And really thanks for the information, and waiting for other's comments.
-> > > 
-> > 
-> > Hi Matt,
-> > 
-> > I'd like to share a concrete bug we hit in the amdgpu SVM
-> > implementation/tests about stale attributes.
-> > 
-> > In short it is stale attr_range overlaps with VM_PFNMAP VMA
-> > 
-> > 1: User allocates memory and sets GPU attributes but never use/fault it.
-> > 
-> >     CPU VMA (anonymous):
-> >     |<── 0x1000 ── 0x5000 ──>|
-> > 
-> >     attr_range:
-> >     |<── 0x1000 ── 0x5000 ──>|
-> > 
-> > 2: User munmaps the region, attr_range is NOT cleaned up
-> > 
-> >     CPU VMA: (gone)
-> > 
-> >     attr_range:           stale
-> >     |<── 0x1000 ── 0x5000  ─>|
-> > 
-> >     No gpusvm_range existed, No MMU notifier, No GC, No cleanup
-> > 
-> > 
-> > 3: User mmaps new memory for device pfn remap  partially overlapping the
-> > old range,
-> > and new memory for GPU set attribute
-> > 
-> > 
-> >     CPU VMAs:
-> >     |<── 0x1000 ── 0x2000 ──>|<── 0x2000 ── 0x4000 ──>|
-> >     |   VM_PFNMAP                  |   anonymous (new alloc)      |
-> > 
-> >     attr_range:              STILL STALE
-> >     |<────── 0x1000 ─── 0x5000 ─────────────>|
-> > 
-> > 
-> > 4: GPU faults at address 0x3000
-> > 
-> >     Fault handler finds the stale attr_range [0x1000, 0x5000):
-> >       gpuva_start = 0x1000  (from stale attr_range)
-> >       gpuva_end   = 0x5000  (from stale attr_range)
-> > 
-> >     drm_gpusvm_range_chunk_size()  find the  chunk: 0x0000-0x5000 cover
-> > the VM_PFNMAP area
-> > 
-> >     |<── 0x1000 ── 0x2000 ──>|<── 0x2000 ──── 0x4000 ───>|
-> >     |   VM_PFNMAP                  |                                    |
-> >      hmm_range_fault fails
-> >      or vma check:
-> >      VM_PFNMAP -> -EOPNOTSUPP
-> > 
-> > I think it is caused by of the stale attribute.
-> > Or is this considered as an invalid userspace behavior?
+Hello:
 
-The above example is exactly what we concerned about and handling in Xe
-is WIP (i.e., this example breaks Xe).
+This series was applied to riscv/linux.git (fixes)
+by Miguel Ojeda <ojeda@kernel.org>:
 
+On Mon,  6 Apr 2026 01:52:36 +0200 you wrote:
+> As proposed in the past in e.g. LPC 2025 and the Maintainers Summit [1],
+> we are going to follow Debian Stable's Rust versions as our minimum
+> supported version.
 > 
-> Hi all,
+> Debian Trixie was released with a Rust 1.85.0 toolchain [2], which it
+> still uses to this day [3] (i.e. no update to Rust 1.85.1).
 > 
-> After internal discussion, I'd like to summary some conclusions from team.
-> 
-> It is decided that default behavior will be to keep attributes on munmap for
-> behavioral consistency, advantages of explicit interfaces, safety and
-> extensibility.
-> And provide an opt-in flag similar to Xe's
-> DRM_XE_VM_BIND_FLAG_MADVISE_AUTORESET.
-> 
-> There is a concern about behavioral consistency from Felix. In userspace,
-> whether free() actually triggers a munmap is outside the user's control, the
+> [...]
 
-Yes, free() is the real killer here as libc may or or may call munmap.
-Thus we have an opt in flag...
+Here is the summary with links:
+  - [v2,01/33] rust: kbuild: remove `--remap-path-prefix` workarounds
+    https://git.kernel.org/riscv/c/c8cbe2fc22e4
+  - [v2,02/33] rust: kbuild: remove "`try` keyword" workaround for `bindgen` < 0.59.2
+    https://git.kernel.org/riscv/c/518b9ad2fab3
+  - [v2,03/33] rust: kbuild: remove unneeded old `allow`s for generated layout tests
+    https://git.kernel.org/riscv/c/92cc022f044f
+  - [v2,04/33] gpu: nova-core: bindings: remove unneeded `cfg_attr`
+    https://git.kernel.org/riscv/c/341c51ee3293
+  - [v2,05/33] rust: bump Rust minimum supported version to 1.85.0 (Debian Trixie)
+    https://git.kernel.org/riscv/c/f32fb9c58a5b
+  - [v2,06/33] rust: bump Clippy's MSRV and clean `incompatible_msrv` allows
+    https://git.kernel.org/riscv/c/b6cfba436623
+  - [v2,07/33] rust: allow globally `clippy::incompatible_msrv`
+    https://git.kernel.org/riscv/c/7ed188605e1d
+  - [v2,08/33] rust: simplify `RUSTC_VERSION` Kconfig conditions
+    https://git.kernel.org/riscv/c/b28711ac98e8
+  - [v2,09/33] rust: remove `RUSTC_HAS_SLICE_AS_FLATTENED` and simplify code
+    https://git.kernel.org/riscv/c/9b398d056543
+  - [v2,10/33] rust: remove `RUSTC_HAS_COERCE_POINTEE` and simplify code
+    https://git.kernel.org/riscv/c/4ab22c543f18
+  - [v2,11/33] rust: kbuild: remove skipping of `-Wrustdoc::unescaped_backticks`
+    https://git.kernel.org/riscv/c/0f6e1e0705f0
+  - [v2,12/33] rust: kbuild: remove `feature(...)`s that are now stable
+    https://git.kernel.org/riscv/c/d1aa40daa777
+  - [v2,13/33] rust: transmute: simplify code with Rust 1.80.0 `split_at_*checked()`
+    https://git.kernel.org/riscv/c/f309a6edda53
+  - [v2,14/33] rust: alloc: simplify with `NonNull::add()` now that it is stable
+    https://git.kernel.org/riscv/c/161dd7b51e96
+  - [v2,15/33] rust: macros: simplify code using `feature(extract_if)`
+    https://git.kernel.org/riscv/c/42ec980024f0
+  - [v2,16/33] rust: block: update `const_refs_to_static` MSRV TODO comment
+    https://git.kernel.org/riscv/c/961b72d45ae4
+  - [v2,17/33] rust: bump `bindgen` minimum supported version to 0.71.1 (Debian Trixie)
+    https://git.kernel.org/riscv/c/c3a00a3f31ff
+  - [v2,18/33] rust: rust_is_available: remove warning for `bindgen` 0.66.[01]
+    https://git.kernel.org/riscv/c/41cfbb4295cf
+  - [v2,19/33] rust: rust_is_available: remove warning for `bindgen` < 0.69.5 && libclang >= 19.1
+    https://git.kernel.org/riscv/c/ae64324ad5c1
+  - [v2,20/33] rust: kbuild: update `bindgen --rust-target` version and replace comment
+    https://git.kernel.org/riscv/c/276ed30c558e
+  - [v2,21/33] rust: kbuild: remove "dummy parameter" workaround for `bindgen` < 0.71.1
+    https://git.kernel.org/riscv/c/93553d9922b0
+  - [v2,22/33] docs: rust: quick-start: openSUSE provides `rust-src` package nowadays
+    https://git.kernel.org/riscv/c/53c9647c0a48
+  - [v2,23/33] docs: rust: quick-start: update Ubuntu versioned packages
+    https://git.kernel.org/riscv/c/982e1aa6de73
+  - [v2,24/33] docs: rust: quick-start: update minimum Ubuntu version
+    https://git.kernel.org/riscv/c/6767147cb941
+  - [v2,25/33] docs: rust: quick-start: add Ubuntu 26.04 LTS and remove subsection title
+    https://git.kernel.org/riscv/c/780f847e1419
+  - [v2,26/33] docs: rust: quick-start: remove Gentoo "testing" note
+    https://git.kernel.org/riscv/c/99c672426aed
+  - [v2,27/33] docs: rust: quick-start: remove Nix "unstable channel" note
+    https://git.kernel.org/riscv/c/b69a14650009
+  - [v2,28/33] docs: rust: quick-start: remove GDB/Binutils mention
+    https://git.kernel.org/riscv/c/a4392ed1c8b9
+  - [v2,29/33] docs: rust: general-information: simplify Kconfig example
+    https://git.kernel.org/riscv/c/9375ea727d7e
+  - [v2,30/33] docs: rust: general-information: use real example
+    https://git.kernel.org/riscv/c/86c5d1c6740c
+  - [v2,31/33] rust: declare cfi_encoding for lru_status
+    https://git.kernel.org/riscv/c/9e5946de3a38
+  - [v2,32/33] rust: kbuild: support global per-version flags
+    https://git.kernel.org/riscv/c/b2aa1535ecdd
+  - [v2,33/33] rust: kbuild: allow `clippy::precedence` for Rust < 1.86.0
+    https://git.kernel.org/riscv/c/2e2f8b5a0656
 
-> C library allocator may retain pages internally rather than returning them
-> to the OS. As It is said: "when you call malloc and then free, that doesn't
-> necessarily result in unmapping the pages it may result in unmapping pages
-> if you are freeing something big that was allocated with mmap under the
-> hood, but it may also just stick around. From a user's point of view who
-> just uses malloc/free and sets some attributes, they have no way of knowing
-> whether their attributes will stick or not. I think if the attributes always
-> stick, that would give you a more consistent behavior."
-> 
-> And it is from Christian that explicit interfaces are better than implicit
-> ones auto-removing attributes on munmap is an implicit kernel reaction that
-> users may not even be aware of. As it is said: "Explicit interfaces which
-> say 'hey kernel, do something' are usually better than implicit interfaces
-> where the kernel is doing something on its own and we are just reacting to
-> it." And it is also noted that we can always add a flag for auto-removal
-> later if needed, but the reverse would be a UAPI breaking change.
-> 
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-This might be better - I believe Xe already was explict interfaces. So
-DRM_XE_VM_BIND_FLAG_MADVISE_AUTORESET might be a non-sense idea but it
-is in our uAPI so what is done is done... The free() case is where
-DRM_XE_VM_BIND_FLAG_MADVISE_AUTORESET may fall apart / become
-unpredictable... But it will work (after some Xe changes) if
-say an app is also allocating largers sizes (128k plus iirc for default
-libc behavior) where libc malloc/free directly map to mmap / munmap
-which is why I believe we provided this option.
 
-Matt
-
-> Based on the above, the next steps are:
-> 
-> 1. Change the logic to keep the attribute as default in current
-> implementation.
-> 2. Maybe need adding a new ioctl op to explicitly delete attribute?
-> Currently the UAPI can only overwrite attributes to not to map/default but
-> not truly remove them.
-> 3. Add a new UAPI flag similar to DRM_XE_VM_BIND_FLAG_MADVISE_AUTORESET.
-> 4. For the auto reset path, need to address the "never-faulted" issue.
->     Maybe we can register a lightweight MMU notifier at madvise ioctl time
-> to observe munmap and clean up attr_range, even if the GPU never touches the
-> range.
-> 
-> Please correct me if I'm wrong on any of the above assumptions. Would be
-> interested to hear thoughts on this direction.
-> 
-> Regards,
-> Honglei
-> 
-> > Regards,
-> > Honglei
-> > 
-> > > Regards,
-> > > Honglei
-> > > 
-> > > 
-> > > > Matt
-> > > > 
-> > > > > 
-> > > > > Regards,
-> > > > > Honglei...
-> 
