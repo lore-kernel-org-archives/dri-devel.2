@@ -4,63 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCDE5FF8864
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 03:25:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E995CD13D3
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 03:26:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0108310E021;
-	Thu, 30 Apr 2026 03:25:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED26010E096;
+	Thu, 30 Apr 2026 03:26:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="V5dcZx5w";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VQ5fUnGV";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 713B010E021;
- Thu, 30 Apr 2026 03:25:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A93F810E096
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 03:26:38 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id ABA5B4447A;
- Thu, 30 Apr 2026 03:25:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FEFFC2BCB9;
- Thu, 30 Apr 2026 03:25:45 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 90D3844592;
+ Thu, 30 Apr 2026 03:26:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A3B0C2BCC6;
+ Thu, 30 Apr 2026 03:26:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777519545;
- bh=Ut5G69bc29PiPzWoT/741NVv5Kk/lOmdOdb5wKBmZHY=;
+ s=k20201202; t=1777519598;
+ bh=l9exXaykMZZr58ApvA3wgjdBqbjJXmcg2LD51E1L2d8=;
  h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=V5dcZx5w6ZsNbkLQRDMzB2RWL/aoneaFsqWWBCOjQU9YtIWRYDD+T+yLL0c1uuBhY
- qEq09wxP51HP2ucG5VcbFYEWu1xwrI3mLVWalChYNFLQKJVV2/uPNO5bNsVTmGtBYW
- y+MFexZXsUKBzIR9VcaG11CGAPdXCh5mrQ4ITyVmu2dzJeTpqYPZZKRQaFN8mTUumj
- qe1015WQ5bGNHETaFFAMkfQbXS+479tE5rufj5GTm7FfEY/F/wwiBzlApZyMLXQ7Xj
- eN4jVc9crSFreUj8YqywmtdyQ9MC4GHMaLaL9pIVAuwmWk3hGgC+ZxtKtJbApg/ERF
- YZVQLUUCYw1Pw==
+ b=VQ5fUnGVnOy9olGba/PpFhmIOWwrvE63bg7wf8QD1oVMBU1BxMtz5Q5sq/JwQ9xtx
+ FBCndWX7NJpcwHQS2uh8ZRD+UwKJS8Nf/xOjB7kKUPQy858zCbkge2oAV6lxAQf625
+ gG1qodBE+N3L2UtwgzEs5J0HoMAeFALuJQm6hAGuvkiAJgkXb28kjlalsRs3n3a2TF
+ 29IamRcKDsnYhlWjglq3Ko8zPoEuXsWpPSgFQW5Uw0WEZ3PhmG1Et2p+yJY2KivWmR
+ Vv+BDgeCmlfDBpvBGUWuK6vk0BLhwJE3vHWgs2Tf1Bq4zcCUvorNfflKfJA4kV/UO2
+ SQxIDV5JK1LdQ==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
  by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- DA1FF3809A07; Thu, 30 Apr 2026 03:25:01 +0000 (UTC)
+ B9F3C3809A07; Thu, 30 Apr 2026 03:25:54 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v2 00/33] rust: bump minimum Rust and `bindgen` versions
+Subject: Re: [PATCH 0/8] firmware: sysfb: Consolidate config/code wrt.
+ sysfb_primary_screen
 From: patchwork-bot+linux-riscv@kernel.org
-Message-Id: <177751950055.2274119.12088060080551439561.git-patchwork-notify@kernel.org>
-Date: Thu, 30 Apr 2026 03:25:00 +0000
-References: <20260405235309.418950-1-ojeda@kernel.org>
-In-Reply-To: <20260405235309.418950-1-ojeda@kernel.org>
-To: Miguel Ojeda <ojeda@kernel.org>
-Cc: linux-riscv@lists.infradead.org, nathan@kernel.org, nsc@kernel.org,
- dakr@kernel.org, a.hindborg@kernel.org, catalin.marinas@arm.com,
- will@kernel.org, pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
- acourbot@nvidia.com, airlied@gmail.com, simona@ffwll.ch,
- brendan.higgins@linux.dev, david@davidgow.net, gregkh@linuxfoundation.org,
- arve@android.com, tkjos@android.com, christian@brauner.io,
- cmllamas@google.com, aliceryhl@google.com, corbet@lwn.net, boqun@kernel.org,
- gary@garyguo.net, bjorn3_gh@protonmail.com, lossin@kernel.org,
- tmgross@umich.edu, rust-for-linux@vger.kernel.org,
- linux-kbuild@vger.kernel.org, lorenzo.stoakes@oracle.com, vbabka@kernel.org,
- Liam.Howlett@oracle.com, urezki@gmail.com, linux-block@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, alex@ghiti.fr,
- nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- raemoar63@gmail.com, linux-kselftest@vger.kernel.org,
- kunit-dev@googlegroups.com, nick.desaulniers+lkml@gmail.com,
- morbo@google.com, justinstitt@google.com, llvm@lists.linux.dev,
- linux-kernel@vger.kernel.org, skhan@linuxfoundation.org,
- linux-doc@vger.kernel.org
+Message-Id: <177751955329.2274119.12779807302343885295.git-patchwork-notify@kernel.org>
+Date: Thu, 30 Apr 2026 03:25:53 +0000
+References: <20260402092305.208728-1-tzimmermann@suse.de>
+In-Reply-To: <20260402092305.208728-1-tzimmermann@suse.de>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: linux-riscv@lists.infradead.org, javierm@redhat.com, arnd@arndb.de,
+ ardb@kernel.org, ilias.apalodimas@linaro.org, chenhuacai@kernel.org,
+ kernel@xen0n.name, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ airlied@gmail.com, simona@ffwll.ch, kys@microsoft.com,
+ haiyangz@microsoft.com, wei.liu@kernel.org, decui@microsoft.com,
+ longli@microsoft.com, deller@gmx.de, linux-arm-kernel@lists.infradead.org,
+ loongarch@lists.linux.dev, linux-efi@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
+ linux-fbdev@vger.kernel.org
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,85 +71,37 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 Hello:
 
 This series was applied to riscv/linux.git (fixes)
-by Miguel Ojeda <ojeda@kernel.org>:
+by Ard Biesheuvel <ardb@kernel.org>:
 
-On Mon,  6 Apr 2026 01:52:36 +0200 you wrote:
-> As proposed in the past in e.g. LPC 2025 and the Maintainers Summit [1],
-> we are going to follow Debian Stable's Rust versions as our minimum
-> supported version.
+On Thu,  2 Apr 2026 11:09:14 +0200 you wrote:
+> The global state sysfb_primary_screen holds information about the
+> framebuffer provided by EFI/BIOS systems. It is part of the sysfb
+> module, but used in several places without direct connection to
+> sysfb. Fix this by making users of sysfb_primary_screen depend on
+> CONFIG_SYSFB. Fix a few issues in the process.
 > 
-> Debian Trixie was released with a Rust 1.85.0 toolchain [2], which it
-> still uses to this day [3] (i.e. no update to Rust 1.85.1).
+> Patches 1 and 2 fix general errors in the Kconfig rules. In any case,
+> these patches should be considered even without the rest of the series.
 > 
 > [...]
 
 Here is the summary with links:
-  - [v2,01/33] rust: kbuild: remove `--remap-path-prefix` workarounds
-    https://git.kernel.org/riscv/c/c8cbe2fc22e4
-  - [v2,02/33] rust: kbuild: remove "`try` keyword" workaround for `bindgen` < 0.59.2
-    https://git.kernel.org/riscv/c/518b9ad2fab3
-  - [v2,03/33] rust: kbuild: remove unneeded old `allow`s for generated layout tests
-    https://git.kernel.org/riscv/c/92cc022f044f
-  - [v2,04/33] gpu: nova-core: bindings: remove unneeded `cfg_attr`
-    https://git.kernel.org/riscv/c/341c51ee3293
-  - [v2,05/33] rust: bump Rust minimum supported version to 1.85.0 (Debian Trixie)
-    https://git.kernel.org/riscv/c/f32fb9c58a5b
-  - [v2,06/33] rust: bump Clippy's MSRV and clean `incompatible_msrv` allows
-    https://git.kernel.org/riscv/c/b6cfba436623
-  - [v2,07/33] rust: allow globally `clippy::incompatible_msrv`
-    https://git.kernel.org/riscv/c/7ed188605e1d
-  - [v2,08/33] rust: simplify `RUSTC_VERSION` Kconfig conditions
-    https://git.kernel.org/riscv/c/b28711ac98e8
-  - [v2,09/33] rust: remove `RUSTC_HAS_SLICE_AS_FLATTENED` and simplify code
-    https://git.kernel.org/riscv/c/9b398d056543
-  - [v2,10/33] rust: remove `RUSTC_HAS_COERCE_POINTEE` and simplify code
-    https://git.kernel.org/riscv/c/4ab22c543f18
-  - [v2,11/33] rust: kbuild: remove skipping of `-Wrustdoc::unescaped_backticks`
-    https://git.kernel.org/riscv/c/0f6e1e0705f0
-  - [v2,12/33] rust: kbuild: remove `feature(...)`s that are now stable
-    https://git.kernel.org/riscv/c/d1aa40daa777
-  - [v2,13/33] rust: transmute: simplify code with Rust 1.80.0 `split_at_*checked()`
-    https://git.kernel.org/riscv/c/f309a6edda53
-  - [v2,14/33] rust: alloc: simplify with `NonNull::add()` now that it is stable
-    https://git.kernel.org/riscv/c/161dd7b51e96
-  - [v2,15/33] rust: macros: simplify code using `feature(extract_if)`
-    https://git.kernel.org/riscv/c/42ec980024f0
-  - [v2,16/33] rust: block: update `const_refs_to_static` MSRV TODO comment
-    https://git.kernel.org/riscv/c/961b72d45ae4
-  - [v2,17/33] rust: bump `bindgen` minimum supported version to 0.71.1 (Debian Trixie)
-    https://git.kernel.org/riscv/c/c3a00a3f31ff
-  - [v2,18/33] rust: rust_is_available: remove warning for `bindgen` 0.66.[01]
-    https://git.kernel.org/riscv/c/41cfbb4295cf
-  - [v2,19/33] rust: rust_is_available: remove warning for `bindgen` < 0.69.5 && libclang >= 19.1
-    https://git.kernel.org/riscv/c/ae64324ad5c1
-  - [v2,20/33] rust: kbuild: update `bindgen --rust-target` version and replace comment
-    https://git.kernel.org/riscv/c/276ed30c558e
-  - [v2,21/33] rust: kbuild: remove "dummy parameter" workaround for `bindgen` < 0.71.1
-    https://git.kernel.org/riscv/c/93553d9922b0
-  - [v2,22/33] docs: rust: quick-start: openSUSE provides `rust-src` package nowadays
-    https://git.kernel.org/riscv/c/53c9647c0a48
-  - [v2,23/33] docs: rust: quick-start: update Ubuntu versioned packages
-    https://git.kernel.org/riscv/c/982e1aa6de73
-  - [v2,24/33] docs: rust: quick-start: update minimum Ubuntu version
-    https://git.kernel.org/riscv/c/6767147cb941
-  - [v2,25/33] docs: rust: quick-start: add Ubuntu 26.04 LTS and remove subsection title
-    https://git.kernel.org/riscv/c/780f847e1419
-  - [v2,26/33] docs: rust: quick-start: remove Gentoo "testing" note
-    https://git.kernel.org/riscv/c/99c672426aed
-  - [v2,27/33] docs: rust: quick-start: remove Nix "unstable channel" note
-    https://git.kernel.org/riscv/c/b69a14650009
-  - [v2,28/33] docs: rust: quick-start: remove GDB/Binutils mention
-    https://git.kernel.org/riscv/c/a4392ed1c8b9
-  - [v2,29/33] docs: rust: general-information: simplify Kconfig example
-    https://git.kernel.org/riscv/c/9375ea727d7e
-  - [v2,30/33] docs: rust: general-information: use real example
-    https://git.kernel.org/riscv/c/86c5d1c6740c
-  - [v2,31/33] rust: declare cfi_encoding for lru_status
-    https://git.kernel.org/riscv/c/9e5946de3a38
-  - [v2,32/33] rust: kbuild: support global per-version flags
-    https://git.kernel.org/riscv/c/b2aa1535ecdd
-  - [v2,33/33] rust: kbuild: allow `clippy::precedence` for Rust < 1.86.0
-    https://git.kernel.org/riscv/c/2e2f8b5a0656
+  - [1/8] hv: Select CONFIG_SYSFB only for CONFIG_HYPERV_VMBUS
+    https://git.kernel.org/riscv/c/d33db956c961
+  - [2/8] firmware: efi: Never declare sysfb_primary_display on x86
+    https://git.kernel.org/riscv/c/5241c2ca33bb
+  - [3/8] firmware: sysfb: Make CONFIG_SYSFB a user-selectable option
+    (no matching commit)
+  - [4/8] firmware: sysfb: Split sysfb.c into sysfb_primary.c and sysfb_pci.c
+    (no matching commit)
+  - [5/8] firmware: sysfb: Implement screen_info relocation for primary display
+    (no matching commit)
+  - [6/8] firmware: sysfb: Avoid forward-declaring sysfb_parent_dev()
+    (no matching commit)
+  - [7/8] firmware: efi: Make CONFIG_EFI_EARLYCON depend on CONFIG_SYSFB; clean up
+    (no matching commit)
+  - [8/8] firmware: sysfb: Move CONFIG_FIRMWARE_EDID to firmware options
+    (no matching commit)
 
 You are awesome, thank you!
 -- 
