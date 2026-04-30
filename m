@@ -4,57 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 117D4CCFA13
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 08:16:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBDC0FF8875
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 08:23:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DC3010F289;
-	Thu, 30 Apr 2026 08:16:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3009B10E0E3;
+	Thu, 30 Apr 2026 08:23:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=dolcini.it header.i=@dolcini.it header.b="dlPct4Ak";
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="JriyospK";
 	dkim-atps=neutral
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D101810F289
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 08:15:58 +0000 (UTC)
-Received: from gaggiata.pivistrello.it (93-49-2-63.ip317.fastwebnet.it
- [93.49.2.63])
- by mail11.truemail.it (Postfix) with ESMTPA id 5FD171F944;
- Thu, 30 Apr 2026 10:15:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
- s=default; t=1777536956;
- bh=z7rIiToRgE+nZeOOewdljFLRTEwBQZYMDjiEiHcBfrY=;
- h=Received:From:To:Subject;
- b=dlPct4AkNODrr8olTkq370zruXf+DPd9eWXFrCXd1nZN78PCzIyooUNST/5737Db/
- E1hbUFlSRIYAE5U15RpFSaLyN/0XCoM+mJuKZfmLzHu9qFtyvfUe5FB2CLuLDE9pc4
- 36MR9trbz0AAuR8nT+03NXxGAEebFwlaRHtQva76cKtfx29w7Yslp/8pRYy/769PDz
- G/UJ4MbzwQEOJcQEDDZE1YxG22hNZyRyGwMRDtSpdPNNZJnwxVXf1LddaswMUoCaDQ
- CyfNjm8C3gvaYGQh6tnMpeDQJ9O3jbWqw3gP/r5seLf5LJcq8xjC/KVqc/u7cFWsur
- Jpaea5oreHzEg==
-Received: by gaggiata.pivistrello.it (Postfix, from userid 1000)
- id 0AF207F9D1; Thu, 30 Apr 2026 10:15:56 +0200 (CEST)
-Date: Thu, 30 Apr 2026 10:15:55 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Francesco Dolcini <francesco@dolcini.it>, max.oss.09@gmail.com,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Adrien Grassein <adrien.grassein@gmail.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, David Airlie <airlied@gmail.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Jonas Karlman <jonas@kwiboo.se>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Robert Foss <rfoss@kernel.org>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/bridge: lontium-lt8912b: Do not generate HFP
-Message-ID: <afMPu8sBwtq0tOK-@gaggiata.pivistrello.it>
-References: <20250728150059.2642055-1-max.oss.09@gmail.com>
- <20260429133333.GA68737@francesco-nb>
- <DI6BS0B8HTLP.2Q00QFIUQUZRU@bootlin.com>
+X-Greylist: delayed 603 seconds by postgrey-1.36 at gabe;
+ Thu, 30 Apr 2026 08:23:09 UTC
+Received: from mail-m127112.qiye.163.com (mail-m127112.qiye.163.com
+ [115.236.127.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41DF710E0E3
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 08:23:08 +0000 (UTC)
+Received: from [172.16.12.43] (unknown [58.22.7.114])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 3cbf68ef4;
+ Thu, 30 Apr 2026 16:07:59 +0800 (GMT+08:00)
+Message-ID: <3756b3a7-7bcf-4881-9a88-874a935cf316@rock-chips.com>
+Date: Thu, 30 Apr 2026 16:07:59 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DI6BS0B8HTLP.2Q00QFIUQUZRU@bootlin.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/ipv3: add CONFIG_OF dependency for
+ DRM_OF_DISPLAY_MODE_BRIDGE
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Arnd Bergmann
+ <arnd@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260429140024.192432-1-arnd@kernel.org>
+ <DI6B0UNV68LI.3PYKFFB0F1DH6@bootlin.com>
+Content-Language: en-US
+From: Damon Ding <damon.ding@rock-chips.com>
+In-Reply-To: <DI6B0UNV68LI.3PYKFFB0F1DH6@bootlin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0a9ddd6e30d503a3kunm33c4ba8e2f2b99
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZQ0xITVZNGEwZSR4eHx
+ gdGEpWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
+ tIVUpLSU9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+ b=JriyospKZowPAbJu0L56T91/MgoUxUQsXr3KWbPS0Z7HV5jEUX6Ut3Rp/SpmkWYxcRukdw7sMCBowRHQKe+FfsxdTQCAvp687YIPMOGryt+9WK0Cl21tT2GYPXAL8iiuqf146ZHM8XKUddJNlQLllEa0XhkYNeQB1A53Rad0mHY=;
+ c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
+ bh=CJHRPqWKTWyTfPBOd40VwdpOX9kewYtb/ZNyefthoiA=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,34 +71,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Apr 30, 2026 at 09:53:08AM +0200, Luca Ceresoli wrote:
-> Hi Francesco,
+On 4/30/2026 3:17 PM, Luca Ceresoli wrote:
+> On Wed Apr 29, 2026 at 4:00 PM CEST, Arnd Bergmann wrote:
+>> From: Arnd Bergmann <arnd@arndb.de>
+>>
+>> Without this, not all dependencies are met here.
+>>
+>>    Depends on [n]: HAS_IOMEM [=y] && DRM [=y] && DRM_BRIDGE [=y] && OF [=n]
+>>    Selected by [y]:
+>>    - DRM_IMX_PARALLEL_DISPLAY [=y] && HAS_IOMEM [=y] && DRM [=y] && DRM_IMX [=y]
+>>    - DRM_IMX_LDB [=y] && HAS_IOMEM [=y] && DRM [=y] && DRM_IMX [=y] && COMMON_CLK [=y]
+>>
+>> Fixes: ba2db93cf3d5 ("drm/bridge: Move legacy bridge driver out of imx directory for multi-platform use")
+>> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 > 
-> On Wed Apr 29, 2026 at 3:33 PM CEST, Francesco Dolcini wrote:
-> > +Dmitry, Luca
-> >
-> > Hello all,
-> > how to get this patch considered and eventually merged? I see that this
-> > is not moving since long.
-> >
-> > Considering that Adrien Grassein is not visible on the mailing list
-> > since 2022, and that I have various HW available that is using this
-> > combination (on TI Sitara and Jacinto, on a DPI-DSI tc358768 bridge,
-> > and NXP i.MX), I have access to the (little) documentation that is
-> > available from Lontium I can propose myself as a maintainer here.
+> Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 > 
-> Thanks for volunteering! I am not a DRM maintainer, so I'll let others
-> chime in, but I suspect you should just send a patch to add yourself to the
-> MAINTAINERS entry and (as a separate patch?) remove Adrien, unless he
-> speaks up by then.
+> 
 
-Separate patch coming, thanks.
+Reviewed-by: Damon Ding <damon.ding@rock-chips.com>
 
-> I'm applying it in ~1 week. It would be good if you could check it still
-> applies on drm-misc-next before that, report back if it does
-
-It applies cleanly.
-
-Thanks!
-Francesco
+Best regards,
+Damon
 
