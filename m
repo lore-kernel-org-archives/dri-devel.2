@@ -4,104 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F03ECCFA13
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 00:12:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27EF2FF8875
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 00:17:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59B9C10E06F;
-	Thu, 30 Apr 2026 00:12:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6075210E05C;
+	Thu, 30 Apr 2026 00:17:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dZrRX3aK";
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="Yi4ayYVZ";
 	dkim-atps=neutral
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com
- [209.85.222.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7685A10E05C
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 00:12:04 +0000 (UTC)
-Received: by mail-qk1-f170.google.com with SMTP id
- af79cd13be357-8c70b5594f4so39756985a.1
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 17:12:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777507923; cv=none;
- d=google.com; s=arc-20240605;
- b=S425o9Rl2cBBhMHUqVy67lIUjestFtqkM60BuiDoy82BCgTR1PXDughV+KwfFGyZqz
- jc/4CyKS7D5Ug2Sxzte0r4YcOynONMCvv+fr4gpQQ5zZbxsySA43NnTcvC3C8Ew7IiAR
- 3EooCXB0CO6yqqp2taCzcsLOnBIU5bemjCrG0AIlsBUHjIvUK6W2j5qK94vYd2kopg/2
- Nu+oJFn391xvxgJCfqWJ17MXNKud2hjfDqLzpmR1cioUR7ip9eeclkfpQo4UDrovmogg
- RnOFSBlEaLETHeYiEtIZVrTj152D7bXcVmGtYIQHLSLQa9FsW08AgthloLMUu+LWsH2P
- +hAw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=3nEd8GhcPX0qnwWzFGTR107MFZJdj0/mrhBb3kZrZ6o=;
- fh=mWteUFSrlVxSzltiuZCbK6UGhcUsUmTQbcYSgfxpPNU=;
- b=jhW/KrfDbMqNTLYMojUczN6WSFHF9HJV3GiQpv/tQ1eAmHFxLd0GJ5dY42gv01bJjb
- 22jeAUxp7sVzdKjwVswiW3w27epKsGHLCvHzjF419rrwLYoghwQ1SgU4TbOhWgca5NZj
- EiwP7RxeoPA+eO3Pl9+q6jjP7CueEZKGFSQFXaSXeR90UA84D1NjWJUAiIygHU+rN2g7
- uoX8zOAIf5G2xQRbP4deXYSOWUEYsrUD7fnwAwz+kUy44uFooK3Pj+NkjDd2JbaOaF6d
- OYTBnIPTPa7sVhhJeFNGdKGRvltprhNdtqrxz7L0eHggt1XHxXVvwu2SRUrOMKSKPoeO
- 671A==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777507923; x=1778112723; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=3nEd8GhcPX0qnwWzFGTR107MFZJdj0/mrhBb3kZrZ6o=;
- b=dZrRX3aKGFkQvQSXfDwv1hvSx3I26wan+UsYB8T5pXBJ6ZsrrPTGfKUHdWrllA9pfB
- gkIl8sPpKGOwpwrFdPPmAcgo+m1f06TSHUdbzevbgYxeZ7mzuzogTGJc2Tqa5hRG2f1g
- DJLbiZ1DU4Ppv9wflBdcQeGtjS8J7Rb6DWUEWxk7EJqJ78cdOSvgoboDoOlvY4k8DclI
- lXp+2cNp8lA8qD8P/fodQBsphxt5kojGODV7HeKiPxNn7uMmnBEV1Y29FiQG9ipJUWEe
- ABeJCEZ/qpRqd3KBBDwHYGahe1mYMyYypd6/dbgBGUqwLH14sFSm9NYZPS+bgf1nCw0Q
- P+1Q==
+Received: from mail-dy1-f228.google.com (mail-dy1-f228.google.com
+ [74.125.82.228])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3F8F10E05C
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 00:17:00 +0000 (UTC)
+Received: by mail-dy1-f228.google.com with SMTP id
+ 5a478bee46e88-2d9916deb14so716171eec.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 17:17:00 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777507923; x=1778112723;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=3nEd8GhcPX0qnwWzFGTR107MFZJdj0/mrhBb3kZrZ6o=;
- b=rGJYahtGw2WQwLeJq/LgH0OY4xKIsxI1yZBPuWuNgj91d6LcMjSVTbtstZG8YcfKY8
- mQpND8xgGpsjXo0/plQbRL/HoYCbNe0qahpsBKj/myBnNSWEt0x87du6+ggRRO5dSkhH
- wMsUeC8VKNHRfjL/67g1X2eclo/w409rO7uyQEZbWVzeVplvk6NRS2Jq/GGKawIjURdZ
- MGF9Y0M2ZzJHchZV8g8ABvYRJ13BI00Lt3U9QzIZn8If7JkeWOv2ouluz5D++e840UVp
- QNHbmy5zM31GXnl7B8fR0zlpCb2LIJZcN0t1depq/+NZTRaxglswJNcmlkWCdPShsNtH
- xiAg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8KTukFS8BYBBi+cGBsOOpGjGKMjoRioAq9q3CIHz6alatqXrTKseJH27m08C3rSVYPZVj08lD8ZXw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxyGn2BBQwLYn6L7z8kMgmtGuNkYH51npUFn4E3Mf/PlJsmmf9S
- hmjlYZYKoHSRd7kQ7x51LVBaiJ4uS2gO+TRJmtcYmWcH5deXrzzkSg+0WiEQoY2tq784xpGHHhT
- xtI63MFFsyHYgbWkXVl3ogQ5ppe3W5XU=
-X-Gm-Gg: AeBDieu8+7Zc+Mf0wtwYE1f2/84j69balsSFIzHpol0OWSb+ExX/wfowRoGsjjB/j3+
- JjoMVigfNu16YatIzHC0OsH8Yj8LQTPqQ7ojnLfm0vRI04NGZEZajlaauaLhMdpjq8lVY21kA4u
- 9QrWJCRTFXwgNuVpAgr/YMm6Z035eIRxIHbMvJsJ+SPaw2QgN0jaUg4KFZFPmrZpLJBy4RW5PzU
- ZN4yqrkMshYm+7d5z6NimlAX4G4RmKiGqfqSbLwiEFSkAMk4YdcOSSvETlHpU0MrbML2q6+66Ql
- WsJDzvV6Xq9zgn7BrKxF4cHAOsapzK4/vTvnuigevrjMRnq14fch622obnjzvg+bcdpTYrX+VvM
- T/lVYMRa5XQPC
-X-Received: by 2002:a05:620a:4095:b0:8cf:cc59:c0a0 with SMTP id
- af79cd13be357-8fabaa2bf74mr36635085a.27.1777507923443; Wed, 29 Apr 2026
- 17:12:03 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1777508220; x=1778113020;
+ h=content-transfer-encoding:mime-version:reply-to:message-id:date
+ :subject:cc:to:from:dkim-signature:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=UtGG0+J5baeIZv8EWJzZTBcov7wDfRFwsq9RM/X1eEc=;
+ b=HZpefbcasBt6Ytba9WArZxMkv6GtkZbIiMYP9U7599bxyCkn9jcYUTYVrDRaKgRzEp
+ xhbj3qKaaTBZiE+8WKzz8GX+nmJwx353hbVxVmJCjGyMoa6mmxP1IIZ5aBX/amqKO9TF
+ UmqoSC7Vn+9PjB/Igw+ruj8HIIdgGcxyiw1rEMRC4yqC8YoJY9vPHvdgA7C8FqcFfUSj
+ GSjzZ38SwnZYdCpri79sOMk/IHRke+Oe3S3bh0PcYtwLCAr6grXaUBqkhdZUudJo3iHz
+ 8rdKZcE53Dsx6tSWWYJts1a3++C4EHA8u3OwVHDCfLLzn4wTPqHvAfCzR9js44jUT1Nf
+ WvqQ==
+X-Gm-Message-State: AOJu0YzvfP9n3tERSCaSCAf4b4QR7LD/4h29MZZK8hm5f13NuFU0NqBB
+ KbLFUbgjxCzTtNyxpNyM7lfSI5ZY45H2TAIrarb3UgoripljI1uq7iFTAJ+xHj5lhk6IjoN/iDV
+ sJLSPENT4QyzglT0X01M6XrGZH2min7UkaNYS57QvDxCnK8gwYb4DeCTX76/ZYeMBUdSiHt2i8o
+ C8OnBvKHSDWz1eE9lm5yizEDHnfroJyjU2d+g3DknHQ7ex4Owc+3HOh6PtIEX1PNU+GYKvKkRH4
+ S/XnApwK+hTxuFawjUjYUJ3jQoD
+X-Gm-Gg: AeBDiesK4KCiO3AMlYN+Dt7EhQ3WAJzxngi2eTdI0UG10itp4hliCOnH1knQT0veeEC
+ 4rbMuoL7/Q4A5WGScxYptrb0oaBqi6euIQtC0jGiKFeM5xps3OATe9M1oGpgBxEHdkyMQQL+dHC
+ 1cFug7T7jRrPxXZzQV7i+9ooQAznoBSbkCf6at+wdZ6zu9cgDgh8oASi7ipSE3kIoy9Z3N1GUDA
+ +xfbmhCAv4BjvzcHSAS7qbEsFeEOU8KO7gNL4Utvt0qPSNDTD+VZtFFKapgqr/6NTylURt49abG
+ fz0V5BXTmYV9xWPU6synaMhWNt1Y7+1bFK/dztcHaT80MKg8Gccu2uNvQXSFxmTenTFsIaXsf9/
+ nJYHYZLLGufVmzyXkH3b6iPIVzBvOsk+cYfQd3esB+3MUf3H4OqP7VFXFYLUaWrUnJ5dsfDQQws
+ qK38FfYoonm0WEkNwYEDs4Nqet4B5Q+I5NUAt0Npzio2mYf6O0dGgWqhzIlUqcTmLA90r/XIH3H
+ zo=
+X-Received: by 2002:a05:7300:ed87:b0:2d8:7302:d21 with SMTP id
+ 5a478bee46e88-2ed3d8c4fb6mr216419eec.16.1777508219711; 
+ Wed, 29 Apr 2026 17:16:59 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
+ (address-144-49-247-121.dlp.protect.broadcom.com. [144.49.247.121])
+ by smtp-relay.gmail.com with ESMTPS id
+ 5a478bee46e88-2ed1bf6922esm289939eec.6.2026.04.29.17.16.59
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 29 Apr 2026 17:16:59 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dy1-f198.google.com with SMTP id
+ 5a478bee46e88-2dd6fb4c867so1832233eec.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Apr 2026 17:16:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=broadcom.com; s=google; t=1777508217; x=1778113017;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:reply-to:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=UtGG0+J5baeIZv8EWJzZTBcov7wDfRFwsq9RM/X1eEc=;
+ b=Yi4ayYVZ9FiE5Dl2uFf4+6ynPl5QrRFjVzsxRxTzc2Menhjj5B4qmVKnldZEiu3w+1
+ 9gEtpxCheJe+WcIUyMrCTULKA0t1Z4BHiejsUNYd8vwnpJ1D4nRvwaObGSwzTtnmGQDo
+ o92NIAY+MrXRXKTvMnXG/QE965pmzklItKaWc=
+X-Received: by 2002:a05:693c:37cb:b0:2ed:e17:d50c with SMTP id
+ 5a478bee46e88-2ed3e974994mr219764eec.31.1777508217479; 
+ Wed, 29 Apr 2026 17:16:57 -0700 (PDT)
+X-Received: by 2002:a05:693c:37cb:b0:2ed:e17:d50c with SMTP id
+ 5a478bee46e88-2ed3e974994mr219751eec.31.1777508216846; 
+ Wed, 29 Apr 2026 17:16:56 -0700 (PDT)
+Received: from mombasawalam-Precision-5820-Tower.cap.broadcom.net
+ ([192.19.50.250]) by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-2ed1c0ce05bsm4173885eec.26.2026.04.29.17.16.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 29 Apr 2026 17:16:56 -0700 (PDT)
+From: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+To: dri-devel@lists.freedesktop.org
+Cc: bcm-kernel-feedback-list@broadcom.com, ian.forbes@broadcom.com,
+ zack.rusin@broadcom.com, Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+Subject: [PATCH 1/4] drm/vmwgfx: Add some checks to
+ vmw_cursor_plane_atomic_update
+Date: Wed, 29 Apr 2026 17:19:09 -0700
+Message-ID: <20260430001913.482967-1-maaz.mombasawala@broadcom.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-References: <20260421012608.1474950-1-matthew.brost@intel.com>
- <20260421012608.1474950-2-matthew.brost@intel.com>
- <30c84c41-192c-44ae-a614-2b9951c55727@ursulin.net>
- <d7dda563-280f-4126-a822-a3d43ce5048e@amd.com>
- <aekygVvRz7mu+elE@gsse-cloud1.jf.intel.com>
- <5bd5ed0a-fef2-4bd4-b7a0-d263bcfb1c7f@ursulin.net> <87se8didkt.fsf@dancol.org>
-In-Reply-To: <87se8didkt.fsf@dancol.org>
-From: Dave Airlie <airlied@gmail.com>
-Date: Thu, 30 Apr 2026 10:11:52 +1000
-X-Gm-Features: AVHnY4Lx4MSky0CoYbtwC3YofIJZy4_67QHDp4CUlg5yy6McmmIsN_5LFWDlkIQ
-Message-ID: <CAPM=9txEMjXVvxAOxx7GND5tQLO2sA7K49piXN=PBchNG11H7g@mail.gmail.com>
-Subject: Re: [PATCH 1/3] drm/ttm: Issue direct reclaim at beneficial_order
-To: Daniel Colascione <dancol@dancol.org>
-Cc: Tvrtko Ursulin <tursulin@ursulin.net>,
- Matthew Brost <matthew.brost@intel.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Carlos Santa <carlos.santa@intel.com>, Huang Rui <ray.huang@amd.com>, 
- Matthew Auld <matthew.auld@intel.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,19 +103,40 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
->
-> Probably stupid question: for systems like my Lunar Lake Xe2, which has
-> unified memory and (IIUC) no special cache-type or write-mode
-> constraints for GPU mappings, would it be possible to use regular
-> system-provided pages (e.g. from shmem) instead of going through the TTM
-> pool and allow mTHP to provide the aligned and contiguous backing
-> storage that the GPU wants? Something like GEM has, but maybe inside the
-> TTM API?
+In cases where old_state may not be present we hit a null dereference.
+Add a check to fix this and also do an early return if there is no
+new_state or crtc since there is nothing to do in that case.
+This fixes igt test kms_cursor_legacy@torture-bo.
 
-TTM pool doesn't get used for system memory allocations in that case,
-if you are asking for cached memory.
+Signed-off-by: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+---
+ drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-Dave.
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c b/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
+index c46f17ba7236..88b7185a8371 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
+@@ -744,9 +744,14 @@ vmw_cursor_plane_atomic_update(struct drm_plane *plane,
+ 	struct vmw_bo *bo;
+ 	struct drm_plane_state *new_state =
+ 		drm_atomic_get_new_plane_state(state, plane);
++	if (!new_state)
++		return;
+ 	struct drm_plane_state *old_state =
+ 		drm_atomic_get_old_plane_state(state, plane);
+-	struct drm_crtc *crtc = new_state->crtc ?: old_state->crtc;
++	struct drm_crtc *crtc = new_state->crtc ? new_state->crtc :
++		(old_state ? old_state->crtc : NULL);
++	if (!crtc)
++		return;
+ 	struct vmw_private *dev_priv = vmw_priv(plane->dev);
+ 	struct vmw_display_unit *du = vmw_crtc_to_du(crtc);
+ 	struct vmw_plane_state *vps = vmw_plane_state_to_vps(new_state);
+-- 
+2.54.0
+
