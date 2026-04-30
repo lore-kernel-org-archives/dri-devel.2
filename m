@@ -4,51 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CFDAFF8875
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 09:46:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 842F3CCFA13
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 09:47:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CB5B10E0FE;
-	Thu, 30 Apr 2026 09:46:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CED0B10F2CD;
+	Thu, 30 Apr 2026 09:47:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lontium.com header.i=@lontium.com header.b="g0Tn/nfT";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="q/p220mN";
 	dkim-atps=neutral
-Received: from out28-149.mail.aliyun.com (out28-149.mail.aliyun.com
- [115.124.28.149])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6679710E0FE
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 09:46:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lontium.com; s=default;
- t=1777542382; h=From:To:Subject:Date:Message-Id:MIME-Version;
- bh=9uBAZCRNURMINGZMdxVM77EOG+0bBxxCbpsUCf6b7A0=;
- b=g0Tn/nfTsNyx87lWGxN12ugoxI50gLdPJoIf5GPFz7Y9LDtKBpfUs14Fh9VOu3B2+NAS+vA0Trr5yclJb1+0iZkbifdpjcFB9Cp6iJVPcBg9zTeRS42ZVw9NXBVFclaIzCduP0IZZy5B+rnXL4tdokk+T68WC4LdfAA8VGbnRa7eIq0uo+fVxrFQOc8nmOIuq1ag/HqtSbYzLW2vdReFyAMtz3er1ipBHwVOcsyU08x61hHOUU+48biGx5sBSWw2U4rAuqDpwIM1DfiiOR0DmBuEO/qD09uy+BlCYOe3F5A5b6iBkJ3s4Bv/q4AY6kGmzHUsmufG9CLFkNuu9ZBYSw==
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.07436259|-1; CH=green;
- DM=|CONTINUE|false|;
- DS=CONTINUE|ham_system_inform|0.00694244-0.000684144-0.992373;
- FP=13770664449594115835|10|2|17|0|-1|-1|-1;
- HT=maildocker-contentspam033068016216; MF=syyang@lontium.com; NM=1; PH=DS;
- RN=22; RT=22; SR=0; TI=SMTPD_---.hNVpxx4_1777542379; 
-Received: from DESKTOP-V2MKAT2.localdomain(mailfrom:syyang@lontium.com
- fp:SMTPD_---.hNVpxx4_1777542379 cluster:ay29) by smtp.aliyun-inc.com;
- Thu, 30 Apr 2026 17:46:21 +0800
-From: syyang@lontium.com
-To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com,
- rfoss@kernel.org, mripard@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com, tzimmermann@suse.de, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- yangsunyun1993@gmail.com, xmzhu@lontium.corp-partner.google.com,
- xmzhu@lontium.com, rlyu@lontium.com, xbpeng@lontium.com,
- Sunyun Yang <syyang@lontium.com>
-Subject: [PATCH v4 2/2] drm/bridge: Add Lontium LT7911EXC eDP to MIPI DSI
- bridge
-Date: Thu, 30 Apr 2026 17:46:12 +0800
-Message-Id: <20260430094612.3408174-3-syyang@lontium.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260430094612.3408174-1-syyang@lontium.com>
-References: <20260430094612.3408174-1-syyang@lontium.com>
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4500310F2CD
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 09:47:23 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-4852a9c6309so5323355e9.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 02:47:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1777542442; x=1778147242; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=vRjYmZEKAOcTK8eSw3z2UVlFOUwJtPih74xVLDcM6go=;
+ b=q/p220mNbQb6kwz3k0zZWG+iuXpSDgxI/9Xtwj14FpB+ra9vtQh22Q/gGS+DEpYF9U
+ uX8LglCaj0MYhDnJABmfY2yNtF5xuKT7C3aApKtFIGcQDN2rdVl0ymx/R6spD321tbhl
+ 88a7WhMAxvvNiuMUbQI82V8fZWbfWtetcuiVyiIQ5RiV8fYsma+zZE7Nf2tTmIFI/ru/
+ lNP4Bsj6FjqF782cuiV+J/+CGlAGCnUi7URt9yk410flpjPI4DDtYvP1V8QAomXydhTw
+ 5UoZY9LDV77emQxJlSZym9s5LOukY2JWJXL0ad4f/hEl8eP9qk0iGxCdsoip9UEy43XL
+ 91+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777542442; x=1778147242;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=vRjYmZEKAOcTK8eSw3z2UVlFOUwJtPih74xVLDcM6go=;
+ b=HCW1OsiR88BHuRjqRvEOYV7UZOxXYRmDVxZfTUUqaR8ZhCoohlzyA43AxdmzYDFZ5K
+ tCsB8q92VGnilYv159XgZk+vs+e62mmGoCalOfScehH9i9jBMnE4FDDWSdleQT7xK8Kl
+ XMZQkH/qeZP7HXLsY+ps9eJ0PlWHZB762ASDrhFi8yTt1OjZJBm/1nYyqGfDqCE9bKuw
+ MwLUpOnkOuQ5YSDzPcLzxdPOIm5g435qcLYxBfx2K6zYbi3nzc+WWtEEcGfMBvDgFdtv
+ 8lEFJN58CfMXkiaIxmEZmUmjYpEwm5+Iwam1UD1Qbr012O5nxe1NBAkMkh70RXI+t2z8
+ 0JEw==
+X-Gm-Message-State: AOJu0YxzbTHDE/buLQjpJ8veasbYrly9S0Qf2rMr6rxXmU46HevXPSiN
+ 8Zrofl/cQxqM7WEmHuY5wACoFB/tZE2PdJAm65fgXjcE3dzlrzDQ9KE3XBrM2TfYff8=
+X-Gm-Gg: AeBDiesxRK6SbMTcya/da1Nf/00rlr8v1VLm3JwCEYJ+eJUEIHgmyIMAnG+4Z+S4tYb
+ XYukgEmYXxt4jA7v1Co5sbDzv/0QeMb6LDutypHvSP2QTrq96hWzdy9DMjqpvovXeHT+tf0XkQw
+ JQkiav9Sa0EC+Cm2Q5WJPIwpH2ud+/tAMGzvjH4JRbtDISNokfY2ok2Euhh8t55D6Uk8A4tm1BI
+ xTUFQqIh6z4irJoh0YgA0XEkdfvCGwwlsD5TsL2IkGzmIJhcNIlp+KQZj5jmeokpXO5E/Riz8e5
+ eUS5l5v0Vo1vukkDEkg7xKsVb+VE3U/9Axmp50Zb5eY8YM/u7lp+JOGMmb0b5S9NPd10mRwDGE4
+ IQfDQoLvUx27b6+C1UXK+PwHuYv+YJvpYaeKdj8oW0sxexXI8x06Mhmit4DZe20IsQZ1YqQflH1
+ KXu0QjyuyH//uiredrcmWlEzpGVKKn9kMaw38zeBDcMj+Q4fitzhloNMY=
+X-Received: by 2002:a05:600c:a312:b0:488:bfc3:efc with SMTP id
+ 5b1f17b1804b1-48a83d119a7mr27313465e9.0.1777542441736; 
+ Thu, 30 Apr 2026 02:47:21 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-48a81b9493bsm48984745e9.0.2026.04.30.02.47.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 Apr 2026 02:47:21 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: [PATCH v2 0/2] backlight: Add SY7758 6-channel High Efficiency LED
+ Driver support
+Date: Thu, 30 Apr 2026 11:47:14 +0200
+Message-Id: <20260430-topic-sm8650-ayaneo-pocket-s2-sy7758-v2-0-308140640de9@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACIl82kC/5WOTQ6CMBBGr2K6dkwpFhpX3sOwKGWA8aclnUokh
+ LsLeAKXL3n53jcLxkjI4nKYRcSRmIJfQR0PwvXWdwjUrCyUVIU8KwMpDOSAX6bQEuxkPQYYgnt
+ gAlbAU1lqA7k0GWLZZqi0WKeGiC199syt+jG/6zu6tG1vRk+cQpz2H2O2eX8mxwwkSGdtg7pt6
+ lxdn+RtDKcQO1Ety/IFCKGgpOsAAAA=
+X-Change-ID: 20260428-topic-sm8650-ayaneo-pocket-s2-sy7758-3081ee7f1e25
+To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
+ Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>
+Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-fbdev@vger.kernel.org, KancyJoe <kancy2333@outlook.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1245;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=sTmt6cdg1kP2+eYTeEKKnHTzDGESqLOto0bqSvNzmv4=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBp8yUmoqUJMN6KNXMYggn4lvttmBXtPuV5E+4QafFy
+ alS9YaSJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCafMlJgAKCRB33NvayMhJ0USJEA
+ DLLfrV+XmHVTW0+P0QA9uwsYnnl//UlTxUS+XiiMlrgttbffXtd9m2HIhP7aWnLwK3BcGSNyvm8z3Q
+ nbl4+8HkGfS/jsDRnCrHRT+cSvpBl0gLyaF7yarxlI4U2FlS8dcDyWEOD6306AXPrFcSnzxXYwNO2z
+ J6HOROZkbBe2rsbTC7kTI9BsJq/vwizGsHzOnLEczfJp1bks34RE8PrAr/U/25d+09/jkXoU1DGXeZ
+ 8+i3NE4tV5P0+TXCWCHsBdPrvtJlGXFYG/4/nk9J1zNTISz/XXOwy8MIziBkv+wX4s6d5S6+M9aK9V
+ oXFOBSScGN7N2/y54VcDJ/k6jI5z2KBkvoSFfwvLkQ8pbRBCCyLFnimrT+bLgT6RZyImrVrJi70MNI
+ IEiCN1hGnAYbcsldxgw0oFbUr3swseraQKWequ5W0vGwVWJGC6ORpy7XdOyETiiqt9D1rrvrnPdEZq
+ cTK/RAPZcoJbCtDuJw88xOXVxaa/2/xkDJFH5VBxAmVlALPZTKjXFFNjkXObuZqgfiO5bBHezjkFHm
+ H6tN/NVPOfFIE8iXMOgMCHOIzbrdBlN2czkQ6FHmhRK++TAlvsr3HWr7s6v1+GnWABOzsQ16wYQ+u/
+ A3a3Z7suvh4S3r8aqe3gaWm5HVEHtPNvPQ6IxtLBvVuR3WaASL2HSIbfJ5YQ==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,554 +113,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Sunyun Yang <syyang@lontium.com>
+Implement support for the Silergy SY7758 6-channel High Efficiency LED Driver
+used for backlight brightness control in the Ayaneo Pocket S2 dual-DSI panel.
 
-The LT7911EXC is an I2C-controlled bridge that Receiver eDP1.4
-and output signal/dual port mipi.
-
-Signed-off-by: Sunyun Yang <syyang@lontium.com>
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
- drivers/gpu/drm/bridge/Kconfig             |  13 +
- drivers/gpu/drm/bridge/Makefile            |   1 +
- drivers/gpu/drm/bridge/lontium-lt7911exc.c | 493 +++++++++++++++++++++
- 3 files changed, 507 insertions(+)
- create mode 100644 drivers/gpu/drm/bridge/lontium-lt7911exc.c
+Changes in v2:
+- Fixed bindings subject and removed "|"
+- Added review tag
+- Added higher delay before reading ID from HW (100us was too short)
+- Removed probe defer if i2c read fails
+- Link to v1: https://patch.msgid.link/20260428-topic-sm8650-ayaneo-pocket-s2-sy7758-v1-0-0caade5fdb32@linaro.org
 
-diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-index c3209b0f4678..8cff2bf15b09 100644
---- a/drivers/gpu/drm/bridge/Kconfig
-+++ b/drivers/gpu/drm/bridge/Kconfig
-@@ -132,6 +132,19 @@ config DRM_ITE_IT6505
- 	help
- 	  ITE IT6505 DisplayPort bridge chip driver.
- 
-+config DRM_LONTIUM_LT7911EXC
-+	tristate "Lontium eDP/MIPI bridge"
-+	depends on OF
-+	select CRC32
-+	select FW_LOADER
-+	select DRM_PANEL
-+	select DRM_KMS_HELPER
-+	help
-+	  DRM driver for the Lontium LT7911EXC bridge chip.
-+	  The LT7911EXC converts eDP input to single/dual port
-+	  MIPI DSI output.
-+	  Please say Y if you have such hardware.
-+
- config DRM_LONTIUM_LT8912B
- 	tristate "Lontium LT8912B DSI/HDMI bridge"
- 	depends on OF
-diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/Makefile
-index beab5b695a6e..70ddca75dd3a 100644
---- a/drivers/gpu/drm/bridge/Makefile
-+++ b/drivers/gpu/drm/bridge/Makefile
-@@ -13,6 +13,7 @@ obj-$(CONFIG_DRM_I2C_NXP_TDA998X) += tda998x.o
- obj-$(CONFIG_DRM_INNO_HDMI) += inno-hdmi.o
- obj-$(CONFIG_DRM_ITE_IT6263) += ite-it6263.o
- obj-$(CONFIG_DRM_ITE_IT6505) += ite-it6505.o
-+obj-$(CONFIG_DRM_LONTIUM_LT7911EXC) += lontium-lt7911exc.o
- obj-$(CONFIG_DRM_LONTIUM_LT8912B) += lontium-lt8912b.o
- obj-$(CONFIG_DRM_LONTIUM_LT9211) += lontium-lt9211.o
- obj-$(CONFIG_DRM_LONTIUM_LT9611) += lontium-lt9611.o
-diff --git a/drivers/gpu/drm/bridge/lontium-lt7911exc.c b/drivers/gpu/drm/bridge/lontium-lt7911exc.c
-new file mode 100644
-index 000000000000..02648b396343
---- /dev/null
-+++ b/drivers/gpu/drm/bridge/lontium-lt7911exc.c
-@@ -0,0 +1,493 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2026 Lontium Semiconductor, Inc.
-+ */
-+
-+#include <linux/crc32.h>
-+#include <linux/firmware.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/of_graph.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+
-+#include <drm/drm_bridge.h>
-+#include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_of.h>
-+
-+#define FW_SIZE (64 * 1024)
-+#define LT_PAGE_SIZE 32
-+#define FW_FILE  "lt7911exc_fw.bin"
-+#define LT7911EXC_PAGE_CONTROL 0xff
-+
-+struct lt7911exc {
-+	struct device *dev;
-+	struct i2c_client *client;
-+	struct drm_bridge bridge;
-+	struct regmap *regmap;
-+	/* Protects all accesses to registers by stopping the on-chip MCU */
-+	struct mutex ocm_lock;
-+	struct regulator_bulk_data supplies[2];
-+	struct gpio_desc *reset_gpio;
-+	int fw_version;
-+};
-+
-+static const struct regmap_range_cfg lt7911exc_ranges[] = {
-+	{
-+		.name = "register_range",
-+		.range_min =  0,
-+		.range_max = 0xe8ff,
-+		.selector_reg = LT7911EXC_PAGE_CONTROL,
-+		.selector_mask = 0xff,
-+		.selector_shift = 0,
-+		.window_start = 0,
-+		.window_len = 0x100,
-+	},
-+};
-+
-+static const struct regmap_config lt7911exc_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.max_register = 0xe8ff,
-+	.ranges = lt7911exc_ranges,
-+	.num_ranges = ARRAY_SIZE(lt7911exc_ranges),
-+};
-+
-+static u32 cal_crc32_custom(const u8 *data, u64 length)
-+{
-+	u32 crc = 0xffffffff;
-+	u8 buf[4];
-+	u64 i;
-+
-+	for (i = 0; i < length; i += 4) {
-+		buf[0] = data[i + 3];
-+		buf[1] = data[i + 2];
-+		buf[2] = data[i + 1];
-+		buf[3] = data[i + 0];
-+		crc = crc32_be(crc, buf, 4);
-+	}
-+
-+	return crc;
-+}
-+
-+static inline struct lt7911exc *bridge_to_lt7911exc(struct drm_bridge *bridge)
-+{
-+	return container_of(bridge, struct lt7911exc, bridge);
-+}
-+
-+static void lt7911exc_reset(struct lt7911exc *lt7911exc)
-+{
-+	gpiod_set_value_cansleep(lt7911exc->reset_gpio, 0);
-+	msleep(20);
-+
-+	gpiod_set_value_cansleep(lt7911exc->reset_gpio, 1);
-+	msleep(20);
-+
-+	gpiod_set_value_cansleep(lt7911exc->reset_gpio, 0);
-+	msleep(400);
-+
-+	dev_dbg(lt7911exc->dev, "lt7911exc reset.\n");
-+}
-+
-+static int lt7911exc_parse_dt(struct lt7911exc *lt7911exc)
-+{
-+	struct device *dev = lt7911exc->dev;
-+	int ret;
-+
-+	lt7911exc->supplies[0].supply = "vcc";
-+	lt7911exc->supplies[1].supply = "vdd";
-+
-+	ret = devm_regulator_bulk_get(dev, 2, lt7911exc->supplies);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed get regulator\n");
-+
-+	lt7911exc->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
-+	if (IS_ERR(lt7911exc->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(lt7911exc->reset_gpio),
-+				     "failed to acquire reset gpio\n");
-+
-+	return 0;
-+}
-+
-+static int lt7911exc_read_version(struct lt7911exc *lt7911exc)
-+{
-+	u8 buf[3];
-+	int ret;
-+
-+	ret = regmap_write(lt7911exc->regmap, 0xe0ee, 0x01);
-+	if (ret)
-+		return ret;
-+	ret = regmap_bulk_read(lt7911exc->regmap, 0xe081, buf, sizeof(buf));
-+	if (ret)
-+		return ret;
-+
-+	return (buf[0] << 16) | (buf[1] << 8) | buf[2];
-+}
-+
-+static void lt7911exc_lock(struct lt7911exc *lt7911exc)
-+{
-+	mutex_lock(&lt7911exc->ocm_lock);
-+	regmap_write(lt7911exc->regmap, 0xe0ee, 0x01);
-+}
-+
-+static void lt7911exc_unlock(struct lt7911exc *lt7911exc)
-+{
-+	regmap_write(lt7911exc->regmap, 0xe0ee, 0x00);
-+	mutex_unlock(&lt7911exc->ocm_lock);
-+}
-+
-+static void lt7911exc_block_erase(struct lt7911exc *lt7911exc)
-+{
-+	struct device *dev = lt7911exc->dev;
-+	const u32 addr = 0x00;
-+
-+	const struct reg_sequence seq_write[] = {
-+		REG_SEQ0(0xe0ee, 0x01),
-+		REG_SEQ0(0xe054, 0x01),
-+		REG_SEQ0(0xe055, 0x06),
-+		REG_SEQ0(0xe051, 0x01),
-+		REG_SEQ0(0xe051, 0x00),
-+		REG_SEQ0(0xe054, 0x05),
-+		REG_SEQ0(0xe055, 0xd8),
-+		REG_SEQ0(0xe05a, (addr >> 16) & 0xff),
-+		REG_SEQ0(0xe05b, (addr >> 8) & 0xff),
-+		REG_SEQ0(0xe05c, addr & 0xff),
-+		REG_SEQ0(0xe051, 0x01),
-+		REG_SEQ0(0xe050, 0x00),
-+	};
-+
-+	regmap_multi_reg_write(lt7911exc->regmap, seq_write, ARRAY_SIZE(seq_write));
-+
-+	msleep(200);
-+	dev_dbg(dev, "erase flash done.\n");
-+}
-+
-+static void lt7911exc_prog_init(struct lt7911exc *lt7911exc, u64 addr)
-+{
-+	const struct reg_sequence seq_write[] = {
-+		REG_SEQ0(0xe0ee, 0x01),
-+		REG_SEQ0(0xe05f, 0x01),
-+		REG_SEQ0(0xe05a, (addr >> 16) & 0xff),
-+		REG_SEQ0(0xe05b, (addr >> 8) & 0xff),
-+		REG_SEQ0(0xe05c, addr & 0xff),
-+	};
-+
-+	regmap_multi_reg_write(lt7911exc->regmap, seq_write, ARRAY_SIZE(seq_write));
-+}
-+
-+static int lt7911exc_write_data(struct lt7911exc *lt7911exc, const struct firmware *fw, u64 addr)
-+{
-+	struct device *dev = lt7911exc->dev;
-+	int ret;
-+	int page = 0, num = 0, page_len = 0;
-+	u64 size, offset;
-+	const u8 *data;
-+
-+	data = fw->data;
-+	size = fw->size;
-+	page = (size + LT_PAGE_SIZE - 1) / LT_PAGE_SIZE;
-+	if (page * LT_PAGE_SIZE > FW_SIZE) {
-+		dev_err(dev, "firmware size out of range\n");
-+		return -EINVAL;
-+	}
-+
-+	dev_dbg(dev, "%u pages, total size %llu byte\n", page, size);
-+
-+	for (num = 0; num < page; num++) {
-+		offset = num * LT_PAGE_SIZE;
-+		page_len = (offset + LT_PAGE_SIZE <= size) ? LT_PAGE_SIZE : (size - offset);
-+		lt7911exc_prog_init(lt7911exc, addr);
-+
-+		ret = regmap_raw_write(lt7911exc->regmap, 0xe05d, &data[offset], page_len);
-+		if (ret) {
-+			dev_err(dev, "write error at page %d\n", num);
-+			return ret;
-+		}
-+
-+		if (page_len < LT_PAGE_SIZE) {
-+			regmap_write(lt7911exc->regmap, 0xe05f, 0x05);
-+			regmap_write(lt7911exc->regmap, 0xe05f, 0x01);
-+			//hardware requires delay
-+			usleep_range(1000, 2000);
-+		}
-+
-+		regmap_write(lt7911exc->regmap, 0xe05f, 0x00);
-+		addr += LT_PAGE_SIZE;
-+	}
-+
-+	return 0;
-+}
-+
-+static int lt7911exc_write_crc(struct lt7911exc *lt7911exc, u32 crc32, u64 addr)
-+{
-+	u8 crc[4];
-+	int ret;
-+
-+	crc[0] = crc32 & 0xff;
-+	crc[1] = (crc32 >> 8) & 0xff;
-+	crc[2] = (crc32 >> 16) & 0xff;
-+	crc[3] = (crc32 >> 24) & 0xff;
-+
-+	regmap_write(lt7911exc->regmap, 0xe05f, 0x01);
-+	regmap_write(lt7911exc->regmap, 0xe05a, (addr >> 16) & 0xff);
-+	regmap_write(lt7911exc->regmap, 0xe05b, (addr >> 8) & 0xff);
-+	regmap_write(lt7911exc->regmap, 0xe05c, addr & 0xff);
-+
-+	ret = regmap_raw_write(lt7911exc->regmap, 0xe05d, crc, 4);
-+	if (ret)
-+		return ret;
-+
-+	regmap_write(lt7911exc->regmap, 0xe05f, 0x05);
-+	regmap_write(lt7911exc->regmap, 0xe05f, 0x01);
-+	usleep_range(1000, 2000);
-+	regmap_write(lt7911exc->regmap, 0xe05f, 0x00);
-+
-+	return 0;
-+}
-+
-+static int lt7911exc_upgrade_result(struct lt7911exc *lt7911exc, u32 crc32)
-+{
-+	struct device *dev = lt7911exc->dev;
-+	u32 read_hw_crc = 0;
-+	u8 crc_tmp[4];
-+	int ret;
-+
-+	regmap_write(lt7911exc->regmap, 0xe0ee, 0x01);
-+	regmap_write(lt7911exc->regmap, 0xe07b, 0x60);
-+	regmap_write(lt7911exc->regmap, 0xe07b, 0x40);
-+	msleep(150);
-+	ret = regmap_bulk_read(lt7911exc->regmap, 0x22, crc_tmp, 4);
-+	if (ret) {
-+		dev_err(lt7911exc->dev, "Failed to read CRC: %d\n", ret);
-+		return ret;
-+	}
-+
-+	read_hw_crc = crc_tmp[0] << 24 | crc_tmp[1] << 16 |
-+				crc_tmp[2] << 8 | crc_tmp[3];
-+
-+	if (read_hw_crc != crc32) {
-+		dev_err(dev, "lt7911exc firmware upgrade failed, expected CRC=0x%08x, read CRC=0x%08x\n",
-+			crc32, read_hw_crc);
-+		return -EIO;
-+	}
-+
-+	dev_dbg(dev, "lt7911exc firmware upgrade success, CRC=0x%08x\n", read_hw_crc);
-+	return 0;
-+}
-+
-+static int lt7911exc_firmware_upgrade(struct lt7911exc *lt7911exc)
-+{
-+	struct device *dev = lt7911exc->dev;
-+	const struct firmware *fw;
-+	u8 *buffer;
-+	size_t total_size = FW_SIZE - 4;
-+	u32 crc32;
-+	int ret;
-+
-+	/*1. load firmware*/
-+	ret = request_firmware(&fw, FW_FILE, dev);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to load '%s'\n", FW_FILE);
-+
-+	/*2. check size*/
-+	if (fw->size > total_size) {
-+		dev_err(dev, "firmware too large (%zu > %zu)\n", fw->size, total_size);
-+		ret = -EINVAL;
-+		goto out_release_fw;
-+	}
-+
-+	/*3. calculate crc32 */
-+	buffer = kzalloc(total_size, GFP_KERNEL);
-+	if (!buffer) {
-+		ret = -ENOMEM;
-+		goto out_release_fw;
-+	}
-+	memset(buffer, 0xff, total_size);
-+	memcpy(buffer, fw->data, fw->size);
-+
-+	crc32 = cal_crc32_custom(buffer, total_size);
-+	kfree(buffer);
-+
-+	/*4. firmware upgrade */
-+	dev_dbg(dev, "starting firmware upgrade, size: %zu bytes\n", fw->size);
-+
-+	lt7911exc_block_erase(lt7911exc);
-+
-+	ret = lt7911exc_write_data(lt7911exc, fw, 0);
-+	if (ret < 0) {
-+		dev_err(dev, "failed to write firmware data\n");
-+		goto out_release_fw;
-+	}
-+
-+	ret = lt7911exc_write_crc(lt7911exc, crc32, FW_SIZE - 4);
-+	if (ret < 0) {
-+		dev_err(dev, "failed to write firmware crc\n");
-+		goto out_release_fw;
-+	}
-+
-+	/*5. check upgrade of result*/
-+	lt7911exc_reset(lt7911exc);
-+
-+	ret = lt7911exc_upgrade_result(lt7911exc, crc32);
-+
-+out_release_fw:
-+	release_firmware(fw);
-+	return ret;
-+}
-+
-+static void lt7911exc_atomic_pre_enable(struct drm_bridge *bridge, struct drm_atomic_state *state)
-+{
-+	struct lt7911exc *lt7911exc = bridge_to_lt7911exc(bridge);
-+	int ret;
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(lt7911exc->supplies), lt7911exc->supplies);
-+	if (ret)
-+		return;
-+
-+	lt7911exc_reset(lt7911exc);
-+}
-+
-+static void lt7911exc_atomic_disable(struct drm_bridge *bridge, struct drm_atomic_state *state)
-+{
-+	/* Delay after panel is disabled */
-+	msleep(20);
-+}
-+
-+static void lt7911exc_atomic_post_disable(struct drm_bridge *bridge, struct drm_atomic_state *state)
-+{
-+	struct lt7911exc *lt7911exc = bridge_to_lt7911exc(bridge);
-+	int ret;
-+
-+	ret = regulator_bulk_disable(ARRAY_SIZE(lt7911exc->supplies), lt7911exc->supplies);
-+	if (ret)
-+		return;
-+
-+	gpiod_set_value_cansleep(lt7911exc->reset_gpio, 1);
-+}
-+
-+static int lt7911exc_attach(struct drm_bridge *bridge,
-+			    struct drm_encoder *encoder,
-+			    enum drm_bridge_attach_flags flags)
-+{
-+	struct lt7911exc *lt7911exc = bridge_to_lt7911exc(bridge);
-+
-+	return drm_bridge_attach(lt7911exc->bridge.encoder, lt7911exc->bridge.next_bridge,
-+				 &lt7911exc->bridge, flags);
-+}
-+
-+static const struct drm_bridge_funcs lt7911exc_bridge_funcs = {
-+	.attach = lt7911exc_attach,
-+	.atomic_pre_enable = lt7911exc_atomic_pre_enable,
-+	.atomic_disable = lt7911exc_atomic_disable,
-+	.atomic_post_disable = lt7911exc_atomic_post_disable,
-+};
-+
-+static int lt7911exc_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct lt7911exc *lt7911exc;
-+	bool fw_updated = false;
-+	int ret;
-+
-+	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C)) {
-+		dev_err(dev, "device doesn't support I2C\n");
-+		return -ENODEV;
-+	}
-+
-+	lt7911exc = devm_drm_bridge_alloc(dev, struct lt7911exc, bridge,
-+					  &lt7911exc_bridge_funcs);
-+	if (IS_ERR(lt7911exc))
-+		return dev_err_probe(dev, PTR_ERR(lt7911exc), "drm bridge alloc failed.\n");
-+
-+	lt7911exc->bridge.next_bridge = devm_drm_of_get_bridge(dev, dev->of_node, 1, 0);
-+	if (IS_ERR(lt7911exc->bridge.next_bridge))
-+		return PTR_ERR(lt7911exc->bridge.next_bridge);
-+
-+	lt7911exc->client = client;
-+	lt7911exc->dev = dev;
-+	i2c_set_clientdata(client, lt7911exc);
-+
-+	ret = devm_mutex_init(dev, &lt7911exc->ocm_lock);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to init mutex\n");
-+
-+	lt7911exc->regmap = devm_regmap_init_i2c(client, &lt7911exc_regmap_config);
-+	if (IS_ERR(lt7911exc->regmap))
-+		return dev_err_probe(dev, PTR_ERR(lt7911exc->regmap), "regmap i2c init failed\n");
-+
-+	ret = lt7911exc_parse_dt(lt7911exc);
-+	if (ret)
-+		return ret;
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(lt7911exc->supplies), lt7911exc->supplies);
-+	if (ret)
-+		return ret;
-+
-+	lt7911exc_reset(lt7911exc);
-+	lt7911exc_lock(lt7911exc);
-+
-+retry:
-+	lt7911exc->fw_version = lt7911exc_read_version(lt7911exc);
-+	if (lt7911exc->fw_version < 0) {
-+		dev_err(dev, "failed to read chip fw version\n");
-+		ret = -EOPNOTSUPP;
-+		goto err_disable_regulators;
-+
-+	} else if (lt7911exc->fw_version == 0) {
-+		if (!fw_updated) {
-+			fw_updated = true;
-+			ret = lt7911exc_firmware_upgrade(lt7911exc);
-+			if (ret < 0)
-+				goto err_disable_regulators;
-+
-+			goto retry;
-+
-+		} else {
-+			dev_err(dev, "fw version 0x%04x, update failed\n", lt7911exc->fw_version);
-+			ret = -EOPNOTSUPP;
-+			goto err_disable_regulators;
-+		}
-+	}
-+
-+	lt7911exc_unlock(lt7911exc);
-+
-+	lt7911exc->bridge.of_node = dev->of_node;
-+	devm_drm_bridge_add(dev, &lt7911exc->bridge);
-+
-+	return 0;
-+
-+err_disable_regulators:
-+	lt7911exc_unlock(lt7911exc);
-+	regulator_bulk_disable(ARRAY_SIZE(lt7911exc->supplies), lt7911exc->supplies);
-+	return ret;
-+}
-+
-+static const struct i2c_device_id lt7911exc_i2c_table[] = {
-+	{"lt7911exc"},
-+	{/* sentinel */}
-+};
-+
-+MODULE_DEVICE_TABLE(i2c, lt7911exc_i2c_table);
-+
-+static const struct of_device_id lt7911exc_devices[] = {
-+	{.compatible = "lontium,lt7911exc"},
-+	{/* sentinel */}
-+};
-+MODULE_DEVICE_TABLE(of, lt7911exc_devices);
-+
-+static struct i2c_driver lt7911exc_driver = {
-+	.id_table	= lt7911exc_i2c_table,
-+	.probe		= lt7911exc_probe,
-+	.driver		= {
-+		.name	= "lt7911exc",
-+		.of_match_table = lt7911exc_devices,
-+	},
-+};
-+module_i2c_driver(lt7911exc_driver);
-+
-+MODULE_AUTHOR("SunYun Yang <syyang@lontium.com>");
-+MODULE_DESCRIPTION("Lontium LT7911EXC EDP to MIPI DSI bridge driver");
-+MODULE_LICENSE("GPL");
-+MODULE_FIRMWARE(FW_FILE);
--- 
-2.34.1
+---
+KancyJoe (1):
+      backlight: Add SY7758 6-channel High Efficiency LED Driver support
+
+Neil Armstrong (1):
+      dt-bindings: leds: backlight: document the SY7758 6-channel High Efficiency LED Driver
+
+ .../bindings/leds/backlight/silergy,sy7758.yaml    |  53 ++++
+ drivers/video/backlight/Kconfig                    |   8 +
+ drivers/video/backlight/Makefile                   |   1 +
+ drivers/video/backlight/sy7758.c                   | 311 +++++++++++++++++++++
+ 4 files changed, 373 insertions(+)
+---
+base-commit: 39704f00f747aba3144289870b5fd8ac230a9aaf
+change-id: 20260428-topic-sm8650-ayaneo-pocket-s2-sy7758-3081ee7f1e25
+
+Best regards,
+--  
+Neil Armstrong <neil.armstrong@linaro.org>
 
