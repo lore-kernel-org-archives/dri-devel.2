@@ -4,51 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 548FECD13D3
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 19:09:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2B64CD3423
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 19:18:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B957210E244;
-	Thu, 30 Apr 2026 19:09:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6025810E473;
+	Thu, 30 Apr 2026 19:18:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="I0eWKewa";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KQlsP+uL";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 837AA10E244;
- Thu, 30 Apr 2026 19:09:29 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E12610EEEE;
+ Thu, 30 Apr 2026 19:18:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777576171; x=1809112171;
- h=from:to:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=Li4Br/ck8mA/qGQwfI+fkvtTjhzz7x5LFe+xj/eewj4=;
- b=I0eWKewaLoJoPRUIrnDSaUnIAMf808QFqabKI83LVusrjlGSjAkKK9Pr
- nHpciFvOh5gTcKUX+/UCrsBMHmzfcSRMbJuohGsPVeWFJ5u0TBxAiZeCj
- tgPlDFa0eAvH4ww+lozxvk9tLIMmtS3+NbkFwt5gXV/FvyIPfj+k/qG+R
- Vyl+Gf/D1jIprTg8YLJzJOwUJ+d9duJDvCwCutn9cGgmjzG2EvAOhJFP6
- BaGHjeEprxHLRdvTIO4gowcEOMux63NvD4gISAvVSYMrGa6fcLfThyDb8
- GSowYn78wEELh7ihVSYcsI3g1U9LlAu8N9GOUd9Bz+lkgklAh/CFCrEEf g==;
-X-CSE-ConnectionGUID: CQ/3/MWeRNW1gXrhycmq7Q==
-X-CSE-MsgGUID: 17pbZR74R6+DGtNrwhchCg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11772"; a="89917863"
-X-IronPort-AV: E=Sophos;i="6.23,208,1770624000"; d="scan'208";a="89917863"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Apr 2026 12:09:29 -0700
-X-CSE-ConnectionGUID: iBCc3LgzRKORPN/ZGhEz+A==
-X-CSE-MsgGUID: 232ycsuaQha1aDLMIg4zcQ==
+ t=1777576696; x=1809112696;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=GHkxm0wYYb4SrQQJzp26BvqDgj5d1MTHLdsthOQOpLE=;
+ b=KQlsP+uLKLzggk312om4rtcRsNWy1oiA9LJ7jQcMsqDflK0jABE01klq
+ YlaoBWEd0bNE+v3U7kw6chixW4b5Bz0Se32FxVUcTFy+5PsAjHRagDF+Z
+ HRFC2DsFF0l615nG7gPfJtr7vdBCrTklPaO0CrJRtIMsRIyPGQPPu1l4i
+ 7Z7ya8NdGlYh0SZ4Qxk+y5qtxm0alWrsNagkYaT9eNsvu34Azk/SKdAkv
+ GjksBsmfb7QQweGs2e4VsAjOX9oM3EJmaTE7kf4btCfymphLcTlSxLYUh
+ iucRP7UHdsz9QHi+6lhb/5folo+ogPhfUPJTFbaSX/D2gJrJgX0ZRxDyb A==;
+X-CSE-ConnectionGUID: yulEZB18QcmrVsxxtFhOLA==
+X-CSE-MsgGUID: dNtxGzz5TIODwWloOyzuEA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11772"; a="77706757"
+X-IronPort-AV: E=Sophos;i="6.23,208,1770624000"; d="scan'208";a="77706757"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Apr 2026 12:18:14 -0700
+X-CSE-ConnectionGUID: md5b2HFPSdm+DLB6+IWNBA==
+X-CSE-MsgGUID: eTWfpT+ETRezIfA8iUbD8A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,208,1770624000"; d="scan'208";a="230071120"
+X-IronPort-AV: E=Sophos;i="6.23,208,1770624000"; d="scan'208";a="233801145"
 Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
- by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Apr 2026 12:09:29 -0700
+ by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Apr 2026 12:18:14 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm/xe: Do not blindly copy system CCS pages when shrinking
-Date: Thu, 30 Apr 2026 12:09:23 -0700
-Message-Id: <20260430190923.2141506-1-matthew.brost@intel.com>
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v4 2/6] mm: Introduce zone_maybe_fragmented_in_shrinker()
+Date: Thu, 30 Apr 2026 12:18:05 -0700
+Message-Id: <20260430191809.2142544-3-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260430191809.2142544-1-matthew.brost@intel.com>
+References: <20260430191809.2142544-1-matthew.brost@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,69 +75,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-If the PAT index for a BO is configured without compression, copying CCS
-pages during BO shrinking provides no value. Skip CCS copies for BOs that
-have never been configured with compressed PAT indexes.
+Introduce zone_maybe_fragmented_in_shrinker() as a lightweight helper to
+allow subsystems to make coarse decisions about reclaim behavior in the
+presence of likely fragmentation.
 
-Once a BO is configured with a compressed PAT index, this becomes a
-one-way transition that enables CCS copies. This heuristic is imprecise,
-but simple and functional.
+The helper implements a simple heuristic: if the number of free pages
+in a zone exceeds twice the high watermark, the zone is considered to
+have ample free memory and allocation failures are more likely due to
+fragmentation than overall memory pressure.
 
+This is intentionally imprecise and is not meant to replace the core
+MM compaction or fragmentation accounting logic. Instead, it provides
+a cheap signal for callers (e.g., shrinkers) that wish to avoid
+overly aggressive reclaim when sufficient free memory exists but
+high-order allocations may still fail.
+
+No functional changes; this is a preparatory helper for future users.
+
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: "Liam R. Howlett" <Liam.Howlett@oracle.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 
 ---
 
-When running 10x tabs webgl aquarium, it was observed a ratio of ~6.5 to
-1 of BOs that can possible enable compression (xe_bo_needs_ccs_pages
-returns true) actually enable compression in the PAT index and overall
-CCS copies are reduced by roughly 1/2 when the shrinker is triggered.
+v3: s/zone_appear_fragmented/zone_maybe_fragmented_in_shrinker (David
+    Hildenbrand)
 ---
- drivers/gpu/drm/xe/xe_bo.c       | 2 ++
- drivers/gpu/drm/xe/xe_bo_types.h | 3 +++
- drivers/gpu/drm/xe/xe_vm.c       | 3 +++
- 3 files changed, 8 insertions(+)
+ include/linux/vmstat.h | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-index 5ce60d161e09..3fbb82ece4de 100644
---- a/drivers/gpu/drm/xe/xe_bo.c
-+++ b/drivers/gpu/drm/xe/xe_bo.c
-@@ -1105,6 +1105,8 @@ static int xe_bo_move(struct ttm_buffer_object *ttm_bo, bool evict,
- 			flags |= XE_MIGRATE_CLEAR_FLAG_CCS_DATA;
+diff --git a/include/linux/vmstat.h b/include/linux/vmstat.h
+index 3c9c266cf782..1ad48f70c9d9 100644
+--- a/include/linux/vmstat.h
++++ b/include/linux/vmstat.h
+@@ -483,6 +483,18 @@ static inline const char *zone_stat_name(enum zone_stat_item item)
+ 	return vmstat_text[item];
+ }
  
- 		fence = xe_migrate_clear(migrate, bo, new_mem, flags);
-+	} else if (handle_system_ccs && !bo->ccs_used) {
-+		fence = dma_fence_get_stub();
- 	} else {
- 		fence = xe_migrate_copy(migrate, bo, bo, old_mem, new_mem,
- 					handle_system_ccs);
-diff --git a/drivers/gpu/drm/xe/xe_bo_types.h b/drivers/gpu/drm/xe/xe_bo_types.h
-index 9c199badd9b2..76f73a3bf2ca 100644
---- a/drivers/gpu/drm/xe/xe_bo_types.h
-+++ b/drivers/gpu/drm/xe/xe_bo_types.h
-@@ -88,6 +88,9 @@ struct xe_bo {
- 	/** @ccs_cleared: true means that CCS region of BO is already cleared */
- 	bool ccs_cleared;
- 
-+	/** @ccs_used: true means that CCS region of BO is used */
-+	bool ccs_used;
++static inline bool zone_maybe_fragmented_in_shrinker(struct zone *zone)
++{
++	/*
++	 * Simple heuristic: if the number of free pages is more than twice the
++	 * high watermark, this may suggest that the zone is heavily fragmented.
++	 * When called from a shrinker, aggressively evicting memory in this case
++	 * may do more harm to overall system performance than good.
++	 */
++	return zone_page_state(zone, NR_FREE_PAGES) >
++		high_wmark_pages(zone) * 2;
++}
 +
- 	/** @bb_ccs: BB instructions of CCS read/write. Valid only for VF */
- 	struct xe_mem_pool_node *bb_ccs[XE_SRIOV_VF_CCS_CTX_COUNT];
- 
-diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
-index c3836f6eab35..638037e71e2d 100644
---- a/drivers/gpu/drm/xe/xe_vm.c
-+++ b/drivers/gpu/drm/xe/xe_vm.c
-@@ -3054,6 +3054,9 @@ static int vma_lock_and_validate(struct drm_exec *exec, struct xe_vma *vma,
- 
- 		if (flags.request_decompress)
- 			err = xe_bo_decompress(bo);
-+
-+		if (xe_pat_index_get_comp_en(vm->xe, vma->attr.pat_index))
-+			bo->ccs_used = true;
- 	}
- 
- 	return err;
+ #ifdef CONFIG_NUMA
+ static inline const char *numa_stat_name(enum numa_stat_item item)
+ {
 -- 
 2.34.1
 
