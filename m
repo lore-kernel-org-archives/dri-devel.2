@@ -4,98 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4683FF8875
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 12:07:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B225FF8873
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 12:22:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC62210E19C;
-	Thu, 30 Apr 2026 12:07:21 +0000 (UTC)
-Received: from mail-oo1-f54.google.com (mail-oo1-f54.google.com
- [209.85.161.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C5C410E436
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 12:07:20 +0000 (UTC)
-Received: by mail-oo1-f54.google.com with SMTP id
- 006d021491bc7-662efd1bdd4so547355eaf.0
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 05:07:20 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D79E10E156;
+	Thu, 30 Apr 2026 12:22:25 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="IxJKOjDB";
+	dkim-atps=neutral
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
+ [209.85.221.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 723E810E156
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 12:22:23 +0000 (UTC)
+Received: by mail-wr1-f53.google.com with SMTP id
+ ffacd0b85a97d-43d73352cf2so774039f8f.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 05:22:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1777551742; x=1778156542; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=RqyMbVlgU8cqot3Hcxn2iVprpaqj6ssogqlpcrZk9L8=;
+ b=IxJKOjDBtOi2lZE2AtLS4OlvM+q9/fXNMO4xBG8aftOLA8KEbmgwVUseVlDUChTvgG
+ RZnVH7BmmeYdpurkwrGg93f1SWhRfqWU9pwiWVkzqDPzzdO/8AqRn7iVJYCitkoZgLl2
+ cYy7kFIaPxT0/9exax9FQu5vlC+MwdkeEm9+uRsDt67zVnxqEReddzPa/vSsYmainMvp
+ j67wanKayLjCi1xGClNBU3uM3k3L16jAr9+aB1WrsEW+HTrme5ZSKGlNEHoFK/mQUx1Y
+ sYrkMisDQA8QSdz8A2syGy8KlbjfxMi50PY1vcqUqqNn/Wflg6LPd0zezSJwcvDNUcm6
+ tyaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777550840; x=1778155640;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20251104; t=1777551742; x=1778156542;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ksIL4rip+tLI1Yx6QhQXSN6krUTnsd9SRkVzjQXrZjA=;
- b=nGm43cLd14D50Drks0x4PrPjnYS0sh81pqkbnsvppmVHSGSep2mp7DZp9WJfZjJY3Y
- OrtJTZsGNbnoW3PGEzjB4XSSeKFlmhvfW9sKmvpyK2XcwMMq075SSDoGtEr2Y05NJVJ/
- aICYlgVfwvxoTONvuD89h96RcOcZ3uv9Hcf7Pw052tvdYA6DQrx9BZ2VyDzRTYiYrae0
- +nmoLhVK+fjJ+3a694PmMtUkDYpTUBtp2wTGrvvV41mmpwWkFVdocxT04P3qcXExYFwT
- TLlFqBWidbQG+l2t09Rj/2LC2M1tgnrrhgH7PBAYTaxvNDsg7y4275j2t8R1LQxNuIac
- Gq7A==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/04oT5IGujIGAKdOt8hTO5AcM27fyTIO+1w+e2c1QAFuK8mPgGUBqJXwT/V7UyHbDEXm7Sl9NXG20=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzpGIPxNnHXR3WCdUQr2iEqh0YdCao/8EODtdtSHsKBH4I2La3E
- j3uHtOYNbKJhYhX26Rhfrc7TJqp6UaUOHM714yD/r2ts8rwIJgWasaSejKmHUaQ5SS4=
-X-Gm-Gg: AeBDiesVgYZYuUmfIcN4nWgHLCeY7Amsec2w8ZiPaZHXQSZQzgiWvfJsfLrVLxs9QOF
- ZktlzHgBjNBjLHFDf8oH+d7IzW1UlN7HW+EHn0LNaajKkVRRzTUC5LVfmB1IV5Tb7cH97qXRzBP
- o9cKNUSnqx/WbTiXZHu78nCVB/XEVeBggBOKFeWGXT/p8NrxtTPD6FOF5zZ5/4hALmYtioPSnCH
- K+EHARsHa6/EVsV2pBSwdQawidlOCzklcSoqAxfdv2PVvPmLbYeMpUH0t1APZoZXgkFGUnPhHTQ
- Y+nnxV7NkEvydPKLH8qWfLjXREaP/KFbf7Vn6yAmxi9vmLxGOOmYksyW15gzsDV0ZZawbxKIUi0
- 0g4Fczg0fD+/qBnSRWTYqG/vQEbOAKGbBoNfFTEScnZtduBLq92TcfTbglzVqjf9o1HStZNe3cj
- lH8ADt/lYT9sAcXQy4v7QJFFfPyBI6nO4cy1peHiwXm9bdzYT9KFjv96F4NUMgxeCikPoNyjU=
-X-Received: by 2002:a05:6820:1608:b0:696:2b13:6c63 with SMTP id
- 006d021491bc7-6967bd1bc0emr750487eaf.10.1777550839497; 
- Thu, 30 Apr 2026 05:07:19 -0700 (PDT)
-Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com.
- [209.85.210.50]) by smtp.gmail.com with ESMTPSA id
- 006d021491bc7-6966be5fa1fsm2991011eaf.12.2026.04.30.05.07.18
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Apr 2026 05:07:19 -0700 (PDT)
-Received: by mail-ot1-f50.google.com with SMTP id
- 46e09a7af769-7d1872504cbso688036a34.0
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 05:07:18 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AFNElJ/aC/dW9tsjkAz+EiPRrfyZ6hke3wyDjKvD7oMgj4w2/f4RZ2XPGVqrWWH6f/DgD3a/J+AC6GdTdPw=@lists.freedesktop.org
-X-Received: by 2002:a67:e708:0:b0:610:347f:9f3b with SMTP id
- ada2fe7eead31-62afc506100mr613209137.3.1777550404889; Thu, 30 Apr 2026
- 05:00:04 -0700 (PDT)
+ bh=RqyMbVlgU8cqot3Hcxn2iVprpaqj6ssogqlpcrZk9L8=;
+ b=F7MI5czyRVpnbajgItOzPgSC3waBQOL3VHC6WCfad3O3mDPzzr3TgGBder951e0iCm
+ UOwdzjWrPqpjySRkTJYo9uyu95Ga7MMwbiZdDp8AvRYh2zL7oQR80qTlvKmsctNJvkDd
+ 4mnlynhFFYL6MtFRqfV2q7bt+NGaog6pwBj6VC8Ek/Nm1UYW9t/YhlxmhmamwpgBZ4oz
+ D5g/5XqBT0tEt4byQlxGcNDtwT1wmzvUXFimqVGNBHcbhZ0X3vVT8SjSA4IMnQ+LCKsm
+ sPbeWFZz6PaRjWl9YMteLE9BINoSK7rxeR1YtX7lTcsNQf1SEX6MyWuJXjOUBck2mUdA
+ qD6Q==
+X-Gm-Message-State: AOJu0YzdD7+hABP8iTHCnmU6DOM/uagsM0DTyFyJCcdf1JJ4jkKjY8XQ
+ mxa557/ALWW1myDSTcci4YdKxKPfNEtY8wO41q3/b7ZRM+Io9cds2ZROeEjb1KwZUyo=
+X-Gm-Gg: AeBDieub0qYmt+hnavWIoEKs5t4Ae3TeTTmNiuUtTQ4jZ0Psz95upJWDc+tTc/2hbe6
+ glLkqVyNS+gyVGcKnPWV8u4eM/GH+4+P3gE8wH3hMQUWFwLS9lUv4lN10h2qOfPlpgAP9P0OXwG
+ LyqqmZzl0u6OTinBZp89T5RBqXr37orc/id+o85oHdf2MaBbzvZRLs1ntcMZ8cOKJgKSnbe3grs
+ bYoi4tydclwbOZSESXs1qNpnfg5mRs15kvnby8+mr4JyoyU0nKn3/tDSmlkEb5VaklAm/8cq15D
+ v9fIb4S50k6FWisNFUvFGCHTw3yes0epMLrUYZ4/12/xyveGLsF3ZyqsDH6S7mJEKSifbKGIlsE
+ Rqp/mBiYC1lFtgkLUvOY1Q4IaWJqIHidvqk6AiL5xx7mifxgui0pCgEhDFnITDV8XgJm3sZhIZu
+ rqrslTC3xZZcU4+l+bEwKFL1pTs1R9YF3o4YeT5TheNAEROrh7slo7v3M=
+X-Received: by 2002:a05:6000:4284:b0:43d:71b:204b with SMTP id
+ ffacd0b85a97d-4493ee4d3a7mr4784038f8f.39.1777551741675; 
+ Thu, 30 Apr 2026 05:22:21 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-447b76e5afesm11163639f8f.30.2026.04.30.05.22.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 Apr 2026 05:22:21 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: [PATCH v2 0/2] drm: panel: support the R63419 based dual-DSI video
+ mode Display Panels
+Date: Thu, 30 Apr 2026 14:22:16 +0200
+Message-Id: <20260430-topic-sm8650-ayaneo-pocket-s2-r63419-v2-0-91ac10453d0c@linaro.org>
 MIME-Version: 1.0
-References: <20260430110652.558622-1-vladimir.oltean@nxp.com>
- <20260430110652.558622-18-vladimir.oltean@nxp.com>
-In-Reply-To: <20260430110652.558622-18-vladimir.oltean@nxp.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 30 Apr 2026 13:59:53 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWbeeRmLf6Ae0Fr0un=-z7z5ONc_hDdjebP=KVkXHPbhw@mail.gmail.com>
-X-Gm-Features: AVHnY4K0yYb6vTu9KdtDciwvAziqboYRX_ITZ386sa6ttixZ1EP_Mzy9gi4Pi0E
-Message-ID: <CAMuHMdWbeeRmLf6Ae0Fr0un=-z7z5ONc_hDdjebP=KVkXHPbhw@mail.gmail.com>
-Subject: Re: [PATCH v7 phy-next 17/27] phy: introduce phy_get_max_link_rate()
- helper for consumers
-To: Vladimir Oltean <vladimir.oltean@nxp.com>
-Cc: linux-phy@lists.infradead.org, Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-arm-msm@vger.kernel.org, linux-can@vger.kernel.org, 
- linux-gpio@vger.kernel.org, linux-ide@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
- linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
- linux-riscv@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-samsung-soc@vger.kernel.org, linux-scsi@vger.kernel.org, 
- linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org, 
- linux-usb@vger.kernel.org, netdev@vger.kernel.org, spacemit@lists.linux.dev, 
- UNGLinuxDriver@microchip.com, Markus Schneider-Pargmann <msp@baylibre.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Andy Yan <andy.yan@rock-chips.com>, Marc Kleine-Budde <mkl@pengutronix.de>, 
- Vincent Mailhol <mailhol@kernel.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
- Geert Uytterhoeven <geert+renesas@glider.be>,
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHhJ82kC/5WOTQ6DIBSEr9Kw7muAKmpXvUfjAvGprz9ggJoa4
+ 92L9gRNZvMlk29mYQE9YWCXw8I8ThTI2QTyeGBm0LZHoDYxk1wqnskSohvJQHiVKuegZ23Rwej
+ MAyMECV6dM1EBFjJTBcq24R1LqtFjR5995lb/OLybO5q4ubfGQCE6P+8/JrH1/pycBHCoSoFNr
+ lNycX2S1d6dnO9Zva7rF5hfThnrAAAA
+X-Change-ID: 20260428-topic-sm8650-ayaneo-pocket-s2-r63419-e72467e2db0f
+To: Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
  Magnus Damm <magnus.damm@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ KancyJoe <kancy2333@outlook.com>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1149;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=DBmrIk2P2SCzJFS2zeYznzHxjTl1f4Qtg2F+1FDx08E=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBp80l6ioUpRGgLOhdWf2OCm1AyXBCyDPSG01l5c3KS
+ r3zvDKyJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCafNJegAKCRB33NvayMhJ0cLxD/
+ 9RN6EGHKiC0AXQMAK1thshpNMvYkLrE0lx2nhe1Ypeu/R0j4RFaWQUm4BhTodQUFgO43U1tUZc3GaS
+ 8ECanj75MWHPY/+ho1PT6uPS0DYLSL8PRC+Pn0REu60sucxglAgJmq35A0vecK0AFVhcT4Fhg0Lf4W
+ 5Nsw9Yi61yZxhEt9toNrnXw0bU2vuC3jyzgp+7+HGj4j4ORgEvT9PO44uMWPuOzdFYBlIiSGVqRyPp
+ umnMF8HEzTgkNPfHgjdvmLS3nUziOkhyuadXOAlE23vsbOTdGBog+WEY4+fGhHRsFjVAtVIt2gnihq
+ bLr31XGSkZAAww4/Osvqv+OIBh6G5k6b0z/OjU3H8KN6VZBe5bCTfm4x/U/19uz3snM+AGTPvWTsTd
+ Qdl1mnq1g/gRp49rZxX/5tQGE7baztD4iyNJvf1REda7VBqiMj9IbEk6Gy3iJte1O3iaRL4VSR7uJC
+ iBI0NYeUPVYW+3EQSCKbkvFVuTNevlW5Q/V1eC0bBytOcdXGX/f8/Bnzm9f09zlAihlsHGF72diLQj
+ RjGO7uJ5Upe0ejKHbIJ3VVqdaXbOPp/fWuqlonRkAstRC56yo4hcdlwtopCdPInTw/J5m4JSSJ98S1
+ Ox9ShYGeSN0lHfP1gXg4ddqfzfH45c9jmJnYE1GoPGMTLvEubp2hIXoBuGHw==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,51 +116,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Vladimir,
+Add support for the Renesas 63419 based dual-DSI video mode
+Display Panels found in the Ayaneo gaming handled devices.
 
-On Thu, 30 Apr 2026 at 13:07, Vladimir Oltean <vladimir.oltean@nxp.com> wrote:
-> Consumer drivers shouldn't dereference struct phy, not even to get to
-> its attributes.
->
-> We have phy_get_bus_width() as a precedent for getting the bus_width
-> attribute, so let's add phy_get_max_link_rate() and use it in DRM and
-> CAN drivers.
->
-> In CAN drivers, the transceiver is acquired through devm_phy_optional_get()
-> and NULL is given by the API as a non-error case, so the PHY API should
-> also tolerate NULL coming back to it. This means we can further simplify
-> the call sites that test for the NULL quality of the transceiver.
->
-> Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
-> Acked-by: Markus Schneider-Pargmann <msp@baylibre.com> # m_can
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+---
+Changes in v2:
+- Add missing rotation property into bindings
+- Fix commit message & subject typos
+- Link to v1: https://patch.msgid.link/20260428-topic-sm8650-ayaneo-pocket-s2-r63419-v1-0-981eb5ab5a51@linaro.org
 
-Thanks for your patch!
+---
+KancyJoe (1):
+      drm: panel: add support for the Renesas R63419 based dual-DSI video mode Display Panels
 
->  drivers/net/can/rcar/rcar_canfd.c                   | 3 +--
+Neil Armstrong (1):
+      dt-bindings: regulator: document the Renesas R63419 based dual-DSI video mode Display Panels
 
-Acked-by: Geert Uytterhoeven <geert+renesas@glider.be> # rcar_canfd
+ .../bindings/display/panel/renesas,r63419.yaml     |  93 ++++++
+ drivers/gpu/drm/panel/Kconfig                      |  12 +
+ drivers/gpu/drm/panel/Makefile                     |   1 +
+ drivers/gpu/drm/panel/panel-renesas-r63419.c       | 356 +++++++++++++++++++++
+ 4 files changed, 462 insertions(+)
+---
+base-commit: 39704f00f747aba3144289870b5fd8ac230a9aaf
+change-id: 20260428-topic-sm8650-ayaneo-pocket-s2-r63419-e72467e2db0f
 
-> --- a/include/linux/phy/phy.h
-> +++ b/include/linux/phy/phy.h
-> @@ -57,6 +57,7 @@ int phy_notify_disconnect(struct phy *phy, int port);
->  int phy_notify_state(struct phy *phy, union phy_notify state);
->  int phy_get_bus_width(struct phy *phy);
->  void phy_set_bus_width(struct phy *phy, int bus_width);
-> +u32 phy_get_max_link_rate(struct phy *phy);
+Best regards,
+--  
+Neil Armstrong <neil.armstrong@linaro.org>
 
-This (and all the existing getters) should take a "const struct phy *".
-
->  #else
->  static inline struct phy *phy_get(struct device *dev, const char *string)
->  {
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
