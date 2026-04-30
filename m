@@ -4,66 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86C9FFF886F
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 22:49:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C933DCD13DE
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 23:01:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D25CD10F49D;
-	Thu, 30 Apr 2026 22:49:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 255E310E4A9;
+	Thu, 30 Apr 2026 23:01:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="LgOB2oQ3";
+	dkim=pass (1024-bit key; unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="GeiddE3O";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD49E10F4AD
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 22:49:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1777589373; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=ao51FAC8K72kOX0eU+98343y3kIElVEd6FVvxogQE8QgeYQudwpD7ktv9S+4oNLv0flgWwCqtyRs4zHsLPaTv0a7ZgR+SyLcPU/A+yiRawMEzSFeqo2ja0ZqhBW0+GW58/18pVkQzII3Ncnz6FHWdZJSuXuHaVD/0BCUCHci92c=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1777589373;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=wtQedf8kA57FZT4+/T3ghPhkGmrJtXPf+PUEudB759E=; 
- b=idYrBxFKtploVdmOniCXLxfH5hobOTLGzwQPWoJFvFUZCJOJzZWcWM6EJwesrKWyXFgnJRins2QKZiIsFHdrX+tZnO6LIiom3qCrmsgehQkybB7NcVi3cek+bnJuNQ2TjmmbNwJhU1qXVf6A2LnQ1Z/SarxbaVOufbptlC8WubU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
- dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1777589373; 
- s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com; 
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=wtQedf8kA57FZT4+/T3ghPhkGmrJtXPf+PUEudB759E=;
- b=LgOB2oQ3dXsZYg5sP0ePh17Oyqr4p+bSoIODW0TMmGOdB1UhF0kG421+MvewG3X1
- ttDAroACj9nmnPgYgS+RvPnzHjGXjjwGmLWisKARVZxl8zONm/k+y2rUyDjYrpvD9MK
- pGGZSNtrHSgljHEQgWeEPnlNfTkA3NmXgSdBajvA=
-Received: by mx.zohomail.com with SMTPS id 1777589370669654.7406887211924;
- Thu, 30 Apr 2026 15:49:30 -0700 (PDT)
-Message-ID: <adc4edee-bc5e-4a65-86d0-c20b47aaa3d9@collabora.com>
-Date: Fri, 1 May 2026 01:49:25 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/virtgpu: Add PM support for suspend/resume
-To: =?UTF-8?B?TW9ycmlzIFBhbiAo5r2Y5rOw54K6KQ==?= <Morris.Pan@mediatek.com>,
- "airlied@redhat.com" <airlied@redhat.com>,
- "kraxel@redhat.com" <kraxel@redhat.com>
-Cc: "virtualization@lists.linux.dev" <virtualization@lists.linux.dev>,
- "srv_heupstream@mediatek.com" <srv_heupstream@mediatek.com>,
- "simona@ffwll.ch" <simona@ffwll.ch>,
- "gurchetansingh@chromium.org" <gurchetansingh@chromium.org>,
- "tzimmermann@suse.de" <tzimmermann@suse.de>,
- "olvaffe@gmail.com" <olvaffe@gmail.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "mripard@kernel.org" <mripard@kernel.org>,
- Dongwon Kim <dongwon.kim@intel.com>
-References: <20260401061050.1035881-1-morris.pan@mediatek.com>
- <2175a05a-d83f-4252-bbf8-581ae652a6b8@collabora.com>
- <26884a5a6043ce2d146456644cd7e37278b0edb0.camel@mediatek.com>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <26884a5a6043ce2d146456644cd7e37278b0edb0.camel@mediatek.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDC8B10E4A9;
+ Thu, 30 Apr 2026 23:01:08 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 5CBC060142;
+ Thu, 30 Apr 2026 23:01:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F04EEC2BCB3;
+ Thu, 30 Apr 2026 23:01:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux-foundation.org;
+ s=korg; t=1777590067;
+ bh=PTULIpfRpRHkz0qopelU8YTdmvf6BncDc8+Oy6+/FfU=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=GeiddE3O5PYXm17s8GY+whOzMH+r8aSqPUcTTBGpfl5yEsELOtc1RBsuQmCU4XAAv
+ G2xQ2oifD6lJM0tEBXagW1Yy5u8RbsAOaeRTgyhKNydcQaSZIu8uBQJ2fbrPzhoFlz
+ u4ekfPkgl811pE2YyrckBnbbyWZMzpKVOwggUM/A=
+Date: Thu, 30 Apr 2026 16:01:05 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Dave
+ Chinner <david@fromorbit.com>, Qi Zheng <zhengqi.arch@bytedance.com>, Roman
+ Gushchin <roman.gushchin@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>,
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Tvrtko
+ Ursulin <tvrtko.ursulin@igalia.com>, Thomas =?UTF-8?B?SGVsbHN0csO2bQ==?=
+ <thomas.hellstrom@linux.intel.com>, Carlos Santa <carlos.santa@intel.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Daniel Colascione <dancol@dancol.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>, Vlastimil Babka
+ <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan
+ <surenb@google.com>, Michal Hocko <mhocko@suse.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 0/6] mm, drm/ttm, drm/xe: Avoid reclaim/eviction
+ loops under fragmentation
+Message-Id: <20260430160105.a3b74ec3bb316bbfbf8f9808@linux-foundation.org>
+In-Reply-To: <20260430191809.2142544-1-matthew.brost@intel.com>
+References: <20260430191809.2142544-1-matthew.brost@intel.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+Mime-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,57 +72,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/17/26 12:40, Morris Pan (潘泰為) wrote:
-> On Wed, 2026-04-08 at 15:59 +0300, Dmitry Osipenko wrote:
->> Hi,
->>
->> On 4/1/26 09:10, Morris Pan wrote:
->>> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c
->>> b/drivers/gpu/drm/virtio/virtgpu_drv.c
->>> index a5ce96fb8a1d..fbca0a82958c 100644
->>> --- a/drivers/gpu/drm/virtio/virtgpu_drv.c
->>> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
->>> @@ -145,6 +145,40 @@ static void virtio_gpu_config_changed(struct
->>> virtio_device *vdev)
->>>  	schedule_work(&vgdev->config_changed_work);
->>>  }
->>>  
->>> +#ifdef CONFIG_PM_SLEEP
->>> +static int virtgpu_freeze(struct virtio_device *vdev)
->>> +{
->>> +	vdev->config->del_vqs(vdev);
->>> +	virtio_reset_device(vdev);
->>> +
->>> +	return 0;
->>> +}
->>
->> VirtIO-GPU shouldn't be reset freely. See [1] and follow previous
->> hibernation-support discussions on the ML.
->>
->> [1[
->> https://lore.kernel.org/dri-devel/20260107182745.229481-1-dongwon.kim@intel.com/
->>  
->>
-> 
-> Hi Dmitry,
-> 
-> Thank you for the guidance and for pointing me to that thread.
-> 
-> I have looked into the series you mentioned, specifically "PATCH v7
-> 1/3: drm/virtio: Freeze and restore hooks to support suspend and
-> resume" (link).
-> I have verified that this change resolves the issue I was experiencing
-> in my envirronment.
-> 
-> I will keep an eye on that series and follow its progress. Thank you
-> for your time and help.
+On Thu, 30 Apr 2026 12:18:03 -0700 Matthew Brost <matthew.brost@intel.com> wrote:
 
-You're welcome. There is now v8 sent by Kim [2], feel free to test it
-and reply with your review and/or tested-by on the patches.
+> TTM allocations at higher orders can drive Xe into a pathological
+> reclaim loop when memory is fragmented:
+> 
+> kswapd → shrinker → eviction → rebind (exec ioctl) → repeat
+> 
+> In this state, reclaim is triggered despite substantial free memory,
+> but fails to produce contiguous higher-order pages. The Xe shrinker then
+> evicts active buffer objects, increasing faulting and rebind activity
+> and further feeding the loop. The result is high CPU overhead and poor
+> GPU forward progress.
+> 
+> ...
+>
+> This series addresses the issue in two ways:
+> 
+> TTM: Restrict direct reclaim to beneficial_order. Larger allocations
+> use __GFP_NORETRY to fail quickly rather than triggering reclaim.
+> 
+> Xe: Introduce a heuristic in the shrinker to avoid eviction when
+> running under kswapd and the system appears memory-rich but
+> fragmented.
 
-[2]
-https://lore.kernel.org/dri-devel/20260429204729.993669-1-dongwon.kim@intel.com/
+Please cc everyone on all the patches?  It's kind of annoying to have
+to hunt around to find out how these proposed changes will be used. 
+Personal preference, anyway.
 
--- 
-Best regards,
-Dmitry
+AI review flagged a few possible issues:
+	https://sashiko.dev/#/patchset/20260430191809.2142544-1-matthew.brost@intel.com
