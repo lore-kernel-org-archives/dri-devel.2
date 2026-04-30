@@ -4,71 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6172FF8875
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 07:47:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4B23CD13D3
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 07:48:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D41FC10F26A;
-	Thu, 30 Apr 2026 07:47:48 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Oyyf4JDS";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89B8810E0EF;
- Thu, 30 Apr 2026 07:47:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777535268; x=1809071268;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=rrjCU3x04b/m/KmStz9/897b7XAGRr3pleBMtTv//wk=;
- b=Oyyf4JDSrtsD4T+1qyOZ5uDTO6Cfadkc65h72mLn/nYGvxdWjOIjMqQE
- 8Zd72Dh2iV9+0TzktsZsxm0yh4itLJ/VU+YAd9yn3sC4WW3DzMrlqpqbE
- dLdi/HLMyYCD7Qiet7/c98933P1iOgVbsAttiz5kEwN6VNh40UrfYwZIQ
- yJQ4D2k4GdpOwCMh3xKXP54IAeLFINcnKdPm6kJ8H2ApMI0e1k+FJp5zX
- Su2ERPO8OS2Ti9TfcUiIr0RnzLQYzOwcVJIXpzoeGHV/Agzo1woUXJlUm
- RzL4mgHSLDJkeHhVpjWrWoD+FxQhQVLeaiKHV/xuOMKIAaOQjY6O7Bxe+ A==;
-X-CSE-ConnectionGUID: gafOSc5KRue/HJOldYrYog==
-X-CSE-MsgGUID: nK1XopvsSKCKidBfMregyA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11771"; a="78668543"
-X-IronPort-AV: E=Sophos;i="6.23,207,1770624000"; d="scan'208";a="78668543"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Apr 2026 00:47:47 -0700
-X-CSE-ConnectionGUID: hK+Q8UH0ShiRZenYTP9eTQ==
-X-CSE-MsgGUID: YSJGkPeBQfaiTuXiiKoUDw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,207,1770624000"; d="scan'208";a="238833611"
-Received: from dalessan-mobl3.ger.corp.intel.com (HELO [10.245.244.73])
- ([10.245.244.73])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Apr 2026 00:47:40 -0700
-Message-ID: <f4324084f3808b9a42b87ec27bef7fe920dde9ea.camel@linux.intel.com>
-Subject: Re: [PATCH v2 1/5] mm: Introduce zone_appears_fragmented()
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Matthew Brost <matthew.brost@intel.com>, "David Hildenbrand (Arm)"
- <david@kernel.org>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Andrew
- Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam
- R. Howlett"	 <Liam.Howlett@oracle.com>, Vlastimil Babka
- <vbabka@kernel.org>, Mike Rapoport	 <rppt@kernel.org>, Suren Baghdasaryan
- <surenb@google.com>, Michal Hocko	 <mhocko@suse.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Johannes Weiner <hannes@cmpxchg.org>
-Date: Thu, 30 Apr 2026 09:47:37 +0200
-In-Reply-To: <afLCwHaPZMu/dxqY@gsse-cloud1.jf.intel.com>
-References: <20260423055656.1696379-1-matthew.brost@intel.com>
- <20260423055656.1696379-2-matthew.brost@intel.com>
- <76191a17-18bf-4e9b-9ab5-dc9a48abfabb@kernel.org>
- <be42059924cde9bb16a087ee2a5abb0b9d850d68.camel@linux.intel.com>
- <aepuNL2fwp47P1Wi@gsse-cloud1.jf.intel.com>
- <aeqbe/9YRKNyYuWY@gsse-cloud1.jf.intel.com>
- <291406b26b8badf2e565996515931d9ebe50208f.camel@linux.intel.com>
- <a1252167-63a1-481b-9f1d-2a7bae7a3b6c@kernel.org>
- <afLCwHaPZMu/dxqY@gsse-cloud1.jf.intel.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34F0310F279;
+	Thu, 30 Apr 2026 07:48:23 +0000 (UTC)
+Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com
+ [209.85.221.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5DA5210F273
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 07:48:21 +0000 (UTC)
+Received: by mail-vk1-f180.google.com with SMTP id
+ 71dfb90a1353d-56d8d479149so198578e0c.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 00:48:21 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777535300; x=1778140100;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=SE8U24d9+nmbb0Ym2Vjd+YsrRui7aXN0DwD087novig=;
+ b=GNHREE7XTxr40GIfaZlhjvA6PDWyK/TJkqv7sLBc0HqgzdjBGiYySWNapgf7vJo8rm
+ d2Ql/+APPA5D9nzTB/8YFoad6qGAMpBH4sb5XTe+XOaptWg1FTtZNu+CPbGPhBrEnCEn
+ 52heN4OQx9rXh5nLTh3EsyHHflpWTVq6OmQ5xZ8hlsXvHznk8+dkCPh9BDtTYKC6C89p
+ BXEwgsuvldgxtcx/KKjh9Z32zeKKiKBEwzVuseKd1Nk1j0q9R5EmS/izdlOioZ9nAd3g
+ KYbv0l3FQIE+yZfYmD3pdiLWq1PSJR5GpcDe9AqMJRxc93qTQG4pO9qfBMBMkCYCu17S
+ lIHA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9cZgE5XIhl0/Y4ltFHafiKt61yipARFnOGXBW5S3nsvzAqUu8QCop/lqnQHLhDPSgmp5QwXELDr+g=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywy3d52aiVY/5DVlsUQ+Hv5OjXAs5iWfI72iX7ECb4siL9vjYC2
+ id6z+h9IomVKBCalXbPCf7Szr6Ri5DP2AghLZFMYszlH72cMXEUAPnMYToLRncSODg8=
+X-Gm-Gg: AeBDietJ4pXBDMIARGkvPqNii5lPrMLjL8+eg/AKldMiKopN/qtcjFh/RTlcwvQOXMX
+ qSMZsb2Ke9xzf7cEeGfOzBC9SOF12m4fq2HwGtult/EjDZonyRK9yti8y2OVZ4g89qpBH1+TPbV
+ CWt/CDtk4+78uGDZ1Mu2eJFjKVEcgNRsD8E4PXdgkmXzyUtcLSHW2wVO56FBUeE3mMN3BXDzmaJ
+ ZOG55WIirUnf1oSPg6B5/IV+NfaVSg+9luAhC70ljjCil6CakMKdTwC+obFHzs/QGEUub+5ltNI
+ s7x3m3Y1vKoLd4eATajKJtV8UhrmOO/IBMyL6NbGdEpa89baihUjhGOZ4gDHLR9YFe6yXO09QBk
+ YoZMAVGOzlMTwak4Cc3mNKYRoTB0sl/c1KBzmqWKlfV6Q64dLCaZckTdC9suAcY/BUvJ817WZWd
+ MXZjWE5lJZxPYxiODxJ9BwXo0TE19YRv+zpLPB3L1tRLMOSEfLAoK3+8sPZzo7G6Cs9UbETvQ=
+X-Received: by 2002:a05:6122:8f8d:b0:56e:e68e:9fc2 with SMTP id
+ 71dfb90a1353d-573c9754177mr454433e0c.10.1777535300105; 
+ Thu, 30 Apr 2026 00:48:20 -0700 (PDT)
+Received: from mail-ua1-f52.google.com (mail-ua1-f52.google.com.
+ [209.85.222.52]) by smtp.gmail.com with ESMTPSA id
+ 71dfb90a1353d-573b6d88d77sm2615555e0c.11.2026.04.30.00.48.19
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 30 Apr 2026 00:48:19 -0700 (PDT)
+Received: by mail-ua1-f52.google.com with SMTP id
+ a1e0cc1a2514c-95cc1a5fe9cso191882241.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 00:48:19 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AFNElJ86ZfH0jEWbxeja5pVs9uZX4xGX00Ei2BuhdS+l5gOGdaupbTSl679nqxXhx+J+B62s4QnoB4SkOqM=@lists.freedesktop.org
+X-Received: by 2002:a05:6102:2c03:b0:607:97b7:c283 with SMTP id
+ ada2fe7eead31-62adc184803mr537851137.14.1777535299133; Thu, 30 Apr 2026
+ 00:48:19 -0700 (PDT)
 MIME-Version: 1.0
+References: <20260429170012.366537-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260429170012.366537-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20260429170012.366537-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 30 Apr 2026 09:48:07 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUne5vUermQ7NnN67-QL_PM-SxJQogFpmSVUo1ussohXw@mail.gmail.com>
+X-Gm-Features: AVHnY4JziB5Cy-6q6RNu-Sgl0OAxCbsRcDaFW7edOENQcMoEBistztZzpXDIEcw
+Message-ID: <CAMuHMdUne5vUermQ7NnN67-QL_PM-SxJQogFpmSVUo1ussohXw@mail.gmail.com>
+Subject: Re: [PATCH 4/4] drm: renesas: rz-du: Add support for RZ/T2H SoC
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ dri-devel@lists.freedesktop.org, 
+ linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+ Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, 
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,105 +99,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 2026-04-29 at 19:47 -0700, Matthew Brost wrote:
-> On Fri, Apr 24, 2026 at 09:26:18AM +0200, David Hildenbrand (Arm)
-> wrote:
-> > On 4/24/26 09:05, Thomas Hellstr=C3=B6m wrote:
-> > > On Thu, 2026-04-23 at 15:21 -0700, Matthew Brost wrote:
-> > > > On Thu, Apr 23, 2026 at 12:08:36PM -0700, Matthew Brost wrote:
-> > > > >=20
-> > > > > If the order were included in shrink_control, there is about
-> > > > > a 95%
-> > > > > certain that this change would allow TTM / Xe to break the
-> > > > > problematic
-> > > > > kswapd feedback loop. This may also better express the intent
-> > > > > of
-> > > > > the
-> > > > > problem we are trying to fix here.
-> > > > >=20
-> > > > > For reference, the cover letter [1] details the problem.
-> > > > >=20
-> > > > > Any guidance from the core MM folks would be
-> > > > > appreciated=E2=80=94would
-> > > > > adding
-> > > > > the order to shrink_control be an acceptable solution?
-> > > > >=20
-> > > > > Matt
-> > > > >=20
-> > > > > [1] https://patchwork.freedesktop.org/series/165330/
-> > > > >=20
-> > > >=20
-> > > > It doesn't look like __GFP_NORETRY, __GFP_RETRY_MAYFAIL,
-> > > > __GFP_NOFAIL
-> > > > make it to the sc->gfp_mask flags from the caller and get into
-> > > > kswapd
-> > > > loop...
-> > >=20
-> > > Perhaps that's because they mostly (only?) make sense from direct
-> > > reclaim? Looks like the trace is from kswapd.
-> >=20
-> > kswap obtains the desired order through pgdat->kswapd_order, as a
-> > hint from
-> > allocation code (wakeup_kswapd). The order can be easily merged
-> > (just use the max)
-> >=20
->=20
-> Yes.
->=20
-> My current thinking is wire the order into shrink_control as that is
-> quite straight forward + only call this helper + short circuit
-> shrinker
-> on higher orders.
->=20
-> > We do have the gfp_flags there, but merging them from different
-> > wakeups is a bit
-> > more tricky (and when to reset?).
-> >=20
-> > Assume we have one urgent request for order-0 and one non-urgent
-> > (noretry,nofail, ...) request for order-9, we'd have to figure out
-> > a way how to
-> > represent that. Gets more complicated for more orders.
-> >=20
-> > Of course, we could have some kind of array, and try to store some
-> > "priority"
-> > per order. But I assume plumbing that into the rest of kswapd might
-> > not be that
-> > easy.
->=20
-> Yes, this seems non-trivial. I was also on a call with Google today
-> discussing what Android (client Linux) would like from shrinking, and
-> my
-> initial feeling is that we will need to do some surgery to the
-> shrinker
-> core and GPU shrinkers to make all of this work well over the next
-> year
-> or so.
->=20
-> So again, I think starting with wiring order into shrink_control and
-> this helper is a good place to start, as it fixes an immediate issue.
->=20
-> Let me know if that seems like a reasonable direction.
+Hi Prabhakar,
 
-+1 for wiring order into shrink_control, and possibly also the priority
-as mentioned in an earlier email.
+On Wed, 29 Apr 2026 at 19:00, Prabhakar <prabhakar.csengg@gmail.com> wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>
+> The RZ/T2H (R9A09G077) SoC includes a DU with a DPI interface,
+> supporting resolutions up to WXGA with two RPFs for layer blending.
+> Unlike earlier RZ/G2L SoCs, RZ/T2H requires explicit assertion of a
+> DPI output-enable signal (DU_MCR0_DPI_EN) during CRTC startup.
+>
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-However for cgroups-aware shrinkers, The number of free memory in a
-zone might not be an indication of fragmentation-triggered reclaim at
-all, it could be the result of the cgroup hitting its memory limits.
+Thanks for your patch!
 
-So I think if we can solve this with a combination of GFP flags,
-plumbed-through order and plumbed-through priority, that would be
-ideal.
+> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
+> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
+> @@ -20,6 +20,8 @@
+>  struct device;
+>  struct drm_property;
+>
+> +#define RZG2L_DU_FEATURE_DPIO_OE       BIT(0)  /* Has DPIO output enable control */
 
-Thanks,
-Thomas
+Note that this addition conflicts with
 
->=20
-> Matt
->=20
-> >=20
-> >=20
-> > --=20
-> > Cheers,
-> >=20
-> > David
+    #define RZG2L_DU_FEATURE_SMUX2_DSI_CLK BIT(0) /* Per output mux */
+
+in "[PATCH v6 15/21] drm: renesas: rz-du: Add RZ/G3E support"
+https://lore.kernel.org/11313371ef0b31cb5f014e171ba0d9868eb0710d.1775636898.git.tommaso.merciai.xr@bp.renesas.com/
+
+> +
+>  enum rzg2l_du_output {
+>         RZG2L_DU_OUTPUT_DSI0,
+>         RZG2L_DU_OUTPUT_DPAD0,
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
