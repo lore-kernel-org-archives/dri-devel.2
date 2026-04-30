@@ -4,93 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D1E1CD13D3
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 19:43:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0F07CD13DA
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 19:50:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D644910F437;
-	Thu, 30 Apr 2026 19:43:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0CA6810E180;
+	Thu, 30 Apr 2026 19:50:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="EB4Rtu84";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hPLPhGvZ";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FBFE10F437
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 19:43:08 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63UEkfnv2943404; Thu, 30 Apr 2026 19:43:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:message-id:mime-version
- :subject:to; s=qcppdkim1; bh=d6xZ/RJXVkPnWH5zHkS1sMQayVQaeEuCRqx
- Mi6vHzoA=; b=EB4Rtu84jc1MXl8fx9eFRG+h25s8kRnsVSAaMBC8Cp1cUa3bhh7
- WtUMV3H0JO6x8Dzj2B2Gkb/1KDmEmN9u6Jr9OS/CYsz81WtN0T5xnSkf5fCdVhIZ
- ApeViVxcL3TsF+lFZqagPG0ubbyc43iskWJA0vXvPrkItirEw3rBGNHuNWr65pBx
- qFzOnpSG2uR/Sj50g2rH/rpPDPNiPXve0WpG7EvUAAh7GLMpmxMDxEeXfV3hgIis
- oJ8Ah7GtZnOmoZxdRkUFBxmx6cMWHShzmLvMO+kIqwlvhBN2wB/nVIcIPp2DeX/S
- oFKNNpZJ3Zfd08xohpG8LonEvT/lXsOS/0w==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4duyr4420a-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 30 Apr 2026 19:43:00 +0000 (GMT)
-Received: from pps.filterd (NALASPPMTA01.qualcomm.com [127.0.0.1])
- by NALASPPMTA01.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 63UJgxgK029682; 
- Thu, 30 Apr 2026 19:42:59 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by NALASPPMTA01.qualcomm.com (PPS) with ESMTPS id 4du6eddvhj-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 30 Apr 2026 19:42:59 +0000 (GMT)
-Received: from NALASPPMTA01.qualcomm.com (NALASPPMTA01.qualcomm.com
- [127.0.0.1])
- by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 63UJgxX2029677;
- Thu, 30 Apr 2026 19:42:59 GMT
-Received: from hu-devc-lv-u22-a.qualcomm.com (hu-zmckevit-lv.qualcomm.com
- [10.81.26.129])
- by NALASPPMTA01.qualcomm.com (PPS) with ESMTPS id 63UJgwLf029676
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 30 Apr 2026 19:42:59 +0000 (GMT)
-Received: by hu-devc-lv-u22-a.qualcomm.com (Postfix, from userid 4696302)
- id E2F9F5C7; Thu, 30 Apr 2026 12:42:58 -0700 (PDT)
-From: Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>
-To: youssef.abdulrahman@oss.qualcomm.com, jeff.hugo@oss.qualcomm.com,
- carl.vanderlip@oss.qualcomm.com, troy.hanson@oss.qualcomm.com
-Cc: ogabbay@kernel.org, lizhi.hou@amd.com, karol.wachowski@linux.intel.com,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>,
- Lukas Maar <lukas.maar@tugraz.at>
-Subject: [PATCH v2] accel/qaic: Add overflow check to remap_pfn_range during
- mmap
-Date: Thu, 30 Apr 2026 12:39:01 -0700
-Message-Id: <20260430193858.1178641-1-zachary.mckevitt@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4652110E180
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 19:50:25 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-488ff90d6c7so12670955e9.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 12:50:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1777578624; x=1778183424; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=xV2RUgdcgAI6HubmbhhtbLRAwJ2b8LARLx9dBYFOMRs=;
+ b=hPLPhGvZ9X3/HQI+IRpuBDKGb4kb+Ux1DuetKbjlWSHN6c6OujepmwCfPuzYtAeirD
+ cTVpE2YgUYYbNlSG+Te3v3t5xqQ52nFlfZeEtQeUdOFxTJL+/QeuJyJsfEBtviZA9ZZf
+ g8ZzNgSf1VqdnXwhx52uWeYnYeSwnflTo0sX71t19Br7rfIrg7OlFSE2sEYPV8uqOCs6
+ jzqch7ApXm/VINU/C41aBSkmGcAnxaXarZe3LUWqprgS5TtmTdAKWa0K0UYauWVq+as8
+ x4WyXBKrt1alAw97HyxN0yDyrCaTXpSAWbYrwykYnBFsAmp22wJYJVm8EKzGEThOSuyA
+ vuhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777578624; x=1778183424;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=xV2RUgdcgAI6HubmbhhtbLRAwJ2b8LARLx9dBYFOMRs=;
+ b=f084y/+vmSTnUYUKsQ4sBhTYaRwFc4u0r7ZqwHXYxcHgShmxzL8RFn2B/OqXBqitRF
+ lpdgYHcVStK9xYr95pi1mouu2eAyWnAVUpnvfqDs9pvTFG2A45qgUnb14cmZEBVI9d67
+ m2PjbRpE2FnUdZ8Of7a8DCVjGR4fsdBAJcNabYy9xwTlKePDSobdBc7FPy3TnrqBiwbs
+ peOsQBgaIkie7955BwRI4ZuhzGQFSDJX11T4xl+vXl0PG11ueQeKgpJoWRoooc1eRXRy
+ 30/r3wy1BfH2o4mcUDVw2pWFFwrpOUc3yB8r3XBG/GY6dbEeI45Fhsji9SHjVzQnHS27
+ IP2Q==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9BODyb0wCTmfSnkutiMF8lsSKHwUveJbJ/7RoT4lHL5g624NmIk7gDtgUvb3oFscS9S44AhIgsvas=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxQQgRddSMpMrRgnfHVBSqg6xNyglU5NSfLswf/V4lxHdG0jgZU
+ TPqrSca8h8kFEnAwh3DFtlNrOg5QrGz8SVxTJi38B0mOTxOrOfvEKTBS
+X-Gm-Gg: AeBDieseM5l504wWCpwGIQ/oUkrhtKU10dY6nuz/tXA1e23FfiCSCzWqxpqJj9C7KA+
+ 1iyXsY0FS586DfAYsx/OTi7LmbUpjqUMrdLmB9C0KrPL4TkL0ix+L5/XqyzdWzdvzlV8dRk7puK
+ RVdUnyYMh6oTl6TqZzyUPMMlEQvu2BidFYD5K/U+pDuhUofl6otHv/c2NKfYXkTYquALG58TATQ
+ Nq9UNyoc939FCY8igzYahqY8n9AFwAF5UumyAESb85TQwnDSvWXy8RV+X2dobiUcGf4ql2gLm90
+ c7Tk77+PFOJ4bhr5kAwpsH1O8Odgkz1gN9aNG/WtSqTebovsYFxkDZ7pMFMTKfVRsMZjE88rgCL
+ MTFQZjExeo7DTh0e/eoZ1/haSRPQir3uZeS8QokP93pDtSOYNkS6cBxV9ZiNknMcOLVMqIQ80UN
+ ogO/rpKZnhkhZTndH3/oUU9ig+5fjiK/99ZpiEwh31HtauJrV1i/5Bzb09a9WE1jRrG3BQESg=
+X-Received: by 2002:a05:600c:a14:b0:486:f634:ef1 with SMTP id
+ 5b1f17b1804b1-48a844525c5mr68630135e9.17.1777578623521; 
+ Thu, 30 Apr 2026 12:50:23 -0700 (PDT)
+Received: from osama.. ([2a02:908:1b6:8980:55a4:d495:8d6f:1416])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-48a8eb75fc1sm3109615e9.7.2026.04.30.12.50.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 Apr 2026 12:50:22 -0700 (PDT)
+From: Osama Abdelkader <osama.abdelkader@gmail.com>
+To: luca.ceresoli@bootlin.com, Jagan Teki <jagan@amarulasolutions.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Marek Vasut <marex@denx.de>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Osama Abdelkader <osama.abdelkader@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v4 1/2] drm/bridge: chipone-icn6211: use devm_drm_bridge_add
+ in i2c probe
+Date: Thu, 30 Apr 2026 21:49:42 +0200
+Message-ID: <20260430194944.78119-1-osama.abdelkader@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Authority-Analysis: v=2.4 cv=bJcm5v+Z c=1 sm=1 tr=0 ts=69f3b0c4 cx=c_pps
- a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=A5OVakUREuEA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=QyXUC8HyAAAA:8
- a=jH4uIxKMFi7FzrR_XaIA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDMwMDIwMyBTYWx0ZWRfXxVoLOOEKCdRk
- uSLgFxE7EanPvrZG8ckVh6yTw6LStONwr1kUphfO7TQK35mLDvOW/lqznYgZ0j6PnxdvaHUgZut
- a386UlsZV1gBWTOP7WfwTo3IhK783KaXw2fkV44zZQygfTvzey0ltPN9bskubtzxsRBRm4vjTtj
- M5qkLhu0i3QWagnuPTJ3oou+aLEZlXnwjDKs/MVuhbArek62v+J6GgQYvMwlplyw/nkDj9dYM5B
- HWsHYJ3iJNnbMETqwQ1cEMtIBvUribe3iEGFZ+pQ4XfZXWr+4HUiNo+h3yKO3BF9nNm72S/Flti
- +o/LsX2NUuW072PXw4pYrQVuznn5tQRrdzu7nA7b/pHtF6OoE3I5NnDDgi/m6bn9HKY3vcdK1ur
- UkBlRCjTN7LrlyeGkJI5lN6HUttw6JBXmRnAw32sbJE+AyhEpxfY9p3EJzrPp0o1j8JNKppCGBW
- 5Wi1W8M4eOepkuZRn5g==
-X-Proofpoint-GUID: IdkLFVfW5nbfL2f7nM_NwNj7gBkWMTZq
-X-Proofpoint-ORIG-GUID: IdkLFVfW5nbfL2f7nM_NwNj7gBkWMTZq
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-30_05,2026-04-30_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 clxscore=1015 suspectscore=0 adultscore=0
- lowpriorityscore=0 impostorscore=0 phishscore=0 malwarescore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
- definitions=main-2604300203
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,72 +96,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The call to remap_pfn_range in qaic_gem_object_mmap is susceptible to
-(re)mapping beyond the VMA if the BO is too large. This can cause use
-after free issues when munmap() unmaps only the VMA region and not the
-additional mappings. To prevent this, check the remaining size of the
-VMA before remapping and truncate the remapped length if sg->length is
-too large.
+Use devm_drm_bridge_add() so the bridge is released if probe
+fails after registration, and drop drm_bridge_remove() in chipone_i2c_probe.
 
-Reported-by: Lukas Maar <lukas.maar@tugraz.at>
-Fixes: ff13be830333 ("accel/qaic: Add datapath")
-Reviewed-by: Karol Wachowski <karol.wachowski@linux.intel.com>
-Signed-off-by: Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>
+Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+Fixes: 8dde6f7452a1 ("drm: bridge: icn6211: Add I2C configuration support")
+Cc: stable@vger.kernel.org
 ---
-Changes in v2:
-- Use check_sub_overflow to check if vma->vm_end - remap_start goes negative.
-- Check if remap_end is strictly greater than vma->vm_end (rather than greater
-  than or equal to) when deciding to truncate length.
-- Link to v1: https://lore.kernel.org/all/20260423204412.2861046-1-zachary.mckevitt@oss.qualcomm.com/
+v4: refresh the patch
+v3: split the patch into two, one for i2c probe (bugfix) and one for dsi probe,
+    and add Fixes and Cc tags
+v2: devm_drm_bridge_add instead of drm_bridge_add
+---
 
- drivers/accel/qaic/qaic_data.c | 22 ++++++++++++++++++++--
- 1 file changed, 20 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/bridge/chipone-icn6211.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/accel/qaic/qaic_data.c b/drivers/accel/qaic/qaic_data.c
-index 95300c2f7d8a..642b6ae9edfa 100644
---- a/drivers/accel/qaic/qaic_data.c
-+++ b/drivers/accel/qaic/qaic_data.c
-@@ -606,8 +606,11 @@ static const struct vm_operations_struct drm_vm_ops = {
- static int qaic_gem_object_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma)
- {
- 	struct qaic_bo *bo = to_qaic_bo(obj);
-+	unsigned long remap_start;
- 	unsigned long offset = 0;
-+	unsigned long remap_end;
- 	struct scatterlist *sg;
-+	unsigned long length;
- 	int ret = 0;
+diff --git a/drivers/gpu/drm/bridge/chipone-icn6211.c b/drivers/gpu/drm/bridge/chipone-icn6211.c
+index 814713c5bea9..553a1df4688d 100644
+--- a/drivers/gpu/drm/bridge/chipone-icn6211.c
++++ b/drivers/gpu/drm/bridge/chipone-icn6211.c
+@@ -758,7 +758,9 @@ static int chipone_i2c_probe(struct i2c_client *client)
+ 	dev_set_drvdata(dev, icn);
+ 	i2c_set_clientdata(client, icn);
  
- 	if (drm_gem_is_imported(obj))
-@@ -615,11 +618,26 @@ static int qaic_gem_object_mmap(struct drm_gem_object *obj, struct vm_area_struc
+-	drm_bridge_add(&icn->bridge);
++	ret = devm_drm_bridge_add(dev, &icn->bridge);
++	if (ret)
++		return ret;
  
- 	for (sg = bo->sgt->sgl; sg; sg = sg_next(sg)) {
- 		if (sg_page(sg)) {
-+			/* if sg is too large for the VMA, so truncate it to fit */
-+			if (check_add_overflow(vma->vm_start, offset, &remap_start))
-+				return -EINVAL;
-+			if (check_add_overflow(remap_start, sg->length, &remap_end))
-+				return -EINVAL;
-+
-+			if (remap_end > vma->vm_end) {
-+				if (check_sub_overflow(vma->vm_end, remap_start, &length))
-+					return -EINVAL;
-+			} else
-+				length = sg->length;
-+
-+			if (length == 0)
-+				goto out;
-+
- 			ret = remap_pfn_range(vma, vma->vm_start + offset, page_to_pfn(sg_page(sg)),
--					      sg->length, vma->vm_page_prot);
-+					      length, vma->vm_page_prot);
- 			if (ret)
- 				goto out;
--			offset += sg->length;
-+			offset += length;
- 		}
- 	}
- 
+ 	return chipone_dsi_host_attach(icn);
+ }
 -- 
-2.34.1
+2.43.0
 
