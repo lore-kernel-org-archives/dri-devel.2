@@ -4,90 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FF52FF8875
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 11:36:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16B6CFF8875
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 11:38:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D52110E15D;
-	Thu, 30 Apr 2026 11:36:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 663EB10E426;
+	Thu, 30 Apr 2026 11:38:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="Tug1xrpX";
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="cJgK0U6r";
 	dkim-atps=neutral
-Received: from mail-qv1-f100.google.com (mail-qv1-f100.google.com
- [209.85.219.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2960D10E15D
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 11:36:56 +0000 (UTC)
-Received: by mail-qv1-f100.google.com with SMTP id
- 6a1803df08f44-8b1f2b7f1bcso10669736d6.1
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 04:36:56 -0700 (PDT)
+Received: from mail-ot1-f100.google.com (mail-ot1-f100.google.com
+ [209.85.210.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E97F010E426
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 11:38:54 +0000 (UTC)
+Received: by mail-ot1-f100.google.com with SMTP id
+ 46e09a7af769-7dcdaf06498so548523a34.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 04:38:54 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777549015; x=1778153815;
+ d=1e100.net; s=20251104; t=1777549134; x=1778153934;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=UNxhh28WCey2B5xmphJrUo9Dta4MG8Wuff1oB3mQEKg=;
- b=aSHphzTjToKPHn/CnAde7cef6TzXssCbCuo2w9Ewy8UEYJGiKDFKqMPfllr7R0c5zh
- rM7ewGGREGuRXSPKL2ndmY0IzeBqpQDvE9QkMCIPlHn2Zni4u67zZf7opjH6b7ObwCZV
- aRKoM2XFqYMffm0WbSDVVLVUo4AUSiYbASocaRfAyGBTgCGboxE5tp+1MaUw6eyOyNAU
- MJs4h0rvIhnqer7JJNQNtkhTO5Y250R4ooildkxbEn4px/QK9W5JtiBXWzRNgy2L5I0/
- X5hfN9Pti7s2NX7KBO6z7Q9bm+/IpwBMXQaGbuS+nMgTiyaBSYU+t4UxaSRM0ktooXLs
- RP7g==
-X-Gm-Message-State: AOJu0YzWlrAdfBW5cNH0NZz4wJV1SLP2g8LBEKUgel3kwWoPm/j0avO4
- NvGS4TxFLuFdUNr1m5vwDRoRhMzwPtboVgVTKnPm4N+aWi7L6j4iXzmVMNXoxoUzb4hDk5gPCQM
- +0W7w6WGcJp4rOOSCv0y0Hv0anZpsSUJflECERG2WdacrgKZIm1UcP/xHL07rbdpbwxiIkuQA8b
- mMhbkRZurGAu4PRSZeipdehW5qtDhFaeJRWi3X+wepgjCJsbnETmgXNT5bK20FQnBpyrZMq+ZDn
- 3G246pO+PUX+S9nXuAr
-X-Gm-Gg: AeBDietgzg0D7Hs1jeZIfSAVKvpYck5abmCTcqRB45oMjRzOynLnyYdtE/dIViCyOHV
- ykjnUnbumOU+J0m/YCj5zCvYQB1lQzMsgnMjoC1hER53pJF2OU790cwBYBEWNLc5Gr5PqmjBvP8
- Edi40Sf8aB8noDkxE4bXI2PMoNKO+hj5k8Plbjtnm2Go0rc3ufXvGDx7pQx7pwCcTA1muWB+mDC
- XwLDArqhiAPXrWGLS+O0b3601OxvO0HsHNeW8DDCqmwS3BIh4XloiQZEqufVdZQHKusxzOMhJvN
- k67ZZkNw1x6RtbT7AtU/4g9+vcMiyH6Jup7tcCtIT+CYO3EXVWE8kn1vtNyeoGqb5QKjHY4ltzY
- UTlVpiMry9/eqU/9eEJOYvwKFH9H4nmKijOIyFjxmcQJHSi7lkMAOkah/oijnXNVIM2nd0L1vQ6
- lxJPNqd/K5ZFu8t3dDiVOveszoMjdXDAbo/K9Rwq3zkIf5qacMiy88w23xq1SraZUU
-X-Received: by 2002:a05:6214:20e1:b0:89c:8353:1fa0 with SMTP id
- 6a1803df08f44-8b3fffc7731mr26787796d6.4.1777549014722; 
- Thu, 30 Apr 2026 04:36:54 -0700 (PDT)
+ bh=7Y1j6eVht0vI8bBvMSE9H2mUtyQoCl1MfCs19Ca2g+Q=;
+ b=tKwyXQFMRom/vH5qYUcfOv2hfexwaEATx5XcXOHg2vAVgYMc81QWpMyhtxy9A92lMD
+ 8XeOfVfIjbWD4UVnSgw9UhHl2EFDcTZOWjij6CxlTIqOF6QgE9Q2OmsGWiJ+5o3SsVKl
+ 2wJjryifEdgOXNwFyPrufJVdz9QukD8X0u52D3WTIpDvocgHyrY5Y2PjojByffrG/6WQ
+ 61Kme0of6jS3YkYN6bQOvVZMju+7K57iml/OmgYnKFNvMXtwo1UK/M5jyV84o0jdn7eC
+ 5Je716nUB6NpInd5uFOf6YPxjboa0uG6DX9O77yYw0girsnwW5nnNaAtsl2hoI+PKNm6
+ u8Hw==
+X-Gm-Message-State: AOJu0Yw3GNno4/D93moZsHU4XbtTBZFb2PdlpgT3Li/azS5x9Tk402OL
+ 9+QxiiYPniL+kwdedmkPIFMkSidRo6ZqTQtU/g4v/IWt6V9Bch/2ob8K5OWo7GNdHLgjVEtAu/S
+ LxU2g/fMVIOqp0iSLTnR2z+f9AmRPplMhRhAnmfu5ObaN7pYTtFHBvMRaNeOorzr9/oZlrk3qUN
+ aNtTjez5vgZNN9KItv+gNL+/JDfVCc2pzGDgZRsqZOd0fYP0RBV9a+DkjWxxAsTCWTHGXWBJZvi
+ xapCMDin+4oY2jIERVT
+X-Gm-Gg: AeBDievAlrENX+BdZgeue0p5Siy5o+tUrXCISRvKXgOdTmA6XNkRFzUnK9xgXhF+tA2
+ Rk2LxExmbjGCAlEF1MZXa0DI0u7FVSrKFfS1Xe7Op/4RtXiPZDQOtUCxeS8gv3tCj8AFbfLFKHO
+ SjjSc1XSJKIU0XIYqD1SPbjxEGfaV8fJplk8DJAOzf/oCRtXe3K2KDY/nl7sanEWXv23CBzetTB
+ 8CANrKgONZCoAe5yOiY7Gqb1FebTKeQnMFt70LVeRxET8U3hCBHCcZ6YdCJ6V8RTwvZCZjTE5PD
+ reuuU/Yxw7igbZfUTiIRItEy1CY9YENn6GYn1Lh/9P6cfBgayBZSKHR4VIgLMli5bYCh4b9jYPj
+ oJwBeJCejzwlnHpCVDqKgqcSSJhEY8LugnyZJOIUythAtKqLSI/ipDqpmEt+faiNhW7YFdcMbRN
+ /42oDquqno6zOJ
+X-Received: by 2002:a05:6830:661a:b0:7de:a330:ecb8 with SMTP id
+ 46e09a7af769-7deba24104fmr1268207a34.16.1777549133812; 
+ Thu, 30 Apr 2026 04:38:53 -0700 (PDT)
 Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-21.dlp.protect.broadcom.com. [144.49.247.21])
- by smtp-relay.gmail.com with ESMTPS id
- 6a1803df08f44-8b3ff46bb68sm1115056d6.27.2026.04.30.04.36.54
+ ([144.49.247.127]) by smtp-relay.gmail.com with ESMTPS id
+ 46e09a7af769-7deab94ef10sm459849a34.5.2026.04.30.04.38.53
  for <dri-devel@lists.freedesktop.org>
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 30 Apr 2026 04:36:54 -0700 (PDT)
+ Thu, 30 Apr 2026 04:38:53 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
 Received: by mail-lf1-f69.google.com with SMTP id
- 2adb3069b0e04-5a2c8db25f3so620271e87.1
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 04:36:54 -0700 (PDT)
+ 2adb3069b0e04-59e16c11f49so621926e87.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 04:38:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1777549013; x=1778153813;
+ d=broadcom.com; s=google; t=1777549131; x=1778153931;
  darn=lists.freedesktop.org; 
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=UNxhh28WCey2B5xmphJrUo9Dta4MG8Wuff1oB3mQEKg=;
- b=Tug1xrpXWqY/DKXyKybhP5uFXLUoB/pZJ7NzMcB7LNiM/Wzqd03pEzTzbV3N95LoRE
- amXn8nNXNj3Zk6NbFn4m0FI6dH3tJY1g/mfhrAWFT/4yks0AgU5a2Y9c0XPJnzQprzO1
- t7xyC6FWNbDmeKC7E8zm5A5v1IcOSXSwx/YFg=
-X-Received: by 2002:a05:6512:3f15:b0:5a7:46f2:9860 with SMTP id
- 2adb3069b0e04-5a8522d518cmr1081389e87.20.1777549012952; 
- Thu, 30 Apr 2026 04:36:52 -0700 (PDT)
-X-Received: by 2002:a05:6512:3f15:b0:5a7:46f2:9860 with SMTP id
- 2adb3069b0e04-5a8522d518cmr1081378e87.20.1777549012456; Thu, 30 Apr 2026
- 04:36:52 -0700 (PDT)
+ bh=7Y1j6eVht0vI8bBvMSE9H2mUtyQoCl1MfCs19Ca2g+Q=;
+ b=cJgK0U6rVtXsnMq2arvPsiGj8gZi7jvEMMSurvvXijQJ11H3Jlkh+J6sWgtxBKZcyl
+ 2bsWRJcrANEZbL/P/NutnkEiZca9TC73OTFttqEI8dxxFCqWwr91yxyiVFScH8ytlv+8
+ Xp6V9IIGyW2LVJPTDC4Fu+5VPDoB2EioN752M=
+X-Received: by 2002:a05:6512:1390:b0:5a2:b0ba:7169 with SMTP id
+ 2adb3069b0e04-5a8522dd534mr839612e87.38.1777549130027; 
+ Thu, 30 Apr 2026 04:38:50 -0700 (PDT)
+X-Received: by 2002:a05:6512:1390:b0:5a2:b0ba:7169 with SMTP id
+ 2adb3069b0e04-5a8522dd534mr839598e87.38.1777549129450; Thu, 30 Apr 2026
+ 04:38:49 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260430001913.482967-1-maaz.mombasawala@broadcom.com>
-In-Reply-To: <20260430001913.482967-1-maaz.mombasawala@broadcom.com>
+ <20260430001913.482967-2-maaz.mombasawala@broadcom.com>
+In-Reply-To: <20260430001913.482967-2-maaz.mombasawala@broadcom.com>
 From: Zack Rusin <zack.rusin@broadcom.com>
-Date: Thu, 30 Apr 2026 07:36:39 -0400
-X-Gm-Features: AVHnY4LaSvQJn2NjEF2BIwQQddxnDd2t8bLqTXXOly0JWFSLMdz3qMYTewM6YpE
-Message-ID: <CABQX2QPD-RKNTSegyfziNKe_3bkiY5UeMD211h7SOZBcPNVBKQ@mail.gmail.com>
-Subject: Re: [PATCH 1/4] drm/vmwgfx: Add some checks to
- vmw_cursor_plane_atomic_update
+Date: Thu, 30 Apr 2026 07:38:36 -0400
+X-Gm-Features: AVHnY4KquNso5jsH2c0_5HBVzYvA5CCooV1g-C-eqv_wPoG39iPkU8A68PD8bCo
+Message-ID: <CABQX2QNDdFcUz=5c8AUcJu8vssGdNbrCzz2pfE8YX7gwpBVtuA@mail.gmail.com>
+Subject: Re: [PATCH 2/4] drm/vmwgfx: Check vrefresh in drm_mode_setcrtc.
 To: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
 Cc: dri-devel@lists.freedesktop.org, bcm-kernel-feedback-list@broadcom.com, 
  ian.forbes@broadcom.com
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 Content-Type: multipart/signed; protocol="application/pkcs7-signature";
- micalg=sha-256; boundary="00000000000082d23a0650abe199"
+ micalg=sha-256; boundary="00000000000090edd00650abe837"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,56 +102,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---00000000000082d23a0650abe199
+--00000000000090edd00650abe837
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Apr 29, 2026 at 8:16=E2=80=AFPM Maaz Mombasawala
+On Wed, Apr 29, 2026 at 8:17=E2=80=AFPM Maaz Mombasawala
 <maaz.mombasawala@broadcom.com> wrote:
 >
-> In cases where old_state may not be present we hit a null dereference.
-> Add a check to fix this and also do an early return if there is no
-> new_state or crtc since there is nothing to do in that case.
-> This fixes igt test kms_cursor_legacy@torture-bo.
+> Add the mode_valid() callback in drm_mode_config_funcs to check for valid
+> mode during drm_mode_setcrtc. This is similar to the stdu connector
+> specific vmw_stdu_connector_mode_valid().
+> Both the mode_valid() callbacks also check if the vrefresh value is
+> correct.
+> This fixes igt test kms_invalid_mode@overflow-vrefresh.
 >
 > Signed-off-by: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
 > ---
->  drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/vmwgfx/vmwgfx_kms.c  | 34 ++++++++++++++++++++++++++++
+>  drivers/gpu/drm/vmwgfx/vmwgfx_kms.h  |  9 ++++++++
+>  drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c | 12 +++-------
+>  3 files changed, 46 insertions(+), 9 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c b/drivers/gpu/d=
-rm/vmwgfx/vmwgfx_cursor_plane.c
-> index c46f17ba7236..88b7185a8371 100644
-> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
-> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
-> @@ -744,9 +744,14 @@ vmw_cursor_plane_atomic_update(struct drm_plane *pla=
-ne,
->         struct vmw_bo *bo;
->         struct drm_plane_state *new_state =3D
->                 drm_atomic_get_new_plane_state(state, plane);
-> +       if (!new_state)
-> +               return;
->         struct drm_plane_state *old_state =3D
->                 drm_atomic_get_old_plane_state(state, plane);
-> -       struct drm_crtc *crtc =3D new_state->crtc ?: old_state->crtc;
-> +       struct drm_crtc *crtc =3D new_state->crtc ? new_state->crtc :
-> +               (old_state ? old_state->crtc : NULL);
-> +       if (!crtc)
-> +               return;
->         struct vmw_private *dev_priv =3D vmw_priv(plane->dev);
->         struct vmw_display_unit *du =3D vmw_crtc_to_du(crtc);
->         struct vmw_plane_state *vps =3D vmw_plane_state_to_vps(new_state)=
-;
-> --
-> 2.54.0
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c b/drivers/gpu/drm/vmwgfx=
+/vmwgfx_kms.c
+> index 55730e29d3ae..c5a37ea47df0 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
+> @@ -1062,8 +1062,42 @@ vmw_kms_atomic_check_modeset(struct drm_device *de=
+v,
+>         return ret;
+>  }
 >
+> +static enum drm_mode_status
+> +vmw_kms_config_mode_valid(struct drm_device *dev,
+> +                         const struct drm_display_mode *mode)
+> +{
+> +       enum drm_mode_status ret;
+> +       struct vmw_private *dev_priv =3D vmw_priv(dev);
+> +       u64 assumed_cpp =3D dev_priv->assume_16bpp ? 2 : 4;
+> +       /* Align width and height to account for GPU tile over-alignment =
+*/
+> +       u64 required_mem =3D ALIGN(mode->hdisplay, GPU_TILE_SIZE) *
+> +                          ALIGN(mode->vdisplay, GPU_TILE_SIZE) *
+> +                          assumed_cpp;
+> +       required_mem =3D ALIGN(required_mem, PAGE_SIZE);
+> +
+> +       ret =3D drm_mode_validate_size(mode, dev_priv->texture_max_width,
+> +                                    dev_priv->texture_max_height);
+> +       if (ret !=3D MODE_OK)
+> +               return ret;
+> +
+> +       if (required_mem > dev_priv->max_primary_mem)
+> +               return MODE_MEM;
+> +
+> +       if (required_mem > dev_priv->max_mob_pages * PAGE_SIZE)
+> +               return MODE_MEM;
 
-That's largely fine, but it will fail dim checkpatch because it mixes
-declaration and code.
+Hmm, how is this working without the gb support? Did you test other display=
+s?
 
 z
 
---00000000000082d23a0650abe199
+--00000000000090edd00650abe837
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment; filename="smime.p7s"
@@ -244,13 +255,13 @@ iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
 b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
 VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
 VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
-QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIEXU
-IQvEBZdCp98NfJRgtMJkasa9QTyaekpcEFkqJ4LpMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
-HAYJKoZIhvcNAQkFMQ8XDTI2MDQzMDExMzY1M1owXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
+QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIFvW
+T25bJbWOrQg71d1/QIsTsFQKf/f1+7f8IsFFejkbMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
+HAYJKoZIhvcNAQkFMQ8XDTI2MDQzMDExMzg1MVowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
 ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
-YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBABpgWYg2Pe6ckgjx/Y8eDWZJfL8Jm9POVKW3S/Aw
-CJtt6i4LsHVXQ1C1wfxb79BxuK9nuwKpEEwN/GH/v0J3V8FAvhSBZwG7A20F7mZ/KMYWcQs2JZfT
-SNX1rnRyfajpMsnBeJr7G/kolNjH7JmVIk9OQgQBvJki3/ijoY2yRf0fTeH7OLIWvOZQGGFHTZvu
-er9pFQB2S0idPNerbWJAaGG26Rey96B0Ncgu8pfnQoNPpBfEf/6ZJqDm3kLFy1zocGPN1LEAsdQG
-cNff3x/ilxJkEHDmNJV6LpAO90QeGSe3x+MGLkGQ9xjA0cBARqIiMiF6jcUjQJKKdpZuBRNuZiI=
---00000000000082d23a0650abe199--
+YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAFf7zO7RUviTSuaBL1XjBAchwUX1DlimZK9l+/dz
+E4wIN2RSb5wFrdIxd4yUfz6VmaFdfm8s5p9SXVfsMmEivd906FDdEwRKG/MZbu2TJmheOwmRN1GX
+wtQ9xxsYonzd7ID1oCEVYqOtm43CdoWTDNkjxXRxvgQniqwCL/HgdSbscE53PM9XKC4Q2KN1Vh+A
+9VW9UM+Y6942wowsW/QKw3tZge5gBeDAb3tDMlQ/OmoU8SYCSvcu+4y7c6bbXq5r+F/RoiLINsYN
+bF89tR9g1eMHs2Cqin1v56EZLt2E2kWO0lrXkQlzSAhsVU+LQJnEUO6rkVAHmcd0v2AydD9hm18=
+--00000000000090edd00650abe837--
