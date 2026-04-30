@@ -4,73 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F68CCD13D3
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 17:06:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 210EAFF8873
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 17:06:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9376910E476;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AED3110E8DC;
 	Thu, 30 Apr 2026 17:06:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZxkGCFNO";
+	dkim=pass (1024-bit key; unprotected) header.d=yandex.ru header.i=@yandex.ru header.b="SyR31FxA";
 	dkim-atps=neutral
-Received: from mail-dy1-f195.google.com (mail-dy1-f195.google.com
- [74.125.82.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 660EC10E112
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 10:25:46 +0000 (UTC)
-Received: by mail-dy1-f195.google.com with SMTP id
- 5a478bee46e88-2d9916deb14so172547eec.0
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 03:25:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777544745; x=1778149545; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=uyYaWTV5ahYl27fxYzw7aiTm9/pi+cupE4KnUEMoGHo=;
- b=ZxkGCFNOEhHnzbJtTa6WW3VoKvPYsgeC2fjRRKCOlILgMCKh4LplpEeF8Rv+NlCsvw
- p8JCh2zOT57x2dynoci7GJGmUDbniMGaR7Cil7kn1Vhv+JiDnxXbGU0o05O/UGJVlUBr
- y8m+r0emMypZILRlRWgzWd/6Q80d3v99BeFfSRGRlkq9RTKJSrV2iTxSzHcvr1poyDZY
- 40c8MgvTAJDUhSryntqbCiUiYbQ4V+8SgNpm+HyjTeyXA/eor03Z+bYi+JIrKd2qH7PX
- LOQe/1UuK1oi69w/Gtvhbm8u7BC0WmbnEYmT82+m8w7IHgd8wb8J2aIunDlVhOPqFAyj
- Mc6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777544745; x=1778149545;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=uyYaWTV5ahYl27fxYzw7aiTm9/pi+cupE4KnUEMoGHo=;
- b=Hcl3ATWZ+hcoCeZ9smV9ElTBkP8dx+qkDYL0X/2QROgnWiUtPDBx9/yWnguyiMOCsO
- x2MDkyU2A5g4itQ/yx7981KeEbFucNowCeQpsu6ZwFRQKCOx9aT67UDu1KpBVsUvT7oJ
- odQk89ZeZ8ylZwrURkbSp6g8214OdwMy55lE87UWQfhI2BwjOfEVgcyxnMFjwX8F5Lfi
- sQVynfYMYpWl8Ty1KpSNjW4d+MRJq77u/GpGSB6BsSRNH4iwUnrm95otU+m//xY0BPkl
- LtMk6gWsNFk4SwEzCBvBNZ9CRs88yKNm7erX3S7kTD0TDGqsjhI+6/u9VuRU2ijCm40Y
- 5wNw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8Gb4uicdtGmJh5mg7F/ymWUozYt5ig+iaXNipsdCTCw96l2mPP3ghqOvcRrJboCAMVfUKcbII+2FY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx8XIq9O6wSp4aLMn7Rq6YuG6/EmICJNQawnfLk392VE5/tlyvG
- JBv7miK0rU662LP85ESoX6XAG7go/Bkjc7CQkP/QWslyrWUQQBujyspV
-X-Gm-Gg: AeBDieuMMcpE2Pn+fEUXOwUeMW+ZDtEWU18K4EEm3PmOdRxxTUQnLoDkG72DlTjFAYd
- wOO2cGXZjhurjCBwJxPjMUl265kLYPAP8HyXa+faKE/c2f9vvCSFxlXsDsaFPZZ+tj+qW5Z8CFk
- y1hKS8hm6taPKQN311PX5wYglUjvDB4KWvEmGJ5njJ9T0GLioZXHyLnIQEDqUmzkc45xDr6a329
- puO76rqFXFOQGucwVIdR9bmLAZehya8VmgAtiXpXV4HpJO99VHLX03uWMbjBm1L1+siGFV4ZaCC
- zC1e8AJMn25dLNpxHXolhmTuyoXUWCbDh6onfyVop0h0hrKxx6zh2FFKpr2R2DClsHFKGQtH1nB
- AF6UnWUkak697Q4pTLMnOQD0N4ADPgpkWdPszNuIyIWXIRuoJhRTXK3Y0dI9QooSvF6hkHIG2IU
- 6XYwoLT4/yoDgVmyRIALhtNd0BcMFwcrf6ib517ZRA76vV8KjF5uYupZDNZWf9RYo2rw==
-X-Received: by 2002:a05:7300:e614:b0:2e6:4d6e:2cbd with SMTP id
- 5a478bee46e88-2ed3bef29dcmr951391eec.8.1777544745512; 
- Thu, 30 Apr 2026 03:25:45 -0700 (PDT)
-Received: from localhost.localdomain ([76.32.119.210])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-2ed1bf6d419sm6191614eec.2.2026.04.30.03.25.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Apr 2026 03:25:44 -0700 (PDT)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: andy@kernel.org, dri-devel@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
- linux-kernel@vger.kernel.org, Hungyu Lin <dennylin0707@gmail.com>
-Subject: [PATCH] staging: fbtft: remove unused function
- fbtft_write_gpio16_wr_latched
-Date: Thu, 30 Apr 2026 10:25:29 +0000
-Message-Id: <20260430102529.25019-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.34.1
+Received: from forward103b.mail.yandex.net (forward103b.mail.yandex.net
+ [178.154.239.150])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94B1A10E131;
+ Thu, 30 Apr 2026 10:47:08 +0000 (UTC)
+Received: from mail-nwsmtp-smtp-production-main-98.sas.yp-c.yandex.net
+ (mail-nwsmtp-smtp-production-main-98.sas.yp-c.yandex.net
+ [IPv6:2a02:6b8:c23:1ba8:0:640:1638:0])
+ by forward103b.mail.yandex.net (Yandex) with ESMTPS id 3A5B4C00A6;
+ Thu, 30 Apr 2026 13:47:06 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-98.sas.yp-c.yandex.net (smtp)
+ with ESMTPSA id jkYvs17QISw0-3jKAYhKh; 
+ Thu, 30 Apr 2026 13:47:05 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
+ t=1777546025; bh=XK8fhHHhN8C7AZWTsdc+3Jx084S2B5DKpyixkH26TpE=;
+ h=Message-ID:Date:Cc:Subject:To:From;
+ b=SyR31FxAyv/4EHWsum+z02yw7yCr13aMdUa9TPXrbuHbygNGTdp6QrzMqTd8we5Mu
+ SUe4CaILLmNu7I6IUPW0A27wzCxLK6xVASWklcIoiZOOk0HbER7JBLO/Nbmiw2isFI
+ RKWYA3FObdjqE/vUnnJIo+edKMFKc72ATemCjjeE=
+Authentication-Results: mail-nwsmtp-smtp-production-main-98.sas.yp-c.yandex.net;
+ dkim=pass header.i=@yandex.ru
+From: Evgenii Burenchev <evg28bur@yandex.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Evgenii Burenchev <evg28bur@yandex.ru>, kernel test robot <lkp@intel.com>,
+ alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/radeon/rs780: prevent division by zero in refresh rate
+ calculation
+Date: Thu, 30 Apr 2026 13:46:25 +0300
+Message-ID: <20260430104626.16230-1-evg28bur@yandex.ru>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 30 Apr 2026 17:06:40 +0000
@@ -89,44 +63,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The function fbtft_write_gpio16_wr_latched is not referenced anywhere
-in the driver and only contains a stub implementation.
+drm_mode_vrefresh() may return zero when mode clock is zero even if
+htotal and vtotal are non-zero. Current code checks only htotal and
+vtotal, allowing refresh_rate to become zero and subsequently causing
+division by zero in rs780_program_at().
 
-Remove it from the driver.
+Fix by adding mode clock validation and fallback to default 60Hz in
+rs780_get_pm_mode_parameters(). Add WARN_ON in rs780_program_at() to
+catch such cases during development, ensuring safe fallback in all
+scenarios.
 
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
+
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202604300508.yXci8rey-lkp@intel.com/
+
+Signed-off-by: Evgenii Burenchev <evg28bur@yandex.ru>
 ---
- drivers/staging/fbtft/fbtft-io.c | 7 -------
- drivers/staging/fbtft/fbtft.h    | 1 -
- 2 files changed, 8 deletions(-)
+ drivers/gpu/drm/radeon/rs780_dpm.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/staging/fbtft/fbtft-io.c b/drivers/staging/fbtft/fbtft-io.c
-index de1904a443c2..7d331eba947a 100644
---- a/drivers/staging/fbtft/fbtft-io.c
-+++ b/drivers/staging/fbtft/fbtft-io.c
-@@ -227,10 +227,3 @@ int fbtft_write_gpio16_wr(struct fbtft_par *par, void *buf, size_t len)
- 	return 0;
- }
- EXPORT_SYMBOL(fbtft_write_gpio16_wr);
--
--int fbtft_write_gpio16_wr_latched(struct fbtft_par *par, void *buf, size_t len)
--{
--	dev_err(par->info->device, "%s: function not implemented\n", __func__);
--	return -1;
--}
--EXPORT_SYMBOL(fbtft_write_gpio16_wr_latched);
-diff --git a/drivers/staging/fbtft/fbtft.h b/drivers/staging/fbtft/fbtft.h
-index 317be17b95c1..c7afb0fd3943 100644
---- a/drivers/staging/fbtft/fbtft.h
-+++ b/drivers/staging/fbtft/fbtft.h
-@@ -262,7 +262,6 @@ int fbtft_write_spi_emulate_9(struct fbtft_par *par, void *buf, size_t len);
- int fbtft_read_spi(struct fbtft_par *par, void *buf, size_t len);
- int fbtft_write_gpio8_wr(struct fbtft_par *par, void *buf, size_t len);
- int fbtft_write_gpio16_wr(struct fbtft_par *par, void *buf, size_t len);
--int fbtft_write_gpio16_wr_latched(struct fbtft_par *par, void *buf, size_t len);
+diff --git a/drivers/gpu/drm/radeon/rs780_dpm.c b/drivers/gpu/drm/radeon/rs780_dpm.c
+index 64bb4cafb8b5..8713f3fd6268 100644
+--- a/drivers/gpu/drm/radeon/rs780_dpm.c
++++ b/drivers/gpu/drm/radeon/rs780_dpm.c
+@@ -63,8 +63,11 @@ static void rs780_get_pm_mode_parameters(struct radeon_device *rdev)
+ 		if (crtc && crtc->enabled) {
+ 			radeon_crtc = to_radeon_crtc(crtc);
+ 			pi->crtc_id = radeon_crtc->crtc_id;
+-			if (crtc->mode.htotal && crtc->mode.vtotal)
++			if (crtc->mode.htotal && crtc->mode.vtotal) {
+ 				pi->refresh_rate = drm_mode_vrefresh(&crtc->mode);
++				if (pi->refresh_rate == 0)
++					pi->refresh_rate = 60;
++			}
+ 			break;
+ 		}
+ 	}
+@@ -363,6 +366,8 @@ static void rs780_program_at(struct radeon_device *rdev)
+ {
+ 	struct igp_power_info *pi = rs780_get_pi(rdev);
  
- /* fbtft-bus.c */
- int fbtft_write_vmem8_bus8(struct fbtft_par *par, size_t offset, size_t len);
++	WARN_ON(pi->refresh_rate == 0);
++
+ 	WREG32(FVTHROT_TARGET_REG, 30000000 / pi->refresh_rate);
+ 	WREG32(FVTHROT_CB1, 1000000 * 5 / pi->refresh_rate);
+ 	WREG32(FVTHROT_CB2, 1000000 * 10 / pi->refresh_rate);
+
+base-commit: a5640267d6d35b89ebe6418da90a952a247215a5
 -- 
-2.34.1
+2.43.0
 
