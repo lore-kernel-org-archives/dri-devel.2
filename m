@@ -4,97 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F22CCFF886F
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 09:10:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4C68FF886F
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 09:12:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5307710E126;
-	Thu, 30 Apr 2026 09:10:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 035EF10F2B1;
+	Thu, 30 Apr 2026 09:12:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="J4GmwMg1";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HmExZPES";
 	dkim-atps=neutral
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C326410E126
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 09:10:10 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-4890d945eb4so10614555e9.0
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 02:10:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777540209; cv=none;
+Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com
+ [209.85.160.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57A5A10F2B1
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 09:12:37 +0000 (UTC)
+Received: by mail-qt1-f169.google.com with SMTP id
+ d75a77b69052e-50fb8e9a4edso7733111cf.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 02:12:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777540356; cv=none;
  d=google.com; s=arc-20240605;
- b=A4p32Gv8Iw9wCN3uiMl2nqzUxTHrMmu9GQSGLEO1cZkkTpKsD+AQPL/ju2fAaFvUYh
- Ieh9vW+p216oHWlMNDDtHP5+V110X61YmdgHJKjwX7hgst2ELIgvuOSspRmM2cn7miaV
- 1Io6mequWPkaOITizT8lIIDpdcFomqMowJ8DDzWjB0Wyrn4Sb1eNf3rybhhnJc2ZN30R
- KEm4fUW0TMmxhYW7u/Za5GSereWCN/irNCQjqZLiJVOHiU2c0nf4JeMbliYXYSp/voUN
- JzHZwGgjHbXHZSPDVsa8GUEPgpkb3o8etuznPN/147KuxzY8ECtu5Pcj4Dvjq0xfzp9v
- 5Rxg==
+ b=dFJxJURoyTFYMdPo47WTG5JRns85R7Ci0Mob6yeiJtn3QGdBMjL4q0PLd2s1onihfK
+ J6rZTRB08hJTTo+JuEt0uHeJjuNrTD6zRi211wTaCWFSOS85gzUiWs98sg/MHoi70017
+ o/Jzrv8R9lb/5QVwxitW5nU1SnO/EPL9efdzFKpLSSJf+AmMW5gGfT6cxj4NcMtbA9st
+ nyr9wlP3ZU6uRmzWVFAc6M9OO00kSE9gFOsdK72uH30kU0qBTOL7IdZ9kPAfogOiH+QP
+ NTCpfxR4x35nhinkszYdMsFfXUO8VhUeavAZsnvlv9oatinDX6Kj0tRATf6tLJCC1iTm
+ +tog==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=uNayLLCXFFg34wv8nX5d4Vm4GrWa+HjlsC1+5DIJvb4=;
- fh=B7Fi2doGcq56k7n666shJv/PTHtclU27eudgXRrsYV4=;
- b=E/qEl1N8JtcOZnsGYK/z92hYd8HKNyV/DtTx6ZSZT3caz4sHVprkLHoNX4GyxdBbPH
- g+WyFp+3OrDE/BKV1j0JwxYjSAibIpAT9GNSHeaA0DKbec01AQrkAk27QEr/Cf13ULaz
- NneXos2XRz2c3aGDy/d8w3ufHFMjGaEmOXCW0Vpcov3cR5iAf92gyA74f76bwPG8M2gJ
- jT0FNvqAUUabHFlkD52a0P9S4CWt5jNeSV6HVCDRQ+4DNRI3a8/oCoGq3mHP1KZOC40J
- 9SG1xjvdg5XbhFIr90AGkGvsnuGg0KqZCLkFVuz2Z0dewez2mlqEC0TN/laVxg9SiVEZ
- wdfw==; darn=lists.freedesktop.org
+ bh=CBO+qP2fp4ZIZ2hbTpo8BAvLBsmEh447VHA/0NJ5kAY=;
+ fh=3z0zmwDKR5VzHCAi4gKlGadrssom6TxfVuNfnBlOdGo=;
+ b=jfnBx4G6sS8iv1PIWIoaEGRccmRQa8khjSZOjqL3SDM3weTvQ0E0apuUUcKGwJjGAZ
+ gS8Ay/aYZJnLYZ5n/5v+wJo2IVkpmIv8JACPwCYAixaLUGjZ0nMgoL2THbj6LruP2iHM
+ wTHrv3//RG3dwuSB+NHFeavhzKJsMKW/QTWs2ip1H55EQU8y5rM3+JG1j0gMSVEYpCL3
+ oWaxrwmPhZvpIioqQ66fafCDyvufjfsdERrbNFRWxTj1FSYihpmu6bY2+61J8smli3o8
+ 21Q9+Fj2SfEVPAu+e4/C+zY7vcz8unP4ZB3raxDtps4RCTLH/+yGX8WKdG9rVUcQjn1a
+ oB7w==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777540209; x=1778145009; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1777540356; x=1778145156; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=uNayLLCXFFg34wv8nX5d4Vm4GrWa+HjlsC1+5DIJvb4=;
- b=J4GmwMg10VJxTsCVr7PoomFyjYTu/OZu0NQ8SL1SRdzylBhGfkQLHhzQoqeN3pNuyx
- T9J/FwVlvwDNdWJHW2BvbH0T1qSb5oPNf1dzf7HSlw3i2KCZnjfH+sHVwSrvpkO9ouPI
- cZejP8lMK7E6jed2qFXwft4XhUnSI+vQY8xAat2g8Hrb1LSv6j2lg0YidE2qtZMa3T7/
- hPn8r0yD0D0R5UoktlDCb2uSyNgOcnBVkQVqFmzB/TM0g5c5kTk3FiU/dnGuVF3f1rtF
- vYuH+H/iUfH8wqEkmXKerz8oTO000fiBVLXnAXi3/313igFP/YFNNscFZzdtPlQSoiAq
- UCIA==
+ bh=CBO+qP2fp4ZIZ2hbTpo8BAvLBsmEh447VHA/0NJ5kAY=;
+ b=HmExZPESbZF+gjzNCCT1DAdlgMls2p5g5I9wAu4dUkOdyWnFBGcdhT3U5+4dZyzu2B
+ EcBYxu5I6xo9yXs/cn4vTIsyOnK6zUNYrpzbVg3+4EXyNIs/YJBwkfbg8S2ZKMsg4nVH
+ jK8/wSdhSi5Yx51DeYG0THZsV9Exm1YQ4qO9ueHfN/baNCv14ejrpSwu3CSm9Wj+Nu3O
+ Txne2NTo56cUBeCX9N1ebYBOBHvAQGnS70BvZ7c0DdS0LvBFLDCN7PPclad4/ALLo2cv
+ nMEauQed/7DW7U7Tb9SOKCPvTgvB1v/UcDUwTlid9FhtwljMFlU7dSqhq38BPHd192jc
+ YYaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777540209; x=1778145009;
+ d=1e100.net; s=20251104; t=1777540356; x=1778145156;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=uNayLLCXFFg34wv8nX5d4Vm4GrWa+HjlsC1+5DIJvb4=;
- b=Bo2wRo6Ty+Vw0xjajz226gCOlED10ex9BzXAMV1BRIgj8LnX+Wrg6VQZr8psiTg6qq
- WsT2Y+Elpb7hUdA7E2mT6Ot6gWzCK68pQmPLmKAck5nd0JXvfKHi3pjHLQcSsMntQ9SV
- V0vrFVszmXyYsWSc/Xa8ftTa0WY3kGIJSCf0Rv2xWdBOh5QxgDvZzwGmz+zLxm1zqUOy
- jF4mN945R3Z9AGm5fjCcoqpzZsaPnf5ZQZDtAhWpPiXvIhBq/fKJzxAOSVhbDTAbTl+m
- HU0Drs0phXkTtM0yHOTAfZDrd2r81FSM2860491j8PS+QlknTwQ0iWCxusvmkjhWfhA7
- 0LTw==
+ bh=CBO+qP2fp4ZIZ2hbTpo8BAvLBsmEh447VHA/0NJ5kAY=;
+ b=EwLksZowmhnqNBi8xKcVKgXJmGRQnHU2SKVunDxDF9NbQbNtiDCZQMzvHP/5+INTIE
+ m+GjobqqISmNFq9NDGaumu66tM9a+W+h/ksfzelrL21V4LOHvckADAFwVuQ+CC+eDPWn
+ HBsbfh8UtFOyxgI441jHO1HILZ7ml/99GfWXdaTcgYQnOVZClxQaYW+rESrO4QloQFfQ
+ nB/tA0hSOfChPiCLu6pXT4aItyRfgOzAZzDHYjAMEGqR/Spc/URCOcjYqJklNEFIpBfX
+ YEiUrvAVF7bzU3eR5D7KJI6Ea0EbpHWW9sp0epQbbD7h2kFbToUq6p/bFzflnXDbJR3H
+ NoBw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9uWUy8KO6NarncMSrvck2/wEy44o247jg0bemnu/lBbe8yXeZBY0C2IM+0yO9uhsldIVxwmstDhwE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzkrQPqJj6alyBmbJ1l77LAfvylbIFDWlNkp4lc345ES2gze1cA
- 4X5aAUxSqSlXz3td8DV8auJecDmWlVwzwPrMM/wdzEiLh7CDiaFcZVHwmmD3pEHzxUyVASiaw/p
- YZNEr8QL87ggHa+S8L5MKtfWJG5CXy2Y=
-X-Gm-Gg: AeBDietBNoSR9y1iqAFPsJym/k3EpZ11dei4dzwueaUvspf9ff+aRTui+fZrzgULSl7
- n0XAmsv8tXSzf+HLSOoEHU9pJEvnw+XBFc2z7ym6QSAUf46r1bCuH119KUByYRj5YBtXAHZr2Q3
- GTGrg3ifNKd7h7Q/rtRy7SMsKwpFJbxfPKV+wuNItPGI0lYRvJBqZzjQrFkslGenLbuxpCn9nN/
- gUaoBxHzqFejtbxaV1hS06dWMuWkohwJAXIFz6raDCKXKUqz/j4mp/FjMKWTLEmngAB8xs+BwuD
- mNjGCMUXNIBbLzD9KE8=
-X-Received: by 2002:a05:600c:a412:b0:48a:65ab:8059 with SMTP id
- 5b1f17b1804b1-48a8607972amr22587615e9.13.1777540208950; Thu, 30 Apr 2026
- 02:10:08 -0700 (PDT)
+ AFNElJ8CdJSuwEF36uTZU0417mt9RH8Bl9sR5piknjcFFTWQZ3SncPsV2HKlKdPrFdHlfWja4iZgdak65jI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzknd9wptYoQvk0KDMas9czaBmFiM1obY2agpqSS2YzOcR/Vq5o
+ amSMrFaeyfT8nuvV8rf1n+mFPznLncn0hERQhylPGc5VZqruUclPxv9Y8OLtGFXs24SnVCUIf/l
+ /bL/o8uRuSE4zibpfoxkxtPaqTdVjCA0=
+X-Gm-Gg: AeBDietEFV+2aYK2Oxm8z/n8cylmugBgxTMb8EMwLQ57GyfgWJFV1U64JAM9SOccEHr
+ AqQN4yBCwrTazW6tLWHS6iDN6BZAF6ttGyS7FrlvqORHRRc6ZO+Z+K9HOV3H4WoFiZNFEl9Tnkx
+ bCKh5UYktG+lUngOU+5EDhanTNDcJomVKxvMTrZzF9vJGCY35MyDV+STB7/zal7Obd0511R/0Ba
+ R99/d9UZ8nqtRU8N/FxgTpBpYcBQuX/5W5Ju0E3bTyXcQUzoaJORc31hxqOHcm77GN5/skJRqxb
+ weX27QkJNEWNbwefcbKsu1ImFGcQ
+X-Received: by 2002:a05:622a:a14:b0:50d:edcd:4f39 with SMTP id
+ d75a77b69052e-5102adc7d9bmr26633321cf.40.1777540356421; Thu, 30 Apr 2026
+ 02:12:36 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260427075856.85208-1-clamor95@gmail.com>
- <SGKRjIZyS4mU2gPAiUbKJg@nvidia.com>
- <CAPVz0n16zCgCZwPXWMPg=KiYLwc3beBzVqYVB96in7zn0Wkxqw@mail.gmail.com>
- <soBCUeXPQ72A3pDzGjjMng@nvidia.com>
-In-Reply-To: <soBCUeXPQ72A3pDzGjjMng@nvidia.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Thu, 30 Apr 2026 12:09:57 +0300
-X-Gm-Features: AVHnY4Je3sxCo-rN1StvJwz9cYuHqAYEyt3eRd6sgOWUegGJDGG9BA1xaOhYGlA
-Message-ID: <CAPVz0n24mV5z_gqBtG9SXAvbu8EbAmNwrMEEa6XbGz_pUb4SVA@mail.gmail.com>
-Subject: Re: [PATCH v1 1/1] drm/tegra: gr2d/gr3d: Move pm_runtime_enable to
- gr*d_probe
-To: Mikko Perttunen <mperttunen@nvidia.com>
-Cc: Thierry Reding <thierry.reding@kernel.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Jonathan Hunter <jonathanh@nvidia.com>,
- Ion Agorria <ion@agorria.com>, 
- dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org, 
+References: <20260430085344.34271-1-francesco@dolcini.it>
+ <DI6DC1OD5S7N.2EXPCKI13OZNM@bootlin.com>
+In-Reply-To: <DI6DC1OD5S7N.2EXPCKI13OZNM@bootlin.com>
+From: Adrien Grassein <adrien.grassein@gmail.com>
+Date: Thu, 30 Apr 2026 11:12:23 +0200
+X-Gm-Features: AVHnY4KIb3EZwtjEuyVikwUpvIR2bFalintX6aFwcVP1HD24fqoAZ-swyGdJ3zk
+Message-ID: <CABkfQAHWPwr55dzfMyiJfK2XSat-Eqf+8d1qceHMMFaM9v-2iA@mail.gmail.com>
+Subject: Re: [PATCH] MAINTAINERS: Update maintainer for LT8912B DRM HDMI bridge
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Francesco Dolcini <francesco@dolcini.it>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Francesco Dolcini <francesco.dolcini@toradex.com>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -113,195 +116,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=D1=87=D1=82, 30 =D0=BA=D0=B2=D1=96=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 11:3=
-8 Mikko Perttunen <mperttunen@nvidia.com> =D0=BF=D0=B8=D1=88=D0=B5:
+Le jeu. 30 avr. 2026 =C3=A0 11:06, Luca Ceresoli
+<luca.ceresoli@bootlin.com> a =C3=A9crit :
 >
-> On Thursday, April 30, 2026 5:04=E2=80=AFPM Svyatoslav Ryhel wrote:
-> > =D1=87=D1=82, 30 =D0=BA=D0=B2=D1=96=D1=82. 2026=E2=80=AF=D1=80. =D0=BE =
-09:23 Mikko Perttunen <mperttunen@nvidia.com> =D0=BF=D0=B8=D1=88=D0=B5:
-> > >
-> > > On Tuesday, April 28, 2026 1:57=E2=80=AFPM Svyatoslav Ryhel wrote:
-> > > > =D0=B2=D1=82, 28 =D0=BA=D0=B2=D1=96=D1=82. 2026=E2=80=AF=D1=80. =D0=
-=BE 04:53 Mikko Perttunen <mperttunen@nvidia.com> =D0=BF=D0=B8=D1=88=D0=B5:
-> > > > >
-> > > > > On Monday, April 27, 2026 4:58=E2=80=AFPM Svyatoslav Ryhel wrote:
-> > > > > > From: Ion Agorria <ion@agorria.com>
-> > > > > >
-> > > > > > The gr*d_remove() has pm_runtime_disable, this indicates it sho=
-uld be
-> > > > > > paired with pm_runtime_enable in the probe instead of being ins=
-ide
-> > > > > > gr*d_runtime_resume().
-> > > > > >
-> > > > > > Signed-off-by: Ion Agorria <ion@agorria.com>
-> > > > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > > > ---
-> > > > > >  drivers/gpu/drm/tegra/gr2d.c | 8 ++++----
-> > > > > >  drivers/gpu/drm/tegra/gr3d.c | 8 ++++----
-> > > > > >  2 files changed, 8 insertions(+), 8 deletions(-)
-> > > > > >
-> > > > > > diff --git a/drivers/gpu/drm/tegra/gr2d.c b/drivers/gpu/drm/teg=
-ra/gr2d.c
-> > > > > > index 21f4dd0fa6af..71f092d59d65 100644
-> > > > > > --- a/drivers/gpu/drm/tegra/gr2d.c
-> > > > > > +++ b/drivers/gpu/drm/tegra/gr2d.c
-> > > > > > @@ -286,6 +286,10 @@ static int gr2d_probe(struct platform_devi=
-ce *pdev)
-> > > > > >       for (i =3D 0; i < ARRAY_SIZE(gr2d_addr_regs); i++)
-> > > > > >               set_bit(gr2d_addr_regs[i], gr2d->addr_regs);
-> > > > > >
-> > > > > > +     pm_runtime_enable(dev);
-> > > > > > +     pm_runtime_use_autosuspend(dev);
-> > > > > > +     pm_runtime_set_autosuspend_delay(dev, 500);
-> > > > > > +
-> > > > > >       return 0;
-> > > > > >  }
-> > > > > >
-> > > > > > @@ -367,10 +371,6 @@ static int __maybe_unused gr2d_runtime_res=
-ume(struct device *dev)
-> > > > > >               goto disable_clk;
-> > > > > >       }
-> > > > > >
-> > > > > > -     pm_runtime_enable(dev);
-> > > > > > -     pm_runtime_use_autosuspend(dev);
-> > > > > > -     pm_runtime_set_autosuspend_delay(dev, 500);
-> > > > > > -
-> > > > > >       return 0;
-> > > > > >
-> > > > > >  disable_clk:
-> > > > > > diff --git a/drivers/gpu/drm/tegra/gr3d.c b/drivers/gpu/drm/teg=
-ra/gr3d.c
-> > > > > > index 42e9656ab80c..33e88ca4d4c5 100644
-> > > > > > --- a/drivers/gpu/drm/tegra/gr3d.c
-> > > > > > +++ b/drivers/gpu/drm/tegra/gr3d.c
-> > > > > > @@ -517,6 +517,10 @@ static int gr3d_probe(struct platform_devi=
-ce *pdev)
-> > > > > >       for (i =3D 0; i < ARRAY_SIZE(gr3d_addr_regs); i++)
-> > > > > >               set_bit(gr3d_addr_regs[i], gr3d->addr_regs);
-> > > > > >
-> > > > > > +     pm_runtime_enable(&pdev->dev);
-> > > > > > +     pm_runtime_use_autosuspend(&pdev->dev);
-> > > > > > +     pm_runtime_set_autosuspend_delay(&pdev->dev, 500);
-> > > > > > +
-> > > > > >       return 0;
-> > > > > >  }
-> > > > > >
-> > > > > > @@ -578,10 +582,6 @@ static int __maybe_unused gr3d_runtime_res=
-ume(struct device *dev)
-> > > > > >               goto disable_clk;
-> > > > > >       }
-> > > > > >
-> > > > > > -     pm_runtime_enable(dev);
-> > > > > > -     pm_runtime_use_autosuspend(dev);
-> > > > > > -     pm_runtime_set_autosuspend_delay(dev, 500);
-> > > > > > -
-> > > > > >       return 0;
-> > > > > >
-> > > > > >  disable_clk:
-> > > > > > --
-> > > > > > 2.51.0
-> > > > > >
-> > > > > >
-> > > > >
-> > > > > Oof, looks like I had managed to really bungle this with my earli=
-er
-> > > > > patch. Thanks for fixing it!
-> > > > >
-> > > >
-> > > > Hello Mikko!
-> > > >
-> > > > Thank you for taking time and looking into this patch. Don't be so
-> > > > harsh to yourself, PM is easy to mess and hard to set properly. Thi=
-s
-> > > > patch does fix gr*d access but it does not resolve the issue itself=
-.
-> > > > PM should be set in the init/exit rather then probe/remove. I have =
-v2
-> > > > which fixes this and one more minor issue and I will send them late=
-r
-> > > > on.
-> > >
-> > > Thanks! Why do you think it's necessary to enable runtime PM in init?
-> > > If you look at the commit I referenced below (in 'Fixes'), we've had
-> > > some issues in the past with doing pm_runtime_enable outside of probe=
-,
-> > > where the engine's power domain would be left enabled even when it is
-> > > idle.
-> > >
-> > > gr2d/gr3d I suppose wouldn't be in practice affected by that issue
-> > > though given they aren't in their own power domains.
+> On Thu Apr 30, 2026 at 10:53 AM CEST, Francesco Dolcini wrote:
+> > From: Francesco Dolcini <francesco.dolcini@toradex.com>
 > >
-> > WDYM, gr2d and gr3d have their own power domains.
->
-> Ah, my bad, didn't look far enough in the device tree.
->
+> > Update the maintainer from Adrien to Francesco.  Adrien is not
+> > interested in maintaining this driver anymore, Francesco has access to
+> > various hardware devices using this component and the vendor
+> > documentation.
 > >
-> > If the master device is unbound and rebound, gr2d_init() will run again=
-, but
-> > pm configuration is only located in this probe function which will not
-> > run again, while pm disable are both in exit and remove. This results
-> > in pm issue we are observing.
-> >
-> > Solution would be either do everyting in probe/remove, or init/exit.
-> > Probe/remove will lead to domain being turned on even if engines are
-> > idle. Init/exit seems to me more suitable and we have tasted this
-> > configuration for a quite while in the grate DRM version.
+> > Cc: Adrien Grassein <adrien.grassein@gmail.com>
+> > Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+Acked-by: Adrien Grassein adrien.grassein@gmail.com
 >
-> Yes, we should only do it in one place. Where are you observing the
-> domain being turned on when idle?
+> FWIW:
+> Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 >
-> Genpd turns on the domain before probe is called, and it should turn
-> it off again after probe if probe had enabled runtime PM and the usage
-> count is zero. That's what we have currently for the newer engines like
-> VIC and it's working.
->
-> We used to have it in init/exit, but then we were seeing the domain
-> sometimes being left on at boot, which makes some sense since as probe
-> didn't enable runtime PM, genpd would leave the domain powered after
-> probe. The domain would then also never get powered off when init
-> enabled runtime PM. I assume the reason this only happened sometimes
-> was that it was dependent on if the init function or the genpd
-> post-probe code ran first.
->
-> Based on that we should have the runtime PM handling in probe/remove,
-> to ensure genpd turns off the domain after probe when there are no
-> users.
->
-> Mikko
->
+> --
+> Luca Ceresoli, Bootlin
+> Embedded Linux and Kernel engineering
+> https://bootlin.com
 
-Thank you for an explanation, I will adjust v2 accordingly (configure
-PM in probe/remove).
-
-> >
-> > Best regards,
-> > Svyatoslav R.
-> >
-> > >
-> > > Cheers
-> > > Mikko
-> > >
-> > > >
-> > > > So for now this patch should not be picked.
-> > > >
-> > > > Best regards,
-> > > > Svyatoslav R.
-> > > >
-> > > > > FWIW, I've been working on adding some nightly testing for Host1x=
-/
-> > > > > TegraDRM, so hopefully we'll be able to catch such things easier
-> > > > > in the future.
-> > > > >
-> > > > > Fixes: 62fa0a985e2c ("drm/tegra: Enable runtime PM during probe")
-> > > > > Acked-by: Mikko Perttunen <mperttunen@nvidia.com>
-> > > > >
-> > > > >
-> > > > >
-> > >
-> > >
-> > >
-> > >
->
->
->
->
+Thanks,
+Adrien
