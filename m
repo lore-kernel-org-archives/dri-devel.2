@@ -4,137 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 347F2CD1297
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 06:04:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A261CD1297
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 06:06:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59C7310E034;
-	Thu, 30 Apr 2026 06:04:02 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TW/MgvAa";
-	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013039.outbound.protection.outlook.com
- [40.93.196.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8393D10E034
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 06:04:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ug6UGsZj9ZmQkqE4NOMZEqxby9ocGm3Z+i8r08dK28U2iSDSYc/2Ub3UxZeOcHjZlMp5r4YtdaiMcNrORbhy3dtacdNaL3yakIUTliuIL8tWBp+2QYudXf+8Rl3A5q/QvRwGdOBHBRSlq2Di9M+optVQsupdWCLK1XjuXIEvNOA+F1sSfEwYxgo3d+ox7cZJsqaHK9CCQxyfzIPO95HBQPNPH/khQt44lwUSBSFSTs0FSER+fqHHy5cxz12WpjtRAwuCUplOX4IEHuf/T74jJth84wXMpbkQh5Ibrs/ZlAXHrRK/yXUBsnhoTex9zr0Ka8j5k2wfxnvzyxPWflg6Cg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=u9lC75TgHXestJFdYXvOH+AE0yP0KFvdVluZb/Y/OiE=;
- b=I/4w+oHrrVQJDpHT7uba8fwpodS0H62dChCJ6mCvqGmW6NC+ble+EzTm3nGVbzuN0dUGqWVjjtl9XC1A6RGjTvNdBxLs0Ulc87C8nyF5EPDNgysN+TF0s+mcnNdvBwP9d8FOWAIZ+4RmFPMVySo05hx8fL8dFebcdIuF1FpGSU8TheeuG8fHa+cNZsEZHs8OCZMnjfjr43/TKHE479wC2mFvmfk1m/SnAqHy69VrzJe9cRny65TaMCFNfRKMMUdqkvaj3oH3zFQ2W4k0pK+dbBOCrbtydN30n9oZSBAuOY+rnNrIdrqlxM0+yP78zT7a0tNxxamVlaSN83N2HfudHQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=u9lC75TgHXestJFdYXvOH+AE0yP0KFvdVluZb/Y/OiE=;
- b=TW/MgvAaXd8LGMd2f2+Ajkd6zBwA2PAa362uUKmHMqZAIat25VRjd3NNPF612S03JzekszgZDC3eq7gJGkXMw5MET+jCml1o4FJNZPRPxgCw++pzImSo3aheN6YxgEAVGZdL/cpKivTLkHzOkzrf/tzp2rcKOGdvJMsO16EhClU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS7PR12MB8419.namprd12.prod.outlook.com (2603:10b6:8:e9::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.20; Thu, 30 Apr
- 2026 06:03:57 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9870.020; Thu, 30 Apr 2026
- 06:03:55 +0000
-Message-ID: <f0dd8f89-835e-4331-b593-4405ec59f4fe@amd.com>
-Date: Thu, 30 Apr 2026 08:03:47 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 01/10] file: add callback for creating long-term dmabuf
- maps
-To: Pavel Begunkov <asml.silence@gmail.com>, Jens Axboe <axboe@kernel.dk>,
- Keith Busch <kbusch@kernel.org>, Christoph Hellwig <hch@lst.de>,
- Sagi Grimberg <sagi@grimberg.me>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org,
- linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org
-Cc: Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi
- <joshi.k@samsung.com>, Anuj Gupta <anuj20.g@samsung.com>,
- Tushar Gohad <tushar.gohad@intel.com>,
- William Power <william.power@intel.com>, Phil Cayton
- <phil.cayton@intel.com>, Jason Gunthorpe <jgg@nvidia.com>
-References: <cover.1777475843.git.asml.silence@gmail.com>
- <ae941457cf6cacb9d4c16b6ec904da9ef7fed97f.1777475843.git.asml.silence@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <ae941457cf6cacb9d4c16b6ec904da9ef7fed97f.1777475843.git.asml.silence@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0162.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b3::9) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB13710E425;
+	Thu, 30 Apr 2026 06:06:48 +0000 (UTC)
+X-Greylist: delayed 301 seconds by postgrey-1.36 at gabe;
+ Thu, 30 Apr 2026 06:06:46 UTC
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBF3710E425
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 06:06:46 +0000 (UTC)
+X-UUID: 0eb9ac86445a11f1aa26b74ffac11d73-20260430
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12, REQID:7b426810-9e7d-407f-951f-abdfb5810312, IP:0,
+ U
+ RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+ release,TS:0
+X-CID-META: VersionHash:e7bac3a, CLOUDID:c130f4c0ec06df3c7f4d462a8b4d6f0c,
+ BulkI
+ D:nil,BulkQuantity:0,Recheck:0,SF:102|123|850|898,TC:nil,Content:0|15|50,E
+ DM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA
+ :0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 0eb9ac86445a11f1aa26b74ffac11d73-20260430
+X-User: yaolu@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+ (envelope-from <yaolu@kylinos.cn>)
+ (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+ with ESMTP id 20162764; Thu, 30 Apr 2026 14:01:40 +0800
+From: yaolu@kylinos.cn
+To: deller@gmx.de,
+	tzimmermann@suse.de,
+	simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Lu Yao <yaolu@kylinos.cn>
+Subject: [PATCH] fbcon: don't suspend/resume when vc is graphics mode
+Date: Thu, 30 Apr 2026 14:01:37 +0800
+Message-Id: <20260430060137.131107-1-yaolu@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS7PR12MB8419:EE_
-X-MS-Office365-Filtering-Correlation-Id: 06b5e2cb-1c68-4750-a58c-08dea67e42bf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|7416014|1800799024|376014|18002099003|56012099003|22082099003|921020;
-X-Microsoft-Antispam-Message-Info: y3qRTqOnXr/59SqtrsyISWMUaVCIZO4DPkk61mZYRqEEW1GU9PCIR3QxETgNU5qABOCNcAf4n59zE9h/poXBEK7RhPwIhVyx8zsSV13NS59oR0ZRX7ffRgyxUKjjb9bI0V6svV3O9V5H+gpmGIilR4i4VRRODFXppnDMP9WtkEicNP9CVfJqElhHbxba7ZwKg+rpLwsO/zj7+A8SPsSbQOkNGwdykoUGnpwMxdgJIApj9fwWKIQ1dWhy6Iw5EFRbk90gjQWiXIrubxs6hVF/N/hI4eaysW4kZkS0PRCtQZBFMpxHXmep4EtJb+DJ/CiXVNBSTD/JsbT9WdtN8eEfyXiek08x3kp6ceAbU4ukaTE+delBRgGpuJVBxbK4SLDP74Ps3mNRaiF+bm+HbjJI+k9Rd+jQL/c9rkouVDJdgOwIr3kBKIWXZY0LvMTFtgPwDcavhm/5NAc77nM9/P94nF3vAuPfG0GwHPmAjvPNjfm+zns/Bbizbtxqx/+nsm0kQoeH0o5X0jkHZEd9bXwzhJEX7Girb2Qu89cH56s9ccMiZBYNFkyjc87N8ZLP6k56HbvEr7SdH7ShR3YOBsI+Lw0Pd+TV3Gh+IQkZWQyJwRyx6JOoSDe8Iw5RGDnePgwue/NpV2URJry7oUXxabWxveWBifQ64CKXtPHbYnaT6e0uyDdyK6WJqsVvJW5l/lcfYM1tbslfCmcGd+oxe1Z9/1IBFf9KFN2Mxmnu5ZNF/luTusbPhLZGchfVPkf1wrH46dj5A2ZldillkkJuzV9x5w==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(7416014)(1800799024)(376014)(18002099003)(56012099003)(22082099003)(921020);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N1NVdEJ0WmFCb2hsRXJuaDZ3QVgveDV3Y2JKZHgyYTFUdmVIT09yekRORFVa?=
- =?utf-8?B?NkNWY21DOWdGVUE5Y2FvMGFtN1lzSysyb2FTUDg1N2ZRNHh2eXNPWDhaR0V0?=
- =?utf-8?B?M2Fqb2F2bVdCZC9LQWhBb3ZJcFJLSWhZWmtlc2FlV0RYTHdaa1hqWTNOaCtF?=
- =?utf-8?B?QWlPWlpYMjltWkN6ZzJEcHhBNFVnOGlteVVaU2thZ1lTTW92dkFKZ0ZmdFRx?=
- =?utf-8?B?MGpwSXZxSGo3Q2wveDk5ZDdpL1RIdUhGK1lrYmg3Q1FEck8vbk5SZXVnalhl?=
- =?utf-8?B?OEVoK1dhVFpMdFFaTDBscm9BSmg1WFZUVEh1QVkwOUR1OWNBcEJCdXZWZ0ky?=
- =?utf-8?B?aFlVQVo5SkdSZU5iSVBWQ3gwWTBKS1gzMXp4bXFXSm9ESFlnN1o5VHIxcGtU?=
- =?utf-8?B?OWlsRWYxQWQ5Si9YSGszL1IxcTBrREdrcDRvUU1uaE5LbzU1MTZCOFRKcFB3?=
- =?utf-8?B?VE9xT0hFRUtHV3B6UVBlMkZiZk5xVGk0ekQ4SUFjT25walMzMEFiTUtqOHkx?=
- =?utf-8?B?NjlQUlcrRnZFdFZ6Y1g1OVFOYWJuK2RnQURYbDBqTGN6bURzZk5ZZVhVeEtD?=
- =?utf-8?B?bVNYYnlyYjd3VTE1V2VVSHhRY05GTGdvOXBXVlhTVGZTTUlXanBUbXZFVXFz?=
- =?utf-8?B?SUt2Sk9IbEI0Q244U0orU0MrbzZNTTdBWWsrWXVuVkRIK1VtUTk5NG5saVpu?=
- =?utf-8?B?YjU1ejZSUkU3TWFOM1cyZ0w1WVRCKzJSM0VZNmU1TEdyc0ZjSDYveEk5MTlC?=
- =?utf-8?B?NDQ1YUU0WW9YckZ0YWpxdjV6N2l6Kzc3MUJBYXZLalNMMzZMalA0a3hNMmli?=
- =?utf-8?B?RGMrU2R6Y0xVVE5tSDEyUVBjZTZIczNXeEpGTkJWZm9VRUdxNytLVm01M2xS?=
- =?utf-8?B?ODdtN0VsNFpXUXZRdkdFbittd29kczJhcTBFU0VnMnozOTl6cno4enZiMzVL?=
- =?utf-8?B?akxjL3VrdE01WENsM2U3NG9adWI4ZHdIRjh3Zko3TS8rbk1XRDhDZzBBTkZv?=
- =?utf-8?B?Q2owZTlxdzZOVzVwZERJNHAzOHphdUpiSGVMYWNEdCt2Zlg4bmJkYmpIUWQ4?=
- =?utf-8?B?R25taThYb1VielAremVCM0VGVGRvNC9icDM1anVoMEFMWXBtYVU2bGNHc1kx?=
- =?utf-8?B?WGZCZjV3aG53b1FKeWJWNjBIdEdlam9EN2FSV2NHT0h5aTJqbzFyeURvSnhC?=
- =?utf-8?B?UVZiRmUwR0Q5VmpWSGJINjZkNy9vTjhQWTc2TGtQbllrdHZuQ0dWNjdKaUlC?=
- =?utf-8?B?MTBDQThNYyszYlpCUWpPY2twUmVaYmxLZVVpUEk4NWVwQXpDanFyWmZ5SVhF?=
- =?utf-8?B?UFF5WVZpVmJhVlVyT1JBYXZxS3A5dWxMT2pESnp6Uy9LNXowOVUvdG5mSGhl?=
- =?utf-8?B?ZlU4VkxuOEdWMHdFQk5uemdQelI3ZHBkVjI2OEJHRUJBbHFmRGxTTFdpWTdl?=
- =?utf-8?B?OGsweTBmMkdTTEdyTU01OXZxWFdpT1RFU2Y1ckNwcFd4b1VISzJ2WGhVaVFj?=
- =?utf-8?B?K1ZXME9PR251T2hBZThtMno5ZHhlcGQ5SHZLRXJSTFRxOWQwQ1NueDl0Z2pY?=
- =?utf-8?B?dVVpaHhBZXYrMHRHOTRVZ2NpcEZBRTdicDRib1ROTjQ2aVU0YWV5UHp6NEVJ?=
- =?utf-8?B?SUhLSXVDbmJBb2tWUlBzUXRlVmFaZHRYN2tDM2dsTmFqOW05MHNIK0pBRjh5?=
- =?utf-8?B?N0VSMmQxcUkzR1JUTmZURmRpUVV4eHkrMkhGZWdYU0gzYzZSdEZHL3pDWUZB?=
- =?utf-8?B?bnpYSURlcDg3b0xxOE9ZWlRVem5qREF2dU01a09xMTNzSW9RWVJmWThuYTNy?=
- =?utf-8?B?Q1I2dXcxdnV6eGNXN3VaWW41cWZJNm1xNWJob0xQdlFJSWo1ZFZERytnemZl?=
- =?utf-8?B?N2w2K2FuTS9XMWFSVGdwdFNMVEFEMFJUZEJaUkdXYnBwb0doY1ZlTnRuTkVF?=
- =?utf-8?B?OG9MS2pOTlQ0bDkyTWcxbWRpLzcrUzBWSnAxYlZwSW9aM1BPS3JaK01vaWNk?=
- =?utf-8?B?K3ZwR0Mxd0JsZVAyTjNFUjc3RzhxNDNncmlRVEU1S1JPZVB3MzdCaFAwZDRp?=
- =?utf-8?B?SndGdGtwOXdraTZuMVF4U0hBa3BBdThJcGhEQUpzNk8vRjVIdWkxMjN1RGp4?=
- =?utf-8?B?c1YwbXZJNkl0Qk9rVk14VXdadjM2QUVRMFE3cFZYM0c1RlBtUWw0a2gvYU9U?=
- =?utf-8?B?SlVIa0Yxc3l4NVJNVnFtQ1JWZjFacjNlS0EwR3BLZWVNU3Y2WlorZUZ1anZr?=
- =?utf-8?B?VkEzemJ5QnZqVFNiUlFoeVRMYUY0THJ3Mi9NdEYrTjVCWU5lSXNhSkRYUVNP?=
- =?utf-8?Q?AEh1t6TmVo5wAItjC3?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 06b5e2cb-1c68-4750-a58c-08dea67e42bf
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2026 06:03:55.0975 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tYuwUUPyokcXz9ITvIYe0pG4+c9AtBGN3uTDemo48ItiaxhDMKUJSZkwoCO6HEjL
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8419
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,43 +62,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/29/26 17:25, Pavel Begunkov wrote:
-> Introduce a new file callback that allows creating long-term dma
-> mapping. All necessary information together with a dmabuf will be passed
-> in the second argument of type struct io_dmabuf_token, which will be
-> defined in following patches.
+From: Lu Yao <yaolu@kylinos.cn>
 
-Well first of all the naming is probably not the best. Maybe rather call that dma-buf attachment or context or mappping.
+Don't need to do suspend/resume for fbcon in graphic mode.
 
-Then the patch should probably define the full interface and not just add the callback here and then the structure in a follow up patch.
+Doing this may cause error, eg:
+  At the beginning, starting the Xorg with single screen and then an
+  external screen was plugged in. After logging out in Xorg, fbdev
+  info may using screen which is connected later on for info always
+  using first connected connector in list in func 'drm_setup_crtcs_fb'.
+  Then, S3 executed, fbcon found that the information did not match
+  and do atomic to switch fb. However, Xorg will not re-bind the crtc
+  fb but continues doing ioctl. At this time, the fb is incorrect.
 
-Regards,
-Christian.
+Signed-off-by: Lu Yao <yaolu@kylinos.cn>
+---
+ drivers/video/fbdev/core/fbcon.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-> 
-> Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
-> ---
->  include/linux/fs.h | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/include/linux/fs.h b/include/linux/fs.h
-> index b5b01bb22d12..c5558aab4628 100644
-> --- a/include/linux/fs.h
-> +++ b/include/linux/fs.h
-> @@ -1920,6 +1920,7 @@ struct dir_context {
->  
->  struct io_uring_cmd;
->  struct offset_ctx;
-> +struct io_dmabuf_token;
->  
->  typedef unsigned int __bitwise fop_flags_t;
->  
-> @@ -1967,6 +1968,7 @@ struct file_operations {
->  	int (*uring_cmd_iopoll)(struct io_uring_cmd *, struct io_comp_batch *,
->  				unsigned int poll_flags);
->  	int (*mmap_prepare)(struct vm_area_desc *);
-> +	int (*create_dmabuf_token)(struct file *, struct io_dmabuf_token *);
->  } __randomize_layout;
->  
->  /* Supports async buffered reads */
+diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
+index b0e3e765360d..450e690d0bd2 100644
+--- a/drivers/video/fbdev/core/fbcon.c
++++ b/drivers/video/fbdev/core/fbcon.c
+@@ -2602,8 +2602,9 @@ void fbcon_suspended(struct fb_info *info)
+ 		return;
+ 	vc = vc_cons[par->currcon].d;
+ 
+-	/* Clear cursor, restore saved data */
+-	fbcon_cursor(vc, false);
++	/* Don't need to clear cursor and restore saved data in graphic mode */
++	if (vc->vc_mode != KD_GRAPHICS)
++		fbcon_cursor(vc, false);
+ }
+ 
+ void fbcon_resumed(struct fb_info *info)
+@@ -2615,7 +2616,9 @@ void fbcon_resumed(struct fb_info *info)
+ 		return;
+ 	vc = vc_cons[par->currcon].d;
+ 
+-	update_screen(vc);
++	/* Graphics mode is managed by userspace */
++	if (vc->vc_mode != KD_GRAPHICS)
++		update_screen(vc);
+ }
+ 
+ static void fbcon_modechanged(struct fb_info *info)
+-- 
+2.25.1
 
