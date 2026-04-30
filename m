@@ -4,97 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF502CD3423
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 18:34:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBD7AFF8873
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 18:34:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4FC910F41C;
-	Thu, 30 Apr 2026 18:34:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BC9810F41A;
+	Thu, 30 Apr 2026 18:34:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="icJiVdCr";
+	dkim=pass (1024-bit key; unprotected) header.d=ti.com header.i=@ti.com header.b="JcdZPPXq";
 	dkim-atps=neutral
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
- [209.85.221.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C678910F3DB
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 18:33:56 +0000 (UTC)
-Received: by mail-wr1-f48.google.com with SMTP id
- ffacd0b85a97d-43cfd1f9fd1so824138f8f.3
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 11:33:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777574035; x=1778178835; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=NXLg+nrr3M9M+FT0+QCr6ZD6pc/R7QelMFoBuHbRWoU=;
- b=icJiVdCrVQJSHrSMlUpLOdSjihE7hvLSJfh78XSZKpTJxbd+EESAHd+ZCqzRJcM8ZR
- 88Cv+kjnO6uLvVoyW8fiK56WV07PyXyhaHn9Os5wdEgbcK8NdZBtSVFDrzO+YswKGs0h
- k0A78SrYkKyi3x6qBDkCJM5kA/CG9dRe5hfRAk6onKFrTJ/uTq8C7O3wZMJyNgqDomOv
- ETabyKWmk3l4rIYnJmD3YqcczkSKNOqCBBL5UZMFmA7fVS1trSg8b7kfmN5ivQZIwBKO
- 31tU33045tCinT29NcjRZTjHoRhaoH71ThhZn64HlAZ+wRzYShOTPYozC6bxM3Uuvltf
- YjsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777574035; x=1778178835;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=NXLg+nrr3M9M+FT0+QCr6ZD6pc/R7QelMFoBuHbRWoU=;
- b=h5qetqse0VDDoT29vk2/rP8ZYSm7lleo5qCtUCAgrTampRXzIKH0h51xMqWN0L0kDz
- wYo7vKOwtzn7KcBT7bxlrWjY2LMa3YK21DwMEe6LjAKz8VYnQpR47ydYsIsrMIgnpvCG
- egthuODPtDE1kRVoQ3VJvbJd9p9z2b40LpfvnRpuuYWp8sY+fxyFxjf1o7hrcdqPCv4o
- U3B2tnjP/CX89BtmZvCsArmGPXZgajRzMIAFKMiKAKHuiqcljg+MY0KDi9k1+5EvhceL
- C7loZaLI7ZOZf9ZWIFAbv0x9q6t9UZj9ZaaLY7Gtd18ExaHda4rXG/5EiEAQ10qfq5sj
- zd2Q==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9HHVob03lKtRklzCLxKp6g7cOsNOZAErIW2+f9YaWBX0zrvEo4PYvllbJlhIcsbvt2L03gYdlPmz4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx8lXEHsMOkdp1U1sjb67BsYMVmTQBlLNK0epRtbK5lrxS7W+o4
- TC7DQb4jmHS4qyiWjKzzPLAJueKGkPOPtPRvHmTgElPSkneYIZLf/TeR
-X-Gm-Gg: AeBDiev3BhhpzDJJqgFiu59Mnr24wjqhLWwTbYjHUSzLCaxmnHQz8OPY+PF1StyqXMY
- yHs4t01K+ZNQw4gOfxJP07HoWVYCIirYHQP5nYrOJZTvq5CQq6uK7djVbUq6yeFEo7ZBzG/Iz+a
- cYACQNMBneYIaKVpED132Ex8KVM47BIYWJZJX21FsfzTVL0w47l930xJDXOLmp1d/eEj+F/oOl8
- UkASfj2GpVHUQ81Se79W3xu0eXnLQj4MYRTFyioXO5r9woS2gCeiJhUtBXt5SB193gKnDEzrWf+
- LpfdJI8IqwllnI2iuvqETdsmevRri6iMCu2uIVJIjSm3+Q8rFcKtKIm+Xt+LMu+F9OUMxTCMN7p
- 7kK0BN7lIPYD8jnFhKGRqlLQFJLD0ahbJ0wBgTI7YdWb2NPcWlfzay9OmnveiUL462ZOdhF1tmN
- u6ScStnVHOv1XEnC+E7VrfxzT9CEHge/kVRz2ZjZ0caCjnN4kwnNp1FYmx0jj4KVhb/lBeput7V
- Pd1DYyHwTOJA1t96fhdxwttsaEFz0sP2htJ9NIidh67ognuxYXh3wQ76Bka/pdVl49jsidkRkW2
- ng==
-X-Received: by 2002:a05:6000:1a8a:b0:43d:77a8:3baf with SMTP id
- ffacd0b85a97d-4493fa01beamr7079438f8f.32.1777574035154; 
- Thu, 30 Apr 2026 11:33:55 -0700 (PDT)
-Received: from [10.109.92.8] (net-2-37-141-89.cust.vodafonedsl.it.
- [2.37.141.89]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-447b4216eecsm13579672f8f.9.2026.04.30.11.33.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Apr 2026 11:33:54 -0700 (PDT)
-Message-ID: <6cce2f4d-7400-4618-82ce-cbd5004c92a4@gmail.com>
-Date: Thu, 30 Apr 2026 19:33:39 +0100
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013056.outbound.protection.outlook.com
+ [40.93.201.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E78510F41A
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 18:34:11 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=w/tx/rLuDSbzM5e9yQdZiJBkYf8GVvw+igFnTr0aPmqTzWQkXevkQ2ZC9wwQ8tfO2d2IYSyKhoa1gu2AqP+SJmH14xCm2wOZqOsfmAKJyVeTAlY7eRGrTrWOPqeflRee17RzrVR4xL2R+tQ8O3pgI8enZrJF3L36yo6NIQJtbS52HNx55OLItkihFR/1NFnV8T/FW3ISjxflQGyEFdPRZCkD1rZWqWBcOHXCg4tzUaf0qfn0XNFl5tNJkP+yMxMaVpvxrITnL2PLdRGyE7HMwPmeWDcnQHOiGcBthqrzWhcfRTIpjpy1ecABjADZT4QGwwpBd4jLy1w2dqP8v7curQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UR8wXBqJCpvE+ewZpv+FcT1JHGvwn+g2v3LS+ksQLdg=;
+ b=KrVnfo3YEQrHqyIBDL6qEr2Edpx93GxOQhxIkBo7fA8efC7ziY/a7fsbkA+uc28MafCvl2maJ6czaiFb0s+8JeO+3XMZN0IRW2HhDYLrHWAvBCLqXUzGUs56An6HEIa1MOcpm8gSWNrUlAvmy6xPL0gsvnlXI6wjahMv7aubgjdSIL2PSDTz6O/x0nH+06kqTGUAa1SlQcNRqbmWgZUqS0xZbbBoV3lDooIQjAbs7fuPtsY3QI1x94apSWJi6h2DA27MVM2eRJlV2X7th2ehqhZKGz8ZUYo/50dv5ioIqulUNIzOS2dWgI/WNsoUGepSWn8FtFMeSHSQcxWG8mYPpg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UR8wXBqJCpvE+ewZpv+FcT1JHGvwn+g2v3LS+ksQLdg=;
+ b=JcdZPPXqHdQvbYOqpob4kXUTX1FjTpJsEGXeuJzGPc/zaPMEQplG7j5nEyhu7Z5P40NEKYJ7QEEp3A2NhFEZXGr/IuvQKj8XjH+p8/7iQ99kJU3kwZtssaO1x7Cz02DVZtc5ENgLCeutlsL9qtKW4XmHWSFTD3+jXozEyyk1sF8=
+Received: from BYAPR02CA0045.namprd02.prod.outlook.com (2603:10b6:a03:54::22)
+ by SA1PR10MB7756.namprd10.prod.outlook.com (2603:10b6:806:3a3::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.20; Thu, 30 Apr
+ 2026 18:34:08 +0000
+Received: from SJ1PEPF00001CE4.namprd03.prod.outlook.com
+ (2603:10b6:a03:54:cafe::82) by BYAPR02CA0045.outlook.office365.com
+ (2603:10b6:a03:54::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9870.21 via Frontend Transport; Thu,
+ 30 Apr 2026 18:34:08 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none; dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
+Received: from lewvzet200.ext.ti.com (198.47.23.194) by
+ SJ1PEPF00001CE4.mail.protection.outlook.com (10.167.242.20) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9870.22 via Frontend Transport; Thu, 30 Apr 2026 18:34:08 +0000
+Received: from DLEE213.ent.ti.com (157.170.170.116) by lewvzet200.ext.ti.com
+ (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 30 Apr
+ 2026 13:34:04 -0500
+Received: from DLEE206.ent.ti.com (157.170.170.90) by DLEE213.ent.ti.com
+ (157.170.170.116) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 30 Apr
+ 2026 13:34:01 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE206.ent.ti.com
+ (157.170.170.90) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
+ Transport; Thu, 30 Apr 2026 13:34:01 -0500
+Received: from localhost (ti.dhcp.ti.com [172.24.233.157] (may be forged))
+ by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 63UIY0Be1943632;
+ Thu, 30 Apr 2026 13:34:01 -0500
+From: Devarsh Thakkar <devarsht@ti.com>
+To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, "Bjorn
+ Andersson" <bjorn.andersson@oss.qualcomm.com>,
+ <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+CC: <praneeth@ti.com>, <vigneshr@ti.com>, <s-jain1@ti.com>, <s-wang12@ti.com>, 
+ <r-donadkar@ti.com>, <r-sharma3@ti.com>, <devarsht@ti.com>, <afd@ti.com>
+Subject: [PATCH 5/6] MAINTAINERS: Add entry for Solomon SSD16xx DRM driver
+Date: Fri, 1 May 2026 00:03:10 +0530
+Message-ID: <20260430183311.2978142-6-devarsht@ti.com>
+X-Mailer: git-send-email 2.39.1
+In-Reply-To: <20260430183311.2978142-1-devarsht@ti.com>
+References: <20260430183311.2978142-1-devarsht@ti.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 01/10] file: add callback for creating long-term dmabuf
- maps
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
- Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org,
- linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org
-Cc: Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi
- <joshi.k@samsung.com>, Anuj Gupta <anuj20.g@samsung.com>,
- Tushar Gohad <tushar.gohad@intel.com>,
- William Power <william.power@intel.com>, Phil Cayton
- <phil.cayton@intel.com>, Jason Gunthorpe <jgg@nvidia.com>
-References: <cover.1777475843.git.asml.silence@gmail.com>
- <ae941457cf6cacb9d4c16b6ec904da9ef7fed97f.1777475843.git.asml.silence@gmail.com>
- <f0dd8f89-835e-4331-b593-4405ec59f4fe@amd.com>
-Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <f0dd8f89-835e-4331-b593-4405ec59f4fe@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE4:EE_|SA1PR10MB7756:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9be8342f-1fc5-4b83-1daf-08dea6e710bb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700016|7416014|376014|82310400026|18002099003|22082099003|56012099003|921020;
+X-Microsoft-Antispam-Message-Info: 4pKjTyBn57V207fcuyg4152DMjvUTkSQJ7kcGIBrgDm/Z4n8e7jF3IV6hWQzzZhNQoxCkQuiqqEdCsxH5F+2nZfJC5EpdQ84oUfJZzNW9ZKSk84zI9g9h0lqnly9KkPMGXS28H/KMuWYQqyVm4+DgZCCr6KIi9dbq8lutlBqoz2ahveAYgHAu4dPD74uawcCRW13B1CSSqLPOXK+K9//qUydqtK/JOWwLG+GK0MJJxFQkqd/xtIziS2NeDQhiDb9kNt6yC+EKiUqHpxwwSWUnymO86qUGLNPEWTRnLowztlxxHvGyIpOnrw/RtC9qWXBcniwv8VMvqkN60pJ79YA7cdYVWOfU6dZuCATBzwMg2vpwEWvSfcpFMiBtsQKP/ECbGc75Q+yeYTUCRUaZBiBvL1MCmO7GrU+Ya8pgYUeZlMxJ6Xb/g3eXgQRFShwEZZzIoWlA6maYFS7uA0veCOnH2M+LRfZ57MtRF6W//5HPpr5NVQadAOJ2Gh7NReaImt8Cpls6fIZ9Uo/xhW6uVpmGJEm1I4NKD8efJoTgV+wiQ5KCa1xqToLFlHU/ZQX+YdhTAjWotTVNBAZvDhLzhSf0DKYP38c6zWkOkMNMDFD08syx+z1VpNyo1fq2UXtSYZMENGljleGbRFMlivm1kc3rdi22CpWF1A5Qbls1BVw95qY3487AWNFNUeRGb987duMHPMI+nVXecY3IyLhEGcddXLTkGH7vL+JQZQAciM9+vo=
+X-Forefront-Antispam-Report: CIP:198.47.23.194; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:lewvzet200.ext.ti.com; PTR:InfoDomainNonexistent;
+ CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700016)(7416014)(376014)(82310400026)(18002099003)(22082099003)(56012099003)(921020);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: l5446ALANKpRwQuotNk6IFXRc6OgcFG8faDBMI1uSC9YqbjKR6K5Slwa4UVCIgeNjtmxR4WKF2xAM8k/DqGad6F9HJGn4hTHuEhsLX9Eonj0JYKUbon795IcCv9cuYMDi23UKNWjeTJo2S4O9XJHO7S3OMC20u5rDbTLxmCFOC0iP2RcZqrDjCFUjYhCOGGGK0tyQkY8U63izG6KxW9hFbvUT3cZbQ8QyxhlprU8hkyw6ncTJfbVbAENK8jAWpsIXsUW8M8dvacbPr5kDjYM6X2dVIYJcYB8QTo2ywexbjxDaj2AL6yLLhgbjgbDnFF/GUt+HvVkTdzlZOqNnhMF+Gq1M5YFD0Q1xzMmiomz3Ms2++wbglFGVJUby2ql5h8M7QDVGr1Zk4VC882dJjttIJ4RvrlwqPY/2pv7wpG21jCkpuFPHJAWJpihIeNfxste
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2026 18:34:08.0249 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9be8342f-1fc5-4b83-1daf-08dea6e710bb
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7; Ip=[198.47.23.194];
+ Helo=[lewvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE4.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR10MB7756
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,28 +129,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/30/26 07:03, Christian König wrote:
-> On 4/29/26 17:25, Pavel Begunkov wrote:
->> Introduce a new file callback that allows creating long-term dma
->> mapping. All necessary information together with a dmabuf will be passed
->> in the second argument of type struct io_dmabuf_token, which will be
->> defined in following patches.
-> 
-> Well first of all the naming is probably not the best. Maybe rather call that dma-buf attachment or context or mappping.
+Add maintainer entry for the panel-ssd16xx DRM driver covering the SSD16xx
+e-ink display controller family (SSD1673, SSD1680, SSD1681, SSD1683).
 
-"Mapping" or "attachment" would be confusing as maps are created lazily
-together with struct io_dmabuf_map. I can name it create_dmabuf_ctx(),
-but I decided to use "token" not to collide with dmabuf terminology.
-e.g. I wouldn't be surprised to see some dmabuf ctx in the dmabuf
-implementation code. Maybe "*io_ctx" would be better.
+Signed-off-by: Devarsh Thakkar <devarsht@ti.com>
+---
+ MAINTAINERS | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-> Then the patch should probably define the full interface and not just add the callback here and then the structure in a follow up patch.
-
-I strongly prefer splitting patches so that they touch one tree at
-a time whenever possible. tbh, I don't see much of a problem it being
-not defined as it's just forwarded in first patches, but I can shuffle
-it around in the series so that definitions come first.
-
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 8e80296449ba..3a01544dbc50 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -8377,6 +8377,13 @@ F:	Documentation/devicetree/bindings/display/solomon,ssd-common.yaml
+ F:	Documentation/devicetree/bindings/display/solomon,ssd13*.yaml
+ F:	drivers/gpu/drm/solomon/ssd130x*
+ 
++DRM DRIVER FOR SOLOMON SSD16XX E-PAPER DISPLAY CONTROLLERS
++M:	Devarsh Thakkar <devarsht@ti.com>
++S:	Maintained
++T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
++F:	Documentation/devicetree/bindings/display/solomon,ssd16xx.yaml
++F:	drivers/gpu/drm/tiny/panel-ssd16xx.c
++
+ DRM DRIVER FOR ST-ERICSSON MCDE
+ M:	Linus Walleij <linusw@kernel.org>
+ S:	Maintained
 -- 
-Pavel Begunkov
+2.39.1
 
