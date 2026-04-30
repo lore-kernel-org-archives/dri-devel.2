@@ -4,71 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FC02FF886F
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 09:00:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88E89FF8875
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 09:05:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59AA210F2AB;
-	Thu, 30 Apr 2026 09:00:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB29710F2AF;
+	Thu, 30 Apr 2026 09:05:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="PQg2CdTR";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="UxvRzmOD";
 	dkim-atps=neutral
-Received: from mail-wr1-f74.google.com (mail-wr1-f74.google.com
- [209.85.221.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79CB710F2AB
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 09:00:22 +0000 (UTC)
-Received: by mail-wr1-f74.google.com with SMTP id
- ffacd0b85a97d-43d1dea12aaso587562f8f.1
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 02:00:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1777539621; x=1778144421;
- darn=lists.freedesktop.org; 
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=PqBhPKhd+Br9ZjEmkXcxZU210pei7kYegjOF/K5Z2t0=;
- b=PQg2CdTRVRD+twkWAtl0oB3Zl0WEFK7zq/BOkWzyCS7xU22C4M2I9HssMfQ02VoRUx
- 6LNf3KH+l182QdRQ3hr8zvrjNny7e9p5x6GiRawo0lKXX2jtJ1W+2VU+YS4gY+kYJJiF
- pjHETQJ0N3+yttRc+8eGL66dEab+wcJQG/ZuSzOHaWBcNau70wyavaXU5SjU/zT4iTdI
- hspNxuJ5hZUl8ymFv6W/AZracDMtQWfyxS+myq40om4LXdj8NTQM26nwf0G8H653ZU/L
- WCazKAVyw1L5W8kcLVyEbx9wRU3hpuTnUyNc8oM/QnvdLlj2fqLXQSeqH1qHuc9K3qXJ
- uoRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777539621; x=1778144421;
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=PqBhPKhd+Br9ZjEmkXcxZU210pei7kYegjOF/K5Z2t0=;
- b=WU/AYSF4K/kub5tv9FatPS0fmls7vITb3h0w0gkS2MaOJLFotTVsKYNobd5RLq5uFs
- Y8q0jf5fgK16V5rTUrSa8Tz0FOqfsXg+xRB+mi6OJRXC9waGXxyg6wW8/wHSAtuxJODx
- +MUhbruc4LQJNZnI6nozHWIcqOzQpHYoKn6vkvJ0M+6E6+yreADwBElxG4zv5wQSLOv4
- UD2wAlcK1E3VCKCv4zcSRyV5Pj79jpSOctbrTi28YixFCsk18GCfB/MeaSi8CdBVpMmJ
- zIjHHNV60lhJXe/FvmeLOhYlQuirbg9HXaoMk5z7xxsma+VqpDmvj6q5XOZl7Sr4JABX
- CH1A==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/cgnfjTWzJ2d+40EKYMcMfGfHyhTdZO9ZLq1cLv1obVwM+wnFlsRXv/NU8fb5rVswKy9te5j7/Vvw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyW8fILRuN/jRhBqdImnyq7JufA+qtY/Cj7Z6CXBKGDliQoUYIv
- 4nizrMZ2XKMv6oBytdKfLB6ZnlQO+pLm2VErNNEGg40GIN6sPSXbgNrCkuYl6tsFVGch66U45rM
- R560R3d+CoWx45e+9MA==
-X-Received: from wrwv10.prod.google.com ([2002:a5d:6b0a:0:b0:43d:74ca:3105])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6000:1869:b0:439:b8b2:fabc with SMTP id
- ffacd0b85a97d-4493e1c1512mr3145148f8f.21.1777539620636; 
- Thu, 30 Apr 2026 02:00:20 -0700 (PDT)
-Date: Thu, 30 Apr 2026 09:00:19 +0000
-In-Reply-To: <20260427221002.2143861-3-dakr@kernel.org>
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36DD010F2B1
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 09:05:39 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 68FC01A3488;
+ Thu, 30 Apr 2026 09:05:37 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 3BF9660495;
+ Thu, 30 Apr 2026 09:05:37 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 95AA710729FBD; 
+ Thu, 30 Apr 2026 11:05:31 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1777539936; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=PD/RBvG0tika4WQOlK7lbn7RBjWTyLutXnF4l1j9Jzo=;
+ b=UxvRzmODfHMo12B0XNI9V/YNYvaJ2APi/IS+VypBrK1o2YYm6ZFeM+ylGBSh9PuYRtwJCZ
+ XrTcbdErN1ec2QNmnQ+Ww2PtqdkwpY+aJFeUv5wow8sTV8Y4m2K0S1NWZHHx8JR+YXYrZ9
+ UCkKQbdIwmb4s8C5GU5Pg8gG5kaokfPZC55i9wcQ8auyGaOeRnEQJH4TM9k3+DAFwW1tMx
+ WnZws7T+iby3lYJW0KytEiR4mntj7K1ykbSZwMRcxOYYbUr4Ii/gTTt2/bI20e1s4X7FMd
+ p0Jw/kjLJ5crw829mIECy5orWM+17rThwhC6jOsG2fvG8dRJb/boLa/fvQvKww==
 Mime-Version: 1.0
-References: <20260427221002.2143861-1-dakr@kernel.org>
- <20260427221002.2143861-3-dakr@kernel.org>
-Message-ID: <afMaIz-EUsHbzqAc@google.com>
-Subject: Re: [PATCH 2/2] rust: driver core: remove drvdata() and driver_type
-From: Alice Ryhl <aliceryhl@google.com>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: gregkh@linuxfoundation.org, rafael@kernel.org, acourbot@nvidia.com, 
- david.m.ertman@intel.com, ira.weiny@intel.com, leon@kernel.org, 
- ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net, 
- bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org, 
- tmgross@umich.edu, driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- rust-for-linux@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 30 Apr 2026 11:05:30 +0200
+Message-Id: <DI6DBEZ98XQD.53GKJABIWR3G@bootlin.com>
+To: "Vitor Soares" <ivitro@gmail.com>, "Andrzej Hajda"
+ <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
+ "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
+ <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
+ "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH v4] drm/bridge: cdns-dsi: Replace deprecated
+ UNIVERSAL_DEV_PM_OPS()
+Cc: "Vitor Soares" <vitor.soares@toradex.com>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <stable@vger.kernel.org>, "Tomi Valkeinen"
+ <tomi.valkeinen@ideasonboard.com>
+X-Mailer: aerc 0.20.1
+References: <20260407144142.1420354-2-ivitro@gmail.com>
+ <DI6C5A83IG4B.1UV6WJMFQ9AA7@bootlin.com>
+ <19d0a0b1d33061a0421edf883acaaa7e366646c2.camel@gmail.com>
+In-Reply-To: <19d0a0b1d33061a0421edf883acaaa7e366646c2.camel@gmail.com>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,31 +74,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Apr 28, 2026 at 12:09:41AM +0200, Danilo Krummrich wrote:
-> When drvdata() was introduced in commit 6f61a2637abe ("rust: device:
-> introduce Device::drvdata()"), its commit message already noted that a
-> direct accessor to the driver's bus device private data is not commonly
-> required -- bus callbacks provide access through &self, and other entry
-> points (IRQs, workqueues, IOCTLs, etc.) carry their own private data.
-> 
-> The sole motivation for drvdata() was inter-driver interaction -- an
-> auxiliary driver deriving the parent's bus device private data from the
-> parent device.
-> 
-> However, drvdata() exposes the driver's bus device private data beyond
-> the driver's own scope. This creates ordering constraints; for instance
-> drvdata may not be set yet when the first caller of drvdata() can
-> appear. It also forces the driver's bus device private data to outlive
-> all registrations that access it, which causes unnecessary
-> complications.
-> 
-> Private data should be private to the entity that issues it, i.e. bus
-> device private data belongs to bus callbacks, class device private data
-> to class callbacks, IRQ private data to the IRQ handler, etc.
-> 
-> With registration-private data now available through the auxiliary bus,
-> there is no remaining user of drvdata(), thus remove it.
-> 
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+Hello Vitor,
 
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+On Thu Apr 30, 2026 at 10:52 AM CEST, Vitor Soares wrote:
+
+>> > -static UNIVERSAL_DEV_PM_OPS(cdns_dsi_pm_ops, cdns_dsi_suspend,
+>> > cdns_dsi_resume,
+>> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 NULL);
+>> > +static const struct dev_pm_ops cdns_dsi_pm_ops =3D {
+>> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0RUNTIME_PM_OPS(cdns_dsi_sus=
+pend, cdns_dsi_resume, NULL)
+>> > +};
+>>
+>> Not an expert here, but the docs [0] suggest using
+>> DEFINE_RUNTIME_DEV_PM_OPS(). Is there a good reason to not do so?
+>>
+>> [0]
+>> https://elixir.bootlin.com/linux/v7.0.1/source/include/linux/pm.h#L455-L=
+456
+>>
+>> Luca
+>>
+>
+> In an earlier discussion [0], we concluded that bridges/panels should onl=
+y deal
+> with runtime PM:
+
+Ah, good. Then please mention this in the commit message in v5. It can help
+others doing the right thing in future similar cases.
+
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
