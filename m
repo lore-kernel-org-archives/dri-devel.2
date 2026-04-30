@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA409CCFA13
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 11:07:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27EF0CD13D2
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 11:07:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 32A1810F31D;
-	Thu, 30 Apr 2026 11:07:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D8D710F322;
+	Thu, 30 Apr 2026 11:07:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="AgQH6BQA";
+	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="TOV9+q1r";
 	dkim-atps=neutral
-Received: from OSPPR02CU001.outbound.protection.outlook.com
- (mail-norwayeastazon11013049.outbound.protection.outlook.com [40.107.159.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 911B410F30A;
- Thu, 30 Apr 2026 11:07:08 +0000 (UTC)
+Received: from AM0PR02CU008.outbound.protection.outlook.com
+ (mail-westeuropeazon11013038.outbound.protection.outlook.com [52.101.72.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFA7410F30A;
+ Thu, 30 Apr 2026 11:07:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YO2mv1VY99QDz8LFSiDT6DqgHV+xx83EtMfasHfCqhimYzB75h/OspVvVzj6GDXy1jOHHGbfMaFBprHAOTkkMOGnmlr17vg1q5Hhfnl7Zmzk9AoS7MNuiqAS0wrmxjeF15ugEHC0IKg3UCHiRfZ2/Vius/0e/8iMh+XHk+SydGkgZKUSWyrr3pSby5zeB9bJYZJqdv1BRpw3GwaO79lekjt++Peenss+PN5f1Cc5EwSSvsGv6SN5nFvFC171qT28SvoofopAon9XRET1hwN82dsOofQ8PiyrC/Wgzi9yNyZicr6/s7YtCRQCsWifZ5Di9u7xTcaHiMK9GiybhGc+pg==
+ b=wJePuW3H47VYLIPvSGT7+Z0vF9llBL8Toew0zzUsLU5/0nUWcrWxv+ptHqmRgJwJkgK/JzUSKvBf+MsnXkuaC8uNKdKVQWhiyUqqRZxIeV68Fxeid7Z5JKpbhsInE9tsQv+Eue2XHTQvddrWhPqbS1BzOxEtRh1cQTW+QiDUaBlaMy0qWv+o899Dptxq1e2O+AUKWQOLZoz+j20Oh8YkN4iC6PmAvI1r4OdcAlwANTiPzeJXavcJIC9+rzrXe/fX51RCgR3F2yp0MingL3bK3+AatjOoxxmfihnCYkcFF2ZKTnGuqwpCH3DS76ewBf8f4jPEAtb/r5H7leWEUYnTtA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BksTTm3Z/8WIj/u8E3VsRp1u6rwv8lKOq4Z69298DCs=;
- b=UOAqS8KhUWvMDNlYTyaHksWjx/o/XdHFuUvNW/hCIvGUxvi6m+9vptqwnUYIqJU+RGK9tXcMtjZT5PABoGmgAwb0GS1i8xHxg+JepslBXdQXrDsJ5a3L7FPXT4xyzNvY3HbjdruW6/7rfITpTxD4juAGsi2ZbNwkgUGhfDQHWXv9NNsS9IPEDN4m2S8bVt3+3cjFdZhQhil8539g0LWMMtoxHvUi7GLoDiiKoQHG0JtneRGfF0yHrn7eIPW71WUCzreG2ekdap0LU4SxJMx2nRF8BhQdhoJsWsXzR6UE3KpnLpRpkYERzkYWHm1Ot9MbtChpTfYbjMpxIE7FSoiYaA==
+ bh=GIWImDhFoFRUTB1MQmQH08WbG1zXPmUNoZw37U0hNq4=;
+ b=ZNck74F8N75zWWwjtoqVsq3EJNWjIAlfXr+6IKgc5txb2DTJM1GNF5uz/sUL5oxL3ycQK9ixaXgcE3P/G99VOco4tKxVzS2rilnijA/t8yCrDabgTAmmYe+rVU/NBIQaHPkskshrAPZDoXhTXR+1pSjLSFWKQvY0pdJ8ckSPBO8OOlS5AnvIQ3CLkX9uTqtTi+NA9mPnBfTb3fRvHThHZlD/BtONhRvbM0qbvkkLky9Oxw7pduJ/oruPlCSFiw0NWqwRE5AKAElB3owi+Dr6Jh8OWJxXX4QiZ7cru1j9DM0U2Z5wpjcVZP4x2EIPLr6DkK6Bkry/tX8jH4amXdQRIA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
  header.d=nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BksTTm3Z/8WIj/u8E3VsRp1u6rwv8lKOq4Z69298DCs=;
- b=AgQH6BQAUWKGJWKdbNImFW8QLsTHOouNkPwu+chek2trzkaWlecRH4OnNFmLLSuDHUXz9keHikYZ7mR7oTnaajA1iDvlcNwlAo6KVuJD1UEQy8aIRVoStCyc0YQY947irt0ojHTxQdfZFeVcSskBjMXVKydgx4YYriQjVocM96Zd8GmPx7vgV06940MB3+L4mVL2plwZhg/n/GIevHei29rluKTfOJbBSuu0j4ttV9V4exwX/NF+DxpBAD3ykbbJexdXwJr0vuOSngpS2PSWlsaKXH2t5owA1m5jXp0czACmcemss5++5TVUbSKFiUiJdRaOlXVNUlfxXqsO47yV/g==
+ bh=GIWImDhFoFRUTB1MQmQH08WbG1zXPmUNoZw37U0hNq4=;
+ b=TOV9+q1r/Yj8Ijr3K5hKEjO/eghLo5OPUvlLixTC+WNypF+vbxWZ91Y1J7xn0uQ7X3249UhcaI/M/qm8xV8Jiu9o1FKMp3ESP2Ak97XZs8ZT7vVyEbshU13zVx4ioPuy9o1GMY3XpFLJQ9YLLCLUL1qDFq3qaZWNs4eyzWFsJlbOdrru/oQZQAZSzJlNevhAw4FlzEZgQK+0aY0/d0i2+d0IdVTmjCMVrzDRB6UYm+SUN6hq6IMz2jlRpZCuOeUSbTdKRYZdwk/1QaIB0avmL3BIzK0n0WQLdft7sfAoYbX7c2asW9ORooKQgle+5bangk4f4pJKwkwGLRtLpzdwjA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nxp.com;
 Received: from AM9PR04MB8585.eurprd04.prod.outlook.com (2603:10a6:20b:438::13)
- by GVXPR04MB10609.eurprd04.prod.outlook.com (2603:10a6:150:219::13)
+ by VI1PR04MB7182.eurprd04.prod.outlook.com (2603:10a6:800:121::7)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.18; Thu, 30 Apr
- 2026 11:07:04 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.20; Thu, 30 Apr
+ 2026 11:07:17 +0000
 Received: from AM9PR04MB8585.eurprd04.prod.outlook.com
  ([fe80::f010:fca8:7ef:62f4]) by AM9PR04MB8585.eurprd04.prod.outlook.com
  ([fe80::f010:fca8:7ef:62f4%4]) with mapi id 15.20.9846.025; Thu, 30 Apr 2026
- 11:07:04 +0000
+ 11:07:17 +0000
 From: Vladimir Oltean <vladimir.oltean@nxp.com>
 To: linux-phy@lists.infradead.org
 Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
@@ -54,87 +54,88 @@ Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
  linux-scsi@vger.kernel.org, linux-sunxi@lists.linux.dev,
  linux-tegra@vger.kernel.org, linux-usb@vger.kernel.org,
  netdev@vger.kernel.org, spacemit@lists.linux.dev,
- UNGLinuxDriver@microchip.com, Geert Uytterhoeven <geert+renesas@glider.be>,
- =?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>,
- Peter Griffin <peter.griffin@linaro.org>,
- Tudor Ambarus <tudor.ambarus@linaro.org>,
- Magnus Damm <magnus.damm@gmail.com>, Heiko Stuebner <heiko@sntech.de>
-Subject: [PATCH v7 phy-next 05/27] phy: add <linux/pm_runtime.h> where missing
-Date: Thu, 30 Apr 2026 14:06:30 +0300
-Message-Id: <20260430110652.558622-6-vladimir.oltean@nxp.com>
+ UNGLinuxDriver@microchip.com, Heiko Stueber <heiko@sntech.de>,
+ Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Subject: [PATCH v7 phy-next 12/27] drm/rockchip: dw_hdmi: avoid direct
+ dereference of phy->dev.of_node
+Date: Thu, 30 Apr 2026 14:06:37 +0300
+Message-Id: <20260430110652.558622-13-vladimir.oltean@nxp.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260430110652.558622-1-vladimir.oltean@nxp.com>
 References: <20260430110652.558622-1-vladimir.oltean@nxp.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AS4P192CA0006.EURP192.PROD.OUTLOOK.COM
- (2603:10a6:20b:5da::7) To AM9PR04MB8585.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AM0PR10CA0025.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:208:17c::35) To AM9PR04MB8585.eurprd04.prod.outlook.com
  (2603:10a6:20b:438::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM9PR04MB8585:EE_|GVXPR04MB10609:EE_
-X-MS-Office365-Filtering-Correlation-Id: c8e20b1b-29a1-4f9b-89cc-08dea6a89ca8
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-TrafficTypeDiagnostic: AM9PR04MB8585:EE_|VI1PR04MB7182:EE_
+X-MS-Office365-Filtering-Correlation-Id: db646d73-fd00-4d41-3668-08dea6a8a431
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|19092799006|376014|7416014|10070799003|1800799024|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: OSXxN9u3a1XmB5epDi794iCNjteOWV6B24hL4qVPCQWI2xvnl+732lhhGOj3Nxx2uSOxHEj1JYWucMbdwmGYQv2kfNQoSKPkErLCAe6HgztaZc4CapFkfP5zy4giEVdXxKwa3KEEzY57Mm2YNm2Kev354m9w6/VyMhAqRaWv26w4ReCIFnY8jfWzMSkF9vkYXQLk+3oyxWauA01gh6kq2m5ar17D+xElAIWYGNkdCZe1O3+YrHvACOhUaKQlAhyzvMNN8P5pKj04kaXqUHI7G/rzDoh0IcQogGLC/T7o3folwpykKboZwkAJ4+ZlTqdbX1LgLr79gwYQopCJToXvBzg65jOR4KYArNpftgKFOB7ZtE8F09sHcB4HvXnFFCqQSlQFJO9kDxZjCJD7yA1ZAAoebnx3dK9FVBN7Gjeglmxb2VhvW/1sTeu+dz6JMjTGmK5kMb5qlq0YcINYMyQPRyZV/vzGLzKFwsUjHXKFockGEIZRfHdLL23fVM1jXU9haSlp6ANP1SFOyC06WTBZ2spwWNxOpuEKxzoPtcvUPwFowH5gyBbO0RQhyn4CgXdg9YesFI8TSyyiDbVkoJlgo7yoDyeJrS7h0vHVzUwJGcAqvyLUg6jGcL5HyCQ8W2LXLDnaS/gChJug1hJbz0YRPUGY5gJe23JBvI+7tkrsjf8rLG5OkHvXXRonNKX4AiRI7Mzjv20WbLuv6XIUPIlCwb34E3e9qzvZS7z9QgUT33E=
+ ARA:13230040|10070799003|7416014|376014|366016|19092799006|1800799024|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info: IVUr3iPHMjqRHlgO4H8Az9DKhkUSAxhJOPyaD8WBtG4rkKLcdFrpE/XuBgy3eUL5x/uQZqgJM1C8NKBTFZ5UvR1E0fimyaqAliifN9KUJneC0XQXd86O3/e7sdGhfKPxQ6hEBKJxg1LTbu+icQyLXh4fI1NS8lQAO/BFjhv9xrUZARyJ0NQt152qJWsG7gQuZr9haBm0ib48NC1Dukexh88LU/A+8D5UNro+iKUgMqI/hS/lri0fMTXPLOnDJ3fpffUX3zG/etTnblR1EVjRK+CAFT3TlfXR491eDsqyDdDa7Yj9U7Oh1PZaaPS1bqwUh6edo+VtphpuF8w/GD0zmLUwKlYpQ9iK1ljV7456VX3Yu6JmAZhTRgWZlsXT6cXBE18kiloMONbQJPoqqRB1DtY//2yw5FV94njQwdnTMG+VJj7fQS/kPCPoobf5YW1Z2p/4OvWwrzL6CjL8PW5bF9+JsRAVNwF/erHJsXMcsb8/9w+KMPWJoKQz/PISJwqJDVVBbazt07O26KmJeyzoh+VHDQHgDthSTMs7wRP6xwZWV01DZ/Jw5sj2jr+K3dYa7MzduySNJe6eBX4OKpzAgCja+BM5bctTdrDKMNUAVjZ74DQq6/0zVr5MXAnPFdVF4H51rTNEniqppHIXN/R7R62KpUpie38X7XF9c+3/4OQ/Nea+HyOUXysrvqZ4yCE5II1UZ7Xo9XrjRHP6tjdvioR5QMBJO90Xd1kXrBtBdks=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:AM9PR04MB8585.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(19092799006)(376014)(7416014)(10070799003)(1800799024)(22082099003)(56012099003)(18002099003);
+ SFS:(13230040)(10070799003)(7416014)(376014)(366016)(19092799006)(1800799024)(18002099003)(56012099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MEljS0xuT2RYQ2Qrdngrc2ZjcjByNlJLek1DODVXZjA2UlNGQ0EvT0dSZDll?=
- =?utf-8?B?Rjk2YkRXU3dJZlFUazI4NjA4dWcvYVM4Y1BMMmpCMWY3U3hpemYzNmIzdjhV?=
- =?utf-8?B?U1NobUticUpCQXd2Z1pyRlp0Mnh1VjQ3QVRoRXFrdmlsb1NYNlplcmtKczNY?=
- =?utf-8?B?NXFacTdoaFNEdU9kYVFZbzJvcFVjcUJsdnlMZ1k4dlRnYy9KYVFxYTQ0aXlu?=
- =?utf-8?B?N1BiWEUxa0NvK3UvWllVZnRMdkplQ29qUXcxeWNQelFvT0ZaVmJzdlpaejR4?=
- =?utf-8?B?VlBJMW5jNGNvVmt2Y0tlN0xsaXRuYmZQRWtXbGkwV2duZVFjZ1N0VjJCTHQx?=
- =?utf-8?B?bVZWNk1zSjFieDdvTC9lb3NrSWRFYVZQUmZsTUl1YXl6ekVOYXlsTW1xRlNm?=
- =?utf-8?B?Z1NtRUEzdVk1b3FmOGlBM0toMm1iNVlFQTZkQzlKNnpOWFlRRnYrTllqdmtM?=
- =?utf-8?B?RmR6clBxNTRmQ0Z1aUpmMTRnN3VHWCt1WmZjdkQwbTVySjU1d1Y5STNwNUdT?=
- =?utf-8?B?YjRNNHpxTjZUekEvNnNOcFU0QlhpYXl4b21BQStxZko1ckhuYTVFdHhSaHAv?=
- =?utf-8?B?NUlwWU9GdFlLMGVLTTE4OElPTEdCQ2VUU09ERDFGSmNSMk12Y1FnNHNKckZp?=
- =?utf-8?B?THI3SzhRQXk3UHZQRXNhWCtzeDMzdFVLQlpIeU1DdGF4ZFh1TnZFQjZCZHp6?=
- =?utf-8?B?Vkh0VVNBRVFETEFoV3A5b0lDSS9LNzk4ZGJCYWpQWmhsYWl5cHlCL21lc2dQ?=
- =?utf-8?B?ZU13NXJFd2V2T2I4aE9FSnBxS2RmdFlZWlF3K2hUNmsyYkEzL2pINGZoYWlu?=
- =?utf-8?B?QS9vRjl5ZjdTbmxEMlNDUkpvNXMwOGwvNnBEK2ptYVFWUWZqSll2RFZvd3VB?=
- =?utf-8?B?SkNzdnRwdVgvTVdYdWpES3BPNXNCaGJLYkRIbThBWmdITGNXTmw5TVB0cjdm?=
- =?utf-8?B?ZGVsQ25RNVdUc3RrQ0tOUXJuSEZTNGs2cEtMcmtvWEIvcDRmTXI1MVNKdjM5?=
- =?utf-8?B?QWs4SWhBSHhnbjFaVTJyYytlR0ozSnJ2WDNyaTJRSTBEUzlxeWFUMEkxY1hp?=
- =?utf-8?B?emdCMHNCdDllaGFYK29ESENwTGxxQmZGSjk2YzRRVTc4VUd6Rm1jK1R6TDRR?=
- =?utf-8?B?N1VvZ28vamhtQ3VmU2xRRkZtejE0UElFT3o1V1FSc0x3bFdrR2ptVy84emJ1?=
- =?utf-8?B?VkpVd0xQOHpLbDJTQ2wvZkl6OC9ka1RzR1lRdWU3MEVNdHY5SkVaWUVyNGhs?=
- =?utf-8?B?SFEwcGROeW0zWnlDMVJkRVRlSXdGRzhWc0pXSVRtc2RrMGNxeVZRNWFZbmlZ?=
- =?utf-8?B?YWptZWVEY2FRZUtBSi94aGJBeGU2UHA0N3ZobGl3c2ZJOXp1RW40TnkrT3BB?=
- =?utf-8?B?c3BwUjUxeEF5cmgxSTJ3TWVzNjhnODg1TnFIVlpKd3pJVDBUTzhiWHBDbU0w?=
- =?utf-8?B?bS9aNmJHL05oTldJYzgyTW5MTXpHYnZWUmZnVTZiN3RBS3hXdEwydkVILzl5?=
- =?utf-8?B?NllydGd0cW1SeTNJclMvYTc2YVEzRTJMTm10Zk8zQjc2UzZJZDhRN3JhdWdZ?=
- =?utf-8?B?ai9MZEEybWRQNFdBMzk3dVI2S0V1cmpJQWhQSjFrb2QwMmwxblNpZ3Y5c21j?=
- =?utf-8?B?bnYzQmlqYkZCZ0x1U2cyd2svS0pDcDZ4b1hDUmhIblYwSTBRY29jYkVXclZ1?=
- =?utf-8?B?c0UvRm5Wdld6RS9vVWFteXpVRGZra2RMUjc3TGdoaGU2bGo5WnFtVUJmcGYz?=
- =?utf-8?B?OWdnbS9wTFJ2T2Q5VThVdzJwYkVTV2djb1pqRFFsTk5FSE1yNTIvUGgyZzg5?=
- =?utf-8?B?UHJWNWwzK3VJdnhhUUgyZmY1c1grSW50cmE5RUNMelV2eUVIZHFnU0QwSHYw?=
- =?utf-8?B?V1NlM0dIc1NBb2M4OC9wS0J1NktwV1Y1Yy9NQkE4Q1VYTVBOTk03cFBzalJ2?=
- =?utf-8?B?VXJOUFpINXNPWmxsSUl5QTQ4bTlGVE85dWdmYVJ0YzB1TDA1WklUR2RGdGcv?=
- =?utf-8?B?cTcvY1VOVWtsRks0cFR4aGg0cDE2ZkxGeitYNVZUN1NmaTdUZFZCOUJZeFBQ?=
- =?utf-8?B?WGh3a3VOTHlkd3RCYlNWTGN4Rm9JMTdST0MwUjlEdzJoYmIyRmpDVFVseDla?=
- =?utf-8?B?ZUo2bVVZam1QMjR6Z0IxY3RLcHdVa1k1NkZON1MzOUo1MHlyZFFycUlRR2VK?=
- =?utf-8?B?MitVTVJ0MTE3MDRKM3lRcHZwN2RVRk4vL3lXMVhTd2lqTWI2UnNMcG9xZGpu?=
- =?utf-8?B?VTFuMmhnaGxNUEtMUkhCbnlnSlVXR1VpZjd0UEpFbG9nVXRabGhWM1lDUFFQ?=
- =?utf-8?B?SDMyV3c4dDJzanFCbWNKSXRnTkpaOW1uLzVsRXJDSzdRUUdtSWNWVGtudGk1?=
- =?utf-8?Q?nnPyhE5gya2cr/3vpCKEBHR0dhV/+k6n3to3r?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WE5YdmlwZ3I2RGxLdDM5YkNnOENaWVpxY2U4VmVjTWNrc2VIR2M3ZU5vUGhl?=
+ =?utf-8?B?V1ZLWUU3TWo0WjE5OWUwNkhWY1BuTGZoUFpwWU9valNpLzFwUXBvUmc4STFr?=
+ =?utf-8?B?aFJMUVUyTzdWb3ZLOHNXUmR6bE96UWhOMHc1V21VM09nem9VWWd2NS9BVGV2?=
+ =?utf-8?B?dUY5NVF5OCtyeGNVWUFhN29tUURiL0IwS0tVakxVMEFBc3RPS2tieG9KcG1K?=
+ =?utf-8?B?TTRWZ1pNQVoydWJrMHVoNFZtUjFBVFRTYlllRVJCWmdzRVlHSjliU0Z3UlJF?=
+ =?utf-8?B?anJ5azFIaXBRUTlSYmJ6STNVZ1BPdU5pbUhnOWkzUGYwR3ZMOCtUVG1mTWwz?=
+ =?utf-8?B?bHc5b1l4WTdvRUcrUy9WcnJkMnIzU1dqMFNzaWg3MU1LbUU3RndlQzk5dmNP?=
+ =?utf-8?B?UXZFclJnK1plYVlSRUZmdzROYWdDOGp6K0tsVmJOM3hJTVlaekJlb0E5UjF3?=
+ =?utf-8?B?Wmd0UEdWZTlFdGJGVVJvNnRYaTk2akhydGZoNUJmSzhzbTNNUi9IWkFJRnor?=
+ =?utf-8?B?Y1RhS1BGUXd0YzBqbWp0aThCb1hFRFBDeE1GaW1ZYWExK20xREVLbHpmcTdE?=
+ =?utf-8?B?aVNnb2t6QVhlS0ZxUnExQWQ2T1lHR0s4dkFTMXVybUtNdmlTUnd5b0dDT3JW?=
+ =?utf-8?B?eVBQTXFOYUI0bmptUXova2dYQkJveGxydm85QzRFOXZ5c1ROSlgvYU1TdHNL?=
+ =?utf-8?B?eEpHNVk4ZnRvSDFRbVBVaktTV1NVYWhWdXEvdlpPSnVVajMwUlp6N3lYVGZo?=
+ =?utf-8?B?Y045b3RHcklqUU9aYnpvY3NJNkNuY3RFNHVyY01YVTNiYThlcGpHbXdsMksx?=
+ =?utf-8?B?NGgvNDNMYW1hVG9CQXJoVnJGODFVRy93VVBuaXJqamZINVpaQmh0dDJ3c2Vt?=
+ =?utf-8?B?RW5EQWhlRTJvZ2ZFWTE4MUhacDZKZ1AzUm9MN0ZtRnllRDF0bG04b09PZ1NY?=
+ =?utf-8?B?c2dJUm9qL3ZkWjZyRDc2SnBhZC9qWHF4ZHU0SlF4NVIxZGNjTXRicmxwOVgy?=
+ =?utf-8?B?V1M3N1grWHZmeHE3S0xvMWM3WWxXMlYyR1hXbWp6MWtXLzV3UmhSbFJ3WWND?=
+ =?utf-8?B?QnJBbEVTM1BYaXo4VFEyM1VmWWlJeHllMzhaM1NtTTVQbU1WYk16cU9YSkYv?=
+ =?utf-8?B?TDEvSm1YK1cvSE1kOExVUVBFMi9ueW4zQUEzWFNKUWl5U0pGeHE5alZ6Y3RY?=
+ =?utf-8?B?VitGejkxaXREcUxWazZpbUUzUmZiZGdybncwam94cTBodlg2M3ZIYllJald5?=
+ =?utf-8?B?TlBNQThLUDRVR0NubGpwb2F2S2xNRUlaRWNhUWs4WDc4U0pLSXZkZlZmQWsz?=
+ =?utf-8?B?ODd2T2xJRlB4QUhOUUtDbDVzOW5XVTIwdGhIY1VVb2E3WVlPbmh1TUJrSDYr?=
+ =?utf-8?B?cGFKVHRoa0I5N3J2QzM0bVl4b043YkJDY3VKQVhwWE0ycld4YU9qU2dlVXA3?=
+ =?utf-8?B?NGVGMUJHajV4dndxK1M4dFE4aWt1V1JjNXRXQk5XMnNjSDIxek9TdllFcGpP?=
+ =?utf-8?B?NWZIakwwczNuVHlzTEFSVEQ4QmoxMUI0QnJROG9WdWh6QkZDazl6RFgyaTJm?=
+ =?utf-8?B?WEoxR1J6TWRxcFgxbFIvUXdJWk9xbXZseU1GZmw4QkRFQjQxZ2dLTFRnUkY0?=
+ =?utf-8?B?MHprWGs0UERaaTdsdVJVZHVoWUlRN3ZqT3g2RWNoWGNuT3Fqd3RISmUyQTQ0?=
+ =?utf-8?B?dUI3TDI5Z3krQlh0RTlTV0ZsU2hTbFQwaEZPMVJXaHEyZyszRDBleDJqVEdD?=
+ =?utf-8?B?STlVODlwcGpMY3AwUzU4NlFSN0xqb0JaZHJJY05UTkE5eDJid2RlVG9yb2ZL?=
+ =?utf-8?B?bEhxNXFJTGdrbm1ZY0xSYmdtcVNJSk5NVkQxTFNRLzdRaUhwa0twQjh5TkJo?=
+ =?utf-8?B?UGNKWDZtUFEwZkpjUW9kd1RIcUpoMk1JaUlMTlV2UVpKSXpMRlYvVWVSYW5I?=
+ =?utf-8?B?Q3BSS0xYZ3JTVHFHaU40MkFHcmYrSnNuVWtEUVltM3dwWFErbi9UenlkRS9Y?=
+ =?utf-8?B?NEVUdURSZEF4WnBMbW15SndCbXdqT204TGRLdENlQ0cvWUdrazAxb3hGSkYw?=
+ =?utf-8?B?UHhzV3lSYUlZUUFvZzh4SG9XVGZCam5COG9FaHZDV3lNcFZmOExqUm5oNnA5?=
+ =?utf-8?B?RHF1YjJXQ1dNRkI1ZlhXUHkvb29aUzBNN2tCK2Q0Z0wxRDYxbGtsL0J5NnNQ?=
+ =?utf-8?B?Q1JHZmFMSkhucnpYL0hWM2k4TWEyR0E3VWZaNnMwckppRlBlbVpHL3VNajYz?=
+ =?utf-8?B?UXFMZE5CY0FPMVRYRndzdDlHUjJ4NG1JTW9SaVc5YVF4bFd3d0U1VUd4UVNF?=
+ =?utf-8?B?dUJkRkZPM0ZPTXNkMi9SZ3I4WUFBUFNjT3dsMkdpSEhDNGtuK2pReXE2WnFJ?=
+ =?utf-8?Q?8KRej92DgZHDTgXm7exCTSOp328P31xJ8KgQN?=
 X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c8e20b1b-29a1-4f9b-89cc-08dea6a89ca8
+X-MS-Exchange-CrossTenant-Network-Message-Id: db646d73-fd00-4d41-3668-08dea6a8a431
 X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8585.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2026 11:07:04.8201 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2026 11:07:17.3974 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rSjQrYp8ssvEfS0pKCkTmLEcTwWxWyQ3rw782VVCLZ/vRKQLw+ujhmtCbU5D4nJmeKat4kFrls1UsgXQM5XpWA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10609
+X-MS-Exchange-CrossTenant-UserPrincipalName: Tezv3psilxXrmigSU/eM7ogguU80nYMJxJjVEs+eMYMSOE11cy3ZJQ28Bqa9MlyEvBd+9ZrAh1nP0nnseilUmg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7182
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,186 +151,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-It appears that the phy-mapphone-mdm6600, phy-qcom-snps-femto-v2,
-phy-rcar-gen3-pcie, r8a779f0-ether-serdes and phy-rockchip-typec drivers
-call runtime PM operations without including the proper header.
+The dw_hdmi-rockchip driver validates pixel clock rates against the
+HDMI PHY's internal clock provider on certain SoCs like RK3328.
+This is currently achieved by dereferencing hdmi->phy->dev.of_node
+to obtain the provider node, which violates the Generic PHY API's
+encapsulation (the goal is for struct phy to be an opaque pointer
+with a hidden definition, to be interacted with only using API
+functions or NULL pointer checks, for the case where optional variants
+of phy_get() did not find a PHY).
 
-This was provided by <linux/phy/phy.h> but no function exported by this
-header directly needs it. So we need to drop it from there, and fix up
-drivers that used to depend on that.
+Refactor dw_hdmi_rockchip_bind() to perform a manual phandle lookup
+on the "hdmi" PHY index within the controller's DT node. This provides
+a parallel path to the clock provider's OF node without relying on the
+internal structure of the struct phy handle.
 
 Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be> # renesas
-Reviewed-by: André Draszik <andre.draszik@linaro.org> # google
+Reviewed-by: Heiko Stueber <heiko@sntech.de>
 ---
-Cc: Peter Griffin <peter.griffin@linaro.org>
-Cc: "André Draszik" <andre.draszik@linaro.org>
-Cc: Tudor Ambarus <tudor.ambarus@linaro.org>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Magnus Damm <magnus.damm@gmail.com>
-Cc: Heiko Stuebner <heiko@sntech.de>
+Cc: Sandy Huang <hjc@rock-chips.com>
+Cc: "Heiko Stübner" <heiko@sntech.de>
+Cc: Andy Yan <andy.yan@rock-chips.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
 
-v2->v7: none
-v1->v2: collect tags
+v4->v7: none
+v3->v4: add commit message clarification of what is understood by
+        "opaque pointer"
+v1->v3: none
 ---
- drivers/phy/motorola/phy-mapphone-mdm6600.c    | 1 +
- drivers/phy/phy-google-usb.c                   | 1 +
- drivers/phy/qualcomm/phy-qcom-qmp-combo.c      | 1 +
- drivers/phy/qualcomm/phy-qcom-qmp-usb-legacy.c | 1 +
- drivers/phy/qualcomm/phy-qcom-qmp-usb.c        | 1 +
- drivers/phy/qualcomm/phy-qcom-qmp-usbc.c       | 1 +
- drivers/phy/qualcomm/phy-qcom-qusb2.c          | 1 +
- drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c  | 1 +
- drivers/phy/renesas/phy-rcar-gen3-pcie.c       | 1 +
- drivers/phy/renesas/r8a779f0-ether-serdes.c    | 1 +
- drivers/phy/rockchip/phy-rockchip-typec.c      | 1 +
- drivers/phy/ti/phy-tusb1210.c                  | 1 +
- 12 files changed, 12 insertions(+)
+ drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c | 25 ++++++++++++---------
+ 1 file changed, 15 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/phy/motorola/phy-mapphone-mdm6600.c b/drivers/phy/motorola/phy-mapphone-mdm6600.c
-index fd0e0cd1c1cf..ce1dad8c438d 100644
---- a/drivers/phy/motorola/phy-mapphone-mdm6600.c
-+++ b/drivers/phy/motorola/phy-mapphone-mdm6600.c
-@@ -17,6 +17,7 @@
- #include <linux/of_platform.h>
- #include <linux/phy/phy.h>
- #include <linux/pinctrl/consumer.h>
-+#include <linux/pm_runtime.h>
+diff --git a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
+index 0dc1eb5d2ae3..7abb42e486c0 100644
+--- a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
+@@ -537,21 +537,22 @@ static int dw_hdmi_rockchip_bind(struct device *dev, struct device *master,
+ 				 void *data)
+ {
+ 	struct platform_device *pdev = to_platform_device(dev);
++	struct device_node *np = dev_of_node(dev);
+ 	struct dw_hdmi_plat_data *plat_data;
+ 	const struct of_device_id *match;
+ 	struct drm_device *drm = data;
+ 	struct drm_encoder *encoder;
+ 	struct rockchip_hdmi *hdmi;
+-	int ret;
++	int ret, index;
  
- #define PHY_MDM6600_PHY_DELAY_MS	4000	/* PHY enable 2.2s to 3.5s */
- #define PHY_MDM6600_ENABLED_DELAY_MS	8000	/* 8s more total for MDM6600 */
-diff --git a/drivers/phy/phy-google-usb.c b/drivers/phy/phy-google-usb.c
-index ab20bc20f19e..48cfa2e28347 100644
---- a/drivers/phy/phy-google-usb.c
-+++ b/drivers/phy/phy-google-usb.c
-@@ -16,6 +16,7 @@
- #include <linux/of.h>
- #include <linux/phy/phy.h>
- #include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
- #include <linux/regmap.h>
- #include <linux/reset.h>
- #include <linux/usb/typec_mux.h>
-diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-index 93f1aa10d400..b9ea7d058e93 100644
---- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-+++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-@@ -16,6 +16,7 @@
- #include <linux/of_graph.h>
- #include <linux/phy/phy.h>
- #include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
- #include <linux/regulator/consumer.h>
- #include <linux/reset.h>
- #include <linux/slab.h>
-diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-usb-legacy.c b/drivers/phy/qualcomm/phy-qcom-qmp-usb-legacy.c
-index 8bf951b0490c..2bd5862c5ba8 100644
---- a/drivers/phy/qualcomm/phy-qcom-qmp-usb-legacy.c
-+++ b/drivers/phy/qualcomm/phy-qcom-qmp-usb-legacy.c
-@@ -16,6 +16,7 @@
- #include <linux/of_address.h>
- #include <linux/phy/phy.h>
- #include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
- #include <linux/regulator/consumer.h>
- #include <linux/reset.h>
- #include <linux/slab.h>
-diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-usb.c b/drivers/phy/qualcomm/phy-qcom-qmp-usb.c
-index b0ecd5ba2464..d88b8a415e85 100644
---- a/drivers/phy/qualcomm/phy-qcom-qmp-usb.c
-+++ b/drivers/phy/qualcomm/phy-qcom-qmp-usb.c
-@@ -15,6 +15,7 @@
- #include <linux/of_address.h>
- #include <linux/phy/phy.h>
- #include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
- #include <linux/regulator/consumer.h>
- #include <linux/reset.h>
- #include <linux/slab.h>
-diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-usbc.c b/drivers/phy/qualcomm/phy-qcom-qmp-usbc.c
-index c342479a3798..f62e1f6ecc07 100644
---- a/drivers/phy/qualcomm/phy-qcom-qmp-usbc.c
-+++ b/drivers/phy/qualcomm/phy-qcom-qmp-usbc.c
-@@ -16,6 +16,7 @@
- #include <linux/of_address.h>
- #include <linux/phy/phy.h>
- #include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
- #include <linux/regmap.h>
- #include <linux/regulator/consumer.h>
- #include <linux/reset.h>
-diff --git a/drivers/phy/qualcomm/phy-qcom-qusb2.c b/drivers/phy/qualcomm/phy-qcom-qusb2.c
-index eb93015be841..191040f6d60f 100644
---- a/drivers/phy/qualcomm/phy-qcom-qusb2.c
-+++ b/drivers/phy/qualcomm/phy-qcom-qusb2.c
-@@ -14,6 +14,7 @@
- #include <linux/of.h>
- #include <linux/phy/phy.h>
- #include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
- #include <linux/regmap.h>
- #include <linux/regulator/consumer.h>
- #include <linux/reset.h>
-diff --git a/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c b/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c
-index eb0b0f61d98e..8915fa250e81 100644
---- a/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c
-+++ b/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c
-@@ -12,6 +12,7 @@
- #include <linux/of.h>
- #include <linux/phy/phy.h>
- #include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
- #include <linux/regmap.h>
- #include <linux/regulator/consumer.h>
- #include <linux/reset.h>
-diff --git a/drivers/phy/renesas/phy-rcar-gen3-pcie.c b/drivers/phy/renesas/phy-rcar-gen3-pcie.c
-index c0e5a4ac82de..3e2cf59ad480 100644
---- a/drivers/phy/renesas/phy-rcar-gen3-pcie.c
-+++ b/drivers/phy/renesas/phy-rcar-gen3-pcie.c
-@@ -11,6 +11,7 @@
- #include <linux/of.h>
- #include <linux/phy/phy.h>
- #include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
- #include <linux/spinlock.h>
+-	if (!pdev->dev.of_node)
++	if (!np)
+ 		return -ENODEV;
  
- #define PHY_CTRL		0x4000		/* R8A77980 only */
-diff --git a/drivers/phy/renesas/r8a779f0-ether-serdes.c b/drivers/phy/renesas/r8a779f0-ether-serdes.c
-index 8a6b6f366fe3..c34427ac4fdb 100644
---- a/drivers/phy/renesas/r8a779f0-ether-serdes.c
-+++ b/drivers/phy/renesas/r8a779f0-ether-serdes.c
-@@ -12,6 +12,7 @@
- #include <linux/phy.h>
- #include <linux/phy/phy.h>
- #include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
- #include <linux/reset.h>
+ 	hdmi = devm_kzalloc(&pdev->dev, sizeof(*hdmi), GFP_KERNEL);
+ 	if (!hdmi)
+ 		return -ENOMEM;
  
- #define R8A779F0_ETH_SERDES_NUM			3
-diff --git a/drivers/phy/rockchip/phy-rockchip-typec.c b/drivers/phy/rockchip/phy-rockchip-typec.c
-index d9701b6106d5..0a318ccf1bbf 100644
---- a/drivers/phy/rockchip/phy-rockchip-typec.c
-+++ b/drivers/phy/rockchip/phy-rockchip-typec.c
-@@ -49,6 +49,7 @@
- #include <linux/of_address.h>
- #include <linux/of_platform.h>
- #include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
- #include <linux/regmap.h>
- #include <linux/reset.h>
+-	match = of_match_node(dw_hdmi_rockchip_dt_ids, pdev->dev.of_node);
++	match = of_match_node(dw_hdmi_rockchip_dt_ids, np);
+ 	plat_data = devm_kmemdup(&pdev->dev, match->data,
+ 					     sizeof(*plat_data), GFP_KERNEL);
+ 	if (!plat_data)
+@@ -564,9 +565,9 @@ static int dw_hdmi_rockchip_bind(struct device *dev, struct device *master,
+ 	plat_data->priv_data = hdmi;
+ 	encoder = &hdmi->encoder.encoder;
  
-diff --git a/drivers/phy/ti/phy-tusb1210.c b/drivers/phy/ti/phy-tusb1210.c
-index c3ae9d7948d7..b7080403e649 100644
---- a/drivers/phy/ti/phy-tusb1210.c
-+++ b/drivers/phy/ti/phy-tusb1210.c
-@@ -13,6 +13,7 @@
- #include <linux/ulpi/regs.h>
- #include <linux/gpio/consumer.h>
- #include <linux/phy/ulpi_phy.h>
-+#include <linux/pm_runtime.h>
- #include <linux/power_supply.h>
- #include <linux/property.h>
- #include <linux/workqueue.h>
+-	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm, dev->of_node);
++	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm, np);
+ 	rockchip_drm_encoder_set_crtc_endpoint_id(&hdmi->encoder,
+-						  dev->of_node, 0, 0);
++						  np, 0, 0);
+ 
+ 	/*
+ 	 * If we failed to find the CRTC(s) which this encoder is
+@@ -588,13 +589,17 @@ static int dw_hdmi_rockchip_bind(struct device *dev, struct device *master,
+ 		return dev_err_probe(hdmi->dev, ret, "failed to get phy\n");
+ 	}
+ 
+-	if (hdmi->phy) {
++	index = of_property_match_string(np, "phy-names", "hdmi");
++	if (index >= 0) {
+ 		struct of_phandle_args clkspec;
+ 
+-		clkspec.np = hdmi->phy->dev.of_node;
+-		hdmi->hdmiphy_clk = of_clk_get_from_provider(&clkspec);
+-		if (IS_ERR(hdmi->hdmiphy_clk))
+-			hdmi->hdmiphy_clk = NULL;
++		if (!of_parse_phandle_with_args(np, "phys", "#phy-cells", index,
++						&clkspec)) {
++			hdmi->hdmiphy_clk = of_clk_get_from_provider(&clkspec);
++			of_node_put(clkspec.np);
++			if (IS_ERR(hdmi->hdmiphy_clk))
++				hdmi->hdmiphy_clk = NULL;
++		}
+ 	}
+ 
+ 	if (hdmi->chip_data == &rk3568_chip_data) {
 -- 
 2.34.1
 
