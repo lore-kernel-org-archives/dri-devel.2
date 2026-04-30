@@ -4,78 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C12BFF8875
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 09:45:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4BE9FF886F
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 09:46:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2DAD10F2C9;
-	Thu, 30 Apr 2026 09:45:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2463D10F2D0;
+	Thu, 30 Apr 2026 09:46:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="msJTht1d";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="d83Ts9zW";
 	dkim-atps=neutral
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC9CF10F2C9
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 09:45:50 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-4852a9c6309so5308885e9.0
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 02:45:50 -0700 (PDT)
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 08E9610F2CB
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 09:46:09 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-44985f4ab0fso188043f8f.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 02:46:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1777542349; x=1778147149; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1777542367; x=1778147167; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :content-language:references:cc:to:subject:reply-to:from:user-agent
  :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=Mo0Grl4aoT+5/V3Ft+Ldjxi2m+m93Q57dgvCRhtSBWo=;
- b=msJTht1di/LjDwi7IJYdr8JxX8+vekR/p7qTE3e2/pRSYsugoBcU/EnlXE4TgULKz/
- SwCayfVLcOhkOIdr7YaS3DGvw/iKx/7gGnVPnR+HVuDnIFuVKlfZBH74C5leMsl1ZByH
- CDFOuzUdng4OyrcS+Y4xZtXJErKQsDP5+mCc5yC2brJHciyDEolqM1SeCMUXom57UNP5
- vlqaG7IEL5zRQeruToAp5ZSoJURBKSYchtOoSnEhuJI+A73opL2isRmSNpjAnkdRc340
- jE9KK7ZnNYA9cUToy9s2hSNVygod4th+2XH28MwqQYHfc1nNjASaDTOvOIgwWGxfQiVr
- 4XGg==
+ :reply-to; bh=sz6Ai6P4Nx2rPtIOkXtAQOJrKasr5iAAQ5nvgpjOt+M=;
+ b=d83Ts9zWmliaye9rwu2Kf8sZEZnkT2D5pNcllj4DOFijQpN9EjfS0L3IXVtqiyLRpq
+ OZ/g8dtOE3JV35K0YmjpHJsta6IAQtA0TUi/glwj5JRuuob9RikPewyVO4r+lDVnu4Or
+ G3/08KcDDqX+JCEU3fKq36dK+/vcsigm0JzJUdAKlkkZ6HYhtxCeP2xBoA8iKrYc+eOk
+ DBqnIVUJ6tYEf7QGw+p77Bvd4E+3gOW/0ybg2E5sCACo3BR0aHguY3dX1K/v7Xi+QqW2
+ xnqMJXoAhsSG1BhL+xhqZfCWC2KWngqw8Wd/8HLVoRU4dwL8C5twB5c0nUATiF6Ce1gK
+ 6CIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777542349; x=1778147149;
+ d=1e100.net; s=20251104; t=1777542367; x=1778147167;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :content-language:references:cc:to:subject:reply-to:from:user-agent
  :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Mo0Grl4aoT+5/V3Ft+Ldjxi2m+m93Q57dgvCRhtSBWo=;
- b=PDqNCxdP1eXC4Dhfx2wd8WFPyrnBhmz5leaLIYKe3MfvfXhEZ8Wq7mQDfztZd2lGuG
- q9gA5xyP2hkrKPbGym0ve3tvcnKPNLN9BLjYuL/NdPh4jc2Qxg3ZlsSV47jZbVlaRb5R
- BMI7zzZMGxsYUz/zJ0NfP3DaM44q7ZPubjWZrgNJAhyEJ8A08z+zeam3pg9c8IjajeTO
- NZMGEVfrG7Z/XJPyXddxa7kAHeD5aNbi7kp12BpuV/7inAy/bMJznzpCfXmR3Wu5Gs4U
- cWHQkZb5YfYcHEnQZo0A2CWulYzq+3ApLD5TrAWHz3FdDUQkgjAkA7hhj2As2MfLN0YP
- fIQQ==
+ bh=sz6Ai6P4Nx2rPtIOkXtAQOJrKasr5iAAQ5nvgpjOt+M=;
+ b=bjgzVclse+ZK+V+c/vq0yH2GlvpW/jzaBGK46F9xwckSj38+Imewqwr/wrzmK4NXFr
+ 51/1zPmZ4QBu1RfW8TQ8IUfZMA8ppZHQ6mAQNfUqa1vDSIXdq1EdrmrlTPmxNG1lw9fY
+ p3b+F9B/WhIw5xAjbu6MnZMwZaz4HG28TLDnlZk33rPc3UMw28i3CbXpOdWg5Vovo2Ru
+ sYm7GirfXjPbUEe4jWaLnzjQn4945fy6d/8jiSAn2BTFnsHjv+PhQXi38guCPKsFqmPK
+ 98Q72naZoTr1gP7TVAFCOjWIPhJzBfoEeMCRER44vstqBA+sX1hVz/QCyxNSQZXwAm9m
+ M/EQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/gqGGjUB4ojcBDX8rIRZWVZBxMmEKolmtcFb9YDzlhfeGP26iDcDYk4MBa2kbs1z39M9/Aq0VXNuQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzMbZa6V1Zzk6EQ3uPRBsyVMVf4RpiTXvJ/c/0EeYHRvS+RUiym
- 9bR6PYn2F8TOVQBPnLmgKGc4EDZ7I6UE8fdr/omtfz6gr7jUWlKVb7xtK+da+7q/SVc=
-X-Gm-Gg: AeBDiesfmr+P7+lulQD/IaJ7a6oLCidXxaQBVthJPsmjP1akO5MzBythi1KNWMnl6LP
- CGWIx2P39sXZcaEDPTz2CCwB60k3KaSOpXhEDEHMGmFQpz6/EEE2mUFV1wzKgbIrtIzodcn1egv
- uY071QnVjQx0xM7/exSDfDmr1tFnlfqwGGe2CjRSY9CcotomTlLSsjeKYNr87dgC3plBE4LT7aR
- gugNr3qVJQnXfiVv7XwER4iiHJciDKnWprjb99bNPCavhsJowRVVde5k5qKaMT7JJP8R1NiAGKv
- aR0p13Vv2mNsDF4wWwjLTo4RAMZCrHwJe3L6Vv+cnqMrTjFiQ6SRbaUjTNDhoeg6g5H03fIutTc
- GnqM0gsjrKwK+eT22XkNnbbUP84aSoYG0g4pA7vzs25UeuLxgE42YrjXzTyi578Cp6L/6lbY9Bh
- r1opfNajmxBjOboO0WcvYWGRKUQBjPu9hnce4B6nBa4e6SjUdUxhEYAfxx7Mn7/Tw1F5IlznniJ
- Lp9KKNfpDcueM+xwA==
-X-Received: by 2002:a05:600c:1d18:b0:488:904b:f31 with SMTP id
- 5b1f17b1804b1-48a84459207mr36316295e9.22.1777542348760; 
- Thu, 30 Apr 2026 02:45:48 -0700 (PDT)
+ AFNElJ/l2BBnK6ePArl9MrltFyTxY2DslPaJ5t6up95ad7pBBNd9ESMgplMN6CiudmKYx1TT1drCYeHwpvY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxduYwmr7MU0wjq6WZ5joyOBN/XEiig7yjw0fdTOQXRsmho6RN3
+ beQoZXpjzL0vT/BFUMWEc2HYRFPA5Zj5ERkcHjdcj+O0uhbQ55NUBslvqZ+X7upjAhQ=
+X-Gm-Gg: AeBDieuTj3poZGLwVS/CsJlcmp29IFu6VKRefQzCxnXPAE9xciO8hMeUdKFokJM/xT6
+ +C3mXU7wJQWDQSU9qBRAgMinLTW/7ZIPe1+xmmyk5tv/EV1xlNUEhizP6wJvDZe5OcaSi1HvFSj
+ hNbEXXHGeJCIsIDOqh8sDjAjlDv6BhyVThvlcSHFt3mTKKXoH+7YJ/kHzBPuCZIx7M4JDMrKAez
+ OHT2JlAxtP9OCxvms3ToUrnuKw4eW+5XPYwNLAEMIUw3h6aqkdeepSxebFp30eMN2y1CFh/9N+j
+ EEgF+Z1doE5oP0Df1maRiH+J6Cl4K/smMnZNKaHneYrx4Fuz9yRKGxw6djh5ZutpNfJcWF/1jcS
+ HcOuSd8pfOY2PVNyFu3Sw+tFtVoFWvjX5R9HeBKFwQH8LdAGqyIMBsNyT8wTHhFGBdJknNVsrTI
+ HuXwxf/ac9aiPPD3DbgxecItYWfAJDs5vJpm1/UXzgmx3DEqnhqwaiZifbAnqHIvGh2BsyiIoWo
+ cpPGwKGPwmHW8GSSQ==
+X-Received: by 2002:a05:6000:2088:b0:43d:75ec:26e7 with SMTP id
+ ffacd0b85a97d-4493fed67admr3286239f8f.33.1777542367393; 
+ Thu, 30 Apr 2026 02:46:07 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:106d:1080:6dcc:3980:fe87:c6ae?
  ([2a01:e0a:106d:1080:6dcc:3980:fe87:c6ae])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48a824f9f0dsm50386565e9.15.2026.04.30.02.45.47
+ ffacd0b85a97d-447b4216ecasm12188829f8f.14.2026.04.30.02.46.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Apr 2026 02:45:48 -0700 (PDT)
-Message-ID: <641cafb2-21cd-4918-8489-713f307c3d0a@linaro.org>
-Date: Thu, 30 Apr 2026 11:45:47 +0200
+ Thu, 30 Apr 2026 02:46:06 -0700 (PDT)
+Message-ID: <f3beffd5-ff8b-414a-bddf-fb2d85bbe444@linaro.org>
+Date: Thu, 30 Apr 2026 11:46:05 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: neil.armstrong@linaro.org
-Subject: Re: [PATCH] drm/panel: focaltech-ota7290b: Fix error check for
- devm_drm_panel_alloc()
-To: Chen Ni <nichen@iscas.ac.cn>, jesszhan0024@gmail.com
-Cc: dmitry.baryshkov@oss.qualcomm.com, linusw@kernel.org,
- dri-devel@lists.freedesktop.org
-References: <20260429080527.1456732-1-nichen@iscas.ac.cn>
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH] drm/panel: jadard-jd9365da-h3: Fix signedness bug
+To: Ethan Tidmore <ethantidmore06@gmail.com>, Jagan Teki <jagan@edgeble.ai>
+Cc: Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Linus Walleij <linusw@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260429024954.697411-1-ethantidmore06@gmail.com>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -102,7 +106,7 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20260429080527.1456732-1-nichen@iscas.ac.cn>
+In-Reply-To: <20260429024954.697411-1-ethantidmore06@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -121,32 +125,40 @@ Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/29/26 10:05, Chen Ni wrote:
-> The devm_drm_panel_alloc() function returns an error pointer on failure,
-> not NULL. Fix the check to use IS_ERR() and return PTR_ERR() to
-> correctly handle allocation failures.
+On 4/29/26 04:49, Ethan Tidmore wrote:
+> The function drm_of_get_data_lanes_count_remote() returns negative error
+> codes and dsi->lanes is an unsigned integer, so the check (dsi->lanes <
+> 0) is always impossible.
 > 
-> Fixes: 07853e954248 ("drm/panel: add driver for Waveshare 8.8" DSI TOUCH-A panel")
-> Signed-off-by: Chen Ni <nichen@iscas.ac.cn>
+> Detected by Smatch:
+> drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c:2959 jadard_dsi_probe()
+> warn: unsigned 'dsi->lanes' is never less than zero.
+> 
+> Fixes: eb019688f2a97 ("drm/panel: jadard-jd9365da-h3: support variable DSI configuration")
+> Signed-off-by: Ethan Tidmore <ethantidmore06@gmail.com>
 > ---
->   drivers/gpu/drm/panel/panel-focaltech-ota7290b.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
+>   drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c | 8 +++++---
+>   1 file changed, 5 insertions(+), 3 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/panel/panel-focaltech-ota7290b.c b/drivers/gpu/drm/panel/panel-focaltech-ota7290b.c
-> index dd420bb19440..ed02a8daf96f 100644
-> --- a/drivers/gpu/drm/panel/panel-focaltech-ota7290b.c
-> +++ b/drivers/gpu/drm/panel/panel-focaltech-ota7290b.c
-> @@ -156,8 +156,8 @@ static int ota7290b_probe(struct mipi_dsi_device *dsi)
->   	ctx = devm_drm_panel_alloc(&dsi->dev, struct ota7290b, panel,
->   				   &ota7290b_funcs,
->   				   DRM_MODE_CONNECTOR_DSI);
-> -	if (!ctx)
-> -		return -ENOMEM;
-> +	if (IS_ERR(ctx))
-> +		return PTR_ERR(ctx);
->   	mipi_dsi_set_drvdata(dsi, ctx);
->   	ctx->dsi = dsi;
->   
+> diff --git a/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c b/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
+> index 7157b1299bfd..f6b04de1182e 100644
+> --- a/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
+> +++ b/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
+> @@ -2955,9 +2955,11 @@ static int jadard_dsi_probe(struct mipi_dsi_device *dsi)
+>   	dsi->format = desc->format;
+>   	dsi->lanes = desc->lanes;
+>   	if (!dsi->lanes) {
+> -		dsi->lanes = drm_of_get_data_lanes_count_remote(dsi->dev.of_node, 0, -1, 2, 4);
+> -		if (dsi->lanes < 0)
+> -			return dsi->lanes;
+> +		ret = drm_of_get_data_lanes_count_remote(dsi->dev.of_node, 0, -1, 2, 4);
+> +		if (ret < 0)
+> +			return ret;
+> +		dsi->lanes = ret;
+> +
+>   		if (dsi->lanes == 4) {
+>   			if (!desc->mode_4ln) {
+>   				dev_err(&dsi->dev, "4-lane config is not supported\n");
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
