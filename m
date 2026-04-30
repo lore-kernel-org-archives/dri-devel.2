@@ -4,79 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB11BFF8875
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 09:45:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C12BFF8875
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 09:45:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1766D10F2C6;
-	Thu, 30 Apr 2026 09:45:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2DAD10F2C9;
+	Thu, 30 Apr 2026 09:45:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="XlChGqFM";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="msJTht1d";
 	dkim-atps=neutral
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9BFD10F2C6
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 09:45:34 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-48a3e9862f0so4300045e9.1
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 02:45:34 -0700 (PDT)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC9CF10F2C9
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 09:45:50 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-4852a9c6309so5308885e9.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 02:45:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1777542333; x=1778147133; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1777542349; x=1778147149; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :content-language:references:cc:to:subject:reply-to:from:user-agent
  :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=Xeo++QO0ZmeMqFuHcQ1s6Vo0noqXHgx6iZ0Z2tO2ftY=;
- b=XlChGqFMM7w6mE3ki/zdCaPD+kh+sHHRUKYO10h0t6ceRuQ84eOQzpzWD/VzVSerxt
- ODkOaipSlu1fH1uYWjnf6H3Jt6muT8OGo59Kv3rnlJIpi9c0T3jgNs+UHpknkJP5BI4e
- 9QH/k2IdDExr9jHRyyCBiXCnZm14ZHO9KTgQKfAdHaGvzpdaZA2bnAsPxEtjQFFt7xKp
- 8HgnIcCYffQrvvTajpxp0Vc5szlG9m8E6e3y+fAipmb7lI2CGzuE/h2a8lKhlITkxDxK
- /E6PbL4DHxrvVCXaXITWb0/5pC2UxPXpFV6spMvaWfu0gwJMSss2BAK7KabtBJLHkmES
- e5Iw==
+ :reply-to; bh=Mo0Grl4aoT+5/V3Ft+Ldjxi2m+m93Q57dgvCRhtSBWo=;
+ b=msJTht1di/LjDwi7IJYdr8JxX8+vekR/p7qTE3e2/pRSYsugoBcU/EnlXE4TgULKz/
+ SwCayfVLcOhkOIdr7YaS3DGvw/iKx/7gGnVPnR+HVuDnIFuVKlfZBH74C5leMsl1ZByH
+ CDFOuzUdng4OyrcS+Y4xZtXJErKQsDP5+mCc5yC2brJHciyDEolqM1SeCMUXom57UNP5
+ vlqaG7IEL5zRQeruToAp5ZSoJURBKSYchtOoSnEhuJI+A73opL2isRmSNpjAnkdRc340
+ jE9KK7ZnNYA9cUToy9s2hSNVygod4th+2XH28MwqQYHfc1nNjASaDTOvOIgwWGxfQiVr
+ 4XGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777542333; x=1778147133;
+ d=1e100.net; s=20251104; t=1777542349; x=1778147149;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :content-language:references:cc:to:subject:reply-to:from:user-agent
  :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Xeo++QO0ZmeMqFuHcQ1s6Vo0noqXHgx6iZ0Z2tO2ftY=;
- b=O3JiiG0yRAHzYmjTJrECRc2NT2LmjVoOKWSy3Vh267nwG4deEEl3/ntEnYJqR1Znj+
- 9kb+vpvfDvSC6zVahIcKciwhKlPCm5nBX+3bY+cApzuREbNs8wm2wVnFDYB+lbpGrr38
- lJL3iKjJhUmBzTrvtqwPzxoOPLGY7hNL1IhKfSCUzwXe0D19Rm+STraK6BX1NCzlLzpY
- HyfMo8VaznZU8ftiiYXNe9dOtY/LCyOKdhOpI7/Pg3KJGvM/AmGEY9MdmzCb2rCNlCLS
- JiIXmaKdB6FXV99PBAi8Zof5vkQ39Qiu2sL44TQePlAnAd5QTdVqxFTr7iQat6nhEb+E
- doRw==
+ bh=Mo0Grl4aoT+5/V3Ft+Ldjxi2m+m93Q57dgvCRhtSBWo=;
+ b=PDqNCxdP1eXC4Dhfx2wd8WFPyrnBhmz5leaLIYKe3MfvfXhEZ8Wq7mQDfztZd2lGuG
+ q9gA5xyP2hkrKPbGym0ve3tvcnKPNLN9BLjYuL/NdPh4jc2Qxg3ZlsSV47jZbVlaRb5R
+ BMI7zzZMGxsYUz/zJ0NfP3DaM44q7ZPubjWZrgNJAhyEJ8A08z+zeam3pg9c8IjajeTO
+ NZMGEVfrG7Z/XJPyXddxa7kAHeD5aNbi7kp12BpuV/7inAy/bMJznzpCfXmR3Wu5Gs4U
+ cWHQkZb5YfYcHEnQZo0A2CWulYzq+3ApLD5TrAWHz3FdDUQkgjAkA7hhj2As2MfLN0YP
+ fIQQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ89E8PQUBHWW8RlWvxbc7w6VHU9q3zZD17IyoJr1o/bzkL05pyD5fBSIyc3ZDX7s1cBeSV9LLbOEZc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxrMbFgm2lTW9pULYe2gj8Au3I5HtO3Q6AwyaazVsz8RWiAPSK0
- g9ZZaQfV3CuIjP34lmKwPl0cVNwTpgLpkY3c+MqbK4IUmu4UG8RamnZt3NECTgFGMRo=
-X-Gm-Gg: AeBDies0uGdbXz1lyeQnuGaxSKrqJVj19ZSl/NeuMlXtyF4F8LxKkd95xWz/0EK7eAB
- JMYz9pQbp4oNirtVcvFbKRUlmeCOOZkjwksRawbOpkuMW4pu1ze30txFGQV1sl685IBFuisWQzq
- JuHmV9AXRdvEmOQ7tms/mfPdnx6LP0OjLn28Qr/7Mj03jXRSH8+BsTXEBbqN6yPBwN8Av/QQoCh
- jeW+31Q+WgIWRWZNNDcshO687L2DuUeI7AsUEUlq+3dEpcL7E6drbrtouHdYBeNiAluMFh++Mzb
- b/V5rylNXm0xSES3hklTMGxA4tXTjlkbD+ZhnnD1r1R1cv4v62wBylvc5d4jyMATIv7Ieu970Xc
- k/DjamlNRHDMku6u2Qco3qQec7tfitu3w1M5kYmJsjOZOA3siz3A9QEFyB+GLkZOmucLAhoWC10
- RX6o5oY/D+UKCxg1AIvZkaQzNZD2cyBQeFcjNMsD1qYF3FbZL9SH2MSES9KMmBYS44Ff02b0Gag
- PsiDNYiPtostiY6RJWqL6kMg63c
-X-Received: by 2002:a05:600c:4e46:b0:48a:5821:6006 with SMTP id
- 5b1f17b1804b1-48a85e233fcmr27659265e9.4.1777542333191; 
- Thu, 30 Apr 2026 02:45:33 -0700 (PDT)
+ AFNElJ/gqGGjUB4ojcBDX8rIRZWVZBxMmEKolmtcFb9YDzlhfeGP26iDcDYk4MBa2kbs1z39M9/Aq0VXNuQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzMbZa6V1Zzk6EQ3uPRBsyVMVf4RpiTXvJ/c/0EeYHRvS+RUiym
+ 9bR6PYn2F8TOVQBPnLmgKGc4EDZ7I6UE8fdr/omtfz6gr7jUWlKVb7xtK+da+7q/SVc=
+X-Gm-Gg: AeBDiesfmr+P7+lulQD/IaJ7a6oLCidXxaQBVthJPsmjP1akO5MzBythi1KNWMnl6LP
+ CGWIx2P39sXZcaEDPTz2CCwB60k3KaSOpXhEDEHMGmFQpz6/EEE2mUFV1wzKgbIrtIzodcn1egv
+ uY071QnVjQx0xM7/exSDfDmr1tFnlfqwGGe2CjRSY9CcotomTlLSsjeKYNr87dgC3plBE4LT7aR
+ gugNr3qVJQnXfiVv7XwER4iiHJciDKnWprjb99bNPCavhsJowRVVde5k5qKaMT7JJP8R1NiAGKv
+ aR0p13Vv2mNsDF4wWwjLTo4RAMZCrHwJe3L6Vv+cnqMrTjFiQ6SRbaUjTNDhoeg6g5H03fIutTc
+ GnqM0gsjrKwK+eT22XkNnbbUP84aSoYG0g4pA7vzs25UeuLxgE42YrjXzTyi578Cp6L/6lbY9Bh
+ r1opfNajmxBjOboO0WcvYWGRKUQBjPu9hnce4B6nBa4e6SjUdUxhEYAfxx7Mn7/Tw1F5IlznniJ
+ Lp9KKNfpDcueM+xwA==
+X-Received: by 2002:a05:600c:1d18:b0:488:904b:f31 with SMTP id
+ 5b1f17b1804b1-48a84459207mr36316295e9.22.1777542348760; 
+ Thu, 30 Apr 2026 02:45:48 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:106d:1080:6dcc:3980:fe87:c6ae?
  ([2a01:e0a:106d:1080:6dcc:3980:fe87:c6ae])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48a7c324672sm37636085e9.32.2026.04.30.02.45.32
+ 5b1f17b1804b1-48a824f9f0dsm50386565e9.15.2026.04.30.02.45.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Apr 2026 02:45:32 -0700 (PDT)
-Message-ID: <bc921525-1577-424c-a4f7-a0436f8a0ca1@linaro.org>
-Date: Thu, 30 Apr 2026 11:45:31 +0200
+ Thu, 30 Apr 2026 02:45:48 -0700 (PDT)
+Message-ID: <641cafb2-21cd-4918-8489-713f307c3d0a@linaro.org>
+Date: Thu, 30 Apr 2026 11:45:47 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH] drm/panel/panel-edp: Add CSOT MPP36 T9 eDP panel
-To: Adam Szyma <adamszyma@wp.pl>, dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org, Andrzej Hajda <andrzej.hajda@intel.com>,
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>
-References: <20260429145251.8445-1-adamszyma@wp.pl>
+From: neil.armstrong@linaro.org
+Subject: Re: [PATCH] drm/panel: focaltech-ota7290b: Fix error check for
+ devm_drm_panel_alloc()
+To: Chen Ni <nichen@iscas.ac.cn>, jesszhan0024@gmail.com
+Cc: dmitry.baryshkov@oss.qualcomm.com, linusw@kernel.org,
+ dri-devel@lists.freedesktop.org
+References: <20260429080527.1456732-1-nichen@iscas.ac.cn>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -103,7 +102,7 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20260429145251.8445-1-adamszyma@wp.pl>
+In-Reply-To: <20260429080527.1456732-1-nichen@iscas.ac.cn>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -122,36 +121,34 @@ Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/29/26 16:52, Adam Szyma wrote:
-> Add support for the CSOT MPP36 T9 eDP panel (manufacturer ID: CSW,
-> product ID: 0x143d) used in the Dell Inspiron 14 Plus 5441 laptop.
+On 4/29/26 10:05, Chen Ni wrote:
+> The devm_drm_panel_alloc() function returns an error pointer on failure,
+> not NULL. Fix the check to use IS_ERR() and return PTR_ERR() to
+> correctly handle allocation failures.
 > 
-> Without this entry the kernel logs:
->    panel-simple-dp-aux: Unknown panel CSW 0x143d, using conservative timings
-> 
-> and brightness control is non-functional on affected devices.
-> 
-> Tested-by: Adam Szyma <adamszyma@wp.pl>
-
-I think it's assumed you tested the patch, so drop this.
-
-Neil
-
-> Signed-off-by: Adam Szyma <adamszyma@wp.pl>
+> Fixes: 07853e954248 ("drm/panel: add driver for Waveshare 8.8" DSI TOUCH-A panel")
+> Signed-off-by: Chen Ni <nichen@iscas.ac.cn>
 > ---
->   drivers/gpu/drm/panel/panel-edp.c | 1 +
->   1 file changed, 1 insertion(+)
+>   drivers/gpu/drm/panel/panel-focaltech-ota7290b.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
-> index f3cdaea89..0d0072f29 100644
-> --- a/drivers/gpu/drm/panel/panel-edp.c
-> +++ b/drivers/gpu/drm/panel/panel-edp.c
-> @@ -2073,6 +2073,7 @@ static const struct edp_panel_entry edp_panels[] = {
->   	EDP_PANEL_ENTRY('C', 'S', 'W', 0x1103, &delay_200_500_e80_d50, "MNB601LS1-3"),
->   	EDP_PANEL_ENTRY('C', 'S', 'W', 0x1104, &delay_200_500_e50_d100, "MNB601LS1-4"),
->   	EDP_PANEL_ENTRY('C', 'S', 'W', 0x110a, &delay_200_500_e50, "PNB601LS1-2"),
-> +	EDP_PANEL_ENTRY('C', 'S', 'W', 0x143d, &delay_200_500_e50, "MPP36 CSOT T9"),
->   	EDP_PANEL_ENTRY('C', 'S', 'W', 0x143f, &delay_200_500_e50, "MNE007QS3-6"),
->   	EDP_PANEL_ENTRY('C', 'S', 'W', 0x1448, &delay_200_500_e50, "MNE007QS3-7"),
->   	EDP_PANEL_ENTRY('C', 'S', 'W', 0x144b, &delay_200_500_e80, "MNE001BS1-4"),
+> diff --git a/drivers/gpu/drm/panel/panel-focaltech-ota7290b.c b/drivers/gpu/drm/panel/panel-focaltech-ota7290b.c
+> index dd420bb19440..ed02a8daf96f 100644
+> --- a/drivers/gpu/drm/panel/panel-focaltech-ota7290b.c
+> +++ b/drivers/gpu/drm/panel/panel-focaltech-ota7290b.c
+> @@ -156,8 +156,8 @@ static int ota7290b_probe(struct mipi_dsi_device *dsi)
+>   	ctx = devm_drm_panel_alloc(&dsi->dev, struct ota7290b, panel,
+>   				   &ota7290b_funcs,
+>   				   DRM_MODE_CONNECTOR_DSI);
+> -	if (!ctx)
+> -		return -ENOMEM;
+> +	if (IS_ERR(ctx))
+> +		return PTR_ERR(ctx);
+>   	mipi_dsi_set_drvdata(dsi, ctx);
+>   	ctx->dsi = dsi;
+>   
 
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+
+Thanks,
+Neil
