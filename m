@@ -4,57 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62EAFCD13D3
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 19:59:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0F71CD13DA
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 19:59:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB0EE10F440;
-	Thu, 30 Apr 2026 19:59:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0856410F442;
+	Thu, 30 Apr 2026 19:59:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D37FyE44";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LgSKCJu7";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 443A910F440
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 19:59:01 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id D89ED4321C;
- Thu, 30 Apr 2026 19:59:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83A84C2BCB3;
- Thu, 30 Apr 2026 19:59:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777579140;
- bh=LBnU4AivRmdyKTS0Xcm7sAN9nbgjFQEu0IgaPDtNX8A=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=D37FyE44Yvvn2cExwQ3DmwgarHkzu8WUVgaowMhD+LmI77+KXzdBK44lKtn+fFUgO
- bDSpV9CoNJi+BNPgdd0UKnu4ogxf1eb7bKc3aQbAkOGlv1S0uL1gaj47H4jPYZGD6F
- ELGMa2Wzsk/mtTY92+5Ti3XPzZXWHt9gxb3Qe/WyFzeVbTCM6GeA+HIN1/HGJ5L3OL
- jAMGMxkf/Y5mCzAdwHsIGTNRCYNHpJi/prLhuFyMoP3cAGZI83iFkM8L7ZClWRXRz2
- W2CedreT/+hzZYdFf/jLgPz08IQck7uK1kQPtbXn8J0GMY1oTCQv1ZhHnUPsntX0hj
- iUkbOn6Q6Y2wA==
-Date: Thu, 30 Apr 2026 14:58:58 -0500
-From: Rob Herring <robh@kernel.org>
-To: Markus Probst <markus.probst@posteo.de>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>,
- Kari Argillander <kari.argillander@gmail.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- Boqun Feng <boqun@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-serial@vger.kernel.org,
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
- linux-pm@vger.kernel.org, driver-core@lists.linux.dev,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v7 0/4] rust: add basic serial device bus abstractions
-Message-ID: <20260430195858.GA1650658-robh@kernel.org>
-References: <20260429-rust_serdev-v7-0-0d89c791b5c8@posteo.de>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B5AE10F442;
+ Thu, 30 Apr 2026 19:59:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1777579190; x=1809115190;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=slz8eTKsY4YDA50xQG0Q9MRcubgU+W/wvTmZpbUFzOw=;
+ b=LgSKCJu7tkHficlBEPQBmye5dIG157o3qiPciSKI0JdKelp4f2ECbHPM
+ Ckl6tEk+a/vIW3QFpqADFpghD+r9Qh7BqXlIVJWFAUwvaDrUNJW85/lUP
+ ljp26d+O0Nn6PivbsS++edQSLUYMuEHVFrMM5oH5/jmzFAsFsLgy9C0Q9
+ VdRU2RmQVo06zs1jRdlguhSOO2OXgXWLW1PIViGg5hB5nOVmz3iyfLsUQ
+ h6VI39P556MOXT84ASNjs8++Euhhy4nYyc1NlZOZHoXCDHcwuBPTheGI0
+ XyFD0f3ufat3MljB0CMmxOFQYQiLRsc0vimUSdy1wFzwkizicI0HpiJvP A==;
+X-CSE-ConnectionGUID: 0iaN5nkmQ9CqmlZ3S42btQ==
+X-CSE-MsgGUID: 3fLoCmHaRrmj3TKfGhV+ng==
+X-IronPort-AV: E=McAfee;i="6800,10657,11772"; a="82148631"
+X-IronPort-AV: E=Sophos;i="6.23,208,1770624000"; d="scan'208";a="82148631"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Apr 2026 12:59:49 -0700
+X-CSE-ConnectionGUID: /q/sqexoSfWOFfrF7fdhDg==
+X-CSE-MsgGUID: /+zgkXZdQO29g+P0S15dqQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,208,1770624000"; d="scan'208";a="232024909"
+Received: from dalessan-mobl3.ger.corp.intel.com (HELO [10.245.244.73])
+ ([10.245.244.73])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Apr 2026 12:59:45 -0700
+Message-ID: <4ebeb470d5ab495f5d5342454db57b1a6ccc4753.camel@linux.intel.com>
+Subject: Re: [PATCH v2 1/5] mm: Introduce zone_appears_fragmented()
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>, 
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Andrew
+ Morton	 <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>, Vlastimil Babka
+ <vbabka@kernel.org>, Mike Rapoport	 <rppt@kernel.org>, Suren Baghdasaryan
+ <surenb@google.com>, Michal Hocko	 <mhocko@suse.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Johannes Weiner <hannes@cmpxchg.org>
+Date: Thu, 30 Apr 2026 21:59:43 +0200
+In-Reply-To: <afOEqOZVWi/cNf9g@gsse-cloud1.jf.intel.com>
+References: <20260423055656.1696379-1-matthew.brost@intel.com>
+ <20260423055656.1696379-2-matthew.brost@intel.com>
+ <76191a17-18bf-4e9b-9ab5-dc9a48abfabb@kernel.org>
+ <be42059924cde9bb16a087ee2a5abb0b9d850d68.camel@linux.intel.com>
+ <aepuNL2fwp47P1Wi@gsse-cloud1.jf.intel.com>
+ <aeqbe/9YRKNyYuWY@gsse-cloud1.jf.intel.com>
+ <291406b26b8badf2e565996515931d9ebe50208f.camel@linux.intel.com>
+ <a1252167-63a1-481b-9f1d-2a7bae7a3b6c@kernel.org>
+ <afLCwHaPZMu/dxqY@gsse-cloud1.jf.intel.com>
+ <f4324084f3808b9a42b87ec27bef7fe920dde9ea.camel@linux.intel.com>
+ <afOEqOZVWi/cNf9g@gsse-cloud1.jf.intel.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260429-rust_serdev-v7-0-0d89c791b5c8@posteo.de>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,27 +86,160 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Apr 29, 2026 at 08:21:30PM +0200, Markus Probst wrote:
-> This patch series adds the serdev device bus rust abstraction into the
-> kernel.
-> 
-> This abstraction will be used by a driver,
-> which targets the MCU devices in Synology devices.
-> 
-> Kari Argillander also messaged me, stating that he wants to write a
-> watchdog driver with this abstraction (needing initial device data).
-> 
-> @Rob: Are you willing to maintain these rust abstractions yourself,
-> as you are the expert on this subsystem, otherwise I would take care of
-> it with a "SERIAL DEVICE BUS [RUST]" section in the MAINTAINERS file. In
-> the second case, I assume you are going to pick those patches as-is into
-> your tree, after they have been reviewed?
+On Thu, 2026-04-30 at 09:34 -0700, Matthew Brost wrote:
+> On Thu, Apr 30, 2026 at 09:47:37AM +0200, Thomas Hellstr=C3=B6m wrote:
+> > On Wed, 2026-04-29 at 19:47 -0700, Matthew Brost wrote:
+> > > On Fri, Apr 24, 2026 at 09:26:18AM +0200, David Hildenbrand (Arm)
+> > > wrote:
+> > > > On 4/24/26 09:05, Thomas Hellstr=C3=B6m wrote:
+> > > > > On Thu, 2026-04-23 at 15:21 -0700, Matthew Brost wrote:
+> > > > > > On Thu, Apr 23, 2026 at 12:08:36PM -0700, Matthew Brost
+> > > > > > wrote:
+> > > > > > >=20
+> > > > > > > If the order were included in shrink_control, there is
+> > > > > > > about
+> > > > > > > a 95%
+> > > > > > > certain that this change would allow TTM / Xe to break
+> > > > > > > the
+> > > > > > > problematic
+> > > > > > > kswapd feedback loop. This may also better express the
+> > > > > > > intent
+> > > > > > > of
+> > > > > > > the
+> > > > > > > problem we are trying to fix here.
+> > > > > > >=20
+> > > > > > > For reference, the cover letter [1] details the problem.
+> > > > > > >=20
+> > > > > > > Any guidance from the core MM folks would be
+> > > > > > > appreciated=E2=80=94would
+> > > > > > > adding
+> > > > > > > the order to shrink_control be an acceptable solution?
+> > > > > > >=20
+> > > > > > > Matt
+> > > > > > >=20
+> > > > > > > [1] https://patchwork.freedesktop.org/series/165330/
+> > > > > > >=20
+> > > > > >=20
+> > > > > > It doesn't look like __GFP_NORETRY, __GFP_RETRY_MAYFAIL,
+> > > > > > __GFP_NOFAIL
+> > > > > > make it to the sc->gfp_mask flags from the caller and get
+> > > > > > into
+> > > > > > kswapd
+> > > > > > loop...
+> > > > >=20
+> > > > > Perhaps that's because they mostly (only?) make sense from
+> > > > > direct
+> > > > > reclaim? Looks like the trace is from kswapd.
+> > > >=20
+> > > > kswap obtains the desired order through pgdat->kswapd_order, as
+> > > > a
+> > > > hint from
+> > > > allocation code (wakeup_kswapd). The order can be easily merged
+> > > > (just use the max)
+> > > >=20
+> > >=20
+> > > Yes.
+> > >=20
+> > > My current thinking is wire the order into shrink_control as that
+> > > is
+> > > quite straight forward + only call this helper + short circuit
+> > > shrinker
+> > > on higher orders.
+> > >=20
+> > > > We do have the gfp_flags there, but merging them from different
+> > > > wakeups is a bit
+> > > > more tricky (and when to reset?).
+> > > >=20
+> > > > Assume we have one urgent request for order-0 and one non-
+> > > > urgent
+> > > > (noretry,nofail, ...) request for order-9, we'd have to figure
+> > > > out
+> > > > a way how to
+> > > > represent that. Gets more complicated for more orders.
+> > > >=20
+> > > > Of course, we could have some kind of array, and try to store
+> > > > some
+> > > > "priority"
+> > > > per order. But I assume plumbing that into the rest of kswapd
+> > > > might
+> > > > not be that
+> > > > easy.
+> > >=20
+> > > Yes, this seems non-trivial. I was also on a call with Google
+> > > today
+> > > discussing what Android (client Linux) would like from shrinking,
+> > > and
+> > > my
+> > > initial feeling is that we will need to do some surgery to the
+> > > shrinker
+> > > core and GPU shrinkers to make all of this work well over the
+> > > next
+> > > year
+> > > or so.
+> > >=20
+> > > So again, I think starting with wiring order into shrink_control
+> > > and
+> > > this helper is a good place to start, as it fixes an immediate
+> > > issue.
+> > >=20
+> > > Let me know if that seems like a reasonable direction.
+> >=20
+> > +1 for wiring order into shrink_control, and possibly also the
+> > priority
+> > as mentioned in an earlier email.
+> >=20
+>=20
+> Let me look at how priority field is used as well.
+>=20
+> > However for cgroups-aware shrinkers, The number of free memory in a
+> > zone might not be an indication of fragmentation-triggered reclaim
+> > at
+> > all, it could be the result of the cgroup hitting its memory
+> > limits.
+> >=20
+>=20
+> I agree for cgroups what is in place here is not sufficent and based
+> Google's feedback of every user space in Andriod is assigned a cgroup
+> so
+> we will quickly need a cgroup story.
+>=20
+> > So I think if we can solve this with a combination of GFP flags,
+> > plumbed-through order and plumbed-through priority, that would be
+> > ideal.
+>=20
+> That is an idea. The other thing that came up is TTM LRU doesn't
+> understand relavence of hotness compared to other shrinkers LRUs
+> (e.g.,
+> core pages) so our TTM shrinker may be evicting hot GPU pages while
+> cold
+> non-GPU pages could be evicted which would create less stress on the
+> system. Perhaps priority / GFP flags will help here?
 
-Well I can ignore the Rust part as much as I ignore the C serdev part... 
-Honestly, I need to find someone else to maintain all of it as I don't 
-really have the bandwidth. I don't think we should split it though.
+IIRC priority is used to calculate how many pages we are requested to
+shrink compared to the number we say we have available, but that needs
+to be double-checked. FWIW i915 has a check that xe's shrinker lacks,
+that shrinking is not attempted unless the number of pages requested is
+>=3D an average buffer object size.
 
-And I don't have a tree for serdev. Greg picks up the serdev patches. If 
-the Rust folks are fine with them, then I am.
+/Thomas
 
-Rob
+
+
+
+
+>=20
+> Matt
+>=20
+> >=20
+> > Thanks,
+> > Thomas
+> >=20
+> > >=20
+> > > Matt
+> > >=20
+> > > >=20
+> > > >=20
+> > > > --=20
+> > > > Cheers,
+> > > >=20
+> > > > David
