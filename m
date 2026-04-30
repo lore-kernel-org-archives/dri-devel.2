@@ -4,64 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31CDFCD342E
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 19:18:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4C30CD13D3
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 19:36:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7DEB010F431;
-	Thu, 30 Apr 2026 19:18:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05A8710F425;
+	Thu, 30 Apr 2026 19:36:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bbGTbafS";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZcJD5BPM";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78E9310E165;
- Thu, 30 Apr 2026 19:18:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777576696; x=1809112696;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=zEHdxcWSGKIgRFynMhNMN4pR3cJWvroQqSO422pNkjk=;
- b=bbGTbafSS/FqJWZB1OIh0ir9zVv3EEp5+k1QmR4m/ylYGNtfkjMRZmqC
- 7/w20GPUlYXwsrOMiqADoqgZXHjs1CnUw90nI670XCvI6jlKyjlmBxWkN
- N+QScnRlSE6quP5t63lly/LIQp/D0sZwCkT/xQ6KdwBu1ILjedY6uvOtK
- Vxs5D0Lg+QE0kgMpMGXdSUu8/rDEpw9voCbZKK+IK38PMDaw26LO+5N8/
- dHDmdN9RzjdtUc77XrnWTq4xBZTIxO9754NN2uzHbclFFbqLVmTHuObVG
- zGwx2yS4OiAzVbNls69IL4H6GqK2HUK/2cOry//KT3HfSplYbwyMahUDy g==;
-X-CSE-ConnectionGUID: lNm1V4FmQ06h1gqce4bhzA==
-X-CSE-MsgGUID: mL1Xnu+BQkqTCcIAGaweYw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11772"; a="77706759"
-X-IronPort-AV: E=Sophos;i="6.23,208,1770624000"; d="scan'208";a="77706759"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Apr 2026 12:18:14 -0700
-X-CSE-ConnectionGUID: VhZsFZUCRwWt9qBoYM/JVA==
-X-CSE-MsgGUID: iZBXx+QURvWwweTc8DyDag==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,208,1770624000"; d="scan'208";a="233801148"
-Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
- by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Apr 2026 12:18:14 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Carlos Santa <carlos.santa@intel.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF27E10F425
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 19:36:14 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-48a7fe4f40bso13091275e9.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 12:36:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1777577773; x=1778182573; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=1+76ABm/WaUtbne2+7yg99KNFhUHJhiFPf1yo1/iOYY=;
+ b=ZcJD5BPM56Vc4aSPaQtb5/KYchIOLFZCQCEmLb7ozbfem8dc+Pb0g12Qs6/VyYBKRR
+ kzpX3R9MDuL16k56uAl6gLT6Fa6/ZPuXixKPyXx1GVZdUimAZCLyGPXrBF5nksLlTK/l
+ Ftuw17Z+799+Hcq7eV4MjDDx53nep+vrwT9DQnUyhwT/acVHQtkOpHNEaIGGVk0R0z+k
+ GqNtFzww/aXgEL2/n/AYH/1dBtkXAs4KR6gjgGSyWjlB2DUb4741Gi2SDB/wHJ4FbCxO
+ XQ7+L3RXCItGWG8nDWHDq7e5e9JMaQjQo7lWO8Uv5hSz73fQF810mupPVEGxvnkFsvN7
+ DQSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777577773; x=1778182573;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=1+76ABm/WaUtbne2+7yg99KNFhUHJhiFPf1yo1/iOYY=;
+ b=C3LYmrjcjLeRG4lre6EoVuZ9BJkoDuStgiL4znmqE3IyQjtNmUkbsAD3B2BFQmytON
+ SE4lMt3lfsCzu4dcx7pqfaVQkBtS+0FrY2VkfjKE1Z6XGvm9rX8vpajhuorA8jn8IRrO
+ 7pPioyfSWwF9YXIYBevJkPqbBbjsFjHpJ5gIHFXneXRtsZbIrPGWmVzOcg4uRzXycZEE
+ 7vtW+4bMyJIi4+hutAreHJm9GrHi5JyGux+3Zcmle4mLutj2Gjm/kHqxjG/iZyIKFBaZ
+ +BuV8JFhRHN1HbZv/Pbntx8ovvGucIqc45hivBDTLOLmODSgZj+Xhm3k4S8c+kjtqq2W
+ JrhQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8Q3T7sjDbF6/XVyeGHrKFWY3R+aVY+bjQ5jOZeJt6RwSpiJYSq7us4V/wL21ylpZSobmO/frmCRe4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzun4tbGdTKLJxz8+4MepGJ+RpgVbzPFqqjlyT+CKi0V1Wdq3oK
+ ekftwBbmWdJQIzddChCydlggdUVQZIiBvryoTiZKlzyxauTCpkXseWDv
+X-Gm-Gg: AeBDieubh5cx5wHpHS4QRifvzsMb+KWLBGJ7t9ZyBFUXCZzbvuseK1/5Qeg/dzZa8Mg
+ KQNAWJzUGgJ3pdJXn0uo0u28ar5GIr6zXyJf+z3ncmhvUgs+xxOsUzjx3oegamHGbCuckBL2Wqa
+ BtAsCzisDWBM8nFcqSWLQ/Rt61u8WNAQiS5yJ7iWt0uLVvbKDmzsQMmIWX/H7aQnpZpOAfmedUX
+ XDDP9ueii2UzNPh3myyjTAqI/cq7W3Q4iGHxaFMQpoHFYAmi0IwjQoqKNOmAZGGIky17IkMzTzq
+ L4cwFvvR6UyK6UVQ00mNOncwC8gEttWaUOJro23j3fpViEtyEuhKRv8ISdm3QWCuhWuwPKg4UJV
+ xN97Pcj/DsIgM7n8L0GrSWh6VEvZIwe/6GLzHpuTiQY0kagVZ+FZcMJT+rbji9RBgZ/E470SkWw
+ PA98m5h2GJqzJSKLkGknemZKTykrvTW42P
+X-Received: by 2002:a05:600c:354d:b0:488:8b99:54a1 with SMTP id
+ 5b1f17b1804b1-48a8445e8bcmr71043215e9.28.1777577772997; 
+ Thu, 30 Apr 2026 12:36:12 -0700 (PDT)
+Received: from localhost ([87.254.0.141]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-48a8eb75fe8sm2264485e9.8.2026.04.30.12.36.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 Apr 2026 12:36:12 -0700 (PDT)
+From: Colin Ian King <colin.i.king@gmail.com>
+To: Matthew Brost <matthew.brost@intel.com>,
+ Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nige?= <ckoenig.leichtzumerken@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Daniel Colascione <dancol@dancol.org>,
- Andi Shyti <andi.shyti@linux.intel.com>
-Subject: [PATCH v4 3/6] drm/ttm: Issue direct reclaim at beneficial_order
-Date: Thu, 30 Apr 2026 12:18:06 -0700
-Message-Id: <20260430191809.2142544-4-matthew.brost@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260430191809.2142544-1-matthew.brost@intel.com>
-References: <20260430191809.2142544-1-matthew.brost@intel.com>
+ Simona Vetter <simona@ffwll.ch>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH][next] drm/sched: Fix spelling mistake "sumission" ->
+ "submission"
+Date: Thu, 30 Apr 2026 20:34:46 +0100
+Message-ID: <20260430193446.1062933-1-colin.i.king@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,52 +94,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Triggering kswap at an order higher than beneficial_order makes little
-sense, as the driver has already indicated the optimal order at which
-reclaim is effective. Similarly, issuing direct reclaim or triggering
-kswap at a lower order than beneficial_order is ineffective, since the
-driver does not benefit from reclaiming lower-order pages.
+There is a spelling mistake in a pr_info message. Fix it.
 
-As a result, direct reclaim should only be issued with __GFP_NORETRY at
-exactly beneficial_order, or as a fallback, direct reclaim without
-__GFP_NORETRY at order 0 when failure is not an option.
-
-Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Carlos Santa <carlos.santa@intel.com>
-Cc: Christian Koenig <christian.koenig@amd.com>
-Cc: Huang Rui <ray.huang@amd.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-CC: dri-devel@lists.freedesktop.org
-Cc: Daniel Colascione <dancol@dancol.org>
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: Christian Koenig <christian.koenig@amd.com>
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
 ---
- drivers/gpu/drm/ttm/ttm_pool.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/scheduler/tests/tests_scheduler.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-index 26a3689e5fd9..8425dbcc6c68 100644
---- a/drivers/gpu/drm/ttm/ttm_pool.c
-+++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -165,8 +165,8 @@ static struct page *ttm_pool_alloc_page(struct ttm_pool *pool, gfp_t gfp_flags,
- 	 * Do not add latency to the allocation path for allocations orders
- 	 * device tolds us do not bring them additional performance gains.
+diff --git a/drivers/gpu/drm/scheduler/tests/tests_scheduler.c b/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
+index 8b2e4ef9915f..4728e4605818 100644
+--- a/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
++++ b/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
+@@ -599,7 +599,7 @@ static void drm_sched_scheduler_two_clients_test(struct kunit *test)
+ 	 *  -  qd: Number of outstanding jobs in the client/entity
  	 */
--	if (beneficial_order && order > beneficial_order)
--		gfp_flags &= ~__GFP_DIRECT_RECLAIM;
-+	if (order && beneficial_order && order != beneficial_order)
-+		gfp_flags &= ~__GFP_RECLAIM;
  
- 	if (!ttm_pool_uses_dma_alloc(pool)) {
- 		p = alloc_pages_node(pool->nid, gfp_flags, order);
+-	pr_info(" [pct] - Job sumission progress\n"
++	pr_info(" [pct] - Job submission progress\n"
+ " [cps] - Cycles per second\n"
+ "  [qd] - Number of outstanding jobs in the client/entity\n");
+ 	pr_info("%s:\n\t            pct1 cps1 qd1;  pct2 cps2 qd2\n",
 -- 
-2.34.1
+2.53.0
 
