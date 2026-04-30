@@ -4,57 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9E1CFF8875
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 07:53:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E71F8FF8875
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 07:56:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28A7E10F27A;
-	Thu, 30 Apr 2026 07:53:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21EB410F26F;
+	Thu, 30 Apr 2026 07:56:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="WgKHn8mu";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AYsaJNX/";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89B7110E0EF
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 07:53:17 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 452B94E42B8A;
- Thu, 30 Apr 2026 07:53:16 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 00C5F60495;
- Thu, 30 Apr 2026 07:53:16 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id DC1981072816D; 
- Thu, 30 Apr 2026 09:53:09 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1777535594; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=Ey8gR43xKkL3Ku1urhZsLCjax+MlIzA5IqmKctUOGwQ=;
- b=WgKHn8muKRQOvtNLxgBiyLZcPI0N2j8tig6Bm7KhoGBRkBNULndkw67XtJdHUjlEubqvEf
- zceQncsMKCpyH/ZT0IUE/FaAzYohGDos2XExsxzaW+POLYTDXR2XwycDrA8HkFJP/Xx8Ov
- 5NFz16EfKlpr/2iwBV0ql8gVpI1c5Kqq/+POIOcZlD9W+Pq4+uuy8XHQNDYg3CDcKB4bji
- 5nDSbLmQDik+TLotELrznGCzLBQivFMlFZCt24i6mnCULF5VZIk3/djRcZDbHikFULv+g0
- v0RsjHXuzr0mSxEQ0f/X2PfkzX9kTteS63Z4Z3Zjr9QbI0WkbYIlJAyNtBjLjA==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 30 Apr 2026 09:53:08 +0200
-Message-Id: <DI6BS0B8HTLP.2Q00QFIUQUZRU@bootlin.com>
-Subject: Re: [PATCH] drm/bridge: lontium-lt8912b: Do not generate HFP
-Cc: "Adrien Grassein" <adrien.grassein@gmail.com>, "Andrzej Hajda"
- <andrzej.hajda@intel.com>, "David Airlie" <airlied@gmail.com>, "Jernej
- Skrabec" <jernej.skrabec@gmail.com>, "Jonas Karlman" <jonas@kwiboo.se>,
- "Laurent Pinchart" <Laurent.pinchart@ideasonboard.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Robert Foss" <rfoss@kernel.org>, "Simona Vetter" <simona@ffwll.ch>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-To: "Francesco Dolcini" <francesco@dolcini.it>, <max.oss.09@gmail.com>,
- "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>, "Thomas Zimmermann"
- <tzimmermann@suse.de>, "Neil Armstrong" <neil.armstrong@linaro.org>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.20.1
-References: <20250728150059.2642055-1-max.oss.09@gmail.com>
- <20260429133333.GA68737@francesco-nb>
-In-Reply-To: <20260429133333.GA68737@francesco-nb>
-X-Last-TLS-Session-Version: TLSv1.3
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63C7E10E0EF
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 07:56:35 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 059D743BB3;
+ Thu, 30 Apr 2026 07:56:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EB91C2BCB4;
+ Thu, 30 Apr 2026 07:56:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1777535794;
+ bh=izexGcIwdtyGTJHND8E/q0tfWCcSCGUGo5HOHm0zPtM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=AYsaJNX/CQOjYCeNvICWroD8akoGwIQ0LoaykxGr7zvn7J4IxIr1BkgyeKU4iVQHY
+ NhsBJBadIh1ACEsyTqGpta4tqEoZhSnFbUI0yrLE9PbYcpHyPqB8JX4cW8F/nWonh6
+ 9xklaskRHq/BL/MYOSBqYwKSXLtK4ZtIlZURMU7pkxiNgLyJ4fDVERusTpNIY0Q/Zu
+ U/9w2kWPPLhnaDcVPwqcA6qD0dCNj5qx89YTzstIrB7HZ48snF49+0mSRdNlElJjdz
+ TAANz3dOsVqx/fUmqNLIajoVxKpfWyBkVRax6niQuZM+0OJaR90tdD+36HYhecNmyO
+ R9x5PrUeQAFVQ==
+Date: Thu, 30 Apr 2026 09:56:32 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: syyang@lontium.com
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+ andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+ dmitry.baryshkov@oss.qualcomm.com, 
+ maarten.lankhorst@linux.intel.com, rfoss@kernel.org, mripard@kernel.org, 
+ Laurent.pinchart@ideasonboard.com, tzimmermann@suse.de, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, 
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, 
+ yangsunyun1993@gmail.com, xmzhu@lontium.corp-partner.google.com,
+ xmzhu@lontium.com, rlyu@lontium.com, xbpeng@lontium.com
+Subject: Re: [PATCH v3 1/2] dt-bindings:bridge: Add Lontiun LT7911EXC eDP to
+ MIPI DSI bridge
+Message-ID: <20260430-gainful-hopping-quokka-da7e7b@quoll>
+References: <20260429040541.3404116-1-syyang@lontium.com>
+ <20260429040541.3404116-2-syyang@lontium.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260429040541.3404116-2-syyang@lontium.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,50 +67,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Francesco,
+On Wed, Apr 29, 2026 at 12:05:40PM +0800, syyang@lontium.com wrote:
+> From: Sunyun Yang <syyang@lontium.com>
+> 
+> The LT7911EXC is an I2C-controlled bridge that Receiver eDP1.4
+> and output signal/dual port mipi.
+> 
+> Signed-off-by: Sunyun Yang <syyang@lontium.com>
 
-On Wed Apr 29, 2026 at 3:33 PM CEST, Francesco Dolcini wrote:
-> +Dmitry, Luca
->
-> Hello all,
-> how to get this patch considered and eventually merged? I see that this
-> is not moving since long.
->
-> Considering that Adrien Grassein is not visible on the mailing list
-> since 2022, and that I have various HW available that is using this
-> combination (on TI Sitara and Jacinto, on a DPI-DSI tc358768 bridge,
-> and NXP i.MX), I have access to the (little) documentation that is
-> available from Lontium I can propose myself as a maintainer here.
+Missing space after ':' in subject.
 
-Thanks for volunteering! I am not a DRM maintainer, so I'll let others
-chime in, but I suspect you should just send a patch to add yourself to the
-MAINTAINERS entry and (as a separate patch?) remove Adrien, unless he
-speaks up by then.
+...
 
-> I assume being able to ack patches would help the maintenance here, or
-> is this just a glitch and a ping was enough?
+> +  ports:
+> +    $ref: /schemas/graph.yaml#/properties/ports
+> +
+> +    properties:
+> +      port@0:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +        description: Video port for MIPI DSI output.
 
-dri-devel is flooded by patches, driver-specific ones will unavoidably be
-missed in lack of a responsive maintainer. So this is not a glitch, it's a
-frequent pattern I'm afraid.
+Wrong description, first is input. Look at your DTS.
 
-As above, if you were in the MAINTAINERS entry, look at patches and comment
-on them, and test on hardware that would be great IMHO.
+> +
+> +      port@1:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +        description: Video port for eDP input.
+> +
+> +    required:
+> +      - port@0
+> +      - port@1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - reset-gpios
+> +  - vdd-supply
+> +  - vcc-supply
+> +  - ports
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +    i2c {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        mipi-bridge@41 {
+> +            compatible = "lontium,lt7911exc";
+> +            reg = <0x41>;
+> +            reset-gpios = <&gpy8 8 GPIO_ACTIVE_LOW>;
+> +            vdd-supply = <&lt7911exc_1v2>;
+> +            vcc-supply = <&lt7911exc_3v3>;
+> +
+> +            ports {
+> +                #address-cells = <1>;
+> +                #size-cells = <0>;
+> +
+> +                port@0 {
+> +                    reg = <0>;
+> +                    bridge_in: endpoint {
+> +                        remote-endpoint = <&edp_out>;
+> +                    };
+> +                };
 
-For this one patch: it looks OK.
+Best regards,
+Krzysztof
 
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-
-Adding the "why" would be better, which I assume to be power saving. No
-need to sned a v2 just for that though.
-
-I'm applying it in ~1 week. It would be good if you could check it still
-applies on drm-misc-next before that, report back if it does, send a v2
-(adding the "why") if it doesn't.
-
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
