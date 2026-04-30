@@ -4,136 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57FFECD13D3
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 06:35:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57DAACD13D9
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 06:45:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B77C510E10C;
-	Thu, 30 Apr 2026 06:35:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0ED4510F21F;
+	Thu, 30 Apr 2026 06:45:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="KQ61o7p4";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="cZn5CA9f";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="rNprQVbr";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="kmexgdeq";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="oxx8+QbW";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="+EgL3tFe";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="X49V+yD7";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="3gMVT/m2";
 	dkim-atps=neutral
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC8C310E10C
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 06:35:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7829110F21F
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 06:45:24 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 88D5F5BD6E;
- Thu, 30 Apr 2026 06:35:22 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id DC3955BD70;
+ Thu, 30 Apr 2026 06:45:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1777530923; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1777531523; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=a0LF9opS/4b9B5ZY/UhjqVoZf/jyWF4njFUo2Jwl3Jg=;
- b=KQ61o7p4Lud8fy8AuyJ5fPImBAR44t1XUReUywn47MtP+OkBWooU6zMWYg2a05H5x0y3NC
- 6fY5Tn8gBiUR1/lNx1u0PZlXoTtva2b+f+7s3VOcpya9eEgI4hZtOTi7jX06z9gO7k7ir2
- WwYgcnuWLl1f2yAwhRltkbP2DN/aZLY=
+ content-transfer-encoding:content-transfer-encoding;
+ bh=xRE7UVjujoUmBJVmUi3xYYjT8iJlV9tALry80/foyNE=;
+ b=oxx8+QbW68S/gzE83Z702vPYBLSP9k4KB0GcshagxCG51mVUe8IvvgKICiWg6J3+WDs0Ox
+ 7cEGL0dRqN8NpVZKYauvghpElAI1YQXl/g8SccNxiVGvi0/caaqCObNMQ2kH5INqtmFOA7
+ 13tvdvUzIKJBVYMyspMF3XctKawQ/1A=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1777530923;
+ s=susede2_ed25519; t=1777531523;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=a0LF9opS/4b9B5ZY/UhjqVoZf/jyWF4njFUo2Jwl3Jg=;
- b=cZn5CA9fBiY9CgVLbVPBwOShViQOhEx7epHbKyV+WHvfSb3BQ8InkrR6ksK5FnBy1JzhkS
- 1KQGwrECYhXZUCBA==
+ content-transfer-encoding:content-transfer-encoding;
+ bh=xRE7UVjujoUmBJVmUi3xYYjT8iJlV9tALry80/foyNE=;
+ b=+EgL3tFeejl7nC1llfqwGQijRn+LuN0nXA6XP8FvM69cYhElgKNUadIYJjR3o9fpDwqKRk
+ O1AZEeJ3KK8qXhDQ==
 Authentication-Results: smtp-out2.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1777530922; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1777531522; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=a0LF9opS/4b9B5ZY/UhjqVoZf/jyWF4njFUo2Jwl3Jg=;
- b=rNprQVbr58snlf0nWjdC8xT6swp9DU4zo9KAyEO5LBExhaa69LfzB9hC84Nm1zrXVcuYRy
- LGPzuNsQNnJawTf4y0r3zQbdvz7SE5YrSP1CBEBfn7BWMZ1jmreBEic6kSxYqz7xnGI+/c
- rOo92tNFNGal0oDaVdyKQywbgxVDFzo=
+ content-transfer-encoding:content-transfer-encoding;
+ bh=xRE7UVjujoUmBJVmUi3xYYjT8iJlV9tALry80/foyNE=;
+ b=X49V+yD7xvLP7dH1UoZgRGL0rXGr2PlQqfEE745mzJceePstH9d66IN/A78yFj7O5gRvAf
+ RFq1zTtCYKINVL7G4euuDag1szIgW9jwM8PczhMor/BxyErugVyGXtUYVNFR5rBQxv04mt
+ aHW8R26o3bpb9/zvVklOmLAKOzP+J1o=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1777530922;
+ s=susede2_ed25519; t=1777531522;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=a0LF9opS/4b9B5ZY/UhjqVoZf/jyWF4njFUo2Jwl3Jg=;
- b=kmexgdeqeFSnoq8f26oKl38iMGX2IFk04AQ84o2Xy0n/o14JzuiefpBblXbVyyHDJ+AAvt
- eH/vEWwpLDqvV3BQ==
+ content-transfer-encoding:content-transfer-encoding;
+ bh=xRE7UVjujoUmBJVmUi3xYYjT8iJlV9tALry80/foyNE=;
+ b=3gMVT/m2pd0i+6OxwoZVY36/QLL8VbjBxU8TpJo+m0KHfqd/zPMqif4dgFf2Nt+dj0JwKZ
+ NcRfxKFjf6/a1gAQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E564F593B0;
- Thu, 30 Apr 2026 06:35:21 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7C3FB593B0;
+ Thu, 30 Apr 2026 06:45:22 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id v3YtNin48mlKFAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 30 Apr 2026 06:35:21 +0000
-Message-ID: <fb6e2aa8-3636-407f-a3fc-846a80e34d7b@suse.de>
-Date: Thu, 30 Apr 2026 08:35:21 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/8] firmware: sysfb: Consolidate config/code wrt.
- sysfb_primary_screen
-To: patchwork-bot+linux-riscv@kernel.org
-Cc: linux-riscv@lists.infradead.org, javierm@redhat.com, arnd@arndb.de,
- ardb@kernel.org, ilias.apalodimas@linaro.org, chenhuacai@kernel.org,
- kernel@xen0n.name, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- airlied@gmail.com, simona@ffwll.ch, kys@microsoft.com,
- haiyangz@microsoft.com, wei.liu@kernel.org, decui@microsoft.com,
- longli@microsoft.com, deller@gmx.de, linux-arm-kernel@lists.infradead.org,
- loongarch@lists.linux.dev, linux-efi@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
- linux-fbdev@vger.kernel.org
-References: <20260402092305.208728-1-tzimmermann@suse.de>
- <177751955329.2274119.12779807302343885295.git-patchwork-notify@kernel.org>
-Content-Language: en-US
+ by imap1.dmz-prg2.suse.org with ESMTPSA id T4z9HIL68mnXHgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 30 Apr 2026 06:45:22 +0000
+Date: Thu, 30 Apr 2026 08:45:21 +0200
 From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <177751955329.2274119.12779807302343885295.git-patchwork-notify@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dim-tools@lists.freedesktop.org
+Subject: [PULL] drm-misc-fixes
+Message-ID: <20260430064521.GA14957@linux.fritz.box>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- RCVD_COUNT_TWO(0.00)[2]; TAGGED_RCPT(0.00)[linux-riscv];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; MIME_TRACE(0.00)[0:+];
- MID_RHS_MATCH_FROM(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
+ MISSING_XM_UA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWELVE(0.00)[16];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
+ FREEMAIL_TO(0.00)[gmail.com,ffwll.ch];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[];
- FREEMAIL_CC(0.00)[lists.infradead.org,redhat.com,arndb.de,kernel.org,linaro.org,xen0n.name,linux.intel.com,gmail.com,ffwll.ch,microsoft.com,gmx.de,lists.linux.dev,vger.kernel.org,lists.freedesktop.org];
- RCPT_COUNT_TWELVE(0.00)[24]; RCVD_TLS_ALL(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; TO_DN_NONE(0.00)[];
- FROM_HAS_DN(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, suse.com:url,
- imap1.dmz-prg2.suse.org:helo]
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, imap1.dmz-prg2.suse.org:helo,
+ gitlab.freedesktop.org:url]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,57 +117,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+Hi Dave, Sima,
 
-Am 30.04.26 um 05:25 schrieb patchwork-bot+linux-riscv@kernel.org:
-> Hello:
->
-> This series was applied to riscv/linux.git (fixes)
-> by Ard Biesheuvel <ardb@kernel.org>:
-
-Patch 3 was fairly controversial.
+this is the first drm-misc-fixes for the new v7.0 kernel.
 
 Best regards
 Thomas
 
->
-> On Thu,  2 Apr 2026 11:09:14 +0200 you wrote:
->> The global state sysfb_primary_screen holds information about the
->> framebuffer provided by EFI/BIOS systems. It is part of the sysfb
->> module, but used in several places without direct connection to
->> sysfb. Fix this by making users of sysfb_primary_screen depend on
->> CONFIG_SYSFB. Fix a few issues in the process.
->>
->> Patches 1 and 2 fix general errors in the Kconfig rules. In any case,
->> these patches should be considered even without the rest of the series.
->>
->> [...]
-> Here is the summary with links:
->    - [1/8] hv: Select CONFIG_SYSFB only for CONFIG_HYPERV_VMBUS
->      https://git.kernel.org/riscv/c/d33db956c961
->    - [2/8] firmware: efi: Never declare sysfb_primary_display on x86
->      https://git.kernel.org/riscv/c/5241c2ca33bb
->    - [3/8] firmware: sysfb: Make CONFIG_SYSFB a user-selectable option
->      (no matching commit)
->    - [4/8] firmware: sysfb: Split sysfb.c into sysfb_primary.c and sysfb_pci.c
->      (no matching commit)
->    - [5/8] firmware: sysfb: Implement screen_info relocation for primary display
->      (no matching commit)
->    - [6/8] firmware: sysfb: Avoid forward-declaring sysfb_parent_dev()
->      (no matching commit)
->    - [7/8] firmware: efi: Make CONFIG_EFI_EARLYCON depend on CONFIG_SYSFB; clean up
->      (no matching commit)
->    - [8/8] firmware: sysfb: Move CONFIG_FIRMWARE_EDID to firmware options
->      (no matching commit)
->
-> You are awesome, thank you!
+drm-misc-fixes-2026-04-30:
+Short summary of fixes pull:
+
+DRM core and helpers:
+- calculate framebuffer geometry with format helpers
+- fix docs
+
+appletbdrm:
+- allocate protocol buffers with kvzalloc()
+
+dma-buf:
+- fix docs
+
+imagination:
+- avoid segfault in debugfs
+
+ofdrm:
+- put PCI device reference on errors
+
+udl:
+- increase USB timeout
+The following changes since commit 254f49634ee16a731174d2ae34bc50bd5f45e731:
+
+  Linux 7.1-rc1 (2026-04-26 14:19:00 -0700)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-fixes-2026-04-30
+
+for you to fetch changes up to ac2c996675755c725a0065dbe3e2ebffded9080b:
+
+  drm/udl: Increase GET_URB_TIMEOUT (2026-04-28 10:50:41 +0200)
+
+----------------------------------------------------------------
+Short summary of fixes pull:
+
+DRM core and helpers:
+- calculate framebuffer geometry with format helpers
+- fix docs
+
+appletbdrm:
+- allocate protocol buffers with kvzalloc()
+
+dma-buf:
+- fix docs
+
+imagination:
+- avoid segfault in debugfs
+
+ofdrm:
+- put PCI device reference on errors
+
+udl:
+- increase USB timeout
+
+----------------------------------------------------------------
+Aditya Garg (1):
+      MAINTAINERS, mailmap: update Aditya Garg's email address
+
+Ashutosh Desai (1):
+      drm/gem: Fix inconsistent plane dimension calculation in drm_gem_fb_init_with_funcs()
+
+Brajesh Gupta (1):
+      drm/imagination: Fix segfault when updating ftrace mask
+
+Geert Uytterhoeven (1):
+      drm/color-mgmt: Typo s/R332/RGB332/
+
+Maxime Ripard (1):
+      Merge drm/drm-fixes into drm-misc-fixes
+
+Sasha Finkelstein (1):
+      drm/appletbdrm: Use kvzalloc for big allocations
+
+Shixiong Ou (1):
+      drm/udl: Increase GET_URB_TIMEOUT
+
+Thomas Zimmermann (1):
+      Merge drm/drm-fixes into drm-misc-fixes
+
+Xiang Gao (1):
+      dma-buf: fix stale @lock references in struct dma_buf documentation
+
+Yuho Choi (1):
+      drm/sysfb: ofdrm: fix PCI device reference leaks
+
+ .mailmap                                     | 1 +
+ MAINTAINERS                                  | 2 +-
+ drivers/gpu/drm/drm_color_mgmt.c             | 2 +-
+ drivers/gpu/drm/drm_gem_framebuffer_helper.c | 4 ++--
+ drivers/gpu/drm/imagination/pvr_fw_trace.c   | 2 +-
+ drivers/gpu/drm/sysfb/ofdrm.c                | 2 ++
+ drivers/gpu/drm/tiny/appletbdrm.c            | 4 ++--
+ drivers/gpu/drm/udl/udl_main.c               | 3 +--
+ drivers/gpu/drm/udl/udl_modeset.c            | 5 ++++-
+ include/linux/dma-buf.h                      | 4 ++--
+ 10 files changed, 17 insertions(+), 12 deletions(-)
 
 -- 
---
 Thomas Zimmermann
 Graphics Driver Developer
 SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 NÃ¼rnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG NÃ¼rnberg)
-
-
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
