@@ -4,132 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2981DFF8875
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 07:40:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 764A4CD13D9
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Apr 2026 07:45:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7261610F261;
-	Thu, 30 Apr 2026 07:40:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD11310F25D;
+	Thu, 30 Apr 2026 07:45:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4G9OfDcN";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="aNevKTVG";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013040.outbound.protection.outlook.com
- [40.93.201.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6F3310F25D;
- Thu, 30 Apr 2026 07:40:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gffvZPOY8FvfK6jxF9QHt91Dp2EV2upSEZ2cWII9dpqFIXfm9oWIPewnpbfnRg6AtjEtPjXuu42brN7hGwdczhuc4MvBixJyJLBtLy53yOf6jzHyANC6b/jm5Ejlp2P1v1Qw0Q3Jnk9rThVufDZGNjFX9bMMCfhJaM6gB7tomMtKgWmrtLJHRjWSTtUow5nd7DeiwBs1vx1Xy5M5v8HDEAbgCd0m7klXZATilXwD3UYpHtNu+JU0eRLfhKixzVhUlbfYVNACK5M3jKqwIl/7qHaAuggQZPXznhItJyOrlgPTVHZ/qvhJMhNibGVyyRYZx6sNiwRBAV1NzecMnCmtWg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1edhdSyItEy2+tv19PvPLGPKN0AN5FazrsyRMA5amSc=;
- b=kROzx1SCznPhyVUAde6PsDFTc6r63F//mGReilGM0An56PXgm3RZBndDDhnf4vn0E9Rb2JKgmTbUuYb8eO3WkegWL9Koxae6Q+bgjbKJK6ozSRPAsrRvFUM0FuZvmRIMcHLx1FA4WeVukx7YmnQGPBRtD3mdk2dDrf/44UAzM1YFlz3+7K8duxgbVhyUAeJKQC3Kj+UeglHqW8VJuInI5YB4S1yEK41NNejcGGugMKogWPOxcNxggXhOzhNqVHyq5S+ZGtK4imRvwdsUrpDhG0D1nYMR/d/jIHxK7jqfnySyWSpHkUbRJmSQISi9pkOZU2NdfmYuIGSpLjVe0+gQFA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1edhdSyItEy2+tv19PvPLGPKN0AN5FazrsyRMA5amSc=;
- b=4G9OfDcNGhmRWb5UDjGBW+IHCB0fMCJmJyRcFUcA/te+sjKlSNV9lr13X6R9r+02kr+/tuaGxndWVzvPCwhtY1erCTqF2IQT+t67irNQy5ZJq2llli1KjxBxenSkd6ha3odha40Pa5lszbqLyD32z0RlGqJCZKCvc7Eq4dHjDr0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by IA1PR12MB8080.namprd12.prod.outlook.com (2603:10b6:208:3fd::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.20; Thu, 30 Apr
- 2026 07:40:01 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9870.020; Thu, 30 Apr 2026
- 07:40:01 +0000
-Message-ID: <898c5657-3f5a-4fea-bd3e-4ac4de45dd2f@amd.com>
-Date: Thu, 30 Apr 2026 09:39:54 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/5] drm/ttm: Introduce ttm_bo_shrink_kswap_fragmented()
-To: Matthew Brost <matthew.brost@intel.com>, Andi Shyti <andi.shyti@kernel.org>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Carlos Santa <carlos.santa@intel.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Daniel Colascione <dancol@dancol.org>
-References: <20260423055656.1696379-1-matthew.brost@intel.com>
- <20260423055656.1696379-4-matthew.brost@intel.com>
- <afCGat6ADLrHYEIn@zenone.zhora.eu>
- <afL1VbG9HNDnA5Rq@gsse-cloud1.jf.intel.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <afL1VbG9HNDnA5Rq@gsse-cloud1.jf.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0106.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a3::16) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10BE910F23D;
+ Thu, 30 Apr 2026 07:45:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1777535151; x=1809071151;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=NYz7/i4cuHthVmL/nx0n1Myc1mam1yqQXFVjzhXC/UA=;
+ b=aNevKTVGAPI0ak6GjdOJFkV1y8eP/vbTd/y6oeV453/ijZsnKML9ycGp
+ q7d02vS984vqZ9QmWAKMUHe9uL+B2or7yLS0OdhtkAg1IfK7rhsKIU0eJ
+ qhiT5t09KIPTM1SBUVEx19VhObygzbGgL6J0YfzG6UgQHFjxRFble2X6s
+ wZwg9Xyjbwc+7x+AsEXIozrtperl5sGoWxRnYWpAd86yvjnPWAT0x0AVf
+ nFkbPDjdmBV+XNM03lqc1Z+4nRWRMbn+G9pO4/vNvTnl3QH07iETTSbb7
+ 49Sqt3QAn9SlFT86DwEyiOPXxQXpHYiAT9zA37fTdwtnMkTH0xeKtkPy4 A==;
+X-CSE-ConnectionGUID: iMhiZSCxS+u1oxNg/F8d/Q==
+X-CSE-MsgGUID: tvV5/kBtRImc6Y8iuoLHyA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11771"; a="82333841"
+X-IronPort-AV: E=Sophos;i="6.23,207,1770624000"; d="scan'208";a="82333841"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Apr 2026 00:45:51 -0700
+X-CSE-ConnectionGUID: yH5spatETfi3UJGFcK7TeQ==
+X-CSE-MsgGUID: BKTk3nZCTZigLesOE+TyGw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,207,1770624000"; d="scan'208";a="239496312"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.68])
+ by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Apr 2026 00:45:49 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: bitey <s.mavlenkov@mail.ru>, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: rodrigo.vivi@intel.com
+Subject: Re: [PATCH] drm/i915/dp: Fix link retrain loop on pre-gen8
+ platforms with DP adapters
+In-Reply-To: <20260430030846.29373-1-s.mavlenkov@mail.ru>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260430030846.29373-1-s.mavlenkov@mail.ru>
+Date: Thu, 30 Apr 2026 10:45:46 +0300
+Message-ID: <3d70412ad467067f492f9b6975c1fb7d8773e2dc@intel.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA1PR12MB8080:EE_
-X-MS-Office365-Filtering-Correlation-Id: bcd05efd-2cf2-4e7d-d423-08dea68baf88
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|7416014|376014|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: HGCg9ILVRgLkKuXCUgsBwaRENR+CfTaEgeZ3jiAk8oAPDdxykhuJ++TEHMO+Ou5Rrfj7pkjfBb8xDGoGJoqbL3JWXaCXXE8kYgg1n9CAOLpW+aG20qbSUzyT+YcCuf0iaxUkSbbE4HLRfTZOJ89j1z7DPvRBKw3uxuHcyCdVPrMPvUCt9Q3bWr9yWFD2N/f8L57q64wpj00UD0SCs7EtasDBsaZIgYXkrij+sd9AXXyMJ5ivUYhEW+PwNqB8AlYOor27MsdhI0RXvwXP5Pnf/cgp5r49+8T2bYgNB+BC72IC4IHCrmAzNDJ8k4Kv6DMj0NPyCBCiGNCpXA3DwJm5B4oyb0GWNRGe5VLyT0WUM8puzZlyQ2EKsF4TvC84hLgDGjrGXhCw9ILoHhWwAKvh9swMa6jUbzWmL7/LJS1UHWWcwch2X6BU4Q+QqFDFLRs4xN4dUlamVpeYBwAg9rEypcy/n5mLJZM5nhy2agiWc509DIaDp0B1XdHkQ966gsuwO2Vek81Nh60KusbWSN1uwjUb+wgJiQ7cmsZ1WB1DOFzIuLNVwWhYqJCZA0elTkpp4Enrs0jnmyYjdN2Whq3vrDQh4c06DhiWZN9HZSvXfzvK9ZqHWKoFGHBiW6Pm9CvTr1IKII0UyFd1P/9KdhKysNIBdrOP+w6Uji8KTxhmI5PGr7NL0z3LkjA/0/ms8pPF+Er6P4waz1Al1swS0Tqz8vN3c4aMrXH1rKR56WRDyj0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(7416014)(376014)(18002099003)(22082099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ek0zNW9ZUmx4d2c0UTJpWUtVQjNmZDV0MVF3YStlQ1doMHZxNDN0WHNNWTJ2?=
- =?utf-8?B?cSs4dUNZOEhzZWpuNndMT1ZOWUQyN09mYXZjUmlBR1dLeWxWWTRKOGZ3WmVH?=
- =?utf-8?B?MFo5N3I0R2Z6N0NGTk9hWHNWUVV2Q1phdzg3UU1BanJnN2IyVjJ2MzFqMHRY?=
- =?utf-8?B?RkNYbTdmOUxLSzBTZ3pXNHk3aWE3OFVwbTdvai9pVVErSkRWbytNUnZZMTR0?=
- =?utf-8?B?b3d2a0hwdHdmUE5QV3hVU0Y1Y1hKVXhzVVlzTmxoZGZtSWVhRkoyMmdPaERw?=
- =?utf-8?B?d044Rll5RU9zaHFTd0JBK0FJRXY5aVZVbDRwRTFYWlJ4R3RHYkdEWE9tZmFY?=
- =?utf-8?B?b09RcXFYL2IxL1crdHl3VkdkaDBoSVl3VGF5NEEzZ01OQVFHbEZ1bVdMKzM0?=
- =?utf-8?B?UHRqQWpZNDlOVmk4VStPbkRaU0l1akxzYmZqVHpVUVgwWFQvOXBZZlIyYTdr?=
- =?utf-8?B?ZmNmRC81SGs2NGxuaDE1VHgvMFpuVE42endlNld2OWJPeU44dnFlSWVZWXhM?=
- =?utf-8?B?UHd1ZHJhVTl1Q3RXWHRvNGhPTzlCcVJkOXBmZHlMWHhTNlpSSXdHRlBNbGpR?=
- =?utf-8?B?aGVGTjdMRmNHVDdoc1hhMTk3SVR5UTBqelVWVVBsUk1xYkxOOVp3TUFBK1My?=
- =?utf-8?B?Q21VMEdDU1BDc3RvOG1qN2JHZVdKeDMxRFlPUmxjeklxRU0vSXRqS3IvcW9l?=
- =?utf-8?B?VHM1NWJCUGpGVmQ0NkRDN21DWGdpOEZuQVlLaGNvR3ZFbWlGckVwcEpybUVa?=
- =?utf-8?B?RnlYaGUvVTdrWWFBMmJVNjBjcDR4WjlLSjh0eU1DVTc3MXpJSDZManlNS0NO?=
- =?utf-8?B?dlQ3S1ZqVGxwMU1MMk1mM0Z1WG5BQndzV1YzbTNBOS9LcFZUeXprRUtqdm40?=
- =?utf-8?B?NWhvM1lPZFFBaW4wWFJyemtzNGxsbVlPTUNkelgya3NhK2hITlBJcXJhZ2My?=
- =?utf-8?B?S0FMV0tTTFl1c2tIS1hMZXE3ZE4zWEhJUU9ud2tkYjVMZU9MQVR5ZmhCVUgw?=
- =?utf-8?B?TXBoeisyeUo4dVdpV2RWZTBwMUx0WVRHYVZPZHF3bzU0cTN2Rzk1bHdzQlpG?=
- =?utf-8?B?NEcrZ0d3RDdmd0UrYjY4Q0N6a0VvYkE0RFhybWJvd3dmV3o1aGE3bkY5bUJW?=
- =?utf-8?B?TmdqbXJST3FzRVJReWxhTmVyS21xc2EvcUdVRjh4RkV2QW5qOFRWdWNSZFl5?=
- =?utf-8?B?NzJiMjUwZ2JzVXByRWRISzEydnZydW04VDlpYTNwUkFSdzhMdmpLcWZhQXAy?=
- =?utf-8?B?OCs5UDhSZDJzOC9Bc2Q1bVlDZTI4Q1BFM2E3Mkk5TnMrbHJJckFXMkJLSHgz?=
- =?utf-8?B?cjlLTGdQQXBWdS9BblRDWXdFVm5rVXhKNlI3T0k0cWZlWE1Nb3VtYkZCY0tZ?=
- =?utf-8?B?dzBnL3hva2pwcDJtOVB5UkJtYndrVGtCT2djWVNUWWVFanlCQXZoa0s5SjhS?=
- =?utf-8?B?MFJXcDFOTUJ0VDB1amJUVyt1NC8yNUtyTUtYOXRhVUIwcENWbU1OejlteElJ?=
- =?utf-8?B?ZWJTU1k2Y1VJOGYySWRkVE44SndvY3NoZmJTd0NnTW9ZcEJGRURubHFpeE0r?=
- =?utf-8?B?NmtMOUpzVFNCd0Nsb2xPakUyNEdxSHpZL1NyWFc0K29oRjNJcVY2REVqYnBB?=
- =?utf-8?B?NmFRaFRFcjNMUmJJdHZWckNTaUFEWDVvRzRmMEkxR2tuZTN1OTVteEUrRGw0?=
- =?utf-8?B?aUN5ZWxMR2k0aVdFN3ppeFpja1hBZjBJTVArbitTTWdGN05YSFY0K1VYY2Uw?=
- =?utf-8?B?MmpYODdrR1BWWWNSZ3lvclpjWUIvc2J1L2JqRVlYNkZwdTkzRUs4SEVjM3Ev?=
- =?utf-8?B?Nm9XUWNRZElkbk53MEVBUDQ4OXMyeVZEQmdYR3JrYWpKMmhXQzZ0eWhHUWtn?=
- =?utf-8?B?YlV2ZUpxc2ZxMzRqd1JQeVZzeVJHeXdscHhCU0RsTTBteTFEK0RLTittaWFh?=
- =?utf-8?B?TmlvNTU0dlhhdHV4ODhidUcyWHBxM1FkNHEreG9ZRGxDZWlRSFZFZlM5RS8y?=
- =?utf-8?B?c0tWdWZadGVmcW9zOVR0S1NrbG9mdG9sYTNySWRpeXpHTXJmenAveCsvTkNM?=
- =?utf-8?B?cU1TR1o4cXBicTM0dWxKVldJTGtvVG5PcGxyQTkzVks1MG5HTjNsQ2N3cGV5?=
- =?utf-8?B?aWpGdVg0bExKSmFRY3E0QVlIVVh5WWk0WWh5dXpwUERRb0NoZ1RRdnl1Qzlh?=
- =?utf-8?B?UGNqb1RmNDlyQ2FaM0JNRDVFWjlhMnZWQjRXMHpCOWlmTGp6R1IraCtXRnpN?=
- =?utf-8?B?QzBVakMydFU2Y2NyOWhZU1d5ejB5WlQrdFFEQWZQMFplWENpOWduZDBhcEhO?=
- =?utf-8?Q?PwrsPqj345Zo2Oqt3V?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bcd05efd-2cf2-4e7d-d423-08dea68baf88
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2026 07:40:01.1483 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3vRJe3lQfTaKNunIYt9rs6LmdQfKL5blNFViyzPhuVRAVwXF08OMAPxoTrrhshYl
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8080
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,70 +71,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/30/26 08:23, Matthew Brost wrote:
-> On Tue, Apr 28, 2026 at 12:07:07PM +0200, Andi Shyti wrote:
->> Hi Matt,
->>
->> ...
->>
->>> +/**
->>> + * ttm_bo_shrink_kswap_fragmented() - Whether in kswap and memory appears
->>> + * fragmented
->>> + * @nid: current node being shrunk
->>> + *
->>> + * Return: true if in kswap and memory appears fragmented, false is not.
->>> + */
->>> +bool ttm_bo_shrink_kswap_fragmented(int nid)
->>
->> This name is a bit to strong and misleading, in my opinion.
->>
-> 
-> s/ttm_bo_shrink_kswap_fragmented/ttm_bo_shrink_kswap_maybe_fragmented
-> 
+On Thu, 30 Apr 2026, bitey <s.mavlenkov@mail.ru> wrote:
+> On Ivy Bridge (and other pre-gen8 platforms), active DP-to-HDMI protocol
+> converters such as the Chrontel CH73111 trigger an infinite link retrain
+> loop on kernels 6.x+. The monitor connected through the adapter goes
+> black and recovers approximately once per second, eventually causing
+> system instability.
+>
+> Three changes introduced in the i915 DP stack combine to cause this:
+>
+> 1. intel_dp_stop_link_train() now automatically schedules a post-training
+>    link check via intel_encoder_link_check_queue_work(). The Chrontel
+>    adapter reports non-standard DPCD link status, which causes the check
+>    to fail and trigger a retrain, looping indefinitely.
+>
+> 2. intel_dp_needs_link_retrain() unconditionally returns true when
+>    seq_train_failures > 0, bypassing the actual DPCD link status read.
+>    A single marginal training attempt permanently marks the link as
+>    needing retrain.
+>
+> 3. intel_dp_short_pulse() forces LINK_STATUS_CHANGED on every short HPD
+>    for all platforms, causing unnecessary link checks that initiate the
+>    retrain cycle on adapters that generate frequent short HPDs.
+>
+> Fix all three by gating the new behavior behind DISPLAY_VER(display) >= 8,
+> restoring the 5.15-era behavior for Ivy Bridge/Sandy Bridge and earlier.
+> These platforms use the older g4x DP path and do not benefit from the
+> aggressive post-training link monitoring.
+>
+> Tested on Intel HD 2500 (Ivy Bridge, device ID 0152) with a Chrontel
+> CH73111 DP-to-HDMI adapter driving a 1920x1080 display over 2 lanes
+> at HBR (270 MHz).
 
-Maybe ttm_bo_partial_shrink_kswap() or something into that direction?
+Please file a bug over at [1] with the full dmesg reproducing the
+issues, and reply with the link to the bug.
 
-I don't really have any better idea either.
+Thanks,
+Jani.
 
-Regards,
-Christian.
 
-> ?
-> 
->>> +{
->>> +	enum zone_type zone_type;
->>> +
->>> +	if (!current_is_kswapd())
->>> +		return false;
->>> +
->>> +	if (!numa_valid_node(nid))
->>> +		return false;
->>> +
->>> +#if IS_ENABLED(CONFIG_ZONE_DMA32)
->>> +	zone_type = ZONE_DMA32;
->>> +#else
->>> +	zone_type = ZONE_NORMAL;
->>> +#endif
->>> +
->>> +	for (; zone_type <= ZONE_NORMAL; ++zone_type) {
->>
->> just start with "for (zone_type = 0; ... )" and you don't need
->> the ifdefs above.
->>
-> 
-> I don't think that is correct. Zero could mean ZONE_DMA which is not
-> relavent here.
-> 
-> For example on BMG + raptor lake system, it clear ZONE_DMA is used.
-> 
-> cat /proc/buddyinfo
-> Node 0, zone      DMA      0      1      0      0      0      0      0      0      1      1      3
-> Node 0, zone    DMA32     20     10     11     14     15     15     11     13     13      8    232
-> Node 0, zone   Normal    876   1782      6      5      4      4      2      6      4      2   7107
-> 
-> Matt 
-> 
->> Andi
->>
->>> +		struct zone *zone = &NODE_DATA(nid)->node_zones[zone_type];
+[1] https://drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bugs.html
 
+
+>
+> Signed-off-by: bitey <s.mavlenkov@mail.ru>
+> ---
+>  drivers/gpu/drm/i915/display/intel_dp.c              | 8 +++++++-
+>  drivers/gpu/drm/i915/display/intel_dp_link_training.c | 3 ++-
+>  2 files changed, 9 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> index ORIGINAL..FIXED 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -5676,6 +5676,7 @@ static int
+>  intel_dp_read_link_status(struct intel_dp *intel_dp,
+>  			  u8 link_status[DP_LINK_STATUS_SIZE])
+>  {
+> +	struct intel_display *display = to_intel_display(intel_dp);
+>  	int err;
+>  
+>  	memset(link_status, 0, DP_LINK_STATUS_SIZE);
+> @@ -5712,7 +5713,8 @@ static bool intel_dp_needs_link_retrain(struct intel_dp *intel_dp)
+>  	if (intel_dp->link.retrain_disabled)
+>  		return false;
+>  
+> -	if (intel_dp->link.seq_train_failures)
+> +	if (DISPLAY_VER(display) >= 8 &&
+> +	    intel_dp->link.seq_train_failures)
+>  		return true;
+>  
+>  	/* Retrain if link not ok */
+> @@ -5965,6 +5967,7 @@ static bool
+>  intel_dp_short_pulse(struct intel_dp *intel_dp)
+>  {
+> +	struct intel_display *display = to_intel_display(intel_dp);
+>  	bool reprobe_needed = false;
+>  	u8 esi[4] = {};
+>  
+> @@ -5988,7 +5991,8 @@ intel_dp_short_pulse(struct intel_dp *intel_dp)
+>  	 * TODO: let the link status check depend on LINK_STATUS_CHANGED
+>  	 * or intel_dp->link.force_retrain for DPCD_REV >= 1.2
+>  	 */
+> -	esi[3] |= LINK_STATUS_CHANGED;
+> +	if (DISPLAY_VER(display) >= 8)
+> +		esi[3] |= LINK_STATUS_CHANGED;
+>  	if (intel_dp_handle_link_service_irq(intel_dp, esi[3]))
+>  		reprobe_needed = true;
+>  
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+> index ORIGINAL..FIXED 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+> @@ -1154,7 +1154,8 @@ void intel_dp_stop_link_train(struct intel_dp *intel_dp,
+>  
+>  	intel_hpd_unblock(encoder);
+>  
+> -	if (!display->hotplug.ignore_long_hpd &&
+> +	if (DISPLAY_VER(display) >= 8 &&
+> +	    !display->hotplug.ignore_long_hpd &&
+>  	    intel_dp->link.seq_train_failures < MAX_SEQ_TRAIN_FAILURES) {
+>  		int delay_ms = intel_dp->link.seq_train_failures ? 0 : 2000;
+
+-- 
+Jani Nikula, Intel
