@@ -4,67 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 394CECCFA13
-	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 14:00:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C6A2CD3424
+	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 14:05:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C28410F533;
-	Fri,  1 May 2026 14:00:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C5BF10F54D;
+	Fri,  1 May 2026 14:05:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="miD4z4sA";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="dqCno/lC";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5687110E55A;
- Fri,  1 May 2026 14:00:14 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id F37F940339;
- Fri,  1 May 2026 14:00:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0395CC2BCB4;
- Fri,  1 May 2026 13:59:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777644013;
- bh=e9qq+VwXLefAq4gTECeQmQftjSoYyeTGHieCtYm/GNE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=miD4z4sAu+2Nxj3yLh8APL1hMcsNfokQiP+Ck63ukHOsSx6b1rQZB5LufDIfeqaUw
- 36LGRLYQwMxmSLXpwZCzo51cPgrW9oOaUKhaCHc2vTF3beXibjleS+0wYugts7swKA
- K4/KpLQ5RnazFfAIdoXCPO/HcemiCmlhQ9zpP3ah1WlEhN8ECtR/3oTbVU/eJAsWl8
- ZvfvLYqf4X39EWHWJcSq/NcAj0nraceTyQjksNKh9zfDoGymXjCQ7WKno3dP4hiGza
- +Eyi/AdF1gw3CVn8jbletKDGzQ0JVrVPX1stm8EXqX+fpMqaht+kngCbxVSvN7zIN1
- N8XczX3/pOuSw==
-Date: Fri, 1 May 2026 19:29:56 +0530
-From: Sumit Garg <sumit.garg@kernel.org>
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: andersson@kernel.org, konradybcio@kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-media@vger.kernel.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
- linux-remoteproc@vger.kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org,
- robin.clark@oss.qualcomm.com, sean@poorly.run,
- akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jesszhan0024@gmail.com, marijn.suijten@somainline.org,
- airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
- dikshita.agarwal@oss.qualcomm.com, bod@kernel.org,
- mchehab@kernel.org, elder@kernel.org, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, jjohnson@kernel.org, mathieu.poirier@linaro.org,
- trilokkumar.soni@oss.qualcomm.com, pavan.kondeti@oss.qualcomm.com,
- jorge.ramirez@oss.qualcomm.com, tonyh@qti.qualcomm.com,
- vignesh.viswanathan@oss.qualcomm.com, srinivas.kandagatla@oss.qualcomm.com,
- amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
- op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
- skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
- Sumit Garg <sumit.garg@oss.qualcomm.com>
-Subject: Re: [PATCH v4 07/15] soc: qcom: mdtloader: Switch to generic PAS TZ
- APIs
-Message-ID: <afSx3GpKhCpUIWv4@sumit-xelite>
-References: <20260427095603.1157963-1-sumit.garg@kernel.org>
- <20260427095603.1157963-8-sumit.garg@kernel.org>
- <20260429134208.pqo67sh3jkvsa5ka@hu-mojha-hyd.qualcomm.com>
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
+ [209.85.221.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF9CE10F54D
+ for <dri-devel@lists.freedesktop.org>; Fri,  1 May 2026 14:05:56 +0000 (UTC)
+Received: by mail-wr1-f52.google.com with SMTP id
+ ffacd0b85a97d-43d73422431so1660128f8f.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 01 May 2026 07:05:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777644355; cv=none;
+ d=google.com; s=arc-20240605;
+ b=JY2GCHyH1nrEEddlxHwDnbYqwqjbIPloFKGt5H62l9YyU39D4RYco6CFuklb5BdUiG
+ 7NgvWK3QhAnlT2/JfXpFXeGQCZsTzdsZkD1DM3oAHZX7IR2I1a11+sHeImxD2Y6ZNxQ8
+ InT8JNlXTBIKmxZz5KEORnc0Dd7q0BkRu0qAknxi6CRtMiVECzsGc7+Gw/Np3c9duM15
+ zcLvqrcqHDErrHb5iIr6B7yX7FpcvSHLLo67oal8JC5kGTH/+2z391vnzs23rIbFqA1U
+ gBo/BsI0sumuDIrp4rNRL75wCX7au2NXhOFasDYdbVKK2dYbt21Y8jr7LM1tKyDgExFA
+ HCdg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=NP4+SywKrS+AL+u+d9g+gGa1xGNuBC/F08SK3PJVlls=;
+ fh=kVYS01mQJhfZicuYnhtk3CxE8IA/raX/EKuSdo1o5Zs=;
+ b=lqV1ayovpW40nOXMpbLWMoMbb4VubnPgONkLiJw8dItfk+khT0IhqQZd6YIripcgwy
+ 2VtkDrDaEKdOCuXiAmwJR2taInZ4uR6nYb/2pHXKInEtYbYgZVCTBtN2FXe88mkv9YN4
+ wEEHSSpmz6HILmdBpj7gass7OGiHK6QwbihGyTvot/ZlbU49AIhvPnZlEZuN77liFn/r
+ i6dVDo7SUCQteP0RPkzt1snwvpGXu7qnEf/ShL3q+J3pF0j55lACf8gwE2DWAIzpilCA
+ D5ohsIDdINGAZSoSWjcbSkXAZbrVPkF4e8/DYlvz7Qe4us14tEMu9/jM6nxQjNHb+6PK
+ 7v0w==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1777644355; x=1778249155;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=NP4+SywKrS+AL+u+d9g+gGa1xGNuBC/F08SK3PJVlls=;
+ b=dqCno/lC1e3fTmJJuClYCUhIWXR+eSlJXgT6WYlx1w4/eCfrT25wIm2gbM5z/Y6adb
+ hXPasn/ZBdFJkbh4tYdX/hvwJVJMbpk7EWzd4/8aefWCUXdrh7464LgTDu1xADb+5Sx7
+ ilAB5cfkW48pv//pEaGLLzY4IUfty8wKmnAjCKOLoXJCjqkjWyelziesac2iS5h2Rcc4
+ TIi/lnUmW2QhXY/9YQ59I1DMg6w/hkTpWoTsIPDb7huxPlSW5dN0pJNEdkqi7eYT/wwE
+ OQK15sd10VNWxvUBhMFheUmBezhGmHZ+LQtUcuoxb44+CrgZU57GRxIMLBioGKUsoCzy
+ Hd4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777644355; x=1778249155;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=NP4+SywKrS+AL+u+d9g+gGa1xGNuBC/F08SK3PJVlls=;
+ b=Nt0dHvYv6+KOAUaYJpGdtillSmfrvJxk8IG5cfID5UyyxdAbUtOY8bImyH5WzadQg1
+ jUtUmvqNWtdnx+Q2no5O/zZK8XveHmCltUECsqBgihcwBfaxaglS1SP74b1pMMhZk62Y
+ 4fVYgcuzwqirDgt4hDpkbuAbM8QKhJxQhKVD2PUGUkRUA3uM7ZaFBd+GPQ85TVu/Ii4A
+ BYiG2x3a9NbGY+1pFkTQdXWerVloLvqleeIjmXYacZnJeY3Rmocgj5B2/GiXh0zaSKvO
+ OxXQKxZxNT1aOtMtbF7R8QbNbyeUnLvo9UWtWAysBV/7k5uFNSWxdza576CyFiSJcAJG
+ a2fg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9SH2A/xUKb1huFfyYgArMm9b0HtjbgQCHvOFQfjDTDuT1s0zpqSmoS9jYKC+NifjOBJ17O5KEFZk4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxrhlkix1Tnyo9uk4G0SXYQ/7R1t7BZmLHxS06UdBJR/8F0NqbO
+ AdmpzZT6AechDHmOF1YY6morT3Wj2ygYbrTM5srhRX+Q0lcu96VR+l/QcNPxO/teLMWuJW9vA4c
+ 0hJW2/wUfRE2quXNEOV6TfxOz1bM+9aMm54NxQSvi
+X-Gm-Gg: AeBDietml173IYnDbENC3YTSBzaTqjuZBdWABNjYBK6hvHZJtXBi07+oUid7QrgW24d
+ oPXMF8+ZVN2pfssZOyGWm8ZthWYvvTqq3lK31Tg9leogF45SnvT0jiVM1nKclHoyvDzoR9rgbFJ
+ 1/6spUC5SNfL737PC4f3+K/J7UJkT0MhzFlCmSWvW466uuvloU2Q7YipCzJMgaFvHMWMdpbNihQ
+ IwUus7zBG2hyajrl7GnPvHyo0SGXOOvks3tcNUSgVwWhZyWy0r4VPiLtwoyhmRvd42QhURyOaM0
+ uNCZ7bGjOrqEN+VZE3ZQMk6HmHEaT39w3wl27WclTb3/hEykYjGNfNvaEp/INSVy/ScBXSg5/Cl
+ Q7jp7eeJZVXlIXc0=
+X-Received: by 2002:a05:6000:2f8a:b0:43c:cf25:f29a with SMTP id
+ ffacd0b85a97d-4493cb4316dmr11164229f8f.8.1777644353800; Fri, 01 May 2026
+ 07:05:53 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260429134208.pqo67sh3jkvsa5ka@hu-mojha-hyd.qualcomm.com>
+References: <20260423-fix-gem-1-v1-1-e12e35f7bba9@nvidia.com>
+In-Reply-To: <20260423-fix-gem-1-v1-1-e12e35f7bba9@nvidia.com>
+From: Alice Ryhl <aliceryhl@google.com>
+Date: Fri, 1 May 2026 16:05:41 +0200
+X-Gm-Features: AVHnY4JCKmfa5Xur08olcjHreQXWW8CULXPA3kzTIG6tPdAYfFIYgp2iWwOpqE4
+Message-ID: <CAH5fLghpvU19Qdkdvf1WD1jXKwvMnogNkxhU8G5q3-OH5v6rGQ@mail.gmail.com>
+Subject: Re: [PATCH] rust: drm: gem: clean up GEM state in init failure case
+To: Eliot Courtney <ecourtney@nvidia.com>
+Cc: Danilo Krummrich <dakr@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, 
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, Alexandre Courbot <acourbot@nvidia.com>, 
+ John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>, 
+ Joel Fernandes <joelagnelf@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,124 +116,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Apr 29, 2026 at 07:12:08PM +0530, Mukesh Ojha wrote:
-> On Mon, Apr 27, 2026 at 03:25:55PM +0530, Sumit Garg wrote:
-> > From: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> > 
-> > Switch mdtloader client driver over to generic PAS TZ APIs. Generic PAS
-> > TZ service allows to support multiple TZ implementation backends like QTEE
-> > based SCM PAS service, OP-TEE based PAS service and any further future TZ
-> > backend service.
-> > 
-> > Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> > ---
-> >  drivers/soc/qcom/mdt_loader.c       | 12 ++++++------
-> >  include/linux/soc/qcom/mdt_loader.h |  6 +++---
-> >  2 files changed, 9 insertions(+), 9 deletions(-)
-> > 
-> > diff --git a/drivers/soc/qcom/mdt_loader.c b/drivers/soc/qcom/mdt_loader.c
-> > index c004d444d698..fdde7eda538a 100644
-> > --- a/drivers/soc/qcom/mdt_loader.c
-> > +++ b/drivers/soc/qcom/mdt_loader.c
-> > @@ -13,7 +13,7 @@
-> >  #include <linux/firmware.h>
-> >  #include <linux/kernel.h>
-> >  #include <linux/module.h>
-> > -#include <linux/firmware/qcom/qcom_scm.h>
-> > +#include <linux/firmware/qcom/qcom_pas.h>
-> >  #include <linux/sizes.h>
-> >  #include <linux/slab.h>
-> >  #include <linux/soc/qcom/mdt_loader.h>
-> > @@ -229,7 +229,7 @@ EXPORT_SYMBOL_GPL(qcom_mdt_read_metadata);
-> >  
-> >  static int __qcom_mdt_pas_init(struct device *dev, const struct firmware *fw,
-> >  			       const char *fw_name, int pas_id, phys_addr_t mem_phys,
-> > -			       struct qcom_scm_pas_context *ctx)
-> > +			       struct qcom_pas_context *ctx)
-> >  {
-> >  	const struct elf32_phdr *phdrs;
-> >  	const struct elf32_phdr *phdr;
-> > @@ -271,7 +271,7 @@ static int __qcom_mdt_pas_init(struct device *dev, const struct firmware *fw,
-> >  		goto out;
-> >  	}
-> >  
-> > -	ret = qcom_scm_pas_init_image(pas_id, metadata, metadata_len, ctx);
-> > +	ret = qcom_pas_init_image(pas_id, metadata, metadata_len, ctx);
-> >  	kfree(metadata);
-> >  	if (ret) {
-> >  		/* Invalid firmware metadata */
-> > @@ -280,7 +280,7 @@ static int __qcom_mdt_pas_init(struct device *dev, const struct firmware *fw,
-> >  	}
-> >  
-> >  	if (relocate) {
-> > -		ret = qcom_scm_pas_mem_setup(pas_id, mem_phys, max_addr - min_addr);
-> > +		ret = qcom_pas_mem_setup(pas_id, mem_phys, max_addr - min_addr);
-> >  		if (ret) {
-> >  			/* Unable to set up relocation */
-> >  			dev_err(dev, "error %d setting up firmware %s\n", ret, fw_name);
-> > @@ -472,7 +472,7 @@ EXPORT_SYMBOL_GPL(qcom_mdt_load);
-> >   * firmware segments (e.g., .bXX files). Authentication of the segments done
-> >   * by a separate call.
-> >   *
-> > - * The PAS context must be initialized using qcom_scm_pas_context_init()
-> > + * The PAS context must be initialized using qcom_pas_context_init()
-> 
-> Should devm_qcom_pas_context_alloc() now
+On Thu, Apr 23, 2026 at 2:37=E2=80=AFPM Eliot Courtney <ecourtney@nvidia.co=
+m> wrote:
+>
+> Currently, if `drm_gem_object_init` fails, the object is freed without
+> any cleanup. Perform the cleanup in that case.
+>
+> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 
-Ack.
+Tricky stuff. I also concluded that this is correct.
 
-> 
-> >   * prior to invoking this function.
-> >   *
-> >   * @ctx:        Pointer to the PAS (Peripheral Authentication Service) context
-> > @@ -483,7 +483,7 @@ EXPORT_SYMBOL_GPL(qcom_mdt_load);
-> >   *
-> >   * Return: 0 on success or a negative error code on failure.
-> >   */
-> > -int qcom_mdt_pas_load(struct qcom_scm_pas_context *ctx, const struct firmware *fw,
-> > +int qcom_mdt_pas_load(struct qcom_pas_context *ctx, const struct firmware *fw,
-> >  		      const char *firmware, void *mem_region, phys_addr_t *reloc_base)
-> >  {
-> >  	int ret;
-> > diff --git a/include/linux/soc/qcom/mdt_loader.h b/include/linux/soc/qcom/mdt_loader.h
-> > index 82372e0db0a1..142409555425 100644
-> > --- a/include/linux/soc/qcom/mdt_loader.h
-> > +++ b/include/linux/soc/qcom/mdt_loader.h
-> > @@ -10,7 +10,7 @@
-> >  
-> >  struct device;
-> >  struct firmware;
-> > -struct qcom_scm_pas_context;
-> > +struct qcom_pas_context;
-> >  
-> >  #if IS_ENABLED(CONFIG_QCOM_MDT_LOADER)
-> >  
-> > @@ -20,7 +20,7 @@ int qcom_mdt_load(struct device *dev, const struct firmware *fw,
-> >  		  phys_addr_t mem_phys, size_t mem_size,
-> >  		  phys_addr_t *reloc_base);
-> >  
-> > -int qcom_mdt_pas_load(struct qcom_scm_pas_context *ctx, const struct firmware *fw,
-> > +int qcom_mdt_pas_load(struct qcom_pas_context *ctx, const struct firmware *fw,
-> >  		      const char *firmware, void *mem_region, phys_addr_t *reloc_base);
-> >  
-> >  int qcom_mdt_load_no_init(struct device *dev, const struct firmware *fw,
-> > @@ -45,7 +45,7 @@ static inline int qcom_mdt_load(struct device *dev, const struct firmware *fw,
-> >  	return -ENODEV;
-> >  }
-> >  
-> > -static inline int qcom_mdt_pas_load(struct qcom_scm_pas_context *ctx,
-> > +static inline int qcom_mdt_pas_load(struct qcom_pas_context *ctx,
-> >  				    const struct firmware *fw, const char *firmware,
-> >  				    void *mem_region, phys_addr_t *reloc_base)
-> >  {
-> > -- 
-> > 2.51.0
-> > 
-> 
-> With above nit
-> 
-> Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
 
-Thanks.
+This is a bugfix, so:
 
--Sumit
+Cc: stable@vger.kernel.org
+Fixes: c284d3e42338 ("rust: drm: gem: Add GEM object abstraction")
+
+Alice
