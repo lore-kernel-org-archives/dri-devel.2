@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 626E2FF885A
-	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 22:44:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54264CD3427
+	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 23:19:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6C9610F646;
-	Fri,  1 May 2026 22:44:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 631AA10E21A;
+	Fri,  1 May 2026 23:19:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=shazbot.org header.i=@shazbot.org header.b="aFYeUrfL";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="SwP3GP3H";
+	dkim=pass (2048-bit key; unprotected) header.d=shazbot.org header.i=@shazbot.org header.b="F2cGfHWm";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="p+UnRXDT";
 	dkim-atps=neutral
-Received: from fhigh-b7-smtp.messagingengine.com
- (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C89CA10F646
- for <dri-devel@lists.freedesktop.org>; Fri,  1 May 2026 22:44:34 +0000 (UTC)
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
- by mailfhigh.stl.internal (Postfix) with ESMTP id 526327A00CF;
- Fri,  1 May 2026 18:44:33 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-03.internal (MEProxy); Fri, 01 May 2026 18:44:34 -0400
+Received: from fout-b5-smtp.messagingengine.com
+ (fout-b5-smtp.messagingengine.com [202.12.124.148])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7D1210E21A
+ for <dri-devel@lists.freedesktop.org>; Fri,  1 May 2026 23:19:24 +0000 (UTC)
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+ by mailfout.stl.internal (Postfix) with ESMTP id 5AEF11D000B4;
+ Fri,  1 May 2026 19:19:23 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-02.internal (MEProxy); Fri, 01 May 2026 19:19:24 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
  cc:cc:content-transfer-encoding:content-type:content-type:date
  :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm2; t=1777675473;
- x=1777761873; bh=H+RPTh5X6WGERBnZyIFiypbSLQyXU92BgOcneXZdT8o=; b=
- aFYeUrfLvBQkHDbVz7ZKmfk9HobjnyXxr1UrU9OKtxysKgwVEbot3/j3uMrtgz7V
- lfGBLiE2289Gg4oHBFSC2GXoAzSzcFzknK0wA0fVr6Hc9HePVjEaMEau8DU5UT/z
- mcumS4d92lla3JCegb6BwQF5cPlGQRHfrzCw61+jkvyfxBvezwJUkdZpp30EjiuK
- h05vH8lfYdrbuiiEVmY+DMRhc7W3Gs5gdz3LyG0CFhF0YHdYvhp4OFgPkWCYgb1y
- X4zqCoWfkDQ/63n9BNr0jeKLuzJNIrjyZCSZsub/BG/tYPlVt+bt8knf8T2tHR8g
- m2LhUk3LmrtVRwTeTWyJiw==
+ :references:reply-to:subject:subject:to:to; s=fm2; t=1777677563;
+ x=1777763963; bh=Gn1kzdG+Ds6ZJFEuC5q+IHNvX34UkktXQuXgtwLzw7U=; b=
+ F2cGfHWmNHx2BifEsL3sjqkhfBBL/KvFTMcTxiSWQ4gnaPMSK6ACYINi2Ivd6+Le
+ srqFv/ffL8VhFoKvAap7FRWnAJifdlXSvrpZXLXfhuQq9m/LEb1Xfwls0BLPkoqn
+ 2naDYNH1s20XUd6e9ZQyHFrda6Imnqin8YjrpqcXmlHlxVCQZcfoHn0l74UmESHs
+ LLLxzd2kdsSIkv6nty2rwqO3ljFoKWc7QDBCFN4coJGPUJfKGffVbzGcqFsS1AWt
+ wIFigc7P/TsoDXZ12q+xnh6yzUD2Z2kE3QJJ9qylucEiPKSt0yYIgL/cEeubkOi1
+ K2t7hveqxCggzxKDustifQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding
  :content-type:content-type:date:date:feedback-id:feedback-id
  :from:from:in-reply-to:in-reply-to:message-id:mime-version
  :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1777675473; x=
- 1777761873; bh=H+RPTh5X6WGERBnZyIFiypbSLQyXU92BgOcneXZdT8o=; b=S
- wP3GP3HwG/1UeyK/CZhjcl73RSpwARK7KiTMSpsvLSEMbZYQjX5BBKKYJEfA/9vR
- X+jPmI4W6hT4lEt/sdOv/iBMowm810wktfFgZIN0xxlniwzByzi8ewFoSNUcByG1
- 0Kt62z3CN1TZYk1VLI3oOt+Q/WTML8MVmbcgzusVOw+SxGoM1iNdhaupzViVAjgL
- ZGNKZFjI0vMMRZhAyjq8F3+8lhjGA9UlOB3mK8cO94Gu195LNtA3MnpMspUWj2B5
- jvfT0SQNTlHMc1kgx20D4IDquJ+SSkApTw9e1GikQR8c5xLygVWe86y+8CMwGr98
- I12siL+2SnDk41DQ6GEzA==
-X-ME-Sender: <xms:0Cz1aXy8nsNfltzNFLqZ7-71AVNWepLVy8DfLw2r5f6djlm8LRSPfQ>
- <xme:0Cz1adqSsIV25QlvASWKP97FeQyR5eLXm_wEHhajRMA7KJFB0DyZtDvctGOZltqPY
- nhZLlpdX49cWEP53hx193Yp8iA9XffNxt5WHz94PSNjzVqJkcFHGQ>
-X-ME-Received: <xmr:0Cz1adUbgnjoWm5CaxK0Ubjb3dPQjQHk4yR5VsvAMb5AWDk69LEGHdwwEeM>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdeludegfecutefuodetggdotefrod
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1777677563; x=
+ 1777763963; bh=Gn1kzdG+Ds6ZJFEuC5q+IHNvX34UkktXQuXgtwLzw7U=; b=p
+ +UnRXDT6JMUSibW0UOwuqw+kpUhlR4AZpjO7Ra7n9nOTV82ybKC7Xh+/eWHu0BtE
+ f9KFDwDtCyBh9u+0xt3vFikMKdkqfkpjaBCxharrWoW6CMXMvQ68OzFdD8uhkDIt
+ ZGn7TSmFR0PwZgALVeg3ong44r5NHebqAN8mKEUsLiG37/MkDqrXlfxJn5LxexFu
+ GWt9PQqfI9DrlxIBA9e3I0ie289R1e45RxYAOGo86kne4XwBWNJrmqqlgxTRwbWO
+ jLO+SYVjOumswPiU782ECjAVOogcEKTXS5l2b7o59p3FRqCYq+hr/FJQZNjsc5hs
+ WhZiLaTu3CmJrqzcMWJqA==
+X-ME-Sender: <xms:-jT1aS2_ib_hYL1Ffyudu4H-8FqoxGJBjJAAEbNNz9NAAipjrkTkfw>
+ <xme:-jT1aTe-V-aJYmUAshUOrH3VLVdTnVcvzTL_bLA0wcNK0pZ5W5wCXlJrS9mXHut0-
+ NwJpabxyhTj1zGu2gymMwKoFc3p-75PPPU6anTeWYfYtJqFWQUd>
+X-ME-Received: <xmr:-jT1aW4gYXDWj4libaJpnvL5NWhMrmdaqQduClYgQRI9FaS6kkyAB-gJfz8>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdeludehtdcutefuodetggdotefrod
  ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
  ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
- hrpeffhffvvefukfgjfhfogggtgfesthejredtredtvdenucfhrhhomheptehlvgigucgh
+ hrpeffhffvvefukfgjfhfogggtgfesthejfedtredtvdenucfhrhhomheptehlvgigucgh
  ihhllhhirghmshhonhcuoegrlhgvgiesshhhrgiisghothdrohhrgheqnecuggftrfgrth
- htvghrnhepvdekfeejkedvudfhudfhteekudfgudeiteetvdeukedvheetvdekgfdugeev
- ueeunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomheprg
+ htvghrnhepgeekjeehvddtleelvddvkeeugfeileegueelvefhgffhgffghfejhfefheeu
+ ffdunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomheprg
  hlvgigsehshhgriigsohhtrdhorhhgpdhnsggprhgtphhtthhopedvtddpmhhouggvpehs
  mhhtphhouhhtpdhrtghpthhtohepmhgrthhtvghvsehmvghtrgdrtghomhdprhgtphhtth
  hopehlvghonheskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepjhhgghesnhhvihguihgr
@@ -65,15 +65,15 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdeludegfecutefuodetgg
  rggurghmsegrmhgriihonhdruggvpdhrtghpthhtohepughmrghtlhgrtghksehgohhogh
  hlvgdrtghomhdprhgtphhtthhopegsjhhorhhnsehkvghrnhgvlhdrohhrghdprhgtphht
  thhopehsuhhmihhtrdhsvghmfigrlheslhhinhgrrhhordhorhhg
-X-ME-Proxy: <xmx:0Cz1aUrOHlNHxVpuRRwlUKIIa4PqR_2-hdS1duRpGNs8acQS9PUn-w>
- <xmx:0Cz1aRFzdnNWifsx23r_VcLJU-zJ2U7_4I4qFAB12e96hNavZ-2heQ>
- <xmx:0Cz1aWv4ijDSK8YqBGaagAKqzGxOeMNiau1ue4bnu-BssBHg87Gb0g>
- <xmx:0Cz1aUT1udFPrzbCAbWQckLAye7mlvoqL0k0yj-nKaNwzHUi_djdjA>
- <xmx:0Sz1aeJ3Ke8v-ukJ8nq1JmuSLDcRO2zwGVhY9am45YM85bbTFycKM5RV>
+X-ME-Proxy: <xmx:-jT1aW85QSblAay0Uh0UO55QLwC9OGW5CT1crdzdhdcPPirnFxbkjA>
+ <xmx:-jT1adJPfSFhWGBcOiATRlmftLdihj-tFOd7eIis78GjG37D_zZXQA>
+ <xmx:-jT1aZhcuFPCtjWDAwENfDRdnSOsAu2mj67-tFRFNhY6gSSapDZpWw>
+ <xmx:-jT1aW0KivO0etBfbJ4ta2ZsKDpmVbuf5zZqbzo0a5wggK5uQG3Oeg>
+ <xmx:-zT1aW_WfKbGzolsAOC3oDO9dzEi5qcIWtPCXvV9vCCZwzHY6ZkzmNo9>
 Feedback-ID: i03f14258:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 1 May 2026 18:44:31 -0400 (EDT)
-Date: Fri, 1 May 2026 16:44:30 -0600
+ 1 May 2026 19:19:21 -0400 (EDT)
+Date: Fri, 1 May 2026 17:19:19 -0600
 From: Alex Williamson <alex@shazbot.org>
 To: Matt Evans <mattev@meta.com>
 Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
@@ -86,11 +86,11 @@ Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
  Kasireddy <vivek.kasireddy@intel.com>, <linux-kernel@vger.kernel.org>,
  <linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
  <linaro-mm-sig@lists.linaro.org>, <kvm@vger.kernel.org>, alex@shazbot.org
-Subject: Re: [PATCH 5/9] vfio/pci: Provide a user-facing name for BAR mappings
-Message-ID: <20260501164430.5d3ea683@shazbot.org>
-In-Reply-To: <20260416131815.2729131-6-mattev@meta.com>
+Subject: Re: [PATCH 6/9] vfio/pci: Clean up BAR zap and revocation
+Message-ID: <20260501171919.42659174@shazbot.org>
+In-Reply-To: <20260416131815.2729131-7-mattev@meta.com>
 References: <20260416131815.2729131-1-mattev@meta.com>
- <20260416131815.2729131-6-mattev@meta.com>
+ <20260416131815.2729131-7-mattev@meta.com>
 X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -110,62 +110,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 16 Apr 2026 06:17:48 -0700
+On Thu, 16 Apr 2026 06:17:49 -0700
 Matt Evans <mattev@meta.com> wrote:
 
-> Since converting BAR mmap()s to using DMABUFs, we lose the original
-> device path in /proc/<pid>/maps, lsof, etc.  Generate a debug-oriented
-> synthetic 'filename' based on the cdev, plus BDF, plus resource index.
+> Previously, vfio_pci_zap_bars() (and the wrapper
+> vfio_pci_zap_and_down_write_memory_lock()) calls were paired with
+> calls of vfio_pci_dma_buf_move().
 > 
-> This applies only to BAR mappings via the VFIO device fd, as
-> explicitly-exported DMABUFs are named by userspace via the
-> DMA_BUF_SET_NAME ioctl.
+> This commit replaces them a unified new function,
+> vfio_pci_zap_revoke_bars() containing both the vfio_pci_dma_buf_move()
+> and the unmap_mapping_range(), making it harder for callers to omit
+> one.  It adds a wrapper, vfio_pci_lock_zap_revoke_bars(), which takes
+> the write memory_lock before zapping, and adds a new
+> vfio_pci_unrevoke_bars() for the re-enable path.
+> 
+> However, as of "vfio/pci: Convert BAR mmap() to use a DMABUF" the
+> unmap_mapping_range() to zap is entirely redundant for plain vfio-pci,
+> since the DMABUFs used for BAR mappings already zap PTEs when the
+> vfio_pci_dma_buf_move() occurs.
+> 
+> One exception remains as a FIXME: in nvgrace-gpu, some BAR VMAs
+> conditionally use custom vm_ops, which have not moved to be backed by
+> DMABUFs.  If these BARs are mmap()ed, the vdev enables the existing
+> behaviour of unmap_mapping_range() for the device fd address space.
+
+What's the plan here?  Is this a temporary FIXME or a place to prove
+that dmabuf for mmap works beyond the core use case?
+
 > 
 > Signed-off-by: Matt Evans <mattev@meta.com>
 > ---
->  drivers/vfio/pci/vfio_pci_dmabuf.c | 27 +++++++++++++++++++++++++--
->  1 file changed, 25 insertions(+), 2 deletions(-)
+>  drivers/vfio/pci/nvgrace-gpu/main.c |  5 +++
+>  drivers/vfio/pci/vfio_pci_config.c  | 30 ++++++--------
+>  drivers/vfio/pci/vfio_pci_core.c    | 62 +++++++++++++++++++----------
+>  drivers/vfio/pci/vfio_pci_priv.h    |  3 +-
+>  include/linux/vfio_pci_core.h       |  1 +
+>  5 files changed, 62 insertions(+), 39 deletions(-)
 > 
-> diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
-> index a12432825e5e..04c7733fe712 100644
-> --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
-> +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
-> @@ -4,6 +4,7 @@
->  #include <linux/dma-buf-mapping.h>
->  #include <linux/pci-p2pdma.h>
->  #include <linux/dma-resv.h>
-> +#include <uapi/linux/dma-buf.h>
+...  
+> @@ -1229,7 +1228,7 @@ static int vfio_pci_ioctl_reset(struct vfio_pci_core_device *vdev,
+>  	if (!vdev->reset_works)
+>  		return -EINVAL;
 >  
->  #include "vfio_pci_priv.h"
+> -	vfio_pci_zap_and_down_write_memory_lock(vdev);
+> +	vfio_pci_lock_zap_revoke_bars(vdev);
 >  
-> @@ -467,6 +468,7 @@ int vfio_pci_core_mmap_prep_dmabuf(struct vfio_pci_core_device *vdev,
->  {
->  	struct vfio_pci_dma_buf *priv;
->  	const unsigned int nr_ranges = 1;
-> +	char *bufname;
->  	int ret;
+>  	/*
+>  	 * This function can be invoked while the power state is non-D0. If
+> @@ -1242,10 +1241,9 @@ static int vfio_pci_ioctl_reset(struct vfio_pci_core_device *vdev,
+>  	 */
+>  	vfio_pci_set_power_state(vdev, PCI_D0);
 >  
->  	priv = kzalloc_obj(*priv);
-> @@ -479,6 +481,20 @@ int vfio_pci_core_mmap_prep_dmabuf(struct vfio_pci_core_device *vdev,
->  		goto err_free_priv;
->  	}
->  
-> +	bufname = kzalloc(DMA_BUF_NAME_LEN, GFP_KERNEL);
-> +	if (!bufname) {
-> +		ret = -ENOMEM;
-> +		goto err_free_phys;
-> +	}
-> +
-> +	/*
-> +	 * Maximum size of the friendly debug name is
-> +	 * vfio1234567890:ffff:ff:3f.7-9 = 30, which fits within
-> +	 * DMA_BUF_NAME_LEN.
-> +	 */
-> +	snprintf(bufname, DMA_BUF_NAME_LEN, "%s:%s/%x",
-> +		 dev_name(&vdev->vdev.device), pci_name(vdev->pdev), res_index);
+> -	vfio_pci_dma_buf_move(vdev, true);
 
-Comment suggests 9 is the max res_index that can be printed, but mmap
-only directly supports standard BARs 0-5.  Comment also uses a '-'
-while the code uses a '/'.  Thanks,
+This seems subtle enough to be troublesome.  I wonder if Leon didn't
+intentionally place the dmabuf revoke after the device is in D0 to
+allow the driver to interact with the device.  I think the lock needs
+to come before the power state change to avoid racing a user induced
+state change.  Thanks,
 
 Alex
