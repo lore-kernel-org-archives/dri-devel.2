@@ -4,96 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90760CD3423
-	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 14:51:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84A77CD3423
+	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 14:57:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDBAE10E1C9;
-	Fri,  1 May 2026 14:51:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8AA910E1D4;
+	Fri,  1 May 2026 14:57:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ixit.cz header.i=@ixit.cz header.b="Cr9Tqvmj";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="Zld5nRtd";
 	dkim-atps=neutral
-Received: from ixit.cz (ixit.cz [185.100.197.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC64610E1C9
- for <dri-devel@lists.freedesktop.org>; Fri,  1 May 2026 14:51:38 +0000 (UTC)
-Received: from [10.0.0.200] (unknown [10.88.125.21])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519) (No client certificate requested)
- by ixit.cz (Postfix) with ESMTPSA id 2E3C15340B22;
- Fri, 01 May 2026 16:51:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
- t=1777647097;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=uZ3Rg5MZt3buQ+iw7G2oz++ZgXwW/c4xrsHxmm6CVXg=;
- b=Cr9TqvmjzQ3LpzMypLoao03YFiubOJLcdTS/uflVpUb+DW8c3xeoc7T4qurKQlOpHM2JNd
- me4Nnr3XHKGJgK5kEXBTbjFtxEwPVlmeQuDzwXlWZOXvCa5JjXJeJ6GhBw+fpDZAbdcluI
- +c/aXqSHIm4OWVRLVRUdU/D06JmFmGU=
-Message-ID: <747c9978-9dbe-4f74-a7d8-6ab689a7dce3@ixit.cz>
-Date: Fri, 1 May 2026 16:51:36 +0200
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 8E44710E1D4
+ for <dri-devel@lists.freedesktop.org>; Fri,  1 May 2026 14:57:39 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 90C1A2C1C;
+ Fri,  1 May 2026 07:57:33 -0700 (PDT)
+Received: from [10.1.29.19] (e122027.cambridge.arm.com [10.1.29.19])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E09FC3F7B4;
+ Fri,  1 May 2026 07:57:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1777647459; bh=JiK0saQFsgDy0K0KD5X8al8tkehFg36i3uTn714fvJY=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=Zld5nRtd3RKpkQHgY4HxJt+lZSzYs/uFgxQA0R9WcHG+Kp8ndNe4sHzjoYaLLcvOo
+ To2fpoz+wWSwdnAtnf69yIOhljZccGGBPPHvEkafd1F33aqSB8xiLCZCWNRaOv26dm
+ aJV+I6C+UQp6KC+dh5JTLsFvk4xc+gJUUYZGtHvA=
+Message-ID: <c6560418-fc24-4f8f-9b46-fd34d8d72b5a@arm.com>
+Date: Fri, 1 May 2026 15:57:35 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/panel: visionox-rm69299: Split DSI commands out
- into enable/disable
-To: =?UTF-8?Q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+Subject: Re: [PATCH 10/10] drm/panthor: Introduce interrupt coalescing support
+ for job IRQs
+To: Boris Brezillon <boris.brezillon@collabora.com>,
+ Liviu Dudau <liviu.dudau@arm.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- phone-devel@vger.kernel.org
-References: <20260427-visionox-rm69299-enable-v1-0-fa7d62d26d87@sigxcpu.org>
- <20260427-visionox-rm69299-enable-v1-1-fa7d62d26d87@sigxcpu.org>
-Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20260427-visionox-rm69299-enable-v1-1-fa7d62d26d87@sigxcpu.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260429-panthor-signal-from-irq-v1-0-4b92ae4142d2@collabora.com>
+ <20260429-panthor-signal-from-irq-v1-10-4b92ae4142d2@collabora.com>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260429-panthor-signal-from-irq-v1-10-4b92ae4142d2@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,19 +61,386 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-04/2026 15:56, Guido Günther wrote:
-> It's when DSI commands should be sent and it also fixes these DSI errors
-> on every screen blank/unblank on the SHIFT6mq:
+On 29/04/2026 10:38, Boris Brezillon wrote:
+> Dealing with interrupts from the raw IRQ handler is good for latency,
+> but might be detrimental for the overall throughput, because the system
+> keeps being interrupted to process job interrupts.
 > 
-> dmesg:
->    msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
->    dsi_cmds2buf_tx: cmd dma tx failed, type=0x5, data0=0x28, len=4, ret=-110
->    panel-visionox-rm69299 ae94000.dsi.0: sending DCS SET_DISPLAY_OFF failed: -110
+> Try to mitigate that with some interrupt coalescing infrastructure,
+> where we wake up the IRQ thread if close enough interrupts gets
+> detected.
 > 
-> Signed-off-by: Guido Günther <agx@sigxcpu.org>
-> ---
->   drivers/gpu/drm/panel/panel-visionox-rm69299.c | 77 +++++++++++++++-----------
->   1 file changed, 44 insertions(+), 33 deletions(-)
+> It's still experimental, which explains why the feature is off by
+> default, and can be enabled through a debugfs knob.
+> 
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 
-Reviewed-by: David Heidelberg <david@ixit.cz>
-Tested-by: David Heidelberg <david@ixit.cz>
+I think we need some more serious benchmarking to decide whether this is
+a good idea. We've experimented with coalescing interrupts in the past
+and it generally regressed some important benchmark of the day. But I'm
+not in the loop of "benchmark of the day" any more (although I do know
+that glmark hasn't been for years...) so it might have changed. From
+what I hear AI workloads "benefit"[1] from spinning a CPU waiting for
+jobs to finish.
+
+[1] AI workloads don't tend to care so much about power... at least from
+the CPU.
+
+One typo I spotted below. And I'm not awfully keen on the debugfs
+interface (but for testing it's obviously fine).
+
+> ---
+>  drivers/gpu/drm/panthor/panthor_device.h |  83 +++++++++++++++++
+>  drivers/gpu/drm/panthor/panthor_drv.c    |   1 +
+>  drivers/gpu/drm/panthor/panthor_fw.c     | 150 +++++++++++++++++++++++++++++--
+>  drivers/gpu/drm/panthor/panthor_fw.h     |   2 +
+>  4 files changed, 231 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
+> index 1c130b8394ab..e90f251f75e2 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.h
+> +++ b/drivers/gpu/drm/panthor/panthor_device.h
+> @@ -109,6 +109,48 @@ struct panthor_irq {
+>  	enum panthor_irq_state state;
+>  };
+>  
+> +/**
+> + * struct panthor_irq_coalescing - IRQ coalescing info
+> + */
+> +struct panthor_irq_coalescing {
+> +	/**
+> +	 * @max_us: Maximum time in microseconds between two consecutive
+> +	 * interrupts to consider coalescing.
+> +	 *
+> +	 * It being a u16 means we can't encode more than 65-ish msecs, but
+> +	 * if we have to poll status for more than a few hundreds usecs it's
+> +	 * going to make the IRQ thread consume more CPU than we want.
+> +	 */
+> +	u16 max_us;
+> +
+> +	/**
+> +	 * @poll_perios_us: Rate at which status polling happens.
+
+NIT: Typo: s/perios/period/
+
+Thanks,
+Steve
+
+> +	 *
+> +	 * It being a u16 means we can't encode more than 65-ish msecs, but
+> +	 * if we have to delay each status check by more than a few usecs
+> +	 * it's going to add latency we don't want.
+> +	 */
+> +	u16 poll_period_us;
+> +
+> +	/**
+> +	 * @inbounds_cnt_threshold: Minimum of consecutive interrupts with no
+> +	 * more than max_us between them to wake up the thread handler.
+> +	 */
+> +	u16 inbounds_cnt_threshold;
+> +
+> +	/**
+> +	 * @inbounds_cnt: Current number of consecutive interrupts with no more
+> +	 * than max_us between.
+> +	 */
+> +	u16 inbounds_cnt;
+> +
+> +	/** @coalesced_cnt: Total number of interrupts coalesced. */
+> +	u64 coalesced_cnt;
+> +
+> +	/** @last_ts: Timestamp of the last IRQ. */
+> +	ktime_t last_ts;
+> +};
+> +
+>  /**
+>   * enum panthor_device_profiling_mode - Profiling state
+>   */
+> @@ -571,6 +613,47 @@ static inline u64 gpu_read64_counter(void __iomem *iomem, u32 reg)
+>  #define INT_MASK    0x8
+>  #define INT_STAT    0xc
+>  
+> +static inline bool
+> +panthor_irq_coalescing_wake_thread(struct panthor_irq_coalescing *coalescing)
+> +{
+> +	ktime_t ts;
+> +	s64 diff_ns;
+> +
+> +	if (!coalescing->inbounds_cnt_threshold)
+> +		return false;
+> +
+> +	ts = ktime_get();
+> +	diff_ns = ktime_to_ns(ktime_sub(ts, coalescing->last_ts));
+> +	if (diff_ns > coalescing->max_us * 1000) {
+> +		coalescing->inbounds_cnt = 1;
+> +		return false;
+> +	}
+> +
+> +	if (coalescing->inbounds_cnt < U16_MAX)
+> +		coalescing->inbounds_cnt++;
+> +
+> +	return coalescing->inbounds_cnt >= coalescing->inbounds_cnt_threshold;
+> +}
+> +
+> +static inline void
+> +panthor_irq_coalescing_update_ts(struct panthor_irq_coalescing *coalescing)
+> +{
+> +	if (coalescing->inbounds_cnt_threshold)
+> +		coalescing->last_ts = ktime_get();
+> +}
+> +
+> +static inline void
+> +panthor_irq_coalescing_init(struct panthor_irq_coalescing *coalescing,
+> +			     u16 max_us, u16 poll_period_us, u16 inbounds_cnt_threshold)
+> +{
+> +	coalescing->inbounds_cnt = 0;
+> +	coalescing->coalesced_cnt = 0;
+> +	coalescing->max_us = max_us;
+> +	coalescing->poll_period_us = poll_period_us;
+> +	coalescing->inbounds_cnt_threshold = inbounds_cnt_threshold;
+> +	coalescing->last_ts = ktime_set(0, 0);
+> +}
+> +
+>  static inline irqreturn_t panthor_irq_default_raw_handler(int irq, void *data)
+>  {
+>  	struct panthor_irq *pirq = data;
+> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
+> index 66996c9147c2..2fac5ba57f9d 100644
+> --- a/drivers/gpu/drm/panthor/panthor_drv.c
+> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
+> @@ -1760,6 +1760,7 @@ static void panthor_debugfs_init(struct drm_minor *minor)
+>  {
+>  	panthor_mmu_debugfs_init(minor);
+>  	panthor_gem_debugfs_init(minor);
+> +	panthor_fw_debugfs_init(minor);
+>  }
+>  #endif
+>  
+> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
+> index 05c632913359..cbb7d00f0e6e 100644
+> --- a/drivers/gpu/drm/panthor/panthor_fw.c
+> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
+> @@ -6,6 +6,7 @@
+>  #endif
+>  
+>  #include <linux/clk.h>
+> +#include <linux/debugfs.h>
+>  #include <linux/dma-mapping.h>
+>  #include <linux/firmware.h>
+>  #include <linux/iopoll.h>
+> @@ -15,6 +16,7 @@
+>  #include <linux/pm_runtime.h>
+>  
+>  #include <drm/drm_drv.h>
+> +#include <drm/drm_file.h>
+>  #include <drm/drm_managed.h>
+>  #include <drm/drm_print.h>
+>  
+> @@ -271,6 +273,9 @@ struct panthor_fw {
+>  
+>  	/** @irq: Job irq data. */
+>  	struct panthor_irq irq;
+> +
+> +	/** @irq_coalescing: Job IRQ coalescing. */
+> +	struct panthor_irq_coalescing irq_coalescing;
+>  };
+>  
+>  struct panthor_vm *panthor_fw_vm(struct panthor_device *ptdev)
+> @@ -1090,6 +1095,8 @@ static void panthor_job_irq_handler(struct panthor_irq *pirq, u32 status)
+>  static irqreturn_t panthor_job_irq_raw_handler(int irq, void *data)
+>  {
+>  	struct panthor_irq *pirq = data;
+> +	struct panthor_device *ptdev = pirq->ptdev;
+> +	irqreturn_t ret = IRQ_HANDLED;
+>  
+>  	if (!gpu_read(pirq->iomem, INT_STAT))
+>  		return IRQ_NONE;
+> @@ -1101,6 +1108,9 @@ static irqreturn_t panthor_job_irq_raw_handler(int irq, void *data)
+>  		pirq->state = PANTHOR_IRQ_STATE_PROCESSING;
+>  	}
+>  
+> +	if (panthor_irq_coalescing_wake_thread(&ptdev->fw->irq_coalescing))
+> +		ret = IRQ_WAKE_THREAD;
+> +
+>  	panthor_job_irq_handler(pirq, gpu_read(pirq->iomem, INT_RAWSTAT));
+>  
+>  	scoped_guard(spinlock_irqsave, &pirq->mask_lock) {
+> @@ -1108,17 +1118,58 @@ static irqreturn_t panthor_job_irq_raw_handler(int irq, void *data)
+>  			pirq->state = PANTHOR_IRQ_STATE_ACTIVE;
+>  	}
+>  
+> -	return IRQ_HANDLED;
+> +	panthor_irq_coalescing_update_ts(&ptdev->fw->irq_coalescing);
+> +	return ret;
+>  }
+>  
+>  static irqreturn_t panthor_job_irq_threaded_handler(int irq, void *data)
+>  {
+>  	struct panthor_irq *pirq = data;
+> +	struct panthor_device *ptdev = pirq->ptdev;
+> +	irqreturn_t ret = IRQ_NONE;
+> +	u32 processed_count = 0;
+>  
+> -	/* We never return IRQ_WAKE_THREAD, so we're not supposed to be called. */
+> -	drm_WARN_ON_ONCE(&pirq->ptdev->base,
+> -			 "threaded IRQ handler should never be called.");
+> -	return IRQ_NONE;
+> +	scoped_guard(spinlock_irqsave, &pirq->mask_lock) {
+> +		if (pirq->state != PANTHOR_IRQ_STATE_ACTIVE)
+> +			return IRQ_NONE;
+> +
+> +		gpu_write(pirq->iomem, INT_MASK, 0);
+> +		pirq->state = PANTHOR_IRQ_STATE_PROCESSING;
+> +	}
+> +
+> +	while (true) {
+> +		u32 status;
+> +
+> +		/* It's safe to access pirq->mask without the lock held here. If a new
+> +		 * event gets added to the mask and the corresponding IRQ is pending,
+> +		 * we'll process it right away instead of adding an extra raw -> threaded
+> +		 * round trip. If an event is removed and the status bit is set, it will
+> +		 * be ignored, just like it would have been if the mask had been adjusted
+> +		 * right before the HW event kicks in. TLDR; it's all expected races we're
+> +		 * covered for.
+> +		 */
+> +		if (readl_poll_timeout_atomic(pirq->iomem + INT_RAWSTAT,
+> +					      status, status & pirq->mask,
+> +					      ptdev->fw->irq_coalescing.poll_period_us,
+> +					      ptdev->fw->irq_coalescing.max_us))
+> +			break;
+> +
+> +		panthor_job_irq_handler(pirq, status);
+> +		ret = IRQ_HANDLED;
+> +		processed_count++;
+> +	}
+> +
+> +	if (processed_count > 1)
+> +		ptdev->fw->irq_coalescing.coalesced_cnt += processed_count - 1;
+> +
+> +	scoped_guard(spinlock_irqsave, &pirq->mask_lock) {
+> +		if (pirq->state == PANTHOR_IRQ_STATE_PROCESSING) {
+> +			pirq->state = PANTHOR_IRQ_STATE_ACTIVE;
+> +			gpu_write(pirq->iomem, INT_MASK, pirq->mask);
+> +		}
+> +	}
+> +
+> +	return ret;
+>  }
+>  
+>  static int panthor_fw_start(struct panthor_device *ptdev)
+> @@ -1516,6 +1567,11 @@ int panthor_fw_init(struct panthor_device *ptdev)
+>  	if (irq <= 0)
+>  		return -ENODEV;
+>  
+> +	/* Start with IRQ coalescing disabled, until we have enough proof it's
+> +	 * useful and doesn't have a too big CPU overhead. Those parameters can
+> +	 * be tweaked with the debugfs knobs.
+> +	 */
+> +	panthor_irq_coalescing_init(&fw->irq_coalescing, 0, 0, 0);
+>  	ret = panthor_irq_request(ptdev, &fw->irq, irq, 0,
+>  				  ptdev->iomem + JOB_INT_BASE, "job",
+>  				  panthor_job_irq_raw_handler,
+> @@ -1563,6 +1619,90 @@ int panthor_fw_init(struct panthor_device *ptdev)
+>  	return ret;
+>  }
+>  
+> +static ssize_t job_irq_coalescing_props_read(struct file *file,
+> +					     char __user *ubuf,
+> +					     size_t ubuf_size,
+> +					     loff_t *ppos)
+> +{
+> +	struct panthor_device *ptdev = container_of(file->private_data,
+> +						    struct panthor_device, base);
+> +	char kbuf[256] = {};
+> +	int kbuf_size;
+> +
+> +	kbuf_size = snprintf(kbuf, sizeof(kbuf) - 1,
+> +			     "max_us=%u poll_period_us=%u inbounds_cnt_threshold=%u\n",
+> +			     ptdev->fw->irq_coalescing.max_us,
+> +			     ptdev->fw->irq_coalescing.poll_period_us,
+> +			     ptdev->fw->irq_coalescing.inbounds_cnt_threshold);
+> +	if (kbuf_size > sizeof(kbuf) - 1)
+> +		kbuf_size = sizeof(kbuf) - 1;
+> +
+> +	return simple_read_from_buffer(ubuf, ubuf_size, ppos, kbuf, kbuf_size);
+> +}
+> +
+> +static ssize_t job_irq_coalescing_props_write(struct file *file,
+> +					      const char __user *ubuf,
+> +					      size_t ubuf_size, loff_t *ppos)
+> +{
+> +	struct panthor_device *ptdev = container_of(file->private_data,
+> +						    struct panthor_device, base);
+> +	unsigned int max_us = 0, poll_period_us = 0, inbounds_cnt_threshold = 0;
+> +	char kbuf[256] = {};
+> +	int ret;
+> +
+> +	simple_write_to_buffer(kbuf, sizeof(kbuf) - 1, ppos, ubuf, ubuf_size);
+> +	ret = sscanf(kbuf,
+> +		     "max_us=%u poll_period_us=%u inbounds_cnt_threshold=%u",
+> +		     &max_us, &poll_period_us, &inbounds_cnt_threshold);
+> +	if (ret != 3)
+> +		return -EINVAL;
+> +
+> +	if (max_us > U16_MAX || poll_period_us > U16_MAX || inbounds_cnt_threshold > U16_MAX)
+> +		return -EINVAL;
+> +
+> +	panthor_irq_coalescing_init(&ptdev->fw->irq_coalescing, max_us,
+> +				    poll_period_us, inbounds_cnt_threshold);
+> +	return ubuf_size;
+> +}
+> +
+> +static const struct debugfs_short_fops job_irq_coalescing_props_fops = {
+> +	.read = job_irq_coalescing_props_read,
+> +	.write = job_irq_coalescing_props_write,
+> +};
+> +
+> +static ssize_t job_irq_coalescing_stats_read(struct file *file,
+> +					     char __user *ubuf,
+> +					     size_t ubuf_size,
+> +					     loff_t *ppos)
+> +{
+> +	struct panthor_device *ptdev = container_of(file->private_data,
+> +						    struct panthor_device, base);
+> +	char kbuf[256] = {};
+> +	int kbuf_size;
+> +
+> +	kbuf_size = snprintf(kbuf, sizeof(kbuf) - 1,
+> +			     "inbounds_cnt=%u coalesced_cnt=%llu last_ts=%llu\n",
+> +			     ptdev->fw->irq_coalescing.inbounds_cnt,
+> +			     ptdev->fw->irq_coalescing.coalesced_cnt,
+> +			     ktime_to_ns(ptdev->fw->irq_coalescing.last_ts));
+> +	if (kbuf_size > sizeof(kbuf) - 1)
+> +		kbuf_size = sizeof(kbuf) - 1;
+> +
+> +	return simple_read_from_buffer(ubuf, ubuf_size, ppos, kbuf, kbuf_size);
+> +}
+> +
+> +static const struct debugfs_short_fops job_irq_coalescing_stats_fops = {
+> +	.read = job_irq_coalescing_stats_read,
+> +};
+> +
+> +void panthor_fw_debugfs_init(struct drm_minor *minor)
+> +{
+> +	debugfs_create_file("job_irq_coalescing_props", 0600, minor->debugfs_root,
+> +			    minor->dev, &job_irq_coalescing_props_fops);
+> +	debugfs_create_file("job_irq_coalescing_stats", 0400, minor->debugfs_root,
+> +			    minor->dev, &job_irq_coalescing_stats_fops);
+> +}
+> +
+>  MODULE_FIRMWARE("arm/mali/arch10.8/mali_csffw.bin");
+>  MODULE_FIRMWARE("arm/mali/arch10.10/mali_csffw.bin");
+>  MODULE_FIRMWARE("arm/mali/arch10.12/mali_csffw.bin");
+> diff --git a/drivers/gpu/drm/panthor/panthor_fw.h b/drivers/gpu/drm/panthor/panthor_fw.h
+> index e56b7fe15bb3..2643bd9e4ef9 100644
+> --- a/drivers/gpu/drm/panthor/panthor_fw.h
+> +++ b/drivers/gpu/drm/panthor/panthor_fw.h
+> @@ -526,4 +526,6 @@ static inline int panthor_fw_resume(struct panthor_device *ptdev)
+>  int panthor_fw_init(struct panthor_device *ptdev);
+>  void panthor_fw_unplug(struct panthor_device *ptdev);
+>  
+> +void panthor_fw_debugfs_init(struct drm_minor *minor);
+> +
+>  #endif
+> 
+
