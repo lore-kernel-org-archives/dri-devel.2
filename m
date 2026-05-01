@@ -4,97 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE3E4CD3423
-	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 22:19:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9ABECD3423
+	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 22:21:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C235310E212;
-	Fri,  1 May 2026 22:19:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 471C810E235;
+	Fri,  1 May 2026 22:21:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=shazbot.org header.i=@shazbot.org header.b="Z36rFCSV";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="Riv28Dn2";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mqU0UzQh";
 	dkim-atps=neutral
-Received: from fhigh-b7-smtp.messagingengine.com
- (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C02D10F642
- for <dri-devel@lists.freedesktop.org>; Fri,  1 May 2026 22:19:20 +0000 (UTC)
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
- by mailfhigh.stl.internal (Postfix) with ESMTP id EEA127A0078;
- Fri,  1 May 2026 18:19:18 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-04.internal (MEProxy); Fri, 01 May 2026 18:19:19 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
- cc:cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm2; t=1777673958;
- x=1777760358; bh=4TX/vtHUA9w5SLfj0GTrWfQ85zbl7VX0Zm2z9iybBGg=; b=
- Z36rFCSV/QHmdMLY8t8AOreKTfAXJWjSgrmCwCpHa9+ReT7y36fgcR5pc5+GEqDS
- eLpXfKzpd0Pc5TaH6ae90SgtPzwSlgr89CNZqPRsW47EsnsrIX+eViySl4rlJXJD
- 0F2itZ57gCSkpgtOJv7K6SMJGOfORF01ic1R15jRI1L6IZZIEEM5PxD8/BsWu1/S
- eyBik5hXWGwGMEDvebHDpYuvooohhzBSUWUlWqxW5QVsSx9q0fx/UddnaEJHV3aT
- RB8FAxyZIsh4OjFeHxAaN+E/dhHafNo39QJbQlYa8fMtqJQ6+32I4TlwfypNBE7h
- HQ5Kpv9hq7/KDnu1Km7UMA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1777673958; x=
- 1777760358; bh=4TX/vtHUA9w5SLfj0GTrWfQ85zbl7VX0Zm2z9iybBGg=; b=R
- iv28Dn26iAUXL2ry8P1je31g/3uECfkks3pwYk9h65HngH0Uy4tOs8zDdqIm3hTs
- 2g+1rC0b6Eab1EBcDdcko4IpzoO3iQl8O4VlqgECyUO/TDmw6G6xF09vGFwoDb4w
- n6yPBJR9BwpOqX0r6Tzsq7S85jq8xcWXZtgS+i6nWtpLzWCod1Ql082fOt+qrApx
- LA082YBqLFDO/c1RehIIZ+KLdEViXvdJm2aFqGfN5eGh2PZHZKlZlQROnqIBPL3Y
- /RT8E42WicUOqDnfMP8MAFa0nnXc6BU02LBH82hdlnq1iUNOWI3mc8HHu2dO0fZl
- WtInGVcI42IirGJLw2KWQ==
-X-ME-Sender: <xms:5Sb1aYNUZG6T84P__jBOxGJPdzhKXLpgaVTqJd1cXLahJ0eYRUblwQ>
- <xme:5Sb1adWX3Ppw0aaRcnn1VTGpwyEtrCbaY1rJdxNJAw3gY8Qh5qHyX6gkUGXRxwAhV
- SZU7HWEsSInE0NDEVm30R3Jp1ez00nieWantHFXFI_UW3MDUb3npw>
-X-ME-Received: <xmr:5Sb1abS8HSqyQU0NUgEdetLRrzJ6a0L4Vpr7eu3FwEp3OqHnQmshig8iHdo>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdeludefkecutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
- ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
- hrpeffhffvvefukfgjfhfogggtgfesthejredtredtvdenucfhrhhomheptehlvgigucgh
- ihhllhhirghmshhonhcuoegrlhgvgiesshhhrgiisghothdrohhrgheqnecuggftrfgrth
- htvghrnhepvdekfeejkedvudfhudfhteekudfgudeiteetvdeukedvheetvdekgfdugeev
- ueeunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomheprg
- hlvgigsehshhgriigsohhtrdhorhhgpdhnsggprhgtphhtthhopedvtddpmhhouggvpehs
- mhhtphhouhhtpdhrtghpthhtohepmhgrthhtvghvsehmvghtrgdrtghomhdprhgtphhtth
- hopehlvghonheskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepjhhgghesnhhvihguihgr
- rdgtohhmpdhrtghpthhtoheprghmrghsthhrohesfhgsrdgtohhmpdhrtghpthhtoheptg
- hhrhhishhtihgrnhdrkhhovghnihhgsegrmhgurdgtohhmpdhrtghpthhtohepmhhnghih
- rggurghmsegrmhgriihonhdruggvpdhrtghpthhtohepughmrghtlhgrtghksehgohhogh
- hlvgdrtghomhdprhgtphhtthhopegsjhhorhhnsehkvghrnhgvlhdrohhrghdprhgtphht
- thhopehsuhhmihhtrdhsvghmfigrlheslhhinhgrrhhordhorhhg
-X-ME-Proxy: <xmx:5Sb1aT2nfnQUIzMnrub8onPVS6x1O83t5QZSLF6nuatY8uH4aCgxHA>
- <xmx:5Sb1aYgkNICmhWFuRTixu6bvx7m-uS9MLGbEM5FmKoWyu6rCyTmhaQ>
- <xmx:5Sb1aRZydNZyMo71yCBoVHolTdcupfRLa2hpmAv6ykZVda_STzI6tQ>
- <xmx:5Sb1aRNlFq0ad7VlC83tSd-C0QFRQmU6ijTgGpN5eYNtdh63LiM6AQ>
- <xmx:5ib1aS08He7QGz8xhxxoeRfmtj1zPSWcv__eW5qdQrbWWPjrMHjHHPHD>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 1 May 2026 18:19:16 -0400 (EDT)
-Date: Fri, 1 May 2026 16:19:15 -0600
-From: Alex Williamson <alex@shazbot.org>
-To: Matt Evans <mattev@meta.com>
-Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Alex Mastro <amastro@fb.com>, Christian =?UTF-8?B?S8O2bmln?=
- <christian.koenig@amd.com>, Mahmoud Adam <mngyadam@amazon.de>, David
- Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
- <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, Kevin Tian
- <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>, Pranjal
- Shrivastava <praan@google.com>, Alistair Popple <apopple@nvidia.com>, Vivek
- Kasireddy <vivek.kasireddy@intel.com>, <linux-kernel@vger.kernel.org>,
- <linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linaro-mm-sig@lists.linaro.org>, <kvm@vger.kernel.org>, alex@shazbot.org
-Subject: Re: [PATCH 4/9] vfio/pci: Convert BAR mmap() to use a DMABUF
-Message-ID: <20260501161915.75525c15@shazbot.org>
-In-Reply-To: <20260416131815.2729131-5-mattev@meta.com>
-References: <20260416131815.2729131-1-mattev@meta.com>
- <20260416131815.2729131-5-mattev@meta.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-pc-linux-gnu)
+Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com
+ [209.85.222.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E192010E235
+ for <dri-devel@lists.freedesktop.org>; Fri,  1 May 2026 22:21:34 +0000 (UTC)
+Received: by mail-qk1-f174.google.com with SMTP id
+ af79cd13be357-8c70b5594f4so247015785a.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 01 May 2026 15:21:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777674094; cv=none;
+ d=google.com; s=arc-20240605;
+ b=SyRQMScUYmiL7CmJ9NyDlTbyaJ6+EJXTme1kGTioGvFb23W/880E6KVO3fEjnK7n5O
+ ImXgwWcCLMFji9J88H56DVTBCnAb05Bptfix5ePM3Ew8NhrCkASBHVw+BHqUr3GpAK7P
+ yBxIg+MUEHkkQDqyna35HQ65yveGh2XlL4/s/vxrCnF6E6XB4HhTsjVGkt40ktW+dN+M
+ +DaEKEL2jHhuiBcpr0NpV+iKkbwceokwFj3SZ2t3qPKB12pH4ShanQuvNIcJ7tFzmTD/
+ zp4M2Co4ueKHYY9BoweSO+lE21WIWeV7GgAs7Hs8JndStqgYOl7D7gUwOdr++HLopzSu
+ 1GZQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :mime-version:dkim-signature;
+ bh=EIJxpAftPt6IBXdwWVB9OqBaNJmsCPrKaIVLSbo6fbA=;
+ fh=A08XZwmmb57jzirbgTkluPSvjDeiJMkkojF1n6qDmTk=;
+ b=F1q7hZ+1WQR+9YhHbBSolWRwAwu8O0Z7KfH/qfP/E04UUIEEgySgYb60uO4ZMde9a2
+ 4HdNhB40LuYF6Cv2QmuE+WsUWZIoNf0C+v7Kk8fnHe4l9d9dxOBCynkhFm2bi2B10d2r
+ IgTU5v+zBLwyafJ5rbEnCymg/YM5vqjTDBM6VQ2EgdIyPRPEG3vcCAvnyxdxZBJxvIM1
+ evr5V038LsbZpiL+hP3j1hNljETAH9WDVtdvow2sgS3ehXKzk8OTFGByaxQ2tyzcXe8j
+ HyUpoFwCDfIgsy/kOMGJz8oSLLDA9eJuignEpiLmgZo0en0GIhjfr/odbd7unjqwOYmt
+ mr9A==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1777674094; x=1778278894; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=EIJxpAftPt6IBXdwWVB9OqBaNJmsCPrKaIVLSbo6fbA=;
+ b=mqU0UzQhcGSGdJCkW95fg52jZh2CeyEW/VxObuvi4e6TmGmI07iKA0cxEG6Cd+MmR7
+ 6xpIrE3QJ2bMmLCVvCP/T6hnoHoJ5N0HsyR9N9dHq9QOzGuEiHunoM8msuFsOJUvk7PC
+ //wgx9kEL/HgEG6tksTRT3kxgAcUY1ZMxdZ0y6e0EST8cCMs9+/w/skYS/3/DsonBfcT
+ Ff+jwuCYswVzhBdqAyxX2k9zzYyAwxGMf2Jyt3l2bTkoSXB58Cm/j0wAUyIGg1azaqub
+ fsoA79y/EdVxJJ5OhMyQ59Fd1KbhB5Q/B/UYzsUVNkHQhGv+agaMDgBVMcr7KDBYMSWJ
+ 7SJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777674094; x=1778278894;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=EIJxpAftPt6IBXdwWVB9OqBaNJmsCPrKaIVLSbo6fbA=;
+ b=j8Zq935aiE0zE02Kvrt0RG14uTEnuLiE6RjImN5Tyo31eFbXMi2anJSvBCnXwQaAfG
+ 2Xo/47CQt/qnna2M/D2q54av2yUOwlRzW/akfTx3jKhTWqdQhQp0P6vRZeqYSnfMg5y/
+ iB9IP87BaD+VlyuflY02Wd9ggtTkJQxN+wnFI9rslLokeW21NeFOFql3HnGPEpxPfpDQ
+ +aREQYJlhgABzEYAsEet7iJyBO0EMkFwHfNt+DiqQ/cQyaci83cMQFP/M82xJM7SVIdP
+ 0PapayF12kZ88b6msHmvyCNy4OofYnq6/jDgg6E6pJkD9VIoXMjdCdeR3YdWFgbc6U+z
+ 0UlA==
+X-Gm-Message-State: AOJu0YxBDLRL55Pt93cf48ysX0jf4+b/vZLQCToPUKH7IhL7iId/W17a
+ yhl+Nbin38hR2a09GVM0GpdRcZMZtE8COtldRdkNd528ODiBsram1sIqcfd3Et7G4d9D6hP0c7G
+ kf6i2WxfWoAfj86hkB6KnPi8fXZzRPgY=
+X-Gm-Gg: AeBDietl5+x0XsQO087xL/tGvxx9d8+3ewv2jMjlfJWnD7PnUrfI1bOitCFIO4lgdL6
+ MF5N2iRVDN1zx6NhN37b7gLTOiIRNGqX74jxEjCFp5oe9t1eNwlH5bznRn0vfL6vo1PR2enAFev
+ rcrnFz/TtscnPHvTFfh46jwYGwiZfmZMiEbXUsmUeoxP5b4r+yNFryVmc5jakHeWKBpooa3ga0G
+ 86bMiwHhvvX0wbqYSkQ+WnXQW3soki4LHlZXJR5aHtMOk1vsVh3CYiRbkhixbQiS77mdotvhNjG
+ lEEOEUbI9NJBLdcBDBXCYOalcQcCwV3XtYErlMIPEsv/EKdZyVI7JrkzwygqYl4fjOIHZTbCm8v
+ sLg==
+X-Received: by 2002:a05:620a:31a1:b0:8cd:e013:bca0 with SMTP id
+ af79cd13be357-8fabb3e0c38mr1131684685a.33.1777674092236; Fri, 01 May 2026
+ 15:21:32 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+From: Dave Airlie <airlied@gmail.com>
+Date: Sat, 2 May 2026 08:21:21 +1000
+X-Gm-Features: AVHnY4LidGu7UMp3D6gz_7lXydEOUYJBfmEsVbInp-eg9A4K0dpEEMW6_XMBiHo
+Message-ID: <CAPM=9tw9P=MuRdcupYrm9a-gACZtq0sPOdSLjOi9HMr34K6EjQ@mail.gmail.com>
+Subject: [git pull] drm fixes for 7.1-rc2
+To: Linus Torvalds <torvalds@linux-foundation.org>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel <dri-devel@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,85 +102,405 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 16 Apr 2026 06:17:47 -0700
-Matt Evans <mattev@meta.com> wrote:
+Hi Linus,
 
-> Convert the VFIO device fd fops->mmap to create a DMABUF representing
-> the BAR mapping, and make the VMA fault handler look up PFNs from the
-> corresponding DMABUF.  This supports future code mmap()ing BAR
-> DMABUFs, and iommufd work to support Type1 P2P.
-> 
-> First, vfio_pci_core_mmap() uses the new
-> vfio_pci_core_mmap_prep_dmabuf() helper to export a DMABUF
-> representing a single BAR range.  Then, the vfio_pci_mmap_huge_fault()
-> callback is updated to understand revoked buffers, and uses the new
-> vfio_pci_dma_buf_find_pfn() helper to determine the PFN for a given
-> fault address.
-> 
-> Now that the VFIO DMABUFs can be mmap()ed, vfio_pci_dma_buf_move() and
-> vfio_pci_dma_buf_cleanup() need to zap PTEs on revocation and cleanup
-> paths.
-> 
-> CONFIG_VFIO_PCI_CORE now unconditionally depends on
-> CONFIG_DMA_SHARED_BUFFER.  CONFIG_VFIO_PCI_DMABUF remains, to
-> conditionally include support for VFIO_DEVICE_FEATURE_DMA_BUF, and
-> depends on CONFIG_PCI_P2PDMA.
-> 
-> Signed-off-by: Matt Evans <mattev@meta.com>
-> ---
->  drivers/vfio/pci/Kconfig           |  3 +-
->  drivers/vfio/pci/Makefile          |  3 +-
->  drivers/vfio/pci/vfio_pci_core.c   | 86 ++++++++++++++++++------------
->  drivers/vfio/pci/vfio_pci_dmabuf.c | 14 +++++
->  drivers/vfio/pci/vfio_pci_priv.h   | 11 +---
->  5 files changed, 71 insertions(+), 46 deletions(-)
-> 
-> diff --git a/drivers/vfio/pci/Kconfig b/drivers/vfio/pci/Kconfig
-> index 296bf01e185e..2074f2a941e1 100644
-> --- a/drivers/vfio/pci/Kconfig
-> +++ b/drivers/vfio/pci/Kconfig
-> @@ -6,6 +6,7 @@ config VFIO_PCI_CORE
->  	tristate
->  	select VFIO_VIRQFD
->  	select IRQ_BYPASS_MANAGER
-> +	select DMA_SHARED_BUFFER
->  
->  config VFIO_PCI_INTX
->  	def_bool y if !S390
-> @@ -56,7 +57,7 @@ config VFIO_PCI_ZDEV_KVM
->  	  To enable s390x KVM vfio-pci extensions, say Y.
->  
->  config VFIO_PCI_DMABUF
-> -	def_bool y if VFIO_PCI_CORE && PCI_P2PDMA && DMA_SHARED_BUFFER
-> +	def_bool y if PCI_P2PDMA
+Fixes for rc2, the usual amdgpu/xe double header, I think xe had a
+couple of weeks combined due to some maintainer access issues,
+otherwise there's just a few misc fixes and documentation fixups.
 
-But here we introduce the call chain:
+Regards,
+Dave.
 
- vfio_pci_core_mmap()
-   -> vfio_pci_core_mmap_prep_dmabuf()
-        -> pcim_p2pdma_provider()
+drm-fixes-2026-05-02:
+drm fixes for 7.1-rc2
 
-Where pcim_p2pdma_provider() requires PCI_P2PDMA.  So honestly,
-VFIO_PCI_CORE depends on PCI_P2PDMA.  I think that's a pretty
-significant regression.
+core and helpers:
+- calculate framebuffer geometry with format helpers
+- fix docs
 
-Exporting dma-bufs from vfio-pci is a feature, but mmap of MMIO BARs is
-a legacy requirement.  That legacy requirement now depends on
-PCI_P2PDMA, which depends on 64BIT and ZONE_DEVICE.
+amdgpu:
+- GFX12 fix for CONFIG_DRM_DEBUG_MM configs
+- Fix DC analog support
+- Userq fixes
+- GART placement fix
+- Aldebaran SMU fixes
+- AMDGPU_INFO_READ_MMR_REG fix
+- UVD 3.1 fix
+- GC 6 TCC fix
+- Fix root reservation in amdgpu_vm_handle_fault()
+- RAS fix
+- Module reload fix for APUs
+- Fix build for CONFIG_DRM_FBDEV_EMULATION=3Dn
+- IGT DWB regression fix
+- GC 11.5.4 fix
+- VCN user fence fixes
+- JPEG user fence fixes
+- SMU 13.0.6 fix
+- VCN 3/4 IB parser fixes
+- NV3x+ dGPU vblank fix
+- DCE6/8 fixes for LVDS/eDP panels without an EDID
 
-It's possible that our 32-bit support is already broken and we can
-easily codify it in Kconfig.  We should check.  Otherwise it seems
-pretty harsh to drop it without notice, or make it fundamentally broken
-by exposing mmap support flags for regions where mmap is no longer
-available.
+amdkfd:
+- Fix for when CONFIG_HSA_AMD is not set
+- SVM fixes
 
-ZONE_DEVICE is harder, it seems like it's possible there could be
-minimal 64-bit custom kernel configs where vfio-pci currently works
-without ZONE_DEVICE.
+xe:
+- uapi: Add missing pad and extensions check
+- uapi: Reject unsafe PAT indices for CPU cached memory
+- Drop registration of guc_submit_wedged_fini from xe_guc_submit_wedge
+- Xe3p tuning and workaround fixes
+- USE drm mm instead of drm SA for CCS read/write
+- Fix leaks and null derefs
+- Fix Wa_18022495364
 
-We might be headed to this impasse already as dma-buf is required to
-have feature-complete compatibility with iommufd, but I had hoped we'd
-be able to manage that with full legacy functionality through the
-transition.  Thanks,
+appletbdrm:
+- allocate protocol buffers with kvzalloc()
 
-Alex
+dma-buf:
+- fix docs
+
+imagination:
+- avoid segfault in debugfs
+
+ofdrm:
+- put PCI device reference on errors
+
+udl:
+- increase USB timeout
+The following changes since commit 254f49634ee16a731174d2ae34bc50bd5f45e731=
+:
+
+  Linux 7.1-rc1 (2026-04-26 14:19:00 -0700)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/kernel.git tags/drm-fixes-2026-05-02
+
+for you to fetch changes up to f0997a06e3e32898bcae667d6807fc46ebfd0eec:
+
+  Merge tag 'drm-xe-fixes-2026-04-30' of
+https://gitlab.freedesktop.org/drm/xe/kernel into drm-fixes
+(2026-05-01 12:49:29 +1000)
+
+----------------------------------------------------------------
+drm fixes for 7.1-rc2
+
+core and helpers:
+- calculate framebuffer geometry with format helpers
+- fix docs
+
+amdgpu:
+- GFX12 fix for CONFIG_DRM_DEBUG_MM configs
+- Fix DC analog support
+- Userq fixes
+- GART placement fix
+- Aldebaran SMU fixes
+- AMDGPU_INFO_READ_MMR_REG fix
+- UVD 3.1 fix
+- GC 6 TCC fix
+- Fix root reservation in amdgpu_vm_handle_fault()
+- RAS fix
+- Module reload fix for APUs
+- Fix build for CONFIG_DRM_FBDEV_EMULATION=3Dn
+- IGT DWB regression fix
+- GC 11.5.4 fix
+- VCN user fence fixes
+- JPEG user fence fixes
+- SMU 13.0.6 fix
+- VCN 3/4 IB parser fixes
+- NV3x+ dGPU vblank fix
+- DCE6/8 fixes for LVDS/eDP panels without an EDID
+
+amdkfd:
+- Fix for when CONFIG_HSA_AMD is not set
+- SVM fixes
+
+xe:
+- uapi: Add missing pad and extensions check
+- uapi: Reject unsafe PAT indices for CPU cached memory
+- Drop registration of guc_submit_wedged_fini from xe_guc_submit_wedge
+- Xe3p tuning and workaround fixes
+- USE drm mm instead of drm SA for CCS read/write
+- Fix leaks and null derefs
+- Fix Wa_18022495364
+
+appletbdrm:
+- allocate protocol buffers with kvzalloc()
+
+dma-buf:
+- fix docs
+
+imagination:
+- avoid segfault in debugfs
+
+ofdrm:
+- put PCI device reference on errors
+
+udl:
+- increase USB timeout
+
+----------------------------------------------------------------
+Aditya Garg (1):
+      MAINTAINERS, mailmap: update Aditya Garg's email address
+
+Alex Deucher (1):
+      drm/amd/display: properly handle family setting for early GC 11.5.4
+
+Alysa Liu (1):
+      drm/amdkfd: validate SVM ioctl nattr against buffer size
+
+Arjan van de Ven (1):
+      drm/amdgpu: fix zero-size GDS range init on RDNA4
+
+Ashutosh Desai (1):
+      drm/gem: Fix inconsistent plane dimension calculation in
+drm_gem_fb_init_with_funcs()
+
+Benjamin Cheng (2):
+      drm/amdgpu/vcn3: Avoid overflow on msg bound check
+      drm/amdgpu/vcn4: Avoid overflow on msg bound check
+
+Brajesh Gupta (1):
+      drm/imagination: Fix segfault when updating ftrace mask
+
+Christian K=C3=B6nig (2):
+      drm/amdgpu: fix AMDGPU_INFO_READ_MMR_REG
+      drm/amdgpu: rework userq fence signal processing
+
+Dave Airlie (3):
+      Merge tag 'drm-misc-fixes-2026-04-30' of
+https://gitlab.freedesktop.org/drm/misc/kernel into drm-fixes
+      Merge tag 'amd-drm-fixes-7.1-2026-04-30' of
+https://gitlab.freedesktop.org/agd5f/linux into drm-fixes
+      Merge tag 'drm-xe-fixes-2026-04-30' of
+https://gitlab.freedesktop.org/drm/xe/kernel into drm-fixes
+
+Gaghik Khachatrian (1):
+      drm/amd/display: Update MCIF_ADDR macro to address IGT DWB regression
+
+Geert Uytterhoeven (1):
+      drm/color-mgmt: Typo s/R332/RGB332/
+
+Gustavo Sousa (1):
+      drm/xe/xe3p_lpg: Add missing indirect ring state feature flag
+
+Hongyan Xu (1):
+      drm/amdgpu: avoid double drm_exec_fini() in userq validate
+
+Jia Yao (2):
+      drm/xe/uapi: Reject coh_none PAT index for CPU cached memory in madvi=
+se
+      drm/xe/uapi: Reject coh_none PAT index for CPU_ADDR_MIRROR
+
+Jonathan Cavitt (1):
+      drm/xe/vm: Add missing pad and extensions check
+
+Kent Russell (1):
+      drm/amdgpu: Only send RMA CPER when threshold is exceeded
+
+Leo Li (1):
+      drm/amd/display: Restore 5s vbl offdelay for NV3x+ DGPUs
+
+Lijo Lazar (2):
+      drm/amd/pm: Update emit clock logic
+      drm/amd/pm: Add fine grained flag to SMU v13.0.6
+
+Mario Limonciello (AMD) (1):
+      amdkfd: Only ignore -ENOENT for KFD init failuires
+
+Matt Roper (4):
+      drm/xe: Drop redundant rtp entries for Wa_14019988906 & Wa_1401987713=
+8
+      drm/xe/tuning: Use proper register offset for GAMSTLB_CTRL
+      drm/xe: Mark ROW_CHICKEN5 as a masked register
+      drm/xe/debugfs: Correct printing of register whitelist ranges
+
+Matthew Brost (1):
+      drm/xe: Drop registration of guc_submit_wedged_fini from
+xe_guc_submit_wedge()
+
+Maxime Ripard (1):
+      Merge drm/drm-fixes into drm-misc-fixes
+
+Pierre-Eric Pelloux-Prayer (1):
+      drm/amdgpu: fix root reservation in amdgpu_vm_handle_fault
+
+Prike Liang (1):
+      drm/amdgpu: clean up the userq unmap error handler
+
+Roman Li (1):
+      drm/amd/display: Restore analog connector support
+
+Sasha Finkelstein (1):
+      drm/appletbdrm: Use kvzalloc for big allocations
+
+Satyanarayana K V P (2):
+      drm/xe: Add memory pool with shadow support
+      drm/xe/vf: Use drm mm instead of drm sa for CCS read/write
+
+Shixiong Ou (1):
+      drm/udl: Increase GET_URB_TIMEOUT
+
+Shubhankar Milind Sardeshpande (1):
+      drm/amdgpu: Avoid reset in AMDGPU unload path for APUs with GFX
+V11 and higher.
+
+Shuicheng Lin (8):
+      drm/xe: Fix potential NULL deref in
+xe_exec_queue_tlb_inval_last_fence_put_unlocked
+      drm/xe/bo: Fix bo leak on unaligned size validation in xe_bo_init_loc=
+ked()
+      drm/xe/bo: Fix bo leak on GGTT flag validation in xe_bo_init_locked()
+      drm/xe: Fix bo leak in xe_dma_buf_init_obj() on allocation failure
+      drm/xe: Fix dma-buf attachment leak in xe_gem_prime_import()
+      drm/xe: Fix error cleanup in xe_exec_queue_create_ioctl()
+      drm/xe/eustall: Fix drm_dev_put called before stream disable in close
+      drm/xe/gsc: Fix BO leak on error in query_compatibility_version()
+
+Thomas Zimmermann (1):
+      Merge drm/drm-fixes into drm-misc-fixes
+
+Timur Krist=C3=B3f (9):
+      drm/amdgpu/gmc: Fix AMDGPU_GART_PLACEMENT_LOW to not overlap with VRA=
+M
+      drm/amdgpu/uvd3.1: Don't validate the firmware when already validated
+      drm/amdgpu/gfx6: Support harvested SI chips with disabled TCCs (v2)
+      drm/amd/display: Allow embedded connectors without DDC
+      drm/amd/display: Allow DCE link encoder without AUX registers
+      drm/amd/display: Allow constructing DCE6 link encoder without DDC
+      drm/amd/display: Allow constructing DCE8 link encoder without DDC
+      drm/amd/display: Read EDID from VBIOS embedded panel info
+      drm/amd/display: Use EDID from VBIOS embedded panel info
+
+Tvrtko Ursulin (1):
+      drm/xe/xelp: Fix Wa_18022495364
+
+Xiang Gao (1):
+      dma-buf: fix stale @lock references in struct dma_buf documentation
+
+Yang Wang (1):
+      drm/amd/pm: fix missing fine-grained dpm table flag on aldebaran
+
+Yinjie Yao (19):
+      drm/amdgpu/vcn: set no_user_fence for VCN v2.0 enc/dec rings
+      drm/amdgpu/vcn: set no_user_fence for VCN v2.5 enc/dec rings
+      drm/amdgpu/vcn: set no_user_fence for VCN v3.0 enc/dec rings
+      drm/amdgpu/vcn: set no_user_fence for VCN v4.0 enc ring
+      drm/amdgpu/vcn: set no_user_fence for VCN v4.0.3 enc ring
+      drm/amdgpu/vcn: set no_user_fence for VCN v4.0.5 enc ring
+      drm/amdgpu/vcn: set no_user_fence for VCN v5.0.0 enc ring
+      drm/amdgpu/vcn: set no_user_fence for VCN v5.0.1 enc ring
+      drm/amdgpu/vcn: set no_user_fence for VCN v5.0.2 enc ring
+      drm/amdgpu/jpeg: set no_user_fence for JPEG v2.0 ring
+      drm/amdgpu/jpeg: set no_user_fence for JPEG v2.5 ring
+      drm/amdgpu/jpeg: set no_user_fence for JPEG v3.0 ring
+      drm/amdgpu/jpeg: set no_user_fence for JPEG v4.0 ring
+      drm/amdgpu/jpeg: set no_user_fence for JPEG v4.0.3 ring
+      drm/amdgpu/jpeg: set no_user_fence for JPEG v4.0.5 ring
+      drm/amdgpu/jpeg: set no_user_fence for JPEG v5.0.0 ring
+      drm/amdgpu/jpeg: set no_user_fence for JPEG v5.0.1 ring
+      drm/amdgpu/jpeg: set no_user_fence for JPEG v5.0.2 ring
+      drm/amdgpu/jpeg: set no_user_fence for JPEG v5.3.0 ring
+
+YuanShang (1):
+      drm/amdkfd: check if vm ready in svm map and unmap to gpu
+
+Yuho Choi (1):
+      drm/sysfb: ofdrm: fix PCI device reference leaks
+
+Yury Norov (1):
+      drm/amdgpu: fix build for CONFIG_DRM_FBDEV_EMULATION=3Dn
+
+ .mailmap                                           |   1 +
+ MAINTAINERS                                        |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |   6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c      |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            |   6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c            |   5 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c            |  57 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c     |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c            |   3 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c          |  22 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h          |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |  17 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c             |  10 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c             |  10 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c             |  11 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c              |  66 ++++
+ drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c             |   1 +
+ drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c             |   2 +
+ drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c             |   1 +
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c             |   1 +
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c           |   1 +
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c           |   1 +
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c           |   1 +
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c           |   1 +
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c           |   1 +
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c           |   1 +
+ drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c             |  11 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c             |  11 +-
+ drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c              |  10 +
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c              |   2 +
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c              |   2 +
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c              |   7 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c              |   5 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c            |   1 +
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c            |   1 +
+ drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c            |   1 +
+ drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c            |   1 +
+ drivers/gpu/drm/amd/amdgpu/vcn_v5_0_2.c            |   1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c           |  26 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h              |   3 +
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c               |  11 +
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  24 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  |  44 +++
+ drivers/gpu/drm/amd/display/dc/bios/bios_parser.c  |  73 +++-
+ drivers/gpu/drm/amd/display/dc/dc.h                |   2 +-
+ drivers/gpu/drm/amd/display/dc/dc_bios_types.h     |   3 +-
+ .../gpu/drm/amd/display/dc/dce/dce_link_encoder.c  |   4 +-
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_mmhubbub.c  |   4 +-
+ drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c |   3 +
+ .../drm/amd/display/dc/hwss/dce110/dce110_hwseq.c  |  94 +++--
+ drivers/gpu/drm/amd/display/dc/link/link_factory.c |   4 +-
+ .../amd/display/dc/resource/dce60/dce60_resource.c |   3 +-
+ .../amd/display/dc/resource/dce80/dce80_resource.c |   3 +-
+ .../amd/display/include/grph_object_ctrl_defs.h    |   4 +
+ drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c |   1 +
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c   |   1 +
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c             |   2 +-
+ drivers/gpu/drm/drm_color_mgmt.c                   |   2 +-
+ drivers/gpu/drm/drm_gem_framebuffer_helper.c       |   4 +-
+ drivers/gpu/drm/imagination/pvr_fw_trace.c         |   2 +-
+ drivers/gpu/drm/sysfb/ofdrm.c                      |   2 +
+ drivers/gpu/drm/tiny/appletbdrm.c                  |   4 +-
+ drivers/gpu/drm/udl/udl_main.c                     |   3 +-
+ drivers/gpu/drm/udl/udl_modeset.c                  |   5 +-
+ drivers/gpu/drm/xe/Makefile                        |   1 +
+ drivers/gpu/drm/xe/regs/xe_gt_regs.h               |   2 +-
+ drivers/gpu/drm/xe/xe_bo.c                         |   8 +-
+ drivers/gpu/drm/xe/xe_bo_types.h                   |   3 +-
+ drivers/gpu/drm/xe/xe_dma_buf.c                    |  23 +-
+ drivers/gpu/drm/xe/xe_eu_stall.c                   |   4 +-
+ drivers/gpu/drm/xe/xe_exec_queue.c                 |   9 +-
+ drivers/gpu/drm/xe/xe_gsc.c                        |   2 +-
+ drivers/gpu/drm/xe/xe_guc_submit.c                 |  33 +-
+ drivers/gpu/drm/xe/xe_lrc.c                        |   2 +-
+ drivers/gpu/drm/xe/xe_mem_pool.c                   | 403 +++++++++++++++++=
+++++
+ drivers/gpu/drm/xe/xe_mem_pool.h                   |  35 ++
+ drivers/gpu/drm/xe/xe_mem_pool_types.h             |  21 ++
+ drivers/gpu/drm/xe/xe_migrate.c                    |  56 +--
+ drivers/gpu/drm/xe/xe_pci.c                        |   1 +
+ drivers/gpu/drm/xe/xe_reg_whitelist.c              |   2 +-
+ drivers/gpu/drm/xe/xe_sriov_vf_ccs.c               |  54 +--
+ drivers/gpu/drm/xe/xe_sriov_vf_ccs_types.h         |   5 +-
+ drivers/gpu/drm/xe/xe_tuning.c                     |   2 +-
+ drivers/gpu/drm/xe/xe_vm.c                         |   5 +-
+ drivers/gpu/drm/xe/xe_vm_madvise.c                 |  47 +++
+ drivers/gpu/drm/xe/xe_wa.c                         |   8 -
+ include/drm/drm_fb_helper.h                        |   6 +
+ include/linux/dma-buf.h                            |   4 +-
+ 88 files changed, 1085 insertions(+), 269 deletions(-)
+ create mode 100644 drivers/gpu/drm/xe/xe_mem_pool.c
+ create mode 100644 drivers/gpu/drm/xe/xe_mem_pool.h
+ create mode 100644 drivers/gpu/drm/xe/xe_mem_pool_types.h
