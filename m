@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38727CCFA13
-	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 20:58:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4C28CD3424
+	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 20:58:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8FE910F61A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5E1510F623;
 	Fri,  1 May 2026 20:58:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="aUDhBco7";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="FBmgA1fB";
 	dkim-atps=neutral
 Received: from PH7PR06CU001.outbound.protection.outlook.com
  (mail-westus3azon11010054.outbound.protection.outlook.com [52.101.201.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7575310F5FB
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABC4410F5FB
  for <dri-devel@lists.freedesktop.org>; Fri,  1 May 2026 20:58:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kROTY4n4+xf9c8lFjFRgchfLuAymQdtBM1pdILa4n4kVcWrR64SvMwWCYj7IoQFAU+1Y3UcVs+/1dCl+JKDnSk/YxCKMXNkFGgr8Ky5/OdZVhqWpRGcn0ElYr37rm4y2gLj4ljMTrQZUTG/mULqzZYJxryM7EHg0zMfETz3cXSB6ikcdN5Hc2SxVnfw6T+pMkik0yUmwniiz/nRLyd2GQF6XkUNSG3LgIIiRAyhZmk/B7xbipB6RgXBABS1GApH7KVyHkPujLoHB1P+ew08Z/Oz73m23iwGTut9wd7GEWJ4etrsnyBX3/a2VOkSh/pYAC8VI9kAoNADi1V52hGXXGg==
+ b=B5scdv/WKQd9y9ixPYzEGHoReGsRGxzfHAtM1vhKYhHiFaMh1dtwYMmYmlE3vTkcavMlGP7aR6fs+wOjA6DLFOle/peRY+BgLLPQmJp968HKc+KWTDugIU6BLQ29JsVi5+DB9aTGB0l0acL2Ek4fzVehGfcIszURpNFEMdzTyZNAwzmeiHVF1uYzCVrt2Mnt8Lzc9xtPgm/qHkOvCJ1GUj2XH+P1k+IRRJTvBV3XDHqVv3SskpoDKoEum8RLVs8GVZBch0n20LLazwF69kWnxilDdqWiqCd1pVb+7sjwE/o6PgHBMv7W5QuJNlVP/x8AJTwnocCNTFoaTIs+FzQ8GA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lXscQzbTbBQ+aIzT45RVaJoPiCxnlVtnt1R7y9QF234=;
- b=dqaw9XscwAr4TMrtEnY2HtZ9VOjIR6gx0V0P0PEX+VUacCNjWrBEfAtAX5F0vZE8MZjmo4/BEthNJI60PtnNg0f4yAAxoKyIFfRmbBbeMaa1XxpHdcCaCmjYNaRrGFD1kphtrk0iEpUa1ofQjBu1X/HDGIiZ/odQ3ncXVNVpP2OQ5PAF9/JMYmERjQd/FvpH0LwEL/oZ3jIVX9T/LMbtt4NhjWfRivO/4MpoHbxviFscn2/3XettxUOenydg63cYeLtMWxC5UovAaUFYdrqKpOdMjmwiRwKwnyGx7Imw4paLlCKk9E/XB2ihnOIpDijhGwtX6WZUfeo6AdPsMznhUA==
+ bh=0txI5czU45l8odAMi6tHPNqLevB9sr1FQy3otwOg13M=;
+ b=G2bcgkaWUjVtOQ2lFQaf19W48D4fd/Cya323piGI+n3U9qJFroowHEg0ichghNKXrUInkNzTnemiC29gX9HOQR09NuIDeITE5hwtKVnLj4ePU2tvGhic/GrH0xi7Z2NJJe2YwM4cE+rVxjrIyGtxFHqIdSHIwTE261JPWQ9Sp8VPdFzVLnxLPefYvLS6NNBiCsC82ZkU0SYMKEcnEA+FZwaT8vFhC4ah5zdIf9fJBt+z6GwysJ1r0Ty+SSw/pT4OhNOZeEtwJ7G8tSAWh49b6Ggg8HgK4AIML8x0zSEHVEfe0zC3luioWLQimQHz5Q5fNzy8XVbfhJCES/24nK903Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lXscQzbTbBQ+aIzT45RVaJoPiCxnlVtnt1R7y9QF234=;
- b=aUDhBco7YKZsCTTLfg6MxKUxArr4NKwOx3vIJgqTPdh4IFqVPlX0pIRILVY0IbMo+6Q12LUjmV7LN8cgwp1aq4Ut2nIjadXwYKV+GVyjDTPMu8L61BC6q7OlhQ86D8/fNPKpavfeNdnO1CGFPqnK9QTSPoFi392UIsgzExgFuIAAfpO3OX+lts3vnptJibcAn6CynOY2b2zEUVw5Fzs3d3xGzMyXmYsuJYcXmkaLzfaZWe3FacL8PI8v7bMJwdQJVefeuCKvc5ZzKoLd7w2kPNELb6JbzbvuXKZKUjIpsiLdhlTGfF9l7C3mmFkWpmZUwtGXxXlKyfsO2Nwzkqvwng==
+ bh=0txI5czU45l8odAMi6tHPNqLevB9sr1FQy3otwOg13M=;
+ b=FBmgA1fBPJDg7sUCO0mQzXIZoF4aGUDd4KGC+QTHGsfX80AOuF0fQgMz5Ex+G7tlAX4hUGPRhxEyz6rC6jhDZq8FwEvNysRPFxIVF2xqpxH9PcYoCMrxVyxn5gvltiVx1v5TdaEUuplLUaMivnacSvZDyJ9ueiD8t/Jt1AdEJ9/HPDfQglur9aksSNiySUFa1eC6km058fo3lzjW2uIEY3YRAI9ZsTDPxlUhSyH32eVeejw+CQzbnumL3uKZvZJ7i53MuZ0mHUT0+w8UAAoKQ8hAhyDIOae066aat+9B2bTFZU06DiHifmT0RU/sMYyVLF5/GKvpms/+yEVx6YBsyQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
  IA1PR12MB8360.namprd12.prod.outlook.com (2603:10b6:208:3d8::12) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.23; Fri, 1 May
- 2026 20:58:32 +0000
+ 2026 20:58:36 +0000
 Received: from DS0PR12MB6486.namprd12.prod.outlook.com
  ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
  ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9870.022; Fri, 1 May 2026
- 20:58:32 +0000
+ 20:58:36 +0000
 From: Joel Fernandes <joelagnelf@nvidia.com>
 To: linux-kernel@vger.kernel.org
 Cc: Danilo Krummrich <dakr@kernel.org>,
@@ -58,69 +58,70 @@ Cc: Danilo Krummrich <dakr@kernel.org>,
  Shuah Khan <skhan@linuxfoundation.org>, nova-gpu@lists.linux.dev,
  dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
  linux-doc@vger.kernel.org, Joel Fernandes <joelagnelf@nvidia.com>
-Subject: [PATCH v1 0/7] gpu: nova-core: add INTR_CTRL interrupt controller and
- CPU doorbell self-test
-Date: Fri,  1 May 2026 16:58:18 -0400
-Message-Id: <20260501205825.73614-1-joelagnelf@nvidia.com>
+Subject: [PATCH v1 2/7] gpu: nova-core: allocate PCI MSI vector during probe
+Date: Fri,  1 May 2026 16:58:20 -0400
+Message-Id: <20260501205825.73614-3-joelagnelf@nvidia.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260501205825.73614-1-joelagnelf@nvidia.com>
+References: <20260501205825.73614-1-joelagnelf@nvidia.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: MN0P220CA0030.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:208:52e::24) To DS0PR12MB6486.namprd12.prod.outlook.com
+X-ClientProxiedBy: MN0P220CA0024.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:208:52e::18) To DS0PR12MB6486.namprd12.prod.outlook.com
  (2603:10b6:8:c5::21)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|IA1PR12MB8360:EE_
-X-MS-Office365-Filtering-Correlation-Id: 62e21456-6088-42bd-802f-08dea7c46753
+X-MS-Office365-Filtering-Correlation-Id: 9e39279e-c550-4568-0eec-08dea7c4699b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|366016|1800799024|56012099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: UMTH0LtBcaBeO7JyLgWGT1vFh8cfZNipaRRinSeI8kJn5ztaIoOMQflAAKr97XxxSiHrfbPT5xZDMhnfLkcIZ2YamAhi1x2trTjQU7F+RXFEDLvI5DpumysXvISjuKqpiJHYRBtU36l0XCCKqD20zW8Dty3IFIzU1wcwjSaSt04cQgm+AyPOhccbU1GHuxRrMs8MHwUJRB6u7yUgai0lhYp+8pcbWXVkp9gkMzrEnmdFTf64ISUaRPrqN1jvEpKzUPhYHqiDaopYa18a3Gazefj4y4ZoTtic8A1zAI90y+jNYy+di7kxjdZeI1Q0z245JNc+KLFlQuwVV8i6nRcDeSXg4v//n/sazv1Nd+Oif6b361nw3NTqdcjRdqRuAaNX5vYspLoy30x4XjxPzf7mRWK5FyEG/OgFmtSz1Iid+FS8k1f3q2NnCAXtJDI1P9j+JQtbdO0Xe1KQjNe0m+d9bdOkTTobr/mA4NhvClIwAvTrBQa+uUV4V6XdDWZZbFQeztdDDWG9Wd5vcFBGAynCWgx2YgLNSDsJRLXW9hQOd7s+4X/5+4gDzkuFk7PShltzFf8z0YWC2uTIVn2R76NqPmZ8cghDIigY5RKcsDwkbmpNUPX8hORp8P9h3EkQFTmXQOfRayxn4Wvyh2sGU0za6v5+5r0wtx9Teumznbnh0hoJu6RRklSfMMgikwvuoHtf
+ ARA:13230040|376014|7416014|366016|1800799024|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: mzYbqER/xnMo8NZHPdEswrOVK3eP9es4tJpI110O2XEwMfMJcpEHrpTtMju0ZlP34xbjaFa6w3gjn4bmI6Bfo55p+L53tegPrm5AKtwDxNs/vOV26rYEjr0bc608/5UVZmlpxtZg2nXwSVsuZXhT8SZqEfsHZX2UxfHviIRyFGlM0YCzwwKdfSUHhrcp5/7Br0HyN6pbyua9cq2jv6YYoayRXTvQ6gsmxHUfZghsfhhg3ZhTGyyEASSnk0lB7HVn8EKTEYPU0iZUVL30I++bl9UwaaIKCubUYw2TfFhZYvDRFJ6KCuxy5HEJkN3dEsrFyRh68KeUP+Q9L2eesZsjyTQYk+ujx5PlBoZXWCUgFlPtW7qrwyKnnItfX7hNT4GCgMf/jh5i4YrRuQjtfHMAsEQIi9G1lhVjiiSgaOEI2qOqslr2nJdSirWYlFgckjcub3xiBxe/Gm6dSofFgac23P0R/v98xOgrI1L/7ZGEjluRSO4dksTITth71JqXA90dqkwLKuOGZLnUSX/IWEmwdAk1ircEUWMkOERMi1UXWrQ5/gP4xAyyet3/2AeBjHFCvc8uwKseIPXHfKDQJ+O6GO7d6bdX+zHVRyADfcDQTYA8xlbTFu55sn7PuVYA0+INAY50GpdjJWMzA7uoPyAaH/+8oFD2R8AFZ5iPptqP9eQAoR7xRjsyft9axDsbjZtG
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(366016)(1800799024)(56012099003)(18002099003);
+ SFS:(13230040)(376014)(7416014)(366016)(1800799024)(56012099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?sw1LraJKY3ZQGo+EHM4RtDWalpew3KRNbY8n0OkG702988mgnZZIMil8K+//?=
- =?us-ascii?Q?Ws5Kw3Tc8pbTMOcjNWq7h32y8UApB4m1IsiGn2bSRoV3u8PsySZtBiXHCiAd?=
- =?us-ascii?Q?4iZsJpok6+o66Pp8Kp1L45GGaj8vSE/Bik1lowfO7JoMsLerpKHhxjiEOqZV?=
- =?us-ascii?Q?C9jeMI5GfyJFkKREdfBqJKxNqhup5+iUUcGiAzIeGTxWbmBUBBT6uA+kxRpq?=
- =?us-ascii?Q?GZMT+EC5IqDoHpcIE/Ko5k1MX64PHuq9rqtEZIZnJV/cGw8hv6DqKXNc0JoE?=
- =?us-ascii?Q?ilEuH+nQBCAfDQVRxYf9g0JMw4mENyyd61fVdqtt/lXL+lKz9EQtkBMpRZSV?=
- =?us-ascii?Q?FmTSkfv0Oz6Bfq1pQ2cIPxMRm2+eJu4Xiibkd3i7p90HQaJ+BpDU+Bj9O3e7?=
- =?us-ascii?Q?vmww5gm/6GswWuFSF/Lj/dXgv3pvo1TzEpb8o8NQE2flhaa8hAJ4vkbVqJwq?=
- =?us-ascii?Q?RjYGgRK+j9EDQ5to2q4yyjgrAH+9ZgLx5XXE9xQu6swd7hPbe6ULBndODQ1Q?=
- =?us-ascii?Q?N7HMsbfQt88xIih3Ia37BTFxMuN6Q2hdXdes9nFF5vJxTUZRper68cAGvFC0?=
- =?us-ascii?Q?6UKIgLKEC3fjDVToV84fgbKQ4CIoXqKuzfFjPmnXs/QpK4yRkQNGvbcKezG3?=
- =?us-ascii?Q?lI5U/z/iOLGEx+JAQ431eF2ZkWWeTjBU5r4hwZR2ez1ePO9pNkkn6L6cydG0?=
- =?us-ascii?Q?Mr0anBN2o5gKMhSfZzFajkx6thWR6HFQYfBlgdeuIDO2DnFuze3U3wSjHwia?=
- =?us-ascii?Q?AzQbNDR88joqXkklzrUWNuFR02TDeh9NyxFNtxdCY05ztqKC7WBVLpYDxRnR?=
- =?us-ascii?Q?8MFb7QNah6ebUzOXrVRH9lY+jCAUlUamCNhhn/vcYD9tyBcA0S9wOYnwg5xN?=
- =?us-ascii?Q?cazlf/cTQPZkoYCePSVNVBAZlupw1bVpOJX2TPughLhN9xDVjS7W9yVS6X0Q?=
- =?us-ascii?Q?UvELh/pMJyBfq93eFE3inTrKPE/ELAcu7uT0iynfWWNuQKVnZTwnTdsqFTvl?=
- =?us-ascii?Q?3eCiVjXFJdyfd60a8SM/RVghv/r2jZiHfH92zL1RCuWz/ZE2d5hItjGjtL3/?=
- =?us-ascii?Q?LRkmdvOjYxSoOVNPtkhOQ469/dibo8YKWBHZFFT0pgcYBh1E8YuU8Kd7VK7M?=
- =?us-ascii?Q?nPXeKxq8vSZPAVh6ryrUUBTTb5aAIvVcKw4BUgpeAVNromDQ7qzn59ukPmZA?=
- =?us-ascii?Q?+vYH+4nFk9XJnQEbkiU0ekYjcqLPdB3KUEMS740tfh3aMwPtXCyKEvkj6dZM?=
- =?us-ascii?Q?RqR9qMMe7ZX1TpQCr5k4iZsh1Z0LoOS7Qbb0J2TWe2EMouc0ZPEtCfIAiB3R?=
- =?us-ascii?Q?KNfMQ+SiT55UsMa5V01BF755lCrTK7EJjmG1IiQYXfDZO3dTzI0tCM0YfBPv?=
- =?us-ascii?Q?sRKzasedTmgIm9YNTgUNQT3K9j2jc8F3wDz57VJmbtuM79QG9Taoh1eUMPH+?=
- =?us-ascii?Q?MwRifrVVoXClVuEZcmFLCDHOj8PUDekc2kQnA6Rfh1FVwJiNOelCK+PS7BTB?=
- =?us-ascii?Q?AtS+mwTIeiHW/FzVu27+XscE3/SSbPy89YzgHS4ufoBxTnaZTDhvO4FtR6w+?=
- =?us-ascii?Q?I5bXGwc4jxLwtadQJLcRV592J64o1rfwLbShqTv7T3pzD/m8WatvL/l+XyVL?=
- =?us-ascii?Q?HZUqSQ9BoUyVlyu64kIDTWNOIZEN+9dNwjknqTzCAjWhfbBL1oPZOsbuydap?=
- =?us-ascii?Q?Ciqhbw1nrK/7n0hGKlYHD/WLI5DzElRDTC38vD/6/wsMFQFcLeXK4Bu1/KsQ?=
- =?us-ascii?Q?VSDWussqEw=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?e+OuvvwFRa9MPq3EhLWBzwVDVYvHD85JFJrKm0uI/CC7qS+eGhOMsDDc6kxp?=
+ =?us-ascii?Q?l9b7wFLVU2GmOQtA9gkNIRPCxB0wX40tcN9MblhwdJN4CPxIgShvMkMou4zD?=
+ =?us-ascii?Q?GV0P6RsbeRpl2O1KZNjVZ337a9h9/aM6qIeEV8gR6HaS/Uvd1lfOSdkGIjfX?=
+ =?us-ascii?Q?KRcfWc9xQFTaQFuvE9STOe9N+5PXn65ixs8Rkn0v5/H8ysq2q5LbXsHFaXkJ?=
+ =?us-ascii?Q?Yqr2G2LRJ2+3RM2/GTRLr4YuwDurPV2CmyCqwbeeoGe9J5/GgwSMOEbtBr1v?=
+ =?us-ascii?Q?OCNVLfRgosCs7Et50UzbwMrtsgBXJwaYtBro/ZqJU1Ma+mhkzFgXZFR+jW/+?=
+ =?us-ascii?Q?opDqYsLygHD/itS5bQvht+gNZuN+O9sQG1RpApZ5Bm8E6neuH/ye+l6VOhlF?=
+ =?us-ascii?Q?9i174D2tIr6/WQr8qx7kZ8vyB5UcxcO2bxlltHFet4HcmybJIg6BFs6R9EXG?=
+ =?us-ascii?Q?TbvQRofIyz/hVJXUzD4i9qgNQaOpBE5L1fwbsM+i0NZxdyVzL89BzgmMwqRO?=
+ =?us-ascii?Q?K3Rq/TYggKtrdDIvpjvVSimahmXv7tkD6tErO8FqquDITu+KzZADZa8VWDcl?=
+ =?us-ascii?Q?vxHMYdJV5hzX6/F+n2lXhemFbbj3Ke3gd1QsqFu+fPKMejcYPtm45Ureei94?=
+ =?us-ascii?Q?9MYpWOQ93urzoNBFYeQfFY1buz3mXGwISkvp9yqq7rVjCiqViernPV3c/lmt?=
+ =?us-ascii?Q?fuTXZuIYJhrrMtksC8tbczlR3z5bjSQV35/39hN1InIhnbuLZ0xBCzbxL6wu?=
+ =?us-ascii?Q?Z2DqM5vmgDiZ09eJ++ftN3cThkqR+K6dDhbcBkQXS7m74xCNWaJW9vmXuUjA?=
+ =?us-ascii?Q?QdBNfFtEvfMFsa4gJj8WwjqARJSyKNn67yuCx4U4E/Q92DVebm3YM71Fyh7n?=
+ =?us-ascii?Q?MEtDPNK+IeVX7ea19Rl11XEtQ5rboWNb2UQ5lHHshGVkzGUId8DczdQtSANg?=
+ =?us-ascii?Q?42nIx0a/OQQcjdYm6B2avzYB2ArZJ5Gu0Lzops2vwlUkG7rA+MJNA83YH7ak?=
+ =?us-ascii?Q?KsVSJaid4xvbMdj+CnulunP/cjuARV7/sQqEHtaiSqOP0zNg0nJERCMI2IPY?=
+ =?us-ascii?Q?R1vop30N6jMqTVq/Zkp7LrxpDgN0jYmD1zHN/5kqESWVb9buDx+JI/rFr5LC?=
+ =?us-ascii?Q?c/eFWB98rEoK1xKl0tL9KJETONNOhj3vEkayrVbKpbI8tkDIvrHzBVOps3z0?=
+ =?us-ascii?Q?Ocn4BqJunG51A9beta6JVczPOcRzSAyOfRH+LDwZ2h48AgdFGKf/+UcUPhSF?=
+ =?us-ascii?Q?XCjPbJfrw8WOlUNzAIAXuq4Jg89o4KRf8EnJW/fxTdWvbSwmoBhBjn86tSXK?=
+ =?us-ascii?Q?a15YuF+EhSbG7Ds5S4d9Bv1baO9CnTJVk+GZhDYdzoMDwElsK+ZCdJ8CoC8K?=
+ =?us-ascii?Q?CitldIZcZEx0eSMi2ciMayY6+tvEVnmqwppYacvY/zJvvq+zkOWCjtIQkuJw?=
+ =?us-ascii?Q?9rCqK0kxAFsWRW9aHMyOdYVFIAZe1k+RvKdCsK+ElWjkffa28nkRE9GQig4C?=
+ =?us-ascii?Q?TufESQev4MOfMf0QgyT1/s9bnTX326cOQ6yaqu4TRbVlIBU63GmTzfT5cvsR?=
+ =?us-ascii?Q?pfQXUmbNaAZw8Vg5dD9DVkArMbbuw93ats9B+q9bP8qHDT0sKMcky2VoAF8n?=
+ =?us-ascii?Q?dLOv4dR2Rej0WAofimZKJ6e2Y+UgFWdxb+tqrwJrSxwh6z0gqc4Yug5azKkw?=
+ =?us-ascii?Q?ZYwdFhvB9MF5frhXpgcBLHgpxhFFQwUFU633YWGPOs8U3SVcCDlCljwQtmNy?=
+ =?us-ascii?Q?u3ZjdQkaIg=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 62e21456-6088-42bd-802f-08dea7c46753
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9e39279e-c550-4568-0eec-08dea7c4699b
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 May 2026 20:58:32.3413 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 May 2026 20:58:36.1448 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vC9TnGO3nnTMihJ2Xihl1AYsHLBGu4v95iyfQo3ob6W5Ca+/GdpjD0sCRd2aR4A0RpVhwUMhPEw7UB0qg6VH4g==
+X-MS-Exchange-CrossTenant-UserPrincipalName: Icrh+UXP7LeEljLS/9inrfLY1I/l8oXAnTJeRGyg3sW5CfA/e+K44iCJ9I/Xv5fBNzVMQxFcn8l36sOHyNbJSg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8360
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -137,79 +138,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series adds interrupt controller support to nova-core, and validates the
-full interrupt path with a CPU-doorbell self-test. It is based on today's
-drm-rust-next tree.
+Allocate a single PCI MSI interrupt vector in the probe path.
 
-The GPU interrupt controller block (INTR_CTRL)
-----------------------------------------------
-INTR_CTRL is the GPU's two-level (top/leaf) interrupt controller. It
-multiplexes all GSP and engine interrupts onto a single PCI MSI line. We need
-it to receive asynchronous messages from GSP. GSP will the host with a SWGEN0
-interrupt (routed via INTR_CTRL) to deliver async RPC messages like error
-reports (XIDs) and other event.  INTR_CTRL also routes notifications from GPU
-engines to PCIe MSI such as submitted work completion, MMU faults, etc.
-Detailed documentation of the architecture with diagrams are provided in a
-separate patch (patch 7/7).
+Try MSI/MSI-X first. If that fails (possible in broken VFIO setups),
+fall back to INTx with a dev_warn so the issue is visible in dmesg.
+The allocation is devres-managed and automatically freed on unbind.
 
-What this series proves
------------------------
-The CPU doorbell self-test (patch 6/7) exercises the full interrupt path
-end-to-end. It uses the LEAF_TRIGGER hardware register in INTR_CTRL to trigger
-a interrupt, then waits for the IRQ handler to fire. The path under test is:
-
-  LEAF_TRIGGER write
-       v
-  INTR_CTRL TOP/LEAF goes pending
-       v
-  GPU fires PCI MSI write
-       v
-  Host VFIO -> guest IOMMU/IRQ
-       v
-  Guest Linux IRQ -> nova-core handler
-       v
-  Handler
-
-The full stack has been end-to-end tested on Ampere GA102 with GPU passthrough.
-
-What comes next
----------------
-This is the first stage. Once this lands, the next step is to read (via RPC)
-the interrupt vector table that GSP programs at boot. That table tells us which
-INTR_CTRL leaf and bit each engine is wired to, so the driver can route
-incoming interrupts to per-engine handlers. Future patches will also add GSP interrupt
-support, and a per-engine ISR dispatch loops.
-
-The git tree with all patches can be found at:
-git://git.kernel.org/pub/scm/linux/kernel/git/jfern/linux.git (tag: nova-intr-ctrl-v1-20260501b)
-
-Joel Fernandes (7):
-  rust: sync: completion: add wait_for_completion_timeout()
-  gpu: nova-core: allocate PCI MSI vector during probe
-  gpu: nova-core: add interrupt controller register definitions
-  gpu: nova-core: add Architecture::is_pre_hopper() helper
-  gpu: nova-core: add INTR_CTRL interrupt controller API
-  gpu: nova-core: add CPU doorbell IRQ self-test
-  gpu: nova-core: document INTR_CTRL interrupt tree
-
- Documentation/gpu/nova/core/intr-ctrl.rst  | 305 +++++++++++++++++++++
- Documentation/gpu/nova/index.rst           |   1 +
- drivers/gpu/nova-core/Kconfig              |  13 +
- drivers/gpu/nova-core/gpu.rs               |  22 ++
- drivers/gpu/nova-core/irq.rs               |  29 ++
- drivers/gpu/nova-core/irq/doorbell_test.rs | 203 ++++++++++++++
- drivers/gpu/nova-core/irq/intr_ctrl.rs     | 281 +++++++++++++++++++
- drivers/gpu/nova-core/nova_core.rs         |   2 +
- drivers/gpu/nova-core/regs.rs              |  13 +
- rust/kernel/sync/completion.rs             |  18 +-
- 10 files changed, 886 insertions(+), 1 deletion(-)
- create mode 100644 Documentation/gpu/nova/core/intr-ctrl.rst
+Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+---
+ drivers/gpu/nova-core/gpu.rs       |  7 +++++++
+ drivers/gpu/nova-core/irq.rs       | 25 +++++++++++++++++++++++++
+ drivers/gpu/nova-core/nova_core.rs |  1 +
+ 3 files changed, 33 insertions(+)
  create mode 100644 drivers/gpu/nova-core/irq.rs
- create mode 100644 drivers/gpu/nova-core/irq/doorbell_test.rs
- create mode 100644 drivers/gpu/nova-core/irq/intr_ctrl.rs
 
-
-base-commit: 610e892bdb57043c7769982c2bff0260b6007b75
+diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
+index 659f6a24ee13..3ac9cb106bfd 100644
+--- a/drivers/gpu/nova-core/gpu.rs
++++ b/drivers/gpu/nova-core/gpu.rs
+@@ -11,6 +11,8 @@
+     sync::Arc, //
+ };
+ 
++use crate::irq;
++
+ use crate::{
+     bounded_enum,
+     driver::Bar0,
+@@ -293,6 +295,11 @@ pub(crate) fn new<'a>(
+ 
+             _: { gsp.boot(pdev, bar, spec.chipset, gsp_falcon, sec2_falcon)? },
+ 
++            // Allocate a PCI interrupt vector.
++            _: {
++                let _irq_vector = irq::alloc_vector(pdev)?;
++            },
++
+             bar: devres_bar,
+         })
+     }
+diff --git a/drivers/gpu/nova-core/irq.rs b/drivers/gpu/nova-core/irq.rs
+new file mode 100644
+index 000000000000..3a2a40519f11
+--- /dev/null
++++ b/drivers/gpu/nova-core/irq.rs
+@@ -0,0 +1,25 @@
++// SPDX-License-Identifier: GPL-2.0
++
++use kernel::{
++    device::Bound,
++    pci::{
++        self,
++        IrqType,
++        IrqTypes, //
++    },
++    prelude::*,
++};
++
++pub(crate) fn alloc_vector(pdev: &pci::Device<Bound>) -> Result<pci::IrqVector<'_>> {
++    let msi_types = IrqTypes::default().with(IrqType::Msi).with(IrqType::MsiX);
++
++    let irq_vectors = match pdev.alloc_irq_vectors(1, 1, msi_types) {
++        Ok(vecs) => vecs,
++        Err(_) => {
++            dev_warn!(pdev.as_ref(), "MSI not available, falling back to INTx\n");
++            pdev.alloc_irq_vectors(1, 1, IrqTypes::default().with(IrqType::Intx))?
++        }
++    };
++
++    Ok(*irq_vectors.start())
++}
+diff --git a/drivers/gpu/nova-core/nova_core.rs b/drivers/gpu/nova-core/nova_core.rs
+index 3a609f6937e4..837aa2d36a0e 100644
+--- a/drivers/gpu/nova-core/nova_core.rs
++++ b/drivers/gpu/nova-core/nova_core.rs
+@@ -19,6 +19,7 @@
+ mod firmware;
+ mod gpu;
+ mod gsp;
++mod irq;
+ #[macro_use]
+ mod num;
+ mod regs;
 -- 
 2.34.1
 
