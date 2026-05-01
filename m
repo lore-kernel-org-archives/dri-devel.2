@@ -4,175 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 321CAFF8864
-	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 07:09:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EE7DFF885A
+	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 07:10:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 529BB10E151;
-	Fri,  1 May 2026 07:09:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AFBF10E189;
+	Fri,  1 May 2026 07:10:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NpIYB177";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BCcPQmht";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1479410E0F6;
- Fri,  1 May 2026 07:09:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777619368; x=1809155368;
- h=date:from:to:cc:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=RJEZO2sJKGvqGlQS24CweENDdN6W6EZ7hnN2r/OsZSk=;
- b=NpIYB177FToIziqe8KQdhG/tlLLD5ebrfo/oBZFeBsnfp7qbRCZAyJk4
- AdD0Unh9JRntjRO7JYK4odc4aOWN0R2IQmpVxNO7Vu8PGvd3NP56nsffR
- 0wF82MHSRXRHpUZJp8LSYrxddJ6DPuCF+v5Bv7hz5SgU4PtbqWWQQMZFV
- PHhBnBgIdSgo+BjTwgQTqSafADKQWs+4l+SUf+/Tg037tjfxpgE0b3p1R
- 7SBI567d6pE/9t61CF12OMjeQDIeWdglcbIn6qnlqVBmtR1/Ez1yxxeD6
- Gy4UhaUvAsjIWHZqPiw95xo3PLCYj/ZjU8AFZIzHPjKygCd/HWrqv8O8L w==;
-X-CSE-ConnectionGUID: eRf342RJQG+4M6RLfcytFQ==
-X-CSE-MsgGUID: /Q1fGCDiRVeJFDzSkG7HnQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11772"; a="82437218"
-X-IronPort-AV: E=Sophos;i="6.23,209,1770624000"; d="scan'208";a="82437218"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 May 2026 00:09:26 -0700
-X-CSE-ConnectionGUID: Vu3HT3qGS12OPfbAmZnf1A==
-X-CSE-MsgGUID: Ism16KGCTAG1qaiurgxefw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,209,1770624000"; d="scan'208";a="236598114"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
- by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 May 2026 00:09:25 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Fri, 1 May 2026 00:09:24 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Fri, 1 May 2026 00:09:24 -0700
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.56)
- by edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Fri, 1 May 2026 00:09:23 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Z6cGkpx3oU/50oFv1m+WWB0MCbSW/PNll9D1gXzS2KxhDx1S8sYW0mZpLGj+15Ty2AsWdAE2nV2odkP8rkXjrZwu03vLOCyvIp17tddtgDDmchcn5IG6g8P6BoP3R7SKONoXDRpAFIx3PLiFqvnKJKfWdCR9VXRRGRvK4kFe5i+gJOd+5XrP0LPfC6Qf8Nv/EXyCpD5geXJYxWdicKfdA2Yk/E2dE9EEtE4/EaIG5JCxwJfZty/kl9MFswIQ5iN4Ikw95cJZwTmqmRJsYZjqHWzDGhnMu8rXfUUjNoR6yYz8GMaLMIK1vKzogx+yEUTuBfgKHsa8CALbF7wKEE0FFw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=szDM6KSxo2KfKFOfzHuCtMxAoiNKFkii01Vci7kbHBE=;
- b=PRatQduqLWw7SGqiEAqDR/FvRhChLoLwzupU8nrOF7pZIfECH4BdQPVztEm2M83QB+44LV2K6yQd1REQ5FcR02d4ooRDlxpvS+EtujlUcZ3Nr1r2OcRuk4JhQo4pbAVhjXwnarqAl48qn65ho3iKZFKTtCszswmFuQiNv0OMNGUA6Lbc3CUSssKEtoqwAWCDA7+CgWoBN61SD83//o8i6SSmnX+KyKC+bHSZ0NREVazreolhSyZAfgydRutCNcvJKPL6CgAYzQbwm/NVsBp6iK66wF5ZrXTCfZ6R+aARuSDXTEwe3AoOzG+2SHD4fX1/Rd9DX0M0WgaS02mOSC7qrg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
- by MW4PR11MB7079.namprd11.prod.outlook.com (2603:10b6:303:22b::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.23; Fri, 1 May
- 2026 07:09:14 +0000
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c%7]) with mapi id 15.20.9870.022; Fri, 1 May 2026
- 07:09:14 +0000
-Date: Fri, 1 May 2026 00:09:10 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Dave Chinner <dgc@kernel.org>
-CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, "Dave
- Chinner" <david@fromorbit.com>, Qi Zheng <zhengqi.arch@bytedance.com>,
- "Roman
- Gushchin" <roman.gushchin@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>,
- Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>,
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Tvrtko Ursulin
- <tvrtko.ursulin@igalia.com>, Thomas =?iso-8859-1?Q?Hellstr=F6m?=
- <thomas.hellstrom@linux.intel.com>, Carlos Santa <carlos.santa@intel.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Daniel Colascione <dancol@dancol.org>,
- Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand
- <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett"
- <Liam.Howlett@oracle.com>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport
- <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko
- <mhocko@suse.com>, <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v4 0/6] mm, drm/ttm, drm/xe: Avoid reclaim/eviction loops
- under fragmentation
-Message-ID: <afRRlqA2bdZVoWAi@gsse-cloud1.jf.intel.com>
-References: <20260430191809.2142544-1-matthew.brost@intel.com>
- <afQE-2JOzfOm8enM@dread>
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <afQE-2JOzfOm8enM@dread>
-X-ClientProxiedBy: SJ0PR05CA0172.namprd05.prod.outlook.com
- (2603:10b6:a03:339::27) To PH7PR11MB6522.namprd11.prod.outlook.com
- (2603:10b6:510:212::12)
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com
+ [74.125.82.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7425F10E4B6
+ for <dri-devel@lists.freedesktop.org>; Fri,  1 May 2026 00:13:39 +0000 (UTC)
+Received: by mail-dy1-f176.google.com with SMTP id
+ 5a478bee46e88-2d832f2f44cso1476758eec.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 17:13:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1777594418; x=1778199218; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=EjUGoLHqPL5VETUhJL72vL6nLh8xGP28jw0K/tf57Dw=;
+ b=BCcPQmhtDXVY+n8aD1jONqCJ/7xF8tibN/3+mJpMPND3NzvLmY6t4FewWFWn77UKB/
+ 74G4KgHPvLTNuw5pQSfbbLqNAEPkkdTDmJGzXqxYtNJFrI3OHbSlsqNYhJJ9/iPGoE2H
+ kkrHZ/7AF9YW7uw0Zq9BX2SISYLqe3LgGLpBXE5fEfDAqWPFf8pSJvjYsWGMOMuryzpu
+ M2NFEECQ4Lt2LCfkL6mIHf1XyYqWh2Zfsoded7PD2COoBrD6Zupo1rbgPZkhpq2k51uR
+ VyOM6YobYvU+aSUCrRsfRDmx/v6W+LptmBtQEfm2MX3NTfdxG3rs0sHRtwDFPl1ll6L9
+ FMfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777594418; x=1778199218;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=EjUGoLHqPL5VETUhJL72vL6nLh8xGP28jw0K/tf57Dw=;
+ b=sHfI8xlO8O/O35rpopHLx4DEriTnQWo5k5Jd2m/rRoWk1Ez/d+stF1iSd9yr6ajNVI
+ marC6ARReozdAWeAQrHvQ3/sBy1LTKTmlNGsPynm0zYH4Groy8IbdjvjG/yIejrFT4Y+
+ vLkbG8C6gzb0D8barzj9cW7Xzb4SCrRdU8hhwq2T6NY+FnYg80b7DgPo+ZC4bMl9ucM9
+ FilNGRxfytlwuFAFezUITXWW432DGWUgNFYc1P1FaBbFqQknmtCGJR9WFbIYGClHsx4n
+ NDBcpVaStm4o/pQhwdxvZoydlNUQ2Dfl0kPB8oi8IJcPotkSMEwiCsLGkplHySDD0KxS
+ MzKQ==
+X-Gm-Message-State: AOJu0YwF+hdqEcOxUvioau4VSqCaO+lCHnPNejGrCXLON1zMY0XqzDft
+ Amyavz1InPGAQQaobqdQcgsO1AugF6CgHOdod6kdlS0E8N1bC4ZGQb1qjWgYattU
+X-Gm-Gg: AeBDieu44ccIEAIm02nrMxsKPzkB9s/ExPnu8yIF5nHYjmyCLT0A+kLrPu9gajbsxyS
+ OOBDJkPs7nuK2n7be2sZBz2gvDixB4E7mRTbvCHErujLacV7oYJ+Px759oCfaQmhOMkiylk55U+
+ CHs4Kk/MTxnRdnqwau/x0l1LgZqWpnuxJo4vmLES1nb/YTy2uIqdZCBLchMfIRkEiu/t0lIEtsg
+ qaeK++saJv1uIQGzdJ2UQDfAqra9ZnBVMsuPrjc39rsi035VtaM0p4/2v7eCZ1CgTxfRfrQT+HX
+ w4BrWT5pfx9HDtKIQb0c4VQgK/Votow0iA640z5o7cItZEYzcqukbSAnS9fRRbTKVxAxcMDMqJ6
+ RMvWHVGtUk+dWT9AR2SQeb0Yj0msp4q/d28SrJisxQoYzs4dJuNHSstRw3drjJEjV8Eo61D6zvz
+ yiBeggQiz4h2783708NYYquStnambDJa2SoyNeB454IwLteReVUp9FGslWpUsUD7zhkrNjz7s1D
+ cieIsNe+ZucYkovzg==
+X-Received: by 2002:a05:7300:570f:b0:2df:7882:1ce0 with SMTP id
+ 5a478bee46e88-2ee89705e5bmr395130eec.29.1777594418045; 
+ Thu, 30 Apr 2026 17:13:38 -0700 (PDT)
+Received: from pop-os.UNKNOWN ([2804:14c:f25a:8247:ca3c:d9ec:76ed:197d])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-2ee38e71ccesm2808237eec.10.2026.04.30.17.13.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 Apr 2026 17:13:37 -0700 (PDT)
+From: Gustavo Piaz Da Silva <gustavopiazdasilva2102@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, linux-kernel@vger.kernel.org,
+ Gustavo Piaz Da Silva <gustavopiazdasilva2102@gmail.com>
+Subject: [PATCH 0/1] drm/blend: size zpos array to active planes instead of
+ total
+Date: Thu, 30 Apr 2026 21:12:59 -0300
+Message-ID: <20260501001301.7666-1-gustavopiazdasilva2102@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|MW4PR11MB7079:EE_
-X-MS-Office365-Filtering-Correlation-Id: 710b5948-8105-46f1-623e-08dea7508d25
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|7416014|366016|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: uLqhwztd2S2iwhCaobMUd3WxS0hWrDChTu+8x8ypPko1fNl3X9PrQ/fcE7oor2v6r4Y0/5/7lddJE9Dqi7DcvxRx/kxfq6Q8478SRN62Pn592JTIsx2/C6fSLEakdWKT6fbHixRwbfAcvd97OAyJ8tKhMarcWkzyRpOMMFJJ/ErbUZ5SGYH+BwD5eWdF2vDAYHWjXZOJiS8+3XN9OjW8DD/b8DpsMuQbyd4Z/2pyYnSnKenFsz7U3MAypLONCEEyLNbJoiVaN36JjDu162zLHc876vjhqP63lqyZ7snCg1KMLuVwarMY4nQLcGB53E+zJkM9vGsD3T89B3NNGQhAA5ymgnuWXwUdwGgM6DPrg+LliN0F+BXq5XWdhjU7QtQxdOD/O5hGMFKpcf5ubHYEcRN6KfYNVo1Hl7goaTw+LUhbWMfhy5CYjk9ZP0EkngYApoyefifV805zQZTOps33qTz6sL81EXGt13vdgmi32+x0r1bIt5lhRavu2c0WC54MjWH++zQlq70P68qhu+vgK4iohkzVsdP1jsR/XFftLQG/2pP4cBY+a+Fc9ij5zfHmtZC5NxBXw7CkDKvFrOdl1zR7M+yZZFt+EMjnLDzbAfzglsh9ffmCV6pOv/j/TJx/Cv3dWcIZFh1G0fM2872WZg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(7416014)(366016)(22082099003)(18002099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VXFac1dIMWR4Vm9JSHM3K0s1NDZxUlowOVE2dXNUaTRBNFlCTmhjNVFZQXNI?=
- =?utf-8?B?cTNzM0ZtbXF0ZnJKV1o2dHdBVnhsMWhwdG9yOWtteUVhN0lEYjBOTnd1Z3dR?=
- =?utf-8?B?cWRPSkJiR3VnK0pZMWxCam8rMDB0WUdBelJUNW5La2VseElWTDA4QWoyTU9Z?=
- =?utf-8?B?TkdaT2I5SjN4OVJtUHlFU21velZvNVZKL0JWV1QybWFCTlBiN0U4ZFJ4M2hu?=
- =?utf-8?B?WU1QT2E3U3NRVDc1SEJTZGkzZDFEWnU1c1ExNnNIa3k5Y3F4Mmphb0tqT21w?=
- =?utf-8?B?UEg5bGlQRVJ5dW0wL3RxZXZQNUpRUjlyYkN1djNLMG9QUmNXOEFNY3owKzdw?=
- =?utf-8?B?ZmZ1S0xMVEoxbWdTSTI1WURWbTlYZmNTYWFaVGttK1E2ak40RHFvcVZMUzla?=
- =?utf-8?B?V2pmRTBOZDg4TWZ1cUxzZjFRZUZaTzZpQWttS3hLMDZKL2xOZUxMbWtYbk42?=
- =?utf-8?B?elYrMFJ2TjdXcElaT3YzdXM4SVFtTEdKRFNzblJoY3p2QWtEb1M1aGdIV2c0?=
- =?utf-8?B?NitrSGpNR0RZdlB4WityaDdnNjM4bDF4alhhWEs4VS9LUWwvMTIrYUI0OTJq?=
- =?utf-8?B?czJkOEtmVXRrR2Q2Y2hCNGhkcTNaaDUzMFJUQ0RLT05TNDFPNlp0MnVmZlFH?=
- =?utf-8?B?c0wwengxVlRLS1hRbHQ0Kzc1bDRWV0hoeWE2eTZ2dWxyTW1BRnFsWWkwUmtU?=
- =?utf-8?B?NHNuT3B0cGowaC9ieEE2Z0NhYWQ0ZUdVc0hJVmlaQVE4Y1piYnhhYXF5cURL?=
- =?utf-8?B?YWl1UTFDTTBValVUMXBwL203NmI1VFdhenpyOW1Od1BQbVVmaDF3NjVUc3JL?=
- =?utf-8?B?YXFLakNrYytRU29wNXBTaTZUczFOb2pOUUU1T2doY3pmdXZrLzF6NHpZd1pP?=
- =?utf-8?B?RkJlTWcrdHczQnhheWdtRHdnT09BWEJlbVhHVnI1NmVsRmFQTkx6cmxrQ2hQ?=
- =?utf-8?B?dUEyN0RxblhycmxjY1VNRWhjd2dnY3MyZGlEWDQ5eHgwa01maTF6bXJ4VEVN?=
- =?utf-8?B?K25jb29oY1lGdXluLytnVm1pWkp0eFk0M0xBUTk0RWNxc0lmeUw2dUppVkwy?=
- =?utf-8?B?WDBZbGJ4Rkc4ek1KM1RpMGpGaTZOcy8zOFFzUzFMOEN3RGFVUWNWdXFPYmI3?=
- =?utf-8?B?SXhvbFBDRWtma2RDK2lHcjJkWDl3dnpISXI4K1NwMG44Z0FLUytIVU9EVWNG?=
- =?utf-8?B?YXBTWXpKeXZVbk8zNlZDRDlMMWVDL1ZvMzRvQTFvaThMNWNFTDZOenkwWVFO?=
- =?utf-8?B?MFhmRzRsZnVJNjhHSVB6ZW9lbGNJVW5qQkxsV2VHV2I2SzBxNVlMdWZKYW5Y?=
- =?utf-8?B?S3EyQnZBUEMvaStBbXRWZVdmOEdrRU5zc20wZWlxSzFiTVJoT253MGp1NUFn?=
- =?utf-8?B?N25MS2VycWZNQ040eTdXTzZ4RzUwU01Pb3VGSTZEelYxM0dzK3JxQTZaa2VD?=
- =?utf-8?B?N0FtMGtKRzBaaWh6cnF4VkZOckJFUC9JWFJ5M0VsQytpbkdEdmszN3hkRVl1?=
- =?utf-8?B?QndoZWFWSkJvVXFyTTlsc1M0ZElRSCs0c3BhZU55K2tSQndFTC9XK2xyRE9j?=
- =?utf-8?B?eVpVeUk5L29sMWhpaS9QbzdHbDRtM2ZiL0l1eThUbG92MmMyRGdCbkRDM0w5?=
- =?utf-8?B?TlpRK3lZT2RPRGdhNEQvME13SzkvZGZ6UVBhV1lEY3BBUUhYSk9uMjBLUXdF?=
- =?utf-8?B?QzlVTmNiZzNRdmwwMlRVSmpoV2FGQkxkOGN4WFEwQm5iZ3FRTGFZT0VGQk9O?=
- =?utf-8?B?ZmwxNmcxc292clVHU2xLWndZVG91TE01N29YejJxdTRVUW9UK3ZBTmpmdlVz?=
- =?utf-8?B?RVBCaEpGelp0cWlocCtsUkoyeWxRZnJLZ1Njb21pbFdNSE5rRzg4SEw3NTdM?=
- =?utf-8?B?YmVyM1FtN2wzN2tXU3pURnFKMnFnbjZjWm9NZmJDTUJhVG1ScDB6NzJyaDVw?=
- =?utf-8?B?QTNsaityaEZHOHFSU1JpdWlqT3BEUTBLRG9QRTA0Tk5yaVhNSEkyWEpGTmRi?=
- =?utf-8?B?SEhia1JSejFtbTBNK1ZHYVpOWnlxUkpuc29PSmliS25GZWdFUUs4MUZOcGRL?=
- =?utf-8?B?aEl3YUJvaHQ0MEFLbW1lTWhKWmZyZnhpZGtPQjQ0d0xVOEs0NkpXdCsvanc3?=
- =?utf-8?B?ZUZWZHBTdDdUTDkwOGlORjEzU0FSdHlrODZxdExNTUF4SGFUdjhUdVFwUTEr?=
- =?utf-8?B?RGtySEhmYVNGZE5DS2VNOHZKUUdjSjdBTEpNNngrSmhsVFZMcnF2M2lOcDdS?=
- =?utf-8?B?MTlDWkpyVGVRcEtuSUFRS2k5SXR4Y1hldjlQUEs5dlV0R21KQ1RuMGdrNVhX?=
- =?utf-8?B?SStnSVB2Y1l4TnIyVHRzSUZKdGE4aFo5WU5YT2IvUk1hVDk4VGwvb3UxZEtP?=
- =?utf-8?Q?AaBs4Sw5xc3RJB1Y=3D?=
-X-Exchange-RoutingPolicyChecked: wYaj6gxOg1nptlMrsEWWnDt+4PeMYsG5T0v0ebSeAlK0Hi7tbuT85Kw5gMJy9oJd0rJuf1aKGt53NTkXtKKHRll25yDVRuhYxn2/xui7kb9YLKlDQ9nnMvzAdJ3NaAg+OxnL6e/fFJAPYfnEN1Sifx0x3W7auZP3+iDfksHsYY5Iekb2HdRaATZaxrdQM4u6SKhiIcih40s0sHcFW8sR3E+l0usvYN1OXWzz+eH/mjCtpD83x8loSGVNocvboSUsgdaKdEH6OmcCu6B3ouILr91aC+gFVhp4KOraItE4PfNYV7Be3CCbYwJsdSzM2DubUaEcedUsidAxBIfyPyH8YA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 710b5948-8105-46f1-623e-08dea7508d25
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 May 2026 07:09:14.2114 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6P9sVdrF3GuskHDxAUQ6dENDrOxaE/1MYuGA3RPwE8z2vEdU+hcJrw3alu13H7ia4mZujCir2HSGkNdByi66ZA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR11MB7079
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Fri, 01 May 2026 07:10:41 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -188,146 +88,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, May 01, 2026 at 11:42:19AM +1000, Dave Chinner wrote:
+drm_atomic_helper_crtc_normalize_zpos() allocates a temporary
+array sized by dev->mode_config.num_total_plane, which counts
+all planes registered on the device. The function only operates
+on planes active on the given CRTC, as described by
+crtc_state->plane_mask.
 
-Thanks for the feedback. I’m looking into this more, and it’s becoming
-clear that this is a hard problem—one that will likely require
-coordinated work between DRM and core MM to really sort out. That said,
-I do think what I have in place is a reasonable short-term fix.
+Replace num_total_plane with hweight32(crtc_state->plane_mask)
+to size the allocation to exactly the planes being processed.
 
-More below.
+Gustavo Piaz Da Silva (1):
+  drm/blend: size zpos array to active planes instead of total
 
-> On Thu, Apr 30, 2026 at 12:18:03PM -0700, Matthew Brost wrote:
-> > TTM allocations at higher orders can drive Xe into a pathological
-> > reclaim loop when memory is fragmented:
-> > 
-> > kswapd → shrinker → eviction → rebind (exec ioctl) → repeat
-> > 
-> > In this state, reclaim is triggered despite substantial free memory,
-> > but fails to produce contiguous higher-order pages. The Xe shrinker then
-> > evicts active buffer objects, increasing faulting and rebind activity
-> > and further feeding the loop. The result is high CPU overhead and poor
-> > GPU forward progress.
-> > 
-> > This issue was first reported in [1] and independently observed
-> > internally and by Google.
-> > 
-> > A simple reproducer is:
-> > 
-> > - Boot an iGPU system with mem=8G
-> > - Launch 10 Chrome tabs running the WebGL aquarium demo
-> > - Configure each tab with ~5k fish
-> > 
-> > Under this workload, ftrace shows a continuous loop of:
-> > 
-> > xe_shrinker_scan (kswapd)
-> > xe_vma_rebind_exec
-> > 
-> > Performance degrades significantly, with each tab dropping to ~2 FPS on
-> > PTL (Ubuntu 24.04).
-> > 
-> > At the same time, /proc/buddyinfo shows substantial free memory but no
-> > higher-order availability. For example, the Normal zone:
-> > 
-> > Count: 4063 4595 3455 3400 3139 2762 2293 1655 643 0 0
-> > 
-> > This corresponds to ~2.8GB free memory, but no order-9 (2MB) blocks,
-> > indicating severe fragmentation.
-> > 
-> > This series addresses the issue in two ways:
-> > 
-> > TTM: Restrict direct reclaim to beneficial_order. Larger allocations
-> > use __GFP_NORETRY to fail quickly rather than triggering reclaim.
-> 
-> NACK.
-> 
-> As I have said to the people trying to hack around direct reclaim
-> for high order allocations being costly for the page cache, fix the
-> problem with direct reclaim. (e.g.
-> https://lore.kernel.org/linux-xfs/adLlrSZ5oRAa_Hfd@dread/)
-> 
+ drivers/gpu/drm/drm_blend.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I read your response. Maybe this isn't clear what is going here.
+-- 
+2.43.0
 
-At beneficial_order: gfp == __GFP_RECLAIM | __GFP_NORETRY
-At order zero: gfp == __GFP_RECLAIM
-
-This roughly existing behavior, the exact changes are here [1].
-
-[1] https://patchwork.freedesktop.org/patch/722247/?series=165329&rev=3
-
-If this is truly a NACK, then we can rethink it—likely by disabling
-reclaim at higher orders—but that has its own downsides for DRM and
-GPUs. Ideally, you want purgeable BOs to be evicted when a higher-order
-allocation fails; you really don’t want to end up in an insane kswap
-loop.
-
-> We should not be hacking around a problem in the mm infrastructure
-> by changing allocation context flags every high order allocation 
-> call site that needs high order allocations. Understand and fix the
-> infrastructure problem once and for all.
-> 
-
-Well, I agree that we should aim to fix this in core MM, but as the
-saying goes, Rome wasn’t built in a day. The fact is that these GFP
-flags do exist, and suddenly drawing a line and declaring them no longer
-valid feels a bit unfair. I’ll also note that Intel—and I
-personally—have an interest in fixing shrinking, so you can expect
-follow-up work here.
-
-> > Xe: Introduce a heuristic in the shrinker to avoid eviction when
-> > running under kswapd and the system appears memory-rich but
-> > fragmented.
-> 
-> NACK on architectural grounds.
-> 
-> Custom heuristics in individual shrinkers to decide whether the
-> should do what the mm subsystem has asked them to do has -always-
-> been a mistake to allow. The mm subsystem makes the decision on how
-
-I’m not going to disagree with using custom heuristics in individual
-shrinkers, but I’d wager that most shrinkers sadly already implement
-custom heuristics.
-
-> much cache shrinkage needs to occur, the shrinkers just do what they
-> are told to do.
-> 
-> If we have a problem where a workload causes excessive shrinker
-> reclaim, then we need to address the problem in the infrastructure
-> because excessive reclaim affects the performance of -all-
-> subsystems with shrinkable caches, not just the TTM subsystem.
-> 
-
-Yes, I agree, and I’ve thought about the implications of simply having
-TTM back off when a higher-order allocation fails, even when we actually
-have enough memory, and how that would affect everyone. This series at
-least fixes the “well, there goes my GUI” problem.
-
-I do have another patch locally that prevents TTM from accidentally
-fragmenting memory and triggering the kswap loop, but under enough
-pressure I can still get the GUI to lock up for periods of time. With
-this series, however, I can’t reproduce that issue.
-
-> As it is, I can't review what you've actually implemented because
-> you only cc'd me on a single patch in the series. In future, please
-> cc me on the whole patchset because shrinkers need to work as a
-> coherent whole, not just in isolation....
-> 
-
-Sorry about this - Andrew just said the same thing. Here is PW link [2].
-
-Or:
-
-b4 mbox 20260430191809.2142544-1-matthew.brost@intel.com
-
-[2] https://patchwork.freedesktop.org/series/165329/
-
-If you have any ideas on how to fix this in the core, let’s discuss. I
-have a bunch of ideas in my head, but core MM isn’t my native domain.
-
-Matt
-
-> -Dave.
-> -- 
-> Dave Chinner
-> dgc@kernel.org
