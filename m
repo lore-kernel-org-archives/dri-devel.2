@@ -4,100 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E7F0CD13DE
-	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 01:40:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09268FF886F
+	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 01:42:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49A4B10E1BB;
-	Fri,  1 May 2026 01:40:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1CB610E4D1;
+	Fri,  1 May 2026 01:42:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="J+/cjfB4";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DeR2BoTw";
 	dkim-atps=neutral
-Received: from mail-qv1-f97.google.com (mail-qv1-f97.google.com
- [209.85.219.97])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86C2D10E1BB
- for <dri-devel@lists.freedesktop.org>; Fri,  1 May 2026 01:40:51 +0000 (UTC)
-Received: by mail-qv1-f97.google.com with SMTP id
- 6a1803df08f44-8a5800772f3so10635956d6.2
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 18:40:51 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777599650; x=1778204450;
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=irmXq/3k3mxdCJm/xJdiW+dF/pEGDw/Jpb968A+Klqo=;
- b=neg+2nEhLbPPEOTeAblPGkQwA+rmvBMnRA1kB/aptGzDh5Uks151BEZBZDchWRiZPq
- saij36zIzzFEDi36VWK0RYrljbikRGPtfIFOJ5sQAUgIpgYbfq5ea0RmnhtlGghRxGfe
- euJx0vHoYkI360hSnoWiNkWMaYdKJ8SpbcZAsZSx5f+VkrG9PRZ7/urVbquvF3NaZGaa
- Gg9NZ/rL3fQ7X34f60eaq/tyqLuTIna1JBeAnJV8PSIcrgby0q2L3hlQ7nJo0drvrelz
- pyvZPN/MCGYQ8FOOGOORent7NrMzs7LSYZsS3dvmCOrsJzT2sO+jiROifAdZwQXvV30/
- HSvQ==
-X-Gm-Message-State: AOJu0YwKiE8Pbr9cuN7cw7W99bds8na8bS5JMaXvS9/UwQT8vj8cJxuX
- ixqeMxGkXiNc7qUtRNBXyZRvVpRFtr08GhWtpPMgPxUgxVfzQRq8rlLuhKMZS/kOmZBVstRIc0B
- wTA8UD1SdZhh9EDrUbY+ESfHELOApsTHTzodzY3mE9CBlGSk0W5NLLIT/qQ+zkd4iT9AJP75NPl
- R9oAzNRDD4O0CR7OYHHber9lXW0xlSujT058cF2qApyXku1fnUYhXdMOCNJw77JBlWqFgqvDM9K
- QwFNFUkc2kTw8ohzsqccQkmV7Uy
-X-Gm-Gg: AeBDietS6R1mQnfTBJx1zhV5Sy5iydzzodkOTDU030VVxMIi4wUiDefWYohcRGfwFT5
- MRdLdTzD4EXFN7LHs0aguhQ7EHhVmAKQKcG8pxn8NRxapNJ1HUEuY04JcL3N4k6XMi04iA5K81u
- ynjV5ecyVabJ+qikXdJlPAFpErQ+MFIW2dQmYZBWjiaBGDEprwSncv36LDRsEoEdvQitM5XbLib
- tadDA50QhONIwZ2tsJAe6yjnP6iv/l2nTk+fJGk0ny5Y9/nMRVI4W0h/tMoR1zVbov7f4Fy0Rxj
- 4nz6R9ftd8V4XuP6nn4Pqv9zoNP/VRubXq1Png1Aus2+ey96bnV4DKP/sHmmOTZg8byY1nfzbnf
- a8LxQNDTwsKAyBgWTtT2JIc1g2nTJjvVs1TBwUEkItgjwDNlD4PDpOazfshF30OxSJ2KewfB+wM
- G8gyrn7dbdsq7gK4lXPR+tPtm3V80j2agFMmjaInhcTM4nCHHHX0v/lHe9RoexLkaD2lbCSYbc2
- r0=
-X-Received: by 2002:a05:6214:610b:b0:8ac:7d2f:c7e0 with SMTP id
- 6a1803df08f44-8b3fe7bcb23mr72799516d6.23.1777599650168; 
- Thu, 30 Apr 2026 18:40:50 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-121.dlp.protect.broadcom.com. [144.49.247.121])
- by smtp-relay.gmail.com with ESMTPS id
- 6a1803df08f44-8b537f74ed7sm748676d6.6.2026.04.30.18.40.49
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 30 Apr 2026 18:40:50 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dy1-f200.google.com with SMTP id
- 5a478bee46e88-2cc75e79b97so433579eec.1
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Apr 2026 18:40:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1777599649; x=1778204449;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=irmXq/3k3mxdCJm/xJdiW+dF/pEGDw/Jpb968A+Klqo=;
- b=J+/cjfB4LdahwresXN6vke3S/DemCr5sasFlde0OQHKqXuVT7V2gZKIOiqairDQIUQ
- gcPR2V3DURs95Suyeft2hzm9q+pjj0+0llcKMhR3AHB4e45whVolbNr0mRy/ZUln93o9
- RklMr8TWRfnXVedl8YsObAstVbj4dGxKGDquc=
-X-Received: by 2002:a05:7301:6743:b0:2ed:e12:376e with SMTP id
- 5a478bee46e88-2ed3e67b97cmr2306268eec.30.1777599648877; 
- Thu, 30 Apr 2026 18:40:48 -0700 (PDT)
-X-Received: by 2002:a05:7301:6743:b0:2ed:e12:376e with SMTP id
- 5a478bee46e88-2ed3e67b97cmr2306256eec.30.1777599648323; 
- Thu, 30 Apr 2026 18:40:48 -0700 (PDT)
-Received: from [10.211.247.102] ([192.19.50.250])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-2ee3bf6811fsm2440594eec.29.2026.04.30.18.40.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Apr 2026 18:40:47 -0700 (PDT)
-Message-ID: <337fa6d6-464e-4d03-b41c-c0738af7d1ef@broadcom.com>
-Date: Thu, 30 Apr 2026 18:43:52 -0700
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9F8510E4D1;
+ Fri,  1 May 2026 01:42:39 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id AD4DF6015B;
+ Fri,  1 May 2026 01:42:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBC5FC2BCB3;
+ Fri,  1 May 2026 01:42:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1777599758;
+ bh=s5Avm2OmpzdNLOwnBT2sIFLcF3ONT0lruv1PFQd8FBA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=DeR2BoTwVYKieU0M5pjmAwUb/bVDgXlJr4hntEgrSPcBlfF+LITJrVSOc2N9+VRmS
+ ekYnQf+bCmDnsULRliNU29pq8gypvns0TPs06Vh5mnnkUcrtfzxhA8GcBhJV4pIxIC
+ bGC/E4sOA9Rmf3sALlgnTRrMM79+cnjJuhiotZxPE53FEvdyHycwOGPwMAW9sHzdKq
+ 88GinW/iJhP6YB6ZFqZQudA6uurILRnAf++59hKcxbNcWrGMQnXTRWbZQQigi4/DAC
+ vZwW2RSR6Pv/Y/1Ct1hJooxdh69EwpD1d9gzzaEy9r08P8mMJm/Wq6hzhqGDyQIaKt
+ gQEkmpv574rQw==
+Date: Fri, 1 May 2026 11:42:19 +1000
+From: Dave Chinner <dgc@kernel.org>
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Dave Chinner <david@fromorbit.com>, Qi Zheng <zhengqi.arch@bytedance.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Carlos Santa <carlos.santa@intel.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Daniel Colascione <dancol@dancol.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 0/6] mm, drm/ttm, drm/xe: Avoid reclaim/eviction loops
+ under fragmentation
+Message-ID: <afQE-2JOzfOm8enM@dread>
+References: <20260430191809.2142544-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] drm/vmwgfx: Check vrefresh in drm_mode_setcrtc.
-To: Zack Rusin <zack.rusin@broadcom.com>
-Cc: dri-devel@lists.freedesktop.org, bcm-kernel-feedback-list@broadcom.com,
- ian.forbes@broadcom.com
-References: <20260430001913.482967-1-maaz.mombasawala@broadcom.com>
- <20260430001913.482967-2-maaz.mombasawala@broadcom.com>
- <CABQX2QNDdFcUz=5c8AUcJu8vssGdNbrCzz2pfE8YX7gwpBVtuA@mail.gmail.com>
-From: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
-Content-Language: en-US
-In-Reply-To: <CABQX2QNDdFcUz=5c8AUcJu8vssGdNbrCzz2pfE8YX7gwpBVtuA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260430191809.2142544-1-matthew.brost@intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,18 +82,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/30/26 4:38 AM, Zack Rusin wrote:
-
+On Thu, Apr 30, 2026 at 12:18:03PM -0700, Matthew Brost wrote:
+> TTM allocations at higher orders can drive Xe into a pathological
+> reclaim loop when memory is fragmented:
 > 
-> Hmm, how is this working without the gb support? Did you test other displays?
+> kswapd → shrinker → eviction → rebind (exec ioctl) → repeat
 > 
-> z
+> In this state, reclaim is triggered despite substantial free memory,
+> but fails to produce contiguous higher-order pages. The Xe shrinker then
+> evicts active buffer objects, increasing faulting and rebind activity
+> and further feeding the loop. The result is high CPU overhead and poor
+> GPU forward progress.
+> 
+> This issue was first reported in [1] and independently observed
+> internally and by Google.
+> 
+> A simple reproducer is:
+> 
+> - Boot an iGPU system with mem=8G
+> - Launch 10 Chrome tabs running the WebGL aquarium demo
+> - Configure each tab with ~5k fish
+> 
+> Under this workload, ftrace shows a continuous loop of:
+> 
+> xe_shrinker_scan (kswapd)
+> xe_vma_rebind_exec
+> 
+> Performance degrades significantly, with each tab dropping to ~2 FPS on
+> PTL (Ubuntu 24.04).
+> 
+> At the same time, /proc/buddyinfo shows substantial free memory but no
+> higher-order availability. For example, the Normal zone:
+> 
+> Count: 4063 4595 3455 3400 3139 2762 2293 1655 643 0 0
+> 
+> This corresponds to ~2.8GB free memory, but no order-9 (2MB) blocks,
+> indicating severe fragmentation.
+> 
+> This series addresses the issue in two ways:
+> 
+> TTM: Restrict direct reclaim to beneficial_order. Larger allocations
+> use __GFP_NORETRY to fail quickly rather than triggering reclaim.
 
-Aah, I did not test those, in that case the max_mob_pages and max_mob_size parameters
-being 0 cause the display mode check to fail. Removing those gets this patch and the
-test kms_invalid_mode@overflow-refresh working with both sou and ldu displays.
-The function vmw_stdu_connector_mode_valid() should take care of mob related checks
-anyways for stdu's.
+NACK.
 
+As I have said to the people trying to hack around direct reclaim
+for high order allocations being costly for the page cache, fix the
+problem with direct reclaim. (e.g.
+https://lore.kernel.org/linux-xfs/adLlrSZ5oRAa_Hfd@dread/)
+
+We should not be hacking around a problem in the mm infrastructure
+by changing allocation context flags every high order allocation 
+call site that needs high order allocations. Understand and fix the
+infrastructure problem once and for all.
+
+> Xe: Introduce a heuristic in the shrinker to avoid eviction when
+> running under kswapd and the system appears memory-rich but
+> fragmented.
+
+NACK on architectural grounds.
+
+Custom heuristics in individual shrinkers to decide whether the
+should do what the mm subsystem has asked them to do has -always-
+been a mistake to allow. The mm subsystem makes the decision on how
+much cache shrinkage needs to occur, the shrinkers just do what they
+are told to do.
+
+If we have a problem where a workload causes excessive shrinker
+reclaim, then we need to address the problem in the infrastructure
+because excessive reclaim affects the performance of -all-
+subsystems with shrinkable caches, not just the TTM subsystem.
+
+As it is, I can't review what you've actually implemented because
+you only cc'd me on a single patch in the series. In future, please
+cc me on the whole patchset because shrinkers need to work as a
+coherent whole, not just in isolation....
+
+-Dave.
 -- 
-Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+Dave Chinner
+dgc@kernel.org
