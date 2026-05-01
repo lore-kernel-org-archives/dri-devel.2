@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BF2ACCFA13
-	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 17:44:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5AFBCD3423
+	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 18:00:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6DF810E552;
-	Fri,  1 May 2026 17:44:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24BEE10E275;
+	Fri,  1 May 2026 18:00:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NA0UZi3o";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LHSpIVEa";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC5F010E551;
- Fri,  1 May 2026 17:44:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADC2710E275;
+ Fri,  1 May 2026 18:00:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777657494; x=1809193494;
+ t=1777658402; x=1809194402;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=bzSpqsYeKHQYyJx6hY+N0gTwu5rjRK9NQNLO7qTt6sw=;
- b=NA0UZi3oNBKNhyXaXxArlLER/L1FZ3fIN935dDeJVanijBlTuXDWsLQ4
- K6AujEYK94eAe9bD0Ez7JZTz2roNmhEGurTe/rN2xXgJS3XyNcU4YeOXw
- SZWD2VONVetvrQGN9UhfqgUzyPFa6FevkvgIuTjUsq3eBjBidZOEVCXrk
- wRzMK8PhTrXibJm/WydIEnTkCO2eRR3FM0YiGK8RRhMR4GP7lHK2C+pxG
- XYQIv+AlVyLAmDACr/ia0oFYytbkuiii/OsOuYNiyvzIe+/yeKOjE7Zkm
- RkrqH0vhbW2Ybl7cUKLYOxFBi3jpXLZ7hSiG5hdFg3wuqYv4uvvAnL0NX A==;
-X-CSE-ConnectionGUID: BfjdkVVrTjmH5KR/gZmtcw==
-X-CSE-MsgGUID: TvIjsroHQbSIjBhdzdC0Sg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11773"; a="90081615"
-X-IronPort-AV: E=Sophos;i="6.23,210,1770624000"; d="scan'208";a="90081615"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ bh=8iJivf5umra0xCIcfq7ia+HXn2g2A7Ai+/hGBZz0EYE=;
+ b=LHSpIVEaXPrr0bAdZ1OM1N94YQAhOEiGFaG2OUliXvwJU+R9iOwq2O11
+ qNTW0ael7JFLwoZlNq5JubJyOROSG+dn6QAyC9L3n8VBNsI3qZ8wVCqvr
+ lRym0ZEF7wpmDhjVm/8oswz/5IPAd5qhUD57buTsUO+tiBCjCUEV/Hz12
+ emU8gBXX2chenh7DvNtVDBAk0CNiA0VtBQbnaMqss7uvGK9bLbrHLbvFq
+ fgAtZIZeR1Od4am0cC8ss/bzODjex9WH4wRFdXG6WcyblY65UDGLrAESG
+ qru4eU8/yqnBjgOkI+1RgnrOjQq1ynwcKEx7tBq6GPWNMPR5QBOPDGoE1 g==;
+X-CSE-ConnectionGUID: rUTo6wMVS4WXoxNxztmEBw==
+X-CSE-MsgGUID: miotPfYdQleTHqMJv8tDyQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11773"; a="90082840"
+X-IronPort-AV: E=Sophos;i="6.23,210,1770624000"; d="scan'208";a="90082840"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 May 2026 10:44:53 -0700
-X-CSE-ConnectionGUID: lepGIWRATGOhSXCNpKYIRw==
-X-CSE-MsgGUID: a2N7FTaZSzmsOgUljIoc+g==
+ 01 May 2026 11:00:01 -0700
+X-CSE-ConnectionGUID: xpGig08CTYaLmDVQxt/FeA==
+X-CSE-MsgGUID: OvRiDKR+RJKAoq6+Pda/Yg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,210,1770624000"; d="scan'208";a="235176650"
+X-IronPort-AV: E=Sophos;i="6.23,210,1770624000"; d="scan'208";a="234985280"
 Received: from osgcshtiger.sh.intel.com ([10.239.81.49])
- by orviesa007.jf.intel.com with ESMTP; 01 May 2026 10:44:52 -0700
+ by orviesa009.jf.intel.com with ESMTP; 01 May 2026 10:59:59 -0700
 From: Shuicheng Lin <shuicheng.lin@intel.com>
 To: dri-devel@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: Shuicheng Lin <shuicheng.lin@intel.com>,
- GitHub Copilot <copilot@github.com>, Matthew Auld <matthew.auld@intel.com>
-Subject: [PATCH v2] drm/gpusvm: Drop redundant @flags.* kernel-doc on struct
+ Matthew Auld <matthew.auld@intel.com>
+Subject: [PATCH v3] drm/gpusvm: Drop redundant @flags.* kernel-doc on struct
  drm_gpusvm_pages
-Date: Fri,  1 May 2026 17:44:35 +0000
-Message-Id: <20260501174435.4053381-1-shuicheng.lin@intel.com>
+Date: Fri,  1 May 2026 17:59:56 +0000
+Message-Id: <20260501175956.4054088-1-shuicheng.lin@intel.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -94,12 +94,13 @@ parameterdescs check in scripts/kernel-doc:
 
 No functional change.
 
-v2: change base to drm-misc.
-
-Assisted-by: GitHub Copilot <copilot@github.com>
+Assisted-by: Claude:claude-opus-4.6
 Cc: Matthew Auld <matthew.auld@intel.com>
 Signed-off-by: Shuicheng Lin <shuicheng.lin@intel.com>
----                                                                             
+---
+v2: change base to drm-misc.
+v3: correct the assisted-by tag.
+
 The failure is reported by the new kernel-doc check in: https://patchwork.freedesktop.org/series/164948/
 ---
  include/drm/drm_gpusvm.h | 7 +------
