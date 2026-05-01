@@ -4,59 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C2E3CD3424
-	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 12:31:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49051CD3424
+	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 12:51:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C491410E539;
-	Fri,  1 May 2026 12:31:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 942D610E2D4;
+	Fri,  1 May 2026 12:51:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="s3KKF08j";
+	dkim=pass (1024-bit key; unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="o8jc6gj8";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3195710E539
- for <dri-devel@lists.freedesktop.org>; Fri,  1 May 2026 12:31:19 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7488110E023;
+ Fri,  1 May 2026 12:51:45 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 2A29660126;
- Fri,  1 May 2026 12:31:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65BAAC2BCB4;
- Fri,  1 May 2026 12:31:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777638677;
- bh=mOhShvj4gvpdrJdzhTY0clT/AUI1RfZaKhiI+R0e/hc=;
- h=Date:From:Subject:Cc:To:References:In-Reply-To:From;
- b=s3KKF08js6xdafptYe8LP6Aj/iGrtGXTPPSYErmwCYGNrT15Ycf5YGgw0Wqrt1Knu
- g1kx6CX99U6peS7MVnIoF82HsjmFd4jLYtoFS3GylX1xUl/mZWVbEHw5Utwv7fDGs5
- JMU3a7lCDQ+81BP+XyBGNahKNeRu19yDup1KIRO1YDW+5ZFk93q2V7H0TwGVRoFAHH
- 2z3J06XMXrgrNnQVPGVmpbXFok3+YroGEOXTiteu22afbPcSvjXCx4JbB8jvhISxeK
- scGrY5yj1ugzllRtKjNQ9e8ibwMGkgDwLkZmAL1SpMvy8q+0pelo3/CAWEtSklmFld
- l+GOjHgm0Ij3w==
+ by sea.source.kernel.org (Postfix) with ESMTP id 0B4604096A;
+ Fri,  1 May 2026 12:51:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAAA7C2BCB4;
+ Fri,  1 May 2026 12:51:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux-foundation.org;
+ s=korg; t=1777639904;
+ bh=DOM6sWaD8PUqkldfrKOzv5eRuIlc3YsbPu+i88S/hTY=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=o8jc6gj8TcHOoVj0RXYs1etvUnfykl4CYFtwin7s2cBslS2NYaa4QP9VVTTjgUVaF
+ dw3Pv18etBP/aI4kCTc89CWnqLEcgPWVeblWq5nzm9iwJALFD6nL07J+5Ro0AClTtR
+ WPyrFW31W9IoDK+T8csAcWeg0sANsoEWXypbFcy4=
+Date: Fri, 1 May 2026 05:51:43 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ "Dave Chinner" <david@fromorbit.com>, Qi Zheng
+ <zhengqi.arch@bytedance.com>, "Roman Gushchin" <roman.gushchin@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Shakeel Butt
+ <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>, Barry Song
+ <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie
+ <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Tvrtko Ursulin
+ <tvrtko.ursulin@igalia.com>, Thomas =?ISO-8859-1?Q?Hellstr=F6m?=
+ <thomas.hellstrom@linux.intel.com>, Carlos Santa <carlos.santa@intel.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Daniel Colascione <dancol@dancol.org>,
+ "David Hildenbrand" <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>, Vlastimil Babka
+ <vbabka@kernel.org>, "Mike Rapoport" <rppt@kernel.org>, Suren Baghdasaryan
+ <surenb@google.com>, "Michal Hocko" <mhocko@suse.com>,
+ <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v4 0/6] mm, drm/ttm, drm/xe: Avoid reclaim/eviction
+ loops under fragmentation
+Message-Id: <20260501055143.b60c31287051a56295f10205@linux-foundation.org>
+In-Reply-To: <afRH+KUNw9zap4sp@gsse-cloud1.jf.intel.com>
+References: <20260430191809.2142544-1-matthew.brost@intel.com>
+ <20260430160105.a3b74ec3bb316bbfbf8f9808@linux-foundation.org>
+ <afRH+KUNw9zap4sp@gsse-cloud1.jf.intel.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 01 May 2026 14:31:11 +0200
-Message-Id: <DI7CBG1A3DBE.GKX9UUYUBPV5@kernel.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH 3/7] gpu: nova-core: rename module from nova_core to
- nova-core
-Cc: "Joel Fernandes" <joelagnelf@nvidia.com>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Nathan Chancellor" <nathan@kernel.org>, "Nicolas
- Schier" <nsc@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "David Airlie" <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, "John Hubbard" <jhubbard@nvidia.com>,
- "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
- "Zhi Wang" <zhiw@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>,
- <linux-kbuild@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>
-To: "Alexandre Courbot" <acourbot@nvidia.com>
-References: <20260430-nova-exports-v1-0-7ca31664e983@nvidia.com>
- <20260430-nova-exports-v1-3-7ca31664e983@nvidia.com>
- <e0301888-940a-49a4-8a3a-47960162819f@nvidia.com>
- <DI70PV5V3W38.ZVD5ZE6027SD@nvidia.com>
-In-Reply-To: <DI70PV5V3W38.ZVD5ZE6027SD@nvidia.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,25 +75,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri May 1, 2026 at 5:25 AM CEST, Alexandre Courbot wrote:
-> Danilo, WDYT?
+On Thu, 30 Apr 2026 23:28:08 -0700 Matthew Brost <matthew.brost@intel.com> wrote:
 
-I think the patch is fine as is.
+> > AI review flagged a few possible issues:
+> > 	https://sashiko.dev/#/patchset/20260430191809.2142544-1-matthew.brost@intel.com
+> 
+> Idk, who authors sashiko but what make it really nice if you could reply
+> to it to talk things out.
 
-However, the commit message should say that it also changes nova_core.ko to
-nova-core.ko, which is the reason I proposed this in [1] as well.
+It's a gemini 3 thing, based on prompts developed by Roman
+Gushchin and Chris Mason and others.  Google is making this available
+to kernel developers at a non-trivial expense.
 
-I.e. such that the module name (that we still need to change; I can send a =
-patch
-since I haven't heard back from Chou) matches the .ko file name.
-
-I'm not a fan of generic names like lib.rs, mod.rs, main.rs, etc., as it me=
-sses
-with fuzzy finder tools.
-
-If people feel strongly about this, we can probably rename it to
-nova_core_main.rs, but I think it is not necessary.
-
-- Danilo
-
-[1] https://lore.kernel.org/all/DH56PG8GLW4X.2QMHJ91J9D29N@kernel.org/
+And yes, it would be great if Sashiko were able to learn from our
+replies and to fine-tune its checking based on the human corrections. 
+I've asked for this a few times but didn't really understand the reply
+;)
