@@ -4,35 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49909CD3424
-	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 13:17:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15E7CCCFA13
+	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 13:17:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C42C10E184;
-	Fri,  1 May 2026 13:17:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 604E410E1B7;
+	Fri,  1 May 2026 13:17:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="YeOQZ/+0";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="JV9nlnNs";
 	dkim-atps=neutral
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 63F6210E184
- for <dri-devel@lists.freedesktop.org>; Fri,  1 May 2026 13:17:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 7A1EB10E1B7
+ for <dri-devel@lists.freedesktop.org>; Fri,  1 May 2026 13:17:29 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 57DB2176B;
- Fri,  1 May 2026 06:17:04 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8D43C176A;
+ Fri,  1 May 2026 06:17:23 -0700 (PDT)
 Received: from [10.1.29.19] (e122027.cambridge.arm.com [10.1.29.19])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E6B023F62B;
- Fri,  1 May 2026 06:17:07 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 86B553F62B;
+ Fri,  1 May 2026 06:17:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1777641429; bh=+6Y2Jt697opHfhpyzFyoznIECuuF7lJeYmJk09Hwors=;
+ t=1777641449; bh=4RGQVSM/Z48u+dPA3KGZkZ7imj1yU7dBhhrjJzYt8oc=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=YeOQZ/+0qp1mnokm1I0NS1n6tUMUnuMu/vHW1hf7EpqT32QVBH5VIJslKyCzAz3Tt
- Dxr2wDhJCbBg4sbLXzAytioZxnR4OoGow1Nj651yWUKvHOJSk+VLHFB1zeWZEmauMU
- gGoLYMCR43idjYAP+SIlUPblLCP3QeSxHFT8GS18=
-Message-ID: <866fc796-046c-4d6d-b96f-6683daafa6be@arm.com>
-Date: Fri, 1 May 2026 14:17:05 +0100
+ b=JV9nlnNstUK/BjjHpzC9JxesqXFPcZwf4mjBjIJ5J3fbS+n3AUI3dTWtaxu3tNiJG
+ v0BzjvJ7C10mnunxeyqTZ7JcvdiY2H5g+3Mu+ZeZoK3JsxcZh3rnRJT4YIq2vSYOYZ
+ MjEeJTXpwcZmyY5RgCePs/LU2vJ2kJPpPzOVvk10=
+Message-ID: <9b4653e7-bb88-4b0f-a620-5fe74e6c0c51@arm.com>
+Date: Fri, 1 May 2026 14:17:21 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/10] drm/panthor: Make panthor_irq::state a non-atomic
- field
+Subject: Re: [PATCH 02/10] drm/panthor: Move the register accessors before the
+ IRQ helpers
 To: Boris Brezillon <boris.brezillon@collabora.com>,
  Liviu Dudau <liviu.dudau@arm.com>
 Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -40,10 +40,10 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 References: <20260429-panthor-signal-from-irq-v1-0-4b92ae4142d2@collabora.com>
- <20260429-panthor-signal-from-irq-v1-1-4b92ae4142d2@collabora.com>
+ <20260429-panthor-signal-from-irq-v1-2-4b92ae4142d2@collabora.com>
 From: Steven Price <steven.price@arm.com>
 Content-Language: en-GB
-In-Reply-To: <20260429-panthor-signal-from-irq-v1-1-4b92ae4142d2@collabora.com>
+In-Reply-To: <20260429-panthor-signal-from-irq-v1-2-4b92ae4142d2@collabora.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -62,117 +62,176 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On 29/04/2026 10:38, Boris Brezillon wrote:
-> The only place where panthor_irq::state is accessed without
-> panthor_irq::mask_lock held is in the prologue of _irq_suspend(),
-> which is not really a fast-path. So let's simplify things by assuming
-> panthor_irq::state must always be accessed with the mask_lock held,
-> and add a scoped_guard() in _irq_suspend().
+> We're about to add an IRQ inline helper using gpu_read(). Move things
+> around to avoid forward declarations.
+> 
+> No functional changes.
 > 
 > Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 
 Reviewed-by: Steven Price <steven.price@arm.com>
 
 > ---
->  drivers/gpu/drm/panthor/panthor_device.h | 35 ++++++++++++++++----------------
->  1 file changed, 17 insertions(+), 18 deletions(-)
+>  drivers/gpu/drm/panthor/panthor_device.h | 142 +++++++++++++++----------------
+>  1 file changed, 71 insertions(+), 71 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-> index 4e4607bca7cc..3f91ba73829d 100644
+> index 3f91ba73829d..768fc1992368 100644
 > --- a/drivers/gpu/drm/panthor/panthor_device.h
 > +++ b/drivers/gpu/drm/panthor/panthor_device.h
-> @@ -101,8 +101,12 @@ struct panthor_irq {
->  	 */
->  	spinlock_t mask_lock;
+> @@ -495,6 +495,77 @@ panthor_exception_is_fault(u32 exception_code)
+>  const char *panthor_exception_name(struct panthor_device *ptdev,
+>  				   u32 exception_code);
 >  
-> -	/** @state: one of &enum panthor_irq_state reflecting the current state. */
-> -	atomic_t state;
-> +	/**
-> +	 * @state: one of &enum panthor_irq_state reflecting the current state.
-> +	 *
-> +	 * Must be accessed with mask_lock held.
-> +	 */
-> +	enum panthor_irq_state state;
->  };
+> +static inline void gpu_write(void __iomem *iomem, u32 reg, u32 data)
+> +{
+> +	writel(data, iomem + reg);
+> +}
+> +
+> +static inline u32 gpu_read(void __iomem *iomem, u32 reg)
+> +{
+> +	return readl(iomem + reg);
+> +}
+> +
+> +static inline u32 gpu_read_relaxed(void __iomem *iomem, u32 reg)
+> +{
+> +	return readl_relaxed(iomem + reg);
+> +}
+> +
+> +static inline void gpu_write64(void __iomem *iomem, u32 reg, u64 data)
+> +{
+> +	gpu_write(iomem, reg, lower_32_bits(data));
+> +	gpu_write(iomem, reg + 4, upper_32_bits(data));
+> +}
+> +
+> +static inline u64 gpu_read64(void __iomem *iomem, u32 reg)
+> +{
+> +	return (gpu_read(iomem, reg) | ((u64)gpu_read(iomem, reg + 4) << 32));
+> +}
+> +
+> +static inline u64 gpu_read64_relaxed(void __iomem *iomem, u32 reg)
+> +{
+> +	return (gpu_read_relaxed(iomem, reg) |
+> +		((u64)gpu_read_relaxed(iomem, reg + 4) << 32));
+> +}
+> +
+> +static inline u64 gpu_read64_counter(void __iomem *iomem, u32 reg)
+> +{
+> +	u32 lo, hi1, hi2;
+> +	do {
+> +		hi1 = gpu_read(iomem, reg + 4);
+> +		lo = gpu_read(iomem, reg);
+> +		hi2 = gpu_read(iomem, reg + 4);
+> +	} while (hi1 != hi2);
+> +	return lo | ((u64)hi2 << 32);
+> +}
+> +
+> +#define gpu_read_poll_timeout(iomem, reg, val, cond, delay_us, timeout_us)	\
+> +	read_poll_timeout(gpu_read, val, cond, delay_us, timeout_us, false,	\
+> +			  iomem, reg)
+> +
+> +#define gpu_read_poll_timeout_atomic(iomem, reg, val, cond, delay_us,		\
+> +				     timeout_us)				\
+> +	read_poll_timeout_atomic(gpu_read, val, cond, delay_us, timeout_us,	\
+> +				 false, iomem, reg)
+> +
+> +#define gpu_read64_poll_timeout(iomem, reg, val, cond, delay_us, timeout_us)	\
+> +	read_poll_timeout(gpu_read64, val, cond, delay_us, timeout_us, false,	\
+> +			  iomem, reg)
+> +
+> +#define gpu_read64_poll_timeout_atomic(iomem, reg, val, cond, delay_us,		\
+> +				       timeout_us)				\
+> +	read_poll_timeout_atomic(gpu_read64, val, cond, delay_us, timeout_us,	\
+> +				 false, iomem, reg)
+> +
+> +#define gpu_read_relaxed_poll_timeout_atomic(iomem, reg, val, cond, delay_us,	\
+> +					     timeout_us)			\
+> +	read_poll_timeout_atomic(gpu_read_relaxed, val, cond, delay_us,		\
+> +				 timeout_us, false, iomem, reg)
+> +
+> +#define gpu_read64_relaxed_poll_timeout(iomem, reg, val, cond, delay_us,	\
+> +					timeout_us)				\
+> +	read_poll_timeout(gpu_read64_relaxed, val, cond, delay_us, timeout_us,	\
+> +			  false, iomem, reg)
+> +
+>  #define INT_RAWSTAT 0x0
+>  #define INT_CLEAR   0x4
+>  #define INT_MASK    0x8
+> @@ -629,75 +700,4 @@ static inline void panthor_ ## __name ## _irq_disable_events(struct panthor_irq
 >  
->  /**
-> @@ -510,18 +514,15 @@ const char *panthor_exception_name(struct panthor_device *ptdev,
->  static irqreturn_t panthor_ ## __name ## _irq_raw_handler(int irq, void *data)			\
->  {												\
->  	struct panthor_irq *pirq = data;							\
-> -	enum panthor_irq_state old_state;							\
->  												\
->  	if (!gpu_read(pirq->iomem, INT_STAT))							\
->  		return IRQ_NONE;								\
->  												\
->  	guard(spinlock_irqsave)(&pirq->mask_lock);						\
-> -	old_state = atomic_cmpxchg(&pirq->state,						\
-> -				   PANTHOR_IRQ_STATE_ACTIVE,					\
-> -				   PANTHOR_IRQ_STATE_PROCESSING);				\
-> -	if (old_state != PANTHOR_IRQ_STATE_ACTIVE)						\
-> +	if (pirq->state != PANTHOR_IRQ_STATE_ACTIVE)						\
->  		return IRQ_NONE;								\
->  												\
-> +	pirq->state = PANTHOR_IRQ_STATE_PROCESSING;						\
->  	gpu_write(pirq->iomem, INT_MASK, 0);							\
->  	return IRQ_WAKE_THREAD;									\
->  }												\
-> @@ -551,13 +552,10 @@ static irqreturn_t panthor_ ## __name ## _irq_threaded_handler(int irq, void *da
->  	}											\
->  												\
->  	scoped_guard(spinlock_irqsave, &pirq->mask_lock) {					\
-> -		enum panthor_irq_state old_state;						\
-> -												\
-> -		old_state = atomic_cmpxchg(&pirq->state,					\
-> -					   PANTHOR_IRQ_STATE_PROCESSING,			\
-> -					   PANTHOR_IRQ_STATE_ACTIVE);				\
-> -		if (old_state == PANTHOR_IRQ_STATE_PROCESSING)					\
-> +		if (pirq->state == PANTHOR_IRQ_STATE_PROCESSING) {				\
-> +			pirq->state = PANTHOR_IRQ_STATE_ACTIVE;					\
->  			gpu_write(pirq->iomem, INT_MASK, pirq->mask);				\
-> +		}										\
->  	}											\
->  												\
->  	return ret;										\
-> @@ -566,18 +564,19 @@ static irqreturn_t panthor_ ## __name ## _irq_threaded_handler(int irq, void *da
->  static inline void panthor_ ## __name ## _irq_suspend(struct panthor_irq *pirq)			\
->  {												\
->  	scoped_guard(spinlock_irqsave, &pirq->mask_lock) {					\
-> -		atomic_set(&pirq->state, PANTHOR_IRQ_STATE_SUSPENDING);				\
-> +		pirq->state = PANTHOR_IRQ_STATE_SUSPENDING;					\
->  		gpu_write(pirq->iomem, INT_MASK, 0);						\
->  	}											\
->  	synchronize_irq(pirq->irq);								\
-> -	atomic_set(&pirq->state, PANTHOR_IRQ_STATE_SUSPENDED);					\
-> +	scoped_guard(spinlock_irqsave, &pirq->mask_lock)					\
-> +		pirq->state = PANTHOR_IRQ_STATE_SUSPENDED;					\
->  }												\
->  												\
->  static inline void panthor_ ## __name ## _irq_resume(struct panthor_irq *pirq)			\
->  {												\
->  	guard(spinlock_irqsave)(&pirq->mask_lock);						\
->  												\
-> -	atomic_set(&pirq->state, PANTHOR_IRQ_STATE_ACTIVE);					\
-> +	pirq->state = PANTHOR_IRQ_STATE_ACTIVE;							\
->  	gpu_write(pirq->iomem, INT_CLEAR, pirq->mask);						\
->  	gpu_write(pirq->iomem, INT_MASK, pirq->mask);						\
->  }												\
-> @@ -610,7 +609,7 @@ static inline void panthor_ ## __name ## _irq_enable_events(struct panthor_irq *
->  	 * on the PROCESSING -> ACTIVE transition.						\
->  	 * If the IRQ is suspended/suspending, the mask is restored at resume time.		\
->  	 */											\
-> -	if (atomic_read(&pirq->state) == PANTHOR_IRQ_STATE_ACTIVE)				\
-> +	if (pirq->state == PANTHOR_IRQ_STATE_ACTIVE)						\
->  		gpu_write(pirq->iomem, INT_MASK, pirq->mask);					\
->  }												\
->  												\
-> @@ -624,7 +623,7 @@ static inline void panthor_ ## __name ## _irq_disable_events(struct panthor_irq
->  	 * on the PROCESSING -> ACTIVE transition.						\
->  	 * If the IRQ is suspended/suspending, the mask is restored at resume time.		\
->  	 */											\
-> -	if (atomic_read(&pirq->state) == PANTHOR_IRQ_STATE_ACTIVE)				\
-> +	if (pirq->state == PANTHOR_IRQ_STATE_ACTIVE)						\
->  		gpu_write(pirq->iomem, INT_MASK, pirq->mask);					\
->  }
+>  extern struct workqueue_struct *panthor_cleanup_wq;
 >  
+> -static inline void gpu_write(void __iomem *iomem, u32 reg, u32 data)
+> -{
+> -	writel(data, iomem + reg);
+> -}
+> -
+> -static inline u32 gpu_read(void __iomem *iomem, u32 reg)
+> -{
+> -	return readl(iomem + reg);
+> -}
+> -
+> -static inline u32 gpu_read_relaxed(void __iomem *iomem, u32 reg)
+> -{
+> -	return readl_relaxed(iomem + reg);
+> -}
+> -
+> -static inline void gpu_write64(void __iomem *iomem, u32 reg, u64 data)
+> -{
+> -	gpu_write(iomem, reg, lower_32_bits(data));
+> -	gpu_write(iomem, reg + 4, upper_32_bits(data));
+> -}
+> -
+> -static inline u64 gpu_read64(void __iomem *iomem, u32 reg)
+> -{
+> -	return (gpu_read(iomem, reg) | ((u64)gpu_read(iomem, reg + 4) << 32));
+> -}
+> -
+> -static inline u64 gpu_read64_relaxed(void __iomem *iomem, u32 reg)
+> -{
+> -	return (gpu_read_relaxed(iomem, reg) |
+> -		((u64)gpu_read_relaxed(iomem, reg + 4) << 32));
+> -}
+> -
+> -static inline u64 gpu_read64_counter(void __iomem *iomem, u32 reg)
+> -{
+> -	u32 lo, hi1, hi2;
+> -	do {
+> -		hi1 = gpu_read(iomem, reg + 4);
+> -		lo = gpu_read(iomem, reg);
+> -		hi2 = gpu_read(iomem, reg + 4);
+> -	} while (hi1 != hi2);
+> -	return lo | ((u64)hi2 << 32);
+> -}
+> -
+> -#define gpu_read_poll_timeout(iomem, reg, val, cond, delay_us, timeout_us)	\
+> -	read_poll_timeout(gpu_read, val, cond, delay_us, timeout_us, false,	\
+> -			  iomem, reg)
+> -
+> -#define gpu_read_poll_timeout_atomic(iomem, reg, val, cond, delay_us,		\
+> -				     timeout_us)				\
+> -	read_poll_timeout_atomic(gpu_read, val, cond, delay_us, timeout_us,	\
+> -				 false, iomem, reg)
+> -
+> -#define gpu_read64_poll_timeout(iomem, reg, val, cond, delay_us, timeout_us)	\
+> -	read_poll_timeout(gpu_read64, val, cond, delay_us, timeout_us, false,	\
+> -			  iomem, reg)
+> -
+> -#define gpu_read64_poll_timeout_atomic(iomem, reg, val, cond, delay_us,		\
+> -				       timeout_us)				\
+> -	read_poll_timeout_atomic(gpu_read64, val, cond, delay_us, timeout_us,	\
+> -				 false, iomem, reg)
+> -
+> -#define gpu_read_relaxed_poll_timeout_atomic(iomem, reg, val, cond, delay_us,	\
+> -					     timeout_us)			\
+> -	read_poll_timeout_atomic(gpu_read_relaxed, val, cond, delay_us,		\
+> -				 timeout_us, false, iomem, reg)
+> -
+> -#define gpu_read64_relaxed_poll_timeout(iomem, reg, val, cond, delay_us,	\
+> -					timeout_us)				\
+> -	read_poll_timeout(gpu_read64_relaxed, val, cond, delay_us, timeout_us,	\
+> -			  false, iomem, reg)
+> -
+>  #endif
 > 
 
