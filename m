@@ -4,48 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2F9ACD3424
-	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 13:53:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 056E6CCFA13
+	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 13:54:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6034510F525;
-	Fri,  1 May 2026 13:53:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5813510F52F;
+	Fri,  1 May 2026 13:54:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="oIq+LRJ+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oxgvtCLh";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 0583E10F525
- for <dri-devel@lists.freedesktop.org>; Fri,  1 May 2026 13:53:27 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 18509176A;
- Fri,  1 May 2026 06:53:21 -0700 (PDT)
-Received: from [10.1.29.19] (e122027.cambridge.arm.com [10.1.29.19])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 161E33F62B;
- Fri,  1 May 2026 06:53:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1777643606; bh=SZfQfvfB893c/szbx0R1lDb1u6Zv2iOvj852tH7skoc=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=oIq+LRJ+5gUbLjzK6hNRxdO4qRWR4tVvdMR9D5959gWHRR0Liqu/fp7ViliGDQKbs
- CDoub1a460Qzq0JB0/kxdOQ1G8kahKEOcnS6VhFfZOlFYHeYhN4u7eiiGrxFxCiWpQ
- 6JT3qcFour7FwoGqrcJhNK3db6ZilmMRvv2RfCGs=
-Message-ID: <e5c9763b-87c1-405d-9fda-f3f324d6bdfe@arm.com>
-Date: Fri, 1 May 2026 14:53:22 +0100
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2F7010F52F;
+ Fri,  1 May 2026 13:54:57 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 930BB41964;
+ Fri,  1 May 2026 13:54:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05FF6C2BCB4;
+ Fri,  1 May 2026 13:54:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1777643697;
+ bh=KAkeQrLflpBJi6R7/OcWoZITaK5l4OGfCB030FsvuPY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=oxgvtCLhu0j9B9VAZQMQD3DUXadVg+4ZH5sNeOzv6fnkyvoYYaK2VyMvxVwtGGJ0v
+ DFcR7v339/UzaKdjRjkoI7ZoGhPj079lWBdCcj2VxDxHn6hJ/D/cKUNP/Wov7qstr4
+ f9yoI3Tx87xkXDn+EPNzZ7vB42xYZktJ5Th0X5bpJs0HYr+bDkQda8MQejmUyyCHPR
+ dS0Zvp08UeTBvwus3PX35ltNn3zVU1/OIikyvOEkvAljrVEB2Ym7lJ44kmK1AqMIdW
+ q9OagjQLaufUCkHrRCVF6ag77QulRqREP2YTEeCAz4cbKjnKzgTEiGlLzIMsCScHf5
+ BmqPvf81DhrIw==
+Date: Fri, 1 May 2026 19:24:39 +0530
+From: Sumit Garg <sumit.garg@kernel.org>
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: andersson@kernel.org, konradybcio@kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-media@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+ linux-remoteproc@vger.kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org,
+ robin.clark@oss.qualcomm.com, sean@poorly.run,
+ akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ jesszhan0024@gmail.com, marijn.suijten@somainline.org,
+ airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
+ dikshita.agarwal@oss.qualcomm.com, bod@kernel.org,
+ mchehab@kernel.org, elder@kernel.org, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, jjohnson@kernel.org, mathieu.poirier@linaro.org,
+ trilokkumar.soni@oss.qualcomm.com, pavan.kondeti@oss.qualcomm.com,
+ jorge.ramirez@oss.qualcomm.com, tonyh@qti.qualcomm.com,
+ vignesh.viswanathan@oss.qualcomm.com, srinivas.kandagatla@oss.qualcomm.com,
+ amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
+ op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
+ skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
+ Sumit Garg <sumit.garg@oss.qualcomm.com>
+Subject: Re: [PATCH v4 04/15] firmware: qcom: Add a PAS TEE service
+Message-ID: <afSwn-Y7rlt9qgfO@sumit-xelite>
+References: <20260427095603.1157963-1-sumit.garg@kernel.org>
+ <20260427095603.1157963-5-sumit.garg@kernel.org>
+ <20260429132021.xk2xtll545o256oz@hu-mojha-hyd.qualcomm.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 07/10] drm/panthor: Automate CSG IRQ processing at group
- unbind time
-To: Boris Brezillon <boris.brezillon@collabora.com>,
- Liviu Dudau <liviu.dudau@arm.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260429-panthor-signal-from-irq-v1-0-4b92ae4142d2@collabora.com>
- <20260429-panthor-signal-from-irq-v1-7-4b92ae4142d2@collabora.com>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260429-panthor-signal-from-irq-v1-7-4b92ae4142d2@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260429132021.xk2xtll545o256oz@hu-mojha-hyd.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,244 +79,600 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 29/04/2026 10:38, Boris Brezillon wrote:
-> Make the sched_process_csg_irq_locked() call part of
-> group_unbind_locked() so we don't have to manually call it in
-> tick_ctx_apply()/panthor_sched_suspend().
+On Wed, Apr 29, 2026 at 06:50:21PM +0530, Mukesh Ojha wrote:
+> On Mon, Apr 27, 2026 at 03:25:52PM +0530, Sumit Garg wrote:
+> > From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> > 
+> > Add support for Peripheral Authentication Service (PAS) driver based
+> > on TEE bus with OP-TEE providing the backend PAS service implementation.
+> > 
+> > The TEE PAS service ABI is designed to be extensible with additional API
+> > as PTA_QCOM_PAS_CAPABILITIES. This allows to accommodate any future
+> > extensions of the PAS service needed while still maintaining backwards
+> > compatibility.
+> > 
+> > Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> > ---
+> >  drivers/firmware/qcom/Kconfig        |  10 +
+> >  drivers/firmware/qcom/Makefile       |   1 +
+> >  drivers/firmware/qcom/qcom_pas_tee.c | 479 +++++++++++++++++++++++++++
+> >  3 files changed, 490 insertions(+)
+> >  create mode 100644 drivers/firmware/qcom/qcom_pas_tee.c
+> > 
+> > diff --git a/drivers/firmware/qcom/Kconfig b/drivers/firmware/qcom/Kconfig
+> > index 9a12ae2b639d..300b3a1bd178 100644
+> > --- a/drivers/firmware/qcom/Kconfig
+> > +++ b/drivers/firmware/qcom/Kconfig
+> > @@ -14,6 +14,16 @@ config QCOM_PAS
+> >  	  backends plugged in whether it's an SCM implementation or a proper
+> >  	  TEE bus based PAS service implementation.
+> >  
+> > +config QCOM_PAS_TEE
+> > +	tristate
+> > +	select QCOM_PAS
+> > +	depends on TEE
+> > +	depends on !CPU_BIG_ENDIAN
+> > +	default m if ARCH_QCOM
+> > +	help
+> > +	  Enable the generic Peripheral Authentication Service (PAS) provided
+> > +	  by the firmware TEE implementation as the backend.
+> > +
+> >  config QCOM_SCM
+> >  	select QCOM_PAS
+> >  	select QCOM_TZMEM
+> > diff --git a/drivers/firmware/qcom/Makefile b/drivers/firmware/qcom/Makefile
+> > index dc5ab45f906a..48801d18f37b 100644
+> > --- a/drivers/firmware/qcom/Makefile
+> > +++ b/drivers/firmware/qcom/Makefile
+> > @@ -9,3 +9,4 @@ obj-$(CONFIG_QCOM_TZMEM)	+= qcom_tzmem.o
+> >  obj-$(CONFIG_QCOM_QSEECOM)	+= qcom_qseecom.o
+> >  obj-$(CONFIG_QCOM_QSEECOM_UEFISECAPP) += qcom_qseecom_uefisecapp.o
+> >  obj-$(CONFIG_QCOM_PAS)		+= qcom_pas.o
+> > +obj-$(CONFIG_QCOM_PAS_TEE)	+= qcom_pas_tee.o
+> > diff --git a/drivers/firmware/qcom/qcom_pas_tee.c b/drivers/firmware/qcom/qcom_pas_tee.c
+> > new file mode 100644
+> > index 000000000000..af73d0a68525
+> > --- /dev/null
+> > +++ b/drivers/firmware/qcom/qcom_pas_tee.c
+> > @@ -0,0 +1,479 @@
+> > +// SPDX-License-Identifier: GPL-2.0
+> > +/*
+> > + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> > + */
+> > +
+> > +#include <linux/delay.h>
+> > +#include <linux/of.h>
+> > +#include <linux/firmware/qcom/qcom_pas.h>
+> > +#include <linux/kernel.h>
+> > +#include <linux/module.h>
+> > +#include <linux/slab.h>
+> > +#include <linux/tee_drv.h>
+> > +#include <linux/uuid.h>
+> > +
+> > +#include "qcom_pas.h"
+> > +
+> > +/*
+> > + * Peripheral Authentication Service (PAS) supported.
+> > + *
+> > + * [in]  params[0].value.a:	Unique 32bit remote processor identifier
+> > + */
+> > +#define TA_QCOM_PAS_IS_SUPPORTED		1
+> > +
+> > +/*
+> > + * PAS capabilities.
+> > + *
+> > + * [in]  params[0].value.a:	Unique 32bit remote processor identifier
+> > + * [out] params[1].value.a:	PAS capability flags
+> > + */
+> > +#define TA_QCOM_PAS_CAPABILITIES		2
+> > +
+> > +/*
+> > + * PAS image initialization.
+> > + *
+> > + * [in]  params[0].value.a:	Unique 32bit remote processor identifier
+> > + * [in]  params[1].memref:	Loadable firmware metadata
+> > + */
+> > +#define TA_QCOM_PAS_INIT_IMAGE			3
+> > +
+> > +/*
+> > + * PAS memory setup.
+> > + *
+> > + * [in]  params[0].value.a:	Unique 32bit remote processor identifier
+> > + * [in]  params[0].value.b:	Relocatable firmware size
+> > + * [in]  params[1].value.a:	32bit LSB relocatable firmware memory address
+> > + * [in]  params[1].value.b:	32bit MSB relocatable firmware memory address
+> > + */
+> > +#define TA_QCOM_PAS_MEM_SETUP			4
+> > +
+> > +/*
+> > + * PAS get resource table.
+> > + *
+> > + * [in]     params[0].value.a:	Unique 32bit remote processor identifier
+> > + * [inout]  params[1].memref:	Resource table config
+> > + */
+> > +#define TA_QCOM_PAS_GET_RESOURCE_TABLE		5
+> > +
+> > +/*
+> > + * PAS image authentication and co-processor reset.
+> > + *
+> > + * [in]  params[0].value.a:	Unique 32bit remote processor identifier
+> > + * [in]  params[0].value.b:	Firmware size
+> > + * [in]  params[1].value.a:	32bit LSB firmware memory address
+> > + * [in]  params[1].value.b:	32bit MSB firmware memory address
+> > + * [in]  params[2].memref:	Optional fw memory space shared/lent
+> > + */
+> > +#define TA_QCOM_PAS_AUTH_AND_RESET		6
+> > +
+> > +/*
+> > + * PAS co-processor set suspend/resume state.
+> > + *
+> > + * [in]  params[0].value.a:	Unique 32bit remote processor identifier
+> > + * [in]  params[0].value.b:	Co-processor state identifier
+> > + */
+> > +#define TA_QCOM_PAS_SET_REMOTE_STATE		7
+> > +
+> > +/*
+> > + * PAS co-processor shutdown.
+> > + *
+> > + * [in]  params[0].value.a:	Unique 32bit remote processor identifier
+> > + */
+> > +#define TA_QCOM_PAS_SHUTDOWN			8
+> > +
+> > +#define TEE_NUM_PARAMS				4
+> > +
+> > +/**
+> > + * struct qcom_pas_tee_private - PAS service private data
+> > + * @dev:		PAS service device.
+> > + * @ctx:		TEE context handler.
+> > + * @session_id:		PAS TA session identifier.
+> > + */
+> > +struct qcom_pas_tee_private {
+> > +	struct device *dev;
+> > +	struct tee_context *ctx;
+> > +	u32 session_id;
+> > +};
+> > +
+> > +static bool qcom_pas_tee_supported(struct device *dev, u32 pas_id)
+> > +{
+> > +	struct qcom_pas_tee_private *data = dev_get_drvdata(dev);
+> > +	struct tee_ioctl_invoke_arg inv_arg = {
+> > +		.func = TA_QCOM_PAS_IS_SUPPORTED,
+> > +		.session = data->session_id,
+> > +		.num_params = TEE_NUM_PARAMS
+> > +	};
+> > +	struct tee_param param[4] = {
+> > +		[0] = {
+> > +			.attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_INPUT,
+> > +			.u.value.a = pas_id
+> > +		}
+> > +	};
+> > +	int ret;
+> > +
+> > +	ret = tee_client_invoke_func(data->ctx, &inv_arg, param);
+> > +	if (ret < 0 || inv_arg.ret != 0) {
+> > +		dev_err(dev, "PAS not supported, pas_id: %d, ret: %d, err: 0x%x\n",
+> > +			pas_id, ret, inv_arg.ret);
+> > +		return false;
+> > +	}
+> > +
+> > +	return true;
+> > +}
+> > +
+> > +static int qcom_pas_tee_init_image(struct device *dev, u32 pas_id,
+> > +				   const void *metadata, size_t size,
+> > +				   struct qcom_pas_context *ctx)
+> > +{
+> > +	struct qcom_pas_tee_private *data = dev_get_drvdata(dev);
+> > +	struct tee_ioctl_invoke_arg inv_arg = {
+> > +		.func = TA_QCOM_PAS_INIT_IMAGE,
+> > +		.session = data->session_id,
+> > +		.num_params = TEE_NUM_PARAMS
+> > +	};
+> > +	struct tee_param param[4] = {
+> > +		[0] = {
+> > +			.attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_INPUT,
+> > +			.u.value.a = pas_id
+> > +		},
+> > +		[1] = {
+> > +			.attr = TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_INPUT,
+> > +		}
+> > +	};
+> > +	struct tee_shm *mdata_shm;
+> > +	u8 *mdata_buf = NULL;
+> > +	int ret;
+> > +
+> > +	mdata_shm = tee_shm_alloc_kernel_buf(data->ctx, size);
+> > +	if (IS_ERR(mdata_shm)) {
+> > +		dev_err(dev, "mdata_shm allocation failed\n");
+> > +		return PTR_ERR(mdata_shm);
+> > +	}
+> > +
+> > +	mdata_buf = tee_shm_get_va(mdata_shm, 0);
+> > +	if (IS_ERR(mdata_buf)) {
+> > +		dev_err(dev, "mdata_buf get VA failed\n");
+> > +		tee_shm_free(mdata_shm);
+> > +		return PTR_ERR(mdata_buf);
+> > +	}
+> > +	memcpy(mdata_buf, metadata, size);
+> > +
+> > +	param[1].u.memref.shm = mdata_shm;
+> > +	param[1].u.memref.size = size;
+> > +
+> > +	ret = tee_client_invoke_func(data->ctx, &inv_arg, param);
+> > +	if (ret < 0 || inv_arg.ret != 0) {
+> > +		dev_err(dev, "PAS init image failed, pas_id: %d, ret: %d, err: 0x%x\n",
+> > +			pas_id, ret, inv_arg.ret);
+> > +		tee_shm_free(mdata_shm);
+> > +		return ret ?: -EINVAL;
+> > +	}
+> > +
+> > +	if (ctx)
+> > +		ctx->ptr = (void *)mdata_shm;
+> > +	else
+> > +		tee_shm_free(mdata_shm);
+> > +
+> > +	return ret;
+> > +}
+> > +
+> > +static int qcom_pas_tee_mem_setup(struct device *dev, u32 pas_id,
+> > +				  phys_addr_t addr, phys_addr_t size)
+> > +{
+> > +	struct qcom_pas_tee_private *data = dev_get_drvdata(dev);
+> > +	struct tee_ioctl_invoke_arg inv_arg = {
+> > +		.func = TA_QCOM_PAS_MEM_SETUP,
+> > +		.session = data->session_id,
+> > +		.num_params = TEE_NUM_PARAMS
+> > +	};
+> > +	struct tee_param param[4] = {
+> > +		[0] = {
+> > +			.attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_INPUT,
+> > +			.u.value.a = pas_id,
+> > +			.u.value.b = size,
+> > +		},
+> > +		[1] = {
+> > +			.attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_INPUT,
+> > +			.u.value.a = lower_32_bits(addr),
+> > +			.u.value.b = upper_32_bits(addr),
+> > +		}
+> > +	};
+> > +	int ret;
+> > +
+> > +	ret = tee_client_invoke_func(data->ctx, &inv_arg, param);
+> > +	if (ret < 0 || inv_arg.ret != 0) {
+> > +		dev_err(dev, "PAS mem setup failed, pas_id: %d, ret: %d, err: 0x%x\n",
+> > +			pas_id, ret, inv_arg.ret);
+> > +		return ret ?: -EINVAL;
+> > +	}
+> > +
+> > +	return ret;
+> > +}
+> > +
+> > +DEFINE_FREE(shm_free, struct tee_shm *, tee_shm_free(_T))
+> > +
+> > +static void *qcom_pas_tee_get_rsc_table(struct device *dev,
+> > +					struct qcom_pas_context *ctx,
+> > +					void *input_rt, size_t input_rt_size,
+> > +					size_t *output_rt_size)
+> > +{
+> > +	struct qcom_pas_tee_private *data = dev_get_drvdata(dev);
+> > +	struct tee_ioctl_invoke_arg inv_arg = {
+> > +		.func = TA_QCOM_PAS_GET_RESOURCE_TABLE,
+> > +		.session = data->session_id,
+> > +		.num_params = TEE_NUM_PARAMS
+> > +	};
+> > +	struct tee_param param[4] = {
+> > +		[0] = {
+> > +			.attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_INPUT,
+> > +			.u.value.a = ctx->pas_id,
+> > +		},
+> > +		[1] = {
+> > +			.attr = TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_INOUT,
+> > +			.u.memref.size = input_rt_size,
+> > +		}
+> > +	};
+> > +	void *rt_buf = NULL;
+> > +	int ret;
+> > +
+> > +	ret = tee_client_invoke_func(data->ctx, &inv_arg, param);
+> > +	if (ret < 0 || inv_arg.ret != 0) {
+> > +		dev_err(dev, "PAS get RT failed, pas_id: %d, ret: %d, err: 0x%x\n",
+> > +			ctx->pas_id, ret, inv_arg.ret);
+> > +		return ret ? ERR_PTR(ret) : ERR_PTR(-EINVAL);
+> > +	}
+> > +
+> > +	if (param[1].u.memref.size) {
+> > +		struct tee_shm *rt_shm __free(shm_free) =
+> > +			tee_shm_alloc_kernel_buf(data->ctx,
+> > +						 param[1].u.memref.size);
+> > +		void *rt_shm_va;
+> > +
+> > +		if (IS_ERR(rt_shm)) {
+> > +			dev_err(dev, "rt_shm allocation failed\n");
+> > +			return rt_shm;
+> > +		}
+> > +
+> > +		rt_shm_va = tee_shm_get_va(rt_shm, 0);
+> > +		if (IS_ERR(rt_shm_va)) {
+> > +			dev_err(dev, "rt_shm get VA failed\n");
+> > +			return ERR_CAST(rt_shm_va);
+> > +		}
+> > +		memcpy(rt_shm_va, input_rt, input_rt_size);
 > 
-> This implies moving group_[un]bind_locked() around to avoid a
-> forward declaration.
+> It is very obvious that every existing user will pass NULL as input_rt
+> and 0 as input_rt_size.
 > 
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-> ---
->  drivers/gpu/drm/panthor/panthor_sched.c | 178 +++++++++++++++-----------------
->  1 file changed, 82 insertions(+), 96 deletions(-)
+> Are you not getting NULL pointer on this input_rt ? Ok, you may be not
+> getting because, input_rt_size == 0.
 > 
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-> index c197bdc4b2c7..601a9bff1485 100644
-> --- a/drivers/gpu/drm/panthor/panthor_sched.c
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-> @@ -982,86 +982,6 @@ group_get(struct panthor_group *group)
->  	return group;
->  }
->  
-> -/**
-> - * group_bind_locked() - Bind a group to a group slot
-> - * @group: Group.
-> - * @csg_id: Slot.
-> - *
-> - * Return: 0 on success, a negative error code otherwise.
-> - */
-> -static int
-> -group_bind_locked(struct panthor_group *group, u32 csg_id)
-> -{
-> -	struct panthor_device *ptdev = group->ptdev;
-> -	int ret;
-> -
-> -	lockdep_assert_held(&ptdev->scheduler->lock);
-> -
-> -	if (drm_WARN_ON(&ptdev->base, group->csg_id != -1 || csg_id >= MAX_CSGS ||
-> -			ptdev->scheduler->csg_slots[csg_id].group))
-> -		return -EINVAL;
-> -
-> -	ret = panthor_vm_active(group->vm);
-> -	if (ret)
-> -		return ret;
-> -
-> -	group_get(group);
-> -
-> -	/* Dummy doorbell allocation: doorbell is assigned to the group and
-> -	 * all queues use the same doorbell.
-> -	 *
-> -	 * TODO: Implement LRU-based doorbell assignment, so the most often
-> -	 * updated queues get their own doorbell, thus avoiding useless checks
-> -	 * on queues belonging to the same group that are rarely updated.
-> -	 */
-> -	for (u32 i = 0; i < group->queue_count; i++)
-> -		group->queues[i]->doorbell_id = csg_id + 1;
-> -
-> -	scoped_guard(spinlock_irqsave, &ptdev->scheduler->events_lock) {
-> -		ptdev->scheduler->csg_slots[csg_id].group = group;
-> -		group->csg_id = csg_id;
-> -	}
-> -
-> -	return 0;
-> -}
-> -
-> -/**
-> - * group_unbind_locked() - Unbind a group from a slot.
-> - * @group: Group to unbind.
-> - *
-> - * Return: 0 on success, a negative error code otherwise.
-> - */
-> -static int
-> -group_unbind_locked(struct panthor_group *group)
-> -{
-> -	struct panthor_device *ptdev = group->ptdev;
-> -
-> -	lockdep_assert_held(&ptdev->scheduler->lock);
-> -
-> -	if (drm_WARN_ON(&ptdev->base, group->csg_id < 0 || group->csg_id >= MAX_CSGS))
-> -		return -EINVAL;
-> -
-> -	if (drm_WARN_ON(&ptdev->base, group->state == PANTHOR_CS_GROUP_ACTIVE))
-> -		return -EINVAL;
-> -
-> -	scoped_guard(spinlock_irqsave, &ptdev->scheduler->events_lock) {
-> -		ptdev->scheduler->csg_slots[group->csg_id].group = NULL;
-> -		group->csg_id = -1;
-> -	}
-> -
-> -	panthor_vm_idle(group->vm);
-> -
-> -	/* Tiler OOM events will be re-issued next time the group is scheduled. */
-> -	atomic_set(&group->tiler_oom, 0);
-> -	cancel_work(&group->tiler_oom_work);
-> -
-> -	for (u32 i = 0; i < group->queue_count; i++)
-> -		group->queues[i]->doorbell_id = -1;
-> -
-> -	group_put(group);
-> -	return 0;
-> -}
-> -
->  static bool
->  group_is_idle(struct panthor_group *group)
->  {
-> @@ -1968,6 +1888,88 @@ void panthor_sched_report_fw_events(struct panthor_device *ptdev, u32 events)
->  	}
->  }
->  
-> +/**
-> + * group_bind_locked() - Bind a group to a group slot
-> + * @group: Group.
-> + * @csg_id: Slot.
-> + *
-> + * Return: 0 on success, a negative error code otherwise.
-> + */
-> +static int
-> +group_bind_locked(struct panthor_group *group, u32 csg_id)
-> +{
-> +	struct panthor_device *ptdev = group->ptdev;
-> +	int ret;
-> +
-> +	lockdep_assert_held(&ptdev->scheduler->lock);
-> +
-> +	if (drm_WARN_ON(&ptdev->base, group->csg_id != -1 || csg_id >= MAX_CSGS ||
-> +			ptdev->scheduler->csg_slots[csg_id].group))
-> +		return -EINVAL;
-> +
-> +	ret = panthor_vm_active(group->vm);
-> +	if (ret)
-> +		return ret;
-> +
-> +	group_get(group);
-> +
-> +	/* Dummy doorbell allocation: doorbell is assigned to the group and
-> +	 * all queues use the same doorbell.
-> +	 *
-> +	 * TODO: Implement LRU-based doorbell assignment, so the most often
-> +	 * updated queues get their own doorbell, thus avoiding useless checks
-> +	 * on queues belonging to the same group that are rarely updated.
-> +	 */
-> +	for (u32 i = 0; i < group->queue_count; i++)
-> +		group->queues[i]->doorbell_id = csg_id + 1;
-> +
-> +	scoped_guard(spinlock_irqsave, &ptdev->scheduler->events_lock) {
-> +		ptdev->scheduler->csg_slots[csg_id].group = group;
-> +		group->csg_id = csg_id;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +/**
-> + * group_unbind_locked() - Unbind a group from a slot.
-> + * @group: Group to unbind.
-> + *
-> + * Return: 0 on success, a negative error code otherwise.
-> + */
-> +static int
-> +group_unbind_locked(struct panthor_group *group)
-> +{
-> +	struct panthor_device *ptdev = group->ptdev;
-> +
-> +	lockdep_assert_held(&ptdev->scheduler->lock);
-> +
-> +	if (drm_WARN_ON(&ptdev->base, group->csg_id < 0 || group->csg_id >= MAX_CSGS))
-> +		return -EINVAL;
-> +
-> +	if (drm_WARN_ON(&ptdev->base, group->state == PANTHOR_CS_GROUP_ACTIVE))
-> +		return -EINVAL;
-> +
-> +	scoped_guard(spinlock_irqsave, &ptdev->scheduler->events_lock) {
-> +		/* Process all pending IRQs before returning the slot. */
-> +		sched_process_csg_irq_locked(ptdev, group->csg_id);
-> +		ptdev->scheduler->csg_slots[group->csg_id].group = NULL;
-> +		group->csg_id = -1;
-> +	}
-> +
-> +	panthor_vm_idle(group->vm);
-> +
-> +	/* Tiler OOM events will be re-issued next time the group is scheduled. */
-> +	atomic_set(&group->tiler_oom, 0);
-> +	cancel_work(&group->tiler_oom_work);
-> +
-> +	for (u32 i = 0; i < group->queue_count; i++)
-> +		group->queues[i]->doorbell_id = -1;
-> +
-> +	group_put(group);
-> +	return 0;
-> +}
-> +
->  static const char *fence_get_driver_name(struct dma_fence *fence)
->  {
->  	return "panthor";
-> @@ -2396,15 +2398,6 @@ tick_ctx_apply(struct panthor_scheduler *sched, struct panthor_sched_tick_ctx *c
->  	/* Unbind evicted groups. */
->  	for (prio = PANTHOR_CSG_PRIORITY_COUNT - 1; prio >= 0; prio--) {
->  		list_for_each_entry(group, &ctx->old_groups[prio], run_node) {
-> -			/* This group is gone. Process interrupts to clear
-> -			 * any pending interrupts before we start the new
-> -			 * group.
-> -			 */
-> -			if (group->csg_id >= 0) {
-> -				guard(spinlock_irqsave)(&sched->events_lock);
-> -				sched_process_csg_irq_locked(ptdev, group->csg_id);
-> -			}
-> -
->  			group_unbind_locked(group);
->  		}
->  	}
-> @@ -2970,8 +2963,6 @@ void panthor_sched_suspend(struct panthor_device *ptdev)
->  
->  			if (flush_caches_failed)
->  				csg_slot->group->state = PANTHOR_CS_GROUP_TERMINATED;
-> -			else
-> -				csg_slot_sync_update_locked(ptdev, csg_id);
+> I hope, your backend implementation checks for this num == 0 and then
+> ignore input rt.
 
-The justification for this change doesn't seem to be included in the
-commit message and looks suspicious. Although AFAICT the events_lock
-wouldn't be held here so it could trigger a lockdep assert before this
-change...
+rt_shm_va is an INOUT buffer with OP-TEE, if Linux has any RT
+information to pass then it can pass in this buffer. For current targets
+nothing is provided by Linux and rt_shm_va will only get populated by
+OP-TEE with RT information to be consumed by Linux for SMMU
+configuration.
 
-Thanks,
-Steve
+The total size of rt_shm_va buffer is sum of input RT and output RT
+sizes. This framework is supported by GP TEE APIs to avoid double memory
+buffer usage.
 
->  
->  			slot_mask &= ~BIT(csg_id);
->  		}
-> @@ -2986,11 +2977,6 @@ void panthor_sched_suspend(struct panthor_device *ptdev)
->  
->  		group_get(group);
->  
-> -		if (group->csg_id >= 0) {
-> -			guard(spinlock_irqsave)(&sched->events_lock);
-> -			sched_process_csg_irq_locked(ptdev, group->csg_id);
-> -		}
-> -
->  		group_unbind_locked(group);
->  
->  		drm_WARN_ON(&group->ptdev->base, !list_empty(&group->run_node));
+> 
+> > +
+> > +		param[1].u.memref.shm = rt_shm;
+> > +		ret = tee_client_invoke_func(data->ctx, &inv_arg, param);
+> > +		if (ret < 0 || inv_arg.ret != 0) {
+> > +			dev_err(dev, "PAS get RT failed, pas_id: %d, ret: %d, err: 0x%x\n",
+> > +				ctx->pas_id, ret, inv_arg.ret);
+> > +			return ret ? ERR_PTR(ret) : ERR_PTR(-EINVAL);
+> > +		}
+> > +
+> > +		if (param[1].u.memref.size) {
+> > +			*output_rt_size = param[1].u.memref.size;
+> > +			rt_buf = kmemdup(rt_shm_va, *output_rt_size, GFP_KERNEL);
+> > +			if (!rt_buf)
+> > +				return ERR_PTR(-ENOMEM);
+> > +		}
+> > +	}
+> > +
+> > +	return rt_buf;
+> > +}
+> > +
+> > +static int __qcom_pas_tee_auth_and_reset(struct device *dev, u32 pas_id,
+> > +					 phys_addr_t mem_phys, size_t mem_size)
+> > +{
+> > +	struct qcom_pas_tee_private *data = dev_get_drvdata(dev);
+> > +	struct tee_ioctl_invoke_arg inv_arg = {
+> > +		.func = TA_QCOM_PAS_AUTH_AND_RESET,
+> > +		.session = data->session_id,
+> > +		.num_params = TEE_NUM_PARAMS
+> > +	};
+> > +	struct tee_param param[4] = {
+> > +		[0] = {
+> > +			.attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_INPUT,
+> > +			.u.value.a = pas_id,
+> > +			.u.value.b = mem_size,
+> > +		},
+> > +		[1] = {
+> > +			.attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_INPUT,
+> > +			.u.value.a = lower_32_bits(mem_phys),
+> > +			.u.value.b = upper_32_bits(mem_phys),
+> > +		},
+> > +		/* Reserved for fw memory space to be shared or lent */
+> > +		[2] = {
+> > +			.attr = TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_INPUT,
+> > +		}
+> > +	};
+> > +	int ret;
+> > +
+> > +	ret = tee_client_invoke_func(data->ctx, &inv_arg, param);
+> > +	if (ret < 0 || inv_arg.ret != 0) {
+> > +		dev_err(dev, "PAS auth reset failed, pas_id: %d, ret: %d, err: 0x%x\n",
+> > +			pas_id, ret, inv_arg.ret);
+> > +		return ret ?: -EINVAL;
+> > +	}
+> > +
+> > +	return ret;
+> > +}
+> > +
+> > +static int qcom_pas_tee_auth_and_reset(struct device *dev, u32 pas_id)
+> > +{
+> > +	return __qcom_pas_tee_auth_and_reset(dev, pas_id, 0, 0);
+> > +}
+> > +
+> > +static int qcom_pas_tee_prepare_and_auth_reset(struct device *dev,
+> > +					       struct qcom_pas_context *ctx)
+> > +{
+> > +	return __qcom_pas_tee_auth_and_reset(dev, ctx->pas_id, ctx->mem_phys,
+> > +					     ctx->mem_size);
+> > +}
+> > +
+> > +static int qcom_pas_tee_set_remote_state(struct device *dev, u32 state,
+> > +					 u32 pas_id)
+> > +{
+> > +	struct qcom_pas_tee_private *data = dev_get_drvdata(dev);
+> > +	struct tee_ioctl_invoke_arg inv_arg = {
+> > +		.func = TA_QCOM_PAS_SET_REMOTE_STATE,
+> > +		.session = data->session_id,
+> > +		.num_params = TEE_NUM_PARAMS
+> > +	};
+> > +	struct tee_param param[4] = {
+> > +		[0] = {
+> > +			.attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_INPUT,
+> > +			.u.value.a = pas_id,
+> > +			.u.value.b = state,
+> > +		}
+> > +	};
+> > +	int ret;
+> > +
+> > +	ret = tee_client_invoke_func(data->ctx, &inv_arg, param);
+> > +	if (ret < 0 || inv_arg.ret != 0) {
+> > +		dev_err(dev, "PAS shutdown failed, pas_id: %d, ret: %d, err: 0x%x\n",
+> > +			pas_id, ret, inv_arg.ret);
+> 
+> should be "PAS set remote state failed .."
+
+Ack.
+
+> 
+> > +		return ret ?: -EINVAL;
+> > +	}
+> > +
+> > +	return ret;
+> > +}
+> > +
+> > +static int qcom_pas_tee_shutdown(struct device *dev, u32 pas_id)
+> > +{
+> > +	struct qcom_pas_tee_private *data = dev_get_drvdata(dev);
+> > +	struct tee_ioctl_invoke_arg inv_arg = {
+> > +		.func = TA_QCOM_PAS_SHUTDOWN,
+> > +		.session = data->session_id,
+> > +		.num_params = TEE_NUM_PARAMS
+> > +	};
+> > +	struct tee_param param[4] = {
+> > +		[0] = {
+> > +			.attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_INPUT,
+> > +			.u.value.a = pas_id
+> > +		}
+> > +	};
+> > +	int ret;
+> > +
+> > +	ret = tee_client_invoke_func(data->ctx, &inv_arg, param);
+> > +	if (ret < 0 || inv_arg.ret != 0) {
+> > +		dev_err(dev, "PAS shutdown failed, pas_id: %d, ret: %d, err: 0x%x\n",
+> > +			pas_id, ret, inv_arg.ret);
+> > +		return ret ?: -EINVAL;
+> > +	}
+> > +
+> > +	return ret;
+> > +}
+> > +
+> > +static void qcom_pas_tee_metadata_release(struct device *dev,
+> > +					  struct qcom_pas_context *ctx)
+> > +{
+> > +	struct tee_shm *mdata_shm = ctx->ptr;
+> > +
+> > +	tee_shm_free(mdata_shm);
+> > +}
+> > +
+> > +static struct qcom_pas_ops qcom_pas_ops_tee = {
+> > +	.drv_name		= "qcom-pas-tee",
+> > +	.supported		= qcom_pas_tee_supported,
+> > +	.init_image		= qcom_pas_tee_init_image,
+> > +	.mem_setup		= qcom_pas_tee_mem_setup,
+> > +	.get_rsc_table		= qcom_pas_tee_get_rsc_table,
+> > +	.auth_and_reset		= qcom_pas_tee_auth_and_reset,
+> > +	.prepare_and_auth_reset	= qcom_pas_tee_prepare_and_auth_reset,
+> > +	.set_remote_state	= qcom_pas_tee_set_remote_state,
+> > +	.shutdown		= qcom_pas_tee_shutdown,
+> > +	.metadata_release	= qcom_pas_tee_metadata_release,
+> > +};
+> > +
+> > +static int optee_ctx_match(struct tee_ioctl_version_data *ver, const void *data)
+> > +{
+> > +	return ver->impl_id == TEE_IMPL_ID_OPTEE;
+> > +}
+> > +
+> > +static int qcom_pas_tee_probe(struct tee_client_device *pas_dev)
+> > +{
+> > +	struct device *dev = &pas_dev->dev;
+> > +	struct qcom_pas_tee_private *data;
+> > +	struct tee_ioctl_open_session_arg sess_arg = {
+> > +		.clnt_login = TEE_IOCTL_LOGIN_REE_KERNEL
+> > +	};
+> > +	int ret, err = -ENODEV;
+> 
+> Most people prefer one line per variable..
+
+Ack.
+
+> 
+> 
+> > +
+> > +	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
+> > +	if (!data)
+> > +		return -ENOMEM;
+> > +
+> > +	data->ctx = tee_client_open_context(NULL, optee_ctx_match, NULL, NULL);
+> > +	if (IS_ERR(data->ctx))
+> > +		return -ENODEV;
+> > +
+> > +	export_uuid(sess_arg.uuid, &pas_dev->id.uuid);
+> > +	ret = tee_client_open_session(data->ctx, &sess_arg, NULL);
+> > +	if (ret < 0 || sess_arg.ret != 0) {
+> > +		dev_err(dev, "tee_client_open_session failed, ret: %d, err: 0x%x\n",
+> > +			ret, sess_arg.ret);
+> > +		err = ret ?: -EINVAL;
+> 
+> Only user of goto,  we can close the context and return from here and
+> 'err' not used.
+
+Ack.
+
+> 
+> 		tee_client_close_context(data->ctx);
+> 		return ret ?: -EINVAL;
+> 
+> > +		goto out_ctx;
+> 
+> 
+> > +	}
+> > +
+> > +	data->session_id = sess_arg.session;
+> > +	dev_set_drvdata(dev, data);
+> > +	qcom_pas_ops_tee.dev = dev;
+> > +	qcom_pas_ops_register(&qcom_pas_ops_tee);
+> > +
+> > +	return ret;
+> > +out_ctx:
+> > +	tee_client_close_context(data->ctx);
+> 
+> Return after two line does not look nice.
+> 
+> > +
+> > +	return err;
+> > +}
+> > +
+> > +static void qcom_pas_tee_remove(struct tee_client_device *pas_dev)
+> > +{
+> > +	struct device *dev = &pas_dev->dev;
+> > +	struct qcom_pas_tee_private *data = dev_get_drvdata(dev);
+> > +
+> > +	qcom_pas_ops_unregister();
+> > +	tee_client_close_session(data->ctx, data->session_id);
+> > +	tee_client_close_context(data->ctx);
+> > +}
+> > +
+> > +static const struct tee_client_device_id qcom_pas_tee_id_table[] = {
+> > +	{UUID_INIT(0xcff7d191, 0x7ca0, 0x4784,
+> > +		   0xaf, 0x13, 0x48, 0x22, 0x3b, 0x9a, 0x4f, 0xbe)},
+> > +	{}
+> > +};
+> > +MODULE_DEVICE_TABLE(tee, qcom_pas_tee_id_table);
+> > +
+> > +static struct tee_client_driver optee_pas_tee_driver = {
+> > +	.probe		= qcom_pas_tee_probe,
+> > +	.remove		= qcom_pas_tee_remove,
+> > +	.id_table	= qcom_pas_tee_id_table,
+> > +	.driver		= {
+> > +		.name		= "qcom-pas-tee",
+> > +	},
+> > +};
+> > +
+> > +module_tee_client_driver(optee_pas_tee_driver);
+> > +
+> > +MODULE_LICENSE("GPL");
+> > +MODULE_DESCRIPTION("Qualcomm PAS TEE driver");
+> > -- 
+> > 2.51.0
+> >
+> 
+> 
+> With above change,
+> 
+> Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 > 
 
+Thanks.
+
+-Sumit
