@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3A96CD3423
-	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 20:37:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5394DCD3423
+	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 20:37:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FBC210E0BE;
-	Fri,  1 May 2026 20:37:04 +0000 (UTC)
-Received: from h6.fbrelay.privateemail.com (h6.fbrelay.privateemail.com
- [162.0.218.229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5703310E0BE
- for <dri-devel@lists.freedesktop.org>; Fri,  1 May 2026 20:37:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B37E010E219;
+	Fri,  1 May 2026 20:37:41 +0000 (UTC)
+Received: from h7.fbrelay.privateemail.com (h7.fbrelay.privateemail.com
+ [162.0.218.230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F40D10E219
+ for <dri-devel@lists.freedesktop.org>; Fri,  1 May 2026 20:37:40 +0000 (UTC)
 Received: from MTA-08-4.privateemail.com (mta-08.privateemail.com
  [198.54.118.215])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by h5.fbrelay.privateemail.com (Postfix) with ESMTPSA id 4g6jWd0gqrz2xKZ;
- Fri,  1 May 2026 20:37:01 +0000 (UTC)
+ by h7.fbrelay.privateemail.com (Postfix) with ESMTPSA id 4g6jXK4rqTz2xKS;
+ Fri,  1 May 2026 16:37:37 -0400 (EDT)
 Received: from mta-08.privateemail.com (localhost [127.0.0.1])
- by mta-08.privateemail.com (Postfix) with ESMTP id 4g6jWZ4Vr6z3hhVW;
- Fri,  1 May 2026 16:36:58 -0400 (EDT)
+ by mta-08.privateemail.com (Postfix) with ESMTP id 4g6jXH4kKxz3hhTp;
+ Fri,  1 May 2026 16:37:35 -0400 (EDT)
 Received: from localhost.localdomain
  (bras-base-toroon4332w-grc-26-174-91-51-28.dsl.bell.ca [174.91.51.28])
  by mta-08.privateemail.com (Postfix) with ESMTPA;
- Fri,  1 May 2026 16:36:22 -0400 (EDT)
+ Fri,  1 May 2026 16:37:01 -0400 (EDT)
 From: Hamza Mahfooz <someguy@effective-light.com>
 To: dri-devel@lists.freedesktop.org
 Cc: Hamza Mahfooz <someguy@effective-light.com>,
@@ -46,17 +46,18 @@ Cc: Hamza Mahfooz <someguy@effective-light.com>,
  Ivan Lipski <ivan.lipski@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>,
  Matthew Schwartz <matthew.schwartz@linux.dev>,
  Yussuf Khalil <dev@pp3345.net>, Tom Chung <chiahsuan.chung@amd.com>,
- Roman Li <Roman.Li@amd.com>, Colin Ian King <colin.i.king@gmail.com>,
- Charlene Liu <charlene.liu@amd.com>, Kees Cook <kees@kernel.org>,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v5 1/2] drm/atomic: attempt full modeset on page flip timeout
-Date: Fri,  1 May 2026 16:35:43 -0400
-Message-ID: <20260501203552.749080-1-someguy@effective-light.com>
+ Colin Ian King <colin.i.king@gmail.com>,
+ Charlene Liu <charlene.liu@amd.com>, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v5 2/2] drm/amd/display: add DMU timeout recovery support
+Date: Fri,  1 May 2026 16:35:44 -0400
+Message-ID: <20260501203552.749080-2-someguy@effective-light.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260501203552.749080-1-someguy@effective-light.com>
+References: <20260501203552.749080-1-someguy@effective-light.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Virus-Scanned: ClamAV using ClamSMTP
-X-Rspamd-Queue-Id: 4g6jWd0gqrz2xKZ
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,92 +73,134 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-We should try to recover from page flip timeouts. Forcing
-a full modeset should be generic across all atomic KMS drivers,
-so try that first.
+DMU already has robust hung state tracking, but timeout recovery
+was never hooked up, so do so now.
 
 Signed-off-by: Hamza Mahfooz <someguy@effective-light.com>
 ---
- drivers/gpu/drm/drm_atomic_helper.c | 51 +++++++++++++++++++++++++++--
- 1 file changed, 48 insertions(+), 3 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 23 ++++++++++++++-----
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  1 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 12 ++++++++--
+ 3 files changed, 28 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
-index a768398a1884..8ccc6e833c77 100644
---- a/drivers/gpu/drm/drm_atomic_helper.c
-+++ b/drivers/gpu/drm/drm_atomic_helper.c
-@@ -1926,6 +1926,45 @@ drm_atomic_helper_wait_for_vblanks(struct drm_device *dev,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index e96a12ff2d31..7be4ebee1cb7 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -1246,7 +1246,7 @@ static  void amdgpu_dm_audio_eld_notify(struct amdgpu_device *adev, int pin)
+ 	}
  }
- EXPORT_SYMBOL(drm_atomic_helper_wait_for_vblanks);
  
-+static int force_full_modeset(struct drm_crtc *crtc)
-+{
-+	struct drm_modeset_acquire_ctx ctx;
-+	struct drm_crtc_state *crtc_state;
-+	struct drm_atomic_state *state;
-+	int ret;
-+	int err;
-+
-+	if (drm_atomic_crtc_needs_modeset(crtc->state))
-+		return -EBUSY;
-+
-+	DRM_MODESET_LOCK_ALL_BEGIN(crtc->dev, ctx, 0, err);
-+	state = drm_atomic_state_alloc(crtc->dev);
-+	if (!state)
-+		return -ENOMEM;
-+
-+	state->acquire_ctx = &ctx;
-+
-+	crtc_state = drm_atomic_get_crtc_state(state, crtc);
-+	if (IS_ERR(crtc_state)) {
-+		ret = PTR_ERR(crtc_state);
-+		goto out;
-+	}
-+
-+	crtc_state->connectors_changed = true;
-+	crtc_state->mode_changed = true;
-+	crtc_state->active_changed = true;
-+
-+	drm_info(crtc->dev,
-+		 "[CRTC:%d:%s] Attempting force full modeset...\n",
-+		 crtc->base.id, crtc->name);
-+
-+	ret = drm_atomic_commit(state);
-+out:
-+	drm_atomic_state_put(state);
-+	DRM_MODESET_LOCK_ALL_END(crtc->dev, ctx, err);
-+	return ret;
-+}
-+
- /**
-  * drm_atomic_helper_wait_for_flip_done - wait for all page flips to be done
-  * @dev: DRM device
-@@ -1949,17 +1988,23 @@ void drm_atomic_helper_wait_for_flip_done(struct drm_device *dev,
- 
- 	for (i = 0; i < dev->mode_config.num_crtc; i++) {
- 		struct drm_crtc_commit *commit = state->crtcs[i].commit;
--		int ret;
- 
- 		crtc = state->crtcs[i].ptr;
- 
- 		if (!crtc || !commit)
- 			continue;
- 
--		ret = wait_for_completion_timeout(&commit->flip_done, 10 * HZ);
--		if (ret == 0)
-+		if (!wait_for_completion_timeout(&commit->flip_done, 10 * HZ)) {
-+			int ret;
- 			drm_err(dev, "[CRTC:%d:%s] flip_done timed out\n",
- 				crtc->base.id, crtc->name);
-+
-+			ret = force_full_modeset(crtc);
-+			if (ret)
-+				drm_err(dev,
-+					"[CRTC:%d:%s] force full modeset failed! ret=%d\n",
-+					crtc->base.id, crtc->name, ret);
-+		}
+-static int dm_dmub_hw_init(struct amdgpu_device *adev)
++int amdgpu_dm_dmub_hw_init(struct amdgpu_device *adev)
+ {
+ 	const struct dmcub_firmware_header_v1_0 *hdr;
+ 	struct dmub_srv *dmub_srv = adev->dm.dmub_srv;
+@@ -1315,7 +1315,7 @@ static int dm_dmub_hw_init(struct amdgpu_device *adev)
+ 	/* if adev->firmware.load_type == AMDGPU_FW_LOAD_PSP,
+ 	 * amdgpu_ucode_init_single_fw will load dmub firmware
+ 	 * fw_inst_const part to cw0; otherwise, the firmware back door load
+-	 * will be done by dm_dmub_hw_init
++	 * will be done by amdgpu_dm_dmub_hw_init().
+ 	 */
+ 	if (adev->firmware.load_type != AMDGPU_FW_LOAD_PSP) {
+ 		memcpy(fb_info->fb[DMUB_WINDOW_0_INST_CONST].cpu_addr, fw_inst_const,
+@@ -1457,7 +1457,7 @@ static void dm_dmub_hw_resume(struct amdgpu_device *adev)
+ 			drm_warn(adev_to_drm(adev), "Wait for DMUB auto-load failed: %d\n", status);
+ 	} else {
+ 		/* Perform the full hardware initialization. */
+-		r = dm_dmub_hw_init(adev);
++		r = amdgpu_dm_dmub_hw_init(adev);
+ 		if (r)
+ 			drm_err(adev_to_drm(adev), "DMUB interface failed to initialize: status=%d\n", r);
+ 	}
+@@ -2041,6 +2041,9 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+ 		goto error;
  	}
  
- 	if (state->fake_commit)
++	adev->dm.dc->debug.enable_dmu_recovery =
++		amdgpu_device_should_recover_gpu(adev);
++
+ 	if (amdgpu_dc_debug_mask & DC_DISABLE_PIPE_SPLIT) {
+ 		adev->dm.dc->debug.force_single_disp_pipe_split = false;
+ 		adev->dm.dc->debug.pipe_split_policy = MPC_SPLIT_AVOID;
+@@ -2090,7 +2093,7 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+ 	if (adev->dm.dc->caps.dp_hdmi21_pcon_support)
+ 		drm_info(adev_to_drm(adev), "DP-HDMI FRL PCON supported\n");
+ 
+-	r = dm_dmub_hw_init(adev);
++	r = amdgpu_dm_dmub_hw_init(adev);
+ 	if (r) {
+ 		drm_err(adev_to_drm(adev), "DMUB interface failed to initialize: status=%d\n", r);
+ 		goto error;
+@@ -3604,7 +3607,7 @@ static int dm_resume(struct amdgpu_ip_block *ip_block)
+ 		 */
+ 		link_enc_cfg_copy(adev->dm.dc->current_state, dc_state);
+ 
+-		r = dm_dmub_hw_init(adev);
++		r = amdgpu_dm_dmub_hw_init(adev);
+ 		if (r) {
+ 			drm_err(adev_to_drm(adev), "DMUB interface failed to initialize: status=%d\n", r);
+ 			return r;
+@@ -9623,7 +9626,15 @@ static void prepare_flip_isr(struct amdgpu_crtc *acrtc)
+ {
+ 
+ 	assert_spin_locked(&acrtc->base.dev->event_lock);
+-	WARN_ON(acrtc->event);
++
++	/*
++	 * Compositors will refuse to make forward progress unless we send
++	 * the previous flip's completion event.
++	 */
++	if (WARN_ON(acrtc->event)) {
++		drm_crtc_send_vblank_event(&acrtc->base, acrtc->event);
++		drm_crtc_vblank_put(&acrtc->base);
++	}
+ 
+ 	acrtc->event = acrtc->base.state->event;
+ 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index 74a8fe1a1999..dc808ee83c2a 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -1086,6 +1086,7 @@ int amdgpu_dm_verify_lut3d_size(struct amdgpu_device *adev,
+ #define MAX_COLOR_LEGACY_LUT_ENTRIES 256
+ 
+ void amdgpu_dm_init_color_mod(void);
++int amdgpu_dm_dmub_hw_init(struct amdgpu_device *adev);
+ int amdgpu_dm_create_color_properties(struct amdgpu_device *adev);
+ int amdgpu_dm_verify_lut_sizes(const struct drm_crtc_state *crtc_state);
+ int amdgpu_dm_update_crtc_color_mgmt(struct dm_crtc_state *crtc);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index 3b8ae7798a93..8f10117483e2 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -33,6 +33,7 @@
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_probe_helper.h>
+ #include <drm/amdgpu_drm.h>
++#include <drm/drm_drv.h>
+ #include <drm/drm_edid.h>
+ #include <drm/drm_fixed.h>
+ 
+@@ -1165,8 +1166,15 @@ void dm_set_dcn_clocks(struct dc_context *ctx, struct dc_clocks *clks)
+ 
+ void dm_helpers_dmu_timeout(struct dc_context *ctx)
+ {
+-	// TODO:
+-	//amdgpu_device_gpu_recover(dc_context->driver-context, NULL);
++	struct amdgpu_device *adev = ctx->driver_context;
++
++	lockdep_assert_held(&adev->dm.dc_lock);
++
++	drm_info(adev_to_drm(adev), "attempting firmware reset\n");
++	if (amdgpu_dm_dmub_hw_init(adev))
++		drm_dev_wedged_event(adev_to_drm(adev),
++				     DRM_WEDGE_RECOVERY_REBIND |
++				     DRM_WEDGE_RECOVERY_BUS_RESET, NULL);
+ }
+ 
+ void dm_helpers_smu_timeout(struct dc_context *ctx, unsigned int msg_id, unsigned int param, unsigned int timeout_us)
 -- 
 2.54.0
 
