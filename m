@@ -4,39 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E65CCCFA13
-	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 14:50:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90760CD3423
+	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 14:51:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58D8B10F569;
-	Fri,  1 May 2026 14:50:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDBAE10E1C9;
+	Fri,  1 May 2026 14:51:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ixit.cz header.i=@ixit.cz header.b="VDtYEZ5b";
+	dkim=pass (1024-bit key; secure) header.d=ixit.cz header.i=@ixit.cz header.b="Cr9Tqvmj";
 	dkim-atps=neutral
 Received: from ixit.cz (ixit.cz [185.100.197.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3ED410E1C9
- for <dri-devel@lists.freedesktop.org>; Fri,  1 May 2026 14:50:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC64610E1C9
+ for <dri-devel@lists.freedesktop.org>; Fri,  1 May 2026 14:51:38 +0000 (UTC)
 Received: from [10.0.0.200] (unknown [10.88.125.21])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by ixit.cz (Postfix) with ESMTPSA id 996D55340FCD;
- Fri, 01 May 2026 16:50:38 +0200 (CEST)
+ key-exchange x25519) (No client certificate requested)
+ by ixit.cz (Postfix) with ESMTPSA id 2E3C15340B22;
+ Fri, 01 May 2026 16:51:37 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
- t=1777647038;
+ t=1777647097;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=8bracWZbA9S1hZzhS6P3EWP2FeSsV2QHgBQVXubkZ/w=;
- b=VDtYEZ5b8X+eZWBOy77lTI4Qlz5jmLf7RMh8HKO86zTF2MIok9RFD+eYYnkTUijxC04ylg
- vsqIqQmw/6+67+dO/QYCYtk3Gro9uZVSlmzODXjDzS91bKAqFcpUS26EXRk5oHNx6bL5oR
- 6PdWNKZulTzM3IJbfkVOfezYqqkaGh8=
-Message-ID: <161b2074-ba4a-4456-a236-955a2575c5cd@ixit.cz>
-Date: Fri, 1 May 2026 16:50:38 +0200
+ bh=uZ3Rg5MZt3buQ+iw7G2oz++ZgXwW/c4xrsHxmm6CVXg=;
+ b=Cr9TqvmjzQ3LpzMypLoao03YFiubOJLcdTS/uflVpUb+DW8c3xeoc7T4qurKQlOpHM2JNd
+ me4Nnr3XHKGJgK5kEXBTbjFtxEwPVlmeQuDzwXlWZOXvCa5JjXJeJ6GhBw+fpDZAbdcluI
+ +c/aXqSHIm4OWVRLVRUdU/D06JmFmGU=
+Message-ID: <747c9978-9dbe-4f74-a7d8-6ab689a7dce3@ixit.cz>
+Date: Fri, 1 May 2026 16:51:36 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/panel: visionox-rm69299: Move power_on/off into
- prepare/unprepare
+Subject: Re: [PATCH 1/2] drm/panel: visionox-rm69299: Split DSI commands out
+ into enable/disable
 To: =?UTF-8?Q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>,
  Neil Armstrong <neil.armstrong@linaro.org>,
  Jessica Zhang <jesszhan0024@gmail.com>,
@@ -46,7 +45,7 @@ To: =?UTF-8?Q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  phone-devel@vger.kernel.org
 References: <20260427-visionox-rm69299-enable-v1-0-fa7d62d26d87@sigxcpu.org>
- <20260427-visionox-rm69299-enable-v1-2-fa7d62d26d87@sigxcpu.org>
+ <20260427-visionox-rm69299-enable-v1-1-fa7d62d26d87@sigxcpu.org>
 Content-Language: en-US
 From: David Heidelberg <david@ixit.cz>
 Autocrypt: addr=david@ixit.cz; keydata=
@@ -92,7 +91,7 @@ Autocrypt: addr=david@ixit.cz; keydata=
  zRKcgRumz2Tc1ouHj6qINlzEe3a5ldctIn/dvR1l2Ko7GBTG+VGp9U5NOAEkGpxHG9yg6eeY
  fFYnMme51H/HKiyUlFiE3yd5LSmv8Dhbf+vsI4x6BOOOq4Iyop/Exavj1owGxW0hpdUGcCl1
  ovlwVPO/6l/XLAmSGwdnGqok5eGZQzSst0tj9RC9O0dXO1TZocOsf0tJ8dR2egX4kxM=
-In-Reply-To: <20260427-visionox-rm69299-enable-v1-2-fa7d62d26d87@sigxcpu.org>
+In-Reply-To: <20260427-visionox-rm69299-enable-v1-1-fa7d62d26d87@sigxcpu.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -111,13 +110,18 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 04/2026 15:56, Guido Günther wrote:
-> No need to have separate functions now that prepare/unprepare only
-> handle powering on & off.
+> It's when DSI commands should be sent and it also fixes these DSI errors
+> on every screen blank/unblank on the SHIFT6mq:
+> 
+> dmesg:
+>    msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+>    dsi_cmds2buf_tx: cmd dma tx failed, type=0x5, data0=0x28, len=4, ret=-110
+>    panel-visionox-rm69299 ae94000.dsi.0: sending DCS SET_DISPLAY_OFF failed: -110
 > 
 > Signed-off-by: Guido Günther <agx@sigxcpu.org>
 > ---
->   drivers/gpu/drm/panel/panel-visionox-rm69299.c | 36 +++++++++-----------------
->   1 file changed, 12 insertions(+), 24 deletions(-)
-> 
+>   drivers/gpu/drm/panel/panel-visionox-rm69299.c | 77 +++++++++++++++-----------
+>   1 file changed, 44 insertions(+), 33 deletions(-)
 
+Reviewed-by: David Heidelberg <david@ixit.cz>
 Tested-by: David Heidelberg <david@ixit.cz>
