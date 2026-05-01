@@ -4,47 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C558CCFA13
-	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 14:38:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35D1DCD3423
+	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 14:46:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C127D10E1D2;
-	Fri,  1 May 2026 14:38:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 871A110E1E1;
+	Fri,  1 May 2026 14:46:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="Dv/iCgCu";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kL0E5rIQ";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 191EB10E1D2
- for <dri-devel@lists.freedesktop.org>; Fri,  1 May 2026 14:38:56 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 25AFD2A9A;
- Fri,  1 May 2026 07:38:50 -0700 (PDT)
-Received: from [10.1.29.19] (e122027.cambridge.arm.com [10.1.29.19])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 34BCB3F7B4;
- Fri,  1 May 2026 07:38:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1777646335; bh=2v6jRbxPKRSZ2+J2++WTZBq1zJkmZ0LtnflS79Ax74c=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=Dv/iCgCum2czdRKUVOB/k7blYeZiIEgqHPCeL6oo8WKtMbq7HeHscnMWLEXqn0CUh
- xj58I01lgEktrA+OBt1YfTmuoUE/6d1dYz2oM7Bk9Um6PzlK6/0+DFq7f45U4r9PoJ
- byTKxMdUk/mUXKvtGo4FAivNiuL/LSyNAzE+wZaU=
-Message-ID: <695b81bf-ee35-4804-aefe-97f685002f07@arm.com>
-Date: Fri, 1 May 2026 15:38:50 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 09/10] drm/panthor: Process FW events in IRQ context
-To: Boris Brezillon <boris.brezillon@collabora.com>,
- Liviu Dudau <liviu.dudau@arm.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCEC010E1E1
+ for <dri-devel@lists.freedesktop.org>; Fri,  1 May 2026 14:46:01 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 81E8543A2D;
+ Fri,  1 May 2026 14:46:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D7B7C2BCB4;
+ Fri,  1 May 2026 14:45:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1777646761;
+ bh=lMo6vIJzORAxdZpMWmFhIapMK4zC43Mfyu/lKG6p3kY=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=kL0E5rIQ4c6TO86H9i/B4XTuqcLsoMsdGJLDxfYgbzii6T1waUjGj21vwKKd8y8sA
+ ZnG2+m8oRn/Ql+rHE0x2eSbNboerASNN2XAggoHDEapGaZvSG5oxLRi0uu4kV6hvFq
+ 8KKWCp8E8hNzGEZtJ4pSlxNIAKfNpfHGDhIzbOpyqzMkLrwfX2+PYQgGp0oixuf0Cf
+ swNspcndZvZshlE26bP0TrXEPgZhHmXZ235dcO+jJjxBU2jMGxxBxFpJYg6yx7wSJL
+ WshkGgNWlxx2dIhPhDqkJrcDiLd5OJfNb6ho6yNqTt8hOZXCb3npRhsd7UEy2CP7nY
+ nswo59aV02d/g==
+From: Danilo Krummrich <dakr@kernel.org>
+To: Eliot Courtney <ecourtney@nvidia.com>
+Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260429-panthor-signal-from-irq-v1-0-4b92ae4142d2@collabora.com>
- <20260429-panthor-signal-from-irq-v1-9-4b92ae4142d2@collabora.com>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260429-panthor-signal-from-irq-v1-9-4b92ae4142d2@collabora.com>
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>, Alexandre Courbot <acourbot@nvidia.com>,
+ John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Joel Fernandes <joelagnelf@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] rust: drm: gem: clean up GEM state in init failure case
+Date: Fri,  1 May 2026 16:45:30 +0200
+Message-ID: <20260501144530.4193621-1-dakr@kernel.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260423-fix-gem-1-v1-1-e12e35f7bba9@nvidia.com>
+References: <20260423-fix-gem-1-v1-1-e12e35f7bba9@nvidia.com>
+X-Patch-Reply: applied
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,96 +68,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 29/04/2026 10:38, Boris Brezillon wrote:
-> Now that everything is set to allow processing FW events in IRQ context,
-> go for it. This should reduce the dma_fence signaling latency.
-> 
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+On Thu, 23 Apr 2026 21:36:52 +0900, Eliot Courtney wrote:
+> [PATCH] rust: drm: gem: clean up GEM state in init failure case
 
-Another AI-found locking bug...
+Applied, thanks!
 
-With this change there's a callpath:
+  Branch: drm-rust-fixes
+  Tree:   https://gitlab.freedesktop.org/drm/rust/kernel.git
 
-  panthor_job_irq_raw_handler()
-    panthor_job_irq_handler()
-      panthor_sched_report_fw_events()
-        sched_process_csg_irq_locked()
-          if (csg_events & CSG_SYNC_UPDATE)
-            csg_slot_sync_update_locked()
-              group_check_job_completion()
-                queue_check_job_completion()
-                  if (job->profiling.mask)
-                    update_fdinfo_stats()
-                      spin_lock(&group->fdinfo.lock)
+[1/1] rust: drm: gem: clean up GEM state in init failure case
+      commit: 2e42a17b8f6b
 
-However group->fdinfo.lock is also held in process context via:
+      [ Move safety comment closer to unsafe block to avoid a clippy warning.
+        - Danilo ]
 
- panthor_gpu_show_fdinfo()
-   panthor_fdinfo_gather_group_samples()
-     guard(spinlock)(&group->fdinfo.lock);
+The patch will appear in the next linux-next integration (typically within 24
+hours on weekdays).
 
-So panthor_fdinfo_gather_group_samples() will need to use
-spinlock_irqsave to be safe.
-
-Thanks,
-Steve
-
-> ---
->  drivers/gpu/drm/panthor/panthor_fw.c | 33 +++++++++++++++++++++++++++++++--
->  1 file changed, 31 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
-> index f5e0ceca4130..05c632913359 100644
-> --- a/drivers/gpu/drm/panthor/panthor_fw.c
-> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
-> @@ -1087,9 +1087,38 @@ static void panthor_job_irq_handler(struct panthor_irq *pirq, u32 status)
->  	}
->  }
->  
-> +static irqreturn_t panthor_job_irq_raw_handler(int irq, void *data)
-> +{
-> +	struct panthor_irq *pirq = data;
-> +
-> +	if (!gpu_read(pirq->iomem, INT_STAT))
-> +		return IRQ_NONE;
-> +
-> +	scoped_guard(spinlock_irqsave, &pirq->mask_lock) {
-> +		if (pirq->state != PANTHOR_IRQ_STATE_ACTIVE)
-> +			return IRQ_NONE;
-> +
-> +		pirq->state = PANTHOR_IRQ_STATE_PROCESSING;
-> +	}
-> +
-> +	panthor_job_irq_handler(pirq, gpu_read(pirq->iomem, INT_RAWSTAT));
-> +
-> +	scoped_guard(spinlock_irqsave, &pirq->mask_lock) {
-> +		if (pirq->state == PANTHOR_IRQ_STATE_PROCESSING)
-> +			pirq->state = PANTHOR_IRQ_STATE_ACTIVE;
-> +	}
-> +
-> +	return IRQ_HANDLED;
-> +}
-> +
->  static irqreturn_t panthor_job_irq_threaded_handler(int irq, void *data)
->  {
-> -	return panthor_irq_default_threaded_handler(data, panthor_job_irq_handler);
-> +	struct panthor_irq *pirq = data;
-> +
-> +	/* We never return IRQ_WAKE_THREAD, so we're not supposed to be called. */
-> +	drm_WARN_ON_ONCE(&pirq->ptdev->base,
-> +			 "threaded IRQ handler should never be called.");
-> +	return IRQ_NONE;
->  }
->  
->  static int panthor_fw_start(struct panthor_device *ptdev)
-> @@ -1489,7 +1518,7 @@ int panthor_fw_init(struct panthor_device *ptdev)
->  
->  	ret = panthor_irq_request(ptdev, &fw->irq, irq, 0,
->  				  ptdev->iomem + JOB_INT_BASE, "job",
-> -				  panthor_irq_default_raw_handler,
-> +				  panthor_job_irq_raw_handler,
->  				  panthor_job_irq_threaded_handler);
->  	if (ret) {
->  		drm_err(&ptdev->base, "failed to request job irq");
-> 
-
+The patch is queued up for Linus's tree and should land in the next -rc release.
