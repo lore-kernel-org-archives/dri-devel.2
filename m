@@ -4,102 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B77DCD3423
-	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 15:54:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BD9FCD3424
+	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 16:04:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B59FC10E1E7;
-	Fri,  1 May 2026 15:54:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E801310E1E4;
+	Fri,  1 May 2026 16:04:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="a+2mPvHk";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Pfx2SMgP";
 	dkim-atps=neutral
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDB7B10E1E7
- for <dri-devel@lists.freedesktop.org>; Fri,  1 May 2026 15:54:43 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-4891ca4ce02so86715e9.1
- for <dri-devel@lists.freedesktop.org>; Fri, 01 May 2026 08:54:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777650882; cv=none;
- d=google.com; s=arc-20240605;
- b=TLqVed6rb/2sasbrBuqi2iJrqFsitgcRuzOhq8HyEjcORqq8Dnd/XgJUjyHXIsujN/
- cjmWSHnvjCzB2tDl+rnsRMPVWwATNAjf0xAFS7EN8DE14zHmuPHIjZXlgPUvRLwTDK1e
- HeTyRbDeUvcraiDYy04HjT8l1Nb0sgfk2vzQuAQU6cktv0LZ4fVFpcUBrgw1+VlpKzaR
- h3uu54MGg4VqYuMKaG83FI8oN9dVn0AlZUt+gHJUzDBZYXChZUz9Bay74HiEYH84jgVn
- W9aSUByhE8uP4mS69b+N8d+s/Br+vYhVz1p9+9Rhlbvt6FokzO+Q/v2UdrkmMEhlIjnL
- wBdg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=jwUF0jTP/NOVRMHfd02ulbOWRiSGddGMyJftTXYHjDU=;
- fh=3K30IC/zqB6gqe/p/xKkN8ehsN961/tjZnpN2WqjZGg=;
- b=Zc/vp7euB1hHUl+1L9E6TJzuIfV3OHKjbffVYZJEyvAx1gph/D2xLssNPQ83zZThTp
- lxNGsMF4pu7u1K5kh/y4/wwC2MRll1N0z4xe83Xt4G+9g9HYmC7w0i4mbaRtJtzNnoC+
- gtV1yCZwxmxbFWtMdScfpImtr/iVRU3f3XZnubOPxB34mjFivlOXP2lr/fGGLph2Y3XB
- uKF+k8hMxRIPlISDCn2ysuyBusOIafzFRQTumeQ5t+s+x/dNHdnsHwg2pjFBAuicYGeM
- QHpU+iQhqXfJmmxzmSsVx9LNrMnwnvRwtkJgkNjXntWj4C10CYQB0tjmH3PBynKEM1dA
- mSUg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1777650882; x=1778255682;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=jwUF0jTP/NOVRMHfd02ulbOWRiSGddGMyJftTXYHjDU=;
- b=a+2mPvHk99MpcFP5KOohvt5AvNPI9rbnwLPRcKBSvrE84am19klh26NZsSg5yyuTi4
- WzElDvhUzW5/EvvwzE8c2DmuMuj+U3xUUu34cgCyVOBSwUosu0Ort3g8JMjKIfHczQsk
- U6Ftse/De/zEpuuX+wErGUrSlBqWxLiKtnVDONLyf/q+1mHVqyeybOseUfi3eVuBFWgF
- EMBXn38WlOGQFARQGkn/9G3nKFnW7H/nqmWyEKxPZEUlLbGYj6F4ZEqiVA67/5EWZB9R
- TrICF4jmLAvPHq8XD1cw+OHrb1RPW1P19sqGzjXNGrm85FKZeo2MsYDi1MyAPFDOJr9K
- IzeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777650882; x=1778255682;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=jwUF0jTP/NOVRMHfd02ulbOWRiSGddGMyJftTXYHjDU=;
- b=abx3KhNapYjFadPrEusw6IKgVi8lhspJBtwAdAfTiLWJQwk1V7RdiESF71TAR/eVbi
- 8A/hZ97Sa2sTqbJCmS2UMbyDDPbpVe8sANxOHze019oqNWUJqa2HWKkmO8qWd1u/CxaJ
- +gqXFauzc8XK0ealMsgLjHKEJ0ZhdnTldVrkpEaCibOllPogbEvGkDRCvgJXU0G2jPzX
- 1wha59hzx8NHhoKndg/pVPlUXTz7kHDkTvIZSiRTMYP+1dlbBaJY66FA8AJ/dSrbU44Y
- 8pn9eHNv/aX0F+H9nhuemn66hHwH7pebStBRQMUnVnznZTnIZF3ca/HuicZ1kfpSur6P
- PtHg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9KzVCgYeMyDAVovqQ2qGcfGdwAs0C4v+1wgfEk66FDI7TJDQnxULISNKGTo0Ccodmgt9M8ZJ8laO0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwuGtgiEDVfKluDv6dDXiX3cKjPmKqSDlrgMw8/0L9qMR0Bbyk3
- B/yMM47RX37gbQ6Y8w4JFuOnWVtOmhO7BRNqNJY1gbygOEjbdBtglGKBGNKw2Fb004HAhSo92Xf
- rDHizkYvXE0YwqLZtNkdFg1ZiN1WAW/clxnv4Qx1b
-X-Gm-Gg: AeBDievnvv3v4PY6DlW4zz2H1LWEJgEt7l8KmYDuY11sksKuG/xEajihFlzpo2IjZjE
- UlP7SZ0/UNxJMCnECGH2oEJed/v02zGY9qxnaKHiEK6pSjEu8f9o8sZDhUWp6Fy0kyati1ukXF4
- puNtI3sLAEvauuo/LurBl2gEKHqWmjYmsK8oKhw7mjH8xprrhyViDeCDAZ2TyG5uVBW1ubEXoAs
- VzOuzHGlybkEcnnEULdAAP6gM28Ey2VERs2QTUZrAQcQHOKpCBxt/fET6tnyoLFeHSVQWqFRnTR
- Y1OH4aiQ73Qa7O+qhinb7xWHGpgA9bX7to+aeWGYSy8uGXjM0GY1/JTHeZo=
-X-Received: by 2002:a05:600c:588a:b0:48a:55dc:9c1e with SMTP id
- 5b1f17b1804b1-48a8dbd8581mr1073235e9.10.1777650881744; Fri, 01 May 2026
- 08:54:41 -0700 (PDT)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013056.outbound.protection.outlook.com
+ [40.93.196.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA1B910E1E4;
+ Fri,  1 May 2026 16:04:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mtlNnzD0aPzfFKV7OlN6HnaPJ59uGnRPBHv7T5sPYUp2RCqGEr3ZURtCX9CpYsbG4pZy1iPE+OJhabfOfcNONOXEULcdr6qovABkU2HLsPBVoS2enUksRdjs1AV/pof9SAfGEUmZhSvHijuVIkFBwK+g7Vq8PaZuPTz6MW23WmNQhc+AXt+2XD+udVZuQB1pRt2gyukLp+iKLr+givgRMMPk59MeXW94/pUXYN92ICbNbBKwmkaQ7kAq3L7hnUS8ulRidSlfRELZj5w/9hXqkzkBEehTqiDFxIu03JM79W90vSo9EkMHioqLaAXycXI01P0HZRAzLOQco4zIiXf6kw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=O7ZD0odp0ca/Hli8q7PK6SdPjGhsxnT7kh4N+uwa3lI=;
+ b=vwsLMyt9CsmE7WzZ1MoHdnUZ/EugU+h1HaPaO+RVw5F+0uuvH5iR9ANS/HvQ8ZPG+V8x37SrYtSAxkQ5gkJIPPyMeF2ThhT4ibvupzxW5aoK+Im2LpumoBeuXyJodzUPuTKv44hcsD0TSUOKSEqyxMoR+vGyyRW3aSB/NK7ZJiPYC1Ni4AAz/ZMYZdinJ716+UZvHCsUHP1BMaWHifrzSUTET4/0g7jVz/Ok223LnVnQF7t24pUoUn16IVnQvsLhINs64815NrkOurcTYaHqFeV+g8+NBw02HHkcRG5JOAafZp+WXh6ApTr40afA8IwDhDwyG6f+zQD+azX5IqFldg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=O7ZD0odp0ca/Hli8q7PK6SdPjGhsxnT7kh4N+uwa3lI=;
+ b=Pfx2SMgPHSORGwKlCES5YHqB29f5dL+ZkCHJI8QqqDtIe4/HXLWOXIatix6SHBinsrJW5zIkoCWVftgzsfbzJTGgKlPHeaqPmtYIpWbrjh1Rm6XzhdFlyUHMOxVpKAIXpZjSGuKRMPRfwi3+cHs5bxAsB52Fx8xX//77R+dB38g=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5126.namprd12.prod.outlook.com (2603:10b6:208:312::8)
+ by SA1PR12MB8885.namprd12.prod.outlook.com (2603:10b6:806:376::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.17; Fri, 1 May
+ 2026 16:03:56 +0000
+Received: from BL1PR12MB5126.namprd12.prod.outlook.com
+ ([fe80::c3e7:1bc5:2b91:1cfe]) by BL1PR12MB5126.namprd12.prod.outlook.com
+ ([fe80::c3e7:1bc5:2b91:1cfe%5]) with mapi id 15.20.9870.022; Fri, 1 May 2026
+ 16:03:56 +0000
+Message-ID: <8c3d52b7-6020-4905-9ef6-d141798b4caa@amd.com>
+Date: Fri, 1 May 2026 12:03:53 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 8/9] drm/amd/display: Check actual state during
+ commit_tail
+To: Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+References: <20260330153451.99472-1-harry.wentland@amd.com>
+ <20260330153451.99472-9-harry.wentland@amd.com>
+ <b0e0af19-a7c4-483c-8e40-4ec1cae01b9b@amd.com>
+Content-Language: en-US
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <b0e0af19-a7c4-483c-8e40-4ec1cae01b9b@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT4PR01CA0153.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:ac::12) To BL1PR12MB5126.namprd12.prod.outlook.com
+ (2603:10b6:208:312::8)
 MIME-Version: 1.0
-References: <20260406214938.24142-1-baohua@kernel.org>
- <a6d1c89a-3c71-4e06-adcb-56595071dcc2@amd.com>
- <CAGsJ_4xquCzQLbvpkC8arAN=9KhrAkdPdxnB=v85GvvQu23Xyg@mail.gmail.com>
- <9034246e-3971-4fad-94b7-80f4ad0e29db@amd.com>
- <CAGsJ_4z5EZoNMBVnu6sCkThyi9VTCeCH29buVecuySuv_Ry8fw@mail.gmail.com>
-In-Reply-To: <CAGsJ_4z5EZoNMBVnu6sCkThyi9VTCeCH29buVecuySuv_Ry8fw@mail.gmail.com>
-From: "T.J. Mercier" <tjmercier@google.com>
-Date: Fri, 1 May 2026 08:54:29 -0700
-X-Gm-Features: AVHnY4K9IQcLD4rvVzmAGkjSkrXkB2IVyJxFSBLPqAnQQvgeGWt-GzWKe8Eu21c
-Message-ID: <CABdmKX3baqmBkZxMB6PTG6Sj5S9qi+RwVvwpmkLqKkqvfeZAUw@mail.gmail.com>
-Subject: Re: [PATCH] dma-buf: system_heap: Optimize sg_table-to-pages
- conversion in vmap
-To: Barry Song <baohua@kernel.org>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
- Xueyuan Chen <Xueyuan.chen21@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5126:EE_|SA1PR12MB8885:EE_
+X-MS-Office365-Filtering-Correlation-Id: 850fda07-94d2-470e-737e-08dea79b3f7b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|22082099003|56012099003|18002099003; 
+X-Microsoft-Antispam-Message-Info: 6jGa7LaI2bekop/ImmtcXKVTsrJHY3El411cPJCq/t7Z6FyBbI6w3lS5tv/lUJXbYchnPjrVvt1qNaLQxtYlPVcLJIgsDJnzRxgCEt+T+U5l+Zap6u9c6JAKNtj5uy+in5wdfLBvfeNd+Ic1XcM+19YKqZh83iBIbmZ7aTj7Ta5f+iBpA+VYb3YW8L1kgnV9yHCf+q2MrwAwDgS9FykAgUxBmZQSeknLGdVzV0XS5Pwtu5qbWsq/6cxvf2SD0dSfEuTT4uv4k4c8n73BTqk2Y9BpgSXoqj6pWoNyYpjShQdK41j3r/uHDnG2dbmXLRlq+mNFR1Cqivt6qKTftRz2dw0Oi21+ZtTvNu8sjL/hiPnVULiJGNWo1KUgx4CXkogZhtbSy4hWNmwK9pkYiDq/0nJFyRtieL1IPeE5xpVXS632iF8XyMCkNekhv+oq+O/77m4KaCkD9VYQd8OW3T+o+3XC49lguBtQBmo/ksKTQhkjCuFkPDFxkk2PM0LwKMXR1uF86RyP8nb8BMR9ztL1AlhRb1qJkVqJDpAdnsnCpvwQcM76+p6rQx2wvD6ScfVMmZmaZ16UzFkOHbpLicVp/t4aJckggffA8UnS0G/RAEaTcZrvsi70Mv8hWS8E5cI6ghiLqG3/RxIDcmUNR/sit0Zg72ho4REJEDq9RXGjcEVYcBsw198agT+vEg1GMPM9
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5126.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(22082099003)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?REkzK3ByWUlGU3hDZmlVdnlOVXNBLzF0czlpb0l5alpjSUh0d0VLTnJCK1Fk?=
+ =?utf-8?B?QVBLVnZYVGxHY3N4OHZRVy8xdTcxNTZQc0hOSTdhekdUZGw1NTZqZ2NsRlIx?=
+ =?utf-8?B?cTBvVUgxdWhoUysxNC9iNHhuQm1nUFQrQU96UjdRYTVvck5lbGdCbUVoL21w?=
+ =?utf-8?B?UHoyOWkyeVJRZ0R2QmpjRmkxWDhhd1lQdzBJSUg4ZmhhMXVNL2djTHFGQWRB?=
+ =?utf-8?B?VWNNSWRHaVpLZHlVVktzODJlcG02WXZSU3luUHlDdVM2aXgvd0VRKzhiNG5Y?=
+ =?utf-8?B?bzJrLzZ2ZjdHR2doNVFLMWdoYUNkNHBIUEJZRmNqdHpNME5sakttbnllN2NM?=
+ =?utf-8?B?U01Jd25sQ08vZHlFdjJiS2pyRWxjSHJOOWM1emdtSTRwK3ZSWkZ0NEVGSXU2?=
+ =?utf-8?B?bjEwTTkvdDZZSWl4Z2taSWs5bXdhUHl6NnpSVUtMSWpZNHh5T1lsVzFCRGht?=
+ =?utf-8?B?NXBiSGZYcmxuRDBla25Ibm84aVFNOEhyUFpEWjdQSUhWRkcraWFHL2R4RGND?=
+ =?utf-8?B?OHI2c1Jja3lVVFJBUFRodFNtb2pmVEFjbHlYWjlCVzg5T3RUQkJDOWZwNXBT?=
+ =?utf-8?B?anJ5R1dMSlRjZ0F1aGxHSmJtQTFVZzg5cjJBMTdhMk43OWxqNmFNcHlzalFP?=
+ =?utf-8?B?aEZXazZrQ3hLamtkS250WkVwK0taWGFGWHU0aUJvSGo1dzNQMm1nVk1JaldI?=
+ =?utf-8?B?dTIzUFJ6MVZ6R0xPamMvWTBHNmZaa1ZGRllyTnhna0hSZnVMczZLdnRPQmt1?=
+ =?utf-8?B?bEFqU0syTkFTMWNROVZwdzF3OHNFNjVDNEtOSWN1VXlJRS9uS0o1K0dKRlZS?=
+ =?utf-8?B?YUhiMTQxOEtKcTVGa2RyYW0rKzVlU2JLVWthb285RGxZTnVoa0s4MDExbmh3?=
+ =?utf-8?B?eE5SditQaVhTOUtiQmhjaDRSL2JwbFF6VTliOGU0UjJVNFBiUytST0hTQ09k?=
+ =?utf-8?B?RXZ2VElmNGdjTnQvRkMvcDJKMWNoSlhIVTZiY056aFduVGF6V0p1Tm04bkM5?=
+ =?utf-8?B?WlBQcXVUcFNJekNudHhHV2tWQXE3Nk05T2hQRldvdm8xdnJIZDFNeEFtRXpF?=
+ =?utf-8?B?dmFzUXpvUktOSGc5VnJ0SC9qenRHQ21YYlJYU0Y5eDVmUytCR0xkUW9ZQ0t4?=
+ =?utf-8?B?bWRlU0ZWaWhNYjhkRkxOMjUxUjdCSWhaYnJJNC9na3N0RGs2L0lWY3lSaUJw?=
+ =?utf-8?B?OGdObXA3SFA2bHVUaUlidEhqc2lLMXBXc3pDSmRZREE5MUpEbGdoYXdMQjlO?=
+ =?utf-8?B?ZFp2Snp0MTRubGl5STFaN2dyQ0l1L3h4OE1iUE5hN2REUi9rTlFWQXpXTXB3?=
+ =?utf-8?B?Y2tYSmh3cVdWVGp6bkd0eTdvR0RLUmVaNkZQdVhBayswVFBTdUQ5UjdzRVM0?=
+ =?utf-8?B?ZGJZUzdwMjlhRkNTNDJmWUFTb2hoUVNFY1BzMkFWUEovSXhXbUVrL1JsdWpn?=
+ =?utf-8?B?UXNWN1laR2Iwb1huenJBMkpiUCtxWnpreGJFbEVkNDQ0OGZXSDBmMnJVM1RQ?=
+ =?utf-8?B?dmxUWEhtTVVHT1pmdzAwdzdaR1RnOWRpdVNxSGd0eXFOKzVWRGU2QWs2VlRi?=
+ =?utf-8?B?RFZ5ay81ZG9KSzBHcVVDemtUYkZlby9OclR4U0p4Mnp2ajZ5ZHdHU0xQMjBE?=
+ =?utf-8?B?aTRIWjdnb0liQ1lRMVliWk5IV2xNOVVRMlF5ckc0d1JXRmhxdnhnbzZvTVla?=
+ =?utf-8?B?TEVOUWpaMFUvdDNLcGRjNjc5U0RTQXdKbkIwMTBnQ20wMjZhbHppVWhQZjh4?=
+ =?utf-8?B?NkFiQnUyV252ZDdkRlV4K1BJZUVmWlUxRUZabFQ3NXlhTlNFL0xSK3ptcWdO?=
+ =?utf-8?B?S2UrVWh3Y09OVkZoajRMR1NBVWR6N2w2RjJReDRjaDFJZU1hVm52UjlPaUJL?=
+ =?utf-8?B?UU4vS2Nzd25uUkZjbVlyb044eS9MYWttZmJSREJPS0VPYkxzQW8rd1Jvekkr?=
+ =?utf-8?B?UzQwV1JYalhLa1JIbEJtWDNyWk9vVytUWGRIVmt1a2RENkpPNWdjWTFNejRC?=
+ =?utf-8?B?NDJJcVl6ak9Tc0h0ZGM1UG4vUjQxUnd1MDBHZmxUYlRueXdlSVlQeTQ1NS85?=
+ =?utf-8?B?a083YjZvM3pHWmFHaGxHRWZZY0xHdFY0YXZtekgxRFUzanlRSmtZdXRvVWtm?=
+ =?utf-8?B?b0tFMGc0cldPTFVURFl5Y3lJbU16bzh0M0V5Q0tVT3hWeHZZMUxTdGR6VWZZ?=
+ =?utf-8?B?VGRHRlcwYzlDMW1ZVnFzZlREQ01rcGZobWhKOG5ucGJra0p4ci9tRG1oWHo0?=
+ =?utf-8?B?RzVGU1ZJait5d2VYdlAwc0p3eUdCdTFDLzFtMFpYTUZ2TlRZWHAwclNxWmtD?=
+ =?utf-8?B?SW9YVHk4VDBMUHp0ZjdEZSs1b2d1cDhMNXdRMEhmTnlsMVFxeHAydz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 850fda07-94d2-470e-737e-08dea79b3f7b
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5126.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 May 2026 16:03:56.1534 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: KnG+NDZSGQ2JsnSpjr6BWg3hOjFA49iH8+pTdn7W5nAH6XeYy9el05zaWyMm8XnIL96bLXZPL2kftIAcubO7Pw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8885
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,100 +138,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Apr 30, 2026 at 9:15=E2=80=AFPM Barry Song <baohua@kernel.org> wrot=
-e:
->
-> On Wed, Apr 22, 2026 at 3:10=E2=80=AFPM Christian K=C3=B6nig
-> <christian.koenig@amd.com> wrote:
-> >
-> > On 4/7/26 13:29, Barry Song wrote:
-> > > On Tue, Apr 7, 2026 at 3:58=E2=80=AFPM Christian K=C3=B6nig <christia=
-n.koenig@amd.com> wrote:
-> > >>
-> > >> On 4/6/26 23:49, Barry Song (Xiaomi) wrote:
-> > >>> From: Xueyuan Chen <Xueyuan.chen21@gmail.com>
-> > >>>
-> > >>> Replace the heavy for_each_sgtable_page() iterator in system_heap_d=
-o_vmap()
-> > >>> with a more efficient nested loop approach.
-> > >>>
-> > >>> Instead of iterating page by page, we now iterate through the scatt=
-erlist
-> > >>> entries via for_each_sgtable_sg(). Because pages within a single sg=
- entry
-> > >>> are physically contiguous, we can populate the page array with a in=
- an
-> > >>> inner loop using simple pointer math. This save a lot of time.
-> > >>>
-> > >>> The WARN_ON check is also pulled out of the loop to save branch
-> > >>> instructions.
-> > >>>
-> > >>> Performance results mapping a 2GB buffer on Radxa O6:
-> > >>> - Before: ~1440000 ns
-> > >>> - After:  ~232000 ns
-> > >>> (~84% reduction in iteration time, or ~6.2x faster)
-> > >>
-> > >> Well real question is why do you care about the vmap performance?
-> > >>
-> > >> That should basically only be used for fbdev emulation (except for V=
-MGFX) and we absolutely don't care about performance there.
-> > >
-> > > I agree that in mainline, dma_buf_vmap is not used very often.
-> > > Here=E2=80=99s what I was able to find:
-> > >
-> > >   1   1638  drivers/dma-buf/dma-buf.c <<dma_buf_vmap_unlocked>>
-> > >              ret =3D dma_buf_vmap(dmabuf, map);
-> > >    2    376  drivers/gpu/drm/drm_gem_shmem_helper.c
-> > > <<drm_gem_shmem_vmap_locked>>
-> > >              ret =3D dma_buf_vmap(obj->import_attach->dmabuf, map);
-> > >    3     85  drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
-> > > <<etnaviv_gem_prime_vmap_impl>>
-> > >              ret =3D dma_buf_vmap(etnaviv_obj->base.import_attach->dm=
-abuf, &map);
-> > >    4    433  drivers/gpu/drm/vmwgfx/vmwgfx_blit.c <<map_external>>
-> > >              ret =3D dma_buf_vmap(bo->tbo.base.dma_buf, map);
-> > >    5     88  drivers/gpu/drm/vmwgfx/vmwgfx_gem.c <<vmw_gem_vmap>>
-> > >              ret =3D dma_buf_vmap(obj->import_attach->dmabuf, map);
-> > >
-> > > However, in the Android ecosystem, system_heap and similar heaps
-> > > are widely used across camera, NPU, and media drivers. Many of these
-> > > drivers are not in mainline but do use vmap() in real code paths.
-> >
-> > Well out of tree drivers are not a justification to make an upstream ch=
-anges.
-> >
-> > Apart from a handful of workarounds which need to CPU access as fallbac=
-k DMA-buf vmap is only used to provide fb dev emulation.
-> >
-> > The vmap interface has already given us quite a headache in the first p=
-lace and there are a couple of unresolved problems regarding synchronizatio=
-n and coherency.
-> >
-> > When a driver would be pushed upstream which makes so frequent use of t=
-he dma_buf_vmap function that it matters for the performance I think there =
-would be push back on that and the driver developer would require a very go=
-od explanation why that is necessary.
-> >
-> > So for now I have to reject that patch.
->
-> Well, it doesn=E2=80=99t seem to increase complexity, and the code is qui=
-te easy
-> to understand.
 
-I agree with this. This change introduces basically no downsides for
-upstream, even if it primarily benefits a rare use case. Since
-dma_buf_vmap is exported for driver use, why not enhance the
-performance for all callers?
 
--T.J.
+On 2026-04-21 17:12, Alex Hung wrote:
+> 
+> 
+> On 3/30/26 09:34, Harry Wentland wrote:
+>> Previously we checked the plane_state->state's plane_color_pipeline
+>> client config when determining whether fill_plane_color_attributes
+>> should run, i.e., whether we had a plane color pipeline and should
+>> use that code for handling CSC properties, or whether we should
+>> look at legacy plane encoding and range.
+>>
+>> The problem is that we also call this during commit_tail, during
+>> which plane_state doesn't have the state backpointer. This meant
+>> that during commit_tail we'd look at the legacy plane COLOR_RANGE
+>> and COLOR_ENCODING values and overwrite what we pulled from the
+>> CSC colorop in atomic_check previously.
+> 
+> A nitpick - should this patch be squashed into earlier patch to address the problem earlier?
+> 
 
-> It would be great if the community could be more welcoming
-> to developers who are just getting involved, rather than discouraging the=
-m.
->
-> Apparently, no one can control whether the source code of those kernel
-> modules will be upstreamed except the vendors themselves, but products
-> can still benefit from the common kernel.
->
-> Best Regards
-> Barry
+That previous patch was merged with the initial color pipeline
+patchset. The problem only became apparent now when enabling
+YUV content.
+
+> But that's not a real problem since the entire patchset will be merged together.
+> 
+> Reviewed-by: Alex Hung <alex.hung@amd.com>
+> 
+
+Thanks,
+Harry
+
+>>
+>> Instead pass the drm_atomic_state in explicitly and check that.
+>>
+>> Co-developed by Claude Sonnet 4.5.
+>>
+>> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 12 +++++++-----
+>>   1 file changed, 7 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> index a0d4ab4590e1..c3c6211d15cd 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> @@ -6006,7 +6006,8 @@ static const struct drm_encoder_funcs amdgpu_dm_encoder_funcs = {
+>>   };
+>>     static int
+>> -fill_plane_color_attributes(const struct drm_plane_state *plane_state,
+>> +fill_plane_color_attributes(struct drm_atomic_state *state,
+>> +                const struct drm_plane_state *plane_state,
+>>                   const enum surface_pixel_format format,
+>>                   enum dc_color_space *color_space)
+>>   {
+>> @@ -6015,7 +6016,7 @@ fill_plane_color_attributes(const struct drm_plane_state *plane_state,
+>>       *color_space = COLOR_SPACE_SRGB;
+>>         /* Ignore properties when DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE is set */
+>> -    if (plane_state->state && plane_state->state->plane_color_pipeline)
+>> +    if (state && state->plane_color_pipeline)
+>>           return 0;
+>>         /* DRM color properties only affect non-RGB formats. */
+>> @@ -6055,6 +6056,7 @@ fill_plane_color_attributes(const struct drm_plane_state *plane_state,
+>>     static int
+>>   fill_dc_plane_info_and_addr(struct amdgpu_device *adev,
+>> +                struct drm_atomic_state *state,
+>>                   const struct drm_plane_state *plane_state,
+>>                   const u64 tiling_flags,
+>>                   struct dc_plane_info *plane_info,
+>> @@ -6148,7 +6150,7 @@ fill_dc_plane_info_and_addr(struct amdgpu_device *adev,
+>>         plane_info->layer_index = plane_state->normalized_zpos;
+>>   -    ret = fill_plane_color_attributes(plane_state, plane_info->format,
+>> +    ret = fill_plane_color_attributes(state, plane_state, plane_info->format,
+>>                         &plane_info->color_space);
+>>       if (ret)
+>>           return ret;
+>> @@ -6189,7 +6191,7 @@ static int fill_dc_plane_attributes(struct amdgpu_device *adev,
+>>       dc_plane_state->clip_rect = scaling_info.clip_rect;
+>>       dc_plane_state->scaling_quality = scaling_info.scaling_quality;
+>>   -    ret = fill_dc_plane_info_and_addr(adev, plane_state,
+>> +    ret = fill_dc_plane_info_and_addr(adev, plane_state->state, plane_state,
+>>                         afb->tiling_flags,
+>>                         &plane_info,
+>>                         &dc_plane_state->address,
+>> @@ -9984,7 +9986,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+>>           }
+>>             fill_dc_plane_info_and_addr(
+>> -            dm->adev, new_plane_state,
+>> +            dm->adev, state, new_plane_state,
+>>               afb->tiling_flags,
+>>               &bundle->plane_infos[planes_count],
+>>               &bundle->flip_addrs[planes_count].address,
+> 
+
