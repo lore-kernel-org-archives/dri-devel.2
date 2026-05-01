@@ -4,69 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09268FF886F
-	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 01:42:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6ABF5FF886F
+	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 03:26:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1CB610E4D1;
-	Fri,  1 May 2026 01:42:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8532610E0E0;
+	Fri,  1 May 2026 03:26:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DeR2BoTw";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="DVgTp1nx";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9F8510E4D1;
- Fri,  1 May 2026 01:42:39 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id AD4DF6015B;
- Fri,  1 May 2026 01:42:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBC5FC2BCB3;
- Fri,  1 May 2026 01:42:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777599758;
- bh=s5Avm2OmpzdNLOwnBT2sIFLcF3ONT0lruv1PFQd8FBA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=DeR2BoTwVYKieU0M5pjmAwUb/bVDgXlJr4hntEgrSPcBlfF+LITJrVSOc2N9+VRmS
- ekYnQf+bCmDnsULRliNU29pq8gypvns0TPs06Vh5mnnkUcrtfzxhA8GcBhJV4pIxIC
- bGC/E4sOA9Rmf3sALlgnTRrMM79+cnjJuhiotZxPE53FEvdyHycwOGPwMAW9sHzdKq
- 88GinW/iJhP6YB6ZFqZQudA6uurILRnAf++59hKcxbNcWrGMQnXTRWbZQQigi4/DAC
- vZwW2RSR6Pv/Y/1Ct1hJooxdh69EwpD1d9gzzaEy9r08P8mMJm/Wq6hzhqGDyQIaKt
- gQEkmpv574rQw==
-Date: Fri, 1 May 2026 11:42:19 +1000
-From: Dave Chinner <dgc@kernel.org>
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Dave Chinner <david@fromorbit.com>, Qi Zheng <zhengqi.arch@bytedance.com>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Carlos Santa <carlos.santa@intel.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Daniel Colascione <dancol@dancol.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 0/6] mm, drm/ttm, drm/xe: Avoid reclaim/eviction loops
- under fragmentation
-Message-ID: <afQE-2JOzfOm8enM@dread>
-References: <20260430191809.2142544-1-matthew.brost@intel.com>
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013034.outbound.protection.outlook.com
+ [40.93.196.34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 301A010E0E0
+ for <dri-devel@lists.freedesktop.org>; Fri,  1 May 2026 03:25:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YhvThDwo64H3PTbX75tD1gG80H0D2vv5W8Y0tzSz6w9nuHpQItVPlgRxwWBpSVVXR37JSMxV9OR3AgJqTWKml5j66Aqy9X50K2zqc8lNBynwQt1HGcOdDh/FD5yoO2ZBhKwUEZZnsRRGaNBXNtnq6PKQAI/CAyVx9WOxjkBWMrz7FGqOu2HF+tUlV2IxGL8BrXcMf+0vyqkkZ5gLwz5WwpdTg8dybjbmIYUXBmscdVahJRhWla8ZPphNXi1XlqufUv72xBLsDQMETwNcogArMCNEcg7wBXj9Evzaw6X2hBdNfIV65oNY9A4T/TJ8UVd/gUTaksk5uAcdVqBXDPH3jg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LCM/RSp9P/1w5lbIa41ts1TDKQGRm6P9r53yJu7UTUo=;
+ b=ZPQeljS0N4UpWkI05t4EMcxsF55MLpon3m3GdhPM26zsjBsbm9E6m2KONaS77RZFDlyjtvJ0NLnYAvvFcn0OAuQ1wYuSHexIRxDcLIIurcRzv+Q+uQdvmQcezhxl2WVM5ns/y82FfFBhibowmSMydsjjNyy4ftF3oY8ZCZ5mJwPCoqq0Ispq79DRxbX1lij+x1C0+dBm3EurviuF1sz2L8ukIIi9PmWQnOEq+wYH9kk4d8piybfI8uyIO1DqEARF5e7ntlMQXbQsTGYJEgxhz672VbSjYk9teDGQzwbo/dqObPwu+KgpuuSD5naOMKOmkFUcGciQm/c3wbkXIwhoGA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LCM/RSp9P/1w5lbIa41ts1TDKQGRm6P9r53yJu7UTUo=;
+ b=DVgTp1nxwu4nl09g+Vei8kICK2tZHHnxdxvmHSEtrV/ys7stvwQxVAUL9beUpyuH7gtwKuXN44NRCsCMgZzbynAV/WgmnUxRaM5s7sHuDKAJRZHB64KHE9/VqsZYKieCmNJfTEYz7GXQb4HjTmNPGnf1VjMQwLR0p7ukdYSJhzBaPui/3Dy1lRE3mieIUWxxCyinh+hOHNJokN0cOYwtA/l3xGntf/k6k+exjfeJ+4264M9C3g+VWP01Qu9Pu2CttFiw9L7y1RXk1evlyQVFhLrabCXfM4WVGL5jU5QtSrJI+0Ii6iigNKAzBW29JFj/v5QxOuIv5w/8L2NcZ0G6bw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by SJ2PR12MB8689.namprd12.prod.outlook.com (2603:10b6:a03:53d::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.16; Fri, 1 May
+ 2026 03:25:52 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.20.9870.013; Fri, 1 May 2026
+ 03:25:52 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 01 May 2026 12:25:48 +0900
+Message-Id: <DI70PV5V3W38.ZVD5ZE6027SD@nvidia.com>
+Cc: "Miguel Ojeda" <ojeda@kernel.org>, "Nathan Chancellor"
+ <nathan@kernel.org>, "Nicolas Schier" <nsc@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
+ Krummrich" <dakr@kernel.org>, "David Airlie" <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>, "John Hubbard" <jhubbard@nvidia.com>, "Alistair
+ Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Zhi Wang"
+ <zhiw@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>,
+ <linux-kbuild@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH 3/7] gpu: nova-core: rename module from nova_core to
+ nova-core
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Joel Fernandes" <joelagnelf@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>
+Content-Transfer-Encoding: quoted-printable
+References: <20260430-nova-exports-v1-0-7ca31664e983@nvidia.com>
+ <20260430-nova-exports-v1-3-7ca31664e983@nvidia.com>
+ <e0301888-940a-49a4-8a3a-47960162819f@nvidia.com>
+In-Reply-To: <e0301888-940a-49a4-8a3a-47960162819f@nvidia.com>
+X-ClientProxiedBy: TY4PR01CA0043.jpnprd01.prod.outlook.com
+ (2603:1096:405:2bd::16) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260430191809.2142544-1-matthew.brost@intel.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|SJ2PR12MB8689:EE_
+X-MS-Office365-Filtering-Correlation-Id: 71da6506-7a30-498e-3eb2-08dea731589c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|10070799003|1800799024|7416014|376014|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info: lRYkaqFeFbDDy77Dq+HQdBlZEWffOlgmK3oqG0nb5dfsH7hEcR+ldTnGw7neWieMN/gQECuBuqPEkkXT/y9JHBDC2g4EYAb7FPcjBMD00QSOpWY2KXadJBQjt9x32doVSZKvjCptRV7FsrLrbYjYwg8IxXmuKK9IBvO3PhmVrJRr5pY2hty2qBQ3cNyOF8tj4h9IXpLKaJeZE2pZ2KeugZBexS0kKJSYdLeIPWoLbrA0GUdaYx/drhfJrBFcYUa0N+BqOYOIdr2vR66k7eX8v7mC/1wVT3m1R9rrEBgm/GDSZCNW5zlmRFouRhK7xIXzOqyOJxxwqqKLDWvKXwjrxLHcWKGQDPU1NtTLX08zZ8g5WciADO6u9n15aU7MoTyPM2Dlia01VY9H2FU/5JomJcctHiDa4FUlY+EilcK8cDP8kpwjUB8QnW25Fu9mr+T3/8oQT35450jKunfVahHYJRWzw5Xd2tk0Nq8/TXX++AelJZ1NOPhgcZ0023wt5fPL+08KPJ6J6mp09pQh4H+7g60XLakJZFJYtfpj9nGS5bxCmyHcK+abcVTBlynIjwSJPyLkeBop1dS5wjbnqlLQ6Ihdr6sLvExMDU1KiPnWJ6P0Bib3XY/trTEwiahmce+FR1PWjjmm3hjpkLd+Qohbb/cxcB0EevWx8omoVZ720f/ef74BTxRKJiCQb3Z+fN7N
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(10070799003)(1800799024)(7416014)(376014)(18002099003)(56012099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QWpOUlJIeGpSMm5HSGtyQkNvY3ZZbmlRbmtRWTdjSHE5NUZzckIvZnZyb3hX?=
+ =?utf-8?B?UTUvZTArMkhKS2tnYjlYWnl2YXkrbnRPbzFEUURBeFQwVGIxcmVUSlFBTnJ1?=
+ =?utf-8?B?MzlTVE5rR1U2OCtiS0Nlamx0OFlwYURKVlJPaWhFZlpXdmRWeGJkbWl5UWNL?=
+ =?utf-8?B?YW1mcURTSU8wQzd2MThpV2phTTVBZHpnaEhQRnVlU1ZCU0MwT3VneXAvS2hV?=
+ =?utf-8?B?bXIzSnAwZklLRmp6NjhIaDc4Yk1MSmE1bW16WWJLTmg5azFIZHVIU3lFWUxQ?=
+ =?utf-8?B?a0tnN3czdTFkL2VBcFN3cHRmS3hkSTlDeHdhSDdTQUlLZnRoeHlydGo2c2JE?=
+ =?utf-8?B?OFdqOGhuWTVrRGorcmN5V1ZmWWFWZHczY3d0TUtQbHhxcFZtbW5wcExnemNH?=
+ =?utf-8?B?QkFyNzFIREpib1J0QnBEa1B2a0dkQUQyV1VFNExUNG5pazZxTVlnWTE1ZENZ?=
+ =?utf-8?B?Z016cEhreEpkd0pkQjY0STAzNHEwRWxENktsQ1F5aGlrZDZxbGtrdDIyV3d6?=
+ =?utf-8?B?Tll6Zm03NTNvcmdCc1BUS3VxVThDY2pjZGxBYnk3ZFUyMnBSMXcwRlNERytB?=
+ =?utf-8?B?VVc3a2xSYlY0OFdzZDZmTkdmN00rNi9TVVNzWDh0Y2szdmhrT2wxelZlUzMx?=
+ =?utf-8?B?aFVaRmQrN2FXYTN1M1BkYlQ2KzJsTzlIUjkrQzVmNVg5aEE5RHZWaXh2c0J3?=
+ =?utf-8?B?MzdVRGtBVkppQUw3L3lDOG9PcldVaFVkVTh3aWw1cVhsUG1YU0JubUpqdXhC?=
+ =?utf-8?B?TElhblY5RWoydXNvQUh1Z0ZtNXY2V21ocUVpVDF2RHdqMFYwdjRnY0FQclNn?=
+ =?utf-8?B?eit5U0VlUGtpU0ljL1NmTTllNC83cHZMTGpQeENjMWdRd2NTMkRYRXRUaWNy?=
+ =?utf-8?B?TjB6Mk1WMU96QUpZSFpsTHo3KytaUThrR1FTSm5nbWk3S2ZSRUVFMnlZS2FW?=
+ =?utf-8?B?RndiMFRHVE5nMUw5dmhXdFIwNXpSOXVUemFCekJwcU1kaWJoZVVrYjRoTGY5?=
+ =?utf-8?B?TlU2VUJBTkpIZzdvbkFqQ0lpVWExbVZQQnBJK3lDUHo4Yno5Szd0ZU1aS2s5?=
+ =?utf-8?B?K0NNdmRCY3lCbTkwMlNmekRwNEx0dkhVWCt4TFVPUERRbmpYdG5zZ1FtR0NY?=
+ =?utf-8?B?aFJxUk1teWxlU1l2K2taV290OHYyNFdZcTh0SGN5SGIyT3o0QnZXaU1TdkJp?=
+ =?utf-8?B?ZldGcTQ4VUYvNHJ3N1Bkdng0NloyMVI0bVdjaUxJV3laQXdpS0ozdTAwbVFK?=
+ =?utf-8?B?R0ErM2orRWZRRUJ1b3BQYldjYzVZUk1zSDd2bmxhMkt4MG1CNzVzcVRHb2JK?=
+ =?utf-8?B?WG5LV1o4alk2Zm1BKzBZdldJcDkzVnVORlh6S3lHcUJqYzRENnpBR3lyUG5K?=
+ =?utf-8?B?K2J1azZ0eTNTcjhHcDFwQ1duNEJTU3pRL21JQ3Z2RWNKS3NRMHNiaVduV29u?=
+ =?utf-8?B?MU44c1laQUgxYWZoYnBUVGFPcHVWWk9HNGg1QTY0dlZHN1grb01aWTBkSDVS?=
+ =?utf-8?B?cENCRGVJREthc0thejdRMEw1Y2tjZUt1TVBvQmNxQ3JsaFJ3V0ZmME9Cc3Nk?=
+ =?utf-8?B?SUZwME1rQW13NEJQL2VLeDRQcUdaUE5mZXJGUmNiWWQyamEvbXk4K1lPazBH?=
+ =?utf-8?B?ZU5VcmxYemFISUJaUUZKdnczckpVUTFEWTBYTWRFK25CSk1OMHBYUkNjeW5J?=
+ =?utf-8?B?L1NLWFZOWmRWNlllWFdTZ2JKM0JLVDhCUEk2ZXdFUytxNDBsYm9kMFlpcSsv?=
+ =?utf-8?B?aFFnRmVaYkdZd1YxL1pDSHZLVHZja3VISTY2L2lySUFub1RzbkRxQ1A2d3dN?=
+ =?utf-8?B?RHU0bUN0aFVCNFVBVnlBU1IyN3VEUWZRMHVtMUdFNy90RTFPZ0dHZkx6MFdo?=
+ =?utf-8?B?NUp3Zm01Z1JBTmV1T2RwSlRJa0xhSTFiODd3YWt3S0RHUjZOeDdLWnl4cWpR?=
+ =?utf-8?B?OU9mSXRQWFNKclFTNjBYUXNkdVduaVMyYlJOMlBzRUZ1Mm5WRkRRVUNmNUc3?=
+ =?utf-8?B?L1ZPQWxZRzNEMU9FQUZoc1QxNFhoMjkvRWZsK0NZLzhHZFg1TTBHTTd4d05a?=
+ =?utf-8?B?UEh1L3QwUFNIWWFJVVcwYzBwSGZTZTJrQnBhMGNZOVQ0TGV5SWszV2h3TXVK?=
+ =?utf-8?B?SmtCRnN0eVV3Mm9EeUZ4cUtIVzNwc0QrUlJNTVNycWNEdklXWVNZKzFVMDFZ?=
+ =?utf-8?B?VENUQnVKMytEbDhZWjA4ZFZ5d1BoUXBzTzZ0SUJPRnlyVWZ6MEtFRlpaTmlj?=
+ =?utf-8?B?bnJUbGZoUmRiZjR4M1hyVUNvQ2krMldiaXdBWDVkUWh1aFFveVRsdzVPODlT?=
+ =?utf-8?B?TkR0SlFqbVM1Z2lzenBzZ3VCWk1uYmxUbENhS0UvYVhFRHZpNWxub0Rvajdj?=
+ =?utf-8?Q?LpxMdsX4B2uAIQ0aTrSnDDOwfMdKw9q9TJBs9/bnkVWXb?=
+X-MS-Exchange-AntiSpam-MessageData-1: 0yMGBgToh1U/9w==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 71da6506-7a30-498e-3eb2-08dea731589c
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 May 2026 03:25:51.8674 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JWU3NmoJJMleP4+1fKACw1WvPFkXgIFfeUff3042adCYoBPM6lslIodumtWaXCHjOSY5vwY4zcVNB8/43AI38A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8689
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,83 +152,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Apr 30, 2026 at 12:18:03PM -0700, Matthew Brost wrote:
-> TTM allocations at higher orders can drive Xe into a pathological
-> reclaim loop when memory is fragmented:
-> 
-> kswapd → shrinker → eviction → rebind (exec ioctl) → repeat
-> 
-> In this state, reclaim is triggered despite substantial free memory,
-> but fails to produce contiguous higher-order pages. The Xe shrinker then
-> evicts active buffer objects, increasing faulting and rebind activity
-> and further feeding the loop. The result is high CPU overhead and poor
-> GPU forward progress.
-> 
-> This issue was first reported in [1] and independently observed
-> internally and by Google.
-> 
-> A simple reproducer is:
-> 
-> - Boot an iGPU system with mem=8G
-> - Launch 10 Chrome tabs running the WebGL aquarium demo
-> - Configure each tab with ~5k fish
-> 
-> Under this workload, ftrace shows a continuous loop of:
-> 
-> xe_shrinker_scan (kswapd)
-> xe_vma_rebind_exec
-> 
-> Performance degrades significantly, with each tab dropping to ~2 FPS on
-> PTL (Ubuntu 24.04).
-> 
-> At the same time, /proc/buddyinfo shows substantial free memory but no
-> higher-order availability. For example, the Normal zone:
-> 
-> Count: 4063 4595 3455 3400 3139 2762 2293 1655 643 0 0
-> 
-> This corresponds to ~2.8GB free memory, but no order-9 (2MB) blocks,
-> indicating severe fragmentation.
-> 
-> This series addresses the issue in two ways:
-> 
-> TTM: Restrict direct reclaim to beneficial_order. Larger allocations
-> use __GFP_NORETRY to fail quickly rather than triggering reclaim.
+On Fri May 1, 2026 at 12:07 AM JST, Joel Fernandes wrote:
+> On 4/30/2026 10:55 AM, Alexandre Courbot wrote:
+>> Rename the kbuild module target from `nova_core.o` to `nova-core.o`.
+>> This avoids a name collision between the module target and the Rust
+>> crate object (`nova_core.o` from `nova_core.rs`), allowing the driver to
+>> be built as a composite module.
+>>=20
+>> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+>> ---
+>>  drivers/gpu/nova-core/Kconfig  | 2 +-
+>>  drivers/gpu/nova-core/Makefile | 4 +++-
+>>  2 files changed, 4 insertions(+), 2 deletions(-)
+>>=20
+>> diff --git a/drivers/gpu/nova-core/Kconfig b/drivers/gpu/nova-core/Kconf=
+ig
+>> index d8456f8eaa05..f918f69e0599 100644
+>> --- a/drivers/gpu/nova-core/Kconfig
+>> +++ b/drivers/gpu/nova-core/Kconfig
+>> @@ -14,4 +14,4 @@ config NOVA_CORE
+>> =20
+>>  	  This driver is work in progress and may not be functional.
+>> =20
+>> -	  If M is selected, the module will be called nova_core.
+>> +	  If M is selected, the module will be called nova-core.
+>> diff --git a/drivers/gpu/nova-core/Makefile b/drivers/gpu/nova-core/Make=
+file
+>> index 2d78c50126e1..1f794baadc86 100644
+>> --- a/drivers/gpu/nova-core/Makefile
+>> +++ b/drivers/gpu/nova-core/Makefile
+>> @@ -1,3 +1,5 @@
+>>  # SPDX-License-Identifier: GPL-2.0
+>> =20
+>> -obj-$(CONFIG_NOVA_CORE) +=3D nova_core.o
+>> +obj-$(CONFIG_NOVA_CORE) +=3D nova-core.o
+>
+> I think a more descriptive name would be better than relying on dashes ve=
+rsus
+> versus underscores, that's super confusing, how about:
+>
+>> +
+>> +nova-core-y :=3D nova_core.o
+>>=20
+>
+> Lets make this: `nova-core-y :=3D nova-core-mod.o`?
 
-NACK.
+We would have to rename `nova_core.rs` to `nova_core_mod.rs` though.
 
-As I have said to the people trying to hack around direct reclaim
-for high order allocations being costly for the page cache, fix the
-problem with direct reclaim. (e.g.
-https://lore.kernel.org/linux-xfs/adLlrSZ5oRAa_Hfd@dread/)
+But your argument has a point generally speaking - if there wasn't
+any underscore in the module's name, then we would have to pick a
+different name anyway.
 
-We should not be hacking around a problem in the mm infrastructure
-by changing allocation context flags every high order allocation 
-call site that needs high order allocations. Understand and fix the
-infrastructure problem once and for all.
+Another option would be to use the Rust-idiomatic `lib.rs`. That's what
+the kernel crate and others do.
 
-> Xe: Introduce a heuristic in the shrinker to avoid eviction when
-> running under kswapd and the system appears memory-rich but
-> fragmented.
-
-NACK on architectural grounds.
-
-Custom heuristics in individual shrinkers to decide whether the
-should do what the mm subsystem has asked them to do has -always-
-been a mistake to allow. The mm subsystem makes the decision on how
-much cache shrinkage needs to occur, the shrinkers just do what they
-are told to do.
-
-If we have a problem where a workload causes excessive shrinker
-reclaim, then we need to address the problem in the infrastructure
-because excessive reclaim affects the performance of -all-
-subsystems with shrinkable caches, not just the TTM subsystem.
-
-As it is, I can't review what you've actually implemented because
-you only cc'd me on a single patch in the series. In future, please
-cc me on the whole patchset because shrinkers need to work as a
-coherent whole, not just in isolation....
-
--Dave.
--- 
-Dave Chinner
-dgc@kernel.org
+Danilo, WDYT?
