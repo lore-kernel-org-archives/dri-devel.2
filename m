@@ -4,102 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D25B7CD3426
-	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 07:15:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93F9EFF885A
+	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 08:09:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C63BC10E514;
-	Fri,  1 May 2026 07:15:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82E4B10E146;
+	Fri,  1 May 2026 08:09:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fairphone.com header.i=@fairphone.com header.b="RIJwXlDO";
+	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="kUVli+jy";
 	dkim-atps=neutral
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B12E810E6DA
- for <dri-devel@lists.freedesktop.org>; Fri,  1 May 2026 07:15:43 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-4891f625344so18176675e9.0
- for <dri-devel@lists.freedesktop.org>; Fri, 01 May 2026 00:15:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fairphone.com; s=fair; t=1777619741; x=1778224541; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=o5V6knZIhB7/WOjEgsyLqxPXBwOa+O33dpe+cxcVxdw=;
- b=RIJwXlDOSGF5NO6+pR5lGc+BDbr7bGPBLX+B9v8KJuYdZXxe43csFWH+ZHZ/ZL2tSw
- tTpXehRV2a6osm1fh4J8AAkSz51MhFHs9jlC93/HPq1PKOf1LmWIBUV945htjWJKDBFO
- X8hzCYxwt+M/p0q0OiNczXjVPvmmZqEoi12i2XobXH8fzi1hTrlIYUzmsxIndGLRFSEp
- VJMDtgdz+fPHKdLcIaAN2aUuBG4S9t8eV/GL7sp/wYIzSalnLj1q0N+IsyW1VmTVS8lT
- WKMGQ4W6XVi1gIef0Nk1+gfojuf0rZkZA5oN/Dp2Q83vs2Qo3bYh9oW7C/0hseJp/FX8
- EmLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777619741; x=1778224541;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=o5V6knZIhB7/WOjEgsyLqxPXBwOa+O33dpe+cxcVxdw=;
- b=WdktB4sKsWq6eyi7zGXUdrhj/Ej/S0UWLMU7M54udxXaWV4rLhQzrmy7qvK4VFJwZn
- 9V3A7Cgj90gCg2bUNPeAPsMaA4A3chHjVGUwG4pFG46hEZKx44UgjMRP4kX5wL2+5guE
- 1h/cOaiLcTjKXB9mUIUXqagyUuZc5BORc0GYXXnwwdccYM+t/aH6d2Bn10oxBgr+buMh
- y0pwOkxDvkuYFghLwEgZOoVDoUBpNCRm3G7TNBPYS07mf+6g6hp7yufdyhLWGeAWqCG8
- 4ljJpdFf8FPnNNPTV3WfpTCLjWNeVdVRie8bL6eGR+6U16rQX9NJ8DDnr3NARr+awhgT
- LHrg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/AkCD+6ILQV1Fob6xoJnDDyjE0qq7Jmk4/DgRuFWG6GDrJmC+Dd484KFIw+HqcWu8DEiyKwqrd9ZA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxt0jCyLXvTimzb8TM1c5lrlN9hp2lFxeVKHHhWC2lN7pSmxnue
- QmORn2iz0h5aroG5zzQOF/zkiIrFHNEE2aJ2ssWFbU1NzrTUozFJB9LElidyPjjIeSM=
-X-Gm-Gg: AeBDietcvu5BsVO53EAAgFmT4p2UjnoCEUbrkMTYYy09IeTa3aNDpW86fmrKZPvCh2d
- KQMYSnE+G0J2pn7gqbs6oDxnoC10Hzt5+BRaCpInycyXRN3p05Jr2701xhTET/Kev+p2S5Qh9+X
- +knwdDxU6JPkXqH35qTm1hRy6ytw2C1lFNmnu1RzZA0ev0yQUW8OQoHnJqMnIGvGMva9t+uskdg
- Fdl2dwod20XF821UFHP9OmlUc2k6Bft7BIyj0kq1NuzfplbeSPHpTQIvs1ahXOzGO6yw2KtNoJ9
- UsIrEDWP8yR2F8/FS35nFJ6YMC1muCBHsgoSioXEGaj2tlDDftZTQK0GyQUMy13dmwxnEqp9G8N
- C+YXUC7bxjM7DMdUY6UVUhKVmAWc/eAsgiVk0Gf1SgPa4POgE5EJpk/S/ruefnWTGLMum94Y2PS
- kQ6/Ok1fN0MFIxLJipht3M86/DLHbgT4oynATjawjLqkOXt22AZEBw20HzIMVF4WajVMendHA/y
- /1pPn6p
-X-Received: by 2002:a05:600c:8707:b0:489:1baf:8c03 with SMTP id
- 5b1f17b1804b1-48a86084573mr100270135e9.11.1777619741165; 
- Fri, 01 May 2026 00:15:41 -0700 (PDT)
-Received: from [192.168.178.36] (046124199213.public.t-mobile.at.
- [46.124.199.213]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48a8eba8487sm29668085e9.11.2026.05.01.00.15.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 May 2026 00:15:40 -0700 (PDT)
-From: Luca Weiss <luca.weiss@fairphone.com>
-Date: Fri, 01 May 2026 09:14:51 +0200
-Subject: [PATCH v3 9/9] arm64: dts: qcom: milos: Add display (MDSS)
+Received: from OS0P286CU011.outbound.protection.outlook.com
+ (mail-japanwestazon11010056.outbound.protection.outlook.com [52.101.228.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A586C10E146
+ for <dri-devel@lists.freedesktop.org>; Fri,  1 May 2026 08:09:27 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NnGpEexZ6Nbq02slCmEJEHCLe6MoLRVD7aSNB8UQN/8kJnC5mp5xgHnaWGHelq779W7bQA45QaE8Dn4NXOnz8Dv7SF0cS1h5WofC0mkyCl8VxzqUrjv2U+ACMF+ettpwEo94mhbsnMVA0S8SdNSB85dqTz529I0yXzAzgMxnE7y9EG5k2A7Ug3ckCDw5+4yfn6IeAawspQbWvwMA0UDi0qT0nYbnr9N3l0QrDc8Jik9HWFJ3m+P2AOaMImHfRL7SqD6rW2Yq55EGhocOepsRk6AC45uMorJyoNNvWfr21bfPKmXRT50qx5rDPeq7Afp9SrVDySqEAzhWqiAuuQLd9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7vBf83+ueHBXrNb+AWSR8SvOWXJrCgiMnQ1i3XctFiY=;
+ b=CG0V6GwZU9UfIVvqrakRzXPuo/elWYj/6JrUcJmnOcIBVgwuoh3yQ4cQRAS7+uqL8EPO9KlSvv6zsDh2IuhWCcYge5AiRBSJZ5Qaq/1fNNZBGs4b71byOV9V9h9LxLX8sy7jr7s26yTugMFJHPYZ3mTcaqsdXTgY/j5+pCt3wKIzGVIhqzhP5acTToeqfdZI89MSIRv5z2ySprKQ58W3ym8ZJSRk8VmXrHyCVar9AHEfnBveIt8V/Sue/Lzz3v1HQHV+GQ0+u2G3vlOf4c+J5exz8xwlCLiAC2/HglFNjRVsnae2+/9Tl9H7KXJSTOhXMo4U56JYtJWo+faXqGJM2Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7vBf83+ueHBXrNb+AWSR8SvOWXJrCgiMnQ1i3XctFiY=;
+ b=kUVli+jyM0E7hY8tB8qfQkOoT0JEQIsAegNnXKVew59vc36uTODxFprWdXLhl4ox/vufWLVY5RkuRdTxJdBGdCzwmfiw2HKuu5ZwWYhHGT7uXhp/ILX9kXYGGD9LJvwwzfEVNVvW0jobGOSZJiCHYpDMGHuaoeaXDX8SphsIN0w=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from TY6PR01MB17377.jpnprd01.prod.outlook.com (2603:1096:405:35b::6)
+ by TY4PR01MB16984.jpnprd01.prod.outlook.com (2603:1096:405:337::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.18; Fri, 1 May
+ 2026 08:09:23 +0000
+Received: from TY6PR01MB17377.jpnprd01.prod.outlook.com
+ ([fe80::f373:26d6:86c4:6aa3]) by TY6PR01MB17377.jpnprd01.prod.outlook.com
+ ([fe80::f373:26d6:86c4:6aa3%6]) with mapi id 15.20.9870.016; Fri, 1 May 2026
+ 08:09:17 +0000
+From: John Madieu <john.madieu.xa@bp.renesas.com>
+To: biju.das.jz@bp.renesas.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, john.madieu@gmail.com,
+ John Madieu <john.madieu.xa@bp.renesas.com>
+Subject: [PATCH v2] drm: renesas: rz-du: mipi-dsi: drop duplicate
+ platform_set_drvdata() call
+Date: Fri,  1 May 2026 08:08:18 +0000
+Message-Id: <20260501080818.955914-1-john.madieu.xa@bp.renesas.com>
+X-Mailer: git-send-email 2.25.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: FR5P281CA0009.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f2::8) To TY6PR01MB17377.jpnprd01.prod.outlook.com
+ (2603:1096:405:35b::6)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260501-milos-mdss-v3-9-58bfc58c0e13@fairphone.com>
-References: <20260501-milos-mdss-v3-0-58bfc58c0e13@fairphone.com>
-In-Reply-To: <20260501-milos-mdss-v3-0-58bfc58c0e13@fairphone.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Jonathan Marek <jonathan@marek.ca>, 
- Krishna Manikandan <quic_mkrishn@quicinc.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Alexander Koskovich <akoskovich@pm.me>
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- devicetree@vger.kernel.org, Luca Weiss <luca.weiss@fairphone.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1777619720; l=6617;
- i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
- bh=ObeaTI9oGiLe42YJXwSvm93zhEz3BDcXzX0FYlJcloY=;
- b=zj1t8gQVCHYk3oC6SAPsn7UO6RJgw4YGPsdhnB/J6RQCEAF3yS3JGy0esTz0d8UzNpzwjw6y9
- /8Tr3iiNnzrB7vU0rwmU1M7pWpceKfc99fqrABHozUciNc0mu9Oc+Qv
-X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
- pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY6PR01MB17377:EE_|TY4PR01MB16984:EE_
+X-MS-Office365-Filtering-Correlation-Id: 927a8cbd-4de8-4737-b5bb-08dea758f051
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|52116014|38350700014|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: /Jj3JuBKq4B3ikOM574AFs+sw2fhzQlPJOqJVJ+HjUQnk4PQ9YQo32808lbLlbP8zXIfxDAOi1QNNV9hKdOqubVsBa0UqbFyli4K2oFW6nwPCrqrInVh+O8Fli/x/Qao51xSZLZK5NoQ8rfagR05bVGPS0tkxZ0nKQ71NOlk35zJE/2IKjrNMNk7jNwIE2SgB8S+FLenSitTo1tR2wPzSF+8GXFSs/2gnjoaHJrzOfB5rBQhTObmqwAnGJUwrOuY9rp4rO3D58wj4Ah1p9aRO/r7AlyFRBocOLQLXw/ur/sCEbU7DlG1YNsZvck4puPIY/95yaMReoyU67YHS413F9gSLKQd1NZOV1Z2grF0ZtR7zGwINCEFF69Z6ELugJPNlEKGE8oCnjVr3aWQGRG86anqW7sOQKvbK9x26GAytWYf52SmwnYuTMbAsW4U/GmbPXqNulWty5fgVtCG+E62u8AQgPUi7Bs7TupoLbaU/CQShEUGxdo6i6o8/gj6dqxWa/adzkdA8UiLm+5VaFVkBIxju9u+Hs5TDvuDjmeBlWaW0Y8uG3vcTKUO4cVA4BVKZ+pg46HgjGEh1QTVqZcMyyJy/kowmpmRk/CxpT/3xPsHiKx3v6Twlo3oBEUplIJ0dk2X+NcsT91Kq4gzBp1QJxF+zbBNak+Mas1pC55i5donYwrpO+J/Ue7yB5AVRdPjHfaIBlaVVLyNxY3zwrjsglbb47WtJy5vnSoo20sktcMVx27iw202dY5ZcDSiz9TS
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TY6PR01MB17377.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(52116014)(38350700014)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ke24jewXqGScUW8v+oaj3ClD2Jexy2qr8iMH1wpIkdKqFCAVzy5Mac1dcNKw?=
+ =?us-ascii?Q?ey9bJVzF8KMQt/j5xdNq1BTEzWliFgLtICVP+YDwmspcqxUboDp0N0oA58aR?=
+ =?us-ascii?Q?k2eT/IiUpEM4reeYywm3RpR6B95dwPzJwJGu8R0MO3aruOlXYC9rnDZJ06B/?=
+ =?us-ascii?Q?GlpSq2k0Mqwxz7oQPIXjKrVRDKrrcNO6dldOvGEVK5NoXH3BoP0xTiG9GeTl?=
+ =?us-ascii?Q?BoZgVSIVvnqC97kQcFhL4WsEiliqxxyUbzNk/u7jxkkByZLVDlOd4JyRLzhp?=
+ =?us-ascii?Q?fQ6ts9GWy6OegSor31Q0qpfPfmtJ/UyFkd93YrodfldpdJZs/Y6x1hbJ09pl?=
+ =?us-ascii?Q?Gx7Uol/cwpE+SFBG4tFcYeQ5VkeLcBrWnuOkw4Fndx0wprm1a4infkch44US?=
+ =?us-ascii?Q?oZyPcLMASs+bae/gaaAY1lXxKH+fqkHHUY2pdTwjmOO8s9aXvxPYG/4fVahL?=
+ =?us-ascii?Q?qdnGQAy0BCw34S6NdOWP0XZZtx2KgOpcPirnj+Cu6SvgxM4j3qCSR3QLenQ/?=
+ =?us-ascii?Q?dEF59q0e5/AcGpzEBILLNdafQ0G7Sb1YRRkKWYve3HUTa62BJbrgTjvHOtJa?=
+ =?us-ascii?Q?0UxJkZ+FRxI34ZtOjnXZspWa5Ys1H0ZtdVl+LZ0CdRZIk4EMFgR6qB6hV7Zv?=
+ =?us-ascii?Q?I1hD+mt5MC7YUJadMmkchb8tzFJ+7lFd8nvk+MclMhs7YQFuZ6B5WwoA9YQV?=
+ =?us-ascii?Q?IFHIQxGBbhgLadkSseDE0TSzNJ8IB5ejygsHGMdo2y9Q0y4QePqW4eV4onKD?=
+ =?us-ascii?Q?uoc1T8MARey3OyPkOWm8XpHneX8WD8BTHcelQK2WFvIgMwKM3C62BgPO0nWD?=
+ =?us-ascii?Q?JPgZzqYXpA720U/33uOzS3xFojvQor4GzA687grcwf/GDyLSd2T3//CbgoN/?=
+ =?us-ascii?Q?rnzKKxGyxnlFjN5wK37POWL1od3Tbh0UvXyV6mEF5oTJJlUnj5cI6TjUhcFo?=
+ =?us-ascii?Q?dbRnkKYoAvN3Z+2dut3xn/HlW32KyJDjAzDfGKIEA9Sd5w1+Tq0bgZCJtEje?=
+ =?us-ascii?Q?gLh0nRscbpbmxWuOK/G92ShVxyq7oQ9faa5JiSiBfi0Sjt3apBWp720kXjRm?=
+ =?us-ascii?Q?B+U5RFo0Y6dOoWAMbH7z6DsZ6uVoHgfy4bWmysIlocHL4w/ejMThklrjuEAe?=
+ =?us-ascii?Q?3aw0h4MJvSY3dCMcMe0GaaropirN+dz5pAT6PHQloKHw42Y0SndWrOyfB/J/?=
+ =?us-ascii?Q?MEdH63Eyo3/mJ8P/VIUqRnt3lconbzA5sj57aOy3VAQqMdpwDXwK1kNeQUPC?=
+ =?us-ascii?Q?1R3mNiGKB9dapL8YTjZdvK170YTnKGX5ewNwB2q+iTmQwtdtvBEzMXu2uthk?=
+ =?us-ascii?Q?2LMwX609XU9qti7j9s7ELVSkq5lYW6HcpJzZT8ScnME2KtL911z+quILUPyG?=
+ =?us-ascii?Q?7A020jXkxpKa1hhgbq9DZA//8AsqMzl8e4/elYQOgHbKSSR9YIuzCpdkAztb?=
+ =?us-ascii?Q?2WyU8qQ3L89Ul+d2WY0K3xQw5DYbHFN1sJtooBnr6kGlZFbKVYN+f6jyeDJK?=
+ =?us-ascii?Q?mzWC6E7fS2bIzfmgCC9UO8v4FwYLozZtTZgHQrDJaD8EjvR0XDX5NlvD1FYW?=
+ =?us-ascii?Q?e4+NeHOoiBWmHZuOspi4Ryfua7prqOup5TtiuRklVrqCtkIwTb47YaIPivVg?=
+ =?us-ascii?Q?hwzB3aZZAl4jtaPw/dW2T/21OBRFFqM0PuY8uNAJdTDaldmXTTniTGXlm+/1?=
+ =?us-ascii?Q?6Ve3I6s7sdtKEBBlMGcb5+JMYPgERsopYPA4Ku7lrIfn2QgwYq2UrmPwryEh?=
+ =?us-ascii?Q?saXmfWqWFB8hePCQ0x0b/LFZFuIZJJw=3D?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 927a8cbd-4de8-4737-b5bb-08dea758f051
+X-MS-Exchange-CrossTenant-AuthSource: TY6PR01MB17377.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 May 2026 08:09:16.8506 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YpDzfj/0dtENT1N/KA4tCkV4K2gAPmUXn7YOV2hkLAh+WatVu94eGo/hGjcpPTsCmlvvEWkDcdJhovEX//PAcLL8bvLfDtOG9+npZlJtPX8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY4PR01MB16984
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,253 +127,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add device nodes for display: MDSS, DPU, DSI and DSI PHY.
+rzg2l_mipi_dsi_probe() calls platform_set_drvdata() twice with the same
+arguments: once right after devm_drm_bridge_alloc() succeeds and again
+after the reset controllers have been acquired. The second call is
+redundant; remove it.
 
-DisplayPort is not added for now.
-
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
 ---
- arch/arm64/boot/dts/qcom/milos.dtsi | 211 +++++++++++++++++++++++++++++++++++-
- 1 file changed, 209 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/milos.dtsi b/arch/arm64/boot/dts/qcom/milos.dtsi
-index 4a64a98a434b..1a9b72d61688 100644
---- a/arch/arm64/boot/dts/qcom/milos.dtsi
-+++ b/arch/arm64/boot/dts/qcom/milos.dtsi
-@@ -3,6 +3,7 @@
-  * Copyright (c) 2025, Luca Weiss <luca.weiss@fairphone.com>
-  */
- 
-+#include <dt-bindings/clock/qcom,dsi-phy-28nm.h>
- #include <dt-bindings/clock/qcom,milos-camcc.h>
- #include <dt-bindings/clock/qcom,milos-dispcc.h>
- #include <dt-bindings/clock/qcom,milos-gcc.h>
-@@ -1928,6 +1929,212 @@ camcc: clock-controller@adb0000 {
- 			#power-domain-cells = <1>;
- 		};
- 
-+		mdss: display-subsystem@ae00000 {
-+			compatible = "qcom,milos-mdss";
-+			reg = <0x0 0x0ae00000 0x0 0x1000>;
-+			reg-names = "mdss";
-+
-+			interrupts = <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH 0>;
-+
-+			clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+				 <&gcc GCC_DISP_HF_AXI_CLK>,
-+				 <&dispcc DISP_CC_MDSS_MDP_CLK>;
-+
-+			resets = <&dispcc DISP_CC_MDSS_CORE_BCR>;
-+
-+			interconnects = <&mmss_noc MASTER_MDP QCOM_ICC_TAG_ALWAYS
-+					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
-+					<&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-+					 &cnoc_main SLAVE_DISPLAY_CFG QCOM_ICC_TAG_ACTIVE_ONLY>;
-+			interconnect-names = "mdp0-mem",
-+					     "cpu-cfg";
-+
-+			power-domains = <&dispcc DISP_CC_MDSS_CORE_GDSC>;
-+
-+			iommus = <&apps_smmu 0x1c00 0x2>;
-+
-+			interrupt-controller;
-+			#interrupt-cells = <1>;
-+
-+			#address-cells = <2>;
-+			#size-cells = <2>;
-+			ranges;
-+
-+			status = "disabled";
-+
-+			mdss_mdp: display-controller@ae01000 {
-+				compatible = "qcom,milos-dpu";
-+				reg = <0x0 0x0ae01000 0x0 0x8f000>,
-+				      <0x0 0x0aeb0000 0x0 0x3000>;
-+				reg-names = "mdp",
-+					    "vbif";
-+
-+				interrupts-extended = <&mdss 0>;
-+
-+				clocks = <&gcc GCC_DISP_HF_AXI_CLK>,
-+					 <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+					 <&dispcc DISP_CC_MDSS_MDP_LUT_CLK>,
-+					 <&dispcc DISP_CC_MDSS_MDP_CLK>,
-+					 <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
-+				clock-names = "nrt_bus",
-+					      "iface",
-+					      "lut",
-+					      "core",
-+					      "vsync";
-+
-+				assigned-clocks = <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
-+				assigned-clock-rates = <19200000>;
-+
-+				operating-points-v2 = <&mdp_opp_table>;
-+
-+				power-domains = <&rpmhpd RPMHPD_CX>;
-+
-+				ports {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					port@0 {
-+						reg = <0>;
-+
-+						dpu_intf1_out: endpoint {
-+							remote-endpoint = <&mdss_dsi0_in>;
-+						};
-+					};
-+				};
-+
-+				mdp_opp_table: opp-table {
-+					compatible = "operating-points-v2";
-+
-+					opp-200000000 {
-+						opp-hz = /bits/ 64 <200000000>;
-+						required-opps = <&rpmhpd_opp_low_svs>;
-+					};
-+
-+					opp-342000000 {
-+						opp-hz = /bits/ 64 <342000000>;
-+						required-opps = <&rpmhpd_opp_svs>;
-+					};
-+
-+					opp-402000000 {
-+						opp-hz = /bits/ 64 <402000000>;
-+						required-opps = <&rpmhpd_opp_svs_l1>;
-+					};
-+
-+					opp-535000000 {
-+						opp-hz = /bits/ 64 <535000000>;
-+						required-opps = <&rpmhpd_opp_nom>;
-+					};
-+
-+					opp-600000000 {
-+						opp-hz = /bits/ 64 <600000000>;
-+						required-opps = <&rpmhpd_opp_nom_l1>;
-+					};
-+
-+					opp-630000000 {
-+						opp-hz = /bits/ 64 <630000000>;
-+						required-opps = <&rpmhpd_opp_turbo>;
-+					};
-+				};
-+			};
-+
-+			mdss_dsi0: dsi@ae94000 {
-+				compatible = "qcom,milos-dsi-ctrl", "qcom,mdss-dsi-ctrl";
-+				reg = <0x0 0x0ae94000 0x0 0x1000>;
-+				reg-names = "dsi_ctrl";
-+
-+				interrupts-extended = <&mdss 4>;
-+
-+				clocks = <&dispcc DISP_CC_MDSS_BYTE0_CLK>,
-+					 <&dispcc DISP_CC_MDSS_BYTE0_INTF_CLK>,
-+					 <&dispcc DISP_CC_MDSS_PCLK0_CLK>,
-+					 <&dispcc DISP_CC_MDSS_ESC0_CLK>,
-+					 <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+					 <&gcc GCC_DISP_HF_AXI_CLK>;
-+				clock-names = "byte",
-+					      "byte_intf",
-+					      "pixel",
-+					      "core",
-+					      "iface",
-+					      "bus";
-+
-+				assigned-clocks = <&dispcc DISP_CC_MDSS_BYTE0_CLK_SRC>,
-+						  <&dispcc DISP_CC_MDSS_PCLK0_CLK_SRC>;
-+				assigned-clock-parents = <&mdss_dsi0_phy DSI_BYTE_PLL_CLK>,
-+							 <&mdss_dsi0_phy DSI_PIXEL_PLL_CLK>;
-+
-+				operating-points-v2 = <&mdss_dsi_opp_table>;
-+
-+				power-domains = <&rpmhpd RPMHPD_CX>;
-+
-+				phys = <&mdss_dsi0_phy>;
-+				phy-names = "dsi";
-+
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				status = "disabled";
-+
-+				ports {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					port@0 {
-+						reg = <0>;
-+
-+						mdss_dsi0_in: endpoint {
-+							remote-endpoint = <&dpu_intf1_out>;
-+						};
-+					};
-+
-+					port@1 {
-+						reg = <1>;
-+
-+						mdss_dsi0_out: endpoint {
-+						};
-+					};
-+				};
-+
-+				mdss_dsi_opp_table: opp-table {
-+					compatible = "operating-points-v2";
-+
-+					opp-187500000 {
-+						opp-hz = /bits/ 64 <187500000>;
-+						required-opps = <&rpmhpd_opp_low_svs>;
-+					};
-+
-+					opp-300000000 {
-+						opp-hz = /bits/ 64 <300000000>;
-+						required-opps = <&rpmhpd_opp_svs>;
-+					};
-+
-+					opp-358000000 {
-+						opp-hz = /bits/ 64 <358000000>;
-+						required-opps = <&rpmhpd_opp_svs_l1>;
-+					};
-+				};
-+			};
-+
-+			mdss_dsi0_phy: phy@ae95000 {
-+				compatible = "qcom,milos-dsi-phy-4nm";
-+				reg = <0x0 0x0ae95000 0x0 0x200>,
-+				      <0x0 0x0ae95200 0x0 0x300>,
-+				      <0x0 0x0ae95500 0x0 0x400>;
-+				reg-names = "dsi_phy",
-+					    "dsi_phy_lane",
-+					    "dsi_pll";
-+
-+				clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+					 <&rpmhcc RPMH_CXO_CLK>;
-+				clock-names = "iface",
-+					      "ref";
-+
-+				#clock-cells = <1>;
-+				#phy-cells = <0>;
-+
-+				status = "disabled";
-+			};
-+		};
-+
- 		dispcc: clock-controller@af00000 {
- 			compatible = "qcom,milos-dispcc";
- 			reg = <0x0 0x0af00000 0x0 0x20000>;
-@@ -1936,8 +2143,8 @@ dispcc: clock-controller@af00000 {
- 				 <&sleep_clk>,
- 				 <&gcc GCC_DISP_AHB_CLK>,
- 				 <&gcc GCC_DISP_GPLL0_DIV_CLK_SRC>,
--				 <0>, /* dsi0_phy_pll_out_byteclk */
--				 <0>, /* dsi0_phy_pll_out_dsiclk */
-+				 <&mdss_dsi0_phy DSI_BYTE_PLL_CLK>,
-+				 <&mdss_dsi0_phy DSI_PIXEL_PLL_CLK>,
- 				 <0>, /* dp0_phy_pll_link_clk */
- 				 <0>; /* dp0_phy_pll_vco_div_clk */
- 
+Change:
 
+v2: rather drop first occurence, leaving the appropriate call
+    close to where the platform data would really be used
+
+ drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+index 715872130780..32616e5bc591 100644
+--- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
++++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+@@ -1406,7 +1406,6 @@ static int rzg2l_mipi_dsi_probe(struct platform_device *pdev)
+ 	if (IS_ERR(dsi))
+ 		return PTR_ERR(dsi);
+ 
+-	platform_set_drvdata(pdev, dsi);
+ 	dsi->dev = &pdev->dev;
+ 
+ 	dsi->info = of_device_get_match_data(&pdev->dev);
 -- 
-2.54.0
+2.25.1
 
