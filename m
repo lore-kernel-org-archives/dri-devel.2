@@ -4,72 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49179CD3430
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 07:12:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F410BFF885A
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 07:12:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CBD910E973;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65E8A10E975;
 	Tue,  5 May 2026 07:12:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pI//y/az";
+	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=panix.com header.i=@panix.com header.b="uLrtLc67";
 	dkim-atps=neutral
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
- [209.85.216.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF6A310E16C
- for <dri-devel@lists.freedesktop.org>; Sun,  3 May 2026 03:45:41 +0000 (UTC)
-Received: by mail-pj1-f41.google.com with SMTP id
- 98e67ed59e1d1-365212191f6so342993a91.3
- for <dri-devel@lists.freedesktop.org>; Sat, 02 May 2026 20:45:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777779941; x=1778384741; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=SI2MBPlJf9O7ukydYqfXIQUzeildkAOurtWd8SQi+24=;
- b=pI//y/az09OvWTAVBRVXwpH6H4OEt9QCCGL+3fWU1VEfJxivkPeZXCSljNH8IDgTOP
- zstjhYN1B/1IU/OIhzHuQTVo0obJR4wD4VC4o2EMao5Qfu5xeHwerDD/qUruuAEWs2hC
- IYTqZ9qVv5iiDyEdVh1/jpN2OTYEsnCg/cCmQ3JuouWu2P345ftKv2DXztK7BCx03tWU
- zsfutVL9ob0/lnjBdAwlovQfRP6wOfyJSqPC68RcEywagEP8vCMon3gy5jpUz5KgeaJ+
- Wh9BOk7lEJz3CT08xvtMUokySrE4w+5XMJ2F8kpIyZHKO5aTbvfaVW991mQX3lPqt9kF
- ed4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777779941; x=1778384741;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=SI2MBPlJf9O7ukydYqfXIQUzeildkAOurtWd8SQi+24=;
- b=tMpprv+0LB6MpkFypXb7HvAUiAtgga4IzLFJzBMSZWXvIGV9DGucUPzzEM/MW47clO
- LBoqHNh5ViHo15aeItrIQy79kEJ5fUg62rOFGCDnBG96ygGrXzy3hqUOEaKoWSZ9QVZB
- nduMMTXrL3dPbCOjlgsTWvSXfxvNkslpbIL4c/bmwTq2fa1j63X6qt/qCRgUbmKatxOu
- 6r2DEf/XtsAdjkYmw+xuog8+3DsdaGb4WvwN0wKxL2ZJz3bR9UUHWUjfZNgoAv/If/O7
- V0QKthJVpn8J/XmBtLyosiv8in9FrIGpiTjgZIJX4BR6bXRurE3ezIHs4OqZHm0nUOC6
- 6DBg==
-X-Gm-Message-State: AOJu0YwExNoR1z0uvyDCAzoObPaRlTcfoRVcxqdP8gpYGizRG9tPkcSE
- q4rnebR1cwBa+7aVaGgw4qmBvyDOAay/NH4kXcaxpxfFwtDQIlnG2EaJ884z/jC3bkxcpJBN
-X-Gm-Gg: AeBDieuxpxHU6svS+fAQUZE9rgt7lXLUf6FnVRqXDfOyD9xTNqCIkgm63dX6UXuZJ7e
- +4Q++vbodt2MYZ3ufJN9kgO+4DOXsoAvYExsxZNhBFDNWzbmEMbcCO1Zd8SIW3AcGU1cUo83Cn5
- SOVJAGRrulCfa/8SOf9bwP0iJScY8gapwPTI0BRVqZEBWdY9jMylacz0ydq6/D9OCrSbh/Sp8+P
- fSF5vylRTBE08wM0yZA8wDLobwcvTNq08XzIqPjnxgTNP1jutD+tRIH/Mla/poW+Kiz+fY1SzMC
- idvfLO9CGiZCN+LnF1fAA0R4Yckj+rjnREepao5Vb3Fnr9kCVYGY+zUWLoMeNgo5AEFWKD0H6Cy
- AS+rIE2fLy1ZXd3ipz4z+4QTV5swvG3cM2PidoZ5X34jWgqKm9bdt2WpyQnqSOlY31+K+WBEKk+
- 7+1YXcVq9Lof+p77M6WY6Ej4NIjBrRbPANVwmFBIAp+aYmBXXMfC2ANuVWu/x6m9b2
-X-Received: by 2002:a17:90b:5887:b0:35e:581c:6bca with SMTP id
- 98e67ed59e1d1-3650cd25673mr5014165a91.3.1777779941198; 
- Sat, 02 May 2026 20:45:41 -0700 (PDT)
-Received: from jester ([159.192.33.28]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-364bdf54203sm10082989a91.7.2026.05.02.20.45.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 02 May 2026 20:45:40 -0700 (PDT)
-From: Jonas Emilsson <jonas.emilsson@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Jonas Emilsson <jonas.emilsson@gmail.com>, Imre Deak <imre.deak@intel.com>,
- Lyude Paul <lyude@redhat.com>, stable@vger.kernel.org,
- intel-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/dp_mst: Handle torn-down topology gracefully in
- drm_dp_mst_topology_queue_probe()
-Date: Sun,  3 May 2026 05:45:33 +0200
-Message-ID: <20260503034533.1023686-1-jonas.emilsson@gmail.com>
-X-Mailer: git-send-email 2.51.2
+X-Greylist: delayed 1095 seconds by postgrey-1.36 at gabe;
+ Fri, 01 May 2026 19:27:07 UTC
+Received: from l2mail1.panix.com (l2mail1.panix.com [166.84.1.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8BCA10E25E;
+ Fri,  1 May 2026 19:27:07 +0000 (UTC)
+Received: from mailbackend.panix.com (mailbackend.panix.com [166.84.1.89])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (1024 bits) server-digest SHA256)
+ (No client certificate requested)
+ by l2mail1.panix.com (Postfix) with ESMTPS id 4g6gYw0xRKzDSj;
+ Fri,  1 May 2026 15:08:52 -0400 (EDT)
+Received: from [10.50.4.26] (45-31-46-51.lightspeed.sndgca.sbcglobal.net
+ [45.31.46.51])
+ by mailbackend.panix.com (Postfix) with ESMTPSA id 4g6gYs5wssz40Dc;
+ Fri,  1 May 2026 15:08:49 -0400 (EDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=panix.com; s=panix;
+ t=1777662531; bh=l6JbYucB+9yD0k96T5o6k3yiniTY2VGeKOqZ7PJWN2I=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=uLrtLc67iWq4GSqPGwTJ4rzevu63TXdyY+tNy3yIoVxzTdPx+0fPodKpQqxhC4lNc
+ QCHPB1S0lTSGcF0UU4nPVLMx1ZldiL+6j23fwwJohT2SBeEYi26JMpRWvIueKLSTyb
+ EzfKFKOXzZUJmOYybDBlTJSczHHL4DxaWkFQioyw=
+Message-ID: <f25f27a1-bf09-44bd-9b37-49f159d82d6a@panix.com>
+Date: Fri, 1 May 2026 12:08:48 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: PATCH v4 0/6] mm, drm/ttm, drm/xe: Avoid reclaim/eviction loops
+ under fragmentation
+To: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, Kenneth C <kenny@panix.com>
+References: <20260430191809.2142544-1-matthew.brost@intel.com>
+ <20260430191809.2142544-3-matthew.brost@intel.com>
+Content-Language: en-US
+From: Kenneth Crudup <kenny@panix.com>
+In-Reply-To: <20260430191809.2142544-3-matthew.brost@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 05 May 2026 07:12:26 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,49 +71,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A hotplug or link-loss event can tear down the MST topology
-(setting mgr->mst_state = false and mgr->mst_primary = NULL) concurrently
-with a caller invoking drm_dp_mst_topology_queue_probe(). Since the check
-is already performed under mgr->lock, the condition is not a programming
-error but a valid race -- the topology was valid when the caller decided
-to call this function, but was torn down before the lock was acquired.
 
-Replace the drm_WARN_ON() with a graceful early return. This eliminates
-spurious kernel warnings and the resulting compositor crashes observed
-when connecting/disconnecting DP MST monitors, while keeping the correct
-behavior of doing nothing when MST is not active. A drm_dbg_mst() trace
-is added so the skipped probe remains observable under MST debug logging.
+On 4/30/26 12:18, Matthew Brost wrote:
 
-The existing WARN_ON(mgr->mst_primary) in drm_dp_mst_topology_mgr_set_mst()
-already catches the case where the topology is initialized twice, so no
-diagnostic coverage is lost.
+> Introduce zone_maybe_fragmented_in_shrinker() as a lightweight helper to
+> allow subsystems to make coarse decisions about reclaim behavior in the
+> presence of likely fragmentation
 
-Fixes: dbaeef363ea5 ("drm/dp_mst: Add a helper to queue a topology probe")
-Cc: Imre Deak <imre.deak@intel.com>
-Cc: Lyude Paul <lyude@redhat.com>
-Cc: stable@vger.kernel.org
-Cc: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Signed-off-by: Jonas Emilsson <jonas.emilsson@gmail.com>
----
- drivers/gpu/drm/display/drm_dp_mst_topology.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+I'm running Linus' master on my LunarLake (258v) laptop, and sometimes 
+after compiling a kernel (of all things) I'd see kswapd0 thrash despite 
+having quite a bit of free memory.
 
-diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-index 8757972e8..0cb341ce1 100644
---- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-@@ -3738,8 +3738,10 @@ void drm_dp_mst_topology_queue_probe(struct drm_dp_mst_topology_mgr *mgr)
- {
- 	mutex_lock(&mgr->lock);
+I finally traced it to the xe driver after seeing the "GPUActive" field 
+in /proc/meminfo suddenly start rising, eventually growing larger than 
+real memory by several times (see below).
 
--	if (drm_WARN_ON(mgr->dev, !mgr->mst_state || !mgr->mst_primary))
-+	if (!mgr->mst_state || !mgr->mst_primary) {
-+		drm_dbg_mst(mgr->dev, "queue_probe skipped: topology torn down\n");
- 		goto out_unlock;
-+	}
+This patchset fixes the issue, and I'm sure there'll be a fix going into 
+Linus' master soon, but what I'M wondering is how could building a 
+kernel (which is just in a KDE Konsole running on Wayland) make the 
+GPActive grow from ~1.6G to > 30G (and continue to rise, RN I'm seeing 
+91839848 kBs and still growing).
 
- 	drm_dp_mst_topology_mgr_invalidate_mstb(mgr->mst_primary);
+-Kenny
+
+----
+SwapTotal:      33554428 kB
+MemTotal:       32345672 kB
+GPUActive:        652640 kB
+GPUReclaim:       403988 kB
+
+SwapTotal:      33554428 kB
+MemTotal:       32345672 kB
+GPUActive:        651180 kB
+GPUReclaim:       406812 kB
+
+SwapTotal:      33554428 kB
+MemTotal:       32345672 kB
+GPUActive:        659004 kB
+GPUReclaim:       399396 kB
+
+SwapTotal:      33554428 kB
+MemTotal:       32345672 kB
+GPUActive:        666996 kB
+GPUReclaim:       392764 kB
+
+<some hours later>
+GPUActive:      91832468 kB
+SwapTotal:      33554428 kB
+MemTotal:       32345672 kB
+GPUReclaim:       488000 kB
+
+GPUActive:      91832332 kB
+SwapTotal:      33554428 kB
+MemTotal:       32345672 kB
+GPUReclaim:       487988 kB
+
+GPUActive:      91869376 kB
+SwapTotal:      33554428 kB
+MemTotal:       32345672 kB
+GPUReclaim:       486504 kB
+----
+
 -- 
-2.51.2
+Kenneth R. Crudup / Sr. SW Engineer, Scott County Consulting, Orange 
+County CA
 
