@@ -4,74 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92A97CD3430
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 07:12:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77DC0CD13DA
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 07:12:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27BF410E97E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BDCD10E979;
 	Tue,  5 May 2026 07:12:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=maestretorreblanca.com header.i=@maestretorreblanca.com header.b="eSmvPsaw";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SKor3FrM";
 	dkim-atps=neutral
-Received: from mail-ua1-f41.google.com (mail-ua1-f41.google.com
- [209.85.222.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 258EC10E2D6
- for <dri-devel@lists.freedesktop.org>; Sun,  3 May 2026 00:57:40 +0000 (UTC)
-Received: by mail-ua1-f41.google.com with SMTP id
- a1e0cc1a2514c-956849ae1efso887451241.2
- for <dri-devel@lists.freedesktop.org>; Sat, 02 May 2026 17:57:40 -0700 (PDT)
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
+ [209.85.214.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B05CA10F5FB
+ for <dri-devel@lists.freedesktop.org>; Fri,  1 May 2026 20:48:56 +0000 (UTC)
+Received: by mail-pl1-f176.google.com with SMTP id
+ d9443c01a7336-2b24fdac394so18360075ad.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 01 May 2026 13:48:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=maestretorreblanca.com; s=google; t=1777769859; x=1778374659;
- darn=lists.freedesktop.org; 
+ d=gmail.com; s=20251104; t=1777668536; x=1778273336; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=hl0NK+MUV3aWIGSEg80ZpP+e1ygTELg5+PZ5Oxbl4PE=;
- b=eSmvPsawfT9yA12XBCYBH5nC/USeNiKLAgz5p9hix1vP1SCqULCP6BuEmIgtsAm+Ai
- wIxDcsixQiprYeioX9vqqdxJ+D8DnzwS744Fw+CSOvoYqIkxrjQcRAbrCqey0EvgXye/
- 0N0sxWyhGQZHALfrUNbe9BhvJrip1yQTCJbKMfoLXmEQqX0ztNN+iWWqRRaz1tejfE1x
- VTSVrWdR7DgKU1qTg01MI+XV1t1u6McAaO4KIFRf0ULAltqKqAl/vQvDLsfWNJtyZAlS
- Ql9fxqdV0FZKvesJJN++x0cFpSZozFKf1s9Vb8CSJ3C0HLnYU5pzBKvKbM9orze/2GKf
- uScQ==
+ bh=TDTG+3/DnSLNqGWEZBCoD/zuD/bmDCvWNrNY2zLrKIk=;
+ b=SKor3FrMmrKkQ3hMO6dR0R6dxxfFx19eivvQsKQ5/3EERogtHty+l68OdlQ9alFUbh
+ nWuuB5FPUi6PS2kiLO3LJ/sARzsEJKVM61cE+o8n+c611x8vaLjIAtF8uYTts+o7u9R2
+ NwUBOvbNHldLaC9/tKQa/jbOv0dvFdKYJye8m8sybTj0FcJvui4n5PBRgMWeDG4EY9Q1
+ dmawA+z0Dq5u8wXZANPn7QasV7bZPprCqpUKpEINPmiO8KhnwvLriDc8RnwAibp/MIfm
+ zGyS2RjoXrSDMGBuDnLNIPbYUm2+1T2qlr/bLY89Bj41DoMHYu8FtnSOG/lAxf/1O3Wa
+ Bbqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777769859; x=1778374659;
+ d=1e100.net; s=20251104; t=1777668536; x=1778273336;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=hl0NK+MUV3aWIGSEg80ZpP+e1ygTELg5+PZ5Oxbl4PE=;
- b=qQ/UoPm7ztMEWL5/a8P7OH831erMCDks6jLLFjSDOljdDoKn4xy2A70KdWDYrbG1Hr
- 1PV2sWZ2ymtINADwdbBnfVZZJYSo5UQ/HaM7aqYWn7dONZvuqtggSOIOlwfTGpQaIMlT
- OuWVIFLO/vQHJ77rH5QRjes++gLcVVN/P1nr/37TSRfvaAWFZLxbZIg/c4+fjF7F2lp8
- b4fVM+l2K3kwSRCBWEVYHkffQEPC5Q/X1MxJqSS4Dq2ir55P8RrAh99qMPbIdMROd2+8
- fkuo+JrGOsW9tII0SsXs38IO5ab5WgRhcGKIozVoA3qNVzTwyfuA/ZxhxdeUITawCQXQ
- 162A==
-X-Gm-Message-State: AOJu0Yx1N/cqgZysrNoI9xHgC15WqEQmal2Ck7sreVgTobLZbdXxYQnu
- 8PvR56ahhFtdccEHanG4prVoJOmqJnS8hIRXH0YFD5uhVPz0HiDfeeLeqlLdUXPIJ+s=
-X-Gm-Gg: AeBDievrRrG7BZXOHGSzY14Q27PgixcauE5xQ2UuFWhq6OQAyljAaMz2I7iSNPaHtfN
- M1HProFgKkPQjShIjKy419QRBuUI1oulO28vCmmt3FSqiGpHNk2nKwbC06kV/1HdwEj+uHR/ihI
- +BglLJcWwvJCz5Bh26BAiTuIp/V9oVdLHLCp0ZYoBg9lZ7vAgU6HSvmmnqFe6J+bocRzPQ/YUUJ
- +SIVbMsTN2K0tx7HJyo18kyht/WhkmbVJLto/84omFKPVyTZrVegHuNnyL8JGlh2w+91CWowT5J
- eQPlo6837kutmRajQ5zxAf3KKBpJ9yEroPE+oxdRWYaACDBRL9uSI4mGc/7a1LXNAMHeg/zV+aq
- TKj7RjAYyHEDJRDLjenHffEmu3tBuAPW5D56nRnE+BqeKkfNVYLRhtOpnHOsqMAo4LISa6QtANw
- ZpTflc9/nocyE39GtqbYHQ0II+8CVCPLG3PIWcMKuieYij0QdLSKXdzonGFRsGhlvzEddRjATmK
- o/qqnJqXYbjSFwovPA5GA/LA3QdYuYCubiCYg==
-X-Received: by 2002:a05:6122:829f:b0:56a:fc35:9664 with SMTP id
- 71dfb90a1353d-5750c4acd6cmr1861099e0c.3.1777769858811; 
- Sat, 02 May 2026 17:57:38 -0700 (PDT)
-Received: from localhost.localdomain ([95.214.114.12])
+ bh=TDTG+3/DnSLNqGWEZBCoD/zuD/bmDCvWNrNY2zLrKIk=;
+ b=NNvnI9KTtNP9smVI+ISG04XpUjhh3q5yuDdL8m7EGSBJKM/FQ681tkVxpEnqJRavoe
+ ZXImrkMLEx9e8R+CTDMfKtUlpGkEhGOnxQL3Lx0rydrdRQBbgP7vRis2aFr6sFhJNX+7
+ PGuTaGhmXkhFaDXYFE8RLPbJjRfTN266sw9JgtbRQlu1Yy3xY9bku5kIpHM+DxvNhyzS
+ OPr+yJqlzjKYGbgGdt9IqQ4qPj80qjx0A6qRkn//+WBO4nCFXzvM6kVg1wRl3od9xBBT
+ Si1H/I29gJFMXMQVhN6hJeDaZ/HPf/ideScbqFyNq9EK3h8U5F6pWE033VQdI3qUag+v
+ DCRg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+iXApDXnx/nIduARCz9eRk7ZC3mcEa6+/eCrSInY8sba056I0Hec1USIg/aUFMuIC4n3CfSWA+Dqg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxPzcGsXUxUGqOFFUSIYK4XxF7qI/VpXH9OK5fUI/CJ3DAAtkLC
+ TjWkTxg1QsT2FdqRxdgrQwiYrIhPRPFEjxcX2bov+4Fik+r/wPsLyCXe
+X-Gm-Gg: AeBDiesGHd8GmpAziVXkg/h5Hr7gdlaa0mk4atHUR2UHcDKqihUyL0kKnUKPPUKU8yR
+ cOLp4vp/kpOFu6UtoidJZwJAC9Ut7abWYMbwf94l//q53prepuAylUxYDHFq26xEtDJHkXG04dh
+ o7710pDw/w6SdQFVTxN73sRZ4yhO65Ae8qJO1kPeBjB0lOX8Tnc9GIHS2rKKSPe/4X1W0eIUGQ4
+ ZdoCLkkCmcJk9T2HdnzHcd4cj/7OB1LNVuor+ekt0LzqvIgL8UmNn1FWu0P8fqWS7A771S3mv7u
+ UkXvkm5KWYIPfJajOCggiWT9ITq/4pXTx/UO0YtbAETJSSfUHuHOoMrHL+/aStIvoubirFpvqsb
+ cQOu9HA1zi4p1ChoaY6O/utSKp5e3qsMndbLgdDUvfDnuwFJr2EL8MsgfR1tG9SBo6qmAUYe/f9
+ 7TCB3aevTJR80qZi4W14rkInD4TZA+oFZ7
+X-Received: by 2002:a05:6a21:6da2:b0:394:5513:ce5 with SMTP id
+ adf61e73a8af0-3a7f1fd1314mr559712637.51.1777668536068; 
+ Fri, 01 May 2026 13:48:56 -0700 (PDT)
+Received: from archbox ([2401:4900:1c0a:5b5d:d61f:366a:2e4:3109])
  by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-574a6c6c582sm4009834e0c.9.2026.05.02.17.57.35
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Sat, 02 May 2026 17:57:38 -0700 (PDT)
-From: Francisco Maestre <francisco@maestretorreblanca.com>
-To: airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, corbet@lwn.net
-Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Francisco Maestre <francisco@maestretorreblanca.com>
-Subject: [PATCH v2] Documentation: gpu: todo: fix typo 'themsevles' ->
- 'themselves'
-Date: Sat,  2 May 2026 19:57:33 -0500
-Message-ID: <20260503005733.68932-1-francisco@maestretorreblanca.com>
-X-Mailer: git-send-email 2.50.1
+ 41be03b00d2f7-c7ffbc6f511sm2878652a12.16.2026.05.01.13.48.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 01 May 2026 13:48:55 -0700 (PDT)
+From: Daksh Sahni <swizzguy76@gmail.com>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, Daksh Sahni <swizzguy76@gmail.com>
+Subject: [PATCH] drm/amd: Fix spelling mistakes in comments
+Date: Fri,  1 May 2026 16:48:32 -0400
+Message-ID: <20260501204832.66251-1-swizzguy76@gmail.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 05 May 2026 07:12:26 +0000
@@ -90,27 +88,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Fix a spelling mistake in the panel-simple/panel-edp TODO section.
+Fix several instances of "occurred" and "separate" in comments.
 
-Signed-off-by: Francisco Maestre <francisco@maestretorreblanca.com>
+Signed-off-by: Daksh Sahni <swizzguy76@gmail.com>
 ---
-v2: Resend as individual patch, not part of an unrelated series.
- Documentation/gpu/todo.rst | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c           | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c           | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.h           | 2 +-
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_vmid.c | 2 +-
+ drivers/gpu/drm/amd/display/dmub/dmub_srv.h       | 2 +-
+ 5 files changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
-index 520da44a04a6..e371134782f8 100644
---- a/Documentation/gpu/todo.rst
-+++ b/Documentation/gpu/todo.rst
-@@ -456,7 +456,7 @@ be turned into a WARN_ON() or somehow made louder.
- At the moment, we expect that we may still encounter the warnings in the
- drm_panel core when using panel-simple and panel-edp. Since those panel
- drivers are used with a lot of different DRM modeset drivers they still
--make an extra effort to disable/unprepare the panel themsevles at shutdown
-+make an extra effort to disable/unprepare the panel themselves at shutdown
- time. Specifically we could still encounter those warnings if the panel
- driver gets shutdown() _before_ the DRM modeset driver and the DRM modeset
- driver properly calls drm_atomic_helper_shutdown() in its own shutdown()
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+index 7af86a32c0c5..e5884bb4d63a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+@@ -564,7 +564,7 @@ static int amdgpu_ctx_query(struct amdgpu_device *adev,
+ 	out->state.flags = 0x0;
+ 	out->state.hangs = 0x0;
+ 
+-	/* determine if a GPU reset has occured since the last call */
++	/* determine if a GPU reset has occurred since the last call */
+ 	reset_counter = atomic_read(&adev->gpu_reset_counter);
+ 	/* TODO: this should ideally return NO, GUILTY, or INNOCENT. */
+ 	if (ctx->reset_counter_query == reset_counter)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+index 124fb38eb465..095ab609623f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+@@ -161,12 +161,12 @@ void amdgpu_pasid_free_delayed(struct dma_resv *resv,
+  */
+ 
+ /**
+- * amdgpu_vmid_had_gpu_reset - check if reset occured since last use
++ * amdgpu_vmid_had_gpu_reset - check if reset occurred since last use
+  *
+  * @adev: amdgpu_device pointer
+  * @id: VMID structure
+  *
+- * Check if GPU reset occured since last use of the VMID.
++ * Check if GPU reset occurred since last use of the VMID.
+  */
+ bool amdgpu_vmid_had_gpu_reset(struct amdgpu_device *adev,
+ 			       struct amdgpu_vmid *id)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+index 56a88e14a044..bc011b4639f2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+@@ -31,7 +31,7 @@
+ #define AMDGPU_PREAMBLE_IB_PRESENT          (1 << 0)
+ /* bit set means preamble IB is first presented in belonging context */
+ #define AMDGPU_PREAMBLE_IB_PRESENT_FIRST    (1 << 1)
+-/* bit set means context switch occured */
++/* bit set means context switch occurred */
+ #define AMDGPU_HAVE_CTX_SWITCH              (1 << 2)
+ /* bit set means IB is preempted */
+ #define AMDGPU_IB_PREEMPTED                 (1 << 3)
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_vmid.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_vmid.c
+index 5bc3bc60a2ac..ebbe7900205e 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_vmid.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_vmid.c
+@@ -46,7 +46,7 @@ static void dcn20_wait_for_vmid_ready(struct dcn20_vmid *vmid)
+ 	/* According the hardware spec, we need to poll for the lowest
+ 	 * bit of PAGE_TABLE_BASE_ADDR_LO32 = 1 any time a GPUVM
+ 	 * context is updated. We can't use REG_WAIT here since we
+-	 * don't have a seperate field to wait on.
++	 * don't have a separate field to wait on.
+ 	 *
+ 	 * TODO: Confirm timeout / poll interval with hardware team
+ 	 */
+diff --git a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
+index c18ff8f00bb8..43b05e56679c 100644
+--- a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
++++ b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
+@@ -355,7 +355,7 @@ struct dmub_srv_hw_params {
+ 
+ /**
+  * struct dmub_srv_debug - Debug info for dmub_srv
+- * @timeout_occured: Indicates a timeout occured on any message from driver to dmub
++ * @timeout_occured: Indicates a timeout occurred on any message from driver to dmub
+  * @timeout_cmd: first cmd sent from driver that timed out - subsequent timeouts are not stored
+  */
+ struct dmub_timeout_info {
 -- 
-2.50.1 (Apple Git-155)
+2.54.0
 
