@@ -4,48 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15E7CCCFA13
-	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 13:17:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7B76CD3424
+	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 13:22:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 604E410E1B7;
-	Fri,  1 May 2026 13:17:30 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="JV9nlnNs";
-	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 7A1EB10E1B7
- for <dri-devel@lists.freedesktop.org>; Fri,  1 May 2026 13:17:29 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8D43C176A;
- Fri,  1 May 2026 06:17:23 -0700 (PDT)
-Received: from [10.1.29.19] (e122027.cambridge.arm.com [10.1.29.19])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 86B553F62B;
- Fri,  1 May 2026 06:17:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1777641449; bh=4RGQVSM/Z48u+dPA3KGZkZ7imj1yU7dBhhrjJzYt8oc=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=JV9nlnNstUK/BjjHpzC9JxesqXFPcZwf4mjBjIJ5J3fbS+n3AUI3dTWtaxu3tNiJG
- v0BzjvJ7C10mnunxeyqTZ7JcvdiY2H5g+3Mu+ZeZoK3JsxcZh3rnRJT4YIq2vSYOYZ
- MjEeJTXpwcZmyY5RgCePs/LU2vJ2kJPpPzOVvk10=
-Message-ID: <9b4653e7-bb88-4b0f-a620-5fe74e6c0c51@arm.com>
-Date: Fri, 1 May 2026 14:17:21 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E8C510E53D;
+	Fri,  1 May 2026 13:22:37 +0000 (UTC)
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by gabe.freedesktop.org (Postfix) with ESMTP id BD85010E53D
+ for <dri-devel@lists.freedesktop.org>; Fri,  1 May 2026 13:22:35 +0000 (UTC)
+X-CSE-ConnectionGUID: RP04hyrcSWuI7wUa81c4kw==
+X-CSE-MsgGUID: IXuloCCoSOG+CRWjGoHmVg==
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 01 May 2026 22:22:34 +0900
+Received: from lenovo-p330 (unknown [132.158.152.97])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id B72394007208;
+ Fri,  1 May 2026 22:22:31 +0900 (JST)
+From: Chris Brandt <chris.brandt@renesas.com>
+To: Biju Das <biju.das.jz@bp.renesas.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Pavel Machek <pavel@nabladev.com>,
+ Hugo Villeneuve <hugo@hugovil.com>
+Cc: linux-renesas-soc@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Chris Brandt <chris.brandt@renesas.com>
+Subject: [PATCH v3] drm: renesas: rz-du: mipi_dsi: Fix return path on error
+Date: Fri,  1 May 2026 09:21:35 -0400
+Message-ID: <20260501132135.196701-1-chris.brandt@renesas.com>
+X-Mailer: git-send-email 2.52.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/10] drm/panthor: Move the register accessors before the
- IRQ helpers
-To: Boris Brezillon <boris.brezillon@collabora.com>,
- Liviu Dudau <liviu.dudau@arm.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260429-panthor-signal-from-irq-v1-0-4b92ae4142d2@collabora.com>
- <20260429-panthor-signal-from-irq-v1-2-4b92ae4142d2@collabora.com>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260429-panthor-signal-from-irq-v1-2-4b92ae4142d2@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,177 +50,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 29/04/2026 10:38, Boris Brezillon wrote:
-> We're about to add an IRQ inline helper using gpu_read(). Move things
-> around to avoid forward declarations.
-> 
-> No functional changes.
-> 
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+In case of error, we should unwind correctly.
+Switching to using dmam_ instead of dma_ and moving the code earlier
+fixes the issue.
 
-Reviewed-by: Steven Price <steven.price@arm.com>
+Fixes: 6f392f371650 ("drm: renesas: rz-du: Implement MIPI DSI host transfers")
+Suggested-by: Pavel Machek <pavel@nabladev.com>
+Signed-off-by: Chris Brandt <chris.brandt@renesas.com>
+Reviewed-by: Biju Das <biju.das.jz@bp.renesas.com>
 
-> ---
->  drivers/gpu/drm/panthor/panthor_device.h | 142 +++++++++++++++----------------
->  1 file changed, 71 insertions(+), 71 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-> index 3f91ba73829d..768fc1992368 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.h
-> +++ b/drivers/gpu/drm/panthor/panthor_device.h
-> @@ -495,6 +495,77 @@ panthor_exception_is_fault(u32 exception_code)
->  const char *panthor_exception_name(struct panthor_device *ptdev,
->  				   u32 exception_code);
->  
-> +static inline void gpu_write(void __iomem *iomem, u32 reg, u32 data)
-> +{
-> +	writel(data, iomem + reg);
-> +}
-> +
-> +static inline u32 gpu_read(void __iomem *iomem, u32 reg)
-> +{
-> +	return readl(iomem + reg);
-> +}
-> +
-> +static inline u32 gpu_read_relaxed(void __iomem *iomem, u32 reg)
-> +{
-> +	return readl_relaxed(iomem + reg);
-> +}
-> +
-> +static inline void gpu_write64(void __iomem *iomem, u32 reg, u64 data)
-> +{
-> +	gpu_write(iomem, reg, lower_32_bits(data));
-> +	gpu_write(iomem, reg + 4, upper_32_bits(data));
-> +}
-> +
-> +static inline u64 gpu_read64(void __iomem *iomem, u32 reg)
-> +{
-> +	return (gpu_read(iomem, reg) | ((u64)gpu_read(iomem, reg + 4) << 32));
-> +}
-> +
-> +static inline u64 gpu_read64_relaxed(void __iomem *iomem, u32 reg)
-> +{
-> +	return (gpu_read_relaxed(iomem, reg) |
-> +		((u64)gpu_read_relaxed(iomem, reg + 4) << 32));
-> +}
-> +
-> +static inline u64 gpu_read64_counter(void __iomem *iomem, u32 reg)
-> +{
-> +	u32 lo, hi1, hi2;
-> +	do {
-> +		hi1 = gpu_read(iomem, reg + 4);
-> +		lo = gpu_read(iomem, reg);
-> +		hi2 = gpu_read(iomem, reg + 4);
-> +	} while (hi1 != hi2);
-> +	return lo | ((u64)hi2 << 32);
-> +}
-> +
-> +#define gpu_read_poll_timeout(iomem, reg, val, cond, delay_us, timeout_us)	\
-> +	read_poll_timeout(gpu_read, val, cond, delay_us, timeout_us, false,	\
-> +			  iomem, reg)
-> +
-> +#define gpu_read_poll_timeout_atomic(iomem, reg, val, cond, delay_us,		\
-> +				     timeout_us)				\
-> +	read_poll_timeout_atomic(gpu_read, val, cond, delay_us, timeout_us,	\
-> +				 false, iomem, reg)
-> +
-> +#define gpu_read64_poll_timeout(iomem, reg, val, cond, delay_us, timeout_us)	\
-> +	read_poll_timeout(gpu_read64, val, cond, delay_us, timeout_us, false,	\
-> +			  iomem, reg)
-> +
-> +#define gpu_read64_poll_timeout_atomic(iomem, reg, val, cond, delay_us,		\
-> +				       timeout_us)				\
-> +	read_poll_timeout_atomic(gpu_read64, val, cond, delay_us, timeout_us,	\
-> +				 false, iomem, reg)
-> +
-> +#define gpu_read_relaxed_poll_timeout_atomic(iomem, reg, val, cond, delay_us,	\
-> +					     timeout_us)			\
-> +	read_poll_timeout_atomic(gpu_read_relaxed, val, cond, delay_us,		\
-> +				 timeout_us, false, iomem, reg)
-> +
-> +#define gpu_read64_relaxed_poll_timeout(iomem, reg, val, cond, delay_us,	\
-> +					timeout_us)				\
-> +	read_poll_timeout(gpu_read64_relaxed, val, cond, delay_us, timeout_us,	\
-> +			  false, iomem, reg)
-> +
->  #define INT_RAWSTAT 0x0
->  #define INT_CLEAR   0x4
->  #define INT_MASK    0x8
-> @@ -629,75 +700,4 @@ static inline void panthor_ ## __name ## _irq_disable_events(struct panthor_irq
->  
->  extern struct workqueue_struct *panthor_cleanup_wq;
->  
-> -static inline void gpu_write(void __iomem *iomem, u32 reg, u32 data)
-> -{
-> -	writel(data, iomem + reg);
-> -}
-> -
-> -static inline u32 gpu_read(void __iomem *iomem, u32 reg)
-> -{
-> -	return readl(iomem + reg);
-> -}
-> -
-> -static inline u32 gpu_read_relaxed(void __iomem *iomem, u32 reg)
-> -{
-> -	return readl_relaxed(iomem + reg);
-> -}
-> -
-> -static inline void gpu_write64(void __iomem *iomem, u32 reg, u64 data)
-> -{
-> -	gpu_write(iomem, reg, lower_32_bits(data));
-> -	gpu_write(iomem, reg + 4, upper_32_bits(data));
-> -}
-> -
-> -static inline u64 gpu_read64(void __iomem *iomem, u32 reg)
-> -{
-> -	return (gpu_read(iomem, reg) | ((u64)gpu_read(iomem, reg + 4) << 32));
-> -}
-> -
-> -static inline u64 gpu_read64_relaxed(void __iomem *iomem, u32 reg)
-> -{
-> -	return (gpu_read_relaxed(iomem, reg) |
-> -		((u64)gpu_read_relaxed(iomem, reg + 4) << 32));
-> -}
-> -
-> -static inline u64 gpu_read64_counter(void __iomem *iomem, u32 reg)
-> -{
-> -	u32 lo, hi1, hi2;
-> -	do {
-> -		hi1 = gpu_read(iomem, reg + 4);
-> -		lo = gpu_read(iomem, reg);
-> -		hi2 = gpu_read(iomem, reg + 4);
-> -	} while (hi1 != hi2);
-> -	return lo | ((u64)hi2 << 32);
-> -}
-> -
-> -#define gpu_read_poll_timeout(iomem, reg, val, cond, delay_us, timeout_us)	\
-> -	read_poll_timeout(gpu_read, val, cond, delay_us, timeout_us, false,	\
-> -			  iomem, reg)
-> -
-> -#define gpu_read_poll_timeout_atomic(iomem, reg, val, cond, delay_us,		\
-> -				     timeout_us)				\
-> -	read_poll_timeout_atomic(gpu_read, val, cond, delay_us, timeout_us,	\
-> -				 false, iomem, reg)
-> -
-> -#define gpu_read64_poll_timeout(iomem, reg, val, cond, delay_us, timeout_us)	\
-> -	read_poll_timeout(gpu_read64, val, cond, delay_us, timeout_us, false,	\
-> -			  iomem, reg)
-> -
-> -#define gpu_read64_poll_timeout_atomic(iomem, reg, val, cond, delay_us,		\
-> -				       timeout_us)				\
-> -	read_poll_timeout_atomic(gpu_read64, val, cond, delay_us, timeout_us,	\
-> -				 false, iomem, reg)
-> -
-> -#define gpu_read_relaxed_poll_timeout_atomic(iomem, reg, val, cond, delay_us,	\
-> -					     timeout_us)			\
-> -	read_poll_timeout_atomic(gpu_read_relaxed, val, cond, delay_us,		\
-> -				 timeout_us, false, iomem, reg)
-> -
-> -#define gpu_read64_relaxed_poll_timeout(iomem, reg, val, cond, delay_us,	\
-> -					timeout_us)				\
-> -	read_poll_timeout(gpu_read64_relaxed, val, cond, delay_us, timeout_us,	\
-> -			  false, iomem, reg)
-> -
->  #endif
-> 
+---
+V2->V3:
+ - Removed Acked-by because it was for V1 (Hugo)
+ - Added Reviewed-by (Biju)
+
+V1->V2:
+ - Need to take into account mipi_dsi_host_register was already called (Geert)
+ - Switch to using dmam_alloc_coherent to automate unwinding (Chris)
+ - Added Acked-by (hugo)
+---
+ drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c | 12 +++++-------
+ 1 file changed, 5 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+index 29f2b7d24fe5..b908e702b607 100644
+--- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
++++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
+@@ -1442,6 +1442,11 @@ static int rzg2l_mipi_dsi_probe(struct platform_device *pdev)
+ 		return dev_err_probe(dsi->dev, PTR_ERR(dsi->prstc),
+ 				     "failed to get prst\n");
+ 
++	dsi->dcs_buf_virt = dmam_alloc_coherent(dsi->dev, RZG2L_DCS_BUF_SIZE,
++						&dsi->dcs_buf_phys, GFP_KERNEL);
++	if (!dsi->dcs_buf_virt)
++		return -ENOMEM;
++
+ 	platform_set_drvdata(pdev, dsi);
+ 
+ 	pm_runtime_enable(dsi->dev);
+@@ -1474,11 +1479,6 @@ static int rzg2l_mipi_dsi_probe(struct platform_device *pdev)
+ 	if (ret < 0)
+ 		goto err_pm_disable;
+ 
+-	dsi->dcs_buf_virt = dma_alloc_coherent(dsi->host.dev, RZG2L_DCS_BUF_SIZE,
+-					       &dsi->dcs_buf_phys, GFP_KERNEL);
+-	if (!dsi->dcs_buf_virt)
+-		return -ENOMEM;
+-
+ 	return 0;
+ 
+ err_phy:
+@@ -1493,8 +1493,6 @@ static void rzg2l_mipi_dsi_remove(struct platform_device *pdev)
+ {
+ 	struct rzg2l_mipi_dsi *dsi = platform_get_drvdata(pdev);
+ 
+-	dma_free_coherent(dsi->host.dev, RZG2L_DCS_BUF_SIZE, dsi->dcs_buf_virt,
+-			  dsi->dcs_buf_phys);
+ 	mipi_dsi_host_unregister(&dsi->host);
+ 	pm_runtime_disable(&pdev->dev);
+ }
+-- 
+2.52.0
 
