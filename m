@@ -4,66 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAF48CCFA13
-	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 13:27:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AA7FCD3424
+	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 13:28:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F411210F520;
-	Fri,  1 May 2026 13:27:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B07A310F51F;
+	Fri,  1 May 2026 13:28:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ks9s1mZI";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="RQ2PQ7EO";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72F9D10F51F;
- Fri,  1 May 2026 13:27:08 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 307B6435AD;
- Fri,  1 May 2026 13:27:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A09DDC2BCB4;
- Fri,  1 May 2026 13:26:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777642028;
- bh=cecY22npZ8O09cZUaB8M0VENwxo6jF899E2WK/sGM8U=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Ks9s1mZIkV8HxwO4Mq2+M0rNhz33rtPZ+PEpQg8O0T7agTQM/ie+qo1rwFzMc+b+A
- VqDH4/+JcAgC//FSDTXVNeTLY3ZnVf6ao0PPeE2eDyKLB70fqAtG1BZGKK4J4NwVYM
- OfaQriqJVci3Be7SKDrYFRY61OXwF0wXPYEyzsVt5ayiFhEFxMW1q5daFboq3L7XMO
- 64Cx2hTxZcYCLazmmG5vv2hGIZnAcTrMTjhtB+7TrKmtFgXcpfm7HFnitN26O/Gx8U
- JOUfHUQd9G+45ryjeV+BQBCvFltUxfgmsGCNc+KFS0VD58QfpBufJUzuhvutKP50DW
- 4FZ/nGOcO+OnA==
-Date: Fri, 1 May 2026 18:56:50 +0530
-From: Sumit Garg <sumit.garg@kernel.org>
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: andersson@kernel.org, konradybcio@kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-media@vger.kernel.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
- linux-remoteproc@vger.kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org,
- robin.clark@oss.qualcomm.com, sean@poorly.run,
- akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jesszhan0024@gmail.com, marijn.suijten@somainline.org,
- airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
- dikshita.agarwal@oss.qualcomm.com, bod@kernel.org,
- mchehab@kernel.org, elder@kernel.org, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, jjohnson@kernel.org, mathieu.poirier@linaro.org,
- trilokkumar.soni@oss.qualcomm.com, pavan.kondeti@oss.qualcomm.com,
- jorge.ramirez@oss.qualcomm.com, tonyh@qti.qualcomm.com,
- vignesh.viswanathan@oss.qualcomm.com, srinivas.kandagatla@oss.qualcomm.com,
- amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
- op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
- skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
- Sumit Garg <sumit.garg@oss.qualcomm.com>
-Subject: Re: [PATCH v4 11/15] media: qcom: Switch to generic PAS TZ APIs
-Message-ID: <afSqGp-yzZip7q-j@sumit-xelite>
-References: <20260427095603.1157963-1-sumit.garg@kernel.org>
- <20260427095603.1157963-12-sumit.garg@kernel.org>
- <20260428193714.sg5n3tntww2nuquu@hu-mojha-hyd.qualcomm.com>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 173A910F51F
+ for <dri-devel@lists.freedesktop.org>; Fri,  1 May 2026 13:28:22 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 28930176A;
+ Fri,  1 May 2026 06:28:16 -0700 (PDT)
+Received: from [10.1.29.19] (e122027.cambridge.arm.com [10.1.29.19])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A9B2E3F62B;
+ Fri,  1 May 2026 06:28:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1777642101; bh=ArffdoYQY7j7cEy/fEwUcR+TvqH/ui+Oi4DIkQxDb1w=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=RQ2PQ7EO1uheuyndEOCGcWC5WAJklRlA1igyTmFl7VQsQHaPJX+D+0HxbAWMtGAra
+ Lzx83cs7gOtTEZ+HZUA16MWeAoo0ewqQTrBfrPzUkfzYKljuIurBQr/qHxDtc2hpGL
+ I8b28L747Fyj12wlToy+uGs24MnthO6cOM3i8QtQ=
+Message-ID: <7a8fad13-a7ba-4273-999c-a265d20858bb@arm.com>
+Date: Fri, 1 May 2026 14:28:17 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260428193714.sg5n3tntww2nuquu@hu-mojha-hyd.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 04/10] drm/panthor: Extend the IRQ logic to allow fast/raw
+ IRQ handlers
+To: Boris Brezillon <boris.brezillon@collabora.com>,
+ Liviu Dudau <liviu.dudau@arm.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260429-panthor-signal-from-irq-v1-0-4b92ae4142d2@collabora.com>
+ <20260429-panthor-signal-from-irq-v1-4-4b92ae4142d2@collabora.com>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260429-panthor-signal-from-irq-v1-4-4b92ae4142d2@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,199 +61,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Apr 29, 2026 at 01:07:14AM +0530, Mukesh Ojha wrote:
-> On Mon, Apr 27, 2026 at 03:25:59PM +0530, Sumit Garg wrote:
-> > From: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> > 
-> > Switch qcom media client drivers over to generic PAS TZ APIs. Generic PAS
-> > TZ service allows to support multiple TZ implementation backends like QTEE
-> > based SCM PAS service, OP-TEE based PAS service and any further future TZ
-> > backend service.
-> > 
-> > Along with that pass proper PAS ID to set_remote_state API. As per testing
-> > the SCM backend just ignores it while OP-TEE makes use of it to for proper
-> > book keeping purpose.
+On 29/04/2026 10:38, Boris Brezillon wrote:
+> All drivers except panthor signal their fences from their interrupt
+> handler to minimize latency. We could do the same from the interrupt
+> handler, but the latency is still quite high in that case, so let's
+> allow components to choose the context they want their IRQ handler
+> to run in.
 > 
-> When we use 'Along with' or 'while at it', patch is doing two things and
-> not one.
+> This takes the form of an extra fast_handler() returning an irqreturn_t
+> reflecting the need to wake-up a thread or not.
+> A new PANTHOR_IRQ_ADV_HANDLER() macro taking this extra fast_handler
+> argument is added, PANTHOR_IRQ_HANDLER() is implemented as a wrapper
+> around PANTHOR_IRQ_ADV_HANDLER() with a default fast_handler
+> returning IRQ_WAKE_THREAD. The fast and slow handler are still assumed
+> to be mutually exclusive. In case a fast handler is provided, the
+> slow_handler is expected to be run when the event can't be processed
+> directly in the fast handler, or when the driver thinks it would be
+> beneficial to coalesce interrupts by polling in the thread rather than
+> re-enabling interrupts immediately.
 
-Okay, I will split this into 2.
+As Liviu pointed out this commit message isn't right, but the code
+change below looks fine. So with a fixed commit message:
 
-> 
-> > 
-> > Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> > ---
-> >  drivers/media/platform/qcom/iris/Kconfig      | 25 ++++++++++---------
-> >  .../media/platform/qcom/iris/iris_firmware.c  |  9 ++++---
-> >  drivers/media/platform/qcom/venus/Kconfig     |  1 +
-> >  drivers/media/platform/qcom/venus/firmware.c  | 11 ++++----
-> >  4 files changed, 25 insertions(+), 21 deletions(-)
-> > 
-> > diff --git a/drivers/media/platform/qcom/iris/Kconfig b/drivers/media/platform/qcom/iris/Kconfig
-> > index 3c803a05305a..f54b759c18aa 100644
-> > --- a/drivers/media/platform/qcom/iris/Kconfig
-> > +++ b/drivers/media/platform/qcom/iris/Kconfig
-> > @@ -1,13 +1,14 @@
-> >  config VIDEO_QCOM_IRIS
-> > -        tristate "Qualcomm iris V4L2 decoder driver"
-> > -        depends on VIDEO_DEV
-> > -        depends on ARCH_QCOM || COMPILE_TEST
-> > -        select V4L2_MEM2MEM_DEV
-> > -        select QCOM_MDT_LOADER if ARCH_QCOM
-> > -        select QCOM_SCM
-> > -        select VIDEOBUF2_DMA_CONTIG
-> > -        help
-> > -          This is a V4L2 driver for Qualcomm iris video accelerator
-> > -          hardware. It accelerates decoding operations on various
-> > -          Qualcomm SoCs.
-> > -          To compile this driver as a module choose m here.
-> > +	tristate "Qualcomm iris V4L2 decoder driver"
-> > +	depends on VIDEO_DEV
-> > +	depends on ARCH_QCOM || COMPILE_TEST
-> > +	select V4L2_MEM2MEM_DEV
-> > +	select QCOM_MDT_LOADER if ARCH_QCOM
-> > +	select QCOM_SCM
-> > +	select QCOM_PAS
-> > +	select VIDEOBUF2_DMA_CONTIG
-> > +	help
-> > +	  This is a V4L2 driver for Qualcomm iris video accelerator
-> > +	  hardware. It accelerates decoding operations on various
-> > +	  Qualcomm SoCs.
-> > +	  To compile this driver as a module choose m here.
-> 
-> Here, Space replaced by Tabs just for one line.., should be fine.
-
-Yeah, spaces aren't meant here.
+Reviewed-by: Steven Price <steven.price@arm.com>
 
 > 
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+> ---
+>  drivers/gpu/drm/panthor/panthor_device.h | 5 ++---
+>  drivers/gpu/drm/panthor/panthor_fw.c     | 1 +
+>  drivers/gpu/drm/panthor/panthor_gpu.c    | 1 +
+>  drivers/gpu/drm/panthor/panthor_mmu.c    | 1 +
+>  drivers/gpu/drm/panthor/panthor_pwr.c    | 1 +
+>  5 files changed, 6 insertions(+), 3 deletions(-)
 > 
-> > diff --git a/drivers/media/platform/qcom/iris/iris_firmware.c b/drivers/media/platform/qcom/iris/iris_firmware.c
-> > index 5f408024e967..856fa6a79064 100644
-> > --- a/drivers/media/platform/qcom/iris/iris_firmware.c
-> > +++ b/drivers/media/platform/qcom/iris/iris_firmware.c
-> > @@ -4,6 +4,7 @@
-> >   */
-> >  
-> >  #include <linux/firmware.h>
-> > +#include <linux/firmware/qcom/qcom_pas.h>
-> >  #include <linux/firmware/qcom/qcom_scm.h>
-> >  #include <linux/of_address.h>
-> >  #include <linux/of_reserved_mem.h>
-> > @@ -79,7 +80,7 @@ int iris_fw_load(struct iris_core *core)
-> >  		return -ENOMEM;
-> >  	}
-> >  
-> > -	ret = qcom_scm_pas_auth_and_reset(core->iris_platform_data->pas_id);
-> > +	ret = qcom_pas_auth_and_reset(core->iris_platform_data->pas_id);
-> >  	if (ret)  {
-> >  		dev_err(core->dev, "auth and reset failed: %d\n", ret);
-> >  		return ret;
-> > @@ -93,7 +94,7 @@ int iris_fw_load(struct iris_core *core)
-> >  						     cp_config->cp_nonpixel_size);
-> >  		if (ret) {
-> >  			dev_err(core->dev, "qcom_scm_mem_protect_video_var failed: %d\n", ret);
-> > -			qcom_scm_pas_shutdown(core->iris_platform_data->pas_id);
-> > +			qcom_pas_shutdown(core->iris_platform_data->pas_id);
-> >  			return ret;
-> >  		}
-> >  	}
-> > @@ -103,10 +104,10 @@ int iris_fw_load(struct iris_core *core)
-> >  
-> >  int iris_fw_unload(struct iris_core *core)
-> >  {
-> > -	return qcom_scm_pas_shutdown(core->iris_platform_data->pas_id);
-> > +	return qcom_pas_shutdown(core->iris_platform_data->pas_id);
-> >  }
-> >  
-> >  int iris_set_hw_state(struct iris_core *core, bool resume)
-> >  {
-> > -	return qcom_scm_set_remote_state(resume, 0);
-> > +	return qcom_pas_set_remote_state(resume, core->irisi_platform_data->pas_id);
-> 
-> 
-> Should be a separate change for qcom_pas_set_remote_state()
-> 
-> >  }
-> > diff --git a/drivers/media/platform/qcom/venus/Kconfig b/drivers/media/platform/qcom/venus/Kconfig
-> > index ffb731ecd48c..574172724e8f 100644
-> > --- a/drivers/media/platform/qcom/venus/Kconfig
-> > +++ b/drivers/media/platform/qcom/venus/Kconfig
-> > @@ -6,6 +6,7 @@ config VIDEO_QCOM_VENUS
-> >  	select OF_DYNAMIC if ARCH_QCOM
-> >  	select QCOM_MDT_LOADER if ARCH_QCOM
-> >  	select QCOM_SCM
-> > +	select QCOM_PAS
-> >  	select VIDEOBUF2_DMA_CONTIG
-> >  	select V4L2_MEM2MEM_DEV
-> >  	help
-> > diff --git a/drivers/media/platform/qcom/venus/firmware.c b/drivers/media/platform/qcom/venus/firmware.c
-> > index 1de7436713ed..3c0727ea137d 100644
-> > --- a/drivers/media/platform/qcom/venus/firmware.c
-> > +++ b/drivers/media/platform/qcom/venus/firmware.c
-> > @@ -12,6 +12,7 @@
-> >  #include <linux/of_reserved_mem.h>
-> >  #include <linux/platform_device.h>
-> >  #include <linux/of_device.h>
-> > +#include <linux/firmware/qcom/qcom_pas.h>
-> >  #include <linux/firmware/qcom/qcom_scm.h>
-> >  #include <linux/sizes.h>
-> >  #include <linux/soc/qcom/mdt_loader.h>
-> > @@ -58,7 +59,7 @@ int venus_set_hw_state(struct venus_core *core, bool resume)
-> >  	int ret;
-> >  
-> >  	if (core->use_tz) {
-> > -		ret = qcom_scm_set_remote_state(resume, 0);
-> > +		ret = qcom_pas_set_remote_state(resume, VENUS_PAS_ID);
-> 
-> This too..
-> 
-> >  		if (resume && ret == -EINVAL)
-> >  			ret = 0;
-> >  		return ret;
-> > @@ -218,7 +219,7 @@ int venus_boot(struct venus_core *core)
-> >  	int ret;
-> >  
-> >  	if (!IS_ENABLED(CONFIG_QCOM_MDT_LOADER) ||
-> > -	    (core->use_tz && !qcom_scm_is_available()))
-> > +	    (core->use_tz && !qcom_pas_is_available()))
-> >  		return -EPROBE_DEFER;
-> >  
-> >  	ret = of_property_read_string_index(dev->of_node, "firmware-name", 0,
-> > @@ -236,7 +237,7 @@ int venus_boot(struct venus_core *core)
-> >  	core->fw.mem_phys = mem_phys;
-> >  
-> >  	if (core->use_tz)
-> > -		ret = qcom_scm_pas_auth_and_reset(VENUS_PAS_ID);
-> > +		ret = qcom_pas_auth_and_reset(VENUS_PAS_ID);
-> >  	else
-> >  		ret = venus_boot_no_tz(core, mem_phys, mem_size);
-> >  
-> > @@ -259,7 +260,7 @@ int venus_boot(struct venus_core *core)
-> >  						     res->cp_nonpixel_start,
-> >  						     res->cp_nonpixel_size);
-> >  		if (ret) {
-> > -			qcom_scm_pas_shutdown(VENUS_PAS_ID);
-> > +			qcom_pas_shutdown(VENUS_PAS_ID);
-> >  			dev_err(dev, "set virtual address ranges fail (%d)\n",
-> >  				ret);
-> >  			return ret;
-> > @@ -274,7 +275,7 @@ int venus_shutdown(struct venus_core *core)
-> >  	int ret;
-> >  
-> >  	if (core->use_tz)
-> > -		ret = qcom_scm_pas_shutdown(VENUS_PAS_ID);
-> > +		ret = qcom_pas_shutdown(VENUS_PAS_ID);
-> >  	else
-> >  		ret = venus_shutdown_no_tz(core);
-> >  
-> > -- 
-> > 2.51.0
-> 
-> with above change
-> 
-> Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
+> index afa202546316..1c130b8394ab 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.h
+> +++ b/drivers/gpu/drm/panthor/panthor_device.h
+> @@ -672,6 +672,7 @@ static inline void panthor_irq_disable_events(struct panthor_irq *pirq, u32 mask
+>  static inline int
+>  panthor_irq_request(struct panthor_device *ptdev, struct panthor_irq *pirq,
+>  		    int irq, u32 mask, void __iomem *iomem, const char *name,
+> +		    irqreturn_t (*raw_handler)(int, void *data),
+>  		    irqreturn_t (*threaded_handler)(int, void *data))
+>  {
+>  	const char *full_name;
+> @@ -687,9 +688,7 @@ panthor_irq_request(struct panthor_device *ptdev, struct panthor_irq *pirq,
+>  	if (!full_name)
+>  		return -ENOMEM;
+>  
+> -	return devm_request_threaded_irq(ptdev->base.dev, irq,
+> -					 panthor_irq_default_raw_handler,
+> -					 threaded_handler,
+> +	return devm_request_threaded_irq(ptdev->base.dev, irq, raw_handler, threaded_handler,
+>  					 IRQF_SHARED, full_name, pirq);
+>  }
+>  
+> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
+> index eaf599b0a887..8239a6951569 100644
+> --- a/drivers/gpu/drm/panthor/panthor_fw.c
+> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
+> @@ -1483,6 +1483,7 @@ int panthor_fw_init(struct panthor_device *ptdev)
+>  
+>  	ret = panthor_irq_request(ptdev, &fw->irq, irq, 0,
+>  				  ptdev->iomem + JOB_INT_BASE, "job",
+> +				  panthor_irq_default_raw_handler,
+>  				  panthor_job_irq_threaded_handler);
+>  	if (ret) {
+>  		drm_err(&ptdev->base, "failed to request job irq");
+> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
+> index ce208e384762..d0be758ea3e1 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
+> @@ -177,6 +177,7 @@ int panthor_gpu_init(struct panthor_device *ptdev)
+>  	ret = panthor_irq_request(ptdev, &ptdev->gpu->irq, irq,
+>  				  GPU_INTERRUPTS_MASK,
+>  				  ptdev->iomem + GPU_INT_BASE, "gpu",
+> +				  panthor_irq_default_raw_handler,
+>  				  panthor_gpu_irq_threaded_handler);
+>  	if (ret)
+>  		return ret;
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+> index a0d0a9b2926f..2cb07933b629 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> @@ -3260,6 +3260,7 @@ int panthor_mmu_init(struct panthor_device *ptdev)
+>  	ret = panthor_irq_request(ptdev, &mmu->irq, irq,
+>  				  panthor_mmu_fault_mask(ptdev, ~0),
+>  				  ptdev->iomem + MMU_INT_BASE, "mmu",
+> +				  panthor_irq_default_raw_handler,
+>  				  panthor_mmu_irq_threaded_handler);
+>  	if (ret)
+>  		return ret;
+> diff --git a/drivers/gpu/drm/panthor/panthor_pwr.c b/drivers/gpu/drm/panthor/panthor_pwr.c
+> index 80cf78007896..1efb7f3482ba 100644
+> --- a/drivers/gpu/drm/panthor/panthor_pwr.c
+> +++ b/drivers/gpu/drm/panthor/panthor_pwr.c
+> @@ -491,6 +491,7 @@ int panthor_pwr_init(struct panthor_device *ptdev)
+>  	err = panthor_irq_request(
+>  		ptdev, &pwr->irq, irq, PWR_INTERRUPTS_MASK,
+>  		pwr->iomem + PWR_INT_BASE, "pwr",
+> +		panthor_irq_default_raw_handler,
+>  		panthor_pwr_irq_threaded_handler);
+>  	if (err)
+>  		return err;
 > 
 
-Thanks.
-
--Sumit
