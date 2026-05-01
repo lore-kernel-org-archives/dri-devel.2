@@ -4,55 +4,157 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4AB5FF885A
-	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 22:30:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60DB0FF885A
+	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 22:33:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11D5710E21E;
-	Fri,  1 May 2026 22:30:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4ED610F642;
+	Fri,  1 May 2026 22:33:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UtYKX7lC";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Jarv+QPS";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E57710E21E;
- Fri,  1 May 2026 22:30:08 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E78D810F642;
+ Fri,  1 May 2026 22:33:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777674608; x=1809210608;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=rEucf/piCjzDV4SUfkYdbsPme71jTAOOdWMnv/VvYfw=;
- b=UtYKX7lCABIkoctXK7YfUekLjt3i3TxcO2NBk3jtPUQSAHmxd1GSrgnt
- sCy7MyKCmYOwV0bgSf3EqVbpOVz3UOo3gE1MXX4l4z90gRmyqarNP6Jux
- HCwq8jlcrdDBsHaw0iyUT+PJxKWVLsTXARkUymxoRgt7eF85w4gdUF2wp
- IqJWHcn+dekOxuA+uAmA385yIqK8aJNwP6vRXqlPAiQyNP+Fxpagf/3AT
- TULvIdrq6nlO9+9qmdiHNaznMV7pCNIqj8fpLJv3KnMeCag5iDQEsBtvM
- PJh4J/MTbEHwTRJLgeA8ZO5xWGaKFBqIOKqX2Oa2RZKP11PkRz525roXs Q==;
-X-CSE-ConnectionGUID: y5xIAL96RFukOVQwBDh8og==
-X-CSE-MsgGUID: auYyStQ0RzKYHUtc3fTr4A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11773"; a="90096799"
-X-IronPort-AV: E=Sophos;i="6.23,210,1770624000"; d="scan'208";a="90096799"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 May 2026 15:30:07 -0700
-X-CSE-ConnectionGUID: /jLbNPlBQJ+JpEjcZ5i/Gg==
-X-CSE-MsgGUID: s+czy5eTSUGvj7l0U7Mj1w==
+ t=1777674814; x=1809210814;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=wG3Vu/Mfkafe4h8HPhbfZCvcO20uTbWc/S5aO1bOArI=;
+ b=Jarv+QPSSyamg7oktporu67OM02Er0jN7ktC2NKeAlZpxPP5Wyqw/B4W
+ vGYH0jEbWVuUSVOusQ8xYwuLz7yPzIoW/n0Lf8tTe3GzZbsNXSbbVoBIv
+ uoFwy3zuVfkgEJFu7pvZDzSW4/bN5OCbG5IrwI4TyTQ4dxk7HGIiy2h5Z
+ RT5id6WxqSrQ4Z530msVz2KDputzzUQOrHnYKHs3PRgh2b0+loFIsB+66
+ PiyTp/ug1W5LhsMc+voBuSY13EnRoqXuSYx6Z3IEW6qWfFM7oNWSHgBVo
+ 2386rwHIzvS/xUP7yapNgLJSX/w2b3ox+g5f/R93DPZwV9hxNk8e1Lh8X Q==;
+X-CSE-ConnectionGUID: QqavoarBSw++XDGL+C+usQ==
+X-CSE-MsgGUID: cvOb/GR6RN64owvRBUOETg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11773"; a="82505883"
+X-IronPort-AV: E=Sophos;i="6.23,210,1770624000"; d="scan'208";a="82505883"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 May 2026 15:33:34 -0700
+X-CSE-ConnectionGUID: b0OCorSjQ+OprnnVgEa2Bg==
+X-CSE-MsgGUID: 0BLBwLv6RaeBDLGEZunfaw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,210,1770624000"; d="scan'208";a="234113188"
-Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
- by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 May 2026 15:30:08 -0700
+X-IronPort-AV: E=Sophos;i="6.23,210,1770624000"; d="scan'208";a="231838421"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+ by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 May 2026 15:33:33 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Fri, 1 May 2026 15:33:20 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Fri, 1 May 2026 15:33:20 -0700
+Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.17) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Fri, 1 May 2026 15:33:19 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gqP9EZthtjfSePxWkxbwgBo0a34rdRXEzkL4Hxg9lLtqB81Ruh4FUGFsoJ2FuM7kAF2/bZkjVTko0J9jYLx1yJ8maDc8NLHXL+zFpyO6osK5rI62fCJKugHT8jlTyYGRnr36iY4uFf76DJ6ycfULCUnffiE/zVmvA30idHbdxTSI/+VEh2SdAtF9YqRDy8iCS1Vp7N4UsPuYK9GghbMjJJrzrO+6VzOmpTOyW/bO44qiVSohxOL8R1azlBp7dMECNTLlTNIl4DgECrHFpi8FiXC2cFdFaWdxrgSL3oTmdZo0h7mcFsREL1rbFo0N86ewtDAa/mN15etwEpewVg40hg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pZBGbYQT8JSn3y0684BAiK9bIQSHeFmqBQCztECcf9o=;
+ b=Bshgb9oH00llLyLcaXFZ4G4blo7aAUE01BCAflQdLtAuYtOx/04uuyJkxhDzsDqDeaoL7+y+GG1g1W8yIHHDRz4TmAa7zMtnNxhCkzTSFYFybqHLDawCcKNlv9bCD/k6EuPSfIVxT2qhbu4xY8GGUhr5CVRI/09d+F2jx8oH1I9UgkcevOMRMdB205dyh0iZ80lVqb5bvavXOcx5jhWHcZd/Qm524KDKw6Wz6rMXNA3+drPvkDN94DT6Ph20gZptcQtyKDa3a0m0c9Pq3TnRzBBUAcAeKiATFaLgwLQlb53+PwvGQnhM+M9cbhVo0X9aDqHlJkjYmCgw38eSQcTPQQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
+ by CH3PR11MB8313.namprd11.prod.outlook.com (2603:10b6:610:17c::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.21; Fri, 1 May
+ 2026 22:33:17 +0000
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c%7]) with mapi id 15.20.9870.022; Fri, 1 May 2026
+ 22:33:17 +0000
+Date: Fri, 1 May 2026 15:33:15 -0700
 From: Matthew Brost <matthew.brost@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: Kenneth Crudup <kenny@panix.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>, David Airlie <airlied@gmail.com>
-Subject: [PATCH] drm/ttm: Fix GPU MM stats during pool shrinking
-Date: Fri,  1 May 2026 15:30:03 -0700
-Message-Id: <20260501223003.2648450-1-matthew.brost@intel.com>
-X-Mailer: git-send-email 2.34.1
+To: Kenneth Crudup <kenny@panix.com>
+CC: <airlied@gmail.com>, <intel-xe@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, Thomas =?iso-8859-1?Q?Hellstr=F6m?=
+ <thomas.hellstrom@linux.intel.com>, Andrew Morton
+ <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, "Lorenzo
+ Stoakes" <ljs@kernel.org>, "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, "Suren
+ Baghdasaryan" <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: PATCH v4 0/6] mm, drm/ttm, drm/xe: Avoid reclaim/eviction loops
+ under fragmentation
+Message-ID: <afUqKwUnyfz1WbPh@gsse-cloud1.jf.intel.com>
+References: <20260430191809.2142544-1-matthew.brost@intel.com>
+ <20260430191809.2142544-3-matthew.brost@intel.com>
+ <f25f27a1-bf09-44bd-9b37-49f159d82d6a@panix.com>
+ <afUGSmS+jNPP8O5v@gsse-cloud1.jf.intel.com>
+ <1bc0b1a7-a01f-4dc2-ad7a-3a05f975331e@panix.com>
+ <afUWr74J1OVdcwGZ@gsse-cloud1.jf.intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <afUWr74J1OVdcwGZ@gsse-cloud1.jf.intel.com>
+X-ClientProxiedBy: SJ0PR13CA0236.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c1::31) To PH7PR11MB6522.namprd11.prod.outlook.com
+ (2603:10b6:510:212::12)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|CH3PR11MB8313:EE_
+X-MS-Office365-Filtering-Correlation-Id: e5d9274d-59cd-4fa4-1c1a-08dea7d1a40d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|7416014|376014|1800799024|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info: dDIMoWrqc/WZfsYU9S1aUPy2rEv+4ReGSHfboIXRJukefo2SuWldOZXH4Qxln9uMZUuycxBFmy8xegzSXpXIWSJ8EfpdMQS/J0YcXUK1rj+1eQk0R9XE6u2cNs/CSya+6nE7m9njQijBkUf6SL4xXjPY8jKr75co8fUPE9/BfnfvqNxwBsDOmpY8BvVEhUZ5ufeEw8LZvJ3eaOMp2xpep96x2Nrbppq5Jm1OT2pvv5vQvor82RrrWSkbirrj7s1RCGcRZA9h7yXaZ4tChUczerPRw7igIQO+3FNTyLYiFjh8wtngrr26IifSPhCs2gsroZ5kSHpyiY/KtkYSb/21xLLp/yHbJ9q/Scgl+Z+N5gAcbyY7CvpenTiTprNt2iT6Z82ZG71yOlWS+nx74EY1Ae7Odm3o9OunJMMJmsZHMHl9/QuSX8XjisBnPEPUofnTMvv9Q7NF5YqtfeV/hWNjt+AVwElz6/X+2atia9Gz9o0BHRQE0cqBrYY3S8EToNWBm67KInUB2R2Ee0pXw4mHtBh0LyDk3QEIPYoFwSgPs/yoCfZFeeQQ4YVrHzr9Ov3lVZRygrT5JsXEf2kCvzvBw8fjEvHFQOJiFkW5BAFtTWOJVfhdDKVJeCfJ+jdKvWpkZ2qpSvSJHjiFRMb9sqEmBw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(7416014)(376014)(1800799024)(18002099003)(56012099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?gKSLknK08wFL95qVn6IirB6Msnp8MdwJAlA9KPr4Npa2WEGTyFH6uNKpdcWT?=
+ =?us-ascii?Q?u/SMEr0zw+IQw94fzNtx6iZa3StaC1SVr1e8a9orAWGzuevX2W6WVj+ogT0o?=
+ =?us-ascii?Q?BTKu2MD4RpnE1lEdv5nuj+Pfw1ABLxmKuTD5YDQc8tshq4IZ+4SGVni8uuMj?=
+ =?us-ascii?Q?zJ9lcSeUXxw2VpyGbxQkrUEtv7gjP6HoxzbHfFLeKw7UkhLmWzhzgxN69zZN?=
+ =?us-ascii?Q?dhPLS420gd/gPsYSZ1K3Sl6gew7Dyb5AvYCkOFTwwG+VElqNz3krPKDIreNh?=
+ =?us-ascii?Q?BEczs25PVoCYeywpAk554HJcz39UGA/1ffzVo+r5rk6OHmt/BPNjvVNo+jrt?=
+ =?us-ascii?Q?i7LgAqoTtnBw8rXxGNDQIZHZfdQeA9t/Bvy5REZxAEaJUzsuq/609KtwzCwQ?=
+ =?us-ascii?Q?kd62FpiKMszqeoJ7huIX4kz24YNnKIJJ43vD6MgMVLZVgsJlZQ+cTXb+CZ1x?=
+ =?us-ascii?Q?acGivSdCGS/xikcPcbANUUdXwV1uPGbHu/DACowLS2VA/FNBk8dzYgxGSd6n?=
+ =?us-ascii?Q?b+jmqioo8mTMBMZ4bozVeQKR6CebTjyIL4yxozbM3fLC7qcCn7mteE+yZlXq?=
+ =?us-ascii?Q?tgZ/duTPGLDGtmStpYUkf8z3vOMKgzEymYBLbo8KYf7xbT3/77HGrKxx9gB9?=
+ =?us-ascii?Q?9FWn1Kk5mF5WjXi8u147m0bwEeBiCi19QTlHbeic5kPWa1bB++Amlx9Z1y7x?=
+ =?us-ascii?Q?JR2/TfCRw698dOBjhJlUkg6FMbJSEOdLn2kWqiL+DdgzHu7DhLIwCCu4Kk/0?=
+ =?us-ascii?Q?1sKo7EYqAy2Vg66W2gCDgIx3CJdzLEalOmHL6qFAit9Vd1xBft2HNQDUpH7n?=
+ =?us-ascii?Q?4Nc4sWupTjI/Res+MVZ4ZoWix0NOn/iogD9xnFyLRS19eFq+9TYEXAk5ipwO?=
+ =?us-ascii?Q?oJnHDASwQ7loXqU2fRDOCIkhd3YxD/iTEB2BLRZCumwCEufPllQezwvI0vRb?=
+ =?us-ascii?Q?kzssj4495BNdOho3CvQeyx6BFc2/w/0Z1+NC9HkA/aE0dqce3rKsEXBYhrV4?=
+ =?us-ascii?Q?VgCzCJjMvIW0jSfg5/05sKb6HFf9ia/xcjSWtaGDaxg7mGBzn7cpOgco63LR?=
+ =?us-ascii?Q?Unopit7Prn6euRGyL/5FICQ/nhLGNjYhz5v0scOWgnzxe/6xtKWT15NJAxgF?=
+ =?us-ascii?Q?jFsqSK8gBVpPqglcg24UcYrTeYWJ4Xx+hTMelSUH+RdRQKFPnnZ7RbgmyXCZ?=
+ =?us-ascii?Q?CN9AhqGAlKuoolb0QpZRx/wqNruX86CnFbuk7wCcmUQq9gXsEj9i0yMOPgM/?=
+ =?us-ascii?Q?fk5SnV/5XlETgq4CnNkeMCeP01j8TJuKkUkikmeKrXPVBn3xg4MPbBoaEL8H?=
+ =?us-ascii?Q?7NmG+iNW5kTvS0Er+Fg8KOrxm+YlvLzu1X2WXCKYNSz80kuNTTYneuKAFIs0?=
+ =?us-ascii?Q?dsvmWJwI3Wj9/0idWPfOQF/fcIcSdw1/Z79DYcwA4beHQW7qjahsHbrXl/g8?=
+ =?us-ascii?Q?lw2mn/tw0sfBmYIlUnP1ZLxQcI+CvzRdlfjUtkKAAaw692FIWjPEiRV0/Qoo?=
+ =?us-ascii?Q?3LGw0piT2NhoNjPCT/V2S/55tRwBfhyE7a28FsIMwPUvQGdT8QeLQD/FhG6y?=
+ =?us-ascii?Q?nav/hdNZ71YfHUon+ZL03O+lz8n8qucO38xuuBirQHkpj85Fg/kmZlyiw9Xu?=
+ =?us-ascii?Q?K9gfkC0bBfsEKuabolNDr1/ifhN4JXd5RSsGSQFx8+iHOfLX/xUVUyhNlDGr?=
+ =?us-ascii?Q?N+gx7Q5G69lPC0RTmlaFaqdC8Gpjy7h21E+fmx6yLvLugaTQPpv6nvWo+u50?=
+ =?us-ascii?Q?QlZuRimb++Ge1Y/wNHELiW1FHWGdap4=3D?=
+X-Exchange-RoutingPolicyChecked: IyHSTmXSjP8ORGADgc+jKWQiIc2EFF6/uM1R1k0TQKL9EyDMjfjIYMWE0Amf0xyBspbN692dgpVdV1mUGdqJmjGbGumrkIecwLvQgaiy6ADg1a+imtMGcfxhZQnIHNZb+RWmnV869/BklRf0fqOb2pyov2TXXY4frklkVKojGqfgmDS/sTKMGGo8/xuDMcR3phoSQ9yh/YLhXHa+KoKEr3K87HLEEM4V4D1MrSO1cDnw2fVi6T3MFfwUi6d7VgkzDq4kfRNcrFEgMeRvvTJibCdqvZHKhCjoMzJ6LHxFDRzW0i+aYf2TQRFJfkxoi1pjax4HVdWCMTkGCV4gtS23Aw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: e5d9274d-59cd-4fa4-1c1a-08dea7d1a40d
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 May 2026 22:33:17.6997 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vtEUGNYOSiDk7YeHur2l7Ycy5LDx9axkoKL/hKFf4mb482VLKvdWI4h/YXCNlSXABltST0F+mh4I7QxyG6uWUA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB8313
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,73 +170,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-TTM pool shrinking frees pages by calling __free_pages() directly,
-which bypasses updates to NR_GPU_ACTIVE and leaves GPU MM accounting
-out of sync.
+On Fri, May 01, 2026 at 02:10:07PM -0700, Matthew Brost wrote:
+> On Fri, May 01, 2026 at 01:05:57PM -0700, Kenneth Crudup wrote:
+> > 
+> > On 5/1/26 13:00, Matthew Brost wrote:
+> > 
+> > > So is this 7.1-rc1? It looks like new feature to 7.1 added by Dave [1] and
+> > > something look off here. Thanks for pointing this out.
+> > 
+> > Yeah. I grab his master branch daily (as of 6fe0be6dc7fa RN).
+> > 
+> > Is this a "shoot the messenger" thing? IOW, is the reporting off, or is the
+> 
+> I don't think I'm firing any shots.
+> 
+> > memory usage really that high?
+> 
+> I've been able to recreate this. It looks like accounting is correct
+> until the Xe shrinker runs - every time it kicks in GPUActive grows and
+> will not reduce past some new floor value. It looks like an accounting
+> bug in TTM or Xe (?).
+> 
+> Here is my output on a 8G PTL where I have intentionally triggered
+> shrinker to evict at least 23875 BOs (most likey quite few more but this
+> what I easily see in dmesg) after closing everything on desktop.
+> 
+> cat /proc/meminfo | grep GPU; cat /proc/buddyinfo;
+> GPUActive:      13100036 kB
+> GPUReclaim:          152 kB
+> Node 0, zone      DMA      0      1      0      0      0      0      0      0      1      1      3
+> Node 0, zone    DMA32   2320   1882   1523   1238    980    740    482    275    114     88    205
+> Node 0, zone   Normal   9751   9343   6466   4237   2703   1162    805    420    191    145    289
+> 
+> Let me spend a bit of time here to see if I figure out where the
+> accounting goes wrong.
+> 
 
-Introduce a helper, __free_pages_gpu_account(), and use it for all page
-frees in ttm_pool.c so GPU MM statistics are updated consistently.
+Looks like a simple accounting error in the shrinking path. Here is a fix
+[1] that seems to work for me.
 
-Reported-by: Kenneth Crudup <kenny@panix.com>
-Fixes: ae80122f3896 ("drm/ttm: use gpu mm stats to track gpu memory allocations. (v4)")
-Cc: Christian Koenig <christian.koenig@amd.com>
-Cc: Huang Rui <ray.huang@amd.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: David Airlie <airlied@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
----
- drivers/gpu/drm/ttm/ttm_pool.c | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
+If you want to give a it try, that would be helpful.
 
-diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-index 26a3689e5fd9..95bbd9328072 100644
---- a/drivers/gpu/drm/ttm/ttm_pool.c
-+++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -206,6 +206,14 @@ static struct page *ttm_pool_alloc_page(struct ttm_pool *pool, gfp_t gfp_flags,
- 	return NULL;
- }
+Matt
  
-+static void __free_pages_gpu_account(struct page *p, unsigned int order,
-+				     bool reclaim)
-+{
-+	mod_lruvec_page_state(p, reclaim ? NR_GPU_RECLAIM : NR_GPU_ACTIVE,
-+			      -(1 << order));
-+	__free_pages(p, order);
-+}
-+
- /* Reset the caching and pages of size 1 << order */
- static void ttm_pool_free_page(struct ttm_pool *pool, enum ttm_caching caching,
- 			       unsigned int order, struct page *p, bool reclaim)
-@@ -223,9 +231,7 @@ static void ttm_pool_free_page(struct ttm_pool *pool, enum ttm_caching caching,
- #endif
- 
- 	if (!pool || !ttm_pool_uses_dma_alloc(pool)) {
--		mod_lruvec_page_state(p, reclaim ? NR_GPU_RECLAIM : NR_GPU_ACTIVE,
--				      -(1 << order));
--		__free_pages(p, order);
-+		__free_pages_gpu_account(p, order, reclaim);
- 		return;
- 	}
- 
-@@ -606,7 +612,7 @@ static int ttm_pool_restore_commit(struct ttm_pool_tt_restore *restore,
- 			 */
- 			ttm_pool_split_for_swap(restore->pool, p);
- 			copy_highpage(restore->alloced_page + i, p);
--			__free_pages(p, 0);
-+			__free_pages_gpu_account(p, 0, false);
- 		}
- 
- 		restore->restored_pages++;
-@@ -1068,7 +1074,7 @@ long ttm_pool_backup(struct ttm_pool *pool, struct ttm_tt *tt,
- 			if (flags->purge) {
- 				shrunken += num_pages;
- 				page->private = 0;
--				__free_pages(page, order);
-+				__free_pages_gpu_account(page, order, false);
- 				memset(tt->pages + i, 0,
- 				       num_pages * sizeof(*tt->pages));
- 			}
--- 
-2.34.1
+[1] https://patchwork.freedesktop.org/series/165862/
 
+> Matt
+> 
+> > 
+> > (BTW, those are in 30-second intervals)
+> > 
+> > > > ----
+> > > > SwapTotal:      33554428 kB
+> > > > MemTotal:       32345672 kB
+> > > > GPUActive:        652640 kB
+> > > > GPUReclaim:       403988 kB
+> > > > 
+> > > > SwapTotal:      33554428 kB
+> > > > MemTotal:       32345672 kB
+> > > > GPUActive:        651180 kB
+> > > > GPUReclaim:       406812 kB
+> > > > 
+> > > > SwapTotal:      33554428 kB
+> > > > MemTotal:       32345672 kB
+> > > > GPUActive:        659004 kB
+> > > > GPUReclaim:       399396 kB
+> > > > 
+> > > > SwapTotal:      33554428 kB
+> > > > MemTotal:       32345672 kB
+> > > > GPUActive:        666996 kB
+> > > > GPUReclaim:       392764 kB
+> > > > 
+> > > > <some hours later>
+> > > > GPUActive:      91832468 kB
+> > > > SwapTotal:      33554428 kB
+> > > > MemTotal:       32345672 kB
+> > > > GPUReclaim:       488000 kB
+> > > > 
+> > > > GPUActive:      91832332 kB
+> > > > SwapTotal:      33554428 kB
+> > > > MemTotal:       32345672 kB
+> > > > GPUReclaim:       487988 kB
+> > > > 
+> > > > GPUActive:      91869376 kB
+> > > > SwapTotal:      33554428 kB
+> > > > MemTotal:       32345672 kB
+> > > > GPUReclaim:       486504 kB
+> > > > ----
+> > 
+> > -K
+> > 
+> > -- 
+> > Kenneth R. Crudup / Sr. SW Engineer, Scott County Consulting, Orange County
+> > CA
+> > 
