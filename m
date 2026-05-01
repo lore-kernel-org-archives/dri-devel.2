@@ -4,63 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D81F4CD3425
-	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 13:26:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAF48CCFA13
+	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 13:27:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B13510F51D;
-	Fri,  1 May 2026 13:26:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F411210F520;
+	Fri,  1 May 2026 13:27:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="GSKN1TLq";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ks9s1mZI";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 128FE10F519;
- Fri,  1 May 2026 13:26:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=fPMaYFIYeHllJfA6/EGgDz7HmXJe7sA+q9DQs1C/vOI=; b=GSKN1TLqxIbv6pDDA6rSGjQwT4
- moCxzmnjvT3hhogjU+p7K+1twuL3bvdZlbaAEkHcVchNFTkvwPussFEhKmcMGsXZ+HYvYBX3Ak5jO
- CbUU7MIZXiCNQsasTmiTDVHdCpDeaNoMgAXq65+IbDD8v6IwGy7b1xyxCB6F+O9FD/mOLEZds9l1d
- wlL0nOtUC5uBckEo17H6qgpIulGwVh1KbrSq0pshwvgVZ6usQW9hDZrU9sc/GrxWxQHicLZZ73SV8
- 0IDnbAmgcS7uiuv33Fc5OMLcHjmHQX6JP+yNB8tlXwrTC8ibf+RTgNnFrhI2mz+pPj+bIaV+1Dh9t
- itRV0YTA==;
-Received: from [186.208.73.228] (helo=killbill.home)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wInsz-004r12-6c; Fri, 01 May 2026 15:26:28 +0200
-From: Melissa Wen <mwen@igalia.com>
-To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, simona@ffwll.ch, siqueira@igalia.com,
- sunpeng.li@amd.com, tzimmermann@suse.de
-Cc: Alex Hung <alex.hung@amd.com>, Simon Ser <contact@emersion.fr>,
- Uma Shankar <uma.shankar@intel.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Xaver Hugl <xaver.hugl@kde.org>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Matthew Schwartz <matthew.schwartz@linux.dev>,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH v4 6/6] drm/amd/display: use plane color_mgmt_changed to track
- colorop changes
-Date: Fri,  1 May 2026 10:06:52 -0300
-Message-ID: <20260501132527.522320-7-mwen@igalia.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260501132527.522320-1-mwen@igalia.com>
-References: <20260501132527.522320-1-mwen@igalia.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72F9D10F51F;
+ Fri,  1 May 2026 13:27:08 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 307B6435AD;
+ Fri,  1 May 2026 13:27:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A09DDC2BCB4;
+ Fri,  1 May 2026 13:26:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1777642028;
+ bh=cecY22npZ8O09cZUaB8M0VENwxo6jF899E2WK/sGM8U=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Ks9s1mZIkV8HxwO4Mq2+M0rNhz33rtPZ+PEpQg8O0T7agTQM/ie+qo1rwFzMc+b+A
+ VqDH4/+JcAgC//FSDTXVNeTLY3ZnVf6ao0PPeE2eDyKLB70fqAtG1BZGKK4J4NwVYM
+ OfaQriqJVci3Be7SKDrYFRY61OXwF0wXPYEyzsVt5ayiFhEFxMW1q5daFboq3L7XMO
+ 64Cx2hTxZcYCLazmmG5vv2hGIZnAcTrMTjhtB+7TrKmtFgXcpfm7HFnitN26O/Gx8U
+ JOUfHUQd9G+45ryjeV+BQBCvFltUxfgmsGCNc+KFS0VD58QfpBufJUzuhvutKP50DW
+ 4FZ/nGOcO+OnA==
+Date: Fri, 1 May 2026 18:56:50 +0530
+From: Sumit Garg <sumit.garg@kernel.org>
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: andersson@kernel.org, konradybcio@kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-media@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+ linux-remoteproc@vger.kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org,
+ robin.clark@oss.qualcomm.com, sean@poorly.run,
+ akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ jesszhan0024@gmail.com, marijn.suijten@somainline.org,
+ airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
+ dikshita.agarwal@oss.qualcomm.com, bod@kernel.org,
+ mchehab@kernel.org, elder@kernel.org, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, jjohnson@kernel.org, mathieu.poirier@linaro.org,
+ trilokkumar.soni@oss.qualcomm.com, pavan.kondeti@oss.qualcomm.com,
+ jorge.ramirez@oss.qualcomm.com, tonyh@qti.qualcomm.com,
+ vignesh.viswanathan@oss.qualcomm.com, srinivas.kandagatla@oss.qualcomm.com,
+ amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
+ op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
+ skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
+ Sumit Garg <sumit.garg@oss.qualcomm.com>
+Subject: Re: [PATCH v4 11/15] media: qcom: Switch to generic PAS TZ APIs
+Message-ID: <afSqGp-yzZip7q-j@sumit-xelite>
+References: <20260427095603.1157963-1-sumit.garg@kernel.org>
+ <20260427095603.1157963-12-sumit.garg@kernel.org>
+ <20260428193714.sg5n3tntww2nuquu@hu-mojha-hyd.qualcomm.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260428193714.sg5n3tntww2nuquu@hu-mojha-hyd.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,42 +79,199 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Ensure the driver tracks changes in any colorop property of a plane
-color pipeline by using the same mechanism of CRTC color management and
-update plane color blocks when any colorop property changes. It fixes an
-issue observed on gamescope settings for night mode which is done via
-shaper/3D-LUT updates.
+On Wed, Apr 29, 2026 at 01:07:14AM +0530, Mukesh Ojha wrote:
+> On Mon, Apr 27, 2026 at 03:25:59PM +0530, Sumit Garg wrote:
+> > From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> > 
+> > Switch qcom media client drivers over to generic PAS TZ APIs. Generic PAS
+> > TZ service allows to support multiple TZ implementation backends like QTEE
+> > based SCM PAS service, OP-TEE based PAS service and any further future TZ
+> > backend service.
+> > 
+> > Along with that pass proper PAS ID to set_remote_state API. As per testing
+> > the SCM backend just ignores it while OP-TEE makes use of it to for proper
+> > book keeping purpose.
+> 
+> When we use 'Along with' or 'while at it', patch is doing two things and
+> not one.
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-Signed-off-by: Melissa Wen <mwen@igalia.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+Okay, I will split this into 2.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index e96a12ff2d31..d3237f61246c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -10067,7 +10067,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 			continue;
- 
- 		bundle->surface_updates[planes_count].surface = dc_plane;
--		if (new_pcrtc_state->color_mgmt_changed) {
-+		if (new_pcrtc_state->color_mgmt_changed || new_plane_state->color_mgmt_changed) {
- 			bundle->surface_updates[planes_count].gamma = &dc_plane->gamma_correction;
- 			bundle->surface_updates[planes_count].in_transfer_func = &dc_plane->in_transfer_func;
- 			bundle->surface_updates[planes_count].gamut_remap_matrix = &dc_plane->gamut_remap_matrix;
-@@ -11808,6 +11808,10 @@ static bool should_reset_plane(struct drm_atomic_state *state,
- 	if (new_crtc_state->color_mgmt_changed)
- 		return true;
- 
-+	/* Plane color pipeline or its colorop changes. */
-+	if (new_plane_state->color_mgmt_changed)
-+		return true;
-+
- 	/*
- 	 * On zpos change, planes need to be reordered by removing and re-adding
- 	 * them one by one to the dc state, in order of descending zpos.
--- 
-2.53.0
+> 
+> > 
+> > Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> > ---
+> >  drivers/media/platform/qcom/iris/Kconfig      | 25 ++++++++++---------
+> >  .../media/platform/qcom/iris/iris_firmware.c  |  9 ++++---
+> >  drivers/media/platform/qcom/venus/Kconfig     |  1 +
+> >  drivers/media/platform/qcom/venus/firmware.c  | 11 ++++----
+> >  4 files changed, 25 insertions(+), 21 deletions(-)
+> > 
+> > diff --git a/drivers/media/platform/qcom/iris/Kconfig b/drivers/media/platform/qcom/iris/Kconfig
+> > index 3c803a05305a..f54b759c18aa 100644
+> > --- a/drivers/media/platform/qcom/iris/Kconfig
+> > +++ b/drivers/media/platform/qcom/iris/Kconfig
+> > @@ -1,13 +1,14 @@
+> >  config VIDEO_QCOM_IRIS
+> > -        tristate "Qualcomm iris V4L2 decoder driver"
+> > -        depends on VIDEO_DEV
+> > -        depends on ARCH_QCOM || COMPILE_TEST
+> > -        select V4L2_MEM2MEM_DEV
+> > -        select QCOM_MDT_LOADER if ARCH_QCOM
+> > -        select QCOM_SCM
+> > -        select VIDEOBUF2_DMA_CONTIG
+> > -        help
+> > -          This is a V4L2 driver for Qualcomm iris video accelerator
+> > -          hardware. It accelerates decoding operations on various
+> > -          Qualcomm SoCs.
+> > -          To compile this driver as a module choose m here.
+> > +	tristate "Qualcomm iris V4L2 decoder driver"
+> > +	depends on VIDEO_DEV
+> > +	depends on ARCH_QCOM || COMPILE_TEST
+> > +	select V4L2_MEM2MEM_DEV
+> > +	select QCOM_MDT_LOADER if ARCH_QCOM
+> > +	select QCOM_SCM
+> > +	select QCOM_PAS
+> > +	select VIDEOBUF2_DMA_CONTIG
+> > +	help
+> > +	  This is a V4L2 driver for Qualcomm iris video accelerator
+> > +	  hardware. It accelerates decoding operations on various
+> > +	  Qualcomm SoCs.
+> > +	  To compile this driver as a module choose m here.
+> 
+> Here, Space replaced by Tabs just for one line.., should be fine.
 
+Yeah, spaces aren't meant here.
+
+> 
+> 
+> > diff --git a/drivers/media/platform/qcom/iris/iris_firmware.c b/drivers/media/platform/qcom/iris/iris_firmware.c
+> > index 5f408024e967..856fa6a79064 100644
+> > --- a/drivers/media/platform/qcom/iris/iris_firmware.c
+> > +++ b/drivers/media/platform/qcom/iris/iris_firmware.c
+> > @@ -4,6 +4,7 @@
+> >   */
+> >  
+> >  #include <linux/firmware.h>
+> > +#include <linux/firmware/qcom/qcom_pas.h>
+> >  #include <linux/firmware/qcom/qcom_scm.h>
+> >  #include <linux/of_address.h>
+> >  #include <linux/of_reserved_mem.h>
+> > @@ -79,7 +80,7 @@ int iris_fw_load(struct iris_core *core)
+> >  		return -ENOMEM;
+> >  	}
+> >  
+> > -	ret = qcom_scm_pas_auth_and_reset(core->iris_platform_data->pas_id);
+> > +	ret = qcom_pas_auth_and_reset(core->iris_platform_data->pas_id);
+> >  	if (ret)  {
+> >  		dev_err(core->dev, "auth and reset failed: %d\n", ret);
+> >  		return ret;
+> > @@ -93,7 +94,7 @@ int iris_fw_load(struct iris_core *core)
+> >  						     cp_config->cp_nonpixel_size);
+> >  		if (ret) {
+> >  			dev_err(core->dev, "qcom_scm_mem_protect_video_var failed: %d\n", ret);
+> > -			qcom_scm_pas_shutdown(core->iris_platform_data->pas_id);
+> > +			qcom_pas_shutdown(core->iris_platform_data->pas_id);
+> >  			return ret;
+> >  		}
+> >  	}
+> > @@ -103,10 +104,10 @@ int iris_fw_load(struct iris_core *core)
+> >  
+> >  int iris_fw_unload(struct iris_core *core)
+> >  {
+> > -	return qcom_scm_pas_shutdown(core->iris_platform_data->pas_id);
+> > +	return qcom_pas_shutdown(core->iris_platform_data->pas_id);
+> >  }
+> >  
+> >  int iris_set_hw_state(struct iris_core *core, bool resume)
+> >  {
+> > -	return qcom_scm_set_remote_state(resume, 0);
+> > +	return qcom_pas_set_remote_state(resume, core->irisi_platform_data->pas_id);
+> 
+> 
+> Should be a separate change for qcom_pas_set_remote_state()
+> 
+> >  }
+> > diff --git a/drivers/media/platform/qcom/venus/Kconfig b/drivers/media/platform/qcom/venus/Kconfig
+> > index ffb731ecd48c..574172724e8f 100644
+> > --- a/drivers/media/platform/qcom/venus/Kconfig
+> > +++ b/drivers/media/platform/qcom/venus/Kconfig
+> > @@ -6,6 +6,7 @@ config VIDEO_QCOM_VENUS
+> >  	select OF_DYNAMIC if ARCH_QCOM
+> >  	select QCOM_MDT_LOADER if ARCH_QCOM
+> >  	select QCOM_SCM
+> > +	select QCOM_PAS
+> >  	select VIDEOBUF2_DMA_CONTIG
+> >  	select V4L2_MEM2MEM_DEV
+> >  	help
+> > diff --git a/drivers/media/platform/qcom/venus/firmware.c b/drivers/media/platform/qcom/venus/firmware.c
+> > index 1de7436713ed..3c0727ea137d 100644
+> > --- a/drivers/media/platform/qcom/venus/firmware.c
+> > +++ b/drivers/media/platform/qcom/venus/firmware.c
+> > @@ -12,6 +12,7 @@
+> >  #include <linux/of_reserved_mem.h>
+> >  #include <linux/platform_device.h>
+> >  #include <linux/of_device.h>
+> > +#include <linux/firmware/qcom/qcom_pas.h>
+> >  #include <linux/firmware/qcom/qcom_scm.h>
+> >  #include <linux/sizes.h>
+> >  #include <linux/soc/qcom/mdt_loader.h>
+> > @@ -58,7 +59,7 @@ int venus_set_hw_state(struct venus_core *core, bool resume)
+> >  	int ret;
+> >  
+> >  	if (core->use_tz) {
+> > -		ret = qcom_scm_set_remote_state(resume, 0);
+> > +		ret = qcom_pas_set_remote_state(resume, VENUS_PAS_ID);
+> 
+> This too..
+> 
+> >  		if (resume && ret == -EINVAL)
+> >  			ret = 0;
+> >  		return ret;
+> > @@ -218,7 +219,7 @@ int venus_boot(struct venus_core *core)
+> >  	int ret;
+> >  
+> >  	if (!IS_ENABLED(CONFIG_QCOM_MDT_LOADER) ||
+> > -	    (core->use_tz && !qcom_scm_is_available()))
+> > +	    (core->use_tz && !qcom_pas_is_available()))
+> >  		return -EPROBE_DEFER;
+> >  
+> >  	ret = of_property_read_string_index(dev->of_node, "firmware-name", 0,
+> > @@ -236,7 +237,7 @@ int venus_boot(struct venus_core *core)
+> >  	core->fw.mem_phys = mem_phys;
+> >  
+> >  	if (core->use_tz)
+> > -		ret = qcom_scm_pas_auth_and_reset(VENUS_PAS_ID);
+> > +		ret = qcom_pas_auth_and_reset(VENUS_PAS_ID);
+> >  	else
+> >  		ret = venus_boot_no_tz(core, mem_phys, mem_size);
+> >  
+> > @@ -259,7 +260,7 @@ int venus_boot(struct venus_core *core)
+> >  						     res->cp_nonpixel_start,
+> >  						     res->cp_nonpixel_size);
+> >  		if (ret) {
+> > -			qcom_scm_pas_shutdown(VENUS_PAS_ID);
+> > +			qcom_pas_shutdown(VENUS_PAS_ID);
+> >  			dev_err(dev, "set virtual address ranges fail (%d)\n",
+> >  				ret);
+> >  			return ret;
+> > @@ -274,7 +275,7 @@ int venus_shutdown(struct venus_core *core)
+> >  	int ret;
+> >  
+> >  	if (core->use_tz)
+> > -		ret = qcom_scm_pas_shutdown(VENUS_PAS_ID);
+> > +		ret = qcom_pas_shutdown(VENUS_PAS_ID);
+> >  	else
+> >  		ret = venus_shutdown_no_tz(core);
+> >  
+> > -- 
+> > 2.51.0
+> 
+> with above change
+> 
+> Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> 
+
+Thanks.
+
+-Sumit
