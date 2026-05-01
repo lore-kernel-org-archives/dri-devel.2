@@ -4,48 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AA7FCD3424
-	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 13:28:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB1FFCCFA13
+	for <dri-devel@archiver.kernel.org>; Fri,  1 May 2026 13:30:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B07A310F51F;
-	Fri,  1 May 2026 13:28:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF5BC10F521;
+	Fri,  1 May 2026 13:30:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="RQ2PQ7EO";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XR6isQHp";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 173A910F51F
- for <dri-devel@lists.freedesktop.org>; Fri,  1 May 2026 13:28:22 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 28930176A;
- Fri,  1 May 2026 06:28:16 -0700 (PDT)
-Received: from [10.1.29.19] (e122027.cambridge.arm.com [10.1.29.19])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A9B2E3F62B;
- Fri,  1 May 2026 06:28:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1777642101; bh=ArffdoYQY7j7cEy/fEwUcR+TvqH/ui+Oi4DIkQxDb1w=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=RQ2PQ7EO1uheuyndEOCGcWC5WAJklRlA1igyTmFl7VQsQHaPJX+D+0HxbAWMtGAra
- Lzx83cs7gOtTEZ+HZUA16MWeAoo0ewqQTrBfrPzUkfzYKljuIurBQr/qHxDtc2hpGL
- I8b28L747Fyj12wlToy+uGs24MnthO6cOM3i8QtQ=
-Message-ID: <7a8fad13-a7ba-4273-999c-a265d20858bb@arm.com>
-Date: Fri, 1 May 2026 14:28:17 +0100
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3A5810F521
+ for <dri-devel@lists.freedesktop.org>; Fri,  1 May 2026 13:29:59 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 4FD8860583;
+ Fri,  1 May 2026 13:29:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B03CAC2BCB4;
+ Fri,  1 May 2026 13:29:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1777642198;
+ bh=BZ2v71yXw5+sqwKfb2RrE9YhQDqAyNhheVP60K2cRww=;
+ h=Subject:To:Cc:From:Date:From;
+ b=XR6isQHp9WPOl2VNnMoBhmCiKZbuBmTnZJZCBr4TXd1TK4fAw4TIFdG20kTxaBUIY
+ cykrdDVzjy3ZQP1HrJ8eeIy1ZhEmoJ4wtadnVwJIIouvfJjiXna+RXC+HiJP7T6SZ6
+ 6/cyYaY68NVVqYlt0v1FfoIRRltOmWdvveh8ehgs=
+Subject: Patch "fbdev: defio: Disconnect deferred I/O from the lifetime of
+ struct fb_info" has been added to the 7.0-stable tree
+To: deller@gmx.de, dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org,
+ tzimmermann@suse.de
+Cc: <stable-commits@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Fri, 01 May 2026 15:29:48 +0200
+Message-ID: <2026050148-jackal-neutron-7c94@gregkh>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 04/10] drm/panthor: Extend the IRQ logic to allow fast/raw
- IRQ handlers
-To: Boris Brezillon <boris.brezillon@collabora.com>,
- Liviu Dudau <liviu.dudau@arm.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260429-panthor-signal-from-irq-v1-0-4b92ae4142d2@collabora.com>
- <20260429-panthor-signal-from-irq-v1-4-4b92ae4142d2@collabora.com>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260429-panthor-signal-from-irq-v1-4-4b92ae4142d2@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
+X-stable: commit
+X-Patchwork-Hint: ignore 
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,110 +55,392 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 29/04/2026 10:38, Boris Brezillon wrote:
-> All drivers except panthor signal their fences from their interrupt
-> handler to minimize latency. We could do the same from the interrupt
-> handler, but the latency is still quite high in that case, so let's
-> allow components to choose the context they want their IRQ handler
-> to run in.
-> 
-> This takes the form of an extra fast_handler() returning an irqreturn_t
-> reflecting the need to wake-up a thread or not.
-> A new PANTHOR_IRQ_ADV_HANDLER() macro taking this extra fast_handler
-> argument is added, PANTHOR_IRQ_HANDLER() is implemented as a wrapper
-> around PANTHOR_IRQ_ADV_HANDLER() with a default fast_handler
-> returning IRQ_WAKE_THREAD. The fast and slow handler are still assumed
-> to be mutually exclusive. In case a fast handler is provided, the
-> slow_handler is expected to be run when the event can't be processed
-> directly in the fast handler, or when the driver thinks it would be
-> beneficial to coalesce interrupts by polling in the thread rather than
-> re-enabling interrupts immediately.
 
-As Liviu pointed out this commit message isn't right, but the code
-change below looks fine. So with a fixed commit message:
+This is a note to let you know that I've just added the patch titled
 
-Reviewed-by: Steven Price <steven.price@arm.com>
+    fbdev: defio: Disconnect deferred I/O from the lifetime of struct fb_info
 
-> 
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-> ---
->  drivers/gpu/drm/panthor/panthor_device.h | 5 ++---
->  drivers/gpu/drm/panthor/panthor_fw.c     | 1 +
->  drivers/gpu/drm/panthor/panthor_gpu.c    | 1 +
->  drivers/gpu/drm/panthor/panthor_mmu.c    | 1 +
->  drivers/gpu/drm/panthor/panthor_pwr.c    | 1 +
->  5 files changed, 6 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-> index afa202546316..1c130b8394ab 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.h
-> +++ b/drivers/gpu/drm/panthor/panthor_device.h
-> @@ -672,6 +672,7 @@ static inline void panthor_irq_disable_events(struct panthor_irq *pirq, u32 mask
->  static inline int
->  panthor_irq_request(struct panthor_device *ptdev, struct panthor_irq *pirq,
->  		    int irq, u32 mask, void __iomem *iomem, const char *name,
-> +		    irqreturn_t (*raw_handler)(int, void *data),
->  		    irqreturn_t (*threaded_handler)(int, void *data))
->  {
->  	const char *full_name;
-> @@ -687,9 +688,7 @@ panthor_irq_request(struct panthor_device *ptdev, struct panthor_irq *pirq,
->  	if (!full_name)
->  		return -ENOMEM;
->  
-> -	return devm_request_threaded_irq(ptdev->base.dev, irq,
-> -					 panthor_irq_default_raw_handler,
-> -					 threaded_handler,
-> +	return devm_request_threaded_irq(ptdev->base.dev, irq, raw_handler, threaded_handler,
->  					 IRQF_SHARED, full_name, pirq);
->  }
->  
-> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
-> index eaf599b0a887..8239a6951569 100644
-> --- a/drivers/gpu/drm/panthor/panthor_fw.c
-> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
-> @@ -1483,6 +1483,7 @@ int panthor_fw_init(struct panthor_device *ptdev)
->  
->  	ret = panthor_irq_request(ptdev, &fw->irq, irq, 0,
->  				  ptdev->iomem + JOB_INT_BASE, "job",
-> +				  panthor_irq_default_raw_handler,
->  				  panthor_job_irq_threaded_handler);
->  	if (ret) {
->  		drm_err(&ptdev->base, "failed to request job irq");
-> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
-> index ce208e384762..d0be758ea3e1 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
-> @@ -177,6 +177,7 @@ int panthor_gpu_init(struct panthor_device *ptdev)
->  	ret = panthor_irq_request(ptdev, &ptdev->gpu->irq, irq,
->  				  GPU_INTERRUPTS_MASK,
->  				  ptdev->iomem + GPU_INT_BASE, "gpu",
-> +				  panthor_irq_default_raw_handler,
->  				  panthor_gpu_irq_threaded_handler);
->  	if (ret)
->  		return ret;
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> index a0d0a9b2926f..2cb07933b629 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -3260,6 +3260,7 @@ int panthor_mmu_init(struct panthor_device *ptdev)
->  	ret = panthor_irq_request(ptdev, &mmu->irq, irq,
->  				  panthor_mmu_fault_mask(ptdev, ~0),
->  				  ptdev->iomem + MMU_INT_BASE, "mmu",
-> +				  panthor_irq_default_raw_handler,
->  				  panthor_mmu_irq_threaded_handler);
->  	if (ret)
->  		return ret;
-> diff --git a/drivers/gpu/drm/panthor/panthor_pwr.c b/drivers/gpu/drm/panthor/panthor_pwr.c
-> index 80cf78007896..1efb7f3482ba 100644
-> --- a/drivers/gpu/drm/panthor/panthor_pwr.c
-> +++ b/drivers/gpu/drm/panthor/panthor_pwr.c
-> @@ -491,6 +491,7 @@ int panthor_pwr_init(struct panthor_device *ptdev)
->  	err = panthor_irq_request(
->  		ptdev, &pwr->irq, irq, PWR_INTERRUPTS_MASK,
->  		pwr->iomem + PWR_INT_BASE, "pwr",
-> +		panthor_irq_default_raw_handler,
->  		panthor_pwr_irq_threaded_handler);
->  	if (err)
->  		return err;
-> 
+to the 7.0-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
+The filename of the patch is:
+     fbdev-defio-disconnect-deferred-i-o-from-the-lifetime-of-struct-fb_info.patch
+and it can be found in the queue-7.0 subdirectory.
+
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
+
+
+From 9ded47ad003f09a94b6a710b5c47f4aa5ceb7429 Mon Sep 17 00:00:00 2001
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Date: Tue, 24 Feb 2026 09:25:54 +0100
+Subject: fbdev: defio: Disconnect deferred I/O from the lifetime of struct fb_info
+
+From: Thomas Zimmermann <tzimmermann@suse.de>
+
+commit 9ded47ad003f09a94b6a710b5c47f4aa5ceb7429 upstream.
+
+Hold state of deferred I/O in struct fb_deferred_io_state. Allocate an
+instance as part of initializing deferred I/O and remove it only after
+the final mapping has been closed. If the fb_info and the contained
+deferred I/O meanwhile goes away, clear struct fb_deferred_io_state.info
+to invalidate the mapping. Any access will then result in a SIGBUS
+signal.
+
+Fixes a long-standing problem, where a device hot-unplug happens while
+user space still has an active mapping of the graphics memory. The hot-
+unplug frees the instance of struct fb_info. Accessing the memory will
+operate on undefined state.
+
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: 60b59beafba8 ("fbdev: mm: Deferred IO support")
+Cc: Helge Deller <deller@gmx.de>
+Cc: linux-fbdev@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: stable@vger.kernel.org # v2.6.22+
+Signed-off-by: Helge Deller <deller@gmx.de>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/video/fbdev/core/fb_defio.c |  178 ++++++++++++++++++++++++++++--------
+ include/linux/fb.h                  |    4 
+ 2 files changed, 145 insertions(+), 37 deletions(-)
+
+--- a/drivers/video/fbdev/core/fb_defio.c
++++ b/drivers/video/fbdev/core/fb_defio.c
+@@ -24,6 +24,75 @@
+ #include <linux/rmap.h>
+ #include <linux/pagemap.h>
+ 
++/*
++ * struct fb_deferred_io_state
++ */
++
++struct fb_deferred_io_state {
++	struct kref ref;
++
++	struct mutex lock; /* mutex that protects the pageref list */
++	/* fields protected by lock */
++	struct fb_info *info;
++};
++
++static struct fb_deferred_io_state *fb_deferred_io_state_alloc(void)
++{
++	struct fb_deferred_io_state *fbdefio_state;
++
++	fbdefio_state = kzalloc_obj(*fbdefio_state);
++	if (!fbdefio_state)
++		return NULL;
++
++	kref_init(&fbdefio_state->ref);
++	mutex_init(&fbdefio_state->lock);
++
++	return fbdefio_state;
++}
++
++static void fb_deferred_io_state_release(struct fb_deferred_io_state *fbdefio_state)
++{
++	mutex_destroy(&fbdefio_state->lock);
++
++	kfree(fbdefio_state);
++}
++
++static void fb_deferred_io_state_get(struct fb_deferred_io_state *fbdefio_state)
++{
++	kref_get(&fbdefio_state->ref);
++}
++
++static void __fb_deferred_io_state_release(struct kref *ref)
++{
++	struct fb_deferred_io_state *fbdefio_state =
++		container_of(ref, struct fb_deferred_io_state, ref);
++
++	fb_deferred_io_state_release(fbdefio_state);
++}
++
++static void fb_deferred_io_state_put(struct fb_deferred_io_state *fbdefio_state)
++{
++	kref_put(&fbdefio_state->ref, __fb_deferred_io_state_release);
++}
++
++/*
++ * struct vm_operations_struct
++ */
++
++static void fb_deferred_io_vm_open(struct vm_area_struct *vma)
++{
++	struct fb_deferred_io_state *fbdefio_state = vma->vm_private_data;
++
++	fb_deferred_io_state_get(fbdefio_state);
++}
++
++static void fb_deferred_io_vm_close(struct vm_area_struct *vma)
++{
++	struct fb_deferred_io_state *fbdefio_state = vma->vm_private_data;
++
++	fb_deferred_io_state_put(fbdefio_state);
++}
++
+ static struct page *fb_deferred_io_get_page(struct fb_info *info, unsigned long offs)
+ {
+ 	struct fb_deferred_io *fbdefio = info->fbdefio;
+@@ -121,25 +190,46 @@ static void fb_deferred_io_pageref_put(s
+ /* this is to find and return the vmalloc-ed fb pages */
+ static vm_fault_t fb_deferred_io_fault(struct vm_fault *vmf)
+ {
++	struct fb_info *info;
+ 	unsigned long offset;
+ 	struct page *page;
+-	struct fb_info *info = vmf->vma->vm_private_data;
++	vm_fault_t ret;
++	struct fb_deferred_io_state *fbdefio_state = vmf->vma->vm_private_data;
++
++	mutex_lock(&fbdefio_state->lock);
++
++	info = fbdefio_state->info;
++	if (!info) {
++		ret = VM_FAULT_SIGBUS; /* our device is gone */
++		goto err_mutex_unlock;
++	}
+ 
+ 	offset = vmf->pgoff << PAGE_SHIFT;
+-	if (offset >= info->fix.smem_len)
+-		return VM_FAULT_SIGBUS;
++	if (offset >= info->fix.smem_len) {
++		ret = VM_FAULT_SIGBUS;
++		goto err_mutex_unlock;
++	}
+ 
+ 	page = fb_deferred_io_get_page(info, offset);
+-	if (!page)
+-		return VM_FAULT_SIGBUS;
++	if (!page) {
++		ret = VM_FAULT_SIGBUS;
++		goto err_mutex_unlock;
++	}
+ 
+ 	if (!vmf->vma->vm_file)
+ 		fb_err(info, "no mapping available\n");
+ 
+ 	BUG_ON(!info->fbdefio->mapping);
+ 
++	mutex_unlock(&fbdefio_state->lock);
++
+ 	vmf->page = page;
++
+ 	return 0;
++
++err_mutex_unlock:
++	mutex_unlock(&fbdefio_state->lock);
++	return ret;
+ }
+ 
+ int fb_deferred_io_fsync(struct file *file, loff_t start, loff_t end, int datasync)
+@@ -166,15 +256,24 @@ EXPORT_SYMBOL_GPL(fb_deferred_io_fsync);
+  * Adds a page to the dirty list. Call this from struct
+  * vm_operations_struct.page_mkwrite.
+  */
+-static vm_fault_t fb_deferred_io_track_page(struct fb_info *info, unsigned long offset,
+-					    struct page *page)
++static vm_fault_t fb_deferred_io_track_page(struct fb_deferred_io_state *fbdefio_state,
++					    unsigned long offset, struct page *page)
+ {
+-	struct fb_deferred_io *fbdefio = info->fbdefio;
++	struct fb_info *info;
++	struct fb_deferred_io *fbdefio;
+ 	struct fb_deferred_io_pageref *pageref;
+ 	vm_fault_t ret;
+ 
+ 	/* protect against the workqueue changing the page list */
+-	mutex_lock(&fbdefio->lock);
++	mutex_lock(&fbdefio_state->lock);
++
++	info = fbdefio_state->info;
++	if (!info) {
++		ret = VM_FAULT_SIGBUS; /* our device is gone */
++		goto err_mutex_unlock;
++	}
++
++	fbdefio = info->fbdefio;
+ 
+ 	pageref = fb_deferred_io_pageref_get(info, offset, page);
+ 	if (WARN_ON_ONCE(!pageref)) {
+@@ -192,50 +291,38 @@ static vm_fault_t fb_deferred_io_track_p
+ 	 */
+ 	lock_page(pageref->page);
+ 
+-	mutex_unlock(&fbdefio->lock);
++	mutex_unlock(&fbdefio_state->lock);
+ 
+ 	/* come back after delay to process the deferred IO */
+ 	schedule_delayed_work(&info->deferred_work, fbdefio->delay);
+ 	return VM_FAULT_LOCKED;
+ 
+ err_mutex_unlock:
+-	mutex_unlock(&fbdefio->lock);
++	mutex_unlock(&fbdefio_state->lock);
+ 	return ret;
+ }
+ 
+-/*
+- * fb_deferred_io_page_mkwrite - Mark a page as written for deferred I/O
+- * @fb_info: The fbdev info structure
+- * @vmf: The VM fault
+- *
+- * This is a callback we get when userspace first tries to
+- * write to the page. We schedule a workqueue. That workqueue
+- * will eventually mkclean the touched pages and execute the
+- * deferred framebuffer IO. Then if userspace touches a page
+- * again, we repeat the same scheme.
+- *
+- * Returns:
+- * VM_FAULT_LOCKED on success, or a VM_FAULT error otherwise.
+- */
+-static vm_fault_t fb_deferred_io_page_mkwrite(struct fb_info *info, struct vm_fault *vmf)
++static vm_fault_t fb_deferred_io_page_mkwrite(struct fb_deferred_io_state *fbdefio_state,
++					      struct vm_fault *vmf)
+ {
+ 	unsigned long offset = vmf->pgoff << PAGE_SHIFT;
+ 	struct page *page = vmf->page;
+ 
+ 	file_update_time(vmf->vma->vm_file);
+ 
+-	return fb_deferred_io_track_page(info, offset, page);
++	return fb_deferred_io_track_page(fbdefio_state, offset, page);
+ }
+ 
+-/* vm_ops->page_mkwrite handler */
+ static vm_fault_t fb_deferred_io_mkwrite(struct vm_fault *vmf)
+ {
+-	struct fb_info *info = vmf->vma->vm_private_data;
++	struct fb_deferred_io_state *fbdefio_state = vmf->vma->vm_private_data;
+ 
+-	return fb_deferred_io_page_mkwrite(info, vmf);
++	return fb_deferred_io_page_mkwrite(fbdefio_state, vmf);
+ }
+ 
+ static const struct vm_operations_struct fb_deferred_io_vm_ops = {
++	.open		= fb_deferred_io_vm_open,
++	.close		= fb_deferred_io_vm_close,
+ 	.fault		= fb_deferred_io_fault,
+ 	.page_mkwrite	= fb_deferred_io_mkwrite,
+ };
+@@ -252,7 +339,10 @@ int fb_deferred_io_mmap(struct fb_info *
+ 	vm_flags_set(vma, VM_DONTEXPAND | VM_DONTDUMP);
+ 	if (!(info->flags & FBINFO_VIRTFB))
+ 		vm_flags_set(vma, VM_IO);
+-	vma->vm_private_data = info;
++	vma->vm_private_data = info->fbdefio_state;
++
++	fb_deferred_io_state_get(info->fbdefio_state); /* released in vma->vm_ops->close() */
++
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(fb_deferred_io_mmap);
+@@ -263,9 +353,10 @@ static void fb_deferred_io_work(struct w
+ 	struct fb_info *info = container_of(work, struct fb_info, deferred_work.work);
+ 	struct fb_deferred_io_pageref *pageref, *next;
+ 	struct fb_deferred_io *fbdefio = info->fbdefio;
++	struct fb_deferred_io_state *fbdefio_state = info->fbdefio_state;
+ 
+ 	/* here we wrprotect the page's mappings, then do all deferred IO. */
+-	mutex_lock(&fbdefio->lock);
++	mutex_lock(&fbdefio_state->lock);
+ #ifdef CONFIG_MMU
+ 	list_for_each_entry(pageref, &fbdefio->pagereflist, list) {
+ 		struct page *page = pageref->page;
+@@ -283,12 +374,13 @@ static void fb_deferred_io_work(struct w
+ 	list_for_each_entry_safe(pageref, next, &fbdefio->pagereflist, list)
+ 		fb_deferred_io_pageref_put(pageref, info);
+ 
+-	mutex_unlock(&fbdefio->lock);
++	mutex_unlock(&fbdefio_state->lock);
+ }
+ 
+ int fb_deferred_io_init(struct fb_info *info)
+ {
+ 	struct fb_deferred_io *fbdefio = info->fbdefio;
++	struct fb_deferred_io_state *fbdefio_state;
+ 	struct fb_deferred_io_pageref *pagerefs;
+ 	unsigned long npagerefs;
+ 	int ret;
+@@ -298,7 +390,11 @@ int fb_deferred_io_init(struct fb_info *
+ 	if (WARN_ON(!info->fix.smem_len))
+ 		return -EINVAL;
+ 
+-	mutex_init(&fbdefio->lock);
++	fbdefio_state = fb_deferred_io_state_alloc();
++	if (!fbdefio_state)
++		return -ENOMEM;
++	fbdefio_state->info = info;
++
+ 	INIT_DELAYED_WORK(&info->deferred_work, fb_deferred_io_work);
+ 	INIT_LIST_HEAD(&fbdefio->pagereflist);
+ 	if (fbdefio->delay == 0) /* set a default of 1 s */
+@@ -315,10 +411,12 @@ int fb_deferred_io_init(struct fb_info *
+ 	info->npagerefs = npagerefs;
+ 	info->pagerefs = pagerefs;
+ 
++	info->fbdefio_state = fbdefio_state;
++
+ 	return 0;
+ 
+ err:
+-	mutex_destroy(&fbdefio->lock);
++	fb_deferred_io_state_release(fbdefio_state);
+ 	return ret;
+ }
+ EXPORT_SYMBOL_GPL(fb_deferred_io_init);
+@@ -352,11 +450,19 @@ EXPORT_SYMBOL_GPL(fb_deferred_io_release
+ void fb_deferred_io_cleanup(struct fb_info *info)
+ {
+ 	struct fb_deferred_io *fbdefio = info->fbdefio;
++	struct fb_deferred_io_state *fbdefio_state = info->fbdefio_state;
+ 
+ 	fb_deferred_io_lastclose(info);
+ 
++	info->fbdefio_state = NULL;
++
++	mutex_lock(&fbdefio_state->lock);
++	fbdefio_state->info = NULL;
++	mutex_unlock(&fbdefio_state->lock);
++
++	fb_deferred_io_state_put(fbdefio_state);
++
+ 	kvfree(info->pagerefs);
+-	mutex_destroy(&fbdefio->lock);
+ 	fbdefio->mapping = NULL;
+ }
+ EXPORT_SYMBOL_GPL(fb_deferred_io_cleanup);
+--- a/include/linux/fb.h
++++ b/include/linux/fb.h
+@@ -218,13 +218,14 @@ struct fb_deferred_io {
+ 	unsigned long delay;
+ 	bool sort_pagereflist; /* sort pagelist by offset */
+ 	int open_count; /* number of opened files; protected by fb_info lock */
+-	struct mutex lock; /* mutex that protects the pageref list */
+ 	struct list_head pagereflist; /* list of pagerefs for touched pages */
+ 	struct address_space *mapping; /* page cache object for fb device */
+ 	/* callback */
+ 	struct page *(*get_page)(struct fb_info *info, unsigned long offset);
+ 	void (*deferred_io)(struct fb_info *info, struct list_head *pagelist);
+ };
++
++struct fb_deferred_io_state;
+ #endif
+ 
+ /*
+@@ -487,6 +488,7 @@ struct fb_info {
+ 	unsigned long npagerefs;
+ 	struct fb_deferred_io_pageref *pagerefs;
+ 	struct fb_deferred_io *fbdefio;
++	struct fb_deferred_io_state *fbdefio_state;
+ #endif
+ 
+ 	const struct fb_ops *fbops;
+
+
+Patches currently in stable-queue which might be from tzimmermann@suse.de are
+
+queue-7.0/firmware-google-framebuffer-do-not-mark-framebuffer-as-busy.patch
+queue-7.0/drm-nouveau-fix-u32-overflow-in-pushbuf-reloc-bounds-check.patch
+queue-7.0/fbdev-defio-disconnect-deferred-i-o-from-the-lifetime-of-struct-fb_info.patch
