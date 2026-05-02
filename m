@@ -4,45 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0975FCD13DA
-	for <dri-devel@archiver.kernel.org>; Sun,  3 May 2026 00:11:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D604ECD13DA
+	for <dri-devel@archiver.kernel.org>; Sun,  3 May 2026 02:50:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4355D10E10B;
-	Sun,  3 May 2026 00:11:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9856310E0C3;
+	Sun,  3 May 2026 02:50:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="jysqW7jA";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="khdl8CnH";
 	dkim-atps=neutral
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB57510E10B
- for <dri-devel@lists.freedesktop.org>; Sun,  3 May 2026 00:11:37 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org
- [IPv6:2001:67c:2050:b231:465::102])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38DBF10E0C3
+ for <dri-devel@lists.freedesktop.org>; Sun,  3 May 2026 02:50:48 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4g7QDk6sXSz9tRD;
- Sun,  3 May 2026 02:11:34 +0200 (CEST)
+ by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4g7TmP5BtLz9tjP;
+ Sun,  3 May 2026 04:50:45 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1777767095;
+ s=mail20150812; t=1777776645;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=rBbGG49lvszkSs6r+vkoyB+q5ycwyPUBvGTobwqzXCY=;
- b=jysqW7jAuDFJrbua8FgWRyjdkmFUEE3iRBd6BzYPCL/hjHNKhq/AgbzZZgkZhOUQDQU+pJ
- ahFjUj3IB9jL++70DEsokWc+NrPeaVURtK2Z0c/5MAEptyxrW23tDQph3dL7ByjW+WvowP
- iFQCCEhTJaLnIbsnHaS+ZeRkiRj89a4Cn77U2MlR6Mpd1aK7vfhF85jPwF1zJehov1wKUA
- 0miMQTqWQNhbM6MQCR51Zju7C/4XvZqBeIfVlyN+F8vIDMkoV2wwbAHvIUj8iQ4W7a+z2T
- zkq1WTNX5jj6xJk5UiRQPtbvDBAv2/Y9PRv4/twjkNg7OaVNI8a6oT3qa7d5sw==
-Message-ID: <7e4283f1-c179-45e4-a8ee-5026e467fd21@mailbox.org>
-Date: Sun, 3 May 2026 02:11:29 +0200
+ bh=d1A1qyP8QeOPCU1K/hsX1FmZmqrWn214Zp6AIo4nhBs=;
+ b=khdl8CnHDmq8rAwn3UDgffvBS7llbtM4SCECCpjOR0ezbfjH17+dLJReJmvcKjc+UoOKGA
+ RU3Z5xmkgQ3EoXJ8P1d+KjiiNYxCDEMTnsGK0BVWbBmRpi3lRxIkgHVYBx21GvhOhA71Lp
+ t/UpvNPk7kWBDD1UDbXF7kszEoDs7pf83TpH/2zYg+fNcnh8TMcZOgXyQ28KDCUyXqDOvR
+ 8KaU9ZRoY/dTXZiwhyGmq1MKzmLi6C5ecTzgipWpegH4BMWYCPRoykeViDvgt1zE8Rb/gS
+ 2KAbXg+hCgk5E/4nw/oUmnlmpLfdtfkEme0SzlHq81QefByEtuFmo/MjNBucZg==
+Message-ID: <8668e3da-fcd2-412e-9457-3413e0aceafc@mailbox.org>
+Date: Sat, 2 May 2026 21:23:33 +0200
 MIME-Version: 1.0
-Subject: Re: [PATCH 6/7] arm64: dts: renesas: r8a779md: Add Renesas R-Car
- R8A779MD M3Le DTs
+Subject: Re: [PATCH 3/7] dt-bindings: clock: cs2000-cp: document CS2500
 To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: linux-arm-kernel@lists.infradead.org,
- Nguyen Tran <nguyen.tran.pz@bp.renesas.com>,
- Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>,
+Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, 
+ David Airlie <airlied@gmail.com>,
  Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
@@ -54,18 +51,17 @@ Cc: linux-arm-kernel@lists.infradead.org,
  Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
  devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org,
- Wolfram Sang <wsa+renesas@sang-engineering.com>
+ linux-renesas-soc@vger.kernel.org
 References: <20260419193718.133174-1-marek.vasut+renesas@mailbox.org>
- <20260419193718.133174-7-marek.vasut+renesas@mailbox.org>
- <CAMuHMdV5NRFjGmLLSAFkst=y_v=haZ9_-oiZ7_3M2J1s5jiJSQ@mail.gmail.com>
+ <20260419193718.133174-4-marek.vasut+renesas@mailbox.org>
+ <CAMuHMdUkT6wO=mCSbJt1dQueW62=_o3r589MvFyHhz-zSfw_9w@mail.gmail.com>
 Content-Language: en-US
 From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <CAMuHMdV5NRFjGmLLSAFkst=y_v=haZ9_-oiZ7_3M2J1s5jiJSQ@mail.gmail.com>
+In-Reply-To: <CAMuHMdUkT6wO=mCSbJt1dQueW62=_o3r589MvFyHhz-zSfw_9w@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-MBO-RS-ID: 5b19e038c16ec512322
-X-MBO-RS-META: bs89hkih9ipn8s579q3adtcmkkc76bmw
+X-MBO-RS-ID: 85931d5d9f889a08582
+X-MBO-RS-META: i4rmf11wrmk77r1ympywfpfi9bxrssa9
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,74 +77,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/29/26 2:16 PM, Geert Uytterhoeven wrote:
-
-Hello Geert,
-
-[...]
-
->> +/delete-node/ &pciec1;
->> +/delete-node/ &sata;
->> +/delete-node/ &sdhi3;
+On 4/29/26 1:32 PM, Geert Uytterhoeven wrote:
+> Hi Marek,
 > 
-> I am not sure disabling sdhi3 is correct.
-> The R-Car M3Le documentation says:
+> On Sun, 19 Apr 2026 at 21:37, Marek Vasut
+> <marek.vasut+renesas@mailbox.org> wrote:
+>> Document backward compatibility support for CS2500 chip, which
+>> is a drop-in replacement for CS2000 chip.
+>>
+>> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 > 
->     "M3Le does not support MMC1.
->      M3Le supports one MMC channel (MMC0) only.
->      SD3 is used only for SDHI and is not used for MMC.
->      M3Le does not support MMC HS400 class transfer rate."
+> Thanks for your patch!
 > 
-> The main R-Car Gen3 documentation says:
+>> --- a/Documentation/devicetree/bindings/clock/cirrus,cs2000-cp.yaml
+>> +++ b/Documentation/devicetree/bindings/clock/cirrus,cs2000-cp.yaml
+>> @@ -11,14 +11,18 @@ maintainers:
+>>
+>>   description: |
+>>     The CS2000-CP is an extremely versatile system clocking device that
+>> -  utilizes a programmable phase lock loop.
+>> +  utilizes a programmable phase lock loop. CP2500-CP is a compatible
+>> +  drop-in replacement for CP2000-CP.
 > 
->     "This LSI has four SD card interfaces (SDHI0 to SDHI3), two of
->      which can also be used as MMC interfaces (SDHI2 and SDHI3)."
-> 
-> So while MMC1 is indeed sdhi3, sdhi3 can still be used in SD mode?
-> Do we need a new compatible value, as R-Car M3Le does not support HS400?
-
-I think we do need new compatible string, yes, I'll include that in V2.
-
-We can inhibit MMC support in sdhi3 with 'no-mmc' DT property, which I 
-will also include in V2.
-
-[...]
-
->> +/delete-node/ &vin7csi20;
->> +/delete-node/ &xhci0;
-> 
-> Shouldn't the following be disabled, too?
->    - ohci1, ehci1, and usb2_phy1,
-
-Yes, they should.
-
->    - cmm1 and vspd1 (cfr. DU below).
-
-Please see my response to Laurent in here in
-[PATCH 6/7] arm64: dts: renesas: r8a779md: Add Renesas R-Car R8A779MD 
-M3Le DTs
-as well as my response to
-[PATCH 1/7] dt-bindings: display: renesas,du: Document Renesas R-Car 
-R8A779MD M3Le
-
-The CMM1 and VSP1 are actually present, so I think the DT should 
-describe them, even if they are not used. If only to allow the 
-driver(s)to bind to those IPs and bring them to low power state.
-
->> +
->> +&du {
->> +       compatible = "renesas,du-r8a779md";
-> 
-> Assuming the DU needs a new compatible value...
-> 
->> +       renesas,cmms = <&cmm0>, <&cmm3>;
->> +       renesas,vsps = <&vspd0 0>, <&vspd1 0>;
-> 
-> Shouldn't this be
-> 
->      renesas,vsps = <&vspd0 0>, <&vspd0 1>;
-> 
-> ? DU1 is unused, but DU3 is used.
-It should, and will be fixed in V2, thanks !
-
-[...]
+> While CP2000 exists in two variants (-CP and -OTP, cfr. the link below),
+> there is just "CP2500"[2].
+And it is called CS2500 , suffix dropped and typo fixed in V2, thanks !
