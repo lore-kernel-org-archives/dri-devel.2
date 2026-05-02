@@ -4,54 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87ECDCD13DA
-	for <dri-devel@archiver.kernel.org>; Sat,  2 May 2026 12:13:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63818CD3423
+	for <dri-devel@archiver.kernel.org>; Sat,  2 May 2026 12:32:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDF2B10E5C8;
-	Sat,  2 May 2026 12:13:49 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="KH3+Iwab";
-	dkim-atps=neutral
-Received: from out-183.mta0.migadu.com (out-183.mta0.migadu.com
- [91.218.175.183])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CDA310E5C8
- for <dri-devel@lists.freedesktop.org>; Sat,  2 May 2026 12:13:46 +0000 (UTC)
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1777724024;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=7Fv9ANxoEXrJtQ42FBdd7xju+ouJmyQSyIcqfR7al/c=;
- b=KH3+IwabzQKYT0Bo9H+H3OSvvlqon/GATLmavjjC1jtoD69F+b11yP7Y0V7kYt8/aPvhGJ
- J42OKHRhEOQDrziuEcc8t1L7yDbcrodfjIHV3CAE3otKQvtpmm+85dUxpZGdLX17LvsElj
- FnBS+HcwxOp7UU7sccDL6lFz/6ve7o4=
-From: Thorsten Blum <thorsten.blum@linux.dev>
-To: Maxime Ripard <mripard@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Eric Anholt <eric@anholt.net>
-Cc: Thorsten Blum <thorsten.blum@linux.dev>, stable@vger.kernel.org,
- Simona Vetter <simona.vetter@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/vc4: fix NULL dereference in vc4_hvs_unbind
-Date: Sat,  2 May 2026 14:12:53 +0200
-Message-ID: <20260502121251.39206-3-thorsten.blum@linux.dev>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6663310E0A3;
+	Sat,  2 May 2026 12:32:34 +0000 (UTC)
+Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com
+ [209.85.161.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8281010E0A3
+ for <dri-devel@lists.freedesktop.org>; Sat,  2 May 2026 12:32:33 +0000 (UTC)
+Received: by mail-oo1-f70.google.com with SMTP id
+ 006d021491bc7-6967b799acdso5185351eaf.3
+ for <dri-devel@lists.freedesktop.org>; Sat, 02 May 2026 05:32:33 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777725152; x=1778329952;
+ h=to:from:subject:message-id:date:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=feZUv44Penr2k/P5SLiZtx0DWMmSDGc4xzKt2VxeZGw=;
+ b=nKdVZNBnyUSY5LXKrf+MrgHh3xsX8i4qd8Wyz5uo3JNfo6wifONkKNDqTLatbfXOxd
+ ZrzIe1d9747ooscfBlyYcXMnB6amaj3zELVtKqEmESJ75d/VJaKJN2M0zzJAR7Yn6GlM
+ ul34CTD4d5xSasIA30VcRgnkOzXIUCgUFBr6vgoyNz8GzHYYhocLiTnO3pWJ9UgHz8hj
+ b67K66mqWComI0iC5epqeW4ViA4301NsMPNU/Hcf5fHJBJgi79MpLboUlyGAkSEcybKW
+ qW+z8uoeUu2YHnOeNCXc0rerTO5s+ZBKVdxt6p048GWMdv/cRJHwKcIs6SMOsDDsI1iP
+ eU1w==
+X-Gm-Message-State: AOJu0Yz2/lJma4DRsQOECz3hDI5cuJknUrfalXSzxowwNLpyVmBZ8LZs
+ zFVILHHItNZas6PlQf3FevD0xKFvDCljV/3wL/9psxD5ZOVw09eaA+JOMqlZ8wMXHM+u77QVUTS
+ xBH94tGjXyf/Fgt1P2apD8e4h2ndcgQbFMZbX2cFq8S6Pv3fsv4VmVN8GhOQ=
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1289; i=thorsten.blum@linux.dev;
- h=from:subject; bh=XGytLSpCy9xgPusgWlXyFNDJcqnNgBnFVfmi4WwGiUQ=;
- b=owGbwMvMwCUWt7pQ4caZUj3G02pJDJlfXzlH2FxsyOraNNE86c+LeJdUwfPfqwr4VKayegXul
- X6/yIKjo5SFQYyLQVZMkeXBrB8zfEtrKjeZROyEmcPKBDKEgYtTACYy5wYjQ9+Tjq2bGKvErzEU
- BDg//Jdz4OyKxA+L/17h5/D5XrhLoYbhf0CF8Frm1Xd4/MUenb+3Z53CqlfbHp5vmFmhGqO9Npu
- fhQMA
-X-Developer-Key: i=thorsten.blum@linux.dev; a=openpgp;
- fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+X-Received: by 2002:a05:6820:4b85:b0:694:a362:4b86 with SMTP id
+ 006d021491bc7-696979ec1b6mr1294273eaf.22.1777725152713; Sat, 02 May 2026
+ 05:32:32 -0700 (PDT)
+Date: Sat, 02 May 2026 05:32:32 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <69f5eee0.050a0220.3cbe47.0019.GAE@google.com>
+Subject: [syzbot] Monthly dri report (May 2026)
+From: syzbot <syzbot+list3eaff50df36f6bd844ea@syzkaller.appspotmail.com>
+To: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,40 +58,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-With 'dtoverlay=vc4-kms-v3d,noaudio' and 'hdmi=off' on Raspberry Pi,
-unloading the vc4 module calls vc4_hvs_unbind() with
-dev_get_drvdata(master) returning NULL.
+Hello dri maintainers/developers,
 
-Return early when 'drm' is NULL before converting it to 'vc4' and before
-dereferencing 'vc4->hvs', preventing a kernel oops.
+This is a 31-day syzbot report for the dri subsystem.
+All related reports/information can be found at:
+https://syzkaller.appspot.com/upstream/s/dri
 
-Fixes: c8b75bca92cb ("drm/vc4: Add KMS support for Raspberry Pi.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+During the period, 1 new issues were detected and 0 were fixed.
+In total, 11 issues are still open and 35 have already been fixed.
+
+Some of the still happening issues:
+
+Ref Crashes Repro Title
+<1> 6869    Yes   WARNING in drm_crtc_wait_one_vblank
+                  https://syzkaller.appspot.com/bug?extid=c9f3062e1f1e68af836a
+<2> 3823    Yes   WARNING in drm_syncobj_array_find
+                  https://syzkaller.appspot.com/bug?extid=95416f957d84e858b377
+<3> 18      Yes   WARNING in dma_buf_vmap
+                  https://syzkaller.appspot.com/bug?extid=4317d7108e14e5d56308
+<4> 17      No    KASAN: slab-use-after-free Read in dma_buf_fd
+                  https://syzkaller.appspot.com/bug?extid=7f4987d0afb97dd090cb
+<5> 13      Yes   KASAN: slab-use-after-free Read in drm_gem_object_release_handle
+                  https://syzkaller.appspot.com/bug?extid=b2e951687503f32f74ce
+
 ---
- drivers/gpu/drm/vc4/vc4_hvs.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/drivers/gpu/drm/vc4/vc4_hvs.c b/drivers/gpu/drm/vc4/vc4_hvs.c
-index ee8d0738501b..9cb66f696fc7 100644
---- a/drivers/gpu/drm/vc4/vc4_hvs.c
-+++ b/drivers/gpu/drm/vc4/vc4_hvs.c
-@@ -1753,10 +1753,16 @@ static void vc4_hvs_unbind(struct device *dev, struct device *master,
- 			   void *data)
- {
- 	struct drm_device *drm = dev_get_drvdata(master);
--	struct vc4_dev *vc4 = to_vc4_dev(drm);
--	struct vc4_hvs *hvs = vc4->hvs;
-+	struct vc4_dev *vc4;
-+	struct vc4_hvs *hvs;
- 	struct drm_mm_node *node, *next;
- 
-+	if (!drm)
-+		return;
-+
-+	vc4 = to_vc4_dev(drm);
-+	hvs = vc4->hvs;
-+
- 	if (drm_mm_node_allocated(&vc4->hvs->mitchell_netravali_filter))
- 		drm_mm_remove_node(&vc4->hvs->mitchell_netravali_filter);
- 
+To disable reminders for individual bugs, reply with the following command:
+#syz set <Ref> no-reminders
+
+To change bug's subsystems, reply with:
+#syz set <Ref> subsystems: new-subsystem
+
+You may send multiple commands in a single email message.
