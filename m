@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE817CD13DA
-	for <dri-devel@archiver.kernel.org>; Sat,  2 May 2026 21:25:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F302CD13DA
+	for <dri-devel@archiver.kernel.org>; Sat,  2 May 2026 23:39:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11D4510E2C2;
-	Sat,  2 May 2026 21:25:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47FA710E0AA;
+	Sat,  2 May 2026 23:39:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="knvsL8k1";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="d9HOVMyV";
 	dkim-atps=neutral
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EAE310E2C2
- for <dri-devel@lists.freedesktop.org>; Sat,  2 May 2026 21:25:20 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org
- [IPv6:2001:67c:2050:b231:465::202])
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5D9E10E00B
+ for <dri-devel@lists.freedesktop.org>; Sat,  2 May 2026 23:39:36 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::102])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4g7LXs1LTVz9tjW;
- Sat,  2 May 2026 23:25:17 +0200 (CEST)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4g7PWn37rZz9t65;
+ Sun,  3 May 2026 01:39:33 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1777757117;
+ s=mail20150812; t=1777765173;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=krWvEte6rzYQK7UVqWb8Xrr0bPg1zlcGnKUfpj6lNEw=;
- b=knvsL8k12JbPXpYAlE9cBexu30rqoUtTFLzP18ypZSmRCQPvA/hch4OLnCGgip9mSiF17t
- 2sFEMq2QuB84fTcucGgg+aAC1VQ/v1WOjLI4xQTvz1zpaaSH3YUELU//a2fRpHLY7DNnL0
- +01jP0ak5enIm3CWv2Zvz3YEheA7CdBHUeATtHWkFO20v1Td4XLRx38Tx4qS7uBOUvwo0N
- Qry9PMuiJ+vXurTP60Wc3kNEGqOJLdM2ckDM4IcwIZOoId2ryzCZIhDB9Vv8Jf7qa850BO
- L8PCX6o4eBHX6TmsUL5qXFs8bZx0q3skIid21QoyjqrksGWRrn0panx7kh/EYQ==
-Message-ID: <321547f5-40b6-449f-8a6e-5396b70823e6@mailbox.org>
-Date: Sat, 2 May 2026 23:25:02 +0200
+ bh=pfILjtLnryyVkFeL+4YyfSAyo9v1cIId1IUMbHc/7qg=;
+ b=d9HOVMyV+ERwC0R89d4h1I+F8HG5GYp0N9FSJCr2qXU/85Mb48wp+DZY6TjAd/2swt5u5C
+ tVJH8rRunB3zDWvh6WFYsLGlR5//5UycBAO8mb6rUH5l3diyGRU9V/hymox+LdbP4PpGSd
+ 1yhmMEJMi3hIsmC1Ec6dPh/Z3eAu572dnzoJDF5tW9ML6Y644St7vPz7cOnhR6up7AyX65
+ TXTz5na3KrzEAk/1WFVpJUKWgMFX1ZqZsiQDuB9MHQwydulYZjh8OWUhHRkboMHuaOP1Cb
+ Taxgx3XRXrpP+BhbCMSLGqL6APU2oYlKF5XY+kCKLC+23+K8JabFMNBeIX48YQ==
+Message-ID: <380861ce-b832-4789-93fa-c2340ce487e6@mailbox.org>
+Date: Sun, 3 May 2026 01:39:27 +0200
 MIME-Version: 1.0
-Subject: Re: [PATCH 2/7] drm/rcar-du: Add support for Renesas R-Car R8A779MD
- M3Le
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, 
- David Airlie <airlied@gmail.com>,
+Subject: Re: [PATCH 6/7] arm64: dts: renesas: r8a779md: Add Renesas R-Car
+ R8A779MD M3Le DTs
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: linux-arm-kernel@lists.infradead.org,
+ Nguyen Tran <nguyen.tran.pz@bp.renesas.com>,
+ Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
  Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
  Magnus Damm <magnus.damm@gmail.com>, Maxime Ripard <mripard@kernel.org>,
  Michael Turquette <mturquette@baylibre.com>, Rob Herring <robh@kernel.org>,
  Simona Vetter <simona@ffwll.ch>, Stephen Boyd <sboyd@kernel.org>,
@@ -55,15 +56,15 @@ Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>,
  linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-renesas-soc@vger.kernel.org
 References: <20260419193718.133174-1-marek.vasut+renesas@mailbox.org>
- <20260419193718.133174-3-marek.vasut+renesas@mailbox.org>
- <CAMuHMdUHKQwX43=c9JR67=x1EvWzdHTiXdUnPV2bDKU7PV_EnA@mail.gmail.com>
+ <20260419193718.133174-7-marek.vasut+renesas@mailbox.org>
+ <20260429221153.GD132396@killaraus.ideasonboard.com>
 Content-Language: en-US
 From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <CAMuHMdUHKQwX43=c9JR67=x1EvWzdHTiXdUnPV2bDKU7PV_EnA@mail.gmail.com>
+In-Reply-To: <20260429221153.GD132396@killaraus.ideasonboard.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-MBO-RS-META: wgjgs6jskon4uskfcndud97puhskkd3w
-X-MBO-RS-ID: 03f2f67987000091c2f
+X-MBO-RS-META: rcrxobjd51jeq56ffsfaa15qkptt7r43
+X-MBO-RS-ID: 3e84285b24ac2565bce
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,45 +80,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/29/26 12:10 PM, Geert Uytterhoeven wrote:
+On 4/30/26 12:11 AM, Laurent Pinchart wrote:
 
-Hello Geert,
+Hello Laurent,
 
-> On Sun, 19 Apr 2026 at 21:37, Marek Vasut
-> <marek.vasut+renesas@mailbox.org> wrote:
->> Add support the Renesas R-Car R8A779MD M3Le SoC. This SoC is
->> similar to R-Car R8A77965 M3-N SoC, except the HDMI port@1 is
->> not present.
+>> +/delete-node/ &vin4csi20;
+>> +/delete-node/ &vin5csi20;
+>> +/delete-node/ &vin6csi20;
+>> +/delete-node/ &vin7csi20;
+>> +/delete-node/ &xhci0;
+>> +
+>> +&du {
+>> +	compatible = "renesas,du-r8a779md";
+>> +	renesas,cmms = <&cmm0>, <&cmm3>;
 > 
-> "and DU1 is unused." (whatever that may mean...)
+> Shouldn't you then also delete the cmm1 node ?
 
-Fixed in V2.
+Please see my reply to [PATCH 1/7] dt-bindings: display: renesas,du: 
+Document Renesas R-Car R8A779MD M3Le , the CMM0,1,3 all seems to be on 
+the chip and accessible. I think the CMM driver should be aware of the 
+IP, even if it is unused, e.g. to bring it into low power state if needed.
 
->> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_drv.c
->> @@ -564,6 +564,30 @@ static const struct rcar_du_device_info rcar_du_r8a779h0_info = {
->>          .dsi_clk_mask = BIT(0),
->>   };
->>
->> +static const struct rcar_du_device_info rcar_du_r8a779md_info = {
-> 
-> Assuming for this review we do need a new compatible value...
+> And does the DU still need three clocks and three interrupts ?
+The Geist board schematic indicates that DU_DOTCLKIN1 is present on the 
+SoC package and is supplied by Xtal X22 on the board, so I think the 
+answer is "yes" for the first clock part of your question.
 
-I will be dropping this part in V2.
-
-[...]
-
->>   static const struct of_device_id rcar_du_of_table[] = {
->>          { .compatible = "renesas,du-r8a7742", .data = &rcar_du_r8a7790_info },
->>          { .compatible = "renesas,du-r8a7743", .data = &rzg1_du_r8a7743_info },
-> 
-> I also don't know where "M3Le does not support 4K output." (which is
-> a VSP2 limitation) is to be handled.
-R-Car Gen3 RM R19UH0105EJ0230 Rev.2.30 Aug 31, 2021
-Page 2468
-32.1.1.1 Features of VSPI [R-Car H3/R-Car H3-N/R-Car M3-W/R-Car 
-M3-W+/R-Car M3-N/R-Car E3]
-point Video processing and point Performance of VSPI
-indicates R-Car E3 has similar limitation due to VSP bandwidth.
-
-Currently, this seems to be up to user to avoid the higher resolution 
-operation on hardware which has lower VSP bandwidth.
+As for the interrupt part, it seems DU1 is present, but not connected. 
+That means the DU1 interrupt does exist, but is not going to be used. Do 
+you prefer to describe it or leave it out ?
