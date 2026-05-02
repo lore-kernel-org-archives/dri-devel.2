@@ -4,75 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEEB4FF885A
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 07:12:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44D9ACD3430
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 07:12:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 261E410E993;
-	Tue,  5 May 2026 07:12:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 228A810E999;
+	Tue,  5 May 2026 07:12:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dcYcQkVE";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ErRn6Cuo";
 	dkim-atps=neutral
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
- [209.85.214.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5276710E05D
- for <dri-devel@lists.freedesktop.org>; Sun,  3 May 2026 05:53:13 +0000 (UTC)
-Received: by mail-pl1-f181.google.com with SMTP id
- d9443c01a7336-2ab232cc803so13216015ad.3
- for <dri-devel@lists.freedesktop.org>; Sat, 02 May 2026 22:53:13 -0700 (PDT)
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
+ [209.85.215.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A81910E036
+ for <dri-devel@lists.freedesktop.org>; Sat,  2 May 2026 14:34:37 +0000 (UTC)
+Received: by mail-pg1-f176.google.com with SMTP id
+ 41be03b00d2f7-c80227c9572so15499a12.2
+ for <dri-devel@lists.freedesktop.org>; Sat, 02 May 2026 07:34:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777787593; x=1778392393; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=vr7la8q5ouMrDK8fN2eCNj+o3R1myO7B1gFJhcPxQqk=;
- b=dcYcQkVEYXSLWLq/0DUmjfia513a94xwCIG14XgbtaqOlqhHVvohgUxS+Ph+niGYpM
- HI9507wJoyqSq3VNIFVMtNsnCjoC8h72sNOhttKbFd7b7KLSeX87Zm51QRjgGXgSCJk2
- y2LhSkPFUBt3Y1nL8gcu+rhi6UAz8aFH8fl8x9zBb0swSraZfyrdeVBWcgoRPYxZmeow
- JQbJJYOtJNr9spaiWZ+uJ3PCFhYyMyj8OAQJIuFFO25y6ma+4E31G/SzvXBAFCv4Kbnm
- Ia0fJPng2uOTP7gjl1nZ3wwL1GOY694bZoVVZEcmzMKOO+b3D4ikyKgflhbEn3/u115X
- nAJg==
+ d=gmail.com; s=20251104; t=1777732477; x=1778337277; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=tgjXwJez3aZR9MFJ8OuPUlwHGqmX5qrc95kELET/7Ac=;
+ b=ErRn6Cuo3Z4VeTgUU8qaOrdO2RmI2jQv7Z+ZAdR2h4xPvFam8S9O4TirUid0dS+fA2
+ rb1Xv1eiESso8OvmuFP0yXIwJE41Ylpb93kenYZIxN1jjZ+6+qAySmK0YFIdcmCggTlV
+ ZdUMw01yYtqp7lsWm6kiy2OB670EJNWh7ks6DTF+sS8zu+QAzCFsCYAEpHBs0QSDoiGR
+ 8nZB9O7rhFUB6XIoyw/AqIWgWt6+jh9L26JX2+mfE+PZ5d6NfKMRmIHG+M2VMpohGKOP
+ fXw0uXY/hp/RQOeJkV+Mn31jztqYlCX5jqAYytx5iq0qVh8h83fmSTlm8k1Lo4xtnVJm
+ xOcw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777787593; x=1778392393;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=vr7la8q5ouMrDK8fN2eCNj+o3R1myO7B1gFJhcPxQqk=;
- b=faDOfwcmuy6yxGODWGcyys1NbYsdTD+Ytm20K8oz+Qux/1ce7PwFXnz/AyPphj/ZOD
- 0DK0QpUomWSbIar5jxuU1z3ut3HvIw1dLpCoFGKrStTGUOun9Uaof4VD8+VZciUrhjx5
- 2VC+CfGdAS+iu5VTbt0YryzGBeCbspvL0lSV0gw6/uR9o1pWP8LOFPKHFm69/VKBn9Xa
- LmjzRmxLzQQFKzjdkyBMykJPPtLXklIcDp3AXR2JXGLfmCOmPfIfp4Sf+nOcaGgaONfJ
- yNXbL6oePZRsjGciYPck1xvBy3kXxfRqqGpqVW5IL4ElchXUtQ7Bc4p3NL1N4AnNDP7d
- uSZA==
-X-Gm-Message-State: AOJu0YyvV2I3mS8ytofhqEv//84wNfKS7YWjOgi0RTegbXIsC3/I0wnB
- QR9KH/PyGpQVd0JOf4kpB0OZxjljgd72Z6HZvvuQg0SmOWS/wmz0+Hoy
-X-Gm-Gg: AeBDieuxZM2qofTZqhKxmRlUJTTp4qvg2nlYtEj83bU3mhx/YNGYwOWTE+ZzgVsoInn
- vIw7c1zaJ7EtEZrUKu2Cy33BPh0UR2ZKKgmdHeR9lzH3OfBMd1n5UoEjST7yrEGjPJLqf7/QHK3
- u2m1VaYV2V02m02PGVoeMKSejdgSmHKxJ7yUJn/BzJgqP5h8PAj6jqLkdPJDlqn4FYrQBHrtsWb
- pVqTnwinxILPCAf4+MWzN4dqycT8nPkgsDelS44CaAynVhFiw30XyfkKinwWshNl/0tCfl5yOC2
- NncWVvGYFag6v4aKwxRaqDpmGZ3e8b2P8pRQsAQtBWim5Ykp7MlBmMFSFGzFZuLISML87CI1+3/
- OWECS0jxlg6eQfwmQdK8IqYSJs3yMEYGNi9xqmCaHialdxlCG1rq5feWCbO6lqVBW7scik2fISv
- YhQNn1QaKr6lU6tVv0+5k/9fS6i3bW9isqEimJU3s=
-X-Received: by 2002:a17:903:37d0:b0:2b0:5ae9:ee4 with SMTP id
- d9443c01a7336-2b9f252f85emr49013585ad.5.1777787592888; 
- Sat, 02 May 2026 22:53:12 -0700 (PDT)
-Received: from vini ([2401:4900:8fcb:edbd:7155:edb6:dac:107e])
+ d=1e100.net; s=20251104; t=1777732477; x=1778337277;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=tgjXwJez3aZR9MFJ8OuPUlwHGqmX5qrc95kELET/7Ac=;
+ b=ZLHUQ/jU/C+LkaujaPZPpl5VS0tcFUylQxWebj+WQn1mWHe+8Z8Z3nVsHdFzFxTutB
+ vR81TeG+SXfkfpJb18NKHqR2OZYfiUgDk3Qf9mX8P/QkPsvtUf6R4/l6KbxgxgSrIIH6
+ L0TmCkQ54zaxdjStR2PUv3MRetuFb/2aWGDObmf64a/11++tR2p1CNjHXJgdDGGCLE9W
+ tjT5ASd/zGWKxCUlU9xOfVoCOs4h4l+fPHMQCq1Yz4pi9qFenD2DROePcASg1IdeetBG
+ O5dgZ+WwU5ScFMgYigjzsA7XSx6QHZbfgAWOHUDgQzWGLJRXT73CdBGKbRs24Wr5eVWa
+ rKxA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/+V4cFmuTBENjF6JMeiKr1k56iD5ScRpg9fEKbdq19TZyOC7oFHFn4UkW6VHhztT8OA8X1FWI/x/I=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzgf7hkzwnPg+EAmF1k9XwyYZeNwZ+FSssy6splPqJ1dJr8UK0f
+ J0cQLqXGZ2vbUTb88d+eAxr9gHNxBSOsYzdNWVrfT4jnRSjtvxRwBGuo
+X-Gm-Gg: AeBDievfQygzF2pWTXQlvH/rfxppp7fOZcSDkjri/qQMPbPqGV9SqUg1ZAt1Q1rPUjA
+ e3opEnHVFB9TDfUkme4PR4udeT6yqlN435vNTm48LxSdi6S7rrmxZVoeAvQGIvqVDudHgtLlqa+
+ wARqcrJnvR8z0gKsBy6PAvZgIIQ1hd2IYI5Q6ZAbZzPa3L7KQtjMbA/X9ksqX9FvnvGqHY6rHNk
+ ApR6rAZ66t3tROoddoCpmJDXHdW9I7WuU0xZlET095ZqmyxRtPFRV/ZRtbPBoyEYQAEJDX2N79L
+ jOe0a0H/Olf5MQn1Cll0Tt6uudm6gZHx3M+T/qHxvWmmVT8SbFqsjr7Q7WoMSw6ZCquMTsX1JXa
+ URr66inLenqL1YTAc8RZVpuLApWDEU9GwQvKH8fDLMd8/7ad+wL4KN6uPKa/7YCii7zqwRj7TAL
+ d1YOtfya8QZ2oYYxheD1KVzFNkjK62KKYrT9pZR4ecVQaSmDjiY5Q9JsxnQf/waIeq
+X-Received: by 2002:a05:6a20:e291:b0:3a2:dabf:fefe with SMTP id
+ adf61e73a8af0-3a7f1bc2302mr3579543637.19.1777732476507; 
+ Sat, 02 May 2026 07:34:36 -0700 (PDT)
+Received: from souradipto-das-Latitude-3460..
+ ([2405:201:8011:1c:b259:847f:f774:53b4])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2b9cae58906sm64894705ad.74.2026.05.02.22.53.10
+ d2e1a72fcca58-83515ad0176sm5714230b3a.39.2026.05.02.07.34.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 02 May 2026 22:53:12 -0700 (PDT)
-From: Vineet Agarwal <agarwal.vineet2006@gmail.com>
-To: mamin506@gmail.com,
-	lizhi.hou@amd.com,
-	ogabbay@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Vineet Agarwal <agarwal.vineet2006@gmail.com>
-Subject: [PATCH v3] drm/amdxdna: fix pinned_vm accounting and error handling
- in user buffer pinning
-Date: Sun,  3 May 2026 11:20:24 +0530
-Message-ID: <20260503055258.643546-1-agarwal.vineet2006@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260502031746.621606-1-agarwal.vineet2006@gmail.com>
-References: <20260502031746.621606-1-agarwal.vineet2006@gmail.com>
+ Sat, 02 May 2026 07:34:36 -0700 (PDT)
+From: Souradipto Das <souradiptodas6@gmail.com>
+To: thierry.reding@kernel.org,
+	mperttunen@nvidia.com
+Cc: jonathanh@nvidia.com, airlied@gmail.com, simona@ffwll.ch,
+ tzimmermann@suse.de, dri-devel@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Souradipto Das <souradiptodas6@gmail.com>
+Subject: [PATCH] drm/tegra: hdmi: Open-code drm_simple_encoder_init()
+Date: Sat,  2 May 2026 20:04:20 +0530
+Message-ID: <20260502143420.7850-1-souradiptodas6@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 05 May 2026 07:12:26 +0000
@@ -91,111 +91,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-amdxdna_get_ubuf() incorrectly accounted mm->pinned_vm using the
-requested number of pages before pin_user_pages_fast() completed.
+The helper drm_simple_encoder_init() is a trivial wrapper around
+drm_encoder_init() that only provides a static drm_encoder_funcs with
+.destroy set to drm_encoder_cleanup(). Open-code the initialization
+with a driver-specific instance of drm_encoder_funcs and remove the
+dependency on drm_simple_kms_helper.
 
-Since pin_user_pages_fast() can return partial success, this could
-lead to incorrect accounting and inconsistent cleanup on failure.
-
-Additionally, the RLIMIT_MEMLOCK check was performed after pinning,
-allowing excessive pin attempts before validation.
-
-Fix this by:
-  - checking RLIMIT_MEMLOCK before attempting to pin pages
-  - handling partial pinning correctly and ensuring proper cleanup
-  - updating mm->pinned_vm only after all pages are successfully pinned
-  - removing incorrect error-path accounting and double-subtraction
-
-Also fix missing rollback when dma_buf_export() fails, which could
-leave mm->pinned_vm incremented without a corresponding release.
-
-This ensures correct pinned memory accounting and consistent error
-handling aligned with other subsystems using GUP.
-
-Signed-off-by: Vineet Agarwal <agarwal.vineet2006@gmail.com>
-
-Changes in v3:
-- Fix missing pinned_vm rollback when dma_buf_export() fails
+Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
+Signed-off-by: Souradipto Das <souradiptodas6@gmail.com>
 ---
- drivers/accel/amdxdna/amdxdna_ubuf.c | 26 +++++++++++++-------------
- 1 file changed, 13 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/tegra/hdmi.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/accel/amdxdna/amdxdna_ubuf.c b/drivers/accel/amdxdna/amdxdna_ubuf.c
-index fb999aa25318..efce6b94fb0c 100644
---- a/drivers/accel/amdxdna/amdxdna_ubuf.c
-+++ b/drivers/accel/amdxdna/amdxdna_ubuf.c
-@@ -129,7 +129,7 @@ struct dma_buf *amdxdna_get_ubuf(struct drm_device *dev,
- 				 u32 num_entries, void __user *va_entries)
+diff --git a/drivers/gpu/drm/tegra/hdmi.c b/drivers/gpu/drm/tegra/hdmi.c
+index 0adcd4244a42..a45c19d1631b 100644
+--- a/drivers/gpu/drm/tegra/hdmi.c
++++ b/drivers/gpu/drm/tegra/hdmi.c
+@@ -25,12 +25,13 @@
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_debugfs.h>
+ #include <drm/drm_edid.h>
++#include <drm/drm_encoder.h>
+ #include <drm/drm_eld.h>
+ #include <drm/drm_file.h>
+ #include <drm/drm_fourcc.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+-#include <drm/drm_simple_kms_helper.h>
++
+ 
+ #include "hda.h"
+ #include "hdmi.h"
+@@ -371,6 +372,9 @@ static const struct tmds_config tegra124_tmds_config[] = {
+ 			PEAK_CURRENT_LANE3(PEAK_CURRENT_0_800_mA),
+ 	},
+ };
++static const struct drm_encoder_funcs tegra_hdmi_encoder_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
+ 
+ static void tegra_hdmi_audio_lock(struct tegra_hdmi *hdmi)
  {
- 	struct amdxdna_dev *xdna = to_xdna_dev(dev);
--	unsigned long lock_limit, new_pinned;
-+	unsigned long lock_limit;
- 	struct amdxdna_drm_va_entry *va_ent;
- 	struct amdxdna_ubuf_priv *ubuf;
- 	u32 npages, start = 0;
-@@ -176,18 +176,17 @@ struct dma_buf *amdxdna_get_ubuf(struct drm_device *dev,
+@@ -1555,8 +1559,8 @@ static int tegra_hdmi_init(struct host1x_client *client)
  
- 	ubuf->nr_pages = exp_info.size >> PAGE_SHIFT;
- 	lock_limit = rlimit(RLIMIT_MEMLOCK) >> PAGE_SHIFT;
--	new_pinned = atomic64_add_return(ubuf->nr_pages, &ubuf->mm->pinned_vm);
--	if (new_pinned > lock_limit && !capable(CAP_IPC_LOCK)) {
--		XDNA_DBG(xdna, "New pin %ld, limit %ld, cap %d",
--			 new_pinned, lock_limit, capable(CAP_IPC_LOCK));
-+
-+	if (ubuf->nr_pages + atomic64_read(&ubuf->mm->pinned_vm) > lock_limit &&
-+		!capable(CAP_IPC_LOCK)) {
- 		ret = -ENOMEM;
--		goto sub_pin_cnt;
-+		goto free_ent;
- 	}
+ 	hdmi->output.dev = client->dev;
  
- 	ubuf->pages = kvmalloc_objs(*ubuf->pages, ubuf->nr_pages);
- 	if (!ubuf->pages) {
- 		ret = -ENOMEM;
--		goto sub_pin_cnt;
-+		goto free_ent;
- 	}
+-	drm_simple_encoder_init(drm, &hdmi->output.encoder,
+-				DRM_MODE_ENCODER_TMDS);
++	drm_encoder_init(drm, &hdmi->output.encoder, &tegra_hdmi_encoder_funcs,
++				DRM_MODE_ENCODER_TMDS, NULL);
+ 	drm_encoder_helper_add(&hdmi->output.encoder,
+ 			       &tegra_hdmi_encoder_helper_funcs);
  
- 	for (i = 0; i < num_entries; i++) {
-@@ -196,15 +195,17 @@ struct dma_buf *amdxdna_get_ubuf(struct drm_device *dev,
- 		ret = pin_user_pages_fast(va_ent[i].vaddr, npages,
- 					  FOLL_WRITE | FOLL_LONGTERM,
- 					  &ubuf->pages[start]);
--		if (ret < 0 || ret != npages) {
-+		if (ret < 0)
-+			goto destroy_pages;
-+		start += ret;
-+		if (ret != npages) {
- 			ret = -ENOMEM;
--			XDNA_ERR(xdna, "Failed to pin pages ret %d", ret);
- 			goto destroy_pages;
- 		}
--
--		start += ret;
- 	}
- 
-+	atomic64_add(ubuf->nr_pages, &ubuf->mm->pinned_vm);
-+
- 	exp_info.ops = &amdxdna_ubuf_dmabuf_ops;
- 	exp_info.priv = ubuf;
- 	exp_info.flags = O_RDWR | O_CLOEXEC;
-@@ -212,6 +213,7 @@ struct dma_buf *amdxdna_get_ubuf(struct drm_device *dev,
- 	dbuf = dma_buf_export(&exp_info);
- 	if (IS_ERR(dbuf)) {
- 		ret = PTR_ERR(dbuf);
-+		atomic64_sub(ubuf->nr_pages, &ubuf->mm->pinned_vm);
- 		goto destroy_pages;
- 	}
- 	kvfree(va_ent);
-@@ -222,8 +224,6 @@ struct dma_buf *amdxdna_get_ubuf(struct drm_device *dev,
- 	if (start)
- 		unpin_user_pages(ubuf->pages, start);
- 	kvfree(ubuf->pages);
--sub_pin_cnt:
--	atomic64_sub(ubuf->nr_pages, &ubuf->mm->pinned_vm);
- free_ent:
- 	kvfree(va_ent);
- free_ubuf:
 -- 
-2.54.0
+2.43.0
 
