@@ -4,58 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27E2DCD13DA
-	for <dri-devel@archiver.kernel.org>; Sat,  2 May 2026 08:08:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A7ADCD13DA
+	for <dri-devel@archiver.kernel.org>; Sat,  2 May 2026 09:40:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 878D910E1EF;
-	Sat,  2 May 2026 08:08:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B02A710E074;
+	Sat,  2 May 2026 09:40:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="NXiCwGFo";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="e0sUBeSl";
 	dkim-atps=neutral
-Received: from mail-43101.protonmail.ch (mail-43101.protonmail.ch
- [185.70.43.101])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 655D310E1EF
- for <dri-devel@lists.freedesktop.org>; Sat,  2 May 2026 08:08:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
- s=protonmail3; t=1777709330; x=1777968530;
- bh=H9/dN9JQ0opis5ZXvIbrrfzVzxE6erQCi4soV3ChoA0=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=NXiCwGFoy0ostmDVGbYiHwnvjCg4XOXcPtD3++byOhGWJsNsG2poMug+dVQljK19Z
- iJUiYDNrc75DdHX7BerCwoN2oAmrUUtfhOoS2fUxhN33bida7Pb1myu++f05VJX30Y
- Q1Rfcj+VdlLF924A6aRNDlneNU43xSi4mWEoBenFKut4vR8HYoxMYuEPap5aE+rQ0c
- VVF/T5tFc4tq62M3DkR3GeOZg/ArAc4ezepFb3GYXwPRsNlCQyqrOyoEBGzG69qF0G
- I5bSbR8XJNta90xgpVopyER6awuAKGetnujL2ufu3xLpTD9nEWDkg1Ku2BcfxabwGB
- /jDjZoafo74nQ==
-Date: Sat, 02 May 2026 08:08:42 +0000
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>
-From: Alexander Koskovich <akoskovich@pm.me>
-Cc: Luca Weiss <luca.weiss@fairphone.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Alexander Koskovich <akoskovich@pm.me>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: [PATCH RFC v5 7/7] arm64: dts: qcom: milos: Add Adreno 810 GPU and
- GMU nodes
-Message-ID: <20260502-adreno-810-v5-7-bc9fd2bb788d@pm.me>
-In-Reply-To: <20260502-adreno-810-v5-0-bc9fd2bb788d@pm.me>
-References: <20260502-adreno-810-v5-0-bc9fd2bb788d@pm.me>
-Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: 9c0e36f14d1266e456c686d8a01c46349c4b5f0c
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E48CB10E074
+ for <dri-devel@lists.freedesktop.org>; Sat,  2 May 2026 09:40:16 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-4891cd41959so21828805e9.3
+ for <dri-devel@lists.freedesktop.org>; Sat, 02 May 2026 02:40:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1777714815; x=1778319615; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=xWxxzhKBAmtcwBT63aGnVt/i27b3I+bhzf4HGA2Jwck=;
+ b=e0sUBeSl4WUvHBLXNhKFAndxYcdMJR7d0C12I1j+7XZevA052yRrrhSNj4sQHSrM2K
+ Eds+tyo8vQSXCWnjam9XUEJ//v6BAh1+DaNEwB75Q5PKp2MLRlcLveD3AuEvrqFxtPvT
+ McVNAZlfeQCuI7xoGYemClvnOdhJszcRYvPH8SgJRwIx/ZrK+liwMMIJ9xyGv4et12wn
+ uYcxUGSxmnPWeoOpvriFmR3lveaDNyFKhGRmckzmy2j7wvsfVbXfqm0cti7BiQxSz3rm
+ AQW4JZKDTlDHn/sdinDkSLC1TLRA8P/45W45FKkO5OkhsGrB82ckV8vGP7FEoMDWv0jh
+ YMyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777714815; x=1778319615;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=xWxxzhKBAmtcwBT63aGnVt/i27b3I+bhzf4HGA2Jwck=;
+ b=jr3Z3HjwrGBWz+XapTa3XSVzIt2p7Gt0qU6C6CAH3g8cyDh0+4K2TprMp8VHpyI1+h
+ QdJxjP0PxPV3rvNTDBRm2lNxDt+RHo/ban3hyBLTsKBHGSoOmyHGKh2/yc8WPd4qwfMw
+ zBz5We+hcmsyk+9/AMlakyaMdOwRmLDPDe7ZWgaUXYR3BMx3RBVHhtJsZ9LY/oknwxss
+ p3NUtTZUVzVbQFCKCifhU+QlThk1fqcTCcn7xHcgVzHFGy7Gruqmhr6tRLZKqHCHxmAM
+ XKwdeiZXbdskPSghRdqt52hDTYrIpL132AtWzz9bBbT2HZPdcjL2NOCF7pHjnxLFdbc/
+ g/zw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+beyZFEitoZj/LMaIiH3Z/xmKre6JW8UEKJ2CwK5A/GzGhVvMf04Upz7qDJRR2kher+aweTFLkHhw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzKItxursXJeCCuuypYGOgCIwZJ86FvMH2Wo+KDo7tdMyeXH8A8
+ U3WLsHT3VhRa7V4t3MRnSDPrcphn0yG1AxgsdCqDJCUcvF2ohhA+DdPf
+X-Gm-Gg: AeBDieuOwYddr+a8Gny3ylzDDO2oHTVsLv8QDacDjsgOd7T1QmkoVA3TkDBzj9oADwv
+ hZHLKbbgqJSc2esvDU90fZgnSz+/d5TKBu+/c57fLPx5zuPzQV6qB8EzgevXjHQt0Jisr17fZdl
+ w9ZXRBlg19GOLbgUHzTR1znCyC/p9APrOBrpfuYpIVjObBsJbF+ODoufpMTmDB7KtVI853yaGR/
+ /xstzfvn6J+k09Vpc/XsUVyKV5CArel72eHb3nMGIrO0JpVHdVjU6I+GYmbSGCMlkZPvhTqEcWZ
+ nhd4jjKcTPdSXx2HVhs7CIlZvCf3qu34Mn4nxByISQFkluwKWthNBQy9buNMZn63oOtayuEwpWT
+ Fbls3piHbqP8zpjNinRXPHq65jy+O3QuyixK+o17eZbD36BT5PznLEvLwMAF2/ye6j1jCV5tGO7
+ dRwBfvMo5Tnq3zLxpdHHs3AAnNo4ZWoqx7ffvw5ms+
+X-Received: by 2002:a05:600d:16:b0:48a:563c:c8e2 with SMTP id
+ 5b1f17b1804b1-48a9852d292mr27498815e9.3.1777714815081; 
+ Sat, 02 May 2026 02:40:15 -0700 (PDT)
+Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-48a81b99127sm180583055e9.0.2026.05.02.02.40.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 02 May 2026 02:40:14 -0700 (PDT)
+Date: Sat, 2 May 2026 12:40:10 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>, linux-mm@kvack.org,
+ Sumit Semwal <sumit.semwal@linaro.org>, dri-devel@lists.freedesktop.org
+Cc: linaro-mm-sig@lists.linaro.org
+Subject: [bug report] dma-buf: heaps: Rework heap allocation hooks to return
+ struct dma_buf instead of fd
+Message-ID: <afXGeq1AvqFY76MY@stanley.mountain>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,207 +87,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add GPU and GMU devicetree nodes for the Adreno 810 GPU found on
-Qualcomm SM7635 (Milos) based devices.
+I'm not sure exactly who to report this bug too.  Probably the mm
+devs?
 
-The qcom,kaanapali-gxclkctl.h header can be reused here because
-Milos uses the same driver and the GX_CLKCTL_GX_GDSC definition
-is identical.
+	drivers/dma-buf/heaps/system_heap.c:499 system_heap_allocate()
+	warn: passing positive error code 's32min-(-1),1' to 'ERR_PTR'
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
----
- arch/arm64/boot/dts/qcom/milos.dtsi | 166 ++++++++++++++++++++++++++++++++=
-++++
- 1 file changed, 166 insertions(+)
+drivers/dma-buf/heaps/system_heap.c
+    459         if (cc_shared) {
+    460                 for_each_sgtable_sg(table, sg, i) {
+    461                         ret = system_heap_set_page_decrypted(sg_page(sg));
+    462                         if (ret)
+    463                                 goto free_pages;
 
-diff --git a/arch/arm64/boot/dts/qcom/milos.dtsi b/arch/arm64/boot/dts/qcom=
-/milos.dtsi
-index 0e7cfc12b0d2..4abaef42d7d4 100644
---- a/arch/arm64/boot/dts/qcom/milos.dtsi
-+++ b/arch/arm64/boot/dts/qcom/milos.dtsi
-@@ -3,6 +3,7 @@
-  * Copyright (c) 2025, Luca Weiss <luca.weiss@fairphone.com>
-  */
-=20
-+#include <dt-bindings/clock/qcom,kaanapali-gxclkctl.h>
- #include <dt-bindings/clock/qcom,milos-camcc.h>
- #include <dt-bindings/clock/qcom,milos-dispcc.h>
- #include <dt-bindings/clock/qcom,milos-gcc.h>
-@@ -1554,6 +1555,171 @@ lpass_ag_noc: interconnect@3c40000 {
- =09=09=09qcom,bcm-voters =3D <&apps_bcm_voter>;
- =09=09};
-=20
-+=09=09gpu: gpu@3d00000 {
-+=09=09=09compatible =3D "qcom,adreno-44010000", "qcom,adreno";
-+=09=09=09reg =3D <0x0 0x03d00000 0x0 0x40000>,
-+=09=09=09      <0x0 0x03d9e000 0x0 0x2000>,
-+=09=09=09      <0x0 0x03d61000 0x0 0x800>;
-+=09=09=09reg-names =3D "kgsl_3d0_reg_memory",
-+=09=09=09=09    "cx_mem",
-+=09=09=09=09    "cx_dbgc";
-+
-+=09=09=09interrupts =3D <GIC_SPI 300 IRQ_TYPE_LEVEL_HIGH 0>;
-+
-+=09=09=09iommus =3D <&adreno_smmu 0 0x0>;
-+
-+=09=09=09operating-points-v2 =3D <&gpu_opp_table>;
-+
-+=09=09=09nvmem-cells =3D <&gpu_speed_bin>;
-+=09=09=09nvmem-cell-names =3D "speed_bin";
-+
-+=09=09=09qcom,gmu =3D <&gmu>;
-+=09=09=09#cooling-cells =3D <2>;
-+
-+=09=09=09interconnects =3D <&gem_noc MASTER_GFX3D QCOM_ICC_TAG_ALWAYS
-+=09=09=09=09=09 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+=09=09=09interconnect-names =3D "gfx-mem";
-+
-+=09=09=09status =3D "disabled";
-+
-+=09=09=09gpu_zap_shader: zap-shader {
-+=09=09=09=09memory-region =3D <&gpu_microcode_mem>;
-+=09=09=09};
-+
-+=09=09=09gpu_opp_table: opp-table {
-+=09=09=09=09compatible =3D "operating-points-v2-adreno",
-+=09=09=09=09=09     "operating-points-v2";
-+
-+=09=09=09=09opp-264000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <264000000>;
-+=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_LOW_SVS_D1>;
-+=09=09=09=09=09opp-peak-kBps =3D <2136718>;
-+=09=09=09=09=09opp-supported-hw =3D <0x7>;
-+=09=09=09=09=09qcom,opp-acd-level =3D <0xc8295ffd>;
-+=09=09=09=09};
-+
-+=09=09=09=09opp-362000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <362000000>;
-+=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_LOW_SVS>;
-+=09=09=09=09=09opp-peak-kBps =3D <2136718>;
-+=09=09=09=09=09opp-supported-hw =3D <0x7>;
-+=09=09=09=09=09qcom,opp-acd-level =3D <0xc02c5ffd>;
-+=09=09=09=09};
-+
-+=09=09=09=09opp-510000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <510000000>;
-+=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_SVS>;
-+=09=09=09=09=09opp-peak-kBps =3D <3972656>;
-+=09=09=09=09=09opp-supported-hw =3D <0x7>;
-+=09=09=09=09=09qcom,opp-acd-level =3D <0x882b5ffd>;
-+=09=09=09=09};
-+
-+=09=09=09=09opp-644000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <644000000>;
-+=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_SVS_L1>;
-+=09=09=09=09=09opp-peak-kBps =3D <5285156>;
-+=09=09=09=09=09opp-supported-hw =3D <0x7>;
-+=09=09=09=09=09qcom,opp-acd-level =3D <0x882a5ffd>;
-+=09=09=09=09};
-+
-+=09=09=09=09opp-688000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <688000000>;
-+=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_SVS_L2>;
-+=09=09=09=09=09opp-peak-kBps =3D <6074218>;
-+=09=09=09=09=09opp-supported-hw =3D <0x7>;
-+=09=09=09=09=09qcom,opp-acd-level =3D <0x882a5ffd>;
-+=09=09=09=09};
-+
-+=09=09=09=09opp-763000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <763000000>;
-+=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_NOM>;
-+=09=09=09=09=09opp-peak-kBps =3D <6671875>;
-+=09=09=09=09=09opp-supported-hw =3D <0x7>;
-+=09=09=09=09=09qcom,opp-acd-level =3D <0xa8295ffd>;
-+=09=09=09=09};
-+
-+=09=09=09=09opp-895000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <895000000>;
-+=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_NOM_L1>;
-+=09=09=09=09=09opp-peak-kBps =3D <8171875>;
-+=09=09=09=09=09opp-supported-hw =3D <0x7>;
-+=09=09=09=09=09qcom,opp-acd-level =3D <0x88295ffd>;
-+=09=09=09=09};
-+
-+=09=09=09=09opp-960000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <960000000>;
-+=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_TURBO>;
-+=09=09=09=09=09opp-peak-kBps =3D <8171875>;
-+=09=09=09=09=09opp-supported-hw =3D <0x7>;
-+=09=09=09=09=09qcom,opp-acd-level =3D <0xa8285ffd>;
-+=09=09=09=09};
-+
-+=09=09=09=09opp-1050000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <1050000000>;
-+=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_TURBO_L1>;
-+=09=09=09=09=09opp-peak-kBps =3D <18597656>;
-+=09=09=09=09=09opp-supported-hw =3D <0x7>;
-+=09=09=09=09=09qcom,opp-acd-level =3D <0x88285ffd>;
-+=09=09=09=09};
-+
-+=09=09=09=09opp-1150000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <1150000000>;
-+=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_TURBO_L2>;
-+=09=09=09=09=09opp-peak-kBps =3D <18597656>;
-+=09=09=09=09=09opp-supported-hw =3D <0x3>;
-+=09=09=09=09=09qcom,opp-acd-level =3D <0xa02f5ffd>;
-+=09=09=09=09};
-+=09=09=09};
-+=09=09};
-+
-+=09=09gmu: gmu@3d37000 {
-+=09=09=09compatible =3D "qcom,adreno-gmu-810.0", "qcom,adreno-gmu";
-+=09=09=09reg =3D <0x0 0x03d37000 0x0 0x68000>;
-+=09=09=09reg-names =3D "gmu";
-+
-+=09=09=09interrupts =3D <GIC_SPI 304 IRQ_TYPE_LEVEL_HIGH 0>,
-+=09=09=09=09     <GIC_SPI 305 IRQ_TYPE_LEVEL_HIGH 0>;
-+=09=09=09interrupt-names =3D "hfi", "gmu";
-+
-+=09=09=09clocks =3D <&gpucc GPU_CC_AHB_CLK>,
-+=09=09=09=09 <&gpucc GPU_CC_CX_GMU_CLK>,
-+=09=09=09=09 <&gpucc GPU_CC_CXO_CLK>,
-+=09=09=09=09 <&gcc GCC_DDRSS_GPU_AXI_CLK>,
-+=09=09=09=09 <&gcc GCC_GPU_MEMNOC_GFX_CLK>,
-+=09=09=09=09 <&gpucc GPU_CC_HUB_CX_INT_CLK>;
-+=09=09=09clock-names =3D "ahb",
-+=09=09=09=09      "gmu",
-+=09=09=09=09      "cxo",
-+=09=09=09=09      "axi",
-+=09=09=09=09      "memnoc",
-+=09=09=09=09      "hub";
-+
-+=09=09=09power-domains =3D <&gpucc GPU_CC_CX_GDSC>,
-+=09=09=09=09=09<&gxclkctl GX_CLKCTL_GX_GDSC>;
-+=09=09=09power-domain-names =3D "cx",
-+=09=09=09=09=09     "gx";
-+
-+=09=09=09iommus =3D <&adreno_smmu 5 0x0>;
-+
-+=09=09=09qcom,qmp =3D <&aoss_qmp>;
-+
-+=09=09=09operating-points-v2 =3D <&gmu_opp_table>;
-+
-+=09=09=09gmu_opp_table: opp-table {
-+=09=09=09=09compatible =3D "operating-points-v2";
-+
-+=09=09=09=09opp-350000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <350000000>;
-+=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_LOW_SVS>;
-+=09=09=09=09};
-+
-+=09=09=09=09opp-650000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <650000000>;
-+=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_SVS>;
-+=09=09=09=09};
-+=09=09=09};
-+=09=09};
-+
- =09=09gxclkctl: clock-controller@3d64000 {
- =09=09=09compatible =3D "qcom,milos-gxclkctl";
- =09=09=09reg =3D <0x0 0x03d64000 0x0 0x6000>;
+It kind of looks like system_heap_set_page_decrypted() can return 1.
 
---=20
-2.53.0
+    464                 }
+    465         }
+    466 
+    467         /* create the dmabuf */
+    468         exp_info.exp_name = dma_heap_get_name(heap);
+    469         exp_info.ops = &system_heap_buf_ops;
+    470         exp_info.size = buffer->len;
+    471         exp_info.flags = fd_flags;
+    472         exp_info.priv = buffer;
+    473         dmabuf = dma_buf_export(&exp_info);
+    474         if (IS_ERR(dmabuf)) {
+    475                 ret = PTR_ERR(dmabuf);
+    476                 goto free_pages;
+    477         }
+    478         return dmabuf;
+    479 
+    480 free_pages:
+    481         for_each_sgtable_sg(table, sg, i) {
+    482                 struct page *p = sg_page(sg);
+    483 
+    484                 /*
+    485                  * Intentionally leak pages that cannot be re-encrypted
+    486                  * to prevent shared memory from being reused.
+    487                  */
+    488                 if (buffer->cc_shared &&
+    489                     system_heap_set_page_encrypted(p))
+    490                         continue;
+    491                 __free_pages(p, compound_order(p));
+    492         }
+    493         sg_free_table(table);
+    494 free_buffer:
+    495         list_for_each_entry_safe(page, tmp_page, &pages, lru)
+    496                 __free_pages(page, compound_order(page));
+    497         kfree(buffer);
+    498 
+--> 499         return ERR_PTR(ret);
+    500 }
 
+The problem is that add_to_pagemap() returns PM_END_OF_BUFFER (1)
+which is used by pagemap_read() and nowhere else.  The call tree
+is:
 
+system_heap_allocate()
+system_heap_set_page_decrypted()
+set_memory_decrypted()
+realm_set_memory_decrypted()
+__set_memory_enc_dec()
+__change_memory_common()
+update_range_prot()
+walk_kernel_page_table_range_lockless()
+walk_pgd_range()
+pagemap_pte_hole()
+add_to_pagemap()
+
+This code seems sort of old and I guess no one has reported the bug
+so maybe it's a false positive, but it feels like it's asking for
+problems to return the PM_END_OF_BUFFER.  There aren't any comments
+on any of those functions above explaining what return values are
+expected.
+
+This email is a free service from the Smatch-CI project [smatch.sf.net].
+
+regards,
+dan carpenter
