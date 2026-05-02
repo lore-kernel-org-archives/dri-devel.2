@@ -4,159 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C2C1CD3424
-	for <dri-devel@archiver.kernel.org>; Sat,  2 May 2026 04:13:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E273CCD3424
+	for <dri-devel@archiver.kernel.org>; Sat,  2 May 2026 05:02:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C105A10E0A9;
-	Sat,  2 May 2026 04:13:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E236410E077;
+	Sat,  2 May 2026 05:02:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Z1WEJgFV";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CuSjaDrN";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECB7710E0A9;
- Sat,  2 May 2026 04:13:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777695231; x=1809231231;
- h=date:from:to:cc:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=+i4wgFioWDzeZIDZX1rpYtI8R9EDxjZvqUvvtbiTOUU=;
- b=Z1WEJgFVPlWI9sr5BHfL8iK0ZUIVYYnH0kSgzwHhBHayIwyneJAB9eTy
- 85if45UKmvvCUBJ5kQigYmdRM/JqBX4pH5HehCI+AQIJdMtSsukDwrD8B
- fHIQs1fqgzRrD8WMFYbDCD5zuwO6tVKf3Rg4SECDivgmBEn3oGN+BszxN
- LcuAC/HRhIqNqjbMk7T5R3LQsJf0O5Z4tSG9zo+s4gfgmS7zsPOooyyoo
- t4JvYMliovIEGuv+VAHK5tluRSDuhlo71U8j6I6nTYbiKKAG1B0aNBwY1
- ZPofQuQl1/Uk5pD723W3nOjSGdLBvyOqV61ROFDafIk2qko4AsUevzZUN A==;
-X-CSE-ConnectionGUID: LDaM9FO1Se+zrfeVVBpJAw==
-X-CSE-MsgGUID: kL+kiLM3QlqSUsQQXXG6fg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11773"; a="78640263"
-X-IronPort-AV: E=Sophos;i="6.23,211,1770624000"; d="scan'208";a="78640263"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 May 2026 21:13:50 -0700
-X-CSE-ConnectionGUID: aVQfa3gjSUiFyhwn3Vktzw==
-X-CSE-MsgGUID: u0IfoECMRhuVMdjbplc4CA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,211,1770624000"; d="scan'208";a="236808648"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 May 2026 21:13:49 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Fri, 1 May 2026 21:13:49 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Fri, 1 May 2026 21:13:49 -0700
-Received: from CH1PR05CU001.outbound.protection.outlook.com (52.101.193.28) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Fri, 1 May 2026 21:13:48 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lSsD8qnxKwdJAQvh7Er1FYrqjySNXJf6hv9qZKjR63V7ynn91w//FXx976/VYizU1SpkV6OwmtT6P604WZ85eMgSVLwDG9nGIv6VRVHaGQmRUY+b9MN2RWi2G9kKcnMSLIdCqFhqq9TXrn85qER2Wzntz2Xj8kVpQ79b+Ku86bhziQsMSuMkFmhWmWX5ebJvoKurBF71zQZ5BXwnIccyzIW3MSv0zXBNWRYlOvwURkWSLLBdhGSsM8nIcFI0ZqyEwN9952dGo4Yz11M041SGZE6pZNE4jXq0jBaISk3h2BKUfjpxONjxc63QMakU5HWrAhuZ3Uy8j5biSoAxWtHfrg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ksYsJ7DUfKgXaJleY1OaWRNtBgMAxwfCTa17B7pcJaA=;
- b=Gav5Hq7Uvw51cz7TZNt0tt5CMsrbCKj+m25qnyw2kWJ55BdeVZUezlVkYmfpVi87hcl6nE7Ln9A1JPyvOUq/AOiijURoK4+o8KLvME1FL5ndIwUxsf0lpIesnCWxg5NVUKeNme9gX2CLrbr3NgstHShvhMA/sYUZQPktmFmzqE0+kTx8iJu/EqFKaflxnSohswMusKke//sVasyy6ncDZu0hsDqp3X0DB0BEjRDOB2tluklH2RA+fOuj926YPrFhpY0tkud+52GVrhXeYWnfFFJUyRaO4e+vKrGJBXK04rgKfVu7KmvZWiAQ2Wc77IB0He7BVBg7ajc+9UiFk4OO3Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
- by SA1PR11MB8812.namprd11.prod.outlook.com (2603:10b6:806:469::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.22; Sat, 2 May
- 2026 04:13:41 +0000
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c%7]) with mapi id 15.20.9870.022; Sat, 2 May 2026
- 04:13:41 +0000
-Date: Fri, 1 May 2026 21:13:38 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Kenneth Crudup <kenny@panix.com>
-CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>, David Airlie <airlied@gmail.com>
-Subject: Re: [PATCH] drm/ttm: Fix GPU MM stats during pool shrinking
-Message-ID: <afV58nx436pwQ882@gsse-cloud1.jf.intel.com>
-References: <20260501223003.2648450-1-matthew.brost@intel.com>
- <18c48e7f-a2bd-4e74-9262-266cd5c2fde8@panix.com>
- <afV5r9PpyAimOQmV@gsse-cloud1.jf.intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <afV5r9PpyAimOQmV@gsse-cloud1.jf.intel.com>
-X-ClientProxiedBy: BYAPR06CA0003.namprd06.prod.outlook.com
- (2603:10b6:a03:d4::16) To PH7PR11MB6522.namprd11.prod.outlook.com
- (2603:10b6:510:212::12)
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com
+ [209.85.208.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 329F110E077
+ for <dri-devel@lists.freedesktop.org>; Sat,  2 May 2026 05:02:53 +0000 (UTC)
+Received: by mail-ed1-f52.google.com with SMTP id
+ 4fb4d7f45d1cf-67be41d5eeeso1349608a12.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 01 May 2026 22:02:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777698172; cv=none;
+ d=google.com; s=arc-20240605;
+ b=B6cq109OMZPUJgVjR3dPQGjrFkiwl1HmOwAZDPBUvaVuWPtT/QSh0kPKEfZ5jmtVo4
+ 1z9i+VHGDWoyuhPl7po9Oxy1xVxsnKT7tWc4xKY8aR/pD/xvf7p6TPk3g6VDJ2rY8PpO
+ 0T1yxXjB3+BhW7RaZuC+XCE6sBOPaKzhIFMdq/MhBUxB5Aj8YIM6wHnd9ZEVp/23HKaf
+ 4w18R1828Oo/w2z7ek9uk45Rg2dmL6sOyn+TjA11ef9NeCfirgXf/ctxX0bRfHHVDU4a
+ 3m/YqLcJSl/+EbQGCQm5udrmtlmGLwYPHB3mV6BL4ViCeO4rd4i0dhskDuOsLNi8TibW
+ taxg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=VHYgQXBk/vwwD93bho/ZMYkDXyOoDIhxXr13W+hXsLo=;
+ fh=VaU9qWnpHkO9s6JnH41LnK1tRmRo0Zuom322HGGlTwg=;
+ b=K0eczQe/cINQWxvKp6BeD/osvGIe5aF6JDpQYzPTCiLziES7vNmeeSwYDbEgAa0ciL
+ yPHtsXsjZxfgUBWXq3ShUZCyFqo/+4alRgY4O5CZmgiUxQ0cBqjXeMItu32wVsGHZBjS
+ i3zvOa6UL0qHl+PXmB3IeW3kFkc1f8i6QXXOHZISgMRK2pYLQjDfEGJ0qh4QZv9ok/qi
+ WiFOuoA7mrmllFB0oel4JyPFs4OQqlM9rg+tV0ZBmcvOhv0kaE/Qh9SMd77/kURw45yP
+ 7X4VYDGrlNIFXnHYLlfVpH/DpMXnD9SGRC+nRAY8I/UgBLmV+JuYkmwTlGDClG926JqQ
+ KhLQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1777698172; x=1778302972; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=VHYgQXBk/vwwD93bho/ZMYkDXyOoDIhxXr13W+hXsLo=;
+ b=CuSjaDrNoU+9LqcWP47TJA3OVx9FQiNmKBeFrV7F4e/Cctp0L1Yql9y09V7lDUCc7Q
+ HEp+MwWgEzaYC+CdNP8YpxUDItEagKJ9YzJT8o3TguiDpdi/PMwMCjupb8+gvXrqjVPs
+ 3ghM+uUT3xm51t+oOLVeP3xb/Tx27hj+voEnjhUKH7O+lcgzwhrOcIA4JVin4FqoEIXU
+ Obh2abhjfgCpGGsu/ir9R5eXescuutmCRTEpW487ztupe7d3geJlSHvq/FXSup+f/WWt
+ 7MiFia9hMFbPZ0RlFM0ZfclCxPyVKSTF86mrMBBNPoScdVSKq2SHnIL2Eid9OcBNSQuY
+ QGYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777698172; x=1778302972;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=VHYgQXBk/vwwD93bho/ZMYkDXyOoDIhxXr13W+hXsLo=;
+ b=NZPfr5OBecT1LYTNpiEw13VUhcBSRTOisobDUanjseDM3Yn1x9oMEti7AyOMkhsp5E
+ UXPs30LFvbT0lh4BZyp/WfHcTxqXykFGAhsvHtIbXHfCbmZatf8+9PVtc17fxwK3Qbtl
+ pYO+MeY4YXvrp89ao+gsZU4RkdVu8M8QQ7fs5Jn64cNdzDy7ZFVfY0ttqW5hN+tPzrEt
+ 04//cHEq5U56msDB7Udi+/88EsiH8WutamHHW1TPafbpHoM8hqPEhUhhexavP+eTnUHB
+ cvDsbAf/w5pQGcAmLSSeJ3+9sjLLpBPcJJcZx57eMNY9OX2sPML0ZeLPkAk6uAoR4Rmz
+ Lfww==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+ne/R0sAbN9Jv4Ie6iUCBcJqE0IGqQT6zuuekHHBnEIpxHhi/Rj+YJ5qR1P9Y9dHej3rtzMfIOJEg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzdcvajM7JhHGCCNESj2jYxip9D2falmzBypYMJykuhlgSXJzM+
+ hZsnOOsiZmiaQ7BkJNTxbbYfrU3iRSH8MEtoOcp7J6IHiu9/vROKu7zoPxhIkqCupFlhOcxRgGH
+ gjWMHrs4lwpTwGC9r6XVDi0nOt9jnxQ==
+X-Gm-Gg: AeBDietR8V/dnLINJqlGyFmAFOKdf0zL517e6PkaxVR9j4md+HjNfzZg6CDcNYV331F
+ PmYQBSd4w/jTKwUsLwjzSjjv511CnQzDKuaE/R5tXFjVtT4s8hmR3M03KIcZSwia2OY230GQjIl
+ uj7bMWpCJEtltZe217JjRR5RDa5nVZR9UOlo7jrfink8LbPWHa1YGXkAafMfnvGCN06rtbpZacu
+ yO5rUZioQm7xh3aYnPngG3rnNvRm8Dg+2i6ciTex1UDunz2OI6uTEeIxAsnhNYC4MVKw87UCp90
+ MOHrkFQu7s94GGBD8WfGf/1i/FWYI3X8PiwJ+BlaynZZ+88=
+X-Received: by 2002:a05:6402:428c:b0:672:75b2:e8dc with SMTP id
+ 4fb4d7f45d1cf-67c1b2a153dmr585189a12.24.1777698171399; Fri, 01 May 2026
+ 22:02:51 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|SA1PR11MB8812:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3da8af55-95d7-403b-21ce-08dea8013164
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|18002099003|22082099003|56012099003; 
-X-Microsoft-Antispam-Message-Info: 1a7sAB0Ie8Y1YB25+i7HCA5mIboo9M9hm/SeQ/XhnyH/JB343yeVw1WsGr//Dsq4CK5tEJRwU2D2JKNOk9ICuldtFMSqtY9BZSNkiPgtXpqYBBFxEKlykKvIE4OPrVZVwL0f72oNC7odu/oxSZytAu+r2CePQwzKoPiZzw9RCUp+VE+1cbvlwotyPKMbiMhsiYvTMJiODbBLsx7EdP/ya2bw8cVGk3fEehOCW2ROTqVZsaPa+pLrApnONIUDdm2ULic9jq4L2qo6yqCPN9JcDfKO5Ky69d0x8dyfxtJRK1NwBCZIDCo+QJSzk06FeEa+NaVYaPilkrrtORr7NqJkgz4I+3lSjgJHfqC2li1y918Rhq82+lzbjii2NjS3IK6Ulx1WQph9SmN29jkQlBwJ/JL0pSxWRwKM0WgdBebamSCJGJUhxuzQBVQL7EBTp0KquWzXd2A05HslAMnC9Odw8DPqtBHwMdFzaDwCLiFJgjyh23qqi5jyciJLHLM8CeMeYKdqNjRrOHsK08PHaQTa7j0IedLLJ3QlhQcfNzWzmApVkkYdcG7xob2r6BTNu3qXvIY73WAxlcYH2/yC/WMlClAWYs6i+tNt45lIH2dXnAvOsoJbhy0RnG8TZogMip8dywsr1pZy+46eHWXmUhYcgv7uusTuSXvOrniYwjB+w7gItEazU+ShMAglXZqh12YM
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(18002099003)(22082099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?THduTEdqOHRqWnIvaitlM2tYWjFOM0xqNUwwcEoyaC9MY3pkTytYemtGK3k2?=
- =?utf-8?B?eG4xbDJnM1VvSHk4clBJMm1hQlBKYzJTcm4rNENBZVJ5OTBEN2xmT3RhZmxl?=
- =?utf-8?B?NDhhOGJRanpTclZ5aE84aE4wUTJzVEhWRVYvOGVseDlIdldVd3hScW9Qcmh0?=
- =?utf-8?B?QWZybEQzeGhKZDRHWThFZUVnQXhqWjNhMFpZTUM3Yk94VHpldnVkR05LTUpJ?=
- =?utf-8?B?aXJLQU9wTmc4VnZtOFVEMjZMUUtZSUQ5eG9HOTJUNzJXeVhDZjRvbzd4QVdi?=
- =?utf-8?B?QWdkaHNtZHVQcG9IdXhGZjBrb3RMNjV0OGYxU1lKb1pWeEk1NmlWODRObEFN?=
- =?utf-8?B?MFBKTkdZS3BkOWNHQ2lhR1MrVzBQNlpYcVp4aTZJRFZuaXE2VzJuZjh3dWdB?=
- =?utf-8?B?ZzB5MXNaTU9pTFZKbFN0SjVLNWZSYkZYdVJXakJqQ3RBVEIwUUQ5MEJpK3R1?=
- =?utf-8?B?M2pUQzUxWXo5Z29ncGFVUkNicHJXMVNwcHRGYndqcTNheVh0U2RJZGNQOGZ0?=
- =?utf-8?B?MUc2RXdHMEUwdm9zcmlwbUNxcmVzMCtmWEcza2V2VzhJN3ErVTJHOERDT0VX?=
- =?utf-8?B?RVJWVHpkZUJhZ1N6TkZHYWpTQnhFR2ZQMjRWMzhQOHRjTkU5cWlOeE1ReDlr?=
- =?utf-8?B?VkdCUmJ5cUxNQThNOUNpc1c1NWFDWThWdUtKWFhxQnVoUHZHU1JuZGl1ZzV2?=
- =?utf-8?B?VTIrQnd5WGYvajJZUks0dFVoc2dndk54SHFjNWtSMktzRDVMR1pKTm5TeStT?=
- =?utf-8?B?WjRhdWMvNWlneGxXdkRiamlOSlVudmxkN0hjeGFwbjc5WmsrWllQdm5rckZE?=
- =?utf-8?B?NTllZS9mSFdvb0E1RGdybDFZVm5JYnZpY1BlVmQ3T0o0NTgyUVg3c3YzNTRF?=
- =?utf-8?B?TXZxM0hneENpdWl3alNEdWFZb2xKMDRaTUNIbElPczFIMUFhSFJmdmpEUC9W?=
- =?utf-8?B?eFV4dUllZDJ4UFgyeisrYU1ValNyaGpaVkF4U2N5ai9pa2hjR2k4UnFGOGND?=
- =?utf-8?B?NDJHRlFBQjRmTFhxcTRNdDRzNTErMkJLcG0zL0xyWXIvNloxclc5OTBtZmpv?=
- =?utf-8?B?SUQ5OURTL29SbzhQTmZXamhuakpYZlQvTWo0UnRFaWVYbUI3YnRpcDJDOUZ5?=
- =?utf-8?B?amFFaHJJenVaV0RwbWlpZlRrNFp2YkZHS0QwVjRlWVZILzk4eHFuZW1XeFdX?=
- =?utf-8?B?MzZ0ZHVjT0dSbDI3d283QmdxRTFxZFVIcVlPUTg3eDczRnh2c1lBT2N2VDZP?=
- =?utf-8?B?K2ZnWFIzeXdJaW1BU2RxcllBV1FtelZXei85Vjl1UW93QWhiZWU0Tkh1UmZx?=
- =?utf-8?B?R1NzTWxnOHVTdnEzV25pOHdjdWxwT3lpdWhSN1YrYklRMWFIK3FWaWFvWVg0?=
- =?utf-8?B?OXk0a0lyN3ZIdEhjWitkV0tMaGhxOGNhRlgvK2pjMG51cHJEbGhvTmdVNk55?=
- =?utf-8?B?SHU1RSs1WGZNdkNvMzB5cmRxMmZwRklBN29LVEVuSlMwdW5HRGp2TVhEalh6?=
- =?utf-8?B?UC8wZEU5NjJ6Y014Rm16ZklGRXJxSDdFLytRZlRxamY3QWxqdm1ReWJHdGxs?=
- =?utf-8?B?WVVRMUtQVDZKaTdabFkvdE9aczZHVHpuUkxIcm51eHRjS0pvNHR1QmlHelY2?=
- =?utf-8?B?MVNwZHN5elpuYXl1eVhWWnFWa2JXemhxelFYdVBXbDBqUHdEeUZRcG1qUE9S?=
- =?utf-8?B?SDN4WkZWWEVpVkt3blN3UkFlblZLTXEwcVNPVXZGaEVVTWZiTDJtRU9UekhS?=
- =?utf-8?B?UXNtb1FwNmV2eGxWbjBRM04weG5LaTkvTkRlcmhrRi9haDhGTmFkYVV3M1gv?=
- =?utf-8?B?cDJLb2VsSXE3QnBBWFVkYVlITVpuc28xVDdncnB3YmdrUXFYSVdjck9KYUJx?=
- =?utf-8?B?U2xsaDV2SHJYS0xaaEZxTm1nQVJqNXNwUkJuQ3JQbWtyQTdNZG9EekxOREE4?=
- =?utf-8?B?WGpVSnVCV0ZUZU4rQXBVamNDRVlLcTcxZUFmVkpNRUZYZWRrNUtxTlJZaUhz?=
- =?utf-8?B?UzViUlZibktManY4Q0ZaRHJlaFhmUUJ5SDlWVEdiQVVjMGFxRk12ekNFRjJK?=
- =?utf-8?B?V2ZSMjNVQzRZOWRUQmVGQmlqVEhoS3pXZDl3ZmFpSlJsOHdkOXJkaGZ6QWJO?=
- =?utf-8?B?ZzZlR2VDdi9NQ201aWMzOEt0OHV4K0drSitKeW03ZVVQNUNGVGwwb2VLUmVY?=
- =?utf-8?B?bnc4dXRMTkNIOFRKOHhvUnFQWUxJc0szZUVvYVlPNVpZWi9GdmxPb3prVjhW?=
- =?utf-8?B?OEtIOHRLYURHNGtib29XdTZTZG1HZEZ5VFB0M1VBUnNlQ29Od00vd1pBNU1i?=
- =?utf-8?B?cWlwTWg1NE51TzFUdVJwNDFnOVdYYU40dFBKbXMvSWlZbHk5a0ZmMVBzSUVI?=
- =?utf-8?Q?wwiNlCpsOjmTxPVs=3D?=
-X-Exchange-RoutingPolicyChecked: bxuHDk6Crno8AfBtzkeNgCMfzL8q1c8W1qR2EYGZN0KnwDKXuudYfB5YnUE2vY7I3My0fztUy8LmtK1JzshcYFma9CLAjmcyZWD4jgc6es+3tHznpo4M9gff1RrK2x/Leuca60DuLnLQA1/IGDifvvrpkODGKue1VqR4QlJfeOhD4c+cCJDWaq3LRr76SxLPy7ESawPVqgdJ8h+6sDefax3OJdpYL6Nq1cGj2U/rmxgsDtGTPnyJbR7d+B07ikZwRJxZ14vJ5dFqphwWBSuIqsGsPvDz+tsmg4UwPIYC0hxfHkKXuQO6q+WA1FTPo20RsDAtISxDw3RhnXxFN9NpZQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3da8af55-95d7-403b-21ce-08dea8013164
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 May 2026 04:13:41.1670 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ahr1YEUFCklN0wWXj2U3SOlwmUQ3vdkQAGqqsNKPdNXjZ1wcBsMUXE+eHncVr1d2V/R3eUHWcBQT5GcP8TqTVg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR11MB8812
-X-OriginatorOrg: intel.com
+References: <20260424112543.57819-1-mhun512@gmail.com>
+ <cd4ef74f-13db-4b4f-8f72-1b675dd19095@suse.de>
+In-Reply-To: <cd4ef74f-13db-4b4f-8f72-1b675dd19095@suse.de>
+From: Myeonghun Pak <mhun512@gmail.com>
+Date: Sat, 2 May 2026 14:02:40 +0900
+X-Gm-Features: AVHnY4JyGB8mYGwFZQ0FVoRGH2zG4C4DGmyXAKsZjRBVj8uapL8VauOTxXaeBWI
+Message-ID: <CAGEsz8GJMF7nkCFcUqwEXAfrNy+O5POFXVBKO1Ksc2P5QmdM0g@mail.gmail.com>
+Subject: Re: [PATCH] drm/qxl: Fix missing KMS poll cleanup
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Dave Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ virtualization@lists.linux.dev, 
+ spice-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: multipart/alternative; boundary="0000000000000632910650ce9ccc"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -172,102 +109,202 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, May 01, 2026 at 09:12:31PM -0700, Matthew Brost wrote:
-> On Fri, May 01, 2026 at 05:05:14PM -0700, Kenneth Crudup wrote:
-> > 
-> > On 5/1/26 15:30, Matthew Brost wrote:
-> > 
-> > > TTM pool shrinking frees pages by calling __free_pages() directly,
-> > > which bypasses updates to NR_GPU_ACTIVE and leaves GPU MM accounting
-> > > out of sync.
-> > > 
-> > > Introduce a helper, __free_pages_gpu_account(), and use it for all page
-> > > frees in ttm_pool.c so GPU MM statistics are updated consistently.
-> > 
-> > OK, so why/how does "bonnie++" increase the GPU Memory size?
-> > 
-> 
-> Well, it shouldn’t. What bonnie++ does is basically consume system
-> memory, triggering reclaim, which in turn will evict GPU BOs that exist
-> when the display is open. Thanks for pointing me to bonnie++ - this,
-> plus running something like the WebGL Aquarium in Chrome, is a very nice
-> test case for Xe/DRM shrinkers.
-> 
-> > ----
-> > SwapTotal:      33554428 kB
-> > MemTotal:       32345672 kB
-> > GPUReclaim:       621568 kB
-> > GPUActive:        453592 kB
-> > 
-> > SwapTotal:      33554428 kB
-> > MemTotal:       32345672 kB
-> > GPUActive:       5554976 kB
-> > GPUReclaim:        12716 kB
-> > 
-> > SwapTotal:      33554428 kB
-> > MemTotal:       32345672 kB
-> > GPUActive:      18407272 kB
-> > GPUReclaim:          884 kB
-> > 
-> > SwapTotal:      33554428 kB
-> > MemTotal:       32345672 kB
-> > GPUActive:      24022916 kB
-> > GPUReclaim:          716 kB
-> > 
-> > SwapTotal:      33554428 kB
-> > MemTotal:       32345672 kB
-> > GPUActive:      25258248 kB
-> > GPUReclaim:        16032 kB
-> > 
-> > SwapTotal:      33554428 kB
-> > MemTotal:       32345672 kB
-> > GPUActive:      28207188 kB
-> > GPUReclaim:         3684 kB
-> > ----
-> > 
-> > ... and I'm now not so sure the patch is working ... this after a 2nd bonnie
-> > run:
-> 
-> It doesn’t appear that it is. I can recreate what you’re seeing with
-> this patch alone on drm-tip. I originally coded this patch on top of a
-> local fix to avoid the TTM shrinker allocating higher-order folios when
+--0000000000000632910650ce9ccc
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-s/allocating/spliting
+Hello Thomas,
 
-Matt
+Thanks for the review. I appreciate the Fixes tag, and the suggestion for
+stable.
 
-> reclaiming memory—this is working there. I falsely assumed it would work
-> on drm-tip as well. Let me ensure I have a standalone fix for GPUActive
-> accounting first, then apply my TTM shrinker fix on top.
-> 
-> Matt
-> 
-> > 
-> > ----
-> > GPUActive:      44357100 kB
-> > SwapTotal:      33554428 kB
-> > MemTotal:       32345672 kB
-> > GPUReclaim:        94864 kB
-> > 
-> > GPUActive:      44373904 kB
-> > SwapTotal:      33554428 kB
-> > MemTotal:       32345672 kB
-> > GPUReclaim:        94996 kB
-> > 
-> > GPUActive:      44354940 kB
-> > SwapTotal:      33554428 kB
-> > MemTotal:       32345672 kB
-> > GPUReclaim:        98048 kB
-> > 
-> > GPUActive:      44769340 kB
-> > SwapTotal:      33554428 kB
-> > MemTotal:       32345672 kB
-> > GPUReclaim:       122996 kB
-> > ----
-> > 
-> > -Kenny
-> > 
-> > -- 
-> > Kenneth R. Crudup / Sr. SW Engineer, Scott County Consulting, Orange County
-> > CA
-> > 
+Best regards,
+
+Myeonghun Pak
+
+2026=EB=85=84 4=EC=9B=94 27=EC=9D=BC (=EC=9B=94) =EC=98=A4=ED=9B=84 5:46, T=
+homas Zimmermann <tzimmermann@suse.de>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1=
+:
+
+> Thanks for your patch.
+>
+> Am 24.04.26 um 13:25 schrieb Myeonghun Pak:
+> > drm_kms_helper_poll_init() initializes the output polling work and
+> > enables polling for the DRM device. qxl enables polling before calling
+> > drm_dev_register(), but the drm_dev_register() failure path tears down
+> > the modeset and device state without disabling the polling helper.
+> >
+> > The remove path also unregisters and shuts down the DRM device without
+> > first disabling the polling helper. Add matching
+> drm_kms_helper_poll_fini()
+> > calls in both paths so the delayed polling work is cancelled before qxl
+> > tears down the associated modeset/device state.
+> >
+> > Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+>
+> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+>
+> Fixes: 5ff91e442652 ("qxl: use drm helper hotplug support")
+> Cc: <stable@vger.kernel.org> # v3.11+
+>
+>
+> > ---
+> >   drivers/gpu/drm/qxl/qxl_drv.c | 6 ++++--
+> >   1 file changed, 4 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/qxl/qxl_drv.c
+> b/drivers/gpu/drm/qxl/qxl_drv.c
+> > index 2bbb1168a3..1e6a2392d7 100644
+> > --- a/drivers/gpu/drm/qxl/qxl_drv.c
+> > +++ b/drivers/gpu/drm/qxl/qxl_drv.c
+> > @@ -118,12 +118,13 @@ qxl_pci_probe(struct pci_dev *pdev, const struct
+> pci_device_id *ent)
+> >       /* Complete initialization. */
+> >       ret =3D drm_dev_register(&qdev->ddev, ent->driver_data);
+> >       if (ret)
+> > -             goto modeset_cleanup;
+> > +             goto poll_fini;
+> >
+> >       drm_client_setup(&qdev->ddev, NULL);
+> >       return 0;
+> >
+> > -modeset_cleanup:
+> > +poll_fini:
+> > +     drm_kms_helper_poll_fini(&qdev->ddev);
+> >       qxl_modeset_fini(qdev);
+> >   unload:
+> >       qxl_device_fini(qdev);
+> > @@ -154,6 +155,7 @@ qxl_pci_remove(struct pci_dev *pdev)
+> >   {
+> >       struct drm_device *dev =3D pci_get_drvdata(pdev);
+> >
+> > +     drm_kms_helper_poll_fini(dev);
+> >       drm_dev_unregister(dev);
+> >       drm_atomic_helper_shutdown(dev);
+> >       if (pci_is_vga(pdev) && pdev->revision < 5)
+>
+> --
+> --
+> Thomas Zimmermann
+> Graphics Driver Developer
+> SUSE Software Solutions Germany GmbH
+> Frankenstr. 146, 90461 N=C3=BCrnberg, Germany, www.suse.com
+> GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG
+> N=C3=BCrnberg)
+>
+>
+>
+
+--0000000000000632910650ce9ccc
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><span class=3D"gmail-rnc2Gd" style=3D"mas=
+k-repeat: no-repeat;">Hello Thomas,</span><div class=3D"gmail-gWqWw gmail-r=
+nc2Gd" style=3D"mask-repeat: no-repeat;"><br><span style=3D"color:rgb(31,31=
+,31);font-family:&quot;Google Sans&quot;,Roboto,Arial,sans-serif;font-size:=
+15.75px;font-variant-ligatures:no-contextual">Thanks for the review. I appr=
+eciate the Fixes tag, and the suggestion for stable.</span></div><div class=
+=3D"gmail-gWqWw gmail-rnc2Gd" style=3D"mask-repeat: no-repeat;"><span style=
+=3D"color:rgb(31,31,31);font-family:&quot;Google Sans&quot;,Roboto,Arial,sa=
+ns-serif;font-size:15.75px;font-variant-ligatures:no-contextual"><br></span=
+></div><div class=3D"gmail-gWqWw gmail-rnc2Gd" style=3D"mask-repeat: no-rep=
+eat;"><span class=3D"gmail-rnc2Gd" style=3D"color:rgb(31,31,31);font-family=
+:&quot;Google Sans&quot;,Roboto,Arial,sans-serif;font-size:15.75px;font-var=
+iant-ligatures:no-contextual">Best regards,</span><div class=3D"gmail-gWqWw=
+ gmail-rnc2Gd" style=3D"color:rgb(31,31,31);font-family:&quot;Google Sans&q=
+uot;,Roboto,Arial,sans-serif;font-size:15.75px;font-variant-ligatures:no-co=
+ntextual"><br></div><span class=3D"gmail-rnc2Gd" style=3D"color:rgb(31,31,3=
+1);font-family:&quot;Google Sans&quot;,Roboto,Arial,sans-serif;font-size:15=
+.75px;font-variant-ligatures:no-contextual">Myeonghun Pak</span><span style=
+=3D"color:rgb(31,31,31);font-family:&quot;Google Sans&quot;,Roboto,Arial,sa=
+ns-serif;font-size:15.75px;font-variant-ligatures:no-contextual"></span></d=
+iv></div><br><div class=3D"gmail_quote gmail_quote_container"><div dir=3D"l=
+tr" class=3D"gmail_attr">2026=EB=85=84 4=EC=9B=94 27=EC=9D=BC (=EC=9B=94) =
+=EC=98=A4=ED=9B=84 5:46, Thomas Zimmermann &lt;<a href=3D"mailto:tzimmerman=
+n@suse.de">tzimmermann@suse.de</a>&gt;=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1=
+:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.=
+8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Thanks for you=
+r patch.<br>
+<br>
+Am 24.04.26 um 13:25 schrieb Myeonghun Pak:<br>
+&gt; drm_kms_helper_poll_init() initializes the output polling work and<br>
+&gt; enables polling for the DRM device. qxl enables polling before calling=
+<br>
+&gt; drm_dev_register(), but the drm_dev_register() failure path tears down=
+<br>
+&gt; the modeset and device state without disabling the polling helper.<br>
+&gt;<br>
+&gt; The remove path also unregisters and shuts down the DRM device without=
+<br>
+&gt; first disabling the polling helper. Add matching drm_kms_helper_poll_f=
+ini()<br>
+&gt; calls in both paths so the delayed polling work is cancelled before qx=
+l<br>
+&gt; tears down the associated modeset/device state.<br>
+&gt;<br>
+&gt; Signed-off-by: Myeonghun Pak &lt;<a href=3D"mailto:mhun512@gmail.com" =
+target=3D"_blank">mhun512@gmail.com</a>&gt;<br>
+<br>
+Reviewed-by: Thomas Zimmermann &lt;<a href=3D"mailto:tzimmermann@suse.de" t=
+arget=3D"_blank">tzimmermann@suse.de</a>&gt;<br>
+<br>
+Fixes: 5ff91e442652 (&quot;qxl: use drm helper hotplug support&quot;)<br>
+Cc: &lt;<a href=3D"mailto:stable@vger.kernel.org" target=3D"_blank">stable@=
+vger.kernel.org</a>&gt; # v3.11+<br>
+<br>
+<br>
+&gt; ---<br>
+&gt;=C2=A0 =C2=A0drivers/gpu/drm/qxl/qxl_drv.c | 6 ++++--<br>
+&gt;=C2=A0 =C2=A01 file changed, 4 insertions(+), 2 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/qxl/qxl_drv.c b/drivers/gpu/drm/qxl/qxl_d=
+rv.c<br>
+&gt; index 2bbb1168a3..1e6a2392d7 100644<br>
+&gt; --- a/drivers/gpu/drm/qxl/qxl_drv.c<br>
+&gt; +++ b/drivers/gpu/drm/qxl/qxl_drv.c<br>
+&gt; @@ -118,12 +118,13 @@ qxl_pci_probe(struct pci_dev *pdev, const struct=
+ pci_device_id *ent)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Complete initialization. */<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0ret =3D drm_dev_register(&amp;qdev-&gt;ddev,=
+ ent-&gt;driver_data);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0if (ret)<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto modeset_cleanup;=
+<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto poll_fini;<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0drm_client_setup(&amp;qdev-&gt;ddev, NULL);<=
+br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt; -modeset_cleanup:<br>
+&gt; +poll_fini:<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0drm_kms_helper_poll_fini(&amp;qdev-&gt;ddev);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0qxl_modeset_fini(qdev);<br>
+&gt;=C2=A0 =C2=A0unload:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0qxl_device_fini(qdev);<br>
+&gt; @@ -154,6 +155,7 @@ qxl_pci_remove(struct pci_dev *pdev)<br>
+&gt;=C2=A0 =C2=A0{<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0struct drm_device *dev =3D pci_get_drvdata(p=
+dev);<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0drm_kms_helper_poll_fini(dev);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0drm_dev_unregister(dev);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0drm_atomic_helper_shutdown(dev);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0if (pci_is_vga(pdev) &amp;&amp; pdev-&gt;rev=
+ision &lt; 5)<br>
+<br>
+-- <br>
+--<br>
+Thomas Zimmermann<br>
+Graphics Driver Developer<br>
+SUSE Software Solutions Germany GmbH<br>
+Frankenstr. 146, 90461 N=C3=BCrnberg, Germany, <a href=3D"http://www.suse.c=
+om" rel=3D"noreferrer" target=3D"_blank">www.suse.com</a><br>
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG N=C3=BCr=
+nberg)<br>
+<br>
+<br>
+</blockquote></div></div>
+
+--0000000000000632910650ce9ccc--
