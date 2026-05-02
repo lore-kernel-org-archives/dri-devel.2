@@ -4,48 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C14BBCD3439
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 07:12:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0F92CD3430
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 07:12:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C2A310E985;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF89C10E978;
 	Tue,  5 May 2026 07:12:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="Mv47BYqL";
+	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=panix.com header.i=@panix.com header.b="NmnmgQLW";
 	dkim-atps=neutral
-X-Greylist: delayed 389 seconds by postgrey-1.36 at gabe;
- Mon, 04 May 2026 07:01:39 UTC
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82F6810E38A
- for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 07:01:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Gk
- yJeK0xh7ft8l0KrjIr5L7TmwFz7SabyNUN7O8c/TM=; b=Mv47BYqLBTe08xKFOb
- sclDIReMVsNlzMuxuwQIXeKPPlaFoMMKxRC+kmPlE79DXuLqbph6XYt4mySRkFm0
- 4yVqnDBCAJxXGmaQKG9vfpMO1+rAurSIHZ782kW0dRQIXOjO26HxuJJeEyHLnxlP
- PKZh7tj7b/h8gnUovfe20wkn4=
-Received: from wmy.localdomain (unknown [])
- by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id
- _____wD3GtGyQvhp0AomDQ--.49192S2; 
- Mon, 04 May 2026 14:54:54 +0800 (CST)
-From: w15303746062@163.com
-To: airlied@redhat.com
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- x86@kernel.org, linux-pci@vger.kernel.org,
- Mingyu Wang <25181214217@stu.xidian.edu.cn>
-Subject: [PATCH] char: agp: amd64 - fix null-ptr-deref in amd64_fetch_size and
- related functions
-Date: Mon,  4 May 2026 14:54:41 +0800
-Message-Id: <20260504065441.99033-1-w15303746062@163.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mailbackend.panix.com (mailbackend.panix.com [166.84.1.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BEDA10E231;
+ Sat,  2 May 2026 00:05:16 +0000 (UTC)
+Received: from [10.50.4.26] (45-31-46-51.lightspeed.sndgca.sbcglobal.net
+ [45.31.46.51])
+ by mailbackend.panix.com (Postfix) with ESMTPSA id 4g6p7v12zqz4Z6J;
+ Fri,  1 May 2026 20:05:15 -0400 (EDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=panix.com; s=panix;
+ t=1777680315; bh=yLOeTb77iO7D7G1rMqHM9UKvi2cmkepdCc7JELURt04=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=NmnmgQLWf5M2n77Be2fq4Pe3S2BXcN9TyQltwq0kBbWP2fLErTjI6PrIAbIvIIWXO
+ PYq26fwcy92CNBRZqo4B8WYjEdpLcuSJEi8DRJiu2EpwhF+mG271jbL6sPGW3FPWtL
+ 0cF7zi8Kxi5NncE/x2jMSPgqyjeiC9kTwE8+O0Iw=
+Message-ID: <18c48e7f-a2bd-4e74-9262-266cd5c2fde8@panix.com>
+Date: Fri, 1 May 2026 17:05:14 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wD3GtGyQvhp0AomDQ--.49192S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxtr1UCw1UJFyrZF1fur1UAwb_yoW7GrWxpF
- 4fZFZxtr4UGr4agF40qa1DCrn5ArZ7XFy5JrZrCw1F9a1vyry8tr1ftFy5ZrWfCFWDXF43
- Can8tF4kGFyqyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jFg4fUUUUU=
-X-Originating-IP: [113.200.174.100]
-X-CM-SenderInfo: jzrvjiatxuliiws6il2tof0z/xtbDAB5YPGn4Qr7DNwAA3j
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/ttm: Fix GPU MM stats during pool shrinking
+To: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: Christian Koenig <christian.koenig@amd.com>, Huang Rui
+ <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
+ David Airlie <airlied@gmail.com>
+References: <20260501223003.2648450-1-matthew.brost@intel.com>
+Content-Language: en-US
+From: Kenneth Crudup <kenny@panix.com>
+In-Reply-To: <20260501223003.2648450-1-matthew.brost@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 05 May 2026 07:12:26 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,158 +57,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
 
-A NULL pointer dereference vulnerability was identified in the AMD64 AGP
-driver (amd64-agp) during driver initialization and aperture size fetching.
+On 5/1/26 15:30, Matthew Brost wrote:
 
-When the `amd64_agp` module is loaded on a system without a physical AMD
-Northbridge (e.g., in a QEMU/KVM virtualized environment with a simulated
-AMD 8151 AGP bridge), the underlying hardware query `node_to_amd_nb(0)`
-returns NULL.
+> TTM pool shrinking frees pages by calling __free_pages() directly,
+> which bypasses updates to NR_GPU_ACTIVE and leaves GPU MM accounting
+> out of sync.
+> 
+> Introduce a helper, __free_pages_gpu_account(), and use it for all page
+> frees in ttm_pool.c so GPU MM statistics are updated consistently.
 
-In `amd64_fetch_size()`, the code previously attempted to unconditionally
-dereference the `misc` member of the returned pointer:
-    `dev = node_to_amd_nb(0)->misc;`
+OK, so why/how does "bonnie++" increase the GPU Memory size?
 
-Since `node_to_amd_nb(0)` can return NULL (either due to missing hardware
-or when CONFIG_AMD_NB is disabled), this direct dereference results in a
-General Protection Fault (GPF) and a subsequent kernel panic, as caught
-by KASAN.
+----
+SwapTotal:      33554428 kB
+MemTotal:       32345672 kB
+GPUReclaim:       621568 kB
+GPUActive:        453592 kB
 
-Fix this by introducing proper sanity checks. Before accessing the `misc`
-pointer, explicitly verify that the pointer returned by `node_to_amd_nb()`
-is not NULL.
+SwapTotal:      33554428 kB
+MemTotal:       32345672 kB
+GPUActive:       5554976 kB
+GPUReclaim:        12716 kB
 
-Furthermore, to prevent similar crashes, this patch sweeps the entire
-driver and applies the same safeguard to all other functions that iterate
-over or directly access the AMD Northbridge descriptors, including
-`amd_8151_configure()`, `amd64_cleanup()`, `cache_nbs()`, `uli_agp_init()`,
-and `nforce3_agp_init()`.
+SwapTotal:      33554428 kB
+MemTotal:       32345672 kB
+GPUActive:      18407272 kB
+GPUReclaim:          884 kB
 
-Signed-off-by: Mingyu Wang <25181214217@stu.xidian.edu.cn>
----
- drivers/char/agp/amd64-agp.c | 50 ++++++++++++++++++++++++++++--------
- 1 file changed, 40 insertions(+), 10 deletions(-)
+SwapTotal:      33554428 kB
+MemTotal:       32345672 kB
+GPUActive:      24022916 kB
+GPUReclaim:          716 kB
 
-diff --git a/drivers/char/agp/amd64-agp.c b/drivers/char/agp/amd64-agp.c
-index 2505df1f4e69..7bbadfc74ffe 100644
---- a/drivers/char/agp/amd64-agp.c
-+++ b/drivers/char/agp/amd64-agp.c
-@@ -121,14 +121,16 @@ static struct aper_size_info_32 amd64_aperture_sizes[7] =
- static int amd64_fetch_size(void)
- {
- 	struct pci_dev *dev;
-+	struct amd_northbridge *nb;
- 	int i;
- 	u32 temp;
- 	struct aper_size_info_32 *values;
- 
--	dev = node_to_amd_nb(0)->misc;
--	if (dev==NULL)
-+	nb = node_to_amd_nb(0);
-+	if (!nb || !nb->misc)
- 		return 0;
- 
-+	dev = nb->misc;
- 	pci_read_config_dword(dev, AMD64_GARTAPERTURECTL, &temp);
- 	temp = (temp & 0xe);
- 	values = A_SIZE_32(amd64_aperture_sizes);
-@@ -187,8 +189,12 @@ static int amd_8151_configure(void)
- 
- 	/* Configure AGP regs in each x86-64 host bridge. */
- 	for (i = 0; i < amd_nb_num(); i++) {
--		agp_bridge->gart_bus_addr =
--			amd64_configure(node_to_amd_nb(i)->misc, gatt_bus);
-+		struct amd_northbridge *nb = node_to_amd_nb(i);
-+
-+		if (!nb || !nb->misc)
-+			continue;
-+
-+		agp_bridge->gart_bus_addr = amd64_configure(nb->misc, gatt_bus);
- 	}
- 	amd_flush_garts();
- 	return 0;
-@@ -204,7 +210,13 @@ static void amd64_cleanup(void)
- 		return;
- 
- 	for (i = 0; i < amd_nb_num(); i++) {
--		struct pci_dev *dev = node_to_amd_nb(i)->misc;
-+		struct amd_northbridge *nb = node_to_amd_nb(i);
-+		struct pci_dev *dev;
-+
-+		if (!nb || !nb->misc)
-+			continue;
-+
-+		dev = nb->misc;
- 		/* disable gart translation */
- 		pci_read_config_dword(dev, AMD64_GARTAPERTURECTL, &tmp);
- 		tmp &= ~GARTEN;
-@@ -335,7 +347,13 @@ static int cache_nbs(struct pci_dev *pdev, u32 cap_ptr)
- 
- 	i = 0;
- 	for (i = 0; i < amd_nb_num(); i++) {
--		struct pci_dev *dev = node_to_amd_nb(i)->misc;
-+		struct amd_northbridge *nb = node_to_amd_nb(i);
-+		struct pci_dev *dev;
-+
-+		if (!nb || !nb->misc)
-+			continue;
-+
-+		dev = nb->misc;
- 		if (fix_northbridge(dev, pdev, cap_ptr) < 0) {
- 			dev_err(&dev->dev, "no usable aperture found\n");
- #ifdef __x86_64__
-@@ -391,6 +409,7 @@ static int uli_agp_init(struct pci_dev *pdev)
- {
- 	u32 httfea,baseaddr,enuscr;
- 	struct pci_dev *dev1;
-+	struct amd_northbridge *nb;
- 	int i, ret;
- 	unsigned size = amd64_fetch_size();
- 
-@@ -411,9 +430,14 @@ static int uli_agp_init(struct pci_dev *pdev)
- 		goto put;
- 	}
- 
-+	nb = node_to_amd_nb(0);
-+	if (!nb || !nb->misc) {
-+		ret = -ENODEV;
-+		goto put;
-+	}
-+
- 	/* shadow x86-64 registers into ULi registers */
--	pci_read_config_dword (node_to_amd_nb(0)->misc, AMD64_GARTAPERTUREBASE,
--			       &httfea);
-+	pci_read_config_dword(nb->misc, AMD64_GARTAPERTUREBASE, &httfea);
- 
- 	/* if x86-64 aperture base is beyond 4G, exit here */
- 	if ((httfea & 0x7fff) >> (32 - 25)) {
-@@ -453,6 +477,7 @@ static int nforce3_agp_init(struct pci_dev *pdev)
- {
- 	u32 tmp, apbase, apbar, aplimit;
- 	struct pci_dev *dev1;
-+	struct amd_northbridge *nb;
- 	int i, ret;
- 	unsigned size = amd64_fetch_size();
- 
-@@ -479,9 +504,14 @@ static int nforce3_agp_init(struct pci_dev *pdev)
- 	tmp |= nforce3_sizes[i].size_value;
- 	pci_write_config_dword(dev1, NVIDIA_X86_64_1_APSIZE, tmp);
- 
-+	nb = node_to_amd_nb(0);
-+	if (!nb || !nb->misc) {
-+		ret = -ENODEV;
-+		goto put;
-+	}
-+
- 	/* shadow x86-64 registers into NVIDIA registers */
--	pci_read_config_dword (node_to_amd_nb(0)->misc, AMD64_GARTAPERTUREBASE,
--			       &apbase);
-+	pci_read_config_dword(nb->misc, AMD64_GARTAPERTUREBASE, &apbase);
- 
- 	/* if x86-64 aperture base is beyond 4G, exit here */
- 	if ( (apbase & 0x7fff) >> (32 - 25) ) {
+SwapTotal:      33554428 kB
+MemTotal:       32345672 kB
+GPUActive:      25258248 kB
+GPUReclaim:        16032 kB
+
+SwapTotal:      33554428 kB
+MemTotal:       32345672 kB
+GPUActive:      28207188 kB
+GPUReclaim:         3684 kB
+----
+
+... and I'm now not so sure the patch is working ... this after a 2nd 
+bonnie run:
+
+----
+GPUActive:      44357100 kB
+SwapTotal:      33554428 kB
+MemTotal:       32345672 kB
+GPUReclaim:        94864 kB
+
+GPUActive:      44373904 kB
+SwapTotal:      33554428 kB
+MemTotal:       32345672 kB
+GPUReclaim:        94996 kB
+
+GPUActive:      44354940 kB
+SwapTotal:      33554428 kB
+MemTotal:       32345672 kB
+GPUReclaim:        98048 kB
+
+GPUActive:      44769340 kB
+SwapTotal:      33554428 kB
+MemTotal:       32345672 kB
+GPUReclaim:       122996 kB
+----
+
+-Kenny
+
 -- 
-2.34.1
+Kenneth R. Crudup / Sr. SW Engineer, Scott County Consulting, Orange 
+County CA
 
