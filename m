@@ -4,55 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C859CD3424
-	for <dri-devel@archiver.kernel.org>; Sat,  2 May 2026 06:53:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14A0ECD3424
+	for <dri-devel@archiver.kernel.org>; Sat,  2 May 2026 08:07:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 430DE10E106;
-	Sat,  2 May 2026 06:53:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D30710E1DD;
+	Sat,  2 May 2026 08:07:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="oKFTd2Z3";
+	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="lB03v+0D";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 506CB10E106;
- Sat,  2 May 2026 06:53:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777704824; x=1809240824;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=7EDez1u5WB718muQ6r1lcwOkMINKirmslsRVggiYLtA=;
- b=oKFTd2Z3RhoSQodY3GFQSp+mv+erPX0SyHlXRUW8RKZX1Lx7jSPI2HNI
- DKCYN1BjCYRyozompfaD0uLZMr9HebCviS/tsKw/PcX4sGcpb0zqEMna5
- r+sHQp3brfSPfDMy3f3SxyihMyg13TQbcUI3rLSw+u+M+rBqanqQdiwRZ
- EPXE6IFMQBu2Wuj1+c1jbjjjhwRhrfFfgWDKEzIpyL4VbZgLgi2oSeRFP
- HpFvcDvLqb32WiL5rBekuolgCXUEGTj/rRc+PKmHL6d0TI/LjUtgUEUvi
- tIz9wADtTW8Hz9u0s6xAgxzv0gdQz6nKXjGo3sDtuUDNTCso9FVHMYWKO A==;
-X-CSE-ConnectionGUID: N60JT3RtQ7Cta05bBKruog==
-X-CSE-MsgGUID: o+zpotzDR0exDUc5vNWvWg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11773"; a="104105599"
-X-IronPort-AV: E=Sophos;i="6.23,211,1770624000"; d="scan'208";a="104105599"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 May 2026 23:53:43 -0700
-X-CSE-ConnectionGUID: mD3f9djbT968QuUFkGAggA==
-X-CSE-MsgGUID: 6wyn0k9kS4GwQLE2ojhdvQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,211,1770624000"; d="scan'208";a="231908706"
-Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
- by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 May 2026 23:53:43 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: Kenneth Crudup <kenny@panix.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>, David Airlie <airlied@gmail.com>
-Subject: [PATCH v2] drm/ttm: Fix GPU MM stats during pool shrinking
-Date: Fri,  1 May 2026 23:53:38 -0700
-Message-Id: <20260502065338.2720646-1-matthew.brost@intel.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch
+ [79.135.106.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B1AE10E11B;
+ Sat,  2 May 2026 08:07:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+ s=protonmail3; t=1777709255; x=1777968455;
+ bh=6MaFy1JIEkr0wsybZqzwyI8zZR6m1tzW5QVq3zs+KOU=;
+ h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+ Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=lB03v+0DZe6dMU/86CAj8534ZqhphmIiTCumQON3ScxucLwTx9tBCdaSIBbuvhIjg
+ 1ly7qy2xN6rre7R1wv/yxIlEmLpMW7oMXtsPULJ2xw47WvN6Q1I4M+xi4rbXXJYTIY
+ vGwZ/FS1aFVZZPccMc6Yq9qrwETG0Mj1AjSt6c5HSiEFvUWXPu6IIpPNsDTRk48+Wo
+ /rAAlt46ienmqRsL3STUrJr7sL3KMkZllXQDXphWpf98Wf6POFJ1MB+UiVv312XF4o
+ hZ0farZED7pVLeKuOljUV+2LZRNYASklHdctYnmkoWRCkcPgZHGtKlzZz4GTwu9fEY
+ fBKbJclnccIKw==
+Date: Sat, 02 May 2026 08:07:25 +0000
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>
+From: Alexander Koskovich <akoskovich@pm.me>
+Cc: Luca Weiss <luca.weiss@fairphone.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Alexander Koskovich <akoskovich@pm.me>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: [PATCH RFC v5 0/7] Add support for Adreno 810 GPU
+Message-ID: <20260502-adreno-810-v5-0-bc9fd2bb788d@pm.me>
+Feedback-ID: 37836894:user:proton
+X-Pm-Message-ID: 62446312e6647a598473eb76cb083cd2f4c7615c
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,87 +69,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-TTM pool shrinking frees pages by calling __free_pages() directly,
-which bypasses updates to NR_GPU_ACTIVE and leaves GPU MM accounting
-out of sync.
+Adreno 810 is present in the Milos SoC and is the first GPU to be released =
+in
+the A8x family.
 
-Introduce a helper, __free_pages_gpu_account(), and use it for all page
-frees in ttm_pool.c so GPU MM statistics are updated consistently.
+This series is marked as RFC because it depends on a few other in review
+series, GPU GX GDSC handling [1], QFPROM efuse for Milos [2] and the GXCLKC=
+TL
+block for Milos [3].
 
-Reported-by: Kenneth Crudup <kenny@panix.com>
-Fixes: ae80122f3896 ("drm/ttm: use gpu mm stats to track gpu memory allocations. (v4)")
-Cc: Christian Koenig <christian.koenig@amd.com>
-Cc: Huang Rui <ray.huang@amd.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: David Airlie <airlied@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+[1]: https://lore.kernel.org/linux-arm-msm/20260427-gfx-clk-fixes-v2-0-797e=
+54b3d464@oss.qualcomm.com
+[2]: https://lore.kernel.org/linux-arm-msm/20260331-milos-qfprom-v1-0-36017=
+cc642db@pm.me
+[3]: https://lore.kernel.org/linux-arm-msm/20260417-milos-gxclkctl-v3-0-08f=
+5988c43a2@fairphone.com
+
+Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
+---
+Changes in v5:
+- Sync with latest kgsl
+- Link to v4: https://lore.kernel.org/r/20260416-adreno-810-v4-0-61676e073f=
+8a@pm.me
+
+Changes in v4:
+- Add 1150MHz speedbin
+- Rebase on next-20260415
+- Add dep on efuse patchset
+- Link to v3: https://lore.kernel.org/r/20260407-adreno-810-v3-0-30cb7f196e=
+d4@pm.me
+
+Changes in v3:
+- Drop DEMET from GMU clocks (not required on A810)
+- Document qcom,adreno-44010000 compatible (regex is gone in 7.0+)
+- Drop zeroed out CP_PROTECT_REG[46, 62] range, not required
+- Add a810_protect to __build_asserts
+- Add UCHE_CCHE_TRAP_BASE_[LO|HI] and UCHE_CCHE_WRITE_THRU_BASE_[LO|HI] to =
+a810_pwrup_reglist_regs
+- Move TPL1 registers to a810_pwrup_reglist_regs
+- Include all protect registers in a810_ifpc_reglist_regs
+- Revert pipe reg comment, just copied it from downstream but original also=
+ works
+- Link to v2: https://lore.kernel.org/r/20260402-adreno-810-v2-0-ce337ca87a=
+9e@pm.me
+
+Changes in v2:
+- Mark as RFC due to dependency on in-review changes
+- Explain in DTS commit why qcom,kaanapali-gxclkctl.h and not qcom,milos-gx=
+clkctl.h
+- cx_mmio -> cx_misc_mmio
+- Sync a810_nonctxt_regs with GRAPHICS.LA.14.0.r5-03100-lanai.0
+- Link to v1: https://lore.kernel.org/r/20260331-adreno-810-v1-0-725801dbb1=
+2b@pm.me
 
 ---
+Alexander Koskovich (7):
+      dt-bindings: display/msm/gmu: Document Adreno 810 GMU
+      dt-bindings: display/msm/gpu: Document A810 GPU
+      drm/msm/adreno: rename llc_mmio to cx_misc_mmio
+      drm/msm/adreno: set cx_misc_mmio regardless of if platform has LLCC
+      drm/msm/a8xx: use pipe protect slot 15 for last-span-unbound feature
+      drm/msm/adreno: add Adreno 810 GPU support
+      arm64: dts: qcom: milos: Add Adreno 810 GPU and GMU nodes
 
-v2:
- - Replace put_page() with __free_pages_gpu_account() (Kenneth)
+ .../devicetree/bindings/display/msm/gmu.yaml       |  30 +++
+ .../devicetree/bindings/display/msm/gpu.yaml       |   1 +
+ arch/arm64/boot/dts/qcom/milos.dtsi                | 166 ++++++++++++
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c          | 298 +++++++++++++++++=
+++++
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c              |   8 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c              |  44 ++-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h              |  14 +-
+ drivers/gpu/drm/msm/adreno/a8xx_gpu.c              |   6 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h            |   5 +
+ 9 files changed, 534 insertions(+), 38 deletions(-)
 ---
- drivers/gpu/drm/ttm/ttm_pool.c | 18 ++++++++++++------
- 1 file changed, 12 insertions(+), 6 deletions(-)
+base-commit: 968e97b00af4380a718e0badc978470e4587a50b
+change-id: 20260330-adreno-810-5a47525522cd
 
-diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-index 26a3689e5fd9..278bbe7a11ad 100644
---- a/drivers/gpu/drm/ttm/ttm_pool.c
-+++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -206,6 +206,14 @@ static struct page *ttm_pool_alloc_page(struct ttm_pool *pool, gfp_t gfp_flags,
- 	return NULL;
- }
- 
-+static void __free_pages_gpu_account(struct page *p, unsigned int order,
-+				     bool reclaim)
-+{
-+	mod_lruvec_page_state(p, reclaim ? NR_GPU_RECLAIM : NR_GPU_ACTIVE,
-+			      -(1 << order));
-+	__free_pages(p, order);
-+}
-+
- /* Reset the caching and pages of size 1 << order */
- static void ttm_pool_free_page(struct ttm_pool *pool, enum ttm_caching caching,
- 			       unsigned int order, struct page *p, bool reclaim)
-@@ -223,9 +231,7 @@ static void ttm_pool_free_page(struct ttm_pool *pool, enum ttm_caching caching,
- #endif
- 
- 	if (!pool || !ttm_pool_uses_dma_alloc(pool)) {
--		mod_lruvec_page_state(p, reclaim ? NR_GPU_RECLAIM : NR_GPU_ACTIVE,
--				      -(1 << order));
--		__free_pages(p, order);
-+		__free_pages_gpu_account(p, order, reclaim);
- 		return;
- 	}
- 
-@@ -606,7 +612,7 @@ static int ttm_pool_restore_commit(struct ttm_pool_tt_restore *restore,
- 			 */
- 			ttm_pool_split_for_swap(restore->pool, p);
- 			copy_highpage(restore->alloced_page + i, p);
--			__free_pages(p, 0);
-+			__free_pages_gpu_account(p, 0, false);
- 		}
- 
- 		restore->restored_pages++;
-@@ -1068,7 +1074,7 @@ long ttm_pool_backup(struct ttm_pool *pool, struct ttm_tt *tt,
- 			if (flags->purge) {
- 				shrunken += num_pages;
- 				page->private = 0;
--				__free_pages(page, order);
-+				__free_pages_gpu_account(page, order, false);
- 				memset(tt->pages + i, 0,
- 				       num_pages * sizeof(*tt->pages));
- 			}
-@@ -1109,7 +1115,7 @@ long ttm_pool_backup(struct ttm_pool *pool, struct ttm_tt *tt,
- 		}
- 		handle = shandle;
- 		tt->pages[i] = ttm_backup_handle_to_page_ptr(handle);
--		put_page(page);
-+		__free_pages_gpu_account(page, 0, false);
- 		shrunken++;
- 	}
- 
--- 
-2.34.1
+Best regards,
+--=20
+Alexander Koskovich <akoskovich@pm.me>
+
 
