@@ -4,45 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63818CD3423
-	for <dri-devel@archiver.kernel.org>; Sat,  2 May 2026 12:32:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36DB4CD13DA
+	for <dri-devel@archiver.kernel.org>; Sat,  2 May 2026 13:45:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6663310E0A3;
-	Sat,  2 May 2026 12:32:34 +0000 (UTC)
-Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com
- [209.85.161.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8281010E0A3
- for <dri-devel@lists.freedesktop.org>; Sat,  2 May 2026 12:32:33 +0000 (UTC)
-Received: by mail-oo1-f70.google.com with SMTP id
- 006d021491bc7-6967b799acdso5185351eaf.3
- for <dri-devel@lists.freedesktop.org>; Sat, 02 May 2026 05:32:33 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777725152; x=1778329952;
- h=to:from:subject:message-id:date:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=feZUv44Penr2k/P5SLiZtx0DWMmSDGc4xzKt2VxeZGw=;
- b=nKdVZNBnyUSY5LXKrf+MrgHh3xsX8i4qd8Wyz5uo3JNfo6wifONkKNDqTLatbfXOxd
- ZrzIe1d9747ooscfBlyYcXMnB6amaj3zELVtKqEmESJ75d/VJaKJN2M0zzJAR7Yn6GlM
- ul34CTD4d5xSasIA30VcRgnkOzXIUCgUFBr6vgoyNz8GzHYYhocLiTnO3pWJ9UgHz8hj
- b67K66mqWComI0iC5epqeW4ViA4301NsMPNU/Hcf5fHJBJgi79MpLboUlyGAkSEcybKW
- qW+z8uoeUu2YHnOeNCXc0rerTO5s+ZBKVdxt6p048GWMdv/cRJHwKcIs6SMOsDDsI1iP
- eU1w==
-X-Gm-Message-State: AOJu0Yz2/lJma4DRsQOECz3hDI5cuJknUrfalXSzxowwNLpyVmBZ8LZs
- zFVILHHItNZas6PlQf3FevD0xKFvDCljV/3wL/9psxD5ZOVw09eaA+JOMqlZ8wMXHM+u77QVUTS
- xBH94tGjXyf/Fgt1P2apD8e4h2ndcgQbFMZbX2cFq8S6Pv3fsv4VmVN8GhOQ=
-MIME-Version: 1.0
-X-Received: by 2002:a05:6820:4b85:b0:694:a362:4b86 with SMTP id
- 006d021491bc7-696979ec1b6mr1294273eaf.22.1777725152713; Sat, 02 May 2026
- 05:32:32 -0700 (PDT)
-Date: Sat, 02 May 2026 05:32:32 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <69f5eee0.050a0220.3cbe47.0019.GAE@google.com>
-Subject: [syzbot] Monthly dri report (May 2026)
-From: syzbot <syzbot+list3eaff50df36f6bd844ea@syzkaller.appspotmail.com>
-To: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- syzkaller-bugs@googlegroups.com
+	by gabe.freedesktop.org (Postfix) with ESMTP id 549CE10E08C;
+	Sat,  2 May 2026 13:45:42 +0000 (UTC)
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEA1E10E08C
+ for <dri-devel@lists.freedesktop.org>; Sat,  2 May 2026 13:45:40 +0000 (UTC)
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.122])
+ by APP-03 (Coremail) with SMTP id rQCowAA3UNf5__VpQzPfDw--.35843S2;
+ Sat, 02 May 2026 21:45:29 +0800 (CST)
+Message-ID: <9c5875e9f6254df31b8ded9cfe1ab97f113c7aae.camel@iscas.ac.cn>
+Subject: Re: [PATCH -next v2 0/2] drm: verisilicon: add hardware cursor support
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard	
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Han Gao
+ <rabenda.cn@gmail.com>
+Date: Sat, 02 May 2026 21:45:29 +0800
+In-Reply-To: <20260324060222.2029061-1-zhengxingda@iscas.ac.cn>
+References: <20260324060222.2029061-1-zhengxingda@iscas.ac.cn>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
+MIME-Version: 1.0
+X-CM-TRANSID: rQCowAA3UNf5__VpQzPfDw--.35843S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7ury3tF15JFyrCw4UGrWruFg_yoW8Gr4rpa
+ 10yrW5AFyUAan3trnrAr1UKrW3A3WxWw4xWFs3JayUZr1Utr1jqr1UWF9Y9FWDJr4xJrWI
+ gr4vkrW7uryIvFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUkYb7Iv0xC_Zr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
+ A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
+ w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
+ vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCY1x0262kKe7AKxVWUAVWUtwCF04k2
+ 0xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI
+ 8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41l
+ IxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIx
+ AIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2
+ jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU89Z23UUUUU==
+X-Originating-IP: [112.94.102.122]
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,38 +63,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello dri maintainers/developers,
+=E5=9C=A8 2026-03-24=E4=BA=8C=E7=9A=84 14:02 +0800=EF=BC=8CIcenowy Zheng=E5=
+=86=99=E9=81=93=EF=BC=9A
+> Verisilicon display controllers have the hardware cursor feature.
+>=20
+> The hardware cursor layer is a simplistic and restrictive layer as
+> the
+> topmost layer of the display output. It can only support ARGB8888
+> images
+> and some certain square power-of-two sizes (32x32 is supported on all
+> DCs).
+>=20
+> This patchset adds support for the hardware cursor as a cursor plane.
+>=20
+> Icenowy Zheng (2):
+> =C2=A0 drm: verisilicon: add max cursor size to HWDB
+> =C2=A0 drm: verisilicon: add support for cursor planes
 
-This is a 31-day syzbot report for the dri subsystem.
-All related reports/information can be found at:
-https://syzkaller.appspot.com/upstream/s/dri
+Ping.
 
-During the period, 1 new issues were detected and 0 were fixed.
-In total, 11 issues are still open and 35 have already been fixed.
+Thanks,
+Icenowy
 
-Some of the still happening issues:
+>=20
+> =C2=A0drivers/gpu/drm/verisilicon/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 3 +-
+> =C2=A0drivers/gpu/drm/verisilicon/vs_crtc.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 |=C2=A0 11 +-
+> =C2=A0drivers/gpu/drm/verisilicon/vs_cursor_plane.c | 273
+> ++++++++++++++++++
+> =C2=A0.../drm/verisilicon/vs_cursor_plane_regs.h=C2=A0=C2=A0=C2=A0 |=C2=
+=A0 44 +++
+> =C2=A0drivers/gpu/drm/verisilicon/vs_hwdb.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 4 +
+> =C2=A0drivers/gpu/drm/verisilicon/vs_hwdb.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 5 +
+> =C2=A0drivers/gpu/drm/verisilicon/vs_plane.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
+> =C2=A07 files changed, 338 insertions(+), 3 deletions(-)
+> =C2=A0create mode 100644 drivers/gpu/drm/verisilicon/vs_cursor_plane.c
+> =C2=A0create mode 100644
+> drivers/gpu/drm/verisilicon/vs_cursor_plane_regs.h
 
-Ref Crashes Repro Title
-<1> 6869    Yes   WARNING in drm_crtc_wait_one_vblank
-                  https://syzkaller.appspot.com/bug?extid=c9f3062e1f1e68af836a
-<2> 3823    Yes   WARNING in drm_syncobj_array_find
-                  https://syzkaller.appspot.com/bug?extid=95416f957d84e858b377
-<3> 18      Yes   WARNING in dma_buf_vmap
-                  https://syzkaller.appspot.com/bug?extid=4317d7108e14e5d56308
-<4> 17      No    KASAN: slab-use-after-free Read in dma_buf_fd
-                  https://syzkaller.appspot.com/bug?extid=7f4987d0afb97dd090cb
-<5> 13      Yes   KASAN: slab-use-after-free Read in drm_gem_object_release_handle
-                  https://syzkaller.appspot.com/bug?extid=b2e951687503f32f74ce
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-To disable reminders for individual bugs, reply with the following command:
-#syz set <Ref> no-reminders
-
-To change bug's subsystems, reply with:
-#syz set <Ref> subsystems: new-subsystem
-
-You may send multiple commands in a single email message.
