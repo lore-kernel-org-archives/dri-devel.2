@@ -4,60 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B403FF886F
-	for <dri-devel@archiver.kernel.org>; Sun,  3 May 2026 16:38:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB474FF886F
+	for <dri-devel@archiver.kernel.org>; Sun,  3 May 2026 16:39:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C8C110E0E6;
-	Sun,  3 May 2026 16:38:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 145E810E335;
+	Sun,  3 May 2026 16:38:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="O2NO1q8K";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bFyy+mIT";
 	dkim-atps=neutral
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com
- [209.85.208.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 804EE10E0E6
- for <dri-devel@lists.freedesktop.org>; Sun,  3 May 2026 16:38:56 +0000 (UTC)
-Received: by mail-ed1-f51.google.com with SMTP id
- 4fb4d7f45d1cf-6763cc8775cso7284860a12.0
- for <dri-devel@lists.freedesktop.org>; Sun, 03 May 2026 09:38:56 -0700 (PDT)
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
+ [209.85.208.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB4FA10E335
+ for <dri-devel@lists.freedesktop.org>; Sun,  3 May 2026 16:38:57 +0000 (UTC)
+Received: by mail-ed1-f41.google.com with SMTP id
+ 4fb4d7f45d1cf-678e678970fso4641347a12.2
+ for <dri-devel@lists.freedesktop.org>; Sun, 03 May 2026 09:38:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777826335; x=1778431135; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=uncfobcGMqJkNZBnd2AFYRmsf7AjZTfSUk16J49FjSg=;
- b=O2NO1q8KlYhBKOQOV2cSx6OcsiimbgU12/1XGGEAOOlY+DIequg9sWlX5foKBlqQ2b
- vFXNHxPr1JYlToBbJtAI5uCfhxNeK0OLsPO4OZHr4kIODPLUjWToHPwycp2R8fvHqbPP
- 0ZG1Z0Lvi2IDGNgN+6K08qLFSxBFnBz5O7ifpJaseKDeA0fwhMw2SnmTCp93Zj/5QaxA
- rjRm+HylPo8mwb/306d6fXHVc5xQNAfalhm3wdfbaZxayz2kYyZTv/GbWo5hdr4xVUcb
- T9nnWWiETKEyleR76ixzOUJnuWrxdmreqUBJdwYiRMRpjJElzpTDxadNGEa5TGQsYqAu
- rCWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777826335; x=1778431135;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1777826336; x=1778431136; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=uncfobcGMqJkNZBnd2AFYRmsf7AjZTfSUk16J49FjSg=;
- b=i3TcIwBK2HR/z+bJ9APl77k5Yv3GgjotswmQZAAK80MqqFshkWFsX4ZWDaTh7XpNSM
- +5U15vAtqt65BRzkMM9hoJT84/M3XDBKU1mWNqJa7vpOQRJoheCP70kTMiVYeo0NXfD8
- grBb9SqKDNKY3/22O3GzDRpdhEr8JVyNLVU68NSsNd0OelGXjpCcidMEhtW8IZ0qKI3H
- HHEwZAqL1qAGt5wSatnSSLZ58CA02TuP6TeCrLFFgcgb3W0AkGvZ/S2eOIzwT7ak5oJO
- VII4mVV/pwW5JVnKi36I6jTf7dUBDPlUdxiR3mG1Cfhc5z/MUsDEB2Hp1osNONehbMO1
- 5goA==
-X-Gm-Message-State: AOJu0Yxa/Tx0PXT+SI2FsHpRzXzNnJk2EuCttDdcNsA3dKAeAIiQvDEL
- tPxjqjl1FQOXEZiqmJRrH+jVbPmO0hYOU0FW5BXjQTfwI22z9BA1rKtG
-X-Gm-Gg: AeBDiet/0UPK8LDRkdDvroWxGLwuz24MKclhSWtjmKcWbC5APXIx9uZTmU2M0jafzO6
- N/Qqg/o0mjJ14ZnuEta23z3nbLcym11PYI7NEzXXj2JNz4H2y24qeDv2txqx+jJSGVH9bjLtMs3
- Oe5ife7AnSg46Up7XVAkQ4D1ou5HB9E6sULCoj1J6AMSYKT7jt1f+/S12FxcOt0Gpu+JGqKRTfJ
- NEoY4YcM6bI75tY9057Rsw/GEm/pfVingKF+lwPkejqmOFQw7BxRSXS3/yPR71DyfiCMYCYZPpM
- b4zmT0krvEgon7WWU09zuAl4DFvrm2MyzP21MjYEcIaG6IatdBwpTqXBITBWQ19b8BY2e1yGDJg
- ki2I/SGjcRmguIZoEBUpYODGE7XvqvnODjWvs9uEPc9SVGJKQ3rupokAPkB6izpUm2NmFeGw31k
- 82mnf2RaFAKbHNrjxP/3QTQGs=
-X-Received: by 2002:a17:907:cb81:b0:bc1:c4d:cc70 with SMTP id
- a640c23a62f3a-bc10c5d0eeamr181734966b.2.1777826334818; 
- Sun, 03 May 2026 09:38:54 -0700 (PDT)
+ bh=dx1E17McT3yMJ8F2BtpMdFWZT7NS0EuMQsItPFsAxhA=;
+ b=bFyy+mIT+SMUlPXhJ+Z24ot+N2E9VOMD2E2CMudwz6MBarcnZw6otc9bTwFpnQ1aHP
+ AuxLaT2iPTEOmx1TTHf56PPVlZLRNnvwJwuyxirQj/A24if2haXiiVbdu1HHjc8e4avi
+ dF6OxAB6nnswGdWtgZlVc5n8tFOoxWCIn+iNcDPYAsRqvDMGk7RDp+AjAsbqoJ7yCwlb
+ KvVIADFV3LZI2JayOn5xlzVpwTa/6MgPKOvz2fWSFZyG3p9Pxq6wsVU/JCopkk0LZZP+
+ 52IjmWVldv0+/n5HkJUe1d/CtvCTkJ+WQSAAPYtJTXhjL9eIQIMHBnl3TPFVPhxAEq7O
+ eVaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777826336; x=1778431136;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=dx1E17McT3yMJ8F2BtpMdFWZT7NS0EuMQsItPFsAxhA=;
+ b=X4DZ+F2MIPIK2ukaXbA3EgTl0QUzt2QsVdQU8TUuHcG6MnFqVa/hq45Hk4NCA5qRPx
+ WGUdgDiSthxi9HFtvKuCNsIZVHEoxkPPOnAOdwFiovWGN9k586vQq4Cn++SUgHvPxqxV
+ voF3rUUBbq4+AEtCKdN+kRY6gwAPL6BALSzeTZg2cnvwKi/Sti8zKRJsofpDM7VrFcMU
+ yQjO7pgRF0nDLaUXJ13Ok1EmqiEfmAmSZsYELSjHHAY20KduRMfq6idfEwd7BlYB1/GJ
+ qr+9UOfHa6K6fIvCecg9bFd7qGcY2ky9KPRMrp9HUyy/5Rb7Y6oYzRW7G4GXbzm5j8ka
+ zFTQ==
+X-Gm-Message-State: AOJu0YzKr4HzqoMzeYVr3h9yPZzyWtHrTMONe5jUyMJZuJ0rt/GfTowm
+ a6ThcBXp13XEBuL/l3sE9D27PZwx72Gj3tgiYlju50VZXPeYK7lydbsf7MNPxg==
+X-Gm-Gg: AeBDievsYMuURHMO06ymYcqxvFEsqYADkXzbb5LJtweEjUWndE253DEXJ9yujqn5FbJ
+ fBNVTq0y8GTuz9GEfqNcwI4vOBEOChPpi1SqcK2JMVEg85Tins1AIL7FyenPKJyPIuXbWFL7iGK
+ z3rKPLSCPQ1ZXQvagf0uBZ03zPvOK004kZLUJV7QVmW+FypdUp9BDSBxyVznVftQcMu5JPsUkBP
+ lAU16IT5b9o0/uUhi73kP41WYCeopFTX0qdf8sDxuajgUet6bM8mQL/T6KX3KSuant0w4qFjf42
+ 0c6alNM/H1Axg0JJJmpbxtQarrOSOtqrzLIwEIO/yDXujJ4MQUAlYAyQa8UAKrYxZZxISUiObaq
+ +myi92deBDiU4LBAI4DBRkBHcU8XK4yooE2tZanKwXn6kjAEqdcjbDZUZycENtFnns5duMtfB3S
+ zkB+hb3AnsaFfMeEyA3YWWw3I=
+X-Received: by 2002:a17:907:1c9a:b0:ba7:fbfb:4caf with SMTP id
+ a640c23a62f3a-bbffbf853f4mr320445466b.43.1777826335947; 
+ Sun, 03 May 2026 09:38:55 -0700 (PDT)
 Received: from xeon ([188.163.112.56]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bc1ffd6f8e9sm44126066b.13.2026.05.03.09.38.53
+ a640c23a62f3a-bc1ffd6f8e9sm44126066b.13.2026.05.03.09.38.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 03 May 2026 09:38:54 -0700 (PDT)
+ Sun, 03 May 2026 09:38:55 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Thierry Reding <thierry.reding@kernel.org>,
  Mikko Perttunen <mperttunen@nvidia.com>, David Airlie <airlied@gmail.com>,
@@ -65,11 +66,13 @@ To: Thierry Reding <thierry.reding@kernel.org>,
  Ion Agorria <ion@agorria.com>, Svyatoslav Ryhel <clamor95@gmail.com>
 Cc: dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/2] drm/tegra: gr2d/gr3d: Move pm_runtime_enable to
- gr*d_probe
-Date: Sun,  3 May 2026 19:38:40 +0300
-Message-ID: <20260503163842.213489-1-clamor95@gmail.com>
+Subject: [PATCH v2 1/2] drm/tegra: gr2d/gr3d: Initialize address register map
+ before HOST1X client is registered
+Date: Sun,  3 May 2026 19:38:41 +0300
+Message-ID: <20260503163842.213489-2-clamor95@gmail.com>
 X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260503163842.213489-1-clamor95@gmail.com>
+References: <20260503163842.213489-1-clamor95@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -87,27 +90,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The gr*d_remove() has pm_runtime_disable, this indicates it should be
-paired with pm_runtime_enable in the probe instead of being inside
-gr*d_runtime_resume().
+The host1x_client_register() function is called just prior to register map
+initialization loop, making the device available to userspace. This may
+result in userspace attempting to submits a job before the register map is
+initialized. Address this by moving register initialization before host1x
+client registration.
 
+Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
-Changes in v2:
-- remove pm from gr2d_exit along with pm from gr2d_runtime_resume
-- move register map initialize before host1x_client_register
----
+ drivers/gpu/drm/tegra/gr2d.c | 8 ++++----
+ drivers/gpu/drm/tegra/gr3d.c | 8 ++++----
+ 2 files changed, 8 insertions(+), 8 deletions(-)
 
-Ion Agorria (1):
-  drm/tegra: gr2d/gr3d: Contain PM in the gr*d_probe/gr*d_remove
-
-Svyatoslav Ryhel (1):
-  drm/tegra: gr2d/gr3d: Initialize address register map before HOST1X
-    client is registered
-
- drivers/gpu/drm/tegra/gr2d.c | 17 +++++++----------
- drivers/gpu/drm/tegra/gr3d.c | 17 +++++++----------
- 2 files changed, 14 insertions(+), 20 deletions(-)
-
+diff --git a/drivers/gpu/drm/tegra/gr2d.c b/drivers/gpu/drm/tegra/gr2d.c
+index 21f4dd0fa6af..e4148b034af7 100644
+--- a/drivers/gpu/drm/tegra/gr2d.c
++++ b/drivers/gpu/drm/tegra/gr2d.c
+@@ -276,16 +276,16 @@ static int gr2d_probe(struct platform_device *pdev)
+ 	if (err)
+ 		return err;
+ 
++	/* initialize address register map */
++	for (i = 0; i < ARRAY_SIZE(gr2d_addr_regs); i++)
++		set_bit(gr2d_addr_regs[i], gr2d->addr_regs);
++
+ 	err = host1x_client_register(&gr2d->client.base);
+ 	if (err < 0) {
+ 		dev_err(dev, "failed to register host1x client: %d\n", err);
+ 		return err;
+ 	}
+ 
+-	/* initialize address register map */
+-	for (i = 0; i < ARRAY_SIZE(gr2d_addr_regs); i++)
+-		set_bit(gr2d_addr_regs[i], gr2d->addr_regs);
+-
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/tegra/gr3d.c b/drivers/gpu/drm/tegra/gr3d.c
+index 42e9656ab80c..47b0c6c56bfd 100644
+--- a/drivers/gpu/drm/tegra/gr3d.c
++++ b/drivers/gpu/drm/tegra/gr3d.c
+@@ -506,6 +506,10 @@ static int gr3d_probe(struct platform_device *pdev)
+ 	if (err)
+ 		return err;
+ 
++	/* initialize address register map */
++	for (i = 0; i < ARRAY_SIZE(gr3d_addr_regs); i++)
++		set_bit(gr3d_addr_regs[i], gr3d->addr_regs);
++
+ 	err = host1x_client_register(&gr3d->client.base);
+ 	if (err < 0) {
+ 		dev_err(&pdev->dev, "failed to register host1x client: %d\n",
+@@ -513,10 +517,6 @@ static int gr3d_probe(struct platform_device *pdev)
+ 		return err;
+ 	}
+ 
+-	/* initialize address register map */
+-	for (i = 0; i < ARRAY_SIZE(gr3d_addr_regs); i++)
+-		set_bit(gr3d_addr_regs[i], gr3d->addr_regs);
+-
+ 	return 0;
+ }
+ 
 -- 
 2.51.0
 
