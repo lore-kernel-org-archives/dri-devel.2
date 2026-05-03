@@ -4,67 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F302CD13DA
-	for <dri-devel@archiver.kernel.org>; Sat,  2 May 2026 23:39:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54FF4CD3423
+	for <dri-devel@archiver.kernel.org>; Sun,  3 May 2026 00:03:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47FA710E0AA;
-	Sat,  2 May 2026 23:39:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A7BC10E00B;
+	Sun,  3 May 2026 00:03:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="d9HOVMyV";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="nvlRp8j+";
 	dkim-atps=neutral
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5D9E10E00B
- for <dri-devel@lists.freedesktop.org>; Sat,  2 May 2026 23:39:36 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org
- [IPv6:2001:67c:2050:b231:465::102])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4g7PWn37rZz9t65;
- Sun,  3 May 2026 01:39:33 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1777765173;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=pfILjtLnryyVkFeL+4YyfSAyo9v1cIId1IUMbHc/7qg=;
- b=d9HOVMyV+ERwC0R89d4h1I+F8HG5GYp0N9FSJCr2qXU/85Mb48wp+DZY6TjAd/2swt5u5C
- tVJH8rRunB3zDWvh6WFYsLGlR5//5UycBAO8mb6rUH5l3diyGRU9V/hymox+LdbP4PpGSd
- 1yhmMEJMi3hIsmC1Ec6dPh/Z3eAu572dnzoJDF5tW9ML6Y644St7vPz7cOnhR6up7AyX65
- TXTz5na3KrzEAk/1WFVpJUKWgMFX1ZqZsiQDuB9MHQwydulYZjh8OWUhHRkboMHuaOP1Cb
- Taxgx3XRXrpP+BhbCMSLGqL6APU2oYlKF5XY+kCKLC+23+K8JabFMNBeIX48YQ==
-Message-ID: <380861ce-b832-4789-93fa-c2340ce487e6@mailbox.org>
-Date: Sun, 3 May 2026 01:39:27 +0200
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E994310E00B;
+ Sun,  3 May 2026 00:03:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:Cc:To:Subject:From:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:In-Reply-To:References;
+ bh=KgWnLf/mFwD1Hh3sBaH+YGaBoHD9/6I/6KRlAUewflQ=; b=nvlRp8j+/HTCnnNTy6Xe57wsOY
+ Gt/09apg7UK5cV5SMjE3M51EklDvplc8gJ7qcDBz4Xa9n9fGauknLzlq6cnG9fLjMkCtQ//riiUpU
+ 9S+ho6d5iuD7orwVyImufSv6/btUuJOXg4wYqHrjzDJPr2/ysZRj8oF+pqjCfUW+uungX8jvuYmkJ
+ WCxZNZlEjeQL5R3VxAZbI2ykZrRsyAmkuC8O+6KHiKE8VQfvHLjxQCB0k7Gl4qNjrJoy/UiRLnfbW
+ VNUTl329wyVZnLBBeAqDCxt+bFD29C5EgVO3RCTGd3IhpZJx3YZlIyjiSuJ6bwB05mE5ZafbO7R/v
+ bikF3WRw==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+ by bombadil.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
+ id 1wJKIu-00000009wgg-3Hut; Sun, 03 May 2026 00:03:24 +0000
+Message-ID: <c36e7dfb-cf62-4d21-a3b1-f54cb43e0832@infradead.org>
+Date: Sat, 2 May 2026 17:03:23 -0700
 MIME-Version: 1.0
-Subject: Re: [PATCH 6/7] arm64: dts: renesas: r8a779md: Add Renesas R-Car
- R8A779MD M3Le DTs
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: linux-arm-kernel@lists.infradead.org,
- Nguyen Tran <nguyen.tran.pz@bp.renesas.com>,
- Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Magnus Damm <magnus.damm@gmail.com>, Maxime Ripard <mripard@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Rob Herring <robh@kernel.org>,
- Simona Vetter <simona@ffwll.ch>, Stephen Boyd <sboyd@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
-References: <20260419193718.133174-1-marek.vasut+renesas@mailbox.org>
- <20260419193718.133174-7-marek.vasut+renesas@mailbox.org>
- <20260429221153.GD132396@killaraus.ideasonboard.com>
+User-Agent: Mozilla Thunderbird
+From: Randy Dunlap <rdunlap@infradead.org>
+Subject: does DRM_GPUSVM require hugepages?
+To: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
 Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <20260429221153.GD132396@killaraus.ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Cc: linux-next <linux-next@vger.kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-MBO-RS-META: rcrxobjd51jeq56ffsfaa15qkptt7r43
-X-MBO-RS-ID: 3e84285b24ac2565bce
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,32 +57,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/30/26 12:11 AM, Laurent Pinchart wrote:
+Hi,
 
-Hello Laurent,
+In linux-next-20260430, I'm seeing build errors on some ARCHes when
+DRM_XE=m (probably just "is set") but HAVE_ARCH_TRANSPARENT_HUGEPAGE
+is not set (not selected) by the ARCH.
 
->> +/delete-node/ &vin4csi20;
->> +/delete-node/ &vin5csi20;
->> +/delete-node/ &vin6csi20;
->> +/delete-node/ &vin7csi20;
->> +/delete-node/ &xhci0;
->> +
->> +&du {
->> +	compatible = "renesas,du-r8a779md";
->> +	renesas,cmms = <&cmm0>, <&cmm3>;
-> 
-> Shouldn't you then also delete the cmm1 node ?
+Does drm_gpusvm.c require hugepages?
+Or possibly DRM_XE needs some kind of restriction?
 
-Please see my reply to [PATCH 1/7] dt-bindings: display: renesas,du: 
-Document Renesas R-Car R8A779MD M3Le , the CMM0,1,3 all seems to be on 
-the chip and accessible. I think the CMM driver should be aware of the 
-IP, even if it is unused, e.g. to bring it into low power state if needed.
+I see build failures on ARCH=alpha, ARCH=openrisc, ARCH=mips (32-bit
+or 64-bit), and ARCH=arm (without ARM_LPAE set).
 
-> And does the DU still need three clocks and three interrupts ?
-The Geist board schematic indicates that DU_DOTCLKIN1 is present on the 
-SoC package and is supplied by Xtal X22 on the board, so I think the 
-answer is "yes" for the first clock part of your question.
+Example:
+../drivers/gpu/drm/drm_gpusvm.c: In function 'drm_gpusvm_get_pages':
+./../include/linux/compiler_types.h:699:45: error: call to '__compiletime_assert_361' declared with attribute error: BUILD_BUG failed
+  699 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+      |                                             ^
+./../include/linux/compiler_types.h:680:25: note: in definition of macro '__compiletime_assert'
+  680 |                         prefix ## suffix();                             \
+      |                         ^~~~~~
+./../include/linux/compiler_types.h:699:9: note: in expansion of macro '_compiletime_assert'
+  699 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+      |         ^~~~~~~~~~~~~~~~~~~
+../include/linux/build_bug.h:40:37: note: in expansion of macro 'compiletime_assert'
+   40 | #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
+      |                                     ^~~~~~~~~~~~~~~~~~
+../include/linux/build_bug.h:60:21: note: in expansion of macro 'BUILD_BUG_ON_MSG'
+   60 | #define BUILD_BUG() BUILD_BUG_ON_MSG(1, "BUILD_BUG failed")
+      |                     ^~~~~~~~~~~~~~~~
+../include/linux/huge_mm.h:113:28: note: in expansion of macro 'BUILD_BUG'
+  113 | #define HPAGE_PMD_SHIFT ({ BUILD_BUG(); 0; })
+      |                            ^~~~~~~~~
+../include/linux/huge_mm.h:120:35: note: in expansion of macro 'HPAGE_PMD_SHIFT'
+  120 | #define HPAGE_PMD_SIZE  ((1UL) << HPAGE_PMD_SHIFT)
+      |                                   ^~~~~~~~~~~~~~~
+../drivers/gpu/drm/drm_gpusvm.c:1560:52: note: in expansion of macro 'HPAGE_PMD_SIZE'
+ 1560 |                                                    HPAGE_PMD_SIZE ?
+      |                                                    ^~~~~~~~~~~~~~
+make[6]: *** [../scripts/Makefile.build:289: drivers/gpu/drm/drm_gpusvm.o] Error 1
 
-As for the interrupt part, it seems DU1 is present, but not connected. 
-That means the DU1 interrupt does exist, but is not going to be used. Do 
-you prefer to describe it or leave it out ?
+where include/linux/huge_mm.h:113: says:
+
+#ifdef CONFIG_PGTABLE_HAS_HUGE_LEAVES
+#define HPAGE_PMD_SHIFT PMD_SHIFT
+#define HPAGE_PUD_SHIFT PUD_SHIFT
+#else
+#define HPAGE_PMD_SHIFT ({ BUILD_BUG(); 0; }) <<<<<<<<<<<<<<<<<< line 113
+#define HPAGE_PUD_SHIFT ({ BUILD_BUG(); 0; })
+#endif
+
+-- 
+~Randy
+
