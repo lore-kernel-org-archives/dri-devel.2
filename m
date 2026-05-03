@@ -4,83 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D17ACD3439
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 07:12:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EF98FF885A
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 07:12:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2516A10E987;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4185B10E98A;
 	Tue,  5 May 2026 07:12:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FvaewfDf";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gTWf5Hh8";
 	dkim-atps=neutral
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com
- [209.85.210.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A1A0F10E0B1
- for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 02:14:17 +0000 (UTC)
-Received: by mail-pf1-f172.google.com with SMTP id
- d2e1a72fcca58-8296e257735so205666b3a.1
- for <dri-devel@lists.freedesktop.org>; Sun, 03 May 2026 19:14:17 -0700 (PDT)
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
+ [209.85.214.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4ED6410E0A4
+ for <dri-devel@lists.freedesktop.org>; Sun,  3 May 2026 04:49:49 +0000 (UTC)
+Received: by mail-pl1-f174.google.com with SMTP id
+ d9443c01a7336-2ad617d5b80so18260105ad.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 02 May 2026 21:49:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777860857; x=1778465657; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1777783789; x=1778388589; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=2f9qY6qIojyC+n3cwV4DcJgl1Mh7dbRflEA4i8ZvFGU=;
- b=FvaewfDfMaxttqvF9E2h64ql2+GXkUMK7Q7i/EF/t9GArqAA7e62oUtYL8jEP4Z4pJ
- 2K6uSMZlj3Jt/ksIiRTJHYDxAMdDMvgDwfaqlNJsS6wPK88hTyelOHi7+3iqCjGfN/bE
- 8r2vTcYzPVmla1TZ3oqmGNlxEA0PsliF5DQA0b1iMYAauJj+7cwM7/rzRFuQA+nGWkjb
- tiqWToCM8g5UFbAIwzMVq9meQWIjxGgCbkm1Dvo+7hQ9fnVol/MpERK0I8EqQJjW4Z2S
- kwAfqJc4jnyzZJMzprYL8Gxps57zdaIG8zA83Nq9yOBojAHN6C39+SwlBBoWtF9JC1J+
- P3+Q==
+ bh=ZrHQKdnz194dJR6cw9s2lksjM+dXghqleIL2qZmETl8=;
+ b=gTWf5Hh8boWVtbnL7+xD+pdn+SzW7xhH50znjbeCX9+t9hbkgk5AoLLc65fJCpPpo1
+ wg/NXRU3Z/XWEY63vAlpZ/cAVGTyyB7LO2SeFzfxamOplV9ti7lzrbtDwdHh+FnZiXHC
+ P7RXMvKK/knz0b6kXI98pGL699poW3shA6OQ/GAbFaGZrdNdA5MXpLGCkS1x0ej4D/J6
+ EXvq+rGgaEAaU6X/nnyFktUMX78WVu6jrqWKNQ+rQJT6jNC/UHrzjgMooX0pSDYUSghU
+ HB1aPFePtydEANPyEB5Dh1RdCEQBgTukjEd83lk/EJtLpFsZ/cZogpp5DzgXn3677OlT
+ IgUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777860857; x=1778465657;
+ d=1e100.net; s=20251104; t=1777783789; x=1778388589;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=2f9qY6qIojyC+n3cwV4DcJgl1Mh7dbRflEA4i8ZvFGU=;
- b=ICN5o0BCJEsjpsd9zp1v2byAM/4AEXKnkjEwO2C1UUa5ddjWneID2BiYNBcDa/9eDM
- A39+Y0txjWZsYFGQw5jk5x2DE7gPeCqa30fsXpCig2VClFP51jzXAfgwV6dZtX/M/YBd
- JIU8n2tX88820R9nwcr12YVYmv7v6fs2Id6wql8M6TRt7PECwmB8SN+c739DdipTZgBo
- zNrQmI+jUErntXv52u0SEMoVnxymkVng5RAcg/L4752/5XanTxc+/ZLTpP01nx1g9rvO
- NogAUfPWBzYZnEGyq6DYlY/H9JCLvUjVUndXQQT3/tJCHxaNxfD/sCGK96acOGn2gRHn
- n0lQ==
-X-Gm-Message-State: AOJu0YxfpbqWDo3l/ao0Kuz1BffQhuDR5LRAmrFcEUZ7it9U3BGSx+uP
- pupvM6u2vURnPks0jawvbTKPJm1sHMoZySLYwsnrU4GcfayM43FRJjtG
-X-Gm-Gg: AeBDietKMVsWz23njCVc1QKGS1rVZBTp2q9RskW39lJJO3sPu1C8sMMrpPseCUp7J7t
- IEAtXq74gYNa/jRbaJulQZT4YuYDQ20iEWhK9tfiyhX15uQ2wGlG4pIik/pu9V4NobBDPtKGvE6
- TIO4FATf93vNB3GVT9Vtj0rXEvLmcw60lZV7L7Bpde8YXjOa9COQFAnbFsf+sr8H1owYq4wHosz
- 1jGqL73vkx2zJWQU0qYrUq9FUnrYXhR3U2EfPU1adQn5O2qempJTGtf81ZiC5liPWzvZJU0Yo7A
- APtmCpMB+7ThzjUA+sBztuEBsGr7optVixUFXFoK/3YeqTTWypIiBkZiOyeIZiJi/bwUU/JC3EG
- ltTCk8+inl2wUAmT8Q9dHuK0DhWDtdySYy7ouPojTwoIdhyPEj+h6IRL3I5I7V57W2N7+iqXgrj
- N/5wbALzt7AuSXpQ78sYI3sQq1DUf6NmAi
-X-Received: by 2002:aa7:88c8:0:b0:837:42a6:58a8 with SMTP id
- d2e1a72fcca58-83742b5accdmr1150467b3a.2.1777860857024; 
- Sun, 03 May 2026 19:14:17 -0700 (PDT)
-Received: from marchy ([2405:3800:95f:677d:ee8e:77ff:fed4:d18b])
+ bh=ZrHQKdnz194dJR6cw9s2lksjM+dXghqleIL2qZmETl8=;
+ b=Tp1WYvtIsnSpoJEf0guDuHy56deNqQ5YD3siA374GJakvjOKuRUEhx25KE8qwGN1Xh
+ FSlssw7wpsK6pZyPqhjm8AMqNnayZrxHpwLjAuvZm64A4WqhzNstmCMn6FmIIk2THjSS
+ LQmr43ETH1Lt2/tpsr/xg7J2bLjlT6glNKhstmGBAJ331oEZ7XZ63v/L0ihozFPonnY7
+ e+giaa871obxEDDp40cqQuRhG66gOEcV2yUnAighn0CkNSJ/2Z9CPPYZ/qOw4hi1jyx1
+ DY/ku/gHHWvG3jycM9uN1AEbQW76H2rlyGFEZOxsPqu5CqOz0lhsIb/4zQIzMjR4827S
+ d00Q==
+X-Gm-Message-State: AOJu0Yzii1L/b1DfFbgGMIo58RdyIMG34aqmtnbRIJyAGtVf1+5TP8/x
+ pbfl7GvSfc6gonKSABLuNtwp+zSSnIdZOeouVrSCzvjKtP5C+v5tfQVf
+X-Gm-Gg: AeBDietY+3O+66EQTJNvbHJ0bZPMp8TlqifBHj8NFId3cs+oxkpLorhwdUnJ12QLLSL
+ cL6j2HfNoWtxrBYgFXNaDG2Djvq2iybsS8K7O0YwIZZUWZBiD6cRBTxMIGw7uc19WiqDZr2o+zJ
+ d0fHTP7yCJmio9ASxHlksJ5ffCrccbgLN3jp+ePG5fJV6xBWZL/QC+HB9YBVN2bMDjMXZZCW3ui
+ l4DaXvwMv3wVvlWmjbWHa6KnRemqUf2qZ7fxu3jL25eIXkGPR+xxGpBLFEEx2IDkoYS4aJEY9/7
+ nKiAT/bj5ZxLxLWlT8NMlJzjeeSn31PMvoicfHcGbZM9bU4htLgQINWgUaWFJ9c8vDhofwDFD3h
+ +x37I1LQZKk1JSOyu00Ho5qT4rm+BNmZd2wG9JfWOXy5ZwhOtIFP8hYA2S2/wlOme/9qEQvhvga
+ Fo41AcWC1Q8ZuiI45NfEum4l6F6iWceKF9ROyk+ZjuuJHKaLLL8A==
+X-Received: by 2002:a05:6a21:e098:b0:398:b346:b13 with SMTP id
+ adf61e73a8af0-3a7f1a71ce3mr4874859637.16.1777783788697; 
+ Sat, 02 May 2026 21:49:48 -0700 (PDT)
+Received: from vini ([2401:4900:8fcb:edbd:7155:edb6:dac:107e])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-83515b485eesm9072385b3a.48.2026.05.03.19.14.16
+ d2e1a72fcca58-83515b00b28sm7011337b3a.42.2026.05.02.21.49.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 03 May 2026 19:14:16 -0700 (PDT)
-From: Adam Azuddin <azuddinadam@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: devicetree@vger.kernel.org, Adam Azuddin <azuddinadam@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- "Kael D'Alcamo" <dev@kael-k.io>, linux-kernel@vger.kernel.org
-Subject: [RFC PATCH v1 1/2] dt-bindings: display: panel: Add RAiO RA8875
- display controller
-Date: Mon,  4 May 2026 10:13:50 +0800
-Message-ID: <20260504021355.72128-2-azuddinadam@gmail.com>
+ Sat, 02 May 2026 21:49:48 -0700 (PDT)
+From: Vineet Agarwal <agarwal.vineet2006@gmail.com>
+To: mamin506@gmail.com,
+	lizhi.hou@amd.com,
+	ogabbay@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Vineet Agarwal <agarwal.vineet2006@gmail.com>
+Subject: [PATCH] drm/amdxdna: fix pinned_vm accounting and error handling in
+ user buffer pinning
+Date: Sun,  3 May 2026 10:19:27 +0530
+Message-ID: <20260503044931.634219-1-agarwal.vineet2006@gmail.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260504021355.72128-1-azuddinadam@gmail.com>
-References: <20260504021355.72128-1-azuddinadam@gmail.com>
+In-Reply-To: <20260502031746.621606-1-agarwal.vineet2006@gmail.com>
+References: <20260502031746.621606-1-agarwal.vineet2006@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 05 May 2026 07:12:26 +0000
@@ -99,114 +91,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The RA8875 is an SPI-connected TFT display controller by RAiO
-Technology Inc. It supports display resolutions of up to 800x480.
+amdxdna_get_ubuf() incorrectly accounted mm->pinned_vm using the
+requested number of pages before pin_user_pages_fast() completed.
 
-Add YAML binding schema for the RA8875 controller, along with
-the raio vendor prefix for RAiO Technology Inc.
+Additionally, the RLIMIT_MEMLOCK check was performed after pinning,
+and error handling for partial pinning could lead to inconsistent
+cleanup.
 
-Signed-off-by: Adam Azuddin <azuddinadam@gmail.com>
+Fix this by:
+  - checking RLIMIT_MEMLOCK before attempting to pin pages
+  - ensuring partially pinned pages are properly tracked and released
+  - accounting mm->pinned_vm only after successful pinning
+  - removing incorrect error-path accounting and double-subtraction
+
+The RLIMIT_MEMLOCK check is performed conservatively against the
+requested number of pages to prevent excessive pinning attempts.
+
+This ensures mm->pinned_vm remains consistent and aligns the driver
+with expected GUP and memory accounting semantics.
+
+Signed-off-by: Vineet Agarwal <agarwal.vineet2006@gmail.com>
+
+Changes in v2:
+- Move RLIMIT_MEMLOCK check before pinning
+- Fix partial pin handling and cleanup paths
+- Remove incorrect pinned_vm accounting in error paths
+- Ensure symmetric accounting between pin and release
+- Drop unused pinned_total variable
+
 ---
- .../bindings/display/panel/raio,ra8875.yaml   | 76 +++++++++++++++++++
- .../devicetree/bindings/vendor-prefixes.yaml  |  2 +
- 2 files changed, 78 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml
+ drivers/accel/amdxdna/amdxdna_ubuf.c | 25 ++++++++++++-------------
+ 1 file changed, 12 insertions(+), 13 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml b/Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml
-new file mode 100644
-index 000000000000..a49521242763
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml
-@@ -0,0 +1,76 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/panel/raio,ra8875.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/accel/amdxdna/amdxdna_ubuf.c b/drivers/accel/amdxdna/amdxdna_ubuf.c
+index fb999aa25318..571708f78cfe 100644
+--- a/drivers/accel/amdxdna/amdxdna_ubuf.c
++++ b/drivers/accel/amdxdna/amdxdna_ubuf.c
+@@ -129,7 +129,7 @@ struct dma_buf *amdxdna_get_ubuf(struct drm_device *dev,
+ 				 u32 num_entries, void __user *va_entries)
+ {
+ 	struct amdxdna_dev *xdna = to_xdna_dev(dev);
+-	unsigned long lock_limit, new_pinned;
++	unsigned long lock_limit;
+ 	struct amdxdna_drm_va_entry *va_ent;
+ 	struct amdxdna_ubuf_priv *ubuf;
+ 	u32 npages, start = 0;
+@@ -176,18 +176,17 @@ struct dma_buf *amdxdna_get_ubuf(struct drm_device *dev,
+ 
+ 	ubuf->nr_pages = exp_info.size >> PAGE_SHIFT;
+ 	lock_limit = rlimit(RLIMIT_MEMLOCK) >> PAGE_SHIFT;
+-	new_pinned = atomic64_add_return(ubuf->nr_pages, &ubuf->mm->pinned_vm);
+-	if (new_pinned > lock_limit && !capable(CAP_IPC_LOCK)) {
+-		XDNA_DBG(xdna, "New pin %ld, limit %ld, cap %d",
+-			 new_pinned, lock_limit, capable(CAP_IPC_LOCK));
 +
-+title: RAiO RA8875 Display Controller
++	if (ubuf->nr_pages + atomic64_read(&ubuf->mm->pinned_vm) > lock_limit &&
++		!capable(CAP_IPC_LOCK)) {
+ 		ret = -ENOMEM;
+-		goto sub_pin_cnt;
++		goto free_ent;
+ 	}
+ 
+ 	ubuf->pages = kvmalloc_objs(*ubuf->pages, ubuf->nr_pages);
+ 	if (!ubuf->pages) {
+ 		ret = -ENOMEM;
+-		goto sub_pin_cnt;
++		goto free_ent;
+ 	}
+ 
+ 	for (i = 0; i < num_entries; i++) {
+@@ -196,15 +195,17 @@ struct dma_buf *amdxdna_get_ubuf(struct drm_device *dev,
+ 		ret = pin_user_pages_fast(va_ent[i].vaddr, npages,
+ 					  FOLL_WRITE | FOLL_LONGTERM,
+ 					  &ubuf->pages[start]);
+-		if (ret < 0 || ret != npages) {
++		if (ret < 0)
++			goto destroy_pages;
++		start += ret;
++		if (ret != npages) {
+ 			ret = -ENOMEM;
+-			XDNA_ERR(xdna, "Failed to pin pages ret %d", ret);
+ 			goto destroy_pages;
+ 		}
+-
+-		start += ret;
+ 	}
+ 
++	atomic64_add(ubuf->nr_pages, &ubuf->mm->pinned_vm);
 +
-+maintainers:
-+  - Adam Azuddin <azuddinadam@gmail.com>
-+
-+description: |
-+  This binding is for display panels using an RAiO RA8875 controller
-+  connected via SPI.
-+
-+allOf:
-+  - $ref: panel-common.yaml#
-+  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-+
-+properties:
-+  compatible:
-+    const: raio,ra8875
-+
-+  reg:
-+    maxItems: 1
-+
-+  spi-max-frequency:
-+    maximum: 25000000
-+
-+  reset-gpios:
-+    maxItems: 1
-+    description: GPIO used to reset the controller, optional
-+
-+  vcc-supply:
-+    description: Regulator that provides the VCC voltage, optional
-+
-+  display-timings:
-+    $ref: /schemas/display/panel/display-timings.yaml#
-+
-+required:
-+  - compatible
-+  - reg
-+  - display-timings
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    spi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        ra8875: ra8875@0 {
-+            compatible = "raio,ra8875";
-+            reg = <0>;
-+            spi-max-frequency = <16000000>;
-+            reset-gpios = <&gpio 25 GPIO_ACTIVE_LOW>;
-+
-+            display-timings {
-+                native-mode = <&timing0>;
-+                timing0: timing0 {
-+                    clock-frequency = <25000000>;
-+                    hactive = <800>;
-+                    vactive = <480>;
-+                    hfront-porch = <40>;
-+                    hsync-len = <40>;
-+                    hback-porch = <40>;
-+                    vfront-porch = <10>;
-+                    vsync-len = <10>;
-+                    vback-porch = <20>;
-+                };
-+            };
-+        };
-+    };
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index 28784d66ae7b..ca453042f6a2 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -1361,6 +1361,8 @@ patternProperties:
-     description: Radxa
-   "^raidsonic,.*":
-     description: RaidSonic Technology GmbH
-+  "^raio,.*":
-+    description: RAiO Technology Inc.
-   "^ralink,.*":
-     description: Mediatek/Ralink Technology Corp.
-   "^ramtron,.*":
+ 	exp_info.ops = &amdxdna_ubuf_dmabuf_ops;
+ 	exp_info.priv = ubuf;
+ 	exp_info.flags = O_RDWR | O_CLOEXEC;
+@@ -222,8 +223,6 @@ struct dma_buf *amdxdna_get_ubuf(struct drm_device *dev,
+ 	if (start)
+ 		unpin_user_pages(ubuf->pages, start);
+ 	kvfree(ubuf->pages);
+-sub_pin_cnt:
+-	atomic64_sub(ubuf->nr_pages, &ubuf->mm->pinned_vm);
+ free_ent:
+ 	kvfree(va_ent);
+ free_ubuf:
 -- 
 2.54.0
 
