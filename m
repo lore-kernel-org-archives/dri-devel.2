@@ -4,44 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54FF4CD3423
-	for <dri-devel@archiver.kernel.org>; Sun,  3 May 2026 00:03:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0975FCD13DA
+	for <dri-devel@archiver.kernel.org>; Sun,  3 May 2026 00:11:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A7BC10E00B;
-	Sun,  3 May 2026 00:03:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4355D10E10B;
+	Sun,  3 May 2026 00:11:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="nvlRp8j+";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="jysqW7jA";
 	dkim-atps=neutral
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E994310E00B;
- Sun,  3 May 2026 00:03:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- Content-Type:Cc:To:Subject:From:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:In-Reply-To:References;
- bh=KgWnLf/mFwD1Hh3sBaH+YGaBoHD9/6I/6KRlAUewflQ=; b=nvlRp8j+/HTCnnNTy6Xe57wsOY
- Gt/09apg7UK5cV5SMjE3M51EklDvplc8gJ7qcDBz4Xa9n9fGauknLzlq6cnG9fLjMkCtQ//riiUpU
- 9S+ho6d5iuD7orwVyImufSv6/btUuJOXg4wYqHrjzDJPr2/ysZRj8oF+pqjCfUW+uungX8jvuYmkJ
- WCxZNZlEjeQL5R3VxAZbI2ykZrRsyAmkuC8O+6KHiKE8VQfvHLjxQCB0k7Gl4qNjrJoy/UiRLnfbW
- VNUTl329wyVZnLBBeAqDCxt+bFD29C5EgVO3RCTGd3IhpZJx3YZlIyjiSuJ6bwB05mE5ZafbO7R/v
- bikF3WRw==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
- by bombadil.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
- id 1wJKIu-00000009wgg-3Hut; Sun, 03 May 2026 00:03:24 +0000
-Message-ID: <c36e7dfb-cf62-4d21-a3b1-f54cb43e0832@infradead.org>
-Date: Sat, 2 May 2026 17:03:23 -0700
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB57510E10B
+ for <dri-devel@lists.freedesktop.org>; Sun,  3 May 2026 00:11:37 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4g7QDk6sXSz9tRD;
+ Sun,  3 May 2026 02:11:34 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1777767095;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=rBbGG49lvszkSs6r+vkoyB+q5ycwyPUBvGTobwqzXCY=;
+ b=jysqW7jAuDFJrbua8FgWRyjdkmFUEE3iRBd6BzYPCL/hjHNKhq/AgbzZZgkZhOUQDQU+pJ
+ ahFjUj3IB9jL++70DEsokWc+NrPeaVURtK2Z0c/5MAEptyxrW23tDQph3dL7ByjW+WvowP
+ iFQCCEhTJaLnIbsnHaS+ZeRkiRj89a4Cn77U2MlR6Mpd1aK7vfhF85jPwF1zJehov1wKUA
+ 0miMQTqWQNhbM6MQCR51Zju7C/4XvZqBeIfVlyN+F8vIDMkoV2wwbAHvIUj8iQ4W7a+z2T
+ zkq1WTNX5jj6xJk5UiRQPtbvDBAv2/Y9PRv4/twjkNg7OaVNI8a6oT3qa7d5sw==
+Message-ID: <7e4283f1-c179-45e4-a8ee-5026e467fd21@mailbox.org>
+Date: Sun, 3 May 2026 02:11:29 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Randy Dunlap <rdunlap@infradead.org>
-Subject: does DRM_GPUSVM require hugepages?
-To: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
+Subject: Re: [PATCH 6/7] arm64: dts: renesas: r8a779md: Add Renesas R-Car
+ R8A779MD M3Le DTs
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: linux-arm-kernel@lists.infradead.org,
+ Nguyen Tran <nguyen.tran.pz@bp.renesas.com>,
+ Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Magnus Damm <magnus.damm@gmail.com>, Maxime Ripard <mripard@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Rob Herring <robh@kernel.org>,
+ Simona Vetter <simona@ffwll.ch>, Stephen Boyd <sboyd@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>
+References: <20260419193718.133174-1-marek.vasut+renesas@mailbox.org>
+ <20260419193718.133174-7-marek.vasut+renesas@mailbox.org>
+ <CAMuHMdV5NRFjGmLLSAFkst=y_v=haZ9_-oiZ7_3M2J1s5jiJSQ@mail.gmail.com>
 Content-Language: en-US
-Cc: linux-next <linux-next@vger.kernel.org>
-Content-Type: text/plain; charset=UTF-8
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <CAMuHMdV5NRFjGmLLSAFkst=y_v=haZ9_-oiZ7_3M2J1s5jiJSQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-MBO-RS-ID: 5b19e038c16ec512322
+X-MBO-RS-META: bs89hkih9ipn8s579q3adtcmkkc76bmw
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,56 +81,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+On 4/29/26 2:16 PM, Geert Uytterhoeven wrote:
 
-In linux-next-20260430, I'm seeing build errors on some ARCHes when
-DRM_XE=m (probably just "is set") but HAVE_ARCH_TRANSPARENT_HUGEPAGE
-is not set (not selected) by the ARCH.
+Hello Geert,
 
-Does drm_gpusvm.c require hugepages?
-Or possibly DRM_XE needs some kind of restriction?
+[...]
 
-I see build failures on ARCH=alpha, ARCH=openrisc, ARCH=mips (32-bit
-or 64-bit), and ARCH=arm (without ARM_LPAE set).
+>> +/delete-node/ &pciec1;
+>> +/delete-node/ &sata;
+>> +/delete-node/ &sdhi3;
+> 
+> I am not sure disabling sdhi3 is correct.
+> The R-Car M3Le documentation says:
+> 
+>     "M3Le does not support MMC1.
+>      M3Le supports one MMC channel (MMC0) only.
+>      SD3 is used only for SDHI and is not used for MMC.
+>      M3Le does not support MMC HS400 class transfer rate."
+> 
+> The main R-Car Gen3 documentation says:
+> 
+>     "This LSI has four SD card interfaces (SDHI0 to SDHI3), two of
+>      which can also be used as MMC interfaces (SDHI2 and SDHI3)."
+> 
+> So while MMC1 is indeed sdhi3, sdhi3 can still be used in SD mode?
+> Do we need a new compatible value, as R-Car M3Le does not support HS400?
 
-Example:
-../drivers/gpu/drm/drm_gpusvm.c: In function 'drm_gpusvm_get_pages':
-./../include/linux/compiler_types.h:699:45: error: call to '__compiletime_assert_361' declared with attribute error: BUILD_BUG failed
-  699 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-      |                                             ^
-./../include/linux/compiler_types.h:680:25: note: in definition of macro '__compiletime_assert'
-  680 |                         prefix ## suffix();                             \
-      |                         ^~~~~~
-./../include/linux/compiler_types.h:699:9: note: in expansion of macro '_compiletime_assert'
-  699 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-      |         ^~~~~~~~~~~~~~~~~~~
-../include/linux/build_bug.h:40:37: note: in expansion of macro 'compiletime_assert'
-   40 | #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
-      |                                     ^~~~~~~~~~~~~~~~~~
-../include/linux/build_bug.h:60:21: note: in expansion of macro 'BUILD_BUG_ON_MSG'
-   60 | #define BUILD_BUG() BUILD_BUG_ON_MSG(1, "BUILD_BUG failed")
-      |                     ^~~~~~~~~~~~~~~~
-../include/linux/huge_mm.h:113:28: note: in expansion of macro 'BUILD_BUG'
-  113 | #define HPAGE_PMD_SHIFT ({ BUILD_BUG(); 0; })
-      |                            ^~~~~~~~~
-../include/linux/huge_mm.h:120:35: note: in expansion of macro 'HPAGE_PMD_SHIFT'
-  120 | #define HPAGE_PMD_SIZE  ((1UL) << HPAGE_PMD_SHIFT)
-      |                                   ^~~~~~~~~~~~~~~
-../drivers/gpu/drm/drm_gpusvm.c:1560:52: note: in expansion of macro 'HPAGE_PMD_SIZE'
- 1560 |                                                    HPAGE_PMD_SIZE ?
-      |                                                    ^~~~~~~~~~~~~~
-make[6]: *** [../scripts/Makefile.build:289: drivers/gpu/drm/drm_gpusvm.o] Error 1
+I think we do need new compatible string, yes, I'll include that in V2.
 
-where include/linux/huge_mm.h:113: says:
+We can inhibit MMC support in sdhi3 with 'no-mmc' DT property, which I 
+will also include in V2.
 
-#ifdef CONFIG_PGTABLE_HAS_HUGE_LEAVES
-#define HPAGE_PMD_SHIFT PMD_SHIFT
-#define HPAGE_PUD_SHIFT PUD_SHIFT
-#else
-#define HPAGE_PMD_SHIFT ({ BUILD_BUG(); 0; }) <<<<<<<<<<<<<<<<<< line 113
-#define HPAGE_PUD_SHIFT ({ BUILD_BUG(); 0; })
-#endif
+[...]
 
--- 
-~Randy
+>> +/delete-node/ &vin7csi20;
+>> +/delete-node/ &xhci0;
+> 
+> Shouldn't the following be disabled, too?
+>    - ohci1, ehci1, and usb2_phy1,
 
+Yes, they should.
+
+>    - cmm1 and vspd1 (cfr. DU below).
+
+Please see my response to Laurent in here in
+[PATCH 6/7] arm64: dts: renesas: r8a779md: Add Renesas R-Car R8A779MD 
+M3Le DTs
+as well as my response to
+[PATCH 1/7] dt-bindings: display: renesas,du: Document Renesas R-Car 
+R8A779MD M3Le
+
+The CMM1 and VSP1 are actually present, so I think the DT should 
+describe them, even if they are not used. If only to allow the 
+driver(s)to bind to those IPs and bring them to low power state.
+
+>> +
+>> +&du {
+>> +       compatible = "renesas,du-r8a779md";
+> 
+> Assuming the DU needs a new compatible value...
+> 
+>> +       renesas,cmms = <&cmm0>, <&cmm3>;
+>> +       renesas,vsps = <&vspd0 0>, <&vspd1 0>;
+> 
+> Shouldn't this be
+> 
+>      renesas,vsps = <&vspd0 0>, <&vspd0 1>;
+> 
+> ? DU1 is unused, but DU3 is used.
+It should, and will be fixed in V2, thanks !
+
+[...]
