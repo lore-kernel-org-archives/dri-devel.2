@@ -4,60 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8ACFFCD342C
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 10:30:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE0C4CD342C
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 10:34:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED5F310E3C6;
-	Mon,  4 May 2026 10:30:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FBF510E3A4;
+	Mon,  4 May 2026 10:34:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HCg1h+tu";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="Lta76662";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99AC110E3C6;
- Mon,  4 May 2026 10:30:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777890635; x=1809426635;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=sTazwSjmYttTNRbWgqabPhFUJLDyFME2KhuOLmOKwz8=;
- b=HCg1h+tuS6D34BbwY2tKgZbORAqBrDmNaebWk9req1lFMEu9XK4uXqnV
- I9nC4U23uy8GQGo8zni7Apf9AqvWxlR47dpZcl97HLORuMtNVR9dSMm6w
- C3gYQk5ocJvUbtYFu2tqhcYvkptokkDcw2FgLkhfNySe0tfixWd30n8eq
- fEReN5MeFHIqPIATQ/A6F0aARN/QFMVmdgfwFVHNvvZBs5sEtAVBHJ9vh
- pk1eSoKRQs553OLhLEIG7IkCjhgVV5Ba0V6G+zhnoit1H6NUCVcTfQUN/
- nb/BivFLQhjh/3DLp1ZSg00V3Rf2I6tRmURAHxcm1ycGUVbMR2zX2X00+ g==;
-X-CSE-ConnectionGUID: y/9ZnlIDT6aesU8tN+FZ7Q==
-X-CSE-MsgGUID: rHY3LIvKQYGG7kzsbjjE6w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11775"; a="78677631"
-X-IronPort-AV: E=Sophos;i="6.23,215,1770624000"; d="scan'208";a="78677631"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 May 2026 03:30:35 -0700
-X-CSE-ConnectionGUID: 7xWd9ivJSPaZ4rC+Q+mKdg==
-X-CSE-MsgGUID: iDMyX4RTTXS1oKd63l1LwA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,215,1770624000"; d="scan'208";a="237254936"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.245.157])
- by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 May 2026 03:30:32 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Simon Ser <contact@emersion.fr>, Ville =?utf-8?B?U3lyasOkbMOk?=
- <ville.syrjala@linux.intel.com>
-Cc: Vidith Madhu <vmadhu@nvidia.com>, dri-devel@lists.freedesktop.org,
- wayland-devel@lists.freedesktop.org, xorg-devel@lists.x.org
-Subject: Re: Native DisplayID support in core DRM
-In-Reply-To: <nNHAgq_075xcIstZgSRJ0LASnvNd7FP6D2XfBPVa3SyjPX1nErxrrRqEIcd4nO7a0WY-pvrTS9NOR_ESqsHGsbpuLNRBGdzyn6-Vi-QSyPQ=@emersion.fr>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <55f5affb-e8f5-7f8e-fce6-47c5b379d557@nvidia.com>
- <aeaJlED2e1ZXsLlt@intel.com>
- <nNHAgq_075xcIstZgSRJ0LASnvNd7FP6D2XfBPVa3SyjPX1nErxrrRqEIcd4nO7a0WY-pvrTS9NOR_ESqsHGsbpuLNRBGdzyn6-Vi-QSyPQ=@emersion.fr>
-Date: Mon, 04 May 2026 13:30:29 +0300
-Message-ID: <faf56da55c4a67edc2474134eb335bbd874f684b@intel.com>
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 65F4610E3A4
+ for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 10:34:39 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 180994E42BBC;
+ Mon,  4 May 2026 10:34:38 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id E00FD5FD5F;
+ Mon,  4 May 2026 10:34:37 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 1FFCF11AD266E; 
+ Mon,  4 May 2026 12:34:31 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1777890876; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=Koav5DTC4vGTWTUtVC/t+/VrEALIrhI+k8FnR7rv1qY=;
+ b=Lta7666245WFGw8GKMKyUhzh6nB+w7o8dFV3V4nKHh+XZ9uNeCV1CPs/wZOwZNWV1rYUfs
+ hkwQX4xN6yqa5IajwMsv3b0ujoX4+YY2ohUFqsLfv0I36DGIzFr4gbehQc2hpvGgHQ3ch0
+ ZrzddYoDEPADw+OWcAbm60Cghzk4AmS1naGZo6cTklopckwrqLIcrcoLT3AvBANVGnIWaM
+ T9bnJQHt7nlowtoMarbFyRFXyf4dmtSarpjy2gXQKhnYaeoFJamO5h7kp6SJTv5gHPiES0
+ ULAdoo8Gu7bDC7jf+4wywlQX1KLkT3zTT6HsuLTUJR79u6NpXrjXQju/8mTvjw==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Frieder Schrempf <frieder.schrempf@kontron.de>, Marek Vasut <marex@denx.de>, 
+ Linus Walleij <linusw@kernel.org>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Louis Chauvet <louis.chauvet@bootlin.com>, 
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260416-ti-sn65dsi83-dual-lvds-fixes-and-test-pattern-v3-0-143886aebc6b@bootlin.com>
+References: <20260416-ti-sn65dsi83-dual-lvds-fixes-and-test-pattern-v3-0-143886aebc6b@bootlin.com>
+Subject: Re: [PATCH v3] drm/bridge: ti-sn65dsi83: two fixes + add test pattern
+Message-Id: <177789087185.275106.17946042535609363566.b4-ty@b4>
+Date: Mon, 04 May 2026 12:34:31 +0200
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,40 +73,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 30 Apr 2026, Simon Ser <contact@emersion.fr> wrote:
-> The big one here is the "EDID" blob property exposed by KMS. We can't just put
-> a DisplayID blob in there, that would break user-space. We'll need a new
-> property.
 
-I think the big question is what do we do with the EDID property when we
-encounter a display with native DisplayID.
+On Thu, 16 Apr 2026 15:59:54 +0200, Luca Ceresoli wrote:
+> This series used to have two bug fixes, now applied to drm-misc-fixes, and
+> a patch adding support for enabling the test pattern output from userspace,
+> which is now at v3.
 
-The VESA E-DDC spec says the host should try DisplayID first, and not
-read the EDID if a DisplayID is found. However, if we only update the
-DisplayID property and not the EDID property, I think that'll be a
-regression.
+Applied, thanks!
 
-So maybe we need to read both DisplayID and EDID, contrary to what the
-E-DDC spec says. Obviously that means slower detection overall, for all
-displays, old and new. Especially if there are errors reading DisplayID,
-which you'd expect with old displays.
+[1/1] drm/bridge: ti-sn65dsi83: add test pattern generation support
+      commit: 55a412e3a78104036bbb1036e2ebe8fa4fb41770
 
-There's an additional catch. The E-DDC spec says the capabilities in the
-DisplayID don't need to be a strict superset of the capabilities in the
-EDID. The idea is that the DisplayID is for new hosts, and the EDID is
-for legacy and max interoperability. But if we read both and aim for no
-regressions, we'll have to expose a union of the capabilities.
-
-Strict adherence to spec isn't exactly what EDID is known for. We're
-likely to encounter displays where the DisplayID and EDID contradict
-each other, and we'll have to mediate between them.
-
-And what userspace does with all of this is a mess of its own...
-
-
-BR,
-Jani.
-
-
+Best regards,
 -- 
-Jani Nikula, Intel
+Luca Ceresoli <luca.ceresoli@bootlin.com>
+
