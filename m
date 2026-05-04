@@ -4,48 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5E6CFF885A
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 14:06:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A27BFF885A
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 14:13:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFE1A10E711;
-	Mon,  4 May 2026 14:06:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9C3F10E708;
+	Mon,  4 May 2026 14:13:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Lmm3f1Uo";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="AFI5Mvlr";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45BA810E711
- for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 14:06:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1777903611;
- bh=jh3Sp6NASVasU8uZv6Mlg4VSABR1Bmq0uDojLqTI0II=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Lmm3f1UoYD6d10fcWnfZDk04TI8qiQ1ZqcrVEzVavu6wyi768znCJAusHlYksUGvk
- FxUlxsu4D+44ugBrcKFzvE4SdAt+CQ9OYkEbH3nppEATMDIstPxzr6UdtOwHiq53pK
- ixvbWum+O29RzBXIpN2KQwv0YzNMEL0n0d1oO3V48ivHkZSHCC0juiPi6bdjJpXP1O
- 4UUvUPK+5TLIsDvCJy7Ga+QcVoZJT0H5c6Bpdy33QHFj8PI0hOynQk33j/74RqK03H
- PJqknnzfZEjc3bp7OnlZGi8TL+P7sljuMHTYXtTlgVwT15mKAY3gt29MTlBvN0N+dj
- JvPBXCflFb0xQ==
-Received: from archlinux (unknown [100.64.1.80])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: leandrohrb)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 9C15617E131B;
- Mon,  4 May 2026 16:06:47 +0200 (CEST)
-From: Leandro Ribeiro <leandro.ribeiro@collabora.com>
-To: dri-devel@lists.freedesktop.org
-Cc: airlied@gmail.com, daniels@collabora.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- pekka.paalanen@collabora.com, simona@ffwll.ch, tzimmermann@suse.de,
- ville.syrjala@linux.intel.com, linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/2] drm: ensure blend mode supported if alpha exposed
-Date: Mon,  4 May 2026 11:06:30 -0300
-Message-ID: <20260504140630.68707-3-leandro.ribeiro@collabora.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260504140630.68707-1-leandro.ribeiro@collabora.com>
-References: <20260504140630.68707-1-leandro.ribeiro@collabora.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA2A910E708
+ for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 14:13:46 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 514614E42BBC;
+ Mon,  4 May 2026 14:13:45 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 21DC25FD5F;
+ Mon,  4 May 2026 14:13:45 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id CCCB711AD27FB; 
+ Mon,  4 May 2026 16:13:33 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1777904023; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=XsNmFR8dV4OacjfIioHdUGNm4L3AowKlSDqo2yTRzw8=;
+ b=AFI5Mvlro/TMbUmDqfw6uuasM2l3dZYYZR9gYoQkon/fLCo3EvKUyNNFBC/QEdh3UsgPE0
+ /7gYVYkc5TduLQZWOs7RLRZ8VBl/TUyIcFZNHzxezTrcn2J+YwTOpSLRnb/wM0M3ZcLrA9
+ Lm2FueyC8nmzxUe1s1qWG5sbz1DvWaN/1LQ7cnLW6F7HbhXvVu6z9wO+ubYbEuQbNtRSvN
+ LlAwzXp9TH/yhof4kNc4NJV2lcb8NApSHflSLMIdoi7+ItBAfw3SgF93mrkGrU99tsASNf
+ dediVg4WLdgI85RyfhTmH6WWXJoKbLBbhcyb2krC+3W2W/beCnk+piqeWLU5YQ==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 04 May 2026 16:13:32 +0200
+Message-Id: <DI9YDFTUBA4R.3NBES5EAMOD03@bootlin.com>
+Subject: Re: [PATCH v4 01/11] drm/bridge: drm_bridge_get/put(): ignore ERR_PTR
+Cc: "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Jonas
+ Karlman" <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Rob Clark"
+ <robin.clark@oss.qualcomm.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
+ "Abhinav Kumar" <abhinav.kumar@linux.dev>, "Jessica Zhang"
+ <jesszhan0024@gmail.com>, "Sean Paul" <sean@poorly.run>, "Marijn Suijten"
+ <marijn.suijten@somainline.org>, "Sumit Semwal" <sumit.semwal@linaro.org>,
+ "John Stultz" <jstultz@google.com>, "Tomi Valkeinen"
+ <tomi.valkeinen@ideasonboard.com>, "Michal Simek" <michal.simek@amd.com>,
+ "Hui Pu" <Hui.Pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>,
+ "Thomas Petazzoni" <thomas.petazzoni@bootlin.com>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
+ <linux-arm-kernel@lists.infradead.org>, "Dmitry Baryshkov"
+ <dmitry.baryshkov@oss.qualcomm.com>
+To: "Laurent Pinchart" <laurent.pinchart@ideasonboard.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.20.1
+References: <20260504-drm-bridge-alloc-getput-panel_or_bridge-v4-0-b578c3daaf10@bootlin.com>
+ <20260504-drm-bridge-alloc-getput-panel_or_bridge-v4-1-b578c3daaf10@bootlin.com>
+ <20260504135300.GE1344263@killaraus.ideasonboard.com>
+In-Reply-To: <20260504135300.GE1344263@killaraus.ideasonboard.com>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,105 +80,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Before "drm/drm_blend: allow blend mode property without PREMULTI",
-userspace would have to assume that only PREMULTI was supported by
-drivers that didn't expose the blend mode property. But now userspace
-shouldn't relly on that, as they can't count with drivers always
-supporting PREMULTI.
+Hi Laurent,
 
-Error out if a driver expose alpha property or pixel formats with alpha
-and does not expose the blend mode property. This way userspace don't
-have to guess. Drivers that hit such error must be fixed.
+On Mon May 4, 2026 at 3:53 PM CEST, Laurent Pinchart wrote:
+> On Mon, May 04, 2026 at 12:45:04PM +0200, Luca Ceresoli wrote:
+>> Most functions returning a struct drm_bridge pointer currently return a
+>> valid pointer or NULL, but this restricts their ability to return an err=
+or
+>> code describing the error kind.
+>>
+>> In preparation to have new APIs that can return a struct drm_bridge poin=
+ter
+>> holding an ERR_PTR (and for those which already do) make drm_bridge_get(=
+)
+>> and drm_bridge_put() ignore ERR_PTR values, just like they ignore NULL
+>> pointers.
+>
+> The change in drm_bridge_put() looks good to me. I'm less sure about
+> drm_bridge_get(), is there a valid use case to call get() on a bridge
+> that is not valid ? Doesn't it indicate a clear error in the caller ?
 
-Signed-off-by: Leandro Ribeiro <leandro.ribeiro@collabora.com>
----
- drivers/gpu/drm/drm_crtc_internal.h |  1 +
- drivers/gpu/drm/drm_drv.c           |  7 ++++-
- drivers/gpu/drm/drm_mode_config.c   | 42 +++++++++++++++++++++++++++++
- 3 files changed, 49 insertions(+), 1 deletion(-)
+Good point. Indeed I don't have a valid use case in mind.
 
-diff --git a/drivers/gpu/drm/drm_crtc_internal.h b/drivers/gpu/drm/drm_crtc_internal.h
-index c09409229644..bdbb6b9b94ea 100644
---- a/drivers/gpu/drm/drm_crtc_internal.h
-+++ b/drivers/gpu/drm/drm_crtc_internal.h
-@@ -96,6 +96,7 @@ int drm_mode_setcrtc(struct drm_device *dev,
- int drm_modeset_register_all(struct drm_device *dev);
- void drm_modeset_unregister_all(struct drm_device *dev);
- void drm_mode_config_validate(struct drm_device *dev);
-+int drm_mode_config_enforce(struct drm_device *dev);
- 
- /* drm_modes.c */
- const char *drm_get_mode_status_name(enum drm_mode_status status);
-diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-index 985c283cf59f..76766a370650 100644
---- a/drivers/gpu/drm/drm_drv.c
-+++ b/drivers/gpu/drm/drm_drv.c
-@@ -1059,9 +1059,14 @@ int drm_dev_register(struct drm_device *dev, unsigned long flags)
- 	const struct drm_driver *driver = dev->driver;
- 	int ret;
- 
--	if (!driver->load)
-+	if (!driver->load) {
- 		drm_mode_config_validate(dev);
- 
-+		ret = drm_mode_config_enforce(dev);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	WARN_ON(!dev->managed.final_kfree);
- 
- 	if (drm_dev_needs_global_mutex(dev))
-diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode_config.c
-index 66f7dc37b597..20fd26ecb957 100644
---- a/drivers/gpu/drm/drm_mode_config.c
-+++ b/drivers/gpu/drm/drm_mode_config.c
-@@ -738,3 +738,45 @@ void drm_mode_config_validate(struct drm_device *dev)
- 	     "Must have as many primary planes as there are CRTCs, but have %u primary planes and %u CRTCs",
- 	     num_primary, dev->mode_config.num_crtc);
- }
-+
-+static int plane_require_blend_mode_for_alpha(struct drm_plane *plane)
-+{
-+	struct drm_device *dev = plane->dev;
-+	const struct drm_format_info *fmt;
-+	u32 i;
-+
-+	/* blend mode property supported, no need to check anything */
-+	if (plane->blend_mode_property)
-+		return 0;
-+
-+	if (plane->alpha_property) {
-+		drm_err(dev, "[PLANE:%d:%s] alpha property exposed but blend mode not setup",
-+			plane->base.id, plane->name);
-+		return -EINVAL;
-+	}
-+
-+	for (i = 0; i < plane->format_count; i++) {
-+		fmt = drm_format_info(plane->format_types[i]);
-+		if (fmt->has_alpha) {
-+			drm_err(dev, "[PLANE:%d:%s] pixel format with alpha exposed but blend mode not setup",
-+			        plane->base.id, plane->name);
-+			return -EINVAL;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+int drm_mode_config_enforce(struct drm_device *dev)
-+{
-+	struct drm_plane *plane;
-+	int ret;
-+
-+	drm_for_each_plane(plane, dev) {
-+		ret = plane_require_blend_mode_for_alpha(plane);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
--- 
-2.54.0
+I guess I can drop the drm_bridge_get() and send v5. Should there be a
+valid use case it will emerge at some point and this can be rediscussed.
 
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
