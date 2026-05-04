@@ -4,130 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 600F7FF885A
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 19:08:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E026CD3427
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 19:09:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFA8610E83D;
-	Mon,  4 May 2026 19:08:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FB6910E818;
+	Mon,  4 May 2026 19:09:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="PaFmOxjs";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KSUA9gzj";
+	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="djqQfk8h";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0079010E831
- for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 19:08:52 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 644I9l7m748927
- for <dri-devel@lists.freedesktop.org>; Mon, 4 May 2026 19:08:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=k0Z25Ri0qsZ
- f4kdu4iu99TPanG49TW6penprmyqGHx0=; b=PaFmOxjsXBrkd/tQKSEVFdcgL1C
- yyaky2OyHEiB6aT8wjuO0n7hFAKM+MOmWiCuxMQwxiVJ+j12kKKf7amX+0aJQCCb
- UGcy91PzYaZyP7oeyFEIEsaWVwFUDtW8EK5uokOp0+KnHFdCVwGxu4V8zetA1tXt
- 5ACrDsRZ6SaTg5C8ID5vZGu/ghIWmeGVOz6NqBC1oGpqu0JQlaPFkij8jQh1D4VD
- mqy0Oe1haBxSBJmxvADdDSIwNho5eZt26+548JeWKROPgui4AZ1mG44ef/VcoCyo
- RP2/GJbNt8c8mIErL4wwobLrJYY8mWNmmgRZSyvf/aE+GF/75y0qb44ZZhw==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
- [209.85.214.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dxscf1xf5-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 04 May 2026 19:08:51 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id
- d9443c01a7336-2b2ecc96a9aso44347975ad.1
- for <dri-devel@lists.freedesktop.org>; Mon, 04 May 2026 12:08:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1777921731; x=1778526531;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=k0Z25Ri0qsZf4kdu4iu99TPanG49TW6penprmyqGHx0=;
- b=KSUA9gzjoRow6mlcOUREsdxvh4t4Qb8Y0tjEtvWJUF9HnUFG778Dw15oc67wpXARk3
- OKDUlmce2aQYlx79Zrqmswu6537UyvwA0F8oPvfheIW8VdmZtaLjfADs/DIaPB4AjTQN
- RS/borIlKX3gOx23hT03pfwjB7guBXTMuaJ0TsS5sKcpVT4abnTQKD8cUE5F1r7+KRmd
- Dp5jveUSyuAgsK+UfX4cBDRNMvrZ7BQlQZ2J76vn+D9CjyAiTjzbPkTYql/mJE04pzlD
- RhT2CgW2CWQbLQvW8OA/6evDw9Hlrcjy4hc0qyN2W68lHEMDBcUK59SRXXtzi07dM0zl
- G/lw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777921731; x=1778526531;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=k0Z25Ri0qsZf4kdu4iu99TPanG49TW6penprmyqGHx0=;
- b=baiaDmQ353ih02n3qXmf6pvzdtt9sPj9CRSeGdi9asS13jV9ovSHnyYd9ziyw3hMWl
- pa5UYCpkBgYi0v6M0Unn1Cd9Szf+1DwCPIMoOWt3QgPYwR30PA/+XCq3X+hQLPC2ME8l
- nvnYZw1nwJvwkXpXwNZiDYO5YjxRAIwDhl3wrYJDZ0kWHkuABsujaqeONmdTgMJw1Ca7
- Uoacx/qziqqPx6xX8KxhWpEYCCckAH+Kft/P9hYwnGfYnhDu1+Ytl5xqtN+FBrWMM3TZ
- I2MSBdRF+X7BtVxDTAFUeNkfQ8A3qMcJLlPwdSznQ0hrsDbMjILnk+Wd9Bs1xlDmBXQF
- 9jWw==
-X-Gm-Message-State: AOJu0YwjRvkSmk03n5KM3EeNBFTHcTRkBCV2yfRjQ2i7Ugtkv1aq8kzA
- fkZI958UB0FMFpt1kM067QWiaJH0kCpYukNskw8lGa6COGaoWwwPis8ptuj42CVqS6vKO9uvIy3
- fBhLwfLAdlkstW+fcNT4G3699I6H2FJaoNMib2YdlVdY7KwbCOSFh9mdpDhKEJWf0HNiMHI1V37
- DlArI=
-X-Gm-Gg: AeBDietJMEz+JZuXz5Jm+bh46UWoJ5nB80ILdPLtCVJbGAyoJHOI0EQuWBDBsuKJSj7
- VGBYtzEIyMTzilW9UjLj2eTK0RtMmLQ5l1+7Yo6JHBUUzvHjFpNdF7O9hgZ+FPqHUlFtHaBPis+
- /dtajSQy5YgUA3PmDdt4acNmX3dE2/HSBkHEhs3k/tqxayesej46XCUF8kCE4jTxfpP8vbb5/W1
- Xo4MUrBXLLyxCTWiZasWkTx5+8p/Q2FH8BzEjfPNZEh2HoZiNvO6vpiWOl99Gg5+w00onEigdEx
- rrP382t5xxarWjsyYwTwbuhE4h5qjESzuyho5Lxv8rMs+duZjjAtcUMHOs4Z5zF5xtmblcHucZU
- /mKs4WOHdNJfDUBS4vwN/xHgYbfWm+/Y9Nnvp++Y7CTM=
-X-Received: by 2002:a05:6a20:4321:b0:39b:8b8b:39ce with SMTP id
- adf61e73a8af0-3aa3b75d1d7mr67077637.28.1777921730815; 
- Mon, 04 May 2026 12:08:50 -0700 (PDT)
-X-Received: by 2002:a05:6a20:4321:b0:39b:8b8b:39ce with SMTP id
- adf61e73a8af0-3aa3b75d1d7mr66994637.28.1777921729784; 
- Mon, 04 May 2026 12:08:49 -0700 (PDT)
-Received: from localhost ([2601:1c0:5000:d5c:4ec8:83f5:8254:6891])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c7ffbc8ee1csm10487520a12.25.2026.05.04.12.08.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 May 2026 12:08:49 -0700 (PDT)
-From: Rob Clark <robin.clark@oss.qualcomm.com>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+Received: from GVXPR05CU001.outbound.protection.outlook.com
+ (mail-swedencentralazon11013063.outbound.protection.outlook.com
+ [52.101.83.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAAE210E818
+ for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 19:09:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HpNLRmiVafWPtMzQydc3603wsqeeyBMqmR+SQH8RiIhqFhWW6mzfozpusToRxMT9rHKIjeeuUBOYEjqsESQNEaLalLSg4VVfPiu5TCRIgPAP5vOfvln9Ko+XLHoYYGBfyI6nkpZEvikqgRWfX8xRreaCVGaX1HZQSYxM7jFx0/MS9zuKXo1svQfy2X/9L3XDH2rxB2HJ+mIXr+jhad00ZPIl1/JGUgE6EuSkY8UVTzRApO9rdZAA0HJvzXFnvAxtxP6ECfy6eAckvGJsE+JmyYxiIpUdmYBg8SluxenxfGhPqL13CoZyO+E+SR0ZLhA0KfpmZiJF4+S1n2bkjOsGqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=di+i30ZhNrDf9X225GCgPSfaPIxf6vPKqBNRVmvdYAk=;
+ b=oAxT3mMdGMHvZVsoG1/32QBZLTH0rgWL1l3XqHYwDHO2Tc71qg3LJz3BFr4x942AfUBvPZdLfXD0a9HmoAaf9BzECuDrS0+FkD3UBBGgR6P5fUxXV6fN9xb1orprlSisOn2LDkvlQMDRCwsqbiLntfJJ45oGCvpu9dK4SSqTPWeYMTFKe6qcHZo9r+wIDXwbHDqFHZAPa9FGaoLFVF0S9K46W5+52sTxGIrz4NemjBxWsInO6cPSHpTkIJqdP0fqYAnhI6kF5yw5cFHR/whDRsgjZZ0PG0a9eDKDQ/RQvbSdudjQ7NgO6qGSDdDGk7viHGp2r3eXyJ8wy0Y2U+EFHw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=di+i30ZhNrDf9X225GCgPSfaPIxf6vPKqBNRVmvdYAk=;
+ b=djqQfk8hx+MI2nlpHRiS/HnHxJCJuCRqg+O3nfVHtbajzvnaVLPHajO8eCOuKQcYJJzMQ5HVStI6XutQDYv/+unb10BmNJFu7Rkllc0HS51ngFKjjJNv0gwzKXQHnUV0B9xGOVN3kHtN6g96Tchv9SYMcoB71rkoOrqYOGDcw9iigJwED6efptdcPt34XD7jueaUBypvh3Jga3JpPUIwfaxymBV+cpdtRh3kM9YnFmPhc6jaAHcFjaSL0mMVI0oHh1HWLfz6XXF/nwMvBFKy98bafnzE/P5JE1iHTLDyRiqJTPLodpHCtRKm/JXPMRrqfq6ppoKmFXSLnz/eiZbkeA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
+ by PA1PR04MB10170.eurprd04.prod.outlook.com (2603:10a6:102:463::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Mon, 4 May
+ 2026 19:09:22 +0000
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9870.023; Mon, 4 May 2026
+ 19:09:22 +0000
+Date: Mon, 4 May 2026 15:09:13 -0400
+From: Frank Li <Frank.li@nxp.com>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Liu Ying <victor.liu@nxp.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v3 16/16] drm/msm/a6xx: Allow IFPC with perfcntr stream
-Date: Mon,  4 May 2026 12:06:59 -0700
-Message-ID: <20260504190751.61052-17-robin.clark@oss.qualcomm.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260504190751.61052-1-robin.clark@oss.qualcomm.com>
-References: <20260504190751.61052-1-robin.clark@oss.qualcomm.com>
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v3] drm/bridge: imx8qxp-pxl2dpi: avoid ERR_PTR with
+ device_node cleanup
+Message-ID: <afju2dg8fZ_RSD7-@lizhi-Precision-Tower-5810>
+References: <20260502115528.530401-1-lgs201920130244@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260502115528.530401-1-lgs201920130244@gmail.com>
+X-ClientProxiedBy: PH8P220CA0011.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:345::17) To PA4PR04MB9366.eurprd04.prod.outlook.com
+ (2603:10a6:102:2a9::8)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=BcvoFLt2 c=1 sm=1 tr=0 ts=69f8eec4 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=xqWC_Br6kY4A:10 a=NGcC8JguVDcA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8 a=5obZvuzjGUYrwyXX1KsA:9
- a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA0MDE3NSBTYWx0ZWRfXwTXP1DYafGa3
- eaesClYsD6F6q8MokyCRuHeQ5KXvMWAeL1oCocUKD/cvxlFV/3HHtEP2CQfVF1gZMf2C1hfX0hR
- 1AyeaxdKOvvTEjChNKt/MBNyeD/mAzklK9fHCvpyQ8E3XtcLg5jmBLO/oovRlyqARIEwpgnBIJm
- plSHHjkF8DAzRWeZyye9ca/rqDHIgPyfSR4xokAB4JIumbkMy5/rlDSMCtQxCHHRlsViW6uh5ts
- g0kO1om0WOLnvtWKqxnOqly9x1TIb/9su6l4RT4HNilnbXCxjjduzwUzPeTGoTrtl5wjRkcM0le
- KS6XzYyUkiv038zQDV1iozT0DuxJdPYCXCVqAB+3Y3aiti+ATR7xwV3DEm30D6hD6Ufp9rW1Q/J
- uV3AmAwYg9+92LkDCozRWkY7U0ZWUlvw8trMZA5qRpROARn2/wLurYYz3LNgJplOiR2ewGfj95V
- K0xSgkSS+bTXcf6YPTQ==
-X-Proofpoint-ORIG-GUID: 9fiBeNtJ6qvRsPyqaW7JfZykf6n7HHI6
-X-Proofpoint-GUID: 9fiBeNtJ6qvRsPyqaW7JfZykf6n7HHI6
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-04_05,2026-04-30_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 spamscore=0 clxscore=1015 phishscore=0
- lowpriorityscore=0 bulkscore=0 adultscore=0 priorityscore=1501
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
- definitions=main-2605040175
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|PA1PR04MB10170:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3d0d5b53-4761-4900-308d-08deaa10a6a3
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|52116014|7416014|376014|19092799006|18002099003|22082099003|56012099003|38350700014;
+X-Microsoft-Antispam-Message-Info: yaIkLvkjnnBsdES9rurlg5rxff9GBwLMFkqAILh9iEHv1MTxxknMF+52Yeg2/N4SCIT7GA0rFsSCBQqK8zT4kZK+d/Q4YCKto4Pco1CFkvquOvuxa9hawsdsel4Bbm3uXS+Yf9aqyb10E5ExTrD3q627SoOlTXsRSo9QW66SOBiM4kkRSBHIKClm6PUkLnAjsrVHwH9ziwmiEEeAspRmNzg1KLqjQIJClFmWdW+vTCKH8ZLDg7cDtxOfyZAkG3LIrP4dkClwfM3I+ZDTIt48MjkFruLKUEjq1IAseEPuRzhnC6Sn80/utFhUJDR9NW9AUND3z4bqdHUxV0Pka5zmVPySdxyWHFLNGj24ull6TBkKxaxm79gdah1/yeFzGKcJRnJzw4M1O9WHDI2TchmA7Tri9AWA9HaEntdrXqBRbN2eYihYmzJ72jJh+yp9nWQURzWD029pwdB7VxUrj+ET/mdTT85MUw2xhqfTQo8Fl0jkj1X3BLMUFYv8BPVy+Qp+GzAO7zavgspiszge3oEZjOgr3dhyy+i2/3OUdzp/G7kvyKml0R2PhMTb1jyBN628msQl9tnM7rZ0AyJCr1oTsGATnlgt+Iux37DA4AjIR4BHdnsw7+NE6l6M+B5+1IpcYNHwbcrNcFe96zfCNWUTLwZR5e9/8VhpY2i/6v/fMp5KDwcdpNWXJH3wARZ/EP7UJlI8XhzS3FT9mmaslidGQSnoXDR2Ji2PazGvfflRooAj1Z8RE5s3zO/iGIEHYCiI
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PA4PR04MB9366.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(52116014)(7416014)(376014)(19092799006)(18002099003)(22082099003)(56012099003)(38350700014);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?8BlNAMpyYqv84z/VTY+eCv8+DmWvtz5caWaLG/fflPl5/ilnIkK+4ldPjfv/?=
+ =?us-ascii?Q?fYSWNnn/sb9wLjtLVCNdEr1rAer3kp0FZLeUd1lX9MLJ2p6n4bpAt8ORYJ0C?=
+ =?us-ascii?Q?KbelX2OyuaYybgtxN+pkz+hM3pZOL/xdWvGnESKmEwkafXJUj4sMlf+ZMYUO?=
+ =?us-ascii?Q?OH7NipRao32UsUpvP9YpQmXSBX1WJYEzryC0Z52ibttk5GDL3MdHitypm3f5?=
+ =?us-ascii?Q?iz1bG9LL2vJM1Lffdqg25N4UabRq0/Vj4/JLV67bQuAD1DB1oORHDVHTYyt+?=
+ =?us-ascii?Q?YV9Y/FfUeM3wSpbyrzqTUHGKcZUcuie4gFgUMB2HgwvlroOHFzLeznLcrl1z?=
+ =?us-ascii?Q?sAjmuTKfVngZFWa4cMJ4Xe0ZOi9LXTE9f4T0RG7YD4RU2dykCnVlVmKsMUJ8?=
+ =?us-ascii?Q?AKWgKGU29xw54ypa/FB9fQ8Sptsfv6aElGhTVlRhH0KiRQhrrrs5q0Iar7BS?=
+ =?us-ascii?Q?j8FKYkTb3xx4sSGssLz/UZ4pw9uS/Tjuq2ao9ToHT1FkZ7AD+alAfaNc/kgy?=
+ =?us-ascii?Q?jBnxUNIJdxkY2dE+uefVyElwGzIr85o44+XURenXu1ev91fq0hFrwBECYLdU?=
+ =?us-ascii?Q?jidHfT26eieGtlysBHIG1K5rSiVTI6mqUsJBA2nI4HVmU+VVvX4xK5YxkUjJ?=
+ =?us-ascii?Q?kfM/LMQBcCP1gpYUA4Ra3LqhGc1lbhK2Pbxy1nHrhsMeotvJLG76M/XJLlZU?=
+ =?us-ascii?Q?7Lm06MOAehsQJ8sj+olS2JoHpobhp0RRSUuQ6j1gQ330bmcTaLDYe8i4h6zC?=
+ =?us-ascii?Q?6UupM6vlHGL1scub5eiaRlLZZvI28Rk8UXpGfYl2oVrjNwMoUITv8b2Z2fsz?=
+ =?us-ascii?Q?+PDw0/1UmG6FYDBTImEvr+eR8JNxapj/LWip2uvao1qyVJ8gunXRhb/94KbX?=
+ =?us-ascii?Q?m2ZqE9RLgWFSxQ/i5RJdKzE7eb71fwi8lkOdiH+5Dda8B0DbLWTyFM1vj9oJ?=
+ =?us-ascii?Q?duqzhZGNThdvaoGc7iSSpw8cE/MJNhYhxFrOJxqaUXVhGShf/8mvdZiX3w6h?=
+ =?us-ascii?Q?JMDfpSBv8ggBbtRGpcvsUXmMp3ERm8ew81IOPrGMoGnBsHmuIiQlaP1KJmv/?=
+ =?us-ascii?Q?XjRragPgUiymSospxxNzj1qnvfn58W5BmG2xOkGYjWB0rcknQiZrqWy6YfLk?=
+ =?us-ascii?Q?07+RKMdmPgF03dlhfZUwbyfz6NnkuKwpArd+5cU90Tnlc0oIdzhxrNsIvDNY?=
+ =?us-ascii?Q?ZUfi7wpKPO02dLJAWicGWh3Sbq/emU5dLejpHhVp2MOKMCVs7yLZnbucteZn?=
+ =?us-ascii?Q?RirBPCQk6yKa9oEflko5UjxxMFm70H4/s+Gfod2XsJvMoUh8Ua2UUxuJ1cks?=
+ =?us-ascii?Q?L3hilxNhkfUBw0XuH9g6+EvQhtR21MA93QXCT11QBs1IivbpJzrTwsJGtit8?=
+ =?us-ascii?Q?RbP6bvQ/fmeIrrcBwXX0wU8lfImt3jg1Bl117WBC06Q5G6gZTMjd0OuO1b03?=
+ =?us-ascii?Q?EYeGvKaWLUe/ghi2mVNiMcHct9R9mwGDKCZHAEXNtBeiBGyhNvFItEPPKhRC?=
+ =?us-ascii?Q?3d1EBKPneOenGJwwRoOOYnviG0sOum/hstrAL3zwNZkImGkTRT87W+WnNOzE?=
+ =?us-ascii?Q?NwP7hFt1YsbiEhxEOoggAT8HynlWchBginSS5vya1yGM0sVJj96Fzv5anbej?=
+ =?us-ascii?Q?mp2/e31EA3st0ROL4lHYKY7KAf9TOYWU+9RMHP3hoNBzSZTALYaHesSiyKap?=
+ =?us-ascii?Q?bf8HN3Xi64qpLiEjxk/ghcOuEPVER3f5vrIi81jGoTHxY30k?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3d0d5b53-4761-4900-308d-08deaa10a6a3
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2026 19:09:22.7178 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Kv72F5RsEN0bXBsy6CbSt+tem2hefYnhtyVJ4tJG5ZHUDuMsXG3+HMk+37o05Z8u4essERPz1sWsHx/KFSuKrA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB10170
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,119 +139,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Now that the dynamic pwrup reglist has SEL reg values to restore
-appended, so that SEL regs are restored on IFPC exit, we can stop
-completely disabling IFPC while global counter sampling is active.
+On Sat, May 02, 2026 at 07:55:28PM +0800, Guangshuo Li wrote:
+> imx8qxp_pxl2dpi_get_available_ep_from_port() returns ERR_PTR()
+> on errors. imx8qxp_pxl2dpi_find_next_bridge() stores its return
+> value in a __free(device_node) variable before checking IS_ERR().
+> When the function returns on the error path, the cleanup action calls
+> of_node_put() on the ERR_PTR() value.
+>
+> Do not let a device_node cleanup variable hold error pointers. Return
+> the error code from imx8qxp_pxl2dpi_get_available_ep_from_port()
+> directly and pass the endpoint node through an output argument. This
+> keeps the cleanup action operating only on NULL or a valid device_node,
+> while preserving the existing error codes.
+>
+> This issue was found by a custom static analysis tool.
 
-To accomplish this, we re-use sysprof_setup() with a force_on param
-to inhibit IFPC specifically while the counter regs are being read,
-while leaving IFPC enabled the rest of the time.
+Nit: needn't mention this.
 
-Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c |  4 ++--
- drivers/gpu/drm/msm/adreno/a6xx_gpu.h |  2 +-
- drivers/gpu/drm/msm/msm_gpu.h         | 10 ++--------
- drivers/gpu/drm/msm/msm_perfcntr.c    |  8 ++++++++
- drivers/gpu/drm/msm/msm_submitqueue.c |  2 +-
- 5 files changed, 14 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index aba08fb76249..3fe0f1cda46a 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -2034,9 +2034,9 @@ static int a6xx_gmu_get_irq(struct a6xx_gmu *gmu, struct platform_device *pdev,
- 	return irq;
- }
- 
--void a6xx_gmu_sysprof_setup(struct msm_gpu *gpu)
-+void a6xx_gmu_sysprof_setup(struct msm_gpu *gpu, bool force_on)
- {
--	bool sysprof = msm_gpu_sysprof_no_ifpc(gpu);
-+	bool sysprof = msm_gpu_sysprof_no_ifpc(gpu) | force_on;
- 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
- 	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
- 	struct a6xx_gmu *gmu = &a6xx_gpu->gmu;
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-index f3cc9478b079..eecc71843bed 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
-@@ -280,7 +280,7 @@ void a6xx_gmu_clear_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state);
- int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node);
- int a6xx_gmu_wrapper_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node);
- void a6xx_gmu_remove(struct a6xx_gpu *a6xx_gpu);
--void a6xx_gmu_sysprof_setup(struct msm_gpu *gpu);
-+void a6xx_gmu_sysprof_setup(struct msm_gpu *gpu, bool force_on);
- 
- void a6xx_preempt_init(struct msm_gpu *gpu);
- void a6xx_preempt_hw_init(struct msm_gpu *gpu);
-diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-index 67f1e84eb631..93124c032dd4 100644
---- a/drivers/gpu/drm/msm/msm_gpu.h
-+++ b/drivers/gpu/drm/msm/msm_gpu.h
-@@ -93,7 +93,7 @@ struct msm_gpu_funcs {
- 	 * for cmdstream that is buffered in this FIFO upstream of the CP fw.
- 	 */
- 	bool (*progress)(struct msm_gpu *gpu, struct msm_ringbuffer *ring);
--	void (*sysprof_setup)(struct msm_gpu *gpu);
-+	void (*sysprof_setup)(struct msm_gpu *gpu, bool force_on);
- 
- 	/* Configure perfcntr SELect regs: */
- 	void (*perfcntr_configure)(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
-@@ -378,13 +378,7 @@ msm_gpu_sysprof_no_perfcntr_zap(struct msm_gpu *gpu)
- static inline bool
- msm_gpu_sysprof_no_ifpc(struct msm_gpu *gpu)
- {
--	/*
--	 * For now, this is the same condition as disabling perfcntr clears
--	 * on context switch.  But once kernel perfcntr IFPC support is in
--	 * place, we will only need to disable IFPC for legacy userspace
--	 * setting SYSPROF param.
--	 */
--	return msm_gpu_sysprof_no_perfcntr_zap(gpu);
-+	return refcount_read(&gpu->sysprof_active) > 1;
- }
- 
- /*
-diff --git a/drivers/gpu/drm/msm/msm_perfcntr.c b/drivers/gpu/drm/msm/msm_perfcntr.c
-index 39bec201d5c9..d8ec65fa25f0 100644
---- a/drivers/gpu/drm/msm/msm_perfcntr.c
-+++ b/drivers/gpu/drm/msm/msm_perfcntr.c
-@@ -256,6 +256,10 @@ sample_worker(struct kthread_work *work)
- 		return;
- 	}
- 
-+	/* Inhibit IFPC while accessing registers: */
-+	if (gpu->funcs->sysprof_setup)
-+		gpu->funcs->sysprof_setup(gpu, true);
-+
- 	if (gpu->funcs->perfcntr_flush)
- 		gpu->funcs->perfcntr_flush(gpu);
- 
-@@ -290,6 +294,10 @@ sample_worker(struct kthread_work *work)
- 		}
- 	}
- 
-+	/* Re-enable IFPC: */
-+	if (gpu->funcs->sysprof_setup)
-+		gpu->funcs->sysprof_setup(gpu, false);
-+
- 	smp_store_release(&stream->fifo.head, head);
- 	wake_up_all(&stream->poll_wq);
- }
-diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm/msm/msm_submitqueue.c
-index a58fe41602c6..1a5a77b28016 100644
---- a/drivers/gpu/drm/msm/msm_submitqueue.c
-+++ b/drivers/gpu/drm/msm/msm_submitqueue.c
-@@ -42,7 +42,7 @@ int msm_context_set_sysprof(struct msm_context *ctx, struct msm_gpu *gpu, int sy
- 
- 	/* Some gpu families require additional setup for sysprof */
- 	if (gpu->funcs->sysprof_setup)
--		gpu->funcs->sysprof_setup(gpu);
-+		gpu->funcs->sysprof_setup(gpu, false);
- 
- 	ctx->sysprof = sysprof;
- 
--- 
-2.54.0
-
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+>
+> Fixes: ceea3f7806a10 ("drm/bridge: imx8qxp-pxl2dpi: simplify put of device_node pointers")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> ---
+> v3:
+>   - Do not change DEFINE_FREE(device_node, ...).
+>   - Fix the driver pattern by making
+>     imx8qxp_pxl2dpi_get_available_ep_from_port() return an int and
+>     pass the endpoint via an output argument.
+>   - Update both callers so __free(device_node) never holds ERR_PTR().
+>
+> v2:
+>   - Fix DEFINE_FREE(device_node, ...) directly.
+>
+>  drivers/gpu/drm/bridge/imx/imx8qxp-pxl2dpi.c | 55 +++++++++-----------
+>  1 file changed, 26 insertions(+), 29 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/bridge/imx/imx8qxp-pxl2dpi.c b/drivers/gpu/drm/bridge/imx/imx8qxp-pxl2dpi.c
+> index 441fd32dc91c..a82f10218707 100644
+> --- a/drivers/gpu/drm/bridge/imx/imx8qxp-pxl2dpi.c
+> +++ b/drivers/gpu/drm/bridge/imx/imx8qxp-pxl2dpi.c
+> @@ -222,52 +222,52 @@ static const struct drm_bridge_funcs imx8qxp_pxl2dpi_bridge_funcs = {
+>  			imx8qxp_pxl2dpi_bridge_atomic_get_output_bus_fmts,
+>  };
+>
+> -static struct device_node *
+> +static int
+>  imx8qxp_pxl2dpi_get_available_ep_from_port(struct imx8qxp_pxl2dpi *p2d,
+> -					   u32 port_id)
+> +					   u32 port_id,
+> +					   struct device_node **ep)
+>  {
+> -	struct device_node *port, *ep;
+> +	struct device_node *port __free(device_node) =
+> +		of_graph_get_port_by_id(p2d->dev->of_node, port_id);
+>  	int ep_cnt;
+>
+> -	port = of_graph_get_port_by_id(p2d->dev->of_node, port_id);
+> +	*ep = NULL;
+>  	if (!port) {
+>  		DRM_DEV_ERROR(p2d->dev, "failed to get port@%u\n", port_id);
+> -		return ERR_PTR(-ENODEV);
+> +		return -ENODEV;
+>  	}
+>
+>  	ep_cnt = of_get_available_child_count(port);
+>  	if (ep_cnt == 0) {
+>  		DRM_DEV_ERROR(p2d->dev, "no available endpoints of port@%u\n",
+>  			      port_id);
+> -		ep = ERR_PTR(-ENODEV);
+> -		goto out;
+> +		return -ENODEV;
+>  	} else if (ep_cnt > 1) {
+>  		DRM_DEV_ERROR(p2d->dev,
+>  			      "invalid available endpoints of port@%u\n",
+>  			      port_id);
+> -		ep = ERR_PTR(-EINVAL);
+> -		goto out;
+> +		return -EINVAL;
+>  	}
+>
+> -	ep = of_get_next_available_child(port, NULL);
+> -	if (!ep) {
+> +	*ep = of_get_next_available_child(port, NULL);
+> +	if (!*ep) {
+>  		DRM_DEV_ERROR(p2d->dev,
+>  			      "failed to get available endpoint of port@%u\n",
+>  			      port_id);
+> -		ep = ERR_PTR(-ENODEV);
+> -		goto out;
+> +		return -ENODEV;
+>  	}
+> -out:
+> -	of_node_put(port);
+> -	return ep;
+> +
+> +	return 0;
+>  }
+>
+>  static int imx8qxp_pxl2dpi_find_next_bridge(struct imx8qxp_pxl2dpi *p2d)
+>  {
+> -	struct device_node *ep __free(device_node) =
+> -		imx8qxp_pxl2dpi_get_available_ep_from_port(p2d, 1);
+> -	if (IS_ERR(ep))
+> -		return PTR_ERR(ep);
+> +	struct device_node *ep __free(device_node) = NULL;
+> +	int ret;
+> +
+> +	ret = imx8qxp_pxl2dpi_get_available_ep_from_port(p2d, 1, &ep);
+> +	if (ret)
+> +		return ret;
+>
+>  	struct device_node *remote __free(device_node) = of_graph_get_remote_port_parent(ep);
+>  	if (!remote || !of_device_is_available(remote)) {
+> @@ -287,26 +287,23 @@ static int imx8qxp_pxl2dpi_find_next_bridge(struct imx8qxp_pxl2dpi *p2d)
+>
+>  static int imx8qxp_pxl2dpi_set_pixel_link_sel(struct imx8qxp_pxl2dpi *p2d)
+>  {
+> -	struct device_node *ep;
+> +	struct device_node *ep __free(device_node) = NULL;
+>  	struct of_endpoint endpoint;
+>  	int ret;
+>
+> -	ep = imx8qxp_pxl2dpi_get_available_ep_from_port(p2d, 0);
+> -	if (IS_ERR(ep))
+> -		return PTR_ERR(ep);
+> +	ret = imx8qxp_pxl2dpi_get_available_ep_from_port(p2d, 0, &ep);
+> +	if (ret)
+> +		return ret;
+>
+>  	ret = of_graph_parse_endpoint(ep, &endpoint);
+>  	if (ret) {
+>  		DRM_DEV_ERROR(p2d->dev,
+>  			      "failed to parse endpoint of port@0: %d\n", ret);
+> -		goto out;
+> +		return ret;
+>  	}
+>
+>  	p2d->pl_sel = endpoint.id;
+> -out:
+> -	of_node_put(ep);
+> -
+> -	return ret;
+> +	return 0;
+>  }
+>
+>  static int imx8qxp_pxl2dpi_parse_dt_companion(struct imx8qxp_pxl2dpi *p2d)
+> --
+> 2.43.0
+>
