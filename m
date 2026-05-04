@@ -4,102 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7378EFF885A
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 20:47:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06650FF885A
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 20:47:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2E0410E3ED;
-	Mon,  4 May 2026 20:47:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D6C110E874;
+	Mon,  4 May 2026 20:47:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="t0BUfo3n";
+	dkim=pass (2048-bit key; unprotected) header.d=outlook.com header.i=@outlook.com header.b="acWmEwoF";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13BF410E872
- for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 20:47:08 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 492C960125;
- Mon,  4 May 2026 20:47:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DB62C2BCB8;
- Mon,  4 May 2026 20:47:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777927627;
- bh=ofaeSJ6wgxoQTSkFMwPMfdQHfwwAu1hwLQCirCS8cps=;
- h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
- b=t0BUfo3nNFvYW95ko4gYpzNkm16E847yBACUad/Pu3ATFV3qwpgchbSpPQ+bUF+5O
- i3ZxRJneYB8jAUekM9KNEGJafdl/5PZFL9DP+GNmfJhWN/RDylnRZEDJS+zTWSv3kI
- Sdztehc42yj2mVEbWnSy3fJ5TMAsCiIlrawQc10je7EEUfHqvFxHwoBZahx+E5b7kT
- tUl0rHZi2a6D2MK4Hwx1g7fZe+1Q3q0jPAgq5APPrDIC0fMHo0Po1OH6fMmvGNKAph
- jpaKA8LEx96ljjlTI0TJbA79at2FVz7s017brqCvWiV1DO7J+4ZsA5SdOqw5hMnlLk
- cpRUq3w6xjwkw==
-Message-ID: <80908399-941b-4504-922b-555ba9d0e43a@kernel.org>
-Date: Mon, 4 May 2026 22:47:00 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] dt-bindings: display: panel: Add Novatek NT37705
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Luca Weiss <luca.weiss@fairphone.com>, Conor Dooley <conor@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-References: <20260501-fp6-panel-v1-0-e09cb05651cc@fairphone.com>
- <20260501-fp6-panel-v1-1-e09cb05651cc@fairphone.com>
- <20260501-yogurt-wise-2a2884e3ec59@spud>
- <DI9XL1VYYTY7.19IRSM8VIDO53@fairphone.com>
- <a2444df4-abf1-4b56-8556-7efb238bc677@kernel.org>
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazolkn19011002.outbound.protection.outlook.com [52.103.1.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E08B10E874
+ for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 20:47:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Mh+XHRdHv3dHhp6sqv2ulqYD3gMSKNAFRor2HfXPWs4qig4JVcOjCfkwlmkMGYo46rzt6VwyKqigVzsZiINzgm+zJGXeMGfqgSi+gB4c7m28mjzorXuCbNvlWoAnuKp5OXvqR94uc6v1Lh+PtVn41ffFTcHzgID0fEB+M6G7pQ1kl5U/b79Z8PT1Pp/VTl3tUXiESaXDLyWQjY3850R1MKT968EUXSB6NPgFKSSYe6BEqGAE9XzyJM79WwUeZWnmnwekekAumuj+qohuf79b4T2JfiZNoocq2f4uUrpknA6Qr5NoOj5xyf1XoZLSm+UJ4IBP/yLuxivphlUgc/8K2g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0LP6SK+5/AuEhfqPrAdgnIj53zI/yHIsmpFrmORFqfk=;
+ b=QAriIOQozb7+YJ+CsZCeo1FweWOTdgZIj/2YLTTI+PQ4dOeRhD3VSjJCjsutFQcsDNykq5wZhkoZ9E/gL7ozraJ7BTK4RMTqDHNUYPwXd9vODZmcSt/F/S7Agvw4cmIilSim2ksEzztPWHBuqXzWZ8S3Ba53RWlzsORwIz9yKcGxw2CtZ22/UKalkKPbPAjCEmg5zQcQjtrmv9HqpvgLwXCUoRWKV82en5ERI7dpaHDT3CADS7gaR2fmhKRJXc3+72ncco8/5IXAoRHu0ibmWkVDQHbU6PjVqpdD8vAq8JTqwCucPjRdkrZzNBzCFjdKHc2+tq59/ASpzgksfCAW9Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0LP6SK+5/AuEhfqPrAdgnIj53zI/yHIsmpFrmORFqfk=;
+ b=acWmEwoFbZ0JOr4wWuYbKegbU3bKc1dBpk/BiDM/yzXAYMV7EqfJCDIU38uavpxUQxs8NwfodttstzzYz9/+v/RsTCrbv94orqIaHhAkZNcQUUDQ1pkwN5Sn4D9dkgpx1PUf3b7I6XPUlrus24k2VNH9lh/lrCM34YB5TXFJkOH8veJCp5C9gRRlKFR0m+wPkfEyRj7ASXSQ4FvR5H4KiFBYt6jjaQE1i/RV4v9vq3akFtL8WxwvBOoa21gT3MGbJodcb+jV7y86JlehH+EasR1QSL8KvrC8K0wluRk3IMZUrSoErPHhC5NKZurF+spulIDuuwrF6IjwCVJt6yN1MA==
+Received: from SN6PR02MB4157.namprd02.prod.outlook.com (2603:10b6:805:33::23)
+ by DS0PR02MB11087.namprd02.prod.outlook.com (2603:10b6:8:296::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Mon, 4 May
+ 2026 20:47:51 +0000
+Received: from SN6PR02MB4157.namprd02.prod.outlook.com
+ ([fe80::900:1ccf:2b1e:52b6]) by SN6PR02MB4157.namprd02.prod.outlook.com
+ ([fe80::900:1ccf:2b1e:52b6%6]) with mapi id 15.20.9870.023; Mon, 4 May 2026
+ 20:47:50 +0000
+From: Michael Kelley <mhklinux@outlook.com>
+To: "wei.liu@kernel.org" <wei.liu@kernel.org>, "tzimmermann@suse.de"
+ <tzimmermann@suse.de>, "longli@microsoft.com" <longli@microsoft.com>,
+ "jfalempe@redhat.com" <jfalempe@redhat.com>
+CC: "drawat.floss@gmail.com" <drawat.floss@gmail.com>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "mripard@kernel.org" <mripard@kernel.org>, "airlied@gmail.com"
+ <airlied@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>, "kys@microsoft.com"
+ <kys@microsoft.com>, "haiyangz@microsoft.com" <haiyangz@microsoft.com>,
+ "decui@microsoft.com" <decui@microsoft.com>, "ryasuoka@redhat.com"
+ <ryasuoka@redhat.com>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "linux-hyperv@vger.kernel.org"
+ <linux-hyperv@vger.kernel.org>, "stable@vger.kernel.org"
+ <stable@vger.kernel.org>
+Subject: RE: [PATCH v2 1/2] Drivers: hv: vmbus: Provide option to skip VMBus
+ unload on panic
+Thread-Topic: [PATCH v2 1/2] Drivers: hv: vmbus: Provide option to skip VMBus
+ unload on panic
+Thread-Index: AQHOTPk5OIur69i6iLB2lq0lHt5i57YbcNAg
+Date: Mon, 4 May 2026 20:47:50 +0000
+Message-ID: <SN6PR02MB415786A3C7D10C22FAB12E3ED4312@SN6PR02MB4157.namprd02.prod.outlook.com>
+References: <20260217182335.265585-1-mhklkml@zohomail.com>
+In-Reply-To: <20260217182335.265585-1-mhklkml@zohomail.com>
+Accept-Language: en-US
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <a2444df4-abf1-4b56-8556-7efb238bc677@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SN6PR02MB4157:EE_|DS0PR02MB11087:EE_
+x-ms-office365-filtering-correlation-id: 031378a7-eaf9-41a0-0cac-08deaa1e6831
+x-microsoft-antispam: BCL:0;
+ ARA:14566002|37011999003|8060799015|19110799012|8062599012|41001999006|461199028|15080799012|13091999003|51005399006|55001999006|2604032031799003|19101099003|31061999003|10035399007|440099028|3412199025|4302099013|12091999003|56899033|102099032|1602099012|40105399003;
+x-microsoft-antispam-message-info: =?us-ascii?Q?n+XAsjKQsUmS6RCa2DFZxLDDsuw06BTdoeno3gRI0JBpURXBImScmuBrRKB2?=
+ =?us-ascii?Q?L+uRGRuVytlY9KegyW4ngWhuKjsd2hzgZB4QQzh7Xz+ZTzzHj3wvdBID0/Bc?=
+ =?us-ascii?Q?0dQMqIMeAIGyYThpozH3g+5GSMY53KH0H23Z5sVmdaMpHKrahJsg761TANhJ?=
+ =?us-ascii?Q?s2Q8fnmqd/9EPUJfWAgU/MWEtOnqWm18cqQufiFv0ngWJobTPkZAeJs5bUiT?=
+ =?us-ascii?Q?aDJyThzzCGDUa7mpWO2UUNS0u/2kPPMgcf7mpkFg/5twEk/sJL/JzYVJMdQH?=
+ =?us-ascii?Q?pwrzLfX96NCEjfLX3aBcVjvAnAEFMOXXncKS+OQ61W4AN73sVcTDKt6HcvbN?=
+ =?us-ascii?Q?C2exLNIT7RMSih9/A/XBmljYFj9rYKjQ7Mr230nJAR400UDVnQB+Z+8oUm8i?=
+ =?us-ascii?Q?rfY9zlEe5zPSfd8mJ/mFaRhFZm/1GMONHnqe93G9ggFxkH2DS1PHph/fd5t7?=
+ =?us-ascii?Q?3vT86HW3CEs1FFy2hczEcJzwAe69rd8YAPqfnesOa5ePr6eukne91sSFpAgT?=
+ =?us-ascii?Q?0SficAHm4RirUeEgBo5zvm1nOezaxKsOIgz+14EsakTMbY++5I2wrWsA/25b?=
+ =?us-ascii?Q?WYWlcWXFx1jZkGm2y4LnugFi1exteyc6oNe5STnMeIFX7w86vitlLzpkCuo5?=
+ =?us-ascii?Q?ptojvDkTIJxehAiL9W3msvSi7/65J/qVUYv4ggiuMdZATTraw8qcP6ClMC1e?=
+ =?us-ascii?Q?KtfkO7vlmCkGeQWdcSQboOsuBYzzejisVC9HG2K1+wRz+XMHTemqiPuAMQpE?=
+ =?us-ascii?Q?MMBPXNmBVeP7WxVtgnz+Uos8vJbdDnwFO1nbG9IEKKZsXEk+xQSlbM8Pw1yz?=
+ =?us-ascii?Q?Rxuz+Mx5+Vgir66zJ8Z/ziHmOCbe2E445u1YkX/HeSX3WH0xmStXWsihQFb4?=
+ =?us-ascii?Q?O1N2fDlAlFT2SpZ1ZTPOAex4ONhZms+xnPe45a0fS6jcYv2lD9ACEszHFMqL?=
+ =?us-ascii?Q?zQIwReMWuqmNoQlospxycKLuaW4uw/tgVgMcYuHJ0senMeVgMqwydyeUY0XK?=
+ =?us-ascii?Q?gppF2rfk7b0jbon7/cS3mH77mV/oSEpRJhVXtgp4xNEtSecuPOvNYKlpx9wL?=
+ =?us-ascii?Q?QV2e4+6bzeP0Lu09TvdjuoF+D9iNLuM/QQOfn/2p9c25YtTaguu/ExUHsmEM?=
+ =?us-ascii?Q?4CNOCG0Aj+JVAg3pLpkap1+U0jgENbRPn7g5+7MXSw5sZ/quqyQuMxtbAXgq?=
+ =?us-ascii?Q?fZQOzeL7cP1Eq55JbFHjrzHWl5F3cXRkObhAJ87l8Y5Ov2wLYV5dHdvWxPM?=
+ =?us-ascii?Q?=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?hZSzPDoPIAA5AzLSWoxPaldpwb7XL5awbuazSuS360gxwFlkcvsoewLL7l+8?=
+ =?us-ascii?Q?Vz2upYtv99Kq5r3pX+Tv84bKKWJNs6jv13X1kxD0C+r0B4RJWfD1jyDWl0HH?=
+ =?us-ascii?Q?djjBKqKa2bzHlZ5m2OZFOHUGPL4Q5er/GILp2k98N4/jPVXj8Bjcb7BhpaUS?=
+ =?us-ascii?Q?g8mE3+KVEGIorDTr4fsrd2aWkv8EQWYnEISM15Y5+30TMipP7RukgUMlxivM?=
+ =?us-ascii?Q?1DHlriXsdm6FHvhAlAOMr1yCfhhxf8xxtDqeB1QAacA36uSPEBdIHZq5WS6P?=
+ =?us-ascii?Q?ddL0Y9QRt1sp/BVU4FHYIE1VIJYd//grWiO1b29jrH6ThulyfxkJwxliaQrt?=
+ =?us-ascii?Q?1zgPcmn831jKPS0YcaJwh2TdJBWYvYRagLr2UaXZb28LLKpWRW0gx4ANcARG?=
+ =?us-ascii?Q?0xvqoUSDxSulwF34unQnfrDQ7CLUmI63mSQqx45MPtIM9RhoNxcgcWRiQb0o?=
+ =?us-ascii?Q?c5P3g9beBpd0p6EaLRT8QBLNDp+8lZ4R09X7z/eexwR1FMeIjJgv+B5TZ6Kq?=
+ =?us-ascii?Q?3LmX//dTROabPvaN5b2Z95Sr/jWuAPE2Npw+lC25ANolcdWZyXR+n02L6Y9N?=
+ =?us-ascii?Q?fX1MhgAJvf4DcLPjRiZzU1IC/XGL+HUMKXM5vKkWbe3rYzMFeEt88f0tDuXG?=
+ =?us-ascii?Q?SXX3o/R9c9dt9qnMQEzMtlR7q1vdFUasJGsAbTelPn6Ov3At2YLYbGrVVHLA?=
+ =?us-ascii?Q?79zEJftbGeeJjNn5UMmJy4oQditRIoAuprUGPBxPFZQzH0y6+LKr+nwD8Nan?=
+ =?us-ascii?Q?8FIYGPJwoADogj52Z8hBUMgAnAeCyX1rNKQZWpcxw5N9L090MAnT3j1nfMoO?=
+ =?us-ascii?Q?SOO7IDGYsiumyVv/Qv+X+Oh4cwjBugo/w33P29XdpM7+dMdalTfckSm+Sg86?=
+ =?us-ascii?Q?BXlW7thrOeThNUgGK7KfF88YF7pVZFXYhxw4jpFiCDMpjOnrXCM0MmlYvk/y?=
+ =?us-ascii?Q?+gpjKGocFAxsnYLatJLgi9uRkRz6jw3UzUiTwhd0aiiHwm/M99fFV/+QaIGo?=
+ =?us-ascii?Q?oPRMKWmmgrV61aUxTDW/gbLszeQT6RBZY0miynLorf934TQSwPg8s9ZzrH4A?=
+ =?us-ascii?Q?uTlcNHFB70ogElmsnYQfykXb0cc7Pwr450i/3yTrz5zebJYj4CVrYwMIBrLk?=
+ =?us-ascii?Q?qJxSxGL3bf8A3RuWV4zHnKLGbiHhXHKpy5gzaXp9T1CdxODdOCnLIUdmzXRv?=
+ =?us-ascii?Q?DrCRYiISoNLKrfRBN1ozdXwSn1P2Ruwh5KvqGKqsOT42dhJ5pfQU3uIONpkz?=
+ =?us-ascii?Q?BuyNZnNWnFzXNDFOYC01Zjw3o8WCd0apwEFrlgu7HUn7YuF4DpD9sUvCt3Iz?=
+ =?us-ascii?Q?ksyzBsulr2LC1ECacZyNMSPaT9vYn5QJpr6xq3t0W4pUzY+eOjf1yL8BdCdb?=
+ =?us-ascii?Q?joDZ3hw=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR02MB4157.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 031378a7-eaf9-41a0-0cac-08deaa1e6831
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 May 2026 20:47:50.6462 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR02MB11087
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,69 +147,154 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 04/05/2026 22:45, Krzysztof Kozlowski wrote:
-> On 04/05/2026 15:36, Luca Weiss wrote:
->> Hi Conor,
->>
->> On Fri May 1, 2026 at 5:51 PM CEST, Conor Dooley wrote:
->>> On Fri, May 01, 2026 at 03:52:45PM +0200, Luca Weiss wrote:
->>>> Novatek NT37705 is a display driver IC used to drive AMOLED DSI panels.
->>>>
->>>> Describe it and the panel in the Fairphone (Gen. 6) (BJ631JHM-T71-D900
->>>> from BOE) using it.
->>>>
->>>> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
->>>> ---
->>>>  .../bindings/display/panel/novatek,nt37705.yaml    | 72 ++++++++++++++++++++++
->>>>  1 file changed, 72 insertions(+)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt37705.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt37705.yaml
->>>> new file mode 100644
->>>> index 000000000000..1c796599f6fc
->>>> --- /dev/null
->>>> +++ b/Documentation/devicetree/bindings/display/panel/novatek,nt37705.yaml
->>>> @@ -0,0 +1,72 @@
->>>> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
->>>> +%YAML 1.2
->>>> +---
->>>> +$id: http://devicetree.org/schemas/display/panel/novatek,nt37705.yaml#
->>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>>> +
->>>> +title: Novatek NT37705-based DSI display panels
->>>> +
->>>> +maintainers:
->>>> +  - Luca Weiss <luca.weiss@fairphone.com>
->>>> +
->>>> +description:
->>>> +  The Novatek NT37705 is a generic DSI Panel IC used to control AMOLED panels.
->>>> +
->>>> +allOf:
->>>> +  - $ref: panel-common.yaml#
->>>> +
->>>> +properties:
->>>> +  compatible:
->>>> +    contains:
->>>> +      const: boe,bj631jhm-t71-d900
->>>
->>> Compatible doesn't match the filename, nor does the commit message match
->>> what you've got here. Sounds like you're missing a fallback to
->>> $filename.
->>
->> The last times I was upstreaming panel drivers (Feb 2024 and June 2025),
->> this was the requested way of doing things.
-> 
-> So this was requested that time and is requested now. What is here
-> uncertain?
-> 
->>
->> Compatible being the company and model number making the actual panel
->> assembly (driver IC + touchscreen + glass etc), while the rest being
->> named after the driver IC manufacturer & number.
-> 
-> So exactly what was asked for...
+From: Michael Kelley <mhklkml@zohomail.com> Sent: Tuesday, February 17, 202=
+6 10:24 AM
+>=20
 
-Assuming "the rest" you mean the fallback. Just to remind - we talk here
-about the bindings, not drivers.
+Wei and Thomas --
 
-Best regards,
-Krzysztof
+This small patch series has been neglected. Patch 2 of the series is here [=
+1].
+
+Long Li < longli@microsoft.com> has given a Reviewed-by on this patch,
+and Jocelyn Falempe <jfalempe@redhat.com> has given a Reviewed-by
+on Patch 2 of the series, modulo a comment which I have incorporated.
+See [2]. But I neglected to add her R-b when I spun v2 of the series.
+
+Any reason this can't be picked up as a bug fix for 7.1? I just checked,
+and it applies cleanly to a recent linux-next (20260423). I'd suggest
+going through the hyperv tree, as these two patches should be kept
+together in sequence.
+
+Michael
+
+[1] https://lore.kernel.org/linux-hyperv/20260217182335.265585-2-mhklkml@zo=
+homail.com/
+[2] https://lore.kernel.org/linux-hyperv/a5372b72-8dc0-4f2d-ad5c-086f3e75ee=
+81@redhat.com/
+
+> Currently, VMBus code initiates a VMBus unload in the panic path so
+> that if a kdump kernel is loaded, it can start fresh in setting up its
+> own VMBus connection. However, a driver for the VMBus virtual frame
+> buffer may need to flush dirty portions of the frame buffer back to
+> the Hyper-V host so that panic information is visible in the graphics
+> console. To support such flushing, provide exported functions for the
+> frame buffer driver to specify that the VMBus unload should not be
+> done by the VMBus driver, and to initiate the VMBus unload itself.
+> Together these allow a frame buffer driver to delay the VMBus unload
+> until after it has completed the flush.
+>=20
+> Ideally, the VMBus driver could use its own panic-path callback to do
+> the unload after all frame buffer drivers have finished. But DRM frame
+> buffer drivers use the kmsg dump callback, and there are no callbacks
+> after that in the panic path. Hence this somewhat messy approach to
+> properly sequencing the frame buffer flush and the VMBus unload.
+>=20
+> Fixes: 3671f3777758 ("drm/hyperv: Add support for drm_panic")
+> Signed-off-by: Michael Kelley <mhklinux@outlook.com>
+> ---
+> Changes in v2: None
+>=20
+>  drivers/hv/channel_mgmt.c |  1 +
+>  drivers/hv/hyperv_vmbus.h |  1 -
+>  drivers/hv/vmbus_drv.c    | 25 ++++++++++++++++++-------
+>  include/linux/hyperv.h    |  3 +++
+>  4 files changed, 22 insertions(+), 8 deletions(-)
+>=20
+> diff --git a/drivers/hv/channel_mgmt.c b/drivers/hv/channel_mgmt.c
+> index 74fed2c073d4..5de83676dbad 100644
+> --- a/drivers/hv/channel_mgmt.c
+> +++ b/drivers/hv/channel_mgmt.c
+> @@ -944,6 +944,7 @@ void vmbus_initiate_unload(bool crash)
+>  	else
+>  		vmbus_wait_for_unload();
+>  }
+> +EXPORT_SYMBOL_GPL(vmbus_initiate_unload);
+>=20
+>  static void vmbus_setup_channel_state(struct vmbus_channel *channel,
+>  				      struct vmbus_channel_offer_channel *offer)
+> diff --git a/drivers/hv/hyperv_vmbus.h b/drivers/hv/hyperv_vmbus.h
+> index cdbc5f5c3215..5d3944fc93ae 100644
+> --- a/drivers/hv/hyperv_vmbus.h
+> +++ b/drivers/hv/hyperv_vmbus.h
+> @@ -440,7 +440,6 @@ void hv_vss_deinit(void);
+>  int hv_vss_pre_suspend(void);
+>  int hv_vss_pre_resume(void);
+>  void hv_vss_onchannelcallback(void *context);
+> -void vmbus_initiate_unload(bool crash);
+>=20
+>  static inline void hv_poll_channel(struct vmbus_channel *channel,
+>  				   void (*cb)(void *))
+> diff --git a/drivers/hv/vmbus_drv.c b/drivers/hv/vmbus_drv.c
+> index 6785ad63a9cb..97dfa529d250 100644
+> --- a/drivers/hv/vmbus_drv.c
+> +++ b/drivers/hv/vmbus_drv.c
+> @@ -69,19 +69,29 @@ bool vmbus_is_confidential(void)
+>  }
+>  EXPORT_SYMBOL_GPL(vmbus_is_confidential);
+>=20
+> +static bool skip_vmbus_unload;
+> +
+> +/*
+> + * Allow a VMBus framebuffer driver to specify that in the case of a pan=
+ic,
+> + * it will do the VMbus unload operation once it has flushed any dirty
+> + * portions of the framebuffer to the Hyper-V host.
+> + */
+> +void vmbus_set_skip_unload(bool skip)
+> +{
+> +	skip_vmbus_unload =3D skip;
+> +}
+> +EXPORT_SYMBOL_GPL(vmbus_set_skip_unload);
+> +
+>  /*
+>   * The panic notifier below is responsible solely for unloading the
+>   * vmbus connection, which is necessary in a panic event.
+> - *
+> - * Notice an intrincate relation of this notifier with Hyper-V
+> - * framebuffer panic notifier exists - we need vmbus connection alive
+> - * there in order to succeed, so we need to order both with each other
+> - * [see hvfb_on_panic()] - this is done using notifiers' priorities.
+>   */
+>  static int hv_panic_vmbus_unload(struct notifier_block *nb, unsigned lon=
+g val,
+>  			      void *args)
+>  {
+> -	vmbus_initiate_unload(true);
+> +	if (!skip_vmbus_unload)
+> +		vmbus_initiate_unload(true);
+> +
+>  	return NOTIFY_DONE;
+>  }
+>  static struct notifier_block hyperv_panic_vmbus_unload_block =3D {
+> @@ -2848,7 +2858,8 @@ static void hv_crash_handler(struct pt_regs *regs)
+>  {
+>  	int cpu;
+>=20
+> -	vmbus_initiate_unload(true);
+> +	if (!skip_vmbus_unload)
+> +		vmbus_initiate_unload(true);
+>  	/*
+>  	 * In crash handler we can't schedule synic cleanup for all CPUs,
+>  	 * doing the cleanup for current CPU only. This should be sufficient
+> diff --git a/include/linux/hyperv.h b/include/linux/hyperv.h
+> index dfc516c1c719..b0502a336eb3 100644
+> --- a/include/linux/hyperv.h
+> +++ b/include/linux/hyperv.h
+> @@ -1334,6 +1334,9 @@ int vmbus_allocate_mmio(struct resource **new, stru=
+ct
+> hv_device *device_obj,
+>  			bool fb_overlap_ok);
+>  void vmbus_free_mmio(resource_size_t start, resource_size_t size);
+>=20
+> +void vmbus_initiate_unload(bool crash);
+> +void vmbus_set_skip_unload(bool skip);
+> +
+>  /*
+>   * GUID definitions of various offer types - services offered to the gue=
+st.
+>   */
+> --
+> 2.25.1
+>=20
+
