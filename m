@@ -4,59 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B046FF885A
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 14:51:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 177B5CD3430
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 14:55:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCD9B10E3B4;
-	Mon,  4 May 2026 14:51:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BF9910E725;
+	Mon,  4 May 2026 14:55:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="HL5GL0jh";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="TQCzqL3+";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4331710E3B4
- for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 14:51:19 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 0A9BF1A3506;
- Mon,  4 May 2026 14:51:18 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id D090F5FD5F;
- Mon,  4 May 2026 14:51:17 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id C2E5411AD2AF0; 
- Mon,  4 May 2026 16:51:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1777906276; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=r9T7bUyGzyoRVnfKSGbxar4GZSx1vKcnwh8pHU4ippQ=;
- b=HL5GL0jhE9hANfIi6ToH9PM2OWe1L4GeEego7aeusW8VgXQdKS/1uMW7S8o8YCUkEvE8Pd
- bLdW8I9Tha4gF3TFMcTni0uKGkhImeDf2+LoA4SOUiJqYI1kZ7rBRJqtjYd1jXkXGPDZiK
- YULCIN7U/uARlCylAiBGOpealK9DaJtnjUIBfUs5eQ4TKAZNnTZ5/546ZwONu/4FAabAur
- 1mki7Wbv7UEgBvd7vsC+EpK1HeQCO+AunaIohYOSz2mhzw5QpEzLetJnlE8qcP31I/5eOd
- 6xtsIC5dOJLhjBTDq+sca7RENfXDxfU4PxNdOxZ7/80q9jPcJntmfPKtR3tLvQ==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Jyri Sarha <jsarha@ti.com>, Russell King <rmk+kernel@armlinux.org.uk>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Kory Maincent <kory.maincent@bootlin.com>
-Cc: Bajjuri Praneeth <praneeth@ti.com>, stable@vger.kernel.org, 
- thomas.petazzoni@bootlin.com, Russell King <linux@armlinux.org.uk>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-In-Reply-To: <20260428090457.121894-1-kory.maincent@bootlin.com>
-References: <20260428090457.121894-1-kory.maincent@bootlin.com>
-Subject: Re: [PATCH v2] drm/bridge: tda998x: Use __be32 for audio port OF
- property pointer
-Message-Id: <177790627096.423270.11432502656902185390.b4-ty@b4>
-Date: Mon, 04 May 2026 16:51:10 +0200
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C23D10E3EA;
+ Mon,  4 May 2026 14:55:39 +0000 (UTC)
+Received: from killaraus.ideasonboard.com
+ (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id AAE259C;
+ Mon,  4 May 2026 16:55:35 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1777906535;
+ bh=kQP0669SSkV4Pbo9r7KVWJedLhb9QWsm5WD+7wHDNU0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=TQCzqL3+kCjx4SA5fD1konBZlj2IajoWgIOf6zPBg8IO7fhPhIvu/SYYYr7cVKDI7
+ 3/dW/L/TO8mlgbRq2ax0skkFC1DQNkqdEXZbPLae94bHTmcvKdPyEYSDilbBbBmJhz
+ MCp/TuRjYZcIuWlrg+MoM6CpGRfi/fc2y7C5XNGs=
+Date: Mon, 4 May 2026 17:55:36 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, John Stultz <jstultz@google.com>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Michal Simek <michal.simek@amd.com>, Hui Pu <Hui.Pu@gehealthcare.com>,
+ Ian Ray <ian.ray@gehealthcare.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: [PATCH v4 02/11] drm/bridge: add of_drm_get_bridge_by_endpoint()
+Message-ID: <20260504145536.GA1455860@killaraus.ideasonboard.com>
+References: <20260504-drm-bridge-alloc-getput-panel_or_bridge-v4-0-b578c3daaf10@bootlin.com>
+ <20260504-drm-bridge-alloc-getput-panel_or_bridge-v4-2-b578c3daaf10@bootlin.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260504-drm-bridge-alloc-getput-panel_or_bridge-v4-2-b578c3daaf10@bootlin.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,19 +75,129 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Mon, May 04, 2026 at 12:45:05PM +0200, Luca Ceresoli wrote:
+> drm_of_find_panel_or_bridge() is widely used, but many callers pass NULL
+> into the @panel or the @bridge arguments, thus making a very partial usage
+> of this rather complex function.
+> 
+> Besides, the bridge returned in @bridge is not refcounted, thus making this
+> API unsafe when DRM bridge hotplug will be introduced.
+> 
+> Solve both issues for the cases of calls to drm_of_find_panel_or_bridge()
+> with a NULL @panel pointer by adding a new function that only looks for
+> bridges (and is thus much simpler) and increments the refcount of the
+> returned bridge.
+> 
+> The new function is identical to drm_of_find_panel_or_bridge() except it:
+> 
+>  - handles bridge refcounting: uses of_drm_find_and_get_bridge() instead of
+>    of_drm_find_bridge() internally to return a refcounted bridge
+>  - is simpler to use: just takes no @panel parameter, returns the pointer
+>    in the return value instead of a double pointer argument
+>  - has a simpler implementation: it is equal to
+>    drm_of_find_panel_or_bridge() after removing the code that becomes dead
+>    when @panel == NULL
+> 
+> Also add this function to drm_bridge.c and not drm_of.c because it returns
+> bridges only.
+> 
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> ---
+> Changes in v4:
+> - update function declaration in non-OF case
+> 
+> Changes in v2:
+> - return the bridge in the return value, not a double pointer
+> ---
+>  drivers/gpu/drm/drm_bridge.c | 41 +++++++++++++++++++++++++++++++++++++++++
+>  include/drm/drm_bridge.h     |  7 +++++++
+>  2 files changed, 48 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+> index 6fb71de6d22a..01f9e0426648 100644
+> --- a/drivers/gpu/drm/drm_bridge.c
+> +++ b/drivers/gpu/drm/drm_bridge.c
+> @@ -1582,6 +1582,47 @@ struct drm_bridge *of_drm_find_bridge(struct device_node *np)
+>  	return bridge;
+>  }
+>  EXPORT_SYMBOL(of_drm_find_bridge);
+> +
+> +/**
+> + * of_drm_get_bridge_by_endpoint - return DRM bridge connected to a port/endpoint
+> + * @np: device tree node containing output ports
+> + * @port: port in the device tree node, or -1 for the first port found
+> + * @endpoint: endpoint in the device tree node, or -1 for the first endpoint found
+> + *
+> + * Given a DT node's port and endpoint number, find the connected node and
+> + * return the associated drm_bridge device.
+> + *
+> + * The refcount of the returned bridge is incremented. Use drm_bridge_put()
+> + * when done with it.
+> + *
+> + * Returns a pointer to the connected drm_bridge, or a negative error on failure
+> + */
+> +struct drm_bridge *of_drm_get_bridge_by_endpoint(const struct device_node *np,
+> +						 int port, int endpoint)
+> +{
+> +	struct drm_bridge *bridge;
+> +
+> +	/*
+> +	 * of_graph_get_remote_node() produces a noisy error message if port
+> +	 * node isn't found and the absence of the port is a legit case here,
+> +	 * so at first we silently check whether graph presents in the
 
-On Tue, 28 Apr 2026 11:04:56 +0200, Kory Maincent wrote:
-> of_get_property() returns a pointer to big-endian (__be32) data, but
-> port_data in tda998x_get_audio_ports() was declared as const u32 *,
-> causing a sparse endianness type mismatch warning. Fix the declaration
-> to use const __be32 *.
+s/graph presents/graph is present/
 
-Applied, thanks!
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 
-[1/1] drm/bridge: tda998x: Use __be32 for audio port OF property pointer
-      commit: 2a46a9356ba7b1bdd741c8b41e5374edcd960557
+> +	 * device-tree node.
+> +	 */
+> +	if (!of_graph_is_present(np))
+> +		return ERR_PTR(-ENODEV);
+> +
+> +	struct device_node *remote __free(device_node) =
+> +		of_graph_get_remote_node(np, port, endpoint);
+> +	if (!remote)
+> +		return ERR_PTR(-ENODEV);
+> +
+> +	bridge = of_drm_find_and_get_bridge(remote);
+> +	if (!bridge)
+> +		return ERR_PTR(-EPROBE_DEFER);
+> +
+> +	return bridge;
+> +}
+> +EXPORT_SYMBOL_GPL(of_drm_get_bridge_by_endpoint);
+>  #endif
+>  
+>  /**
+> diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
+> index d6cd0f5af045..31e11a360c42 100644
+> --- a/include/drm/drm_bridge.h
+> +++ b/include/drm/drm_bridge.h
+> @@ -1327,6 +1327,8 @@ int drm_bridge_attach(struct drm_encoder *encoder, struct drm_bridge *bridge,
+>  #ifdef CONFIG_OF
+>  struct drm_bridge *of_drm_find_and_get_bridge(struct device_node *np);
+>  struct drm_bridge *of_drm_find_bridge(struct device_node *np);
+> +struct drm_bridge *of_drm_get_bridge_by_endpoint(const struct device_node *np,
+> +						 int port, int endpoint);
+>  #else
+>  static inline struct drm_bridge *of_drm_find_and_get_bridge(struct device_node *np)
+>  {
+> @@ -1336,6 +1338,11 @@ static inline struct drm_bridge *of_drm_find_bridge(struct device_node *np)
+>  {
+>  	return NULL;
+>  }
+> +static inline struct drm_bridge *of_drm_get_bridge_by_endpoint(const struct device_node *np,
+> +							       int port, int endpoint)
+> +{
+> +	return -ENODEV;
+> +}
+>  #endif
+>  
+>  static inline bool drm_bridge_is_last(struct drm_bridge *bridge)
 
-Best regards,
 -- 
-Luca Ceresoli <luca.ceresoli@bootlin.com>
+Regards,
 
+Laurent Pinchart
