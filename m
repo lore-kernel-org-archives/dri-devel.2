@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2B8DCD3427
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 20:11:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEBFBCD3436
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 20:11:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA2F310E858;
-	Mon,  4 May 2026 20:11:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBDBE10E85E;
+	Mon,  4 May 2026 20:11:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="QNxJWgQ9";
+	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="rNCF30sW";
 	dkim-atps=neutral
 Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5538610E857
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4525910E04B
  for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 20:11:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
  h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
  Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=fe-e1b5cab7be;
- t=1777925483; bh=gfAI0HScuKYPNHChmXTZDG5R10CcJ6qrZZTzTYJKqao=;
- b=QNxJWgQ9h54MKzt4LAkzZed4SJJeUx5R2i88YDpcN7s10Abe5q/wgcJoRqnsERK2Q1c2aN+OW
- XX92W/+VCVnYhFgSPyn82H/08ljyMl6LQKcYR979nRnqLryoKRcy5A+MBrWWiwcgjB8kZU+xTIz
- QvVUxVospW5y2Fudzgm9XPQoMigUM1aXmzCzhEHWltL2YEunZ0GjfvKh82cqCBYa1FPwxkgL2xf
- w55uoIiFe9dI+ghjjvDredp43tmFsMOkX94sJLOftFYH/rWz8uOZOkaB5BD7UzRULShEwXD7ppB
- Go41fEzKGfgLdcmvhDj/xJV31c+P7cV9JdFVm1FpdQLw==
-X-Forward-Email-ID: 69f8ef8804bb1dff846bb9ca
+ t=1777925483; bh=XGUigRl0dHn2l3h5bXexuTyn8UnpuWF+VIfFWcyqNco=;
+ b=rNCF30sWUCL1bX8adf5x5d2rlpX9K030iwKzOrobvID7IsgbUZH9AM4ZGsrcTJo5HHIshZOD1
+ 4XdP18Sz5WiwQcqZ6ImF3q4gU4kDqTnqHKD6suOR9q0srrHN3u9XjPG51/4GdVRRIREee+5BX3R
+ edRCxTVD+GIEsrq3KnSuBxoGnNhCRl9rTYkKC7gi4ZJgAf0C56ZzlthrlyhPCEJoFHcjH5fIBv7
+ t6YpJx1UQuOdTiXD3mBuQMdyn15e4gLPQpPp78jqWO4U3/BruCTtPHK0PxnZyUxqXnHz2IKgnqh
+ chSZ2SDjqPzJgu/yPZHnqrmTLfeN4pMldNfDwDsnt8xg==
+X-Forward-Email-ID: 69f8ef6b04bb1dff846bb8db
 X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
  149.28.215.223
 X-Forward-Email-Version: 2.7.7
@@ -41,9 +41,7 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Kevin Hilman <khilman@baylibre.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+ Simona Vetter <simona@ffwll.ch>
 Cc: Liu Ying <victor.liu@nxp.com>, Sandy Huang <hjc@rock-chips.com>,
  Andy Yan <andy.yan@rock-chips.com>, Chen-Yu Tsai <wens@kernel.org>,
  Christian Hewitt <christianshewitt@gmail.com>,
@@ -54,10 +52,9 @@ Cc: Liu Ying <victor.liu@nxp.com>, Sandy Huang <hjc@rock-chips.com>,
  linux-rockchip@lists.infradead.org, linux-amlogic@lists.infradead.org,
  linux-sunxi@lists.linux.dev, imx@lists.linux.dev,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v4 15/17] drm: bridge: dw_hdmi: Remove the empty
- dw_hdmi_setup_rx_sense()
-Date: Mon,  4 May 2026 19:10:52 +0000
-Message-ID: <20260504191059.275928-16-jonas@kwiboo.se>
+Subject: [PATCH v4 08/17] drm: bridge: dw_hdmi: Remove cec_notifier_mutex
+Date: Mon,  4 May 2026 19:10:45 +0000
+Message-ID: <20260504191059.275928-9-jonas@kwiboo.se>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260504191059.275928-1-jonas@kwiboo.se>
 References: <20260504191059.275928-1-jonas@kwiboo.se>
@@ -78,61 +75,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The dw_hdmi_setup_rx_sense() helper is empty and no longer needed after
-recent RXSENSE and HPD rework, remove it.
+With CEC phys addr invalidation moved away from the irq handler there is
+no longer a need for cec_notifier_mutex, remove it.
 
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
 ---
-v4: New patch
+v4: No change
+v3: No change
+v2: Collect r-b tag
 ---
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 5 -----
- drivers/gpu/drm/meson/meson_dw_hdmi.c     | 3 ---
- include/drm/bridge/dw_hdmi.h              | 2 --
- 3 files changed, 10 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 11 +----------
+ 1 file changed, 1 insertion(+), 10 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-index e3ebb0dfdaf2..60b887249eba 100644
+index 059f1d241fef..fc4f255c2a2f 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-@@ -2987,11 +2987,6 @@ static irqreturn_t dw_hdmi_hardirq(int irq, void *dev_id)
- 	return ret;
+@@ -189,7 +189,6 @@ struct dw_hdmi {
+ 	void (*enable_audio)(struct dw_hdmi *hdmi);
+ 	void (*disable_audio)(struct dw_hdmi *hdmi);
+ 
+-	struct mutex cec_notifier_mutex;
+ 	struct cec_notifier *cec_notifier;
+ 
+ 	hdmi_codec_plugged_cb plugged_cb;
+@@ -2476,11 +2475,8 @@ dw_hdmi_connector_detect(struct drm_connector *connector, bool force)
+ 
+ 	status = dw_hdmi_detect(hdmi);
+ 
+-	if (status == connector_status_disconnected) {
+-		mutex_lock(&hdmi->cec_notifier_mutex);
++	if (status == connector_status_disconnected)
+ 		cec_notifier_phys_addr_invalidate(hdmi->cec_notifier);
+-		mutex_unlock(&hdmi->cec_notifier_mutex);
+-	}
+ 
+ 	return status;
+ }
+@@ -2594,9 +2590,7 @@ static int dw_hdmi_connector_create(struct dw_hdmi *hdmi)
+ 	if (!notifier)
+ 		return -ENOMEM;
+ 
+-	mutex_lock(&hdmi->cec_notifier_mutex);
+ 	hdmi->cec_notifier = notifier;
+-	mutex_unlock(&hdmi->cec_notifier_mutex);
+ 
+ 	return 0;
+ }
+@@ -2910,10 +2904,8 @@ static void dw_hdmi_bridge_detach(struct drm_bridge *bridge)
+ {
+ 	struct dw_hdmi *hdmi = bridge->driver_private;
+ 
+-	mutex_lock(&hdmi->cec_notifier_mutex);
+ 	cec_notifier_conn_unregister(hdmi->cec_notifier);
+ 	hdmi->cec_notifier = NULL;
+-	mutex_unlock(&hdmi->cec_notifier_mutex);
  }
  
--void dw_hdmi_setup_rx_sense(struct dw_hdmi *hdmi, bool hpd, bool rx_sense)
--{
--}
--EXPORT_SYMBOL_GPL(dw_hdmi_setup_rx_sense);
--
- static irqreturn_t dw_hdmi_irq(int irq, void *dev_id)
- {
- 	struct dw_hdmi *hdmi = dev_id;
-diff --git a/drivers/gpu/drm/meson/meson_dw_hdmi.c b/drivers/gpu/drm/meson/meson_dw_hdmi.c
-index fef1702acb14..2a8756da569b 100644
---- a/drivers/gpu/drm/meson/meson_dw_hdmi.c
-+++ b/drivers/gpu/drm/meson/meson_dw_hdmi.c
-@@ -524,9 +524,6 @@ static irqreturn_t dw_hdmi_top_thread_irq(int irq, void *dev_id)
- 		if (stat & HDMITX_TOP_INTR_HPD_RISE)
- 			hpd_connected = true;
+ static enum drm_mode_status
+@@ -3316,7 +3308,6 @@ struct dw_hdmi *dw_hdmi_probe(struct platform_device *pdev,
  
--		dw_hdmi_setup_rx_sense(dw_hdmi->hdmi, hpd_connected,
--				       hpd_connected);
--
- 		drm_helper_hpd_irq_event(dw_hdmi->bridge->dev);
- 		drm_bridge_hpd_notify(dw_hdmi->bridge,
- 				      hpd_connected ? connector_status_connected
-diff --git a/include/drm/bridge/dw_hdmi.h b/include/drm/bridge/dw_hdmi.h
-index 8500dd4f99d8..a612b9fa6dbb 100644
---- a/include/drm/bridge/dw_hdmi.h
-+++ b/include/drm/bridge/dw_hdmi.h
-@@ -186,8 +186,6 @@ struct dw_hdmi *dw_hdmi_bind(struct platform_device *pdev,
+ 	mutex_init(&hdmi->mutex);
+ 	mutex_init(&hdmi->audio_mutex);
+-	mutex_init(&hdmi->cec_notifier_mutex);
+ 	spin_lock_init(&hdmi->audio_lock);
  
- void dw_hdmi_resume(struct dw_hdmi *hdmi);
- 
--void dw_hdmi_setup_rx_sense(struct dw_hdmi *hdmi, bool hpd, bool rx_sense);
--
- int dw_hdmi_set_plugged_cb(struct dw_hdmi *hdmi, hdmi_codec_plugged_cb fn,
- 			   struct device *codec_dev);
- void dw_hdmi_set_sample_non_pcm(struct dw_hdmi *hdmi, unsigned int non_pcm);
+ 	ddc_node = of_parse_phandle(np, "ddc-i2c-bus", 0);
 -- 
 2.54.0
 
