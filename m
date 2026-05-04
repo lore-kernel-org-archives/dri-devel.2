@@ -4,65 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65407FF885A
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 19:04:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A784FF885A
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 19:08:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBAC510E78C;
-	Mon,  4 May 2026 19:04:42 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [185.203.201.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 265F710E78C
- for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 19:04:40 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <mfe@pengutronix.de>)
- id 1wJyaF-0001jw-LA; Mon, 04 May 2026 21:03:59 +0200
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
- by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <mfe@pengutronix.de>) id 1wJyaC-000SKl-1r;
- Mon, 04 May 2026 21:03:57 +0200
-Received: from mfe by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
- (envelope-from <mfe@pengutronix.de>) id 1wJyaC-0000000Gfy7-3deA;
- Mon, 04 May 2026 21:03:56 +0200
-Date: Mon, 4 May 2026 21:03:56 +0200
-From: Marco Felsch <m.felsch@pengutronix.de>
-To: Liu Ying <victor.liu@nxp.com>, robh@kernel.org, krzk+dt@kernel.org, 
- conor+dt@kernel.org
-Cc: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
- Marek Vasut <marex@nabladev.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>,
- dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: display: bridge: ldb: Require reg property
- only for i.MX6SX/8MP LDBs
-Message-ID: <2mkih6id2cfqjfksfvvitzlcnyfz7r4rs4f7bhtvdhf7scwzue@bb4ucnfxa4l4>
-References: <20260329-fsl_ldb_schema_fix-v1-1-351372754bc0@nxp.com>
- <crqzju5cqhvmy5msxvuquydmnpb2ft2t3gsyr6qsre6ccqjvzz@46gfcrelczsr>
- <0d7c7403-4b77-42f3-82d6-eaf2be8e5b1e@nabladev.com>
- <excxf6kxwx44kepc22smvvnirptc4kxpubioxoto7nqleqhoiq@ymch4y6dd5n5>
- <bc7d5955-600a-48eb-b897-3928ace275a5@nabladev.com>
- <7hysu6kamrsltsfcp5hyx23o5nbqbds22jhv65266w2qmps6ft@4tpbs4gfnzx4>
- <afMnXQCRX4WEhxfu@raspi>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F79F10E80A;
+	Mon,  4 May 2026 19:08:17 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="nu/yXbXE";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fofdRfYl";
+	dkim-atps=neutral
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 693FC10E808
+ for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 19:08:15 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 644E2uht1187279
+ for <dri-devel@lists.freedesktop.org>; Mon, 4 May 2026 19:08:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=QzGN39/k9vpS2EcWVM+qBeoV72MYzkEJR6Q
+ UrJ9Mhpw=; b=nu/yXbXEAggVijSGVSH2hkK5whhv+yzflbOZRmeJM9IfWao+Q2c
+ Xoz1ddKSClBPYDIH1YAbNMXyLjxgBWYb7iTM8XeSbEyZoabZIMS/pR6l+An/Z1O+
+ nKs7DydhtrP7sL8aH7UM0TM8JSyYgtAx87oZqnTTR4/ROPSsDIQ4nCF6C9C7bkEo
+ riljkVYbYs49/0CW/pINQQnC/UvgDsftCrOZrAX35nr3XOAAzBO8wpddj/8P3rpS
+ EwaD5CHwx4rg2rPykIipZdkfqT4xL9GZICQTywKIb+H75na0Dacxb2dxo+tyJ3vh
+ zF1wJCJzvw59gA/e9kyeFrb2C0Zu/+HATkQ==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
+ [209.85.214.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dxvvg97cj-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 04 May 2026 19:08:14 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id
+ d9443c01a7336-2b9f5ac4e36so19684205ad.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 04 May 2026 12:08:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1777921693; x=1778526493;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=QzGN39/k9vpS2EcWVM+qBeoV72MYzkEJR6QUrJ9Mhpw=;
+ b=fofdRfYlQWOYtPa0vCr8uLFxpAxIkKHnPxhJ2SngbbN7+rS8Efm5QQc+fjKyji4dpq
+ lk8g74CY9ubu3pnpJSBFuC2jqUS/eYtiw4f3j6luzH/B13Ctmd7sHV4HDYeICL0O/drq
+ rTzzh0DrJqelRoKMymczK8k5ShmIzaEs3y1dCbw3BPPVPb7p/QJ/I9X5ctfKRY6/HNYZ
+ IsZACb8ljJz+JdCaE4D8rK9Cl9hwLQvVIgTkCAA5p3koMkvJl3lV6JoEaXCvoDlmcnWx
+ aYTdDUygv5ZPg3YGk/+7vOoA5WvACTJ/unP+krxjX4NqIsSAOcAKx+C+LVWB82YdVhF4
+ isuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777921693; x=1778526493;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=QzGN39/k9vpS2EcWVM+qBeoV72MYzkEJR6QUrJ9Mhpw=;
+ b=Rh9Y9mDKQAjfFkbHR7IzW6EjCibNHS6MW1clYq+Mveib9a4sfc4dHSkjvMLg87Xm+0
+ 0MWc7Dlbq2YT0jmVnObGESRZmxvYf6ZJNVlKuDP/oEpKJg1Mcz5ivqm+JyxRiLdSxK/u
+ MUSwHGnod2iX5/W5lIQSvNvZX8NygvNsysfJ5oaumKDL12M+3fzs7+v+jyznRcU7Tqe5
+ AAaI8/Bkh/9mKzmmBSEILvb+Kng7ZwsRRsvPJwPx08vg2b0krBQVXAHVfELYkjt/kYew
+ IrWkX97PAMVY/XU4KUMiHygptwoWNG4L/s1WHWGvvxghm4/ERAB76ktZOngwheHCDqlv
+ hOaQ==
+X-Gm-Message-State: AOJu0YzdZ+9hslTReEgsYZDgacUBjET2IFknyv/ps/ZGEqjLFC7NEa87
+ Z/p28F/Y9lA/cnOziq6Uv1MODdHHLNBWjqkJOQ+TpFKutT57aRe1lh1FaPxxRB3+U/gKOdu3Twr
+ cSeIV+ABp84QgZguQzmm7u1ork1vup3ni2shzNpaUOQyY8zEgUldo+WzKaxSwZ8vT1N09fpFOT+
+ r5m2A=
+X-Gm-Gg: AeBDiet4WrUT1jTavoJqccCCiZ+vu3R0IG3PZ/G9A3eMZx6M5LC21InnoJIXJMin7fR
+ jjX9wpfGJS7m6jC6+qm6t7lIsRU6lDIAXbWxbGhM6V6Vmp75xVUVxUPj/En/9LLELdvMJdeCuP6
+ KctWO3ssgMxZ9ZwTNpz012LYQDi5D4knumK4j2E8QXEStQe1mHsOgUWOhFN1hRnykvnotgoLlrs
+ kgQYn1ngw+sIx0U9EhcqcnUWWs7rHutZ7Cq6DhkrPrczsnp6bbXI8LCbVkpBNiq21xIgjSsDo8j
+ auSxZM2Xw1FMPYCWESbaR1lyfkIhTkNi0R1XivyULCcPsMP+M+8YvtBRblRQGL8HBtJ6cccgejE
+ Nt3sYTU6mfS3xAwfJ4QOOFPYcEIHEvYL3OLuS/ekJ0xM=
+X-Received: by 2002:a17:903:3c2e:b0:2b9:ff02:a15a with SMTP id
+ d9443c01a7336-2b9ff02aa03mr94424855ad.9.1777921692867; 
+ Mon, 04 May 2026 12:08:12 -0700 (PDT)
+X-Received: by 2002:a17:903:3c2e:b0:2b9:ff02:a15a with SMTP id
+ d9443c01a7336-2b9ff02aa03mr94424425ad.9.1777921692207; 
+ Mon, 04 May 2026 12:08:12 -0700 (PDT)
+Received: from localhost ([2601:1c0:5000:d5c:4ec8:83f5:8254:6891])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2b9cae1e293sm119619435ad.45.2026.05.04.12.08.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 04 May 2026 12:08:11 -0700 (PDT)
+From: Rob Clark <robin.clark@oss.qualcomm.com>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Bill Wendling <morbo@google.com>, David Airlie <airlied@gmail.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Justin Stitt <justinstitt@google.com>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ linux-kernel@vger.kernel.org (open list),
+ llvm@lists.linux.dev (open list:CLANG/LLVM BUILD
+ SUPPORT:Keyword:\b(?i:clang|llvm)\b), 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maxime Ripard <mripard@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+ Sean Paul <sean@poorly.run>, Simona Vetter <simona@ffwll.ch>,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v3 00/16] drm/msm: Add PERFCNTR_CONFIG ioctl
+Date: Mon,  4 May 2026 12:06:43 -0700
+Message-ID: <20260504190751.61052-1-robin.clark@oss.qualcomm.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <afMnXQCRX4WEhxfu@raspi>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: mfe@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: dri-devel@lists.freedesktop.org
+X-Proofpoint-ORIG-GUID: cSR2QwMLPUfQxxtwMHdukgoocNTZxvDF
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA0MDE3NSBTYWx0ZWRfX2YJXChS7zP2y
+ lb1nQtT46/z4yX4Eoou2fJ8sL2gGH8Ga5i3DXTJBZi8IgDhoB5hNeM8wkjapBU9lGOWXKgxLn1d
+ 36kTZKsNwc1kYR3xE8fUNfvEKd28TkXFUY/B4iayRBbyDtRwjoskh+PBj9JOJjDkznboYiT21Wb
+ qfM4L3zzmImZK2sN2sI0ec+KkXZk8ewEmhdUPaxXGjYxao87H39Kd4SOyNi4K9DlMiwUMwwNZpN
+ m+QIlAAweTVmw9Px32ygicVdHfMLwRZ3IvF7ivUeZSU4NeosvqJVJkrj5hKHSrNjAAPsnIV+632
+ 9L49B7srLJuyuFwo3SJrvRwq7ENO5ijLPE00rjOP/TXbhW3sNvWpxsY8Hi8XVnLxZ05iQbaI6Ze
+ 1jj1Fen9nmhAIu+TjatytD4DsVqGOSOhth1Y0VmViaEhhvcyX5ika+cUCdReCDhsoF635OtTJec
+ 9zxrpikmp88zTDE54QA==
+X-Authority-Analysis: v=2.4 cv=K+AS2SWI c=1 sm=1 tr=0 ts=69f8ee9e cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=xqWC_Br6kY4A:10 a=NGcC8JguVDcA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=3WHJM1ZQz_JShphwDgj5:22 a=e5mUnYsNAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=j6mXroKpKqDHY7BEWhIA:9 a=uG9DUKGECoFWVXl0Dc02:22 a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-GUID: cSR2QwMLPUfQxxtwMHdukgoocNTZxvDF
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-04_05,2026-04-30_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 spamscore=0 adultscore=0 clxscore=1015
+ priorityscore=1501 bulkscore=0 impostorscore=0 lowpriorityscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2605040175
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,136 +148,129 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 26-04-30, Liu Ying wrote:
-> On Thu, Apr 16, 2026 at 01:20:20PM +0300, Laurentiu Palcu wrote:
-> > Hi Marco, Marek, Ying,
-> > 
-> > On Tue, Mar 31, 2026 at 01:22:19AM +0200, Marek Vasut wrote:
-> > > On 3/30/26 8:29 AM, Marco Felsch wrote:
-> > > 
-> > > Hello Marco,
-> > > 
-> > > > > > On 26-03-29, Liu Ying wrote:
-> > > > > > > LDB's parent device could be a syscon which doesn't allow a reg property
-> > > > > > > to be present in it's child devices, e.g., NXP i.MX93 Media blk-ctrl
-> > > > > > > has a child device NXP i.MX93 Parallel Display Format Configuration(PDFC)
-> > > > > > > without a reg property(LDB is also a child device of the Media blk-ctrl).
-> > > > > > > To make the LDB schema be able to describe LDBs without the reg property
-> > > > > > > like i.MX93 LDB, require the reg property only for i.MX6SX/8MP LDBs.
-> > > > > > 
-> > > > > > NACK, we want to describe the HW and from HW PoV the LDB is and was
-> > > > > > always part of a syscon. This is the case for all SoCs i.MX6SX/8MP/93.
-> > > > > > 
-> > > > > > > Fixes: 8aa2f0ac08d3 ("dt-bindings: display: bridge: ldb: Add check for reg and reg-names")
-> > > > > > 
-> > > > > > Therefore I would just revert this patch completely.
-> > > > > Last time, I pointed out the hardware is part of syscon, but as a subnode
-> > > > > and therefore with reg properties. What is the problem there ?
-> > > > 
-> > > > To quote the DT spec here:
-> > > > 
-> > > > """
-> > > > The reg property describes the address of the device’s resources within
-> > > > the address space defined by its parent bus.
-> > > > """
-> > > 
-> > > That parent bus would be the syscon, wouldn't it.
-> > > 
-> > > > The parent bus is not the parent iomuxc (i.MX6X) nor the blk-ctrl
-> > > > (i.MX8MP/93) device. Therefore this is wrong IMHO and should be dropped.
-> > > 
-> > > How so ? What is the parent bus ?
-> > 
-> > It looks like the discussion is stuck on 2 things:
-> > 
-> > 1. DT spec argument hasn't been fully addressed: Marek asked "what is
-> >    the parent bus if not the syscon?". That question is still open. Syscon
-> >    children carrying 'reg' to express their offset within the parent's MMIO
-> >    range is a common upstream pattern. Marco, can you explain why syscon
-> >    doesn't qualify as the address space provider here?
+Add a new PERFCNTR_CONFIG ioctl, serving two functions:
 
-Syscon is no bus, this is a special MFD device. TBH I've never seen a
-dt-binding which makes use of the 'reg' property to abstract the
-different MFD functionalities. E.g. the imx6qdl.dtsi anatop syscon
-doesn't make use of the reg property either. Instead the different
-drivers ensure that only the required registers and bits are touched.
+1. Global counter collection (restricted to perfmon_capable()) using the
+   MSM_PERFCNTR_STREAM flag.  Global counter sampling is, global, across
+   contexts.  Only a single global counter stream is allowed at a time.
+2. Reserve counters for local counter collection.  Local counter
+   collection is local to a cmdstream (GEM_SUBMIT), and as such is
+   allowed in all processes without additional privileges.
 
-The LDB is no special device here except for the fact that NXP bundled
-the LDB bits into two dedicated registers of the syscon (iomux-gpr for
-imx6sx and blkctrl for imx8mp,imx93). Unfortunately this wasn't possible
-for the other IPs and therefore the LDB is rather the exception than the
-rule.
+The kernel enforces that counters assigned for global counter collection
+do not conflict with counters reserved for local counter collection, and
+visa versa.  Since local counter collection is scoped to a single cmd-
+stream, multiple UMD processes can overlap in their reserved counters.
+But cannot conflict with global counter usage.
 
-> > 2. Regardless of (1), removing 'reg' from the imx6sx/imx8mp DT nodes is
-> >    an ABI break, those nodes are already upstream. Ying's patch is
-> >    the minimal fix that respects that constraint while unblocking imx93.
-> 
-> Yes, I don't want to break ABI by removing the 'reg' property from i.MX6SX
-> and i.MX8MP LDB DT nodes.  And, I don't see a way to remove it, which
-> doesn't break ABI.
+In the case of local counter collection, the UMD is still responsible
+for programming the corresponding SELect registers, and sampling the
+counter values, from it's cmdstream.  But by performing the reservation
+step, the UMD protects itself from the kernel trying to use the same
+SEL/counter regs for global counter collection.
 
-We're speaking about commit 8aa2f0ac08d3 ("dt-bindings: display: bridge:
-ldb: Add check for reg and reg-names"). This commit enforces the 'reg'
-property and is part of Linux since 7.0-rc1. So there shouldn't be an
-issue with the backward compatiblity.
+For global counter collection, the kernel programs SEL regs, and sets up
+a timer for counter sampling.  Userspace reads out the sampled values
+from the returned perfcntr stream fd.  Releasing the global perfcntr
+stream is simply a matter of close()ing the fd.
 
-It's up to the DT maintainers to make a decision if it's allowed to
-revert the patch which marks the reg property as required, therefore I
-added them explicit to the To:.
+The final two patches wire up the needed support for global counter
+stream collection while IFPC is active, and drops disabling of IFPC.
 
-Regarding the actual DT node name: There are examples which renamed the
-node in a non backward compatible way, e.g. the remove of the leading
-zeros from @0003000. This is also up to the DT maintainers.
+The mesa side of this is at:
+https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/41158
 
-> Laurentiu, Marek, can you please provide your A-b or R-b tags if you are
-> fine with my patch?  I see your positive opinion on the idea of this
-> patch, based on previous discussion[1][2].
-> 
-> [1] https://lore.kernel.org/all/p7glzm344tiu76zm5aa7qq4lswdcjuqlqel3hl3tr3s2cllltj@i2eyzuux4cj3/
-> [2] https://lore.kernel.org/all/a4a5284d-6004-46c5-b5a3-f8eb4d9b3680@nabladev.com/
-> 
-> > 
-> > Marco, a broader cleanup of 'reg' from imx6sx/imx8mp would need to be a
-> > separate patch with an explicit plan for the ABI impact... So, for now, my
-> > suggestion is to move forward with Ying's solution.
-> 
-> I'm open to any better idea than my patch to support i.MX93 LDB in DT.
-> If there is any, I'd like to see plan/discussion/patch for that.
+igt test at:
+https://gitlab.freedesktop.org/robclark/igt-gpu-tools/-/commits/perfcntrs
 
-Honestly I don't know why this is such a big deal here. I get the fact
-that you want to move forward with the i.MX93 but this patch complicates
-the handling for something which shouldn't be that complicated. By
-removing the complexity we make more maintainable.
+Changes in v3:
+- Fix loop counter issue spotted by Claude review
+- Add MSM_PERFCNTR_UPDATE flag to ask kernel to return the actual # of
+  available counters in case of -E2BIG
+- Proper barriers for modifying pwrup_reglist
+- Link to v2: https://lore.kernel.org/all/20260424151140.104093-1-robin.clark@oss.qualcomm.com
 
-There are two points:
- - Don't mark the 'reg' property as required -> revert commit
-   8aa2f0ac08d3 (see above explanation)
- - Fix the DT nodes incl. the names
+Changes in v2:
+- Rework makefile magic based on Dmitry's suggestion, and add a2xx/a5xx
+  perfcntr tables (although only a6xx+ is supported at this point)
+- Fix compile error for compilers that are picky about a struct that
+  only contains a flex array
+- Drop a6xx_idle() under gpu->lock in a6xx_perfcntr_configure(), replace
+  with perfcntr_fence that sel_worker can check
+- Add a7xx+ pwrup_reglist support for restoring SELect regs on exit from
+  IFPC.  (a6xx doesn't support IFPC, and the pwrup_reglist works a bit
+  differently)
+- Stop disabling IFPC when global counter stream is active.
+- Link to v1: https://lore.kernel.org/all/20260420222621.417276-1-robin.clark@oss.qualcomm.com/
 
-I can provide these patches if you want, unfortunately I'm deep in
-project related work and had no time yet to do this :/
+Rob Clark (16):
+  drm/msm: Remove obsolete perf infrastructure
+  drm/msm: Allow CAP_PERFMON for setting SYSPROF
+  drm/msm/adreno: Sync registers from mesa
+  drm/msm/registers: Sync gen_header.py from mesa
+  drm/msm/registers: Add perfcntr json
+  drm/msm: Add a6xx+ perfcntr tables
+  drm/msm: Add sysprof accessors
+  drm/msm/a6xx: Add yield & flush helper
+  drm/msm: Add per-context perfcntr state
+  drm/msm: Add basic perfcntr infrastructure
+  drm/msm/a6xx+: Add support to configure perfcntrs
+  drm/msm/a8xx: Add perfcntr flush sequence
+  drm/msm: Add PERFCNTR_CONFIG ioctl
+  drm/msm/a6xx: Increase pwrup_reglist size
+  drm/msm/a6xx: Append SEL regs to dyn pwrup reglist
+  drm/msm/a6xx: Allow IFPC with perfcntr stream
 
-Regards,
-  Marco
-
-
-
-> 
-> > 
-> > -- 
-> > Thanks,
-> > Laurentiu
-> 
-> -- 
-> Regards,
-> Liu Ying
-> 
+ drivers/gpu/drm/msm/Makefile                  |   27 +-
+ drivers/gpu/drm/msm/adreno/a2xx_gpu.c         |    7 -
+ drivers/gpu/drm/msm/adreno/a3xx_gpu.c         |   16 -
+ drivers/gpu/drm/msm/adreno/a4xx_gpu.c         |    3 -
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c         |   16 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c         |   10 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c         |  217 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h         |   15 +-
+ drivers/gpu/drm/msm/adreno/a6xx_preempt.c     |    2 +-
+ drivers/gpu/drm/msm/adreno/a8xx_gpu.c         |   33 +-
+ drivers/gpu/drm/msm/adreno/a8xx_preempt.c     |    2 +-
+ drivers/gpu/drm/msm/adreno/adreno_device.c    |    8 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c       |    7 +-
+ drivers/gpu/drm/msm/msm_debugfs.c             |    6 -
+ drivers/gpu/drm/msm/msm_drv.c                 |    2 +-
+ drivers/gpu/drm/msm/msm_drv.h                 |   13 +-
+ drivers/gpu/drm/msm/msm_gpu.c                 |  119 +-
+ drivers/gpu/drm/msm/msm_gpu.h                 |  104 +-
+ drivers/gpu/drm/msm/msm_perf.c                |  235 --
+ drivers/gpu/drm/msm/msm_perfcntr.c            |  638 +++++
+ drivers/gpu/drm/msm/msm_perfcntr.h            |  155 ++
+ drivers/gpu/drm/msm/msm_ringbuffer.h          |    2 +
+ drivers/gpu/drm/msm/msm_submitqueue.c         |    3 +-
+ .../msm/registers/adreno/a2xx_perfcntrs.json  |  109 +
+ drivers/gpu/drm/msm/registers/adreno/a3xx.xml |    8 +-
+ drivers/gpu/drm/msm/registers/adreno/a5xx.xml |  141 +-
+ .../msm/registers/adreno/a5xx_perfcntrs.json  |  128 +
+ drivers/gpu/drm/msm/registers/adreno/a6xx.xml | 1300 ++++++-----
+ .../msm/registers/adreno/a6xx_descriptors.xml |   71 +-
+ .../drm/msm/registers/adreno/a6xx_enums.xml   |    3 +
+ .../msm/registers/adreno/a6xx_perfcntrs.json  |  105 +
+ .../msm/registers/adreno/a7xx_perfcntrs.json  |  228 ++
+ .../msm/registers/adreno/a8xx_descriptors.xml |   96 +-
+ .../msm/registers/adreno/a8xx_perfcntrs.json  |  240 ++
+ .../msm/registers/adreno/a8xx_perfcntrs.xml   | 1929 +++++++++++++++
+ .../msm/registers/adreno/adreno_common.xml    |   42 +
+ .../drm/msm/registers/adreno/adreno_pm4.xml   |   50 +-
+ drivers/gpu/drm/msm/registers/gen_header.py   | 2079 +++++++++--------
+ include/uapi/drm/msm_drm.h                    |   48 +
+ 39 files changed, 6005 insertions(+), 2212 deletions(-)
+ delete mode 100644 drivers/gpu/drm/msm/msm_perf.c
+ create mode 100644 drivers/gpu/drm/msm/msm_perfcntr.c
+ create mode 100644 drivers/gpu/drm/msm/msm_perfcntr.h
+ create mode 100644 drivers/gpu/drm/msm/registers/adreno/a2xx_perfcntrs.json
+ create mode 100644 drivers/gpu/drm/msm/registers/adreno/a5xx_perfcntrs.json
+ create mode 100644 drivers/gpu/drm/msm/registers/adreno/a6xx_perfcntrs.json
+ create mode 100644 drivers/gpu/drm/msm/registers/adreno/a7xx_perfcntrs.json
+ create mode 100644 drivers/gpu/drm/msm/registers/adreno/a8xx_perfcntrs.json
+ create mode 100644 drivers/gpu/drm/msm/registers/adreno/a8xx_perfcntrs.xml
 
 -- 
-#gernperDu 
-#CallMeByMyFirstName
+2.54.0
 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | https://www.pengutronix.de/ |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-9    |
