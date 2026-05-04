@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9B3BCD3430
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 14:06:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5100DFF885A
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 14:06:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E3F110E710;
-	Mon,  4 May 2026 14:06:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B49010E704;
+	Mon,  4 May 2026 14:06:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="uC+9FDDi";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="GuOj7Pi2";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66FD710E704;
- Mon,  4 May 2026 14:06:46 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 28BCF43614;
- Mon,  4 May 2026 14:06:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1CF2C2BCC4;
- Mon,  4 May 2026 14:06:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1777903606;
- bh=cR3+M8+MbJophmFoBl14/b26Yubs7IG3Cr6RDYbMG/Y=;
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2CC9F10E704
+ for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 14:06:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1777903606;
+ bh=qVJOyOLH9/NxwfpNmF2vdpgh3hpDuahvLa0CUv+Niro=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=uC+9FDDieYcqacMDrzgYLFSBaM3Wz67pdfEiJsLu/hGETxAknsflNGHWCW4tt2F5s
- qOq2zcZfqKHvgQzrkUg2roCPVV01ADnvFjI7kfQvTW+wwt+QBqll+oYF1s9+JGa7nP
- Faf6cuUrNiNd5TmtBBCQ8roJ9z4gtlujnQ1siyzc=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
- Arjan van de Ven <arjan@linux.intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH 7.0 299/307] drm/amdgpu: fix zero-size GDS range init on RDNA4
-Date: Mon,  4 May 2026 15:53:04 +0200
-Message-ID: <20260504135154.031873530@linuxfoundation.org>
+ b=GuOj7Pi2k583hDCDJwTV2SRyh9cmm2rzdummX/BUhKYLmQssx5QQD96Ta1MC86ICp
+ Mq48I6pCYjRYkv/ZBMC9vvm4xcIiJIDVypV7Cf76/gCeVEdXB1rgium3fYDjXfbvGe
+ rcBLbtjzJaYJOFPlJSNuiGWaGGktxDvv6SVHV3QZxOACu50csRtN1x5I9kbPEnQlFT
+ D/KVCtVFQLIEoxmwHTRnv9m3UA0qpkeyiRHFi+VZ0vDIHw5N762dbFNbF9HOaaciv8
+ dHoAP8fscrKo1GcWeAl9oEcuKsv/5KlBAYH2azjxoWDtF/OayCsOyGDe7DhWHbq2Ex
+ K/lESGA1R4rZQ==
+Received: from archlinux (unknown [100.64.1.80])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: leandrohrb)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 9C73917E1318;
+ Mon,  4 May 2026 16:06:43 +0200 (CEST)
+From: Leandro Ribeiro <leandro.ribeiro@collabora.com>
+To: dri-devel@lists.freedesktop.org
+Cc: airlied@gmail.com, daniels@collabora.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ pekka.paalanen@collabora.com, simona@ffwll.ch, tzimmermann@suse.de,
+ ville.syrjala@linux.intel.com, linux-kernel@vger.kernel.org
+Subject: [PATCH v2 1/2] drm/drm_blend: allow blend mode property without
+ PREMULTI
+Date: Mon,  4 May 2026 11:06:29 -0300
+Message-ID: <20260504140630.68707-2-leandro.ribeiro@collabora.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260504135142.814938198@linuxfoundation.org>
-References: <20260504135142.814938198@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+In-Reply-To: <20260504140630.68707-1-leandro.ribeiro@collabora.com>
+References: <20260504140630.68707-1-leandro.ribeiro@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,65 +62,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-7.0-stable review patch.  If anyone has any objections, please let me know.
+Some hardware only supports the COVERAGE blend mode and lacks PREMULTI
+support entirely. DRM currently requires that PREMULTI is present when
+creating a blend mode property, which prevents such drivers from being
+properly upstreamed.
 
-------------------
+Remove this restriction and allow drivers to create a blend mode
+property without PREMULTI, enabling support for hardware that
+implements only COVERAGE blend mode.
 
-From: Arjan van de Ven <arjan@linux.intel.com>
+This does not introduce a regression, as no existing upstream drivers
+expose only COVERAGE. However, userspace that wants to support such kind
+of hardware in the future will have to check the supported blend modes
+instead of assuming PREMULTI is always supported.
 
-commit 095a8b0ad3c3b5cdc3850d961adb8a8f735220bb upstream.
-
-RDNA4 (GFX 12) hardware removes the GDS, GWS, and OA on-chip memory
-resources. The gfx_v12_0 initialisation code correctly leaves
-adev->gds.gds_size, adev->gds.gws_size, and adev->gds.oa_size at
-zero to reflect this.
-
-amdgpu_ttm_init() unconditionally calls amdgpu_ttm_init_on_chip() for
-each of these resources regardless of size. When the size is zero,
-amdgpu_ttm_init_on_chip() forwards the call to ttm_range_man_init(),
-which calls drm_mm_init(mm, 0, 0). drm_mm_init() immediately fires
-DRM_MM_BUG_ON(start + size <= start) -- trivially true when size is
-zero -- crashing the kernel during modprobe of amdgpu on an RX 9070 XT.
-
-Guard against this by returning 0 early from
-amdgpu_ttm_init_on_chip() when size_in_page is zero. This skips TTM
-resource manager registration for hardware resources that are absent,
-without affecting any other GPU type.
-
-DRM_MM_BUG_ON() only asserts if CONFIG_DRM_DEBUG_MM is enabled in
-the kernel config.  This is apparently rarely enabled as these chips
-have been in the market for over a year and this issue was only reported
-now.
-
-Link: https://lore.kernel.org/all/bug-221376-2300@https.bugzilla.kernel.org%2F/
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=221376
-Oops-Analysis: http://oops.fenrus.org/reports/bugzilla.korg/221376/report.html
-Assisted-by: GitHub Copilot:Claude Sonnet 4.6 linux-kernel-oops-x86.
-Signed-off-by: Arjan van de Ven <arjan@linux.intel.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 5719ce5865279cad4fd5f01011fe037168503f2d)
-Cc: stable@vger.kernel.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Leandro Ribeiro <leandro.ribeiro@collabora.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c |    3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/drm_blend.c | 21 ++++++++++++++-------
+ 1 file changed, 14 insertions(+), 7 deletions(-)
 
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -75,6 +75,9 @@ static int amdgpu_ttm_init_on_chip(struc
- 				    unsigned int type,
- 				    uint64_t size_in_page)
- {
-+	if (!size_in_page)
-+		return 0;
+diff --git a/drivers/gpu/drm/drm_blend.c b/drivers/gpu/drm/drm_blend.c
+index 1f3af27d2418..5ea0767f1cf5 100644
+--- a/drivers/gpu/drm/drm_blend.c
++++ b/drivers/gpu/drm/drm_blend.c
+@@ -563,10 +563,10 @@ EXPORT_SYMBOL(drm_atomic_normalize_zpos);
+ /**
+  * drm_plane_create_blend_mode_property - create a new blend mode property
+  * @plane: drm plane
+- * @supported_modes: bitmask of supported modes, must include
+- *		     BIT(DRM_MODE_BLEND_PREMULTI). Current DRM assumption is
+- *		     that alpha is premultiplied, and old userspace can break if
+- *		     the property defaults to anything else.
++ * @supported_modes: bitmask of supported modes. When
++ *		     BIT(DRM_MODE_BLEND_PREMULTI) is included, it will be used
++ *		     as the default. Otherwise, the default will fallback to one
++ *		     of the supported modes.
+  *
+  * This creates a new property describing the blend mode.
+  *
+@@ -599,13 +599,13 @@ int drm_plane_create_blend_mode_property(struct drm_plane *plane,
+ 		{ DRM_MODE_BLEND_PREMULTI, "Pre-multiplied" },
+ 		{ DRM_MODE_BLEND_COVERAGE, "Coverage" },
+ 	};
++	unsigned int default_mode;
+ 	unsigned int valid_mode_mask = BIT(DRM_MODE_BLEND_PIXEL_NONE) |
+ 				       BIT(DRM_MODE_BLEND_PREMULTI)   |
+ 				       BIT(DRM_MODE_BLEND_COVERAGE);
+ 	int i;
+ 
+-	if (WARN_ON((supported_modes & ~valid_mode_mask) ||
+-		    ((supported_modes & BIT(DRM_MODE_BLEND_PREMULTI)) == 0)))
++	if (WARN_ON((supported_modes & ~valid_mode_mask)))
+ 		return -EINVAL;
+ 
+ 	prop = drm_property_create(dev, DRM_MODE_PROP_ENUM,
+@@ -630,7 +630,14 @@ int drm_plane_create_blend_mode_property(struct drm_plane *plane,
+ 		}
+ 	}
+ 
+-	drm_object_attach_property(&plane->base, prop, DRM_MODE_BLEND_PREMULTI);
++	if (supported_modes & BIT(DRM_MODE_BLEND_PREMULTI))
++		default_mode = DRM_MODE_BLEND_PREMULTI;
++	else if (supported_modes & BIT(DRM_MODE_BLEND_COVERAGE))
++		default_mode = DRM_MODE_BLEND_COVERAGE;
++	else
++		default_mode = DRM_MODE_BLEND_PIXEL_NONE;
 +
- 	return ttm_range_man_init(&adev->mman.bdev, type,
- 				  false, size_in_page);
- }
-
++	drm_object_attach_property(&plane->base, prop, default_mode);
+ 	plane->blend_mode_property = prop;
+ 
+ 	return 0;
+-- 
+2.54.0
 
