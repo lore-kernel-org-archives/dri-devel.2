@@ -4,67 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FC96FF885A
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 15:03:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F993FF885A
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 15:05:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 695A010E73D;
-	Mon,  4 May 2026 15:03:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9710810E74C;
+	Mon,  4 May 2026 15:05:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="XkIKiM0a";
+	dkim=pass (2048-bit key; unprotected) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="OTqqXmw/";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25B0E10E74A
- for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 15:03:48 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 814344E42BB3;
- Mon,  4 May 2026 15:03:46 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 490865FD5F;
- Mon,  4 May 2026 15:03:46 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id E428E11AD030A; 
- Mon,  4 May 2026 17:03:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1777907024; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=2UgC8WCIU3g3zHl7eHsXA9bSH7zl0jYSgtkDdHvTGK4=;
- b=XkIKiM0aiss5klmOs9rA4cy7qNODpkMXkOD6DEJTfXTUPx3dV8Kk7o77Qs4bVgp1OgUu9X
- WT2B/fTXaV0AT/4e1o5QS7JICDJ7KT87zdrVDfUDzm7PE0UtdaQvbzwQNSl/ReZRAiXtYp
- qzBEtJeWMGMEM3pgNG925NDcvtAfuXqy0ueg/0bfiWwU9z9kJHWZZcs4eBnpDyLyEidgV/
- fob3dCiVjpaSUy/s156XUWMyxekxnvAIc8u/VMtHJhq3dwOu8yZU8OWnE2Mf6/iBRB6Q3+
- 1e6iOkVWoIbkDrLC3OXrqRxzK+VOCoG/72PRThDii1kNsZUUXebgh+RQIA4dWg==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
+ [209.85.221.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14AB210E74C
+ for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 15:05:46 +0000 (UTC)
+Received: by mail-wr1-f47.google.com with SMTP id
+ ffacd0b85a97d-44e1860558fso778025f8f.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 04 May 2026 08:05:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1777907144; x=1778511944;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=vGzvK4HsHm02j9O1TwzKamsko2ii3BucSi9rVkl9Lnw=;
+ b=OTqqXmw/Ss/d6t74zIC9DEkUY1Ml1t9madccCjLvQOG4k3a7Ab1sGfz2bpxl5GFA8i
+ xyhU+fTJbV8eMCtwr7fnVMb2OkQriT1o3p2FYUMa7NGTKchBf6rHWWwPyvuitCrKjQ9C
+ XI6PP5I31QOKj1GTEh6r5VLI69z07sfcAJul98+0bLeWtrrpYE+eF1qdItBXsC4C0OWa
+ Q9HfhJnTS1mop+WHfN57isN+/dvx0jZk4rh7HnbctigWLvzP6poE0A5X1HgheHhC0BuM
+ BSFxBmkfm5k3DK5sB+iYBfWbGlHvp+ybE30/v7TUkYETYaPEGJV0ERovFa/VD6hHxPIq
+ oM9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777907144; x=1778511944;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=vGzvK4HsHm02j9O1TwzKamsko2ii3BucSi9rVkl9Lnw=;
+ b=olBwxezo+0hhNjJKUiruA+slDGT2kobo6DgIws5E7sGpj5/VjWQnpxDkewXnoLbzr4
+ SsvWl/TrYHj7BpJsMNnxpROGn/C2/HJ2OKsRuow72TUcibd4IbeMzcbI/G2YM6i4vVYt
+ qQ6gzt/1yT7m8lpcltsePZw8eGbq805k2kE/ZGCXHr8ISWQvjdWlMK40+KweqE+YfSHH
+ 4Bg7drQLtmES6LZRnYJlguBCdkPOzAqDySurVpTLknP5EeeztAk1M+WlLdxHfXxuKx8q
+ +6/LMvV0NfHB1MbzJ7LyXIDXknrVE1mzOcG5t+BqwguNOVM+HfDR5idIz7ApMSh9oAu0
+ 3gcA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/Aj9MdAttER0VrsYqH/97L82TkVM2eWiDfzajLC38MK82boenr77DigDMRL5ZnAYlj8edpRUaQsos=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxjN8+rQBadHPob+l4K3pS59J7q472NfiVhY8AqzkPhOhf8bDt7
+ mkPi1Wp5PJD6zKP88MXcxbF/SIBovMKsIpO0OaC882E6KGULumufPG1wQLMl/A7QpdhOCj0Xymk
+ euqkJ
+X-Gm-Gg: AeBDiesCZAxA4IO+OhEEQc8JGFNWoS2xNq90TqLeSo4w/NR7D24HMxXbxgDF4Ik1o9x
+ EJCuveXEbSbx2MP4B6kHz2bZdLeTwZtyZLqInxCpXmq6wj1GcgXRahCRtmEv4x8PbGb+BUmzXas
+ CLoehNlqKukA+28vfQWgtFfQJd/8OO3Ih88QXyBIQsl7V2+GNn7l6xnum9zqjF5Y/4JzYmlMsgs
+ 2RWX0CB3tfyX+ngfQcig4KxoiM0sEv1UinF03KMK+GPVJoSUxM6nrVR1PpfBR4q1LS/NN8L0mBE
+ YKRJGx6W+W/CPBi4xk/9JfW+AYQ+PJ4pfWHbdo7zllbiMvdltjxmJCsN/ek0DUkxAF40DYi/gjL
+ Q0OB7Wt+aCMYuh4pZ/0wEeFe4P9YXoqUrpD2nz2OgGFyJjV3dnFAU3aZz7ceq1Ta0hILaHH2QjG
+ MprFOreFoNiGb85fGDMKGRjmUDf91tllIxmAjMKYKT9hLHrlQ+bCKbmR039n8Fa0sIVUUgwx7w1
+ PU+Uuma6UVOvJqPh611B7XbGw==
+X-Received: by 2002:a05:600c:3487:b0:486:fb0b:ad79 with SMTP id
+ 5b1f17b1804b1-48a988a6ec9mr178609795e9.20.1777907144531; 
+ Mon, 04 May 2026 08:05:44 -0700 (PDT)
+Received: from localhost
+ (p200300f65f114e08197264a4bf9e813f.dip0.t-ipconnect.de.
+ [2003:f6:5f11:4e08:1972:64a4:bf9e:813f])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-48d046faba7sm38072595e9.30.2026.05.04.08.05.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 04 May 2026 08:05:43 -0700 (PDT)
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?=
+ <u.kleine-koenig@baylibre.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Gerd Hoffmann <kraxel@redhat.com>
+Cc: Markus Schneider-Pargmann <msp@baylibre.com>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Jianmin Lv <lvjianmin@loongson.cn>, Qianhai Wu <wuqianhai@loongson.cn>,
+ Huacai Chen <chenhuacai@kernel.org>, Mingcong Bai <jeffbai@aosc.io>,
+ Xi Ruoyao <xry111@xry111.site>, Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Dave Airlie <airlied@redhat.com>, Jocelyn Falempe <jfalempe@redhat.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org
+Subject: [PATCH] drm: Consistently define pci_device_ids using named
+ initializers
+Date: Mon,  4 May 2026 17:05:37 +0200
+Message-ID: <20260504150537.2136760-2-u.kleine-koenig@baylibre.com>
+X-Mailer: git-send-email 2.47.3
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Date: Mon, 04 May 2026 17:03:34 +0200
-Message-Id: <DI9ZFQUNMSBU.214AU8467OK76@bootlin.com>
-Subject: Re: [PATCH v4 02/11] drm/bridge: add of_drm_get_bridge_by_endpoint()
-Cc: "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Jonas
- Karlman" <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Rob Clark"
- <robin.clark@oss.qualcomm.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
- "Abhinav Kumar" <abhinav.kumar@linux.dev>, "Jessica Zhang"
- <jesszhan0024@gmail.com>, "Sean Paul" <sean@poorly.run>, "Marijn Suijten"
- <marijn.suijten@somainline.org>, "Sumit Semwal" <sumit.semwal@linaro.org>,
- "John Stultz" <jstultz@google.com>, "Tomi Valkeinen"
- <tomi.valkeinen@ideasonboard.com>, "Michal Simek" <michal.simek@amd.com>,
- "Hui Pu" <Hui.Pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>,
- "Thomas Petazzoni" <thomas.petazzoni@bootlin.com>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
- <linux-arm-kernel@lists.infradead.org>, "Dmitry Baryshkov"
- <dmitry.baryshkov@oss.qualcomm.com>
-To: "Laurent Pinchart" <laurent.pinchart@ideasonboard.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.20.1
-References: <20260504-drm-bridge-alloc-getput-panel_or_bridge-v4-0-b578c3daaf10@bootlin.com>
- <20260504-drm-bridge-alloc-getput-panel_or_bridge-v4-2-b578c3daaf10@bootlin.com>
- <20260504145536.GA1455860@killaraus.ideasonboard.com>
-In-Reply-To: <20260504145536.GA1455860@killaraus.ideasonboard.com>
-X-Last-TLS-Session-Version: TLSv1.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9388;
+ i=u.kleine-koenig@baylibre.com; h=from:subject;
+ bh=NE1L6eMzG6COj1SB7uAmt2t6ZR5qluBMscfu2fv82Pc=;
+ b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBp+LXC7vbJIuE2keRFm6HVDh2ebJ24M6YY8wzqT
+ r96mRsBPBmJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCafi1wgAKCRCPgPtYfRL+
+ Tl7GCACfNS/fqsNkHf6BM4BCBvB6p0B1vHt/ScUAqlpcSAqMYX8TzNHbiI+W88f+p/Vt3AVExJt
+ LNxEJmfvDpAh3sTsue2/b4O/lc3hyU8y+Kw1VAYD7tkNcVUR/C6jcIB7QkOhwjNNsvj9RWpYghx
+ 7fftJjmp6E7aLxhP9v5e+WDD6F8v+p7+RIApXuSQgNr4iCCY1jBVmbnQBFr2kNJQnoZtDNLy5dF
+ 6yMkhqMJVJXebTe1j6thkum5+dfkHMjlcSrr6UeVNxJJdPJ8Kh10GudKxGbahDvUppWvhSBBa8R
+ gWRoqIfS/iKEazlGfaUvk5/jVNOHfq3wJ/CEdLIpQLEr6H8j
+X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,109 +115,190 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Laurent,
+The .driver_data member of the various struct pci_device_id arrays were
+initialized by list expressions. This isn't easily readable if you're
+not into PCI. Using the PCI_DEVICE macro and named initializers is more
+explicit and thus easier to parse. Also skip explicit assignments of 0
+(which the compiler then takes care of).
 
-On Mon May 4, 2026 at 4:55 PM CEST, Laurent Pinchart wrote:
-> On Mon, May 04, 2026 at 12:45:05PM +0200, Luca Ceresoli wrote:
->> drm_of_find_panel_or_bridge() is widely used, but many callers pass NULL
->> into the @panel or the @bridge arguments, thus making a very partial usa=
-ge
->> of this rather complex function.
->>
->> Besides, the bridge returned in @bridge is not refcounted, thus making t=
-his
->> API unsafe when DRM bridge hotplug will be introduced.
->>
->> Solve both issues for the cases of calls to drm_of_find_panel_or_bridge(=
-)
->> with a NULL @panel pointer by adding a new function that only looks for
->> bridges (and is thus much simpler) and increments the refcount of the
->> returned bridge.
->>
->> The new function is identical to drm_of_find_panel_or_bridge() except it=
-:
->>
->>  - handles bridge refcounting: uses of_drm_find_and_get_bridge() instead=
- of
->>    of_drm_find_bridge() internally to return a refcounted bridge
->>  - is simpler to use: just takes no @panel parameter, returns the pointe=
-r
->>    in the return value instead of a double pointer argument
->>  - has a simpler implementation: it is equal to
->>    drm_of_find_panel_or_bridge() after removing the code that becomes de=
-ad
->>    when @panel =3D=3D NULL
->>
->> Also add this function to drm_bridge.c and not drm_of.c because it retur=
-ns
->> bridges only.
->>
->> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
->> ---
->> Changes in v4:
->> - update function declaration in non-OF case
->>
->> Changes in v2:
->> - return the bridge in the return value, not a double pointer
->> ---
->>  drivers/gpu/drm/drm_bridge.c | 41 +++++++++++++++++++++++++++++++++++++=
-++++
->>  include/drm/drm_bridge.h     |  7 +++++++
->>  2 files changed, 48 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
->> index 6fb71de6d22a..01f9e0426648 100644
->> --- a/drivers/gpu/drm/drm_bridge.c
->> +++ b/drivers/gpu/drm/drm_bridge.c
->> @@ -1582,6 +1582,47 @@ struct drm_bridge *of_drm_find_bridge(struct devi=
-ce_node *np)
->>  	return bridge;
->>  }
->>  EXPORT_SYMBOL(of_drm_find_bridge);
->> +
->> +/**
->> + * of_drm_get_bridge_by_endpoint - return DRM bridge connected to a por=
-t/endpoint
->> + * @np: device tree node containing output ports
->> + * @port: port in the device tree node, or -1 for the first port found
->> + * @endpoint: endpoint in the device tree node, or -1 for the first end=
-point found
->> + *
->> + * Given a DT node's port and endpoint number, find the connected node =
-and
->> + * return the associated drm_bridge device.
->> + *
->> + * The refcount of the returned bridge is incremented. Use drm_bridge_p=
-ut()
->> + * when done with it.
->> + *
->> + * Returns a pointer to the connected drm_bridge, or a negative error o=
-n failure
->> + */
->> +struct drm_bridge *of_drm_get_bridge_by_endpoint(const struct device_no=
-de *np,
->> +						 int port, int endpoint)
->> +{
->> +	struct drm_bridge *bridge;
->> +
->> +	/*
->> +	 * of_graph_get_remote_node() produces a noisy error message if port
->> +	 * node isn't found and the absence of the port is a legit case here,
->> +	 * so at first we silently check whether graph presents in the
->
-> s/graph presents/graph is present/
+This change doesn't introduce changes to the compiled pci_device_id
+arrays. Tested on x86 and arm64.
 
-Oh, wow. I copied this comment from elsewhere, meaning the same typo is
-there too. I'm taking a note to fix those too.
+Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
+---
+Hello,
 
-> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+The secret plan is to make struct pci_device_id::driver_data an
+anonymous union (similar to
+https://lore.kernel.org/all/cover.1776579304.git.u.kleine-koenig@baylibre.com/)
+and that requires named initializers. But IMHO it's also a nice cleanup
+on its own.
 
-Thanks!
+The anonymous union will allow changes like the following:
 
-Luca
+-	{ PCI_DEVICE(0x8086, 0x8108), .driver_data = (long) &psb_chip_ops },
++	{ PCI_DEVICE(0x8086, 0x8108), .driver_data_ptr = &psb_chip_ops },
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+(together with the respective change in the code when the value is
+used). This gets rid of a bunch of casts and thus slightly improves
+type safety.
+
+Best regards
+Uwe
+
+ drivers/gpu/drm/gma500/psb_drv.c      | 56 +++++++++++++--------------
+ drivers/gpu/drm/loongson/lsdc_drv.c   |  4 +-
+ drivers/gpu/drm/mgag200/mgag200_drv.c | 24 ++++++------
+ drivers/gpu/drm/qxl/qxl_drv.c         | 15 ++++---
+ 4 files changed, 52 insertions(+), 47 deletions(-)
+
+diff --git a/drivers/gpu/drm/gma500/psb_drv.c b/drivers/gpu/drm/gma500/psb_drv.c
+index 005ab7f5355f..039da26ef24d 100644
+--- a/drivers/gpu/drm/gma500/psb_drv.c
++++ b/drivers/gpu/drm/gma500/psb_drv.c
+@@ -56,36 +56,36 @@ static int psb_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent);
+  */
+ static const struct pci_device_id pciidlist[] = {
+ 	/* Poulsbo */
+-	{ 0x8086, 0x8108, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &psb_chip_ops },
+-	{ 0x8086, 0x8109, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &psb_chip_ops },
++	{ PCI_DEVICE(0x8086, 0x8108), .driver_data = (long) &psb_chip_ops },
++	{ PCI_DEVICE(0x8086, 0x8109), .driver_data = (long) &psb_chip_ops },
+ 	/* Oak Trail */
+-	{ 0x8086, 0x4100, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &oaktrail_chip_ops },
+-	{ 0x8086, 0x4101, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &oaktrail_chip_ops },
+-	{ 0x8086, 0x4102, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &oaktrail_chip_ops },
+-	{ 0x8086, 0x4103, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &oaktrail_chip_ops },
+-	{ 0x8086, 0x4104, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &oaktrail_chip_ops },
+-	{ 0x8086, 0x4105, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &oaktrail_chip_ops },
+-	{ 0x8086, 0x4106, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &oaktrail_chip_ops },
+-	{ 0x8086, 0x4107, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &oaktrail_chip_ops },
+-	{ 0x8086, 0x4108, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &oaktrail_chip_ops },
++	{ PCI_DEVICE(0x8086, 0x4100), .driver_data = (long) &oaktrail_chip_ops },
++	{ PCI_DEVICE(0x8086, 0x4101), .driver_data = (long) &oaktrail_chip_ops },
++	{ PCI_DEVICE(0x8086, 0x4102), .driver_data = (long) &oaktrail_chip_ops },
++	{ PCI_DEVICE(0x8086, 0x4103), .driver_data = (long) &oaktrail_chip_ops },
++	{ PCI_DEVICE(0x8086, 0x4104), .driver_data = (long) &oaktrail_chip_ops },
++	{ PCI_DEVICE(0x8086, 0x4105), .driver_data = (long) &oaktrail_chip_ops },
++	{ PCI_DEVICE(0x8086, 0x4106), .driver_data = (long) &oaktrail_chip_ops },
++	{ PCI_DEVICE(0x8086, 0x4107), .driver_data = (long) &oaktrail_chip_ops },
++	{ PCI_DEVICE(0x8086, 0x4108), .driver_data = (long) &oaktrail_chip_ops },
+ 	/* Cedar Trail */
+-	{ 0x8086, 0x0be0, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &cdv_chip_ops },
+-	{ 0x8086, 0x0be1, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &cdv_chip_ops },
+-	{ 0x8086, 0x0be2, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &cdv_chip_ops },
+-	{ 0x8086, 0x0be3, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &cdv_chip_ops },
+-	{ 0x8086, 0x0be4, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &cdv_chip_ops },
+-	{ 0x8086, 0x0be5, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &cdv_chip_ops },
+-	{ 0x8086, 0x0be6, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &cdv_chip_ops },
+-	{ 0x8086, 0x0be7, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &cdv_chip_ops },
+-	{ 0x8086, 0x0be8, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &cdv_chip_ops },
+-	{ 0x8086, 0x0be9, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &cdv_chip_ops },
+-	{ 0x8086, 0x0bea, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &cdv_chip_ops },
+-	{ 0x8086, 0x0beb, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &cdv_chip_ops },
+-	{ 0x8086, 0x0bec, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &cdv_chip_ops },
+-	{ 0x8086, 0x0bed, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &cdv_chip_ops },
+-	{ 0x8086, 0x0bee, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &cdv_chip_ops },
+-	{ 0x8086, 0x0bef, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &cdv_chip_ops },
+-	{ 0, }
++	{ PCI_DEVICE(0x8086, 0x0be0), .driver_data = (long) &cdv_chip_ops },
++	{ PCI_DEVICE(0x8086, 0x0be1), .driver_data = (long) &cdv_chip_ops },
++	{ PCI_DEVICE(0x8086, 0x0be2), .driver_data = (long) &cdv_chip_ops },
++	{ PCI_DEVICE(0x8086, 0x0be3), .driver_data = (long) &cdv_chip_ops },
++	{ PCI_DEVICE(0x8086, 0x0be4), .driver_data = (long) &cdv_chip_ops },
++	{ PCI_DEVICE(0x8086, 0x0be5), .driver_data = (long) &cdv_chip_ops },
++	{ PCI_DEVICE(0x8086, 0x0be6), .driver_data = (long) &cdv_chip_ops },
++	{ PCI_DEVICE(0x8086, 0x0be7), .driver_data = (long) &cdv_chip_ops },
++	{ PCI_DEVICE(0x8086, 0x0be8), .driver_data = (long) &cdv_chip_ops },
++	{ PCI_DEVICE(0x8086, 0x0be9), .driver_data = (long) &cdv_chip_ops },
++	{ PCI_DEVICE(0x8086, 0x0bea), .driver_data = (long) &cdv_chip_ops },
++	{ PCI_DEVICE(0x8086, 0x0beb), .driver_data = (long) &cdv_chip_ops },
++	{ PCI_DEVICE(0x8086, 0x0bec), .driver_data = (long) &cdv_chip_ops },
++	{ PCI_DEVICE(0x8086, 0x0bed), .driver_data = (long) &cdv_chip_ops },
++	{ PCI_DEVICE(0x8086, 0x0bee), .driver_data = (long) &cdv_chip_ops },
++	{ PCI_DEVICE(0x8086, 0x0bef), .driver_data = (long) &cdv_chip_ops },
++	{ }
+ };
+ MODULE_DEVICE_TABLE(pci, pciidlist);
+ 
+diff --git a/drivers/gpu/drm/loongson/lsdc_drv.c b/drivers/gpu/drm/loongson/lsdc_drv.c
+index 1ece1ea42f78..f9f7271ddbff 100644
+--- a/drivers/gpu/drm/loongson/lsdc_drv.c
++++ b/drivers/gpu/drm/loongson/lsdc_drv.c
+@@ -444,8 +444,8 @@ static const struct dev_pm_ops lsdc_pm_ops = {
+ };
+ 
+ static const struct pci_device_id lsdc_pciid_list[] = {
+-	{PCI_VDEVICE(LOONGSON, 0x7a06), CHIP_LS7A1000},
+-	{PCI_VDEVICE(LOONGSON, 0x7a36), CHIP_LS7A2000},
++	{ PCI_VDEVICE(LOONGSON, 0x7a06), .driver_data = CHIP_LS7A1000 },
++	{ PCI_VDEVICE(LOONGSON, 0x7a36), .driver_data = CHIP_LS7A2000 },
+ 	{ }
+ };
+ 
+diff --git a/drivers/gpu/drm/mgag200/mgag200_drv.c b/drivers/gpu/drm/mgag200/mgag200_drv.c
+index a32be27c39e8..8ad4ddb60ee6 100644
+--- a/drivers/gpu/drm/mgag200/mgag200_drv.c
++++ b/drivers/gpu/drm/mgag200/mgag200_drv.c
+@@ -205,18 +205,18 @@ int mgag200_device_init(struct mga_device *mdev,
+  */
+ 
+ static const struct pci_device_id mgag200_pciidlist[] = {
+-	{ PCI_VENDOR_ID_MATROX, 0x520, PCI_ANY_ID, PCI_ANY_ID, 0, 0, G200_PCI },
+-	{ PCI_VENDOR_ID_MATROX, 0x521, PCI_ANY_ID, PCI_ANY_ID, 0, 0, G200_AGP },
+-	{ PCI_VENDOR_ID_MATROX, 0x522, PCI_ANY_ID, PCI_ANY_ID, 0, 0, G200_SE_A },
+-	{ PCI_VENDOR_ID_MATROX, 0x524, PCI_ANY_ID, PCI_ANY_ID, 0, 0, G200_SE_B },
+-	{ PCI_VENDOR_ID_MATROX, 0x530, PCI_ANY_ID, PCI_ANY_ID, 0, 0, G200_EV },
+-	{ PCI_VENDOR_ID_MATROX, 0x532, PCI_ANY_ID, PCI_ANY_ID, 0, 0, G200_WB },
+-	{ PCI_VENDOR_ID_MATROX, 0x533, PCI_ANY_ID, PCI_ANY_ID, 0, 0, G200_EH },
+-	{ PCI_VENDOR_ID_MATROX, 0x534, PCI_ANY_ID, PCI_ANY_ID, 0, 0, G200_ER },
+-	{ PCI_VENDOR_ID_MATROX, 0x536, PCI_ANY_ID, PCI_ANY_ID, 0, 0, G200_EW3 },
+-	{ PCI_VENDOR_ID_MATROX, 0x538, PCI_ANY_ID, PCI_ANY_ID, 0, 0, G200_EH3 },
+-	{ PCI_VENDOR_ID_MATROX, 0x53a, PCI_ANY_ID, PCI_ANY_ID, 0, 0, G200_EH5 },
+-	{0,}
++	{ PCI_VDEVICE(MATROX, 0x0520), .driver_data = G200_PCI },
++	{ PCI_VDEVICE(MATROX, 0x0521), .driver_data = G200_AGP },
++	{ PCI_VDEVICE(MATROX, 0x0522), .driver_data = G200_SE_A },
++	{ PCI_VDEVICE(MATROX, 0x0524), .driver_data = G200_SE_B },
++	{ PCI_VDEVICE(MATROX, 0x0530), .driver_data = G200_EV },
++	{ PCI_VDEVICE(MATROX, 0x0532), .driver_data = G200_WB },
++	{ PCI_VDEVICE(MATROX, 0x0533), .driver_data = G200_EH },
++	{ PCI_VDEVICE(MATROX, 0x0534), .driver_data = G200_ER },
++	{ PCI_VDEVICE(MATROX, 0x0536), .driver_data = G200_EW3 },
++	{ PCI_VDEVICE(MATROX, 0x0538), .driver_data = G200_EH3 },
++	{ PCI_VDEVICE(MATROX, 0x053a), .driver_data = G200_EH5 },
++	{ }
+ };
+ 
+ MODULE_DEVICE_TABLE(pci, mgag200_pciidlist);
+diff --git a/drivers/gpu/drm/qxl/qxl_drv.c b/drivers/gpu/drm/qxl/qxl_drv.c
+index 2bbb1168a3ff..6c3c309b8e4d 100644
+--- a/drivers/gpu/drm/qxl/qxl_drv.c
++++ b/drivers/gpu/drm/qxl/qxl_drv.c
+@@ -50,11 +50,16 @@
+ #include "qxl_object.h"
+ 
+ static const struct pci_device_id pciidlist[] = {
+-	{ 0x1b36, 0x100, PCI_ANY_ID, PCI_ANY_ID, PCI_CLASS_DISPLAY_VGA << 8,
+-	  0xffff00, 0 },
+-	{ 0x1b36, 0x100, PCI_ANY_ID, PCI_ANY_ID, PCI_CLASS_DISPLAY_OTHER << 8,
+-	  0xffff00, 0 },
+-	{ 0, 0, 0 },
++	{
++		PCI_DEVICE(0x1b36, 0x0100),
++		.class = PCI_CLASS_DISPLAY_VGA << 8,
++		.class_mask = 0xffff00
++	}, {
++		PCI_DEVICE(0x1b36, 0x0100),
++		.class = PCI_CLASS_DISPLAY_OTHER << 8,
++		.class_mask = 0xffff00
++	},
++	{ },
+ };
+ MODULE_DEVICE_TABLE(pci, pciidlist);
+ 
+
+base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
+-- 
+2.47.3
+
