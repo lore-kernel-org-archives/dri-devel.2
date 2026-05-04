@@ -4,96 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16A69CD342F
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 21:45:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AEFFFF885A
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 21:50:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 687BE10E067;
-	Mon,  4 May 2026 21:45:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 907EF10E88F;
+	Mon,  4 May 2026 21:50:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=shazbot.org header.i=@shazbot.org header.b="u2WYQ6Uu";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="aKlRNK6C";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Z7i9PLbn";
 	dkim-atps=neutral
-Received: from fhigh-b4-smtp.messagingengine.com
- (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86CB410E067
- for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 21:45:05 +0000 (UTC)
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
- by mailfhigh.stl.internal (Postfix) with ESMTP id 2DFFD7A00E1;
- Mon,  4 May 2026 17:45:04 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-04.internal (MEProxy); Mon, 04 May 2026 17:45:04 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
- cc:cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm2; t=1777931103;
- x=1778017503; bh=OlSrzNwR1CmvKwsGitkBEdA3NqGhfCJH662kCZt/3r0=; b=
- u2WYQ6Uu2KBrknnMFCQlgjyWBH5bLy2MKSnl9TL87RibXUahAgyKLZQz/sscqRng
- hKQHdRwLh1RL158ZjL3IPdSZHHIbxX8nSpyDNQai8Rf2wdrKozW1W9F5GqzQSnQE
- uKOq+WQr5rKq9uifY/F0VIaHDmmqHySIQ7Y6zBya/laY0e+UK+JhVG8L6C+sEuBQ
- TrVDfVA6kpKBu/ciRky42FfOsLpdX2YLCizuh2pB2mJnTwo/G+t2ne2WOvwjkuAW
- lGqWQSDUe67s2cL4Ae/nr3M5P084kiwDr6I/fhW2EDLFSyT1iTVsDMdOoFvjl4VI
- d8jgFikcBoRdWyTvw+mCKg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1777931103; x=
- 1778017503; bh=OlSrzNwR1CmvKwsGitkBEdA3NqGhfCJH662kCZt/3r0=; b=a
- KlRNK6CDog0qPrHp2p3/xHIFC6EAUPUwTgZfc6zyZIugdY2hoDC+C5o9CCg0oSC/
- xkdSBhEOr8zX4lHUUWFNMs51R3R98/vLgIulIliN8aehif8/3TSU3h1rCQAZk0s3
- EqKTDGxg0XXR/ns+S8j1zgZzKpx1RkvXOCN0/yVd72zfop1rqCaJkKB+2HezFA/u
- AVfxnu97ysc2gaTfIhNVglneNkfjnBSuybXPizAl6gRcUCrRn2pO7gsw/pTH25w+
- 48MiCuy5J83ZMKvpC3BV5sP4S+jsl47vlXCnMJjSpN2jBXk/OQ5arksBN/Wq5R3n
- 2g4iB+MUCj3QRW39pW38g==
-X-ME-Sender: <xms:XxP5abNp_6jzROaygyUxuZIi2Sfe9p9hH9fCqo7KYS4ZVEalARZ87Q>
- <xme:XxP5acVRJWvhqDkKINawXeGKvu29RbXTAx_TLFsm63ETyLKo_5f_DmN8Vm7uekHXO
- 29Qa6zpc8IN4VBE1PvbATfeUunP4drZ8ReM9Cya1PYkU5jpJtvqVw>
-X-ME-Received: <xmr:XxP5aWjw5togl-E-fvGwT1lgnhNB50KrU8cG8NFcARCOdN7PwcL8KBQ7Uas>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdelleelhecutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
- ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
- hrpeffhffvvefukfgjfhfogggtgfesthejredtredtvdenucfhrhhomheptehlvgigucgh
- ihhllhhirghmshhonhcuoegrlhgvgiesshhhrgiisghothdrohhrgheqnecuggftrfgrth
- htvghrnhepkeelffevieeuheeiieeifeelteffheeiffekledvleejgedthfdvjeehudff
- ledvnecuffhomhgrihhnpehsrghshhhikhhordguvghvnecuvehluhhsthgvrhfuihiivg
- eptdenucfrrghrrghmpehmrghilhhfrhhomheprghlvgigsehshhgriigsohhtrdhorhhg
- pdhnsggprhgtphhtthhopeduvddpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepii
- hhihhpihhnghiisehmvghtrgdrtghomhdprhgtphhtthhopehjghhgseiiihgvphgvrdgt
- rgdprhgtphhtthhopehlvghonheskhgvrhhnvghlrdhorhhgpdhrtghpthhtohephhgvlh
- hgrggrsheskhgvrhhnvghlrdhorhhgpdhrtghpthhtoheplhhinhhugidqrhgumhgrsehv
- ghgvrhdrkhgvrhhnvghlrdhorhhgpdhrtghpthhtoheplhhinhhugidqphgtihesvhhgvg
- hrrdhkvghrnhgvlhdrohhrghdprhgtphhtthhopehnvghtuggvvhesvhhgvghrrdhkvghr
- nhgvlhdrohhrghdprhgtphhtthhopegurhhiqdguvghvvghlsehlihhsthhsrdhfrhgvvg
- guvghskhhtohhprdhorhhgpdhrtghpthhtohepkhgsuhhstghhsehkvghrnhgvlhdrohhr
- gh
-X-ME-Proxy: <xmx:XxP5adhrn-X3lMuQKFhBxNc05YU7BNl-iLyjUMQ5ANsGEhJua-JtQg>
- <xmx:XxP5acEFz1M3kD8WF8YH1HN2mgUFzmuFGgW1BHE9gppL4vbipx5RWg>
- <xmx:XxP5aSAl52d32IoyjnYnW-0WGkwRxr_6Duss9bz4vMn9gu1Iclsucg>
- <xmx:XxP5aaBxM1wcE8nEMklL4h8FOTerGFfDxsGx2GtGHkdGlHJOdrvaXw>
- <xmx:XxP5aaCL4_QhABUW956FJqUirCoMKNMZoo1aDA6d0eZOFbJYiH530tSq>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 4 May 2026 17:45:00 -0400 (EDT)
-Date: Mon, 4 May 2026 15:44:59 -0600
-From: Alex Williamson <alex@shazbot.org>
-To: Zhiping Zhang <zhipingz@meta.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, Bjorn
- Helgaas <helgaas@kernel.org>, <linux-rdma@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <netdev@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, Keith Busch <kbusch@kernel.org>, Yochai
- Cohen <yochai@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>,
- alex@shazbot.org
-Subject: Re: [PATCH v2 1/2] vfio: add dma-buf get_tph callback and
- DMA_BUF_TPH feature
-Message-ID: <20260504154459.77b8153d@shazbot.org>
-In-Reply-To: <20260430200704.352228-2-zhipingz@meta.com>
-References: <20260430200704.352228-1-zhipingz@meta.com>
- <20260430200704.352228-2-zhipingz@meta.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-pc-linux-gnu)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010034.outbound.protection.outlook.com [52.101.46.34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A27210E1B4;
+ Mon,  4 May 2026 21:50:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KgmI5iRbZSppJ3RKfwk+rQsgDPzEDPbXm9aINo9iM2CFNkRxPVu4IpG9z771Le6fmomHSVQdOhcGmOEfRUpRs13mAwGnE6q8e/+NOIirxoZSlD9HJ9osLIYeDxylzJ4EUfGtFETcQ9NvDEqd95PE+/GBDLx5/fxi6TsnzFDGBj71d5hcVAhau5tGQiVhc5W/WsyZKZHQomUO0F73BXz6JgDomjwULfTBNOlOAy0M6qtE5kCD7Y3XMWXTT/t1sM7Bdrp5p8v1waPnv2PfcvLTr6NL01lqKYs2d2xjd8qyLD5AM9zfZpsz2X/fUe/C37IKrhad9jkAIMcPeh5AtWOybA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=a4VwKopxczeCgptzafWS2CoS47svuEl+ErUZk5MwRRk=;
+ b=Ran6psYFNwd4wzuHUNHzz4s7cmkhKEakJ05ubkrLa5h1ZXdCCuAQ4J3RyWRFvRGSbChHdjUuzeXqr8fSwK6TP4ZoYBnxgr45EtKFEPkVlIHnx3VnQa+nHBN+W58/lRqTGL6RAm0+BxZdIcVJXn64GVdrJtvYhdWk+axDUHk/jL5XNtmQcocdu34YzeE3/FsjEJTGS2AFmmkJEPYz1T7B34mgx5DEZ8LSMIa9jTibwKYUnvmmxDXMi9yAvVlzz4owpvU9w3PEVIizo2IwihE8QVTY9R3Rl/NvAeusiqZb5vLYedM7y+cE+/NxAoT9peeddggSCGAVC9bQpR8o+FeaaA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=a4VwKopxczeCgptzafWS2CoS47svuEl+ErUZk5MwRRk=;
+ b=Z7i9PLbneVlxVWrKJD2zKU07GrRqcFgMiCt9vhEglrohZTmWui8Kw5FwWZIGhWolQAG+CXEkspdkQoPEpR/3Nxvq9OHp1CetoJ+uXsuuXNp/LHJGcQAzabRgRgHN8xP9Nh+OMM+4ihlDotiwb2rWb89SzQP0HOOmiRRUtJjMyEY=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SA0PR12MB4557.namprd12.prod.outlook.com (2603:10b6:806:9d::10)
+ by CY5PR12MB6057.namprd12.prod.outlook.com (2603:10b6:930:2e::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Mon, 4 May
+ 2026 21:50:26 +0000
+Received: from SA0PR12MB4557.namprd12.prod.outlook.com
+ ([fe80::885a:79b3:8288:287]) by SA0PR12MB4557.namprd12.prod.outlook.com
+ ([fe80::885a:79b3:8288:287%5]) with mapi id 15.20.9870.023; Mon, 4 May 2026
+ 21:50:26 +0000
+Message-ID: <5dd93e29-a076-491b-9861-e08a0204c77d@amd.com>
+Date: Mon, 4 May 2026 16:50:21 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/2] drm/atomic: attempt full modeset on page flip
+ timeout
+Content-Language: en-US
+To: Hamza Mahfooz <someguy@effective-light.com>,
+ dri-devel@lists.freedesktop.org
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Hung <alex.hung@amd.com>, Ray Wu <ray.wu@amd.com>,
+ Wayne Lin <Wayne.Lin@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ "Mario Limonciello (AMD)" <superm1@kernel.org>,
+ Ivan Lipski <ivan.lipski@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>,
+ Matthew Schwartz <matthew.schwartz@linux.dev>, Yussuf Khalil
+ <dev@pp3345.net>, Tom Chung <chiahsuan.chung@amd.com>,
+ Roman Li <Roman.Li@amd.com>, Colin Ian King <colin.i.king@gmail.com>,
+ Charlene Liu <charlene.liu@amd.com>, Kees Cook <kees@kernel.org>,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260501203552.749080-1-someguy@effective-light.com>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <20260501203552.749080-1-someguy@effective-light.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BN9PR03CA0192.namprd03.prod.outlook.com
+ (2603:10b6:408:f9::17) To SA0PR12MB4557.namprd12.prod.outlook.com
+ (2603:10b6:806:9d::10)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA0PR12MB4557:EE_|CY5PR12MB6057:EE_
+X-MS-Office365-Filtering-Correlation-Id: c24c1e03-d731-49df-8e04-08deaa27266f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|7416014|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info: 7zqGTBlxKyhoaiqg+dF7Qi8NVd9UDyr4hFfdCzWms4vHloDO6RM1WPGM0kttgg/SAcjNToYfve9ZnnAnU99uaxBdolhaYmVSx7QZohSvVcwIsAyOBYv4KKQfbxDcVKzwowoye+nbskO4olZ4Bc7JkyvxZn8fPUVXt8MC9shn36IlD0Ai7WpC2EBd6kJigVHR556GDUMetZT9jRdJqkHitBQUGgnnAeahVPo8K07zDvRZssfnPViYh98y4HIokG6mbBKJnXWgcP7cfJGFcvHRG6UPf5ko/QFxDiBG11RsfSD+FhYzs6Uvp3JwUAFwQPFz5YMuGCB+qdy6vCHWoRxnMcgYD1i7dLgOli4WP4Jkomn2n299YI4Ona1AMrqsObsmSUPw3PbZnUZjcoUAqwV5gtZCTesHQWbrvoY8tB9zwG1im3Fmfdzmfg1MAChBGqaYY5KuIpTUuEWionBMN7trTXhEZO96B6gfSNDE3qnY2ckjAvGhOkYf9wlXXJErVh/+oI4yVlopfoKmwQZoGa//p3s3k4Bh4UNMy4OIKrQtuOOHtZiJmXk9GdMWXoLzVSw7JBsZ1pBmKnn8Iawg3Anf8nWuHVillb4L2qVsd4/qE2SFwLqaPYt1x+AaNqGPeR0xrhkpVvnITWVCCa4/2fwBO99rNJyW0HlgVVoZXWKZ8dyBZZoYbvNGl8BCEKA4HZXH
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB4557.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(7416014)(18002099003)(22082099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SEtNbUxPZWQrL09SUTJFbldoa0docEJ5bGRqNmY3dmdoVG5KengzeHNwenll?=
+ =?utf-8?B?OUU2OExlMzlqZDFXeGRsTEVDdWVKVmR5QzlyWktJQ3ltR2NycHh6TEFDYkNi?=
+ =?utf-8?B?dWhzOS9CMXVlN3dDb21ubUZrWEFROXJNakU5SktPUTAwdXN2TkhyTVZFekpM?=
+ =?utf-8?B?U0hiWGgvcEdOM1A3R0sxaHFGZlI0bC9OTVdtaHN4M0hkVGJ0VVBXckQycXFn?=
+ =?utf-8?B?aFk2aGQ0UXFvRWFOTUpKVkV5L1pQY3JaREdWUmNOd0Q2MW5JWno5TjMvaDc3?=
+ =?utf-8?B?ZCtkSjV6N1Y1M1ZRekNDU2VSN0t5OXpia2tEKzFVZW01RlpVWjV1clZKMHlN?=
+ =?utf-8?B?c2hzZjU0S1hDanpaaXlMWUhmNy9RWExyYkcrejVRL1AxQklvQitMaFBFcDZN?=
+ =?utf-8?B?RFloZ2tNb240MHphRkxUSUk1MUVGNkZNWUlFekFKNlVzRG82TE1CT2dORFVW?=
+ =?utf-8?B?bm5rRFRCN0poWEFmSC9FRlJnT2ZzaVdBbzdRVlhCb3FubFZEMmllSERYUWkx?=
+ =?utf-8?B?UW1HS2lIZ1B5WGpCeEo3Wkp5dU5XQjdKdU0rd3lOY0JSQnNnaVNFVW5hWjE1?=
+ =?utf-8?B?L1NmcDNXRk5HUHRJc3R0L1EyRndYV2xNU0lHSnhQZDltU29zOWhqL3pVT3h4?=
+ =?utf-8?B?ZXBHbzRZSkUwQUhqVEFzZCs1aWJOclJlQldFYzBEN1V2aFpER2h3RXFkTFRU?=
+ =?utf-8?B?b3RNUzZnbkEvNm5xbUs0Sk9yRkFlMUlMSS9wQ0VEZ2ovd1VmSmFXK0ZUM0JE?=
+ =?utf-8?B?azhEMVpDY05sYjU2YktNbXcrWml6VVBpVXVDMUNXMVlmOFVKRjZ6dHVXK0FQ?=
+ =?utf-8?B?RFY0M0VydWRMaHJuanM4SlRiR2pVSytNalNtc3ZoRlc0WlppMzZYRGFSQjl5?=
+ =?utf-8?B?OTB0cmFlNHJUVSswVzZoanpIRDJNamtSZ3FkK21tV1Q0aTk4Zll0UzVJRTNK?=
+ =?utf-8?B?ZmNzVE1ZNkZkK2Z0eFdkVWJZYm9mQlVzbTV4SGt5T1lhMkVJZU1jMFBwNEx1?=
+ =?utf-8?B?R0srdnV6MmZ5bk5CZUM1bld3NjRaaFpTb0JSM2VWbENOVHhQK2lac1N4dE5W?=
+ =?utf-8?B?OFpxcUFTQXQwT1U5QUVzK2RVZGpmUENWZDZDeWpsRGttWUl1OXR3cHE1WXBK?=
+ =?utf-8?B?SnVNOGhScU5TN2djOFpHcmN0RnhYd0d3YnVCdk85NGtSK3MyVGlrREhISWV2?=
+ =?utf-8?B?cDdtRHBOTFlzalpDcjlRK1BGbCtYYUhDdTk1a2g3WXllRWdhdlBrSTRjRVFz?=
+ =?utf-8?B?cUY3TEpISzYzQVgxZlJUajNUd0ZFRkVtTHU5NnB4Z0k1Q2p4WEpKSGpxSjRG?=
+ =?utf-8?B?TDJoUmtoRWRGNU1obnVzMUhaaG9zTzRWcHJzWk41MTU4eHBHQnowbktSd2FC?=
+ =?utf-8?B?cWU0Wk14SUc0V2VhK0hYbjEwVHAxRFNUcWhaUjNucTVyWTJZbTgvWTdtZ0Jx?=
+ =?utf-8?B?UkNNVFFSQ3NvWnlNMmc4MjJaaHNCbndOT01JeEpsejcxL2Y5ZlNSeGtGMEtD?=
+ =?utf-8?B?TVRLYXdxMVdmUlR2eXBqY2I5c2ZMRG9Hbk8vY3huWDFrVkVLeGxjcFlyM2Rt?=
+ =?utf-8?B?RXgyVnM3S1lQNFhkK3lGWFpWTXVXMDhIMWxrQjlYSUZyLzdkZ1hmYTU4OUUw?=
+ =?utf-8?B?NEQ0Zkg1RG9VSjZSNVRsNW9TbCszdyswa0hwbkxtSXdibmtXcWRnZUhWVlpi?=
+ =?utf-8?B?VDNDYU5EOGdPRzBjbm93NG5PUU9FZktBVmVIYkpUaDZVQ0tXVk5aaW5MMWd4?=
+ =?utf-8?B?QTZOamgzQy9XUjNNMHZlVmhaTktpM3BXSGdtZVF5S0NucWVTN1lkakZPbXBk?=
+ =?utf-8?B?VjQwQUVlMnN3WlE5OHAwbVZ5NDZhTnVBeHYxZk04NEkwUWtoTVRJc1BoSjdW?=
+ =?utf-8?B?WkZoNDZmcEoweElMVTAyS0hBWkwzaktTeG16Y2xsY0ZCZ2hIS1R3c3FLOUN2?=
+ =?utf-8?B?MEZqeE1DdzZUeGFYZWU3c2Qvam5MYjhJWGVlTVAzUFIzWDZSNTAwcUlwUEg1?=
+ =?utf-8?B?WmoxMFA5WDdZMXNjakpTZ2VkWFZJRHpYWTYrNUdUQ3ZRTE5JTmxFREZSRy9W?=
+ =?utf-8?B?V3AwQ21VbHhxVlk0RzZNVXpsT0x3bkpwcHJTZ1ZlZ2xudEhHM1JKVHRTMTVD?=
+ =?utf-8?B?aG9KQU9iNDIyRUV3TnJkOS9mR3Vub1R1TlE3YjJESWY0TVdQZHYraldnd3Ns?=
+ =?utf-8?B?ZStHaWlkbDdtV05MNTV4eXUyM2ZDUk9KdHYzWWxRcnNjek5ZQVY5clNvQWZq?=
+ =?utf-8?B?RXl5d05hczZZbTFpMWZ4SVQ2cHdaWThZOVdjZVhLbVZ5a3hMZDB1WWt0OFhG?=
+ =?utf-8?B?VTZQb01EZGkxblc0QVdWTkpqNkw2eEdraFFkeHhrd1EwaVdXUG1tUT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c24c1e03-d731-49df-8e04-08deaa27266f
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB4557.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2026 21:50:26.1056 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: s9/pkOo3ywx5NZKj2s1vGk5/zjzG6hf2M9PF2CzVWDQSXvByzyc5O9+QbsEt6HLUzt64PJ1ejsrz1DDSVrhvvg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6057
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,234 +152,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 30 Apr 2026 13:06:56 -0700
-Zhiping Zhang <zhipingz@meta.com> wrote:
 
-> Add a dma-buf callback that returns raw TPH metadata from the exporter
-> so peer devices can reuse the steering tag and processing hint
-> associated with a VFIO-exported buffer.
+
+On 5/1/26 15:35, Hamza Mahfooz wrote:
+> We should try to recover from page flip timeouts. Forcing
+> a full modeset should be generic across all atomic KMS drivers,
+> so try that first.
 > 
-> Add a new VFIO_DEVICE_FEATURE_DMA_BUF_TPH ioctl that takes the fd from
-> VFIO_DEVICE_FEATURE_DMA_BUF along with a steering tag and processing
-> hint, validates the fd is a vfio-exported dma-buf belonging to this
-> device, and stores the TPH values under memory_lock. This keeps the
-> existing VFIO_DEVICE_FEATURE_DMA_BUF uAPI completely unchanged.
+> Signed-off-by: Hamza Mahfooz <someguy@effective-light.com>
+> ---
+>   drivers/gpu/drm/drm_atomic_helper.c | 51 +++++++++++++++++++++++++++--
+>   1 file changed, 48 insertions(+), 3 deletions(-)
 > 
-> The user sequences setting TPH on the dma-buf before the importer
-> consumes it.
-> 
-> Add an st_width parameter to get_tph() so the exporter can reject
-> steering tags that exceed the consumer's supported width (8 vs 16 bit).
-> When no TPH metadata was supplied, get_tph() returns -EOPNOTSUPP.
-> 
-> Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
-
-The uAPI is better, but sashiko has some review comments[1] for you.
-
-Please also copy the kvm list for vfio related development.  Thanks,
-
-Alex
-
-[1]https://sashiko.dev/#/patchset/20260430200704.352228-1-zhipingz@meta.com
-
-> diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-> --- a/drivers/vfio/pci/vfio_pci_core.c
-> +++ b/drivers/vfio/pci/vfio_pci_core.c
-> @@ -1534,6 +1534,9 @@ int vfio_pci_core_ioctl_feature(struct vfio_device *device, u32 flags,
->  		return vfio_pci_core_feature_token(vdev, flags, arg, argsz);
->  	case VFIO_DEVICE_FEATURE_DMA_BUF:
->  		return vfio_pci_core_feature_dma_buf(vdev, flags, arg, argsz);
-> +	case VFIO_DEVICE_FEATURE_DMA_BUF_TPH:
-> +		return vfio_pci_core_feature_dma_buf_tph(vdev, flags, arg,
-> +							 argsz);
->  	default:
->  		return -ENOTTY;
->  	}
-> diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
-> --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
-> +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
-> @@ -19,6 +19,9 @@ struct vfio_pci_dma_buf {
->  	u32 nr_ranges;
->  	struct kref kref;
->  	struct completion comp;
-> +	u16 steering_tag;
-> +	u8 ph;
-> +	u8 tph_present : 1;
->  	u8 revoked : 1;
->  };
->  
-> @@ -69,6 +72,22 @@ vfio_pci_dma_buf_map(struct dma_buf_attachment *attachment,
->  	return ret;
->  }
->  
-> +static int vfio_pci_dma_buf_get_tph(struct dma_buf *dmabuf, u16 *steering_tag,
-> +				    u8 *ph, u8 st_width)
+> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+> index a768398a1884..8ccc6e833c77 100644
+> --- a/drivers/gpu/drm/drm_atomic_helper.c
+> +++ b/drivers/gpu/drm/drm_atomic_helper.c
+> @@ -1926,6 +1926,45 @@ drm_atomic_helper_wait_for_vblanks(struct drm_device *dev,
+>   }
+>   EXPORT_SYMBOL(drm_atomic_helper_wait_for_vblanks);
+>   
+> +static int force_full_modeset(struct drm_crtc *crtc)
 > +{
-> +	struct vfio_pci_dma_buf *priv = dmabuf->priv;
-> +
-> +	if (!priv->tph_present)
-> +		return -EOPNOTSUPP;
-> +
-> +	if (st_width < 16 && priv->steering_tag > ((1U << st_width) - 1))
-> +		return -EINVAL;
-> +
-> +	*steering_tag = priv->steering_tag;
-> +	*ph = priv->ph;
-> +	return 0;
-> +}
-> +
->  static void vfio_pci_dma_buf_unmap(struct dma_buf_attachment *attachment,
->  				   struct sg_table *sgt,
->  				   enum dma_data_direction dir)
-> @@ -101,6 +120,7 @@ static void vfio_pci_dma_buf_release(struct dma_buf *dmabuf)
->  
->  static const struct dma_buf_ops vfio_pci_dmabuf_ops = {
->  	.attach = vfio_pci_dma_buf_attach,
-> +	.get_tph = vfio_pci_dma_buf_get_tph,
->  	.map_dma_buf = vfio_pci_dma_buf_map,
->  	.unmap_dma_buf = vfio_pci_dma_buf_unmap,
->  	.release = vfio_pci_dma_buf_release,
-> @@ -331,6 +351,55 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
->  	return ret;
->  }
->  
-> +int vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vdev,
-> +				      u32 flags,
-> +				      struct vfio_device_feature_dma_buf_tph __user *arg,
-> +				      size_t argsz)
-> +{
-> +	struct vfio_device_feature_dma_buf_tph set_tph;
-> +	struct vfio_pci_dma_buf *priv;
-> +	struct dma_buf *dmabuf;
+> +	struct drm_modeset_acquire_ctx ctx;
+> +	struct drm_crtc_state *crtc_state;
+> +	struct drm_atomic_state *state;
 > +	int ret;
+> +	int err;
 > +
-> +	ret = vfio_check_feature(flags, argsz, VFIO_DEVICE_FEATURE_SET,
-> +				 sizeof(set_tph));
-> +	if (ret != 1)
-> +		return ret;
+> +	if (drm_atomic_crtc_needs_modeset(crtc->state))
+> +		return -EBUSY;
 > +
-> +	if (copy_from_user(&set_tph, arg, sizeof(set_tph)))
-> +		return -EFAULT;
+> +	DRM_MODESET_LOCK_ALL_BEGIN(crtc->dev, ctx, 0, err);
+> +	state = drm_atomic_state_alloc(crtc->dev);
+> +	if (!state)
+> +		return -ENOMEM;
 > +
-> +	if (set_tph.reserved)
-> +		return -EINVAL;
+> +	state->acquire_ctx = &ctx;
 > +
-> +	dmabuf = dma_buf_get(set_tph.dmabuf_fd);
-> +	if (IS_ERR(dmabuf))
-> +		return PTR_ERR(dmabuf);
-> +
-> +	if (dmabuf->ops != &vfio_pci_dmabuf_ops) {
-> +		ret = -EINVAL;
-> +		goto out_put;
+> +	crtc_state = drm_atomic_get_crtc_state(state, crtc);
+> +	if (IS_ERR(crtc_state)) {
+> +		ret = PTR_ERR(crtc_state);
+> +		goto out;
 > +	}
 > +
-> +	priv = dmabuf->priv;
-> +	down_write(&vdev->memory_lock);
-> +	if (priv->vdev != vdev) {
-> +		ret = -EINVAL;
-> +		goto out_unlock;
-> +	}
+> +	crtc_state->connectors_changed = true;
+> +	crtc_state->mode_changed = true;
+> +	crtc_state->active_changed = true;
+
+Do you actually need to set all 3 of these to true?
+
+I would think you only need:
+
+crtc_state->mode_changed = true;
+
 > +
-> +	priv->steering_tag = set_tph.steering_tag;
-> +	priv->ph = set_tph.ph;
-> +	priv->tph_present = 1;
-> +	ret = 0;
+> +	drm_info(crtc->dev,
+> +		 "[CRTC:%d:%s] Attempting force full modeset...\n",
+> +		 crtc->base.id, crtc->name);
 > +
-> +out_unlock:
-> +	up_write(&vdev->memory_lock);
-> +out_put:
-> +	dma_buf_put(dmabuf);
+> +	ret = drm_atomic_commit(state);
+> +out:
+> +	drm_atomic_state_put(state);
+> +	DRM_MODESET_LOCK_ALL_END(crtc->dev, ctx, err);
 > +	return ret;
 > +}
 > +
->  void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked)
->  {
->  	struct vfio_pci_dma_buf *priv;
-> diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
-> --- a/drivers/vfio/pci/vfio_pci_priv.h
-> +++ b/drivers/vfio/pci/vfio_pci_priv.h
-> @@ -118,6 +118,10 @@ static inline bool vfio_pci_is_vga(struct pci_dev *pdev)
->  int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
->  				  struct vfio_device_feature_dma_buf __user *arg,
->  				  size_t argsz);
-> +int vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vdev,
-> +				      u32 flags,
-> +				      struct vfio_device_feature_dma_buf_tph __user *arg,
-> +				      size_t argsz);
->  void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev);
->  void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked);
->  #else
-> @@ -128,6 +132,13 @@ vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
->  {
->  	return -ENOTTY;
->  }
-> +static inline int
-> +vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vdev, u32 flags,
-> +				  struct vfio_device_feature_dma_buf_tph __user *arg,
-> +				  size_t argsz)
-> +{
-> +	return -ENOTTY;
-> +}
->  static inline void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev)
->  {
->  }
-> diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-> --- a/include/linux/dma-buf.h
-> +++ b/include/linux/dma-buf.h
-> @@ -113,6 +113,23 @@ struct dma_buf_ops {
->  	 */
->  	void (*unpin)(struct dma_buf_attachment *attach);
->  
-> +	/**
-> +	 * @get_tph:
-> +	 * @dmabuf: DMA buffer for which to retrieve TPH metadata
-> +	 * @steering_tag: Returns the raw TPH steering tag
-> +	 * @ph: Returns the TPH processing hint
-> +	 * @st_width: Consumer's supported steering tag width in bits (8 or 16)
-> +	 *
-> +	 * Return the TPH (TLP Processing Hints) metadata associated with this
-> +	 * DMA buffer. Exporters that do not provide TPH metadata should return
-> +	 * -EOPNOTSUPP. If the steering tag exceeds @st_width bits, return
-> +	 * -EINVAL.
-> +	 *
-> +	 * This callback is optional.
-> +	 */
-> +	int (*get_tph)(struct dma_buf *dmabuf, u16 *steering_tag, u8 *ph,
-> +		       u8 st_width);
+>   /**
+>    * drm_atomic_helper_wait_for_flip_done - wait for all page flips to be done
+>    * @dev: DRM device
+> @@ -1949,17 +1988,23 @@ void drm_atomic_helper_wait_for_flip_done(struct drm_device *dev,
+>   
+>   	for (i = 0; i < dev->mode_config.num_crtc; i++) {
+>   		struct drm_crtc_commit *commit = state->crtcs[i].commit;
+> -		int ret;
+>   
+>   		crtc = state->crtcs[i].ptr;
+>   
+>   		if (!crtc || !commit)
+>   			continue;
+>   
+> -		ret = wait_for_completion_timeout(&commit->flip_done, 10 * HZ);
+> -		if (ret == 0)
+> +		if (!wait_for_completion_timeout(&commit->flip_done, 10 * HZ)) {
+> +			int ret;
+>   			drm_err(dev, "[CRTC:%d:%s] flip_done timed out\n",
+>   				crtc->base.id, crtc->name);
 > +
->  	/**
->  	 * @map_dma_buf:
->  	 *
-> diff --git a/include/uapi/linux/vfio.h b/include/uapi/linux/vfio.h
-> --- a/include/uapi/linux/vfio.h
-> +++ b/include/uapi/linux/vfio.h
-> @@ -1534,6 +1534,28 @@ struct vfio_device_feature_dma_buf {
->   */
->  #define VFIO_DEVICE_FEATURE_MIG_PRECOPY_INFOv2  12
->  
-> +/**
-> + * Upon VFIO_DEVICE_FEATURE_SET associate TPH (TLP Processing Hints) metadata
-> + * with a vfio-exported dma-buf. The dma-buf must have been created by
-> + * VFIO_DEVICE_FEATURE_DMA_BUF on this device.
-> + *
-> + * dmabuf_fd is the file descriptor returned by VFIO_DEVICE_FEATURE_DMA_BUF.
-> + * steering_tag and ph are the raw TPH values that importing drivers should use
-> + * when accessing the buffer.
-> + *
-> + * The user must set TPH on the dma-buf before the importer consumes it.
-> + *
-> + * Return: 0 on success, -errno on failure.
-> + */
-> +#define VFIO_DEVICE_FEATURE_DMA_BUF_TPH 13
-> +
-> +struct vfio_device_feature_dma_buf_tph {
-> +	__s32	dmabuf_fd;
-> +	__u16	steering_tag;
-> +	__u8	ph;
-> +	__u8	reserved;
-> +};
-> +
->  /* -------- API for Type1 VFIO IOMMU -------- */
->  
->  /**
+> +			ret = force_full_modeset(crtc);
+> +			if (ret)
+> +				drm_err(dev,
+> +					"[CRTC:%d:%s] force full modeset failed! ret=%d\n",
+> +					crtc->base.id, crtc->name, ret);
+> +		}
+>   	}
+>   
+>   	if (state->fake_commit)
 
