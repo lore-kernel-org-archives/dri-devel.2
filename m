@@ -4,55 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE0C4CD342C
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 10:34:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EF78CD342C
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 10:42:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FBF510E3A4;
-	Mon,  4 May 2026 10:34:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB87E10E3D6;
+	Mon,  4 May 2026 10:41:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="Lta76662";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="Rj4twQRh";
 	dkim-atps=neutral
 Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65F4610E3A4
- for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 10:34:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64DE010E3D6
+ for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 10:41:58 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 180994E42BBC;
- Mon,  4 May 2026 10:34:38 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 24D094E42BBC;
+ Mon,  4 May 2026 10:41:57 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id E00FD5FD5F;
- Mon,  4 May 2026 10:34:37 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id E70CA5FD5F;
+ Mon,  4 May 2026 10:41:56 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 1FFCF11AD266E; 
- Mon,  4 May 2026 12:34:31 +0200 (CEST)
+ with ESMTPSA id A3B6111AD2606; 
+ Mon,  4 May 2026 12:41:51 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1777890876; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1777891316; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=Koav5DTC4vGTWTUtVC/t+/VrEALIrhI+k8FnR7rv1qY=;
- b=Lta7666245WFGw8GKMKyUhzh6nB+w7o8dFV3V4nKHh+XZ9uNeCV1CPs/wZOwZNWV1rYUfs
- hkwQX4xN6yqa5IajwMsv3b0ujoX4+YY2ohUFqsLfv0I36DGIzFr4gbehQc2hpvGgHQ3ch0
- ZrzddYoDEPADw+OWcAbm60Cghzk4AmS1naGZo6cTklopckwrqLIcrcoLT3AvBANVGnIWaM
- T9bnJQHt7nlowtoMarbFyRFXyf4dmtSarpjy2gXQKhnYaeoFJamO5h7kp6SJTv5gHPiES0
- ULAdoo8Gu7bDC7jf+4wywlQX1KLkT3zTT6HsuLTUJR79u6NpXrjXQju/8mTvjw==
+ bh=2b4xIfU6RSAbgUS8o0/TbhikoBinIeCxRWGG69VRvVk=;
+ b=Rj4twQRh2aEGDvkdmDmysuv/+N4cK5wQwz6NcMSZehRQI5TaD4zWfOHecGshRtdYKUDOxs
+ 5Recsqj2RKgYcYGIhTpSwiYDkb2T9tBXCCkQFwu8ewWOBYWNhtI0QJQU5s2IpP/5qbB6vm
+ CrfwZu+n5Cm7uwG5gde0bs9gRCscSeqSCSz4fH9nSshEia83wO+K/YyX616JRHtLasjNKG
+ NJuZe3ihIdd2n2O1bYsrr3vT8QZQ/06nrt2zfRV6NGKRmq8HLCIUEWC9N69I4cjvk+2cxy
+ gygciSkfT7J1Wl7nunyEow7jQ8hYHkepQ6FJE3ik/xAqKrtVGzWpFn8j2zPbQg==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+To: Max Krummenacher <max.krummenacher@toradex.com>, max.oss.09@gmail.com
+Cc: Adrien Grassein <adrien.grassein@gmail.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, David Airlie <airlied@gmail.com>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Jonas Karlman <jonas@kwiboo.se>, 
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Frieder Schrempf <frieder.schrempf@kontron.de>, Marek Vasut <marex@denx.de>, 
- Linus Walleij <linusw@kernel.org>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Louis Chauvet <louis.chauvet@bootlin.com>, 
- Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Maxime Ripard <mripard@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260416-ti-sn65dsi83-dual-lvds-fixes-and-test-pattern-v3-0-143886aebc6b@bootlin.com>
-References: <20260416-ti-sn65dsi83-dual-lvds-fixes-and-test-pattern-v3-0-143886aebc6b@bootlin.com>
-Subject: Re: [PATCH v3] drm/bridge: ti-sn65dsi83: two fixes + add test pattern
-Message-Id: <177789087185.275106.17946042535609363566.b4-ty@b4>
-Date: Mon, 04 May 2026 12:34:31 +0200
+In-Reply-To: <20250728150059.2642055-1-max.oss.09@gmail.com>
+References: <20250728150059.2642055-1-max.oss.09@gmail.com>
+Subject: Re: [PATCH] drm/bridge: lontium-lt8912b: Do not generate HFP
+Message-Id: <177789131143.337587.6135540351214362378.b4-ty@b4>
+Date: Mon, 04 May 2026 12:41:51 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -74,15 +70,20 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-On Thu, 16 Apr 2026 15:59:54 +0200, Luca Ceresoli wrote:
-> This series used to have two bug fixes, now applied to drm-misc-fixes, and
-> a patch adding support for enabling the test pattern output from userspace,
-> which is now at v3.
+On Mon, 28 Jul 2025 17:00:50 +0200, max.oss.09@gmail.com wrote:
+> The datasheet of lontium-lt8912b doesn't require blanking during
+> the HFP period. Thus use LP during HFP.
+> 
+> Tested with a samsung-dsim (i.MX8 MM) and a tc358768 DPI to DSI bridge
+> as the DSI host.
+> 
+> 
+> [...]
 
 Applied, thanks!
 
-[1/1] drm/bridge: ti-sn65dsi83: add test pattern generation support
-      commit: 55a412e3a78104036bbb1036e2ebe8fa4fb41770
+[1/1] drm/bridge: lontium-lt8912b: Do not generate HFP
+      commit: 9a56caf49525e8a0ee349fb69db101d018a95a66
 
 Best regards,
 -- 
