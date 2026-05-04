@@ -4,132 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2290FF886F
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 11:48:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B682FF886F
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 11:53:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0565F10E679;
-	Mon,  4 May 2026 11:48:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98DE810E66E;
+	Mon,  4 May 2026 11:53:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="dYbtJvg7";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="NWLzZfQs";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="K/eGlM7X";
 	dkim-atps=neutral
-Received: from OSPPR02CU001.outbound.protection.outlook.com
- (mail-norwayeastazon11013001.outbound.protection.outlook.com [40.107.159.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36CE610E66E;
- Mon,  4 May 2026 11:48:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bQJulNwV79eiJkukHZtU177gTLEEzbXtSPnDwgYMvyne3+Mh8AQXCXx1dwJyVFeAcqpdKJ537BAq1bVtfJQkeiXQkbu5+yaGzI3cRfztQE0MVDPFa1gaNHRfFmp0E8WBnE1X6QVkBfcy8LdkcEBm388ADdHtB+g706Hz2ZyF5XCrjM5eF5O9lvEFLYaDCbHzPVcJFWtm5AnMmuK6eT3/GE9rlKPDnS6jJ6r+elcHDAZMO0OjIddJp7dPVKikPDK6jLndrGP9OwUgcjyvYNF/JPQ2XV4FdZiXKoVmfv/ahXiHXIUneSSdMyEuydzsgRRcHM+9hjjNL/BRNyloB484tQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kuJ5TrsI/7xa0NUQqdrHUy+n3N/zC1iSMjSRl4BbBNs=;
- b=uWmBYV8wL6vN/aaTb0heieb4Ntd7G3A9WXZUtaa2ueos5GMMffFcCCed8F75DOG1v6usXYwOyt/s8WZvpWz5Uo2IzhZPBR4cNWU7vrolT4esPg4L4Mv9J9bsVyCaoKSyQyIgLTvc9n/dB+lnN7x99bNKSjJ9pkueDeAHJeT/EL/++61MVyBW7ZfjCaWUYsxKYBmTht09rBt9eMiI5m/SO77TBef7PsNKPmtNvyYtRnFJRF9Qktj0S2kdz8WDHHEfLecKIZFrGnUaDmppwP/tp2tvXNgN1H6yFbzI61V5exyFXqP/714DSpW0Xs9wpJR/rSXTRlWOcBZ5X6988rec/A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kuJ5TrsI/7xa0NUQqdrHUy+n3N/zC1iSMjSRl4BbBNs=;
- b=dYbtJvg77mI8SWmWDrlL7pWGMAg96UvtIle1GKLgLMaNYc3UfmEaCPrVKCq5qOJ/pW6UXWZQTLwUhJNCd6eXodFZ0hnAHvGjXUOHg+jhnmsV45U7qU3L2QqpsP1GHw+mc4judm1guQy3i4SD7Ef/36Twlp1eZLQSgZ4gPN9J1CGoPq1C9L1ZnHaCqIp3lgKpqe+/sVGwQk3N11VtwkptDylaoCqCEHrNYj/c97b57icmY4SG/oH9xfG/SxC/yYz710AsBixGJkQP2H+r5dGBdKiqTAv/PV9VU1GfEPcLBIbUA0Sy35hnNEZOwN1bw+gHNaLtWKOGV8sMHbEKpET6xA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM9PR04MB8585.eurprd04.prod.outlook.com (2603:10a6:20b:438::13)
- by VI2PR04MB10286.eurprd04.prod.outlook.com (2603:10a6:800:21e::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Mon, 4 May
- 2026 11:48:32 +0000
-Received: from AM9PR04MB8585.eurprd04.prod.outlook.com
- ([fe80::f010:fca8:7ef:62f4]) by AM9PR04MB8585.eurprd04.prod.outlook.com
- ([fe80::f010:fca8:7ef:62f4%4]) with mapi id 15.20.9870.023; Mon, 4 May 2026
- 11:48:32 +0000
-Date: Mon, 4 May 2026 14:48:28 +0300
-From: Vladimir Oltean <vladimir.oltean@nxp.com>
-To: linux-phy@lists.infradead.org
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- linux-can@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-riscv@lists.infradead.org,
- linux-rockchip@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org,
- linux-usb@vger.kernel.org, netdev@vger.kernel.org,
- spacemit@lists.linux.dev, UNGLinuxDriver@microchip.com,
- Bart Van Assche <bvanassche@acm.org>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- "Martin K . Petersen" <martin.petersen@oracle.com>,
- Peter Griffin <peter.griffin@linaro.org>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Chanho Park <chanho61.park@samsung.com>
-Subject: Re: [PATCH v7 phy-next 09/27] scsi: ufs: exynos: stop poking into
- struct phy guts
-Message-ID: <20260504114828.n7r7kujaegusdkbw@skbuf>
-References: <20260430110652.558622-1-vladimir.oltean@nxp.com>
- <20260430110652.558622-10-vladimir.oltean@nxp.com>
-Content-Type: multipart/mixed; boundary="oquvkzttypru676v"
-Content-Disposition: inline
-In-Reply-To: <20260430110652.558622-10-vladimir.oltean@nxp.com>
-X-ClientProxiedBy: VIXP296CA0008.AUTP296.PROD.OUTLOOK.COM
- (2603:10a6:800:2a9::7) To AM9PR04MB8585.eurprd04.prod.outlook.com
- (2603:10a6:20b:438::13)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 793C010E37D
+ for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 11:53:12 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 644B4V7O1531738
+ for <dri-devel@lists.freedesktop.org>; Mon, 4 May 2026 11:53:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ BuofvOz/5FZrPdq3bPa3pWgfvPCVCJgpGjMM0k7A5g4=; b=NWLzZfQs1QlELHxn
+ Y1ouGGR/3tqN8ojHkqnjfLgF1IK/OIqHS5RHdcpzFyKtdwoP5X5r/DCZUZc7krRo
+ TrF6mHKpb+/bJSBB9lQ75B6mueu3BTq7z5yc+c0NwZz++6Pg9yjDbFLpXpQ6Lyqf
+ r3Kw9FxVBslB7ggKcIkMB5xb+WUTynpy2x7FvKofWwRAWl3/GRlbBxbZe+GgePjT
+ Mbt09jiAlfiu3vQQoWVZl7M6t0MRbDk++4xk6Ve2bL7nSUXvzNszozWKA76jxQLc
+ 4dWBFjc97K98NkzUZTIsO2Gr4ad7xNfm6OJuVZfCAGgLHQ4pp/lKwlVCHumQ9jp0
+ 40+4dw==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
+ [209.85.216.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dwa1enf5b-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 04 May 2026 11:53:11 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id
+ 98e67ed59e1d1-35641c14663so4782813a91.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 04 May 2026 04:53:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1777895591; x=1778500391;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=BuofvOz/5FZrPdq3bPa3pWgfvPCVCJgpGjMM0k7A5g4=;
+ b=K/eGlM7XJ6ct4rG6s1h3PI7ZJgOzL9Acq1jQ8b/rQfqDhurzYwhzKBjjFuCArj+IJr
+ S+wJgUdAZt+O4fHtFOTNJoqwHtoycddYYQe3w899yU+INV9roIDhqDqEud+YttsS8juE
+ gZI2g1ZZUCgR/1jQ4fVeS+B2dDflVKyfDDS02dgUNjsXQPs3m4k7r6I1SHoJt1iSJy0p
+ dPzx99LiR5eSiW/POYNqviS2X+ptiNqeeMneFXT336vKIxNta+C9NJpRXDTtubcWUPn7
+ JJj5aAJ2SsFzGP2PoR+la2CdArNGtDY2hSF1p4Tyjgc3rsHjo1sg9N+3ynHw4SVO/yra
+ WaMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777895591; x=1778500391;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=BuofvOz/5FZrPdq3bPa3pWgfvPCVCJgpGjMM0k7A5g4=;
+ b=G5N+LgSl9kcJxdOelrpRxge63h8+tmiyydH5ILTixhVEkqp4Z3yRU0EnABLwvEgZNI
+ ZU4Apb69ZJAjwGaA1iWPTHYaPCX55F6j/lrBbhmnS3PnckPqpKQGMly8k5+Qt2zl5J56
+ mf3cONPRWzws+cNQ5ATel3N/HNYXcieQioZTtQ7VssjWav7eyHk5K6oI3GMU2ntQSCz+
+ gDjZliNL0Vk3TIJtWJ3Cwbg3MZ15XXbYTjQj2DP3veqlhWmueRn6Nxjboa4l/lsyEvn6
+ A8Ha4WK1YSfJXJrJt03X6BSKbcx+5tIG0hSvhIL3U/aQGoMYjF/lELPPWrI8iO7B1A5n
+ VHTw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/fJdbBWTpjcgHLvrpB70v0kGG64nm3W/rkRPOFfA5Y8BslcV+ARzoLMqyYxrC5k9Ekvv2qnHSFeNM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyVexw1+ZHLKWb7eZJJkrEb7hEroT+f8XpWCXQyL91UFDWEnpY2
+ xxdUWOLzzuD6VGWbv5yjaeFszSNXj3MXKojL5eUU5faFA0c0UXvBeDzhjLHkS8ZCxNd6U4pPhM/
+ xOEqNHCCevEQriW43bORWE6kpV+fVWj1gwG+D4lufNpThmNxDsmISTw4UoGdwBBNngG4kciU=
+X-Gm-Gg: AeBDievO0XUwx+1NBVE1m8fxyAq1g4q+r5KZor7Zg1CW+VatFcBnQgtBYABB2cokUAT
+ TjxShMEUzBvSV0Ny2nfkbgTutRbN65ap6UhE+ZI4HZJxMUF0rbsbqtRuCfS4RDfJbcVnizvQmgi
+ SuA2SoZmNRhRo0MPfTtzmIJsM3Rat0cd4imJCiyACdunBLgH+VTX2OzZKEgTnPXtpzkKwmitijJ
+ 4qsXMWABd6IOGLWe/K4EKPZ2J1+mxL5P0hNt32ihIr7yVxEwOGn+gkys/TIx4Qjzs3Dwe/kZyQ4
+ OBeje/+cqZWof2DbdWD8n97pC2w2tP3CkZqdtV2sb+dQf0Qy15z4E+AStJibZ2834gvfGOjh49x
+ xQ0AOtUJqqVXwsFMBiXUuAcYDh7uOwPlj8vAfMC2CMxB3Xk+t3khlOXgmdjzSayk=
+X-Received: by 2002:a17:90b:4b90:b0:359:fd9a:c50c with SMTP id
+ 98e67ed59e1d1-3650ce4793fmr9409782a91.22.1777895591049; 
+ Mon, 04 May 2026 04:53:11 -0700 (PDT)
+X-Received: by 2002:a17:90b:4b90:b0:359:fd9a:c50c with SMTP id
+ 98e67ed59e1d1-3650ce4793fmr9409732a91.22.1777895590521; 
+ Mon, 04 May 2026 04:53:10 -0700 (PDT)
+Received: from [192.168.29.116] ([49.37.150.129])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-364ec02ab2fsm11431599a91.14.2026.05.04.04.52.56
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 04 May 2026 04:53:10 -0700 (PDT)
+Message-ID: <6515558f-99c5-43c4-9141-4bd4a2be6317@oss.qualcomm.com>
+Date: Mon, 4 May 2026 17:22:53 +0530
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM9PR04MB8585:EE_|VI2PR04MB10286:EE_
-X-MS-Office365-Filtering-Correlation-Id: fad5a451-f99b-4b4e-5a49-08dea9d310da
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|6049299003|19092799006|7416014|376014|10070799003|1800799024|4053099003|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: qDLPZu5qYj9KN27LUIv3EUhwOORB6LjoJgGq88OqyxSbx4QbMN6GWl4xaxhh7CBm6Paj9Nb3+Fb0q6S8UhgFEti0SUMIINjAafDJWeUWD9OPiVrlPEeFeLW7IRyshjpySWcoFlTOLOXGA6jTmV8r9Ri4YOBI9hP060w0ViigKdG0vp9owYHWlpRQ3/fPWwpPfK3CrmUr+ZwmfrTE+OduX3EjD3fVoV7y5nJZ4H5jgAMN9YikY0LCVj87hKi5gqoiEdcs4STC9WZEHeOuUA9uuqGcYgYmIH6Xc6CP2E7NFo/t+5TXCSEfTtnx0MS1mf3Jm2WZrd9vySsMe6mWHJBwoFC2HebuAWSEvSF57fbSp/HdDSiD0Lm9q54Irea2rnSwUItMSJMFz4xt68ZGiayi+a/qHWF7Pa2kRUMaLkoZe2doMtXvSuWRYpH2IDOL6zb/6sMwSWUXjESKQNciEcCyqjQZwfFNOdeWVoB8S523MMUvqOBRvqrQcAjvj3RnN5EGeDHh/5+1AzA5Qiuppwa7Omge/+17eAjJUGKkvwNkuJzEz5etCinwDvwJo2kyXS0cSxrw/PnozTkX6xtaVb16u6LQwDKypVszkDZJza17dx++i09FW4qClFDT2zaHPO+L/J3M/dp8ILU+ANb/MThLmMu7a0OZWp4Cp11PqVuIyGG6iMrKUxxz4Ez+8nbyKELh
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM9PR04MB8585.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(6049299003)(19092799006)(7416014)(376014)(10070799003)(1800799024)(4053099003)(56012099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?b+vjs4nLpKCTHK7OBy8RtNuxJBaaLoShYtumy2aCVMblYmFrZR86GQUXpSK6?=
- =?us-ascii?Q?oepI6W2vxB8SANoZEkfaWJcwYFznGh3Kom6KmvFkPXhQnsAJyyG9i4YXt6Nq?=
- =?us-ascii?Q?H4eheO3rSp2c/XcceJJMWETW3qOppAAa87+4exocQPiKkmo6EG9Dtl2Ap4iG?=
- =?us-ascii?Q?QTSR5XHeOaphAHzwNbeq2dBObQh2aiM9vbtSvmDdHBYkz8zxVSdgxmXkbEQ6?=
- =?us-ascii?Q?9Wn63hI2PBL+dHzHMqn3xET61VSq63SElL8bctKPNFg1n2RJz2+KSONlGiIo?=
- =?us-ascii?Q?kpM6k+QoDqqIQw5DqMEpeg3hIkinVNDZEOwsFpqPlAObq9/KSRrBBIWNlD5e?=
- =?us-ascii?Q?/ymSAT9uUjVL6fsIy/qT8B+7d91L2uNyDeNxI3F9MARXODDF0xsZ4fnVOJ8V?=
- =?us-ascii?Q?jsUwMLLrmxB28Vcu5ZSAlmkCrW7QLnEFAKTb/dF0BRoh6fMBMACMHp/TVFM3?=
- =?us-ascii?Q?WC+Sxw3PFtHLNw9/DA43E47HY2gUv2T5pVwsk48CqZjBnd7QZVPlewf8ezw7?=
- =?us-ascii?Q?iov1MplVQc2xgtTOnbT425h0UBUzaVW0WWnbwc5Pa0lQDbOazNqhxU/ha0UM?=
- =?us-ascii?Q?imlUpbK7NPmZYv/p9mQXW+uQiVaT94AFeE0Mz2ZkZKeJqJbZnI3ZcYJ77w2B?=
- =?us-ascii?Q?pGm7J26qYV2KtPekkjSHAz+v79JyEn+V1PbzJFdZc2vaiAh+tcmWdG/6066p?=
- =?us-ascii?Q?chBIdIkiexDzS1SxRQzkMZelQIUAH54/ZF7SJOd4mWQmABasusKuLF2zmXrI?=
- =?us-ascii?Q?ivBquIRIIRE3pKLQBaYaGxTU+HeiZzN9DknUbUglEYFLGOMeEOnTz3DzdAl2?=
- =?us-ascii?Q?CYH/Cd9JBo4iiDQ+9mywmQNKV1kz5mDAKh3u4StYUPXJac2m6iZP6qWup8o2?=
- =?us-ascii?Q?lI2rlbxGekw4lqz0Q2agXYCrbsJwrjh9BWh1RhFG1bgH2Ra3upFgxSFYU+PM?=
- =?us-ascii?Q?UDQoORL7wdHFEGIxukdtX7kIsr8cfRoYVpKupKwXOR6u3/SYQS9oW9ceJVJe?=
- =?us-ascii?Q?QpEZFHQlA4UpOX7eUu9iFrVwFTNIFaJ0VxZQXB2Q6SSBUkbhmpZRlEal0Dff?=
- =?us-ascii?Q?VtHJZH2SnaXnVAc1Rl1LmBimecCaaRwuZEpX19UvE5T575uX7/xmxL2ufTaf?=
- =?us-ascii?Q?pydJBEyiayWk2nJ8FGEwVsJUUwTu+FEXFJXYHRlH2uQQG9JtRPI3oGhX8iF1?=
- =?us-ascii?Q?AWNsvlmlc91oCSzaLRziIxFVXIkwhdTANxxEOkBcSbeOOBq4zyv+iRyi+eJ1?=
- =?us-ascii?Q?69F092bXIedwiwJmbBErphD3pJQmdRLPgjOiE6c71m84kHFPX8IYVLXOC0bb?=
- =?us-ascii?Q?cUvwfcYoN7HNS+eQQsfn3ugl5y1et5fCagCoN7eu7y1VgLrRDOEzO5hFwqRg?=
- =?us-ascii?Q?NmSbNCDXn7PCT9v+xwy8wX2TnGG+Y2jhh6k6KnLhh090Y3pdy4xA02iwGvcH?=
- =?us-ascii?Q?SXwWQ+Jchp1vOBpe091eSo6khn84VTZci0nSN7RmtoamNSsV3+mb7HZLf2Qm?=
- =?us-ascii?Q?PPSCAgQfySin78HBVuaCJwsQC+saeTnat3ZNB121ZMrfYtItvBqGO8qMe9xz?=
- =?us-ascii?Q?EzjOtmJU5T4nud/PxzZHWVILtmitdCI1XV88i4IzMvuf3tt3HyQ3GWav8Qn3?=
- =?us-ascii?Q?g2lrLaEXN8UUxfWO2ocs6QvLAE3Rpg1vf0Hw1kvgRrjNoR2ZTRh29dOxjZb+?=
- =?us-ascii?Q?/26ERto3tUOVzlIX793VFUu55jjQzzN0jVig9a2um6+MyRV6NF0ECiWjh1Jn?=
- =?us-ascii?Q?wyjbhu/w9kEhsWkUq8XmeXThly4hrxUfLU1Mn1w+u419+L7DI3v23aMbEj92?=
-X-MS-Exchange-AntiSpam-MessageData-1: po77R0ECpxvMqA==
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fad5a451-f99b-4b4e-5a49-08dea9d310da
-X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8585.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2026 11:48:32.1691 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: owIwq/kM2PqBPikT4lRxifucAefCEGeCRaQpBogOvxGbkXJcadWu7qrGZ9IJTp3cZ8/zuiJ1tGZGUaYa6Mx+pQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB10286
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 04/15] firmware: qcom: Add a PAS TEE service
+To: Sumit Garg <sumit.garg@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-media@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+ linux-remoteproc@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
+ akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ jesszhan0024@gmail.com, marijn.suijten@somainline.org,
+ airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
+ dikshita.agarwal@oss.qualcomm.com, bod@kernel.org, mchehab@kernel.org,
+ elder@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ jjohnson@kernel.org, mathieu.poirier@linaro.org,
+ trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
+ pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
+ tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
+ srinivas.kandagatla@oss.qualcomm.com,
+ amirreza.zarrabi@oss.qualcomm.com, op-tee@lists.trustedfirmware.org,
+ apurupa@qti.qualcomm.com, skare@qti.qualcomm.com,
+ linux-kernel@vger.kernel.org, Sumit Garg <sumit.garg@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+References: <20260427095603.1157963-1-sumit.garg@kernel.org>
+ <20260427095603.1157963-5-sumit.garg@kernel.org>
+ <ab4b5257-92df-4201-ab04-436ab77b2fd8@oss.qualcomm.com>
+ <afiCrIYSm8AK9xn9@sumit-xelite>
+Content-Language: en-US
+From: Harshal Dev <harshal.dev@oss.qualcomm.com>
+In-Reply-To: <afiCrIYSm8AK9xn9@sumit-xelite>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: 1bkuJ2Tks2ykS9gLWBqQrIUmS_36Q7WX
+X-Proofpoint-GUID: 1bkuJ2Tks2ykS9gLWBqQrIUmS_36Q7WX
+X-Authority-Analysis: v=2.4 cv=e7U2j6p/ c=1 sm=1 tr=0 ts=69f888a7 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=fKl8XJY0368M7tBUixYpxw==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=P-IC7800AAAA:8 a=EUspDBNiAAAA:8 a=w6fE4RYvq4DoGGcOsJAA:9 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22 a=d3PnA9EDa4IxuAV0gXij:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA0MDEyNiBTYWx0ZWRfX6ajB/R4cfUUT
+ D7lEJR5jHNj9Ow370+Gj8OQzffyjkzRx6MimUOni9X4XLk53ooTQ/8FEdQY6lEUxWba7cQN/lko
+ Pu0o+xZxUUHJX+/zZYYbjz+xyOhm0ov9+QAWC3aeQHQ9grj/oKkgQCopekDg80Z1aOGRibpuQ5z
+ hltuSXKFv3qcX/v+mHMSiaNHjuJYDajcIDZjr+7Ojd1me3AD4p929qrznbTMAWbyiBHHe1l3KCP
+ HSOw80vncdwSMmt+lEU9NTp4dwjd7BVoin0TEwcBBnBpDuEUOHfjPHsIj+uOkU7AuyfoKbCCyyJ
+ HEODhpF7objjB03q7OPrujUYpM2Z7jdGuAH5FTvXTNCOpVZkrgTGMgPpSM8x/Z4ssZCzJ9bKxOI
+ B7R8QRmbn3CfdWG9YfERTrkpvC9RpJDsm6reHChxU0LalT24h3SdV821LJb4cs0XeoLO6xb1aFq
+ SGZdLCNe6JI28EqrNCw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-04_04,2026-04-30_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0 adultscore=0 lowpriorityscore=0 priorityscore=1501
+ bulkscore=0 clxscore=1015 impostorscore=0 malwarescore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605040126
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,345 +163,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---oquvkzttypru676v
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-Sashiko says:
-> commit 76ded6c0290bdb192c2ae1af9a2e6a47fc39c9a1
-> Author: Vladimir Oltean <vladimir.oltean@nxp.com>
+
+On 5/4/2026 4:57 PM, Sumit Garg wrote:
+> On Mon, May 04, 2026 at 03:33:06PM +0530, Harshal Dev wrote:
+>> Hi Sumit,
+>>
+>> On 4/27/2026 3:25 PM, Sumit Garg via OP-TEE wrote:
+>>> From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+>>>
+>>> Add support for Peripheral Authentication Service (PAS) driver based
+>>> on TEE bus with OP-TEE providing the backend PAS service implementation.
+>>>
+>>> The TEE PAS service ABI is designed to be extensible with additional API
+>>> as PTA_QCOM_PAS_CAPABILITIES. This allows to accommodate any future
+>>> extensions of the PAS service needed while still maintaining backwards
+>>> compatibility.
+>>>
+>>> Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+>>> ---
+>>>  drivers/firmware/qcom/Kconfig        |  10 +
+>>>  drivers/firmware/qcom/Makefile       |   1 +
+>>>  drivers/firmware/qcom/qcom_pas_tee.c | 479 +++++++++++++++++++++++++++
+>>>  3 files changed, 490 insertions(+)
+>>>  create mode 100644 drivers/firmware/qcom/qcom_pas_tee.c
+>>
+>> [...]
+>>
+>>> diff --git a/drivers/firmware/qcom/qcom_pas_tee.c b/drivers/firmware/qcom/qcom_pas_tee.c
+>>
+>>> +static int qcom_pas_tee_mem_setup(struct device *dev, u32 pas_id,
+>>> +				  phys_addr_t addr, phys_addr_t size)
+>>> +{
+>>
+>> [...]
+>>
+>>> +
+>>> +	ret = tee_client_invoke_func(data->ctx, &inv_arg, param);
+>>> +	if (ret < 0 || inv_arg.ret != 0) {
+>>> +		dev_err(dev, "PAS mem setup failed, pas_id: %d, ret: %d, err: 0x%x\n",
+>>> +			pas_id, ret, inv_arg.ret);
+>>> +		return ret ?: -EINVAL;
+>>
+>> Following the example from qcom_scm_pas_mem_setup() here:
+>> https://elixir.bootlin.com/linux/v7.0.1/source/drivers/firmware/qcom/qcom_scm.c#L778
+>>
+>> I think it should be:
+>> return ret ?: inv_arg.ret;
 > 
-> scsi: ufs: exynos: stop poking into struct phy guts
-> This commit modifies the Exynos UFS driver to stop directly accessing the
-> generic PHY's power_count. Instead, it tracks the PHY power state internally
-> using a new phy_powered_on flag to properly handle link retries and
-> suspend/resume operations.
+> inv_arg.ret return a GP TEE error code which doesn't map 1:1 to kernel
+> error codes. The client drivers won't benefit without having a way to
+> decode those errors. So just printing here can help the user to debug
+> any issues.
 > 
-> > diff --git a/drivers/ufs/host/ufs-exynos.c b/drivers/ufs/host/ufs-exynos.c
-> > --- a/drivers/ufs/host/ufs-exynos.c
-> > +++ b/drivers/ufs/host/ufs-exynos.c
-> [ ... ]
-> > @@ -1513,6 +1516,9 @@ static void exynos_ufs_exit(struct ufs_hba *hba)
-> >  {
-> >  	struct exynos_ufs *ufs = ufshcd_get_variant(hba);
-> >
-> > +	if (!ufs->phy_powered_on)
-> > +		return;
-> > +
-> >  	phy_power_off(ufs->phy);
-> >  	phy_exit(ufs->phy);
-> >  }
+>>
+>> This way the client (say mdt_loader) knows what error OPTEE PAS service returned.
+>> I can see that is tries to print this error:
+>> https://elixir.bootlin.com/linux/v7.0.1/source/drivers/soc/qcom/mdt_loader.c#L286
+>>
+>> With that,
+>> Reviewed-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
+>>
 > 
-> Does this introduce a regression where initialization resources are leaked
-> if the driver is unbound while suspended?
-> Looking at exynos_ufs_suspend(), the PHY is powered off and phy_powered_on
-> is set to false, but phy_exit() is intentionally not called so the PHY
-> remains initialized:
-> exynos_ufs_suspend()
->         if (!ufshcd_is_link_active(hba) && ufs->phy_powered_on) {
->                 phy_power_off(ufs->phy);
->                 ufs->phy_powered_on = false;
->         }
-> If an unbind or fatal error occurs while in this suspended state,
-> exynos_ufs_exit() will see phy_powered_on as false and return immediately.
-> The initialization reference and any resources allocated by phy_init()
-> would never be released since phy_exit() is completely skipped.
-> [ ... ]
+> Thanks, I hope with above I can keep your tag.
+> 
 
-I think I've been looking at this issue all wrong, not considering why
-the UFS HCD driver calls phy_exit() -> phy_init() at runtime and what
-can be done about that.
+Alright sure, makes sense. Please keep the tag.
 
-I have replaced this patch with the one attached, which I will be sending
-for v8.
+Regards,
+Harshal
 
---oquvkzttypru676v
-Content-Type: text/x-diff; charset=us-ascii
-Content-Disposition: attachment;
-	filename="0001-scsi-ufs-exynos-use-dedicated-API-for-updating-PHY-b.patch"
+> -Sumit
 
-From c687a8568c6c7837bb0bd539bf14343d7d0c63a1 Mon Sep 17 00:00:00 2001
-From: Vladimir Oltean <vladimir.oltean@nxp.com>
-Date: Mon, 4 May 2026 14:00:51 +0300
-Subject: [PATCH] scsi: ufs: exynos: use dedicated API for updating PHY bus
- width
-
-I am trying to get rid of code instances where PHY consumers (like the
-Exynos UFS HCD) poke inside struct phy fields, in order to further turn
-struct phy into an opaque data structure.
-
-The ufs-exynos.c driver interacts with phy-samsung-ufs.c in order to
-power it on and to update the lane count. For the later purpose, it
-(ab)uses phy_set_bus_width().
-
-The phy_set_bus_width() function is a PHY provider function, not a
-consumer one, and I am calling its use from ufs-exynos.c an abuse
-because
-(1) commit 8feed347d33b ("phy: add phy_get_bus_width()/phy_set_bus_width()
-    calls") clearly states so.
-(2) phy_set_bus_width() only alters phy->attrs.bus_width, and does not
-    call into phy_ops at all. So a consumer that makes a call to
-    phy_set_bus_width() will not produce any hardware change in the
-    provider at all.
-
-This is where the Exynos UFS HCD driver decided to be creative and
-hijacked phy_init() to pick up the bus_width attribute.
-
-This requires a very careful dance where the PHY consumer needs to
-simultaneously juggle two requirements:
-- the UFS PHY needs to pick up the updated lane count in its
-  samsung_ufs_phy_init() handler for the phy_init() call
-- phy_init() calls need to be balanced with phy_exit(), otherwise
-  subsequent phy_init() calls don't make it into samsung_ufs_phy_init()
-  and just leave the PHY with an elevated init_count
-- phy_power_on() can't be called without phy_init()
-
-This is why the following bug fix commits exist:
-3d73b200f989 ("scsi: ufs: ufs-exynos: Change ufs phy control sequence")
-7f05fd9a3b6f ("scsi: ufs: exynos: Ensure consistent phy reference counts")
-
-Currently the UFS HCD driver tries to keep the PHY init_count and
-power_count in tight lockstep, but even this is error-prone. For
-example, if exynos_ufs_suspend() runs and then exynos_ufs_exit(),
-the PHY power_count will underflow.
-
-If we address the root issue first (phy_init() abused to pick up new
-lane count) by introducing a new PHY consumer method which actually does
-call into the PHY provider driver, then we are able to absorb the entire
-UFS HCD dance and update the lane count without altering the PHY
-init_count or power_count.
-
-Then we are much more free to call phy_init() from wherever we want, and
-same goes for phy_power_on().
-
-It is typical to call phy_init() right after phy_get(), and doing so
-will naturally balance it with phy_exit().
-
-We can also leave the phy_power_on() call to be on demand, placed inside
-exynos_ufs_pre_link(). Because this call can be made multiple times and
-is not balanced with anything else, we need a consumer-specific "bool
-phy_powered_on" which ensures that we call phy_power_on() at most once,
-and that exynos_ufs_exit() only calls phy_power_off() if phy_power_on()
-was previously called. Using the phy->power_count for this purpose is
-undesirable because
-(a) it is going away
-(b) the PHY API supports multiple consumers for the same provider, so it
-    cannot offer an equivalent helper because it doesn't want consumers
-    to interfere with each other
-
-Inside the new samsung_ufs_phy_request_bus_width(), I've sanity checked
-that the bus width is either 1 or 2 lanes. This coincides with
-samsung_ufs_phy_config() which only configures LANE_0 and LANE_1.
-
-Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
----
-Cc: Alim Akhtar <alim.akhtar@samsung.com>
-Cc: Bart Van Assche <bvanassche@acm.org>
-Cc: Peter Griffin <peter.griffin@linaro.org>
-Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: "Martin K. Petersen" <martin.petersen@oracle.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Chanho Park <chanho61.park@samsung.com>
-
-v7->v8:
-- rewrote commit after Sashiko pointed out the new handling is still
-  not correct:
-  https://sashiko.dev/#/patchset/20260430110652.558622-1-vladimir.oltean@nxp.com
-- removed Reviewed-by, Tested-by and Acked-by tags from Alim, Bart and
-  Peter
-v6->v7: collect tags from Martin and Peter
-v5->v6: collect tags from Alim Akhtar
-v4->v5: collect tag, add "scsi: " prefix to commit title
-v3->v4: none
-v2->v3:
-- add Cc Chanho Park, author of commit 3d73b200f989 ("scsi: ufs:
-  ufs-exynos: Change ufs phy control sequence")
-v1->v2:
-- add better ufs->phy_powered_on handling in exynos_ufs_exit(),
-  exynos_ufs_suspend() and exynos_ufs_resume() which ensures we won't
-  enter a phy->power_count underrun condition
----
- drivers/phy/phy-core.c                | 18 +++++++++++
- drivers/phy/samsung/phy-samsung-ufs.c | 30 ++++++++++++------
- drivers/ufs/host/ufs-exynos.c         | 45 ++++++++++++++++++++++-----
- drivers/ufs/host/ufs-exynos.h         |  1 +
- 4 files changed, 77 insertions(+), 17 deletions(-)
-
-diff --git a/drivers/phy/phy-core.c b/drivers/phy/phy-core.c
-index 21aaf2f76e53..6305efe210d6 100644
---- a/drivers/phy/phy-core.c
-+++ b/drivers/phy/phy-core.c
-@@ -606,6 +606,24 @@ int phy_validate(struct phy *phy, enum phy_mode mode, int submode,
- }
- EXPORT_SYMBOL_GPL(phy_validate);
- 
-+int phy_request_bus_width(struct phy *phy, int bus_width)
-+{
-+	int ret;
-+
-+	if (!phy)
-+		return -EINVAL;
-+
-+	if (!phy->ops->request_bus_width)
-+		return -EOPNOTSUPP;
-+
-+	mutex_lock(&phy->mutex);
-+	ret = phy->ops->request_bus_width(phy, bus_width);
-+	mutex_unlock(&phy->mutex);
-+
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(phy_request_bus_width);
-+
- /**
-  * _of_phy_get() - lookup and obtain a reference to a phy by phandle
-  * @np: device_node for which to get the phy
-diff --git a/drivers/phy/samsung/phy-samsung-ufs.c b/drivers/phy/samsung/phy-samsung-ufs.c
-index 00e570d699f3..5d7b842bff1a 100644
---- a/drivers/phy/samsung/phy-samsung-ufs.c
-+++ b/drivers/phy/samsung/phy-samsung-ufs.c
-@@ -161,16 +161,6 @@ static int samsung_ufs_phy_clks_init(struct samsung_ufs_phy *phy)
- 	return devm_clk_bulk_get(phy->dev, num_clks, phy->clks);
- }
- 
--static int samsung_ufs_phy_request_bus_width(struct phy *phy, int bus_width)
--{
--	if (bus_width != 1 && bus_width != 2)
--		return -EINVAL;
--
--	ss_phy->lane_cnt = phy->attrs.bus_width;
--
--	return 0;
--}
--
- static int samsung_ufs_phy_init(struct phy *phy)
- {
- 	struct samsung_ufs_phy *ss_phy = get_samsung_ufs_phy(phy);
-@@ -213,6 +203,26 @@ static int samsung_ufs_phy_power_off(struct phy *phy)
- 	return 0;
- }
- 
-+static int samsung_ufs_phy_request_bus_width(struct phy *phy, int bus_width)
-+{
-+	struct samsung_ufs_phy *ss_phy = get_samsung_ufs_phy(phy);
-+
-+	if (bus_width != 1 && bus_width != 2)
-+		return -EINVAL;
-+
-+	ss_phy->lane_cnt = phy->attrs.bus_width;
-+
-+	if (phy->init_count)
-+		samsung_ufs_phy_init(phy);
-+
-+	if (phy->power_count) {
-+		samsung_ufs_phy_power_off(phy);
-+		return samsung_ufs_phy_power_on(phy);
-+	}
-+
-+	return 0;
-+}
-+
- static int samsung_ufs_phy_set_mode(struct phy *generic_phy,
- 				    enum phy_mode mode, int submode)
- {
-diff --git a/drivers/ufs/host/ufs-exynos.c b/drivers/ufs/host/ufs-exynos.c
-index fb616d1599eb..b90876b268db 100644
---- a/drivers/ufs/host/ufs-exynos.c
-+++ b/drivers/ufs/host/ufs-exynos.c
-@@ -959,6 +959,40 @@ static void exynos_ufs_phy_exit(struct exynos_ufs *ufs)
- 	phy_exit(ufs->phy);
- }
- 
-+static int exynos_ufs_phy_power_on(struct exynos_ufs *ufs)
-+{
-+	int ret;
-+
-+	if (ufs->phy_powered_on)
-+		return 0;
-+
-+	ret = phy_power_on(ufs->phy);
-+	if (ret) {
-+		dev_err(ufs->hba->dev, "Failed to power on PHY: %pe\n",
-+			ERR_PTR(ret));
-+		return ret;
-+	}
-+
-+	ufs->phy_powered_on = true;
-+
-+	return 0;
-+}
-+
-+static void exynos_ufs_phy_power_off(struct exynos_ufs *ufs)
-+{
-+	int ret;
-+
-+	if (!ufs->phy_powered_on)
-+		return;
-+
-+	ret = phy_power_off(ufs->phy);
-+	if (ret)
-+		dev_warn(ufs->hba->dev, "Failed to power off PHY: %pe\n",
-+			 ERR_PTR(ret));
-+
-+	ufs->phy_powered_on = false;
-+}
-+
- static int exynos_ufs_phy_update_bus_width(struct exynos_ufs *ufs)
- {
- 	struct ufs_hba *hba = ufs->hba;
-@@ -979,10 +1013,7 @@ static int exynos_ufs_phy_update_bus_width(struct exynos_ufs *ufs)
- 	if (ret)
- 		return ret;
- 
--	if (generic_phy->power_count)
--		phy_power_off(generic_phy);
--
--	return phy_power_on(generic_phy);
-+	return exynos_ufs_phy_power_on(ufs);
- }
- 
- static void exynos_ufs_config_unipro(struct exynos_ufs *ufs)
-@@ -1524,7 +1555,7 @@ static void exynos_ufs_exit(struct ufs_hba *hba)
- {
- 	struct exynos_ufs *ufs = ufshcd_get_variant(hba);
- 
--	phy_power_off(ufs->phy);
-+	exynos_ufs_phy_power_off(ufs);
- 	exynos_ufs_phy_exit(ufs);
- }
- 
-@@ -1739,7 +1770,7 @@ static int exynos_ufs_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op,
- 		ufs->drv_data->suspend(ufs);
- 
- 	if (!ufshcd_is_link_active(hba))
--		phy_power_off(ufs->phy);
-+		exynos_ufs_phy_power_off(ufs);
- 
- 	return 0;
- }
-@@ -1749,7 +1780,7 @@ static int exynos_ufs_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
- 	struct exynos_ufs *ufs = ufshcd_get_variant(hba);
- 
- 	if (!ufshcd_is_link_active(hba))
--		phy_power_on(ufs->phy);
-+		exynos_ufs_phy_power_on(ufs);
- 
- 	exynos_ufs_config_smu(ufs);
- 	exynos_ufs_fmp_resume(hba);
-diff --git a/drivers/ufs/host/ufs-exynos.h b/drivers/ufs/host/ufs-exynos.h
-index abe7e472759e..683b9150e2ba 100644
---- a/drivers/ufs/host/ufs-exynos.h
-+++ b/drivers/ufs/host/ufs-exynos.h
-@@ -227,6 +227,7 @@ struct exynos_ufs {
- 	int avail_ln_rx;
- 	int avail_ln_tx;
- 	int rx_sel_idx;
-+	bool phy_powered_on;
- 	struct ufs_pa_layer_attr dev_req_params;
- 	struct ufs_phy_time_cfg t_cfg;
- 	ktime_t entry_hibern8_t;
--- 
-2.34.1
-
-
---oquvkzttypru676v--
