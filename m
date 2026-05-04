@@ -4,63 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EB07CD3430
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 15:27:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13CB0CD3427
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 15:55:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 598C410E3F7;
-	Mon,  4 May 2026 15:27:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 708BE10E3DF;
+	Mon,  4 May 2026 15:55:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="m1jZ0a3C";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="mv8U4Mib";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86ACD10E3C5;
- Mon,  4 May 2026 15:27:39 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6426C175;
- Mon,  4 May 2026 17:27:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1777908456;
- bh=FTSgfFPCnzQLTG4eJxZAem+3dcr6wPJ3+G1sIL7RpM0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=m1jZ0a3C6WrgBNNrmOhhF+xER7PP8ksCg7WfK+EHHpWugmOHtchtHIxqSgVOeFwh+
- sl/1vOAKOQevSZvLEr3Q3UzV8EjOpdDxhKMrBJnYB/M5ORdHZOb1fyoZTCnOhfAHiC
- JhgXEXNRhvND9Klnic6IkEjVExvb7u8s7nVGBVRk=
-Date: Mon, 4 May 2026 18:27:37 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, John Stultz <jstultz@google.com>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Michal Simek <michal.simek@amd.com>, Hui Pu <Hui.Pu@gehealthcare.com>,
- Ian Ray <ian.ray@gehealthcare.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v4 11/11] drm: of: forbid bridge-only calls to
- drm_of_find_panel_or_bridge()
-Message-ID: <20260504152737.GD1455860@killaraus.ideasonboard.com>
-References: <20260504-drm-bridge-alloc-getput-panel_or_bridge-v4-0-b578c3daaf10@bootlin.com>
- <20260504-drm-bridge-alloc-getput-panel_or_bridge-v4-11-b578c3daaf10@bootlin.com>
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D23D510E3DF
+ for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 15:55:35 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-488b0e1b870so68793305e9.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 04 May 2026 08:55:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ursulin.net; s=google; t=1777910134; x=1778514934; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=fAwvEMhw8ObiJxMwhkLvz97QesSc7DQxGWqRFcra99U=;
+ b=mv8U4MibdB+XOnfjHWQ6/oL0AIEa09r8WNOSI2RG4ZTTle/EM/FbMvuqAl3ff46VRq
+ jq6mCfibvXpzL/OTXoImaHrCWVCPOozpgwrCQ1Hp9884RW6xcTkbP51kDf8FVkhY4jTp
+ PFJppZ36tAOhd6Cq2DhW1HWi1oSEkc5iakNvUQNggWpXeHekKCURFBZh0vcQtERQVLjp
+ hh1naRkGUXaLunpZmxNYme0amwbcIEymW8bGV0JdwMUlGOWFENdoKL32Pt1U05UW7IkA
+ Cvp8L8eg5RDnuVWXpD9cXbu075xoYEreVFMcI5oxRp52S/qm4SjAH4SZZxBmhYQSzm3g
+ okXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777910134; x=1778514934;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=fAwvEMhw8ObiJxMwhkLvz97QesSc7DQxGWqRFcra99U=;
+ b=RHDJXgDI4F2mEaCRRkFBPzD893s8jOYQLbeRVVTwTla93YphSa6oi5Kzbjl/GyNIcs
+ Wk78kTDvlhi8dhwaq6NpSRrAh0AZ5BLCLmkS1zGmdE55bURNMGPN48m1R4YQmVwThKzP
+ RnqNr85D70y9OThSqw+0A562OMrw9GD5YXKlpaftwtAbgUO7lIwViYTHzRN0ZWF0zjZD
+ 0bE50/YMYPWpSX4AUn4zwj9nPCL3FP8rCXHmVlbFaJcMQGRqGqbkxTyk1tuqx66odkcU
+ y5jpd7Kgbp/PYCRAkZ8clsptuKdCRlo38ybcSe8oDZiHkjppimKqYUy2BqfhafxCV/TR
+ 34eQ==
+X-Gm-Message-State: AOJu0YyYZ5gdt/aTC7OC/DuksfKCgNE9e+g+BcFEnMC0cYU1oxF60ZaW
+ l9qvM+wzx1tU+4Syi9KVPmwJfGQPWnil67bWrVSbJ51BymGN0PSGYKwaJRCGNfA0dvZhsEF4JlA
+ 8C7jX
+X-Gm-Gg: AeBDieuUFJdWtCjXWDjdj7gRaGReCw8vhNVmzPciFY2eBVHysGW0fe1jQEHgCV4o58c
+ Uuq9oyCzkTN7ubMgaFa1jgWr8iX/NO0EY+V3gDDHtw18IDYk6PmJxu/rA/57GUqiIFL9C6I7IuT
+ BPccnFsAXIHOGhSBbFNKV8fPrdHvdGwARfBUI9dDNMTEs4V1yPIjXyIG4teLLgvC4HT/4PbHp1L
+ XstRuSLM3VTGqLn79xaf2S1v8jjE4ppp7sktZSkZLm5UovcIb5SKGpB8HARBS7E4iFFLAk9iXTp
+ HFm6i31+wEIcPC7L6nPqOM0ABY6xkgCOSgLQCAYifyU2HsEdYWBIGciRT84dYyj+TUpNeocgeUb
+ 6j4fmqGBoOWF533jSnv4qB1npig6ROvhMXhBGnVwoFuB8fKB3xLIWWZSurtwhkFynudq3ng+uPZ
+ J+2ocsoYuW8pOgL8jdFzg/iR0ghDZE9lmtxAWF7rMxiLRFYBsFf3lOzLg=
+X-Received: by 2002:a05:600c:4e4c:b0:48a:7b7b:c2b9 with SMTP id
+ 5b1f17b1804b1-48d127234c5mr31052415e9.4.1777910133983; 
+ Mon, 04 May 2026 08:55:33 -0700 (PDT)
+Received: from [192.168.0.101] ([90.240.106.137])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-44a8ef50becsm27274420f8f.11.2026.05.04.08.55.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 04 May 2026 08:55:33 -0700 (PDT)
+Message-ID: <c91b0996-68f4-4d27-891d-6a77f3491571@ursulin.net>
+Date: Mon, 4 May 2026 16:55:33 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260504-drm-bridge-alloc-getput-panel_or_bridge-v4-11-b578c3daaf10@bootlin.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] dma-buf/dma_fence_array: optimize handling
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ sumit.semwal@linaro.org
+Cc: dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org
+References: <20260422103012.1647-1-christian.koenig@amd.com>
+ <20260422103012.1647-2-christian.koenig@amd.com>
+ <5e15b5d8-8184-4496-8da0-793ccd592d10@ursulin.net>
+ <06188881-4eb7-4685-a54d-60806accfb8a@amd.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <06188881-4eb7-4685-a54d-60806accfb8a@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,85 +95,317 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, May 04, 2026 at 12:45:14PM +0200, Luca Ceresoli wrote:
-> Up to now drm_of_find_panel_or_bridge() can be called with a bridge pointer
-> only, a panel pointer only, or both a bridge and a panel pointers. The
-> logic to handle all the three cases is somewhat complex to read however.
-> 
-> Now all bridge-only callers have been converted to
-> of_drm_get_bridge_by_endpoint(), which is simpler and handles bridge
-> refcounting. So forbid new bridge-only users by mandating a non-NULL panel
-> pointer in the docs and in the sanity checks along with a warning.
-> 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-
-> ---
->  drivers/gpu/drm/drm_of.c | 26 ++++++++++++--------------
->  1 file changed, 12 insertions(+), 14 deletions(-)
+On 04/05/2026 15:55, Christian König wrote:
+> On 4/22/26 13:37, Tvrtko Ursulin wrote:
+>>
+>> On 22/04/2026 11:30, Christian König wrote:
+>>> Removing the signal on any feature allows to simplfy the dma_fence_array
+>>> code a lot and saves us from the need to install a callback on all fences
+>>> at the same time.
+>>>
+>>> This results in less memory and CPU overhead.
+>>>
+>>> Signed-off-by: Christian König <christian.koenig@amd.com>
+>>> ---
+>>>    drivers/dma-buf/dma-fence-array.c | 130 +++++++++++++-----------------
+>>>    include/linux/dma-fence-array.h   |  22 ++---
+>>>    2 files changed, 59 insertions(+), 93 deletions(-)
+>>>
+>>> diff --git a/drivers/dma-buf/dma-fence-array.c b/drivers/dma-buf/dma-fence-array.c
+>>> index 5e10e8df372f..f1b4b3296c87 100644
+>>> --- a/drivers/dma-buf/dma-fence-array.c
+>>> +++ b/drivers/dma-buf/dma-fence-array.c
+>>> @@ -42,97 +42,80 @@ static void dma_fence_array_clear_pending_error(struct dma_fence_array *array)
+>>>        cmpxchg(&array->base.error, PENDING_ERROR, 0);
+>>>    }
+>>>    -static void irq_dma_fence_array_work(struct irq_work *wrk)
+>>> +static void dma_fence_array_cb_func(struct dma_fence *f,
+>>> +                    struct dma_fence_cb *cb)
+>>>    {
+>>> -    struct dma_fence_array *array = container_of(wrk, typeof(*array), work);
+>>> +    struct dma_fence_array *array =
+>>> +        container_of(cb, struct dma_fence_array, callback);
+>>>    -    dma_fence_array_clear_pending_error(array);
+>>> +    irq_work_queue(&array->work);
+>>> +}
+>>> +
+>>> +static void dma_fence_array_arm_cb(struct dma_fence_array *array)
+>>> +{
+>>> +    while (array->num_pending) {
+>>> +        struct dma_fence *f = array->fences[array->num_pending - 1];
+>>> +
+>>> +        if (!dma_fence_add_callback(f, &array->callback,
+>>> +                        dma_fence_array_cb_func))
+>>> +            return;
+>>> +
+>>> +        dma_fence_array_set_pending_error(array, f->error);
+>>> +        WRITE_ONCE(array->num_pending, array->num_pending - 1);
+>>
+>> Do you think the WRITE_ONCEs are needed? As the loop will restart with un-annotated read anyway, but not just that, I don't think it can be compiled away in the kernel with this usage pattern. Maybe I am mistaken.
 > 
-> diff --git a/drivers/gpu/drm/drm_of.c b/drivers/gpu/drm/drm_of.c
-> index ef6b09316963..d03ada82eac9 100644
-> --- a/drivers/gpu/drm/drm_of.c
-> +++ b/drivers/gpu/drm/drm_of.c
-> @@ -225,15 +225,15 @@ EXPORT_SYMBOL_GPL(drm_of_encoder_active_endpoint);
->   * @np: device tree node containing encoder output ports
->   * @port: port in the device tree node
->   * @endpoint: endpoint in the device tree node
-> - * @panel: pointer to hold returned drm_panel
-> + * @panel: pointer to hold returned drm_panel, must not be NULL
->   * @bridge: pointer to hold returned drm_bridge
->   *
->   * Given a DT node's port and endpoint number, find the connected node and
-> - * return either the associated struct drm_panel or drm_bridge device. Either
-> - * @panel or @bridge must not be NULL.
-> + * return either the associated struct drm_panel or drm_bridge device.
->   *
->   * This function is deprecated and should not be used in new drivers. Use
-> - * devm_drm_of_get_bridge() instead.
-> + * of_drm_get_bridge_by_endpoint() instead when not looking for a panel, or
-> + * devm_drm_of_get_bridge() otherwise.
->   *
->   * Returns zero if successful, or one of the standard error codes if it fails.
->   */
-> @@ -245,10 +245,10 @@ int drm_of_find_panel_or_bridge(const struct device_node *np,
->  	int ret = -EPROBE_DEFER;
->  	struct device_node *remote;
->  
-> -	if (!panel && !bridge)
-> +	if (WARN_ON(!panel))
->  		return -EINVAL;
-> -	if (panel)
-> -		*panel = NULL;
-> +
-> +	*panel = NULL;
->  
->  	/*
->  	 * of_graph_get_remote_node() produces a noisy error message if port
-> @@ -263,13 +263,11 @@ int drm_of_find_panel_or_bridge(const struct device_node *np,
->  	if (!remote)
->  		return -ENODEV;
->  
-> -	if (panel) {
-> -		*panel = of_drm_find_panel(remote);
-> -		if (!IS_ERR(*panel))
-> -			ret = 0;
-> -		else
-> -			*panel = NULL;
-> -	}
-> +	*panel = of_drm_find_panel(remote);
-> +	if (!IS_ERR(*panel))
-> +		ret = 0;
-> +	else
-> +		*panel = NULL;
->  
->  	if (bridge) {
->  		if (ret) {
-> 
+> I also think the WRITE_ONCEs are superfluous. But I wanted to be on the save side, not that the compiler re-orders the write before the dma_fence_add_callback() and it shouldn't matter for performance.
 
--- 
+Hm okay, but I am on the fence here, if they stay they may be misleading 
+the reader that they are required.
+
+> 
+>>
+>>> +    }
+>>>          dma_fence_signal(&array->base);
+>>>        dma_fence_put(&array->base);
+>>>    }
+>>>    -static void dma_fence_array_cb_func(struct dma_fence *f,
+>>> -                    struct dma_fence_cb *cb)
+>>> +static void dma_fence_array_irq_work(struct irq_work *wrk)
+>>>    {
+>>> -    struct dma_fence_array_cb *array_cb =
+>>> -        container_of(cb, struct dma_fence_array_cb, cb);
+>>> -    struct dma_fence_array *array = array_cb->array;
+>>> -
+>>> -    dma_fence_array_set_pending_error(array, f->error);
+>>> +    struct dma_fence_array *array = container_of(wrk, typeof(*array), work);
+>>>    -    if (atomic_dec_and_test(&array->num_pending))
+>>> -        irq_work_queue(&array->work);
+>>> -    else
+>>> -        dma_fence_put(&array->base);
+>>> +    WRITE_ONCE(array->num_pending, array->num_pending - 1);
+>>> +    dma_fence_array_arm_cb(array);
+>>
+>> So for x86 going from one irqwork latency to num_fences latencies is probably passable but I am not sure how other architectures fare.
+> 
+> Mhm, what do you mean?
+> 
+> Previously we started one irqwork handler for each not signaled fence when enable_signaling was called, but now we reduce that to only starting one for each not signaled fence when the previous fence has finished.
+> 
+> As far as I can see that is always better or at least the same overhead.
+
+Currently irq work latency is once per array:
+
+static void dma_fence_array_cb_func(struct dma_fence *f,
+				    struct dma_fence_cb *cb)
+{
+...
+
+	if (atomic_dec_and_test(&array->num_pending))
+		irq_work_queue(&array->work);
+
+So only when last one signals.
+
+With this patch, AFAIR from when I reviewed it because the diff is a bit 
+difficult to read so I applied it, it is a "chain" of irq work and 
+callbacks. One by one as you say - irq work installs the callback on the 
+next fence, which when signalled queues irq work.
+
 Regards,
 
-Laurent Pinchart
+Tvrtko
+
+>>
+>>>    }
+>>>      static bool dma_fence_array_enable_signaling(struct dma_fence *fence)
+>>>    {
+>>>        struct dma_fence_array *array = to_dma_fence_array(fence);
+>>> -    struct dma_fence_array_cb *cb = array->callbacks;
+>>> -    unsigned i;
+>>> -
+>>> -    for (i = 0; i < array->num_fences; ++i) {
+>>> -        cb[i].array = array;
+>>> -        /*
+>>> -         * As we may report that the fence is signaled before all
+>>> -         * callbacks are complete, we need to take an additional
+>>> -         * reference count on the array so that we do not free it too
+>>> -         * early. The core fence handling will only hold the reference
+>>> -         * until we signal the array as complete (but that is now
+>>> -         * insufficient).
+>>> -         */
+>>> -        dma_fence_get(&array->base);
+>>> -        if (dma_fence_add_callback(array->fences[i], &cb[i].cb,
+>>> -                       dma_fence_array_cb_func)) {
+>>> -            int error = array->fences[i]->error;
+>>> -
+>>> -            dma_fence_array_set_pending_error(array, error);
+>>> -            dma_fence_put(&array->base);
+>>> -            if (atomic_dec_and_test(&array->num_pending)) {
+>>> -                dma_fence_array_clear_pending_error(array);
+>>> -                return false;
+>>> -            }
+>>> -        }
+>>> -    }
+>>>    +    /*
+>>> +     * As we may report that the fence is signaled before all
+>>> +     * callbacks are complete, we need to take an additional
+>>> +     * reference count on the array so that we do not free it too
+>>> +     * early. The core fence handling will only hold the reference
+>>> +     * until we signal the array as complete (but that is now
+>>> +     * insufficient).
+>>> +     */
+>>> +    dma_fence_get(&array->base);
+>>> +    dma_fence_array_arm_cb(array);
+>>>        return true;
+>>
+>> Are you sure it is safe to always return true?
+> 
+> Oh, good point!
+> 
+> It is safe to return true here, but it is not save to call dma_fence_array_arm_cb() because that could signal the fence and result in double locking!
+> 
+> Going to fix that, thanks.
+> 
+> Regards,
+> Christian.
+> 
+>>
+>> Regards,
+>>
+>> Tvrtko
+>>
+>>>    }
+>>>      static bool dma_fence_array_signaled(struct dma_fence *fence)
+>>>    {
+>>>        struct dma_fence_array *array = to_dma_fence_array(fence);
+>>> -    int num_pending;
+>>> +    int num_pending, error = 0;
+>>>        unsigned int i;
+>>>          /*
+>>> -     * We need to read num_pending before checking the enable_signal bit
+>>> -     * to avoid racing with the enable_signaling() implementation, which
+>>> -     * might decrement the counter, and cause a partial check.
+>>> -     * atomic_read_acquire() pairs with atomic_dec_and_test() in
+>>> -     * dma_fence_array_enable_signaling()
+>>> -     *
+>>> -     * The !--num_pending check is here to account for the any_signaled case
+>>> -     * if we race with enable_signaling(), that means the !num_pending check
+>>> -     * in the is_signalling_enabled branch might be outdated (num_pending
+>>> -     * might have been decremented), but that's fine. The user will get the
+>>> -     * right value when testing again later.
+>>> +     * Reading num_pending without a memory barrier here is correct since
+>>> +     * that is only for optimization, it is perfectly acceptable to have a
+>>> +     * stale value for it. In all other cases num_pending is accessed by a
+>>> +     * single call chain.
+>>>         */
+>>> -    num_pending = atomic_read_acquire(&array->num_pending);
+>>> -    if (test_bit(DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT, &array->base.flags)) {
+>>> -        if (num_pending <= 0)
+>>> -            goto signal;
+>>> -        return false;
+>>> -    }
+>>> +    num_pending = READ_ONCE(array->num_pending);
+>>> +    for (i = 0; i < num_pending; ++i) {
+>>> +        struct dma_fence *f = array->fences[i];
+>>>    -    for (i = 0; i < array->num_fences; ++i) {
+>>> -        if (dma_fence_is_signaled(array->fences[i]) && !--num_pending)
+>>> -            goto signal;
+>>> -    }
+>>> -    return false;
+>>> +        if (!dma_fence_is_signaled(f))
+>>> +            return false;
+>>>    -signal:
+>>> +        if (!error)
+>>> +            error = f->error;
+>>> +    }
+>>> +    dma_fence_array_set_pending_error(array, error);
+>>>        dma_fence_array_clear_pending_error(array);
+>>>        return true;
+>>>    }
+>>> @@ -171,15 +154,12 @@ EXPORT_SYMBOL(dma_fence_array_ops);
+>>>      /**
+>>>     * dma_fence_array_alloc - Allocate a custom fence array
+>>> - * @num_fences:        [in]    number of fences to add in the array
+>>>     *
+>>>     * Return dma fence array on success, NULL on failure
+>>>     */
+>>> -struct dma_fence_array *dma_fence_array_alloc(int num_fences)
+>>> +struct dma_fence_array *dma_fence_array_alloc(void)
+>>>    {
+>>> -    struct dma_fence_array *array;
+>>> -
+>>> -    return kzalloc_flex(*array, callbacks, num_fences);
+>>> +    return kzalloc_obj(struct dma_fence_array);
+>>>    }
+>>>    EXPORT_SYMBOL(dma_fence_array_alloc);
+>>>    @@ -203,10 +183,13 @@ void dma_fence_array_init(struct dma_fence_array *array,
+>>>        WARN_ON(!num_fences || !fences);
+>>>          array->num_fences = num_fences;
+>>> +    array->num_pending = num_fences;
+>>> +    array->fences = fences;
+>>> +    array->base.error = PENDING_ERROR;
+>>>          dma_fence_init(&array->base, &dma_fence_array_ops, NULL, context,
+>>>                   seqno);
+>>> -    init_irq_work(&array->work, irq_dma_fence_array_work);
+>>> +    init_irq_work(&array->work, dma_fence_array_irq_work);
+>>>          /*
+>>>         * dma_fence_array_enable_signaling() is invoked while holding
+>>> @@ -220,11 +203,6 @@ void dma_fence_array_init(struct dma_fence_array *array,
+>>>         */
+>>>        lockdep_set_class(&array->base.inline_lock, &dma_fence_array_lock_key);
+>>>    -    atomic_set(&array->num_pending, num_fences);
+>>> -    array->fences = fences;
+>>> -
+>>> -    array->base.error = PENDING_ERROR;
+>>> -
+>>>        /*
+>>>         * dma_fence_array objects should never contain any other fence
+>>>         * containers or otherwise we run into recursion and potential kernel
+>>> @@ -265,7 +243,7 @@ struct dma_fence_array *dma_fence_array_create(int num_fences,
+>>>    {
+>>>        struct dma_fence_array *array;
+>>>    -    array = dma_fence_array_alloc(num_fences);
+>>> +    array = dma_fence_array_alloc();
+>>>        if (!array)
+>>>            return NULL;
+>>>    diff --git a/include/linux/dma-fence-array.h b/include/linux/dma-fence-array.h
+>>> index 1b1d87579c38..3ee55c0e2fa4 100644
+>>> --- a/include/linux/dma-fence-array.h
+>>> +++ b/include/linux/dma-fence-array.h
+>>> @@ -15,16 +15,6 @@
+>>>    #include <linux/dma-fence.h>
+>>>    #include <linux/irq_work.h>
+>>>    -/**
+>>> - * struct dma_fence_array_cb - callback helper for fence array
+>>> - * @cb: fence callback structure for signaling
+>>> - * @array: reference to the parent fence array object
+>>> - */
+>>> -struct dma_fence_array_cb {
+>>> -    struct dma_fence_cb cb;
+>>> -    struct dma_fence_array *array;
+>>> -};
+>>> -
+>>>    /**
+>>>     * struct dma_fence_array - fence to represent an array of fences
+>>>     * @base: fence base class
+>>> @@ -33,18 +23,17 @@ struct dma_fence_array_cb {
+>>>     * @num_pending: fences in the array still pending
+>>>     * @fences: array of the fences
+>>>     * @work: internal irq_work function
+>>> - * @callbacks: array of callback helpers
+>>> + * @callback: callback structure for signaling
+>>>     */
+>>>    struct dma_fence_array {
+>>>        struct dma_fence base;
+>>>    -    unsigned num_fences;
+>>> -    atomic_t num_pending;
+>>> +    unsigned int num_fences;
+>>> +    unsigned int num_pending;
+>>>        struct dma_fence **fences;
+>>>          struct irq_work work;
+>>> -
+>>> -    struct dma_fence_array_cb callbacks[] __counted_by(num_fences);
+>>> +    struct dma_fence_cb callback;
+>>>    };
+>>>      /**
+>>> @@ -78,11 +67,10 @@ to_dma_fence_array(struct dma_fence *fence)
+>>>        for (index = 0, fence = dma_fence_array_first(head); fence;    \
+>>>             ++(index), fence = dma_fence_array_next(head, index))
+>>>    -struct dma_fence_array *dma_fence_array_alloc(int num_fences);
+>>> +struct dma_fence_array *dma_fence_array_alloc(void);
+>>>    void dma_fence_array_init(struct dma_fence_array *array,
+>>>                  int num_fences, struct dma_fence **fences,
+>>>                  u64 context, unsigned seqno);
+>>> -
+>>>    struct dma_fence_array *dma_fence_array_create(int num_fences,
+>>>                               struct dma_fence **fences,
+>>>                               u64 context, unsigned seqno);
+>>
+> 
+
