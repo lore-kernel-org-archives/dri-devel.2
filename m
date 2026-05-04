@@ -4,137 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53F92CD342F
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 22:41:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8C15CD342F
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 22:45:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B61C710E894;
-	Mon,  4 May 2026 22:41:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F5BA10E11F;
+	Mon,  4 May 2026 22:45:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="JFkwYgbS";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RUedlJIA";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="TwEsB1i4";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD15810E894
- for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 22:41:27 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 644LkRt21430674
- for <dri-devel@lists.freedesktop.org>; Mon, 4 May 2026 22:41:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=nwoJXM6+1xp+hLX5E50uMhXY
- 2w5IXLa3r/hbeB0B2t4=; b=JFkwYgbSJdNmoSVpJMPbX0CCS6SptV6GgHo2/0n/
- jFC8/oeZYqCZujRkQBp0VHC3vM5uMc+PqKjt2zNudlMnItK+BWv9V0IYZRTBdN8r
- LbJ0AffuVMmBGxhqKPlKlJaFz+mdsDNf0s8BLyQaXGjAs1A8jm8TglOhlLSSl7Cq
- /2vWaAIYopRi8ti7AAwz5crGYzZNXWtGAEAZ1NEI/yTYaMq0ysLhbzsdTiuTVO7F
- 9FpcGaXW2HCHfcb+/VoCy7f9AqHVOHYhbnQoQMEv98voFT5uLpJ0RDVcJF1rtR8z
- pY601zgpX+WZreXoyJ8aqaW8kiZKyuoqQfCIVvXpbLdxDA==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dxvn6swwn-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 04 May 2026 22:41:26 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-50d84b5f73bso161031341cf.0
- for <dri-devel@lists.freedesktop.org>; Mon, 04 May 2026 15:41:26 -0700 (PDT)
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
+ [209.85.208.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BD9F10E11F
+ for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 22:45:00 +0000 (UTC)
+Received: by mail-ed1-f41.google.com with SMTP id
+ 4fb4d7f45d1cf-67bce1840f1so4656570a12.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 04 May 2026 15:45:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1777934486; x=1778539286;
+ d=chromium.org; s=google; t=1777934695; x=1778539495;
  darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=nwoJXM6+1xp+hLX5E50uMhXY2w5IXLa3r/hbeB0B2t4=;
- b=RUedlJIAw/ctkxxyXq0GEUEUnpqyoeSA+PqTwCUygzoABV0vu3WHV5IhgaYM7SmtwO
- qNDmH++eElQx72XjDFJHcc2pfKw4GBQtuZkEqhM9iKTbrEmBhHqklene5KmTdL7fdD3e
- Tef0wyw38ZsgyczYw8QPzsCVj0Jwe8lJqsN/RECz1qVzkRHFtSKMtrzi8PM2muHdBSPR
- TfzBDHlYHj5AskF9ZuSm3+GubZwsRkBIm1f8TAI+D0vMgIIbQQ58Bvt1/ejLlb0m+bqT
- Ygzwhr+kvgWqu2hVrnUVxmVguy3batd4pJcdkHvNENQqBC6REsz+iu52FQlOjrwUPMfe
- ul0w==
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=SCtqeJ6w5ygfROMjoa3DM/xPDegbtqzB5MET+XvOzy4=;
+ b=TwEsB1i4v+GkmtDDbe9BFE/iUYofVePwSnX3hqaaCCALo1fXjpjCRMwaUMBb5jYPd4
+ CMzKfxh2cjkZTURdT191FmlbzPSehQu7FpzcRxVqALuaeHWxh65qc0N61nwjBuZO7gpg
+ lhL91TEfbaA1fVUC7P37QcmUc0EnrbLNOZHqM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777934486; x=1778539286;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=nwoJXM6+1xp+hLX5E50uMhXY2w5IXLa3r/hbeB0B2t4=;
- b=GhOjia4+VsnfmGMQkfI39BdSh6nDGOGsqKGVDejhrV2IUE+jjbA6y/mow9ZvO+XhID
- dArVbWNuBMis3phYuyCvEyv/Lr3QE6AdnBeanWbJf7C1j9MSHnDwmfQoP/z855KQNdYQ
- W9MX7peb51Kefcxn3Woqdj1itl1jbRQvi11qbScgLjl5FmohnnV/pPrcTFyC1PHENbry
- QsYwvJKwICn/hbjLA4hQuZD4vaactuKm2r9jjJ9OXvxvS3/NMB2Sd+dFVzTgaaalXCal
- hAjOFMVFiuKvvOoQOMvIbmv7QO2u7i3P/9Gk1OD6I7nnipJIR/l+uxqwK6lT6GIHo9/5
- 2ZVw==
+ d=1e100.net; s=20251104; t=1777934695; x=1778539495;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=SCtqeJ6w5ygfROMjoa3DM/xPDegbtqzB5MET+XvOzy4=;
+ b=l7CWmC8w0RRW4yy7YjqvZVpJoScfe0i2SARc10t6OSeVGVAxYzFvyqFhfy/aghJftz
+ PkSU3WzLNKAP/jgwIGNxJ3rOYgGoUodt5rbzqJ7UGAyrJwU168eByNcQsDsiucmxUQUt
+ iMHK/AC/PgudQDUnG5P2PhYYIbLv/sagw7kTNgL9+0lJjQpOYJ3bAPrvyVCXYc1ZHv2/
+ PL6FNuJOPEmFtyIc00jXv3nRQjVc1P3hQ+imtTYffvXqBKWdhQ/sk+LDWmPi6a89AciJ
+ lRq6JIDolcOxizkuTqvbfKn8dI+qB9XtBJTr92zhc2BFlSybcCPlE2lX4XWOZbqAMmuf
+ 64Wg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/9B6W4vR4v3Lry3NMuCsc3cYvj/uQUPVu/E+DPL4ZOENM+TcOd+S/RcGcyieLHwLrtCbABCDhxKZc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywxn+dOMUSpspGiWZ4UA2oqQbcmOGjMTSMQ/omyI0KCDHfL5trJ
- jlPL+0UQ5juFZPxNsKvLLN4Ncd8TRt6Whb5HATZgSmwZ4A2tx43oWoAkumOenl5t7edfcdlyKqB
- sJ6HcCelUVScvDbnWy0nv2JA1CTVQbgTmd3Fveb4UgcYBu0OYd5/7v5+J1ZNt2O0iYKFK+Qg=
-X-Gm-Gg: AeBDiet6b23RMmcQwU6x5fkW5DUueluAh95r8R6D43hOU7pLH2eFBCAoRc/okWpDX7Y
- YERGkQdlW2EKZxWHXIPdLyEuFX6cSt0QUGY3/4uHTpfOklcLm2EuPO1mmXMs7NtfIKWbE/PEl7B
- nj45hnV52w/8oZm0lzI6lYAOUA0XUpqwkbITvaZdyASlkdxz4LYYiJwvRZs103+mPYu9iyz/45G
- 47I9B4ENxMxhrunENhJFPgaTApe4klWNRRjojfnx2mH53ViS44TzPLv8+TogZ2sQy47rgfzwYqZ
- JiBBQwUVPO/FPGfdRibSYvdY0TNe3LbqpEWqG+ih/Wew2QHH5GVV/bNM7GONmGvza+uWLB9RWq/
- OW5qngnH+K29em3Dvw63co/S6tSmz7ERKO6i8EhNxGkYhRQFa59XfGZhhTeRMqgaqJtpxqD+JFX
- ITCIId5VUqvwA4Ndsh0cluZv/kiYX6nelEqFUSoj6xSDoLEg==
-X-Received: by 2002:a05:622a:1aa8:b0:50d:5a11:1b5 with SMTP id
- d75a77b69052e-513069d6e28mr11412051cf.17.1777934486313; 
- Mon, 04 May 2026 15:41:26 -0700 (PDT)
-X-Received: by 2002:a05:622a:1aa8:b0:50d:5a11:1b5 with SMTP id
- d75a77b69052e-513069d6e28mr11411561cf.17.1777934485864; 
- Mon, 04 May 2026 15:41:25 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-39361300c88sm34342041fa.25.2026.05.04.15.41.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 May 2026 15:41:23 -0700 (PDT)
-Date: Tue, 5 May 2026 01:41:20 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Luca Weiss <luca.weiss@fairphone.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH 3/4] arm64: defconfig: Enable Novatek NT37705 panel
-Message-ID: <7sujwhy2sbnxhyuo3xajlohsbkyvugciq5but4eyjsfohzojg5@wflekkz65bwy>
-References: <20260501-fp6-panel-v1-0-e09cb05651cc@fairphone.com>
- <20260501-fp6-panel-v1-3-e09cb05651cc@fairphone.com>
+ AFNElJ9V7KO4ZbpPCFbz0GilAI3HZw8JlH5JLz15oxNZdETQCeIvkJw/gbpNz1lAN+INVCMjibCdNmM1TFU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwDFBBYfTu+S1O3C13dc0xIVQY8lMEx+o/WMIedG+e3oY95kv5m
+ SGl5VSNheO6zNskj74gLaREZ9Z6ex71e9exqJq4BTmNGFKeMMiq443DDnOV7YKXkWXXkDRI4M3R
+ 7B4ZwqQ==
+X-Gm-Gg: AeBDieskQojqA0ZdvugzUSoQ67EyggH/eCdshoLDoI9xboJYxoHfMdB/1y6yn3IQJ6g
+ /ZpFMsM+8PIDvAT+9rnPc06rUTIDhy2lTYfTZtnOKhnrsog38I50XkgmVg6/8A6MUsfZBgtwRgp
+ hlxdv+2CEiXMJrN9tGJFxFxiSx97k7S5tZCLt8SoYDTd7tKIjOLR4GArspip4+2NcXr6wrPsuU/
+ v9sAd0AXLer6BqyLC7OzBBZ+vmILmNhjRSglFETOa1EPPkU1cRy9c3pn9sGhoCQRvM62c867Gaa
+ YFs0GWhcI8Rpyi1V9H2GfLZmB9kCiXKeQyYpY4FTKLCb+vr6eBZFS4wfMgJmuk9BwxVr4j7nfH6
+ /geRoXPK+nv+0Zsq5bJF9Pt3V/w7X6WxlAJKpnJulBAWqvsLNg4N4uElmXgEXSGj0JjVJZWKJ2/
+ IRLwGNC3yPxGpOtQEkNMEBgCp8miogxW4N4NzYITEDC+RJ3jQmn/53rXxlyXDiAgPWHsxX+NXI
+X-Received: by 2002:a05:6402:2742:b0:670:3b53:9bc with SMTP id
+ 4fb4d7f45d1cf-67cca82f2camr275766a12.4.1777934695079; 
+ Mon, 04 May 2026 15:44:55 -0700 (PDT)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com.
+ [209.85.128.52]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-67cd731367dsm40907a12.24.2026.05.04.15.44.53
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 04 May 2026 15:44:54 -0700 (PDT)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-48d146705b4so3346545e9.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 04 May 2026 15:44:53 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AFNElJ834Bbah4X331LM1T5b/vPmo1QSUVOngEHBPnxmBpRc18mft8QG6H5HwCq0mEsra9xuJ2YgygnzV64=@lists.freedesktop.org
+X-Received: by 2002:a05:600c:a401:b0:48a:66a8:9981 with SMTP id
+ 5b1f17b1804b1-48d18ceab19mr6062235e9.27.1777934692325; Mon, 04 May 2026
+ 15:44:52 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260501-fp6-panel-v1-3-e09cb05651cc@fairphone.com>
-X-Proofpoint-ORIG-GUID: _dIJt5sWI7XUEuTC0Bls5VNoXRtJ6s40
-X-Authority-Analysis: v=2.4 cv=Z+vc2nRA c=1 sm=1 tr=0 ts=69f92096 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=6H0WHjuAAAAA:8
- a=EUspDBNiAAAA:8 a=7jsc-R8H8AlhYXVgh4oA:9 a=CjuIK1q_8ugA:10
- a=kacYvNCVWA4VmyqE58fU:22 a=Soq9LBFxuPC4vsCAQt-j:22
-X-Proofpoint-GUID: _dIJt5sWI7XUEuTC0Bls5VNoXRtJ6s40
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA0MDIxMSBTYWx0ZWRfXxymppUk+hCQz
- +ZLjym+T/GTLFjWSbM326tosqx/uu62+MsIVMfhHeDppkl2KrgKlqUgrwgdmSGr1tlxtmR8ypHC
- 2/fixfKFmOrCZef1x8qB7r43xdfvftZ+5uqOT6h2r7iCDiRG9/zRNE8OfxCQU3T0EHMUCPohHoF
- gNKM9cf5ti0GyzQLgEfasFw9TuaVciCxlDXyt+HNW31twN3gEPGX0oDK9BTExEdz+ek2ONshYxY
- Jb/lCSWO09GNvp2dakqULiCiHWKkDhJq/XcFcx8KyURgZIomvzeVVpDnOgZWmjAG10A+oOTZXOx
- ONgyU/9NWzIenu55S/j8RlR8c/aGad3FUwOD6xl37/6h6uPKjcrSqAqFC0uqwQI6yB2P1CrFIqL
- WKJTyuubAO96cMvySHOg4rcU1x5/M26ebb+xGdFNKlFCKF6NlENF41FH2TGm6V4uLFrSl+5r/SS
- s2zwxIdJElnkGHBTb1w==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-04_06,2026-04-30_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 adultscore=0 impostorscore=0 malwarescore=0
- bulkscore=0 priorityscore=1501 lowpriorityscore=0 suspectscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
- definitions=main-2605040211
+References: <20260503091708.1079962-1-zhengxingda@iscas.ac.cn>
+In-Reply-To: <20260503091708.1079962-1-zhengxingda@iscas.ac.cn>
+From: Doug Anderson <dianders@chromium.org>
+Date: Mon, 4 May 2026 15:44:41 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=WP=VTg-AV6nmyA55+Vtr380Et=B-tPvz3GUso6cGVF1Q@mail.gmail.com>
+X-Gm-Features: AVHnY4Jg0cHGDRcJW7kbYyloRz7Kb98N0jv6U-blFJnZEpx4hOJ1n6_1CgkshL8
+Message-ID: <CAD=FV=WP=VTg-AV6nmyA55+Vtr380Et=B-tPvz3GUso6cGVF1Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/panel: boe-tv101wum-nl6: restore MODE_LPM after
+ sending disable cmds
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Cong Yang <yangcong5@huaqin.corp-partner.google.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jitao Shi <jitao.shi@mediatek.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,18 +108,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, May 01, 2026 at 03:52:47PM +0200, Luca Weiss wrote:
-> Enable the NT37705 panel driver which is used on Fairphone (Gen. 6).
-> 
-> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Hi,
+
+On Sun, May 3, 2026 at 2:17=E2=80=AFAM Icenowy Zheng <zhengxingda@iscas.ac.=
+cn> wrote:
+>
+> When preparing the panel, it seems that it always expects commands to be
+> transferred in LP mode. However, the disable function removes the
+> MIPI_DSI_MODE_LPM flag, and no other function re-adds it.
+>
+> As the unprepare function contains no DSI commands, re-adding the flag
+> just after disabling the panel should be safe. Add the code re-adding
+> the flag after the two commands for disabling the panel are sent.
+>
+> This fixes error messages shown in kernel log when unblanking on
+> mt8183-kukui-kodama-sku32 device.
+>
+> Cc: stable@vger.kernel.org
+> Fixes: a869b9db7adf ("drm/panel: support for boe tv101wum-nl6 wuxga dsi v=
+ideo mode panel")
+> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 > ---
->  arch/arm64/configs/defconfig | 1 +
->  1 file changed, 1 insertion(+)
-> 
+>  drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c | 2 ++
+>  1 file changed, 2 insertions(+)
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-
-
--- 
-With best wishes
-Dmitry
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
