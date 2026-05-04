@@ -4,89 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BEB6FF885A
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 13:36:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8E21FF885A
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 13:42:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7B2C10E6BA;
-	Mon,  4 May 2026 13:36:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 035B810E6E8;
+	Mon,  4 May 2026 13:42:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fairphone.com header.i=@fairphone.com header.b="n+LExFfj";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="APbjjKUS";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Ki2vUBAW";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="APbjjKUS";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Ki2vUBAW";
 	dkim-atps=neutral
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
- [209.85.218.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8615E10E6BA
- for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 13:36:32 +0000 (UTC)
-Received: by mail-ej1-f50.google.com with SMTP id
- a640c23a62f3a-b93698bb57aso769932366b.0
- for <dri-devel@lists.freedesktop.org>; Mon, 04 May 2026 06:36:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fairphone.com; s=fair; t=1777901791; x=1778506591; darn=lists.freedesktop.org;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-transfer-encoding:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=zxl8aaXII9jrd89JJtrtzoxkaO727e2zu5aa5KJCGNY=;
- b=n+LExFfjtP/UbuWkqP+LwIOitA8QWf49OYyTOe0Dy7IBRqT8b1WAr+/yNUGWxmFH9U
- 9DcjsEYWMRq9QwI9hAdhWNESHRdQNCd//tWIxjCXwmwGTrrCGmCaL9UfPA90xGImPhfl
- SIKKuClGsIbpDR3Y98ZMowtMsFfcjp8iivy1aSt6PHnBXhieh41+Bp91FzN7H5CgG15f
- P0+pTsgc2GyVvaoRTAFl7aW4KC5vy/rRICH/R+9mPj7DsSMGtCz3eA7jzuVHQEwAJAMC
- U/KU+rD1w1Qgu+oNySR25jBzSTDwa54w0SXMjVadFIAzLdXXXihY4GlEMs5bsHCARhqv
- Cc3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777901791; x=1778506591;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=zxl8aaXII9jrd89JJtrtzoxkaO727e2zu5aa5KJCGNY=;
- b=CAmh/1+VRC9s6dj8j2GX6U7rjroYMe2lbzS7ZTvi8I3zFij1l4XCsROLTQuW0tnp6w
- er1rOXj+0ldr8bipwrCLn9Haw6OI9wh9lc8ZEYNG+VTNtH5WixNZ2YFMVlWBiukdlzRv
- AWc6lTtbYJSQjEgxgvU4aIiFiIwgfo7Lc9P4X39OsxFLPwZlLtiwDyFu9soYny9S2aG3
- 2zuhRN/43s0CS3u4zXBJqpWqsjyfaOh6VuWb+FIXmpPUApWV12Nu7ThJ100ykq8Q8TJj
- 6DOwb0ltjgi2E4VKwJEaGGwMh3aup7ZQ4uCVvkGuAu8pTPygc1dWv80PrthMR8QN+82q
- 2kTQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9iXq8h0IUfRiLwm5fTqUNHG2XsSpC1+uSF3AxQHtftN3svb/1P1PtM2NYF6tnWDIgClvbz7XlCLh4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzRbfOXmSnFIFbZCzFzqjNxAvOkueQ8ko9Ol4NL9bGMEwvk4m/b
- 15JFPi33ZvprCTQM4xllxNngML/9ctmzL48xRpTj3odJVEgwA2HtLz0t9n9aBWunWGo=
-X-Gm-Gg: AeBDieuGvMZXTTxEIlfn0uxORRCKU8F/kBlUTooMPh0j8NHd4/cPYXoCi6Wzq330OAV
- 5dylq9pPulvq7kNZQDOiO0/Y8dNQZrRrxsosoSHIHjaRSu/HpRM0WE/iU5Y6I1ny6OIelsv3+5J
- Lf4kpVSmsl+EVTIG5RR0VGLdEvLHEi6a80s57fgIaT+cbaaRd5lIdf0iDePDoxK1veOmpbxuC8U
- YWDr+WdLNfnQ1AN+SXvh36YHPR0vz77aBUFhx5FQqbdIXOj9kib1ljH+deozktFl22dNVpzRj+M
- LvWL9cTRzsl5nIGvBFaTYkqFYnoBI0vtm86EMjHZxjlEJqvG7cOOc2eK78a/MzALy88sA2dGz4q
- yBPRbK2l/rnNaOgbTdh4br5THtVfHkkwSP3nSN7fB2CGRj+XfR8CzEregJPRIzAUvzHaJ925IHd
- kEQInwjZ6eulbkKn4JgYFiv0u+GjLbFwHqycjAhsXY5gfePPyf5ot2paJiLVC4YrchYsbTzkzBL
- 5F8CDk=
-X-Received: by 2002:a17:907:1c9c:b0:bc3:5f51:7a3 with SMTP id
- a640c23a62f3a-bc35f5107f2mr72609466b.16.1777901790709; 
- Mon, 04 May 2026 06:36:30 -0700 (PDT)
-Received: from localhost (144-178-202-139.static.ef-service.nl.
- [144.178.202.139]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bc1ad2d59fcsm151369766b.45.2026.05.04.06.36.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 May 2026 06:36:30 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 04 May 2026 15:36:27 +0200
-Message-Id: <DI9XL1VYYTY7.19IRSM8VIDO53@fairphone.com>
-Cc: "Neil Armstrong" <neil.armstrong@linaro.org>, "Jessica Zhang"
- <jesszhan0024@gmail.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Rob Herring"
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, "Bjorn Andersson" <andersson@kernel.org>,
- "Konrad Dybcio" <konradybcio@kernel.org>,
- <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>
-Subject: Re: [PATCH 1/4] dt-bindings: display: panel: Add Novatek NT37705
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Conor Dooley" <conor@kernel.org>, "Luca Weiss" <luca.weiss@fairphone.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260501-fp6-panel-v1-0-e09cb05651cc@fairphone.com>
- <20260501-fp6-panel-v1-1-e09cb05651cc@fairphone.com>
- <20260501-yogurt-wise-2a2884e3ec59@spud>
-In-Reply-To: <20260501-yogurt-wise-2a2884e3ec59@spud>
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7513910E6EA
+ for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 13:42:19 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id BBDF85C5E7;
+ Mon,  4 May 2026 13:42:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1777902137; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=QLzvhDZrFhlRHrrmOiHMdqO4dK8lvEogrC0DYUpUi10=;
+ b=APbjjKUSswlID1hD0/07mnSm/8ZiP5v4j4JaH8VfhAhJJIe8eDTLquycN+AJJ7MK1Onk20
+ 4X+2cKdx3H0cQx71RzNZR6slT46AHbl8nPusKmJyTWeyzMjKyJ8WKoWWTNy+5Z1YaJhuCe
+ +gsW74W2Ts0U/mbbWnYR4psCp4cshVc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1777902137;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=QLzvhDZrFhlRHrrmOiHMdqO4dK8lvEogrC0DYUpUi10=;
+ b=Ki2vUBAWelZRSseqj2KHC5HXK6zLzk3wflKGph21JFo9IoYVJn8tVhC25WcIlV/xZWDja+
+ 6kr1lQJ1aLA4bXAw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1777902137; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=QLzvhDZrFhlRHrrmOiHMdqO4dK8lvEogrC0DYUpUi10=;
+ b=APbjjKUSswlID1hD0/07mnSm/8ZiP5v4j4JaH8VfhAhJJIe8eDTLquycN+AJJ7MK1Onk20
+ 4X+2cKdx3H0cQx71RzNZR6slT46AHbl8nPusKmJyTWeyzMjKyJ8WKoWWTNy+5Z1YaJhuCe
+ +gsW74W2Ts0U/mbbWnYR4psCp4cshVc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1777902137;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=QLzvhDZrFhlRHrrmOiHMdqO4dK8lvEogrC0DYUpUi10=;
+ b=Ki2vUBAWelZRSseqj2KHC5HXK6zLzk3wflKGph21JFo9IoYVJn8tVhC25WcIlV/xZWDja+
+ 6kr1lQJ1aLA4bXAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7840D593A3;
+ Mon,  4 May 2026 13:42:17 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id Vp7UGzmi+GnjJgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 04 May 2026 13:42:17 +0000
+Message-ID: <e616084f-a627-4ab7-bb26-06ba7af048f2@suse.de>
+Date: Mon, 4 May 2026 15:42:16 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 3/3] drm/mgag200: Drop unused include of
+ <drm/drm_pciids.h>
+To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
+ <u.kleine-koenig@baylibre.com>, Dave Airlie <airlied@redhat.com>
+Cc: Jocelyn Falempe <jfalempe@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Markus Schneider-Pargmann <msp@baylibre.com>
+References: <cover.1777545446.git.u.kleine-koenig@baylibre.com>
+ <b81a4830b3c287e9360197693a823a0dc72c674c.1777545446.git.u.kleine-koenig@baylibre.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <b81a4830b3c287e9360197693a823a0dc72c674c.1777545446.git.u.kleine-koenig@baylibre.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
+ ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ RCPT_COUNT_SEVEN(0.00)[10];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[redhat.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org,baylibre.com];
+ TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ URIBL_BLOCKED(0.00)[suse.de:mid,suse.de:email,imap1.dmz-prg2.suse.org:helo,baylibre.com:email,suse.com:url];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, suse.de:email, suse.com:url,
+ imap1.dmz-prg2.suse.org:helo]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,72 +146,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Conor,
+Hi
 
-On Fri May 1, 2026 at 5:51 PM CEST, Conor Dooley wrote:
-> On Fri, May 01, 2026 at 03:52:45PM +0200, Luca Weiss wrote:
->> Novatek NT37705 is a display driver IC used to drive AMOLED DSI panels.
->>=20
->> Describe it and the panel in the Fairphone (Gen. 6) (BJ631JHM-T71-D900
->> from BOE) using it.
->>=20
->> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
->> ---
->>  .../bindings/display/panel/novatek,nt37705.yaml    | 72 +++++++++++++++=
-+++++++
->>  1 file changed, 72 insertions(+)
->>=20
->> diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt3=
-7705.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt37705=
-.yaml
->> new file mode 100644
->> index 000000000000..1c796599f6fc
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/display/panel/novatek,nt37705.ya=
-ml
->> @@ -0,0 +1,72 @@
->> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/display/panel/novatek,nt37705.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: Novatek NT37705-based DSI display panels
->> +
->> +maintainers:
->> +  - Luca Weiss <luca.weiss@fairphone.com>
->> +
->> +description:
->> +  The Novatek NT37705 is a generic DSI Panel IC used to control AMOLED =
-panels.
->> +
->> +allOf:
->> +  - $ref: panel-common.yaml#
->> +
->> +properties:
->> +  compatible:
->> +    contains:
->> +      const: boe,bj631jhm-t71-d900
+Am 30.04.26 um 12:45 schrieb Uwe Kleine-König (The Capable Hub):
+> The <drm/drm_pciids.h> header only defines radeon_PCI_IDS which isn't
+> used in the mgag200 driver. So drop the useless include statement.
 >
-> Compatible doesn't match the filename, nor does the commit message match
-> what you've got here. Sounds like you're missing a fallback to
-> $filename.
+> Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
 
-The last times I was upstreaming panel drivers (Feb 2024 and June 2025),
-this was the requested way of doing things.
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-Compatible being the company and model number making the actual panel
-assembly (driver IC + touchscreen + glass etc), while the rest being
-named after the driver IC manufacturer & number.
+I'll merge this patch into drm-misc-next.
 
-As seen in
-* himax,hx83112b + djn,98-03057-6598b-i (Fairphone 3)
-* himax,hx83112a + djn,9a-3r063-1102b (Fairphone 4)
+Best regards
+Thomas
 
-Fairphone 5 panel (raydium,rm692e5) was upstreamed earlier and follows
-different naming.
+> ---
+>   drivers/gpu/drm/mgag200/mgag200_drv.c | 1 -
+>   1 file changed, 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/mgag200/mgag200_drv.c b/drivers/gpu/drm/mgag200/mgag200_drv.c
+> index c180dc3c7a58..bb315490964f 100644
+> --- a/drivers/gpu/drm/mgag200/mgag200_drv.c
+> +++ b/drivers/gpu/drm/mgag200/mgag200_drv.c
+> @@ -19,7 +19,6 @@
+>   #include <drm/drm_ioctl.h>
+>   #include <drm/drm_managed.h>
+>   #include <drm/drm_module.h>
+> -#include <drm/drm_pciids.h>
+>   #include <drm/drm_print.h>
+>   
+>   #include "mgag200_drv.h"
 
-Has the way of doing things changed since then?
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
 
-Regards
-Luca
+
