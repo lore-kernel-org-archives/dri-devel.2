@@ -4,137 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC3ACFF885A
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 07:14:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8886CD3423
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 07:17:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF30510E396;
-	Mon,  4 May 2026 07:14:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C439D10E39A;
+	Mon,  4 May 2026 07:17:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XZjDas2O";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1SY6eqvl";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010068.outbound.protection.outlook.com [52.101.56.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFA6210E396
- for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 07:14:17 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011003.outbound.protection.outlook.com [52.101.62.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D59D10E39A;
+ Mon,  4 May 2026 07:17:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gq10awCoJJKWUeWc0PE5Ip6Ml365LQ++qnr00yQsnBisU2/RPCUfyrZzToMpRjFmwTS2JfFzq7H5NDgovSVz9KUT8AfI4ky1pR+o6iSjjjMx3mjL5j+ZULRDcHQgKUSJUmVuhkkPcd7fTc5x4d7HolkJfpmWdZ6d7OPyoR/BCQyK/1+pOBjAU+qS/QXQdqMjX/rtdPppY9YERtmZe5WQvKQF2hdluCSit34qyZfU6MNTGHUheUwbIEwighMllJj9PtzHjavDGz8tojiHzM4EExHMF+dgmIgpoYYwa+7hHOYa9w+zfwN7lFqSc0XXs2gcbAzrqalyGmg79uWQMpSzBQ==
+ b=w1f9l+gHI0v3Qomhf113SJEtsFzp0b6ona5cPDRRamDAf0hyhIXjnxZkhwbLvfXW3X2RL2WsRrM5Z8SyDCkHyK5fYu5Wa9jQBKBV0H6p8sRESO1mSnNMG7zIUuhlFA2GBDNQza/Q50SVPyXTwFt6olmr7XA0moUehaRlSvO3veDF2F9QUgRMUOxlPzdbwyXEBg+kNo6y1cGvF1ODDhzrR1OaH+3XMcbHvORuQL6CJlHu0a0WmJ/37VHd3jPMbZJdQHbztxgSwMuZ4gIfdGFxPZ1rOuniigPPmCpKLVj7zgHinndr+fpSD1Yk73UURpJJfz0OjP44CykaTj+bpcvomA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LNbYfKTDh8lupKfUI5nB6tm8EchhiVPSTMZ6+Xt9Ad0=;
- b=cdxDma+p9Ref/w1byHoWwxoYH+pA9Et1nXiXdrzoMk6vL8WJ4s8ViQUtZDXEbyoE41pq9jBYQiwncckOl+ibZGpnVR2bJm0efgsTKf8sATUe9HpAfY46b9001u3K8hFP/1r1PbEkIn/AIoMioyCW3pzkdmrJtESEMPShXT/L/UgbwMdjxGZUOPIvXZiQqHeW5cZJMLoI/6wejmEtUWBUIgjvd5RxDOzhX22r3TVEbvPO4H6SyllrmhQaozezLwZ2egT8YawGhVCUyCXdPY2zJUlj8zEn1baYhjh1Mnj5CqzyBJUhiaFF+FxDF0KCHjxX9uCUSuWmKSW7Aunjscd+bg==
+ bh=8No78vsUV9iIrICB0aMv53KlzZVZaArOhy7hPVdkd+M=;
+ b=MHzuwKFSAMRBskAl160lCM6GaeFtMtFbhFgnUawR2KB7v335zrsGVozJgczdqiic7ZRKeeMsaNa+sUu4GaeYgWoaoYaVudsYtLYLVeap4QN11Zp8Kk3rcHqSsK1L2o1olubMa+2JYXHY1+fgpNFx0Zy2eHMGCv/ZsjZ19P0H6ZP1UEgDnqRa00fCmGIj9YaJtaEa/9H1zKMqyP/5r/C6J876Eo6UVFtb9R+Bhw72l8n91nFZg6xKG0KhasUNPASKM9a9ii8rGSay6zC4tWhxsLnikCYW7QXPbEbbmF6c4n72qMfSDaVidDrZqIr/ByxVQ4ctZFDBwaD9HJxrwHs/QA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LNbYfKTDh8lupKfUI5nB6tm8EchhiVPSTMZ6+Xt9Ad0=;
- b=XZjDas2OOov17NjE+Vb4hDNp3tO/LS5Aj4QW/Fwwr3rI99iW5uectTpPMQ31q3EgGYnn0utZd5ZUuvlB0udmWuXtDE96DhL3XSd0R/LynX+7M6E+iHJocfS2JeBAegEc1J2MuBp45OtaKavg+Kt0XZlbfgAm8jwT+JwGoSCAvzA=
+ bh=8No78vsUV9iIrICB0aMv53KlzZVZaArOhy7hPVdkd+M=;
+ b=1SY6eqvliadUZH/+21x62qj4rheH7DnPvPqZ4w+w9pkuEbW/Fk1L4DvgAIzCR7slsLcNC9CWBbSANUqfBogkKV6CeXHy4+7ytlHKSA6jMin3bz1sgW7WrR8F9P6nWwZOwVcS9W1b6AZ5FNSLAidC6jsANrg7yF+dho2EdZ+CVus=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
  by PH8PR12MB7375.namprd12.prod.outlook.com (2603:10b6:510:215::12)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Mon, 4 May
- 2026 07:14:13 +0000
+ 2026 07:16:57 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9870.023; Mon, 4 May 2026
- 07:14:13 +0000
-Message-ID: <4c9c9840-944d-4736-a55a-74f5c05b528c@amd.com>
-Date: Mon, 4 May 2026 09:14:04 +0200
+ 07:16:57 +0000
+Message-ID: <f83320d7-5c86-4b60-8bcf-788f12593e79@amd.com>
+Date: Mon, 4 May 2026 09:16:49 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 01/10] file: add callback for creating long-term dmabuf
- maps
-To: Pavel Begunkov <asml.silence@gmail.com>, Jens Axboe <axboe@kernel.dk>,
- Keith Busch <kbusch@kernel.org>, Christoph Hellwig <hch@lst.de>,
- Sagi Grimberg <sagi@grimberg.me>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org,
- linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org
-Cc: Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi
- <joshi.k@samsung.com>, Anuj Gupta <anuj20.g@samsung.com>,
- Tushar Gohad <tushar.gohad@intel.com>,
- William Power <william.power@intel.com>, Phil Cayton
- <phil.cayton@intel.com>, Jason Gunthorpe <jgg@nvidia.com>
-References: <cover.1777475843.git.asml.silence@gmail.com>
- <ae941457cf6cacb9d4c16b6ec904da9ef7fed97f.1777475843.git.asml.silence@gmail.com>
- <f0dd8f89-835e-4331-b593-4405ec59f4fe@amd.com>
- <6cce2f4d-7400-4618-82ce-cbd5004c92a4@gmail.com>
+Subject: Re: [PATCH v4 3/6] drm/ttm: Issue direct reclaim at beneficial_order
+To: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Carlos Santa <carlos.santa@intel.com>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Daniel Colascione <dancol@dancol.org>,
+ Andi Shyti <andi.shyti@linux.intel.com>
+References: <20260430191809.2142544-1-matthew.brost@intel.com>
+ <20260430191809.2142544-4-matthew.brost@intel.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <6cce2f4d-7400-4618-82ce-cbd5004c92a4@gmail.com>
+In-Reply-To: <20260430191809.2142544-4-matthew.brost@intel.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0060.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:cc::20) To PH7PR12MB5685.namprd12.prod.outlook.com
+X-ClientProxiedBy: FR2P281CA0159.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:99::8) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH8PR12MB7375:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6ca7ef87-0d2d-4c0a-88b1-08dea9acbe65
+X-MS-Office365-Filtering-Correlation-Id: 65cf4938-ed30-431c-2e2e-08dea9ad205f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|7416014|1800799024|18002099003|921020|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 2r9jki0x8EOX/9SyWv65hye/iYyg2KP34dx3y5KvqmRMEStLAOPDrJzhJKeMdSVKF1xdzu0Rw1LXoEOJ39LDHpxEBfVXot9D88Ig/b1V+sRECoI3kSL1WShfWTeI6++YvB4LEgpomagrNITjY6S+wW3bZKD2eOmdQ8ZZzgoLOAQSQjUFPvJF0Y/cdzoIkyQ8Ec09nKZqfOtdAgo/1QbroHc3Xgf+iPa5PG5oxCTTfyYG1WPvpWHKivHMCd2BExKlsCxvducIYEpY2YGksuBWemnigytY7QdUsTwHy6AgxcDzEXF4RgMcCgm7/amBCYuP+icjFr0PNYyLFaieR+W6XXFAuGLQlQLcdwxd4t7HVn6KF6bbPaLB7h+9CZU51XtLfpr86+H5UPxZej75UdaRKwMq+BE+lwo36uAulKwR3TAPPhNiQoVOgw3poSEKjKhAd0eIGtOd76eBI4CPyPRAJW68P/hXE0hNOqlhrCIi73kebNfcFiCg4EuY1C7LnbRRgOfUv5wsHiDuzH8/55coDs6nx7hyOmmXZaKBrn3X9oZQFjUkogQxdUHuukWco/eEIOzTsPxageMt+zHIc21shI2SZ+SMCCOd5aXu/nq+z3w3jKF29LsbdeUkiAY5273/3fyy7ViIdfdLTRbqTkeYCrsCQHmD2xZ66mcGIk/cYkT/0+JAbnc5nR45rH3z2M79Z1Xi+jEqaiSVy2J1B95awYr+WfXjs64fWKm7//AjwFw=
+ ARA:13230040|1800799024|366016|376014|7416014|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info: CwzeeLsc8rjvih6zAu1x0bup4cDgopr7H8XLqHiEzd2/e8RrJNudtb2Da6oOMfq7KV8E55eCFuQrE7KwtmLNcTKmdyNHILFDfL6Ypz6jYnwILFMl++kR13IEhLhKv4DmFL3wvfYHwkTYOk8/9XvZvNpQ5rgMe6Yis/ftyUeHSDMkjICZVT6SUwrl0IM+IgkVm/RFV2BB/ASvn5YEV6arxfOyn7lo+4WMU/UgS9MYPHAncUyXpdVK1U/qZudt/o+ngY7d+RasTKiUCBDNILab+IEweB29VOvqaj6yy6UZOZ0WhCf24w2qShKQDSLssonQXg/BfmWSEWN3j8t+FW7Y5P3e1f31iIbRMPVP1ZU76w1R1hREm1REpSJROOfLr17FLtL6nYPLf9MQun+z8SMo/1DISHM64gxXzBlsdehr/FtOLnq63C9eH29FI5pNNfH/9TNzCOxI22g65CvC5imIMXxdqAwv7Opk6XF+TTblFae6DciibUavsHvBrt63zPwbvHXUhVBAWqkObXrCuqka1hXr51hpQ40+sKPVnqmDuSO7VXQ4WAiWgx7im85jkfD5K6LbwfUjpgTXEueDNO1WeFXaGKrhEw8493dH3sNe/xF5mxYjE4Y/oQiKxZJWTrA13bnWJ4LSK8y+41/pCsE3riq6fwMhuG3ZpTLj0dGSfchCPDK/5JnIXS6MKgRx+x8+
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(7416014)(1800799024)(18002099003)(921020)(56012099003)(22082099003);
+ SFS:(13230040)(1800799024)(366016)(376014)(7416014)(18002099003)(22082099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eWs4QXBYbm53VTErcE1OODQxTWlEZmhzaWZiZDJUcnNnajl3UXhhcW1iRGk2?=
- =?utf-8?B?cjVLVWkvMlNZRHJvWm5VNzVpZzlyMHNkYi9DSTBwb1pWQngwRFFFM2ZZc3JS?=
- =?utf-8?B?UTJoUHdmQm5EM2kzWDRaU0tGNzhFVC9Rb3Eyb1F1cW81MjFCWE9yR1JMeFoz?=
- =?utf-8?B?S2Rqbk9DWGJuNXFzRGE3V2RyRi95ODlZeGRHUVoreHM1N0NLTmJCTHNmNnEz?=
- =?utf-8?B?cW9qdDZraEdKSFUzZVlQd1hObWxCSzJBQVJjZFBpdk9rTlhxWjZNM3lpblBP?=
- =?utf-8?B?TDNrRktwblpoU1Z4T3RrcGhWK1ROaWRMYm9ucUdiQXBMWnBLU2R1d2hlRllw?=
- =?utf-8?B?WW1HWUZNekVDUVF4WnFYOUw5L1dKMlVBc2ZWeG1jdXhDQUZHSCtneWFoUGw2?=
- =?utf-8?B?RWdQLzdQVGxJS0ptS3RLYlBrMHNEb3hBekl6MHkraUZ4L0p5Q1hnM0Fqcmll?=
- =?utf-8?B?dEJ5U1Q3alF1bUF1UVVDaWtiUmhNRHEvNVdRQ0tsTFVnaXdaaFEvSTN2WGZO?=
- =?utf-8?B?NThQMmFlazlkNlZ1eEFpcEc2Y3YrWkxoOTFnQVBZTFBYTjZjZi96S2s1d0Fy?=
- =?utf-8?B?NDNvaURjTWcrelVjSHdvOUswOTcvNk4xNDE1TEwrdTZHcHh0Z21lckkwY2Rw?=
- =?utf-8?B?eW5weFlmVzc1WVQ5NVE3NlhJOWl3M1ErMVNQUzNreUhnakgxLytKTHZDZEVj?=
- =?utf-8?B?aFE0NFdxZnBibGNyYjNLSUdhZWlGR2t1ek1WVGRzSG9MRmMrZk00MlgrT0tI?=
- =?utf-8?B?V3RteU8xQzlWU2h3THFkdFpHMHEzV3BpSE5hY0VjYVQyMkU1MjY4UW4rWUk3?=
- =?utf-8?B?NjRncURsZWdUVVJ0VlBiTFc2SzhTVitMV2VmbDllU1ZZWWU5aHg2a3VFOSsr?=
- =?utf-8?B?cVc5SXQ2SFVMdjBwQ0hpeFc1T2xsYlJKVDZ3TGFyc1kyaXFwVXp2NXV2MTJQ?=
- =?utf-8?B?YWkrWmszcVpDelpEWEFhTDRDb2RBQlVaT0lxWTVnQjJmZ1M2eWdkcTZIRm9J?=
- =?utf-8?B?ZXVyTGxMOXIwdFgxMmhVY2g3a2UvNFBOcmxqUFZiY25QaHoveDRmdGtlQ29p?=
- =?utf-8?B?UXFJK2k0ZXFRUk95L0dNeW5JSlBKVHFDa3FSSVR0VzF4VmVXNlhwTjZLRnZK?=
- =?utf-8?B?QTZSRWFTZTlqRHFLcUFiOTFlTjl5eWlrK3l6VUZHdnloL3hKZGo3UFlmNmZr?=
- =?utf-8?B?eFdOUFBhVDFGY3hNbGp1ZHpERExvWXVpQlhoVDIzL0dQSjFKdng2a29NdkZz?=
- =?utf-8?B?QWVScVVrMk03Y1BWSzlPc2tGbndwSkRGc09jQXZ6ei94Um4raFc4NlpoRkkw?=
- =?utf-8?B?dmh3SXYrVEZGMk9MbFUrY3dEUUF5cS9pTU9mdHYwTUV3M1hkYnZkeEYvNW9Q?=
- =?utf-8?B?WkFXY0tPL3pscm9oK3hvTnNPaFlwQnZnNlhYQTM2ejZxbEpWbEpleW5ibVNQ?=
- =?utf-8?B?V2JnUnF2bGk5YjB3QXhhZTBmLzBTaUtiSFEwMkZNZFlQRjJZQ3hWTVNoWWZW?=
- =?utf-8?B?RllwZFQ4ekczMDRiNGpVRlJMRE1aWFRaZTJ5ZlN4K0RtdHEraTk2cVJEN2J1?=
- =?utf-8?B?VGVCTGg3d1prNzhSaWNYVk0xQmpjaDgrd1VCZWtXcE5OQTFZdk9EdG45SUhD?=
- =?utf-8?B?NFl3aVJPOGNSTkoybUUyUDVkNGpta0d6V0kwQUdJaVNsWjk0VVBlWFVHeGpJ?=
- =?utf-8?B?M0dHRWNMZ0FGNEpxSmg0KzUwM1JEZyt3MmRVU1dhQW1xSk5ZWTlJN3ZSbFdk?=
- =?utf-8?B?KzRzSWFTMElGMDNYUW1CdlRHUHNXNmtxTnArdmhLS3NyajByQVhzazVWWmta?=
- =?utf-8?B?eW5JbXNac0VRamNobWZCMUpGWVFOYW93UUhXYnFoUXdYWmxscXF5SlVCUS9s?=
- =?utf-8?B?U0d4NjRVWWJPc2FIbkFLUUpraDdGdjZjQXU5SUk5YXBKWmoyYlJlUjRDekU5?=
- =?utf-8?B?RGhQNE9MRXZzSFA0SlRMUWtYZW5UTnZJb3RuSXM5VW02T2pndWRjWWp2bWNV?=
- =?utf-8?B?V3JTSUR1alNhUTdQK0RUY25kZjVKdnJRM2EybVJ1WlJDWEJuaXhOUnNFOE5n?=
- =?utf-8?B?SFBlcEgzZWZyS0NKbTVxVDdPcUswdEdNbXZKS20yMGRHZlV5NS90YVNOQ1Ba?=
- =?utf-8?B?UzJJT2dDYm1XdlVhcUg1S21VMEdTT1NHcXpMcitvZ1h1eHE3T0hIaVNDcXdh?=
- =?utf-8?B?aGgyVTNMVUFCRFFDUHB5aHlUYzRiTFQ0L1pFTHo4cTNoUmdHWXI0UmxlVmZU?=
- =?utf-8?B?SnJEb21ucVVOUHBuTW9iejM3R01oRTFLc2gzd3ZsV2pSbW51RVdjSDN5Zi9t?=
- =?utf-8?Q?lRCiD467FpyX1dqcfx?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cEhIU09uTWpTMlFxMUZpN1hpQjRmNUZRMEJncXYvVm13bHg1NHdRMDB2bTFn?=
+ =?utf-8?B?aGVjcXRNcE9qWFE3bCtJK0xmaHNWeVVWSXlyb3dMNUpFMHVvd2FweFZBKzNv?=
+ =?utf-8?B?M2tuNVgwWUxtOEs4SjJJYXpNLzB1OWxjdGdYTlpza3dVN3o4cW1LRnYxaW5y?=
+ =?utf-8?B?VnpLRC9NKzJtVlhDdi9YTFdZazRIby9RMzRVOUhsSDE1WFJzdi9Bb3l5Zk1B?=
+ =?utf-8?B?ZkJSWUJLTGMveXV1Uks4LzdnblFrZUxzQ1RVMWdiem1ZZ0djNXVhdVdsMVpw?=
+ =?utf-8?B?cW5oc3pEY3NHNEYxSi81RktDaUVKV0tHaGNXd08yeEJXSmcrdEUzWDFzR0JF?=
+ =?utf-8?B?MG93UjdqcTZ6RkdYV1RKbnQ3WnhVckhKcEQxNENoeTRvQWp0L3JvblZ2OGNo?=
+ =?utf-8?B?YU5Uc2pRNndKSVlFTjFiN2tiM3EyTkZWWWI3Q3hVczBWWC90Y0cwdVZyejZ2?=
+ =?utf-8?B?bTRwT0R2OFE4OGZRbFhBcFdiQmxNQzVVdWVURUdTdmFhMExPa1NHblo0SjYw?=
+ =?utf-8?B?R1d6dVp6cStqeUphalkzMWVYSVVTc0xaZHliRGxqZStWQ1lRRjQ5MWc0UWht?=
+ =?utf-8?B?QWlVQ1V6eENjeEtPbDVZaktFUUlSVTE4VnNuMWd3dEZNcVVyUVFObzNpTXFn?=
+ =?utf-8?B?dTI3NHpKRWxiZzBVNmNDbVdiYkpBRXp2VjZxcXNDaDdOMU1iS3VyazYxWnpY?=
+ =?utf-8?B?R1E0NXVuZktWanJ3eFVKZHRvR0ZEQkY1Sk1COU1XMmwrWWFycy9Jc1hoS2VI?=
+ =?utf-8?B?cWd0Z1BrMmUwZHBmdHVuWlBuRUlTQmo3MVZjKzZIRVR6d1BGV2JnQXZNUG56?=
+ =?utf-8?B?V3U5MnVtOHgza3FvWlllT0dZT0ZLd0NzVW5UZ1VCbXBaaFJvZzBUWTU0M2xN?=
+ =?utf-8?B?QWhJbGpSZ3UraEpoSGthNzdqazExYWJZZkM2TlI3bG1BUFVvMjNjaG9GL0RL?=
+ =?utf-8?B?YUlCbHBoM3JmYXQwbTk2REhwazB2V1oyOXI5NFYvSkZ0L2dDOFpnZFhocGtQ?=
+ =?utf-8?B?OURLakxwUy9vTDJ2OVdUS3hCd0l4dEJzb0xVNk1jcU80Wmp6QnBTU2tQSHFO?=
+ =?utf-8?B?ZlYxSHVNZnBkamI3REx5RmFhQTAvSkpHOGZ4a0duNlBjUmlra3F4WjJDRlhx?=
+ =?utf-8?B?OHkwNDN5TEl5SUVaNVkyRGEvSVIwR2Q4STU5WVJ4bzNwdWFrREQ1bjJxNjZk?=
+ =?utf-8?B?VksvdDdCcXBGUmswUjBxNzFTZjhMVURkZ0tNVlBIb1pQdzRyWGZvY2RwbDJt?=
+ =?utf-8?B?WDlYcmZ0SUllYjFqZHM0LzlEWm1RRDN3b056Q1JwWlJBOTQ1T1Zkd2I0TlVv?=
+ =?utf-8?B?QmtvOVE1UTZVOHh3dis0OElIdkNSeFd2QVg4cGhlL2h5cU5lTHZGK05neFFL?=
+ =?utf-8?B?VGdwZDlKTHdIajhPeUFOZERXa2NpNngzU213cllNdm9aTlhGVVQyZ1VHbTJn?=
+ =?utf-8?B?cjN1WERiNGxLWkdGRHVjY0t5U3lJcTliYzZjUXhFd1F4TmdudGNoYzNtdm1u?=
+ =?utf-8?B?Njc5cXFQc1E3S2xHV2UzdkFiRE55clVjQ1RHeFJzZ2JXVnhqK3V4cVRxTnQ5?=
+ =?utf-8?B?WWFkYXpORzdWLzlUZGxLNk96NUJKNnliOG0rK1RMaWZmMExCNHZIVHhIU2RV?=
+ =?utf-8?B?TzdjMW5mTHJNcjg1b1Z4dWVqRnBscUc4RFo2VEJjOUVwNHNYV2kweXpPdEtx?=
+ =?utf-8?B?b3M5UjNOU0x5cjhlMENTMDlHZTJmNzZGZTJTNzF4RWRkT25KRnhhZnUrY3Uw?=
+ =?utf-8?B?RE1XVUgvUEJINWRtenFQYlVabnVHZEF3ZWx5bWE1NEEyN2JFVDAvZkxPOEVK?=
+ =?utf-8?B?MHgzbzEvZ0RLcGdaS0VWM0VsaUR4T0ZQNlF1RjlRYnBGaEdINENYQXM4MnZL?=
+ =?utf-8?B?L29TNDFKNGU1a29nUllvdzZvRlBDc0NSNTdsYXN3aE1mS3lpbnlyWkFWdkxn?=
+ =?utf-8?B?UElBejdrSE1iSW1IN0hrWkk3YUZnenZwR3RzclRTNWdMcVVxc1hMUlduNTFi?=
+ =?utf-8?B?ckw2L0c4MzVVTkFhSFBIUlJJejZuVVoxRGNxdmt4WUFhZ0pUTTM4NzdlZUFs?=
+ =?utf-8?B?Qm1aUEZEUE83OUllZkpwdmMya05xQVlNK21UUkY1Tm1TdU9PQ1NXSG5SUks0?=
+ =?utf-8?B?Z1ljVERMdWxrSU1Ic3ZZQjFXN0kybU9KNmZ4WWRydG9tUldraFJDSFFET1o1?=
+ =?utf-8?B?R1phcTJMcWpCSDBBdk9LU2ZnOVhyampNa0VYWU9jeWtSTXljcXdCV2Q2T1pt?=
+ =?utf-8?B?a2xnNXl1dnByait5QXU2VVppazVidmFvYmpmVFhkbkgwTmZiLzlvTVhSOWJx?=
+ =?utf-8?Q?/BA/vKED+VrVIiuXhK?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6ca7ef87-0d2d-4c0a-88b1-08dea9acbe65
+X-MS-Exchange-CrossTenant-Network-Message-Id: 65cf4938-ed30-431c-2e2e-08dea9ad205f
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2026 07:14:12.9675 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2026 07:16:57.4102 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: atoJyTpYzmKoD0wWHoKmRA5jtrN7JUjk5umOY7ZM0839xrt752Z9O+2B30jxhv5W
+X-MS-Exchange-CrossTenant-UserPrincipalName: mIi+9BKtzgmDhDVWNCJXmvT7vOFm2jJpDu9KpYoOhn1ea0HozOoOk4ppXBXFuR8p
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7375
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -151,55 +144,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/30/26 20:33, Pavel Begunkov wrote:
-> On 4/30/26 07:03, Christian König wrote:
->> On 4/29/26 17:25, Pavel Begunkov wrote:
->>> Introduce a new file callback that allows creating long-term dma
->>> mapping. All necessary information together with a dmabuf will be passed
->>> in the second argument of type struct io_dmabuf_token, which will be
->>> defined in following patches.
->>
->> Well first of all the naming is probably not the best. Maybe rather call that dma-buf attachment or context or mappping.
+On 4/30/26 21:18, Matthew Brost wrote:
+> Triggering kswap at an order higher than beneficial_order makes little
+> sense, as the driver has already indicated the optimal order at which
+> reclaim is effective. Similarly, issuing direct reclaim or triggering
+> kswap at a lower order than beneficial_order is ineffective, since the
+> driver does not benefit from reclaiming lower-order pages.
 > 
-> "Mapping" or "attachment" would be confusing as maps are created lazily
-> together with struct io_dmabuf_map. I can name it create_dmabuf_ctx(),
-> but I decided to use "token" not to collide with dmabuf terminology.
-> e.g. I wouldn't be surprised to see some dmabuf ctx in the dmabuf
-> implementation code. Maybe "*io_ctx" would be better.
-
-Context or ctx sounds fine to me. IIRC we don't have a context in the DMA-buf subsystem yet.
-
-But we do have the terminology context in other subsystems and components which build on top of DMA-buf similar to this patch set here. So I think that is a pretty good match.
-
+> As a result, direct reclaim should only be issued with __GFP_NORETRY at
+> exactly beneficial_order, or as a fallback, direct reclaim without
+> __GFP_NORETRY at order 0 when failure is not an option.
 > 
->> Then the patch should probably define the full interface and not just add the callback here and then the structure in a follow up patch.
+> Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> Cc: Carlos Santa <carlos.santa@intel.com>
+> Cc: Christian Koenig <christian.koenig@amd.com>
+> Cc: Huang Rui <ray.huang@amd.com>
+> Cc: Matthew Auld <matthew.auld@intel.com>
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> CC: dri-devel@lists.freedesktop.org
+> Cc: Daniel Colascione <dancol@dancol.org>
+> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> Reviewed-by: Christian Koenig <christian.koenig@amd.com>
+> Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+> ---
+>  drivers/gpu/drm/ttm/ttm_pool.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> I strongly prefer splitting patches so that they touch one tree at
-> a time whenever possible.
+> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
+> index 26a3689e5fd9..8425dbcc6c68 100644
+> --- a/drivers/gpu/drm/ttm/ttm_pool.c
+> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
+> @@ -165,8 +165,8 @@ static struct page *ttm_pool_alloc_page(struct ttm_pool *pool, gfp_t gfp_flags,
+>  	 * Do not add latency to the allocation path for allocations orders
+>  	 * device tolds us do not bring them additional performance gains.
+>  	 */
+> -	if (beneficial_order && order > beneficial_order)
+> -		gfp_flags &= ~__GFP_DIRECT_RECLAIM;
+> +	if (order && beneficial_order && order != beneficial_order)
+> +		gfp_flags &= ~__GFP_RECLAIM;
 
-Exactly that is what you should *not* do and is the background reason why I ask.
+Just one additional nit: The subject line says "direct reclaim" but we disable both direct as well as kswapd based reclaim.
 
-Making changes in a core header like include/linux/fs.h to add a new interface and then only later on explaining how that interface works is usually a pretty clear no-go for upstreaming.
-
-Each patch should make one consistent change and upstream maintainers sometimes even require that you give an user for the interface in the same patch.
-
-> tbh, I don't see much of a problem it being
-> not defined as it's just forwarded in first patches, but I can shuffle
-> it around in the series so that definitions come first.
-
-That is not really a good idea either.
-
-As far as I can see a good organization of the patches would look something like this:
-
-1. The API between higher level and filesystem. Including all the functions, structures, enums etc.. necessary to give everybody reviewing it a solid picture of the general idea.
-
-2. The higher level/frontend/uAPI. Again including all the stuff necessary to get a solid picture.
-
-3. Eventually the glue code between #1 and #2. Depends on if you need it or not to understand those patches individually.
-
-4. The backend implementation, which enables the new feature for a specific fs and/or storage device.
-
-5. Updating Documentation/filesystems/api-summary.rst and eventually adding a new file to explain how the DMA-buf interaction with the fs layer works.
+Potentially just update the subject line.
 
 Regards,
 Christian.
+
+>  
+>  	if (!ttm_pool_uses_dma_alloc(pool)) {
+>  		p = alloc_pages_node(pool->nid, gfp_flags, order);
+
