@@ -4,166 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8644AFF885A
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 18:35:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABFFCFF885A
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 18:53:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B361010E7F4;
-	Mon,  4 May 2026 18:35:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17A5410E00D;
+	Mon,  4 May 2026 18:53:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YolnfL6f";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="L1xw8aKL";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EA5610E0EA;
- Mon,  4 May 2026 18:35:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777919725; x=1809455725;
- h=date:from:to:cc:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=YPSoINydVJYE+lF3UTCcIxmJf4fHgb3mGMZBMmg64bk=;
- b=YolnfL6fiQuXlNwC0Zvlyx8gC14eqGYk8kqZyIYLYTnZQkwKRSNIN7S/
- 38YY8iFpgv9PpJIXvWWhrFiP8q01PYrBsqNHxAs+kzJcoYq+7eKdu9ylJ
- RLYrYBkbjjf4q0Lx4ECRHolGQlCG0aKkkS8QI0p0mGD3UEWVnzBX4RE4S
- ot5zbjEHkwFfnqo34bsxca/LfxNr152P2So1YaytZiqN3wIebdFihF2o4
- 7cBzVogiKgSUnQ+V4H3CX/4DJl8i7sPwh5bJctW9pqKWcWGupGXRCuRTB
- R8HPIhPk6uK6BFlwCrTRDxpattp1LeoF0dXBMra64EMGatMRrI5K/2uht w==;
-X-CSE-ConnectionGUID: fpH5OtvYTAuYxLySthPL3Q==
-X-CSE-MsgGUID: dV4BXTkmRNu+YGzKMpvKug==
-X-IronPort-AV: E=McAfee;i="6800,10657,11776"; a="104233633"
-X-IronPort-AV: E=Sophos;i="6.23,216,1770624000"; d="scan'208";a="104233633"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 May 2026 11:35:24 -0700
-X-CSE-ConnectionGUID: F0w1UcbDQW6nIwdBAttbew==
-X-CSE-MsgGUID: 0wTjhcCxRAaVpz1cVb7WJg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,216,1770624000"; d="scan'208";a="273713945"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
- by orviesa001.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 May 2026 11:35:25 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Mon, 4 May 2026 11:35:23 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Mon, 4 May 2026 11:35:23 -0700
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (52.101.43.24) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Mon, 4 May 2026 11:35:23 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ITtDhZiUaNEvB1+6u1BNYaYuFIn7PYIbZVQY7U2R8TOADufub35lP06MQTZiM7NZ0QHgYwQQpvjeI1o1mgvpHma7v4GbCuluAHM+xWYLmEUWGriZEf1rg1GYmUtusDNsEbrDMe3chmFB2SPhA7XFpHoTPLRvPLvuQMLX+7X2wgY7zFeTlD/teXK9SZmefDyuai0+LvW8ApYOfxxURbVT0NnOAW59IF8zc1eIujCqKASeT9exrlFyFmYLN67sshmBPZrOtCJcqLtPmTrBaRkmCWvqaLkuksnx8tEdgt25e9YncZJIXAkpQl/ayF1rR1R4NQ3VX/Qh4ACT/MxCvybXcA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=g/fkL9T9klfDwMeDzYFBxbj+6Lj/a7X47IZjMIXt6KY=;
- b=UraRtYDupMdZoq5LNaF5ksxZmBfom0G5Jat/21sSbSdmNbFdk7E3kY4O2+1GqqZ88Q0c2LIrWQ/KmYAz5mS5u+MtRsPfvhWcGazs9veb+jias/zst+RWF70hxSPngQ8VEYqzLhDCz64ypbSmoRe58M5nB37sAbcvFkqf4eTAoRrBxJRQFLcVvGauk2cmldWTSNAA8rDC8Q6ZtripM0XAqkJdw0uEHM1VeEGmEb0+0lBeAXi0QKZgUhSinWz+qmu8/fQi2hPnQEAE18fm2yvd9B+BWfgFJeCIw3kBjullUdhxeF5yfxYH9ui3FTZAXkZB6leW8cBweaxThwxpfhoJLA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CYYPR11MB8430.namprd11.prod.outlook.com (2603:10b6:930:c6::19)
- by LV8PR11MB8771.namprd11.prod.outlook.com (2603:10b6:408:206::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Mon, 4 May
- 2026 18:35:20 +0000
-Received: from CYYPR11MB8430.namprd11.prod.outlook.com
- ([fe80::1d86:a34:519a:3b0d]) by CYYPR11MB8430.namprd11.prod.outlook.com
- ([fe80::1d86:a34:519a:3b0d%5]) with mapi id 15.20.9870.023; Mon, 4 May 2026
- 18:35:20 +0000
-Date: Mon, 4 May 2026 14:35:13 -0400
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: "Tauro, Riana" <riana.tauro@intel.com>
-CC: Jakub Kicinski <kuba@kernel.org>, <aravind.iddamsetty@linux.intel.com>,
- Raag Jadav <raag.jadav@intel.com>, <dri-devel@lists.freedesktop.org>,
- <netdev@vger.kernel.org>, <anshuman.gupta@intel.com>,
- <joonas.lahtinen@linux.intel.com>, <simona.vetter@ffwll.ch>,
- <airlied@gmail.com>, <pratik.bari@intel.com>,
- <joshua.santosh.ranjan@intel.com>, <ashwin.kumar.kulkarni@intel.com>,
- <shubham.kumar@intel.com>, <ravi.kishore.koppuravuri@intel.com>,
- <anvesh.bakwad@intel.com>, <maarten.lankhorst@linux.intel.com>, Zack McKevitt
- <zachary.mckevitt@oss.qualcomm.com>, Lijo Lazar <lijo.lazar@amd.com>,
- "Hawking Zhang" <Hawking.Zhang@amd.com>, "David S. Miller"
- <davem@davemloft.net>, "Paolo Abeni" <pabeni@redhat.com>, Eric Dumazet
- <edumazet@google.com>, <intel-xe@lists.freedesktop.org>
-Subject: Re: [PATCH 3/4] drm/drm_ras: Add DRM RAS netlink error event
- notification
-Message-ID: <afjm4XJx1WdO-J_B@intel.com>
-References: <20260311102913.3387468-6-riana.tauro@intel.com>
- <20260311102913.3387468-9-riana.tauro@intel.com>
- <acPjxf5XTYuR7sbM@black.igk.intel.com>
- <09f253b3-ee64-4fbb-8cec-820e9769aa80@intel.com>
- <adc6hTz-xMopiJsc@black.igk.intel.com>
- <69c061b4-eb40-4e2d-aeaa-5dfa47b2db8c@intel.com>
- <65c6839f-a92d-4122-b347-a1250dde961d@intel.com>
- <20260423092922.6c527d75@kernel.org>
- <615d5a74-0865-4f42-a048-a32fff23f8e2@intel.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <615d5a74-0865-4f42-a048-a32fff23f8e2@intel.com>
-X-ClientProxiedBy: SJ0PR05CA0151.namprd05.prod.outlook.com
- (2603:10b6:a03:339::6) To CYYPR11MB8430.namprd11.prod.outlook.com
- (2603:10b6:930:c6::19)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC49010E00D
+ for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 18:53:42 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 565EF4350A;
+ Mon,  4 May 2026 18:53:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B8A6C2BCB8;
+ Mon,  4 May 2026 18:53:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1777920822;
+ bh=VMUPvLHotG5xVtk6Co7SxW4Y31dip3x6XXbgEu8a9fc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=L1xw8aKLrrWn0XepDsWxGwpRejcjOQLPMF8kG2vRgrE5JDrEFkAmpjBCSWTWAb/pa
+ H6qhqvJjV1EDgIsUmjXmi7RlussvSjcJRG1/I+lQaBIGJiSLsN+AVt4xQzYJ0/oKkf
+ Fns3g2gIv7e617+QY643u+fh620nAiEMw/N9v32jgzqJ+k8mQUH5jPRrcZtmkY+oCO
+ yS8kJgmD2RPmsG+jsjFBm9gXuwX8W5i5UN/NlgLQtiWBC7ca5EhM6X1gmOqVljcH+0
+ lKTsXD2Wd5qpQPmlxj/Js+/KSKrpIgu4Vp5ORVMBv8zut2vjWx2CsKQT87bocWruy1
+ QR8AUdAt8y1aw==
+Date: Mon, 4 May 2026 13:53:37 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>, 
+ Amol Maheshwari <amahesh@qti.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Thierry Escande <thierry.escande@linaro.org>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] misc: fastrpc: Fix NULL pointer dereference in
+ rpmsg callback
+Message-ID: <afjprOhBhP15-2lU@baldur>
+References: <20260504171701.18164-1-mukesh.ojha@oss.qualcomm.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CYYPR11MB8430:EE_|LV8PR11MB8771:EE_
-X-MS-Office365-Filtering-Correlation-Id: 72d18865-bd6e-405b-c552-08deaa0be54d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|7416014|13003099007|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: iSVW20lyu2mrbH9qYlZTjH6qjfflo2EI/m2erELZm5sVpLS8BQY4Jn9qp4krMHXg7wZMAmARnadJ4swP6Im/ioL5M2QW7JNi7EnS4wcNwbjogrC2KMUV+JbokXThPYKlIh8dITNxgXp99pfCaJtwZT9+sRezKlvCzpYB0Gze91ypqLBCO7O1Vmg0R9ELR4hUm4LrNVefSAQr8d1M7o7GNKKK7YU+22nwFKHOh6N8Hl1MlB2aZ4U1YSORG8Nq9Tk46tAAah8rWEMfCl36D8y0C8KbF//2kmlxJ/JYGX37RAq90gxg+yyC+jlLEpoQFfUpT5dUj1t5QpaMVUM2cTHAGu4Ny9X5uBNyX+azL0d012puBk6MdlgvF6OjfzAfL3Tbyr40mt2s5MwRb6mB4aa35HJP6fRu9w7EiM/GlHv56xkfLAPeWeSJxxGYV2xUpLmxrf5th8c+3LZx+EWb0nzBrFnBl2XQ5rIoXwpSslyHGNSb4WahLLaP2D1/SrCNtFBXGaZZtGjZtJS5g2+NGbOhJVPr8Cs/ypbKPEkNkydO9MqitR/VJxoaSCzDSwFc1AaYtiXGm8rszNE9830YRWUIa5PrrmSCIa1mIkRzVxFXdgs2gto+yPEbGIrHPkTvTxCwEa5PAuWuvKXK3bc5iS/UMDnbtOk+ByL0VgOkCApLXsZYCNyuZiPDGnT09hMjVqk6
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CYYPR11MB8430.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(7416014)(13003099007)(18002099003)(22082099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?NeblHsTKemHD1jGQZyFbhwvPGmY/k2PKua+e35J9duoCx6A1UXh/wiEMCP?=
- =?iso-8859-1?Q?eI8exgxzVzdt/VopwMyVu0suLqPUiw1FIGnkqbY9+Ysik21icTkzHWak8a?=
- =?iso-8859-1?Q?mpSDtRt0BYeGCXgfbdW/OYhqcAPS0TK9yvDlfMY9v1W1z04aFDuU+Eixrk?=
- =?iso-8859-1?Q?pRbY/AV+m8lmRdHLMMbxaz3TwPtqNr8vNC/tHPtj36sVlUBzMFQoKMrLoK?=
- =?iso-8859-1?Q?khPIosRajp0jmDB5So6yAOSeN0JhK+0ASJQ3/1w+5ROg+yjqkVas/UAi03?=
- =?iso-8859-1?Q?irrCgYxZDGEHKop9likaWvx7dberp0RLQXXCGXe5bE9uNq/Z9Za7yV+anG?=
- =?iso-8859-1?Q?03G5f9tJOIEUvlyhDuMmk4eLH6CFVXAgVlaOxgUmmB4GQt6poY59sNhBYf?=
- =?iso-8859-1?Q?D+fkukdaOBC4l4FcxYq9HBrpg/mGFwpca1IeQA9nMEq+rCSekdW6cihGk3?=
- =?iso-8859-1?Q?KsWR75It3CxVGV0fqP3LJaqLgkBjgDlKuWrcd1OOX8ldrE61rbcYEP6JVo?=
- =?iso-8859-1?Q?KPPa9WdmeCmX9yzNnrurSz8FoNf2iLvhUVaVy1V92RO5PjEAYxCCgoegEb?=
- =?iso-8859-1?Q?o8fSM8xo6RZQAR0JsDOOpTZkAj5onPNJ3MyyXUQGA7Q0c1ojJTIlrs1x8p?=
- =?iso-8859-1?Q?GYKZm2TTq/lYz+3zPV6B9zposO8NMJZhdCIMsGt6HXY0ODvtIDA/lxNrN9?=
- =?iso-8859-1?Q?Jd4SdR6108R2CtKp05E+SM/g41IQNU9EIQ1HLrSEIqT2K5Em+8gm99APlh?=
- =?iso-8859-1?Q?4pRnrhJjbBW8nLH8ZXMoQndnB0rlz8XO/GnFEyQpOdQ+9ieAqTRSmF1fqF?=
- =?iso-8859-1?Q?ag4SMIx3kAi+TM0NKSWFpon75EQ7nVHADMJx/62PBhzCUwm+KkjDIE9022?=
- =?iso-8859-1?Q?8JwLAZwGdQ7uVig5b/UgjBC03exwqtt/czjmFYcWR6W2bymzUg60SMvfkH?=
- =?iso-8859-1?Q?8e43/dR3DXMno9JCH0r0m/IqjGvt4wlMspcw3xd1hZolnqwHgMmRNLIubD?=
- =?iso-8859-1?Q?i7fGcxLyTJge04dhtLZItXIr1DccCNT4n59XBCweJ13gHdtgM1ZqOqpXyg?=
- =?iso-8859-1?Q?dcmqMZzV0rw6fnw/abfhUn6ZEmB3CmUw9z3TBlZ/88unFdhQnQ9/JPoHSA?=
- =?iso-8859-1?Q?M8XoJ447x7kUa46SDrCplBUiBOnSS3gOHs2akj5sN8pxfCJHmZdu2e9FoA?=
- =?iso-8859-1?Q?es1XRwIP0vASMwKTzGNpmHUkqRlfZJkBDq2vsCDRmkOkzf1EB4atIOxNRw?=
- =?iso-8859-1?Q?NLkADA2rSOG0OnaB8GZYkcXq+EcG0+XLo3N6ITdz1tT7Lyl/VSg6H/A4Lj?=
- =?iso-8859-1?Q?L+6VZ6pXkgUfrYsUhgn33DsEQTyEavBqjdEaUDcBSxAa+FeFmuYszK84uY?=
- =?iso-8859-1?Q?GHTOtmDhEo1omwdXfNSQxFpffsZKilabeLWYU05V8ESGtixabHuAM7jwTI?=
- =?iso-8859-1?Q?TVMDCIp7DskHuyO0Hs1KRmrLdU0Xo3SznTVVCMB6NWQWAWg0jV/OpCqVKP?=
- =?iso-8859-1?Q?w08wWesKunMl4wCfuoZN7VdqlbQG1/UtH3Dq57sJUqx2wCQIiEzANIP3Ko?=
- =?iso-8859-1?Q?aH7E0zaYWndX5TsOYgYHh5tKqBLRsPes3dp1Um20JUG2v7kKVJBDFuv99c?=
- =?iso-8859-1?Q?QLSRMTywbBRTCzyyG2VwPJK/YdNv4qPE2tRSoIA83I0uTdxpjvSuDjTpH/?=
- =?iso-8859-1?Q?51TK+FS9mRl1svXE2iXD0E14ubNFbGvvNvFEv0N4Q3HWgsVLwpyeXMMcRr?=
- =?iso-8859-1?Q?CT7ysEgmtMazfSrbquvBk+fYu5VaJ3LHNBGnLxhvEmAmMZbE9ct1kpY00B?=
- =?iso-8859-1?Q?vf7lVu8H6Q=3D=3D?=
-X-Exchange-RoutingPolicyChecked: jO1Ki+iXj/UQRT7nvKW8F7Cjba9t6KZwR+Z3eafl0WhUMn+WXN9I+S5REoO3OtnTnJnDgr9SI82BcCEopZW3AGn9KEdNN3HxnmZqVJnSkDx3KRdMg8eKHPQO6QUEU/JZh+D/qA0DMxBfXFwM+SHtzAXWKg2oPwTp+3nSEpwNOHBbapdsK2OQzKcp1sA3HtDTEcTRUgWpXSl6N09PPYMy/6BvriYw+tH5lNGwW2sjyr2IaF1Av8BhrCIEfwFAxcPJcsXVT0DepDa7ZWlfIea2xRvdnHQ09XmsYsLv3KX9AnGW1lJgo+b5ThhlcnyWCQAMwZin0yKuiv4eJN4tUrUkPA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 72d18865-bd6e-405b-c552-08deaa0be54d
-X-MS-Exchange-CrossTenant-AuthSource: CYYPR11MB8430.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2026 18:35:20.4031 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mbbI7ifl/Yw0luxyX3eO3W7YajQoziNXWUyphBbi89MfA0ldZN1Nfdshy3jJcvgxA+bcYmGNs/ol7q6c+x9dyg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR11MB8771
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260504171701.18164-1-mukesh.ojha@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -179,56 +62,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, May 04, 2026 at 12:58:13PM +0530, Tauro, Riana wrote:
+On Mon, May 04, 2026 at 10:47:00PM +0530, Mukesh Ojha wrote:
+> A NULL pointer dereference was observed on Hawi at boot when the DSP
+> sends a glink message before fastrpc_rpmsg_probe() has completed
+> initialization:
 > 
-> On 4/23/2026 9:59 PM, Jakub Kicinski wrote:
-> > On Thu, 23 Apr 2026 11:22:45 +0530 Tauro, Riana wrote:
-> > > We had some questions regarding events in netlink
-> > > 
-> > > 1) According to netlink spec, "Events are considered less idiomatic for
-> > > netlink and notifications should be preferred."
-> > > Since we currently don't have a response that matches a get operation to
-> > > use notify. Would using an event be acceptable?
-> > I have only glanced at previous messages but would it not work to
-> > include the counter values into the "event" as if it was it was a
-> > counter get?
+>   Unable to handle kernel NULL pointer dereference at virtual address 0000000000000178
+>   pc : _raw_spin_lock_irqsave+0x34/0x8c
+>   lr : fastrpc_rpmsg_callback+0x3c/0xcc [fastrpc]
+>   ...
+>   Call trace:
+>    _raw_spin_lock_irqsave+0x34/0x8c (P)
+>    fastrpc_rpmsg_callback+0x3c/0xcc [fastrpc]
+>    qcom_glink_native_rx+0x538/0x6a4
+>    qcom_glink_smem_intr+0x14/0x24 [qcom_glink_smem]
 > 
-> We wanted to keep the notification general with error name and node name.
-> There is another series which will re-use this event [PATCH v7 3/3]
-> drm/xe/ras: Introduce correctable error handling - Raag Jadav <https://lore.kernel.org/intel-xe/20260428054826.1202076-4-raag.jadav@intel.com/>
-> <https://lore.kernel.org/intel-xe/20260417085812.4013309-15-riana.tauro@intel.com/>[PATCH
-> v4 00/13] Introduce Xe Uncorrectable Error Handling - Riana Tauro <https://lore.kernel.org/intel-xe/20260417085812.4013309-15-riana.tauro@intel.com/> .
-> We do not have the complete counter value there.
-> @Aravind/@Rodrigo Do you think we should add the counter value to the event?
+> The faulting address 0x178 corresponds to the lock variable inside
+> struct fastrpc_channel_ctx, confirming that cctx is NULL when
+> fastrpc_rpmsg_callback() attempts to take the spinlock.
+> 
+> There are two issues here. First, dev_set_drvdata() is called before
+> spin_lock_init() and idr_init(), leaving a window where the callback
+> can retrieve a valid cctx pointer but operate on an uninitialized
+> spinlock. Second, the rpmsg channel becomes live as soon as the driver
+> is bound, so fastrpc_rpmsg_callback() can fire before dev_set_drvdata()
+> is called at all, resulting in dev_get_drvdata() returning NULL.
+> 
+> Fix both issues by moving all cctx initialization ahead of
+> dev_set_drvdata() so the structure is fully initialized before it
+> becomes visible to the callback, and add a NULL check in
+> fastrpc_rpmsg_callback() as a guard against any remaining window.
+> 
+> Fixes: f6f9279f2bf0 ("misc: fastrpc: Add Qualcomm fastrpc basic driver model")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 
-I don't see any reason why we couldn't include the counter value in the event.
-Although we know that this value is likely the threshold, I don't see any problem
-with this flow. In many cases it could mean one less call from user space.
+The fix looks good to me.
 
+Reviewed-by: Bjorn Andersson <andersson@kernel.org>
+
+
+But I can't help wonder, what's in that message? Should we make sure to
+handle it, longer term?
+
+Regards,
+Bjorn
+
+> ---
+> Changes in v2: https://lore.kernel.org/lkml/20260417200146.184425-1-mukesh.ojha@oss.qualcomm.com/
+>  - Added stable mailing list and fixes tag.
 > 
-> Also, there is a request to add other parameters in the review comments
-> so cannot re-use get-counter response
+>  drivers/misc/fastrpc.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
 > 
-> > 
-> > If it makes no sense - it's fine. We have been adding events in some
-> > places, too, in networking. The thinking is basically that when the app
-> > that does the user space monitoring starts it will often want to know
-> > the state of the world. So we end up with "get state of the world"
-> > and "notify about state of the world" which should really be the same
-> > format.
-> 
-> Sure. Thank you
-> 
-> > 
-> > > 2) Is there a way to check if there are subscribers to a group before
-> > > creating the event message?
-> > >      Currently the subscriber check happens in
-> > > netlink_broadcast_filtered, but a reviewer suggested we could
-> > >      optimize by skipping message creation if there are no subscribers.
-> > Yes, genl_has_listeners()
-> 
-> Thank you
-> 
-> Riana
+> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+> index 1080f9acf70a..a1a54453bb7e 100644
+> --- a/drivers/misc/fastrpc.c
+> +++ b/drivers/misc/fastrpc.c
+> @@ -2431,7 +2431,6 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+>  
+>  	kref_init(&data->refcount);
+>  
+> -	dev_set_drvdata(&rpdev->dev, data);
+>  	rdev->dma_mask = &data->dma_mask;
+>  	dma_set_mask_and_coherent(rdev, DMA_BIT_MASK(32));
+>  	INIT_LIST_HEAD(&data->users);
+> @@ -2440,6 +2439,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+>  	idr_init(&data->ctx_idr);
+>  	data->domain_id = domain_id;
+>  	data->rpdev = rpdev;
+> +	dev_set_drvdata(&rpdev->dev, data);
+>  
+>  	err = of_platform_populate(rdev->of_node, NULL, NULL, rdev);
+>  	if (err)
+> @@ -2513,6 +2513,9 @@ static int fastrpc_rpmsg_callback(struct rpmsg_device *rpdev, void *data,
+>  	if (len < sizeof(*rsp))
+>  		return -EINVAL;
+>  
+> +	if (!cctx)
+> +		return -ENODEV;
+> +
+>  	ctxid = ((rsp->ctx & FASTRPC_CTXID_MASK) >> 4);
+>  
+>  	spin_lock_irqsave(&cctx->lock, flags);
+> -- 
+> 2.53.0
 > 
 > 
