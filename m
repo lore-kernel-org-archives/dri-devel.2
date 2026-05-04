@@ -4,86 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AB20FF885A
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 07:42:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 669C9FF885A
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 07:49:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9773C10E3C3;
-	Mon,  4 May 2026 07:42:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C55E210E558;
+	Mon,  4 May 2026 07:49:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="XDKXkZ1T";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IdahbNtE";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95C4310E3AA
- for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 07:42:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1777880539;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=17DG/jFD4UJY3jOr7jCFbgLNy+ifxGIJEYAAkiazHmo=;
- b=XDKXkZ1T3xDmjtizWPaDqpj2ltDvJmOCr5iZsairkJEeo9NNgMHvG1oOOhs60dn8er3b3A
- 3MoNBa/zJxqtYHPdAdKh5SzRHj51zWZCuG6SjQbUp2f7hf39AM+y3m81JxOioY2o6B0T1y
- EeX23HZuhJghqtYhwOT6xgfkqpV76vo=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-517-QAvuwnggOIKkmeYZGApe3g-1; Mon,
- 04 May 2026 03:42:16 -0400
-X-MC-Unique: QAvuwnggOIKkmeYZGApe3g-1
-X-Mimecast-MFC-AGG-ID: QAvuwnggOIKkmeYZGApe3g_1777880533
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 2A4AF19560A1; Mon,  4 May 2026 07:42:12 +0000 (UTC)
-Received: from [192.168.1.153] (headnet01.pony-001.prod.iad2.dc.redhat.com
- [10.2.32.101])
- by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 1C9EA1953952; Mon,  4 May 2026 07:42:04 +0000 (UTC)
-From: Albert Esteve <aesteve@redhat.com>
-Date: Mon, 04 May 2026 09:41:28 +0200
-Subject: [PATCH v8 4/4] kunit: Add documentation for warning backtrace
- suppression API
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010035.outbound.protection.outlook.com [52.101.61.35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CFD210E5F9
+ for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 07:49:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Usz9fuTu+9tU8uPV//YDY14fftwgRsH5e5C5x6BEsMIt/7Jis1hOcUPBzqpBCnJipHrxjyammL0aZ5v3LqsifZD0pplra5dJz42qob4y8MIBmdpEHpU+dSbc0NJXx64dfiTpgA9ZNautfcYkJtWGCv5nsqxa7KWx2cngvTEPbTOF9M5kRQ5+fPVgYntwF0gdOvEJ5j+64Ju+LOCo4BRaMVf90xg7C0y8ALlMH9lNp0ZD+q/9rUW8hck8BHB8iTHgGe4LTwrHa8YJgsmp2v4ECwnw7FbLbvJCMCyye4Nodc/vMytOtNRrrNXiMSCT/fJWhM/15F3wI4ZP3r+EKEca9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=d0xcKJkFbFaYT1KQdPIlpEkD4K7meX9f46DKUFjINbk=;
+ b=rrqqqTZIC3jVrOX02IbvKWveyM5/8wSGqah40CEsOd+oahRlfsqMdN25EXDDBXKcx6LLRfAsnryT5Zo8E6g/jw3l86c3wzousNeitZqSkO29DfjEnNCEfpLK/RDFACYVwTSL/gH8A73PckKSPUDCz8MYLzJpdrmWgqApyd8W8clqf4RJzLtu8rRWtBR2PvNQbOix1MSIqJpGFnzzsVvjR9nEN9L3t2F+2h+u1BgGp9nGyISIkPAT8g3Yb9Iuz6kP419ZE3WVEMz2HYUCh6yrW/EbooQ/E1XEhhdH5bZVz2Uk5mWdMq/O3bIBx6GM2vuiCw1DDASkMfP1/HZVUhnODA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=d0xcKJkFbFaYT1KQdPIlpEkD4K7meX9f46DKUFjINbk=;
+ b=IdahbNtEMkjeuf9ulw87mxdUNfsbd0QIxmISkSseVSowEtBHZc1uzoKJ3zpr4dXsZpWSGW0+pVT8jOd8HjHBb4jvJQjCRWHKkdyTh5tFq0hvh2a/P7vGCNd5/cBV0FEpx1ikknnY1SOeTQnbI3da3SaUseXQEVfUB0w3Mk/DMYc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DM4PR12MB6448.namprd12.prod.outlook.com (2603:10b6:8:8a::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9870.25; Mon, 4 May 2026 07:49:25 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9870.023; Mon, 4 May 2026
+ 07:49:25 +0000
+Message-ID: <bc74694b-9cbc-4cbb-9dcd-9e25960d3b97@amd.com>
+Date: Mon, 4 May 2026 09:49:15 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dma-buf: system_heap: Optimize sg_table-to-pages
+ conversion in vmap
+To: "T.J. Mercier" <tjmercier@google.com>, Barry Song <baohua@kernel.org>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ Xueyuan Chen <Xueyuan.chen21@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>
+References: <20260406214938.24142-1-baohua@kernel.org>
+ <a6d1c89a-3c71-4e06-adcb-56595071dcc2@amd.com>
+ <CAGsJ_4xquCzQLbvpkC8arAN=9KhrAkdPdxnB=v85GvvQu23Xyg@mail.gmail.com>
+ <9034246e-3971-4fad-94b7-80f4ad0e29db@amd.com>
+ <CAGsJ_4z5EZoNMBVnu6sCkThyi9VTCeCH29buVecuySuv_Ry8fw@mail.gmail.com>
+ <CABdmKX3baqmBkZxMB6PTG6Sj5S9qi+RwVvwpmkLqKkqvfeZAUw@mail.gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <CABdmKX3baqmBkZxMB6PTG6Sj5S9qi+RwVvwpmkLqKkqvfeZAUw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MN2PR05CA0056.namprd05.prod.outlook.com
+ (2603:10b6:208:236::25) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-Message-Id: <20260504-kunit_add_support-v8-4-3e5957cdd235@redhat.com>
-References: <20260504-kunit_add_support-v8-0-3e5957cdd235@redhat.com>
-In-Reply-To: <20260504-kunit_add_support-v8-0-3e5957cdd235@redhat.com>
-To: Arnd Bergmann <arnd@arndb.de>, 
- Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, 
- Rae Moar <raemoar63@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Andrew Morton <akpm@linux-foundation.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>
-Cc: linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, 
- dri-devel@lists.freedesktop.org, workflows@vger.kernel.org, 
- linux-riscv@lists.infradead.org, linux-doc@vger.kernel.org, 
- peterz@infradead.org, Guenter Roeck <linux@roeck-us.net>, 
- Linux Kernel Functional Testing <lkft@linaro.org>, 
- Dan Carpenter <dan.carpenter@linaro.org>, 
- Alessandro Carminati <acarmina@redhat.com>, 
- Albert Esteve <aesteve@redhat.com>, Kees Cook <kees@kernel.org>, 
- David Gow <david@davidgow.net>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1777880489; l=3385;
- i=aesteve@redhat.com; s=20260303; h=from:subject:message-id;
- bh=2r+YaNLYekCHScvfkm3SGKZhcNXhOrPXur/abYPqMto=;
- b=pimAHn6mKykigLlO10+2vvAltRY7TPIdHOYgqeW98bdEc+ZK26YT7z1+cMMQAe9pp5J0fvRMB
- Egmh5d5sKOyC8rUTjiV0qZJLE2iKtU53WjTgAs/8LI4pkK+8kn5azN9
-X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
- pk=YSFz6sOHd2L45+Fr8DIvHTi6lSIjhLZ5T+rkxspJt1s=
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
-X-Mimecast-MFC-PROC-ID: 33RtZ4aiCEWNiMhvD4P4yAN1m3s0oXXWWjK2rHaaubM_1777880533
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM4PR12MB6448:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0f4f0df3-3181-4d56-baaf-08dea9b1a952
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|7416014|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: YxSbS3cCdzuv0A0U+ZdrHkbCDGpnQe3u0jIAIp43IHpc7JfNDOt8K4QCH4u7BaTL+Ty4o6z94aalHgJuhk6v3/2OjKrWHhVyiAoBjYH71/ctxAFbYllgBTiNkZZ60g4YiW2LT16fQGKwLG/3sFKYlXHVUhqtehY2V2FePj3b2mFYnzAS4KHycqGhvPS623ugyScru/b3hSB2FnyfZtopAlBCHihENZKHEy998wI7BKf9c1hlzu/X73Q9P02hpAufKd76uxolAla09Fv4fiAhtBqQnggVedZtr4t12F3tVzJGI0/qWVU+9OokyqCbLecFtfu4UtrYUKpvQxLWvSTAmFEe/xef+C7E8kdMLP/UtTOTiub+JIK9l9hD1NQIWonZAg32hSuYv8XfDncUBwTJT8+9F8fB7vNsFc0fHenH5tuMRhVMXqwqg1jDd+xK0ruPoHiyUqlzKwfT/cmZoHcNI/YdSLi1QS1nW+/lc7TcuCyf4TCMoaKs9iYnrlLuO3W+6Y6eaTuVwqqVE3DzJRhTbQvH+v3dMRlZ9jERIpRex8ixYnBMX1UqpPC6wqxSBN1NtFZB0B+z5TfImGUhhak34QG5P4GaDnA3Bahb9qo+d/hM6YsnZeESupFtDBmTAJ7IBWJcVopMiVvg/ZyvNAhFpAoduyfeMijH4TY1hwQPLFgNL91Ry5hZbbl6FhkqSkQb
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(7416014)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R281UEM0TkRkZEQrcUUzMHJ2dFFBNUJ0MzlUQ2NMTEpiQ0FBTkFsakRJb1Ez?=
+ =?utf-8?B?UDFNU1FmWEdXcVBuOStTa1RUVUlIazh5UUZqZHo1SlFwYXFHbmx2M3poWnNt?=
+ =?utf-8?B?T0V3L1JFbERYV3BDeFpPTENsdml4Q2NhUEk1eHRJYW1iN1owTDZ3aFBwTWQy?=
+ =?utf-8?B?bDF5OWFzMG1PK3NUK1VFQVduQzV1U3lxeGRGTXJzSm5MMFc4Z0JrY0FMOWtY?=
+ =?utf-8?B?R3YxbTFKY25jdGYwM3JNZy9CalI4YWJxZXgvWllXZ05yNFFxa2s3aGpxRER2?=
+ =?utf-8?B?V2pQOUJjeFlScTRhNHUxeFk3MkdVZ0tOcG4zTkdzWXltVUlGZmRoTnRBaHo5?=
+ =?utf-8?B?Y1N5bDdqa3lNZEFGSkJMZnhVWWlJRlVMc1dXRU9UMFJtZUNCMGozdkVuV2pu?=
+ =?utf-8?B?cm93MGNQa3hFSzFHV0djbTltbXMxZ0Z5alkxMUtFaVY0Vjhmam5RNlFuc29T?=
+ =?utf-8?B?STJhZFFQR0dZcUFVT3FDRmJQK2pQOEJHVTd6cG5VWTljd3JydGFUNHBoL3hu?=
+ =?utf-8?B?Nit0bGlUb2xXUjJHcmh1UFN6WjdqV1pJdWtBYjNUQ0pHazV5SFFvNTlUSVZF?=
+ =?utf-8?B?blcrY1BoYkNSdUZRMURrY2NsV0F1dHVVZTRtNEkveFRhakE0T2Z4aXdtelVo?=
+ =?utf-8?B?T0JSd0F0NVBaWVJPMUFpbzhjSHJxdVVoOE9kTFNpQmE1cEh0M3ZkYjVRYmJ0?=
+ =?utf-8?B?ejdyQ2Nwd3EwMG9UOXVUOGN4Nm5UUUVlZGxzR2dzcFB5c1pLNyswbU9TcW9L?=
+ =?utf-8?B?amdWdmRHWWprNVpzQ1c2YmNsY2ZQQk1Ea3hqelNtcmoyS0NCY3hUd3FxbGg2?=
+ =?utf-8?B?S1h4T0lKWnJWdnlsSnBydkpXL0RWY0w1ZlphcERmVkxreEltL0I3Ui9aLzl3?=
+ =?utf-8?B?TGlqK3puZWV3dnBTemEvc0dWQ2pUQmRQcEFhemlzUWlBeWttb0ZjS2ZBNERX?=
+ =?utf-8?B?ak5IQjFzUzlKZGgwNXd5bkJ1UW9aR1NvQmdoSUc0dlJCVmxib01HaS9WZkh4?=
+ =?utf-8?B?b1Z5d2ZNWUJFd25yQ3ZpZEpUZW5IOXAyN1Q5SzdpNzRWOTl0dVZKS1hpM0ph?=
+ =?utf-8?B?Tjdrdi9RQVFNcnFPOW1jZkpranVaR2hTU0RqWkJONnM0RzJLbHpvbTIzYXNE?=
+ =?utf-8?B?SkdLUWtwNERFcmgrZXF0YjJTSTBuZnltNXlKajBSaDJMaVBxaXF3WHMzNkY1?=
+ =?utf-8?B?dU5IQk1pdW5QbDVQQ3ZrTGtDRWhSYzR0dnBTUDZmdS9uSmNkeGNqOXltU0Mz?=
+ =?utf-8?B?d2htU0VlNTh4Z0lmNHJxTWF4U1NvUUEzdlZ4T2RHbEg5RnM1RmtNSHVvZVRO?=
+ =?utf-8?B?M2FZL2FwT25abGt4ZHdWWGpLQ1MyMFFNZnhUMDR6MVkwblJLMHBDUEJ6T2d3?=
+ =?utf-8?B?aFNsbjROKzN3R3RNQTN5RnlISndiUS9sdzZCRmFWUGtjb1M5UHJZelZkalJB?=
+ =?utf-8?B?TnVZeTdoYmhkeEk5bnBLSXVNK1Q2RTE4OXgxbDQydlBOb1Z6Y3pPTEZ3UWky?=
+ =?utf-8?B?QTNuNkc4OTYvdHdLcU9XNUdmQTJPKzRJVVpoSzNtdzZsNjV4eCtYb1p0K01Q?=
+ =?utf-8?B?cWdrN0Q1dGhrM0x1ak85U3ZzenBHSVUyZWZWUmhOamoyMGFDa1BiR1d6WlJu?=
+ =?utf-8?B?OGM0RHlWR2xadnFMTm5xVTJFNGc0ZHVFU2pnWVNTY00zNnYzQmw1WEh2c2ZV?=
+ =?utf-8?B?Yzdxd1lmeDFOUnZ4TVlFTTJocFZ0WXRpNEMyWnRXdFFZOUE3TTEvamp6WnZS?=
+ =?utf-8?B?emYrL2RNVnhtU00xYWxuV2RZb3ZNY2cvck1YV3NhK0prQmI5Vk4rOVY3R2RL?=
+ =?utf-8?B?WXlLUHovTmJxQnpGdXI2UHRXWmZwTjVTbm9vV3d2bmFTdWFONXFNSEtaMmpo?=
+ =?utf-8?B?bjNITWYyZ1ljVk1yaWFBOG5HRlRPTU54NER1OHFVMnpQeXZrNzhoZFczL08v?=
+ =?utf-8?B?U3lXMmlTUUNHTkwzci9vTXpCczZOS3AzR1YvTkpjZEdOZHdWUXdYaDQ3RHJQ?=
+ =?utf-8?B?N1lSY0k5UUFOM3hNWFlRa3lkVUoyQ2VpTTVMcTJIS1FkekdPdk9aaHhNRmlV?=
+ =?utf-8?B?a2NObTJKbXBXdmFJV0d1Z3Z3Q0JLTlVHUUZIQmdnbnR5Z1lUV0dKTkplOTc4?=
+ =?utf-8?B?bnpyU0dEenlkRjRHRUQ4QzZkUTljV2JVVUZHaFVnNEcvbFRKc0pBdHpMNng2?=
+ =?utf-8?B?K2FBVmZDQmovQmZ5RS9MSEg4eTBRM2xsMTlrS28rZEhrMXYyOXduZUxXbTVS?=
+ =?utf-8?B?SWozN3M3bnN0QmtVWnNFT1AwNytwdXpWa1RNL3Qreksrb2JuTXlwRmZaRmxS?=
+ =?utf-8?Q?ChHrLgWwDDhMD59UQ8?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0f4f0df3-3181-4d56-baaf-08dea9b1a952
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2026 07:49:25.0316 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 08IXILGD0Nq1GyTLzUWUmctNfbPW1i7r9OlOitB2vjsGgjvN9Z1t9v507RS0sekK
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6448
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,102 +145,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Guenter Roeck <linux@roeck-us.net>
+On 5/1/26 17:54, T.J. Mercier wrote:
+> On Thu, Apr 30, 2026 at 9:15 PM Barry Song <baohua@kernel.org> wrote:
+>>
+>> On Wed, Apr 22, 2026 at 3:10 PM Christian König
+>> <christian.koenig@amd.com> wrote:
+>>>
+>>> On 4/7/26 13:29, Barry Song wrote:
+>>>> On Tue, Apr 7, 2026 at 3:58 PM Christian König <christian.koenig@amd.com> wrote:
+>>>>>
+>>>>> On 4/6/26 23:49, Barry Song (Xiaomi) wrote:
+>>>>>> From: Xueyuan Chen <Xueyuan.chen21@gmail.com>
+>>>>>>
+>>>>>> Replace the heavy for_each_sgtable_page() iterator in system_heap_do_vmap()
+>>>>>> with a more efficient nested loop approach.
+>>>>>>
+>>>>>> Instead of iterating page by page, we now iterate through the scatterlist
+>>>>>> entries via for_each_sgtable_sg(). Because pages within a single sg entry
+>>>>>> are physically contiguous, we can populate the page array with a in an
+>>>>>> inner loop using simple pointer math. This save a lot of time.
+>>>>>>
+>>>>>> The WARN_ON check is also pulled out of the loop to save branch
+>>>>>> instructions.
+>>>>>>
+>>>>>> Performance results mapping a 2GB buffer on Radxa O6:
+>>>>>> - Before: ~1440000 ns
+>>>>>> - After:  ~232000 ns
+>>>>>> (~84% reduction in iteration time, or ~6.2x faster)
+>>>>>
+>>>>> Well real question is why do you care about the vmap performance?
+>>>>>
+>>>>> That should basically only be used for fbdev emulation (except for VMGFX) and we absolutely don't care about performance there.
+>>>>
+>>>> I agree that in mainline, dma_buf_vmap is not used very often.
+>>>> Here’s what I was able to find:
+>>>>
+>>>>   1   1638  drivers/dma-buf/dma-buf.c <<dma_buf_vmap_unlocked>>
+>>>>              ret = dma_buf_vmap(dmabuf, map);
+>>>>    2    376  drivers/gpu/drm/drm_gem_shmem_helper.c
+>>>> <<drm_gem_shmem_vmap_locked>>
+>>>>              ret = dma_buf_vmap(obj->import_attach->dmabuf, map);
+>>>>    3     85  drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
+>>>> <<etnaviv_gem_prime_vmap_impl>>
+>>>>              ret = dma_buf_vmap(etnaviv_obj->base.import_attach->dmabuf, &map);
+>>>>    4    433  drivers/gpu/drm/vmwgfx/vmwgfx_blit.c <<map_external>>
+>>>>              ret = dma_buf_vmap(bo->tbo.base.dma_buf, map);
+>>>>    5     88  drivers/gpu/drm/vmwgfx/vmwgfx_gem.c <<vmw_gem_vmap>>
+>>>>              ret = dma_buf_vmap(obj->import_attach->dmabuf, map);
+>>>>
+>>>> However, in the Android ecosystem, system_heap and similar heaps
+>>>> are widely used across camera, NPU, and media drivers. Many of these
+>>>> drivers are not in mainline but do use vmap() in real code paths.
+>>>
+>>> Well out of tree drivers are not a justification to make an upstream changes.
+>>>
+>>> Apart from a handful of workarounds which need to CPU access as fallback DMA-buf vmap is only used to provide fb dev emulation.
+>>>
+>>> The vmap interface has already given us quite a headache in the first place and there are a couple of unresolved problems regarding synchronization and coherency.
+>>>
+>>> When a driver would be pushed upstream which makes so frequent use of the dma_buf_vmap function that it matters for the performance I think there would be push back on that and the driver developer would require a very good explanation why that is necessary.
+>>>
+>>> So for now I have to reject that patch.
+>>
+>> Well, it doesn’t seem to increase complexity, and the code is quite easy
+>> to understand.
+> 
+> I agree with this. This change introduces basically no downsides for
+> upstream, even if it primarily benefits a rare use case. Since
+> dma_buf_vmap is exported for driver use, why not enhance the
+> performance for all callers?
 
-Document API functions for suppressing warning backtraces.
+Because we essentially want to restrict the vmap interface to only the fb dev emulation use case and not promote or even expand it.
 
-Tested-by: Linux Kernel Functional Testing <lkft@linaro.org>
-Acked-by: Dan Carpenter <dan.carpenter@linaro.org>
-Reviewed-by: Kees Cook <keescook@chromium.org>
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-Reviewed-by: David Gow <davidgow@google.com>
-Signed-off-by: Alessandro Carminati <acarmina@redhat.com>
-Reviewed-by: David Gow <david@davidgow.net>
-Signed-off-by: Albert Esteve <aesteve@redhat.com>
----
- Documentation/dev-tools/kunit/usage.rst | 63 ++++++++++++++++++++++++++++++++-
- 1 file changed, 62 insertions(+), 1 deletion(-)
+When this matters performance wise the caller is clearly doing something wrong and by improving the performance we just paper over the issue instead of fixing it.
 
-diff --git a/Documentation/dev-tools/kunit/usage.rst b/Documentation/dev-tools/kunit/usage.rst
-index ebd06f5ea4550..25724f7e72969 100644
---- a/Documentation/dev-tools/kunit/usage.rst
-+++ b/Documentation/dev-tools/kunit/usage.rst
-@@ -157,6 +157,67 @@ Alternatively, one can take full control over the error message by using
- 	if (some_setup_function())
- 		KUNIT_FAIL(test, "Failed to setup thing for testing");
- 
-+Suppressing warning backtraces
-+------------------------------
-+
-+Some unit tests trigger warning backtraces either intentionally or as a side
-+effect. Such backtraces are normally undesirable since they distract from
-+the actual test and may result in the impression that there is a problem.
-+
-+Backtraces can be suppressed with **task-scoped suppression**: while
-+suppression is active on the current task, the backtrace and stack dump from
-+``WARN*()``, ``WARN_ON*()``, and related macros on that task are suppressed.
-+Three API forms are available, in order of convenience.
-+
-+- Scoped suppression is the simplest form. Wrap the code that triggers
-+  warnings in a ``kunit_warning_suppress()`` block:
-+
-+.. code-block:: c
-+
-+	static void some_test(struct kunit *test)
-+	{
-+		kunit_warning_suppress(test) {
-+			trigger_backtrace();
-+			KUNIT_EXPECT_SUPPRESSED_WARNING_COUNT(test, 1);
-+		}
-+	}
-+
-+.. note::
-+   The warning count must be checked inside the block; the suppression handle
-+   is not accessible after the block exits.
-+
-+- Manual macros are useful when the suppressed region is large enough that
-+  extra indentation is undesirable, or when the warning count needs to be
-+  checked after suppression ends. ``KUNIT_START_SUPPRESSED_WARNING()`` must
-+  appear before ``KUNIT_END_SUPPRESSED_WARNING()`` in the same scope.
-+  Limited to one pair per scope.
-+
-+.. code-block:: c
-+
-+	static void some_test(struct kunit *test)
-+	{
-+		KUNIT_START_SUPPRESSED_WARNING(test);
-+		trigger_backtrace();
-+		KUNIT_END_SUPPRESSED_WARNING(test);
-+
-+		KUNIT_EXPECT_SUPPRESSED_WARNING_COUNT(test, 1);
-+	}
-+
-+- Direct functions return an explicit handle pointer. Use them when the handle
-+  needs to be retained or passed across helper functions:
-+
-+.. code-block:: c
-+
-+	static void some_test(struct kunit *test)
-+	{
-+		struct kunit_suppressed_warning *w;
-+
-+		w = kunit_start_suppress_warning(test);
-+		trigger_backtrace();
-+		kunit_end_suppress_warning(test, w);
-+
-+		KUNIT_EXPECT_EQ(test, kunit_suppressed_warning_count(w), 1);
-+	}
- 
- Test Suites
- ~~~~~~~~~~~
-@@ -1211,4 +1272,4 @@ For example:
- 		dev_managed_string = devm_kstrdup(fake_device, "Hello, World!");
- 
- 		// Everything is cleaned up automatically when the test ends.
--	}
-\ No newline at end of file
-+	}
+Regards,
+Christian.
 
--- 
-2.53.0
+> 
+> -T.J.
+> 
+>> It would be great if the community could be more welcoming
+>> to developers who are just getting involved, rather than discouraging them.
+>>
+>> Apparently, no one can control whether the source code of those kernel
+>> modules will be upstreamed except the vendors themselves, but products
+>> can still benefit from the common kernel.
+>>
+>> Best Regards
+>> Barry
 
