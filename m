@@ -4,144 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95391FF885A
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 08:36:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 517D2FF885A
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 09:20:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F278F10E2EE;
-	Mon,  4 May 2026 08:36:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AC4910E071;
+	Mon,  4 May 2026 09:20:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="nms4AKjY";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="3FBLLtjJ";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="nms4AKjY";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="3FBLLtjJ";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="DP0rHUCc";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fUzkkaFd";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA5FF10E2EE
- for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 08:36:27 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 854A16AD9A;
- Mon,  4 May 2026 08:36:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1777883786; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=oIBG3/KUD7vA8nbYJxgOUipfNBkG8PolgTKOtufuuxo=;
- b=nms4AKjYVVHo/CyfU76t3uCNR5N4jLMXQ04lxo58pKFUEeXeZ7gyGnzzesB1r4hyZpfF+Z
- jydiBaR13HjKq3MSL8t64sw7eWosYhxEk82Kn/+YbPPIspYUR1brZU2OCgVTgmX/OEbjfV
- DNnRmaas8s/ZDjmOjxcx/+xt6HahNmE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1777883786;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=oIBG3/KUD7vA8nbYJxgOUipfNBkG8PolgTKOtufuuxo=;
- b=3FBLLtjJF8kf+1EY/MgtvwXag5thPMbqk0qLR0OUon/M/z1EYHkZ9jdZ1gHgVwFMMCa10B
- 86J9BoKytSN7n5DA==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=nms4AKjY;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=3FBLLtjJ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1777883786; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=oIBG3/KUD7vA8nbYJxgOUipfNBkG8PolgTKOtufuuxo=;
- b=nms4AKjYVVHo/CyfU76t3uCNR5N4jLMXQ04lxo58pKFUEeXeZ7gyGnzzesB1r4hyZpfF+Z
- jydiBaR13HjKq3MSL8t64sw7eWosYhxEk82Kn/+YbPPIspYUR1brZU2OCgVTgmX/OEbjfV
- DNnRmaas8s/ZDjmOjxcx/+xt6HahNmE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1777883786;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=oIBG3/KUD7vA8nbYJxgOUipfNBkG8PolgTKOtufuuxo=;
- b=3FBLLtjJF8kf+1EY/MgtvwXag5thPMbqk0qLR0OUon/M/z1EYHkZ9jdZ1gHgVwFMMCa10B
- 86J9BoKytSN7n5DA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2F911593A3;
- Mon,  4 May 2026 08:36:26 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id iQ9uCYpa+GlRbAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 04 May 2026 08:36:26 +0000
-Message-ID: <42cab775-8673-477a-837a-908bd0273e95@suse.de>
-Date: Mon, 4 May 2026 10:36:25 +0200
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CDE110E071
+ for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 09:20:27 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6448fODV3894058
+ for <dri-devel@lists.freedesktop.org>; Mon, 4 May 2026 09:20:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ xacEJq2Zps3FgavLd4lLbebjwrUmMkWW1Dnv6tEkWBA=; b=DP0rHUCcKYKrOTU6
+ 4+YLLRO47dTK0k95xf1aJjr/zEC1BeU1ZmwbVwTfk2Ye9TPn12j56h1pFtCLQAC4
+ KhYDjPtN01UugvozyOjlVSyzEjIoYB66OLruaOmkbrdsR/a9Vhg6Hi2FJsXBmucu
+ yDxrMsQbSShgrYKrMJJeQ4yyShtgpm3+qErJTb2VGDsfat2kLJkr6Z+Z4OUiUPN2
+ vqKlDgQNzX0Elz9mtysDKTIQ37s/uUxNiXnIutHnNZxaKu5x8xAVTDGN4r3tpeb0
+ QZqvOgpCO2l4LK6eoDpj4XlHxYa3zhG6bviZdFoj+kWClXiGFA/uAZT9PvhmihHE
+ XA/PQw==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
+ [209.85.210.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dw6mpdb5g-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 04 May 2026 09:20:25 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id
+ d2e1a72fcca58-82fa366fb79so4175715b3a.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 04 May 2026 02:20:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1777886425; x=1778491225;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=xacEJq2Zps3FgavLd4lLbebjwrUmMkWW1Dnv6tEkWBA=;
+ b=fUzkkaFdWmVGG5WcVEIybptGjOTPcwbxpmIpSQ5vjldQ9Kg5R+2rhBDwrWT0ndENTx
+ WtZHhunimF1XsQCvXHKeJLioVN3AKeAxXGRMy5JWd7JfqL5CKB4L2ulMQx2yMZfChtve
+ u3loubU7x50ImBtHTDvkvt7lgAbXQ26ilNh4ynefKrrFCfbuIwGfVeDeskqyxYhb+v7V
+ 7XrAXKkdTTOyE5BlC/7y/8k2lGr0XfWuQ4clc4bMNk92s8eIHWjcX2BM/fjj5doQWlTi
+ gkLYEC2PA/o6QmXM9KHz5Cfq5uRN4Y6JoYzC+9jHU27OSzslG5mdg0g3cF8EJIAwoa91
+ 4x8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777886425; x=1778491225;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=xacEJq2Zps3FgavLd4lLbebjwrUmMkWW1Dnv6tEkWBA=;
+ b=IQCFlSbNuZQep5iPDWvGYH848lRYcJYk7DQ4CPivQ+/+UTjTORT3t08H3oWK6kpzLq
+ gNZjRe+8fFGPsiI61LOVPdpA4V1nHofo8Y/K36JrKTxykeE6YKZi0opwmMTALwfzVOj0
+ mFhPTQvEL9+HWfOFd4rIO94vowq/k80NzL3us4CY81GhgRjt/Y7wOPvn0S3CHIemjIXt
+ Ig7JQf30zw8tT++8dsrKdRrsc1toncGdkfvgX+5ZyQWXBOecT+TbF5yxHbF1BoWeu9la
+ Lol/+VpmjKSmj6c3bT8RtS0rQ+h1Q8Aoim/hhNuDdo0W98TZw8ec5bVKRIyeb/I7TeIF
+ 1oWg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+riwZhv4kNdMotaNzQjIi+8+kZ7SGg3PgCWJSNUGV/0sGcvau2XYVOdUABkYcW5PCIi1pe6GEl2Ok=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwYTwk0ksM2V36lBErUdm5jFWDznHzUZW45PFyNjDoaoOulvupu
+ HOwYdX3tqSmBK+BWECpC90P0C/H64KFPYNxKVkHJ7bUV6trQQVEgm7YE+Q0WGrjzypa/p7Q3FkN
+ WjX/nD9982dQ4cpB+oUJALBgQYjOApEcHHzcMsGkUVmFuXjyJUjeyy897+EstwPZv8vUTqo0=
+X-Gm-Gg: AeBDieuTVQ0ca4XFJMDrQSwhpa6J4rq6Py9/GY1wJ3TEjrm6YzRrLQitODy/u2xt1RV
+ 6aBCoNT3g/s/QoztZfyMmgJJc0zZRphn6uYG8d3YSnHWypklYuT3I3+VKxvJschITxq+Ny0FE3S
+ Ix+KDVeODadDAaU+eeN929U9he642LzHDuyx3VBbytjizRtD9W/HbvT1toTHRINNmeWbYOAsSsA
+ IQKvpo4+fSYKkmsW4neeAv90XAA5G9+ZijRcKEhVuhjNO1ge0x90TR8EaNeQYYuiHc13+8yhXiz
+ BnJzuxg+HhzYfRLRSLn+Oai96ESbj9waIE4zyeT1r//NRS79WBKNqXS6g4lkmThV2aWBvDTmO1R
+ KWlid4O4VpPzgZ3rEtFGNePKlnGr6g6zogKbeNYLAXjERyR729VG+Fjt1mU2nbQ==
+X-Received: by 2002:aa7:9f07:0:b0:835:388c:9764 with SMTP id
+ d2e1a72fcca58-835388ca073mr4931603b3a.37.1777886425021; 
+ Mon, 04 May 2026 02:20:25 -0700 (PDT)
+X-Received: by 2002:aa7:9f07:0:b0:835:388c:9764 with SMTP id
+ d2e1a72fcca58-835388ca073mr4931557b3a.37.1777886424440; 
+ Mon, 04 May 2026 02:20:24 -0700 (PDT)
+Received: from [10.217.223.121] ([202.46.22.19])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-83515ad0049sm12316337b3a.33.2026.05.04.02.20.11
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 04 May 2026 02:20:24 -0700 (PDT)
+Message-ID: <81d83991-df25-4fc4-8261-6793ea9dc438@oss.qualcomm.com>
+Date: Mon, 4 May 2026 14:50:10 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/bochs: Drop manual put on probe error path
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: Gerd Hoffmann <kraxel@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, virtualization@lists.linux.dev,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260424123506.32275-1-mhun512@gmail.com>
- <43bbfbcf-4a8d-4039-9ebf-24672b7e6d0a@suse.de>
- <CAGEsz8FrkbQEWZbxV3Q0NkSxhQka575uemKMQtTJQaCm44ByxQ@mail.gmail.com>
- <5ca1cea2-9761-46ff-a575-53af23e79b36@suse.de>
- <CAGEsz8F54LaiJYGD6i-nW7hDiLTu6FOi4Z8fzb8b4=+9-OEH+Q@mail.gmail.com>
+Subject: Re: [PATCH v4 02/15] firmware: qcom: Add a generic PAS service
+To: Sumit Garg <sumit.garg@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-media@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+ linux-remoteproc@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
+ akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ jesszhan0024@gmail.com, marijn.suijten@somainline.org,
+ airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
+ dikshita.agarwal@oss.qualcomm.com, bod@kernel.org, mchehab@kernel.org,
+ elder@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ jjohnson@kernel.org, mathieu.poirier@linaro.org,
+ trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
+ pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
+ tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
+ srinivas.kandagatla@oss.qualcomm.com,
+ amirreza.zarrabi@oss.qualcomm.com, op-tee@lists.trustedfirmware.org,
+ apurupa@qti.qualcomm.com, skare@qti.qualcomm.com,
+ linux-kernel@vger.kernel.org, Sumit Garg <sumit.garg@oss.qualcomm.com>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>
+References: <20260427095603.1157963-1-sumit.garg@kernel.org>
+ <20260427095603.1157963-3-sumit.garg@kernel.org>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <CAGEsz8F54LaiJYGD6i-nW7hDiLTu6FOi4Z8fzb8b4=+9-OEH+Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:mid,suse.de:dkim,suse.de:email,suse.com:url];
- FREEMAIL_TO(0.00)[gmail.com];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; MIME_TRACE(0.00)[0:+];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; ARC_NA(0.00)[];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_TLS_ALL(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[redhat.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,lists.linux.dev,lists.freedesktop.org,vger.kernel.org];
- MID_RHS_MATCH_FROM(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- RCPT_COUNT_SEVEN(0.00)[9]; DKIM_TRACE(0.00)[suse.de:+];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from]
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 854A16AD9A
+From: Harshal Dev <harshal.dev@oss.qualcomm.com>
+In-Reply-To: <20260427095603.1157963-3-sumit.garg@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=H6rrBeYi c=1 sm=1 tr=0 ts=69f864da cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=DWWpLck2SfFL7czMIZ0A:9 a=QEXdDO2ut3YA:10
+ a=zc0IvFSfCIW2DFIPzwfm:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA0MDA5OSBTYWx0ZWRfXw6m53d5hIzpr
+ EBg75riaLTdRqt+x3ve+cyLEgtZua6ximPADkh6Dlk5AHuEf1PiFDoPITI/jOJvEtiuINhL46x2
+ HMFqQW5yaNZM1aq2uhf98UN08MU2wMejowIb1scv9pCRKvJSa4R6yrC79cd80mdny10Y61bHHMU
+ PMCY6laHfCHdCMHtXpvHwxFguR7ACzniRdEWDDDQ3xTNS+H1qDyn2ByPHGdFqk0hykgwy5E5Dnu
+ 8IYETwO8YgeUDkKjYvaU0vyk2cgLL253ARKA3VC3fjZTvGvTiY/XZB+INZIeV0BwA0O67lJACtJ
+ 3oQb56ffR9XcpMSJP85McYw76VYaoilzV+m8xh2hm1lZ8kEOycr5L9J56/NJ0pJuPSK5P50bmAG
+ ek9/oRNwbaK05RasPbZOaBUY5+XdOFgk0iJOrTqaJCa1MRe7cIRsWT+XGuVnSyCIBfr4eSNt15q
+ P3W9r01Nv+zayKtnobg==
+X-Proofpoint-GUID: 0Z4YZ2ygtwBp7JVy_5hGqBNqcZeGvWfa
+X-Proofpoint-ORIG-GUID: 0Z4YZ2ygtwBp7JVy_5hGqBNqcZeGvWfa
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-04_03,2026-04-30_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 clxscore=1015 phishscore=0 malwarescore=0
+ priorityscore=1501 suspectscore=0 bulkscore=0 impostorscore=0 adultscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2605040099
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,185 +162,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
 
-Am 30.04.26 um 15:52 schrieb Myeonghun Pak:
-> Thanks for the explanation.
->
-> I see your point now. My patch treated uart_add_one_port() failure as 
-> a fatal
-> probe failure, but the current code is intentionally trying to keep 
-> the driver
-> alive so that other MAX3100 ports can still be available even if one 
-> port cannot
-> be instantiated.
->
-> Please drop this patch. I will not pursue this direction.
 
-Why? The was patch was good AFAICT. It's just missing a Fixes tag.
+On 4/27/2026 3:25 PM, Sumit Garg via OP-TEE wrote:
+> From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> 
+> Qcom platforms has the legacy of using non-standard SCM calls
+> splintered over the various kernel drivers. These SCM calls aren't
+> compliant with the standard SMC calling conventions which is a
+> prerequisite to enable migration to the FF-A specifications from Arm.
+> 
+> OP-TEE as an alternative trusted OS to Qualcomm TEE (QTEE) can't
+> support these non-standard SCM calls. And even for newer architectures
+> using S-EL2 with Hafnium support, QTEE won't be able to support SCM
+> calls either with FF-A requirements coming in. And with both OP-TEE
+> and QTEE drivers well integrated in the TEE subsystem, it makes further
+> sense to reuse the TEE bus client drivers infrastructure.
+> 
+> The added benefit of TEE bus infrastructure is that there is support
+> for discoverable/enumerable services. With that client drivers don't
+> have to manually invoke a special SCM call to know the service status.
+> 
+> So enable the generic Peripheral Authentication Service (PAS) provided
+> by the firmware. It acts as the common layer with different TZ
+> backends plugged in whether it's an SCM implementation or a proper
+> TEE bus based PAS service implementation.
+> 
+> Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> ---
 
-Best regards
-Thomas
+Reviewed-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
 
->
-> Thanks,
-> Myeonghun
->
-> 2026년 4월 24일 (금) 오후 11:59, Thomas Zimmermann 
-> <tzimmermann@suse.de>님이 작성:
->
->     Hi
->
->     Am 24.04.26 um 15:40 schrieb Myeonghun Pak:
->     > Hi Thomas,
->     >
->     > Thank you for your reply. I will ensure that the requested
->     |Fixes| tag
->     > and |stable| CC are included in the next patch I send.
->     >
->     > Regarding your request for information about AI usage and how the
->     > issue was identified:
->     >
->     >   * This issue was identified during our ongoing static-analysis
->     >     research while reviewing kernel code.
->     >     1
->     >   
->      <https://mail.google.com/mail/u/0/#all/%23thread-f:1863355320119932959>
->     >   * Specifically, it was found by an experimental static
->     analysis tool
->     >     that we are currently developing. The tool is not public
->     yet, so I
->     >     prefer not to disclose further project details at this stage.
->     >
->     >   * AI was used only for cross-review, not as the primary means of
->     >     finding or fixing the bug.
->     >   * I manually reviewed the code and verified the issue before
->     sending
->     >     the patch.
->     >
->     > I will incorporate your requests and this additional context,
->     and then
->     > resend the modified patch.
->
->     Thanks a lot.
->
->     Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
->
->     Best regards
->     Thomas
->
->     >
->     > Thank you.
->     >
->     > Myeonghun Pak
->     >
->     >
->     > 2026년 4월 24일 (금) 오후 10:25, Thomas Zimmermann
->     > <tzimmermann@suse.de>님이 작성:
->     >
->     >     Hi,
->     >
->     >     please add fixes tags to all these patches you're sending. You
->     >     also need
->     >     to CC stable so that they can be backported easily. Also
->     list the AI
->     >     you're using to find and create these patches.
->     >
->     >     Best regards
->     >     Thomas
->     >
->     >     Am 24.04.26 um 14:34 schrieb Myeonghun Pak:
->     >     > bochs_pci_probe() allocates the DRM device with
->     >     devm_drm_dev_alloc(),
->     >     > which registers a devres action to drop the initial DRM device
->     >     reference
->     >     > on driver detach or probe failure.
->     >     >
->     >     > The error path currently calls drm_dev_put() manually. If
->     probe then
->     >     > returns an error, devres will run the registered release
->     action
->     >     and put
->     >     > the same device again, after the first put may already have
->     >     released it.
->     >     >
->     >     > Return the probe error directly and let devres own the
->     final put.
->     >     >
->     >     > Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
->     >     > ---
->     >     >   drivers/gpu/drm/tiny/bochs.c | 10 +++-------
->     >     >   1 file changed, 3 insertions(+), 7 deletions(-)
->     >     >
->     >     > diff --git a/drivers/gpu/drm/tiny/bochs.c
->     >     b/drivers/gpu/drm/tiny/bochs.c
->     >     > index 222e4ae1ab..5d8dc5efec 100644
->     >     > --- a/drivers/gpu/drm/tiny/bochs.c
->     >     > +++ b/drivers/gpu/drm/tiny/bochs.c
->     >     > @@ -761,25 +761,21 @@ static int bochs_pci_probe(struct
->     pci_dev
->     >     *pdev, const struct pci_device_id *ent
->     >     >
->     >     >       ret = pcim_enable_device(pdev);
->     >     >       if (ret)
->     >     > -             goto err_free_dev;
->     >     > +             return ret;
->     >     >
->     >     >       pci_set_drvdata(pdev, dev);
->     >     >
->     >     >       ret = bochs_load(bochs);
->     >     >       if (ret)
->     >     > -             goto err_free_dev;
->     >     > +             return ret;
->     >     >
->     >     >       ret = drm_dev_register(dev, 0);
->     >     >       if (ret)
->     >     > -             goto err_free_dev;
->     >     > +             return ret;
->     >     >
->     >     >       drm_client_setup(dev, NULL);
->     >     >
->     >     >       return ret;
->     >     > -
->     >     > -err_free_dev:
->     >     > -     drm_dev_put(dev);
->     >     > -     return ret;
->     >     >   }
->     >     >
->     >     >   static void bochs_pci_remove(struct pci_dev *pdev)
->     >
->     >     --
->     >     --
->     >     Thomas Zimmermann
->     >     Graphics Driver Developer
->     >     SUSE Software Solutions Germany GmbH
->     >     Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
->     <http://www.suse.com>
->     >     <http://www.suse.com>
->     >     GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB
->     36809, AG
->     >     Nürnberg)
->     >
->     >
->
->     -- 
->     --
->     Thomas Zimmermann
->     Graphics Driver Developer
->     SUSE Software Solutions Germany GmbH
->     Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
->     <http://www.suse.com>
->     GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG
->     Nürnberg)
->
->
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
+Regards,
+Harshal
 
