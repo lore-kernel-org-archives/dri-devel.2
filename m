@@ -4,64 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E51A9FF885A
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 13:15:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01E21FF885A
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 13:16:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E8B710E67A;
-	Mon,  4 May 2026 13:15:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CBB610E6D3;
+	Mon,  4 May 2026 13:16:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Jyy3fLIH";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JFaAzPW+";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACA4B10E664;
- Mon,  4 May 2026 13:15:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 321BC10E6D3;
+ Mon,  4 May 2026 13:16:12 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id D36886013B;
- Mon,  4 May 2026 13:08:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4141C2BCB8;
- Mon,  4 May 2026 13:07:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777900091;
- bh=sPshYyIxcAz8hrfwqvpPNCj9qnX2JlIamswsK1wX4Ro=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Jyy3fLIHTWcF7GqZHsoGTNOmvbdNHKnWeAllxFkcFFHqhGmkE5OVSTU0BUzKZV1jo
- kpsBhaDMDuc8mDEKxVA7Ye42o6ybbv/tlDSOcK7cCX/Nf3KojZpWsJdKH6a/hJyqby
- F1zavLDGDil7/M1JClL3JxCsw2rLTmE/9CS8s45mIQeLNeAQNFw7ZlLODrUwxjl2P8
- cViNwHWMhwak4+YeU3Qeb2fWdwMNmdE/s7ALuuF+sDXe7rqD7NExKI1RnlR0G2kjq6
- MfkFD5OP+MlxyBQvh8G5CfkMzaGV0/N0N0UJhcTzC2BA60nwausPsmmiinhXhtQgOL
- KhU7R3COkK5Ag==
-From: Sumit Garg <sumit.garg@kernel.org>
-To: andersson@kernel.org,
-	konradybcio@kernel.org
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-media@vger.kernel.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
- linux-remoteproc@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
- akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jesszhan0024@gmail.com, marijn.suijten@somainline.org, airlied@gmail.com,
- simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
- dikshita.agarwal@oss.qualcomm.com, bod@kernel.org, mchehab@kernel.org,
- elder@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- jjohnson@kernel.org, mathieu.poirier@linaro.org,
- trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
- pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
- tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
- srinivas.kandagatla@oss.qualcomm.com, amirreza.zarrabi@oss.qualcomm.com,
- jens.wiklander@linaro.org, op-tee@lists.trustedfirmware.org,
- apurupa@qti.qualcomm.com, skare@qti.qualcomm.com,
- linux-kernel@vger.kernel.org, Sumit Garg <sumit.garg@oss.qualcomm.com>
-Subject: [PATCH v5 05/16] remoteproc: qcom_q6v5_pas: Switch over to generic
- PAS TZ APIs
-Date: Mon,  4 May 2026 18:35:52 +0530
-Message-ID: <20260504130603.1474043-6-sumit.garg@kernel.org>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260504130603.1474043-1-sumit.garg@kernel.org>
-References: <20260504130603.1474043-1-sumit.garg@kernel.org>
+ by tor.source.kernel.org (Postfix) with ESMTP id A507D6014C;
+ Mon,  4 May 2026 13:16:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B3E4C2BCB8;
+ Mon,  4 May 2026 13:16:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1777900571;
+ bh=dsLpsWND3Jg0nOmKryJJdro+vGf9Wq8bfjtOamQenf8=;
+ h=Subject:To:Cc:From:Date:From;
+ b=JFaAzPW+GZ5pEmlCCtoMZnDao6hF8GGYQXo5JWQycUUP9ehHXBgmwTLvVjO2//k+Z
+ 6QIoy0wXpJEp7ghwp1tcBav/eV5nOyWI6e/aVEvFMrceZiQJsqmwg9jhlJWcUhKYj8
+ vAA5r7osLLtTON0LjZUdq7w9IhXvgwQwKeHAjXoI=
+Subject: Patch "drm/amdgpu: fix zero-size GDS range init on RDNA4" has been
+ added to the 6.12-stable tree
+To: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
+ arjan@linux.intel.com, christian.koenig@amd.com,
+ dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org
+Cc: <stable-commits@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 04 May 2026 15:15:56 +0200
+Message-ID: <2026050456-grandpa-stiffly-7998@gregkh>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-stable: commit
+X-Patchwork-Hint: ignore 
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,195 +56,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Sumit Garg <sumit.garg@oss.qualcomm.com>
 
-Switch qcom_q6v5_pas client driver over to generic PAS TZ APIs. Generic PAS
-TZ service allows to support multiple TZ implementation backends like QTEE
-based SCM PAS service, OP-TEE based PAS service and any further future TZ
-backend service.
+This is a note to let you know that I've just added the patch titled
 
-Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Tested-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com> # Lemans
-Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+    drm/amdgpu: fix zero-size GDS range init on RDNA4
+
+to the 6.12-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+
+The filename of the patch is:
+     drm-amdgpu-fix-zero-size-gds-range-init-on-rdna4.patch
+and it can be found in the queue-6.12 subdirectory.
+
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
+
+
+From 095a8b0ad3c3b5cdc3850d961adb8a8f735220bb Mon Sep 17 00:00:00 2001
+From: Arjan van de Ven <arjan@linux.intel.com>
+Date: Mon, 20 Apr 2026 14:57:15 -0700
+Subject: drm/amdgpu: fix zero-size GDS range init on RDNA4
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+From: Arjan van de Ven <arjan@linux.intel.com>
+
+commit 095a8b0ad3c3b5cdc3850d961adb8a8f735220bb upstream.
+
+RDNA4 (GFX 12) hardware removes the GDS, GWS, and OA on-chip memory
+resources. The gfx_v12_0 initialisation code correctly leaves
+adev->gds.gds_size, adev->gds.gws_size, and adev->gds.oa_size at
+zero to reflect this.
+
+amdgpu_ttm_init() unconditionally calls amdgpu_ttm_init_on_chip() for
+each of these resources regardless of size. When the size is zero,
+amdgpu_ttm_init_on_chip() forwards the call to ttm_range_man_init(),
+which calls drm_mm_init(mm, 0, 0). drm_mm_init() immediately fires
+DRM_MM_BUG_ON(start + size <= start) -- trivially true when size is
+zero -- crashing the kernel during modprobe of amdgpu on an RX 9070 XT.
+
+Guard against this by returning 0 early from
+amdgpu_ttm_init_on_chip() when size_in_page is zero. This skips TTM
+resource manager registration for hardware resources that are absent,
+without affecting any other GPU type.
+
+DRM_MM_BUG_ON() only asserts if CONFIG_DRM_DEBUG_MM is enabled in
+the kernel config.  This is apparently rarely enabled as these chips
+have been in the market for over a year and this issue was only reported
+now.
+
+Link: https://lore.kernel.org/all/bug-221376-2300@https.bugzilla.kernel.org%2F/
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=221376
+Oops-Analysis: http://oops.fenrus.org/reports/bugzilla.korg/221376/report.html
+Assisted-by: GitHub Copilot:Claude Sonnet 4.6 linux-kernel-oops-x86.
+Signed-off-by: Arjan van de Ven <arjan@linux.intel.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 5719ce5865279cad4fd5f01011fe037168503f2d)
+Cc: stable@vger.kernel.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/remoteproc/qcom_q6v5_pas.c | 51 +++++++++++++++---------------
- 1 file changed, 26 insertions(+), 25 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c |    3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
-index da27d1d3c9da..847249c28c1b 100644
---- a/drivers/remoteproc/qcom_q6v5_pas.c
-+++ b/drivers/remoteproc/qcom_q6v5_pas.c
-@@ -20,6 +20,7 @@
- #include <linux/platform_device.h>
- #include <linux/pm_domain.h>
- #include <linux/pm_runtime.h>
-+#include <linux/firmware/qcom/qcom_pas.h>
- #include <linux/firmware/qcom/qcom_scm.h>
- #include <linux/regulator/consumer.h>
- #include <linux/remoteproc.h>
-@@ -118,8 +119,8 @@ struct qcom_pas {
- 	struct qcom_rproc_ssr ssr_subdev;
- 	struct qcom_sysmon *sysmon;
- 
--	struct qcom_scm_pas_context *pas_ctx;
--	struct qcom_scm_pas_context *dtb_pas_ctx;
-+	struct qcom_pas_context *pas_ctx;
-+	struct qcom_pas_context *dtb_pas_ctx;
- };
- 
- static void qcom_pas_segment_dump(struct rproc *rproc,
-@@ -196,7 +197,7 @@ static int qcom_pas_shutdown_poll_decrypt(struct qcom_pas *pas)
- 
- 	do {
- 		msleep(QCOM_PAS_DECRYPT_SHUTDOWN_DELAY_MS);
--		ret = qcom_scm_pas_shutdown(pas->pas_id);
-+		ret = qcom_pas_shutdown(pas->pas_id);
- 	} while (ret == -EINVAL && --retry_num);
- 
- 	return ret;
-@@ -212,9 +213,9 @@ static int qcom_pas_unprepare(struct rproc *rproc)
- 	 * auth_and_reset() was successful, but in other cases clean it up
- 	 * here.
- 	 */
--	qcom_scm_pas_metadata_release(pas->pas_ctx);
-+	qcom_pas_metadata_release(pas->pas_ctx);
- 	if (pas->dtb_pas_id)
--		qcom_scm_pas_metadata_release(pas->dtb_pas_ctx);
-+		qcom_pas_metadata_release(pas->dtb_pas_ctx);
- 
- 	return 0;
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -75,6 +75,9 @@ static int amdgpu_ttm_init_on_chip(struc
+ 				    unsigned int type,
+ 				    uint64_t size_in_page)
+ {
++	if (!size_in_page)
++		return 0;
++
+ 	return ttm_range_man_init(&adev->mman.bdev, type,
+ 				  false, size_in_page);
  }
-@@ -228,9 +229,9 @@ static int qcom_pas_load(struct rproc *rproc, const struct firmware *fw)
- 	pas->firmware = fw;
- 
- 	if (pas->lite_pas_id)
--		qcom_scm_pas_shutdown(pas->lite_pas_id);
-+		qcom_pas_shutdown(pas->lite_pas_id);
- 	if (pas->lite_dtb_pas_id)
--		qcom_scm_pas_shutdown(pas->lite_dtb_pas_id);
-+		qcom_pas_shutdown(pas->lite_dtb_pas_id);
- 
- 	if (pas->dtb_pas_id) {
- 		ret = request_firmware(&pas->dtb_firmware, pas->dtb_firmware_name, pas->dev);
-@@ -250,7 +251,7 @@ static int qcom_pas_load(struct rproc *rproc, const struct firmware *fw)
- 	return 0;
- 
- release_dtb_metadata:
--	qcom_scm_pas_metadata_release(pas->dtb_pas_ctx);
-+	qcom_pas_metadata_release(pas->dtb_pas_ctx);
- 	release_firmware(pas->dtb_firmware);
- 
- 	return ret;
-@@ -310,7 +311,7 @@ static int qcom_pas_start(struct rproc *rproc)
- 		if (ret)
- 			goto disable_px_supply;
- 
--		ret = qcom_scm_pas_prepare_and_auth_reset(pas->dtb_pas_ctx);
-+		ret = qcom_pas_prepare_and_auth_reset(pas->dtb_pas_ctx);
- 		if (ret) {
- 			dev_err(pas->dev,
- 				"failed to authenticate dtb image and release reset\n");
-@@ -329,7 +330,7 @@ static int qcom_pas_start(struct rproc *rproc)
- 	if (ret)
- 		goto release_pas_metadata;
- 
--	ret = qcom_scm_pas_prepare_and_auth_reset(pas->pas_ctx);
-+	ret = qcom_pas_prepare_and_auth_reset(pas->pas_ctx);
- 	if (ret) {
- 		dev_err(pas->dev,
- 			"failed to authenticate image and release reset\n");
-@@ -339,13 +340,13 @@ static int qcom_pas_start(struct rproc *rproc)
- 	ret = qcom_q6v5_wait_for_start(&pas->q6v5, msecs_to_jiffies(5000));
- 	if (ret == -ETIMEDOUT) {
- 		dev_err(pas->dev, "start timed out\n");
--		qcom_scm_pas_shutdown(pas->pas_id);
-+		qcom_pas_shutdown(pas->pas_id);
- 		goto unmap_carveout;
- 	}
- 
--	qcom_scm_pas_metadata_release(pas->pas_ctx);
-+	qcom_pas_metadata_release(pas->pas_ctx);
- 	if (pas->dtb_pas_id)
--		qcom_scm_pas_metadata_release(pas->dtb_pas_ctx);
-+		qcom_pas_metadata_release(pas->dtb_pas_ctx);
- 
- 	/* firmware is used to pass reference from qcom_pas_start(), drop it now */
- 	pas->firmware = NULL;
-@@ -355,9 +356,9 @@ static int qcom_pas_start(struct rproc *rproc)
- unmap_carveout:
- 	qcom_pas_unmap_carveout(rproc, pas->mem_phys, pas->mem_size);
- release_pas_metadata:
--	qcom_scm_pas_metadata_release(pas->pas_ctx);
-+	qcom_pas_metadata_release(pas->pas_ctx);
- 	if (pas->dtb_pas_id)
--		qcom_scm_pas_metadata_release(pas->dtb_pas_ctx);
-+		qcom_pas_metadata_release(pas->dtb_pas_ctx);
- 
- unmap_dtb_carveout:
- 	if (pas->dtb_pas_id)
-@@ -406,7 +407,7 @@ static int qcom_pas_stop(struct rproc *rproc)
- 	if (ret == -ETIMEDOUT)
- 		dev_err(pas->dev, "timed out on wait\n");
- 
--	ret = qcom_scm_pas_shutdown(pas->pas_id);
-+	ret = qcom_pas_shutdown(pas->pas_id);
- 	if (ret && pas->decrypt_shutdown)
- 		ret = qcom_pas_shutdown_poll_decrypt(pas);
- 
-@@ -414,7 +415,7 @@ static int qcom_pas_stop(struct rproc *rproc)
- 		dev_err(pas->dev, "failed to shutdown: %d\n", ret);
- 
- 	if (pas->dtb_pas_id) {
--		ret = qcom_scm_pas_shutdown(pas->dtb_pas_id);
-+		ret = qcom_pas_shutdown(pas->dtb_pas_id);
- 		if (ret)
- 			dev_err(pas->dev, "failed to shutdown dtb: %d\n", ret);
- 
-@@ -484,11 +485,11 @@ static int qcom_pas_parse_firmware(struct rproc *rproc, const struct firmware *f
- 	 *
- 	 * Here, we call rproc_elf_load_rsc_table() to check firmware binary has resources
- 	 * or not and if it is not having then we pass NULL and zero as input resource
--	 * table pointer and size respectively to the argument of qcom_scm_pas_get_rsc_table()
-+	 * table pointer and size respectively to the argument of qcom_pas_get_rsc_table()
- 	 * and this is even true for Qualcomm remote processor who does follow remoteproc
- 	 * framework.
- 	 */
--	output_rt = qcom_scm_pas_get_rsc_table(pas->pas_ctx, table, table_sz, &output_rt_size);
-+	output_rt = qcom_pas_get_rsc_table(pas->pas_ctx, table, table_sz, &output_rt_size);
- 	ret = IS_ERR(output_rt) ? PTR_ERR(output_rt) : 0;
- 	if (ret) {
- 		dev_err(pas->dev, "Error in getting resource table: %d\n", ret);
-@@ -746,7 +747,7 @@ static int qcom_pas_probe(struct platform_device *pdev)
- 	if (!desc)
- 		return -EINVAL;
- 
--	if (!qcom_scm_is_available())
-+	if (!qcom_pas_is_available())
- 		return -EPROBE_DEFER;
- 
- 	fw_name = desc->firmware_name;
-@@ -838,16 +839,16 @@ static int qcom_pas_probe(struct platform_device *pdev)
- 
- 	qcom_add_ssr_subdev(rproc, &pas->ssr_subdev, desc->ssr_name);
- 
--	pas->pas_ctx = devm_qcom_scm_pas_context_alloc(pas->dev, pas->pas_id,
--						       pas->mem_phys, pas->mem_size);
-+	pas->pas_ctx = devm_qcom_pas_context_alloc(pas->dev, pas->pas_id,
-+						   pas->mem_phys, pas->mem_size);
- 	if (IS_ERR(pas->pas_ctx)) {
- 		ret = PTR_ERR(pas->pas_ctx);
- 		goto remove_ssr_sysmon;
- 	}
- 
--	pas->dtb_pas_ctx = devm_qcom_scm_pas_context_alloc(pas->dev, pas->dtb_pas_id,
--							   pas->dtb_mem_phys,
--							   pas->dtb_mem_size);
-+	pas->dtb_pas_ctx = devm_qcom_pas_context_alloc(pas->dev, pas->dtb_pas_id,
-+						       pas->dtb_mem_phys,
-+						       pas->dtb_mem_size);
- 	if (IS_ERR(pas->dtb_pas_ctx)) {
- 		ret = PTR_ERR(pas->dtb_pas_ctx);
- 		goto remove_ssr_sysmon;
--- 
-2.51.0
 
+
+Patches currently in stable-queue which might be from arjan@linux.intel.com are
+
+queue-6.12/drm-amdgpu-fix-zero-size-gds-range-init-on-rdna4.patch
