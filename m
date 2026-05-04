@@ -4,87 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A349FFF885A
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 11:44:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E085ACD342C
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 11:45:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F9DB10E25F;
-	Mon,  4 May 2026 11:44:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F01F10E298;
+	Mon,  4 May 2026 11:45:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="sSd/5Q9w";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="jVcp+077";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="sSd/5Q9w";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="jVcp+077";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="0+ZjcO0b";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ibYHVMcy";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="0+ZjcO0b";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ibYHVMcy";
 	dkim-atps=neutral
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DBC9710E298
- for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 11:44:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3F2510E298
+ for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 11:45:38 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 8FC4E5BCC8;
- Mon,  4 May 2026 11:44:27 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 856C75BE37;
+ Mon,  4 May 2026 11:45:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1777895067; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1777895137; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=yOJYkCLSKlLn0oFJEHpzst8c/cZ9u/rRzhDZKri8pFM=;
- b=sSd/5Q9wOpZVpDMKLCOiKGg3bIPnCgDyXTVMlRIj3GEtVTRuzqmZEObV69R5r7SUoF1/YB
- nw7CmGegoIw30TCvNzy7DV7y6a7nGWw6KjCj6AGj/0bLsuxpQ5fIbLV+zo1Z51zCKI61zy
- QOxYJsxY/YpSLS1R+4e0ACqXy0Cmqws=
+ bh=emkzWPKWLMGz294Gn/SfRi5PmPFWpg8J8kb4iOKzpeQ=;
+ b=0+ZjcO0bCJd3699m/wHT1d5tKdxJZlkylfG+ToS6Z8hsUAoJsaeXSwtnbAUQxH/rARRJMM
+ yrmwVouGPDEMxrEaL0kfxsGf/PoTZlSeGBWB8Ex/W4X+FPOcYV0UuX+kc3iGEq8th216wG
+ C4Q/8ey3C7GgTCLbQeR2rOo5GqUOJHs=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1777895067;
+ s=susede2_ed25519; t=1777895137;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=yOJYkCLSKlLn0oFJEHpzst8c/cZ9u/rRzhDZKri8pFM=;
- b=jVcp+077SjeWeH9I2mLWY8Cblq2Nz56QpY4jqfGaKYZlqFOYib6L75xl1Kb8W3D0p3DRNj
- hILgWoKvZDA+GmDw==
+ bh=emkzWPKWLMGz294Gn/SfRi5PmPFWpg8J8kb4iOKzpeQ=;
+ b=ibYHVMcySTXxPl02toKxSzfUdOv6LdxFIKnYYNComCRfPvSBqFeoa209N1JcRw1rKL859Z
+ F4Kwdua0xpISzUCg==
 Authentication-Results: smtp-out2.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1777895067; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1777895137; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=yOJYkCLSKlLn0oFJEHpzst8c/cZ9u/rRzhDZKri8pFM=;
- b=sSd/5Q9wOpZVpDMKLCOiKGg3bIPnCgDyXTVMlRIj3GEtVTRuzqmZEObV69R5r7SUoF1/YB
- nw7CmGegoIw30TCvNzy7DV7y6a7nGWw6KjCj6AGj/0bLsuxpQ5fIbLV+zo1Z51zCKI61zy
- QOxYJsxY/YpSLS1R+4e0ACqXy0Cmqws=
+ bh=emkzWPKWLMGz294Gn/SfRi5PmPFWpg8J8kb4iOKzpeQ=;
+ b=0+ZjcO0bCJd3699m/wHT1d5tKdxJZlkylfG+ToS6Z8hsUAoJsaeXSwtnbAUQxH/rARRJMM
+ yrmwVouGPDEMxrEaL0kfxsGf/PoTZlSeGBWB8Ex/W4X+FPOcYV0UuX+kc3iGEq8th216wG
+ C4Q/8ey3C7GgTCLbQeR2rOo5GqUOJHs=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1777895067;
+ s=susede2_ed25519; t=1777895137;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=yOJYkCLSKlLn0oFJEHpzst8c/cZ9u/rRzhDZKri8pFM=;
- b=jVcp+077SjeWeH9I2mLWY8Cblq2Nz56QpY4jqfGaKYZlqFOYib6L75xl1Kb8W3D0p3DRNj
- hILgWoKvZDA+GmDw==
+ bh=emkzWPKWLMGz294Gn/SfRi5PmPFWpg8J8kb4iOKzpeQ=;
+ b=ibYHVMcySTXxPl02toKxSzfUdOv6LdxFIKnYYNComCRfPvSBqFeoa209N1JcRw1rKL859Z
+ F4Kwdua0xpISzUCg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 58AAB593A3;
- Mon,  4 May 2026 11:44:27 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 54D04593A3;
+ Mon,  4 May 2026 11:45:37 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id A9WAE5uG+Gm2LAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 04 May 2026 11:44:27 +0000
-Message-ID: <1c856d01-a13a-46cf-9338-cf8fbdaa35ca@suse.de>
-Date: Mon, 4 May 2026 13:44:26 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id O695E+GG+GkGLgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 04 May 2026 11:45:37 +0000
+Message-ID: <fcbb98f2-96d4-4bfc-8701-85d802856972@suse.de>
+Date: Mon, 4 May 2026 13:45:36 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Native DisplayID support in core DRM
-To: Jani Nikula <jani.nikula@linux.intel.com>, Simon Ser
- <contact@emersion.fr>, =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?=
- <ville.syrjala@linux.intel.com>
-Cc: Vidith Madhu <vmadhu@nvidia.com>, dri-devel@lists.freedesktop.org,
- wayland-devel@lists.freedesktop.org, xorg-devel@lists.x.org
-References: <55f5affb-e8f5-7f8e-fce6-47c5b379d557@nvidia.com>
- <aeaJlED2e1ZXsLlt@intel.com>
- <nNHAgq_075xcIstZgSRJ0LASnvNd7FP6D2XfBPVa3SyjPX1nErxrrRqEIcd4nO7a0WY-pvrTS9NOR_ESqsHGsbpuLNRBGdzyn6-Vi-QSyPQ=@emersion.fr>
- <faf56da55c4a67edc2474134eb335bbd874f684b@intel.com>
+Subject: Re: [PATCH drm-misc-next v4 0/4] drm: verisilicon: convert drm_format
+ to vs_format in atomic_check
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260331060126.1291966-1-zhengxingda@iscas.ac.cn>
+ <21479f6d-80c1-4f46-8a41-e50a2d564a94@suse.de>
+ <c6a4439d757a812994c4a0314a52f236ea7a9b38.camel@iscas.ac.cn>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -111,22 +111,24 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <faf56da55c4a67edc2474134eb335bbd874f684b@intel.com>
+In-Reply-To: <c6a4439d757a812994c4a0314a52f236ea7a9b38.camel@iscas.ac.cn>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
  NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCPT_COUNT_SEVEN(0.00)[7];
- MID_RHS_MATCH_FROM(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
+ ARC_NA(0.00)[];
+ FREEMAIL_TO(0.00)[iscas.ac.cn,linux.intel.com,kernel.org,gmail.com,ffwll.ch]; 
+ RCPT_COUNT_SEVEN(0.00)[7]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- URIBL_BLOCKED(0.00)[suse.com:url,suse.de:mid,imap1.dmz-prg2.suse.org:helo,emersion.fr:email];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,suse.de:mid]
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid,suse.com:url];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, imap1.dmz-prg2.suse.org:helo,
+ suse.com:url]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,61 +146,53 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi
 
-Am 04.05.26 um 12:30 schrieb Jani Nikula:
-> On Thu, 30 Apr 2026, Simon Ser <contact@emersion.fr> wrote:
->> The big one here is the "EDID" blob property exposed by KMS. We can't just put
->> a DisplayID blob in there, that would break user-space. We'll need a new
->> property.
-> I think the big question is what do we do with the EDID property when we
-> encounter a display with native DisplayID.
->
-> The VESA E-DDC spec says the host should try DisplayID first, and not
-> read the EDID if a DisplayID is found. However, if we only update the
-> DisplayID property and not the EDID property, I think that'll be a
-> regression.
+Am 02.05.26 um 15:47 schrieb Icenowy Zheng:
+> 在 2026-03-31二的 08:27 +0200，Thomas Zimmermann写道：
+>> Hi,
+>>
+>> I only looked briefly over the update, but it seems good now.
+> Could you have a more thorough look on this patchset (and if possible,
+> apply it)?
 
-Is there a technical problem/side effect/interference from reading both?
-
->
-> So maybe we need to read both DisplayID and EDID, contrary to what the
-> E-DDC spec says. Obviously that means slower detection overall, for all
-> displays, old and new. Especially if there are errors reading DisplayID,
-> which you'd expect with old displays.
-
-IMHO we should
-
-1) follow the spec and expose DisplayID first and EDID only if the 
-former is not available, and
-2) provide a kernel config option to provide both.
-
-People building kernel usually have control over user space as well. 
-That option can be enabled by anyone with a legacy user space. This also 
-puts some mild pressure on user space to implement DisplayID.
-
->
-> There's an additional catch. The E-DDC spec says the capabilities in the
-> DisplayID don't need to be a strict superset of the capabilities in the
-> EDID. The idea is that the DisplayID is for new hosts, and the EDID is
-> for legacy and max interoperability. But if we read both and aim for no
-> regressions, we'll have to expose a union of the capabilities.
->
-> Strict adherence to spec isn't exactly what EDID is known for. We're
-> likely to encounter displays where the DisplayID and EDID contradict
-> each other, and we'll have to mediate between them.
-
-Same here. DisplayID first and treat EDID as legacy.
+Merged now. I thought this got in already.
 
 Best regards
 Thomas
 
 >
-> And what userspace does with all of this is a mess of its own...
+> Thanks
+> Icenowy
 >
->
-> BR,
-> Jani.
->
->
+>> Best regards
+>> Thomas
+>>
+>>
+>> Am 31.03.26 um 08:01 schrieb Icenowy Zheng:
+>>> This patchset tries to move the process of converting drm_format to
+>>> vs_format into plane's atomic_check callback (instead of the
+>>> atomic_commit one, which the process currently sits) for more
+>>> proper
+>>> error handling (because atomic_commit cannot fail).
+>>>
+>>> In addition, because of the original flow of primary plane's
+>>> atomic_check seems to be flawed, it's also updated before filling
+>>> vs_format is added there.
+>>>
+>>> Icenowy Zheng (4):
+>>>     drm: verisilicon: make vs_format conversion function return int
+>>>     drm: verisilicon: subclass drm_plane_state
+>>>     drm: verisilicon: call atomic helper's plane state check even if
+>>> no
+>>>       CRTC
+>>>     drm: verisilicon: fill plane's vs_format in atomic_check
+>>>
+>>>    drivers/gpu/drm/verisilicon/vs_plane.c        | 54
+>>> ++++++++++++++++++-
+>>>    drivers/gpu/drm/verisilicon/vs_plane.h        | 18 ++++++-
+>>>    .../gpu/drm/verisilicon/vs_primary_plane.c    | 48 ++++++++++----
+>>> ---
+>>>    3 files changed, 98 insertions(+), 22 deletions(-)
+>>>
 
 -- 
 --
