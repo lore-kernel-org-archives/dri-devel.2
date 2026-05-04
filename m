@@ -4,46 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4642FF885A
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 14:06:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9B3BCD3430
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 14:06:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F142010E3C8;
-	Mon,  4 May 2026 14:06:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E3F110E710;
+	Mon,  4 May 2026 14:06:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Kv/8V07p";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="uC+9FDDi";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC4F910E3C8
- for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 14:06:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1777903603;
- bh=LxVnVgK4AtpZlIDUuh+imTNb1rdt7jSOyvrqV8pONdE=;
- h=From:To:Cc:Subject:Date:From;
- b=Kv/8V07pWj3lVMcKgf/iKwsKDaRYfDPZryMFPpOJ9ucoKF00vLcgWnZ4CqR2OIMfQ
- 9Y8r3JzB5My0xV/hyf1GWBg4JPUP/EQZ3RVOcv8ackKz7p/ME7XuklYB++abCjf67u
- WD9mMyxi7fR/d4ah0amgb6yX9sMvN1lHXXtnWhpB0OMiHexu1ulyN16ky/kq1odFn3
- waWwYvoWDbJBaTt+nmnimz0y8USYrpZvBxy1IGVhBvLqE1Pb8hWh+MHLrXoi+eggv+
- iW8E4qIrLawEHPFNXQQjxW4Ot6OFL/cE/Io+DIMflZxAvMx8V2B/J8FpO4CvEY5NdT
- fLLriaNZCXfwQ==
-Received: from archlinux (unknown [100.64.1.80])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: leandrohrb)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id AD1D317E05FC;
- Mon,  4 May 2026 16:06:39 +0200 (CEST)
-From: Leandro Ribeiro <leandro.ribeiro@collabora.com>
-To: dri-devel@lists.freedesktop.org
-Cc: airlied@gmail.com, daniels@collabora.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- pekka.paalanen@collabora.com, simona@ffwll.ch, tzimmermann@suse.de,
- ville.syrjala@linux.intel.com, linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/2] drm/drm_blend: allow blend mode property without
- PREMULTI
-Date: Mon,  4 May 2026 11:06:28 -0300
-Message-ID: <20260504140630.68707-1-leandro.ribeiro@collabora.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66FD710E704;
+ Mon,  4 May 2026 14:06:46 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 28BCF43614;
+ Mon,  4 May 2026 14:06:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1CF2C2BCC4;
+ Mon,  4 May 2026 14:06:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1777903606;
+ bh=cR3+M8+MbJophmFoBl14/b26Yubs7IG3Cr6RDYbMG/Y=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=uC+9FDDieYcqacMDrzgYLFSBaM3Wz67pdfEiJsLu/hGETxAknsflNGHWCW4tt2F5s
+ qOq2zcZfqKHvgQzrkUg2roCPVV01ADnvFjI7kfQvTW+wwt+QBqll+oYF1s9+JGa7nP
+ Faf6cuUrNiNd5TmtBBCQ8roJ9z4gtlujnQ1siyzc=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
+ Arjan van de Ven <arjan@linux.intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH 7.0 299/307] drm/amdgpu: fix zero-size GDS range init on RDNA4
+Date: Mon,  4 May 2026 15:53:04 +0200
+Message-ID: <20260504135154.031873530@linuxfoundation.org>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260504135142.814938198@linuxfoundation.org>
+References: <20260504135142.814938198@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,27 +62,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Some hardware only supports the COVERAGE blend mode and lacks PREMULTI
-support entirely. DRM currently requires that PREMULTI is present when
-creating a blend mode property, which prevents such drivers from being
-properly upstreamed.
+7.0-stable review patch.  If anyone has any objections, please let me know.
 
-This series remove such restriction and allow drivers to create a blend
-mode property without PREMULTI.
+------------------
 
-v2: force drivers to expose blend mode if plane supports alpha property
-or pixel format with alpha.
+From: Arjan van de Ven <arjan@linux.intel.com>
 
-Leandro Ribeiro (2):
-  drm/drm_blend: allow blend mode property without PREMULTI
-  drm: ensure blend mode supported if alpha exposed
+commit 095a8b0ad3c3b5cdc3850d961adb8a8f735220bb upstream.
 
- drivers/gpu/drm/drm_blend.c         | 21 ++++++++++-----
- drivers/gpu/drm/drm_crtc_internal.h |  1 +
- drivers/gpu/drm/drm_drv.c           |  7 ++++-
- drivers/gpu/drm/drm_mode_config.c   | 42 +++++++++++++++++++++++++++++
- 4 files changed, 63 insertions(+), 8 deletions(-)
+RDNA4 (GFX 12) hardware removes the GDS, GWS, and OA on-chip memory
+resources. The gfx_v12_0 initialisation code correctly leaves
+adev->gds.gds_size, adev->gds.gws_size, and adev->gds.oa_size at
+zero to reflect this.
 
--- 
-2.54.0
+amdgpu_ttm_init() unconditionally calls amdgpu_ttm_init_on_chip() for
+each of these resources regardless of size. When the size is zero,
+amdgpu_ttm_init_on_chip() forwards the call to ttm_range_man_init(),
+which calls drm_mm_init(mm, 0, 0). drm_mm_init() immediately fires
+DRM_MM_BUG_ON(start + size <= start) -- trivially true when size is
+zero -- crashing the kernel during modprobe of amdgpu on an RX 9070 XT.
+
+Guard against this by returning 0 early from
+amdgpu_ttm_init_on_chip() when size_in_page is zero. This skips TTM
+resource manager registration for hardware resources that are absent,
+without affecting any other GPU type.
+
+DRM_MM_BUG_ON() only asserts if CONFIG_DRM_DEBUG_MM is enabled in
+the kernel config.  This is apparently rarely enabled as these chips
+have been in the market for over a year and this issue was only reported
+now.
+
+Link: https://lore.kernel.org/all/bug-221376-2300@https.bugzilla.kernel.org%2F/
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=221376
+Oops-Analysis: http://oops.fenrus.org/reports/bugzilla.korg/221376/report.html
+Assisted-by: GitHub Copilot:Claude Sonnet 4.6 linux-kernel-oops-x86.
+Signed-off-by: Arjan van de Ven <arjan@linux.intel.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 5719ce5865279cad4fd5f01011fe037168503f2d)
+Cc: stable@vger.kernel.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c |    3 +++
+ 1 file changed, 3 insertions(+)
+
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -75,6 +75,9 @@ static int amdgpu_ttm_init_on_chip(struc
+ 				    unsigned int type,
+ 				    uint64_t size_in_page)
+ {
++	if (!size_in_page)
++		return 0;
++
+ 	return ttm_range_man_init(&adev->mman.bdev, type,
+ 				  false, size_in_page);
+ }
+
 
