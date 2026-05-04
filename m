@@ -4,124 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37E35CD3439
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 14:46:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF382CD3430
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 14:47:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAF9A10E3BE;
-	Mon,  4 May 2026 14:46:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 250A410E3CD;
+	Mon,  4 May 2026 14:47:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4jD1DO/I";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="n1dcg+Z3";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012060.outbound.protection.outlook.com [52.101.48.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA51C10E3BE
- for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 14:46:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EGRE9WJsCrVAURpvFqPDUJo0Q14INpyFjwL3h68zmkcQ6ZsQyZguwVYWsPppK9vIk9vK8KwOUvOWm3woVxW/OKKohulQtuRX4tnwxftQS7OS7K1m6FPndlnIUNc68gTP7mTXAIWxIw+lk91YSesF7+LYn++JTqv4b9YjTCFZX5PniFXyoBy6dLuGSA6X92W4cEUpcg+LBHU6AtpPAlwojb4fkLFaUVpGwM6hZ3ahRhiLxkyfncInW3Hm1d5Wm3ZRIIryQFEqICTdnmxuP+runrt5bRI/xsuCWCE9f7LaFdp3HhYlfVgrCxj5XDjD2zHAfds0ROipvCTTyA96L4B1OQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TqH4IhjyG9WktJD2frgrnrCo32d9nmyy3+oB8GonFL0=;
- b=u7Vb94joHT/21iBkGagILYH0/7E/ZFl81K4nyGSbocgsfhDybaamlmb45HRQC2aKz2XQfUkv+UcvF7eD0v23Ckci5Wsb59+y6D7BaTLszWz0ivt0hXMBKg38OlSgRxDRD8HomQkPw4CW3shS6OF6STzQ/KksjU5b4pnemGWE2Y2DZSxyAmNvO5MSKZUhKxuo8N+q2RPmhCrwWKdK6xIzPa8HtjlPngaV/2/v+HXwTlKf1KWLt2fy+KaZPP180F/U/OutYbCxurRxE9YclVDx/UWj0okFzqmHL3aYzuOdoxibxYmf13C9KBSxdrAwFYrR8n4WGsYqNdT0HrNypQngrg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TqH4IhjyG9WktJD2frgrnrCo32d9nmyy3+oB8GonFL0=;
- b=4jD1DO/IOrVI+cCHojPR5zgGUr8hYe0qUKI9d0W2qbhV8ABqhMejU5uyIgk7uqbQmlbE0t4NSHCM4v9VEUXyCesFj0atADQ+ElXfc8HDsC6v+0YLtdzr2vgBr1dH4FtffuW3qcqvGup+F3cBp2fsuHHpah5IwjsyHgm4nf2SnR4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SA3PR12MB9091.namprd12.prod.outlook.com (2603:10b6:806:395::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Mon, 4 May
- 2026 14:46:53 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9870.023; Mon, 4 May 2026
- 14:46:53 +0000
-Message-ID: <5bc3c25f-476c-4402-b077-5731ebafc123@amd.com>
-Date: Mon, 4 May 2026 16:46:48 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dma-buf/dma_fence_array: remove unused functionality
- v3
-To: Tvrtko Ursulin <tursulin@ursulin.net>, sumit.semwal@linaro.org
-Cc: dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org
-References: <20260422103012.1647-1-christian.koenig@amd.com>
- <096a34ce-fb73-4d56-81b4-aa6a0342c322@ursulin.net>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <096a34ce-fb73-4d56-81b4-aa6a0342c322@ursulin.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BN0PR04CA0016.namprd04.prod.outlook.com
- (2603:10b6:408:ee::21) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9D2310E3CD
+ for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 14:47:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=bF093xAPwSthM1dr3VtL1tG7V51VIWOVIPRGgKsB52M=; b=n1dcg+Z3AQtAw5a3tDALjkKsLp
+ 5G5nxfN7FLUV2jz2OciuekkLEXDvLNwFyL+OWufulMRuixmMBDNWutJvMPDefVqaiyHre2iOPxET4
+ 6976q7P/JlLUY+bYZ+V6Msl2sHcH2NVf/4eUZ2noBV+0aQ4e1zR4qmHDVkEkIwBNAzs9rNEXcS4CL
+ UaBcUxwWI70k9XLRqbDxubqveH5OvX5qNmqebPIqPj1/IsvAgF1AeBCHQ0ry62TqQKILrVGZnlLz4
+ koW/5FjhAeWSjeqlYtV1+mexaJM8y3SYDnhN5oXMDyX07s7cTO0dVhCVSQXIMkTjnLqEgo6k0CIJO
+ uMUzk2Tw==;
+Received: from [189.7.87.137] (helo=[192.168.0.5])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wJuZu-005zRP-MK; Mon, 04 May 2026 16:47:22 +0200
+Message-ID: <d4267251-e113-42ae-b756-ea1ab63f9f7e@igalia.com>
+Date: Mon, 4 May 2026 11:47:14 -0300
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA3PR12MB9091:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9efab508-d226-43cf-d00c-08dea9ebfaea
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|18002099003|22082099003|56012099003; 
-X-Microsoft-Antispam-Message-Info: PbLO9aKH3+Yf2AA3Cv1ZeLlhl+kAB36g0doBW2zgksR8PwGedRAFno/AVzBF5UCof6v6+TTkQE4fm4mxrJaev84aIdIGFD5r27ZT0fG8XwD3GHeTYGd1ORHgv4GOGx04UFN0Ba0nmkYyYYbW2Y1cwd7OburbzPpCFkq7Fm5lRIAJWwBhtnjdvWyQlzZ9A+BnVhlBFbay2jk0v2CT0e6RcauLjF/fWXWDv5CkwaWv/w7Ib6D8hgZv5h8UiJ6ceMrNu8qeBKGDORbVNtuf2NaqPaSpKYvSH2s9z+2xVgguZvYfQa3HXmfVf75WS4EjvUAUkfaubzP3s++dRPSLDgGZa0q76967+p3AOJZVN7I640Um73TVOvE+7g5BrKZkVN/jWONkLWkwhDhYYlQfFfBe/VsUE052zAqL/mmOKSTZXL4/B5/fCwBcKgWYBTXmqUjjkkG49WkbFdtmnL7PNYfzEmTjnPyO2lPtTIwZaoucyVxPB5cdTHkUCuz/7vxntnmNr7t20+6jfht5l5VAOPXC7/SH1LEns9ofE9IsvRAZQvn8i1IKeX3uExSC8u9DHpvLigqk4nXvlYaY/ghxjXzPMETpHDajjFwNkK8SoWj92SNgsRuPpIvn3/JxbS9Pp1kMSqzbovdHYBB4JU9rZGUxukwrQkT47PgF0pevO4g5Jg775fAJQVTwpDiwnF1vzPa5
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(18002099003)(22082099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L0l0UnNneWc0R0tGR1FHQnVkVTgzRkNsOEZxTlVzWU1UOXBwQ21SQyttQ1ln?=
- =?utf-8?B?OUxidXNoQ3FIQUdSUkxRL1dqTFhLVUppM21oMWQrUHp0cVd0TitYQXI0d3VU?=
- =?utf-8?B?MTJ5eUZ5VGxWbkU3bkVKbkVXYWRLRkdNQXBWalN0Qno3RTNtWFQ3RnVJTVFO?=
- =?utf-8?B?cFYxbVh3a0hWTktoWUYzTWxlOFFnMjVMNXBYUVFaL1g4YURyU0d2SmxrYksr?=
- =?utf-8?B?Tm9NMnJSQlJCS0lEZUtsc0VtcXI4aU4rVGpBdXpWU0crOXJrWWE3eUJ2N29o?=
- =?utf-8?B?OERTVi8yNkdUWUh5a0srRnBMVlZhNFFBYUJRNWtOcjJ2VnFQcFJNMERISFZV?=
- =?utf-8?B?RW9tU2N5YjF5VFF6WnFmSTRxdWhYaEVsS3RHbkpIWmQ0RW5IazZwdjdPNWI4?=
- =?utf-8?B?ZDFKS0V0dGR1cHpGNEVsVXQwNGltc3lXT3RjSlhJUmFDeU8zZkIvRTY1cmww?=
- =?utf-8?B?YW9ycndvMEpBVzd1ZDV6U0F6UFBFREVKQ0ZLNkJUeEdxQ2lnckJwSXNDODgx?=
- =?utf-8?B?N0R1ZEwvckprMlVIOUNwcnQxMS9xNHJWTElUZEc5NmtxQzYxZXhLZWNMU2JR?=
- =?utf-8?B?bWpUZ21RODhjdDQwZ1UzM1RTWnNVdW82NktNR29CUG0wVjhjaFYxQjMvL0V0?=
- =?utf-8?B?VGRVdjEyaFZhQmkrS090VHpIK2NTdVhmRnM0eEM1d0tlWmlYUXV1MU9zelZE?=
- =?utf-8?B?R2s4ZUZzZzV0blBXQzVZN2MyNGkvbGhuZWJta2ZKSzhrME5HRytZckF1OEYx?=
- =?utf-8?B?S0dUZkVyeUVXTjBWbEswYzVUQVc1Q2NJTmtwU3RrUG1USHBIWm9mTmNDU1NO?=
- =?utf-8?B?WHh5bHlDK2kwbGdXYzV6cDY5N1BxQzFYdmgxb0Y1K3ZjRTJmeGhZUitrSUhK?=
- =?utf-8?B?LzN6aGs1RnNTS0ZpY2R5RWZzQ3l0RkN4NmdmNVZPTjJNUzVnZE1OeXNxZGJt?=
- =?utf-8?B?UitKd3YrckdCN09qTzZpRlp6SmUrSUxIMHRsb2RHSWMzZ2tTSXh5SXZ1YVlk?=
- =?utf-8?B?NkdFWGFwL1JacHJ2REI2VzJWNFh0azlYcWZGbVZpbVdnQWQ0anJNSXF1WWJS?=
- =?utf-8?B?NmxXY2hlbzhibUNIYW9MTGVpeE8rM2lFTnZaLzF1SXRZZ21SS3FwUEJKUHdF?=
- =?utf-8?B?K1BiRVhsMTFXeXFPamoyYUVQVzJWVzZVMmxnTWMxMWlHSUN1MDZHbHplWkhm?=
- =?utf-8?B?Y21QaW5zMFdyRUIrY081Q1gvMjBPTURlTFk5L1pUYkFFaDB2R29JcmF2cEds?=
- =?utf-8?B?bFljeG5zamZKanFHZno2T2Zva1dnY2oxbkVIdjFKY29Ha0JNT01DSTZqRVVM?=
- =?utf-8?B?QjNOU2dMY0U5ckM3YlR6TUY5OUczRkJ2dVdMU0tHd2ZUL0VCREdCemNnK3Nt?=
- =?utf-8?B?clh0RVdZU0ZWenBGb21saUdBVDYzK2xIOHAwSEdCUzROZ3RKMHZFYnltWVZP?=
- =?utf-8?B?L3ZFWE16TzQwV0VzTWpOSkxsLzJtV1UzVVduT0RTRDVsZjB3emVyRlBEbDV3?=
- =?utf-8?B?dVlRaWthVjU1ZFlDcGUrbzdkZy9UalVvNHlvWThhbEZhNGpBMmt3SVRaT0wz?=
- =?utf-8?B?NHcyOGMzVEJrNFpPMnJTenlEQ0tRNk9ER1VwNmptYmRXbW1IZlV4bkl0bkli?=
- =?utf-8?B?TGxsZ3l3NWNOa0czNk1LNFpDRHU2SE42b1BJOGIyN2c3QndDbjNDd0J4T1hE?=
- =?utf-8?B?QmhSVUhQSW1PZlQxTnhiREZkaGoyYURTZXcxMUNrc1Q2dXF6b3VqS0o4UVA3?=
- =?utf-8?B?NmJGUFdDcGVkT0h4WlJSUEJabmNMTUp3WGcwYVBpS3h1SzM3ekxrZUFadHB0?=
- =?utf-8?B?K3VoTWl6T09zcFIwd0RSdlpxWVQyUU83N2VwRnZPdWtIUXh4dTNYVDh4YVFp?=
- =?utf-8?B?WSsra3JwbVJickJTVGhVdHArbUgzOXNSS2Z1QUZmL3FQTlpodkp5dkNpRjV5?=
- =?utf-8?B?akdIbTkxUm01dEtMUXlDeHhMZ3NuQmVSSnhtTG04WnUxWkcvN0IyTjAwWEQ0?=
- =?utf-8?B?OUxpSU93V2t3bkhhNHg4QnNucUJmODVVTHJjdEFEOXBqQlJ4bDhFL1RyRnJn?=
- =?utf-8?B?QTgyQXZobXBqN09vNE1vdXFHa3IyWkhwelRJQ2xTZXNoK2g5U056SDBTNDMz?=
- =?utf-8?B?UUdJejJac09HMWN2OG1QeWtDL253TUdvbWw3YVY4TExOZWxjcHc3OFI2SURM?=
- =?utf-8?B?UStXK0o3Z01LcHQrcUhCSlh1YmNmMGdwazZRKzV5YU1xQXlxRUJqOXpFNm9H?=
- =?utf-8?B?NGd5aEdtZUdPWkNOU0E0a0c0QTZ6TFAxSmJONnhSWERkNzF2UFk0TjBTL2pl?=
- =?utf-8?Q?gyQwx3vCPpcfzOtox/?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9efab508-d226-43cf-d00c-08dea9ebfaea
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2026 14:46:52.9544 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WxTQDw8vz1PpaMAy8axdseTz15nyUED5Nct8NPlcfbB0GOk9P/AD8XL2hl05Jj+G
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9091
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] dma-fence: Clarify external lock use case in
+ dma_fence_init() docs
+To: phasta@kernel.org, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <ckoenig.leichtzumerken@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ kernel-dev@igalia.com
+References: <20260419134943.54833-2-mcanal@igalia.com>
+ <6389c57fd1453b545709c15c5fa74aa76a3d9afa.camel@mailbox.org>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <6389c57fd1453b545709c15c5fa74aa76a3d9afa.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,65 +90,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/22/26 12:49, Tvrtko Ursulin wrote:
-> 
-> On 22/04/2026 11:30, Christian König wrote:
-...
->>   diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
->> index 56e2db50bb36..8f472911469d 100644
->> --- a/drivers/gpu/drm/xe/xe_vm.c
->> +++ b/drivers/gpu/drm/xe/xe_vm.c
->> @@ -3370,7 +3370,7 @@ static struct dma_fence *ops_execute(struct xe_vm *vm,
->>           goto err_trace;
->>       }
->>   -    cf = dma_fence_array_alloc(n_fence);
->> +    cf = dma_fence_array_alloc();
-> 
-> Patch splitting mistake here.
+Hi Christian,
 
-Ah, thanks for pointing this out.
+When possible, could you take a look at this patch? If you are okay with
+it, I can apply it to drm-misc-next.
 
-> The rest LGTM. So with this hunk dropped:
-> 
-> Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Best regards,
+- Maíra
 
-I double checked the patch once more, compile tested it and then pushed the result.
-
-Thanks,
-Christian.
-
+On 20/04/26 06:18, Philipp Stanner wrote:
+> On Sun, 2026-04-19 at 10:48 -0300, Maíra Canal wrote:
+>> The kerneldoc comment on dma_fence_init() and dma_fence_init64() describe
+>> the legacy reason to pass an external lock as a need to prevent multiple
+>> fences "from signaling out of order". However, this wording is a bit
+>> misleading: a shared spinlock does not (and cannot) prevent the signaler
+>> from signaling out of order. Signaling order is the driver's responsibility
+>> regardless of whether the lock is shared or per-fence.
+>>
+>> What a shared lock actually provides is serialization of signaling and
+>> observation across fences in a given context, so that observers never
+>> see a later fence signaled while an earlier one is not.
+>>
+>> Reword both comments to describe this more accurately.
+>>
+>> Signed-off-by: Maíra Canal <mcanal@igalia.com>
 > 
-> Regards,
+> Reviewed-by: Philipp Stanner <phasta@kernel.org>
 > 
-> Tvrtko
-> 
->>       if (!cf) {
->>           fence = ERR_PTR(-ENOMEM);
->>           goto err_out;
->> @@ -3414,7 +3414,7 @@ static struct dma_fence *ops_execute(struct xe_vm *vm,
->>         xe_assert(vm->xe, current_fence == n_fence);
->>       dma_fence_array_init(cf, n_fence, fences, dma_fence_context_alloc(1),
->> -                 1, false);
->> +                 1);
->>       fence = &cf->base;
->>         for_each_tile(tile, vm->xe, id) {
->> diff --git a/include/linux/dma-fence-array.h b/include/linux/dma-fence-array.h
->> index 370b3d2bba37..1b1d87579c38 100644
->> --- a/include/linux/dma-fence-array.h
->> +++ b/include/linux/dma-fence-array.h
->> @@ -81,13 +81,11 @@ to_dma_fence_array(struct dma_fence *fence)
->>   struct dma_fence_array *dma_fence_array_alloc(int num_fences);
->>   void dma_fence_array_init(struct dma_fence_array *array,
->>                 int num_fences, struct dma_fence **fences,
->> -              u64 context, unsigned seqno,
->> -              bool signal_on_any);
->> +              u64 context, unsigned seqno);
->>     struct dma_fence_array *dma_fence_array_create(int num_fences,
->>                              struct dma_fence **fences,
->> -                           u64 context, unsigned seqno,
->> -                           bool signal_on_any);
->> +                           u64 context, unsigned seqno);
->>     bool dma_fence_match_context(struct dma_fence *fence, u64 context);
->>   
+>>
+>> ---
+>>
+>> v1 -> v2: https://lore.kernel.org/dri-devel/20260411185756.1887119-4-mcanal@igalia.com/
+>>
+>> - Be more explicit about not allowing new users to use an external lock.
+>> - De-duplicate the explanation in dma_fence_init64() by pointing to the
+>>    dma_fence_init() documentation.
+>> ---
+>>   drivers/dma-buf/dma-fence.c | 13 +++++++------
+>>   1 file changed, 7 insertions(+), 6 deletions(-)
+>>
+>> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+>> index 1c1eaecaf1b0..63b349ba9a34 100644
+>> --- a/drivers/dma-buf/dma-fence.c
+>> +++ b/drivers/dma-buf/dma-fence.c
+>> @@ -1102,9 +1102,11 @@ __dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
+>>    * context and seqno are used for easy comparison between fences, allowing
+>>    * to check which fence is later by simply using dma_fence_later().
+>>    *
+>> - * It is strongly discouraged to provide an external lock because this couples
+>> - * lock and fence life time. This is only allowed for legacy use cases when
+>> - * multiple fences need to be prevented from signaling out of order.
+>> + * External locks are a relic from legacy use cases that needed a shared lock
+>> + * to serialize signaling and observation of fences within a context, so that
+>> + * observers never see a later fence signaled while an earlier one isn't. New
+>> + * users MUST NOT use external locks, as they force the issuer to outlive all
+>> + * fences that reference the lock.
+>>    */
+>>   void
+>>   dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
+>> @@ -1129,9 +1131,8 @@ EXPORT_SYMBOL(dma_fence_init);
+>>    * Context and seqno are used for easy comparison between fences, allowing
+>>    * to check which fence is later by simply using dma_fence_later().
+>>    *
+>> - * It is strongly discouraged to provide an external lock because this couples
+>> - * lock and fence life time. This is only allowed for legacy use cases when
+>> - * multiple fences need to be prevented from signaling out of order.
+>> + * New users MUST NOT use external locks. Check the documentation in
+>> + * dma_fence_init() to understand the motives behind the legacy use cases.
+>>    */
+>>   void
+>>   dma_fence_init64(struct dma_fence *fence, const struct dma_fence_ops *ops,
 > 
 
