@@ -4,49 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5BD9CD3427
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 19:08:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 080B7CD342F
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 19:08:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C6B310E824;
-	Mon,  4 May 2026 19:08:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43D4D10E827;
+	Mon,  4 May 2026 19:08:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jMgBHTWH";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="AYBo1g/Y";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KJOhR1EW";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64B3110E80B
- for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 19:08:23 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 2D3CA43F6D;
- Mon,  4 May 2026 19:08:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66968C2BCF7;
- Mon,  4 May 2026 19:08:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777921703;
- bh=KbEvvpXk3q80nQGjLLK0ansgU4MKQY7jL+fptiaUCMk=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=jMgBHTWHQsywHMvkrpZEwq1izuL+/DWtQkuaXz4fXBOzW0z8BS3rIkjlBPjq4q+zh
- rVNhvSZttpvXahtYOKvCi9j7g/r0HxQj97qGzmBXJ8q6D2aKO3aKVVlrRDegs7oA7+
- 283kjpDKwuH18GoqZz1oGuf42eOzM9lmahMk5US6SvuYRR7dT+/X9e2aZ2oTlIg34w
- obYPTe3AGS1pWv24aSIh7TU6qxmHxnDOS74yPrQ3VdKGXBPzXzsuha0DHBRarMiLgQ
- NebCav0SVkcnPWxGrI1sw79MHppGZqRwG04OE/G4TiL1t98HAgCrhTJ7GbQuCYb22m
- DAzgze88dZbcQ==
-Message-ID: <88835cfd-dfcb-48d7-9f85-d2956df1082e@kernel.org>
-Date: Mon, 4 May 2026 14:08:20 -0500
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C7BF10E832
+ for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 19:08:33 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 644IlJRD636001
+ for <dri-devel@lists.freedesktop.org>; Mon, 4 May 2026 19:08:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:in-reply-to:message-id
+ :mime-version:references:subject:to; s=qcppdkim1; bh=nY8Zf16hfaV
+ mHNExd3/Edt40koDFD/E4yWO1TVKH8HE=; b=AYBo1g/YCo07xifCZTxImkFEyIs
+ 2CaoxM5v8ho7UJ80SVUJtQe3XnGk4Y/BnxMSAUDIW7OZMkz6wkNvWAAeIsSVrRtW
+ C49FD3Mm18cWyeV15R+LTHzHFdv5VR9LXudxlxiv+3Tgu5ew0Jw/9rl3okv/ef/F
+ THPKLSc4V99ZtapUriKLLjKMB7zni7Ag4tKLMTEONo0jaiNCu+VDAX/tZXwJBYCN
+ SXPJ5EpJDki7IjqzNOWjzNNQ/6jDQ47VmsvyeSIZPe/gbxG77R8a02het5wrUIfQ
+ KQCbPdKQzoNFCiTd9Jqf3NsPw5r7gBl/ySTiEaTGqXGXEvj2S9hO6sJNPVQ==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
+ [209.85.215.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dxsx49t4v-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 04 May 2026 19:08:32 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id
+ 41be03b00d2f7-b630753cc38so5853285a12.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 04 May 2026 12:08:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1777921711; x=1778526511;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=nY8Zf16hfaVmHNExd3/Edt40koDFD/E4yWO1TVKH8HE=;
+ b=KJOhR1EWOjf8EUYCppcg1zpS56wjSy4/N3ctIMG6jue+6LpCy9Harp6x/59NmRvGpv
+ Il89K1BN7ci49H4epWR4nQDMy5rTLBZ6gtef+amO/Qh/aun+Nlpebg6svfbi1sgvRFX6
+ Gb+VKsL01HR3/vsabZyyOGee+VlI3mRnNfyY/tXpE6fJUchkjR+wRD1IIg6bu7jPGgUJ
+ Fg/Fkk69h2VZQNxbH2d1cF1wH/ELHBEs71CP7CMWFXVMGIsEIWNgLZDWOvY+xso5epX0
+ w+85a7iE4WsFBUygzjcgKJn+QjsqVNswIun7iMcmNp8I6DObrRSrme9AKCYCPyFOitHL
+ tFRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777921711; x=1778526511;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=nY8Zf16hfaVmHNExd3/Edt40koDFD/E4yWO1TVKH8HE=;
+ b=CCeqjqb2JwxeJBBPb0HOFaO8WIUsCurJbFeMhEzgptK8tCCCGGu5GSpsi2DqGryQNA
+ GNH8+mA+aOrl6xq1kfviFQTAiX7FYvhwglEfZppjmW84wSnShgFpMm14mhS4B8n2Xf4b
+ QdU1LGedxhTR7qGhe7U89JTzzT497bHbEjjIhLcpNKJLf1+ScP/mGfuAshhvsFMDGuFt
+ Ct029DNCIc8UquWLBAFEal4oE9+Zs10poPoCfm5ccQxUVrNhc/47td3EqzWNZkmk1/EA
+ +lF1syznrzI7ElioZE5QJfR5+WNxGTE0Nn6Zr1Ih3tr1PO+mYxX8njDlpB1mDAnyPZHU
+ P68w==
+X-Gm-Message-State: AOJu0Yw/pnqHTh0tdaF00s6UxNqsCN2jF40bG3lsAisqCM6bWEAhZI06
+ FLwivjH5lpZWK67KZYgK4ZX8N8At7vThjC/VGCTtC9HMTrlsGS9alGKsfjjYiPTAoeuYMIsJ3O2
+ sqh2vfobVcygbbKH5IAWOIePB3uJJPMd/A57gThe3yPtKH7GsLo3O/DOdfIZ6x163c49+MA5JBf
+ j0NQI=
+X-Gm-Gg: AeBDieuyb5RVB9ztGgGhzTaubVCY+ypFCZPNLoAkZ8TJZeFJTMpz3LTH5gW8QOXJFd6
+ qUB+aiDNZlE8LxY+91Wp2MIFAMtZ4Ogow49UQPcQFvik7fVxxtMXp+5QvisEK0PDVtVsZ3PKE1K
+ MF/nD24kEAVLHOl/NcC1qPPSVGp0/YLKE4775p7DfqTO27gzPlTfZ2WR7FRGnjLnN6oEHrMHuRt
+ N/T2lUm+JI9o574GLAx2JxEFuu1g/8yjz99oCrmjHX0bSrohgH6MtP6pGATiGPpXEZy47483XAI
+ IpjhH0ALrVTY0s+BoBnFyzcRO5uSYTCDe9lS1aCH7t8pvqZgyc/Jyi1tJfI3C5D7C0q8C2Y2mV8
+ HESsyTjMABnAw/DjmhiHca48JCT0RjDjwjh5iR3NI0yw=
+X-Received: by 2002:a05:6a20:4326:b0:398:8870:b58f with SMTP id
+ adf61e73a8af0-3a7f1ad133amr11856282637.14.1777921711545; 
+ Mon, 04 May 2026 12:08:31 -0700 (PDT)
+X-Received: by 2002:a05:6a20:4326:b0:398:8870:b58f with SMTP id
+ adf61e73a8af0-3a7f1ad133amr11856247637.14.1777921711051; 
+ Mon, 04 May 2026 12:08:31 -0700 (PDT)
+Received: from localhost ([2601:1c0:5000:d5c:4ec8:83f5:8254:6891])
+ by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-c7ffbc8ad8dsm10017506a12.23.2026.05.04.12.08.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 04 May 2026 12:08:30 -0700 (PDT)
+From: Rob Clark <robin.clark@oss.qualcomm.com>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v3 06/16] drm/msm: Add a6xx+ perfcntr tables
+Date: Mon,  4 May 2026 12:06:49 -0700
+Message-ID: <20260504190751.61052-7-robin.clark@oss.qualcomm.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260504190751.61052-1-robin.clark@oss.qualcomm.com>
+References: <20260504190751.61052-1-robin.clark@oss.qualcomm.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V2] accel/amdxdna: Add carveout memory support for
- non-IOMMU systems
-Content-Language: en-US
-To: Lizhi Hou <lizhi.hou@amd.com>, ogabbay@kernel.org,
- quic_jhugo@quicinc.com, dri-devel@lists.freedesktop.org,
- maciej.falkowski@linux.intel.com
-Cc: Max Zhen <max.zhen@amd.com>, linux-kernel@vger.kernel.org,
- sonal.santan@amd.com
-References: <20260427170949.2666601-1-lizhi.hou@amd.com>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <20260427170949.2666601-1-lizhi.hou@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA0MDE3NSBTYWx0ZWRfX0f6KwL24lIHc
+ majuFhSyma8odsNVrDuEqp+8XhHChtkijWE8qXvWkifwllHr6DFXx9R17qboMiuZofXcxs1vfr+
+ HesBvRtNPLD09BTZVK3WXi/wI4qhXQMZ18EYWvAXHadgME1h+zzmLFWhijOro1rOaXtThcYdmrc
+ tCMP+bxAg3fx/IxPLAyKT0Bat3vJN2EHxS68fkAI9akaX04fGstnrsmHWDNYLF6TNK9mpm3y0vm
+ 5ju5YdeKPkg7NTLQCz+/1xx4GEvmF0a8t86wUYTsRgOxE/Z23rOhgxdBR8lI56jjYI+5IyQY+2Q
+ 7V9tbus2kf0cy/dvYlmvNyu4GJLq7SV0d7yIzfr3jGYzz/anzTm9hBEhMo1i1EM94P7dv7QJJ31
+ xH+Zk98RFCjRphMHqb4gP5mQNHh917neHdIPS1cUsRZRVi2HdBtTbDAGB04+iptJnHik9ELEUB4
+ VaijRoS/SQIc7iX1dzA==
+X-Proofpoint-ORIG-GUID: dhjM78UzdLEoW9xp4oEEZ635sLVZo7os
+X-Proofpoint-GUID: dhjM78UzdLEoW9xp4oEEZ635sLVZo7os
+X-Authority-Analysis: v=2.4 cv=LdIMLDfi c=1 sm=1 tr=0 ts=69f8eeb0 cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=xqWC_Br6kY4A:10 a=NGcC8JguVDcA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8 a=UuwE4gOO9k-hs8zF27AA:9
+ a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-04_05,2026-04-30_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 clxscore=1015 suspectscore=0 impostorscore=0
+ malwarescore=0 bulkscore=0 adultscore=0 lowpriorityscore=0 spamscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2605040175
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,1029 +143,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Wire up the generated perfcntr tables for a6xx+.  The PERFCNTR_CONFIG
+ioctl will use this information to assign counters.
 
+Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 15 +++++++++++++++
+ drivers/gpu/drm/msm/msm_gpu.h         |  4 ++++
+ drivers/gpu/drm/msm/msm_perfcntr.h    |  9 +++++++++
+ 3 files changed, 28 insertions(+)
 
-On 4/27/26 12:09, Lizhi Hou wrote:
-> From: Max Zhen <max.zhen@amd.com>
-> 
-> Add support for allocating buffers from reserved carveout memory when
-> IOMMU is not available. This is useful during debugging or bring-up.
-> 
-> In this configuration, the device uses physical addresses and does
-> not support scatter-gather lists, requiring physically contiguous
-> buffers.
-> 
-> Implement carveout-backed allocation and integrate it into buffer
-> management to support operation in physical address mode.
-> 
-> Signed-off-by: Max Zhen <max.zhen@amd.com>
-> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
-> ---
->   drivers/accel/amdxdna/Makefile          |   2 +
->   drivers/accel/amdxdna/amdxdna_cbuf.c    | 280 ++++++++++++++++++++++++
->   drivers/accel/amdxdna/amdxdna_cbuf.h    |  18 ++
->   drivers/accel/amdxdna/amdxdna_debugfs.c | 129 +++++++++++
->   drivers/accel/amdxdna/amdxdna_debugfs.h |  18 ++
->   drivers/accel/amdxdna/amdxdna_gem.c     |  95 ++++++--
->   drivers/accel/amdxdna/amdxdna_iommu.c   |  77 ++++---
->   drivers/accel/amdxdna/amdxdna_pci_drv.c |  89 +++++---
->   drivers/accel/amdxdna/amdxdna_pci_drv.h |   8 +-
->   9 files changed, 636 insertions(+), 80 deletions(-)
->   create mode 100644 drivers/accel/amdxdna/amdxdna_cbuf.c
->   create mode 100644 drivers/accel/amdxdna/amdxdna_cbuf.h
->   create mode 100644 drivers/accel/amdxdna/amdxdna_debugfs.c
->   create mode 100644 drivers/accel/amdxdna/amdxdna_debugfs.h
-> 
-> diff --git a/drivers/accel/amdxdna/Makefile b/drivers/accel/amdxdna/Makefile
-> index 79369e497540..d7720c8c8a98 100644
-> --- a/drivers/accel/amdxdna/Makefile
-> +++ b/drivers/accel/amdxdna/Makefile
-> @@ -12,6 +12,7 @@ amdxdna-y := \
->   	aie2_solver.o \
->   	aie4_message.o \
->   	aie4_pci.o \
-> +	amdxdna_cbuf.o \
->   	amdxdna_ctx.o \
->   	amdxdna_gem.o \
->   	amdxdna_iommu.o \
-> @@ -28,4 +29,5 @@ amdxdna-y := \
->   	npu6_regs.o
->   
->   amdxdna-$(CONFIG_PCI_IOV) += aie4_sriov.o
-> +amdxdna-$(CONFIG_DEBUG_FS) += amdxdna_debugfs.o
->   obj-$(CONFIG_DRM_ACCEL_AMDXDNA) = amdxdna.o
-> diff --git a/drivers/accel/amdxdna/amdxdna_cbuf.c b/drivers/accel/amdxdna/amdxdna_cbuf.c
-> new file mode 100644
-> index 000000000000..a504560aae98
-> --- /dev/null
-> +++ b/drivers/accel/amdxdna/amdxdna_cbuf.c
-> @@ -0,0 +1,280 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (C) 2026, Advanced Micro Devices, Inc.
-> + */
-> +
-> +#include <drm/drm_mm.h>
-> +#include <drm/drm_prime.h>
-> +
-> +#include "amdxdna_cbuf.h"
-> +#include "amdxdna_pci_drv.h"
-> +
-> +/*
-> + * Carveout memory is a chunk of memory which is physically contiguous and
-> + * is reserved during early boot time. There is only one chunk of such memory
-> + * per device. Once available, all BOs accessible from device should be
-> + * allocated from this memory. This is a platform debug/bringup feature.
-> + */
-> +struct amdxdna_carveout {
-> +	u64		addr;
-> +	u64		size;
-> +	struct drm_mm	mm;
-> +	struct mutex	lock; /* protect mm */
-> +};
-> +
-> +bool amdxdna_use_carveout(struct amdxdna_dev *xdna)
-> +{
-> +	return !!xdna->carveout;
-> +}
-> +
-> +void amdxdna_get_carveout_conf(struct amdxdna_dev *xdna, u64 *addr, u64 *size)
-> +{
-> +	if (amdxdna_use_carveout(xdna)) {
-> +		*addr = xdna->carveout->addr;
-> +		*size = xdna->carveout->size;
-> +	} else {
-> +		*addr = 0;
-> +		*size = 0;
-> +	}
-> +}
-> +
-> +int amdxdna_carveout_init(struct amdxdna_dev *xdna, u64 carveout_addr, u64 carveout_size)
-> +{
-> +	struct amdxdna_carveout *carveout;
-> +
-> +	/* Only allow carveout memory to be set up once. */
-> +	if (amdxdna_use_carveout(xdna)) {
-> +		XDNA_ERR(xdna, "Carveout memory has already been set up.");
-> +		return -EBUSY;
-> +	}
-> +
-> +	carveout = kzalloc_obj(*carveout);
-> +	if (!carveout)
-> +		return -ENOMEM;
-> +
-> +	carveout->addr = carveout_addr;
-> +	carveout->size = carveout_size;
-> +	mutex_init(&carveout->lock);
-> +	drm_mm_init(&carveout->mm, carveout->addr, carveout->size);
-> +
-> +	xdna->carveout = carveout;
-> +	XDNA_INFO(xdna, "Use carveout mem: 0x%llx@0x%llx\n", carveout->size, carveout->addr);
-> +	return 0;
-> +}
-> +
-> +void amdxdna_carveout_fini(struct amdxdna_dev *xdna)
-> +{
-> +	struct amdxdna_carveout *carveout = xdna->carveout;
-> +
-> +	if (!amdxdna_use_carveout(xdna))
-> +		return;
-> +
-> +	XDNA_INFO(xdna, "Cleanup carveout mem: 0x%llx@0x%llx\n", carveout->size, carveout->addr);
-> +	drm_mm_takedown(&carveout->mm);
-> +	mutex_destroy(&carveout->lock);
-> +	kfree(carveout);
-> +	xdna->carveout = NULL;
-> +}
-> +
-> +struct amdxdna_cbuf_priv {
-> +	struct amdxdna_dev *xdna;
-> +	struct drm_mm_node node;
-> +};
-> +
-> +static struct sg_table *amdxdna_cbuf_map(struct dma_buf_attachment *attach,
-> +					 enum dma_data_direction direction)
-> +{
-> +	struct amdxdna_cbuf_priv *cbuf = attach->dmabuf->priv;
-> +	struct device *dev = attach->dev;
-> +	struct scatterlist *sgl, *sg;
-> +	int ret, n_entries, i;
-> +	struct sg_table *sgt;
-> +	dma_addr_t dma_addr;
-> +	size_t dma_size;
-> +	size_t max_seg;
-> +
-> +	sgt = kzalloc_obj(*sgt);
-> +	if (!sgt)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	max_seg = min_t(size_t, UINT_MAX, dma_max_mapping_size(dev));
-> +	n_entries = (cbuf->node.size + max_seg - 1) / max_seg;
-> +	sgl = kzalloc_objs(*sg, n_entries);
-> +	if (!sgl) {
-> +		ret = -ENOMEM;
-> +		goto free_sgt;
-> +	}
-> +	sg_init_table(sgl, n_entries);
-> +	sgt->orig_nents = n_entries;
-> +	sgt->nents = n_entries;
-> +	sgt->sgl = sgl;
-> +
-> +	dma_size = cbuf->node.size;
-> +	dma_addr = dma_map_resource(dev, cbuf->node.start, dma_size,
-> +				    direction, DMA_ATTR_SKIP_CPU_SYNC);
-> +	ret = dma_mapping_error(dev, dma_addr);
-> +	if (ret) {
-> +		pr_err("Failed to dma_map_resource carveout dma buf, ret %d\n", ret);
-> +		goto free_sgl;
-> +	}
-> +
-> +	for_each_sgtable_dma_sg(sgt, sg, i) {
-> +		size_t len = min_t(size_t, max_seg, dma_size);
-> +
-> +		sg_dma_address(sg) = dma_addr;
-> +		sg_dma_len(sg) = len;
-> +		dma_addr += len;
-> +		dma_size -= len;
-> +	}
-> +
-> +	return sgt;
-> +
-> +free_sgl:
-> +	kfree(sgl);
-> +free_sgt:
-> +	kfree(sgt);
-> +	return ERR_PTR(ret);
-> +}
-> +
-> +static void amdxdna_cbuf_unmap(struct dma_buf_attachment *attach,
-> +			       struct sg_table *sgt,
-> +			       enum dma_data_direction direction)
-> +{
-> +	dma_unmap_resource(attach->dev, sg_dma_address(sgt->sgl),
-> +			   drm_prime_get_contiguous_size(sgt), direction,
-> +			   DMA_ATTR_SKIP_CPU_SYNC);
-> +	sg_free_table(sgt);
-> +	kfree(sgt);
-> +}
-> +
-> +static void amdxdna_cbuf_release(struct dma_buf *dbuf)
-> +{
-> +	struct amdxdna_cbuf_priv *cbuf = dbuf->priv;
-> +	struct amdxdna_carveout *carveout;
-> +
-> +	carveout = cbuf->xdna->carveout;
-> +	mutex_lock(&carveout->lock);
-> +	drm_mm_remove_node(&cbuf->node);
-> +	mutex_unlock(&carveout->lock);
-> +
-> +	kfree(cbuf);
-> +}
-> +
-> +static vm_fault_t amdxdna_cbuf_vm_fault(struct vm_fault *vmf)
-> +{
-> +	struct vm_area_struct *vma = vmf->vma;
-> +	struct amdxdna_cbuf_priv *cbuf;
-> +	unsigned long pfn;
-> +	pgoff_t pgoff;
-> +
-> +	cbuf = vma->vm_private_data;
-> +	pgoff = (vmf->address - vma->vm_start) >> PAGE_SHIFT;
-> +	pfn = (cbuf->node.start >> PAGE_SHIFT) + pgoff;
-> +
-> +	return vmf_insert_pfn(vma, vmf->address, pfn);
-> +}
-> +
-> +static const struct vm_operations_struct amdxdna_cbuf_vm_ops = {
-> +	.fault = amdxdna_cbuf_vm_fault,
-> +};
-> +
-> +static int amdxdna_cbuf_mmap(struct dma_buf *dbuf, struct vm_area_struct *vma)
-> +{
-> +	struct amdxdna_cbuf_priv *cbuf = dbuf->priv;
-> +
-> +	vma->vm_ops = &amdxdna_cbuf_vm_ops;
-> +	vma->vm_private_data = cbuf;
-> +	vm_flags_set(vma, VM_PFNMAP | VM_DONTEXPAND | VM_DONTDUMP);
-> +
-> +	return 0;
-> +}
-> +
-> +static int amdxdna_cbuf_vmap(struct dma_buf *dbuf, struct iosys_map *map)
-> +{
-> +	struct amdxdna_cbuf_priv *cbuf = dbuf->priv;
-> +	void *kva;
-> +
-> +	kva = memremap(cbuf->node.start, cbuf->node.size, MEMREMAP_WB);
-> +	if (!kva) {
-> +		pr_err("Failed to vmap carveout dma buf\n");
-> +		return -ENOMEM;
-> +	}
-> +
-> +	iosys_map_set_vaddr(map, kva);
-> +	return 0;
-> +}
-> +
-> +static void amdxdna_cbuf_vunmap(struct dma_buf *dbuf, struct iosys_map *map)
-> +{
-> +	memunmap(map->vaddr);
-> +}
-> +
-> +static const struct dma_buf_ops amdxdna_cbuf_dmabuf_ops = {
-> +	.map_dma_buf = amdxdna_cbuf_map,
-> +	.unmap_dma_buf = amdxdna_cbuf_unmap,
-> +	.release = amdxdna_cbuf_release,
-> +	.mmap = amdxdna_cbuf_mmap,
-> +	.vmap = amdxdna_cbuf_vmap,
-> +	.vunmap = amdxdna_cbuf_vunmap,
-> +};
-> +
-> +static int amdxdna_cbuf_clear(struct dma_buf *dbuf)
-> +{
-> +	struct iosys_map vmap = IOSYS_MAP_INIT_VADDR(NULL);
-> +
-> +	dma_buf_vmap(dbuf, &vmap);
-> +	if (!vmap.vaddr)
-> +		return -EFAULT;
-> +
-> +	memset(vmap.vaddr, 0, dbuf->size);
-> +	dma_buf_vunmap(dbuf, &vmap);
-> +
-> +	return 0;
-> +}
-> +
-> +struct dma_buf *amdxdna_get_cbuf(struct drm_device *dev, size_t size, u64 alignment)
-> +{
-> +	struct amdxdna_dev *xdna = to_xdna_dev(dev);
-> +	DEFINE_DMA_BUF_EXPORT_INFO(exp_info);
-> +	struct amdxdna_carveout *carveout;
-> +	struct amdxdna_cbuf_priv *cbuf;
-> +	struct dma_buf *dbuf;
-> +	int ret;
-> +
-> +	cbuf = kzalloc_obj(*cbuf);
-> +	if (!cbuf)
-> +		return ERR_PTR(-ENOMEM);
-> +	cbuf->xdna = xdna;
-> +
-> +	carveout = xdna->carveout;
-> +	mutex_lock(&carveout->lock);
-> +	ret = drm_mm_insert_node_generic(&carveout->mm, &cbuf->node, size,
-> +					 alignment, 0, DRM_MM_INSERT_BEST);
-> +	mutex_unlock(&carveout->lock);
-> +	if (ret)
-> +		goto free_cbuf;
-> +
-> +	exp_info.size = size;
-> +	exp_info.ops = &amdxdna_cbuf_dmabuf_ops;
-> +	exp_info.priv = cbuf;
-> +	exp_info.flags = O_RDWR;
-> +	dbuf = dma_buf_export(&exp_info);
-> +	if (IS_ERR(dbuf)) {
-> +		ret = PTR_ERR(dbuf);
-> +		goto remove_node;
-> +	}
-> +
-> +	ret = amdxdna_cbuf_clear(dbuf);
-> +	if (ret) {
-> +		dma_buf_put(dbuf);
-> +		goto out;
-> +	}
-> +	return dbuf;
-> +
-> +remove_node:
-> +	drm_mm_remove_node(&cbuf->node);
-> +free_cbuf:
-> +	kfree(cbuf);
-> +out:
-> +	return ERR_PTR(ret);
-> +}
-> diff --git a/drivers/accel/amdxdna/amdxdna_cbuf.h b/drivers/accel/amdxdna/amdxdna_cbuf.h
-> new file mode 100644
-> index 000000000000..8e89336ffd50
-> --- /dev/null
-> +++ b/drivers/accel/amdxdna/amdxdna_cbuf.h
-> @@ -0,0 +1,18 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * Copyright (C) 2026, Advanced Micro Devices, Inc.
-> + */
-> +#ifndef _AMDXDNA_CBUF_H_
-> +#define _AMDXDNA_CBUF_H_
-> +
-> +#include "amdxdna_pci_drv.h"
-> +#include <drm/drm_device.h>
-> +#include <linux/dma-buf.h>
-> +
-> +bool amdxdna_use_carveout(struct amdxdna_dev *xdna);
-> +int amdxdna_carveout_init(struct amdxdna_dev *xdna, u64 carveout_addr, u64 carveout_size);
-> +void amdxdna_carveout_fini(struct amdxdna_dev *xdna);
-> +void amdxdna_get_carveout_conf(struct amdxdna_dev *xdna, u64 *addr, u64 *size);
-> +struct dma_buf *amdxdna_get_cbuf(struct drm_device *dev, size_t size, u64 alignment);
-> +
-> +#endif
-> diff --git a/drivers/accel/amdxdna/amdxdna_debugfs.c b/drivers/accel/amdxdna/amdxdna_debugfs.c
-> new file mode 100644
-> index 000000000000..a6ec17c63629
-> --- /dev/null
-> +++ b/drivers/accel/amdxdna/amdxdna_debugfs.c
-> @@ -0,0 +1,129 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (C) 2026, Advanced Micro Devices, Inc.
-> + */
-> +
-> +#include "amdxdna_cbuf.h"
-> +#include "amdxdna_debugfs.h"
-> +
-> +#include <drm/drm_file.h>
-> +#include <linux/debugfs.h>
-> +#include <linux/pm_runtime.h>
-> +#include <linux/seq_file.h>
-> +#include <linux/string.h>
-> +#include <linux/uaccess.h>
-> +
-> +#define _DBGFS_FOPS(_open, _release, _write) \
-> +{ \
-> +	.owner = THIS_MODULE, \
-> +	.open = _open, \
-> +	.read = seq_read, \
-> +	.llseek = seq_lseek, \
-> +	.release = _release, \
-> +	.write = _write, \
-> +}
-> +
-> +#define AMDXDNA_DBGFS_FOPS(_name, _show, _write) \
-> +	static int amdxdna_dbgfs_##_name##_open(struct inode *inode, struct file *file) \
-> +	{ \
-> +		return single_open(file, _show, inode->i_private); \
-> +	} \
-> +	static int amdxdna_dbgfs_##_name##_release(struct inode *inode, struct file *file) \
-> +	{ \
-> +		return single_release(inode, file); \
-> +	} \
-> +	static const struct file_operations amdxdna_fops_##_name = \
-> +		_DBGFS_FOPS(amdxdna_dbgfs_##_name##_open, amdxdna_dbgfs_##_name##_release, _write)
-> +
-> +#define AMDXDNA_DBGFS_FILE(_name, _mode) { #_name, &amdxdna_fops_##_name, _mode }
-> +
-> +#define file_to_xdna(file) (((struct seq_file *)(file)->private_data)->private)
-> +
-> +static ssize_t amdxdna_carveout_write(struct file *file, const char __user *buf,
-> +				      size_t count, loff_t *ppos)
-> +{
-> +	struct amdxdna_dev *xdna = file_to_xdna(file);
-> +	char kbuf[128];
-> +	u64 size, addr;
-> +	char *sep;
-> +	int ret;
-> +
-> +	if (count == 0 || count >= sizeof(kbuf))
-> +		return -EINVAL;
-> +
-> +	if (copy_from_user(kbuf, buf, count))
-> +		return -EFAULT;
-> +	kbuf[count] = '\0';
-> +	strim(kbuf);
-> +	XDNA_DBG(xdna, "Trying to set carveout to %s", kbuf);
-> +
-> +	sep = strchr(kbuf, '@');
-> +	if (!sep)
-> +		return -EINVAL;
-> +	*sep = '\0';
-> +	sep++;
-> +
-> +	ret = kstrtou64(kbuf, 0, &size);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = kstrtou64(sep, 0, &addr);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Sanity check the addr and size. */
-> +	if (!size)
-> +		return -EINVAL;
-> +	if (!IS_ALIGNED(addr, PAGE_SIZE) || !IS_ALIGNED(size, PAGE_SIZE))
-> +		return -EINVAL;
-> +
-> +	guard(mutex)(&xdna->dev_lock);
-> +
-> +	ret = amdxdna_carveout_init(xdna, addr, size);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return count;
-> +}
-> +
-> +static int amdxdna_carveout_show(struct seq_file *m, void *unused)
-> +{
-> +	struct amdxdna_dev *xdna = m->private;
-> +	u64 addr, size;
-> +
-> +	guard(mutex)(&xdna->dev_lock);
-> +	amdxdna_get_carveout_conf(xdna, &addr, &size);
-> +	seq_printf(m, "0x%llx@0x%llx\n", size, addr);
-> +	return 0;
-> +}
-> +
-> +/*
-> + * Input/output format: <carveout_size>@<carveout_address>
-> + */
-> +AMDXDNA_DBGFS_FOPS(carveout, amdxdna_carveout_show, amdxdna_carveout_write);
-> +
-> +static const struct {
-> +	const char *name;
-> +	const struct file_operations *fops;
-> +	umode_t mode;
-> +} amdxdna_dbgfs_files[] = {
-> +	AMDXDNA_DBGFS_FILE(carveout, 0600),
-> +};
-> +
-> +void amdxdna_debugfs_init(struct amdxdna_dev *xdna)
-> +{
-> +	struct drm_minor *minor = xdna->ddev.accel;
-> +	int i;
-> +
-> +	/*
-> +	 * It should be okay that debugfs fails to init.
-> +	 * We rely on DRM framework to finish debugfs.
-> +	 */
-> +	for (i = 0; i < ARRAY_SIZE(amdxdna_dbgfs_files); i++) {
-> +		debugfs_create_file(amdxdna_dbgfs_files[i].name,
-> +				    amdxdna_dbgfs_files[i].mode,
-> +				    minor->debugfs_root,
-> +				    xdna,
-> +				    amdxdna_dbgfs_files[i].fops);
-> +	}
-> +}
-> diff --git a/drivers/accel/amdxdna/amdxdna_debugfs.h b/drivers/accel/amdxdna/amdxdna_debugfs.h
-> new file mode 100644
-> index 000000000000..2abb45de3f7e
-> --- /dev/null
-> +++ b/drivers/accel/amdxdna/amdxdna_debugfs.h
-> @@ -0,0 +1,18 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * Copyright (C) 2026, Advanced Micro Devices, Inc.
-> + */
-> +#ifndef _AMDXDNA_DEBUGFS_H_
-> +#define _AMDXDNA_DEBUGFS_H_
-> +
-> +#include "amdxdna_pci_drv.h"
-> +
-> +#if defined(CONFIG_DEBUG_FS)
-> +void amdxdna_debugfs_init(struct amdxdna_dev *xdna);
-> +#else
-> +static inline void amdxdna_debugfs_init(struct amdxdna_dev *xdna)
-> +{
-> +}
-> +#endif /* CONFIG_DEBUG_FS */
-> +
-> +#endif
-> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
-> index 238ee244d4a6..ebfc472aa9e7 100644
-> --- a/drivers/accel/amdxdna/amdxdna_gem.c
-> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
-> @@ -16,6 +16,7 @@
->   #include <linux/pagemap.h>
->   #include <linux/vmalloc.h>
->   
-> +#include "amdxdna_cbuf.h"
->   #include "amdxdna_ctx.h"
->   #include "amdxdna_gem.h"
->   #include "amdxdna_pci_drv.h"
-> @@ -516,10 +517,6 @@ static void amdxdna_imported_obj_free(struct amdxdna_gem_obj *abo)
->   static inline bool
->   amdxdna_gem_skip_bo_usage(struct amdxdna_gem_obj *abo)
->   {
-> -	/* Do not count imported BOs since the buffer is not allocated by us. */
-> -	if (is_import_bo(abo))
-> -		return true;
-> -
->   	/* Already counted as part of HEAP BO */
->   	if (abo->type == AMDXDNA_BO_DEV)
->   		return true;
-> @@ -571,9 +568,7 @@ static void amdxdna_gem_obj_free(struct drm_gem_object *gobj)
->   	if (abo->type == AMDXDNA_BO_DEV_HEAP)
->   		drm_mm_takedown(&abo->mm);
->   
-> -	if (amdxdna_iova_on(xdna))
-> -		amdxdna_iommu_unmap_bo(xdna, abo);
-> -
-> +	amdxdna_dma_unmap_bo(xdna, abo);
->   	amdxdna_gem_vunmap(abo);
->   	mutex_destroy(&abo->lock);
->   
-> @@ -591,18 +586,20 @@ static int amdxdna_gem_obj_open(struct drm_gem_object *gobj, struct drm_file *fi
->   
->   	guard(mutex)(&abo->lock);
->   	abo->open_ref++;
-> +	if (abo->open_ref > 1)
-> +		return 0;
->   
-> -	if (abo->open_ref == 1) {
-> -		/* Attached to the client when first opened by it. */
-> -		abo->client = filp->driver_priv;
-> -		amdxdna_gem_add_bo_usage(abo);
-> -	}
-> -	if (amdxdna_iova_on(xdna)) {
-> -		ret = amdxdna_iommu_map_bo(xdna, abo);
-> +	/* Attached to the client when first opened by it. */
-> +	abo->client = filp->driver_priv;
-> +
-> +	/* No need to set up dma addr mapping in PASID mode. */
-> +	if (!amdxdna_pasid_on(abo->client)) {
-> +		ret = amdxdna_dma_map_bo(xdna, abo);
->   		if (ret)
->   			return ret;
->   	}
->   
-> +	amdxdna_gem_add_bo_usage(abo);
->   	return 0;
->   }
->   
-> @@ -620,6 +617,39 @@ static void amdxdna_gem_obj_close(struct drm_gem_object *gobj, struct drm_file *
->   	}
->   }
->   
-> +static int amdxdna_gem_obj_vmap(struct drm_gem_object *obj, struct iosys_map *map)
-> +{
-> +	struct amdxdna_gem_obj *abo = to_xdna_obj(obj);
-> +	int ret;
-> +
-> +	iosys_map_clear(map);
-> +
-> +	dma_resv_assert_held(obj->resv);
-> +
-> +	if (is_import_bo(abo))
-> +		ret = dma_buf_vmap(abo->dma_buf, map);
-> +	else
-> +		ret = drm_gem_shmem_object_vmap(obj, map);
-> +	if (ret)
-> +		return ret;
-> +	if (!map->vaddr)
-> +		return -ENOMEM;
-> +
-> +	return 0;
-> +}
-> +
-> +static void amdxdna_gem_obj_vunmap(struct drm_gem_object *obj, struct iosys_map *map)
-> +{
-> +	struct amdxdna_gem_obj *abo = to_xdna_obj(obj);
-> +
-> +	dma_resv_assert_held(obj->resv);
-> +
-> +	if (is_import_bo(abo))
-> +		dma_buf_vunmap(abo->dma_buf, map);
-> +	else
-> +		drm_gem_shmem_object_vunmap(obj, map);
-> +}
-> +
->   static int amdxdna_gem_dev_obj_vmap(struct drm_gem_object *obj, struct iosys_map *map)
->   {
->   	struct amdxdna_gem_obj *abo = to_xdna_obj(obj);
-> @@ -645,8 +675,8 @@ static const struct drm_gem_object_funcs amdxdna_gem_shmem_funcs = {
->   	.pin = drm_gem_shmem_object_pin,
->   	.unpin = drm_gem_shmem_object_unpin,
->   	.get_sg_table = drm_gem_shmem_object_get_sg_table,
-> -	.vmap = drm_gem_shmem_object_vmap,
-> -	.vunmap = drm_gem_shmem_object_vunmap,
-> +	.vmap = amdxdna_gem_obj_vmap,
-> +	.vunmap = amdxdna_gem_obj_vunmap,
->   	.mmap = amdxdna_gem_obj_mmap,
->   	.vm_ops = &drm_gem_shmem_vm_ops,
->   	.export = amdxdna_gem_prime_export,
-> @@ -714,6 +744,36 @@ amdxdna_gem_create_ubuf_object(struct drm_device *dev, struct amdxdna_drm_create
->   	return to_xdna_obj(gobj);
->   }
->   
-> +static struct amdxdna_gem_obj *
-> +amdxdna_gem_create_cbuf_object(struct drm_device *dev, struct amdxdna_drm_create_bo *args)
-> +{
-> +	struct amdxdna_dev *xdna = to_xdna_dev(dev);
-> +	size_t size = PAGE_ALIGN(args->size);
-> +	struct drm_gem_object *gobj;
-> +	struct amdxdna_gem_obj *ret;
-> +	struct dma_buf *dma_buf;
-> +	u64 align;
-> +
-> +	if (!size) {
-> +		XDNA_ERR(xdna, "Invalid BO size 0x%llx", args->size);
-> +		return ERR_PTR(-EINVAL);
-> +	}
-> +
-> +	align = (args->type == AMDXDNA_BO_DEV_HEAP) ?  xdna->dev_info->dev_mem_size : 0;
-> +	dma_buf = amdxdna_get_cbuf(dev, size, align);
-> +	if (IS_ERR(dma_buf))
-> +		return ERR_CAST(dma_buf);
-> +
-> +	gobj = amdxdna_gem_prime_import(dev, dma_buf);
-> +	if (IS_ERR(gobj))
-> +		ret = ERR_CAST(gobj);
-> +	else
-> +		ret = to_xdna_obj(gobj);
-> +
-> +	dma_buf_put(dma_buf);
-> +	return ret;
-> +}
-> +
->   struct drm_gem_object *
->   amdxdna_gem_prime_import(struct drm_device *dev, struct dma_buf *dma_buf)
->   {
-> @@ -769,6 +829,8 @@ amdxdna_drm_create_share_bo(struct drm_device *dev,
->   
->   	if (args->vaddr)
->   		abo = amdxdna_gem_create_ubuf_object(dev, args);
-> +	else if (amdxdna_use_carveout(to_xdna_dev(dev)))
-> +		abo = amdxdna_gem_create_cbuf_object(dev, args);
->   	else
->   		abo = amdxdna_gem_create_shmem_object(dev, args);
->   	if (IS_ERR(abo))
-> @@ -884,7 +946,6 @@ int amdxdna_drm_create_bo_ioctl(struct drm_device *dev, void *data, struct drm_f
->   		 args->type, args->vaddr, args->size, args->flags);
->   	switch (args->type) {
->   	case AMDXDNA_BO_CMD:
-> -		fallthrough;
->   	case AMDXDNA_BO_SHARE:
->   		abo = amdxdna_drm_create_share_bo(dev, args, filp);
->   		break;
-> diff --git a/drivers/accel/amdxdna/amdxdna_iommu.c b/drivers/accel/amdxdna/amdxdna_iommu.c
-> index 5a9f06183487..eff00131d0f8 100644
-> --- a/drivers/accel/amdxdna/amdxdna_iommu.c
-> +++ b/drivers/accel/amdxdna/amdxdna_iommu.c
-> @@ -35,14 +35,15 @@ static struct iova *amdxdna_iommu_alloc_iova(struct amdxdna_dev *xdna,
->   	return iova;
->   }
->   
-> -int amdxdna_iommu_map_bo(struct amdxdna_dev *xdna, struct amdxdna_gem_obj *abo)
-> +int amdxdna_dma_map_bo(struct amdxdna_dev *xdna, struct amdxdna_gem_obj *abo)
->   {
-> +	unsigned long contig_sz;
->   	struct sg_table *sgt;
->   	dma_addr_t dma_addr;
->   	struct iova *iova;
->   	ssize_t size;
->   
-> -	if (abo->type != AMDXDNA_BO_DEV_HEAP && abo->type != AMDXDNA_BO_SHMEM)
-> +	if (abo->type != AMDXDNA_BO_DEV_HEAP && abo->type != AMDXDNA_BO_SHARE)
->   		return 0;
->   
->   	sgt = drm_gem_shmem_get_pages_sgt(&abo->base);
-> @@ -51,47 +52,63 @@ int amdxdna_iommu_map_bo(struct amdxdna_dev *xdna, struct amdxdna_gem_obj *abo)
->   		return PTR_ERR(sgt);
->   	}
->   
-> -	if (!sgt->orig_nents || !sg_page(sgt->sgl)) {
-> -		XDNA_ERR(xdna, "sgl is zero length or not page backed");
-> +	if (!sgt->orig_nents) {
-> +		XDNA_ERR(xdna, "sgl is zero length");
->   		return -EOPNOTSUPP;
->   	}
->   
-> -	iova = amdxdna_iommu_alloc_iova(xdna, abo->mem.size, &dma_addr,
-> -					(abo->type == AMDXDNA_BO_DEV_HEAP));
-> -	if (IS_ERR(iova)) {
-> -		XDNA_ERR(xdna, "Alloc iova failed, ret %ld", PTR_ERR(iova));
-> -		return PTR_ERR(iova);
-> +	if (amdxdna_iova_on(xdna)) {
-> +		if (!sg_page(sgt->sgl)) {
-> +			XDNA_ERR(xdna, "sgl is not page backed");
-> +			return -EOPNOTSUPP;
-> +		}
-> +
-> +		iova = amdxdna_iommu_alloc_iova(xdna, abo->mem.size, &dma_addr,
-> +						(abo->type == AMDXDNA_BO_DEV_HEAP));
-> +		if (IS_ERR(iova)) {
-> +			XDNA_ERR(xdna, "Alloc iova failed, ret %ld", PTR_ERR(iova));
-> +			return PTR_ERR(iova);
-> +		}
-> +
-> +		size = iommu_map_sgtable(xdna->domain, dma_addr, sgt,
-> +					 IOMMU_READ | IOMMU_WRITE);
-> +		if (size < 0) {
-> +			XDNA_ERR(xdna, "iommu_map_sgtable failed: %zd", size);
-> +			__free_iova(&xdna->iovad, iova);
-> +			return size;
-> +		}
-> +		if (size < abo->mem.size) {
-> +			iommu_unmap(xdna->domain, dma_addr, size);
-> +			__free_iova(&xdna->iovad, iova);
-> +			return -ENXIO;
-> +		}
-> +		abo->mem.dma_addr = dma_addr;
-> +	} else {
-> +		/* Device doesn't support scatter/gather list, fail non-contiguous mapping. */
-> +		contig_sz = drm_prime_get_contiguous_size(sgt);
-> +		if (contig_sz < abo->mem.size) {
-> +			XDNA_ERR(xdna,
-> +				 "noncontiguous dma addr, contig size:%ld, expected size:%ld",
-> +				 contig_sz, abo->mem.size);
-> +			return -EINVAL;
-> +		}
-> +		abo->mem.dma_addr = sg_dma_address(sgt->sgl);
->   	}
-> -
-> -	size = iommu_map_sgtable(xdna->domain, dma_addr, sgt,
-> -				 IOMMU_READ | IOMMU_WRITE);
-> -	if (size < 0) {
-> -		XDNA_ERR(xdna, "iommu_map_sgtable failed: %zd", size);
-> -		__free_iova(&xdna->iovad, iova);
-> -		return size;
-> -	}
-> -
-> -	if (size < abo->mem.size) {
-> -		iommu_unmap(xdna->domain, dma_addr, size);
-> -		__free_iova(&xdna->iovad, iova);
-> -		return -ENXIO;
-> -	}
-> -
-> -	abo->mem.dma_addr = dma_addr;
-> -
->   	return 0;
->   }
->   
-> -void amdxdna_iommu_unmap_bo(struct amdxdna_dev *xdna, struct amdxdna_gem_obj *abo)
-> +void amdxdna_dma_unmap_bo(struct amdxdna_dev *xdna, struct amdxdna_gem_obj *abo)
->   {
->   	size_t size;
->   
->   	if (abo->mem.dma_addr == AMDXDNA_INVALID_ADDR)
->   		return;
->   
-> -	size = iova_align(&xdna->iovad, abo->mem.size);
-> -	iommu_unmap(xdna->domain, abo->mem.dma_addr, size);
-> -	free_iova(&xdna->iovad, iova_pfn(&xdna->iovad, abo->mem.dma_addr));
-> +	if (amdxdna_iova_on(xdna)) {
-> +		size = iova_align(&xdna->iovad, abo->mem.size);
-> +		iommu_unmap(xdna->domain, abo->mem.dma_addr, size);
-> +		free_iova(&xdna->iovad, iova_pfn(&xdna->iovad, abo->mem.dma_addr));
-> +	}
->   	abo->mem.dma_addr = AMDXDNA_INVALID_ADDR;
->   }
->   
-> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-> index 21eddfc538d0..1b08a08343cf 100644
-> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
-> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-> @@ -14,7 +14,9 @@
->   #include <linux/iommu.h>
->   #include <linux/pci.h>
->   
-> +#include "amdxdna_cbuf.h"
->   #include "amdxdna_ctx.h"
-> +#include "amdxdna_debugfs.h"
->   #include "amdxdna_gem.h"
->   #include "amdxdna_pci_drv.h"
->   #include "amdxdna_pm.h"
-> @@ -67,11 +69,40 @@ static const struct amdxdna_device_id amdxdna_ids[] = {
->   	{0}
->   };
->   
-> +static int amdxdna_sva_init(struct amdxdna_client *client)
-> +{
-> +	struct amdxdna_dev *xdna = client->xdna;
-> +
-> +	client->sva = iommu_sva_bind_device(xdna->ddev.dev, client->mm);
-> +	if (IS_ERR(client->sva)) {
-> +		XDNA_ERR(xdna, "SVA bind device failed, ret %ld", PTR_ERR(client->sva));
-> +		return PTR_ERR(client->sva);
-> +	}
-> +
-> +	client->pasid = iommu_sva_get_pasid(client->sva);
-> +	if (client->pasid == IOMMU_PASID_INVALID) {
-> +		iommu_sva_unbind_device(client->sva);
-> +		XDNA_ERR(xdna, "SVA get pasid failed");
-> +		return -ENODEV;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static void amdxdna_sva_fini(struct amdxdna_client *client)
-> +{
-> +	if (IS_ERR_OR_NULL(client->sva))
-> +		return;
-> +
-> +	iommu_sva_unbind_device(client->sva);
-> +	client->sva = NULL;
-> +	client->pasid = IOMMU_PASID_INVALID;
-> +}
-> +
->   static int amdxdna_drm_open(struct drm_device *ddev, struct drm_file *filp)
->   {
->   	struct amdxdna_dev *xdna = to_xdna_dev(ddev);
->   	struct amdxdna_client *client;
-> -	int ret;
->   
->   	client = kzalloc_obj(*client);
->   	if (!client)
-> @@ -80,22 +111,13 @@ static int amdxdna_drm_open(struct drm_device *ddev, struct drm_file *filp)
->   	client->pid = pid_nr(rcu_access_pointer(filp->pid));
->   	client->xdna = xdna;
->   	client->pasid = IOMMU_PASID_INVALID;
-> +	client->mm = current->mm;
->   
->   	if (!amdxdna_iova_on(xdna)) {
-> -		client->sva = iommu_sva_bind_device(xdna->ddev.dev, current->mm);
-> -		if (IS_ERR(client->sva)) {
-> -			ret = PTR_ERR(client->sva);
-> -			XDNA_ERR(xdna, "SVA bind device failed, ret %d", ret);
-> -			goto failed;
-> -		}
-> -		client->pasid = iommu_sva_get_pasid(client->sva);
-> -		if (client->pasid == IOMMU_PASID_INVALID) {
-> -			XDNA_ERR(xdna, "SVA get pasid failed");
-> -			ret = -ENODEV;
-> -			goto unbind_sva;
-> -		}
-> +		/* No need to fail open since user may use pa + carveout later. */
-> +		if (amdxdna_sva_init(client))
-> +			XDNA_WARN(xdna, "PASID not available for pid %d", client->pid);
->   	}
-> -	client->mm = current->mm;
->   	mmgrab(client->mm);
->   	init_srcu_struct(&client->hwctx_srcu);
->   	xa_init_flags(&client->hwctx_xa, XA_FLAGS_ALLOC);
-> @@ -110,14 +132,6 @@ static int amdxdna_drm_open(struct drm_device *ddev, struct drm_file *filp)
->   
->   	XDNA_DBG(xdna, "pid %d opened", client->pid);
->   	return 0;
-> -
-> -unbind_sva:
-> -	if (!IS_ERR_OR_NULL(client->sva))
-> -		iommu_sva_unbind_device(client->sva);
-> -failed:
-> -	kfree(client);
-> -
-> -	return ret;
->   }
->   
->   static void amdxdna_client_cleanup(struct amdxdna_client *client)
-> @@ -131,11 +145,8 @@ static void amdxdna_client_cleanup(struct amdxdna_client *client)
->   		drm_gem_object_put(to_gobj(client->dev_heap));
->   
->   	mutex_destroy(&client->mm_lock);
-> -
-> -	if (!IS_ERR_OR_NULL(client->sva))
-> -		iommu_sva_unbind_device(client->sva);
->   	mmdrop(client->mm);
-> -
-> +	amdxdna_sva_fini(client);
->   	kfree(client);
->   }
->   
-> @@ -242,15 +253,17 @@ static void amdxdna_show_fdinfo(struct drm_printer *p, struct drm_file *filp)
->   
->   	/*
->   	 * Note for driver specific BO memory usage stat.
-> -	 * Total memory alloc = amdxdna-internal-alloc + amdxdna-external-alloc
-> +	 * Total memory in use = amdxdna-internal-alloc + amdxdna-external-alloc, which
-> +	 * includes both imported and created BOs. To avoid double counts, it includes
-> +	 * HEAP BO, but not DEV BO. DEV BO is counted by amdxdna-heap-alloc.
->   	 */
->   	drm_fdinfo_print_size(p, drv_name, "heap", "alloc", heap_usage);
->   	drm_fdinfo_print_size(p, drv_name, "internal", "alloc", internal_usage);
->   	drm_fdinfo_print_size(p, drv_name, "external", "alloc", external_usage);
->   	/*
->   	 * Note for DRM standard BO memory stat.
-> -	 * drm-total-memory counts both DEV BO and HEAP BO
-> -	 * drm-shared-memory counts BO imported
-> +	 * drm-total-memory counts both DEV BO and HEAP BO. The DEV BO size is double counted.
-> +	 * drm-shared-memory counts BO shared with other processes/devices.
->   	 */
->   	drm_show_memory_stats(p, filp);
->   }
-> @@ -299,25 +312,38 @@ amdxdna_get_dev_info(struct pci_dev *pdev)
->   	return NULL;
->   }
->   
-> +static void amdxdna_xdna_drm_release(struct drm_device *drm, void *res)
-> +{
-> +	struct amdxdna_dev *xdna = res;
-> +
-> +	amdxdna_carveout_fini(xdna);
-> +}
-> +
->   static int amdxdna_probe(struct pci_dev *pdev, const struct pci_device_id *id)
->   {
->   	struct device *dev = &pdev->dev;
->   	struct amdxdna_dev *xdna;
-> +	struct drm_device *ddev;
->   	int ret;
->   
->   	xdna = devm_drm_dev_alloc(dev, &amdxdna_drm_drv, typeof(*xdna), ddev);
->   	if (IS_ERR(xdna))
->   		return PTR_ERR(xdna);
-> +	ddev = &xdna->ddev;
->   
->   	xdna->dev_info = amdxdna_get_dev_info(pdev);
->   	if (!xdna->dev_info)
->   		return -ENODEV;
->   
-> -	drmm_mutex_init(&xdna->ddev, &xdna->dev_lock);
-> +	drmm_mutex_init(ddev, &xdna->dev_lock);
->   	init_rwsem(&xdna->notifier_lock);
->   	INIT_LIST_HEAD(&xdna->client_list);
->   	pci_set_drvdata(pdev, xdna);
->   
-> +	ret = drmm_add_action(ddev, amdxdna_xdna_drm_release, xdna);
-> +	if (ret)
-> +		return ret;
-> +
->   	if (IS_ENABLED(CONFIG_LOCKDEP)) {
->   		fs_reclaim_acquire(GFP_KERNEL);
->   		might_lock(&xdna->notifier_lock);
-> @@ -348,12 +374,13 @@ static int amdxdna_probe(struct pci_dev *pdev, const struct pci_device_id *id)
->   		goto failed_dev_fini;
->   	}
->   
-> -	ret = drm_dev_register(&xdna->ddev, 0);
-> +	ret = drm_dev_register(ddev, 0);
->   	if (ret) {
->   		XDNA_ERR(xdna, "DRM register failed, ret %d", ret);
->   		goto failed_sysfs_fini;
->   	}
->   
-> +	amdxdna_debugfs_init(xdna);
->   	return 0;
->   
->   failed_sysfs_fini:
-> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.h b/drivers/accel/amdxdna/amdxdna_pci_drv.h
-> index bdd0dc83f92e..b1548cf16f59 100644
-> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.h
-> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.h
-> @@ -104,6 +104,8 @@ struct amdxdna_fw_ver {
->   	u32 build;
->   };
->   
-> +struct amdxdna_carveout;
-> +
->   struct amdxdna_dev {
->   	struct drm_device		ddev;
->   	struct amdxdna_dev_hdl		*dev_handle;
-> @@ -121,6 +123,8 @@ struct amdxdna_dev {
->   	struct iova_domain		iovad;
->   	/* Accurate board name queried from firmware, or default_vbnv as fallback */
->   	const char			*vbnv;
-> +
-> +	struct amdxdna_carveout		*carveout;
->   };
->   
->   /*
-> @@ -172,11 +176,11 @@ void amdxdna_sysfs_fini(struct amdxdna_dev *xdna);
->   
->   int amdxdna_iommu_init(struct amdxdna_dev *xdna);
->   void amdxdna_iommu_fini(struct amdxdna_dev *xdna);
-> -int amdxdna_iommu_map_bo(struct amdxdna_dev *xdna, struct amdxdna_gem_obj *abo);
-> -void amdxdna_iommu_unmap_bo(struct amdxdna_dev *xdna, struct amdxdna_gem_obj *abo);
->   void *amdxdna_iommu_alloc(struct amdxdna_dev *xdna, size_t size, dma_addr_t *dma_addr);
->   void amdxdna_iommu_free(struct amdxdna_dev *xdna, size_t size,
->   			void *cpu_addr, dma_addr_t dma_addr);
-> +int amdxdna_dma_map_bo(struct amdxdna_dev *xdna, struct amdxdna_gem_obj *abo);
-> +void amdxdna_dma_unmap_bo(struct amdxdna_dev *xdna, struct amdxdna_gem_obj *abo);
->   
->   static inline bool amdxdna_iova_on(struct amdxdna_dev *xdna)
->   {
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index e578417a4949..727281fbef36 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -5,6 +5,7 @@
+ #include "msm_gem.h"
+ #include "msm_mmu.h"
+ #include "msm_gpu_trace.h"
++#include "msm_perfcntr.h"
+ #include "a6xx_gpu.h"
+ #include "a6xx_gmu.xml.h"
+ 
+@@ -2637,6 +2638,20 @@ static struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
+ 	adreno_gpu = &a6xx_gpu->base;
+ 	gpu = &adreno_gpu->base;
+ 
++	if ((ADRENO_6XX_GEN1 <= config->info->family) &&
++	    (config->info->family <= ADRENO_6XX_GEN4)) {
++		gpu->perfcntr_groups = a6xx_perfcntr_groups;
++		gpu->num_perfcntr_groups = a6xx_num_perfcntr_groups;
++	} else if ((ADRENO_7XX_GEN1 <= config->info->family) &&
++		   (config->info->family <= ADRENO_7XX_GEN3)) {
++		gpu->perfcntr_groups = a7xx_perfcntr_groups;
++		gpu->num_perfcntr_groups = a7xx_num_perfcntr_groups;
++	} else if ((ADRENO_8XX_GEN1 <= config->info->family) &&
++		   (config->info->family <= ADRENO_8XX_GEN2)) {
++		gpu->perfcntr_groups = a8xx_perfcntr_groups;
++		gpu->num_perfcntr_groups = a8xx_num_perfcntr_groups;
++	}
++
+ 	mutex_init(&a6xx_gpu->gmu.lock);
+ 	spin_lock_init(&a6xx_gpu->aperture_lock);
+ 
+diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
+index 78e1478669be..8c08dc065372 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.h
++++ b/drivers/gpu/drm/msm/msm_gpu.h
+@@ -24,6 +24,7 @@ struct msm_gem_submit;
+ struct msm_gem_vm_log_entry;
+ struct msm_gpu_state;
+ struct msm_context;
++struct msm_perfcntr_group;
+ 
+ struct msm_gpu_config {
+ 	const char *ioname;
+@@ -262,6 +263,9 @@ struct msm_gpu {
+ 	bool allow_relocs;
+ 
+ 	struct thermal_cooling_device *cooling;
++
++	const struct msm_perfcntr_group *perfcntr_groups;
++	unsigned num_perfcntr_groups;
+ };
+ 
+ static inline struct msm_gpu *dev_to_gpu(struct device *dev)
+diff --git a/drivers/gpu/drm/msm/msm_perfcntr.h b/drivers/gpu/drm/msm/msm_perfcntr.h
+index 305dcde15c5e..64a5d29feba1 100644
+--- a/drivers/gpu/drm/msm/msm_perfcntr.h
++++ b/drivers/gpu/drm/msm/msm_perfcntr.h
+@@ -35,6 +35,15 @@ struct msm_perfcntr_group {
+    const struct msm_perfcntr_counter *counters;
+ };
+ 
++extern const struct msm_perfcntr_group a6xx_perfcntr_groups[];
++extern const unsigned a6xx_num_perfcntr_groups;
++
++extern const struct msm_perfcntr_group a7xx_perfcntr_groups[];
++extern const unsigned a7xx_num_perfcntr_groups;
++
++extern const struct msm_perfcntr_group a8xx_perfcntr_groups[];
++extern const unsigned a8xx_num_perfcntr_groups;
++
+ #define GROUP(_name, _pipe, _counters, _countables) {                          \
+       .name = _name,                                                           \
+       .pipe = _pipe,                                                           \
+-- 
+2.54.0
 
