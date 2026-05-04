@@ -4,65 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48D15CD3430
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 15:19:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 708A8FF885A
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 15:22:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9ECA010E74B;
-	Mon,  4 May 2026 15:19:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BC9A10E3EE;
+	Mon,  4 May 2026 15:22:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bfTnUnTg";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="GHXtwh5T";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1C9910E3EE;
- Mon,  4 May 2026 15:19:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777907989; x=1809443989;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=WG+XGX1LKFO8gDnjpvg3aRGIaiaGPdZCSu/I8N1JFYc=;
- b=bfTnUnTgUMN4Vvg5Z6daigqPA5i98o//y+AGkfBFeBbiC2IN88MEZrlD
- 8lIexOtl/P0w1ifF5RicHiv/GHwb/j7bu+kv8csUL5gGlZjwYnclRzXPh
- /wNJ5S1o6S9MIQBJXYScm22spEBenrhYUsaNNhXrAtqlZbK4Ogdr+hXqA
- TMUEcZHZWo0JdTQ7jGpMlN4F8ftYHjHLqcIs/fa5uqixZkvMH6DJuxw11
- GFp/lE08A0Fx4O4Vc2IOqUm9/sjEOebVkBaNbdob+OMBYlRnhGBvtExwI
- kKnYFeHltttMLDUWgMVPkKeV3RM1EcjZnsrwfoZj+cYXQvvsWEW+UF6Y4 g==;
-X-CSE-ConnectionGUID: 4YNzAy85RR+ltrsyYDANCQ==
-X-CSE-MsgGUID: kkWzHnhWT22LrHl2P5Mcsg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11776"; a="82616899"
-X-IronPort-AV: E=Sophos;i="6.23,215,1770624000"; d="scan'208";a="82616899"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 May 2026 08:19:48 -0700
-X-CSE-ConnectionGUID: gLwZablRQHyBsU8n6pso0A==
-X-CSE-MsgGUID: OtqIoPyqQ7OXKxsCvujbWQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,215,1770624000"; d="scan'208";a="240530954"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO [10.245.245.197])
- ([10.245.245.197])
- by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 May 2026 08:19:44 -0700
-Message-ID: <017d25edabb2e4f60da7421278bffa20f51b0142.camel@linux.intel.com>
-Subject: Re: [PATCH] drm/ttm/pool: back up at native page order
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,  Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann	 <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter	 <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Date: Mon, 04 May 2026 17:19:42 +0200
-In-Reply-To: <afitheEYRoy7VoPu@gsse-cloud1.jf.intel.com>
-References: <20260504042619.2896273-1-matthew.brost@intel.com>
- <58ea6837e2aa808bf9f3ba304395058a2d08b8d0.camel@linux.intel.com>
- <afitheEYRoy7VoPu@gsse-cloud1.jf.intel.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6321910E3EE;
+ Mon,  4 May 2026 15:22:29 +0000 (UTC)
+Received: from killaraus.ideasonboard.com
+ (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 183FC175;
+ Mon,  4 May 2026 17:22:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1777908146;
+ bh=zqH6L+EG9wUTO7Qoyz4neBCPa6T/Ac/tjYvnTvOAB7Y=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=GHXtwh5T5BDC8Q9lFPK/5JEuWFjkhO2o8t8eJUO5EnQigc23poa+JjvgYhTAKT0fZ
+ 2WAfqiKfoaQQcpeFgC0FcTCWmZWo3te0QcHcWFshgYdHWgitgFsqCdYFkqpJQIapQY
+ LQ0xWLVZ2ygWK/cNBfWeyY0dm7tXSECuDWeQGXVI=
+Date: Mon, 4 May 2026 18:22:26 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, John Stultz <jstultz@google.com>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Michal Simek <michal.simek@amd.com>, Hui Pu <Hui.Pu@gehealthcare.com>,
+ Ian Ray <ian.ray@gehealthcare.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org,
+ Biju Das <biju.das.jz@bp.renesas.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: [PATCH v4 08/11] drm/bridge: adv7511: switch to
+ of_drm_get_bridge_by_endpoint()
+Message-ID: <20260504152226.GB1455860@killaraus.ideasonboard.com>
+References: <20260504-drm-bridge-alloc-getput-panel_or_bridge-v4-0-b578c3daaf10@bootlin.com>
+ <20260504-drm-bridge-alloc-getput-panel_or_bridge-v4-8-b578c3daaf10@bootlin.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260504-drm-bridge-alloc-getput-panel_or_bridge-v4-8-b578c3daaf10@bootlin.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,410 +77,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 2026-05-04 at 07:30 -0700, Matthew Brost wrote:
-> On Mon, May 04, 2026 at 10:35:23AM +0200, Thomas Hellstr=C3=B6m wrote:
-> > Hi, Matt,
-> >=20
-> > On Sun, 2026-05-03 at 21:26 -0700, Matthew Brost wrote:
-> > > ttm_pool_split_for_swap() splits high-order pool pages into
-> > > order-0
-> > > pages during backup so each 4K page can be released to the system
-> > > as
-> > > soon as it has been written to shmem. While this minimizes the
-> > > allocator's working set during reclaim, it actively fragments
-> > > memory:
-> > > every TTM-backed compound page that the shrinker touches is
-> > > shattered
-> > > into order-0 pages, even when the rest of the system would prefer
-> > > that
-> > > the high-order block stay intact. Under sustained kswapd pressure
-> > > this
-> > > is enough to drive other parts of MM into recovery loops from
-> > > which
-> > > they cannot easily escape, because the memory TTM just freed is
-> > > no
-> > > longer contiguous.
-> > >=20
-> > > Stop splitting on the backup path and back up each compound
-> > > atomically
-> > > at its native order in ttm_pool_backup():
-> > >=20
-> > > =C2=A0 - For each non-handle slot, read the order from the head page
-> > > and
-> > > =C2=A0=C2=A0=C2=A0 back up all 1<<order subpages to consecutive shmem=
- indices,
-> > > =C2=A0=C2=A0=C2=A0 writing the resulting handles into tt->pages[] as =
-we go.
-> > > =C2=A0 - On any per-subpage backup failure, drop the handles we just
-> > > wrote
-> > > =C2=A0=C2=A0=C2=A0 for this compound and restore the original page po=
-inters, so
-> > > the
-> > > =C2=A0=C2=A0=C2=A0 compound is left fully intact and may be retried l=
-ater.
-> > > shrunken
-> > > =C2=A0=C2=A0=C2=A0 is only incremented once the whole compound succee=
-ds.
-> > > =C2=A0 - On success, the compound is freed once at its native order.
-> > > No
-> > > =C2=A0=C2=A0=C2=A0 split_page(), no per-4K refcount juggling, no frag=
-mentation
-> > > =C2=A0=C2=A0=C2=A0 introduced from this path.
-> > > =C2=A0 - Slots that already hold a backup handle from a previous
-> > > partial
-> > > =C2=A0=C2=A0=C2=A0 attempt are skipped. A compound that would extend =
-past a
-> > > =C2=A0=C2=A0=C2=A0 fault-injection-truncated num_pages is skipped rat=
-her than
-> > > split.
-> > >=20
-> > > The restore-side leftover-page branch in
-> > > ttm_pool_restore_commit() is
-> > > left as-is for now: that path can still split a previously-
-> > > retained
-> > > compound, but in practice it is unreachable under realistic
-> > > workloads
-> > > (per profiling we have not been able to trigger it), so it is not
-> > > worth complicating the restore state machine to avoid the split
-> > > there.
-> > > If it ever becomes a problem in practice it can be addressed
-> > > independently.
-> > >=20
-> > > ttm_pool_split_for_swap() itself is retained for the restore
-> > > path's
-> > > sole remaining caller. The DMA-mapped pre-backup unmap loop, the
-> > > purge path, ttm_pool_free_*, and ttm_pool_unmap_and_free()
-> > > already
-> > > operate at native order and are unchanged.
-> >=20
-> > This split is intentional in that without it, we'd need to first
-> > allocate 1 << order pages from the kernel's *reserves* in order to
-> > later free 2 << order pages, making the shrinker much more likely
-> > to
-> > fail in true OOM situations. (I believe this was one of the reasons
-> > the
-> > initial shrinker attempts from AMD didn't work as expected).
-> >=20
->=20
-> So where exactly is allocation done=E2=80=94shmem_read_folio_gfp or
-> shmem_writeout? I did notice and called out, in the commit message,
-> that
-> those interfaces are a bit confusing with respect to whether they
-> actually work with higher-order allocations.
+Hi Luca,
 
-The interesting one is in shmem_read_folio_gfp(). This used to be 4K-
-page only (but i915 had some tricks to make this allocate 2M folios).
-My understanding (to be verified) is that this recently was changed to
-allow 2M by default, and also to allow 2M folio writeout. Writeout
-moves the folio from the page-cache to the swap-cache and then starts a
-fs writeout operation. Pages are put back on the LRU and are freed when
-writeout completes.
+Thank you for the patch.
 
-As I understand it, shmem_read_folio_gfp() will also potentially
-allocate memory for the shmem object radix tree.
+On Mon, May 04, 2026 at 12:45:11PM +0200, Luca Ceresoli wrote:
+> This driver calls drm_of_find_panel_or_bridge() with a NULL pointer in the
+> @panel parameter, thus using a reduced feature set of that function.
+> Replace this call with the simpler of_drm_get_bridge_by_endpoint().
+> 
+> Since of_drm_get_bridge_by_endpoint() increases the refcount of the
+> returned bridge, ensure it is put on removal. To achieve this, instead of
+> adding an explicit drm_bridge_put(), migrate to the bridge::next_bridge
+> pointer which is automatically put when the bridge is eventually freed.
+> 
+> Tested-by: Biju Das <biju.das.jz@bp.renesas.com>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
->=20
-> Also, FWIW, this patch by itself seems to greatly help with
-> fragmentation, and I haven=E2=80=99t seen the OOM killer kick in. I=E2=80=
-=99ve done
-> things like running WebGL in a bunch of Chrome tabs, then running
-> bonnie++ (which basically uses all memory), or running IGTs, which
-> also
-> use all available memory. Based on that, I=E2=80=99m leaning toward this
-> patch
-> alone working as designed.
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 
-Good to know. Perhaps it would feel safer if we completely restrict the
-xe TTM order to 2M and below (if we haven't already).
+> ---
+> Changes in v3:
+> - fix ERR_PTR deref when -ENODEV is returned
+> ---
+>  drivers/gpu/drm/bridge/adv7511/adv7511.h     |  1 -
+>  drivers/gpu/drm/bridge/adv7511/adv7511_drv.c | 15 +++++++++------
+>  2 files changed, 9 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511.h b/drivers/gpu/drm/bridge/adv7511/adv7511.h
+> index 8be7266fd4f4..12c95198d9a4 100644
+> --- a/drivers/gpu/drm/bridge/adv7511/adv7511.h
+> +++ b/drivers/gpu/drm/bridge/adv7511/adv7511.h
+> @@ -354,7 +354,6 @@ struct adv7511 {
+>  	enum drm_connector_status status;
+>  	bool powered;
+>  
+> -	struct drm_bridge *next_bridge;
+>  	struct drm_display_mode curr_mode;
+>  
+>  	unsigned int f_tmds;
+> diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
+> index f318080f1139..8304978535e4 100644
+> --- a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
+> +++ b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
+> @@ -849,8 +849,8 @@ static int adv7511_bridge_attach(struct drm_bridge *bridge,
+>  	struct adv7511 *adv = bridge_to_adv7511(bridge);
+>  	int ret = 0;
+>  
+> -	if (adv->next_bridge) {
+> -		ret = drm_bridge_attach(encoder, adv->next_bridge, bridge,
+> +	if (adv->bridge.next_bridge) {
+> +		ret = drm_bridge_attach(encoder, adv->bridge.next_bridge, bridge,
+>  					flags | DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+>  		if (ret)
+>  			return ret;
+> @@ -1249,10 +1249,13 @@ static int adv7511_probe(struct i2c_client *i2c)
+>  
+>  	memset(&link_config, 0, sizeof(link_config));
+>  
+> -	ret = drm_of_find_panel_or_bridge(dev->of_node, 1, -1, NULL,
+> -					  &adv7511->next_bridge);
+> -	if (ret && ret != -ENODEV)
+> -		return ret;
+> +	adv7511->bridge.next_bridge = of_drm_get_bridge_by_endpoint(dev->of_node, 1, -1);
+> +	if (IS_ERR(adv7511->bridge.next_bridge)) {
+> +		if (PTR_ERR(adv7511->bridge.next_bridge) == -ENODEV)
+> +			adv7511->bridge.next_bridge = NULL;
+> +		else
+> +			return PTR_ERR(adv7511->bridge.next_bridge);
+> +	}
+>  
+>  	if (adv7511->info->link_config)
+>  		ret = adv7511_parse_dt(dev->of_node, &link_config);
 
->=20
-> >=20
-> > I believe the solution here is in the ttm_backup layer, We should
-> > introduce a ttm_backup_backup_folio function and either insert the
-> > page
->=20
-> I think something like ttm_backup_backup_folio() makes sense, again I
-> called out in commit message.
->=20
-> > directly into the shmem object (zero-copy) or even directly into
-> > the
-> > swap cache. Then we should completely restrict xe page allocations
-> > to
-> > only allow THP and PAGE_SIZE (Possibly 64K pages, but they'd either
-> > need a split or perhaps they are small enough to be backed-up using
->=20
-> Yes, I did raise something like with Christian too [1]. IMO the
-> driver
-> should be able dictate to TTM the orders it likely to allocate at.
->=20
-> [1]
-> https://patchwork.freedesktop.org/patch/716362/?series=3D164338&rev=3D1
->=20
-> > one-go copy, similar to this patch, but in the backup layer). FWIW
-> > at
-> > the time the shrinker was put together, AFAIU SHMEM split large
-> > pages
-> > on swapping anyway, but since that appears to have changed, we need
-> > to
-> > catch up.
-> >=20
-> > Inserting directly into the swap-cache WIP is here, rebased on a
-> > recent
-> > kernel (This is an old idea that has actually been out on RFC
-> > once).
-> > This needs a core mm bugfix (also in the branch), but I'm not sure
-> > the
-> > swap cache is the right place to do this, at least not if we don't
-> > immediately schedule a write to disc, it looks like current users
-> > don't
-> > want to keep pages in swap-cache for very long (related to that
-> > bug)
-> > https://gitlab.freedesktop.org/thomash/xe-vibe/-/commits/thp_swapping2
-> >=20
-> > Inserting directly into shmem (A fairly recent idea that is mostly
-> > untested)
-> > https://gitlab.freedesktop.org/thomash/xe-vibe/-/commits/insert_shmem?r=
-ef_type=3Dheads
-> > Since SHMEM schedules writeout immediately when pages are moved to
-> > the
-> > swap-cache, it's not as susceptible to the above bug, since swap-
-> > cache
-> > entries are not typically held for folios for which we haven't
-> > scheduled writeout.
-> >=20
->=20
-> Let me take a look at these branches today.
->=20
-> > We should try to solicit feedback from mm people on these two
-> > approaches.
->=20
-> +1, but I think we should stop here if this patch, as=E2=80=91is, is OK t=
-o go
-> in=E2=80=94ideally as a fix=E2=80=94since, based on my testing, it seems =
-to help
-> quite a
-> bit and current upstream shrinker is badly broken.
+-- 
+Regards,
 
-Well I think the problem with testing shrinking behavior is that we
-haven't had good test-cases, so we don't really know if this change
-would break something that currently works. In the shmem documentation
-there's even some wording about concerns that the shmem radix tree
-allocations could accumulate and drain the kernel reserves.=C2=A0
-
-According to Google AI, the kernel reserves are around 2MiB times the
-number of zones, controlled by vm.min_free_kbytes.
-
-But I think if we would push this or something similar but then we
-should=20
-
-*) Move the ttm_backup interface to be folio-based.
-*) Restrict order to 2M
-*) Craft a test-case that triggers a shmem_read_folio_gfp() error in
-the backup path and verify that they do behave gracefully.
-
-And then as follow-ups:
-
-a) Investigate direct shmem insertion.
-b) Address any remaining flaws from partially backed-up bos.
-c) Cgroups integration, following up on airlied's work ensuring that
-the evictee is charged for the shmem memory.
-
-
-Thanks,
-Thomas
-
-
-
-> Matt
->=20
-> >=20
-> > /Thomas
-> >=20
-> > >=20
-> > > Cc: Christian Koenig <christian.koenig@amd.com>
-> > > Cc: Huang Rui <ray.huang@amd.com>
-> > > Cc: Matthew Auld <matthew.auld@intel.com>
-> > > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> > > Cc: Maxime Ripard <mripard@kernel.org>
-> > > Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> > > Cc: David Airlie <airlied@gmail.com>
-> > > Cc: Simona Vetter <simona@ffwll.ch>
-> > > Cc: dri-devel@lists.freedesktop.org
-> > > Cc: linux-kernel@vger.kernel.org
-> > > Cc: stable@vger.kernel.org
-> > > Fixes: b63d715b8090 ("drm/ttm/pool, drm/ttm/tt: Provide a helper
-> > > to
-> > > shrink pages")
-> > > Suggested-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com=
->
-> > > Assisted-by: Claude:claude-opus-4.6
-> > > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> > >=20
-> > > ---
-> > >=20
-> > > A follow-up should attempt writeback to shmem at folio order as
-> > > well,
-> > > but the API for doing so is unclear and may be incomplete.
-> > >=20
-> > > This patch is related to the pending series [1] and significantly
-> > > reduces the likelihood of Xe entering a kswapd loop under
-> > > fragmentation.
-> > > The kswapd =E2=86=92 shrinker =E2=86=92 Xe shrinker =E2=86=92 TTM bac=
-kup path is still
-> > > exercised; however, with this change the backup path no longer
-> > > worsens
-> > > fragmentation, which previously amplified reclaim pressure and
-> > > reinforced the kswapd loop.
-> > >=20
-> > > Nonetheless, the pathological case that [1] aims to address still
-> > > exists
-> > > and requires a proper solution. Even with this patch, a kswapd
-> > > loop
-> > > due
-> > > to severe fragmentation can still be triggered, although it is
-> > > now
-> > > substantially harder to reproduce.
-> > >=20
-> > > [1] https://patchwork.freedesktop.org/series/165330/
-> > > ---
-> > > =C2=A0drivers/gpu/drm/ttm/ttm_pool.c | 71 +++++++++++++++++++++++++++=
--
-> > > ----
-> > > --
-> > > =C2=A01 file changed, 57 insertions(+), 14 deletions(-)
-> > >=20
-> > > diff --git a/drivers/gpu/drm/ttm/ttm_pool.c
-> > > b/drivers/gpu/drm/ttm/ttm_pool.c
-> > > index 278bbe7a11ad..5ead0aba4bb7 100644
-> > > --- a/drivers/gpu/drm/ttm/ttm_pool.c
-> > > +++ b/drivers/gpu/drm/ttm/ttm_pool.c
-> > > @@ -1036,12 +1036,11 @@ long ttm_pool_backup(struct ttm_pool
-> > > *pool,
-> > > struct ttm_tt *tt,
-> > > =C2=A0{
-> > > =C2=A0	struct file *backup =3D tt->backup;
-> > > =C2=A0	struct page *page;
-> > > -	unsigned long handle;
-> > > =C2=A0	gfp_t alloc_gfp;
-> > > =C2=A0	gfp_t gfp;
-> > > =C2=A0	int ret =3D 0;
-> > > =C2=A0	pgoff_t shrunken =3D 0;
-> > > -	pgoff_t i, num_pages;
-> > > +	pgoff_t i, num_pages, npages;
-> > > =C2=A0
-> > > =C2=A0	if (WARN_ON(ttm_tt_is_backed_up(tt)))
-> > > =C2=A0		return -EINVAL;
-> > > @@ -1097,28 +1096,72 @@ long ttm_pool_backup(struct ttm_pool
-> > > *pool,
-> > > struct ttm_tt *tt,
-> > > =C2=A0	if (IS_ENABLED(CONFIG_FAULT_INJECTION) &&
-> > > should_fail(&backup_fault_inject, 1))
-> > > =C2=A0		num_pages =3D DIV_ROUND_UP(num_pages, 2);
-> > > =C2=A0
-> > > -	for (i =3D 0; i < num_pages; ++i) {
-> > > -		s64 shandle;
-> > > +	for (i =3D 0; i < num_pages; i +=3D npages) {
-> > > +		unsigned int order;
-> > > +		pgoff_t j;
-> > > =C2=A0
-> > > +		npages =3D 1;
-> > > =C2=A0		page =3D tt->pages[i];
-> > > =C2=A0		if (unlikely(!page))
-> > > =C2=A0			continue;
-> > > =C2=A0
-> > > -		ttm_pool_split_for_swap(pool, page);
-> > > +		/* Already-handled entry from a previous
-> > > attempt. */
-> > > +		if
-> > > (unlikely(ttm_backup_page_ptr_is_handle(page)))
-> > > +			continue;
-> > > =C2=A0
-> > > -		shandle =3D ttm_backup_backup_page(backup, page,
-> > > flags->writeback, i,
-> > > -						 gfp,
-> > > alloc_gfp);
-> > > -		if (shandle < 0) {
-> > > -			/* We allow partially shrunken tts */
-> > > -			ret =3D shandle;
-> > > +		order =3D ttm_pool_page_order(pool, page);
-> > > +		npages =3D 1UL << order;
-> > > +
-> > > +		/*
-> > > +		 * Back up the compound atomically at its native
-> > > order. If
-> > > +		 * fault injection truncated num_pages mid-
-> > > compound,
-> > > skip
-> > > +		 * the partial tail rather than splitting.
-> > > +		 */
-> > > +		if (unlikely(i + npages > num_pages))
-> > > =C2=A0			break;
-> > > +
-> > > +		for (j =3D 0; j < npages; ++j) {
-> > > +			unsigned long handle;
-> > > +			s64 shandle;
-> > > +
-> > > +			if (IS_ENABLED(CONFIG_FAULT_INJECTION)
-> > > &&
-> > > +			=C2=A0=C2=A0=C2=A0 should_fail(&backup_fault_inject,
-> > > 1))
-> > > +				shandle =3D -1;
-> > > +			else
-> > > +				shandle =3D
-> > > ttm_backup_backup_page(backup, page + j,
-> > > +							=09
-> > > flags->writeback,
-> > > +							=09
-> > > i +
-> > > j, gfp,
-> > > +							=09
-> > > alloc_gfp);
-> > > +
-> > > +			if (unlikely(shandle < 0)) {
-> > > +				pgoff_t k;
-> > > +
-> > > +				ret =3D shandle;
-> > > +				/*
-> > > +				 * Roll back: drop the handles
-> > > we
-> > > just wrote
-> > > +				 * and restore the original page
-> > > pointers so
-> > > +				 * the compound remains intact
-> > > and
-> > > may be
-> > > +				 * retried later.
-> > > +				 */
-> > > +				for (k =3D 0; k < j; ++k) {
-> > > +					handle =3D
-> > > ttm_backup_page_ptr_to_handle(tt->pages[i + k]);
-> > > +					ttm_backup_drop(backup,
-> > > handle);
-> > > +					tt->pages[i + k] =3D page
-> > > + k;
-> > > +				}
-> > > +
-> > > +				goto out;
-> > > +			}
-> > > +			handle =3D shandle;
-> > > +			tt->pages[i + j] =3D
-> > > ttm_backup_handle_to_page_ptr(shandle);
-> > > =C2=A0		}
-> > > -		handle =3D shandle;
-> > > -		tt->pages[i] =3D
-> > > ttm_backup_handle_to_page_ptr(handle);
-> > > -		__free_pages_gpu_account(page, 0, false);
-> > > -		shrunken++;
-> > > +
-> > > +		/* Compound fully backed up; free at native
-> > > order.
-> > > */
-> > > +		page->private =3D 0;
-> > > +		__free_pages_gpu_account(page, order, false);
-> > > +		shrunken +=3D npages;
-> > > =C2=A0	}
-> > > =C2=A0
-> > > +out:
-> > > =C2=A0	return shrunken ? shrunken : ret;
-> > > =C2=A0}
-> > > =C2=A0
+Laurent Pinchart
