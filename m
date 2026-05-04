@@ -4,69 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF821FF885A
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 10:46:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9698DFF885A
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 11:02:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27BA910E668;
-	Mon,  4 May 2026 10:46:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04E1F10E21D;
+	Mon,  4 May 2026 11:02:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="JISm6dvD";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="d0k7a8+N";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DF6610E645;
- Mon,  4 May 2026 10:46:10 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 027001A3506;
- Mon,  4 May 2026 10:46:09 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id C95975FD5F;
- Mon,  4 May 2026 10:46:08 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 581A011AD26A1; 
- Mon,  4 May 2026 12:46:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1777891567; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=pOOUC/6IIIksC8MXl8RMQVMT+zs6jAuaGxEXoJvROdk=;
- b=JISm6dvDSmcY3CpEyUuFv4a2Up2zoXD5vJWycIpCXdTHAp80I46e47C8cVHESIp1rU5tFp
- fD1oQAdRo4EzdrtlRTpTtYtmOLqTL4IGC5vAMSNwjhhk+U5iAvtPBKb6EfKdU0SYMWDTcR
- nzEGdEuW9+wMflwMH6/pejXn6zC6iw7DsvNtqvcZiVoJ9zWRvs68Qn7LMyyObxSBkx5fRA
- S9RGL2BC6PQfi9fPfhGkGbh/ZvsjnOLOToJxRnHTwhT0nMdQObw+tDy1bOCviNROjd9TaN
- 674tABfuAW1qCWcujUOO4R6gQGTt97A/CkyEduBlNpcl1Eb4aOJAj8j9HgI8gA==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Mon, 04 May 2026 12:45:14 +0200
-Subject: [PATCH v4 11/11] drm: of: forbid bridge-only calls to
- drm_of_find_panel_or_bridge()
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14C7D10E21D
+ for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 11:02:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1777892540;
+ bh=YIIRoU83Rvr3BCz4suh5d1PWHieSo4Fl6v6kR4sQ0xY=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=d0k7a8+NIU0ryK+11CcaVuBa37YTL3cIu2yOxFfg6a3c/mkvUhUabWhh2YMtA4CfJ
+ Rgd4SwQeLlsh8FbuKZoV1HhaPv9lIo+hz5LWtnWSubjQ1iPOV0l4wCEvD+c2VoAfl+
+ JkRk6Wjc8CsQ/EDE0gTJwXYa6/XHBOYaobaP5OibB84E0vFffwfYdP1knodfhN7FUo
+ AmLNsTAL9On7DsyOCHPQxbTr6IvEOAn5xkmc9NUmu3G2Pi0pRsaSVonw/rtER9UVkl
+ 0Vr7SHWcxcK7tGbdzl9VP6jwTFsSWH5NgSfDiXBSiD/eVAxOmWjwwBGsSBrng36YPw
+ 9sB5TKbMNPhVA==
+Received: from fedora (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 5477017E124B;
+ Mon,  4 May 2026 13:02:20 +0200 (CEST)
+Date: Mon, 4 May 2026 13:02:15 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Steven Price <steven.price@arm.com>
+Cc: Liviu Dudau <liviu.dudau@arm.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 08/10] drm/panthor: Automatically enable interrupts in
+ panthor_fw_wait_acks()
+Message-ID: <20260504130215.0222b3bd@fedora>
+In-Reply-To: <446e9d1f-b6be-42fa-bd2b-f4fcbc130f70@arm.com>
+References: <20260429-panthor-signal-from-irq-v1-0-4b92ae4142d2@collabora.com>
+ <20260429-panthor-signal-from-irq-v1-8-4b92ae4142d2@collabora.com>
+ <446e9d1f-b6be-42fa-bd2b-f4fcbc130f70@arm.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260504-drm-bridge-alloc-getput-panel_or_bridge-v4-11-b578c3daaf10@bootlin.com>
-References: <20260504-drm-bridge-alloc-getput-panel_or_bridge-v4-0-b578c3daaf10@bootlin.com>
-In-Reply-To: <20260504-drm-bridge-alloc-getput-panel_or_bridge-v4-0-b578c3daaf10@bootlin.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Sumit Semwal <sumit.semwal@linaro.org>, John Stultz <jstultz@google.com>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Michal Simek <michal.simek@amd.com>
-Cc: Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- linux-arm-kernel@lists.infradead.org, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,79 +68,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Up to now drm_of_find_panel_or_bridge() can be called with a bridge pointer
-only, a panel pointer only, or both a bridge and a panel pointers. The
-logic to handle all the three cases is somewhat complex to read however.
+On Fri, 1 May 2026 15:20:17 +0100
+Steven Price <steven.price@arm.com> wrote:
 
-Now all bridge-only callers have been converted to
-of_drm_get_bridge_by_endpoint(), which is simpler and handles bridge
-refcounting. So forbid new bridge-only users by mandating a non-NULL panel
-pointer in the docs and in the sanity checks along with a warning.
+> On 29/04/2026 10:38, Boris Brezillon wrote:
+> > Rather than assuming an interrupt is always expected for request
+> > acks, temporarily enable the relevant interrupts when the polling-wait
+> > failed. This should hopefully reduce the number of interrupts the CPU
+> > has to process.
+> > 
+> > Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>  
+> 
+> It seems to work, although I'm lightly uneasy about this because I'm not
+> entirely sure whether the FW will immediately see the updates to
+> ack_irq_mask and therefore whether there's a possibility to miss an
+> event and be stuck waiting for the timeout.
+> 
+> Memory models are not my strong point, OpenAI tells me the sequence
+> should be something like:
+> 
+>   scoped_guard(spinlock_irqsave, lock) {
+>   	u32 ack_irq_mask = READ_ONCE(*ack_irq_mask_ptr);
+> 
+>   	WRITE_ONCE(*ack_irq_mask_ptr, ack_irq_mask | req_mask);
+>   }
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
----
- drivers/gpu/drm/drm_of.c | 26 ++++++++++++--------------
- 1 file changed, 12 insertions(+), 14 deletions(-)
+Is this really needed? In which situation would the compiler/CPU decide
+to re-order this read_update_modify sequence?
 
-diff --git a/drivers/gpu/drm/drm_of.c b/drivers/gpu/drm/drm_of.c
-index ef6b09316963..d03ada82eac9 100644
---- a/drivers/gpu/drm/drm_of.c
-+++ b/drivers/gpu/drm/drm_of.c
-@@ -225,15 +225,15 @@ EXPORT_SYMBOL_GPL(drm_of_encoder_active_endpoint);
-  * @np: device tree node containing encoder output ports
-  * @port: port in the device tree node
-  * @endpoint: endpoint in the device tree node
-- * @panel: pointer to hold returned drm_panel
-+ * @panel: pointer to hold returned drm_panel, must not be NULL
-  * @bridge: pointer to hold returned drm_bridge
-  *
-  * Given a DT node's port and endpoint number, find the connected node and
-- * return either the associated struct drm_panel or drm_bridge device. Either
-- * @panel or @bridge must not be NULL.
-+ * return either the associated struct drm_panel or drm_bridge device.
-  *
-  * This function is deprecated and should not be used in new drivers. Use
-- * devm_drm_of_get_bridge() instead.
-+ * of_drm_get_bridge_by_endpoint() instead when not looking for a panel, or
-+ * devm_drm_of_get_bridge() otherwise.
-  *
-  * Returns zero if successful, or one of the standard error codes if it fails.
-  */
-@@ -245,10 +245,10 @@ int drm_of_find_panel_or_bridge(const struct device_node *np,
- 	int ret = -EPROBE_DEFER;
- 	struct device_node *remote;
- 
--	if (!panel && !bridge)
-+	if (WARN_ON(!panel))
- 		return -EINVAL;
--	if (panel)
--		*panel = NULL;
-+
-+	*panel = NULL;
- 
- 	/*
- 	 * of_graph_get_remote_node() produces a noisy error message if port
-@@ -263,13 +263,11 @@ int drm_of_find_panel_or_bridge(const struct device_node *np,
- 	if (!remote)
- 		return -ENODEV;
- 
--	if (panel) {
--		*panel = of_drm_find_panel(remote);
--		if (!IS_ERR(*panel))
--			ret = 0;
--		else
--			*panel = NULL;
--	}
-+	*panel = of_drm_find_panel(remote);
-+	if (!IS_ERR(*panel))
-+		ret = 0;
-+	else
-+		*panel = NULL;
- 
- 	if (bridge) {
- 		if (ret) {
+> 
+>   /*
+>    * The FW interface can be mapped write-combine/Normal-NC.
 
--- 
-2.53.0
+I'm not too sure I see what the non-cached property has to do with it.
+If it was cached we would still need this memory barrier, and in
+addition, we'd need a cache flush if the FW is not IO-coherent.
 
+>Make sure the
+>    * IRQ mask update is visible to the FW before sleeping waiting for
+> the IRQ.
+>    */
+>   wmb();
+> 
+> Which seems plausible. But I've long ago learnt that plausible doesn't
+> mean much when dealing with memory models!
+
+Yeah, I'm not too sure. I was honestly expecting the spinlock guard to
+act as a memory barrier already, but maybe it's not enough.
