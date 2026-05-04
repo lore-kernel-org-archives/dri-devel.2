@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 708A8FF885A
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 15:22:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A38ECD3430
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 15:24:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BC9A10E3EE;
-	Mon,  4 May 2026 15:22:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CB5C10E74E;
+	Mon,  4 May 2026 15:24:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="GHXtwh5T";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="B61SUdKb";
 	dkim-atps=neutral
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6321910E3EE;
- Mon,  4 May 2026 15:22:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF0D610E3F7;
+ Mon,  4 May 2026 15:24:20 +0000 (UTC)
 Received: from killaraus.ideasonboard.com
  (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 183FC175;
- Mon,  4 May 2026 17:22:26 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7D9E7175;
+ Mon,  4 May 2026 17:24:17 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1777908146;
- bh=zqH6L+EG9wUTO7Qoyz4neBCPa6T/Ac/tjYvnTvOAB7Y=;
+ s=mail; t=1777908257;
+ bh=yz5CJzoCekoxmuhkSUxICdRVDMPN012+4TnwLeJXyT0=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=GHXtwh5T5BDC8Q9lFPK/5JEuWFjkhO2o8t8eJUO5EnQigc23poa+JjvgYhTAKT0fZ
- 2WAfqiKfoaQQcpeFgC0FcTCWmZWo3te0QcHcWFshgYdHWgitgFsqCdYFkqpJQIapQY
- LQ0xWLVZ2ygWK/cNBfWeyY0dm7tXSECuDWeQGXVI=
-Date: Mon, 4 May 2026 18:22:26 +0300
+ b=B61SUdKbg+TBoeJcmGjMgIBh7kyNGLwCDoIVmQHw6UmyS2Z3VRmOTu/32ZobUYVGW
+ dbG6Benp8XPSbsjfBi1yDix1qMnHaedC+BVRBFN+KPYfu6fGF3RspbWz7B7ImZAjVX
+ NZ+NnuYkhZh2W4rpi11v3DQfaPbKXmN+hkOONYx8=
+Date: Mon, 4 May 2026 18:24:18 +0300
 From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 To: Luca Ceresoli <luca.ceresoli@bootlin.com>
 Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
@@ -50,18 +50,16 @@ Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org,
- Biju Das <biju.das.jz@bp.renesas.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v4 08/11] drm/bridge: adv7511: switch to
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v4 10/11] drm: zynqmp_dp: switch to
  of_drm_get_bridge_by_endpoint()
-Message-ID: <20260504152226.GB1455860@killaraus.ideasonboard.com>
+Message-ID: <20260504152418.GC1455860@killaraus.ideasonboard.com>
 References: <20260504-drm-bridge-alloc-getput-panel_or_bridge-v4-0-b578c3daaf10@bootlin.com>
- <20260504-drm-bridge-alloc-getput-panel_or_bridge-v4-8-b578c3daaf10@bootlin.com>
+ <20260504-drm-bridge-alloc-getput-panel_or_bridge-v4-10-b578c3daaf10@bootlin.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260504-drm-bridge-alloc-getput-panel_or_bridge-v4-8-b578c3daaf10@bootlin.com>
+In-Reply-To: <20260504-drm-bridge-alloc-getput-panel_or_bridge-v4-10-b578c3daaf10@bootlin.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,7 +79,7 @@ Hi Luca,
 
 Thank you for the patch.
 
-On Mon, May 04, 2026 at 12:45:11PM +0200, Luca Ceresoli wrote:
+On Mon, May 04, 2026 at 12:45:13PM +0200, Luca Ceresoli wrote:
 > This driver calls drm_of_find_panel_or_bridge() with a NULL pointer in the
 > @panel parameter, thus using a reduced feature set of that function.
 > Replace this call with the simpler of_drm_get_bridge_by_endpoint().
@@ -91,65 +89,83 @@ On Mon, May 04, 2026 at 12:45:11PM +0200, Luca Ceresoli wrote:
 > adding an explicit drm_bridge_put(), migrate to the bridge::next_bridge
 > pointer which is automatically put when the bridge is eventually freed.
 > 
-> Tested-by: Biju Das <biju.das.jz@bp.renesas.com>
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 > Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-
 > ---
+> 
+> Changes in v4:
+> - fix missing assignment
+> 
 > Changes in v3:
 > - fix ERR_PTR deref when -ENODEV is returned
 > ---
->  drivers/gpu/drm/bridge/adv7511/adv7511.h     |  1 -
->  drivers/gpu/drm/bridge/adv7511/adv7511_drv.c | 15 +++++++++------
->  2 files changed, 9 insertions(+), 7 deletions(-)
+>  drivers/gpu/drm/xlnx/zynqmp_dp.c | 19 +++++++++++--------
+>  1 file changed, 11 insertions(+), 8 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511.h b/drivers/gpu/drm/bridge/adv7511/adv7511.h
-> index 8be7266fd4f4..12c95198d9a4 100644
-> --- a/drivers/gpu/drm/bridge/adv7511/adv7511.h
-> +++ b/drivers/gpu/drm/bridge/adv7511/adv7511.h
-> @@ -354,7 +354,6 @@ struct adv7511 {
->  	enum drm_connector_status status;
->  	bool powered;
+> diff --git a/drivers/gpu/drm/xlnx/zynqmp_dp.c b/drivers/gpu/drm/xlnx/zynqmp_dp.c
+> index 379180fb3004..fd30491a6697 100644
+> --- a/drivers/gpu/drm/xlnx/zynqmp_dp.c
+> +++ b/drivers/gpu/drm/xlnx/zynqmp_dp.c
+> @@ -353,7 +353,6 @@ struct zynqmp_dp_train_set_priv {
+>   * @lock: Mutex protecting this struct and register access (but not AUX)
+>   * @irq: irq
+>   * @bridge: DRM bridge for the DP encoder
+> - * @next_bridge: The downstream bridge
+>   * @test: Configuration for test mode
+>   * @config: IP core configuration from DTS
+>   * @aux: aux channel
+> @@ -385,7 +384,6 @@ struct zynqmp_dp {
+>  	struct completion aux_done;
+>  	struct mutex lock;
 >  
 > -	struct drm_bridge *next_bridge;
->  	struct drm_display_mode curr_mode;
+>  	struct device *dev;
+>  	struct zynqmp_dpsub *dpsub;
+>  	void __iomem *iomem;
+> @@ -1494,8 +1492,8 @@ static int zynqmp_dp_bridge_attach(struct drm_bridge *bridge,
+>  		return ret;
+>  	}
 >  
->  	unsigned int f_tmds;
-> diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
-> index f318080f1139..8304978535e4 100644
-> --- a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
-> +++ b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
-> @@ -849,8 +849,8 @@ static int adv7511_bridge_attach(struct drm_bridge *bridge,
->  	struct adv7511 *adv = bridge_to_adv7511(bridge);
->  	int ret = 0;
->  
-> -	if (adv->next_bridge) {
-> -		ret = drm_bridge_attach(encoder, adv->next_bridge, bridge,
-> +	if (adv->bridge.next_bridge) {
-> +		ret = drm_bridge_attach(encoder, adv->bridge.next_bridge, bridge,
->  					flags | DRM_BRIDGE_ATTACH_NO_CONNECTOR);
->  		if (ret)
->  			return ret;
-> @@ -1249,10 +1249,13 @@ static int adv7511_probe(struct i2c_client *i2c)
->  
->  	memset(&link_config, 0, sizeof(link_config));
->  
-> -	ret = drm_of_find_panel_or_bridge(dev->of_node, 1, -1, NULL,
-> -					  &adv7511->next_bridge);
-> -	if (ret && ret != -ENODEV)
-> -		return ret;
-> +	adv7511->bridge.next_bridge = of_drm_get_bridge_by_endpoint(dev->of_node, 1, -1);
-> +	if (IS_ERR(adv7511->bridge.next_bridge)) {
-> +		if (PTR_ERR(adv7511->bridge.next_bridge) == -ENODEV)
-> +			adv7511->bridge.next_bridge = NULL;
-> +		else
-> +			return PTR_ERR(adv7511->bridge.next_bridge);
+> -	if (dp->next_bridge) {
+> -		ret = drm_bridge_attach(encoder, dp->next_bridge,
+> +	if (dp->bridge.next_bridge) {
+> +		ret = drm_bridge_attach(encoder, dp->bridge.next_bridge,
+>  					bridge, flags);
+>  		if (ret < 0)
+>  			goto error;
+> @@ -2461,10 +2459,15 @@ int zynqmp_dp_probe(struct zynqmp_dpsub *dpsub)
+>  	 * Acquire the next bridge in the chain. Ignore errors caused by port@5
+>  	 * not being connected for backward-compatibility with older DTs.
+>  	 */
+> -	ret = drm_of_find_panel_or_bridge(dp->dev->of_node, 5, 0, NULL,
+> -					  &dp->next_bridge);
+> -	if (ret < 0 && ret != -ENODEV)
+> -		goto err_reset;
+> +	dp->bridge.next_bridge = of_drm_get_bridge_by_endpoint(dp->dev->of_node, 5, 0);
+> +	if (IS_ERR(dp->bridge.next_bridge)) {
+> +		if (PTR_ERR(dp->bridge.next_bridge) == -ENODEV) {
+> +			dp->bridge.next_bridge = NULL;
+> +		} else {
+> +			ret = PTR_ERR(dp->bridge.next_bridge);
+> +			goto err_reset;
+> +		}
+
+I would find
+
+		if (PTR_ERR(dp->bridge.next_bridge) != -ENODEV) {
+			ret = PTR_ERR(dp->bridge.next_bridge);
+			goto err_reset;
+		}
+
+		dp->bridge.next_bridge = NULL;
+
+easier to read. Up to you.
+
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+
 > +	}
 >  
->  	if (adv7511->info->link_config)
->  		ret = adv7511_parse_dt(dev->of_node, &link_config);
+>  	/* Initialize the hardware. */
+>  	dp->config.misc0 &= ~ZYNQMP_DP_MAIN_STREAM_MISC0_SYNC_LOCK;
 
 -- 
 Regards,
