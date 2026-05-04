@@ -4,61 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8C3DCD3427
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 20:11:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 156AECD3427
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 20:19:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC9F710E86C;
-	Mon,  4 May 2026 20:11:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49D0F10E00A;
+	Mon,  4 May 2026 20:19:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="CLy+FzFr";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZiMzlx8S";
 	dkim-atps=neutral
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6075D10E85C
- for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 20:11:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
- h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
- Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=fe-e1b5cab7be;
- t=1777925483; bh=Pky9kczMC+5Jgxszkenl0PmmnnhOhGsGHf/TrtDLxNk=;
- b=CLy+FzFrYN00JLOw2uhEUM7x/WMK4Pb0nQQS1VYoUgZ1E8y09JuF5Jve9mti9ehCHn3HeUZC0
- 64DQps4m4tMsLPW64dhi39vOb0J1HAdMCaCdtJn8ChTENL+AomrOsDiRjr52uwS06x2sY2GZcI4
- EXCFbpOuFLS4ottzNWGRVOeM+J4yByyct+nGaGijuvRRI6QHV6aBOYrk3syMnj8wDWuf9vLt54u
- p+opkclCHV9CvWk/1H068+kswycP7vGJc1dwE0dPbggHPGfGR0DM+90CDlBoeJBDqIfEnV37yzD
- IlWzZOwMzRRKQCEFK9O169zpeTEtLwk2H1R+WTWqhoTQ==
-X-Forward-Email-ID: 69f8ef8004bb1dff846bb97f
-X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
- 149.28.215.223
-X-Forward-Email-Version: 2.7.7
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
-From: Jonas Karlman <jonas@kwiboo.se>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Heiko Stuebner <heiko@sntech.de>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: Liu Ying <victor.liu@nxp.com>, Sandy Huang <hjc@rock-chips.com>,
- Andy Yan <andy.yan@rock-chips.com>, Chen-Yu Tsai <wens@kernel.org>,
- Christian Hewitt <christianshewitt@gmail.com>,
- Diederik de Haas <diederik@cknow-tech.com>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-sunxi@lists.linux.dev, imx@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v4 13/17] drm: bridge: dw_hdmi: Use delayed_work to debounce
- hotplug event
-Date: Mon,  4 May 2026 19:10:50 +0000
-Message-ID: <20260504191059.275928-14-jonas@kwiboo.se>
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com
+ [209.85.208.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3E6410E85C
+ for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 20:19:12 +0000 (UTC)
+Received: by mail-lj1-f182.google.com with SMTP id
+ 38308e7fff4ca-39397d63804so16952511fa.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 04 May 2026 13:19:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1777925951; x=1778530751; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=0tOD8/6djJ4pMyTuanqYIEyAgeWg4xBI8A3+BKBgiYE=;
+ b=ZiMzlx8SAeCj7wNk8aXTUAlS7tOcVnIs0fd15/6bFm4JaXAcat04BkO73yYYkCbFT1
+ nDhy3sP0kUn0adHU2fZVh14Ucd5iQrdFbC5Fv6OJZZ6pIIvHGd0jPhzAQePx/kR0iVsZ
+ 2RcEqz/9yss/8CNMgcNWZ9EAqybd4ExrqmmDiLv7bdTRYkO9qbuFcAcEWIxBDOd+is48
+ c7enJdrSOaZXc/Rq41ZKlgsqVr97tknb13YzV2PXLh0UAvQW7tdrrYrQfzOYYo7xa3Zr
+ lQT1yuKI5DSVt0UT3JAFM8PnhC76IUkDZ6RF2WRl+lvzQ8zFgxVyostAj44fC2IHwYhU
+ lw5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777925951; x=1778530751;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=0tOD8/6djJ4pMyTuanqYIEyAgeWg4xBI8A3+BKBgiYE=;
+ b=I2P1BvO9hdvaW4aDkNJ5uEurEoni9txkBwKAKcQn+PlVm1nX8iiUS54jhAIAd50Cws
+ syLhiCmujrqvCUin2AYs8fhAAthOgWcLILGjJ9J/IxGhIn9BHyQO3idJgxJTxxdnty8E
+ l7zhLFPWObBKdKEqlbvkwHRPEiCM7lc3ey7+tiiQXBZg7O/8YkLBYH6lqaQgxM2uzedZ
+ swwqgNGDrNPRdfd3acLElzz0mhMm+iqRwN08jWOteMJ/fATqocKb8Qx0wr1wRiR8J+Rh
+ 7sMNMkAaZjKXu4LOdEPbhoH7JDbDZXwXiFxvmAP5C0a5fO+rmA9nO2OGU4kUWOpULhKV
+ gJxg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/AAexqsF76+z7zHJ8mKLnXr4NjCEngTPSnASCRHRYQ/Qg5Jacv0UfOSvo6iDqIRiT/XQ1XhtXe1yc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwhHQb/8S5f9Sf7XLdjvK2KcUmQFiH7zhSjCo0mJ69yBOlocMpn
+ KmElQih6nvx5gZFpmC9LnHsgQGMED1yiIt7u27UGJqN9G8VYku9tEOes
+X-Gm-Gg: AeBDievQTuHymY6H81DYrY8+zU2uoYqek4czv2umAiPk+wb5OI8Leo5+sQRC1jmhdVu
+ eknzpo9kvkFIVYxCofQkL3yGrcoccmLcU4y3xWgF80/izxqj0Ll/56zUp9YqyjaezktmGfX4mcR
+ Nx3Y1WA/uVOTySOWS9KmaebQl+edhWyDfUk+bWY6luN5+nNSaQiOPU0FEl2oyW9K6XeFOTi8j4F
+ UvM0oYpBr3Z5/Jd1i+wNi/aVkLumOViydfxCFT3iDn6cijMq8GO/x4ydftNe6hV85mQmHTM9XmQ
+ /burjrcST3vlOO6Tqi7mEBCQYX+L6iVq1h/YKniR7Iw5vmXBLuBkteTXSqCTp2ArkPRVXBUVaX/
+ C86QP3nysJpMb7WW5qZ26W6pW0KbORagSexGSWs202CtPVsw1vn/aLxfEdv+/Jhh7132Zr9ChTd
+ MGJgOw8+TCX1eH4rs7W0eixzs044s/W1qvMsLqmqhFc6LG
+X-Received: by 2002:a05:6512:3f02:b0:5a4:175d:21a with SMTP id
+ 2adb3069b0e04-5a862ec2566mr3851306e87.2.1777925950756; 
+ Mon, 04 May 2026 13:19:10 -0700 (PDT)
+Received: from localhost ([188.234.148.119]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a85c230c68sm3245638e87.19.2026.05.04.13.19.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 04 May 2026 13:19:10 -0700 (PDT)
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com
+Cc: siqueira@igalia.com, airlied@gmail.com, simona@ffwll.ch, ardb@kernel.org,
+ hamza.mahfooz@amd.com, aurabindo.pillai@amd.com, Roman.Li@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Subject: [PATCH] drm/amd/display: Wrap DCN32 phantom-plane allocation in
+ DC_RUN_WITH_PREEMPTION_ENABLED
+Date: Tue,  5 May 2026 01:19:05 +0500
+Message-ID: <20260504201905.90667-1-mikhail.v.gavrilov@gmail.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260504191059.275928-1-jonas@kwiboo.se>
-References: <20260504191059.275928-1-jonas@kwiboo.se>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -76,172 +90,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-HDMI Specification Version 1.4b chapter 8.5 mentions:
+dcn32_validate_bandwidth() wraps dcn32_internal_validate_bw() with
+DC_FP_START()/DC_FP_END(). On x86 non-RT, DC_FP_START expands into
+kernel_fpu_begin() which takes fpregs_lock(), i.e. local_bh_disable().
+Allocations done inside this region must therefore not sleep.
 
-  An HDMI Sink shall not assert high voltage level on its Hot Plug
-  Detect pin when the E-EDID is not available for reading.
+The legacy DML1 path through dcn32_full_validate_bw_helper() ->
+dcn32_add_phantom_pipes() -> dcn32_enable_phantom_plane() unconditionally
+calls dc_state_create_phantom_plane() -> dc_create_plane_state(), which
+performs kvzalloc(sizeof(struct dc_plane_state)). On a recent kernel
+sizeof(struct dc_plane_state) is 343736 bytes (335 KiB), well above the
+PAGE_ALLOC_COSTLY_ORDER threshold, so __kvmalloc_node() takes the vmalloc
+path. __get_vm_area_node() then trips its BUG_ON(in_interrupt()) because
+SOFTIRQ_DISABLE_OFFSET is set in preempt_count:
 
-  A Source may use a high voltage level Hot Plug Detect signal to
-  initiate the reading of E-EDID data.
+  kernel BUG at mm/vmalloc.c:3206!
+  RIP: __get_vm_area_node+0x257/0x2d0
+  Workqueue: events_unbound commit_work
+  Call Trace:
+   __vmalloc_node_range_noprof+0x22b/0x570
+   __kvmalloc_node_noprof+0x3d0/0xb40
+   dc_create_plane_state+0x35/0x290 [amdgpu]
+   dc_state_create_phantom_plane+0x1a/0x120 [amdgpu]
+   dcn32_enable_phantom_plane+0x101/0x780 [amdgpu]
+   dcn32_add_phantom_pipes+0x47/0x460 [amdgpu]
+   dcn32_full_validate_bw_helper.constprop.0+0xa46/0x1d70 [amdgpu]
+   dcn32_internal_validate_bw+0x49c/0x1600 [amdgpu]
+   dml1_validate+0x20f/0x800 [amdgpu]
+   dcn32_validate_bandwidth+0x317/0x540 [amdgpu]
+   dc_validate_with_context+0xd34/0x1d30 [amdgpu]
+   dc_commit_streams+0x7ca/0x1810 [amdgpu]
+   amdgpu_dm_commit_streams+0xfd4/0x1e60 [amdgpu]
+   amdgpu_dm_atomic_commit_tail+0x29e/0x3520 [amdgpu]
+   commit_tail+0x204/0x4b0
+   process_one_work+0x8fd/0x16a0
 
-  An HDMI Sink shall indicate any change to the contents of the E-EDID
-  by driving a low voltage level pulse on the Hot Plug Detect pin. This
-  pulse shall be at least 100 msec.
+Per-CPU __preempt_count on the crashing CPU at panic time was 0x202:
+SOFTIRQ_DISABLE_OFFSET (0x200) from fpregs_lock() plus two preempt holds
+from dc_fpu_begin() and kernel_fpu_begin().
 
-Use a delayed work to debounce reacting on HPD events to better handle a
-HPD low voltage level pulse when a sink changes the EDID.
+The DML2 paths already wrap their large vzalloc()s in
+DC_RUN_WITH_PREEMPTION_ENABLED() to handle this case (see
+drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper.c:26 and
+drivers/gpu/drm/amd/display/dc/dml2_0/dml2_wrapper.c:24). Apply the same
+guard to the DML1 phantom-plane allocation in dcn32_enable_phantom_plane().
 
-The delayed work is only active between enable_hpd()/hpd_enable() and
-disable_hpd()/hpd_disable() calls from core, i.e. enabled after
-attach/bind/resume and disabled before detach/unbind/suspend.
+This is a separate class of issue from "drm/amd/display: Fix unsafe uses
+of kernel mode FPU" by Ard Biesheuvel, which addressed callers entering
+DC FP compilation units without DC_FP_START. The bug fixed here is the
+inverse: a sleeping allocator invoked from within an active DC_FP_START
+region.
 
-The 1100 msec hotplug debounce timeout was arbitrarily picked to match
-other drivers using same const, and testing using a Raspberry Pi Monitor
-seem to use a 200-300 msec pulse when going from standby to power on
-state.
+Reproducer (RX 7900 XTX, single 4K HDMI display, DCN 3.2): launch any
+workload that produces rapid atomic modeset commits. The most reliable
+trigger observed is launching Rise of the Tomb Raider via Proton and
+repeatedly pressing the Super key during the level loading screen;
+crash occurs within ~4 minutes uptime. Random crashes are also observed
+during routine fullscreen toggles (image viewers, chat applications).
 
-Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
+Hardware verified clean: memtest86+ 4 passes, stressapptest -W -m 32
+4 hours, both pass with 0 errors. KASAN active, no reports under load.
+
+Fixes: 235c67634230 ("drm/amd/display: add DCN32/321 specific files for Display Core")
+Cc: stable@vger.kernel.org # v6.0+
+Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
 ---
-v4: Disable/mask delayed_work until enable_hpd()/hpd_enable(),
-    Read connector status directly from HW regs in hpd_work
-v3: New patch
----
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 59 +++++++++++++++++++++--
- 1 file changed, 55 insertions(+), 4 deletions(-)
+ .../drm/amd/display/dc/resource/dcn32/dcn32_resource.c    | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-index 0aa29b92327e..193bdba65758 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-@@ -50,6 +50,8 @@
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+index 82f81b586986..3751f7a94a05 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+@@ -92,9 +92,14 @@
+ #include "dml/dcn32/dcn32_fpu.h"
  
- #define HDMI14_MAX_TMDSCLK	340000000
+ #include "dc_state_priv.h"
++#include "dc_fpu.h"
  
-+#define HOTPLUG_DEBOUNCE_MS	1100
-+
- static const u16 csc_coeff_default[3][4] = {
- 	{ 0x2000, 0x0000, 0x0000, 0x0000 },
- 	{ 0x0000, 0x2000, 0x0000, 0x0000 },
-@@ -185,6 +187,7 @@ struct dw_hdmi {
- 	hdmi_codec_plugged_cb plugged_cb;
- 	struct device *codec_dev;
- 	enum drm_connector_status last_connector_result;
-+	struct delayed_work hpd_work;
- };
+ #include "dml2_0/dml2_wrapper.h"
  
- const struct dw_hdmi_plat_data *dw_hdmi_to_plat_data(struct dw_hdmi *hdmi)
-@@ -2517,6 +2520,20 @@ static void dw_hdmi_connector_force(struct drm_connector *connector)
- 	dw_hdmi_connector_status_update(connector, connector->status);
- }
++#if !defined(DC_RUN_WITH_PREEMPTION_ENABLED)
++#define DC_RUN_WITH_PREEMPTION_ENABLED(code) code
++#endif
++
+ #define DC_LOGGER_INIT(logger)
  
-+static void dw_hdmi_connector_enable_hpd(struct drm_connector *connector)
-+{
-+	struct dw_hdmi *hdmi = container_of(connector, struct dw_hdmi, connector);
-+
-+	enable_delayed_work(&hdmi->hpd_work);
-+}
-+
-+static void dw_hdmi_connector_disable_hpd(struct drm_connector *connector)
-+{
-+	struct dw_hdmi *hdmi = container_of(connector, struct dw_hdmi, connector);
-+
-+	disable_delayed_work_sync(&hdmi->hpd_work);
-+}
-+
- static const struct drm_connector_funcs dw_hdmi_connector_funcs = {
- 	.fill_modes = drm_helper_probe_single_connector_modes,
- 	.detect = dw_hdmi_connector_detect,
-@@ -2530,6 +2547,8 @@ static const struct drm_connector_funcs dw_hdmi_connector_funcs = {
- static const struct drm_connector_helper_funcs dw_hdmi_connector_helper_funcs = {
- 	.get_modes = dw_hdmi_connector_get_modes,
- 	.atomic_check = dw_hdmi_connector_atomic_check,
-+	.enable_hpd = dw_hdmi_connector_enable_hpd,
-+	.disable_hpd = dw_hdmi_connector_disable_hpd,
- };
+ enum dcn32_clk_src_array_id {
+@@ -1684,7 +1689,8 @@ static void dcn32_enable_phantom_plane(struct dc *dc,
+ 		if (curr_pipe->top_pipe && curr_pipe->top_pipe->plane_state == curr_pipe->plane_state)
+ 			phantom_plane = prev_phantom_plane;
+ 		else
+-			phantom_plane = dc_state_create_phantom_plane(dc, context, curr_pipe->plane_state);
++			DC_RUN_WITH_PREEMPTION_ENABLED(phantom_plane =
++				dc_state_create_phantom_plane(dc, context, curr_pipe->plane_state));
  
- static int dw_hdmi_connector_create(struct dw_hdmi *hdmi)
-@@ -2946,6 +2965,20 @@ static const struct drm_edid *dw_hdmi_bridge_edid_read(struct drm_bridge *bridge
- 	return dw_hdmi_edid_read(hdmi, connector);
- }
- 
-+static void dw_hdmi_bridge_hpd_enable(struct drm_bridge *bridge)
-+{
-+	struct dw_hdmi *hdmi = bridge->driver_private;
-+
-+	enable_delayed_work(&hdmi->hpd_work);
-+}
-+
-+static void dw_hdmi_bridge_hpd_disable(struct drm_bridge *bridge)
-+{
-+	struct dw_hdmi *hdmi = bridge->driver_private;
-+
-+	disable_delayed_work_sync(&hdmi->hpd_work);
-+}
-+
- static const struct drm_bridge_funcs dw_hdmi_bridge_funcs = {
- 	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
-@@ -2959,6 +2992,8 @@ static const struct drm_bridge_funcs dw_hdmi_bridge_funcs = {
- 	.mode_valid = dw_hdmi_bridge_mode_valid,
- 	.detect = dw_hdmi_bridge_detect,
- 	.edid_read = dw_hdmi_bridge_edid_read,
-+	.hpd_enable = dw_hdmi_bridge_hpd_enable,
-+	.hpd_disable = dw_hdmi_bridge_hpd_disable,
- };
- 
- /* -----------------------------------------------------------------------------
-@@ -3079,10 +3114,8 @@ static irqreturn_t dw_hdmi_irq(int irq, void *dev_id)
- 			status == connector_status_connected ?
- 			"plugin" : "plugout");
- 
--		if (hdmi->bridge.dev) {
--			drm_helper_hpd_irq_event(hdmi->bridge.dev);
--			drm_bridge_hpd_notify(&hdmi->bridge, status);
--		}
-+		mod_delayed_work(system_percpu_wq, &hdmi->hpd_work,
-+				 msecs_to_jiffies(HOTPLUG_DEBOUNCE_MS));
- 	}
- 
- 	hdmi_writeb(hdmi, intr_stat, HDMI_IH_PHY_STAT0);
-@@ -3092,6 +3125,19 @@ static irqreturn_t dw_hdmi_irq(int irq, void *dev_id)
- 	return IRQ_HANDLED;
- }
- 
-+static void dw_hdmi_hpd_work(struct work_struct *work)
-+{
-+	struct dw_hdmi *hdmi = container_of(work, struct dw_hdmi, hpd_work.work);
-+	enum drm_connector_status status;
-+
-+	if (WARN_ON(!hdmi->bridge.dev))
-+		return;
-+
-+	drm_helper_hpd_irq_event(hdmi->bridge.dev);
-+	status = dw_hdmi_phy_read_hpd(hdmi, hdmi->phy.data);
-+	drm_bridge_hpd_notify(&hdmi->bridge, status);
-+}
-+
- static const struct dw_hdmi_phy_data dw_hdmi_phys[] = {
- 	{
- 		.type = DW_HDMI_PHY_DWC_HDMI_TX_PHY,
-@@ -3376,6 +3422,9 @@ struct dw_hdmi *dw_hdmi_probe(struct platform_device *pdev,
- 		goto err_res;
- 	}
- 
-+	INIT_DELAYED_WORK(&hdmi->hpd_work, dw_hdmi_hpd_work);
-+	disable_delayed_work(&hdmi->hpd_work);
-+
- 	ret = devm_request_threaded_irq(dev, irq, dw_hdmi_hardirq,
- 					dw_hdmi_irq, IRQF_SHARED,
- 					dev_name(dev), hdmi);
-@@ -3508,6 +3557,8 @@ EXPORT_SYMBOL_GPL(dw_hdmi_probe);
- 
- void dw_hdmi_remove(struct dw_hdmi *hdmi)
- {
-+	disable_delayed_work_sync(&hdmi->hpd_work);
-+
- 	drm_bridge_remove(&hdmi->bridge);
- 
- 	if (hdmi->audio && !IS_ERR(hdmi->audio))
+ 		if (!phantom_plane)
+ 			continue;
 -- 
 2.54.0
 
