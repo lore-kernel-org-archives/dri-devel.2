@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B87BFF885A
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 20:11:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BA3CCD342F
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 20:11:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1205110E857;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67C9D10E869;
 	Mon,  4 May 2026 20:11:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="IODFvHyv";
+	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="KhQW7RKv";
 	dkim-atps=neutral
 Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47AF110E84F
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7FC4310E04B
  for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 20:11:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
  h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
  Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=fe-e1b5cab7be;
- t=1777925483; bh=tJeJ6vpBhtsiw1KolH4aIn7bCSe8O7mTHyzB0UBThGs=;
- b=IODFvHyvA5X4CcnKjFFkAGwFAbXxAEDJ0pQ42kiD9tzEqXnceGBfZWQ7ICoY32fD/iq8UP6y9
- 96Jdp03ZdeaAuCWl6WffS65CwBehAjUfQEarIcM+M1H/+8azZpPSeFDG16/lPGCsxZ6yah4sY/y
- ZHB79VUyxwKS95IqjdkqCrWf8hW0TM9L5lhfzQoN1uL19ifAucpSfO0zHSD6te28k1e93oVnCFb
- wLNIoNx5MVoCBK+Au42gkdqQiFH/pWII2ZIy58y6JU0nQf/yb1MoPSZYkenaSiYHSs9708fJyc1
- lhjMkKZ5Dmc/aqQjzW/HL09KN/iBWwPnaq+WKu4L4PoA==
-X-Forward-Email-ID: 69f8ef7304bb1dff846bb92e
+ t=1777925483; bh=Y+1StOusjSb1aRabYMvL/79aSphsLY0CpDZ9HI5qZek=;
+ b=KhQW7RKvBebmt1y/KT9gJ3bqwigtPWZ/zaJE54tFX/etfPNIVq+z/z+0ODWG5raudtR8shBe3
+ lWo80zNTgbh6KECB7kMxqgNpI6qPdTT0MwWSyCDMiXrR+b2F8Ak8rITwA+6dVBINIihJUc5LGQA
+ LWQxNH3rE5tCtpeBxKt4ZvoKAoILzLOnfXYXNMyNrAjOyelhGzLtnxgo86tXZVBi/hUJ20F4qKF
+ Hk3m2TFNFd5J+s/vGQ8S6wftGXqo3wvAdY03b2Ar8g1SSJdoFzIE3jQECFiJx42Ul493AaQwko7
+ tlucC/UVv0a9+GdvmAIkg/iBwfhitD9pPYgfzqRCqIkw==
+X-Forward-Email-ID: 69f8ef8d04bb1dff846bb9e7
 X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
  149.28.215.223
 X-Forward-Email-Version: 2.7.7
@@ -35,16 +35,19 @@ X-Report-Abuse-To: abuse@forwardemail.net
 From: Jonas Karlman <jonas@kwiboo.se>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Heiko Stuebner <heiko@sntech.de>,
+ Heiko Stuebner <heiko@sntech.de>, Liu Ying <victor.liu@nxp.com>,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: Liu Ying <victor.liu@nxp.com>, Sandy Huang <hjc@rock-chips.com>,
+ Simona Vetter <simona@ffwll.ch>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Sandy Huang <hjc@rock-chips.com>,
  Andy Yan <andy.yan@rock-chips.com>, Chen-Yu Tsai <wens@kernel.org>,
- Christian Hewitt <christianshewitt@gmail.com>,
+ Samuel Holland <samuel@sholland.org>
+Cc: Christian Hewitt <christianshewitt@gmail.com>,
  Diederik de Haas <diederik@cknow-tech.com>,
  Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
  Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
@@ -52,10 +55,10 @@ Cc: Liu Ying <victor.liu@nxp.com>, Sandy Huang <hjc@rock-chips.com>,
  linux-rockchip@lists.infradead.org, linux-amlogic@lists.infradead.org,
  linux-sunxi@lists.linux.dev, imx@lists.linux.dev,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v4 10/17] drm: bridge: dw_hdmi: Use
- dw_hdmi_connector_status_update()
-Date: Mon,  4 May 2026 19:10:47 +0000
-Message-ID: <20260504191059.275928-11-jonas@kwiboo.se>
+Subject: [PATCH v4 16/17] drm: bridge: dw_hdmi: Remove the empty
+ dw_hdmi_phy_update_hpd()
+Date: Mon,  4 May 2026 19:10:53 +0000
+Message-ID: <20260504191059.275928-17-jonas@kwiboo.se>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260504191059.275928-1-jonas@kwiboo.se>
 References: <20260504191059.275928-1-jonas@kwiboo.se>
@@ -76,93 +79,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Update connector EDID and CEC phys addr from detect and force funcs to
-ensure that userspace always have access to latest read EDID after a
-sink use a HPD low voltage pulse to indicate that EDID has changed.
+The dw_hdmi_phy_update_hpd() helper is empty and no longer needed after
+recent RXSENSE and HPD rework, remove it.
 
-With EDID being updated in detect and force funcs, there should no
-longer be a need to re-read EDID in get_modes funcs, so drop it.
-
-This change make the dw-hdmi connector work more closely like the bridge
-connector does with a hdmi bridge.
-
-Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
 ---
-v4: Move last_connector_result assign in force ops to this patch,
-    Collect r-b tag
-v3: Reworked 'Update EDID during hotplug processing' patch
+v4: New patch
 ---
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 25 ++++++++++++++---------
- 1 file changed, 15 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c | 1 -
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c   | 7 -------
+ drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c | 2 --
+ drivers/gpu/drm/sun4i/sun8i_hdmi_phy.c      | 2 --
+ include/drm/bridge/dw_hdmi.h                | 4 ----
+ 5 files changed, 16 deletions(-)
 
+diff --git a/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c b/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c
+index 8e8cfd66f23b..20d389dbfdc5 100644
+--- a/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c
++++ b/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c
+@@ -78,7 +78,6 @@ static const struct dw_hdmi_phy_ops imx8mp_hdmi_phy_ops = {
+ 	.disable	= imx8mp_hdmi_phy_disable,
+ 	.setup_hpd	= im8mp_hdmi_phy_setup_hpd,
+ 	.read_hpd	= dw_hdmi_phy_read_hpd,
+-	.update_hpd	= dw_hdmi_phy_update_hpd,
+ };
+ 
+ static int imx8mp_dw_hdmi_bind(struct device *dev)
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-index 0b56ad7316e3..47616c11fcd7 100644
+index 60b887249eba..c0ed067154c7 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-@@ -2473,33 +2473,36 @@ dw_hdmi_connector_status_update(struct drm_connector *connector,
- 	struct dw_hdmi *hdmi = container_of(connector, struct dw_hdmi, connector);
- 	const struct drm_edid *drm_edid;
- 
-+	if (status == connector_status_disconnected) {
-+		drm_edid_connector_update(connector, NULL);
-+		cec_notifier_phys_addr_invalidate(hdmi->cec_notifier);
-+		return;
-+	}
-+
- 	drm_edid = dw_hdmi_edid_read(hdmi, connector);
- 	drm_edid_connector_update(connector, drm_edid);
- 	drm_edid_free(drm_edid);
- 
--	cec_notifier_set_phys_addr(hdmi->cec_notifier,
--				   connector->display_info.source_physical_address);
-+	if (status == connector_status_connected)
-+		cec_notifier_set_phys_addr(hdmi->cec_notifier,
-+				connector->display_info.source_physical_address);
+@@ -1687,12 +1687,6 @@ enum drm_connector_status dw_hdmi_phy_read_hpd(struct dw_hdmi *hdmi,
  }
+ EXPORT_SYMBOL_GPL(dw_hdmi_phy_read_hpd);
  
- static enum drm_connector_status
- dw_hdmi_connector_detect(struct drm_connector *connector, bool force)
- {
--	struct dw_hdmi *hdmi = container_of(connector, struct dw_hdmi,
--					     connector);
-+	struct dw_hdmi *hdmi = container_of(connector, struct dw_hdmi, connector);
- 	enum drm_connector_status status;
- 
- 	status = dw_hdmi_detect(hdmi);
- 
--	if (status == connector_status_disconnected)
--		cec_notifier_phys_addr_invalidate(hdmi->cec_notifier);
-+	dw_hdmi_connector_status_update(connector, status);
- 
- 	return status;
- }
- 
- static int dw_hdmi_connector_get_modes(struct drm_connector *connector)
- {
--	dw_hdmi_connector_status_update(connector, connector->status);
+-void dw_hdmi_phy_update_hpd(struct dw_hdmi *hdmi, void *data,
+-			    bool force, bool disabled, bool rxsense)
+-{
+-}
+-EXPORT_SYMBOL_GPL(dw_hdmi_phy_update_hpd);
 -
- 	return drm_edid_connector_add_modes(connector);
- }
- 
-@@ -2529,13 +2532,15 @@ static int dw_hdmi_connector_atomic_check(struct drm_connector *connector,
- 
- static void dw_hdmi_connector_force(struct drm_connector *connector)
+ void dw_hdmi_phy_setup_hpd(struct dw_hdmi *hdmi, void *data)
  {
--	struct dw_hdmi *hdmi = container_of(connector, struct dw_hdmi,
--					     connector);
-+	struct dw_hdmi *hdmi = container_of(connector, struct dw_hdmi, connector);
+ 	/*
+@@ -1716,7 +1710,6 @@ static const struct dw_hdmi_phy_ops dw_hdmi_synopsys_phy_ops = {
+ 	.init = dw_hdmi_phy_init,
+ 	.disable = dw_hdmi_phy_disable,
+ 	.read_hpd = dw_hdmi_phy_read_hpd,
+-	.update_hpd = dw_hdmi_phy_update_hpd,
+ 	.setup_hpd = dw_hdmi_phy_setup_hpd,
+ };
  
- 	mutex_lock(&hdmi->mutex);
- 	hdmi->force = connector->force;
-+	hdmi->last_connector_result = connector->status;
- 	dw_hdmi_update_phy_mask(hdmi);
- 	mutex_unlock(&hdmi->mutex);
-+
-+	dw_hdmi_connector_status_update(connector, connector->status);
- }
+diff --git a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
+index 0dc1eb5d2ae3..7136e713df2e 100644
+--- a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
+@@ -413,7 +413,6 @@ static const struct dw_hdmi_phy_ops rk3228_hdmi_phy_ops = {
+ 	.init		= dw_hdmi_rockchip_genphy_init,
+ 	.disable	= dw_hdmi_rockchip_genphy_disable,
+ 	.read_hpd	= dw_hdmi_phy_read_hpd,
+-	.update_hpd	= dw_hdmi_phy_update_hpd,
+ 	.setup_hpd	= dw_hdmi_rk3228_setup_hpd,
+ };
  
- static const struct drm_connector_funcs dw_hdmi_connector_funcs = {
+@@ -449,7 +448,6 @@ static const struct dw_hdmi_phy_ops rk3328_hdmi_phy_ops = {
+ 	.init		= dw_hdmi_rockchip_genphy_init,
+ 	.disable	= dw_hdmi_rockchip_genphy_disable,
+ 	.read_hpd	= dw_hdmi_rk3328_read_hpd,
+-	.update_hpd	= dw_hdmi_phy_update_hpd,
+ 	.setup_hpd	= dw_hdmi_rk3328_setup_hpd,
+ };
+ 
+diff --git a/drivers/gpu/drm/sun4i/sun8i_hdmi_phy.c b/drivers/gpu/drm/sun4i/sun8i_hdmi_phy.c
+index 4fa69c463dc4..2ac99b8ce8c4 100644
+--- a/drivers/gpu/drm/sun4i/sun8i_hdmi_phy.c
++++ b/drivers/gpu/drm/sun4i/sun8i_hdmi_phy.c
+@@ -221,7 +221,6 @@ static const struct dw_hdmi_phy_ops sun8i_a83t_hdmi_phy_ops = {
+ 	.init		= sun8i_a83t_hdmi_phy_config,
+ 	.disable	= sun8i_a83t_hdmi_phy_disable,
+ 	.read_hpd	= dw_hdmi_phy_read_hpd,
+-	.update_hpd	= dw_hdmi_phy_update_hpd,
+ 	.setup_hpd	= dw_hdmi_phy_setup_hpd,
+ };
+ 
+@@ -395,7 +394,6 @@ static const struct dw_hdmi_phy_ops sun8i_h3_hdmi_phy_ops = {
+ 	.init		= sun8i_h3_hdmi_phy_config,
+ 	.disable	= sun8i_h3_hdmi_phy_disable,
+ 	.read_hpd	= dw_hdmi_phy_read_hpd,
+-	.update_hpd	= dw_hdmi_phy_update_hpd,
+ 	.setup_hpd	= dw_hdmi_phy_setup_hpd,
+ };
+ 
+diff --git a/include/drm/bridge/dw_hdmi.h b/include/drm/bridge/dw_hdmi.h
+index a612b9fa6dbb..10013b8d3adb 100644
+--- a/include/drm/bridge/dw_hdmi.h
++++ b/include/drm/bridge/dw_hdmi.h
+@@ -118,8 +118,6 @@ struct dw_hdmi_phy_ops {
+ 		    const struct drm_display_mode *mode);
+ 	void (*disable)(struct dw_hdmi *hdmi, void *data);
+ 	enum drm_connector_status (*read_hpd)(struct dw_hdmi *hdmi, void *data);
+-	void (*update_hpd)(struct dw_hdmi *hdmi, void *data,
+-			   bool force, bool disabled, bool rxsense);
+ 	void (*setup_hpd)(struct dw_hdmi *hdmi, void *data);
+ };
+ 
+@@ -213,8 +211,6 @@ void dw_hdmi_phy_gen2_reset(struct dw_hdmi *hdmi);
+ 
+ enum drm_connector_status dw_hdmi_phy_read_hpd(struct dw_hdmi *hdmi,
+ 					       void *data);
+-void dw_hdmi_phy_update_hpd(struct dw_hdmi *hdmi, void *data,
+-			    bool force, bool disabled, bool rxsense);
+ void dw_hdmi_phy_setup_hpd(struct dw_hdmi *hdmi, void *data);
+ 
+ bool dw_hdmi_bus_fmt_is_420(struct dw_hdmi *hdmi);
 -- 
 2.54.0
 
