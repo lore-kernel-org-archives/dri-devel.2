@@ -4,77 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EF98FF885A
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3D5BCD13DA
 	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 07:12:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4185B10E98A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F07010E988;
 	Tue,  5 May 2026 07:12:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gTWf5Hh8";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="Asu1Po5B";
 	dkim-atps=neutral
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
- [209.85.214.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4ED6410E0A4
- for <dri-devel@lists.freedesktop.org>; Sun,  3 May 2026 04:49:49 +0000 (UTC)
-Received: by mail-pl1-f174.google.com with SMTP id
- d9443c01a7336-2ad617d5b80so18260105ad.1
- for <dri-devel@lists.freedesktop.org>; Sat, 02 May 2026 21:49:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777783789; x=1778388589; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ZrHQKdnz194dJR6cw9s2lksjM+dXghqleIL2qZmETl8=;
- b=gTWf5Hh8boWVtbnL7+xD+pdn+SzW7xhH50znjbeCX9+t9hbkgk5AoLLc65fJCpPpo1
- wg/NXRU3Z/XWEY63vAlpZ/cAVGTyyB7LO2SeFzfxamOplV9ti7lzrbtDwdHh+FnZiXHC
- P7RXMvKK/knz0b6kXI98pGL699poW3shA6OQ/GAbFaGZrdNdA5MXpLGCkS1x0ej4D/J6
- EXvq+rGgaEAaU6X/nnyFktUMX78WVu6jrqWKNQ+rQJT6jNC/UHrzjgMooX0pSDYUSghU
- HB1aPFePtydEANPyEB5Dh1RdCEQBgTukjEd83lk/EJtLpFsZ/cZogpp5DzgXn3677OlT
- IgUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777783789; x=1778388589;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=ZrHQKdnz194dJR6cw9s2lksjM+dXghqleIL2qZmETl8=;
- b=Tp1WYvtIsnSpoJEf0guDuHy56deNqQ5YD3siA374GJakvjOKuRUEhx25KE8qwGN1Xh
- FSlssw7wpsK6pZyPqhjm8AMqNnayZrxHpwLjAuvZm64A4WqhzNstmCMn6FmIIk2THjSS
- LQmr43ETH1Lt2/tpsr/xg7J2bLjlT6glNKhstmGBAJ331oEZ7XZ63v/L0ihozFPonnY7
- e+giaa871obxEDDp40cqQuRhG66gOEcV2yUnAighn0CkNSJ/2Z9CPPYZ/qOw4hi1jyx1
- DY/ku/gHHWvG3jycM9uN1AEbQW76H2rlyGFEZOxsPqu5CqOz0lhsIb/4zQIzMjR4827S
- d00Q==
-X-Gm-Message-State: AOJu0Yzii1L/b1DfFbgGMIo58RdyIMG34aqmtnbRIJyAGtVf1+5TP8/x
- pbfl7GvSfc6gonKSABLuNtwp+zSSnIdZOeouVrSCzvjKtP5C+v5tfQVf
-X-Gm-Gg: AeBDietY+3O+66EQTJNvbHJ0bZPMp8TlqifBHj8NFId3cs+oxkpLorhwdUnJ12QLLSL
- cL6j2HfNoWtxrBYgFXNaDG2Djvq2iybsS8K7O0YwIZZUWZBiD6cRBTxMIGw7uc19WiqDZr2o+zJ
- d0fHTP7yCJmio9ASxHlksJ5ffCrccbgLN3jp+ePG5fJV6xBWZL/QC+HB9YBVN2bMDjMXZZCW3ui
- l4DaXvwMv3wVvlWmjbWHa6KnRemqUf2qZ7fxu3jL25eIXkGPR+xxGpBLFEEx2IDkoYS4aJEY9/7
- nKiAT/bj5ZxLxLWlT8NMlJzjeeSn31PMvoicfHcGbZM9bU4htLgQINWgUaWFJ9c8vDhofwDFD3h
- +x37I1LQZKk1JSOyu00Ho5qT4rm+BNmZd2wG9JfWOXy5ZwhOtIFP8hYA2S2/wlOme/9qEQvhvga
- Fo41AcWC1Q8ZuiI45NfEum4l6F6iWceKF9ROyk+ZjuuJHKaLLL8A==
-X-Received: by 2002:a05:6a21:e098:b0:398:b346:b13 with SMTP id
- adf61e73a8af0-3a7f1a71ce3mr4874859637.16.1777783788697; 
- Sat, 02 May 2026 21:49:48 -0700 (PDT)
-Received: from vini ([2401:4900:8fcb:edbd:7155:edb6:dac:107e])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-83515b00b28sm7011337b3a.42.2026.05.02.21.49.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 02 May 2026 21:49:48 -0700 (PDT)
-From: Vineet Agarwal <agarwal.vineet2006@gmail.com>
-To: mamin506@gmail.com,
-	lizhi.hou@amd.com,
-	ogabbay@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Vineet Agarwal <agarwal.vineet2006@gmail.com>
-Subject: [PATCH] drm/amdxdna: fix pinned_vm accounting and error handling in
- user buffer pinning
-Date: Sun,  3 May 2026 10:19:27 +0530
-Message-ID: <20260503044931.634219-1-agarwal.vineet2006@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260502031746.621606-1-agarwal.vineet2006@gmail.com>
-References: <20260502031746.621606-1-agarwal.vineet2006@gmail.com>
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DEC810E7CD;
+ Mon,  4 May 2026 17:38:24 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4g8TQ44bTjz9vH6;
+ Mon,  4 May 2026 19:38:20 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1777916300;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=lMkI+6wKRH3GF4cNClZ9jGNJlW1S57uWnAf5Qy8LaKo=;
+ b=Asu1Po5BjRWsgjUVSRV6OfePzutfGMAVjRGBWDfRuHRX+QRCNTb1eaNiRDyvKAi+2QIDg9
+ PLyPT3nTw8oPyMH2WRkLev/JP6KXt+I/yKrC4rsa3HxeMJoPkCooXni60ZqiXFb6XoaWwr
+ tOvmso2+P5WD6INu+Q4TOQrHRJX8aJAF7CdipLn+v4WBtTljNEbGArZgTHSPQN+D0wF+hJ
+ 1bZYEH1o09VdMD1gk3XJCkNpYOGPu5dplHV+Q+HSOKNfSTpGWgymxdiO/NwwiBl51DqaZs
+ zlLaQiu0T26cNrcpKwwWsa6NE1v0CIsM+rkwldsg2lR/Xhy13pN6ms6gf8aPKw==
+From: Alexander Stein <alexander.stein@mailbox.org>
+To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Subject: amdgpu: possible regression since 7.0
+Date: Mon, 04 May 2026 19:37:35 +0200
+Message-ID: <zUDAUERhT-Sr0bbeAVqwNQ@mailbox.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
+X-MBO-RS-ID: 10813314e579eb03f68
+X-MBO-RS-META: jy7mbjkw5zqs6htq74swptkyaerj5w7r
 X-Mailman-Approved-At: Tue, 05 May 2026 07:12:26 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,106 +59,134 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-amdxdna_get_ubuf() incorrectly accounted mm->pinned_vm using the
-requested number of pages before pin_user_pages_fast() completed.
+Hi,
 
-Additionally, the RLIMIT_MEMLOCK check was performed after pinning,
-and error handling for partial pinning could lead to inconsistent
-cleanup.
+I'm running an Arch 7.0.3 kernel and I'm experiencing various lockups of the
+GPU. System still runs and I can shutdown using another VT.
+I haven't experienced that on a 6.19.x kernel before.
+If you need more information I can try, but it occurs more or less randomly.
+Below is the kernel log. My GPU is
+03:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI] Navi 
+48 [Radeon RX 9070/9070 XT/9070 GRE] (rev c0)
 
-Fix this by:
-  - checking RLIMIT_MEMLOCK before attempting to pin pages
-  - ensuring partially pinned pages are properly tracked and released
-  - accounting mm->pinned_vm only after successful pinning
-  - removing incorrect error-path accounting and double-subtraction
+Best regards,
+Alexander
 
-The RLIMIT_MEMLOCK check is performed conservatively against the
-requested number of pages to prevent excessive pinning attempts.
-
-This ensures mm->pinned_vm remains consistent and aligns the driver
-with expected GUP and memory accounting semantics.
-
-Signed-off-by: Vineet Agarwal <agarwal.vineet2006@gmail.com>
-
-Changes in v2:
-- Move RLIMIT_MEMLOCK check before pinning
-- Fix partial pin handling and cleanup paths
-- Remove incorrect pinned_vm accounting in error paths
-- Ensure symmetric accounting between pin and release
-- Drop unused pinned_total variable
-
----
- drivers/accel/amdxdna/amdxdna_ubuf.c | 25 ++++++++++++-------------
- 1 file changed, 12 insertions(+), 13 deletions(-)
-
-diff --git a/drivers/accel/amdxdna/amdxdna_ubuf.c b/drivers/accel/amdxdna/amdxdna_ubuf.c
-index fb999aa25318..571708f78cfe 100644
---- a/drivers/accel/amdxdna/amdxdna_ubuf.c
-+++ b/drivers/accel/amdxdna/amdxdna_ubuf.c
-@@ -129,7 +129,7 @@ struct dma_buf *amdxdna_get_ubuf(struct drm_device *dev,
- 				 u32 num_entries, void __user *va_entries)
- {
- 	struct amdxdna_dev *xdna = to_xdna_dev(dev);
--	unsigned long lock_limit, new_pinned;
-+	unsigned long lock_limit;
- 	struct amdxdna_drm_va_entry *va_ent;
- 	struct amdxdna_ubuf_priv *ubuf;
- 	u32 npages, start = 0;
-@@ -176,18 +176,17 @@ struct dma_buf *amdxdna_get_ubuf(struct drm_device *dev,
- 
- 	ubuf->nr_pages = exp_info.size >> PAGE_SHIFT;
- 	lock_limit = rlimit(RLIMIT_MEMLOCK) >> PAGE_SHIFT;
--	new_pinned = atomic64_add_return(ubuf->nr_pages, &ubuf->mm->pinned_vm);
--	if (new_pinned > lock_limit && !capable(CAP_IPC_LOCK)) {
--		XDNA_DBG(xdna, "New pin %ld, limit %ld, cap %d",
--			 new_pinned, lock_limit, capable(CAP_IPC_LOCK));
-+
-+	if (ubuf->nr_pages + atomic64_read(&ubuf->mm->pinned_vm) > lock_limit &&
-+		!capable(CAP_IPC_LOCK)) {
- 		ret = -ENOMEM;
--		goto sub_pin_cnt;
-+		goto free_ent;
- 	}
- 
- 	ubuf->pages = kvmalloc_objs(*ubuf->pages, ubuf->nr_pages);
- 	if (!ubuf->pages) {
- 		ret = -ENOMEM;
--		goto sub_pin_cnt;
-+		goto free_ent;
- 	}
- 
- 	for (i = 0; i < num_entries; i++) {
-@@ -196,15 +195,17 @@ struct dma_buf *amdxdna_get_ubuf(struct drm_device *dev,
- 		ret = pin_user_pages_fast(va_ent[i].vaddr, npages,
- 					  FOLL_WRITE | FOLL_LONGTERM,
- 					  &ubuf->pages[start]);
--		if (ret < 0 || ret != npages) {
-+		if (ret < 0)
-+			goto destroy_pages;
-+		start += ret;
-+		if (ret != npages) {
- 			ret = -ENOMEM;
--			XDNA_ERR(xdna, "Failed to pin pages ret %d", ret);
- 			goto destroy_pages;
- 		}
--
--		start += ret;
- 	}
- 
-+	atomic64_add(ubuf->nr_pages, &ubuf->mm->pinned_vm);
-+
- 	exp_info.ops = &amdxdna_ubuf_dmabuf_ops;
- 	exp_info.priv = ubuf;
- 	exp_info.flags = O_RDWR | O_CLOEXEC;
-@@ -222,8 +223,6 @@ struct dma_buf *amdxdna_get_ubuf(struct drm_device *dev,
- 	if (start)
- 		unpin_user_pages(ubuf->pages, start);
- 	kvfree(ubuf->pages);
--sub_pin_cnt:
--	atomic64_sub(ubuf->nr_pages, &ubuf->mm->pinned_vm);
- free_ent:
- 	kvfree(va_ent);
- free_ubuf:
+amdgpu 0000:03:00.0: [drm] *ERROR* [CRTC:416:crtc-0] flip_done timed out
+amdgpu 0000:03:00.0: [drm] *ERROR* flip_done timed out
+amdgpu 0000:03:00.0: [drm] *ERROR* [CRTC:416:crtc-0] commit wait timed out
+amdgpu 0000:03:00.0: [drm] *ERROR* flip_done timed out
+amdgpu 0000:03:00.0: [drm] *ERROR* [PLANE:413:plane-7] commit wait timed out
+------------[ cut here ]------------
+acrtc->event
+WARNING: drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:9572 at 
+amdgpu_dm_atomic_commit_tail+0x38cf/0x3930 [amdgpu], CPU#3: systemd-logind/
+1063
+Modules linked in: cmac nls_utf8 cifs nls_ucs2_utils rdma_cm iw_cm ib_cm 
+ib_core cifs_md4 dns_resolver netfs snd_seq_dummy snd_hrtimer snd_seq vfat fat 
+snd_hda_codec_alc882 snd_hda_codec_realtek_lib snd_hda_codec_generic 
+snd_hda_codec_atihdmi snd_hda_codec_hdmi snd_hda_intel btusb mt7921e uvcvideo 
+snd_hda_codec btmtk mt7921_common snd_usb_audio videobuf2_vmalloc btrtl 
+snd_hda_core uvc mt792x_lib btbcm snd_usbmidi_lib videobuf2_memops 
+snd_intel_dspcfg mt76_connac_lib btintel videobuf2_v4l2 snd_ump amd_atl 
+snd_intel_sdw_acpi snd_rawmidi intel_rapl_msr videobuf2_common r8169 mt76 
+intel_rapl_common snd_hwdep snd_seq_device bluetooth videodev spd5118 joydev 
+mousedev realtek snd_pcm mdio_devres mac80211 snd_timer mc libphy eeepc_wmi 
+snd asus_wmi mdio_bus libarc4 ghash_clmulni_intel soundcore sp5100_tco 
+aesni_intel platform_profile sparse_keymap wmi_bmof rapl pcspkr i2c_piix4 
+gpio_amdpt k10temp i2c_smbus gpio_generic mac_hid cfg80211 rfkill 
+vboxnetflt(OE) vboxnetadp(OE) vboxdrv(OE) kvm_amd ccp kvm dm_mod
+ irqbypass i2c_dev crypto_user nfnetlink uas usb_storage amdgpu amdxcp 
+i2c_algo_bit drm_ttm_helper ttm drm_exec drm_panel_backlight_quirks gpu_sched 
+nvme drm_suballoc_helper drm_buddy nvme_core drm_display_helper nvme_keyring 
+video nvme_auth cec hkdf wmi
+CPU: 3 UID: 0 PID: 1063 Comm: systemd-logind Tainted: G           OE       
+7.0.3-arch1-1 #1 PREEMPT(full)  653fa807272d34162f0f7604ba64e0a2aa402e05
+Tainted: [O]=OOT_MODULE, [E]=UNSIGNED_MODULE
+Hardware name: ASUS System Product Name/TUF GAMING B850M-PLUS WIFI, BIOS 1644 
+03/10/2026
+RIP: 0010:amdgpu_dm_atomic_commit_tail+0x38cf/0x3930 [amdgpu]
+Code: 8d 84 24 20 5b 04 00 c6 85 18 fe ff ff 00 48 89 85 20 fe ff ff e9 b0 cd ff ff 
+0f 0b 0f 0b e9 9f f7 ff ff 0f 0b e9 f2 cd ff ff <0f> 0b e9 b0 f7 ff ff 48 c7 85 18 
+fe ff ff 00 00 00 00 48 c7 85 e8
+RSP: 0018:ffffcf07c5537418 EFLAGS: 00010082
+RAX: 0000000000000001 RBX: 0000000000000296 RCX: ffff8e36d56c6118
+RDX: 0000000000000001 RSI: 0000000000000286 RDI: ffff8e36d7980178
+RBP: ffffcf07c5537688 R08: ffffcf07c553730c R09: 0000000000000000
+R10: 0000000000000000 R11: ffffcf07c553737c R12: ffff8e36d56c6118
+R13: ffff8e3c0f7c7800 R14: 0000000000000000 R15: ffff8e36d56c6000
+FS:  00007f77aa5488c0(0000) GS:ffff8e3e69b52000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000024c6052cc000 CR3: 0000000134fe5000 CR4: 0000000000f50ef0
+PKRU: 55555554
+Call Trace:
+ <TASK>
+ commit_tail+0xc1/0x150
+ drm_atomic_helper_commit+0x13c/0x180
+ drm_atomic_commit+0xb1/0xe0
+ ? __pfx___drm_printfn_info+0x10/0x10
+ drm_client_modeset_commit_atomic+0x1ec/0x230
+ drm_client_modeset_commit_locked+0x58/0x160
+ ? mod_memcg_lruvec_state+0xc5/0x1f0
+ __drm_fb_helper_restore_fbdev_mode_unlocked.part.0+0x27/0x90
+ drm_fb_helper_set_par+0x57/0x70
+ fb_set_var+0x23c/0x430
+ ? update_cfs_rq_load_avg+0x1a/0x240
+ ? update_load_avg+0x73/0x210
+ ? psi_group_change+0x10c/0x2c0
+ ? set_next_entity+0xe7/0x270
+ fbcon_blank+0x1f2/0x310
+ do_unblank_screen+0xc8/0x1b0
+ complete_change_console+0x54/0x120
+ vt_ioctl+0xeca/0x1460
+ ? security_capable+0x7d/0x1a0
+ ? capable+0x32/0x60
+ ? kernel_termios_to_user_termios+0x13/0x20
+ ? tty_mode_ioctl+0x67a/0x6e0
+ tty_ioctl+0xe4/0x980
+ ? __seccomp_filter+0x42/0x5a0
+ __x64_sys_ioctl+0x97/0xe0
+ do_syscall_64+0x12b/0x15f0
+ ? __x64_sys_ioctl+0x97/0xe0
+ ? do_syscall_64+0x12b/0x15f0
+ ? do_syscall_64+0x12b/0x15f0
+ ? evdev_ioctl+0x6d/0xa0
+ ? __x64_sys_ioctl+0x97/0xe0
+ ? do_syscall_64+0x12b/0x15f0
+ ? do_syscall_64+0x12b/0x15f0
+ ? evdev_ioctl+0x6d/0xa0
+ ? __x64_sys_ioctl+0x97/0xe0
+ ? do_syscall_64+0x12b/0x15f0
+ ? do_syscall_64+0x12b/0x15f0
+ ? __x64_sys_close+0x3d/0x80
+ ? do_syscall_64+0x12b/0x15f0
+ ? __irq_exit_rcu+0x4c/0xf0
+ entry_SYSCALL_64_after_hwframe+0x76/0x7e
+RIP: 0033:0x7f77a9d1604d
+Code: 04 25 28 00 00 00 48 89 45 c8 31 c0 48 8d 45 10 c7 45 b0 10 00 00 00 48 
+89 45 b8 48 8d 45 d0 48 89 45 c0 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 
+1a 48 8b 45 c8 64 48 2b 04 25 28 00 00 00
+RSP: 002b:00007fffe582da10 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+RAX: ffffffffffffffda RBX: 000000000000001b RCX: 00007f77a9d1604d
+RDX: 0000000000000001 RSI: 0000000000005605 RDI: 000000000000001b
+RBP: 00007fffe582da60 R08: 00000000ffffffff R09: 00007fffe582da40
+R10: 00000000ffffffff R11: 0000000000000246 R12: 000055ae5d6c6e80
+R13: 0000000000000006 R14: 0000000000000000 R15: 0000000000000000
+ </TASK>
+amdgpu 0000:03:00.0: VM memory stats for proc (0) task (0) is non-zero when 
+fini
+amdgpu 0000:03:00.0: VM memory stats for proc Xorg(1111) task Xorg:cs0(1106) 
+is non-zero when fini
+amdgpu 0000:03:00.0: VM memory stats for proc (0) task (0) is non-zero when 
+fini
+amdgpu 0000:03:00.0: VM memory stats for proc (0) task (0) is non-zero when 
+fini
+amdgpu 0000:03:00.0: VM memory stats for proc (0) task (0) is non-zero when 
+fini
+amdgpu 0000:03:00.0: VM memory stats for proc (0) task (0) is non-zero when 
+fini
+amdgpu 0000:03:00.0: VM memory stats for proc (0) task (0) is non-zero when 
+fini
 -- 
-2.54.0
+
 
