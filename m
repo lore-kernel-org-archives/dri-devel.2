@@ -4,97 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC52EFF885A
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 04:01:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6823FF885A
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 04:09:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5509710E0B1;
-	Mon,  4 May 2026 04:01:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2048210E367;
+	Mon,  4 May 2026 04:09:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="K/thZJr8";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="btzcL5pv";
 	dkim-atps=neutral
-Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com
- [209.85.222.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 920B210E0B1
- for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 04:01:47 +0000 (UTC)
-Received: by mail-qk1-f171.google.com with SMTP id
- af79cd13be357-8d736211595so245553785a.0
- for <dri-devel@lists.freedesktop.org>; Sun, 03 May 2026 21:01:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777867306; cv=none;
- d=google.com; s=arc-20240605;
- b=O1ciKq1gaYRbVyeZor1x24Sd3udKUskVHLrQDjIYq9aoDyX/pl/uHLGPgjKLDnw0hR
- /FqK2G9FvN7gNbHroG45wi9gXIwHiTGgLBTg7RxZZ1/7JW2g9K5zdqwtoZgNHUtzauZp
- RXFFRENvHNQ9PZjbTpsWtmzv7qZucUtgBEBN3LUT4bdZhXi5kcvTyiJ5hdly1FVSO4w4
- lO9QcdFMqkUbc/PvsmWxGMRd8Wnf740xESxKlwSUCiBn37YOac4F9WlJ0q3OQLgVew9A
- wVCe+5GKa5TG9lLEODlM6lIlPT5vQniQCQ0DEEVBD98EGIhRpfPzy5ozuQNNBBtSIDVb
- QlZA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=oGlVUVNCo7t578SnF0/FJlFOI+mo4qIG1hmcAiuexlk=;
- fh=VtjbJCOUzZdHzaQQ7FLxMiSEAlpMX6+W7+4vmfDqmRQ=;
- b=Wyqczfs3d1K40EeQAqX5Ixz9owcdAxKX3nBksagw2rDuQVd2hVs7Wg5wpqhR3no27c
- ppzPu0SJDojQ1wGWqcpJmjVZN8ckDanH04dwik/WxPsyowsNmCYeqyLN75PoEgGSPv7p
- xjlON3GNxmNgOS6a67P7Gpb8k++4JyGlign7LywGcC7roXB8jC8IjcCknYY1TpSgB/PY
- GF58ztde+L8dgUbKLX+1/KW1KbUZelUwaXhcD23pg+wq4Q1iotB5+qdvYwjHpMXz+Dkh
- 3kBV25VGmZYCEhrfZBuOGIB/gKNT1N2boa0MwtniufSXiLPPrWb7yLPzLoeRrbbtf+ot
- SbTw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777867306; x=1778472106; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=oGlVUVNCo7t578SnF0/FJlFOI+mo4qIG1hmcAiuexlk=;
- b=K/thZJr8LMDez1Ul+LA5Zc0zpDI1vIDQALvtTRNa++AZAVGRHcjkTv1yswIRIAArOD
- ug+7KSz6R4MMgAsoUzRmN0i3LR2YvlcuqjHFpzq03yAIbUmzIRloBvtzbFtaVc7wcljD
- kb8mdGCWC7aawdYy+kL3o8kGxgepOnC8/2/68kBfxLjmmHoOS+bePsXefCZ9EL+aeHts
- YQFVkh+j6nCuUrxaYKBDe1zR1+7oaIN/wpwEWNJC/lzn2nZTdmN2vimUkNAscJXfFe0L
- tLjGc0aujL9qrqbselwYwta9eQjEPjYII5BpJa0p8K5qPGd490+LyD7hBnBGyLElkjnP
- P7bg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777867306; x=1778472106;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=oGlVUVNCo7t578SnF0/FJlFOI+mo4qIG1hmcAiuexlk=;
- b=j0xKlpLIQLsFD3Iecx89V7AOyov2ZgcpQ00gbrblKAAcyfKceUjoEmsjAW+xeAWUh7
- XUKtbUfU9QR39DJ0dEpQaVTq/Mzekk2Km3LOqX8nbKHFnXLdFUChl17qOAp8KA6LeNXW
- NKa44FLuxRRrMxI71lwURpniyHQcgbVoBp4to9ckC4rzrfsxqd4pY83YJ5+AZwA4FwQv
- 0XYVj1rVwQiKfePCz10NHkrulyzE2DLYL7A3XtHnhAVR+vv7V2TX6scD8HAL/NfLK9s8
- IKN95oJc+jOwDGz+BW/uVuwYoeUjrq8WmW+lP4WIYHJizat2/LWTgW49t/0ac57Md9nq
- FEpQ==
-X-Gm-Message-State: AOJu0Yw1uO9+Kos5HLgVRJiUZ3WYsByRRBS1W4IBUUZfcsMrtCMfxKll
- YTM7w7P9cnjf1imm9ay7uPMaY1aywU1BLDbOWex7MfnctzqEmQgN40KpJ6qGK0JxLwVX+rujbiQ
- wALMpGUxp6JdE5F9akUasH/lgwZRE/as=
-X-Gm-Gg: AeBDieuooOeJYjuYiusF+6zkvwrhLCPEMdPkjWNINojcoRYYRvxTpplNNmSLVLFhRge
- 6s18yOEAD4QdGjKXmeijUghlo8Y9DB1bpTqvdeaI8JxqGlbd1ezT8tr9W5MJTSQRVayFmotx7PH
- 2Kf5d03q8nWjKpw0fft2uirReZiLbOnLs6kPCddlcFjdfRJ/kUHGeeGr3xXlWnVCqhj32W3sm8i
- zQAT0DbzuBsGOPNDCmSCJsDBhMvX3GL/qCDFynOsSBRBG8kdlYLMfuaNeZoaioCKD8qt9vPLiMq
- jko4BXuPcx57E3VCqcm/KiqtTjeIrNbkVs9mcm2L4lt6knNMcSrNESaHEsMUOQAMlS2Kn7vkmFi
- xVw==
-X-Received: by 2002:a05:620a:708a:b0:8f1:5e8f:fff3 with SMTP id
- af79cd13be357-8fd16c9964fmr1319335285a.26.1777867306422; Sun, 03 May 2026
- 21:01:46 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAF8710E366;
+ Mon,  4 May 2026 04:09:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1777867784; x=1809403784;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=lEBvibbHOAblkGJgM5oR2rCbglV2NMxLxLMdOHxuZ/c=;
+ b=btzcL5pvu/rAuwNpnxziiNgr9rOYD8pyTT10KgO4vAHuAKmF7Ly89QXy
+ YWI9fIvoyzTpatVOYffXiwzrq2R1AOQi80xmG6nGbuiCDQslYutfXkC4/
+ ekdcQaGAy8xVyGe8UgYdxiNV5mL7l0GwuISo2rf6PWCGIN7uwjuFBl07s
+ FHnfIY/aV6DMfmOmajilvKFdNbrZ/INjxrjWTE0F/15RvLeYETDhMT9HG
+ ELfKBKGTISzURxILsKpEgn7qNBy2VZ72KbuuWdIdxYZYZf1KnMKLpC+jV
+ UzFgSBZn2W4X18ocYHC71aIFUmpJx9afwVJVBPcyw7jykVmlh+Dq/FsId g==;
+X-CSE-ConnectionGUID: 0/nc2/D3QV6+1GCUj5G4GA==
+X-CSE-MsgGUID: dhh6i/6mTE+HEiyK6oK6fg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11775"; a="89415347"
+X-IronPort-AV: E=Sophos;i="6.23,214,1770624000"; d="scan'208";a="89415347"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 May 2026 21:09:43 -0700
+X-CSE-ConnectionGUID: U8Uk9miyRkKqB5+gX/HvTQ==
+X-CSE-MsgGUID: JyHG77jiQraMPaw3B98mbQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,214,1770624000"; d="scan'208";a="265753455"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+ by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 May 2026 21:09:43 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Sun, 3 May 2026 21:09:42 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Sun, 3 May 2026 21:09:42 -0700
+Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.19) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Sun, 3 May 2026 21:09:40 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=C4sREwSVZ8k6AGdOsitqPfBbnvo0ATHKJ1XOE+MGFI3/IWiWn5N1JfqS3eGa568J3ziCeEzS0a62uW0QC7EiJX91Z03hBPJpTuU51azD/XXGSeVibYxcrEfdApI3kXfo3b+IQTuS05l1uZMWkT0IT5T+dy2hnSvGiDvw4FTH9/pbUNd1RZ2NHJjzv8rgqx09BUKSXpWtkTq1tkKnaGgKkzHHGmt82u78zP/uhua4GA/0vM+lziQR6fGfQBcTTBnCt9KEiWeXjl1PmcGiAYLjaTBMWXaOSmrFbqX+4R5eSeOaYoByWA76g7B4k6VmpIbZagXrvnE+gK25TYJG9fjl2A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zkrHJksC9bKFJ2LaIqk7wZsnXttusdIGOqP45jpCu74=;
+ b=EZhXg+ICJW8J8y3p7smBNBXliC3DiG6jExm0T1JT6VhMH2Jiosg/PuyRxbcd8cigjraiFYtTmc81Oyw02zcZtC+yy+sH6oWmAJXl9EOy8jirhzpO/ugRXSz3ggbtYMfM0K9jRfu9p5PkD3jw9LHYwEmdKZZevdjAiLBysT/3WPQIzTMO3NTUCX2moOR1PUVBoNzR/LGxOO9tbtr2xaheTj4U/4hQLmc0X4PO7MHLcTtAsPTi8WNivh86JaJWzkZm+ir8IT7BBZ5a7kaCUaPuiAuglNiip/WPxq+AVbuAXMbm2Gz4d5S7t/ghMCPhsPQF9PPBgBh2cV90OPmGdANzDA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
+ by SJ0PR11MB5086.namprd11.prod.outlook.com (2603:10b6:a03:2d1::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Mon, 4 May
+ 2026 04:09:33 +0000
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c%7]) with mapi id 15.20.9870.023; Mon, 4 May 2026
+ 04:09:33 +0000
+Date: Sun, 3 May 2026 21:09:31 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: Dave Airlie <airlied@gmail.com>
+CC: Kenneth Crudup <kenny@panix.com>, <intel-xe@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, Christian Koenig
+ <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>, Matthew Auld
+ <matthew.auld@intel.com>
+Subject: Re: [PATCH v2] drm/ttm: Fix GPU MM stats during pool shrinking
+Message-ID: <afgb+7p7ecnMGNQL@gsse-cloud1.jf.intel.com>
+References: <20260502065338.2720646-1-matthew.brost@intel.com>
+ <7f927ef8-2d3d-4609-926d-b18535794f72@panix.com>
+ <CAPM=9txfkvL4pWW53Pk0OtJ=vBaa-SCv6npSCK5f0zuOOJUfSQ@mail.gmail.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <CAPM=9txfkvL4pWW53Pk0OtJ=vBaa-SCv6npSCK5f0zuOOJUfSQ@mail.gmail.com>
+X-ClientProxiedBy: SJ0PR13CA0002.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c0::7) To PH7PR11MB6522.namprd11.prod.outlook.com
+ (2603:10b6:510:212::12)
 MIME-Version: 1.0
-References: <20260501215856.840898-1-lyude@redhat.com>
-In-Reply-To: <20260501215856.840898-1-lyude@redhat.com>
-From: Dave Airlie <airlied@gmail.com>
-Date: Mon, 4 May 2026 14:01:35 +1000
-X-Gm-Features: AVHnY4LmcMo5jkCCXrsqxOpC_hYtr1-nSy7Wtvdm85s7TmkVILKxYJXd3dyZi5U
-Message-ID: <CAPM=9tyVOHU4KZxpGeKn=V3zhGnBwq4v5QfXvzdUE4QPQ2zMOA@mail.gmail.com>
-Subject: Re: [PATCH] drm/nouveau/kms/nvd9-: Use contiguous memory for CRC
- notifier context
-To: Lyude Paul <lyude@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Danilo Krummrich <dakr@kernel.org>, 
- Dave Airlie <airlied@redhat.com>, Timur Tabi <ttabi@nvidia.com>, 
- Suraj Kandpal <suraj.kandpal@intel.com>, James Jones <jajones@nvidia.com>, 
- Faith Ekstrand <faith.ekstrand@collabora.com>, stable@vger.kernel.org, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Ben Skeggs <bskeggs@nvidia.com>, 
- Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Maxime Ripard <mripard@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|SJ0PR11MB5086:EE_
+X-MS-Office365-Filtering-Correlation-Id: 19dc777e-47d7-4cd5-adb5-08dea992f2a1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|1800799024|22082099003|18002099003|56012099003; 
+X-Microsoft-Antispam-Message-Info: YbwCGLypwoSZorfZyGw0VZxfBgwhE3JTmZwvfhpCw1zOCMd0AasuTC2dZVqElacI/JTtPYOip4UXKeJZY5XCvgHsGmNtDqFdVT7/+Sdwgwvyi1wYu/lBHsKGPEhMNbpUmMtlMzjs3aNTnZvaGjZ3TUvpz69kvfi2lHRG/uzVviExDH6atOWz8VmTqV7cSn0hgYDCiXvLtSixvxbuis5/+QcbEuhxqWH9WdfymVe+PtzTEob/s9OInxE5/pXCiGxMnCiMeapLoUQ1nUdgat2u2sNeuyTbQ5isn98fImecxriJAj5gohaAwIKxsCqbR/a751dW/0QZnPxWcQxfPw+VwMx4+77jMKqFMiX8ngQwHMSMdkKnQVVTqp28PXlFzQ83fRjhgNx5Mo/g4EnY2vMy1L2KpoNw0sgzIVGhrld0Ufe2tDfIIJvxR0fyT1Pd1WqxvHfSDzS3Oqrs7NQL1IQBAbRO9UmloI2zbAtqjrDYC0VvNCnEH1x9QBo9cX5I0Gh5nakUNPaIxvivigEqsKaIp5Yfa9KD6KQVBzfMuchhOOcE5DfXycuLBCWT0+xIUv1gbqIveEvn6KABb3QdfXVm/TTfKQ9RctP1qjsZRdFvoB+kOKj+1ofV7rQ/qwR+pJsEE8Owdb9gzb7/UpTdqX64OIMO+Dxaonb0yODDFZMXGgzglOSEgJIUr4BqrSHXtx46
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(22082099003)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?5WloyOrlpPzfldKeC3T5IegEC9oqm6J9VqlfVKDncsMsOApP7Nsd2/eBRaUI?=
+ =?us-ascii?Q?Ac3j3K/tql0Fkuk6K5FUXtwae7Y86zgbe6xHB1b5W3haUQyFm8GZthp+Uwkx?=
+ =?us-ascii?Q?3EWPnrQ9gAdosaf1lLaOHuCtNcZZnYt9Z26xNT0rLmMw1Xki/dkgMmyT9NPO?=
+ =?us-ascii?Q?uLcvOzwVz/f8/0GkBvVoGbMi65PF4XFhToJ1EQ6jalGEHQgK8vegbkAPMoaO?=
+ =?us-ascii?Q?9PSnynSEot9pcYP8NvREVlLHyb7Dc53in+ehXRml8qT7tRlKzKvgYzY719dq?=
+ =?us-ascii?Q?O5OjDHy+IMcA96bfu9zQxqbLhqHPPdqoyqhStpjTxATiwN8vDskuefBWASrJ?=
+ =?us-ascii?Q?M3GGRmBscm2zwKw0BQbYZQu0IhJwbQubXrrWIqdCx9aORCI9kPwoO+JBDcvK?=
+ =?us-ascii?Q?IWDoADnECbHJKDeGefpsb7oIrTQeGqBOvMXn4QcSx0HSKle4iqRdXnMBShPx?=
+ =?us-ascii?Q?dT5unUDgEh0SdxBPjlR72W/CQVuHiNjpDcpWFa8KI/+oudoHMuiLRUuzNgbK?=
+ =?us-ascii?Q?xCGJ/5UFXRYhNeJGu8dcBaj+53eCsb1GdHFVxxosJejmO4pjjdn26QvdTgib?=
+ =?us-ascii?Q?AmGmSZUOPt0LchLRIhmSy37CutEja+ts14XO6naFlpzi0Wjqg4Jn2l2+6A2H?=
+ =?us-ascii?Q?5f+h8bKtdhmlgMmwRdwG7H2EOu5jc15Pgu2xF968/fJ/CZ5w2/HA9UEWBUvX?=
+ =?us-ascii?Q?ziA+CBd4Io6Q0YXdTlqBC++U3xX3RAtLxVFN9gJmH62k9mdQiUAF5bzhiDsl?=
+ =?us-ascii?Q?nU/h2xrAvU7x7SPcB5dnHvAt2DE6gsf7ZOka/WQStJNmouEh0cVm1KYaefUc?=
+ =?us-ascii?Q?6nfymOgZ1XS+l8NJNHfcfFKKg30DMss4jCWBHNqHp206uFwcbZiWVVk4B2TE?=
+ =?us-ascii?Q?B4pFf6IHB96UC1p6F1EF5bQmb61clhmzy01n4YY52v7r8X2fyROiCq6mx7J3?=
+ =?us-ascii?Q?LfkLTFVs7BFw0M1ZyUejNLaXyWGn8N/H4M2Prix6Hb1b9iCAI7jORFcg3SWE?=
+ =?us-ascii?Q?9XwVIB1pLTW4PT+D8z9vpR0+7wcrPXs1GRs/X2b3lm9IY34mfTa9MFzvvOLr?=
+ =?us-ascii?Q?Rvux3OIVJ0/RX+n+ZZlBxwA5ezFyxR25i1PkcysE0hvDweAAYofgynzzDIVP?=
+ =?us-ascii?Q?bV4pJpB7cFZDeLivs0Z40uIFQhV6lLU8bihbswxkcW6ejLNJ9RQ9G+jWoG85?=
+ =?us-ascii?Q?qGV7NzJCWKdM+CiCPgnH4o3hP86DdSwYBBFwE0KqG/BATqcKH1nYp9HB5cwI?=
+ =?us-ascii?Q?EYmdm3mDFALDvNCs1cLT77sOKJ1FlOoYaENSiUDtCxeGz3rVw0TokaIYitM5?=
+ =?us-ascii?Q?ux3jrjPw5A72aWeuwpNNBvulqEUE+rbnNXLnSTnUehUpSwZtZyWN4Ur4FkRC?=
+ =?us-ascii?Q?ZjAhmPUcT4Cu5FefE2bGMhQX2kkGMt1DIoQL6qoOBNnYUagKYtzN2yBEkl6q?=
+ =?us-ascii?Q?mGboBc4IJG2WORRo3OkF5NMzcOw5T2TMF0Mr7Cyhfuc6Uq+OB7j1aMScA8LR?=
+ =?us-ascii?Q?j9+r8q2aEeV+jzorIXJwEMkMBbMZ5tyXSykI192P+O5tF9tJUGoNW6dwVBRc?=
+ =?us-ascii?Q?KAUpzMcoe66GjDpRY1yx03AYrLiJWy1SOIgWdDBohsv6kyGME71INI+r+i3a?=
+ =?us-ascii?Q?wkX1qc8+WIR/S/jMrN9UlUZQVtpNMHlo0k33upKGZ0aLvmCzbqu5gbHopsBQ?=
+ =?us-ascii?Q?zndw4OE3laynQb4DkuMCVnDOH18tg637koY4YdK8XKWSC6ZPKcEDTahtjUkR?=
+ =?us-ascii?Q?6aJSl/zk6g=3D=3D?=
+X-Exchange-RoutingPolicyChecked: B2SzUaNwX47YHBiQa78lyu3pLlTvCYKIVtS2qPMll2ySkv5tokRMJsIKqyLu2jpbi3tQfqNvrVvvJ6jKFVYD3VovscxoGS1+W5DP5YFlSZ9TkDbUY9qELziQXB8WAy3FuhZ8WcAUVmNTZ7yGhiu8tNlTHN/w1kjQQuYqkRABy4P+ppxAlyjyLT3jWCLLptSSKRaYMNBqYKH2kkZjLLz5ciPDYHy5Ru0XTt0HgCPN83PXtao5vvsB9U9XFBwG6NKjzQ/+/M+t+Jn3yMVyEeGd/SLDXJrIk7u+fQ0L8xzNHnBndvkhgpD4HhCtDDYzOtTx+gCze7saHTqT718Hn6TYsw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 19dc777e-47d7-4cd5-adb5-08dea992f2a1
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2026 04:09:33.5911 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2T0V1koTNAjV2p+P6v8FW2xjPTQt7rVjf9lV984AKqb50nAKdHlj4x/g/wu8LnP41TgYxOxKAOSyvRZy3fP+lg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR11MB5086
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,83 +162,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, 2 May 2026 at 07:59, Lyude Paul <lyude@redhat.com> wrote:
->
-> It looks like CRC read back has been slightly broken for a while now, in
-> particular on GPUs using GSP. On my test machines, it's worked normally
-> when attempting to use it from fbcon. After gnome-shell gets started
-> however, attempting to read /sys/kernel/debug/dri/$CARD/$CRTC/crc/data just
-> returns -EINVAL.
->
-> It turns out what's been happening is that since we've been using
-> nvif_mem_ctor_map() to both allocate and map the CRC notifier region - we
-> haven't actually asked for a contiguous allocation, and simply ask for
-> whatever type of memory allocation nouveau can find first. This doesn't
-> work because the CRC engine on nvidia GPUs doesn't support non-contiguous
-> allocations, which also causes us to fail setting up the kmsCrcNtfyCtxDma
-> object on pre-blackwell platforms since we don't have a single memory
-> address we can point nvif_object_ctor() to. Instead, ctx->mem.addr gets set
-> to ~0ULL.
->
-> It does however, seem to work when fbcon is running. The only reason I can
-> think of this is that before we start up a display environment, there is
-> pretty much nothing allocated in our VRAM that wasn't allocated by nouveau
-> itself - making it dramatically more likely that we end up finding a
-> contiguous allocation by default.
->
-> So, fix this by manually requesting a contiguous allocation when we
-> allocate our context notifiers.
->
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
-> Fixes: 12885ecbfe62 ("drm/nouveau/kms/nvd9-: Add CRC support")
-> Cc: Lyude Paul <lyude@redhat.com>
-> Cc: Dave Airlie <airlied@gmail.com>
-> Cc: Danilo Krummrich <dakr@kernel.org>
-> Cc: Dave Airlie <airlied@redhat.com>
-> Cc: Timur Tabi <ttabi@nvidia.com>
-> Cc: Suraj Kandpal <suraj.kandpal@intel.com>
-> Cc: James Jones <jajones@nvidia.com>
-> Cc: Faith Ekstrand <faith.ekstrand@collabora.com>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: nouveau@lists.freedesktop.org
-> Cc: <stable@vger.kernel.org> # v5.9+
-> ---
->  drivers/gpu/drm/nouveau/dispnv50/crc.c | 17 +++++++++++++----
->  1 file changed, 13 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/nouveau/dispnv50/crc.c b/drivers/gpu/drm/nouveau/dispnv50/crc.c
-> index deb6af40ef328..5817f39934a8b 100644
-> --- a/drivers/gpu/drm/nouveau/dispnv50/crc.c
-> +++ b/drivers/gpu/drm/nouveau/dispnv50/crc.c
-> @@ -10,6 +10,7 @@
->  #include <nvif/class.h>
->  #include <nvif/cl0002.h>
->  #include <nvif/timer.h>
-> +#include <nvif/if900b.h>
->
->  #include <nvhw/class/cl907d.h>
->
-> @@ -499,16 +500,24 @@ nv50_crc_raster_type(enum nv50_crc_source source)
->   * notifier needs it's own handle
->   */
->  static inline int
-> -nv50_crc_ctx_init(struct nv50_head *head, struct nvif_mmu *mmu,
-> +nv50_crc_ctx_init(struct drm_device *dev, struct nv50_head *head, struct nvif_mmu *mmu,
->                   struct nv50_crc_notifier_ctx *ctx, size_t len, int idx)
->  {
-> -       struct nv50_core *core = nv50_disp(head->base.base.dev)->core;
-> +       struct nv50_core *core = nv50_disp(dev)->core;
->         int ret;
->
-> -       ret = nvif_mem_ctor_map(mmu, "kmsCrcNtfy", NVIF_MEM_VRAM, len, &ctx->mem);
-> +       /* The display engine requires a contiguous region of memory for the CRC notifier context */
-> +       ret = nvif_mem_ctor(mmu, "kmsCrcNtfy", mmu->mem, NVIF_MEM_VRAM | NVIF_MEM_MAPPABLE, 0, len,
-> +                           &(struct gf100_mem_v0) {
-> +                               .contig = true,
-> +                           }, sizeof(struct gf100_mem_v0), &ctx->mem);
+On Mon, May 04, 2026 at 01:56:25PM +1000, Dave Airlie wrote:
+> On Sat, 2 May 2026 at 18:14, Kenneth Crudup <kenny@panix.com> wrote:
+> >
+> >
+> >
+> > On 5/1/26 23:53, Matthew Brost wrote:
+> > > TTM pool shrinking frees pages by calling __free_pages() directly,
+> > > which bypasses updates to NR_GPU_ACTIVE and leaves GPU MM accounting
+> > > out of sync.
+> > >
+> > > Introduce a helper, __free_pages_gpu_account(), and use it for all page
+> > > frees in ttm_pool.c so GPU MM statistics are updated consistently.
+> > >
+> > > Reported-by: Kenneth Crudup <kenny@panix.com>
+> > > Fixes: ae80122f3896 ("drm/ttm: use gpu mm stats to track gpu memory allocations. (v4)")
+> > > Cc: Christian Koenig <christian.koenig@amd.com>
+> > > Cc: Huang Rui <ray.huang@amd.com>
+> > > Cc: Matthew Auld <matthew.auld@intel.com>
+> > > Cc: David Airlie <airlied@gmail.com>
+> > > Cc: dri-devel@lists.freedesktop.org
+> > > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> > >
+> > > ---
+> > >
+> > > v2:
+> 
+> Oops, good catch,
+> 
+> Reviewed-by: Dave Airlie <airlied@redhat.com>
 
-I don't think you can just throw gf100_mem_v0 in here like that, I
-think you should maybe make nvif_mem_ctor_map deal with this since you
-want a kernel mappable vram region it needs contig.
+Thanks! Merged to drm-misc-fixes.
 
-Dave.
+Matt
+
+> 
+> Dave.
