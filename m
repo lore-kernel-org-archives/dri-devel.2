@@ -4,58 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11FC3CD342C
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 10:18:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F338CD342C
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 10:18:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D88910E62F;
-	Mon,  4 May 2026 10:18:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A8DA10E3C1;
+	Mon,  4 May 2026 10:18:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="y5KVyl5r";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EzpCTpPr";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C12F610E5FD
- for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 10:18:26 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 4E7034E42BBB;
- Mon,  4 May 2026 10:18:25 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 1FC045FD5F;
- Mon,  4 May 2026 10:18:25 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 31A7411AD2634; 
- Mon,  4 May 2026 12:18:16 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1777889904; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=FFYFj3cS+32kdh6iscyaRgMTftC7LDL3TybYyPKLyps=;
- b=y5KVyl5r8t6lQy6MGnFNSqdNvb33m+EsSq4JviTs2xwRoNPAVk4ekBn7oKPxJWKULiqpTj
- EH2ZjuYHrymSLkS3r7SbLO1qEuY8OLmu2FN8lBdw7f3SKarq9Nxrw79CgveyVwdHmXB1NQ
- xyUSOcp5W7WB9jMWjzEBq4mUSCOsW/q7aOnAkR4kTPwQOu/q7qdN4jdV0ntnXbsgJjnK/8
- rWMLC7NBOIy/HT9Wzm/R0LMDZQGT7L8TcDKTkZt322CrhmeJUOsTAjsv8tMiFhjpBB459B
- wPPKmEQhluoKhKXDBjdgnC/d8UXpEZwVLtFxnGCl6Z4UQgVppMN0QOyAHHL4jA==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Philipp Zabel <p.zabel@pengutronix.de>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Damon Ding <damon.ding@rock-chips.com>, Arnd Bergmann <arnd@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260429140024.192432-1-arnd@kernel.org>
-References: <20260429140024.192432-1-arnd@kernel.org>
-Subject: Re: [PATCH] drm/ipv3: add CONFIG_OF dependency for
- DRM_OF_DISPLAY_MODE_BRIDGE
-Message-Id: <177788989685.160168.8237474738653611517.b4-ty@b4>
-Date: Mon, 04 May 2026 12:18:16 +0200
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F07110E3C1
+ for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 10:18:45 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id B5D27435DD;
+ Mon,  4 May 2026 10:18:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06A7EC2BCF4;
+ Mon,  4 May 2026 10:18:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1777889924;
+ bh=iTf7A919EfkWk9helc4UbhGI96LKBoYsGAAsbdPvufk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=EzpCTpPrKoPtROZOxYw1Sod9uFtmO0Yksc8O6pQu34LkM/bGgA9+XXXO28FZONZLz
+ ZPv1Fcw7nMZSbuVOwmPfko6YGunADHOKmE10yfUMajffgLYPxslMN1cfTIFqktCSbg
+ KT/ymIG2BtyEg/MytZyhjOK3jAhfs2Uyy+gMnWb+1OoziIGlgT0ltgaCv7vOTQ6vR5
+ OM1bXaJZIH13gAxoNUQoJBx+ZOH0sLGEhdDoxtMSn2PjjrZlGODJJ+WOuAypAeXobY
+ Jww5gmFniwFIMtwX8m++d4lW7RXeO9ewtXXlSPC99MP8oni5K+Hi7iqAyf5i4i/XjN
+ y2to9bucxnWcw==
+Date: Mon, 4 May 2026 12:18:42 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Devarsh Thakkar <devarsht@ti.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 
+ praneeth@ti.com, vigneshr@ti.com, s-jain1@ti.com, s-wang12@ti.com, 
+ r-donadkar@ti.com, r-sharma3@ti.com, afd@ti.com
+Subject: Re: [PATCH 1/6] dt-bindings: vendor-prefixes: Add Dalian Good
+ Display Co., Ltd.
+Message-ID: <20260504-imported-bullfinch-of-drama-4bc7b1@quoll>
+References: <20260430183311.2978142-1-devarsht@ti.com>
+ <20260430183311.2978142-2-devarsht@ti.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260430183311.2978142-2-devarsht@ti.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,23 +68,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-On Wed, 29 Apr 2026 16:00:11 +0200, Arnd Bergmann wrote:
-> Without this, not all dependencies are met here.
+On Fri, May 01, 2026 at 12:03:06AM +0530, Devarsh Thakkar wrote:
+> Add vendor prefix 'gooddisplay' for Dalian Good Display Co., Ltd., a
+> manufacturer of e-paper display panels and modules.
 > 
->   Depends on [n]: HAS_IOMEM [=y] && DRM [=y] && DRM_BRIDGE [=y] && OF [=n]
->   Selected by [y]:
->   - DRM_IMX_PARALLEL_DISPLAY [=y] && HAS_IOMEM [=y] && DRM [=y] && DRM_IMX [=y]
->   - DRM_IMX_LDB [=y] && HAS_IOMEM [=y] && DRM [=y] && DRM_IMX [=y] && COMMON_CLK [=y]
+> This prefix will be used for the GDEY042T81 e-paper display panel in
+> the solomon,ssd16xx binding.
 > 
-> [...]
+> Signed-off-by: Devarsh Thakkar <devarsht@ti.com>
+> ---
+>  Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
 
-Applied, thanks!
-
-[1/1] drm/ipv3: add CONFIG_OF dependency for DRM_OF_DISPLAY_MODE_BRIDGE
-      commit: 528578941a240e0916942bbb5b910c57bbfb3614
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
--- 
-Luca Ceresoli <luca.ceresoli@bootlin.com>
+Krzysztof
 
