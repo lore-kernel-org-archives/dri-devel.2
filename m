@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D40BECD342C
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 10:46:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF821FF885A
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 10:46:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37C4810E666;
-	Mon,  4 May 2026 10:46:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27BA910E668;
+	Mon,  4 May 2026 10:46:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="KP22np9Y";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="JISm6dvD";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A33B10E667
- for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 10:46:05 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DF6610E645;
+ Mon,  4 May 2026 10:46:10 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id D1F84C5D72B;
- Mon,  4 May 2026 10:46:50 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 027001A3506;
+ Mon,  4 May 2026 10:46:09 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 7E5985FD5F;
- Mon,  4 May 2026 10:46:04 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id C95975FD5F;
+ Mon,  4 May 2026 10:46:08 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 26D8311AD2693; 
- Mon,  4 May 2026 12:45:59 +0200 (CEST)
+ with ESMTPSA id 581A011AD26A1; 
+ Mon,  4 May 2026 12:46:03 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1777891562; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1777891567; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=220IIHXE3fADhEmb2vMVV/+5gMB7YquHWvvizygnUgw=;
- b=KP22np9YDJWGU7WPx4i3+TOw3UIEDH6TYq3LFOZ27vc7MQ4ubUXWS1LERoJQTILhZhV9Z9
- 8tksgz5TQ5pCgVQeNnNhrZovevI3CKlUSfc8kyE9Rsj4kSdw7ZxUyl8RTcqX6nYXC46yi5
- uiL5F5dwOovAnFMNkKy0ihUUDaTl8Mc11+Ll5Xi6vm0Zqwy+aMTa2R1tvO6bSuwX39e/Ji
- e1bUCRObvakQG6xU+amItx1RF6Q+lEDfbWCyLLwEVKT96u/LUIQQrskWyatX/9JHsXYJtM
- JwMfCx8tHfofSJyw+xuj1wM8NTScngYMAtB7+1RRzhRBvRa+PK0xGQfE+TpvYA==
+ bh=pOOUC/6IIIksC8MXl8RMQVMT+zs6jAuaGxEXoJvROdk=;
+ b=JISm6dvDSmcY3CpEyUuFv4a2Up2zoXD5vJWycIpCXdTHAp80I46e47C8cVHESIp1rU5tFp
+ fD1oQAdRo4EzdrtlRTpTtYtmOLqTL4IGC5vAMSNwjhhk+U5iAvtPBKb6EfKdU0SYMWDTcR
+ nzEGdEuW9+wMflwMH6/pejXn6zC6iw7DsvNtqvcZiVoJ9zWRvs68Qn7LMyyObxSBkx5fRA
+ S9RGL2BC6PQfi9fPfhGkGbh/ZvsjnOLOToJxRnHTwhT0nMdQObw+tDy1bOCviNROjd9TaN
+ 674tABfuAW1qCWcujUOO4R6gQGTt97A/CkyEduBlNpcl1Eb4aOJAj8j9HgI8gA==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Mon, 04 May 2026 12:45:13 +0200
-Subject: [PATCH v4 10/11] drm: zynqmp_dp: switch to
- of_drm_get_bridge_by_endpoint()
+Date: Mon, 04 May 2026 12:45:14 +0200
+Subject: [PATCH v4 11/11] drm: of: forbid bridge-only calls to
+ drm_of_find_panel_or_bridge()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260504-drm-bridge-alloc-getput-panel_or_bridge-v4-10-b578c3daaf10@bootlin.com>
+Message-Id: <20260504-drm-bridge-alloc-getput-panel_or_bridge-v4-11-b578c3daaf10@bootlin.com>
 References: <20260504-drm-bridge-alloc-getput-panel_or_bridge-v4-0-b578c3daaf10@bootlin.com>
 In-Reply-To: <20260504-drm-bridge-alloc-getput-panel_or_bridge-v4-0-b578c3daaf10@bootlin.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -63,7 +63,8 @@ Cc: Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
  linux-arm-kernel@lists.infradead.org, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
 X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -81,79 +82,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This driver calls drm_of_find_panel_or_bridge() with a NULL pointer in the
-@panel parameter, thus using a reduced feature set of that function.
-Replace this call with the simpler of_drm_get_bridge_by_endpoint().
+Up to now drm_of_find_panel_or_bridge() can be called with a bridge pointer
+only, a panel pointer only, or both a bridge and a panel pointers. The
+logic to handle all the three cases is somewhat complex to read however.
 
-Since of_drm_get_bridge_by_endpoint() increases the refcount of the
-returned bridge, ensure it is put on removal. To achieve this, instead of
-adding an explicit drm_bridge_put(), migrate to the bridge::next_bridge
-pointer which is automatically put when the bridge is eventually freed.
+Now all bridge-only callers have been converted to
+of_drm_get_bridge_by_endpoint(), which is simpler and handles bridge
+refcounting. So forbid new bridge-only users by mandating a non-NULL panel
+pointer in the docs and in the sanity checks along with a warning.
 
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-
 ---
+ drivers/gpu/drm/drm_of.c | 26 ++++++++++++--------------
+ 1 file changed, 12 insertions(+), 14 deletions(-)
 
-Changes in v4:
-- fix missing assignment
-
-Changes in v3:
-- fix ERR_PTR deref when -ENODEV is returned
----
- drivers/gpu/drm/xlnx/zynqmp_dp.c | 19 +++++++++++--------
- 1 file changed, 11 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/gpu/drm/xlnx/zynqmp_dp.c b/drivers/gpu/drm/xlnx/zynqmp_dp.c
-index 379180fb3004..fd30491a6697 100644
---- a/drivers/gpu/drm/xlnx/zynqmp_dp.c
-+++ b/drivers/gpu/drm/xlnx/zynqmp_dp.c
-@@ -353,7 +353,6 @@ struct zynqmp_dp_train_set_priv {
-  * @lock: Mutex protecting this struct and register access (but not AUX)
-  * @irq: irq
-  * @bridge: DRM bridge for the DP encoder
-- * @next_bridge: The downstream bridge
-  * @test: Configuration for test mode
-  * @config: IP core configuration from DTS
-  * @aux: aux channel
-@@ -385,7 +384,6 @@ struct zynqmp_dp {
- 	struct completion aux_done;
- 	struct mutex lock;
+diff --git a/drivers/gpu/drm/drm_of.c b/drivers/gpu/drm/drm_of.c
+index ef6b09316963..d03ada82eac9 100644
+--- a/drivers/gpu/drm/drm_of.c
++++ b/drivers/gpu/drm/drm_of.c
+@@ -225,15 +225,15 @@ EXPORT_SYMBOL_GPL(drm_of_encoder_active_endpoint);
+  * @np: device tree node containing encoder output ports
+  * @port: port in the device tree node
+  * @endpoint: endpoint in the device tree node
+- * @panel: pointer to hold returned drm_panel
++ * @panel: pointer to hold returned drm_panel, must not be NULL
+  * @bridge: pointer to hold returned drm_bridge
+  *
+  * Given a DT node's port and endpoint number, find the connected node and
+- * return either the associated struct drm_panel or drm_bridge device. Either
+- * @panel or @bridge must not be NULL.
++ * return either the associated struct drm_panel or drm_bridge device.
+  *
+  * This function is deprecated and should not be used in new drivers. Use
+- * devm_drm_of_get_bridge() instead.
++ * of_drm_get_bridge_by_endpoint() instead when not looking for a panel, or
++ * devm_drm_of_get_bridge() otherwise.
+  *
+  * Returns zero if successful, or one of the standard error codes if it fails.
+  */
+@@ -245,10 +245,10 @@ int drm_of_find_panel_or_bridge(const struct device_node *np,
+ 	int ret = -EPROBE_DEFER;
+ 	struct device_node *remote;
  
--	struct drm_bridge *next_bridge;
- 	struct device *dev;
- 	struct zynqmp_dpsub *dpsub;
- 	void __iomem *iomem;
-@@ -1494,8 +1492,8 @@ static int zynqmp_dp_bridge_attach(struct drm_bridge *bridge,
- 		return ret;
- 	}
+-	if (!panel && !bridge)
++	if (WARN_ON(!panel))
+ 		return -EINVAL;
+-	if (panel)
+-		*panel = NULL;
++
++	*panel = NULL;
  
--	if (dp->next_bridge) {
--		ret = drm_bridge_attach(encoder, dp->next_bridge,
-+	if (dp->bridge.next_bridge) {
-+		ret = drm_bridge_attach(encoder, dp->bridge.next_bridge,
- 					bridge, flags);
- 		if (ret < 0)
- 			goto error;
-@@ -2461,10 +2459,15 @@ int zynqmp_dp_probe(struct zynqmp_dpsub *dpsub)
- 	 * Acquire the next bridge in the chain. Ignore errors caused by port@5
- 	 * not being connected for backward-compatibility with older DTs.
- 	 */
--	ret = drm_of_find_panel_or_bridge(dp->dev->of_node, 5, 0, NULL,
--					  &dp->next_bridge);
--	if (ret < 0 && ret != -ENODEV)
--		goto err_reset;
-+	dp->bridge.next_bridge = of_drm_get_bridge_by_endpoint(dp->dev->of_node, 5, 0);
-+	if (IS_ERR(dp->bridge.next_bridge)) {
-+		if (PTR_ERR(dp->bridge.next_bridge) == -ENODEV) {
-+			dp->bridge.next_bridge = NULL;
-+		} else {
-+			ret = PTR_ERR(dp->bridge.next_bridge);
-+			goto err_reset;
-+		}
-+	}
+ 	/*
+ 	 * of_graph_get_remote_node() produces a noisy error message if port
+@@ -263,13 +263,11 @@ int drm_of_find_panel_or_bridge(const struct device_node *np,
+ 	if (!remote)
+ 		return -ENODEV;
  
- 	/* Initialize the hardware. */
- 	dp->config.misc0 &= ~ZYNQMP_DP_MAIN_STREAM_MISC0_SYNC_LOCK;
+-	if (panel) {
+-		*panel = of_drm_find_panel(remote);
+-		if (!IS_ERR(*panel))
+-			ret = 0;
+-		else
+-			*panel = NULL;
+-	}
++	*panel = of_drm_find_panel(remote);
++	if (!IS_ERR(*panel))
++		ret = 0;
++	else
++		*panel = NULL;
+ 
+ 	if (bridge) {
+ 		if (ret) {
 
 -- 
 2.53.0
