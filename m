@@ -4,102 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F993FF885A
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 15:05:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48D15CD3430
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 15:19:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9710810E74C;
-	Mon,  4 May 2026 15:05:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9ECA010E74B;
+	Mon,  4 May 2026 15:19:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="OTqqXmw/";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bfTnUnTg";
 	dkim-atps=neutral
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
- [209.85.221.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14AB210E74C
- for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 15:05:46 +0000 (UTC)
-Received: by mail-wr1-f47.google.com with SMTP id
- ffacd0b85a97d-44e1860558fso778025f8f.0
- for <dri-devel@lists.freedesktop.org>; Mon, 04 May 2026 08:05:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1777907144; x=1778511944;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=vGzvK4HsHm02j9O1TwzKamsko2ii3BucSi9rVkl9Lnw=;
- b=OTqqXmw/Ss/d6t74zIC9DEkUY1Ml1t9madccCjLvQOG4k3a7Ab1sGfz2bpxl5GFA8i
- xyhU+fTJbV8eMCtwr7fnVMb2OkQriT1o3p2FYUMa7NGTKchBf6rHWWwPyvuitCrKjQ9C
- XI6PP5I31QOKj1GTEh6r5VLI69z07sfcAJul98+0bLeWtrrpYE+eF1qdItBXsC4C0OWa
- Q9HfhJnTS1mop+WHfN57isN+/dvx0jZk4rh7HnbctigWLvzP6poE0A5X1HgheHhC0BuM
- BSFxBmkfm5k3DK5sB+iYBfWbGlHvp+ybE30/v7TUkYETYaPEGJV0ERovFa/VD6hHxPIq
- oM9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777907144; x=1778511944;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=vGzvK4HsHm02j9O1TwzKamsko2ii3BucSi9rVkl9Lnw=;
- b=olBwxezo+0hhNjJKUiruA+slDGT2kobo6DgIws5E7sGpj5/VjWQnpxDkewXnoLbzr4
- SsvWl/TrYHj7BpJsMNnxpROGn/C2/HJ2OKsRuow72TUcibd4IbeMzcbI/G2YM6i4vVYt
- qQ6gzt/1yT7m8lpcltsePZw8eGbq805k2kE/ZGCXHr8ISWQvjdWlMK40+KweqE+YfSHH
- 4Bg7drQLtmES6LZRnYJlguBCdkPOzAqDySurVpTLknP5EeeztAk1M+WlLdxHfXxuKx8q
- +6/LMvV0NfHB1MbzJ7LyXIDXknrVE1mzOcG5t+BqwguNOVM+HfDR5idIz7ApMSh9oAu0
- 3gcA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/Aj9MdAttER0VrsYqH/97L82TkVM2eWiDfzajLC38MK82boenr77DigDMRL5ZnAYlj8edpRUaQsos=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxjN8+rQBadHPob+l4K3pS59J7q472NfiVhY8AqzkPhOhf8bDt7
- mkPi1Wp5PJD6zKP88MXcxbF/SIBovMKsIpO0OaC882E6KGULumufPG1wQLMl/A7QpdhOCj0Xymk
- euqkJ
-X-Gm-Gg: AeBDiesCZAxA4IO+OhEEQc8JGFNWoS2xNq90TqLeSo4w/NR7D24HMxXbxgDF4Ik1o9x
- EJCuveXEbSbx2MP4B6kHz2bZdLeTwZtyZLqInxCpXmq6wj1GcgXRahCRtmEv4x8PbGb+BUmzXas
- CLoehNlqKukA+28vfQWgtFfQJd/8OO3Ih88QXyBIQsl7V2+GNn7l6xnum9zqjF5Y/4JzYmlMsgs
- 2RWX0CB3tfyX+ngfQcig4KxoiM0sEv1UinF03KMK+GPVJoSUxM6nrVR1PpfBR4q1LS/NN8L0mBE
- YKRJGx6W+W/CPBi4xk/9JfW+AYQ+PJ4pfWHbdo7zllbiMvdltjxmJCsN/ek0DUkxAF40DYi/gjL
- Q0OB7Wt+aCMYuh4pZ/0wEeFe4P9YXoqUrpD2nz2OgGFyJjV3dnFAU3aZz7ceq1Ta0hILaHH2QjG
- MprFOreFoNiGb85fGDMKGRjmUDf91tllIxmAjMKYKT9hLHrlQ+bCKbmR039n8Fa0sIVUUgwx7w1
- PU+Uuma6UVOvJqPh611B7XbGw==
-X-Received: by 2002:a05:600c:3487:b0:486:fb0b:ad79 with SMTP id
- 5b1f17b1804b1-48a988a6ec9mr178609795e9.20.1777907144531; 
- Mon, 04 May 2026 08:05:44 -0700 (PDT)
-Received: from localhost
- (p200300f65f114e08197264a4bf9e813f.dip0.t-ipconnect.de.
- [2003:f6:5f11:4e08:1972:64a4:bf9e:813f])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-48d046faba7sm38072595e9.30.2026.05.04.08.05.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 May 2026 08:05:43 -0700 (PDT)
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?=
- <u.kleine-koenig@baylibre.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Gerd Hoffmann <kraxel@redhat.com>
-Cc: Markus Schneider-Pargmann <msp@baylibre.com>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Jianmin Lv <lvjianmin@loongson.cn>, Qianhai Wu <wuqianhai@loongson.cn>,
- Huacai Chen <chenhuacai@kernel.org>, Mingcong Bai <jeffbai@aosc.io>,
- Xi Ruoyao <xry111@xry111.site>, Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Dave Airlie <airlied@redhat.com>, Jocelyn Falempe <jfalempe@redhat.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org
-Subject: [PATCH] drm: Consistently define pci_device_ids using named
- initializers
-Date: Mon,  4 May 2026 17:05:37 +0200
-Message-ID: <20260504150537.2136760-2-u.kleine-koenig@baylibre.com>
-X-Mailer: git-send-email 2.47.3
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1C9910E3EE;
+ Mon,  4 May 2026 15:19:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1777907989; x=1809443989;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=WG+XGX1LKFO8gDnjpvg3aRGIaiaGPdZCSu/I8N1JFYc=;
+ b=bfTnUnTgUMN4Vvg5Z6daigqPA5i98o//y+AGkfBFeBbiC2IN88MEZrlD
+ 8lIexOtl/P0w1ifF5RicHiv/GHwb/j7bu+kv8csUL5gGlZjwYnclRzXPh
+ /wNJ5S1o6S9MIQBJXYScm22spEBenrhYUsaNNhXrAtqlZbK4Ogdr+hXqA
+ TMUEcZHZWo0JdTQ7jGpMlN4F8ftYHjHLqcIs/fa5uqixZkvMH6DJuxw11
+ GFp/lE08A0Fx4O4Vc2IOqUm9/sjEOebVkBaNbdob+OMBYlRnhGBvtExwI
+ kKnYFeHltttMLDUWgMVPkKeV3RM1EcjZnsrwfoZj+cYXQvvsWEW+UF6Y4 g==;
+X-CSE-ConnectionGUID: 4YNzAy85RR+ltrsyYDANCQ==
+X-CSE-MsgGUID: kkWzHnhWT22LrHl2P5Mcsg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11776"; a="82616899"
+X-IronPort-AV: E=Sophos;i="6.23,215,1770624000"; d="scan'208";a="82616899"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 May 2026 08:19:48 -0700
+X-CSE-ConnectionGUID: gLwZablRQHyBsU8n6pso0A==
+X-CSE-MsgGUID: OtqIoPyqQ7OXKxsCvujbWQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,215,1770624000"; d="scan'208";a="240530954"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO [10.245.245.197])
+ ([10.245.245.197])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 May 2026 08:19:44 -0700
+Message-ID: <017d25edabb2e4f60da7421278bffa20f51b0142.camel@linux.intel.com>
+Subject: Re: [PATCH] drm/ttm/pool: back up at native page order
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,  Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann	 <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter	 <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Date: Mon, 04 May 2026 17:19:42 +0200
+In-Reply-To: <afitheEYRoy7VoPu@gsse-cloud1.jf.intel.com>
+References: <20260504042619.2896273-1-matthew.brost@intel.com>
+ <58ea6837e2aa808bf9f3ba304395058a2d08b8d0.camel@linux.intel.com>
+ <afitheEYRoy7VoPu@gsse-cloud1.jf.intel.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9388;
- i=u.kleine-koenig@baylibre.com; h=from:subject;
- bh=NE1L6eMzG6COj1SB7uAmt2t6ZR5qluBMscfu2fv82Pc=;
- b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBp+LXC7vbJIuE2keRFm6HVDh2ebJ24M6YY8wzqT
- r96mRsBPBmJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCafi1wgAKCRCPgPtYfRL+
- Tl7GCACfNS/fqsNkHf6BM4BCBvB6p0B1vHt/ScUAqlpcSAqMYX8TzNHbiI+W88f+p/Vt3AVExJt
- LNxEJmfvDpAh3sTsue2/b4O/lc3hyU8y+Kw1VAYD7tkNcVUR/C6jcIB7QkOhwjNNsvj9RWpYghx
- 7fftJjmp6E7aLxhP9v5e+WDD6F8v+p7+RIApXuSQgNr4iCCY1jBVmbnQBFr2kNJQnoZtDNLy5dF
- 6yMkhqMJVJXebTe1j6thkum5+dfkHMjlcSrr6UeVNxJJdPJ8Kh10GudKxGbahDvUppWvhSBBa8R
- gWRoqIfS/iKEazlGfaUvk5/jVNOHfq3wJ/CEdLIpQLEr6H8j
-X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp;
- fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,190 +78,410 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The .driver_data member of the various struct pci_device_id arrays were
-initialized by list expressions. This isn't easily readable if you're
-not into PCI. Using the PCI_DEVICE macro and named initializers is more
-explicit and thus easier to parse. Also skip explicit assignments of 0
-(which the compiler then takes care of).
+On Mon, 2026-05-04 at 07:30 -0700, Matthew Brost wrote:
+> On Mon, May 04, 2026 at 10:35:23AM +0200, Thomas Hellstr=C3=B6m wrote:
+> > Hi, Matt,
+> >=20
+> > On Sun, 2026-05-03 at 21:26 -0700, Matthew Brost wrote:
+> > > ttm_pool_split_for_swap() splits high-order pool pages into
+> > > order-0
+> > > pages during backup so each 4K page can be released to the system
+> > > as
+> > > soon as it has been written to shmem. While this minimizes the
+> > > allocator's working set during reclaim, it actively fragments
+> > > memory:
+> > > every TTM-backed compound page that the shrinker touches is
+> > > shattered
+> > > into order-0 pages, even when the rest of the system would prefer
+> > > that
+> > > the high-order block stay intact. Under sustained kswapd pressure
+> > > this
+> > > is enough to drive other parts of MM into recovery loops from
+> > > which
+> > > they cannot easily escape, because the memory TTM just freed is
+> > > no
+> > > longer contiguous.
+> > >=20
+> > > Stop splitting on the backup path and back up each compound
+> > > atomically
+> > > at its native order in ttm_pool_backup():
+> > >=20
+> > > =C2=A0 - For each non-handle slot, read the order from the head page
+> > > and
+> > > =C2=A0=C2=A0=C2=A0 back up all 1<<order subpages to consecutive shmem=
+ indices,
+> > > =C2=A0=C2=A0=C2=A0 writing the resulting handles into tt->pages[] as =
+we go.
+> > > =C2=A0 - On any per-subpage backup failure, drop the handles we just
+> > > wrote
+> > > =C2=A0=C2=A0=C2=A0 for this compound and restore the original page po=
+inters, so
+> > > the
+> > > =C2=A0=C2=A0=C2=A0 compound is left fully intact and may be retried l=
+ater.
+> > > shrunken
+> > > =C2=A0=C2=A0=C2=A0 is only incremented once the whole compound succee=
+ds.
+> > > =C2=A0 - On success, the compound is freed once at its native order.
+> > > No
+> > > =C2=A0=C2=A0=C2=A0 split_page(), no per-4K refcount juggling, no frag=
+mentation
+> > > =C2=A0=C2=A0=C2=A0 introduced from this path.
+> > > =C2=A0 - Slots that already hold a backup handle from a previous
+> > > partial
+> > > =C2=A0=C2=A0=C2=A0 attempt are skipped. A compound that would extend =
+past a
+> > > =C2=A0=C2=A0=C2=A0 fault-injection-truncated num_pages is skipped rat=
+her than
+> > > split.
+> > >=20
+> > > The restore-side leftover-page branch in
+> > > ttm_pool_restore_commit() is
+> > > left as-is for now: that path can still split a previously-
+> > > retained
+> > > compound, but in practice it is unreachable under realistic
+> > > workloads
+> > > (per profiling we have not been able to trigger it), so it is not
+> > > worth complicating the restore state machine to avoid the split
+> > > there.
+> > > If it ever becomes a problem in practice it can be addressed
+> > > independently.
+> > >=20
+> > > ttm_pool_split_for_swap() itself is retained for the restore
+> > > path's
+> > > sole remaining caller. The DMA-mapped pre-backup unmap loop, the
+> > > purge path, ttm_pool_free_*, and ttm_pool_unmap_and_free()
+> > > already
+> > > operate at native order and are unchanged.
+> >=20
+> > This split is intentional in that without it, we'd need to first
+> > allocate 1 << order pages from the kernel's *reserves* in order to
+> > later free 2 << order pages, making the shrinker much more likely
+> > to
+> > fail in true OOM situations. (I believe this was one of the reasons
+> > the
+> > initial shrinker attempts from AMD didn't work as expected).
+> >=20
+>=20
+> So where exactly is allocation done=E2=80=94shmem_read_folio_gfp or
+> shmem_writeout? I did notice and called out, in the commit message,
+> that
+> those interfaces are a bit confusing with respect to whether they
+> actually work with higher-order allocations.
 
-This change doesn't introduce changes to the compiled pci_device_id
-arrays. Tested on x86 and arm64.
+The interesting one is in shmem_read_folio_gfp(). This used to be 4K-
+page only (but i915 had some tricks to make this allocate 2M folios).
+My understanding (to be verified) is that this recently was changed to
+allow 2M by default, and also to allow 2M folio writeout. Writeout
+moves the folio from the page-cache to the swap-cache and then starts a
+fs writeout operation. Pages are put back on the LRU and are freed when
+writeout completes.
 
-Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
----
-Hello,
+As I understand it, shmem_read_folio_gfp() will also potentially
+allocate memory for the shmem object radix tree.
 
-The secret plan is to make struct pci_device_id::driver_data an
-anonymous union (similar to
-https://lore.kernel.org/all/cover.1776579304.git.u.kleine-koenig@baylibre.com/)
-and that requires named initializers. But IMHO it's also a nice cleanup
-on its own.
+>=20
+> Also, FWIW, this patch by itself seems to greatly help with
+> fragmentation, and I haven=E2=80=99t seen the OOM killer kick in. I=E2=80=
+=99ve done
+> things like running WebGL in a bunch of Chrome tabs, then running
+> bonnie++ (which basically uses all memory), or running IGTs, which
+> also
+> use all available memory. Based on that, I=E2=80=99m leaning toward this
+> patch
+> alone working as designed.
 
-The anonymous union will allow changes like the following:
+Good to know. Perhaps it would feel safer if we completely restrict the
+xe TTM order to 2M and below (if we haven't already).
 
--	{ PCI_DEVICE(0x8086, 0x8108), .driver_data = (long) &psb_chip_ops },
-+	{ PCI_DEVICE(0x8086, 0x8108), .driver_data_ptr = &psb_chip_ops },
+>=20
+> >=20
+> > I believe the solution here is in the ttm_backup layer, We should
+> > introduce a ttm_backup_backup_folio function and either insert the
+> > page
+>=20
+> I think something like ttm_backup_backup_folio() makes sense, again I
+> called out in commit message.
+>=20
+> > directly into the shmem object (zero-copy) or even directly into
+> > the
+> > swap cache. Then we should completely restrict xe page allocations
+> > to
+> > only allow THP and PAGE_SIZE (Possibly 64K pages, but they'd either
+> > need a split or perhaps they are small enough to be backed-up using
+>=20
+> Yes, I did raise something like with Christian too [1]. IMO the
+> driver
+> should be able dictate to TTM the orders it likely to allocate at.
+>=20
+> [1]
+> https://patchwork.freedesktop.org/patch/716362/?series=3D164338&rev=3D1
+>=20
+> > one-go copy, similar to this patch, but in the backup layer). FWIW
+> > at
+> > the time the shrinker was put together, AFAIU SHMEM split large
+> > pages
+> > on swapping anyway, but since that appears to have changed, we need
+> > to
+> > catch up.
+> >=20
+> > Inserting directly into the swap-cache WIP is here, rebased on a
+> > recent
+> > kernel (This is an old idea that has actually been out on RFC
+> > once).
+> > This needs a core mm bugfix (also in the branch), but I'm not sure
+> > the
+> > swap cache is the right place to do this, at least not if we don't
+> > immediately schedule a write to disc, it looks like current users
+> > don't
+> > want to keep pages in swap-cache for very long (related to that
+> > bug)
+> > https://gitlab.freedesktop.org/thomash/xe-vibe/-/commits/thp_swapping2
+> >=20
+> > Inserting directly into shmem (A fairly recent idea that is mostly
+> > untested)
+> > https://gitlab.freedesktop.org/thomash/xe-vibe/-/commits/insert_shmem?r=
+ef_type=3Dheads
+> > Since SHMEM schedules writeout immediately when pages are moved to
+> > the
+> > swap-cache, it's not as susceptible to the above bug, since swap-
+> > cache
+> > entries are not typically held for folios for which we haven't
+> > scheduled writeout.
+> >=20
+>=20
+> Let me take a look at these branches today.
+>=20
+> > We should try to solicit feedback from mm people on these two
+> > approaches.
+>=20
+> +1, but I think we should stop here if this patch, as=E2=80=91is, is OK t=
+o go
+> in=E2=80=94ideally as a fix=E2=80=94since, based on my testing, it seems =
+to help
+> quite a
+> bit and current upstream shrinker is badly broken.
 
-(together with the respective change in the code when the value is
-used). This gets rid of a bunch of casts and thus slightly improves
-type safety.
+Well I think the problem with testing shrinking behavior is that we
+haven't had good test-cases, so we don't really know if this change
+would break something that currently works. In the shmem documentation
+there's even some wording about concerns that the shmem radix tree
+allocations could accumulate and drain the kernel reserves.=C2=A0
 
-Best regards
-Uwe
+According to Google AI, the kernel reserves are around 2MiB times the
+number of zones, controlled by vm.min_free_kbytes.
 
- drivers/gpu/drm/gma500/psb_drv.c      | 56 +++++++++++++--------------
- drivers/gpu/drm/loongson/lsdc_drv.c   |  4 +-
- drivers/gpu/drm/mgag200/mgag200_drv.c | 24 ++++++------
- drivers/gpu/drm/qxl/qxl_drv.c         | 15 ++++---
- 4 files changed, 52 insertions(+), 47 deletions(-)
+But I think if we would push this or something similar but then we
+should=20
 
-diff --git a/drivers/gpu/drm/gma500/psb_drv.c b/drivers/gpu/drm/gma500/psb_drv.c
-index 005ab7f5355f..039da26ef24d 100644
---- a/drivers/gpu/drm/gma500/psb_drv.c
-+++ b/drivers/gpu/drm/gma500/psb_drv.c
-@@ -56,36 +56,36 @@ static int psb_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent);
-  */
- static const struct pci_device_id pciidlist[] = {
- 	/* Poulsbo */
--	{ 0x8086, 0x8108, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &psb_chip_ops },
--	{ 0x8086, 0x8109, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &psb_chip_ops },
-+	{ PCI_DEVICE(0x8086, 0x8108), .driver_data = (long) &psb_chip_ops },
-+	{ PCI_DEVICE(0x8086, 0x8109), .driver_data = (long) &psb_chip_ops },
- 	/* Oak Trail */
--	{ 0x8086, 0x4100, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &oaktrail_chip_ops },
--	{ 0x8086, 0x4101, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &oaktrail_chip_ops },
--	{ 0x8086, 0x4102, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &oaktrail_chip_ops },
--	{ 0x8086, 0x4103, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &oaktrail_chip_ops },
--	{ 0x8086, 0x4104, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &oaktrail_chip_ops },
--	{ 0x8086, 0x4105, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &oaktrail_chip_ops },
--	{ 0x8086, 0x4106, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &oaktrail_chip_ops },
--	{ 0x8086, 0x4107, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &oaktrail_chip_ops },
--	{ 0x8086, 0x4108, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &oaktrail_chip_ops },
-+	{ PCI_DEVICE(0x8086, 0x4100), .driver_data = (long) &oaktrail_chip_ops },
-+	{ PCI_DEVICE(0x8086, 0x4101), .driver_data = (long) &oaktrail_chip_ops },
-+	{ PCI_DEVICE(0x8086, 0x4102), .driver_data = (long) &oaktrail_chip_ops },
-+	{ PCI_DEVICE(0x8086, 0x4103), .driver_data = (long) &oaktrail_chip_ops },
-+	{ PCI_DEVICE(0x8086, 0x4104), .driver_data = (long) &oaktrail_chip_ops },
-+	{ PCI_DEVICE(0x8086, 0x4105), .driver_data = (long) &oaktrail_chip_ops },
-+	{ PCI_DEVICE(0x8086, 0x4106), .driver_data = (long) &oaktrail_chip_ops },
-+	{ PCI_DEVICE(0x8086, 0x4107), .driver_data = (long) &oaktrail_chip_ops },
-+	{ PCI_DEVICE(0x8086, 0x4108), .driver_data = (long) &oaktrail_chip_ops },
- 	/* Cedar Trail */
--	{ 0x8086, 0x0be0, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &cdv_chip_ops },
--	{ 0x8086, 0x0be1, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &cdv_chip_ops },
--	{ 0x8086, 0x0be2, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &cdv_chip_ops },
--	{ 0x8086, 0x0be3, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &cdv_chip_ops },
--	{ 0x8086, 0x0be4, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &cdv_chip_ops },
--	{ 0x8086, 0x0be5, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &cdv_chip_ops },
--	{ 0x8086, 0x0be6, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &cdv_chip_ops },
--	{ 0x8086, 0x0be7, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &cdv_chip_ops },
--	{ 0x8086, 0x0be8, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &cdv_chip_ops },
--	{ 0x8086, 0x0be9, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &cdv_chip_ops },
--	{ 0x8086, 0x0bea, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &cdv_chip_ops },
--	{ 0x8086, 0x0beb, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &cdv_chip_ops },
--	{ 0x8086, 0x0bec, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &cdv_chip_ops },
--	{ 0x8086, 0x0bed, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &cdv_chip_ops },
--	{ 0x8086, 0x0bee, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &cdv_chip_ops },
--	{ 0x8086, 0x0bef, PCI_ANY_ID, PCI_ANY_ID, 0, 0, (long) &cdv_chip_ops },
--	{ 0, }
-+	{ PCI_DEVICE(0x8086, 0x0be0), .driver_data = (long) &cdv_chip_ops },
-+	{ PCI_DEVICE(0x8086, 0x0be1), .driver_data = (long) &cdv_chip_ops },
-+	{ PCI_DEVICE(0x8086, 0x0be2), .driver_data = (long) &cdv_chip_ops },
-+	{ PCI_DEVICE(0x8086, 0x0be3), .driver_data = (long) &cdv_chip_ops },
-+	{ PCI_DEVICE(0x8086, 0x0be4), .driver_data = (long) &cdv_chip_ops },
-+	{ PCI_DEVICE(0x8086, 0x0be5), .driver_data = (long) &cdv_chip_ops },
-+	{ PCI_DEVICE(0x8086, 0x0be6), .driver_data = (long) &cdv_chip_ops },
-+	{ PCI_DEVICE(0x8086, 0x0be7), .driver_data = (long) &cdv_chip_ops },
-+	{ PCI_DEVICE(0x8086, 0x0be8), .driver_data = (long) &cdv_chip_ops },
-+	{ PCI_DEVICE(0x8086, 0x0be9), .driver_data = (long) &cdv_chip_ops },
-+	{ PCI_DEVICE(0x8086, 0x0bea), .driver_data = (long) &cdv_chip_ops },
-+	{ PCI_DEVICE(0x8086, 0x0beb), .driver_data = (long) &cdv_chip_ops },
-+	{ PCI_DEVICE(0x8086, 0x0bec), .driver_data = (long) &cdv_chip_ops },
-+	{ PCI_DEVICE(0x8086, 0x0bed), .driver_data = (long) &cdv_chip_ops },
-+	{ PCI_DEVICE(0x8086, 0x0bee), .driver_data = (long) &cdv_chip_ops },
-+	{ PCI_DEVICE(0x8086, 0x0bef), .driver_data = (long) &cdv_chip_ops },
-+	{ }
- };
- MODULE_DEVICE_TABLE(pci, pciidlist);
- 
-diff --git a/drivers/gpu/drm/loongson/lsdc_drv.c b/drivers/gpu/drm/loongson/lsdc_drv.c
-index 1ece1ea42f78..f9f7271ddbff 100644
---- a/drivers/gpu/drm/loongson/lsdc_drv.c
-+++ b/drivers/gpu/drm/loongson/lsdc_drv.c
-@@ -444,8 +444,8 @@ static const struct dev_pm_ops lsdc_pm_ops = {
- };
- 
- static const struct pci_device_id lsdc_pciid_list[] = {
--	{PCI_VDEVICE(LOONGSON, 0x7a06), CHIP_LS7A1000},
--	{PCI_VDEVICE(LOONGSON, 0x7a36), CHIP_LS7A2000},
-+	{ PCI_VDEVICE(LOONGSON, 0x7a06), .driver_data = CHIP_LS7A1000 },
-+	{ PCI_VDEVICE(LOONGSON, 0x7a36), .driver_data = CHIP_LS7A2000 },
- 	{ }
- };
- 
-diff --git a/drivers/gpu/drm/mgag200/mgag200_drv.c b/drivers/gpu/drm/mgag200/mgag200_drv.c
-index a32be27c39e8..8ad4ddb60ee6 100644
---- a/drivers/gpu/drm/mgag200/mgag200_drv.c
-+++ b/drivers/gpu/drm/mgag200/mgag200_drv.c
-@@ -205,18 +205,18 @@ int mgag200_device_init(struct mga_device *mdev,
-  */
- 
- static const struct pci_device_id mgag200_pciidlist[] = {
--	{ PCI_VENDOR_ID_MATROX, 0x520, PCI_ANY_ID, PCI_ANY_ID, 0, 0, G200_PCI },
--	{ PCI_VENDOR_ID_MATROX, 0x521, PCI_ANY_ID, PCI_ANY_ID, 0, 0, G200_AGP },
--	{ PCI_VENDOR_ID_MATROX, 0x522, PCI_ANY_ID, PCI_ANY_ID, 0, 0, G200_SE_A },
--	{ PCI_VENDOR_ID_MATROX, 0x524, PCI_ANY_ID, PCI_ANY_ID, 0, 0, G200_SE_B },
--	{ PCI_VENDOR_ID_MATROX, 0x530, PCI_ANY_ID, PCI_ANY_ID, 0, 0, G200_EV },
--	{ PCI_VENDOR_ID_MATROX, 0x532, PCI_ANY_ID, PCI_ANY_ID, 0, 0, G200_WB },
--	{ PCI_VENDOR_ID_MATROX, 0x533, PCI_ANY_ID, PCI_ANY_ID, 0, 0, G200_EH },
--	{ PCI_VENDOR_ID_MATROX, 0x534, PCI_ANY_ID, PCI_ANY_ID, 0, 0, G200_ER },
--	{ PCI_VENDOR_ID_MATROX, 0x536, PCI_ANY_ID, PCI_ANY_ID, 0, 0, G200_EW3 },
--	{ PCI_VENDOR_ID_MATROX, 0x538, PCI_ANY_ID, PCI_ANY_ID, 0, 0, G200_EH3 },
--	{ PCI_VENDOR_ID_MATROX, 0x53a, PCI_ANY_ID, PCI_ANY_ID, 0, 0, G200_EH5 },
--	{0,}
-+	{ PCI_VDEVICE(MATROX, 0x0520), .driver_data = G200_PCI },
-+	{ PCI_VDEVICE(MATROX, 0x0521), .driver_data = G200_AGP },
-+	{ PCI_VDEVICE(MATROX, 0x0522), .driver_data = G200_SE_A },
-+	{ PCI_VDEVICE(MATROX, 0x0524), .driver_data = G200_SE_B },
-+	{ PCI_VDEVICE(MATROX, 0x0530), .driver_data = G200_EV },
-+	{ PCI_VDEVICE(MATROX, 0x0532), .driver_data = G200_WB },
-+	{ PCI_VDEVICE(MATROX, 0x0533), .driver_data = G200_EH },
-+	{ PCI_VDEVICE(MATROX, 0x0534), .driver_data = G200_ER },
-+	{ PCI_VDEVICE(MATROX, 0x0536), .driver_data = G200_EW3 },
-+	{ PCI_VDEVICE(MATROX, 0x0538), .driver_data = G200_EH3 },
-+	{ PCI_VDEVICE(MATROX, 0x053a), .driver_data = G200_EH5 },
-+	{ }
- };
- 
- MODULE_DEVICE_TABLE(pci, mgag200_pciidlist);
-diff --git a/drivers/gpu/drm/qxl/qxl_drv.c b/drivers/gpu/drm/qxl/qxl_drv.c
-index 2bbb1168a3ff..6c3c309b8e4d 100644
---- a/drivers/gpu/drm/qxl/qxl_drv.c
-+++ b/drivers/gpu/drm/qxl/qxl_drv.c
-@@ -50,11 +50,16 @@
- #include "qxl_object.h"
- 
- static const struct pci_device_id pciidlist[] = {
--	{ 0x1b36, 0x100, PCI_ANY_ID, PCI_ANY_ID, PCI_CLASS_DISPLAY_VGA << 8,
--	  0xffff00, 0 },
--	{ 0x1b36, 0x100, PCI_ANY_ID, PCI_ANY_ID, PCI_CLASS_DISPLAY_OTHER << 8,
--	  0xffff00, 0 },
--	{ 0, 0, 0 },
-+	{
-+		PCI_DEVICE(0x1b36, 0x0100),
-+		.class = PCI_CLASS_DISPLAY_VGA << 8,
-+		.class_mask = 0xffff00
-+	}, {
-+		PCI_DEVICE(0x1b36, 0x0100),
-+		.class = PCI_CLASS_DISPLAY_OTHER << 8,
-+		.class_mask = 0xffff00
-+	},
-+	{ },
- };
- MODULE_DEVICE_TABLE(pci, pciidlist);
- 
+*) Move the ttm_backup interface to be folio-based.
+*) Restrict order to 2M
+*) Craft a test-case that triggers a shmem_read_folio_gfp() error in
+the backup path and verify that they do behave gracefully.
 
-base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
--- 
-2.47.3
+And then as follow-ups:
 
+a) Investigate direct shmem insertion.
+b) Address any remaining flaws from partially backed-up bos.
+c) Cgroups integration, following up on airlied's work ensuring that
+the evictee is charged for the shmem memory.
+
+
+Thanks,
+Thomas
+
+
+
+> Matt
+>=20
+> >=20
+> > /Thomas
+> >=20
+> > >=20
+> > > Cc: Christian Koenig <christian.koenig@amd.com>
+> > > Cc: Huang Rui <ray.huang@amd.com>
+> > > Cc: Matthew Auld <matthew.auld@intel.com>
+> > > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> > > Cc: Maxime Ripard <mripard@kernel.org>
+> > > Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> > > Cc: David Airlie <airlied@gmail.com>
+> > > Cc: Simona Vetter <simona@ffwll.ch>
+> > > Cc: dri-devel@lists.freedesktop.org
+> > > Cc: linux-kernel@vger.kernel.org
+> > > Cc: stable@vger.kernel.org
+> > > Fixes: b63d715b8090 ("drm/ttm/pool, drm/ttm/tt: Provide a helper
+> > > to
+> > > shrink pages")
+> > > Suggested-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com=
+>
+> > > Assisted-by: Claude:claude-opus-4.6
+> > > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> > >=20
+> > > ---
+> > >=20
+> > > A follow-up should attempt writeback to shmem at folio order as
+> > > well,
+> > > but the API for doing so is unclear and may be incomplete.
+> > >=20
+> > > This patch is related to the pending series [1] and significantly
+> > > reduces the likelihood of Xe entering a kswapd loop under
+> > > fragmentation.
+> > > The kswapd =E2=86=92 shrinker =E2=86=92 Xe shrinker =E2=86=92 TTM bac=
+kup path is still
+> > > exercised; however, with this change the backup path no longer
+> > > worsens
+> > > fragmentation, which previously amplified reclaim pressure and
+> > > reinforced the kswapd loop.
+> > >=20
+> > > Nonetheless, the pathological case that [1] aims to address still
+> > > exists
+> > > and requires a proper solution. Even with this patch, a kswapd
+> > > loop
+> > > due
+> > > to severe fragmentation can still be triggered, although it is
+> > > now
+> > > substantially harder to reproduce.
+> > >=20
+> > > [1] https://patchwork.freedesktop.org/series/165330/
+> > > ---
+> > > =C2=A0drivers/gpu/drm/ttm/ttm_pool.c | 71 +++++++++++++++++++++++++++=
+-
+> > > ----
+> > > --
+> > > =C2=A01 file changed, 57 insertions(+), 14 deletions(-)
+> > >=20
+> > > diff --git a/drivers/gpu/drm/ttm/ttm_pool.c
+> > > b/drivers/gpu/drm/ttm/ttm_pool.c
+> > > index 278bbe7a11ad..5ead0aba4bb7 100644
+> > > --- a/drivers/gpu/drm/ttm/ttm_pool.c
+> > > +++ b/drivers/gpu/drm/ttm/ttm_pool.c
+> > > @@ -1036,12 +1036,11 @@ long ttm_pool_backup(struct ttm_pool
+> > > *pool,
+> > > struct ttm_tt *tt,
+> > > =C2=A0{
+> > > =C2=A0	struct file *backup =3D tt->backup;
+> > > =C2=A0	struct page *page;
+> > > -	unsigned long handle;
+> > > =C2=A0	gfp_t alloc_gfp;
+> > > =C2=A0	gfp_t gfp;
+> > > =C2=A0	int ret =3D 0;
+> > > =C2=A0	pgoff_t shrunken =3D 0;
+> > > -	pgoff_t i, num_pages;
+> > > +	pgoff_t i, num_pages, npages;
+> > > =C2=A0
+> > > =C2=A0	if (WARN_ON(ttm_tt_is_backed_up(tt)))
+> > > =C2=A0		return -EINVAL;
+> > > @@ -1097,28 +1096,72 @@ long ttm_pool_backup(struct ttm_pool
+> > > *pool,
+> > > struct ttm_tt *tt,
+> > > =C2=A0	if (IS_ENABLED(CONFIG_FAULT_INJECTION) &&
+> > > should_fail(&backup_fault_inject, 1))
+> > > =C2=A0		num_pages =3D DIV_ROUND_UP(num_pages, 2);
+> > > =C2=A0
+> > > -	for (i =3D 0; i < num_pages; ++i) {
+> > > -		s64 shandle;
+> > > +	for (i =3D 0; i < num_pages; i +=3D npages) {
+> > > +		unsigned int order;
+> > > +		pgoff_t j;
+> > > =C2=A0
+> > > +		npages =3D 1;
+> > > =C2=A0		page =3D tt->pages[i];
+> > > =C2=A0		if (unlikely(!page))
+> > > =C2=A0			continue;
+> > > =C2=A0
+> > > -		ttm_pool_split_for_swap(pool, page);
+> > > +		/* Already-handled entry from a previous
+> > > attempt. */
+> > > +		if
+> > > (unlikely(ttm_backup_page_ptr_is_handle(page)))
+> > > +			continue;
+> > > =C2=A0
+> > > -		shandle =3D ttm_backup_backup_page(backup, page,
+> > > flags->writeback, i,
+> > > -						 gfp,
+> > > alloc_gfp);
+> > > -		if (shandle < 0) {
+> > > -			/* We allow partially shrunken tts */
+> > > -			ret =3D shandle;
+> > > +		order =3D ttm_pool_page_order(pool, page);
+> > > +		npages =3D 1UL << order;
+> > > +
+> > > +		/*
+> > > +		 * Back up the compound atomically at its native
+> > > order. If
+> > > +		 * fault injection truncated num_pages mid-
+> > > compound,
+> > > skip
+> > > +		 * the partial tail rather than splitting.
+> > > +		 */
+> > > +		if (unlikely(i + npages > num_pages))
+> > > =C2=A0			break;
+> > > +
+> > > +		for (j =3D 0; j < npages; ++j) {
+> > > +			unsigned long handle;
+> > > +			s64 shandle;
+> > > +
+> > > +			if (IS_ENABLED(CONFIG_FAULT_INJECTION)
+> > > &&
+> > > +			=C2=A0=C2=A0=C2=A0 should_fail(&backup_fault_inject,
+> > > 1))
+> > > +				shandle =3D -1;
+> > > +			else
+> > > +				shandle =3D
+> > > ttm_backup_backup_page(backup, page + j,
+> > > +							=09
+> > > flags->writeback,
+> > > +							=09
+> > > i +
+> > > j, gfp,
+> > > +							=09
+> > > alloc_gfp);
+> > > +
+> > > +			if (unlikely(shandle < 0)) {
+> > > +				pgoff_t k;
+> > > +
+> > > +				ret =3D shandle;
+> > > +				/*
+> > > +				 * Roll back: drop the handles
+> > > we
+> > > just wrote
+> > > +				 * and restore the original page
+> > > pointers so
+> > > +				 * the compound remains intact
+> > > and
+> > > may be
+> > > +				 * retried later.
+> > > +				 */
+> > > +				for (k =3D 0; k < j; ++k) {
+> > > +					handle =3D
+> > > ttm_backup_page_ptr_to_handle(tt->pages[i + k]);
+> > > +					ttm_backup_drop(backup,
+> > > handle);
+> > > +					tt->pages[i + k] =3D page
+> > > + k;
+> > > +				}
+> > > +
+> > > +				goto out;
+> > > +			}
+> > > +			handle =3D shandle;
+> > > +			tt->pages[i + j] =3D
+> > > ttm_backup_handle_to_page_ptr(shandle);
+> > > =C2=A0		}
+> > > -		handle =3D shandle;
+> > > -		tt->pages[i] =3D
+> > > ttm_backup_handle_to_page_ptr(handle);
+> > > -		__free_pages_gpu_account(page, 0, false);
+> > > -		shrunken++;
+> > > +
+> > > +		/* Compound fully backed up; free at native
+> > > order.
+> > > */
+> > > +		page->private =3D 0;
+> > > +		__free_pages_gpu_account(page, order, false);
+> > > +		shrunken +=3D npages;
+> > > =C2=A0	}
+> > > =C2=A0
+> > > +out:
+> > > =C2=A0	return shrunken ? shrunken : ret;
+> > > =C2=A0}
+> > > =C2=A0
