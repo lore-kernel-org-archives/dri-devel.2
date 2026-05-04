@@ -4,59 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B832FF885A
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 14:59:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79366CD3430
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 15:00:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 672B010E735;
-	Mon,  4 May 2026 14:59:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5DD610E738;
+	Mon,  4 May 2026 15:00:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="ELuN4VS2";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="aqpdwaok";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B05510E735
- for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 14:59:44 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 13DE7C5EF23;
- Mon,  4 May 2026 15:00:29 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 98A6E5FD5F;
- Mon,  4 May 2026 14:59:42 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 4C3CA11AD2B53; 
- Mon,  4 May 2026 16:59:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1777906781; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=D5kXuj7b0TezzOkReAqdEFpDHHOBFpeEkg4j1HAsgMU=;
- b=ELuN4VS2xlI5vaE6U4aJ/dDmji7zC8pUoNwPtsl3i1Dx+uvjf4ptdVXGbHGLkcTGdc67fa
- ZIaVg5GvPrK6pukeOdWxUOJIgkvzsWFWhOvq5ImQatc6Y/F7gyMwoiIorSYMbqOmSE4XQ1
- k7HPpKDl3wqzV4NXlTfg5AdYLCp6qVYtJdUSkkHzfDIrvkzycf9gHZOOkh+38XJLdo0oz3
- oLr5K9FN9J1L+livE9E/4gVddUwls+/3tgM7IMtnS/K2mduPhbSFhbkjMg8pBzJ5gc+eeD
- ykkBjc+NVKe7iDZ9SzwV90WfdYaMBazejqISTuyVw58i2JLzWlS4nRb1SIqY+w==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Jyri Sarha <jsarha@ti.com>, Russell King <rmk+kernel@armlinux.org.uk>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Kory Maincent <kory.maincent@bootlin.com>
-Cc: Bajjuri Praneeth <praneeth@ti.com>, kernel test robot <lkp@intel.com>, 
- thomas.petazzoni@bootlin.com, Russell King <linux@armlinux.org.uk>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-In-Reply-To: <20260417155446.1068893-1-kory.maincent@bootlin.com>
-References: <20260417155446.1068893-1-kory.maincent@bootlin.com>
-Subject: Re: [PATCH] drm/bridge: tda998x: Return NULL instead of 0 in
- tda998x_edid_read()
-Message-Id: <177790677669.485185.3751177951490441273.b4-ty@b4>
-Date: Mon, 04 May 2026 16:59:36 +0200
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAB3210E76F
+ for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 15:00:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1777906856;
+ bh=xWfpnUZfLeM39wUROZg2x6WISFfY57/hGwZjThDIqQU=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=aqpdwaok+7uZsXLXhTblfDb4NS2nvQrMnkx0YttSRFAVmHQIDS3u+yYCSXgtp3RtH
+ 2bxV73kSvk6vQ8OyEKh7Qlrk5nPEpgSJq9lEPNJoAxQuvJH1WIqK0q1Sydb6F28G2q
+ UteirA/NBr+WGYbGWAm4eiWfwu5tRi0VkJ1ebOGqGse9MGw2calw+LFIBciaDnC9zU
+ G9iAcH//L07TM5WX8boSZ3hioY56BBJU6I9CYTFNYk/Ss1dUGDsK8zb3nnFQf04+k8
+ y8zeywlb6EuGpt5bKhU5JKct5DRpnXTSJMzyMK39CMlkQgxRYcts1mgLd3AUOpq1TA
+ v+iFvWhroQHzw==
+Received: from fedora (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 0B81E17E131B;
+ Mon,  4 May 2026 17:00:56 +0200 (CEST)
+Date: Mon, 4 May 2026 17:00:51 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Steven Price <steven.price@arm.com>
+Cc: Liviu Dudau <liviu.dudau@arm.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 07/10] drm/panthor: Automate CSG IRQ processing at group
+ unbind time
+Message-ID: <20260504170051.64759934@fedora>
+In-Reply-To: <e5c9763b-87c1-405d-9fda-f3f324d6bdfe@arm.com>
+References: <20260429-panthor-signal-from-irq-v1-0-4b92ae4142d2@collabora.com>
+ <20260429-panthor-signal-from-irq-v1-7-4b92ae4142d2@collabora.com>
+ <e5c9763b-87c1-405d-9fda-f3f324d6bdfe@arm.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
-X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,23 +68,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Fri, 1 May 2026 14:53:22 +0100
+Steven Price <steven.price@arm.com> wrote:
 
-On Fri, 17 Apr 2026 17:54:45 +0200, Kory Maincent wrote:
-> tda998x_edid_read() returns a const struct drm_edid pointer, but when
-> tda998x_edid_delay_wait() fails (process killed while waiting for the
-> HPD timeout), the integer literal 0 is returned instead of NULL,
-> triggering a sparse warning: "Using plain integer as NULL pointer"
+> > @@ -2970,8 +2963,6 @@ void panthor_sched_suspend(struct panthor_device *ptdev)
+> >  
+> >  			if (flush_caches_failed)
+> >  				csg_slot->group->state = PANTHOR_CS_GROUP_TERMINATED;
+> > -			else
+> > -				csg_slot_sync_update_locked(ptdev, csg_id);  
 > 
-> Replace 0 with NULL to fix the sparse warning.
-> 
-> [...]
+> The justification for this change doesn't seem to be included in the
+> commit message and looks suspicious.
 
-Applied, thanks!
+Hm, right. I somehow confused csg_slot_sync_update_locked() and
+sched_process_csg_irq_locked().
 
-[1/1] drm/bridge: tda998x: Return NULL instead of 0 in tda998x_edid_read()
-      commit: b5d0ad616ca8dd8c7b6b24dc13012e342278a085
+> Although AFAICT the events_lock
+> wouldn't be held here so it could trigger a lockdep assert before this
+> change...
 
-Best regards,
--- 
-Luca Ceresoli <luca.ceresoli@bootlin.com>
-
+Yeah, the guard(spinlock_irqsave)(&sched->events_lock); should have
+been added to patch 4.
