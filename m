@@ -4,56 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DE04CD343A
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 13:54:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CCBFCD3430
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 13:56:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF25910E70A;
-	Mon,  4 May 2026 13:54:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BC0E10E6F3;
+	Mon,  4 May 2026 13:56:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IQClsuGe";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="pThgDbKm";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FDB210E702;
- Mon,  4 May 2026 13:54:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777902843; x=1809438843;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=y9BcqeJRlOrtT37Mi7W2c2HgjHxCAfV+XO0kW4PusnY=;
- b=IQClsuGeaxZYx6TtLCzQhXNW8MccRFh1jh4Hv33297+Wq9mjj0iBp0Nu
- V9LFZQ52YWZBw68AxdQM4urYys/hq6y3nYtdIp4P7WpFjdTJDGdw67e7/
- Qc08yUV2tIYyRa85IBIsDQokxJxDxuoVMeZB32YLy4ACQ5VzxbB6hzsdn
- IfT4JVcth9o/zP0iXsG9MyFiOqXFdQjmIsVuhe1P5XgKmZT3WN6Eu7Qy4
- 6KG2h+40RrJNZ5NEzE96YjkrjSKNyo3Lzz1GTqVg5mpTRj91ggDxuTLWf
- K+4zN5J3QGz0sFWYDnkeq58Ltc9VEql9AkT4UhT/TEIfMBPNx0zsAG54T A==;
-X-CSE-ConnectionGUID: yD/RcUuLQ3Cb0eCUoQcVPA==
-X-CSE-MsgGUID: pa/b8DKmT2WJ4BYR3TrH9w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11776"; a="89065440"
-X-IronPort-AV: E=Sophos;i="6.23,215,1770624000"; d="scan'208";a="89065440"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 May 2026 06:54:03 -0700
-X-CSE-ConnectionGUID: tQ31e3QzRcq5GxuMkrL4tg==
-X-CSE-MsgGUID: iCCz1WzXQDmEaSA03A2fCQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,215,1770624000"; d="scan'208";a="230930222"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO fdugast-desk.intel.com)
- ([10.245.245.110])
- by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 May 2026 06:54:01 -0700
-From: Francois Dugast <francois.dugast@intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org, matthew.auld@intel.com,
- Francois Dugast <francois.dugast@intel.com>
-Subject: [PATCH 2/2] gpu/buddy: Track per-order used blocks with a scoreboard
-Date: Mon,  4 May 2026 15:52:42 +0200
-Message-ID: <20260504135343.1797869-3-francois.dugast@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260504135343.1797869-1-francois.dugast@intel.com>
-References: <20260504135343.1797869-1-francois.dugast@intel.com>
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E493F10E6F3
+ for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 13:56:36 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 838CC4E42BB8;
+ Mon,  4 May 2026 13:56:35 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 516165FD5F;
+ Mon,  4 May 2026 13:56:35 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 9DDF011AD220E; 
+ Mon,  4 May 2026 15:56:33 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1777902994; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:content-language:in-reply-to:references;
+ bh=j2hlp/6clsIxKcAavYQrD4NChynsESijBX8RXRMkRwA=;
+ b=pThgDbKms2NLA13+nZwLI0zzAbBOv4c7xNMChf/jBC1L3Ti+emr2sjMLS7nGTthUQGAwfX
+ p6v4gpem7omcsdsugaXdBttI8LwFWcni8wDNLJePTIwdCtenveRJLstlrMbCi1OxQf5b3O
+ mEuWLS56s81cXLPBRJaGwzMGR0VTl2DCfQGt3C3xfxsyqqcCjLvxfMquikkY0nL+XI0vfo
+ L62XI313cgOYk/ergTA27+RCHSTpHJPzf5rTtAHxHYO/admrH+ca/sXbD/H0vIxpn6OC56
+ xIwpA7odUJwMG6W6OHYTK/JNzvd7GaetxzSYCK6Vm5CPiClCf1lmhc+Mjg3zzw==
+Message-ID: <0f5cf41c-99d5-4427-86fe-18c4f1e2c95e@bootlin.com>
+Date: Mon, 4 May 2026 15:55:52 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/8] Add support for a DRM backlight capability
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ dri-devel@lists.freedesktop.org
+Cc: harry.wentland@amd.com, Xaver Hugl <xaver.hugl@gmail.com>,
+ amd-gfx@lists.freedesktop.org, Mario Limonciello <superm1@kernel.org>
+References: <20260424220953.167058-1-mario.limonciello@amd.com>
+From: Louis Chauvet <louis.chauvet@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <20260424220953.167058-1-mario.limonciello@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,153 +64,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Extend the scoreboard approach from the previous commit to used blocks,
-so drm_buddy_print() can report per-order allocation pressure in O(1).
 
-Unlike free blocks, an allocated block can leave the allocated state
-through mark_free() (normal free and gpu_buddy_block_trim()) or be
-consumed directly by gpu_block_free() during coalescing. Both sites are
-guarded by gpu_buddy_block_is_allocated() and paired with the increment
-in mark_allocated().
 
-Signed-off-by: Francois Dugast <francois.dugast@intel.com>
-Assisted-by: GitHub Copilot:claude-sonnet-4.6
----
- drivers/gpu/buddy.c         | 29 +++++++++++++++++++++++------
- drivers/gpu/drm/drm_buddy.c |  8 +++++---
- include/linux/gpu_buddy.h   |  8 ++++++++
- 3 files changed, 36 insertions(+), 9 deletions(-)
+On 4/25/26 00:09, Mario Limonciello wrote:
+> From: Mario Limonciello (AMD) <superm1@kernel.org>
+> 
+> At Display Next Hackfest 2025 we discussed the renewed need for moving
+> brightness control into the DRM connector properties.  I've taken the
+> previous efforts from David and Marta, rebased and adjusted for the
+> current kernel.
+> 
+> The legacy sysfs interface is synchronized with the DRM connector (although
+> the scale may be different as DRM connector property is u16).
+> 
+> Later after this has been adopted by enough userspace, it may make sense to
+> configure the legacy sysfs interface to be configurable so that only
+> DRM master controls backlight.
+> 
+> I've done a first implementation with amdgpu with eDP connectors; but
+> conceivably this can be extended to other connectors like DP for displays
+> that can be controlled via DDC as well later.
+> 
+> I have also used DRM review prompts to review this series and fix some bugs
+> which were caught with two different Claude models.  The fixes are squashed
+> into the patches.
+> 
+> Assisted-by: Claude Opus
+> Assisted-by: Claude Sonnet
+> 
+> For ease of testing; this series is also available on this branch:
+> https://git.kernel.org/pub/scm/linux/kernel/git/superm1/linux.git/log/?h=superm1/backlight-property-v3
 
-diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
-index d831165e87ea..ebef03613b3f 100644
---- a/drivers/gpu/buddy.c
-+++ b/drivers/gpu/buddy.c
-@@ -194,6 +194,7 @@ static void mark_allocated(struct gpu_buddy *mm,
- 	block->header |= GPU_BUDDY_ALLOCATED;
- 
- 	mm->free_scoreboard[gpu_buddy_block_order(block)]--;
-+	mm->used_scoreboard[gpu_buddy_block_order(block)]++;
- 
- 	rbtree_remove(mm, block);
- }
-@@ -203,6 +204,9 @@ static void mark_free(struct gpu_buddy *mm,
- {
- 	enum gpu_buddy_free_tree tree;
- 
-+	if (gpu_buddy_block_is_allocated(block))
-+		mm->used_scoreboard[gpu_buddy_block_order(block)]--;
-+
- 	block->header &= ~GPU_BUDDY_HEADER_STATE;
- 	block->header |= GPU_BUDDY_FREE;
- 
-@@ -281,6 +285,9 @@ static unsigned int __gpu_buddy_free(struct gpu_buddy *mm,
- 		if (force_merge && gpu_buddy_block_is_clear(buddy))
- 			mm->clear_avail -= gpu_buddy_block_size(mm, buddy);
- 
-+		if (gpu_buddy_block_is_allocated(block))
-+			mm->used_scoreboard[gpu_buddy_block_order(block)]--;
-+
- 		gpu_block_free(mm, block);
- 		gpu_block_free(mm, buddy);
- 
-@@ -398,6 +405,12 @@ int gpu_buddy_init(struct gpu_buddy *mm, u64 size, u64 chunk_size)
- 	if (!mm->free_scoreboard)
- 		return -ENOMEM;
- 
-+	mm->used_scoreboard = kcalloc(mm->max_order + 1,
-+				      sizeof(*mm->used_scoreboard),
-+				      GFP_KERNEL);
-+	if (!mm->used_scoreboard)
-+		goto out_free_free_scoreboard;
-+
- 	mm->free_trees = kmalloc_array(GPU_BUDDY_MAX_FREE_TREES,
- 				       sizeof(*mm->free_trees),
- 				       GFP_KERNEL);
-@@ -462,6 +475,8 @@ int gpu_buddy_init(struct gpu_buddy *mm, u64 size, u64 chunk_size)
- 		kfree(mm->free_trees[i]);
- 	kfree(mm->free_trees);
- out_free_scoreboard:
-+	kfree(mm->used_scoreboard);
-+out_free_free_scoreboard:
- 	kfree(mm->free_scoreboard);
- 	return -ENOMEM;
- }
-@@ -502,6 +517,7 @@ void gpu_buddy_fini(struct gpu_buddy *mm)
- 	kfree(mm->free_trees);
- 	kfree(mm->roots);
- 	kfree(mm->free_scoreboard);
-+	kfree(mm->used_scoreboard);
- }
- EXPORT_SYMBOL(gpu_buddy_fini);
- 
-@@ -1496,15 +1512,16 @@ void gpu_buddy_print(struct gpu_buddy *mm)
- 		mm->chunk_size >> 10, mm->size >> 20, mm->avail >> 20, mm->clear_avail >> 20);
- 
- 	for (order = mm->max_order; order >= 0; order--) {
--		u64 count = mm->free_scoreboard[order];
--		u64 free = count * (mm->chunk_size << order);
-+		u64 free_count = mm->free_scoreboard[order];
-+		u64 used_count = mm->used_scoreboard[order];
-+		u64 free = free_count * (mm->chunk_size << order);
- 
- 		if (free < SZ_1M)
--			pr_info("order-%2d free: %8llu KiB, blocks: %llu\n",
--				order, free >> 10, count);
-+			pr_info("order-%2d free: %8llu KiB, free_blocks: %llu, used_blocks: %llu\n",
-+				order, free >> 10, free_count, used_count);
- 		else
--			pr_info("order-%2d free: %8llu MiB, blocks: %llu\n",
--				order, free >> 20, count);
-+			pr_info("order-%2d free: %8llu MiB, free_blocks: %llu, used_blocks: %llu\n",
-+				order, free >> 20, free_count, used_count);
- 	}
- }
- EXPORT_SYMBOL(gpu_buddy_print);
-diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
-index 7839b54d3da7..3a1cb06923c6 100644
---- a/drivers/gpu/drm/drm_buddy.c
-+++ b/drivers/gpu/drm/drm_buddy.c
-@@ -46,8 +46,9 @@ void drm_buddy_print(struct gpu_buddy *mm, struct drm_printer *p)
- 		   mm->chunk_size >> 10, mm->size >> 20, mm->avail >> 20, mm->clear_avail >> 20);
- 
- 	for (order = mm->max_order; order >= 0; order--) {
--		u64 count = mm->free_scoreboard[order];
--		u64 free = count * (mm->chunk_size << order);
-+		u64 free_count = mm->free_scoreboard[order];
-+		u64 used_count = mm->used_scoreboard[order];
-+		u64 free = free_count * (mm->chunk_size << order);
- 
- 		drm_printf(p, "order-%2d ", order);
- 
-@@ -56,7 +57,8 @@ void drm_buddy_print(struct gpu_buddy *mm, struct drm_printer *p)
- 		else
- 			drm_printf(p, "free: %8llu MiB", free >> 20);
- 
--		drm_printf(p, ", blocks: %llu\n", count);
-+		drm_printf(p, ", free_blocks: %llu, used_blocks: %llu\n",
-+			   free_count, used_count);
- 	}
- }
- EXPORT_SYMBOL(drm_buddy_print);
-diff --git a/include/linux/gpu_buddy.h b/include/linux/gpu_buddy.h
-index 250841ca4bcf..b1cad7833dc1 100644
---- a/include/linux/gpu_buddy.h
-+++ b/include/linux/gpu_buddy.h
-@@ -179,6 +179,14 @@ struct gpu_buddy {
- 	 * mark_split() when a block leaves the free state.
- 	 */
- 	u64 *free_scoreboard;
-+	/*
-+	 * Per-order used block scoreboard: used_scoreboard[order] holds the
-+	 * number of blocks of that order currently in the allocated state.
-+	 * Incremented in mark_allocated(), decremented in
-+	 * gpu_buddy_free_block() which is the sole entry point for freeing
-+	 * allocated blocks.
-+	 */
-+	u64 *used_scoreboard;
- /* public: */
- 	unsigned int n_roots;
- 	unsigned int max_order;
--- 
-2.43.0
+Hello,
+
+thanks for this work, I am very interested in this progress so I can 
+help you to test / implement more features.
+
+I think you forgot to include the revert of "backlight: Remove notifier" 
+in your series, it can't be applied without it.
+
+I will take a look and see if I can create a VKMS implementation of your 
+work.
+
+Thanks for this work,
+
+> David Rheinsberg (1):
+>    backlight: add kernel-internal backlight API
+> 
+> Mario Limonciello (6):
+>    drm: link connectors to backlight devices
+>    DRM: Add support for client and driver indicating support for
+>      luminance
+>    drm/amd/display: Pass up errors reading actual brightness
+>    drm/amd: Indicate driver supports luminance
+>    drm/amd/display: Allow backlight registration to fail
+>    drm/amd/display: use drm backlight
+> 
+> Marta Lofstedt (1):
+>    backlight: expose the current brightness in the new kernel API
+> 
+>   drivers/gpu/drm/Kconfig                       |   1 +
+>   drivers/gpu/drm/Makefile                      |   2 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |   1 +
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  88 +++-
+>   drivers/gpu/drm/drm_atomic_uapi.c             |  24 ++
+>   drivers/gpu/drm/drm_backlight.c               | 406 ++++++++++++++++++
+>   drivers/gpu/drm/drm_connector.c               |  12 +
+>   drivers/gpu/drm/drm_drv.c                     |   8 +
+>   drivers/gpu/drm/drm_ioctl.c                   |  10 +
+>   drivers/gpu/drm/drm_mode_config.c             |   7 +
+>   drivers/gpu/drm/drm_mode_object.c             |  66 ++-
+>   drivers/gpu/drm/drm_sysfs.c                   |  54 +++
+>   drivers/video/backlight/backlight.c           |  83 ++++
+>   include/drm/drm_backlight.h                   |  45 ++
+>   include/drm/drm_connector.h                   |   8 +
+>   include/drm/drm_drv.h                         |   7 +
+>   include/drm/drm_file.h                        |   8 +
+>   include/drm/drm_mode_config.h                 |   5 +
+>   include/linux/backlight.h                     |  30 ++
+>   include/uapi/drm/drm.h                        |  10 +
+>   20 files changed, 852 insertions(+), 23 deletions(-)
+>   create mode 100644 drivers/gpu/drm/drm_backlight.c
+>   create mode 100644 include/drm/drm_backlight.h
+> 
 
