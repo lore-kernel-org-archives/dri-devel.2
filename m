@@ -4,93 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 128DDCD3423
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 03:56:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC52EFF885A
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 04:01:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F11DD10E0B8;
-	Mon,  4 May 2026 03:56:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5509710E0B1;
+	Mon,  4 May 2026 04:01:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Rw/fKRby";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="K/thZJr8";
 	dkim-atps=neutral
-Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com
- [209.85.222.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE16310E0B8
- for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 03:56:37 +0000 (UTC)
-Received: by mail-qk1-f179.google.com with SMTP id
- af79cd13be357-8eb5ad01402so407612285a.2
- for <dri-devel@lists.freedesktop.org>; Sun, 03 May 2026 20:56:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777866997; cv=none;
+Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com
+ [209.85.222.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 920B210E0B1
+ for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 04:01:47 +0000 (UTC)
+Received: by mail-qk1-f171.google.com with SMTP id
+ af79cd13be357-8d736211595so245553785a.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 03 May 2026 21:01:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777867306; cv=none;
  d=google.com; s=arc-20240605;
- b=fRa9ETZ9MKcYlIVV18M5T63GdejJ9T8o7SOC9tuDgda4Zqg/PrrMADsDhvY3E9BRkY
- D/9qz6ep0KW6pd0mGrYGxQcHj+tcQXy60hvbfDTHpe1NSeKqvyUnBk048b2GaqSju/3g
- Duo2lUxNWErk6vDoZGRCTkk40qkKjrNSMn1aN73t8M3DA+97mOusQcZ3u7Gk39hxKrNs
- bY0Q4GN+N6i100BCa6hL7lns4CaWmWjTdzugfsCOZf89YApQ/YuOOzK5+U9b7Qxb41gl
- zNdh1eX4i8kCF871zL6frwJzw3Zs7OXK/QHD9f3S+wgfpOKoctqNvW3xi5n9eILX+ZlB
- tQ3w==
+ b=O1ciKq1gaYRbVyeZor1x24Sd3udKUskVHLrQDjIYq9aoDyX/pl/uHLGPgjKLDnw0hR
+ /FqK2G9FvN7gNbHroG45wi9gXIwHiTGgLBTg7RxZZ1/7JW2g9K5zdqwtoZgNHUtzauZp
+ RXFFRENvHNQ9PZjbTpsWtmzv7qZucUtgBEBN3LUT4bdZhXi5kcvTyiJ5hdly1FVSO4w4
+ lO9QcdFMqkUbc/PvsmWxGMRd8Wnf740xESxKlwSUCiBn37YOac4F9WlJ0q3OQLgVew9A
+ wVCe+5GKa5TG9lLEODlM6lIlPT5vQniQCQ0DEEVBD98EGIhRpfPzy5ozuQNNBBtSIDVb
+ QlZA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:dkim-signature;
- bh=Y19V3fSw2nLa3PgRwVgUrqV+zuSj+iC5aF2Sowscyc0=;
- fh=e7hEWizzv6Rs1YAfPlEG2HhnKkE+1fdZa5ddQEyYZ6k=;
- b=E0tfaSH2E7ZX038cQoaLmm9BxOY1tP4UUgNbCCkWQXhhqKi6qRKyNCTFcqKyBL1NwO
- eigoF9Rg5HDcjvYhT+K8AopvOFL8j7jkPVn940oS0Icqx2AZMJbwjmYPBtfZfwxbM3ZG
- TrrV00mNTyOY+JGK4HvcnyZIszBgSpr6opqTFtvn5CqHKx9JXcwGCAFEAVBQMvwomP01
- yfUqtQ/FnVqd1RWDl/+KPae4s7Y52Ca0b8k8Aa1ot5UP3Qz11NWIGWdQyxyEThN88OeQ
- kNFNrnGjUGUFfI8xVXQyLEum9BNjxeeVsRAoMUpkpiVJYEzU54/JxGWyVExFs/BmabhO
- PkWg==; darn=lists.freedesktop.org
+ bh=oGlVUVNCo7t578SnF0/FJlFOI+mo4qIG1hmcAiuexlk=;
+ fh=VtjbJCOUzZdHzaQQ7FLxMiSEAlpMX6+W7+4vmfDqmRQ=;
+ b=Wyqczfs3d1K40EeQAqX5Ixz9owcdAxKX3nBksagw2rDuQVd2hVs7Wg5wpqhR3no27c
+ ppzPu0SJDojQ1wGWqcpJmjVZN8ckDanH04dwik/WxPsyowsNmCYeqyLN75PoEgGSPv7p
+ xjlON3GNxmNgOS6a67P7Gpb8k++4JyGlign7LywGcC7roXB8jC8IjcCknYY1TpSgB/PY
+ GF58ztde+L8dgUbKLX+1/KW1KbUZelUwaXhcD23pg+wq4Q1iotB5+qdvYwjHpMXz+Dkh
+ 3kBV25VGmZYCEhrfZBuOGIB/gKNT1N2boa0MwtniufSXiLPPrWb7yLPzLoeRrbbtf+ot
+ SbTw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777866997; x=1778471797; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1777867306; x=1778472106; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=Y19V3fSw2nLa3PgRwVgUrqV+zuSj+iC5aF2Sowscyc0=;
- b=Rw/fKRbyvjKXtg0WhWXx+e7J40C9omuvawP6HKVqva6Bt12Ej/YoLcIWva1RFmBB1L
- PkVs+s0h95HgEBmMpUXzdjjd6BpfUi9ev15azrAB0k9XtDaQwqxdRT9ldC6J+JPjyy2V
- hXzZ2lKnItYG/F22kDaAx+vy4DVROHxr+YDg3wAEZQUw7MuSslKjvcRKyzG6JPTALfYS
- HgzxwTvO/wywjaEAvUl7iawFIXwNaQBgXAAeui59+kQTH7kPA0fpsZ8bI97qYpx0fws4
- S+Pe41pVBCahtLUj+DLhZGc3V122xu9oUVnUMJkObxvReL7XCW0gfbo7klu7T6YtU6IT
- qRLg==
+ bh=oGlVUVNCo7t578SnF0/FJlFOI+mo4qIG1hmcAiuexlk=;
+ b=K/thZJr8LMDez1Ul+LA5Zc0zpDI1vIDQALvtTRNa++AZAVGRHcjkTv1yswIRIAArOD
+ ug+7KSz6R4MMgAsoUzRmN0i3LR2YvlcuqjHFpzq03yAIbUmzIRloBvtzbFtaVc7wcljD
+ kb8mdGCWC7aawdYy+kL3o8kGxgepOnC8/2/68kBfxLjmmHoOS+bePsXefCZ9EL+aeHts
+ YQFVkh+j6nCuUrxaYKBDe1zR1+7oaIN/wpwEWNJC/lzn2nZTdmN2vimUkNAscJXfFe0L
+ tLjGc0aujL9qrqbselwYwta9eQjEPjYII5BpJa0p8K5qPGd490+LyD7hBnBGyLElkjnP
+ P7bg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777866997; x=1778471797;
+ d=1e100.net; s=20251104; t=1777867306; x=1778472106;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Y19V3fSw2nLa3PgRwVgUrqV+zuSj+iC5aF2Sowscyc0=;
- b=XgsQPc6nhSnLPSaRnzauZ0wC7FlDZZ462DWi0uvsRIk/teBT+EX1hBVc6Ekysd6ePX
- jDr+9GaNLTojSHThkW9EunOFaUzIoa+vDTq9GisVpUZZGGNZ3NBdKXdohyrePNTV261N
- TwB9QBxtnIgtHqrUXmfoPEjDQhCPP0JxsFc8lLs7Lq3E0DEXsHzGcZRvniRgcEmIohyl
- 8y4yse2P3w+3nP0L/OqwMLU/5z6OlZ0v08UhBoxnBZKOTdzktNRHDwY9gbHE8CC4/oCH
- 9xBnQVm1rTeGPWdwekEwC0D7or4DtE1uyRh+F2G16khxVj6MsRODT/5Or4NjS/b4XA8H
- uhgg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+r3hzzxQBc77urQseuaNVjjFgnUJDh4y6M1uKtDKLXcVDq9pDJi+6mT48+N3Y3OmjyS0nI7dQuK4o=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwjxVCxYgJlhf++5BY7v7HKN5jkz8IP8gcnVWvrwM6waOeA5lAv
- LicRh2IaWuLyynfhC0ttN8kr+ru1s1QfcQwPTXaiMMw+Aqc12TxG3LbRBRAhkXGqVIpP9t2qbEB
- 4R4WQlYlDa6p+TxUIJQPIC551S8woQkA=
-X-Gm-Gg: AeBDiev6iEMNn5Mnp7gYj+nQizNnENX+4fkb22XHR++z98cujtDtuH1irWuTg7vzmMl
- CECys579htiGVg8dsGEj5yx2TupOf0jP3nvSwBCBBQa7PXqZ6MWc9jwz4OOh5VR/+KA+supHJXD
- dSPrCBS0GPPrb/DZRhvBH1GTgOrXZ/PxJsCKavabgkkQh6yFI8xK+xGuCDyOhaNJ5lb47mQs743
- 2uiGjyW0OQy8OTP8MQmtmX1tTXfEmGxlxPCw/Fg/pjVx7PVQD/VtPd4Ro7kOJHR08F24MkBovu6
- WSdyxnL8LNFlebQO8gk4N0X3qlXS+qecp+A/DH3e2hthS9ZMdeypI7vAXYGK04TDU5zL/BURvW2
- YdXGAjE6O6N5y
-X-Received: by 2002:a05:620a:4150:b0:8eb:605f:6cd6 with SMTP id
- af79cd13be357-8fd18834d2fmr1201121185a.60.1777866996695; Sun, 03 May 2026
- 20:56:36 -0700 (PDT)
+ bh=oGlVUVNCo7t578SnF0/FJlFOI+mo4qIG1hmcAiuexlk=;
+ b=j0xKlpLIQLsFD3Iecx89V7AOyov2ZgcpQ00gbrblKAAcyfKceUjoEmsjAW+xeAWUh7
+ XUKtbUfU9QR39DJ0dEpQaVTq/Mzekk2Km3LOqX8nbKHFnXLdFUChl17qOAp8KA6LeNXW
+ NKa44FLuxRRrMxI71lwURpniyHQcgbVoBp4to9ckC4rzrfsxqd4pY83YJ5+AZwA4FwQv
+ 0XYVj1rVwQiKfePCz10NHkrulyzE2DLYL7A3XtHnhAVR+vv7V2TX6scD8HAL/NfLK9s8
+ IKN95oJc+jOwDGz+BW/uVuwYoeUjrq8WmW+lP4WIYHJizat2/LWTgW49t/0ac57Md9nq
+ FEpQ==
+X-Gm-Message-State: AOJu0Yw1uO9+Kos5HLgVRJiUZ3WYsByRRBS1W4IBUUZfcsMrtCMfxKll
+ YTM7w7P9cnjf1imm9ay7uPMaY1aywU1BLDbOWex7MfnctzqEmQgN40KpJ6qGK0JxLwVX+rujbiQ
+ wALMpGUxp6JdE5F9akUasH/lgwZRE/as=
+X-Gm-Gg: AeBDieuooOeJYjuYiusF+6zkvwrhLCPEMdPkjWNINojcoRYYRvxTpplNNmSLVLFhRge
+ 6s18yOEAD4QdGjKXmeijUghlo8Y9DB1bpTqvdeaI8JxqGlbd1ezT8tr9W5MJTSQRVayFmotx7PH
+ 2Kf5d03q8nWjKpw0fft2uirReZiLbOnLs6kPCddlcFjdfRJ/kUHGeeGr3xXlWnVCqhj32W3sm8i
+ zQAT0DbzuBsGOPNDCmSCJsDBhMvX3GL/qCDFynOsSBRBG8kdlYLMfuaNeZoaioCKD8qt9vPLiMq
+ jko4BXuPcx57E3VCqcm/KiqtTjeIrNbkVs9mcm2L4lt6knNMcSrNESaHEsMUOQAMlS2Kn7vkmFi
+ xVw==
+X-Received: by 2002:a05:620a:708a:b0:8f1:5e8f:fff3 with SMTP id
+ af79cd13be357-8fd16c9964fmr1319335285a.26.1777867306422; Sun, 03 May 2026
+ 21:01:46 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260502065338.2720646-1-matthew.brost@intel.com>
- <7f927ef8-2d3d-4609-926d-b18535794f72@panix.com>
-In-Reply-To: <7f927ef8-2d3d-4609-926d-b18535794f72@panix.com>
+References: <20260501215856.840898-1-lyude@redhat.com>
+In-Reply-To: <20260501215856.840898-1-lyude@redhat.com>
 From: Dave Airlie <airlied@gmail.com>
-Date: Mon, 4 May 2026 13:56:25 +1000
-X-Gm-Features: AVHnY4I1DugeXn269d7bGPSVS8oaqFDQvQNdyXAeNtAJBZHN4bL6ea4BTB9Etjo
-Message-ID: <CAPM=9txfkvL4pWW53Pk0OtJ=vBaa-SCv6npSCK5f0zuOOJUfSQ@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/ttm: Fix GPU MM stats during pool shrinking
-To: Kenneth Crudup <kenny@panix.com>
-Cc: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org,
- Christian Koenig <christian.koenig@amd.com>, 
- Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>
+Date: Mon, 4 May 2026 14:01:35 +1000
+X-Gm-Features: AVHnY4LmcMo5jkCCXrsqxOpC_hYtr1-nSy7Wtvdm85s7TmkVILKxYJXd3dyZi5U
+Message-ID: <CAPM=9tyVOHU4KZxpGeKn=V3zhGnBwq4v5QfXvzdUE4QPQ2zMOA@mail.gmail.com>
+Subject: Re: [PATCH] drm/nouveau/kms/nvd9-: Use contiguous memory for CRC
+ notifier context
+To: Lyude Paul <lyude@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Danilo Krummrich <dakr@kernel.org>, 
+ Dave Airlie <airlied@redhat.com>, Timur Tabi <ttabi@nvidia.com>, 
+ Suraj Kandpal <suraj.kandpal@intel.com>, James Jones <jajones@nvidia.com>, 
+ Faith Ekstrand <faith.ekstrand@collabora.com>, stable@vger.kernel.org, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Ben Skeggs <bskeggs@nvidia.com>, 
+ Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Maxime Ripard <mripard@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -107,33 +110,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, 2 May 2026 at 18:14, Kenneth Crudup <kenny@panix.com> wrote:
+On Sat, 2 May 2026 at 07:59, Lyude Paul <lyude@redhat.com> wrote:
 >
+> It looks like CRC read back has been slightly broken for a while now, in
+> particular on GPUs using GSP. On my test machines, it's worked normally
+> when attempting to use it from fbcon. After gnome-shell gets started
+> however, attempting to read /sys/kernel/debug/dri/$CARD/$CRTC/crc/data just
+> returns -EINVAL.
 >
+> It turns out what's been happening is that since we've been using
+> nvif_mem_ctor_map() to both allocate and map the CRC notifier region - we
+> haven't actually asked for a contiguous allocation, and simply ask for
+> whatever type of memory allocation nouveau can find first. This doesn't
+> work because the CRC engine on nvidia GPUs doesn't support non-contiguous
+> allocations, which also causes us to fail setting up the kmsCrcNtfyCtxDma
+> object on pre-blackwell platforms since we don't have a single memory
+> address we can point nvif_object_ctor() to. Instead, ctx->mem.addr gets set
+> to ~0ULL.
 >
-> On 5/1/26 23:53, Matthew Brost wrote:
-> > TTM pool shrinking frees pages by calling __free_pages() directly,
-> > which bypasses updates to NR_GPU_ACTIVE and leaves GPU MM accounting
-> > out of sync.
-> >
-> > Introduce a helper, __free_pages_gpu_account(), and use it for all page
-> > frees in ttm_pool.c so GPU MM statistics are updated consistently.
-> >
-> > Reported-by: Kenneth Crudup <kenny@panix.com>
-> > Fixes: ae80122f3896 ("drm/ttm: use gpu mm stats to track gpu memory allocations. (v4)")
-> > Cc: Christian Koenig <christian.koenig@amd.com>
-> > Cc: Huang Rui <ray.huang@amd.com>
-> > Cc: Matthew Auld <matthew.auld@intel.com>
-> > Cc: David Airlie <airlied@gmail.com>
-> > Cc: dri-devel@lists.freedesktop.org
-> > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> >
-> > ---
-> >
-> > v2:
+> It does however, seem to work when fbcon is running. The only reason I can
+> think of this is that before we start up a display environment, there is
+> pretty much nothing allocated in our VRAM that wasn't allocated by nouveau
+> itself - making it dramatically more likely that we end up finding a
+> contiguous allocation by default.
+>
+> So, fix this by manually requesting a contiguous allocation when we
+> allocate our context notifiers.
+>
+> Signed-off-by: Lyude Paul <lyude@redhat.com>
+> Fixes: 12885ecbfe62 ("drm/nouveau/kms/nvd9-: Add CRC support")
+> Cc: Lyude Paul <lyude@redhat.com>
+> Cc: Dave Airlie <airlied@gmail.com>
+> Cc: Danilo Krummrich <dakr@kernel.org>
+> Cc: Dave Airlie <airlied@redhat.com>
+> Cc: Timur Tabi <ttabi@nvidia.com>
+> Cc: Suraj Kandpal <suraj.kandpal@intel.com>
+> Cc: James Jones <jajones@nvidia.com>
+> Cc: Faith Ekstrand <faith.ekstrand@collabora.com>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: nouveau@lists.freedesktop.org
+> Cc: <stable@vger.kernel.org> # v5.9+
+> ---
+>  drivers/gpu/drm/nouveau/dispnv50/crc.c | 17 +++++++++++++----
+>  1 file changed, 13 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/nouveau/dispnv50/crc.c b/drivers/gpu/drm/nouveau/dispnv50/crc.c
+> index deb6af40ef328..5817f39934a8b 100644
+> --- a/drivers/gpu/drm/nouveau/dispnv50/crc.c
+> +++ b/drivers/gpu/drm/nouveau/dispnv50/crc.c
+> @@ -10,6 +10,7 @@
+>  #include <nvif/class.h>
+>  #include <nvif/cl0002.h>
+>  #include <nvif/timer.h>
+> +#include <nvif/if900b.h>
+>
+>  #include <nvhw/class/cl907d.h>
+>
+> @@ -499,16 +500,24 @@ nv50_crc_raster_type(enum nv50_crc_source source)
+>   * notifier needs it's own handle
+>   */
+>  static inline int
+> -nv50_crc_ctx_init(struct nv50_head *head, struct nvif_mmu *mmu,
+> +nv50_crc_ctx_init(struct drm_device *dev, struct nv50_head *head, struct nvif_mmu *mmu,
+>                   struct nv50_crc_notifier_ctx *ctx, size_t len, int idx)
+>  {
+> -       struct nv50_core *core = nv50_disp(head->base.base.dev)->core;
+> +       struct nv50_core *core = nv50_disp(dev)->core;
+>         int ret;
+>
+> -       ret = nvif_mem_ctor_map(mmu, "kmsCrcNtfy", NVIF_MEM_VRAM, len, &ctx->mem);
+> +       /* The display engine requires a contiguous region of memory for the CRC notifier context */
+> +       ret = nvif_mem_ctor(mmu, "kmsCrcNtfy", mmu->mem, NVIF_MEM_VRAM | NVIF_MEM_MAPPABLE, 0, len,
+> +                           &(struct gf100_mem_v0) {
+> +                               .contig = true,
+> +                           }, sizeof(struct gf100_mem_v0), &ctx->mem);
 
-Oops, good catch,
-
-Reviewed-by: Dave Airlie <airlied@redhat.com>
+I don't think you can just throw gf100_mem_v0 in here like that, I
+think you should maybe make nvif_mem_ctor_map deal with this since you
+want a kernel mappable vram region it needs contig.
 
 Dave.
