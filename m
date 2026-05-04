@@ -4,28 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FAD9CD3427
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 20:21:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E7F8FF885A
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 20:21:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F37F610E877;
-	Mon,  4 May 2026 20:21:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30BE910E87A;
+	Mon,  4 May 2026 20:21:50 +0000 (UTC)
 Received: from metis.whiteo.stw.pengutronix.de
  (metis.whiteo.stw.pengutronix.de [185.203.201.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF6B310E86E
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E314010E86B
  for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 20:21:48 +0000 (UTC)
 Received: from dude02.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::28])
  by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
  (envelope-from <m.felsch@pengutronix.de>)
- id 1wJznX-0007WV-HU; Mon, 04 May 2026 22:21:47 +0200
+ id 1wJznX-0007WV-3d; Mon, 04 May 2026 22:21:47 +0200
 From: Marco Felsch <m.felsch@pengutronix.de>
-Date: Mon, 04 May 2026 22:21:43 +0200
-Subject: [PATCH 3/4] ARM: dts: imx6sx: remove LDB reg property
+Subject: [PATCH 0/4] i.MX LDB DT cleanups
+Date: Mon, 04 May 2026 22:21:40 +0200
+Message-Id: <20260504-v7-1-topic-ldb-fixes-v1-0-0125d937ff7f@pengutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260504-v7-1-topic-ldb-fixes-v1-3-0125d937ff7f@pengutronix.de>
-References: <20260504-v7-1-topic-ldb-fixes-v1-0-0125d937ff7f@pengutronix.de>
-In-Reply-To: <20260504-v7-1-topic-ldb-fixes-v1-0-0125d937ff7f@pengutronix.de>
+X-B4-Tracking: v=1; b=H4sIANX/+GkC/x3LSwqAMAwA0atI1gbS+sWriAttowakSiMiiHe3u
+ HwM84ByFFbosgciX6KyhwSTZ+DWMSyM4pPBkq2pohKvBg2e+yEONz/hLDcrtlNBpfWuIs+Q1iP
+ yH9LZD+/7AZL914tmAAAA
+X-Change-ID: 20260504-v7-1-topic-ldb-fixes-8b3042dc50de
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
@@ -64,36 +66,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The iomux-gpr syscon device has a very loose register definition. Many
-registers have a multi purpose, e.g. one register controlls the WDG
-behavior and the CSI2 mux settings. This would lead into multiple
-sub-devices which use the same 'reg' which is wrong.
+Hi,
 
-Instead of specifying the 'reg' in the OF each sub-device driver needs
-to handle the correct bits on their own. Therefore drop the 'reg'
-porperty from the bridge node as well as the @18 register suffix.
+this cleanup prepares the LDB dt-bindings for the upcoming i.MX93 and
+i.MX94 LDB support and is a different abborach than [1]. This approach
+should be easier to maintain [2] and far more flexible for upcoming
+BLK-CTRL or IOMUX_GPR syscon sub-devices.
+
+Please be informed: I didn't do runtime tests but since the LDB driver
+never used the reg (nor reg-names) property, it should be safe to remove
+them.
+
+Regards,
+  Marco
+
+[1] https://lore.kernel.org/all/20260329-fsl_ldb_schema_fix-v1-1-351372754bc0@nxp.com/
+[2] https://lore.kernel.org/all/2mkih6id2cfqjfksfvvitzlcnyfz7r4rs4f7bhtvdhf7scwzue@bb4ucnfxa4l4/#t
 
 Signed-off-by: Marco Felsch <m.felsch@pengutronix.de>
 ---
- arch/arm/boot/dts/nxp/imx/imx6sx.dtsi | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+Marco Felsch (4):
+      Revert "dt-bindings: display: bridge: ldb: Add check for reg and reg-names"
+      Revert "dt-bindings: display: bridge: ldb: Fill in reg property"
+      ARM: dts: imx6sx: remove LDB reg property
+      arm64: dts: imx8mp: remove LDB reg and reg-names property
 
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6sx.dtsi b/arch/arm/boot/dts/nxp/imx/imx6sx.dtsi
-index aefae5a3a6bebd43c67070376196db559d0d20cb..4b974b54195950e8bd2ef6d590f3530b2a43106e 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6sx.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/imx6sx.dtsi
-@@ -850,9 +850,8 @@ gpr: syscon@20e4000 {
- 				#size-cells = <1>;
- 				reg = <0x020e4000 0x4000>;
- 
--				lvds_bridge: bridge@18 {
-+				lvds_bridge: bridge {
- 					compatible = "fsl,imx6sx-ldb";
--					reg = <0x18 0x4>;
- 					clocks = <&clks IMX6SX_CLK_LDB_DI0>;
- 					clock-names = "ldb";
- 					status = "disabled";
+ .../bindings/display/bridge/fsl,ldb.yaml           | 25 +---------------------
+ arch/arm/boot/dts/nxp/imx/imx6sx.dtsi              |  3 +--
+ arch/arm64/boot/dts/freescale/imx8mp.dtsi          |  4 +---
+ 3 files changed, 3 insertions(+), 29 deletions(-)
+---
+base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
+change-id: 20260504-v7-1-topic-ldb-fixes-8b3042dc50de
 
+Best regards,
 -- 
-2.47.3
+Marco Felsch <m.felsch@pengutronix.de>
 
