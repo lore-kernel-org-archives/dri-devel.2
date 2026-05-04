@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83631FF885A
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 20:21:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 627A4CD3427
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 20:22:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E102710E400;
-	Mon,  4 May 2026 20:21:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C308610E143;
+	Mon,  4 May 2026 20:22:05 +0000 (UTC)
 Received: from metis.whiteo.stw.pengutronix.de
  (metis.whiteo.stw.pengutronix.de [185.203.201.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DBA5710E86B
- for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 20:21:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB53010E143
+ for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 20:22:04 +0000 (UTC)
 Received: from dude02.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::28])
  by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
  (envelope-from <m.felsch@pengutronix.de>)
- id 1wJznX-0007WV-BD; Mon, 04 May 2026 22:21:47 +0200
+ id 1wJznX-0007WV-EF; Mon, 04 May 2026 22:21:47 +0200
 From: Marco Felsch <m.felsch@pengutronix.de>
-Date: Mon, 04 May 2026 22:21:41 +0200
-Subject: [PATCH 1/4] Revert "dt-bindings: display: bridge: ldb: Add check
- for reg and reg-names"
+Date: Mon, 04 May 2026 22:21:42 +0200
+Subject: [PATCH 2/4] Revert "dt-bindings: display: bridge: ldb: Fill in reg
+ property"
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260504-v7-1-topic-ldb-fixes-v1-1-0125d937ff7f@pengutronix.de>
+Message-Id: <20260504-v7-1-topic-ldb-fixes-v1-2-0125d937ff7f@pengutronix.de>
 References: <20260504-v7-1-topic-ldb-fixes-v1-0-0125d937ff7f@pengutronix.de>
 In-Reply-To: <20260504-v7-1-topic-ldb-fixes-v1-0-0125d937ff7f@pengutronix.de>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -65,7 +65,9 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This reverts commit 8aa2f0ac08d3b207ba54e98698c9d696b86452a7.
+This reverts commit 16c8d76abe83d75b578d72ee22d25a52c764e14a.
+
+Remove the 'reg' and 'reg-names' property from the LDB.
 
 The LDB is either part of the IOMUX_GPR (i.MX6SX) or the BLKCTRL
 (i.MX8MP, i.MX93) register space. Both IOMUX_GPR and BLKCTRL are
@@ -79,41 +81,47 @@ register ranges with loose register definitions. E.g.
 In conclusion: it can't be ensured that one register belongs to one
 dedicated IP and the LDB is rather an exception than the rule.
 
-Therefore remove the 'reg' and 'reg-names' property requirement.
-
 Signed-off-by: Marco Felsch <m.felsch@pengutronix.de>
 ---
- Documentation/devicetree/bindings/display/bridge/fsl,ldb.yaml | 10 ----------
- 1 file changed, 10 deletions(-)
+ .../devicetree/bindings/display/bridge/fsl,ldb.yaml       | 15 +--------------
+ 1 file changed, 1 insertion(+), 14 deletions(-)
 
 diff --git a/Documentation/devicetree/bindings/display/bridge/fsl,ldb.yaml b/Documentation/devicetree/bindings/display/bridge/fsl,ldb.yaml
-index 7f380879fffdfef28d9a35d7fbf87fdf28377b43..828b7a40e9b6cf27f76d1cd3009505b03cbe09f1 100644
+index 828b7a40e9b6cf27f76d1cd3009505b03cbe09f1..e04df77af756f1dc46fc098d765502d44cc2de00 100644
 --- a/Documentation/devicetree/bindings/display/bridge/fsl,ldb.yaml
 +++ b/Documentation/devicetree/bindings/display/bridge/fsl,ldb.yaml
-@@ -68,7 +68,6 @@ required:
-   - compatible
-   - clocks
-   - ports
--  - reg
+@@ -27,14 +27,6 @@ properties:
+   clock-names:
+     const: ldb
  
- allOf:
-   - if:
-@@ -83,15 +82,6 @@ allOf:
-         ports:
-           properties:
-             port@2: false
--  - if:
--      not:
--        properties:
--          compatible:
--            contains:
--              const: fsl,imx6sx-ldb
--    then:
--      required:
--        - reg-names
+-  reg:
+-    maxItems: 2
+-
+-  reg-names:
+-    items:
+-      - const: ldb
+-      - const: lvds
+-
+   nxp,enable-termination-resistor:
+     type: boolean
+     description:
+@@ -99,15 +91,10 @@ examples:
+     #include <dt-bindings/clock/imx8mp-clock.h>
  
-   - if:
-       properties:
+     blk-ctrl {
+-        #address-cells = <1>;
+-        #size-cells = <1>;
+-
+-        bridge@5c {
++        bridge {
+             compatible = "fsl,imx8mp-ldb";
+             clocks = <&clk IMX8MP_CLK_MEDIA_LDB>;
+             clock-names = "ldb";
+-            reg = <0x5c 0x4>, <0x128 0x4>;
+-            reg-names = "ldb", "lvds";
+ 
+             ports {
+                 #address-cells = <1>;
 
 -- 
 2.47.3
