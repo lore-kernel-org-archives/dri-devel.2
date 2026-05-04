@@ -4,63 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A629FF885A
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 23:29:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1793CD3427
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 23:50:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E2CA10E8C0;
-	Mon,  4 May 2026 23:29:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02BD710E052;
+	Mon,  4 May 2026 23:50:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MMaNe9rW";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="hqQ+zYHQ";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BBA710E8CF;
- Mon,  4 May 2026 23:29:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777937356; x=1809473356;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=2ZEeWJRlASx/z0MrAxgryYwvmf7cezzVkLS6/sdyq5w=;
- b=MMaNe9rWExcXWRnqtNVVkCFRZkanMB0k/ZmIfoql+rFDRO1XEcBlZ6o/
- GCHTrIwFmR8kIjY9vY8kzVKF9CU5emUm2sgiSnTLUkEaVYNL+stjjZZBE
- f/ugRVY7ssdf8ecpLTr8+0jCMo1e+7I8aePAYIaAm7Vx+aBuQiiUGCDld
- IVgOflpfWbfCdO4RVONtrxc7pY9YD5npD/jmbmFEQB+MZ4JZXvObwohXM
- IovvXj17AdmY23RykfhM/LC1Cd3Zi+ug6iJBphCKbY0kuM2Dwky/N5X6i
- pl0yLrCvLBmiORfaiGLbSw6noqxboIG00zeLyus0yXrclqnbeKgl7bLW6 w==;
-X-CSE-ConnectionGUID: oJx/MB1USGy7BXufIu4FEA==
-X-CSE-MsgGUID: m8Wc96+TSJyFinwTB8g/EA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11776"; a="89497280"
-X-IronPort-AV: E=Sophos;i="6.23,216,1770624000"; d="scan'208";a="89497280"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 May 2026 16:29:14 -0700
-X-CSE-ConnectionGUID: BFjMmAb/Qcur+Ilvs3qsFA==
-X-CSE-MsgGUID: bLHzTB8SSWyB5EoD5uDuKA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,216,1770624000"; d="scan'208";a="239626114"
-Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
- by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 May 2026 16:29:14 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: [PATCH v2 1/2] drm/ttm: Drop tt->restore after successful restore
-Date: Mon,  4 May 2026 16:29:09 -0700
-Message-Id: <20260504232910.3249376-2-matthew.brost@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260504232910.3249376-1-matthew.brost@intel.com>
-References: <20260504232910.3249376-1-matthew.brost@intel.com>
-MIME-Version: 1.0
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010054.outbound.protection.outlook.com [52.101.46.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F58A10E052
+ for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 23:50:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LM2n+n61Fj7BTcK7vbjf52/pj0BnB0RXwEYOOApsN78uiOmOPldOIlM53Y6zxxC3jXVAExwbNk+n37JwLS1TaSpAPrj0DPtgHLneSFsmygHlveVzS5Rv8r1XTGtVsSX7bnz6rg4XbU5T6n+qUS6qo9N5uHVp/GXmoVzrkM9RWWuB0BSs309Lgjgx2Ogkuw9+hMLEGAG6ctNfANRE8m8654NS6FmN/vNFNIl9adn3dXlqrDDatcDnN1geHQHHgUXIXYXqDJ6mX0ZZxffMba+NzPpv71TxXN8y6PoivxQqN727y9CHfD9P8dDjBraeERA4dJofRhqQ0CmMWHUtv9Dc5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zurYBn8EGd+819X8UC/MYzCgdK0KUBBWd/pHw4NdktU=;
+ b=hbie5FDNjANvV+KnmA1UWPByceCISgqlu1e0Y/uWnBVE+SWhAakAHUb7yo35pI2JEj4c5ATGTdQhPR1xUBjmII9EQm+AjRjm0S/6njolnDmYzK5Y71SoyNMSAyLP7yumcLVHaz++nfs4+hESnc0BnJxG+nx/IdGYcjO9hMUng+EfnG7/dlrskxebj1gP1zsVxcLT5ncPFSAnxBP7CvhuSpmcly8gLkC3aeekGHT9RkjEf5C/TiBKI5h0f9X440iY8PmM3oAKT8h9S8pePB/GzVIjRO7VHkxVHDqo7bferEhUBKhbbXiZDFjzCgcAmLKJogqxigMhDLfLmb9Cv4OKmA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zurYBn8EGd+819X8UC/MYzCgdK0KUBBWd/pHw4NdktU=;
+ b=hqQ+zYHQeHyVs0PzT+Scidcwx1CzZbFcAPjZwX+Oq1mYs8KN0rajo3dL5rV4QkV7uCpmoBieTePiDdFro25QstTsxkXgUQesV5Ru/Sl+vlyzLNOLuWchcM5d8hgLOP9Cq0dD1Dd1OLDh86+zJY7p5rVl7v9O+/ziZRStxKOlTYJYZl1PTRy76A4EIvP0VOPmn0sCHCrjuLygk6+GPmH+4sMZhW3qDapL+PCkEpI9EAVB2lIyDYC1T95sFsV7bdTMpZ2NAOPCB01hK73Ts59gWJUV9velruN8QO+QQcl4T8faPPW473Om2HOrukeTRWxxQtKdqA1ytbLMhDXuGcSOiQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
+ DS0PR12MB8455.namprd12.prod.outlook.com (2603:10b6:8:158::16) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9870.25; Mon, 4 May 2026 23:50:16 +0000
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9870.023; Mon, 4 May 2026
+ 23:50:16 +0000
+Message-ID: <a34a844d-0594-4522-8599-9302d130beeb@nvidia.com>
+Date: Mon, 4 May 2026 19:50:13 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v12 12/22] gpu: nova-core: mm: Add page table entry
+ operation traits
+From: Joel Fernandes <joelagnelf@nvidia.com>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Alexandre Courbot <acourbot@nvidia.com>, linux-kernel@vger.kernel.org,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, Bjorn Roy Baron <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Dave Airlie <airlied@redhat.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
+ nova-gpu@lists.linux.dev, Nikola Djukic <ndjukic@nvidia.com>,
+ David Airlie <airlied@gmail.com>, Boqun Feng <boqun.feng@gmail.com>,
+ John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Timur Tabi <ttabi@nvidia.com>, Edwin Peer <epeer@nvidia.com>,
+ Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
+ Philipp Stanner <phasta@kernel.org>, alexeyi@nvidia.com,
+ Eliot Courtney <ecourtney@nvidia.com>, joel@joelfernandes.org,
+ linux-doc@vger.kernel.org
+References: <20260425211454.174696-1-joelagnelf@nvidia.com>
+ <20260425211454.174696-13-joelagnelf@nvidia.com>
+ <DI8B0IOXNP2L.1NFX4OTABNHA0@nvidia.com>
+ <53c88538-dca7-41f1-bb2b-856035728c69@nvidia.com>
+ <DI9YR10HH6PE.AMLEZUV7701V@nvidia.com>
+ <bd210abc-590f-4011-8337-21b54780fd4c@nvidia.com>
+ <DIA5D0RYRE24.2LB65BF0UK4UI@kernel.org>
+ <be30c1e1-414c-49d9-ba0c-4be4f486e8df@nvidia.com>
+Content-Language: en-US
+In-Reply-To: <be30c1e1-414c-49d9-ba0c-4be4f486e8df@nvidia.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BL1PR13CA0088.namprd13.prod.outlook.com
+ (2603:10b6:208:2b8::33) To DS0PR12MB6486.namprd12.prod.outlook.com
+ (2603:10b6:8:c5::21)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|DS0PR12MB8455:EE_
+X-MS-Office365-Filtering-Correlation-Id: 053d1ee4-6a35-4d7f-a01d-08deaa37e3e7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|7416014|1800799024|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info: jatAyG/vUeP/B91lADYvWKw4bnZGH7BAybBHXJhymyRiBnqyL/OvNyk3S1vhD4/7yCaxgkQg7iZ3hvHBK9NbtiGB4NexkGKXwKUNaC5v/RlDrOLyCeEba83TxFOwZRxtuYMR9kcdjiKCoVyrk85ImpqohsZGxLr6o6OIlHyT2J76qhTnwdeyGUwhbHSTGncoecl4QE5LNUETETWLT2oPcl6S/sqmQmkrOUf5sRhwDnn/BvsMLf7rmFYREY6klV1IjE7BJ5a0wz0hydfjTfuEx3vKeZ8SFbP46TBkRXhzutyR4/7g8jq4DaOtxl2WHQgoqRzkgy4nnVnRNVM/v6Jf0e4Z4y59BEYzFfqKPqZHWqk7au6q+MTxDJ6P8NcFoTbwtUPd95vV/PPLwsdIpjetNcTSsaCi8u9kLTb47Q9o1AlZQpJMEKmwqAz2hqGrf8qjdCJXWk6rfyGHMkO+VUpkDxzoAEx/w2cTuzzDxQeO9n5kK9+UgYVjMiOO9E5jhwrCHTHTclaMUZGhUFZytiTN9IhSagjRqW4v1WBSibYVsiwSczfum5p0ROSeoLur/Y5GTwBuJTg08ny+vnU4URRQ8atvwp9FxFjtI3VsmHL4gsZIrIc+eF8u5cNalTXD7oU4RTF5h3a/sP78fRpVvAmIg0l4F8hweo+kr+XfaZcSTfkYtStbtMKZaFp5xJ1SMZdh
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(7416014)(1800799024)(18002099003)(56012099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U3lycmxQRkxzWU43ZlNkZHlVNEJrS0xlRlpscEpJZHEwTGk4d2hyaUc0eGgx?=
+ =?utf-8?B?SnIra2lCZ0VLYTEzVHFIK28vWUNORmZKK1k0SnJwRjBDVEJxN3hPOEIxUWtz?=
+ =?utf-8?B?NUUwZloyQjZWYklVZ05VSEh1TG0wWmtMbXJSdlJrOS9MbzExZGhzRmQ1K0xQ?=
+ =?utf-8?B?VEVzSmpQeDZIUmRzTlFMWnBWRGw2ZGNKL0NxUytNVytOK3hkSlllazlpRnVM?=
+ =?utf-8?B?ZHZoUnJRS2dsNnJrK2dnQk5lZHJKNFNqUFlKOU0xb3VWL3ltWGp2ZTFTOEIy?=
+ =?utf-8?B?SWY0clcvbFRWZWE0RkRRVGZZM1kxc0s5cmgvRXNJY3l4Qk0zblJORUtRTENH?=
+ =?utf-8?B?a2RZdmhUMlVpaldBQ2V3dDFmRURLYWJFTTBIUll5OHhGSDZHdG1YVzdVbEI0?=
+ =?utf-8?B?WEFBOHhUWHdVWEFUTFovc1BlWkJ4a2ROVEltaWFMaUFvZi9IOVZhU29OV0lU?=
+ =?utf-8?B?ZnpXZGVkT0RRdy82Sy81OTd2WDBDT1Nxb2dJNGY0NWRUNjMybDV3OU9ZWXRP?=
+ =?utf-8?B?a3M4UzFSUzFZMzMrdEl2SE5hSWszai9zbGxWaVpKRUNPQUlDK3c5T3owR3Vv?=
+ =?utf-8?B?dXNva2cwSjdmK0NqNG1YSEVyV0EzSENBU2gwU1MxbnJleWVPUWV2U0hjd3RI?=
+ =?utf-8?B?WWUzL1lNdXlpVDIzSlRVZzNjRWt2ell3YnpNamVuS2Mvc0NoWWlEZlVYUmZj?=
+ =?utf-8?B?Z3FlcEpibHZOeVJud3FUK1NrR1JlYUtUaUozT1V1NUxsb2N0azlpVytLaUpr?=
+ =?utf-8?B?VEEvbjJEbkMvVUwwbkEvUWhtcTg2OVdBQnpsUGdtTHpxaS8xZG1pSkRla1FU?=
+ =?utf-8?B?TC82RVdmc3JSMHdlVzFobzlJMnN4cnV4WHRZQWp5WE4zT2pEUjRqbm5VL09Y?=
+ =?utf-8?B?QlR0cHl5Yis0NmtmbUROV2xmS2ZsUHg5bHFCRHNlOFgxTE5SSUdHZU4zS3U4?=
+ =?utf-8?B?L2lqMll1Q3NKQStLR0VCSFE4UmdzZ1oxQ1p6Z0lIZ25SUnI3TWw5WDdRS09h?=
+ =?utf-8?B?Ym5IekVDcUVCOTc3aTRTajh0U090aFVoaHFZWXpxeFpZTG5oOHZRYzR4ZUZy?=
+ =?utf-8?B?OUxaelFkZEpJTlJ3cCtTa1BjQmxxaU11WlBSZE1OWWpqSGJnM0dKTjdMQ2JE?=
+ =?utf-8?B?WUNqb0VuK1I1M0dKUnU1aWxyaUU5YUdDeEtTY1FMaFFPclF3eFZkSmkwUDVk?=
+ =?utf-8?B?b3dSUVFiaVY4alFseHZ6UUl0cHZ5RjJaa09MVnlqQ29sNG10dGVRVWN3RVR2?=
+ =?utf-8?B?M25TMFBKVnpJY25kZGk5RnAxdHNUSTdIbW1weFdZUFVRZDFCb21VUzF0bkxF?=
+ =?utf-8?B?UE15NmJGQXdmZ1cyWXgvUVpiR0JSeE1qRkN1d2tSaTVRalJ0Y0xHUGE0MW1p?=
+ =?utf-8?B?aFRJWiswNUJVTkhHL2tSWkczcjBPQm9aQlJWbUhybWlqRG9Dbmt5RW4veng3?=
+ =?utf-8?B?Tzd3OFBUd2NJdnVzN3BNZGx5aEpDSHRYanRRcE13NEF2VVVvZVdJMmFDQnhy?=
+ =?utf-8?B?ay9BazdSZGhiOHhwOHFyc3dLVEtuWTlrVE8rZkI3bklWd01kdFlWZjMxUjdG?=
+ =?utf-8?B?ZWszb0dMN1dkKzcxSGkxMGQrRlM1ZC9CcndORVhVRnZxc21RRExFVUVNMVdC?=
+ =?utf-8?B?UFFKQ2tCNzFSWXhrV0FDSUNsRzN2RXhTRnhwMytlQWhhNlFKM2VVandKMnJz?=
+ =?utf-8?B?N1Jzem5tRkhBNHlUc3JPMmRwRkRZc3hRYmRHUE9XY0NIUG1JbkZLS3liY1lw?=
+ =?utf-8?B?M0p0a21wOGUyUlVhT0lLRkpKK3FtV3JYYURvUFpQeElqb3JZMXdvZjJtZlpq?=
+ =?utf-8?B?c3JrSVZTN2dSbENseTJlZmVsbkpUN0dNK3Zpb0FLTHdHMXBNdjBMdjhIZ0dm?=
+ =?utf-8?B?ZVlMR3A4WlpyRTQwYVdpNk93TUl0dGw5N0hxR1BFa3dEUWJjV091M1k4RWZZ?=
+ =?utf-8?B?M3ZmNzU1c2tUOG0rbUdZQXY3NGNRNWxJbDhja0Q2QlVKUDVKVnNOV0VTQ0dW?=
+ =?utf-8?B?Ync4SHI3RGYxMlp4MHJBeXdjTGRBSlkxWWFmbG1pMTVHdkgyTkx4bVdtblln?=
+ =?utf-8?B?YkY1MG1NdGJFa09QWVVCdzZ1R2NCM0dYM2xhVUZVUGR0bzd0bytZdXNMN2lU?=
+ =?utf-8?B?cnF0UnRiQTBZc01aa1BsRjUwSUE3Q0VUOEF6bG9GUFJsdlFkeFdTb0xzK2FU?=
+ =?utf-8?B?cWR3bWpnbm41d2drWGo1TmxHbzhBV205ek9lTExIU2h4UG8xemsyVHhmWEJN?=
+ =?utf-8?B?c2pMaUZpemlXU1dtK0hCMVFEelVHSHdJWTBnRlpCaitoUGFrVVQvbmt1UnFK?=
+ =?utf-8?B?OVgybHRXNVdTMmJjU1EzeHRGQnRKNjhxTWQ4SmJDYUYrK1pZN2Jxdz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 053d1ee4-6a35-4d7f-a01d-08deaa37e3e7
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2026 23:50:16.0045 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +cGv8mu+SEGJiYpRdUJoWUpdAUUvJpKMfhCrORFTRuWH0zQVVdxErF0TndmeLkC1w2x0M89tf3f+E0n42vzthw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8455
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,89 +159,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-ttm_pool_restore_and_alloc() can successfully complete the restore
-process via ttm_pool_restore_commit(), but tt->restore is not dropped
-afterward. As a result, subsequent backup/restore flows observe what
-appears to be a completed restore, while in reality shmem handles are
-still installed in tt->pages, leading to the stack trace below.
 
-Fix this by freeing and dropping tt->restore in
-ttm_pool_restore_and_alloc() upon successful completion of the restore.
 
-20545 [  309.784531] RIP: 0010:sg_alloc_append_table_from_pages+0x38c/0x490
-20547 [  309.809570] RSP: 0018:ffffc9000623b838 EFLAGS: 00010206
-20548 [  309.814827] RAX: 0000000000001000 RBX: ffff88816e42a160 RCX: 0000000000000000
-20549 [  309.821986] RDX: 0000000000002000 RSI: 0000000000000003 RDI: 0000000000001000
-20550 [  309.829147] RBP: ffff88816e42a168 R08: 0000000000000002 R09: 000000007ffff000
-20551 [  309.836310] R10: ffffc9000623b928 R11: 0000000000000000 R12: 000000007ffff000
-20552 [  309.843471] R13: ffff88815ba5a100 R14: 0000000000000000 R15: 0000000000000001
-20553 [  309.850634] FS:  00007f9ff305e700(0000) GS:ffff888276c94000(0000) knlGS:0000000000000000
-20554 [  309.858749] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-20555 [  309.864519] CR2: 00007f9fca701000 CR3: 00000001565e2005 CR4: 0000000008f70ef0
-20556 [  309.871678] PKRU: 55555558
-20557 [  309.874403] Call Trace:
-20558 [  309.876866]  <TASK>
-20559 [  309.878988]  sg_alloc_table_from_pages_segment+0x60/0x100
-20560 [  309.884415]  ? ttm_resource_manager_usage+0x36/0x60 [ttm]
-20561 [  309.889845]  ? xe_tt_map_sg+0x7d/0xd0 [xe]
-20562 [  309.894045]  xe_tt_map_sg+0x7d/0xd0 [xe]
-20563 [  309.898037]  xe_bo_move+0x927/0xaa0 [xe]
-20564 [  309.902029]  ttm_bo_handle_move_mem+0xba/0x170 [ttm]
-20565 [  309.907022]  ttm_bo_validate+0xbe/0x190 [ttm]
-20566 [  309.911405]  xe_bo_validate+0x9a/0x120 [xe]
-20567 [  309.915663]  xe_gpuvm_validate+0xd9/0x140 [xe]
-20568 [  309.920206]  drm_gpuvm_validate+0x2f0/0x5b0 [drm_gpuvm]
-20569 [  309.925459]  ? drm_exec_lock_obj+0x63/0x210 [drm_exec]
-20570 [  309.930627]  xe_vm_validate_rebind+0x46/0xb0 [xe]
-20571 [  309.935428]  xe_exec_fn+0x20/0x40 [xe]
-20572 [  309.939249]  drm_gpuvm_exec_lock+0x78/0xc0 [drm_gpuvm]
-20573 [  309.944410]  xe_validation_exec_lock+0x5a/0xa0 [xe]
-20574 [  309.949385]  xe_exec_ioctl+0x806/0xc30 [xe]
-20575 [  309.953639]  ? ttwu_queue_wakelist+0xd9/0xf0
-20576 [  309.957935]  ? __pfx_xe_exec_fn+0x10/0x10 [xe]
-20577 [  309.962449]  ? __wake_up_common+0x73/0xa0
-20578 [  309.966482]  ? __pfx_xe_exec_ioctl+0x10/0x10 [xe]
-20579 [  309.971263]  drm_ioctl_kernel+0xa3/0x100
-20580 [  309.975209]  drm_ioctl+0x213/0x440
-20581 [  309.978637]  ? __pfx_xe_exec_ioctl+0x10/0x10 [xe]
-20582 [  309.983415]  xe_drm_ioctl+0x67/0xd0 [xe]
-20583 [  309.987408]  __x64_sys_ioctl+0x7f/0xd0
+On 5/4/2026 3:50 PM, Joel Fernandes wrote:
+> 
+> 
+> On 5/4/2026 3:42 PM, Danilo Krummrich wrote:
+>> On Mon May 4, 2026 at 9:28 PM CEST, Joel Fernandes wrote:
+>>> We are already at v12 now
+>>
+>> To be fair, the series is actually at v6, as you initially added those patches
+>> to another series that was at v6 already back then, and then you decided to just
+>> keep going with it. So, nothing too crazy going on that front. :-)
+> 
+> I was thinking of resetting it to v1 and starting by breaking it up and
+> starting over from what's left instead of a v13. I think at this point,
+> probably breaking it down into multiple series with new version numbers
+> makes sense. And I can point to the old patch series that way for reference.
+> 
+> Could you clarify how much time we have left to submit to drm-rust-next? I
+> can then plan the next series accordingly. I did make some changes to GpuMm
+> to be more suitable for channels, but haven't posted them yet.
+> 
 
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Christian Koenig <christian.koenig@amd.com>
-Cc: Huang Rui <ray.huang@amd.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Fixes: b63d715b8090 ("drm/ttm/pool, drm/ttm/tt: Provide a helper to shrink pages")
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
----
- drivers/gpu/drm/ttm/ttm_pool.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-index 278bbe7a11ad..084768d6d9b1 100644
---- a/drivers/gpu/drm/ttm/ttm_pool.c
-+++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -931,8 +931,11 @@ int ttm_pool_restore_and_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
- 			if (ret)
- 				return ret;
- 		}
--		if (!alloc.remaining_pages)
-+		if (!alloc.remaining_pages) {
-+			kfree(tt->restore);
-+			tt->restore = NULL;
- 			return 0;
-+		}
- 	}
- 
- 	return __ttm_pool_alloc(pool, tt, ctx, &alloc, restore);
--- 
-2.34.1
+Answering my own question, and correct me if I'm off but I think we have 4
+weeks more left since the tree is expected to close on -rc6. So I'm going
+to curate a new drm-rust-next series tomorrow with patches that I think are
+7.2 ready (with tags, or those that got lots of reviews already).
 
