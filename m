@@ -4,69 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82742FF885A
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 22:54:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C55E9CD343A
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 23:29:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D32610E411;
-	Mon,  4 May 2026 22:54:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6A4E10E8CC;
+	Mon,  4 May 2026 23:29:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="NEL0nBiD";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jvGZCYrm";
 	dkim-atps=neutral
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B73EC10E411
- for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 22:54:02 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org
- [IPv6:2001:67c:2050:b231:465::1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4g8cQG2K5bz9tpY;
- Tue,  5 May 2026 00:53:58 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1777935238;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=VukkESAFe3Dz4ubR3JzkbP1ey9khSmUL81vcflLLR9I=;
- b=NEL0nBiDrxWMgFQ5JESDVgyazhUvcXpuJD86ARYio6oZH8DC7Ds2jFMZSLv85pm17lVz8i
- rCDmhGR7jEnlxdht26yOp41wy9JuVqHVTju0gNN0L2hnHDm1kwMEPS0SBgYj8tFwClrc5C
- nNCxr68taV+QM03lbeYph4OxB2fb7uU1GBfJEh31fITvSnpnYpwo7SpSrjyZubvhJzU4Gu
- 36Y1SXbG1RoRdr/+blUlyywZm+jhbsVQw72mCbcIQQU616cFIzk1G1DxuktlFmnG3gyZ69
- /38iZWVKcn1VfN553gSwkg0mSuDwhWOBGEazuxO6lCeFboL0gO2TszVzJONUKQ==
-Message-ID: <5aaf1bc2-351d-4bd6-ad8d-206f58af1c26@mailbox.org>
-Date: Tue, 5 May 2026 00:53:52 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED95510E8C0;
+ Mon,  4 May 2026 23:29:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1777937355; x=1809473355;
+ h=from:to:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=RAvHjsmBogTI+HCW8YZ1PYhXjsoOi1ZYl0BTabNyMlQ=;
+ b=jvGZCYrma3hhIS5uBUWUgHoJMPzGYNQuJpSaDRRtLekzZyeeepLXxJTV
+ E9X4lZ0k+xbTom1FgPZSRhOPs1PMZvAWfxzQ7NH8CFVu1OOuIQTJGt6Uv
+ eGZk/PaZSi25uHXX5ePCjJ62sey89hva2t7RaXCUyue19SUCIXCGT4EnW
+ 8dvTc3BQ5FKXhJYX9CIJ+LqcxsSXVRjzWeHJ2NMmODOAXHnQCiw7u5fSy
+ 6bdvJjlydKkbf/rhyy4E/WOKjDBv1Y1Ey1m2EZzVALIne9hZFOe0dp4cf
+ lntHZYnIaQtAHnMVoks9MkAyILV3k3hA5iDkUnEoD659pvEcgi31oyBAj A==;
+X-CSE-ConnectionGUID: OGISwhzjRNOoIOVgdxAU8g==
+X-CSE-MsgGUID: jHE5RhOST3KR0ZyYMOvFBQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11776"; a="89497274"
+X-IronPort-AV: E=Sophos;i="6.23,216,1770624000"; d="scan'208";a="89497274"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 May 2026 16:29:14 -0700
+X-CSE-ConnectionGUID: GEiKY8+TQvmhV63irZ1gMA==
+X-CSE-MsgGUID: iSfvQR17TtyGvOCTixBzog==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,216,1770624000"; d="scan'208";a="239626111"
+Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
+ by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 May 2026 16:29:14 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: intel-xe@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Subject: [PATCH v2 0/2] TTM shrinker fragmentation / partial restore fixes 
+Date: Mon,  4 May 2026 16:29:08 -0700
+Message-Id: <20260504232910.3249376-1-matthew.brost@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Subject: Re: [PATCH 7/7] arm64: dts: renesas: r8a779md: Add support for R-Car
- M3Le R8A779MD Geist
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: linux-arm-kernel@lists.infradead.org,
- Nguyen Tran <nguyen.tran.pz@bp.renesas.com>,
- Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Magnus Damm <magnus.damm@gmail.com>, Maxime Ripard <mripard@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Rob Herring <robh@kernel.org>,
- Simona Vetter <simona@ffwll.ch>, Stephen Boyd <sboyd@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
-References: <20260419193718.133174-1-marek.vasut+renesas@mailbox.org>
- <20260419193718.133174-8-marek.vasut+renesas@mailbox.org>
- <CAMuHMdX17D3n_5vxsvmaSmionjOqrEdPygjPdYuu6a0DR7b83w@mail.gmail.com>
- <0875e4a1-f112-4619-a229-2f6f9197f21c@mailbox.org>
- <CAMuHMdXJvrsXitGagqZJ_STdTTh_s1cBAKf6+esihaVWjfn40g@mail.gmail.com>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <CAMuHMdXJvrsXitGagqZJ_STdTTh_s1cBAKf6+esihaVWjfn40g@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: db7b2fc70112bc46d8d
-X-MBO-RS-META: 3ezkm5km4odom3wm4cyftc36h38gwj6t
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,41 +66,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/4/26 11:24 AM, Geert Uytterhoeven wrote:
+Fix shrinker fragmentation / partial restore fixes. Related to [1],
+continuation of [2] Patches have details.
 
-Hello Geert,
+Series working shrinker getting triggered in a loop plus the below error
+injection:
 
->>> Do we need these two? We don't have them in e.g.
->>> arch/arm64/boot/dts/renesas/salvator-common.dtsi
->>
->> I believe we should add them, the KSZ9031 PHY does require 100us delay
->> after reset is deasserted and before MDIO access is possible:
->>
->> https://ww1.microchip.com/downloads/aemDocuments/documents/UNG/ProductDocuments/DataSheets/KSZ9031RNX-Data-Sheet-DS00002117.pdf
->>
->> FIGURE 7-5: POWER-UP/POWER-DOWN/RESET TIMING
->>
->> "
->> Note 2: After the de-assertion of reset, wait a minimum of 100 µs before
->> starting programming on the MIIM (MDC/MDIO)
->> interface
->> "
-> 
-> OK. So please add it to the other boards, too.
+cd /sys/kernel/debug/ttm/backup_fault_inject
+echo 100 > probability
+echo 3000 > interval
+echo -1 > times
+echo 0 > space
+echo 0 > verbose
+echo M > task-filter
+cd -
 
-Will do.
+Matt
 
->> [...]
->>
->>>> +       pwm2_pins: pwm2 {
->>>> +               groups = "pwm2_a";
->>>> +               function = "pwm2";
->>>> +       };
->>>
->>> What is pwm2 used for?
->>
->> The signal is accessible on the EXIO connector D (LBSC) .
->> It is up to user to use the pin for their purposes.
-> 
-> Usually we do not enable support for random user wirings on EXIO connectors.
-I'll remove that in V3, thanks !
+[1] https://patchwork.freedesktop.org/series/165330/
+[2] https://patchwork.freedesktop.org/series/165877/
+
+Matthew Brost (2):
+  drm/ttm: Drop tt->restore after successful restore
+  drm/ttm/pool: back up at native page order
+
+ drivers/gpu/drm/ttm/ttm_pool.c | 89 ++++++++++++++++++++++++++++------
+ 1 file changed, 74 insertions(+), 15 deletions(-)
+
+-- 
+2.34.1
+
