@@ -4,145 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9313FF885A
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 19:50:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5D41FF885A
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 20:11:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDCC310E82C;
-	Mon,  4 May 2026 19:50:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B03B10E013;
+	Mon,  4 May 2026 20:11:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Gedp58Zr";
+	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="hdIVqGlD";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010013.outbound.protection.outlook.com [52.101.46.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A5A010E82C
- for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 19:50:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=h78NMJQ8E4wnPVnRUMx0m98LDjqyY3mTNN/DIG6z0ufevGAuUjbz/vzTBF39SJyC7M3aM/8O8ENnTcz6OwWLe7cGczVV/Qd7Ny0lHbl1HCjezvcCrOvRWsUpnyFBdUbRivqNMgYbOaQdtkvSyExD2n4FUCni+iMJrGuPleQfEhJmtFSYmcTT48yj1Lj721zzK6DRKXzOZNsyEDt6AbdcC0/UKCZ0+TGPr+TW+VsCx+0bmwAd4SR5gvdrwbtgb0rIrd39m1qrfdWemgxd7hO+DnYYLjhP6FqqLUErkZMUZrt0QDijl4IBFRG2UIFNh1Hi7yDmdd4gd7r7fIFGZovXqA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DqztR4XjflZrCuKmFMnD8srNX0Kc3+EpxefkuTMPdPw=;
- b=ag0bj4ZkoIkR116M3Q++Dsh4aTYgJez3xu/CJg7nOIJc2HmuybQuB0V9DsJXvi+ZoIsC8qSy1Zv29P3IuvT4EwmhqLIaw/niQ5OMGQIWaCC4y9xrfTIhsaQdrgHX1I6Ye7R01ltp7RuWBSR3fd194wOzDMMbPxaqeJDFua6Gh5stCYx86LFZmEwQoi/tx2B8Ih2Rj3ha9EeY3acvUckt6BIzZ9coFIX/eMSaGOG5shld/wwqX8JWyweS9luicPlI8w1I6C/O4kO0TJDxr+0MNx1+AOWDywIg7unyYCOHsH7mHpkxZVizTTxd3ptqCRswqmMtOqt5hON7ZvmcWpLtXg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DqztR4XjflZrCuKmFMnD8srNX0Kc3+EpxefkuTMPdPw=;
- b=Gedp58Zr2t5OlYGzbLzAU0js20GjnDGOfUV84ZGvSq+dy/y1qk5+yCHfJsHh2TosvOU3bgAjyKxb4YL7ydqrYBdnUOI1XWOA8jppEOYXRw2QNcoGzwXKX+FyuReOTclI1UuB0kJZpVp1v6Q9ShgoyPWBi+Fp9kYw8A5oBMIh8WirYXiE+ja4I5lQu0+a8rv6qjS1AOdLDgeZ0yetBk4mr+MRwfCGkAyeWQcEz8RMOJwBmc1Zyyq/Z5ivZqmYwO3kKBJWqRHDk+m+JDMZ1aWY2w6bp7Yw/kh0+7RPtCT9E4a5PDpqQn3NrW6ypf7XWaKAXZLmPWz9dZ0oWntpZDYhiQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
- MW6PR12MB9000.namprd12.prod.outlook.com (2603:10b6:303:24b::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Mon, 4 May
- 2026 19:50:51 +0000
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9870.023; Mon, 4 May 2026
- 19:50:51 +0000
-Message-ID: <be30c1e1-414c-49d9-ba0c-4be4f486e8df@nvidia.com>
-Date: Mon, 4 May 2026 15:50:48 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 12/22] gpu: nova-core: mm: Add page table entry
- operation traits
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Alexandre Courbot <acourbot@nvidia.com>, linux-kernel@vger.kernel.org,
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, Bjorn Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Dave Airlie <airlied@redhat.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- nova-gpu@lists.linux.dev, Nikola Djukic <ndjukic@nvidia.com>,
- David Airlie <airlied@gmail.com>, Boqun Feng <boqun.feng@gmail.com>,
- John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Timur Tabi <ttabi@nvidia.com>, Edwin Peer <epeer@nvidia.com>,
- Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
- Philipp Stanner <phasta@kernel.org>, alexeyi@nvidia.com,
- Eliot Courtney <ecourtney@nvidia.com>, joel@joelfernandes.org,
- linux-doc@vger.kernel.org
-References: <20260425211454.174696-1-joelagnelf@nvidia.com>
- <20260425211454.174696-13-joelagnelf@nvidia.com>
- <DI8B0IOXNP2L.1NFX4OTABNHA0@nvidia.com>
- <53c88538-dca7-41f1-bb2b-856035728c69@nvidia.com>
- <DI9YR10HH6PE.AMLEZUV7701V@nvidia.com>
- <bd210abc-590f-4011-8337-21b54780fd4c@nvidia.com>
- <DIA5D0RYRE24.2LB65BF0UK4UI@kernel.org>
-Content-Language: en-US
-From: Joel Fernandes <joelagnelf@nvidia.com>
-In-Reply-To: <DIA5D0RYRE24.2LB65BF0UK4UI@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MN0PR03CA0011.namprd03.prod.outlook.com
- (2603:10b6:208:52f::13) To DS0PR12MB6486.namprd12.prod.outlook.com
- (2603:10b6:8:c5::21)
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 472F710E3AD
+ for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 20:11:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
+ h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
+ Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=fe-e1b5cab7be;
+ t=1777925483; bh=wPMBVFwRIRSbcXggzPj66q6ILg3rZ1uUdNpLeXq9w7g=;
+ b=hdIVqGlDfdCkj4u5t1u6cD6c+rnSzC3rogP36PNdJeR7c8FFyaGtlBsi2tljlrZYzaqm2+1Yb
+ v4KtmDHyFvWBjAnD85FZoevVG0kaW6oXdgY4sYvoUjf+hq8JZJdULGAXT18UZFIUHmttfXwhEwK
+ qHSmjwjWUWH49OfLJFMyf46sxrWOsFGg1vINVuslnX5wF5JLwNkz9RWF7D09Ea91JJLM+YP12ib
+ WxXH/gwhSsgNpZDGjCH0iLRr5d641UoDZDUvpn/yvqYRn58d5b6DcVMI2es+SurM0NX87hfY/B3
+ k36CWClQhwQOOPbUyfpEWHMXi0rOEaEO2mkMBQcW24Ag==
+X-Forward-Email-ID: 69f8ef7b04bb1dff846bb964
+X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
+ 149.28.215.223
+X-Forward-Email-Version: 2.7.7
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
+From: Jonas Karlman <jonas@kwiboo.se>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Heiko Stuebner <heiko@sntech.de>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Liu Ying <victor.liu@nxp.com>, Sandy Huang <hjc@rock-chips.com>,
+ Andy Yan <andy.yan@rock-chips.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Christian Hewitt <christianshewitt@gmail.com>,
+ Diederik de Haas <diederik@cknow-tech.com>,
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, imx@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v4 12/17] drm: bridge: dw_hdmi: Use generic CEC notifier
+ helpers
+Date: Mon,  4 May 2026 19:10:49 +0000
+Message-ID: <20260504191059.275928-13-jonas@kwiboo.se>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260504191059.275928-1-jonas@kwiboo.se>
+References: <20260504191059.275928-1-jonas@kwiboo.se>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|MW6PR12MB9000:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3c1771fa-08fc-4dc6-f0c5-08deaa1671c0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|7416014|376014|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: mGtEXwgeRbRCg6ggWPIh2TTGy1xA31nORnk/95INctAe072NAEwCYzODHE5ZufPr7AOOV5zf2h00oRvwpr2kA5HaCub10wBYYwyz1kp/zvgi/XwBJeryjxpE+OpakVFaMI6JfrUlkVmD3xpYFOK2ot5gETaaYthTPCf2uOHWpCEmURoqTmc5Q5GRtrd3Y675dQpluQLG6t1uxeq3odhkD0tExQJF5g57SY7zGf+3sXkvxuTW1Yw+Gn9k2CSp1oxrDglk3AMtzLW9ID706KZDihoH+xCZf44rn6X3N7vTpItkbSGIdHbknNU668/rbruWiaQPS3Jvfs8Fqd74n50hI0BxxvUk19okKak0NSJSIz5YkCUsKzhPSApKBeUsut9xO0qJ8QgK2DHs34FqmqnmVdOeiRHPOpFZV5evntg31l7WhL418HvvrUJ1PY20EBHrChJbPWYrSS0KZBtGoUPbuohu4YLdgiyM4Hz/sCrReaIIVlbuB5EJ006aUAURp75RtgxJAYAnL2+TMYipQjLa2zYRT7hufTu1iPL4jJcW0XQOT7gGBLojcCggPycQtjmlLQXHERab/uqS12RyGraWSh4NWxJMOlgKQgxVpWTqsvMRpuGWmHJHjl9Je2oK7XrrD0bmOQA3hFftBMdB8zTBPwn/t9kgQUJx1T8+M7CloZZS5UUls4VN3rIxGXIht6tK
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(7416014)(376014)(22082099003)(18002099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RXpJZGNoSDRDSFFEenZBeWszbVhkRi9XWWhIcTI2MElKblVOQnd1NjR6bVdW?=
- =?utf-8?B?MUZhN0x4Ly9pcVQrMW8yVjY0NFllc0ZKOXpIQXFKS0JvZldOR0YvSUo1MzJP?=
- =?utf-8?B?eFJqMlZFd2pFMGdEVFZQenA5M3VpWnBqRXcvVnhXY1R3ZXVmcWlsQ2JHWStr?=
- =?utf-8?B?RU5DNGE0MldhaW5mZGhDaCs2cFRUWjFCK2ZNbFNYSUl0bTdWcE1IZERLOHk2?=
- =?utf-8?B?ZkJsZ0t5SWp5SVA4alAvemRjbHNvamF0RU5NVllKbVpDUjN5NUpPTkNNcDdk?=
- =?utf-8?B?UFBqNU52WnVkQmRqaVpWeVFZanc5NW04SWQ5Zmt4TkxCMU5UZCtJemYwT1RV?=
- =?utf-8?B?Z0JHTjdYcTFRWE0ySE9DQ3dUN0RYdHRySUdhZ1ArT2FBNkhpZEVxdlFJVTRX?=
- =?utf-8?B?Tk41VDZiTG1rNHZHOW9CeVVsKzBJSVYzV3BYZDVEakJOL2VzRjlrL0hGeXRQ?=
- =?utf-8?B?dms1VWNSSFhIcS8rU3VNMXdQV2t1bjVFeFVSang0ZUNhQlFDZGxJS2hLbGF4?=
- =?utf-8?B?Mis1Sk1rZzhvRHovbXVDL2NuV053WkY4R2hONDlVQlZuNnIxTWNFbGIzTFdJ?=
- =?utf-8?B?NVVWam9oMzUwWWgrUHdVZ0swRjFwMzFhUS9Ua0N2cFV6QWsyajU0V0JXWGdT?=
- =?utf-8?B?VWdUQTRnLzYzazluY0FrZjBkN2tpeUhEK2JnTjZRb0dwNGJROU5UMnFnNFZq?=
- =?utf-8?B?S1dXQlNqeVhLY3dWSThSOHIwM3pPaEJ5cmpib3Z4TGtUSUJTSHdZOStKNk4x?=
- =?utf-8?B?dWlONFh3TDBTLzI3RWFlcVYwWW51SzRDTlZqZFdjMFdGSjdJWmRsakFyeXkw?=
- =?utf-8?B?aE4yYzg1MTA2R2tMM2kyUlA3TmFrMGxTUDZlK0VZbDBWSEJIbG5lc2VtMmRq?=
- =?utf-8?B?dEl3YlgwOStrOE5mZE9GZjlrbUkzMjRFVnZiSkE0VjRnSFROY2dQZExUYmdV?=
- =?utf-8?B?OXQ1dGZRaFkxSGJQSzc1ZDJ6Y1I3bVlPcFJSSHRtUDZSS0VtVlpKR2k5Q0dr?=
- =?utf-8?B?WUlXdzhWUjJwSC9sMkF5ZXRISDBwM0V6VFRDeS9COEVVT1lUb1poOGFPMk15?=
- =?utf-8?B?bjZMcFQ0bXNkZjl0dU9CemcxRmZMR0x4SzhwRytKSEdDVjFYM2tqTklmWXBw?=
- =?utf-8?B?cWVEMjljaXJMRStNVnNDdFFZZ1lDMU96NkxGSk9VK0hBd1JWdG83ZWdhK2tK?=
- =?utf-8?B?NTA4d1lLWVRKR01hSFZnb2NXNEVoS2pTMzgrVnJHWkxGNWNKV0tvNXk3VUVW?=
- =?utf-8?B?VFJrenltVG5kRTAvT0ZOYlBUTllmQVhHd0RjTGtVbGJOSzNmQ0dmTmhZWldm?=
- =?utf-8?B?VmMvSm5HTW1jQWtWNXplb3FGN1ZESkFITW1SQXVBbnRoWnRmV1JtWGdrSjVO?=
- =?utf-8?B?R1U4Q3VlVzhqSW9pdlhzQU5mTGtLYUIxNWxLWDc1RVdoU0dKakVoR1FCUzJr?=
- =?utf-8?B?S09yd0ErY0xxeFFUSmJVaFloQVZ0cnV6WFdYQkk4WUZ5L1AyaUdTOXgyL3Rs?=
- =?utf-8?B?S20ra0NzVkJyeGNDYTNsaFE5T0R2K2FQV0hlRElqaCtXTEhiRktsWjF0bUJy?=
- =?utf-8?B?V3ljSmswbS8rb2xFUUExNm1nZFd3UGFUNk51YW5UaDdrNGNvN1JhdU5mbVdQ?=
- =?utf-8?B?eUhxa0QrQ2I5Ulc2dFEvM1VLd1UwU1NwbHVZSFNjOWQvUzdXd3QvSkc1dXNO?=
- =?utf-8?B?ZEVndElIaXlyTm9QUFl4ZUlkUEJGbU81WHNhc2haL29IZzBJSG1RUFErOVlF?=
- =?utf-8?B?ODYxd2ExdlFETkdlK29RV1pybmhGNmR2NXJwUzdwbXREL3hvVFIwbG5rai81?=
- =?utf-8?B?NkkvV2tHMFQyamVEOFdUSEQxeG96d1JNV2lQeGU0RnJQUG4wMlN6WWsrSTZu?=
- =?utf-8?B?RVFaWHZmelRqMzJqaCtzZlBWaEQ0ODM1b1dxcFhzRkRMN21xYWNOaUVaS2JV?=
- =?utf-8?B?WXZ4NWxET3lHY3c1NlYxZWw5aGpSYXJyT05maHlpRnlUdnJhYXVuYWNSVUVO?=
- =?utf-8?B?eHp2UlpjdTNzeWpmM3Z4eGdSTmlRRE03bzE0M2Ryem9TTlcrdDdUVXFJL0d3?=
- =?utf-8?B?amNjZDdKT05QbndxNEFxaE1LMXQyNFVGOEtjb0IvV1QyQkhwZDhLakZORmRO?=
- =?utf-8?B?WGQzenQxK2xEbU4yNVJjQWszU2NYNDYvWEk0R1paTWNKMU1iR3NKR2oyN3ZR?=
- =?utf-8?B?dUxxNjdlVFM5aEprN2ljdmh0aDYwY2dRbktKdGJpTGdOSlhZaEZaWENXOC84?=
- =?utf-8?B?MFVXQWs5ZVhzaXR5M1VwQXlDZzNyMkpMdVBrSm85a05VanJpUFNscjBuelZ0?=
- =?utf-8?B?MVJlRndXaGVmTXVlU0NaM09sTld2NUxJZjE5Q3FGK3JZdWVLbTR6QT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3c1771fa-08fc-4dc6-f0c5-08deaa1671c0
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2026 19:50:50.9672 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yr7V9MqfyxKqbsFwFlbEmhtwBpnXxU7nNjTTAYFkXNmk1xglrtgjYa0QPeHtuhzD3Szg7DTOnx2f/Sgz5gcpSw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB9000
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,21 +76,130 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+The commit 8b1a8f8b2002 ("drm/display: add CEC helpers code") added
+generic CEC helpers to be used by HDMI drivers.
 
+Replace the open-coded CEC notifier handling with use of the generic CEC
+notifier helpers. Ensure DRM_DISPLAY_HDMI_CEC_NOTIFIER_HELPER is also
+selected when DRM_DW_HDMI_CEC is enabled so that the CEC helpers is
+available.
 
-On 5/4/2026 3:42 PM, Danilo Krummrich wrote:
-> On Mon May 4, 2026 at 9:28 PM CEST, Joel Fernandes wrote:
->> We are already at v12 now
-> 
-> To be fair, the series is actually at v6, as you initially added those patches
-> to another series that was at v6 already back then, and then you decided to just
-> keep going with it. So, nothing too crazy going on that front. :-)
+Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
+---
+v4: New patch
+---
+ drivers/gpu/drm/bridge/synopsys/Kconfig   |  1 +
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 32 ++++-------------------
+ 2 files changed, 6 insertions(+), 27 deletions(-)
 
-I was thinking of resetting it to v1 and starting by breaking it up and
-starting over from what's left instead of a v13. I think at this point,
-probably breaking it down into multiple series with new version numbers
-makes sense. And I can point to the old patch series that way for reference.
+diff --git a/drivers/gpu/drm/bridge/synopsys/Kconfig b/drivers/gpu/drm/bridge/synopsys/Kconfig
+index a46df7583bcf..e6723af03b43 100644
+--- a/drivers/gpu/drm/bridge/synopsys/Kconfig
++++ b/drivers/gpu/drm/bridge/synopsys/Kconfig
+@@ -49,6 +49,7 @@ config DRM_DW_HDMI_CEC
+ 	depends on DRM_DW_HDMI
+ 	select CEC_CORE
+ 	select CEC_NOTIFIER
++	select DRM_DISPLAY_HDMI_CEC_NOTIFIER_HELPER
+ 	help
+ 	  Support the CE interface which is part of the Synopsys
+ 	  Designware HDMI block.
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+index 4c712aa07a89..0aa29b92327e 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+@@ -23,12 +23,11 @@
+ #include <linux/dma-mapping.h>
+ #include <linux/spinlock.h>
+ 
+-#include <media/cec-notifier.h>
+-
+ #include <linux/media-bus-format.h>
+ #include <linux/videodev2.h>
+ 
+ #include <drm/bridge/dw_hdmi.h>
++#include <drm/display/drm_hdmi_cec_helper.h>
+ #include <drm/display/drm_hdmi_helper.h>
+ #include <drm/display/drm_scdc_helper.h>
+ #include <drm/drm_atomic.h>
+@@ -183,8 +182,6 @@ struct dw_hdmi {
+ 	void (*enable_audio)(struct dw_hdmi *hdmi);
+ 	void (*disable_audio)(struct dw_hdmi *hdmi);
+ 
+-	struct cec_notifier *cec_notifier;
+-
+ 	hdmi_codec_plugged_cb plugged_cb;
+ 	struct device *codec_dev;
+ 	enum drm_connector_status last_connector_result;
+@@ -2453,7 +2450,7 @@ dw_hdmi_connector_status_update(struct drm_connector *connector,
+ 
+ 	if (status == connector_status_disconnected) {
+ 		drm_edid_connector_update(connector, NULL);
+-		cec_notifier_phys_addr_invalidate(hdmi->cec_notifier);
++		drm_connector_cec_phys_addr_invalidate(connector);
+ 		return;
+ 	}
+ 
+@@ -2462,8 +2459,7 @@ dw_hdmi_connector_status_update(struct drm_connector *connector,
+ 	drm_edid_free(drm_edid);
+ 
+ 	if (status == connector_status_connected)
+-		cec_notifier_set_phys_addr(hdmi->cec_notifier,
+-				connector->display_info.source_physical_address);
++		drm_connector_cec_phys_addr_set(connector);
+ }
+ 
+ static enum drm_connector_status
+@@ -2539,8 +2535,6 @@ static const struct drm_connector_helper_funcs dw_hdmi_connector_helper_funcs =
+ static int dw_hdmi_connector_create(struct dw_hdmi *hdmi)
+ {
+ 	struct drm_connector *connector = &hdmi->connector;
+-	struct cec_connector_info conn_info;
+-	struct cec_notifier *notifier;
+ 
+ 	if (hdmi->version >= 0x200a)
+ 		connector->ycbcr_420_allowed =
+@@ -2571,15 +2565,8 @@ static int dw_hdmi_connector_create(struct dw_hdmi *hdmi)
+ 
+ 	drm_connector_attach_encoder(connector, hdmi->bridge.encoder);
+ 
+-	cec_fill_conn_info_from_drm(&conn_info, connector);
+-
+-	notifier = cec_notifier_conn_register(hdmi->dev, NULL, &conn_info);
+-	if (!notifier)
+-		return -ENOMEM;
+-
+-	hdmi->cec_notifier = notifier;
+-
+-	return 0;
++	return drmm_connector_hdmi_cec_notifier_register(connector, NULL,
++							 hdmi->dev);
+ }
+ 
+ /* -----------------------------------------------------------------------------
+@@ -2887,14 +2874,6 @@ static int dw_hdmi_bridge_attach(struct drm_bridge *bridge,
+ 	return dw_hdmi_connector_create(hdmi);
+ }
+ 
+-static void dw_hdmi_bridge_detach(struct drm_bridge *bridge)
+-{
+-	struct dw_hdmi *hdmi = bridge->driver_private;
+-
+-	cec_notifier_conn_unregister(hdmi->cec_notifier);
+-	hdmi->cec_notifier = NULL;
+-}
+-
+ static enum drm_mode_status
+ dw_hdmi_bridge_mode_valid(struct drm_bridge *bridge,
+ 			  const struct drm_display_info *info,
+@@ -2972,7 +2951,6 @@ static const struct drm_bridge_funcs dw_hdmi_bridge_funcs = {
+ 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
+ 	.atomic_reset = drm_atomic_helper_bridge_reset,
+ 	.attach = dw_hdmi_bridge_attach,
+-	.detach = dw_hdmi_bridge_detach,
+ 	.atomic_check = dw_hdmi_bridge_atomic_check,
+ 	.atomic_get_output_bus_fmts = dw_hdmi_bridge_atomic_get_output_bus_fmts,
+ 	.atomic_get_input_bus_fmts = dw_hdmi_bridge_atomic_get_input_bus_fmts,
+-- 
+2.54.0
 
-Could you clarify how much time we have left to submit to drm-rust-next? I
-can then plan the next series accordingly. I did make some changes to GpuMm
-to be more suitable for channels, but haven't posted them yet.
