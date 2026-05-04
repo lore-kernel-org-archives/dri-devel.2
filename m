@@ -4,76 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 003CFCD3427
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 21:08:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AB4BFF885A
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 21:22:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 391C310E882;
-	Mon,  4 May 2026 21:08:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C962F10E063;
+	Mon,  4 May 2026 21:22:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="efs7M1Qd";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="JDPaenne";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0889110E401;
- Mon,  4 May 2026 21:08:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777928932; x=1809464932;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=/ipDyCkoQCQ98nDjtbpsZx5sq7C7nmufuz2KncDTW6s=;
- b=efs7M1Qd/2+NxiPKjxqskqwvPyYdeclujOGPTWRyNOFQi4KEj6JUEpmH
- H+UCIjq8LXw+WVrHKm/m0QHvxUK+WoIBp6KuBSiUQAlnl/n9K3OYsWu+c
- fnEC3y2ZQ1/WTDjUmWU2qAqI3CsD69+wptKBmnD6mShkqBdVyxPwDNKyi
- udARYPsm4gZAlgHv2OVxAt3AZFJavUgDEWxKDSBv1ezR+DoLzpCF1ddMy
- NWdy2HDvJzN0H4GvD6B5UPQINyRz5Q6tyT4f0EJmtk5Pn9im7D/0apoBQ
- QrJ7YNGT3FFFThETXGRBVCeUMwSa3Hv4o2Ar6pzaJV/ju1RGMTz5VX6pU Q==;
-X-CSE-ConnectionGUID: leT53BoWSZGzeWQaScLxkA==
-X-CSE-MsgGUID: /BBSHw+vRdCiZ24bdxBgmw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11776"; a="82404897"
-X-IronPort-AV: E=Sophos;i="6.23,216,1770624000"; d="scan'208";a="82404897"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 May 2026 14:08:51 -0700
-X-CSE-ConnectionGUID: HIViqR3kTDKctvIEI4m8hg==
-X-CSE-MsgGUID: knAIF5i/T+GvtIfiNNcSnQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,216,1770624000"; d="scan'208";a="232484885"
-Received: from igk-lkp-server01.igk.intel.com (HELO bdf09bfdbd5f)
- ([10.211.93.152])
- by fmviesa007.fm.intel.com with ESMTP; 04 May 2026 14:08:44 -0700
-Received: from kbuild by bdf09bfdbd5f with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1wK0Ww-000000005y9-0MTw;
- Mon, 04 May 2026 21:08:42 +0000
-Date: Mon, 4 May 2026 23:08:28 +0200
-From: kernel test robot <lkp@intel.com>
-To: Melissa Wen <mwen@igalia.com>, airlied@gmail.com,
- alexander.deucher@amd.com, christian.koenig@amd.com,
- harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, simona@ffwll.ch, siqueira@igalia.com,
- sunpeng.li@amd.com, tzimmermann@suse.de
-Cc: oe-kbuild-all@lists.linux.dev, Alex Hung <alex.hung@amd.com>,
- Simon Ser <contact@emersion.fr>, Uma Shankar <uma.shankar@intel.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Xaver Hugl <xaver.hugl@kde.org>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Matthew Schwartz <matthew.schwartz@linux.dev>,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v4 6/6] drm/amd/display: use plane color_mgmt_changed to
- track colorop changes
-Message-ID: <202605042355.hTox5m9T-lkp@intel.com>
-References: <20260501132527.522320-7-mwen@igalia.com>
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9519210E011
+ for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 21:21:59 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-488e1a8ac40so43630685e9.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 04 May 2026 14:21:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1777929718; x=1778534518; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=nv307eZOcQfpf3d08YRaeg3RgbkORKK7jsD1l1EktYs=;
+ b=JDPaennel0nXkw/8nSJQy9Hyz/tUuv0y8L9WiAYnePPbXuI9OHfKy/6GGWCq+bgip7
+ ROCm8hu0S44AzaEpON1D0fLMfmuCwrlaOPbngRZZ8WPjSBHamt3eSM09i8LJKOMUWba3
+ N5glP9NEccbhJ3Xaa/hZ3VTjTIyuGIcqFvz9UDdZ3z29DJJQOh4kKRYfS8d7fairuDxn
+ 4VoIahaehXtRbei0AJZTyMI2V3b1a9dj87X/3R4oCAC2/Vp/bp/nSHj2gv2lRPY3eZuE
+ fWvWInbVe8PgqfrpKKsqfM8tUv907BW82WmpRwm1flsBd0GQmFfMG8wqkBBG9aew/5UH
+ 6Zxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777929718; x=1778534518;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=nv307eZOcQfpf3d08YRaeg3RgbkORKK7jsD1l1EktYs=;
+ b=pIK8ssxZRLxmg9UxCt5q7GHBjOFs/9SfDB/oabGUY1nmw+z/QkUDo6O1mSTmrIWXge
+ ArHZvHDg17NdW6b0xiNvLKeofpkUVPbRhOI5LkNUEGlKf39g3ZrTKB59FGC6vAKsCHNP
+ gPhQHcSmL/NoLL09Dm3jqsvL1i0s0OvY9InD2RZOh0deX2mT1APkIvLpo82TomXj1KIV
+ c5fwfe0T0D6SKgssrDB9ox0m4cKMDLe8WOEepBnOZFs9WSs/8haVlkcvAxFBJIMF1LcW
+ FEAPdFEEYXI4p3b+9UzIk45eGHxShdFhh9CrMX4dVU6jppr3DeNGjylPMGfXZY5maIBw
+ Fp1A==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+ZHkIMi0vB0ke7UbnwkgnB7Hbq8lhaCNuteBkwWE0AEwQsg2WJUj44W26qX5TCX2nBYPzU/BUeHbU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywz4VVxgalu1oSvrFKi1Lk85EH22digZR9yJ2kZvb+a962KbLOj
+ dmAWrxKZBFuGXUmOCcqj6jX/I4X4H/onv2wHzSKmxcIm22RXA+KnXJd+G4Ow/njPSog=
+X-Gm-Gg: AeBDieuV5a2AOohdB7zNeL5JPUIy7+21BQWRfcRLpyYiTJshxcTKKIPEWW6old9PKxS
+ Go2gAt1sE4HZsyDkKYTplKX2iAgQbcjFJKvG6DyJ1oqeWnpMNzK5ciFzR/Z39XfKQBPabMdmSGG
+ VISSJ4u8cKKYNI942NuL0VvkwGqDxcWQTa0u65gG1fdGHFHOSCOVNh4q5KraCSNZAf8B6qx8J7q
+ IXjy5JNPKSZlSJ102gfLWbJLsSsf/jPiIZbdC6gB25onhVl2SFBHa5FIzAAZas1cYl8KCnb9ADo
+ yqduG9c86CGYEX/i+gak17bJdI5+XpRBddqXqLoVOw5IuxOD3gI3qygIV1FzSeKTpe0JX+h7o92
+ GUuIIVIgwQK05AZE5cvRQ9lnyIZR+hXYrhTO0bqDd3RV2a92Qs0khYtvksss3w9aaOHVXkmA0kw
+ PILtKu39bOqW1cCJwkww/xpfVbM71Ust7yTwXB8Hijkfl828eFj0N4Vv98IqhXxfq+g6sRPzLFJ
+ 87X4SMJOx/W04xbtA==
+X-Received: by 2002:a05:600c:c16a:b0:489:1cda:bbb7 with SMTP id
+ 5b1f17b1804b1-48d18ceb33dmr2855065e9.25.1777929717835; 
+ Mon, 04 May 2026 14:21:57 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:4086:6e90:21c8:1555?
+ ([2a01:e0a:106d:1080:4086:6e90:21c8:1555])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-48d149de41asm5820225e9.2.2026.05.04.14.21.56
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 04 May 2026 14:21:57 -0700 (PDT)
+Message-ID: <80fb7a31-3a85-48d5-a971-4e7632778f0c@linaro.org>
+Date: Mon, 4 May 2026 23:21:55 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260501132527.522320-7-mwen@igalia.com>
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v4 12/17] drm: bridge: dw_hdmi: Use generic CEC notifier
+ helpers
+To: Jonas Karlman <jonas@kwiboo.se>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Robert Foss <rfoss@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Liu Ying <victor.liu@nxp.com>, Sandy Huang <hjc@rock-chips.com>,
+ Andy Yan <andy.yan@rock-chips.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Christian Hewitt <christianshewitt@gmail.com>,
+ Diederik de Haas <diederik@cknow-tech.com>,
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, imx@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20260504191059.275928-1-jonas@kwiboo.se>
+ <20260504191059.275928-13-jonas@kwiboo.se>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260504191059.275928-13-jonas@kwiboo.se>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,38 +132,137 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Melissa,
+On 5/4/26 21:10, Jonas Karlman wrote:
+> The commit 8b1a8f8b2002 ("drm/display: add CEC helpers code") added
+> generic CEC helpers to be used by HDMI drivers.
+> 
+> Replace the open-coded CEC notifier handling with use of the generic CEC
+> notifier helpers. Ensure DRM_DISPLAY_HDMI_CEC_NOTIFIER_HELPER is also
+> selected when DRM_DW_HDMI_CEC is enabled so that the CEC helpers is
+> available.
+> 
+> Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
+> ---
+> v4: New patch
+> ---
+>   drivers/gpu/drm/bridge/synopsys/Kconfig   |  1 +
+>   drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 32 ++++-------------------
+>   2 files changed, 6 insertions(+), 27 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/bridge/synopsys/Kconfig b/drivers/gpu/drm/bridge/synopsys/Kconfig
+> index a46df7583bcf..e6723af03b43 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/Kconfig
+> +++ b/drivers/gpu/drm/bridge/synopsys/Kconfig
+> @@ -49,6 +49,7 @@ config DRM_DW_HDMI_CEC
+>   	depends on DRM_DW_HDMI
+>   	select CEC_CORE
+>   	select CEC_NOTIFIER
+> +	select DRM_DISPLAY_HDMI_CEC_NOTIFIER_HELPER
+>   	help
+>   	  Support the CE interface which is part of the Synopsys
+>   	  Designware HDMI block.
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> index 4c712aa07a89..0aa29b92327e 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> @@ -23,12 +23,11 @@
+>   #include <linux/dma-mapping.h>
+>   #include <linux/spinlock.h>
+>   
+> -#include <media/cec-notifier.h>
+> -
+>   #include <linux/media-bus-format.h>
+>   #include <linux/videodev2.h>
+>   
+>   #include <drm/bridge/dw_hdmi.h>
+> +#include <drm/display/drm_hdmi_cec_helper.h>
+>   #include <drm/display/drm_hdmi_helper.h>
+>   #include <drm/display/drm_scdc_helper.h>
+>   #include <drm/drm_atomic.h>
+> @@ -183,8 +182,6 @@ struct dw_hdmi {
+>   	void (*enable_audio)(struct dw_hdmi *hdmi);
+>   	void (*disable_audio)(struct dw_hdmi *hdmi);
+>   
+> -	struct cec_notifier *cec_notifier;
+> -
+>   	hdmi_codec_plugged_cb plugged_cb;
+>   	struct device *codec_dev;
+>   	enum drm_connector_status last_connector_result;
+> @@ -2453,7 +2450,7 @@ dw_hdmi_connector_status_update(struct drm_connector *connector,
+>   
+>   	if (status == connector_status_disconnected) {
+>   		drm_edid_connector_update(connector, NULL);
+> -		cec_notifier_phys_addr_invalidate(hdmi->cec_notifier);
+> +		drm_connector_cec_phys_addr_invalidate(connector);
+>   		return;
+>   	}
+>   
+> @@ -2462,8 +2459,7 @@ dw_hdmi_connector_status_update(struct drm_connector *connector,
+>   	drm_edid_free(drm_edid);
+>   
+>   	if (status == connector_status_connected)
+> -		cec_notifier_set_phys_addr(hdmi->cec_notifier,
+> -				connector->display_info.source_physical_address);
+> +		drm_connector_cec_phys_addr_set(connector);
+>   }
+>   
+>   static enum drm_connector_status
+> @@ -2539,8 +2535,6 @@ static const struct drm_connector_helper_funcs dw_hdmi_connector_helper_funcs =
+>   static int dw_hdmi_connector_create(struct dw_hdmi *hdmi)
+>   {
+>   	struct drm_connector *connector = &hdmi->connector;
+> -	struct cec_connector_info conn_info;
+> -	struct cec_notifier *notifier;
+>   
+>   	if (hdmi->version >= 0x200a)
+>   		connector->ycbcr_420_allowed =
+> @@ -2571,15 +2565,8 @@ static int dw_hdmi_connector_create(struct dw_hdmi *hdmi)
+>   
+>   	drm_connector_attach_encoder(connector, hdmi->bridge.encoder);
+>   
+> -	cec_fill_conn_info_from_drm(&conn_info, connector);
+> -
+> -	notifier = cec_notifier_conn_register(hdmi->dev, NULL, &conn_info);
+> -	if (!notifier)
+> -		return -ENOMEM;
+> -
+> -	hdmi->cec_notifier = notifier;
+> -
+> -	return 0;
+> +	return drmm_connector_hdmi_cec_notifier_register(connector, NULL,
+> +							 hdmi->dev);
+>   }
+>   
+>   /* -----------------------------------------------------------------------------
+> @@ -2887,14 +2874,6 @@ static int dw_hdmi_bridge_attach(struct drm_bridge *bridge,
+>   	return dw_hdmi_connector_create(hdmi);
+>   }
+>   
+> -static void dw_hdmi_bridge_detach(struct drm_bridge *bridge)
+> -{
+> -	struct dw_hdmi *hdmi = bridge->driver_private;
+> -
+> -	cec_notifier_conn_unregister(hdmi->cec_notifier);
+> -	hdmi->cec_notifier = NULL;
+> -}
+> -
+>   static enum drm_mode_status
+>   dw_hdmi_bridge_mode_valid(struct drm_bridge *bridge,
+>   			  const struct drm_display_info *info,
+> @@ -2972,7 +2951,6 @@ static const struct drm_bridge_funcs dw_hdmi_bridge_funcs = {
+>   	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
+>   	.atomic_reset = drm_atomic_helper_bridge_reset,
+>   	.attach = dw_hdmi_bridge_attach,
+> -	.detach = dw_hdmi_bridge_detach,
+>   	.atomic_check = dw_hdmi_bridge_atomic_check,
+>   	.atomic_get_output_bus_fmts = dw_hdmi_bridge_atomic_get_output_bus_fmts,
+>   	.atomic_get_input_bus_fmts = dw_hdmi_bridge_atomic_get_input_bus_fmts,
 
-kernel test robot noticed the following build warnings:
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-[auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on next-20260430]
-[cannot apply to linus/master v6.16-rc1]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Melissa-Wen/drm-atomic-only-add-colorop-state-from-active-color-pipeline/20260504-102820
-base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link:    https://lore.kernel.org/r/20260501132527.522320-7-mwen%40igalia.com
-patch subject: [PATCH v4 6/6] drm/amd/display: use plane color_mgmt_changed to track colorop changes
-config: x86_64-rhel-9.4 (https://download.01.org/0day-ci/archive/20260504/202605042355.hTox5m9T-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260504/202605042355.hTox5m9T-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202605042355.hTox5m9T-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
->> Warning: drivers/gpu/drm/drm_atomic.c:1625 function parameter 'plane_state' not described in 'drm_atomic_add_affected_colorops'
->> Warning: drivers/gpu/drm/drm_atomic.c:1625 function parameter 'plane_state' not described in 'drm_atomic_add_affected_colorops'
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Thanks,
+Neil
