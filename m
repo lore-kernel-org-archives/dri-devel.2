@@ -4,77 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DBB1CD3439
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 07:12:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57CFBFF885A
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 07:12:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0581E10E96E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B35810E970;
 	Tue,  5 May 2026 07:12:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SQbD8pvN";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rk2awgdX";
 	dkim-atps=neutral
-Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com
- [209.85.219.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B92AB10F5E7
- for <dri-devel@lists.freedesktop.org>; Fri,  1 May 2026 20:43:16 +0000 (UTC)
-Received: by mail-qv1-f46.google.com with SMTP id
- 6a1803df08f44-8acb09ddbf6so38261506d6.2
- for <dri-devel@lists.freedesktop.org>; Fri, 01 May 2026 13:43:16 -0700 (PDT)
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
+ [209.85.216.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8A0910E0B1
+ for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 02:14:12 +0000 (UTC)
+Received: by mail-pj1-f52.google.com with SMTP id
+ 98e67ed59e1d1-35fb262f92cso826069a91.2
+ for <dri-devel@lists.freedesktop.org>; Sun, 03 May 2026 19:14:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777668195; x=1778272995; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1777860852; x=1778465652; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=p5E1HOqyqOzDx9CBzmKmUlb5e5nYghOLHEYeoL69u9Y=;
- b=SQbD8pvNq/MhJy4CnC3J4pG1iradoiMocTIkrJu+lnG8hvEFuGXUyLf+yfjUaEZBiu
- /ZpbIgblNuOg30WJ/IJV9Dbk5I5sqtCu7aq0CnOV9EwjoV7dOZRwI4moC4vvO28H7itl
- ZGRd4d22zh6CF+Ko2G3ztPMTtS+jus89nVPmn0wmHj/SfvtGE9tFESN4LIlQe1Z316eL
- /ci5lpcWQjtmxDdpJA8WQz8c2XPiyRZOs/9SUkjn1OjO86l2aH/RkIV2KBAiUqgx3eC6
- +RuXFaXwhGfn4cdM9NklFUja+iboULradsqxASjEl4o0DVrl+hU8xi9Xuj5gu9zP+sOm
- n4JQ==
+ bh=+aGMILBpdA7Z2vP2ImAoYwoEz5ssc9d51Wzjj0viQYI=;
+ b=rk2awgdXxFfYIw20Zz+7uvRmXUiMLH6YM0MTces+tcaqAu8YwX+27lDxz8TPjxlw+3
+ oDXmULeAf6I49XOt+ELjELK/wUsWTgGyDU1BgbbyYigW97jnOkMNi2GGHOhtbTswT4Zz
+ bqu9ZvIMkYXfMU4krTDenGo/fN1cx0JEct+gLM3AwQQyGSYex6HwDG39PJSnNaLc8TqB
+ I0pJA967Libgy3M69cX/bJ2mfGbsnYFjQvE3jwwnIrKR92a6UqyBqExoKfRKcF7tDml0
+ 0Pxw5E8Pcl9+GT8VQGOV1cwCH2zrsJZM+MTStGO043k658Dx3KDP5wDuX1D6lj1h9AXd
+ PlMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777668195; x=1778272995;
+ d=1e100.net; s=20251104; t=1777860852; x=1778465652;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=p5E1HOqyqOzDx9CBzmKmUlb5e5nYghOLHEYeoL69u9Y=;
- b=JMlkMfyLBnq3vT2mzli91jdCCFJE9WIuLbEH06VzB8Xn7rUHWF9LKrmb8n2MeH3hdK
- gnmKkpDbbqBLh4ZQsjlbqSIIkkXz3YLmgy06BNybPB2ju2egi50kVSqZ2O8pA3HiUSBN
- PQohTjL7H9FgV8QhU9rPGNdgpmKKNX/s0BsEteI9YidEkcU5quYxL5lgq2MgQU2+dCA0
- seSr5xGNZae4AcMSM03KyVi2dp6qH/Mr8b6d/KcyJnfs4Bey7xQ328BRQfO+NazjRSJi
- bZ0CQeD9yaWbm2Mab/5g1tzFOZJyQ8j6OKVWX/AUzdBrvINDFimAmd7fQXcYHce2XY2J
- 0wsg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/mJhyXTCTOkxnOQWNRFS1c0nM41k7JD9y4XyeFhpU9ZyO+FHTeVPibs5JwNHCWPt3MYBd5Wbg+L2k=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzQWCzy0RcJFq4c6/sepuGRLzz06OAiZWasxal1h+21TDT9F41t
- Z6rHkemt0lxMhInSIzpV4pIgT8KKCxzURpriYJQoCf/UgCWbVc8UQQoT
-X-Gm-Gg: AeBDietsPEQZt1QsmFCesNSDUOWKg+/ZjfE8Zq8BIEoqF//fIpQ0WMvIPQtbKIn+dZH
- Wxd/rYDnIVhMarMx6gl8tdaDUyLjZnjnRu6Tw/w1SJTqAtgpXY1JvyzFvct1HMW8pSKXc+1xF9T
- Dh3gi3cHM52OVrKdGjbjBXPxXX4jHAwlcZQ0C+fdRR0EBXuVtUf0AwSNVE1uNBjKOA/UH4rRuLa
- 1JZhxrhQTDejrpGywB8imKnt5ydPm16ng2Hijmo1Ql2QbPDWXb4O3Mlx/VnWZAbOG1qlnplG3Mu
- 6jtoHzNTB6cRxq4R+8hSuTGP6Yvq6eZwV55r/4LzZRYjGesSn1BZ5Ty31W/dvtQ7d985AMNzEU8
- oCpERuAosa4a+sx06RoZsi3Q62uRtdqLZF135oRlhBOFhqXO4J31IapJa8VALibnP/vKE91Av1j
- /Vo169ixAJPJX9T88dEUqqszKUWilV2kIRM1UGwUAnSGGBQF2BVjoSLb3vIa94u94Olp0=
-X-Received: by 2002:a0c:f10c:0:b0:89c:de0e:263b with SMTP id
- 6a1803df08f44-8b6694eb760mr15323986d6.42.1777668195439; 
- Fri, 01 May 2026 13:43:15 -0700 (PDT)
-Received: from PF5YBGDS.localdomain ([163.114.130.5])
+ bh=+aGMILBpdA7Z2vP2ImAoYwoEz5ssc9d51Wzjj0viQYI=;
+ b=m869cUM70kY2yBxPDwHoP+aE48Kxzp2/4v/6CST/JpkjVnGAdUGI90DUCZObkwLVVN
+ 0iJ9a7yLGFS6d4RlW1IHsiefWGY156RryOKcHPK1hAgUmk2ewZkXdc9mZwcZINM/Kew6
+ LxxLEUB8TRbxQo2M+Mxa9j2/RHna5tRzYQszYBpui1ppw7s5GD+uuVAFptP6OLEFqyVY
+ QsrT9+aHFwBPHiQZN47tMzxVUzF1OZNcfvJQMzs6EpJggrBbJknZWERb+oPVMNZG1ewz
+ 15mYXXYSz4NRWq4KEJ08lmqlmZhoHpnwfkI9ap1jisCgMPu/TEhjn0N7E71qEE1d+miH
+ 6MSg==
+X-Gm-Message-State: AOJu0YztkiP7YkDF/S/IBhttg4/JuPSEbcPsLGNX0BcHSeFIPu2+Yu0Z
+ CF2yONP3Ft/aZvGld8/xTd3P7LgL8betVSzfxoudsFEF+DBkVHpKveVc
+X-Gm-Gg: AeBDies1R3DGuwM3/E9rICXTbhPKHX9tHU6McjDXwwrXav5QTgvC21AoC9YJDjs7RAH
+ kumWkYHA4WCbJUUH2e8YpBv6kUTR/jzutYtn8nAREOoxHEjWW8xlj1ownTBqXcj/MUu5f5oHdBH
+ ISgpcBP/tesd1iAeyofo+QSI0wVFCDRpjpuUmtf+DVpu/nFPC9Ve2IKHw/EZ0ojMqmHUFXrI0M1
+ nNbsDBDoo8lhORcZAsXEusIhPnUEvHEIpcTFR3soz/fklefVwULzXf0eatI3kV2Qduk0QYjOdIk
+ cs7NP+P/yqY+XkigGMi2e/ZbEQcivbPriRvEnWMcGIX2F9RFhW8Gx9GdMBc52rVePQf4KCD0Gc+
+ XgIWeTZ07cz+E15+OkecuGe9xi0p/KaOUFb+Qmw7NozZiYSR/meEYlaS0Um0pXS9I3wc+IJOslv
+ SSuHxL8QMy8bUIlJKkjNfXPe1NnFsceIzPk4k+qLcRc/s=
+X-Received: by 2002:a17:90b:2b45:b0:364:6f0d:c0fc with SMTP id
+ 98e67ed59e1d1-3650ce8437bmr4116823a91.7.1777860852258; 
+ Sun, 03 May 2026 19:14:12 -0700 (PDT)
+Received: from marchy ([2405:3800:95f:677d:ee8e:77ff:fed4:d18b])
  by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-8b5390ec38asm33730096d6.11.2026.05.01.13.43.13
+ 98e67ed59e1d1-364ebec73aasm9365566a91.2.2026.05.03.19.14.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 May 2026 13:43:14 -0700 (PDT)
-From: mike.marciniszyn@gmail.com
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Javier Martinez Canillas <javierm@redhat.com>, Andrew Lunn <andrew@lunn.ch>
-Cc: mike.marciniszyn@gmail.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Mike Marciniszyn <mmarcini@meta.com>,
- stable@vger.kernel.org
-Subject: [PATCH] drm/fbdev-helper: Fix deletion of stub for
- drm_fb_helper_gem_is_fb()
-Date: Fri,  1 May 2026 16:43:13 -0400
-Message-ID: <20260501204313.127616-1-mike.marciniszyn@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ Sun, 03 May 2026 19:14:11 -0700 (PDT)
+From: Adam Azuddin <azuddinadam@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org,
+	Adam Azuddin <azuddinadam@gmail.com>
+Subject: [RFC PATCH v1 0/2] Migrate RAiO RA8875 from fbtft to DRM
+Date: Mon,  4 May 2026 10:13:49 +0800
+Message-ID: <20260504021355.72128-1-azuddinadam@gmail.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 05 May 2026 07:12:26 +0000
@@ -93,41 +85,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Mike Marciniszyn <mmarcini@meta.com>
+This RFC migrates the old fbtft fb_ra8875 (drivers/staging/fbtft/)
+to a proper DRM/KMS driver. The RA8875 has a 2D Block Transfer Engine (BTE),
+a touch controller, and PWM backlight control. This driver currently
+implements only basic display pipe, with BTE and other subsystems as
+planned follow-up work.
 
-When CONFIG_DRM_FBDEV_EMULATION  is not defined this error results
-when building amdgpu_display.c with CONFIG_DRM_AMDGPU:
+This driver does not use drm_mipi_dbi. The RA8875 SPI protocol is
+structurally incompatible with both Type C options drm_mipi_dbi supports.
+Type C1 encodes command/data as a 9th bit within a 9-bit SPI word. The
+RA8875 uses a full prefix byte (0x80 = command write, 0x00 = data write,
+0x40 = data read, 0xC0 = status read) sent as a separate 8-bit transaction.
+These are not the same thing and cannot be mapped to each other.
 
-error: call to undeclared function 'drm_fb_helper_gem_is_fb'; ISO C99 and
-later do not support implicit function
-declarations [-Wimplicit-function-declaration]
+Type C3 models two transfer types via a D/CX GPIO. The RA8875 has four
+transfer cycle types and no D/CX pin. More critically, the GRAM write path
+is stateful: an MRWC register-address transaction followed by a streaming
+pixel pump under a single CS assertion. There is no way to express this
+through the dbi->command() dispatch model without either abusing the
+abstraction or reimplementing the transfer layer underneath it anyway.
 
- 1777 |  if (!drm_fb_helper_gem_is_fb(dev->fb_helper, fb->obj[0])) {
+Other than that, forcing DBI would actively obstruct the BTE
+implementation, which requires direct control of the SPI bus at the
+transaction level. A direct SPI implementation keeps this path clean.
+Any feedback on these would be valuable.
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Mike Marciniszyn <mmarcini@meta.com>
----
- include/drm/drm_fb_helper.h | 7 +++++++
- 1 file changed, 7 insertions(+)
+Tested on Raspberry Pi 3B, 5" 800x480 display, kernel 7.0.0-rc3.
 
-diff --git a/include/drm/drm_fb_helper.h b/include/drm/drm_fb_helper.h
-index bf391903443d..7f9ad421af3f 100644
---- a/include/drm/drm_fb_helper.h
-+++ b/include/drm/drm_fb_helper.h
-@@ -273,6 +273,13 @@ int drm_fb_helper_hotplug_event(struct drm_fb_helper *fb_helper);
- int drm_fb_helper_initial_config(struct drm_fb_helper *fb_helper);
- bool drm_fb_helper_gem_is_fb(const struct drm_fb_helper *fb_helper,
- 			     const struct drm_gem_object *obj);
-+#else
-+static inline bool drm_fb_helper_gem_is_fb(const struct drm_fb_helper *fb_helper,
-+					   const struct drm_gem_object *obj)
-+{
-+	return false;
-+}
-+
- #endif
+Currently placed in drm/tiny for review purposes. The intention is to move
+to drivers/gpu/drm/ra8875/ in v2 to accommodate future BTE plane support
+and the touch input subsystem on the same SPI device node.
 
- #endif
---
-2.43.0
+Known limitation: at 25MHz SPI, full-screen throughput for 800x480 RGB565
+is physically capped at ~4-5fps. The driver mitigates this with damage
+tracking so only dirty regions are transferred. Full-screen animation and
+video are not achievable over SPI at this resolution and are not intended
+use cases for this hardware.
+
+Some questions:
+
+1. Register writes are currently capped at 1MHz. The datasheet allows
+   higher but some boards have signal integrity issues. Should this be
+   a DT property or is 1MHz a reasonable default?
+
+2. PLL initialization hardcodes a 20MHz crystal assumption
+   (PLLC1=0x0B, PLLC2=0x02). Should this be derived from a clock
+   subsystem node or a DT property?
+
+3. Currently using display-timings in the DT binding with
+   of_get_videomode(OF_USE_NATIVE_MODE) in the driver. Should this
+   use panel-timings instead, or is display-timings the correct
+   choice for a controller-level binding like this?
+
+4. Given planned BTE support as a DRM plane, is drm_simple_display_pipe
+   the right foundation or should this be a full drm_driver from the
+   start? Happy to restructure in v2 if consensus is to go full split now.
+
+Future work: PWM backlight via DRM backlight interface, BTE as a DRM plane
+or through drm_rect operations, touchscreen via input subsystem.
+
+
+Adam Azuddin (2):
+  dt-bindings: display: panel: Add RAiO RA8875 display controller
+  drm/tiny: Add RAiO RA8875 display controller driver
+
+ .../bindings/display/panel/raio,ra8875.yaml   |  76 ++
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ MAINTAINERS                                   |   6 +
+ drivers/gpu/drm/tiny/Kconfig                  |  14 +
+ drivers/gpu/drm/tiny/Makefile                 |   1 +
+ drivers/gpu/drm/tiny/ra8875.c                 | 681 ++++++++++++++++++
+ 6 files changed, 780 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml
+ create mode 100644 drivers/gpu/drm/tiny/ra8875.c
+
+-- 
+2.54.0
 
