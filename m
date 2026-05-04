@@ -4,132 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 669C9FF885A
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 07:49:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D2E0CD3423
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 07:57:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C55E210E558;
-	Mon,  4 May 2026 07:49:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6F3E10E3A6;
+	Mon,  4 May 2026 07:57:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IdahbNtE";
+	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="LBxmIe4j";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010035.outbound.protection.outlook.com [52.101.61.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CFD210E5F9
- for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 07:49:28 +0000 (UTC)
+Received: from AM0PR02CU008.outbound.protection.outlook.com
+ (mail-westeuropeazon11013067.outbound.protection.outlook.com [52.101.72.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A00ED10E3A6;
+ Mon,  4 May 2026 07:57:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Usz9fuTu+9tU8uPV//YDY14fftwgRsH5e5C5x6BEsMIt/7Jis1hOcUPBzqpBCnJipHrxjyammL0aZ5v3LqsifZD0pplra5dJz42qob4y8MIBmdpEHpU+dSbc0NJXx64dfiTpgA9ZNautfcYkJtWGCv5nsqxa7KWx2cngvTEPbTOF9M5kRQ5+fPVgYntwF0gdOvEJ5j+64Ju+LOCo4BRaMVf90xg7C0y8ALlMH9lNp0ZD+q/9rUW8hck8BHB8iTHgGe4LTwrHa8YJgsmp2v4ECwnw7FbLbvJCMCyye4Nodc/vMytOtNRrrNXiMSCT/fJWhM/15F3wI4ZP3r+EKEca9A==
+ b=pNnSjlgqQ9mu64HM93qhv+j/BPmjKWq06Vw5FUl/MpiJK7O48Y5ZkdGpeDr+RLAsG3bD4m1MQj++jsqYHDhFLmSZ5zpMQ8jqAy3ZTKLMriPOi6faQk2E6kzM96L7OPWSvp+JWM085Q1lmk5RRrQOeSLk0xO4OiU7sqhrtqXPyJv2769muBydBuIzOb+Y2T+yCqqNpX1pq6fqhbmZCdZYovkoMLuMKF4YDRe44t5cNGg4sMDtGk6GXjcFlUhFIQuH5ZRhfaUs/tszMI47wKm5VvrDOVSo3B251R8iTs24txl8YlwZcJss91IFDm1kJbf+3HrOefgLyrqZ3jbW2NXd6g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=d0xcKJkFbFaYT1KQdPIlpEkD4K7meX9f46DKUFjINbk=;
- b=rrqqqTZIC3jVrOX02IbvKWveyM5/8wSGqah40CEsOd+oahRlfsqMdN25EXDDBXKcx6LLRfAsnryT5Zo8E6g/jw3l86c3wzousNeitZqSkO29DfjEnNCEfpLK/RDFACYVwTSL/gH8A73PckKSPUDCz8MYLzJpdrmWgqApyd8W8clqf4RJzLtu8rRWtBR2PvNQbOix1MSIqJpGFnzzsVvjR9nEN9L3t2F+2h+u1BgGp9nGyISIkPAT8g3Yb9Iuz6kP419ZE3WVEMz2HYUCh6yrW/EbooQ/E1XEhhdH5bZVz2Uk5mWdMq/O3bIBx6GM2vuiCw1DDASkMfP1/HZVUhnODA==
+ bh=mIyqoNMaqF7PcSsq3Vf4/2r/EknapHaMFFAC23Z0fWk=;
+ b=u/5vHVU/ZwWk0vXcfhC+ZvVj8TSqXPilWXe4zkw8nJXsnptXkI4ThoxIr0qjkFcBaQrdNu3mgiq0LeVT7yP8R6450cWoARy9vT0s0FG6X1duwz1EmElLoN4b7Xu2ubhZ5ZVowjf2F2KcMlQlzrG4OQDlFwzRW3vJWVV4e/2+A0jL79gLCNsXVMdUW3e7PHOZzud3P2DXNv59hKBqcDMJDgKnD5ysdtOX27rA7t+RVsOZ0Kllrj/49y6yCyEqm4Faqh0KjsN1o/xAx/+iowsYAG6TSrNh9u/i+qZiOs3lJmEggz4Oxil30mlSG8yW5FEo36P9vhUhX4+fr8ujas7lJg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=d0xcKJkFbFaYT1KQdPIlpEkD4K7meX9f46DKUFjINbk=;
- b=IdahbNtEMkjeuf9ulw87mxdUNfsbd0QIxmISkSseVSowEtBHZc1uzoKJ3zpr4dXsZpWSGW0+pVT8jOd8HjHBb4jvJQjCRWHKkdyTh5tFq0hvh2a/P7vGCNd5/cBV0FEpx1ikknnY1SOeTQnbI3da3SaUseXQEVfUB0w3Mk/DMYc=
+ bh=mIyqoNMaqF7PcSsq3Vf4/2r/EknapHaMFFAC23Z0fWk=;
+ b=LBxmIe4j4c0f8XCDOmIwHQsDwUevTUlG2XSG5rVjJwhpeujlIC35stBUnSYac3YgUbfWXU/Ium9MufmIzh/C+KhNrkBY1ZDnp4CYpRingmBtEGzB3SfBK52lARJku8VclM7COSg7ZsWfCvgZk2E4fYFebSvxLc+Q/yrR1Gl4kGJAEQloY9aurINdIdFPw0k9ZA36UuM5EBsnJtQcc9n4cbBYLXGLUsYbsmVfktuWW/kofa4hS2LLo7iYd9kWfAeKOQ6906aMVPLLYIP+Mi37NRoNNzDN/ToqimoCrHJ/Jbmdpw03gWsxeJwcgrSHG/XQtN77oHVntlLQXVY5+pxblQ==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DM4PR12MB6448.namprd12.prod.outlook.com (2603:10b6:8:8a::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9870.25; Mon, 4 May 2026 07:49:25 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9870.023; Mon, 4 May 2026
- 07:49:25 +0000
-Message-ID: <bc74694b-9cbc-4cbb-9dcd-9e25960d3b97@amd.com>
-Date: Mon, 4 May 2026 09:49:15 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-buf: system_heap: Optimize sg_table-to-pages
- conversion in vmap
-To: "T.J. Mercier" <tjmercier@google.com>, Barry Song <baohua@kernel.org>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- Xueyuan Chen <Xueyuan.chen21@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>
-References: <20260406214938.24142-1-baohua@kernel.org>
- <a6d1c89a-3c71-4e06-adcb-56595071dcc2@amd.com>
- <CAGsJ_4xquCzQLbvpkC8arAN=9KhrAkdPdxnB=v85GvvQu23Xyg@mail.gmail.com>
- <9034246e-3971-4fad-94b7-80f4ad0e29db@amd.com>
- <CAGsJ_4z5EZoNMBVnu6sCkThyi9VTCeCH29buVecuySuv_Ry8fw@mail.gmail.com>
- <CABdmKX3baqmBkZxMB6PTG6Sj5S9qi+RwVvwpmkLqKkqvfeZAUw@mail.gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <CABdmKX3baqmBkZxMB6PTG6Sj5S9qi+RwVvwpmkLqKkqvfeZAUw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN2PR05CA0056.namprd05.prod.outlook.com
- (2603:10b6:208:236::25) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM9PR04MB8585.eurprd04.prod.outlook.com (2603:10a6:20b:438::13)
+ by GV2PR04MB11800.eurprd04.prod.outlook.com (2603:10a6:150:2d1::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Mon, 4 May
+ 2026 07:57:48 +0000
+Received: from AM9PR04MB8585.eurprd04.prod.outlook.com
+ ([fe80::f010:fca8:7ef:62f4]) by AM9PR04MB8585.eurprd04.prod.outlook.com
+ ([fe80::f010:fca8:7ef:62f4%4]) with mapi id 15.20.9870.023; Mon, 4 May 2026
+ 07:57:46 +0000
+Date: Mon, 4 May 2026 10:57:42 +0300
+From: Vladimir Oltean <vladimir.oltean@nxp.com>
+To: linux-phy@lists.infradead.org, Bjorn Helgaas <bhelgaas@google.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ linux-can@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, linux-riscv@lists.infradead.org,
+ linux-rockchip@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org,
+ linux-usb@vger.kernel.org, netdev@vger.kernel.org,
+ spacemit@lists.linux.dev, UNGLinuxDriver@microchip.com,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Rob Herring <robh@kernel.org>, Vignesh Raghavendra <vigneshr@ti.com>,
+ Siddharth Vadapalli <s-vadapalli@ti.com>
+Subject: Re: [PATCH v7 phy-next 08/27] PCI: Remove device links to PHY
+Message-ID: <20260504075742.ixt7phu4cpp433q5@skbuf>
+References: <20260430110652.558622-1-vladimir.oltean@nxp.com>
+ <20260430110652.558622-1-vladimir.oltean@nxp.com>
+ <20260430110652.558622-9-vladimir.oltean@nxp.com>
+ <20260430110652.558622-9-vladimir.oltean@nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260430110652.558622-9-vladimir.oltean@nxp.com>
+ <20260430110652.558622-9-vladimir.oltean@nxp.com>
+X-ClientProxiedBy: WA2PEPF000008AF.POLP291.PROD.OUTLOOK.COM
+ (2603:10a6:1d8::657) To AM9PR04MB8585.eurprd04.prod.outlook.com
+ (2603:10a6:20b:438::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM4PR12MB6448:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0f4f0df3-3181-4d56-baaf-08dea9b1a952
+X-MS-TrafficTypeDiagnostic: AM9PR04MB8585:EE_|GV2PR04MB11800:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4c875e1e-ca31-4828-710b-08dea9b2d44c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|7416014|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: YxSbS3cCdzuv0A0U+ZdrHkbCDGpnQe3u0jIAIp43IHpc7JfNDOt8K4QCH4u7BaTL+Ty4o6z94aalHgJuhk6v3/2OjKrWHhVyiAoBjYH71/ctxAFbYllgBTiNkZZ60g4YiW2LT16fQGKwLG/3sFKYlXHVUhqtehY2V2FePj3b2mFYnzAS4KHycqGhvPS623ugyScru/b3hSB2FnyfZtopAlBCHihENZKHEy998wI7BKf9c1hlzu/X73Q9P02hpAufKd76uxolAla09Fv4fiAhtBqQnggVedZtr4t12F3tVzJGI0/qWVU+9OokyqCbLecFtfu4UtrYUKpvQxLWvSTAmFEe/xef+C7E8kdMLP/UtTOTiub+JIK9l9hD1NQIWonZAg32hSuYv8XfDncUBwTJT8+9F8fB7vNsFc0fHenH5tuMRhVMXqwqg1jDd+xK0ruPoHiyUqlzKwfT/cmZoHcNI/YdSLi1QS1nW+/lc7TcuCyf4TCMoaKs9iYnrlLuO3W+6Y6eaTuVwqqVE3DzJRhTbQvH+v3dMRlZ9jERIpRex8ixYnBMX1UqpPC6wqxSBN1NtFZB0B+z5TfImGUhhak34QG5P4GaDnA3Bahb9qo+d/hM6YsnZeESupFtDBmTAJ7IBWJcVopMiVvg/ZyvNAhFpAoduyfeMijH4TY1hwQPLFgNL91Ry5hZbbl6FhkqSkQb
+ ARA:13230040|366016|19092799006|7416014|376014|10070799003|1800799024|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: HEAXu0UJ9P3VzL00TQ5M3z2crujXl382jiCiUZ8AjCp92Sg3OB/js+tp8eYXGFCwTg4KC58dkU749B4w9rSUDmOeHKbS0d1VunRrO+0OtdmhVfIDbyWfd68zd/UwthW2bRoM12WmYcfW+QITvv60QYEZ3Kg4C9ooCFWab7uNzFwTYCMVln/v4nDI7PA+84MsJRghdBRjtrzVdqUpokYrKrv/vPQ8UdETapxfYG4x02T8oJJuR8rwqlgl1y/1JCDwDYxOrDpVfe+N/b9b2OMuKXyU8kTLFDV2up3MVC5GOnlCnnlwO+8ZalNICpxGxx4yrr9ReK56HR7wQ+EleiGOwqmjXSseI4g7FzN/Bm4ILnOoxXySX1YImvrFAsqP2ONeZCRRLqDcEN2K+zjhQYoc9vIaUwwAH1owrJMiNqLPK1BBMV6XA4WG3u1dohQzwWRk9J6ZB3Mq9zeKK39RKMh7AVi9wOOTuYnE26otczBMnVKu7BD58vY6ONRIqYZiqnt/i1+rsMLaDWvZTybIZj8YOv22IJFCrUZq8pvT2T2vn4k5ykcL4wBm5+ReTtYtHnCrP7+s6kJjJcCVv/9pxQ51KpGJL1D7rMiYVbvAYjGTnZjLEkc3qSGjgZbvixZN6L75/bYZOjGOt6ePctFGSO6QX6HJX8OyaoKsPtRjRZPN33ZGE71bvSFRxzkCOrB5x2Bz
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(7416014)(56012099003)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:AM9PR04MB8585.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(19092799006)(7416014)(376014)(10070799003)(1800799024)(56012099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R281UEM0TkRkZEQrcUUzMHJ2dFFBNUJ0MzlUQ2NMTEpiQ0FBTkFsakRJb1Ez?=
- =?utf-8?B?UDFNU1FmWEdXcVBuOStTa1RUVUlIazh5UUZqZHo1SlFwYXFHbmx2M3poWnNt?=
- =?utf-8?B?T0V3L1JFbERYV3BDeFpPTENsdml4Q2NhUEk1eHRJYW1iN1owTDZ3aFBwTWQy?=
- =?utf-8?B?bDF5OWFzMG1PK3NUK1VFQVduQzV1U3lxeGRGTXJzSm5MMFc4Z0JrY0FMOWtY?=
- =?utf-8?B?R3YxbTFKY25jdGYwM3JNZy9CalI4YWJxZXgvWllXZ05yNFFxa2s3aGpxRER2?=
- =?utf-8?B?V2pQOUJjeFlScTRhNHUxeFk3MkdVZ0tOcG4zTkdzWXltVUlGZmRoTnRBaHo5?=
- =?utf-8?B?Y1N5bDdqa3lNZEFGSkJMZnhVWWlJRlVMc1dXRU9UMFJtZUNCMGozdkVuV2pu?=
- =?utf-8?B?cm93MGNQa3hFSzFHV0djbTltbXMxZ0Z5alkxMUtFaVY0Vjhmam5RNlFuc29T?=
- =?utf-8?B?STJhZFFQR0dZcUFVT3FDRmJQK2pQOEJHVTd6cG5VWTljd3JydGFUNHBoL3hu?=
- =?utf-8?B?Nit0bGlUb2xXUjJHcmh1UFN6WjdqV1pJdWtBYjNUQ0pHazV5SFFvNTlUSVZF?=
- =?utf-8?B?blcrY1BoYkNSdUZRMURrY2NsV0F1dHVVZTRtNEkveFRhakE0T2Z4aXdtelVo?=
- =?utf-8?B?T0JSd0F0NVBaWVJPMUFpbzhjSHJxdVVoOE9kTFNpQmE1cEh0M3ZkYjVRYmJ0?=
- =?utf-8?B?ejdyQ2Nwd3EwMG9UOXVUOGN4Nm5UUUVlZGxzR2dzcFB5c1pLNyswbU9TcW9L?=
- =?utf-8?B?amdWdmRHWWprNVpzQ1c2YmNsY2ZQQk1Ea3hqelNtcmoyS0NCY3hUd3FxbGg2?=
- =?utf-8?B?S1h4T0lKWnJWdnlsSnBydkpXL0RWY0w1ZlphcERmVkxreEltL0I3Ui9aLzl3?=
- =?utf-8?B?TGlqK3puZWV3dnBTemEvc0dWQ2pUQmRQcEFhemlzUWlBeWttb0ZjS2ZBNERX?=
- =?utf-8?B?ak5IQjFzUzlKZGgwNXd5bkJ1UW9aR1NvQmdoSUc0dlJCVmxib01HaS9WZkh4?=
- =?utf-8?B?b1Z5d2ZNWUJFd25yQ3ZpZEpUZW5IOXAyN1Q5SzdpNzRWOTl0dVZKS1hpM0ph?=
- =?utf-8?B?Tjdrdi9RQVFNcnFPOW1jZkpranVaR2hTU0RqWkJONnM0RzJLbHpvbTIzYXNE?=
- =?utf-8?B?SkdLUWtwNERFcmgrZXF0YjJTSTBuZnltNXlKajBSaDJMaVBxaXF3WHMzNkY1?=
- =?utf-8?B?dU5IQk1pdW5QbDVQQ3ZrTGtDRWhSYzR0dnBTUDZmdS9uSmNkeGNqOXltU0Mz?=
- =?utf-8?B?d2htU0VlNTh4Z0lmNHJxTWF4U1NvUUEzdlZ4T2RHbEg5RnM1RmtNSHVvZVRO?=
- =?utf-8?B?M2FZL2FwT25abGt4ZHdWWGpLQ1MyMFFNZnhUMDR6MVkwblJLMHBDUEJ6T2d3?=
- =?utf-8?B?aFNsbjROKzN3R3RNQTN5RnlISndiUS9sdzZCRmFWUGtjb1M5UHJZelZkalJB?=
- =?utf-8?B?TnVZeTdoYmhkeEk5bnBLSXVNK1Q2RTE4OXgxbDQydlBOb1Z6Y3pPTEZ3UWky?=
- =?utf-8?B?QTNuNkc4OTYvdHdLcU9XNUdmQTJPKzRJVVpoSzNtdzZsNjV4eCtYb1p0K01Q?=
- =?utf-8?B?cWdrN0Q1dGhrM0x1ak85U3ZzenBHSVUyZWZWUmhOamoyMGFDa1BiR1d6WlJu?=
- =?utf-8?B?OGM0RHlWR2xadnFMTm5xVTJFNGc0ZHVFU2pnWVNTY00zNnYzQmw1WEh2c2ZV?=
- =?utf-8?B?Yzdxd1lmeDFOUnZ4TVlFTTJocFZ0WXRpNEMyWnRXdFFZOUE3TTEvamp6WnZS?=
- =?utf-8?B?emYrL2RNVnhtU00xYWxuV2RZb3ZNY2cvck1YV3NhK0prQmI5Vk4rOVY3R2RL?=
- =?utf-8?B?WXlLUHovTmJxQnpGdXI2UHRXWmZwTjVTbm9vV3d2bmFTdWFONXFNSEtaMmpo?=
- =?utf-8?B?bjNITWYyZ1ljVk1yaWFBOG5HRlRPTU54NER1OHFVMnpQeXZrNzhoZFczL08v?=
- =?utf-8?B?U3lXMmlTUUNHTkwzci9vTXpCczZOS3AzR1YvTkpjZEdOZHdWUXdYaDQ3RHJQ?=
- =?utf-8?B?N1lSY0k5UUFOM3hNWFlRa3lkVUoyQ2VpTTVMcTJIS1FkekdPdk9aaHhNRmlV?=
- =?utf-8?B?a2NObTJKbXBXdmFJV0d1Z3Z3Q0JLTlVHUUZIQmdnbnR5Z1lUV0dKTkplOTc4?=
- =?utf-8?B?bnpyU0dEenlkRjRHRUQ4QzZkUTljV2JVVUZHaFVnNEcvbFRKc0pBdHpMNng2?=
- =?utf-8?B?K2FBVmZDQmovQmZ5RS9MSEg4eTBRM2xsMTlrS28rZEhrMXYyOXduZUxXbTVS?=
- =?utf-8?B?SWozN3M3bnN0QmtVWnNFT1AwNytwdXpWa1RNL3Qreksrb2JuTXlwRmZaRmxS?=
- =?utf-8?Q?ChHrLgWwDDhMD59UQ8?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0f4f0df3-3181-4d56-baaf-08dea9b1a952
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?RsEOHz6cOvr61ub/jxNnNVotOrCIljo7elUReRA064caS/5whesT2J9KGG1W?=
+ =?us-ascii?Q?0L4rUUrOsc6Ddsc0U9zeiJJ6LTVI5b1GVFb8eTU0+6LuW5h/yQgVUJr1EInh?=
+ =?us-ascii?Q?h3qoiM4jWG/uDASftINhtbByfh3a6xoV/kg8gRbeKBjVV2gNyAry3SA5nj4N?=
+ =?us-ascii?Q?KCjDY+RNqRFoI4CzsYBaA8Xtc3HoOPpWw4m7TCLeoVjN0SnCPZPUiHzUe0Ku?=
+ =?us-ascii?Q?uEdZbRJoc0TSiSmy/v1wQ94hyS0eGVKAgbCemhE32p7jBBUgtIA0m8eTnakr?=
+ =?us-ascii?Q?m0cP7Dg2Rgwdxn7Htvb29f2qN+h6gLjG+Z664xypN2PMh3YLasYwpaSw2/TU?=
+ =?us-ascii?Q?bw5aX6pbPDj21gqqtcD307swHztnNZfL/1dTTTOyGSIk+QiGf5HJV3w0Mpry?=
+ =?us-ascii?Q?JpJarUj9oRVOjrGtKp/vY9tpuo9YY3vnT8M3X+nfOsxTlKWyquIqkJPWpVmz?=
+ =?us-ascii?Q?VOavSuUc4gC6hW7c9IcLsof89g+BkZd5zg5T5ERE7Ospd/knF6e9NLD5mTR7?=
+ =?us-ascii?Q?jBOgYJoaUrf15GXhmW74pfE25hnfa9hP4J2aVQ5pwuTWEeN0LJqZRS39I129?=
+ =?us-ascii?Q?3rIi4E5g5x4hDYkpoRt7001EdShWNGsyOkDcJ9H/+0syBS/du94bxvTKwLPH?=
+ =?us-ascii?Q?Q4GnTHTU+7TxqRDrsv1QcAQIzI7jqQ3fT9B11Au82fQ8GuGLcpmBkRg+vut9?=
+ =?us-ascii?Q?pH4YLzfQ95YVVl5v0/TYyT1S3CA/lQJ25Yqqug07H0lHJnmtxejGsraBekx5?=
+ =?us-ascii?Q?y41Rcf2cbgkltnYu4p1dF0uMYh39FoeWXDtpN+ZIPtfJIwEcmcK2nptUQ4sW?=
+ =?us-ascii?Q?3DzsXI4fwDver+dSZUKzoxLnMgBGix83Nz4yP3H591HzSGqCJq4Ahq6aoTwO?=
+ =?us-ascii?Q?vdkKRgJFouBysTNrWXm3Dhzk4TnLnT9odECnZdpEQXPDPHJR3IP9bVK+zT1J?=
+ =?us-ascii?Q?fLAVSpZnuQEMH5z5QzO/tQlLnYggNWfN/av4tmiEG5CnEop8o28JSu7G4Awa?=
+ =?us-ascii?Q?up8YeGzW63waghEtGCWWKM/nzOeGz5zZpKi9SP/1pyp60N4GqqN22qQyhYzp?=
+ =?us-ascii?Q?aCKS10hT18/N0yhdpk7jCf4i+yQ6DEEAq2pIERPpC84+uRhnZvl3ORsF/2K7?=
+ =?us-ascii?Q?mWhMQBv5m16eu1/7qrqQY/YIG+HpoNDlyao1iUd1MlUjvKA9pYYsn0zBnzEr?=
+ =?us-ascii?Q?r1/1FKCk64nnJ3XoYYg1n3aWkPPcrSSmZ/1bVrtxagz/tGXcS/mMFYMiVeag?=
+ =?us-ascii?Q?wHnhQh64Gzqb3nJPvIkn36Fh08SWpSAziFlLTy0HZcxRbhHAkSGjGzUhuPYt?=
+ =?us-ascii?Q?mGgO74dOzXOaE/PgSGHRsgx+VcvSa9fvXYMfTz4uqunO/H45oI6UyCu3J3ob?=
+ =?us-ascii?Q?rYOgwDx7iyA4v/06pCB+/WSx3UQJn6x7h/Lbra8FvBlwTHLti7Tlf768GM91?=
+ =?us-ascii?Q?zStbCV1u7IAwq7cFLKsf0tCdwLMzckOHhgor23phsP229u+/oB1kKARQWlsE?=
+ =?us-ascii?Q?F4CeMARInjuQNYzC3iRUYHMZwA1WmAc34VPcgN/mRwZXJsRUKcY8Yf8fFdyL?=
+ =?us-ascii?Q?1Gg/0tnWaNA7RjxqS5Tx9Ovad5xiHpTKJPEPofz6T7e0SU+svwcatycFidc/?=
+ =?us-ascii?Q?HPIpeq7CsTfPh2qupxa/DBLR+lZiUAxA3J4I759eadMjgtywW2aXkJ9oQ5zX?=
+ =?us-ascii?Q?7PG6hJ42ZnL1f97rlTIMOg5vJghuNVEfuxia/ORrTh1o5pTLCr87B8hulxXf?=
+ =?us-ascii?Q?mpHVVmdt5W3ZcR65RWqjhzxD83ghUIQ56YzAk+fEVJPF4Vwe2/hEMHSwv46x?=
+X-MS-Exchange-AntiSpam-MessageData-1: qAbWhMSQ+tDz/g==
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4c875e1e-ca31-4828-710b-08dea9b2d44c
+X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8585.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2026 07:49:25.0316 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2026 07:57:46.6958 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 08IXILGD0Nq1GyTLzUWUmctNfbPW1i7r9OlOitB2vjsGgjvN9Z1t9v507RS0sekK
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6448
+X-MS-Exchange-CrossTenant-UserPrincipalName: MKHLfxUQD4j6O1JnGXUiro3PKaKtFhDedU9fqi7AkBqWytZKCuHAp76HHMA+3Egs5mL1VqDhZ+adhJvqpx+FhQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR04MB11800
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,93 +144,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/1/26 17:54, T.J. Mercier wrote:
-> On Thu, Apr 30, 2026 at 9:15 PM Barry Song <baohua@kernel.org> wrote:
->>
->> On Wed, Apr 22, 2026 at 3:10 PM Christian König
->> <christian.koenig@amd.com> wrote:
->>>
->>> On 4/7/26 13:29, Barry Song wrote:
->>>> On Tue, Apr 7, 2026 at 3:58 PM Christian König <christian.koenig@amd.com> wrote:
->>>>>
->>>>> On 4/6/26 23:49, Barry Song (Xiaomi) wrote:
->>>>>> From: Xueyuan Chen <Xueyuan.chen21@gmail.com>
->>>>>>
->>>>>> Replace the heavy for_each_sgtable_page() iterator in system_heap_do_vmap()
->>>>>> with a more efficient nested loop approach.
->>>>>>
->>>>>> Instead of iterating page by page, we now iterate through the scatterlist
->>>>>> entries via for_each_sgtable_sg(). Because pages within a single sg entry
->>>>>> are physically contiguous, we can populate the page array with a in an
->>>>>> inner loop using simple pointer math. This save a lot of time.
->>>>>>
->>>>>> The WARN_ON check is also pulled out of the loop to save branch
->>>>>> instructions.
->>>>>>
->>>>>> Performance results mapping a 2GB buffer on Radxa O6:
->>>>>> - Before: ~1440000 ns
->>>>>> - After:  ~232000 ns
->>>>>> (~84% reduction in iteration time, or ~6.2x faster)
->>>>>
->>>>> Well real question is why do you care about the vmap performance?
->>>>>
->>>>> That should basically only be used for fbdev emulation (except for VMGFX) and we absolutely don't care about performance there.
->>>>
->>>> I agree that in mainline, dma_buf_vmap is not used very often.
->>>> Here’s what I was able to find:
->>>>
->>>>   1   1638  drivers/dma-buf/dma-buf.c <<dma_buf_vmap_unlocked>>
->>>>              ret = dma_buf_vmap(dmabuf, map);
->>>>    2    376  drivers/gpu/drm/drm_gem_shmem_helper.c
->>>> <<drm_gem_shmem_vmap_locked>>
->>>>              ret = dma_buf_vmap(obj->import_attach->dmabuf, map);
->>>>    3     85  drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
->>>> <<etnaviv_gem_prime_vmap_impl>>
->>>>              ret = dma_buf_vmap(etnaviv_obj->base.import_attach->dmabuf, &map);
->>>>    4    433  drivers/gpu/drm/vmwgfx/vmwgfx_blit.c <<map_external>>
->>>>              ret = dma_buf_vmap(bo->tbo.base.dma_buf, map);
->>>>    5     88  drivers/gpu/drm/vmwgfx/vmwgfx_gem.c <<vmw_gem_vmap>>
->>>>              ret = dma_buf_vmap(obj->import_attach->dmabuf, map);
->>>>
->>>> However, in the Android ecosystem, system_heap and similar heaps
->>>> are widely used across camera, NPU, and media drivers. Many of these
->>>> drivers are not in mainline but do use vmap() in real code paths.
->>>
->>> Well out of tree drivers are not a justification to make an upstream changes.
->>>
->>> Apart from a handful of workarounds which need to CPU access as fallback DMA-buf vmap is only used to provide fb dev emulation.
->>>
->>> The vmap interface has already given us quite a headache in the first place and there are a couple of unresolved problems regarding synchronization and coherency.
->>>
->>> When a driver would be pushed upstream which makes so frequent use of the dma_buf_vmap function that it matters for the performance I think there would be push back on that and the driver developer would require a very good explanation why that is necessary.
->>>
->>> So for now I have to reject that patch.
->>
->> Well, it doesn’t seem to increase complexity, and the code is quite easy
->> to understand.
+Sashiko says:
+> commit e4f495a9118b40f8a77e8dc097821d2c846ed1fc
+> Author: Vladimir Oltean <vladimir.oltean@nxp.com>
 > 
-> I agree with this. This change introduces basically no downsides for
-> upstream, even if it primarily benefits a rare use case. Since
-> dma_buf_vmap is exported for driver use, why not enhance the
-> performance for all callers?
-
-Because we essentially want to restrict the vmap interface to only the fb dev emulation use case and not promote or even expand it.
-
-When this matters performance wise the caller is clearly doing something wrong and by improving the performance we just paper over the issue instead of fixing it.
-
-Regards,
-Christian.
-
+> PCI: Remove device links to PHY
+> This commit removes device links between the PCIe controllers and PHY
+> providers across several drivers, since the PHY core already creates consumer
+> device links.
 > 
-> -T.J.
+> > diff --git a/drivers/pci/controller/cadence/pcie-cadence-plat.c b/drivers/pci/controller/cadence/pcie-cadence-plat.c
+> > index b067a3296dd37..fc39c01b79648 100644
+> > --- a/drivers/pci/controller/cadence/pcie-cadence-plat.c
+> > +++ b/drivers/pci/controller/cadence/pcie-cadence-plat.c
+> [ ... ]
+> > @@ -122,9 +121,6 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
+> >  	pm_runtime_put_sync(dev);
+> >  	pm_runtime_disable(dev);
+> >  	cdns_pcie_disable_phy(cdns_plat_pcie->pcie);
+> > -	phy_count = cdns_plat_pcie->pcie->phy_count;
+> > -	while (phy_count--)
+> > -		device_link_del(cdns_plat_pcie->pcie->link[phy_count]);
+> >
+> >  	return 0;
 > 
->> It would be great if the community could be more welcoming
->> to developers who are just getting involved, rather than discouraging them.
->>
->> Apparently, no one can control whether the source code of those kernel
->> modules will be upstreamed except the vendors themselves, but products
->> can still benefit from the common kernel.
->>
->> Best Regards
->> Barry
+> This isn't a bug introduced by your patch, but I noticed the error path in
+> cdns_plat_pcie_probe() returns 0.
+> Does this cause the driver core to consider the probe successful even when
+> host or endpoint setup steps fail? It looks like the device would be left
+> in an uninitialized and disabled state while still being bound to the driver.
+> Should this return ret instead?
+> 
 
+The condition does not appear intentional. Commit bd22885aa188 ("PCI:
+cadence: Refactor driver to use as a core library") changed
+cdns_pcie_host_probe() which properly returned ret on error with
+cdns_plat_pcie_probe() which doesn't.
+
+I will add a preparatory patch which replaces "return 0" with "return ret"
+in cdns_plat_pcie_probe(), blaming that commit.
+
+> >  }
+> > diff --git a/drivers/pci/controller/dwc/pci-dra7xx.c b/drivers/pci/controller/dwc/pci-dra7xx.c
+> > index cd904659c3216..9c1aef4d0bd1c 100644
+> > --- a/drivers/pci/controller/dwc/pci-dra7xx.c
+> > +++ b/drivers/pci/controller/dwc/pci-dra7xx.c
+> [ ... ]
+> > @@ -852,10 +840,6 @@ static int dra7xx_pcie_probe(struct platform_device *pdev)
+> >  	pm_runtime_disable(dev);
+> >  	dra7xx_pcie_disable_phy(dra7xx);
+> >
+> > -err_link:
+> > -	while (--i >= 0)
+> > -		device_link_del(link[i]);
+> > -
+> >  	return ret;
+> >  }
+> 
+> This isn't a bug introduced by your changes, but looking closely at the error
+> path right above this hunk, there is a call to pm_runtime_put(dev) immediately
+> followed by pm_runtime_disable(dev):
+> err_gpio:
+> err_get_sync:
+> 	pm_runtime_put(dev);
+> 	pm_runtime_disable(dev);
+> Does this sequence create a power management race condition? The pending
+> asynchronous idle/suspend work can be abruptly cancelled by
+> pm_runtime_disable(), leaving the hardware in an incorrect or unpredictable
+> power state.
+> Should this use pm_runtime_put_sync() instead?
+> 
+> > diff --git a/drivers/pci/controller/dwc/pci-keystone.c b/drivers/pci/controller/dwc/pci-keystone.c
+> > index fe4836925c4e3..cab9fad212add 100644
+> > --- a/drivers/pci/controller/dwc/pci-keystone.c
+> > +++ b/drivers/pci/controller/dwc/pci-keystone.c
+> [ ... ]
+> > @@ -1337,25 +1321,18 @@ static int ks_pcie_probe(struct platform_device *pdev)
+> >  	pm_runtime_disable(dev);
+> >  	ks_pcie_disable_phy(ks_pcie);
+> >
+> > -err_link:
+> > -	while (--i >= 0 && link[i])
+> > -		device_link_del(link[i]);
+> > -
+> > +err:
+> >  	return ret;
+> >  }
+> >
+> >  static void ks_pcie_remove(struct platform_device *pdev)
+> >  {
+> >  	struct keystone_pcie *ks_pcie = platform_get_drvdata(pdev);
+> > -	struct device_link **link = ks_pcie->link;
+> > -	int num_lanes = ks_pcie->num_lanes;
+> >  	struct device *dev = &pdev->dev;
+> >
+> >  	pm_runtime_put(dev);
+> >  	pm_runtime_disable(dev);
+> 
+> Similar to the question above, is it possible this asynchronous put causes
+> a race when immediately followed by pm_runtime_disable() during removal?
+> 
+> >  	ks_pcie_disable_phy(ks_pcie);
+> > -	while (num_lanes--)
+> > -		device_link_del(link[num_lanes]);
+> >  }
+
+It seems plausible that the pm_runtime_put() -> pm_runtime_disable()
+pattern is ineffective, i.e. one of two things can happen: either
+pm_runtime_put() runs to completion by chance, or pm_runtime_disable()
+cancels it. However I am not very familiar with the runtime PM API and
+its effects, and unless a maintainer tells me to, I would prefer leaving
+these code paths alone.
