@@ -4,43 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95B4CFF885A
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 13:03:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 112D1FF886F
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 13:06:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E51DE10E6B2;
-	Mon,  4 May 2026 13:03:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A29B10E5F0;
+	Mon,  4 May 2026 13:06:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0Wy3QgOr";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WpDcVp02";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05F5510E6B2;
- Mon,  4 May 2026 13:03:03 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1BC310E5F0;
+ Mon,  4 May 2026 13:06:55 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 93A7544232;
- Mon,  4 May 2026 13:03:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 287BDC2BCB9;
- Mon,  4 May 2026 13:03:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1777899783;
- bh=0xV1fzIiPeqbjuh6H1i0Zuv/r1eXL+P8XlbIAHSFay8=;
- h=Subject:To:Cc:From:Date:From;
- b=0Wy3QgOra7KAKf3zeclpZ/H1Hx2ft+cN115NiMHHis8JkFL0apUy7geHWRIDPkl3U
- 896s0eIT9EcwXK5ntoOSBn1xR9B5acKRazKp8LgdA4o0ZUl9h/73yADlsXY6LtBp3x
- 0hmdCIncc1H+QYXbSaVfU/9fngyXSZLp8Vvuay1w=
-Subject: Patch "drm/amdgpu: fix zero-size GDS range init on RDNA4" has been
- added to the 6.18-stable tree
-To: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
- arjan@linux.intel.com, christian.koenig@amd.com,
- dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org
-Cc: <stable-commits@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 04 May 2026 15:02:50 +0200
-Message-ID: <2026050450-stained-blizzard-577d@gregkh>
+ by tor.source.kernel.org (Postfix) with ESMTP id E3262600C3;
+ Mon,  4 May 2026 13:06:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19681C2BCB8;
+ Mon,  4 May 2026 13:06:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1777900014;
+ bh=ko+k1Q9R2BWL21btGUBAgdFYl1diAhmlfOcSjkMEeoc=;
+ h=From:To:Cc:Subject:Date:From;
+ b=WpDcVp024I+Yflo9Dwxq1ci0bSNbE+g8dAzNoUlHOlfiZgOBX2pTz2W6kJIeD/LM3
+ siqHckY1nAnwPpvQT3nlg1JCZplFohyTnJvnQXk1WnC+aXg9RtcTHfp5Sz1tBLOmh7
+ 2Tpw6TfdJ1y3kBN9r/zhtM/AvUOBySb1b0pYxcPrLP50esMCo4EbisYKDxvJwsD9jI
+ WX8Tw8JfWpmjfDfls3BtgHbX2/AVndUhS0Y5R7hcKc0A6pqbNNYrzti3NgxQJhfjc9
+ tdhVTM1rmRqFwYQWkkjoO4Zr2HPMN2sEuDoiEYEHTn+adlthGFAbdAX3NNa8LexJqA
+ 19a73im5uDYUA==
+From: Sumit Garg <sumit.garg@kernel.org>
+To: andersson@kernel.org,
+	konradybcio@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-media@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+ linux-remoteproc@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
+ akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ jesszhan0024@gmail.com, marijn.suijten@somainline.org, airlied@gmail.com,
+ simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
+ dikshita.agarwal@oss.qualcomm.com, bod@kernel.org, mchehab@kernel.org,
+ elder@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ jjohnson@kernel.org, mathieu.poirier@linaro.org,
+ trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
+ pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
+ tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
+ srinivas.kandagatla@oss.qualcomm.com, amirreza.zarrabi@oss.qualcomm.com,
+ jens.wiklander@linaro.org, op-tee@lists.trustedfirmware.org,
+ apurupa@qti.qualcomm.com, skare@qti.qualcomm.com,
+ linux-kernel@vger.kernel.org, Sumit Garg <sumit.garg@oss.qualcomm.com>
+Subject: [PATCH v5 00/16] firmware: qcom: Add OP-TEE PAS service support
+Date: Mon,  4 May 2026 18:35:47 +0530
+Message-ID: <20260504130603.1474043-1-sumit.garg@kernel.org>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-stable: commit
-X-Patchwork-Hint: ignore 
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,88 +74,144 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+From: Sumit Garg <sumit.garg@oss.qualcomm.com>
 
-This is a note to let you know that I've just added the patch titled
+Qcom platforms has the legacy of using non-standard SCM calls
+splintered over the various kernel drivers. These SCM calls aren't
+compliant with the standard SMC calling conventions which is a
+prerequisite to enable migration to the FF-A specifications from Arm.
 
-    drm/amdgpu: fix zero-size GDS range init on RDNA4
+OP-TEE as an alternative trusted OS to Qualcomm TEE (QTEE) can't
+support these non-standard SCM calls. And even for newer architectures
+using S-EL2 with Hafnium support, QTEE won't be able to support SCM
+calls either with FF-A requirements coming in. And with both OP-TEE
+and QTEE drivers well integrated in the TEE subsystem, it makes further
+sense to reuse the TEE bus client drivers infrastructure.
 
-to the 6.18-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+The added benefit of TEE bus infrastructure is that there is support
+for discoverable/enumerable services. With that client drivers don't
+have to manually invoke a special SCM call to know the service status.
 
-The filename of the patch is:
-     drm-amdgpu-fix-zero-size-gds-range-init-on-rdna4.patch
-and it can be found in the queue-6.18 subdirectory.
+So enable the generic Peripheral Authentication Service (PAS) provided
+by the firmware. It acts as the common layer with different TZ
+backends plugged in whether it's an SCM implementation or a proper
+TEE bus based PAS service implementation.
 
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
+The TEE PAS service ABI is designed to be extensible with additional API
+as PTA_QCOM_PAS_CAPABILITIES. This allows to accommodate any future
+extensions of the PAS service needed while still maintaining backwards
+compatibility.
 
+Currently OP-TEE support is being added to provide the backend PAS
+service implementation which can be found as part of this PR [1].
+This implementation has been tested on Kodiak/RB3Gen2 board with lemans
+EVK board being the next target. In addition to that WIN/IPQ targets
+planning to use OP-TEE will use this service too. Surely the backwards
+compatibility is maintained and tested for SCM backend.
 
-From 095a8b0ad3c3b5cdc3850d961adb8a8f735220bb Mon Sep 17 00:00:00 2001
-From: Arjan van de Ven <arjan@linux.intel.com>
-Date: Mon, 20 Apr 2026 14:57:15 -0700
-Subject: drm/amdgpu: fix zero-size GDS range init on RDNA4
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Note that kernel PAS service support while running in EL2 is at parity
+among OP-TEE vs QTEE. Especially the media (venus/iris) support depends
+on proper IOMMU support being worked out on the PAS client end.
 
-From: Arjan van de Ven <arjan@linux.intel.com>
+Patch summary:
+- Patch #1: adds Kodiak EL2 overlay since boot stack with TF-A/OP-TEE
+  only allow UEFI and Linux to boot in EL2.
+- Patch #2: adds generic PAS service.
+- Patch #3: migrates SCM backend to generic PAS service.
+- Patch #4: adds TEE/OP-TEE backend for generic PAS service.
+- Patch #5-#14: migrates all client drivers to generic PAS service.
+- Patch #15: drops legacy PAS SCM exported APIs.
 
-commit 095a8b0ad3c3b5cdc3850d961adb8a8f735220bb upstream.
+The patch-set is based on v7.1-rc1 tag and can be found in git tree here
+[2].
 
-RDNA4 (GFX 12) hardware removes the GDS, GWS, and OA on-chip memory
-resources. The gfx_v12_0 initialisation code correctly leaves
-adev->gds.gds_size, adev->gds.gws_size, and adev->gds.oa_size at
-zero to reflect this.
+Merge strategy:
 
-amdgpu_ttm_init() unconditionally calls amdgpu_ttm_init_on_chip() for
-each of these resources regardless of size. When the size is zero,
-amdgpu_ttm_init_on_chip() forwards the call to ttm_range_man_init(),
-which calls drm_mm_init(mm, 0, 0). drm_mm_init() immediately fires
-DRM_MM_BUG_ON(start + size <= start) -- trivially true when size is
-zero -- crashing the kernel during modprobe of amdgpu on an RX 9070 XT.
+It is expected due to APIs dependency, the entire patch-set to go via
+the Qcom tree. All other subsystem maintainers, it will be great if I
+can get acks for the corresponding subsystem patches.
 
-Guard against this by returning 0 early from
-amdgpu_ttm_init_on_chip() when size_in_page is zero. This skips TTM
-resource manager registration for hardware resources that are absent,
-without affecting any other GPU type.
+[1] https://github.com/OP-TEE/optee_os/pull/7721 (already merged)
+[2] https://git.kernel.org/pub/scm/linux/kernel/git/sumit.garg/linux.git/log/?h=qcom-pas-v5
 
-DRM_MM_BUG_ON() only asserts if CONFIG_DRM_DEBUG_MM is enabled in
-the kernel config.  This is apparently rarely enabled as these chips
-have been in the market for over a year and this issue was only reported
-now.
-
-Link: https://lore.kernel.org/all/bug-221376-2300@https.bugzilla.kernel.org%2F/
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=221376
-Oops-Analysis: http://oops.fenrus.org/reports/bugzilla.korg/221376/report.html
-Assisted-by: GitHub Copilot:Claude Sonnet 4.6 linux-kernel-oops-x86.
-Signed-off-by: Arjan van de Ven <arjan@linux.intel.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 5719ce5865279cad4fd5f01011fe037168503f2d)
-Cc: stable@vger.kernel.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c |    3 +++
- 1 file changed, 3 insertions(+)
+Changes in v5:
+- Incorporated misc. comments from Mukesh.
+- Split up patch #11 into 2 to add an independent commit for passing
+  proper PAS ID to set_remote_state API.
+- Picked up tags.
 
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -75,6 +75,9 @@ static int amdgpu_ttm_init_on_chip(struc
- 				    unsigned int type,
- 				    uint64_t size_in_page)
- {
-+	if (!size_in_page)
-+		return 0;
-+
- 	return ttm_range_man_init(&adev->mman.bdev, type,
- 				  false, size_in_page);
- }
+Changes in v4:
+- Incorporate misc. comments on patch #4.
+- Picked up an ack for patch #10.
+- Clarify in cover letter about state of media support.
 
+Changes in v3:
+- Incorporated some style and misc. comments for patch #2, #3 and #4.
+- Add QCOM_PAS Kconfig dependency for various subsystems.
+- Switch from pseudo TA to proper TA invoke commands.
 
-Patches currently in stable-queue which might be from arjan@linux.intel.com are
+Changes in v2:
+- Fixed kernel doc warnings.
+- Polish commit message and comments for patch #2.
+- Pass proper PAS ID in set_remote_state API for media firmware drivers.
+- Added Maintainer entry and dropped MODULE_AUTHOR.
 
-queue-6.18/drm-amdgpu-fix-zero-size-gds-range-init-on-rdna4.patch
+Mukesh Ojha (1):
+  arm64: dts: qcom: kodiak: Add EL2 overlay
+
+Sumit Garg (15):
+  firmware: qcom: Add a generic PAS service
+  firmware: qcom_scm: Migrate to generic PAS service
+  firmware: qcom: Add a PAS TEE service
+  remoteproc: qcom_q6v5_pas: Switch over to generic PAS TZ APIs
+  remoteproc: qcom_q6v5_mss: Switch to generic PAS TZ APIs
+  soc: qcom: mdtloader: Switch to generic PAS TZ APIs
+  remoteproc: qcom_wcnss: Switch to generic PAS TZ APIs
+  remoteproc: qcom: Select QCOM_PAS generic service
+  drm/msm: Switch to generic PAS TZ APIs
+  media: qcom: Switch to generic PAS TZ APIs
+  media: qcom: Pass proper PAS ID to set_remote_state API
+  net: ipa: Switch to generic PAS TZ APIs
+  wifi: ath12k: Switch to generic PAS TZ APIs
+  firmware: qcom_scm: Remove SCM PAS wrappers
+  MAINTAINERS: Add maintainer entry for Qualcomm PAS TZ service
+
+ MAINTAINERS                                   |   9 +
+ arch/arm64/boot/dts/qcom/Makefile             |   2 +
+ arch/arm64/boot/dts/qcom/kodiak-el2.dtso      |  35 ++
+ drivers/firmware/qcom/Kconfig                 |  19 +
+ drivers/firmware/qcom/Makefile                |   2 +
+ drivers/firmware/qcom/qcom_pas.c              | 291 +++++++++++
+ drivers/firmware/qcom/qcom_pas.h              |  50 ++
+ drivers/firmware/qcom/qcom_pas_tee.c          | 476 ++++++++++++++++++
+ drivers/firmware/qcom/qcom_scm.c              | 302 ++++-------
+ drivers/gpu/drm/msm/Kconfig                   |   1 +
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c         |   4 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c       |  11 +-
+ drivers/media/platform/qcom/iris/Kconfig      |  25 +-
+ .../media/platform/qcom/iris/iris_firmware.c  |   9 +-
+ drivers/media/platform/qcom/venus/Kconfig     |   1 +
+ drivers/media/platform/qcom/venus/firmware.c  |  11 +-
+ drivers/net/ipa/Kconfig                       |   2 +-
+ drivers/net/ipa/ipa_main.c                    |  13 +-
+ drivers/net/wireless/ath/ath12k/Kconfig       |   2 +-
+ drivers/net/wireless/ath/ath12k/ahb.c         |   8 +-
+ drivers/remoteproc/Kconfig                    |   4 +-
+ drivers/remoteproc/qcom_q6v5_mss.c            |   5 +-
+ drivers/remoteproc/qcom_q6v5_pas.c            |  51 +-
+ drivers/remoteproc/qcom_wcnss.c               |  12 +-
+ drivers/soc/qcom/mdt_loader.c                 |  12 +-
+ include/linux/firmware/qcom/qcom_pas.h        |  43 ++
+ include/linux/firmware/qcom/qcom_scm.h        |  29 --
+ include/linux/soc/qcom/mdt_loader.h           |   6 +-
+ 28 files changed, 1117 insertions(+), 318 deletions(-)
+ create mode 100644 arch/arm64/boot/dts/qcom/kodiak-el2.dtso
+ create mode 100644 drivers/firmware/qcom/qcom_pas.c
+ create mode 100644 drivers/firmware/qcom/qcom_pas.h
+ create mode 100644 drivers/firmware/qcom/qcom_pas_tee.c
+ create mode 100644 include/linux/firmware/qcom/qcom_pas.h
+
+-- 
+2.51.0
+
