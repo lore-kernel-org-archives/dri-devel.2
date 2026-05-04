@@ -4,77 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 156AECD3427
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 20:19:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C87ACFF885A
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 20:21:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49D0F10E00A;
-	Mon,  4 May 2026 20:19:14 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZiMzlx8S";
-	dkim-atps=neutral
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com
- [209.85.208.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3E6410E85C
- for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 20:19:12 +0000 (UTC)
-Received: by mail-lj1-f182.google.com with SMTP id
- 38308e7fff4ca-39397d63804so16952511fa.2
- for <dri-devel@lists.freedesktop.org>; Mon, 04 May 2026 13:19:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777925951; x=1778530751; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=0tOD8/6djJ4pMyTuanqYIEyAgeWg4xBI8A3+BKBgiYE=;
- b=ZiMzlx8SAeCj7wNk8aXTUAlS7tOcVnIs0fd15/6bFm4JaXAcat04BkO73yYYkCbFT1
- nDhy3sP0kUn0adHU2fZVh14Ucd5iQrdFbC5Fv6OJZZ6pIIvHGd0jPhzAQePx/kR0iVsZ
- 2RcEqz/9yss/8CNMgcNWZ9EAqybd4ExrqmmDiLv7bdTRYkO9qbuFcAcEWIxBDOd+is48
- c7enJdrSOaZXc/Rq41ZKlgsqVr97tknb13YzV2PXLh0UAvQW7tdrrYrQfzOYYo7xa3Zr
- lQT1yuKI5DSVt0UT3JAFM8PnhC76IUkDZ6RF2WRl+lvzQ8zFgxVyostAj44fC2IHwYhU
- lw5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777925951; x=1778530751;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=0tOD8/6djJ4pMyTuanqYIEyAgeWg4xBI8A3+BKBgiYE=;
- b=I2P1BvO9hdvaW4aDkNJ5uEurEoni9txkBwKAKcQn+PlVm1nX8iiUS54jhAIAd50Cws
- syLhiCmujrqvCUin2AYs8fhAAthOgWcLILGjJ9J/IxGhIn9BHyQO3idJgxJTxxdnty8E
- l7zhLFPWObBKdKEqlbvkwHRPEiCM7lc3ey7+tiiQXBZg7O/8YkLBYH6lqaQgxM2uzedZ
- swwqgNGDrNPRdfd3acLElzz0mhMm+iqRwN08jWOteMJ/fATqocKb8Qx0wr1wRiR8J+Rh
- 7sMNMkAaZjKXu4LOdEPbhoH7JDbDZXwXiFxvmAP5C0a5fO+rmA9nO2OGU4kUWOpULhKV
- gJxg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/AAexqsF76+z7zHJ8mKLnXr4NjCEngTPSnASCRHRYQ/Qg5Jacv0UfOSvo6iDqIRiT/XQ1XhtXe1yc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwhHQb/8S5f9Sf7XLdjvK2KcUmQFiH7zhSjCo0mJ69yBOlocMpn
- KmElQih6nvx5gZFpmC9LnHsgQGMED1yiIt7u27UGJqN9G8VYku9tEOes
-X-Gm-Gg: AeBDievQTuHymY6H81DYrY8+zU2uoYqek4czv2umAiPk+wb5OI8Leo5+sQRC1jmhdVu
- eknzpo9kvkFIVYxCofQkL3yGrcoccmLcU4y3xWgF80/izxqj0Ll/56zUp9YqyjaezktmGfX4mcR
- Nx3Y1WA/uVOTySOWS9KmaebQl+edhWyDfUk+bWY6luN5+nNSaQiOPU0FEl2oyW9K6XeFOTi8j4F
- UvM0oYpBr3Z5/Jd1i+wNi/aVkLumOViydfxCFT3iDn6cijMq8GO/x4ydftNe6hV85mQmHTM9XmQ
- /burjrcST3vlOO6Tqi7mEBCQYX+L6iVq1h/YKniR7Iw5vmXBLuBkteTXSqCTp2ArkPRVXBUVaX/
- C86QP3nysJpMb7WW5qZ26W6pW0KbORagSexGSWs202CtPVsw1vn/aLxfEdv+/Jhh7132Zr9ChTd
- MGJgOw8+TCX1eH4rs7W0eixzs044s/W1qvMsLqmqhFc6LG
-X-Received: by 2002:a05:6512:3f02:b0:5a4:175d:21a with SMTP id
- 2adb3069b0e04-5a862ec2566mr3851306e87.2.1777925950756; 
- Mon, 04 May 2026 13:19:10 -0700 (PDT)
-Received: from localhost ([188.234.148.119]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a85c230c68sm3245638e87.19.2026.05.04.13.19.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 May 2026 13:19:10 -0700 (PDT)
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com
-Cc: siqueira@igalia.com, airlied@gmail.com, simona@ffwll.ch, ardb@kernel.org,
- hamza.mahfooz@amd.com, aurabindo.pillai@amd.com, Roman.Li@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Subject: [PATCH] drm/amd/display: Wrap DCN32 phantom-plane allocation in
- DC_RUN_WITH_PREEMPTION_ENABLED
-Date: Tue,  5 May 2026 01:19:05 +0500
-Message-ID: <20260504201905.90667-1-mikhail.v.gavrilov@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id F152810E876;
+	Mon,  4 May 2026 20:21:49 +0000 (UTC)
+Received: from metis.whiteo.stw.pengutronix.de
+ (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 119F210E86B
+ for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 20:21:49 +0000 (UTC)
+Received: from dude02.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::28])
+ by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
+ (envelope-from <m.felsch@pengutronix.de>)
+ id 1wJznX-0007WV-Kh; Mon, 04 May 2026 22:21:47 +0200
+From: Marco Felsch <m.felsch@pengutronix.de>
+Date: Mon, 04 May 2026 22:21:44 +0200
+Subject: [PATCH 4/4] arm64: dts: imx8mp: remove LDB reg and reg-names property
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260504-v7-1-topic-ldb-fixes-v1-4-0125d937ff7f@pengutronix.de>
+References: <20260504-v7-1-topic-ldb-fixes-v1-0-0125d937ff7f@pengutronix.de>
+In-Reply-To: <20260504-v7-1-topic-ldb-fixes-v1-0-0125d937ff7f@pengutronix.de>
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>, 
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, laurentiu.palcu@oss.nxp.com, 
+ victor.liu@nxp.com
+Cc: kernel@pengutronix.de, dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ Marco Felsch <m.felsch@pengutronix.de>
+X-Mailer: b4 0.14.2
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:1101:1d::28
+X-SA-Exim-Mail-From: m.felsch@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: dri-devel@lists.freedesktop.org
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,103 +64,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-dcn32_validate_bandwidth() wraps dcn32_internal_validate_bw() with
-DC_FP_START()/DC_FP_END(). On x86 non-RT, DC_FP_START expands into
-kernel_fpu_begin() which takes fpregs_lock(), i.e. local_bh_disable().
-Allocations done inside this region must therefore not sleep.
+The blk-ctrl syscon device(s) have a very loose register definition, e.g
+one register configures the USB PHY clock source, the PCIe EP ready bit
+and enables PCIe and USB clocks. This would lead into multiple
+sub-devices which use the same 'reg' which is wrong.
 
-The legacy DML1 path through dcn32_full_validate_bw_helper() ->
-dcn32_add_phantom_pipes() -> dcn32_enable_phantom_plane() unconditionally
-calls dc_state_create_phantom_plane() -> dc_create_plane_state(), which
-performs kvzalloc(sizeof(struct dc_plane_state)). On a recent kernel
-sizeof(struct dc_plane_state) is 343736 bytes (335 KiB), well above the
-PAGE_ALLOC_COSTLY_ORDER threshold, so __kvmalloc_node() takes the vmalloc
-path. __get_vm_area_node() then trips its BUG_ON(in_interrupt()) because
-SOFTIRQ_DISABLE_OFFSET is set in preempt_count:
+Instead of specifying the 'reg' in the OF each sub-device driver needs
+to handle the correct bits on their own. Therefore drop the 'reg' and
+'reg-names' porperty from the bridge node as well as the '@5c' register
+suffix.
 
-  kernel BUG at mm/vmalloc.c:3206!
-  RIP: __get_vm_area_node+0x257/0x2d0
-  Workqueue: events_unbound commit_work
-  Call Trace:
-   __vmalloc_node_range_noprof+0x22b/0x570
-   __kvmalloc_node_noprof+0x3d0/0xb40
-   dc_create_plane_state+0x35/0x290 [amdgpu]
-   dc_state_create_phantom_plane+0x1a/0x120 [amdgpu]
-   dcn32_enable_phantom_plane+0x101/0x780 [amdgpu]
-   dcn32_add_phantom_pipes+0x47/0x460 [amdgpu]
-   dcn32_full_validate_bw_helper.constprop.0+0xa46/0x1d70 [amdgpu]
-   dcn32_internal_validate_bw+0x49c/0x1600 [amdgpu]
-   dml1_validate+0x20f/0x800 [amdgpu]
-   dcn32_validate_bandwidth+0x317/0x540 [amdgpu]
-   dc_validate_with_context+0xd34/0x1d30 [amdgpu]
-   dc_commit_streams+0x7ca/0x1810 [amdgpu]
-   amdgpu_dm_commit_streams+0xfd4/0x1e60 [amdgpu]
-   amdgpu_dm_atomic_commit_tail+0x29e/0x3520 [amdgpu]
-   commit_tail+0x204/0x4b0
-   process_one_work+0x8fd/0x16a0
-
-Per-CPU __preempt_count on the crashing CPU at panic time was 0x202:
-SOFTIRQ_DISABLE_OFFSET (0x200) from fpregs_lock() plus two preempt holds
-from dc_fpu_begin() and kernel_fpu_begin().
-
-The DML2 paths already wrap their large vzalloc()s in
-DC_RUN_WITH_PREEMPTION_ENABLED() to handle this case (see
-drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_wrapper.c:26 and
-drivers/gpu/drm/amd/display/dc/dml2_0/dml2_wrapper.c:24). Apply the same
-guard to the DML1 phantom-plane allocation in dcn32_enable_phantom_plane().
-
-This is a separate class of issue from "drm/amd/display: Fix unsafe uses
-of kernel mode FPU" by Ard Biesheuvel, which addressed callers entering
-DC FP compilation units without DC_FP_START. The bug fixed here is the
-inverse: a sleeping allocator invoked from within an active DC_FP_START
-region.
-
-Reproducer (RX 7900 XTX, single 4K HDMI display, DCN 3.2): launch any
-workload that produces rapid atomic modeset commits. The most reliable
-trigger observed is launching Rise of the Tomb Raider via Proton and
-repeatedly pressing the Super key during the level loading screen;
-crash occurs within ~4 minutes uptime. Random crashes are also observed
-during routine fullscreen toggles (image viewers, chat applications).
-
-Hardware verified clean: memtest86+ 4 passes, stressapptest -W -m 32
-4 hours, both pass with 0 errors. KASAN active, no reports under load.
-
-Fixes: 235c67634230 ("drm/amd/display: add DCN32/321 specific files for Display Core")
-Cc: stable@vger.kernel.org # v6.0+
-Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Signed-off-by: Marco Felsch <m.felsch@pengutronix.de>
 ---
- .../drm/amd/display/dc/resource/dcn32/dcn32_resource.c    | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ arch/arm64/boot/dts/freescale/imx8mp.dtsi | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-index 82f81b586986..3751f7a94a05 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-@@ -92,9 +92,14 @@
- #include "dml/dcn32/dcn32_fpu.h"
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp.dtsi b/arch/arm64/boot/dts/freescale/imx8mp.dtsi
+index 90d7bb8f5619e50d9fd65bcf18c083affe15e6f9..41649afff813833aeb1c0355827597578048b037 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mp.dtsi
+@@ -1999,10 +1999,8 @@ media_blk_ctrl: blk-ctrl@32ec0000 {
+ 						       <1039500000>;
+ 				#power-domain-cells = <1>;
  
- #include "dc_state_priv.h"
-+#include "dc_fpu.h"
- 
- #include "dml2_0/dml2_wrapper.h"
- 
-+#if !defined(DC_RUN_WITH_PREEMPTION_ENABLED)
-+#define DC_RUN_WITH_PREEMPTION_ENABLED(code) code
-+#endif
-+
- #define DC_LOGGER_INIT(logger)
- 
- enum dcn32_clk_src_array_id {
-@@ -1684,7 +1689,8 @@ static void dcn32_enable_phantom_plane(struct dc *dc,
- 		if (curr_pipe->top_pipe && curr_pipe->top_pipe->plane_state == curr_pipe->plane_state)
- 			phantom_plane = prev_phantom_plane;
- 		else
--			phantom_plane = dc_state_create_phantom_plane(dc, context, curr_pipe->plane_state);
-+			DC_RUN_WITH_PREEMPTION_ENABLED(phantom_plane =
-+				dc_state_create_phantom_plane(dc, context, curr_pipe->plane_state));
- 
- 		if (!phantom_plane)
- 			continue;
+-				lvds_bridge: bridge@5c {
++				lvds_bridge: bridge {
+ 					compatible = "fsl,imx8mp-ldb";
+-					reg = <0x5c 0x4>, <0x128 0x4>;
+-					reg-names = "ldb", "lvds";
+ 					clocks = <&clk IMX8MP_CLK_MEDIA_LDB_ROOT>;
+ 					clock-names = "ldb";
+ 					assigned-clocks = <&clk IMX8MP_CLK_MEDIA_LDB>;
+
 -- 
-2.54.0
+2.47.3
 
