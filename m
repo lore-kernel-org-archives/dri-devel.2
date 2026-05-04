@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44071CD342F
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 16:41:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E78EFCD342F
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 16:42:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBF3A10E782;
-	Mon,  4 May 2026 16:41:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 368CC10E78D;
+	Mon,  4 May 2026 16:42:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="nUNDsNG8";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="R8+5/AW6";
 	dkim-atps=neutral
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A17E10E754;
- Mon,  4 May 2026 16:41:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5873B10E76B;
+ Mon,  4 May 2026 16:42:40 +0000 (UTC)
 Received: from killaraus.ideasonboard.com
  (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id CC37D9C;
- Mon,  4 May 2026 18:41:35 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 397059C;
+ Mon,  4 May 2026 18:42:37 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1777912896;
- bh=q1gQlpJfoIxy1ibk2v+LbSUU57lpISXKKiV+29GK8TI=;
+ s=mail; t=1777912957;
+ bh=x92dCrtj1Xz/Y1c8aBQDwyr3IWFnuu7loZj+174mpQ4=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=nUNDsNG8tJC/KsgdJGoEI6BDHNyr771dyng6PLE0QJK6PtreNut6ApucUb8PaBo72
- pzi2mQln+olh4fy250zaOr0PJjnqRmtiuw3vPH6lCCYctS7yRQ4YGV0ZWBsn1YKVpO
- 7SR8Ly/gZLzjulftP4R4LxjZfzNjZmkl5mZvuF8A=
-Date: Mon, 4 May 2026 19:41:36 +0300
+ b=R8+5/AW6TIz6Hirr1Yu5wz1VTvyFqv1PKg0Wr6VFGDp8mpOnmOZbfmT2fhBboOCz3
+ 2qja54WTb8u2RRuAzEOW1EjYDv63b7FXiZEYI98YHyGz8fvDrGHXr+/h6xvwwB67vM
+ TfMvP8g7DCoGCl/5F8i9f4jtMnONzEjHaRIpHIXw=
+Date: Mon, 4 May 2026 19:42:37 +0300
 From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 To: Maxime Ripard <mripard@kernel.org>
 Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -55,15 +55,15 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  linux-kernel@vger.kernel.org, Daniel Stone <daniels@collabora.com>,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-Subject: Re: [PATCH v3 07/20] drm/colorop: Create
- drm_atomic_helper_colorop_create_state()
-Message-ID: <20260504164136.GK1344263@killaraus.ideasonboard.com>
+Subject: Re: [PATCH v3 09/20] drm/atomic-state-helper: Rename
+ __drm_atomic_helper_plane_state_reset()
+Message-ID: <20260504164237.GL1344263@killaraus.ideasonboard.com>
 References: <20260424-drm-mode-config-init-v3-0-8b68d9db0d8b@kernel.org>
- <20260424-drm-mode-config-init-v3-7-8b68d9db0d8b@kernel.org>
+ <20260424-drm-mode-config-init-v3-9-8b68d9db0d8b@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260424-drm-mode-config-init-v3-7-8b68d9db0d8b@kernel.org>
+In-Reply-To: <20260424-drm-mode-config-init-v3-9-8b68d9db0d8b@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,103 +79,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Apr 24, 2026 at 12:18:47PM +0200, Maxime Ripard wrote:
-> Commit 47b5ac7daa46 ("drm/atomic: Add new atomic_create_state callback
-> to drm_private_obj") introduced a new pattern for allocating drm object
-> states.
+On Fri, Apr 24, 2026 at 12:18:49PM +0200, Maxime Ripard wrote:
+> __drm_atomic_helper_plane_state_reset() is used to initialize a newly
+> allocated drm_plane_state, and is being typically called by the
+> drm_plane_funcs.reset implementation.
 > 
-> Instead of relying on the reset() callback, it created a new
-> atomic_create_state hook. This is helpful because reset is a bit
-> overloaded: it's used to create the initial software state, reset it,
-> but also reset the hardware.
+> Since we want to consolidate DRM objects state allocation around the
+> atomic_create_state callback that will only allocate and initialize a
+> new drm_plane_state instance, we will need to call
+> __drm_atomic_helper_plane_state_reset() from both the reset and
+> atomic_create hooks.
 > 
-> It can also be used either at probe time, to create the initial state
-> and possibly reset the hardware to an expected default, but also during
-> suspend/resume.
+> To avoid any confusion, we can thus rename
+> __drm_atomic_helper_plane_state_reset() to
+> __drm_atomic_helper_plane_state_init().
 > 
-> Both these cases come with different expectations too: during the
-> initialization, we want to initialize all states, but during
-> suspend/resume, drm_private_states for example are expected to be kept
-> around.
-> 
-> reset() also isn't fallible, which makes it harder to handle
-> initialization errors properly. This is only really relevant for some
-> drivers though, since all the helpers for reset only create a new
-> state, and don't touch the hardware at all.
-> 
-> It was thus decided to create a new hook that would allocate and
-> initialize a pristine state without any side effect:
-> atomic_create_state to untangle a bit some of it, and to separate the
-> initialization with the actual reset one might need during a
-> suspend/resume.
-> 
-> Continue the transition to the new pattern with drm_colorop.
-> 
+> Suggested-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 > Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 > Signed-off-by: Maxime Ripard <mripard@kernel.org>
 
 Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 
 > ---
->  drivers/gpu/drm/drm_colorop.c | 23 +++++++++++++++++++++++
->  include/drm/drm_colorop.h     |  2 ++
->  2 files changed, 25 insertions(+)
+>  drivers/gpu/drm/drm_atomic_state_helper.c  | 12 ++++++------
+>  drivers/gpu/drm/i915/display/intel_plane.c |  2 +-
+>  include/drm/drm_atomic_state_helper.h      |  2 +-
+>  3 files changed, 8 insertions(+), 8 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
-> index 4c4d0a953e35..c0eecde8c176 100644
-> --- a/drivers/gpu/drm/drm_colorop.c
-> +++ b/drivers/gpu/drm/drm_colorop.c
-> @@ -521,10 +521,33 @@ static void __drm_colorop_state_init(struct drm_colorop_state *colorop_state,
+> diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
+> index e1f3d05ad347..285efbf29520 100644
+> --- a/drivers/gpu/drm/drm_atomic_state_helper.c
+> +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
+> @@ -235,19 +235,19 @@ void drm_atomic_helper_crtc_destroy_state(struct drm_crtc *crtc,
+>  	kfree(state);
+>  }
+>  EXPORT_SYMBOL(drm_atomic_helper_crtc_destroy_state);
+>  
+>  /**
+> - * __drm_atomic_helper_plane_state_reset - resets plane state to default values
+> + * __drm_atomic_helper_plane_state_init - Initializes the plane state
+>   * @plane_state: atomic plane state, must not be NULL
+>   * @plane: plane object, must not be NULL
+>   *
+>   * Initializes the newly allocated @plane_state with default
+> - * values. This is useful for drivers that subclass the CRTC state.
+> + * values. This is useful for drivers that subclass the plane state.
+>   */
+> -void __drm_atomic_helper_plane_state_reset(struct drm_plane_state *plane_state,
+> -					   struct drm_plane *plane)
+> +void __drm_atomic_helper_plane_state_init(struct drm_plane_state *plane_state,
+> +					  struct drm_plane *plane)
+>  {
+>  	u64 val;
+>  
+>  	plane_state->plane = plane;
+>  	plane_state->rotation = DRM_MODE_ROTATE_0;
+> @@ -295,11 +295,11 @@ void __drm_atomic_helper_plane_state_reset(struct drm_plane_state *plane_state,
+>  							   plane->hotspot_y_property,
 >  							   &val))
->  			colorop_state->curve_1d_type = val;
+>  			plane_state->hotspot_y = val;
 >  	}
 >  }
+> -EXPORT_SYMBOL(__drm_atomic_helper_plane_state_reset);
+> +EXPORT_SYMBOL(__drm_atomic_helper_plane_state_init);
 >  
-> +/**
-> + * drm_atomic_helper_colorop_create_state - Allocates and initializes colorop atomic state
-> + * @colorop: drm colorop
-> + *
-> + * Initializes a pristine @drm_colorop_state.
-> + *
-> + * RETURNS:
-> + * Pointer to new colorop state, or ERR_PTR on failure.
-> + */
-> +struct drm_colorop_state *
-> +drm_atomic_helper_colorop_create_state(struct drm_colorop *colorop)
-> +{
-> +	struct drm_colorop_state *state;
-> +
-> +	state = kzalloc_obj(*state);
-> +	if (!state)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	__drm_colorop_state_init(state, colorop);
-> +
-> +	return state;
-> +}
-> +
 >  /**
->   * __drm_colorop_reset - reset state on colorop
->   * @colorop: drm colorop
->   * @colorop_state: colorop state to assign
->   *
-> diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
-> index bd082854ca74..874ed693329c 100644
-> --- a/include/drm/drm_colorop.h
-> +++ b/include/drm/drm_colorop.h
-> @@ -423,10 +423,12 @@ int drm_plane_colorop_3dlut_init(struct drm_device *dev, struct drm_colorop *col
->  				 struct drm_plane *plane, const struct drm_colorop_funcs *funcs,
->  				 uint32_t lut_size,
->  				 enum drm_colorop_lut3d_interpolation_type interpolation,
->  				 uint32_t flags);
+>   * __drm_atomic_helper_plane_reset - reset state on plane
+>   * @plane: drm plane
+>   * @plane_state: plane state to assign
+> @@ -313,11 +313,11 @@ EXPORT_SYMBOL(__drm_atomic_helper_plane_state_reset);
+>   */
+>  void __drm_atomic_helper_plane_reset(struct drm_plane *plane,
+>  				     struct drm_plane_state *plane_state)
+>  {
+>  	if (plane_state)
+> -		__drm_atomic_helper_plane_state_reset(plane_state, plane);
+> +		__drm_atomic_helper_plane_state_init(plane_state, plane);
 >  
-> +struct drm_colorop_state *
-> +drm_atomic_helper_colorop_create_state(struct drm_colorop *colorop);
->  struct drm_colorop_state *
->  drm_atomic_helper_colorop_duplicate_state(struct drm_colorop *colorop);
+>  	plane->state = plane_state;
+>  }
+>  EXPORT_SYMBOL(__drm_atomic_helper_plane_reset);
 >  
->  void drm_colorop_atomic_destroy_state(struct drm_colorop *colorop,
->  				      struct drm_colorop_state *state);
+> diff --git a/drivers/gpu/drm/i915/display/intel_plane.c b/drivers/gpu/drm/i915/display/intel_plane.c
+> index 5390ceb21ca4..d013d9228d0b 100644
+> --- a/drivers/gpu/drm/i915/display/intel_plane.c
+> +++ b/drivers/gpu/drm/i915/display/intel_plane.c
+> @@ -65,11 +65,11 @@
+>  static void intel_plane_state_reset(struct intel_plane_state *plane_state,
+>  				    struct intel_plane *plane)
+>  {
+>  	memset(plane_state, 0, sizeof(*plane_state));
+>  
+> -	__drm_atomic_helper_plane_state_reset(&plane_state->uapi, &plane->base);
+> +	__drm_atomic_helper_plane_state_init(&plane_state->uapi, &plane->base);
+>  
+>  	plane_state->scaler_id = -1;
+>  }
+>  
+>  struct intel_plane *intel_plane_alloc(void)
+> diff --git a/include/drm/drm_atomic_state_helper.h b/include/drm/drm_atomic_state_helper.h
+> index 900672c6ea90..44e8850aae7f 100644
+> --- a/include/drm/drm_atomic_state_helper.h
+> +++ b/include/drm/drm_atomic_state_helper.h
+> @@ -51,11 +51,11 @@ struct drm_crtc_state *
+>  drm_atomic_helper_crtc_duplicate_state(struct drm_crtc *crtc);
+>  void __drm_atomic_helper_crtc_destroy_state(struct drm_crtc_state *state);
+>  void drm_atomic_helper_crtc_destroy_state(struct drm_crtc *crtc,
+>  					  struct drm_crtc_state *state);
+>  
+> -void __drm_atomic_helper_plane_state_reset(struct drm_plane_state *state,
+> +void __drm_atomic_helper_plane_state_init(struct drm_plane_state *state,
+>  					   struct drm_plane *plane);
+>  void __drm_atomic_helper_plane_reset(struct drm_plane *plane,
+>  				     struct drm_plane_state *state);
+>  void drm_atomic_helper_plane_reset(struct drm_plane *plane);
+>  void __drm_atomic_helper_plane_duplicate_state(struct drm_plane *plane,
 > 
 
 -- 
