@@ -4,130 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EC81CD342F
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 19:08:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC23ACD3427
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 19:08:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB08310E83C;
-	Mon,  4 May 2026 19:08:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E97610E838;
+	Mon,  4 May 2026 19:08:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="aiF48jSk";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PSWqap+5";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="JMCmXWFC";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OvR3kNj3";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7C2D10E83C
- for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 19:08:48 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4749A10E839
+ for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 19:08:47 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 644DlKV9366547
- for <dri-devel@lists.freedesktop.org>; Mon, 4 May 2026 19:08:48 GMT
+ 644FOsBd1346374
+ for <dri-devel@lists.freedesktop.org>; Mon, 4 May 2026 19:08:47 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=V4uUYe1yUyG
- 7QRKd8WtYyuBLYfX08jPs1+jI/fe/6lw=; b=aiF48jSk2z03g5J0k6wGhitJjRW
- zZ5SzT322LLAPFpGhEccDuh5t9SlEZ7wUAHQWxejw+VO07LehrJpSvlKcYIMSYW6
- nGGNPG7UddirNLOIYHauEpJO7lk0hx3ZLOSd1fRHoD1nJip3gXLKHXncrYeH1zV6
- atpjM/MVSmkyLBoVoN4iTgK1j+EryclN5yjnDLPZ+hjj2ofveu3Kwk7gZ8SPcn97
- cr5OqA3LGzI1K+GMYvveRiGmF9/Y/ypUjpl/zs+gdOHRpdyPfu+mdBy9wzP1N9HI
- FbNI2rf/hd2LKqQujhEtHOq1KwGGvgkxbjsN5jhyCEb3PeEO0wY8DHAYEiw==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
- [209.85.214.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dxvn6s982-1
+ :mime-version:references:subject:to; s=qcppdkim1; bh=U7ptnwcb5GY
+ LMAp9VK/C6htmabHNYQ8Z9XWYGNmuPaE=; b=JMCmXWFCdQpqdiDdnImo1B9wiXD
+ R8RXamD9ccHd3hRwati6POc0iV55BdZGoUXI5onuug7v9Wm4NBl4FI8S+RqGMHvW
+ Jtd1eU/GWaLFxRxMeDDdIrSxtah5rd5BjY3oczROeoPSgyHFGk1yZgkqCZ6ibCet
+ tmtfo4dT4+1kVx3QUeKPsxOqaDkvx4CU/Bq5OO2O8lkv/hHxnXlBevyqw9VHNdIY
+ B2XZ3DTFXulssrQion2Zq6VgMRMnzsQeql/ktbdV7MJH8AJyqnjOX4zx2Id5uwa1
+ GPmmcLny1k8UjUyNYC9O12ye/17FFE8kFG2x9PDtKUKk8kibQPC4g0eKKSQ==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
+ [209.85.216.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dxx2x8vjm-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 04 May 2026 19:08:48 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id
- d9443c01a7336-2b458add85aso42215685ad.2
- for <dri-devel@lists.freedesktop.org>; Mon, 04 May 2026 12:08:47 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 04 May 2026 19:08:46 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id
+ 98e67ed59e1d1-3568090851aso11437434a91.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 04 May 2026 12:08:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1777921727; x=1778526527;
+ d=oss.qualcomm.com; s=google; t=1777921726; x=1778526526;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=V4uUYe1yUyG7QRKd8WtYyuBLYfX08jPs1+jI/fe/6lw=;
- b=PSWqap+5yp+FuPxOBl8JA6/FVmPSQiQoJbWUMmk2NvI/6VW26XG5Xg5GuEDy8koWRX
- ns5/9QHELEgjpOCdk6cVG8LcSAc+P2tq7KWWwvX+oMMTrxaD11Lc8oP537nwls4A/ewN
- o3/NNBOvWVImcKJiOy+mX1rGYpDwMergvXLbTAqpYJAOTHf3oZB7xhfPUGrsjXhrGcK4
- 7kGk4z6twoyo5iCz9yuRBlBgUuyX1/P9ZKwmqAu9E/AWOD/feewucP0k/VziHmD/hhzW
- 1b4lSLJKCIpzPk5cLk1aG5UIRo47RouWfROtmKhXDa/CfArUCn33tq5EP47U5LNNq6vf
- 4mcA==
+ bh=U7ptnwcb5GYLMAp9VK/C6htmabHNYQ8Z9XWYGNmuPaE=;
+ b=OvR3kNj33J2xZYTfyT1Rvx+mucmk98AbUeG6yBfPRrNzY9UX5svrHnWkqZjZaE2TSv
+ ZiqB5AQ7fJhQ6xBy0O3mzgekYupduf/AJ/S1KYSb/hFALSkTOwepGyxFE7Gxqe1t8Bor
+ WFYBM6BiiKbnxoLGHbkbwNAjHY6Kr/l+PshnFlUpfHH5SOZ3Z07ussrfMztdldRJFFC9
+ 3yjbaIOAVuNtueLOsVGMZ9bvbK+WONDUaEvsv7F/xlH9fsIuSxeF9zE4mZYELyl+wMgZ
+ u0g2ODF0+dAmkjk0OYYm0QaViiqdkKjADcWx/tvp3ZQVgeO4aaxKe6abLcsWbAOlBBHx
+ eVGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777921727; x=1778526527;
+ d=1e100.net; s=20251104; t=1777921726; x=1778526526;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=V4uUYe1yUyG7QRKd8WtYyuBLYfX08jPs1+jI/fe/6lw=;
- b=Kn1j9iFKWt6nzvHUx01lHLIS5G/aHkGXWwSPZNcsGR5/mgP8cD4c2UgYGmbxq1vFEy
- BNl4GLgYGDm3HHhwC6VNGzCw6Jse4MJu9Vqz/oyiVtWtpO6dr+WpQ6JdfQLy2PfFYz9Z
- jlPFspx5l/as2kUvtwPHKhoujQ9ooBSJHKixS0wegckITTHk++ou5SXUxwHCqevpfACj
- JgQ0B+izYqc/tZMxMxc2xWT0GN2b+eybBvUHGo/ov4+7KTxJLCrtOex6PfkLYTXd5fN/
- q2xBNuhsuBd9incPV3ueW1prDB9YCt8f8eNtlFseUqa/s3Nnn8LIFKbSyshnVPHO2EjZ
- q26Q==
-X-Gm-Message-State: AOJu0YxuXMpqf1XbQKQwIk6qpvZf+tnjZ3ieNVS46UDCsQGsomtJerVF
- uLGWaqiMa7rag36NJbvivB+YpWqhS986FRPJs2fXnAMdDEYJhemB1JORok90ctOoDXf7d6MwNZE
- uuk9fRaHjU33QYLWa3Llo2Z0Z5dz79/FeknvP2WgexV15oTsVa4IMxiEOosPbhdM/HWLXOcYBtZ
- UY0jM=
-X-Gm-Gg: AeBDieuK1OHMuAqJhyvkesNM/oReqzL/4hJ+giAllSu/T134s0/UHe84pEq5NZbDrol
- 30K5CX2Oc0qrstQooigzajlspc+236y7MpiZVYjDTWUswwXLYsd7i0/Wj/+7aRaObnLOhHB7lFy
- 5Snz8OSOIcfzPKI/ALz/HM8NHUwq6eMS1Yi5R+dYEn3f3eiZvNz+fwzXDLVujgndNa3tKhx5jwy
- K9niMCDMzzPTpMJGJgBK98WwKuLop3RnC1DGBkMDMr+3xQUqLlz+dI3cX77Q7bQm+G7MagEXWw1
- MdM9NbukpmpWRbrGWaL7agDtZKR6Bi5/Hix7novqUlX6Dl3u6K8AiXEl/VuoZ6tmNvBQjQA1B8/
- tNuz4JPCFCoMTIF4iiVK7V8MSS7KqglLSX0Iktt9ssYw=
-X-Received: by 2002:a17:902:9889:b0:2b4:5309:2c14 with SMTP id
- d9443c01a7336-2b9f260b785mr76828145ad.31.1777921726789; 
- Mon, 04 May 2026 12:08:46 -0700 (PDT)
-X-Received: by 2002:a17:902:9889:b0:2b4:5309:2c14 with SMTP id
- d9443c01a7336-2b9f260b785mr76827835ad.31.1777921726207; 
- Mon, 04 May 2026 12:08:46 -0700 (PDT)
+ bh=U7ptnwcb5GYLMAp9VK/C6htmabHNYQ8Z9XWYGNmuPaE=;
+ b=gXaRwwBjiFmGJmWsksHWHVib8UUafwBo/mock8SBloUdx9TlJwICdvOLcUkS3RHAs8
+ Dvv5W+K02Z7K1kh5XE3WyL8Dsyna+ti24yeWxNFf4Rev/yaXBkc1V59aqHQ/QpD6KLTO
+ ccRicKP+4F+Q4nWCNTULKmsS23UUyy9Ugiwx1MNeBpM9tyV81XbYkMFCXQGoUPrZHWhJ
+ MzqSIPlBZ5ciyDXHg3dY5gRvJ8ATbHnqy7NYrlBUZo8IBVH2c1sEADeWgxvoed3ck7hh
+ pT6KOmgj6IiHW8ZOydB/NWCgm0haYeSKhmqYhIFIx9aouKwBgF5HjCZtJHZDZRfaET9a
+ /PAA==
+X-Gm-Message-State: AOJu0YzoNvh4LRro8noJGgsvO55uyJgjBYn57dukbpZEp34NEGL0Vlh+
+ Jjfo+5iXxfjH7jBMKOY3MNruXpBzIcdsLfuwAI8uef2lXpkOvmsrYIS7aL1aOYTwBTQy4bbBXK6
+ aJqIcRm/WH2CprQOSN1059OXzXIlC65QtLSiLQmHfLuYLm/dEEbD7EfjXaOiSKsVhiWDGY6Jd/q
+ xTzCk=
+X-Gm-Gg: AeBDievapIY4E2AVslKeLBcbwO+WKIevTr6KfsMY/h7YyWh7of+RWIax34yEsp3gpUZ
+ CSj4Qepj4W3KSUmGbjtvngQI+pEOVso8ATb2f6q+f+Z5RY/GqHwPue51GFeFWA/Gglxra9CqkAQ
+ RTLzUrbCIq+0y3WMyYs+72bDTpmqw/Ofxeiq5t5ka9aZO2Z12T2+7xdxiudRFJ0CxamnPyVxQmM
+ RPUmtzdKhPERxZGGp9lZ1cL/hILkuE05aIkINXXRTUEDes8gt/KP3HpTWettT+pt+GVSF1emjcf
+ pAilqpfJ96V5aFBkQiYsJJrjX5/rE8bCbEwlKFd3Ddff5sJ9YdI9TQwR4YMa4rl9PaBTFW9guYv
+ 6UJ30eZOZVv4vqqgd6qogJn0m4CJ8p08bcBgI+xXbKvo=
+X-Received: by 2002:a17:90b:55c4:b0:35c:30a8:31f with SMTP id
+ 98e67ed59e1d1-3657737bc90mr190717a91.2.1777921725539; 
+ Mon, 04 May 2026 12:08:45 -0700 (PDT)
+X-Received: by 2002:a17:90b:55c4:b0:35c:30a8:31f with SMTP id
+ 98e67ed59e1d1-3657737bc90mr190668a91.2.1777921724762; 
+ Mon, 04 May 2026 12:08:44 -0700 (PDT)
 Received: from localhost ([2601:1c0:5000:d5c:4ec8:83f5:8254:6891])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2b9cae0f67esm117642825ad.51.2026.05.04.12.08.45
+ 98e67ed59e1d1-364ec00a280sm12268083a91.10.2026.05.04.12.08.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 May 2026 12:08:45 -0700 (PDT)
+ Mon, 04 May 2026 12:08:44 -0700 (PDT)
 From: Rob Clark <robin.clark@oss.qualcomm.com>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v3 14/16] drm/msm/a6xx: Increase pwrup_reglist size
-Date: Mon,  4 May 2026 12:06:57 -0700
-Message-ID: <20260504190751.61052-15-robin.clark@oss.qualcomm.com>
+Subject: [PATCH v3 13/16] drm/msm: Add PERFCNTR_CONFIG ioctl
+Date: Mon,  4 May 2026 12:06:56 -0700
+Message-ID: <20260504190751.61052-14-robin.clark@oss.qualcomm.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260504190751.61052-1-robin.clark@oss.qualcomm.com>
 References: <20260504190751.61052-1-robin.clark@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: IEHUUqwS08tVsShfWSkgdSVrFba0y8tl
-X-Authority-Analysis: v=2.4 cv=Z+vc2nRA c=1 sm=1 tr=0 ts=69f8eec0 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=xqWC_Br6kY4A:10 a=NGcC8JguVDcA:10
+X-Authority-Analysis: v=2.4 cv=U9eiy+ru c=1 sm=1 tr=0 ts=69f8eebe cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=xqWC_Br6kY4A:10 a=NGcC8JguVDcA:10
  a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8 a=8lTVeMJbxB4f0FvlbnAA:9
- a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-GUID: IEHUUqwS08tVsShfWSkgdSVrFba0y8tl
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA0MDE3NSBTYWx0ZWRfXyygeE2PIXr8y
- vnxem8uOiBCq9sn6gvHmZ233yQtHP9WeZFXxP1F4rmIcw9KxAsoMU98uDVG65hEEJ4W6NmJq1gi
- l23p89gVo34+3vflixDk/KugstCAn9CBVfi7eP+CCgve/X2gQFGpiFgpHNYkMJwnMSEicMN37dm
- HydbYJhqIW2hLg5ci3JWYIsXGXrw5bzZonSM4JrXKal1xQYIBpkALApURQn/jiY4xWkKR1/8atf
- 8biXDSLUVH6N7wE7xKWe5weTwph3mdTr3Ga4b6vZLzBljU1jphtmG0avjhWO24gxcbe4jUBZWLN
- 45/Ow4RcHDYHhrcjTuwFz0FBjttPrkuhpNUFDQmqrPyUeK0sLz6fdE6SeCSsYiTbVx6O/W8hgWE
- dJ+4hnHDELCCFZMZ7kd4bIQSc0IL9LSnbCeiUf1sAjgWhW1sOAttZHbh1FjQ+JTNcO7grlNz0u5
- cQq0rvg2eMLqBTl44ZA==
+ a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8 a=W4oHwWUT8aixCVaBVEUA:9
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-ORIG-GUID: i_Uj-f759HOEyJ-A0YQ6NinK0CZ6C_IO
+X-Proofpoint-GUID: i_Uj-f759HOEyJ-A0YQ6NinK0CZ6C_IO
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA0MDE3NSBTYWx0ZWRfX1Q7RpX4OPKfD
+ GUteFDnId5D6y2XLaTG5QJB2t5e4qrutgkHNioXmx2H4obKt02rV6dBVqcKZ0MFn+ToMIjmSwVJ
+ wwZPlwmTnVT1CgoANlLp39Q45wk9wCqm22lAZpP7dORYKbg1pla5mhUQUbIs9odHVzKwjGh1En4
+ 3SoaUNx1a+DTlncNmSTRsH/7rQQiA8sWjx/k+G0PvZTmO0F5/gq2D77L1vYOCK/z/UCE+G7WQyQ
+ DPZMMwcdaLZ173W+Dg2Uy42w1fFIkY7QEJSX5NybFugJf6dZgbbSUtRmfHwCIXQN3c7TuaVhzED
+ M8/+029tXUndFl1/c4RbS/UAu/smrxrjeZLHO9dK8YsuygzodeZ4l+DDbUqcMvNWFVv6jDSQPgh
+ WcmY8L2RlJRjyW0vYTljBtSPeA+psYyYp7y1bVPjV2cDe3VOzgiVOlfWxsUQPtKtFQNcR04tR1J
+ yfRyUmkZ6grHdFQg35A==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-05-04_05,2026-04-30_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 adultscore=0 impostorscore=0 malwarescore=0
- bulkscore=0 priorityscore=1501 lowpriorityscore=0 suspectscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
- definitions=main-2605040175
+ malwarescore=0 lowpriorityscore=0 adultscore=0 phishscore=0 spamscore=0
+ bulkscore=0 priorityscore=1501 impostorscore=0 clxscore=1015 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605040175
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,29 +145,759 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-To make room for appending SEL reg programming.  Without increasing the
-size, we would overflow the pwrup_reglist at ~190 counters on gen8.
-Or possibly fewer, considering that some gen8 counter groups also have
-separate slice vs unslice SELectors.
+Add new UABI and implementation of PERFCNTR_CONFIG ioctl.
+
+A bit more work is required to configure the pwrup_reglist for the GMU
+to restore SELect regs on exist of IFPC, before we can stop disabling
+IFPC while global counter collection.  This will follow in a later
+commit, but will be transparent to userspace.
 
 Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/msm/msm_drv.c      |   1 +
+ drivers/gpu/drm/msm/msm_drv.h      |   2 +
+ drivers/gpu/drm/msm/msm_gpu.h      |   3 +
+ drivers/gpu/drm/msm/msm_perfcntr.c | 510 +++++++++++++++++++++++++++++
+ drivers/gpu/drm/msm/msm_perfcntr.h |  51 +++
+ include/uapi/drm/msm_drm.h         |  48 +++
+ 6 files changed, 615 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index a329d20033d7..61c6b0e781ce 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -1183,7 +1183,7 @@ static int a6xx_ucode_load(struct msm_gpu *gpu)
- 		msm_gem_object_set_name(a6xx_gpu->shadow_bo, "shadow");
- 	}
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index 3066547f319b..0a7fc06113e0 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -801,6 +801,7 @@ static const struct drm_ioctl_desc msm_ioctls[] = {
+ 	DRM_IOCTL_DEF_DRV(MSM_SUBMITQUEUE_CLOSE, msm_ioctl_submitqueue_close, DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(MSM_SUBMITQUEUE_QUERY, msm_ioctl_submitqueue_query, DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(MSM_VM_BIND,      msm_ioctl_vm_bind,      DRM_RENDER_ALLOW),
++	DRM_IOCTL_DEF_DRV(MSM_PERFCNTR_CONFIG,   msm_ioctl_perfcntr_config,    DRM_RENDER_ALLOW),
+ };
  
--	a6xx_gpu->pwrup_reglist_ptr = msm_gem_kernel_new(gpu->dev, PAGE_SIZE,
-+	a6xx_gpu->pwrup_reglist_ptr = msm_gem_kernel_new(gpu->dev, 2 * PAGE_SIZE,
- 							 MSM_BO_WC  | MSM_BO_MAP_PRIV,
- 							 gpu->vm, &a6xx_gpu->pwrup_reglist_bo,
- 							 &a6xx_gpu->pwrup_reglist_iova);
+ static void msm_show_fdinfo(struct drm_printer *p, struct drm_file *file)
+diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+index f00b2e7aeb91..204e140ac8e9 100644
+--- a/drivers/gpu/drm/msm/msm_drv.h
++++ b/drivers/gpu/drm/msm/msm_drv.h
+@@ -237,6 +237,8 @@ int msm_ioctl_vm_bind(struct drm_device *dev, void *data,
+ 
+ int msm_perfcntr_resume(struct msm_gpu *gpu);
+ void msm_perfcntr_suspend(struct msm_gpu *gpu);
++int msm_ioctl_perfcntr_config(struct drm_device *dev, void *data,
++			     struct drm_file *file);
+ 
+ struct msm_perfcntr_state * msm_perfcntr_init(struct msm_gpu *gpu);
+ void msm_perfcntr_cleanup(struct msm_gpu *gpu);
+diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
+index 92710da5009b..67f1e84eb631 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.h
++++ b/drivers/gpu/drm/msm/msm_gpu.h
+@@ -353,6 +353,9 @@ struct msm_perfcntr_state {
+ 	/** @stream: current global counter stream if active */
+ 	struct msm_perfcntr_stream *stream;
+ 
++	/** @sel_seqno: counter for sel_fence */
++	uint32_t sel_seqno;
++
+ 	/**
+ 	 * @groups: Global perfcntr stream group state.
+ 	 *
+diff --git a/drivers/gpu/drm/msm/msm_perfcntr.c b/drivers/gpu/drm/msm/msm_perfcntr.c
+index 09e6aa4b6620..39bec201d5c9 100644
+--- a/drivers/gpu/drm/msm/msm_perfcntr.c
++++ b/drivers/gpu/drm/msm/msm_perfcntr.c
+@@ -3,13 +3,44 @@
+  * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+  */
+ 
++#include "drm/drm_file.h"
++#include "drm/msm_drm.h"
++
++#include "linux/anon_inodes.h"
++#include "linux/gfp_types.h"
++#include "linux/poll.h"
++#include "linux/slab.h"
++
+ #include "msm_drv.h"
+ #include "msm_gpu.h"
+ #include "msm_perfcntr.h"
+ 
++#include "adreno/adreno_gpu.h"
++
++/* space used: */
++#define fifo_count(stream) \
++	(CIRC_CNT((stream)->fifo.head, (stream)->fifo.tail, (stream)->fifo_size))
++#define fifo_count_to_end(stream) \
++	(CIRC_CNT_TO_END((stream)->fifo.head, (stream)->fifo.tail, (stream)->fifo_size))
++/* space available: */
++#define fifo_space(stream) \
++	(CIRC_SPACE((stream)->fifo.head, (stream)->fifo.tail, (stream)->fifo_size))
++
+ static int
+ msm_perfcntr_resume_locked(struct msm_perfcntr_stream *stream)
+ {
++	if (!stream)
++		return 0;
++
++	/* Reprogram SEL regs on highest priority rb: */
++	struct msm_ringbuffer *ring = stream->gpu->rb[0];
++
++	queue_work(ring->sched.submit_wq, &stream->sel_work);
++
++	hrtimer_start(&stream->sample_timer,
++		      ns_to_ktime(stream->sample_period_ns),
++		      HRTIMER_MODE_REL_PINNED);
++
+ 	return 0;
+ }
+ 
+@@ -23,6 +54,22 @@ msm_perfcntr_resume(struct msm_gpu *gpu)
+ static void
+ msm_perfcntr_suspend_locked(struct msm_perfcntr_stream *stream)
+ {
++	if (!stream)
++		return;
++
++	hrtimer_cancel(&stream->sample_timer);
++	kthread_cancel_work_sync(&stream->sample_work);
++
++	/*
++	 * We can't use cancel_work_sync() here, since sel_work acquires
++	 * gpu->lock which (a) in suspend path can already be held, or
++	 * (b) in release path would invert the order of gpu->lock and
++	 * gpu->perfcntr_lock.  Either would cause deadlock.
++	 */
++	cancel_work(&stream->sel_work);
++
++	stream->sel_fence = ++stream->gpu->perfcntrs->sel_seqno;
++	stream->seqno = 0;
+ }
+ 
+ void
+@@ -32,6 +79,469 @@ msm_perfcntr_suspend(struct msm_gpu *gpu)
+ 	msm_perfcntr_suspend_locked(gpu->perfcntrs->stream);
+ }
+ 
++static int
++msm_perfcntrs_stream_release(struct inode *inode, struct file *file)
++{
++	struct msm_perfcntr_stream *stream = file->private_data;
++	struct msm_gpu *gpu = stream->gpu;
++
++	scoped_guard (mutex, &gpu->perfcntr_lock) {
++		struct msm_perfcntr_state *perfcntrs = gpu->perfcntrs;
++
++		msm_perfcntr_suspend_locked(stream);
++		perfcntrs->stream = NULL;
++
++		/* release previously allocated counters: */
++		for (unsigned i = 0; i < gpu->num_perfcntr_groups; i++)
++			perfcntrs->groups[i]->allocated_counters = 0;
++	}
++
++	/*
++	 * In the suspend path we use async cancel_work(), to avoid blocking
++	 * on sel_work, which acquires gpu->lock (which could deadlock since
++	 * other paths acquire gpu->lock before perfcntr_lock) or already
++	 * hold gpu->lock.
++	 *
++	 * But since we are freeing the stream, after dropping perfcntr_lock
++	 * we need to block until sel_work is done:
++	 */
++	cancel_work_sync(&stream->sel_work);
++
++	kfree(stream->group_idx);
++	kfree(stream->fifo.buf);
++	kfree(stream);
++
++	return 0;
++}
++
++static __poll_t
++msm_perfcntrs_stream_poll(struct file *file, poll_table *wait)
++{
++	struct msm_perfcntr_stream *stream = file->private_data;
++	__poll_t events = 0;
++
++	poll_wait(file, &stream->poll_wq, wait);
++
++	/* Are there samples to read? */
++	if (fifo_count(stream) > 0)
++		events |= EPOLLIN;
++
++	return events;
++}
++
++static ssize_t
++msm_perfcntrs_stream_read(struct file *file, char __user *buf,
++			  size_t count, loff_t *ppos)
++{
++	struct msm_perfcntr_stream *stream = file->private_data;
++	int ret;
++
++	if (!(file->f_flags & O_NONBLOCK)) {
++		ret = wait_event_interruptible(stream->poll_wq,
++					       fifo_count(stream) > 0);
++		if (ret)
++			return ret;
++	}
++
++	guard(mutex)(&stream->read_lock);
++
++	struct circ_buf *fifo = &stream->fifo;
++	const char *fptr = &fifo->buf[fifo->tail];
++
++	/*
++	 * Note that smp_load_acquire() is not strictly required
++	 * as CIRC_CNT_TO_END() does not access the head more than
++	 * once.
++	 */
++	count = min_t(size_t, count, fifo_count_to_end(stream));
++	if (copy_to_user(buf, fptr, count))
++		return -EFAULT;
++
++	smp_store_release(&fifo->tail, (fifo->tail + count) & (stream->fifo_size - 1));
++	*ppos += count;
++
++	return count;
++}
++
++static const struct file_operations stream_fops = {
++	.owner		= THIS_MODULE,
++	.release	= msm_perfcntrs_stream_release,
++	.poll		= msm_perfcntrs_stream_poll,
++	.read		= msm_perfcntrs_stream_read,
++};
++
++static void
++sel_worker(struct work_struct *w)
++{
++	struct msm_perfcntr_stream *stream =
++		container_of(w, typeof(*stream), sel_work);
++	struct msm_gpu *gpu = stream->gpu;
++	/* Reprogram SEL regs on highest priority rb: */
++	struct msm_ringbuffer *ring = stream->gpu->rb[0];
++
++	/*
++	 * If in the process of resuming, wait for that.  Otherwise sel_worker
++	 * which is enqueued in the resume path can be scheduled before the
++	 * resume completes.
++	 */
++	pm_runtime_barrier(&gpu->pdev->dev);
++
++	/*
++	 * sel_work could end up scheduled before suspend, but running
++	 * after.  See msm_perfcntr_suspend_locked()
++	 *
++	 * So if we end up running sel_work after the GPU is already
++	 * suspended, just bail.  It will be scheduled again after
++	 * the GPU is resumed.
++	 */
++	if (!pm_runtime_get_if_active(&gpu->pdev->dev))
++		return;
++
++	scoped_guard (mutex, &gpu->lock) {
++		guard(mutex)(&gpu->perfcntr_lock);
++		if (stream != gpu->perfcntrs->stream)
++			break;
++		msm_gpu_hw_init(gpu);
++		gpu->funcs->perfcntr_configure(gpu, ring, stream);
++	}
++
++	pm_runtime_put_autosuspend(&gpu->pdev->dev);
++}
++
++static void
++sample_write(struct msm_perfcntr_stream *stream, int *head, const void *buf, size_t sz)
++{
++	/*
++	 * FIFO size is power-of-two, and guaranteed to have enough space to
++	 * fit what we are writing.  So we should not hit the wrap-around
++	 * point writing things that are power-of-two sized
++	 */
++	WARN_ON(CIRC_SPACE_TO_END(*head, stream->fifo.tail, stream->fifo_size) < sz);
++
++	memcpy(&stream->fifo.buf[*head], buf, sz);
++
++	/* Advance head, wrapping around if necessary: */
++	*head = (*head + sz) & (stream->fifo_size - 1);
++}
++
++static void
++sample_write_u32(struct msm_perfcntr_stream *stream, int *head, uint32_t val)
++{
++	sample_write(stream, head, &val, sizeof(val));
++}
++
++static void
++sample_write_u64(struct msm_perfcntr_stream *stream, int *head, uint64_t val)
++{
++	sample_write(stream, head, &val, sizeof(val));
++}
++
++static void
++sample_worker(struct kthread_work *work)
++{
++	struct msm_perfcntr_stream *stream =
++		container_of(work, typeof(*stream), sample_work);
++	struct msm_gpu *gpu = stream->gpu;
++	struct msm_rbmemptrs *memptrs = gpu->rb[0]->memptrs;
++
++	if (memptrs->perfcntr_fence != stream->sel_fence)
++		return;
++
++	/*
++	 * Ensure we have enough space to capture a sample period's
++	 * worth of data:
++	 */
++	if (stream->period_size > fifo_space(stream)) {
++		stream->seqno = 0;
++		return;
++	}
++
++	if (gpu->funcs->perfcntr_flush)
++		gpu->funcs->perfcntr_flush(gpu);
++
++	/* Keep local copy of head to avoid updating fifo until the end: */
++	int head = stream->fifo.head;
++
++	/*
++	 * We expect the GPU to be powered at this point, as the timer
++	 * and kthread work are canceled/flushed in the suspend path:
++	 */
++	sample_write_u64(stream, &head,
++			 to_adreno_gpu(gpu)->funcs->get_timestamp(gpu));
++	sample_write_u32(stream, &head, stream->seqno++);
++	sample_write_u32(stream, &head, 0);
++
++	for (unsigned i = 0; i < stream->nr_groups; i++) {
++		unsigned group_idx = msm_perfcntr_group_idx(stream, i);
++		unsigned base = msm_perfcntr_counter_base(stream, group_idx);
++
++		const struct msm_perfcntr_group *group =
++			&gpu->perfcntr_groups[group_idx];
++
++		struct msm_perfcntr_group_state *group_state =
++			gpu->perfcntrs->groups[group_idx];
++
++		unsigned nr = group_state->allocated_counters;
++		for (unsigned j = 0; j < nr; j++) {
++			const struct msm_perfcntr_counter *counter =
++				&group->counters[j + base];
++			uint64_t val = gpu_read64(gpu, counter->counter_reg_lo);
++			sample_write_u64(stream, &head, val);
++		}
++	}
++
++	smp_store_release(&stream->fifo.head, head);
++	wake_up_all(&stream->poll_wq);
++}
++
++static enum hrtimer_restart
++sample_timer(struct hrtimer *hrtimer)
++{
++	struct msm_perfcntr_stream *stream =
++		container_of(hrtimer, typeof(*stream), sample_timer);
++
++	kthread_queue_work(stream->gpu->worker, &stream->sample_work);
++
++	hrtimer_forward_now(hrtimer, ns_to_ktime(stream->sample_period_ns));
++
++	return HRTIMER_RESTART;
++}
++
++static int
++get_group_idx(struct msm_gpu *gpu, const char *name, size_t len)
++{
++	for (unsigned i = 0; i < gpu->num_perfcntr_groups; i++) {
++		const struct msm_perfcntr_group *group =
++			&gpu->perfcntr_groups[i];
++		if (!strncmp(group->name, name, len))
++			return i;
++	}
++
++	return -1;
++}
++
++static int
++get_available_counters(struct msm_gpu *gpu, int group_idx, uint32_t flags)
++{
++	struct msm_perfcntr_state *perfcntrs = gpu->perfcntrs;
++
++	/*
++	 * For local counter reservation, anything that is not used by
++	 * global perfcntr stream is available:
++	 */
++	if (!(flags & MSM_PERFCNTR_STREAM)) {
++		return gpu->perfcntr_groups[group_idx].num_counters -
++			perfcntrs->groups[group_idx]->allocated_counters;
++	}
++
++	/*
++	 * For global counter collection, anything that is not reserved by
++	 * one or more contexts is available:
++	 */
++	guard(mutex)(&gpu->dev->filelist_mutex);
++
++	unsigned reserved_counters = 0;
++	struct drm_file *file;
++
++	list_for_each_entry (file, &gpu->dev->filelist, lhead) {
++		struct msm_context *ctx = file->driver_priv;
++
++		if (!ctx || !ctx->perfctx)
++			continue;
++
++		unsigned n = ctx->perfctx->reserved_counters[group_idx];
++		reserved_counters = max(reserved_counters, n);
++	}
++
++	return gpu->perfcntr_groups[group_idx].num_counters - reserved_counters;
++}
++
++int
++msm_ioctl_perfcntr_config(struct drm_device *dev, void *data, struct drm_file *file)
++{
++	struct msm_drm_private *priv = dev->dev_private;
++	const struct drm_msm_perfcntr_config *args = data;
++	struct msm_context *ctx = file->driver_priv;
++	struct msm_gpu *gpu = priv->gpu;
++	int stream_fd = 0;
++
++	if (!gpu || !gpu->num_perfcntr_groups)
++		return -ENXIO;
++
++	struct msm_perfcntr_state *perfcntrs = gpu->perfcntrs;
++
++	/*
++	 * Validate args that don't require locks/power first:
++	 */
++
++	if (args->flags & ~MSM_PERFCNTR_FLAGS)
++		return UERR(EINVAL, dev, "invalid flags");
++
++	if (args->nr_groups && !args->group_stride)
++		return UERR(EINVAL, dev, "invalid group_stride");
++
++	if (args->flags & MSM_PERFCNTR_STREAM) {
++		if (!perfmon_capable())
++			return UERR(EPERM, dev, "invalid permissions");
++		if (!args->nr_groups)
++			return UERR(EINVAL, dev, "invalid nr_groups");
++		if (!args->period)
++			return UERR(EINVAL, dev, "invalid sampling period");
++	} else {
++		if (args->period)
++			return UERR(EINVAL, dev, "sampling period not allowed");
++		if (args->bufsz_shift)
++			return UERR(EINVAL, dev, "sample buf size not allowed");
++	}
++
++	if (args->nr_groups && !args->groups)
++		return UERR(EINVAL, dev, "no groups");
++
++	/*
++	 * To avoid iterating over the groups multiple times, allocate and setup
++	 * both a ctx and global stream object.  Only one of the two will be
++	 * kept in the end.
++	 */
++
++	struct msm_perfcntr_context_state *perfctx __free(kfree) = kzalloc(
++		struct_size(perfctx, reserved_counters, gpu->num_perfcntr_groups),
++		GFP_KERNEL);
++	if (!perfctx)
++		return -ENOMEM;
++
++	struct msm_perfcntr_stream *stream __free(kfree) =
++			kzalloc(sizeof(*stream), GFP_KERNEL);
++	if (!stream)
++		return -ENOMEM;
++
++	uint32_t *group_idx __free(kfree) =
++		kcalloc(args->nr_groups, sizeof(uint32_t), GFP_KERNEL);
++	if (!group_idx)
++		return -ENOMEM;
++
++	stream->gpu = gpu;
++	stream->sample_period_ns = args->period;
++	stream->nr_groups = args->nr_groups;
++	stream->fifo_size = 1 << args->bufsz_shift;
++
++	mutex_init(&stream->read_lock);
++
++	guard(pm_runtime_active_auto)(&gpu->pdev->dev);
++	guard(mutex)(&gpu->perfcntr_lock);
++
++	if (args->flags & MSM_PERFCNTR_STREAM) {
++		if (perfcntrs->stream)
++			return UERR(EBUSY, dev, "perfcntr stream already open");
++	}
++
++	size_t bufsz = 16;  /* header size includes seqno and 64b timestamp: */
++	int ret = 0;
++
++	for (unsigned i = 0; i < args->nr_groups; i++) {
++		struct drm_msm_perfcntr_group g = {0};
++		void __user *userptr =
++			u64_to_user_ptr(args->groups + (i * args->group_stride));
++
++		if (copy_from_user(&g, userptr, args->group_stride))
++			return -EFAULT;
++
++		if (g.pad)
++			return UERR(EINVAL, dev, "groups[%d]: invalid pad", i);
++
++		int idx = get_group_idx(gpu, g.group_name, sizeof(g.group_name));
++
++		if (idx < 0)
++			return UERR(EINVAL, dev, "groups[%d]: unknown group", i);
++
++		if (g.nr_countables > gpu->perfcntr_groups[idx].num_counters)
++			return UERR(EINVAL, dev, "groups[%d]: too many counters", i);
++
++		if (args->flags & MSM_PERFCNTR_STREAM) {
++			if (g.nr_countables && !g.countables)
++				return UERR(EINVAL, dev, "groups[%d]: no countables", i);
++		} else {
++			if (g.countables)
++				return UERR(EINVAL, dev, "groups[%d]: countables should be NULL", i);
++		}
++
++		int avail_counters = get_available_counters(gpu, idx, args->flags);
++		if (g.nr_countables > avail_counters) {
++			/*
++			 * Defer error return until we process all groups, in
++			 * case there are other E2BIG groups:
++			 */
++			ret = UERR(E2BIG, dev, "groups[%d]: too few counters available", i);
++
++			if (args->flags & MSM_PERFCNTR_UPDATE) {
++				/* Let userspace know how many counters are actually avail: */
++				g.nr_countables = avail_counters;
++				if (copy_to_user(userptr, &g, args->group_stride))
++					return -EFAULT;
++			}
++		}
++
++		group_idx[i] = idx;
++		perfctx->reserved_counters[idx] = g.nr_countables;
++
++		if (args->flags & MSM_PERFCNTR_STREAM) {
++			perfcntrs->groups[idx]->allocated_counters = g.nr_countables;
++
++			size_t sz = sizeof(uint32_t) * g.nr_countables;
++			void __user *userptr = u64_to_user_ptr(g.countables);
++
++			if (copy_from_user(perfcntrs->groups[idx]->countables, userptr, sz))
++				return -EFAULT;
++
++			/* Samples are 64b per countable: */
++			bufsz += 2 * sz;
++		}
++	}
++
++	if (ret)
++		return ret;
++
++	if (args->flags & MSM_PERFCNTR_STREAM) {
++		/*
++		 * Validate requested buffer size is large enough for at least
++		 * a single sample period.
++		 *
++		 * Note the circ_buf implementation needs to be 1 byte larger
++		 * than max it can hold (see CIRC_SPACE()).
++		 */
++		if (bufsz >= stream->fifo_size)
++			return UERR(ETOOSMALL, dev, "required buffer size: %zu", bufsz);
++
++		stream->period_size = bufsz;
++
++		void *buf __free(kfree) =
++			kmalloc(1 << args->bufsz_shift, GFP_KERNEL);
++		if (!buf)
++			return -ENOMEM;
++
++		stream_fd = anon_inode_getfd("[msm_perfcntrs]", &stream_fops, stream, 0);
++		if (stream_fd < 0)
++			return stream_fd;
++
++		INIT_WORK(&stream->sel_work, sel_worker);
++		kthread_init_work(&stream->sample_work, sample_worker);
++		init_waitqueue_head(&stream->poll_wq);
++		hrtimer_setup(&stream->sample_timer, sample_timer,
++			      CLOCK_MONOTONIC, HRTIMER_MODE_REL);
++
++		stream->sel_fence = ++perfcntrs->sel_seqno;
++		stream->group_idx = no_free_ptr(group_idx);
++		stream->fifo.buf = no_free_ptr(buf);
++		perfcntrs->stream = no_free_ptr(stream);
++
++		msm_perfcntr_resume_locked(perfcntrs->stream);
++	} else {
++		kfree(ctx->perfctx);
++		ctx->perfctx = no_free_ptr(perfctx);
++	}
++
++	return stream_fd;
++}
++
+ /**
+  * msm_perfcntr_group_idx - map idx of perfcntr group to group_idx
+  * @stream: The global perfcntr stream
+diff --git a/drivers/gpu/drm/msm/msm_perfcntr.h b/drivers/gpu/drm/msm/msm_perfcntr.h
+index 14506bc37d05..198856b18445 100644
+--- a/drivers/gpu/drm/msm/msm_perfcntr.h
++++ b/drivers/gpu/drm/msm/msm_perfcntr.h
+@@ -7,6 +7,11 @@
+ #define __MSM_PERFCNTR_H__
+ 
+ #include "linux/array_size.h"
++#include "linux/circ_buf.h"
++#include "linux/hrtimer.h"
++#include "linux/kthread.h"
++#include "linux/wait.h"
++#include "linux/workqueue.h"
+ 
+ #include "adreno_common.xml.h"
+ 
+@@ -42,12 +47,49 @@ struct msm_perfcntr_stream {
+ 	/** @gpu: Back-link to the GPU */
+ 	struct msm_gpu *gpu;
+ 
++	/** @sample_timer: Timer to sample counters */
++	struct hrtimer sample_timer;
++
++	/** @poll_wq: Wait queue for waiting for OA data to be available */
++	wait_queue_head_t poll_wq;
++
++	/** @sample_period_ns: Sampling period */
++	uint64_t sample_period_ns;
++
+ 	/** @nr_groups: # of counter groups with enabled counters */
+ 	uint32_t nr_groups;
+ 
++	/** @seqno: counter for collected samples */
++	uint32_t seqno;
++
+ 	/** @sel_fence: Fence for SEL reg programming  */
+ 	uint32_t sel_fence;
+ 
++	/**
++	 * @sel_work: Worker for SEL reg programming
++	 *
++	 * Initial SEL reg programming (as opposed to restoring the SEL
++	 * regs on runpm resume) must run on the same ordered wq as is
++	 * used by drm_sched, to serialize it with GEM_SUBMITs written
++	 * into the same ringbuffer.
++	 */
++	struct work_struct sel_work;
++
++	/**
++	 * @sample_work: Worker for collecting samples
++	 */
++	struct kthread_work sample_work;
++
++	/**
++	 * @read_lock:
++	 *
++	 * Fifo access is synchronied on the producer side by virtue
++	 * of there being a single timer collecting samples and writing
++	 * into the fifo.  It is protected on the consumer side by
++	 * @read_lock.
++	 */
++	struct mutex read_lock;
++
+ 	/**
+ 	 * @group_idx: array of nr_groups
+ 	 *
+@@ -56,6 +98,15 @@ struct msm_perfcntr_stream {
+ 	 * the ioctl call that setup the stream
+ 	 */
+ 	uint32_t *group_idx;
++
++	/** @fifo: circular buffer for samples */
++	struct circ_buf fifo;
++
++	/** @fifo_size: circular buffer size */
++	size_t fifo_size;
++
++	/** @period_size: size of data for single sampling period */
++	size_t period_size;
+ };
+ 
+ uint32_t msm_perfcntr_group_idx(const struct msm_perfcntr_stream *stream, uint32_t n);
+diff --git a/include/uapi/drm/msm_drm.h b/include/uapi/drm/msm_drm.h
+index b99098792371..289cf228b873 100644
+--- a/include/uapi/drm/msm_drm.h
++++ b/include/uapi/drm/msm_drm.h
+@@ -491,6 +491,52 @@ struct drm_msm_submitqueue_query {
+ 	__u32 pad;
+ };
+ 
++#define MSM_PERFCNTR_STREAM	0x00000001
++#define MSM_PERFCNTR_UPDATE	0x00000002
++#define MSM_PERFCNTR_FLAGS	( \
++		MSM_PERFCNTR_STREAM | \
++		MSM_PERFCNTR_UPDATE | \
++		0)
++
++struct drm_msm_perfcntr_group {
++	char group_name[16];
++	__u32 nr_countables;
++	__u32 pad;
++	__u64 countables;  /* pointer to an array of nr_countables u32 */
++};
++
++/*
++ * Note, for MSM_PERFCNTR_STREAM, the ioctl returns an fd to read recorded
++ * counters.  This only works because the ioctl is DRM_IOW(), if we returned
++ * a out param in the ioctl struct the copy_to_user() (in drm_ioctl())
++ * could fault, causing us to leak the fd.
++ *
++ * If the ioctl returns with error E2BIG, that means more counters/countables
++ * are requested than are currently available.  If MSM_PERFCNTR_UPDATE flag
++ * is set, drm_msm_perfcntr_group::nr_countables will be updated to return
++ * the actual # of counters available.
++ *
++ * The data read from the has the following format for each sampling period:
++ *
++ *     uint64_t timestamp;  // CP_ALWAYS_ON_COUNTER captured at sample time
++ *     uint32_t seqno;      // increments by 1 each period, reset to 0 on discontinuity
++ *     uint32_t mbz;        // pad out counters to 64b
++ *     struct {
++ *        uint64_t counter[nr_countables];
++ *     } groups[nr_groups];
++ *
++ * The ordering of groups and counters matches the order in PERFCNTR_CONFIG
++ * ioctl.
++ */
++struct drm_msm_perfcntr_config {
++	__u32 flags;         /* bitmask of MSM_PERFCNTR_x */
++	__u32 nr_groups;     /* # of entries in groups array */
++	__u64 groups;        /* pointer to array of drm_msm_perfcntr_group */
++	__u64 period;        /* sampling period in ns */
++	__u32 bufsz_shift;   /* sample buffer size in bytes is 1<<bufsz_shift */
++	__u32 group_stride;  /* sizeof(struct drm_msm_perfcntr_group) */
++};
++
+ #define DRM_MSM_GET_PARAM              0x00
+ #define DRM_MSM_SET_PARAM              0x01
+ #define DRM_MSM_GEM_NEW                0x02
+@@ -507,6 +553,7 @@ struct drm_msm_submitqueue_query {
+ #define DRM_MSM_SUBMITQUEUE_CLOSE      0x0B
+ #define DRM_MSM_SUBMITQUEUE_QUERY      0x0C
+ #define DRM_MSM_VM_BIND                0x0D
++#define DRM_MSM_PERFCNTR_CONFIG        0x0E
+ 
+ #define DRM_IOCTL_MSM_GET_PARAM        DRM_IOWR(DRM_COMMAND_BASE + DRM_MSM_GET_PARAM, struct drm_msm_param)
+ #define DRM_IOCTL_MSM_SET_PARAM        DRM_IOW (DRM_COMMAND_BASE + DRM_MSM_SET_PARAM, struct drm_msm_param)
+@@ -521,6 +568,7 @@ struct drm_msm_submitqueue_query {
+ #define DRM_IOCTL_MSM_SUBMITQUEUE_CLOSE  DRM_IOW (DRM_COMMAND_BASE + DRM_MSM_SUBMITQUEUE_CLOSE, __u32)
+ #define DRM_IOCTL_MSM_SUBMITQUEUE_QUERY  DRM_IOW (DRM_COMMAND_BASE + DRM_MSM_SUBMITQUEUE_QUERY, struct drm_msm_submitqueue_query)
+ #define DRM_IOCTL_MSM_VM_BIND          DRM_IOWR(DRM_COMMAND_BASE + DRM_MSM_VM_BIND, struct drm_msm_vm_bind)
++#define DRM_IOCTL_MSM_PERFCNTR_CONFIG  DRM_IOW (DRM_COMMAND_BASE + DRM_MSM_PERFCNTR_CONFIG, struct drm_msm_perfcntr_config)
+ 
+ #if defined(__cplusplus)
+ }
 -- 
 2.54.0
 
