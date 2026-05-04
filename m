@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 911C0CD342C
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 10:45:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 611D7FF885A
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 10:45:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2B3C10E62D;
-	Mon,  4 May 2026 10:45:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD26D10E3B0;
+	Mon,  4 May 2026 10:45:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="ZFclFM8Z";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="SYxX8vGd";
 	dkim-atps=neutral
 Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF36E10E634
- for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 10:45:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 87F3C10E63F;
+ Mon,  4 May 2026 10:45:33 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id D2CED4E42BBC;
- Mon,  4 May 2026 10:45:27 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 6FC2E4E42BBC;
+ Mon,  4 May 2026 10:45:32 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id A66D85FD5F;
- Mon,  4 May 2026 10:45:27 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 43BC15FD5F;
+ Mon,  4 May 2026 10:45:32 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id D46B211AD25EC; 
- Mon,  4 May 2026 12:45:22 +0200 (CEST)
+ with ESMTPSA id AB0D411AD2689; 
+ Mon,  4 May 2026 12:45:26 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1777891526; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1777891530; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=tH42HPB39h3kBzbWcxFZWiKUrfGB04wlh6MH8DO2oSg=;
- b=ZFclFM8ZVj5OcXkOAEkp5XGwRnVuNqRA2Xtu8JR/kdU/M8oqWrz0ZkcF29QiCZcdEw1PwF
- Nf4IZGxdbzLWL3DsPJKitGzeHKjyYSfXBTXlzwHTmWiDd0JrUV/78O+rJ47zI7j26y0qmi
- 3sagPuskLsrnMgVWWgcsE8poS0nl/KVU45gkXFad1FKrzuISUsM8KNwAdl/vrtCH5JGRaH
- BEqge73vrjMcJMqd06QHwNnZcRLdHzoTxXiyqHaSB8kwPedsdjsKuhDw5wAvQ1stQ2+t4a
- TvvYl0Ctafh7lZLobVCaSk2s47RwyE3btYJOw+TX2oTBe5aD3HA0XPU6zoR19A==
+ bh=PvxOn44HUNqP2XkLqz8KBgE9MvnmuHtx98MyEiUPfeI=;
+ b=SYxX8vGd3o9wNpfvXFQd4FWz2tCYF7bulAhbeFm07B1WC8f3HANvBhhED5gVtzjCF1M5y2
+ 4oFLeUUQ1mmfWreEJj9pMrYtMbuSu5nYTiw6RKnY6hONcczzCRVDghRGQfgMsvwH6nYW5/
+ sLzIBCgcnouuNCg+vXYAApvXn3T6i1uEzDOPFRNGXebBg9QClyicCsWXNUecF/UJr8FNwO
+ wlfx5FnWxMUKmqKzRdv2De80OZjcSjz9UFbOmVkjFLkN9dJ6DR88e+yBwbPAPialg981x0
+ qM7BTPJKQnqQjZNiFimQ/VAAIkAufMLo53fWS3aHqCqeguaKHNlTfDtiEKoT7w==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Mon, 04 May 2026 12:45:05 +0200
-Subject: [PATCH v4 02/11] drm/bridge: add of_drm_get_bridge_by_endpoint()
+Date: Mon, 04 May 2026 12:45:06 +0200
+Subject: [PATCH v4 03/11] drm/msm/hdmi: switch to
+ of_drm_get_bridge_by_endpoint()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260504-drm-bridge-alloc-getput-panel_or_bridge-v4-2-b578c3daaf10@bootlin.com>
+Message-Id: <20260504-drm-bridge-alloc-getput-panel_or_bridge-v4-3-b578c3daaf10@bootlin.com>
 References: <20260504-drm-bridge-alloc-getput-panel_or_bridge-v4-0-b578c3daaf10@bootlin.com>
 In-Reply-To: <20260504-drm-bridge-alloc-getput-panel_or_bridge-v4-0-b578c3daaf10@bootlin.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -62,8 +63,7 @@ Cc: Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
  linux-arm-kernel@lists.infradead.org, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
 X-Mailer: b4 0.15.2
 X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -81,121 +81,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_of_find_panel_or_bridge() is widely used, but many callers pass NULL
-into the @panel or the @bridge arguments, thus making a very partial usage
-of this rather complex function.
+This driver calls drm_of_find_panel_or_bridge() with a NULL pointer in the
+@panel parameter, thus using a reduced feature set of that function.
+Replace this call with the simpler of_drm_get_bridge_by_endpoint().
 
-Besides, the bridge returned in @bridge is not refcounted, thus making this
-API unsafe when DRM bridge hotplug will be introduced.
+Since of_drm_get_bridge_by_endpoint() increases the refcount of the
+returned bridge, ensure it is put on removal.
 
-Solve both issues for the cases of calls to drm_of_find_panel_or_bridge()
-with a NULL @panel pointer by adding a new function that only looks for
-bridges (and is thus much simpler) and increments the refcount of the
-returned bridge.
-
-The new function is identical to drm_of_find_panel_or_bridge() except it:
-
- - handles bridge refcounting: uses of_drm_find_and_get_bridge() instead of
-   of_drm_find_bridge() internally to return a refcounted bridge
- - is simpler to use: just takes no @panel parameter, returns the pointer
-   in the return value instead of a double pointer argument
- - has a simpler implementation: it is equal to
-   drm_of_find_panel_or_bridge() after removing the code that becomes dead
-   when @panel == NULL
-
-Also add this function to drm_bridge.c and not drm_of.c because it returns
-bridges only.
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+
 ---
+
 Changes in v4:
-- update function declaration in non-OF case
+- ensure next_bridge is put on later probe failures
 
-Changes in v2:
-- return the bridge in the return value, not a double pointer
+Changes in v3:
+- fix ERR_PTR deref when -ENODEV is returned
 ---
- drivers/gpu/drm/drm_bridge.c | 41 +++++++++++++++++++++++++++++++++++++++++
- include/drm/drm_bridge.h     |  7 +++++++
- 2 files changed, 48 insertions(+)
+ drivers/gpu/drm/msm/hdmi/hdmi.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-index 6fb71de6d22a..01f9e0426648 100644
---- a/drivers/gpu/drm/drm_bridge.c
-+++ b/drivers/gpu/drm/drm_bridge.c
-@@ -1582,6 +1582,47 @@ struct drm_bridge *of_drm_find_bridge(struct device_node *np)
- 	return bridge;
- }
- EXPORT_SYMBOL(of_drm_find_bridge);
-+
-+/**
-+ * of_drm_get_bridge_by_endpoint - return DRM bridge connected to a port/endpoint
-+ * @np: device tree node containing output ports
-+ * @port: port in the device tree node, or -1 for the first port found
-+ * @endpoint: endpoint in the device tree node, or -1 for the first endpoint found
-+ *
-+ * Given a DT node's port and endpoint number, find the connected node and
-+ * return the associated drm_bridge device.
-+ *
-+ * The refcount of the returned bridge is incremented. Use drm_bridge_put()
-+ * when done with it.
-+ *
-+ * Returns a pointer to the connected drm_bridge, or a negative error on failure
-+ */
-+struct drm_bridge *of_drm_get_bridge_by_endpoint(const struct device_node *np,
-+						 int port, int endpoint)
-+{
-+	struct drm_bridge *bridge;
-+
-+	/*
-+	 * of_graph_get_remote_node() produces a noisy error message if port
-+	 * node isn't found and the absence of the port is a legit case here,
-+	 * so at first we silently check whether graph presents in the
-+	 * device-tree node.
-+	 */
-+	if (!of_graph_is_present(np))
-+		return ERR_PTR(-ENODEV);
-+
-+	struct device_node *remote __free(device_node) =
-+		of_graph_get_remote_node(np, port, endpoint);
-+	if (!remote)
-+		return ERR_PTR(-ENODEV);
-+
-+	bridge = of_drm_find_and_get_bridge(remote);
-+	if (!bridge)
-+		return ERR_PTR(-EPROBE_DEFER);
-+
-+	return bridge;
-+}
-+EXPORT_SYMBOL_GPL(of_drm_get_bridge_by_endpoint);
- #endif
+diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/hdmi.c
+index d9491aac1a89..57e85ac38059 100644
+--- a/drivers/gpu/drm/msm/hdmi/hdmi.c
++++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
+@@ -285,9 +285,14 @@ static int msm_hdmi_dev_probe(struct platform_device *pdev)
+ 	spin_lock_init(&hdmi->reg_lock);
+ 	mutex_init(&hdmi->state_mutex);
  
- /**
-diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-index d6cd0f5af045..31e11a360c42 100644
---- a/include/drm/drm_bridge.h
-+++ b/include/drm/drm_bridge.h
-@@ -1327,6 +1327,8 @@ int drm_bridge_attach(struct drm_encoder *encoder, struct drm_bridge *bridge,
- #ifdef CONFIG_OF
- struct drm_bridge *of_drm_find_and_get_bridge(struct device_node *np);
- struct drm_bridge *of_drm_find_bridge(struct device_node *np);
-+struct drm_bridge *of_drm_get_bridge_by_endpoint(const struct device_node *np,
-+						 int port, int endpoint);
- #else
- static inline struct drm_bridge *of_drm_find_and_get_bridge(struct device_node *np)
- {
-@@ -1336,6 +1338,11 @@ static inline struct drm_bridge *of_drm_find_bridge(struct device_node *np)
- {
- 	return NULL;
- }
-+static inline struct drm_bridge *of_drm_get_bridge_by_endpoint(const struct device_node *np,
-+							       int port, int endpoint)
-+{
-+	return -ENODEV;
-+}
- #endif
+-	ret = drm_of_find_panel_or_bridge(dev_of_node(dev), 1, 0, NULL, &hdmi->next_bridge);
+-	if (ret && ret != -ENODEV)
+-		return ret;
++	struct drm_bridge *next_bridge __free(drm_bridge_put) =
++		of_drm_get_bridge_by_endpoint(dev_of_node(dev), 1, 0);
++	if (IS_ERR(next_bridge)) {
++		if (PTR_ERR(next_bridge) == -ENODEV)
++			next_bridge = NULL;
++		else
++			return PTR_ERR(next_bridge);
++	}
  
- static inline bool drm_bridge_is_last(struct drm_bridge *bridge)
+ 	hdmi->mmio = msm_ioremap(pdev, "core_physical");
+ 	if (IS_ERR(hdmi->mmio))
+@@ -367,6 +372,8 @@ static int msm_hdmi_dev_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		goto err_put_phy;
+ 
++	hdmi->next_bridge = no_free_ptr(next_bridge);
++
+ 	return 0;
+ 
+ err_put_phy:
+@@ -381,6 +388,7 @@ static void msm_hdmi_dev_remove(struct platform_device *pdev)
+ 	component_del(&pdev->dev, &msm_hdmi_ops);
+ 
+ 	msm_hdmi_put_phy(hdmi);
++	drm_bridge_put(hdmi->next_bridge);
+ }
+ 
+ static int msm_hdmi_runtime_suspend(struct device *dev)
 
 -- 
 2.53.0
