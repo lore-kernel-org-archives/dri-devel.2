@@ -4,45 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3D5BCD13DA
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 07:12:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C14BBCD3439
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 07:12:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F07010E988;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C2A310E985;
 	Tue,  5 May 2026 07:12:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="Asu1Po5B";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="Mv47BYqL";
 	dkim-atps=neutral
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DEC810E7CD;
- Mon,  4 May 2026 17:38:24 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org
- [IPv6:2001:67c:2050:b231:465::2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4g8TQ44bTjz9vH6;
- Mon,  4 May 2026 19:38:20 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1777916300;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=lMkI+6wKRH3GF4cNClZ9jGNJlW1S57uWnAf5Qy8LaKo=;
- b=Asu1Po5BjRWsgjUVSRV6OfePzutfGMAVjRGBWDfRuHRX+QRCNTb1eaNiRDyvKAi+2QIDg9
- PLyPT3nTw8oPyMH2WRkLev/JP6KXt+I/yKrC4rsa3HxeMJoPkCooXni60ZqiXFb6XoaWwr
- tOvmso2+P5WD6INu+Q4TOQrHRJX8aJAF7CdipLn+v4WBtTljNEbGArZgTHSPQN+D0wF+hJ
- 1bZYEH1o09VdMD1gk3XJCkNpYOGPu5dplHV+Q+HSOKNfSTpGWgymxdiO/NwwiBl51DqaZs
- zlLaQiu0T26cNrcpKwwWsa6NE1v0CIsM+rkwldsg2lR/Xhy13pN6ms6gf8aPKw==
-From: Alexander Stein <alexander.stein@mailbox.org>
-To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: amdgpu: possible regression since 7.0
-Date: Mon, 04 May 2026 19:37:35 +0200
-Message-ID: <zUDAUERhT-Sr0bbeAVqwNQ@mailbox.org>
+X-Greylist: delayed 389 seconds by postgrey-1.36 at gabe;
+ Mon, 04 May 2026 07:01:39 UTC
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82F6810E38A
+ for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 07:01:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Gk
+ yJeK0xh7ft8l0KrjIr5L7TmwFz7SabyNUN7O8c/TM=; b=Mv47BYqLBTe08xKFOb
+ sclDIReMVsNlzMuxuwQIXeKPPlaFoMMKxRC+kmPlE79DXuLqbph6XYt4mySRkFm0
+ 4yVqnDBCAJxXGmaQKG9vfpMO1+rAurSIHZ782kW0dRQIXOjO26HxuJJeEyHLnxlP
+ PKZh7tj7b/h8gnUovfe20wkn4=
+Received: from wmy.localdomain (unknown [])
+ by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id
+ _____wD3GtGyQvhp0AomDQ--.49192S2; 
+ Mon, 04 May 2026 14:54:54 +0800 (CST)
+From: w15303746062@163.com
+To: airlied@redhat.com
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ x86@kernel.org, linux-pci@vger.kernel.org,
+ Mingyu Wang <25181214217@stu.xidian.edu.cn>
+Subject: [PATCH] char: agp: amd64 - fix null-ptr-deref in amd64_fetch_size and
+ related functions
+Date: Mon,  4 May 2026 14:54:41 +0800
+Message-Id: <20260504065441.99033-1-w15303746062@163.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
-X-MBO-RS-ID: 10813314e579eb03f68
-X-MBO-RS-META: jy7mbjkw5zqs6htq74swptkyaerj5w7r
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: _____wD3GtGyQvhp0AomDQ--.49192S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxtr1UCw1UJFyrZF1fur1UAwb_yoW7GrWxpF
+ 4fZFZxtr4UGr4agF40qa1DCrn5ArZ7XFy5JrZrCw1F9a1vyry8tr1ftFy5ZrWfCFWDXF43
+ Can8tF4kGFyqyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jFg4fUUUUU=
+X-Originating-IP: [113.200.174.100]
+X-CM-SenderInfo: jzrvjiatxuliiws6il2tof0z/xtbDAB5YPGn4Qr7DNwAA3j
 X-Mailman-Approved-At: Tue, 05 May 2026 07:12:26 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,134 +62,158 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+From: Mingyu Wang <25181214217@stu.xidian.edu.cn>
 
-I'm running an Arch 7.0.3 kernel and I'm experiencing various lockups of the
-GPU. System still runs and I can shutdown using another VT.
-I haven't experienced that on a 6.19.x kernel before.
-If you need more information I can try, but it occurs more or less randomly.
-Below is the kernel log. My GPU is
-03:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI] Navi 
-48 [Radeon RX 9070/9070 XT/9070 GRE] (rev c0)
+A NULL pointer dereference vulnerability was identified in the AMD64 AGP
+driver (amd64-agp) during driver initialization and aperture size fetching.
 
-Best regards,
-Alexander
+When the `amd64_agp` module is loaded on a system without a physical AMD
+Northbridge (e.g., in a QEMU/KVM virtualized environment with a simulated
+AMD 8151 AGP bridge), the underlying hardware query `node_to_amd_nb(0)`
+returns NULL.
 
-amdgpu 0000:03:00.0: [drm] *ERROR* [CRTC:416:crtc-0] flip_done timed out
-amdgpu 0000:03:00.0: [drm] *ERROR* flip_done timed out
-amdgpu 0000:03:00.0: [drm] *ERROR* [CRTC:416:crtc-0] commit wait timed out
-amdgpu 0000:03:00.0: [drm] *ERROR* flip_done timed out
-amdgpu 0000:03:00.0: [drm] *ERROR* [PLANE:413:plane-7] commit wait timed out
-------------[ cut here ]------------
-acrtc->event
-WARNING: drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:9572 at 
-amdgpu_dm_atomic_commit_tail+0x38cf/0x3930 [amdgpu], CPU#3: systemd-logind/
-1063
-Modules linked in: cmac nls_utf8 cifs nls_ucs2_utils rdma_cm iw_cm ib_cm 
-ib_core cifs_md4 dns_resolver netfs snd_seq_dummy snd_hrtimer snd_seq vfat fat 
-snd_hda_codec_alc882 snd_hda_codec_realtek_lib snd_hda_codec_generic 
-snd_hda_codec_atihdmi snd_hda_codec_hdmi snd_hda_intel btusb mt7921e uvcvideo 
-snd_hda_codec btmtk mt7921_common snd_usb_audio videobuf2_vmalloc btrtl 
-snd_hda_core uvc mt792x_lib btbcm snd_usbmidi_lib videobuf2_memops 
-snd_intel_dspcfg mt76_connac_lib btintel videobuf2_v4l2 snd_ump amd_atl 
-snd_intel_sdw_acpi snd_rawmidi intel_rapl_msr videobuf2_common r8169 mt76 
-intel_rapl_common snd_hwdep snd_seq_device bluetooth videodev spd5118 joydev 
-mousedev realtek snd_pcm mdio_devres mac80211 snd_timer mc libphy eeepc_wmi 
-snd asus_wmi mdio_bus libarc4 ghash_clmulni_intel soundcore sp5100_tco 
-aesni_intel platform_profile sparse_keymap wmi_bmof rapl pcspkr i2c_piix4 
-gpio_amdpt k10temp i2c_smbus gpio_generic mac_hid cfg80211 rfkill 
-vboxnetflt(OE) vboxnetadp(OE) vboxdrv(OE) kvm_amd ccp kvm dm_mod
- irqbypass i2c_dev crypto_user nfnetlink uas usb_storage amdgpu amdxcp 
-i2c_algo_bit drm_ttm_helper ttm drm_exec drm_panel_backlight_quirks gpu_sched 
-nvme drm_suballoc_helper drm_buddy nvme_core drm_display_helper nvme_keyring 
-video nvme_auth cec hkdf wmi
-CPU: 3 UID: 0 PID: 1063 Comm: systemd-logind Tainted: G           OE       
-7.0.3-arch1-1 #1 PREEMPT(full)  653fa807272d34162f0f7604ba64e0a2aa402e05
-Tainted: [O]=OOT_MODULE, [E]=UNSIGNED_MODULE
-Hardware name: ASUS System Product Name/TUF GAMING B850M-PLUS WIFI, BIOS 1644 
-03/10/2026
-RIP: 0010:amdgpu_dm_atomic_commit_tail+0x38cf/0x3930 [amdgpu]
-Code: 8d 84 24 20 5b 04 00 c6 85 18 fe ff ff 00 48 89 85 20 fe ff ff e9 b0 cd ff ff 
-0f 0b 0f 0b e9 9f f7 ff ff 0f 0b e9 f2 cd ff ff <0f> 0b e9 b0 f7 ff ff 48 c7 85 18 
-fe ff ff 00 00 00 00 48 c7 85 e8
-RSP: 0018:ffffcf07c5537418 EFLAGS: 00010082
-RAX: 0000000000000001 RBX: 0000000000000296 RCX: ffff8e36d56c6118
-RDX: 0000000000000001 RSI: 0000000000000286 RDI: ffff8e36d7980178
-RBP: ffffcf07c5537688 R08: ffffcf07c553730c R09: 0000000000000000
-R10: 0000000000000000 R11: ffffcf07c553737c R12: ffff8e36d56c6118
-R13: ffff8e3c0f7c7800 R14: 0000000000000000 R15: ffff8e36d56c6000
-FS:  00007f77aa5488c0(0000) GS:ffff8e3e69b52000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000024c6052cc000 CR3: 0000000134fe5000 CR4: 0000000000f50ef0
-PKRU: 55555554
-Call Trace:
- <TASK>
- commit_tail+0xc1/0x150
- drm_atomic_helper_commit+0x13c/0x180
- drm_atomic_commit+0xb1/0xe0
- ? __pfx___drm_printfn_info+0x10/0x10
- drm_client_modeset_commit_atomic+0x1ec/0x230
- drm_client_modeset_commit_locked+0x58/0x160
- ? mod_memcg_lruvec_state+0xc5/0x1f0
- __drm_fb_helper_restore_fbdev_mode_unlocked.part.0+0x27/0x90
- drm_fb_helper_set_par+0x57/0x70
- fb_set_var+0x23c/0x430
- ? update_cfs_rq_load_avg+0x1a/0x240
- ? update_load_avg+0x73/0x210
- ? psi_group_change+0x10c/0x2c0
- ? set_next_entity+0xe7/0x270
- fbcon_blank+0x1f2/0x310
- do_unblank_screen+0xc8/0x1b0
- complete_change_console+0x54/0x120
- vt_ioctl+0xeca/0x1460
- ? security_capable+0x7d/0x1a0
- ? capable+0x32/0x60
- ? kernel_termios_to_user_termios+0x13/0x20
- ? tty_mode_ioctl+0x67a/0x6e0
- tty_ioctl+0xe4/0x980
- ? __seccomp_filter+0x42/0x5a0
- __x64_sys_ioctl+0x97/0xe0
- do_syscall_64+0x12b/0x15f0
- ? __x64_sys_ioctl+0x97/0xe0
- ? do_syscall_64+0x12b/0x15f0
- ? do_syscall_64+0x12b/0x15f0
- ? evdev_ioctl+0x6d/0xa0
- ? __x64_sys_ioctl+0x97/0xe0
- ? do_syscall_64+0x12b/0x15f0
- ? do_syscall_64+0x12b/0x15f0
- ? evdev_ioctl+0x6d/0xa0
- ? __x64_sys_ioctl+0x97/0xe0
- ? do_syscall_64+0x12b/0x15f0
- ? do_syscall_64+0x12b/0x15f0
- ? __x64_sys_close+0x3d/0x80
- ? do_syscall_64+0x12b/0x15f0
- ? __irq_exit_rcu+0x4c/0xf0
- entry_SYSCALL_64_after_hwframe+0x76/0x7e
-RIP: 0033:0x7f77a9d1604d
-Code: 04 25 28 00 00 00 48 89 45 c8 31 c0 48 8d 45 10 c7 45 b0 10 00 00 00 48 
-89 45 b8 48 8d 45 d0 48 89 45 c0 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 
-1a 48 8b 45 c8 64 48 2b 04 25 28 00 00 00
-RSP: 002b:00007fffe582da10 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 000000000000001b RCX: 00007f77a9d1604d
-RDX: 0000000000000001 RSI: 0000000000005605 RDI: 000000000000001b
-RBP: 00007fffe582da60 R08: 00000000ffffffff R09: 00007fffe582da40
-R10: 00000000ffffffff R11: 0000000000000246 R12: 000055ae5d6c6e80
-R13: 0000000000000006 R14: 0000000000000000 R15: 0000000000000000
- </TASK>
-amdgpu 0000:03:00.0: VM memory stats for proc (0) task (0) is non-zero when 
-fini
-amdgpu 0000:03:00.0: VM memory stats for proc Xorg(1111) task Xorg:cs0(1106) 
-is non-zero when fini
-amdgpu 0000:03:00.0: VM memory stats for proc (0) task (0) is non-zero when 
-fini
-amdgpu 0000:03:00.0: VM memory stats for proc (0) task (0) is non-zero when 
-fini
-amdgpu 0000:03:00.0: VM memory stats for proc (0) task (0) is non-zero when 
-fini
-amdgpu 0000:03:00.0: VM memory stats for proc (0) task (0) is non-zero when 
-fini
-amdgpu 0000:03:00.0: VM memory stats for proc (0) task (0) is non-zero when 
-fini
+In `amd64_fetch_size()`, the code previously attempted to unconditionally
+dereference the `misc` member of the returned pointer:
+    `dev = node_to_amd_nb(0)->misc;`
+
+Since `node_to_amd_nb(0)` can return NULL (either due to missing hardware
+or when CONFIG_AMD_NB is disabled), this direct dereference results in a
+General Protection Fault (GPF) and a subsequent kernel panic, as caught
+by KASAN.
+
+Fix this by introducing proper sanity checks. Before accessing the `misc`
+pointer, explicitly verify that the pointer returned by `node_to_amd_nb()`
+is not NULL.
+
+Furthermore, to prevent similar crashes, this patch sweeps the entire
+driver and applies the same safeguard to all other functions that iterate
+over or directly access the AMD Northbridge descriptors, including
+`amd_8151_configure()`, `amd64_cleanup()`, `cache_nbs()`, `uli_agp_init()`,
+and `nforce3_agp_init()`.
+
+Signed-off-by: Mingyu Wang <25181214217@stu.xidian.edu.cn>
+---
+ drivers/char/agp/amd64-agp.c | 50 ++++++++++++++++++++++++++++--------
+ 1 file changed, 40 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/char/agp/amd64-agp.c b/drivers/char/agp/amd64-agp.c
+index 2505df1f4e69..7bbadfc74ffe 100644
+--- a/drivers/char/agp/amd64-agp.c
++++ b/drivers/char/agp/amd64-agp.c
+@@ -121,14 +121,16 @@ static struct aper_size_info_32 amd64_aperture_sizes[7] =
+ static int amd64_fetch_size(void)
+ {
+ 	struct pci_dev *dev;
++	struct amd_northbridge *nb;
+ 	int i;
+ 	u32 temp;
+ 	struct aper_size_info_32 *values;
+ 
+-	dev = node_to_amd_nb(0)->misc;
+-	if (dev==NULL)
++	nb = node_to_amd_nb(0);
++	if (!nb || !nb->misc)
+ 		return 0;
+ 
++	dev = nb->misc;
+ 	pci_read_config_dword(dev, AMD64_GARTAPERTURECTL, &temp);
+ 	temp = (temp & 0xe);
+ 	values = A_SIZE_32(amd64_aperture_sizes);
+@@ -187,8 +189,12 @@ static int amd_8151_configure(void)
+ 
+ 	/* Configure AGP regs in each x86-64 host bridge. */
+ 	for (i = 0; i < amd_nb_num(); i++) {
+-		agp_bridge->gart_bus_addr =
+-			amd64_configure(node_to_amd_nb(i)->misc, gatt_bus);
++		struct amd_northbridge *nb = node_to_amd_nb(i);
++
++		if (!nb || !nb->misc)
++			continue;
++
++		agp_bridge->gart_bus_addr = amd64_configure(nb->misc, gatt_bus);
+ 	}
+ 	amd_flush_garts();
+ 	return 0;
+@@ -204,7 +210,13 @@ static void amd64_cleanup(void)
+ 		return;
+ 
+ 	for (i = 0; i < amd_nb_num(); i++) {
+-		struct pci_dev *dev = node_to_amd_nb(i)->misc;
++		struct amd_northbridge *nb = node_to_amd_nb(i);
++		struct pci_dev *dev;
++
++		if (!nb || !nb->misc)
++			continue;
++
++		dev = nb->misc;
+ 		/* disable gart translation */
+ 		pci_read_config_dword(dev, AMD64_GARTAPERTURECTL, &tmp);
+ 		tmp &= ~GARTEN;
+@@ -335,7 +347,13 @@ static int cache_nbs(struct pci_dev *pdev, u32 cap_ptr)
+ 
+ 	i = 0;
+ 	for (i = 0; i < amd_nb_num(); i++) {
+-		struct pci_dev *dev = node_to_amd_nb(i)->misc;
++		struct amd_northbridge *nb = node_to_amd_nb(i);
++		struct pci_dev *dev;
++
++		if (!nb || !nb->misc)
++			continue;
++
++		dev = nb->misc;
+ 		if (fix_northbridge(dev, pdev, cap_ptr) < 0) {
+ 			dev_err(&dev->dev, "no usable aperture found\n");
+ #ifdef __x86_64__
+@@ -391,6 +409,7 @@ static int uli_agp_init(struct pci_dev *pdev)
+ {
+ 	u32 httfea,baseaddr,enuscr;
+ 	struct pci_dev *dev1;
++	struct amd_northbridge *nb;
+ 	int i, ret;
+ 	unsigned size = amd64_fetch_size();
+ 
+@@ -411,9 +430,14 @@ static int uli_agp_init(struct pci_dev *pdev)
+ 		goto put;
+ 	}
+ 
++	nb = node_to_amd_nb(0);
++	if (!nb || !nb->misc) {
++		ret = -ENODEV;
++		goto put;
++	}
++
+ 	/* shadow x86-64 registers into ULi registers */
+-	pci_read_config_dword (node_to_amd_nb(0)->misc, AMD64_GARTAPERTUREBASE,
+-			       &httfea);
++	pci_read_config_dword(nb->misc, AMD64_GARTAPERTUREBASE, &httfea);
+ 
+ 	/* if x86-64 aperture base is beyond 4G, exit here */
+ 	if ((httfea & 0x7fff) >> (32 - 25)) {
+@@ -453,6 +477,7 @@ static int nforce3_agp_init(struct pci_dev *pdev)
+ {
+ 	u32 tmp, apbase, apbar, aplimit;
+ 	struct pci_dev *dev1;
++	struct amd_northbridge *nb;
+ 	int i, ret;
+ 	unsigned size = amd64_fetch_size();
+ 
+@@ -479,9 +504,14 @@ static int nforce3_agp_init(struct pci_dev *pdev)
+ 	tmp |= nforce3_sizes[i].size_value;
+ 	pci_write_config_dword(dev1, NVIDIA_X86_64_1_APSIZE, tmp);
+ 
++	nb = node_to_amd_nb(0);
++	if (!nb || !nb->misc) {
++		ret = -ENODEV;
++		goto put;
++	}
++
+ 	/* shadow x86-64 registers into NVIDIA registers */
+-	pci_read_config_dword (node_to_amd_nb(0)->misc, AMD64_GARTAPERTUREBASE,
+-			       &apbase);
++	pci_read_config_dword(nb->misc, AMD64_GARTAPERTUREBASE, &apbase);
+ 
+ 	/* if x86-64 aperture base is beyond 4G, exit here */
+ 	if ( (apbase & 0x7fff) >> (32 - 25) ) {
 -- 
-
+2.34.1
 
