@@ -4,47 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85F80CD3427
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 18:24:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F3E1CD342F
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 18:24:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D370210E768;
-	Mon,  4 May 2026 18:24:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D9B910E7EC;
+	Mon,  4 May 2026 18:24:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="gWNFkj09";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="dHOSERkt";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B05B110E768
- for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 18:24:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A54D10E768
+ for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 18:24:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1777919071;
- bh=QU7SL1QwNw5+61wyMBcr9whxuxJvm5FGKEXwj4K8srM=;
- h=From:Subject:Date:To:Cc:From;
- b=gWNFkj09J1eugOZKxCVENq5RK5mZXKvDRSMIv1m7ttiWTrIbLK//ad/ghL8XGKPOL
- egG8JdSHR0INOAol42yGxns8Qg6wK7lWUOl74yAZr77oKTWyBvVbJ+ZiAYJTUpxMO+
- YoBHkNdB7sQRHMG2sJ7LnqQssESO5eZubN2JAQX1PGSRho22cachLodHjW8uC3H6dt
- iCqIF8qZv7OaK3nd9Fg9GaJtAqO0rUHFs7lcMKxwnNeWxjTGJgCSIkMwVAFZ3xLCUc
- 9+sAtgC4Qsbv/Gw4IoSGFPDfBIJjUXA00srAvM2TIkrce+Kpl+wOiPjXx8q7i6r6+I
- zd+7AckoQ6KKg==
+ s=mail; t=1777919072;
+ bh=LIaSlxFKDMGdLUeGmCaMWboNkyhoBoZUFgC5ptDTBTY=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=dHOSERktEipbU+Wy5cUpTDKMgYTumbdri8JkAkRQx8MyFLu1p8Q8dmBxIMPiaDVJ0
+ LYPgZ23rp4iDtFnvdH6yV/I2idGqV/U6rXewcU1tGeyN6IY2Op/F5Zyjt/J7lw6jJM
+ XC8qF7J2Aff+pvBonsUcvNSHkMxH5WoRiTk3uGshvfnEEbwntiQkGGXE79LCMmqlKI
+ Nab986FKJVQtoexN1/0dulZd+j+xOP+DC51j5W56tXb7AhUgvKATpZXHuRU/mI1wSl
+ DvG4T2Ee/aHvKPAws6G16WI2hfEjlze156z9+oxVP49QjzWiaPTal1paHuqwvtfwza
+ tljjXr3RF7LAw==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 34F1517E12E5;
- Mon,  4 May 2026 20:24:31 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 0FBFC17E12EB;
+ Mon,  4 May 2026 20:24:32 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Subject: [PATCH 0/5] drm/rockchip: vop2: Fix layer cfg done timeout on
- multi-output setups
-Date: Mon, 04 May 2026 21:23:58 +0300
-Message-Id: <20260504-vop2-layer-cfg-tmout-v1-0-730226a7331e@collabora.com>
+Date: Mon, 04 May 2026 21:23:59 +0300
+Subject: [PATCH 1/5] drm/rockchip: vop2: Fix wrong wait target in layer cfg
+ done check
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQqDMBBA4avIrDswiX/Qq5Qu0jjqiDWSRKmId
- zfV5bd4b4fAXjjAM9vB8ypB3JSgHhnY3kwdozTJoElXVFKBq5s1jmZjj7btMH7dErHOK1UbMop
- yCymdPbfyu7av9+2wfAa28f+C4zgB/ZcY3HgAAAA=
-X-Change-ID: 20260504-vop2-layer-cfg-tmout-73617a0a103c
+Message-Id: <20260504-vop2-layer-cfg-tmout-v1-1-730226a7331e@collabora.com>
+References: <20260504-vop2-layer-cfg-tmout-v1-0-730226a7331e@collabora.com>
+In-Reply-To: <20260504-vop2-layer-cfg-tmout-v1-0-730226a7331e@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
  =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
  Andy Yan <andy.yan@rock-chips.com>, 
@@ -70,39 +68,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On RK3588/RK3568 boards with multiple active display outputs, start/stop
-transitions may trigger a timeout during overlay layer configuration:
+rk3568_vop2_setup_layer_mixer() waits for the previous Video Port (VP)
+layer configuration to take effect before writing a new one to the
+shared RK3568_OVL_LAYER_SEL shadow register.  However, it passes
+vop2->old_layer_sel to rk3568_vop2_wait_for_layer_cfg_done() as the
+expected value, which at that point already contains the new VP layer.
 
-  rockchip-drm display-subsystem: [drm] *ERROR* wait layer cfg done timeout
+This causes the wait to poll for a value that has not been written to
+the shadow register yet, resulting in spurious timeouts when two
+non-blocking atomic commits race:
 
-The shared OVL_LAYER_SEL and OVL_PORT_SEL shadow registers are committed
-to the active configuration at the vsync of whichever Video Port is
-selected by LAYERSEL_REGDONE_SEL.  When two Video Ports race through
-atomic commits, rk3568_vop2_setup_layer_mixer() has two issues that
-cause the wait to poll for a value the hardware might not be able to
-produce.
+  rockchip-drm display-subsystem: [drm] *ERROR* wait layer cfg done timeout [...]
 
-Patch 1 fixes passing the wrong target to the wait function, since the
-expected value was already overwritten with the current VP's new
-layer_sel before reaching the wait.
+Pass the local old_layer_sel instead, which still holds the value
+captured from vop2->old_layer_sel before it was overwritten, i.e. the
+previous VP target that the hardware is expected to latch.
 
-Patch 2 moves the wait before the LAYERSEL_REGDONE_SEL switch, so the
-previous VP's vsync can still latch the pending configuration.
-
-Patches 3 through 5 contain only minor follow-up cleanup.
-
+Fixes: 3e89a8c68354 ("drm/rockchip: vop2: Fix the update of LAYER/PORT select registers when there are multi display output on rk3588/rk3568")
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
-Cristian Ciocaltea (5):
-      drm/rockchip: vop2: Fix wrong wait target in layer cfg done check
-      drm/rockchip: vop2: Wait for layer cfg done before switching LAYERSEL_REGDONE_SEL
-      drm/rockchip: vop2: Delay old_{layer|port}_sel updates in setup_layer_mixer()
-      drm/rockchip: vop2: Drop redundant zero-init in setup_layer_mixer()
-      drm/rockchip: vop2: Use vop2->old_layer_sel directly in wait_for_layer_cfg_done()
+ drivers/gpu/drm/rockchip/rockchip_vop2_reg.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- drivers/gpu/drm/rockchip/rockchip_vop2_reg.c | 46 +++++++++++++---------------
- 1 file changed, 22 insertions(+), 24 deletions(-)
----
-base-commit: d4c14903bf5e28e740516c4fbb7db01e0dedf3af
-change-id: 20260504-vop2-layer-cfg-tmout-73617a0a103c
+diff --git a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+index 02a788a4dfdd..edca0fb16e08 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
++++ b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+@@ -2307,7 +2307,7 @@ static void rk3568_vop2_setup_layer_mixer(struct vop2_video_port *vp)
+ 		 * Changes of other VPs' overlays have not taken effect
+ 		 */
+ 		if (cfg_done)
+-			rk3568_vop2_wait_for_layer_cfg_done(vop2, vop2->old_layer_sel);
++			rk3568_vop2_wait_for_layer_cfg_done(vop2, old_layer_sel);
+ 	}
+ 
+ 	vop2_writel(vop2, RK3568_OVL_LAYER_SEL, layer_sel);
+
+-- 
+2.53.0
 
