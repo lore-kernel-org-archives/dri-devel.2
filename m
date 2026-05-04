@@ -4,30 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E7F8FF885A
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 20:21:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83631FF885A
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 20:21:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30BE910E87A;
-	Mon,  4 May 2026 20:21:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E102710E400;
+	Mon,  4 May 2026 20:21:57 +0000 (UTC)
 Received: from metis.whiteo.stw.pengutronix.de
  (metis.whiteo.stw.pengutronix.de [185.203.201.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E314010E86B
- for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 20:21:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBA5710E86B
+ for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 20:21:56 +0000 (UTC)
 Received: from dude02.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::28])
  by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
  (envelope-from <m.felsch@pengutronix.de>)
- id 1wJznX-0007WV-3d; Mon, 04 May 2026 22:21:47 +0200
+ id 1wJznX-0007WV-BD; Mon, 04 May 2026 22:21:47 +0200
 From: Marco Felsch <m.felsch@pengutronix.de>
-Subject: [PATCH 0/4] i.MX LDB DT cleanups
-Date: Mon, 04 May 2026 22:21:40 +0200
-Message-Id: <20260504-v7-1-topic-ldb-fixes-v1-0-0125d937ff7f@pengutronix.de>
+Date: Mon, 04 May 2026 22:21:41 +0200
+Subject: [PATCH 1/4] Revert "dt-bindings: display: bridge: ldb: Add check
+ for reg and reg-names"
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIANX/+GkC/x3LSwqAMAwA0atI1gbS+sWriAttowakSiMiiHe3u
- HwM84ByFFbosgciX6KyhwSTZ+DWMSyM4pPBkq2pohKvBg2e+yEONz/hLDcrtlNBpfWuIs+Q1iP
- yH9LZD+/7AZL914tmAAAA
-X-Change-ID: 20260504-v7-1-topic-ldb-fixes-8b3042dc50de
+Message-Id: <20260504-v7-1-topic-ldb-fixes-v1-1-0125d937ff7f@pengutronix.de>
+References: <20260504-v7-1-topic-ldb-fixes-v1-0-0125d937ff7f@pengutronix.de>
+In-Reply-To: <20260504-v7-1-topic-ldb-fixes-v1-0-0125d937ff7f@pengutronix.de>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
@@ -66,40 +65,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+This reverts commit 8aa2f0ac08d3b207ba54e98698c9d696b86452a7.
 
-this cleanup prepares the LDB dt-bindings for the upcoming i.MX93 and
-i.MX94 LDB support and is a different abborach than [1]. This approach
-should be easier to maintain [2] and far more flexible for upcoming
-BLK-CTRL or IOMUX_GPR syscon sub-devices.
+The LDB is either part of the IOMUX_GPR (i.MX6SX) or the BLKCTRL
+(i.MX8MP, i.MX93) register space. Both IOMUX_GPR and BLKCTRL are
+register ranges with loose register definitions. E.g.
 
-Please be informed: I didn't do runtime tests but since the LDB driver
-never used the reg (nor reg-names) property, it should be safe to remove
-them.
+  - On the i.MX8MP there is one register which controls the AXI
+    threshold for two different IPs (BIT(31:16) - IP1, BIT(15:0) - IP2).
+  - On the i.MX6SX IOMUXC_GPR5 controlls: CSI2 mux, WDOG3 settings, PXP
+    handshake, ...
 
-Regards,
-  Marco
+In conclusion: it can't be ensured that one register belongs to one
+dedicated IP and the LDB is rather an exception than the rule.
 
-[1] https://lore.kernel.org/all/20260329-fsl_ldb_schema_fix-v1-1-351372754bc0@nxp.com/
-[2] https://lore.kernel.org/all/2mkih6id2cfqjfksfvvitzlcnyfz7r4rs4f7bhtvdhf7scwzue@bb4ucnfxa4l4/#t
+Therefore remove the 'reg' and 'reg-names' property requirement.
 
 Signed-off-by: Marco Felsch <m.felsch@pengutronix.de>
 ---
-Marco Felsch (4):
-      Revert "dt-bindings: display: bridge: ldb: Add check for reg and reg-names"
-      Revert "dt-bindings: display: bridge: ldb: Fill in reg property"
-      ARM: dts: imx6sx: remove LDB reg property
-      arm64: dts: imx8mp: remove LDB reg and reg-names property
+ Documentation/devicetree/bindings/display/bridge/fsl,ldb.yaml | 10 ----------
+ 1 file changed, 10 deletions(-)
 
- .../bindings/display/bridge/fsl,ldb.yaml           | 25 +---------------------
- arch/arm/boot/dts/nxp/imx/imx6sx.dtsi              |  3 +--
- arch/arm64/boot/dts/freescale/imx8mp.dtsi          |  4 +---
- 3 files changed, 3 insertions(+), 29 deletions(-)
----
-base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
-change-id: 20260504-v7-1-topic-ldb-fixes-8b3042dc50de
+diff --git a/Documentation/devicetree/bindings/display/bridge/fsl,ldb.yaml b/Documentation/devicetree/bindings/display/bridge/fsl,ldb.yaml
+index 7f380879fffdfef28d9a35d7fbf87fdf28377b43..828b7a40e9b6cf27f76d1cd3009505b03cbe09f1 100644
+--- a/Documentation/devicetree/bindings/display/bridge/fsl,ldb.yaml
++++ b/Documentation/devicetree/bindings/display/bridge/fsl,ldb.yaml
+@@ -68,7 +68,6 @@ required:
+   - compatible
+   - clocks
+   - ports
+-  - reg
+ 
+ allOf:
+   - if:
+@@ -83,15 +82,6 @@ allOf:
+         ports:
+           properties:
+             port@2: false
+-  - if:
+-      not:
+-        properties:
+-          compatible:
+-            contains:
+-              const: fsl,imx6sx-ldb
+-    then:
+-      required:
+-        - reg-names
+ 
+   - if:
+       properties:
 
-Best regards,
 -- 
-Marco Felsch <m.felsch@pengutronix.de>
+2.47.3
 
