@@ -4,94 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FBBBFF885A
-	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 07:34:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89AE4FF885A
+	for <dri-devel@archiver.kernel.org>; Mon,  4 May 2026 07:40:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B886010E0DD;
-	Mon,  4 May 2026 07:34:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0CAB10E0FF;
+	Mon,  4 May 2026 07:40:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="XtF6QeA6";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="qioONi+3";
 	dkim-atps=neutral
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8ED7710E0DD
- for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 07:34:36 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-4852a9c6309so29368795e9.0
- for <dri-devel@lists.freedesktop.org>; Mon, 04 May 2026 00:34:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1777880075; x=1778484875;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=ikXVRoL7UxdcoQ7zQVqAT6TJS61guAaeU9Wz822bWgs=;
- b=XtF6QeA6AMswlABbHjr/VS1r9jHAvAXfA2j8bCKRP2pL2vnym63xW0UtmSDv3mXRTL
- kfgzJ6mlTQR+gOqeR/GXUwu5rWH3GFz8FE79j2k+qq3Upby7yLQU2ncUhiV7HpYUljmT
- JxTPElfKjTVI01jvr/Drnblwk6ZwhY6+8fpAXr/lnKG7Jh0rUnD5QzG73R+m8rumStRr
- UhB1QCDCtZ9BsrFev9zhu0bxTyNXU0/ur2iPvDyFakgtr3fLMuCfup8RGmeVljBzF7hr
- bZ3y3BS9GtNvfHqL/a+r8iYMW1V+KWRYJ2/OnR/sofcfIA60Tffe9HIlNjo752SQRrdK
- aCeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777880075; x=1778484875;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ikXVRoL7UxdcoQ7zQVqAT6TJS61guAaeU9Wz822bWgs=;
- b=PEaUK5NpVOLys8AvJU/SYTeu+IlAr2OBErskYTsF1bSedIK/eQJGHQQ7m3BFJZBW+1
- uDdE4h7P0MPN2Te7AatkYrP1HOSIOLnxLUch210YvHdCpCLs+wtkukuNaj6XZ58uizLS
- 5E3Cih5i5Pu5sBqrfIrN0tCBbnW20gl7tJPs1AaeP8yqMfA4M9MjSPD7IcYTzmoPkRUM
- XAFnnckG4aBc2hLno2YJVnbDLIOqbfq0uInkvCCkhTQ5ECLUacZBwwiVY1FzDEXqVDHN
- b/jKMoexC49Qed1MZr0SyFG1gnQsPovALeNEK1CCB0F6gJUqClyNAcHhnwg7ag59U/d6
- XpFQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ93DotFObWTjby/+BXrTZezcPfSLL/CfuedAmsDlNpdtH3UHbz4/RqYbU8ute//P7fMkMoWT/GD0Uc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyi0RntbBYlFXV0FMbEkzabJERWmvptE1rn+7/UPn7IjsRH8UyA
- uTVDx3YR4HEYyevOzKM8sT5E/YMsnIO5ttsxFA5nc0Txu/iwhUu/89F+pZ2nWyqmPA0=
-X-Gm-Gg: AeBDieuQdxWIFfzqhukpUSoGbqYIChVJWq2gvV9bwV8zghU3LK4WfKoT6zb9aEG/9hL
- 5Ne69YqYgxETUtzTl+ISTWPI9Z4bbMUknHC2ZNCXX4UqZ8fCzPIYAqeJxHrhho3I0dqdTlyUiog
- EphVP/3r79NJbZ69X9vch6xJZdgOFn3edT67os1DB3KaqNDxl0U5rX69ZsU8dzbYyu6xDUU2P2K
- MPQsAxLgkt3Ot6eJBoT67DLXbvwx/XBrTmFQX+hrY7gFYniel9/liQXkumpzJ9fj/MHjeqgU2Nw
- VZuq/8eDWaSFinCwkTda6/PZgCoNplLz73NQfUMbfSv/KaAy5Gw/jVawCJrWjU0Gbxdi/StcHCA
- 9VCYpglwQu+x7/ijJbWwMW61l7JFBU+4ApLoaR90V9S9/McG/A+Y1PrfZr+f4jinfksd5mdx6Z0
- MkW9LLLtIkOipp5ZuJVKkpmgxIHy+eocmuKT9MrjwVZeV6giiQIkm1qEz2iGSJCbcPYPNHbzbTU
- oJy4yrjO//N7GTQS40B5RYASg==
-X-Received: by 2002:a05:600c:4e4d:b0:488:af7f:7707 with SMTP id
- 5b1f17b1804b1-48a98663189mr156282625e9.18.1777880074832; 
- Mon, 04 May 2026 00:34:34 -0700 (PDT)
-Received: from localhost
- (p200300f65f114e08f5a4175dadf07882.dip0.t-ipconnect.de.
- [2003:f6:5f11:4e08:f5a4:175d:adf0:7882])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-48a8feb0cbfsm105853715e9.2.2026.05.04.00.34.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 May 2026 00:34:34 -0700 (PDT)
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?=
- <u.kleine-koenig@baylibre.com>
-To: Zack Rusin <zack.rusin@broadcom.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Markus Schneider-Pargmann <msp@baylibre.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/vmwgfx: Don't use UTS_RELEASE directly
-Date: Mon,  4 May 2026 09:34:20 +0200
-Message-ID: <20260504073422.1130008-2-u.kleine-koenig@baylibre.com>
-X-Mailer: git-send-email 2.47.3
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011030.outbound.protection.outlook.com
+ [40.93.194.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 698A610E0FF
+ for <dri-devel@lists.freedesktop.org>; Mon,  4 May 2026 07:40:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AcuWcJ97t1ZTkUX465tIo9Ris10losQJTRiyc8tA+ZYCjx9kP7wfgSsQxAbmUzE7SL9rydgmhFKLH6xTXKJu8dBGhoCu4kvHhndwlU/tDLqavBxHjx/siqpN53bdNQ1pDouPRcpngWhd56EzOVKnvcO+ucF6TlXvduu6cUJlmDOhH+ZDkn/nOvJrK0cmP+pBx7cfne5x8ykN+Vmjlwve3bgaP4hAj+9pZyRdEbHcKCPiDlpIb7Z5eVyio3/J/RYkEaj6bqV664yh0p5DNpXDyUqUhCaiQNpeeqV+ay6KmaY8crM+q6POY0rbkq1PSw6CrO/VALC9DxQaibAcj0V/xQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=krvXVQcErdCDEWHMjORKXrYhnS33piyJupCz6aIIGxk=;
+ b=k8ZWuMdwtjZTuIPMi+x1PNLbrj/iHfLicSLmN78NoxzFRwgVh8Bqd0EpTu4CzSOw/Hby7QlaGlmofQNyAWLM6X/RxdhJe4Nzgvs7TDrPPrszToPz5EBClP8We7bkTkBBMKYmsN1Hw2T41RUd6QuAeGFN4j3O3iHuMEO8YK/XhE5aNB3BlHcgJzWwlxQ5lO6ffmqfyf0JvNfvghLgrlPhoG8lBO5xp7eS2g8MGN2NB0919hzHIR38icVtqBaLuGcrTxr9ylkX9qnESU72xVNuEa9frp2pJsaEmzjXLk599wsuO7caOwnEw4t+ZRaZs3ZnjueZEX5Qj+TIE5ih+TzAzQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=krvXVQcErdCDEWHMjORKXrYhnS33piyJupCz6aIIGxk=;
+ b=qioONi+3aQBkkzOjn8Hq3y+Cde36vC9yyFSZh4xyovcv90+WwtMQhuHR1Qem+CsbkhBtRFEn/7O3OfiKvmZrJ+rKY9pELB18YqKW8Vfwku129qqIqBiOuJYBuMlC+mbW1V6FTz4a/YJ5fQNVw79nTRfheTS+dnrVXnQwg6G6HhX8xOPkTmz5TNISGCCqj0AP/rjH4aSOAh4lnIG7/Z33YdeEd0WFO12/J3s9+iLWX4ByeYDJNmwXI9u7ei4Gyss20uErhc3ljTfXPE9e5GjWPV3jhWELshLak9PRzPs7CeQ13IEBdRJUaog2yfc1VAiE6vvt4z+EgJAWMa5SFU5lqw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
+ by DS4PR12MB999077.namprd12.prod.outlook.com (2603:10b6:8:2f9::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Mon, 4 May
+ 2026 07:40:44 +0000
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528%5]) with mapi id 15.20.9870.023; Mon, 4 May 2026
+ 07:40:44 +0000
+Date: Mon, 4 May 2026 04:40:41 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Alex Williamson <alex@shazbot.org>
+Cc: Matt Evans <mattev@meta.com>, Leon Romanovsky <leon@kernel.org>,
+ Alex Mastro <amastro@fb.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+ =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Kevin Tian <kevin.tian@intel.com>,
+ Ankit Agrawal <ankita@nvidia.com>, Pranjal Shrivastava <praan@google.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ kvm@vger.kernel.org
+Subject: Re: [PATCH 4/9] vfio/pci: Convert BAR mmap() to use a DMABUF
+Message-ID: <afhNeYS174EW7RYp@nvidia.com>
+References: <20260416131815.2729131-1-mattev@meta.com>
+ <20260416131815.2729131-5-mattev@meta.com>
+ <20260501161915.75525c15@shazbot.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260501161915.75525c15@shazbot.org>
+X-ClientProxiedBy: FR4P281CA0436.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:c6::8) To LV8PR12MB9620.namprd12.prod.outlook.com
+ (2603:10b6:408:2a1::19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1949;
- i=u.kleine-koenig@baylibre.com; h=from:subject;
- bh=IvpBzrTG8NsRbACgF6uIDFqr/tHY09F62gKICIeQhBU=;
- b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBp+Ev+gQ84ZfIwKeIdxO14OnTXaeamQgdaf6msa
- 8VNof+RPyKJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCafhL/gAKCRCPgPtYfRL+
- TvCVB/998JTZnFpdrEZrgFbZyiGMA5KaFJ4x7pDaHhSV5hYwZqfLmZGJkr9gJb7tzJ+F89hDdpH
- A+4/AtT6bEFMt4kWcV/6bdh5nAr6KeQLK9bi7hGWle5m22LjHzhESHkhZOvSaMeZkvX6ZkbafY+
- EyrgEeY38IGZkrSgrdJp4HUdPeh46fXDp7FqCZok1gRo7S1Bn3Lec/a2uGibMquhWow+60+8g0g
- 7zx2k3SeBKnG/VJ2jvX1jEDuKdnsjOBtim31NAUNr0oLrzLhjPrjkOFCoFCdmDMiVHaGKhZdTnW
- idn/k5dfMc6CMfMKxGOaO7qbfLNGDSpKvs8tcGDC9Xo/9VYi
-X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp;
- fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|DS4PR12MB999077:EE_
+X-MS-Office365-Filtering-Correlation-Id: 375d09ab-e1fe-46d2-e728-08dea9b072f2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|366016|1800799024|7416014|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: c95MchyQmwVVLh1Dw89K5VCajggiv0/Z9Y5cPdfHeJQezVhwof/+YL/REyTsbBZgdUfBFZGwfgLvr+iapY35oMiWIk6iGc52fFc0pBNddcIt42rKn50NprdJTYo5z09IWAEm06qbfh0MS63UMAFhqS6rFL7jO7EfEfkW2hO7MOJVYcI4oB8TyUnxHJ3fge3/jf+yRVjpaFBtQhEwXhmLTsTCuQJXJymWlNqOqQd/zY/3BfciRV1VaXQpbaiB+ZfFJjMTaync93H1mESqdPquZSnBxtAiufN5MdJwenqG6gaf/j/FYrHm1LXNXtOMrEGrDeYmqPr8XE+/09h4JXJluL1LZfmKIOzcS3g/j0kUTtGr3qGK7Wa6lJIql2/yaU2XnPOzjQEePfaHRXlh8fsufXIiGjzwfYlxG3im8RZ5MrgD2viFf14jMyKqp2m4or/qRuGiwNbx024JPTT7XYHRl7DAATSnBC7VIAhv8dyVAoKvS7MDCR0VZ2dARS6uriZmMaolcYgIySmRRIKeN8dsKfdDnGQQF2uOHczo//iUfvN4Pi1yLUyzPSGOKmjmaY2chli5TI0DSa9r5zwJ9i5HaXcAEirHShJoBrDd8urVtyJ+WnYSh8TW+U7RMtvnmPgbh7TeEtBv7NCKArNqkMPFTHZNK3vZ2T7bV28HTaB9ipVgAHzhZTq1QSoNjzEhBhAJ
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LV8PR12MB9620.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(7416014)(22082099003)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?tiUYDpu2MLrcLXQfvWdTHXEJh2bcJ7ppFkH/5ibdlrM3XaIk5U1LyUMaAis+?=
+ =?us-ascii?Q?atweZ8cBLedrWkPdRu41XO7IndHpKnxdVURtCWz/NbhH7mpkWEaSBHSwWC+t?=
+ =?us-ascii?Q?ZgiKhDLX6lj6lvIW2BbudssS6k1wWUJOGS4FMegPtPlXvfhny+RwgQ3dIgPI?=
+ =?us-ascii?Q?fsZp8B6hBbX73L2YeYts8UrxL+bFAIcqN03HMg4M8i1w7uXN3AKW51ySGROI?=
+ =?us-ascii?Q?cgsYhrJ2Gvms1r0iohtl2THfijIkCl61qSNRoBVttZO5l8lotpYMGRLoQmi5?=
+ =?us-ascii?Q?minEAUcWTxxZoTYwd0w1IAXT1ZvT4bBztkArOpNQPINH36m1dNiiZYZ9QZYM?=
+ =?us-ascii?Q?xHOUq9E7prLzjjqcssmo8si/IUlP51+1X0SMPIwiUV/Q/dEcraPNw5dc5E4K?=
+ =?us-ascii?Q?V66/PWP5fcOrBTIMTKgv5Ve78E/7z5Wa7etnXfAc6Vy1PQeuJS5u0XITVMP9?=
+ =?us-ascii?Q?JJcdeQklkZV3w1agiCiOK3aHGt2G/mHWzwVyS4c/pNm5Z1SLfEL6gqDFzBNo?=
+ =?us-ascii?Q?TAMYYiZGH+6+WNPxyHnXLKZy9+nj3D2nDTohhQB60Ym4UL4/8rGNUoxrTXoo?=
+ =?us-ascii?Q?hf32UNhpGuC/muIRCQiI1aMUFUfjZIYqCUOo4d5vcC15XgaW2UUyUc1hLeIt?=
+ =?us-ascii?Q?9aW1xydQJ1u+086j5Y8EoJxNLRpiZ4sOqMFF3KVf72bxXehfJAEGpD+zi6Gy?=
+ =?us-ascii?Q?6ILFgHvNyqJ5Mf5zPGdNv87U+fM5m7sONMEs09EpvC1V79t2hjY26nILEsu7?=
+ =?us-ascii?Q?AK+o0QQVMptvJwtmhFo59Ia+Ta1zJNfWQaoAdARlMDyISVLgDkHTzj7VZoVq?=
+ =?us-ascii?Q?9GP0Nwf1ZgM445GiFHGg06DiGRy+R5D8hMdVvDuAlzl7jjiV2RZQiM/q9cZJ?=
+ =?us-ascii?Q?nxrtDqvlxj/xHJvINLBksgCqVRRD+oxsIvOdRcsOx2PjsUckgzm5AGIlv6Bj?=
+ =?us-ascii?Q?7oTAc0UtOozmZ3MlawIRQfkXkBTky0D7T4rBW5mv3TC4yNl7GvcXPXAkZNIO?=
+ =?us-ascii?Q?Dmn0SCGC2rLCfGRP7CQbRKYdvL1MKwO6ZGlo93M1Di1Nr5/GndreI5IHeUSt?=
+ =?us-ascii?Q?+GdOcwi06pX3mNgmYWMM6lVsQBHSqPxC45yMZrNC8itWAesi0G76+YqFLknQ?=
+ =?us-ascii?Q?z+TFt6268lwesHlEPdbvJ7FTsFRKzuh9dA94sPg4B6uyBUAurcs7TTTZwPHj?=
+ =?us-ascii?Q?8wP15hOaxieaW6gfLNaIIPefr2/R3ghjXGUbmId08qpw/yi/GM34c3ZGWzW7?=
+ =?us-ascii?Q?K5QxV00EHlJD7V1RlzalksSjlrWYDa2wHwiEeI/m/pUjvKNnse/a3/RpFfI6?=
+ =?us-ascii?Q?ySmx/1Iqo3+fLSPxpUrJKIMFxuQ/XIuDJFKSysbBrSrY93MSmOmhq3s60xO8?=
+ =?us-ascii?Q?uiFHwYUeBJI8nBHcPhrzNVc7sURfSPoAVyyuxQUYwH3jbGNQZLqWS2EMtI5W?=
+ =?us-ascii?Q?NNK+w2tbXhlrqkkKzp7Aagn1pNO9pKTSlqr9bsQzkDBi6mxy12f7viQrwE+W?=
+ =?us-ascii?Q?pQn7jcIqri/w/7Ffzy//YPbknnWIlxd21yMNbvLJOw9VYvY8r59KJLJGykS9?=
+ =?us-ascii?Q?Tg1oFlqREdxakioAHYsTNakQ1Aw9vApCYGGFC0zI7+Ru69fycH8AuwFqX1jd?=
+ =?us-ascii?Q?xiC823vlTh1RMdmbbcUPZ2tl4C+tSSmNJAPzB+S0jndsZ6wTFEhBVwdPcKpw?=
+ =?us-ascii?Q?MdzcDpVYsWVQfKgoU+j/PzrXtW8l7zhA5QZnUvfwfF2r5RHd?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 375d09ab-e1fe-46d2-e728-08dea9b072f2
+X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2026 07:40:44.4002 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5ilseAvqKxdSrI4XHuDDfA/BX2q1G9PTEfqdEZ90CVgKOcSV1z3ot6Vci2qvzWYZ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB999077
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,60 +137,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-UTS_RELEASE evaluates to a static string and changes quite easily (e.g.
-uncommitted changes in the source tree or new commits). So when checking
-if a patch introduces changes to the resulting binary each usage of
-UTS_RELEASE is source of annoyance.
+On Fri, May 01, 2026 at 04:19:15PM -0600, Alex Williamson wrote:
 
-Instead of using UTS_RELEASE directly use init_utsname()->release which
-evaluates to the same string but with that a change of UTS_RELEASE
-doesn't affect vmwgfx_drv.o.
+> Exporting dma-bufs from vfio-pci is a feature, but mmap of MMIO BARs is
+> a legacy requirement.  That legacy requirement now depends on
+> PCI_P2PDMA, which depends on 64BIT and ZONE_DEVICE.
 
-Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
----
-Hello,
+That should be split up now, Leon missed it when he added the new
+APIs that didn't require ZONE_DEVICE..
 
-an alternative way to address this is to drop the kernel version string
-completely. But I'm not sure how redundant this really is so I chose the
-init_utsname() approach.
+> ZONE_DEVICE is harder, it seems like it's possible there could be
+> minimal 64-bit custom kernel configs where vfio-pci currently works
+> without ZONE_DEVICE.
 
-Best regards
-Uwe
+Several VFIO using arches cannot tolerate ZONE_DEVICE, IIRC, so we
+must avoid that dependency.
 
- drivers/gpu/drm/vmwgfx/vmwgfx_drv.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+I think if we clean up the kconfig for p2p so it is always available
+it would be no problem to keep this patch relying on it, but that
+needs to either be done in this series or before it
 
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-index 0f101aedb49a..12f5f288ae15 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-@@ -24,7 +24,6 @@
- #include <drm/drm_sysfs.h>
- #include <drm/ttm/ttm_range_manager.h>
- #include <drm/ttm/ttm_placement.h>
--#include <generated/utsrelease.h>
- 
- #ifdef CONFIG_X86
- #include <asm/hypervisor.h>
-@@ -35,6 +34,7 @@
- #include <linux/dma-mapping.h>
- #include <linux/module.h>
- #include <linux/pci.h>
-+#include <linux/utsname.h>
- #include <linux/version.h>
- #include <linux/vmalloc.h>
- 
-@@ -1115,7 +1115,7 @@ static int vmw_driver_load(struct vmw_private *dev_priv, u32 pci_id)
- 	vmw_print_sm_type(dev_priv);
- 	vmw_host_printf("vmwgfx: Module Version: %d.%d.%d (kernel: %s)",
- 			VMWGFX_DRIVER_MAJOR, VMWGFX_DRIVER_MINOR,
--			VMWGFX_DRIVER_PATCHLEVEL, UTS_RELEASE);
-+			VMWGFX_DRIVER_PATCHLEVEL, init_utsname()->release);
- 	vmw_write_driver_id(dev_priv);
- 
- 	dev_priv->pm_nb.notifier_call = vmwgfx_pm_notifier;
-
-base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
--- 
-2.47.3
-
+Jason
