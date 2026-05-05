@@ -4,148 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B108FF8855
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 14:27:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEE39FF8855
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 14:33:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72BE610EAE6;
-	Tue,  5 May 2026 14:27:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94B8710EB05;
+	Tue,  5 May 2026 14:33:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="VElEevCX";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="S5C4RL/B";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="GWYXIDk5";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C8BF10EAE6
- for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 14:27:14 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 645Do6YZ3475910
- for <dri-devel@lists.freedesktop.org>; Tue, 5 May 2026 14:27:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- pySiRqtx4zsZPi7B448XCfGRj+cLU/DeaDKDCajYXho=; b=VElEevCXAp/4eN7D
- j1foutEYx3Vr8neaXKIuICKqkE91uo573myvYqdDi3F5IXBbLooVoYNRod044YSw
- lR5mKzu4rIzdWRx2d/JbjvPxo63qQzGipzt1YBAOZDb5CwgrEeUBk9SQBK7yl7Op
- RnlGVj6RDVf2ezLny5rvOLp51ciXeHa568S8WVA1PeQpTaKKwley3XRb2f4jQskS
- Hmhv3KZWzdQeiQy5aE63//4swak+N6C1OmAAB5qmJA/QhPhJGZUGiWR296GpH8oC
- jGb+vyiCVHK5mJH+jvYSckZJgpYqawQ3A0oPr2XYkR5r+kxenrr5UZyU9vAXrI3h
- JzsaVQ==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com
- [74.125.82.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dyhsgr4te-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 14:27:13 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id
- 5a478bee46e88-2b81ff82e3cso2908948eec.0
- for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 07:27:13 -0700 (PDT)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B81410EB0E
+ for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 14:33:05 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-48d1c670255so50645e9.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 07:33:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777991584; cv=none;
+ d=google.com; s=arc-20240605;
+ b=PeKZkgTLLWN/sEp8oXrRtznqEBxIF954LL4nAThch/3+ii5M3FdREiv9lMC+5CGhL7
+ ZdSMY8qQdngDN2JouLuPN4nNqJTJ/zrBGRTdcrQqnR7b+HVSwZKVfMyeTAL3qkP4Wc7D
+ zvMjvz67175qaRYWyGdbkOZSVjhOAaF9L66DMErHlhAiBQA2TFabgi9lF+jnAXUsN3tO
+ AbcurzhCSMFxuzMrxPNQuKNGhHwY/52Thq/nrfaW9561L+UyvcjONduX5HADhc1YJgR5
+ SEBjNYUUpmesnd/Zrj2w3qzO7sajJ2WeixZurJkHGGf9xjGCz001gIO2xQFxPqLRudt9
+ VA9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=5h+jyKMMIPTXybgbDkdR5LLDHZaQlqwfa7Kw+QHGnoc=;
+ fh=JWy0uOcrriGjmmorojDJJPQHFiOjxeyFmke3DLnOYJY=;
+ b=ga++NaG20JVWdNX3aNS4XSZJFT/8pnPHCQZAIwciOTiuC7htXZ1XIgSZLO99ydUTV7
+ hYkdwNaQR0jARIdWR9bEHmugwohhYKjBchVVPs2eA2qjG+thcdB8PiczgrzO8YyEBUPE
+ S5kEgXvmRGGcVbMDi7lOXm2KyWWvzL4JmTM4PBSwg/gVXAAe46FaQ501tX/xoSsYFtYy
+ c7XTQnnroJQXxyvjrBXXlOCLlTnrPxpiliqFvkhjhT/kgpHSeKftuCHZ0SJWkpI6y2H9
+ WN63tK5ZWRxAlaqB8ir55UKGi3xBoCu+SDK1w+MPSWGGN0EZAz+X2Ynvw8w+VSlon3rC
+ whCw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1777991233; x=1778596033;
+ d=google.com; s=20251104; t=1777991584; x=1778596384;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=pySiRqtx4zsZPi7B448XCfGRj+cLU/DeaDKDCajYXho=;
- b=S5C4RL/BZFiVXAJnwOCLD68agJj3FSs0b8QzUK8j161BdtHGAPbZRmOPP5TuwVD7Wx
- X8pTbjSnAV3weBk/rx1mMM+ZvXIVPpdQ5FE4ozh+L8f3lH6LrtThNnjMXh0G06Uo/ely
- 21BPq3Vc4AzbKOX6fLCbxUnqTF1I2gqhu222usujOSa1LHUYZo/1vhFDOt+XHsJZlki3
- bYMFGlGB8I1Jd+pEOX6MQGtoGjvTzyqZaeQ/cPvi5LgEWlo69WhghAJrRwtsgcn3/HoI
- AHY3jk++gazH12F8kWtYqSLuAiSZEgIr7/gBoINxCstuJt1gE93JF4jvDtg8tnxje6hT
- QSOQ==
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=5h+jyKMMIPTXybgbDkdR5LLDHZaQlqwfa7Kw+QHGnoc=;
+ b=GWYXIDk5407KTvyVSDuLz9jnQkTywa/jLnPDWpIhAcOKQrDJxUtnr+MiasZv8xDquH
+ PZn2fhC5f4qNDYg2Ah+xnlbjQz1hZeqkmCvbU7TctlWObVWWt57jv0WnYNRznTcT5Zl+
+ 4CUR0lpOzHO2WufTlkApGkmuMaN1zCXURtwDQbkVWKDA2wGAQ6QDV0nnl7X8GBCA8Tlu
+ YeGddhj2l/UeczvajrJyIx2zpgOpYijNiGHRJ2OS+kfPm8nyR8kwbqjpgaO4TClPk9IZ
+ vbLUCWgObaiBwD7xvNWDRiEPYyyluFNIUe5B4voMTkwv5RyF55k9tz8JKJSZyJe2MabK
+ miuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777991233; x=1778596033;
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=pySiRqtx4zsZPi7B448XCfGRj+cLU/DeaDKDCajYXho=;
- b=KaRhLEGiURmn06GwtmOn9TSGmyCXUJ6NQtmoMbW0Re1MAra3WSWz1JI0x7b4LUkLMO
- rCwDn5YTGETZvFDW9wOEa+8D2HdwaZK0yZWvPgkdBVubopwhh6UBIxa6OLA785ELdDuN
- mx1V+qU7VipZr7sv/I/h3FMFZokp22z/kAan3sC5VfQre5uQiLz8v1MFnfzrDYIlFCHR
- qY6xPYhNB+BuWv4JZ87jcclA+Qy7AzMntMzitEr1rH1xj53beayi6Sz5amoqcx0VNEge
- JXRaUdWvJsNl4Hqo8dRe2utggJWjPkBXZLLvA4MNWTxM0fPQcXkE3PA/1wYNItAZtsAv
- 4cBw==
+ d=1e100.net; s=20251104; t=1777991584; x=1778596384;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=5h+jyKMMIPTXybgbDkdR5LLDHZaQlqwfa7Kw+QHGnoc=;
+ b=V+RQJBjK16e60aN1XdIXXV1FKkMLJaJP3m4fNAjHtYogQsFU3GV316vjeQYSYN8CP7
+ 1RWdNzyIldVICFiCMwP0Unic1Ip1RBWG/yuYTzE0UTINluLu8+lWs6NIFU4PBKqiwDGq
+ UrwJB6KCcr2alu0bycOnnB7PaZVSYlK169t0/KicAXPAfQR+2VkOTJhmmOxyXnPONsiv
+ 55CBrU/r1J+0fK2LVboDXs4zYrENtmzJSUdWEVuXKJQ2jOrdVKmF5x7oYiTl1MdUTWxk
+ zK+apcSYSF+0+7LqyxD9iClP80f3ibaK8F8KlTLkTuFOHNXbgnhScQwAhRfshn5/V4F9
+ imwA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9VYYx5s5YJD6+9HJYF0rNED0sf7SFT82kIVRThL1yW8dhjARNtyIWvgpiBUpNjtnAtgvKhga0dNkA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyAHHf8Vz38+3jx3uazEnGNoOgl0R0Sx7jbuB1Yjbhlc6ulxGps
- 5bctDLNyRetcpKxJh92fK4tJLSlJ+GTosUBW2gKpVaogkRijkxBnRJdeEUTNAAYHkR7G6SmKPgt
- agchLZosjirZzmOhiEFOCOsxEk0xL5yPaMDcO0FXQMcYpnUb7gq7chB9Q/kbep02slSP+gbU=
-X-Gm-Gg: AeBDievfqYzqCt3HdLOqZ9XA+8jy0pzKzOBMvh9hmU1ObTAyyeJJhTt0a+oMpY6LHLG
- 1m6/gS3PgrhwZvBhM7e/2CzmocVjZZfCVJwrRUBPg3il6xI+GcmHahOusguL+00jsLatE5Cj5pS
- peFevI+HGL4XiyI/4RdyT1vPd8H4RVr5LrHxCgAUJoAfEuWN63iVoJxN6LE1IlROPH6D7yMYimz
- pwL7UfUxnQRP7dr8Pg+DrF7HN4Vx9zzsGSR7MWpoANhvaWouiNgVMzx8SpzzY1mqU0xmUjrKtm3
- /WLAsFtaRlG93nxivql9+VbKC2zrlRJL10S+3u1kfOIdfUbCmgn2wYCq5XWoJMF0eApsUBOIXki
- 0UJybXrSYHjTKzEal+vNKKZRl9K8Pn+ZGqcbP1eSxRksVOBhqoqfG4N0A02ogr3MfhGf9Kr+TVs
- 0vjbSWXUPU2KaBR3g1
-X-Received: by 2002:a05:701b:2507:b0:12d:de3e:86b2 with SMTP id
- a92af1059eb24-130a9ffb6e3mr1020237c88.21.1777991233091; 
- Tue, 05 May 2026 07:27:13 -0700 (PDT)
-X-Received: by 2002:a05:701b:2507:b0:12d:de3e:86b2 with SMTP id
- a92af1059eb24-130a9ffb6e3mr1020185c88.21.1777991232530; 
- Tue, 05 May 2026 07:27:12 -0700 (PDT)
-Received: from [10.227.110.203] (i-global254.qualcomm.com. [199.106.103.254])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-12df84252c0sm23637548c88.10.2026.05.05.07.27.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 05 May 2026 07:27:11 -0700 (PDT)
-Message-ID: <3bfdc11c-115f-45ab-b0ab-75ad88dc6f31@oss.qualcomm.com>
-Date: Tue, 5 May 2026 07:27:09 -0700
+ AFNElJ+daZ2HeOl9kmYFG8zadUqOx9V7a6sSTV83uTbtRAnH9Cdp4OQ4GX8Gd/TrI5l7+KSBM3Ot9evRkhw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzp8cf1qNmSr95QuAph1Lc5f2UH2G4s6f7tAsBw2a3g+T4yiIPA
+ w+kTYZUkdH06ULvUBIS5aqn+/mSusHfL8Ge+eUOw/q8WUbd8OHNp2+noP5+qdMVWNVDYTjbbUlN
+ I6nFTOBSc54TFdtT2qLLVodjUG0uPUpa5IowbDNpA
+X-Gm-Gg: AeBDieu2+McPQjR0fG4P6fZ8VwQRxMFbrC2c0QA/0tlBFmlaM5zSYKel0vVWV4tLz2+
+ yyLOepj3NhDsESOlnpXfJZo9XcWyKk8MEFtebOqa2chUJOCHd2LTD5jMNgy8IrMuPhwt8tVnTMR
+ HYJ59wyKTZYs46T5Yh/8anbuohJsdenZhjijQm8i8ACaemORjS8PldagisHGrNmxcHahvkYNWRB
+ +pC7GEwG7AyupNbTKtJy3k95Z+Qxxbz2JbnSme6RAY9/95zRH+fnpcurokykXyUcH6fq7qe6eRj
+ TbCIXfnU1+Ok3F4YIzRq3E6bR+LIeSWmX0PcHvr5JeDwQQORBXUj8z9ZjIFrnGDYnPO7iuA=
+X-Received: by 2002:a05:600d:8498:20b0:48a:5f32:62d0 with SMTP id
+ 5b1f17b1804b1-48d1474eebdmr937275e9.12.1777991583578; Tue, 05 May 2026
+ 07:33:03 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 14/16] wifi: ath12k: Switch to generic PAS TZ APIs
-To: Sumit Garg <sumit.garg@kernel.org>, andersson@kernel.org,
- konradybcio@kernel.org
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-media@vger.kernel.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
- linux-remoteproc@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
- akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jesszhan0024@gmail.com, marijn.suijten@somainline.org,
- airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
- dikshita.agarwal@oss.qualcomm.com, bod@kernel.org, mchehab@kernel.org,
- elder@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- jjohnson@kernel.org, mathieu.poirier@linaro.org,
- trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
- pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
- tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
- srinivas.kandagatla@oss.qualcomm.com,
- amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
- op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
- skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
- Sumit Garg <sumit.garg@oss.qualcomm.com>
-References: <20260504130603.1474043-1-sumit.garg@kernel.org>
- <20260504130603.1474043-15-sumit.garg@kernel.org>
-From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <20260504130603.1474043-15-sumit.garg@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: iv7dThtp-2uOBBG9MtvV8YY1e17vsVZk
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA1MDEzOCBTYWx0ZWRfXxhu8FGQbl1ik
- od1Z7rerlJyRUBVsN/zU8h6hgY71RyH+uW/SUuYLPt9yAubtBOhyO8A77QnEOEnirpM5hPauv/D
- NahDk6gL6GXMjULzQN+0Bu1IvrIARIG2rahhJNTB9C+pQOdjhdL6x6lgDKJ7mdlz3cE9AKGhMdq
- cpJ6f2BwlSk2vQaKlT592Z/3DybyKDM07ErufBel4op7ucY10OC2mbu2XFkWYPO3D1buN+MyYky
- itr1g7MFZytikEEM54klhFppYU861G1/OBd6owpfwG/wj+rmL0/tm1/IE4zxj9xpI5gOfazr0tq
- j/ocMWcUpVTiCQ9p3ciwjZ+ix9PnzFR0/3RvobeO7EwaRIjtpja0Mzicsj7NgDiwQdzCQSBoK8D
- 5j3/sNTFbt7ZRsEEOGxJYswcPReMArgHVopNN1o0i5niVya9LeVua4d9yDj8Vy3dj5KXOBuCYDk
- uarTMGPkNSTMR4E4LPQ==
-X-Authority-Analysis: v=2.4 cv=EPU2FVZC c=1 sm=1 tr=0 ts=69f9fe41 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=_vM1m9lfSBLZ1nnPSXUA:9 a=QEXdDO2ut3YA:10 a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-GUID: iv7dThtp-2uOBBG9MtvV8YY1e17vsVZk
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-05_02,2026-04-30_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 malwarescore=0 impostorscore=0 clxscore=1011 bulkscore=0
- phishscore=0 suspectscore=0 priorityscore=1501 spamscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605050138
+References: <CAHijbEXhuVRgkkPA2dAC=njGBU7vpAbxAbsSmxvvPznO-ckVRA@mail.gmail.com>
+ <cf945dda-f526-4544-bc43-22f70acb28f5@amd.com>
+ <CAHijbEXQfm4QDDfo1yiVBV9mVvogGqt_BAu2ipnhqa-EDOKteg@mail.gmail.com>
+In-Reply-To: <CAHijbEXQfm4QDDfo1yiVBV9mVvogGqt_BAu2ipnhqa-EDOKteg@mail.gmail.com>
+From: "T.J. Mercier" <tjmercier@google.com>
+Date: Tue, 5 May 2026 07:32:51 -0700
+X-Gm-Features: AVHnY4L-CqRCk9K_YM_TIPhfxSGrpHWAX4Wk2aGhZey2Xo5NNg91bzKueU3NeaU
+Message-ID: <CABdmKX1pDc7wpLVQzM0ihH6AfW+=KWdyaZuorMqWCbC80Y7-Bw@mail.gmail.com>
+Subject: Re: Regression due to /sys/kernel/dmabuf/buffers removal
+To: Julian Orth <ju.orth@gmail.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ corbet@lwn.net, dri-devel@lists.freedesktop.org, 
+ linaro-mm-sig@lists.linaro.org, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ Sumit Semwal <sumit.semwal@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,20 +111,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/4/2026 6:06 AM, Sumit Garg wrote:
-> @@ -485,9 +485,9 @@ static void ath12k_ahb_power_down(struct ath12k_base *ab, bool is_suspend)
->  		pasid = (u32_encode_bits(ab_ahb->userpd_id, ATH12K_USERPD_ID_MASK)) |
->  			 ATH12K_AHB_UPD_SWID;
->  		/* Release the firmware */
-> -		ret = qcom_scm_pas_shutdown(pasid);
-> +		ret = qcom_pas_shutdown(pasid);
->  		if (ret)
-> -			ath12k_err(ab, "scm pas shutdown failed for userPD%d\n",
-> +			ath12k_err(ab, "pas shutdown failed for userPD%d: %d\n",
->  				   ab_ahb->userpd_id);
+On Tue, May 5, 2026 at 6:00=E2=80=AFAM Julian Orth <ju.orth@gmail.com> wrot=
+e:
+>
+> On Tue, May 5, 2026 at 2:41=E2=80=AFPM Christian K=C3=B6nig <christian.ko=
+enig@amd.com> wrote:
+> >
+> > Hi Julian,
+> >
+> > On 5/5/26 14:25, Julian Orth wrote:
+> > > In ab4c3dcf9a71582503b4fb25aeab884c696cab25 ("dma-buf: Remove DMA-BUF
+> > > sysfs stats") the /sys/kernel/dmabuf/buffer directory was removed.
+> > >
+> > > I've been using this interface, specifically the exporter_name file,
+> > > to detect dmabufs created via udmabuf. Such dmabufs show "udmabuf" in
+> > > exporter_name. I've been doing this for two reasons: 1) to detect tha=
+t
+> > > mmap on such buffers will be fast and 2) to detect that GPU access to
+> > > such buffers will be slow.
+> >
+> > Crap, I really hoped that Android was the only user of that sysfs inter=
+face since that approach turned out to be quite broken.
+> >
+> > It's number one rule on Linux that we don't break userspace. So I hope =
+that you don't insist on bringing that interface back, but if you do I will=
+ just revert the removal until we found a better solution.
+>
+> Bringing it back shouldn't be necessary.
+>
+> >
+> > > With the removal of that file, that detection mechanism no longer wor=
+ks.
+> > >
+> > > I'm not particularly fond of that mechanism but it was the only one
+> > > providing that functionality that I could find at the time. If there
+> > > is another one, ideally an ioctl on the dmabuf, please let me know.
+> >
+> > The virtual fdinfo file you can find under /proc/$pid/fdinfo/$fd also c=
+ontains the exporter name for the DMA-buf.
+> >
+> > You can find the full documentation here: https://docs.kernel.org/files=
+ystems/proc.html#dma-buffer-files
+> >
+> > Is that sufficient?
+>
+> I think that is sufficient. I probably didn't use fdinfo initially
+> because 1) it's a lot more work to parse and 2) I wasn't sure if it
+> was intended to be machine-readable or if there could sometimes be
+> newlines in the values and such.
+>
+> >
+> > Additional to that the debugfs for DMA-buf also contains that informati=
+on and I'm open to the suggestion with the IOCTL.
+>
+> My application runs as a regular user so it cannot access /sys/kernel/deb=
+ug.
+>
+> Having an IOCTL would be ideal if it is not too much work. I'll fall
+> back to fdinfo for now.
+>
+> Thanks, Julian
 
-at some point the "ret" param was dropped, and this now generates build warnings
+Phew, I'm glad fdinfo suits your needs.
 
->  	}
->  }
+Adding an ioctl would introduce new UAPI so I think we'd want to avoid
+that unless absolutely necessary.
 
+Thanks,
+T.J.
+
+> >
+> > Regards,
+> > Christian.
+> >
+> > >
+> > > Shipping an entire BPF compiler in my application, which the original
+> > > patch suggests as the replacement, is not an option when the removed
+> > > alternative was simply reading a file.
+> > >
+> > > Thanks, Julian
+> >
