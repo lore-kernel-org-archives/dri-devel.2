@@ -4,77 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8609FF885A
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 09:47:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07582FF885A
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 09:47:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1A5210EA24;
-	Tue,  5 May 2026 09:47:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6181810EA29;
+	Tue,  5 May 2026 09:47:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="XaJ1L4Sw";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="JEwtXqh7";
 	dkim-atps=neutral
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
- [209.85.215.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1611310EA1B
- for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 09:47:24 +0000 (UTC)
-Received: by mail-pg1-f182.google.com with SMTP id
- 41be03b00d2f7-c8028fa6039so1333821a12.2
- for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 02:47:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1777974443; x=1778579243;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=H47du07QN++q3kF8wD+XRMzmoj4qTLPzJmnZJfh1GKo=;
- b=XaJ1L4SwDqjtV3lWWMj0TIkAvr4ADhsMkod/JtrkpHcbzsIe2/drhkPzaynBXuXHiF
- BEDA0k5TLJOctORAMQ0awmUKU9oiGNsselUemxHPqRzzmWXkwZtFMYL/XZZ6McK6gFrs
- wgfhPOYAqbVu3/q6rzkVpjh1ai+7ZgSjCcX7A=
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 268A210EA2B
+ for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 09:47:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1777974448;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Uqp2hsSGqvPbDuohp5kkdOibkhT3t/xFOJLm1OTg2Pc=;
+ b=JEwtXqh72QO2S3lHB8Hh8jVdRxSJLZR3XnfYqrUdx06TnfDCCxQVrndDZziIetWSJcdpfl
+ /hYvMqk4RHSxEcyp90JlQ6X3gnT9CMfEqdl+0O3hc7v7+UF1gmmkkD3Gnk44dUpTgPLT9M
+ jXnkC+1dg2aUugh0x3l0tDMWYHec+1A=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-692-hiW6TCo1PUWJubthE-2Gpg-1; Tue, 05 May 2026 05:47:26 -0400
+X-MC-Unique: hiW6TCo1PUWJubthE-2Gpg-1
+X-Mimecast-MFC-AGG-ID: hiW6TCo1PUWJubthE-2Gpg_1777974446
+Received: by mail-wr1-f70.google.com with SMTP id
+ ffacd0b85a97d-43efc93e4f6so3838369f8f.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 02:47:26 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777974443; x=1778579243;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=H47du07QN++q3kF8wD+XRMzmoj4qTLPzJmnZJfh1GKo=;
- b=kGeasJL/AFyBQKuBBllo7sRkS5+NF/jNsptng3pRKwtF+hxR7LdSkzrn/lX+VVg14w
- MMud4PRKAqFYXq7+yqze+dZE8+lmecMu19h8cHK1nygZchid4eKPeWyD02rH/1UDqXGO
- lRcIOV+kgpY8cg1JiUJzC6DG93dTabEo4oEc010Ep51Sl8F5VY2zWriYXhqWNpif6IC9
- IBnybulm08dgrVKbot1jE1uWTRYa0WxsG74A0WkF1sRxsQyEMwKBPt0Nnu5JMW2lU13d
- 6lqJgRgWgtIcpDJxDXTZyoTuextkOCNqnCIdgKg7StSnsscyATahkklgVrhYXpAciT13
- XIsA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/iGCifzn+xEY11aPohfVyI6efrdEfyxmHYjQ1KrUixojj6zYg5JjPf+3RHtLxJ7EJGEG7MrCuH6E0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzo2fb6w8i9WalAF7eVHAA6UArvmJ+BqJVQA/KgFQK0tgJPIjDM
- oYNia+u7DZ+7mXX9WLjZ8qnFvH/tb5iA0u2S8d93nCxzqRbr6tm1MFUfbm1y5lK3AA==
-X-Gm-Gg: AeBDieu8OPlOvKnL2rXRI3pTH7cCRl0/RT+wSxnEvbyGJKzoIW+ozPu5XDoDs2fs2ce
- fDAogK40tOJcgdPekra6nnU5Pdtdt2h553JIEtKjuRDR5QmqoKR1t/XQpk3FD9rygNR75NarS8Q
- Pbm4BIQP4SgX2Yx3/TJtrZHOpWxYOqL6NuVxLmDLMo1wF+Vp0RXtnhY0gQYG3oz57sxqb13qgP3
- SX2WflPfEg5L60pBi1UYQwrLZr7osNtIKG0diEvKqSPz0NvuTqB596AGVKy2pBWGilvjFlvw7BZ
- cU81Mpm99QBusdcDMr3OdkQhGoqpHdennGrCx06Nwps1U4ugSqjbBzgE2Tx+5WLJJFGpaId+jwl
- WBJuYlyDbkMY//qh7IEah7nQSOr2Zp4h6EiHyBH3Mcjhc26Ox/Q5NbK+JEOI9+11p1QNvEkIV52
- QMPJoGZmxwE0vu0hL0fjNc2slA/lo/6w14yHdAP4krgV+bPO9onJxb5coP6EBeFKpX2pS82dnlm
- n8djhJ/rBk7st4tESo=
-X-Received: by 2002:a05:6a21:3296:b0:39f:3559:7501 with SMTP id
- adf61e73a8af0-3aa3b710f2cmr2574979637.41.1777974443578; 
- Tue, 05 May 2026 02:47:23 -0700 (PDT)
-Received: from wenstp920.tpe.corp.google.com
- ([2a00:79e0:201d:8:f1d4:2ef0:7d08:9dd8])
+ d=1e100.net; s=20251104; t=1777974445; x=1778579245;
+ h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
+ :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Uqp2hsSGqvPbDuohp5kkdOibkhT3t/xFOJLm1OTg2Pc=;
+ b=CX3xVq0oKCgmtnmqueYaswK4hDXmRcpD/741TJfiZfts3xRvx3n0h8EjiG87C+CRm6
+ 8zqYzeoFQhmTk53w85emhx6Hzv9QsZ4k3tnmmruk8nwqa7/XLuIfwHt9S3o3E6nQk/uW
+ 59zVVj+MQEsSUyV5o/3zOgVjn+XKpkvh3YC1sxgNv8Iv+vLh72PUd3xr7TKKPlFiFwfK
+ njTLgmj34elTdu/mnU9e50JJDbpRqZYvYzjddf+1bekM+nx5waGSZ18a92yQDqFCM2xi
+ qiCiS+vYOM8wQ8ksaMT2naxRK+Ykbg9ow6HaGCxa8raCKE5TI6XoKxuJP9JPi5Cm/1Ho
+ ozag==
+X-Gm-Message-State: AOJu0YyfKsrJih5qeLpC02eUeMn/dz6cGiSn2ehPPuITLRO/aGUqzaMw
+ sP0GZabNKgwBbhyHHQ6Wvi4ANj4W64ZOqbY5+636A1c8OvU6NCqj2+SXr/eADvVPon1ntnY4I2E
+ OARrz/m/cb0u4wfxIripMS7mT1yngM5ydDcwmh7hjQH4UB6JLrI1e0/RWJa7GsXjovmw/hQ==
+X-Gm-Gg: AeBDiev2b4+uT/2bB5zyepkT8mZY+J2mG8Kc1u0Z309hfwUayX5NoOQrRtGp/N+sew9
+ HOpwyGBPvZs4ONL64z/oc4c8IvvKOqSGCWG8I8q6LCcinVwCnmqDbvX83SgCU9zVHG83CkdyK8p
+ 5xB3FlUCzTTCnaRuJLTlLYRBqwYvrnBQB0nQRHavROaq12Eq5RmaxsuEmP6H9b9o7vhKEhx2/H+
+ F5l2MuBVzYJdWYaMhrjvGEqGT/8vQvwp0jYQNIoG65CrlIUvTGNBL7YC/Ef2qR+JFd9SSZIFtso
+ d8WhvISeeJbNvqhFqjS5GqrVWDTqLvfV6mrkwatNmGA0F4oP1VZEZbSxbjhMK+AmCovhWevwtGz
+ IdEDIsnUGzYbTyHuQ8qW7J7gN3M3wHMWP+W5l+rF0OlvKvuNXbvrzQTat7oJaW/MT4G6gn+/kXY
+ NRW+z1/FKEUAJJths=
+X-Received: by 2002:a05:6000:2dc6:b0:448:e182:b7ae with SMTP id
+ ffacd0b85a97d-44bb2e2efc5mr21797888f8f.7.1777974445423; 
+ Tue, 05 May 2026 02:47:25 -0700 (PDT)
+X-Received: by 2002:a05:6000:2dc6:b0:448:e182:b7ae with SMTP id
+ ffacd0b85a97d-44bb2e2efc5mr21797825f8f.7.1777974444844; 
+ Tue, 05 May 2026 02:47:24 -0700 (PDT)
+Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-83965d314f7sm1774100b3a.23.2026.05.05.02.47.21
+ ffacd0b85a97d-4505238e6e0sm3151543f8f.6.2026.05.05.02.47.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 May 2026 02:47:23 -0700 (PDT)
-From: Chen-Yu Tsai <wenst@chromium.org>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Chen-Yu Tsai <wenst@chromium.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
-Subject: [PATCH v2] drm/xlnx/zynqmp-dpsub: Fix dependencies for COMPILE_TEST
-Date: Tue,  5 May 2026 17:47:15 +0800
-Message-ID: <20260505094716.1784225-1-wenst@chromium.org>
-X-Mailer: git-send-email 2.54.0.545.g6539524ca2-goog
+ Tue, 05 May 2026 02:47:24 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 0/5] drm/sysfb: Support basic power management
+In-Reply-To: <363f1a6e-e0fb-4a28-b4a1-1f78376ae775@suse.de>
+References: <20260408120722.328769-1-tzimmermann@suse.de>
+ <87340gq2ey.fsf@ocarina.mail-host-address-is-not-set>
+ <e5414c41-85d6-47b4-8372-a51f55bab0e6@suse.de>
+ <87fr46kxyf.fsf@ocarina.mail-host-address-is-not-set>
+ <363f1a6e-e0fb-4a28-b4a1-1f78376ae775@suse.de>
+Date: Tue, 05 May 2026 11:47:23 +0200
+Message-ID: <87cxzakx1w.fsf@ocarina.mail-host-address-is-not-set>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 04NLsGawBxLP6bayp2-6qDL4lsXrGAGsrnsCnFqT-ss_1777974446
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,37 +101,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The zynqmp-dpsub driver does not have build time dependencies on the PHY
-or DMA drivers. These are runtime hardware restrictions.
+Thomas Zimmermann <tzimmermann@suse.de> writes:
 
-Make the two dependencies optional if COMPILE_TEST.
+> Am 05.05.26 um 11:27 schrieb Javier Martinez Canillas:
 
-Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
----
-Changes since v1:
-- Keep each dependency on a separate line
+[...]
 
-IMO the two driver dependencies could be removed altogether, but that
-would be up to the driver and platform maintainers.
----
- drivers/gpu/drm/xlnx/Kconfig | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+>>>> You tested with vesadrm, do you know if would work for the other drivers
+>>>> too ? I guess that there is value in adding these to all these even if it
+>>>> might not work outside of emulators.
+>>> Agreed. The drivers currently do nothing on suspend/resume, but pretend
+>>> that hardware is still running afterwards. Since we haven't heard about
+>>> problems with this, we can also try to suspend/resume DRM state
+>>> correctly as it won't make things worse.
+>>>
+>>> However, I only know that it works with vesadrm.
+>>>
+>> Got it. Are you planning to merge this series then ?
+>
+> Already done :)
+>
 
-diff --git a/drivers/gpu/drm/xlnx/Kconfig b/drivers/gpu/drm/xlnx/Kconfig
-index cfabf5e2a0bb..58c19e5a7e8f 100644
---- a/drivers/gpu/drm/xlnx/Kconfig
-+++ b/drivers/gpu/drm/xlnx/Kconfig
-@@ -3,8 +3,8 @@ config DRM_ZYNQMP_DPSUB
- 	depends on ARCH_ZYNQMP || COMPILE_TEST
- 	depends on COMMON_CLK && DRM && OF
- 	depends on DMADEVICES
--	depends on PHY_XILINX_ZYNQMP
--	depends on XILINX_ZYNQMP_DPDMA
-+	depends on PHY_XILINX_ZYNQMP || COMPILE_TEST
-+	depends on XILINX_ZYNQMP_DPDMA || COMPILE_TEST
- 	select DMA_ENGINE
- 	select DRM_CLIENT_SELECTION
- 	select DRM_DISPLAY_DP_HELPER
+Ah, great!
+
 -- 
-2.54.0.545.g6539524ca2-goog
+Best regards,
+
+Javier Martinez Canillas
+Core Platforms
+Red Hat
 
