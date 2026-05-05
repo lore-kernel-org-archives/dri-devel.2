@@ -4,128 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0C00FF8855
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 17:20:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B818CFF8855
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 17:20:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0160C10E133;
-	Tue,  5 May 2026 17:20:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 357C210E15E;
+	Tue,  5 May 2026 17:20:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="mP6VW3C6";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dSC2MuK+";
+	dkim=pass (2048-bit key; unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="gIigzI2A";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E84FD10E133
- for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 17:20:03 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 645B6OMG3091455
- for <dri-devel@lists.freedesktop.org>; Tue, 5 May 2026 17:20:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=5+dbc3v3OtmBl3m6PxPaJUCW
- h3BmROrwWQqLBIPzX2w=; b=mP6VW3C6CQRjZ6exLKI8+tEqoW+5Gt3Eg8GRENBB
- Uij9G0SWox1ecPB336oLLe3usbjRLn4i+yfMt5aJQcLoelDB3oc3HO4LFnnNMC2y
- ju3cfbqVNctTk8dy0nRu1YwtFQaTsKr5inlg1mCPQvBA40Jn442XXBJg3NOLIWqp
- 07Z+j72cQINOMX1PMTF5XCgUd/Oh+XEj2KQ9F3Z8HY77kc28Mls8ZcLrh8C5UQ2W
- KHymiLQtlo4QsDMVuhVc4KwoCt9pTmDfCKTp0nfJB4FTeAMyyzzB0zwQgrmNLctX
- 0Sak6xuzw25EXWpDTny8ozLqiNsb/wnN4Wzi/Gi2zME58Q==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
- [209.85.214.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dyfct1ft8-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 17:20:03 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id
- d9443c01a7336-2b2eba42b8dso51405355ad.0
- for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 10:20:03 -0700 (PDT)
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com
+ [209.85.128.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6BF410E15E
+ for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 17:20:47 +0000 (UTC)
+Received: by mail-yw1-f173.google.com with SMTP id
+ 00721157ae682-7bdaa68cf81so12066317b3.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 10:20:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778001647; cv=none;
+ d=google.com; s=arc-20240605;
+ b=bnVtV9EdiZPV2nvbd5XkxNJh1uAetrfYbbmC3uAVY6hde87RL8LnI2Mx5PesicyXh2
+ f1YzWAffQuB/Csb1kYYXN29r9UuJHAxc08gq8o+HRiizwupOwXct0GkA4jthdhgNpZyI
+ raEVF86zSCsunKUocHC8x70/fhjUTSL5dwXCpbseBJ35PITkiTqVAUkmKPcci6lCFZNK
+ eeTa56mq5wrBzeqDna95nfn1d/2Wn+sYUeGudl3XumAuxdxP6yfRlc3De8MTMwRTXqpS
+ nIpmHgmxu7dWVO6mfNGuMaqF3tEyWhyg+g9N2xCCZ7t3BBrJ54a0TMayYAIzJNmpC7Zk
+ 74hA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=IDrgmH6xRo5URQMQTp4Z/sRYK/Fl7gxfls3HxVD+kBQ=;
+ fh=c6JQ5PsQvZG5vaKTPRxoFuA9tMFcMpPrXus7+t6uzAQ=;
+ b=IVarH+917VfsNN7dnOjhzwxp2Xz3qL4Wy0bZHdwquGPekLlhHi7rEUfvKoZ4L68Fi/
+ Eb1PQ8a04VDVgAbkMN4KPs6lkztyhTEhVAazs0X3tzy96Gi082MNsvMk6wxH/nlPAgGp
+ VmAy2I+gEbvcMq2Wav9IrPEY44usJkMlYRBBjspGyEfuVkJOZZ83o06ePSrhnEUYyUqi
+ 4b0StcobRXAVsiNxDM86s/pEPYKtMlWE+WvEuvDubCe2cF9a4Jh+m90skTzaK6SrPo/z
+ qoPt4YngiJD/yfW04tguEAn+zXPKfRqjQC1PhByQE0eWCuhokMW20IVZXxG1qmAqd3GL
+ j2aA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1778001603; x=1778606403;
+ d=raspberrypi.com; s=google; t=1778001647; x=1778606447;
  darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=5+dbc3v3OtmBl3m6PxPaJUCWh3BmROrwWQqLBIPzX2w=;
- b=dSC2MuK+v7HzEm6vSLqJid5Qgom5iGTOCHyQkjC6bWxBysvTbsUfI9qnkO0pP4Bk6w
- /mF3u08gq15Kr1hW6Pj1l9tfAUXDGcAyHNBcE4HXCK+GVUcgKZe2B6rVFICBsTtM93Oa
- 5o3Aq14V3HQ1XoeI+ehaMBT5dXMLtXc0li31uvQKswrNZqTKwQ2/kWbURxF7PVvLvPh8
- P9iLXWIKc4sdVmQLPDpKOyX/9yS3YXpFMrYaj47QllX63plQLJNPkTZX3lXFFePcQefb
- 5GRglMz5Xwo7Xf95ZcrLKK3O7yNzcgapcdtcM5TasHrimWYIKIyBkjYguBBVrdejWQhr
- SP7w==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=IDrgmH6xRo5URQMQTp4Z/sRYK/Fl7gxfls3HxVD+kBQ=;
+ b=gIigzI2AvEyuplzv6dkRGuw75rvTrDIrQT7Qs/d66mtJLkMSmt/CeaEfCMhx/o9rq+
+ RCjcaYqW3W8+EmcQGl7qq5VQekH6iW/hsNFTudc18tv7P7FlKdMLVQ0IeeN0DmStEe+f
+ a4Mr9HCEy7cH2+GqBQlm4YalGcNHMbVOjzynGd9SLSpSvxciFD4t8cUu+2QGQDG7xYzW
+ LIzUkxSOVLjY5R56ZmpB6clZZWk9cv3y1yKJxWXkysBtzzUcquSkc4wTVnPLfuT2AgsE
+ R2TtPTowD3kMqyR2YSitLRkVRcsdBPUbI6mUQrxMliCHfaytyfbqRs5ocdpEQVixVPNN
+ WpVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778001603; x=1778606403;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=5+dbc3v3OtmBl3m6PxPaJUCWh3BmROrwWQqLBIPzX2w=;
- b=Ez84lOf+87v2gwj4DHQKCHjqYKYszRev8XChNfMo5YWDnW9nPrrpsN3QQIelSerKL8
- 5+LAWl2qlAtwDZ9Vln4UKzhxlzyBx5mezGau+H2TyObii7E9NdCb6VqreQ+9v0eyAfMI
- DcAzGPHW8ZlKjNwPuRPqBCCmkdiZP2JIuDGL4EelFVCvCrpGQ6wZht5vC2Z++mRfTMnA
- KZ5cnyajhGfBhmAiuGn6eaeO89/h3ZxDgFl3O29WM7dcyR9Q+WNWiNTuxMrcoyJiu3kn
- FYSBmZ60s/PNqck1MH3wllNuWSoSltRFdrCMighEcXtRvMSZQoX8TF5wqayM7OrN4c8P
- BguA==
+ d=1e100.net; s=20251104; t=1778001647; x=1778606447;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=IDrgmH6xRo5URQMQTp4Z/sRYK/Fl7gxfls3HxVD+kBQ=;
+ b=P1iAG2SElT1/bzEdcj+wqeGym04y5SxjDM3by3ZJB/DepmzvqiD10T84LLtZLm9fKr
+ ajcNQ565hIAU8AEIoJhsF/ZAyyGGOVo7ynCxZQpRKHRF7v4YnQ+zdKxtl/9OlrFfqs2B
+ PV/bblsZC0l6MD9/xFEDAcKSifaMhExeQrbLvUBfdcvIuoP+IfSUouiJb1tCyAdlYadj
+ /DSNafma03vKNSwIVc+i5HnYfzbtgJDwYXn+CAf3dOb+B3FsudGCEHntz1Hlui5Yk2Ld
+ rvHP2oYE3+CN6WQw4QxpBWiv/xhSs76juP8X21tuDyXg2yV5unDHRQRLn44P+5zBwrX1
+ esTw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+Bvqx1mmFFI0Vzbgr3axuVj7vAQyPS1L1nB8BjNm42cPIgXLLVoH7hT/gIJnll8KfJk0tV6eVv2BI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyacJPSD24fH+9vU+OFQ7Zr8CKObW69YzGbL/Dvfy+bBRWjCiwz
- C8aSxTNrIla5NovUTrpvL8cPyQWthDonZMwsoE1vk2poC8cB/ciTvQCMShIoRRb6++XJ2eJdr53
- i7R84S8tTOvLXk9qWVnEf2SV5zcrZvuQISCWbabpnqviPSkTpIvY8Ijp6Vy+6TPRuVrmNc64=
-X-Gm-Gg: AeBDieuVH6CtmMwvCsjwKgX6t2Re6HgVyNKgXhRGA7bYKVMvg/XZHjs3ovkPQUjdpsE
- 8v+mxDgMtWVCW5CGLYNZUmte6l2LSi/+QZryBJa4cvJmLV/5jg1DuHgMj/M4S7w8LQcgjl1B5ep
- Pzohxxrov0cK5xWpL14Gq6uPJI2//mmRxq8Yc0RrLu6/0ohniPG5Sm7oYGEpScg+LpOO02m/BLS
- s5k1N05KZfoc9y0BfSBORTzmlR52VDM453u1LpxhMhgxhwTRcH+p6jJQ22I+1i+7Vaia/zW9rFT
- Gt0ZJoboYDDvpYrVQWgPxRcpdkZhm283+ChLt1lc7dK1sXwHIjcTGJu7A/Gxg5mGNk0FWPqial8
- +7wkKpzCr/zgaDmgoVxhHdFckOo/Ae3fziyimSfkCJXUiQlHnAKwPqePer58=
-X-Received: by 2002:a17:903:22c6:b0:2ba:6bd7:8efc with SMTP id
- d9443c01a7336-2ba6bd79004mr14146855ad.40.1778001602469; 
- Tue, 05 May 2026 10:20:02 -0700 (PDT)
-X-Received: by 2002:a17:903:22c6:b0:2ba:6bd7:8efc with SMTP id
- d9443c01a7336-2ba6bd79004mr14146395ad.40.1778001601913; 
- Tue, 05 May 2026 10:20:01 -0700 (PDT)
-Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2b9caa7e791sm145314855ad.7.2026.05.05.10.19.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 May 2026 10:20:01 -0700 (PDT)
-Date: Tue, 5 May 2026 22:49:54 +0530
-From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Thierry Escande <thierry.escande@linaro.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] misc: fastrpc: Fix NULL pointer dereference in
- rpmsg callback
-Message-ID: <20260505171954.uto4a7jmxptlaa5v@hu-mojha-hyd.qualcomm.com>
-References: <20260504171701.18164-1-mukesh.ojha@oss.qualcomm.com>
- <afjprOhBhP15-2lU@baldur>
+ AFNElJ+W6DjvZNVHZtTcJ8q0xBhh3a5++Rgw8OP04iLzMNYLqkoUZznK2sN0b66/pQB11a61mmY2IYdUKiA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzJ7oUPJ11IG9H8RZ4pWclD+maZzExT0pK42psdZ/JB01W7vWYp
+ YkkB3cOWTwIQdmaYOyNebFz0SwcasTWFz610gPwSwY4wNevNk2WpmZTori2oF/Vq6QPhJHzpR/X
+ qC5jXMjOxq2mYkSYQ9IIfQfldi93wEnz2hwCeNW4U5g==
+X-Gm-Gg: AeBDietyETzHEi/nOWQkXRUtEIlFYMDf22Loya983wBMQXLZCqvJ0YjM8rYJn2atKrT
+ qn8IA69j8z21UraOSbbcN3lDS7mLaMWOEs9b6ypoUxvQ3+as1NEmMCqiWGplV33pXhoOA1vCddB
+ 383fCaLAhup1+Il/V5r5xf6JQct5/hhxuazm+dpBupNTBdZHX91frd9R22fWqyoLLr0uL1mohP5
+ 5j4AbVmjvRW7dRxXGhSuAntNsRzwcUwXkQbRgLGCYEOA4QhPrCK9JmU++YOdoqWiZPRJUZfc2Wi
+ BOGRBcRXoc1fbXqHIa0N/qVaTyYM6hYitfkapULuhadHtUY=
+X-Received: by 2002:a05:690c:dd5:b0:7bd:4a12:f08c with SMTP id
+ 00721157ae682-7bdf5eeea18mr72427b3.39.1778001646685; Tue, 05 May 2026
+ 10:20:46 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <afjprOhBhP15-2lU@baldur>
-X-Proofpoint-GUID: oI7YcJX2xUAlmTPAro4zGqkCALPVwzEl
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA1MDE2NyBTYWx0ZWRfX/UT4m2gkFbKJ
- zBBFODYEEQrkyj5BfzqhuO1qjYA3OxxB4c3nU404NOP4zLVakj8gQdVkxr+p/vpMN/dcIcYE06k
- lxi202EBqIaveVvNXgHs50BGNMFzbv0IzB9Vu+LRUuBZgkLTuIZVxr76N6iQg0WxegkD9Qy1e/q
- j21F+dwGt3vMGDoA6I7XTBgaFO0WOX8lhigH94deURZACw3f1ZjiNUgHXHJMSjdAd50U1M/qwyK
- D5XZDdu6nWPvWN7qtR8MKsHroCEEJB8MsdEpVZQ/VU8n23lVKi5X22H3KGD4fAUzQiIcMNFBfIH
- aGt3BUCCVhBPZbnHGim7jhf1Tjgr0gIggdBaWzyq7E+B5MEtjSc8cuCjL/wBvHXB7XE5rOlDvnC
- dc2ECWSRK9VHZO7ML5hA5Ow7a8qLGZQqTSxrjGsM2wAjYRyhQkRPn/Kg8kkL0JUghmmIvUG+9lu
- JU2Uyb662vKmsh0H7JA==
-X-Proofpoint-ORIG-GUID: oI7YcJX2xUAlmTPAro4zGqkCALPVwzEl
-X-Authority-Analysis: v=2.4 cv=NtXhtcdJ c=1 sm=1 tr=0 ts=69fa26c3 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=kj9zAlcOel0A:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=_ffyFokNbbV7GOtJ6hsA:9 a=CjuIK1q_8ugA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-05_02,2026-04-30_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 clxscore=1015 bulkscore=0 impostorscore=0 lowpriorityscore=0
- adultscore=0 spamscore=0 priorityscore=1501 phishscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605050167
+References: <20260402015101.3328-1-zikken@xs4all.nl>
+In-Reply-To: <20260402015101.3328-1-zikken@xs4all.nl>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Tue, 5 May 2026 18:20:29 +0100
+X-Gm-Features: AVHnY4LpkmA9UneY6WOX8AV5cs7uRjhT6rd76M2GyJkOkNzQxaco2GXwH-US49c
+Message-ID: <CAPY8ntAYnk_Wg0LPq75bwpDvBsRaAXAcr7wzA4OfGgiLHz3bVA@mail.gmail.com>
+Subject: Re: [PATCH] drm/vc4: Fix NULL pointer dereference in
+ vc4_plane_create_additional_planes
+To: Henri Zikken <zikken@xs4all.nl>
+Cc: Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, root <root@desktop-40rm2q1.localdomain>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,103 +106,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, May 04, 2026 at 01:53:37PM -0500, Bjorn Andersson wrote:
-> On Mon, May 04, 2026 at 10:47:00PM +0530, Mukesh Ojha wrote:
-> > A NULL pointer dereference was observed on Hawi at boot when the DSP
-> > sends a glink message before fastrpc_rpmsg_probe() has completed
-> > initialization:
-> > 
-> >   Unable to handle kernel NULL pointer dereference at virtual address 0000000000000178
-> >   pc : _raw_spin_lock_irqsave+0x34/0x8c
-> >   lr : fastrpc_rpmsg_callback+0x3c/0xcc [fastrpc]
-> >   ...
-> >   Call trace:
-> >    _raw_spin_lock_irqsave+0x34/0x8c (P)
-> >    fastrpc_rpmsg_callback+0x3c/0xcc [fastrpc]
-> >    qcom_glink_native_rx+0x538/0x6a4
-> >    qcom_glink_smem_intr+0x14/0x24 [qcom_glink_smem]
-> > 
-> > The faulting address 0x178 corresponds to the lock variable inside
-> > struct fastrpc_channel_ctx, confirming that cctx is NULL when
-> > fastrpc_rpmsg_callback() attempts to take the spinlock.
-> > 
-> > There are two issues here. First, dev_set_drvdata() is called before
-> > spin_lock_init() and idr_init(), leaving a window where the callback
-> > can retrieve a valid cctx pointer but operate on an uninitialized
-> > spinlock. Second, the rpmsg channel becomes live as soon as the driver
-> > is bound, so fastrpc_rpmsg_callback() can fire before dev_set_drvdata()
-> > is called at all, resulting in dev_get_drvdata() returning NULL.
-> > 
-> > Fix both issues by moving all cctx initialization ahead of
-> > dev_set_drvdata() so the structure is fully initialized before it
-> > becomes visible to the callback, and add a NULL check in
-> > fastrpc_rpmsg_callback() as a guard against any remaining window.
-> > 
-> > Fixes: f6f9279f2bf0 ("misc: fastrpc: Add Qualcomm fastrpc basic driver model")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-> 
-> The fix looks good to me.
-> 
-> Reviewed-by: Bjorn Andersson <andersson@kernel.org>
-> 
-> 
-> But I can't help wonder, what's in that message? Should we make sure to
-> handle it, longer term?
+Hi Henri
+
+Sorry for the delay in replying.
+
+On Fri, 3 Apr 2026 at 09:59, Henri Zikken <zikken@xs4all.nl> wrote:
 >
+> When a vc4 DRM device has no TXP (Writeback) CRTC, txp_crtc remains
+> uninitialized after the drm_for_each_crtc loop. Subsequent calls to
+> drm_crtc_mask(txp_crtc) then dereference a NULL pointer, causing a
+> kernel panic.
+>
+> This was observed on Raspberry Pi Zero 2W with a DPI panel connected,
+> where vc4_dpi_dev_probe triggers vc4_drm_bind which calls
+> vc4_plane_create_additional_planes without a TXP being present.
+>
+> Fix by initializing txp_crtc to NULL and guarding all drm_crtc_mask()
+> calls on txp_crtc with a NULL check.
 
+Which tree have you created this patch against?
 
-4.662080] fastrpc_rpmsg_callback rsp->ctx: abcddcab ctx: ca
+Creating a separate set of planes for the writeback connector is a
+patch that I haven't upstreamed yet, so it only exists in our vendor
+kernel[1].
+This issue is already fixed on the rpi-6.18.y branch. It does exist on
+earlier branches, but those are frozen for our ongoing development
+efforts.
 
-It looks bogus to me, as no ctx id allocated from your HLOS.
+Then again if there is no transposer there is no point in creating the
+additional planes at all. Creating them with a mask of 0 is a waste of
+time.
 
--Mukesh
+  Dave
 
+[1] https://github.com/raspberrypi/linux
 
-> Regards,
-> Bjorn
-> 
-> > ---
-> > Changes in v2: https://lore.kernel.org/lkml/20260417200146.184425-1-mukesh.ojha@oss.qualcomm.com/
-> >  - Added stable mailing list and fixes tag.
-> > 
-> >  drivers/misc/fastrpc.c | 5 ++++-
-> >  1 file changed, 4 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> > index 1080f9acf70a..a1a54453bb7e 100644
-> > --- a/drivers/misc/fastrpc.c
-> > +++ b/drivers/misc/fastrpc.c
-> > @@ -2431,7 +2431,6 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
-> >  
-> >  	kref_init(&data->refcount);
-> >  
-> > -	dev_set_drvdata(&rpdev->dev, data);
-> >  	rdev->dma_mask = &data->dma_mask;
-> >  	dma_set_mask_and_coherent(rdev, DMA_BIT_MASK(32));
-> >  	INIT_LIST_HEAD(&data->users);
-> > @@ -2440,6 +2439,7 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
-> >  	idr_init(&data->ctx_idr);
-> >  	data->domain_id = domain_id;
-> >  	data->rpdev = rpdev;
-> > +	dev_set_drvdata(&rpdev->dev, data);
-> >  
-> >  	err = of_platform_populate(rdev->of_node, NULL, NULL, rdev);
-> >  	if (err)
-> > @@ -2513,6 +2513,9 @@ static int fastrpc_rpmsg_callback(struct rpmsg_device *rpdev, void *data,
-> >  	if (len < sizeof(*rsp))
-> >  		return -EINVAL;
-> >  
-> > +	if (!cctx)
-> > +		return -ENODEV;
-> > +
-> >  	ctxid = ((rsp->ctx & FASTRPC_CTXID_MASK) >> 4);
-> >  
-> >  	spin_lock_irqsave(&cctx->lock, flags);
-> > -- 
-> > 2.53.0
-> > 
-> > 
+> Fixes: (vc4_plane_create_additional_planes introduction)
+> Signed-off-by: Henri Zikken<zikken@xs4all.nl>
+> Signed-off-by: root <root@DESKTOP-40RM2Q1.localdomain>
 
--- 
--Mukesh Ojha
+Rogue Signed-off-by line.
+
+> ---
+>  drivers/gpu/drm/vc4/vc4_plane.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/vc4/vc4_plane.c b/drivers/gpu/drm/vc4/vc4_plane.c
+> index fdd6ba310..c43c12c2c 100644
+> --- a/drivers/gpu/drm/vc4/vc4_plane.c
+> +++ b/drivers/gpu/drm/vc4/vc4_plane.c
+> @@ -2665,7 +2665,7 @@ int vc4_plane_create_additional_planes(struct drm_device *drm)
+>         struct drm_plane *cursor_plane;
+>         struct drm_crtc *crtc;
+>         unsigned int i;
+> -       struct drm_crtc *txp_crtc;
+> +       struct drm_crtc *txp_crtc = NULL;
+>         uint32_t non_txp_crtc_mask;
+>
+>         drm_for_each_crtc(crtc, drm) {
+> @@ -2678,7 +2678,7 @@ int vc4_plane_create_additional_planes(struct drm_device *drm)
+>         }
+>
+>         non_txp_crtc_mask = GENMASK(drm->mode_config.num_crtc - 1, 0) -
+> -                                       drm_crtc_mask(txp_crtc);
+> +                                       (txp_crtc ? drm_crtc_mask(txp_crtc) : 0);
+>
+>         /* Set up some arbitrary number of planes.  We're not limited
+>          * by a set number of physical registers, just the space in
+> @@ -2707,7 +2707,7 @@ int vc4_plane_create_additional_planes(struct drm_device *drm)
+>         for (i = 0; i < VC4_NUM_TXP_OVERLAY_PLANES; i++) {
+>                 struct drm_plane *plane =
+>                         vc4_plane_init(drm, DRM_PLANE_TYPE_OVERLAY,
+> -                                      drm_crtc_mask(txp_crtc));
+> +                                      (txp_crtc ? drm_crtc_mask(txp_crtc) : 0));
+>
+>                 if (IS_ERR(plane))
+>                         continue;
+> --
+> 2.39.5
+>
