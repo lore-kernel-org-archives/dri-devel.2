@@ -4,54 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27C55CD3430
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 09:27:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C48F5CD3430
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 09:28:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E37110E42D;
-	Tue,  5 May 2026 09:27:42 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3115310E42D
- for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 09:27:41 +0000 (UTC)
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.82])
- by APP-01 (Coremail) with SMTP id qwCowADXf2sGuPlptFxUDw--.59590S2;
- Tue, 05 May 2026 17:27:35 +0800 (CST)
-Message-ID: <cb47f13a5901d15a135cc4a4128d542ddc24a0bb.camel@iscas.ac.cn>
-Subject: Re: [PATCH] drm: verisilicon: support non-coherent DMA framebuffers
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Dominique Belhachemi <domibel@debian.org>
-Cc: Maxime Ripard <mripard@kernel.org>, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>,  David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Paul Cercueil <paul@crapouillou.net>,  Michal Wilczynski
- <m.wilczynski@samsung.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Date: Tue, 05 May 2026 17:27:33 +0800
-In-Reply-To: <1452a2d0d1f32afbd37fad2935a6e137c1e707be.camel@iscas.ac.cn>
-References: <20260505042631.1916555-1-domibel@debian.org>
- <1452a2d0d1f32afbd37fad2935a6e137c1e707be.camel@iscas.ac.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A28A10EA10;
+	Tue,  5 May 2026 09:28:02 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="C8EcI7gb";
+	dkim-atps=neutral
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF6AD10EA10
+ for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 09:28:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1777973279;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=+2vLygnSuUxUZp8qdKozIdga2LwEG2v114+MzBN2x8s=;
+ b=C8EcI7gbvpGg355chz4Z9RzTAO5P5BhKnEby5N7rt3FOTqxl/Aefshp/Eftmdos2CTDlmU
+ 9Zz4bvrnqqeIdMqFvfyzhG4QyhhH0TsS38Ituk20fmuKuQbQAwUfm4uqMfQG1l3/KDVYCY
+ ISpSvQGxh4oh655H32DMTdfHzp60uYA=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-643-jJ-_45drPZyRLtwI-160Aw-1; Tue, 05 May 2026 05:27:56 -0400
+X-MC-Unique: jJ-_45drPZyRLtwI-160Aw-1
+X-Mimecast-MFC-AGG-ID: jJ-_45drPZyRLtwI-160Aw_1777973275
+Received: by mail-wm1-f71.google.com with SMTP id
+ 5b1f17b1804b1-488d3eec9bcso30369465e9.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 02:27:56 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777973275; x=1778578075;
+ h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
+ :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=+2vLygnSuUxUZp8qdKozIdga2LwEG2v114+MzBN2x8s=;
+ b=eB3UrAJtEucI1LE9peJvzzoL5w3Cv8x/tAT4XfEEh++MiYKmoJ4T7Z5CFUm67vcON9
+ RSmCLExuGerxrucSZDALf/HN7M/O00c9ylItsRx65xdKG9WvAXHrwSugO43oIQ6nvnzR
+ U3Ie3DLSt9JT8mOVq4WeO9Ilw7M9wOQa+Af6vkgvDDN1Lc6xmGYU/Af0ggtzzPKvLdKf
+ GKgSQALZalPg822CFRgZnqgGdjkXZWT5/tzGCmGqTZk2LUjGMJzaC1T4LpK5beE3TZTy
+ XzG5Bs2g/CSglZS04vcGxh0G4Gw2ceky6PSOeObN/LEunHehRe54RjG+Po/xfdbSGThH
+ kPcg==
+X-Gm-Message-State: AOJu0Yx0dEwTvxfVZrSYs7vMEc/T2YbWPH9DgAd955me/lSNjjLyWr1K
+ pOrNlM8ETdfMr9wju0Y7jZUsbRskUTAbW/zfZCM9rklEMAdHbsmyV9vgQQf3q8CfaAOUlId7cL/
+ 9e5/y7ZTTCnous6OGzXjSw7aNIsO1EYiXI1XENkoNIIng3YgFUorJ1OKHnLhlZXlbyzPb8g==
+X-Gm-Gg: AeBDietnFSN/Y+OkC4YlvYD40ojp8vVU/EIA6XpwCmThAZg/xPk6eGQ6XRQe6nvSxv3
+ z4dCrKyosYPPDSB2U8pLrbGegYAZpYe6Y/frFFgIUuohdKB5qKFGIJtS3MPGkyZhTRzyo6EXUcv
+ Tf00lD7kO8c/8GaUbktVqXmcb0U58p54QnxhUQBd6RItLsA0xmQ7KqwqIYMBzeRt2cAkeR+0yKp
+ sg1oiKEGv97SnKLRPl+lnJqMFeS+fIDK0oY8JsTocSsXk//Nbca9S0mqKQhJJ9p90NisMAGEHEG
+ aj7d7XuUy0y1ERnOUcNgjRzZuDbI+aYKF68V1SghhXZ35COVEfFDh+uRjFaGzBw0wjDHPjpGOrQ
+ c2lwf4qDOau9rdNcGMIDUy7Mvd/LCgStcKeu7RcmQXEBJwtG51w3TApPh/c7HeyGigk5rfnjoV6
+ bJZp8Kka85AWArGoY=
+X-Received: by 2002:a05:600c:828a:b0:489:5022:39a4 with SMTP id
+ 5b1f17b1804b1-48a98638119mr216071955e9.9.1777973275332; 
+ Tue, 05 May 2026 02:27:55 -0700 (PDT)
+X-Received: by 2002:a05:600c:828a:b0:489:5022:39a4 with SMTP id
+ 5b1f17b1804b1-48a98638119mr216071515e9.9.1777973274896; 
+ Tue, 05 May 2026 02:27:54 -0700 (PDT)
+Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-48a81b99127sm378772205e9.0.2026.05.05.02.27.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 05 May 2026 02:27:54 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 0/5] drm/sysfb: Support basic power management
+In-Reply-To: <e5414c41-85d6-47b4-8372-a51f55bab0e6@suse.de>
+References: <20260408120722.328769-1-tzimmermann@suse.de>
+ <87340gq2ey.fsf@ocarina.mail-host-address-is-not-set>
+ <e5414c41-85d6-47b4-8372-a51f55bab0e6@suse.de>
+Date: Tue, 05 May 2026 11:27:52 +0200
+Message-ID: <87fr46kxyf.fsf@ocarina.mail-host-address-is-not-set>
 MIME-Version: 1.0
-X-CM-TRANSID: qwCowADXf2sGuPlptFxUDw--.59590S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3Jr1kWr1xuF43CFW3urWfXwb_yoWxWF43pa
- 1DAFW5KrWY9395Gr9rJr1qkayakw1xK34Igry8G3ZIvwnFyrnxX3WrAr9xuF4UJrW7K3WS
- qr1qkFnrCr1UArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvmb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
- A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
- jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
- 8E87Iv6xkF7I0E14v26F4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
- 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
- 1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
- MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
- 4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
- 67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
- x0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
- z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnU
- UI43ZEXa7IU84v3UUUUUU==
-X-Originating-IP: [112.94.100.82]
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 8_AOUmjLvkQ1gKWaTk-3-2brNle74L2fFdOppOnmkF4_1777973275
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,210 +99,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-=E5=9C=A8 2026-05-05=E4=BA=8C=E7=9A=84 17:05 +0800=EF=BC=8CIcenowy Zheng=E5=
-=86=99=E9=81=93=EF=BC=9A
-> =E5=9C=A8 2026-05-05=E4=BA=8C=E7=9A=84 04:26 +0000=EF=BC=8CDominique Belh=
-achemi=E5=86=99=E9=81=93=EF=BC=9A
-> > Wire up the standard non-coherent path matching the ingenic DRM
-> > driver.
->=20
-> Ah I forgot that my test platform is also noncoherent -- it uses
-> uncached memory map instead of cache maintenance.
->=20
-> Should some other facility to be wired in to check whether cache
-> maintenance or uncached mapping is available and use that
-> functionality?
+Thomas Zimmermann <tzimmermann@suse.de> writes:
 
-Ah forgot to mention that drm/imagination driver requires uncached
-mapping too, and this seems to be difficult to lower (currently
-impossible because the userspace only does Vulkan coherent map now).
+> Hi Javier
+>
+> Am 27.04.26 um 09:37 schrieb Javier Martinez Canillas:
+>> Thomas Zimmermann <tzimmermann@suse.de> writes:
+>>
+>> Hello Thomas,
+>>
+>>> Add callbacks for suspending and resuming to the sysfb drivers. The
+>>> helpers store and restore DRM state across the suspend/resume cycle.
+>>>
+>>> While most hardware loses the system framebuffer setup on suspends,
+>>> some systems do retain the configuration; notable emulators. Adding
+>>> PM support makes it work with DRM.
+>>>
+>> Interesting addition, I wouldn't had thought that the state would be
+>> retained during a suspend/resume cycle. But I guess that makes sense
+>> for emulated devices.
+>
+> I only discovered this recently.
+>
+>>
+>>> Tested with vesadrm on qemu's bochs device.
+>>>
+>> You tested with vesadrm, do you know if would work for the other drivers
+>> too ? I guess that there is value in adding these to all these even if it
+>> might not work outside of emulators.
+>
+> Agreed. The drivers currently do nothing on suspend/resume, but pretend 
+> that hardware is still running afterwards. Since we haven't heard about 
+> problems with this, we can also try to suspend/resume DRM state 
+> correctly as it won't make things worse.
+>
+> However, I only know that it works with vesadrm.
+>
 
-Thanks,
-Icenowy
+Got it. Are you planning to merge this series then ?
 
->=20
-> Thanks,
-> Icenowy
->=20
-> >=20
-> > Tested on StarFive JH7110 (VisionFive 2 v1.3B).
-> >=20
-> > Signed-off-by: Dominique Belhachemi <domibel@debian.org>
-> > ---
-> > =C2=A0drivers/gpu/drm/verisilicon/vs_drm.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 31
-> > +++++++++++++++++--
-> > =C2=A0drivers/gpu/drm/verisilicon/vs_drm.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 7 +++++
-> > =C2=A0.../gpu/drm/verisilicon/vs_primary_plane.c=C2=A0=C2=A0=C2=A0 | 11=
- ++++++-
-> > =C2=A03 files changed, 46 insertions(+), 3 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/verisilicon/vs_drm.c
-> > b/drivers/gpu/drm/verisilicon/vs_drm.c
-> > index fd259d53f49f..52d8749445df 100644
-> > --- a/drivers/gpu/drm/verisilicon/vs_drm.c
-> > +++ b/drivers/gpu/drm/verisilicon/vs_drm.c
-> > @@ -4,7 +4,7 @@
-> > =C2=A0 */
-> > =C2=A0
-> > =C2=A0#include <linux/aperture.h>
-> > -#include <linux/dma-mapping.h>
-> > +#include <linux/of_address.h>
-> > =C2=A0#include <linux/platform_device.h>
-> > =C2=A0#include <linux/module.h>
-> > =C2=A0#include <linux/regmap.h>
-> > @@ -49,6 +49,31 @@ static int vs_gem_dumb_create(struct drm_file
-> > *file_priv,
-> > =C2=A0
-> > =C2=A0DEFINE_DRM_GEM_FOPS(vs_drm_driver_fops);
-> > =C2=A0
-> > +static struct drm_gem_object *vs_gem_create_object(struct
-> > drm_device
-> > *drm,
-> > +						=C2=A0=C2=A0 size_t size)
-> > +{
-> > +	struct drm_gem_dma_object *obj;
-> > +
-> > +	obj =3D kzalloc_obj(*obj);
-> > +	if (!obj)
-> > +		return ERR_PTR(-ENOMEM);
-> > +
-> > +	obj->map_noncoherent =3D to_vs_drm_dev(drm)->noncoherent;
-> > +
-> > +	return &obj->base;
-> > +}
-> > +
-> > +static struct drm_framebuffer *
-> > +vs_gem_fb_create(struct drm_device *drm, struct drm_file *file,
-> > +		 const struct drm_format_info *info,
-> > +		 const struct drm_mode_fb_cmd2 *mode_cmd)
-> > +{
-> > +	if (to_vs_drm_dev(drm)->noncoherent)
-> > +		return drm_gem_fb_create_with_dirty(drm, file,
-> > info,
-> > mode_cmd);
-> > +
-> > +	return drm_gem_fb_create(drm, file, info, mode_cmd);
-> > +}
-> > +
-> > =C2=A0static const struct drm_driver vs_drm_driver =3D {
-> > =C2=A0	.driver_features	=3D DRIVER_MODESET | DRIVER_GEM |
-> > DRIVER_ATOMIC,
-> > =C2=A0	.fops			=3D &vs_drm_driver_fops,
-> > @@ -58,12 +83,13 @@ static const struct drm_driver vs_drm_driver =3D
-> > {
-> > =C2=A0	.minor	=3D DRIVER_MINOR,
-> > =C2=A0
-> > =C2=A0	/* GEM Operations */
-> > +	.gem_create_object	=3D vs_gem_create_object,
-> > =C2=A0	DRM_GEM_DMA_DRIVER_OPS_WITH_DUMB_CREATE(vs_gem_dumb_create
-> > ),
-> > =C2=A0	DRM_FBDEV_DMA_DRIVER_OPS,
-> > =C2=A0};
-> > =C2=A0
-> > =C2=A0static const struct drm_mode_config_funcs vs_mode_config_funcs =
-=3D {
-> > -	.fb_create		=3D drm_gem_fb_create,
-> > +	.fb_create		=3D vs_gem_fb_create,
-> > =C2=A0	.atomic_check		=3D drm_atomic_helper_check,
-> > =C2=A0	.atomic_commit		=3D drm_atomic_helper_commit,
-> > =C2=A0};
-> > @@ -98,6 +124,7 @@ int vs_drm_initialize(struct vs_dc *dc, struct
-> > platform_device *pdev)
-> > =C2=A0
-> > =C2=A0	drm =3D &vdrm->base;
-> > =C2=A0	vdrm->dc =3D dc;
-> > +	vdrm->noncoherent =3D !of_dma_is_coherent(dev->of_node);
-> > =C2=A0	dc->drm_dev =3D vdrm;
-> > =C2=A0
-> > =C2=A0	ret =3D drmm_mode_config_init(drm);
-> > diff --git a/drivers/gpu/drm/verisilicon/vs_drm.h
-> > b/drivers/gpu/drm/verisilicon/vs_drm.h
-> > index 606338206a42..17704cd0df1d 100644
-> > --- a/drivers/gpu/drm/verisilicon/vs_drm.h
-> > +++ b/drivers/gpu/drm/verisilicon/vs_drm.h
-> > @@ -18,8 +18,15 @@ struct vs_drm_dev {
-> > =C2=A0
-> > =C2=A0	struct vs_dc *dc;
-> > =C2=A0	struct vs_crtc *crtcs[VSDC_MAX_OUTPUTS];
-> > +
-> > +	bool noncoherent;
-> > =C2=A0};
-> > =C2=A0
-> > +static inline struct vs_drm_dev *to_vs_drm_dev(struct drm_device
-> > *drm)
-> > +{
-> > +	return container_of(drm, struct vs_drm_dev, base);
-> > +}
-> > +
-> > =C2=A0int vs_drm_initialize(struct vs_dc *dc, struct platform_device
-> > *pdev);
-> > =C2=A0void vs_drm_finalize(struct vs_dc *dc);
-> > =C2=A0void vs_drm_shutdown_handler(struct vs_dc *dc);
-> > diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > index e8fcb5958615..0049737f492b 100644
-> > --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> > @@ -8,6 +8,7 @@
-> > =C2=A0#include <drm/drm_atomic.h>
-> > =C2=A0#include <drm/drm_atomic_helper.h>
-> > =C2=A0#include <drm/drm_crtc.h>
-> > +#include <drm/drm_fb_dma_helper.h>
-> > =C2=A0#include <drm/drm_fourcc.h>
-> > =C2=A0#include <drm/drm_framebuffer.h>
-> > =C2=A0#include <drm/drm_gem_atomic_helper.h>
-> > @@ -16,8 +17,9 @@
-> > =C2=A0#include <drm/drm_print.h>
-> > =C2=A0
-> > =C2=A0#include "vs_crtc.h"
-> > -#include "vs_plane.h"
-> > =C2=A0#include "vs_dc.h"
-> > +#include "vs_drm.h"
-> > +#include "vs_plane.h"
-> > =C2=A0#include "vs_primary_plane_regs.h"
-> > =C2=A0
-> > =C2=A0static int vs_primary_plane_atomic_check(struct drm_plane *plane,
-> > @@ -86,6 +88,8 @@ static void
-> > vs_primary_plane_atomic_disable(struct
-> > drm_plane *plane,
-> > =C2=A0static void vs_primary_plane_atomic_update(struct drm_plane
-> > *plane,
-> > =C2=A0					=C2=A0=C2=A0 struct drm_atomic_state
-> > *atomic_state)
-> > =C2=A0{
-> > +	struct drm_plane_state *old_state =3D
-> > drm_atomic_get_old_plane_state(atomic_state,
-> > +							=09
-> > 	=C2=A0=C2=A0 plane);
-> > =C2=A0	struct drm_plane_state *state =3D
-> > drm_atomic_get_new_plane_state(atomic_state,
-> > =C2=A0								=C2=A0=C2=A0
-> > =C2=A0=C2=A0
-> > =C2=A0=C2=A0 plane);
-> > =C2=A0	struct drm_framebuffer *fb =3D state->fb;
-> > @@ -101,6 +105,8 @@ static void
-> > vs_primary_plane_atomic_update(struct
-> > drm_plane *plane,
-> > =C2=A0		return;
-> > =C2=A0	}
-> > =C2=A0
-> > +	drm_fb_dma_sync_non_coherent(plane->dev, old_state,
-> > state);
-> > +
-> > =C2=A0	vcrtc =3D drm_crtc_to_vs_crtc(crtc);
-> > =C2=A0	output =3D vcrtc->id;
-> > =C2=A0	dc =3D vcrtc->dc;
-> > @@ -169,5 +175,8 @@ struct drm_plane *vs_primary_plane_init(struct
-> > drm_device *drm_dev, struct vs_dc
-> > =C2=A0
-> > =C2=A0	drm_plane_helper_add(plane,
-> > &vs_primary_plane_helper_funcs);
-> > =C2=A0
-> > +	if (to_vs_drm_dev(drm_dev)->noncoherent)
-> > +		drm_plane_enable_fb_damage_clips(plane);
-> > +
-> > =C2=A0	return plane;
-> > =C2=A0}
+> Best regards
+> Thomas
+>
+
+-- 
+Best regards,
+
+Javier Martinez Canillas
+Core Platforms
+Red Hat
 
