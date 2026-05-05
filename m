@@ -4,89 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9599BCD3427
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 22:27:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BA4BCD343B
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 22:27:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBB0410E489;
-	Tue,  5 May 2026 22:27:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE68B10E48E;
+	Tue,  5 May 2026 22:27:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="NkxMmuOt";
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="CXht79SW";
 	dkim-atps=neutral
-Received: from mail-yx1-f98.google.com (mail-yx1-f98.google.com
- [74.125.224.98])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28A4E10E489
- for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 22:27:55 +0000 (UTC)
-Received: by mail-yx1-f98.google.com with SMTP id
- 956f58d0204a3-651bc8f864fso4057520d50.1
- for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 15:27:55 -0700 (PDT)
+Received: from mail-pg1-f225.google.com (mail-pg1-f225.google.com
+ [209.85.215.225])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F0EE10E48E
+ for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 22:27:57 +0000 (UTC)
+Received: by mail-pg1-f225.google.com with SMTP id
+ 41be03b00d2f7-c822652f82aso1720487a12.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 15:27:57 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778020074; x=1778624874;
+ d=1e100.net; s=20251104; t=1778020076; x=1778624876;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=9QJ6qduHbEic2dYqxfK+F1VSZSIA1R8upDR4GV0g4G4=;
- b=YZmI5+voEgJNg8Tc8x9z19cD0I08eJxHXLkk18PBo+VZxWHVPoA/jTLD6FLItmwajX
- w0HNrHR1ZMSdpgmC41Kgls12lNZoNmCLavFBXlCOCUyRgGqtDpCzIzCT5FbyBfw5xHrI
- l44gloUp4Q35cuj6s4t8ZVKXJU9BiAgcJxsTNhbKZh80rs68HpdwlcBA3GTeBxnd55Qm
- PevtP2Knp6O35pB6b3PLj/uLZEnzqscMiqCvqtFng2ZY0dHuLHl1eXmrNp7S0nG1odeg
- ObQSBmK0737ag6PboJ1510etpK65wi/8nJmUliC7mNF1BnA12QdJ6z6E2fk4booMJEMo
- r75Q==
-X-Gm-Message-State: AOJu0YxzaBta+jjCOe/X9EtSAiUZWph5O4hf05FcWPE+STW9tXkrwVWm
- FYVj1ZiM3aMujfNUkgnPd1rL1LHYiY9luhi63NR/k2VbwmuHptXOfGVgkShhYKPFueqCxWzR9gP
- I9cj1DmCJ8VEA+zvs8nhaMUhKc6XgwcjvuRjLYi+N0Jnil+Snopv+p+Ddx+igsDpPst9fs2nqgv
- MHyfzIYQTJeryhGoZG0Osgv4fwDJAoTLKoozrdP+73H16B6DMgLzHzAkVXt4LCrfso90Ee84kVc
- Yp2/AOc3tZM1ontOV75
-X-Gm-Gg: AeBDiesSA86gXsyT/JzK15ioo43yXJ/ljaUR7nlEX86cpRlKV4NgfMSLK0Ml3suuPo4
- fX3Coitl11tBclq5p7grqIO4Kanqps1I9A9iiTIogRjfNEJVcHyyHbzhU7lL4Ax1tju8Qbzc4bJ
- 6S15hypI5OBbpbVT5Ge/fEuM5U/2Mat9mdc5xASNrFyg8LpnGXEJWPDFISlHhVI0/mZ2CkKN/ji
- L2yHYFc7f681rx+bjeD8lGA0sbOmc15hJ2JXvpes0IGpfr2yVg0tLAw0TM3cBysn2Wtbj6yx1BO
- 0jNUy+n16fVL7vWRjdxA0R6vPebrT3AZrn6xeVDF/JwowONlFopIBBKMhK4vl7H7E7glA+QDaut
- 3BDV6K7Hl5BhsKjdAdcnOHzBZNg0qmkCwsvBC1NBCNH4lBHFS2pxBFp6VCHw87+vW66X5eTGBiq
- x/0z3GOSCJDUEj
-X-Received: by 2002:a05:690e:d5b:b0:65c:6f79:1de7 with SMTP id
- 956f58d0204a3-65c796e1ed0mr1535495d50.0.1778020073901; 
- Tue, 05 May 2026 15:27:53 -0700 (PDT)
+ bh=4laXKsJghpQ0NzWYTQfDQ/6AR2f8qW64EMi9UHORnXY=;
+ b=Ne3XoSQmqh+Gtcr16Vk357DC515ahqSgZWZTNEbawBEeslntDhvic/FwRasGk3oNJj
+ 3ihbIodCZqL0XTuLCSqUapQApCHxERYZpCmRyQRkriP7x0MlJ31B92D8g0JTgliOJUKZ
+ JJQRGdZJWAgohZQ4YrTtHfJj4+uFg92NvynCfGX+V31Y8dxPhcQhJTztfCKqfkuL5K1N
+ EDpSd1KkpBLq0FxJYyqeATDwA90N+ZY2QHLafJKd/W0Rz5L4Y12k5RYfxbm9sFLdI5Dh
+ 1r+8GXxkwiy9egLK7sUzUVH+xF8Kg7iy1xLmqcwK8zmQTI0zitmcimPbe8IZxNcrLfvd
+ sdjg==
+X-Gm-Message-State: AOJu0YxQ2KD58oHLYWK3glFn8RiQLQdi38FY+WGHe26S+UElB6QGBU3E
+ SWj+g1RrvWGj076Q5lYdCihQas4EX1QJSU4xL1o2GLiim7ssdl+i8TKLIgX264nfy1nttLQRLP4
+ jCIpN6coIgjV7XG2ChFii67YvILlXrRmlsOt/WaH91qBmj7ZnR6kOVZVaV3hPZ3yThwqsSopxQ4
+ U/xCx9GOSTY5wTyVizm/GwYc5AQ1fv9WRfGtlM1AXDzeAuVlONES6LYYQ7TGvlSei/737QR+wd3
+ bIK6wzLuJYxvwk1HQ8y
+X-Gm-Gg: AeBDieuvzIOA53tpi3KpkvoywPyx/3LY/knLmVqbskcm2F6x2L/eme8Ff/W0dNfjvvx
+ 5vxVsm65PvlSOqogd3oHO1eiNDP0voqXl/ON7gWtOy+dXKqJ9rFFpVdJwk9lhJ1XdMndcUXJDeI
+ aZVfncvSpDAIEwRUQUaoCj/iRoToqsSZfLAPxCeYFyrfDe67wXR010aKTyas4MqA9UDgVmAKqcR
+ bOD1rkfQbIcFiRMLYzg3zpLyAYS12UknrU4QPQMUFrF9LiKjol0z5N10L6mZggttpbeo3Tj/ubI
+ hEC9nEs/YPCDE/PpjrXclaFRj6uFT+kbbPRD+sq/vfydJFxnyg11cbXs70vGKJ9jH8o/NqLxxVn
+ TFfRndlW4sXs18we7TuLjr9LIBtE+K0PIonv466hOjsPh37UuWFPyeODSmB9wzXOJaInS0we6C0
+ 9Z2TGqVkmJj32Dvmt8O1B9/2S6THaF9yn/eci4csHoW0YVtdUPjuo0TRdJF862GW/eqNWlf4e+K
+ H8=
+X-Received: by 2002:a05:6a00:2356:b0:81f:31c3:2e34 with SMTP id
+ d2e1a72fcca58-83a5dd5c7a8mr622082b3a.25.1778020076517; 
+ Tue, 05 May 2026 15:27:56 -0700 (PDT)
 Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- ([144.49.247.127]) by smtp-relay.gmail.com with ESMTPS id
- 956f58d0204a3-65c7ae227cdsm24632d50.9.2026.05.05.15.27.53
+ (address-144-49-247-16.dlp.protect.broadcom.com. [144.49.247.16])
+ by smtp-relay.gmail.com with ESMTPS id
+ d2e1a72fcca58-83962d838f2sm274290b3a.0.2026.05.05.15.27.56
  for <dri-devel@lists.freedesktop.org>
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 05 May 2026 15:27:53 -0700 (PDT)
+ Tue, 05 May 2026 15:27:56 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
 Received: by mail-qv1-f71.google.com with SMTP id
- 6a1803df08f44-8b7105dfb5eso79631586d6.2
- for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 15:27:53 -0700 (PDT)
+ 6a1803df08f44-8b7e68098dcso72390706d6.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 15:27:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1778020072; x=1778624872;
+ d=broadcom.com; s=google; t=1778020074; x=1778624874;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=9QJ6qduHbEic2dYqxfK+F1VSZSIA1R8upDR4GV0g4G4=;
- b=NkxMmuOtJlv++DTws5xPvPiJCdZvtjvudAH3KtBF+rtSGfZDUis3eCerulRxh/wQA0
- l4WfjY4tyD9InCfJPeA/7DwDjaiPJZu818Vy/s2nJ1Rn+frIwuqCLmsiS5YQD8TZf6xV
- Qowp4LQQWac3FSrxAX629hW552V/4fmFlg8Nk=
-X-Received: by 2002:a05:6214:e84:b0:8b8:88a0:1061 with SMTP id
- 6a1803df08f44-8bc467e0d04mr10605676d6.36.1778020072169; 
- Tue, 05 May 2026 15:27:52 -0700 (PDT)
-X-Received: by 2002:a05:6214:e84:b0:8b8:88a0:1061 with SMTP id
- 6a1803df08f44-8bc467e0d04mr10605016d6.36.1778020071436; 
- Tue, 05 May 2026 15:27:51 -0700 (PDT)
+ bh=4laXKsJghpQ0NzWYTQfDQ/6AR2f8qW64EMi9UHORnXY=;
+ b=CXht79SW0A/oOnXy4Q9FbNzv8c3YisQb1+V57XdkdTaPkfJ4bmZd+QxIdYci5BTcAw
+ riIDuJVL7Cac7uMlhrtos7vLsg4yjbx0y6tLfdwUdtmdYsJyN4/h03H6m7ToNYi7H7IT
+ +/D4YHZAFaRKNDe6SAyLJPkm3JSGUgPidJmN0=
+X-Received: by 2002:a05:6214:cc5:b0:8b5:6654:7556 with SMTP id
+ 6a1803df08f44-8bc45b31797mr11258576d6.42.1778020074388; 
+ Tue, 05 May 2026 15:27:54 -0700 (PDT)
+X-Received: by 2002:a05:6214:cc5:b0:8b5:6654:7556 with SMTP id
+ 6a1803df08f44-8bc45b31797mr11258186d6.42.1778020073857; 
+ Tue, 05 May 2026 15:27:53 -0700 (PDT)
 Received: from vertex.localdomain
  (pool-173-49-113-140.phlapa.fios.verizon.net. [173.49.113.140])
  by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-8b539aa6f5fsm162692886d6.21.2026.05.05.15.27.48
+ 6a1803df08f44-8b539aa6f5fsm162692886d6.21.2026.05.05.15.27.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 May 2026 15:27:48 -0700 (PDT)
+ Tue, 05 May 2026 15:27:53 -0700 (PDT)
 From: Zack Rusin <zack.rusin@broadcom.com>
 To: dri-devel@lists.freedesktop.org
 Cc: ian.forbes@broadcom.com, maaz.mombasawala@broadcom.com,
  Zack Rusin <zack.rusin@broadcom.com>, stable@vger.kernel.org
-Subject: [PATCH 05/12] drm/vmwgfx: drop dma_buf reference on foreign-fd prime
- import
-Date: Tue,  5 May 2026 18:22:26 -0400
-Message-ID: <20260505222728.519626-6-zack.rusin@broadcom.com>
+Subject: [PATCH 07/12] drm/vmwgfx: bound DMA command body size against suffix
+ pointer
+Date: Tue,  5 May 2026 18:22:28 -0400
+Message-ID: <20260505222728.519626-8-zack.rusin@broadcom.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260505222728.519626-1-zack.rusin@broadcom.com>
 References: <20260505222728.519626-1-zack.rusin@broadcom.com>
@@ -108,48 +110,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-ttm_prime_fd_to_handle() returns -ENOSYS when the imported fd's
-dma_buf->ops do not match the ttm_object_device's ops, but does so
-without releasing the reference acquired by dma_buf_get().  Any
-unprivileged renderD client passing a non-vmwgfx prime fd through the
-DRM_VMW_GB_SURFACE_REF{,_EXT} path leaks one dma_buf reference per
-call and indefinitely pins the foreign exporter's GEM resources.
+vmw_cmd_dma() locates the DMA suffix at
 
-Funnel the error path through the existing dma_buf_put() so the
-reference is always dropped.
+	(unsigned long) &cmd->body + header->size - sizeof(*suffix)
 
-Fixes: 65981f7681ab ("drm/ttm: Add a minimal prime implementation for ttm base objects")
+without checking that header->size is large enough to contain both
+cmd->body and the suffix.  An undersized header makes the suffix
+pointer underflow back into the previous command in the bounce
+buffer.  The verifier later writes suffix->maximumOffset, clobbering
+verified fields of an already-relocated earlier command -- a TOCTOU
+on the device-visible command stream that lets one command rewrite
+another's GMR id, surface id, or other authenticated fields.
+
+Reject the command if the body is too small for the suffix to fit.
+
+Fixes: 4e4ddd477743 ("drm/vmwgfx: Fix queries if no dma buffer thrashing is occuring.")
 Cc: stable@vger.kernel.org
 Assisted-by: Claude:claude-opus-4.7
 Signed-off-by: Zack Rusin <zack.rusin@broadcom.com>
 ---
- drivers/gpu/drm/vmwgfx/ttm_object.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/vmwgfx/ttm_object.c b/drivers/gpu/drm/vmwgfx/ttm_object.c
-index 2421b0dd057c..f9042bafdc93 100644
---- a/drivers/gpu/drm/vmwgfx/ttm_object.c
-+++ b/drivers/gpu/drm/vmwgfx/ttm_object.c
-@@ -547,14 +547,17 @@ int ttm_prime_fd_to_handle(struct ttm_object_file *tfile,
- 	if (IS_ERR(dma_buf))
- 		return PTR_ERR(dma_buf);
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c b/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
+index 2410d53a75aa..a9136a6523cb 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
+@@ -1510,6 +1510,12 @@ static int vmw_cmd_dma(struct vmw_private *dev_priv,
+ 	bool dirty;
  
--	if (dma_buf->ops != &tdev->ops)
--		return -ENOSYS;
-+	if (dma_buf->ops != &tdev->ops) {
-+		ret = -ENOSYS;
-+		goto out;
+ 	cmd = container_of(header, typeof(*cmd), header);
++
++	if (unlikely(header->size < sizeof(cmd->body) + sizeof(*suffix))) {
++		VMW_DEBUG_USER("Illegal SVGA_3D_CMD_SURFACE_DMA size.\n");
++		return -EINVAL;
 +	}
++
+ 	suffix = (SVGA3dCmdSurfaceDMASuffix *)((unsigned long) &cmd->body +
+ 					       header->size - sizeof(*suffix));
  
- 	prime = (struct ttm_prime_object *) dma_buf->priv;
- 	base = &prime->base;
- 	*handle = base->handle;
- 	ret = ttm_ref_object_add(tfile, base, NULL, false);
- 
-+out:
- 	dma_buf_put(dma_buf);
- 
- 	return ret;
 -- 
 2.51.0
 
