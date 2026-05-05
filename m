@@ -4,97 +4,143 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 878E2CD343C
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 05:18:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B54A9CD13DA
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 05:37:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A9DFE10E941;
-	Tue,  5 May 2026 05:18:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1FD510E0AD;
+	Tue,  5 May 2026 05:37:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="NAO86/dG";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="b0f5W0Ab";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05B3A10E941
- for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 05:18:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1777958290;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=vLjY4/J5JL85E68r0ps9b0tREEnQO9bxlLysLhOu6aU=;
- b=NAO86/dGIkVb0FoWC8gW5/cUwP5kKcGHHlAU8XGissU8qAErw3nrtKZ9gkhFPeY4d8FWKc
- C+y7zvTnqIzokj8VkNYdvRT5Pp9h1bP50oF4+tuB/pYqNj8sGnDrPg9KeXM/m0fe1JMJwb
- H2YfMLE+qbt+XlE6dYDpYN8/Z2//dYg=
-Received: from mail-lf1-f72.google.com (mail-lf1-f72.google.com
- [209.85.167.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-157-pnoyIAnwNWajF_vUhzzhgw-1; Tue, 05 May 2026 01:18:09 -0400
-X-MC-Unique: pnoyIAnwNWajF_vUhzzhgw-1
-X-Mimecast-MFC-AGG-ID: pnoyIAnwNWajF_vUhzzhgw_1777958287
-Received: by mail-lf1-f72.google.com with SMTP id
- 2adb3069b0e04-5a406666270so2687277e87.0
- for <dri-devel@lists.freedesktop.org>; Mon, 04 May 2026 22:18:08 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777958287; x=1778563087;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=vLjY4/J5JL85E68r0ps9b0tREEnQO9bxlLysLhOu6aU=;
- b=QW7K7PBo0rQs0imlqK9fdrqYbLEsqnRBwAuzlSzSfw0rH8UpFkCiHa5zuWnWJ4HczG
- RoV5mhY1RuZmSzhhK9+4VTiyEPs4DbG5togRHLMIrh3eJ77zcVUltXZ63LSkuq+QQaTH
- PIKbDsb4X6Ig9rCazSqDbREBvArvknsaZN6JQ4hBrsWkmnIn05Sc80j5bWQHrkOHofqs
- +hYRRXPewREnLlITKzRSSaaZmwap72sSs9CAeUTIrX82GC1AfXmQZDpNVfEgt3fST2D6
- WB69MVRdRcW5AejpsTahbjQTllN1h7N2orIn//9Hy0AR4OfV6Xn+4YmCzX/BBmsAhrcq
- 6dZA==
-X-Gm-Message-State: AOJu0YwR0FmMRxBn0ZzqbzPdM8TF2NHZ/syUjeToed2deYRcbYQltJkY
- Cjhvdi3mhRnxCdQm6A6gJkjGPk2oWM4pdTJYlfyN/ZBCRecX+qwR03AKPgAKkM1mX7ImeFljoBT
- wUTPXAtX5rZPQ6cMR7b+wMUXLtf6RdFr7dj1Lo25mqEEB4xPExMZhSVYU0XXJ34bDVaO6
-X-Gm-Gg: AeBDieu+YBRZqiP6RDvncynj+igXIZViRPU9hwbP5miyLqeeU1aTaMPNJbpHtAzRtKd
- K09BR9D6ShNOAhDGzSlBoUUaJIMnwh2GPzF7DKtkkswQmJeaISiMGfmUCK6KcgAGjDf94jy9RQe
- 8/6FHTuYSYpC/udBO9J3f2peP/xhXE/zPHGRUMehX7FFRwiA1OZz5rTMRqBZxN9ZMIJZ0igFUtJ
- 8ooLDpTcB7A07hE04bIzgtH4TCS5e6rWEVAajIvfRgt5W9J7+6Qbm9v0Y/OHKD2O4FMq0u0Xs0X
- bxppZHjOGdZbfSYi4BAyeWC1SbVJ7oQBhdX0twzN7Ljof9TpsgNadPinxd6hGJKbPOQOBVh9VX/
- ZJaEBT0oQ1ZPTCZrU+pbgOjWUUgps6AgmvsS8/VIQVbMuOaI=
-X-Received: by 2002:a05:6512:3b24:b0:5a8:6d06:fe1e with SMTP id
- 2adb3069b0e04-5a86d06ff7bmr2884924e87.11.1777958287271; 
- Mon, 04 May 2026 22:18:07 -0700 (PDT)
-X-Received: by 2002:a05:6512:3b24:b0:5a8:6d06:fe1e with SMTP id
- 2adb3069b0e04-5a86d06ff7bmr2884898e87.11.1777958286760; 
- Mon, 04 May 2026 22:18:06 -0700 (PDT)
-Received: from fedora (85-23-51-1.bb.dnainternet.fi. [85.23.51.1])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3936138935fsm37206141fa.41.2026.05.04.22.18.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 May 2026 22:18:06 -0700 (PDT)
-From: mpenttil@redhat.com
-To: linux-mm@kvack.org
-Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-kernel@vger.kernel.org,
- =?UTF-8?q?Mika=20Penttil=C3=A4?= <mpenttil@redhat.com>,
- David Hildenbrand <david@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Leon Romanovsky <leonro@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Balbir Singh <balbirs@nvidia.com>, Zi Yan <ziy@nvidia.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>,
- Vlastimil Babka <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Marco Pagani <marpagan@redhat.com>
-Subject: [PATCH v9 5/5] lib/test_hmm:: add a new testcase for the migrate on
- fault
-Date: Tue,  5 May 2026 08:16:58 +0300
-Message-ID: <20260505051658.2219537-6-mpenttil@redhat.com>
-X-Mailer: git-send-email 2.50.0
-In-Reply-To: <20260505051658.2219537-1-mpenttil@redhat.com>
-References: <20260505051658.2219537-1-mpenttil@redhat.com>
-MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: T1zvAcJMUzrvZUrJUudR4bEg0IzXZhFQL2DJIFl_TUs_1777958287
-X-Mimecast-Originator: redhat.com
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010018.outbound.protection.outlook.com [52.101.61.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CAA9010E0AD
+ for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 05:37:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lannSPTRQGUwJaoalIGqfkzs9kboZ5Bz25zfvFbSHG3VlmHmvI4oq480/7nLwel5mZttn4cM6flE/USb2aSBmOZEinsMVYNoWctFgBAG0GVS0IfuJSq/HMpECcGX/0NeqzYb3GB+67frSFV+oGHa2sO+Et23RLQfL20b4/IBdOxzE6Wq4OIejCNcsuk5nydnXb2NWKfcDPHFELZJ+6co1KT9/rhcbUzGTBW5wKIaAg89ZDXugroJS81qHfpv4gMXcvtAVWiWXUGNdahx3yWpe4dyoZR0y7UTgnU7S1B71J7N05AXF38/KQPK8uhzrZFMEDPy2Bnsn/6FnY8bWsraGw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aOWNheae9EoQotamRZZ0HWQNK4LPkr45QcFc8xLOyuw=;
+ b=FobPvK1mxUWfbsuwSFd9POJp/Pa0euW7InOJVw/Pz0zWYvU9T0gywuzgCp2Min6tzrkmsMuLe02FAL9zwAhbybgQ5H7WlYEA+ggkJkguqYCL9vWqxloG+/MXKv/MQmTFEh+a2WH6BhJcbeGy4jrsCSLK0LZtWnYymR86tDh/p4oPkPPosGaNH/cMEERB/5Oyx0kEZUOfNqAOMUNWTofrKMWLkvsU9FkeroN1ZEOKn28he3O+R2hSG/gqFftLtKHYGU8mEtybueGdaTb11RkI6C0etAG2LUAcRWJstsHW7p/Xs5tLp8gVDD7ouZhZvxO0zuXhaPIqggt6+RP0vWhvFw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aOWNheae9EoQotamRZZ0HWQNK4LPkr45QcFc8xLOyuw=;
+ b=b0f5W0Ab+CkX9NNbWPg8owRbFW0nEfgU16ohcs1XsvIoZtUUgQMVcosOqTt+wb/U/ncRea4vCmaYWWYjmz06qvdmr3peu8EZLdF89aV1LHcUn5jNAk/ySoSZ5U7JSt8zrEuHEMFNbTW1QLhGpHeB/QmXPzYwK9bAygsQSgIA+RPBy0Pg3Mgxg8nZGsmVjjiFG7uSWLn8IpOxww9exdKXV/6U6Z2MuGjftWa4dXXjYwUNFX+FTGDuvXKVQb/8FzS5suR2CQBYcUEUTVbgTMADpjn3BNEpth3CpiHQEehUiGjHIzKyu9jmU2Du6lzSw+3mLNzulSH/Rnbh2NXeGxlHFA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by DM4PR12MB8452.namprd12.prod.outlook.com (2603:10b6:8:184::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Tue, 5 May
+ 2026 05:37:47 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.20.9870.023; Tue, 5 May 2026
+ 05:37:47 +0000
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Tue, 05 May 2026 14:37:42 +0900
+Message-Id: <DIAI11D10037.VHN3R751EYJS@nvidia.com>
+Cc: <linux-kernel@vger.kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>,
+ "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Bjorn Roy
+ Baron" <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>,
+ "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
+ Krummrich" <dakr@kernel.org>, "Dave Airlie" <airlied@redhat.com>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, <dri-devel@lists.freedesktop.org>,
+ <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>, "Nikola
+ Djukic" <ndjukic@nvidia.com>, "David Airlie" <airlied@gmail.com>, "Boqun
+ Feng" <boqun.feng@gmail.com>, "John Hubbard" <jhubbard@nvidia.com>,
+ "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ "Edwin Peer" <epeer@nvidia.com>, "Andrea Righi" <arighi@nvidia.com>, "Andy
+ Ritger" <aritger@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "Balbir Singh"
+ <balbirs@nvidia.com>, "Philipp Stanner" <phasta@kernel.org>,
+ <alexeyi@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>,
+ <joel@joelfernandes.org>, <linux-doc@vger.kernel.org>
+Subject: Re: [PATCH v12 12/22] gpu: nova-core: mm: Add page table entry
+ operation traits
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Joel Fernandes" <joelagnelf@nvidia.com>
+References: <20260425211454.174696-1-joelagnelf@nvidia.com>
+ <20260425211454.174696-13-joelagnelf@nvidia.com>
+ <DI8B0IOXNP2L.1NFX4OTABNHA0@nvidia.com>
+ <53c88538-dca7-41f1-bb2b-856035728c69@nvidia.com>
+ <DI9YR10HH6PE.AMLEZUV7701V@nvidia.com>
+ <bd210abc-590f-4011-8337-21b54780fd4c@nvidia.com>
+In-Reply-To: <bd210abc-590f-4011-8337-21b54780fd4c@nvidia.com>
+X-ClientProxiedBy: TY4P286CA0042.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:2b2::12) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|DM4PR12MB8452:EE_
+X-MS-Office365-Filtering-Correlation-Id: c1f98b00-9c07-4198-20c2-08deaa68703d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|7416014|1800799024|10070799003|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 8nfAPJwuXNLGaEQeiOHBLDKdun2lSPYAHD6xteLuIcNaSfvC4KMsIf+toZKzFVrAaY0Wa7I7VfjIWe7HqY5Qp/XAFLbmRTijjXQMzulzPT86+OUrY5PNvMzkPEZK31pV9Fi8rDCZBRQeyBhf4Womwd73W7MAjZt0vVF9BizwlVWuzJiO5QXf7lbXdW8784iXr9bKb8IM9ISFgh0DNyurewjr9N7acJZNoCOBGEezrZf3B6/jD9W5pvzDltcc382ug0DcJreTjFC6QILqn2PE4yA40uHGKSsNl1gR27NC2jqXc7QTtUjEq1/E81vbjYjxNmEA3aMWvmUBi4dE5kQShCHvHrMIyXPA6YISZtkh14wSImyOZzaOYQAv9IztS+926ihgxgjXe5tVfFvGSqkHVS+MN1nH/afdiEeYkTFv2WOyH4Ihy4i4aqEtfcwAxQZX+tz+YB3Od7b+qmZV09yIivazFncPU1wRsXSpPCWqfq/YKXDfnRAopsqTV3I0nf24J5t8WqDKLJ0RHF+fKAXS+DG8HmjxEp3ehocyxdjd8cx3z55zGFKZx7s6OsgROPqlQRQkaLdWlU2YswCT5KoT2kbMqI2zSq4vLn6wnB7l/G94vlKnckvjz0oNK+A+bMQT7eQUkTqZYtW8kt9b73WAFgoqqAvVP7pcSN5odpct7PA3fJzKvo8lTLRrmMgnlUJC
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(7416014)(1800799024)(10070799003)(18002099003)(56012099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SzF6WFJodzNnbmUxMjZ3M1YyeGgwMGtkVWxoRmkzMXBCbHhsUmo1UFlncUd0?=
+ =?utf-8?B?ZTRiRlo4bVlIamlBV0NMUFNGVUV1Y3R3R2taMGttRUJrTGdyRE5VUHI1QVd5?=
+ =?utf-8?B?ZFNHZjZJUGhXaCt3cXgvcUhpSlBDNFdUOWR2ZmlNbEdZY0ZNVWxoaUZhV3Vi?=
+ =?utf-8?B?MDRyeTJwaHFPRkdHWmxpOExYY1E4SE5pMWNXaTh5U2tVMW05YUcva2JrVFBX?=
+ =?utf-8?B?TTIwTG82dmU1OWRNSTkwRGJ1dGhkZU83UlEzSWlrUzZzQTRRa09GVGpQdWs1?=
+ =?utf-8?B?WXp5M01kZmxEWHpTdHJRa0ora3RZNzhoOTFSSlA5SGs5c2xqNTRtaTZhbUM3?=
+ =?utf-8?B?cG5YN25TTmIyWVgwWm9Oa01pTHVodzd1ek9BRDV2bmZNMG9jV3M3MHV3Y1BC?=
+ =?utf-8?B?ZFhuYW50QWdDWERFckdWRG1sbEQrOFdKUUlsKzY2ZHlMUzRHMEdLK3hFaTRm?=
+ =?utf-8?B?MG13N3hXSVRoL29xbjFMUm5Hai85ek9CY0RLcmtDaTQyVlU4bWZVdStGVHlT?=
+ =?utf-8?B?dVhnd2x4ZmJqcytXK01ScXVqMWdweWhEVHN1QjhjKzJrUjRJMGovem9TS1Q1?=
+ =?utf-8?B?b2V6d2ZYQmYxVEY2NldTdDBwOUFjcWJnZ1BDczNwdnh1M3pqQ3g3cDZ5QVlL?=
+ =?utf-8?B?dFpDUSttRmFZSkY5Q2Mrb044Qks1aVFvQ01QVk04N29NNUR2dlZteWZDL2ZC?=
+ =?utf-8?B?allwSzE5dkNaUUlVVitwOU9rTWJKZkl0NkowNmFYQUVPaW5pN1d4cGxpWFY5?=
+ =?utf-8?B?elQxVXNqOEliYXBtYWtpNVIzNllDWDdxNENHaHhDU2Y0c3pPMkhBUG1ObkVz?=
+ =?utf-8?B?dzhHbTlkbHV3UVVQb2dnZWY5d3ZpQjlCQ1hyNERkZXJnZEJsdnptL3VzMFhr?=
+ =?utf-8?B?REJVZkZQVXlpRk1IWFNnS01mekVQUTE3b01zeUVRK0Nmb0d4VE1pWVJ2bXYy?=
+ =?utf-8?B?STh0RVZBc2hqbXZkN2dRZTF2NTBVRnhuRFdwMlNJQ0RoVDlqV2pnVzVVd1NX?=
+ =?utf-8?B?R2FsMXUycGsrVVRSa09zSjJyb2xMNFVQWW1pL3d1OUFHMk42K0MrUnJpWmlj?=
+ =?utf-8?B?L2RUWDdUY3BlVlpXSzhqNXlxT2F2eUpuc2IrZ2NwaUNaeit2ZW5kYXJXalRR?=
+ =?utf-8?B?NEZZWDhWcXJaZXNoSGVWNThOU3ZJU25iczF0NEdqeFpBZm9iK3lPWVp1QU02?=
+ =?utf-8?B?bktlemhRMy9Hdk1XQ1ZBbFlzV1d5NllhcDF1WDhJYmNiZ0RHVGZuTnZJNEJr?=
+ =?utf-8?B?NXRtNXNNNUZDdSt0VmRPWjJMa1NkZ3Z6bEd6elUzVzBTR0lHOXB5RWFHcjk4?=
+ =?utf-8?B?bW0zM1NqOHAvdWtzblpJeWhoYTBGRWNCSXdNZ3Bqb25JaUVHUUJrSDRjWFBP?=
+ =?utf-8?B?cWxYeFkydUdJMldkUHA1OFFrSi8rT2d6NlZMcW5aRkozc1YvRE1pREhvVk51?=
+ =?utf-8?B?OWM3cjlaM0tzN3JQZUhMTHhiaktuQXNOa2FiaDZEcWZIcVUvYlZxblVFeXRR?=
+ =?utf-8?B?bTlvQjVla0xuaHRjS2ZwTTMvUXhTWGJvRFZOTFVVK0wyeU1wR2JPRUk3aTlO?=
+ =?utf-8?B?YkdhNTZHVlU0dEtKckhZZURNbE1nbXN5MkVRWWpyemtDd2N2TVBxYmNwM0NV?=
+ =?utf-8?B?NVNaeXoydG8waTVXOUpsdHVyaytTWnRqeEd5TmdTSEZVVnBJcXZXaHlMdVhF?=
+ =?utf-8?B?Nnk5dlV5RHNVQUxPS0E1RDY3OHlWaE43Z0ovYUk2Zi9SNzA2T3BUd0VrWW01?=
+ =?utf-8?B?Q0laT2tDVUEvUSt1LzR0SGxKQ1J4RDRhVVNUejRkVWJtWXl0cmNKWk9zOXFG?=
+ =?utf-8?B?L3Z5T1ZPRFY4S1RiVHNtM0ppT09qYk1ZU0creTBpT0xBM1FBUjREL0VVWHR4?=
+ =?utf-8?B?UkxBM0FVM0M2em16UG94ZjFob2dnRjBaRUdmWWZSSHlZS1hwcnREek9kdDh3?=
+ =?utf-8?B?aTB4VFhJZ3FHNVYzZVR4OU9pc05obWdjUEFTTlpoeGM0MUZBSEdiNEd3UWFn?=
+ =?utf-8?B?NHpRY09MQU5EeVN1T05lVERVZmZKK0g3alVQY2ljNVcxc21RNUEwaFJlMjdj?=
+ =?utf-8?B?QnZLTWhFZDl0Ylp5YVo4Q1NQaklQUjkvVms4YUtaU2JGVjJHTlJ4cHJmOWFO?=
+ =?utf-8?B?cXZnY2dkOXlhM1UxNW41MmtOQ0xFL21JK005Z1cvZjlHLzdoTk8yZC9sQ0JZ?=
+ =?utf-8?B?UGllUHB6WWgxZ0Z5T09XUjdHcmlhVEdvdVMxS1RhVXhGNGd4aHVlSHg1d3g5?=
+ =?utf-8?B?NTFMOUxkcEQrVEJTRWozVFhQMjRSQTVyWmRHTHp4TnA2YnE2dlI5Vkp5OC9K?=
+ =?utf-8?B?Um1nZmJyUDBhQU56ZUdXbUVDRlpuTXBaam12WDFvejZmR1B0Y2xBSWN0SlZH?=
+ =?utf-8?Q?Ejt0y4EbjyN1z16FMBWTXwRHP6I2SQ644N8psA7+s480j?=
+X-MS-Exchange-AntiSpam-MessageData-1: v9AXk1Az+GyefQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c1f98b00-9c07-4198-20c2-08deaa68703d
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2026 05:37:47.3904 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7RNyUhSn485GTYZJsM8WBjwsROf6imrDlv04tx7Gx4gDZLezZUzHOmoIgofmpUaivfHo26l9cuVfzx+FnmvdbA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8452
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,251 +156,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Mika Penttilä <mpenttil@redhat.com>
+On Tue May 5, 2026 at 4:28 AM JST, Joel Fernandes wrote:
+>
+>
+> On 5/4/2026 10:31 AM, Alexandre Courbot wrote:
+>> On Sun May 3, 2026 at 4:19 AM JST, Joel Fernandes wrote:
+>>>> Please reorder things so they land, as much as possible, in their fina=
+l
+>>>> form. In this case this probably means defining the trait *before* the=
+ V2
+>>>> and V3 page table definitions, so they can implement it from the get-g=
+o.
+>>>
+>>> That is a reasonable approach too, I can try to do that, but it is
+>>> misleading to say '270 lines of diff that reviewers will have processed=
+ for
+>>> nothing' which is nothing but fiction. Please look more carefully, the
+>>> patch is iterative on the series.
+>>=20
+>> For context, here is where the 270 lines of diff come from:
+>>=20
+>>  drivers/gpu/nova-core/mm/pagetable/ver2.rs | 150 ++++++++------
+>>  drivers/gpu/nova-core/mm/pagetable/ver3.rs | 120 +++++++----
+>>=20
+>> But the number is not important.
+>
+> It is important, numbers and accuracy are really important things
+> especially on the Linux kernel mailing list. Sorry if you feel that is
+> inconvenient. And even quoting the 270 is a falsehood, the 270 lines were
+> not refactored, only 90 lines or so was.
 
-Enhance the hmm test driver (lib/test_hmm) with migrate on fault case.
+I am not particularly attached to this 270 number. It represents the
+diff that I believe shouldn't be in this commit. Counting the number of
+changed lines is also perfectly valid.
 
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Leon Romanovsky <leonro@nvidia.com>
-Cc: Alistair Popple <apopple@nvidia.com>
-Cc: Balbir Singh <balbirs@nvidia.com>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Signed-off-by: Marco Pagani <marpagan@redhat.com>
-Signed-off-by: Mika Penttilä <mpenttil@redhat.com>
----
- lib/test_hmm.c                         | 99 ++++++++++++++++++++++++++
- lib/test_hmm_uapi.h                    | 19 ++---
- tools/testing/selftests/mm/hmm-tests.c | 54 ++++++++++++++
- 3 files changed, 163 insertions(+), 9 deletions(-)
+But again, that's not the point. Let's set my metric aside: we still
+have, by your own account, 90 lines of churn that could be avoided by
+the following 3 steps, each of which takes one minute to perform:
 
-diff --git a/lib/test_hmm.c b/lib/test_hmm.c
-index 1a3e21325cf2..645a0ff49069 100644
---- a/lib/test_hmm.c
-+++ b/lib/test_hmm.c
-@@ -36,6 +36,7 @@
- #define DMIRROR_RANGE_FAULT_TIMEOUT	1000
- #define DEVMEM_CHUNK_SIZE		(256 * 1024 * 1024U)
- #define DEVMEM_CHUNKS_RESERVE		16
-+#define PFNS_ARRAY_SIZE			64
- 
- /*
-  * For device_private pages, dpage is just a dummy struct page
-@@ -1258,6 +1259,100 @@ static int dmirror_migrate_to_device(struct dmirror *dmirror,
- 	return ret;
- }
- 
-+static int do_fault_and_migrate(struct dmirror *dmirror, struct hmm_range *range)
-+{
-+	struct migrate_vma *migrate = range->migrate;
-+	int ret;
-+
-+	mmap_read_lock(dmirror->notifier.mm);
-+
-+	/* Fault-in pages for migration and update device page table */
-+	ret = dmirror_range_fault(dmirror, range);
-+
-+	pr_debug("Migrating from sys mem to device mem\n");
-+	migrate_hmm_range_setup(range);
-+
-+	dmirror_migrate_alloc_and_copy(migrate, dmirror);
-+	migrate_vma_pages(migrate);
-+	dmirror_migrate_finalize_and_map(migrate, dmirror);
-+	migrate_vma_finalize(migrate);
-+
-+	mmap_read_unlock(dmirror->notifier.mm);
-+	return ret;
-+}
-+
-+static int dmirror_fault_and_migrate_to_device(struct dmirror *dmirror,
-+					       struct hmm_dmirror_cmd *cmd)
-+{
-+	unsigned long start, size, end, next;
-+	unsigned long src_pfns[PFNS_ARRAY_SIZE] = { 0 };
-+	unsigned long dst_pfns[PFNS_ARRAY_SIZE] = { 0 };
-+	struct migrate_vma migrate = { 0 };
-+	struct hmm_range range = { 0 };
-+	struct dmirror_bounce bounce;
-+	int ret = 0;
-+
-+	/* Whole range */
-+	start = cmd->addr;
-+	size = cmd->npages << PAGE_SHIFT;
-+	end = start + size;
-+
-+	if (!mmget_not_zero(dmirror->notifier.mm)) {
-+		ret = -EFAULT;
-+		goto out;
-+	}
-+
-+	migrate.pgmap_owner = dmirror->mdevice;
-+	migrate.src = src_pfns;
-+	migrate.dst = dst_pfns;
-+	migrate.flags = MIGRATE_VMA_SELECT_SYSTEM;
-+
-+	range.migrate = &migrate;
-+	range.hmm_pfns = src_pfns;
-+	range.pfn_flags_mask = 0;
-+	range.default_flags = HMM_PFN_REQ_FAULT | HMM_PFN_REQ_MIGRATE;
-+	range.dev_private_owner = dmirror->mdevice;
-+	range.notifier = &dmirror->notifier;
-+
-+	for (next = start; next < end; next = range.end) {
-+		range.start = next;
-+		range.end = min(end, next + (PFNS_ARRAY_SIZE << PAGE_SHIFT));
-+
-+		pr_debug("Fault and migrate range start:%#lx end:%#lx\n",
-+			 range.start, range.end);
-+
-+		ret = do_fault_and_migrate(dmirror, &range);
-+		if (ret)
-+			goto out_mmput;
-+	}
-+
-+	/*
-+	 * Return the migrated data for verification.
-+	 * Only for pages in device zone
-+	 */
-+	ret = dmirror_bounce_init(&bounce, start, size);
-+	if (ret)
-+		goto out_mmput;
-+
-+	mutex_lock(&dmirror->mutex);
-+	ret = dmirror_do_read(dmirror, start, end, &bounce);
-+	mutex_unlock(&dmirror->mutex);
-+	if (ret == 0) {
-+		ret = copy_to_user(u64_to_user_ptr(cmd->ptr), bounce.ptr, bounce.size);
-+		if (ret)
-+			ret = -EFAULT;
-+	}
-+
-+	cmd->cpages = bounce.cpages;
-+	dmirror_bounce_fini(&bounce);
-+
-+
-+out_mmput:
-+	mmput(dmirror->notifier.mm);
-+out:
-+	return ret;
-+}
-+
- static void dmirror_mkentry(struct dmirror *dmirror, struct hmm_range *range,
- 			    unsigned char *perm, unsigned long entry)
- {
-@@ -1524,6 +1619,10 @@ static long dmirror_fops_unlocked_ioctl(struct file *filp,
- 		ret = dmirror_migrate_to_device(dmirror, &cmd);
- 		break;
- 
-+	case HMM_DMIRROR_MIGRATE_ON_FAULT_TO_DEV:
-+		ret = dmirror_fault_and_migrate_to_device(dmirror, &cmd);
-+		break;
-+
- 	case HMM_DMIRROR_MIGRATE_TO_SYS:
- 		ret = dmirror_migrate_to_system(dmirror, &cmd);
- 		break;
-diff --git a/lib/test_hmm_uapi.h b/lib/test_hmm_uapi.h
-index f94c6d457338..0b6e7a419e36 100644
---- a/lib/test_hmm_uapi.h
-+++ b/lib/test_hmm_uapi.h
-@@ -29,15 +29,16 @@ struct hmm_dmirror_cmd {
- };
- 
- /* Expose the address space of the calling process through hmm device file */
--#define HMM_DMIRROR_READ		_IOWR('H', 0x00, struct hmm_dmirror_cmd)
--#define HMM_DMIRROR_WRITE		_IOWR('H', 0x01, struct hmm_dmirror_cmd)
--#define HMM_DMIRROR_MIGRATE_TO_DEV	_IOWR('H', 0x02, struct hmm_dmirror_cmd)
--#define HMM_DMIRROR_MIGRATE_TO_SYS	_IOWR('H', 0x03, struct hmm_dmirror_cmd)
--#define HMM_DMIRROR_SNAPSHOT		_IOWR('H', 0x04, struct hmm_dmirror_cmd)
--#define HMM_DMIRROR_EXCLUSIVE		_IOWR('H', 0x05, struct hmm_dmirror_cmd)
--#define HMM_DMIRROR_CHECK_EXCLUSIVE	_IOWR('H', 0x06, struct hmm_dmirror_cmd)
--#define HMM_DMIRROR_RELEASE		_IOWR('H', 0x07, struct hmm_dmirror_cmd)
--#define HMM_DMIRROR_FLAGS		_IOWR('H', 0x08, struct hmm_dmirror_cmd)
-+#define HMM_DMIRROR_READ			_IOWR('H', 0x00, struct hmm_dmirror_cmd)
-+#define HMM_DMIRROR_WRITE			_IOWR('H', 0x01, struct hmm_dmirror_cmd)
-+#define HMM_DMIRROR_MIGRATE_TO_DEV		_IOWR('H', 0x02, struct hmm_dmirror_cmd)
-+#define HMM_DMIRROR_MIGRATE_ON_FAULT_TO_DEV	_IOWR('H', 0x03, struct hmm_dmirror_cmd)
-+#define HMM_DMIRROR_MIGRATE_TO_SYS		_IOWR('H', 0x04, struct hmm_dmirror_cmd)
-+#define HMM_DMIRROR_SNAPSHOT			_IOWR('H', 0x05, struct hmm_dmirror_cmd)
-+#define HMM_DMIRROR_EXCLUSIVE			_IOWR('H', 0x06, struct hmm_dmirror_cmd)
-+#define HMM_DMIRROR_CHECK_EXCLUSIVE		_IOWR('H', 0x07, struct hmm_dmirror_cmd)
-+#define HMM_DMIRROR_RELEASE			_IOWR('H', 0x08, struct hmm_dmirror_cmd)
-+#define HMM_DMIRROR_FLAGS			_IOWR('H', 0x09, struct hmm_dmirror_cmd)
- 
- #define HMM_DMIRROR_FLAG_FAIL_ALLOC	(1ULL << 0)
- 
-diff --git a/tools/testing/selftests/mm/hmm-tests.c b/tools/testing/selftests/mm/hmm-tests.c
-index 788689497e92..6a6b1069fb5e 100644
---- a/tools/testing/selftests/mm/hmm-tests.c
-+++ b/tools/testing/selftests/mm/hmm-tests.c
-@@ -278,6 +278,13 @@ static int hmm_migrate_sys_to_dev(int fd,
- 	return hmm_dmirror_cmd(fd, HMM_DMIRROR_MIGRATE_TO_DEV, buffer, npages);
- }
- 
-+static int hmm_migrate_on_fault_sys_to_dev(int fd,
-+					   struct hmm_buffer *buffer,
-+					   unsigned long npages)
-+{
-+	return hmm_dmirror_cmd(fd, HMM_DMIRROR_MIGRATE_ON_FAULT_TO_DEV, buffer, npages);
-+}
-+
- static int hmm_migrate_dev_to_sys(int fd,
- 				   struct hmm_buffer *buffer,
- 				   unsigned long npages)
-@@ -985,6 +992,53 @@ TEST_F(hmm, migrate)
- 	hmm_buffer_free(buffer);
- }
- 
-+
-+/*
-+ * Fault and migrate anonymous memory to device private memory.
-+ */
-+TEST_F(hmm, migrate_on_fault)
-+{
-+	struct hmm_buffer *buffer;
-+	unsigned long npages;
-+	unsigned long size;
-+	unsigned long i;
-+	int *ptr;
-+	int ret;
-+
-+	npages = ALIGN(HMM_BUFFER_SIZE, self->page_size) >> self->page_shift;
-+	ASSERT_NE(npages, 0);
-+	size = npages << self->page_shift;
-+
-+	buffer = malloc(sizeof(*buffer));
-+	ASSERT_NE(buffer, NULL);
-+
-+	buffer->fd = -1;
-+	buffer->size = size;
-+	buffer->mirror = malloc(size);
-+	ASSERT_NE(buffer->mirror, NULL);
-+
-+	buffer->ptr = mmap(NULL, size,
-+			   PROT_READ | PROT_WRITE,
-+			   MAP_PRIVATE | MAP_ANONYMOUS,
-+			   buffer->fd, 0);
-+	ASSERT_NE(buffer->ptr, MAP_FAILED);
-+
-+	/* Initialize buffer in system memory. */
-+	for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ptr[i] = i;
-+
-+	/* Fault and migrate memory to device. */
-+	ret = hmm_migrate_on_fault_sys_to_dev(self->fd, buffer, npages);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, npages);
-+
-+	/* Check what the device read. */
-+	for (i = 0, ptr = buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], i);
-+
-+	hmm_buffer_free(buffer);
-+}
-+
- /*
-  * Migrate anonymous memory to device private memory and fault some of it back
-  * to system memory, then try migrating the resulting mix of system and device
--- 
-2.50.0
+- Move the trait definitions of `pagetable.rs` into their own commit.
+- Move that new commit before the ones introducing `ver2.rs` and
+  `ver3.rs`.
+- Squash the relevant parts of the remainder into the commit introducing
+  `ver2.rs` or `ver3.rs`.
 
+By doing that, on top of removing 90 lines of immediate follow-up
+changes, you have also moved the public interface of the page tables
+before their implementation, making all 3 patches easier to process as
+reviewers are now introduced to how that code will be used *before* the
+implementation details.
+
+That's my closing argument on this topic and I won't insist if you are
+not convinced this is worth doing; please act on it, or not, as you see
+fit.
