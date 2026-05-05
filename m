@@ -4,134 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9869FF885A
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 07:08:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 802A8CD13DA
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 07:09:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A8A310E95B;
-	Tue,  5 May 2026 07:08:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8CF910E94B;
+	Tue,  5 May 2026 07:09:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="ZN02lz0d";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="uiHP0+nA";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ZN02lz0d";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="uiHP0+nA";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="n2o6n2GC";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DD2610E94B
- for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 07:08:17 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id F2EBA5CA2B;
- Tue,  5 May 2026 07:08:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1777964896; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=qmKJS0mjkUx0ZP7rEEd7oK+tRjQ7W9s3aTurYW5DpMU=;
- b=ZN02lz0dYt0eYhak5AIRQ3vSj+Dx9VvvdnHwqvs+4rokn4O5STJDQU7gkofaDPrIDhB+T2
- cXQI7PyShY0gQme2cQubIjfMP58F9hujKsI3X35MgSHp/8jfQJ8QdiVNctqZyD39kvtYV9
- LONp40OEZNL8bkTVg1MOHtBc/MjNvgE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1777964896;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=qmKJS0mjkUx0ZP7rEEd7oK+tRjQ7W9s3aTurYW5DpMU=;
- b=uiHP0+nAl15Acyckjh1TJzz6SR60M7WsIEidtKLT66tsjDCVzxLfIb6TBokW04HW4diFRO
- gvyc0ekZCM6zJgDw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1777964896; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=qmKJS0mjkUx0ZP7rEEd7oK+tRjQ7W9s3aTurYW5DpMU=;
- b=ZN02lz0dYt0eYhak5AIRQ3vSj+Dx9VvvdnHwqvs+4rokn4O5STJDQU7gkofaDPrIDhB+T2
- cXQI7PyShY0gQme2cQubIjfMP58F9hujKsI3X35MgSHp/8jfQJ8QdiVNctqZyD39kvtYV9
- LONp40OEZNL8bkTVg1MOHtBc/MjNvgE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1777964896;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=qmKJS0mjkUx0ZP7rEEd7oK+tRjQ7W9s3aTurYW5DpMU=;
- b=uiHP0+nAl15Acyckjh1TJzz6SR60M7WsIEidtKLT66tsjDCVzxLfIb6TBokW04HW4diFRO
- gvyc0ekZCM6zJgDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4D528593A7;
- Tue,  5 May 2026 07:08:15 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id CuVvEV+X+Wl8KwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 05 May 2026 07:08:15 +0000
-Message-ID: <af9a1cde-00be-49fd-b236-1cb2bfb4837e@suse.de>
-Date: Tue, 5 May 2026 09:08:14 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/6] drm/tiny: panel-ssd16xx: Add power management support
-To: Devarsh Thakkar <devarsht@ti.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: praneeth@ti.com, vigneshr@ti.com, s-jain1@ti.com, s-wang12@ti.com,
- r-donadkar@ti.com, r-sharma3@ti.com, afd@ti.com
-References: <20260430183311.2978142-1-devarsht@ti.com>
- <20260430183311.2978142-5-devarsht@ti.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260430183311.2978142-5-devarsht@ti.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010067.outbound.protection.outlook.com [52.101.85.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48CF110E02E;
+ Tue,  5 May 2026 07:09:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LpOhF88UA5Afw/WjYxk1wJvlGLqAuR/+JXXXTzmrc76x11h0ycztPtUH5Ssrk0wWUTbVKC47LAdzCwAEAlQtjNUJeIgvJHFVZF8ZXhzqDUUBj9arvOTFF/ytCJzAxVqS7bcSYZUNFOnHDqlS8hzhhCWu41SJtbZqHvvu/DaIuWau4rcJOOuJgsKR6ZL6GeiPVP5fnXrbdvQZQLdE5GtI/JxH6KJJcvIjtJX1H3Dj3xgpi8ALUir66SFGxRDmMN+EN+3etp8wG3zuDj3NilkE1szv4V8J4BEUzDoeZD0SyzQrTlJY9mWna0ucVKcgXvJHSH+wFP9IwSkOBrVjXJr8YQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=D6Fzw+i5PdLV0jCGLaR/tQ1b+6imTQfTWQzWx8o+0yE=;
+ b=YqRfY0A7DVvBkYzzWfRsshnC9wleMcWd8HvgbhAm4youQdJimW5+q/Fdkc+fcn7XMAZ2YVoR0FiMeKuPqrw0sd83KPk0ZIoh6yvTMLEOJVvHnR+J7oeO1MCMoVb8DcXB0Z/Wbic//XmQ7IgApsp08Z4UTnTZhLAYoksoNCOBZhRS+b/7rMkcmys0easSA8bnLRkszbXJ31YwGJKgJPfc9knEcUznbYg8nRV1M38v4eqgeqvy88GJkxnAlFgOMP1Z5rNKDxrlKAG9N2POABF3qcaP2+FQbVEOYoG15wKGzeFs9b9Wbp4Ac21QyOkFb+WddEnfk+gyIKd1Q4/R7z6rEA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=D6Fzw+i5PdLV0jCGLaR/tQ1b+6imTQfTWQzWx8o+0yE=;
+ b=n2o6n2GCUHcIWkrhaeHebUhs+orxG0Jlw4PuuHaY0M5SjaJYY/avo8ODt467iPPsqkZR1f/LBzfFMUP2TjVVreIxWKPBI5WV0vwjbcitSshBjbNrFiuZO0UWINaEqNl+GurpON5tdmI9jJfiXsbv2wldLt3QA12RP5otJTcaf3DrOC5sNEHh/19L42QJM7fWg3SOBDbXiyLbkbc9bQL6OnghY0XTg71nIdKMOxqPYhbOb+p/wP3RHkN9DHtYU+GE+cIfM1ysShU0ihh7Z6G4yTwwUFvSjLHgvqKTESGvUZPZHj1PorKlq6yPpcFLq3emXjWExz3LfZPMJNDpwpHV+Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB7726.namprd12.prod.outlook.com (2603:10b6:8:130::6) by
+ MW9PR12MB999207.namprd12.prod.outlook.com (2603:10b6:303:301::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Tue, 5 May
+ 2026 07:09:47 +0000
+Received: from DS0PR12MB7726.namprd12.prod.outlook.com
+ ([fe80::5807:8e24:69b0:f6c0]) by DS0PR12MB7726.namprd12.prod.outlook.com
+ ([fe80::5807:8e24:69b0:f6c0%4]) with mapi id 15.20.9870.023; Tue, 5 May 2026
+ 07:09:46 +0000
+Date: Tue, 5 May 2026 17:09:35 +1000
+From: Alistair Popple <apopple@nvidia.com>
+To: mpenttil@redhat.com
+Cc: linux-mm@kvack.org, dri-devel@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ David Hildenbrand <david@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>, 
+ Leon Romanovsky <leonro@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
+ Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>, 
+ Vlastimil Babka <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>
+Subject: Re: [PATCH v9 0/5] Migrate on fault for device pages
+Message-ID: <afmXIq8VY_vs1GPo@nvdebian.thelocal>
+References: <20260505051658.2219537-1-mpenttil@redhat.com>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- TAGGED_RCPT(0.00)[dt]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWELVE(0.00)[20];
- ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- FREEMAIL_TO(0.00)[ti.com,gmail.com,ffwll.ch,linux.intel.com,kernel.org,linaro.org,oss.qualcomm.com,lists.freedesktop.org,vger.kernel.org];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; TO_DN_SOME(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[]; RCVD_TLS_ALL(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DBL_BLOCKED_OPENRESOLVER(0.00)[ti.com:email, imap1.dmz-prg2.suse.org:helo,
- suse.com:url, suse.de:mid]
+In-Reply-To: <20260505051658.2219537-1-mpenttil@redhat.com>
+X-ClientProxiedBy: SY5P282CA0168.AUSP282.PROD.OUTLOOK.COM
+ (2603:10c6:10:24a::16) To DS0PR12MB7726.namprd12.prod.outlook.com
+ (2603:10b6:8:130::6)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB7726:EE_|MW9PR12MB999207:EE_
+X-MS-Office365-Filtering-Correlation-Id: ae1c1930-e905-42f7-7948-08deaa7549c6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|1800799024|366016|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: iHsEgscFTB2R22meCylDwQ3g/T8T4vFrwrNu8cX8ElweejNPhqZQ3of2/gbGf47XAqi9WcItWQWoxRN3TTZj8RdyKnXlKHaKEoB4jEfxN517Nhn/EPnSnI/uK5s19eq+jVG5bquvJqFei3hpC8Mr/ksBKLMBoFTYn+9hQB3i9BwENQl1x2JpH2BuWbKqqChGCFu+SUim5ipnUeFCjj20riggo+rAufGhauCCdbtLmEXJR3VPLqvZXSdumDg4gd3ziEIDcNxFFM/NyHbMUM58zkBt3k6v2xCeYqsRemeDHGL4xYxooe9CIIeFAbgWarmhozxxuiJ52O1rtj1sp5SueXhDjD9n4UoZSbc2zJd2lBQS5HgNTAcyM58YEU1QZXbvm6bnEwUJm5y6IyP4purIaxxuCu08Q3Cfuh61ariWdjvI9RdL8guQVqYbK0qMlD6dlv+1mNyh0f0ft1o+tLphU06y7upD0rm8YjbP/t0lFP4FT/n8Vkppc6t3ajihf/Qn8hgQyNfuLnUD7eUZhJl4Lf9+lbU1GNoxpo0TMyZQQ0/WRk6ENrtQm9t8WkqNtbeuw5ZLBR79GRe6hu5dzDNNoJySxDnKs1ftKa+FtgT+0Vo2Zl7tqVS0GGb1h8tDQwcBLSeE3eHuEu/zXxNIvijCWuMu/jYHTGVnsfn5auQlHKITUlO1sowv9SFv1ymbPIeKG6m/90OVVgtewZ6+kQ3QTA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB7726.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(1800799024)(366016)(56012099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?L6R+V2nuKwb+x6CwXCtifeOqWRYd7e0PZeJDM5xXCZ1MNmiOhGhpfi/knP?=
+ =?iso-8859-1?Q?ykKQoMTK3OZODtdspJCp1srRa3R/mh9jpX9SU261wf6lrrK0bxXefoIJLV?=
+ =?iso-8859-1?Q?zPA7jwvfI1LpchyoLNPqNa9euilwvxjMSHCJt0nzyzlrmCCw4kQ7a+Uw0S?=
+ =?iso-8859-1?Q?VVywUXCF7kxwLW8Dw7XkmJnK3zAifZaT+4FcJKCNtYxQhGplmW/Bv0YJxu?=
+ =?iso-8859-1?Q?jU3CqIxdOnmlBU/sMlkt+I4c1WQQ5pYGx7Ka5aN7ixg4/y0aVHNr0EIDZt?=
+ =?iso-8859-1?Q?17FpxM6xeYwhGs2CW4ASaddXkbBN69EwjYSwBfQTS3+n/QRldcefPkcckt?=
+ =?iso-8859-1?Q?zCYYWYnpDaeKa2L6X3QexcbCOGucBUbXnOphiCfrjTLXDoDM49Koto0Nc3?=
+ =?iso-8859-1?Q?NKReod4C9JKYab1g916emfKzG9aN1YlycQJGpUNx920BjmsJOnUCsX7QHQ?=
+ =?iso-8859-1?Q?QiDjv9BHUdUofrqlf+NAjVCcjp61LnpWf/Etzw1f5gMetlzdMFuA2cZcgP?=
+ =?iso-8859-1?Q?6nrUX147Gg/IcXiI8I5itUDqhqwcj7KeKPZShs3287+KkJZYdMm3p4Jj4d?=
+ =?iso-8859-1?Q?kqDFsAyIhzJyVu5nh1mMPqQEB9poLNxk2CaRHx3QODMRTu1WHW//ikLw/8?=
+ =?iso-8859-1?Q?JTcKtVoHSQgG3rRYoQyFqeswDa7GFa4aYDAKDOzrPPMfhwbuXy4qNUi1XC?=
+ =?iso-8859-1?Q?LD3m1SubtZCMjmtXr/6VYO/RbSIOYEU3Wv3Rs590U/RKff4doOIFZhyPxz?=
+ =?iso-8859-1?Q?rXaNAFBGXAsW1TdN9MEUZF5KwDJtQpwe7mp2gAjhJvPbq1OBzjKZsBgy3t?=
+ =?iso-8859-1?Q?AxSQDkigQNFOhPe101luVV8iZ4EJguI+BzcqXw6RmJtXyVQKcwOBXh5Mzn?=
+ =?iso-8859-1?Q?9PHemg28cFitGkskRDxdlk11Ht3VwkGfIG1jTEFIkhBodeY/IiIAvKcLkz?=
+ =?iso-8859-1?Q?RpNphpvDCmAUXoVmYanLzlMsWlOhVJsyAq8187LNMnJa2y9nv4ooDwsgY3?=
+ =?iso-8859-1?Q?m5H4aDCwmloPOkcUigDiS9C9if933x1tQTK8k/2NdmhA77XtMSfteypEED?=
+ =?iso-8859-1?Q?9jiacBqzii1eAMnezTZVkdb6vOj3o+TH57CKSiAzBEhCxVWGzfMUroeAIj?=
+ =?iso-8859-1?Q?HGE6Ihqq6x3LasWVCCa7DLFUKH9fkywDPgoKM2TBRin0hCZY1pCRSFUop0?=
+ =?iso-8859-1?Q?Hk7gUZ54e8j3hxdMlokWssh70Ci1MuN1q1A/OgimJ2MqcQ6a2sykyDWXVA?=
+ =?iso-8859-1?Q?hbDvxajNiYZWLIN2U5gJsaJIcEqGWAUIfCxrMo09v/NrE5tVxMOVmNiRS2?=
+ =?iso-8859-1?Q?rEAc5LFgMF+2E0k9nKiMufj8n7l+IVjm9dS0ymxwNuhu3oXeW3igR7j5Rw?=
+ =?iso-8859-1?Q?RPX/r3fMKMCE7EWlVy5ZBtF849/E+mwWCXjlxB7i+EErTsgaKVaopoMLoq?=
+ =?iso-8859-1?Q?7bjOkMevbgfkqERdFm1s3EfPt91c8XB20DtQBMbV0sIiaoGw6xYC/BWcx6?=
+ =?iso-8859-1?Q?ikOi23Tg21c9bPAoja5VKnKTqh/0RSgQy3VdMcPwMunJuAMi04kYQVWM1T?=
+ =?iso-8859-1?Q?sq4bYpE5Ueof4MnDv9bwXInzikKX8aI1l00H+FPFsE65tD2wB+9Hw01oZT?=
+ =?iso-8859-1?Q?7ULuC6fvCKWQHNjXKvcLOxDGaoFKszbC7c89oNS1KQd3RGqtJhgFotRc0K?=
+ =?iso-8859-1?Q?lJaf0eKPu3w6XWPjb8D2qe4VEYSmjqutFWNhGsJ4lyTKmz/KOU5aDsBCQq?=
+ =?iso-8859-1?Q?IiWkZZu9EoZu4FfTp1kzP28OxCQaGRvg6qjr7gBuFa3OCv9cCW/3z3haTI?=
+ =?iso-8859-1?Q?NVdt+2T6dw=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ae1c1930-e905-42f7-7948-08deaa7549c6
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7726.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2026 07:09:46.5061 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: eAAaK/FhXHDk1d7vdrvWrnG2RzSEFtFTGUUhn93Ysp76/j3/BDmRzAVA/kBf9dy9qNwbfMg9dOWNYLx61p3XOw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW9PR12MB999207
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,436 +135,169 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+Thanks for doing this work Mika. I've been meaning to take a look at this series
+for a while. I'm currently at LSFMM but will try and take a look this week or
+next as it sounds quite useful.
 
-Am 30.04.26 um 20:33 schrieb Devarsh Thakkar:
-> Add system suspend/resume and runtime PM with idle timeout support to
-> the SSD16xx driver.
+ - Alistair
 
-I'll go over this patch after the core driver from patch 3 is ready.
-
-Best regards
-Thomas
-
->
-> E-paper panels are bistable: they continue to display the last rendered
-> image indefinitely even in deep sleep or when power is cut to the
-> controller IC.  This makes it practical to suspend the controller
-> aggressively — including while a display application is still open and the
-> user is simply reading — without any visible disruption.  The driver
-> exploits this by firing the autosuspend timer after an idle timeout,
-> putting the controller into deep sleep regardless of CRTC state, and waking
-> it transparently on the next frame update.
->
-> The SSD16xx family supports two deep sleep modes:
->
-> Mode 1 (RAM retained): used for runtime idle.  Display RAM survives the
-> sleep, so resume only requires a hardware reset and re-initialisation; no
-> full redraw is needed, keeping wake latency minimal.
->
-> Mode 2 (RAM lost): used for system suspend.  Maximises power savings at
-> the cost of a complete controller re-init and repaint on resume.
->
-> Runtime PM: Each hardware-touching callback wraps its SPI access with
-> pm_runtime_resume_and_get() / pm_runtime_put_autosuspend() pairs so the PM
-> reference count drops to zero after every update.  This allows the
-> autosuspend timer to fire while the CRTC is still enabled, putting the
-> controller into Mode 1 deep sleep between updates without requiring the
-> application to close or the display pipeline to be torn down.
->
-> An autosuspend delay of 35 seconds keeps the panel active across typical
-> user-interaction gaps while still capturing long idle periods.
->
-> System suspend/resume: On system suspend the driver switches to Mode 2 and
-> quiesces the atomic pipeline via drm_mode_config_helper_suspend().  If the
-> autosuspend timer already fired (device is RPM_SUSPENDED), the driver wakes
-> the panel via HWRESET (the only exit from deep sleep since SPI is
-> unresponsive), sends Mode 2 directly, and tracks the state with a
-> pm_force_suspended flag so the matching force_resume is called only when
-> needed.  On resume, Mode 1 is restored for subsequent runtime PM cycles and
-> the atomic pipeline is rebuilt via drm_mode_config_helper_resume().
->
-> Per-client initialisation refresh: A drm_driver.master_set callback arms
-> init_refresh_pending when a new client opens the DRM device as a DRM
-> master, ensuring its first frame uses the configured init-refresh waveform.
-> A paired master_drop callback clears the flag on fd close by a DRM master.
-> This is kept separate from the runtime resume path since Mode 1 retains RAM
-> and a full refresh on every runtime wake would be wasteful.
->
-> Signed-off-by: Devarsh Thakkar <devarsht@ti.com>
-> ---
->   drivers/gpu/drm/tiny/panel-ssd16xx.c | 203 +++++++++++++++++++++++++--
->   1 file changed, 193 insertions(+), 10 deletions(-)
->
-> diff --git a/drivers/gpu/drm/tiny/panel-ssd16xx.c b/drivers/gpu/drm/tiny/panel-ssd16xx.c
-> index b232837c54ff..6bf763667d82 100644
-> --- a/drivers/gpu/drm/tiny/panel-ssd16xx.c
-> +++ b/drivers/gpu/drm/tiny/panel-ssd16xx.c
-> @@ -12,6 +12,7 @@
->   #include <linux/delay.h>
->   #include <linux/module.h>
->   #include <linux/of.h>
-> +#include <linux/pm_runtime.h>
->   #include <linux/property.h>
->   #include <linux/spi/spi.h>
+On 2026-05-05 at 15:16 +1000, mpenttil@redhat.com wrote...
+> From: Mika Penttil� <mpenttil@redhat.com>
+> 
+> Currently, the way device page faulting and migration works
+> is not optimal, if you want to do both fault handling and
+> migration at once.
+> 
+> Being able to migrate not present pages (or pages mapped with incorrect
+> permissions, eg. COW) to the GPU requires doing either of the
+> following sequences:
+> 
+> 1. hmm_range_fault() - fault in non-present pages with correct permissions, etc.
+> 2. migrate_vma_*() - migrate the pages
+> 
+> Or:
+> 
+> 1. migrate_vma_*() - migrate present pages
+> 2. If non-present pages detected by migrate_vma_*():
+>    a) call hmm_range_fault() to fault pages in
+>    b) call migrate_vma_*() again to migrate now present pages
+> 
+> The problem with the first sequence is that you always have to do two
+> page walks even when most of the time the pages are present or zero page
+> mappings so the common case takes a performance hit.
+> 
+> The second sequence is better for the common case, but far worse if
+> pages aren't present because now you have to walk the page tables three
+> times (once to find the page is not present, once so hmm_range_fault()
+> can find a non-present page to fault in and once again to setup the
+> migration). It is also tricky to code correctly. One page table walk
+> could costs over 1000 cpu cycles on X86-64, which is a significant hit.
+> 
+> We should be able to walk the page table once, faulting
+> pages in as required and replacing them with migration entries if
+> requested.
+> 
+> Add a new flag to HMM APIs, HMM_PFN_REQ_MIGRATE,
+> which tells to prepare for migration also during fault handling.
+> Also, for the migrate_vma_setup() call paths, a flag, MIGRATE_VMA_FAULT,
+> is added to tell to add fault handling to migrate.
+> 
+> One extra benefit of migrating with hmm_range_fault() path
+> is the migrate_vma.vma gets populated, so no need to
+> retrieve that separataly.
+> 
+> Tested in X86-64 VM with HMM test device, passing the selftests.
+> For performance, the migrate throughput tests from the selftests
+> show similar numbers (within error margin) as unmodified kernel.
+> Tested also rebased on the
+> "Remove device private pages from physical address space" series:
+> https://lore.kernel.org/linux-mm/20260130111050.53670-1-jniethe@nvidia.com/
+> plus a small patch to adjust with no problems.
+> 
+> Changes v8-v9
+>   - rebase on drm-tip
+>   - fixed uaf around  migrate_vma_split_folio() usage
+>   - added missing pmd unlock
+> 
+> Changes v7-v8
+>   - rebase on 7.0
+>   - fixed subject in two patches
+>   - enhanced commit messages
+>   - squashed patch 6 into patch 4 to fix kernel test robot warning
+>   - readded dropped Cc block from cover letter
+>   - fixed white space
+> 
+> Changes v6-v7
+>   - rebase on 7.0.0-rc6
+>   - added documentation and comments
+>   - denote to be migrated zero page as HMM_PFN_MIGRATE alone
+>   - got rid of HMM_PFN_INOUT_FLAGS movement in patch 2
+>   - picked up Acked-By from David for patch 1
 >   
-> @@ -88,6 +89,7 @@ MODULE_PARM_DESC(color_mode,
->   
->   /* SPI command codes (common) */
->   #define SSD16XX_CMD_DRIVER_OUTPUT_CONTROL		0x01
-> +#define SSD16XX_CMD_DEEP_SLEEP_MODE			0x10
->   #define SSD16XX_CMD_DATA_ENTRY_MODE			0x11
->   #define SSD16XX_CMD_SW_RESET				0x12
->   #define SSD16XX_CMD_MASTER_ACTIVATION			0x20
-> @@ -100,6 +102,9 @@ MODULE_PARM_DESC(color_mode,
->   #define SSD16XX_CMD_SET_RAM_X_ADDRESS_COUNTER		0x4E
->   #define SSD16XX_CMD_SET_RAM_Y_ADDRESS_COUNTER		0x4F
->   
-> +/* Runtime PM autosuspend delay (ms): keep display active across typical gaps */
-> +#define SSD16XX_PM_AUTOSUSPEND_DELAY_MS			35000
-> +
->   /*
->    * Data Entry Mode (command 0x11) AM/IDY/IDX bit encoding (common).
->    *
-> @@ -405,8 +410,10 @@ struct ssd16xx_panel {
->   	bool init_refresh_pending; /* First frame after refresh_mode_init enable */
->   	bool first_clear_done;  /* clear_on_init has already fired once */
->   	bool display_cleared_on_deinit; /* Avoid redundant clear in atomic_disable/master_drop */
-> +	bool pm_force_suspended;  /* pm_runtime_force_suspend was called in pm_suspend */
->   
-> -	int orientation; /* Display orientation in degrees: 0/90/180/270 */
-> +	int orientation;      /* Display orientation in degrees: 0/90/180/270 */
-> +	u8 deep_sleep_mode;   /* Deep sleep mode to use on next disable */
->   	enum ssd16xx_refresh_mode refresh_mode; /* Active refresh mode */
->   	enum ssd16xx_color_mode color_mode;     /* Active color mode (BW or 3-color) */
->   	bool fast_lut_pending; /* LUT pre-load needed before next fast refresh */
-> @@ -1526,10 +1533,9 @@ static void ssd16xx_plane_atomic_update(struct drm_plane *plane,
->   	struct drm_rect rect;
->   	int ret;
->   
-> -	drm_dbg(&panel->drm, "plane_atomic_update: fb=%p, initialized=%d\n",
-> -		fb, panel->initialized);
-> +	drm_dbg(&panel->drm, "plane_atomic_update: fb=%p\n", fb);
->   
-> -	if (!fb || !panel->initialized)
-> +	if (!fb)
->   		return;
->   
->   	/*
-> @@ -1541,6 +1547,12 @@ static void ssd16xx_plane_atomic_update(struct drm_plane *plane,
->   		return;
->   	}
->   
-> +	ret = pm_runtime_resume_and_get(panel->drm.dev);
-> +	if (ret < 0) {
-> +		drm_err(&panel->drm, "plane_atomic_update: failed to resume: %d\n", ret);
-> +		return;
-> +	}
-> +
->   	if (!drm_atomic_helper_damage_merged(old_state, new_state, &rect)) {
->   		rect.x1 = 0;
->   		rect.y1 = 0;
-> @@ -1598,6 +1610,9 @@ static void ssd16xx_plane_atomic_update(struct drm_plane *plane,
->   		panel->init_refresh_pending = false;
->   		panel->border_waveform_pending = true;
->   	}
-> +
-> +	pm_runtime_mark_last_busy(panel->drm.dev);
-> +	pm_runtime_put_autosuspend(panel->drm.dev);
->   }
->   
->   static const struct drm_plane_helper_funcs ssd16xx_plane_helper_funcs = {
-> @@ -1656,6 +1671,10 @@ static void ssd16xx_crtc_atomic_disable(struct drm_crtc *crtc,
->   	if (panel->clear_on_disable < 0 || panel->display_cleared_on_deinit)
->   		goto out;
->   
-> +	ret = pm_runtime_resume_and_get(panel->drm.dev);
-> +	if (ret < 0)
-> +		goto out;
-> +
->   	drm_dbg(&panel->drm, "clear_on_disable: running, mode=%d\n",
->   		panel->clear_on_disable);
->   	ret = ssd16xx_clear_display(panel,
-> @@ -1663,10 +1682,12 @@ static void ssd16xx_crtc_atomic_disable(struct drm_crtc *crtc,
->   								  panel->clear_on_disable));
->   	if (ret) {
->   		drm_err(&panel->drm, "atomic_disable: clear failed: %d\n", ret);
-> +		pm_runtime_put_autosuspend(panel->drm.dev);
->   		goto out;
->   	}
->   
->   	panel->display_cleared_on_deinit = true;
-> +	pm_runtime_put_sync_suspend(panel->drm.dev);
->   out:
->   	drm_dev_exit(idx);
->   }
-> @@ -1682,6 +1703,12 @@ static void ssd16xx_crtc_atomic_enable(struct drm_crtc *crtc,
->   		return;
->   
->   	panel->display_cleared_on_deinit = false;
-> +	ret = pm_runtime_resume_and_get(panel->drm.dev);
-> +	if (ret < 0) {
-> +		drm_err(&panel->drm, "crtc_atomic_enable: failed to resume: %d\n", ret);
-> +		drm_dev_exit(idx);
-> +		return;
-> +	}
->   
->   	drm_dbg(&panel->drm, "atomic_enable: %dx%d\n",
->   		crtc_state->mode.hdisplay, crtc_state->mode.vdisplay);
-> @@ -1689,12 +1716,19 @@ static void ssd16xx_crtc_atomic_enable(struct drm_crtc *crtc,
->   	panel->width = crtc_state->mode.hdisplay;
->   	panel->height = crtc_state->mode.vdisplay;
->   
-> -	ret = ssd16xx_hw_init(panel);
-> -	if (ret) {
-> -		drm_err(&panel->drm, "crtc_atomic_enable: HW init failed: %d\n", ret);
-> -		goto out;
-> +	/*
-> +	 * pm_runtime_resume_and_get() triggers pm_runtime_resume which runs
-> +	 * hw_init and sets initialized. If runtime PM is disabled the callback
-> +	 * never fires, so fall back to running hw_init directly here.
-> +	 */
-> +	if (!panel->initialized) {
-> +		ret = ssd16xx_hw_init(panel);
-> +		if (ret) {
-> +			drm_err(&panel->drm, "crtc_atomic_enable: HW init failed: %d\n", ret);
-> +			goto out;
-> +		}
-> +		panel->initialized = true;
->   	}
-> -	panel->initialized = true;
->   
->   	/* Clear display on first app launch if configured */
->   	ret = ssd16xx_clear_display_on_init(panel);
-> @@ -1714,6 +1748,8 @@ static void ssd16xx_crtc_atomic_enable(struct drm_crtc *crtc,
->   	}
->   
->   out:
-> +	pm_runtime_mark_last_busy(panel->drm.dev);
-> +	pm_runtime_put_autosuspend(panel->drm.dev);
->   	drm_dev_exit(idx);
->   }
->   
-> @@ -1730,7 +1766,7 @@ static void ssd16xx_crtc_atomic_flush(struct drm_crtc *crtc,
->   	struct drm_rect full;
->   	int ret, idx;
->   
-> -	if (!panel->reinit_pending || !panel->initialized)
-> +	if (!panel->reinit_pending)
->   		return;
->   
->   	if (!drm_dev_enter(&panel->drm, &idx))
-> @@ -1738,6 +1774,13 @@ static void ssd16xx_crtc_atomic_flush(struct drm_crtc *crtc,
->   
->   	panel->reinit_pending = false;
->   
-> +	ret = pm_runtime_resume_and_get(panel->drm.dev);
-> +	if (ret < 0) {
-> +		drm_err(&panel->drm, "atomic_flush: failed to resume: %d\n", ret);
-> +		drm_dev_exit(idx);
-> +		return;
-> +	}
-> +
->   	drm_dbg(&panel->drm, "atomic_flush: reinit, orientation=%u°\n",
->   		panel->orientation);
->   
-> @@ -1762,6 +1805,8 @@ static void ssd16xx_crtc_atomic_flush(struct drm_crtc *crtc,
->   	}
->   
->   out:
-> +	pm_runtime_mark_last_busy(panel->drm.dev);
-> +	pm_runtime_put_autosuspend(panel->drm.dev);
->   	drm_dev_exit(idx);
->   }
->   
-> @@ -2189,11 +2234,17 @@ static void ssd16xx_drm_master_drop(struct drm_device *drm,
->   	if (panel->clear_on_close < 0 || panel->display_cleared_on_deinit)
->   		return;
->   
-> +	ret = pm_runtime_resume_and_get(drm->dev);
-> +	if (ret < 0)
-> +		return;
-> +
->   	ret = ssd16xx_clear_display_on_exit(panel);
->   	if (ret)
->   		drm_err(drm, "master_drop: clear on close failed: %d\n", ret);
->   
->   	panel->display_cleared_on_deinit = true;
-> +	/* sync suspend — bypass autosuspend, sleep immediately after clear */
-> +	pm_runtime_put_sync_suspend(drm->dev);
->   }
->   
->   static struct drm_driver ssd16xx_drm_driver = {
-> @@ -2496,6 +2547,20 @@ static int ssd16xx_probe(struct spi_device *spi)
->   	if (ret)
->   		return ret;
->   
-> +	/* Default to runtime sleep mode (RAM retained if supported) */
-> +	panel->deep_sleep_mode = panel->controller_cfg->deep_sleep_mode_level1;
-> +	/*
-> +	 * Mark the device active before enabling runtime PM.  The SPI device
-> +	 * persists across module reload cycles; pm_runtime_enable() alone
-> +	 * does not clear a stale dev->power.runtime_error left by a previous
-> +	 * failed hw_init, which would cause pm_runtime_resume_and_get() to
-> +	 * return -EINVAL on every subsequent call.
-> +	 */
-> +	pm_runtime_set_active(dev);
-> +	pm_runtime_enable(dev);
-> +	pm_runtime_set_autosuspend_delay(dev, SSD16XX_PM_AUTOSUSPEND_DELAY_MS);
-> +	pm_runtime_use_autosuspend(dev);
-> +
->   	drm_dbg(drm, "SSD16xx e-paper display initialized (%dx%d, %d° rotation)\n",
->   		panel->width, panel->height, panel->orientation);
->   
-> @@ -2508,6 +2573,8 @@ static void ssd16xx_remove(struct spi_device *spi)
->   {
->   	struct ssd16xx_panel *panel = spi_get_drvdata(spi);
->   
-> +	pm_runtime_dont_use_autosuspend(&spi->dev);
-> +	pm_runtime_disable(&spi->dev);
->   	drm_dev_unplug(&panel->drm);
->   	drm_atomic_helper_shutdown(&panel->drm);
->   }
-> @@ -2516,9 +2583,124 @@ static void ssd16xx_shutdown(struct spi_device *spi)
->   {
->   	struct ssd16xx_panel *panel = spi_get_drvdata(spi);
->   
-> +	pm_runtime_dont_use_autosuspend(&spi->dev);
-> +	pm_runtime_disable(&spi->dev);
->   	drm_atomic_helper_shutdown(&panel->drm);
->   }
->   
-> +static int ssd16xx_pm_suspend(struct device *dev)
-> +{
-> +	struct drm_device *drm = dev_get_drvdata(dev);
-> +	struct ssd16xx_panel *panel = to_ssd16xx_panel(drm);
-> +	int ret;
-> +
-> +	/* System suspend: Mode 2 (max savings, RAM lost, full re-init on resume). */
-> +	panel->deep_sleep_mode = panel->controller_cfg->deep_sleep_mode_level2;
-> +	dev_dbg(dev, "system suspend: entering deep sleep mode 0x%02x\n",
-> +		panel->deep_sleep_mode);
-> +
-> +	ret = drm_mode_config_helper_suspend(drm);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/*
-> +	 * With per-update PM gating the panel may already be in MODE_1 deep
-> +	 * sleep (autosuspend fired while the user was reading).
-> +	 * pm_runtime_force_suspend() skips its callback when the device is
-> +	 * already RPM_SUSPENDED, so MODE_2 would never reach the hardware.
-> +	 *
-> +	 * Per the datasheet, HWRESET is the only way to exit deep sleep (SPI
-> +	 * is unresponsive in both modes).  After the reset, MODE_2 can be
-> +	 * sent immediately — no full hw_init is required.  The RPM state
-> +	 * remains RPM_SUSPENDED; pm_runtime_force_suspend() is skipped since
-> +	 * the device is already in the right state.
-> +	 */
-> +	if (pm_runtime_status_suspended(dev)) {
-> +		int err = 0;
-> +
-> +		dev_dbg(dev, "system suspend: upgrading MODE_1 -> MODE_2 via HWRESET\n");
-> +		ssd16xx_hw_reset(panel);
-> +		ssd16xx_send_cmd(panel, SSD16XX_CMD_DEEP_SLEEP_MODE, &err);
-> +		ssd16xx_send_data(panel, panel->controller_cfg->deep_sleep_mode_level2, &err);
-> +		panel->pm_force_suspended = false;  /* Skip force_resume on resume */
-> +		return err;
-> +	}
-> +
-> +	/* Force runtime-suspended state for clean resume. */
-> +	pm_runtime_force_suspend(dev);
-> +	panel->pm_force_suspended = true;  /* Resume must call force_resume */
-> +
-> +	return 0;
-> +}
-> +
-> +static int ssd16xx_pm_resume(struct device *dev)
-> +{
-> +	struct drm_device *drm = dev_get_drvdata(dev);
-> +	struct ssd16xx_panel *panel = to_ssd16xx_panel(drm);
-> +
-> +	dev_dbg(dev, "system resume: restoring state\n");
-> +
-> +	/*
-> +	 * Only call force_resume if we actually called force_suspend during
-> +	 * system suspend. The MODE_1->MODE_2 upgrade path skips force_suspend
-> +	 * since the device is already RPM_SUSPENDED.
-> +	 */
-> +	if (panel->pm_force_suspended) {
-> +		pm_runtime_force_resume(dev);
-> +		panel->pm_force_suspended = false;
-> +	}
-> +
-> +	/* Restore Mode 1 (RAM retained) for subsequent runtime PM cycles. */
-> +	panel->deep_sleep_mode = panel->controller_cfg->deep_sleep_mode_level1;
-> +
-> +	return drm_mode_config_helper_resume(drm);
-> +}
-> +
-> +static int ssd16xx_pm_runtime_suspend(struct device *dev)
-> +{
-> +	struct ssd16xx_panel *panel = to_ssd16xx_panel(dev_get_drvdata(dev));
-> +	int err = 0;
-> +
-> +	dev_dbg(dev, "runtime suspend: entering deep sleep mode 0x%02x\n",
-> +		panel->deep_sleep_mode);
-> +
-> +	ssd16xx_send_cmd(panel, SSD16XX_CMD_DEEP_SLEEP_MODE, &err);
-> +	ssd16xx_send_data(panel, panel->deep_sleep_mode, &err);
-> +	panel->initialized = false;
-> +
-> +	return err;
-> +}
-> +
-> +static int ssd16xx_pm_runtime_resume(struct device *dev)
-> +{
-> +	struct ssd16xx_panel *panel = to_ssd16xx_panel(dev_get_drvdata(dev));
-> +	int ret;
-> +
-> +	dev_dbg(dev, "runtime resume: initialized=%d%s\n",
-> +		panel->initialized,
-> +		!panel->initialized ? " (running hw_init)" : "");
-> +
-> +	/*
-> +	 * pm_runtime_suspend clears initialized after sending the deep sleep
-> +	 * command.  If a new app opens before the suspend fires (the put was
-> +	 * cancelled), initialized is still true and hw_init is unnecessary.
-> +	 */
-> +	if (!panel->initialized) {
-> +		ret = ssd16xx_hw_init(panel);
-> +		if (ret)
-> +			return ret;
-> +
-> +		panel->initialized = true;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct dev_pm_ops ssd16xx_pm_ops = {
-> +	SYSTEM_SLEEP_PM_OPS(ssd16xx_pm_suspend, ssd16xx_pm_resume)
-> +	RUNTIME_PM_OPS(ssd16xx_pm_runtime_suspend, ssd16xx_pm_runtime_resume, NULL)
-> +};
-> +
->   static const struct of_device_id ssd16xx_of_match[] = {
->   	{ .compatible = "gooddisplay,gdey042t81", .data = (void *)GDEY042T81 },
->   	{ }
-> @@ -2535,6 +2717,7 @@ static struct spi_driver ssd16xx_spi_driver = {
->   	.driver = {
->   		.name = "ssd16xx",
->   		.of_match_table = ssd16xx_of_match,
-> +		.pm = pm_ptr(&ssd16xx_pm_ops),
->   	},
->   	.probe = ssd16xx_probe,
->   	.remove = ssd16xx_remove,
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
-
+> Changes v5-v6
+>   - rebase on 7.0.0-rc4
+>   - use range based TLB flushing while unmapping ptes
+>   - gate migration behind HMM_PFN_REQ_MIGRATE for fault and
+>     migrate paths
+>   - always infer migration flags from migrate->flags only
+> 
+> Changes v4-v5
+>   - rebase on 6.19
+>   - fixed David's email address
+>   - fixed link issue without CONFIG_TRANSPARENT_HUGEPAGE
+>   - refactored into smaller commits
+>   - added more comments to code
+> 
+> Changes v3-v4:
+>   - rebase on 6.19-rc8
+>   - fixed issues found by kernel test robot with random configs
+>   - fixed typos
+> 
+> Changes v2-v3:
+>   - rebase on 6.19-rc7
+>   - fixed issues found by kernel test robot
+>   - fixed smatch issues reported by Dan Carpenter <dan.carpenter@linaro.org>
+>   - fixes to lock handling (pmd/pte) on errors
+>   - added assertions for pmd/pte lock states
+>   - other issues discovered by Matthew, thanks!
+> 
+> Changes v1-v2:
+>   - rebase on 6.19-rc6
+>   - fixed issues found by kernel test robot
+>   - fixed locking (pmd/ptl) to cover handle_ and prepare_ regions
+>     parts if migrating
+>   - other issues discovered by Matthew, thanks!
+> 
+> Changes RFC-v1:
+>   - rebase on 6.19-rc5
+>   - adjust for the device THP
+>   - changes from feedback
+> 
+> Revisions:
+>   - RFC https://lore.kernel.org/linux-mm/20250814072045.3637192-1-mpenttil@redhat.com/
+>   - v1: https://lore.kernel.org/all/20260114091923.3950465-1-mpenttil@redhat.com/
+>   - v2: https://lore.kernel.org/all/20260119112502.645059-1-mpenttil@redhat.com/
+>   - v3: https://lore.kernel.org/all/20260126111939.1332983-2-mpenttil@redhat.com/
+>   - v4: https://lore.kernel.org/all/20260202112622.2104213-1-mpenttil@redhat.com/
+>   - v5: https://lore.kernel.org/linux-mm/20260211081301.2940672-1-mpenttil@redhat.com/
+>   - v6: https://lore.kernel.org/linux-mm/20260316062407.3354636-1-mpenttil@redhat.com/
+>   - v7: https://lore.kernel.org/linux-mm/20260330115611.347988-1-mpenttil@redhat.com/
+>   - v8: https://lore.kernel.org/linux-mm/20260414041226.1539439-1-mpenttil@redhat.com/
+> 
+> Cc: David Hildenbrand <david@kernel.org>
+> Cc: Jason Gunthorpe <jgg@nvidia.com>
+> Cc: Leon Romanovsky <leonro@nvidia.com>
+> Cc: Alistair Popple <apopple@nvidia.com>
+> Cc: Balbir Singh <balbirs@nvidia.com>
+> Cc: Zi Yan <ziy@nvidia.com>
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: Andrew Morton <akpm@linux-foundation.org>
+> Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+> Cc: "Liam R. Howlett" <Liam.Howlett@oracle.com>
+> Cc: Vlastimil Babka <vbabka@suse.cz>
+> Cc: Mike Rapoport <rppt@kernel.org>
+> Cc: Suren Baghdasaryan <surenb@google.com>
+> Cc: Michal Hocko <mhocko@suse.com>
+> 
+> Mika Penttil� (5):
+>   mm/Kconfig: changes for migrate on fault for device pages
+>   mm: Add helper to convert HMM pfn to migrate pfn
+>   mm/hmm: do the plumbing for HMM to participate in migration
+>   mm: setup device page migration in HMM pagewalk
+>   lib/test_hmm:: add a new testcase for the migrate on fault
+> 
+>  include/linux/hmm.h                    |  19 +-
+>  include/linux/migrate.h                |  26 +-
+>  lib/test_hmm.c                         | 101 ++-
+>  lib/test_hmm_uapi.h                    |  19 +-
+>  mm/Kconfig                             |   2 +
+>  mm/hmm.c                               | 835 +++++++++++++++++++++++--
+>  mm/migrate_device.c                    | 583 +++--------------
+>  tools/testing/selftests/mm/hmm-tests.c |  54 ++
+>  8 files changed, 1066 insertions(+), 573 deletions(-)
+> 
+> drm-tip
+> base-commit: 94d56a898a2db27f841b17f6966a81ba502fe63c
+> -- 
+> 2.50.0
+> 
