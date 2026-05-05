@@ -4,60 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7410FF885A
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 08:02:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 643DEFF885A
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 08:16:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0599C10E9B0;
-	Tue,  5 May 2026 08:02:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C1D710E150;
+	Tue,  5 May 2026 08:16:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZHvXlbNb";
+	dkim=pass (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="C8rjF3Zd";
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="C8rjF3Zd";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D849410E150;
- Tue,  5 May 2026 08:02:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777968140; x=1809504140;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=wMXo6MQ445WbglVqpMtmUWy7s02ZtdmVdwxdPVqWt8M=;
- b=ZHvXlbNbzwf3VPukQLx8jeNkFghLS6BItD60TkQyIF4GVWA9vbt+7DeR
- pxujRp0GSqIIHSBEg7FeHNj1bXT0YiqN6k7jSgjXQP5ctMvHyVbI4kzfh
- vATs/GjESDS5NyGxuZsM7eKXeVL7WLJqOStc6QtF1cWHGW8Yyeaj6e1T2
- r3ImI6TsRFxaOQCLXhgAlOfQXLXyN7i5UssS/qixg5HehQtERBYSB1Q3l
- Vj9/LuWikuWFdOwSi1SRDa/5b2WtYyatE7oiOWvy8q9tbLefmEe1AhMvV
- fu8KWui4M9DDwlA/kiMCe9uD6nSXVRSONVmP0uvq6xuITnClsTg5TYUH1 A==;
-X-CSE-ConnectionGUID: Insbf+pXSNiuefZw8tkGNw==
-X-CSE-MsgGUID: ZMMsOqcoQ0m2VNryUlypvQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11776"; a="77854598"
-X-IronPort-AV: E=Sophos;i="6.23,217,1770624000"; d="scan'208";a="77854598"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 May 2026 01:02:19 -0700
-X-CSE-ConnectionGUID: 4foqKQZYQ6GZDsBTHWqUdw==
-X-CSE-MsgGUID: YEXi8MJWQi6TQQWbhJ82UQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,217,1770624000"; d="scan'208";a="235616707"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.55])
- by orviesa008-auth.jf.intel.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 May 2026 01:02:16 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: ChunAn Wu <an.wu@canonical.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] drm/i915/tc: Recover AUX channel after external TC
- port mode change
-In-Reply-To: <20260505033558.157604-1-an.wu@canonical.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260505033558.157604-1-an.wu@canonical.com>
-Date: Tue, 05 May 2026 11:02:13 +0300
-Message-ID: <68d0176c7022293678a49e7641ad9308ed0438a4@intel.com>
+Received: from DUZPR83CU001.outbound.protection.outlook.com
+ (mail-northeuropeazon11012070.outbound.protection.outlook.com [52.101.66.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8568810E150
+ for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 08:16:09 +0000 (UTC)
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=K48hQrQiztc8AHlP+LuSYVminMUQKULS0yhu4VYEx6uC79mdUCPIYxMWr1bJRPhRcyWrG6k/eGr2i10M+5pzuAp8sp7Xpt+xaFXtblGTfWtb1ootLPDxsM9h1yTh7H71qrfjsrF+TnLHm1RJhQKN7SEOuyd6KKzgqBGYLOeYHoVV26M1gqT3I6symxFOL4+FFcstHfzxgrH1oy0A4ElDP+Ig8Za4fEeU2g2fNfaDvSimem8G07xsq6qnYvAItVq/ArUKF0WJMzPf8TbIAhQn5vKVNsqyNaHvreuf7vWrRLHZdkFA5+mTH9zpCjbatb2F7za2B4WjrYeMUWFo5uTroA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aPG503+juLMQUOaYRsrSMomMqIYiwNHGDCgta0T7VC8=;
+ b=h8DqBvKL7MVHb9BilcgMYv6iGviPivv11IHoTO8Ss8Ch69hHyYf9FXRxa6BwNZNuBHixKvXiUmwDGaYmjpTiucjN/zWFpeLS4xdiQBixpRZe7C8D0HbFqCVbh/nOTDUgg55TKWMF1fWsxrKyGgXpmfI1PRonL9MIUuqhTcUXKsE0phC2yxzEnXGeIMD8B2eB2Q2jRffPawAkHFxRVL+C4dg1wHLbKIUYX49iewIm58fkY+3TLKE2P5uhCLdOazNz52oZC9gWdHEkrcURWHB903nsy1VqDftNaqIOLL+adyRZRFy3lb2rUQtghmqXTeQBUXcTIOOldgiQC7B2Ij1RhA==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=collabora.com smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aPG503+juLMQUOaYRsrSMomMqIYiwNHGDCgta0T7VC8=;
+ b=C8rjF3Zd8dYYXLeQOealwsXtKYV5xkjc2hA/YupEUrjT/sRukIHK7h3eL0ylCnA8k1hxiHGtCohiVatHbBCdkg1fm67NtMZXweMw4WzSmeAN+vmz623tVoI9TPCcN/3irI1FuojUM6o7P1GNNffeWWtLCdbd+VQKpOQ3ythnyFM=
+Received: from DUZPR01CA0114.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:4bb::13) by VI1PR08MB10300.eurprd08.prod.outlook.com
+ (2603:10a6:800:1bd::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Tue, 5 May
+ 2026 08:15:58 +0000
+Received: from DB3PEPF0000885C.eurprd02.prod.outlook.com
+ (2603:10a6:10:4bb:cafe::7) by DUZPR01CA0114.outlook.office365.com
+ (2603:10a6:10:4bb::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9870.27 via Frontend Transport; Tue,
+ 5 May 2026 08:15:58 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ DB3PEPF0000885C.mail.protection.outlook.com (10.167.242.7) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.9
+ via Frontend Transport; Tue, 5 May 2026 08:15:58 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eNCJfUkaoPTyf93nkqhuc6VeijSC0UqI/km45OOEOhZNadjbKMOF9O3H/Iv30mhq/JuiJOHiLkoOKdYSj+cxdz+NtrcvkFXn4TSUHcoFiEW80eKIxlsm1JcoaKfF6VYD0iLm9nwNPLsHi2TGK79moBFfB1GhA8nEUKdkKOZ8rVsac2072PY9ANqzmR7g5fH5htZuVUbLbJyLFrW2BRAeobd3bXyy2xQ8v/crRrh2rLZp0b9nC7ftRlRKTdMbkAdZQ+z3bhm3C7lBPqmQ/DeVnIZImhLP+QhhYlO6yaPdHCFugVo+P/iTOZIchP4xRsFq+il+R+XF/vShaqPduR3Mug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aPG503+juLMQUOaYRsrSMomMqIYiwNHGDCgta0T7VC8=;
+ b=By7yg1o867Vv9Q3VKUouADLV42l6hnOGJDtTRsE3lLq6xZJ8ZhybnC/QbZxOI0eQwMohms6UDdctI2ejhem/NTpxhWghMvwUPff52YTXPQsfqNGOYN6T0JD7ozDqhsSG+WM7apH1KZOMSBN41vpAC27uOuyOShW50SMLqJnUGEQgWlvdifWBYBF3v4PfSj25mtufFlkIQDoCo4jAcFfuRzdnfBQskrqtt/mo/7J4FYhKbM0UX+1D5gcrx6Ffphn1gtAlxiRfcHIlwYD0OTFM/6qtjEDrZwvw5N5ts4bGfzxzmZ0G5Cw9rUV1588tnvsjAZTjk4DWnUeKkqKWiKYz4Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aPG503+juLMQUOaYRsrSMomMqIYiwNHGDCgta0T7VC8=;
+ b=C8rjF3Zd8dYYXLeQOealwsXtKYV5xkjc2hA/YupEUrjT/sRukIHK7h3eL0ylCnA8k1hxiHGtCohiVatHbBCdkg1fm67NtMZXweMw4WzSmeAN+vmz623tVoI9TPCcN/3irI1FuojUM6o7P1GNNffeWWtLCdbd+VQKpOQ3ythnyFM=
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+Received: from PAWPR08MB9996.eurprd08.prod.outlook.com (2603:10a6:102:35a::11)
+ by PAWPR08MB9759.eurprd08.prod.outlook.com (2603:10a6:102:2ee::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Tue, 5 May
+ 2026 08:14:55 +0000
+Received: from PAWPR08MB9996.eurprd08.prod.outlook.com
+ ([fe80::5856:8db5:9ee6:414f]) by PAWPR08MB9996.eurprd08.prod.outlook.com
+ ([fe80::5856:8db5:9ee6:414f%6]) with mapi id 15.20.9870.023; Tue, 5 May 2026
+ 08:14:54 +0000
+Date: Tue, 5 May 2026 10:14:50 +0200
+From: Marcin =?utf-8?Q?=C5=9Alusarz?= <marcin.slusarz@arm.com>
+To: =?iso-8859-1?Q?Adri=E1n?= Larumbe <adrian.larumbe@collabora.com>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Steven Price <steven.price@arm.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ kernel@collabora.com, Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Alice Ryhl <aliceryhl@google.com>, nd@arm.com
+Subject: Re: [PATCH v10 5/6] drm/panthor: Support sparse mappings
+Message-ID: <afmm-gRz7W3LTW3H@e129842.arm.com>
+References: <20260429183253.66422-1-adrian.larumbe@collabora.com>
+ <20260429183253.66422-6-adrian.larumbe@collabora.com>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260429183253.66422-6-adrian.larumbe@collabora.com>
+X-ClientProxiedBy: LO4P123CA0481.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1a8::18) To PAWPR08MB9996.eurprd08.prod.outlook.com
+ (2603:10a6:102:35a::11)
 MIME-Version: 1.0
-Content-Type: text/plain
+X-MS-TrafficTypeDiagnostic: PAWPR08MB9996:EE_|PAWPR08MB9759:EE_|DB3PEPF0000885C:EE_|VI1PR08MB10300:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3c1e116e-f60b-4a86-4c39-08deaa7e8967
+X-LD-Processed: f34e5979-57d9-4aaa-ad4d-b122a662184d,ExtAddr,ExtAddr
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+ ARA:13230040|366016|1800799024|376014|7416014|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info-Original: uASqDiWK/48xnDlUbZICECdL56EYV8A9/ZBE4GmS3Fv7WVdt/veTLTNXyN8Att08IRHq0eulTIdEZzSHz+DMN0HAt8fOmicQT1agAwOc4Iune3ZoqoxsHDVpLlolX4jAp7cI2tEWMUsZjBdoTreQtn+Ois0asoVth9sHlu7gOsDdLuzUglBTiC9XWcRv/hAEGEniwbWQ00Ae7Xx2gEGAZbruqhgmOJDoBtDrVuIJ/E1C3GlWaSJOYJ8AxFy4GX1xhbYjWsnoUZ8wMnpWdas+nvsyY6ZvoPJS6+gUateA/cJSQi4FkcXpxicqTrnmVDnHIHKLH94w9rICMDQJnte3jbw0h209zDmdpldNQxstsPgW7H9L1dJQRHGPEEObd4HmJUPYZ3V0jguNPpBwpXpOmg8X3WPdDMWOrAmNAlNv51dI/r303zZ5WamZwBOTrjfUxpOp6dFoYfJd0li33cGEvDqE/tJe+azHXL+IwzXxlDQ1WwAb9ABSjYZXHU8R3BuuRb/QxSdYqD88b4nGyTIpnYhFSKgyLidXdn2hgdDuvGxPGupw+GgOs9cHxpKNt3JAg3mEQQey4MdpMv179KPr8CI8pCaTPJDU5LeduwZ7bjiVxOsDx78ZhliYe0C9Csu4scr/7upI5EfPETkXQGilzhN8i6sCxJsCriGKHUKhy3sZ7qblZgplqC6XBo0ji25n
+X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
+ SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:PAWPR08MB9996.eurprd08.prod.outlook.com;
+ PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(7416014)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-Exchange-RoutingPolicyChecked: ZpopgKyzhpdiB0dtzViRupWkAbTdiKgiE+vKoEnDIm4KVUtniVRldO/nEFRKksgKfaYLjkJxDcTaUQwG+dAd0jek9/Svn1rNchDiY4+FyTstyE+w4L1pQWk8AhGjXcbs42ZUqyP03M5lxf+zxa6vMjBgjTgSWYSmfPjYN2XaOIzo5URns1iFTQIv7LoHKeZggbDmdoH76R1fikzqr8ZpgoXo9hzzI/Sf3yoJ0JR0zTxTdcU+WEui3++GxofpYPEA3r6Dh95X/RJ06XlOMlvLLe9hTNE4TZZaCDJ0OwEbB/+XBq0umO+zl+eLdPFM2MUDxI2K9t9Xjx+rkBP5jff3fg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR08MB9759
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: DB3PEPF0000885C.eurprd02.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs: 569e0bef-a862-4d8d-1f03-08deaa7e637d
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|1800799024|376014|7416014|82310400026|14060799003|35042699022|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info: eaH075CxAGDOzYKNCmX547kfeGtPYFRam7UfrJ8jacKdi0Va/8jPDyF7t+NHP33OpEhUekRGJT4eJXj/HMTKjZh/Cq8CCddYVr4L1AF5uGnvZ8d/19bDOw+HKUQVDhcBdmkydG/suQYzWEqsSvSgRkNbTX1qx25of7fHLv82u0xTMnaEy/rhXrxDA9TpJcxcsMFD5tazOxOEyakwQ0QwKf2CiOfMOSPVwKhPywbP0p9JmeIq2rdtjOpCAec4+ExJO4CmwHjRwknBKUzyiROLtsFJEEM8UIW+HmtrixcyGSrgOXxdbpHaPva7+Wo3ypRjig0UV2AucImb2K+y16ft8td3tnzw38GWvK20zbfCPo7b/CEuekO/ShJIK8G6fHwzTtq6+U0tOlnqprmptaNjbQSWkAD9hA+cBXQpgENlEJxg5i0Ps5l65qXDTpgEUlCXX4BpohkC132E8kjKgicYuSWRbFT3cJJ1MY8o3YuLCCuvaXPn13HB2auDAAnY5S9lUxwDZa+a+qtg3oJyMsUigddLwFPKgWUn8J2QqRiWTdAJYTv4g7GptVeEUeusMJCsc4heb7sbjh2nCSGITkNFg6bboRTfWrvIv7gh/EDxTVqEszchpWq4h2y6ZWIThCtoUZz1ShlIJ3V36EiuTq4jAu+dvmrsWgbnXNsCOKU1gj+BNYFMacfen65kzyrSUcusKLfPPFX45ffOwop7W7HY73yW/3GkbGXEohts8sLxcg8=
+X-Forefront-Antispam-Report: CIP:4.158.2.129; CTRY:GB; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:outbound-uk1.az.dlp.m.darktrace.com;
+ PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(1800799024)(376014)(7416014)(82310400026)(14060799003)(35042699022)(18002099003)(22082099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 9UNQ7hRolyrQoB5cwywZmnzQFvlJBxaSMRy0Hq9yFMqIxVgyYEibQ444bP+JbGnvKGfX10xOplovWNb2/AkhRLTi4frUErn3hajlbhTojNVmAIqfFaIMMF4HFMp9k8bq/Qd0V1BNc/9IGB4hl6Dz+B1E/YrPBsOFX/fhlczHd7WDk6IcGsNpTPF8+lki0unSqWN+QB7uB3tzKDTIdDVQ5wVR5YPMg4qr7VMFiVZqhTPAPIKVFWBtMEbZvk6e8eC4mp8Pjf/zEjYc1mg2bJ4qZTjVSGhytWVYu9E3iwHqx5dUKYnBEbO9L84gT78eZI26MsNuIEozj+4yNMnpx+DQYLLoBMjRe26kS935D7wYQBOo2IVtSd0NZBOMbIPGb0MW31muJUUS4qBc3+juSf6/t4TqWLLQ5jNXFSsda0cUeVbtA2oJDryOV91Eta6QvOVE
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2026 08:15:58.0050 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3c1e116e-f60b-4a86-4c39-08deaa7e8967
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[4.158.2.129];
+ Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource: DB3PEPF0000885C.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB10300
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,198 +160,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 05 May 2026, ChunAn Wu <an.wu@canonical.com> wrote:
-> When Fn+F4 triggers mirror mode, the BIOS/EC reconfigures a TC port
-> mode (e.g. DP-Alt to TBT-Alt via UCSI) without generating HPD. The
-> driver's cached TC mode becomes stale, so intel_dp_aux_xfer() uses
-> the wrong power domain and IO routing, and AUX transactions fail.
->
-> This occurs when the USB-C-to-HDMI dongle does not support TBT, so
-> the mode switch creates a mismatch. It also occurs with slow monitors
-> whose delayed HPD/DDC/EDID recovery causes the Type-C layer to settle
-> on a stale tbt-alt state before the dongle finishes re-negotiation.
->
-> Add intel_tc_port_aux_recover() to detect hardware/cached TC mode
-> divergence and reset the PHY. Wrap it with
-> intel_dp_aux_xfer_with_recovery() to retry with corrected settings.
->
-> Tested on Panther Lake and Lunar Lake with a BenQ HDMI monitor via
-> USB-C-to-HDMI dongle.
+On Wed, Apr 29, 2026 at 07:32:17PM +0100, Adri�n Larumbe wrote:
+> @@ -1651,6 +1715,13 @@ int panthor_vm_pool_create(struct panthor_file *pfile)
+>  		return -ENOMEM;
+>  
+>  	xa_init_flags(&pfile->vms->xa, XA_FLAGS_ALLOC1);
+> +
+> +	pfile->vms->dummy = panthor_dummy_bo_create(pfile->ptdev);
+> +	if (IS_ERR(pfile->vms->dummy)) {
+> +		kfree(pfile->vms);
+> +		return PTR_ERR(pfile->vms->dummy);
 
-What are the changes between v1 and v2?
+This is use-after-free.
 
->
-> Signed-off-by: ChunAn Wu <an.wu@canonical.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_dp_aux.c | 41 +++++++++--
->  drivers/gpu/drm/i915/display/intel_tc.c     | 75 +++++++++++++++++++++
->  drivers/gpu/drm/i915/display/intel_tc.h     |  1 +
->  3 files changed, 113 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux.c b/drivers/gpu/drm/i915/display/intel_dp_aux.c
-> index b20ec3e589fa..d496b2231656 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_aux.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_aux.c
-> @@ -481,6 +481,39 @@ static u32 intel_dp_aux_xfer_flags(const struct drm_dp_aux_msg *msg)
+> +	}
+> +
 >  	return 0;
 >  }
->  
-> +/**
-> + * intel_dp_aux_xfer_with_recovery - AUX transfer with TC port recovery
-> + * @intel_dp: the DP port
-> + * @send: buffer of bytes to send
-> + * @send_bytes: number of bytes to send
-> + * @recv: buffer to store received reply
-> + * @recv_size: maximum number of bytes to receive
-> + * @aux_send_ctl_flags: extra flags for the AUX send control register
-> + *
-> + * Wrapper around intel_dp_aux_xfer() that attempts to recover from an
-> + * external TC port mode change (e.g., dp-alt -> tbt-alt via hotkey BIOS
-> + * action) when the initial AUX transfer fails. On failure, recovery is
-> + * attempted once via intel_tc_port_aux_recover() before retrying.
-> + *
-> + * Returns: number of received bytes on success, negative error code on failure.
-> + */
-> +static int
-> +intel_dp_aux_xfer_with_recovery(struct intel_dp *intel_dp,
-> +				const u8 *send, int send_bytes,
-> +				u8 *recv, int recv_size,
-> +				u32 aux_send_ctl_flags)
-> +{
-> +	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
-> +	int ret;
-> +
-> +	ret = intel_dp_aux_xfer(intel_dp, send, send_bytes, recv, recv_size,
-> +				aux_send_ctl_flags);
-> +	if (ret < 0 && intel_tc_port_aux_recover(dig_port))
-> +		ret = intel_dp_aux_xfer(intel_dp, send, send_bytes, recv,
-> +					recv_size, aux_send_ctl_flags);
-> +	return ret;
-> +}
-> +
->  static ssize_t
->  intel_dp_aux_transfer(struct drm_dp_aux *aux, struct drm_dp_aux_msg *msg)
->  {
-> @@ -508,8 +541,8 @@ intel_dp_aux_transfer(struct drm_dp_aux *aux, struct drm_dp_aux_msg *msg)
->  		if (msg->buffer)
->  			memcpy(txbuf + HEADER_SIZE, msg->buffer, msg->size);
->  
-> -		ret = intel_dp_aux_xfer(intel_dp, txbuf, txsize,
-> -					rxbuf, rxsize, flags);
-> +		ret = intel_dp_aux_xfer_with_recovery(intel_dp, txbuf, txsize,
-> +						      rxbuf, rxsize, flags);
->  		if (ret > 0) {
->  			msg->reply = rxbuf[0] >> 4;
->  
-> @@ -531,8 +564,8 @@ intel_dp_aux_transfer(struct drm_dp_aux *aux, struct drm_dp_aux_msg *msg)
->  		if (drm_WARN_ON(display->drm, rxsize > 20))
->  			return -E2BIG;
->  
-> -		ret = intel_dp_aux_xfer(intel_dp, txbuf, txsize,
-> -					rxbuf, rxsize, flags);
-> +		ret = intel_dp_aux_xfer_with_recovery(intel_dp, txbuf, txsize,
-> +						      rxbuf, rxsize, flags);
->  		if (ret > 0) {
->  			msg->reply = rxbuf[0] >> 4;
->  			/*
-> diff --git a/drivers/gpu/drm/i915/display/intel_tc.c b/drivers/gpu/drm/i915/display/intel_tc.c
-> index a21dd4e3fe4c..1b23161e4eea 100644
-> --- a/drivers/gpu/drm/i915/display/intel_tc.c
-> +++ b/drivers/gpu/drm/i915/display/intel_tc.c
-> @@ -1861,6 +1861,81 @@ void intel_tc_port_link_cancel_reset_work(struct intel_digital_port *dig_port)
->  	cancel_delayed_work(&tc->link_reset_work);
->  }
->  
-> +/**
-> + * intel_tc_port_aux_recover - Recover AUX channel after external TC mode change
-> + * @dig_port: digital port
-> + *
-> + * When firmware causes a TC port mode change (e.g., dp-alt -> disconnect ->
-> + * tbt-alt) during a hotkey-triggered display mode switch, AUX transactions
-> + * using the stale power domain and IO flags will fail with timeouts or errors.
-> + * This happens because:
-> + *
-> + *   1. The display driver holds the TC link in dp-alt mode (link_refcount > 0)
-> + *   2. Firmware (e.g., via HP WMI hotkey BIOS action) reconfigures the TC port
-> + *      mode externally without notifying the display driver
-> + *   3. tc->mode stays as TC_PORT_DP_ALT while HW transitions to a different
-> + *      mode, invalidating the AUX power domain and IO flags used by
-> + *      intel_dp_aux_xfer()
-> + *
-> + * This function detects the discrepancy between tc->mode and actual HW state,
-> + * and re-synchronizes them via a TC PHY reset. After recovery, AUX retries
-> + * will use the correct power domain and control flags.
-> + *
-> + * The link_refcount is temporarily cleared to allow intel_tc_port_reset_mode()
-> + * to proceed without the PHY-ownership assertion that fires when link_refcount
-> + * is non-zero and firmware has already released PHY ownership.
-> + *
-> + * Must be called outside the TC port lock (tc->lock).
-> + *
-> + * Returns: %true if recovery was performed and AUX can be retried,
-> + *          %false if recovery was not needed or not possible.
-> + */
-> +bool intel_tc_port_aux_recover(struct intel_digital_port *dig_port)
-> +{
-> +	struct intel_tc_port *tc;
-> +	struct intel_display *display;
-> +	bool recovered = false;
-> +
-> +	if (!intel_encoder_is_tc(&dig_port->base))
-> +		return false;
-> +
-> +	tc = to_tc_port(dig_port);
-> +	display = to_intel_display(dig_port);
-> +
-> +	mutex_lock(&tc->lock);
-> +
-> +	/*
-> +	 * Recovery is only needed when the link is actively held AND the HW
-> +	 * TC mode has diverged from the driver's cached state.
-> +	 */
-> +	if (!tc->link_refcount || !intel_tc_port_needs_reset(tc))
-> +		goto out;
-> +
-> +	drm_dbg_kms(display->drm,
-> +		    "Port %s: AUX recover: external TC mode change detected (%s -> HW), reconnecting TC PHY\n",
-> +		    tc->port_name, tc_port_mode_name(tc->mode));
-> +
-> +	/*
-> +	 * Temporarily clear link_refcount so intel_tc_port_reset_mode() can
-> +	 * run the PHY disconnect/connect cycle without the ownership assertion
-> +	 * that fires when link_refcount > 0 and firmware has already released
-> +	 * PHY ownership externally.
-> +	 */
-> +	tc->link_refcount = 0;
-> +	intel_tc_port_reset_mode(tc, 1, false);
-> +	tc->link_refcount = 1;
-> +
-> +	recovered = tc->mode != TC_PORT_DISCONNECTED;
-> +	if (!recovered)
-> +		drm_warn(display->drm,
-> +			 "Port %s: AUX recover: failed to restore TC port mode\n",
-> +			 tc->port_name);
-> +
-> +out:
-> +	mutex_unlock(&tc->lock);
-> +	return recovered;
-> +}
-> +
->  static void __intel_tc_port_lock(struct intel_tc_port *tc,
->  				 int required_lanes)
->  {
-> diff --git a/drivers/gpu/drm/i915/display/intel_tc.h b/drivers/gpu/drm/i915/display/intel_tc.h
-> index 6719aea5bd58..d44998a3081a 100644
-> --- a/drivers/gpu/drm/i915/display/intel_tc.h
-> +++ b/drivers/gpu/drm/i915/display/intel_tc.h
-> @@ -108,6 +108,7 @@ bool intel_tc_port_ref_held(struct intel_digital_port *dig_port);
->  bool intel_tc_port_link_needs_reset(struct intel_digital_port *dig_port);
->  bool intel_tc_port_link_reset(struct intel_digital_port *dig_port);
->  void intel_tc_port_link_cancel_reset_work(struct intel_digital_port *dig_port);
-> +bool intel_tc_port_aux_recover(struct intel_digital_port *dig_port);
->  
->  int intel_tc_port_init(struct intel_digital_port *dig_port, bool is_legacy);
->  void intel_tc_port_cleanup(struct intel_digital_port *dig_port);
-
--- 
-Jani Nikula, Intel
