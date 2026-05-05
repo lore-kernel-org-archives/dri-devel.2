@@ -4,82 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51175FF885A
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 13:40:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A4FEFF885A
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 13:47:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D1A610E62A;
-	Tue,  5 May 2026 13:40:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C6F710E113;
+	Tue,  5 May 2026 13:47:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="HT78Vfb0";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qRT5X4uP";
 	dkim-atps=neutral
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
- [209.85.221.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A95EC10E162
- for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 13:39:59 +0000 (UTC)
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-43d7645adbdso3215273f8f.1
- for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 06:39:59 -0700 (PDT)
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+ [209.85.221.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B601110E113
+ for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 13:47:17 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-43d73422431so4971038f8f.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 06:47:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1777988398; x=1778593198; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:date:message-id:subject
- :references:in-reply-to:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Ic3/Ut9PRh6YAfezY9pX7mJyG2OtWSaWHyyfum789Og=;
- b=HT78Vfb0nom9Gg/r+I79RtUGcb70NZnZOWKLUId960c0u4bRgofKmdCik3PghyDWfE
- NS/hZASVRXyhjfdICn7Dvpzw/9jfATxb78ShLRHPTLEws3FVB3bnwm+Gf1rFTQxan9xb
- 1UozE6rfT6j977XsVg2tYyfvOI4ZdB9MVYn/qIm8G159Fwm+gHZClqgsc0YRunVlsMA5
- F6ffVF6oKKPzAfyv0j4YUCEWfmJhkG6+9K0q8wY6XaWaGZQtZUSagFI5ER3xedzYZOcN
- Igh0TZQG2T4L5/jhGTqMh6h3GwdxoKE8Dyk9ZgEpvGOF0/YM7YqtC7fCXJRW/jn6mgRy
- VvXw==
+ d=gmail.com; s=20251104; t=1777988836; x=1778593636; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=WngZ1i7b+AeASB3S8rstycFmmHOgCBJxwXtpf2QN6jA=;
+ b=qRT5X4uPJfFUj3hnpIB5sFa3xrZHhiGkIinLvn606KBEZrHn7lAXqhUZgA0hIIGnbN
+ TN2ycWVafFUW47VQUvAU6DZH5O8OUhRisXLry7C1sWvqsA7ff6oLVcD2di+uoLI22ckD
+ JVojgOyq7oGbkWJeeC6ddsNN2/Cm4RXegZZSWUzi/ksVoiMEgQGykIgMXD0XofqAIds5
+ Es2tu82l8t1wrQtqF9N7NlWKno0rUqvV++5QC1KC5nQMQENmN3Rd98RRzLrMbfZaVmUL
+ zoNKnsHxwXm7XPCnHO6kHfwsYyOaHss78JA/L74PjCc9SgVAIjgWezafQJb8pJX5J46P
+ jMqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777988398; x=1778593198;
- h=content-transfer-encoding:mime-version:date:message-id:subject
- :references:in-reply-to:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=Ic3/Ut9PRh6YAfezY9pX7mJyG2OtWSaWHyyfum789Og=;
- b=fTpDswfSnuytmyYwdknudXgxrOrywL//KaBi7FsmS6YnjerBsVRdB4lgZASygnjF0m
- i/nuBrZqRqjlQHC6dYShC1ewYGD4aRYybikcJBsqm02nbP7Zr0Omf6QRwn8866DOYz28
- xwH9dK7PiDDQdQ1D0Ti2tsz0EBL/iqrmDSJSL2RFDlKKJQZMePKUIh15VFWlUrwcBupq
- XpCYSXO5Djm90pkF7abjZ7PWYl4QBFvTFB/iNQjYJUbkV9YF6fv8hoJzgXfKref7453b
- A6ghf5U7klK29rGmbmum9r0iNZqGJDMUNeLZO3AbRE2y/P+PUF3VY23O5r3P5vix8bzV
- mp+w==
+ d=1e100.net; s=20251104; t=1777988836; x=1778593636;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=WngZ1i7b+AeASB3S8rstycFmmHOgCBJxwXtpf2QN6jA=;
+ b=Qu60IRM7U2S8WZwcJc3/fZglsAr76QAxtNij6L+MJSW/y7tr6AhgroliGAxfKSvNrW
+ mb2d4PgBHvtZMo9DVHyMXkTC4slkEV3GUn0xMvglqnOp0TEq3y6eASGemfqieuB0SOnl
+ 7mB+3WnWiZACFSDqaZZa9XqjbItQLt4rju2KltuMz/JI50yIrXG2gOK+PWjhzJIEGl8X
+ fWZu4QthtTAe3DSgbBRAbY/ZhUZq/aGJAKPZbLgVW6WYg1zG3gI/vyZbUTXL4bJClv6R
+ zueIGWcQZ0TO48eg5ApIiDMRrPQKqXoaXUwK1WiCdDt0GHKw8+gGmaRT71Bd4NwEXRZC
+ KqXg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+fbvlG+ixE2394VPN98Lz9hYD+eIMFcvZzwge/OHQ6cvIYjDQttcqaC3Hlor+C4y+2UA0MPVl6/TY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzo2axYs4f4niNswE3Zy/FQFblad+mMptPDSK9RqymejRbQ2jhC
- xnjuG/0hhScmOEW9f1LQxX47hmy1mCVKywiqAzqykAcri4E/WZEbS/UZ5St4NwwHbLk=
-X-Gm-Gg: AeBDiesW3K64Xn/mMkqKOeWuH5d+GvEdbDeUHLe1aqruCOn8SriHREyrR02nsz4GR4d
- tpyR8/XhniU8gVYOSDDDNH+eoCHH7SlYtkAmEqpLCuqg8Lw5Q3E4bi1bav8u4yWHBxiRcyOdPEE
- Ki4H/Nvnrsf0nX2BIZFwjY+jib2qYzle0oRL51Nhix5asz8yBs5Op7ysqtVCEcyoqkATr2xL5lC
- PA8v9pd3WI86jG0VyRRli6Y5nlTruo0Hli6Iult3B4pAwcRtbiPYHGqnDhpvOwlqttuhUpf3mPh
- E50AVd620du8MrFIbXD4eKc8DPm67epjapKtk4mmGTKadlpARokUu932SYfC8+xuJywOmvKWw7e
- 8g+zIF7rEI1Y7M2Uq6TQoKF0i3vcZwa9r7Eay918pE9dFwWuahyIQSix50JFdkOJvAHJo9IF6jz
- VXmUaF8ATyhtqDlQ94MbsZMLDvUhjupf8zy4MdM7ZPRFRSNH5PtquNxXE=
-X-Received: by 2002:a05:600c:6097:b0:489:201c:dc46 with SMTP id
- 5b1f17b1804b1-48d188d5da9mr50431745e9.12.1777988398122; 
- Tue, 05 May 2026 06:39:58 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
+ AFNElJ/M/jLREnPPbpPWYAlvC4XC2PpfZ7AIRNwM7E7aJ9DdBmfE6ie99ODChj24Bx+4zdu7KWg5dzwKXC8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxz2RigyICnzqcv+nR+4DPclExwLUM7x26Pi6vWGqE3tt8L6xnh
+ lgvhi460Vy8wuoD2Sw249m9F16zi64042Z5ju5dTFFvDQfikSAojCKXv
+X-Gm-Gg: AeBDiestLew4FbvTvYZ7rF1yv9JpzqUrjwVE7f/uLxr275Q+dGKDhVkqwvDnivkIUzS
+ FeQlOMGYLkhhTAHYiq2S48Q5UxEL2VRM3LrQ5hK0cpqq54jRyoGkoJMGMjJhpyZhXUlHsP6s/E9
+ l1hOCZrnsEtZ8lqLNCtAbGIfO16SuZth5fGLLiqTjuM3042RghcSaB1i1QEnkvUBXw5SN9Xachd
+ SZrdD1wNLT+zyNyRn1Xf0wChOBVA9FMXFUcE0ayWha8t6AaeCtycGZZmiGnHA7pA/rhHPna+eJV
+ oiJWCbC8jtd6P4s/6ajHT+NvnGU0TqDBBrnSSeu6Ac60Pp9/bBpfOYnCRXWZEL1v3zV9V0sSiKw
+ UepYC1WSTH81QWFZi3E14zYQRxNobpJeEfc3z6KU1fZm3rsvo+ohBl+1FkQ+iq4CChUhkx/zDjK
+ ilb3vF6W3lLN5Wa1CwbJ8PMY25yMuPR4WJvB43vvcuyuJCXWwv1n/F
+X-Received: by 2002:a05:600c:859a:b0:48a:525b:e157 with SMTP id
+ 5b1f17b1804b1-48a9865f870mr168311235e9.13.1777988835944; 
+ Tue, 05 May 2026 06:47:15 -0700 (PDT)
+Received: from vitor-nb (dsl-113-208.bl27.telepac.pt. [176.79.113.208])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48a82301b7bsm474114715e9.11.2026.05.05.06.39.57
+ 5b1f17b1804b1-48a8eb694fcsm375814145e9.3.2026.05.05.06.47.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 May 2026 06:39:57 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-To: Jagan Teki <jagan@edgeble.ai>, Ethan Tidmore <ethantidmore06@gmail.com>
-Cc: Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Linus Walleij <linusw@kernel.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260429024954.697411-1-ethantidmore06@gmail.com>
-References: <20260429024954.697411-1-ethantidmore06@gmail.com>
-Subject: Re: [PATCH] drm/panel: jadard-jd9365da-h3: Fix signedness bug
-Message-Id: <177798839730.721826.16088399937997913056.b4-ty@b4>
-Date: Tue, 05 May 2026 15:39:57 +0200
+ Tue, 05 May 2026 06:47:15 -0700 (PDT)
+From: Vitor Soares <ivitro@gmail.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Vitor Soares <vitor.soares@toradex.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, stable@vger.kernel.org
+Subject: [PATCH v5] drm/bridge: cdns-dsi: Replace deprecated
+ UNIVERSAL_DEV_PM_OPS()
+Date: Tue,  5 May 2026 14:47:05 +0100
+Message-ID: <20260505134705.188661-2-ivitro@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.1
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,24 +96,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+From: Vitor Soares <vitor.soares@toradex.com>
 
-On Tue, 28 Apr 2026 21:49:54 -0500, Ethan Tidmore wrote:
-> The function drm_of_get_data_lanes_count_remote() returns negative error
-> codes and dsi->lanes is an unsigned integer, so the check (dsi->lanes <
-> 0) is always impossible.
-> 
-> Detected by Smatch:
-> drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c:2959 jadard_dsi_probe()
-> warn: unsigned 'dsi->lanes' is never less than zero.
-> 
-> [...]
+The deprecated UNIVERSAL_DEV_PM_OPS() macro uses the provided callbacks
+for both runtime PM and system sleep. This causes the DSI clocks to be
+disabled twice: once during runtime suspend and again during system
+suspend, resulting in a WARN message from the clock framework when
+attempting to disable already-disabled clocks.
 
-Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
+[   84.384540] clk:231:5 already disabled
+[   84.388314] WARNING: CPU: 2 PID: 531 at /drivers/clk/clk.c:1181 clk_core_disable+0xa4/0xac
+...
+[   84.579183] Call trace:
+[   84.581624]  clk_core_disable+0xa4/0xac
+[   84.585457]  clk_disable+0x30/0x4c
+[   84.588857]  cdns_dsi_suspend+0x20/0x58 [cdns_dsi]
+[   84.593651]  pm_generic_suspend+0x2c/0x44
+[   84.597661]  ti_sci_pd_suspend+0xbc/0x15c
+[   84.601670]  dpm_run_callback+0x8c/0x14c
+[   84.605588]  __device_suspend+0x1a0/0x56c
+[   84.609594]  dpm_suspend+0x17c/0x21c
+[   84.613165]  dpm_suspend_start+0xa0/0xa8
+[   84.617083]  suspend_devices_and_enter+0x12c/0x634
+[   84.621872]  pm_suspend+0x1fc/0x368
 
-[1/1] drm/panel: jadard-jd9365da-h3: Fix signedness bug
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/faddee87a933898139f5aa9e76bdca345936b538
+To address this issue, replace UNIVERSAL_DEV_PM_OPS() with
+RUNTIME_PM_OPS(). Bridge and panel drivers should only deal with runtime
+PM, as the DRM framework manages system-wide power transitions through
+the bridge enable() and disable() hooks.
 
+Link: https://lore.kernel.org/all/fbde0659-78f3-46e4-98cf-d832f765a18b@ideasonboard.com/
+Cc: stable@vger.kernel.org # 6.1.x
+Fixes: e19233955d9e ("drm/bridge: Add Cadence DSI driver")
+Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Signed-off-by: Vitor Soares <vitor.soares@toradex.com>
+---
+v4 -> v5
+ - Fix commit message to use RUNTIME_PM_OPS() instead of SET_RUNTIME_PM_OPS()
+ - Explain that bridge and panel drivers should only deal with runtime PM
+
+v3 -> v4
+ - Add Reviewed-by from Tomi Valkeinen
+ - Rebase on top of drm-misc-fixes
+ - Verified issue still present on the current mainline
+
+v2 -> v3
+ - Fix warning: 'cdns_dsi_suspend' defined but not used [-Wunused-function]
+ - Fix warning: 'cdns_dsi_resume' defined but not used [-Wunused-function]
+
+v1 -> v2
+ - Rely only on SET_RUNTIME_PM_OPS() for the PM.
+
+ drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c b/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c
+index 0dd85e26248c..e07a9892df4e 100644
+--- a/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c
++++ b/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c
+@@ -1230,7 +1230,7 @@ static const struct mipi_dsi_host_ops cdns_dsi_ops = {
+ 	.transfer = cdns_dsi_transfer,
+ };
+ 
+-static int __maybe_unused cdns_dsi_resume(struct device *dev)
++static int cdns_dsi_resume(struct device *dev)
+ {
+ 	struct cdns_dsi *dsi = dev_get_drvdata(dev);
+ 
+@@ -1241,7 +1241,7 @@ static int __maybe_unused cdns_dsi_resume(struct device *dev)
+ 	return 0;
+ }
+ 
+-static int __maybe_unused cdns_dsi_suspend(struct device *dev)
++static int cdns_dsi_suspend(struct device *dev)
+ {
+ 	struct cdns_dsi *dsi = dev_get_drvdata(dev);
+ 
+@@ -1251,8 +1251,9 @@ static int __maybe_unused cdns_dsi_suspend(struct device *dev)
+ 	return 0;
+ }
+ 
+-static UNIVERSAL_DEV_PM_OPS(cdns_dsi_pm_ops, cdns_dsi_suspend, cdns_dsi_resume,
+-			    NULL);
++static const struct dev_pm_ops cdns_dsi_pm_ops = {
++	RUNTIME_PM_OPS(cdns_dsi_suspend, cdns_dsi_resume, NULL)
++};
+ 
+ static int cdns_dsi_drm_probe(struct platform_device *pdev)
+ {
+@@ -1399,7 +1400,7 @@ static struct platform_driver cdns_dsi_platform_driver = {
+ 	.driver = {
+ 		.name   = "cdns-dsi",
+ 		.of_match_table = cdns_dsi_of_match,
+-		.pm = &cdns_dsi_pm_ops,
++		.pm = pm_ptr(&cdns_dsi_pm_ops),
+ 	},
+ };
+ module_platform_driver(cdns_dsi_platform_driver);
 -- 
-Neil
+2.53.0
 
