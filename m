@@ -4,104 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 052FEFF8855
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 14:44:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E35CCCD3440
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 14:50:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3712110EAEA;
-	Tue,  5 May 2026 14:44:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45B1410E438;
+	Tue,  5 May 2026 14:50:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="KUrQfZ64";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="l/9FEifz";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KcwHx5ng";
 	dkim-atps=neutral
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D02110EAEA
- for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 14:44:18 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-48d1c670255so51935e9.0
- for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 07:44:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777992257; cv=none;
- d=google.com; s=arc-20240605;
- b=c8oqjaLQPkg7584kYQfT6DF/FXhkQ3djuHi5V1WvkJzcg2PAr/VRrlFLTJV6Ah7dAO
- HZHx7ISFFauDnxJMwVfsl81c8eVRiHeR83MLijXA7SsUq3y+laITHq+1U3jQBVpqbUjk
- Q+LLcE6iuzTgfJKg6HLrpA9fhGKpaBKUFvCLBlshzb30ROnFKRL2rVO2ulPVSVZll8K5
- hBh8UkFxGAKnfZANaufzi0kJS36lK/LVltEWmjoFIel2tTZ7neU7DWZYVQXFfRLG9ti9
- RuvFfB5VroI9JExaNBewm63m1ErrW4UoXg2Q3yVGAHArIYpaKCYa0mMkMktIIVFW4CGt
- b/XQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=xImKjLpphistWNUhM/BMGUgvs4K16/nDs7wCf3O5gxg=;
- fh=QgM6HjydHnATcSVxLRyfAKMrDVAr9R4CWr9TapmvSH0=;
- b=VlHOHRdtmIZUj4kW4LcLsP1T7MRfvkNAB0Dhky3RB17om22qAHermaLPq9nxHNDuSd
- NSQLbKrqgSKXQqch/Lh/FKryXJaphwoO4kWXhHH4qAtYa6tlliIWWlwBdXk2VQlxdvb/
- riJxB+u5lfdsBsCnpLvqUMiZiDf7TAxwErPVpj7C5nrfIbUYHEgVB0jR1t2zTELFaYhV
- YulitSBzSv+k4cNNxASfO7HSgYodl8SM9wZIjZi2uYYgrH28dKO9hWgJSJqZezMsH2Iv
- S/HHRFLSlSNqjmJcnXSSXXCZ2uSX5maGrDlLPk2V5SbSkeehco/LEsitj0iu/3FKD/l1
- JWSQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B1A510E443
+ for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 14:50:09 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 645DjcVe3501554
+ for <dri-devel@lists.freedesktop.org>; Tue, 5 May 2026 14:50:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ KBSnO8fLfv2V7HIGkj9CawV0Uw7GLfZNqY6E6hFC104=; b=l/9FEifzdbjK9Knf
+ VYMr3kcwzNNLhbAzkKvw0GYs2OJ7sGEeOZWHWKf0cK+obbOnyvKMJDrIQJ8lgoHV
+ XU/JcwvsxKjYVEKjIGZuOVpxLX4NZmGktmosZokNx+YJqslTQBCiGGl9BCYdMXNE
+ crE7L0LpAeXm5vmofh7Uggtr3DCHMeTSJtLFDz6DF2o4nJfDx6jsKCqBo1yrq0Jy
+ rqamtvs6nhXmQIdnBDGtNhhFEDzHZ0fsjdc6/iAFVW2wmae8RcSCd8kJi5+jxz5F
+ c8fmALkBNzOLw+891xaprdQssFDUYsd3Hx7I5HqJ9STd75ldyI54mKNtTm1wzK9E
+ wtw6lQ==
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dyhqf89ad-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 14:50:08 +0000 (GMT)
+Received: by mail-dl1-f72.google.com with SMTP id
+ a92af1059eb24-1306c2f7037so1384118c88.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 07:50:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1777992257; x=1778597057;
+ d=oss.qualcomm.com; s=google; t=1777992607; x=1778597407;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=xImKjLpphistWNUhM/BMGUgvs4K16/nDs7wCf3O5gxg=;
- b=KUrQfZ64uqZiod/CWA8BBmYlmDmU5WlEuOR4FBgUCieHsKFck/M8cBe1vxcKI1wUF8
- CubQy7qsvvT7lYhqOG4PjDxO7pWIHH8QXScjQgl3SZFgtLoMD02NoT17jemqSfKNKJWS
- U+lVkxOHwuZbXOFJeF83i+j+z3Mhm8yqtNH580H/1OmixVb82YC5vTIaFOgEImgEemaP
- c73qu+E8e7ai4yPqoKLGrMrunFnBe88gNd0325Y0A7KnYx/sGY1pm8cKl8mWEQfnz6dQ
- g9TrgUS1BspGYgLje4i2SG0h9FhntNpt/eVwCEEs0pzG/qIsbRMTLC0zgHhstnTw/r44
- MrIw==
+ h=content-transfer-encoding:in-reply-to:content-language:from
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=KBSnO8fLfv2V7HIGkj9CawV0Uw7GLfZNqY6E6hFC104=;
+ b=KcwHx5ng3mFAEBgdCImIMzVFuq9SFpigVPzRtgwgOAl7zb4XcqGHMGX8an2ew8eeZq
+ n6CTcQyRrZCLNYjKb/q+YMzNm0x7B+Pei/eLkdsHzp8iMp2bC6kOvyMvXDqxFtClGi5E
+ lXYao2F/EJ7+xGtw76WiIFeklZtyfknq6d03ljoXHoWIzFJvlhcstOy8aOffeIyEi14b
+ BiPS6aA8CuhXIzgX7mn3eqaO9n7TkQjWwvmuUqVklOCqbZbrW0Q+wOQ3dDeAHcsM6oNl
+ Oe1dnqoRvcNjHA4OY+x+I5fxbY4DM00RpDbHRAjrpEIb6Hf03uwW+UOhRUWclxiztFx+
+ ubng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777992257; x=1778597057;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=xImKjLpphistWNUhM/BMGUgvs4K16/nDs7wCf3O5gxg=;
- b=fZwKIcnZjRhvdovAZlGkGCCbA/9UPtB9a1/UCmu9dHoB9Q1Qp4ckpgWXLpiWemBykE
- aJr942zi2x2TfCNBDpvwNOvEwX6i4K4u8Azx0lI65chdC7Xj+TP2npWU6WKW8eIqQd5x
- XnRlkHwE9QMYOURy8eCo2OYCk0qzt3RcNN9vT+WhKsMw5xyT99NSN8n/I/C0+2+qOzZj
- 9wPNapJ/F+fS8ixaQ1rw96VEESQV0flCky0REvCpY3jcMz3LAecIp+mvDEWw1FBPqQUJ
- C68JsnBJxeIj6VeTA3Hf2LZSj5nB29CxMc3p/52fmOYmH/zDwPuDRyrVmnowA2cxL1x/
- 1NQg==
+ d=1e100.net; s=20251104; t=1777992607; x=1778597407;
+ h=content-transfer-encoding:in-reply-to:content-language:from
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=KBSnO8fLfv2V7HIGkj9CawV0Uw7GLfZNqY6E6hFC104=;
+ b=g6v+XwWE7zERKzTGnkMm9ru8MlCgig20wlOZtIbA/c8v4gr7HnUu5ceqEYLPU1jA39
+ wpNxgpwfO2uwdCv0Y3hQ7k+UeqtY7rEOVd89ETIYcviWUtR4O8PROE2r1C+zPAYzv4Fk
+ e00dhz6nSbjm7KtVCUG3E8euHFbJoLTaFJojSMc55qKvlp8GQl5Im8BcHjUxTPBNpyvJ
+ g1oa6bd/2ebChJbf84IOwjoGhEaqoVCQTW3aLHUUu0l7u3hUG+qv2x+vQPfesPewg1lf
+ fltnDExDOt6IC+TGdgTrU3ul/vZSSoOgb5tvgMu7iHrK5+2p2r4OfEKa3P0Fn/9P2qCH
+ 3jjg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8JkgaqKHtbrMK1UOf9zjhldeHVVBulOoOynawgMcmj0oamE8IygKSDSoBzmiWa0/yvjtF4inLvrIQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyNDTE1l/2iKTSK4lwKS/yvDwkKiZYl3wybj7jXTaDivTMwUJMV
- I8OdI18gHUeQMte6lDY9dddVnP3eLtrbjSaN/7KGsVMtGB+2jqpTGAt6EOu82CJvJhtN19sQ0B9
- 3oV8kj+g2Df74Ev1AH4QbAEicRvmi00AapxzNjzPm
-X-Gm-Gg: AeBDietfVuQOirqyajjgWt11pSsnc+hBaImHBDmZzQfROX4KySCZ5qLH6dBvXb/CkG6
- YIXr86/y/m0ltwgpLi98CIIan3m09vI6q4YVrC+zhjiXBR5NcutLX2powYDm1U8ZF0Vrk0JCATp
- 1u0NdCijgcusZ7f8KvMD2ytQVVDqfhTKF7JtSHn8pvoOt9cic4LJhzveplACMXZqRFvH8CS4hOD
- 685vYqb/8fiDnNl68I/BHkXcQOxO9/oBtcNa6KXhK2jXO1xHeOO+VZtTCHFrqZ1m170MPWUGKZB
- 06C/x6kmKjlyZxh6NdRrIz6/LL7r6OLCmeddTRIBlriQNYKRmV2qfRPsRPcm
-X-Received: by 2002:a05:600c:4fd3:b0:485:1a54:9407 with SMTP id
- 5b1f17b1804b1-48d14696188mr1306875e9.0.1777992256465; Tue, 05 May 2026
- 07:44:16 -0700 (PDT)
+ AFNElJ+DKnrFaBQ2aQl+/EyJuTwvUn/f9Wi+82zMQvOGDvhcOq8FaiUWs2CEhdIoYXOWAyb2gHbu3ER7Ouw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwauJ6+aeU6OopZOjiUav5T15ESo94HuHR1Yh5dCYNths2TsYP2
+ pGr/UcUW9OZaEsR1C0VTE4IbzFCbndjmDdfUcUo3vsVYDaJggrngiD3YstRluStvAnmygtw+T+f
+ KjT9Xd+vZvHBhJzHPCe9z6WWXxdmXkOwOVxjJx0bDZI2FQEc6Fjeb9xU1gSapc5W6s1jHKac=
+X-Gm-Gg: AeBDievZ4yTlrdwloAioWRaVg7Smh8Ab7mqoGceDKMBHHbfqdRxWBCFANfFrPq1WN+5
+ dsllWJ2YzHfm86Ny5IJ342y9p1Rj8ZSbxtqDExu3f87gxXsaldN9OpD2qIljf5FOdWarwzSaTbw
+ +smnuphCk+KVcauq8WqWJVMxHzGNpUx8rtHvL7FD6R/PaSC4mF7M6RHKyxTE0Ge5Yz68QHCkw9j
+ lWQwmJs2glGa9u3MyevB/+srgx9O3hovEhGFKt1KlZZYfqjAg2vOx1XfcWKt2dz2UK/8xqLkvj6
+ hMljkbaFQnXmZhcLQgn0swr54JOX/7BVXTOq+ffjOtdNrFCBOaROLF6L0TZ+jxKPqJDmKMPj03b
+ QyQsjMt/h5rnLbq4eKVLHw8O2FyGpnN24rj8tCnfdNmFQIfxOO1bBcMrN8j/l8fXUxFE9Ql5Yfy
+ oGMz6Ygc76aHzJ3pFz
+X-Received: by 2002:a05:7022:6628:b0:122:33e:6d41 with SMTP id
+ a92af1059eb24-12dfd84327fmr6504965c88.23.1777992607375; 
+ Tue, 05 May 2026 07:50:07 -0700 (PDT)
+X-Received: by 2002:a05:7022:6628:b0:122:33e:6d41 with SMTP id
+ a92af1059eb24-12dfd84327fmr6504928c88.23.1777992606769; 
+ Tue, 05 May 2026 07:50:06 -0700 (PDT)
+Received: from [10.227.110.203] (i-global254.qualcomm.com. [199.106.103.254])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-12df8279e57sm19149584c88.3.2026.05.05.07.50.03
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 05 May 2026 07:50:05 -0700 (PDT)
+Message-ID: <ae68bdb3-d683-4e7a-a27f-739214656ce2@oss.qualcomm.com>
+Date: Tue, 5 May 2026 07:50:03 -0700
 MIME-Version: 1.0
-References: <20260406214938.24142-1-baohua@kernel.org>
- <a6d1c89a-3c71-4e06-adcb-56595071dcc2@amd.com>
- <CAGsJ_4xquCzQLbvpkC8arAN=9KhrAkdPdxnB=v85GvvQu23Xyg@mail.gmail.com>
- <9034246e-3971-4fad-94b7-80f4ad0e29db@amd.com>
- <CAGsJ_4z5EZoNMBVnu6sCkThyi9VTCeCH29buVecuySuv_Ry8fw@mail.gmail.com>
- <CABdmKX3baqmBkZxMB6PTG6Sj5S9qi+RwVvwpmkLqKkqvfeZAUw@mail.gmail.com>
- <bc74694b-9cbc-4cbb-9dcd-9e25960d3b97@amd.com>
-In-Reply-To: <bc74694b-9cbc-4cbb-9dcd-9e25960d3b97@amd.com>
-From: "T.J. Mercier" <tjmercier@google.com>
-Date: Tue, 5 May 2026 07:44:03 -0700
-X-Gm-Features: AVHnY4KKm8ChPu7Yq7OfV6LJFs9X7Wuvyr_qOd_TfzJJJ5G91zdYSk83n0ma0pE
-Message-ID: <CABdmKX39gWcPy2PWxZ-bJBgXEQrk8Y7JWdFhkcS=LkOmU2v4zA@mail.gmail.com>
-Subject: Re: [PATCH] dma-buf: system_heap: Optimize sg_table-to-pages
- conversion in vmap
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Barry Song <baohua@kernel.org>, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- linux-kernel@vger.kernel.org, Xueyuan Chen <Xueyuan.chen21@gmail.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 14/16] wifi: ath12k: Switch to generic PAS TZ APIs
+To: Sumit Garg <sumit.garg@kernel.org>, andersson@kernel.org,
+ konradybcio@kernel.org,
+ Sowmiya Sree Elavalagan <sowmiya.elavalagan@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-media@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+ linux-remoteproc@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
+ akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ jesszhan0024@gmail.com, marijn.suijten@somainline.org,
+ airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
+ dikshita.agarwal@oss.qualcomm.com, bod@kernel.org, mchehab@kernel.org,
+ elder@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ jjohnson@kernel.org, mathieu.poirier@linaro.org,
+ trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
+ pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
+ tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
+ srinivas.kandagatla@oss.qualcomm.com,
+ amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
+ op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
+ skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
+ Sumit Garg <sumit.garg@oss.qualcomm.com>
+References: <20260504130603.1474043-1-sumit.garg@kernel.org>
+ <20260504130603.1474043-15-sumit.garg@kernel.org>
+ <3bfdc11c-115f-45ab-b0ab-75ad88dc6f31@oss.qualcomm.com>
+From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <3bfdc11c-115f-45ab-b0ab-75ad88dc6f31@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA1MDE0MSBTYWx0ZWRfX0idpAlg4rqvt
+ LRFlbn+4BiZXJV1vMYQvdZmOrKSpgFyg8r4bnEQMN/r8LQ+a3z+W/0GMCdKDWWBDuvaa2pR92rr
+ pQdIgV8mDTc+QhMz2PyE7hDyJSwAV2WYFxM2dr+F+J29B8hz2U502uz3AG6g1N3inEHjquLK87j
+ 4WcHyMYbPh1AVHUmOZXMEFap/uiBvJlun6A+j49Cghm5TBJwdQJP+atO/WKEp85V8N8wOQmlK2X
+ hitDuNZSaQNZ6DaOPFpf4gtEeVQ/MTe9sgX0kQZ4reY2tzA0w2DiMQMUgBR8RfaQWQ/bQ8TZ8h2
+ 1HQAvSgZItBhBLT2Z34Q6U5rIdiAT/3+ZEzkgY1083hlSgImtUREIwGwjmJlL/q4a/frCcEFquM
+ 3vhwEZc5IA+XcTkdKYBcAHitLqm+WQ58xZ/AkGZ32lo209YpD62JaScUw0oVmhWXniyTw41m4Qp
+ Op53mX90Nq8ojzr5j9Q==
+X-Proofpoint-ORIG-GUID: EJTq3UsYaoILmeYt-RIAu8wVejgsI7X2
+X-Proofpoint-GUID: EJTq3UsYaoILmeYt-RIAu8wVejgsI7X2
+X-Authority-Analysis: v=2.4 cv=NPvlPU6g c=1 sm=1 tr=0 ts=69fa03a0 cx=c_pps
+ a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VMT16xk1LGalzlQIQqAA:9 a=QEXdDO2ut3YA:10 a=vBUdepa8ALXHeOFLBtFW:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-05_02,2026-04-30_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 spamscore=0 priorityscore=1501
+ clxscore=1015 suspectscore=0 phishscore=0 bulkscore=0 adultscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2605050141
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,118 +163,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, May 4, 2026 at 12:49=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
->
-> On 5/1/26 17:54, T.J. Mercier wrote:
-> > On Thu, Apr 30, 2026 at 9:15=E2=80=AFPM Barry Song <baohua@kernel.org> =
-wrote:
-> >>
-> >> On Wed, Apr 22, 2026 at 3:10=E2=80=AFPM Christian K=C3=B6nig
-> >> <christian.koenig@amd.com> wrote:
-> >>>
-> >>> On 4/7/26 13:29, Barry Song wrote:
-> >>>> On Tue, Apr 7, 2026 at 3:58=E2=80=AFPM Christian K=C3=B6nig <christi=
-an.koenig@amd.com> wrote:
-> >>>>>
-> >>>>> On 4/6/26 23:49, Barry Song (Xiaomi) wrote:
-> >>>>>> From: Xueyuan Chen <Xueyuan.chen21@gmail.com>
-> >>>>>>
-> >>>>>> Replace the heavy for_each_sgtable_page() iterator in system_heap_=
-do_vmap()
-> >>>>>> with a more efficient nested loop approach.
-> >>>>>>
-> >>>>>> Instead of iterating page by page, we now iterate through the scat=
-terlist
-> >>>>>> entries via for_each_sgtable_sg(). Because pages within a single s=
-g entry
-> >>>>>> are physically contiguous, we can populate the page array with a i=
-n an
-> >>>>>> inner loop using simple pointer math. This save a lot of time.
-> >>>>>>
-> >>>>>> The WARN_ON check is also pulled out of the loop to save branch
-> >>>>>> instructions.
-> >>>>>>
-> >>>>>> Performance results mapping a 2GB buffer on Radxa O6:
-> >>>>>> - Before: ~1440000 ns
-> >>>>>> - After:  ~232000 ns
-> >>>>>> (~84% reduction in iteration time, or ~6.2x faster)
-> >>>>>
-> >>>>> Well real question is why do you care about the vmap performance?
-> >>>>>
-> >>>>> That should basically only be used for fbdev emulation (except for =
-VMGFX) and we absolutely don't care about performance there.
-> >>>>
-> >>>> I agree that in mainline, dma_buf_vmap is not used very often.
-> >>>> Here=E2=80=99s what I was able to find:
-> >>>>
-> >>>>   1   1638  drivers/dma-buf/dma-buf.c <<dma_buf_vmap_unlocked>>
-> >>>>              ret =3D dma_buf_vmap(dmabuf, map);
-> >>>>    2    376  drivers/gpu/drm/drm_gem_shmem_helper.c
-> >>>> <<drm_gem_shmem_vmap_locked>>
-> >>>>              ret =3D dma_buf_vmap(obj->import_attach->dmabuf, map);
-> >>>>    3     85  drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
-> >>>> <<etnaviv_gem_prime_vmap_impl>>
-> >>>>              ret =3D dma_buf_vmap(etnaviv_obj->base.import_attach->d=
-mabuf, &map);
-> >>>>    4    433  drivers/gpu/drm/vmwgfx/vmwgfx_blit.c <<map_external>>
-> >>>>              ret =3D dma_buf_vmap(bo->tbo.base.dma_buf, map);
-> >>>>    5     88  drivers/gpu/drm/vmwgfx/vmwgfx_gem.c <<vmw_gem_vmap>>
-> >>>>              ret =3D dma_buf_vmap(obj->import_attach->dmabuf, map);
-> >>>>
-> >>>> However, in the Android ecosystem, system_heap and similar heaps
-> >>>> are widely used across camera, NPU, and media drivers. Many of these
-> >>>> drivers are not in mainline but do use vmap() in real code paths.
-> >>>
-> >>> Well out of tree drivers are not a justification to make an upstream =
-changes.
-> >>>
-> >>> Apart from a handful of workarounds which need to CPU access as fallb=
-ack DMA-buf vmap is only used to provide fb dev emulation.
-> >>>
-> >>> The vmap interface has already given us quite a headache in the first=
- place and there are a couple of unresolved problems regarding synchronizat=
-ion and coherency.
-> >>>
-> >>> When a driver would be pushed upstream which makes so frequent use of=
- the dma_buf_vmap function that it matters for the performance I think ther=
-e would be push back on that and the driver developer would require a very =
-good explanation why that is necessary.
-> >>>
-> >>> So for now I have to reject that patch.
-> >>
-> >> Well, it doesn=E2=80=99t seem to increase complexity, and the code is =
-quite easy
-> >> to understand.
-> >
-> > I agree with this. This change introduces basically no downsides for
-> > upstream, even if it primarily benefits a rare use case. Since
-> > dma_buf_vmap is exported for driver use, why not enhance the
-> > performance for all callers?
->
-> Because we essentially want to restrict the vmap interface to only the fb=
- dev emulation use case and not promote or even expand it.
->
-> When this matters performance wise the caller is clearly doing something =
-wrong and by improving the performance we just paper over the issue instead=
- of fixing it.
+On 5/5/2026 7:27 AM, Jeff Johnson wrote:
+> On 5/4/2026 6:06 AM, Sumit Garg wrote:
+>> @@ -485,9 +485,9 @@ static void ath12k_ahb_power_down(struct ath12k_base *ab, bool is_suspend)
+>>  		pasid = (u32_encode_bits(ab_ahb->userpd_id, ATH12K_USERPD_ID_MASK)) |
+>>  			 ATH12K_AHB_UPD_SWID;
+>>  		/* Release the firmware */
+>> -		ret = qcom_scm_pas_shutdown(pasid);
+>> +		ret = qcom_pas_shutdown(pasid);
+>>  		if (ret)
+>> -			ath12k_err(ab, "scm pas shutdown failed for userPD%d\n",
+>> +			ath12k_err(ab, "pas shutdown failed for userPD%d: %d\n",
+>>  				   ab_ahb->userpd_id);
+> 
+> at some point the "ret" param was dropped, and this now generates build warnings
+The 'ret' param was dropped by:
+8fb66931fe31 ("wifi: ath12k: Enable IPQ5424 WiFi device support")
 
-Ack, I understand your position.
+Not sure if that was on purpose or accidental. Sowmiya?
 
-> Regards,
-> Christian.
->
-> >
-> > -T.J.
-> >
-> >> It would be great if the community could be more welcoming
-> >> to developers who are just getting involved, rather than discouraging =
-them.
-> >>
-> >> Apparently, no one can control whether the source code of those kernel
-> >> modules will be upstreamed except the vendors themselves, but products
-> >> can still benefit from the common kernel.
-> >>
-> >> Best Regards
-> >> Barry
->
+-       if (ret)
+-               ath12k_err(ab, "scm pas shutdown failed for userPD%d: %d\n",
+-                          ab_ahb->userpd_id, ret);
+...
++               if (ret)
++                       ath12k_err(ab, "scm pas shutdown failed for userPD%d\n",
++                                  ab_ahb->userpd_id);
+
+
+
+
