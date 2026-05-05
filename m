@@ -4,83 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A4FEFF885A
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 13:47:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A8DEFF8855
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 13:53:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C6F710E113;
-	Tue,  5 May 2026 13:47:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 900C010E889;
+	Tue,  5 May 2026 13:53:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qRT5X4uP";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lTLOv2yU";
 	dkim-atps=neutral
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
- [209.85.221.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B601110E113
- for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 13:47:17 +0000 (UTC)
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-43d73422431so4971038f8f.2
- for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 06:47:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777988836; x=1778593636; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=WngZ1i7b+AeASB3S8rstycFmmHOgCBJxwXtpf2QN6jA=;
- b=qRT5X4uPJfFUj3hnpIB5sFa3xrZHhiGkIinLvn606KBEZrHn7lAXqhUZgA0hIIGnbN
- TN2ycWVafFUW47VQUvAU6DZH5O8OUhRisXLry7C1sWvqsA7ff6oLVcD2di+uoLI22ckD
- JVojgOyq7oGbkWJeeC6ddsNN2/Cm4RXegZZSWUzi/ksVoiMEgQGykIgMXD0XofqAIds5
- Es2tu82l8t1wrQtqF9N7NlWKno0rUqvV++5QC1KC5nQMQENmN3Rd98RRzLrMbfZaVmUL
- zoNKnsHxwXm7XPCnHO6kHfwsYyOaHss78JA/L74PjCc9SgVAIjgWezafQJb8pJX5J46P
- jMqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777988836; x=1778593636;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=WngZ1i7b+AeASB3S8rstycFmmHOgCBJxwXtpf2QN6jA=;
- b=Qu60IRM7U2S8WZwcJc3/fZglsAr76QAxtNij6L+MJSW/y7tr6AhgroliGAxfKSvNrW
- mb2d4PgBHvtZMo9DVHyMXkTC4slkEV3GUn0xMvglqnOp0TEq3y6eASGemfqieuB0SOnl
- 7mB+3WnWiZACFSDqaZZa9XqjbItQLt4rju2KltuMz/JI50yIrXG2gOK+PWjhzJIEGl8X
- fWZu4QthtTAe3DSgbBRAbY/ZhUZq/aGJAKPZbLgVW6WYg1zG3gI/vyZbUTXL4bJClv6R
- zueIGWcQZ0TO48eg5ApIiDMRrPQKqXoaXUwK1WiCdDt0GHKw8+gGmaRT71Bd4NwEXRZC
- KqXg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/M/jLREnPPbpPWYAlvC4XC2PpfZ7AIRNwM7E7aJ9DdBmfE6ie99ODChj24Bx+4zdu7KWg5dzwKXC8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxz2RigyICnzqcv+nR+4DPclExwLUM7x26Pi6vWGqE3tt8L6xnh
- lgvhi460Vy8wuoD2Sw249m9F16zi64042Z5ju5dTFFvDQfikSAojCKXv
-X-Gm-Gg: AeBDiestLew4FbvTvYZ7rF1yv9JpzqUrjwVE7f/uLxr275Q+dGKDhVkqwvDnivkIUzS
- FeQlOMGYLkhhTAHYiq2S48Q5UxEL2VRM3LrQ5hK0cpqq54jRyoGkoJMGMjJhpyZhXUlHsP6s/E9
- l1hOCZrnsEtZ8lqLNCtAbGIfO16SuZth5fGLLiqTjuM3042RghcSaB1i1QEnkvUBXw5SN9Xachd
- SZrdD1wNLT+zyNyRn1Xf0wChOBVA9FMXFUcE0ayWha8t6AaeCtycGZZmiGnHA7pA/rhHPna+eJV
- oiJWCbC8jtd6P4s/6ajHT+NvnGU0TqDBBrnSSeu6Ac60Pp9/bBpfOYnCRXWZEL1v3zV9V0sSiKw
- UepYC1WSTH81QWFZi3E14zYQRxNobpJeEfc3z6KU1fZm3rsvo+ohBl+1FkQ+iq4CChUhkx/zDjK
- ilb3vF6W3lLN5Wa1CwbJ8PMY25yMuPR4WJvB43vvcuyuJCXWwv1n/F
-X-Received: by 2002:a05:600c:859a:b0:48a:525b:e157 with SMTP id
- 5b1f17b1804b1-48a9865f870mr168311235e9.13.1777988835944; 
- Tue, 05 May 2026 06:47:15 -0700 (PDT)
-Received: from vitor-nb (dsl-113-208.bl27.telepac.pt. [176.79.113.208])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48a8eb694fcsm375814145e9.3.2026.05.05.06.47.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 May 2026 06:47:15 -0700 (PDT)
-From: Vitor Soares <ivitro@gmail.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: Vitor Soares <vitor.soares@toradex.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, stable@vger.kernel.org
-Subject: [PATCH v5] drm/bridge: cdns-dsi: Replace deprecated
- UNIVERSAL_DEV_PM_OPS()
-Date: Tue,  5 May 2026 14:47:05 +0100
-Message-ID: <20260505134705.188661-2-ivitro@gmail.com>
-X-Mailer: git-send-email 2.53.0
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5DD0F10E7BE
+ for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 13:53:43 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 41FB8440F3;
+ Tue,  5 May 2026 13:53:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 1BDFBC2BCB9;
+ Tue,  5 May 2026 13:53:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1777989223;
+ bh=//Y+/r+/tM8UGYOTCqVNHTEEgnX1Rpm29wI2eQHBetw=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=lTLOv2yUz8v292NnimV79h6sbGH5FzoJOgGNZ51bhOG6JrXSGjrRj5fqC8K/7dgMC
+ MORH32ZWn+c2pvsdu55pqqTJpQXUsWbHG/pHbsEEnssMTophdURB9m8nn0madunDKa
+ br06Hy7Ai/PxdhQs2yeiOFwH0ZS7aq3K1SwdUPDceZ2zwbjeF+WF0cAdsrrgpREKyL
+ 8zr4Md2zEaS4S70bqsHtzf0O382cf0OUXykCBsHNohanvwENDEnKLsdhq634crQKav
+ U/whTeMZd5gS48xgAEVw5TJ/r2QKzNLYEycyzJ1MKfY5QDKf0mSKkKfPGZfeO7VPZR
+ MgB2ww9nH7HEg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 108A8CD343F;
+ Tue,  5 May 2026 13:53:43 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Tue, 05 May 2026 15:53:41 +0200
+Subject: [PATCH v2 2/4] drm/panel: Clean up S6E3FC2X01 config dependencies
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260505-panel-clean-up-kconfig-dep-v2-2-9cc31d6e6919@ixit.cz>
+References: <20260505-panel-clean-up-kconfig-dep-v2-0-9cc31d6e6919@ixit.cz>
+In-Reply-To: <20260505-panel-clean-up-kconfig-dep-v2-0-9cc31d6e6919@ixit.cz>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Dzmitry Sankouski <dsankouski@gmail.com>, Sam Ravnborg <sam@ravnborg.org>
+Cc: Casey Connolly <casey.connolly@linaro.org>, 
+ marijn.suijten@somainline.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1470; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=tMPycBU9bYA9m9HbJGQQMSogaUvweOSqPEkrM2y7OiM=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBp+fZlIjuwo12NBe88aqBKlnXnMhUAVO+Xg/BS6
+ e5F5cMbs+iJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCafn2ZQAKCRBgAj/E00kg
+ cpyfEADRF3qMUJ/VAns8ufTXnAt7hJtg1BJasyriXpoNW8SIxEdpMtGfdssrYrfU1dbWEh66nNs
+ 9aep64SF2TdrybA+YErRVBCFsHhAwufkleyaUch39yHLXbEbQMxZjWqQCydPWQp4Rz9tn5cz7zE
+ jeZregN2VXZB5JTwij38m7JZyOh8XB7DTNnHsePJ3C2TF+o3B+KNUsndFzcXyu2tLpRkZqsp9ZK
+ OKI5RQTqVIr+EhOSrvNdc0ygdeIO/Mdb2u+mqhOTXFzU4OiX0Q9lMV19ZowE+tcHLxou9vH/9ml
+ JJWTczh9HU7bPWCR3JeDbkKiqDtJzlKo9MCEX4M4wFyQq5oLEoJczM8ujB480wSDG/LF1HMItGm
+ hZp2glUL7CNqEQFQsL8tG5FSDG3r8WPZjzxaiqA5bWp1n48gDxl/sdbSDLchFucwGAd/2UTUuWh
+ +pnmczotsRLBMDtVk5UmV6KgqRcgyjXnp4N4SGk8EC28MjgLtPLNLNDzsdA9HHpolf1GN/RVyW2
+ 18gDVd20Af25HAuCCwmuuFvc0btybkxENLF/ht8Q2u6aupvxWhv2VspYDB9DOkT95f4eNcQj8ZH
+ tQfd6wLTRftt2gXO6D/L5Ks0ho9LAQdWAnLUDmQ6xz9ypVy4mpDjNQsu+6l3Th1PYfkDYs5NJB2
+ MzkUSnCkPVAjJBA==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,106 +86,52 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: david@ixit.cz
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Vitor Soares <vitor.soares@toradex.com>
+From: David Heidelberg <david@ixit.cz>
 
-The deprecated UNIVERSAL_DEV_PM_OPS() macro uses the provided callbacks
-for both runtime PM and system sleep. This causes the DSI clocks to be
-disabled twice: once during runtime suspend and again during system
-suspend, resulting in a WARN message from the clock framework when
-attempting to disable already-disabled clocks.
+As per the config name this Display IC features a DSI command-mode
+interface (or the command to switch to video mode is not
+known/documented) and does not use any of the video-mode helper
+utilities, hence should not select VIDEOMODE_HELPERS.  In addition it
+uses devm_gpiod_get() and related functions from GPIOLIB.
 
-[   84.384540] clk:231:5 already disabled
-[   84.388314] WARNING: CPU: 2 PID: 531 at /drivers/clk/clk.c:1181 clk_core_disable+0xa4/0xac
-...
-[   84.579183] Call trace:
-[   84.581624]  clk_core_disable+0xa4/0xac
-[   84.585457]  clk_disable+0x30/0x4c
-[   84.588857]  cdns_dsi_suspend+0x20/0x58 [cdns_dsi]
-[   84.593651]  pm_generic_suspend+0x2c/0x44
-[   84.597661]  ti_sci_pd_suspend+0xbc/0x15c
-[   84.601670]  dpm_run_callback+0x8c/0x14c
-[   84.605588]  __device_suspend+0x1a0/0x56c
-[   84.609594]  dpm_suspend+0x17c/0x21c
-[   84.613165]  dpm_suspend_start+0xa0/0xa8
-[   84.617083]  suspend_devices_and_enter+0x12c/0x634
-[   84.621872]  pm_suspend+0x1fc/0x368
-
-To address this issue, replace UNIVERSAL_DEV_PM_OPS() with
-RUNTIME_PM_OPS(). Bridge and panel drivers should only deal with runtime
-PM, as the DRM framework manages system-wide power transitions through
-the bridge enable() and disable() hooks.
-
-Link: https://lore.kernel.org/all/fbde0659-78f3-46e4-98cf-d832f765a18b@ideasonboard.com/
-Cc: stable@vger.kernel.org # 6.1.x
-Fixes: e19233955d9e ("drm/bridge: Add Cadence DSI driver")
-Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Signed-off-by: Vitor Soares <vitor.soares@toradex.com>
+Fixes: 88148c30ef26 ("drm/panel: Add Samsung S6E3FC2X01 DDIC with AMS641RW panel")
+Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
-v4 -> v5
- - Fix commit message to use RUNTIME_PM_OPS() instead of SET_RUNTIME_PM_OPS()
- - Explain that bridge and panel drivers should only deal with runtime PM
+ drivers/gpu/drm/panel/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-v3 -> v4
- - Add Reviewed-by from Tomi Valkeinen
- - Rebase on top of drm-misc-fixes
- - Verified issue still present on the current mainline
+diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+index 627b839ac9edb..813380ca76117 100644
+--- a/drivers/gpu/drm/panel/Kconfig
++++ b/drivers/gpu/drm/panel/Kconfig
+@@ -884,20 +884,20 @@ config DRM_PANEL_SAMSUNG_S6D7AA0
+ 	tristate "Samsung S6D7AA0 MIPI-DSI video mode panel controller"
+ 	depends on OF
+ 	depends on BACKLIGHT_CLASS_DEVICE
+ 	select DRM_MIPI_DSI
+ 	select VIDEOMODE_HELPERS
+ 
+ config DRM_PANEL_SAMSUNG_S6E3FC2X01
+ 	tristate "Samsung S6E3FC2X01 DSI panel controller"
++	depends on GPIOLIB
+ 	depends on OF
+ 	depends on DRM_MIPI_DSI
+ 	depends on BACKLIGHT_CLASS_DEVICE
+-	select VIDEOMODE_HELPERS
+ 	help
+ 	  Say Y or M here if you want to enable support for the
+ 	  Samsung S6E3FC2 DDIC and connected MIPI DSI panel.
+ 	  Currently supported panels:
+ 
+ 	    Samsung AMS641RW (found in the OnePlus 6T smartphone)
+ 
+ config DRM_PANEL_SAMSUNG_S6E3HA2
 
-v2 -> v3
- - Fix warning: 'cdns_dsi_suspend' defined but not used [-Wunused-function]
- - Fix warning: 'cdns_dsi_resume' defined but not used [-Wunused-function]
-
-v1 -> v2
- - Rely only on SET_RUNTIME_PM_OPS() for the PM.
-
- drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c b/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c
-index 0dd85e26248c..e07a9892df4e 100644
---- a/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c
-+++ b/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c
-@@ -1230,7 +1230,7 @@ static const struct mipi_dsi_host_ops cdns_dsi_ops = {
- 	.transfer = cdns_dsi_transfer,
- };
- 
--static int __maybe_unused cdns_dsi_resume(struct device *dev)
-+static int cdns_dsi_resume(struct device *dev)
- {
- 	struct cdns_dsi *dsi = dev_get_drvdata(dev);
- 
-@@ -1241,7 +1241,7 @@ static int __maybe_unused cdns_dsi_resume(struct device *dev)
- 	return 0;
- }
- 
--static int __maybe_unused cdns_dsi_suspend(struct device *dev)
-+static int cdns_dsi_suspend(struct device *dev)
- {
- 	struct cdns_dsi *dsi = dev_get_drvdata(dev);
- 
-@@ -1251,8 +1251,9 @@ static int __maybe_unused cdns_dsi_suspend(struct device *dev)
- 	return 0;
- }
- 
--static UNIVERSAL_DEV_PM_OPS(cdns_dsi_pm_ops, cdns_dsi_suspend, cdns_dsi_resume,
--			    NULL);
-+static const struct dev_pm_ops cdns_dsi_pm_ops = {
-+	RUNTIME_PM_OPS(cdns_dsi_suspend, cdns_dsi_resume, NULL)
-+};
- 
- static int cdns_dsi_drm_probe(struct platform_device *pdev)
- {
-@@ -1399,7 +1400,7 @@ static struct platform_driver cdns_dsi_platform_driver = {
- 	.driver = {
- 		.name   = "cdns-dsi",
- 		.of_match_table = cdns_dsi_of_match,
--		.pm = &cdns_dsi_pm_ops,
-+		.pm = pm_ptr(&cdns_dsi_pm_ops),
- 	},
- };
- module_platform_driver(cdns_dsi_platform_driver);
 -- 
 2.53.0
+
 
