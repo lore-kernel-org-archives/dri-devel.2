@@ -4,143 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B54A9CD13DA
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 05:37:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65D03CD13DA
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 06:00:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1FD510E0AD;
-	Tue,  5 May 2026 05:37:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC42710E0CF;
+	Tue,  5 May 2026 06:00:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="b0f5W0Ab";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MN2D4c96";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010018.outbound.protection.outlook.com [52.101.61.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAA9010E0AD
- for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 05:37:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lannSPTRQGUwJaoalIGqfkzs9kboZ5Bz25zfvFbSHG3VlmHmvI4oq480/7nLwel5mZttn4cM6flE/USb2aSBmOZEinsMVYNoWctFgBAG0GVS0IfuJSq/HMpECcGX/0NeqzYb3GB+67frSFV+oGHa2sO+Et23RLQfL20b4/IBdOxzE6Wq4OIejCNcsuk5nydnXb2NWKfcDPHFELZJ+6co1KT9/rhcbUzGTBW5wKIaAg89ZDXugroJS81qHfpv4gMXcvtAVWiWXUGNdahx3yWpe4dyoZR0y7UTgnU7S1B71J7N05AXF38/KQPK8uhzrZFMEDPy2Bnsn/6FnY8bWsraGw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aOWNheae9EoQotamRZZ0HWQNK4LPkr45QcFc8xLOyuw=;
- b=FobPvK1mxUWfbsuwSFd9POJp/Pa0euW7InOJVw/Pz0zWYvU9T0gywuzgCp2Min6tzrkmsMuLe02FAL9zwAhbybgQ5H7WlYEA+ggkJkguqYCL9vWqxloG+/MXKv/MQmTFEh+a2WH6BhJcbeGy4jrsCSLK0LZtWnYymR86tDh/p4oPkPPosGaNH/cMEERB/5Oyx0kEZUOfNqAOMUNWTofrKMWLkvsU9FkeroN1ZEOKn28he3O+R2hSG/gqFftLtKHYGU8mEtybueGdaTb11RkI6C0etAG2LUAcRWJstsHW7p/Xs5tLp8gVDD7ouZhZvxO0zuXhaPIqggt6+RP0vWhvFw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aOWNheae9EoQotamRZZ0HWQNK4LPkr45QcFc8xLOyuw=;
- b=b0f5W0Ab+CkX9NNbWPg8owRbFW0nEfgU16ohcs1XsvIoZtUUgQMVcosOqTt+wb/U/ncRea4vCmaYWWYjmz06qvdmr3peu8EZLdF89aV1LHcUn5jNAk/ySoSZ5U7JSt8zrEuHEMFNbTW1QLhGpHeB/QmXPzYwK9bAygsQSgIA+RPBy0Pg3Mgxg8nZGsmVjjiFG7uSWLn8IpOxww9exdKXV/6U6Z2MuGjftWa4dXXjYwUNFX+FTGDuvXKVQb/8FzS5suR2CQBYcUEUTVbgTMADpjn3BNEpth3CpiHQEehUiGjHIzKyu9jmU2Du6lzSw+3mLNzulSH/Rnbh2NXeGxlHFA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by DM4PR12MB8452.namprd12.prod.outlook.com (2603:10b6:8:184::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Tue, 5 May
- 2026 05:37:47 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.20.9870.023; Tue, 5 May 2026
- 05:37:47 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 05 May 2026 14:37:42 +0900
-Message-Id: <DIAI11D10037.VHN3R751EYJS@nvidia.com>
-Cc: <linux-kernel@vger.kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>,
- "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Bjorn Roy
- Baron" <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>,
- "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
- Krummrich" <dakr@kernel.org>, "Dave Airlie" <airlied@redhat.com>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, <dri-devel@lists.freedesktop.org>,
- <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>, "Nikola
- Djukic" <ndjukic@nvidia.com>, "David Airlie" <airlied@gmail.com>, "Boqun
- Feng" <boqun.feng@gmail.com>, "John Hubbard" <jhubbard@nvidia.com>,
- "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
- "Edwin Peer" <epeer@nvidia.com>, "Andrea Righi" <arighi@nvidia.com>, "Andy
- Ritger" <aritger@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "Balbir Singh"
- <balbirs@nvidia.com>, "Philipp Stanner" <phasta@kernel.org>,
- <alexeyi@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>,
- <joel@joelfernandes.org>, <linux-doc@vger.kernel.org>
-Subject: Re: [PATCH v12 12/22] gpu: nova-core: mm: Add page table entry
- operation traits
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Joel Fernandes" <joelagnelf@nvidia.com>
-References: <20260425211454.174696-1-joelagnelf@nvidia.com>
- <20260425211454.174696-13-joelagnelf@nvidia.com>
- <DI8B0IOXNP2L.1NFX4OTABNHA0@nvidia.com>
- <53c88538-dca7-41f1-bb2b-856035728c69@nvidia.com>
- <DI9YR10HH6PE.AMLEZUV7701V@nvidia.com>
- <bd210abc-590f-4011-8337-21b54780fd4c@nvidia.com>
-In-Reply-To: <bd210abc-590f-4011-8337-21b54780fd4c@nvidia.com>
-X-ClientProxiedBy: TY4P286CA0042.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:2b2::12) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C716910E0CF
+ for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 06:00:06 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 6250542D54;
+ Tue,  5 May 2026 06:00:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC46BC2BCB4;
+ Tue,  5 May 2026 06:00:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1777960806;
+ bh=nR2AIUeDgBfsBW4PZ/I/TxdqbxVUjUE2ABXgSI72aM4=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=MN2D4c969nKJosYRZ+bm1lC9B3UlitRkkPICeugeu3W4tPGCkWr7iXM3yD0J31qh0
+ VhSR1VsL4ldmG8CLCOLXF2kHQV/5U0JfaseB4nQ6jTIG8DKRwBaVEasAQxjLLybMG3
+ 6kHgKMS1gZXLBb9+5/ek4w8zQU6xjmTmSPZDuxFh5p6nuyqWAEcUUrCnLCseMS7Ef8
+ yE7CZbUM9rqxiMJaNS9Y2GRK2wTVPMqvHB5ye3xwzsiJPjqGuHv7H4lmn7Oa7bF4GM
+ EZuKBBMTECEi8UAFEQXU32rCXuFq7/NCA3V1b6moRqDHjWtZSRNgpbi7ZZWxhR+jBK
+ tLZhDuo8fqBZA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, Helge Deller <deller@gmx.de>,
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] fbdev: defio: Disconnect deferred I/O from the lifetime
+ of struct fb_info
+Date: Tue,  5 May 2026 02:00:00 -0400
+Message-ID: <20260505060001.225157-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026050116-clean-cure-c52e@gregkh>
+References: <2026050116-clean-cure-c52e@gregkh>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|DM4PR12MB8452:EE_
-X-MS-Office365-Filtering-Correlation-Id: c1f98b00-9c07-4198-20c2-08deaa68703d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|7416014|1800799024|10070799003|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 8nfAPJwuXNLGaEQeiOHBLDKdun2lSPYAHD6xteLuIcNaSfvC4KMsIf+toZKzFVrAaY0Wa7I7VfjIWe7HqY5Qp/XAFLbmRTijjXQMzulzPT86+OUrY5PNvMzkPEZK31pV9Fi8rDCZBRQeyBhf4Womwd73W7MAjZt0vVF9BizwlVWuzJiO5QXf7lbXdW8784iXr9bKb8IM9ISFgh0DNyurewjr9N7acJZNoCOBGEezrZf3B6/jD9W5pvzDltcc382ug0DcJreTjFC6QILqn2PE4yA40uHGKSsNl1gR27NC2jqXc7QTtUjEq1/E81vbjYjxNmEA3aMWvmUBi4dE5kQShCHvHrMIyXPA6YISZtkh14wSImyOZzaOYQAv9IztS+926ihgxgjXe5tVfFvGSqkHVS+MN1nH/afdiEeYkTFv2WOyH4Ihy4i4aqEtfcwAxQZX+tz+YB3Od7b+qmZV09yIivazFncPU1wRsXSpPCWqfq/YKXDfnRAopsqTV3I0nf24J5t8WqDKLJ0RHF+fKAXS+DG8HmjxEp3ehocyxdjd8cx3z55zGFKZx7s6OsgROPqlQRQkaLdWlU2YswCT5KoT2kbMqI2zSq4vLn6wnB7l/G94vlKnckvjz0oNK+A+bMQT7eQUkTqZYtW8kt9b73WAFgoqqAvVP7pcSN5odpct7PA3fJzKvo8lTLRrmMgnlUJC
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(7416014)(1800799024)(10070799003)(18002099003)(56012099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SzF6WFJodzNnbmUxMjZ3M1YyeGgwMGtkVWxoRmkzMXBCbHhsUmo1UFlncUd0?=
- =?utf-8?B?ZTRiRlo4bVlIamlBV0NMUFNGVUV1Y3R3R2taMGttRUJrTGdyRE5VUHI1QVd5?=
- =?utf-8?B?ZFNHZjZJUGhXaCt3cXgvcUhpSlBDNFdUOWR2ZmlNbEdZY0ZNVWxoaUZhV3Vi?=
- =?utf-8?B?MDRyeTJwaHFPRkdHWmxpOExYY1E4SE5pMWNXaTh5U2tVMW05YUcva2JrVFBX?=
- =?utf-8?B?TTIwTG82dmU1OWRNSTkwRGJ1dGhkZU83UlEzSWlrUzZzQTRRa09GVGpQdWs1?=
- =?utf-8?B?WXp5M01kZmxEWHpTdHJRa0ora3RZNzhoOTFSSlA5SGs5c2xqNTRtaTZhbUM3?=
- =?utf-8?B?cG5YN25TTmIyWVgwWm9Oa01pTHVodzd1ek9BRDV2bmZNMG9jV3M3MHV3Y1BC?=
- =?utf-8?B?ZFhuYW50QWdDWERFckdWRG1sbEQrOFdKUUlsKzY2ZHlMUzRHMEdLK3hFaTRm?=
- =?utf-8?B?MG13N3hXSVRoL29xbjFMUm5Hai85ek9CY0RLcmtDaTQyVlU4bWZVdStGVHlT?=
- =?utf-8?B?dVhnd2x4ZmJqcytXK01ScXVqMWdweWhEVHN1QjhjKzJrUjRJMGovem9TS1Q1?=
- =?utf-8?B?b2V6d2ZYQmYxVEY2NldTdDBwOUFjcWJnZ1BDczNwdnh1M3pqQ3g3cDZ5QVlL?=
- =?utf-8?B?dFpDUSttRmFZSkY5Q2Mrb044Qks1aVFvQ01QVk04N29NNUR2dlZteWZDL2ZC?=
- =?utf-8?B?allwSzE5dkNaUUlVVitwOU9rTWJKZkl0NkowNmFYQUVPaW5pN1d4cGxpWFY5?=
- =?utf-8?B?elQxVXNqOEliYXBtYWtpNVIzNllDWDdxNENHaHhDU2Y0c3pPMkhBUG1ObkVz?=
- =?utf-8?B?dzhHbTlkbHV3UVVQb2dnZWY5d3ZpQjlCQ1hyNERkZXJnZEJsdnptL3VzMFhr?=
- =?utf-8?B?REJVZkZQVXlpRk1IWFNnS01mekVQUTE3b01zeUVRK0Nmb0d4VE1pWVJ2bXYy?=
- =?utf-8?B?STh0RVZBc2hqbXZkN2dRZTF2NTBVRnhuRFdwMlNJQ0RoVDlqV2pnVzVVd1NX?=
- =?utf-8?B?R2FsMXUycGsrVVRSa09zSjJyb2xMNFVQWW1pL3d1OUFHMk42K0MrUnJpWmlj?=
- =?utf-8?B?L2RUWDdUY3BlVlpXSzhqNXlxT2F2eUpuc2IrZ2NwaUNaeit2ZW5kYXJXalRR?=
- =?utf-8?B?NEZZWDhWcXJaZXNoSGVWNThOU3ZJU25iczF0NEdqeFpBZm9iK3lPWVp1QU02?=
- =?utf-8?B?bktlemhRMy9Hdk1XQ1ZBbFlzV1d5NllhcDF1WDhJYmNiZ0RHVGZuTnZJNEJr?=
- =?utf-8?B?NXRtNXNNNUZDdSt0VmRPWjJMa1NkZ3Z6bEd6elUzVzBTR0lHOXB5RWFHcjk4?=
- =?utf-8?B?bW0zM1NqOHAvdWtzblpJeWhoYTBGRWNCSXdNZ3Bqb25JaUVHUUJrSDRjWFBP?=
- =?utf-8?B?cWxYeFkydUdJMldkUHA1OFFrSi8rT2d6NlZMcW5aRkozc1YvRE1pREhvVk51?=
- =?utf-8?B?OWM3cjlaM0tzN3JQZUhMTHhiaktuQXNOa2FiaDZEcWZIcVUvYlZxblVFeXRR?=
- =?utf-8?B?bTlvQjVla0xuaHRjS2ZwTTMvUXhTWGJvRFZOTFVVK0wyeU1wR2JPRUk3aTlO?=
- =?utf-8?B?YkdhNTZHVlU0dEtKckhZZURNbE1nbXN5MkVRWWpyemtDd2N2TVBxYmNwM0NV?=
- =?utf-8?B?NVNaeXoydG8waTVXOUpsdHVyaytTWnRqeEd5TmdTSEZVVnBJcXZXaHlMdVhF?=
- =?utf-8?B?Nnk5dlV5RHNVQUxPS0E1RDY3OHlWaE43Z0ovYUk2Zi9SNzA2T3BUd0VrWW01?=
- =?utf-8?B?Q0laT2tDVUEvUSt1LzR0SGxKQ1J4RDRhVVNUejRkVWJtWXl0cmNKWk9zOXFG?=
- =?utf-8?B?L3Z5T1ZPRFY4S1RiVHNtM0ppT09qYk1ZU0creTBpT0xBM1FBUjREL0VVWHR4?=
- =?utf-8?B?UkxBM0FVM0M2em16UG94ZjFob2dnRjBaRUdmWWZSSHlZS1hwcnREek9kdDh3?=
- =?utf-8?B?aTB4VFhJZ3FHNVYzZVR4OU9pc05obWdjUEFTTlpoeGM0MUZBSEdiNEd3UWFn?=
- =?utf-8?B?NHpRY09MQU5EeVN1T05lVERVZmZKK0g3alVQY2ljNVcxc21RNUEwaFJlMjdj?=
- =?utf-8?B?QnZLTWhFZDl0Ylp5YVo4Q1NQaklQUjkvVms4YUtaU2JGVjJHTlJ4cHJmOWFO?=
- =?utf-8?B?cXZnY2dkOXlhM1UxNW41MmtOQ0xFL21JK005Z1cvZjlHLzdoTk8yZC9sQ0JZ?=
- =?utf-8?B?UGllUHB6WWgxZ0Z5T09XUjdHcmlhVEdvdVMxS1RhVXhGNGd4aHVlSHg1d3g5?=
- =?utf-8?B?NTFMOUxkcEQrVEJTRWozVFhQMjRSQTVyWmRHTHp4TnA2YnE2dlI5Vkp5OC9K?=
- =?utf-8?B?Um1nZmJyUDBhQU56ZUdXbUVDRlpuTXBaam12WDFvejZmR1B0Y2xBSWN0SlZH?=
- =?utf-8?Q?Ejt0y4EbjyN1z16FMBWTXwRHP6I2SQ644N8psA7+s480j?=
-X-MS-Exchange-AntiSpam-MessageData-1: v9AXk1Az+GyefQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c1f98b00-9c07-4198-20c2-08deaa68703d
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2026 05:37:47.3904 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7RNyUhSn485GTYZJsM8WBjwsROf6imrDlv04tx7Gx4gDZLezZUzHOmoIgofmpUaivfHo26l9cuVfzx+FnmvdbA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8452
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,56 +59,371 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue May 5, 2026 at 4:28 AM JST, Joel Fernandes wrote:
->
->
-> On 5/4/2026 10:31 AM, Alexandre Courbot wrote:
->> On Sun May 3, 2026 at 4:19 AM JST, Joel Fernandes wrote:
->>>> Please reorder things so they land, as much as possible, in their fina=
-l
->>>> form. In this case this probably means defining the trait *before* the=
- V2
->>>> and V3 page table definitions, so they can implement it from the get-g=
-o.
->>>
->>> That is a reasonable approach too, I can try to do that, but it is
->>> misleading to say '270 lines of diff that reviewers will have processed=
- for
->>> nothing' which is nothing but fiction. Please look more carefully, the
->>> patch is iterative on the series.
->>=20
->> For context, here is where the 270 lines of diff come from:
->>=20
->>  drivers/gpu/nova-core/mm/pagetable/ver2.rs | 150 ++++++++------
->>  drivers/gpu/nova-core/mm/pagetable/ver3.rs | 120 +++++++----
->>=20
->> But the number is not important.
->
-> It is important, numbers and accuracy are really important things
-> especially on the Linux kernel mailing list. Sorry if you feel that is
-> inconvenient. And even quoting the 270 is a falsehood, the 270 lines were
-> not refactored, only 90 lines or so was.
+From: Thomas Zimmermann <tzimmermann@suse.de>
 
-I am not particularly attached to this 270 number. It represents the
-diff that I believe shouldn't be in this commit. Counting the number of
-changed lines is also perfectly valid.
+[ Upstream commit 9ded47ad003f09a94b6a710b5c47f4aa5ceb7429 ]
 
-But again, that's not the point. Let's set my metric aside: we still
-have, by your own account, 90 lines of churn that could be avoided by
-the following 3 steps, each of which takes one minute to perform:
+Hold state of deferred I/O in struct fb_deferred_io_state. Allocate an
+instance as part of initializing deferred I/O and remove it only after
+the final mapping has been closed. If the fb_info and the contained
+deferred I/O meanwhile goes away, clear struct fb_deferred_io_state.info
+to invalidate the mapping. Any access will then result in a SIGBUS
+signal.
 
-- Move the trait definitions of `pagetable.rs` into their own commit.
-- Move that new commit before the ones introducing `ver2.rs` and
-  `ver3.rs`.
-- Squash the relevant parts of the remainder into the commit introducing
-  `ver2.rs` or `ver3.rs`.
+Fixes a long-standing problem, where a device hot-unplug happens while
+user space still has an active mapping of the graphics memory. The hot-
+unplug frees the instance of struct fb_info. Accessing the memory will
+operate on undefined state.
 
-By doing that, on top of removing 90 lines of immediate follow-up
-changes, you have also moved the public interface of the page tables
-before their implementation, making all 3 patches easier to process as
-reviewers are now introduced to how that code will be used *before* the
-implementation details.
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: 60b59beafba8 ("fbdev: mm: Deferred IO support")
+Cc: Helge Deller <deller@gmx.de>
+Cc: linux-fbdev@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: stable@vger.kernel.org # v2.6.22+
+Signed-off-by: Helge Deller <deller@gmx.de>
+[ replaced `kzalloc_obj` with `kzalloc`, and dropped `mutex_destroy(&fbdefio->lock)` ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/video/fbdev/core/fb_defio.c | 179 ++++++++++++++++++++++------
+ include/linux/fb.h                  |   4 +-
+ 2 files changed, 145 insertions(+), 38 deletions(-)
 
-That's my closing argument on this topic and I won't insist if you are
-not convinced this is worth doing; please act on it, or not, as you see
-fit.
+diff --git a/drivers/video/fbdev/core/fb_defio.c b/drivers/video/fbdev/core/fb_defio.c
+index b9607d5a370d4..f4812a76c3cc0 100644
+--- a/drivers/video/fbdev/core/fb_defio.c
++++ b/drivers/video/fbdev/core/fb_defio.c
+@@ -23,6 +23,75 @@
+ #include <linux/rmap.h>
+ #include <linux/pagemap.h>
+ 
++/*
++ * struct fb_deferred_io_state
++ */
++
++struct fb_deferred_io_state {
++	struct kref ref;
++
++	struct mutex lock; /* mutex that protects the pageref list */
++	/* fields protected by lock */
++	struct fb_info *info;
++};
++
++static struct fb_deferred_io_state *fb_deferred_io_state_alloc(void)
++{
++	struct fb_deferred_io_state *fbdefio_state;
++
++	fbdefio_state = kzalloc(sizeof(*fbdefio_state), GFP_KERNEL);
++	if (!fbdefio_state)
++		return NULL;
++
++	kref_init(&fbdefio_state->ref);
++	mutex_init(&fbdefio_state->lock);
++
++	return fbdefio_state;
++}
++
++static void fb_deferred_io_state_release(struct fb_deferred_io_state *fbdefio_state)
++{
++	mutex_destroy(&fbdefio_state->lock);
++
++	kfree(fbdefio_state);
++}
++
++static void fb_deferred_io_state_get(struct fb_deferred_io_state *fbdefio_state)
++{
++	kref_get(&fbdefio_state->ref);
++}
++
++static void __fb_deferred_io_state_release(struct kref *ref)
++{
++	struct fb_deferred_io_state *fbdefio_state =
++		container_of(ref, struct fb_deferred_io_state, ref);
++
++	fb_deferred_io_state_release(fbdefio_state);
++}
++
++static void fb_deferred_io_state_put(struct fb_deferred_io_state *fbdefio_state)
++{
++	kref_put(&fbdefio_state->ref, __fb_deferred_io_state_release);
++}
++
++/*
++ * struct vm_operations_struct
++ */
++
++static void fb_deferred_io_vm_open(struct vm_area_struct *vma)
++{
++	struct fb_deferred_io_state *fbdefio_state = vma->vm_private_data;
++
++	fb_deferred_io_state_get(fbdefio_state);
++}
++
++static void fb_deferred_io_vm_close(struct vm_area_struct *vma)
++{
++	struct fb_deferred_io_state *fbdefio_state = vma->vm_private_data;
++
++	fb_deferred_io_state_put(fbdefio_state);
++}
++
+ static struct page *fb_deferred_io_page(struct fb_info *info, unsigned long offs)
+ {
+ 	void *screen_base = (void __force *) info->screen_base;
+@@ -93,17 +162,31 @@ static void fb_deferred_io_pageref_put(struct fb_deferred_io_pageref *pageref,
+ /* this is to find and return the vmalloc-ed fb pages */
+ static vm_fault_t fb_deferred_io_fault(struct vm_fault *vmf)
+ {
++	struct fb_info *info;
+ 	unsigned long offset;
+ 	struct page *page;
+-	struct fb_info *info = vmf->vma->vm_private_data;
++	vm_fault_t ret;
++	struct fb_deferred_io_state *fbdefio_state = vmf->vma->vm_private_data;
++
++	mutex_lock(&fbdefio_state->lock);
++
++	info = fbdefio_state->info;
++	if (!info) {
++		ret = VM_FAULT_SIGBUS; /* our device is gone */
++		goto err_mutex_unlock;
++	}
+ 
+ 	offset = vmf->pgoff << PAGE_SHIFT;
+-	if (offset >= info->fix.smem_len)
+-		return VM_FAULT_SIGBUS;
++	if (offset >= info->fix.smem_len) {
++		ret = VM_FAULT_SIGBUS;
++		goto err_mutex_unlock;
++	}
+ 
+ 	page = fb_deferred_io_page(info, offset);
+-	if (!page)
+-		return VM_FAULT_SIGBUS;
++	if (!page) {
++		ret = VM_FAULT_SIGBUS;
++		goto err_mutex_unlock;
++	}
+ 
+ 	get_page(page);
+ 
+@@ -115,8 +198,15 @@ static vm_fault_t fb_deferred_io_fault(struct vm_fault *vmf)
+ 	BUG_ON(!page->mapping);
+ 	page->index = vmf->pgoff; /* for page_mkclean() */
+ 
++	mutex_unlock(&fbdefio_state->lock);
++
+ 	vmf->page = page;
++
+ 	return 0;
++
++err_mutex_unlock:
++	mutex_unlock(&fbdefio_state->lock);
++	return ret;
+ }
+ 
+ int fb_deferred_io_fsync(struct file *file, loff_t start, loff_t end, int datasync)
+@@ -143,15 +233,24 @@ EXPORT_SYMBOL_GPL(fb_deferred_io_fsync);
+  * Adds a page to the dirty list. Call this from struct
+  * vm_operations_struct.page_mkwrite.
+  */
+-static vm_fault_t fb_deferred_io_track_page(struct fb_info *info, unsigned long offset,
+-					    struct page *page)
++static vm_fault_t fb_deferred_io_track_page(struct fb_deferred_io_state *fbdefio_state,
++					    unsigned long offset, struct page *page)
+ {
+-	struct fb_deferred_io *fbdefio = info->fbdefio;
++	struct fb_info *info;
++	struct fb_deferred_io *fbdefio;
+ 	struct fb_deferred_io_pageref *pageref;
+ 	vm_fault_t ret;
+ 
+ 	/* protect against the workqueue changing the page list */
+-	mutex_lock(&fbdefio->lock);
++	mutex_lock(&fbdefio_state->lock);
++
++	info = fbdefio_state->info;
++	if (!info) {
++		ret = VM_FAULT_SIGBUS; /* our device is gone */
++		goto err_mutex_unlock;
++	}
++
++	fbdefio = info->fbdefio;
+ 
+ 	pageref = fb_deferred_io_pageref_get(info, offset, page);
+ 	if (WARN_ON_ONCE(!pageref)) {
+@@ -169,50 +268,38 @@ static vm_fault_t fb_deferred_io_track_page(struct fb_info *info, unsigned long
+ 	 */
+ 	lock_page(pageref->page);
+ 
+-	mutex_unlock(&fbdefio->lock);
++	mutex_unlock(&fbdefio_state->lock);
+ 
+ 	/* come back after delay to process the deferred IO */
+ 	schedule_delayed_work(&info->deferred_work, fbdefio->delay);
+ 	return VM_FAULT_LOCKED;
+ 
+ err_mutex_unlock:
+-	mutex_unlock(&fbdefio->lock);
++	mutex_unlock(&fbdefio_state->lock);
+ 	return ret;
+ }
+ 
+-/*
+- * fb_deferred_io_page_mkwrite - Mark a page as written for deferred I/O
+- * @fb_info: The fbdev info structure
+- * @vmf: The VM fault
+- *
+- * This is a callback we get when userspace first tries to
+- * write to the page. We schedule a workqueue. That workqueue
+- * will eventually mkclean the touched pages and execute the
+- * deferred framebuffer IO. Then if userspace touches a page
+- * again, we repeat the same scheme.
+- *
+- * Returns:
+- * VM_FAULT_LOCKED on success, or a VM_FAULT error otherwise.
+- */
+-static vm_fault_t fb_deferred_io_page_mkwrite(struct fb_info *info, struct vm_fault *vmf)
++static vm_fault_t fb_deferred_io_page_mkwrite(struct fb_deferred_io_state *fbdefio_state,
++					      struct vm_fault *vmf)
+ {
+ 	unsigned long offset = vmf->pgoff << PAGE_SHIFT;
+ 	struct page *page = vmf->page;
+ 
+ 	file_update_time(vmf->vma->vm_file);
+ 
+-	return fb_deferred_io_track_page(info, offset, page);
++	return fb_deferred_io_track_page(fbdefio_state, offset, page);
+ }
+ 
+-/* vm_ops->page_mkwrite handler */
+ static vm_fault_t fb_deferred_io_mkwrite(struct vm_fault *vmf)
+ {
+-	struct fb_info *info = vmf->vma->vm_private_data;
++	struct fb_deferred_io_state *fbdefio_state = vmf->vma->vm_private_data;
+ 
+-	return fb_deferred_io_page_mkwrite(info, vmf);
++	return fb_deferred_io_page_mkwrite(fbdefio_state, vmf);
+ }
+ 
+ static const struct vm_operations_struct fb_deferred_io_vm_ops = {
++	.open		= fb_deferred_io_vm_open,
++	.close		= fb_deferred_io_vm_close,
+ 	.fault		= fb_deferred_io_fault,
+ 	.page_mkwrite	= fb_deferred_io_mkwrite,
+ };
+@@ -227,7 +314,10 @@ int fb_deferred_io_mmap(struct fb_info *info, struct vm_area_struct *vma)
+ 	vm_flags_set(vma, VM_DONTEXPAND | VM_DONTDUMP);
+ 	if (!(info->flags & FBINFO_VIRTFB))
+ 		vm_flags_set(vma, VM_IO);
+-	vma->vm_private_data = info;
++	vma->vm_private_data = info->fbdefio_state;
++
++	fb_deferred_io_state_get(info->fbdefio_state); /* released in vma->vm_ops->close() */
++
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(fb_deferred_io_mmap);
+@@ -238,9 +328,10 @@ static void fb_deferred_io_work(struct work_struct *work)
+ 	struct fb_info *info = container_of(work, struct fb_info, deferred_work.work);
+ 	struct fb_deferred_io_pageref *pageref, *next;
+ 	struct fb_deferred_io *fbdefio = info->fbdefio;
++	struct fb_deferred_io_state *fbdefio_state = info->fbdefio_state;
+ 
+ 	/* here we mkclean the pages, then do all deferred IO */
+-	mutex_lock(&fbdefio->lock);
++	mutex_lock(&fbdefio_state->lock);
+ 	list_for_each_entry(pageref, &fbdefio->pagereflist, list) {
+ 		struct page *cur = pageref->page;
+ 		lock_page(cur);
+@@ -255,12 +346,13 @@ static void fb_deferred_io_work(struct work_struct *work)
+ 	list_for_each_entry_safe(pageref, next, &fbdefio->pagereflist, list)
+ 		fb_deferred_io_pageref_put(pageref, info);
+ 
+-	mutex_unlock(&fbdefio->lock);
++	mutex_unlock(&fbdefio_state->lock);
+ }
+ 
+ int fb_deferred_io_init(struct fb_info *info)
+ {
+ 	struct fb_deferred_io *fbdefio = info->fbdefio;
++	struct fb_deferred_io_state *fbdefio_state;
+ 	struct fb_deferred_io_pageref *pagerefs;
+ 	unsigned long npagerefs, i;
+ 	int ret;
+@@ -270,7 +362,11 @@ int fb_deferred_io_init(struct fb_info *info)
+ 	if (WARN_ON(!info->fix.smem_len))
+ 		return -EINVAL;
+ 
+-	mutex_init(&fbdefio->lock);
++	fbdefio_state = fb_deferred_io_state_alloc();
++	if (!fbdefio_state)
++		return -ENOMEM;
++	fbdefio_state->info = info;
++
+ 	INIT_DELAYED_WORK(&info->deferred_work, fb_deferred_io_work);
+ 	INIT_LIST_HEAD(&fbdefio->pagereflist);
+ 	if (fbdefio->delay == 0) /* set a default of 1 s */
+@@ -289,10 +385,12 @@ int fb_deferred_io_init(struct fb_info *info)
+ 	info->npagerefs = npagerefs;
+ 	info->pagerefs = pagerefs;
+ 
++	info->fbdefio_state = fbdefio_state;
++
+ 	return 0;
+ 
+ err:
+-	mutex_destroy(&fbdefio->lock);
++	fb_deferred_io_state_release(fbdefio_state);
+ 	return ret;
+ }
+ EXPORT_SYMBOL_GPL(fb_deferred_io_init);
+@@ -333,11 +431,18 @@ EXPORT_SYMBOL_GPL(fb_deferred_io_release);
+ 
+ void fb_deferred_io_cleanup(struct fb_info *info)
+ {
+-	struct fb_deferred_io *fbdefio = info->fbdefio;
++	struct fb_deferred_io_state *fbdefio_state = info->fbdefio_state;
+ 
+ 	fb_deferred_io_lastclose(info);
+ 
++	info->fbdefio_state = NULL;
++
++	mutex_lock(&fbdefio_state->lock);
++	fbdefio_state->info = NULL;
++	mutex_unlock(&fbdefio_state->lock);
++
++	fb_deferred_io_state_put(fbdefio_state);
++
+ 	kvfree(info->pagerefs);
+-	mutex_destroy(&fbdefio->lock);
+ }
+ EXPORT_SYMBOL_GPL(fb_deferred_io_cleanup);
+diff --git a/include/linux/fb.h b/include/linux/fb.h
+index 322b4d20afa55..8a9d949cc7e2d 100644
+--- a/include/linux/fb.h
++++ b/include/linux/fb.h
+@@ -214,11 +214,12 @@ struct fb_deferred_io {
+ 	unsigned long delay;
+ 	bool sort_pagereflist; /* sort pagelist by offset */
+ 	int open_count; /* number of opened files; protected by fb_info lock */
+-	struct mutex lock; /* mutex that protects the pageref list */
+ 	struct list_head pagereflist; /* list of pagerefs for touched pages */
+ 	/* callback */
+ 	void (*deferred_io)(struct fb_info *info, struct list_head *pagelist);
+ };
++
++struct fb_deferred_io_state;
+ #endif
+ 
+ /*
+@@ -476,6 +477,7 @@ struct fb_info {
+ 	unsigned long npagerefs;
+ 	struct fb_deferred_io_pageref *pagerefs;
+ 	struct fb_deferred_io *fbdefio;
++	struct fb_deferred_io_state *fbdefio_state;
+ #endif
+ 
+ 	const struct fb_ops *fbops;
+-- 
+2.53.0
+
