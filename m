@@ -4,141 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 180F4FF8855
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 21:19:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB2E9FF8855
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 21:46:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3073910E24C;
-	Tue,  5 May 2026 21:18:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D2C510E46B;
+	Tue,  5 May 2026 21:46:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="BvgJfn/p";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qncCwKGS";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012041.outbound.protection.outlook.com [52.101.48.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5ED2110E24C
- for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 21:18:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Yn4+kLK4z91PB5B0fLIrIShA5FqEYIPRvDqauzGP4oEhvDuepmswzCD66I5+5TosSuUhiWDBlwK1gCIAJGGopplxTh5fDWFRsv8yqijUAbN6ejC4Q5kasnVzurjZ6j8wsesws5wr0eBmzkMYRZ0IZtpKUQQYCRUjLdNtOSXGrKRAFQMKVs5NBt8bbOMqN8IkES5rNjORxjJPzcXjJLOaMCikf48Joe4Afdsk4tybqv0eYI7tvOll4BlwASISIawyCnv+z74RkaBMWyC2bokq85m/YhUQpSYsKGPd+8wuPyr32cvRUXqJyIPFRLlEsWEB+wugG1XRQKlPp3TRxdQZRg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3QPFO6nEAsRlqP7drnfYAiXnzqx4bjvtXQyYZhzMbFA=;
- b=D5nqRFqbkEZLYz3nyZk3Ub8JmW0g47hc5hqaWIKr+0MGaf99yo0AKonugAY+QQraFsvn6zBAZyiK4MOlWb0DjyBbn/QwGh2axfMAdmn77ajMIh63oku4wXMnlXDsceOMD7TuQ2sScw8RgULX4UZgvXT8eUeNf0bC4LmM+jaGeVUWRC57Rw0zq3yexCq+oSqKL50aAAr7qskJ0IJPZwrf7wO3at3EYAsF6w1OeyXkqBwS8K9gd3AZdS9Mz5xprq816LSVWLGTXn+cTXCBrfxSpSKAUNE4qT9Ey1stkluwtXvj0wj/dVFd6CmJDQ7M+8h/ZbZDtbTiaWiSmJsaomiTsw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3QPFO6nEAsRlqP7drnfYAiXnzqx4bjvtXQyYZhzMbFA=;
- b=BvgJfn/p/5M6cyWP1AlgmEHsjrAslLqrtHDMzZpG5o8Jz6MjIufMqNXPlV+G8jAd4kL4qBCmfBJagHnakZo2av2nd7TZeW6fXqc/moLNQZVyaR2sJ62VtMsJq7vWdq70YaVXOyKBcwGlNhH4HmUsMReZln+XR1QkCQQj9bdrM85l80Or68v4cSkH4LThSiy4joKvhQUazmUGqNW/AUn3Y6iwOlMJho4MsfTDffyQU5d0GyZaNuBWYGgVt91JqpXJW1aTIR68YL93sNwnC9nlAxibfojLiU3LZQ/SH1gxJg+Lh+PUjm5LEfk8YVAan7S0S1X+L8uHmfpVOv6JgBsgSg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
- SA1PR12MB6994.namprd12.prod.outlook.com (2603:10b6:806:24d::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Tue, 5 May
- 2026 21:18:45 +0000
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9870.023; Tue, 5 May 2026
- 21:18:45 +0000
-Message-ID: <3f1d7af9-f77f-458b-a44a-d2da5d2499d9@nvidia.com>
-Date: Tue, 5 May 2026 17:18:42 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 20/22] gpu: nova-core: mm: Add PRAMIN aperture
- self-tests
-To: Alexandre Courbot <acourbot@nvidia.com>
-Cc: linux-kernel@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- Bjorn Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin
- <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- nova-gpu@lists.linux.dev, Nikola Djukic <ndjukic@nvidia.com>,
- David Airlie <airlied@gmail.com>, Boqun Feng <boqun.feng@gmail.com>,
- John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Timur Tabi <ttabi@nvidia.com>, Edwin Peer <epeer@nvidia.com>,
- Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
- Philipp Stanner <phasta@kernel.org>, alexeyi@nvidia.com,
- Eliot Courtney <ecourtney@nvidia.com>, joel@joelfernandes.org,
- linux-doc@vger.kernel.org
-References: <20260425211454.174696-1-joelagnelf@nvidia.com>
- <20260425211454.174696-21-joelagnelf@nvidia.com>
- <DI8B0M0QY3XW.4641TH1BU4YF@nvidia.com>
-Content-Language: en-US
-From: Joel Fernandes <joelagnelf@nvidia.com>
-In-Reply-To: <DI8B0M0QY3XW.4641TH1BU4YF@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MN0P220CA0018.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:208:52e::16) To DS0PR12MB6486.namprd12.prod.outlook.com
- (2603:10b6:8:c5::21)
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4135C10E46B
+ for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 21:46:31 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-488a9033b2cso50861855e9.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 14:46:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1778017590; x=1778622390; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=mWFcBq0zhFRY7Cz5fcJUSQDRK4lDJnO8aVB09yQ4oes=;
+ b=qncCwKGS5+ayCPk4BoJS94EOdzst+xyv5+Tkd9yttzwlIx++3n9ErHQ59sim4QexOH
+ z05LKzCCYDZ9sHmNOJz8vguXUlbCStz4LDRXFX6lTlBPr00c6NhuGhJga/PCieeiPaLx
+ baNQdJqpXT4Lcfc18JQ8CLFvSogqKcClY6PZA9qt5y1vAuB86oEeZxthry4xqaFvK62V
+ HrAWWf+o4C6JnM7jYLYVcBifUXsm+cGzxWIzQtvGkYwPFQHDLA3+rnF9h5nanXu3/3R0
+ euEhceWfwUqrJ4L8aGFMCXQmyZkJCqhaPIfLjEgoTLKf1LckBr6j52WhNsICeR+5vSx3
+ e36Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778017590; x=1778622390;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=mWFcBq0zhFRY7Cz5fcJUSQDRK4lDJnO8aVB09yQ4oes=;
+ b=o+yF/Ol5zXR1/1BY/7HcDnJ0b0SHlOqLwenIxGWY981rBNuFF5xwM/tEZhKHGvR3Wm
+ OLbSSLBpQxRfH7Yk5aFmq89LVVZDlJyX7QDX8qGE7Yd4y4tuIVwEA2qWtaN8d+yKIy/4
+ YejCKBKQTzr16OHSzto0z8q8C57p7Y2h0QKJLUZCIoesIJ6BjEvulRJJSZViIrawoL6B
+ wOgKkGXex71QEK7UtdIWQcm8BIcj4eECfuuprbgYW/5uI3JYKdtnGbXWUl6D/4Xd6lR1
+ NX2T7h577ISKa9L87XzdhA9gUXhjuxamecgr1aTaxsOBSGwT2EhNvMcOuEXn/bYoOcm3
+ 2sWQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ912654rmQArkvUpRySzcuo26ZRLCH698gLYfuDnTdu+cDaq8WhVhHYrAwQvS8r0R8UDxZN0X1M6Rs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwC1CFlDna07sHU9Dr2oRaYzmV9f3R29X/fs1vh7W7VF7u1DDOA
+ ZdU0sB+hP/4vetSXJIJ1MELRaimf0Oar18wvSdB0z+o0ydoA5tWpWkyQ
+X-Gm-Gg: AeBDiesX90oZPb3jg/oJ1spuhRh420ic2CIiQ3sSXC3xDhtMtP9CPpAuz+oDZ0ncVlH
+ xJi2Gdzf79Js9IpnAgK2RySIiSqyfyCV83Yb/eDk/PWZxvjM0NTCeAHNeYojL/TIwgjGuTL7aOs
+ HZTM3aU917bIPq93UCJYprGNelsBIc/LRi42tmpOut6jjP5MIGll3o9Z38tXN2BKy5tlG7kXC7/
+ m9LhrkgCefNbPybyEMT2b+z30kO3NWOZsUPW501e1E2YA0odsFq9PtapAH2jfOz1NMT7aK9ZnB5
+ giXfSX8LLMlew/x7mSkSH40BSAAsI3YY66/2z6ThezFGpsIqm9cfqDqIiup0pLl+1+XoFjzz0sH
+ iTb3hwNf17hUaLMjeF8FfaGZ564YRCqYRmYfzZNt/lRysfA/6Wa2kp9T0Mdof4SyQPw5KqU6PCR
+ fkZZEANWAceZAC7nBbL3/0dX7X2+9a6oSfr1r5a0iF
+X-Received: by 2002:a05:600c:3f0b:b0:48a:6fd4:d3d3 with SMTP id
+ 5b1f17b1804b1-48e51f37fb8mr17928735e9.20.1778017589343; 
+ Tue, 05 May 2026 14:46:29 -0700 (PDT)
+Received: from luca-vm.lan ([154.61.61.58]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-48a824f9f0dsm411556165e9.15.2026.05.05.14.46.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 05 May 2026 14:46:28 -0700 (PDT)
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+To: linux-mediatek@lists.infradead.org
+Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH v4 0/2] Add support for mt8167 display blocks
+Date: Tue,  5 May 2026 22:44:58 +0100
+Message-ID: <20260505214541.333657-1-l.scorcia@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|SA1PR12MB6994:EE_
-X-MS-Office365-Filtering-Correlation-Id: ac868158-d1a8-4ef5-acbe-08deaaebe3ab
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|366016|376014|1800799024|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: N/BzM0Tda/G3vMUI3fRQc53sbFpAtdnbcYJY5pECkMpyoN+Ks09NGom91Mom6eBK1qijgf/zBptl3zK3DihsNsgDirkXxj03b+NA8n64ipllDsq8eyzJShdy7RnBKOJPmu4eRhn8bAPtQ8p5GoaI+3rWyA9WgVNC0gYmbWSX0Whhs/sFWzFfIpdWENUmSTNaEG4a4GAWmpE5CPXeK+QtM7CjASwkAgWSv4d8A9/xS375z8c69uBcyCiAwx3s7iNY70sPXatR5X6eEpMk1BJiXAp5n04S8BQPiTklyOXwXxtPfE1e4WqBYDbtvQyJyQTtt7a2Pxu/2Tg2eu9pQ8sOuKE9d9yGEPQQHbTSLwyven6CJuXdxmtJEaayWRZhwLjCCx62aJjoSr18FriEIo9bAmQ6Q7FaGHdOZtcdCZC+6q9tw2u6hDbgu569xBYNcM/o9O9zC6vs+pvOy45HjATxV27rOKqieK8kpWgiVFrT3zEq2MBGxXCLE4kbmZskXnckhOnNK8LApoThfi7xKbIOw68jlGmBGqirzziv3Xbw28b7JNfLnW9adsLUELnwiYR9qN7Is/DhVZ7k+IumryzdKNCRjT40MxiARetH9J9ut7O+FN0J6mYf2BVQ9y8xl6h0JV5DyUo2QBbi0usuumEbmIAOHYGyITI7S0zoiysE9xNo3BL84JCiLhf/KTT9/8eU
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(366016)(376014)(1800799024)(22082099003)(18002099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eElJMDlkTzdaUlh1dlRrYmRFbmttU3luSmdMclp4UFFOV2V4UG4wZzExd3NT?=
- =?utf-8?B?L09QaVpoWk1hK2dldG93MEZsbldCY3pMT2JWRzYyL3ZFOUZnQXBlMXA1N016?=
- =?utf-8?B?cU4vQ250UnQrYU80TjNoTkRSbHBqTXhGNWdWTXE5c2RGZFNleXFtRm9nVWFW?=
- =?utf-8?B?Slh3WWNBMm5uSXVGVTBMaVB3c3dYbUY4UUdWQUQwNjFKc2d5Q3E3cEtmc3Vl?=
- =?utf-8?B?Rkx3cTNCSlFqeTE0ZGNFQmNORExxRFlBSGNQVnVTd3YvMEwyL1pEbWY0NERJ?=
- =?utf-8?B?emx0ZlIrN08wK0x2cVRhZnh3RURmSTBBb3RHbmVGWlYzK3JudTlmYk5Id1Jn?=
- =?utf-8?B?MXJpYnpybTUvcXI1U0M3YWgzZDMvRTdjSXlURWM1MUlHczk3N1AyK0tSSnZ2?=
- =?utf-8?B?YjB2SEY4TUV2TTJSUnNvTFQvU3pjYmJMb1ZpS0NpT2lQVkFmcjlnOGFkMmht?=
- =?utf-8?B?Wi9rTElsNE1ETnFzblA3ZVZ3UGd4UDlxNWdpU0VUQWgxalIzT2Q5aEF4bXRs?=
- =?utf-8?B?bm9wUzY4UFMwN2FDZ2hpTU03cjFkb3MzZTJadm9aSk5QZXAxL25JamxuaTlK?=
- =?utf-8?B?bDN6Q3hSZ3NOTzVINjJnd3JuTVc4Q0s1UDFEbGpPNVNIaktFRk1kUFFuZXdK?=
- =?utf-8?B?N0xhN2dGUm5maHBWSkNHSVkzVVdYbStjcUdHTjN0UDZvOTIzc2FDcTlZNGF2?=
- =?utf-8?B?QmR2a0t0VDBIYUIzRzV1ODRmcVZzem5GQ25IRGwrNndMODVuL2xiNE9MZTIw?=
- =?utf-8?B?dkthRnZwODJZSTMwSnlZTDFUWU9qakdjVUp0bjhZdldGTWl6UWZubUtkOFd3?=
- =?utf-8?B?VEV3TTRmSXNZZTA0VDRjenIyaDdLYXByUk5qc2E3TEo5SklnTVNwV0dkS1pr?=
- =?utf-8?B?Znd2VHd1d1B2cTUrRTRpLzdvYklZeWlxSUJxbDdxMFdFMEJ0MDNSZC9xS29O?=
- =?utf-8?B?TlFuRElqSy9TM0tGTXByVGh4M3lyb2dLUFVCdVRUR1JGakwzcUd3MnpyTWZq?=
- =?utf-8?B?R2pWSTZjVXpJWWxyK002cy9OWFB0dDVEZXM2WGNtUjJlNXFnUzYzaFg3cm5U?=
- =?utf-8?B?dytNTG9xNms5eVVmTlJybDVIOTJCMjN0NXJ0RndocENtM3Y0SVlaOWdDaTVT?=
- =?utf-8?B?Y01hRStKUm5XeGFuNHlDQWJsMDhxVXBwY3QxMlBlaGRXbE9wYUFVb09XNkNq?=
- =?utf-8?B?cFJrR0Y4d3FPeXFEdGZaRGNIWko5Zk9CU2o0bzZIOWZDclR0cmZPWlRHTFpw?=
- =?utf-8?B?VE8xdHRVVTV3cXlIUHFVbmQyK2dsN2J5NXlvUnZqK0RmaS9mYUQ5SVBVVFg3?=
- =?utf-8?B?RlZJVFZqZE5xTmRsbk5XekdDT3FTeWlXMFdwdlpEazFIWkNKWDFsdlk1Q0JS?=
- =?utf-8?B?TVo3OTNocWdsaFpOZzlnYVdHbEFaRnRvQ0phVDNqQmZLNHlTdHMycHJIdk9w?=
- =?utf-8?B?TEhYMUxPMjZWZ0lKUzdQcjIxMGlGdjhoakg2M2xyWlpZOXFGc3N4UHA1dEM5?=
- =?utf-8?B?V3UrSEpBMTJJR3JhZVFtU2drdUpENW5xa1hnTkwxSmEybGN4SSt5c1VJK1BX?=
- =?utf-8?B?Qi81c1JDTWRCdEtxQnZOK0pNSUhqTzV4d2JJUFdtMzNqaXg3WGtZY2xqWFpO?=
- =?utf-8?B?ZmxlMDBncEM2ckxnZ2gyQUV6SG4rR2tvd2tLeXhpcVh2dmdoeXI2dDBTenBR?=
- =?utf-8?B?M081d3UwNEh4Y0VGMVdkN2hKNGJhaUZTditnVVRxRGtEZ0IvSUh0cTkwd1RP?=
- =?utf-8?B?MkQvOGswbFFYUmJZcm53Tlo0YXFPZ29hai9hd3BrYkp1WmRoMndFb21MVEow?=
- =?utf-8?B?NkFoTDR0alFwT2NQMzJNaUdpU3hpQ3E0bWxYQWVybjZSV1FPTEIxQ0QvZEk5?=
- =?utf-8?B?cFh5azAwYzBEUDZ1UnNPR1l6YU5sM1M4ZXFxZnIxSDVvanJHNjRHUkt0SlpS?=
- =?utf-8?B?YXcrQ2VUcG16YnVvaU5IRVlzQVBMMmhhVFJEOC9DKzM0VThDeXJIT3FJZDhS?=
- =?utf-8?B?Wk5CNzJ1Szd4UkJiWGc2ZTNJa0NyR002Y2MvZktnTEpkTHQrMjh3VWZrdXl5?=
- =?utf-8?B?VXR3cEZBT0ZQN2QrbE5CYmNZZFl1V0Irb3g1Vk5ETU5ZUEFwWkEyNWpMWFlF?=
- =?utf-8?B?SGhLQmphUmt0cXlSU0d6QWhiMWJzUlZFVXhvdG5IVjZKZVBvd0lTZi96clBv?=
- =?utf-8?B?K1hObVlOYStXQ0k2RVI2bTJud2RSUnhzVGlXSXFDYlFkNGZCcDJJUVJwd0t2?=
- =?utf-8?B?ZTFFQVNTdjkrOXZkVzJoaXg2VlllZG9PNDRlV1I3TFN3QWhYOWNwT2dBYTdS?=
- =?utf-8?B?TWlzODhVL1VIaGxWYXhKUzhBbE5hazdRVGNKOU9IbGJpbmRsZ1h3QT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ac868158-d1a8-4ef5-acbe-08deaaebe3ab
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2026 21:18:44.8702 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fIPWRagtrSAI7EHoeQKb9VEHaQrh9O97YKIb8EWXGv7oe4oJ5fkiss3EQIKbndzNH/JZjPOvmwHkPbs+X3kf3A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6994
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,23 +93,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+This series adds support for the display blocks on MediaTek mt8167.
+Tested on Xiaomi Mi Smart Clock x04g.
 
+The second patch in the series ideally wouldn't be required as the
+DSI controller is compatible with mt2701, but the mediatek,dsi binding
+lists an explicit compatible since 2020 and removing or changing it
+would break the ABI, so we actually need to support it.
 
-On 5/2/2026 11:42 AM, Alexandre Courbot wrote:
-> On Sun Apr 26, 2026 at 6:14 AM JST, Joel Fernandes wrote:
->> Add self-tests for the PRAMIN aperture mechanism to verify correct
->> operation during GPU probe. The tests validate various alignment
->> requirements and corner cases.
->>
->> The tests are default disabled and behind CONFIG_NOVA_MM_SELFTESTS.
->> When enabled, tests run after GSP boot during probe.
-> 
-> It makes sense for the PRAMIN self-test to be merged alongside PRAMIN
-> support (and also gives us a reason to merge PRAMIN as soon as it is
-> ready even if the rest of the series is still under review, as it
-> exercises the code).
-> 
-> Can you move this patch right after patch 4?
+Changes in v4:
+- Rebased patches
+- Rewrote commit message to better explain why we need to add an
+  explicit compatible.
 
-Sure, I will do that.
+Changes in v3 [3]:
+- Added mt8167-dsi compatible to driver instead of changing the binding;
+- Resolved patch formatting issues.
+
+Changes in v2 [2]:
+- Separate patch for mediatek,dsi-phy binding;
+- Separate patch for mt8167-dsi binding;
+- Simplified OF graph endpoints in mt8167.dtsi.
+
+Link to v1: [1].
+
+[1] https://lore.kernel.org/linux-mediatek/cover.1771144723.git.l.scorcia@gmail.com/
+[2] https://lore.kernel.org/linux-mediatek/cover.1771258407.git.l.scorcia@gmail.com/
+[3] https://lore.kernel.org/linux-mediatek/cover.1771863641.git.l.scorcia@gmail.com/
+
+Luca Leonardo Scorcia (2):
+  arm64: dts: mediatek: mt8167: Add DRM nodes
+  drm/mediatek: dsi: Add compatible for mt8167-dsi
+
+ arch/arm64/boot/dts/mediatek/mt8167.dtsi | 317 +++++++++++++++++++++++
+ drivers/gpu/drm/mediatek/mtk_dsi.c       |   1 +
+ 2 files changed, 318 insertions(+)
+
+-- 
+2.43.0
 
