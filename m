@@ -4,49 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73428FF8855
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 20:31:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F0B2FF8855
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 20:37:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B01A210EC0E;
-	Tue,  5 May 2026 20:31:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75AFF10E181;
+	Tue,  5 May 2026 20:37:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZyK6kOLY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YJgRS8sC";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D0EB10EC0E
- for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 20:31:11 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 17EAB10E181
+ for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 20:37:00 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 76E476057A;
- Tue,  5 May 2026 20:31:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61F04C2BCB4;
- Tue,  5 May 2026 20:31:09 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D199C43CD9;
+ Tue,  5 May 2026 20:36:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C61FC2BCB4;
+ Tue,  5 May 2026 20:36:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778013070;
- bh=RQACp8yZvicDKFG+7cjATwJDNroWVQ5bqbXjcZ8mCi0=;
+ s=k20201202; t=1778013419;
+ bh=FaNreOkIE7Xy1Id0LHYvk8Iaii5p3fJ+4wCUNG74iSo=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=ZyK6kOLYP9Tf+1zxxwSBE0tFRMvGhSWHQ4PLqflmHsSagAUIWF9N2x9pLC5jqFuC5
- 3sBzOqnkVe3qsjCLcmjzCnSSpBFFjFOkyVN8lq3ckOq+x1Ys4/uVhIdstwE13x8JOi
- Uk/aQ6EGChnKJ6eQ0g1BsIuA2P5s3jsrHm9zaPXlcyE/9COO9rzf0pDO5ogCsi/1wI
- vSNNjfq2SeUDBFOM5xKLI1Qy7eJzFk1BPQJ8PvDRu+j2WRNjgEP0AoeDRErDf71CcM
- iFiOyzVnvP7G3WGmKLGx/SSw84PH2TmO4t32v0Fiq4qp3IaBy4/uvYoujZLQY0kgHV
- 4hquFrGjisfAw==
-Message-ID: <d2c7e43b-b3b6-4aee-abb4-82edfb98d2ab@kernel.org>
-Date: Tue, 5 May 2026 15:31:08 -0500
+ b=YJgRS8sCWjQxs8mwT0UGag8AMCQHpIwuH43wKPeKS1tvboSu7fUcbsM5bmUmvdICU
+ yIT/vm9eEnWFW7wNpA1VNkzl5EIa75trbupNIRscAkcCASbGJz0SvOGJCmOCExn8dL
+ H9lgxTpZEIAelxIB+ttK0JjHxKpL18K+FQc8so72AxjoeQzCXNXoGpYL1A+/qTuxtH
+ GcPw3UnxwsUurbd9rkyPVYWCYRtL313J+wLkR+S+JopH9f/XZRhy9hbEpuWwHkkG6Q
+ WqPrXEdZ+RPFtNFRGlMjkf0ybUkQZeD3citwImzI6E5rvF7OK57GLLZlCzDXgNOkU/
+ PSYFpxZWn80Ww==
+Message-ID: <1cc48158-f443-45d3-811b-f5957726a898@kernel.org>
+Date: Tue, 5 May 2026 15:36:57 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V1 4/6] accel/amdxdna: Add command doorbell and wait
- support
+Subject: Re: [PATCH V1 6/6] accel/amdxdna: Add AIE4 work buffer initialization
 Content-Language: en-US
 To: Lizhi Hou <lizhi.hou@amd.com>, ogabbay@kernel.org,
  quic_jhugo@quicinc.com, dri-devel@lists.freedesktop.org,
  karol.wachowski@linux.intel.com
-Cc: David Zhang <yidong.zhang@amd.com>, linux-kernel@vger.kernel.org,
- max.zhen@amd.com, sonal.santan@amd.com,
- Hayden Laccabue <Hayden.Laccabue@amd.com>
+Cc: Nishad Saraf <nishads@amd.com>, linux-kernel@vger.kernel.org,
+ max.zhen@amd.com, sonal.santan@amd.com
 References: <20260505160936.3917732-1-lizhi.hou@amd.com>
- <20260505160936.3917732-5-lizhi.hou@amd.com>
+ <20260505160936.3917732-7-lizhi.hou@amd.com>
 From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <20260505160936.3917732-5-lizhi.hou@amd.com>
+In-Reply-To: <20260505160936.3917732-7-lizhi.hou@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -67,440 +65,429 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 On 5/5/26 11:09, Lizhi Hou wrote:
-> From: David Zhang <yidong.zhang@amd.com>
+> From: Nishad Saraf <nishads@amd.com>
 > 
-> Expose the command doorbell register to userspace on a per-hardware
-> context basis, enabling applications to notify the firmware of pending
-> commands via doorbell writes.
+> NPU firmware requires a host-allocated work buffer for hardware contexts.
+> Allocate a 4 MB host buffer and attach it to device during device init.
 > 
-> Introduce DRM_IOCTL_AMDXDNA_WAIT_CMD to allow userspace to wait for
-> completion of individual commands.
+> Refactor aie2_alloc_msg_buffer() and aie2_free_msg_buffer() into common
+> helpers by moving them to aie.c and renaming them to
+> amdxdna_alloc_msg_buffer() and amdxdna_free_msg_buffer(), allowing both
+> AIE2 and AIE4 to reuse the implementation.
 > 
-> Co-developed-by: Hayden Laccabue <Hayden.Laccabue@amd.com>
-> Signed-off-by: Hayden Laccabue <Hayden.Laccabue@amd.com>
-> Signed-off-by: David Zhang <yidong.zhang@amd.com>
+> Signed-off-by: Nishad Saraf <nishads@amd.com>
 > Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
 Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
-Minor suggestion below.
-
 > ---
->   drivers/accel/amdxdna/aie4_ctx.c        | 75 +++++++++++++++++++++++++
->   drivers/accel/amdxdna/aie4_host_queue.h |  2 +
->   drivers/accel/amdxdna/aie4_pci.c        | 34 +++++++++++
->   drivers/accel/amdxdna/aie4_pci.h        |  3 +
->   drivers/accel/amdxdna/amdxdna_ctx.c     | 34 +++++++++++
->   drivers/accel/amdxdna/amdxdna_ctx.h     |  4 +-
->   drivers/accel/amdxdna/amdxdna_gem.c     |  5 +-
->   drivers/accel/amdxdna/amdxdna_pci_drv.c | 18 +++++-
->   drivers/accel/amdxdna/amdxdna_pci_drv.h |  3 +
->   drivers/accel/amdxdna/npu3_regs.c       |  5 ++
->   include/uapi/drm/amdxdna_accel.h        | 22 +++++++-
->   11 files changed, 198 insertions(+), 7 deletions(-)
+>   drivers/accel/amdxdna/aie.c             | 34 +++++++++++++++
+>   drivers/accel/amdxdna/aie.h             |  4 ++
+>   drivers/accel/amdxdna/aie2_error.c      |  7 ++--
+>   drivers/accel/amdxdna/aie2_message.c    | 49 +++-------------------
+>   drivers/accel/amdxdna/aie2_pci.h        |  4 --
+>   drivers/accel/amdxdna/aie4_message.c    | 18 ++++++++
+>   drivers/accel/amdxdna/aie4_msg_priv.h   | 14 +++++++
+>   drivers/accel/amdxdna/aie4_pci.c        | 55 ++++++++++++++++++++++++-
+>   drivers/accel/amdxdna/aie4_pci.h        |  5 +++
+>   drivers/accel/amdxdna/amdxdna_pci_drv.c |  3 +-
+>   10 files changed, 141 insertions(+), 52 deletions(-)
 > 
-> diff --git a/drivers/accel/amdxdna/aie4_ctx.c b/drivers/accel/amdxdna/aie4_ctx.c
-> index 84ac706d0ffb..8408b0d2696f 100644
-> --- a/drivers/accel/amdxdna/aie4_ctx.c
-> +++ b/drivers/accel/amdxdna/aie4_ctx.c
-> @@ -256,3 +256,78 @@ void aie4_hwctx_fini(struct amdxdna_hwctx *hwctx)
->   	aie4_hwctx_umq_fini(hwctx);
->   	kfree(hwctx->priv);
+> diff --git a/drivers/accel/amdxdna/aie.c b/drivers/accel/amdxdna/aie.c
+> index a31051cc1ec8..4db2fd80a032 100644
+> --- a/drivers/accel/amdxdna/aie.c
+> +++ b/drivers/accel/amdxdna/aie.c
+> @@ -162,3 +162,37 @@ int amdxdna_get_metadata(struct aie_device *aie,
+>   	kfree(meta);
+>   	return ret;
 >   }
 > +
-> +static inline bool valid_queue_index(u64 read, u64 write, u32 capacity)
+> +void *amdxdna_alloc_msg_buffer(struct amdxdna_dev *xdna, u32 *size,
+> +			       dma_addr_t *dma_addr)
 > +{
-> +	return (write >= read) && ((write - read) <= capacity);
+> +	void *vaddr;
+> +	int order;
+> +
+> +	*size = max_t(u32, *size, SZ_8K);
+> +	order = get_order(*size);
+> +	if (order > MAX_PAGE_ORDER)
+> +		return ERR_PTR(-EINVAL);
+> +	*size = PAGE_SIZE << order;
+> +
+> +	if (amdxdna_iova_on(xdna))
+> +		return amdxdna_iommu_alloc(xdna, *size, dma_addr);
+> +
+> +	vaddr = dma_alloc_noncoherent(xdna->ddev.dev, *size, dma_addr,
+> +				      DMA_FROM_DEVICE, GFP_KERNEL);
+> +	if (!vaddr)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	return vaddr;
 > +}
 > +
-> +static u64 get_read_index(struct amdxdna_hwctx *hwctx)
+> +void amdxdna_free_msg_buffer(struct amdxdna_dev *xdna, size_t size,
+> +			     void *cpu_addr, dma_addr_t dma_addr)
 > +{
-> +	u64 wi = READ_ONCE(*hwctx->priv->umq_write_index);
-> +	u64 ri = READ_ONCE(*hwctx->priv->umq_read_index);
-> +	struct amdxdna_dev *xdna = hwctx->client->xdna;
-> +
-> +	/*
-> +	 * CERT cannot update read index as uint64 atomically. Driver may read
-> +	 * half-updated read index when it has bits in high 32bit. In case read
-> +	 * index is not valid, wait for some time and retry once. It should
-> +	 * allow CERT to complete the read index update.
-> +	 */
-> +	if (!valid_queue_index(ri, wi, CTX_MAX_CMDS)) {
-> +		XDNA_WARN(xdna, "Invalid index, ri %llu, wi %llu", ri, wi);
-> +		usleep_range(100, 200);
-> +		ri = READ_ONCE(*hwctx->priv->umq_read_index);
-> +		if (!valid_queue_index(ri, wi, CTX_MAX_CMDS)) {
-> +			XDNA_ERR(xdna, "Invalid index after retry, ri %llu, wi %llu", ri, wi);
-> +			ri = 0;
-> +		}
+> +	if (amdxdna_iova_on(xdna)) {
+> +		amdxdna_iommu_free(xdna, size, cpu_addr, dma_addr);
+> +		return;
 > +	}
 > +
-> +	return ri;
+> +	dma_free_noncoherent(xdna->ddev.dev, size, cpu_addr, dma_addr, DMA_FROM_DEVICE);
 > +}
+> diff --git a/drivers/accel/amdxdna/aie.h b/drivers/accel/amdxdna/aie.h
+> index 4bb3719ee0c0..70618204c0ab 100644
+> --- a/drivers/accel/amdxdna/aie.h
+> +++ b/drivers/accel/amdxdna/aie.h
+> @@ -121,6 +121,10 @@ int aie_check_protocol(struct aie_device *aie, u32 fw_major, u32 fw_minor);
+>   void amdxdna_vbnv_init(struct amdxdna_dev *xdna);
+>   int amdxdna_get_metadata(struct aie_device *aie, struct amdxdna_client *client,
+>   			 struct amdxdna_drm_get_info *args);
+> +void *amdxdna_alloc_msg_buffer(struct amdxdna_dev *xdna, u32 *size,
+> +			       dma_addr_t *dma_addr);
+> +void amdxdna_free_msg_buffer(struct amdxdna_dev *xdna, size_t size,
+> +			     void *cpu_addr, dma_addr_t dma_addr);
+>   
+>   /* aie_psp.c */
+>   struct psp_device *aiem_psp_create(struct drm_device *ddev, struct psp_config *conf);
+> diff --git a/drivers/accel/amdxdna/aie2_error.c b/drivers/accel/amdxdna/aie2_error.c
+> index 70007b4363cd..babdac0157ab 100644
+> --- a/drivers/accel/amdxdna/aie2_error.c
+> +++ b/drivers/accel/amdxdna/aie2_error.c
+> @@ -11,6 +11,7 @@
+>   #include <linux/kthread.h>
+>   #include <linux/kernel.h>
+>   
+> +#include "aie.h"
+>   #include "aie2_msg_priv.h"
+>   #include "aie2_pci.h"
+>   #include "amdxdna_error.h"
+> @@ -338,7 +339,7 @@ void aie2_error_async_events_free(struct amdxdna_dev_hdl *ndev)
+>   	destroy_workqueue(events->wq);
+>   	mutex_lock(&xdna->dev_lock);
+>   
+> -	aie2_free_msg_buffer(ndev, events->size, events->buf, events->addr);
+> +	amdxdna_free_msg_buffer(xdna, events->size, events->buf, events->addr);
+>   	kfree(events);
+>   }
+>   
+> @@ -354,7 +355,7 @@ int aie2_error_async_events_alloc(struct amdxdna_dev_hdl *ndev)
+>   	if (!events)
+>   		return -ENOMEM;
+>   
+> -	events->buf = aie2_alloc_msg_buffer(ndev, &total_size, &events->addr);
+> +	events->buf = amdxdna_alloc_msg_buffer(xdna, &total_size, &events->addr);
+>   	if (IS_ERR(events->buf)) {
+>   		ret = PTR_ERR(events->buf);
+>   		goto free_events;
+> @@ -394,7 +395,7 @@ int aie2_error_async_events_alloc(struct amdxdna_dev_hdl *ndev)
+>   free_wq:
+>   	destroy_workqueue(events->wq);
+>   free_buf:
+> -	aie2_free_msg_buffer(ndev, events->size, events->buf, events->addr);
+> +	amdxdna_free_msg_buffer(xdna, events->size, events->buf, events->addr);
+>   free_events:
+>   	kfree(events);
+>   	return ret;
+> diff --git a/drivers/accel/amdxdna/aie2_message.c b/drivers/accel/amdxdna/aie2_message.c
+> index f555ffecea6f..0417c6a4c80a 100644
+> --- a/drivers/accel/amdxdna/aie2_message.c
+> +++ b/drivers/accel/amdxdna/aie2_message.c
+> @@ -27,43 +27,6 @@
+>   
+>   #define EXEC_MSG_OPS(xdna)	((xdna)->dev_handle->exec_msg_ops)
+>   
+> -void *aie2_alloc_msg_buffer(struct amdxdna_dev_hdl *ndev, u32 *size,
+> -			    dma_addr_t *dma_addr)
+> -{
+> -	struct amdxdna_dev *xdna = ndev->aie.xdna;
+> -	void *vaddr;
+> -	int order;
+> -
+> -	*size = max(*size, SZ_8K);
+> -	order = get_order(*size);
+> -	if (order > MAX_PAGE_ORDER)
+> -		return ERR_PTR(-EINVAL);
+> -	*size = PAGE_SIZE << order;
+> -
+> -	if (amdxdna_iova_on(xdna))
+> -		return amdxdna_iommu_alloc(xdna, *size, dma_addr);
+> -
+> -	vaddr = dma_alloc_noncoherent(xdna->ddev.dev, *size, dma_addr,
+> -				      DMA_FROM_DEVICE, GFP_KERNEL);
+> -	if (!vaddr)
+> -		return ERR_PTR(-ENOMEM);
+> -
+> -	return vaddr;
+> -}
+> -
+> -void aie2_free_msg_buffer(struct amdxdna_dev_hdl *ndev, size_t size,
+> -			  void *cpu_addr, dma_addr_t dma_addr)
+> -{
+> -	struct amdxdna_dev *xdna = ndev->aie.xdna;
+> -
+> -	if (amdxdna_iova_on(xdna)) {
+> -		amdxdna_iommu_free(xdna, size, cpu_addr, dma_addr);
+> -		return;
+> -	}
+> -
+> -	dma_free_noncoherent(xdna->ddev.dev, size, cpu_addr, dma_addr, DMA_FROM_DEVICE);
+> -}
+> -
+>   int aie2_suspend_fw(struct amdxdna_dev_hdl *ndev)
+>   {
+>   	DECLARE_AIE_MSG(suspend, MSG_OP_SUSPEND);
+> @@ -376,7 +339,7 @@ int aie2_query_status(struct amdxdna_dev_hdl *ndev, char __user *buf,
+>   	int ret;
+>   
+>   	buf_sz = ndev->aie.metadata.cols * ndev->aie.metadata.size;
+> -	buff_addr = aie2_alloc_msg_buffer(ndev, &buf_sz, &dma_addr);
+> +	buff_addr = amdxdna_alloc_msg_buffer(xdna, &buf_sz, &dma_addr);
+>   	if (IS_ERR(buff_addr))
+>   		return PTR_ERR(buff_addr);
+>   
+> @@ -415,7 +378,7 @@ int aie2_query_status(struct amdxdna_dev_hdl *ndev, char __user *buf,
+>   	*cols_filled = aie_bitmap;
+>   
+>   fail:
+> -	aie2_free_msg_buffer(ndev, buf_sz, buff_addr, dma_addr);
+> +	amdxdna_free_msg_buffer(xdna, buf_sz, buff_addr, dma_addr);
+>   	return ret;
+>   }
+>   
+> @@ -434,7 +397,7 @@ int aie2_query_telemetry(struct amdxdna_dev_hdl *ndev,
+>   		return -EINVAL;
+>   
+>   	buf_sz = min(size, SZ_4M);
+> -	addr = aie2_alloc_msg_buffer(ndev, &buf_sz, &dma_addr);
+> +	addr = amdxdna_alloc_msg_buffer(xdna, &buf_sz, &dma_addr);
+>   	if (IS_ERR(addr))
+>   		return PTR_ERR(addr);
+>   
+> @@ -466,7 +429,7 @@ int aie2_query_telemetry(struct amdxdna_dev_hdl *ndev,
+>   	header->minor = resp.minor;
+>   
+>   free_buf:
+> -	aie2_free_msg_buffer(ndev, buf_sz, addr, dma_addr);
+> +	amdxdna_free_msg_buffer(xdna, buf_sz, addr, dma_addr);
+>   	return ret;
+>   }
+>   
+> @@ -1176,7 +1139,7 @@ int aie2_query_app_health(struct amdxdna_dev_hdl *ndev, u32 context_id,
+>   	}
+>   
+>   	buf_size = sizeof(*report);
+> -	buf = aie2_alloc_msg_buffer(ndev, &buf_size, &dma_addr);
+> +	buf = amdxdna_alloc_msg_buffer(xdna, &buf_size, &dma_addr);
+>   	if (IS_ERR(buf)) {
+>   		XDNA_ERR(xdna, "Failed to allocate buffer for app health");
+>   		return PTR_ERR(buf);
+> @@ -1197,7 +1160,7 @@ int aie2_query_app_health(struct amdxdna_dev_hdl *ndev, u32 context_id,
+>   	memcpy(report, buf, sizeof(*report));
+>   
+>   free_buf:
+> -	aie2_free_msg_buffer(ndev, buf_size, buf, dma_addr);
+> +	amdxdna_free_msg_buffer(xdna, buf_size, buf, dma_addr);
+>   	return ret;
+>   }
+>   
+> diff --git a/drivers/accel/amdxdna/aie2_pci.h b/drivers/accel/amdxdna/aie2_pci.h
+> index c884fed610f9..33b6c84e8b6e 100644
+> --- a/drivers/accel/amdxdna/aie2_pci.h
+> +++ b/drivers/accel/amdxdna/aie2_pci.h
+> @@ -290,10 +290,6 @@ int aie2_sync_bo(struct amdxdna_hwctx *hwctx, struct amdxdna_sched_job *job,
+>   int aie2_config_debug_bo(struct amdxdna_hwctx *hwctx, struct amdxdna_sched_job *job,
+>   			 int (*notify_cb)(void *, void __iomem *, size_t));
+>   int aie2_update_prop_time_quota(struct amdxdna_dev_hdl *ndev, u32 us);
+> -void *aie2_alloc_msg_buffer(struct amdxdna_dev_hdl *ndev, u32 *size,
+> -			    dma_addr_t *dma_addr);
+> -void aie2_free_msg_buffer(struct amdxdna_dev_hdl *ndev, size_t size,
+> -			  void *cpu_addr, dma_addr_t dma_addr);
+>   
+>   /* aie2_hwctx.c */
+>   int aie2_hwctx_init(struct amdxdna_hwctx *hwctx);
+> diff --git a/drivers/accel/amdxdna/aie4_message.c b/drivers/accel/amdxdna/aie4_message.c
+> index ac89a9a842b2..d85df04c5f6b 100644
+> --- a/drivers/accel/amdxdna/aie4_message.c
+> +++ b/drivers/accel/amdxdna/aie4_message.c
+> @@ -62,3 +62,21 @@ int aie4_query_aie_metadata(struct amdxdna_dev_hdl *ndev, struct aie_metadata *m
+>   
+>   	return 0;
+>   }
 > +
-> +static inline bool check_cmd_done(struct amdxdna_hwctx *hwctx, u64 seq)
+> +int aie4_attach_work_buffer(struct amdxdna_dev_hdl *ndev)
 > +{
-> +	u64 read_idx = get_read_index(hwctx);
+> +	DECLARE_AIE_MSG(aie4_msg_attach_work_buffer, AIE4_MSG_OP_ATTACH_WORK_BUFFER);
+> +	struct amdxdna_dev *xdna = ndev->aie.xdna;
+> +	int ret;
 > +
-> +	return read_idx > seq;
+> +	req.buff_addr = ndev->work_buf_addr;
+> +	req.buff_size = AIE4_WORK_BUFFER_MIN_SIZE;
+> +
+> +	ret = aie_send_mgmt_msg_wait(&ndev->aie, &msg);
+> +	if (ret)
+> +		XDNA_ERR(xdna, "Failed to attach work buffer, ret %d", ret);
+> +	else
+> +		XDNA_DBG(xdna, "Attached work buffer");
+> +
+> +	return ret;
 > +}
+> diff --git a/drivers/accel/amdxdna/aie4_msg_priv.h b/drivers/accel/amdxdna/aie4_msg_priv.h
+> index 69e220e40900..af0866045b91 100644
+> --- a/drivers/accel/amdxdna/aie4_msg_priv.h
+> +++ b/drivers/accel/amdxdna/aie4_msg_priv.h
+> @@ -6,10 +6,12 @@
+>   #ifndef _AIE4_MSG_PRIV_H_
+>   #define _AIE4_MSG_PRIV_H_
+>   
+> +#include <linux/sizes.h>
+>   #include <linux/types.h>
+>   
+>   enum aie4_msg_opcode {
+>   	AIE4_MSG_OP_SUSPEND                          = 0x10003,
+> +	AIE4_MSG_OP_ATTACH_WORK_BUFFER               = 0x1000D,
+>   
+>   	AIE4_MSG_OP_CREATE_VFS                       = 0x20001,
+>   	AIE4_MSG_OP_DESTROY_VFS                      = 0x20002,
+> @@ -130,4 +132,16 @@ struct aie4_msg_aie4_tile_info_resp {
+>   	struct aie4_tile_info info;
+>   } __packed;
+>   
+> +#define AIE4_WORK_BUFFER_MIN_SIZE      SZ_4M
 > +
-> +int aie4_cmd_wait(struct amdxdna_hwctx *hwctx, u64 seq, u32 timeout)
+> +struct aie4_msg_attach_work_buffer_req {
+> +	__u64 buff_addr;
+> +	__u32 reserved;
+> +	__u32 buff_size;
+> +} __packed;
+> +
+> +struct aie4_msg_attach_work_buffer_resp {
+> +	enum aie4_msg_status status;
+> +} __packed;
+> +
+>   #endif /* _AIE4_MSG_PRIV_H_ */
+> diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
+> index 8b5eff0e45c1..a58a83af42a4 100644
+> --- a/drivers/accel/amdxdna/aie4_pci.c
+> +++ b/drivers/accel/amdxdna/aie4_pci.c
+> @@ -286,8 +286,14 @@ static int aie4_pf_hw_start(struct amdxdna_dev_hdl *ndev)
+>   	if (ret)
+>   		goto stop_fw;
+>   
+> +	ret = aie4_attach_work_buffer(ndev);
+> +	if (ret)
+> +		goto mbox_fini;
+> +
+>   	return 0;
+>   
+> +mbox_fini:
+> +	aie4_mailbox_fini(ndev);
+>   stop_fw:
+>   	aie4_fw_stop(ndev);
+>   
+> @@ -564,6 +570,40 @@ static int aie4_get_info(struct amdxdna_client *client, struct amdxdna_drm_get_i
+>   	return ret;
+>   }
+>   
+> +static int aie4_alloc_work_buffer(struct amdxdna_dev_hdl *ndev)
 > +{
-> +	unsigned long wait_jifs = MAX_SCHEDULE_TIMEOUT;
-> +	struct amdxdna_hwctx_priv *priv = hwctx->priv;
-> +	struct cert_comp *cert_comp = priv->cert_comp;
-> +	long ret;
-
-Not sure I see the point in making ret a long. 
-wait_event_interruptible_timeout() retun 0 or 1.
-
-bool val;
-val = wait_event_interruptible_timeout()
-return val ? 0 : -ETIME;
-
-
+> +	struct amdxdna_dev *xdna = ndev->aie.xdna;
+> +	u32 buf_size = AIE4_WORK_BUFFER_MIN_SIZE;
 > +
-> +	if (timeout)
-> +		wait_jifs = msecs_to_jiffies(timeout);
+> +	ndev->work_buf = amdxdna_alloc_msg_buffer(xdna, &buf_size,
+> +						  &ndev->work_buf_addr);
+> +	if (IS_ERR(ndev->work_buf)) {
+> +		int ret = PTR_ERR(ndev->work_buf);
 > +
-> +	ret = wait_event_interruptible_timeout(cert_comp->waitq,
-> +					       (check_cmd_done(hwctx, seq)),
-> +					       wait_jifs);
-> +
-> +	if (!ret)
-> +		ret = -ETIME;
-> +
-> +	return ret <= 0 ? ret : 0;
-> +}
-> +
-> +int aie4_hwctx_valid_doorbell(struct amdxdna_client *client, u32 vm_pgoff)
-> +{
-> +	struct amdxdna_hwctx *hwctx;
-> +	unsigned long hwctx_id;
-> +	int idx;
-> +
-> +	idx = srcu_read_lock(&client->hwctx_srcu);
-> +	amdxdna_for_each_hwctx(client, hwctx_id, hwctx) {
-> +		if (vm_pgoff == (hwctx->doorbell_offset >> PAGE_SHIFT)) {
-> +			srcu_read_unlock(&client->hwctx_srcu, idx);
-> +			return 1;
-> +		}
+> +		XDNA_ERR(xdna, "Failed to alloc work buffer, size 0x%x",
+> +			 AIE4_WORK_BUFFER_MIN_SIZE);
+> +		ndev->work_buf = NULL;
+> +		return ret;
 > +	}
-> +	srcu_read_unlock(&client->hwctx_srcu, idx);
+> +
+> +	ndev->work_buf_size = buf_size;
+> +	XDNA_DBG(xdna, "Work buffer allocated: size 0x%x", buf_size);
 > +
 > +	return 0;
 > +}
-> diff --git a/drivers/accel/amdxdna/aie4_host_queue.h b/drivers/accel/amdxdna/aie4_host_queue.h
-> index eb6a38dfb53e..1b33eda3f727 100644
-> --- a/drivers/accel/amdxdna/aie4_host_queue.h
-> +++ b/drivers/accel/amdxdna/aie4_host_queue.h
-> @@ -8,6 +8,8 @@
->   
->   #include <linux/types.h>
->   
-> +#define CTX_MAX_CMDS                    32
 > +
->   struct host_queue_header {
->   	__u64 read_index;
->   	struct {
-> diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
-> index 3be9066b7178..9ff34ce57fcb 100644
-> --- a/drivers/accel/amdxdna/aie4_pci.c
-> +++ b/drivers/accel/amdxdna/aie4_pci.c
-> @@ -503,6 +503,38 @@ static int aie4m_pcidev_init(struct amdxdna_dev *xdna)
->   	return 0;
->   }
->   
-> +static int aie4_doorbell_mmap(struct amdxdna_client *client, struct vm_area_struct *vma)
+> +static void aie4_free_work_buffer(struct amdxdna_dev_hdl *ndev)
 > +{
-> +	struct amdxdna_dev *xdna = client->xdna;
-> +	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
-> +	const struct amdxdna_dev_priv *npriv = xdna->dev_info->dev_priv;
-> +	phys_addr_t res_start;
-> +	unsigned long pfn;
-> +	int ret;
+> +	struct amdxdna_dev *xdna = ndev->aie.xdna;
 > +
-> +	if (!aie4_hwctx_valid_doorbell(client, vma->vm_pgoff)) {
-> +		XDNA_ERR(xdna, "Invalid doorbell page offset 0x%lx", vma->vm_pgoff);
-> +		return -EINVAL;
-> +	}
+> +	if (!ndev->work_buf)
+> +		return;
 > +
-> +	if (vma_pages(vma) != 1) {
-> +		XDNA_ERR(xdna, "can only map one page, got %ld", vma_pages(vma));
-> +		return -EINVAL;
-> +	}
-> +
-> +	res_start = pci_resource_start(pdev, xdna->dev_info->doorbell_bar) + npriv->doorbell_off;
-> +	pfn = PHYS_PFN(res_start) + vma->vm_pgoff;
-> +	vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
-> +	vm_flags_set(vma, VM_IO | VM_DONTEXPAND | VM_DONTDUMP);
-> +	ret = io_remap_pfn_range(vma, vma->vm_start,
-> +				 pfn,
-> +				 PAGE_SIZE,
-> +				 vma->vm_page_prot);
-> +
-> +	XDNA_DBG(xdna, "doorbell ret %d", ret);
-> +	return ret;
+> +	amdxdna_free_msg_buffer(xdna, ndev->work_buf_size, ndev->work_buf,
+> +				ndev->work_buf_addr);
+> +	ndev->work_buf = NULL;
 > +}
 > +
 >   static int aie4_pf_init(struct amdxdna_dev *xdna)
 >   {
 >   	int ret;
-> @@ -547,4 +579,6 @@ const struct amdxdna_dev_ops aie4_vf_ops = {
->   	.fini			= aie4_vf_fini,
->   	.hwctx_init		= aie4_hwctx_init,
->   	.hwctx_fini		= aie4_hwctx_fini,
-> +	.mmap			= aie4_doorbell_mmap,
-> +	.cmd_wait		= aie4_cmd_wait,
->   };
+> @@ -572,7 +612,19 @@ static int aie4_pf_init(struct amdxdna_dev *xdna)
+>   	if (ret)
+>   		return ret;
+>   
+> -	return aie4_pf_hw_start(xdna->dev_handle);
+> +	ret = aie4_alloc_work_buffer(xdna->dev_handle);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = aie4_pf_hw_start(xdna->dev_handle);
+> +	if (ret)
+> +		goto free_work_buf;
+> +
+> +	return 0;
+> +
+> +free_work_buf:
+> +	aie4_free_work_buffer(xdna->dev_handle);
+> +	return ret;
+>   }
+>   
+>   static int aie4_vf_init(struct amdxdna_dev *xdna)
+> @@ -590,6 +642,7 @@ static void aie4_pf_fini(struct amdxdna_dev *xdna)
+>   {
+>   	aie4_sriov_stop(xdna->dev_handle);
+>   	aie4_pf_hw_stop(xdna->dev_handle);
+> +	aie4_free_work_buffer(xdna->dev_handle);
+>   }
+>   
+>   static void aie4_vf_fini(struct amdxdna_dev *xdna)
 > diff --git a/drivers/accel/amdxdna/aie4_pci.h b/drivers/accel/amdxdna/aie4_pci.h
-> index 6103007e6d2f..b69489acd53d 100644
+> index 1886cffc62db..390864876ca5 100644
 > --- a/drivers/accel/amdxdna/aie4_pci.h
 > +++ b/drivers/accel/amdxdna/aie4_pci.h
-> @@ -36,6 +36,7 @@ struct amdxdna_dev_priv {
->   	u32			mbox_bar;
->   	u32			mbox_rbuf_bar;
->   	u64			mbox_info_off;
-> +	u32			doorbell_off;
+> @@ -53,11 +53,16 @@ struct amdxdna_dev_hdl {
 >   
->   	struct aie_bar_off_pair	psp_regs_off[PSP_MAX_REGS];
->   	struct aie_bar_off_pair	smu_regs_off[SMU_MAX_REGS];
-> @@ -60,6 +61,8 @@ int aie4_suspend_fw(struct amdxdna_dev_hdl *ndev);
+>   	struct xarray                   cert_comp_xa; /* device level indexed by msix id */
+>   	struct mutex                    cert_comp_lock; /* protects cert_comp operations*/
+> +
+> +	void				*work_buf;
+> +	dma_addr_t			work_buf_addr;
+> +	u32				work_buf_size;
+>   };
+>   
+>   /* aie4_message.c */
+>   int aie4_query_aie_metadata(struct amdxdna_dev_hdl *ndev, struct aie_metadata *metadata);
+>   int aie4_suspend_fw(struct amdxdna_dev_hdl *ndev);
+> +int aie4_attach_work_buffer(struct amdxdna_dev_hdl *ndev);
+>   
 >   /* aie4_ctx.c */
 >   int aie4_hwctx_init(struct amdxdna_hwctx *hwctx);
->   void aie4_hwctx_fini(struct amdxdna_hwctx *hwctx);
-> +int aie4_cmd_wait(struct amdxdna_hwctx *hwctx, u64 seq, u32 timeout);
-> +int aie4_hwctx_valid_doorbell(struct amdxdna_client *client, u32 vm_pgoff);
->   
->   /* aie4_sriov.c */
->   #if IS_ENABLED(CONFIG_PCI_IOV)
-> diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/amdxdna/amdxdna_ctx.c
-> index b5ad60d4b734..b79229a63af3 100644
-> --- a/drivers/accel/amdxdna/amdxdna_ctx.c
-> +++ b/drivers/accel/amdxdna/amdxdna_ctx.c
-> @@ -627,3 +627,37 @@ int amdxdna_drm_submit_cmd_ioctl(struct drm_device *dev, void *data, struct drm_
->   	XDNA_ERR(client->xdna, "Invalid command type %d", args->type);
->   	return -EINVAL;
->   }
-> +
-> +int amdxdna_drm_wait_cmd_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
-> +{
-> +	struct amdxdna_client *client = filp->driver_priv;
-> +	struct amdxdna_dev *xdna = to_xdna_dev(dev);
-> +	struct amdxdna_drm_wait_cmd *args = data;
-> +	struct amdxdna_hwctx *hwctx;
-> +	int ret, idx;
-> +
-> +	XDNA_DBG(xdna, "PID %d ctx %d timeout set %d ms for cmd %llu",
-> +		 client->pid, args->hwctx, args->timeout, args->seq);
-> +
-> +	if (!xdna->dev_info->ops->cmd_wait)
-> +		return -EOPNOTSUPP;
-> +
-> +	idx = srcu_read_lock(&client->hwctx_srcu);
-> +	hwctx = xa_load(&client->hwctx_xa, args->hwctx);
-> +	if (!hwctx) {
-> +		XDNA_DBG(xdna, "PID %d failed to get ctx %d", client->pid, args->hwctx);
-> +		ret = -EINVAL;
-> +		goto unlock_ctx_srcu;
-> +	}
-> +
-> +	ret = xdna->dev_info->ops->cmd_wait(hwctx, args->seq, args->timeout);
-> +
-> +	XDNA_DBG(xdna, "PID %d ctx %d cmd %lld wait finished, ret %d",
-> +		 client->pid, args->hwctx, args->seq, ret);
-> +
-> +	trace_amdxdna_debug_point(current->comm, args->seq, "job returned to user");
-> +
-> +unlock_ctx_srcu:
-> +	srcu_read_unlock(&client->hwctx_srcu, idx);
-> +	return ret;
-> +}
-> diff --git a/drivers/accel/amdxdna/amdxdna_ctx.h b/drivers/accel/amdxdna/amdxdna_ctx.h
-> index c5622718b4d5..6e3c6371a088 100644
-> --- a/drivers/accel/amdxdna/amdxdna_ctx.h
-> +++ b/drivers/accel/amdxdna/amdxdna_ctx.h
-> @@ -211,12 +211,10 @@ int amdxdna_cmd_submit(struct amdxdna_client *client,
->   		       u32 *arg_bo_hdls, u32 arg_bo_cnt,
->   		       u32 hwctx_hdl, u64 *seq);
->   
-> -int amdxdna_cmd_wait(struct amdxdna_client *client, u32 hwctx_hdl,
-> -		     u64 seq, u32 timeout);
-> -
->   int amdxdna_drm_create_hwctx_ioctl(struct drm_device *dev, void *data, struct drm_file *filp);
->   int amdxdna_drm_config_hwctx_ioctl(struct drm_device *dev, void *data, struct drm_file *filp);
->   int amdxdna_drm_destroy_hwctx_ioctl(struct drm_device *dev, void *data, struct drm_file *filp);
->   int amdxdna_drm_submit_cmd_ioctl(struct drm_device *dev, void *data, struct drm_file *filp);
-> +int amdxdna_drm_wait_cmd_ioctl(struct drm_device *dev, void *data, struct drm_file *filp);
->   
->   #endif /* _AMDXDNA_CTX_H_ */
-> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
-> index ebfc472aa9e7..319d2064fafa 100644
-> --- a/drivers/accel/amdxdna/amdxdna_gem.c
-> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
-> @@ -212,7 +212,8 @@ static bool amdxdna_hmm_invalidate(struct mmu_interval_notifier *mni,
->   	mmu_interval_set_seq(&mapp->notifier, cur_seq);
->   	up_write(&xdna->notifier_lock);
->   
-> -	xdna->dev_info->ops->hmm_invalidate(abo, cur_seq);
-> +	if (xdna->dev_info->ops->hmm_invalidate)
-> +		xdna->dev_info->ops->hmm_invalidate(abo, cur_seq);
->   
->   	if (range->event == MMU_NOTIFY_UNMAP) {
->   		down_write(&xdna->notifier_lock);
-> @@ -295,7 +296,7 @@ static int amdxdna_hmm_register(struct amdxdna_gem_obj *abo,
->   	u32 nr_pages;
->   	int ret;
->   
-> -	if (!xdna->dev_info->ops->hmm_invalidate)
-> +	if (!amdxdna_pasid_on(abo->client))
->   		return 0;
->   
->   	mapp = kzalloc_obj(*mapp);
 > diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-> index 39ad081ac082..c0d00db25cde 100644
+> index c0d00db25cde..a6e9be7960c2 100644
 > --- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
 > +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-> @@ -224,6 +224,21 @@ static int amdxdna_drm_set_state_ioctl(struct drm_device *dev, void *data, struc
->   	return ret;
->   }
+> @@ -40,9 +40,10 @@ MODULE_FIRMWARE("amdnpu/17f0_11/npu_7.sbin");
+>    * 0.7: Support getting power and utilization data
+>    * 0.8: Support BO usage query
+>    * 0.9: Add new device type AMDXDNA_DEV_TYPE_PF
+> + * 0.10: Support AIE4 UMQ
+>    */
+>   #define AMDXDNA_DRIVER_MAJOR		0
+> -#define AMDXDNA_DRIVER_MINOR		9
+> +#define AMDXDNA_DRIVER_MINOR		10
 >   
-> +static int amdxdna_drm_gem_mmap(struct file *filp, struct vm_area_struct *vma)
-> +{
-> +	struct drm_file *drm_filp = filp->private_data;
-> +	struct amdxdna_client *client = drm_filp->driver_priv;
-> +	struct amdxdna_dev *xdna = client->xdna;
-> +
-> +	if (likely(vma->vm_pgoff >= DRM_FILE_PAGE_OFFSET_START))
-> +		return drm_gem_mmap(filp, vma);
-> +
-> +	if (!xdna->dev_info->ops->mmap)
-> +		return -EOPNOTSUPP;
-> +
-> +	return xdna->dev_info->ops->mmap(client, vma);
-> +}
-> +
->   static const struct drm_ioctl_desc amdxdna_drm_ioctls[] = {
->   	/* Context */
->   	DRM_IOCTL_DEF_DRV(AMDXDNA_CREATE_HWCTX, amdxdna_drm_create_hwctx_ioctl, 0),
-> @@ -235,6 +250,7 @@ static const struct drm_ioctl_desc amdxdna_drm_ioctls[] = {
->   	DRM_IOCTL_DEF_DRV(AMDXDNA_SYNC_BO, amdxdna_drm_sync_bo_ioctl, 0),
->   	/* Execution */
->   	DRM_IOCTL_DEF_DRV(AMDXDNA_EXEC_CMD, amdxdna_drm_submit_cmd_ioctl, 0),
-> +	DRM_IOCTL_DEF_DRV(AMDXDNA_WAIT_CMD, amdxdna_drm_wait_cmd_ioctl, 0),
->   	/* AIE hardware */
->   	DRM_IOCTL_DEF_DRV(AMDXDNA_GET_INFO, amdxdna_drm_get_info_ioctl, 0),
->   	DRM_IOCTL_DEF_DRV(AMDXDNA_GET_ARRAY, amdxdna_drm_get_array_ioctl, 0),
-> @@ -281,7 +297,7 @@ static const struct file_operations amdxdna_fops = {
->   	.poll		= drm_poll,
->   	.read		= drm_read,
->   	.llseek		= noop_llseek,
-> -	.mmap		= drm_gem_mmap,
-> +	.mmap		= amdxdna_drm_gem_mmap,
->   	.show_fdinfo	= drm_show_fdinfo,
->   	.fop_flags	= FOP_UNSIGNED_OFFSET,
->   };
-> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.h b/drivers/accel/amdxdna/amdxdna_pci_drv.h
-> index caed11c09e55..471b72299aee 100644
-> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.h
-> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.h
-> @@ -56,12 +56,14 @@ struct amdxdna_dev_ops {
->   	int (*resume)(struct amdxdna_dev *xdna);
->   	int (*suspend)(struct amdxdna_dev *xdna);
->   	int (*sriov_configure)(struct amdxdna_dev *xdna, int num_vfs);
-> +	int (*mmap)(struct amdxdna_client *client, struct vm_area_struct *vma);
->   	int (*hwctx_init)(struct amdxdna_hwctx *hwctx);
->   	void (*hwctx_fini)(struct amdxdna_hwctx *hwctx);
->   	int (*hwctx_config)(struct amdxdna_hwctx *hwctx, u32 type, u64 value, void *buf, u32 size);
->   	int (*hwctx_sync_debug_bo)(struct amdxdna_hwctx *hwctx, u32 debug_bo_hdl);
->   	void (*hmm_invalidate)(struct amdxdna_gem_obj *abo, unsigned long cur_seq);
->   	int (*cmd_submit)(struct amdxdna_hwctx *hwctx, struct amdxdna_sched_job *job, u64 *seq);
-> +	int (*cmd_wait)(struct amdxdna_hwctx *hwctx, u64 seq, u32 timeout);
->   	int (*get_aie_info)(struct amdxdna_client *client, struct amdxdna_drm_get_info *args);
->   	int (*set_aie_state)(struct amdxdna_client *client, struct amdxdna_drm_set_state *args);
->   	int (*get_array)(struct amdxdna_client *client, struct amdxdna_drm_get_array *args);
-> @@ -85,6 +87,7 @@ struct amdxdna_dev_info {
->   	int				sram_bar;
->   	int				psp_bar;
->   	int				smu_bar;
-> +	int				doorbell_bar;
->   	int				device_type;
->   	int				first_col;
->   	u32				dev_mem_buf_shift;
-> diff --git a/drivers/accel/amdxdna/npu3_regs.c b/drivers/accel/amdxdna/npu3_regs.c
-> index 6d5da779232b..d76b2e99c308 100644
-> --- a/drivers/accel/amdxdna/npu3_regs.c
-> +++ b/drivers/accel/amdxdna/npu3_regs.c
-> @@ -14,6 +14,9 @@
->   #define NPU3_MBOX_BUFFER_BAR	2
->   #define NPU3_MBOX_INFO_OFF	0x0
->   
-> +#define NPU3_DOORBELL_BAR       2
-> +#define NPU3_DOORBELL_OFF       0x0
-> +
->   /* PCIe BAR Index for NPU3 */
->   #define NPU3_REG_BAR_INDEX	0
->   #define NPU3_PSP_BAR_INDEX      4
-> @@ -45,6 +48,7 @@ static const struct amdxdna_dev_priv npu3_dev_priv = {
->   	.mbox_bar		= NPU3_MBOX_BAR,
->   	.mbox_rbuf_bar		= NPU3_MBOX_BUFFER_BAR,
->   	.mbox_info_off		= NPU3_MBOX_INFO_OFF,
-> +	.doorbell_off		= NPU3_DOORBELL_OFF,
->   	.psp_regs_off   = {
->   		DEFINE_BAR_OFFSET(PSP_CMD_REG,    NPU3_PSP, MPASP_C2PMSG_123_ALT_1),
->   		DEFINE_BAR_OFFSET(PSP_ARG0_REG,   NPU3_PSP, MPASP_C2PMSG_156_ALT_1),
-> @@ -87,6 +91,7 @@ const struct amdxdna_dev_info dev_npu3_pf_info = {
->   const struct amdxdna_dev_info dev_npu3_vf_info = {
->   	.mbox_bar		= NPU3_MBOX_BAR,
->   	.sram_bar		= NPU3_MBOX_BUFFER_BAR,
-> +	.doorbell_bar		= NPU3_DOORBELL_BAR,
->   	.default_vbnv		= "RyzenAI-npu3-vf",
->   	.device_type		= AMDXDNA_DEV_TYPE_UMQ,
->   	.dev_priv		= &npu3_dev_vf_priv,
-> diff --git a/include/uapi/drm/amdxdna_accel.h b/include/uapi/drm/amdxdna_accel.h
-> index ad9b33dd7b13..51a507561df6 100644
-> --- a/include/uapi/drm/amdxdna_accel.h
-> +++ b/include/uapi/drm/amdxdna_accel.h
-> @@ -45,7 +45,8 @@ enum amdxdna_drm_ioctl_id {
->   	DRM_AMDXDNA_EXEC_CMD,
->   	DRM_AMDXDNA_GET_INFO,
->   	DRM_AMDXDNA_SET_STATE,
-> -	DRM_AMDXDNA_GET_ARRAY = 10,
-> +	DRM_AMDXDNA_WAIT_CMD,
-> +	DRM_AMDXDNA_GET_ARRAY,
->   };
->   
->   /**
-> @@ -274,6 +275,21 @@ struct amdxdna_drm_exec_cmd {
->   	__u64 seq;
->   };
->   
-> +/**
-> + * struct amdxdna_drm_wait_cmd - Wait execution command.
-> + *
-> + * @hwctx: Context handle.
-> + * @timeout: timeout in ms, 0 implies infinite wait.
-> + * @seq: sequence number of the command returned by execute command.
-> + *
-> + * Wait a command specified by seq to be completed.
-> + */
-> +struct amdxdna_drm_wait_cmd {
-> +	__u32 hwctx;
-> +	__u32 timeout;
-> +	__u64 seq;
-> +};
-> +
->   /**
->    * struct amdxdna_drm_query_aie_status - Query the status of the AIE hardware
->    * @buffer: The user space buffer that will return the AIE status.
-> @@ -739,6 +755,10 @@ struct amdxdna_drm_set_power_mode {
->   	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDXDNA_GET_ARRAY, \
->   		 struct amdxdna_drm_get_array)
->   
-> +#define DRM_IOCTL_AMDXDNA_WAIT_CMD \
-> +	DRM_IOW(DRM_COMMAND_BASE + DRM_AMDXDNA_WAIT_CMD, \
-> +		struct amdxdna_drm_wait_cmd)
-> +
->   #if defined(__cplusplus)
->   } /* extern c end */
->   #endif
+>   /*
+>    * Bind the driver base on (vendor_id, device_id) pair and later use the
 
