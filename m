@@ -4,53 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5037CCD342F
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 09:53:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 259E0CD342F
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 09:58:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF3EB10EA2D;
-	Tue,  5 May 2026 09:53:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54C5610EA30;
+	Tue,  5 May 2026 09:58:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IBCDcP3I";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Nur+LkGx";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8472010EA2C;
- Tue,  5 May 2026 09:53:22 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 287E04080B;
- Tue,  5 May 2026 09:53:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 070F2C2BCB4;
- Tue,  5 May 2026 09:53:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777974802;
- bh=XQCROlKft5wVj5I9yTAn2YjpISfn8SpYZY1bJexHqxI=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=IBCDcP3ISBaVcx4upCyMln9GHHVc6P7dLw7QOAcqm8KshUBDANb2Yo5481ns19S1W
- u2Y7LI+LmM40tQQXLpKmMVI/R7Q/JXwwt7nQQVC8iXkJ4HBWFhChWitCW+YyaA9ZMe
- 6mq/KlQRK6n4w1a95Vz5H7Cr4U5e3YC90AuPmS+LZtLwx2vH09jNiIySmhwtdZ8z/7
- ogDqwMjRE3EIOLc80Fuotk2g5JMkGbBOd1IGH7qPXsk7R7wTGj/toU+KQc5R9mHQ1+
- k6i0fGyM7z7HbSCt8T8baQUOTluvfFEmNzfdztSRQd8ARfG8vUnc0L6B05caC8Uxsl
- yxySiO3iBKhqA==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: YuanShang <YuanShang.Mao@amd.com>, Philip Yang <philip.yang@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0] drm/amdkfd: check if vm ready in svm map and
- unmap to gpu
-Date: Tue,  5 May 2026 05:51:45 -0400
-Message-ID: <20260505095149.512052-29-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260505095149.512052-1-sashal@kernel.org>
-References: <20260505095149.512052-1-sashal@kernel.org>
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com
+ [209.85.215.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F25F10EA2F
+ for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 09:58:21 +0000 (UTC)
+Received: by mail-pg1-f181.google.com with SMTP id
+ 41be03b00d2f7-c8021c8c42fso723562a12.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 02:58:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777975101; cv=none;
+ d=google.com; s=arc-20240605;
+ b=ZmJ2xVwU2yUG9Hh5GyRvVg1MsrPZW00w65OiAABVXV0FZRP8FfuLvZzyvH5m/vOzuC
+ bWTvvO/9E9lmHM2aU440+jACq/RQC7oQgrGceBkHw82Odx+TIhSSz1AAvRDlyXlvl/3F
+ AKJXCGaz+Cpm3EDZyZeczqgjAtgeLuAeiTxjCZx9C8xbbKzRa6thXTMedQSBnrshDFeV
+ xmZ41Zbe5WBadDLBq2lohtGl6CbGxa1hcmdjWi4kweq10l+tVG8kqw2JeJMLTPXJ20Tk
+ UVlO96nfS2jKMJJifqli9Jt6kTj13KQF+HpOjSQY+liV0E6KBpMOv8G4agez0S/tNRk2
+ UIeg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=UrxUJHBBr7SJTAlV762fNk/m6IwtaONncgY9rtS10fk=;
+ fh=INE9ez1rJJu57LHXZ1rogqc3B+jn4VJpkITgOtyjfuY=;
+ b=jhGCarfGLFqPRD4kp0ycXiVj7dFK1SeLjcFRXUfSsVCqwbPXmVuSoUCiw6ukifWo0L
+ gmy7CW4e11X4M7PT7TFkaZwTPpTasqfT3O67c9IdMUE8ORcWbFKMYg0XJTrQyyga/8uR
+ QZa+KwBZvf/u4Bmvbhmr9o4EG16sKf8mucyju5a9+ugffXGt8wBuO8tjLEtP3HCIGKSZ
+ 0CGRhKJPFnZbKYcplUGNrOerGjvbEi2k5ls60SOpAc4qjra1kcgxvyDYjvXSIYiemXr8
+ Lp9UJHBzsF+JTf2j/WQ0mMyzCp1We8wrt4yyN16HMwN5U5trbjZ/zVs4DYX1Eyh8mnJW
+ ySaQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1777975101; x=1778579901; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=UrxUJHBBr7SJTAlV762fNk/m6IwtaONncgY9rtS10fk=;
+ b=Nur+LkGxPA+miYLxf516Mbx/s/iOeWsxnVryZz2DYtxjtCLwT59TYK6l5kCBi/sw9n
+ l1FfUjT1Z1RLz/PgAjKon0GBTDf4+kgzpr/cP5Xy5BPQVZhZO7gth5l0J7z+OuOisN3y
+ vgjNbEjRx902fMHj6MJm1T80nxIH2x6MAAGQ+xMJOTSnV3KKZKFLRvp1G6KK2F/vKcMD
+ QUGhl+FH44TLjibgZfNYdY/uOgRpDLgjtMIQGBEmtTupOyI0+aBcEIwEU7SoMSlOiO/x
+ WdLC61e/fQ2U9VDsk2Xt03D3/px3l+nqBxfFJV+ztYwtwXvjd/bMtkUDxjTJL2zUJFeC
+ iFCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777975101; x=1778579901;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=UrxUJHBBr7SJTAlV762fNk/m6IwtaONncgY9rtS10fk=;
+ b=bZnaiVz+A6dQkWEKi+82A6QAx4WjhQY7fzxmnYwDlriJWF/Vz51ySRv9nikv6TncMG
+ Kw8OuIOInqupwKZ0VlKoMH/kUJLNDQPLhKBTEVzsByctWlH+RUbIzapfDse5ZIki6fO+
+ QYdhW/PZrPIQzC6wE3nXcwWI6WJT2hwidj45Xh5QyN85A9skQB7AoRrffFEucHBkzzKj
+ g0TkKpPKnjub2wQ815evwurDvpe7eBSjMSW86ooNXP4wLhccSUZ60JFsLdXs7JMzhOgz
+ nVisTp7EW4JSvW1p8CWwaP5F5zFia4yqEdsPPaPoKfPtx9ZlWEebU0RpnA+f2X2SFSnV
+ /1Jg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+x9d+k+KF2hmk++9o5pZFufhYh+EXzXVXES5NCUTeft534XED4LbGpQItERIe1mWopL3wGnDlgbe0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz506E/TdNP5OOGHYq3d5Z7BiONxcJOz4ZlAgs4tPy11JVQHzwq
+ CouXM/rGcR15+nDaxRn92jh/S5qf2L0ihom0KquerWF3BxJMjw9eOpexqQIV2RaLb1uO/6WDhxd
+ Jd8YaIjIlNpQHltmICWDhkaWT7dgjHCc=
+X-Gm-Gg: AeBDiettIgmo0rjqHBS0Eb0/glqhGaS1XDsWFJFe0jEvVjYUDZOZlvy9zFGgL0Yp7i7
+ WrCOrWuhfz08A4jhQ3ejgSeXCQqb/Lwud1VmrROBEIE4EirIYu6q1ffhiAdaKRxTp7u4RTqUeJ7
+ 3puALzpJMJzkX221n/23FHpqoKNSK74oW2DlS/k4DmKvO0NpF4+oA8j1SCMCSSkaNqXTwEc7r6k
+ XDwU9MFy5qhUI1l/kh/Q3GUnMkI/2d1VAmrlqgv3+ItrdlZD6Sm3i6zwDQ4p0A8/MaQy78kGuPI
+ FjUz0ruKhe72auyGXqVRaKD4gGomM0O5LuPjDa3TvH4/okDW
+X-Received: by 2002:a05:6a21:e098:b0:3a2:d629:16a2 with SMTP id
+ adf61e73a8af0-3a7f1a1df2amr12918590637.10.1777975100827; Tue, 05 May 2026
+ 02:58:20 -0700 (PDT)
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 7.0.3
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260402193424.2023318-1-mcanal@igalia.com>
+ <c277db50-2f06-4e33-a700-23751ddab281@igalia.com>
+ <CAH9NwWcZ1B1GN=K7nbD6WFqab_GrnArJj_vasFaZfrHJaUoK+A@mail.gmail.com>
+ <6ff5b398-a5cc-4548-8260-5babff255beb@igalia.com>
+In-Reply-To: <6ff5b398-a5cc-4548-8260-5babff255beb@igalia.com>
+From: Christian Gmeiner <christian.gmeiner@gmail.com>
+Date: Tue, 5 May 2026 11:58:09 +0200
+X-Gm-Features: AVHnY4K6NAu8oJooU1Flcnb9q498959JW2xJWJ-EqZsxd2Vt148-Lj0qjUpzQL0
+Message-ID: <CAH9NwWdJqtv-b0NjngBvUhUG6wpSSgYiX_cj3DvxdwDvLKLiOA@mail.gmail.com>
+Subject: Re: [PATCH] drm/etnaviv: Fix armed job not being pushed to the DRM
+ scheduler
+To: =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>
+Cc: Lucas Stach <l.stach@pengutronix.de>,
+ Russell King <linux+etnaviv@armlinux.org.uk>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Philipp Stanner <phasta@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, Danilo Krummrich <dakr@kernel.org>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>, 
+ dri-devel@lists.freedesktop.org, etnaviv@lists.freedesktop.org, 
+ kernel-dev@igalia.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,278 +115,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: YuanShang <YuanShang.Mao@amd.com>
+Hi Ma=C3=ADra
 
-[ Upstream commit d0f5711fa14a09c010537375cf34893cd33bc2ee ]
+> >
+> >>
+> >> On 02/04/26 16:32, Ma=C3=ADra Canal wrote:
+> >>> When xa_alloc_cyclic() failed in etnaviv_sched_push_job(), the error
+> >>> path skipped drm_sched_entity_push_job(). This is a violation of the =
+DRM
+> >>> scheduler contract, as once a job has been armed with drm_sched_job_a=
+rm(),
+> >>> it must be pushed with drm_sched_entity_push_job(). From the DRM
+> >>> scheduler documentation,
+> >>>
+> >>> """
+> >>> drm_sched_job_arm() is a point of no return since it initializes the
+> >>> fences and their sequence number etc. Once that function has been cal=
+led,
+> >>> you *must* submit it with drm_sched_entity_push_job() and cannot simp=
+ly
+> >>> abort it by calling drm_sched_job_cleanup().
+> >>> """
+> >>>
+> >>> Fix this by splitting the fence ID allocation into two phases: first,
+> >>> alloc an xarray slot before arming the job (which can fail), then fil=
+l in
+> >>> the actual fence with xa_store() after arming. This way, allocation
+> >>> failures are handled before the job is armed, and once armed, the job=
+ is
+> >>> always pushed to the scheduler.
+> >>>
+> >>> This also fixes a double call to drm_sched_job_cleanup(), as both
+> >>> etnaviv_sched_push_job() and its caller would call it on failure.
+> >>>
+> >>> Fixes: 764be12345c3 ("drm/etnaviv: convert user fence tracking to XAr=
+ray")
+> >>> Signed-off-by: Ma=C3=ADra Canal <mcanal@igalia.com>
+> >>
+> >> Gentle ping
+> >>
+> >
+> > Thanks for the patch - looks good. I=E2=80=99ll take care of it over th=
+e next few days.
+>
+> Any update?
+>
 
-Don't map or unmap svm range to gpu if vm is not ready for updates.
+Applied to drm-misc-fixes.
 
-Why: DRM entity may already be killed when the svm worker try to
-update gpu vm.
+--=20
+greets
+--
+Christian Gmeiner, MSc
 
-Signed-off-by: YuanShang <YuanShang.Mao@amd.com>
-Reviewed-by: Philip Yang <philip.yang@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 55f8e366c326980174a4f2b9501b524d8eb25135)
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
-
-LLM Generated explanations, may be completely bogus:
-
-## Phase 1: Commit Message Forensics
-Step 1.1 Record: Subsystem `drm/amdkfd`, action verb `check`, intent:
-avoid SVM GPU VM map/unmap when the AMDGPU VM cannot accept updates.
-
-Step 1.2 Record: Tags found in the actual commit: `Signed-off-by:
-YuanShang <YuanShang.Mao@amd.com>`, `Reviewed-by: Philip Yang
-<philip.yang@amd.com>`, `Signed-off-by: Alex Deucher
-<alexander.deucher@amd.com>`. No `Fixes:`, no `Reported-by:`, no
-`Tested-by:`, no `Cc: stable`.
-
-Step 1.3 Record: The commit says the SVM worker may try to update a GPU
-VM after the DRM scheduler entity has already been killed. The user-
-visible symptom was verified from the lore thread: “Trying to push to a
-killed entity”, SDMA timeout, GPU reset, and a hung
-`svm_range_restore_work` kworker blocked in `dma_fence_wait_timeout()`
-via `svm_range_validate_and_map()`.
-
-Step 1.4 Record: This is a hidden bug fix despite the neutral “check”
-wording. It prevents submitting VM update jobs to a stopped/killed VM
-update entity, which otherwise can leave fences unsignaled and hang
-worker context.
-
-## Phase 2: Diff Analysis
-Step 2.1 Record: One file changed:
-`drivers/gpu/drm/amd/amdkfd/kfd_svm.c`, 11 insertions. Modified
-functions: `svm_range_unmap_from_gpu()` and `svm_range_map_to_gpu()`.
-Scope: single-file surgical fix.
-
-Step 2.2 Record: Before, both SVM unmap and map directly called
-`amdgpu_vm_update_range()`. After, both first call `amdgpu_vm_ready(vm)`
-and return `-EINVAL` if the VM is not ready. Affected path is VM page
-table update submission from SVM map/unmap, including restore worker and
-MMU notifier/unmap paths.
-
-Step 2.3 Record: Bug category is synchronization/lifetime correctness
-around process teardown. `amdgpu_vm_ready()` in current mainline
-verifies the VM is not evicting, has no evicted PTs, and its
-immediate/delayed VM update scheduler entities are not stopped. The fix
-avoids queueing jobs after those entities are killed.
-
-Step 2.4 Record: Fix quality is good: 11 lines, no new API, no feature,
-no data structure changes. Regression risk is low, mainly early
-returning `-EINVAL` when VM updates cannot run anyway. Backport risk is
-higher for older trees because `amdgpu_vm_ready()` only gained stopped-
-entity checks in commit `f101c13a8720c7`; older stable trees need that
-or an equivalent prerequisite for this patch to address the killed-
-entity failure.
-
-## Phase 3: Git History Investigation
-Step 3.1 Record: Blame shows SVM map/unmap infrastructure was introduced
-by `f80fe9d3c114` (“drm/amdkfd: map svm range to GPUs”, first in
-`v5.14-rc1`) and later reshaped by commits including `6c1a7867734`
-(`v5.18-rc1`). The missing readiness guard has existed in these SVM
-paths for a long time.
-
-Step 3.2 Record: No `Fixes:` tag, so no direct target to follow.
-
-Step 3.3 Record: Recent file history contains many SVM fixes, including
-UAF, address conversion, PTE clearing, restore work, and retry-fault
-race fixes. Related commit `597eb70f7ff7` / upstream `10c382ec6c6d`
-(“drm/amdkfd: Don’t clear PT after process killed”) added an
-`amdgpu_vm_ready()` guard in a different KFD GPUVM path and was
-explicitly stable-tagged.
-
-Step 3.4 Record: `git log --author='YuanShang' -10 --
-drivers/gpu/drm/amd/amdkfd` produced no reachable prior commits in this
-checkout. The patch was reviewed by Philip Yang, a regular AMD KFD
-contributor, and committed by Alex Deucher.
-
-Step 3.5 Record: Dependency identified: `f101c13a8720c7` (“drm/amdgpu:
-fix task hang from failed job submission during process kill”) teaches
-`amdgpu_vm_ready()` to check stopped VM update entities. Without it,
-this candidate’s guard does not fully detect the killed-entity condition
-in older stable trees.
-
-## Phase 4: Mailing List And External Research
-Step 4.1 Record: `b4 dig -c 55f8e366c326...` found the original
-submission at `https://patch.msgid.link/20260326103656.487304-1-
-YuanShang.Mao@amd.com`. `b4 dig -a` found only v1, standalone. WebFetch
-to lore was blocked by Anubis, but `b4 dig -m` retrieved the mbox
-successfully.
-
-Step 4.2 Record: `b4 dig -w` showed original recipients were YuanShang
-and `amd-gfx@lists.freedesktop.org`. The thread later included Christian
-König and Philip Yang.
-
-Step 4.3 Record: No separate bugzilla/syzbot link. The thread itself
-contains the bug log: killed entity error, SDMA timeout, GPU reset,
-recovered wedge, and hung kworker in `svm_range_restore_work`.
-
-Step 4.4 Record: Philip Yang stated the earlier “Don’t clear PT after
-process killed” patch fixed one path and this patch fixes another path,
-then gave `Reviewed-by: Philip Yang <philip.yang@amd.com>`. No NAKs
-found.
-
-Step 4.5 Record: Stable-specific web search could not be verified
-because WebFetch to lore/stable timed out or hit Anubis. No stable
-nomination for this exact patch found in the mbox.
-
-## Phase 5: Code Semantic Analysis
-Step 5.1 Record: Key functions: `svm_range_unmap_from_gpu()`,
-`svm_range_map_to_gpu()`.
-
-Step 5.2 Record: Callers verified: `svm_range_unmap_from_gpu()` is
-called by `svm_range_unmap_from_gpus()`, reached from CPU unmap/MMU
-notifier handling and SVM validation with PROT_NONE.
-`svm_range_map_to_gpu()` is called by `svm_range_map_to_gpus()`, reached
-from `svm_range_validate_and_map()`.
-
-Step 5.3 Record: Key callees: both changed functions call
-`amdgpu_vm_update_range()`. For SDMA VM updates, that path
-allocates/submits an AMDGPU job; `amdgpu_job_submit()` arms the
-scheduler job and calls `drm_sched_entity_push_job()`.
-
-Step 5.4 Record: Reachability verified: `svm_range_restore_work()` calls
-`svm_range_validate_and_map()`, which calls `svm_range_map_to_gpus()`
-and then `svm_range_map_to_gpu()`. The lore log shows exactly this call
-chain in a hung kworker. GPU page fault and MMU notifier paths also
-reach the same validation/unmap functions.
-
-Step 5.5 Record: Similar pattern verified: `amdgpu_amdkfd_gpuvm.c`
-already has an `amdgpu_vm_ready()` guard with the comment “VM entity
-stopped if process killed”; `amdgpu_cs.c` and `amdgpu_gem.c` also check
-VM readiness before clearing freed mappings.
-
-## Phase 6: Stable Tree Analysis
-Step 6.1 Record: The SVM map/unmap functions exist in `v5.15`, `v6.1`,
-`v6.6`, and `v6.8`, and none of those extracted versions had the new
-guards. The reported log was from Ubuntu `6.8.0-90-generic`, confirming
-a stable-derived affected kernel.
-
-Step 6.2 Record: Backport difficulty: minor to moderate. `v6.8`, `v6.6`,
-and `v6.1` have the same conceptual functions but older
-`amdgpu_vm_update_range()` signatures. `v5.15` uses older
-`amdgpu_vm_bo_update_mapping()` in this path. Older trees also need
-`f101c13a8720c7` or equivalent stopped-entity readiness logic.
-
-Step 6.3 Record: Related fix `597eb70f7ff7`/`10c382ec6c6d` addresses a
-different process-kill VM update path and was stable-tagged. It does not
-cover SVM map/unmap; Philip Yang explicitly confirmed this patch fixes
-another path.
-
-## Phase 7: Subsystem Context
-Step 7.1 Record: Subsystem is AMDGPU KFD SVM/HMM GPU memory management.
-Criticality: important, affecting AMD compute users using KFD SVM, GPU
-page faults, migration, and process teardown.
-
-Step 7.2 Record: Subsystem is active; recent history shows many SVM
-correctness fixes. The bug is in a mature path present since `v5.14+`,
-not just brand-new code.
-
-## Phase 8: Impact And Risk
-Step 8.1 Record: Affected population is driver/config/hardware specific:
-AMDGPU KFD users with SVM-capable compute workloads.
-
-Step 8.2 Record: Trigger requires SVM VM update work racing with forced
-process kill or teardown after VM scheduler entities are stopped. The
-lore log verifies a real trigger. Whether it is fully unprivileged
-depends on render/KFD device permissions and was not independently
-verified.
-
-Step 8.3 Record: Failure mode is severe: verified killed-entity error,
-SDMA ring timeout, GPU reset, recovered device wedge, and hung kworker
-for more than 245 seconds. Severity: HIGH, arguably CRITICAL for
-affected systems.
-
-Step 8.4 Record: Benefit is high for affected AMD KFD users because it
-avoids a real hung-task/GPU-reset failure. Risk is low in mainline-
-shaped code because the fix only refuses impossible VM updates. Risk for
-older stable trees is manageable but requires prerequisite/backport care
-around `amdgpu_vm_ready()` semantics.
-
-## Phase 9: Final Synthesis
-Step 9.1 Record: Evidence for backporting: real user log, severe
-hang/GPU reset, small surgical fix, reviewed by Philip Yang, related
-already-stable process-kill fix shows same class of bug, affected code
-exists in stable-derived kernels. Evidence against: no `Fixes:` or `Cc:
-stable`, and older trees need dependency/backport adjustment.
-Unresolved: exact clean-apply status for every active stable branch was
-not tested.
-
-Step 9.2 Record: Stable rules checklist: obviously correct and reviewed:
-yes, with dependency caveat. Fixes real bug: yes, verified by lore log.
-Important issue: yes, hung task/GPU reset. Small and contained: yes, 11
-lines in one file. No new feature/API: yes. Applies to stable: likely
-needs minor backport adjustment and `f101c13a8720c7` or equivalent for
-older trees.
-
-Step 9.3 Record: No exception category applies; this is not a device ID,
-quirk, DT, build, or documentation-only patch.
-
-Step 9.4 Record: Decision is to backport, but not as an isolated blind
-cherry-pick to older stable trees. It should be taken with the stopped-
-entity readiness prerequisite/backport so `amdgpu_vm_ready()` actually
-detects the process-kill condition.
-
-## Verification
-- Phase 1: Parsed target commit with `git show`; confirmed tags and no
-  `Fixes:`/stable tag.
-- Phase 2: Diff verified as 11 insertions in
-  `svm_range_unmap_from_gpu()` and `svm_range_map_to_gpu()`.
-- Phase 3: `git blame` verified SVM map/unmap history; `git describe
-  --contains` placed the original SVM mapping in `v5.14-rc1` and later
-  function reshaping in `v5.18-rc1`.
-- Phase 3: `git show f101c13a8720c7` verified `amdgpu_vm_ready()` gained
-  stopped-entity checks.
-- Phase 3: `git show 597eb70f7ff7` verified the related stable-tagged
-  “Don’t clear PT after process killed” guard in another path.
-- Phase 4: `b4 dig`, `b4 dig -a`, `b4 dig -w`, and decoded mbox verified
-  the lore thread, single v1 patch, recipients, log, Christian’s “Looks
-  correct”, and Philip’s `Reviewed-by`.
-- Phase 5: `rg` and file reads traced map/unmap callers through
-  `svm_range_validate_and_map()` and `svm_range_restore_work()`.
-- Phase 6: Extracted `v5.15`, `v6.1`, `v6.6`, and `v6.8` files; verified
-  the affected SVM functions exist without the new guard.
-- Phase 8: Lore log verified severity: killed entity, SDMA timeout, GPU
-  reset, device wedge recovery, and hung kworker.
-- UNVERIFIED: WebFetch lore/stable searches were blocked/timed out, and
-  I did not test applying the patch to each stable branch.
-
-**YES**
-
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 080242f9981b0..addb86803d9ae 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1363,6 +1363,12 @@ svm_range_unmap_from_gpu(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 
- 	pr_debug("CPU[0x%llx 0x%llx] -> GPU[0x%llx 0x%llx]\n", start, last,
- 		gpu_start, gpu_end);
-+
-+	if (!amdgpu_vm_ready(vm)) {
-+		pr_debug("VM not ready, canceling unmap\n");
-+		return -EINVAL;
-+	}
-+
- 	return amdgpu_vm_update_range(adev, vm, false, true, true, false, NULL, gpu_start,
- 				      gpu_end, init_pte_value, 0, 0, NULL, NULL,
- 				      fence);
-@@ -1440,6 +1446,11 @@ svm_range_map_to_gpu(struct kfd_process_device *pdd, struct svm_range *prange,
- 	pr_debug("svms 0x%p [0x%lx 0x%lx] readonly %d\n", prange->svms,
- 		 last_start, last_start + npages - 1, readonly);
- 
-+	if (!amdgpu_vm_ready(vm)) {
-+		pr_debug("VM not ready, canceling map\n");
-+		return -EINVAL;
-+	}
-+
- 	for (i = offset; i < offset + npages; i++) {
- 		uint64_t gpu_start;
- 		uint64_t gpu_end;
--- 
-2.53.0
-
+https://christian-gmeiner.info/privacypolicy
