@@ -4,132 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21889CD3430
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 09:24:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27C55CD3430
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 09:27:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AE8410E0D6;
-	Tue,  5 May 2026 09:24:45 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="DDds+xDz";
-	dkim-atps=neutral
-Received: from AS8PR04CU009.outbound.protection.outlook.com
- (mail-westeuropeazon11011068.outbound.protection.outlook.com [52.101.70.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFD1310E0D6;
- Tue,  5 May 2026 09:24:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UhWc1vlThAYkR5cATwu+Yjh8WbrohUdqaSKWZFW/r9tfjqWyF7RlkrwfD9qF6VM7F1FKTZOW5TrtHYJBm/3JjwtF4Fg3NMv8lV7t6tHN1cc8tbqK5SfYzoT3Uc17W28iRcB9LSUuzpRiB5d22tStUgNyZXiLDejADPjxIxGUJGaMgt07GC3uD/AjUZ3knwmfk1Zoznjmwqvvurb0uQ8cRZ2BK6c/Wx4D3Kb+7OZpzjdxxFQWpHwZPaEVlYZH9heGZFa5kT02WPK7o0PtGWauDWn8rjZPEXsdOyp1/6Yf/SuISmXBpaHYgkZNIs0erBloaboLSxkjqoVOTheDiUjz4A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mwVhSaHvrSwkXjfD/7jHyuWQDJ7/WN3ddzfU0SaTjh8=;
- b=wHuKXAaXm6PuLLaSOqU0ySUlGwdl1DuXqHB1x/OriRo/8S2HG5H6Jl4Ub/Lrv+C0Z2ZWcMIVe3AXiSUbg+bTRtz6IaPabd0i+VsthMaplfyWHtZTYWYfr35kjWKbt8UAYqFMV1gHppaGoYWyDJkJWGufOqruHpXuNE15wOlj/4o5jRXOuO7humOQwwdvJXGqlvophHvF3hUlTpxNNk00QaAj5jbBjiu9fvUv9nfavA5M7o6gtgzM8WMwaYEp4d/uK4QRzj2a+FnPv1jwlmpYgKaDpveZ8nfXgRj68OqgI9dKR0R4fU165X97DmlJXJlFnC4/VjYxsb7P2TMZsLv49A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mwVhSaHvrSwkXjfD/7jHyuWQDJ7/WN3ddzfU0SaTjh8=;
- b=DDds+xDzOGYdQVOIMZsF7+yttdUd0EK5S+zdJ7P6pHssP65ICFmtoDk+/dvzUmlHe/RhbFvywS8jimxlxfP4L1u2UuIM3KXEtZ3NdfHsMqzyCKzya0liP03Olqwv5cxxBV30qQg2zoCe39zCLtlQuuENTUvzUj2bKhWcwSG6dPPMhJuIE2tArKE93Z0z0KDbxOOTHuVCzSMKZkrhk9t+wrqA/onEz+3r+lvMPrHhRKYAnzcQ8C1kLdWPwaTjyn6oxxHohk+fu8LgbKPkbd76l/qn82VzHK+scDDI5CatX7mWNLPfDyKjG695TZ4QD2FrcKPXT8OYZ2K7Wvhw1CPGrA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM9PR04MB8585.eurprd04.prod.outlook.com (2603:10a6:20b:438::13)
- by PAXPR04MB9517.eurprd04.prod.outlook.com (2603:10a6:102:229::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Tue, 5 May
- 2026 09:24:40 +0000
-Received: from AM9PR04MB8585.eurprd04.prod.outlook.com
- ([fe80::f010:fca8:7ef:62f4]) by AM9PR04MB8585.eurprd04.prod.outlook.com
- ([fe80::f010:fca8:7ef:62f4%4]) with mapi id 15.20.9870.023; Tue, 5 May 2026
- 09:24:40 +0000
-Date: Tue, 5 May 2026 12:24:35 +0300
-From: Vladimir Oltean <vladimir.oltean@nxp.com>
-To: linux-phy@lists.infradead.org
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- linux-can@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-riscv@lists.infradead.org,
- linux-rockchip@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org,
- linux-usb@vger.kernel.org, netdev@vger.kernel.org,
- spacemit@lists.linux.dev, UNGLinuxDriver@microchip.com,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- Michael Dege <michael.dege@renesas.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Subject: Re: [PATCH v7 phy-next 21/27] net: renesas: rswitch: include PHY
- provider header
-Message-ID: <20260505092435.dsfsv6t4mpzluzqf@skbuf>
-References: <20260430110652.558622-1-vladimir.oltean@nxp.com>
- <20260430110652.558622-22-vladimir.oltean@nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260430110652.558622-22-vladimir.oltean@nxp.com>
-X-ClientProxiedBy: WA1P291CA0009.POLP291.PROD.OUTLOOK.COM
- (2603:10a6:1d0:19::20) To AM9PR04MB8585.eurprd04.prod.outlook.com
- (2603:10a6:20b:438::13)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E37110E42D;
+	Tue,  5 May 2026 09:27:42 +0000 (UTC)
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3115310E42D
+ for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 09:27:41 +0000 (UTC)
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.82])
+ by APP-01 (Coremail) with SMTP id qwCowADXf2sGuPlptFxUDw--.59590S2;
+ Tue, 05 May 2026 17:27:35 +0800 (CST)
+Message-ID: <cb47f13a5901d15a135cc4a4128d542ddc24a0bb.camel@iscas.ac.cn>
+Subject: Re: [PATCH] drm: verisilicon: support non-coherent DMA framebuffers
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Dominique Belhachemi <domibel@debian.org>
+Cc: Maxime Ripard <mripard@kernel.org>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
+ <tzimmermann@suse.de>,  David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Paul Cercueil <paul@crapouillou.net>,  Michal Wilczynski
+ <m.wilczynski@samsung.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Date: Tue, 05 May 2026 17:27:33 +0800
+In-Reply-To: <1452a2d0d1f32afbd37fad2935a6e137c1e707be.camel@iscas.ac.cn>
+References: <20260505042631.1916555-1-domibel@debian.org>
+ <1452a2d0d1f32afbd37fad2935a6e137c1e707be.camel@iscas.ac.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM9PR04MB8585:EE_|PAXPR04MB9517:EE_
-X-MS-Office365-Filtering-Correlation-Id: 15ec2f96-ca08-4ba4-7842-08deaa88223a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|19092799006|7416014|376014|10070799003|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: rEcU+S+6oXvN/E0ZCCOAyxYQngeJVWmCpAXkjD0RhmcgB7X2IJvOP0Z4J6VcEjpqUBXVIVLGVADZBEXRY9Rqrwh/oVF8FibLS8AphcJ2eDtLxJK2pD3/VzHc3PqFjij3WJ7RxTlHL4r8biZuAnK2oqhQvNYr5N3XfW4+12FWdUrQMMrqp+6Y3haEaEBOSVejoVP4iCRF0qSnllVeEzlhHndd2sjuodFQ4SHL/NBnChNrNnTK0GJhD8NuNRUdOPCOVDX7mGs4NumCJoBkVSOYDJkattXS1kyrJUQ/Vn77DOIqRG80/zzsZugHEXWfH7VkfnarFhQgtFZCMDxnONmBXqlyMfXkdFwK59yzxGzGOZ4cs9rZ6mFhPkpOLL+o7Tl8rTU0VQjmhQpPMNIDDn/AMZMWP85zwqJ5v+JihmDn8+cbRv4FFqBSPR87qM3ZvVU139pmp2VPnSvb/MjUxhd9dhtAYGFZX+xRvAAsirP744MaUftsK8ReRyuSv3Fub85DhuU4DIl2nETFnaPsassop5ae0fpwnhINSzuEgdc22+tFtfiBU7KaokOt38V+nrqE2IKfyyXtwlcHMCktG5WwyYX27EtTlOEESTT7WfkLj8g+JIct/wzrBdW9wmdISY65jiTBhi0ziTU7/Svwcuh4olWBMXLIeRgba/FYOBQByeh6ijRzfRQ+KQA97dBQB1a8
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM9PR04MB8585.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(19092799006)(7416014)(376014)(10070799003)(18002099003)(22082099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?fhQcAOw1IyA8eOBtkTZl8lTtJAyzXXNo157o4WyehmkNXH2wZ70MdkyNj+F5?=
- =?us-ascii?Q?F5bI1ylV8hLy9j8lgdmhwKoOs4Y0H1E7QBabh8WJYD1WHPhXCRk41thtQTA2?=
- =?us-ascii?Q?OHe1zc/UwEeuKNk0AoPH1q7YiwfzJMey4BgrWwkFEPgT+iMGcbZsAzFEsIqG?=
- =?us-ascii?Q?7WQnoeEkmvU138qZOmvfZ4ChckaTOyDPWeWwBY1EPSAvImCy8Zjg9IFMJZRC?=
- =?us-ascii?Q?RSUUiH8kIQtFJR/qN1aTadZBi24iGN0NlhyAG1menNV8DDu8UT8FaEg619tS?=
- =?us-ascii?Q?KJl/QaWlne6bMjkvUG4VyPWz7FvJZxSlPWfLWYFNT9oJ2x+BE6lFwzcS6UQy?=
- =?us-ascii?Q?udodb0ZQSYhJA64Audtp2h+/6p5Dm3TNimSp2NHmjiypNXtvBH9/OMRR4BMi?=
- =?us-ascii?Q?Ek2Sc0SJD7ewFWpscvlhTbrRfaePjTcyvAzNAUNabGgkEP3Ip9BfnVBKdoec?=
- =?us-ascii?Q?n/bNxDXnuVdTwMBMswvbnAA0rWDQg0exxWMeLzeFMS0RRXRdKhNxAYsqILj9?=
- =?us-ascii?Q?NkkSqVATF3kPiMK+qAQ6ug1gyUw9v7lmOe7It8yFtyXpwxAdsBxfjnw8BAqM?=
- =?us-ascii?Q?PKsyQSbHotwQ+/nTtJ0QO4LZadxCSZHcAljQP1TyFlXo5KorwQlKUmUYInDQ?=
- =?us-ascii?Q?aGifuSQkC2sS7DlPIdxURQtjCOOrQMo+Ff+MuVy1ylSznZAn/K4qDp/ghaON?=
- =?us-ascii?Q?oodaBA4hwtu63nAzGnJldSoQOBBCcRX7hLAQ68/GNiKOU7uktph+OS2lbl+1?=
- =?us-ascii?Q?NkIAiOO25AQcq7w43kOkOPZMfr1ADB1hztApDise96dit3pPm8bYNd2ieNyI?=
- =?us-ascii?Q?iwiKE3/sN3hrigi6wsFw279AAwDS+aiCxzT9N+wSd8/KRntGq606j2bELnxq?=
- =?us-ascii?Q?6QY58jSpmeUMqrSXGcO+ZauGhfv3m6SVER/ydFfTezvUAwyJ4sDnNw7ZOVwg?=
- =?us-ascii?Q?pblz8pN7GY8B1deNKiUnvi3aDtvEuWdQmPlmvu8ykKnDZOZGW2dE+6Fvx5uB?=
- =?us-ascii?Q?Ffmbsl6K4brYtZis7EecqlAK/rexMheNn5Jp45enmvo+goKvlv4Tp5rAJqT8?=
- =?us-ascii?Q?Yg8J5u5r+lGGf+5D+U0TBw9Vi+DqJ9Ri5kBWyf1ypYGkToSAN0CwCXR7EYjB?=
- =?us-ascii?Q?lt7j1/ErISWOExi5MQ3J2jx1bTZV2rXrWshq9IohqHZrNe3S01ZN7AGwwJO1?=
- =?us-ascii?Q?mx5/mrIgOM6TvOVGakBVitZN0nAbTDM2+/uXMAt/eT2z0RqrqsJ9JUoAzKWT?=
- =?us-ascii?Q?YqYMYuahzFImNfbI/Q0YUV3rZY5HMVGCnedT87f8zvC2ENsvNIooBuoPZIi8?=
- =?us-ascii?Q?WVPhnk/BDRb+KNi5ZhPx0xXB2R12aGH1379+C57lEjzXSCEcOGe0H09cDHaH?=
- =?us-ascii?Q?uPj6b7gx0AHtiZ02o6vwhT2vNbHaT5r/E4Glk4qadTST0pBEWKRZS3odieIS?=
- =?us-ascii?Q?8pBwrOZqC4nADLOaWMGrZCtb+DNnbK4P9ceOAQo4/+kwkJ+l0fPsSU9ge5g6?=
- =?us-ascii?Q?rYTDSDOAlypO9CHlCxCqfj47DE46fzbQJRYO1uKCXqWRykL3N4vkH/KRu0wi?=
- =?us-ascii?Q?xQ6M1bLTKMzNqvfu/BZFWQnT5kNsyWBwD8D+IMNTvvLDeVH+IMaobsUuTdJd?=
- =?us-ascii?Q?QyFRc/m/cR/dWnWwNTL1tP2wovULbI9/x6j3dYQfsuyf1A2m372vftJK59KI?=
- =?us-ascii?Q?IjCcvfIF8XGTZbvv4aJt8QK3xeRGhTsuyf0OIX8FDT9yeUXJnT7imv5IrgGS?=
- =?us-ascii?Q?V/+D++XbIyBvDbGSY3XuvH/Ae/BzVYzsw2FtGIn4ZzA41L2DGZkqewEnInUn?=
-X-MS-Exchange-AntiSpam-MessageData-1: UeJw4YBA3nG0KrOPNFfiI9Ohiv1bj8yfJ00=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 15ec2f96-ca08-4ba4-7842-08deaa88223a
-X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8585.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2026 09:24:40.1920 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BdcwXMpmyGwnhk8DQobsjQptw81Aw/myR6+mXfXzLRf3TxVTygQXukFsdRANEgPTJb8L/zsGhw9zvkdJm7wR/g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9517
+X-CM-TRANSID: qwCowADXf2sGuPlptFxUDw--.59590S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3Jr1kWr1xuF43CFW3urWfXwb_yoWxWF43pa
+ 1DAFW5KrWY9395Gr9rJr1qkayakw1xK34Igry8G3ZIvwnFyrnxX3WrAr9xuF4UJrW7K3WS
+ qr1qkFnrCr1UArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvmb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
+ 8E87Iv6xkF7I0E14v26F4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+ 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
+ 1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
+ MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
+ 4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
+ 67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
+ x0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
+ z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnU
+ UI43ZEXa7IU84v3UUUUUU==
+X-Originating-IP: [112.94.100.82]
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,50 +67,210 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Sashiko says:
-> commit 4e15b6920cd2b2dfce685835fa09c66664407579
-> Author: Vladimir Oltean <vladimir.oltean@nxp.com>
-> net: renesas: rswitch: include PHY provider header
-> 
-> This commit includes the PHY provider header in the rswitch driver as a
-> workaround to avoid breaking the build when struct phy becomes opaque.
-> It allows the driver to continue accessing internal PHY fields while
-> acknowledging that the driver's PHY API call sequence needs a complete
-> redesign.
-> 
-> > diff --git a/drivers/net/ethernet/renesas/rswitch_main.c b/drivers/net/ethernet/renesas/rswitch_main.c
-> > index 6fe964816322a..132be5f15073c 100644
-> > --- a/drivers/net/ethernet/renesas/rswitch_main.c
-> > +++ b/drivers/net/ethernet/renesas/rswitch_main.c
-> > @@ -27,6 +27,7 @@
-> >  #include <linux/spinlock.h>
-> >  #include <linux/sys_soc.h>
-> >
-> > +#include "../../../phy/phy-provider.h" /* FIXME */
-> 
-> Does preserving the ability to check the provider's global reference counts
-> (power_count and init_count) via this internal header leave the driver
-> vulnerable to data races?
-> 
-> Since these fields are protected by the PHY provider's internal phy->mutex,
-> reading them locklessly can create a time-of-check to time-of-use
-> vulnerability. The count could be altered by a concurrent operation before
-> the mutex is acquired inside phy_power_off() or phy_exit().
-> 
-> Additionally, if the PHY is shared across multiple ports (like in QSGMII
-> mode), would checking the global reference count instead of tracking the
-> consumer's local vote cause a port to observe a non-zero count from
-> another port's vote? This could lead to an incorrect phy_power_off()
-> call, prematurely decrementing the shared refcount and powering down the
-> PHY while it is still in active use by other ports.
-> 
-> While the commit message notes this is a known issue preserved as a
-> workaround until a complete redesign, could retaining these unlocked
-> reads cause a regression in power vote tracking in the interim?
-> 
-> >  #include "rswitch.h"
-> >  #include "rswitch_l2.h"
+=E5=9C=A8 2026-05-05=E4=BA=8C=E7=9A=84 17:05 +0800=EF=BC=8CIcenowy Zheng=E5=
+=86=99=E9=81=93=EF=BC=9A
+> =E5=9C=A8 2026-05-05=E4=BA=8C=E7=9A=84 04:26 +0000=EF=BC=8CDominique Belh=
+achemi=E5=86=99=E9=81=93=EF=BC=9A
+> > Wire up the standard non-coherent path matching the ingenic DRM
+> > driver.
+>=20
+> Ah I forgot that my test platform is also noncoherent -- it uses
+> uncached memory map instead of cache maintenance.
+>=20
+> Should some other facility to be wired in to check whether cache
+> maintenance or uncached mapping is available and use that
+> functionality?
 
-I will ignore this comment. Inaction will leave the driver in exactly
-the same state as before. Not great, true, but I don't see how not
-changing anything could cause a regression.
+Ah forgot to mention that drm/imagination driver requires uncached
+mapping too, and this seems to be difficult to lower (currently
+impossible because the userspace only does Vulkan coherent map now).
+
+Thanks,
+Icenowy
+
+>=20
+> Thanks,
+> Icenowy
+>=20
+> >=20
+> > Tested on StarFive JH7110 (VisionFive 2 v1.3B).
+> >=20
+> > Signed-off-by: Dominique Belhachemi <domibel@debian.org>
+> > ---
+> > =C2=A0drivers/gpu/drm/verisilicon/vs_drm.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 31
+> > +++++++++++++++++--
+> > =C2=A0drivers/gpu/drm/verisilicon/vs_drm.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 7 +++++
+> > =C2=A0.../gpu/drm/verisilicon/vs_primary_plane.c=C2=A0=C2=A0=C2=A0 | 11=
+ ++++++-
+> > =C2=A03 files changed, 46 insertions(+), 3 deletions(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/verisilicon/vs_drm.c
+> > b/drivers/gpu/drm/verisilicon/vs_drm.c
+> > index fd259d53f49f..52d8749445df 100644
+> > --- a/drivers/gpu/drm/verisilicon/vs_drm.c
+> > +++ b/drivers/gpu/drm/verisilicon/vs_drm.c
+> > @@ -4,7 +4,7 @@
+> > =C2=A0 */
+> > =C2=A0
+> > =C2=A0#include <linux/aperture.h>
+> > -#include <linux/dma-mapping.h>
+> > +#include <linux/of_address.h>
+> > =C2=A0#include <linux/platform_device.h>
+> > =C2=A0#include <linux/module.h>
+> > =C2=A0#include <linux/regmap.h>
+> > @@ -49,6 +49,31 @@ static int vs_gem_dumb_create(struct drm_file
+> > *file_priv,
+> > =C2=A0
+> > =C2=A0DEFINE_DRM_GEM_FOPS(vs_drm_driver_fops);
+> > =C2=A0
+> > +static struct drm_gem_object *vs_gem_create_object(struct
+> > drm_device
+> > *drm,
+> > +						=C2=A0=C2=A0 size_t size)
+> > +{
+> > +	struct drm_gem_dma_object *obj;
+> > +
+> > +	obj =3D kzalloc_obj(*obj);
+> > +	if (!obj)
+> > +		return ERR_PTR(-ENOMEM);
+> > +
+> > +	obj->map_noncoherent =3D to_vs_drm_dev(drm)->noncoherent;
+> > +
+> > +	return &obj->base;
+> > +}
+> > +
+> > +static struct drm_framebuffer *
+> > +vs_gem_fb_create(struct drm_device *drm, struct drm_file *file,
+> > +		 const struct drm_format_info *info,
+> > +		 const struct drm_mode_fb_cmd2 *mode_cmd)
+> > +{
+> > +	if (to_vs_drm_dev(drm)->noncoherent)
+> > +		return drm_gem_fb_create_with_dirty(drm, file,
+> > info,
+> > mode_cmd);
+> > +
+> > +	return drm_gem_fb_create(drm, file, info, mode_cmd);
+> > +}
+> > +
+> > =C2=A0static const struct drm_driver vs_drm_driver =3D {
+> > =C2=A0	.driver_features	=3D DRIVER_MODESET | DRIVER_GEM |
+> > DRIVER_ATOMIC,
+> > =C2=A0	.fops			=3D &vs_drm_driver_fops,
+> > @@ -58,12 +83,13 @@ static const struct drm_driver vs_drm_driver =3D
+> > {
+> > =C2=A0	.minor	=3D DRIVER_MINOR,
+> > =C2=A0
+> > =C2=A0	/* GEM Operations */
+> > +	.gem_create_object	=3D vs_gem_create_object,
+> > =C2=A0	DRM_GEM_DMA_DRIVER_OPS_WITH_DUMB_CREATE(vs_gem_dumb_create
+> > ),
+> > =C2=A0	DRM_FBDEV_DMA_DRIVER_OPS,
+> > =C2=A0};
+> > =C2=A0
+> > =C2=A0static const struct drm_mode_config_funcs vs_mode_config_funcs =
+=3D {
+> > -	.fb_create		=3D drm_gem_fb_create,
+> > +	.fb_create		=3D vs_gem_fb_create,
+> > =C2=A0	.atomic_check		=3D drm_atomic_helper_check,
+> > =C2=A0	.atomic_commit		=3D drm_atomic_helper_commit,
+> > =C2=A0};
+> > @@ -98,6 +124,7 @@ int vs_drm_initialize(struct vs_dc *dc, struct
+> > platform_device *pdev)
+> > =C2=A0
+> > =C2=A0	drm =3D &vdrm->base;
+> > =C2=A0	vdrm->dc =3D dc;
+> > +	vdrm->noncoherent =3D !of_dma_is_coherent(dev->of_node);
+> > =C2=A0	dc->drm_dev =3D vdrm;
+> > =C2=A0
+> > =C2=A0	ret =3D drmm_mode_config_init(drm);
+> > diff --git a/drivers/gpu/drm/verisilicon/vs_drm.h
+> > b/drivers/gpu/drm/verisilicon/vs_drm.h
+> > index 606338206a42..17704cd0df1d 100644
+> > --- a/drivers/gpu/drm/verisilicon/vs_drm.h
+> > +++ b/drivers/gpu/drm/verisilicon/vs_drm.h
+> > @@ -18,8 +18,15 @@ struct vs_drm_dev {
+> > =C2=A0
+> > =C2=A0	struct vs_dc *dc;
+> > =C2=A0	struct vs_crtc *crtcs[VSDC_MAX_OUTPUTS];
+> > +
+> > +	bool noncoherent;
+> > =C2=A0};
+> > =C2=A0
+> > +static inline struct vs_drm_dev *to_vs_drm_dev(struct drm_device
+> > *drm)
+> > +{
+> > +	return container_of(drm, struct vs_drm_dev, base);
+> > +}
+> > +
+> > =C2=A0int vs_drm_initialize(struct vs_dc *dc, struct platform_device
+> > *pdev);
+> > =C2=A0void vs_drm_finalize(struct vs_dc *dc);
+> > =C2=A0void vs_drm_shutdown_handler(struct vs_dc *dc);
+> > diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> > b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> > index e8fcb5958615..0049737f492b 100644
+> > --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> > +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> > @@ -8,6 +8,7 @@
+> > =C2=A0#include <drm/drm_atomic.h>
+> > =C2=A0#include <drm/drm_atomic_helper.h>
+> > =C2=A0#include <drm/drm_crtc.h>
+> > +#include <drm/drm_fb_dma_helper.h>
+> > =C2=A0#include <drm/drm_fourcc.h>
+> > =C2=A0#include <drm/drm_framebuffer.h>
+> > =C2=A0#include <drm/drm_gem_atomic_helper.h>
+> > @@ -16,8 +17,9 @@
+> > =C2=A0#include <drm/drm_print.h>
+> > =C2=A0
+> > =C2=A0#include "vs_crtc.h"
+> > -#include "vs_plane.h"
+> > =C2=A0#include "vs_dc.h"
+> > +#include "vs_drm.h"
+> > +#include "vs_plane.h"
+> > =C2=A0#include "vs_primary_plane_regs.h"
+> > =C2=A0
+> > =C2=A0static int vs_primary_plane_atomic_check(struct drm_plane *plane,
+> > @@ -86,6 +88,8 @@ static void
+> > vs_primary_plane_atomic_disable(struct
+> > drm_plane *plane,
+> > =C2=A0static void vs_primary_plane_atomic_update(struct drm_plane
+> > *plane,
+> > =C2=A0					=C2=A0=C2=A0 struct drm_atomic_state
+> > *atomic_state)
+> > =C2=A0{
+> > +	struct drm_plane_state *old_state =3D
+> > drm_atomic_get_old_plane_state(atomic_state,
+> > +							=09
+> > 	=C2=A0=C2=A0 plane);
+> > =C2=A0	struct drm_plane_state *state =3D
+> > drm_atomic_get_new_plane_state(atomic_state,
+> > =C2=A0								=C2=A0=C2=A0
+> > =C2=A0=C2=A0
+> > =C2=A0=C2=A0 plane);
+> > =C2=A0	struct drm_framebuffer *fb =3D state->fb;
+> > @@ -101,6 +105,8 @@ static void
+> > vs_primary_plane_atomic_update(struct
+> > drm_plane *plane,
+> > =C2=A0		return;
+> > =C2=A0	}
+> > =C2=A0
+> > +	drm_fb_dma_sync_non_coherent(plane->dev, old_state,
+> > state);
+> > +
+> > =C2=A0	vcrtc =3D drm_crtc_to_vs_crtc(crtc);
+> > =C2=A0	output =3D vcrtc->id;
+> > =C2=A0	dc =3D vcrtc->dc;
+> > @@ -169,5 +175,8 @@ struct drm_plane *vs_primary_plane_init(struct
+> > drm_device *drm_dev, struct vs_dc
+> > =C2=A0
+> > =C2=A0	drm_plane_helper_add(plane,
+> > &vs_primary_plane_helper_funcs);
+> > =C2=A0
+> > +	if (to_vs_drm_dev(drm_dev)->noncoherent)
+> > +		drm_plane_enable_fb_damage_clips(plane);
+> > +
+> > =C2=A0	return plane;
+> > =C2=A0}
+
