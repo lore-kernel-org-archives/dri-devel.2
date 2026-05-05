@@ -4,80 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA408CD3427
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 13:29:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBABBFF885A
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 13:29:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 374F210E41F;
-	Tue,  5 May 2026 13:29:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C16010E442;
+	Tue,  5 May 2026 13:29:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="B6lx5gIK";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="B54WZbvR";
 	dkim-atps=neutral
-Received: from mail-wm1-f74.google.com (mail-wm1-f74.google.com
- [209.85.128.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E25D10E41F
- for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 13:29:52 +0000 (UTC)
-Received: by mail-wm1-f74.google.com with SMTP id
- 5b1f17b1804b1-48a7994e8ddso52078615e9.0
- for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 06:29:52 -0700 (PDT)
+Received: from mail-ed1-f74.google.com (mail-ed1-f74.google.com
+ [209.85.208.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35BBC10E43F
+ for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 13:29:54 +0000 (UTC)
+Received: by mail-ed1-f74.google.com with SMTP id
+ 4fb4d7f45d1cf-672a22b0cd3so4569444a12.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 06:29:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1777987791; x=1778592591;
+ d=google.com; s=20251104; t=1777987793; x=1778592593;
  darn=lists.freedesktop.org; 
- h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
- :date:message-id:reply-to;
- bh=wwcyT+EW8u9QfzYxBkySmaOJuohl1RTtLe0zE2pkhOs=;
- b=B6lx5gIKqaV53FuzmqbeQUJmnUX6/m46ua4S+aN5lc1teCW75uso+LMa/fjpkg3rsU
- 7UqOOKWqwU39pEMPot8iaxVbyGatlO02YudMIlx85bQ81MyRdMcN5TD0AtdN04ZJ3Qy0
- Uhn+yRKMPqCqXsnmbx/zugRd65MsXqd8gtlN4vNbVSx/NG6gIHYDH9FnEymfUbYu6kDV
- dgPSf9gf2RP+rJH14/64btbZxouRqJAyxP4XKuqyPikhMvKJ6Zs5n7dJF+ZEV6EJ//1j
- SqOZMXTUiYzclN8yE8QbyAE8zxRcMKNAQ2gsvqGfYx5X+5s7g9OqoTY27L81aIGP2uLh
- VMFQ==
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=CpepGuKXgfvFMmQ+T342/Rhe0BYRQCqXBCcIl4WlfVw=;
+ b=B54WZbvRioPt25p77+U3dHa/xQa0hb8Uwf1V0ML2JqRnF+rdrXayHkcV7gA7CsMqtH
+ w32JXn+HmXAYhA4SCNEbyFi1cRe9jyFIwL48ZbcqRuoxJgDR06BegUg8eATw0sZ/wTCG
+ y2vuscJueCWBgAQknnPATvWfGMsZY9ybPj7jKMbDwsqMMMiIayvWQ5VZejXM3BSkqC17
+ WhOwjEorwx5qmIljaQ8QNnL627buix4bS3dxUrRKK0Yff31HcjjsqwlWyBmKSxi6PjbQ
+ lSyom0DkhEkQysS9bYdQKQK5dfsqO0WKGr9vcGDmv6f6ZWCFcxSF8Eks04/1mbAN9Kjl
+ tcLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777987791; x=1778592591;
- h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=wwcyT+EW8u9QfzYxBkySmaOJuohl1RTtLe0zE2pkhOs=;
- b=ZKZbmqayx2zADBCN9GWi+EaPV/AAk/w9ytl4o6FVxnhkaBeNcYzHbtIsM0jifYC3mE
- 7A0RpoeFrBzXUurheuybSW7h9rwUZHD5z90/ahoYPXHEZFhTnIhAAxffjZmCK7z0Lxxi
- WXJGG/J5pK2Qe6gdB+7RcbxBhpnkL+E7Kv2me4E/M8OrAKveH4QUjkxjgoSMToYH7kQd
- ubtvCt7DNTNv2cNDNger389NAP9J8UmbKhj2023OqZDn4k2Z5rEiS35/kWTH8A+/ibZE
- +slFb6CWWHUDxNfwCg5aJ3yBJEjpzPn163CEG7FGUd2QSlcW0hDJZ76ipJYdMkwJbcHj
- EfMw==
+ d=1e100.net; s=20251104; t=1777987793; x=1778592593;
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=CpepGuKXgfvFMmQ+T342/Rhe0BYRQCqXBCcIl4WlfVw=;
+ b=U5wu4nRTyuqlEK6zb3zIzPojmzpHFWLkddMfsLUgn5tq3T2Bb7xo+2SvG/Dvjs5dcO
+ /f3vKHCxSW5iV4E1uQ5dpy2xNiflbNVi17llwVCELMpDkjcpjG1GNH60gSwyoxIZAs9W
+ RsCIMmRSzJ+ogJxh01u3sWNYvuUsX182Y6SPNu7x079oEl+DLKsaJErasYjgnNdWDIAI
+ ZvUwgkth6mZSi+LRe/ImUqgNOwgmaftLP9SM/vofedE6ErQWT7IaSJ3g2u0A9YWqhKOY
+ dslFk7BFpf9dklVOZ5rZLqXxNpEHL9PFKe2Hd8LYHHXWLh/2ySWnzVJXCfIn2CCUSq3f
+ 921A==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9/sJ67kERLlDd620Hc3l0cI2yB9qsEpowu4Y9+m8J1aa/LYS2kZdrKSCgR/cdeg10IWUzMVCtUTBs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxtG0EYja1PyZranMsx5bF9ZmPHx08goFy9keVJ5Zfg01TIyB6H
- cUnWKGa8bZ9iXIznzE7Z5mmJuz8kDnaxaUnMjP9Z+2OVs64C1ijnk1ntPDFs9d4CBbI3D5ZexQo
- JM5URjPJz3UGlqH7uKQ==
-X-Received: from wmph37.prod.google.com ([2002:a05:600c:49a5:b0:47f:941a:613d])
+ AFNElJ/Qg7rlpQ6ctc+b19nLIttez69cSAlztMi4E5nuLKqP7NZnD0bY90r9dXgqwAAuUReG2Kl0y1KG4So=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzsvasDmZ79bRz/eobNdp64yBfUDKsvQUcj+VXKclpok+bNars2
+ 8fsLYmoLTKZeJSSw3l0Qg1q7g+TMwrOT28M8gU/0njSUH8mCOMwMOqZLyfHeU6R/tdDnih24koE
+ 3rx7H6VdME+GnzPzlzQ==
+X-Received: from edt4.prod.google.com ([2002:a05:6402:4544:b0:674:91ac:5f8d])
  (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:6097:b0:489:1c2d:211e with SMTP id
- 5b1f17b1804b1-48a9852f571mr227000005e9.5.1777987790931; 
- Tue, 05 May 2026 06:29:50 -0700 (PDT)
-Date: Tue, 05 May 2026 13:29:35 +0000
+ 2002:aa7:d549:0:b0:67c:89f2:ae27 with SMTP id
+ 4fb4d7f45d1cf-67cc392dd47mr1230899a12.9.1777987792212; 
+ Tue, 05 May 2026 06:29:52 -0700 (PDT)
+Date: Tue, 05 May 2026 13:29:36 +0000
+In-Reply-To: <20260505-gpuvm-drm-exec-v1-0-958306ded36e@google.com>
 Mime-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAMDw+WkC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDE0Mz3fSC0rJc3ZSiXN3UitRkXUuzRDNDU8MkgxRTYyWgpoKi1LTMCrC
- B0bG1tQCySGA7YAAAAA==
-X-Change-Id: 20260416-gpuvm-drm-exec-96a6151b0d53
+References: <20260505-gpuvm-drm-exec-v1-0-958306ded36e@google.com>
 X-Developer-Key: i=aliceryhl@google.com; a=openpgp;
  fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1065; i=aliceryhl@google.com; 
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2384; i=aliceryhl@google.com; 
  h=from:subject:message-id;
- bh=qmFMX+YKgFbsNTYBK8WQzT05aCnSTScT0mEy3LvunMY=; 
- b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBp+fDEBD7mdPrMI0t4BmUT90gb46RcCxfaW+jBl
- IAGWVJpp3GJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCafnwxAAKCRAEWL7uWMY5
- RmAaD/sFtC36JNPba5y+NVwW0TVb9EIv2OuG+GaK1WkuPe51bcYuRgLZoHPBOsDT9TDclPdlZNJ
- 1lGA8nO/0y4qh9tx5dlqfbBmNhqmoP91Qit5Wm5jhD8pZyGNxHSxcj7CKAghFrJNfaW7e9HFaTv
- 0Yn1BlxsBJkrbZO1Ly256BGVBM5d8ZCwYo5GDLLC9xa1GYmb5UHMVsFSm+To7iL5zmS+x1KOorN
- oz69T575w7sRd65FGT0aOysikLputKHTv0jdeqhkXGM0RZuKQ79vpAfeLR3JVPZSV93iHQ9+0zx
- XxpicqyNmQ0b4Jqlk0l/9857AmY6o13SQebSQD5JAcjVp6YCOE6q2zf7xEFOUpgRQskYWW8GwC9
- HIMsyUZin/vwX/Mmz7cOVeVmDnCgfdIj0Zr/q0kLSz5jCYc0d7H7cCHb+1D8sJeCf0mbSFyvFiO
- e/veLgxPFXApfVZE7YniZwYLg9gVY38+w+C8U3cuQ5rRmfnDGvwRyQUed2Os96jr0VdvUYzEWhm
- A3Uqvb6vbYoO0igw47heCZUiL+hE/usphsfeMnS9CA89tGbUXECa/pGb8jjnFUJF4iKdJN//TO0
- gYAQ0J5XwXGiTTDi+NOFXe2WI/ANZ8zkOWqErI+vPfl9/7Nev0dgSZ0ml5jbPF/YgzGWxIaPodn
- E+w8I99vs+Eo52w==
+ bh=qNt2YdF4x2/LkeE3v0aanKcghsBitoEfdGwCtuzYJG8=; 
+ b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBp+fDN5yfDPclhyo9aW/ZKlIgjXm3Vd+w2m/7ka
+ jLF9JvKgy2JAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCafnwzQAKCRAEWL7uWMY5
+ RtbXD/9h1m28gW+XzDUCixlmkFA9bVKmREih8TMXWDOjzdNd64jBqUuL7J0kBuPnFTOR2e/BQgs
+ 56VQrHNqszkoPsZ55YDJZ9Abk7+3Zv8CTNL/lQG6KSFQDZ9CG3MJ30VTUZq94BBbKVsC/D9tf44
+ MlMgbxRQWEOyM7YAlzO2nouLO1zVG0lip/j/UFiFbktLb8o16a/eTtikKYhR7zw+fPfprLnqNSR
+ zh+w18CDNl9aL2T+/8ba4NZxvaZ/gFHPMD6jr34ORM/jGHN6P39kUe4iZgqIp93OC527T6+AuhY
+ 6kowv1GJx7/uQ/+T8RfnPCsL2rTWLe+7MXv6CKu+VE7bzSHR1MPi678g+SNAETbk47xGGF5MRbz
+ j6u4Vs9vzeJ4u84Q5f4uN16zzxRx+RV8/clqcOzRCsCXFr0T0EFaSHEQ8xsPu880DSu37lVTX6J
+ Lh2VsMV6fTByQpYSU+8sFQRwhkKu4hVPvSHNaL8hIxtTmHL9ikQ4CDj74y2sGKeWKea0bIaZbSv
+ FwvtauuGjX461Xw7NaS+xQguhgvXvAQWgGCc1fSfwc01LLg+9dU8l9BCNTzxhI2OQ7nhsFAda9v
+ URTWkLpyAspRgQ4unH6xm4eOe7HkCr7tnTEzAvE9K4trHFjVGLOQvTwhGnl7lRuO9nsMiaWoMfG
+ ah5N6vB46gV7/qg==
 X-Mailer: b4 0.14.3
-Message-ID: <20260505-gpuvm-drm-exec-v1-0-958306ded36e@google.com>
-Subject: [PATCH 0/2] Rust support for drm_gpuvm_exec
+Message-ID: <20260505-gpuvm-drm-exec-v1-1-958306ded36e@google.com>
+Subject: [PATCH 1/2] rust: dma_buf: add stub dma_fence abstraction
 From: Alice Ryhl <aliceryhl@google.com>
 To: Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
  "=?utf-8?q?Thomas_Hellstr=C3=B6m?=" <thomas.hellstrom@linux.intel.com>, 
@@ -110,34 +108,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Now that the core GPUVM support for Rust has been merged, I'm sending
-this follow-up series that adds a super simple way of locking the dma
-reservations and registering fences.
+From: Philipp Stanner <pstanner@redhat.com>
 
-This logic was included in v1 of the original Rust GPUVM series, but was
-dropped in v2 for inclusion in a follow-up. This series is that
-follow-up.
+This adds a trivial DMA Fence type for use in other abstractions that
+need to take a DMA fence as a parameter. For now, the type is a stub,
+but may be used with fences defined by C.
 
+Signed-off-by: Philipp Stanner <pstanner@redhat.com>
 Signed-off-by: Alice Ryhl <aliceryhl@google.com>
 ---
-Alice Ryhl (1):
-      drm/gpuvm: rust: add drm_gpuvm_exec support
+This stub is included only for completeness. Most likely we will land
+this on top of the Philipp's patch that actually adds Fence for real,
+and this stub commit will not be necessary.
 
-Philipp Stanner (1):
-      rust: dma_buf: add stub dma_fence abstraction
-
- rust/bindings/bindings_helper.h  |  2 ++
- rust/helpers/drm_gpuvm.c         |  6 ++++
- rust/kernel/dma_buf/dma_fence.rs | 32 ++++++++++++++++++
- rust/kernel/dma_buf/mod.rs       | 24 ++++++++++++++
- rust/kernel/drm/gpuvm/mod.rs     | 71 ++++++++++++++++++++++++++++++++++++++++
- rust/kernel/lib.rs               |  1 +
- 6 files changed, 136 insertions(+)
+Taken from:
+https://gitlab.freedesktop.org/pstanner/linux-drm-work/-/merge_requests/1
 ---
-base-commit: 37f748ed0c19e007e7c5677f5d605d6b93841792
-change-id: 20260416-gpuvm-drm-exec-96a6151b0d53
+ rust/kernel/dma_buf/dma_fence.rs | 32 ++++++++++++++++++++++++++++++++
+ rust/kernel/dma_buf/mod.rs       |  7 +++++++
+ rust/kernel/lib.rs               |  1 +
+ 3 files changed, 40 insertions(+)
 
-Best regards,
+diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_fence.rs
+new file mode 100644
+index 000000000000..135df74013db
+--- /dev/null
++++ b/rust/kernel/dma_buf/dma_fence.rs
+@@ -0,0 +1,32 @@
++// SPDX-License-Identifier: GPL-2.0
++//
++// Copyright (C) 2025, 2026 Red Hat Inc.:
++//   - Philipp Stanner <pstanner@redhat.com>
++
++//! DMA Fence support.
++//!
++//! Reference: <https://docs.kernel.org/driver-api/dma-buf.html#c.dma_fence>
++//!
++//! C header: [`include/linux/dma-fence.h`](srctree/include/linux/dma-fence.h)
++
++use crate::{
++    bindings,
++    prelude::*,
++    types::Opaque, //
++};
++
++/// A dma fence.
++#[pin_data]
++#[repr(transparent)]
++pub struct Fence {
++    #[pin]
++    inner: Opaque<bindings::dma_fence>,
++}
++
++impl Fence {
++    /// Access the raw dma fence.
++    #[inline]
++    pub fn as_raw(&self) -> *mut bindings::dma_fence {
++        self.inner.get()
++    }
++}
+diff --git a/rust/kernel/dma_buf/mod.rs b/rust/kernel/dma_buf/mod.rs
+new file mode 100644
+index 000000000000..b66e747c35ad
+--- /dev/null
++++ b/rust/kernel/dma_buf/mod.rs
+@@ -0,0 +1,7 @@
++// SPDX-License-Identifier: GPL-2.0 OR MIT
++
++//! DMA-buf subsystem abstractions.
++
++pub mod dma_fence;
++
++pub use self::dma_fence::Fence;
+diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
+index b72b2fbe046d..a05ccaa7598c 100644
+--- a/rust/kernel/lib.rs
++++ b/rust/kernel/lib.rs
+@@ -63,6 +63,7 @@
+ pub mod device_id;
+ pub mod devres;
+ pub mod dma;
++pub mod dma_buf;
+ pub mod driver;
+ #[cfg(CONFIG_DRM = "y")]
+ pub mod drm;
+
 -- 
-Alice Ryhl <aliceryhl@google.com>
+2.54.0.545.g6539524ca2-goog
 
