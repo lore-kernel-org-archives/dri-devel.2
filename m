@@ -4,49 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECAB6FF8855
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 20:01:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53F68CD3439
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 20:01:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4667E10E48B;
-	Tue,  5 May 2026 20:01:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC9E510EBF8;
+	Tue,  5 May 2026 20:01:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Sus7epih";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="FkckAoGw";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59E5C10E48B
- for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 20:01:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1778011268;
- bh=7HNtK8S648Lsic87QYT+lnKzx+eb5WKvVeeZQId2Nz0=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=Sus7epihBCq8myXQCu8LuoG487C0KWxTqCxtrmAVC+SbDSnyMC1qhApRG1dpaGFuU
- p6x7ycvA88uFhNGC88shLXxd4XZBaTwOBkvzG89MMoYIQVDOP16uWev4dpxj2ZLUz0
- oyBpuoiJwlLA3q4RKrp0q7eh+Dkmhw1tvDXPCvpWQmVXPpmdNjqpo+eE8rkRp3r522
- +5h1j1CguA1hRZqsD4N8Nx3Wbab3sVtHurEaSm4r8rskmruutnFNx99r5ctv6QUHUB
- 2GLXDVUyui6v9xskb78tQaHAroeliBCe+JnEfOc50vxCQ19ceMx30XVD14H8iMu7Qi
- UdhwoTJhsw/OA==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id DFC8517E0595;
- Tue,  5 May 2026 22:01:07 +0200 (CEST)
-Message-ID: <38b2e226-c8f0-44b4-bf71-66caa0b27d43@collabora.com>
-Date: Tue, 5 May 2026 23:01:06 +0300
+Received: from lankhorst.se (unknown [141.105.120.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DCFA10EBF7;
+ Tue,  5 May 2026 20:01:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
+ s=default; t=1778011300;
+ bh=iN/neWY7HHoG18AN5PpPvkNBjXG/Pq3VOo5Bys1m1Oo=;
+ h=From:To:Cc:Subject:Date:From;
+ b=FkckAoGwPzvTU05JvWYFyPJH1QYB3myW/Y7uZXCki2/iUUTzMlrlxep18Ix2/SwXh
+ SygDX9mJaz3OPeng3e3cJZFNXeiThgqMVnpuVwN5Ll2IHlzgpBVZTp190xAuyzC7WF
+ CeBIXSk+yLrgmUUKw9Px85Rj3g2L6ZSytj8lvt+hM9rvIZuOUsrDUtNqprcp53+rbr
+ 6bOPFTbPSBvDPGbkZQH87JOIuHjuIBHKifVVS2UPWYBQ9wtlERxDoK1kReBJSbACMc
+ mPStCP7y7jR+DoJkDN6s7GbA+mJhglNTLmf88Qj7QJ2i8Zlg2V1527LJiD8AiCiaaR
+ tPO8meIDtJuxQ==
+From: Maarten Lankhorst <dev@lankhorst.se>
+To: intel-xe@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, Maarten Lankhorst <dev@lankhorst.se>,
+ Chandra Konduru <chandra.konduru@intel.com>,
+ dri-devel@lists.freedesktop.org, Matt Roper <matthew.d.roper@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Subject: [PATCH] drm/intel/display: Add support for pipe background color (v4)
+Date: Tue,  5 May 2026 22:01:34 +0200
+Message-ID: <20260505200133.636584-2-dev@lankhorst.se>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: drm/bridge: dw-hdmi-qp: seamless handoff sets wrong
- tmds_char_rate, breaking audio on strict HDMI 2.1 sinks
-To: Simon Wright <Simon@symple.nz>,
- "linux-rockchip@lists.infradead.org" <linux-rockchip@lists.infradead.org>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "kernel@collabora.com" <kernel@collabora.com>
-References: <ME3P282MB21960D9D68BFF520316BDFCEA83E2@ME3P282MB2196.AUSP282.PROD.OUTLOOK.COM>
-Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <ME3P282MB21960D9D68BFF520316BDFCEA83E2@ME3P282MB2196.AUSP282.PROD.OUTLOOK.COM>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,213 +52,240 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Simon,
+Gen9 platforms allow CRTC's to be programmed with a background/canvas
+color below the programmable planes.  Let's expose this as a property to
+allow userspace to program a desired value.
 
-Thanks for the detailed bug report!
+This patch is based on earlier work by Chandra Konduru and Matt Roper.
+Between 2018 and now, intel/display has changed so much that another
+rewrite was necessary.
 
-I submitted a while ago a patch series [1] providing clock fixes (among others)
-to samsung-hdptx PHY driver, but sadly it hasn't been merged yet.
+v2:
+ - Set initial background color (black) via proper helper function (Bob)
+ - Fix debugfs output
+ - General rebasing
+v3 (Maarten):
+ - Rebase on top of recent changes.
+v4 (Maarten):
+ - Complete rewrite based on the solution that went upstream, and
+   on the new intel color management features.
 
-I think this should also address your audio issue, hence please give it a try
-and let me know how it goes.
+Cc: Chandra Konduru <chandra.konduru@intel.com>
+Cc: dri-devel@lists.freedesktop.org
+Co-developed-by: Matt Roper <matthew.d.roper@intel.com>
+Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+---
+Corresponding IGT: https://patchwork.freedesktop.org/series/166016/
 
-Regards,
-Cristian
+ drivers/gpu/drm/i915/display/intel_color.c    | 47 ++++++++++++-------
+ drivers/gpu/drm/i915/display/intel_color.h    |  3 ++
+ drivers/gpu/drm/i915/display/intel_crtc.c     |  4 ++
+ drivers/gpu/drm/i915/display/intel_display.c  |  5 ++
+ .../drm/i915/display/intel_display_debugfs.c  |  6 +++
+ .../drm/i915/display/intel_display_types.h    |  1 +
+ .../drm/i915/display/intel_modeset_setup.c    |  2 +
+ 7 files changed, 52 insertions(+), 16 deletions(-)
 
-[1] https://lore.kernel.org/all/20260227-hdptx-clk-fixes-v1-0-f998f2762d0f@collabora.com/
-
-On 5/5/26 11:18 AM, Simon Wright wrote:
-> [Resent in plain text — first attempt was rejected by the list's HTML filter.]
-> 
-> Hi,
-> 
-> I have tracked down a bug in dw-hdmi-qp that silences audio on strict
-> HDMI 2.1 sinks (tested: LG G3 OLED) when booting with HDMI seamless
-> handoff from U-Boot. HDMI 2.0 sinks are unaffected. The root cause is
-> a mismatch between the AVI InfoFrame colour depth and the ACR embedded
-> CTS value.
-> 
-> Hardware tested:
->   Source:       ArmSoM Sige5 (Rockchip RK3576)
->                 Armbian-edge kernel 7.0.2 (Linux mainline v7.0 plus
->                 Armbian board-enable patches; not a BSP kernel)
->   Failing sink: LG G3 OLED 4K (HDMI 2.1, strict embedded-CTS mode)
->   Passing sink: Various HDMI 2.0 TVs (self-measuring CTS, unaffected)
-> 
-> The bug is structural and is expected to affect RK3588 under the same
-> boot sequence.
-> 
-> 
-> Root cause
-> ----------
-> 
-> When the system boots with seamless handoff active, U-Boot has configured
-> the PHY for 8-bit 1080p60 (TMDS = 148,500,000 Hz). The DRM connector
-> state, negotiated from EDID, selects 10-bit deep colour (TMDS =
-> 185,625,000 Hz). In dw_hdmi_qp_bridge_atomic_enable():
-> 
->     hdmi->tmds_char_rate = conn_state->hdmi.tmds_char_rate;
-> 
-> This stores 185,625,000. The PHY ops->init() is called but the PHY is
-> already running at 148,500,000 from U-Boot and is not reconfigured.
-> 
-> The result is an inconsistency between what the sink is told over HDMI
-> and what the wire actually carries:
-> 
->   AVI InfoFrame:     declares 10-bit deep colour at the connector-state
->                      TMDS rate (185.625 MHz)
->   ACR embedded CTS:  driver uses hdmi->tmds_char_rate = 185,625,000 Hz
->                      to compute CTS via dw_hdmi_qp_set_sample_rate(),
->                      producing CTS = 185,625 (internally consistent
->                      with the AVI declaration)
->   Wire TMDS clock:   PHY untouched from U-Boot, still running at
->                      148,500,000 Hz (8-bit)
-> 
-> The dmesg signature (full pr_err output, lower in this report) confirms
-> both AVI and ACR are computed from the nominal 185.625 MHz value:
-> "tmds=185625000 ... cts=185625".
-> 
-> A standard HDMI 2.0 sink does not cross-check AVI against the wire TMDS
-> in any way that matters for audio, so the mismatch is harmless. A strict
-> HDMI 2.1 sink (LG G3) measures the wire TMDS and verifies it matches the
-> AVI declaration; with declared 185.625 MHz vs measured 148.5 MHz, the
-> check fails and audio is muted, permanently, until the next mode set.
-> 
-> The N/CTS values themselves are correct CEA-861 ratios. At a wire TMDS
-> of 148.5 MHz with N=6144, CTS=148,500 yields f_audio = 48 kHz; at a
-> wire TMDS of 185.625 MHz with N=6144, CTS=185,625 also yields f_audio
-> = 48 kHz. The driver picks one TMDS, computes a self-consistent N/CTS
-> pair, and embeds it. The bug is solely that the TMDS the driver picks
-> (connector-state nominal) differs from the TMDS on the wire (PHY
-> actual).
-> 
-> 
-> Dmesg diagnostic signature
-> --------------------------
-> 
-> Failing (seamless handoff, DRM selects 10-bit 1080p from EDID):
-> 
->     dwhdmiqp-rockchip 27da0000.hdmi: atomic_enable: \
->         tmds_candidate=185625000 is_hdmi=1
->     DW_HDMI_QP set_sample_rate: tmds=185625000 sr=48000 n=6144 cts=185625
->     [audio silent on LG G3]
-> 
-> Working (8-bit mode forced, see workaround below):
-> 
->     dwhdmiqp-rockchip 27da0000.hdmi: atomic_enable: \
->         tmds_candidate=148500000 is_hdmi=1
->     DW_HDMI_QP set_sample_rate: tmds=148500000 sr=48000 n=6144 cts=148500
->     [audio working on LG G3]
-> 
-> The difference is entirely in which tmds_char_rate bridge_atomic_enable()
-> receives. If the PHY and DRM state agree (both 148.5 MHz), audio works
-> because what the AVI declares matches what the wire carries. If they
-> disagree (DRM: 185.625 MHz, PHY: 148.5 MHz), the AVI declares 185.625
-> but the wire carries 148.5, and any sink that cross-checks the wire
-> TMDS against the declared rate (e.g. LG G3 OLED) mutes audio.
-> 
-> 
-> Confirmed workaround
-> --------------------
-> 
-> In dw_hdmi_qp_bridge_tmds_char_rate_valid(), reject 185,625,000 Hz:
-> 
->     if (rate == 185625000)
->         return MODE_CLOCK_HIGH;
-> 
-> This forces DRM to select 8-bit mode (148,500,000 Hz). bridge_atomic_enable()
-> then stores the correct tmds_char_rate, the AVI InfoFrame declares 8-bit,
-> the ACR CTS is computed correctly, and the LG G3 produces audio.
-> 
-> Note: 185,625,000 Hz (1080p@60 10-bit) is only selected via EDID
-> negotiation during seamless handoff. A genuine modeset at that rate would
-> correctly reconfigure the PHY and the AVI/ACR inconsistency would not
-> arise. Blocking this rate in tmds_char_rate_valid() therefore has no
-> correct-use-case cost on RK3576 with the current BSP. 4K@60Hz (594 MHz)
-> is unaffected and continues to work correctly, including audio.
-> 
-> 
-> Proposed proper fix
-> -------------------
-> 
-> The fundamental issue is that bridge_atomic_enable() accepts
-> conn_state->hdmi.tmds_char_rate without verifying it against the PHY's
-> actual output frequency.
-> 
-> Option A (no display disruption):
-> 
->   The HDPTX PHY PLL is already registered as a clock provider. On
->   RK3576, rk3576.dtsi gives the hdptxphy node #clock-cells = <0>;
->   VOP2 consumes it as "pll_hdmiphy0". If the bridge driver adds a
->   new clk pointer (e.g. hdmi->tmds_clk) populated via
->   devm_clk_get_optional() at probe and queries clk_get_rate()
->   in bridge_atomic_enable(), it can detect the seamless-handoff
->   mismatch and use the actual rate:
-> 
->       /* hdmi->tmds_clk added in struct dw_hdmi_qp; populated at
->        * probe via devm_clk_get_optional(dev, "tmds") or similar */
->       actual_rate = hdmi->tmds_clk ? clk_get_rate(hdmi->tmds_clk) : 0;
->       if (actual_rate && actual_rate != conn_state->hdmi.tmds_char_rate) {
->           dev_warn(hdmi->dev,
->               "seamless handoff: PHY at %lu Hz, DRM selected %llu Hz; "
->               "using actual PHY rate for audio\n",
->               actual_rate, conn_state->hdmi.tmds_char_rate);
->           hdmi->tmds_char_rate = actual_rate;
->       } else {
->           hdmi->tmds_char_rate = conn_state->hdmi.tmds_char_rate;
->       }
-> 
->   This corrects the ACR CTS and AVI InfoFrame without touching the
->   PHY configuration or causing a display blank.
-> 
-> Option B (correct but causes brief blank):
-> 
->   If the driver detects a mismatch, call phy.ops->init() to bring
->   the PHY into agreement with the DRM-negotiated state. All
->   parameters become consistent at the cost of a single mode change
->   on first enable after seamless handoff. This is arguably the more
->   correct approach if the intent is to honour what the EDID reports.
-> 
-> Option A is preferred for a seamless user experience. Option B is
-> preferable if the seamless-handoff-inherited U-Boot mode is not
-> otherwise suitable for production use.
-> 
-> 
-> Relation to Collabora's HDMI 2.0 patch series
-> ----------------------------------------------
-> 
-> The "Add HDMI 2.0 support to DW HDMI QP TX" series (v3, January 2026)
-> addresses high-TMDS-clock-ratio and scrambling. It does not appear to
-> address the seamless-handoff tmds_char_rate mismatch described here.
-> If a revision of that series reads PHY state at probe time it may
-> incidentally close this gap, but that is not a stated goal. Reviewers
-> may wish to verify the seamless-handoff path is exercised in testing.
-> 
-> 
-> Summary
-> -------
-> 
->   Bug:        bridge_atomic_enable() takes EDID-negotiated
->               tmds_char_rate (185,625,000) while PHY runs at U-Boot
->               rate (148,500,000); the AVI InfoFrame and the ACR CTS
->               both reflect the connector-state nominal value, but
->               the wire TMDS clock disagrees with what AVI declares
->   Symptom:    audio silent on any HDMI 2.1 sink that cross-checks
->               wire TMDS against the AVI declaration; HDMI 2.0 sinks
->               unaffected (no such cross-check)
->   Scope:      RK3576 confirmed; RK3588 structurally identical
->   Not a bug:  N/CTS table, IEC60958 channel status, ARC, ALSA path
->   Workaround: reject 185,625,000 Hz in tmds_char_rate_valid() so
->               DRM picks 8-bit 1080p (148,500,000 Hz) which matches
->               the actual PHY rate
->   Fix:        compare conn_state->hdmi.tmds_char_rate against actual
->               PHY clock at bridge_atomic_enable() and use the
->               measured rate when they disagree (Option A) or
->               reconfigure the PHY (Option B)
-> 
-> I am happy to test patches on Sige5 + LG G3.
-> 
-> Regards,
-> Simon
-> Symple Solutions, Dunedin, New Zealand
+diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
+index 0531c60e5e5d5..2365cf06cd514 100644
+--- a/drivers/gpu/drm/i915/display/intel_color.c
++++ b/drivers/gpu/drm/i915/display/intel_color.c
+@@ -1102,19 +1102,37 @@ static void skl_get_config(struct intel_crtc_state *crtc_state)
+ {
+ 	struct intel_display *display = to_intel_display(crtc_state);
+ 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
++	u32 color;
+ 
+ 	crtc_state->gamma_mode = hsw_read_gamma_mode(crtc);
+ 	crtc_state->csc_mode = ilk_read_csc_mode(crtc);
+ 
++	color = intel_de_read(display, SKL_BOTTOM_COLOR(crtc->pipe));
+ 	if (DISPLAY_VER(display) < 35) {
+-		u32 tmp = intel_de_read(display, SKL_BOTTOM_COLOR(crtc->pipe));
+-
+-		if (tmp & SKL_BOTTOM_COLOR_GAMMA_ENABLE)
++		if (color & SKL_BOTTOM_COLOR_GAMMA_ENABLE)
+ 			crtc_state->gamma_enable = true;
+ 
+-		if (tmp & SKL_BOTTOM_COLOR_CSC_ENABLE)
++		if (color & SKL_BOTTOM_COLOR_CSC_ENABLE)
+ 			crtc_state->csc_enable = true;
+ 	}
++
++	crtc_state->hw.background_color = color & GENMASK(29, 0);
++}
++
++u32 intel_color_hw_background_color(u64 drm_background_color)
++{
++	return (DRM_ARGB64_GETR_BPC(drm_background_color, 10) << 20) |
++	       (DRM_ARGB64_GETG_BPC(drm_background_color, 10) << 10) |
++	       (DRM_ARGB64_GETB_BPC(drm_background_color, 10));
++}
++
++u64 intel_color_drm_background_color(u32 hw_background_color)
++{
++	uint16_t r = (hw_background_color >> 20) & 0x3ff;
++	uint16_t g = (hw_background_color >> 10) & 0x3ff;
++	uint16_t b = hw_background_color & 0x3ff;
++
++	return DRM_ARGB64_PREP_BPC(0x3ff, r, g, b, 10);
+ }
+ 
+ static void skl_color_commit_arm(struct intel_dsb *dsb,
+@@ -1123,16 +1141,11 @@ static void skl_color_commit_arm(struct intel_dsb *dsb,
+ 	struct intel_display *display = to_intel_display(crtc_state);
+ 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+ 	enum pipe pipe = crtc->pipe;
+-	u32 val = 0;
++	u32 val = crtc_state->hw.background_color;
+ 
+ 	if (crtc_state->has_psr)
+ 		ilk_load_csc_matrix(dsb, crtc_state);
+ 
+-	/*
+-	 * We don't (yet) allow userspace to control the pipe background color,
+-	 * so force it to black, but apply pipe gamma and CSC appropriately
+-	 * so that its handling will match how we program our planes.
+-	 */
+ 	if (crtc_state->gamma_enable)
+ 		val |= SKL_BOTTOM_COLOR_GAMMA_ENABLE;
+ 	if (crtc_state->csc_enable)
+@@ -1151,11 +1164,7 @@ static void icl_color_commit_arm(struct intel_dsb *dsb,
+ 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+ 	enum pipe pipe = crtc->pipe;
+ 
+-	/*
+-	 * We don't (yet) allow userspace to control the pipe background color,
+-	 * so force it to black.
+-	 */
+-	intel_de_write_dsb(display, dsb, SKL_BOTTOM_COLOR(pipe), 0);
++	intel_de_write_dsb(display, dsb, SKL_BOTTOM_COLOR(pipe), crtc_state->hw.background_color);
+ 
+ 	intel_de_write_dsb(display, dsb, GAMMA_MODE(crtc->pipe), crtc_state->gamma_mode);
+ 
+@@ -2107,9 +2116,15 @@ int intel_color_check(struct intel_atomic_state *state,
+ 	 * May need to update pipe gamma enable bits
+ 	 * when C8 planes are getting enabled/disabled.
+ 	 */
+-	if (!old_crtc_state->c8_planes != !new_crtc_state->c8_planes)
++	if (!old_crtc_state->c8_planes != !new_crtc_state->c8_planes ||
++	    old_crtc_state->hw.background_color != new_crtc_state->hw.background_color)
+ 		new_crtc_state->uapi.color_mgmt_changed = true;
+ 
++	if (DRM_ARGB64_GETA(new_crtc_state->uapi.background_color) != 0xffff) {
++		drm_dbg_kms(display->drm, "New background not completely opaque\n");
++		return -EINVAL;
++	}
++
+ 	if (!intel_crtc_needs_color_update(new_crtc_state))
+ 		return 0;
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_color.h b/drivers/gpu/drm/i915/display/intel_color.h
+index c21b9bdf7bb8a..f2cbce57b63d7 100644
+--- a/drivers/gpu/drm/i915/display/intel_color.h
++++ b/drivers/gpu/drm/i915/display/intel_color.h
+@@ -47,4 +47,7 @@ void intel_color_plane_program_pipeline(struct intel_dsb *dsb,
+ void intel_color_plane_commit_arm(struct intel_dsb *dsb,
+ 				  const struct intel_plane_state *plane_state);
+ bool intel_color_crtc_has_3dlut(struct intel_display *display, enum pipe pipe);
++u32 intel_color_hw_background_color(u64 drm_background_color);
++u64 intel_color_drm_background_color(u32 hw_background_color);
++
+ #endif /* __INTEL_COLOR_H__ */
+diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i915/display/intel_crtc.c
+index 03de219f7a645..b7600cecafc85 100644
+--- a/drivers/gpu/drm/i915/display/intel_crtc.c
++++ b/drivers/gpu/drm/i915/display/intel_crtc.c
+@@ -7,6 +7,7 @@
+ #include <linux/slab.h>
+ 
+ #include <drm/drm_atomic_helper.h>
++#include <drm/drm_blend.h>
+ #include <drm/drm_fourcc.h>
+ #include <drm/drm_plane.h>
+ #include <drm/drm_print.h>
+@@ -405,6 +406,9 @@ static int __intel_crtc_init(struct intel_display *display, enum pipe pipe)
+ 						BIT(DRM_SCALING_FILTER_DEFAULT) |
+ 						BIT(DRM_SCALING_FILTER_NEAREST_NEIGHBOR));
+ 
++	if (DISPLAY_VER(display) >= 9)
++		drm_crtc_attach_background_color_property(&crtc->base);
++
+ 	intel_color_crtc_init(crtc);
+ 	intel_drrs_crtc_init(crtc);
+ 	intel_crtc_crc_init(crtc);
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 2fa10f8582794..306908f20b5a0 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -4505,6 +4505,8 @@ intel_crtc_copy_uapi_to_hw_state_nomodeset(struct intel_atomic_state *state,
+ 				  crtc_state->uapi.gamma_lut);
+ 	drm_property_replace_blob(&crtc_state->hw.ctm,
+ 				  crtc_state->uapi.ctm);
++	crtc_state->hw.background_color =
++		intel_color_hw_background_color(crtc_state->uapi.background_color);
+ }
+ 
+ static void
+@@ -4544,6 +4546,7 @@ copy_joiner_crtc_state_nomodeset(struct intel_atomic_state *state,
+ 				  primary_crtc_state->hw.gamma_lut);
+ 	drm_property_replace_blob(&secondary_crtc_state->hw.ctm,
+ 				  primary_crtc_state->hw.ctm);
++	secondary_crtc_state->hw.background_color = primary_crtc_state->hw.background_color;
+ 
+ 	secondary_crtc_state->uapi.color_mgmt_changed = primary_crtc_state->uapi.color_mgmt_changed;
+ }
+@@ -5356,6 +5359,8 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
+ 		else
+ 			PIPE_CONF_CHECK_X(csc_mode);
+ 		PIPE_CONF_CHECK_BOOL(gamma_enable);
++
++		PIPE_CONF_CHECK_X(hw.background_color);
+ 		PIPE_CONF_CHECK_BOOL(csc_enable);
+ 		PIPE_CONF_CHECK_BOOL(wgc_enable);
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+index 81bef000a4e3e..336ef29d0c5b5 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
++++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+@@ -572,6 +572,12 @@ static void intel_crtc_info(struct seq_file *m, struct intel_crtc *crtc)
+ 
+ 	intel_scaler_info(m, crtc);
+ 
++	if (DISPLAY_VER(display) >= 9) {
++		u32 background = crtc_state->hw.background_color;
++
++		seq_printf(m, "\tbackground color (10bpc XRGB210101010): %08x\n", background);
++	}
++
+ 	if (crtc_state->joiner_pipes)
+ 		seq_printf(m, "\tLinked to 0x%x pipes as a %s\n",
+ 			   crtc_state->joiner_pipes,
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index c819167618502..aa07be41648c4 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -1034,6 +1034,7 @@ struct intel_crtc_state {
+ 		/* logical state of LUTs */
+ 		struct drm_property_blob *degamma_lut, *gamma_lut, *ctm;
+ 		struct drm_display_mode mode, pipe_mode, adjusted_mode;
++		u32 background_color;
+ 		enum drm_scaling_filter scaling_filter;
+ 		u8 sharpness_strength;
+ 	} hw;
+diff --git a/drivers/gpu/drm/i915/display/intel_modeset_setup.c b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
+index 4c646b1bd0ee0..d3b2433eae791 100644
+--- a/drivers/gpu/drm/i915/display/intel_modeset_setup.c
++++ b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
+@@ -334,6 +334,8 @@ static void intel_crtc_copy_hw_to_uapi_state(struct intel_crtc_state *crtc_state
+ 	crtc_state->uapi.adjusted_mode = crtc_state->hw.adjusted_mode;
+ 	crtc_state->uapi.scaling_filter = crtc_state->hw.scaling_filter;
+ 	crtc_state->uapi.sharpness_strength = crtc_state->hw.sharpness_strength;
++	crtc_state->uapi.background_color =
++		intel_color_drm_background_color(crtc_state->hw.background_color);
+ 
+ 	if (DISPLAY_INFO(display)->color.degamma_lut_size) {
+ 		/* assume 1:1 mapping */
+-- 
+2.53.0
 
