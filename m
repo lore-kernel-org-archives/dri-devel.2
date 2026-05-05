@@ -4,46 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D9D3FF885A
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 09:49:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EB66FF885A
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 09:51:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 765E010E117;
-	Tue,  5 May 2026 09:49:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71DC710EA1C;
+	Tue,  5 May 2026 09:50:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="r/lRB4SC";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Nw8kl+tQ";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UWKNJ4zs";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3EE510E117
- for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 09:49:42 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id C27D360125;
- Tue,  5 May 2026 09:49:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE9F7C2BCC7;
- Tue,  5 May 2026 09:49:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777974581;
- bh=sbbUvTWpiLLBjBltGQyy7i5lDyEOVQHoJ2Esr5Xtl/c=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=r/lRB4SCFTNPs3azqxkCaYRsG94mKLZoSf4r+caqgow3uVQ3A8EZ/pPW8MucNCrUo
- pjpudOjV63jiV0oVskiC+CQe/dXCLXkiLcni5x25SY4p6PlvewiL7gZgVwAZ9tic45
- s0Y05IA+G+OWGc7VlQDZSjI0BNoffHHKSxTvCxH8xy89Dcr5sPB6o6Dp0k9eEfmlq8
- TgpR6oROILGi9sTU07i6JAIng0ZLMmmzsEaQFpS1H8CdUqHCnoUc2XBVkaBgp5Ugma
- aNm5hKpS58s/3W/MOpltKLBILLcjhWdLh5Y3a1RWgAezegtwyDgP3IlbJtur9uythg
- Jg9P4ajYg21LA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, Helge Deller <deller@gmx.de>,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] fbdev: defio: Disconnect deferred I/O from the
- lifetime of struct fb_info
-Date: Tue,  5 May 2026 05:49:37 -0400
-Message-ID: <20260505094937.506038-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026050117-upper-unhelpful-d8a9@gregkh>
-References: <2026050117-upper-unhelpful-d8a9@gregkh>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B21DF10EA1C
+ for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 09:50:57 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6456T0d61186892
+ for <dri-devel@lists.freedesktop.org>; Tue, 5 May 2026 09:50:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=tB0cuSXyWCVCcvCFqY9uCB
+ KVk4Q/akucpHw1mtC7pLU=; b=Nw8kl+tQ7P5mhnuBW7lsALbsrmqw7Pz6NjQRtr
+ yQ6PWTQtHiInrEehM2XKD60EeSTSK67mECBtV0gAOQsgu94UnQw/FN5fZ+XgSjI5
+ DZnlRY4TQVpfas99sNRmAIiPy3VV7N8M8bqhopT8Attq5TfnZbZ8lhVXHswxMa0g
+ kCZOt6t96kr3Iil7OYo6xypoFfZbb4IdJjPCdVTbPv/2YE1JbP2GmWD2mlngKrP5
+ c4aC8d/hzfZLEiey11i5dM2VhDg3tPsTqOwj2B/VX0SX2jw17pDg8d8sy44ulhY/
+ TqtCiOS7Vm714uIHzNVYIPlxYOuiFIBUzs7lDEprdAiYSqOg==
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com
+ [209.85.217.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dxvvgbqb8-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 09:50:56 +0000 (GMT)
+Received: by mail-vs1-f70.google.com with SMTP id
+ ada2fe7eead31-62f31e99ca2so3189541137.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 02:50:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1777974656; x=1778579456;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:subject:cc:to:content-language:from
+ :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=tB0cuSXyWCVCcvCFqY9uCBKVk4Q/akucpHw1mtC7pLU=;
+ b=UWKNJ4zsuQHwlB/CdsrPt4kP3zeneo4oICGpw1oDCHsgx7ks6Z5TGSxAnvPt/KcZ6b
+ m5lOTQWd8o9Md9RxaMHOiGmVxPaBCiycD7Kke7XJu0C3cLP1AuoJI5lnhLp7dP3qEUwM
+ FxTVHxk7PmjY7ji19/7+6kVDXCZ9YKsvR65QlmqOkODLeVLr+8eTGjAkuFKyTlai68gz
+ QFc/3UaAUFWfL7zCvxNky8PKaYodjionO6XG0+k7UHqI+6x21Iyj/MmmpyeQspr+hr3a
+ +utpXNWBHwpCl7H/dpimBaQfrAE7RDQiay8aT+G8t4d2ncf7hEsNL9ETQ1+sAgUg0VHf
+ ELJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777974656; x=1778579456;
+ h=content-transfer-encoding:subject:cc:to:content-language:from
+ :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=tB0cuSXyWCVCcvCFqY9uCBKVk4Q/akucpHw1mtC7pLU=;
+ b=J2qiFF519kP9nNvivEm8a64iOXRh9FBdwZBDV5psWkO/onO2lY5y5QgcV8FMz1iXV5
+ BGQF+uvqTgwfZ16k/cgYoPCUBBnO1jgDkJFCVQI9r3ezFCNFI50usH8nYD+wkfXFBX4j
+ 58LZx4Z9i+/PyP7MbUngAQTPW9OFrOZ78i+74+OWGeoqC/nX1p3PdFU0GzkWWDTUnyXp
+ MA6XYqCF6J0tn9zoXqlA/6n40iza7c+GGRDRZLOYnJzGaAbzaDUItewqsFzwNUEINGC/
+ Lq9v9ejQrmdHhrHdzZ1h28rUtmoa2ZFpNOH+52Nutt9Pst6QLe6NtGk0KMJcH9GPBtyN
+ 0TnA==
+X-Gm-Message-State: AOJu0YxmLAUewDoXVvx7GcFQdb5rvJz8RQdl9bKgLVxB/ufh66J+OgAX
+ yB/DibePRje8nGEGCRiUWGuFrC6m1ETkI1rmDjZw0/gPFLYSwMzkg1Z4y1z5dNMC/h7cHzde+H2
+ 1HLl2sfZAXPuw00FgeQUGFzrSSHonhUJOU4SMqQhb0lEkNnFgOi9JRPCojcRUBgIeqE6FdpI=
+X-Gm-Gg: AeBDieuGcBogeCF9mlUIk2aLSoX9vB4IZ1MkF+eKfSxVP70Fa8dRm90xOCQZhzyw63k
+ 59Bz4UZR+ifZa1CbO/PRMjM9VfJAyg1rY6gZgAiNH/sGCkYEnF8CzGGk3IqTx8+F5tQDvJRUxjy
+ O2+esVAgxFoJM0UXk2F2sXK67tv/2SIwlujhav/SGIswxS1CLnooRo+d651ITuGIs5fYbfPsd3K
+ J+ChwFQ6BVtxMo3QhWHAwUwBQ/7z7eI1RMVYpoH23sXIpAplxvHak4uEjEWJSJb/6bRBl6RmfD2
+ mYlFa+L3+Zhp5sDPGvzn1G7ctjgvUrC3KtzToH8RQ+xOfgar6GI0Fw7/MgVc6cPPCz5nRRxz/ug
+ r8dc2gS6HTkCaiWrffINVXzdsUdhrNgpHxxMT63JE/7N75b7/XqZ3EYJMZMoLE6xPmRaKRUcTz4
+ +fjC5wZZV+/1HPgrhvkHKtdrTq7DYuT398gKROViRzXBvfLYOK52USI+ONvmErQQbzYojZhaMZ3
+ pkKJYOChMfhhYV1eTvnmLKiKso=
+X-Received: by 2002:a05:6102:8009:b0:62f:3326:fa4c with SMTP id
+ ada2fe7eead31-62f55a5d6c0mr1245355137.21.1777974655722; 
+ Tue, 05 May 2026 02:50:55 -0700 (PDT)
+X-Received: by 2002:a05:6102:8009:b0:62f:3326:fa4c with SMTP id
+ ada2fe7eead31-62f55a5d6c0mr1245348137.21.1777974655324; 
+ Tue, 05 May 2026 02:50:55 -0700 (PDT)
+Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec?
+ (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-bc1b97a11easm219088766b.44.2026.05.05.02.50.54
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 05 May 2026 02:50:54 -0700 (PDT)
+Message-ID: <b8b4fc94-6aae-4558-a4bb-13c26cae186f@oss.qualcomm.com>
+Date: Tue, 5 May 2026 11:50:53 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+From: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Content-Language: en-US, nl
+To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>,
+ Daniel Dadap <ddadap@nvidia.com>, "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ linux-fbdev@vger.kernel.org, linux-acpi <linux-acpi@vger.kernel.org>
+Subject: Plan to fix nvidia_wmi_ec backlight issues, help wanted
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: YhXZRrrLOKgZgssUk1zocXjyxoDOcz3o
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA1MDA5MiBTYWx0ZWRfXxL5U3VNYARGf
+ PSn0y2hqWT3pRagFC8gXCpO6Dn5JqOgHQMAb3ePIU0cSAj2rlsDRLk+3o/QNbFkzNNZK2dWdKyT
+ CTWmkEk32gK4PvDXjE6o21DS7Dx/39X13OwV7GqFUPIvZKklYYdTUBlf6nLanpGTTVF/5khrqjh
+ NB/7wFKWrpSIlcDiDoP16oWd+3juKhytPTY6ghL7jB0X+ZN+c6BpMIi0wFOjTa69bEQTObph4jr
+ jaJH6VDEbtH7NYbTbbmdRoQ6MShdCAq6t4tMDB1mzPxt0jmccYOjJ6GW4NYNgfguOztscqG1HN0
+ hZRldbTYgalePpZbWdiE/APyj7aS+q6dw8+DP7o4ZDyTEUcSyWiWIQ2tCknoR7xPHlGvqn5pS1D
+ s3mMAqXBIihXgRzCIudipZYIquMWlQMufZL4Z3jnQn+YuxDF4P+rpuR/5m214lN5/LuUL3Gh22q
+ WEt0cP9YksmEQCOnmqQ==
+X-Authority-Analysis: v=2.4 cv=K+AS2SWI c=1 sm=1 tr=0 ts=69f9bd80 cx=c_pps
+ a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
+ a=GHR8O2WEAAAA:20 a=e5mUnYsNAAAA:8 a=iox4zFpeAAAA:8 a=FQzLeyTS56HO1ZxThNwA:9
+ a=QEXdDO2ut3YA:10 a=crWF4MFLhNY0qMRaF8an:22 a=Vxmtnl_E_bksehYqCbjh:22
+ a=WzC6qhA0u3u7Ye7llzcV:22
+X-Proofpoint-GUID: YhXZRrrLOKgZgssUk1zocXjyxoDOcz3o
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-05_02,2026-04-30_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 spamscore=0 adultscore=0 clxscore=1011
+ priorityscore=1501 bulkscore=0 impostorscore=0 lowpriorityscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2605050092
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,334 +142,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Thomas Zimmermann <tzimmermann@suse.de>
+Hi All,
 
-[ Upstream commit 9ded47ad003f09a94b6a710b5c47f4aa5ceb7429 ]
+A while ago Nvidia introduced a new Nvidia specific firmware method
+for controlling the backlight on laptops with runtime switchable
+Nvidia hybrid graphics.
 
-Hold state of deferred I/O in struct fb_deferred_io_state. Allocate an
-instance as part of initializing deferred I/O and remove it only after
-the final mapping has been closed. If the fb_info and the contained
-deferred I/O meanwhile goes away, clear struct fb_deferred_io_state.info
-to invalidate the mapping. Any access will then result in a SIGBUS
-signal.
+This is supported through the nvidia-wmi-ec-backlight driver, but has
+never worked 100%.
 
-Fixes a long-standing problem, where a device hot-unplug happens while
-user space still has an active mapping of the graphics memory. The hot-
-unplug frees the instance of struct fb_info. Accessing the memory will
-operate on undefined state.
+The new WMI firmware interface has a method to ask the firmware if
+the backlight is controlled though the EC and this the new WMI interface
+should be used; or if it is directly controlled by the GPU and the GPU
+driver's native backlight support should be used.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Fixes: 60b59beafba8 ("fbdev: mm: Deferred IO support")
-Cc: Helge Deller <deller@gmx.de>
-Cc: linux-fbdev@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: stable@vger.kernel.org # v2.6.22+
-Signed-off-by: Helge Deller <deller@gmx.de>
-[ replaced `kzalloc_obj()` with `kzalloc(sizeof(*fbdefio_state), GFP_KERNEL)` ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/video/fbdev/core/fb_defio.c | 152 ++++++++++++++++++++++++----
- include/linux/fb.h                  |   4 +-
- 2 files changed, 138 insertions(+), 18 deletions(-)
+There are several bugs in the implementation of this on various laptops:
 
-diff --git a/drivers/video/fbdev/core/fb_defio.c b/drivers/video/fbdev/core/fb_defio.c
-index c2a0a936d5fb6..e348f4c15d81a 100644
---- a/drivers/video/fbdev/core/fb_defio.c
-+++ b/drivers/video/fbdev/core/fb_defio.c
-@@ -23,6 +23,75 @@
- #include <linux/rmap.h>
- #include <linux/pagemap.h>
- 
-+/*
-+ * struct fb_deferred_io_state
-+ */
-+
-+struct fb_deferred_io_state {
-+	struct kref ref;
-+
-+	struct mutex lock; /* mutex that protects the pageref list */
-+	/* fields protected by lock */
-+	struct fb_info *info;
-+};
-+
-+static struct fb_deferred_io_state *fb_deferred_io_state_alloc(void)
-+{
-+	struct fb_deferred_io_state *fbdefio_state;
-+
-+	fbdefio_state = kzalloc(sizeof(*fbdefio_state), GFP_KERNEL);
-+	if (!fbdefio_state)
-+		return NULL;
-+
-+	kref_init(&fbdefio_state->ref);
-+	mutex_init(&fbdefio_state->lock);
-+
-+	return fbdefio_state;
-+}
-+
-+static void fb_deferred_io_state_release(struct fb_deferred_io_state *fbdefio_state)
-+{
-+	mutex_destroy(&fbdefio_state->lock);
-+
-+	kfree(fbdefio_state);
-+}
-+
-+static void fb_deferred_io_state_get(struct fb_deferred_io_state *fbdefio_state)
-+{
-+	kref_get(&fbdefio_state->ref);
-+}
-+
-+static void __fb_deferred_io_state_release(struct kref *ref)
-+{
-+	struct fb_deferred_io_state *fbdefio_state =
-+		container_of(ref, struct fb_deferred_io_state, ref);
-+
-+	fb_deferred_io_state_release(fbdefio_state);
-+}
-+
-+static void fb_deferred_io_state_put(struct fb_deferred_io_state *fbdefio_state)
-+{
-+	kref_put(&fbdefio_state->ref, __fb_deferred_io_state_release);
-+}
-+
-+/*
-+ * struct vm_operations_struct
-+ */
-+
-+static void fb_deferred_io_vm_open(struct vm_area_struct *vma)
-+{
-+	struct fb_deferred_io_state *fbdefio_state = vma->vm_private_data;
-+
-+	fb_deferred_io_state_get(fbdefio_state);
-+}
-+
-+static void fb_deferred_io_vm_close(struct vm_area_struct *vma)
-+{
-+	struct fb_deferred_io_state *fbdefio_state = vma->vm_private_data;
-+
-+	fb_deferred_io_state_put(fbdefio_state);
-+}
-+
- static struct page *fb_deferred_io_page(struct fb_info *info, unsigned long offs)
- {
- 	void *screen_base = (void __force *) info->screen_base;
-@@ -93,17 +162,31 @@ static void fb_deferred_io_pageref_put(struct fb_deferred_io_pageref *pageref,
- /* this is to find and return the vmalloc-ed fb pages */
- static vm_fault_t fb_deferred_io_fault(struct vm_fault *vmf)
- {
-+	struct fb_info *info;
- 	unsigned long offset;
- 	struct page *page;
--	struct fb_info *info = vmf->vma->vm_private_data;
-+	vm_fault_t ret;
-+	struct fb_deferred_io_state *fbdefio_state = vmf->vma->vm_private_data;
-+
-+	mutex_lock(&fbdefio_state->lock);
-+
-+	info = fbdefio_state->info;
-+	if (!info) {
-+		ret = VM_FAULT_SIGBUS; /* our device is gone */
-+		goto err_mutex_unlock;
-+	}
- 
- 	offset = vmf->pgoff << PAGE_SHIFT;
--	if (offset >= info->fix.smem_len)
--		return VM_FAULT_SIGBUS;
-+	if (offset >= info->fix.smem_len) {
-+		ret = VM_FAULT_SIGBUS;
-+		goto err_mutex_unlock;
-+	}
- 
- 	page = fb_deferred_io_page(info, offset);
--	if (!page)
--		return VM_FAULT_SIGBUS;
-+	if (!page) {
-+		ret = VM_FAULT_SIGBUS;
-+		goto err_mutex_unlock;
-+	}
- 
- 	get_page(page);
- 
-@@ -115,8 +198,14 @@ static vm_fault_t fb_deferred_io_fault(struct vm_fault *vmf)
- 	BUG_ON(!page->mapping);
- 	page->index = vmf->pgoff; /* for page_mkclean() */
- 
-+	mutex_unlock(&fbdefio_state->lock);
-+
- 	vmf->page = page;
- 	return 0;
-+
-+err_mutex_unlock:
-+	mutex_unlock(&fbdefio_state->lock);
-+	return ret;
- }
- 
- int fb_deferred_io_fsync(struct file *file, loff_t start, loff_t end, int datasync)
-@@ -143,8 +232,9 @@ EXPORT_SYMBOL_GPL(fb_deferred_io_fsync);
- static vm_fault_t fb_deferred_io_mkwrite(struct vm_fault *vmf)
- {
- 	struct page *page = vmf->page;
--	struct fb_info *info = vmf->vma->vm_private_data;
--	struct fb_deferred_io *fbdefio = info->fbdefio;
-+	struct fb_deferred_io_state *fbdefio_state = vmf->vma->vm_private_data;
-+	struct fb_info *info;
-+	struct fb_deferred_io *fbdefio;
- 	struct fb_deferred_io_pageref *pageref;
- 	unsigned long offset;
- 	vm_fault_t ret;
-@@ -160,7 +250,15 @@ static vm_fault_t fb_deferred_io_mkwrite(struct vm_fault *vmf)
- 	file_update_time(vmf->vma->vm_file);
- 
- 	/* protect against the workqueue changing the page list */
--	mutex_lock(&fbdefio->lock);
-+	mutex_lock(&fbdefio_state->lock);
-+
-+	info = fbdefio_state->info;
-+	if (!info) {
-+		ret = VM_FAULT_SIGBUS; /* our device is gone */
-+		goto err_mutex_unlock;
-+	}
-+
-+	fbdefio = info->fbdefio;
- 
- 	/* first write in this cycle, notify the driver */
- 	if (fbdefio->first_io && list_empty(&fbdefio->pagereflist))
-@@ -182,18 +280,20 @@ static vm_fault_t fb_deferred_io_mkwrite(struct vm_fault *vmf)
- 	 */
- 	lock_page(pageref->page);
- 
--	mutex_unlock(&fbdefio->lock);
-+	mutex_unlock(&fbdefio_state->lock);
- 
- 	/* come back after delay to process the deferred IO */
- 	schedule_delayed_work(&info->deferred_work, fbdefio->delay);
- 	return VM_FAULT_LOCKED;
- 
- err_mutex_unlock:
--	mutex_unlock(&fbdefio->lock);
-+	mutex_unlock(&fbdefio_state->lock);
- 	return ret;
- }
- 
- static const struct vm_operations_struct fb_deferred_io_vm_ops = {
-+	.open		= fb_deferred_io_vm_open,
-+	.close		= fb_deferred_io_vm_close,
- 	.fault		= fb_deferred_io_fault,
- 	.page_mkwrite	= fb_deferred_io_mkwrite,
- };
-@@ -215,7 +315,10 @@ int fb_deferred_io_mmap(struct fb_info *info, struct vm_area_struct *vma)
- 	vma->vm_flags |= VM_DONTEXPAND | VM_DONTDUMP;
- 	if (!(info->flags & FBINFO_VIRTFB))
- 		vma->vm_flags |= VM_IO;
--	vma->vm_private_data = info;
-+	vma->vm_private_data = info->fbdefio_state;
-+
-+	fb_deferred_io_state_get(info->fbdefio_state); /* released in vma->vm_ops->close() */
-+
- 	return 0;
- }
- 
-@@ -225,9 +328,10 @@ static void fb_deferred_io_work(struct work_struct *work)
- 	struct fb_info *info = container_of(work, struct fb_info, deferred_work.work);
- 	struct fb_deferred_io_pageref *pageref, *next;
- 	struct fb_deferred_io *fbdefio = info->fbdefio;
-+	struct fb_deferred_io_state *fbdefio_state = info->fbdefio_state;
- 
- 	/* here we mkclean the pages, then do all deferred IO */
--	mutex_lock(&fbdefio->lock);
-+	mutex_lock(&fbdefio_state->lock);
- 	list_for_each_entry(pageref, &fbdefio->pagereflist, list) {
- 		struct page *cur = pageref->page;
- 		lock_page(cur);
-@@ -242,12 +346,13 @@ static void fb_deferred_io_work(struct work_struct *work)
- 	list_for_each_entry_safe(pageref, next, &fbdefio->pagereflist, list)
- 		fb_deferred_io_pageref_put(pageref, info);
- 
--	mutex_unlock(&fbdefio->lock);
-+	mutex_unlock(&fbdefio_state->lock);
- }
- 
- int fb_deferred_io_init(struct fb_info *info)
- {
- 	struct fb_deferred_io *fbdefio = info->fbdefio;
-+	struct fb_deferred_io_state *fbdefio_state;
- 	struct fb_deferred_io_pageref *pagerefs;
- 	unsigned long npagerefs, i;
- 	int ret;
-@@ -257,7 +362,11 @@ int fb_deferred_io_init(struct fb_info *info)
- 	if (WARN_ON(!info->fix.smem_len))
- 		return -EINVAL;
- 
--	mutex_init(&fbdefio->lock);
-+	fbdefio_state = fb_deferred_io_state_alloc();
-+	if (!fbdefio_state)
-+		return -ENOMEM;
-+	fbdefio_state->info = info;
-+
- 	INIT_DELAYED_WORK(&info->deferred_work, fb_deferred_io_work);
- 	INIT_LIST_HEAD(&fbdefio->pagereflist);
- 	if (fbdefio->delay == 0) /* set a default of 1 s */
-@@ -276,10 +385,12 @@ int fb_deferred_io_init(struct fb_info *info)
- 	info->npagerefs = npagerefs;
- 	info->pagerefs = pagerefs;
- 
-+	info->fbdefio_state = fbdefio_state;
-+
- 	return 0;
- 
- err:
--	mutex_destroy(&fbdefio->lock);
-+	fb_deferred_io_state_release(fbdefio_state);
- 	return ret;
- }
- EXPORT_SYMBOL_GPL(fb_deferred_io_init);
-@@ -320,11 +431,18 @@ EXPORT_SYMBOL_GPL(fb_deferred_io_release);
- 
- void fb_deferred_io_cleanup(struct fb_info *info)
- {
--	struct fb_deferred_io *fbdefio = info->fbdefio;
-+	struct fb_deferred_io_state *fbdefio_state = info->fbdefio_state;
- 
- 	fb_deferred_io_lastclose(info);
- 
-+	info->fbdefio_state = NULL;
-+
-+	mutex_lock(&fbdefio_state->lock);
-+	fbdefio_state->info = NULL;
-+	mutex_unlock(&fbdefio_state->lock);
-+
-+	fb_deferred_io_state_put(fbdefio_state);
-+
- 	kvfree(info->pagerefs);
--	mutex_destroy(&fbdefio->lock);
- }
- EXPORT_SYMBOL_GPL(fb_deferred_io_cleanup);
-diff --git a/include/linux/fb.h b/include/linux/fb.h
-index b79a833524efc..9b3c198b06826 100644
---- a/include/linux/fb.h
-+++ b/include/linux/fb.h
-@@ -213,12 +213,13 @@ struct fb_deferred_io {
- 	unsigned long delay;
- 	bool sort_pagereflist; /* sort pagelist by offset */
- 	int open_count; /* number of opened files; protected by fb_info lock */
--	struct mutex lock; /* mutex that protects the pageref list */
- 	struct list_head pagereflist; /* list of pagerefs for touched pages */
- 	/* callback */
- 	void (*first_io)(struct fb_info *info);
- 	void (*deferred_io)(struct fb_info *info, struct list_head *pagelist);
- };
-+
-+struct fb_deferred_io_state;
- #endif
- 
- /*
-@@ -480,6 +481,7 @@ struct fb_info {
- 	unsigned long npagerefs;
- 	struct fb_deferred_io_pageref *pagerefs;
- 	struct fb_deferred_io *fbdefio;
-+	struct fb_deferred_io_state *fbdefio_state;
- #endif
- 
- 	const struct fb_ops *fbops;
--- 
-2.53.0
+1. The method to get the backlight control source sometimes does not
+report the correct value.
+
+2. On some laptop models which method (native-gpu vs nvidia-wmi) works
+changes at runtime, e.g. when plugging in a charger.
+
+Known affected laptop models/bug reports about this:
+- Acer Predator PH315-55: needs acpi_backlight=native
+- Dell G15 5515 with RTX 3050: *needs* acpi_backlight=native
+- Dell G15 5515 with RTX 3060: *breaks* with acpi_backlight=native
+- Lenovo Legion Slim 7 2021
+- https://bugzilla.kernel.org/show_bug.cgi?id=217026
+- https://gitlab.gnome.org/GNOME/gnome-settings-daemon/-/work_items/784
+- https://gitlab.freedesktop.org/drm/amd/-/issues/4512
+- https://bugzilla.suse.com/show_bug.cgi?id=1217750
+
+It turns out that under Windows both a WMI backlight driver and a GPU
+native backlight driver get installed and Windows simply always calls
+both when the backlight changes working around these kind of firmware
+bugs.
+
+When this first came up, about 2 years ago, I came up with the below
+plan to fix this. Nvidia was supposed to work in implementing this,
+but so far an implementation of this plan has not happened.
+
+Note I do not have time to work on this myself. I'm posting this here
+in the hope that either Nvidia will pick this up after all; or that
+someone else can make this happen.
+
+I'm more then happy to help answering any questions which may come up
+while implementing this; and to review the resulting patches.
+
+
+The plan
+========
+
+1. Modify the core backlight code to allow registering a backlight-device
+for in kernel use only, disabling the registering of a class device under
+/sys/class/backlight .
+
+2. Add a new backlight-aggregate.c backlight driver, which exports a
+devm_backlight_aggregate_register_or_add() function. Drivers can call
+this passing in an existing backlight-device (with its sysfs interface
+disabled). This either creates a singleton /sys/class/backlight/aggregate
+device, or adds the passed in backlight to the existing singleton instance
+if it already exists.
+
+This new driver always exposes a range of 0-255 to userspace. This acts
+as a proxie for any backlight-devices registered to be part of
+the aggregate, forwarding any brightness set calls to all backlights,
+scaled to their actual range. For reads this will report the last set
+brightness value (starting with the value of the first registered
+backlight-device).
+
+3. Add a new nvidia_wmi_ec_and_native type to drivers/acpi/video_detect.c
+for both DMI quirks and commandline handling.
+
+4. Modify acpi_video_backlight_use_native() to also return true if
+the __acpi_video_get_backlight_type() call there returns the new
+acpi_backlight_nvidia_wmi_ec_and_native.
+
+5. Add a new devm_backlight_device_register_native() helper which
+calls __acpi_video_get_backlight_type(true, NULL) and if that returns
+the new nvidia_wmi_ec_and_native type then registers the passed in
+backlight with the flag to not register a sysfs class interface and
+then on success calls the new devm_backlight_aggregate_register_or_add()
+with the just registered backlight device; and if the returned type
+instead is acpi_backlight_native register the passed in backlight
+normally through devm_backlight_device_register()
+
+5. Modify the i915 and amdgpu drivers to use the new
+devm_backlight_device_register_native() helper. Since this new helper
+checks the backlight-type itself, drop acpi_video_backlight_use_native()
+checks *if* the registration is the only thing guarded by that check.
+
+6. drivers/platform/x86/nvidia-wmi-ec-backlight.c to not return
+early from probe when acpi_video_get_backlight_type() returns
+the new nvidia_wmi_ec_and_native type and for that type make it
+registers its backlight with the flag to not register a sysfs class
+interface and then on success calls the new
+devm_backlight_aggregate_register_or_add().
+
+Regards,
+
+Hans
 
