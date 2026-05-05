@@ -4,61 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7B3FCD3436
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 03:30:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BD63CD3430
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 05:18:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C6E910E919;
-	Tue,  5 May 2026 03:30:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D40010E417;
+	Tue,  5 May 2026 05:18:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="nrnX4gdj";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="fOCTHjgm";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D96010E091;
- Tue,  5 May 2026 03:30:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777951818; x=1809487818;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=vwbSsVoSVutv8OPNZNrgE3q/pQAtbRcAE7Qy+yd6FOc=;
- b=nrnX4gdjuyA1KpDAyRLcdtDbJuroFA8IML9O5c4MNU9z3VZWTsDKh+kN
- rfaLW8nhpjMadLl/0iaHlDF/dyMHMBNXfe/K2AdSNM5ooECgMCn5UXqlr
- svJfS93YoB5pS2VHI0bYwDW24XvOQfWU+sTolnZ1iYoipxS5fH/uEpSWr
- GfmKAz+FHZcyYtTor7V55E1YewOWhAcXidRnzfJicidbGnSQf22Rlonoo
- ukq51WE0x++Jsu/aFUpZ5nWhB0kTwCktJ9GqsO5UBUieROV2mLrPOjPLv
- aZUW9RhvyqeNyNAeQJh2zeihbMaW1zSNEMgqxr0wnhxtjPsV7eN2t4/RG A==;
-X-CSE-ConnectionGUID: 3d2rnFTyR4imfVYG1H+CFQ==
-X-CSE-MsgGUID: 5cEnj0rZQfW3pZ4Vspv3pg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11776"; a="78678932"
-X-IronPort-AV: E=Sophos;i="6.23,216,1770624000"; d="scan'208";a="78678932"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 May 2026 20:30:18 -0700
-X-CSE-ConnectionGUID: 8p4dZ02FQh+9AZesGbOMNg==
-X-CSE-MsgGUID: DqUZhNzXSneWJsImrL64XQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,216,1770624000"; d="scan'208";a="233031860"
-Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
- by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 May 2026 20:30:18 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: [PATCH v4 1/2] drm/ttm: Drop tt->restore after successful restore
-Date: Mon,  4 May 2026 20:30:12 -0700
-Message-Id: <20260505033013.3266938-2-matthew.brost@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260505033013.3266938-1-matthew.brost@intel.com>
-References: <20260505033013.3266938-1-matthew.brost@intel.com>
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E03D10E417
+ for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 05:17:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1777958278;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=HAr0xbXZbAJ3/GDtKYezys+kB2bNlRlW51R5ZTUaPGw=;
+ b=fOCTHjgmhIQu9yCGHSRMKaIAe7BRL2jtqIi5WunGFQSXGCxFEjhWSlExEdueA8W5yrccJA
+ 1fj65N2DPwbnkHIB/9VYUfByOjToj+kJH0YAZTZTvZA7H0BX++ONG8eYeWpYurMXRqBICU
+ H+pgOcDZNFa/1RUUIGcpJjEUgPwUmRQ=
+Received: from mail-lj1-f199.google.com (mail-lj1-f199.google.com
+ [209.85.208.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-122-IUEJw7pYPWmSIJ0wupPDWg-1; Tue, 05 May 2026 01:17:54 -0400
+X-MC-Unique: IUEJw7pYPWmSIJ0wupPDWg-1
+X-Mimecast-MFC-AGG-ID: IUEJw7pYPWmSIJ0wupPDWg_1777958273
+Received: by mail-lj1-f199.google.com with SMTP id
+ 38308e7fff4ca-393a397310bso5957631fa.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 04 May 2026 22:17:54 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777958273; x=1778563073;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=HAr0xbXZbAJ3/GDtKYezys+kB2bNlRlW51R5ZTUaPGw=;
+ b=Jgqfc6b3uNap2yhIacud9oHXqwRGuZeiUDcuVEmOxO3XeydpMpbmWbo5deNgTrnZSg
+ lhiR5xrWNU/txO5dPdqIPP/T9rY1r/Tc627u72S7aHfS2BCjb5cifvw2Ib+2mtZgPKzu
+ +HsVHUqhTS9C6WQQaLu3rG+MtRh40wJl/8DVwppbMXRw3+YVN2PUNnrOj1qUOke6FOvy
+ iSuoLtWhnxeTRLlM62wQmuzV8Zt52K1K/hAOMioIXe0uz0lX/ZAWko0bNY9TwUZ/J6Xn
+ IfIJ67m4oop9z5Q+xRYo9HhaQyUh3DtRla6BGvdryMvlBaahsMbv8l2kaXTfd9mOLKkj
+ ZNng==
+X-Gm-Message-State: AOJu0YydcXNruOz9Noz4Wyx+yw49tC7ugZzh3Sxbi3iHtmIU2RYzynZA
+ QAA2iCa1YAIeGMkFbXPrBaAqI6dzk80wAoA47pKExKApSNxvZNG/Ig1A68ycm7SUUFZ4rutG0Yg
+ Fr46t4oQCIhLrvu6gHm+3ceyHQfboVm/kXNI6kxt0jjjd/rgqjrCxLjzuM5N6aaDcyKy2
+X-Gm-Gg: AeBDietkhkFDpak3U2KsH27E9H+3j/Itfne+FbmacugYW30qx8ljn7A4ZerlK2HcQfw
+ WKQxEN7VMi+pxfe3k53Y1JmI71p4PAPWa4mlvsi+FrNmdjBhH0bog6yptsEHBfn7qApll/FlzO4
+ cUHvS9jxNgLmhUdjrxutl/97o1juaSR5DWVQk7okVeg/LU9YDH3Zmqn5BVkeloCuB9rq4R0Hb4n
+ C0MJHeKi7orygqec5CQF+HlTa6TkxCyzPXf5pQe7HtIS6IqsBS6L7//IrhUZYlfzJnA5nQNlIJd
+ jfsgqrGod/BcJa2sS7hcEGbpJqc78CqdgkR08nT+53Vi6i7xgXypt/mc7MqN5+51Rbs3dS+ANkQ
+ nJHfnUTx4O9fRJ9X3SMZXHG2fMIOEY8+2KGp5axv9gZ3mjseIwoymYRopAg==
+X-Received: by 2002:a2e:ab19:0:b0:38e:2fcc:78fe with SMTP id
+ 38308e7fff4ca-393783c5ceemr56487251fa.3.1777958273029; 
+ Mon, 04 May 2026 22:17:53 -0700 (PDT)
+X-Received: by 2002:a2e:ab19:0:b0:38e:2fcc:78fe with SMTP id
+ 38308e7fff4ca-393783c5ceemr56487031fa.3.1777958272465; 
+ Mon, 04 May 2026 22:17:52 -0700 (PDT)
+Received: from fedora (85-23-51-1.bb.dnainternet.fi. [85.23.51.1])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-3936138935fsm37206141fa.41.2026.05.04.22.17.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 04 May 2026 22:17:51 -0700 (PDT)
+From: mpenttil@redhat.com
+To: linux-mm@kvack.org
+Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ =?UTF-8?q?Mika=20Penttil=C3=A4?= <mpenttil@redhat.com>,
+ David Hildenbrand <david@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Leon Romanovsky <leonro@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Balbir Singh <balbirs@nvidia.com>, Zi Yan <ziy@nvidia.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+ Vlastimil Babka <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>
+Subject: [PATCH v9 0/5] Migrate on fault for device pages
+Date: Tue,  5 May 2026 08:16:53 +0300
+Message-ID: <20260505051658.2219537-1-mpenttil@redhat.com>
+X-Mailer: git-send-email 2.50.0
 MIME-Version: 1.0
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: J03xOfWI2HJV3pn9t9KySBucOkRRZTmA92car-pfteM_1777958273
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -76,121 +105,162 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-ttm_pool_restore_and_alloc() can successfully complete the restore
-process via ttm_pool_restore_commit(), but tt->restore is not dropped
-afterward. As a result, subsequent backup/restore flows observe what
-appears to be a completed restore, while in reality shmem handles are
-still installed in tt->pages, leading to the stack trace below.
+From: Mika Penttilä <mpenttil@redhat.com>
 
-Fix this by freeing and dropping tt->restore in
-ttm_pool_restore_and_alloc() upon successful completion of the restore.
+Currently, the way device page faulting and migration works
+is not optimal, if you want to do both fault handling and
+migration at once.
 
-20545 [  309.784531] RIP: 0010:sg_alloc_append_table_from_pages+0x38c/0x490
-20547 [  309.809570] RSP: 0018:ffffc9000623b838 EFLAGS: 00010206
-20548 [  309.814827] RAX: 0000000000001000 RBX: ffff88816e42a160 RCX: 0000000000000000
-20549 [  309.821986] RDX: 0000000000002000 RSI: 0000000000000003 RDI: 0000000000001000
-20550 [  309.829147] RBP: ffff88816e42a168 R08: 0000000000000002 R09: 000000007ffff000
-20551 [  309.836310] R10: ffffc9000623b928 R11: 0000000000000000 R12: 000000007ffff000
-20552 [  309.843471] R13: ffff88815ba5a100 R14: 0000000000000000 R15: 0000000000000001
-20553 [  309.850634] FS:  00007f9ff305e700(0000) GS:ffff888276c94000(0000) knlGS:0000000000000000
-20554 [  309.858749] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-20555 [  309.864519] CR2: 00007f9fca701000 CR3: 00000001565e2005 CR4: 0000000008f70ef0
-20556 [  309.871678] PKRU: 55555558
-20557 [  309.874403] Call Trace:
-20558 [  309.876866]  <TASK>
-20559 [  309.878988]  sg_alloc_table_from_pages_segment+0x60/0x100
-20560 [  309.884415]  ? ttm_resource_manager_usage+0x36/0x60 [ttm]
-20561 [  309.889845]  ? xe_tt_map_sg+0x7d/0xd0 [xe]
-20562 [  309.894045]  xe_tt_map_sg+0x7d/0xd0 [xe]
-20563 [  309.898037]  xe_bo_move+0x927/0xaa0 [xe]
-20564 [  309.902029]  ttm_bo_handle_move_mem+0xba/0x170 [ttm]
-20565 [  309.907022]  ttm_bo_validate+0xbe/0x190 [ttm]
-20566 [  309.911405]  xe_bo_validate+0x9a/0x120 [xe]
-20567 [  309.915663]  xe_gpuvm_validate+0xd9/0x140 [xe]
-20568 [  309.920206]  drm_gpuvm_validate+0x2f0/0x5b0 [drm_gpuvm]
-20569 [  309.925459]  ? drm_exec_lock_obj+0x63/0x210 [drm_exec]
-20570 [  309.930627]  xe_vm_validate_rebind+0x46/0xb0 [xe]
-20571 [  309.935428]  xe_exec_fn+0x20/0x40 [xe]
-20572 [  309.939249]  drm_gpuvm_exec_lock+0x78/0xc0 [drm_gpuvm]
-20573 [  309.944410]  xe_validation_exec_lock+0x5a/0xa0 [xe]
-20574 [  309.949385]  xe_exec_ioctl+0x806/0xc30 [xe]
-20575 [  309.953639]  ? ttwu_queue_wakelist+0xd9/0xf0
-20576 [  309.957935]  ? __pfx_xe_exec_fn+0x10/0x10 [xe]
-20577 [  309.962449]  ? __wake_up_common+0x73/0xa0
-20578 [  309.966482]  ? __pfx_xe_exec_ioctl+0x10/0x10 [xe]
-20579 [  309.971263]  drm_ioctl_kernel+0xa3/0x100
-20580 [  309.975209]  drm_ioctl+0x213/0x440
-20581 [  309.978637]  ? __pfx_xe_exec_ioctl+0x10/0x10 [xe]
-20582 [  309.983415]  xe_drm_ioctl+0x67/0xd0 [xe]
-20583 [  309.987408]  __x64_sys_ioctl+0x7f/0xd0
+Being able to migrate not present pages (or pages mapped with incorrect
+permissions, eg. COW) to the GPU requires doing either of the
+following sequences:
 
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Christian Koenig <christian.koenig@amd.com>
-Cc: Huang Rui <ray.huang@amd.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Fixes: b63d715b8090 ("drm/ttm/pool, drm/ttm/tt: Provide a helper to shrink pages")
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+1. hmm_range_fault() - fault in non-present pages with correct permissions, etc.
+2. migrate_vma_*() - migrate the pages
 
----
+Or:
 
-v3:
- - Call ttm_pool_apply_caching after freeing local restore (sashiko)
- - Save alloc in snapshot on restore failure (sashiko)
-v4:
- - Actual 'Save alloc in snapshot on restore failure (sashiko)'
----
- drivers/gpu/drm/ttm/ttm_pool.c | 19 +++++++++++++++----
- 1 file changed, 15 insertions(+), 4 deletions(-)
+1. migrate_vma_*() - migrate present pages
+2. If non-present pages detected by migrate_vma_*():
+   a) call hmm_range_fault() to fault pages in
+   b) call migrate_vma_*() again to migrate now present pages
 
-diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-index 278bbe7a11ad..c7aab60b7f01 100644
---- a/drivers/gpu/drm/ttm/ttm_pool.c
-+++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -902,6 +902,7 @@ int ttm_pool_restore_and_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
- {
- 	struct ttm_pool_tt_restore *restore = tt->restore;
- 	struct ttm_pool_alloc_state alloc;
-+	int ret;
- 
- 	if (WARN_ON(!ttm_tt_is_backed_up(tt)))
- 		return -EINVAL;
-@@ -925,14 +926,24 @@ int ttm_pool_restore_and_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
- 	} else {
- 		alloc = restore->snapshot_alloc;
- 		if (ttm_pool_restore_valid(restore)) {
--			int ret = ttm_pool_restore_commit(restore, tt->backup,
--							  ctx, &alloc);
-+			ret = ttm_pool_restore_commit(restore, tt->backup,
-+						      ctx, &alloc);
- 
--			if (ret)
-+			if (ret) {
-+				restore->snapshot_alloc = alloc;
- 				return ret;
-+			}
- 		}
--		if (!alloc.remaining_pages)
-+		if (!alloc.remaining_pages) {
-+			kfree(tt->restore);
-+			tt->restore = NULL;
-+
-+			ret = ttm_pool_apply_caching(&alloc);
-+			if (ret)
-+				return ret;
-+
- 			return 0;
-+		}
- 	}
- 
- 	return __ttm_pool_alloc(pool, tt, ctx, &alloc, restore);
+The problem with the first sequence is that you always have to do two
+page walks even when most of the time the pages are present or zero page
+mappings so the common case takes a performance hit.
+
+The second sequence is better for the common case, but far worse if
+pages aren't present because now you have to walk the page tables three
+times (once to find the page is not present, once so hmm_range_fault()
+can find a non-present page to fault in and once again to setup the
+migration). It is also tricky to code correctly. One page table walk
+could costs over 1000 cpu cycles on X86-64, which is a significant hit.
+
+We should be able to walk the page table once, faulting
+pages in as required and replacing them with migration entries if
+requested.
+
+Add a new flag to HMM APIs, HMM_PFN_REQ_MIGRATE,
+which tells to prepare for migration also during fault handling.
+Also, for the migrate_vma_setup() call paths, a flag, MIGRATE_VMA_FAULT,
+is added to tell to add fault handling to migrate.
+
+One extra benefit of migrating with hmm_range_fault() path
+is the migrate_vma.vma gets populated, so no need to
+retrieve that separataly.
+
+Tested in X86-64 VM with HMM test device, passing the selftests.
+For performance, the migrate throughput tests from the selftests
+show similar numbers (within error margin) as unmodified kernel.
+Tested also rebased on the
+"Remove device private pages from physical address space" series:
+https://lore.kernel.org/linux-mm/20260130111050.53670-1-jniethe@nvidia.com/
+plus a small patch to adjust with no problems.
+
+Changes v8-v9
+  - rebase on drm-tip
+  - fixed uaf around  migrate_vma_split_folio() usage
+  - added missing pmd unlock
+
+Changes v7-v8
+  - rebase on 7.0
+  - fixed subject in two patches
+  - enhanced commit messages
+  - squashed patch 6 into patch 4 to fix kernel test robot warning
+  - readded dropped Cc block from cover letter
+  - fixed white space
+
+Changes v6-v7
+  - rebase on 7.0.0-rc6
+  - added documentation and comments
+  - denote to be migrated zero page as HMM_PFN_MIGRATE alone
+  - got rid of HMM_PFN_INOUT_FLAGS movement in patch 2
+  - picked up Acked-By from David for patch 1
+  
+Changes v5-v6
+  - rebase on 7.0.0-rc4
+  - use range based TLB flushing while unmapping ptes
+  - gate migration behind HMM_PFN_REQ_MIGRATE for fault and
+    migrate paths
+  - always infer migration flags from migrate->flags only
+
+Changes v4-v5
+  - rebase on 6.19
+  - fixed David's email address
+  - fixed link issue without CONFIG_TRANSPARENT_HUGEPAGE
+  - refactored into smaller commits
+  - added more comments to code
+
+Changes v3-v4:
+  - rebase on 6.19-rc8
+  - fixed issues found by kernel test robot with random configs
+  - fixed typos
+
+Changes v2-v3:
+  - rebase on 6.19-rc7
+  - fixed issues found by kernel test robot
+  - fixed smatch issues reported by Dan Carpenter <dan.carpenter@linaro.org>
+  - fixes to lock handling (pmd/pte) on errors
+  - added assertions for pmd/pte lock states
+  - other issues discovered by Matthew, thanks!
+
+Changes v1-v2:
+  - rebase on 6.19-rc6
+  - fixed issues found by kernel test robot
+  - fixed locking (pmd/ptl) to cover handle_ and prepare_ regions
+    parts if migrating
+  - other issues discovered by Matthew, thanks!
+
+Changes RFC-v1:
+  - rebase on 6.19-rc5
+  - adjust for the device THP
+  - changes from feedback
+
+Revisions:
+  - RFC https://lore.kernel.org/linux-mm/20250814072045.3637192-1-mpenttil@redhat.com/
+  - v1: https://lore.kernel.org/all/20260114091923.3950465-1-mpenttil@redhat.com/
+  - v2: https://lore.kernel.org/all/20260119112502.645059-1-mpenttil@redhat.com/
+  - v3: https://lore.kernel.org/all/20260126111939.1332983-2-mpenttil@redhat.com/
+  - v4: https://lore.kernel.org/all/20260202112622.2104213-1-mpenttil@redhat.com/
+  - v5: https://lore.kernel.org/linux-mm/20260211081301.2940672-1-mpenttil@redhat.com/
+  - v6: https://lore.kernel.org/linux-mm/20260316062407.3354636-1-mpenttil@redhat.com/
+  - v7: https://lore.kernel.org/linux-mm/20260330115611.347988-1-mpenttil@redhat.com/
+  - v8: https://lore.kernel.org/linux-mm/20260414041226.1539439-1-mpenttil@redhat.com/
+
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Leon Romanovsky <leonro@nvidia.com>
+Cc: Alistair Popple <apopple@nvidia.com>
+Cc: Balbir Singh <balbirs@nvidia.com>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Cc: "Liam R. Howlett" <Liam.Howlett@oracle.com>
+Cc: Vlastimil Babka <vbabka@suse.cz>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Michal Hocko <mhocko@suse.com>
+
+Mika Penttilä (5):
+  mm/Kconfig: changes for migrate on fault for device pages
+  mm: Add helper to convert HMM pfn to migrate pfn
+  mm/hmm: do the plumbing for HMM to participate in migration
+  mm: setup device page migration in HMM pagewalk
+  lib/test_hmm:: add a new testcase for the migrate on fault
+
+ include/linux/hmm.h                    |  19 +-
+ include/linux/migrate.h                |  26 +-
+ lib/test_hmm.c                         | 101 ++-
+ lib/test_hmm_uapi.h                    |  19 +-
+ mm/Kconfig                             |   2 +
+ mm/hmm.c                               | 835 +++++++++++++++++++++++--
+ mm/migrate_device.c                    | 583 +++--------------
+ tools/testing/selftests/mm/hmm-tests.c |  54 ++
+ 8 files changed, 1066 insertions(+), 573 deletions(-)
+
+drm-tip
+base-commit: 94d56a898a2db27f841b17f6966a81ba502fe63c
 -- 
-2.34.1
+2.50.0
 
