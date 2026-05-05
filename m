@@ -4,98 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B213CD3430
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 08:55:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29962FF885A
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 09:02:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82A2B10E0EC;
-	Tue,  5 May 2026 08:55:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5875710E9F5;
+	Tue,  5 May 2026 09:02:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="ZVEtgKED";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ha8zObKs";
 	dkim-atps=neutral
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com
- [209.85.128.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D82B10E0EC
- for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 08:55:10 +0000 (UTC)
-Received: by mail-yw1-f178.google.com with SMTP id
- 00721157ae682-7b23713eac9so53805437b3.2
- for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 01:55:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777971309; cv=none;
- d=google.com; s=arc-20240605;
- b=F7SuBTU+mhDF+yn827wUi/xS2LTegxCMCu8ZH1ZU1lzNQNbAJgKUmMLLdXqMxnKQTy
- qNyRfRfslFQfPe3kaZOvIc2HzXFyhvTiZUNzaMoMRkRcchADCzi02IgeVu9E8LHtI7BH
- zMdJ1ryPhTGqFvu0wcYcWmoKSsksbt+s2yJ7QIqt/DnX5I9791MzbsRHNDL+WCm4pNZq
- OuaHwxHWRa5hnKp6FET12Sq+Dq1sgblxV5V3D7hXGVU6kMKM5Yx56Rq+o3vDWlkr2ynT
- sfOrVE562aqW58zDfFC0QTNa3hGD0TKMap5mIsfr2mZDVXl9GOcZnBX5NrxWFCjJfIhq
- km9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=5CJiKZ0puXIp3Q1auWZfkkziQVLi6lqLtkGVw6xnCsY=;
- fh=wxSxyG5pFpM6Ed1gOt5H5Xs7qIP9RTGPtvGsqh2k4mM=;
- b=ccEthymiGJ0Oh2/4U59nEYHuX4ft+XDL2m5h7COHFINS/347Wtg33lx8xdSxTSK4y6
- cn60pbndcfWTFuYlRSdAb8sRWYbOzO6N+NmJm5IljI1DXSd6P1Wjo7/MWj5lR8aT3T5m
- T/tKWDWvRugYHW/mY6qIIGWL3LuUp9MlrMooSij2UHBcPAZ/s3w/fVHTsYHTwqj/R23p
- i/EbnHPx2YWky3ao8wh2py7IW8IqufCJNhhidpU0uPcls6H7CMThZbHh8V3GanO9k46K
- /UQC4gAvxlDUj6gTHK1SbbtE2WrSmXkVaQwkNWflVt7YlmbodhoR7OLWYR7SjlXawpdK
- gIrg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=raspberrypi.com; s=google; t=1777971309; x=1778576109;
- darn=lists.freedesktop.org; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=5CJiKZ0puXIp3Q1auWZfkkziQVLi6lqLtkGVw6xnCsY=;
- b=ZVEtgKEDOEnFD7Oxq8rVMN1mWrhNQSlSRL9a0AeMKiCCmBac6n4ODyGiJxGOhgTY03
- o+BMhl5EtNFHNKATmBjkkuOt3HapzIAcCUqtRNTAJqCUlCTJzzReOhNosR98ywgB0BrT
- qUZZ6x+68d7ttQMbwK08mNT2D/ega95+8AQaZNcWv3ZJ7MunESK6V4tnxyQEcnqPPC5J
- ldqVKT/93fDcsa49FpZ2rC1fe/rOxjbx3VxJEiuaFKm7181xYP/099WOYkxJhku8ndiV
- F16MHfCRc/7gVHYn9R4U2REHMvqKWu5XhIcENGdkVBet+nZYdQaboFmYajVWaahGE5ii
- q8Jw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777971309; x=1778576109;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=5CJiKZ0puXIp3Q1auWZfkkziQVLi6lqLtkGVw6xnCsY=;
- b=KuWpNDangzrCFNnNK5+gvP/hVC6Ldgs+lg8rXWhzMbMPIHTKQPKIIN2h4V8qiI9fGa
- tUPH4z3sqSiW9WH3nXcHaNR6jrdL/Rpn2KGzINkZxhFxJ3ONZ6BEzrmXTh2nYAF8LHVI
- FxfPrYZkkre3ghjZl6LUHW0yRtHW39aQ8Oofw64y8P/GIvD7xTxYZ9kIBiPdh3fPR8dV
- CyXznC3Rgcnh3VHmJ1MD+FM8k71E1+jUmV4tbwIr3CghbEn9Fy03ZkJBs9qnN63q2IqS
- GoUnv0nqJrB/eP/G15GS9npEAHQUGqw2XTsVQ8mAlzEIXhnCUgBd3NnEMlqDpBk3ZU9Y
- Vc2A==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+0yBO3SrLIvWFTgRf/1YIC3FbL8ao6cDcSW9VKf4z0H0GQFLRQJjFD5uGgnGgPTCX+wERbhr7vzTQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxYDFDKe8eWaXzmvB3fKJ4mKBIR7/PwWb7P9P6cClUYYXoVmvdE
- dm0UwIFJRfYjDip8tIejDVnt3Ya/g0Nk3yGcAcuz55d/stFJlJZuY2qcherQTbQ0Of0rsQT22Zl
- SyIWSabe8ooVD+z9tyhyyhKvTsP5a6igu3aI+DbEwVg==
-X-Gm-Gg: AeBDieuu4CQJZXDqLwgPnwaNBJEDo+Fc+DJ200oJAP5FVxbeYn6M9ncZtVdipoQiqXa
- 2HU4I2UYvjBQlu1RJfaYgQ17/eBOQqlB+75tVxWplnomBGFjW86sMTrArcsyXf4SGYF4Tu3X5tE
- zD23QLWOT7Nii8aWroMQVarqmVByzOV1pkcKE2uCps/WUqm5mdJCar10jcwkNCeiB0rA/cSrrsj
- 14dawCZVSI9JlVrLqqvgaAGUFiR9RCi2AqgpOoDE6+LSOBfqL2t1faEVGATYHpbsYq/MMx8rLYg
- zJJxGlzhsM3ulZKiXISHJugPBVVA7aIvbE1rHMjUGyAmEKs=
-X-Received: by 2002:a05:690c:319:b0:79a:c40d:b701 with SMTP id
- 00721157ae682-7bd76fa3ec3mr146040217b3.13.1777971309131; Tue, 05 May 2026
- 01:55:09 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260502121251.39206-3-thorsten.blum@linux.dev>
-In-Reply-To: <20260502121251.39206-3-thorsten.blum@linux.dev>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Tue, 5 May 2026 09:54:53 +0100
-X-Gm-Features: AVHnY4JHEMwCFYtgbgcAbs-cm6Q_iZoV4kpejbmHYNcZDwD-WyLuqrs2o_jiYpk
-Message-ID: <CAPY8ntDOEjAHFF_HxFoVEmrgQ8okm=8cHQEfm2QUU=MuB77d_A@mail.gmail.com>
-Subject: Re: [PATCH] drm/vc4: fix NULL dereference in vc4_hvs_unbind
-To: Thorsten Blum <thorsten.blum@linux.dev>
-Cc: Maxime Ripard <mripard@kernel.org>,
- =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Eric Anholt <eric@anholt.net>, 
- stable@vger.kernel.org, Simona Vetter <simona.vetter@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0157010E9F5;
+ Tue,  5 May 2026 09:02:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1777971769; x=1809507769;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=km3XXeySFy6SVYXHhF4s5Stfz9taVh0BL2AI1OyPFlQ=;
+ b=Ha8zObKsphZxOVsxSjzkAjK1z1T12G0nmTMJd0gA9mUz/QIEOh23G61E
+ mEdyIxoUky2L5M4oKKdg3QOOXpNgpbaB3pu0Ii16FQstCFLCEX+bwe7vM
+ rC680QqXm1p9ts+9ThRqt8CYkMz1vVbkxpagKwIupPc1+kmhzvjhqTFtd
+ hJzV0yOxR9gxUXJnTR/kdiJ62A/XlrEizinai/J/fuJXjdVg3b6yFvDYu
+ QRKyqAwU6guSz2JqmmYtBVyeps8xsV1wIBshzMdCluFsp3O6Q1msfQVZ/
+ uFOxwbPpRk2GAD7MjuQgy0Y9NQH3theyBc3mgIR6K3fJDDjQtuvlARMJJ Q==;
+X-CSE-ConnectionGUID: Y2V4Q+itSaa95chqs5GAIw==
+X-CSE-MsgGUID: 48Irdh7cTnSpC8VD7CnkQQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11776"; a="78698036"
+X-IronPort-AV: E=Sophos;i="6.23,217,1770624000"; d="scan'208";a="78698036"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 May 2026 02:02:46 -0700
+X-CSE-ConnectionGUID: o4zNNE+DQJinUao9qGH2Tg==
+X-CSE-MsgGUID: SqTAs1PJRIqMdPPuss4fAg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,217,1770624000"; d="scan'208";a="237533123"
+Received: from zzombora-mobl1 (HELO [10.245.244.41]) ([10.245.244.41])
+ by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 May 2026 02:02:39 -0700
+Message-ID: <12feb16f1f8dd00458e982785d45415d42a3e768.camel@linux.intel.com>
+Subject: Re: [PATCH v4 2/2] drm/ttm/pool: back up at native page order
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: Christian Koenig <christian.koenig@amd.com>, Huang Rui
+ <ray.huang@amd.com>,  Matthew Auld <matthew.auld@intel.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard	
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Tue, 05 May 2026 11:02:35 +0200
+In-Reply-To: <20260505033013.3266938-3-matthew.brost@intel.com>
+References: <20260505033013.3266938-1-matthew.brost@intel.com>
+ <20260505033013.3266938-3-matthew.brost@intel.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,56 +76,305 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Thorsten
-
-On Sat, 2 May 2026 at 13:13, Thorsten Blum <thorsten.blum@linux.dev> wrote:
->
-> With 'dtoverlay=vc4-kms-v3d,noaudio' and 'hdmi=off' on Raspberry Pi,
-
-Mainline doesn't use overlays, so this description isn't valid.
-
-Which generation of Pi are you using? Whilst they all share the vc4
-driver, the functionality associated differs. If you're disabling HDMI
-(and HDMI audio), which display outputs are you using?
-
-> unloading the vc4 module calls vc4_hvs_unbind() with
-> dev_get_drvdata(master) returning NULL.
->
-> Return early when 'drm' is NULL before converting it to 'vc4' and before
-> dereferencing 'vc4->hvs', preventing a kernel oops.
-
-That leaves things allocated and clocks running, so bailing out isn't a fix.
-I'll have a look to see why dev_get_drvdata is returning NULL.
-
-  Dave
-
-> Fixes: c8b75bca92cb ("drm/vc4: Add KMS support for Raspberry Pi.")
+On Mon, 2026-05-04 at 20:30 -0700, Matthew Brost wrote:
+> ttm_pool_split_for_swap() splits high-order pool pages into order-0
+> pages during backup so each 4K page can be released to the system as
+> soon as it has been written to shmem. While this minimizes the
+> allocator's working set during reclaim, it actively fragments memory:
+> every TTM-backed compound page that the shrinker touches is shattered
+> into order-0 pages, even when the rest of the system would prefer
+> that
+> the high-order block stay intact. Under sustained kswapd pressure
+> this
+> is enough to drive other parts of MM into recovery loops from which
+> they cannot easily escape, because the memory TTM just freed is no
+> longer contiguous.
+>=20
+> Stop unconditionally splitting on the backup path and back up each
+> compound at its native order in ttm_pool_backup():
+>=20
+> =C2=A0 - For each non-handle slot, read the order from the head page and
+> =C2=A0=C2=A0=C2=A0 back up all 1<<order subpages to consecutive shmem ind=
+ices,
+> =C2=A0=C2=A0=C2=A0 writing the resulting handles into tt->pages[] as we g=
+o.
+> =C2=A0 - On success, the compound is freed once at its native order. No
+> =C2=A0=C2=A0=C2=A0 split_page(), no per-4K refcount juggling, no fragment=
+ation
+> =C2=A0=C2=A0=C2=A0 introduced from this path.
+> =C2=A0 - Slots that already hold a backup handle from a previous partial
+> =C2=A0=C2=A0=C2=A0 attempt are skipped. A compound that would extend past=
+ a
+> =C2=A0=C2=A0=C2=A0 fault-injection-truncated num_pages is skipped rather =
+than split.
+>=20
+> A per-subpage backup failure cannot be made fully atomic: backing up
+> a
+> subpage allocates a shmem folio before the source page can be
+> released,
+> so under true OOM any subpage in a compound (not just the first) may
+> fail to be backed up with the rest of the source compound still live
+> and contiguous. To make forward progress in that case, fall back to
+> splitting the source compound and backing up its remaining subpages
+> individually:
+>=20
+> =C2=A0 - On the first per-subpage failure for a compound (and only if
+> =C2=A0=C2=A0=C2=A0 order > 0), call ttm_pool_split_for_swap() to split th=
+e source
+> =C2=A0=C2=A0=C2=A0 compound, release the subpages whose contents already =
+live in
+> =C2=A0=C2=A0=C2=A0 shmem (their handles in tt->pages stay valid), and ret=
+ry the
+> =C2=A0=C2=A0=C2=A0 failing subpage at order 0.
+> =C2=A0 - Subsequent successful subpage backups in the now-split compound
+> =C2=A0=C2=A0=C2=A0 free their source page individually as soon as the han=
+dle is
+> =C2=A0=C2=A0=C2=A0 written.
+> =C2=A0 - A second failure after splitting terminates the loop with partia=
+l
+> =C2=A0=C2=A0=C2=A0 progress; the remaining order-0 subpages stay in tt->p=
+ages as
+> =C2=A0=C2=A0=C2=A0 plain page pointers and are cleaned up by the normal
+> =C2=A0=C2=A0=C2=A0 ttm_pool_drop_backed_up() / ttm_pool_free_range() path=
+s.
+>=20
+> This restores the original split-on-OOM fallback behavior while
+> keeping the common, non-OOM case fragmentation-free. It also
+> preserves the "partial backup is allowed" contract: shrunken is
+> incremented per backed-up subpage so the caller still sees forward
+> progress when a compound only partially succeeds.
+>=20
+> The restore-side leftover-page branch in ttm_pool_restore_commit() is
+> left as-is for now: that path can still split a previously-retained
+> compound, but in practice it is unreachable under realistic workloads
+> (per profiling we have not been able to trigger it), so it is not
+> worth complicating the restore state machine to avoid the split
+> there.
+> If it ever becomes a problem in practice it can be addressed
+> independently.
+>=20
+> ttm_pool_split_for_swap() itself is retained both for the OOM
+> fallback above and for the restore path's remaining caller. The
+> DMA-mapped pre-backup unmap loop, the purge path, ttm_pool_free_*,
+> and ttm_pool_unmap_and_free() already operate at native order and
+> are unchanged.
+>=20
+> Cc: Christian Koenig <christian.koenig@amd.com>
+> Cc: Huang Rui <ray.huang@amd.com>
+> Cc: Matthew Auld <matthew.auld@intel.com>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linux-kernel@vger.kernel.org
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+> Fixes: b63d715b8090 ("drm/ttm/pool, drm/ttm/tt: Provide a helper to
+> shrink pages")
+> Suggested-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+> Assisted-by: Claude:claude-opus-4.6
+> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+>=20
 > ---
->  drivers/gpu/drm/vc4/vc4_hvs.c | 10 ++++++++--
->  1 file changed, 8 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/vc4/vc4_hvs.c b/drivers/gpu/drm/vc4/vc4_hvs.c
-> index ee8d0738501b..9cb66f696fc7 100644
-> --- a/drivers/gpu/drm/vc4/vc4_hvs.c
-> +++ b/drivers/gpu/drm/vc4/vc4_hvs.c
-> @@ -1753,10 +1753,16 @@ static void vc4_hvs_unbind(struct device *dev, struct device *master,
->                            void *data)
->  {
->         struct drm_device *drm = dev_get_drvdata(master);
-> -       struct vc4_dev *vc4 = to_vc4_dev(drm);
-> -       struct vc4_hvs *hvs = vc4->hvs;
-> +       struct vc4_dev *vc4;
-> +       struct vc4_hvs *hvs;
->         struct drm_mm_node *node, *next;
->
-> +       if (!drm)
-> +               return;
+>=20
+> A follow-up should attempt writeback to shmem at folio order as well,
+> but the API for doing so is unclear and may be incomplete.
+>=20
+> This patch is related to the pending series [1] and significantly
+> reduces the likelihood of Xe entering a kswapd loop under
+> fragmentation.
+> The kswapd =E2=86=92 shrinker =E2=86=92 Xe shrinker =E2=86=92 TTM backup =
+path is still
+> exercised; however, with this change the backup path no longer
+> worsens
+> fragmentation, which previously amplified reclaim pressure and
+> reinforced the kswapd loop.
+>=20
+> Nonetheless, the pathological case that [1] aims to address still
+> exists
+> and requires a proper solution. Even with this patch, a kswapd loop
+> due
+> to severe fragmentation can still be triggered, although it is now
+> substantially harder to reproduce.
+>=20
+> v2:
+> =C2=A0- Split pages and free immediately if backup fails are higher order
+> =C2=A0=C2=A0 (Thomas)
+> v3:
+> =C2=A0- Skip handles in purge path (sashiko)
+>=20
+> [1] https://patchwork.freedesktop.org/series/165330/
+> ---
+> =C2=A0drivers/gpu/drm/ttm/ttm_pool.c | 87 ++++++++++++++++++++++++++++---=
+-
+> --
+> =C2=A01 file changed, 72 insertions(+), 15 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c
+> b/drivers/gpu/drm/ttm/ttm_pool.c
+> index c7aab60b7f01..f9e631a20979 100644
+> --- a/drivers/gpu/drm/ttm/ttm_pool.c
+> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
+> @@ -1047,12 +1047,11 @@ long ttm_pool_backup(struct ttm_pool *pool,
+> struct ttm_tt *tt,
+> =C2=A0{
+> =C2=A0	struct file *backup =3D tt->backup;
+> =C2=A0	struct page *page;
+> -	unsigned long handle;
+> =C2=A0	gfp_t alloc_gfp;
+> =C2=A0	gfp_t gfp;
+> =C2=A0	int ret =3D 0;
+> =C2=A0	pgoff_t shrunken =3D 0;
+> -	pgoff_t i, num_pages;
+> +	pgoff_t i, num_pages, npages;
+> =C2=A0
+> =C2=A0	if (WARN_ON(ttm_tt_is_backed_up(tt)))
+> =C2=A0		return -EINVAL;
+> @@ -1072,7 +1071,8 @@ long ttm_pool_backup(struct ttm_pool *pool,
+> struct ttm_tt *tt,
+> =C2=A0			unsigned int order;
+> =C2=A0
+> =C2=A0			page =3D tt->pages[i];
+> -			if (unlikely(!page)) {
+> +			if (unlikely(!page ||
+> +				=C2=A0=C2=A0=C2=A0=C2=A0
+> ttm_backup_page_ptr_is_handle(page))) {
+> =C2=A0				num_pages =3D 1;
+> =C2=A0				continue;
+> =C2=A0			}
+> @@ -1108,28 +1108,85 @@ long ttm_pool_backup(struct ttm_pool *pool,
+> struct ttm_tt *tt,
+> =C2=A0	if (IS_ENABLED(CONFIG_FAULT_INJECTION) &&
+> should_fail(&backup_fault_inject, 1))
+> =C2=A0		num_pages =3D DIV_ROUND_UP(num_pages, 2);
+> =C2=A0
+> -	for (i =3D 0; i < num_pages; ++i) {
+> -		s64 shandle;
+> +	for (i =3D 0; i < num_pages; i +=3D npages) {
+> +		unsigned int order;
+> +		pgoff_t j;
+> +		bool folio_has_been_split =3D false;
+> =C2=A0
+> +		npages =3D 1;
+> =C2=A0		page =3D tt->pages[i];
+> =C2=A0		if (unlikely(!page))
+> =C2=A0			continue;
+> =C2=A0
+> -		ttm_pool_split_for_swap(pool, page);
+> +		/* Already-handled entry from a previous attempt. */
+> +		if (unlikely(ttm_backup_page_ptr_is_handle(page)))
+> +			continue;
 > +
-> +       vc4 = to_vc4_dev(drm);
-> +       hvs = vc4->hvs;
+> +		order =3D ttm_pool_page_order(pool, page);
+> +		npages =3D 1UL << order;
+> =C2=A0
+> -		shandle =3D ttm_backup_backup_page(backup, page,
+> flags->writeback, i,
+> -						 gfp, alloc_gfp);
+> -		if (shandle < 0) {
+> -			/* We allow partially shrunken tts */
+> -			ret =3D shandle;
+> +		/*
+> +		 * Back up the compound atomically at its native
+> order. If
+> +		 * fault injection truncated num_pages mid-compound,
+> skip
+> +		 * the partial tail rather than splitting.
+> +		 */
+> +		if (unlikely(i + npages > num_pages))
+> =C2=A0			break;
 > +
->         if (drm_mm_node_allocated(&vc4->hvs->mitchell_netravali_filter))
->                 drm_mm_remove_node(&vc4->hvs->mitchell_netravali_filter);
->
+> +		for (j =3D 0; j < npages; ++j) {
+> +			s64 shandle;
+
+I still think we should move part of this loop to
+ttm_backup_backup_folio() at this point, rather than open-coding it
+here. It's the design we want to move forward with and would probably
+make the pool code cleaner as well. If we think failures would be
+common we could have ttm_backup_backup_folio() return the number of
+pages that were actually backed up or error Otherwise just return
+success or error and on error truncate the shmem pages that were
+already copied.
+
+Thanks,
+Thomas
+
+
+> +
+> +try_again_after_split:
+> +			if (IS_ENABLED(CONFIG_FAULT_INJECTION) &&
+> +			=C2=A0=C2=A0=C2=A0 should_fail(&backup_fault_inject, 1))
+> +				shandle =3D -ENOMEM;
+> +			else
+> +				shandle =3D
+> ttm_backup_backup_page(backup, page + j,
+> +							=09
+> flags->writeback,
+> +								 i +
+> j, gfp,
+> +							=09
+> alloc_gfp);
+> +
+> +			if (shandle < 0 && !folio_has_been_split &&
+> order) {
+> +				pgoff_t k;
+> +
+> +				/*
+> +				 * True OOM: could not allocate a
+> shmem folio
+> +				 * for the next subpage. Fall back
+> to splitting
+> +				 * the source compound and backing
+> up subpages
+> +				 * individually. Release the
+> already-backed-up
+> +				 * subpages whose contents now live
+> in shmem;
+> +				 * any further failure terminates
+> the loop with
+> +				 * partial progress (handled by the
+> caller).
+> +				 */
+> +				folio_has_been_split =3D true;
+> +				ttm_pool_split_for_swap(pool, page);
+> +
+> +				for (k =3D 0; k < j; ++k) {
+> +					__free_pages_gpu_account(pag
+> e + k, 0, false);
+> +					shrunken++;
+> +				}
+> +
+> +				goto try_again_after_split;
+> +			} else if (shandle < 0) {
+> +				ret =3D shandle;
+> +				goto out;
+> +			} else if (folio_has_been_split) {
+> +				__free_pages_gpu_account(page + j,
+> 0, false);
+> +				shrunken++;
+> +			}
+> +
+> +			tt->pages[i + j] =3D
+> ttm_backup_handle_to_page_ptr(shandle);
+> +		}
+> +
+> +		if (!folio_has_been_split) {
+> +			/* Compound fully backed up; free at native
+> order. */
+> +			page->private =3D 0;
+> +			__free_pages_gpu_account(page, order,
+> false);
+> +			shrunken +=3D npages;
+> =C2=A0		}
+> -		handle =3D shandle;
+> -		tt->pages[i] =3D
+> ttm_backup_handle_to_page_ptr(handle);
+> -		__free_pages_gpu_account(page, 0, false);
+> -		shrunken++;
+> =C2=A0	}
+> =C2=A0
+> +out:
+> =C2=A0	return shrunken ? shrunken : ret;
+> =C2=A0}
+> =C2=A0
