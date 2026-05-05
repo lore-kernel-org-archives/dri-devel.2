@@ -4,63 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5105AFF8855
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 15:47:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1087ACD3427
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 15:48:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8D5510EB54;
-	Tue,  5 May 2026 15:47:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74CF010EB60;
+	Tue,  5 May 2026 15:48:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="R2dNc5lI";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="emRjvAxm";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A637B10EB54
- for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 15:47:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1777996072;
- bh=H4hfN0oMllcNEjPVcnu5mtrqlmjlS8rr/h+c93usT34=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=R2dNc5lIkfxzRIdZj5bE8Pht0wT+bdc6exMlFXhdxJPXapmX818okKAW7mgW1UrYb
- 8URaR1dfHXkCp7xtrPHFWe2ueSq5ODIvOPNSGEGz9qtMftbWPaYkYWNPP/l9aRoyai
- 71B+VdiYYtw6yBQdsLnY1GzSCftSI1ZSlc6Tnwhjy45MEg+NgIVngeyb1aBBlAEkxA
- +fd/A5I9KZ0tpKdG20e7dlT8nu1X94pzHbUyJXkN6GESzab2ksAA2eeVE/9g1pXD+3
- pDtyD7zPhFi1UUaEW+14i0+wICfppaGGofhpheacoMmeKqr6Kvks84NZOPdxeYTBXL
- +gUM9nF3JSs6g==
-Received: from fedora (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 362F817E05FC;
- Tue,  5 May 2026 17:47:51 +0200 (CEST)
-Date: Tue, 5 May 2026 17:47:47 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Ketil Johnsen <ketil.johnsen@arm.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Jonathan
- Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Sumit
- Semwal <sumit.semwal@linaro.org>, Benjamin Gaignard
- <benjamin.gaignard@collabora.com>, Brian Starkey <Brian.Starkey@arm.com>,
- John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, Steven Price
- <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, Daniel Almeida
- <daniel.almeida@collabora.com>, Alice Ryhl <aliceryhl@google.com>, Matthias
- Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>, dri-devel@lists.freedesktop.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH 3/8] drm/panthor: De-duplicate FW memory section sync
-Message-ID: <20260505174747.3c199a81@fedora>
-In-Reply-To: <20260505140516.1372388-4-ketil.johnsen@arm.com>
-References: <20260505140516.1372388-1-ketil.johnsen@arm.com>
- <20260505140516.1372388-4-ketil.johnsen@arm.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Received: from mail-ed1-f74.google.com (mail-ed1-f74.google.com
+ [209.85.208.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B51A10EB60
+ for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 15:48:49 +0000 (UTC)
+Received: by mail-ed1-f74.google.com with SMTP id
+ 4fb4d7f45d1cf-676fb54c0cdso5016654a12.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 08:48:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1777996128; x=1778600928;
+ darn=lists.freedesktop.org; 
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=88jGTJt1jUBTa9gUMTrSJbkV2SqxUXuXjo+gX1FmdT4=;
+ b=emRjvAxmXKFDUU4sQGqa7jHwPLdn1t1ACCkMyacynB+xJp9vZvtG8qvrH22XzZ/aew
+ vR0Gc7SBZe95z02TPeT+lDw3dsDEC8tCLxTEeJprXPDt/LJixzBhr/IUA5TEvt2uWpyE
+ LQKs/B/tWy8A/BDGtNtNq5JYuUsnn2YQVN+vMv6QzP2eujAb+TvWDntjV/dr+yXSuhFi
+ X8ILdLMk9AyzJ3iCLa6ZF8D0q6D4Xp+Jg4dBxzbxKWRKMDds2qf+SmAxuLPcCOHmaukW
+ KQ5n7il3JG8HR03KC3leNjCA0Iuct59hUT6R4tsYhsWd7O0skSn81zA4agjX5aV0vP6e
+ gPRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777996128; x=1778600928;
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=88jGTJt1jUBTa9gUMTrSJbkV2SqxUXuXjo+gX1FmdT4=;
+ b=W1tQHdbuuvRIx4CoxqxTBRvXAowxsG+WTysAaG0yDu+f1O6EqN/A1vBBHSCHJJj1rE
+ 4LkwEv3diRQXlcTE1wnGwy0b9gBggekW8BbO7Qx9xR7eOe+6Ed7VfeXRBktpJWUvLBdq
+ F/ZMk6znY1LiU6ayhTjCzb4ckl7PJ8nBmOKp2DrAv3SwXj3licI2r5AixpcvzpQKiN1/
+ 3n760gRyK4XsCvGSsxeoLYt3i8a0SOG2NvymAHNCpqGWbdlp+M1iFFanqa8UgA118hyM
+ 0iadSafsqyj/WW05/ipmr9AtX4GNOTTYy8o69b+qciEVpF7e1s2jCaVI4xZB6d7Ot5kY
+ o2gQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/b50LWL5Q25ywk8ANq3Jh8aA1HSVmNi0ijv2k7N+rUctwahmkmBhq42ytEum0R+7laspyLb4noPQk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxXc+ZcnWhaKeXiO4ubFalsC7lawMSzFcpnT8c41THAfKIF6zaQ
+ yydKBS1xlgspgPe9zSztyQa5AuQQwhyHdGbZSXcFqpAsvGZV5ldwLJHi8w1nTGPLmwNmXeaN1zG
+ aH6Xj6mb7nm3jQYXgIg==
+X-Received: from edvb16.prod.google.com ([2002:a05:6402:1390:b0:674:5a86:ecaa])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6402:a0c3:b0:67c:ba33:c605 with SMTP id
+ 4fb4d7f45d1cf-67cca92e19amr1615859a12.6.1777996127373; 
+ Tue, 05 May 2026 08:48:47 -0700 (PDT)
+Date: Tue, 5 May 2026 15:48:46 +0000
+In-Reply-To: <20260505152400.3905096-2-dakr@kernel.org>
+Mime-Version: 1.0
+References: <20260505152400.3905096-1-dakr@kernel.org>
+ <20260505152400.3905096-2-dakr@kernel.org>
+Message-ID: <afoRXrwKjZAJuMaQ@google.com>
+Subject: Re: [PATCH v2 1/3] rust: alloc: add Box::zeroed()
+From: Alice Ryhl <aliceryhl@google.com>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: gregkh@linuxfoundation.org, rafael@kernel.org, acourbot@nvidia.com, 
+ david.m.ertman@intel.com, ira.weiny@intel.com, leon@kernel.org, 
+ ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net, 
+ bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org, 
+ tmgross@umich.edu, driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ rust-for-linux@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,87 +84,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue,  5 May 2026 16:05:09 +0200
-Ketil Johnsen <ketil.johnsen@arm.com> wrote:
-
-> Handle the sync to device of FW memory sections inside
-> panthor_fw_init_section_mem() so that the callers do not have to.
+On Tue, May 05, 2026 at 05:23:07PM +0200, Danilo Krummrich wrote:
+> Add Box::zeroed() for T: Zeroable types.
 > 
-> This small improvement is also critical for protected FW sections,
-> so we avoid issuing memory transactions to protected memory from
-> CPU running in normal mode.
+> This allocates with __GFP_ZERO directly, letting the underlying
+> allocator deal with zeroing out the memory compared to
+> Box::new(T::zeroed(), flags).
 > 
-> Signed-off-by: Ketil Johnsen <ketil.johnsen@arm.com>
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
 
-> ---
->  drivers/gpu/drm/panthor/panthor_fw.c | 22 ++++++----------------
->  1 file changed, 6 insertions(+), 16 deletions(-)
+>  rust/kernel/alloc/kbox.rs | 22 ++++++++++++++++++++++
+>  1 file changed, 22 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
-> index be0da5b1f3abf..0d07a133dc3af 100644
-> --- a/drivers/gpu/drm/panthor/panthor_fw.c
-> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
-> @@ -446,6 +446,7 @@ static void panthor_fw_init_section_mem(struct panthor_device *ptdev,
->  					struct panthor_fw_section *section)
->  {
->  	bool was_mapped = !!section->mem->kmap;
-> +	struct sg_table *sgt;
->  	int ret;
->  
->  	if (!section->data.size &&
-> @@ -464,6 +465,11 @@ static void panthor_fw_init_section_mem(struct panthor_device *ptdev,
->  
->  	if (!was_mapped)
->  		panthor_kernel_bo_vunmap(section->mem);
-> +
-> +	/* An sgt should have been requested when the kernel BO was GPU-mapped. */
-> +	sgt = to_panthor_bo(section->mem->obj)->dmap.sgt;
-> +	if (!drm_WARN_ON_ONCE(&ptdev->base, !sgt))
-> +		dma_sync_sgtable_for_device(ptdev->base.dev, sgt, DMA_TO_DEVICE);
->  }
->  
->  /**
-> @@ -626,7 +632,6 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
->  	section_size = hdr.va.end - hdr.va.start;
->  	if (section_size) {
->  		u32 cache_mode = hdr.flags & CSF_FW_BINARY_IFACE_ENTRY_CACHE_MODE_MASK;
-> -		struct panthor_gem_object *bo;
->  		u32 vm_map_flags = 0;
->  		u64 va = hdr.va.start;
->  
-> @@ -663,14 +668,6 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
->  		}
->  
->  		panthor_fw_init_section_mem(ptdev, section);
-> -
-> -		bo = to_panthor_bo(section->mem->obj);
-> -
-> -		/* An sgt should have been requested when the kernel BO was GPU-mapped. */
-> -		if (drm_WARN_ON_ONCE(&ptdev->base, !bo->dmap.sgt))
-> -			return -EINVAL;
-> -
-> -		dma_sync_sgtable_for_device(ptdev->base.dev, bo->dmap.sgt, DMA_TO_DEVICE);
->  	}
->  
->  	if (hdr.va.start == CSF_MCU_SHARED_REGION_START)
-> @@ -724,17 +721,10 @@ panthor_reload_fw_sections(struct panthor_device *ptdev, bool full_reload)
->  	struct panthor_fw_section *section;
->  
->  	list_for_each_entry(section, &ptdev->fw->sections, node) {
-> -		struct sg_table *sgt;
-> -
->  		if (!full_reload && !(section->flags & CSF_FW_BINARY_IFACE_ENTRY_WR))
->  			continue;
->  
->  		panthor_fw_init_section_mem(ptdev, section);
-> -
-> -		/* An sgt should have been requested when the kernel BO was GPU-mapped. */
-> -		sgt = to_panthor_bo(section->mem->obj)->dmap.sgt;
-> -		if (!drm_WARN_ON_ONCE(&ptdev->base, !sgt))
-> -			dma_sync_sgtable_for_device(ptdev->base.dev, sgt, DMA_TO_DEVICE);
->  	}
->  }
->  
+> diff --git a/rust/kernel/alloc/kbox.rs b/rust/kernel/alloc/kbox.rs
+> index bd6da02c7ab8..c824ed6e1523 100644
+> --- a/rust/kernel/alloc/kbox.rs
+> +++ b/rust/kernel/alloc/kbox.rs
+> @@ -19,6 +19,7 @@
+>  use crate::fmt;
+>  use crate::init::InPlaceInit;
+>  use crate::page::AsPageIter;
+> +use crate::prelude::*;
+>  use crate::types::ForeignOwnable;
+>  use pin_init::{InPlaceWrite, Init, PinInit, ZeroableOption};
 
+I suspect some of these imports can be removed when you add the prelude.
+
+> @@ -256,6 +257,27 @@ pub fn new_uninit(flags: Flags) -> Result<Box<MaybeUninit<T>, A>, AllocError> {
+>          Ok(Box(ptr.cast(), PhantomData))
+>      }
+>  
+> +    /// Creates a new zero-initialized `Box<T, A>`.
+> +    ///
+> +    /// New memory is allocated with `A` and the [`__GFP_ZERO`] flag. The allocation may fail, in
+> +    /// which case an error is returned. For ZSTs no memory is allocated.
+> +    ///
+> +    /// # Examples
+> +    ///
+> +    /// ```
+> +    /// let b = KBox::<[u8; 128]>::zeroed(GFP_KERNEL)?;
+> +    /// assert_eq!(*b, [0; 128]);
+> +    /// # Ok::<(), Error>(())
+> +    /// ```
+> +    pub fn zeroed(flags: Flags) -> Result<Self, AllocError>
+
+#[inline]?
+
+Alice
