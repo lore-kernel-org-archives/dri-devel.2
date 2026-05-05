@@ -4,106 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E7DDFF885A
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 12:17:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D73CFF885A
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 12:25:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63EEF10E13A;
-	Tue,  5 May 2026 12:17:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CDCD10E19C;
+	Tue,  5 May 2026 12:25:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZOCldm2u";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Hm0rOtT1";
 	dkim-atps=neutral
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A57A10E13A
- for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 12:17:30 +0000 (UTC)
-Received: by mail-dl1-f46.google.com with SMTP id
- a92af1059eb24-12db2e9b5a7so491788c88.3
- for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 05:17:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777983449; cv=none;
+Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com
+ [74.125.224.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D630F10E19C
+ for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 12:25:35 +0000 (UTC)
+Received: by mail-yx1-f41.google.com with SMTP id
+ 956f58d0204a3-65c1ba7eeb6so4495872d50.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 05:25:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777983935; cv=none;
  d=google.com; s=arc-20240605;
- b=ST1kX2AD2UhoB17CdM0yhN/Eu0snHQcEgwPCDRui0hjQlSNLWa4iUenEBumSUx1diy
- CPp4ugHrAmLEZfT2RXKl4Bh0hH4oGU8rqHTY2mh9RleBKJ2IeH5dYAwTyBRJ73P6DvPw
- kPFL0o6feY4K3tpAaNn6KRnMzX5NDpYEPba8pzelVA/qQLR2vQeZWU03mA9BRYXRjuMg
- QNdEDaPJQbY5i9+IhApmMKxIO4BD/tsx5Q+a+wAYyS0iRz0EBZcBl/sfS1Govy9JYsSr
- 93uLPJFf8mMIujPEmFdwBlwMS1+fc0Ynb9bglPYS/gmVGYSBFNlIeplCpqUyyxYrHcuE
- /wrw==
+ b=Rufq2QfsVMlo0Oi72sF7mvbuW+aShabLyas09WUOKaILL+fOzE5GwZ/VuSQLzcXAv2
+ ooLFNotiZuHWWv7tvFK+RLq6WSoBh7ZlRo9A7x14/aOswy1Cxn6lT5QzPR3GFrC0O8Hq
+ WU7pooV+6n+bzYNilqxPfP19mgTRrh0KKAHP7K9M0HJDnLwVFXGtZZ9rCo8QOT8sbhzQ
+ FpNr/xBdvJ/X6UBQxiiSnB+SW38qkO9TQudu7nJ3JEj++8P0Jwz3/g1bDOJgy4isBAN1
+ AK1LbH38Ujh+h1p71rOsxQdmIaCmo18URnHJC7km2lu6VjGUfXg39LR+ucWwPlYDLHo3
+ 78zQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=rh4nSzvUJ2lYZMblJZlYGda5GtEsMiN9Q4Lz0K9myNo=;
- fh=d+CJbLN5vEFQgSuTNOsWlS/GXg5zLs6Q5vVwKsN6etc=;
- b=DK1/UfNbrX+oHt5hl7tMO+pLxtRR4ANAq5TE3u6clZ3F3kpoZ6Z3sXbjLoI8NFN/+k
- GJJRAnTMuNmej4DDrixZkMQ5SJhxZBsBwVpu93P5rypel75ifTRu9shGvryZz7FjQsoZ
- xE+uVag8o+bbBmx+UjsMW3T/gdIKHXXuemUCqBMwXV+a8ePUpapGpPnQWuIJgBNTu8+a
- 1VpHCCHFQs6rDMkuqSXuJ8ZGW7EYYr6cLp/7wqPbNiHaeNz/CVN6/YLeU14+IFzsXsYd
- YrV3+egGIh32YoIMgp/8RUjVlHAKOCyevTY7PbjeGSeanhGzWoEUmWjY2G9noDzqEdgu
- bSLw==; darn=lists.freedesktop.org
+ h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+ bh=HZWYzWladWJeV9q+/l+O6PxJw3m9uSCSBP6PCqtZITI=;
+ fh=nfn5qSWlmfX+OcbDFkxpO5CtQgthukG998j5MHNEtHk=;
+ b=MlY9iqt0L4saj/1b5KNYeFLRQ5rlZaA5IZfgyqtQiSXeiHi2Rzt6QFlSjRCZAS4HO5
+ 0v6xp7BMXeCF6Nkw2rvBsjbCTCQK6pXmP+dVwUuepvIX1yqgMna+xOfC9ei19b6jOyD8
+ FUu00AzZPjUlNw9bbc4NTGM/4FMa/dwqANwNtqVIpTFo75Y5j75T0UjZ/Lnsi1x/LmF5
+ RhrA/fCo2avkCvexCvUeLcK+H6/fPA1wkeHSInfYjdBh0xkCNRss0x3A12tPMKGB3MSp
+ GesTod+c2LhiEeAPWGVZ3WYPS0qAz8oYoi6KviPPhu9cdyKrRcLx4RgiVVC6mkA0jz5w
+ bF4Q==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777983449; x=1778588249; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=rh4nSzvUJ2lYZMblJZlYGda5GtEsMiN9Q4Lz0K9myNo=;
- b=ZOCldm2uYHLAoNVmdbvfEywY05mcrECy186l3M+6V440bEQ0XEFHTZgldvaYSsv+fc
- deaC6+ItYSJAL/BFAm6gjlhcQMNIjup7/I5T3YIPD36T8LxpKG9+F78wTbykTDsOsNuS
- vwtonQO/8YIyM0kgY9VqotKFy4z7pgYLqiEk8dpMNe+5F607++fN9C2DCCo719d14pNy
- meMsZqNfyb91FIAwfNY76TUv+ZXTfsFXj60dDiiv0Y9U2uBWplq54Hvm6HP+RRE3Z/ZS
- 5H3fPs0tBzKWy4/bTEzjpLmF4m7FvVPvsvsLpC8YRE0Jg7OvYPXCioCnOkrM/Bm2tSZi
- nwAw==
+ d=gmail.com; s=20251104; t=1777983935; x=1778588735; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=HZWYzWladWJeV9q+/l+O6PxJw3m9uSCSBP6PCqtZITI=;
+ b=Hm0rOtT1QFJ1320N9u+qQkJ63rmiD4SGSc84ARgY8yIRMArpchgTK0T+B902nV3mpD
+ 4FlWICyQaysDLyWQckUH+lGpg47R7Q0/07fYowWhj62lghEPRqKPdLd3jwQcjLiRatl1
+ su/VzZT+cLNABDMMEWDB4zvbeYLFT94iJNSh+cT5eVpCqkIWFex+9lU8wC6DSYPKNVPu
+ AbafF4W42BtcXv6QyG6dLpbSNJnDcN2JK35kgfKfWLqf6NWcB9uj934RlWm2sbMOfh6e
+ MZkON9MOGdhdkiC6s+42NtwgmUxhGAJSrgfT2/hip83eU7SG/jpzpL3TOKnzkHZTpuw9
+ JfNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777983449; x=1778588249;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=rh4nSzvUJ2lYZMblJZlYGda5GtEsMiN9Q4Lz0K9myNo=;
- b=tOZYf9YD9FK6B8PXz2MXij9kmUT62S6WNvw9eqDKgwk+2hPPTDcTKK7R0XgXs4uCah
- Gh30o+I3qp681lWeFe7GXbEw9vrSaqBTa8R4hHjxAP6eYNjyOdKgifga9eC9iwBM7I3O
- HT7alFyBatSJJ2XuZOtVgqmsRm7dR6lHbyucpKWzAWThHngllJKGvyLA6KGPjI/xNIuW
- R1y2CYp7iHNtSfYS2tXgK7qYQCLiXyI+8HMQyDbuue788LyC1/KbPOmMbWnj/2oxgHfj
- hSeSEZ3NyxlyPI7o8rzR/E3DW98/VmLmn9XhfFADtRCmQNt2sXhOb+OMAw3v5AlnuAT5
- PiNQ==
+ d=1e100.net; s=20251104; t=1777983935; x=1778588735;
+ h=cc:to:subject:message-id:date:from:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=HZWYzWladWJeV9q+/l+O6PxJw3m9uSCSBP6PCqtZITI=;
+ b=M6TDHRwzdQkcroK2GHEYOUqHcnBVZzfTDeYMC3+Gmcqu+RTnnW83geEgedbS+xC43t
+ UHUQ51AbUAz6E00jo4NqNaAv0v4EZD+nHlzi09aH2Jf7b8a3N6Gu+6u0gxtknPCWkYDY
+ QTna8A8vCkqWqLmCFKAJcXdbDjCLJJkkIEuX93wd2KpBV6gC55BUA/DCac7YJL8tBBEx
+ 0qqXVscb6TtbqNrgrciGaUcOmsaj0uetdPKDPKyG2uDY7meI/16OsYtuwp3jzzI4EgTN
+ DXVpWUyKho3O/hpWf4fFZewtnNQcMtWI/2gjLDnKZLdiLt2wDc2vFcvK4wpFlp2glRVr
+ U+pA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9Iijk42jad7QecIrUA17DOpNBceTcpzbIt4xJFBMO7hcxyz1u93erFor8bqLT/NO3/YSfOiwGLnoc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx+j4r4OWWIFjxxUrfRV3noooZuq6Ut+KFVbVxuMHskAQI1Ml7Y
- MqS+vZ50bZnL6obUmVBMcH2pRz6ABWL+nx032QEBZYhL0IiRb9mEVmH2CHz3qQUIbetd9dE6oIL
- N28flq3MLWaLyHpcBPSXdgMxi/JtvotY=
-X-Gm-Gg: AeBDies7kk6XWZX6KeJpcZULXkaZ5Jd43mjVMQ7N6YZL4UlGpIFwERqeHTzS85vS4O3
- NHYxFC6gLYWh7POybfzh/zH+JIfLxEgTkCsc2aCdduuJ7SOAzNE4pP+m59MhluzQkI1GAkiZaYC
- Gfn6f9yqlFITkcuoF8WghgrIinRri4TtSL37bws/qzW3PJ2OzehurYIuPmlrXDTuAaFCR6psDh3
- AXGX86BfWoAuXKrXuXomr8mX2ok08rUjXRhhmAwsoPBMewhnb76s1WsPFNrwxqMVvoaHcupiZZv
- Ge3Ds0EdDfz1uuPSl29XVHzAQSpKrLdSzxBDkZMNGQcJqc7XupZ8j7JRdY9d/ZhE+kkK24U5tDL
- Ex9nuDEA94gwfrqfqvBb3aR4n2W8rnPbT2g==
-X-Received: by 2002:a05:7300:dc04:b0:2c0:c55c:156f with SMTP id
- 5a478bee46e88-2f41ddff527mr617567eec.4.1777983449127; Tue, 05 May 2026
- 05:17:29 -0700 (PDT)
+ AFNElJ81w+iRndeBFrgA4or3ca+YBzYTjGRBEksTSSSLJvI6DaFGnxO4tSGcamRipLDAxvMKIRFgVnE8yy8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwtvJaC1KsN3wrxvHsB/HNOKkImN2YWXldwbj24xyg5qhC5+1lP
+ uu+Y3wCYBlYbfW8hU9r+u7+W0nTKZGNl0ZtiGvH9yORookb4o2f9LsBIcVZ1MnAyypfT6/MTbYi
+ dBNxlRsp/lDme9BiHxD8F9nOWSXraikM=
+X-Gm-Gg: AeBDiev06UuzGQAvgcqH0ayEG3+fbYxtO6TaAXu0KFtOhbEaOiYpS5L50bdVUGiBScn
+ 8KmMtvWFNmMhL+9YAPajt/2Ts1VAHa5Zm0PGXD3T0svhsi/SVEVxibpPY85ifQGwBZd2gsyqSBa
+ /LfglWeD4+2TAiystBs2l0GrToIt9RWnJMylfP49EoCT2lOAsYGYoVYqYerMCxUXsx3bPZcoaiX
+ bQHYDE9VAWBV3fXnOdCywMl7+ArqWt1KYK49tHlXAaHG0IWt6dqUwnpvB3QWs4liUcsk9I/cr4E
+ 9/oz33NDZaxZh8HywWrK7FBLF/gHedj3FHASaL5sbzYehILBk2GB5ffYhhA=
+X-Received: by 2002:a05:690e:bcc:b0:651:c642:92aa with SMTP id
+ 956f58d0204a3-65c3d96c23cmr13772518d50.4.1777983934692; Tue, 05 May 2026
+ 05:25:34 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260501205825.73614-1-joelagnelf@nvidia.com>
- <20260501205825.73614-2-joelagnelf@nvidia.com>
-In-Reply-To: <20260501205825.73614-2-joelagnelf@nvidia.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Tue, 5 May 2026 14:17:16 +0200
-X-Gm-Features: AVHnY4IRsrOm00S5Cjdrtaixtaeoy2G18CIkU94qlj-QCX6kz6PrDy_aREt3VvQ
-Message-ID: <CANiq72nW4ibDKYySiLo14B2W-PWbZv58d0a604cGQ_+A+ftBog@mail.gmail.com>
-Subject: Re: [PATCH v1 1/7] rust: sync: completion: add
- wait_for_completion_timeout()
-To: Joel Fernandes <joelagnelf@nvidia.com>
-Cc: linux-kernel@vger.kernel.org, Danilo Krummrich <dakr@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, John Hubbard <jhubbard@nvidia.com>, 
- Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, 
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, nova-gpu@lists.linux.dev, 
- dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
- linux-doc@vger.kernel.org
+From: Julian Orth <ju.orth@gmail.com>
+Date: Tue, 5 May 2026 14:25:23 +0200
+X-Gm-Features: AVHnY4LL44QJqBkbe9sCcXJw21A8-75K1LYnugX0XOneV6VVtcfwiV6fhBeQKiE
+Message-ID: <CAHijbEXhuVRgkkPA2dAC=njGBU7vpAbxAbsSmxvvPznO-ckVRA@mail.gmail.com>
+Subject: Regression due to /sys/kernel/dmabuf/buffers removal
+To: "T.J. Mercier" <tjmercier@google.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ corbet@lwn.net, dri-devel@lists.freedesktop.org, 
+ linaro-mm-sig@lists.linaro.org, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ Sumit Semwal <sumit.semwal@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,17 +102,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, May 1, 2026 at 10:58=E2=80=AFPM Joel Fernandes <joelagnelf@nvidia.c=
-om> wrote:
->
-> +        // SAFETY: `self.as_raw()` is a pointer to a valid `struct compl=
-etion`.
+In ab4c3dcf9a71582503b4fb25aeab884c696cab25 ("dma-buf: Remove DMA-BUF
+sysfs stats") the /sys/kernel/dmabuf/buffer directory was removed.
 
-This is fine since it follows the other ones in the file, but we
-should say why this is the case (in another series, possibly a good
-first issue), rather than just asserting it.
+I've been using this interface, specifically the exporter_name file,
+to detect dmabufs created via udmabuf. Such dmabufs show "udmabuf" in
+exporter_name. I've been doing this for two reasons: 1) to detect that
+mmap on such buffers will be fast and 2) to detect that GPU access to
+such buffers will be slow.
 
-e.g. a type invariant?
+With the removal of that file, that detection mechanism no longer works.
 
-Cheers,
-Miguel
+I'm not particularly fond of that mechanism but it was the only one
+providing that functionality that I could find at the time. If there
+is another one, ideally an ioctl on the dmabuf, please let me know.
+
+Shipping an entire BPF compiler in my application, which the original
+patch suggests as the replacement, is not an option when the removed
+alternative was simply reading a file.
+
+Thanks, Julian
