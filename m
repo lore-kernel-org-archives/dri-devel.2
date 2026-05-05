@@ -4,165 +4,109 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 332D8FF8855
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 18:01:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 217F1FF8855
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 18:03:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90CCF10E380;
-	Tue,  5 May 2026 18:01:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8031010E458;
+	Tue,  5 May 2026 18:03:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fgKPw7El";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="v+dox4ht";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 219E310E13C;
- Tue,  5 May 2026 18:01:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778004090; x=1809540090;
- h=date:from:to:cc:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=vfFPXlXmlBvtx0t8BHRc4LhjcctynVoztjvrMrAwLRc=;
- b=fgKPw7ElJX00pb0H3eLs9g4mUa95DrHZq1RwlS849PVv7gk9AK2mavzJ
- tw/DWzDYttHq4YMsIihs7X8WG3/0bro2xjPvPi5sZExWs5iq4bmLvO8+5
- cKvhbd3BM0/imGc5F61e4f4RWFpB4kgIjcAhM9mQsyJxJ51HyMWUeALZZ
- /FiYeldQM9vruZkxYZvzbOnnNf6grj4je8dpJ2nj7GbASjMMI9tbE6iqX
- uR5AcybbpGpV7+vYBcRfudKXujWx70OPnJPYmYfzYzx+CzY6+DXsyXgYa
- IAtM0yuuJldyIFoUqChjvzeAR9k4DRtbFujFXN3quX1XL5K967gt00Z3p w==;
-X-CSE-ConnectionGUID: yZreN7XET6qz6cqS9ccy9g==
-X-CSE-MsgGUID: tSXW0M7zSvq2R0VquuSYAA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11777"; a="78984017"
-X-IronPort-AV: E=Sophos;i="6.23,218,1770624000"; d="scan'208";a="78984017"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 May 2026 11:01:28 -0700
-X-CSE-ConnectionGUID: su1qaolORVi1Z0UhqIACoQ==
-X-CSE-MsgGUID: XCj3B8hFSWKyJ5fL+LfFuw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,218,1770624000"; d="scan'208";a="235003281"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
- by orviesa010.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 May 2026 11:01:27 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 5 May 2026 11:01:27 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Tue, 5 May 2026 11:01:27 -0700
-Received: from CY7PR03CU001.outbound.protection.outlook.com (40.93.198.49) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 5 May 2026 11:01:26 -0700
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010022.outbound.protection.outlook.com [52.101.201.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1B0110E458
+ for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 18:03:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=U9A3I9GNMM1HgbZzR+hX29elRR1mFBrHaVfgFXP0+9HqI9ZI4uGUzBn0zm5ShqvebWPFB55A79pavf0D+uJLZdTunJWlgfFtsBjqQRgV4BvvBz7ddziC+X3Zj5aR7lyessM0mqXrix16P2EVkwqiK5mQa3pxEdlngEbJBdrPGWI1PjNs0aZF7qG0X3/Pu1KnLJZQaXJGCiuY5D+V9K91yfo4IKLOwXmIwSL7+m0KGab2+U1BSzcihxnmSS8gIzoDyAw9pvKrBjNI00MzVytLg7/pkur5/+bCNnA3+Lt4P8fTRtuMAiwn0Ob4IAlkl8EqfrwAXQqyp3pfTTwgLf4zag==
+ b=oy2y/bv7u8cCHwtYWXf2sa0p/6OA/sVetqbNHjI6wB58X+xpSJYJIM/PoXtFsgly+Ul7QSfSELeL/kdxUdJj+B9tbH8EZVrL/INArfGhMaxndtxkCMdQp+ycHQMXx7vKADkOAS4l5O5aFG3E5p5I3BK6UOEDvi07hlXbClNWwY5hkrBosltfP6HrnxPDd2aW41T3DNaEz/VaMbLYOrCGhVk+LGHHWO36KiDb4HbL7eNot9JowyGoO2OMO+8uoaU6HXeYrMdbJaia4hodMOUhdlbCNK88dORAnm0g9CDiwfPiCix0uBBKA1MVKiHiemGmCZcw3Rh6ZDMsVPAO4kEIxA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f29UzgsWLFXpbX1nxzpe4lTTFqELS3+sSBHlsjqOCyg=;
- b=XS0kTYkGtLiJ0/FwD0IejEUaPxFolq4+m3CavoWUHert4oXw/yYxC0Qjmz4Ie+mIF/zIOddZV1FOVPYpPBE7Q0tI+zn4GUL3v2ZtRq8qpm7pCcfKggDT+etFO7PWHQTdpUzyAYFdtvTIxwmt1xAjEIkwvXTV/Y876anOEHEZ0ZJqc+r9bMed5gOTS33lc+v91jZC+5p6ewBvlUFaVq6w4KqiA3DkFZq2pC3EdXCLfGNdcfvjoI6zEb5Uk3UrBTGW30qBOLtR+KiXB5YG5dn4qH5qbI70g37wCwm64uAvXlJW9CeJxBQDa5uqD4es+TUH3U4k6RRW+vd/X/WUuxaFaQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
- by LV8PR11MB8486.namprd11.prod.outlook.com (2603:10b6:408:1e8::14)
+ bh=UY0wpJCfCX5ufCzvmeckjiiAC2CsWYPelk70f+whcaA=;
+ b=PySVXpsAuvRewqHPOnul1TuXW41pmDnvI01DnTsBV6f6hSyeKGF0kchWaCkGnAXBiyeiwTK+rbdSVUpU3NNyVrXKnxKnocqWVTbHgUKXO0RkXZqDwaos4fWBBu4o/4RbI5YqOZ00LgDW7K9ye59hlzWderSb89uu+cHCJ5Dx0ERvWyJbjuAUNerrIbRzywxukWPa9nxZpRJaMReBjHRwZDM/PqdnEpEax0gjOYag++60iw7p2A56j1/7zG14b7lvifcDpAv+DPdi2xdDUhRBib+52k1qURoIo5Hw2oMV10VtodygoaNMrUmyvGwb7WfVvNQgcA5wiJsnvkDQCSno2w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UY0wpJCfCX5ufCzvmeckjiiAC2CsWYPelk70f+whcaA=;
+ b=v+dox4htIR08DbsuJ7GNNJlnwfVF3C2dB4LZo2Z5c5Eee39ACiFpc5yAAhkbi0zLCVtw+oswo6hpdOb12EZV2wk+oXhzO0QC6Pqd+zVex7O+xBg3Blhjn0ZJtI6NbmFYEQdJ9lYY4uyMpHwdK8j3/4ysViJdwqz/jZomdI4BZjs=
+Received: from BL1PR13CA0152.namprd13.prod.outlook.com (2603:10b6:208:2bd::7)
+ by SJ0PR12MB7007.namprd12.prod.outlook.com (2603:10b6:a03:486::8)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Tue, 5 May
- 2026 18:01:16 +0000
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c%7]) with mapi id 15.20.9870.023; Tue, 5 May 2026
- 18:01:16 +0000
-Date: Tue, 5 May 2026 11:01:13 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Mika =?iso-8859-1?Q?Penttil=E4?= <mpenttil@redhat.com>
-CC: Alistair Popple <apopple@nvidia.com>, <linux-mm@kvack.org>,
- <dri-devel@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, David Hildenbrand <david@kernel.org>, "Jason
- Gunthorpe" <jgg@nvidia.com>, Leon Romanovsky <leonro@nvidia.com>, Balbir
- Singh <balbirs@nvidia.com>, Zi Yan <ziy@nvidia.com>, Andrew Morton
- <akpm@linux-foundation.org>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>, Vlastimil Babka
- <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan
- <surenb@google.com>, Michal Hocko <mhocko@suse.com>
-Subject: Re: [PATCH v9 0/5] Migrate on fault for device pages
-Message-ID: <afowaUffi0JrnADf@gsse-cloud1.jf.intel.com>
-References: <20260505051658.2219537-1-mpenttil@redhat.com>
- <afmXIq8VY_vs1GPo@nvdebian.thelocal>
- <ecd81b6b-62ef-4dab-a93e-e65598d64841@redhat.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <ecd81b6b-62ef-4dab-a93e-e65598d64841@redhat.com>
-X-ClientProxiedBy: SJ0P220CA0013.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:a03:41b::20) To PH7PR11MB6522.namprd11.prod.outlook.com
- (2603:10b6:510:212::12)
+ 2026 18:03:31 +0000
+Received: from BN3PEPF0000B072.namprd04.prod.outlook.com
+ (2603:10b6:208:2bd:cafe::1d) by BL1PR13CA0152.outlook.office365.com
+ (2603:10b6:208:2bd::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.15 via Frontend Transport; Tue,
+ 5 May 2026 18:03:30 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN3PEPF0000B072.mail.protection.outlook.com (10.167.243.117) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9891.9 via Frontend Transport; Tue, 5 May 2026 18:03:30 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 5 May
+ 2026 13:03:30 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 5 May
+ 2026 11:03:29 -0700
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Tue, 5 May 2026 13:03:29 -0500
+Message-ID: <2193be15-b0ce-c8c3-140c-7278b86677f7@amd.com>
+Date: Tue, 5 May 2026 11:03:28 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH V1 5/6] accel/amdxdna: Add AIE4 metadata query support
+Content-Language: en-US
+To: Mario Limonciello <mario.limonciello@amd.com>, <ogabbay@kernel.org>,
+ <quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
+ <karol.wachowski@linux.intel.com>
+CC: David Zhang <yidong.zhang@amd.com>, <linux-kernel@vger.kernel.org>,
+ <max.zhen@amd.com>, <sonal.santan@amd.com>, Hayden Laccabue
+ <Hayden.Laccabue@amd.com>
+References: <20260505160936.3917732-1-lizhi.hou@amd.com>
+ <20260505160936.3917732-6-lizhi.hou@amd.com>
+ <0399e649-4759-412e-b89c-4759d1469fad@amd.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <0399e649-4759-412e-b89c-4759d1469fad@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|LV8PR11MB8486:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5e261d5d-e3ab-4d5a-055a-08deaad04d72
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B072:EE_|SJ0PR12MB7007:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1304587c-a1a0-4839-e579-08deaad09d67
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|1800799024|366016|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: XHj+T6VKWSBKVkQB0tOnU4MxI3dQl4yAVwZLTKuJj7Rp5AyZKKXfrOxy8v28+LBtUM3Q13Aj3Mt2IzYvRIAM8lphIXKO2mdJYWmXhGb6zu/9ymzPisymcMtLgMen35KIS4zXet0W6q1SgWot0LpzZ24FwW5nWTfFuHWCREhzg13GMsv/HB/PfCOCkjsyqbOiuX8rgX4m8mYAnpHsWB2bHFMkl7S8nci83FkR2Fl5lLVfrqp2RjzZVyd3WGDos0s/xj8xZZONnlFRz6vZNpnp6324k4RPUgNz6i9nMNSOPDXv+bL3OaQLX/ZakXNcScsuG9jQ3IeB6pUu5cExjWO010SLoihO4IicyGUNne6XJm449jIdVPv3p6ygOsqaKnqNx8Mo3LCsc/TZyPfBbqnbegpVLM/55ciaRCRcRnxy3VWzQPuPyvAEcQ4u8dm/9GyoPpzQLO/XaLD/97fQyWET6JmIs1LgHUgqFiLMCSQt8qKh1PsfGU4smwkPEzAZ0Ljmv1gENdEBmPSrM8whkGiktuxQh71gerMGhMAv59rRx+hBvIlJYCKiFHVfPjdC9rQLZgWb0sIL7YF7Ocvy5fJP8HfY5iUKqoJbCanTV2fmyXT/c76NtP4ha/yXiAB51JZUViPtP6jcVUtNM2p17KwrAQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(1800799024)(366016)(18002099003)(22082099003)(56012099003);
+ ARA:13230040|82310400026|376014|36860700016|1800799024|22082099003|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: qunYH1fV9FcYP715gzGXH8GPuJ4VqGBi/MX2p6J0mGeug1ytAYfw++itrseZgvrYQ73AHzK4SVW65pJpE02DUI4iRfoXuXostYExK6ETn6Jl94Dh2SFpu4szf4oU8T4F7pQ6J6BcoeP7wnVQfxx8hm661+T11dfYpAe/V9rpGQpMEOyVcQB3EVijPUlMkL9Dj4sa6rbVlWemlzA69bli+/UHtl5H+p0F9nXL34SV185WZgmD85P325F2YbAeIcXh1W+8Ir1YgdJ/oGd3ey9P79TlbScX1UncJHN+2Jfr/PCwWw6Q3F9x2WYzZExoY7sTYGv1D93BbKUGtZ23VrI52ek3Pe7fJqFdjZwvjwjPaINR681l5Php/1IuXumzU7HXf9Bxs3QN1nMDvfyC2y6wlgiSnGs8dPDDugc3LL1cone/2IUnipwXrgQN2biWHrp3Ai4m9cpws83xUCNlLNPOj/zh22Ale/UZFQudyRGpyHVgDfm8aTloUGNw72l/O9V9+7KCErKB45zmFWB2xC0HQ3zrZ1iw29zgXsAUSrpmsKDZX+RuQc4X5zhQt52QTheAHOwnxoJqhskd/Z6awi22c/9vlqlXVU2WPKIX+B1XprAmQKRjMWKuIKJaOHUPRd1w7Korlq6iy+HaE542V1zIGQ0QJZKCWc2BvqBQNEPDq2M/umEKjjHzb655o1FZNLp2NZcfuEYO4YTkHT8H1BJhHBy6cDWITcb+VvsX8P+DDpQ=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(36860700016)(1800799024)(22082099003)(56012099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZXhqbnNiRGt6T3hpNDd0Z1oxTUlyaGZRUHhPeGhFVGNLWG4xRVNhVmt6SmpF?=
- =?utf-8?B?VGFGY1FZZFVXcVEzV0krdlc4cnd4UlgzUitVRFJXa1JiaExYY3FDOFByd2d4?=
- =?utf-8?B?amFRR0NheE1LS1RjVFI3bTdMZWd3RG1Tc0tJQjluM3hJdmQvQUY3MWJGZXhr?=
- =?utf-8?B?RVZDY0RzdjdZaWwwOGUzUkR0MGtVajlsaE13TUhWeXB4VmhvanM5S0dCYVVi?=
- =?utf-8?B?YjVKTCthQWJqR3VrNVE2UzZHUHp2b1hkdGk3N2wzcUtLUzg0MXlNN0k1N2J1?=
- =?utf-8?B?Y0djd2VBWmcrV1M4V2VBK1RqMDV2MVRkakVNYktoMEdENGdvWFJmYzYzcW1S?=
- =?utf-8?B?cXF1ak5rajZnOW9SZUxhNkhBa2c3SERVRWdIa2c1TUlzT3V1bEtVdW5tVzk2?=
- =?utf-8?B?eUV5NnN3UnZsRitmWUliZElPTG04dFBYakxHQXNhWmc0TTFpUG55U3hSUHk2?=
- =?utf-8?B?UFV1M0Mzdm5IOUpQUWhYWG1nc1Z3TmoySC9CMi9mT25xTzJDUENVeUM2VXlV?=
- =?utf-8?B?THc1ZjQ1TGp6d0ZLUHdmZm05WEJ2Ym04bDBZc3BVTW5EMnZjdDhlcEhYMkNE?=
- =?utf-8?B?RDVWOVhrbDZ2c0RwMnlHdWREcTArMk5ONUhhRU12cTVQL0ZDOTBYSTVtV2xT?=
- =?utf-8?B?UEtOMitveTZQMDNGeWNoMCtoWU1PWlY5MU9XcnJNNTk3eHdmSHdNOEhDMlRn?=
- =?utf-8?B?eDRvSFVZZHgrWlN5UEVnci9nb0FGTHlHU2FXLzZBbXAzN1hzTnE3a2NvL1lw?=
- =?utf-8?B?MHcvNitXdkt0ckRXS1BzNzZPUGdFV1hNN0k1Tkt5VzQ4bEdzR29NQmRDb01v?=
- =?utf-8?B?RVpMNmtyUGhSVTBnZU5xalhzeXBnRms2dDBsc0JaNVk4cGk1MW9BNytsSkk3?=
- =?utf-8?B?N2JQUXNwT2pjWkpieDlEZEsxbDhBY3BDdENQSlBrWmFDcWJBeXU2OGExeWxs?=
- =?utf-8?B?a1RrcUJ4YmlIVXlhT2Q3Rlo0MWlNa0VOWUg1ODNuaVdXRytkdXJFZ1J6UTNs?=
- =?utf-8?B?SFB4M1FuYUlKb1kzcjJhZ3lWRlA5aysvMHdReXA2bnBRbTdzcm4waWZEUXhB?=
- =?utf-8?B?S3kxMURWZlQwaWtqM003Mmlpd2lkS05PbWFnaTl2RzVOV1BBQW1WYWtESEZ4?=
- =?utf-8?B?a0hUU0Z1d1VpNGdYaXkySDF5WU11WmdVRmVPRERMUS9YaG1zSGZwMUNYc0ht?=
- =?utf-8?B?M3RMQVU3amtFMTBlUmFoaXZNRDVmUGVlb3NucFNhcWRDU1YrUU1zVWM1MmVl?=
- =?utf-8?B?YmRaUUFCSmQ2ME53enBxMkxsY3BqK2t5TndpT2xoTU5QSXhKbGUrMUJwTVhB?=
- =?utf-8?B?YUlPM2NERmtwbHRlRmMrTnQyb05FaDlTdXlKRUJ1NzQxSkpWVHRRZkhHQi9p?=
- =?utf-8?B?MUo2SjlXc1h0a0JnZzRGSUZlQis3MCtiWHczam1OOGJWU1BFc1NkdU96MWM2?=
- =?utf-8?B?cHhjWG1pN043M3Zoc0ZBUGpNNW00aCtXRGNNYjZNSmcxbHVVSmYwbUdGR2tn?=
- =?utf-8?B?aVdvWWtDckE5Y3hSajVzakdWYmFVak5zbzJsTzlrVmQ0VTlURlh2cmRlVity?=
- =?utf-8?B?aU5IME1vT2d3NnNkemllSG0vWWMzVVp1WmRFem9yZlgrZlJmV2E4c0NGbUhu?=
- =?utf-8?B?TlBhQ2w0QmNkZ0IwN2VNbldLU0hBK0J1YWVGWmRNbXJOMXc1VEoxQWlmK09h?=
- =?utf-8?B?TUhoOVI3OEU1cEprbE82N3VDdll5Z2dodTdaWVBUajNYOU4yRXFwb25Cay9h?=
- =?utf-8?B?ZGV0RFUyTDNyUndiOXhGRUdXSEFZRnZQa0Fma3N3V1UyUlBnNnlFUXVzNkJB?=
- =?utf-8?B?ZHYxc0Q5cEsvUFNvWWhGWkhNRmREY3BONHZTNnlHZ1hBakhwUWszNEs3Zk03?=
- =?utf-8?B?eVBCUzFLRWM2ODFvM3pDM0krL3FIb2x2L0c1RUorKzMzNFRDZExyUmVtVmYz?=
- =?utf-8?B?ZkVJaUdqbEsxN2tiWVluM2dRckJyQWxHTzN1dzkwdjVrdGVjZDBRblp0VkE4?=
- =?utf-8?B?cUlleUw2ZWZZK2Y3NTE4R1phRzE5ZWhSSTg3b0RmenBmYzZoa2paOFlQR2Fk?=
- =?utf-8?B?YVVFVHZ2cGFrZlcybFpMb2FpM3pMdThsYTVkUEcxRnpoZkE4WldwL3VTbzFn?=
- =?utf-8?B?RWdjbnY3QzRDMmlxbjI0eHppRGNHck5BcXRBSjNOS1pVS2RQVXJod2FhcnBl?=
- =?utf-8?B?bW5FME1rbGhQVHFncGh1ampBK084bEp5UTFieHhvM3RZMHdoU1FXaUtlTzN0?=
- =?utf-8?B?ZnNyN1NuaHhadjJsTm56WGdYV1lyM3JRZzAzRm5ralA5NldxUmF2TjdpVXZP?=
- =?utf-8?B?TmFzdmoycjdmL3g4VkVSblV2RitURitqaUJCUzJnbDB4YWVNQnc5Z0JKck9o?=
- =?utf-8?Q?oF3GIuH9F8O7Xh0Y=3D?=
-X-Exchange-RoutingPolicyChecked: wh5OoCS9cPvcTuwnzp8kOYFMNBFKd6EGLVpFJl/p6W1/PrNi1JAZ+2bwDB3raVz49OMKdLppIVyaT3APtfbMafpE6rqmHnWSKEuV+/vrg5yq+ge1f+DJ+WX5n0SVvtEdnTeO5uJEozntPdqGsOStNKsOIUFp00yfIZVv1HLvK4OncRMisxroHCqlM1NNAfGuvQlqhmFL26sEE0lVWXzKBZ1z2bOiQxqhYBtUvkOMSwk6+u8N/9WhYp75+I8/XJy10qJXPFs/D7PRL5GOV0SraliF8V0YTC2tQDNO7z3mZUs9fvVgY1LBYPgl2Z/C4+KvAkeV+V9uS/MbkWpwJA8ptA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5e261d5d-e3ab-4d5a-055a-08deaad04d72
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2026 18:01:16.4181 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1JzoxTCKojZnyeIjqnmcziKvuQus9B4JMitFB7lklsJQnyEQ6KXkRp/VEUKRYHpPHBi09xHiWTk/1lLgA76VzA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR11MB8486
-X-OriginatorOrg: intel.com
+X-MS-Exchange-AntiSpam-MessageData-0: IGyqvops9xRUXaH/gZAF+E3vg8Jm9y+ed166Ray1EfWn5zIDod2yjSSc97IGE1VuvhlCc9VIr0hBUhDySWPFcL1UPGx6c1ybGz3nbHXWjw62LDwvr+lxQEujuuj8PKmsUL/0zNjA8ZWh2je+0pG3jJoo0AiJObpvUlEPfr0beyoHL68Paalls5rtv1kOFAXZF1gW6LnwENaglUJ8dkXuLUxuqXMpQjXOC5rguOBMferwB6jrgSjnqJ0HaKwZd4OvqDaRMN/agLZ/00crRIPw9dM0B+sDdRb4dflwwHM5Gy1yd/c2ZR9yC+UqFrQWLOOfGauzWpJ1KtxWhsm8htCJDn5Cn5Z89nDjftk7/IeupjZKCgobGgwLaLhGLSwDMd95ZymZMOaDH3hOXhSEFav3ftqkwKIoqlQ642CAorlLfteWftVlVxom6KBZqW35PTvy
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2026 18:03:30.3511 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1304587c-a1a0-4839-e579-08deaad09d67
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B072.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7007
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -178,317 +122,500 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, May 05, 2026 at 10:18:14AM +0300, Mika Penttil=C3=A4 wrote:
->=20
-> On 5/5/26 10:09, Alistair Popple wrote:
->=20
-> > Thanks for doing this work Mika. I've been meaning to take a look at th=
-is series
-> > for a while. I'm currently at LSFMM but will try and take a look this w=
-eek or
-> > next as it sounds quite useful.
-> >
-> >  - Alistair
->=20
-> Thanks Alistair and no problem, appreciate your insights whenever you hav=
-e time.
->=20
 
-It looks like this series is breaking Intel's CI [1]. Looks like
-something in RCU is blowing up:
+On 5/5/26 10:14, Mario Limonciello wrote:
+>
+>
+> On 5/5/26 11:09, Lizhi Hou wrote:
+>> From: David Zhang <yidong.zhang@amd.com>
+>>
+>> Add support for querying device metadata on AIE4 via a mailbox message.
+>> Refactor aie2_get_aie_metadata() into a common helper by moving it to
+>> aie.c and renaming it to amdxdna_get_metadata(), allowing both AIE2
+>> and AIE4 to reuse the implementation.
+>>
+>> Co-developed-by: Hayden Laccabue <Hayden.Laccabue@amd.com>
+>> Signed-off-by: Hayden Laccabue <Hayden.Laccabue@amd.com>
+>> Signed-off-by: David Zhang <yidong.zhang@amd.com>
+>> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+>> ---
+>>   drivers/accel/amdxdna/aie.c           | 45 ++++++++++++++++++++++
+>>   drivers/accel/amdxdna/aie.h           | 27 ++++++++++++++
+>>   drivers/accel/amdxdna/aie2_ctx.c      |  4 +-
+>>   drivers/accel/amdxdna/aie2_message.c  |  2 +-
+>>   drivers/accel/amdxdna/aie2_pci.c      | 54 ++-------------------------
+>>   drivers/accel/amdxdna/aie2_pci.h      | 24 ------------
+>>   drivers/accel/amdxdna/aie4_message.c  | 37 ++++++++++++++++++
+>>   drivers/accel/amdxdna/aie4_msg_priv.h | 34 +++++++++++++++++
+>>   drivers/accel/amdxdna/aie4_pci.c      | 30 +++++++++++++++
+>>   drivers/accel/amdxdna/aie4_pci.h      |  1 +
+>>   10 files changed, 181 insertions(+), 77 deletions(-)
+>>
+>> diff --git a/drivers/accel/amdxdna/aie.c b/drivers/accel/amdxdna/aie.c
+>> index 66849ba9026a..a31051cc1ec8 100644
+>> --- a/drivers/accel/amdxdna/aie.c
+>> +++ b/drivers/accel/amdxdna/aie.c
+>> @@ -117,3 +117,48 @@ void amdxdna_vbnv_init(struct amdxdna_dev *xdna)
+>>         amdxdna_update_vbnv(xdna, info->rev_vbnv_tbl, rev);
+>>   }
+>> +
+>> +int amdxdna_get_metadata(struct aie_device *aie,
+>> +             struct amdxdna_client *client,
+>> +             struct amdxdna_drm_get_info *args)
+>> +{
+>> +    struct amdxdna_drm_query_aie_metadata *meta;
+>> +    int ret = 0;
+>> +    u32 buf_sz;
+>> +
+>> +    meta = kzalloc_obj(*meta);
+>> +    if (!meta)
+>> +        return -ENOMEM;
+>> +
+>> +    meta->col_size = aie->metadata.size;
+>> +    meta->cols = aie->metadata.cols;
+>> +    meta->rows = aie->metadata.rows;
+>> +
+>> +    meta->version.major = aie->metadata.version.major;
+>> +    meta->version.minor = aie->metadata.version.minor;
+>> +
+>> +    meta->core.row_count = aie->metadata.core.row_count;
+>> +    meta->core.row_start = aie->metadata.core.row_start;
+>> +    meta->core.dma_channel_count = 
+>> aie->metadata.core.dma_channel_count;
+>> +    meta->core.lock_count = aie->metadata.core.lock_count;
+>> +    meta->core.event_reg_count = aie->metadata.core.event_reg_count;
+>> +
+>> +    meta->mem.row_count = aie->metadata.mem.row_count;
+>> +    meta->mem.row_start = aie->metadata.mem.row_start;
+>> +    meta->mem.dma_channel_count = aie->metadata.mem.dma_channel_count;
+>> +    meta->mem.lock_count = aie->metadata.mem.lock_count;
+>> +    meta->mem.event_reg_count = aie->metadata.mem.event_reg_count;
+>> +
+>> +    meta->shim.row_count = aie->metadata.shim.row_count;
+>> +    meta->shim.row_start = aie->metadata.shim.row_start;
+>> +    meta->shim.dma_channel_count = 
+>> aie->metadata.shim.dma_channel_count;
+>> +    meta->shim.lock_count = aie->metadata.shim.lock_count;
+>> +    meta->shim.event_reg_count = aie->metadata.shim.event_reg_count;
+>
+> Looking at the code the structures for
+>
+> struct amdxdna_drm_query_aie_metadata
+> and
+> struct aie_metadata
+>
+> Look identical.  Rather than copying every member, can you just use 
+> copy everything from aie->metadata to args->buffer directly?
+>
+> That could let you save the kzalloc/kfree call.
 
-<4> [212.361418] ------------[ cut here ]------------
-<4> [212.361431] Voluntary context switch within RCU read-side critical sec=
-tion!
-<4> [212.361432] WARNING: kernel/rcu/tree_plugin.h:332 at rcu_note_context_=
-switch+0x82/0x780, CPU#11: kworker/u65:5/2352
-<4> [212.361440] Modules linked in: snd_hda_codec_intelhdmi snd_hda_codec_h=
-dmi mei_lb mei_gsc_proxy mtd_intel_dg mei_gsc xe drm_gpuvm drm_gpusvm_helpe=
-r drm_buddy gpu_sched drm_ttm_helper ttm drm_suballoc_helper drm_exec drm_d=
-isplay_helper cec rc_core drm_kunit_helpers i2c_algo_bit kunit overlay inte=
-l_rapl_msr intel_rapl_common intel_uncore_frequency intel_uncore_frequency_=
-common intel_tcc_cooling x86_pkg_temp_thermal intel_powerclamp hid_generic =
-coretemp eeepc_wmi cmdlinepart asus_wmi binfmt_misc sparse_keymap spi_nor m=
-ei_hdcp mei_pxp mtd wmi_bmof kvm_intel kvm irqbypass aesni_intel gf128mul r=
-8169 usbhid rapl hid intel_cstate realtek snd_hda_intel phy_package snd_int=
-el_dspcfg intel_pmc_core snd_hda_codec idma64 nls_iso8859_1 pmt_telemetry s=
-nd_hda_core video snd_hwdep pmt_discovery snd_pcm i2c_i801 pinctrl_alderlak=
-e pmt_class snd_timer i2c_mux intel_pmc_ssram_telemetry acpi_tad acpi_pad m=
-ei_me snd i2c_smbus spi_intel_pci soundcore mei spi_intel wmi intel_vsec dm=
-_multipath msr nvme_fabrics fuse efi_pstore nfnetlink autofs4
-<4> [212.361711] CPU: 11 UID: 0 PID: 2352 Comm: kworker/u65:5 Tainted: G S =
-  U              7.1.0-rc2-lgci-xe-xe-pw-165953v1-debug+ #1 PREEMPT(lazy)=20
-<4> [212.361715] Tainted: [S]=3DCPU_OUT_OF_SPEC, [U]=3DUSER
-<4> [212.361716] Hardware name: ASUS System Product Name/PRIME Z790-P WIFI,=
- BIOS 0812 02/24/2023
-<4> [212.361718] Workqueue: xe_page_fault_work_queue xe_pagefault_queue_wor=
-k [xe]
-<4> [212.361833] RIP: 0010:rcu_note_context_switch+0x82/0x780
-<4> [212.361838] Code: 45 85 c0 74 0f 65 8b 05 24 84 ab 02 85 c0 0f 84 8d 0=
-1 00 00 45 84 ed 75 16 8b 83 bc 08 00 00 85 c0 7e 0c 48 8d 3d de ad 4d 02 <=
-67> 48 0f b9 3a 8b 83 bc 08 00 00 85 c0 7e 0d 80 bb c0 08 00 00 00
-<4> [212.361840] RSP: 0018:ffffc9000186f4a0 EFLAGS: 00010002
-<4> [212.361843] RAX: 0000000000000001 RBX: ffff88810a3a8040 RCX: 000000000=
-0000000
-<4> [212.361845] RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffffffff8=
-39bcea0
-<4> [212.361846] RBP: ffffc9000186f4e8 R08: 0000000000000001 R09: 000000000=
-0000000
-<4> [212.361848] R10: 0000000000000000 R11: 0000000000000000 R12: ffff88885=
-f1b6a00
-<4> [212.361849] R13: 0000000000000000 R14: ffffffff83248312 R15: ffffc9000=
-186f630
-<4> [212.361851] FS:  0000000000000000(0000) GS:ffff8888db203000(0000) knlG=
-S:0000000000000000
-<4> [212.361853] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-<4> [212.361854] CR2: 00007fe433b2f088 CR3: 000000000344a000 CR4: 000000000=
-0f52ef0
-<4> [212.361856] PKRU: 55555554
-<4> [212.361858] Call Trace:
-<4> [212.361859]  <TASK>
-<4> [212.361862]  ? lock_is_held_type+0xa3/0x130
-<4> [212.361868]  __schedule+0x103/0x1f70
-<4> [212.361870]  ? lock_acquire+0xc4/0x300
-<4> [212.361874]  ? find_held_lock+0x31/0x90
-<4> [212.361877]  ? schedule+0x10e/0x180
-<4> [212.361880]  ? lock_release+0xd0/0x2b0
-<4> [212.361885]  schedule+0x3a/0x180
-<4> [212.361888]  io_schedule+0x4c/0x80
-<4> [212.361890]  ? softleaf_entry_wait_on_locked+0x147/0x2b0
-<4> [212.361894]  softleaf_entry_wait_on_locked+0x24f/0x2b0
-<4> [212.361899]  ? __pfx_wake_page_function+0x10/0x10
-<4> [212.361904]  migration_entry_wait+0xff/0x190
-<4> [212.361909]  hmm_vma_handle_pte+0x440/0x790
-<4> [212.361914]  hmm_vma_walk_pmd+0x5c8/0x1360
-<4> [212.361918]  ? xe_pagefault_queue_work+0x1a9/0x520 [xe]
-<4> [212.362015]  walk_pgd_range+0x57f/0xd70
-<4> [212.362017]  ? lock_is_held_type+0xa3/0x130
-<4> [212.362028]  __walk_page_range+0x8e/0x290
-<4> [212.362034]  walk_page_range_mm_unsafe+0x19e/0x270
-<4> [212.362036]  ? trace_hardirqs_on+0x22/0xf0
-<4> [212.362043]  walk_page_range+0x2a/0x40
-<4> [212.362045]  hmm_range_fault+0x94/0x190
-<4> [212.362053]  drm_gpusvm_get_pages+0x269/0xa30 [drm_gpusvm_helper]
-<4> [212.362067]  drm_gpusvm_range_get_pages+0x2e/0x50 [drm_gpusvm_helper]
-<4> [212.362071]  __xe_svm_handle_pagefault+0x3e0/0xef0 [xe]
-<4> [212.362181]  ? __lock_acquire+0x43e/0x2790
-<4> [212.362188]  ? lock_is_held_type+0xa3/0x130
-<4> [212.362193]  ? lock_is_held_type+0xa3/0x130
-<4> [212.362197]  ? xe_vm_find_overlapping_vma+0x57/0x1e0 [xe]
-<4> [212.362304]  xe_svm_handle_pagefault+0x3d/0xb0 [xe]
-<4> [212.362412]  xe_pagefault_queue_work+0x1a9/0x520 [xe]
-<4> [212.362509]  process_one_work+0x239/0x740
-<4> [212.362518]  worker_thread+0x200/0x3f0
-<4> [212.362521]  ? __pfx_worker_thread+0x10/0x10
-<4> [212.362524]  kthread+0x10d/0x150
-<4> [212.362527]  ? __pfx_kthread+0x10/0x10
-<4> [212.362530]  ret_from_fork+0x3bd/0x470
-<4> [212.362533]  ? __pfx_kthread+0x10/0x10
-<4> [212.362536]  ret_from_fork_asm+0x1a/0x30
-<4> [212.362546]  </TASK>
-<4> [212.362547] irq event stamp: 2057044
+Agree. I will just remove the redundant structures in V2.
 
-I=E2=80=99ll be out this Thursday for five weeks, but assuming you can sort=
- this
-part out, I=E2=80=99m fine with the series moving forward. I=E2=80=99ve loo=
-ked at this
-several times, and it seems sane enough to me.
+Thanks,
 
-On our list we also have the Sashiko setup [2], which I=E2=80=99ve found to=
- be
-incredibly helpful for series that do deep MM work. I=E2=80=99m not sure wh=
-y
-Sashiko is saying this series didn=E2=80=99t apply, since it applied cleanl=
-y to
-our CI branches. If you can get Sashiko to run on it, that might be
-helpful as well.
+Lizhi
 
-Matt
-
-[1] https://intel-gfx-ci.01.org/tree/intel-xe/xe-pw-165953v1/shard-bmg-4/ig=
-t@xe_exec_system_allocator@process-many-stride-mmap-race-nomemset.html
-[2] https://sashiko.dev/#/patchset/20260505051658.2219537-1-mpenttil%40redh=
-at.com
-
-> --Mika
->=20
-> >
-> > On 2026-05-05 at 15:16 +1000, mpenttil@redhat.com wrote...
-> >> From: Mika Penttil=C3=A4 <mpenttil@redhat.com>
-> >>
-> >> Currently, the way device page faulting and migration works
-> >> is not optimal, if you want to do both fault handling and
-> >> migration at once.
-> >>
-> >> Being able to migrate not present pages (or pages mapped with incorrec=
-t
-> >> permissions, eg. COW) to the GPU requires doing either of the
-> >> following sequences:
-> >>
-> >> 1. hmm_range_fault() - fault in non-present pages with correct permiss=
-ions, etc.
-> >> 2. migrate_vma_*() - migrate the pages
-> >>
-> >> Or:
-> >>
-> >> 1. migrate_vma_*() - migrate present pages
-> >> 2. If non-present pages detected by migrate_vma_*():
-> >>    a) call hmm_range_fault() to fault pages in
-> >>    b) call migrate_vma_*() again to migrate now present pages
-> >>
-> >> The problem with the first sequence is that you always have to do two
-> >> page walks even when most of the time the pages are present or zero pa=
-ge
-> >> mappings so the common case takes a performance hit.
-> >>
-> >> The second sequence is better for the common case, but far worse if
-> >> pages aren't present because now you have to walk the page tables thre=
-e
-> >> times (once to find the page is not present, once so hmm_range_fault()
-> >> can find a non-present page to fault in and once again to setup the
-> >> migration). It is also tricky to code correctly. One page table walk
-> >> could costs over 1000 cpu cycles on X86-64, which is a significant hit=
-.
-> >>
-> >> We should be able to walk the page table once, faulting
-> >> pages in as required and replacing them with migration entries if
-> >> requested.
-> >>
-> >> Add a new flag to HMM APIs, HMM_PFN_REQ_MIGRATE,
-> >> which tells to prepare for migration also during fault handling.
-> >> Also, for the migrate_vma_setup() call paths, a flag, MIGRATE_VMA_FAUL=
-T,
-> >> is added to tell to add fault handling to migrate.
-> >>
-> >> One extra benefit of migrating with hmm_range_fault() path
-> >> is the migrate_vma.vma gets populated, so no need to
-> >> retrieve that separataly.
-> >>
-> >> Tested in X86-64 VM with HMM test device, passing the selftests.
-> >> For performance, the migrate throughput tests from the selftests
-> >> show similar numbers (within error margin) as unmodified kernel.
-> >> Tested also rebased on the
-> >> "Remove device private pages from physical address space" series:
-> >> https://lore.kernel.org/linux-mm/20260130111050.53670-1-jniethe@nvidia=
-.com/
-> >> plus a small patch to adjust with no problems.
-> >>
-> >> Changes v8-v9
-> >>   - rebase on drm-tip
-> >>   - fixed uaf around  migrate_vma_split_folio() usage
-> >>   - added missing pmd unlock
-> >>
-> >> Changes v7-v8
-> >>   - rebase on 7.0
-> >>   - fixed subject in two patches
-> >>   - enhanced commit messages
-> >>   - squashed patch 6 into patch 4 to fix kernel test robot warning
-> >>   - readded dropped Cc block from cover letter
-> >>   - fixed white space
-> >>
-> >> Changes v6-v7
-> >>   - rebase on 7.0.0-rc6
-> >>   - added documentation and comments
-> >>   - denote to be migrated zero page as HMM_PFN_MIGRATE alone
-> >>   - got rid of HMM_PFN_INOUT_FLAGS movement in patch 2
-> >>   - picked up Acked-By from David for patch 1
-> >>  =20
-> >> Changes v5-v6
-> >>   - rebase on 7.0.0-rc4
-> >>   - use range based TLB flushing while unmapping ptes
-> >>   - gate migration behind HMM_PFN_REQ_MIGRATE for fault and
-> >>     migrate paths
-> >>   - always infer migration flags from migrate->flags only
-> >>
-> >> Changes v4-v5
-> >>   - rebase on 6.19
-> >>   - fixed David's email address
-> >>   - fixed link issue without CONFIG_TRANSPARENT_HUGEPAGE
-> >>   - refactored into smaller commits
-> >>   - added more comments to code
-> >>
-> >> Changes v3-v4:
-> >>   - rebase on 6.19-rc8
-> >>   - fixed issues found by kernel test robot with random configs
-> >>   - fixed typos
-> >>
-> >> Changes v2-v3:
-> >>   - rebase on 6.19-rc7
-> >>   - fixed issues found by kernel test robot
-> >>   - fixed smatch issues reported by Dan Carpenter <dan.carpenter@linar=
-o.org>
-> >>   - fixes to lock handling (pmd/pte) on errors
-> >>   - added assertions for pmd/pte lock states
-> >>   - other issues discovered by Matthew, thanks!
-> >>
-> >> Changes v1-v2:
-> >>   - rebase on 6.19-rc6
-> >>   - fixed issues found by kernel test robot
-> >>   - fixed locking (pmd/ptl) to cover handle_ and prepare_ regions
-> >>     parts if migrating
-> >>   - other issues discovered by Matthew, thanks!
-> >>
-> >> Changes RFC-v1:
-> >>   - rebase on 6.19-rc5
-> >>   - adjust for the device THP
-> >>   - changes from feedback
-> >>
-> >> Revisions:
-> >>   - RFC https://lore.kernel.org/linux-mm/20250814072045.3637192-1-mpen=
-ttil@redhat.com/
-> >>   - v1: https://lore.kernel.org/all/20260114091923.3950465-1-mpenttil@=
-redhat.com/
-> >>   - v2: https://lore.kernel.org/all/20260119112502.645059-1-mpenttil@r=
-edhat.com/
-> >>   - v3: https://lore.kernel.org/all/20260126111939.1332983-2-mpenttil@=
-redhat.com/
-> >>   - v4: https://lore.kernel.org/all/20260202112622.2104213-1-mpenttil@=
-redhat.com/
-> >>   - v5: https://lore.kernel.org/linux-mm/20260211081301.2940672-1-mpen=
-ttil@redhat.com/
-> >>   - v6: https://lore.kernel.org/linux-mm/20260316062407.3354636-1-mpen=
-ttil@redhat.com/
-> >>   - v7: https://lore.kernel.org/linux-mm/20260330115611.347988-1-mpent=
-til@redhat.com/
-> >>   - v8: https://lore.kernel.org/linux-mm/20260414041226.1539439-1-mpen=
-ttil@redhat.com/
-> >>
-> >> Cc: David Hildenbrand <david@kernel.org>
-> >> Cc: Jason Gunthorpe <jgg@nvidia.com>
-> >> Cc: Leon Romanovsky <leonro@nvidia.com>
-> >> Cc: Alistair Popple <apopple@nvidia.com>
-> >> Cc: Balbir Singh <balbirs@nvidia.com>
-> >> Cc: Zi Yan <ziy@nvidia.com>
-> >> Cc: Matthew Brost <matthew.brost@intel.com>
-> >> Cc: Andrew Morton <akpm@linux-foundation.org>
-> >> Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-> >> Cc: "Liam R. Howlett" <Liam.Howlett@oracle.com>
-> >> Cc: Vlastimil Babka <vbabka@suse.cz>
-> >> Cc: Mike Rapoport <rppt@kernel.org>
-> >> Cc: Suren Baghdasaryan <surenb@google.com>
-> >> Cc: Michal Hocko <mhocko@suse.com>
-> >>
-> >> Mika Penttil=C3=A4 (5):
-> >>   mm/Kconfig: changes for migrate on fault for device pages
-> >>   mm: Add helper to convert HMM pfn to migrate pfn
-> >>   mm/hmm: do the plumbing for HMM to participate in migration
-> >>   mm: setup device page migration in HMM pagewalk
-> >>   lib/test_hmm:: add a new testcase for the migrate on fault
-> >>
-> >>  include/linux/hmm.h                    |  19 +-
-> >>  include/linux/migrate.h                |  26 +-
-> >>  lib/test_hmm.c                         | 101 ++-
-> >>  lib/test_hmm_uapi.h                    |  19 +-
-> >>  mm/Kconfig                             |   2 +
-> >>  mm/hmm.c                               | 835 +++++++++++++++++++++++-=
--
-> >>  mm/migrate_device.c                    | 583 +++--------------
-> >>  tools/testing/selftests/mm/hmm-tests.c |  54 ++
-> >>  8 files changed, 1066 insertions(+), 573 deletions(-)
-> >>
-> >> drm-tip
-> >> base-commit: 94d56a898a2db27f841b17f6966a81ba502fe63c
-> >> --=20
-> >> 2.50.0
-> >>
->=20
+>
+>
+>> +
+>> +    buf_sz = min(args->buffer_size, sizeof(*meta));
+>> +    if (copy_to_user(u64_to_user_ptr(args->buffer), meta, buf_sz))
+>> +        ret = -EFAULT;
+>> +
+>> +    kfree(meta);
+>> +    return ret;
+>> +}
+>> diff --git a/drivers/accel/amdxdna/aie.h b/drivers/accel/amdxdna/aie.h
+>> index 7a68b114f235..4bb3719ee0c0 100644
+>> --- a/drivers/accel/amdxdna/aie.h
+>> +++ b/drivers/accel/amdxdna/aie.h
+>> @@ -14,6 +14,29 @@
+>>   struct psp_device;
+>>   struct smu_device;
+>>   +struct aie_version {
+>> +    u16 major;
+>> +    u16 minor;
+>> +};
+>> +
+>> +struct aie_tile_metadata {
+>> +    u16 row_count;
+>> +    u16 row_start;
+>> +    u16 dma_channel_count;
+>> +    u16 lock_count;
+>> +    u16 event_reg_count;
+>> +};
+>> +
+>> +struct aie_metadata {
+>> +    u32 size;
+>> +    u16 cols;
+>> +    u16 rows;
+>> +    struct aie_version version;
+>> +    struct aie_tile_metadata core;
+>> +    struct aie_tile_metadata mem;
+>> +    struct aie_tile_metadata shim;
+>> +};
+>> +
+>>   struct aie_device {
+>>       struct amdxdna_dev *xdna;
+>>       struct mailbox_channel *mgmt_chann;
+>> @@ -26,6 +49,8 @@ struct aie_device {
+>>         struct psp_device *psp_hdl;
+>>       struct smu_device *smu_hdl;
+>> +
+>> +    struct aie_metadata metadata;
+>>   };
+>>     #define DECLARE_AIE_MSG(name, op) \
+>> @@ -94,6 +119,8 @@ void aie_destroy_chann(struct aie_device *aie, 
+>> struct mailbox_channel **chann);
+>>   int aie_send_mgmt_msg_wait(struct aie_device *aie, struct 
+>> xdna_mailbox_msg *msg);
+>>   int aie_check_protocol(struct aie_device *aie, u32 fw_major, u32 
+>> fw_minor);
+>>   void amdxdna_vbnv_init(struct amdxdna_dev *xdna);
+>> +int amdxdna_get_metadata(struct aie_device *aie, struct 
+>> amdxdna_client *client,
+>> +             struct amdxdna_drm_get_info *args);
+>>     /* aie_psp.c */
+>>   struct psp_device *aiem_psp_create(struct drm_device *ddev, struct 
+>> psp_config *conf);
+>> diff --git a/drivers/accel/amdxdna/aie2_ctx.c 
+>> b/drivers/accel/amdxdna/aie2_ctx.c
+>> index 139825ac8515..7d6094aefb6f 100644
+>> --- a/drivers/accel/amdxdna/aie2_ctx.c
+>> +++ b/drivers/accel/amdxdna/aie2_ctx.c
+>> @@ -489,12 +489,12 @@ static int aie2_hwctx_col_list(struct 
+>> amdxdna_hwctx *hwctx)
+>>       }
+>>         ndev = xdna->dev_handle;
+>> -    if (unlikely(!ndev->metadata.core.row_count)) {
+>> +    if (unlikely(!ndev->aie.metadata.core.row_count)) {
+>>           XDNA_WARN(xdna, "Core tile row count is zero");
+>>           return -EINVAL;
+>>       }
+>>   -    hwctx->num_col = hwctx->num_tiles / 
+>> ndev->metadata.core.row_count;
+>> +    hwctx->num_col = hwctx->num_tiles / 
+>> ndev->aie.metadata.core.row_count;
+>>       if (!hwctx->num_col || hwctx->num_col > ndev->total_col) {
+>>           XDNA_ERR(xdna, "Invalid num_col %d", hwctx->num_col);
+>>           return -EINVAL;
+>> diff --git a/drivers/accel/amdxdna/aie2_message.c 
+>> b/drivers/accel/amdxdna/aie2_message.c
+>> index 6e98af7b74db..f555ffecea6f 100644
+>> --- a/drivers/accel/amdxdna/aie2_message.c
+>> +++ b/drivers/accel/amdxdna/aie2_message.c
+>> @@ -375,7 +375,7 @@ int aie2_query_status(struct amdxdna_dev_hdl 
+>> *ndev, char __user *buf,
+>>       u8 *buff_addr;
+>>       int ret;
+>>   -    buf_sz = ndev->metadata.cols * ndev->metadata.size;
+>> +    buf_sz = ndev->aie.metadata.cols * ndev->aie.metadata.size;
+>>       buff_addr = aie2_alloc_msg_buffer(ndev, &buf_sz, &dma_addr);
+>>       if (IS_ERR(buff_addr))
+>>           return PTR_ERR(buff_addr);
+>> diff --git a/drivers/accel/amdxdna/aie2_pci.c 
+>> b/drivers/accel/amdxdna/aie2_pci.c
+>> index f0ddb843eb21..6c8a0f70b73d 100644
+>> --- a/drivers/accel/amdxdna/aie2_pci.c
+>> +++ b/drivers/accel/amdxdna/aie2_pci.c
+>> @@ -219,13 +219,13 @@ static int aie2_mgmt_fw_query(struct 
+>> amdxdna_dev_hdl *ndev)
+>>           return ret;
+>>       }
+>>   -    ret = aie2_query_aie_metadata(ndev, &ndev->metadata);
+>> +    ret = aie2_query_aie_metadata(ndev, &ndev->aie.metadata);
+>>       if (ret) {
+>>           XDNA_ERR(ndev->aie.xdna, "Query AIE metadata failed");
+>>           return ret;
+>>       }
+>>   -    ndev->total_col = min(aie2_max_col, ndev->metadata.cols);
+>> +    ndev->total_col = min(aie2_max_col, ndev->aie.metadata.cols);
+>>         return 0;
+>>   }
+>> @@ -658,53 +658,6 @@ static int aie2_get_aie_status(struct 
+>> amdxdna_client *client,
+>>       return 0;
+>>   }
+>>   -static int aie2_get_aie_metadata(struct amdxdna_client *client,
+>> -                 struct amdxdna_drm_get_info *args)
+>> -{
+>> -    struct amdxdna_drm_query_aie_metadata *meta;
+>> -    struct amdxdna_dev *xdna = client->xdna;
+>> -    struct amdxdna_dev_hdl *ndev;
+>> -    int ret = 0;
+>> -    u32 buf_sz;
+>> -
+>> -    ndev = xdna->dev_handle;
+>> -    meta = kzalloc_obj(*meta);
+>> -    if (!meta)
+>> -        return -ENOMEM;
+>> -
+>> -    meta->col_size = ndev->metadata.size;
+>> -    meta->cols = ndev->metadata.cols;
+>> -    meta->rows = ndev->metadata.rows;
+>> -
+>> -    meta->version.major = ndev->metadata.version.major;
+>> -    meta->version.minor = ndev->metadata.version.minor;
+>> -
+>> -    meta->core.row_count = ndev->metadata.core.row_count;
+>> -    meta->core.row_start = ndev->metadata.core.row_start;
+>> -    meta->core.dma_channel_count = 
+>> ndev->metadata.core.dma_channel_count;
+>> -    meta->core.lock_count = ndev->metadata.core.lock_count;
+>> -    meta->core.event_reg_count = ndev->metadata.core.event_reg_count;
+>> -
+>> -    meta->mem.row_count = ndev->metadata.mem.row_count;
+>> -    meta->mem.row_start = ndev->metadata.mem.row_start;
+>> -    meta->mem.dma_channel_count = ndev->metadata.mem.dma_channel_count;
+>> -    meta->mem.lock_count = ndev->metadata.mem.lock_count;
+>> -    meta->mem.event_reg_count = ndev->metadata.mem.event_reg_count;
+>> -
+>> -    meta->shim.row_count = ndev->metadata.shim.row_count;
+>> -    meta->shim.row_start = ndev->metadata.shim.row_start;
+>> -    meta->shim.dma_channel_count = 
+>> ndev->metadata.shim.dma_channel_count;
+>> -    meta->shim.lock_count = ndev->metadata.shim.lock_count;
+>> -    meta->shim.event_reg_count = ndev->metadata.shim.event_reg_count;
+>> -
+>> -    buf_sz = min(args->buffer_size, sizeof(*meta));
+>> -    if (copy_to_user(u64_to_user_ptr(args->buffer), meta, buf_sz))
+>> -        ret = -EFAULT;
+>> -
+>> -    kfree(meta);
+>> -    return ret;
+>> -}
+>> -
+>>   static int aie2_get_aie_version(struct amdxdna_client *client,
+>>                   struct amdxdna_drm_get_info *args)
+>>   {
+>> @@ -1039,6 +992,7 @@ static int aie2_get_preempt_state(struct 
+>> amdxdna_client *client,
+>>   static int aie2_get_info(struct amdxdna_client *client, struct 
+>> amdxdna_drm_get_info *args)
+>>   {
+>>       struct amdxdna_dev *xdna = client->xdna;
+>> +    struct amdxdna_dev_hdl *ndev = xdna->dev_handle;
+>>       int ret, idx;
+>>         if (!drm_dev_enter(&xdna->ddev, &idx))
+>> @@ -1053,7 +1007,7 @@ static int aie2_get_info(struct amdxdna_client 
+>> *client, struct amdxdna_drm_get_i
+>>           ret = aie2_get_aie_status(client, args);
+>>           break;
+>>       case DRM_AMDXDNA_QUERY_AIE_METADATA:
+>> -        ret = aie2_get_aie_metadata(client, args);
+>> +        ret = amdxdna_get_metadata(&ndev->aie, client, args);
+>>           break;
+>>       case DRM_AMDXDNA_QUERY_AIE_VERSION:
+>>           ret = aie2_get_aie_version(client, args);
+>> diff --git a/drivers/accel/amdxdna/aie2_pci.h 
+>> b/drivers/accel/amdxdna/aie2_pci.h
+>> index f12073175676..c884fed610f9 100644
+>> --- a/drivers/accel/amdxdna/aie2_pci.h
+>> +++ b/drivers/accel/amdxdna/aie2_pci.h
+>> @@ -77,29 +77,6 @@ struct amdxdna_fw_ver;
+>>   struct amdxdna_hwctx;
+>>   struct amdxdna_sched_job;
+>>   -struct aie_version {
+>> -    u16 major;
+>> -    u16 minor;
+>> -};
+>> -
+>> -struct aie_tile_metadata {
+>> -    u16 row_count;
+>> -    u16 row_start;
+>> -    u16 dma_channel_count;
+>> -    u16 lock_count;
+>> -    u16 event_reg_count;
+>> -};
+>> -
+>> -struct aie_metadata {
+>> -    u32 size;
+>> -    u16 cols;
+>> -    u16 rows;
+>> -    struct aie_version version;
+>> -    struct aie_tile_metadata core;
+>> -    struct aie_tile_metadata mem;
+>> -    struct aie_tile_metadata shim;
+>> -};
+>> -
+>>   enum rt_config_category {
+>>       AIE2_RT_CFG_INIT,
+>>       AIE2_RT_CFG_CLK_GATING,
+>> @@ -178,7 +155,6 @@ struct amdxdna_dev_hdl {
+>>         u32                total_col;
+>>       struct aie_version        version;
+>> -    struct aie_metadata        metadata;
+>>       struct aie2_exec_msg_ops    *exec_msg_ops;
+>>         /* power management and clock*/
+>> diff --git a/drivers/accel/amdxdna/aie4_message.c 
+>> b/drivers/accel/amdxdna/aie4_message.c
+>> index d621dd32ac40..ac89a9a842b2 100644
+>> --- a/drivers/accel/amdxdna/aie4_message.c
+>> +++ b/drivers/accel/amdxdna/aie4_message.c
+>> @@ -25,3 +25,40 @@ int aie4_suspend_fw(struct amdxdna_dev_hdl *ndev)
+>>         return ret;
+>>   }
+>> +
+>> +int aie4_query_aie_metadata(struct amdxdna_dev_hdl *ndev, struct 
+>> aie_metadata *metadata)
+>> +{
+>> +    DECLARE_AIE_MSG(aie4_msg_aie4_tile_info, 
+>> AIE4_MSG_OP_AIE_TILE_INFO);
+>> +    int ret;
+>> +
+>> +    ret = aie_send_mgmt_msg_wait(&ndev->aie, &msg);
+>> +    if (ret)
+>> +        return ret;
+>> +
+>> +    metadata->size = resp.info.size;
+>> +    metadata->cols = resp.info.cols;
+>> +    metadata->rows = resp.info.rows;
+>> +
+>> +    metadata->version.major = resp.info.major;
+>> +    metadata->version.minor = resp.info.minor;
+>> +
+>> +    metadata->core.row_count = resp.info.core_rows;
+>> +    metadata->core.row_start = resp.info.core_row_start;
+>> +    metadata->core.dma_channel_count = resp.info.core_dma_channels;
+>> +    metadata->core.lock_count = resp.info.core_locks;
+>> +    metadata->core.event_reg_count = resp.info.core_events;
+>> +
+>> +    metadata->mem.row_count = resp.info.mem_rows;
+>> +    metadata->mem.row_start = resp.info.mem_row_start;
+>> +    metadata->mem.dma_channel_count = resp.info.mem_dma_channels;
+>> +    metadata->mem.lock_count = resp.info.mem_locks;
+>> +    metadata->mem.event_reg_count = resp.info.mem_events;
+>> +
+>> +    metadata->shim.row_count = resp.info.shim_rows;
+>> +    metadata->shim.row_start = resp.info.shim_row_start;
+>> +    metadata->shim.dma_channel_count = resp.info.shim_dma_channels;
+>> +    metadata->shim.lock_count = resp.info.shim_locks;
+>> +    metadata->shim.event_reg_count = resp.info.shim_events;
+>> +
+>> +    return 0;
+>> +}
+>> diff --git a/drivers/accel/amdxdna/aie4_msg_priv.h 
+>> b/drivers/accel/amdxdna/aie4_msg_priv.h
+>> index 7faa01ca3436..69e220e40900 100644
+>> --- a/drivers/accel/amdxdna/aie4_msg_priv.h
+>> +++ b/drivers/accel/amdxdna/aie4_msg_priv.h
+>> @@ -18,6 +18,7 @@ enum aie4_msg_opcode {
+>>       AIE4_MSG_OP_DESTROY_PARTITION                = 0x30002,
+>>       AIE4_MSG_OP_CREATE_HW_CONTEXT                = 0x30003,
+>>       AIE4_MSG_OP_DESTROY_HW_CONTEXT               = 0x30004,
+>> +    AIE4_MSG_OP_AIE_TILE_INFO                    = 0x30006,
+>>   };
+>>     enum aie4_msg_status {
+>> @@ -96,4 +97,37 @@ struct aie4_msg_destroy_hw_context_resp {
+>>       enum aie4_msg_status status;
+>>   } __packed;
+>>   +struct aie4_tile_info {
+>> +    __u32 size;
+>> +    __u16 major;
+>> +    __u16 minor;
+>> +    __u16 cols;
+>> +    __u16 rows;
+>> +    __u16 core_rows;
+>> +    __u16 mem_rows;
+>> +    __u16 shim_rows;
+>> +    __u16 core_row_start;
+>> +    __u16 mem_row_start;
+>> +    __u16 shim_row_start;
+>> +    __u16 core_dma_channels;
+>> +    __u16 mem_dma_channels;
+>> +    __u16 shim_dma_channels;
+>> +    __u16 core_locks;
+>> +    __u16 mem_locks;
+>> +    __u16 shim_locks;
+>> +    __u16 core_events;
+>> +    __u16 mem_events;
+>> +    __u16 shim_events;
+>> +    __u16 resvd;
+>> +} __packed;
+>> +
+>> +struct aie4_msg_aie4_tile_info_req {
+>> +    __u32 resvd;
+>> +} __packed;
+>> +
+>> +struct aie4_msg_aie4_tile_info_resp {
+>> +    enum aie4_msg_status status;
+>> +    struct aie4_tile_info info;
+>> +} __packed;
+>> +
+>>   #endif /* _AIE4_MSG_PRIV_H_ */
+>> diff --git a/drivers/accel/amdxdna/aie4_pci.c 
+>> b/drivers/accel/amdxdna/aie4_pci.c
+>> index 9ff34ce57fcb..8b5eff0e45c1 100644
+>> --- a/drivers/accel/amdxdna/aie4_pci.c
+>> +++ b/drivers/accel/amdxdna/aie4_pci.c
+>> @@ -269,6 +269,11 @@ static void aie4_partition_fini(struct 
+>> amdxdna_dev_hdl *ndev)
+>>           XDNA_ERR(xdna, "partition fini failed: %d", ret);
+>>   }
+>>   +static int aie4_query(struct amdxdna_dev_hdl *ndev)
+>> +{
+>> +    return aie4_query_aie_metadata(ndev, &ndev->aie.metadata);
+>> +}
+>> +
+>>   static int aie4_pf_hw_start(struct amdxdna_dev_hdl *ndev)
+>>   {
+>>       int ret;
+>> @@ -308,6 +313,10 @@ static int aie4_vf_hw_start(struct 
+>> amdxdna_dev_hdl *ndev)
+>>       if (ret)
+>>           return ret;
+>>   +    ret = aie4_query(ndev);
+>> +    if (ret)
+>> +        goto mailbox_fini;
+>> +
+>>       ret = aie4_partition_init(ndev);
+>>       if (ret)
+>>           goto mailbox_fini;
+>> @@ -535,6 +544,26 @@ static int aie4_doorbell_mmap(struct 
+>> amdxdna_client *client, struct vm_area_stru
+>>       return ret;
+>>   }
+>>   +static int aie4_get_info(struct amdxdna_client *client, struct 
+>> amdxdna_drm_get_info *args)
+>> +{
+>> +    struct amdxdna_dev *xdna = client->xdna;
+>> +    struct amdxdna_dev_hdl *ndev = xdna->dev_handle;
+>> +    int ret;
+>> +
+>> +    switch (args->param) {
+>> +    case DRM_AMDXDNA_QUERY_AIE_METADATA:
+>> +        ret = amdxdna_get_metadata(&ndev->aie, client, args);
+>> +        break;
+>> +    default:
+>> +        XDNA_ERR(xdna, "Not supported request parameter %u", 
+>> args->param);
+>> +        ret = -EOPNOTSUPP;
+>> +    }
+>> +
+>> +    XDNA_DBG(xdna, "Got param %d", args->param);
+>> +
+>> +    return ret;
+>> +}
+>> +
+>>   static int aie4_pf_init(struct amdxdna_dev *xdna)
+>>   {
+>>       int ret;
+>> @@ -581,4 +610,5 @@ const struct amdxdna_dev_ops aie4_vf_ops = {
+>>       .hwctx_fini        = aie4_hwctx_fini,
+>>       .mmap            = aie4_doorbell_mmap,
+>>       .cmd_wait        = aie4_cmd_wait,
+>> +    .get_aie_info        = aie4_get_info,
+>>   };
+>> diff --git a/drivers/accel/amdxdna/aie4_pci.h 
+>> b/drivers/accel/amdxdna/aie4_pci.h
+>> index b69489acd53d..1886cffc62db 100644
+>> --- a/drivers/accel/amdxdna/aie4_pci.h
+>> +++ b/drivers/accel/amdxdna/aie4_pci.h
+>> @@ -56,6 +56,7 @@ struct amdxdna_dev_hdl {
+>>   };
+>>     /* aie4_message.c */
+>> +int aie4_query_aie_metadata(struct amdxdna_dev_hdl *ndev, struct 
+>> aie_metadata *metadata);
+>>   int aie4_suspend_fw(struct amdxdna_dev_hdl *ndev);
+>>     /* aie4_ctx.c */
+>
