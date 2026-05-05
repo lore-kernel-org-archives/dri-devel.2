@@ -4,53 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8161BCD3427
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 20:04:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 441A8FF8855
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 20:04:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A032B10EC03;
-	Tue,  5 May 2026 20:04:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A098710EC09;
+	Tue,  5 May 2026 20:04:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WFv0aaOj";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="g2LvAKyW";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1D1210E244;
- Tue,  5 May 2026 20:04:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778011489; x=1809547489;
- h=from:to:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=hQj7ew5yyafwu7sHr5uG/ljaSR0u5Bsh/VcZf3IjKS0=;
- b=WFv0aaOjUyyFdanCI97dgzb/c+XbxtoZsrCKADYayu9aEgTANbNmLNxO
- UCLWru5ENPJlvQite06jk8yfBYm9hRzlT+tpvXpXqEaOzu8BQukwknbuN
- 3WawxxFtE5hF23aHzyk8EWBDY5PyWs4D35vXwROdzuXc9bcJv70jjmC3Y
- 2b8sf+4R9sK3ma0ut1+EtYzLvFb5ufoGB84I50EVjx/BRG23MlCVcjXJz
- yy1hDupPRmGArxGq1/xEW8s2lLhzOONe3ChZoQT8xG8Do6/XP9cO2vb6i
- k0lWXDHmEpTtP4yEh1FTPnm3sMqCeSQx6+0+/5jNefPjBjHQViQ1dVG3s Q==;
-X-CSE-ConnectionGUID: ZdRNYnfmRWGYLbvGQuenlg==
-X-CSE-MsgGUID: +w0CbzPgT/qC0ZFZO4L+PQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11777"; a="78832982"
-X-IronPort-AV: E=Sophos;i="6.23,218,1770624000"; d="scan'208";a="78832982"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 May 2026 13:04:48 -0700
-X-CSE-ConnectionGUID: 5o4mBuOMTzufYX9WxkuehA==
-X-CSE-MsgGUID: EVlu2UNdRFCmo/sxn+QxLQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,218,1770624000"; d="scan'208";a="232786506"
-Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
- by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 May 2026 13:04:48 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Subject: [PATCH v5 0/2] TTM shrinker fragmentation / partial restore fixes
-Date: Tue,  5 May 2026 13:04:41 -0700
-Message-Id: <20260505200443.3300962-1-matthew.brost@intel.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0431310EC09
+ for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 20:04:56 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 6BA9743D0E;
+ Tue,  5 May 2026 20:04:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3627C4AF09;
+ Tue,  5 May 2026 20:04:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1778011495;
+ bh=rWPKB4bZLjFCeMSom22QRVBLTFkyMwURrfqgJpqRbK0=;
+ h=Date:Subject:Cc:To:From:References:In-Reply-To:From;
+ b=g2LvAKyW/y5VZs9zrTWgXkxBExnwtuhI8PmFhEdxeYGEE06tjpHwTc5qZP80tEnr5
+ Da1whhBVflJZIEuTJAfG8UXLGBUL2DsWL8TPS6o4uTzHHK72TiweMvRDYK4gjqL/XS
+ jZaPga/HxLyD8BJZ0+BzYwHkUE1lFNdkkNbAcZ+/+GBAXuxNt1/loD0ntKTQRL8RHe
+ yYHYgbX10XRyH3qxlHYOeVAeYEl5WmDSIk9UDtppd79WoEP133YmD2RM1FRDMsJyKd
+ RjtrdwuedpLWRY4xg3FfCqML9RjTcBKZOkCZEwkWeIIfIFnr0/fM2aWRrUB1TaIDHF
+ F9KaqX4GKXEEQ==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Tue, 05 May 2026 22:04:49 +0200
+Message-Id: <DIB0GYCMV121.2VPS75GHH082B@kernel.org>
+Subject: Re: [PATCH v2 1/3] rust: alloc: add Box::zeroed()
+Cc: <gregkh@linuxfoundation.org>, <rafael@kernel.org>,
+ <acourbot@nvidia.com>, <david.m.ertman@intel.com>, <ira.weiny@intel.com>,
+ <leon@kernel.org>, <ojeda@kernel.org>, <boqun@kernel.org>,
+ <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
+ <a.hindborg@kernel.org>, <tmgross@umich.edu>,
+ <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <rust-for-linux@vger.kernel.org>
+To: "Alice Ryhl" <aliceryhl@google.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260505152400.3905096-1-dakr@kernel.org>
+ <20260505152400.3905096-2-dakr@kernel.org> <afoRXrwKjZAJuMaQ@google.com>
+In-Reply-To: <afoRXrwKjZAJuMaQ@google.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,42 +64,8 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Fix shrinker fragmentation / partial restore fixes. Related to [1],
-continuation of [2], patches have details.
+On Tue May 5, 2026 at 5:48 PM CEST, Alice Ryhl wrote:
+> I suspect some of these imports can be removed when you add the prelude.
 
-Series working shrinker getting triggered in a loop plus the below error
-injection:
-
-cd /sys/kernel/debug/ttm/backup_fault_inject
-echo 100 > probability
-echo 3000 > interval
-echo -1 > times
-echo 0 > space
-echo 0 > verbose
-echo M > task-filter
-cd -
-
-Matt
-
-[1] https://patchwork.freedesktop.org/series/165330/
-[2] https://patchwork.freedesktop.org/series/165877/
-
-v3:
- - Address sashiko concerns
-v4:
- - Actual 'Save alloc in snapshot on restore failure (sashiko)' (missed
-   local change)
-v5:
- - Reordert tm_pool_apply_caching before restore free (sashiko)
- - Add ttm_pool_backup_folio helper (Thomas)
-
-Matthew Brost (2):
-  drm/ttm: Drop tt->restore after successful restore
-  drm/ttm/pool: back up at native page order
-
- drivers/gpu/drm/ttm/ttm_pool.c | 125 ++++++++++++++++++++++++++++-----
- 1 file changed, 106 insertions(+), 19 deletions(-)
-
--- 
-2.34.1
-
+Yes, but I want to convert the imports separately, so keeping the change
+minimal.
