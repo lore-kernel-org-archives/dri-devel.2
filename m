@@ -4,116 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93562CD3427
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 15:51:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 084A5CD3427
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 16:10:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDCA610E451;
-	Tue,  5 May 2026 15:51:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C9EB10E1F2;
+	Tue,  5 May 2026 16:10:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="jP5C8Cne";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="S19JICNw";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010026.outbound.protection.outlook.com
- [40.93.198.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 042FF10E451
- for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 15:51:12 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012054.outbound.protection.outlook.com
+ [40.93.195.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3653010E1F2
+ for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 16:10:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bKqL77uIMc2kyorSqdrWihamLkDW2QKSDsPKAstY0n8+DU7DkSwajQdtffcVo62iE/nI8fjhgMKN2YwRFK0bvMbupBzYwIcKexLenzCzcfdwgnSwIGcBPHdS/urOHy/9PIDdsfSjqpYlUQf2ZJR9vTJ1tEMtvXTG0cuWOZf9r6byJrWsmVhWrHV13N4Lrc9fHjhNhY6pZoiP7mfGFLFHFFKeKQ4W8qFHu5/nYxEbcpSUD/HoJugvBuM+dPQeHTbeh6psAydTh78Oioj9hp6pdM0jzwsdlwdiyHQz248lxjdf0W/X0AlmrYCofl7+SYyEXExnItIwptd08b9sunaKOQ==
+ b=ch4GzGJbOJrAogvTdzlOQrFn3Kfcxvam2FjO6ZGns/NXOklmbPD+H3mJefV84otLDsGpbiuZG+6eE+B9c9TvWACiZ2eDbkASks1bDmNFjbDo/WXUabNEETRkN3TfhG0VB5i1Mnjh3M93KBagWVkPRDBoeG10BVXO+lSbHhMtZoz4c16yqO22uJChznere9XzerWcYs1dvwHllow+Rn8zDSC8vxFGUo7pIQALKgB58qa0a8WIEtaZ0t3DMu06Bt7QBte/dE+p5KwxszhUlYdhpc9u3sXu8JtND37sbBa3h1VkimgWEqNFiRw+a7emwV9oSWoy88cja1i9NkukoHY/bw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8tp1nIkSLuXxD94e4mrSbC051HzsB0ocn4gms5xgekk=;
- b=sgvzy2/ItVtmFfnMmgkrtvgCDhp2S43xLHiTFfDmcyg63l6ce3iLG7i2Qr3qVpGxKl3JIN+L0Idp5GdMCmabXREbXArFZOlJ/R0ftAn5rNB1lhvP/AzrFMOvf5JaXeKhCF5m8/wLspBCOEAo/CaiuMFl/GfTGtKQ4uOMBrn7EvHwWxvuQfvRyADASFO3kSIwoxgFzmuvS70sypfEKHQNC0yMJLtaEVh/L8ORfSh16iq09tEa92piZFzfflkMg/dNKEvVoFyOl6ihwOPT7pyG3o3fXTjKSD7Wc/fvRytAX+gHVgji3D+VgQE3nik/vgecr2CstSz9udcjg4coWLcgPQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ bh=bC7V+WZUDJxUh02GmUMfi8Mca9aX3hJYKtqCSeaJhao=;
+ b=zSKjnlo6Syihs4YVNN7MC9xTkw6K6/IC2890fZoSW2EA/0W6Nnyy0R/eS7hzlqeZSn+0DAEKqnL/HfhrVsOZwKF01b4bNA1gAP0NTr0v0K2eHYwG75jHzAmQwfV2DtbCd+rjFt+ieyedhYmmWRce4gO3BNMIWxxYgZZ+TAn0N17hWPCP8fPdOri7X7s+1mPu2pCJ/IMFdpHeSrlseMmm02hsw9pTMiQ16d1U7nlMn200MQe2CTL5cmFoP8Hq7+Ppcd+KmiSN8q8KywtWRif9JYmMQ7R19pIR/E55ZJRmmPOh+cVsV9haiAmmgLOgvx8v9F0YyL5sfVPhDtUSGIcjeA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8tp1nIkSLuXxD94e4mrSbC051HzsB0ocn4gms5xgekk=;
- b=jP5C8Cne4VWTvtRHsRddxQKqCfDbQuLYE4ZjApV6DZoJ/ox9vsHHZ4YJNXXRvMEuuh+JEw/eIu+TdJMZ2aZk5GAQF7voJj65scal/JILZfCxbZbyhfvyiCqbkSQLdelunXD8CbkziLqb5sif5J5roOP/ZK0WFxQbIEpSFJZRcMyivm74q+jse6ltAeCQa8hF+NltODz9L0PtBqVZmiUdxn0Z1PlXx3eudMHR0XMoT+C9C6Z6b75/zZJgAsATy1i0jpQp5mn1NMxbZo4nkF5q7xaeb0DGI3H7Jq2RnyBL7yFKHpeL9FvVQYz/sSC03vcWBYx+VL44WnW+ZCZ3HI4ZMA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8422.namprd12.prod.outlook.com (2603:10b6:208:3de::8)
- by CH3PR12MB8996.namprd12.prod.outlook.com (2603:10b6:610:170::17)
+ bh=bC7V+WZUDJxUh02GmUMfi8Mca9aX3hJYKtqCSeaJhao=;
+ b=S19JICNwcNRt02+AfYGXxroPFLn1I3aGctg1q7XTe5kNsYCAiE0bUvLHWUfKHjwQr+Oc8ZryOh0pekcZcgO6DVdbOUjqRymeImhsGBStEGiKm57nAZQpK+y7Z56NHEg5rLKyLmznQwtZgZXEpFOPRKS8/zPIUg3kz6CWovyhvRE=
+Received: from PH7P220CA0092.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:32d::28)
+ by SAVPR12MB999167.namprd12.prod.outlook.com (2603:10b6:806:4e5::19)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Tue, 5 May
- 2026 15:51:05 +0000
-Received: from IA0PR12MB8422.namprd12.prod.outlook.com
- ([fe80::b2c3:ee20:6aeb:7f6e]) by IA0PR12MB8422.namprd12.prod.outlook.com
- ([fe80::b2c3:ee20:6aeb:7f6e%4]) with mapi id 15.20.9870.023; Tue, 5 May 2026
- 15:51:05 +0000
-Date: Tue, 5 May 2026 10:51:02 -0500
-From: Daniel Dadap <ddadap@nvidia.com>
-To: Hans de Goede <johannes.goede@oss.qualcomm.com>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- linux-fbdev@vger.kernel.org, linux-acpi <linux-acpi@vger.kernel.org>,
- "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>
-Subject: Re: Plan to fix nvidia_wmi_ec backlight issues, help wanted
-Message-ID: <afoR5jUHLPXpYJ8a@ddadap-lakeline.nvidia.com>
-References: <f10c039b-e9ef-4aae-8291-8f1e71074586@oss.qualcomm.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f10c039b-e9ef-4aae-8291-8f1e71074586@oss.qualcomm.com>
-X-ClientProxiedBy: BN0PR04CA0052.namprd04.prod.outlook.com
- (2603:10b6:408:e8::27) To IA0PR12MB8422.namprd12.prod.outlook.com
- (2603:10b6:208:3de::8)
+ 2026 16:10:40 +0000
+Received: from CY4PEPF0000E9D5.namprd05.prod.outlook.com
+ (2603:10b6:510:32d:cafe::6a) by PH7P220CA0092.outlook.office365.com
+ (2603:10b6:510:32d::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9870.27 via Frontend Transport; Tue,
+ 5 May 2026 16:10:39 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CY4PEPF0000E9D5.mail.protection.outlook.com (10.167.241.68) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9891.9 via Frontend Transport; Tue, 5 May 2026 16:10:39 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 5 May
+ 2026 11:10:25 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 5 May
+ 2026 09:09:44 -0700
+Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Tue, 5 May 2026 11:09:44 -0500
+From: Lizhi Hou <lizhi.hou@amd.com>
+To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
+ <dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
+ <karol.wachowski@linux.intel.com>
+CC: David Zhang <yidong.zhang@amd.com>, <linux-kernel@vger.kernel.org>,
+ <max.zhen@amd.com>, <sonal.santan@amd.com>, Hayden Laccabue
+ <Hayden.Laccabue@amd.com>, Lizhi Hou <lizhi.hou@amd.com>
+Subject: [PATCH V1 1/6] accel/amdxdna: Add initial support for AIE4 VF
+Date: Tue, 5 May 2026 09:09:31 -0700
+Message-ID: <20260505160936.3917732-2-lizhi.hou@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260505160936.3917732-1-lizhi.hou@amd.com>
+References: <20260505160936.3917732-1-lizhi.hou@amd.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8422:EE_|CH3PR12MB8996:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7a03ecac-e79c-4217-fc93-08deaabe1d95
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D5:EE_|SAVPR12MB999167:EE_
+X-MS-Office365-Filtering-Correlation-Id: d963e3d5-9002-4d5d-d7ce-08deaac0d9d7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|366016|376014|1800799024|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: NbX/UnMWIw7wiDP//VBgHXhTifZMX1K9/JYdQnO54ftcglr3y3hIMDmYt9Rs5XcaB/ylnYZCcfLch0yevMjuEItcyjjvF2MZDcjivOVs2mhnMsVYHS10E0JP/WZLiHTGbOYIXLFsm6KKRBT4wyskE2eUF9JkGuA4mOyTvfjlWWbgyTu279e8uxglSM/TQ4vsfWbBCVQEXQ/GTF/e8LWbgGds0Oh0Yws9zgO+iy2SiLnBItD0D2ehm3EamV13e8Iax8+svof7pc1K3hsvgLANsgt8kPw1Qxx9g2st8mPDHXlIKV9wVthjc13FMd/8HW8lvZcuCJFoQbHrWJkG1oZZZFxupuoMXO1giBtQS795YkaijWN472MIgU1/Zb4MqR36mT00mdZD0mLX4HbaqRRf6oAuPrDz5RjnLHkgEObdoZyoSvtQMawB5rE8uRBMEQA5yN5NsuKG5RxehHRj1VzopJGG97dVEpfxz0/gxXzJmztJZLffUYsUCJkhWJFClMMPNalFgmkyCj/dT4SJ46d0YzSD5uzGq/ULb8lcHl7jyZGrXcZEf2s7fXBhPXpzOhEJKzVXQT82KsLUo+kTqkGK2xpZplWvkebE1JAZRxqp3JS0ATbWU+fipRNZ7T+zL3+/2eY932ioxy0GgeaQia3HLcYlXNKLpdwXDc5reMQmkqGpiVcPrxNWXK3jg0xDC/Gu
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA0PR12MB8422.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(366016)(376014)(1800799024)(18002099003)(22082099003)(56012099003);
+ ARA:13230040|82310400026|36860700016|376014|1800799024|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info: XouEL5xBD6U5MwOHtV8HwCcvN+3QA5D126y7aglI7MrMoDc7e+iK/IyJr9iLcGo8pUz6T6BQfG8/FJf/LHTDOjlxjUENkZHm7aowVv9IT5BBgHSeSauu0qn7Od1gZcqlN67Ruodh77VPow1dX653DSFVSrsnM64asl1Bqe+p6diyzTy/N4utzOJg+62CDouDqaDpppXY7E5O5SAEKIchjwNkJpJBVoSejz4BcP4sGi/JYt1s0VsD90hYYYbPkTyvs9Dtsvx3n74bo5mMojcttXLQaM69lK+ORd6Oj8Hj6rUVWjCjnBaeNF8gR88O8DlKX1UNFKXigEL+pxcvYur2JpQuP0liWE4kH7xkEDkQ6nnaBv/00KseRmRX2PW2RmevXTJGa4lmukEwqQNFiaWOOxB+THtfH683soH/V3/scP2OVH3dYKt6pXzZUQLUXmj15KQWJZXLIsl8sj+RAwFsW8Fbq4ZscjGRuSoHctjmuZi0oAds8eS4OdLg0+0hKRsQd/DQ5emjmEizb6xxOHVpnENoRvuewnWY/Gg910vpa1IToVq7ah9fR5HRZy1eFDZzcwo1zZ7tCfhF1GaPS6wPz37lAN3z37YodF/EUxM1MsbTA7hcAgVIbD/MN7ma6pH0sLXrMPvKPDoWgbQe2RtV3lKgrj5ftnDSG119ixCpSSPzZrDNI6GPuyMW5LbcIwpNcp9yAVR0zQFNfHvmrID6mK1XY9V1NrEv43hSW4jxCbY=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(18002099003)(56012099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?MAmcX3Z/PO5g6ZwQgLdIRde7vjAgM+zrjW9tjVaXay1u2s53w3YYkNgAWx9O?=
- =?us-ascii?Q?hN0O1LbwQjNILCCrQpM26s3hU/XhVJq3YJsgH40MCzZoVJ3WMqoJ32kdZ8DS?=
- =?us-ascii?Q?wvdlKTwpDhq4+/+ms72lnD4z2YXsSLgEdIs2KIYA4RVHqHfQZ87ieVWcE7ZD?=
- =?us-ascii?Q?tucL9iuMobOHXGDTaZLlE1BErAMS8zLotlUnpbX7x+wEYJ1vUJedE399hJxZ?=
- =?us-ascii?Q?TqbeWdBniWH3fHauxlNAsh3kAqwZmiOg8n+s3EdFT/LU4E6kXyxbeaQcv3P/?=
- =?us-ascii?Q?m1iLQcOpHmUq5EGqDeVgCtmJAhlBmxl2uzG4t+A4ZbbOMKz3k+HKey826RHN?=
- =?us-ascii?Q?1ktK1LrRcxj/tdOs5wijb98snJI6ThR7J+a3kr2HjequH767mtk3IxqCEx3E?=
- =?us-ascii?Q?Qm0bJdxgJnOtf/AbixAR4k9DaZYh/M8tqXlBuoMM60BO9Xiq4Fqo6kP2kPpU?=
- =?us-ascii?Q?Gt4yrx+T3Jat6XiSYpVNBombW+Q4AOBmDVe012EqscZWRYl/wVhx4cUgca+P?=
- =?us-ascii?Q?7D3jhNdgRaOtJ943KOHSarahEDYq71po9cIq5svrTGafs4Uv3QrZjIIVrjgs?=
- =?us-ascii?Q?jfXGKnEafVLhPvfhBLoexWDm3su2LQmi51g1HGruPlxI5aWbk+tMZx4lfN/w?=
- =?us-ascii?Q?5DodYvDHgXHV0JP4+rnNJirK5lxV7NPQbZfEIgu7nruzXk00Nol2yOW2L0xz?=
- =?us-ascii?Q?m9XFwwb1nJS43XlJygBhG609hEoiPwSAzjJDlwWunYepZR6dyThNphv+wuzf?=
- =?us-ascii?Q?1eyYOZWH5heUnutSEgpkIRWp5K1MPMwilArXJMktfSTblWva9E70+A3COBOj?=
- =?us-ascii?Q?bdQjiJyYhXwxb6GrJwI8qDYW46esR9G8M2aynj4ZgGwnucTxYhEgGGH8iQAm?=
- =?us-ascii?Q?eBGzZ8tpAsguY5ZMrXKega+jehnT8nI7dLFp0xbrmaQyqQq8fzZ4PA53jD2x?=
- =?us-ascii?Q?47n10xxThqap0l7kjPIxNdtzNnvcdBFMbZnslpMSdUhQCUugNBZOxmhOFgxF?=
- =?us-ascii?Q?IWFpyvDzttv1woa27Om2oN5T5EkTp7i5IiJvLcJ7q+h/i8jLR9xcYFJVmLTb?=
- =?us-ascii?Q?wBDh7O4JQ8PXT2aWPKvCVxsYic5g5ztKWkliuxWlGarnUwWfxppeAYRaesTw?=
- =?us-ascii?Q?y7zoky/hxOpgAagt+CUSDELsJr/s9McKunylM3tiT2Y29H6idjhqo8TXpiBF?=
- =?us-ascii?Q?qGtEDu6wtYWO/Ca7jBKrxvx7iT5QGiCJEcqHRdzpgEkyx75C80j3sgIu7Esh?=
- =?us-ascii?Q?FDd2Z/A6ra7+8HVQZU6UofbVke1G/Y1Tig0s/1X3m6I8SLmQylc2MfNrsZ47?=
- =?us-ascii?Q?8A9f8FAvLbefs7y8MggAzyVovMsjcZSmP7C+NdidgB7dCr+vfdMUtQCKB3Kv?=
- =?us-ascii?Q?xsdR2AhSKFJSo0WsH23/AfFy3WsOGgpdtEUG26Ak132MZ8u/m/R3MrXUqgp8?=
- =?us-ascii?Q?gvhSEt62kuNDBDyZgUdMoiz99haP+BpkqkLoePaOZ9XsXAdBMWKKpLb6xATK?=
- =?us-ascii?Q?nLnSRoP/YuJCyYlx+VbOtSUJ+siyYUU0ex8H/YDQ21wjNGq9hUDEDuM5QicX?=
- =?us-ascii?Q?g/7DWfKVOKJsbXS8aUwnN3FE4PbZk0NwihwQ0z0zAvtu9PvShV5FdHmaG7I+?=
- =?us-ascii?Q?rcNudnROC8FlwRMXtlyC8AjrwU8vLz/bQIzROiU7hGBnbNeRIMWyzHGefJmw?=
- =?us-ascii?Q?t9TLoSVIMXi63D/ep1P9ZV1oYtBVEjlrEcxYhgX4BB8WgUjU?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7a03ecac-e79c-4217-fc93-08deaabe1d95
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8422.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2026 15:51:05.1724 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: N71YBHM6IwmBtsVBw/Qpw/WYnpan236Q/eEAcRBrD8NzVupYISvEXSuIG0tljwBLm0oa2Hzr8U9PVlvTDDv3Xg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8996
+X-MS-Exchange-AntiSpam-MessageData-0: 9X8d+8AslZffBguKjL8NLnPrXrU9zm+C/wnMUWhK316G+qAnAjOtPdkLjlUKCiYVBalehqf6+8GTZz7+x6mYZUgrtpbgaM32GUuM5IJhSkdQzrren9XIlugImQ7rkFoNXXCE3uRodmK01WuLI0bqh1IBrZFge0Hgv5NT1rSlXp0kpK4fUvjyytwG60CJCUMR3AXQ77sV9jAB/pM8A7yZHl02CHVjUl9/uJL+BuNHLTEBniqZ+rk6fOLExbBOCsQ9pWxA2N/dBAkfQncvYVvUOOwvXMvJixh08Q5UUB0jAkV6kZX580GmgMFIxMkAnXZ82bQoLxOWgpfyzJJG1RrB8h5O2rITAql3OFUqCQJ/vySonziXz2DsJSMUbdgUdcpWKnudbpCf1T+yvTfh9BoMqload0vmiMgYo8N0QDG9gILXNisEa6qKTvmcok+DyiII
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2026 16:10:39.7593 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d963e3d5-9002-4d5d-d7ce-08deaac0d9d7
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9D5.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAVPR12MB999167
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,159 +119,376 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thanks, Hans -
+From: David Zhang <yidong.zhang@amd.com>
 
-On Tue, May 05, 2026 at 11:52:55AM +0200, Hans de Goede wrote:
-> <resend adding pdx86 list, sorry>
-> 
-> Hi All,
-> 
-> A while ago Nvidia introduced a new Nvidia specific firmware method
-> for controlling the backlight on laptops with runtime switchable
-> Nvidia hybrid graphics.
-> 
-> This is supported through the nvidia-wmi-ec-backlight driver, but has
-> never worked 100%.
-> 
-> The new WMI firmware interface has a method to ask the firmware if
-> the backlight is controlled though the EC and this the new WMI interface
-> should be used; or if it is directly controlled by the GPU and the GPU
-> driver's native backlight support should be used.
-> 
-> There are several bugs in the implementation of this on various laptops:
-> 
-> 1. The method to get the backlight control source sometimes does not
-> report the correct value.
-> 
-> 2. On some laptop models which method (native-gpu vs nvidia-wmi) works
-> changes at runtime, e.g. when plugging in a charger.
-> 
-> Known affected laptop models/bug reports about this:
-> - Acer Predator PH315-55: needs acpi_backlight=native
-> - Dell G15 5515 with RTX 3050: *needs* acpi_backlight=native
-> - Dell G15 5515 with RTX 3060: *breaks* with acpi_backlight=native
-> - Lenovo Legion Slim 7 2021
-> - https://bugzilla.kernel.org/show_bug.cgi?id=217026
-> - https://gitlab.gnome.org/GNOME/gnome-settings-daemon/-/work_items/784
-> - https://gitlab.freedesktop.org/drm/amd/-/issues/4512
-> - https://bugzilla.suse.com/show_bug.cgi?id=1217750
+Add basic device initialization support for AIE4 Virtual Functions (PCI
+device IDs 0x17F3 and 0x1B0C).
 
-I believe there were also a couple of cases where different builds of the
-same notebook (as far as DMI quirks tables could detect) would be driven
-by different methods, exacerbating problem (1) because adding a quirtk to
-fix one notebook would break other versions of the "same" notebook. (Oh,
-maybe that's the two G15 5515 bugs linked above.)
+Co-developed-by: Hayden Laccabue <Hayden.Laccabue@amd.com>
+Signed-off-by: Hayden Laccabue <Hayden.Laccabue@amd.com>
+Signed-off-by: David Zhang <yidong.zhang@amd.com>
+Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+---
+ drivers/accel/amdxdna/aie4_pci.c        | 160 +++++++++++++-----------
+ drivers/accel/amdxdna/aie4_pci.h        |   3 +-
+ drivers/accel/amdxdna/amdxdna_pci_drv.c |   4 +
+ drivers/accel/amdxdna/amdxdna_pci_drv.h |   1 +
+ drivers/accel/amdxdna/npu3_regs.c       |  20 ++-
+ include/uapi/drm/amdxdna_accel.h        |   1 +
+ 6 files changed, 113 insertions(+), 76 deletions(-)
 
-> 
-> It turns out that under Windows both a WMI backlight driver and a GPU
-> native backlight driver get installed and Windows simply always calls
-> both when the backlight changes working around these kind of firmware
-> bugs.
-> 
-
-Yes, it's frustrating that so many notebooks have implementations of this
-interface that have bugs that get masked by Windows always using both of
-the interfaces. I wonder whether Windows behaves this way because bugs of
-this type are so prevalent, or if the bugs are prevalent because Windows
-always behaved that way so nobody noticed.
-
-> When this first came up, about 2 years ago, I came up with the below
-> plan to fix this. Nvidia was supposed to work in implementing this,
-> but so far an implementation of this plan has not happened.
-> 
-> Note I do not have time to work on this myself. I'm posting this here
-> in the hope that either Nvidia will pick this up after all; or that
-> someone else can make this happen.
-> 
-> I'm more then happy to help answering any questions which may come up
-> while implementing this; and to review the resulting patches.
->
-
-Sorry about that - I totally forgot about this proposal. I'm still happy
-to help here, although if someone else is especially eager to implement
-these changes, I'm also happy to answer questions, test, review, and help
-in other ways as bandwidth allows. I have some clarifying questions about
-the plan - it's been some time since we talked about this, so I apologize
-if I've already asked these questions and you've already answered them.
+diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
+index 87f80f804f91..a967e2db7ebd 100644
+--- a/drivers/accel/amdxdna/aie4_pci.c
++++ b/drivers/accel/amdxdna/aie4_pci.c
+@@ -196,8 +196,9 @@ static int aie4_mailbox_start(struct amdxdna_dev *xdna,
+ 	return ret;
+ }
  
-> 
-> The plan
-> ========
-> 
-> 1. Modify the core backlight code to allow registering a backlight-device
-> for in kernel use only, disabling the registering of a class device under
-> /sys/class/backlight .
-> 
-> 2. Add a new backlight-aggregate.c backlight driver, which exports a
-> devm_backlight_aggregate_register_or_add() function. Drivers can call
-> this passing in an existing backlight-device (with its sysfs interface
-> disabled). This either creates a singleton /sys/class/backlight/aggregate
-> device, or adds the passed in backlight to the existing singleton instance
-> if it already exists.
-> 
-> This new driver always exposes a range of 0-255 to userspace. This acts
-> as a proxie for any backlight-devices registered to be part of
-> the aggregate, forwarding any brightness set calls to all backlights,
-> scaled to their actual range. For reads this will report the last set
-> brightness value (starting with the value of the first registered
-> backlight-device).
-> 
-> 3. Add a new nvidia_wmi_ec_and_native type to drivers/acpi/video_detect.c
-> for both DMI quirks and commandline handling.
-> 
+-static int aie4_mailbox_init(struct amdxdna_dev *xdna)
++static int aie4_mailbox_init(struct amdxdna_dev_hdl *ndev)
+ {
++	struct amdxdna_dev *xdna = ndev->aie.xdna;
+ 	struct mailbox_info mbox_info;
+ 	int ret;
+ 
+@@ -208,13 +209,13 @@ static int aie4_mailbox_init(struct amdxdna_dev *xdna)
+ 	return aie4_mailbox_start(xdna, &mbox_info);
+ }
+ 
+-static void aie4_fw_unload(struct amdxdna_dev_hdl *ndev)
++static void aie4_fw_stop(struct amdxdna_dev_hdl *ndev)
+ {
+ 	aie_psp_stop(ndev->aie.psp_hdl);
+ 	aie_smu_fini(ndev->aie.smu_hdl);
+ }
+ 
+-static int aie4_fw_load(struct amdxdna_dev_hdl *ndev)
++static int aie4_fw_start(struct amdxdna_dev_hdl *ndev)
+ {
+ 	int ret;
+ 
+@@ -233,49 +234,49 @@ static int aie4_fw_load(struct amdxdna_dev_hdl *ndev)
+ 	return ret;
+ }
+ 
+-static int aie4_hw_start(struct amdxdna_dev *xdna)
++static int aie4_pf_hw_start(struct amdxdna_dev_hdl *ndev)
+ {
+-	struct amdxdna_dev_hdl *ndev = xdna->dev_handle;
+ 	int ret;
+ 
+-	ret = aie4_fw_load(ndev);
++	ret = aie4_fw_start(ndev);
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = aie4_mailbox_init(xdna);
++	ret = aie4_mailbox_init(ndev);
+ 	if (ret)
+-		goto fw_unload;
++		goto stop_fw;
+ 
+ 	return 0;
+ 
+-fw_unload:
+-	aie4_fw_unload(ndev);
++stop_fw:
++	aie4_fw_stop(ndev);
+ 
+ 	return ret;
+ }
+ 
+-static void aie4_mgmt_fw_fini(struct amdxdna_dev_hdl *ndev)
++static void aie4_pf_hw_stop(struct amdxdna_dev_hdl *ndev)
+ {
+-	int ret;
++	struct amdxdna_dev *xdna = ndev->aie.xdna;
+ 
+-	/* No paired resume needed, fw is stateless */
+-	ret = aie4_suspend_fw(ndev);
+-	if (ret)
+-		XDNA_ERR(ndev->aie.xdna, "suspend_fw failed, ret %d", ret);
+-	else
+-		XDNA_DBG(ndev->aie.xdna, "npu firmware suspended");
++	drm_WARN_ON(&xdna->ddev, !mutex_is_locked(&xdna->dev_lock));
++
++	aie4_suspend_fw(ndev);
++	aie4_mailbox_fini(ndev);
++	aie4_fw_stop(ndev);
+ }
+ 
+-static void aie4_hw_stop(struct amdxdna_dev *xdna)
++static int aie4_vf_hw_start(struct amdxdna_dev_hdl *ndev)
+ {
+-	struct amdxdna_dev_hdl *ndev = xdna->dev_handle;
++	return aie4_mailbox_init(ndev);
++}
++
++static void aie4_vf_hw_stop(struct amdxdna_dev_hdl *ndev)
++{
++	struct amdxdna_dev *xdna = ndev->aie.xdna;
+ 
+ 	drm_WARN_ON(&xdna->ddev, !mutex_is_locked(&xdna->dev_lock));
+ 
+-	aie4_mgmt_fw_fini(ndev);
+ 	aie4_mailbox_fini(ndev);
+-
+-	aie4_fw_unload(ndev);
+ }
+ 
+ static int aie4_request_firmware(struct amdxdna_dev_hdl *ndev,
+@@ -365,15 +366,41 @@ static int aie4_prepare_firmware(struct amdxdna_dev_hdl *ndev,
+ 	return 0;
+ }
+ 
+-static int aie4_pcidev_init(struct amdxdna_dev_hdl *ndev)
++static int aie4_load_fw(struct amdxdna_dev_hdl *ndev,
++			void __iomem *tbl[PCI_NUM_RESOURCES])
++{
++	const struct firmware *npufw, *certfw;
++	int ret;
++
++	if (!ndev->priv->npufw_path && !ndev->priv->certfw_path)
++		return 0;
++
++	ret = aie4_request_firmware(ndev, &npufw, &certfw);
++	if (ret)
++		return ret;
++
++	ret = aie4_prepare_firmware(ndev, npufw, certfw, tbl);
++	aie4_release_firmware(ndev, npufw, certfw);
++
++	return ret;
++}
++
++static int aie4m_pcidev_init(struct amdxdna_dev *xdna)
+ {
+-	struct amdxdna_dev *xdna = ndev->aie.xdna;
+ 	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
++	struct amdxdna_dev_hdl *ndev;
+ 	void __iomem *tbl[PCI_NUM_RESOURCES] = {0};
+-	const struct firmware *npufw, *certfw;
+ 	unsigned long bars = 0;
+ 	int ret, i;
+ 
++	ndev = drmm_kzalloc(&xdna->ddev, sizeof(*ndev), GFP_KERNEL);
++	if (!ndev)
++		return -ENOMEM;
++
++	ndev->priv = xdna->dev_info->dev_priv;
++	ndev->aie.xdna = xdna;
++	xdna->dev_handle = ndev;
++
+ 	/* Enable managed PCI device */
+ 	ret = pcim_enable_device(pdev);
+ 	if (ret) {
+@@ -409,75 +436,60 @@ static int aie4_pcidev_init(struct amdxdna_dev_hdl *ndev)
+ 
+ 	pci_set_master(pdev);
+ 
+-	ret = aie4_request_firmware(ndev, &npufw, &certfw);
+-	if (ret)
+-		goto clear_master;
+-
+-	ret = aie4_prepare_firmware(ndev, npufw, certfw, tbl);
+-	aie4_release_firmware(ndev, npufw, certfw);
++	ret = aie4_load_fw(ndev, tbl);
+ 	if (ret)
+-		goto clear_master;
++		return ret;
+ 
+ 	ret = aie4_irq_init(xdna);
+ 	if (ret)
+-		goto clear_master;
++		return ret;
+ 
+-	ret = aie4_hw_start(xdna);
+-	if (ret)
+-		goto clear_master;
++	amdxdna_vbnv_init(xdna);
++	XDNA_DBG(xdna, "init finished");
+ 
+ 	return 0;
+-
+-clear_master:
+-	pci_clear_master(pdev);
+-
+-	return ret;
+ }
+ 
+-static void aie4_pcidev_fini(struct amdxdna_dev_hdl *ndev)
++static int aie4_pf_init(struct amdxdna_dev *xdna)
+ {
+-	struct amdxdna_dev *xdna = ndev->aie.xdna;
+-	struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
+-
+-	aie4_hw_stop(xdna);
+-
+-	pci_clear_master(pdev);
+-}
++	int ret;
+ 
+-static void aie4_fini(struct amdxdna_dev *xdna)
+-{
+-	struct amdxdna_dev_hdl *ndev = xdna->dev_handle;
++	ret = aie4m_pcidev_init(xdna);
++	if (ret)
++		return ret;
+ 
+-	aie4_sriov_stop(ndev);
+-	aie4_pcidev_fini(ndev);
++	return aie4_pf_hw_start(xdna->dev_handle);
+ }
+ 
+-static int aie4_init(struct amdxdna_dev *xdna)
++static int aie4_vf_init(struct amdxdna_dev *xdna)
+ {
+-	struct amdxdna_dev_hdl *ndev;
+ 	int ret;
+ 
+-	ndev = drmm_kzalloc(&xdna->ddev, sizeof(*ndev), GFP_KERNEL);
+-	if (!ndev)
+-		return -ENOMEM;
++	ret = aie4m_pcidev_init(xdna);
++	if (ret)
++		return ret;
+ 
+-	ndev->priv = xdna->dev_info->dev_priv;
+-	ndev->aie.xdna = xdna;
+-	xdna->dev_handle = ndev;
++	return aie4_vf_hw_start(xdna->dev_handle);
++}
+ 
+-	ret = aie4_pcidev_init(ndev);
+-	if (ret) {
+-		XDNA_ERR(xdna, "Setup PCI device failed, ret %d", ret);
+-		return ret;
+-	}
++static void aie4_pf_fini(struct amdxdna_dev *xdna)
++{
++	aie4_sriov_stop(xdna->dev_handle);
++	aie4_pf_hw_stop(xdna->dev_handle);
++}
+ 
+-	amdxdna_vbnv_init(xdna);
+-	XDNA_DBG(xdna, "aie4 init finished");
+-	return 0;
++static void aie4_vf_fini(struct amdxdna_dev *xdna)
++{
++	aie4_vf_hw_stop(xdna->dev_handle);
+ }
+ 
+-const struct amdxdna_dev_ops aie4_ops = {
+-	.init			= aie4_init,
+-	.fini			= aie4_fini,
++const struct amdxdna_dev_ops aie4_pf_ops = {
++	.init			= aie4_pf_init,
++	.fini			= aie4_pf_fini,
+ 	.sriov_configure        = aie4_sriov_configure,
+ };
++
++const struct amdxdna_dev_ops aie4_vf_ops = {
++	.init			= aie4_vf_init,
++	.fini			= aie4_vf_fini,
++};
+diff --git a/drivers/accel/amdxdna/aie4_pci.h b/drivers/accel/amdxdna/aie4_pci.h
+index aa1495c3370b..cbf3424a4341 100644
+--- a/drivers/accel/amdxdna/aie4_pci.h
++++ b/drivers/accel/amdxdna/aie4_pci.h
+@@ -48,6 +48,7 @@ static inline int aie4_sriov_stop(struct amdxdna_dev_hdl *ndev)
+ }
+ #endif
+ 
+-extern const struct amdxdna_dev_ops aie4_ops;
++extern const struct amdxdna_dev_ops aie4_pf_ops;
++extern const struct amdxdna_dev_ops aie4_vf_ops;
+ 
+ #endif /* _AIE4_PCI_H_ */
+diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/amdxdna/amdxdna_pci_drv.c
+index 1b08a08343cf..39ad081ac082 100644
+--- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
++++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
+@@ -53,7 +53,9 @@ static const struct pci_device_id pci_ids[] = {
+ 	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, 0x1502) },
+ 	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, 0x17f0) },
+ 	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, 0x17f2) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, 0x17f3) },
+ 	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, 0x1B0B) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, 0x1B0C) },
+ 	{0}
+ };
+ 
+@@ -65,7 +67,9 @@ static const struct amdxdna_device_id amdxdna_ids[] = {
+ 	{ 0x17f0, 0x11, &dev_npu5_info },
+ 	{ 0x17f0, 0x20, &dev_npu6_info },
+ 	{ 0x17f2, 0x10, &dev_npu3_pf_info },
++	{ 0x17f3, 0x10, &dev_npu3_vf_info },
+ 	{ 0x1B0B, 0x10, &dev_npu3_pf_info },
++	{ 0x1B0C, 0x10, &dev_npu3_vf_info },
+ 	{0}
+ };
+ 
+diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.h b/drivers/accel/amdxdna/amdxdna_pci_drv.h
+index b1548cf16f59..caed11c09e55 100644
+--- a/drivers/accel/amdxdna/amdxdna_pci_drv.h
++++ b/drivers/accel/amdxdna/amdxdna_pci_drv.h
+@@ -167,6 +167,7 @@ struct amdxdna_client {
+ /* Add device info below */
+ extern const struct amdxdna_dev_info dev_npu1_info;
+ extern const struct amdxdna_dev_info dev_npu3_pf_info;
++extern const struct amdxdna_dev_info dev_npu3_vf_info;
+ extern const struct amdxdna_dev_info dev_npu4_info;
+ extern const struct amdxdna_dev_info dev_npu5_info;
+ extern const struct amdxdna_dev_info dev_npu6_info;
+diff --git a/drivers/accel/amdxdna/npu3_regs.c b/drivers/accel/amdxdna/npu3_regs.c
+index acece0faddf2..6d5da779232b 100644
+--- a/drivers/accel/amdxdna/npu3_regs.c
++++ b/drivers/accel/amdxdna/npu3_regs.c
+@@ -64,6 +64,14 @@ static const struct amdxdna_dev_priv npu3_dev_priv = {
+ 	},
+ };
+ 
++static const struct amdxdna_dev_priv npu3_dev_vf_priv = {
++	/* vf device does not load firmware */
++	.mbox_bar		= NPU3_MBOX_BAR,
++	.mbox_rbuf_bar		= NPU3_MBOX_BUFFER_BAR,
++	.mbox_info_off		= NPU3_MBOX_INFO_OFF,
++	/* vf device does not have smu and psp */
++};
++
+ const struct amdxdna_dev_info dev_npu3_pf_info = {
+ 	.mbox_bar		= NPU3_MBOX_BAR,
+ 	.sram_bar		= NPU3_MBOX_BUFFER_BAR,
+@@ -73,5 +81,15 @@ const struct amdxdna_dev_info dev_npu3_pf_info = {
+ 	.device_type		= AMDXDNA_DEV_TYPE_PF,
+ 	.dev_priv		= &npu3_dev_priv,
+ 	.fw_feature_tbl		= npu3_fw_feature_table,
+-	.ops			= &aie4_ops,
++	.ops			= &aie4_pf_ops,
++};
++
++const struct amdxdna_dev_info dev_npu3_vf_info = {
++	.mbox_bar		= NPU3_MBOX_BAR,
++	.sram_bar		= NPU3_MBOX_BUFFER_BAR,
++	.default_vbnv		= "RyzenAI-npu3-vf",
++	.device_type		= AMDXDNA_DEV_TYPE_UMQ,
++	.dev_priv		= &npu3_dev_vf_priv,
++	.fw_feature_tbl		= npu3_fw_feature_table,
++	.ops			= &aie4_vf_ops,
+ };
+diff --git a/include/uapi/drm/amdxdna_accel.h b/include/uapi/drm/amdxdna_accel.h
+index 0b11e8e3ea5d..34212feee15c 100644
+--- a/include/uapi/drm/amdxdna_accel.h
++++ b/include/uapi/drm/amdxdna_accel.h
+@@ -30,6 +30,7 @@ extern "C" {
+ enum amdxdna_device_type {
+ 	AMDXDNA_DEV_TYPE_UNKNOWN = -1,
+ 	AMDXDNA_DEV_TYPE_KMQ = 0,
++	AMDXDNA_DEV_TYPE_UMQ = 1,
+ 	AMDXDNA_DEV_TYPE_PF = 2,
+ };
+ 
+-- 
+2.34.1
 
-So by default both the native and GPU drivers would register a "normal"
-backlight handler, and if the "both" quirk is set (or if requested via
-kernel command line) they'll register with the aggregate device?
-
-Would it make sense to make this more generic, with a parameter which
-can be set via command line or quirks for which backlight devices to
-aggregate? And then maybe instead of a new "nvidia_wmi_ec_and_native"
-backlight type in video_detect.c, it could be called "aggregate" or
-something else along those lines, used in combination with the list of
-backlight types to aggregate.
-
-Have we seen systems where both the iGPU and dGPU register their own
-native handlers? I vaguely recall seeing such a system, but I do not
-keep careful notes about this sort of thing, so I'm not certain. If
-there are indeed such systems, then "native" might not be specific
-enough, and it may be necessary to explicitly name backlight drivers
-individually in order to aggregate them.
-
-> 
-> 4. Modify acpi_video_backlight_use_native() to also return true if
-> the __acpi_video_get_backlight_type() call there returns the new
-> acpi_backlight_nvidia_wmi_ec_and_native.
-
-> 5. Add a new devm_backlight_device_register_native() helper which
-> calls __acpi_video_get_backlight_type(true, NULL) and if that returns
-> the new nvidia_wmi_ec_and_native type then registers the passed in
-> backlight with the flag to not register a sysfs class interface and
-> then on success calls the new devm_backlight_aggregate_register_or_add()
-> with the just registered backlight device; and if the returned type
-> instead is acpi_backlight_native register the passed in backlight
-> normally through devm_backlight_device_register()
-> 
-> 5. Modify the i915 and amdgpu drivers to use the new
-> devm_backlight_device_register_native() helper. Since this new helper
-> checks the backlight-type itself, drop acpi_video_backlight_use_native()
-> checks *if* the registration is the only thing guarded by that check.
-> 
-> 6. drivers/platform/x86/nvidia-wmi-ec-backlight.c to not return
-> early from probe when acpi_video_get_backlight_type() returns
-> the new nvidia_wmi_ec_and_native type and for that type make it
-> registers its backlight with the flag to not register a sysfs class
-> interface and then on success calls the new
-> devm_backlight_aggregate_register_or_add().
-> 
-
-There still isn't anything tying a particular sysfs backlight interface
-node to a specific display panel, right? Is there a plan to eventually
-support this? How would this interact with that plan? I'm just a little
-worried about designing ourselves into a corner that makes things harder
-to untangle individual devices later if the need arises.
-
-> Regards,
-> 
-> Hans
-> 
