@@ -4,122 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DA11FF8855
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 16:41:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15592CD3427
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 17:12:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5990310EB87;
-	Tue,  5 May 2026 16:41:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DA9C10E249;
+	Tue,  5 May 2026 17:12:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RZ8n/hZx";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Xk1TcFWW";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010022.outbound.protection.outlook.com [52.101.46.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CE6A10EB85;
- Tue,  5 May 2026 16:41:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Jw8A+fet/p1xf7La27xgHTFNj81m3sBSJrAiZVOw6qRV40+T0FfIs3bprjDrtXk44rzT506uW1WL3z+qWM33QiT/fnvevA2ulP+xgYZY6qzQhelQmX5QSrKdF2ncLpR/DgkdT9mZ9Mb3sitkRrmt9nYHaPEIqXpdkfNzLmnNPmfURqqpe0XpYXqxKVBo4UH4QbUgUMwRI5bKg2T2RSB8eBIz3D1EMPh1NDBqXn6tYRUWwuJb55+RqbAFchWcOFW6lCmCW0uE0RocKMAF49cMG1QOlaBq1fZ+Hjzv/flghWTTs5zFLneOQycX5sZASRhduzyVTgNBdkDhyVU2HP0t8w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kxHaaMBsRm28R6mfVDtNdJqb6Jn9/qxIQhpInvtncdQ=;
- b=MM5TawbQq2jnElh1PqwGHbT1V/Z/6d82rbCRV+mM2o8Pn5eQAjHV2SZtg/hZiqE2bDhJG/om7w37a4H9zm25+vZVYCAku63LlLP4+GUnKR1uUw9tvLCVy6dFBjlDD1Y3WULHWXRWmvfl1bVFyUMp4OXKFtcWcaU8IWk702zWo5mpnpAKOBPXOgzA/HQbPkq01lHPat78XXQn1RmVQ68Omovmz5v3ktVINmvy4bcIuxhlUyMl8wqQT4BgT5RqBzN9okGA1Rvs7ofo0gJdOXB6nvRC6ZuaUqKrHcoJ+4CE+tka/DX2ol+FhOJBSIr31SoFG5HNSpLgINHG7AA2INDEZw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=effective-light.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kxHaaMBsRm28R6mfVDtNdJqb6Jn9/qxIQhpInvtncdQ=;
- b=RZ8n/hZxw4bXIY0hpDUMXprP1WllIAbEYkpOL82g7bWHiNnrHGig+u6n8lUFBUIFZe1FS2lJPzrEBCLfR5xYRqPjklEAejONxpRzm7WNEJdDFwAogfkrI9aaLKKaLc7rDnVtNmx2n5Py3RZwmM2V8ZN80s2g+FByLuadaBpK+m8=
-Received: from PH8PR07CA0011.namprd07.prod.outlook.com (2603:10b6:510:2cd::19)
- by IA1PR12MB8285.namprd12.prod.outlook.com (2603:10b6:208:3f6::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Tue, 5 May
- 2026 16:41:37 +0000
-Received: from SA2PEPF0000150B.namprd04.prod.outlook.com
- (2603:10b6:510:2cd:cafe::ea) by PH8PR07CA0011.outlook.office365.com
- (2603:10b6:510:2cd::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9870.27 via Frontend Transport; Tue,
- 5 May 2026 16:41:37 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SA2PEPF0000150B.mail.protection.outlook.com (10.167.242.43) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9891.9 via Frontend Transport; Tue, 5 May 2026 16:41:37 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Tue, 5 May
- 2026 11:41:35 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 5 May
- 2026 11:41:35 -0500
-Received: from [10.254.92.56] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Tue, 5 May 2026 11:41:33 -0500
-Message-ID: <99c2f84f-6453-419a-b7bd-c4fb6cda85e0@amd.com>
-Date: Tue, 5 May 2026 12:41:33 -0400
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B0BE10E137
+ for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 17:12:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1778001124;
+ bh=l0cSBZtY8v8/BXAKjOef5rDCo9Ch/FtnYTeDMKLxKf8=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=Xk1TcFWWz+b4FqFamS1MxscOyUDHkM5B+1fXmOorHcQCB8J4fuK7O4MEuyUNnU6gs
+ 7QRX71N6cQOJgDgjyLFAHe+iVXQMuhaX5QTAH0iQ8ApUpSpZGreexSbVVJVIojQt3u
+ bGxTv8egBbuPyX60cADHbo0NrgNMmXAu3klzJ1Rdp/+LwKlWHTUwBQnv13AjBdTTLT
+ h5wWO1IVGMUSqulMu6FqHl9Aydn9W2OWWCdLTAFCfWyoV9vSF3r8cvH7P1m5qf/N+9
+ 8Kq5kP3GQLttM6oQNn4G8ywaFJPDTO7ygW3lA+ZNI3q1mdXjZw76hRFCpSdeI1qYDk
+ WKxLeeWxUC1GQ==
+Received: from fedora (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id C575A17E1313;
+ Tue,  5 May 2026 19:12:03 +0200 (CEST)
+Date: Tue, 5 May 2026 19:11:59 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Ketil Johnsen <ketil.johnsen@arm.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Jonathan
+ Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Sumit
+ Semwal <sumit.semwal@linaro.org>, Benjamin Gaignard
+ <benjamin.gaignard@collabora.com>, Brian Starkey <Brian.Starkey@arm.com>,
+ John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, Steven Price
+ <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, Daniel Almeida
+ <daniel.almeida@collabora.com>, Alice Ryhl <aliceryhl@google.com>, Matthias
+ Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>, dri-devel@lists.freedesktop.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ Florent Tomasin <florent.tomasin@arm.com>, Paul Toadere
+ <paul.toadere@arm.com>, Samuel Percival <samuel.percival@arm.com>
+Subject: Re: [PATCH 7/8] drm/panthor: Add support for entering and exiting
+ protected mode
+Message-ID: <20260505191159.0b9a0c0b@fedora>
+In-Reply-To: <20260505140516.1372388-8-ketil.johnsen@arm.com>
+References: <20260505140516.1372388-1-ketil.johnsen@arm.com>
+ <20260505140516.1372388-8-ketil.johnsen@arm.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/2] drm/amd/display: add DMU timeout recovery support
-From: Leo Li <sunpeng.li@amd.com>
-To: Hamza Mahfooz <someguy@effective-light.com>,
- <dri-devel@lists.freedesktop.org>
-CC: Harry Wentland <harry.wentland@amd.com>, Rodrigo Siqueira
- <siqueira@igalia.com>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Mario Limonciello
- <mario.limonciello@amd.com>, Alex Hung <alex.hung@amd.com>, Ray Wu
- <ray.wu@amd.com>, Wayne Lin <Wayne.Lin@amd.com>, Aurabindo Pillai
- <aurabindo.pillai@amd.com>, =?UTF-8?Q?Timur_Krist=C3=B3f?=
- <timur.kristof@gmail.com>, "Mario Limonciello (AMD)" <superm1@kernel.org>,
- Ivan Lipski <ivan.lipski@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>,
- Matthew Schwartz <matthew.schwartz@linux.dev>, Yussuf Khalil
- <dev@pp3345.net>, Tom Chung <chiahsuan.chung@amd.com>, Colin Ian King
- <colin.i.king@gmail.com>, Charlene Liu <charlene.liu@amd.com>,
- <amd-gfx@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-References: <20260501203552.749080-1-someguy@effective-light.com>
- <20260501203552.749080-2-someguy@effective-light.com>
- <d2ee9fb2-4b62-4ee3-9395-4a9f7c4e53bd@amd.com>
- <62c4c0e9-6368-4737-afc9-d4b1fa7a94e7@amd.com>
-Content-Language: en-US
-In-Reply-To: <62c4c0e9-6368-4737-afc9-d4b1fa7a94e7@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB04.amd.com: sunpeng.li@amd.com does not designate
- permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF0000150B:EE_|IA1PR12MB8285:EE_
-X-MS-Office365-Filtering-Correlation-Id: 299a5f73-91ff-4649-cedf-08deaac52d03
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|42112799006|82310400026|36860700016|1800799024|376014|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: W0HS2HEY+aO1DnDbxOCSzVy5uqU4+ywhzGtlpNpXMxT9KzYjBpBGlUdRK7xaNBrL7bzkKj2vW/hJjTQkM0D90enpqnRARamtUggEw8RTbcAYilI8ERzd6yG3FOKyVVqlqFd5YApkNpLBaK14QmwqUospg+g+YCutZFBesck7ZrFIkcFV4dvcnevCKkt9wLb3bXbeqN0p4fgkefxCsELwAbqQWiORYOlsbeYA7jnJlgodk+Yr83uDfXfSv0Qg2yY25v3hM5veJbJk6qF3AVsvVTSKgJvPjUTHksJ+kR3/TIU1Kr96TRcRGRPzIz+ClRbXoXYvGEz2CyVysmwoUjOO09Vs7VWM//yNBX10bZMROZgfU4e2IVTsxz0IKSDjFJdTDoNKhA+nF08nMYdi4xkVosrDWc+uTtq+oTlLZoxms1acI1tvDgyKxGNrCKXcXy4364Pk9Szg/y/Ynl0D9HHUKd8cFCCf3K6JHF5TcEy+WeVKAtcCWH8Tu5d2c9tujpxM9AOve6RvrOdbAd4fRY1vMBSyWcJi6Xjk7bqzm9WhmV39xCmZZoAeHRwDB1eVSbSBV8Gl/7IfFFb3od3ByBIBIPVrPyD4UGJyHKjt4Ng37jttzP1QsoVrQx+Ntbsi97PfXcu56+fgqSKpS/pIM38hDsdAqxQWDFeVRYRUlwiEtpE0N90Pj6pTOwcPVeXgtDIw
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(7416014)(42112799006)(82310400026)(36860700016)(1800799024)(376014)(22082099003)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: KPaQR1T5KQYeT13ZUTYTvbH8IKyIWF5/j0WwArq9og6CgmuYkUlqqjgGSKZHW2HoqbzRwC2aUp3BIO3E3C96ha9vAV6zQRiz61njr3f6Ltxq0InX0EcuVH/7tiJdz4zvOUtAyCxY7TbP3t54/isfuHaoEqMioVnLWnVLsmaB/E9tmTjw46acjv5f86VA+AOTWNLuxJ4bb8zAXGuF3OPlMnSHhs1GPSBHv9yxHo7FZ6Tbvexrr7qHcxT2lBwqNWE1UJS+DyJ+fOopQvTEwTnYYsLRufPccYgwPjEtDYxDKoBB84HAw46/ul9qsUY1A9mYmxj78j+v9ahM45ARnGk1zGI2usFrzk/mNMrZp6xvB7HSeDdwX4kuucfumrlMnyeSqqOWECBIa71e1XPsf+mnqnNoXaVpz/0B4Gjntu17cQXQHo1xq5nJRdqNtNsvgsQx
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2026 16:41:37.3044 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 299a5f73-91ff-4649-cedf-08deaac52d03
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF0000150B.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8285
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,42 +79,251 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Tue,  5 May 2026 16:05:13 +0200
+Ketil Johnsen <ketil.johnsen@arm.com> wrote:
 
+> From: Florent Tomasin <florent.tomasin@arm.com>
+> 
+> This patch modifies the Panthor driver code to allow handling
+> of the GPU HW protected mode enter and exit.
+> 
+> The logic added by this patch includes:
+> - the mechanisms needed for entering and exiting protected mode.
+> - the handling of protected mode IRQs and FW interactions.
+> - the scheduler changes needed to decide when to enter
+>   protected mode based on CSG scheduling.
+> 
+> Note that the submission of a protected mode jobs are done
+> from the user space.
+> 
+> The following is a summary of how protected mode is entered
+> and exited:
+> - When the GPU detects a protected mode job needs to be
+>   executed, an IRQ is sent to the CPU to notify the kernel
+>   driver that the job is blocked until the GPU has entered
+>   protected mode. The entering of protected mode is controlled
+>   by the kernel driver.
+> - The Mali Panthor CSF driver will schedule a tick and evaluate
+>   which CS in the CSG to schedule on slot needs protected mode.
+>   If the priority of the CSG is not sufficiently high, the
+>   protected mode job will not progress until the CSG is
+>   scheduled at top priority.
+> - The Panthor scheduler notifies the GPU that the blocked
+>   protected jobs will soon be able to progress.
+> - Once all CSG and CS slots are updated, the scheduler
+>   requests the GPU to enter protected mode and waits for
+>   it to be acknowledged.
+> - If successful, all protected mode jobs will resume execution
+>   while normal mode jobs block until the GPU exits
+>   protected mode, or the kernel driver rotates the CSGs
+>   and forces the GPU to exit protected mode.
+> - If unsuccessful, the scheduler will request a GPU reset.
+> - When a protected mode job is suspended as a result of
+>   the CSGs rotation, the GPU will send an IRQ to the CPU
+>   to notify that the protected mode job needs to resume.
+> 
+> This sequence will continue so long the user space is
+> submitting protected mode jobs.
+> 
+> Signed-off-by: Florent Tomasin <florent.tomasin@arm.com>
+> Co-developed-by: Paul Toadere <paul.toadere@arm.com>
+> Signed-off-by: Paul Toadere <paul.toadere@arm.com>
+> Co-developed-by: Samuel Percival <samuel.percival@arm.com>
+> Signed-off-by: Samuel Percival <samuel.percival@arm.com>
+> Co-developed-by: Ketil Johnsen <ketil.johnsen@arm.com>
+> Signed-off-by: Ketil Johnsen <ketil.johnsen@arm.com>
+> ---
+>  drivers/gpu/drm/panthor/panthor_device.c |   1 +
+>  drivers/gpu/drm/panthor/panthor_device.h |   9 +
+>  drivers/gpu/drm/panthor/panthor_fw.c     |  86 ++++++++-
+>  drivers/gpu/drm/panthor/panthor_fw.h     |   5 +
+>  drivers/gpu/drm/panthor/panthor_gpu.c    |  14 +-
+>  drivers/gpu/drm/panthor/panthor_gpu.h    |   6 +
+>  drivers/gpu/drm/panthor/panthor_mmu.c    |  10 +
+>  drivers/gpu/drm/panthor/panthor_sched.c  | 224 +++++++++++++++++++++--
+>  8 files changed, 339 insertions(+), 16 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
+> index 3a5cdfa99e5fe..449f17b0f4c5c 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.c
+> +++ b/drivers/gpu/drm/panthor/panthor_device.c
+> @@ -207,6 +207,7 @@ int panthor_device_init(struct panthor_device *ptdev)
+>  
+>  	ptdev->soc_data = of_device_get_match_data(ptdev->base.dev);
+>  
+> +	init_rwsem(&ptdev->protm.lock);
+>  	init_completion(&ptdev->unplug.done);
+>  	ret = drmm_mutex_init(&ptdev->base, &ptdev->unplug.lock);
+>  	if (ret)
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
+> index d51fec97fc5fa..ebeec45cf60a1 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.h
+> +++ b/drivers/gpu/drm/panthor/panthor_device.h
+> @@ -334,6 +334,15 @@ struct panthor_device {
+>  	struct {
+>  		/** @heap: Pointer to the protected heap */
+>  		struct dma_heap *heap;
+> +
+> +		/**
+> +		 * @lock: Lock to prevent VM operations during protected mode.
 
-On 2026-05-05 12:36, Leo Li wrote:
-> 
-> 
-> On 2026-05-05 12:02, Leo Li wrote:
->>> +	/*
->>> +	 * Compositors will refuse to make forward progress unless we send
->>> +	 * the previous flip's completion event.
->>> +	 */
->>> +	if (WARN_ON(acrtc->event)) {
->>> +		drm_crtc_send_vblank_event(&acrtc->base, acrtc->event);
->>> +		drm_crtc_vblank_put(&acrtc->base);
->>> +	}
->> I would expect this WARN_ON to occur only after the 10s flip_done timeout expires, allowing 'this' commit to progress with the previously armed acrtc->event and ->pflip_status from the previous commit ('this' commit would be gated by drm_atomic_helper_wait_for_dependencies).
->>
->> In which case, we probably want to apply the same above hunk for the cursor path here and also raise a warning: https://elixir.bootlin.com/linux/v6.19.3/source/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c#L10170
-> 
-> Hmm, scratch that, looks like I didn't finish my own thought:
-> 
-> I think this would also mean the compositor sent 'this' commit without waiting for the previous vblank event. IOW it's not that compositors refuse to make forward progress, but wait_for_dependencies() in kernel will wait for a flip_done completion that will never come. And that can be a long time, since the drm_crtc_commit_wait()s stack.
-> 
-> Indeed, it seems to be the case in the dmesg log attached to this issue: https://gitlab.freedesktop.org/drm/amd/-/work_items/4809
-> 
-> The back-to-back WARN_ONs are likely from the hunk above, and one level up at https://elixir.bootlin.com/linux/v7.0.1/source/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c#L10186. The compositor attempts another commit soon after, and hits the series of timeouts within wait_for_dependencies(), before we hit the next series of WARN_ONs from the same locations.
-> 
-> So ultimately, I don't think sending the event here will do anything. Since by the time we hit that WARN_ON, we've already waited through wait_for_dependencies(). At which point, there aren't anymore waiters on it.
-> 
-> I'm thinking an alternative would be to issue a 1-2s delayed worker whenever prepare_flip_isr() is called. The worker is canceled whenever the event is sent from the irq handlers. If it runs, then the expected pflip interrupt never fired, so we deliver the event in the worker. It's effectively a SW fallback for event delivery.
-> 
-> Of course, it is only a fallback, ideally we figure out why interrupts were missed in the first place.
-> 
-> - Leo 
+Here it says the lock prevents VM ops while the GPU is in protected
+mode, but...
 
-(Apologies for the spam)
-But regarding this patch, I'm OK with dropping the above hunk but leaving the dm_helpers_dmu_timeout() implementation.
-With that change, this is
+> +		 *
+> +		 * The MMU will not execute commands when the GPU is in
+> +		 * protected mode, so we use this RW lock to sync access
+> +		 * between VM_BIND and GPU protected mode.
+> +		 */
+> +		struct rw_semaphore lock;
+>  	} protm;
+>  };
+>  
+> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
+> index 1aba29b9779b6..281556530ddab 100644
+> --- a/drivers/gpu/drm/panthor/panthor_fw.c
+> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
+> @@ -1057,7 +1057,9 @@ static void panthor_fw_init_global_iface(struct panthor_device *ptdev)
+>  					 GLB_CFG_PROGRESS_TIMER |
+>  					 GLB_CFG_POWEROFF_TIMER |
+>  					 GLB_IDLE_EN |
+> -					 GLB_IDLE;
+> +					 GLB_IDLE |
+> +					 GLB_PROTM_ENTER |
+> +					 GLB_PROTM_EXIT;
+>  
+>  	if (panthor_fw_has_glb_state(ptdev))
+>  		glb_iface->input->ack_irq_mask |= GLB_STATE_MASK;
+> @@ -1456,6 +1458,88 @@ static void panthor_fw_ping_work(struct work_struct *work)
+>  	}
+>  }
+>  
+> +int panthor_fw_protm_enter(struct panthor_device *ptdev)
+> +{
+> +	struct panthor_fw_global_iface *glb_iface;
+> +	u32 acked;
+> +	u32 status;
+> +	int ret;
+> +
+> +	down_write(&ptdev->protm.lock);
+> +
+> +	glb_iface = panthor_fw_get_glb_iface(ptdev);
+> +
+> +	panthor_fw_toggle_reqs(glb_iface, req, ack, GLB_PROTM_ENTER);
+> +	gpu_write(ptdev, CSF_DOORBELL(CSF_GLB_DOORBELL_ID), 1);
+> +
+> +	ret = panthor_fw_glb_wait_acks(ptdev, GLB_PROTM_ENTER, &acked, 4000);
+> +	if (ret) {
+> +		drm_err(&ptdev->base, "Wait for FW protected mode acknowledge timed out");
+> +		up_write(&ptdev->protm.lock);
+> +		return ret;
+> +	}
+> +
+> +	/* Wait for the GPU to actually enter protected mode.
+> +	 * There would be some time gap between FW sending the
+> +	 * ACK for GLB_PROTM_ENTER and GPU entering protected mode.
+> +	 */
+> +	if (gpu_read_poll_timeout(ptdev, GPU_STATUS, status,
+> +				  (status & GPU_STATUS_PROTM_ACTIVE) ||
+> +					  ((glb_iface->input->req ^ glb_iface->output->ack) &
+> +					   GLB_PROTM_EXIT),
+> +				  10, 500000)) {
+> +		drm_err(&ptdev->base, "Wait for GPU protected mode enter timed out");
+> +		ret = -ETIMEDOUT;
+> +	}
+> +
+> +	up_write(&ptdev->protm.lock);
 
-Reviewed-by: Leo Li <sunpeng.li@amd.com>
+... here I see the lock being released right after we've entered
+protected mode. Meaning the MMU layer can proceed with any pending VM
+ops even though the GPU only exists PROTM when panthor_fw_protm_exit()
+is called. If this is expected, the protm::lock doc should be updated to
+reflect that.
+
+Also, I don't think a rw_semaphore alone is enough to cover the kind of
+critical section you're trying to declare, because it requires that the
+lock is taken/released from the same thread, and
+panthor_fw_protm_enter()/panthor_fw_protm_exit() will be called from
+different work items. This probably explains why the doc no longer
+matches the implementation.
+
+I guess this could be reworked to use a combination of rwlock+completion,
+where the VM logic does something like:
+
+	down_read(protm.lock);
+	while (!try_wait_for_completion(protm.complete)) {
+		up_read(protm.lock);
+		if (!wait_for_completion_timeout(protm.complete, timeout)) {
+			schedule_reset();
+			return -ETIMEDOUT;
+		}
+		down_read(protm.lock);
+	}
+
+	// proceed with the VM op
+
+	up_read(protm.lock);
+
+in panthor_fw_protm_enter(), you'd take the lock in write mode,
+reinit the completion object, release the lock, and proceed with
+the PROTM operation. If it fails, you call complete_all()
+immediately, if it works, you defer the complete_all() to the
+panthor_fw_protm_exit() path.
+
+> +
+> +	return ret;
+> +}
+> +
+> +void panthor_fw_protm_exit(struct panthor_device *ptdev)
+> +{
+> +	struct panthor_fw_global_iface *glb_iface = panthor_fw_get_glb_iface(ptdev);
+> +
+> +	/* Acknowledge the protm exit. */
+> +	panthor_fw_update_reqs(glb_iface, req, glb_iface->output->ack, GLB_PROTM_EXIT);
+> +}
+> +
+> +int panthor_fw_protm_exit_wait_event_timeout(struct panthor_device *ptdev)
+> +{
+> +	struct panthor_fw_global_iface *glb_iface = panthor_fw_get_glb_iface(ptdev);
+> +	int ret = 0;
+> +
+> +	/* Send PING request to force an exit */
+> +	panthor_fw_toggle_reqs(glb_iface, req, ack, GLB_PING);
+
+Uh, if a PING triggers a PROTM exit, we should probably pause the PING
+(or reschedule it) right before entering PROTM, otherwise timings might
+make it so PROTM is exited almost immediately after enter.
+
+> +	gpu_write(ptdev, CSF_DOORBELL(CSF_GLB_DOORBELL_ID), 1);
+> +
+> +	ret = wait_event_timeout(ptdev->fw->req_waitqueue,
+> +				 !(gpu_read(ptdev, GPU_STATUS) & GPU_STATUS_PROTM_ACTIVE),
+> +				 msecs_to_jiffies(500));
+> +
+> +	if (!ret) {
+> +		drm_err(&ptdev->base, "Wait for forced protected mode exit timed out");
+> +		panthor_device_schedule_reset(ptdev);
+> +		return -ETIMEDOUT;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +void panthor_fw_protm_exit_sync(struct panthor_device *ptdev)
+> +{
+> +	u32 status;
+> +
+> +	/* Busy-wait (5ms) for FW to exit protected mode on its own */
+> +	if (!gpu_read_poll_timeout(ptdev, GPU_STATUS, status,
+> +				   !(status & GPU_STATUS_PROTM_ACTIVE), 10,
+> +				   5000))
+> +		return;
+> +
+> +	panthor_fw_protm_exit_wait_event_timeout(ptdev);
+> +}
+
+I'll stop there for now.
+
+Regards,
+
+Boris
