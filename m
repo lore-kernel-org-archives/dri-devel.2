@@ -4,79 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BEB0CD342F
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 10:05:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93EA6FF885A
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 10:05:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62EF710EA38;
-	Tue,  5 May 2026 10:05:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDEBA10EA39;
+	Tue,  5 May 2026 10:05:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="b/iKkehi";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="cQlC7Gkv";
 	dkim-atps=neutral
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3766E10EA37
- for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 10:05:18 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-48d102471a4so17135305e9.2
- for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 03:05:18 -0700 (PDT)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 685AB10EA39
+ for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 10:05:19 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-48a563e4ef7so48758285e9.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 03:05:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1777975517; x=1778580317; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1777975518; x=1778580318; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:date:message-id:subject
  :references:in-reply-to:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Od3JvJ9Kbs1kRGL91hyMQAVh/qreeoBuXtzdq1EUEJk=;
- b=b/iKkehiZfItEPBP9qG6MEa632+ijgxEHSQbN6/9D8YcM9p0HzslT+nOsp83BkGdMn
- MDQU4Bf9x3GMf0GN1QIxNo3MS8D63OAOC3FgA7VWrsN4LPiCclqR02Pcy5p21oC6AdAT
- vZb//xla9VPU0uvaJT5xztOCsKx+ryRL9hE+2VRYUGYvS9bdoLOHA1mAnHXomht4kJXM
- j8k+nOllrwB77iqtSCI8FnHxQCPU1rwug05UEWdC5zmqA2xpPjNcqMefm8y7bTnK9mlw
- reelDsP+BSbFE7w6Lshl+CTK5GciAazILp0gJ+IjejpsnYpff6RFhN7nOpCDhQqcxrSb
- HPbA==
+ bh=+nbWgbtcXuwTErzUFQqplIJMzYF6bebd2YisTqpEd1Q=;
+ b=cQlC7Gkvfew802PcO9mfTwpblUm5hiBVtE03S++aks6yAgtMCzWwx7TyVmq9tGbDGg
+ 5emCvpFIE6zNbzo6DalwURrKi1Y4Y0EfVQq20CBPCicBsxGPVSvEGN7y7WblFoY+jf4a
+ q/u3weyEk2iDho0WCUbta2MkMSPQV/I3nZFk6fAZ+8f4dQ9nOPFQ9ztw18X67iG0GSbq
+ uLwkVA31W+O3RgLiSJOiUx62eBtpUdP7cGe0N8xgW+Y1X9CX6kdq3r9NOmKrzDoabe4j
+ 1VwUnm5a6zQiLMZfvgkvhGKt+uvF0MNyyYz/kSEamqckn2fOvQ7vc9vlHQ3ZoZ8UPjKs
+ buUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777975517; x=1778580317;
+ d=1e100.net; s=20251104; t=1777975518; x=1778580318;
  h=content-transfer-encoding:mime-version:date:message-id:subject
  :references:in-reply-to:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=Od3JvJ9Kbs1kRGL91hyMQAVh/qreeoBuXtzdq1EUEJk=;
- b=KkoryJfhPJ0pEVw4uZh9zGm+8+YXV3vaosCkjmSkn9hRMIdsvqzJdMlWUpiLGLfcoB
- Cm37xfXGV4/XFEmiByxR05phIQ9y0qwVerpGD5CHNtJgVHrcmtvhaXPHRVBVp2ENvH6m
- Xc2NknpwPhzovcDoQr5C2Cag16UbtIszkP1PQJsSnUdd6DsFUmXIMNcxgCbC2aJt6WEV
- RBm2izhDPu/IaoCArRT7QApu3NkfOl5CsvQlbU6vaM0OSCdIumVJwJ5RWz1RWG60NRqY
- y0RMHm9bTtc5YGwbInDzaiASYyBRqp2FMT4pFALz8TWN4NR4/MZpnQ87ZAPBZd2xV8JM
- 7yPA==
-X-Gm-Message-State: AOJu0YxMo4it3wr3vINa3ftET2IwDJB3s4uLgT8z44gCbqgMirkpcGf3
- +Lru5Q6t1oFtZLU0Fj7IFDo+XZ+vyARkspeqVoa5b8xgoU5YdJ6Tbl+6LDOi9d76wpw=
-X-Gm-Gg: AeBDievBenA6iMWLWLwLz/MTYeqfJ8tFymlYHCO1AAPjohZiwWkXDHmdV4QS2B70XwD
- KAnQDd8RqdrYQ2dI9njQfEPOPx++AdKEnRE3G5FylrYgKfsmzUShPXy0Z+3S3vTImi6rsfs5SJm
- x5EUrmrjj+AcfCAGMgYz84vpJz8o5G/6lG2/rvqvPLXtS5FcQwD1sdtJUiuMTWghldU/+UuJBth
- gF0fXBoDBPHFYuZEBlYupvWVXiyqf9WnzuuI6vOrj2tJxQk+krKh+YHqKfRr+22bTol1j0GpPdW
- S9K/GLdJHvxemBiZiGzcGqrD+yCpKrafGLz/ysCb76QDqmGC9PJQ1pGOty+2AdL8dEeuBZSZnXU
- Kn2z5KACvIY5EFCfVe6JYo3SkGi8pVkYNuC8OyiQnA51CrgqMDSvRnZRmwFnv0BL48PK9rq8/L0
- m+xGa3Ce71WiuasRMuaDRBRm1T7oMr3nklWbh1yQWXMuWhYYG9fQLNSXA=
-X-Received: by 2002:a05:600c:5308:b0:48a:5565:ec3d with SMTP id
- 5b1f17b1804b1-48d03b401f5mr164650075e9.22.1777975516588; 
- Tue, 05 May 2026 03:05:16 -0700 (PDT)
+ bh=+nbWgbtcXuwTErzUFQqplIJMzYF6bebd2YisTqpEd1Q=;
+ b=rJKbqp+BAqP6xQ7AK1ZyBINLcnl5QqtCJx9Ydf0A4U/CHzm+ddR6YTd/K2cNdHvwEa
+ zVamO+81aynJO/gi0AjUZVeI+Z3pTh1U6FecBsvxDH87n8GoLuVzyQkdCCGuY9Sdgyzz
+ 9Z5KqqIXBIAlbVxcYkWQdYHHgqsgHAl1eba4BDQV/VkcaC0MWP/alGy7UQPEQbHbvjEI
+ j4nZxWkstB+efKR8qkbd/A1YQzqEmgJQNLx6mz+tOxpjUTsLR1UPA82kPF/7RqNpDzaa
+ OKh0vf0UUQpDnNfeM1HxJ70xGmh/hNi06syDNreB8W+d0UXHLnY4hGIEXvkFhGH6XH6s
+ zS3g==
+X-Gm-Message-State: AOJu0Ywh9oOVyVV1Uz+UtSlYyuS6J7TKIFBHFY4mk2BLVSY8C+ri85v5
+ pBV/uGEyL3t22366ddhtfxrqrzMyB+IjFEFAraxcoSrPcUSi3gseQTJjF6SeJ2IXM4xCKTfRBTT
+ 87hN6oNA=
+X-Gm-Gg: AeBDietukJdbfbjh1CwA8hhUzNV6bcvLFaANvoCwHpoBo6fX9oMjO71OSwqwDZe/I3l
+ /XxquRAq7VgOuNfgwzhO2x3uIDTprhTVoOVACigfNqE1czq6wYPNDGBjh/qXZ+Zs+hiiXDhb/dk
+ qRHEXG/ls5EBqQHIfQnxk4smGBI5PYjMXRMErxamtuQnO3YIrnT1dQgJWOVoBoyiyZF98SbBIZc
+ V1YNKImhgP+yJ1KoObdmgCofvT3xB/ms/alftTvS1Gji2mk0WhZPpPHh5lzYbjFXaACWC84kGb2
+ tf1J/p54tnOHBcIqiF6SZ6MfTgEzRiS1uEvxt9aCjIyDgAcVx33mSmGxB5/ORy4KnbSbl8dwGAG
+ dV6SuZKg083e/FoI14YRgV0+8l5tgV8NECrrQTc1Bw1bPl/56QYiFoOGhuNrdxXTed3dmSO5bqz
+ pKKpDBGTZUJATuf4N5xoZWodSR+yDec2FpWdDafVMXv47dGzs3Bs7WlOg=
+X-Received: by 2002:a05:600c:a401:b0:48a:53ea:13e6 with SMTP id
+ 5b1f17b1804b1-48d18cf5601mr31474315e9.25.1777975517675; 
+ Tue, 05 May 2026 03:05:17 -0700 (PDT)
 Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48a820c8556sm381856295e9.4.2026.05.05.03.05.15
+ 5b1f17b1804b1-48a820c8556sm381856295e9.4.2026.05.05.03.05.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 May 2026 03:05:16 -0700 (PDT)
+ Tue, 05 May 2026 03:05:17 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-To: Jessica Zhang <jesszhan0024@gmail.com>, 
+To: dri-devel@lists.freedesktop.org, Marek Vasut <marex@nabladev.com>
+Cc: Kael D'Alcamo <dev@kael-k.io>, 
+ Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>, 
+ Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, 
- William Bright <william.bright@imd-tec.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Sam Ravnborg <sam@ravnborg.org>, Simona Vetter <simona@ffwll.ch>, 
+ Thierry Reding <thierry.reding@gmail.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org
-In-Reply-To: <20260428-imdt-dsi-display-v2-0-cf7294b5d7d6@imd-tec.com>
-References: <20260428-imdt-dsi-display-v2-0-cf7294b5d7d6@imd-tec.com>
-Subject: Re: [PATCH v2 0/2] drm/panel: Add support for TSD TST070WSBE-196C
- 8" MIPI-DSI panel
-Message-Id: <177797551566.290023.13794122301752818284.b4-ty@b4>
-Date: Tue, 05 May 2026 12:05:15 +0200
+In-Reply-To: <20260422210806.80948-1-marex@nabladev.com>
+References: <20260422210806.80948-1-marex@nabladev.com>
+Subject: Re: [PATCH 1/3] dt-bindings: vendor-prefixes: Add Displaytech Ltd.
+Message-Id: <177797551670.290023.6200666868470005595.b4-ty@b4>
+Date: Tue, 05 May 2026 12:05:16 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -98,25 +101,17 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi,
 
-On Tue, 28 Apr 2026 16:17:23 +0100, William Bright wrote:
-> This series adds support for the TSD TST070WSBE-196C, a 7" 1024x600
-> MIPI-DSI TFT LCD panel module based on the Fitipower EK79007AD
-> controller. The panel is connected over a 4-lane MIPI-DSI video-mode
-> interface and uses the RGB888 pixel format.
-> 
-> The driver is a simple non-configurable panel: the EK79007AD comes up
-> with usable defaults after the power/reset sequence, so no
-> DCS init sequence is required. It supports a single power supply, a
-> reset GPIO and the standard backlight framework.
-> 
-> [...]
+On Wed, 22 Apr 2026 23:07:23 +0200, Marek Vasut wrote:
+> Add "displaytech" vendor prefix for Displaytech Ltd. .
 
 Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
 
-[1/2] dt-bindings: panel-simple-dsi: Add Team Source Display TST070WSNE-196C
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/9f5beca48f1a70a730c05bd62fe70295a1a36839
-[2/2] drm/panel: simple: Add Team Source Display TST070WSBE-196C panel
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/a0732f5d5803385d8eef16b049f5cdded45bfebb
+[1/3] dt-bindings: vendor-prefixes: Add Displaytech Ltd.
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/42112cff8cb78ff6120983ba71bd14d52ce9dccd
+[2/3] dt-bindings: display: simple: Document Displaytech DT050BTFT-PTS panel
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/852345e0a9f3b5fd9b1ff59dc5bafc14c81283e5
+[3/3] drm/panel: simple: Add Displaytech DT050BTFT-PTS panel
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/b70c6922072f20898d5d0ec7931afd2384e567e5
 
 -- 
 Neil
