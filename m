@@ -4,36 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF1A9CD3427
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 22:03:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC089CD3427
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 22:22:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD59510E45D;
-	Tue,  5 May 2026 22:03:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3981B10E479;
+	Tue,  5 May 2026 22:22:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="rUQ1kXUl";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="fXZRIqeB";
 	dkim-atps=neutral
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C647C10E45D
- for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 22:03:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6770A10E479
+ for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 22:22:01 +0000 (UTC)
 Received: from killaraus.ideasonboard.com
  (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id D80385B2;
- Wed,  6 May 2026 00:03:37 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 450B578E;
+ Wed,  6 May 2026 00:21:57 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1778018618;
- bh=0enfH9MaghJe1NRHjDQd0G9Ook3g6sEavxPdH0LUlDA=;
+ s=mail; t=1778019717;
+ bh=CPnhvTo/ayDu0ICnIu2QOn5mr/0Y2yZIkfO+u6R0rxY=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=rUQ1kXUldVcE6uezjEG75AW4gGCp9QMg705KpcXAawY7Q2VbKt7YVux3MVo/vtUyM
- 2cyfTOw6c/polEXZeReO0AFi6IWJJvlsVsb9D8aW12ZnwOzlh+ohYspHUBTuAVaB+1
- wKIioKgySEZupTiNthDpjOly7KtzZlUOReVteOGk=
-Date: Wed, 6 May 2026 01:03:39 +0300
+ b=fXZRIqeBIjeQo1LkaQ/vthgzsebr995OeJWxRlc2HDoL+Figv4sL/WHbn6bfmGU2p
+ QWy0MyHSQc+v23g2804kp56itaPE27DLGoAg20Zqv042VSESnu7wE1sT6xNDc60sj2
+ uDKaDnYVoahAjmygNv7JFOmgq2i1dfRtMItdhwME=
+Date: Wed, 6 May 2026 01:21:58 +0300
 From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 To: Marek Vasut <marek.vasut@mailbox.org>
-Cc: linux-arm-kernel@lists.infradead.org,
- Nguyen Tran <nguyen.tran.pz@bp.renesas.com>,
- Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
+Cc: Geert Uytterhoeven <geert@linux-m68k.org>,
+ linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>,
+ David Airlie <airlied@gmail.com>,
  Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
@@ -45,17 +44,17 @@ Cc: linux-arm-kernel@lists.infradead.org,
  devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH 6/7] arm64: dts: renesas: r8a779md: Add Renesas R-Car
- R8A779MD M3Le DTs
-Message-ID: <20260505220339.GI1547435@killaraus.ideasonboard.com>
+Subject: Re: [PATCH 1/7] dt-bindings: display: renesas,du: Document Renesas
+ R-Car R8A779MD M3Le
+Message-ID: <20260505222158.GJ1547435@killaraus.ideasonboard.com>
 References: <20260419193718.133174-1-marek.vasut+renesas@mailbox.org>
- <20260419193718.133174-7-marek.vasut+renesas@mailbox.org>
- <20260429221153.GD132396@killaraus.ideasonboard.com>
- <380861ce-b832-4789-93fa-c2340ce487e6@mailbox.org>
+ <20260419193718.133174-2-marek.vasut+renesas@mailbox.org>
+ <CAMuHMdUzRoELGedrM3ELUjZr-N6DnF4TXtdQR_k74Xmfppu9fA@mail.gmail.com>
+ <71b24195-2a3c-46a4-8587-f5055a015eb8@mailbox.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <380861ce-b832-4789-93fa-c2340ce487e6@mailbox.org>
+In-Reply-To: <71b24195-2a3c-46a4-8587-f5055a015eb8@mailbox.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,41 +70,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, May 03, 2026 at 01:39:27AM +0200, Marek Vasut wrote:
-> On 4/30/26 12:11 AM, Laurent Pinchart wrote:
-> 
-> Hello Laurent,
-> 
-> >> +/delete-node/ &vin4csi20;
-> >> +/delete-node/ &vin5csi20;
-> >> +/delete-node/ &vin6csi20;
-> >> +/delete-node/ &vin7csi20;
-> >> +/delete-node/ &xhci0;
-> >> +
-> >> +&du {
-> >> +	compatible = "renesas,du-r8a779md";
-> >> +	renesas,cmms = <&cmm0>, <&cmm3>;
+On Sat, May 02, 2026 at 11:17:22PM +0200, Marek Vasut wrote:
+> On 4/29/26 11:57 AM, Geert Uytterhoeven wrote:
+> > On Sun, 19 Apr 2026 at 21:37, Marek Vasut wrote:
+> >> Extend the Renesas DU display bindings to support the Renesas R-Car
+> >> R8A779MD M3Le SoC. This SoC is similar to R-Car R8A77965 M3-N SoC,
+> >> except the HDMI port@1 is not present.
 > > 
-> > Shouldn't you then also delete the cmm1 node ?
+> > "and DU1 is unused." (whatever that may mean...)
 > 
-> Please see my reply to [PATCH 1/7] dt-bindings: display: renesas,du: 
-> Document Renesas R-Car R8A779MD M3Le , the CMM0,1,3 all seems to be on 
-> the chip and accessible. I think the CMM driver should be aware of the 
-> IP, even if it is unused, e.g. to bring it into low power state if needed.
+> Fixed in V2.
 > 
-> > And does the DU still need three clocks and three interrupts ?
-> The Geist board schematic indicates that DU_DOTCLKIN1 is present on the 
-> SoC package and is supplied by Xtal X22 on the board, so I think the 
-> answer is "yes" for the first clock part of your question.
+> >> +++ b/Documentation/devicetree/bindings/display/renesas,du.yaml
+> >> @@ -42,6 +42,7 @@ properties:
+> >>         - renesas,du-r8a779a0 # for R-Car V3U compatible DU
+> >>         - renesas,du-r8a779g0 # for R-Car V4H compatible DU
+> >>         - renesas,du-r8a779h0 # for R-Car V4M compatible DU
+> >> +      - renesas,du-r8a779md # for R-Car M3Le compatible DU
+> > 
+> > I am not sure you need a new compatible value: is the DU really
+> > different than on R-Car M3-N, or does it just lack some wiring? ...
 > 
-> As for the interrupt part, it seems DU1 is present, but not connected. 
-> That means the DU1 interrupt does exist, but is not going to be used. Do 
-> you prefer to describe it or leave it out ?
+> It seems the DU is identical to the M3N one, so I will add another entry 
+> to R8A77965 DU to handle the M3Le one, just like R8A774B1 and R8A774E1 
+> DUs . I hope that is acceptable, and also addresses the feedback on this 
+> patch ?
+> 
+> I dumped the VSP and FCP versions on M3N and M3Le and compared them, and 
+> I also wrote and read-back the CMM registers to confirm CMM IPs are all 
+> present on both M3N and M3Le:
+> 
+> FCP is identical on M3N and M3Le:
+> fe950000.fcp FCP_VCR=0x106
+> fe96f000.fcp FCP_VCR=0x106
+> fe9af000.fcp FCP_VCR=0x106
+> fea27000.fcp FCP_VCR=0x106
+> fea2f000.fcp FCP_VCR=0x106
+> 
+> VSP is identical on M3N and M3Le:
+> fe960000.vsp IP_VERSION=0x01011504
+> fe9a0000.vsp IP_VERSION=0x01011404
+> fea20000.vsp IP_VERSION=0x01011904
+> fea28000.vsp IP_VERSION=0x01011704
+> 
+> CMMs are present on M3N and M3Le, tested with write of bits 28 and 24 
+> into CM2_CLU_CTRL and then readback:
+> fea40000.cmm CM2_CLU_CTRL readback 0x11000000
+> fea50000.cmm CM2_CLU_CTRL readback 0x11000000
+> fea70000.cmm CM2_CLU_CTRL readback 0x11000000
+> 
+> And it does indeed look like we do have DOTCLKIN1 .
 
-Following our discussions on IRC, I understand there are quite a few
-unknows at this point, and more testing is required in order to upstream
-display support. I think your next version will drop support for the DU,
-I'm fine with that as a first step. We can then build on top.
+So the die seems to be the same as M3N, just with some signals not wired
+up. We could simply drop the HDMI output port in DT as Geert proposed.
+I'm however a bit concerned we would later find differences that require
+a specific compatible string.
+
+At this point, I think more testing is needed, with local access to the
+board, to check the display output. As that's hard to do right now,
+let's start by upstreaming board support without the DU, and add the DU
+on top.
 
 -- 
 Regards,
