@@ -4,152 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89196CD3439
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 08:35:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23C43FF885A
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 08:55:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2BAE10E9ED;
-	Tue,  5 May 2026 08:34:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6689A10E0E3;
+	Tue,  5 May 2026 08:55:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UBHmhnoB";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Df+8xV9T";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9526610E9E5;
- Tue,  5 May 2026 08:34:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777970099; x=1809506099;
- h=date:from:to:cc:subject:message-id:reply-to:references:
- in-reply-to:mime-version;
- bh=gxgNOt6lAt4072ouIe+6OlLAOPhkudQUuf83sPG6cQk=;
- b=UBHmhnoBI3d8UWTLNDq8VJDJD3ooKxwF3kiY6SSnJrwcVxgn4Q2528nz
- 3BKtdJFMQFM9pkhJ7sRkbHF8Nzxe76J1Qr5J2X1pOOLatG7i7haxNBfoY
- 6qi1Ieli3P3FUwUGxPKClhLMlWndVt9N/SMYPo6V3QEZj7E7fOoS8/amK
- qhm0W9Nr+uUzNl+efLmDAUgDvp/jA4+DeoP5TLC93jrwJF6/8Zzf9Wk3l
- RyiGbH0xlTvuH4+sgLs+QJHr3ggyRFX2xbb+2RBvD75oYuT5FNqPz4hLY
- gVbdf33p++NVdX0r+XxlzvGj9Ng/DlYsS5hxuZnDMLaie5h3fLZOTLZbe g==;
-X-CSE-ConnectionGUID: MMP0D35VQMGNem/qagD0CA==
-X-CSE-MsgGUID: FsGj48j7RNGwuvAXjZ3aaQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11776"; a="90290603"
-X-IronPort-AV: E=Sophos;i="6.23,217,1770624000"; d="scan'208";a="90290603"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 May 2026 01:34:58 -0700
-X-CSE-ConnectionGUID: DWi7rtaAR5mMxtMzMRKpbA==
-X-CSE-MsgGUID: uXiwme64QZe+FrY7GBsrFw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,217,1770624000"; d="scan'208";a="234742161"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
- by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 May 2026 01:34:58 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 5 May 2026 01:34:57 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Tue, 5 May 2026 01:34:57 -0700
-Received: from DM1PR04CU001.outbound.protection.outlook.com (52.101.61.65) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 5 May 2026 01:34:56 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cWq90OsiSo/7moWbiMvIDiw5QuukshUtdMBr2P8qKQNTiZUowA20i2vENeGZXNR2iZ19W8E9B2Sq0FY4Jf49fZpJczCehrpdd1MkMsw08NmeWNhkS3Iu83lQDno3N83f50mq+TkKa7iuT+YzhgY/MPMYBn5Sl7uc/B2220apt8XoRdWoY2SwUOxY5M5Z+8JdJSGadLnHgz0ixD9o7ZsBUgB0maGj2nLQVdkz9jtXtmFNoy0mPdi/STRI8gtB7YMJtrHNUKYB255T5xzO4UdZ53nK+VlRLKcdGjVINXCnoWQ8VkyAwrMzYZc891lUvIIWrSn/s8QYuWtfW2NoIrZVkw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pF/U47VagkHc+yFjT5kFOpjy28C4TikVKOw+V46TsgE=;
- b=oD/ETDZ0VKfcqplrkPqFi6uGo6/5du4BnxVz3i3TzCOj520zysM9XPgXALXWImJZBNA9dxF8TWbcF9SoguXe5BX4hBWOBE+Dk95mFUE25uOBLkJwWwgYv217Oz0UE1nhKURy/WHPT2/fwCv5LJ0oYiX7U+SDhtsNBm8/EsZTy/NfgDG/4t037QAmUYczTmqbNXJ1FzNlXbt+lq9XCGNtO3w8sfY+mW3D1OmtPW2gqQwexM9fwROERFY/HRiBYaRqKMxUjbPCmLmPBa9wfl3JFHTs00EB8eTVnUuJWGRrchBKS0up2qaCnBH9F3/obqkhmCymN8JFtR4CxiC1Wqa97Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SJ0PR11MB4845.namprd11.prod.outlook.com (2603:10b6:a03:2d1::10)
- by SA1PR11MB6845.namprd11.prod.outlook.com (2603:10b6:806:29f::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Tue, 5 May
- 2026 08:34:53 +0000
-Received: from SJ0PR11MB4845.namprd11.prod.outlook.com
- ([fe80::9ca5:4d1d:db45:f523]) by SJ0PR11MB4845.namprd11.prod.outlook.com
- ([fe80::9ca5:4d1d:db45:f523%5]) with mapi id 15.20.9870.023; Tue, 5 May 2026
- 08:34:52 +0000
-Date: Tue, 5 May 2026 11:34:43 +0300
-From: Imre Deak <imre.deak@intel.com>
-To: ChunAn Wu <an.wu@canonical.com>
-CC: Jani Nikula <jani.nikula@linux.intel.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, <intel-gfx@lists.freedesktop.org>,
- <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2] drm/i915/tc: Recover AUX channel after external TC
- port mode change
-Message-ID: <afmroyG15GjNRJUM@ideak-desk.lan>
-References: <20260505033558.157604-1-an.wu@canonical.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260505033558.157604-1-an.wu@canonical.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-X-ClientProxiedBy: GVYP280CA0002.SWEP280.PROD.OUTLOOK.COM
- (2603:10a6:150:fa::9) To SJ0PR11MB4845.namprd11.prod.outlook.com
- (2603:10b6:a03:2d1::10)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24E5B10E0E3
+ for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 08:54:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1777971297;
+ bh=/jNGw8QKAUdFeal6qNeEcQ8LN2R7QtAhmrjRg4p/cMI=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=Df+8xV9TYRSaC6v4IHtFsnHaHKiLznoWrh5sVeAo2LBHRrKC6dtwmB/a13l2Q7HbV
+ +04Ea6UE6pzsij014yJ3Qk06zXheHBBwdCdAaoGvShwmSp7lvs606QCxgiUVPbMsGh
+ kTOkfjsUTUrHFPD0OdrUPpwo01xPgVfe5c0qjZLQddjOxznffT73cqznvZQ9moW6f9
+ BUBl7KzVdwpEz64tp+Rsd88o9aWF/qL/j296/2qt/4mWqPQHuYA1Rjetj1lKP60sbQ
+ P9P1RwtvFFmepjmYFTJqLssVfsTmSCc1O2rPrSUA97y//PwYM192rPlLpqDIgt/bV2
+ jVpXpn8Qy4hRA==
+Received: from fedora (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 6FBF517E0698;
+ Tue,  5 May 2026 10:54:57 +0200 (CEST)
+Date: Tue, 5 May 2026 10:54:53 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 00/10] drm/panthor: Reduce dma_fence signalling latency
+Message-ID: <20260505105453.23144e92@fedora>
+In-Reply-To: <20260429123607.7a8c7051@fedora>
+References: <20260429-panthor-signal-from-irq-v1-0-4b92ae4142d2@collabora.com>
+ <20260429123607.7a8c7051@fedora>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR11MB4845:EE_|SA1PR11MB6845:EE_
-X-MS-Office365-Filtering-Correlation-Id: f2b99427-0c51-4b39-41aa-08deaa812d8b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|56012099003|18002099003|22082099003; 
-X-Microsoft-Antispam-Message-Info: bsDj1lSs1fHLCFzN6gsZKvtYtLmxH+xUJIv7skNqRTR6bcXL8zh9+H4zECOFbkTmMRtX6Vi9KyNIf+nt5SJGmLvlnco7lc1ch9HKArZLVubRTmmpN4fwAGSG6okOLATux/u6U8IATuGZDqbFOMjEbAGJIRQXTblqM6aO1wVJBlCRgV2un3SZxkyO73zJ7p0ptMuuI7TTgJ1Uhiq1ZCbJIHrlONJ45Zz7avZCUZX/VscRTOhMXibpd/+8ApI8V4f5QIVMJGQegGKDLYCNH2CbzQPKnDxPzNJrPyL3I7lm40EcV59ebuZppcfSq874L3Zxa22oPFPl+YdHaWWYFR4AtAsvU4JTbBFynPp4FshMpZNjdtNPgeSwaS6+BPclTUj3Q/W5zb4iMuJ6kas7/NsmPr1EF1DCiGaROpxa0dFbVyBp92JV7BnOWeXd/+kp4YFBK1TXM08G0K4lOvhgjSTj/inFzCHB+tWEqlFKKwzrXLQRM80ZOxj3Vd8KGll8b7CO3MxxDHSAE79cUDxxAoEidVVvRrxMwl4iDGqanfDyUxzlNpaIMHsbNpWCzIoxYuSkoIwoVa3tqtghnlwKvu3aMNc/Em1Vq0y+78hS46J0RkWgdnvQEctN/XndFVWD2es+WhmcCTiN5Zn2dPqt8/b9v8N29Y8g3muryMxVIrnSmY0Zv5QayPH20o2Sed0OmRzh
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR11MB4845.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(56012099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?mVgvp08CvK7o/LR5/ZrsIyl6qSG769tb005fzscQZ4P99OyC792Uqb9wTadN?=
- =?us-ascii?Q?5LjPccZsKUhgKnBdBP1Wl22NuGJq+NsYOn2R05XsN0b/fkNg927Fobkf+VqX?=
- =?us-ascii?Q?FCGV3FdozBJJmEaQgvccRy11qV6aeLLBPkGOIHhTz/E3bB9dHO6AeV9xx9TA?=
- =?us-ascii?Q?bruEMJqCqd6vHaD5U88l/KqnRCC2hn3FuCZxyBbgZWt0g+XBcWtUfFWjcn/B?=
- =?us-ascii?Q?NgDCuYRiqq3beL27UWgIvBA7aU4qju9IWFfYEhf7xmdk5QiF5mx44dgCJMe3?=
- =?us-ascii?Q?a7gOdb+IoR84JtTnN7PhqLtDPq0/nzMr/SQ7WRZ9I2kf3PwGTIu2F/Aq8UyQ?=
- =?us-ascii?Q?QTKbPTwFtBYWvttsSkMRc4yymOW2qZKy3Ucy1gWVxiQmu1HpNkVF0BDJbEho?=
- =?us-ascii?Q?k5WQn+Q5ZgfwgsWEleZXZincoQLwe6/kHxv7uhUqeqvVd+B54OfvypWGZ2pI?=
- =?us-ascii?Q?LzVY/eGejFtKUMNumjuISbD5W/o5qma848xQCjUZgosOFjdXv8mkABi5INOE?=
- =?us-ascii?Q?YCyqHSLhf4v2h8UvIV/x404vky892NdpoZGo3APB/cc0KbXsIwcQ0nOGrHwB?=
- =?us-ascii?Q?0CnIGdsbANLvJiOVuk7JXZdKT0mFtybrxVGM+HNrQ6kJmwxv8moXooPAGf4c?=
- =?us-ascii?Q?nimscJy9yVFkldL4CDUFSOYa2xmlEBLbQWG2KDRR2uA6sFvXBvwlNNXfgY5A?=
- =?us-ascii?Q?mKa4LS7xzYmuurRCUIJedksgIqLHtJ6GRVz3wsJunZgn2LjcY06fZIW5+81e?=
- =?us-ascii?Q?5P9JKnF8e7YwQD2SxOagRrMyKJFnv8ji3UywI5mMw4Mq9CVH8wA1/6H4syok?=
- =?us-ascii?Q?5FDRba9Dr6lZtIZZBgu0dGjqVhNWtrksdDAs/KqLJwEm7iqkMTlsT1nUaXbB?=
- =?us-ascii?Q?UEptDmnVWeNf+jU6BfdNu2aXquGGdDxfIGq78rSc1dAe69kA2dgcUvDsXb1O?=
- =?us-ascii?Q?8XzftUh8gR61GS04VYAzY7hSJ2psxf5s6yOV46g0Y2V5mrPSVGqMqIoytx4U?=
- =?us-ascii?Q?gxRorjwvc9TNNIOgjsI6xpAsjouPwsDfRwKMSj7yuapHyG6Q7aU54lMz7W9P?=
- =?us-ascii?Q?k+RIkqX6fWbXTuVBpDQ6Rr/9RKbPLft6cSlt1nmcXNQx5rui9DSHMsiupT5M?=
- =?us-ascii?Q?I6Aa45qEV71QfjRLJHurnEeCDObwWFaCJx0OpTlGYSyBQHXsyON+07OlSiBF?=
- =?us-ascii?Q?KKMmfPYyk5fzCTKcVdbEgc+vyKTAUutDktfzuDd9wQtSHxFs3iLvyVuq2TjC?=
- =?us-ascii?Q?64ddZfkwXzbYNIN0xq0ipd798fvR58WY4LfFeCk+q5JbHO9vrUEzIhY7p4TP?=
- =?us-ascii?Q?tMswepa/4dme2B4EMSS0yzf0PJNPGaLVLO9A+BVqWtCStrfU3inBr5wIDx9Y?=
- =?us-ascii?Q?tvLisZZeLUcFdKsCq4TxRUGPyvcZQ1rzkxr9Gakkoi+eECz23VnEMadqXfHT?=
- =?us-ascii?Q?8/9xqLnXI0S6tHWpMHXsmD4BhHNtDNGFX2Ya4P96+fTJWwMSt52TYacF2Z7E?=
- =?us-ascii?Q?zFHd3lX3NGgpLIkf+pThPbb4J0v16inr9+u2Afsh2dhKOqWL0ziTY30NvXwU?=
- =?us-ascii?Q?y87N8CsdRdYgHaJI5p9KNN6nJNMxbK5WqHK7wP52I07Y0cowZDaQGZSlITMh?=
- =?us-ascii?Q?OU1E4NtHs9E2HUm7LAIAUE/tso7+JeLwDWRr+bY+Q5r8qehqj+5qRk6PUdre?=
- =?us-ascii?Q?kiizh1IVJ87gw+t92oNLSpjMhu6ywWlj11BWB4Lqivcy/CKKhsMjq7SWXWp+?=
- =?us-ascii?Q?AnBPk2b5cg=3D=3D?=
-X-Exchange-RoutingPolicyChecked: Yt5CUgz7Z5g/EMxD2RfpKMPyt7/MNfsNKDn499/oFVUBgUO5tvJr2rf+4J5JlMUBCAgLuG62kXXndiQoTfVldG+5PDzrogRz4F8XE7t94nT9DqLgX8+tTwPVZ9/u2WS7jszL/OY7cxIRGJwebdCwUeXX/ohklLzcbwnocvEAXPvWBHCRzcFEr3tfwJ2ftRMwHluE2AhRsg069C4rQdmFqU8v+SVxIAGbOJPQsGrkzSrm/rityDW+aRB58yrxfwycpcJlkLIv/APyvV3AwUpGsCXfdqvAT0rgiOHlpccGPmPj5M4hsufyBNNMTVUoie495nhu01wA1Hk63Xz6GC4ZZA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: f2b99427-0c51-4b39-41aa-08deaa812d8b
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR11MB4845.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2026 08:34:52.8465 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: v6rbSllcAMm+Ml7Z8PRNEONTKj53xmS6t192j4uXl68UY3knQGdDy65qnjqCPq5XBQCz/8IU0tAn331sC+V5XQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR11MB6845
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,141 +62,260 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: imre.deak@intel.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, May 05, 2026 at 11:35:57AM +0800, ChunAn Wu wrote:
-> When Fn+F4 triggers mirror mode, the BIOS/EC reconfigures a TC port
-> mode (e.g. DP-Alt to TBT-Alt via UCSI) without generating HPD. The
-> driver's cached TC mode becomes stale, so intel_dp_aux_xfer() uses
-> the wrong power domain and IO routing, and AUX transactions fail.
-> 
-> This occurs when the USB-C-to-HDMI dongle does not support TBT, so
-> the mode switch creates a mismatch. It also occurs with slow monitors
-> whose delayed HPD/DDC/EDID recovery causes the Type-C layer to settle
-> on a stale tbt-alt state before the dongle finishes re-negotiation.
-> 
-> Add intel_tc_port_aux_recover() to detect hardware/cached TC mode
-> divergence and reset the PHY. Wrap it with
-> intel_dp_aux_xfer_with_recovery() to retry with corrected settings.
-> 
-> Tested on Panther Lake and Lunar Lake with a BenQ HDMI monitor via
-> USB-C-to-HDMI dongle.
-> 
-> Signed-off-by: ChunAn Wu <an.wu@canonical.com>
-> ---
->
-> [...]
->
-> +/**
-> + * intel_tc_port_aux_recover - Recover AUX channel after external TC mode change
-> + * @dig_port: digital port
-> + *
-> + * When firmware causes a TC port mode change (e.g., dp-alt -> disconnect ->
-> + * tbt-alt) during a hotkey-triggered display mode switch, AUX transactions
-> + * using the stale power domain and IO flags will fail with timeouts or errors.
-> + * This happens because:
-> + *
-> + *   1. The display driver holds the TC link in dp-alt mode (link_refcount > 0)
-> + *   2. Firmware (e.g., via HP WMI hotkey BIOS action) reconfigures the TC port
-> + *      mode externally without notifying the display driver
-> + *   3. tc->mode stays as TC_PORT_DP_ALT while HW transitions to a different
-> + *      mode, invalidating the AUX power domain and IO flags used by
-> + *      intel_dp_aux_xfer()
-> + *
-> + * This function detects the discrepancy between tc->mode and actual HW state,
-> + * and re-synchronizes them via a TC PHY reset. After recovery, AUX retries
-> + * will use the correct power domain and control flags.
-> + *
-> + * The link_refcount is temporarily cleared to allow intel_tc_port_reset_mode()
-> + * to proceed without the PHY-ownership assertion that fires when link_refcount
-> + * is non-zero and firmware has already released PHY ownership.
-> + *
-> + * Must be called outside the TC port lock (tc->lock).
-> + *
-> + * Returns: %true if recovery was performed and AUX can be retried,
-> + *          %false if recovery was not needed or not possible.
-> + */
-> +bool intel_tc_port_aux_recover(struct intel_digital_port *dig_port)
-> +{
-> +	struct intel_tc_port *tc;
-> +	struct intel_display *display;
-> +	bool recovered = false;
-> +
-> +	if (!intel_encoder_is_tc(&dig_port->base))
-> +		return false;
-> +
-> +	tc = to_tc_port(dig_port);
-> +	display = to_intel_display(dig_port);
-> +
-> +	mutex_lock(&tc->lock);
-> +
-> +	/*
-> +	 * Recovery is only needed when the link is actively held AND the HW
-> +	 * TC mode has diverged from the driver's cached state.
-> +	 */
-> +	if (!tc->link_refcount || !intel_tc_port_needs_reset(tc))
-> +		goto out;
-> +
-> +	drm_dbg_kms(display->drm,
-> +		    "Port %s: AUX recover: external TC mode change detected (%s -> HW), reconnecting TC PHY\n",
-> +		    tc->port_name, tc_port_mode_name(tc->mode));
-> +
-> +	/*
-> +	 * Temporarily clear link_refcount so intel_tc_port_reset_mode() can
-> +	 * run the PHY disconnect/connect cycle without the ownership assertion
-> +	 * that fires when link_refcount > 0 and firmware has already released
-> +	 * PHY ownership externally.
-> +	 */
-> +	tc->link_refcount = 0;
+On Wed, 29 Apr 2026 12:36:07 +0200
+Boris Brezillon <boris.brezillon@collabora.com> wrote:
 
-This looks wrong, NAK from my side:
-
-A non-zero link_refcount guards an active output, which must maintain
-the TypeC mode with which the output was enabled. So that TypeC mode
-cannot be reset from under the active output as done in this patch.
-
-The commit message fails to mention how the display driver is supposed
-to notice that the user have pressed F4 and the firmware has
-reconfigured things in the background. Assuming that the FW's
-reconfiguration in the background is actually a valid thing to do, i.e.
-doesn't result in getting the active TypeC port into a broken state, the
-transition to the new TypeC mode should happen in the regular way: via
-an HPD event, if neecessary using the
-drm_connector_funcs::oob_hotplug_event interface, disabling any active
-outputs and _then_ switching the driver's idea of the TypeC mode to
-reflect the HW state.
-
-> +	intel_tc_port_reset_mode(tc, 1, false);
-> +	tc->link_refcount = 1;
-> +
-> +	recovered = tc->mode != TC_PORT_DISCONNECTED;
-> +	if (!recovered)
-> +		drm_warn(display->drm,
-> +			 "Port %s: AUX recover: failed to restore TC port mode\n",
-> +			 tc->port_name);
-> +
-> +out:
-> +	mutex_unlock(&tc->lock);
-> +	return recovered;
-> +}
-> +
->  static void __intel_tc_port_lock(struct intel_tc_port *tc,
->  				 int required_lanes)
->  {
-> diff --git a/drivers/gpu/drm/i915/display/intel_tc.h b/drivers/gpu/drm/i915/display/intel_tc.h
-> index 6719aea5bd58..d44998a3081a 100644
-> --- a/drivers/gpu/drm/i915/display/intel_tc.h
-> +++ b/drivers/gpu/drm/i915/display/intel_tc.h
-> @@ -108,6 +108,7 @@ bool intel_tc_port_ref_held(struct intel_digital_port *dig_port);
->  bool intel_tc_port_link_needs_reset(struct intel_digital_port *dig_port);
->  bool intel_tc_port_link_reset(struct intel_digital_port *dig_port);
->  void intel_tc_port_link_cancel_reset_work(struct intel_digital_port *dig_port);
-> +bool intel_tc_port_aux_recover(struct intel_digital_port *dig_port);
->  
->  int intel_tc_port_init(struct intel_digital_port *dig_port, bool is_legacy);
->  void intel_tc_port_cleanup(struct intel_digital_port *dig_port);
-> -- 
-> 2.34.1
+> On Wed, 29 Apr 2026 11:38:27 +0200
+> Boris Brezillon <boris.brezillon@collabora.com> wrote:
 > 
+> > Right now, panthor is one of the rare drivers to signal fences
+> > from work items (not even from the threaded IRQ handler). We
+> > could move that to the threaded handler, but that would still
+> > leave the latency caused by the scheduling of the IRQ thread.
+> > 
+> > Instead, this patchset moves all the job IRQ processing to
+> > the raw IRQ handler, which is fine because what the current
+> > code does is demux the interrupts and deferring actual handling
+> > to sub work items. The only bits we keep in the IRQ path is
+> > the dma_fence signalling, which should be acceptable, in term
+> > of CPU cycles spent in the IRQ context.
+> > 
+> > Pretty much all the patches except the last two are just
+> > preparing the ground to get there. The second to last one
+> > does the thread -> IRQ transition, and the last one is some
+> > experimental interrupt coalescing support that I've added
+> > because I noticed moving job IRQ handling to the raw handler
+> > generates quite a lot of interrupts in some case, and having
+> > the system constantly interrupted like that can be
+> > detrimental.
+> >   
+> 
+> Forgot to post some preliminary numbers I collected during my,
+> admittedly, very basic testing :-). What this shows is that IRQ
+> coalescing provides small but noticeable improvements only in some
+> of the glmark scenes (terrain, refract),
+
+I think I found the problem on the "refract" regression. Turns out if I
+set cpufreq governor to performance instead of schedutil, I get those
+~20% back, which is not surprising given schedutil uses scheduling stats
+to decide to bump/lower the frequency, and the extra IRQ_WAKE_THREAD
+indirection does add regular thread activity.
+
+So, this basically leaves terrain where interrupt coalescing helps a
+bit, but it's not clear that the improvement justifies the added
+complexity or the extra CPU load incurred by the polling done in the
+threaded handler.
+
+If everyone is fine with that, I'd be tempted to drop patch 10 for now,
+and revisit it if/when we have an actual use case where it's deemed
+essential to limit IRQs coming from the GPU.
+
+Regards,
+
+Boris
+
+> the rest of the variations
+> stay in the noise of what we see between regular glmark runs. BTW,
+> those relatively small improvements (~5%) aren't even reflected in the
+> final score, because many tests have high FPS scores, and any variation
+> on those might actually have more impact on the final score (which is
+> just a average FPS IIUC) than any improvement on the lower-FPS scenes.
+> 
+> It's also worth noting that the refract scenes seems to suffer from
+> this threaded -> raw-IRQ transition, and that coalescing gets us back
+> to where we were.
+> 
+> TLDR; As always, there's no simple answer to this 'latency vs throughput'
+> issue, and it's not surprising one approach helps some cases and
+> regresses others.
+> 
+> ---------- Before this series ---------------
+> 
+> =======================================================
+>     glmark2 2023.01
+> =======================================================
+>     OpenGL Information
+>     GL_VENDOR:      Mesa
+>     GL_RENDERER:    Mali-G610 MC4 (Panfrost)
+>     GL_VERSION:     OpenGL ES 3.1 Mesa 26.2.0-devel (git-c71664cfbc)
+>     Surface Config: buf=32 r=8 g=8 b=8 a=8 depth=24 stencil=0 samples=0
+>     Surface Size:   800x600 windowed
+> =======================================================
+> [build] use-vbo=false: FPS: 2708 FrameTime: 0.369 ms
+> [build] use-vbo=true: FPS: 4209 FrameTime: 0.238 ms
+> [texture] texture-filter=nearest: FPS: 5211 FrameTime: 0.192 ms
+> [texture] texture-filter=linear: FPS: 5224 FrameTime: 0.191 ms
+> [texture] texture-filter=mipmap: FPS: 5255 FrameTime: 0.190 ms
+> [shading] shading=gouraud: FPS: 3395 FrameTime: 0.295 ms
+> [shading] shading=blinn-phong-inf: FPS: 3329 FrameTime: 0.300 ms
+> [shading] shading=phong: FPS: 2990 FrameTime: 0.335 ms
+> [shading] shading=cel: FPS: 2916 FrameTime: 0.343 ms
+> [bump] bump-render=high-poly: FPS: 1879 FrameTime: 0.532 ms
+> [bump] bump-render=normals: FPS: 5242 FrameTime: 0.191 ms
+> [bump] bump-render=height: FPS: 4997 FrameTime: 0.200 ms
+> [effect2d] kernel=0,1,0;1,-4,1;0,1,0;: FPS: 3725 FrameTime: 0.268 ms
+> [effect2d] kernel=1,1,1,1,1;1,1,1,1,1;1,1,1,1,1;: FPS: 1906 FrameTime: 0.525 ms
+> [pulsar] light=false:quads=5:texture=false: FPS: 4863 FrameTime: 0.206 ms
+> [desktop] blur-radius=5:effect=blur:passes=1:separable=true:windows=4: FPS: 706 FrameTime: 1.417 ms
+> [desktop] effect=shadow:windows=4: FPS: 2621 FrameTime: 0.382 ms
+> [buffer] columns=200:interleave=false:update-dispersion=0.9:update-fraction=0.5:update-method=map: FPS: 411 FrameTime: 2.435 ms
+> [buffer] columns=200:interleave=false:update-dispersion=0.9:update-fraction=0.5:update-method=subdata: FPS: 402 FrameTime: 2.489 ms
+> [buffer] columns=200:interleave=true:update-dispersion=0.9:update-fraction=0.5:update-method=map: FPS: 490 FrameTime: 2.043 ms
+> [ideas] speed=duration: FPS: 1008 FrameTime: 0.992 ms
+> [jellyfish] <default>: FPS: 2722 FrameTime: 0.367 ms
+> [terrain] <default>: FPS: 120 FrameTime: 8.339 ms
+> [shadow] <default>: FPS: 2086 FrameTime: 0.479 ms
+> [refract] <default>: FPS: 312 FrameTime: 3.209 ms
+> [conditionals] fragment-steps=0:vertex-steps=0: FPS: 4877 FrameTime: 0.205 ms
+> [conditionals] fragment-steps=5:vertex-steps=0: FPS: 4118 FrameTime: 0.243 ms
+> [conditionals] fragment-steps=0:vertex-steps=5: FPS: 4845 FrameTime: 0.206 ms
+> [function] fragment-complexity=low:fragment-steps=5: FPS: 4444 FrameTime: 0.225 ms
+> [function] fragment-complexity=medium:fragment-steps=5: FPS: 3722 FrameTime: 0.269 ms
+> [loop] fragment-loop=false:fragment-steps=5:vertex-steps=5: FPS: 4468 FrameTime: 0.224 ms
+> [loop] fragment-steps=5:fragment-uniform=false:vertex-steps=5: FPS: 4442 FrameTime: 0.225 ms
+> [loop] fragment-steps=5:fragment-uniform=true:vertex-steps=5: FPS: 3847 FrameTime: 0.260 ms
+> =======================================================
+>                                   glmark2 Score: 3135 
+> =======================================================
+> 
+> ---------- After transitioning to job event processing in the IRQ context ------------
+> 
+> =======================================================
+>     glmark2 2023.01
+> =======================================================
+>     OpenGL Information
+>     GL_VENDOR:      Mesa
+>     GL_RENDERER:    Mali-G610 MC4 (Panfrost)
+>     GL_VERSION:     OpenGL ES 3.1 Mesa 26.2.0-devel (git-c71664cfbc)
+>     Surface Config: buf=32 r=8 g=8 b=8 a=8 depth=24 stencil=0 samples=0
+>     Surface Size:   800x600 windowed
+> =======================================================
+> [build] use-vbo=false: FPS: 2703 FrameTime: 0.370 ms
+> [build] use-vbo=true: FPS: 4630 FrameTime: 0.216 ms
+> [texture] texture-filter=nearest: FPS: 5406 FrameTime: 0.185 ms
+> [texture] texture-filter=linear: FPS: 5429 FrameTime: 0.184 ms
+> [texture] texture-filter=mipmap: FPS: 5408 FrameTime: 0.185 ms
+> [shading] shading=gouraud: FPS: 3678 FrameTime: 0.272 ms
+> [shading] shading=blinn-phong-inf: FPS: 3587 FrameTime: 0.279 ms
+> [shading] shading=phong: FPS: 3221 FrameTime: 0.311 ms
+> [shading] shading=cel: FPS: 3119 FrameTime: 0.321 ms
+> [bump] bump-render=high-poly: FPS: 1977 FrameTime: 0.506 ms
+> [bump] bump-render=normals: FPS: 5488 FrameTime: 0.182 ms
+> [bump] bump-render=height: FPS: 5323 FrameTime: 0.188 ms
+> [effect2d] kernel=0,1,0;1,-4,1;0,1,0;: FPS: 4003 FrameTime: 0.250 ms
+> [effect2d] kernel=1,1,1,1,1;1,1,1,1,1;1,1,1,1,1;: FPS: 2008 FrameTime: 0.498 ms
+> [pulsar] light=false:quads=5:texture=false: FPS: 4961 FrameTime: 0.202 ms
+> [desktop] blur-radius=5:effect=blur:passes=1:separable=true:windows=4: FPS: 852 FrameTime: 1.174 ms
+> [desktop] effect=shadow:windows=4: FPS: 2649 FrameTime: 0.378 ms
+> [buffer] columns=200:interleave=false:update-dispersion=0.9:update-fraction=0.5:update-method=map: FPS: 412 FrameTime: 2.429 ms
+> [buffer] columns=200:interleave=false:update-dispersion=0.9:update-fraction=0.5:update-method=subdata: FPS: 392 FrameTime: 2.554 ms
+> [buffer] columns=200:interleave=true:update-dispersion=0.9:update-fraction=0.5:update-method=map: FPS: 482 FrameTime: 2.075 ms
+> [ideas] speed=duration: FPS: 1021 FrameTime: 0.980 ms
+> [jellyfish] <default>: FPS: 2939 FrameTime: 0.340 ms
+> [terrain] <default>: FPS: 126 FrameTime: 7.979 ms
+> [shadow] <default>: FPS: 2273 FrameTime: 0.440 ms
+> [refract] <default>: FPS: 251 FrameTime: 3.999 ms
+> [conditionals] fragment-steps=0:vertex-steps=0: FPS: 5148 FrameTime: 0.194 ms
+> [conditionals] fragment-steps=5:vertex-steps=0: FPS: 4555 FrameTime: 0.220 ms
+> [conditionals] fragment-steps=0:vertex-steps=5: FPS: 5245 FrameTime: 0.191 ms
+> [function] fragment-complexity=low:fragment-steps=5: FPS: 4880 FrameTime: 0.205 ms
+> [function] fragment-complexity=medium:fragment-steps=5: FPS: 4042 FrameTime: 0.247 ms
+> [loop] fragment-loop=false:fragment-steps=5:vertex-steps=5: FPS: 4846 FrameTime: 0.206 ms
+> [loop] fragment-steps=5:fragment-uniform=false:vertex-steps=5: FPS: 4854 FrameTime: 0.206 ms
+> [loop] fragment-steps=5:fragment-uniform=true:vertex-steps=5: FPS: 4207 FrameTime: 0.238 ms
+> =======================================================
+>                                   glmark2 Score: 3335 
+> =======================================================
+> 
+> ---- With IRQ coalescing enabled (max_us=100 poll_period_us=5 inbounds_cnt_threshold=5) ---
+> 
+> =======================================================
+>     glmark2 2023.01
+> =======================================================
+>     OpenGL Information
+>     GL_VENDOR:      Mesa
+>     GL_RENDERER:    Mali-G610 MC4 (Panfrost)
+>     GL_VERSION:     OpenGL ES 3.1 Mesa 26.2.0-devel (git-c71664cfbc)
+>     Surface Config: buf=32 r=8 g=8 b=8 a=8 depth=24 stencil=0 samples=0
+>     Surface Size:   800x600 windowed
+> =======================================================
+> [build] use-vbo=false: FPS: 2663 FrameTime: 0.376 ms
+> [build] use-vbo=true: FPS: 4640 FrameTime: 0.216 ms
+> [texture] texture-filter=nearest: FPS: 5335 FrameTime: 0.187 ms
+> [texture] texture-filter=linear: FPS: 5442 FrameTime: 0.184 ms
+> [texture] texture-filter=mipmap: FPS: 5434 FrameTime: 0.184 ms
+> [shading] shading=gouraud: FPS: 3683 FrameTime: 0.272 ms
+> [shading] shading=blinn-phong-inf: FPS: 3580 FrameTime: 0.279 ms
+> [shading] shading=phong: FPS: 3211 FrameTime: 0.312 ms
+> [shading] shading=cel: FPS: 3093 FrameTime: 0.323 ms
+> [bump] bump-render=high-poly: FPS: 1969 FrameTime: 0.508 ms
+> [bump] bump-render=normals: FPS: 5368 FrameTime: 0.186 ms
+> [bump] bump-render=height: FPS: 5273 FrameTime: 0.190 ms
+> [effect2d] kernel=0,1,0;1,-4,1;0,1,0;: FPS: 4038 FrameTime: 0.248 ms
+> [effect2d] kernel=1,1,1,1,1;1,1,1,1,1;1,1,1,1,1;: FPS: 2001 FrameTime: 0.500 ms
+> [pulsar] light=false:quads=5:texture=false: FPS: 4961 FrameTime: 0.202 ms
+> [desktop] blur-radius=5:effect=blur:passes=1:separable=true:windows=4: FPS: 842 FrameTime: 1.188 ms
+> [desktop] effect=shadow:windows=4: FPS: 2681 FrameTime: 0.373 ms
+> [buffer] columns=200:interleave=false:update-dispersion=0.9:update-fraction=0.5:update-method=map: FPS: 412 FrameTime: 2.430 ms
+> [buffer] columns=200:interleave=false:update-dispersion=0.9:update-fraction=0.5:update-method=subdata: FPS: 408 FrameTime: 2.452 ms
+> [buffer] columns=200:interleave=true:update-dispersion=0.9:update-fraction=0.5:update-method=map: FPS: 483 FrameTime: 2.072 ms
+> [ideas] speed=duration: FPS: 1005 FrameTime: 0.995 ms
+> [jellyfish] <default>: FPS: 2945 FrameTime: 0.340 ms
+> [terrain] <default>: FPS: 131 FrameTime: 7.663 ms
+> [shadow] <default>: FPS: 2276 FrameTime: 0.440 ms
+> [refract] <default>: FPS: 328 FrameTime: 3.050 ms
+> [conditionals] fragment-steps=0:vertex-steps=0: FPS: 5099 FrameTime: 0.196 ms
+> [conditionals] fragment-steps=5:vertex-steps=0: FPS: 4538 FrameTime: 0.220 ms
+> [conditionals] fragment-steps=0:vertex-steps=5: FPS: 5152 FrameTime: 0.194 ms
+> [function] fragment-complexity=low:fragment-steps=5: FPS: 4818 FrameTime: 0.208 ms
+> [function] fragment-complexity=medium:fragment-steps=5: FPS: 4035 FrameTime: 0.248 ms
+> [loop] fragment-loop=false:fragment-steps=5:vertex-steps=5: FPS: 4855 FrameTime: 0.206 ms
+> [loop] fragment-steps=5:fragment-uniform=false:vertex-steps=5: FPS: 4812 FrameTime: 0.208 ms
+> [loop] fragment-steps=5:fragment-uniform=true:vertex-steps=5: FPS: 4150 FrameTime: 0.241 ms
+> =======================================================
+>                                   glmark2 Score: 3322 
+> =======================================================
+> 
+> 
+> > Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+> > ---
+> > Boris Brezillon (10):
+> >       drm/panthor: Make panthor_irq::state a non-atomic field
+> >       drm/panthor: Move the register accessors before the IRQ helpers
+> >       drm/panthor: Replace the panthor_irq macro machinery by inline helpers
+> >       drm/panthor: Extend the IRQ logic to allow fast/raw IRQ handlers
+> >       drm/panthor: Make panthor_fw_{update,toggle}_reqs() callable from IRQ context
+> >       drm/panthor: Prepare the scheduler logic for FW events in IRQ context
+> >       drm/panthor: Automate CSG IRQ processing at group unbind time
+> >       drm/panthor: Automatically enable interrupts in panthor_fw_wait_acks()
+> >       drm/panthor: Process FW events in IRQ context
+> >       drm/panthor: Introduce interrupt coalescing support for job IRQs
+> > 
+> >  drivers/gpu/drm/panthor/panthor_device.h | 358 ++++++++++++++---------
+> >  drivers/gpu/drm/panthor/panthor_drv.c    |   1 +
+> >  drivers/gpu/drm/panthor/panthor_fw.c     | 226 +++++++++++++--
+> >  drivers/gpu/drm/panthor/panthor_fw.h     |  11 +-
+> >  drivers/gpu/drm/panthor/panthor_gpu.c    |  27 +-
+> >  drivers/gpu/drm/panthor/panthor_mmu.c    |  38 +--
+> >  drivers/gpu/drm/panthor/panthor_pwr.c    |  21 +-
+> >  drivers/gpu/drm/panthor/panthor_sched.c  | 475 ++++++++++++++-----------------
+> >  8 files changed, 698 insertions(+), 459 deletions(-)
+> > ---
+> > base-commit: 7455a0583a906533041a80e48c6a2e3230cce96e
+> > change-id: 20260429-panthor-signal-from-irq-d33684f4d292
+> > prerequisite-message-id: <20260427155934.416502-1-karunika.choo@arm.com>
+> > prerequisite-patch-id: 70905a2eb09ab2b31d242a5ed5af3b42fb6a464c
+> > prerequisite-patch-id: aa4c22669f80328039762f25c0b3942bbadbdc89
+> > prerequisite-patch-id: 7f61bcee3c4bb5703900b18d5b6e0f52e622f29d
+> > prerequisite-patch-id: 3402f4d60aa526d40113fc3d9b3e599f8f89e705
+> > prerequisite-patch-id: 00ddbd3d455891f6950609614c1acd2baa78b0db
+> > prerequisite-patch-id: 6a9928f609e3757cadebb2df6795d0da55745f4e
+> > prerequisite-patch-id: fd91f68f25d4bc93eec405f0131f5ae4284bfaf2
+> > prerequisite-patch-id: 553958a10a0ca2f20f7883ad4c752cfc7485c5a8
+> > 
+> > Best regards,  
+> 
+
