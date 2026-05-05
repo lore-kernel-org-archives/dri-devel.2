@@ -4,89 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB832FF885A
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 13:07:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38876FF885A
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 13:14:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CEF110E349;
-	Tue,  5 May 2026 13:07:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91CB010E434;
+	Tue,  5 May 2026 13:14:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Uu+4v2yT";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=leandro.ribeiro@collabora.com header.b="fZjl5idM";
 	dkim-atps=neutral
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBB1C10E19A
- for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 13:07:08 +0000 (UTC)
-Received: by mail-dl1-f52.google.com with SMTP id
- a92af1059eb24-12c1161232dso345905c88.1
- for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 06:07:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777986428; cv=none;
- d=google.com; s=arc-20240605;
- b=ZhwECbZxZeQOqsDSRCTGlXnwEOFmdDzBB4Zj+Bw+byQlJ3ApztI+ZpXtLx7z3wgemX
- tv/IJ1yP6ud7aeVoLbBw7U5UaxP43l+RQ5XAOyVzX8c0CT49cxN85tNWeAQeUJIg6It6
- NntTPdU8ykNtN34zKqMQYRUvUgONIOBNaEdV58L9vTdwK3bvl0zpL7ocI9vyjPinPvjY
- /zXUvB6DJNJ/8+sSVPkwmZY1cw720Xaa0BhgBDKPWEUGzeBZcYUPoJQwOaq8oo7cCRk9
- humCAP9/VxEAnR9tRo8VsH8mYWIOetptU5MnP7bfUVTzXwd006CJreD3xp5/JjJQdVWY
- NRhA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=Aiu6cYp4tFc0RwkVhgaM1Z6oSzZYZnl1hCv0pwiOPu4=;
- fh=PZqfGf8GWfs7Elavtf8TFGGBkf3ChKivlWZHSuEGon4=;
- b=a1YPygcA/5gLi5febMrIglvRpTYdSTeIJqzhhM4MwkTRjnGdodsP8avTA1uJyTAAlI
- G8fp3ckwAA9VcJPTbd7jzK6/CNt1Gfmr0XZEd8eQxV0nh7XARPB66JB5OxKNOoaDlDea
- Zyx/qeKuWiPHQtAJ+wq3gYIgN1M5iYU+m1mXPxYvs5n8Z/vMH6MSZIW9Ar4mj8laVvMc
- dVROw0EaQsxkdkKk4ZQtRGcTad74vn7LiR/JmeGaIMRNmYAmy/kT5lnJAsf8DCzUsDFm
- HHUQrAaRKFmFEo2Qp0goOawzASkRRZN5CaKuNK5o7iyuA30Ko45AGIjGg7VfOWt283dL
- joFQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777986428; x=1778591228; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Aiu6cYp4tFc0RwkVhgaM1Z6oSzZYZnl1hCv0pwiOPu4=;
- b=Uu+4v2yTd5pkuF3P2Dd/vaIKC4B3s3p+0PNHi0Bk0QoOf+AHeOgDMBTgQLk0ZRsozX
- qTOjE35ChPLZgRHB06/5RgI5QZ9cc4UFWU+midDaUH8AQ7b7qfHGTTWkzc6bzlZAyfru
- CDxeNnAHBolvRl8yNfmyjmxHtBQgG1Wm4xRdNooUIj83rceZy25XX3ygO464Gh/pVMp2
- sTIoRiuETQzywBMX/xwLQAS9DbXAymHMaklePOPAQFaq3usRPozNXEsec1Wph35TGyQ4
- 3TSG83OFrMQwE6Ki4skuELT7d09LYFj1un5iUIEf3RHQEYRJOa5xUA8sYQysFxH3o4cQ
- L6gw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777986428; x=1778591228;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=Aiu6cYp4tFc0RwkVhgaM1Z6oSzZYZnl1hCv0pwiOPu4=;
- b=UBhwcEznWZZeeblBdl2PAE9HCqYVjNmttAnEdWrvY2FaTahu8qlwRDuXbubUwcUCfE
- 7iu0OKcRluYxWgnMWYXAeSNefrtLpk3YBTuUloM0vfIwNnL93cPMAxEOF/75956V2afY
- W+ioJZgQWfN3Vz0mjxGshd33xrG27MgVv1nzPIA2DzwZGXvIYyc7mDad7sSCCdE539oO
- K0C+s3EZEM/IlUiEeirgNTC2EmysTkenSTwiLoax1u02p7cFpFzexr9bIMy1jrdOHgng
- sPwljzCEnfiX1QjCggiRk1egw46sr+tUMwjDvHLxfJ/fn3o/EeUWKddQMmtUf/HEmtfo
- EbfQ==
-X-Gm-Message-State: AOJu0Yykf/h2c+aNywA/OgfyJPp/cdFG9j3Yzo9Q6wyc8+NGnw0K/jEr
- JgSiQgokJMrh0faon4JVnyZaW2GiTUV2vAXMwWxyiFiZxosnQoesdMmhQf7lM5WOp1CdIJXxQ1T
- kTQeteoCNHiLtXYE6g1idV+dif6xieuk=
-X-Gm-Gg: AeBDietPjAia7EXuiDFX2K/tlCbvr/fTqjmj8T3lEftaWHmVkB6swT1s+YbwKo+iWU0
- hPa/gKCIeHMEEfzggHVMtJikVjYYpFYwaTXiIQ4vRqJFqNGA3V3NZGIqcvO9SqsZy0ayhqaS/RU
- uNsZ9PO7EQERZKNSfD9wgy6ett0Kk1bqxJ7UWuFMC/ZxXqdKlmktO/Ld1LJwBMScYCuVXtGy0YT
- dgxu1y3f068zNn9rBOcOBxOjYqZ4xjFeWkvbqSFjdmITunRxT31RnOpz2wRGeZyK03AIm8p7VJI
- ukI2fjRfU6jAQs0j6lGoO9Z+Cqg47BVzfmvLL1rGOJ3Q1z+GPxxqvJsEjKyGc0As8jKRNlrFks6
- upJDD
-X-Received: by 2002:a05:7022:4391:b0:12c:900b:9dee with SMTP id
- a92af1059eb24-12dfd7d1256mr2531393c88.1.1777986427924; Tue, 05 May 2026
- 06:07:07 -0700 (PDT)
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A68C10E434
+ for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 13:14:51 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1777986881; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=Kh52UljS9IVk3YoLty3YsI1r8LK5vkNvPxIL6iB1DkORU8Smt5nUXZCvRG/FD7dBXb3qWVIP5HCgMd/n86rdT13bF9DcIEEH9HvQPgBAk5jnIxAcNYxwtrQh91u/wSORfTaHB74+EgUDkbwmhUnQy+Uf5uwL7Fj03mZrFqxZVAM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1777986881;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=yHVnHlazVOsyMOL+GZlpXCOU1yuJjKoh6BmyS/UGtcs=; 
+ b=dr1Af98sEAm4Rbd76TjdnqeVFlkFxz3AbpdEUwNTvmzmQUzAIRlahj8jLJh9H1W/DOqb9jignh+jJkarQPPzriO5ftFqYC2A+oOk84WlM0lqNlVr5DiH5bQ1Mdv6Fkxtb0jOsu6QlOrFqG9zTSQaCp4cEDMZVSQprIaSttEBud0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=leandro.ribeiro@collabora.com;
+ dmarc=pass header.from=<leandro.ribeiro@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1777986881; 
+ s=zohomail; d=collabora.com; i=leandro.ribeiro@collabora.com; 
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=yHVnHlazVOsyMOL+GZlpXCOU1yuJjKoh6BmyS/UGtcs=;
+ b=fZjl5idMOR+uH5gwlhQA9ToxBevqa1KOGVBuk+nwjlmqzR9p8nuxoEsjI3Erruyz
+ I35++i8z7Nn08PLX9Qk1LcCqN9+5gqX+0qiuiBOPmwmGM5sNBRv2kinF1s55/7RJ1DG
+ fyk+87e6P5fsCcUTX9Fxovgq72y4XmTDWJIY7Bjc=
+Received: by mx.zohomail.com with SMTPS id 177798687946491.75887068535508;
+ Tue, 5 May 2026 06:14:39 -0700 (PDT)
+Message-ID: <f46b5843-017a-4717-8512-960e85bbe92a@collabora.com>
+Date: Tue, 5 May 2026 10:14:33 -0300
 MIME-Version: 1.0
-References: <EPoORLxTThi7O4O6Mpq3ZQ@web.de>
-In-Reply-To: <EPoORLxTThi7O4O6Mpq3ZQ@web.de>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 5 May 2026 09:06:56 -0400
-X-Gm-Features: AVHnY4JmvnDwJdyyjfrEiDjmrikbkAzBVJCMv4069B6iYWwSTDF4IEe6J7FJl0w
-Message-ID: <CADnq5_N3OkOmsbv3zCbc5Kk1P1rAtngt5DQowUg8kKOb_2Divg@mail.gmail.com>
-Subject: Re: amdgpu: possible regression since 7.0
-To: Alexander Stein <alexanders83@web.de>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] drm: ensure blend mode supported if alpha exposed
+To: Jani Nikula <jani.nikula@linux.intel.com>, dri-devel@lists.freedesktop.org
+Cc: airlied@gmail.com, daniels@collabora.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ pekka.paalanen@collabora.com, simona@ffwll.ch, tzimmermann@suse.de,
+ ville.syrjala@linux.intel.com, linux-kernel@vger.kernel.org
+References: <20260504140630.68707-1-leandro.ribeiro@collabora.com>
+ <20260504140630.68707-3-leandro.ribeiro@collabora.com>
+ <c150652e3382375deea18c6c2555d5271c9ab8c5@intel.com>
+Content-Language: en-US
+From: Leandro Ribeiro <leandro.ribeiro@collabora.com>
+In-Reply-To: <c150652e3382375deea18c6c2555d5271c9ab8c5@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,173 +71,132 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, May 5, 2026 at 3:34=E2=80=AFAM Alexander Stein <alexanders83@web.de=
-> wrote:
->
-> Hi,
->
-> I'm running an Arch 7.0.3 kernel and I'm experiencing various lockups of =
-the
-> GPU. System still runs and I can shutdown using another VT.
-> I haven't experienced that on a 6.19.x kernel before.
-> If you need more information I can try, but it occurs more or less random=
-ly.
-> Below is the kernel log. My GPU is
-> 03:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI]=
- Navi
-> 48 [Radeon RX 9070/9070 XT/9070 GRE] (rev c0)
->
 
-Can you bisect?
 
-Thanks,
+On 5/5/26 4:57 AM, Jani Nikula wrote:
+> On Mon, 04 May 2026, Leandro Ribeiro <leandro.ribeiro@collabora.com> wrote:
+>> Before "drm/drm_blend: allow blend mode property without PREMULTI",
+>> userspace would have to assume that only PREMULTI was supported by
+>> drivers that didn't expose the blend mode property. But now userspace
+>> shouldn't relly on that, as they can't count with drivers always
+>> supporting PREMULTI.
+>>
+>> Error out if a driver expose alpha property or pixel formats with alpha
+>> and does not expose the blend mode property. This way userspace don't
+>> have to guess. Drivers that hit such error must be fixed.
+>>
+>> Signed-off-by: Leandro Ribeiro <leandro.ribeiro@collabora.com>
+>> ---
+>>  drivers/gpu/drm/drm_crtc_internal.h |  1 +
+>>  drivers/gpu/drm/drm_drv.c           |  7 ++++-
+>>  drivers/gpu/drm/drm_mode_config.c   | 42 +++++++++++++++++++++++++++++
+>>  3 files changed, 49 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/drm_crtc_internal.h b/drivers/gpu/drm/drm_crtc_internal.h
+>> index c09409229644..bdbb6b9b94ea 100644
+>> --- a/drivers/gpu/drm/drm_crtc_internal.h
+>> +++ b/drivers/gpu/drm/drm_crtc_internal.h
+>> @@ -96,6 +96,7 @@ int drm_mode_setcrtc(struct drm_device *dev,
+>>  int drm_modeset_register_all(struct drm_device *dev);
+>>  void drm_modeset_unregister_all(struct drm_device *dev);
+>>  void drm_mode_config_validate(struct drm_device *dev);
+>> +int drm_mode_config_enforce(struct drm_device *dev);
+>>  
+>>  /* drm_modes.c */
+>>  const char *drm_get_mode_status_name(enum drm_mode_status status);
+>> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+>> index 985c283cf59f..76766a370650 100644
+>> --- a/drivers/gpu/drm/drm_drv.c
+>> +++ b/drivers/gpu/drm/drm_drv.c
+>> @@ -1059,9 +1059,14 @@ int drm_dev_register(struct drm_device *dev, unsigned long flags)
+>>  	const struct drm_driver *driver = dev->driver;
+>>  	int ret;
+>>  
+>> -	if (!driver->load)
+>> +	if (!driver->load) {
+>>  		drm_mode_config_validate(dev);
+>>  
+>> +		ret = drm_mode_config_enforce(dev);
+> 
+> Reading the code, I'll have no idea what "enforce" means here. Reading
+> the function itself isn't helping either.
+> 
+> BR,
+> Jani.
+> 
 
-Alex
+Yes, the function name choice wasn't good.
 
-> Best regards,
-> Alexander
->
-> amdgpu 0000:03:00.0: [drm] *ERROR* [CRTC:416:crtc-0] flip_done timed out
-> amdgpu 0000:03:00.0: [drm] *ERROR* flip_done timed out
-> amdgpu 0000:03:00.0: [drm] *ERROR* [CRTC:416:crtc-0] commit wait timed ou=
-t
-> amdgpu 0000:03:00.0: [drm] *ERROR* flip_done timed out
-> amdgpu 0000:03:00.0: [drm] *ERROR* [PLANE:413:plane-7] commit wait timed =
-out
-> ------------[ cut here ]------------
-> acrtc->event
-> WARNING: drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:9572=
- at
-> amdgpu_dm_atomic_commit_tail+0x38cf/0x3930 [amdgpu], CPU#3: systemd-login=
-d/
-> 1063
-> Modules linked in: cmac nls_utf8 cifs nls_ucs2_utils rdma_cm iw_cm ib_cm
-> ib_core cifs_md4 dns_resolver netfs snd_seq_dummy snd_hrtimer snd_seq vfa=
-t fat
-> snd_hda_codec_alc882 snd_hda_codec_realtek_lib snd_hda_codec_generic
-> snd_hda_codec_atihdmi snd_hda_codec_hdmi snd_hda_intel btusb mt7921e uvcv=
-ideo
-> snd_hda_codec btmtk mt7921_common snd_usb_audio videobuf2_vmalloc btrtl
-> snd_hda_core uvc mt792x_lib btbcm snd_usbmidi_lib videobuf2_memops
-> snd_intel_dspcfg mt76_connac_lib btintel videobuf2_v4l2 snd_ump amd_atl
-> snd_intel_sdw_acpi snd_rawmidi intel_rapl_msr videobuf2_common r8169 mt76
-> intel_rapl_common snd_hwdep snd_seq_device bluetooth videodev spd5118 joy=
-dev
-> mousedev realtek snd_pcm mdio_devres mac80211 snd_timer mc libphy eeepc_w=
-mi
-> snd asus_wmi mdio_bus libarc4 ghash_clmulni_intel soundcore sp5100_tco
-> aesni_intel platform_profile sparse_keymap wmi_bmof rapl pcspkr i2c_piix4
-> gpio_amdpt k10temp i2c_smbus gpio_generic mac_hid cfg80211 rfkill
-> vboxnetflt(OE) vboxnetadp(OE) vboxdrv(OE) kvm_amd ccp kvm dm_mod
->  irqbypass i2c_dev crypto_user nfnetlink uas usb_storage amdgpu amdxcp
-> i2c_algo_bit drm_ttm_helper ttm drm_exec drm_panel_backlight_quirks gpu_s=
-ched
-> nvme drm_suballoc_helper drm_buddy nvme_core drm_display_helper nvme_keyr=
-ing
-> video nvme_auth cec hkdf wmi
-> CPU: 3 UID: 0 PID: 1063 Comm: systemd-logind Tainted: G           OE
-> 7.0.3-arch1-1 #1 PREEMPT(full)  653fa807272d34162f0f7604ba64e0a2aa402e05
-> Tainted: [O]=3DOOT_MODULE, [E]=3DUNSIGNED_MODULE
-> Hardware name: ASUS System Product Name/TUF GAMING B850M-PLUS WIFI, BIOS =
-1644
-> 03/10/2026
-> RIP: 0010:amdgpu_dm_atomic_commit_tail+0x38cf/0x3930 [amdgpu]
-> Code: 8d 84 24 20 5b 04 00 c6 85 18 fe ff ff 00 48 89 85 20 fe ff ff e9 b=
-0 cd ff ff
-> 0f 0b 0f 0b e9 9f f7 ff ff 0f 0b e9 f2 cd ff ff <0f> 0b e9 b0 f7 ff ff 48=
- c7 85 18
-> fe ff ff 00 00 00 00 48 c7 85 e8
-> RSP: 0018:ffffcf07c5537418 EFLAGS: 00010082
-> RAX: 0000000000000001 RBX: 0000000000000296 RCX: ffff8e36d56c6118
-> RDX: 0000000000000001 RSI: 0000000000000286 RDI: ffff8e36d7980178
-> RBP: ffffcf07c5537688 R08: ffffcf07c553730c R09: 0000000000000000
-> R10: 0000000000000000 R11: ffffcf07c553737c R12: ffff8e36d56c6118
-> R13: ffff8e3c0f7c7800 R14: 0000000000000000 R15: ffff8e36d56c6000
-> FS:  00007f77aa5488c0(0000) GS:ffff8e3e69b52000(0000) knlGS:0000000000000=
-000
-> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> CR2: 000024c6052cc000 CR3: 0000000134fe5000 CR4: 0000000000f50ef0
-> PKRU: 55555554
-> Call Trace:
->  <TASK>
->  commit_tail+0xc1/0x150
->  drm_atomic_helper_commit+0x13c/0x180
->  drm_atomic_commit+0xb1/0xe0
->  ? __pfx___drm_printfn_info+0x10/0x10
->  drm_client_modeset_commit_atomic+0x1ec/0x230
->  drm_client_modeset_commit_locked+0x58/0x160
->  ? mod_memcg_lruvec_state+0xc5/0x1f0
->  __drm_fb_helper_restore_fbdev_mode_unlocked.part.0+0x27/0x90
->  drm_fb_helper_set_par+0x57/0x70
->  fb_set_var+0x23c/0x430
->  ? update_cfs_rq_load_avg+0x1a/0x240
->  ? update_load_avg+0x73/0x210
->  ? psi_group_change+0x10c/0x2c0
->  ? set_next_entity+0xe7/0x270
->  fbcon_blank+0x1f2/0x310
->  do_unblank_screen+0xc8/0x1b0
->  complete_change_console+0x54/0x120
->  vt_ioctl+0xeca/0x1460
->  ? security_capable+0x7d/0x1a0
->  ? capable+0x32/0x60
->  ? kernel_termios_to_user_termios+0x13/0x20
->  ? tty_mode_ioctl+0x67a/0x6e0
->  tty_ioctl+0xe4/0x980
->  ? __seccomp_filter+0x42/0x5a0
->  __x64_sys_ioctl+0x97/0xe0
->  do_syscall_64+0x12b/0x15f0
->  ? __x64_sys_ioctl+0x97/0xe0
->  ? do_syscall_64+0x12b/0x15f0
->  ? do_syscall_64+0x12b/0x15f0
->  ? evdev_ioctl+0x6d/0xa0
->  ? __x64_sys_ioctl+0x97/0xe0
->  ? do_syscall_64+0x12b/0x15f0
->  ? do_syscall_64+0x12b/0x15f0
->  ? evdev_ioctl+0x6d/0xa0
->  ? __x64_sys_ioctl+0x97/0xe0
->  ? do_syscall_64+0x12b/0x15f0
->  ? do_syscall_64+0x12b/0x15f0
->  ? __x64_sys_close+0x3d/0x80
->  ? do_syscall_64+0x12b/0x15f0
->  ? __irq_exit_rcu+0x4c/0xf0
->  entry_SYSCALL_64_after_hwframe+0x76/0x7e
-> RIP: 0033:0x7f77a9d1604d
-> Code: 04 25 28 00 00 00 48 89 45 c8 31 c0 48 8d 45 10 c7 45 b0 10 00 00 0=
-0 48
-> 89 45 b8 48 8d 45 d0 48 89 45 c0 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff=
- ff 77
-> 1a 48 8b 45 c8 64 48 2b 04 25 28 00 00 00
-> RSP: 002b:00007fffe582da10 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-> RAX: ffffffffffffffda RBX: 000000000000001b RCX: 00007f77a9d1604d
-> RDX: 0000000000000001 RSI: 0000000000005605 RDI: 000000000000001b
-> RBP: 00007fffe582da60 R08: 00000000ffffffff R09: 00007fffe582da40
-> R10: 00000000ffffffff R11: 0000000000000246 R12: 000055ae5d6c6e80
-> R13: 0000000000000006 R14: 0000000000000000 R15: 0000000000000000
->  </TASK>
-> amdgpu 0000:03:00.0: VM memory stats for proc (0) task (0) is non-zero wh=
-en
-> fini
-> amdgpu 0000:03:00.0: VM memory stats for proc Xorg(1111) task Xorg:cs0(11=
-06)
-> is non-zero when fini
-> amdgpu 0000:03:00.0: VM memory stats for proc (0) task (0) is non-zero wh=
-en
-> fini
-> amdgpu 0000:03:00.0: VM memory stats for proc (0) task (0) is non-zero wh=
-en
-> fini
-> amdgpu 0000:03:00.0: VM memory stats for proc (0) task (0) is non-zero wh=
-en
-> fini
-> amdgpu 0000:03:00.0: VM memory stats for proc (0) task (0) is non-zero wh=
-en
-> fini
-> amdgpu 0000:03:00.0: VM memory stats for proc (0) task (0) is non-zero wh=
-en
-> fini
-> --
-> Sorry if this hits the mailinglist twice. I sent it already days ago, but=
- it
-> was not visible in the archives.
->
->
+drm_mode_config_validate() only produces warnings, while
+drm_mode_config_enforce() returns error codes and should be used to
+prevent initializing a driver that does not comply with the required
+rules. In this case, the rule being added is supporting plane alpha but
+not the blend mode property.
+
+I could add such kind of rule to drm_mode_config_validate() itself, but
+I wasn't sure if people would be happy with it producing both warnings
+and errors. But maybe that would be a better approach than what I did.
+
+> 
+>> +		if (ret)
+>> +			return ret;
+>> +	}
+>> +
+>>  	WARN_ON(!dev->managed.final_kfree);
+>>  
+>>  	if (drm_dev_needs_global_mutex(dev))
+>> diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode_config.c
+>> index 66f7dc37b597..20fd26ecb957 100644
+>> --- a/drivers/gpu/drm/drm_mode_config.c
+>> +++ b/drivers/gpu/drm/drm_mode_config.c
+>> @@ -738,3 +738,45 @@ void drm_mode_config_validate(struct drm_device *dev)
+>>  	     "Must have as many primary planes as there are CRTCs, but have %u primary planes and %u CRTCs",
+>>  	     num_primary, dev->mode_config.num_crtc);
+>>  }
+>> +
+>> +static int plane_require_blend_mode_for_alpha(struct drm_plane *plane)
+>> +{
+>> +	struct drm_device *dev = plane->dev;
+>> +	const struct drm_format_info *fmt;
+>> +	u32 i;
+>> +
+>> +	/* blend mode property supported, no need to check anything */
+>> +	if (plane->blend_mode_property)
+>> +		return 0;
+>> +
+>> +	if (plane->alpha_property) {
+>> +		drm_err(dev, "[PLANE:%d:%s] alpha property exposed but blend mode not setup",
+>> +			plane->base.id, plane->name);
+>> +		return -EINVAL;
+>> +	}
+>> +
+>> +	for (i = 0; i < plane->format_count; i++) {
+>> +		fmt = drm_format_info(plane->format_types[i]);
+>> +		if (fmt->has_alpha) {
+>> +			drm_err(dev, "[PLANE:%d:%s] pixel format with alpha exposed but blend mode not setup",
+>> +			        plane->base.id, plane->name);
+>> +			return -EINVAL;
+>> +		}
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +int drm_mode_config_enforce(struct drm_device *dev)
+>> +{
+>> +	struct drm_plane *plane;
+>> +	int ret;
+>> +
+>> +	drm_for_each_plane(plane, dev) {
+>> +		ret = plane_require_blend_mode_for_alpha(plane);
+>> +		if (ret)
+>> +			return ret;
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+> 
+
+-- 
+Leandro Ribeiro
+
