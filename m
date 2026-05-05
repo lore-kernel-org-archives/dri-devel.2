@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79BA2CD3427
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 12:51:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86681FF885A
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 12:51:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F08DC10EAC4;
-	Tue,  5 May 2026 12:51:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 157F510EAC8;
+	Tue,  5 May 2026 12:51:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="oGGHN1cu";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="vQCBZUPW";
 	dkim-atps=neutral
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
- [209.85.221.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B34B310EAC4
- for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 12:51:20 +0000 (UTC)
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-43d7badbd7dso2414035f8f.2
- for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 05:51:20 -0700 (PDT)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B944210EAC4
+ for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 12:51:21 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-44dd5cb0f81so1237033f8f.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 05:51:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1777985479; x=1778590279; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1777985480; x=1778590280; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:date:message-id:subject
  :references:in-reply-to:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=1UYQAESnOyxoMqRm/R2b1rrlMHxu5iHH63AuKOpb/GM=;
- b=oGGHN1cuePs6+br+ze7udRp8pPu+mX/bQlrutybXLzXLdwcMU3dtz66PnAThKNdj7z
- r7x0YRREf62Aqf88v6bHtwdxm7P3smG3Xmwqi3mGEZN46RU7dyUnFQl89Ed6NZxMtJBI
- cJWohtRyLqw3m7H5Yaq6pQJIrhyPEqIhkYpAhmNJi8MzYcENpers6H8IacUJ/TqwIjCe
- OziEzPCwVky/2f8eygqQXp3a3/96E4Lr1mG4rH/M8csc++VlaWriJ1lYbxn5k2gEm84d
- Ca0k/1Ld/7NFZxpWjqY54y3lH4d6qTXzi4QY15/FC5OPeCHnsPgqzQPWf+TRk6osFnkJ
- KY7w==
+ bh=RYjSXtv2b2p1dWmem9U9G4n20yFMMRsWm/tKYwxj1Zk=;
+ b=vQCBZUPWLnXm4ZZx1a6/3Naybcd9kDqhLsVLAZZSATPmfQlk0kLdr5Yde3oq80o18j
+ qNXUIWr+Ts8nGyB3uThJTAEA8wTJOOFsWKtTyAEZL+HlLKAqWdxUqREBan9MGyr3zRen
+ QQWdyKO2278KJaMxywRNbmxpcxeEIOaNRLUYvw50dAVAbHLRNujQp51/j7oAR2y3SR7n
+ iYJ+lbSeyea/ncdVBLRGZxe9REyrY0pz4DtN2CsoK0SqIy2+30Kawtpe30xQzmQMZhsG
+ Jh1t91pl5+nG+LQcRiWH77A0B3XP3clW2uCwFGDdDKxLcXZvVEqiSuoUCDMt43a3cgeO
+ JXcw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777985479; x=1778590279;
+ d=1e100.net; s=20251104; t=1777985480; x=1778590280;
  h=content-transfer-encoding:mime-version:date:message-id:subject
  :references:in-reply-to:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=1UYQAESnOyxoMqRm/R2b1rrlMHxu5iHH63AuKOpb/GM=;
- b=H2n4+/Wlylkk/+qwbNSAO6ZRYgyfFFAw12OcvjEc7U8ELwk4eVb4Yi3AKCADgIcY0G
- /HECX19ERtEPg47kiOxQX/iqVIVANAGcaqK+p4Aq+lWovWyINw9fUlP23rliWaRZgyxP
- natfAX5sq4la7Izfja7p9ssMF+74VR2Af4uTxpphPhxHJ+2EISBGP1hTy01Vc/tjkyj7
- Pm/UFkPEtmio39Ob6bPYOdVZplfPl8xODEaDIRkDU3Tt+G9TnpIKo+oT18gDdaIQ3+qB
- J02U+PRCsh6DrgHgbzSrP2Rdt7PSi/yPgTlh21j1DUnAG3NrRjEm9IQTmfA5HH1blT0P
- 4v+w==
+ bh=RYjSXtv2b2p1dWmem9U9G4n20yFMMRsWm/tKYwxj1Zk=;
+ b=GHlZTsy85E4RqzZ4/2iSZAKTqg0LuJMQA46zJqqIVGJVigFgH0EE3jdbaA+uugZqDP
+ KC77pywwjTX6oPT+l66Vuv5c7bp9fLbKgB3tvOLBbPDtwqvHeo13R2yCo06WOHGDqYi2
+ sdHxu2RDtV3zYfNRoZUj2cWYbC5Xfnp3mtcvluhtk9KV07r2PpW+IWE7XUQFRV7S45+S
+ WS74rQiTWMkSZd07P3DhfPqXY1ezHvbfozHBkB7xlA2UV8AGOYEC7xuQQ/BAkJSNWoWM
+ 0p3sigVDwiwoqHJr0cZ0K6fa/o18Dq1fdJEkfiWYVDNAGxpAMKU3fp4Njad8bYVzzsgZ
+ Byfw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+pL+TzKKDuBgDE3E0/Rbf+aGxe3yj/kUnFH1tdOE4WdkahQsTqonHlaz+85/4b4HeRh+1mXuhOCPU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxkAL5wZhipH3LGT+s7wrLu/iSJKOhiQC4xae4mkW5QVIW4qHUi
- WbmMVnMJg13CTOrFAcG5fZoOiGoNJ8gt+wCVK78UkXf1cHBy2uwBLfhHrDdCD5TU1CQ=
-X-Gm-Gg: AeBDietQQjfJ3naujt+ixsMqETzMfZjKxlxuL7xFami2mha4MGSkIqMYfW/7HHxYGPg
- DDQBT4eBdzwn7go+9lbaIQqJ6/e1Ou3S4y8jDiUeerMHKEb793upj418+anXV7G44H1wpYC8Gmz
- +VsXjwedqMFBTAGmaKtDXeBk0CzOJnQdmArqIgOGsYpj0iNGVlZiuwAZ5k+mPMVkyhyHt5a9eWO
- 4Fb2uA4QxRBptbKcWPSynGZR7FqjftSrEUQxoMXA5pNB84Scj9M23qvCg3id8DRnxLsSkxfECMf
- j4rt5FeqFZzdhgmkYUl5qWoh/OR5IqWwTHVnY21BkqKCFqA1ps7IJqIa25rqVMKmOZHyjWVDACP
- /jnzg2D0GTWMa5ISj4GPInhjSStIaF7f4HYoGvlGxXtPW/wo9i4k58dynAprstdmYC5IVrTkHY5
- hRYF53WMrpqu2qeuFb20XHsUZeS8WaoILj/6hU5/1l0fKtJ4SnF1395Mg=
-X-Received: by 2002:a05:6000:26c4:b0:43c:f247:4792 with SMTP id
- ffacd0b85a97d-44bb32fd802mr24179647f8f.12.1777985478915; 
- Tue, 05 May 2026 05:51:18 -0700 (PDT)
+ AFNElJ9e07PV3aPTHzDb4XK4kbXKR0/pwCHNgbVzl+etxA50KiLyy75dHKT+XQF/nJ/ktg83TGDCg3cDDDA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxRrg07i3r1YbGYMxsMeG+zTbMyhaLPR9dDB4ttQmyNw8V8XijL
+ y5QK9BfA6V86ermV0cv0gugCk4sALBfvKrIq5dmYfG06lVvCPW45N8yQBZ9CrzNPNfs=
+X-Gm-Gg: AeBDies+fYTt2YCzu9CzqBazNtrkQYlE3uNzIJ65B8MK64YbFgP6qV5UK9wudKiwSm3
+ qlFP0XrPVBaoiaY2ZC9x1oi5ljNVik8lcvyZqAN7JdK4kbOZ7+IPPaOpEo7awubugQqU2Db+YH3
+ 9SN1uEL3gG0nI5K8/UbSr2/D67j5NJA1ZmbqGUcTi6UGj4nHAg1PCNqbb8YWtEtX8jjogyov26r
+ wwgrsLyV1inz+F714dz7FRtC9Ge72mtQ+tvTkk4MAKmqPqB0MKu/SZ93mj81D0kFSzcxQ0Kvxtl
+ J8dcOiVADnWTnIHuOdxJk6+lc+QmEJu7iZgn9l+KI165JCeyTt+yJ5Zi/XaglFwYfdGFgCNkPw7
+ /9kDCI8YG0bXwWhxpYBbY1OVbvGglF9/WUrAZZiN8jvpY92fMeIX801kFZkUoOVepAEXPhfpoK9
+ vW8hMtkqO30H7KBA/QsnI3zwXbzJOfatRQ4sk+dxzQGffTJZB+i85sL0qcwTJKALYFAQ==
+X-Received: by 2002:a5d:5f50:0:b0:449:31ca:5e53 with SMTP id
+ ffacd0b85a97d-44fdc4fc60amr6655328f8f.8.1777985479921; 
+ Tue, 05 May 2026 05:51:19 -0700 (PDT)
 Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45055f249bbsm3976785f8f.36.2026.05.05.05.51.18
+ ffacd0b85a97d-45055f249bbsm3976785f8f.36.2026.05.05.05.51.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 May 2026 05:51:18 -0700 (PDT)
+ Tue, 05 May 2026 05:51:19 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
 To: Jessica Zhang <jesszhan0024@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -69,15 +69,14 @@ To: Jessica Zhang <jesszhan0024@gmail.com>,
  Cong Yang <yangcong5@huaqin.corp-partner.google.com>, 
  Icenowy Zheng <zhengxingda@iscas.ac.cn>
 Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jitao Shi <jitao.shi@mediatek.com>, 
  Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20260503091708.1079962-1-zhengxingda@iscas.ac.cn>
-References: <20260503091708.1079962-1-zhengxingda@iscas.ac.cn>
-Subject: Re: [PATCH] drm/panel: boe-tv101wum-nl6: restore MODE_LPM after
+In-Reply-To: <20260425165751.1716569-1-zhengxingda@iscas.ac.cn>
+References: <20260425165751.1716569-1-zhengxingda@iscas.ac.cn>
+Subject: Re: [PATCH] drm/panel: himax-hx83102: restore MODE_LPM after
  sending disable cmds
-Message-Id: <177798547810.553197.7357142190879759101.b4-ty@b4>
-Date: Tue, 05 May 2026 14:51:18 +0200
+Message-Id: <177798547910.553197.2210349130446801175.b4-ty@b4>
+Date: Tue, 05 May 2026 14:51:19 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -99,7 +98,7 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi,
 
-On Sun, 03 May 2026 17:17:08 +0800, Icenowy Zheng wrote:
+On Sun, 26 Apr 2026 00:57:51 +0800, Icenowy Zheng wrote:
 > When preparing the panel, it seems that it always expects commands to be
 > transferred in LP mode. However, the disable function removes the
 > MIPI_DSI_MODE_LPM flag, and no other function re-adds it.
@@ -112,8 +111,8 @@ On Sun, 03 May 2026 17:17:08 +0800, Icenowy Zheng wrote:
 
 Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-fixes)
 
-[1/1] drm/panel: boe-tv101wum-nl6: restore MODE_LPM after sending disable cmds
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/570cf799e87ae805eacfab3b4ba66676b5fccdb6
+[1/1] drm/panel: himax-hx83102: restore MODE_LPM after sending disable cmds
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/2d4e80271f784aa0c7b17676e9762c7e8156be1c
 
 -- 
 Neil
