@@ -4,150 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E35CCCD3440
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 14:50:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F2EFCD3427
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 14:51:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45B1410E438;
-	Tue,  5 May 2026 14:50:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0AF1810E443;
+	Tue,  5 May 2026 14:51:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="l/9FEifz";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KcwHx5ng";
+	dkim=pass (2048-bit key; unprotected) header.d=shazbot.org header.i=@shazbot.org header.b="fXU0z364";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="AzG99EHP";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B1A510E443
- for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 14:50:09 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 645DjcVe3501554
- for <dri-devel@lists.freedesktop.org>; Tue, 5 May 2026 14:50:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- KBSnO8fLfv2V7HIGkj9CawV0Uw7GLfZNqY6E6hFC104=; b=l/9FEifzdbjK9Knf
- VYMr3kcwzNNLhbAzkKvw0GYs2OJ7sGEeOZWHWKf0cK+obbOnyvKMJDrIQJ8lgoHV
- XU/JcwvsxKjYVEKjIGZuOVpxLX4NZmGktmosZokNx+YJqslTQBCiGGl9BCYdMXNE
- crE7L0LpAeXm5vmofh7Uggtr3DCHMeTSJtLFDz6DF2o4nJfDx6jsKCqBo1yrq0Jy
- rqamtvs6nhXmQIdnBDGtNhhFEDzHZ0fsjdc6/iAFVW2wmae8RcSCd8kJi5+jxz5F
- c8fmALkBNzOLw+891xaprdQssFDUYsd3Hx7I5HqJ9STd75ldyI54mKNtTm1wzK9E
- wtw6lQ==
-Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dyhqf89ad-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 14:50:08 +0000 (GMT)
-Received: by mail-dl1-f72.google.com with SMTP id
- a92af1059eb24-1306c2f7037so1384118c88.0
- for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 07:50:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1777992607; x=1778597407;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=KBSnO8fLfv2V7HIGkj9CawV0Uw7GLfZNqY6E6hFC104=;
- b=KcwHx5ng3mFAEBgdCImIMzVFuq9SFpigVPzRtgwgOAl7zb4XcqGHMGX8an2ew8eeZq
- n6CTcQyRrZCLNYjKb/q+YMzNm0x7B+Pei/eLkdsHzp8iMp2bC6kOvyMvXDqxFtClGi5E
- lXYao2F/EJ7+xGtw76WiIFeklZtyfknq6d03ljoXHoWIzFJvlhcstOy8aOffeIyEi14b
- BiPS6aA8CuhXIzgX7mn3eqaO9n7TkQjWwvmuUqVklOCqbZbrW0Q+wOQ3dDeAHcsM6oNl
- Oe1dnqoRvcNjHA4OY+x+I5fxbY4DM00RpDbHRAjrpEIb6Hf03uwW+UOhRUWclxiztFx+
- ubng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777992607; x=1778597407;
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=KBSnO8fLfv2V7HIGkj9CawV0Uw7GLfZNqY6E6hFC104=;
- b=g6v+XwWE7zERKzTGnkMm9ru8MlCgig20wlOZtIbA/c8v4gr7HnUu5ceqEYLPU1jA39
- wpNxgpwfO2uwdCv0Y3hQ7k+UeqtY7rEOVd89ETIYcviWUtR4O8PROE2r1C+zPAYzv4Fk
- e00dhz6nSbjm7KtVCUG3E8euHFbJoLTaFJojSMc55qKvlp8GQl5Im8BcHjUxTPBNpyvJ
- g1oa6bd/2ebChJbf84IOwjoGhEaqoVCQTW3aLHUUu0l7u3hUG+qv2x+vQPfesPewg1lf
- fltnDExDOt6IC+TGdgTrU3ul/vZSSoOgb5tvgMu7iHrK5+2p2r4OfEKa3P0Fn/9P2qCH
- 3jjg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+DKnrFaBQ2aQl+/EyJuTwvUn/f9Wi+82zMQvOGDvhcOq8FaiUWs2CEhdIoYXOWAyb2gHbu3ER7Ouw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwauJ6+aeU6OopZOjiUav5T15ESo94HuHR1Yh5dCYNths2TsYP2
- pGr/UcUW9OZaEsR1C0VTE4IbzFCbndjmDdfUcUo3vsVYDaJggrngiD3YstRluStvAnmygtw+T+f
- KjT9Xd+vZvHBhJzHPCe9z6WWXxdmXkOwOVxjJx0bDZI2FQEc6Fjeb9xU1gSapc5W6s1jHKac=
-X-Gm-Gg: AeBDievZ4yTlrdwloAioWRaVg7Smh8Ab7mqoGceDKMBHHbfqdRxWBCFANfFrPq1WN+5
- dsllWJ2YzHfm86Ny5IJ342y9p1Rj8ZSbxtqDExu3f87gxXsaldN9OpD2qIljf5FOdWarwzSaTbw
- +smnuphCk+KVcauq8WqWJVMxHzGNpUx8rtHvL7FD6R/PaSC4mF7M6RHKyxTE0Ge5Yz68QHCkw9j
- lWQwmJs2glGa9u3MyevB/+srgx9O3hovEhGFKt1KlZZYfqjAg2vOx1XfcWKt2dz2UK/8xqLkvj6
- hMljkbaFQnXmZhcLQgn0swr54JOX/7BVXTOq+ffjOtdNrFCBOaROLF6L0TZ+jxKPqJDmKMPj03b
- QyQsjMt/h5rnLbq4eKVLHw8O2FyGpnN24rj8tCnfdNmFQIfxOO1bBcMrN8j/l8fXUxFE9Ql5Yfy
- oGMz6Ygc76aHzJ3pFz
-X-Received: by 2002:a05:7022:6628:b0:122:33e:6d41 with SMTP id
- a92af1059eb24-12dfd84327fmr6504965c88.23.1777992607375; 
- Tue, 05 May 2026 07:50:07 -0700 (PDT)
-X-Received: by 2002:a05:7022:6628:b0:122:33e:6d41 with SMTP id
- a92af1059eb24-12dfd84327fmr6504928c88.23.1777992606769; 
- Tue, 05 May 2026 07:50:06 -0700 (PDT)
-Received: from [10.227.110.203] (i-global254.qualcomm.com. [199.106.103.254])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-12df8279e57sm19149584c88.3.2026.05.05.07.50.03
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 05 May 2026 07:50:05 -0700 (PDT)
-Message-ID: <ae68bdb3-d683-4e7a-a27f-739214656ce2@oss.qualcomm.com>
-Date: Tue, 5 May 2026 07:50:03 -0700
+Received: from fout-a2-smtp.messagingengine.com
+ (fout-a2-smtp.messagingengine.com [103.168.172.145])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A68FB10E443
+ for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 14:51:02 +0000 (UTC)
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+ by mailfout.phl.internal (Postfix) with ESMTP id D4E38EC017D;
+ Tue,  5 May 2026 10:51:01 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-06.internal (MEProxy); Tue, 05 May 2026 10:51:01 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+ cc:cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm2; t=1777992661;
+ x=1778079061; bh=gkDZbs2uaJHENXDOI2poVxNdOMle19rKsTDPE0HZKMA=; b=
+ fXU0z364wpLxyhGw1FFiSVfRZctUjUqsgLbmFjICajIPr/x7ipnqLrG7lm/uwzCs
+ It+jQB1lwqEQtgrzHP8jfg3I3uIDBO3sY/ZR8gR17sz87ibQ1L+XhXAktc6nsYdS
+ +lYs81EzRvnPPpBDod4WMiSn02jKh9DV535B5wgFtMCtvfg5OLarzxgwvgTh2EYz
+ w33bcZs14dAks0R79+a09NR42Y3q4pk5E6HVnlgkUt4JwPOD2XyY3JYSH5Xf6wKx
+ URxS6lk/1jgaPF+CNpUClihp4ywhhmFymKpKHt5BhMi8gQZssgs6KDnfLfWeEl/f
+ PAMLNlxxmAvIlCR4Ic6T/w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1777992661; x=
+ 1778079061; bh=gkDZbs2uaJHENXDOI2poVxNdOMle19rKsTDPE0HZKMA=; b=A
+ zG99EHPhenxS4yZZfFG60g7VrVmcxsv1fMbNLEBVDpJTlSiAWHsDj27R4bTeL2Rf
+ PX2yLeUoWkWs12dsYqHCZNoS8DrwUQLkreK6GaWsAouQZAT5axnzUci8BPfxuhAQ
+ 2/E2wQ5aemdhY4QwuKF3nmnmYLUt+5hZACCjl3dOsw/nxOwSl8SPGL+XdSZnVdJ7
+ Xne2EChYhTFlyH7MQfTSbB27vCvXZqWIuufsaSvRCP5MXc7xfEgR7UGw/OmQPD46
+ UbVQlOWobvrcYf9u8MbyMvJa5K1StuDEz1mEo5DsGCJRxsj/2wuGkc4nWuiupBXD
+ +UU1wFaArRJEZivAvq7HA==
+X-ME-Sender: <xms:1QP6adOsYjVujziS2XbXhHbegIg0FLeI-rQ73vipHvb_2LUmfieotA>
+ <xme:1QP6aeURQAKx3onP5Z7kUGP2n_XAlfpZmBNsnYsIyglcDUWYhJZrkh8uZXQDp3Z42
+ eD4zNXyXnCoBRpAvt6QVkuQK3UiDdQ5hFlB6rsK-8QzUgoeHyaJ>
+X-ME-Received: <xmr:1QP6aYQV4xWIBaqkM6kEOqlTHpYN41HaxgTUpQI5ca3mj-jAMvIeoUoyk7A>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgddutdduleelucetufdoteggodetrf
+ dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
+ rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
+ gurhepfffhvfevuffkjghfofggtgfgsehtjeertdertddvnecuhfhrohhmpeetlhgvgicu
+ hghilhhlihgrmhhsohhnuceorghlvgigsehshhgriigsohhtrdhorhhgqeenucggtffrrg
+ htthgvrhhnpeekheejieetffefueeiteejtdejffdvleelvdeuvdffvdefteeghfevkeeu
+ vdefvdenucffohhmrghinhepkhgvrhhnvghlrdhorhhgnecuvehluhhsthgvrhfuihiivg
+ eptdenucfrrghrrghmpehmrghilhhfrhhomheprghlvgigsehshhgriigsohhtrdhorhhg
+ pdhnsggprhgtphhtthhopedvtddpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtoheplh
+ gvohhnsehkvghrnhgvlhdrohhrghdprhgtphhtthhopehjghhgsehnvhhiughirgdrtgho
+ mhdprhgtphhtthhopehmrghtthgvvhesmhgvthgrrdgtohhmpdhrtghpthhtoheprghmrg
+ hsthhrohesfhgsrdgtohhmpdhrtghpthhtoheptghhrhhishhtihgrnhdrkhhovghnihhg
+ segrmhgurdgtohhmpdhrtghpthhtohepmhhnghihrggurghmsegrmhgriihonhdruggvpd
+ hrtghpthhtohepughmrghtlhgrtghksehgohhoghhlvgdrtghomhdprhgtphhtthhopegs
+ jhhorhhnsehkvghrnhgvlhdrohhrghdprhgtphhtthhopehsuhhmihhtrdhsvghmfigrlh
+ eslhhinhgrrhhordhorhhg
+X-ME-Proxy: <xmx:1QP6ac1XEGUg9AUVJlQ0-SZQrvWT5ZvR-QbEsKC7sMztsJMLBvciyQ>
+ <xmx:1QP6adixnXdwv19vs0-AxX5Vue1jOu8ROretV_FjnrNHOaC2quRPVw>
+ <xmx:1QP6aSZ9G6mwiUoZVYIItZS1tGQKri9Z_gVMeoDrzZ-MJzHFmg_rYQ>
+ <xmx:1QP6aeN65oRxR3evY_-F0Q7K6P2zlzr49_AlYTFK649DON_Wa5r3Rg>
+ <xmx:1QP6aT3lKtiqvfZtVlBsud0gtvkXfV8SYs66edwWzbncxNiYnjc3l2Kt>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 5 May 2026 10:50:59 -0400 (EDT)
+Date: Tue, 5 May 2026 08:50:58 -0600
+From: Alex Williamson <alex@shazbot.org>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Jason Gunthorpe <jgg@nvidia.com>, Matt Evans <mattev@meta.com>, Alex
+ Mastro <amastro@fb.com>, Christian =?UTF-8?B?S8O2bmln?=
+ <christian.koenig@amd.com>, Mahmoud Adam <mngyadam@amazon.de>, David
+ Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
+ <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, Kevin Tian
+ <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>, Pranjal
+ Shrivastava <praan@google.com>, Alistair Popple <apopple@nvidia.com>, Vivek
+ Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org, alex@shazbot.org
+Subject: Re: [PATCH 4/9] vfio/pci: Convert BAR mmap() to use a DMABUF
+Message-ID: <20260505085058.74c34290@shazbot.org>
+In-Reply-To: <20260505104911.GB11063@unreal>
+References: <20260416131815.2729131-1-mattev@meta.com>
+ <20260416131815.2729131-5-mattev@meta.com>
+ <20260501161915.75525c15@shazbot.org> <afhNeYS174EW7RYp@nvidia.com>
+ <20260505104911.GB11063@unreal>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 14/16] wifi: ath12k: Switch to generic PAS TZ APIs
-To: Sumit Garg <sumit.garg@kernel.org>, andersson@kernel.org,
- konradybcio@kernel.org,
- Sowmiya Sree Elavalagan <sowmiya.elavalagan@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-media@vger.kernel.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
- linux-remoteproc@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
- akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jesszhan0024@gmail.com, marijn.suijten@somainline.org,
- airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
- dikshita.agarwal@oss.qualcomm.com, bod@kernel.org, mchehab@kernel.org,
- elder@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- jjohnson@kernel.org, mathieu.poirier@linaro.org,
- trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
- pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
- tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
- srinivas.kandagatla@oss.qualcomm.com,
- amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
- op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
- skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
- Sumit Garg <sumit.garg@oss.qualcomm.com>
-References: <20260504130603.1474043-1-sumit.garg@kernel.org>
- <20260504130603.1474043-15-sumit.garg@kernel.org>
- <3bfdc11c-115f-45ab-b0ab-75ad88dc6f31@oss.qualcomm.com>
-From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <3bfdc11c-115f-45ab-b0ab-75ad88dc6f31@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA1MDE0MSBTYWx0ZWRfX0idpAlg4rqvt
- LRFlbn+4BiZXJV1vMYQvdZmOrKSpgFyg8r4bnEQMN/r8LQ+a3z+W/0GMCdKDWWBDuvaa2pR92rr
- pQdIgV8mDTc+QhMz2PyE7hDyJSwAV2WYFxM2dr+F+J29B8hz2U502uz3AG6g1N3inEHjquLK87j
- 4WcHyMYbPh1AVHUmOZXMEFap/uiBvJlun6A+j49Cghm5TBJwdQJP+atO/WKEp85V8N8wOQmlK2X
- hitDuNZSaQNZ6DaOPFpf4gtEeVQ/MTe9sgX0kQZ4reY2tzA0w2DiMQMUgBR8RfaQWQ/bQ8TZ8h2
- 1HQAvSgZItBhBLT2Z34Q6U5rIdiAT/3+ZEzkgY1083hlSgImtUREIwGwjmJlL/q4a/frCcEFquM
- 3vhwEZc5IA+XcTkdKYBcAHitLqm+WQ58xZ/AkGZ32lo209YpD62JaScUw0oVmhWXniyTw41m4Qp
- Op53mX90Nq8ojzr5j9Q==
-X-Proofpoint-ORIG-GUID: EJTq3UsYaoILmeYt-RIAu8wVejgsI7X2
-X-Proofpoint-GUID: EJTq3UsYaoILmeYt-RIAu8wVejgsI7X2
-X-Authority-Analysis: v=2.4 cv=NPvlPU6g c=1 sm=1 tr=0 ts=69fa03a0 cx=c_pps
- a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=VMT16xk1LGalzlQIQqAA:9 a=QEXdDO2ut3YA:10 a=vBUdepa8ALXHeOFLBtFW:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-05_02,2026-04-30_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 spamscore=0 priorityscore=1501
- clxscore=1015 suspectscore=0 phishscore=0 bulkscore=0 adultscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
- definitions=main-2605050141
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,33 +113,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/5/2026 7:27 AM, Jeff Johnson wrote:
-> On 5/4/2026 6:06 AM, Sumit Garg wrote:
->> @@ -485,9 +485,9 @@ static void ath12k_ahb_power_down(struct ath12k_base *ab, bool is_suspend)
->>  		pasid = (u32_encode_bits(ab_ahb->userpd_id, ATH12K_USERPD_ID_MASK)) |
->>  			 ATH12K_AHB_UPD_SWID;
->>  		/* Release the firmware */
->> -		ret = qcom_scm_pas_shutdown(pasid);
->> +		ret = qcom_pas_shutdown(pasid);
->>  		if (ret)
->> -			ath12k_err(ab, "scm pas shutdown failed for userPD%d\n",
->> +			ath12k_err(ab, "pas shutdown failed for userPD%d: %d\n",
->>  				   ab_ahb->userpd_id);
+On Tue, 5 May 2026 13:49:11 +0300
+Leon Romanovsky <leon@kernel.org> wrote:
+
+> On Mon, May 04, 2026 at 04:40:41AM -0300, Jason Gunthorpe wrote:
+> > On Fri, May 01, 2026 at 04:19:15PM -0600, Alex Williamson wrote:
+> >   
+> > > Exporting dma-bufs from vfio-pci is a feature, but mmap of MMIO BARs is
+> > > a legacy requirement.  That legacy requirement now depends on
+> > > PCI_P2PDMA, which depends on 64BIT and ZONE_DEVICE.  
+> > 
+> > That should be split up now, Leon missed it when he added the new
+> > APIs that didn't require ZONE_DEVICE..  
 > 
-> at some point the "ret" param was dropped, and this now generates build warnings
-The 'ret' param was dropped by:
-8fb66931fe31 ("wifi: ath12k: Enable IPQ5424 WiFi device support")
+> Sorry, what did I miss here?  
+> VFIO_DMABUF is an optional feature and is enabled only when P2P support is  
+> available. It does not affect legacy systems where P2P cannot be enabled.
 
-Not sure if that was on purpose or accidental. Sowmiya?
+If we look at the long term view of moving exclusively to cdev/iommufd,
+where VFIO_DMABUF becomes the mechanism for implementing P2P DMA
+mappings, VFIO_DMABUF may be optional, but it's highly desirable for
+legacy compatibility.  There's an argument though that providing P2P
+compatibility on platforms that support PCI_P2PDMA is probably
+sufficient.
 
--       if (ret)
--               ath12k_err(ab, "scm pas shutdown failed for userPD%d: %d\n",
--                          ab_ahb->userpd_id, ret);
-...
-+               if (ret)
-+                       ath12k_err(ab, "scm pas shutdown failed for userPD%d\n",
-+                                  ab_ahb->userpd_id);
+However, in providing mmap of dmabufs as a feature, this series is
+wiring all mmaps through dmabufs and therefore that dependency becomes
+fundamental to the use of vfio-pci.  Thus the discussion whether the
+noted config requirements could be lifted.  Thanks,
 
+Alex
 
+PS - Please also weigh in on the dmabuf underflow[1]
 
-
+[1]https://lore.kernel.org/all/20260501131236.278ac431@shazbot.org/
