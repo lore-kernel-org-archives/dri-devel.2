@@ -4,63 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29962FF885A
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 09:02:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF2BFFF885A
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 09:03:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5875710E9F5;
-	Tue,  5 May 2026 09:02:51 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ha8zObKs";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0157010E9F5;
- Tue,  5 May 2026 09:02:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777971769; x=1809507769;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=km3XXeySFy6SVYXHhF4s5Stfz9taVh0BL2AI1OyPFlQ=;
- b=Ha8zObKsphZxOVsxSjzkAjK1z1T12G0nmTMJd0gA9mUz/QIEOh23G61E
- mEdyIxoUky2L5M4oKKdg3QOOXpNgpbaB3pu0Ii16FQstCFLCEX+bwe7vM
- rC680QqXm1p9ts+9ThRqt8CYkMz1vVbkxpagKwIupPc1+kmhzvjhqTFtd
- hJzV0yOxR9gxUXJnTR/kdiJ62A/XlrEizinai/J/fuJXjdVg3b6yFvDYu
- QRKyqAwU6guSz2JqmmYtBVyeps8xsV1wIBshzMdCluFsp3O6Q1msfQVZ/
- uFOxwbPpRk2GAD7MjuQgy0Y9NQH3theyBc3mgIR6K3fJDDjQtuvlARMJJ Q==;
-X-CSE-ConnectionGUID: Y2V4Q+itSaa95chqs5GAIw==
-X-CSE-MsgGUID: 48Irdh7cTnSpC8VD7CnkQQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11776"; a="78698036"
-X-IronPort-AV: E=Sophos;i="6.23,217,1770624000"; d="scan'208";a="78698036"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 May 2026 02:02:46 -0700
-X-CSE-ConnectionGUID: o4zNNE+DQJinUao9qGH2Tg==
-X-CSE-MsgGUID: SqTAs1PJRIqMdPPuss4fAg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,217,1770624000"; d="scan'208";a="237533123"
-Received: from zzombora-mobl1 (HELO [10.245.244.41]) ([10.245.244.41])
- by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 May 2026 02:02:39 -0700
-Message-ID: <12feb16f1f8dd00458e982785d45415d42a3e768.camel@linux.intel.com>
-Subject: Re: [PATCH v4 2/2] drm/ttm/pool: back up at native page order
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: Christian Koenig <christian.koenig@amd.com>, Huang Rui
- <ray.huang@amd.com>,  Matthew Auld <matthew.auld@intel.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard	
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Tue, 05 May 2026 11:02:35 +0200
-In-Reply-To: <20260505033013.3266938-3-matthew.brost@intel.com>
-References: <20260505033013.3266938-1-matthew.brost@intel.com>
- <20260505033013.3266938-3-matthew.brost@intel.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
+	by gabe.freedesktop.org (Postfix) with ESMTP id 399F210E9FA;
+	Tue,  5 May 2026 09:03:56 +0000 (UTC)
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CD0510E9FA
+ for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 09:03:54 +0000 (UTC)
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.82])
+ by APP-01 (Coremail) with SMTP id qwCowADni2dtsvlppQJUDw--.62653S2;
+ Tue, 05 May 2026 17:03:42 +0800 (CST)
+Message-ID: <9f7eaea02c2cb52afac4f59fb78224e9acc1f160.camel@iscas.ac.cn>
+Subject: Re: [PATCH] drm: verisilicon: support non-coherent DMA framebuffers
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Dominique Belhachemi <domibel@debian.org>
+Cc: Maxime Ripard <mripard@kernel.org>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
+ <tzimmermann@suse.de>,  David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Paul Cercueil <paul@crapouillou.net>,  Michal Wilczynski
+ <m.wilczynski@samsung.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Date: Tue, 05 May 2026 17:03:40 +0800
+In-Reply-To: <20260505042631.1916555-1-domibel@debian.org>
+References: <20260505042631.1916555-1-domibel@debian.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+User-Agent: Evolution 3.58.3 
 MIME-Version: 1.0
+X-CM-TRANSID: qwCowADni2dtsvlppQJUDw--.62653S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3Ar1UAFW3uFyfCF1DWryrtFb_yoW7tF13pa
+ 1DAFW5KrWUt3ykGr9rJF1qkay3C3WxKayIgry8GwnI9r1jyr98Xa1rJr9xuF45JrW7G3WS
+ qanFkF1DCr47Cr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_KF4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
+ 8E87Iv6xkF7I0E14v26F4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+ 0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
+ 1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
+ MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
+ 4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
+ 67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
+ x0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
+ z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73Uj
+ IFyTuYvjxU2VbyDUUUU
+X-Originating-IP: [112.94.100.82]
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,305 +66,188 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 2026-05-04 at 20:30 -0700, Matthew Brost wrote:
-> ttm_pool_split_for_swap() splits high-order pool pages into order-0
-> pages during backup so each 4K page can be released to the system as
-> soon as it has been written to shmem. While this minimizes the
-> allocator's working set during reclaim, it actively fragments memory:
-> every TTM-backed compound page that the shrinker touches is shattered
-> into order-0 pages, even when the rest of the system would prefer
-> that
-> the high-order block stay intact. Under sustained kswapd pressure
-> this
-> is enough to drive other parts of MM into recovery loops from which
-> they cannot easily escape, because the memory TTM just freed is no
-> longer contiguous.
+=E5=9C=A8 2026-05-05=E4=BA=8C=E7=9A=84 04:26 +0000=EF=BC=8CDominique Belhac=
+hemi=E5=86=99=E9=81=93=EF=BC=9A
+> Wire up the standard non-coherent path matching the ingenic DRM
+> driver.
 >=20
-> Stop unconditionally splitting on the backup path and back up each
-> compound at its native order in ttm_pool_backup():
->=20
-> =C2=A0 - For each non-handle slot, read the order from the head page and
-> =C2=A0=C2=A0=C2=A0 back up all 1<<order subpages to consecutive shmem ind=
-ices,
-> =C2=A0=C2=A0=C2=A0 writing the resulting handles into tt->pages[] as we g=
-o.
-> =C2=A0 - On success, the compound is freed once at its native order. No
-> =C2=A0=C2=A0=C2=A0 split_page(), no per-4K refcount juggling, no fragment=
-ation
-> =C2=A0=C2=A0=C2=A0 introduced from this path.
-> =C2=A0 - Slots that already hold a backup handle from a previous partial
-> =C2=A0=C2=A0=C2=A0 attempt are skipped. A compound that would extend past=
- a
-> =C2=A0=C2=A0=C2=A0 fault-injection-truncated num_pages is skipped rather =
-than split.
->=20
-> A per-subpage backup failure cannot be made fully atomic: backing up
-> a
-> subpage allocates a shmem folio before the source page can be
-> released,
-> so under true OOM any subpage in a compound (not just the first) may
-> fail to be backed up with the rest of the source compound still live
-> and contiguous. To make forward progress in that case, fall back to
-> splitting the source compound and backing up its remaining subpages
-> individually:
->=20
-> =C2=A0 - On the first per-subpage failure for a compound (and only if
-> =C2=A0=C2=A0=C2=A0 order > 0), call ttm_pool_split_for_swap() to split th=
-e source
-> =C2=A0=C2=A0=C2=A0 compound, release the subpages whose contents already =
-live in
-> =C2=A0=C2=A0=C2=A0 shmem (their handles in tt->pages stay valid), and ret=
-ry the
-> =C2=A0=C2=A0=C2=A0 failing subpage at order 0.
-> =C2=A0 - Subsequent successful subpage backups in the now-split compound
-> =C2=A0=C2=A0=C2=A0 free their source page individually as soon as the han=
-dle is
-> =C2=A0=C2=A0=C2=A0 written.
-> =C2=A0 - A second failure after splitting terminates the loop with partia=
-l
-> =C2=A0=C2=A0=C2=A0 progress; the remaining order-0 subpages stay in tt->p=
-ages as
-> =C2=A0=C2=A0=C2=A0 plain page pointers and are cleaned up by the normal
-> =C2=A0=C2=A0=C2=A0 ttm_pool_drop_backed_up() / ttm_pool_free_range() path=
-s.
->=20
-> This restores the original split-on-OOM fallback behavior while
-> keeping the common, non-OOM case fragmentation-free. It also
-> preserves the "partial backup is allowed" contract: shrunken is
-> incremented per backed-up subpage so the caller still sees forward
-> progress when a compound only partially succeeds.
->=20
-> The restore-side leftover-page branch in ttm_pool_restore_commit() is
-> left as-is for now: that path can still split a previously-retained
-> compound, but in practice it is unreachable under realistic workloads
-> (per profiling we have not been able to trigger it), so it is not
-> worth complicating the restore state machine to avoid the split
-> there.
-> If it ever becomes a problem in practice it can be addressed
-> independently.
->=20
-> ttm_pool_split_for_swap() itself is retained both for the OOM
-> fallback above and for the restore path's remaining caller. The
-> DMA-mapped pre-backup unmap loop, the purge path, ttm_pool_free_*,
-> and ttm_pool_unmap_and_free() already operate at native order and
-> are unchanged.
->=20
-> Cc: Christian Koenig <christian.koenig@amd.com>
-> Cc: Huang Rui <ray.huang@amd.com>
-> Cc: Matthew Auld <matthew.auld@intel.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: stable@vger.kernel.org
-> Fixes: b63d715b8090 ("drm/ttm/pool, drm/ttm/tt: Provide a helper to
-> shrink pages")
-> Suggested-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
-> Assisted-by: Claude:claude-opus-4.6
-> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
->=20
-> ---
->=20
-> A follow-up should attempt writeback to shmem at folio order as well,
-> but the API for doing so is unclear and may be incomplete.
->=20
-> This patch is related to the pending series [1] and significantly
-> reduces the likelihood of Xe entering a kswapd loop under
-> fragmentation.
-> The kswapd =E2=86=92 shrinker =E2=86=92 Xe shrinker =E2=86=92 TTM backup =
-path is still
-> exercised; however, with this change the backup path no longer
-> worsens
-> fragmentation, which previously amplified reclaim pressure and
-> reinforced the kswapd loop.
->=20
-> Nonetheless, the pathological case that [1] aims to address still
-> exists
-> and requires a proper solution. Even with this patch, a kswapd loop
-> due
-> to severe fragmentation can still be triggered, although it is now
-> substantially harder to reproduce.
->=20
-> v2:
-> =C2=A0- Split pages and free immediately if backup fails are higher order
-> =C2=A0=C2=A0 (Thomas)
-> v3:
-> =C2=A0- Skip handles in purge path (sashiko)
->=20
-> [1] https://patchwork.freedesktop.org/series/165330/
-> ---
-> =C2=A0drivers/gpu/drm/ttm/ttm_pool.c | 87 ++++++++++++++++++++++++++++---=
--
-> --
-> =C2=A01 file changed, 72 insertions(+), 15 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c
-> b/drivers/gpu/drm/ttm/ttm_pool.c
-> index c7aab60b7f01..f9e631a20979 100644
-> --- a/drivers/gpu/drm/ttm/ttm_pool.c
-> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
-> @@ -1047,12 +1047,11 @@ long ttm_pool_backup(struct ttm_pool *pool,
-> struct ttm_tt *tt,
-> =C2=A0{
-> =C2=A0	struct file *backup =3D tt->backup;
-> =C2=A0	struct page *page;
-> -	unsigned long handle;
-> =C2=A0	gfp_t alloc_gfp;
-> =C2=A0	gfp_t gfp;
-> =C2=A0	int ret =3D 0;
-> =C2=A0	pgoff_t shrunken =3D 0;
-> -	pgoff_t i, num_pages;
-> +	pgoff_t i, num_pages, npages;
-> =C2=A0
-> =C2=A0	if (WARN_ON(ttm_tt_is_backed_up(tt)))
-> =C2=A0		return -EINVAL;
-> @@ -1072,7 +1071,8 @@ long ttm_pool_backup(struct ttm_pool *pool,
-> struct ttm_tt *tt,
-> =C2=A0			unsigned int order;
-> =C2=A0
-> =C2=A0			page =3D tt->pages[i];
-> -			if (unlikely(!page)) {
-> +			if (unlikely(!page ||
-> +				=C2=A0=C2=A0=C2=A0=C2=A0
-> ttm_backup_page_ptr_is_handle(page))) {
-> =C2=A0				num_pages =3D 1;
-> =C2=A0				continue;
-> =C2=A0			}
-> @@ -1108,28 +1108,85 @@ long ttm_pool_backup(struct ttm_pool *pool,
-> struct ttm_tt *tt,
-> =C2=A0	if (IS_ENABLED(CONFIG_FAULT_INJECTION) &&
-> should_fail(&backup_fault_inject, 1))
-> =C2=A0		num_pages =3D DIV_ROUND_UP(num_pages, 2);
-> =C2=A0
-> -	for (i =3D 0; i < num_pages; ++i) {
-> -		s64 shandle;
-> +	for (i =3D 0; i < num_pages; i +=3D npages) {
-> +		unsigned int order;
-> +		pgoff_t j;
-> +		bool folio_has_been_split =3D false;
-> =C2=A0
-> +		npages =3D 1;
-> =C2=A0		page =3D tt->pages[i];
-> =C2=A0		if (unlikely(!page))
-> =C2=A0			continue;
-> =C2=A0
-> -		ttm_pool_split_for_swap(pool, page);
-> +		/* Already-handled entry from a previous attempt. */
-> +		if (unlikely(ttm_backup_page_ptr_is_handle(page)))
-> +			continue;
-> +
-> +		order =3D ttm_pool_page_order(pool, page);
-> +		npages =3D 1UL << order;
-> =C2=A0
-> -		shandle =3D ttm_backup_backup_page(backup, page,
-> flags->writeback, i,
-> -						 gfp, alloc_gfp);
-> -		if (shandle < 0) {
-> -			/* We allow partially shrunken tts */
-> -			ret =3D shandle;
-> +		/*
-> +		 * Back up the compound atomically at its native
-> order. If
-> +		 * fault injection truncated num_pages mid-compound,
-> skip
-> +		 * the partial tail rather than splitting.
-> +		 */
-> +		if (unlikely(i + npages > num_pages))
-> =C2=A0			break;
-> +
-> +		for (j =3D 0; j < npages; ++j) {
-> +			s64 shandle;
+> Tested on StarFive JH7110 (VisionFive 2 v1.3B).
 
-I still think we should move part of this loop to
-ttm_backup_backup_folio() at this point, rather than open-coding it
-here. It's the design we want to move forward with and would probably
-make the pool code cleaner as well. If we think failures would be
-common we could have ttm_backup_backup_folio() return the number of
-pages that were actually backed up or error Otherwise just return
-success or error and on error truncate the shmem pages that were
-already copied.
+Interesting, I am curious about other patches added to test this.
+
+And this patch looks quite generic, should this code be added to the
+corresponding helpers instead.
 
 Thanks,
-Thomas
+Icenowy
 
-
+>=20
+> Signed-off-by: Dominique Belhachemi <domibel@debian.org>
+> ---
+> =C2=A0drivers/gpu/drm/verisilicon/vs_drm.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 | 31
+> +++++++++++++++++--
+> =C2=A0drivers/gpu/drm/verisilicon/vs_drm.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 7 +++++
+> =C2=A0.../gpu/drm/verisilicon/vs_primary_plane.c=C2=A0=C2=A0=C2=A0 | 11 +=
++++++-
+> =C2=A03 files changed, 46 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/verisilicon/vs_drm.c
+> b/drivers/gpu/drm/verisilicon/vs_drm.c
+> index fd259d53f49f..52d8749445df 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_drm.c
+> +++ b/drivers/gpu/drm/verisilicon/vs_drm.c
+> @@ -4,7 +4,7 @@
+> =C2=A0 */
+> =C2=A0
+> =C2=A0#include <linux/aperture.h>
+> -#include <linux/dma-mapping.h>
+> +#include <linux/of_address.h>
+> =C2=A0#include <linux/platform_device.h>
+> =C2=A0#include <linux/module.h>
+> =C2=A0#include <linux/regmap.h>
+> @@ -49,6 +49,31 @@ static int vs_gem_dumb_create(struct drm_file
+> *file_priv,
+> =C2=A0
+> =C2=A0DEFINE_DRM_GEM_FOPS(vs_drm_driver_fops);
+> =C2=A0
+> +static struct drm_gem_object *vs_gem_create_object(struct drm_device
+> *drm,
+> +						=C2=A0=C2=A0 size_t size)
+> +{
+> +	struct drm_gem_dma_object *obj;
 > +
-> +try_again_after_split:
-> +			if (IS_ENABLED(CONFIG_FAULT_INJECTION) &&
-> +			=C2=A0=C2=A0=C2=A0 should_fail(&backup_fault_inject, 1))
-> +				shandle =3D -ENOMEM;
-> +			else
-> +				shandle =3D
-> ttm_backup_backup_page(backup, page + j,
+> +	obj =3D kzalloc_obj(*obj);
+> +	if (!obj)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	obj->map_noncoherent =3D to_vs_drm_dev(drm)->noncoherent;
+> +
+> +	return &obj->base;
+> +}
+> +
+> +static struct drm_framebuffer *
+> +vs_gem_fb_create(struct drm_device *drm, struct drm_file *file,
+> +		 const struct drm_format_info *info,
+> +		 const struct drm_mode_fb_cmd2 *mode_cmd)
+> +{
+> +	if (to_vs_drm_dev(drm)->noncoherent)
+> +		return drm_gem_fb_create_with_dirty(drm, file, info,
+> mode_cmd);
+> +
+> +	return drm_gem_fb_create(drm, file, info, mode_cmd);
+> +}
+> +
+> =C2=A0static const struct drm_driver vs_drm_driver =3D {
+> =C2=A0	.driver_features	=3D DRIVER_MODESET | DRIVER_GEM |
+> DRIVER_ATOMIC,
+> =C2=A0	.fops			=3D &vs_drm_driver_fops,
+> @@ -58,12 +83,13 @@ static const struct drm_driver vs_drm_driver =3D {
+> =C2=A0	.minor	=3D DRIVER_MINOR,
+> =C2=A0
+> =C2=A0	/* GEM Operations */
+> +	.gem_create_object	=3D vs_gem_create_object,
+> =C2=A0	DRM_GEM_DMA_DRIVER_OPS_WITH_DUMB_CREATE(vs_gem_dumb_create),
+> =C2=A0	DRM_FBDEV_DMA_DRIVER_OPS,
+> =C2=A0};
+> =C2=A0
+> =C2=A0static const struct drm_mode_config_funcs vs_mode_config_funcs =3D =
+{
+> -	.fb_create		=3D drm_gem_fb_create,
+> +	.fb_create		=3D vs_gem_fb_create,
+> =C2=A0	.atomic_check		=3D drm_atomic_helper_check,
+> =C2=A0	.atomic_commit		=3D drm_atomic_helper_commit,
+> =C2=A0};
+> @@ -98,6 +124,7 @@ int vs_drm_initialize(struct vs_dc *dc, struct
+> platform_device *pdev)
+> =C2=A0
+> =C2=A0	drm =3D &vdrm->base;
+> =C2=A0	vdrm->dc =3D dc;
+> +	vdrm->noncoherent =3D !of_dma_is_coherent(dev->of_node);
+> =C2=A0	dc->drm_dev =3D vdrm;
+> =C2=A0
+> =C2=A0	ret =3D drmm_mode_config_init(drm);
+> diff --git a/drivers/gpu/drm/verisilicon/vs_drm.h
+> b/drivers/gpu/drm/verisilicon/vs_drm.h
+> index 606338206a42..17704cd0df1d 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_drm.h
+> +++ b/drivers/gpu/drm/verisilicon/vs_drm.h
+> @@ -18,8 +18,15 @@ struct vs_drm_dev {
+> =C2=A0
+> =C2=A0	struct vs_dc *dc;
+> =C2=A0	struct vs_crtc *crtcs[VSDC_MAX_OUTPUTS];
+> +
+> +	bool noncoherent;
+> =C2=A0};
+> =C2=A0
+> +static inline struct vs_drm_dev *to_vs_drm_dev(struct drm_device
+> *drm)
+> +{
+> +	return container_of(drm, struct vs_drm_dev, base);
+> +}
+> +
+> =C2=A0int vs_drm_initialize(struct vs_dc *dc, struct platform_device
+> *pdev);
+> =C2=A0void vs_drm_finalize(struct vs_dc *dc);
+> =C2=A0void vs_drm_shutdown_handler(struct vs_dc *dc);
+> diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> index e8fcb5958615..0049737f492b 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> @@ -8,6 +8,7 @@
+> =C2=A0#include <drm/drm_atomic.h>
+> =C2=A0#include <drm/drm_atomic_helper.h>
+> =C2=A0#include <drm/drm_crtc.h>
+> +#include <drm/drm_fb_dma_helper.h>
+> =C2=A0#include <drm/drm_fourcc.h>
+> =C2=A0#include <drm/drm_framebuffer.h>
+> =C2=A0#include <drm/drm_gem_atomic_helper.h>
+> @@ -16,8 +17,9 @@
+> =C2=A0#include <drm/drm_print.h>
+> =C2=A0
+> =C2=A0#include "vs_crtc.h"
+> -#include "vs_plane.h"
+> =C2=A0#include "vs_dc.h"
+> +#include "vs_drm.h"
+> +#include "vs_plane.h"
+> =C2=A0#include "vs_primary_plane_regs.h"
+> =C2=A0
+> =C2=A0static int vs_primary_plane_atomic_check(struct drm_plane *plane,
+> @@ -86,6 +88,8 @@ static void vs_primary_plane_atomic_disable(struct
+> drm_plane *plane,
+> =C2=A0static void vs_primary_plane_atomic_update(struct drm_plane *plane,
+> =C2=A0					=C2=A0=C2=A0 struct drm_atomic_state
+> *atomic_state)
+> =C2=A0{
+> +	struct drm_plane_state *old_state =3D
+> drm_atomic_get_old_plane_state(atomic_state,
 > +							=09
-> flags->writeback,
-> +								 i +
-> j, gfp,
-> +							=09
-> alloc_gfp);
-> +
-> +			if (shandle < 0 && !folio_has_been_split &&
-> order) {
-> +				pgoff_t k;
-> +
-> +				/*
-> +				 * True OOM: could not allocate a
-> shmem folio
-> +				 * for the next subpage. Fall back
-> to splitting
-> +				 * the source compound and backing
-> up subpages
-> +				 * individually. Release the
-> already-backed-up
-> +				 * subpages whose contents now live
-> in shmem;
-> +				 * any further failure terminates
-> the loop with
-> +				 * partial progress (handled by the
-> caller).
-> +				 */
-> +				folio_has_been_split =3D true;
-> +				ttm_pool_split_for_swap(pool, page);
-> +
-> +				for (k =3D 0; k < j; ++k) {
-> +					__free_pages_gpu_account(pag
-> e + k, 0, false);
-> +					shrunken++;
-> +				}
-> +
-> +				goto try_again_after_split;
-> +			} else if (shandle < 0) {
-> +				ret =3D shandle;
-> +				goto out;
-> +			} else if (folio_has_been_split) {
-> +				__free_pages_gpu_account(page + j,
-> 0, false);
-> +				shrunken++;
-> +			}
-> +
-> +			tt->pages[i + j] =3D
-> ttm_backup_handle_to_page_ptr(shandle);
-> +		}
-> +
-> +		if (!folio_has_been_split) {
-> +			/* Compound fully backed up; free at native
-> order. */
-> +			page->private =3D 0;
-> +			__free_pages_gpu_account(page, order,
-> false);
-> +			shrunken +=3D npages;
-> =C2=A0		}
-> -		handle =3D shandle;
-> -		tt->pages[i] =3D
-> ttm_backup_handle_to_page_ptr(handle);
-> -		__free_pages_gpu_account(page, 0, false);
-> -		shrunken++;
+> 	=C2=A0=C2=A0 plane);
+> =C2=A0	struct drm_plane_state *state =3D
+> drm_atomic_get_new_plane_state(atomic_state,
+> =C2=A0								=C2=A0=C2=A0=C2=A0=C2=A0
+> =C2=A0=C2=A0 plane);
+> =C2=A0	struct drm_framebuffer *fb =3D state->fb;
+> @@ -101,6 +105,8 @@ static void vs_primary_plane_atomic_update(struct
+> drm_plane *plane,
+> =C2=A0		return;
 > =C2=A0	}
 > =C2=A0
-> +out:
-> =C2=A0	return shrunken ? shrunken : ret;
-> =C2=A0}
+> +	drm_fb_dma_sync_non_coherent(plane->dev, old_state, state);
+> +
+> =C2=A0	vcrtc =3D drm_crtc_to_vs_crtc(crtc);
+> =C2=A0	output =3D vcrtc->id;
+> =C2=A0	dc =3D vcrtc->dc;
+> @@ -169,5 +175,8 @@ struct drm_plane *vs_primary_plane_init(struct
+> drm_device *drm_dev, struct vs_dc
 > =C2=A0
+> =C2=A0	drm_plane_helper_add(plane, &vs_primary_plane_helper_funcs);
+> =C2=A0
+> +	if (to_vs_drm_dev(drm_dev)->noncoherent)
+> +		drm_plane_enable_fb_damage_clips(plane);
+> +
+> =C2=A0	return plane;
+> =C2=A0}
+
