@@ -4,52 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23C43FF885A
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 08:55:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B213CD3430
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 08:55:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6689A10E0E3;
-	Tue,  5 May 2026 08:55:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82A2B10E0EC;
+	Tue,  5 May 2026 08:55:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Df+8xV9T";
+	dkim=pass (2048-bit key; unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="ZVEtgKED";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24E5B10E0E3
- for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 08:54:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1777971297;
- bh=/jNGw8QKAUdFeal6qNeEcQ8LN2R7QtAhmrjRg4p/cMI=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=Df+8xV9TYRSaC6v4IHtFsnHaHKiLznoWrh5sVeAo2LBHRrKC6dtwmB/a13l2Q7HbV
- +04Ea6UE6pzsij014yJ3Qk06zXheHBBwdCdAaoGvShwmSp7lvs606QCxgiUVPbMsGh
- kTOkfjsUTUrHFPD0OdrUPpwo01xPgVfe5c0qjZLQddjOxznffT73cqznvZQ9moW6f9
- BUBl7KzVdwpEz64tp+Rsd88o9aWF/qL/j296/2qt/4mWqPQHuYA1Rjetj1lKP60sbQ
- P9P1RwtvFFmepjmYFTJqLssVfsTmSCc1O2rPrSUA97y//PwYM192rPlLpqDIgt/bV2
- jVpXpn8Qy4hRA==
-Received: from fedora (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 6FBF517E0698;
- Tue,  5 May 2026 10:54:57 +0200 (CEST)
-Date: Tue, 5 May 2026 10:54:53 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 00/10] drm/panthor: Reduce dma_fence signalling latency
-Message-ID: <20260505105453.23144e92@fedora>
-In-Reply-To: <20260429123607.7a8c7051@fedora>
-References: <20260429-panthor-signal-from-irq-v1-0-4b92ae4142d2@collabora.com>
- <20260429123607.7a8c7051@fedora>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com
+ [209.85.128.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D82B10E0EC
+ for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 08:55:10 +0000 (UTC)
+Received: by mail-yw1-f178.google.com with SMTP id
+ 00721157ae682-7b23713eac9so53805437b3.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 01:55:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777971309; cv=none;
+ d=google.com; s=arc-20240605;
+ b=F7SuBTU+mhDF+yn827wUi/xS2LTegxCMCu8ZH1ZU1lzNQNbAJgKUmMLLdXqMxnKQTy
+ qNyRfRfslFQfPe3kaZOvIc2HzXFyhvTiZUNzaMoMRkRcchADCzi02IgeVu9E8LHtI7BH
+ zMdJ1ryPhTGqFvu0wcYcWmoKSsksbt+s2yJ7QIqt/DnX5I9791MzbsRHNDL+WCm4pNZq
+ OuaHwxHWRa5hnKp6FET12Sq+Dq1sgblxV5V3D7hXGVU6kMKM5Yx56Rq+o3vDWlkr2ynT
+ sfOrVE562aqW58zDfFC0QTNa3hGD0TKMap5mIsfr2mZDVXl9GOcZnBX5NrxWFCjJfIhq
+ km9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=5CJiKZ0puXIp3Q1auWZfkkziQVLi6lqLtkGVw6xnCsY=;
+ fh=wxSxyG5pFpM6Ed1gOt5H5Xs7qIP9RTGPtvGsqh2k4mM=;
+ b=ccEthymiGJ0Oh2/4U59nEYHuX4ft+XDL2m5h7COHFINS/347Wtg33lx8xdSxTSK4y6
+ cn60pbndcfWTFuYlRSdAb8sRWYbOzO6N+NmJm5IljI1DXSd6P1Wjo7/MWj5lR8aT3T5m
+ T/tKWDWvRugYHW/mY6qIIGWL3LuUp9MlrMooSij2UHBcPAZ/s3w/fVHTsYHTwqj/R23p
+ i/EbnHPx2YWky3ao8wh2py7IW8IqufCJNhhidpU0uPcls6H7CMThZbHh8V3GanO9k46K
+ /UQC4gAvxlDUj6gTHK1SbbtE2WrSmXkVaQwkNWflVt7YlmbodhoR7OLWYR7SjlXawpdK
+ gIrg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=raspberrypi.com; s=google; t=1777971309; x=1778576109;
+ darn=lists.freedesktop.org; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=5CJiKZ0puXIp3Q1auWZfkkziQVLi6lqLtkGVw6xnCsY=;
+ b=ZVEtgKEDOEnFD7Oxq8rVMN1mWrhNQSlSRL9a0AeMKiCCmBac6n4ODyGiJxGOhgTY03
+ o+BMhl5EtNFHNKATmBjkkuOt3HapzIAcCUqtRNTAJqCUlCTJzzReOhNosR98ywgB0BrT
+ qUZZ6x+68d7ttQMbwK08mNT2D/ega95+8AQaZNcWv3ZJ7MunESK6V4tnxyQEcnqPPC5J
+ ldqVKT/93fDcsa49FpZ2rC1fe/rOxjbx3VxJEiuaFKm7181xYP/099WOYkxJhku8ndiV
+ F16MHfCRc/7gVHYn9R4U2REHMvqKWu5XhIcENGdkVBet+nZYdQaboFmYajVWaahGE5ii
+ q8Jw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777971309; x=1778576109;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=5CJiKZ0puXIp3Q1auWZfkkziQVLi6lqLtkGVw6xnCsY=;
+ b=KuWpNDangzrCFNnNK5+gvP/hVC6Ldgs+lg8rXWhzMbMPIHTKQPKIIN2h4V8qiI9fGa
+ tUPH4z3sqSiW9WH3nXcHaNR6jrdL/Rpn2KGzINkZxhFxJ3ONZ6BEzrmXTh2nYAF8LHVI
+ FxfPrYZkkre3ghjZl6LUHW0yRtHW39aQ8Oofw64y8P/GIvD7xTxYZ9kIBiPdh3fPR8dV
+ CyXznC3Rgcnh3VHmJ1MD+FM8k71E1+jUmV4tbwIr3CghbEn9Fy03ZkJBs9qnN63q2IqS
+ GoUnv0nqJrB/eP/G15GS9npEAHQUGqw2XTsVQ8mAlzEIXhnCUgBd3NnEMlqDpBk3ZU9Y
+ Vc2A==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+0yBO3SrLIvWFTgRf/1YIC3FbL8ao6cDcSW9VKf4z0H0GQFLRQJjFD5uGgnGgPTCX+wERbhr7vzTQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxYDFDKe8eWaXzmvB3fKJ4mKBIR7/PwWb7P9P6cClUYYXoVmvdE
+ dm0UwIFJRfYjDip8tIejDVnt3Ya/g0Nk3yGcAcuz55d/stFJlJZuY2qcherQTbQ0Of0rsQT22Zl
+ SyIWSabe8ooVD+z9tyhyyhKvTsP5a6igu3aI+DbEwVg==
+X-Gm-Gg: AeBDieuu4CQJZXDqLwgPnwaNBJEDo+Fc+DJ200oJAP5FVxbeYn6M9ncZtVdipoQiqXa
+ 2HU4I2UYvjBQlu1RJfaYgQ17/eBOQqlB+75tVxWplnomBGFjW86sMTrArcsyXf4SGYF4Tu3X5tE
+ zD23QLWOT7Nii8aWroMQVarqmVByzOV1pkcKE2uCps/WUqm5mdJCar10jcwkNCeiB0rA/cSrrsj
+ 14dawCZVSI9JlVrLqqvgaAGUFiR9RCi2AqgpOoDE6+LSOBfqL2t1faEVGATYHpbsYq/MMx8rLYg
+ zJJxGlzhsM3ulZKiXISHJugPBVVA7aIvbE1rHMjUGyAmEKs=
+X-Received: by 2002:a05:690c:319:b0:79a:c40d:b701 with SMTP id
+ 00721157ae682-7bd76fa3ec3mr146040217b3.13.1777971309131; Tue, 05 May 2026
+ 01:55:09 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20260502121251.39206-3-thorsten.blum@linux.dev>
+In-Reply-To: <20260502121251.39206-3-thorsten.blum@linux.dev>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Tue, 5 May 2026 09:54:53 +0100
+X-Gm-Features: AVHnY4JHEMwCFYtgbgcAbs-cm6Q_iZoV4kpejbmHYNcZDwD-WyLuqrs2o_jiYpk
+Message-ID: <CAPY8ntDOEjAHFF_HxFoVEmrgQ8okm=8cHQEfm2QUU=MuB77d_A@mail.gmail.com>
+Subject: Re: [PATCH] drm/vc4: fix NULL dereference in vc4_hvs_unbind
+To: Thorsten Blum <thorsten.blum@linux.dev>
+Cc: Maxime Ripard <mripard@kernel.org>,
+ =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Eric Anholt <eric@anholt.net>, 
+ stable@vger.kernel.org, Simona Vetter <simona.vetter@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,257 +111,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 29 Apr 2026 12:36:07 +0200
-Boris Brezillon <boris.brezillon@collabora.com> wrote:
+Hi Thorsten
 
-> On Wed, 29 Apr 2026 11:38:27 +0200
-> Boris Brezillon <boris.brezillon@collabora.com> wrote:
-> 
-> > Right now, panthor is one of the rare drivers to signal fences
-> > from work items (not even from the threaded IRQ handler). We
-> > could move that to the threaded handler, but that would still
-> > leave the latency caused by the scheduling of the IRQ thread.
-> > 
-> > Instead, this patchset moves all the job IRQ processing to
-> > the raw IRQ handler, which is fine because what the current
-> > code does is demux the interrupts and deferring actual handling
-> > to sub work items. The only bits we keep in the IRQ path is
-> > the dma_fence signalling, which should be acceptable, in term
-> > of CPU cycles spent in the IRQ context.
-> > 
-> > Pretty much all the patches except the last two are just
-> > preparing the ground to get there. The second to last one
-> > does the thread -> IRQ transition, and the last one is some
-> > experimental interrupt coalescing support that I've added
-> > because I noticed moving job IRQ handling to the raw handler
-> > generates quite a lot of interrupts in some case, and having
-> > the system constantly interrupted like that can be
-> > detrimental.
-> >   
-> 
-> Forgot to post some preliminary numbers I collected during my,
-> admittedly, very basic testing :-). What this shows is that IRQ
-> coalescing provides small but noticeable improvements only in some
-> of the glmark scenes (terrain, refract),
+On Sat, 2 May 2026 at 13:13, Thorsten Blum <thorsten.blum@linux.dev> wrote:
+>
+> With 'dtoverlay=vc4-kms-v3d,noaudio' and 'hdmi=off' on Raspberry Pi,
 
-I think I found the problem on the "refract" regression. Turns out if I
-set cpufreq governor to performance instead of schedutil, I get those
-~20% back, which is not surprising given schedutil uses scheduling stats
-to decide to bump/lower the frequency, and the extra IRQ_WAKE_THREAD
-indirection does add regular thread activity.
+Mainline doesn't use overlays, so this description isn't valid.
 
-So, this basically leaves terrain where interrupt coalescing helps a
-bit, but it's not clear that the improvement justifies the added
-complexity or the extra CPU load incurred by the polling done in the
-threaded handler.
+Which generation of Pi are you using? Whilst they all share the vc4
+driver, the functionality associated differs. If you're disabling HDMI
+(and HDMI audio), which display outputs are you using?
 
-If everyone is fine with that, I'd be tempted to drop patch 10 for now,
-and revisit it if/when we have an actual use case where it's deemed
-essential to limit IRQs coming from the GPU.
+> unloading the vc4 module calls vc4_hvs_unbind() with
+> dev_get_drvdata(master) returning NULL.
+>
+> Return early when 'drm' is NULL before converting it to 'vc4' and before
+> dereferencing 'vc4->hvs', preventing a kernel oops.
 
-Regards,
+That leaves things allocated and clocks running, so bailing out isn't a fix.
+I'll have a look to see why dev_get_drvdata is returning NULL.
 
-Boris
+  Dave
 
-> the rest of the variations
-> stay in the noise of what we see between regular glmark runs. BTW,
-> those relatively small improvements (~5%) aren't even reflected in the
-> final score, because many tests have high FPS scores, and any variation
-> on those might actually have more impact on the final score (which is
-> just a average FPS IIUC) than any improvement on the lower-FPS scenes.
-> 
-> It's also worth noting that the refract scenes seems to suffer from
-> this threaded -> raw-IRQ transition, and that coalescing gets us back
-> to where we were.
-> 
-> TLDR; As always, there's no simple answer to this 'latency vs throughput'
-> issue, and it's not surprising one approach helps some cases and
-> regresses others.
-> 
-> ---------- Before this series ---------------
-> 
-> =======================================================
->     glmark2 2023.01
-> =======================================================
->     OpenGL Information
->     GL_VENDOR:      Mesa
->     GL_RENDERER:    Mali-G610 MC4 (Panfrost)
->     GL_VERSION:     OpenGL ES 3.1 Mesa 26.2.0-devel (git-c71664cfbc)
->     Surface Config: buf=32 r=8 g=8 b=8 a=8 depth=24 stencil=0 samples=0
->     Surface Size:   800x600 windowed
-> =======================================================
-> [build] use-vbo=false: FPS: 2708 FrameTime: 0.369 ms
-> [build] use-vbo=true: FPS: 4209 FrameTime: 0.238 ms
-> [texture] texture-filter=nearest: FPS: 5211 FrameTime: 0.192 ms
-> [texture] texture-filter=linear: FPS: 5224 FrameTime: 0.191 ms
-> [texture] texture-filter=mipmap: FPS: 5255 FrameTime: 0.190 ms
-> [shading] shading=gouraud: FPS: 3395 FrameTime: 0.295 ms
-> [shading] shading=blinn-phong-inf: FPS: 3329 FrameTime: 0.300 ms
-> [shading] shading=phong: FPS: 2990 FrameTime: 0.335 ms
-> [shading] shading=cel: FPS: 2916 FrameTime: 0.343 ms
-> [bump] bump-render=high-poly: FPS: 1879 FrameTime: 0.532 ms
-> [bump] bump-render=normals: FPS: 5242 FrameTime: 0.191 ms
-> [bump] bump-render=height: FPS: 4997 FrameTime: 0.200 ms
-> [effect2d] kernel=0,1,0;1,-4,1;0,1,0;: FPS: 3725 FrameTime: 0.268 ms
-> [effect2d] kernel=1,1,1,1,1;1,1,1,1,1;1,1,1,1,1;: FPS: 1906 FrameTime: 0.525 ms
-> [pulsar] light=false:quads=5:texture=false: FPS: 4863 FrameTime: 0.206 ms
-> [desktop] blur-radius=5:effect=blur:passes=1:separable=true:windows=4: FPS: 706 FrameTime: 1.417 ms
-> [desktop] effect=shadow:windows=4: FPS: 2621 FrameTime: 0.382 ms
-> [buffer] columns=200:interleave=false:update-dispersion=0.9:update-fraction=0.5:update-method=map: FPS: 411 FrameTime: 2.435 ms
-> [buffer] columns=200:interleave=false:update-dispersion=0.9:update-fraction=0.5:update-method=subdata: FPS: 402 FrameTime: 2.489 ms
-> [buffer] columns=200:interleave=true:update-dispersion=0.9:update-fraction=0.5:update-method=map: FPS: 490 FrameTime: 2.043 ms
-> [ideas] speed=duration: FPS: 1008 FrameTime: 0.992 ms
-> [jellyfish] <default>: FPS: 2722 FrameTime: 0.367 ms
-> [terrain] <default>: FPS: 120 FrameTime: 8.339 ms
-> [shadow] <default>: FPS: 2086 FrameTime: 0.479 ms
-> [refract] <default>: FPS: 312 FrameTime: 3.209 ms
-> [conditionals] fragment-steps=0:vertex-steps=0: FPS: 4877 FrameTime: 0.205 ms
-> [conditionals] fragment-steps=5:vertex-steps=0: FPS: 4118 FrameTime: 0.243 ms
-> [conditionals] fragment-steps=0:vertex-steps=5: FPS: 4845 FrameTime: 0.206 ms
-> [function] fragment-complexity=low:fragment-steps=5: FPS: 4444 FrameTime: 0.225 ms
-> [function] fragment-complexity=medium:fragment-steps=5: FPS: 3722 FrameTime: 0.269 ms
-> [loop] fragment-loop=false:fragment-steps=5:vertex-steps=5: FPS: 4468 FrameTime: 0.224 ms
-> [loop] fragment-steps=5:fragment-uniform=false:vertex-steps=5: FPS: 4442 FrameTime: 0.225 ms
-> [loop] fragment-steps=5:fragment-uniform=true:vertex-steps=5: FPS: 3847 FrameTime: 0.260 ms
-> =======================================================
->                                   glmark2 Score: 3135 
-> =======================================================
-> 
-> ---------- After transitioning to job event processing in the IRQ context ------------
-> 
-> =======================================================
->     glmark2 2023.01
-> =======================================================
->     OpenGL Information
->     GL_VENDOR:      Mesa
->     GL_RENDERER:    Mali-G610 MC4 (Panfrost)
->     GL_VERSION:     OpenGL ES 3.1 Mesa 26.2.0-devel (git-c71664cfbc)
->     Surface Config: buf=32 r=8 g=8 b=8 a=8 depth=24 stencil=0 samples=0
->     Surface Size:   800x600 windowed
-> =======================================================
-> [build] use-vbo=false: FPS: 2703 FrameTime: 0.370 ms
-> [build] use-vbo=true: FPS: 4630 FrameTime: 0.216 ms
-> [texture] texture-filter=nearest: FPS: 5406 FrameTime: 0.185 ms
-> [texture] texture-filter=linear: FPS: 5429 FrameTime: 0.184 ms
-> [texture] texture-filter=mipmap: FPS: 5408 FrameTime: 0.185 ms
-> [shading] shading=gouraud: FPS: 3678 FrameTime: 0.272 ms
-> [shading] shading=blinn-phong-inf: FPS: 3587 FrameTime: 0.279 ms
-> [shading] shading=phong: FPS: 3221 FrameTime: 0.311 ms
-> [shading] shading=cel: FPS: 3119 FrameTime: 0.321 ms
-> [bump] bump-render=high-poly: FPS: 1977 FrameTime: 0.506 ms
-> [bump] bump-render=normals: FPS: 5488 FrameTime: 0.182 ms
-> [bump] bump-render=height: FPS: 5323 FrameTime: 0.188 ms
-> [effect2d] kernel=0,1,0;1,-4,1;0,1,0;: FPS: 4003 FrameTime: 0.250 ms
-> [effect2d] kernel=1,1,1,1,1;1,1,1,1,1;1,1,1,1,1;: FPS: 2008 FrameTime: 0.498 ms
-> [pulsar] light=false:quads=5:texture=false: FPS: 4961 FrameTime: 0.202 ms
-> [desktop] blur-radius=5:effect=blur:passes=1:separable=true:windows=4: FPS: 852 FrameTime: 1.174 ms
-> [desktop] effect=shadow:windows=4: FPS: 2649 FrameTime: 0.378 ms
-> [buffer] columns=200:interleave=false:update-dispersion=0.9:update-fraction=0.5:update-method=map: FPS: 412 FrameTime: 2.429 ms
-> [buffer] columns=200:interleave=false:update-dispersion=0.9:update-fraction=0.5:update-method=subdata: FPS: 392 FrameTime: 2.554 ms
-> [buffer] columns=200:interleave=true:update-dispersion=0.9:update-fraction=0.5:update-method=map: FPS: 482 FrameTime: 2.075 ms
-> [ideas] speed=duration: FPS: 1021 FrameTime: 0.980 ms
-> [jellyfish] <default>: FPS: 2939 FrameTime: 0.340 ms
-> [terrain] <default>: FPS: 126 FrameTime: 7.979 ms
-> [shadow] <default>: FPS: 2273 FrameTime: 0.440 ms
-> [refract] <default>: FPS: 251 FrameTime: 3.999 ms
-> [conditionals] fragment-steps=0:vertex-steps=0: FPS: 5148 FrameTime: 0.194 ms
-> [conditionals] fragment-steps=5:vertex-steps=0: FPS: 4555 FrameTime: 0.220 ms
-> [conditionals] fragment-steps=0:vertex-steps=5: FPS: 5245 FrameTime: 0.191 ms
-> [function] fragment-complexity=low:fragment-steps=5: FPS: 4880 FrameTime: 0.205 ms
-> [function] fragment-complexity=medium:fragment-steps=5: FPS: 4042 FrameTime: 0.247 ms
-> [loop] fragment-loop=false:fragment-steps=5:vertex-steps=5: FPS: 4846 FrameTime: 0.206 ms
-> [loop] fragment-steps=5:fragment-uniform=false:vertex-steps=5: FPS: 4854 FrameTime: 0.206 ms
-> [loop] fragment-steps=5:fragment-uniform=true:vertex-steps=5: FPS: 4207 FrameTime: 0.238 ms
-> =======================================================
->                                   glmark2 Score: 3335 
-> =======================================================
-> 
-> ---- With IRQ coalescing enabled (max_us=100 poll_period_us=5 inbounds_cnt_threshold=5) ---
-> 
-> =======================================================
->     glmark2 2023.01
-> =======================================================
->     OpenGL Information
->     GL_VENDOR:      Mesa
->     GL_RENDERER:    Mali-G610 MC4 (Panfrost)
->     GL_VERSION:     OpenGL ES 3.1 Mesa 26.2.0-devel (git-c71664cfbc)
->     Surface Config: buf=32 r=8 g=8 b=8 a=8 depth=24 stencil=0 samples=0
->     Surface Size:   800x600 windowed
-> =======================================================
-> [build] use-vbo=false: FPS: 2663 FrameTime: 0.376 ms
-> [build] use-vbo=true: FPS: 4640 FrameTime: 0.216 ms
-> [texture] texture-filter=nearest: FPS: 5335 FrameTime: 0.187 ms
-> [texture] texture-filter=linear: FPS: 5442 FrameTime: 0.184 ms
-> [texture] texture-filter=mipmap: FPS: 5434 FrameTime: 0.184 ms
-> [shading] shading=gouraud: FPS: 3683 FrameTime: 0.272 ms
-> [shading] shading=blinn-phong-inf: FPS: 3580 FrameTime: 0.279 ms
-> [shading] shading=phong: FPS: 3211 FrameTime: 0.312 ms
-> [shading] shading=cel: FPS: 3093 FrameTime: 0.323 ms
-> [bump] bump-render=high-poly: FPS: 1969 FrameTime: 0.508 ms
-> [bump] bump-render=normals: FPS: 5368 FrameTime: 0.186 ms
-> [bump] bump-render=height: FPS: 5273 FrameTime: 0.190 ms
-> [effect2d] kernel=0,1,0;1,-4,1;0,1,0;: FPS: 4038 FrameTime: 0.248 ms
-> [effect2d] kernel=1,1,1,1,1;1,1,1,1,1;1,1,1,1,1;: FPS: 2001 FrameTime: 0.500 ms
-> [pulsar] light=false:quads=5:texture=false: FPS: 4961 FrameTime: 0.202 ms
-> [desktop] blur-radius=5:effect=blur:passes=1:separable=true:windows=4: FPS: 842 FrameTime: 1.188 ms
-> [desktop] effect=shadow:windows=4: FPS: 2681 FrameTime: 0.373 ms
-> [buffer] columns=200:interleave=false:update-dispersion=0.9:update-fraction=0.5:update-method=map: FPS: 412 FrameTime: 2.430 ms
-> [buffer] columns=200:interleave=false:update-dispersion=0.9:update-fraction=0.5:update-method=subdata: FPS: 408 FrameTime: 2.452 ms
-> [buffer] columns=200:interleave=true:update-dispersion=0.9:update-fraction=0.5:update-method=map: FPS: 483 FrameTime: 2.072 ms
-> [ideas] speed=duration: FPS: 1005 FrameTime: 0.995 ms
-> [jellyfish] <default>: FPS: 2945 FrameTime: 0.340 ms
-> [terrain] <default>: FPS: 131 FrameTime: 7.663 ms
-> [shadow] <default>: FPS: 2276 FrameTime: 0.440 ms
-> [refract] <default>: FPS: 328 FrameTime: 3.050 ms
-> [conditionals] fragment-steps=0:vertex-steps=0: FPS: 5099 FrameTime: 0.196 ms
-> [conditionals] fragment-steps=5:vertex-steps=0: FPS: 4538 FrameTime: 0.220 ms
-> [conditionals] fragment-steps=0:vertex-steps=5: FPS: 5152 FrameTime: 0.194 ms
-> [function] fragment-complexity=low:fragment-steps=5: FPS: 4818 FrameTime: 0.208 ms
-> [function] fragment-complexity=medium:fragment-steps=5: FPS: 4035 FrameTime: 0.248 ms
-> [loop] fragment-loop=false:fragment-steps=5:vertex-steps=5: FPS: 4855 FrameTime: 0.206 ms
-> [loop] fragment-steps=5:fragment-uniform=false:vertex-steps=5: FPS: 4812 FrameTime: 0.208 ms
-> [loop] fragment-steps=5:fragment-uniform=true:vertex-steps=5: FPS: 4150 FrameTime: 0.241 ms
-> =======================================================
->                                   glmark2 Score: 3322 
-> =======================================================
-> 
-> 
-> > Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-> > ---
-> > Boris Brezillon (10):
-> >       drm/panthor: Make panthor_irq::state a non-atomic field
-> >       drm/panthor: Move the register accessors before the IRQ helpers
-> >       drm/panthor: Replace the panthor_irq macro machinery by inline helpers
-> >       drm/panthor: Extend the IRQ logic to allow fast/raw IRQ handlers
-> >       drm/panthor: Make panthor_fw_{update,toggle}_reqs() callable from IRQ context
-> >       drm/panthor: Prepare the scheduler logic for FW events in IRQ context
-> >       drm/panthor: Automate CSG IRQ processing at group unbind time
-> >       drm/panthor: Automatically enable interrupts in panthor_fw_wait_acks()
-> >       drm/panthor: Process FW events in IRQ context
-> >       drm/panthor: Introduce interrupt coalescing support for job IRQs
-> > 
-> >  drivers/gpu/drm/panthor/panthor_device.h | 358 ++++++++++++++---------
-> >  drivers/gpu/drm/panthor/panthor_drv.c    |   1 +
-> >  drivers/gpu/drm/panthor/panthor_fw.c     | 226 +++++++++++++--
-> >  drivers/gpu/drm/panthor/panthor_fw.h     |  11 +-
-> >  drivers/gpu/drm/panthor/panthor_gpu.c    |  27 +-
-> >  drivers/gpu/drm/panthor/panthor_mmu.c    |  38 +--
-> >  drivers/gpu/drm/panthor/panthor_pwr.c    |  21 +-
-> >  drivers/gpu/drm/panthor/panthor_sched.c  | 475 ++++++++++++++-----------------
-> >  8 files changed, 698 insertions(+), 459 deletions(-)
-> > ---
-> > base-commit: 7455a0583a906533041a80e48c6a2e3230cce96e
-> > change-id: 20260429-panthor-signal-from-irq-d33684f4d292
-> > prerequisite-message-id: <20260427155934.416502-1-karunika.choo@arm.com>
-> > prerequisite-patch-id: 70905a2eb09ab2b31d242a5ed5af3b42fb6a464c
-> > prerequisite-patch-id: aa4c22669f80328039762f25c0b3942bbadbdc89
-> > prerequisite-patch-id: 7f61bcee3c4bb5703900b18d5b6e0f52e622f29d
-> > prerequisite-patch-id: 3402f4d60aa526d40113fc3d9b3e599f8f89e705
-> > prerequisite-patch-id: 00ddbd3d455891f6950609614c1acd2baa78b0db
-> > prerequisite-patch-id: 6a9928f609e3757cadebb2df6795d0da55745f4e
-> > prerequisite-patch-id: fd91f68f25d4bc93eec405f0131f5ae4284bfaf2
-> > prerequisite-patch-id: 553958a10a0ca2f20f7883ad4c752cfc7485c5a8
-> > 
-> > Best regards,  
-> 
-
+> Fixes: c8b75bca92cb ("drm/vc4: Add KMS support for Raspberry Pi.")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+> ---
+>  drivers/gpu/drm/vc4/vc4_hvs.c | 10 ++++++++--
+>  1 file changed, 8 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/vc4/vc4_hvs.c b/drivers/gpu/drm/vc4/vc4_hvs.c
+> index ee8d0738501b..9cb66f696fc7 100644
+> --- a/drivers/gpu/drm/vc4/vc4_hvs.c
+> +++ b/drivers/gpu/drm/vc4/vc4_hvs.c
+> @@ -1753,10 +1753,16 @@ static void vc4_hvs_unbind(struct device *dev, struct device *master,
+>                            void *data)
+>  {
+>         struct drm_device *drm = dev_get_drvdata(master);
+> -       struct vc4_dev *vc4 = to_vc4_dev(drm);
+> -       struct vc4_hvs *hvs = vc4->hvs;
+> +       struct vc4_dev *vc4;
+> +       struct vc4_hvs *hvs;
+>         struct drm_mm_node *node, *next;
+>
+> +       if (!drm)
+> +               return;
+> +
+> +       vc4 = to_vc4_dev(drm);
+> +       hvs = vc4->hvs;
+> +
+>         if (drm_mm_node_allocated(&vc4->hvs->mitchell_netravali_filter))
+>                 drm_mm_remove_node(&vc4->hvs->mitchell_netravali_filter);
+>
