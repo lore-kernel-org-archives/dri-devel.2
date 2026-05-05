@@ -4,131 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EAD8FF885A
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 07:37:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DC2CFF885A
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 07:40:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B04F810E0DC;
-	Tue,  5 May 2026 07:37:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5C8C10E154;
+	Tue,  5 May 2026 07:40:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="l1WiNiLJ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="J9ADuZwJ";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="l1WiNiLJ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="J9ADuZwJ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LeAUcFWR";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F18110E0DC
- for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 07:37:05 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id B720E6AF6B;
- Tue,  5 May 2026 07:37:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1777966623; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=x3lrU6ZbkgS/qIH2x95MHeCVqok7aXmzoUSK9KQZA2Y=;
- b=l1WiNiLJJ1p5VGvdSrKz3AqHs9DHUbEa9PwFAFTA1soZVpGjDmk6YPhGvdVJHP+Ri2Htgx
- Z7k0lvjeiR91uCQnaJ5pXHBl+T07T1p9AzuqvJ6WKFtL9HdMq3mwpZFP7CfODGZ9VFWXmN
- OI+hX6RZORAfSMstMpLHOmp1ILXWWE8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1777966623;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=x3lrU6ZbkgS/qIH2x95MHeCVqok7aXmzoUSK9KQZA2Y=;
- b=J9ADuZwJb2LnNlc3UhfUsd/5i4fi1YQImwFyTULgGGGspvRp9RTbwQ7msOjcYtLer9w/5E
- jvEioUyt/+cuR+CQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1777966623; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=x3lrU6ZbkgS/qIH2x95MHeCVqok7aXmzoUSK9KQZA2Y=;
- b=l1WiNiLJJ1p5VGvdSrKz3AqHs9DHUbEa9PwFAFTA1soZVpGjDmk6YPhGvdVJHP+Ri2Htgx
- Z7k0lvjeiR91uCQnaJ5pXHBl+T07T1p9AzuqvJ6WKFtL9HdMq3mwpZFP7CfODGZ9VFWXmN
- OI+hX6RZORAfSMstMpLHOmp1ILXWWE8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1777966623;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=x3lrU6ZbkgS/qIH2x95MHeCVqok7aXmzoUSK9KQZA2Y=;
- b=J9ADuZwJb2LnNlc3UhfUsd/5i4fi1YQImwFyTULgGGGspvRp9RTbwQ7msOjcYtLer9w/5E
- jvEioUyt/+cuR+CQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 770DC593A3;
- Tue,  5 May 2026 07:37:03 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id X548GR+e+WnoSAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 05 May 2026 07:37:03 +0000
-Message-ID: <dec75e9b-2784-4b63-a9c7-f99272e73544@suse.de>
-Date: Tue, 5 May 2026 09:37:02 +0200
-MIME-Version: 1.0
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011022.outbound.protection.outlook.com [52.101.57.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AC7910E150;
+ Tue,  5 May 2026 07:40:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=A6AcFTgoR7WHwDpTGmTgZIYk0NURlijet9orubHUAwT5Jz4c+nxf5jLiVg7ZVtv2Y4jJZ43Lks6LFySYr3K0CSJ+MAB/bHa0g47icYgN1tKPBfzzNGmHwOBDl/da31v75dIlBUs7uzVZJtL4VcpZ+9GnFN07zQlDd0NSHVjjGOZFh/JsgVEvheu5Qe8wLri+4w9T9Xg7/kusprpE07S4EArb+fHRsoJOm7KIU3ai21iqjs1HJPsraCh4Vq8aPic6PouaRSg6pYU0D17al8owTj1DO2F6GLG8wbXoK551vxbrInw5ucat8zHQh2ZeG2jpO+RcUo2F9tUUUBFOvnRhzA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qpblTVw1gVyfwtb+90Dl2jo8u2z2G/Hf2CLutB5AO/4=;
+ b=baBzICxG2UoyaeAskwWGjIRbRyrZZWJPwIMN90i5m4x+/52jTVy5N165sA08jUzeu2rv7K3OOJFI+al399AULZoq4SZsPwcyiVooDW3n386EIfPA0XjWH3FGHDU8YgMxVzOgY2PBFDobpTUywhW/C2GJcl7EvKBr0U6iGAITFf+or/xbLsLh/WHJCbKp3OEDtHd8IG7GkaXWZaSYxkUEuohvVsoxj35bQ7KKkfo2uS/w0B576hdLtUqldTQp1PBVtY6WQv4La08L+Cz5ko/MOtEXt3ffRTyyQe2du6x5P/fyISnfUiLVRnbcH8oYJS7iAM2BscDnr8bLQbz4zrUkew==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qpblTVw1gVyfwtb+90Dl2jo8u2z2G/Hf2CLutB5AO/4=;
+ b=LeAUcFWR6b+icBcuZIbLnuZbYVXJkdcmTHfGwFf6R/VAyngLjB1EvxkXHmC9zgdM2RBBRx3xZIexI7IhxNGAb4iyDya/uBJ72PjNfeiIdlvBxCYGSaZICXuPTdxspXM6xkQPK5s+NQw+cXfq7Rj6nw5dWXoz/W7ZFgioopBN358=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
+ by PH7PR12MB5735.namprd12.prod.outlook.com (2603:10b6:510:1e2::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Tue, 5 May
+ 2026 07:40:42 +0000
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc%3]) with mapi id 15.20.9870.023; Tue, 5 May 2026
+ 07:40:40 +0000
+Message-ID: <fe76a5db-7d18-4f67-be38-723a5821a818@amd.com>
+Date: Tue, 5 May 2026 13:10:33 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH -next v2 1/2] drm: verisilicon: add max cursor size to HWDB
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Han Gao <rabenda.cn@gmail.com>, Icenowy Zheng <uwu@icenowy.me>
-References: <20260324060222.2029061-1-zhengxingda@iscas.ac.cn>
- <20260324060222.2029061-2-zhengxingda@iscas.ac.cn>
+Subject: Re: [PATCH v2] drm/amd/amdgpu: remove duplicated code in gfx_v11 and
+ gfx_v12
+To: Ulisses Paixao <ulissespaixao@usp.br>, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
+Cc: Felipe Sousa <felipesousa@usp.br>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20260505021417.32520-1-ulissespaixao@usp.br>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260324060222.2029061-2-zhengxingda@iscas.ac.cn>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20260505021417.32520-1-ulissespaixao@usp.br>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; RCVD_TLS_ALL(0.00)[];
- ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- TAGGED_RCPT(0.00)[]; TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
- FREEMAIL_TO(0.00)[iscas.ac.cn,linux.intel.com,kernel.org,gmail.com,ffwll.ch]; 
- MID_RHS_MATCH_FROM(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[vger.kernel.org,lists.freedesktop.org,gmail.com,icenowy.me]; 
- RCPT_COUNT_SEVEN(0.00)[9]; FROM_EQ_ENVFROM(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.de:mid,
- suse.de:email, suse.com:url, iscas.ac.cn:email]
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA0PR01CA0090.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:ae::19) To SA0PR12MB7091.namprd12.prod.outlook.com
+ (2603:10b6:806:2d5::17)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|PH7PR12MB5735:EE_
+X-MS-Office365-Filtering-Correlation-Id: ac5d1a83-dd75-4ad9-f17c-08deaa799b18
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|1800799024|56012099003|18002099003|22082099003; 
+X-Microsoft-Antispam-Message-Info: UavQIYMD+Y/XZjXUiXQ9d0jNyqBIrbpMMBPqpKRwlMAnRHx75o97kFBX9PsPd7PDSrbemhLBAHWoUy1CQjdu2Jw6S9qgwYL6oU7PbJeryiaF9qzjkOvIbEbrp2o5IUOtCDYtSxeV5ySmpGgJKmTI6yi3lB0/vCjKHdmohCnyvS2cyX/ec3cXGXrd/gZ2GGc6DkQ5KWn7g7n/vICJ1jbb01Nh1OYRz6cDMKhVbk4wEO/O4FBmCLBzMUCi5CQXD1zgsCs08p/WeduFRj+n93aiAFtcpmSOs/r7xmFIhtuTDRn/fNml24yPg81dmeV9wHmJuox7cMr6pXNVC0TXMlenAxj8L8ijv6w2NuMM/IYf+hceilCoHw5z8q/5BiOoW2i2YO9ra3vKIT/2ArPlZfqKEB6p8PyF8xWeaebVj6Fv1/jQyafwpyQbGwcpxdthtHBet6Z1jrNBSkCLlA0KeU6ZaCkiQq8eF4KpplX/6Xf7yk8u+I9A1xbEyMrV96UyYimjCxOfbeRborvAzGHQN/BsqFXc6OpeYjxNYEBB1YfHqhwRGryTp3DZxgluciJoyZZJLNbzq6HYCnGxQXIalkF4hYmHGcYDTbj3FA8RE3HQTQaUFyJ2SlNvlzxDm5kyoV8KBfgfB3YnsnjCrJU0COVBN5mXGKV0CdF/G1fdyzi5OtGYQN8/02PdKVmQHMqEehJZ
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(56012099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MWlWMTM2MjF4OEcvU2NDeFo2KzdtSnRoc25aRjFMTU5weGZjc2piVkk1RnNl?=
+ =?utf-8?B?dXpVWDNxcGdTM1o4bG0rUElOVUlDOEYyWjBYOTlLYXpxOE13Q1VzSnVhQzlS?=
+ =?utf-8?B?YmJYNGNYd3ZpRXIvWVBMWE5tb1FsSnNzVTE4MDJZNkljWVZtL1BMbEw5K05q?=
+ =?utf-8?B?b2VDYWdobmlYcWw3eDYraTlCd1FnNEVlUXhHYndHU1VrKzA2RzEyYU1ZQnZ2?=
+ =?utf-8?B?VVlSYXVCM2p1dC9iWUhvQmJNMnNjTHdURmY1RW9MR1d4a2Z4ZC84N2h5NTho?=
+ =?utf-8?B?eUI4SjdCbHR6eGpHSDNHUThRcFdaN2ZEVXorRStvMm85YlozWGFIaGY0Y21F?=
+ =?utf-8?B?TEg1cThqRXBtdXZIUFVqV0FEMWRIeEdvd3FVWlhONVdWTXJIdFJvdmhWTmVR?=
+ =?utf-8?B?STJuSytrL05teXlXamlTR1NXb3RUY2d4ai9qdW9YbFhxcDJzc1laQXh3WTJn?=
+ =?utf-8?B?VVFPZU9GS3czR0dNUVBIUmhVenVyS3g5THFjd3kxalJrTGUrSWUwckZpZm9v?=
+ =?utf-8?B?YXRzTXdTVHhFNGNPckw5V1dOZ3NLU01sNUQydjFaQXk3NFVuZzdwT0ltbW5k?=
+ =?utf-8?B?MjlDYm5Ec2VSUlhXMEl1MGxWNVRmM0wyZjQxNTYvRjJPL1B2K0RORk93eVl6?=
+ =?utf-8?B?bEpPSlJaNnl1UW1IbkVTc0ZzcU10MnM3YjBIOENubHNwL0ZVZ3lWUmNMRmgy?=
+ =?utf-8?B?QzdQL3BkNWlJMFYxeEtvTVhucDhyT0JabnBnYXdPalZJc1o2STBrWDZJSWM3?=
+ =?utf-8?B?NGJFZXVjMzgrN08ybTNQWFE5aWlPbTdpOEtPVHZZRm01UndIRUFzUTVRTlgv?=
+ =?utf-8?B?MmRFckhId2F5aXIrWFovMnRlS2ZrZ2h5M1ZhaThiZHovTzF0dkNReVlDcm84?=
+ =?utf-8?B?bVJIVzRSc0tJdnV4T0QvcTRNZ3hsWGVoT05mTElwOE16S3QzSUxZVnBoclJW?=
+ =?utf-8?B?M2FDMWM4VVo0ek1GNVIrOE9tNTJNR0lKakUveTEyM0JBZkZwbzRBVUhJYkha?=
+ =?utf-8?B?RjZ2eVVTK2lCUWVjV2lsTVc2ZzdKK2JibDhKamlxZ2JXMzRDWTVHMGFKSDBI?=
+ =?utf-8?B?c1BENzBzM2hURnhJYzdvenJ2N1RibGRvMXBsNHlqSzNsaWhHSXE0UFluYXYv?=
+ =?utf-8?B?aTM4ZlR5Zk84UHhTcVdzYTlaWnRUcFNRWTBPeHpXVGtWREcxMTdmTzdnRytp?=
+ =?utf-8?B?eFNVU0pYU21CS2I5R0tLZUNPQTU0Z0p2WTlJSUVXZ1BsRVdZaDZQTHJXdi9C?=
+ =?utf-8?B?V3BCSEdVd0liTGtzYUpaUS9GTCtUMWFHR1JnbWE1YjF0dHUxZWxIY1ZNNTNx?=
+ =?utf-8?B?aFRrSVRtVWZNMDZqcUMrQkhKTlRpTHQ1K21HVS9tWnBLKytyY2ZQN2YraW51?=
+ =?utf-8?B?blI3UUZ1NkRnRW5pQVdkMTRpUEtVNmd4Wm1HYU95ZEZLTEhhQ014SmtyWlhQ?=
+ =?utf-8?B?alpMS2xCSmo1aEZuL1AwSUJ3WlZPaXM0bEx5WVNScW5NRmtlc3Y4b0xJR2dk?=
+ =?utf-8?B?NGVoOENrSVg5Q2Joc0VUdDVjdFlTOVhlbnFuTi95cFhQQk1GblE2TUYxNS9h?=
+ =?utf-8?B?eEx3MGJzWmFmd3FtVzJPdk1ZUmUybHRkekc3STVHTFVibWp3eUl3VXNXVFRR?=
+ =?utf-8?B?NXBJV1dkMVgvNmpkaGJMK0t2VXhKMHVBVXZYVjliVFpXQXVSTlZ3TzB3Z2lo?=
+ =?utf-8?B?bDVFN2JjODQ4ZU9aZ1cxQmVyN2VNczAwdlA0MHRMTVhFVHAvKzEzMlNuN0FW?=
+ =?utf-8?B?S2JtSlFmY1Awb2VXb3k3YWZmaEUrQmtmTHNTTnd6RjNHeHNFWDBNSWtaUms4?=
+ =?utf-8?B?MWNzK2F2bjZWMEVSN0NOaDNOc3Q1ZTNDbnkweld4Mk4xb2lWcFpSdnI3MlBp?=
+ =?utf-8?B?akQ0dDZ1Q2NBVnZBcjZCeGNBOVE2UGpoZEY2djZyeEFiYWdxQVlUTHNkU1Ur?=
+ =?utf-8?B?VmErTWRTcXpSU1VmbXdYN1N3K2c5R2tMMUVndjB5QVRBL2hMYkdzQkxsWEpM?=
+ =?utf-8?B?amUxY1U4eUF4NXNPZVlzSHFhSGgvT2Nxb3E0alpJSEZTSndRbCtmTktaMGJt?=
+ =?utf-8?B?U1hMZEd6WmVncHJlUE9XU0dHOEZZRWFBakxDRnU3QitIZFhsemNjRkF2VzZQ?=
+ =?utf-8?B?RmYrODRHdmVkSUxpZ0Q5ckVjUEpIa2Z4aXhOSm5XL2xoVy9LQ1lTSGcyMkhZ?=
+ =?utf-8?B?U2FCWE5RL1lxb0VjTGwyYUY4a1J6dlFPK0J6eHRBWWc4eTRnVW9lU3hFa1dE?=
+ =?utf-8?B?aUJTYlhSK2RCb1FFZFRHMHF5ODh1MmNmSTlwYlFYczEzVUE1WlM3LzVFcXhT?=
+ =?utf-8?B?ZDZZd0tacUJaOEE1VU5ibU95Tk5LcU5YUW5EZnQ2WU5MRnFpWWFndz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ac5d1a83-dd75-4ad9-f17c-08deaa799b18
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2026 07:40:40.7576 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: L2v9vs3VS8YySGtH4MvepjYagBNWluqAZWfEgGhNdgN/3AHQYxf1R/mDONcTPCWS
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5735
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,86 +139,182 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 
-Am 24.03.26 um 07:02 schrieb Icenowy Zheng:
-> Different display controller variants support different maximum cursor
-> size. All known DC8200 variants support both 32x32 and 64x64, but some
-> DC8000 variants support either only 32x32 or up to 256x256.
->
-> The minimum size is fixed at 32 and only PoT square sizes are supported.
->
-> Add the max cursor size field to HWDB and fill all entries with 64.
->
-> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-
+On 05-May-26 7:44 AM, Ulisses Paixao wrote:
+> [Some people who received this message don't often get email from ulissespaixao@usp.br. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> 
+> The functions gfx_v11_0_handle_priv_fault and
+> gfx_v12_0_handle_priv_fault share the same logic for searching and
+> triggering a scheduler fault on a ring. This patch moves the shared
+> ring-searching logic to a common function, amdgpu_gfx_handle_priv_fault,
+> in amdgpu_gfx.c. The hardware-specific decoding of ring IDs remains in
+> the version-specific files to maintain proper architectural separation.
+> 
+> Signed-off-by: Ulisses Paixao <ulissespaixao@usp.br>
+> Co-developed-by: Felipe Sousa <felipesousa@usp.br>
+> Signed-off-by: Felipe Sousa <felipesousa@usp.br>
+> 
 > ---
-> Changes in v2:
-> - Added a comment about the cursor being square.
->
->   drivers/gpu/drm/verisilicon/vs_hwdb.c | 4 ++++
->   drivers/gpu/drm/verisilicon/vs_hwdb.h | 5 +++++
->   2 files changed, 9 insertions(+)
->
-> diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.c b/drivers/gpu/drm/verisilicon/vs_hwdb.c
-> index 09336af0900ae..2a0f7c59afa3a 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_hwdb.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_hwdb.c
-> @@ -95,6 +95,7 @@ static struct vs_chip_identity vs_chip_identities[] = {
->   		.customer_id = ~0U,
->   
->   		.display_count = 2,
-> +		.max_cursor_size = 64,
->   		.formats = &vs_formats_no_yuv444,
->   	},
->   	{
-> @@ -103,6 +104,7 @@ static struct vs_chip_identity vs_chip_identities[] = {
->   		.customer_id = 0x30B,
->   
->   		.display_count = 2,
-> +		.max_cursor_size = 64,
->   		.formats = &vs_formats_no_yuv444,
->   	},
->   	{
-> @@ -111,6 +113,7 @@ static struct vs_chip_identity vs_chip_identities[] = {
->   		.customer_id = 0x310,
->   
->   		.display_count = 2,
-> +		.max_cursor_size = 64,
->   		.formats = &vs_formats_with_yuv444,
->   	},
->   	{
-> @@ -119,6 +122,7 @@ static struct vs_chip_identity vs_chip_identities[] = {
->   		.customer_id = 0x311,
->   
->   		.display_count = 2,
-> +		.max_cursor_size = 64,
->   		.formats = &vs_formats_no_yuv444,
->   	},
->   };
-> diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.h b/drivers/gpu/drm/verisilicon/vs_hwdb.h
-> index 92192e4fa0862..2065ecb730437 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_hwdb.h
-> +++ b/drivers/gpu/drm/verisilicon/vs_hwdb.h
-> @@ -20,6 +20,11 @@ struct vs_chip_identity {
->   	u32 customer_id;
->   
->   	u32 display_count;
-> +	/*
-> +	 * The hardware only supports square cursor planes, so this field
-> +	 * is both the maximum width and height in pixels.
-> +	 */
-> +	int32_t max_cursor_size;
->   	const struct vs_formats *formats;
->   };
->   
+> 
+> v2:
+> Keep the HW-specific decoding in gfx_v11_0.c and gfx_v12_0.c.
+> Remove the redundant check for adev->gfx.disable_kq.
+> Simplify the search loop in amdgpu_gfx_handle_priv_fault to iterate over
+> all gfx and compute rings without a switch statement.
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 32 +++++++++++++++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  2 ++
+>   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 27 +--------------------
+>   drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c  | 27 +--------------------
+>   4 files changed, 36 insertions(+), 52 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> index b8ca87669..67a291781 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> @@ -830,6 +830,38 @@ int amdgpu_gfx_enable_kgq(struct amdgpu_device *adev, int xcc_id)
+>          return r;
+>   }
+> 
+> +/**
+> + * amdgpu_gfx_handle_priv_fault - Handle privileged instruction fault
+> + *
+> + * @adev: amdgpu_device pointer
+> + * @me_id: micro-engine ID of the faulty ring
+> + * @pipe_id: pipe ID of the faulty ring
+> + * @queue_id: queue ID of the faulty ring
+> + *
+> + * This function handles privileged instruction faults by identifying
+> + * the faulty ring (gfx or compute) and triggering a scheduler fault.
+> + */
+> +void amdgpu_gfx_handle_priv_fault(struct amdgpu_device *adev,
+> +                                       u8 me_id, u8 pipe_id, u8 queue_id)
+> +{
+> +       struct amdgpu_ring *ring;
+> +       int i;
+> +
+> +       for (i = 0; i < adev->gfx.num_gfx_rings; i++) {
+> +               ring = &adev->gfx.gfx_ring[i];
+> +               if (ring->me == me_id && ring->pipe == pipe_id &&
+> +                   ring->queue == queue_id)
+> +                       drm_sched_fault(&ring->sched);
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+Could return from here, no need to search compute rings if found.
 
+Thanks,
+Lijo
+> +       }
+> +
+> +       for (i = 0; i < adev->gfx.num_compute_rings; i++) {
+> +               ring = &adev->gfx.compute_ring[i];
+> +               if (ring->me == me_id && ring->pipe == pipe_id &&
+> +                   ring->queue == queue_id)
+> +                       drm_sched_fault(&ring->sched);
+> +       }
+> +}
+> +
+>   static void amdgpu_gfx_do_off_ctrl(struct amdgpu_device *adev, bool enable,
+>                                     bool no_delay)
+>   {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> index a0cf0a3b4..0b2f6ce85 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> @@ -611,6 +611,8 @@ bool amdgpu_gfx_is_high_priority_graphics_queue(struct amdgpu_device *adev,
+>                                                  struct amdgpu_ring *ring);
+>   bool amdgpu_gfx_is_me_queue_enabled(struct amdgpu_device *adev, int me,
+>                                      int pipe, int queue);
+> +void amdgpu_gfx_handle_priv_fault(struct amdgpu_device *adev,
+> +                                       u8 me_id, u8 pipe_id, u8 queue_id);
+>   void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool enable);
+>   void amdgpu_gfx_off_ctrl_immediate(struct amdgpu_device *adev, bool enable);
+>   int amdgpu_get_gfx_off_status(struct amdgpu_device *adev, uint32_t *value);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> index 2c6f1e25c..888c9f3c4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> @@ -6688,37 +6688,12 @@ static void gfx_v11_0_handle_priv_fault(struct amdgpu_device *adev,
+>                                          struct amdgpu_iv_entry *entry)
+>   {
+>          u8 me_id, pipe_id, queue_id;
+> -       struct amdgpu_ring *ring;
+> -       int i;
+> 
+>          me_id = (entry->ring_id & 0x0c) >> 2;
+>          pipe_id = (entry->ring_id & 0x03) >> 0;
+>          queue_id = (entry->ring_id & 0x70) >> 4;
+> 
+> -       if (!adev->gfx.disable_kq) {
+> -               switch (me_id) {
+> -               case 0:
+> -                       for (i = 0; i < adev->gfx.num_gfx_rings; i++) {
+> -                               ring = &adev->gfx.gfx_ring[i];
+> -                               if (ring->me == me_id && ring->pipe == pipe_id &&
+> -                                   ring->queue == queue_id)
+> -                                       drm_sched_fault(&ring->sched);
+> -                       }
+> -                       break;
+> -               case 1:
+> -               case 2:
+> -                       for (i = 0; i < adev->gfx.num_compute_rings; i++) {
+> -                               ring = &adev->gfx.compute_ring[i];
+> -                               if (ring->me == me_id && ring->pipe == pipe_id &&
+> -                                   ring->queue == queue_id)
+> -                                       drm_sched_fault(&ring->sched);
+> -                       }
+> -                       break;
+> -               default:
+> -                       BUG();
+> -                       break;
+> -               }
+> -       }
+> +       amdgpu_gfx_handle_priv_fault(adev, me_id, pipe_id, queue_id);
+>   }
+> 
+>   static int gfx_v11_0_priv_reg_irq(struct amdgpu_device *adev,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> index 6baac533a..3f0d29372 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> @@ -5019,37 +5019,12 @@ static void gfx_v12_0_handle_priv_fault(struct amdgpu_device *adev,
+>                                          struct amdgpu_iv_entry *entry)
+>   {
+>          u8 me_id, pipe_id, queue_id;
+> -       struct amdgpu_ring *ring;
+> -       int i;
+> 
+>          me_id = (entry->ring_id & 0x0c) >> 2;
+>          pipe_id = (entry->ring_id & 0x03) >> 0;
+>          queue_id = (entry->ring_id & 0x70) >> 4;
+> 
+> -       if (!adev->gfx.disable_kq) {
+> -               switch (me_id) {
+> -               case 0:
+> -                       for (i = 0; i < adev->gfx.num_gfx_rings; i++) {
+> -                               ring = &adev->gfx.gfx_ring[i];
+> -                               if (ring->me == me_id && ring->pipe == pipe_id &&
+> -                                   ring->queue == queue_id)
+> -                                       drm_sched_fault(&ring->sched);
+> -                       }
+> -                       break;
+> -               case 1:
+> -               case 2:
+> -                       for (i = 0; i < adev->gfx.num_compute_rings; i++) {
+> -                               ring = &adev->gfx.compute_ring[i];
+> -                               if (ring->me == me_id && ring->pipe == pipe_id &&
+> -                                   ring->queue == queue_id)
+> -                                       drm_sched_fault(&ring->sched);
+> -                       }
+> -                       break;
+> -               default:
+> -                       BUG();
+> -                       break;
+> -               }
+> -       }
+> +       amdgpu_gfx_handle_priv_fault(adev, me_id, pipe_id, queue_id);
+>   }
+> 
+>   static int gfx_v12_0_priv_reg_irq(struct amdgpu_device *adev,
+> --
+> 2.34.1
+> 
 
