@@ -4,128 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38FC9CD13DA
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 06:54:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8FCBFF885A
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 07:05:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13C8010E0F3;
-	Tue,  5 May 2026 06:54:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F159C10E034;
+	Tue,  5 May 2026 07:05:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="IhXflBOe";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Ut9pltwO";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="KCM3lRfJ";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="tH/7Zc7p";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="5QnE+PzP";
 	dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
- [67.231.145.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6809510E0F3
- for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 06:54:19 +0000 (UTC)
-Received: from pps.filterd (m0044012.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 644HUxrV3703959
- for <dri-devel@lists.freedesktop.org>; Mon, 4 May 2026 23:54:18 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
- bh=D1mf9Znv8+ZNWIl/62MdhJpFIl6cZ0E08irrbj6h/RE=; b=IhXflBOemPK3
- U8Z15qfbXAtar3VVsStb8w8V6wh1lL2Ws0tmFDXc99BVDS7Lo21exksx9//XQMUo
- DBuksD73qntJ+bIuhKGsMusUX8KD2Z6Q1vueNAPDNMzQiBh8DAxMOo/GYY+gLh8K
- cmxuT+sv/xGOvDt99IP0ecrA6vErAQe5cN6jEUwhzHS2o2nb5mFKdUeCvXQbtTUK
- Eja7bMB/foB8yPMA2nUogQvg0I/LLcJxjf7s1hxBfoDxtmnD+lRAAgDGEL9fOx+R
- YQykJpmeDb9fGCDSBTOeJdine5TdaUnpHeOn9c53exrV+NGMQyBxtSB076wdHsTj
- X96BUp0ASw==
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com
- [209.85.210.70])
- by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4dwexyph3j-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 04 May 2026 23:54:18 -0700 (PDT)
-Received: by mail-ot1-f70.google.com with SMTP id
- 46e09a7af769-7de44ba64e7so6979740a34.1
- for <dri-devel@lists.freedesktop.org>; Mon, 04 May 2026 23:54:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777964058; cv=none;
- d=google.com; s=arc-20240605;
- b=USlYMaAjWX0nbr+5klRgYQsA61Q+FLVpxhKDM9LvudFq7tScKpH3PzVuRPGzeVpfCb
- pmUnNZhwmPHe02VfHkgrkAbPmpZT0yWEjEHZoEYD37Lm0ds0RT6LJn6R6DPJmU1GlcNR
- OcaHHEtT3UkXtxR/8Scs/plmV5Op7gG3uGLPypKYq4MBFjAFqqcw1uqnxQ32McIwVa48
- ssGnCBcwMcXQrhiEGKV+vvCux0Hd7/NPwb2WXBzuUyJhsy47A9390rJwXJIneVEJw8tB
- /GwTkiRGZL04467MxzB0r2a5fcRVzk6hkokdT2GtER5OWRb+0YhILtx+M8ldB43XfM4o
- Doig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version;
- bh=uhzg8pVh5XZoijloMRfkO2ATqnu2chpe+p7ocg9d4tw=;
- fh=U80sT5KCHSHAHILpmP7bZKyUI03SW9v1OVmLSI97xOc=;
- b=bK/Ng8CzDEITEnPcZZ0Wehxxkf1siCf9yI9QK41pk+lJwZQYUa87o0Rc1qPW9XJgvL
- t2QXj7RqIrNQVfnTccuiPJ3P3TZWg66uW6s8FYDJ/uVxpvjJSgpGbk8rCUeJH//pYqSv
- +ZkYXPe2KdOxBKEw/b3XEvOSTMAlm+b/y7ZarIh4zbc1egRwgbq3t3y0p8WdkCDZ3+Tm
- IostjTk9VMHqYSky7KKfI8i0yomdBboiwcRAYTszLvPTC1AVNrrVT17HLjJO/blOZ95X
- 4ggVh/RpWWTJQxWMmKh3V8/O6CjsqI/gLsml+Ck/KRAHsZ2x/FxrzkCnuxpsCpATpuYJ
- qcHQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777964058; x=1778568858;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=uhzg8pVh5XZoijloMRfkO2ATqnu2chpe+p7ocg9d4tw=;
- b=IteRow2nZEeortdH54ZNLdEvYVtvZO/jfAOnbrcfgspTizYTxnnV/foLkPaqKIsXY3
- pogN5H4fM5YU1GB/s3SY+KpfZHz8K6J95W8KOtkM1gVa9ffVoqUawFK6N03z5VCckIdj
- WaE0qySZXbG45ht6EnIxgaath1IxNZJZc4rPuTRpxoT2elHGkJGLLDerpLgZF5EYfbsj
- OK3RGgkk7gP78pmFVI39MNrFTXN/hQ1oi9wdyGYrvfO0KOXM9k1JhlKWYxe+zrmubaQU
- /lUZDfI+XsFd9BwWDoLwKfHUxVrv7oNy+dQNl2cG7lZpHmO2YV8lS+ZXLlxzsxSljEdp
- SrHg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+dbZiPsPitkeiq/YLBH6hxfuXbxivzCwRhpOZdW/GgBiEF9B4xsipwQOPMblvKVeiYah0JeoaISQE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyEPJQNBfF/jdtbE+rX8duoWAl+HWdiI4jcCMX/9v1VE9yXZQ7f
- Jve4dr1la6R/sjbzmRj0WzyloFO5V4FVBzPhmbvLp93h9sGUz6YT44sq/31kyWcLsMRzH+N/UJC
- 8X7+8ZuePZU/kbpqvruhChqJH2q3tDVBcEOR2uvH9IZqMGF+LX1lFlitCSjuegQBA2keeej4kIJ
- x+cbyjo1QKr68ni0ACztCBdGU3eBvJxkYcCBUasVSFGY0=
-X-Gm-Gg: AeBDieuqHHyZD9/XriJZGndFfl7a/xwkqiC/U5iuyR/AF1494X/oAHg/Q7AAancXi7T
- 2DUbX0+K5VwgKfHfjUFpmStlGZdgyNEZ6j9NBLCFu6q+We64k5ugPRnUOwRV6k2QNLqxiQgCod4
- 4zFzdfGtLiKTGpMvyiHuUsYjKr1zsGex1mmw+9M9wie1i4jKSSUnE/5A3SDg+6ewHgOHZPfVa7p
- 1h6eQIOYiUCSgt8uo3+Zk8KRxYIuqcxUa4Q79entRsC9y7xTMw=
-X-Received: by 2002:a05:6830:6e1b:b0:7e1:cbe3:bb1b with SMTP id
- 46e09a7af769-7e1cbe3be7emr251848a34.0.1777964057785; 
- Mon, 04 May 2026 23:54:17 -0700 (PDT)
-X-Received: by 2002:a05:6830:6e1b:b0:7e1:cbe3:bb1b with SMTP id
- 46e09a7af769-7e1cbe3be7emr251833a34.0.1777964057130; Mon, 04 May 2026
- 23:54:17 -0700 (PDT)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4755710E034
+ for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 07:05:08 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 516AB5C9EB;
+ Tue,  5 May 2026 07:05:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1777964706; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=6O2RJrRsBRMvhcn2gF2kwMRQoxn9OWC+V9v7sKvbpb8=;
+ b=Ut9pltwOHLwA8yAGG1M9WSiw4bDj/CCp5SHb028so1zlYl5hNDF9hsW8XlM4tUpoInL7E5
+ E4MnfLKzOdokJjlNMW86PLAB8r89hrftS7Q+mgwWvz9oRIniIfZPW9R0lkczXpcqxXNnYz
+ z3KsQ5Q0Vk83q3eFpve9TcXbwI7tox0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1777964706;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=6O2RJrRsBRMvhcn2gF2kwMRQoxn9OWC+V9v7sKvbpb8=;
+ b=KCM3lRfJsnmqQzPOO3cftDrJNnsXWy4I5FyAj5KCF4hGzvExWLcDjVv+85P21F8D5O6acX
+ 3RRun22HFNEN3MDA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1777964705; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=6O2RJrRsBRMvhcn2gF2kwMRQoxn9OWC+V9v7sKvbpb8=;
+ b=tH/7Zc7p6jXDfdVhYW5jw0lHUSq6SL8CMg2LPZcOqSTadj9IhYofE/wGeC6wf49+A36O6e
+ 0otC1wx2VAy/0/SsyOYQ5zqTWmXunbKBlj2v/wrjNju361svaPHzZq0OSYUnIYPHmw/EdL
+ fOD59mWiAS1ZHce2jLIgJ0yKTb0yEFY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1777964705;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=6O2RJrRsBRMvhcn2gF2kwMRQoxn9OWC+V9v7sKvbpb8=;
+ b=5QnE+PzP/nEUulyjjYifB2M2OWi3RB/xzPu4IWoNwB3mNDXChsqZc+Z39BWr4aYMm3qQ/M
+ p+88pSoXnGl/fXCQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BE0AF593A6;
+ Tue,  5 May 2026 07:05:04 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id iOH1LKCW+Wl2KAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 05 May 2026 07:05:04 +0000
+Message-ID: <9b35f7c0-f326-4f42-bfe2-82160495bd53@suse.de>
+Date: Tue, 5 May 2026 09:05:04 +0200
 MIME-Version: 1.0
-References: <20260430200704.352228-1-zhipingz@meta.com>
- <20260430200704.352228-2-zhipingz@meta.com>
- <20260504154459.77b8153d@shazbot.org>
-In-Reply-To: <20260504154459.77b8153d@shazbot.org>
-From: Zhiping Zhang <zhipingz@meta.com>
-Date: Mon, 4 May 2026 23:54:06 -0700
-X-Gm-Features: AVHnY4LnfRqtsa29br_gywqWSmKi9XQx9-UD43AecyJJP1ECdfbRFsjVzAPHTkA
-Message-ID: <CAH3zFs3ZEAjsy_8nq4EHGbNWzXVVfJeRynEdVNYu9_j8N24s8w@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] vfio: add dma-buf get_tph callback and DMA_BUF_TPH
- feature
-To: Alex Williamson <alex@shazbot.org>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Bjorn Helgaas <helgaas@kernel.org>, linux-rdma@vger.kernel.org,
- linux-pci@vger.kernel.org, netdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Keith Busch <kbusch@kernel.org>,
- Yochai Cohen <yochai@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>,
- kvm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-GUID: u_U3vST30t6WDfFUuF-VgRELZv9UpIOe
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA1MDA2MiBTYWx0ZWRfX85LMqgOEiRam
- 3q5/zH8ijemMyKh5/8qzi3fI1COw02Z5C6c1XqeFrmXeL/pmiZEzHS2l3/jY9AUkLXWU5nc6O8q
- O0DIwjBFgggzRMjxTY+XNpGT2G8earMXWAcsMH9V2klPQmieSQjc03UNAM1K6m58WVkxKK4EKuv
- DQInJ8c2twZ4hxkj43K7wbIms5eWJKXH96C2bff4IGPgdpCXLcvrJB81cTOMLR73pQ/le2NpKqW
- FWJ05hb2HVreZMEEv+HTbi1GsTuoF0R2QVVmak38Aatj9sZO9ZAZSKr5CwNf/9K8l62Y9d5fSAm
- 2vJvW1v4AJtFQgnFSNYYD5Xl6lr1ITHZXYk3847Cpk5K2lSPSC7KdaqqeS6YLCfXN+TxCM63B1e
- h4CVr+RfsvydylBDMolfM7tKmhx6JeZdBNQ0uRXkWy9JJUJ7ZSYefWftcHF5gcwtmD17GhsU9GJ
- G+d1BQDzD2z5nKYhOnQ==
-X-Proofpoint-ORIG-GUID: u_U3vST30t6WDfFUuF-VgRELZv9UpIOe
-X-Authority-Analysis: v=2.4 cv=Zcwt8MVA c=1 sm=1 tr=0 ts=69f9941a cx=c_pps
- a=7uPEO8VhqeOX8vTJ3z8K6Q==:117 a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=PAz_-FQ8hEVmOPYdF0yf:22
- a=c92rfblmAAAA:8 a=VabnemYjAAAA:8 a=r1p2_3pzAAAA:8 a=VwQbUJbxAAAA:8
- a=YLhAehpVo6qmETfym2AA:9 a=QEXdDO2ut3YA:10 a=EXS-LbY8YePsIyqnH6vw:22
- a=GvGzcOZaWPEFPQC_NcjD:22 a=gKebqoRLp9LExxC7YDUY:22 a=r_pkcD-q9-ctt7trBg_g:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-05_02,2026-04-30_02,2025-10-01_01
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/6] drm/tiny: Add DRM driver for Solomon SSD16xx e-paper
+ display controllers
+To: Devarsh Thakkar <devarsht@ti.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: praneeth@ti.com, vigneshr@ti.com, s-jain1@ti.com, s-wang12@ti.com,
+ r-donadkar@ti.com, r-sharma3@ti.com, afd@ti.com
+References: <20260430183311.2978142-1-devarsht@ti.com>
+ <20260430183311.2978142-4-devarsht@ti.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260430183311.2978142-4-devarsht@ti.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ TAGGED_RCPT(0.00)[dt]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWELVE(0.00)[20];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FREEMAIL_TO(0.00)[ti.com,gmail.com,ffwll.ch,linux.intel.com,kernel.org,linaro.org,oss.qualcomm.com,lists.freedesktop.org,vger.kernel.org];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; TO_DN_SOME(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ MID_RHS_MATCH_FROM(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[crystalfontz.com:url, suse.com:url,
+ bootlin.com:url, ti.com:url, ti.com:email, seeedstudio.com:url,
+ imap1.dmz-prg2.suse.org:helo, suse.de:mid]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,278 +149,2831 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, May 4, 2026 at 2:45=E2=80=AFPM Alex Williamson <alex@shazbot.org> w=
-rote:
->
-> >
-> On Thu, 30 Apr 2026 13:06:56 -0700
-> Zhiping Zhang <zhipingz@meta.com> wrote:
->
-> > Add a dma-buf callback that returns raw TPH metadata from the exporter
-> > so peer devices can reuse the steering tag and processing hint
-> > associated with a VFIO-exported buffer.
-> >
-> > Add a new VFIO_DEVICE_FEATURE_DMA_BUF_TPH ioctl that takes the fd from
-> > VFIO_DEVICE_FEATURE_DMA_BUF along with a steering tag and processing
-> > hint, validates the fd is a vfio-exported dma-buf belonging to this
-> > device, and stores the TPH values under memory_lock. This keeps the
-> > existing VFIO_DEVICE_FEATURE_DMA_BUF uAPI completely unchanged.
-> >
-> > The user sequences setting TPH on the dma-buf before the importer
-> > consumes it.
-> >
-> > Add an st_width parameter to get_tph() so the exporter can reject
-> > steering tags that exceed the consumer's supported width (8 vs 16 bit).
-> > When no TPH metadata was supplied, get_tph() returns -EOPNOTSUPP.
-> >
-> > Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
->
-> The uAPI is better, but sashiko has some review comments[1] for you.
->
-> Please also copy the kvm list for vfio related development.  Thanks,
->
-> Alex
+Hi,
 
-Got it, thanks Alex. let me check sashiko's comments and post a new
-revision. i also copied kvm@vger.kernel.org and will include in future
-revisions.
+thanks for the driver. See below for a review.
 
-Zhiping
+There is support for Solomon SSD13xx in solomon/. You should check if 
+the new driver belongs there.
+
+Am 30.04.26 um 20:33 schrieb Devarsh Thakkar:
+> Add a DRM driver for the Solomon Systech SSD16xx family of e-paper display
+> controllers (SSD1680 [4], SSD1673 [3], SSD1681 [5], SSD1683 [1]) based
+> e-paper display panels, starting with support for the Gooddisplay
+> GDEY042T81 which is 4.2", 400x300 resolution black/white e-paper display
+> using SSD1683 controller.
+>
+> Hardware features supported:
+>    - SPI communication with optional D/C GPIO (4-wire mode) or 9-bit SPI
+>      with embedded D/C# bit (3-wire mode) command/data signaling
+>    - BUSY GPIO polling with configurable timeout
+>    - Hardware reset via dedicated reset GPIO
+>    - Internal temperature sensor readout
+>    - Border waveform control with 10 configurable modes:
+>      LUT0-3 (GS transition waveforms), fixed voltage levels (VSS/VSH1/VSL/
+>      VSH2), VCOM follow, and HiZ (floating, default)
+>    - Deep sleep modes: Mode 1 (RAM retained) and Mode 2 (RAM lost)
+>    - Data entry modes for all four orientations
+>    - Dual display RAM planes: BW RAM (primary image) and RED RAM
+>      (partial refresh baseline / 3-color BWR red pixels)
+>
+> Refresh modes:
+>    Three independently selectable refresh waveforms:
+>    - Partial (~300-500 ms): low-latency BW update using RED RAM as
+>      waveform transition baseline
+>    - Full (~1.5-2 s): complete pixel-cycle reset with temperature-
+>      compensated LUT reload
+>    - Fast (~1.0-1.5 s): abbreviated waveform using a pre-loaded LUT
+>
+> Pixel format conversions:
+>    The driver accepts all common DRM formats and converts to 1bpp:
+>    - R1 (native 1bpp), color formats (XRGB8888, RGB888, RGB565),
+>      packed YUV (YUYV, UYVY), planar YUV (NV12, NV16), grayscale (R8)
+>    - 3-color BWR: classifies pixels as black, white, or red by dominant
+>      channel; writes separate 1bpp BW and RED buffers
+>
+> Orientation / rotation:
+>    - Full 4-way rotation: 0° (landscape), 90° (portrait CW),
+>      180° (landscape inverted), 270° (portrait CCW)
+>    - Implemented via the Data Entry Mode register — no GPU or memory
+>      rotation overhead
+>    - Configurable via device tree 'rotation' property, module parameter
+>      (overrides DT), or runtime DRM connector property (highest priority)
+>
+> DRM framework integration:
+>    - drm_atomic_helper-based modesetting with damage tracking
+>    - Single primary plane, CRTC, simple encoder, SPI connector
+>    - drm_gem_dma backend for physically contiguous SPI DMA buffers
+>    - fbdev fallback via DRM_FBDEV_DMA_DRIVER_OPS
+>
+> E-paper panels are bistable: they retain the last displayed image
+> indefinitely without power.  Ghosting artefacts may accumulate over time,
+> and based on user policy the driver can switch to a full refresh mode to
+> clear them.  Similarly, based on user policy, the driver can clear the
+> screen on every application start or stop to provide a clean slate for the
+> next application although some applications may require preserving the
+> last displayed context when going to suspend or exiting.  To provide such
+> flexibility, the driver introduces the following DRM connector properties
+> along with corresponding module parameters:
+> DRM connector properties (runtime configurable):
+>    - rotation: Display orientation in degrees (0, 90, 180, 270).
+>
+>    - refresh_mode: Select update waveform (0=partial, 1=full, 2=fast).
+>      Affects all subsequent frames until changed.
+>
+>    - refresh_mode_init: Waveform for the first frame after CRTC enable or a
+>      new DRM master taking control (0=disabled, 1=partial, 2=full, 3=fast).
+>      After the first frame the driver reverts to refresh_mode.  Armed via
+>      drm_driver.master_set; disarmed by master_drop if the client exits
+>      without submitting a frame.
+>
+>    - clear_on_init: Clear display on first DRM client open (0=disabled,
+>      1=partial, 2=full, 3=fast).
+>
+>    - clear_on_close: Clear display when the displaying client exits
+>      (0=disabled, 1=partial, 2=full, 3=fast). Fires via
+>      drm_driver.master_drop when a client drops DRM master.
+>      It also disarms init_refresh_pending so no stale init refresh leaks to
+>      the next client.
+>
+>    - clear_on_disable: Clear display on CRTC disable / DPMS off
+>      (0=disabled, 1=partial, 2=full, 3=fast). Fires via
+>      crtc_atomic_disable. Independent of clear_on_close — a
+>      display_cleared_on_deinit guard prevents a redundant second clear
+>      when both fire for the same session (e.g. compositor does DPMS off
+>      then exits).
+>
+>    - color_mode: Selects whether a red-plane-capable panel is driven in
+>      3-color (black/white/red) or black-white-only mode (0=black-white,
+>      1=3-color). 3-color is only valid for panels with red plane support;
+>      black-white mode bypasses the RED RAM regardless of panel capability,
+>      allowing a BWR panel to be driven as a faster BW display.
+>
+>    - border_waveform_init: Border waveform during clear/init operations
+>      (enum 0-9: LUT0-3, VSS, VSH1, VSL, VSH2, VCOM, HiZ).
+>
+>    - border_waveform_refresh: Border waveform during display updates
+>      (enum 0-9, same values).
+>
+>    - border_refresh_on_every_update: When disabled, border waveform
+>      command is sent only when the border state changes (0=disabled,
+>      1=enabled).
+
+Generally speaking, your driver does way too much and leaves too much to 
+DRM clients.
+
+- All these properties should go away. There is (mostly) no reason why 
+any of this should be of interest to user space.
+
+- User space sets up a state for the display pipeline and the client 
+configures the hardware accordingly.
+
+- Don't emulate all these color formats and format conversions. Export 
+what the hardware supports and let user space pick it. Then program the 
+hardware accordingly. You might export XRGB8888 for compatibility and 
+emulate it such that it fits the hardware.
+
 
 >
-> [1]https://urldefense.com/v3/__https://sashiko.dev/*/patchset/20260430200=
-704.352228-1-zhipingz@meta.com__;Iw!!Bt8RZUm9aw!7glmqoMRhcdDwOgCAQuuEVqlhFJ=
-rh9bAYHXvicXPAO2M-k-NPwE_wFeUjVhe7EXbkXMd6g7eOe13$
+> Module parameters (override DT / panel config defaults):
+>    Each DRM connector property above has a corresponding module parameter
+> that sets its initial value at load time, providing the same control via
+> sysfs and the kernel command line without requiring a DRM-capable userspace
+> or handling.  All parameters default to -1 (use panel config default) so
+> that a bare insmod with no arguments works correctly out of the box.
+
+That's another thing. Your driver should make good decisions about 
+hardware configuration. Users should not override them.
+
+
 >
-> > diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_p=
-ci_core.c
-> > --- a/drivers/vfio/pci/vfio_pci_core.c
-> > +++ b/drivers/vfio/pci/vfio_pci_core.c
-> > @@ -1534,6 +1534,9 @@ int vfio_pci_core_ioctl_feature(struct vfio_devic=
-e *device, u32 flags,
-> >               return vfio_pci_core_feature_token(vdev, flags, arg, args=
-z);
-> >       case VFIO_DEVICE_FEATURE_DMA_BUF:
-> >               return vfio_pci_core_feature_dma_buf(vdev, flags, arg, ar=
-gsz);
-> > +     case VFIO_DEVICE_FEATURE_DMA_BUF_TPH:
-> > +             return vfio_pci_core_feature_dma_buf_tph(vdev, flags, arg,
-> > +                                                      argsz);
-> >       default:
-> >               return -ENOTTY;
-> >       }
-> > diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio=
-_pci_dmabuf.c
-> > --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
-> > +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
-> > @@ -19,6 +19,9 @@ struct vfio_pci_dma_buf {
-> >       u32 nr_ranges;
-> >       struct kref kref;
-> >       struct completion comp;
-> > +     u16 steering_tag;
-> > +     u8 ph;
-> > +     u8 tph_present : 1;
-> >       u8 revoked : 1;
-> >  };
-> >
-> > @@ -69,6 +72,22 @@ vfio_pci_dma_buf_map(struct dma_buf_attachment *atta=
-chment,
-> >       return ret;
-> >  }
-> >
-> > +static int vfio_pci_dma_buf_get_tph(struct dma_buf *dmabuf, u16 *steer=
-ing_tag,
-> > +                                 u8 *ph, u8 st_width)
-> > +{
-> > +     struct vfio_pci_dma_buf *priv =3D dmabuf->priv;
-> > +
-> > +     if (!priv->tph_present)
-> > +             return -EOPNOTSUPP;
-> > +
-> > +     if (st_width < 16 && priv->steering_tag > ((1U << st_width) - 1))
-> > +             return -EINVAL;
-> > +
-> > +     *steering_tag =3D priv->steering_tag;
-> > +     *ph =3D priv->ph;
-> > +     return 0;
-> > +}
-> > +
-> >  static void vfio_pci_dma_buf_unmap(struct dma_buf_attachment *attachme=
-nt,
-> >                                  struct sg_table *sgt,
-> >                                  enum dma_data_direction dir)
-> > @@ -101,6 +120,7 @@ static void vfio_pci_dma_buf_release(struct dma_buf=
- *dmabuf)
-> >
-> >  static const struct dma_buf_ops vfio_pci_dmabuf_ops =3D {
-> >       .attach =3D vfio_pci_dma_buf_attach,
-> > +     .get_tph =3D vfio_pci_dma_buf_get_tph,
-> >       .map_dma_buf =3D vfio_pci_dma_buf_map,
-> >       .unmap_dma_buf =3D vfio_pci_dma_buf_unmap,
-> >       .release =3D vfio_pci_dma_buf_release,
-> > @@ -331,6 +351,55 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_=
-core_device *vdev, u32 flags,
-> >       return ret;
-> >  }
-> >
-> > +int vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vde=
-v,
-> > +                                   u32 flags,
-> > +                                   struct vfio_device_feature_dma_buf_=
-tph __user *arg,
-> > +                                   size_t argsz)
-> > +{
-> > +     struct vfio_device_feature_dma_buf_tph set_tph;
-> > +     struct vfio_pci_dma_buf *priv;
-> > +     struct dma_buf *dmabuf;
-> > +     int ret;
-> > +
-> > +     ret =3D vfio_check_feature(flags, argsz, VFIO_DEVICE_FEATURE_SET,
-> > +                              sizeof(set_tph));
-> > +     if (ret !=3D 1)
-> > +             return ret;
-> > +
-> > +     if (copy_from_user(&set_tph, arg, sizeof(set_tph)))
-> > +             return -EFAULT;
-> > +
-> > +     if (set_tph.reserved)
-> > +             return -EINVAL;
-> > +
-> > +     dmabuf =3D dma_buf_get(set_tph.dmabuf_fd);
-> > +     if (IS_ERR(dmabuf))
-> > +             return PTR_ERR(dmabuf);
-> > +
-> > +     if (dmabuf->ops !=3D &vfio_pci_dmabuf_ops) {
-> > +             ret =3D -EINVAL;
-> > +             goto out_put;
-> > +     }
-> > +
-> > +     priv =3D dmabuf->priv;
-> > +     down_write(&vdev->memory_lock);
-> > +     if (priv->vdev !=3D vdev) {
-> > +             ret =3D -EINVAL;
-> > +             goto out_unlock;
-> > +     }
-> > +
-> > +     priv->steering_tag =3D set_tph.steering_tag;
-> > +     priv->ph =3D set_tph.ph;
-> > +     priv->tph_present =3D 1;
-> > +     ret =3D 0;
-> > +
-> > +out_unlock:
-> > +     up_write(&vdev->memory_lock);
-> > +out_put:
-> > +     dma_buf_put(dmabuf);
-> > +     return ret;
-> > +}
-> > +
-> >  void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool rev=
-oked)
-> >  {
-> >       struct vfio_pci_dma_buf *priv;
-> > diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_p=
-ci_priv.h
-> > --- a/drivers/vfio/pci/vfio_pci_priv.h
-> > +++ b/drivers/vfio/pci/vfio_pci_priv.h
-> > @@ -118,6 +118,10 @@ static inline bool vfio_pci_is_vga(struct pci_dev =
-*pdev)
-> >  int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u=
-32 flags,
-> >                                 struct vfio_device_feature_dma_buf __us=
-er *arg,
-> >                                 size_t argsz);
-> > +int vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vde=
-v,
-> > +                                   u32 flags,
-> > +                                   struct vfio_device_feature_dma_buf_=
-tph __user *arg,
-> > +                                   size_t argsz);
-> >  void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev);
-> >  void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool rev=
-oked);
-> >  #else
-> > @@ -128,6 +132,13 @@ vfio_pci_core_feature_dma_buf(struct vfio_pci_core=
-_device *vdev, u32 flags,
-> >  {
-> >       return -ENOTTY;
-> >  }
-> > +static inline int
-> > +vfio_pci_core_feature_dma_buf_tph(struct vfio_pci_core_device *vdev, u=
-32 flags,
-> > +                               struct vfio_device_feature_dma_buf_tph =
-__user *arg,
-> > +                               size_t argsz)
-> > +{
-> > +     return -ENOTTY;
-> > +}
-> >  static inline void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_devic=
-e *vdev)
-> >  {
-> >  }
-> > diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-> > --- a/include/linux/dma-buf.h
-> > +++ b/include/linux/dma-buf.h
-> > @@ -113,6 +113,23 @@ struct dma_buf_ops {
-> >        */
-> >       void (*unpin)(struct dma_buf_attachment *attach);
-> >
-> > +     /**
-> > +      * @get_tph:
-> > +      * @dmabuf: DMA buffer for which to retrieve TPH metadata
-> > +      * @steering_tag: Returns the raw TPH steering tag
-> > +      * @ph: Returns the TPH processing hint
-> > +      * @st_width: Consumer's supported steering tag width in bits (8 =
-or 16)
-> > +      *
-> > +      * Return the TPH (TLP Processing Hints) metadata associated with=
- this
-> > +      * DMA buffer. Exporters that do not provide TPH metadata should =
-return
-> > +      * -EOPNOTSUPP. If the steering tag exceeds @st_width bits, return
-> > +      * -EINVAL.
-> > +      *
-> > +      * This callback is optional.
-> > +      */
-> > +     int (*get_tph)(struct dma_buf *dmabuf, u16 *steering_tag, u8 *ph,
-> > +                    u8 st_width);
-> > +
-> >       /**
-> >        * @map_dma_buf:
-> >        *
-> > diff --git a/include/uapi/linux/vfio.h b/include/uapi/linux/vfio.h
-> > --- a/include/uapi/linux/vfio.h
-> > +++ b/include/uapi/linux/vfio.h
-> > @@ -1534,6 +1534,28 @@ struct vfio_device_feature_dma_buf {
-> >   */
-> >  #define VFIO_DEVICE_FEATURE_MIG_PRECOPY_INFOv2  12
-> >
-> > +/**
-> > + * Upon VFIO_DEVICE_FEATURE_SET associate TPH (TLP Processing Hints) m=
-etadata
-> > + * with a vfio-exported dma-buf. The dma-buf must have been created by
-> > + * VFIO_DEVICE_FEATURE_DMA_BUF on this device.
-> > + *
-> > + * dmabuf_fd is the file descriptor returned by VFIO_DEVICE_FEATURE_DM=
-A_BUF.
-> > + * steering_tag and ph are the raw TPH values that importing drivers s=
-hould use
-> > + * when accessing the buffer.
-> > + *
-> > + * The user must set TPH on the dma-buf before the importer consumes i=
-t.
-> > + *
-> > + * Return: 0 on success, -errno on failure.
-> > + */
-> > +#define VFIO_DEVICE_FEATURE_DMA_BUF_TPH 13
-> > +
-> > +struct vfio_device_feature_dma_buf_tph {
-> > +     __s32   dmabuf_fd;
-> > +     __u16   steering_tag;
-> > +     __u8    ph;
-> > +     __u8    reserved;
-> > +};
-> > +
-> >  /* -------- API for Type1 VFIO IOMMU -------- */
-> >
-> >  /**
+> Links:
+> [1] : https://www.crystalfontz.com/controllers/SolomonSystech/SSD1683
+> [2] : https://files.seeedstudio.com/wiki/Other_Display/42-epaper/GDEY042T81.pdf
+> [3] : https://www.crystalfontz.com/controllers/SolomonSystech/SSD1673
+> [4] : https://www.crystalfontz.com/controllers/SolomonSystech/SSD1680
+> [5] : https://www.crystalfontz.com/controllers/SolomonSystech/SSD1681
 >
+> Signed-off-by: Devarsh Thakkar <devarsht@ti.com>
+> ---
+>   drivers/gpu/drm/tiny/Kconfig         |   13 +
+>   drivers/gpu/drm/tiny/Makefile        |    1 +
+>   drivers/gpu/drm/tiny/panel-ssd16xx.c | 2548 ++++++++++++++++++++++++++
+>   3 files changed, 2562 insertions(+)
+>   create mode 100644 drivers/gpu/drm/tiny/panel-ssd16xx.c
+>
+> diff --git a/drivers/gpu/drm/tiny/Kconfig b/drivers/gpu/drm/tiny/Kconfig
+> index f0e72d4b6a47..d25363962a1e 100644
+> --- a/drivers/gpu/drm/tiny/Kconfig
+> +++ b/drivers/gpu/drm/tiny/Kconfig
+> @@ -215,3 +215,16 @@ config TINYDRM_SHARP_MEMORY
+>   	  * 4.40" Sharp Memory LCD (LS044Q7DH01)
+>   
+>   	  If M is selected the module will be called sharp_memory.
+> +
+> +config DRM_PANEL_SSD16XX
+
+Just call it DRM_SSD16XX without the panel. In DRM, things named 'panel' 
+are usually built around struct drm_panel, which doesn't seem the case here.
+
+> +	tristate "DRM support for Solomon SSD16xx e-ink display controllers"
+> +	depends on DRM && SPI
+> +	select DRM_CLIENT_SELECTION
+> +	select DRM_KMS_HELPER
+> +	select DRM_GEM_DMA_HELPER
+
+Your driver doesn't seem to do actual DMA from the GEM buffers, but 
+read-and-copy them to the device over SPI.  The ideomatic pattern is to 
+use gem-shmem and shadow-plane helpers. Please convert the driver 
+accordingly. See [1] and [2].  Using the initialize macros, you should 
+be able to drop them into the driver without much issues.
+
+[1] 
+https://elixir.bootlin.com/linux/v7.0.1/source/include/drm/drm_gem_shmem_helper.h
+[2] 
+https://elixir.bootlin.com/linux/v7.0.1/source/include/drm/drm_gem_atomic_helper.h#L42
+
+> +	help
+> +	  DRM driver for Solomon SSD16xx family e-ink display controllers
+> +	  (SSD1680, SSD1681, SSD1683). Supports the GDEY042T81 4.2" 400x300
+> +	  monochrome e-ink panel.
+> +
+> +	  If M is selected the module will be called panel-ssd16xx.
+> diff --git a/drivers/gpu/drm/tiny/Makefile b/drivers/gpu/drm/tiny/Makefile
+> index 48d30bf6152f..3f24e5c6a79a 100644
+> --- a/drivers/gpu/drm/tiny/Makefile
+> +++ b/drivers/gpu/drm/tiny/Makefile
+> @@ -15,3 +15,4 @@ obj-$(CONFIG_TINYDRM_ILI9486)		+= ili9486.o
+>   obj-$(CONFIG_TINYDRM_MI0283QT)		+= mi0283qt.o
+>   obj-$(CONFIG_TINYDRM_REPAPER)		+= repaper.o
+>   obj-$(CONFIG_TINYDRM_SHARP_MEMORY)	+= sharp-memory.o
+> +obj-$(CONFIG_DRM_PANEL_SSD16XX)		+= panel-ssd16xx.o
+> diff --git a/drivers/gpu/drm/tiny/panel-ssd16xx.c b/drivers/gpu/drm/tiny/panel-ssd16xx.c
+> new file mode 100644
+> index 000000000000..b232837c54ff
+> --- /dev/null
+> +++ b/drivers/gpu/drm/tiny/panel-ssd16xx.c
+
+Again, remove 'panel'.
+
+> @@ -0,0 +1,2548 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * DRM driver for e-paper display panels using Solomon SSD16xx family controllers
+> + *
+> + * Copyright (C) 2026 Texas Instruments Incorporated - https://www.ti.com/
+> + *
+> + * Author: Devarsh Thakkar <devarsht@ti.com>
+> + *
+> + * References: https://github.com/Lesords/epaper
+> + */
+> +
+> +#include <linux/delay.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/property.h>
+> +#include <linux/spi/spi.h>
+> +
+> +#include <drm/clients/drm_client_setup.h>
+> +#include <drm/drm_atomic.h>
+> +#include <drm/drm_atomic_helper.h>
+> +#include <drm/drm_damage_helper.h>
+> +#include <drm/drm_drv.h>
+> +#include <drm/drm_fb_helper.h>
+> +#include <drm/drm_fbdev_dma.h>
+> +#include <drm/drm_fb_dma_helper.h>
+> +#include <drm/drm_framebuffer.h>
+> +#include <drm/drm_gem_dma_helper.h>
+> +#include <drm/drm_gem_framebuffer_helper.h>
+> +#include <drm/drm_probe_helper.h>
+
+> +#include <drm/drm_simple_kms_helper.h>
+
+Obsolete. Anything you use from this header should be open-coded in the 
+driver.
+
+> +#include <drm/drm_print.h>
+
+
+Please remove all of the parameters below. They might be nice for your 
+debugging, but they do not belong in the upstream driver.
+
+> +
+> +static int rotation = -1;
+> +module_param(rotation, int, 0644);
+> +MODULE_PARM_DESC(rotation,
+> +		 "Display rotation (-1=use DT, 0/180=landscape, 90/270=portrait)");
+
+Please remove this. There is a rotation property in struct 
+drm_connector, which stores the rotation. IIRC it can be overridden on 
+the kernel command line.
+
+> +
+> +static int refresh_mode = -1;
+> +module_param(refresh_mode, int, 0644);
+> +MODULE_PARM_DESC(refresh_mode,
+> +		 "Refresh mode (-1=panel default, 0=partial ~300-500ms, 1=full ~1.5-2s, 2=fast ~1.0-1.5s)");
+> +
+> +static int border_waveform_init_lut = -1;
+> +module_param(border_waveform_init_lut, int, 0644);
+> +MODULE_PARM_DESC(border_waveform_init_lut,
+> +		 "Border waveform index during clear/init (-1=panel default, 0-9=enum index)");
+> +
+> +static int border_waveform_lut = -1;
+> +module_param(border_waveform_lut, int, 0644);
+> +MODULE_PARM_DESC(border_waveform_lut,
+> +		 "Border waveform index during display updates (-1=panel default, 0-9=enum index)");
+> +
+
+Please remove it. Only the panel default. If you have panels where the 
+default is known to be incorrect, you can add specific workarounds in 
+the driver.
+
+
+> +static bool border_refresh_on_every_update;
+> +module_param(border_refresh_on_every_update, bool, 0644);
+> +MODULE_PARM_DESC(border_refresh_on_every_update,
+> +		 "Re-send border waveform command before each display update (default: false)");
+
+Pick a sane default.
+
+> +
+> +static int clear_on_init = -1;
+> +module_param(clear_on_init, int, 0644);
+> +MODULE_PARM_DESC(clear_on_init,
+> +		 "Clear display on first app launch (-1=disabled, 0=partial, 1=full, 2=fast)");
+> +
+> +static int clear_on_close = -1;
+> +module_param(clear_on_close, int, 0644);
+> +MODULE_PARM_DESC(clear_on_close,
+> +		 "Clear display on app close/CRTC disable (-1=disabled, 0=partial, 1=full, 2=fast)");
+> +
+> +static int clear_on_disable = -1;
+> +module_param(clear_on_disable, int, 0644);
+> +MODULE_PARM_DESC(clear_on_disable,
+> +		 "Clear display on CRTC disable/DPMS off (-1=disabled, 0=partial, 1=full, 2=fast)");
+> +
+> +static int refresh_mode_init = -1;
+> +module_param(refresh_mode_init, int, 0644);
+> +MODULE_PARM_DESC(refresh_mode_init,
+> +		 "Skip baseline establishment on first enable (-1=disabled, 0=partial, 1=full, 2=fast)");
+
+Use 'disabled' for all of them.
+
+> +
+> +static int color_mode = -1;
+> +module_param(color_mode, int, 0644);
+> +MODULE_PARM_DESC(color_mode,
+> +		 "Color mode (-1=panel default, 0=black-white, 1=3-color; 3-color only valid for panels with red plane support)");
+
+'Panel default.'  Colors should be controlled by DRM clients via the 
+framebuffer.
+
+> +
+> +/* -----------------------------------------------------------------------
+> + * SSD16xx family common: commands, data values, and bit definitions.
+> + * These apply equally to SSD1673, SSD1680, and SSD1683.
+> + * -----------------------------------------------------------------------
+> + */
+> +
+> +/* SPI command codes (common) */
+> +#define SSD16XX_CMD_DRIVER_OUTPUT_CONTROL		0x01
+> +#define SSD16XX_CMD_DATA_ENTRY_MODE			0x11
+> +#define SSD16XX_CMD_SW_RESET				0x12
+> +#define SSD16XX_CMD_MASTER_ACTIVATION			0x20
+> +#define SSD16XX_CMD_DISPLAY_UPDATE_CONTROL1		0x21
+> +#define SSD16XX_CMD_DISPLAY_UPDATE_CONTROL2		0x22
+> +#define SSD16XX_CMD_WRITE_RAM_BW			0x24
+> +#define SSD16XX_CMD_BORDER_WAVEFORM_CONTROL		0x3C
+> +#define SSD16XX_CMD_SET_RAM_X_ADDRESS_START_END		0x44
+> +#define SSD16XX_CMD_SET_RAM_Y_ADDRESS_START_END		0x45
+> +#define SSD16XX_CMD_SET_RAM_X_ADDRESS_COUNTER		0x4E
+> +#define SSD16XX_CMD_SET_RAM_Y_ADDRESS_COUNTER		0x4F
+> +
+> +/*
+> + * Data Entry Mode (command 0x11) AM/IDY/IDX bit encoding (common).
+> + *
+> + * Bit 2 (AM): Address update direction: 0 = X direction, 1 = Y direction
+> + * ID[1:0] when AM=0 (X-direction modes, address counter advances in X):
+> + *   00 = X decrement, Y decrement   01 = X increment, Y decrement
+> + *   10 = X decrement, Y increment   11 = X increment, Y increment (default)
+> + *
+> + * Rotation to data entry mode mapping (actual implementation uses two modes,
+> + * with scan direction controlled via RAM cursor positioning and manual tweaking):
+> + *   0°/270° → 0x03 (X++, Y++)   Landscape/Portrait-CW: cursor at (0, 0)
+> + *   90°/180° → 0x00 (X--, Y--)  Portrait-CCW/Upside-down: cursor at (max, max)
+> + *
+> + * The pixel packing in convert_fb_to_1bpp is grouped by physical layout:
+> + *   - Portrait (90°/270°): column-major packing, rightmost column first
+> + *   - Landscape (0°/180°): row-major packing, top to bottom, left to right
+> + * Hardware cursor position and scan mode handle the final orientation.
+> + */
+> +#define SSD16XX_DATA_ENTRY_XDEC_YDEC		0x00  /* X--, Y-- (X-mode) */
+> +#define SSD16XX_DATA_ENTRY_XINC_YINC		0x03  /* X++, Y++ (X-mode, default) */
+> +
+> +/* POR reset value: GD=0 (G0 first), SM=0 (interlaced), TB=0 (G0->G299) */
+> +#define SSD16XX_DRIVER_OUTPUT_CTRL_DEFAULT	0x00
+> +
+> +/* Display Update Control 1 (0x21) byte 2 default (common) */
+> +#define SSD16XX_CTRL1_BYTE2_DEFAULT		0x00
+> +
+> +/*
+> + * Display Update Control 2 (0x22) individual bit definitions (common).
+> + * NOTE: BIT(3) is NOT common — see SSD1683_CTRL2_MODE2 in the SSD1683
+> + * section below; it has a completely different meaning in SSD1673.
+> + */
+> +#define SSD16XX_CTRL2_ENABLE_CLK		BIT(7)
+> +#define SSD16XX_CTRL2_ENABLE_ANALOG		BIT(6)
+> +#define SSD16XX_CTRL2_LOAD_TEMPERATURE		BIT(5)
+> +#define SSD16XX_CTRL2_LOAD_LUT			BIT(4)
+> +#define SSD16XX_CTRL2_DISPLAY			BIT(2)
+> +#define SSD16XX_CTRL2_DISABLE_ANALOG		BIT(1)
+> +#define SSD16XX_CTRL2_DISABLE_CLK		BIT(0)
+> +
+> +#define SSD16XX_SPI_BITS_PER_WORD		8
+> +#define SSD16XX_SPI_SPEED_DEFAULT		1000000
+> +
+> +/* Maximum time to wait for the BUSY pin to deassert after a display update */
+> +#define SSD16XX_BUSY_WAIT_TIMEOUT_MS		6000
+> +
+> +/* -----------------------------------------------------------------------
+> + * SSD1683 / SSD1680 specific: commands, data values, and bit definitions.
+> + * -----------------------------------------------------------------------
+> + */
+> +
+> +/*
+> + * Deep Sleep Mode values (command 0x10).
+> + */
+> +#define SSD1683_DEEP_SLEEP_MODE_1			0x01  /* RAM retained */
+> +#define SSD1683_DEEP_SLEEP_MODE_2			0x03  /* RAM lost (max power) */
+> +
+> +/*
+> + * Temperature Sensor Selection (command 0x18).
+> + */
+> +#define SSD1683_CMD_TEMPERATURE_SENSOR_CONTROL		0x18
+> +#define SSD1683_TEMP_SENSOR_INTERNAL			0x80  /* Bit 7: use internal sensor */
+> +
+> +/*
+> + * Write RED RAM (command 0x26).
+> + */
+> +#define SSD1683_CMD_WRITE_RAM_RED			0x26
+> +
+> +/*
+> + * Border Waveform Control (command 0x3C) byte values.
+> + */
+> +#define SSD1683_BORDER_WAVEFORM_LUT0		0x00  /* GS Transition LUT0 (black) */
+> +#define SSD1683_BORDER_WAVEFORM_LUT1		0x01  /* GS Transition LUT1 (white) */
+> +#define SSD1683_BORDER_WAVEFORM_LUT2		0x02  /* GS Transition LUT2 (black) */
+> +#define SSD1683_BORDER_WAVEFORM_LUT3		0x03  /* GS Transition LUT3 (gray) */
+> +#define SSD1683_BORDER_WAVEFORM_FIXLVL_VSS	0x40  /* Fix Level VSS (0V, black) */
+> +#define SSD1683_BORDER_WAVEFORM_FIXLVL_VSH1	0x50  /* Fix Level VSH1 (+15V, black) */
+> +#define SSD1683_BORDER_WAVEFORM_FIXLVL_VSL	0x60  /* Fix Level VSL (-15V, white) */
+> +#define SSD1683_BORDER_WAVEFORM_FIXLVL_VSH2	0x70  /* Fix Level VSH2 (+15V alt, black) */
+> +#define SSD1683_BORDER_WAVEFORM_VCOM		0x80  /* Follow VCOM (-2V~-3V, preserve) */
+> +#define SSD1683_BORDER_WAVEFORM_HIZ		0xC0  /* HiZ (floating, default) */
+> +
+> +/*
+> + * Display Update Control 1 (0x21) byte 1 — RED RAM control.
+> + */
+> +#define SSD1683_CTRL1_NORMAL			0x00  /* Both BW and RED RAMs enabled */
+> +#define SSD1683_CTRL1_BYPASS_RED_RAM		0x40  /* Bypass RED RAM (force RED=0) */
+> +
+> +/*
+> + * Display Update Control 2 (0x22) BIT(3) — "Display Mode 2" (partial/BW).
+> + */
+> +#define SSD1683_CTRL2_MODE2			BIT(3)
+> +
+> +/* Composite CTRL2 sequences for each refresh mode */
+> +#define SSD1683_CTRL2_FULL_REFRESH (SSD16XX_CTRL2_ENABLE_CLK | \
+> +				    SSD16XX_CTRL2_ENABLE_ANALOG | \
+> +				    SSD16XX_CTRL2_LOAD_TEMPERATURE | \
+> +				    SSD16XX_CTRL2_LOAD_LUT | \
+> +				    SSD16XX_CTRL2_DISPLAY | \
+> +				    SSD16XX_CTRL2_DISABLE_ANALOG | \
+> +				    SSD16XX_CTRL2_DISABLE_CLK)  /* 0xF7, ~1.5-2s */
+> +
+> +#define SSD1683_CTRL2_FAST_REFRESH (SSD16XX_CTRL2_ENABLE_CLK | \
+> +				    SSD16XX_CTRL2_ENABLE_ANALOG | \
+> +				    SSD16XX_CTRL2_DISPLAY | \
+> +				    SSD16XX_CTRL2_DISABLE_ANALOG | \
+> +				    SSD16XX_CTRL2_DISABLE_CLK)  /* 0xC7, ~1.0-1.5s */
+> +
+> +#define SSD1683_CTRL2_PARTIAL_REFRESH (SSD16XX_CTRL2_ENABLE_CLK | \
+> +				       SSD16XX_CTRL2_ENABLE_ANALOG | \
+> +				       SSD16XX_CTRL2_LOAD_TEMPERATURE | \
+> +				       SSD16XX_CTRL2_LOAD_LUT | \
+> +				       SSD1683_CTRL2_MODE2 | \
+> +				       SSD16XX_CTRL2_DISPLAY | \
+> +				       SSD16XX_CTRL2_DISABLE_ANALOG | \
+> +				       SSD16XX_CTRL2_DISABLE_CLK)  /* 0xFF, ~300-500ms */
+> +
+> +/*
+> + * Standalone LUT pre-load sequence (0x91 = ENABLE_CLK | LOAD_LUT | LOAD_TEMPERATURE |
+> + *                                          DISABLE_CLK).
+> + * Pre-loads the OTP LUT without triggering a display update. Required for
+> + * FAST refresh mode (0xC7) which omits LOAD_LUT from each update cycle.
+> + */
+> +#define SSD1683_CTRL2_LOAD_TEMP_LUT		(SSD16XX_CTRL2_ENABLE_CLK | \
+> +						 SSD16XX_CTRL2_LOAD_LUT | \
+> +						 SSD16XX_CTRL2_LOAD_TEMPERATURE | \
+> +						 SSD16XX_CTRL2_DISABLE_CLK)  /* 0xB1 */
+> +
+> +MODULE_IMPORT_NS("DMA_BUF");
+> +
+> +enum ssd16xx_controller {
+> +	SSD1683 = 1,
+> +};
+> +
+> +enum ssd16xx_model {
+> +	GDEY042T81 = 1,
+> +};
+> +
+> +enum ssd16xx_refresh_mode {
+> +	SSD16XX_REFRESH_PARTIAL = 0,  /* Partial refresh (~300-500ms) */
+> +	SSD16XX_REFRESH_FULL,         /* Full refresh (~1.5-2s) */
+> +	SSD16XX_REFRESH_FAST,         /* Fast refresh, skip temp load (~1.0-1.5s) */
+> +};
+> +
+> +enum ssd16xx_color_mode {
+> +	SSD16XX_COLOR_MODE_BW = 0,     /* Black/white only; RED RAM always bypassed */
+> +	SSD16XX_COLOR_MODE_3COLOR = 1, /* 3-colour BWR; RED RAM used for red pixels */
+> +};
+> +
+> +/* Border waveform enum indices (0-9); mapped to HW bytes via
+> + * controller_cfg->border_waveform_table[]
+> + */
+> +enum ssd16xx_border_waveform {
+> +	SSD16XX_BORDER_LUT0 = 0,  /* GS Transition LUT0 (black) */
+> +	SSD16XX_BORDER_LUT1,      /* GS Transition LUT1 (white) */
+> +	SSD16XX_BORDER_LUT2,      /* GS Transition LUT2 (black) */
+> +	SSD16XX_BORDER_LUT3,      /* GS Transition LUT3 (gray) */
+> +	SSD16XX_BORDER_VSS,       /* Fix Level VSS (black) */
+> +	SSD16XX_BORDER_VSH1,      /* Fix Level VSH1 (black) */
+> +	SSD16XX_BORDER_VSL,       /* Fix Level VSL (white) */
+> +	SSD16XX_BORDER_VSH2,      /* Fix Level VSH2 (black) */
+> +	SSD16XX_BORDER_VCOM,      /* Follow VCOM (preserve) */
+> +	SSD16XX_BORDER_HIZ,       /* HiZ (floating, default) */
+> +};
+> +
+> +/* SSD1683/SSD1680 border waveform byte encoding for command 0x3C */
+> +static const u8 ssd1683_border_waveform_table[] = {
+> +	[SSD16XX_BORDER_LUT0] = SSD1683_BORDER_WAVEFORM_LUT0,
+> +	[SSD16XX_BORDER_LUT1] = SSD1683_BORDER_WAVEFORM_LUT1,
+> +	[SSD16XX_BORDER_LUT2] = SSD1683_BORDER_WAVEFORM_LUT2,
+> +	[SSD16XX_BORDER_LUT3] = SSD1683_BORDER_WAVEFORM_LUT3,
+> +	[SSD16XX_BORDER_VSS]  = SSD1683_BORDER_WAVEFORM_FIXLVL_VSS,
+> +	[SSD16XX_BORDER_VSH1] = SSD1683_BORDER_WAVEFORM_FIXLVL_VSH1,
+> +	[SSD16XX_BORDER_VSL]  = SSD1683_BORDER_WAVEFORM_FIXLVL_VSL,
+> +	[SSD16XX_BORDER_VSH2] = SSD1683_BORDER_WAVEFORM_FIXLVL_VSH2,
+> +	[SSD16XX_BORDER_VCOM] = SSD1683_BORDER_WAVEFORM_VCOM,
+> +	[SSD16XX_BORDER_HIZ]  = SSD1683_BORDER_WAVEFORM_HIZ,
+> +};
+> +
+> +struct ssd16xx_controller_config {
+> +	u16 max_width;
+> +	u16 max_height;
+> +	u8 ram_x_address_bits;
+> +	u8 ram_y_address_bits;
+> +
+> +	/*
+> +	 * has_temp_sensor_ctrl: controller supports command 0x18 (Temperature
+> +	 * Sensor Selection).  Present in SSD1683/SSD1680; absent in SSD1673
+> +	 * which uses command 0x1A (direct temperature write) instead.
+> +	 */
+> +	bool has_temp_sensor_ctrl;
+> +
+> +	/*
+> +	 * Deep sleep mode byte values for command 0x10.
+> +	 *   deep_sleep_mode_level1: lower-power sleep, RAM content retained
+> +	 *     (MODE_1 on SSD1683/SSD1680; used for runtime idle / app-close).
+> +	 *   deep_sleep_mode_level2: maximum power savings, RAM may be lost
+> +	 *     (MODE_2 on SSD1683/SSD1680; used for system suspend).
+> +	 * Chips with a single sleep mode set both fields to the same value.
+> +	 */
+> +	u8 deep_sleep_mode_level1;
+> +	u8 deep_sleep_mode_level2;
+> +
+> +	/*
+> +	 * border_waveform_table: chip-specific byte values for the 10 logical
+> +	 * border waveform modes (indexed by enum ssd16xx_border_waveform).
+> +	 * The encoding of command 0x3C differs between SSD1683/SSD1680 and
+> +	 * SSD1673, so each controller provides its own translation table.
+> +	 */
+> +	const u8 *border_waveform_table;
+> +
+> +	/*
+> +	 * Display Update Control 1 (cmd 0x21) byte 1 values.
+> +	 * ctrl1_normal:         both BW and RED RAMs participate in the waveform.
+> +	 * ctrl1_bypass_red_ram: RED RAM bypassed; waveform driven from BW RAM only.
+> +	 * SSD1673 has no RED RAM so both fields carry the same value.
+> +	 */
+> +	u8 ctrl1_normal;
+> +	u8 ctrl1_bypass_red_ram;
+> +
+> +	/*
+> +	 * Display Update Control 2 (cmd 0x22) composite sequences for each
+> +	 * refresh mode (indexed by enum ssd16xx_refresh_mode) and the
+> +	 * standalone LUT pre-load sequence used before fast refresh.
+> +	 * Values differ between SSD1683/SSD1680 and SSD1673 (MODE2 bit, etc.).
+> +	 */
+> +	u8 ctrl2_refresh[3];     /* indexed by SSD16XX_REFRESH_PARTIAL/FULL/FAST */
+> +	u8 ctrl2_load_temp_lut;  /* standalone LUT pre-load (no display update) */
+> +};
+> +
+> +struct ssd16xx_panel_config {
+> +	/* Data Entry Mode - controls X/Y increment direction for landscape (0°) */
+> +	u8 data_entry_mode;
+> +
+> +	/* Driver Output Control - third byte (scan direction) */
+> +	u8 driver_output_ctrl_byte3;
+> +
+> +	/* Default refresh mode for this panel */
+> +	enum ssd16xx_refresh_mode default_refresh_mode;
+> +
+> +	/* Default border waveform during clear/init (enum index 0-9) */
+> +	enum ssd16xx_border_waveform default_border_waveform_init;
+> +
+> +	/* Default border waveform during display updates (enum index 0-9) */
+> +	enum ssd16xx_border_waveform default_border_waveform_update;
+> +
+> +	/* Whether to re-send border waveform command before each display update */
+> +	bool default_border_refresh_on_every_update;
+> +
+> +	/*
+> +	 * Default clear-on-init behaviour.
+> +	 * -1=disabled, 0=partial, 1=full, 2=fast (matches enum ssd16xx_refresh_mode)
+> +	 */
+> +	int default_clear_on_init;
+> +
+> +	/* Default clear-on-close behaviour (-1=disabled, 0=partial, 1=full, 2=fast) */
+> +	int default_clear_on_close;
+> +
+> +	/* Default clear-on-disable behaviour (-1=disabled, 0=partial, 1=full, 2=fast) */
+> +	int default_clear_on_disable;
+> +
+> +	/*
+> +	 * Default refresh-mode-init: -1=disabled, else skip baseline establishment
+> +	 * and start directly in this refresh mode.
+> +	 */
+> +	int default_refresh_mode_init;
+> +
+> +	/*
+> +	 * Whether this panel has a physical red colour plane (3-colour BWR).
+> +	 * false: 2-colour black/white only; the RED RAM is always bypassed.
+> +	 * true:  3-colour panel; full-refresh writes to the RED RAM so that
+> +	 *        red pixels are driven through the red waveform.
+> +	 */
+> +	bool red_supported;
+> +
+> +	/* Panel-specific display mode (resolution and physical dimensions) */
+> +	const struct drm_display_mode *mode;
+> +};
+> +
+> +struct ssd16xx_panel {
+
+Better call this 'struct ssd16xx_device' and the rsp variables 
+'ssd16xx'.  As mentioned, the name 'panel' already has a specific 
+meaning in DRM.
+
+
+> +	struct drm_device drm;
+> +
+> +	struct drm_plane primary_plane;
+> +	struct drm_crtc crtc;
+> +	struct drm_encoder encoder;
+> +	struct drm_connector connector;
+> +
+> +	struct spi_device *spi;
+> +	struct gpio_desc *reset;
+> +	struct gpio_desc *busy;
+> +	struct gpio_desc *dc;
+> +
+> +	enum ssd16xx_model model;
+> +	enum ssd16xx_controller controller;
+> +	const struct ssd16xx_controller_config *controller_cfg;
+> +	const struct ssd16xx_panel_config *panel_cfg;
+> +	struct drm_display_mode *mode;
+> +	u32 width;
+> +	u32 height;
+> +
+> +	bool initialized;
+> +	bool reinit_pending;      /* HW re-init required after orientation change */
+> +	bool init_refresh_pending; /* First frame after refresh_mode_init enable */
+> +	bool first_clear_done;  /* clear_on_init has already fired once */
+> +	bool display_cleared_on_deinit; /* Avoid redundant clear in atomic_disable/master_drop */
+> +
+> +	int orientation; /* Display orientation in degrees: 0/90/180/270 */
+> +	enum ssd16xx_refresh_mode refresh_mode; /* Active refresh mode */
+> +	enum ssd16xx_color_mode color_mode;     /* Active color mode (BW or 3-color) */
+> +	bool fast_lut_pending; /* LUT pre-load needed before next fast refresh */
+> +
+> +	/* Border waveform (as enum indices) */
+> +	int border_waveform_init_idx;   /* Border waveform during clear/init */
+> +	int border_waveform_update_idx; /* Border waveform during display updates */
+> +	bool border_refresh_on_every_update; /* Re-send border cmd each display update */
+> +	bool border_waveform_pending;   /* One-shot: send border cmd on next update */
+> +
+> +	/* Display control */
+> +	int clear_on_init;    /* -1=disabled, 0=partial, 1=full, 2=fast */
+> +	int clear_on_close;   /* -1=disabled, 0=partial, 1=full, 2=fast */
+> +	int clear_on_disable; /* -1=disabled, 0=partial, 1=full, 2=fast */
+> +	int refresh_mode_init; /* -1=disabled, else use this mode for the first frame */
+> +
+> +	u8  *tx_buf;     /* 1bpp frame buffer (mono + white) */
+> +	u8  *tx_red_buf; /* 1bpp red-channel buffer (3-color panels only) */
+> +	u16 *tx_buf9;    /* 9-bit SPI expansion buffer (3-wire mode only) */
+> +
+> +	struct drm_framebuffer *last_fb;        /* Last drawn FB for reinit redraws */
+> +	struct drm_property *rotation_property;
+> +	struct drm_property *refresh_mode_property;
+> +	struct drm_property *border_waveform_init_property;
+> +	struct drm_property *border_waveform_update_property;
+> +	struct drm_property *border_refresh_on_every_update_property;
+> +	struct drm_property *clear_on_init_property;
+> +	struct drm_property *clear_on_close_property;
+> +	struct drm_property *clear_on_disable_property;
+> +	struct drm_property *refresh_mode_init_property;
+> +	struct drm_property *color_mode_property;
+> +};
+> +
+> +static inline struct ssd16xx_panel *to_ssd16xx_panel(struct drm_device *drm)
+> +{
+> +	return container_of(drm, struct ssd16xx_panel, drm);
+> +}
+> +
+> +static inline struct ssd16xx_panel *crtc_to_ssd16xx_panel(struct drm_crtc *crtc)
+> +{
+> +	return container_of(crtc, struct ssd16xx_panel, crtc);
+> +}
+> +
+> +static inline struct ssd16xx_panel *plane_to_ssd16xx_panel(struct drm_plane *plane)
+> +{
+> +	return container_of(plane, struct ssd16xx_panel, primary_plane);
+> +}
+> +
+> +static const struct ssd16xx_controller_config ssd16xx_controller_configs[] = {
+> +	[SSD1683] = {
+> +		.max_width = 400,
+> +		.max_height = 300,
+> +		.ram_x_address_bits = 8,
+> +		.ram_y_address_bits = 16,
+> +		.has_temp_sensor_ctrl    = true,
+> +		.deep_sleep_mode_level1  = SSD1683_DEEP_SLEEP_MODE_1,
+> +		.deep_sleep_mode_level2  = SSD1683_DEEP_SLEEP_MODE_2,
+> +		.border_waveform_table   = ssd1683_border_waveform_table,
+> +		.ctrl1_normal            = SSD1683_CTRL1_NORMAL,
+> +		.ctrl1_bypass_red_ram    = SSD1683_CTRL1_BYPASS_RED_RAM,
+> +		.ctrl2_refresh = {
+> +			[SSD16XX_REFRESH_PARTIAL] = SSD1683_CTRL2_PARTIAL_REFRESH,
+> +			[SSD16XX_REFRESH_FULL]    = SSD1683_CTRL2_FULL_REFRESH,
+> +			[SSD16XX_REFRESH_FAST]    = SSD1683_CTRL2_FAST_REFRESH,
+> +		},
+> +		.ctrl2_load_temp_lut     = SSD1683_CTRL2_LOAD_TEMP_LUT,
+> +	},
+> +};
+> +
+> +/* GDEY042T81: 4.2" 400x300 panel, 84.8x63.6mm active area */
+> +static const struct drm_display_mode gdey042t81_mode = {
+> +	DRM_SIMPLE_MODE(400, 300, 85, 64),
+> +};
+> +
+> +static const struct ssd16xx_panel_config ssd16xx_panel_configs[] = {
+> +	[GDEY042T81] = {
+> +		.data_entry_mode = SSD16XX_DATA_ENTRY_XINC_YINC,
+> +		.driver_output_ctrl_byte3 = SSD16XX_DRIVER_OUTPUT_CTRL_DEFAULT,
+> +		.default_refresh_mode = SSD16XX_REFRESH_PARTIAL,
+> +		.default_border_waveform_init   = SSD16XX_BORDER_LUT1,  /* white, clean clear */
+> +		.default_border_waveform_update = SSD16XX_BORDER_HIZ,   /* floating, preserve */
+> +		.default_border_refresh_on_every_update = false,
+> +		.default_clear_on_init    = -1,
+> +		.default_clear_on_close   = -1,
+> +		.default_clear_on_disable = -1,
+> +		.default_refresh_mode_init = SSD16XX_REFRESH_FULL,
+> +		.red_supported = false,  /* 2-colour black/white panel */
+> +		.mode = &gdey042t81_mode,
+> +	},
+> +};
+> +
+> +static void ssd16xx_wait_for_panel(struct ssd16xx_panel *panel,
+> +				   int *err)
+> +{
+> +	unsigned long timeout_jiffies = jiffies +
+> +		msecs_to_jiffies(SSD16XX_BUSY_WAIT_TIMEOUT_MS);
+> +	unsigned long start_ms = jiffies_to_msecs(jiffies);
+> +	int busy_val;
+> +
+> +	if (*err)
+> +		return;
+
+This is good. It'll simplify error handling in other places.
+
+> +
+> +	busy_val = gpiod_get_value_cansleep(panel->busy);
+> +	drm_dbg(&panel->drm, "BUSY initial value: %d\n", busy_val);
+> +
+> +	while (gpiod_get_value_cansleep(panel->busy) == 1) {
+> +		if (time_after(jiffies, timeout_jiffies)) {
+> +			drm_err(&panel->drm, "Busy wait timed out after %lums\n",
+> +				jiffies_to_msecs(jiffies) - start_ms);
+> +			*err = -ETIMEDOUT;
+> +			return;
+> +		}
+> +		usleep_range(100, 200);
+> +	}
+> +
+> +	drm_dbg(&panel->drm, "BUSY became ready after %lums\n",
+> +		jiffies_to_msecs(jiffies) - start_ms);
+> +}
+> +
+> +static void ssd16xx_spi_sync(struct spi_device *spi, struct spi_message *msg,
+> +			     int *err)
+> +{
+> +	int ret;
+> +
+> +	if (*err)
+> +		return;
+> +
+> +	ret = spi_sync(spi, msg);
+> +	if (ret < 0)
+> +		*err = ret;
+> +}
+> +
+> +static void ssd16xx_send_cmd(struct ssd16xx_panel *panel, u8 cmd,
+> +			     int *err)
+> +{
+> +	u16 word;
+> +	struct spi_transfer xfer = {};
+> +	struct spi_message msg;
+> +
+> +	if (*err)
+> +		return;
+> +
+> +	spi_message_init(&msg);
+> +	spi_message_add_tail(&xfer, &msg);
+> +
+> +	if (panel->dc) {
+> +		/* 4-wire SPI: D/C# GPIO low selects command mode */
+> +		xfer.tx_buf = &cmd;
+> +		xfer.len = 1;
+> +		gpiod_set_value_cansleep(panel->dc, 0);
+> +	} else {
+> +		/*
+> +		 * 3-wire SPI (9-bit): bit 8 is the D/C# bit.
+> +		 * D/C# = 0 means the following 8 bits are a command.
+> +		 */
+> +		word = cmd; /* bit 8 = 0 for command */
+> +		xfer.tx_buf = &word;
+> +		xfer.len = sizeof(u16);
+> +		xfer.bits_per_word = 9;
+> +	}
+> +
+> +	ssd16xx_spi_sync(panel->spi, &msg, err);
+> +}
+> +
+> +static void ssd16xx_send_data(struct ssd16xx_panel *panel, u8 data,
+> +			      int *err)
+> +{
+> +	u16 word;
+> +	struct spi_transfer xfer = {};
+> +	struct spi_message msg;
+> +
+> +	if (*err)
+> +		return;
+> +
+> +	spi_message_init(&msg);
+> +	spi_message_add_tail(&xfer, &msg);
+> +
+> +	if (panel->dc) {
+> +		/* 4-wire SPI: D/C# GPIO high selects data mode */
+> +		xfer.tx_buf = &data;
+> +		xfer.len = 1;
+> +		gpiod_set_value_cansleep(panel->dc, 1);
+> +	} else {
+> +		/*
+> +		 * 3-wire SPI (9-bit): bit 8 is the D/C# bit.
+> +		 * D/C# = 1 means the following 8 bits are data.
+> +		 */
+> +		word = 0x100 | data;
+> +		xfer.tx_buf = &word;
+> +		xfer.len = sizeof(u16);
+> +		xfer.bits_per_word = 9;
+> +	}
+> +
+> +	ssd16xx_spi_sync(panel->spi, &msg, err);
+> +}
+> +
+> +static void ssd16xx_send_x_param(struct ssd16xx_panel *panel, u16 x,
+> +				 int *err)
+> +{
+> +	if (*err)
+> +		return;
+> +
+> +	if (panel->controller_cfg->ram_x_address_bits == 8) {
+> +		ssd16xx_send_data(panel, (u8)x, err);
+> +	} else {
+> +		ssd16xx_send_data(panel, x & 0xFF, err);
+> +		ssd16xx_send_data(panel, (x >> 8) & 0xFF, err);
+> +	}
+> +}
+> +
+> +static void ssd16xx_send_y_param(struct ssd16xx_panel *panel, u16 y,
+> +				 int *err)
+> +{
+> +	if (*err)
+> +		return;
+> +
+> +	if (panel->controller_cfg->ram_y_address_bits == 8) {
+> +		ssd16xx_send_data(panel, (u8)y, err);
+> +	} else {
+> +		ssd16xx_send_data(panel, y & 0xFF, err);
+> +		ssd16xx_send_data(panel, (y >> 8) & 0xFF, err);
+> +	}
+> +}
+> +
+> +static void ssd16xx_send_data_bulk(struct ssd16xx_panel *panel,
+> +				   const u8 *data, size_t len,
+> +				   int *err)
+> +{
+> +	struct spi_transfer xfer = {};
+> +	struct spi_message msg;
+> +
+> +	if (*err)
+> +		return;
+> +
+> +	if (!data || !len)
+> +		return;
+> +
+> +	spi_message_init(&msg);
+> +	spi_message_add_tail(&xfer, &msg);
+> +
+> +	if (panel->dc) {
+> +		/* 4-wire SPI: D/C# GPIO high selects data mode */
+> +		xfer.tx_buf = data;
+> +		xfer.len = len;
+> +		gpiod_set_value_cansleep(panel->dc, 1);
+> +		ssd16xx_spi_sync(panel->spi, &msg, err);
+> +	} else {
+> +		/* 3-wire (9-bit): expand u8 → u16 with D/C#=1 in bit 8. */
+> +		size_t i;
+> +		u16 *buf = panel->tx_buf9;
+> +
+> +		for (i = 0; i < len; i++)
+> +			buf[i] = 0x100 | data[i];
+> +
+> +		xfer.tx_buf = buf;
+> +		xfer.len = len * sizeof(u16);
+> +		xfer.bits_per_word = 9;
+> +		ssd16xx_spi_sync(panel->spi, &msg, err);
+> +	}
+> +}
+> +
+> +static void ssd16xx_display_update(struct ssd16xx_panel *panel,
+> +				   u8 ctrl1_byte1, u8 ctrl1_byte2, u8 ctrl2_mode,
+> +				   int *err)
+> +{
+> +	if (*err)
+> +		return;
+> +
+> +	drm_dbg(&panel->drm,
+> +		"display_update: Setting ctrl1=0x%02x,0x%02x mode=0x%02x\n",
+> +		ctrl1_byte1, ctrl1_byte2, ctrl2_mode);
+> +
+> +	ssd16xx_send_cmd(panel, SSD16XX_CMD_DISPLAY_UPDATE_CONTROL1, err);
+> +	ssd16xx_send_data(panel, ctrl1_byte1, err);
+> +	ssd16xx_send_data(panel, ctrl1_byte2, err);
+> +
+> +	ssd16xx_send_cmd(panel, SSD16XX_CMD_DISPLAY_UPDATE_CONTROL2, err);
+> +	ssd16xx_send_data(panel, ctrl2_mode, err);
+> +	ssd16xx_send_cmd(panel, SSD16XX_CMD_MASTER_ACTIVATION, err);
+> +
+> +	drm_dbg(&panel->drm,
+> +		"display_update: Master activation sent, waiting...\n");
+> +
+> +	ssd16xx_wait_for_panel(panel, err);
+> +}
+> +
+> +static void ssd16xx_hw_reset(struct ssd16xx_panel *panel)
+> +{
+> +	gpiod_set_value_cansleep(panel->reset, 1);
+> +	usleep_range(10000, 11000);
+> +	gpiod_set_value_cansleep(panel->reset, 0);
+> +	usleep_range(10000, 11000);
+> +}
+> +
+> +/*
+> + * ssd16xx_preload_fast_lut() - pre-load the OTP LUT for fast refresh mode.
+> + *
+> + * Fast refresh (CTRL2 = 0xC7) omits the LOAD_LUT step on every update to save
+> + * time.  It relies on the LUT being loaded upfront via this standalone sequence
+> + * (CTRL2 = 0xB1: ENABLE_CLK | LOAD_LUT | SSD16XX_CTRL2_LOAD_TEMPERATURE | DISABLE_CLK,
+> + *  no display update).
+> + *
+> + * Must be called when:
+> + *   a) hw_init runs with refresh_mode == FAST, and
+> + *   b) switching to fast refresh from a mode that did not leave a valid Mode1
+> + *      LUT in the controller (i.e. previous mode was not FULL refresh, which
+> + *      carries LOAD_LUT in its own CTRL2 sequence).
+> + */
+> +static int ssd16xx_preload_fast_lut(struct ssd16xx_panel *panel)
+> +{
+> +	int err = 0;
+> +
+> +	ssd16xx_send_cmd(panel, SSD16XX_CMD_DISPLAY_UPDATE_CONTROL1, &err);
+> +	ssd16xx_send_data(panel, panel->controller_cfg->ctrl1_bypass_red_ram, &err);
+> +	ssd16xx_send_data(panel, SSD16XX_CTRL1_BYTE2_DEFAULT, &err);
+> +
+> +	ssd16xx_send_cmd(panel, SSD16XX_CMD_DISPLAY_UPDATE_CONTROL2, &err);
+> +	ssd16xx_send_data(panel, panel->controller_cfg->ctrl2_load_temp_lut, &err);
+> +
+> +	ssd16xx_send_cmd(panel, SSD16XX_CMD_MASTER_ACTIVATION, &err);
+> +	ssd16xx_wait_for_panel(panel, &err);
+> +
+> +	return err;
+> +}
+> +
+> +static int ssd16xx_hw_init(struct ssd16xx_panel *panel)
+> +{
+> +	int err = 0;
+> +	u16 ram_height = panel->controller_cfg->max_height;
+> +	u8 data_entry_mode;
+> +
+> +	ssd16xx_hw_reset(panel);
+> +
+> +	/* Software reset */
+> +	ssd16xx_send_cmd(panel, SSD16XX_CMD_SW_RESET, &err);
+> +	ssd16xx_wait_for_panel(panel, &err);
+> +
+> +	/* Driver output control (0x01): MUX ratio and scan direction. */
+> +	ssd16xx_send_cmd(panel, SSD16XX_CMD_DRIVER_OUTPUT_CONTROL, &err);
+> +	ssd16xx_send_y_param(panel, ram_height - 1, &err);
+> +	ssd16xx_send_data(panel, panel->panel_cfg->driver_output_ctrl_byte3, &err);
+> +
+> +	/* Internal temperature sensor (SSD1683/SSD1680 only; not present in SSD1673) */
+> +	if (panel->controller_cfg->has_temp_sensor_ctrl) {
+> +		ssd16xx_send_cmd(panel, SSD1683_CMD_TEMPERATURE_SENSOR_CONTROL, &err);
+> +		ssd16xx_send_data(panel, SSD1683_TEMP_SENSOR_INTERNAL, &err);
+> +	}
+> +
+> +	/*
+> +	 * For FAST refresh mode, pre-load the LUT once here during initialization.
+> +	 * FAST mode ctrl2 (0xC7) omits LOAD_LUT on every update for speed, so the
+> +	 * LUT must be loaded upfront. FULL (0xF7) and PARTIAL (0xFF) load LUT on
+> +	 * every update, so no preload is needed for those modes.
+> +	 */
+> +	if (panel->refresh_mode == SSD16XX_REFRESH_FAST) {
+> +		ssd16xx_send_cmd(panel, SSD16XX_CMD_DISPLAY_UPDATE_CONTROL1, &err);
+> +		ssd16xx_send_data(panel, panel->controller_cfg->ctrl1_bypass_red_ram, &err);
+> +		ssd16xx_send_data(panel, SSD16XX_CTRL1_BYTE2_DEFAULT, &err);
+> +
+> +		ssd16xx_send_cmd(panel, SSD16XX_CMD_DISPLAY_UPDATE_CONTROL2, &err);
+> +		ssd16xx_send_data(panel, panel->controller_cfg->ctrl2_load_temp_lut, &err);
+> +
+> +		ssd16xx_send_cmd(panel, SSD16XX_CMD_MASTER_ACTIVATION, &err);
+> +		ssd16xx_wait_for_panel(panel, &err);
+> +	}
+> +
+> +	/*
+> +	 * Set Data Entry Mode (0x11) based on orientation.  This controls
+> +	 * how the RAM address counter auto-advances after each byte write.
+> +	 *
+> +	 * Implementation uses two data entry modes:
+> +	 *   - 90°/180° use XDEC_YDEC (0x00): X--, Y-- with cursor at (max, max)
+> +	 *   - 0°/270° use XINC_YINC (0x03): X++, Y++ with cursor at (0, 0)
+> +	 *
+> +	 * The convert_fb_to_1bpp packing is grouped by physical layout:
+> +	 *   - Portrait orientations (90°/270°): column-major packing
+> +	 *   - Landscape orientations (0°/180°): row-major packing
+> +	 *
+> +	 * Final scan direction and image orientation are controlled by the
+> +	 * combination of data entry mode and RAM cursor position set in fb_dirty.
+> +	 *
+> +	 * The RAM address window and cursor are NOT set here; fb_dirty
+> +	 * always programmes them (with the correct end-before-start order
+> +	 * for decrement modes) immediately before writing frame data.
+> +	 */
+> +	switch (panel->orientation) {
+
+As mentioned, use the connector property instead.
+
+> +	case 90:
+> +	case 180:
+> +		data_entry_mode = SSD16XX_DATA_ENTRY_XDEC_YDEC;
+> +		break;
+> +	default: /* 0°/270° */
+> +		data_entry_mode = SSD16XX_DATA_ENTRY_XINC_YINC;
+> +		break;
+> +	}
+> +
+> +	ssd16xx_send_cmd(panel, SSD16XX_CMD_DATA_ENTRY_MODE, &err);
+> +	ssd16xx_send_data(panel, data_entry_mode, &err);
+> +	drm_dbg(&panel->drm, "hw_init: orientation=%u° data_entry=0x%02x\n",
+> +		panel->orientation, data_entry_mode);
+> +
+> +	ssd16xx_wait_for_panel(panel, &err);
+> +
+> +	if (err)
+> +		drm_err(&panel->drm, "Hardware initialization failed: %d\n", err);
+> +
+> +	return err;
+> +}
+> +
+> +/*
+> + * Clear display by writing all-white to both BW and RED RAM.
+> + * The ctrl2 argument selects the waveform (full/partial/fast refresh).
+> + * Border waveform is set to init value before clearing, then restored
+> + * to the update value to preserve the border during subsequent updates.
+> + */
+> +static int ssd16xx_clear_display(struct ssd16xx_panel *panel, u8 ctrl2)
+> +{
+> +	const u8 *bw_tbl = panel->controller_cfg->border_waveform_table;
+> +	int err = 0;
+> +	unsigned int data_size = (panel->width * panel->height) / 8;
+> +	u8 *white_buffer = panel->tx_buf;
+> +
+> +	memset(white_buffer, 0xFF, data_size);
+> +
+> +	ssd16xx_send_cmd(panel, SSD16XX_CMD_SET_RAM_X_ADDRESS_COUNTER, &err);
+> +	ssd16xx_send_x_param(panel, 0x00, &err);
+> +
+> +	ssd16xx_send_cmd(panel, SSD16XX_CMD_SET_RAM_Y_ADDRESS_COUNTER, &err);
+> +	ssd16xx_send_y_param(panel, 0x00, &err);
+> +
+> +	ssd16xx_send_cmd(panel, SSD16XX_CMD_WRITE_RAM_BW, &err);
+> +	ssd16xx_send_data_bulk(panel, white_buffer, data_size, &err);
+> +
+> +	ssd16xx_send_cmd(panel, SSD1683_CMD_WRITE_RAM_RED, &err);
+> +	ssd16xx_send_data_bulk(panel, white_buffer, data_size, &err);
+> +
+> +	/* Set border waveform for the clear operation */
+> +	drm_dbg(&panel->drm, "clear_display: Set border init waveform: 0x%02x\n",
+> +		bw_tbl[panel->border_waveform_init_idx]);
+> +	ssd16xx_send_cmd(panel, SSD16XX_CMD_BORDER_WAVEFORM_CONTROL, &err);
+> +	ssd16xx_send_data(panel,
+> +			  bw_tbl[panel->border_waveform_init_idx],
+> +			  &err);
+> +
+> +	/* 3-colour mode: CTRL1_NORMAL (read both RAMs); BW mode: bypass RED. */
+> +	ssd16xx_display_update(panel,
+> +			       panel->color_mode == SSD16XX_COLOR_MODE_3COLOR
+> +					? panel->controller_cfg->ctrl1_normal
+> +					: panel->controller_cfg->ctrl1_bypass_red_ram,
+> +			       SSD16XX_CTRL1_BYTE2_DEFAULT, ctrl2, &err);
+> +
+> +	/* Restore border waveform to update/preservation value */
+> +	drm_dbg(&panel->drm, "clear_display: Restored border update waveform: 0x%02x\n",
+> +		bw_tbl[panel->border_waveform_update_idx]);
+> +	ssd16xx_send_cmd(panel, SSD16XX_CMD_BORDER_WAVEFORM_CONTROL, &err);
+> +	ssd16xx_send_data(panel,
+> +			  bw_tbl[panel->border_waveform_update_idx],
+> +			  &err);
+> +
+> +	return err;
+> +}
+> +
+> +static u8 ssd16xx_refresh_mode_to_ctrl2(struct ssd16xx_panel *panel,
+> +					enum ssd16xx_refresh_mode mode)
+> +{
+> +	if (mode < ARRAY_SIZE(panel->controller_cfg->ctrl2_refresh))
+> +		return panel->controller_cfg->ctrl2_refresh[mode];
+> +	return panel->controller_cfg->ctrl2_refresh[SSD16XX_REFRESH_FULL];
+> +}
+> +
+> +/*
+> + * Clear display on new DRM master open (if clear_on_init >= 0).
+> + * Guarded by panel->first_clear_done; master_drop resets it unconditionally
+> + * so each new client session gets a fresh clear.
+> + */
+> +static int ssd16xx_clear_display_on_init(struct ssd16xx_panel *panel)
+> +{
+> +	int ret;
+> +
+> +	if (panel->clear_on_init < 0 || panel->first_clear_done)
+> +		return 0;
+> +
+> +	drm_dbg(&panel->drm, "clear_on_init: running, mode=%d\n",
+> +		panel->clear_on_init);
+> +	ret = ssd16xx_clear_display(panel,
+> +				    ssd16xx_refresh_mode_to_ctrl2(panel, panel->clear_on_init));
+> +	if (ret)
+> +		return ret;
+> +
+> +	panel->first_clear_done = true;
+> +	return 0;
+> +}
+> +
+> +/*
+> + * Clear display when the displaying client exits (if clear_on_close >= 0).
+> + * Called from ssd16xx_drm_master_drop().
+> + */
+> +static int ssd16xx_clear_display_on_exit(struct ssd16xx_panel *panel)
+> +{
+> +	int ret;
+> +
+> +	if (panel->clear_on_close < 0)
+> +		return 0;
+> +
+> +	drm_dbg(&panel->drm, "clear_on_close: running, mode=%d\n",
+> +		panel->clear_on_close);
+> +	ret =  ssd16xx_clear_display(panel,
+> +				     ssd16xx_refresh_mode_to_ctrl2(panel, panel->clear_on_close));
+> +	if (ret)
+> +		return ret;
+> +
+> +	return 0;
+> +}
+> +
+> +/*
+> + * ssd16xx_pixel_luma() - return ITU-R BT.601 luminance (0-255) for one pixel.
+> + *
+> + * For colour formats the result is (299*R + 587*G + 114*B) / 1000;
+> + * for luma-only formats the luma byte is returned directly.
+> + *
+> + * R1 is never passed here — it is already 1bpp and is handled directly by
+> + * the callers.
+> + */
+> +static u8 ssd16xx_pixel_luma(struct iosys_map *src,
+> +			     struct drm_framebuffer *fb,
+> +			     unsigned int x, unsigned int y)
+> +{
+> +	switch (fb->format->format) {
+> +	case DRM_FORMAT_XRGB8888: {
+> +		u32 *line = (u32 *)(src->vaddr + y * fb->pitches[0]);
+> +		u32 px = line[x];
+> +		u8 r = (px >> 16) & 0xFF, g = (px >> 8) & 0xFF, b = px & 0xFF;
+> +
+> +		return (u8)((299u * r + 587u * g + 114u * b) / 1000u);
+> +	}
+> +	case DRM_FORMAT_RGB888: {
+> +		u8 *line = (u8 *)(src->vaddr + y * fb->pitches[0]);
+> +		u8 r = line[x * 3], g = line[x * 3 + 1], b = line[x * 3 + 2];
+> +
+> +		return (u8)((299u * r + 587u * g + 114u * b) / 1000u);
+> +	}
+> +	case DRM_FORMAT_RGB565: {
+> +		u16 *line = (u16 *)(src->vaddr + y * fb->pitches[0]);
+> +		u16 px = line[x];
+> +		u8 r = ((px >> 11) & 0x1F) << 3;
+> +		u8 g = ((px >> 5) & 0x3F) << 2;
+> +		u8 b = (px & 0x1F) << 3;
+> +
+> +		return (u8)((299u * r + 587u * g + 114u * b) / 1000u);
+> +	}
+> +	case DRM_FORMAT_R8: {
+> +		u8 *line = (u8 *)(src->vaddr + y * fb->pitches[0]);
+> +
+> +		return line[x];
+> +	}
+> +	case DRM_FORMAT_NV12:
+> +	case DRM_FORMAT_NV16:
+> +		return ((u8 *)(src->vaddr))[y * fb->pitches[0] + x];
+> +	case DRM_FORMAT_YUYV: {
+> +		u8 *line = (u8 *)(src->vaddr + y * fb->pitches[0]);
+> +
+> +		return line[x * 2];
+> +	}
+> +	case DRM_FORMAT_UYVY: {
+> +		u8 *line = (u8 *)(src->vaddr + y * fb->pitches[0]);
+> +
+> +		return line[x * 2 + 1];
+> +	}
+> +	default:
+> +		return 0;
+> +	}
+> +}
+> +
+> +/*
+> + * ssd16xx_pixel_is_white() - test whether a pixel maps to white in 1bpp output.
+> + *
+> + * Uses fixed threshold of 127. Pixels with luma strictly greater than 127
+> + * are rendered white.
+> + */
+> +static bool ssd16xx_pixel_is_white(struct iosys_map *src,
+> +				   struct drm_framebuffer *fb,
+> +				   unsigned int x, unsigned int y)
+> +{
+> +	/* R1 is already binarised; avoid the luma computation entirely. */
+> +	if (fb->format->format == DRM_FORMAT_R1) {
+> +		u8 *line = (u8 *)(src->vaddr + y * fb->pitches[0]);
+> +
+> +		return !!(line[x / 8] & (1 << (7 - (x % 8))));
+> +	}
+> +	return ssd16xx_pixel_luma(src, fb, x, y) > 127;
+> +}
+> +
+> +/*
+> + * ssd16xx_pixel_is_red() - test whether a pixel is dominated by the red channel.
+> + *
+> + * Only meaningful for formats that carry RGB information (XRGB8888, RGB888,
+> + * RGB565).  For luma-only and monochrome formats there is no red channel, so
+> + * the function always returns false; callers should use ssd16xx_pixel_is_white()
+> + * to obtain the BW value for those formats.
+> + *
+> + * Returns true when the red component exceeds 50% intensity AND is strictly
+> + * greater than both green and blue (dominant red hue).
+> + */
+> +static bool ssd16xx_pixel_is_red(struct iosys_map *src,
+> +				 struct drm_framebuffer *fb,
+> +				 unsigned int x, unsigned int y)
+> +{
+> +	u32 format = fb->format->format;
+> +
+> +	switch (format) {
+> +	case DRM_FORMAT_XRGB8888: {
+> +		u32 *line = (u32 *)(src->vaddr + y * fb->pitches[0]);
+> +		u32 px = line[x];
+> +		u8 r = (px >> 16) & 0xFF;
+> +		u8 g = (px >> 8) & 0xFF;
+> +		u8 b = px & 0xFF;
+> +
+> +		return r > 127 && r > g && r > b;
+> +	}
+> +	case DRM_FORMAT_RGB888: {
+> +		u8 *line = (u8 *)(src->vaddr + y * fb->pitches[0]);
+> +		u8 r = line[x * 3];
+> +		u8 g = line[x * 3 + 1];
+> +		u8 b = line[x * 3 + 2];
+> +
+> +		return r > 127 && r > g && r > b;
+> +	}
+> +	case DRM_FORMAT_RGB565: {
+> +		u16 *line = (u16 *)(src->vaddr + y * fb->pitches[0]);
+> +		u16 px = line[x];
+> +		u8 r = ((px >> 11) & 0x1F) << 3;
+> +		u8 g = ((px >> 5) & 0x3F) << 2;
+> +		u8 b = (px & 0x1F) << 3;
+> +
+> +		return r > 127 && r > g && r > b;
+> +	}
+> +	default:
+> +		return false; /* No colour channel information */
+> +	}
+> +}
+> +
+> +/*
+> + * ssd16xx_convert_fb_to_3color() - split a framebuffer into BW and RED planes.
+> + * @bw_dst:  output buffer for the black/white RAM plane (1=white, 0=black)
+> + * @red_dst: output buffer for the red RAM plane        (1=red,   0=not red)
+> + * @src:     mapped framebuffer memory
+> + * @fb:      DRM framebuffer descriptor
+> + * @rect:    region to convert (must be aligned to 8-pixel boundaries)
+> + *
+> + * Each output buffer must be at least rect_width/8 * rect_height bytes.
+> + * Pixels are classified as:
+> + *   - red:   written to red_dst as 1, bw_dst as 0 (black)
+> + *   - white: written to bw_dst as 1, red_dst as 0
+> + *   - black: written to both as 0
+> + *
+> + * For monochrome formats (R1) where no colour information is available the
+> + * source data is copied verbatim to bw_dst and red_dst is cleared to 0xFF
+> + * (all-white = no red pixels).
+> + */
+> +static void ssd16xx_convert_fb_to_3color(u8 *bw_dst, u8 *red_dst,
+> +					 struct iosys_map *src,
+> +					 struct drm_framebuffer *fb,
+> +					 struct drm_rect *rect)
+> +{
+> +	unsigned int x, y;
+> +	u8 bw_byte = 0, red_byte = 0;
+> +	unsigned int bit_pos = 0;
+> +	unsigned int dst_idx = 0;
+> +
+> +	drm_dbg(fb->dev,
+> +		"convert_3color: fmt=%p4cc rect=(%d,%d)-(%d,%d) path=%s\n",
+> +		&fb->format->format,
+> +		rect->x1, rect->y1, rect->x2, rect->y2,
+> +		fb->format->format == DRM_FORMAT_R1 ? "R1-direct" : "color-pixel");
+> +
+> +	/*
+> +	 * R1 is already monochrome — no colour channel exists.
+> +	 * Copy BW data directly and leave the red plane all-white (transparent).
+> +	 */
+> +	if (fb->format->format == DRM_FORMAT_R1) {
+> +		unsigned int src_pitch = fb->pitches[0];
+> +		unsigned int width_bytes = drm_rect_width(rect) / 8;
+> +		unsigned int data_size = width_bytes * drm_rect_height(rect);
+> +
+> +		for (y = rect->y1; y < rect->y2; y++) {
+> +			u8 *line = src->vaddr + y * src_pitch + (rect->x1 / 8);
+> +
+> +			memcpy(bw_dst + dst_idx, line, width_bytes);
+> +			dst_idx += width_bytes;
+> +		}
+> +		memset(red_dst, 0xFF, data_size); /* 0xFF = all white: no red pixels */
+> +		return;
+> +	}
+> +
+> +	/* Use fixed threshold of 127 for grayscale to monochrome conversion. */
+> +	for (y = rect->y1; y < rect->y2; y++) {
+> +		for (x = rect->x1; x < rect->x2; x++) {
+> +			bool is_red = ssd16xx_pixel_is_red(src, fb, x, y);
+> +
+> +			if (is_red)
+> +				red_byte |= (1 << (7 - bit_pos));
+> +			else if (ssd16xx_pixel_is_white(src, fb, x, y))
+> +				bw_byte |= (1 << (7 - bit_pos));
+> +			/* else: black pixel — both bits remain 0 */
+> +			if (++bit_pos == 8) {
+> +				bw_dst[dst_idx] = bw_byte;
+> +				red_dst[dst_idx] = red_byte;
+> +				dst_idx++;
+> +				bw_byte = 0;
+> +				red_byte = 0;
+> +				bit_pos = 0;
+> +			}
+> +		}
+> +
+> +		/* Flush any partial byte at the end of each row */
+> +		if (bit_pos > 0) {
+> +			bw_dst[dst_idx] = bw_byte;
+> +			red_dst[dst_idx] = red_byte;
+> +			dst_idx++;
+> +			bw_byte = 0;
+> +			red_byte = 0;
+> +			bit_pos = 0;
+> +		}
+> +	}
+> +}
+> +
+> +/*
+> + * ssd16xx_convert_r8_to_red_only() - map an R8 framebuffer to the RED RAM plane.
+> + *
+> + * Used when the panel has a physical red colour plane (red_supported == true)
+> + * and the framebuffer format is DRM_FORMAT_R8.  Pixels with value >= 128 are
+> + * treated as red ink; the BW RAM is set to all-white so that only red ink
+> + * appears on the white background.
+> + *
+> + * Hardware orientation is handled by the caller via RAM counter positioning;
+> + * data is written in normal row-major order here (same as convert_fb_to_3color).
+> + */
+> +static void ssd16xx_convert_r8_to_red_only(u8 *bw_dst, u8 *red_dst,
+> +					   struct iosys_map *src,
+> +					   struct drm_framebuffer *fb,
+> +					   struct drm_rect *rect)
+> +{
+> +	unsigned int src_pitch = fb->pitches[0];
+> +	unsigned int width = drm_rect_width(rect);
+> +	unsigned int height = drm_rect_height(rect);
+> +	unsigned int data_size = DIV_ROUND_UP(width, 8) * height;
+> +	unsigned int dst_idx = 0;
+> +	unsigned int x, y;
+> +	u8 red_byte = 0;
+> +	unsigned int bit_pos = 0;
+> +
+> +	/* BW RAM: all-white background - no black ink, only red ink shows */
+> +	memset(bw_dst, 0xFF, data_size);
+> +
+> +	/* RED RAM: R8 >= 128 -> red ink (1-bit set) */
+> +	for (y = rect->y1; y < rect->y2; y++) {
+> +		u8 *line = src->vaddr + y * src_pitch;
+> +
+> +		for (x = rect->x1; x < rect->x2; x++) {
+> +			if (line[x] >= 128)
+> +				red_byte |= (1 << (7 - bit_pos));
+> +			if (++bit_pos == 8) {
+> +				red_dst[dst_idx++] = red_byte;
+> +				red_byte = 0;
+> +				bit_pos = 0;
+> +			}
+> +		}
+> +		if (bit_pos > 0) {
+> +			red_dst[dst_idx++] = red_byte;
+> +			red_byte = 0;
+> +			bit_pos = 0;
+> +		}
+> +	}
+> +}
+> +
+> +/*
+> + * Convert framebuffer to 1-bit monochrome for e-paper display.
+> + *
+> + * Supported formats: XRGB8888, RGB888, RGB565, R8, NV12, NV16, YUYV, UYVY, R1.
+> + * For colour and luma formats, Otsu's global binarisation method computes an
+> + * optimal per-image threshold from the luminance histogram.
+> + * R1 is the controller's native format and bypasses conversion entirely.
+> + *
+> + * Output layout:
+> + *   0°/180°  landscape: row-major, left-to-right, top-to-bottom
+> + *   90°/270° CW portrait: column-major, rightmost column first
+> + */
+> +static void ssd16xx_convert_fb_to_1bpp(u8 *dst, struct iosys_map *src,
+> +				       struct drm_framebuffer *fb,
+> +				       struct drm_rect *rect,
+> +				       unsigned int orientation)
+> +{
+> +	u32 format = fb->format->format;
+> +	int x, y;
+> +	u8 byte = 0;
+> +	unsigned int bit_pos = 0;
+> +	unsigned int dst_idx = 0;
+> +
+> +	/* Use fixed threshold of 127 for grayscale to monochrome conversion. */
+> +	drm_dbg(fb->dev,
+> +		"convert_1bpp: fmt=%p4cc rect=(%d,%d)-(%d,%d) orient=%u° path=%s\n",
+> +		&fb->format->format,
+> +		rect->x1, rect->y1, rect->x2, rect->y2,
+> +		orientation,
+> +		(format == DRM_FORMAT_R1 && orientation == 0 && rect->x1 % 8 == 0) ? "R1-fast" :
+> +		(orientation == 90 || orientation == 270) ? "portrait" : "landscape");
+> +
+> +	/*
+> +	 * R1 fast path: 0° landscape with byte-aligned rect.
+> +	 * R1 is already 1bpp so landscape rows map directly to output bytes via
+> +	 * memcpy — no per-pixel computation needed.  rect->x1 must be a
+> +	 * multiple of 8 so that (rect->x1 / 8) gives the correct byte offset;
+> +	 * if not, the generic pixel-by-pixel loop below handles non-aligned
+> +	 * rects safely.
+> +	 */
+> +	if (format == DRM_FORMAT_R1 && orientation == 0 && rect->x1 % 8 == 0) {
+> +		unsigned int src_pitch = fb->pitches[0];
+> +		unsigned int width_bytes = drm_rect_width(rect) / 8;
+> +
+> +		for (y = rect->y1; y < rect->y2; y++) {
+> +			u8 *src_line = src->vaddr + y * src_pitch + (rect->x1 / 8);
+> +
+> +			memcpy(dst + dst_idx, src_line, width_bytes);
+> +			dst_idx += width_bytes;
+> +		}
+> +		return;
+> +	}
+> +
+> +	switch (orientation) {
+> +	case 90:
+> +	case 270:
+> +		/*
+> +		 * Portrait (90° or 270°): column-major packing.
+> +		 * Each portrait source column becomes one physical RAM row.
+> +		 * The data entry mode and cursor position control scan direction.
+> +		 */
+> +		for (x = rect->x2 - 1; x >= (int)rect->x1; x--) {
+> +			for (y = rect->y1; y < rect->y2; y++) {
+> +				if (ssd16xx_pixel_is_white(src, fb, x, y))
+> +					byte |= (1 << (7 - bit_pos));
+> +				if (++bit_pos == 8) {
+> +					dst[dst_idx++] = byte;
+> +					byte = 0;
+> +					bit_pos = 0;
+> +				}
+> +			}
+> +			if (bit_pos > 0) {
+> +				dst[dst_idx++] = byte;
+> +				byte = 0;
+> +				bit_pos = 0;
+> +			}
+> +		}
+> +		break;
+> +
+> +	case 0:
+> +	case 180:
+> +	default:
+> +		/*
+> +		 * Landscape (0° or 180°): row-major packing.
+> +		 * Each landscape source row becomes one physical RAM row.
+> +		 * The data entry mode and cursor position control scan direction.
+> +		 */
+> +		for (y = rect->y1; y < rect->y2; y++) {
+> +			for (x = rect->x1; x < rect->x2; x++) {
+> +				if (ssd16xx_pixel_is_white(src, fb, x, y))
+> +					byte |= (1 << (7 - bit_pos));
+> +				if (++bit_pos == 8) {
+> +					dst[dst_idx++] = byte;
+> +					byte = 0;
+> +					bit_pos = 0;
+> +				}
+> +			}
+> +			if (bit_pos > 0) {
+> +				dst[dst_idx++] = byte;
+> +				byte = 0;
+> +				bit_pos = 0;
+> +			}
+> +		}
+> +		break;
+> +	}
+> +}
+> +
+> +static int ssd16xx_fb_dirty(struct drm_framebuffer *fb, struct drm_rect *rect,
+> +			    struct ssd16xx_panel *panel)
+> +{
+> +	const u8 *ctrl2_tbl = panel->controller_cfg->ctrl2_refresh;
+> +	struct drm_gem_dma_object *dma_obj = drm_fb_dma_get_gem_obj(fb, 0);
+> +	struct iosys_map map;
+> +	int err = 0;
+> +	unsigned int data_size = (panel->width * panel->height) / 8;
+> +	u8 *mono_buffer = NULL;
+> +	u8 *red_buffer = NULL;
+> +	u16 ram_x_start, ram_x_end, ram_y_start, ram_y_end;
+> +
+> +	/* Process full display area; convert handles orientation traversal. */
+> +	rect->x1 = 0;
+> +	rect->y1 = 0;
+> +	rect->x2 = panel->width;
+> +	rect->y2 = panel->height;
+> +
+> +	drm_dbg(&panel->drm,
+> +		"fb_dirty: fb=%dx%d, refresh_mode=%d, orientation=%d\n",
+> +		fb->width, fb->height, panel->refresh_mode, panel->orientation);
+> +
+> +	mono_buffer = panel->tx_buf;
+> +	memset(mono_buffer, 0, data_size);
+> +
+> +	/* 3-colour FULL/FAST: populate red channel. */
+> +	if (panel->color_mode == SSD16XX_COLOR_MODE_3COLOR &&
+> +	    (panel->refresh_mode == SSD16XX_REFRESH_FULL ||
+> +	     panel->refresh_mode == SSD16XX_REFRESH_FAST)) {
+> +		red_buffer = panel->tx_red_buf;
+> +		memset(red_buffer, 0, data_size);
+> +	}
+> +
+> +	iosys_map_set_vaddr(&map, dma_obj->vaddr);
+> +
+> +	if (red_buffer && fb->format->format == DRM_FORMAT_R8)
+> +		ssd16xx_convert_r8_to_red_only(mono_buffer, red_buffer, &map, fb, rect);
+> +	else if (red_buffer)
+> +		ssd16xx_convert_fb_to_3color(mono_buffer, red_buffer, &map, fb, rect);
+> +	else
+> +		ssd16xx_convert_fb_to_1bpp(mono_buffer, &map, fb, rect, panel->orientation);
+> +
+> +	drm_dbg(&panel->drm,
+> +		"fb_dirty: mono[0..3]=0x%02x 0x%02x 0x%02x 0x%02x (data_size=%u)\n",
+> +		mono_buffer[0], mono_buffer[1], mono_buffer[2], mono_buffer[3],
+> +		data_size);
+> +
+> +	/* Set RAM window and cursor for current orientation. */
+> +	ram_x_start = 0;
+> +	ram_x_end = (panel->controller_cfg->max_width / 8) - 1;
+> +	ram_y_start = 0;
+> +	ram_y_end = panel->controller_cfg->max_height - 1;
+> +
+> +	switch (panel->orientation) {
+> +	case 90:
+> +	case 180:
+> +		/* 90°/180°: XDEC_YDEC mode, send end-before-start; cursor at (max, max). */
+> +		ssd16xx_send_cmd(panel, SSD16XX_CMD_SET_RAM_X_ADDRESS_START_END, &err);
+> +		ssd16xx_send_x_param(panel, ram_x_end, &err);
+> +		ssd16xx_send_x_param(panel, ram_x_start, &err);
+> +
+> +		ssd16xx_send_cmd(panel, SSD16XX_CMD_SET_RAM_Y_ADDRESS_START_END, &err);
+> +		ssd16xx_send_y_param(panel, ram_y_end, &err);
+> +		ssd16xx_send_y_param(panel, ram_y_start, &err);
+> +
+> +		ssd16xx_send_cmd(panel, SSD16XX_CMD_SET_RAM_X_ADDRESS_COUNTER, &err);
+> +		ssd16xx_send_x_param(panel, ram_x_end, &err);
+> +
+> +		ssd16xx_send_cmd(panel, SSD16XX_CMD_SET_RAM_Y_ADDRESS_COUNTER, &err);
+> +		ssd16xx_send_y_param(panel, ram_y_end, &err);
+> +		break;
+> +
+> +	default: /* 0°/270° */
+> +		/* 0°/270°: XINC_YINC mode, cursor at (0, 0). */
+> +		ssd16xx_send_cmd(panel, SSD16XX_CMD_SET_RAM_X_ADDRESS_START_END, &err);
+> +		ssd16xx_send_x_param(panel, ram_x_start, &err);
+> +		ssd16xx_send_x_param(panel, ram_x_end, &err);
+> +
+> +		ssd16xx_send_cmd(panel, SSD16XX_CMD_SET_RAM_Y_ADDRESS_START_END, &err);
+> +		ssd16xx_send_y_param(panel, ram_y_start, &err);
+> +		ssd16xx_send_y_param(panel, ram_y_end, &err);
+> +
+> +		ssd16xx_send_cmd(panel, SSD16XX_CMD_SET_RAM_X_ADDRESS_COUNTER, &err);
+> +		ssd16xx_send_x_param(panel, ram_x_start, &err);
+> +
+> +		ssd16xx_send_cmd(panel, SSD16XX_CMD_SET_RAM_Y_ADDRESS_COUNTER, &err);
+> +		ssd16xx_send_y_param(panel, ram_y_start, &err);
+> +		break;
+> +	}
+> +
+> +	ssd16xx_send_cmd(panel, SSD16XX_CMD_WRITE_RAM_BW, &err);
+> +	ssd16xx_send_data_bulk(panel, mono_buffer, data_size, &err);
+> +
+> +	/* Re-send border waveform when: every-update mode, init frame, or
+> +	 * the border_waveform_update property just changed (one-shot).
+> +	 */
+> +	drm_dbg(&panel->drm,
+> +		"fb_dirty: border check: every_update=%d init_pending=%d border_pending=%d idx=%d hw=0x%02x\n",
+> +		panel->border_refresh_on_every_update, panel->init_refresh_pending,
+> +		panel->border_waveform_pending, panel->border_waveform_update_idx,
+> +		panel->controller_cfg->border_waveform_table[panel->border_waveform_update_idx]);
+> +	if (panel->border_refresh_on_every_update || panel->init_refresh_pending ||
+> +	    panel->border_waveform_pending) {
+> +		u8 idx = panel->border_waveform_update_idx;
+> +		u8 border = panel->controller_cfg->border_waveform_table[idx];
+> +
+> +		drm_dbg(&panel->drm, "fb_dirty: Sending border waveform: 0x%02x\n",
+> +			border);
+> +		ssd16xx_send_cmd(panel, SSD16XX_CMD_BORDER_WAVEFORM_CONTROL, &err);
+> +		ssd16xx_send_data(panel, border, &err);
+> +		panel->border_waveform_pending = false;
+> +	}
+> +
+> +	switch (panel->refresh_mode) {
+> +	case SSD16XX_REFRESH_FULL:
+> +		/*
+> +		 * BW full refresh: write RED RAM BEFORE display_update
+> +		 * to avoid a post-BUSY write timing issue on some
+> +		 * controller revisions that silently corrupts RED RAM.
+> +		 * RED RAM is then bypassed (CTRL1_BYPASS_RED_RAM) so
+> +		 * stale RED RAM content does not affect the output.
+> +		 */
+> +		ssd16xx_send_cmd(panel, SSD1683_CMD_WRITE_RAM_RED, &err);
+> +		if (red_buffer) {
+> +			/* 3-colour: write red channel before activating */
+> +			ssd16xx_send_data_bulk(panel, red_buffer, data_size, &err);
+> +			ssd16xx_display_update(panel, panel->controller_cfg->ctrl1_normal,
+> +					       SSD16XX_CTRL1_BYTE2_DEFAULT,
+> +					       ctrl2_tbl[SSD16XX_REFRESH_FULL], &err);
+> +		} else {
+> +			ssd16xx_send_data_bulk(panel, mono_buffer, data_size, &err);
+> +			ssd16xx_display_update(panel, panel->controller_cfg->ctrl1_bypass_red_ram,
+> +					       SSD16XX_CTRL1_BYTE2_DEFAULT,
+> +					       ctrl2_tbl[SSD16XX_REFRESH_FULL], &err);
+> +		}
+> +		break;
+> +	case SSD16XX_REFRESH_FAST:
+> +		/*
+> +		 * Fast refresh: LUT pre-loaded during hw_init; BYPASS_RED_RAM
+> +		 * so RED RAM does not affect the current output.
+> +		 * Write RED RAM BEFORE display_update (same reasoning as FULL)
+> +		 * so it holds the just-displayed frame as a valid reference for
+> +		 * any subsequent PARTIAL refresh.
+> +		 */
+> +
+> +		ssd16xx_send_cmd(panel, SSD1683_CMD_WRITE_RAM_RED, &err);
+> +		if (red_buffer) {
+> +			/* 3-colour: write red channel before activating */
+> +			ssd16xx_send_data_bulk(panel, red_buffer, data_size, &err);
+> +			ssd16xx_display_update(panel, panel->controller_cfg->ctrl1_normal,
+> +					       SSD16XX_CTRL1_BYTE2_DEFAULT,
+> +					       ctrl2_tbl[SSD16XX_REFRESH_FAST], &err);
+> +		} else {
+> +			ssd16xx_send_data_bulk(panel, mono_buffer, data_size, &err);
+> +			ssd16xx_display_update(panel, panel->controller_cfg->ctrl1_bypass_red_ram,
+> +					       SSD16XX_CTRL1_BYTE2_DEFAULT,
+> +					       ctrl2_tbl[SSD16XX_REFRESH_FAST], &err);
+> +		}
+> +		break;
+> +	case SSD16XX_REFRESH_PARTIAL:
+> +	default:
+> +		/*
+> +		 * Partial refresh: both RAMs used for transition waveforms.
+> +		 * RED RAM must hold the PREVIOUS frame (= current display
+> +		 * content) so the controller can compute pixel transitions.
+> +		 * Write RED RAM AFTER display_update so it captures the
+> +		 * just-displayed frame as the reference for the next partial.
+> +		 */
+> +		drm_dbg(&panel->drm,
+> +			"fb_dirty: partial pre-update: mono[0]=0x%02x (BW=new, RED=prev)\n",
+> +			mono_buffer[0]);
+> +		ssd16xx_display_update(panel, panel->controller_cfg->ctrl1_normal,
+> +				       SSD16XX_CTRL1_BYTE2_DEFAULT,
+> +				       ctrl2_tbl[SSD16XX_REFRESH_PARTIAL], &err);
+> +		ssd16xx_send_cmd(panel, SSD1683_CMD_WRITE_RAM_RED, &err);
+> +		ssd16xx_send_data_bulk(panel, mono_buffer, data_size, &err);
+> +		drm_dbg(&panel->drm,
+> +			"fb_dirty: partial post-update: wrote RED baseline mono[0]=0x%02x\n",
+> +			mono_buffer[0]);
+> +		break;
+> +	}
+> +
+> +	return err;
+> +}
+> +
+> +/* -----------------------------------------------------------------------------
+> + * Plane Functions
+> + */
+> +
+> +static void ssd16xx_plane_destroy(struct drm_plane *plane)
+> +{
+> +	drm_plane_cleanup(plane);
+> +}
+> +
+> +static void ssd16xx_plane_reset(struct drm_plane *plane)
+> +{
+> +	drm_atomic_helper_plane_reset(plane);
+> +}
+
+Please avoid these wrappers.
+
+> +
+> +static const struct drm_plane_funcs ssd16xx_plane_funcs = {
+> +	.update_plane = drm_atomic_helper_update_plane,
+> +	.disable_plane = drm_atomic_helper_disable_plane,
+> +	.destroy = ssd16xx_plane_destroy,
+> +	.reset = ssd16xx_plane_reset,
+> +	.atomic_duplicate_state = drm_atomic_helper_plane_duplicate_state,
+> +	.atomic_destroy_state = drm_atomic_helper_plane_destroy_state,
+> +};
+> +
+> +static int ssd16xx_plane_atomic_check(struct drm_plane *plane,
+> +				      struct drm_atomic_state *state)
+> +{
+> +	struct drm_plane_state *new_plane_state =
+> +		drm_atomic_get_new_plane_state(state, plane);
+> +	struct drm_crtc_state *crtc_state;
+> +
+> +	if (!new_plane_state->crtc)
+> +		return 0;
+> +
+> +	crtc_state = drm_atomic_get_new_crtc_state(state, new_plane_state->crtc);
+> +
+> +	return drm_atomic_helper_check_plane_state(new_plane_state, crtc_state,
+> +						   DRM_PLANE_NO_SCALING,
+> +						   DRM_PLANE_NO_SCALING,
+> +						   false, false);
+> +}
+> +
+> +static void ssd16xx_plane_atomic_update(struct drm_plane *plane,
+> +					struct drm_atomic_state *state)
+> +{
+> +	struct drm_plane_state *old_state = drm_atomic_get_old_plane_state(state, plane);
+> +	struct drm_plane_state *new_state = drm_atomic_get_new_plane_state(state, plane);
+> +	struct ssd16xx_panel *panel = plane_to_ssd16xx_panel(plane);
+> +	enum ssd16xx_refresh_mode saved_mode;
+> +	u8 saved_border_waveform_idx;
+> +	struct drm_framebuffer *fb = new_state->fb;
+> +	struct drm_rect rect;
+> +	int ret;
+> +
+> +	drm_dbg(&panel->drm, "plane_atomic_update: fb=%p, initialized=%d\n",
+> +		fb, panel->initialized);
+> +
+> +	if (!fb || !panel->initialized)
+> +		return;
+> +
+> +	/*
+> +	 * If a rotation change is pending, skip the update here — crtc_atomic_flush
+> +	 * will re-init the hardware for the new orientation and redraw.
+> +	 */
+> +	if (panel->reinit_pending) {
+> +		drm_dbg(&panel->drm, "plane_atomic_update: skipping (reinit pending)\n");
+> +		return;
+> +	}
+> +
+> +	if (!drm_atomic_helper_damage_merged(old_state, new_state, &rect)) {
+> +		rect.x1 = 0;
+> +		rect.y1 = 0;
+> +		rect.x2 = fb->width;
+> +		rect.y2 = fb->height;
+> +		drm_dbg(&panel->drm, "plane_atomic_update: no damage, using full screen\n");
+> +	}
+> +
+> +	drm_dbg(&panel->drm, "plane_atomic_update: calling fb_dirty rect=(%d,%d)-(%d,%d)\n",
+> +		rect.x1, rect.y1, rect.x2, rect.y2);
+> +	/*
+> +	 * When refresh_mode_init was set, use the specified mode for this first
+> +	 * frame only, then restore the user-configured refresh_mode so
+> +	 * subsequent updates continue with the configured mode.
+> +	 */
+> +	saved_mode = panel->refresh_mode;
+> +	saved_border_waveform_idx = panel->border_waveform_update_idx;
+> +	if (panel->init_refresh_pending) {
+> +		panel->refresh_mode = panel->refresh_mode_init;
+> +		panel->border_waveform_update_idx = panel->border_waveform_init_idx;
+> +	}
+> +
+> +	/*
+> +	 * Fast refresh (0xC7) omits LOAD_LUT on every update cycle and relies
+> +	 * on the LUT being pre-loaded upfront.  The property setter arms
+> +	 * fast_lut_pending whenever the user switches into fast mode.  Consume
+> +	 * the flag here (once) before the first fast-refresh frame so the
+> +	 * controller's LUT is in the correct state.
+> +	 */
+> +	if (panel->fast_lut_pending) {
+> +		ret = ssd16xx_preload_fast_lut(panel);
+> +		if (ret) {
+> +			drm_err(&panel->drm,
+> +				"plane_atomic_update: fast LUT preload failed: %d\n", ret);
+> +		}
+> +
+> +		panel->fast_lut_pending = false;
+> +	}
+> +
+> +	ret = ssd16xx_fb_dirty(fb, &rect, panel);
+> +	if (ret)
+> +		drm_err(&panel->drm, "plane_atomic_update: display update failed: %d\n", ret);
+> +	else
+> +		panel->last_fb = fb;
+> +
+> +	panel->refresh_mode = saved_mode;
+> +	panel->border_waveform_update_idx = saved_border_waveform_idx;
+> +
+> +	/*
+> +	 * If this was the init frame (which used border_waveform_init_idx
+> +	 * inside fb_dirty), arm border_waveform_pending so the normal
+> +	 * (non-init) border value is sent at the start of the next update.
+> +	 */
+> +	if (panel->init_refresh_pending) {
+> +		panel->init_refresh_pending = false;
+> +		panel->border_waveform_pending = true;
+> +	}
+> +}
+> +
+> +static const struct drm_plane_helper_funcs ssd16xx_plane_helper_funcs = {
+> +	.atomic_check = ssd16xx_plane_atomic_check,
+> +	.atomic_update = ssd16xx_plane_atomic_update,
+> +};
+> +
+> +/* -----------------------------------------------------------------------------
+> + * CRTC Functions
+> + */
+> +
+> +static void ssd16xx_crtc_destroy(struct drm_crtc *crtc)
+> +{
+> +	drm_crtc_cleanup(crtc);
+> +}
+> +
+> +static const struct drm_crtc_funcs ssd16xx_crtc_funcs = {
+> +	.reset = drm_atomic_helper_crtc_reset,
+> +	.destroy = ssd16xx_crtc_destroy,
+> +	.set_config = drm_atomic_helper_set_config,
+> +	.page_flip = drm_atomic_helper_page_flip,
+> +	.atomic_duplicate_state = drm_atomic_helper_crtc_duplicate_state,
+> +	.atomic_destroy_state = drm_atomic_helper_crtc_destroy_state,
+> +};
+> +
+> +static enum drm_mode_status ssd16xx_crtc_mode_valid(struct drm_crtc *crtc,
+> +						    const struct drm_display_mode *mode)
+> +{
+> +	struct ssd16xx_panel *panel = crtc_to_ssd16xx_panel(crtc);
+> +
+> +	/* Accept only our panel's native mode (landscape or portrait) */
+> +	if ((mode->hdisplay == panel->mode->hdisplay &&
+> +	     mode->vdisplay == panel->mode->vdisplay) ||
+> +	    (mode->hdisplay == panel->mode->vdisplay &&
+> +	     mode->vdisplay == panel->mode->hdisplay))
+> +		return MODE_OK;
+> +
+> +	return MODE_BAD;
+> +}
+> +
+> +static int ssd16xx_crtc_atomic_check(struct drm_crtc *crtc,
+> +				     struct drm_atomic_state *state)
+> +{
+> +	return 0;
+> +}
+> +
+> +static void ssd16xx_crtc_atomic_disable(struct drm_crtc *crtc,
+> +					struct drm_atomic_state *state)
+> +{
+> +	struct ssd16xx_panel *panel = crtc_to_ssd16xx_panel(crtc);
+> +	int ret, idx;
+> +
+> +	if (!drm_dev_enter(&panel->drm, &idx))
+> +		return;
+> +
+> +	if (panel->clear_on_disable < 0 || panel->display_cleared_on_deinit)
+> +		goto out;
+> +
+> +	drm_dbg(&panel->drm, "clear_on_disable: running, mode=%d\n",
+> +		panel->clear_on_disable);
+> +	ret = ssd16xx_clear_display(panel,
+> +				    ssd16xx_refresh_mode_to_ctrl2(panel,
+> +								  panel->clear_on_disable));
+> +	if (ret) {
+> +		drm_err(&panel->drm, "atomic_disable: clear failed: %d\n", ret);
+> +		goto out;
+> +	}
+> +
+> +	panel->display_cleared_on_deinit = true;
+> +out:
+> +	drm_dev_exit(idx);
+> +}
+> +
+> +static void ssd16xx_crtc_atomic_enable(struct drm_crtc *crtc,
+> +				       struct drm_atomic_state *state)
+> +{
+> +	struct ssd16xx_panel *panel = crtc_to_ssd16xx_panel(crtc);
+> +	struct drm_crtc_state *crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
+> +	int ret, idx;
+> +
+> +	if (!drm_dev_enter(&panel->drm, &idx))
+> +		return;
+> +
+> +	panel->display_cleared_on_deinit = false;
+> +
+> +	drm_dbg(&panel->drm, "atomic_enable: %dx%d\n",
+> +		crtc_state->mode.hdisplay, crtc_state->mode.vdisplay);
+> +
+> +	panel->width = crtc_state->mode.hdisplay;
+> +	panel->height = crtc_state->mode.vdisplay;
+> +
+> +	ret = ssd16xx_hw_init(panel);
+> +	if (ret) {
+> +		drm_err(&panel->drm, "crtc_atomic_enable: HW init failed: %d\n", ret);
+> +		goto out;
+> +	}
+> +	panel->initialized = true;
+> +
+> +	/* Clear display on first app launch if configured */
+> +	ret = ssd16xx_clear_display_on_init(panel);
+> +	if (ret)
+> +		drm_err(&panel->drm, "crtc_atomic_enable: clear on init failed: %d\n", ret);
+> +
+> +	/*
+> +	 * If refresh_mode_init is set, arm init_refresh_pending so
+> +	 * plane_atomic_update uses the specified mode for the first frame
+> +	 * then restores the user-configured or panel default refresh_mode.
+> +	 */
+> +	if (panel->refresh_mode_init >= 0) {
+> +		drm_dbg(&panel->drm,
+> +			"atomic_enable: refresh_mode_init=%d, using for first frame\n",
+> +			panel->refresh_mode_init);
+> +		panel->init_refresh_pending = true;
+> +	}
+> +
+> +out:
+> +	drm_dev_exit(idx);
+> +}
+> +
+> +/*
+> + * Re-initialize hardware and redraw the current framebuffer when the
+> + * display orientation changes at runtime via the rotation connector property.
+> + * Called by the DRM atomic helper after atomic_enable/disable have run.
+> + */
+> +static void ssd16xx_crtc_atomic_flush(struct drm_crtc *crtc,
+> +				      struct drm_atomic_state *state)
+> +{
+> +	struct ssd16xx_panel *panel = crtc_to_ssd16xx_panel(crtc);
+> +	struct drm_framebuffer *fb;
+> +	struct drm_rect full;
+> +	int ret, idx;
+> +
+> +	if (!panel->reinit_pending || !panel->initialized)
+> +		return;
+> +
+> +	if (!drm_dev_enter(&panel->drm, &idx))
+> +		return;
+> +
+> +	panel->reinit_pending = false;
+> +
+> +	drm_dbg(&panel->drm, "atomic_flush: reinit, orientation=%u°\n",
+> +		panel->orientation);
+> +
+> +	ret = ssd16xx_hw_init(panel);
+> +	if (ret) {
+> +		drm_err(&panel->drm, "Orientation re-init failed: %d\n", ret);
+> +		goto out;
+> +	}
+> +
+> +	fb = panel->primary_plane.state ? panel->primary_plane.state->fb
+> +					: panel->last_fb;
+> +	if (fb) {
+> +		full.x1 = 0;
+> +		full.y1 = 0;
+> +		full.x2 = fb->width;
+> +		full.y2 = fb->height;
+> +		ret = ssd16xx_fb_dirty(fb, &full, panel);
+> +		if (ret)
+> +			drm_err(&panel->drm, "atomic_flush: display update failed: %d\n", ret);
+> +		else
+> +			panel->last_fb = fb;
+> +	}
+> +
+> +out:
+> +	drm_dev_exit(idx);
+> +}
+> +
+> +static const struct drm_crtc_helper_funcs ssd16xx_crtc_helper_funcs = {
+> +	.mode_valid     = ssd16xx_crtc_mode_valid,
+> +	.atomic_check   = ssd16xx_crtc_atomic_check,
+> +	.atomic_disable = ssd16xx_crtc_atomic_disable,
+> +	.atomic_enable  = ssd16xx_crtc_atomic_enable,
+> +	.atomic_flush   = ssd16xx_crtc_atomic_flush,
+> +};
+> +
+> +/* -----------------------------------------------------------------------------
+> + * Connector Functions
+> + */
+> +
+> +static int ssd16xx_connector_get_modes(struct drm_connector *connector)
+> +{
+> +	struct ssd16xx_panel *panel = to_ssd16xx_panel(connector->dev);
+> +	bool mode_is_portrait = (panel->mode->hdisplay < panel->mode->vdisplay);
+> +	bool orient_is_portrait = (panel->orientation == 90 || panel->orientation == 270);
+> +
+> +	drm_dbg(&panel->drm, "connector_get_modes: orientation=%u°\n",
+> +		panel->orientation);
+> +
+> +	/* For portrait, swap dimensions so clients see logical size. */
+> +	if (mode_is_portrait != orient_is_portrait) {
+> +		struct drm_display_mode *mode;
+> +
+> +		mode = drm_mode_duplicate(&panel->drm, panel->mode);
+> +		if (!mode)
+> +			return 0;
+> +		swap(mode->hdisplay, mode->vdisplay);
+> +		swap(mode->hsync_start, mode->vsync_start);
+> +		swap(mode->hsync_end, mode->vsync_end);
+> +		swap(mode->htotal, mode->vtotal);
+> +		swap(mode->width_mm, mode->height_mm);
+> +		mode->type |= DRM_MODE_TYPE_PREFERRED;
+> +		drm_mode_set_name(mode);
+> +		drm_mode_probed_add(connector, mode);
+> +		return 1;
+> +	}
+> +
+> +	return drm_connector_helper_get_modes_fixed(connector, panel->mode);
+> +}
+> +
+> +static const struct drm_connector_helper_funcs ssd16xx_connector_helper_funcs = {
+> +	.get_modes = ssd16xx_connector_get_modes,
+> +};
+> +
+> +/* Enum values for the rotation connector property (degrees clockwise) */
+> +static const struct drm_prop_enum_list ssd16xx_rotation_enum[] = {
+> +	{ 0,   "0"   },
+> +	{ 90,  "90"  },
+> +	{ 180, "180" },
+> +	{ 270, "270" },
+> +};
+> +
+> +/* Enum values for the refresh_mode connector property */
+> +static const struct drm_prop_enum_list ssd16xx_refresh_mode_enum[] = {
+> +	{ SSD16XX_REFRESH_PARTIAL, "partial" },
+> +	{ SSD16XX_REFRESH_FULL,    "full"    },
+> +	{ SSD16XX_REFRESH_FAST,    "fast"    },
+> +};
+> +
+> +/*
+> + * Enum for clear_on_init, clear_on_close, refresh_mode_init properties.
+> + * Value 0 = disabled; values 1-3 = partial/full/fast (refresh mode + 1).
+> + * The +1 offset allows a single enum to represent both "disabled" and the
+> + * three refresh modes without sign-extending the DRM property value.
+> + */
+> +static const struct drm_prop_enum_list ssd16xx_init_refresh_enum[] = {
+> +	{ 0, "disabled" },
+> +	{ 1, "partial"  },
+> +	{ 2, "full"     },
+> +	{ 3, "fast"     },
+> +};
+> +
+> +/* Enum values for the color_mode connector property */
+> +static const struct drm_prop_enum_list ssd16xx_color_mode_enum[] = {
+> +	{ SSD16XX_COLOR_MODE_BW,     "black-white" },
+> +	{ SSD16XX_COLOR_MODE_3COLOR, "3-color"     },
+> +};
+> +
+> +/* Enum values for border_waveform connector properties (one per HW mode) */
+> +static const struct drm_prop_enum_list ssd16xx_border_waveform_enum[] = {
+> +	{ SSD16XX_BORDER_LUT0, "lut0_black"    },
+> +	{ SSD16XX_BORDER_LUT1, "lut1_white"    },
+> +	{ SSD16XX_BORDER_LUT2, "lut2_black"    },
+> +	{ SSD16XX_BORDER_LUT3, "lut3_gray"     },
+> +	{ SSD16XX_BORDER_VSS,  "vss_black"     },
+> +	{ SSD16XX_BORDER_VSH1, "vsh1_black"    },
+> +	{ SSD16XX_BORDER_VSL,  "vsl_white"     },
+> +	{ SSD16XX_BORDER_VSH2, "vsh2_black"    },
+> +	{ SSD16XX_BORDER_VCOM, "vcom_preserve" },
+> +	{ SSD16XX_BORDER_HIZ,  "hiz_float"     },
+> +};
+> +
+> +static int ssd16xx_connector_create_properties(struct ssd16xx_panel *panel)
+> +{
+> +	struct drm_device *drm = &panel->drm;
+> +	struct drm_connector *connector = &panel->connector;
+> +
+> +	panel->rotation_property =
+> +		drm_property_create_enum(drm, 0, "rotation",
+> +					 ssd16xx_rotation_enum,
+> +					 ARRAY_SIZE(ssd16xx_rotation_enum));
+> +	if (!panel->rotation_property)
+> +		return -ENOMEM;
+> +	drm_object_attach_property(&connector->base,
+> +				   panel->rotation_property, panel->orientation);
+> +
+> +	panel->refresh_mode_property =
+> +		drm_property_create_enum(drm, 0, "refresh_mode",
+> +					 ssd16xx_refresh_mode_enum,
+> +					 ARRAY_SIZE(ssd16xx_refresh_mode_enum));
+> +	if (!panel->refresh_mode_property)
+> +		return -ENOMEM;
+> +	drm_object_attach_property(&connector->base,
+> +				   panel->refresh_mode_property, panel->refresh_mode);
+> +
+> +	panel->border_waveform_init_property =
+> +		drm_property_create_enum(drm, 0, "border_waveform_init",
+> +					 ssd16xx_border_waveform_enum,
+> +					 ARRAY_SIZE(ssd16xx_border_waveform_enum));
+> +	if (!panel->border_waveform_init_property)
+> +		return -ENOMEM;
+> +	drm_object_attach_property(&connector->base,
+> +				   panel->border_waveform_init_property,
+> +				   panel->border_waveform_init_idx);
+> +
+> +	panel->border_waveform_update_property =
+> +		drm_property_create_enum(drm, 0, "border_waveform_update",
+> +					 ssd16xx_border_waveform_enum,
+> +					 ARRAY_SIZE(ssd16xx_border_waveform_enum));
+> +	if (!panel->border_waveform_update_property)
+> +		return -ENOMEM;
+> +	drm_object_attach_property(&connector->base,
+> +				   panel->border_waveform_update_property,
+> +				   panel->border_waveform_update_idx);
+> +
+> +	panel->border_refresh_on_every_update_property =
+> +		drm_property_create_bool(drm, 0, "border_refresh_on_every_update");
+> +	if (!panel->border_refresh_on_every_update_property)
+> +		return -ENOMEM;
+> +	drm_object_attach_property(&connector->base,
+> +				   panel->border_refresh_on_every_update_property,
+> +				   panel->border_refresh_on_every_update);
+> +
+> +	panel->clear_on_init_property =
+> +		drm_property_create_enum(drm, 0, "clear_on_init",
+> +					 ssd16xx_init_refresh_enum,
+> +					 ARRAY_SIZE(ssd16xx_init_refresh_enum));
+> +	if (!panel->clear_on_init_property)
+> +		return -ENOMEM;
+> +	/* Property value 0=disabled, 1-3=mode; field is -1/0/1/2 → val = field+1 */
+> +	drm_object_attach_property(&connector->base,
+> +				   panel->clear_on_init_property,
+> +				   panel->clear_on_init + 1);
+> +
+> +	panel->clear_on_close_property =
+> +		drm_property_create_enum(drm, 0, "clear_on_close",
+> +					 ssd16xx_init_refresh_enum,
+> +					 ARRAY_SIZE(ssd16xx_init_refresh_enum));
+> +	if (!panel->clear_on_close_property)
+> +		return -ENOMEM;
+> +	drm_object_attach_property(&connector->base,
+> +				   panel->clear_on_close_property,
+> +				   panel->clear_on_close + 1);
+> +
+> +	panel->clear_on_disable_property =
+> +		drm_property_create_enum(drm, 0, "clear_on_disable",
+> +					 ssd16xx_init_refresh_enum,
+> +					 ARRAY_SIZE(ssd16xx_init_refresh_enum));
+> +	if (!panel->clear_on_disable_property)
+> +		return -ENOMEM;
+> +	drm_object_attach_property(&connector->base,
+> +				   panel->clear_on_disable_property,
+> +				   panel->clear_on_disable + 1);
+> +
+> +	panel->refresh_mode_init_property =
+> +		drm_property_create_enum(drm, 0, "refresh_mode_init",
+> +					 ssd16xx_init_refresh_enum,
+> +					 ARRAY_SIZE(ssd16xx_init_refresh_enum));
+> +	if (!panel->refresh_mode_init_property)
+> +		return -ENOMEM;
+> +	drm_object_attach_property(&connector->base,
+> +				   panel->refresh_mode_init_property,
+> +				   panel->refresh_mode_init + 1);
+> +
+> +	/*
+> +	 * color_mode: only expose 3-color option on panels that physically have
+> +	 * a red plane; on BW-only panels the property still exists for
+> +	 * consistency but userspace can only set "black-white".
+> +	 */
+> +	panel->color_mode_property =
+> +		drm_property_create_enum(drm, 0, "color_mode",
+> +					 ssd16xx_color_mode_enum,
+> +					 panel->panel_cfg->red_supported
+> +						? ARRAY_SIZE(ssd16xx_color_mode_enum)
+> +						: 1);
+> +	if (!panel->color_mode_property)
+> +		return -ENOMEM;
+> +	drm_object_attach_property(&connector->base,
+> +				   panel->color_mode_property,
+> +				   panel->color_mode);
+> +
+> +	return 0;
+> +}
+> +
+> +static int ssd16xx_connector_atomic_get_property(struct drm_connector *connector,
+> +						 const struct drm_connector_state *state,
+> +						 struct drm_property *property,
+> +						 uint64_t *val)
+> +{
+> +	struct ssd16xx_panel *panel = to_ssd16xx_panel(connector->dev);
+> +
+> +	drm_dbg(&panel->drm, "get_property: %s\n", property->name);
+> +
+> +	if (property == panel->rotation_property) {
+> +		*val = panel->orientation;
+> +		return 0;
+> +	}
+> +	if (property == panel->refresh_mode_property) {
+> +		*val = panel->refresh_mode;
+> +		return 0;
+> +	}
+> +	if (property == panel->border_waveform_init_property) {
+> +		*val = panel->border_waveform_init_idx;
+> +		return 0;
+> +	}
+> +	if (property == panel->border_waveform_update_property) {
+> +		*val = panel->border_waveform_update_idx;
+> +		return 0;
+> +	}
+> +	if (property == panel->border_refresh_on_every_update_property) {
+> +		*val = panel->border_refresh_on_every_update;
+> +		return 0;
+> +	}
+> +	if (property == panel->clear_on_init_property) {
+> +		*val = panel->clear_on_init + 1;  /* field -1/0/1/2 → val 0/1/2/3 */
+> +		return 0;
+> +	}
+> +	if (property == panel->clear_on_close_property) {
+> +		*val = panel->clear_on_close + 1;
+> +		return 0;
+> +	}
+> +	if (property == panel->clear_on_disable_property) {
+> +		*val = panel->clear_on_disable + 1;
+> +		return 0;
+> +	}
+> +	if (property == panel->refresh_mode_init_property) {
+> +		*val = panel->refresh_mode_init + 1;
+> +		return 0;
+> +	}
+> +	if (property == panel->color_mode_property) {
+> +		*val = panel->color_mode;
+> +		return 0;
+> +	}
+> +
+> +	return -EINVAL;
+> +}
+> +
+> +static int ssd16xx_connector_atomic_set_property(struct drm_connector *connector,
+> +						 struct drm_connector_state *state,
+> +						 struct drm_property *property,
+> +						 uint64_t val)
+> +{
+> +	struct ssd16xx_panel *panel = to_ssd16xx_panel(connector->dev);
+> +
+> +	drm_dbg(&panel->drm, "set_property: %s = %llu\n", property->name, val);
+> +
+> +	if (property == panel->rotation_property) {
+> +		if (val != 0 && val != 90 && val != 180 && val != 270)
+> +			return -EINVAL;
+> +		panel->orientation = val;
+> +		/*
+> +		 * Flag hardware re-init needed. crtc_atomic_flush will call
+> +		 * ssd16xx_hw_init() with the new orientation and redraw.
+> +		 */
+> +		panel->reinit_pending = true;
+> +		return 0;
+> +	}
+> +	if (property == panel->refresh_mode_property) {
+> +		if (val > SSD16XX_REFRESH_FAST)
+> +			return -EINVAL;
+> +		/*
+> +		 * Fast refresh (0xC7) omits LOAD_LUT on every update and relies
+> +		 * on the LUT being pre-loaded upfront.  Arm the one-shot flag
+> +		 * when switching into fast mode so the next plane_atomic_update
+> +		 * loads the LUT before the first fast-refresh cycle.  Clear it
+> +		 * when switching away so a fresh pre-load happens if the user
+> +		 * returns to fast mode later.
+> +		 */
+> +		if (val == SSD16XX_REFRESH_FAST &&
+> +		    panel->refresh_mode != SSD16XX_REFRESH_FULL)
+> +			panel->fast_lut_pending = true;
+> +		else
+> +			panel->fast_lut_pending = false;
+> +		panel->refresh_mode = val;
+> +		return 0;
+> +	}
+> +	if (property == panel->border_waveform_init_property) {
+> +		if (val >= ARRAY_SIZE(ssd1683_border_waveform_table))
+> +			return -EINVAL;
+> +		panel->border_waveform_init_idx = val;
+> +		return 0;
+> +	}
+> +	if (property == panel->border_waveform_update_property) {
+> +		const u8 *bw_tbl = panel->controller_cfg->border_waveform_table;
+> +		bool changed = (int)val != panel->border_waveform_update_idx;
+> +
+> +		if (val >= ARRAY_SIZE(ssd1683_border_waveform_table))
+> +			return -EINVAL;
+> +		drm_dbg(&panel->drm,
+> +			"set_property: border_waveform_update old=%d new=%llu hw=0x%02x -> 0x%02x %s\n",
+> +			panel->border_waveform_update_idx, val,
+> +			bw_tbl[panel->border_waveform_update_idx],
+> +			bw_tbl[val],
+> +			changed ? "(arming pending)" : "(no change)");
+> +		/* Arm one-shot flag so the new border value is sent on the very
+> +		 * next display update, even if border_refresh_on_every_update is
+> +		 * not set.  Cleared in fb_dirty after the command is sent.
+> +		 */
+> +		if ((int)val != panel->border_waveform_update_idx)
+> +			panel->border_waveform_pending = true;
+> +		panel->border_waveform_update_idx = val;
+> +		return 0;
+> +	}
+> +	if (property == panel->border_refresh_on_every_update_property) {
+> +		panel->border_refresh_on_every_update = !!val;
+> +		return 0;
+> +	}
+> +	if (property == panel->clear_on_init_property) {
+> +		if (val > 3)
+> +			return -EINVAL;
+> +		panel->clear_on_init = (int)val - 1;  /* val 0/1/2/3 → field -1/0/1/2 */
+> +		panel->first_clear_done = false;  /* allow re-fire on next enable */
+> +		return 0;
+> +	}
+> +	if (property == panel->clear_on_close_property) {
+> +		if (val > 3)
+> +			return -EINVAL;
+> +		panel->clear_on_close = (int)val - 1;
+> +		return 0;
+> +	}
+> +	if (property == panel->clear_on_disable_property) {
+> +		if (val > 3)
+> +			return -EINVAL;
+> +		panel->clear_on_disable = (int)val - 1;
+> +		return 0;
+> +	}
+> +	if (property == panel->refresh_mode_init_property) {
+> +		if (val > 3)
+> +			return -EINVAL;
+> +		panel->refresh_mode_init = (int)val - 1;
+> +		return 0;
+> +	}
+> +	if (property == panel->color_mode_property) {
+> +		if (val > SSD16XX_COLOR_MODE_3COLOR)
+> +			return -EINVAL;
+> +		if (val == SSD16XX_COLOR_MODE_3COLOR && !panel->panel_cfg->red_supported) {
+> +			drm_dbg(&panel->drm,
+> +				"set_property: 3-color mode not supported by this panel\n");
+> +			return -EINVAL;
+> +		}
+> +		panel->color_mode = val;
+> +		return 0;
+> +	}
+> +
+> +	return -EINVAL;
+> +}
+> +
+> +static const struct drm_connector_funcs ssd16xx_connector_funcs = {
+> +	.reset = drm_atomic_helper_connector_reset,
+> +	.fill_modes = drm_helper_probe_single_connector_modes,
+> +	.destroy = drm_connector_cleanup,
+> +	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
+> +	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+> +	.atomic_get_property = ssd16xx_connector_atomic_get_property,
+> +	.atomic_set_property = ssd16xx_connector_atomic_set_property,
+> +};
+> +
+> +static const u32 ssd16xx_formats[] = {
+> +	DRM_FORMAT_XRGB8888,  /* 32-bit RGB with padding (preferred) */
+> +	DRM_FORMAT_RGB888,    /* 24-bit packed RGB */
+> +	DRM_FORMAT_RGB565,    /* 16-bit RGB (5:6:5) */
+> +	DRM_FORMAT_R8,        /* 8-bit grayscale */
+> +	DRM_FORMAT_NV12,      /* YUV 4:2:0 planar */
+> +	DRM_FORMAT_NV16,      /* YUV 4:2:2 planar */
+> +	DRM_FORMAT_YUYV,      /* Packed YUV 4:2:2 (Y0 U0 Y1 V0) */
+> +	DRM_FORMAT_UYVY,      /* Packed YUV 4:2:2 (U0 Y0 V0 Y1) */
+> +	DRM_FORMAT_R1,        /* 1-bit monochrome (native, 8 pixels/byte) */
+> +};
+
+Why do you have all these formats?
+
+Only export the modes your panel can do natively; plus maybe XRGB8888 
+for compatibility.
+
+> +
+> +DEFINE_DRM_GEM_FOPS(ssd16xx_fops);
+> +
+> +/*
+> + * ssd16xx_drm_master_set - arm init refresh when a new master takes control.
+> + */
+> +static void ssd16xx_drm_master_set(struct drm_device *drm,
+> +				   struct drm_file *file, bool from_open)
+> +{
+> +	struct ssd16xx_panel *panel = to_ssd16xx_panel(drm);
+> +
+> +	panel->display_cleared_on_deinit = false;
+> +	panel->first_clear_done = false;
+> +
+> +	if (panel->refresh_mode_init >= 0)
+> +		panel->init_refresh_pending = true;
+> +}
+> +
+> +/*
+> + * ssd16xx_drm_master_drop - clear display and disarm init refresh when the
+> + * master client exits.
+> + */
+> +static void ssd16xx_drm_master_drop(struct drm_device *drm,
+> +				    struct drm_file *file)
+> +{
+> +	struct ssd16xx_panel *panel = to_ssd16xx_panel(drm);
+> +	int ret;
+> +
+> +	panel->init_refresh_pending = false;
+> +	panel->first_clear_done = false;
+> +
+> +	if (panel->clear_on_close < 0 || panel->display_cleared_on_deinit)
+> +		return;
+> +
+> +	ret = ssd16xx_clear_display_on_exit(panel);
+> +	if (ret)
+> +		drm_err(drm, "master_drop: clear on close failed: %d\n", ret);
+> +
+> +	panel->display_cleared_on_deinit = true;
+> +}
+
+No, don't overload these. Just remove all this. Clearing should be left 
+to the DRM client.
+
+> +
+> +static struct drm_driver ssd16xx_drm_driver = {
+> +	.driver_features = DRIVER_GEM | DRIVER_MODESET | DRIVER_ATOMIC,
+> +	.fops = &ssd16xx_fops,
+> +	.name = "ssd16xx",
+> +	.desc = "DRM driver for SSD16xx e-paper controller family",
+> +	.major = 1,
+> +	.minor = 0,
+> +	.master_set  = ssd16xx_drm_master_set,
+> +	.master_drop = ssd16xx_drm_master_drop,
+> +	DRM_GEM_DMA_DRIVER_OPS,
+> +	DRM_FBDEV_DMA_DRIVER_OPS,
+> +};
+> +
+> +static const struct drm_mode_config_funcs ssd16xx_mode_config_funcs = {
+> +	.fb_create = drm_gem_fb_create_with_dirty,
+> +	.atomic_check = drm_atomic_helper_check,
+> +	.atomic_commit = drm_atomic_helper_commit,
+> +};
+> +
+> +/*
+> + * Use the RPM commit-tail variant so that drm_atomic_helper_commit_modeset_enables
+> + * (which calls crtc_atomic_enable) runs before drm_atomic_helper_commit_planes.
+> + * Without this, the standard commit_tail calls commit_planes before
+> + * modeset_enables, so plane_atomic_update would see initialized == false on the
+> + * first commit and silently drop the frame.
+> + */
+> +static const struct drm_mode_config_helper_funcs ssd16xx_mode_config_helper_funcs = {
+> +	.atomic_commit_tail = drm_atomic_helper_commit_tail_rpm,
+> +};
+> +
+> +static int ssd16xx_alloc_tx_bufs(struct ssd16xx_panel *panel)
+> +{
+> +	struct device *dev = &panel->spi->dev;
+> +	size_t frame_size = (panel->controller_cfg->max_width *
+> +			     panel->controller_cfg->max_height) / 8;
+> +
+> +	panel->tx_buf = devm_kmalloc(dev, frame_size, GFP_KERNEL);
+
+drmm_kmalloc() here and for the other buffers.
+
+Best regards
+Thomas
+
+> +	if (!panel->tx_buf)
+> +		return -ENOMEM;
+> +
+> +	if (panel->panel_cfg->red_supported) {
+> +		panel->tx_red_buf = devm_kmalloc(dev, frame_size, GFP_KERNEL);
+> +		if (!panel->tx_red_buf)
+> +			return -ENOMEM;
+> +	}
+> +
+> +	if (!panel->dc) {
+> +		panel->tx_buf9 = devm_kmalloc_array(dev, frame_size,
+> +						    sizeof(u16), GFP_KERNEL);
+> +		if (!panel->tx_buf9)
+> +			return -ENOMEM;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int ssd16xx_probe(struct spi_device *spi)
+> +{
+> +	struct device *dev = &spi->dev;
+> +	struct ssd16xx_panel *panel;
+> +	struct drm_device *drm;
+> +	const struct spi_device_id *spi_id;
+> +	struct drm_display_mode *mode;
+> +	const void *match;
+> +	enum ssd16xx_model model;
+> +	u32 dt_rotation = 0;
+> +	int ret;
+> +
+> +	match = device_get_match_data(dev);
+> +	if (match) {
+> +		model = (enum ssd16xx_model)(uintptr_t)match;
+> +	} else {
+> +		spi_id = spi_get_device_id(spi);
+> +		model = (enum ssd16xx_model)spi_id->driver_data;
+> +	}
+> +
+> +	if (!dev->coherent_dma_mask) {
+> +		ret = dma_coerce_mask_and_coherent(dev, DMA_BIT_MASK(64));
+> +		if (ret) {
+> +			dev_warn(dev, "Failed to set DMA mask: %d\n", ret);
+> +			return ret;
+> +		}
+> +	}
+> +
+> +	panel = devm_drm_dev_alloc(dev, &ssd16xx_drm_driver,
+> +				   struct ssd16xx_panel, drm);
+> +	if (IS_ERR(panel))
+> +		return PTR_ERR(panel);
+> +
+> +	drm = &panel->drm;
+> +	panel->spi = spi;
+> +	panel->model = model;
+> +	spi_set_drvdata(spi, panel);
+> +
+> +	spi->mode = SPI_MODE_0;
+> +	spi->bits_per_word = SSD16XX_SPI_BITS_PER_WORD;
+> +
+> +	if (!spi->max_speed_hz) {
+> +		drm_warn(drm, "spi-max-frequency not specified, using %u Hz\n",
+> +			 SSD16XX_SPI_SPEED_DEFAULT);
+> +		spi->max_speed_hz = SSD16XX_SPI_SPEED_DEFAULT;
+> +	}
+> +
+> +	ret = spi_setup(spi);
+> +	if (ret < 0) {
+> +		drm_err(drm, "SPI setup failed: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	switch (model) {
+> +	case GDEY042T81:
+> +		panel->controller = SSD1683;
+> +		break;
+> +	default:
+> +		drm_err(drm, "Unknown panel model: %d\n", model);
+> +		return -EINVAL;
+> +	}
+> +
+> +	if (panel->controller >= ARRAY_SIZE(ssd16xx_controller_configs) ||
+> +	    !ssd16xx_controller_configs[panel->controller].max_width)
+> +		return -EINVAL;
+> +	panel->controller_cfg = &ssd16xx_controller_configs[panel->controller];
+> +
+> +	if (model >= ARRAY_SIZE(ssd16xx_panel_configs))
+> +		return -EINVAL;
+> +	panel->panel_cfg = &ssd16xx_panel_configs[model];
+> +
+> +	mode = devm_kmemdup(dev, panel->panel_cfg->mode,
+> +			    sizeof(*panel->panel_cfg->mode), GFP_KERNEL);
+> +	if (!mode)
+> +		return -ENOMEM;
+> +
+> +	panel->refresh_mode = panel->panel_cfg->default_refresh_mode;
+> +	/* Default color mode: 3-color for panels with red plane, BW otherwise */
+> +	panel->color_mode = panel->panel_cfg->red_supported
+> +				? SSD16XX_COLOR_MODE_3COLOR
+> +				: SSD16XX_COLOR_MODE_BW;
+> +	panel->border_waveform_init_idx   = panel->panel_cfg->default_border_waveform_init;
+> +	panel->border_waveform_update_idx = panel->panel_cfg->default_border_waveform_update;
+> +	panel->border_refresh_on_every_update =
+> +		panel->panel_cfg->default_border_refresh_on_every_update;
+> +	panel->clear_on_init    = panel->panel_cfg->default_clear_on_init;
+> +	panel->clear_on_close   = panel->panel_cfg->default_clear_on_close;
+> +	panel->clear_on_disable = panel->panel_cfg->default_clear_on_disable;
+> +	panel->refresh_mode_init = panel->panel_cfg->default_refresh_mode_init;
+> +
+> +	/* Module parameter overrides for border/display control */
+> +	if (border_waveform_init_lut >= 0 &&
+> +	    border_waveform_init_lut < (int)ARRAY_SIZE(ssd1683_border_waveform_table))
+> +		panel->border_waveform_init_idx = border_waveform_init_lut;
+> +	if (border_waveform_lut >= 0 &&
+> +	    border_waveform_lut < (int)ARRAY_SIZE(ssd1683_border_waveform_table))
+> +		panel->border_waveform_update_idx = border_waveform_lut;
+> +	if (border_refresh_on_every_update)
+> +		panel->border_refresh_on_every_update = true;
+> +	if (clear_on_init >= 0 && clear_on_init <= 2)
+> +		panel->clear_on_init = clear_on_init;
+> +	if (clear_on_close >= 0 && clear_on_close <= 2)
+> +		panel->clear_on_close = clear_on_close;
+> +	if (clear_on_disable >= 0 && clear_on_disable <= 2)
+> +		panel->clear_on_disable = clear_on_disable;
+> +	if (refresh_mode_init >= 0 && refresh_mode_init <= 2)
+> +		panel->refresh_mode_init = refresh_mode_init;
+> +
+> +	/* Module parameter overrides panel default refresh mode when set */
+> +	if (refresh_mode >= 0) {
+> +		if (refresh_mode > SSD16XX_REFRESH_FAST)
+> +			drm_warn(drm, "Invalid refresh_mode module param %d, ignored\n",
+> +				 refresh_mode);
+> +		else
+> +			panel->refresh_mode = refresh_mode;
+> +	}
+> +
+> +	/* Module parameter overrides panel default color mode when set */
+> +	if (color_mode >= 0) {
+> +		if (color_mode > SSD16XX_COLOR_MODE_3COLOR)
+> +			drm_warn(drm, "Invalid color_mode module param %d, ignored\n",
+> +				 color_mode);
+> +		else if (color_mode == SSD16XX_COLOR_MODE_3COLOR &&
+> +			 !panel->panel_cfg->red_supported)
+> +			drm_warn(drm,
+> +				 "color_mode=3-color requested but panel has no red plane, ignored\n");
+> +		else
+> +			panel->color_mode = color_mode;
+> +	}
+> +
+> +	/* Parse "rotation" DT property; swap mode dimensions for portrait. */
+> +	device_property_read_u32(dev, "rotation", &dt_rotation);
+> +	if (dt_rotation != 0 && dt_rotation != 90 && dt_rotation != 180 && dt_rotation != 270) {
+> +		drm_warn(drm, "Invalid DT rotation %u, defaulting to 0°\n", dt_rotation);
+> +		dt_rotation = 0;
+> +	}
+> +	panel->orientation = dt_rotation;
+> +
+> +	/* Module parameter overrides DT rotation when set */
+> +	if (rotation >= 0) {
+> +		if (rotation != 0 && rotation != 90 && rotation != 180 && rotation != 270)
+> +			drm_warn(drm, "Invalid rotation module param %d, ignored\n",
+> +				 rotation);
+> +		else
+> +			panel->orientation = rotation;
+> +	}
+> +
+> +	drm_dbg(drm, "Using %s orientation (%u°, %ux%u logical)\n",
+> +		(panel->orientation == 90 || panel->orientation == 270) ? "portrait" : "landscape",
+> +		panel->orientation, mode->hdisplay, mode->vdisplay);
+> +
+> +	/* Swap mode dimensions for portrait so clients see logical size. */
+> +	if (panel->orientation == 90 || panel->orientation == 270) {
+> +		swap(mode->hdisplay, mode->vdisplay);
+> +		swap(mode->hsync_start, mode->vsync_start);
+> +		swap(mode->hsync_end, mode->vsync_end);
+> +		swap(mode->htotal, mode->vtotal);
+> +		swap(mode->width_mm, mode->height_mm);
+> +		drm_dbg(drm, "Mode dimensions swapped for portrait: %ux%u\n",
+> +			mode->hdisplay, mode->vdisplay);
+> +	} else {
+> +		drm_dbg(drm, "Mode dimensions unchanged: %ux%u\n",
+> +			mode->hdisplay, mode->vdisplay);
+> +	}
+> +	panel->mode = mode;
+> +	panel->width = mode->hdisplay;
+> +	panel->height = mode->vdisplay;
+> +
+> +	/* Acquire GPIOs. */
+> +	panel->reset = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
+> +	if (IS_ERR(panel->reset))
+> +		return dev_err_probe(dev, PTR_ERR(panel->reset), "Failed to get RESET GPIO\n");
+> +
+> +	panel->busy = devm_gpiod_get(dev, "busy", GPIOD_IN);
+> +	if (IS_ERR(panel->busy))
+> +		return dev_err_probe(dev, PTR_ERR(panel->busy), "Failed to get BUSY GPIO\n");
+> +
+> +	panel->dc = devm_gpiod_get_optional(dev, "dc", GPIOD_OUT_LOW);
+> +	if (IS_ERR(panel->dc))
+> +		return dev_err_probe(dev, PTR_ERR(panel->dc), "Failed to get DC GPIO\n");
+> +	if (!panel->dc) {
+> +		if (!spi_is_bpw_supported(spi, 9))
+> +			return dev_err_probe(dev, -EINVAL,
+> +					     "3-wire SPI mode requires 9-bit word support\n");
+> +		drm_dbg(drm, "dc-gpios not specified, using 3-wire (9-bit) SPI mode\n");
+> +	}
+> +
+> +	ret = ssd16xx_alloc_tx_bufs(panel);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ssd16xx_hw_reset(panel);
+> +
+> +	ret = drmm_mode_config_init(drm);
+> +	if (ret)
+> +		return ret;
+> +
+> +	drm->mode_config.funcs = &ssd16xx_mode_config_funcs;
+> +	drm->mode_config.helper_private = &ssd16xx_mode_config_helper_funcs;
+> +	drm->mode_config.min_width = min(panel->width, panel->height);
+> +	drm->mode_config.max_width = max(panel->width, panel->height);
+> +	drm->mode_config.min_height = min(panel->width, panel->height);
+> +	drm->mode_config.max_height = max(panel->width, panel->height);
+> +
+> +	drm_connector_helper_add(&panel->connector, &ssd16xx_connector_helper_funcs);
+> +	ret = drm_connector_init(drm, &panel->connector, &ssd16xx_connector_funcs,
+> +				 DRM_MODE_CONNECTOR_SPI);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = drm_universal_plane_init(drm, &panel->primary_plane, 0,
+> +				       &ssd16xx_plane_funcs,
+> +				       ssd16xx_formats, ARRAY_SIZE(ssd16xx_formats),
+> +				       NULL, DRM_PLANE_TYPE_PRIMARY, NULL);
+> +	if (ret)
+> +		return ret;
+> +	drm_plane_helper_add(&panel->primary_plane, &ssd16xx_plane_helper_funcs);
+> +	drm_plane_enable_fb_damage_clips(&panel->primary_plane);
+> +
+> +	ret = drm_crtc_init_with_planes(drm, &panel->crtc, &panel->primary_plane,
+> +					NULL, &ssd16xx_crtc_funcs, NULL);
+> +	if (ret)
+> +		return ret;
+> +	drm_crtc_helper_add(&panel->crtc, &ssd16xx_crtc_helper_funcs);
+> +
+> +	ret = drm_simple_encoder_init(drm, &panel->encoder, DRM_MODE_ENCODER_NONE);
+> +	if (ret)
+> +		return ret;
+> +	panel->encoder.possible_crtcs = drm_crtc_mask(&panel->crtc);
+> +
+> +	ret = drm_connector_attach_encoder(&panel->connector, &panel->encoder);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = ssd16xx_connector_create_properties(panel);
+> +	if (ret)
+> +		return ret;
+> +
+> +	drm_mode_config_reset(drm);
+> +
+> +	ret = drm_dev_register(drm, 0);
+> +	if (ret)
+> +		return ret;
+> +
+> +	drm_dbg(drm, "SSD16xx e-paper display initialized (%dx%d, %d° rotation)\n",
+> +		panel->width, panel->height, panel->orientation);
+> +
+> +	drm_client_setup(drm, NULL);
+> +
+> +	return 0;
+> +}
+> +
+> +static void ssd16xx_remove(struct spi_device *spi)
+> +{
+> +	struct ssd16xx_panel *panel = spi_get_drvdata(spi);
+> +
+> +	drm_dev_unplug(&panel->drm);
+> +	drm_atomic_helper_shutdown(&panel->drm);
+> +}
+> +
+> +static void ssd16xx_shutdown(struct spi_device *spi)
+> +{
+> +	struct ssd16xx_panel *panel = spi_get_drvdata(spi);
+> +
+> +	drm_atomic_helper_shutdown(&panel->drm);
+> +}
+> +
+> +static const struct of_device_id ssd16xx_of_match[] = {
+> +	{ .compatible = "gooddisplay,gdey042t81", .data = (void *)GDEY042T81 },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, ssd16xx_of_match);
+> +
+> +static const struct spi_device_id ssd16xx_id[] = {
+> +	{ "gdey042t81", GDEY042T81 },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(spi, ssd16xx_id);
+> +
+> +static struct spi_driver ssd16xx_spi_driver = {
+> +	.driver = {
+> +		.name = "ssd16xx",
+> +		.of_match_table = ssd16xx_of_match,
+> +	},
+> +	.probe = ssd16xx_probe,
+> +	.remove = ssd16xx_remove,
+> +	.shutdown = ssd16xx_shutdown,
+> +	.id_table = ssd16xx_id,
+> +};
+> +module_spi_driver(ssd16xx_spi_driver);
+> +
+> +MODULE_AUTHOR("Devarsh Thakkar <devarsht@ti.com>");
+> +MODULE_DESCRIPTION("DRM driver for Solomon SSD16xx e-paper display controller family");
+> +MODULE_LICENSE("GPL");
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
+
