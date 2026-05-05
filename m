@@ -4,46 +4,170 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C50FFFF885A
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 00:15:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EA05CD3436
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 00:25:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D359F10E8C8;
-	Tue,  5 May 2026 00:14:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D73010E087;
+	Tue,  5 May 2026 00:25:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="V6yxWJK4";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="fjvPE7hn";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IudMoqlM";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C297610E8C8
- for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 00:14:58 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 3DBA2439C6;
- Tue,  5 May 2026 00:14:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86DE5C2BCB8;
- Tue,  5 May 2026 00:14:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777940098;
- bh=6Kz+qa2Mf34kIlV+ktR3QEuD7iSpWl+6vLzQdbFo4z8=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=V6yxWJK4RaO/YUSz+d7FW701SDwrUVHHST9O0gAfcyip3DIinxynxExwP95i26wzE
- meOVxZ8G3cVvnZ/vQpWdHjKraR+qDkLmpgYS1GHwhuOVVbHIQIOna/i34OLZcATXcV
- oBdepkJ2Ju7P19l6OirpmLw3b35Lo9W5BUhOe9vnypeA7wnkro/LTm8QP1LnQ4sgtq
- +3/te4W5GmRzQztGJUMAq4zlcCVVaDGZGNFz6OlpTaTjYDpllj4ADzWg6gbSktScC3
- J3ugHm2BFdcYaKpb03RGVI1OuGPtnS0he+uGHEXv4GTm5F0Jz15tDKrHaXKwGpbC2y
- f8xyvHEQS0WJQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, Helge Deller <deller@gmx.de>,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] fbdev: defio: Disconnect deferred I/O from the
- lifetime of struct fb_info
-Date: Mon,  4 May 2026 20:14:53 -0400
-Message-ID: <20260505001453.124124-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026050115-morality-reseal-5c07@gregkh>
-References: <2026050115-morality-reseal-5c07@gregkh>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1EE810E087
+ for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 00:25:08 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 644Lu2WZ1960443
+ for <dri-devel@lists.freedesktop.org>; Tue, 5 May 2026 00:25:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=7QLod9dRReugtdmt8pQOfg
+ aPMeJva4633ho398t5P0U=; b=fjvPE7hnM88jQx30FVC2ZWXIf7TWjGN3eYN63h
+ Ue571PL1sq94DOGQ/hNxaOgRi9+dU3csOkwJyqFcxBF533sMQMW4FAE6r2LAiXsY
+ 6Ml9hkYOpYnhamv8OgGXa70y8ygkyPhvR5zoSKZ2KVyB+mVNmNZgEgiWz87aL0vD
+ u8PSYdhEl6Tp1krK5PFbfmy3M7IA3owYqXO/yfXArBBc2zjcMp4QfOOEdnfbwLTV
+ 9K6KX+RFqZhLp2N/mN+bRVxGzzz/jgkGZzY8phKOs+6WzF0oVLH7LlPCKqjvpWNR
+ 7Q4+ekzx0uBChicnA/9htOSTwyoxl1XtuVlJmDR1sK/eOEmg==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dxw5dt13a-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 00:25:08 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-50e67a4f642so118148161cf.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 04 May 2026 17:25:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1777940707; x=1778545507;
+ darn=lists.freedesktop.org; 
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=7QLod9dRReugtdmt8pQOfgaPMeJva4633ho398t5P0U=;
+ b=IudMoqlMrhFyDDb8pD/MR6yU+cMH7xU4+BS44ECdkryrpBAi3uOmX1j/J2HsiaLd4I
+ A3E9Bmz7YDnrWTKS7O2nts+7d+5SJPG4QaQGl7+1N1JNc0X/KGxIFqPywfhrwAAr8k89
+ 4ND4TZFsyTnX4v1QfTgzriAxtIa9ibQV1gcoIu0g4+Snn5Bv78lGP9CD+WmvGkvYlJ5k
+ Wz7thc4cvS3TvLbls2fUZHrjfq7LwTLV4JpVOb7F22Qz377snr3cU0hJk7BFq5skvIBc
+ CsvP6VdXPjawg5uZ6eqsqT3ajJHCeaj+wrTK3BwxnAfvCL3iOGaifjq+/rDo75YYv/FY
+ QFNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1777940707; x=1778545507;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=7QLod9dRReugtdmt8pQOfgaPMeJva4633ho398t5P0U=;
+ b=odl59EjSrj4ysk7DEA/RWqfrgqqbxNXz7Fk8iVR2l7zAgyeKGCA3KY2cEH4631H44m
+ nvXpNetQ08t41w41wrmKzc6uAscwHLDStB1BkSbX26+WRIiuzxrIn4Xh2UVhUPEM3w/Y
+ xUap9iLf6SDs5NVxXBokS0qEKJXIxS9BPKMggQtc5J0fdc1ea7WKfc+Vh8gH1pKi+zoa
+ /FGrobVk06JF8aWXHeMokHFuRCFJRhWrFHo/CJZdNGqCrKP4JCqC1OIA6L2mZrBtoP+M
+ ZebeUL3iCNmyBUlpjhtKfxYHbB7yHC7ScOKbo6SQAVI8awRlwDvlAwvs5P5VguqJYdlk
+ q3Cg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9wxLNQLAYuTptWrMVPFgl7JtzKfvHxqT+IJ9r+EFuc888LxU9CZqbI/HQuYDh9wGXvpbuOOrp4yYY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwR0KPIk16bg+1ekKAqtU5+zEoa5jadCJH3jujmcce8R8vBxM3J
+ q68ivTEikTRSfRT5t319ON7Y4nTe29aqm+/cNXrXM/uPMb+KaPPELIVstFRhRDdC68qWVZgNh3Q
+ 8DyqLyXlCqQmnrbncC0d7jLTx+LWDBQoyoZQK3IOFHJf7PhCp+D9STb086eCU8F7+TXq4goE=
+X-Gm-Gg: AeBDieuxVWYBI56jRW3fXeSA8mV5Q9kWi7DAI6aPUY14wiQGaDKLRQDLVID1jQwPSkk
+ GA6f5XLnAvcnbyVw1Q4EughoGC1M/y0nzNnfFFpaNcFCZI8IZ5eC3yKQaMRvQtxym/LP8+ZEkXr
+ 4Mw24debNxgO39iD6tJerwf8rJFHQ7IiOn7otmO7GQufz8pdYogfKYg5F3AlpoXjY1bgiuDAnH1
+ 1g6G2ZeoMsY5HgpKRoIYfqhM7P9AW68nEPlZ7UDACTqlr7BKO/fg0se9dxY9gaBoavXYzA8mSy4
+ KSEP/TW84zMcO3rN+COte+tSvskEmoLkpRuDHhTXgdUfyi/TuFhVOCu6f1nz5JplYVzVqfA1scy
+ IEIg3NHbPgHcNz0D0DmHu8RK66uk+tEVoE9B+GJi2FZnkqx8Nye/QLj9nUy3ZDAEgvKo4y18nqm
+ dhrIk0cEEvP5NT8WX41ePoFa7V3tPZ2fyhcBfWF03CBmIB7g==
+X-Received: by 2002:a05:622a:5908:b0:50f:b974:7ef5 with SMTP id
+ d75a77b69052e-51306a7acc5mr16373851cf.32.1777940707066; 
+ Mon, 04 May 2026 17:25:07 -0700 (PDT)
+X-Received: by 2002:a05:622a:5908:b0:50f:b974:7ef5 with SMTP id
+ d75a77b69052e-51306a7acc5mr16373321cf.32.1777940706560; 
+ Mon, 04 May 2026 17:25:06 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-393610ba09esm37132781fa.10.2026.05.04.17.25.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 04 May 2026 17:25:03 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: [PATCH v5 0/8] drm: writeback: clean up writeback connector
+ initialization
+Date: Tue, 05 May 2026 03:24:57 +0300
+Message-Id: <20260505-wb-drop-encoder-v5-0-42567b7c7af2@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIANo4+WkC/3XRS27DIBAG4KtYrEsKGDBklXtUWfAYGqTaJOC4i
+ aLcvThRq0iuN2h+NPMhDTdUIEcoaNvcUIYplpiGGsRbg9zBDJ+Ao68ZMcIEUYTib4t9TkcMg0s
+ eMtadIa4T1gvfoTp1zBDi5SF+7Gs+xDKmfH08MNH5dt2aKCZYMS65JJyFzu9SKZvT2Xy51Pebe
+ qCZnNgLQ+WSYZUJWlAPhAce9ArTvjJ6ybSVsVwZaUKnSWtXGP7HUMbUkuGVEcozBVIqTeg/zP2
+ 5uAync/2B8bk9ZE0BPDfFcdv43OM+Fvf+W+ABLmMdvf8AiACrSMQBAAA=
+X-Change-ID: 20250801-wb-drop-encoder-97a0c75bd5d7
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ "Kandpal, Suraj" <suraj.kandpal@intel.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ Jessica Zhang <jesszhan0024@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3303;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=5yJfYD9nv3EttqjPI1vJyzwvXDJhLx4j8rBATQoCCEs=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBp+Tjbf13SW5UIUohb/OBxNm4E3L6S3xwe0xiFX
+ czRU0ec5PeJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCafk42wAKCRCLPIo+Aiko
+ 1Zt2B/4lVv+bnZzJL4SjTwu9r864h29OcYwW9NO1sE5jzL++++8t0xfzq7FVGRpBoPg1namlp5s
+ WlNEasWgUsZ4o4vi+k9m56KWbTrT6B8wDgElLrG+DhyTOmGgWTKplqjlmrfCgj1qS1XGXavhbNv
+ gynPNIVrFyGnJh+DCdih5/F0aY8BcGsr0DMKHR3QOlQR6uTW3hwPLm+Z+AwbEjeXlNiU/C+zSK5
+ eUiCXhl5JGm+QdFKw+9bJauuLz5Bgi02RcYLx6xXMsHOU7t2qgZnnuCc+aoXgVK7VSqOt76PGJ3
+ u3wUBo6qBsD+7vJAJYNGmzyEbUXgrBVGLgLnlbYcxw4unxIp
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA1MDAwMSBTYWx0ZWRfX9edsTwLafbvz
+ 6C9r6SdlzWoXssOS1N+IkSnrCdp5CSg5r3iqCgHuiUF2H1vVz93jVdv1aLm6RRBNEdlT/nRIkAP
+ LQvl0zGwL2T0ndv8wd1P3ijchJ87GZa0XM6DPl5JkMgfDRMIKnZes5l72+32RWwuLXMliYn9Yxq
+ oZjsP9gfx+CAIRxQhigsSCnIsOp4lVwolIb3+MLWDO4/EePM2N3XXEZ9Dum1KykmIj1BccAJATm
+ Y5ruDx6kbZIw2CCCOruhTFr/F/ZDagcOS1DKKf5IZCzgQ34fN7zIPXxKcR2Y62vtfxK+yJHMuB8
+ rjqqypfYn7lauePSbpCT9p3LUL9JNaImfYAUE6NpCHIEJi32AqhFHtZWruWb7RyxEGJe8l7Yhoj
+ yA2rY+FOgTfs6v47RaXWTt5p4e3Aj0+BBP45T5aZ76lEVdjnuy4gEvPxi05CfsIATcTPxtZx056
+ r1f62oxZHOCVChUhYXw==
+X-Proofpoint-GUID: v_16h8YNudrlvM8PJ6nzdjrHTVVUcG7w
+X-Proofpoint-ORIG-GUID: v_16h8YNudrlvM8PJ6nzdjrHTVVUcG7w
+X-Authority-Analysis: v=2.4 cv=HpJG3UTS c=1 sm=1 tr=0 ts=69f938e4 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=_H8M4-vQE-x6SST4HBsA:9 a=QEXdDO2ut3YA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-04_06,2026-04-30_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0 priorityscore=1501 lowpriorityscore=0 bulkscore=0
+ impostorscore=0 adultscore=0 clxscore=1015 phishscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605050001
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,372 +183,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Thomas Zimmermann <tzimmermann@suse.de>
+Drivers using drm_writeback_connector_init() / _with_encoder() don't
+perform cleanup in a manner similar to drmm_writeback_connector_init()
+(see drm_writeback_connector_cleanup()). Migrate all existing drivers
+to use drmm_writeback_connector_init(), drop
+drm_writeback_connector_init() and drm_writeback_connector::encoder
+(it's unused afterwards).
 
-[ Upstream commit 9ded47ad003f09a94b6a710b5c47f4aa5ceb7429 ]
+This series leaves former drm_writeback_connector_init_with_encoder()
+(renamed to drm_writeback_connector_init as a non-managed counterpart
+for drmm_writeback_connector_init()). It is supposed to be used by
+drivers which can not use drmm functions (like Intel). However I think
+it would be better to drop it completely.
 
-Hold state of deferred I/O in struct fb_deferred_io_state. Allocate an
-instance as part of initializing deferred I/O and remove it only after
-the final mapping has been closed. If the fb_info and the contained
-deferred I/O meanwhile goes away, clear struct fb_deferred_io_state.info
-to invalidate the mapping. Any access will then result in a SIGBUS
-signal.
+Note: Christophe pointed out that AMDGPU driver leaks connector memory.
+As it's not related to this series (and as I don't have enough
+proficiency in the driver) I'm not going to fix those in this series.
 
-Fixes a long-standing problem, where a device hot-unplug happens while
-user space still has an active mapping of the graphics memory. The hot-
-unplug frees the instance of struct fb_info. Accessing the memory will
-operate on undefined state.
-
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Fixes: 60b59beafba8 ("fbdev: mm: Deferred IO support")
-Cc: Helge Deller <deller@gmx.de>
-Cc: linux-fbdev@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: stable@vger.kernel.org # v2.6.22+
-Signed-off-by: Helge Deller <deller@gmx.de>
-[ replaced `kzalloc_obj()` with `kzalloc(sizeof(*fbdefio_state), GFP_KERNEL)` ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/video/fbdev/core/fb_defio.c | 179 ++++++++++++++++++++++------
- include/linux/fb.h                  |   4 +-
- 2 files changed, 145 insertions(+), 38 deletions(-)
+Changes in v5:
+- Rebased on top of drm-misc-next
+- Expanded commit message for msm patch, describing devm vs drmm issues (Laurent)
+- Expanded commit messages, describing why the drivers are converted to
+  drmm_writeback_connector_init() (Laurent)
+- Link to v4: https://lore.kernel.org/r/20251228-wb-drop-encoder-v4-0-58d28e668901@oss.qualcomm.com
 
-diff --git a/drivers/video/fbdev/core/fb_defio.c b/drivers/video/fbdev/core/fb_defio.c
-index 65363df8e81b5..e0a44298c248d 100644
---- a/drivers/video/fbdev/core/fb_defio.c
-+++ b/drivers/video/fbdev/core/fb_defio.c
-@@ -23,6 +23,75 @@
- #include <linux/rmap.h>
- #include <linux/pagemap.h>
- 
-+/*
-+ * struct fb_deferred_io_state
-+ */
-+
-+struct fb_deferred_io_state {
-+	struct kref ref;
-+
-+	struct mutex lock; /* mutex that protects the pageref list */
-+	/* fields protected by lock */
-+	struct fb_info *info;
-+};
-+
-+static struct fb_deferred_io_state *fb_deferred_io_state_alloc(void)
-+{
-+	struct fb_deferred_io_state *fbdefio_state;
-+
-+	fbdefio_state = kzalloc(sizeof(*fbdefio_state), GFP_KERNEL);
-+	if (!fbdefio_state)
-+		return NULL;
-+
-+	kref_init(&fbdefio_state->ref);
-+	mutex_init(&fbdefio_state->lock);
-+
-+	return fbdefio_state;
-+}
-+
-+static void fb_deferred_io_state_release(struct fb_deferred_io_state *fbdefio_state)
-+{
-+	mutex_destroy(&fbdefio_state->lock);
-+
-+	kfree(fbdefio_state);
-+}
-+
-+static void fb_deferred_io_state_get(struct fb_deferred_io_state *fbdefio_state)
-+{
-+	kref_get(&fbdefio_state->ref);
-+}
-+
-+static void __fb_deferred_io_state_release(struct kref *ref)
-+{
-+	struct fb_deferred_io_state *fbdefio_state =
-+		container_of(ref, struct fb_deferred_io_state, ref);
-+
-+	fb_deferred_io_state_release(fbdefio_state);
-+}
-+
-+static void fb_deferred_io_state_put(struct fb_deferred_io_state *fbdefio_state)
-+{
-+	kref_put(&fbdefio_state->ref, __fb_deferred_io_state_release);
-+}
-+
-+/*
-+ * struct vm_operations_struct
-+ */
-+
-+static void fb_deferred_io_vm_open(struct vm_area_struct *vma)
-+{
-+	struct fb_deferred_io_state *fbdefio_state = vma->vm_private_data;
-+
-+	fb_deferred_io_state_get(fbdefio_state);
-+}
-+
-+static void fb_deferred_io_vm_close(struct vm_area_struct *vma)
-+{
-+	struct fb_deferred_io_state *fbdefio_state = vma->vm_private_data;
-+
-+	fb_deferred_io_state_put(fbdefio_state);
-+}
-+
- static struct page *fb_deferred_io_get_page(struct fb_info *info, unsigned long offs)
- {
- 	struct fb_deferred_io *fbdefio = info->fbdefio;
-@@ -128,17 +197,31 @@ static void fb_deferred_io_pageref_put(struct fb_deferred_io_pageref *pageref,
- /* this is to find and return the vmalloc-ed fb pages */
- static vm_fault_t fb_deferred_io_fault(struct vm_fault *vmf)
- {
-+	struct fb_info *info;
- 	unsigned long offset;
- 	struct page *page;
--	struct fb_info *info = vmf->vma->vm_private_data;
-+	vm_fault_t ret;
-+	struct fb_deferred_io_state *fbdefio_state = vmf->vma->vm_private_data;
-+
-+	mutex_lock(&fbdefio_state->lock);
-+
-+	info = fbdefio_state->info;
-+	if (!info) {
-+		ret = VM_FAULT_SIGBUS; /* our device is gone */
-+		goto err_mutex_unlock;
-+	}
- 
- 	offset = vmf->pgoff << PAGE_SHIFT;
--	if (offset >= info->fix.smem_len)
--		return VM_FAULT_SIGBUS;
-+	if (offset >= info->fix.smem_len) {
-+		ret = VM_FAULT_SIGBUS;
-+		goto err_mutex_unlock;
-+	}
- 
- 	page = fb_deferred_io_get_page(info, offset);
--	if (!page)
--		return VM_FAULT_SIGBUS;
-+	if (!page) {
-+		ret = VM_FAULT_SIGBUS;
-+		goto err_mutex_unlock;
-+	}
- 
- 	if (vmf->vma->vm_file)
- 		page->mapping = vmf->vma->vm_file->f_mapping;
-@@ -148,8 +231,15 @@ static vm_fault_t fb_deferred_io_fault(struct vm_fault *vmf)
- 	BUG_ON(!page->mapping);
- 	page->index = vmf->pgoff; /* for folio_mkclean() */
- 
-+	mutex_unlock(&fbdefio_state->lock);
-+
- 	vmf->page = page;
-+
- 	return 0;
-+
-+err_mutex_unlock:
-+	mutex_unlock(&fbdefio_state->lock);
-+	return ret;
- }
- 
- int fb_deferred_io_fsync(struct file *file, loff_t start, loff_t end, int datasync)
-@@ -176,15 +266,24 @@ EXPORT_SYMBOL_GPL(fb_deferred_io_fsync);
-  * Adds a page to the dirty list. Call this from struct
-  * vm_operations_struct.page_mkwrite.
-  */
--static vm_fault_t fb_deferred_io_track_page(struct fb_info *info, unsigned long offset,
--					    struct page *page)
-+static vm_fault_t fb_deferred_io_track_page(struct fb_deferred_io_state *fbdefio_state,
-+					    unsigned long offset, struct page *page)
- {
--	struct fb_deferred_io *fbdefio = info->fbdefio;
-+	struct fb_info *info;
-+	struct fb_deferred_io *fbdefio;
- 	struct fb_deferred_io_pageref *pageref;
- 	vm_fault_t ret;
- 
- 	/* protect against the workqueue changing the page list */
--	mutex_lock(&fbdefio->lock);
-+	mutex_lock(&fbdefio_state->lock);
-+
-+	info = fbdefio_state->info;
-+	if (!info) {
-+		ret = VM_FAULT_SIGBUS; /* our device is gone */
-+		goto err_mutex_unlock;
-+	}
-+
-+	fbdefio = info->fbdefio;
- 
- 	pageref = fb_deferred_io_pageref_get(info, offset, page);
- 	if (WARN_ON_ONCE(!pageref)) {
-@@ -202,50 +301,38 @@ static vm_fault_t fb_deferred_io_track_page(struct fb_info *info, unsigned long
- 	 */
- 	lock_page(pageref->page);
- 
--	mutex_unlock(&fbdefio->lock);
-+	mutex_unlock(&fbdefio_state->lock);
- 
- 	/* come back after delay to process the deferred IO */
- 	schedule_delayed_work(&info->deferred_work, fbdefio->delay);
- 	return VM_FAULT_LOCKED;
- 
- err_mutex_unlock:
--	mutex_unlock(&fbdefio->lock);
-+	mutex_unlock(&fbdefio_state->lock);
- 	return ret;
- }
- 
--/*
-- * fb_deferred_io_page_mkwrite - Mark a page as written for deferred I/O
-- * @fb_info: The fbdev info structure
-- * @vmf: The VM fault
-- *
-- * This is a callback we get when userspace first tries to
-- * write to the page. We schedule a workqueue. That workqueue
-- * will eventually mkclean the touched pages and execute the
-- * deferred framebuffer IO. Then if userspace touches a page
-- * again, we repeat the same scheme.
-- *
-- * Returns:
-- * VM_FAULT_LOCKED on success, or a VM_FAULT error otherwise.
-- */
--static vm_fault_t fb_deferred_io_page_mkwrite(struct fb_info *info, struct vm_fault *vmf)
-+static vm_fault_t fb_deferred_io_page_mkwrite(struct fb_deferred_io_state *fbdefio_state,
-+					      struct vm_fault *vmf)
- {
- 	unsigned long offset = vmf->pgoff << PAGE_SHIFT;
- 	struct page *page = vmf->page;
- 
- 	file_update_time(vmf->vma->vm_file);
- 
--	return fb_deferred_io_track_page(info, offset, page);
-+	return fb_deferred_io_track_page(fbdefio_state, offset, page);
- }
- 
--/* vm_ops->page_mkwrite handler */
- static vm_fault_t fb_deferred_io_mkwrite(struct vm_fault *vmf)
- {
--	struct fb_info *info = vmf->vma->vm_private_data;
-+	struct fb_deferred_io_state *fbdefio_state = vmf->vma->vm_private_data;
- 
--	return fb_deferred_io_page_mkwrite(info, vmf);
-+	return fb_deferred_io_page_mkwrite(fbdefio_state, vmf);
- }
- 
- static const struct vm_operations_struct fb_deferred_io_vm_ops = {
-+	.open		= fb_deferred_io_vm_open,
-+	.close		= fb_deferred_io_vm_close,
- 	.fault		= fb_deferred_io_fault,
- 	.page_mkwrite	= fb_deferred_io_mkwrite,
- };
-@@ -262,7 +349,10 @@ int fb_deferred_io_mmap(struct fb_info *info, struct vm_area_struct *vma)
- 	vm_flags_set(vma, VM_DONTEXPAND | VM_DONTDUMP);
- 	if (!(info->flags & FBINFO_VIRTFB))
- 		vm_flags_set(vma, VM_IO);
--	vma->vm_private_data = info;
-+	vma->vm_private_data = info->fbdefio_state;
-+
-+	fb_deferred_io_state_get(info->fbdefio_state); /* released in vma->vm_ops->close() */
-+
- 	return 0;
- }
- EXPORT_SYMBOL_GPL(fb_deferred_io_mmap);
-@@ -273,9 +363,10 @@ static void fb_deferred_io_work(struct work_struct *work)
- 	struct fb_info *info = container_of(work, struct fb_info, deferred_work.work);
- 	struct fb_deferred_io_pageref *pageref, *next;
- 	struct fb_deferred_io *fbdefio = info->fbdefio;
-+	struct fb_deferred_io_state *fbdefio_state = info->fbdefio_state;
- 
- 	/* here we mkclean the pages, then do all deferred IO */
--	mutex_lock(&fbdefio->lock);
-+	mutex_lock(&fbdefio_state->lock);
- 	list_for_each_entry(pageref, &fbdefio->pagereflist, list) {
- 		struct folio *folio = page_folio(pageref->page);
- 
-@@ -291,12 +382,13 @@ static void fb_deferred_io_work(struct work_struct *work)
- 	list_for_each_entry_safe(pageref, next, &fbdefio->pagereflist, list)
- 		fb_deferred_io_pageref_put(pageref, info);
- 
--	mutex_unlock(&fbdefio->lock);
-+	mutex_unlock(&fbdefio_state->lock);
- }
- 
- int fb_deferred_io_init(struct fb_info *info)
- {
- 	struct fb_deferred_io *fbdefio = info->fbdefio;
-+	struct fb_deferred_io_state *fbdefio_state;
- 	struct fb_deferred_io_pageref *pagerefs;
- 	unsigned long npagerefs;
- 	int ret;
-@@ -306,7 +398,11 @@ int fb_deferred_io_init(struct fb_info *info)
- 	if (WARN_ON(!info->fix.smem_len))
- 		return -EINVAL;
- 
--	mutex_init(&fbdefio->lock);
-+	fbdefio_state = fb_deferred_io_state_alloc();
-+	if (!fbdefio_state)
-+		return -ENOMEM;
-+	fbdefio_state->info = info;
-+
- 	INIT_DELAYED_WORK(&info->deferred_work, fb_deferred_io_work);
- 	INIT_LIST_HEAD(&fbdefio->pagereflist);
- 	if (fbdefio->delay == 0) /* set a default of 1 s */
-@@ -323,10 +419,12 @@ int fb_deferred_io_init(struct fb_info *info)
- 	info->npagerefs = npagerefs;
- 	info->pagerefs = pagerefs;
- 
-+	info->fbdefio_state = fbdefio_state;
-+
- 	return 0;
- 
- err:
--	mutex_destroy(&fbdefio->lock);
-+	fb_deferred_io_state_release(fbdefio_state);
- 	return ret;
- }
- EXPORT_SYMBOL_GPL(fb_deferred_io_init);
-@@ -364,11 +462,18 @@ EXPORT_SYMBOL_GPL(fb_deferred_io_release);
- 
- void fb_deferred_io_cleanup(struct fb_info *info)
- {
--	struct fb_deferred_io *fbdefio = info->fbdefio;
-+	struct fb_deferred_io_state *fbdefio_state = info->fbdefio_state;
- 
- 	fb_deferred_io_lastclose(info);
- 
-+	info->fbdefio_state = NULL;
-+
-+	mutex_lock(&fbdefio_state->lock);
-+	fbdefio_state->info = NULL;
-+	mutex_unlock(&fbdefio_state->lock);
-+
-+	fb_deferred_io_state_put(fbdefio_state);
-+
- 	kvfree(info->pagerefs);
--	mutex_destroy(&fbdefio->lock);
- }
- EXPORT_SYMBOL_GPL(fb_deferred_io_cleanup);
-diff --git a/include/linux/fb.h b/include/linux/fb.h
-index 267b59ead4321..d87d6547c6e41 100644
---- a/include/linux/fb.h
-+++ b/include/linux/fb.h
-@@ -222,12 +222,13 @@ struct fb_deferred_io {
- 	unsigned long delay;
- 	bool sort_pagereflist; /* sort pagelist by offset */
- 	int open_count; /* number of opened files; protected by fb_info lock */
--	struct mutex lock; /* mutex that protects the pageref list */
- 	struct list_head pagereflist; /* list of pagerefs for touched pages */
- 	/* callback */
- 	struct page *(*get_page)(struct fb_info *info, unsigned long offset);
- 	void (*deferred_io)(struct fb_info *info, struct list_head *pagelist);
- };
-+
-+struct fb_deferred_io_state;
- #endif
- 
- /*
-@@ -485,6 +486,7 @@ struct fb_info {
- 	unsigned long npagerefs;
- 	struct fb_deferred_io_pageref *pagerefs;
- 	struct fb_deferred_io *fbdefio;
-+	struct fb_deferred_io_state *fbdefio_state;
- #endif
- 
- 	const struct fb_ops *fbops;
--- 
-2.53.0
+Changes in v4:
+- Rebase on top of drm-misc-next, dropping applied patch.
+- Added a note regarding memory leak in the AMDGPU driver.
+- Fixed a devm vs drmm issue in the msm/dpu driver.
+- Link to v3: https://lore.kernel.org/r/20250819-wb-drop-encoder-v3-0-b48a6af7903b@oss.qualcomm.com
+
+Changes in v3:
+- Fixed subject prefix for the rcar-du patch (Jessica Zhang)
+- Link to v2: https://lore.kernel.org/r/20250816-wb-drop-encoder-v2-0-f951de04f4f9@oss.qualcomm.com
+
+Changes in v2:
+- Switched to drm_crtc_mask() where applicable (Louis Chauvet)
+- Link to v1: https://lore.kernel.org/r/20250801-wb-drop-encoder-v1-0-824646042f7d@oss.qualcomm.com
+
+---
+Dmitry Baryshkov (8):
+      drm/msm/dpu: don't mix devm and drmm functions
+      drm/amd/display: use drmm_writeback_connector_init()
+      drm/komeda: use drmm_writeback_connector_init()
+      drm/mali: use drmm_writeback_connector_init()
+      drm: renesas: rcar-du: use drmm_writeback_connector_init()
+      drm/vc4: use drmm_writeback_connector_init()
+      drm: writeback: drop excess connector initialization functions
+      drm: writeback: rename drm_writeback_connector_init_with_encoder()
+
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  2 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c   | 18 ++++--
+ .../drm/arm/display/komeda/komeda_wb_connector.c   | 30 ++++++----
+ drivers/gpu/drm/arm/malidp_mw.c                    | 25 ++++----
+ drivers/gpu/drm/drm_writeback.c                    | 69 +++-------------------
+ drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c      |  3 +-
+ .../gpu/drm/renesas/rcar-du/rcar_du_writeback.c    | 22 ++++---
+ drivers/gpu/drm/vc4/vc4_txp.c                      |  9 ++-
+ include/drm/drm_writeback.h                        | 22 +------
+ 9 files changed, 75 insertions(+), 125 deletions(-)
+---
+base-commit: d4c14903bf5e28e740516c4fbb7db01e0dedf3af
+change-id: 20250801-wb-drop-encoder-97a0c75bd5d7
+
+Best regards,
+--  
+With best wishes
+Dmitry
 
