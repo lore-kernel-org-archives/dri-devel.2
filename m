@@ -4,112 +4,195 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7C1DCD342C
-	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 07:47:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9403ECD3424
+	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 07:47:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1167110E37C;
-	Wed,  6 May 2026 07:47:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0479F10E502;
+	Wed,  6 May 2026 07:47:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (4096-bit key; unprotected) header.d=canonical.com header.i=@canonical.com header.b="ksSC86DB";
+	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="ntLTqdHq";
 	dkim-atps=neutral
-Received: from smtp-relay-internal-0.canonical.com
- (smtp-relay-internal-0.canonical.com [185.125.188.122])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9308610E0EF
- for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 08:20:44 +0000 (UTC)
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com
- [209.85.167.197])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id D9EE73FA6F
- for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 08:20:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20251003; t=1777969243;
- bh=8JEzRFrWSkLX7LdspWMSjOqLl2fGmC9J4eMYZIUeN5M=;
- h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
- To:Cc:Content-Type;
- b=ksSC86DB83VWpnGGTh0psDoEQy7Q0SNdwNr3iSPK//jtzI4vwftbD//XwQ11oz650
- UUrftaeJ37Nbz/83FodLplH+b3+KOTPn6mf/BBs4yK0BKhmGq2/Uw/Up0lPLdi97cS
- Z39BljM4qImFxjh+YZySgyTL6JZQDAk7IppWtwdH/vks9XCLbmnxxYgiBASwHupU+Z
- fUbzXASl9d6H6gHPo0fPMeAIUBn50vYWC5QHSOFuR7Es87C2k9lmCz87ws67EhKr/A
- faZcqw6I4V6ZDQEUR5BKjefuTmvpADCOR6HnrYvxuH6Qhx/4SXLVyZCBtgbZBr/I9n
- fFKUZGEagMdTfQJSN8prm+7jFS9t6K/FFkY4IsEU1V+Exa9mTqhLlE81Q57n1NGJV7
- fUJwT8vYuP9q+Z7OnIy1v8XE10sPrLyFFyZDg9aVCdNYSJGOw5HhT2WfA1JOHbV5Ef
- jrjMLuH4exI+sig193jXTOeaf5R+quoKbcLladtNr5sHIZvG1hnb8zzn2t32eQXf1y
- qBrAbxFvEZZYlFo8QxzVaQpKDcJ94ELH4g5c80PUCaSaLvFO+fRgYvIoX2VJDg2nW7
- MK7YJfAUlmcjtYP25dgKsRKU35RAUBAGqI7BtdBJeotkaKLrvCpFYRlxvBZ5pjLQjg
- 9zPZ2/tdC7NvHmSsa0b2n/rk=
-Received: by mail-oi1-f197.google.com with SMTP id
- 5614622812f47-479df2e8aeaso1072760b6e.3
- for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 01:20:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777969242; cv=none;
- d=google.com; s=arc-20240605;
- b=iuDr0ZtkxZC1S5n/ixFXOTCXO1f71rF3UV0LSeARehT+bKeUeDrPKVCEo8aWPDDd0+
- kaepD7sVa9SKi947zxHpLs/1pUyKnbvgnOCeQ1D+wka+HDS2TFjedfD7WNXTdH2xAqaZ
- MtKX/110TOO5LrHplvSIWl1cRRsL1KHyPfo/Am/IBcTd8JN2+KA2olkba4CoW2dY/KuR
- nxPkBaP24Bl41+e+/3LBHmRuJUlTpmWY1/YM2wZ1fuHFgV1gP6AHIm6xndZ8vY/17PDu
- LMaT47xqVno0JjdjN05YUqUbh3QNEWYHoExVI5HyUbv/+32raptfe4C0OTA4jfi86gPa
- lJyw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version;
- bh=8JEzRFrWSkLX7LdspWMSjOqLl2fGmC9J4eMYZIUeN5M=;
- fh=uKUejTBhbctFLlR5nbmUrxZz5+QBA1AL6AgXxNeWOhw=;
- b=KaCGFIEp4z1L1JnVHONRoyVRfQ0Z8rck7mwoiNfvMrWnN0q6HUoRKRSvy/rDer7jxB
- ySjzxlhFBPo9JTb+/lEblDREisITairNiJRx5N6wSZyYan9a8ggV7zYbMfN7R7vgyMeA
- 0o3kN3LDRE+Jx7Ro+I3xdkHWLTa66Y8ZJ8fKprFgORE8BshrqmuBYwUErUgScsHbwk++
- /MyNvTelvxSSIJIy9Iy/RQddMxt3LgJW3qQFWB9zg3EbpYYEbLqUfjKuXChjn7zeUEZ3
- aoPByY2Md/9jTaa/XrU69jCvVo162FKDyh5IYHlsXogTtggd8MaCmLkwqXjv+nzWcq7V
- 1N9A==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777969242; x=1778574042;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=8JEzRFrWSkLX7LdspWMSjOqLl2fGmC9J4eMYZIUeN5M=;
- b=BBWNo3TCOK07SIdQRknOr8nd80Cm9JFYa7THs2GegLJapbCD6n+sRy1dMAurVz8QC5
- S+kRCreukLs0/g8ZVMocQ437fI8L1ARBviiJf0NO7fSP1qp3yJH3m2BkivnG3vulXakm
- M0jlK4ozaD1MFAxWHD574A4d5P3VZ5ybZvoyeDcUxRCI86/cO3KQmL/cXHXTAJFFESEN
- Y5l/8Lf565XvSbqACdXxrkXcS3NPp6xLV8+zwpuA6g+VrRm6ah0I2QaW7mEdLmrFueBC
- 6gOcsiIBU1c6zZg8WKkFpLOAlhwE1XFVSzdQDCaF95MlujXFBwJAxsIPjK1OvYVBuxDQ
- JxoQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/I+YxSoFm6uq0NA+bNHdy+88pTbqvDgUN8PKkDNAGNrLdZXHb5iBP1/FIasKirU97T+YvAG5z2KRQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz0deymlFYwxv37e2N4wfCWdltYDLrub60aglVYBiLkGdP4cjV/
- UvXPVMSlMLwjjwgrfEfPd6xDEFvlSsEh4o6qo6EpBmZ4oyscJPd86IGuZhHK47NEEiX7b3026Ox
- +VL96Fz1EsSzwmsJJvC3VPvjS4poBaSswu5ZpU+sfsydEFk48IyGNZNmHvRsY5LwzKEiNRjMpru
- jwV22Fm7UFQK+Td5F5ymVgR6wiAaAJR8SwwWC7lfEdzU5S+0Ca80GxxQIb6nrZ
-X-Gm-Gg: AeBDiesX8MfzPX8FEMUDqmcNhJLjhe5FNuSCh+08BBAJrKSmIam0P0XiJNk8YHM1/n5
- 3Luxc3fYDboZrykGc6RpvK4p9xbegxEbI9+85WZiQSkyknWGBCZh00H1s1n0H0vpj2CNiy6Ns97
- igZHX9xel4tQc2sQPjyNHqpp2r1SO4m3rNcLIK8qDGf+FC6SfljugTAkDtrIPUuhDGXmV+EFgFK
- cAZWCjgaJ13iHl0DAB+q8ruH7xblRFvpL6zOqU3vXIsP+QlLkRfUYVfR1oOvLQ0
-X-Received: by 2002:a05:6808:16ac:b0:46c:e542:cc16 with SMTP id
- 5614622812f47-47c88bdb0d6mr4061248b6e.0.1777969241739; 
- Tue, 05 May 2026 01:20:41 -0700 (PDT)
-X-Received: by 2002:a05:6808:16ac:b0:46c:e542:cc16 with SMTP id
- 5614622812f47-47c88bdb0d6mr4061235b6e.0.1777969241387; Tue, 05 May 2026
- 01:20:41 -0700 (PDT)
+Received: from AM0PR02CU008.outbound.protection.outlook.com
+ (mail-westeuropeazon11013039.outbound.protection.outlook.com [52.101.72.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4EBD910EA6D;
+ Tue,  5 May 2026 10:06:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vjc/XcX5Xi3gftO/QR3TNFclAPxzJ1Ye0NZrzYIugLLXwiwqCaLtwkOGP92Y68BjNVQ8ROAksrZi3LaOKhbS/PRvNAE9N3BAqE+VoaaTD8Lo6t74z2JDX2RGpItxUIhEiXh4MFtlG97PAowYdNyIDo5Z7LxJiwBNk5Zy9ohPqyCSoXwn4t5catRnHEd/KNCByyOdRQ6CTBJ/vTMYkv7+voo4+gYTVOatJhr8Xf3r+PJsd6Nq/MgCI/on2oVmUeTztKi6hRggqXV4Wb4dT3ebHBCnyQT9eDhyg7tXLUQfd8oJ81ntyC3b6IAUHN2OHijwmspbnexAuM+T2/vUSAuvYQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=woTctB9zfV3kVuKS+4vKRMy5hWrTaNujHFCObkBZAnM=;
+ b=O1aIx+YSD85hkbftxeJ8mNSDlxgLInhj87sY0idnGHuKnY4ydCn0m5jqEmb4exzOxZOOZ7NOT5zMhDgyJxzVPKA72zNEavO0ao9jMuJQZKQDHXhLlPkpLV66GQSoUm7exd0h8Rf2hjIdogjQemeIH5C2lrIUBG9mUxAQPGhQxtUfpkpWKVoDhxnJJguQ2ZO/X64jTj2nPjD9o+mrdCixPexLuvJN73+FgqvkfLcL85xdGWvKQntf7L3hs+NmOBCmz4x8e1sD9VFMR7+tkQjLK2EB8wN0BIW1miF24YPx+udGocT60md4QI2u2ACl4sD0/Lp5I8XvC19BVMHN6iNvng==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=woTctB9zfV3kVuKS+4vKRMy5hWrTaNujHFCObkBZAnM=;
+ b=ntLTqdHqqiU0CI5mTawIMdaqVuNWcW0iJtivJtqlnsbo5ksDUSG+g6aj6v6YLTv0zFRNCYLbKCP5aG5Ck3ZbP4ZZWpxq2MGU3iYMsFdNG7ib5Qf0A4BhO7f4o1rT0/WhVsRW/aJOQilYh6V93WUzM6ReZVqMchKZldFv0lXqsvpGi98fy3kiPA/Bk/PBUTfetEH/K9da5N45bkDTMNxkTiILMgklD5yFA7OLHOubqkWd2KnoUnkp1C8syPRYCK1TrKay2PVe/sIhcnSjdfTgZymboqmpCiolPtkdCZleop4fbL8wYx2Chhbeo6eVyxx62d7FzTn60AIOmZHZlO6cvA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM9PR04MB8585.eurprd04.prod.outlook.com (2603:10a6:20b:438::13)
+ by AM9PR04MB8308.eurprd04.prod.outlook.com (2603:10a6:20b:3e3::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Tue, 5 May
+ 2026 10:06:50 +0000
+Received: from AM9PR04MB8585.eurprd04.prod.outlook.com
+ ([fe80::f010:fca8:7ef:62f4]) by AM9PR04MB8585.eurprd04.prod.outlook.com
+ ([fe80::f010:fca8:7ef:62f4%4]) with mapi id 15.20.9870.023; Tue, 5 May 2026
+ 10:06:49 +0000
+From: Vladimir Oltean <vladimir.oltean@nxp.com>
+To: linux-phy@lists.infradead.org
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ linux-can@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, linux-riscv@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-sunxi@lists.linux.dev,
+ linux-tegra@vger.kernel.org, linux-usb@vger.kernel.org,
+ netdev@vger.kernel.org, spacemit@lists.linux.dev,
+ UNGLinuxDriver@microchip.com,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ =?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Andy Yan <andy.yan@rock-chips.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Chanho Park <chanho61.park@samsung.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Damien Le Moal <dlemoal@kernel.org>,
+ Daniel Machon <daniel.machon@microchip.com>,
+ David Airlie <airlied@gmail.com>, "David S. Miller" <davem@davemloft.net>,
+ Dmitry Baryshkov <lumag@kernel.org>, Eric Dumazet <edumazet@google.com>,
+ Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+ Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>,
+ Jakub Kicinski <kuba@kernel.org>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ JC Kuo <jckuo@nvidia.com>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Joe Perches <joe@perches.com>,
+ Johan Hovold <johan+linaro@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Kevin Xie <kevin.xie@starfivetech.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Linus Walleij <linusw@kernel.org>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Marc Kleine-Budde <mkl@pengutronix.de>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Markus Schneider-Pargmann <msp@baylibre.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Mathias Nyman <mathias.nyman@intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Maxime Ripard <mripard@kernel.org>,
+ Michael Dege <michael.dege@renesas.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Niklas Cassel <cassel@kernel.org>, Nitin Rawat <quic_nitirawa@quicinc.com>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Peter Chen <peter.chen@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Robert Foss <rfoss@kernel.org>,
+ Rob Herring <robh@kernel.org>,
+ "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+ Samuel Holland <samuel@sholland.org>, Sandy Huang <hjc@rock-chips.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Sean Paul <sean@poorly.run>,
+ Sebastian Reichel <sre@kernel.org>, Shawn Guo <shawn.guo@linaro.org>,
+ Shawn Lin <shawn.lin@rock-chips.com>, Simona Vetter <simona@ffwll.ch>,
+ Steen Hegelund <Steen.Hegelund@microchip.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Tudor Ambarus <tudor.ambarus@linaro.org>,
+ Vincent Mailhol <mailhol@kernel.org>, Yixun Lan <dlan@kernel.org>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+Subject: [PATCH v8 phy-next 30/31] phy: remove temporary provider
+ compatibility from consumer header
+Date: Tue,  5 May 2026 13:05:22 +0300
+Message-Id: <20260505100523.1922388-31-vladimir.oltean@nxp.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260505100523.1922388-1-vladimir.oltean@nxp.com>
+References: <20260505100523.1922388-1-vladimir.oltean@nxp.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: AM0PR10CA0050.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:20b:150::30) To AM9PR04MB8585.eurprd04.prod.outlook.com
+ (2603:10a6:20b:438::13)
 MIME-Version: 1.0
-References: <20260505033558.157604-1-an.wu@canonical.com>
- <68d0176c7022293678a49e7641ad9308ed0438a4@intel.com>
-In-Reply-To: <68d0176c7022293678a49e7641ad9308ed0438a4@intel.com>
-From: An Wu <an.wu@canonical.com>
-Date: Tue, 5 May 2026 16:20:29 +0800
-X-Gm-Features: AVHnY4JYz1TmQQSPELvwMPMUJtc529GxngMoDPQv7g3Xl24b5Lqr9aVqGcaPHRA
-Message-ID: <CAO4Mv0b9KpxrT712LfmoGA7Au_R4noHXufEdheuHC5y_u4c-ew@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/i915/tc: Recover AUX channel after external TC
- port mode change
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: multipart/alternative; boundary="0000000000000e052506510db93f"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM9PR04MB8585:EE_|AM9PR04MB8308:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7692dd3b-4163-40a7-a6d9-08deaa8e05ff
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|19092799006|376014|7416014|1800799024|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: bryDzflHbYPLhMaJA93nNc5L4wFM2zA3K/fdiCPgknQStefqfUIHxLndT/mTpokM/Sx634bk6robM4A5HRrxuXIb99KozQXDm1CvVpjMt+n6aK7QWJ7Aao78M4ekKst6JBt0gIEqhOPfLWw6z9YsQfdNEUvwxWTx9wb6yZvr2lW8uSocJU1zj3wW5v8QhwXNFI0D1v5oG4T5VdwRFt6PgnuFHZ6uQz2n1FyOwLsKJIYJYIk/Lebtz5A8Axg43Cb36HRFSrd7ewZ19mV8DXSE3JxNsOf3+u/5fhg8fbruG6E/LOOSUU7biBE6pNaA/E71TaWnE/Q4KjRHVVqFWU+p6gGpLXbQ+U0tJHgSkUBTZO+adpe7z0Bqaja4HjgYI9SaPvgtVCeKnHUzl0Iec/SIcR4I1axb1ojDecQPy7qP+a8njeaXVTicJjoA5iIYEKjK9ePA/LZaMCRCaMpkOm4wxTff6d63I45aX7KRovsmjMHJXb27uwq/hmGxGXTt0l1uo9kU4JkhJybWr7CkWa6s/r74NmMWL1/Dn0uFXgI4QViAU9e0LSIxLkbmmqY4UAsrt6J7fJbLFjCFtOTwCYLyIBUrujSpBrMkR7qbdQshtVhRIhHIli/JgNxdSAfxQutykoCRVV2IFyyMGlj/mduWAHyUD6LLIoT8L5c+IqqGuydV0QEh/bfNOhUtZhgSKHrY
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:AM9PR04MB8585.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(19092799006)(376014)(7416014)(1800799024)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OEJxdW5IVXE0YlRYcHhERVVRQ1pHK2JIVkNnN2VMcEVkRlR0VkhBRzR1VEtt?=
+ =?utf-8?B?bEpNS1haWnBBZXNGc04yVlpLcnhGLzdIOU5RTS80NXhwQTh5c0dxTnd2TURy?=
+ =?utf-8?B?eDFualNLQURrV25neitnNmp4UWhmS0doK1hXU2ZHN211ZDh5NHRLaHNOdERF?=
+ =?utf-8?B?Q0dBTXFyTzJxUnRMd2dod2NKMHNudkxsODhPNW9jOUlEZk9xb3RQMUVaL2ly?=
+ =?utf-8?B?ZTBwbEIxdHVwbmRWTFZMN1pqK0pzT044NDBVaEFHZlE1T2E1K3VnK2txSGNB?=
+ =?utf-8?B?cDhza0phdytocHcvR09CUXVtZkJlOFNteVhlSjVkY21oU0dBcTRXcTB1Qmhi?=
+ =?utf-8?B?WGJsYVliQkRQUjVrSXZjUE9kTUxvZkNjU1N3aFV6SjRHSVVSOTlQYThVMUs5?=
+ =?utf-8?B?VDY0a3FLYlVLakpuNld4bmp6SEhNU0dEWkJ5S2NtRHVOSjV5NStWckY4QjY0?=
+ =?utf-8?B?dlM3ZlZ0VE5BdE9TS2xDNVU3WUZZWGM2aFdQTjZoVEVDQlkvQjhWSXhBNEFn?=
+ =?utf-8?B?RnhBbXI5eXVEd3h1eXY0eU15VURHSWpoOW9wblltWkJrNkNDNnA4ckpMUmNM?=
+ =?utf-8?B?Nkp0NGJLMSs4a0FldTlCL1gxYzYyZUs0WmpDK0NnZGdSallmT3M5L3MweCt2?=
+ =?utf-8?B?K3RVUXdCaElkY0JJL2U4OUxwclRYemovdEpNK1FpRDBrRDVnQnF6UkJnN1dC?=
+ =?utf-8?B?Q2xPSnhlU21aN29PZHRndmNwVEpGSDVZRXZlNldGY0g2SEFCa2VhQ0h2VDdk?=
+ =?utf-8?B?NjdGMHcwSUMwUFI2aHljcTd1MmNTMDRyVWZxc3d5MU5BY2c2VWdLTW1sSWxP?=
+ =?utf-8?B?U1laME1zQmpIWjlJd1YvMGVOckRwUDM5UlhLNzdFcGRTSUZRUWVlRkhOaGdJ?=
+ =?utf-8?B?UEpkK09ORDBvYUt0TWkyTmlMY0JLanpLWWNNUFAxd2lYWksvcWU0dHl0dEYy?=
+ =?utf-8?B?ZEY4b3UreUN6Wnphd2MxNnVybXhxSktwZmVqQWw4eXAzN0NDVXpzSHkyV09I?=
+ =?utf-8?B?TjdMa3VQcTV3cndxQ1ZrTkxoU2h4RXZKZktOaE1mSEVGVXZXbVlGMDQvbVdL?=
+ =?utf-8?B?b1VDNnMxVWF5SW1zVDV6K1ptanpjWi9zWG5HUzhVajBSU2dmRnRCYTZJSnJK?=
+ =?utf-8?B?L1BQcTUxVHRpWVowakpPaE1MMlIyTzJPeUd6TW5XTnhXZG4xb2ZuTERTZUlt?=
+ =?utf-8?B?R2R3M3VTWi9IRkxPcTI3RThzUTM4MHlMSUFKUEd5d0Q0SXBLRTNhcDE4OEda?=
+ =?utf-8?B?QXVHeW4yK3p3MDlGZ01wWlhDaXJGMi9kRlVNUjNmRUZKSjYzZ0hCVExxd2li?=
+ =?utf-8?B?QW92ZHhWUE41S244VXBCSSs1ZWw5b0NHNm5PbU5Ld2dLN21pTE9OZ2pqRmlQ?=
+ =?utf-8?B?c2VZL3h3NzBrSkV0NHNUcFdYbjRDSGxqNTJ5QjY5WEJCcFIwK3Y1NHJxRXBi?=
+ =?utf-8?B?RWwyYXJ3ZHNKZ0g2NE0wbnJ4clNvODNyd3lCOWZmWkFMUlEweEhqQVNKSElN?=
+ =?utf-8?B?SVNEdUtwc2t3a3ArRS9UZUs2YXgvWU9TYmtDMldnSHZJSXg3aGRJRVZXaUtF?=
+ =?utf-8?B?M1JkR3dnZzNOVDZvMHdVVVlabG14T3czRXk3V055eVZDbHNnMDViNDJGMlZD?=
+ =?utf-8?B?bm16M3VzMTRBVEVGcUNPbUdIc01CVVJUeDFsVHhHTGVCcjNiZlRySngwMTVN?=
+ =?utf-8?B?eGNCSWRsNVp1VmRRSExoY3BJMDZBOFFEZHNhVVZ2SFZVWmJKU2JLUHBHdDhO?=
+ =?utf-8?B?OVhLRFBieTVrelhWc0RLbjA1OGdxS1owOEpKM1FPLzhKNWFzbEoyaTdOQVhW?=
+ =?utf-8?B?VkNQTGVNbm1PZTJ6amRNZENWSUtQVmM0S2ZRenR6Qi9iWjgxVjZZdmJTeTA3?=
+ =?utf-8?B?QTVMdzQ4VkpPdllTcUYrSFIyOWRuQ01NOWxRUTdJR014bFJxZmdJMytEaUtH?=
+ =?utf-8?B?NVlraWdmWlpnU2ROZWcyVDlFaDhSUm80R1RvOElCVUlpY1FYemo4M0VsdXcy?=
+ =?utf-8?B?Y1AwL1pOb2JpSS9ZajZZNEpwc2NVM3ZrNXNPTnVyNW4wcmFDdlRYamxDMTl0?=
+ =?utf-8?B?MC9tV29rRzZnaW0veThkdWtla2Y1WlBXVDU3eDNNNU5RUzZnOXZJa0lKamNE?=
+ =?utf-8?B?VVh0U092b2xjNUJBeWR2ZEpZSU9FNHFnNC8wNU1Fd1k5Yk9rdysxYTdGd3hK?=
+ =?utf-8?B?SVVPZi9aaG1JRk9hOHJvZUdhdUcrNHI1VStmUkVXeEhjMGh3bDBuQzNZaFhP?=
+ =?utf-8?B?MEpBT3pzQ0hsQUFmQ29OOFJuVHhTRGF2QTNNVFp5WGdNZUpEeVE1NFU4VUZD?=
+ =?utf-8?B?USsvdllMV2Fwd1FrNmVYSGJhTWJMODIyNm1RQlBRc1d1Z0tJamhnZz09?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7692dd3b-4163-40a7-a6d9-08deaa8e05ff
+X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8585.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2026 10:06:49.7966 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2YhScbFfWWyv6GjLbQ64J+szlYee4XNJBWOlEWeyjVkDHr3+Vqo1RicmSXcM0wkWQDhAO9Bo+0R1RTycJ+YTsg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8308
 X-Mailman-Approved-At: Wed, 06 May 2026 07:47:21 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -126,596 +209,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---0000000000000e052506510db93f
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Now that all consumers have been updated to no longer dereference fields
+inside struct phy, we can hide its definition altogether from public view.
 
-Hi Jani
-    The auto check bot told me the alignment is wrong. So I fixed the
-alignment.
+Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+Cc: Abhinav Kumar <abhinav.kumar@linux.dev>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: "André Draszik" <andre.draszik@linaro.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>
+Cc: Andy Yan <andy.yan@rock-chips.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>
+Cc: Chanho Park <chanho61.park@samsung.com>
+Cc: Chen-Yu Tsai <wens@kernel.org>
+Cc: Claudiu Beznea <claudiu.beznea@tuxon.dev>
+Cc: Damien Le Moal <dlemoal@kernel.org>
+Cc: Daniel Machon <daniel.machon@microchip.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Dmitry Baryshkov <lumag@kernel.org>
+Cc: Eric Dumazet <edumazet@google.com>
+Cc: Fabio Estevam <festevam@gmail.com>
+Cc: Frank Li <Frank.Li@nxp.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: "Heiko Stübner" <heiko@sntech.de>
+Cc: Inki Dae <inki.dae@samsung.com>
+Cc: Jagan Teki <jagan@amarulasolutions.com>
+Cc: Jakub Kicinski <kuba@kernel.org>
+Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: JC Kuo <jckuo@nvidia.com>
+Cc: Jernej Skrabec <jernej.skrabec@gmail.com>
+Cc: Jessica Zhang <jesszhan0024@gmail.com>
+Cc: Joe Perches <joe@perches.com>
+Cc: Johan Hovold <johan+linaro@kernel.org>
+Cc: Jonas Karlman <jonas@kwiboo.se>
+Cc: Jonathan Hunter <jonathanh@nvidia.com>
+Cc: Kevin Xie <kevin.xie@starfivetech.com>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: Linus Walleij <linusw@kernel.org>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>
+Cc: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Marc Kleine-Budde <mkl@pengutronix.de>
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Marijn Suijten <marijn.suijten@somainline.org>
+Cc: Markus Schneider-Pargmann <msp@baylibre.com>
+Cc: "Martin K. Petersen" <martin.petersen@oracle.com>
+Cc: Mathias Nyman <mathias.nyman@intel.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Michael Dege <michael.dege@renesas.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Nicolas Ferre <nicolas.ferre@microchip.com>
+Cc: Niklas Cassel <cassel@kernel.org>
+Cc: Nitin Rawat <quic_nitirawa@quicinc.com>
+Cc: Paolo Abeni <pabeni@redhat.com>
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
+Cc: Peter Chen <peter.chen@kernel.org>
+Cc: Peter Griffin <peter.griffin@linaro.org>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: Robert Foss <rfoss@kernel.org>
+Cc: Rob Herring <robh@kernel.org>
+Cc: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Cc: Samuel Holland <samuel@sholland.org>
+Cc: Sandy Huang <hjc@rock-chips.com>
+Cc: Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Sean Paul <sean@poorly.run>
+Cc: Sebastian Reichel <sre@kernel.org>
+Cc: Shawn Guo <shawn.guo@linaro.org>
+Cc: Shawn Lin <shawn.lin@rock-chips.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: Steen Hegelund <Steen.Hegelund@microchip.com>
+Cc: Thierry Reding <thierry.reding@gmail.com>
+Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Tudor Ambarus <tudor.ambarus@linaro.org>
+Cc: Vincent Mailhol <mailhol@kernel.org>
+Cc: Yixun Lan <dlan@kernel.org>
+Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
 
-```
--:77: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
-#77: FILE: drivers/gpu/drm/i915/display/intel_dp_aux.c:545:
-+               ret =3D intel_dp_aux_xfer_with_recovery(intel_dp, txbuf,
-txsize,
-+                                                      rxbuf, rxsize,
-flags);
+v2->v8: none
+v1->v2: collect tag
+---
+ include/linux/phy/phy.h | 2 --
+ 1 file changed, 2 deletions(-)
 
--:88: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
-#88: FILE: drivers/gpu/drm/i915/display/intel_dp_aux.c:568:
-+               ret =3D intel_dp_aux_xfer_with_recovery(intel_dp, txbuf,
-txsize,
-+                                                      rxbuf, rxsize,
-flags);
-```
+diff --git a/include/linux/phy/phy.h b/include/linux/phy/phy.h
+index e65865b4acfe..ccf7e83f103a 100644
+--- a/include/linux/phy/phy.h
++++ b/include/linux/phy/phy.h
+@@ -12,8 +12,6 @@
+ 
+ #include <linux/phy/phy-props.h>
+ 
+-#include "../../../drivers/phy/phy-provider.h"
+-
+ struct device;
+ struct device_node;
+ struct phy;
+-- 
+2.34.1
 
-BR
-    An
-
-On Tue, May 5, 2026 at 4:02=E2=80=AFPM Jani Nikula <jani.nikula@linux.intel=
-.com>
-wrote:
-
-> On Tue, 05 May 2026, ChunAn Wu <an.wu@canonical.com> wrote:
-> > When Fn+F4 triggers mirror mode, the BIOS/EC reconfigures a TC port
-> > mode (e.g. DP-Alt to TBT-Alt via UCSI) without generating HPD. The
-> > driver's cached TC mode becomes stale, so intel_dp_aux_xfer() uses
-> > the wrong power domain and IO routing, and AUX transactions fail.
-> >
-> > This occurs when the USB-C-to-HDMI dongle does not support TBT, so
-> > the mode switch creates a mismatch. It also occurs with slow monitors
-> > whose delayed HPD/DDC/EDID recovery causes the Type-C layer to settle
-> > on a stale tbt-alt state before the dongle finishes re-negotiation.
-> >
-> > Add intel_tc_port_aux_recover() to detect hardware/cached TC mode
-> > divergence and reset the PHY. Wrap it with
-> > intel_dp_aux_xfer_with_recovery() to retry with corrected settings.
-> >
-> > Tested on Panther Lake and Lunar Lake with a BenQ HDMI monitor via
-> > USB-C-to-HDMI dongle.
->
-> What are the changes between v1 and v2?
->
-> >
-> > Signed-off-by: ChunAn Wu <an.wu@canonical.com>
-> > ---
-> >  drivers/gpu/drm/i915/display/intel_dp_aux.c | 41 +++++++++--
-> >  drivers/gpu/drm/i915/display/intel_tc.c     | 75 +++++++++++++++++++++
-> >  drivers/gpu/drm/i915/display/intel_tc.h     |  1 +
-> >  3 files changed, 113 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux.c
-> b/drivers/gpu/drm/i915/display/intel_dp_aux.c
-> > index b20ec3e589fa..d496b2231656 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_dp_aux.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_dp_aux.c
-> > @@ -481,6 +481,39 @@ static u32 intel_dp_aux_xfer_flags(const struct
-> drm_dp_aux_msg *msg)
-> >       return 0;
-> >  }
-> >
-> > +/**
-> > + * intel_dp_aux_xfer_with_recovery - AUX transfer with TC port recover=
-y
-> > + * @intel_dp: the DP port
-> > + * @send: buffer of bytes to send
-> > + * @send_bytes: number of bytes to send
-> > + * @recv: buffer to store received reply
-> > + * @recv_size: maximum number of bytes to receive
-> > + * @aux_send_ctl_flags: extra flags for the AUX send control register
-> > + *
-> > + * Wrapper around intel_dp_aux_xfer() that attempts to recover from an
-> > + * external TC port mode change (e.g., dp-alt -> tbt-alt via hotkey BI=
-OS
-> > + * action) when the initial AUX transfer fails. On failure, recovery i=
-s
-> > + * attempted once via intel_tc_port_aux_recover() before retrying.
-> > + *
-> > + * Returns: number of received bytes on success, negative error code o=
-n
-> failure.
-> > + */
-> > +static int
-> > +intel_dp_aux_xfer_with_recovery(struct intel_dp *intel_dp,
-> > +                             const u8 *send, int send_bytes,
-> > +                             u8 *recv, int recv_size,
-> > +                             u32 aux_send_ctl_flags)
-> > +{
-> > +     struct intel_digital_port *dig_port =3D dp_to_dig_port(intel_dp);
-> > +     int ret;
-> > +
-> > +     ret =3D intel_dp_aux_xfer(intel_dp, send, send_bytes, recv,
-> recv_size,
-> > +                             aux_send_ctl_flags);
-> > +     if (ret < 0 && intel_tc_port_aux_recover(dig_port))
-> > +             ret =3D intel_dp_aux_xfer(intel_dp, send, send_bytes, rec=
-v,
-> > +                                     recv_size, aux_send_ctl_flags);
-> > +     return ret;
-> > +}
-> > +
-> >  static ssize_t
-> >  intel_dp_aux_transfer(struct drm_dp_aux *aux, struct drm_dp_aux_msg
-> *msg)
-> >  {
-> > @@ -508,8 +541,8 @@ intel_dp_aux_transfer(struct drm_dp_aux *aux, struc=
-t
-> drm_dp_aux_msg *msg)
-> >               if (msg->buffer)
-> >                       memcpy(txbuf + HEADER_SIZE, msg->buffer,
-> msg->size);
-> >
-> > -             ret =3D intel_dp_aux_xfer(intel_dp, txbuf, txsize,
-> > -                                     rxbuf, rxsize, flags);
-> > +             ret =3D intel_dp_aux_xfer_with_recovery(intel_dp, txbuf,
-> txsize,
-> > +                                                   rxbuf, rxsize,
-> flags);
-> >               if (ret > 0) {
-> >                       msg->reply =3D rxbuf[0] >> 4;
-> >
-> > @@ -531,8 +564,8 @@ intel_dp_aux_transfer(struct drm_dp_aux *aux, struc=
-t
-> drm_dp_aux_msg *msg)
-> >               if (drm_WARN_ON(display->drm, rxsize > 20))
-> >                       return -E2BIG;
-> >
-> > -             ret =3D intel_dp_aux_xfer(intel_dp, txbuf, txsize,
-> > -                                     rxbuf, rxsize, flags);
-> > +             ret =3D intel_dp_aux_xfer_with_recovery(intel_dp, txbuf,
-> txsize,
-> > +                                                   rxbuf, rxsize,
-> flags);
-> >               if (ret > 0) {
-> >                       msg->reply =3D rxbuf[0] >> 4;
-> >                       /*
-> > diff --git a/drivers/gpu/drm/i915/display/intel_tc.c
-> b/drivers/gpu/drm/i915/display/intel_tc.c
-> > index a21dd4e3fe4c..1b23161e4eea 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_tc.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_tc.c
-> > @@ -1861,6 +1861,81 @@ void intel_tc_port_link_cancel_reset_work(struct
-> intel_digital_port *dig_port)
-> >       cancel_delayed_work(&tc->link_reset_work);
-> >  }
-> >
-> > +/**
-> > + * intel_tc_port_aux_recover - Recover AUX channel after external TC
-> mode change
-> > + * @dig_port: digital port
-> > + *
-> > + * When firmware causes a TC port mode change (e.g., dp-alt ->
-> disconnect ->
-> > + * tbt-alt) during a hotkey-triggered display mode switch, AUX
-> transactions
-> > + * using the stale power domain and IO flags will fail with timeouts o=
-r
-> errors.
-> > + * This happens because:
-> > + *
-> > + *   1. The display driver holds the TC link in dp-alt mode
-> (link_refcount > 0)
-> > + *   2. Firmware (e.g., via HP WMI hotkey BIOS action) reconfigures th=
-e
-> TC port
-> > + *      mode externally without notifying the display driver
-> > + *   3. tc->mode stays as TC_PORT_DP_ALT while HW transitions to a
-> different
-> > + *      mode, invalidating the AUX power domain and IO flags used by
-> > + *      intel_dp_aux_xfer()
-> > + *
-> > + * This function detects the discrepancy between tc->mode and actual H=
-W
-> state,
-> > + * and re-synchronizes them via a TC PHY reset. After recovery, AUX
-> retries
-> > + * will use the correct power domain and control flags.
-> > + *
-> > + * The link_refcount is temporarily cleared to allow
-> intel_tc_port_reset_mode()
-> > + * to proceed without the PHY-ownership assertion that fires when
-> link_refcount
-> > + * is non-zero and firmware has already released PHY ownership.
-> > + *
-> > + * Must be called outside the TC port lock (tc->lock).
-> > + *
-> > + * Returns: %true if recovery was performed and AUX can be retried,
-> > + *          %false if recovery was not needed or not possible.
-> > + */
-> > +bool intel_tc_port_aux_recover(struct intel_digital_port *dig_port)
-> > +{
-> > +     struct intel_tc_port *tc;
-> > +     struct intel_display *display;
-> > +     bool recovered =3D false;
-> > +
-> > +     if (!intel_encoder_is_tc(&dig_port->base))
-> > +             return false;
-> > +
-> > +     tc =3D to_tc_port(dig_port);
-> > +     display =3D to_intel_display(dig_port);
-> > +
-> > +     mutex_lock(&tc->lock);
-> > +
-> > +     /*
-> > +      * Recovery is only needed when the link is actively held AND the
-> HW
-> > +      * TC mode has diverged from the driver's cached state.
-> > +      */
-> > +     if (!tc->link_refcount || !intel_tc_port_needs_reset(tc))
-> > +             goto out;
-> > +
-> > +     drm_dbg_kms(display->drm,
-> > +                 "Port %s: AUX recover: external TC mode change
-> detected (%s -> HW), reconnecting TC PHY\n",
-> > +                 tc->port_name, tc_port_mode_name(tc->mode));
-> > +
-> > +     /*
-> > +      * Temporarily clear link_refcount so intel_tc_port_reset_mode()
-> can
-> > +      * run the PHY disconnect/connect cycle without the ownership
-> assertion
-> > +      * that fires when link_refcount > 0 and firmware has already
-> released
-> > +      * PHY ownership externally.
-> > +      */
-> > +     tc->link_refcount =3D 0;
-> > +     intel_tc_port_reset_mode(tc, 1, false);
-> > +     tc->link_refcount =3D 1;
-> > +
-> > +     recovered =3D tc->mode !=3D TC_PORT_DISCONNECTED;
-> > +     if (!recovered)
-> > +             drm_warn(display->drm,
-> > +                      "Port %s: AUX recover: failed to restore TC port
-> mode\n",
-> > +                      tc->port_name);
-> > +
-> > +out:
-> > +     mutex_unlock(&tc->lock);
-> > +     return recovered;
-> > +}
-> > +
-> >  static void __intel_tc_port_lock(struct intel_tc_port *tc,
-> >                                int required_lanes)
-> >  {
-> > diff --git a/drivers/gpu/drm/i915/display/intel_tc.h
-> b/drivers/gpu/drm/i915/display/intel_tc.h
-> > index 6719aea5bd58..d44998a3081a 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_tc.h
-> > +++ b/drivers/gpu/drm/i915/display/intel_tc.h
-> > @@ -108,6 +108,7 @@ bool intel_tc_port_ref_held(struct
-> intel_digital_port *dig_port);
-> >  bool intel_tc_port_link_needs_reset(struct intel_digital_port
-> *dig_port);
-> >  bool intel_tc_port_link_reset(struct intel_digital_port *dig_port);
-> >  void intel_tc_port_link_cancel_reset_work(struct intel_digital_port
-> *dig_port);
-> > +bool intel_tc_port_aux_recover(struct intel_digital_port *dig_port);
-> >
-> >  int intel_tc_port_init(struct intel_digital_port *dig_port, bool
-> is_legacy);
-> >  void intel_tc_port_cleanup(struct intel_digital_port *dig_port);
->
-> --
-> Jani Nikula, Intel
->
-
---0000000000000e052506510db93f
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi=C2=A0Jani<div>=C2=A0 =C2=A0 The auto check bot told me =
-the alignment=C2=A0is wrong. So I fixed the alignment.</div><div><br></div>=
-<div>```</div><div>-:77: CHECK:PARENTHESIS_ALIGNMENT: Alignment should matc=
-h open parenthesis<br>#77: FILE: drivers/gpu/drm/i915/display/intel_dp_aux.=
-c:545:<br>+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ret =3D i=
-ntel_dp_aux_xfer_with_recovery(intel_dp, txbuf, txsize,<br>+=C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 rxbuf, rxsize, flags);<br><br>-:88: CHECK:PAREN=
-THESIS_ALIGNMENT: Alignment should match open parenthesis<br>#88: FILE: dri=
-vers/gpu/drm/i915/display/intel_dp_aux.c:568:<br>+=C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ret =3D intel_dp_aux_xfer_with_recovery(inte=
-l_dp, txbuf, txsize,<br>+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 rxbuf, r=
-xsize, flags);<br></div><div>```</div><div><br></div><div>BR</div><div>=C2=
-=A0 =C2=A0 An</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" cl=
-ass=3D"gmail_attr">On Tue, May 5, 2026 at 4:02=E2=80=AFPM Jani Nikula &lt;<=
-a href=3D"mailto:jani.nikula@linux.intel.com" target=3D"_blank">jani.nikula=
-@linux.intel.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" =
-style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);pa=
-dding-left:1ex">On Tue, 05 May 2026, ChunAn Wu &lt;<a href=3D"mailto:an.wu@=
-canonical.com" target=3D"_blank">an.wu@canonical.com</a>&gt; wrote:<br>
-&gt; When Fn+F4 triggers mirror mode, the BIOS/EC reconfigures a TC port<br=
->
-&gt; mode (e.g. DP-Alt to TBT-Alt via UCSI) without generating HPD. The<br>
-&gt; driver&#39;s cached TC mode becomes stale, so intel_dp_aux_xfer() uses=
-<br>
-&gt; the wrong power domain and IO routing, and AUX transactions fail.<br>
-&gt;<br>
-&gt; This occurs when the USB-C-to-HDMI dongle does not support TBT, so<br>
-&gt; the mode switch creates a mismatch. It also occurs with slow monitors<=
-br>
-&gt; whose delayed HPD/DDC/EDID recovery causes the Type-C layer to settle<=
-br>
-&gt; on a stale tbt-alt state before the dongle finishes re-negotiation.<br=
->
-&gt;<br>
-&gt; Add intel_tc_port_aux_recover() to detect hardware/cached TC mode<br>
-&gt; divergence and reset the PHY. Wrap it with<br>
-&gt; intel_dp_aux_xfer_with_recovery() to retry with corrected settings.<br=
->
-&gt;<br>
-&gt; Tested on Panther Lake and Lunar Lake with a BenQ HDMI monitor via<br>
-&gt; USB-C-to-HDMI dongle.<br>
-<br>
-What are the changes between v1 and v2?<br>
-<br>
-&gt;<br>
-&gt; Signed-off-by: ChunAn Wu &lt;<a href=3D"mailto:an.wu@canonical.com" ta=
-rget=3D"_blank">an.wu@canonical.com</a>&gt;<br>
-&gt; ---<br>
-&gt;=C2=A0 drivers/gpu/drm/i915/display/intel_dp_aux.c | 41 +++++++++--<br>
-&gt;=C2=A0 drivers/gpu/drm/i915/display/intel_tc.c=C2=A0 =C2=A0 =C2=A0| 75 =
-+++++++++++++++++++++<br>
-&gt;=C2=A0 drivers/gpu/drm/i915/display/intel_tc.h=C2=A0 =C2=A0 =C2=A0|=C2=
-=A0 1 +<br>
-&gt;=C2=A0 3 files changed, 113 insertions(+), 4 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux.c b/drivers/gpu=
-/drm/i915/display/intel_dp_aux.c<br>
-&gt; index b20ec3e589fa..d496b2231656 100644<br>
-&gt; --- a/drivers/gpu/drm/i915/display/intel_dp_aux.c<br>
-&gt; +++ b/drivers/gpu/drm/i915/display/intel_dp_aux.c<br>
-&gt; @@ -481,6 +481,39 @@ static u32 intel_dp_aux_xfer_flags(const struct d=
-rm_dp_aux_msg *msg)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>
-&gt;=C2=A0 }<br>
-&gt;=C2=A0 <br>
-&gt; +/**<br>
-&gt; + * intel_dp_aux_xfer_with_recovery - AUX transfer with TC port recove=
-ry<br>
-&gt; + * @intel_dp: the DP port<br>
-&gt; + * @send: buffer of bytes to send<br>
-&gt; + * @send_bytes: number of bytes to send<br>
-&gt; + * @recv: buffer to store received reply<br>
-&gt; + * @recv_size: maximum number of bytes to receive<br>
-&gt; + * @aux_send_ctl_flags: extra flags for the AUX send control register=
-<br>
-&gt; + *<br>
-&gt; + * Wrapper around intel_dp_aux_xfer() that attempts to recover from a=
-n<br>
-&gt; + * external TC port mode change (e.g., dp-alt -&gt; tbt-alt via hotke=
-y BIOS<br>
-&gt; + * action) when the initial AUX transfer fails. On failure, recovery =
-is<br>
-&gt; + * attempted once via intel_tc_port_aux_recover() before retrying.<br=
->
-&gt; + *<br>
-&gt; + * Returns: number of received bytes on success, negative error code =
-on failure.<br>
-&gt; + */<br>
-&gt; +static int<br>
-&gt; +intel_dp_aux_xfer_with_recovery(struct intel_dp *intel_dp,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0const u8 *send, int send_bytes,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0u8 *recv, int recv_size,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0u32 aux_send_ctl_flags)<br>
-&gt; +{<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct intel_digital_port *dig_port =3D dp_to_dig=
-_port(intel_dp);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0int ret;<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0ret =3D intel_dp_aux_xfer(intel_dp, send, send_by=
-tes, recv, recv_size,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0aux_send_ctl_flags);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (ret &lt; 0 &amp;&amp; intel_tc_port_aux_recov=
-er(dig_port))<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ret =3D intel_dp_aux_=
-xfer(intel_dp, send, send_bytes, recv,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0recv_size, a=
-ux_send_ctl_flags);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0return ret;<br>
-&gt; +}<br>
-&gt; +<br>
-&gt;=C2=A0 static ssize_t<br>
-&gt;=C2=A0 intel_dp_aux_transfer(struct drm_dp_aux *aux, struct drm_dp_aux_=
-msg *msg)<br>
-&gt;=C2=A0 {<br>
-&gt; @@ -508,8 +541,8 @@ intel_dp_aux_transfer(struct drm_dp_aux *aux, stru=
-ct drm_dp_aux_msg *msg)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (msg-&gt;buff=
-er)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0memcpy(txbuf + HEADER_SIZE, msg-&gt;buffer, msg-&gt;size);<br>
-&gt;=C2=A0 <br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ret =3D intel_dp_aux_=
-xfer(intel_dp, txbuf, txsize,<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0rxbuf, rxsiz=
-e, flags);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ret =3D intel_dp_aux_=
-xfer_with_recovery(intel_dp, txbuf, txsize,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0rxbuf, rxsize, flags);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (ret &gt; 0) =
-{<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0msg-&gt;reply =3D rxbuf[0] &gt;&gt; 4;<br>
-&gt;=C2=A0 <br>
-&gt; @@ -531,8 +564,8 @@ intel_dp_aux_transfer(struct drm_dp_aux *aux, stru=
-ct drm_dp_aux_msg *msg)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (drm_WARN_ON(=
-display-&gt;drm, rxsize &gt; 20))<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0return -E2BIG;<br>
-&gt;=C2=A0 <br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ret =3D intel_dp_aux_=
-xfer(intel_dp, txbuf, txsize,<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0rxbuf, rxsiz=
-e, flags);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ret =3D intel_dp_aux_=
-xfer_with_recovery(intel_dp, txbuf, txsize,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0rxbuf, rxsize, flags);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (ret &gt; 0) =
-{<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0msg-&gt;reply =3D rxbuf[0] &gt;&gt; 4;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0/*<br>
-&gt; diff --git a/drivers/gpu/drm/i915/display/intel_tc.c b/drivers/gpu/drm=
-/i915/display/intel_tc.c<br>
-&gt; index a21dd4e3fe4c..1b23161e4eea 100644<br>
-&gt; --- a/drivers/gpu/drm/i915/display/intel_tc.c<br>
-&gt; +++ b/drivers/gpu/drm/i915/display/intel_tc.c<br>
-&gt; @@ -1861,6 +1861,81 @@ void intel_tc_port_link_cancel_reset_work(struc=
-t intel_digital_port *dig_port)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0cancel_delayed_work(&amp;tc-&gt;link_reset_w=
-ork);<br>
-&gt;=C2=A0 }<br>
-&gt;=C2=A0 <br>
-&gt; +/**<br>
-&gt; + * intel_tc_port_aux_recover - Recover AUX channel after external TC =
-mode change<br>
-&gt; + * @dig_port: digital port<br>
-&gt; + *<br>
-&gt; + * When firmware causes a TC port mode change (e.g., dp-alt -&gt; dis=
-connect -&gt;<br>
-&gt; + * tbt-alt) during a hotkey-triggered display mode switch, AUX transa=
-ctions<br>
-&gt; + * using the stale power domain and IO flags will fail with timeouts =
-or errors.<br>
-&gt; + * This happens because:<br>
-&gt; + *<br>
-&gt; + *=C2=A0 =C2=A01. The display driver holds the TC link in dp-alt mode=
- (link_refcount &gt; 0)<br>
-&gt; + *=C2=A0 =C2=A02. Firmware (e.g., via HP WMI hotkey BIOS action) reco=
-nfigures the TC port<br>
-&gt; + *=C2=A0 =C2=A0 =C2=A0 mode externally without notifying the display =
-driver<br>
-&gt; + *=C2=A0 =C2=A03. tc-&gt;mode stays as TC_PORT_DP_ALT while HW transi=
-tions to a different<br>
-&gt; + *=C2=A0 =C2=A0 =C2=A0 mode, invalidating the AUX power domain and IO=
- flags used by<br>
-&gt; + *=C2=A0 =C2=A0 =C2=A0 intel_dp_aux_xfer()<br>
-&gt; + *<br>
-&gt; + * This function detects the discrepancy between tc-&gt;mode and actu=
-al HW state,<br>
-&gt; + * and re-synchronizes them via a TC PHY reset. After recovery, AUX r=
-etries<br>
-&gt; + * will use the correct power domain and control flags.<br>
-&gt; + *<br>
-&gt; + * The link_refcount is temporarily cleared to allow intel_tc_port_re=
-set_mode()<br>
-&gt; + * to proceed without the PHY-ownership assertion that fires when lin=
-k_refcount<br>
-&gt; + * is non-zero and firmware has already released PHY ownership.<br>
-&gt; + *<br>
-&gt; + * Must be called outside the TC port lock (tc-&gt;lock).<br>
-&gt; + *<br>
-&gt; + * Returns: %true if recovery was performed and AUX can be retried,<b=
-r>
-&gt; + *=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 %false if recovery was not neede=
-d or not possible.<br>
-&gt; + */<br>
-&gt; +bool intel_tc_port_aux_recover(struct intel_digital_port *dig_port)<b=
-r>
-&gt; +{<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct intel_tc_port *tc;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0struct intel_display *display;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0bool recovered =3D false;<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (!intel_encoder_is_tc(&amp;dig_port-&gt;base))=
-<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return false;<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0tc =3D to_tc_port(dig_port);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0display =3D to_intel_display(dig_port);<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0mutex_lock(&amp;tc-&gt;lock);<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0/*<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 * Recovery is only needed when the link is activ=
-ely held AND the HW<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 * TC mode has diverged from the driver&#39;s cac=
-hed state.<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 */<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (!tc-&gt;link_refcount || !intel_tc_port_needs=
-_reset(tc))<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto out;<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0drm_dbg_kms(display-&gt;drm,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;P=
-ort %s: AUX recover: external TC mode change detected (%s -&gt; HW), reconn=
-ecting TC PHY\n&quot;,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tc-&gt;=
-port_name, tc_port_mode_name(tc-&gt;mode));<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0/*<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 * Temporarily clear link_refcount so intel_tc_po=
-rt_reset_mode() can<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 * run the PHY disconnect/connect cycle without t=
-he ownership assertion<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 * that fires when link_refcount &gt; 0 and firmw=
-are has already released<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 * PHY ownership externally.<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 */<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0tc-&gt;link_refcount =3D 0;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0intel_tc_port_reset_mode(tc, 1, false);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0tc-&gt;link_refcount =3D 1;<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0recovered =3D tc-&gt;mode !=3D TC_PORT_DISCONNECT=
-ED;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (!recovered)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0drm_warn(display-&gt;=
-drm,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 &quot;Port %s: AUX recover: failed to restore TC port mode\n&quot;,=
-<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 tc-&gt;port_name);<br>
-&gt; +<br>
-&gt; +out:<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0mutex_unlock(&amp;tc-&gt;lock);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0return recovered;<br>
-&gt; +}<br>
-&gt; +<br>
-&gt;=C2=A0 static void __intel_tc_port_lock(struct intel_tc_port *tc,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 int required_lanes)<br>
-&gt;=C2=A0 {<br>
-&gt; diff --git a/drivers/gpu/drm/i915/display/intel_tc.h b/drivers/gpu/drm=
-/i915/display/intel_tc.h<br>
-&gt; index 6719aea5bd58..d44998a3081a 100644<br>
-&gt; --- a/drivers/gpu/drm/i915/display/intel_tc.h<br>
-&gt; +++ b/drivers/gpu/drm/i915/display/intel_tc.h<br>
-&gt; @@ -108,6 +108,7 @@ bool intel_tc_port_ref_held(struct intel_digital_p=
-ort *dig_port);<br>
-&gt;=C2=A0 bool intel_tc_port_link_needs_reset(struct intel_digital_port *d=
-ig_port);<br>
-&gt;=C2=A0 bool intel_tc_port_link_reset(struct intel_digital_port *dig_por=
-t);<br>
-&gt;=C2=A0 void intel_tc_port_link_cancel_reset_work(struct intel_digital_p=
-ort *dig_port);<br>
-&gt; +bool intel_tc_port_aux_recover(struct intel_digital_port *dig_port);<=
-br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 int intel_tc_port_init(struct intel_digital_port *dig_port, bool=
- is_legacy);<br>
-&gt;=C2=A0 void intel_tc_port_cleanup(struct intel_digital_port *dig_port);=
-<br>
-<br>
--- <br>
-Jani Nikula, Intel<br>
-</blockquote></div>
-
---0000000000000e052506510db93f--
