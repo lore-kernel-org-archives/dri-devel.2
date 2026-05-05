@@ -4,114 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A161FF8855
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 14:11:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32D1BCD3427
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 14:15:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB4EB10E450;
-	Tue,  5 May 2026 14:11:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94A3910E7E1;
+	Tue,  5 May 2026 14:15:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="SY0gxa/4";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="E6osNGJm";
 	dkim-atps=neutral
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9864810E450
- for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 14:11:17 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-488b0046078so45978275e9.1
- for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 07:11:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1777990276; x=1778595076; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:from:subject:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=sOzo5FIH+z+xgBcDFCcgeO0PNVBFl/6WTgvdlY46+YA=;
- b=SY0gxa/41ISCdQx3XJeZgPtdRGViBj7mVwS4mfEdNxGnVNf2pGplbsiC+kRrhdvtHo
- JL9NEwC9h+vDihVDfV4Kai9CwTg/6gHCUu9lgj2EOQKR6ea+YL3Pqyr3SRmwh5ffERU7
- 2As8NeEDyQGTR9dmMsXrEK5gvvGRdM0CqStf9rTH2M4TsxSdE9hfH3NWUnns6sco5rQI
- WbKQU3DnUetRJjXnpBSv7XX02ejDcAJJsv62+TxqKk52aXN2j9f9XhApS5730LveT4E/
- Sf8KIDpjhOvRFqLRWK2tfuvjvhEricIZB22BlfxQUXiwvlPuSzWthUwsp9OkNlivjtTy
- z5bw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777990276; x=1778595076;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:from:subject:user-agent
- :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=sOzo5FIH+z+xgBcDFCcgeO0PNVBFl/6WTgvdlY46+YA=;
- b=FQ6qWaUql1OH9ggM1HSR38RVhr8xHSkpb+HVTcKewaqKL7fY0kFeSzHaHQRbqL3J4D
- x07LHyQz8hd1djxdwGS+yj2+GPlf9VLpciZa1XckIJxfYt3Mvxcuou935EtdN3w7GuFO
- s/6+4HxRwX4B2WK0jJUUm/F2/YTQxZH1bK86GuMJbsLkr+nCWlfKkpeiorLO97oK55nr
- EmrrOumzG5y9BqrJuzdPNVuiUnT+rkDCfAGpkpyWmaPCqFvXnKZGRCrzcyXa8IwDtazO
- GDwx0f+jRnSNtV36sjrURY0roqA88x8se6BRaOjc7USEGcSf1n3G88xPzbAD2D1GwWkR
- qExg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9qTkhCTXlapLKCtX9SVvxcV+LcBht6a1q82FfdAH4y6qiNjvLQW+wrnw9QbpJLDTwOEcDqc2UYIhw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzTFRFFRigj1OQmTtMg08XfqrQuRNSXRJeRB3JTaj6OXSBSuFZT
- mnZGou68GLSquvBUQeRVNcZfw/1fPc6YmyKRV6WDrXe1MGOPTASlU5k/hKX8ek0eTCM=
-X-Gm-Gg: AeBDieudgeAPuvbmwR6QPNJ581l2AlsDO+7PZAT5Q18w5taPAcT2O7tSzzZS3sOGlH1
- Z76YnjePXoKENtU70MrzlbRpfDBEz4eaWLD9ADf4LF6/0Xb726SpInxKSpHoYHeEb7sILrjUG8u
- GeBIOCibpKfvCKi8AKgps2vit/RXfvzVZRnhQ0c+F9v2cyabZkz21NePY0oTrzj58W7bWVuWo4A
- 6NZrdx8OFPIU9+Il4Yr46P7Dkst1y9Tblm6KUEZaQcgDtqNdGyAh+4h8APclADqKr2rcJMOSB7f
- +6RkxBQYioVtj8QVlQRq4ONFdpjwAybMbGH3jBHCO0zIN1ZmGLBcFjiGteju8I8+aCE9/IJjHI9
- Q0jzUQrzRH59Tbmskp/9wgkNuOxZt59DTXBDpUA1IaCiCWvPtyuJlPbyPO2IZyKtn+GzXYlTyWE
- 0TpMTQ8jZdgSpHunePsW9hu1KMqjb28OxQaLhbZaAplHbIcvPnxs9NJKlGfEfJIQRutZoKhns4D
- M/4n++XoVXOjeYOlw==
-X-Received: by 2002:a05:600c:859a:b0:485:3ec6:e634 with SMTP id
- 5b1f17b1804b1-48a9865e76bmr169457185e9.15.1777990274806; 
- Tue, 05 May 2026 07:11:14 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:19a4:dd04:854d:9f82?
- ([2a01:e0a:106d:1080:19a4:dd04:854d:9f82])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48d14786affsm32297195e9.0.2026.05.05.07.11.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 05 May 2026 07:11:14 -0700 (PDT)
-Message-ID: <63278517-8df1-4cd0-ac59-6f7cd3ab1e42@linaro.org>
-Date: Tue, 5 May 2026 16:11:13 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: (subset) [PATCH v2 0/4] drm/panel: Small Kconfig cleanup
-From: Neil Armstrong <neil.armstrong@linaro.org>
-To: Jessica Zhang <jesszhan0024@gmail.com>,
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4A7B10E7E1
+ for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 14:15:41 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id EB9CD60154;
+ Tue,  5 May 2026 14:15:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 698A6C2BCB4;
+ Tue,  5 May 2026 14:15:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1777990540;
+ bh=FQsBhAgsYHplHV2/vcCwYjBqbsq7KXkPO3MRqXSfMok=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=E6osNGJmPtrOn/dO5V7lDP7Lu/A7Jxq46ChObn5PlgAvC6B/uvqi6QdXgDtylkKuM
+ fustiBuO44Cvy9/Z8gnQ76Exw7F/EXMUM4tSZWdpthwoUGaAcvKTxfr129TuZP6AEp
+ acVDIdJWpmY9DvuBke1cI4BAhj6/Bo7OzY2Lo5qNrUeNE3QZsRE8RiO0sPN9cQVgoK
+ UIC3P1lMZp8WkwsjfaA+BGMryIpLkoMJpkbBeeXm28BjehqGYWBVps0s8ISiwSZ3ti
+ UIk9UYCpdU0ypAKcGcmQqzOppY78h0DnZSdZF+XEj94/78Kh78Mv6n5pO1dnuOpRqM
+ Sg6yu/4lU10xg==
+Date: Tue, 5 May 2026 09:15:38 -0500
+From: Rob Herring <robh@kernel.org>
+To: Marco Felsch <m.felsch@pengutronix.de>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Dzmitry Sankouski <dsankouski@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
- David Heidelberg <david@ixit.cz>
-Cc: Casey Connolly <casey.connolly@linaro.org>,
- marijn.suijten@somainline.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
-References: <20260505-panel-clean-up-kconfig-dep-v2-0-9cc31d6e6919@ixit.cz>
- <177799022301.801510.9046759541579593814.b4-ty@b4>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <177799022301.801510.9046759541579593814.b4-ty@b4>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, laurentiu.palcu@oss.nxp.com,
+ victor.liu@nxp.com, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 2/4] Revert "dt-bindings: display: bridge: ldb: Fill in
+ reg property"
+Message-ID: <20260505141538.GA2547282-robh@kernel.org>
+References: <20260504-v7-1-topic-ldb-fixes-v1-0-0125d937ff7f@pengutronix.de>
+ <20260504-v7-1-topic-ldb-fixes-v1-2-0125d937ff7f@pengutronix.de>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260504-v7-1-topic-ldb-fixes-v1-2-0125d937ff7f@pengutronix.de>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,19 +73,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/5/26 16:10, Neil Armstrong wrote:
-> Hi,
+On Mon, May 04, 2026 at 10:21:42PM +0200, Marco Felsch wrote:
+> This reverts commit 16c8d76abe83d75b578d72ee22d25a52c764e14a.
 > 
-> On Tue, 05 May 2026 15:53:39 +0200, David Heidelberg wrote:
->> Inspired by looking at Marijn patch. Since Marijn patch is not merged yet,
->> appending patch to my series.
+> Remove the 'reg' and 'reg-names' property from the LDB.
 > 
-> Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
+> The LDB is either part of the IOMUX_GPR (i.MX6SX) or the BLKCTRL
+> (i.MX8MP, i.MX93) register space. Both IOMUX_GPR and BLKCTRL are
+> register ranges with loose register definitions. E.g.
 > 
-> [4/4] drm/panel: Enable GPIOLIB for panels which uses functions from it
->        https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/ae3aa8cf5fd5ccb428a814e7eb38ae33ad1cfa34
+>   - On the i.MX8MP there is one register which controls the AXI
+>     threshold for two different IPs (BIT(31:16) - IP1, BIT(15:0) - IP2).
+>   - On the i.MX6SX IOMUXC_GPR5 controlls: CSI2 mux, WDOG3 settings, PXP
+>     handshake, ...
 > 
+> In conclusion: it can't be ensured that one register belongs to one
+> dedicated IP and the LDB is rather an exception than the rule.
 
-I had to fix patch 4 to apply, but I applied the 4 of them on drm-misc-next
+It is fine if there's a child node for LDB if the LDB registers are 
+consistent, but the other misc things are represented by the parent 
+node. It is certainly not a requirement that either everything be in 
+child nodes or nothing be in child nodes.
 
-Neil
+What I don't see in this series is what problem does this fix? If you 
+are going to break compatibility, then there had better be a good 
+reason.
+
+Rob
