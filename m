@@ -4,89 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09048FF885A
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 01:35:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46D88CD342C
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 01:35:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D17210E02B;
-	Tue,  5 May 2026 01:35:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84DA410E070;
+	Tue,  5 May 2026 01:35:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EuUxjCw+";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="g8efvfbW";
 	dkim-atps=neutral
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
- [209.85.208.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B22110E02B
- for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 01:35:17 +0000 (UTC)
-Received: by mail-ed1-f42.google.com with SMTP id
- 4fb4d7f45d1cf-67b7c77865dso5975206a12.2
- for <dri-devel@lists.freedesktop.org>; Mon, 04 May 2026 18:35:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777944916; cv=none;
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com
+ [209.85.208.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0138210E070
+ for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 01:35:46 +0000 (UTC)
+Received: by mail-ed1-f48.google.com with SMTP id
+ 4fb4d7f45d1cf-67b6da5a618so7998389a12.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 04 May 2026 18:35:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1777944945; cv=none;
  d=google.com; s=arc-20240605;
- b=Y/SmKXLQYzVeDBzeCsD7JvkrEvM0oY4BkbjIELHCK/6qD5eFADUzFaHMxRQs431LNw
- KOob5M++NB/gG2esKZhnq8TqfZ83phLs0Yl3H+PJSEyiCRct+1fGZLARBsCJH4iartcr
- Ml1paG0LWt2aNkhU/gm/CUdEQw1vZ4QKYWmZTZbwtI1XM5MWG5Gnh+Q6SwbSrSt3n5+9
- IV18Tanj06Ds5gXosP/8D4j7CKp3HtW/R6s+BceO3cPhFrzbI1EuQREiEg5V9PQfnWwP
- ZuNmWbcQ30RyG8ilsz6IAsU+jAwHghCwhFWjZSARTVm55GDIqCeGe1WwI6/Wjka1l+pE
- 9RVw==
+ b=LOwYnWz4iy9Etz7SfgiB0rneVcYYrjvg1PJ2Ula9P8hSWW1nkbz6x+Duofhxz0u26L
+ ZWyhDNFoZQ/DAwIB+PUpkmOsSd7zeSjZ3wG5R6LYMmvNagLTOLep2Ma0SWautLgoddcU
+ Uo3pvbzWwNpj8MSvFIvvLpyVVNzY3sJm20Mf4n3mz38poHpDC02PoAUNGQU/kDhwD1F9
+ Vs6t42GGTs7QwPu8PuOEoYmsEKDOqnzSK6Ruqn8TdAvc85IZgasj4IXv5aU04cAxJnVo
+ m2uZ+PdEaotP3//LI+XVEho7Zfnlvkf47lj1uJuGjYfsjaxDxJrEjNgcGhMX9VX2rTIO
+ A8gA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
+ h=cc:to:subject:message-id:date:from:references:in-reply-to
  :mime-version:dkim-signature;
- bh=qDHOgdXFt80PHMEfunn52M5XiYd9+W5iA1+SEBfCX3E=;
- fh=e9dJIEZIQfH72bUlLrNN1plDhAXVPTzgXb66IXtaKh8=;
- b=VnjN3OoRQfLNwHjGnrVFdU+uC2Oj37UCYE/E7C0QYbr3WXQXknpAbNIDurp5JVs8v6
- hjQdW0D0MS7HxADzyEQ9+d7PCdQKa8rqcHUFlRF1ktTne5UKGnDolchdgPJTeB4UigMN
- sLJb9Xzmmx0fNP0TV6AAxByEZs5TtqBtw+elCiph197uMTIFWdaSkYw4MY+mJkKj9IAA
- KTtsp8yy5xLrvCNXphOpX//FPQrOM3knDzHv/bTrcWDrIF7tYi3QDT9bKt9KEBq9lgp9
- LcgZ4yy3gnubHZzNO13lqqaGB1kbQMwy+buWOUaESH6YqB0rDkjX4PsoysIhuxJV1OCy
- Su4A==; darn=lists.freedesktop.org
+ bh=lTz2WcNHl3Rtf8x+dHAU63Kq/74gORQVJ1llz5TyeHg=;
+ fh=/34jYbRzmKxDfqiS1TNG3tAS+7LiO/AfQhX9E0yAoAM=;
+ b=j4jQft4BifRieYKJ0chVGwvoI76zkwPBUGY5q/Mur/QqGexDZBwBMo6ZSYNzY6B6dQ
+ DYRd3Zd1oUrzP8OeHszRja1rh/6rVMIPJfu75vF3WfHOt5jlvTn0Zmkb5Y2Y36teo2j0
+ 7yz8hg0YZV8EmRon6CrCQlL2k3EmxNo/+vRF0HijfTjAtXaQSrhNna+6CAY4kgQSumwl
+ Fil5Vy+4Ch5y8wCn9Ir4IueodOMyWHFSisuHvlqBh0pRIxfh/23De+27OgyZ5co/bHT8
+ zu8W7zaloJYDMLIf4HAk8kvGRDumoWiOC5nC/sc62RnQP9sFqWI43aCTbD6bTOq7tTUJ
+ QnHw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777944916; x=1778549716; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
+ d=gmail.com; s=20251104; t=1777944945; x=1778549745; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:references:in-reply-to
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=qDHOgdXFt80PHMEfunn52M5XiYd9+W5iA1+SEBfCX3E=;
- b=EuUxjCw+3EBf36fJW4EFbaIf2kx++LmWRw4Hz5B6rKVOjMSI2Hf7bcF/cB5OJnFuFj
- kklE8K4z80LFkhlZU/w7vy5yaf9DuucG02Xk06946zZUy+rU2Y4ecxGjV9p9BSioQvCX
- sJuLEJEW9u1Awol49CdDRSywxwhvwBnK62M0KIRIQl34M5nhoZLnZIdO5QJZ8Wck5dYl
- cdiN6w5nLU7NvwUCu72PemlRTjsywvLZMqx79xyWgeFq9nKIMQonJyx6my/15BeQQ6Pl
- Gz+TZRNwWsF3uTjC8TTrOnq4qztehT4omo4q4Cf8hwTNGscZwkCkgC4cmA9JEsOaYBuV
- o2nQ==
+ bh=lTz2WcNHl3Rtf8x+dHAU63Kq/74gORQVJ1llz5TyeHg=;
+ b=g8efvfbWc9Wyr/A/KtUXfSUNWkX53kQv/LuVyFNM1EdQVLoK2eZLd0/8wZY3yv4g1y
+ 8V/zOsBXEwTvkb0MJKcQVWrzGvAPvLWLY62G9V4gO5W6o2STKX7rb6Esj8DIfmx74r9N
+ vCoaAz8oVkCfyReljW62E8ghw2tg2ZqT6JhVbmzN0SHXSHIBw2mJaM3X+iWxEQeBI3l4
+ MsfHrt6ageTHVLtvnUWE2mii3BBcwrdXNibgYS8WLHeZDnGaQRZ19Qiykt0+jFCOkxce
+ Lmd8Q/rRStbGpAEzK8SAdJ5hbxX6k77KhPIbJCzjFITAt1Br3iJiVuKxzFZiqz6BsHNJ
+ Qmtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777944916; x=1778549716;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
+ d=1e100.net; s=20251104; t=1777944945; x=1778549745;
+ h=cc:to:subject:message-id:date:from:references:in-reply-to
  :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=qDHOgdXFt80PHMEfunn52M5XiYd9+W5iA1+SEBfCX3E=;
- b=Z73AtcHhfgeeX8cTJrcyy77WaaOYSmN/gv9xMHaE90lCIXo+AtP2AtDEFuU7zUVF90
- TUkAqWz5RWOpOe77uYY+QLHz/WUu2vvyInM3saLAg2hEwE0QXMHpt+Cj2sbVsayp0Ki/
- rratjgoINMcIwrjjCA4XeC4jgFzi9fdHhPGqjBW9XaXRN/ksNMfDiB7iCInQDeSP554i
- q2I1JYxQlJLUhr/k7MIqU8i5j3Mp2ta3Kp2sfbp5g0oDnMJsbnkHZs8YFEeV7DDWKo3R
- +SWIJ51xI53ES/SMobMjU1E0CRyqCuPXJNhrb0/GDqvyAycsVq4cA33hJoYcQPLQXTwF
- nF9A==
-X-Gm-Message-State: AOJu0Yx+uG8loJ/9zwaihFhjLoqiW25mjHvU6QmBErxgg+MqCxtGrZ4F
- ebIccw+6WdwaIIpNqFN62HANDCQON9jUMhVkkuYX0eLYVG4ba9+sOA8KnTSRpT4qDOtPsLqCoVX
- xFWGWO0gGxyELJNHTJCqE+CfXMFQxj8k=
-X-Gm-Gg: AeBDietm0QfhDCg7076Lqk4TzeBXxpo25yhqZibv4o8XGsITCxoX/0AOFNO7Lg4Rvzk
- XXoybd0yx1RcC3fFBG1A9RJZieDwXHT3J4CqftfYYRzoVeJ1y775/HvuUCYmRpRruq6bcgo28+u
- b/SkWsNDfQfj1jUop0LZOCcR0SPEf6mlOSyVA8EUg+nE/Pb09i+kmHEhgI3Elt3exSx2zWi+hnn
- JcrBfajITCPusDMhuVaDaD3VzURt5yh6qw4lt1Kp4shDrA+ImT7H82DlDSQzaJ76FP7i8NRwqeL
- I953IcFtfOi0f5thGMM5H1j1Sz4=
-X-Received: by 2002:aa7:de0b:0:b0:671:eac2:d328 with SMTP id
- 4fb4d7f45d1cf-67ccaefaf3cmr314795a12.10.1777944915515; Mon, 04 May 2026
- 18:35:15 -0700 (PDT)
+ bh=lTz2WcNHl3Rtf8x+dHAU63Kq/74gORQVJ1llz5TyeHg=;
+ b=hbjUu/MLW13HS35hZblWcZl+3xDt1BOso+4ZGj2zEz3pF/jPKP1r69KqXgwuVxb+vf
+ nZW+u8+gz0gLTFxdKUPfxlsmrpaEJX7Ft7B88IwaR5ZklzP1h5RuZnCmJtj6ytxmzeHU
+ U+OypFL82HpPJS1TjZ4082tVAn9vYoh+ck3STXe+OMVnV8BQF7ABJiAqzby/2fdAsbjd
+ 5dVrQkn7vadKySe7GStolczUTAmW2sjJQMBcZbxxA2QWT1hQ4PGOwj9i8HzAUsTqjIlO
+ kr5hj9x4JE3klI/9gyfGfoIwbL6Rta0YO0Eu958+SwWMz6eNBfbVKTv1ID1MomXHjDzo
+ 7yvA==
+X-Gm-Message-State: AOJu0YwvBKOtBmGM0/pGsb5PryoZIO22SdRqONhXGmGDx3Y1nBpA/zZP
+ q9mYQDTJFw6bJ+tl0qnNUQAT7njz9FiGFwQWFTJPygoLj48dR6z49r3GfHheSgtCeq+3ik58c/R
+ XCRezXh0i3Oximc+QE35mcp3V52qCaB0=
+X-Gm-Gg: AeBDievTtT63AHezcGyVt7bvTVgFU3RMgmBZVS3Tv6k3yeQvu/f4L3DHLinVIFjHWkq
+ MXsTKLX0puaEuZ0axNFVZIEf9LrR6LyCATQ6XCAUkCwJ3ewemlvoN9CvaNuEFk+RNFpG6XtP+0J
+ 2T89/GvbiJHyp3+cT6gWeuTXN0YWaOB9hgrvRcPyY5SiTgugry4mFyEOxXXyUDz7Y59HZw3MP5Y
+ ce8qDcLqSq0SPyou3yUym/GQVdymjnUvl0yidBX+1Un+wIy9ytzl3xrJIzwK/zMF6oE7AE4aLsO
+ NgeyQAKzbxzx5Coe
+X-Received: by 2002:a17:906:2083:b0:ba9:559:10c8 with SMTP id
+ a640c23a62f3a-bbffbf85acdmr444502866b.41.1777944945361; Mon, 04 May 2026
+ 18:35:45 -0700 (PDT)
+Received: from unknown named unknown by gmailapi.google.com with HTTPREST;
+ Mon, 4 May 2026 18:35:44 -0700
+Received: from unknown named unknown by gmailapi.google.com with HTTPREST;
+ Mon, 4 May 2026 18:35:44 -0700
 MIME-Version: 1.0
-References: <20260420051926.28276-1-dbgh9129@gmail.com>
 In-Reply-To: <20260420051926.28276-1-dbgh9129@gmail.com>
-From: =?UTF-8?B?7LWc7Jyg7Zi4?= <dbgh9129@gmail.com>
-Date: Mon, 4 May 2026 21:35:04 -0400
-X-Gm-Features: AVHnY4KSQRmYHcWc5pFC71533222Sqo3b2fvZ_q6cpLcxIlxtJdMnRaLtwGrjsU
-Message-ID: <CACrCO_UxBpMD9f2j3Dv2tB+OVHDgWKk=z_8booM5HkhRG+Quog@mail.gmail.com>
-Subject: Re: [PATCH v1] fbdev: savage: fix probe-path EDID cleanup leaks
-To: Antonino Daplas <adaplas@gmail.com>, Helge Deller <deller@gmx.de>,
- linux-fbdev@vger.kernel.org
+References: <20260420051926.28276-1-dbgh9129@gmail.com>
+From: dbgh9129@gmail.com
+Date: Mon, 4 May 2026 18:35:44 -0700
+X-Gm-Features: AVHnY4JDB9kuFR4i6jpPy5jP1lj-FAqVVNTnvpy9OmPWVwI33zJPMe1vEG0yoX8
+Message-ID: <CACrCO_WT9R51pJhddWysJEHEZ8fhaGvZXq2ZB9vfCD2i6So1cg@mail.gmail.com>
+Subject: [PATCH v1] fbdev: savage: fix probe-path EDID cleanup leaks
+To: adaplas@gmail.com, deller@gmx.de, linux-fbdev@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Myeonghun Pak <mhun512@gmail.com>, Ijae Kim <ae878000@gmail.com>,
- Taegyu Kim <tmk5904@psu.edu>
+ mhun512@gmail.com, ae878000@gmail.com, tmk5904@psu.edu, dbgh9129@gmail.com
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -103,50 +105,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Dear Antonino and Helge,
+Hi Antonino and Helge,
 
 I am sending a gentle ping on this patch. Please let me know if you
 have any feedback or if any changes are needed.
 
 Best regards,
-Yuho
-
-On Mon, 20 Apr 2026 at 01:19, Yuho Choi <dbgh9129@gmail.com> wrote:
->
-> When CONFIG_FB_SAVAGE_I2C is enabled, savagefb_probe() can build both an
-> EDID-derived monspecs.modedb and a modelist from it before later
-> failing.
->
-> The normal success path frees monspecs.modedb after the initial mode
-> selection, but the probe error path only deletes the I2C busses and
-> misses the EDID-derived allocations.
->
-> Free both the modelist and monspecs.modedb on the failed: unwind path.
->
-> Co-developed-by: Myeonghun Pak <mhun512@gmail.com>
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-> Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> Co-developed-by: Taegyu Kim <tmk5904@psu.edu>
-> Signed-off-by: Taegyu Kim <tmk5904@psu.edu>
-> Signed-off-by: Yuho Choi <dbgh9129@gmail.com>
-> ---
->  drivers/video/fbdev/savage/savagefb_driver.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/drivers/video/fbdev/savage/savagefb_driver.c b/drivers/video/fbdev/savage/savagefb_driver.c
-> index ac41f8f37589f..c2f79357c8da0 100644
-> --- a/drivers/video/fbdev/savage/savagefb_driver.c
-> +++ b/drivers/video/fbdev/savage/savagefb_driver.c
-> @@ -2322,6 +2322,8 @@ static int savagefb_probe(struct pci_dev *dev, const struct pci_device_id *id)
->   failed:
->  #ifdef CONFIG_FB_SAVAGE_I2C
->         savagefb_delete_i2c_busses(info);
-> +       fb_destroy_modelist(&info->modelist);
-> +       fb_destroy_modedb(info->monspecs.modedb);
->  #endif
->         fb_alloc_cmap(&info->cmap, 0, 0);
->         savage_unmap_video(info);
-> --
-> 2.50.1 (Apple Git-155)
->
+Yuho Choi
