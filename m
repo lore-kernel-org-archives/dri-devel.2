@@ -4,81 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D611ECD342F
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 07:36:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EAD8FF885A
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 07:37:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3AC2310E9A7;
-	Tue,  5 May 2026 07:36:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B04F810E0DC;
+	Tue,  5 May 2026 07:37:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="lAeH//9f";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="eXNdq2jy";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="lAeH//9f";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="eXNdq2jy";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="l1WiNiLJ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="J9ADuZwJ";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="l1WiNiLJ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="J9ADuZwJ";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2274410E9A7
- for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 07:36:34 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F18110E0DC
+ for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 07:37:05 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id BAE705C8BF;
- Tue,  5 May 2026 07:36:32 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B720E6AF6B;
+ Tue,  5 May 2026 07:37:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1777966592; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1777966623; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=161wOl/WkSnKk+F0tFzbxksypzAVa8jfM6VY612A4P0=;
- b=lAeH//9fgPk8dVHb3yQj9wYgmYIZqhv77HfblVlVbTywwFuUmMsZJ0Lvh96kbIahWM7RRm
- r5mUY2gMl08tMPyvp0GxpNK7MGIJeZ9z/kBBRf7eFyDuua9TAsgtZkNLc+tH0i+dC/iw33
- N6AAtJqkHQVgCoCDrDXYGsPAHOtWpCY=
+ bh=x3lrU6ZbkgS/qIH2x95MHeCVqok7aXmzoUSK9KQZA2Y=;
+ b=l1WiNiLJJ1p5VGvdSrKz3AqHs9DHUbEa9PwFAFTA1soZVpGjDmk6YPhGvdVJHP+Ri2Htgx
+ Z7k0lvjeiR91uCQnaJ5pXHBl+T07T1p9AzuqvJ6WKFtL9HdMq3mwpZFP7CfODGZ9VFWXmN
+ OI+hX6RZORAfSMstMpLHOmp1ILXWWE8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1777966592;
+ s=susede2_ed25519; t=1777966623;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=161wOl/WkSnKk+F0tFzbxksypzAVa8jfM6VY612A4P0=;
- b=eXNdq2jyXS1K14BbRDWoz4JqSavyKOP/qafTkZi3Wv6FzSqKfix1v7bVoyKRRqf8/yJpKr
- YncZdjvgIjKRDGAA==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b="lAeH//9f";
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=eXNdq2jy
+ bh=x3lrU6ZbkgS/qIH2x95MHeCVqok7aXmzoUSK9KQZA2Y=;
+ b=J9ADuZwJb2LnNlc3UhfUsd/5i4fi1YQImwFyTULgGGGspvRp9RTbwQ7msOjcYtLer9w/5E
+ jvEioUyt/+cuR+CQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1777966592; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1777966623; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=161wOl/WkSnKk+F0tFzbxksypzAVa8jfM6VY612A4P0=;
- b=lAeH//9fgPk8dVHb3yQj9wYgmYIZqhv77HfblVlVbTywwFuUmMsZJ0Lvh96kbIahWM7RRm
- r5mUY2gMl08tMPyvp0GxpNK7MGIJeZ9z/kBBRf7eFyDuua9TAsgtZkNLc+tH0i+dC/iw33
- N6AAtJqkHQVgCoCDrDXYGsPAHOtWpCY=
+ bh=x3lrU6ZbkgS/qIH2x95MHeCVqok7aXmzoUSK9KQZA2Y=;
+ b=l1WiNiLJJ1p5VGvdSrKz3AqHs9DHUbEa9PwFAFTA1soZVpGjDmk6YPhGvdVJHP+Ri2Htgx
+ Z7k0lvjeiR91uCQnaJ5pXHBl+T07T1p9AzuqvJ6WKFtL9HdMq3mwpZFP7CfODGZ9VFWXmN
+ OI+hX6RZORAfSMstMpLHOmp1ILXWWE8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1777966592;
+ s=susede2_ed25519; t=1777966623;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=161wOl/WkSnKk+F0tFzbxksypzAVa8jfM6VY612A4P0=;
- b=eXNdq2jyXS1K14BbRDWoz4JqSavyKOP/qafTkZi3Wv6FzSqKfix1v7bVoyKRRqf8/yJpKr
- YncZdjvgIjKRDGAA==
+ bh=x3lrU6ZbkgS/qIH2x95MHeCVqok7aXmzoUSK9KQZA2Y=;
+ b=J9ADuZwJb2LnNlc3UhfUsd/5i4fi1YQImwFyTULgGGGspvRp9RTbwQ7msOjcYtLer9w/5E
+ jvEioUyt/+cuR+CQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6CA3A593A3;
- Tue,  5 May 2026 07:36:32 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 770DC593A3;
+ Tue,  5 May 2026 07:37:03 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id wQQUGQCe+WnnRwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 05 May 2026 07:36:32 +0000
-Message-ID: <69830f02-5687-45e6-84c9-f9d7833e886d@suse.de>
-Date: Tue, 5 May 2026 09:36:31 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id X548GR+e+WnoSAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 05 May 2026 07:37:03 +0000
+Message-ID: <dec75e9b-2784-4b63-a9c7-f99272e73544@suse.de>
+Date: Tue, 5 May 2026 09:37:02 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH -next v2 2/2] drm: verisilicon: add support for cursor
- planes
+Subject: Re: [PATCH -next v2 1/2] drm: verisilicon: add max cursor size to HWDB
 To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
@@ -86,7 +83,7 @@ To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
 Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Han Gao <rabenda.cn@gmail.com>, Icenowy Zheng <uwu@icenowy.me>
 References: <20260324060222.2029061-1-zhengxingda@iscas.ac.cn>
- <20260324060222.2029061-3-zhengxingda@iscas.ac.cn>
+ <20260324060222.2029061-2-zhengxingda@iscas.ac.cn>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -113,34 +110,25 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260324060222.2029061-3-zhengxingda@iscas.ac.cn>
+In-Reply-To: <20260324060222.2029061-2-zhengxingda@iscas.ac.cn>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; RCVD_TLS_ALL(0.00)[];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ TAGGED_RCPT(0.00)[]; TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
  FREEMAIL_TO(0.00)[iscas.ac.cn,linux.intel.com,kernel.org,gmail.com,ffwll.ch]; 
- ARC_NA(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_TLS_ALL(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- RCVD_COUNT_TWO(0.00)[2];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ MID_RHS_MATCH_FROM(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[];
  FREEMAIL_CC(0.00)[vger.kernel.org,lists.freedesktop.org,gmail.com,icenowy.me]; 
- MID_RHS_MATCH_FROM(0.00)[]; TAGGED_RCPT(0.00)[];
- RCPT_COUNT_SEVEN(0.00)[9]; DKIM_TRACE(0.00)[suse.de:+];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[iscas.ac.cn:email, suse.de:dkim, suse.de:email,
- suse.de:mid, icenowy.me:email, imap1.dmz-prg2.suse.org:rdns,
- imap1.dmz-prg2.suse.org:helo, suse.com:url]
-X-Rspamd-Queue-Id: BAE705C8BF
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+ RCPT_COUNT_SEVEN(0.00)[9]; FROM_EQ_ENVFROM(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.de:mid,
+ suse.de:email, suse.com:url, iscas.ac.cn:email]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,428 +144,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+
 
 Am 24.03.26 um 07:02 schrieb Icenowy Zheng:
-> Verisilicon display controllers support hardware cursors per output
-> port.
+> Different display controller variants support different maximum cursor
+> size. All known DC8200 variants support both 32x32 and 64x64, but some
+> DC8000 variants support either only 32x32 or up to 256x256.
 >
-> Add support for them as cursor planes.
+> The minimum size is fixed at 32 and only PoT square sizes are supported.
+>
+> Add the max cursor size field to HWDB and fill all entries with 64.
 >
 > Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 
 Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-with the comments below addressed.
-
 > ---
 > Changes in v2:
-> - Use is_power_of_two instead of switch to validate cursor size.
-> - Remove unneeded format check.
-> - Skip the whole validity check if the plane is invisible (previously
->    it's only skipped when the plane is not bound to CRTC).
-> - Explicitly set modifiers list (linear only).
+> - Added a comment about the cursor being square.
 >
->   drivers/gpu/drm/verisilicon/Makefile          |   3 +-
->   drivers/gpu/drm/verisilicon/vs_crtc.c         |  11 +-
->   drivers/gpu/drm/verisilicon/vs_cursor_plane.c | 273 ++++++++++++++++++
->   .../drm/verisilicon/vs_cursor_plane_regs.h    |  44 +++
->   drivers/gpu/drm/verisilicon/vs_plane.h        |   1 +
->   5 files changed, 329 insertions(+), 3 deletions(-)
->   create mode 100644 drivers/gpu/drm/verisilicon/vs_cursor_plane.c
->   create mode 100644 drivers/gpu/drm/verisilicon/vs_cursor_plane_regs.h
+>   drivers/gpu/drm/verisilicon/vs_hwdb.c | 4 ++++
+>   drivers/gpu/drm/verisilicon/vs_hwdb.h | 5 +++++
+>   2 files changed, 9 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/verisilicon/Makefile b/drivers/gpu/drm/verisilicon/Makefile
-> index fd8d805fbcde1..426f4bcaa834d 100644
-> --- a/drivers/gpu/drm/verisilicon/Makefile
-> +++ b/drivers/gpu/drm/verisilicon/Makefile
-> @@ -1,5 +1,6 @@
->   # SPDX-License-Identifier: GPL-2.0-only
+> diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.c b/drivers/gpu/drm/verisilicon/vs_hwdb.c
+> index 09336af0900ae..2a0f7c59afa3a 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_hwdb.c
+> +++ b/drivers/gpu/drm/verisilicon/vs_hwdb.c
+> @@ -95,6 +95,7 @@ static struct vs_chip_identity vs_chip_identities[] = {
+>   		.customer_id = ~0U,
 >   
-> -verisilicon-dc-objs := vs_bridge.o vs_crtc.o vs_dc.o vs_drm.o vs_hwdb.o vs_plane.o vs_primary_plane.o
-> +verisilicon-dc-objs := vs_bridge.o vs_crtc.o vs_dc.o vs_drm.o vs_hwdb.o \
-> +	vs_plane.o vs_primary_plane.o vs_cursor_plane.o
+>   		.display_count = 2,
+> +		.max_cursor_size = 64,
+>   		.formats = &vs_formats_no_yuv444,
+>   	},
+>   	{
+> @@ -103,6 +104,7 @@ static struct vs_chip_identity vs_chip_identities[] = {
+>   		.customer_id = 0x30B,
 >   
->   obj-$(CONFIG_DRM_VERISILICON_DC) += verisilicon-dc.o
-> diff --git a/drivers/gpu/drm/verisilicon/vs_crtc.c b/drivers/gpu/drm/verisilicon/vs_crtc.c
-> index f494017130006..5c9714a3e69a7 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_crtc.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_crtc.c
-> @@ -159,7 +159,7 @@ struct vs_crtc *vs_crtc_init(struct drm_device *drm_dev, struct vs_dc *dc,
->   			     unsigned int output)
->   {
->   	struct vs_crtc *vcrtc;
-> -	struct drm_plane *primary;
-> +	struct drm_plane *primary, *cursor;
->   	int ret;
+>   		.display_count = 2,
+> +		.max_cursor_size = 64,
+>   		.formats = &vs_formats_no_yuv444,
+>   	},
+>   	{
+> @@ -111,6 +113,7 @@ static struct vs_chip_identity vs_chip_identities[] = {
+>   		.customer_id = 0x310,
 >   
->   	vcrtc = drmm_kzalloc(drm_dev, sizeof(*vcrtc), GFP_KERNEL);
-> @@ -175,9 +175,16 @@ struct vs_crtc *vs_crtc_init(struct drm_device *drm_dev, struct vs_dc *dc,
->   		return ERR_PTR(PTR_ERR(primary));
->   	}
+>   		.display_count = 2,
+> +		.max_cursor_size = 64,
+>   		.formats = &vs_formats_with_yuv444,
+>   	},
+>   	{
+> @@ -119,6 +122,7 @@ static struct vs_chip_identity vs_chip_identities[] = {
+>   		.customer_id = 0x311,
 >   
-> +	/* Create our cursor plane */
-> +	cursor = vs_cursor_plane_init(drm_dev, dc);
-> +	if (IS_ERR(cursor)) {
-> +		drm_err(drm_dev, "Couldn't create the cursor plane\n");
-> +		return ERR_CAST(cursor);
-> +	}
-> +
->   	ret = drmm_crtc_init_with_planes(drm_dev, &vcrtc->base,
->   					 primary,
-> -					 NULL,
-> +					 cursor,
->   					 &vs_crtc_funcs,
->   					 NULL);
->   	if (ret) {
-> diff --git a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-> new file mode 100644
-> index 0000000000000..eb945462e1238
-> --- /dev/null
-> +++ b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-> @@ -0,0 +1,273 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (C) 2026 Institute of Software, Chinese Academy of Sciences (ISCAS)
-> + *
-> + * Authors:
-> + * Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> + */
-> +
-> +#include <linux/log2.h>
-> +#include <linux/regmap.h>
-> +
-> +#include <drm/drm_atomic.h>
-> +#include <drm/drm_atomic_helper.h>
-> +#include <drm/drm_crtc.h>
-> +#include <drm/drm_fourcc.h>
-> +#include <drm/drm_framebuffer.h>
-> +#include <drm/drm_gem_atomic_helper.h>
-> +#include <drm/drm_modeset_helper_vtables.h>
-> +#include <drm/drm_plane.h>
-> +#include <drm/drm_print.h>
-> +
-> +#include "vs_crtc.h"
-> +#include "vs_plane.h"
-> +#include "vs_dc.h"
-> +#include "vs_hwdb.h"
-> +#include "vs_cursor_plane_regs.h"
-> +
-> +#define VSDC_CURSOR_LOCATION_MAX_POSITIVE BIT_MASK(15)
-> +#define VSDC_CURSOR_LOCATION_MAX_NEGATIVE BIT_MASK(5)
-> +
-> +static bool vs_cursor_plane_check_coord(int32_t coord)
-> +{
-> +	if (coord >= 0)
-> +		return coord <= VSDC_CURSOR_LOCATION_MAX_POSITIVE;
-> +	else
-> +		return (-coord) <= VSDC_CURSOR_LOCATION_MAX_NEGATIVE;
-> +}
-> +
-> +static int vs_cursor_plane_atomic_check(struct drm_plane *plane,
-> +					struct drm_atomic_state *state)
-> +{
-> +	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state,
-> +										 plane);
-> +	struct drm_crtc *crtc = new_plane_state->crtc;
-> +	struct drm_framebuffer *fb = new_plane_state->fb;
-> +	struct drm_crtc_state *crtc_state = NULL;
-> +	struct vs_crtc *vcrtc;
-> +	struct vs_dc *dc;
-> +	int ret;
-> +
-> +	if (crtc)
-> +		crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
-> +
-> +	ret = drm_atomic_helper_check_plane_state(new_plane_state,
-> +						  crtc_state,
-> +						  DRM_PLANE_NO_SCALING,
-> +						  DRM_PLANE_NO_SCALING,
-> +						  true, true);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (!new_plane_state->visible)
-> +		return 0; /* Skip validity check */
-> +
-> +	vcrtc = drm_crtc_to_vs_crtc(crtc);
-> +	dc = vcrtc->dc;
-> +
+>   		.display_count = 2,
+> +		.max_cursor_size = 64,
+>   		.formats = &vs_formats_no_yuv444,
+>   	},
+>   };
+> diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.h b/drivers/gpu/drm/verisilicon/vs_hwdb.h
+> index 92192e4fa0862..2065ecb730437 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_hwdb.h
+> +++ b/drivers/gpu/drm/verisilicon/vs_hwdb.h
+> @@ -20,6 +20,11 @@ struct vs_chip_identity {
+>   	u32 customer_id;
+>   
+>   	u32 display_count;
 > +	/*
-> +	 * Only certain PoT square sizes is supported, the minimum supported
-> +	 * size is 32x32 and the maximum known size is 256x256.
+> +	 * The hardware only supports square cursor planes, so this field
+> +	 * is both the maximum width and height in pixels.
 > +	 */
-> +	drm_WARN_ON_ONCE(plane->dev, dc->identity.max_cursor_size < 32 ||
-> +				     dc->identity.max_cursor_size > 256);
-
-Rather make this drm_dbg().  User space might just run an atomic_check 
-on an atomic_state to test if it is supported. That should not leave 
-warnings in the logs.
-
-> +
-> +	if (!is_power_of_2(new_plane_state->crtc_w) ||
-> +	    new_plane_state->crtc_w < 32 ||
-> +	    new_plane_state->crtc_w > dc->identity.max_cursor_size)
-> +		return -EINVAL;
-> +
-> +	if (new_plane_state->crtc_w != new_plane_state->crtc_h)
-> +		return -EINVAL;
-> +
-> +	/* Check if the cursor is inside the register fields' range */
-> +	if (!vs_cursor_plane_check_coord(new_plane_state->crtc_x) ||
-> +	    !vs_cursor_plane_check_coord(new_plane_state->crtc_y))
-> +		return -EINVAL;
-> +
-> +	if (fb) {
-
-Not needed. The case of !fb would have been detected by 
-drm_atomic_helper_check_plane_state(). Best regards Thomas
-> +		/* Extra line padding isn't supported */
-> +		if (fb->pitches[0] !=
-> +		    drm_format_info_min_pitch(fb->format, 0,
-> +					      new_plane_state->crtc_w))
-> +			return -EINVAL;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static void vs_cursor_plane_commit(struct vs_dc *dc, unsigned int output)
-> +{
-> +	regmap_set_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
-> +			VSDC_CURSOR_CONFIG_COMMIT |
-> +			VSDC_CURSOR_CONFIG_IMG_UPDATE);
-> +}
-> +
-> +static void vs_cursor_plane_atomic_enable(struct drm_plane *plane,
-> +					   struct drm_atomic_state *atomic_state)
-> +{
-> +	struct drm_plane_state *state = drm_atomic_get_new_plane_state(atomic_state,
-> +								       plane);
-> +	struct drm_crtc *crtc = state->crtc;
-> +	struct vs_crtc *vcrtc = drm_crtc_to_vs_crtc(crtc);
-> +	unsigned int output = vcrtc->id;
-> +	struct vs_dc *dc = vcrtc->dc;
-> +
-> +	regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
-> +			   VSDC_CURSOR_CONFIG_FMT_MASK,
-> +			   VSDC_CURSOR_CONFIG_FMT_ARGB8888);
-> +
-> +	vs_cursor_plane_commit(dc, output);
-> +}
-> +
-> +static void vs_cursor_plane_atomic_disable(struct drm_plane *plane,
-> +					    struct drm_atomic_state *atomic_state)
-> +{
-> +	struct drm_plane_state *state = drm_atomic_get_old_plane_state(atomic_state,
-> +								       plane);
-> +	struct drm_crtc *crtc = state->crtc;
-> +	struct vs_crtc *vcrtc = drm_crtc_to_vs_crtc(crtc);
-> +	unsigned int output = vcrtc->id;
-> +	struct vs_dc *dc = vcrtc->dc;
-> +
-> +	regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
-> +			   VSDC_CURSOR_CONFIG_FMT_MASK,
-> +			   VSDC_CURSOR_CONFIG_FMT_OFF);
-> +
-> +	vs_cursor_plane_commit(dc, output);
-> +}
-> +
-> +static void vs_cursor_plane_atomic_update(struct drm_plane *plane,
-> +					   struct drm_atomic_state *atomic_state)
-> +{
-> +	struct drm_plane_state *state = drm_atomic_get_new_plane_state(atomic_state,
-> +								       plane);
-> +	struct drm_framebuffer *fb = state->fb;
-> +	struct drm_crtc *crtc = state->crtc;
-> +	struct vs_dc *dc;
-> +	struct vs_crtc *vcrtc;
-> +	unsigned int output;
-> +	dma_addr_t dma_addr;
-> +
-> +	if (!state->visible) {
-> +		vs_cursor_plane_atomic_disable(plane, atomic_state);
-> +		return;
-> +	}
-> +
-> +	vcrtc = drm_crtc_to_vs_crtc(crtc);
-> +	output = vcrtc->id;
-> +	dc = vcrtc->dc;
-> +
-> +	/* Other sizes should be rejected by atomic_check */
-> +	switch (state->crtc_w) {
-> +	case 32:
-> +		regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
-> +				   VSDC_CURSOR_CONFIG_SIZE_MASK,
-> +				   VSDC_CURSOR_CONFIG_SIZE_32);
-> +		break;
-> +	case 64:
-> +		regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
-> +				   VSDC_CURSOR_CONFIG_SIZE_MASK,
-> +				   VSDC_CURSOR_CONFIG_SIZE_64);
-> +		break;
-> +	case 128:
-> +		regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
-> +				   VSDC_CURSOR_CONFIG_SIZE_MASK,
-> +				   VSDC_CURSOR_CONFIG_SIZE_128);
-> +		break;
-> +	case 256:
-> +		regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
-> +				   VSDC_CURSOR_CONFIG_SIZE_MASK,
-> +				   VSDC_CURSOR_CONFIG_SIZE_256);
-> +		break;
-> +	}
-> +
-> +	dma_addr = vs_fb_get_dma_addr(fb, &state->src);
-> +
-> +	regmap_write(dc->regs, VSDC_CURSOR_ADDRESS(output),
-> +		     lower_32_bits(dma_addr));
-> +
-> +	/*
-> +	 * The X_OFF and Y_OFF fields define which point does the LOCATION
-> +	 * register represent in the cursor image, and LOCATION register
-> +	 * values are unsigned. To for positive left-top  coordinates the
-> +	 * offset is set to 0 and the location is set to the coordinate, for
-> +	 * negative coordinates the location is set to 0 and the offset
-> +	 * is set to the opposite number of the coordinate to offset the
-> +	 * cursor image partly off-screen.
-> +	 */
-> +	if (state->crtc_x >= 0) {
-> +		regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
-> +				   VSDC_CURSOR_CONFIG_X_OFF_MASK, 0);
-> +		regmap_update_bits(dc->regs, VSDC_CURSOR_LOCATION(output),
-> +				   VSDC_CURSOR_LOCATION_X_MASK,
-> +				   VSDC_CURSOR_LOCATION_X(state->crtc_x));
-> +	} else {
-> +		regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
-> +				   VSDC_CURSOR_CONFIG_X_OFF_MASK,
-> +				   -state->crtc_x);
-> +		regmap_update_bits(dc->regs, VSDC_CURSOR_LOCATION(output),
-> +				   VSDC_CURSOR_LOCATION_X_MASK, 0);
-> +	}
-> +
-> +	if (state->crtc_y >= 0) {
-> +		regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
-> +				   VSDC_CURSOR_CONFIG_Y_OFF_MASK, 0);
-> +		regmap_update_bits(dc->regs, VSDC_CURSOR_LOCATION(output),
-> +				   VSDC_CURSOR_LOCATION_Y_MASK,
-> +				   VSDC_CURSOR_LOCATION_Y(state->crtc_y));
-> +	} else {
-> +		regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
-> +				   VSDC_CURSOR_CONFIG_Y_OFF_MASK,
-> +				   -state->crtc_y);
-> +		regmap_update_bits(dc->regs, VSDC_CURSOR_LOCATION(output),
-> +				   VSDC_CURSOR_LOCATION_Y_MASK, 0);
-> +	}
-> +
-> +	vs_cursor_plane_commit(dc, output);
-> +}
-> +
-> +static const struct drm_plane_helper_funcs vs_cursor_plane_helper_funcs = {
-> +	.atomic_check	= vs_cursor_plane_atomic_check,
-> +	.atomic_update	= vs_cursor_plane_atomic_update,
-> +	.atomic_enable	= vs_cursor_plane_atomic_enable,
-> +	.atomic_disable	= vs_cursor_plane_atomic_disable,
-> +};
-> +
-> +static const struct drm_plane_funcs vs_cursor_plane_funcs = {
-> +	.atomic_destroy_state	= drm_atomic_helper_plane_destroy_state,
-> +	.atomic_duplicate_state	= drm_atomic_helper_plane_duplicate_state,
-> +	.disable_plane		= drm_atomic_helper_disable_plane,
-> +	.reset			= drm_atomic_helper_plane_reset,
-> +	.update_plane		= drm_atomic_helper_update_plane,
-> +};
-> +
-> +static const u32 vs_cursor_plane_formats[] = {
-> +	DRM_FORMAT_ARGB8888,
-> +};
-> +
-> +static const u64 vs_cursor_plane_modifiers[] = {
-> +	DRM_FORMAT_MOD_LINEAR,
-> +	DRM_FORMAT_MOD_INVALID, /* sentinel */
-> +};
-> +
-> +struct drm_plane *vs_cursor_plane_init(struct drm_device *drm_dev,
-> +				       struct vs_dc *dc)
-> +{
-> +	struct drm_plane *plane;
-> +
-> +	plane = drmm_universal_plane_alloc(drm_dev, struct drm_plane, dev, 0,
-> +					   &vs_cursor_plane_funcs,
-> +					   vs_cursor_plane_formats,
-> +					   ARRAY_SIZE(vs_cursor_plane_formats),
-> +					   vs_cursor_plane_modifiers,
-> +					   DRM_PLANE_TYPE_CURSOR,
-> +					   NULL);
-> +
-> +	if (IS_ERR(plane))
-> +		return plane;
-> +
-> +	drm_plane_helper_add(plane, &vs_cursor_plane_helper_funcs);
-> +
-> +	return plane;
-> +}
-> diff --git a/drivers/gpu/drm/verisilicon/vs_cursor_plane_regs.h b/drivers/gpu/drm/verisilicon/vs_cursor_plane_regs.h
-> new file mode 100644
-> index 0000000000000..99693f2c95b94
-> --- /dev/null
-> +++ b/drivers/gpu/drm/verisilicon/vs_cursor_plane_regs.h
-> @@ -0,0 +1,44 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +/*
-> + * Copyright (C) 2025 Icenowy Zheng <uwu@icenowy.me>
-> + *
-> + * Based on vs_dc_hw.h, which is:
-> + *   Copyright (C) 2023 VeriSilicon Holdings Co., Ltd.
-> + */
-> +
-> +#ifndef _VS_CURSOR_PLANE_REGS_H_
-> +#define _VS_CURSOR_PLANE_REGS_H_
-> +
-> +#include <linux/bits.h>
-> +
-> +#define VSDC_CURSOR_CONFIG(n)		(0x1468 + 0x1080 * (n))
-> +#define VSDC_CURSOR_CONFIG_FMT_MASK	GENMASK(1, 0)
-> +#define VSDC_CURSOR_CONFIG_FMT_ARGB8888	(0x2 << 0)
-> +#define VSDC_CURSOR_CONFIG_FMT_OFF	(0x0 << 0)
-> +#define VSDC_CURSOR_CONFIG_IMG_UPDATE	BIT(2)
-> +#define VSDC_CURSOR_CONFIG_COMMIT	BIT(3)
-> +#define VSDC_CURSOR_CONFIG_SIZE_MASK	GENMASK(7, 5)
-> +#define VSDC_CURSOR_CONFIG_SIZE_32	(0x0 << 5)
-> +#define VSDC_CURSOR_CONFIG_SIZE_64	(0x1 << 5)
-> +#define VSDC_CURSOR_CONFIG_SIZE_128	(0x2 << 5)
-> +#define VSDC_CURSOR_CONFIG_SIZE_256	(0x3 << 5)
-> +#define VSDC_CURSOR_CONFIG_Y_OFF_MASK	GENMASK(12, 8)
-> +#define VSDC_CURSOR_CONFIG_Y_OFF(v)	((v) << 8)
-> +#define VSDC_CURSOR_CONFIG_X_OFF_MASK	GENMASK(20, 16)
-> +#define VSDC_CURSOR_CONFIG_X_OFF(v)	((v) << 16)
-> +
-> +#define VSDC_CURSOR_ADDRESS(n)		(0x146C + 0x1080 * (n))
-> +
-> +#define VSDC_CURSOR_LOCATION(n)		(0x1470 + 0x1080 * (n))
-> +#define VSDC_CURSOR_LOCATION_X_MASK	GENMASK(14, 0)
-> +#define VSDC_CURSOR_LOCATION_X(v)	((v) << 0)
-> +#define VSDC_CURSOR_LOCATION_Y_MASK	GENMASK(30, 16)
-> +#define VSDC_CURSOR_LOCATION_Y(v)	((v) << 16)
-> +
-> +#define VSDC_CURSOR_BACKGROUND(n)	(0x1474 + 0x1080 * (n))
-> +#define VSDC_CURSOR_BACKGRUOND_DEFAULT	0x00FFFFFF
-> +
-> +#define VSDC_CURSOR_FOREGROUND(n)	(0x1478 + 0x1080 * (n))
-> +#define VSDC_CURSOR_FOREGRUOND_DEFAULT	0x00AAAAAA
-> +
-> +#endif /* _VS_CURSOR_PLANE_REGS_H_ */
-> diff --git a/drivers/gpu/drm/verisilicon/vs_plane.h b/drivers/gpu/drm/verisilicon/vs_plane.h
-> index 41875ea3d66a5..60b5b3a1bc22a 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_plane.h
-> +++ b/drivers/gpu/drm/verisilicon/vs_plane.h
-> @@ -68,5 +68,6 @@ dma_addr_t vs_fb_get_dma_addr(struct drm_framebuffer *fb,
->   			      const struct drm_rect *src_rect);
+> +	int32_t max_cursor_size;
+>   	const struct vs_formats *formats;
+>   };
 >   
->   struct drm_plane *vs_primary_plane_init(struct drm_device *dev, struct vs_dc *dc);
-> +struct drm_plane *vs_cursor_plane_init(struct drm_device *dev, struct vs_dc *dc);
->   
->   #endif /* _VS_PLANE_H_ */
 
 -- 
 --
