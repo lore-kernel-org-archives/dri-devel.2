@@ -4,151 +4,164 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7458CD3439
-	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 17:50:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 332D8FF8855
+	for <dri-devel@archiver.kernel.org>; Tue,  5 May 2026 18:01:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDA4610E466;
-	Tue,  5 May 2026 17:50:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90CCF10E380;
+	Tue,  5 May 2026 18:01:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NpFGAFhw";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fgKPw7El";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 310CD10E466;
- Tue,  5 May 2026 17:50:25 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 219E310E13C;
+ Tue,  5 May 2026 18:01:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778003425; x=1809539425;
- h=date:from:to:cc:subject:message-id:
- content-transfer-encoding:mime-version;
- bh=OxoHzf8J3MtGtNv7NWiynHN1LjUs/WSwAylqLo0p5bI=;
- b=NpFGAFhwHBrPrfWpbincUvWvKyBn/C8CiDmOswWCjiS9Et7HAmnWb3le
- sAz9DxXKcEmgLPZPJvlmuyqTvW9wVkz/WB9vRyG6W/MK3YpgKjUTtJnkN
- YPps8nh3ahV0m0upMFC57yjJKQX+J+hcM4Kny+IkxEW74PFMjsRwC6Z9Q
- b7grXwAMXAfNQkoc1lqiZW1pOJUPtuqAj9qRtfXfrvLbZL0TWz1IQGGBk
- Z4biltsM6+u9nQxZdCR8Y3DUCzuNpUqr77+6xq+Aomqz71qsjfk0Jv7s2
- 7WD4EE9Gcux4PIe/RLvc8kif9muJzQTCZKyf+HBa/l+1+bM0J+2tc4Tck A==;
-X-CSE-ConnectionGUID: +LJLPkR0TOa262+XhMJ01Q==
-X-CSE-MsgGUID: PruhUSS2Q8SNVJZwetS+hg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11777"; a="96451424"
-X-IronPort-AV: E=Sophos;i="6.23,218,1770624000"; d="scan'208";a="96451424"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 May 2026 10:50:22 -0700
-X-CSE-ConnectionGUID: HeAqycyBSX2v9XkZvlT6xw==
-X-CSE-MsgGUID: RLWKRHv8T3undFQtGVekrg==
+ t=1778004090; x=1809540090;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=vfFPXlXmlBvtx0t8BHRc4LhjcctynVoztjvrMrAwLRc=;
+ b=fgKPw7ElJX00pb0H3eLs9g4mUa95DrHZq1RwlS849PVv7gk9AK2mavzJ
+ tw/DWzDYttHq4YMsIihs7X8WG3/0bro2xjPvPi5sZExWs5iq4bmLvO8+5
+ cKvhbd3BM0/imGc5F61e4f4RWFpB4kgIjcAhM9mQsyJxJ51HyMWUeALZZ
+ /FiYeldQM9vruZkxYZvzbOnnNf6grj4je8dpJ2nj7GbASjMMI9tbE6iqX
+ uR5AcybbpGpV7+vYBcRfudKXujWx70OPnJPYmYfzYzx+CzY6+DXsyXgYa
+ IAtM0yuuJldyIFoUqChjvzeAR9k4DRtbFujFXN3quX1XL5K967gt00Z3p w==;
+X-CSE-ConnectionGUID: yZreN7XET6qz6cqS9ccy9g==
+X-CSE-MsgGUID: tSXW0M7zSvq2R0VquuSYAA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11777"; a="78984017"
+X-IronPort-AV: E=Sophos;i="6.23,218,1770624000"; d="scan'208";a="78984017"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 May 2026 11:01:28 -0700
+X-CSE-ConnectionGUID: su1qaolORVi1Z0UhqIACoQ==
+X-CSE-MsgGUID: XCj3B8hFSWKyJ5fL+LfFuw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,218,1770624000"; d="scan'208";a="239865533"
+X-IronPort-AV: E=Sophos;i="6.23,218,1770624000"; d="scan'208";a="235003281"
 Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
- by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 May 2026 10:50:23 -0700
+ by orviesa010.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 May 2026 11:01:27 -0700
 Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
  ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 5 May 2026 10:50:21 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ 15.2.2562.37; Tue, 5 May 2026 11:01:27 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
  ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Tue, 5 May 2026 10:50:21 -0700
-Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.26) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ 15.2.2562.37 via Frontend Transport; Tue, 5 May 2026 11:01:27 -0700
+Received: from CY7PR03CU001.outbound.protection.outlook.com (40.93.198.49) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 5 May 2026 10:50:21 -0700
+ 15.2.2562.37; Tue, 5 May 2026 11:01:26 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BgU023DuZHQ6RQB5F/glSnqodyq/z+nP0ZQM/mkl5YVHaoAfj6YSRrFAB+S/IhyOzdJaR/EDYqPQ8HieKbHZ299g1ADHiHHquNSFAcG+qXJ/sGSHgDi9A8uViI+rY0vZDxy+sxrlxc5MHNLrz0Y+HpzQCAj38pu2FtVA6VKVmYjCNtuF5sj/qrauER47i2rYLZHnsBBxsd8PfbSqwZrqZmWgVaSg9eb1qlsBkyHExo3Y4i/AU6YxGRRaRraTNSGGM7+RGI78j7qWggms0xL2z2UJkrKlGMth+6xr6MPR3uOOlJIwmPseDEH8dEtsYfT0PbdhtefeI9LJZQVPGqz2XA==
+ b=U9A3I9GNMM1HgbZzR+hX29elRR1mFBrHaVfgFXP0+9HqI9ZI4uGUzBn0zm5ShqvebWPFB55A79pavf0D+uJLZdTunJWlgfFtsBjqQRgV4BvvBz7ddziC+X3Zj5aR7lyessM0mqXrix16P2EVkwqiK5mQa3pxEdlngEbJBdrPGWI1PjNs0aZF7qG0X3/Pu1KnLJZQaXJGCiuY5D+V9K91yfo4IKLOwXmIwSL7+m0KGab2+U1BSzcihxnmSS8gIzoDyAw9pvKrBjNI00MzVytLg7/pkur5/+bCNnA3+Lt4P8fTRtuMAiwn0Ob4IAlkl8EqfrwAXQqyp3pfTTwgLf4zag==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2HszqSrgYwVczl8RMLGRb0glIcsU9CSxxTXYgmzBAmo=;
- b=gugqzux1dDQq8giFbEjIZozwxkRCCu8Qn37sp/uSrbQHbXMW9tp50CH3CUaqrqiHsPrpzBZWdumxXetLc0eGoVbcSMY9xUmA5x20Td2Bct3whp84BbMztVqgi3G+L1NwqaCoUDaF8lXc0ovt6pJkeF0Fq7xBcUv9WcaWOCoamgZrFjfw1bI/CEQiavjThOTmRLp4W3cLDj9Zc8BC5adHko4kBzrN3CDSblZfyY9ZRtS9MH5jm55RRRBpCga33iWTvWOx3y1qt/2LlVb3vZ8Jr71CX9C0hX1rf6qUH3knuYeQHmdg6mLUI7kQCwiJ0zgYO46s/hNk730hjiNd2XRttA==
+ bh=f29UzgsWLFXpbX1nxzpe4lTTFqELS3+sSBHlsjqOCyg=;
+ b=XS0kTYkGtLiJ0/FwD0IejEUaPxFolq4+m3CavoWUHert4oXw/yYxC0Qjmz4Ie+mIF/zIOddZV1FOVPYpPBE7Q0tI+zn4GUL3v2ZtRq8qpm7pCcfKggDT+etFO7PWHQTdpUzyAYFdtvTIxwmt1xAjEIkwvXTV/Y876anOEHEZ0ZJqc+r9bMed5gOTS33lc+v91jZC+5p6ewBvlUFaVq6w4KqiA3DkFZq2pC3EdXCLfGNdcfvjoI6zEb5Uk3UrBTGW30qBOLtR+KiXB5YG5dn4qH5qbI70g37wCwm64uAvXlJW9CeJxBQDa5uqD4es+TUH3U4k6RRW+vd/X/WUuxaFaQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CYYPR11MB8430.namprd11.prod.outlook.com (2603:10b6:930:c6::19)
- by BY1PR11MB7982.namprd11.prod.outlook.com (2603:10b6:a03:530::12)
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
+ by LV8PR11MB8486.namprd11.prod.outlook.com (2603:10b6:408:1e8::14)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Tue, 5 May
- 2026 17:50:18 +0000
-Received: from CYYPR11MB8430.namprd11.prod.outlook.com
- ([fe80::1d86:a34:519a:3b0d]) by CYYPR11MB8430.namprd11.prod.outlook.com
- ([fe80::1d86:a34:519a:3b0d%5]) with mapi id 15.20.9870.023; Tue, 5 May 2026
- 17:50:18 +0000
-Date: Tue, 5 May 2026 13:50:13 -0400
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
-CC: Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, "Oded
- Gabbay" <ogabbay@kernel.org>, <dri-devel@lists.freedesktop.org>,
- <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
- <dim-tools@lists.freedesktop.org>
-Subject: [PULL] drm-intel-next
-Message-ID: <afot1cjSpeAjYzg2@intel.com>
-Content-Type: text/plain; charset="iso-8859-1"
+ 2026 18:01:16 +0000
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c%7]) with mapi id 15.20.9870.023; Tue, 5 May 2026
+ 18:01:16 +0000
+Date: Tue, 5 May 2026 11:01:13 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: Mika =?iso-8859-1?Q?Penttil=E4?= <mpenttil@redhat.com>
+CC: Alistair Popple <apopple@nvidia.com>, <linux-mm@kvack.org>,
+ <dri-devel@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, David Hildenbrand <david@kernel.org>, "Jason
+ Gunthorpe" <jgg@nvidia.com>, Leon Romanovsky <leonro@nvidia.com>, Balbir
+ Singh <balbirs@nvidia.com>, Zi Yan <ziy@nvidia.com>, Andrew Morton
+ <akpm@linux-foundation.org>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>, Vlastimil Babka
+ <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan
+ <surenb@google.com>, Michal Hocko <mhocko@suse.com>
+Subject: Re: [PATCH v9 0/5] Migrate on fault for device pages
+Message-ID: <afowaUffi0JrnADf@gsse-cloud1.jf.intel.com>
+References: <20260505051658.2219537-1-mpenttil@redhat.com>
+ <afmXIq8VY_vs1GPo@nvdebian.thelocal>
+ <ecd81b6b-62ef-4dab-a93e-e65598d64841@redhat.com>
+Content-Type: text/plain; charset="utf-8"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SJ0PR13CA0068.namprd13.prod.outlook.com
- (2603:10b6:a03:2c4::13) To CYYPR11MB8430.namprd11.prod.outlook.com
- (2603:10b6:930:c6::19)
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <ecd81b6b-62ef-4dab-a93e-e65598d64841@redhat.com>
+X-ClientProxiedBy: SJ0P220CA0013.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:a03:41b::20) To PH7PR11MB6522.namprd11.prod.outlook.com
+ (2603:10b6:510:212::12)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CYYPR11MB8430:EE_|BY1PR11MB7982:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3e7d679e-341b-4111-3f8c-08deaacec4e6
+X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|LV8PR11MB8486:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5e261d5d-e3ab-4d5a-055a-08deaad04d72
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|7416014|366016|13003099007|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: UxzIB6fPbpA1wpLAP5LwX3+Pis0uzoxBE+8hoTavhup+hFdyzWi4l5zjsn3c/2iOafAPrgVL11ghuS3YU4dxz52Mv1ww0ZR8HhVCBwNaevOXMFQMFwXCSlPnAlPEJTdhNXQn+7xAK43JrPOYTePP3j4meft2YpIUZCb02ZRQrz4gJrZba2dW8gpJIYWgevlK1gEeHS60wIUn1O22KoQi1SzuTiY6VjCo4ftoXteyhPB8pVUkE4rGt47ddYGKb3zF6FmnTyUty7DVyKKWSpyTQswcgQJnJXsrfV0gk8z4pWvRtyBkpK7JHgYtyMqC7lTkmPe4/jkrysZ7330XF0uVDSLH3CYVa3ARKaie82/ObDcESTXOExrEZa5rTlqV1VcOmikUYn7JCVFf1YU/is8CA2nGOMeqxeyt/aljkOmIx8rRtD5jAhv0rhQ5yU1U01xtlK+q7/qGiC5I+8m4koc5Cd77sChuyq+YVYYCpYzo8CbnOj87CVxmtj+VYdAniK1ya1/1BMGnxJvZvI8jaTmXjLfvwf+9qne1d4tjiQ5asLKHgxNhI+/z9+wsGh2s91XWv2El2yz3003n2JDSfMyrY3cfzunSDLMXE7ycwPnv4KF46LBj5cobm+/wUzG5zKJOAdFlqdqVzuW/pa32k/bTSg==
+ ARA:13230040|376014|7416014|1800799024|366016|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info: XHj+T6VKWSBKVkQB0tOnU4MxI3dQl4yAVwZLTKuJj7Rp5AyZKKXfrOxy8v28+LBtUM3Q13Aj3Mt2IzYvRIAM8lphIXKO2mdJYWmXhGb6zu/9ymzPisymcMtLgMen35KIS4zXet0W6q1SgWot0LpzZ24FwW5nWTfFuHWCREhzg13GMsv/HB/PfCOCkjsyqbOiuX8rgX4m8mYAnpHsWB2bHFMkl7S8nci83FkR2Fl5lLVfrqp2RjzZVyd3WGDos0s/xj8xZZONnlFRz6vZNpnp6324k4RPUgNz6i9nMNSOPDXv+bL3OaQLX/ZakXNcScsuG9jQ3IeB6pUu5cExjWO010SLoihO4IicyGUNne6XJm449jIdVPv3p6ygOsqaKnqNx8Mo3LCsc/TZyPfBbqnbegpVLM/55ciaRCRcRnxy3VWzQPuPyvAEcQ4u8dm/9GyoPpzQLO/XaLD/97fQyWET6JmIs1LgHUgqFiLMCSQt8qKh1PsfGU4smwkPEzAZ0Ljmv1gENdEBmPSrM8whkGiktuxQh71gerMGhMAv59rRx+hBvIlJYCKiFHVfPjdC9rQLZgWb0sIL7YF7Ocvy5fJP8HfY5iUKqoJbCanTV2fmyXT/c76NtP4ha/yXiAB51JZUViPtP6jcVUtNM2p17KwrAQ==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CYYPR11MB8430.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(7416014)(366016)(13003099007)(56012099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(1800799024)(366016)(18002099003)(22082099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?mzqxDbesmcg8m8v5ID8cwnXpEq4GkaVhs3EkSUB1t05dwcP8yBMBgLp4+V?=
- =?iso-8859-1?Q?BS6w2dJbm8JcyCVUpIPQ95zirhoWGDv4PkOKZvkGsHhCYK21besfVR1AOf?=
- =?iso-8859-1?Q?wgiOrSh1JO0DzJfUv6W086miV+hAzVxnJNYleRwGqJXFRy6aVtYxTaTkMf?=
- =?iso-8859-1?Q?aGBnexFK67lDsuQ2DSN6gF1ptJlFkBQQNgC3E1c38k+yQen31h6mqjBXVa?=
- =?iso-8859-1?Q?haUh+1cY6UCF9ai2eYPMnTvCeEJHhl+4FJQkEPtf2lmkUWb2oxHQKWnL+m?=
- =?iso-8859-1?Q?nCWYHPqYirMEaMDHudSNdJCRJnIDu6EttgjCTBvzt0LiHq17myEgASNJ4f?=
- =?iso-8859-1?Q?GEOzAuMO0el1WH4ny74C1HDRNNSZ8q2UCpXi/BydICKjup1EbzktG4yvim?=
- =?iso-8859-1?Q?fLVXkkFmf7TQZluyJJIWP2F1myoD9WRM5kALq7B2MaTrqH+uUmTUNniWe3?=
- =?iso-8859-1?Q?lleBJ+zwhkLG8I9I80EGszhm1J/vgYLxGZo8parnoBL0qEG7I3+AIs4SZ4?=
- =?iso-8859-1?Q?h6iS71BT5xlf8OwwA5NhOLgN9Ot5ewiY14YvO/53y58T1jgjaEC0ElkLsl?=
- =?iso-8859-1?Q?mBWtPEZkFF5Zf5KzlSbxRei2QvLo6Iz04dGW/bQvAXE13zWFYKOf2Mjp0s?=
- =?iso-8859-1?Q?4VpzjdJ7O1nlHGcdkDHZmESVxoJqKqDtZG97RavpX1+DkEBdu4jfxNU7/n?=
- =?iso-8859-1?Q?27dNqRTnvg6MWg5xpO2UmU54YBJAraAmFOcOguhfPphm2zjbYh5pixZKos?=
- =?iso-8859-1?Q?KOKCKR6VZyFTRo45IzD4p4W8D4m0Qc4Te30BTJ2o75n7F4VT6BWvmjXvvF?=
- =?iso-8859-1?Q?P/DhfbAvAMscHqDhFfFZxZgpSsyLL0ymbgYMaQ/OQ6/2m1qzZ36B+fDmfn?=
- =?iso-8859-1?Q?mLV1IfSM2147ujKVUNTa0vnnLyI8Q5RwRVumTHENJDDWcTgF1SWiaYG6D2?=
- =?iso-8859-1?Q?6EssewtZJhnuWhS6k9Lk0bMvp+dlRF2J9cNoX0l9ff0QrGcUk6xxFo8d6G?=
- =?iso-8859-1?Q?2R89rP0wj5KTffVNkAxrf1/4uZlHkc5K98s0kLI1FBdnpTNmvzV8tEPzAD?=
- =?iso-8859-1?Q?cxsgetxy40eHLyQpfYWWzcGq/WH6gX4XzQ1xZVsHq3RPJUkvoTdfEpe4ET?=
- =?iso-8859-1?Q?vHf6W+G8JuhuHP1DFF1PzF1x7Dta3jVqUWrSFYfEVsC0U5gCGuWI2hM9k6?=
- =?iso-8859-1?Q?Sk1i1sMYS6wr+sUJFFirDmyboE8YcZ7PoRqSexaOeU40LJpvDoRgpIFQvM?=
- =?iso-8859-1?Q?XNe3IZYbnAHpjenUQCQCihevlw9dhT86+lYWICt+qUnnGr0OvC2Vr4trff?=
- =?iso-8859-1?Q?XkKgjfcMzwNkxjWoGkNyloJ3zVpZIX3iZ8BZ3REih1l3zaDb+3r1Vgn/es?=
- =?iso-8859-1?Q?6IrYuXW3LwPHGWwpu25yNzsb8Hqy0H/XPHKG/b1BtXlt0KCff5vkqBl8/P?=
- =?iso-8859-1?Q?uJpjLD7a4Gv8D+LvhCPCjSXJ10HESqrJ/rv3ZMX0U2Q7Mk7LcM9HBlUtFT?=
- =?iso-8859-1?Q?lD4l6aGnhFchX/UitmTFBlcdnzpwfh8TMPgOkvBHungEaGojC7KpdcUXSW?=
- =?iso-8859-1?Q?NeFEqrC0M5YNvbFF6HCrakDrTvP4dxYgS714wren6jdiBBj6VuROHJWEIf?=
- =?iso-8859-1?Q?l4Ag4VK5DDdQ9Jpad6XTZhPs1/BSS3/0xfjO6FpitWOosMBh221bevYaBO?=
- =?iso-8859-1?Q?dhrQ9RlSfFpXl3TBcRIkw6zSY9EuUuEYkTCXnWiIFHUqW9SZSwmrUPQW3u?=
- =?iso-8859-1?Q?2L3K4wqtRLXg8QrZTuiN3T2Vl+xo8E7JzSq2x9tXAZCQCHyn1j0LEp/aeu?=
- =?iso-8859-1?Q?EB/HyGydug=3D=3D?=
-X-Exchange-RoutingPolicyChecked: AdpnbpyhtKX8fcV0R3hYr6Oa13ZDFGAmObYHSsIODoqZx129mkRcOwdbJLawQ1YrT/n+ySEjKOLsc6oTmnuENqv9+S65qQJevHfvLXtfpuhazaKUZwOqlpWxuMxB+xSHMWoohNSSeRvAYixadQ+wjoxTRorEFmlSZ9NQkIE7mhl7VOV5R7YKixvfh3WVgnnJBCut7++9K/63wrV09tNUoqpe/9SnvfvTBEU1Q4cgnt/JRj0EzAQ3LvKMWw5hXIzPaWTxrPDMw5XdG/DZ+yFkPYsatzUE8DtoY7ZrmXsnAEWN4+R7YonGWIXmNxR4Lc63VfpPet0/zueANzDnjxcHCA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3e7d679e-341b-4111-3f8c-08deaacec4e6
-X-MS-Exchange-CrossTenant-AuthSource: CYYPR11MB8430.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZXhqbnNiRGt6T3hpNDd0Z1oxTUlyaGZRUHhPeGhFVGNLWG4xRVNhVmt6SmpF?=
+ =?utf-8?B?VGFGY1FZZFVXcVEzV0krdlc4cnd4UlgzUitVRFJXa1JiaExYY3FDOFByd2d4?=
+ =?utf-8?B?amFRR0NheE1LS1RjVFI3bTdMZWd3RG1Tc0tJQjluM3hJdmQvQUY3MWJGZXhr?=
+ =?utf-8?B?RVZDY0RzdjdZaWwwOGUzUkR0MGtVajlsaE13TUhWeXB4VmhvanM5S0dCYVVi?=
+ =?utf-8?B?YjVKTCthQWJqR3VrNVE2UzZHUHp2b1hkdGk3N2wzcUtLUzg0MXlNN0k1N2J1?=
+ =?utf-8?B?Y0djd2VBWmcrV1M4V2VBK1RqMDV2MVRkakVNYktoMEdENGdvWFJmYzYzcW1S?=
+ =?utf-8?B?cXF1ak5rajZnOW9SZUxhNkhBa2c3SERVRWdIa2c1TUlzT3V1bEtVdW5tVzk2?=
+ =?utf-8?B?eUV5NnN3UnZsRitmWUliZElPTG04dFBYakxHQXNhWmc0TTFpUG55U3hSUHk2?=
+ =?utf-8?B?UFV1M0Mzdm5IOUpQUWhYWG1nc1Z3TmoySC9CMi9mT25xTzJDUENVeUM2VXlV?=
+ =?utf-8?B?THc1ZjQ1TGp6d0ZLUHdmZm05WEJ2Ym04bDBZc3BVTW5EMnZjdDhlcEhYMkNE?=
+ =?utf-8?B?RDVWOVhrbDZ2c0RwMnlHdWREcTArMk5ONUhhRU12cTVQL0ZDOTBYSTVtV2xT?=
+ =?utf-8?B?UEtOMitveTZQMDNGeWNoMCtoWU1PWlY5MU9XcnJNNTk3eHdmSHdNOEhDMlRn?=
+ =?utf-8?B?eDRvSFVZZHgrWlN5UEVnci9nb0FGTHlHU2FXLzZBbXAzN1hzTnE3a2NvL1lw?=
+ =?utf-8?B?MHcvNitXdkt0ckRXS1BzNzZPUGdFV1hNN0k1Tkt5VzQ4bEdzR29NQmRDb01v?=
+ =?utf-8?B?RVpMNmtyUGhSVTBnZU5xalhzeXBnRms2dDBsc0JaNVk4cGk1MW9BNytsSkk3?=
+ =?utf-8?B?N2JQUXNwT2pjWkpieDlEZEsxbDhBY3BDdENQSlBrWmFDcWJBeXU2OGExeWxs?=
+ =?utf-8?B?a1RrcUJ4YmlIVXlhT2Q3Rlo0MWlNa0VOWUg1ODNuaVdXRytkdXJFZ1J6UTNs?=
+ =?utf-8?B?SFB4M1FuYUlKb1kzcjJhZ3lWRlA5aysvMHdReXA2bnBRbTdzcm4waWZEUXhB?=
+ =?utf-8?B?S3kxMURWZlQwaWtqM003Mmlpd2lkS05PbWFnaTl2RzVOV1BBQW1WYWtESEZ4?=
+ =?utf-8?B?a0hUU0Z1d1VpNGdYaXkySDF5WU11WmdVRmVPRERMUS9YaG1zSGZwMUNYc0ht?=
+ =?utf-8?B?M3RMQVU3amtFMTBlUmFoaXZNRDVmUGVlb3NucFNhcWRDU1YrUU1zVWM1MmVl?=
+ =?utf-8?B?YmRaUUFCSmQ2ME53enBxMkxsY3BqK2t5TndpT2xoTU5QSXhKbGUrMUJwTVhB?=
+ =?utf-8?B?YUlPM2NERmtwbHRlRmMrTnQyb05FaDlTdXlKRUJ1NzQxSkpWVHRRZkhHQi9p?=
+ =?utf-8?B?MUo2SjlXc1h0a0JnZzRGSUZlQis3MCtiWHczam1OOGJWU1BFc1NkdU96MWM2?=
+ =?utf-8?B?cHhjWG1pN043M3Zoc0ZBUGpNNW00aCtXRGNNYjZNSmcxbHVVSmYwbUdGR2tn?=
+ =?utf-8?B?aVdvWWtDckE5Y3hSajVzakdWYmFVak5zbzJsTzlrVmQ0VTlURlh2cmRlVity?=
+ =?utf-8?B?aU5IME1vT2d3NnNkemllSG0vWWMzVVp1WmRFem9yZlgrZlJmV2E4c0NGbUhu?=
+ =?utf-8?B?TlBhQ2w0QmNkZ0IwN2VNbldLU0hBK0J1YWVGWmRNbXJOMXc1VEoxQWlmK09h?=
+ =?utf-8?B?TUhoOVI3OEU1cEprbE82N3VDdll5Z2dodTdaWVBUajNYOU4yRXFwb25Cay9h?=
+ =?utf-8?B?ZGV0RFUyTDNyUndiOXhGRUdXSEFZRnZQa0Fma3N3V1UyUlBnNnlFUXVzNkJB?=
+ =?utf-8?B?ZHYxc0Q5cEsvUFNvWWhGWkhNRmREY3BONHZTNnlHZ1hBakhwUWszNEs3Zk03?=
+ =?utf-8?B?eVBCUzFLRWM2ODFvM3pDM0krL3FIb2x2L0c1RUorKzMzNFRDZExyUmVtVmYz?=
+ =?utf-8?B?ZkVJaUdqbEsxN2tiWVluM2dRckJyQWxHTzN1dzkwdjVrdGVjZDBRblp0VkE4?=
+ =?utf-8?B?cUlleUw2ZWZZK2Y3NTE4R1phRzE5ZWhSSTg3b0RmenBmYzZoa2paOFlQR2Fk?=
+ =?utf-8?B?YVVFVHZ2cGFrZlcybFpMb2FpM3pMdThsYTVkUEcxRnpoZkE4WldwL3VTbzFn?=
+ =?utf-8?B?RWdjbnY3QzRDMmlxbjI0eHppRGNHck5BcXRBSjNOS1pVS2RQVXJod2FhcnBl?=
+ =?utf-8?B?bW5FME1rbGhQVHFncGh1ampBK084bEp5UTFieHhvM3RZMHdoU1FXaUtlTzN0?=
+ =?utf-8?B?ZnNyN1NuaHhadjJsTm56WGdYV1lyM3JRZzAzRm5ralA5NldxUmF2TjdpVXZP?=
+ =?utf-8?B?TmFzdmoycjdmL3g4VkVSblV2RitURitqaUJCUzJnbDB4YWVNQnc5Z0JKck9o?=
+ =?utf-8?Q?oF3GIuH9F8O7Xh0Y=3D?=
+X-Exchange-RoutingPolicyChecked: wh5OoCS9cPvcTuwnzp8kOYFMNBFKd6EGLVpFJl/p6W1/PrNi1JAZ+2bwDB3raVz49OMKdLppIVyaT3APtfbMafpE6rqmHnWSKEuV+/vrg5yq+ge1f+DJ+WX5n0SVvtEdnTeO5uJEozntPdqGsOStNKsOIUFp00yfIZVv1HLvK4OncRMisxroHCqlM1NNAfGuvQlqhmFL26sEE0lVWXzKBZ1z2bOiQxqhYBtUvkOMSwk6+u8N/9WhYp75+I8/XJy10qJXPFs/D7PRL5GOV0SraliF8V0YTC2tQDNO7z3mZUs9fvVgY1LBYPgl2Z/C4+KvAkeV+V9uS/MbkWpwJA8ptA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5e261d5d-e3ab-4d5a-055a-08deaad04d72
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2026 17:50:17.9553 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2026 18:01:16.4181 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Aow0YBOHOA8OCql5+6aLGyfmQZ4j+Azww61QzQwrwq6L2Qp+TilM0IkG0ccY1Fi5Zy7z7FqJSAEmiIDxblsDQg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY1PR11MB7982
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1JzoxTCKojZnyeIjqnmcziKvuQus9B4JMitFB7lklsJQnyEQ6KXkRp/VEUKRYHpPHBi09xHiWTk/1lLgA76VzA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR11MB8486
 X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -165,404 +178,317 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Dave and Sima,
+On Tue, May 05, 2026 at 10:18:14AM +0300, Mika Penttil=C3=A4 wrote:
+>=20
+> On 5/5/26 10:09, Alistair Popple wrote:
+>=20
+> > Thanks for doing this work Mika. I've been meaning to take a look at th=
+is series
+> > for a while. I'm currently at LSFMM but will try and take a look this w=
+eek or
+> > next as it sounds quite useful.
+> >
+> >  - Alistair
+>=20
+> Thanks Alistair and no problem, appreciate your insights whenever you hav=
+e time.
+>=20
 
-Here goes our first drm-intel-next PR towards 7.2.
+It looks like this series is breaking Intel's CI [1]. Looks like
+something in RCU is blowing up:
 
-Please notice that this includes 2 topic branches from Jani, one for changing
-pipe allocation order for discrete platforms and another unify xe and i915
-on common steppings headers and enums.
+<4> [212.361418] ------------[ cut here ]------------
+<4> [212.361431] Voluntary context switch within RCU read-side critical sec=
+tion!
+<4> [212.361432] WARNING: kernel/rcu/tree_plugin.h:332 at rcu_note_context_=
+switch+0x82/0x780, CPU#11: kworker/u65:5/2352
+<4> [212.361440] Modules linked in: snd_hda_codec_intelhdmi snd_hda_codec_h=
+dmi mei_lb mei_gsc_proxy mtd_intel_dg mei_gsc xe drm_gpuvm drm_gpusvm_helpe=
+r drm_buddy gpu_sched drm_ttm_helper ttm drm_suballoc_helper drm_exec drm_d=
+isplay_helper cec rc_core drm_kunit_helpers i2c_algo_bit kunit overlay inte=
+l_rapl_msr intel_rapl_common intel_uncore_frequency intel_uncore_frequency_=
+common intel_tcc_cooling x86_pkg_temp_thermal intel_powerclamp hid_generic =
+coretemp eeepc_wmi cmdlinepart asus_wmi binfmt_misc sparse_keymap spi_nor m=
+ei_hdcp mei_pxp mtd wmi_bmof kvm_intel kvm irqbypass aesni_intel gf128mul r=
+8169 usbhid rapl hid intel_cstate realtek snd_hda_intel phy_package snd_int=
+el_dspcfg intel_pmc_core snd_hda_codec idma64 nls_iso8859_1 pmt_telemetry s=
+nd_hda_core video snd_hwdep pmt_discovery snd_pcm i2c_i801 pinctrl_alderlak=
+e pmt_class snd_timer i2c_mux intel_pmc_ssram_telemetry acpi_tad acpi_pad m=
+ei_me snd i2c_smbus spi_intel_pci soundcore mei spi_intel wmi intel_vsec dm=
+_multipath msr nvme_fabrics fuse efi_pstore nfnetlink autofs4
+<4> [212.361711] CPU: 11 UID: 0 PID: 2352 Comm: kworker/u65:5 Tainted: G S =
+  U              7.1.0-rc2-lgci-xe-xe-pw-165953v1-debug+ #1 PREEMPT(lazy)=20
+<4> [212.361715] Tainted: [S]=3DCPU_OUT_OF_SPEC, [U]=3DUSER
+<4> [212.361716] Hardware name: ASUS System Product Name/PRIME Z790-P WIFI,=
+ BIOS 0812 02/24/2023
+<4> [212.361718] Workqueue: xe_page_fault_work_queue xe_pagefault_queue_wor=
+k [xe]
+<4> [212.361833] RIP: 0010:rcu_note_context_switch+0x82/0x780
+<4> [212.361838] Code: 45 85 c0 74 0f 65 8b 05 24 84 ab 02 85 c0 0f 84 8d 0=
+1 00 00 45 84 ed 75 16 8b 83 bc 08 00 00 85 c0 7e 0c 48 8d 3d de ad 4d 02 <=
+67> 48 0f b9 3a 8b 83 bc 08 00 00 85 c0 7e 0d 80 bb c0 08 00 00 00
+<4> [212.361840] RSP: 0018:ffffc9000186f4a0 EFLAGS: 00010002
+<4> [212.361843] RAX: 0000000000000001 RBX: ffff88810a3a8040 RCX: 000000000=
+0000000
+<4> [212.361845] RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffffffff8=
+39bcea0
+<4> [212.361846] RBP: ffffc9000186f4e8 R08: 0000000000000001 R09: 000000000=
+0000000
+<4> [212.361848] R10: 0000000000000000 R11: 0000000000000000 R12: ffff88885=
+f1b6a00
+<4> [212.361849] R13: 0000000000000000 R14: ffffffff83248312 R15: ffffc9000=
+186f630
+<4> [212.361851] FS:  0000000000000000(0000) GS:ffff8888db203000(0000) knlG=
+S:0000000000000000
+<4> [212.361853] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+<4> [212.361854] CR2: 00007fe433b2f088 CR3: 000000000344a000 CR4: 000000000=
+0f52ef0
+<4> [212.361856] PKRU: 55555554
+<4> [212.361858] Call Trace:
+<4> [212.361859]  <TASK>
+<4> [212.361862]  ? lock_is_held_type+0xa3/0x130
+<4> [212.361868]  __schedule+0x103/0x1f70
+<4> [212.361870]  ? lock_acquire+0xc4/0x300
+<4> [212.361874]  ? find_held_lock+0x31/0x90
+<4> [212.361877]  ? schedule+0x10e/0x180
+<4> [212.361880]  ? lock_release+0xd0/0x2b0
+<4> [212.361885]  schedule+0x3a/0x180
+<4> [212.361888]  io_schedule+0x4c/0x80
+<4> [212.361890]  ? softleaf_entry_wait_on_locked+0x147/0x2b0
+<4> [212.361894]  softleaf_entry_wait_on_locked+0x24f/0x2b0
+<4> [212.361899]  ? __pfx_wake_page_function+0x10/0x10
+<4> [212.361904]  migration_entry_wait+0xff/0x190
+<4> [212.361909]  hmm_vma_handle_pte+0x440/0x790
+<4> [212.361914]  hmm_vma_walk_pmd+0x5c8/0x1360
+<4> [212.361918]  ? xe_pagefault_queue_work+0x1a9/0x520 [xe]
+<4> [212.362015]  walk_pgd_range+0x57f/0xd70
+<4> [212.362017]  ? lock_is_held_type+0xa3/0x130
+<4> [212.362028]  __walk_page_range+0x8e/0x290
+<4> [212.362034]  walk_page_range_mm_unsafe+0x19e/0x270
+<4> [212.362036]  ? trace_hardirqs_on+0x22/0xf0
+<4> [212.362043]  walk_page_range+0x2a/0x40
+<4> [212.362045]  hmm_range_fault+0x94/0x190
+<4> [212.362053]  drm_gpusvm_get_pages+0x269/0xa30 [drm_gpusvm_helper]
+<4> [212.362067]  drm_gpusvm_range_get_pages+0x2e/0x50 [drm_gpusvm_helper]
+<4> [212.362071]  __xe_svm_handle_pagefault+0x3e0/0xef0 [xe]
+<4> [212.362181]  ? __lock_acquire+0x43e/0x2790
+<4> [212.362188]  ? lock_is_held_type+0xa3/0x130
+<4> [212.362193]  ? lock_is_held_type+0xa3/0x130
+<4> [212.362197]  ? xe_vm_find_overlapping_vma+0x57/0x1e0 [xe]
+<4> [212.362304]  xe_svm_handle_pagefault+0x3d/0xb0 [xe]
+<4> [212.362412]  xe_pagefault_queue_work+0x1a9/0x520 [xe]
+<4> [212.362509]  process_one_work+0x239/0x740
+<4> [212.362518]  worker_thread+0x200/0x3f0
+<4> [212.362521]  ? __pfx_worker_thread+0x10/0x10
+<4> [212.362524]  kthread+0x10d/0x150
+<4> [212.362527]  ? __pfx_kthread+0x10/0x10
+<4> [212.362530]  ret_from_fork+0x3bd/0x470
+<4> [212.362533]  ? __pfx_kthread+0x10/0x10
+<4> [212.362536]  ret_from_fork_asm+0x1a/0x30
+<4> [212.362546]  </TASK>
+<4> [212.362547] irq event stamp: 2057044
 
-Because of these I had to generate the PR with 'dim -f' otherwise the merge
-commit itself fails dim checks. I believe you will also need to use -f when
-handling this PR.
+I=E2=80=99ll be out this Thursday for five weeks, but assuming you can sort=
+ this
+part out, I=E2=80=99m fine with the series moving forward. I=E2=80=99ve loo=
+ked at this
+several times, and it seems sane enough to me.
 
-Thanks,
-Rodrigo.
+On our list we also have the Sashiko setup [2], which I=E2=80=99ve found to=
+ be
+incredibly helpful for series that do deep MM work. I=E2=80=99m not sure wh=
+y
+Sashiko is saying this series didn=E2=80=99t apply, since it applied cleanl=
+y to
+our CI branches. If you can get Sashiko to run on it, that might be
+helpful as well.
 
-drm-intel-next-2026-05-05:
- - Enable PIPEDMC_ERROR interrupt (Dibin)
- - Some general display fixes and cleanups (Ville, Nemesa,
-   Suraj, Dibin, Arun, Desnes, Juha-Pekka, Vidya, Julian)
- - More refactor to split display code (Jani, Ville, Luca)
- - Panel Replay BW optimization (Animesh)
- - Integrate the sharpness filter properly into the scaler (Ville)
- - Watermark/SAGV fixes/cleanups/etc (Ville)
- - Restructure DP/HDMI sink format handling (Ville)
- - Eliminate FB usage from low level pinning code (Ville)
- - Some initial prep patches for always enable AS SDP (Ankit)
- - Many PSR related fixes (Jouni)
- - Fix MST VCPI lookup and modeset-lock splat (Suraj)
-The following changes since commit 2c683e9b419328da3433a49f7c467da71aaf0469:
+Matt
 
-  drm/i915/display: change pipe allocation order for discrete platforms (2026-04-15 13:30:26 +0300)
+[1] https://intel-gfx-ci.01.org/tree/intel-xe/xe-pw-165953v1/shard-bmg-4/ig=
+t@xe_exec_system_allocator@process-many-stride-mmap-race-nomemset.html
+[2] https://sashiko.dev/#/patchset/20260505051658.2219537-1-mpenttil%40redh=
+at.com
 
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/i915/kernel.git tags/drm-intel-next-2026-05-05
-
-for you to fetch changes up to 025f89b01ed8d5e65d87ed54f231e10c6ac08188:
-
-  drm/i915: replace select with dependency for visible DEBUG_OBJECTS (2026-05-05 16:39:55 +0300)
-
-----------------------------------------------------------------
- - Enable PIPEDMC_ERROR interrupt (Dibin)
- - Some general display fixes and cleanups (Ville, Nemesa,
-   Suraj, Dibin, Arun, Desnes, Juha-Pekka, Vidya, Julian)
- - More refactor to split display code (Jani, Ville, Luca)
- - Panel Replay BW optimization (Animesh)
- - Integrate the sharpness filter properly into the scaler (Ville)
- - Watermark/SAGV fixes/cleanups/etc (Ville)
- - Restructure DP/HDMI sink format handling (Ville)
- - Eliminate FB usage from low level pinning code (Ville)
- - Some initial prep patches for always enable AS SDP (Ankit)
- - Many PSR related fixes (Jouni)
- - Fix MST VCPI lookup and modeset-lock splat (Suraj)
-
-----------------------------------------------------------------
-Animesh Manna (3):
-      drm/display: Add drm helper to check pr optimization support
-      drm/i915/display: Add hook to check optimization support for Intel platforms
-      drm/i915/display: Panel Replay BW optimization for DP2.0 tunneling
-
-Ankit Nautiyal (3):
-      drm/i915/vrr: Avoid vrr for PCON with HDMI2.1 sink
-      drm/i915/dp: Add a helper to decide if AS SDP can be used
-      drm/i915/dp: Skip AS SDP for DP branch devices
-
-Arun R Murthy (1):
-      drm/i915/lt_phy: Update the Tx Swing for DP 1.4
-
-Desnes Nunes (1):
-      drm/i915/dmc: use display instead of dereferencing dmc in intel_dmc_update_dc6_allowed_count()
-
-Dibin Moolakadan Subrahmanian (3):
-      drm/i915/dmc: Remove invalid PIPEDMC interrupt bits
-      drm/i915/dmc: Enable PIPEDMC_ERROR interrupt
-      drm/i915/dmc: Reduce wakelock hold time
-
-Jani Nikula (34):
-      Merge drm/drm-next into drm-intel-next
-      drm/{i915, xe}: convert VLV sideband display wrappers into real functions
-      drm/i915: pass struct intel_display * to VLV sideband wrappers
-      drm/i915/dram: prefer display abstractions for VLV sideband
-      drm/i915: move VLV IOSF sideband to display parent interface
-      drm/{i915, xe}: add shared header for VLV IOSF sideband units and registers
-      drm/xe/fbdev: put intel_fbdev_fb_prefer_stolen() behind IS_ENABLED(CONFIG_DRM_FBDEV_EMULATION)
-      drm/{i915, xe}/fbdev: drop drm device parameter from intel_fbdev_fb_fill_info()
-      drm/{i915, xe}: move fbdev fb calls to parent interface
-      drm/i915: pass struct drm_i915_private to i915_bo_fbdev_prefer_stolen()
-      drm/xe: pass struct xe_device to xe_display_bo_fbdev_prefer_stolen()
-      drm/i915: move intel_fb_pin.c to i915_fb_pin.c
-      drm/i915/pin: s/dev_priv/i915/ and drop struct drm_device usage
-      drm/i915/pin: switch to i915 core runtime pm
-      drm/i915/mchbar: include intel_mchbar_regs.h from intel_mchbar.h
-      drm/i915/mchbar: drop unnecessary intel_mchbar_regs.h include
-      drm/i915/mchbar: move intel_mchbar_regs.h under include/drm/intel
-      drm/i915: drop unnecessary intel_pci_config.h include
-      drm/i915/pci: move intel_pci_config.h under include/drm/intel
-      Merge drm/drm-next into drm-intel-next
-      drm/xe/step: switch to the shared step definitions with i915
-      drm/xe/step: switch from enum xe_step to intel_step naming
-      drm/i915/display: switch to including common step file directly
-      Merge tag 'topic/step-2026-04-09' of https://gitlab.freedesktop.org/drm/i915/kernel into drm-intel-next
-      Merge tag 'topic/pipe-reorder-2026-04-15' of https://gitlab.freedesktop.org/drm/i915/kernel into drm-intel-next
-      drm/i915/ddi: add wrapper for calling ->get_buf_trans() hook
-      drm/i915/display: move audio funcs under audio sub-struct
-      drm/i915/display: move color funcs under color sub-struct
-      drm/i915/display: move fdi funcs under fdi sub-struct
-      drm/i915/display: move watermark funcs under wm sub-struct
-      drm/i915/display: move hotplug irq funcs under hotplug sub-struct
-      drm/i915/display: move dpll funcs under dpll sub-struct
-      drm/i915/display: move cdclk funcs under cdclk sub-struct
-      drm/i915/display: move display funcs under modeset sub-struct
-
-Jouni Högander (4):
-      drm/i915/psr: Do not use pipe_src as borders for SU area
-      drm/i915/psr: Init variable to avoid early exit from et alignment loop
-      drm/i915/psr: Disable Panel Replay on Dell XPS 16 DA16260 as a quirk
-      drm/i915/psr: Disable PSR2 on Xiaomi Book Pro 14 2026 as a quirk
-
-Juha-Pekka Heikkila (1):
-      drm/i915/display: enable ccs modifiers on dg2
-
-Julian Braha (1):
-      drm/i915: replace select with dependency for visible DEBUG_OBJECTS
-
-Luca Coelho (8):
-      drm/i915: move SKL clock gating init to display
-      drm/i915: move KBL clock gating init to display
-      drm/i915/display: move CFL clock gating init to display
-      drm/i915/display: move BXT clock gating init to display
-      drm/i915/display: move GLK clock gating init to display
-      drm/i915/display: move HSW and BDW clock gating init to display
-      drm/i915/display: move pre-HSW clock gating init to display
-      drm/i915: remove HAS_PCH_NOP() dependency from clock gating
-
-Nemesa Garg (1):
-      drm/i915/pfit: Prevent negative coordinates in center mode
-
-Suraj Kandpal (5):
-      drm/i915/backlight: Fix VESA backlight possible check condition
-      drm/i915/dp: Change drm_err to drm_dbg_kms
-      drm/i915/display: Avoid stale PIPE_SCANLINE values after crtc_enable
-      drm/i915/hdcp: Use new MST topology state in intel_conn_to_vcpi()
-      drm/i915/hdcp: Drop mgr->base.lock acquisition in intel_conn_to_vcpi()
-
-Vidya Srinivas (1):
-      drm/i915/display: Use ceiling division for NV12 UV surface offset calculation
-
-Ville Syrjälä (85):
-      drm/i915/cdclk: Do the full CDCLK dance for min_voltage_level changes
-      drm/i915/dp: Use crtc_state->enhanced_framing properly on ivb/hsw CPU eDP
-      drm/i915: Split the pipe_src dump to its own line
-      drm/i915: Include the crtc min_voltage_level in the state dump
-      drm/i915: Eliminate out of place "HBlank" CamelCase
-      drm/i915: Move the sharpness filter dump next to pfit
-      drm/i915/dp: Implement the POST_LT_ADJ_REQ sequence
-      drm/i915/qgv: Use intel_de_read() for MTL_MEM_SS_INFO* reads
-      drm/i915/mchbar: Provide intel_mchbar_read*() abstraction
-      drm/i915/mchbar: Define the end of the MCHBAR mirror
-      drm/i915/mchbar: WARN when accessing non-MCHBAR registers via intel_mchbar_read*()
-      drm/i915/mchbar: Use intel_mchbar_read() instead of intel_de_read()
-      drm/i915/mchbar: Use intel_mchbar_read*() instead of intel_uncore_read*()
-      drm/i915/de: Add intel_de_read16()
-      drm/i915/de: s/intel_de_read64_2x32()/intel_de_read64_2x32_volatile()/
-      drm/i915/de: Add a simple intel_de_read64_2x32()
-      drm/i915/vrr: Use intel_de_read64_2x32()
-      drm/i915/mchbar: Use intel_de_read*() for MCHBAR register accesses
-      drm/i915/rom: Use intel_de for SPI ROM register access
-      drm/i915/casf: s/casf_enable/enable/
-      drm/i915/casf: Make a proper hw state copy of the sharpness_strength
-      drm/i915/casf: Move the casf state to better place
-      drm/i915/casf: Extract scaler_has_casf()
-      drm/i915/casf: Handle CASF in skl_scaler_get_filter_select()
-      drm/i915/casf: Constify crtc_state
-      drm/i915/casf: Remove redundant argument from intel_casf_filter_lut_load()
-      drm/i915/pfit: Call intel_pfit_compute_config() unconditionally on (e)DP/HDMI
-      drm/i915/casf: Integrate the sharpness filter properly into the scaler code
-      drm/i915/dp: Don't use DP link min bpp for the FRL link bandwidth check
-      drm/i915/wm: Reject SAGV consistently when block_time_us==0
-      drm/i915/wm: Don't compute separate SAGV watermarks for RKL
-      drm/i915/wm: Consolidate SAGV pipe active/interlace checks to common code
-      drm/i915/wm: Verify the correct plane DDB entry
-      drm/i915/wm: Extract skl_wm_level_verify()
-      drm/i915/wm: Extract skl_ddb_entry_verify()
-      drm/i915/wm: Verify 'ddb_y' as well as 'ddb'
-      drm/i915/wm: Reduce copy-pasta in skl_print_plane_wm_changes()
-      drm/i915/wm: Allow SAGV with multiple pipes on pre-icl
-      drm/i915/fb: Nuke intel_tile_row_size()
-      drm/i915/fb: Make intel_fb_needs_pot_stride_remap() static
-      drm/i915/fb: Reject per-plane remapping with DPT
-      drm/i915/vma: Add helpers to check GTT view type
-      drm/i915/fb: Use i915_gtt_view_is_*()
-      drm/i915/fb: Use intel_fb_needs_pot_stride_remap() in intel_fb_view_init()
-      drm/i915/mst: Call intel_pfit_compute_config() for sharpness filter
-      drm/i915/mst: Remove redundant has_pch_encoder=false assignment
-      drm/i915/hdmi: Add missing intel_pfit_mode_valid() for 4:2:0 also modes
-      drm/i915/hdmi: Restructure the sink/output format selection
-      drm/i915/hdmi: Restructure 4:2:0 vs. 4:4:4 mode validation
-      drm/i915/dp: Restructure the sink/output format selection
-      drm/i915/dp: Validate "4:2:0 also" modes twice
-      drm/i915/dp: Require a HDMI sink for YCbCr output via PCON
-      drm/i915/dp: Validate sink format in .mode_valid()
-      drm/i915/hdmi: Make the RGB fallback for "4:2:0 only" modes the last resort
-      drm/i915/dp: Make the RGB fallback for "4:2:0 only" modes the last resort
-      drm/i915: Introduce sanity to the plane_config pointer vs. array thing
-      drm/i915: Remove 'mem' and 'phy_base' from struct intel_initial_plane_config
-      drm/i915: Don't pass the whole plane_config to initial_plane_phys()
-      drm/i915: Make plane_config->fb a struct drm_framebuffer*
-      drm/i915: Move initial plane vblank wait into display code
-      drm/i915: Use a 1 second timeout for the polling vblank wait
-      drm/i915: Reject tile4 BIOS FB
-      drm/i915: Reject X/Y tiled BIOS FB if we don't have fenced regions
-      drm/i915: Completely reject DPT BIOS FBs.
-      drm/i915: Reject BIOS FB rotation in common code
-      drm/i915: Track fence region ID in plane state
-      drm/i915: Remove the vma parent interface
-      drm/i915: Clear i915->display when no longer valid
-      drm/xe: Clear xe->display when no longer valid
-      drm/i915/reset: Reorganize display reset code
-      drm/i915/reset: Move pending_fb_pin handling to i915
-      drm/xe/display: Add init_clock_gating.h stubs
-      drm/i915/reset: Add "intel_display_reset_count" debugfs file
-      drm/i915/reset: Disable execlist per-engine reset for display reset tests
-      drm/xe/fb: Use the correct gtt view for remapped FBs
-      drm/i915: Introduce struct intel_fb_pin_params
-      drm/i915: Extract intel_fb_needs_cpu_access()
-      drm/i915: Introduce pin_params.needs_cpu_lmem_access
-      drm/i915: Extract intel_plane_needs_low_address()
-      drm/i915: Introduce pin_params.needs_low_address
-      drm/i915: Introduce pin_params.needs_physical
-      drm/i915: Extract intel_plane_needs_fence()
-      drm/i915: Introduce pin_params.needs_fence
-      drm/xe: Eliminate intel_fb_uses_dpt() call from __xe_pin_fb_vma()
-      drm/i915: Don't pass the framebuffer to low level pinning functions
-
- drivers/gpu/drm/display/drm_dp_tunnel.c            |  17 ++
- drivers/gpu/drm/i915/Kconfig.debug                 |   2 +-
- drivers/gpu/drm/i915/Makefile                      |   7 +-
- drivers/gpu/drm/i915/display/i9xx_display_sr.c     |   2 +-
- drivers/gpu/drm/i915/display/i9xx_plane.c          |   2 +-
- drivers/gpu/drm/i915/display/i9xx_wm.c             |  65 +++--
- drivers/gpu/drm/i915/display/intel_audio.c         |  22 +-
- drivers/gpu/drm/i915/display/intel_backlight.c     |   2 +-
- drivers/gpu/drm/i915/display/intel_bo.c            |  27 ++
- drivers/gpu/drm/i915/display/intel_bo.h            |   8 +
- drivers/gpu/drm/i915/display/intel_bw.c            |  58 +---
- drivers/gpu/drm/i915/display/intel_casf.c          | 102 ++-----
- drivers/gpu/drm/i915/display/intel_casf.h          |   6 +-
- drivers/gpu/drm/i915/display/intel_cdclk.c         | 142 +++++-----
- drivers/gpu/drm/i915/display/intel_color.c         |  58 ++--
- .../gpu/drm/i915/display/intel_crtc_state_dump.c   |  26 +-
- drivers/gpu/drm/i915/display/intel_cx0_phy.c       |   2 +-
- drivers/gpu/drm/i915/display/intel_ddi.c           |  18 +-
- drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c |  11 +-
- drivers/gpu/drm/i915/display/intel_ddi_buf_trans.h |   3 +
- drivers/gpu/drm/i915/display/intel_de.c            |   8 +
- drivers/gpu/drm/i915/display/intel_de.h            |  17 +-
- drivers/gpu/drm/i915/display/intel_display.c       |  78 ++----
- .../drm/i915/display/intel_display_clock_gating.c  | 270 +++++++++++++++++++
- .../drm/i915/display/intel_display_clock_gating.h  |  27 ++
- drivers/gpu/drm/i915/display/intel_display_core.h  |  62 ++---
- .../gpu/drm/i915/display/intel_display_debugfs.c   |   7 +-
- .../gpu/drm/i915/display/intel_display_device.c    |   2 +-
- .../gpu/drm/i915/display/intel_display_device.h    |   1 +
- drivers/gpu/drm/i915/display/intel_display_irq.c   |   4 +
- drivers/gpu/drm/i915/display/intel_display_power.c |  14 +-
- .../gpu/drm/i915/display/intel_display_power_map.c |   2 +-
- .../drm/i915/display/intel_display_power_well.c    |  65 +++--
- drivers/gpu/drm/i915/display/intel_display_regs.h  |  32 +++
- drivers/gpu/drm/i915/display/intel_display_reset.c |  42 +--
- drivers/gpu/drm/i915/display/intel_display_reset.h |   8 +-
- drivers/gpu/drm/i915/display/intel_display_types.h |  14 +-
- drivers/gpu/drm/i915/display/intel_display_wa.c    |   2 +-
- drivers/gpu/drm/i915/display/intel_dmc.c           |  12 +-
- drivers/gpu/drm/i915/display/intel_dmc_wl.c        |   2 +-
- drivers/gpu/drm/i915/display/intel_dp.c            | 291 ++++++++++++--------
- .../gpu/drm/i915/display/intel_dp_aux_backlight.c  |   9 +-
- .../gpu/drm/i915/display/intel_dp_link_training.c  | 124 ++++++++-
- .../gpu/drm/i915/display/intel_dp_link_training.h  |   2 +-
- drivers/gpu/drm/i915/display/intel_dp_mst.c        |   9 +-
- drivers/gpu/drm/i915/display/intel_dp_tunnel.c     |  18 ++
- drivers/gpu/drm/i915/display/intel_dp_tunnel.h     |   6 +
- drivers/gpu/drm/i915/display/intel_dpio_phy.c      | 176 ++++++------
- drivers/gpu/drm/i915/display/intel_dpll.c          | 144 +++++-----
- drivers/gpu/drm/i915/display/intel_dpll_mgr.c      |   2 +-
- drivers/gpu/drm/i915/display/intel_dram.c          |  48 ++--
- drivers/gpu/drm/i915/display/intel_fb.c            |  49 ++--
- drivers/gpu/drm/i915/display/intel_fb.h            |   3 +-
- drivers/gpu/drm/i915/display/intel_fb_pin.h        |  27 +-
- drivers/gpu/drm/i915/display/intel_fbc.c           |  13 +-
- drivers/gpu/drm/i915/display/intel_fbdev.c         |  40 +--
- drivers/gpu/drm/i915/display/intel_fbdev_fb.c      | 118 --------
- drivers/gpu/drm/i915/display/intel_fbdev_fb.h      |  24 --
- drivers/gpu/drm/i915/display/intel_fdi.c           |  11 +-
- drivers/gpu/drm/i915/display/intel_flipq.c         |   2 +-
- drivers/gpu/drm/i915/display/intel_hdcp.c          |  19 +-
- drivers/gpu/drm/i915/display/intel_hdmi.c          | 165 +++++++-----
- drivers/gpu/drm/i915/display/intel_hotplug_irq.c   |  30 +--
- drivers/gpu/drm/i915/display/intel_initial_plane.c |  83 ++++--
- drivers/gpu/drm/i915/display/intel_lpe_audio.c     |   2 +-
- drivers/gpu/drm/i915/display/intel_lt_phy.c        |   2 +-
- drivers/gpu/drm/i915/display/intel_mchbar.c        |  78 ++++++
- drivers/gpu/drm/i915/display/intel_mchbar.h        |  21 ++
- drivers/gpu/drm/i915/display/intel_modeset_setup.c |   3 +-
- drivers/gpu/drm/i915/display/intel_opregion.c      |   2 +-
- drivers/gpu/drm/i915/display/intel_overlay.c       |  10 +-
- drivers/gpu/drm/i915/display/intel_parent.c        |  35 ++-
- drivers/gpu/drm/i915/display/intel_parent.h        |   8 +-
- drivers/gpu/drm/i915/display/intel_pfit.c          |  24 +-
- drivers/gpu/drm/i915/display/intel_plane.c         |  25 +-
- drivers/gpu/drm/i915/display/intel_plane.h         |   3 +
- drivers/gpu/drm/i915/display/intel_pmdemand.c      |   2 +-
- drivers/gpu/drm/i915/display/intel_psr.c           |  62 +++--
- drivers/gpu/drm/i915/display/intel_quirks.c        |  17 ++
- drivers/gpu/drm/i915/display/intel_quirks.h        |   1 +
- drivers/gpu/drm/i915/display/intel_rom.c           |  19 +-
- drivers/gpu/drm/i915/display/intel_snps_phy.c      |   2 +-
- drivers/gpu/drm/i915/display/intel_vblank.c        |   4 +-
- drivers/gpu/drm/i915/display/intel_vrr.c           |  16 +-
- drivers/gpu/drm/i915/display/intel_wm.c            |  32 +--
- drivers/gpu/drm/i915/display/skl_scaler.c          | 110 +++-----
- drivers/gpu/drm/i915/display/skl_scaler.h          |   2 -
- drivers/gpu/drm/i915/display/skl_universal_plane.c |  37 ++-
- drivers/gpu/drm/i915/display/skl_watermark.c       | 296 ++++++++-------------
- drivers/gpu/drm/i915/display/vlv_clock.c           |  13 +-
- drivers/gpu/drm/i915/display/vlv_dsi.c             |  20 +-
- drivers/gpu/drm/i915/display/vlv_dsi_pll.c         |  38 +--
- drivers/gpu/drm/i915/display/vlv_sideband.c        | 136 +++++++++-
- drivers/gpu/drm/i915/display/vlv_sideband.h        | 166 ++----------
- drivers/gpu/drm/i915/gem/i915_gem_stolen.c         |   4 +-
- drivers/gpu/drm/i915/gt/intel_ggtt.c               |   2 +-
- drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c       |   2 +-
- drivers/gpu/drm/i915/gt/intel_gt.c                 |   2 +-
- drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c      |   1 -
- drivers/gpu/drm/i915/gt/intel_llc.c                |   2 +-
- drivers/gpu/drm/i915/gt/intel_region_lmem.c        |   2 +-
- drivers/gpu/drm/i915/gt/intel_reset.c              |  40 +--
- drivers/gpu/drm/i915/gt/intel_rps.c                |   4 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c        |   1 -
- drivers/gpu/drm/i915/gvt/cfg_space.c               |   2 +-
- drivers/gpu/drm/i915/gvt/handlers.c                |   1 -
- drivers/gpu/drm/i915/i915_bo.c                     | 114 ++++++++
- drivers/gpu/drm/i915/i915_bo.h                     |   6 +
- drivers/gpu/drm/i915/i915_debugfs.c                |   2 +-
- drivers/gpu/drm/i915/i915_dpt.c                    |   5 +-
- drivers/gpu/drm/i915/i915_driver.c                 |   9 +-
- drivers/gpu/drm/i915/i915_drv.h                    |   2 +
- .../i915/{display/intel_fb_pin.c => i915_fb_pin.c} | 157 +++++------
- drivers/gpu/drm/i915/i915_freq.c                   |   2 +-
- drivers/gpu/drm/i915/i915_gmch.c                   |   2 +-
- drivers/gpu/drm/i915/i915_gtt_view_types.h         |  15 ++
- drivers/gpu/drm/i915/i915_hwmon.c                  |   2 +-
- drivers/gpu/drm/i915/i915_initial_plane.c          |  33 +--
- drivers/gpu/drm/i915/i915_overlay.c                |   8 +-
- drivers/gpu/drm/i915/i915_pci.c                    |   2 +-
- drivers/gpu/drm/i915/i915_reg.h                    |  31 ---
- drivers/gpu/drm/i915/i915_vma.c                    |  10 -
- drivers/gpu/drm/i915/i915_vma.h                    |   2 -
- drivers/gpu/drm/i915/intel_clock_gating.c          | 230 ++--------------
- drivers/gpu/drm/i915/intel_gvt_mmio_table.c        |   2 +-
- drivers/gpu/drm/i915/selftests/mock_gem_device.c   |   1 +
- drivers/gpu/drm/i915/vlv_iosf_sb.c                 |   8 +
- drivers/gpu/drm/i915/vlv_iosf_sb.h                 |  16 +-
- drivers/gpu/drm/xe/Makefile                        |   6 +-
- .../xe/compat-i915-headers/intel_clock_gating.h    |  10 +-
- .../drm/xe/compat-i915-headers/intel_mchbar_regs.h |   6 -
- .../drm/xe/compat-i915-headers/intel_pci_config.h  |   6 -
- .../gpu/drm/xe/compat-i915-headers/intel_step.h    |  13 -
- .../gpu/drm/xe/compat-i915-headers/vlv_iosf_sb.h   |  42 ---
- .../drm/xe/compat-i915-headers/vlv_iosf_sb_reg.h   |   6 -
- drivers/gpu/drm/xe/display/intel_fbdev_fb.c        | 120 ---------
- drivers/gpu/drm/xe/display/xe_display.c            |  11 +-
- drivers/gpu/drm/xe/display/xe_display_bo.c         | 120 +++++++++
- drivers/gpu/drm/xe/display/xe_display_bo.h         |   6 +
- drivers/gpu/drm/xe/display/xe_fb_pin.c             |  73 +++--
- drivers/gpu/drm/xe/display/xe_initial_plane.c      |  32 +--
- drivers/gpu/drm/xe/tests/xe_pci.c                  |   4 +-
- drivers/gpu/drm/xe/xe_step.c                       |   2 +-
- drivers/gpu/drm/xe/xe_step.h                       |   4 +-
- drivers/gpu/drm/xe/xe_step_types.h                 |  61 +----
- include/drm/display/drm_dp_tunnel.h                |   6 +
- include/drm/intel/display_parent_interface.h       |  23 +-
- .../drm/intel/mchbar_regs.h                        |   7 +-
- .../drm/intel/pci_config.h                         |   0
- .../drm/intel/vlv_iosf_sb_regs.h                   |  18 +-
- 150 files changed, 2802 insertions(+), 2344 deletions(-)
- create mode 100644 drivers/gpu/drm/i915/display/intel_display_clock_gating.c
- create mode 100644 drivers/gpu/drm/i915/display/intel_display_clock_gating.h
- delete mode 100644 drivers/gpu/drm/i915/display/intel_fbdev_fb.c
- delete mode 100644 drivers/gpu/drm/i915/display/intel_fbdev_fb.h
- create mode 100644 drivers/gpu/drm/i915/display/intel_mchbar.c
- create mode 100644 drivers/gpu/drm/i915/display/intel_mchbar.h
- rename drivers/gpu/drm/i915/{display/intel_fb_pin.c => i915_fb_pin.c} (66%)
- delete mode 100644 drivers/gpu/drm/xe/compat-i915-headers/intel_mchbar_regs.h
- delete mode 100644 drivers/gpu/drm/xe/compat-i915-headers/intel_pci_config.h
- delete mode 100644 drivers/gpu/drm/xe/compat-i915-headers/intel_step.h
- delete mode 100644 drivers/gpu/drm/xe/compat-i915-headers/vlv_iosf_sb.h
- delete mode 100644 drivers/gpu/drm/xe/compat-i915-headers/vlv_iosf_sb_reg.h
- delete mode 100644 drivers/gpu/drm/xe/display/intel_fbdev_fb.c
- rename drivers/gpu/drm/i915/intel_mchbar_regs.h => include/drm/intel/mchbar_regs.h (98%)
- rename drivers/gpu/drm/i915/intel_pci_config.h => include/drm/intel/pci_config.h (100%)
- rename drivers/gpu/drm/i915/vlv_iosf_sb_reg.h => include/drm/intel/vlv_iosf_sb_regs.h (95%)
+> --Mika
+>=20
+> >
+> > On 2026-05-05 at 15:16 +1000, mpenttil@redhat.com wrote...
+> >> From: Mika Penttil=C3=A4 <mpenttil@redhat.com>
+> >>
+> >> Currently, the way device page faulting and migration works
+> >> is not optimal, if you want to do both fault handling and
+> >> migration at once.
+> >>
+> >> Being able to migrate not present pages (or pages mapped with incorrec=
+t
+> >> permissions, eg. COW) to the GPU requires doing either of the
+> >> following sequences:
+> >>
+> >> 1. hmm_range_fault() - fault in non-present pages with correct permiss=
+ions, etc.
+> >> 2. migrate_vma_*() - migrate the pages
+> >>
+> >> Or:
+> >>
+> >> 1. migrate_vma_*() - migrate present pages
+> >> 2. If non-present pages detected by migrate_vma_*():
+> >>    a) call hmm_range_fault() to fault pages in
+> >>    b) call migrate_vma_*() again to migrate now present pages
+> >>
+> >> The problem with the first sequence is that you always have to do two
+> >> page walks even when most of the time the pages are present or zero pa=
+ge
+> >> mappings so the common case takes a performance hit.
+> >>
+> >> The second sequence is better for the common case, but far worse if
+> >> pages aren't present because now you have to walk the page tables thre=
+e
+> >> times (once to find the page is not present, once so hmm_range_fault()
+> >> can find a non-present page to fault in and once again to setup the
+> >> migration). It is also tricky to code correctly. One page table walk
+> >> could costs over 1000 cpu cycles on X86-64, which is a significant hit=
+.
+> >>
+> >> We should be able to walk the page table once, faulting
+> >> pages in as required and replacing them with migration entries if
+> >> requested.
+> >>
+> >> Add a new flag to HMM APIs, HMM_PFN_REQ_MIGRATE,
+> >> which tells to prepare for migration also during fault handling.
+> >> Also, for the migrate_vma_setup() call paths, a flag, MIGRATE_VMA_FAUL=
+T,
+> >> is added to tell to add fault handling to migrate.
+> >>
+> >> One extra benefit of migrating with hmm_range_fault() path
+> >> is the migrate_vma.vma gets populated, so no need to
+> >> retrieve that separataly.
+> >>
+> >> Tested in X86-64 VM with HMM test device, passing the selftests.
+> >> For performance, the migrate throughput tests from the selftests
+> >> show similar numbers (within error margin) as unmodified kernel.
+> >> Tested also rebased on the
+> >> "Remove device private pages from physical address space" series:
+> >> https://lore.kernel.org/linux-mm/20260130111050.53670-1-jniethe@nvidia=
+.com/
+> >> plus a small patch to adjust with no problems.
+> >>
+> >> Changes v8-v9
+> >>   - rebase on drm-tip
+> >>   - fixed uaf around  migrate_vma_split_folio() usage
+> >>   - added missing pmd unlock
+> >>
+> >> Changes v7-v8
+> >>   - rebase on 7.0
+> >>   - fixed subject in two patches
+> >>   - enhanced commit messages
+> >>   - squashed patch 6 into patch 4 to fix kernel test robot warning
+> >>   - readded dropped Cc block from cover letter
+> >>   - fixed white space
+> >>
+> >> Changes v6-v7
+> >>   - rebase on 7.0.0-rc6
+> >>   - added documentation and comments
+> >>   - denote to be migrated zero page as HMM_PFN_MIGRATE alone
+> >>   - got rid of HMM_PFN_INOUT_FLAGS movement in patch 2
+> >>   - picked up Acked-By from David for patch 1
+> >>  =20
+> >> Changes v5-v6
+> >>   - rebase on 7.0.0-rc4
+> >>   - use range based TLB flushing while unmapping ptes
+> >>   - gate migration behind HMM_PFN_REQ_MIGRATE for fault and
+> >>     migrate paths
+> >>   - always infer migration flags from migrate->flags only
+> >>
+> >> Changes v4-v5
+> >>   - rebase on 6.19
+> >>   - fixed David's email address
+> >>   - fixed link issue without CONFIG_TRANSPARENT_HUGEPAGE
+> >>   - refactored into smaller commits
+> >>   - added more comments to code
+> >>
+> >> Changes v3-v4:
+> >>   - rebase on 6.19-rc8
+> >>   - fixed issues found by kernel test robot with random configs
+> >>   - fixed typos
+> >>
+> >> Changes v2-v3:
+> >>   - rebase on 6.19-rc7
+> >>   - fixed issues found by kernel test robot
+> >>   - fixed smatch issues reported by Dan Carpenter <dan.carpenter@linar=
+o.org>
+> >>   - fixes to lock handling (pmd/pte) on errors
+> >>   - added assertions for pmd/pte lock states
+> >>   - other issues discovered by Matthew, thanks!
+> >>
+> >> Changes v1-v2:
+> >>   - rebase on 6.19-rc6
+> >>   - fixed issues found by kernel test robot
+> >>   - fixed locking (pmd/ptl) to cover handle_ and prepare_ regions
+> >>     parts if migrating
+> >>   - other issues discovered by Matthew, thanks!
+> >>
+> >> Changes RFC-v1:
+> >>   - rebase on 6.19-rc5
+> >>   - adjust for the device THP
+> >>   - changes from feedback
+> >>
+> >> Revisions:
+> >>   - RFC https://lore.kernel.org/linux-mm/20250814072045.3637192-1-mpen=
+ttil@redhat.com/
+> >>   - v1: https://lore.kernel.org/all/20260114091923.3950465-1-mpenttil@=
+redhat.com/
+> >>   - v2: https://lore.kernel.org/all/20260119112502.645059-1-mpenttil@r=
+edhat.com/
+> >>   - v3: https://lore.kernel.org/all/20260126111939.1332983-2-mpenttil@=
+redhat.com/
+> >>   - v4: https://lore.kernel.org/all/20260202112622.2104213-1-mpenttil@=
+redhat.com/
+> >>   - v5: https://lore.kernel.org/linux-mm/20260211081301.2940672-1-mpen=
+ttil@redhat.com/
+> >>   - v6: https://lore.kernel.org/linux-mm/20260316062407.3354636-1-mpen=
+ttil@redhat.com/
+> >>   - v7: https://lore.kernel.org/linux-mm/20260330115611.347988-1-mpent=
+til@redhat.com/
+> >>   - v8: https://lore.kernel.org/linux-mm/20260414041226.1539439-1-mpen=
+ttil@redhat.com/
+> >>
+> >> Cc: David Hildenbrand <david@kernel.org>
+> >> Cc: Jason Gunthorpe <jgg@nvidia.com>
+> >> Cc: Leon Romanovsky <leonro@nvidia.com>
+> >> Cc: Alistair Popple <apopple@nvidia.com>
+> >> Cc: Balbir Singh <balbirs@nvidia.com>
+> >> Cc: Zi Yan <ziy@nvidia.com>
+> >> Cc: Matthew Brost <matthew.brost@intel.com>
+> >> Cc: Andrew Morton <akpm@linux-foundation.org>
+> >> Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+> >> Cc: "Liam R. Howlett" <Liam.Howlett@oracle.com>
+> >> Cc: Vlastimil Babka <vbabka@suse.cz>
+> >> Cc: Mike Rapoport <rppt@kernel.org>
+> >> Cc: Suren Baghdasaryan <surenb@google.com>
+> >> Cc: Michal Hocko <mhocko@suse.com>
+> >>
+> >> Mika Penttil=C3=A4 (5):
+> >>   mm/Kconfig: changes for migrate on fault for device pages
+> >>   mm: Add helper to convert HMM pfn to migrate pfn
+> >>   mm/hmm: do the plumbing for HMM to participate in migration
+> >>   mm: setup device page migration in HMM pagewalk
+> >>   lib/test_hmm:: add a new testcase for the migrate on fault
+> >>
+> >>  include/linux/hmm.h                    |  19 +-
+> >>  include/linux/migrate.h                |  26 +-
+> >>  lib/test_hmm.c                         | 101 ++-
+> >>  lib/test_hmm_uapi.h                    |  19 +-
+> >>  mm/Kconfig                             |   2 +
+> >>  mm/hmm.c                               | 835 +++++++++++++++++++++++-=
+-
+> >>  mm/migrate_device.c                    | 583 +++--------------
+> >>  tools/testing/selftests/mm/hmm-tests.c |  54 ++
+> >>  8 files changed, 1066 insertions(+), 573 deletions(-)
+> >>
+> >> drm-tip
+> >> base-commit: 94d56a898a2db27f841b17f6966a81ba502fe63c
+> >> --=20
+> >> 2.50.0
+> >>
+>=20
