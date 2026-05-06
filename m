@@ -4,134 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12B79CD3424
-	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 07:28:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D34A4CD3424
+	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 07:40:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5115610E501;
-	Wed,  6 May 2026 07:28:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41FEF10E185;
+	Wed,  6 May 2026 07:40:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="2EJwpe8j";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="paoJb5AO";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="2EJwpe8j";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="paoJb5AO";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qvMiNVma";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC85310E501
- for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 07:28:36 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id A4F3F5CE62;
- Wed,  6 May 2026 07:28:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1778052515; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Pm/UUg1qmkd/GJamLIhuG9THcoNGvzKbMUUQBqQr8Us=;
- b=2EJwpe8jksUdcStccoPRU2iQ4M0S4Wtqn3rMO5JxATLIgkcZ6k/qPEy185eGC4G3rlzWhO
- p3GwFRV2vXrov1wGTSOS0BC5p+lhgH6GvZwuslXTNx6a71VDfLkTjfTb4yodOAnUYJUi24
- BBWvMWiatNFvWk9uJzXe0+MT1jgmrvc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1778052515;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Pm/UUg1qmkd/GJamLIhuG9THcoNGvzKbMUUQBqQr8Us=;
- b=paoJb5AOo9488AhuRt6uFvU+S7iiSiuwpkmKEsDXP/Eg5/RlQj/IHXUWfS4bmZAhMXRF2D
- Z3TIufGGUE3L7nAw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1778052515; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Pm/UUg1qmkd/GJamLIhuG9THcoNGvzKbMUUQBqQr8Us=;
- b=2EJwpe8jksUdcStccoPRU2iQ4M0S4Wtqn3rMO5JxATLIgkcZ6k/qPEy185eGC4G3rlzWhO
- p3GwFRV2vXrov1wGTSOS0BC5p+lhgH6GvZwuslXTNx6a71VDfLkTjfTb4yodOAnUYJUi24
- BBWvMWiatNFvWk9uJzXe0+MT1jgmrvc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1778052515;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Pm/UUg1qmkd/GJamLIhuG9THcoNGvzKbMUUQBqQr8Us=;
- b=paoJb5AOo9488AhuRt6uFvU+S7iiSiuwpkmKEsDXP/Eg5/RlQj/IHXUWfS4bmZAhMXRF2D
- Z3TIufGGUE3L7nAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3D40B593A3;
- Wed,  6 May 2026 07:28:35 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 4rpxDKPt+ml+dgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 06 May 2026 07:28:35 +0000
-Message-ID: <dc2cefd5-359d-43f4-b91b-d1b8a77bccbd@suse.de>
-Date: Wed, 6 May 2026 09:28:34 +0200
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com
+ [209.85.208.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B92B10E185
+ for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 07:40:07 +0000 (UTC)
+Received: by mail-ed1-f47.google.com with SMTP id
+ 4fb4d7f45d1cf-67b8d9c26bbso8753258a12.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 06 May 2026 00:40:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778053206; cv=none;
+ d=google.com; s=arc-20240605;
+ b=jOuKO97wmNuj3Eq07sEZz9oqI3ucx5ZpVG0QSpHTc4AhWy1yI38Py0O4ZkokkhDpol
+ 0pixThOCgYmwkEw5kMfqfTw1jGQsbsA5+FhY1UsoznBVmX5/y+teDtgJmHhOLlRZWAqf
+ ziT5qCHrTimSrx/DQbeUll78801xUpxVWQe96V7th3hC4jw/zaROI0UgJ/nazqZmpFRp
+ 1v6B7TWug5fOCStRbQJBiaKJBxR7aGPQOHKYXFSvDA7dAKDbd3BvcXX511JYXMW1X3ln
+ hAwmb34NMiixv4/XGra4o39G3YxVCiZER046YMXxc6javrof7gBl2R0RXWBaCOyCo/rv
+ E6mA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=tXVlFNiySvQK4J5YoU1UIUrYaUeFLiQ4Kso4pCitG60=;
+ fh=KJ7z+C/Ucoh+8YirCLdnG/FJqSdG8vj7ihPrJavC0t4=;
+ b=hhG/PHgHnLQ+D9lpKJU5yVwg93+hK+CiFJi6xfz2SjP+y5x18OdceH+a2WAKfXqSwO
+ lg4EbRSDYhkM5RZByUcj25Tnszl+RkOFqO5VD+5cFXRT9PgHsqw6PdZnFTkMn54Y6UC6
+ IaGZTzeBQgXo52zjrYTT7VtK4CyBW8itWmD6DXKWahnL+ThX1llmpAUONLWZSf3kWA4w
+ 5vGMu1D7U6bL73NVi1qT9ucHV3acHJAOMCdJZnyb/NgyEp4pVeU5e4qyWB8dmI5V1Ttn
+ n0ggl1kdENBTTNG9qDkCW0hQEEpg1CAV2+NPGrIQpp5G9gzQbC4HJYQCVrHjhup8E94A
+ uFtw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1778053206; x=1778658006; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=tXVlFNiySvQK4J5YoU1UIUrYaUeFLiQ4Kso4pCitG60=;
+ b=qvMiNVmaNvF8jM9ps5EMJeeBcawAqxwPEd9MwKgb7UEtT69wXaHXI+1+QtV0EdTT2L
+ c94DzfkktoQ4E6zuTdoZgdMfC4MHk8br5Yoz+/v3ZpRp/XoCz6vg0ITNfSP9xQ5uGZ1i
+ t+gKA7wehoBEsDSw7pqo6aFX+QmsMZMHaRAtSJT2ypAM69Yotx6nZBv6SHilvrDxmORz
+ AmQdz4iOQd5/G1wYYB9nkj2wNBz2VNTx6d84igFSwjyQAK69a79kHVoR2Yn3nvsL9O1D
+ MnavSxGkBi3mfL0Ku5ozLw2EOjfLDpGvJAd0kKDJK6xm9Dc/Kn2LPm5KJRG48HEsMUSj
+ uHhA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778053206; x=1778658006;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=tXVlFNiySvQK4J5YoU1UIUrYaUeFLiQ4Kso4pCitG60=;
+ b=fKBJNMewcExax2VhxrPqo8TfR2F2tPdtYIIPvSvfFuttEVdlYVop1nwijf4VlI+9BZ
+ 3Wi8N71zTUcviIh6prxvuyVKdsXPr3OL5pGNfsGxjAKX01azIg2hSRmdQYrwg3E9lok/
+ xcdFmvjKzPgeQvVK/+LY0D525R+orrVNprDLBTTLwxTl5lgjRIWmax0+bI2v+Piq3Yi8
+ s0RNNNnynN/VKict6onxLWivdDmaISDZnS+6MiAwwPKVgUG0IohDJup1wp/gmlvnv2xQ
+ ODMfJUqzzXRV1N17/tnGnd9fhk7VnDKPIEreocH8gkbT2GhMkFh/mGyZLlHSt9nTjOTr
+ uLPQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+lvV3rcnqlCsxWxi6ITry+bwziRWLaKa19qqomwAlIB6dSNWfs7eMQqgiQsxdzB15Gg62+alzQ1Q0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxyaDFLPClpSZz2TJHFyl07W3ApLMLv9w/3c8pK0oM1AgNU797q
+ ygLlHK+Zqzza5ooGF2tcNKP48qRzpzrDER79umgM/5fywuWsmagWvGu7rpcjwCp8tGoLvkrjXFA
+ JzQDnlwiwkS75p9WqvEOWROFiP2jKrw==
+X-Gm-Gg: AeBDietWnJv40yqfbrjNwlOLcBxkacWUCVZ+hqBw7hrWMo4iZC/tcPDTM6ql7o4xCHt
+ rt3R8bQGyaXy4hZ3BecRPE45wSQwZUiB7voMT3HBdg4WTuWxy6xDbqnmMCJC6mMrNCBOM4lpBip
+ 86tZPVnthyvCsrD/aYLYodwZIC1GEAw0ojGEQZVPQOSLfhmqzZljZvGjYY1IQHJj8fOeREzBXyp
+ pQPDAd4cUM7BM1SWTNTVdrdqOXBWGatgC++Dx5skyiTLIMT9cg1Bjs+IZ7sjgTM7cdHV9Kn+lX4
+ T7SaZXf/eHS7oYmJS4cSZ0YJZKi/vdrXp6TNEdxjRVsUQ/w=
+X-Received: by 2002:a05:6402:21d3:b0:671:a18b:32b8 with SMTP id
+ 4fb4d7f45d1cf-67d6201ec96mr871799a12.0.1778053205490; Wed, 06 May 2026
+ 00:40:05 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 0/3] drm: Drop unused include of <drm/drm_pciids.h>
-To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
- <u.kleine-koenig@baylibre.com>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Dave Airlie <airlied@redhat.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Markus Schneider-Pargmann <msp@baylibre.com>,
- Maxime Ripard <mripard@kernel.org>, Jocelyn Falempe <jfalempe@redhat.com>
-References: <cover.1777545446.git.u.kleine-koenig@baylibre.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <cover.1777545446.git.u.kleine-koenig@baylibre.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_TLS_ALL(0.00)[];
- ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- MIME_TRACE(0.00)[0:+]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- RCPT_COUNT_TWELVE(0.00)[14]; TAGGED_RCPT(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[]; TO_DN_SOME(0.00)[];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org,baylibre.com,kernel.org,redhat.com];
- FREEMAIL_TO(0.00)[baylibre.com,amd.com,gmail.com,linux.intel.com,redhat.com]; 
- FROM_EQ_ENVFROM(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.de:mid,
- suse.de:email, suse.com:url]
+References: <20260424124118.38649-1-mhun512@gmail.com>
+ <CAD++jLnqJvtx7H3YDfcuqfGHSg_9_xzUJMaLSC+N34J7R18eRw@mail.gmail.com>
+In-Reply-To: <CAD++jLnqJvtx7H3YDfcuqfGHSg_9_xzUJMaLSC+N34J7R18eRw@mail.gmail.com>
+From: Myeonghun Pak <mhun512@gmail.com>
+Date: Wed, 6 May 2026 16:39:54 +0900
+X-Gm-Features: AVHnY4IN47NkKa10Dqgb6vjs-dcsWin0uh4NpU8yD2Ca2xRfbPxYqyEK4Yvmi0c
+Message-ID: <CAGEsz8HaMCsG0tU2CzwoVo5YqeQivEHPyCfDUgXkCvfgPDP4fQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/tve200: Fix probe cleanup after register failure
+To: Linus Walleij <linusw@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: multipart/alternative; boundary="000000000000b47ea306512145c4"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,48 +107,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+--000000000000b47ea306512145c4
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Am 30.04.26 um 12:45 schrieb Uwe Kleine-König (The Capable Hub):
-> Hello,
->
-> <drm/drm_pciids.h> is only actually used in the radeon driver but
-> included in several others. This series drops these includes.
->
-> The obvious continuation would be to fold the definition of
-> radeon_PCI_IDS into the only .c file using it. But I post-pone that
-> until
-> https://lore.kernel.org/all/20260430102958.136859-2-u.kleine-koenig@baylibre.com/
-> is out of the way.
->
-> There are no dependencies between the patches, so I suggest that each
-> maintainer team applies their material to their own tree at their own
-> pace.
->
-> To state the obvious: This is merge window material.
->
-> Best regards
-> Uwe
->
-> Uwe Kleine-König (The Capable Hub) (3):
->    drm/amdgpu: Drop unused include of <drm/drm_pciids.h>
->    drm/gma500: Drop unused include of <drm/drm_pciids.h>
->    drm/mgag200: Drop unused include of <drm/drm_pciids.h>
->
->   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 1 -
->   drivers/gpu/drm/gma500/psb_drv.c        | 1 -
->   drivers/gpu/drm/mgag200/mgag200_drv.c   | 1 -
->   3 files changed, 3 deletions(-)
->
->
-> base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
+Dear Linus,
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+Thank you for applying the patch to drm-misc-next.
 
+Best regards,
+Myeonghun Pak
 
+2026=EB=85=84 5=EC=9B=94 5=EC=9D=BC (=ED=99=94) =EC=98=A4=ED=9B=84 6:18, Li=
+nus Walleij <linusw@kernel.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+
+> On Fri, Apr 24, 2026 at 2:41=E2=80=AFPM Myeonghun Pak <mhun512@gmail.com>=
+ wrote:
+>
+> > tve200_modeset_init() creates a panel bridge and initializes the DRM
+> > mode config before tve200_probe() registers the DRM device. If
+> > drm_dev_register() fails, probe returns an error and the driver's remov=
+e
+> > callback is not called, so those modeset resources are left behind.
+> >
+> > Unwind the panel bridge and mode config on that failure path before
+> > disabling the clock and dropping the DRM device reference.
+> >
+> > Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+>
+> Patch applied to drm-misc-next.
+>
+> Yours,
+> Linus Walleij
+>
+
+--000000000000b47ea306512145c4
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><span class=3D"gmail-rnc2Gd" style=3D"col=
+or:rgb(31,31,31);font-family:&quot;Google Sans&quot;,Roboto,Arial,sans-seri=
+f;font-size:15.75px;font-variant-ligatures:no-contextual">Dear Linus,</span=
+><div class=3D"gmail-gWqWw gmail-rnc2Gd" style=3D"color:rgb(31,31,31);font-=
+family:&quot;Google Sans&quot;,Roboto,Arial,sans-serif;font-size:15.75px;fo=
+nt-variant-ligatures:no-contextual"><br></div><span class=3D"gmail-rnc2Gd" =
+style=3D"color:rgb(31,31,31);font-family:&quot;Google Sans&quot;,Roboto,Ari=
+al,sans-serif;font-size:15.75px;font-variant-ligatures:no-contextual">Thank=
+ you for applying the patch to drm-misc-next.</span><div class=3D"gmail-gWq=
+Ww gmail-rnc2Gd" style=3D"color:rgb(31,31,31);font-family:&quot;Google Sans=
+&quot;,Roboto,Arial,sans-serif;font-size:15.75px;font-variant-ligatures:no-=
+contextual"><br></div><span class=3D"gmail-rnc2Gd" style=3D"color:rgb(31,31=
+,31);font-family:&quot;Google Sans&quot;,Roboto,Arial,sans-serif;font-size:=
+15.75px;font-variant-ligatures:no-contextual">Best regards,</span><div clas=
+s=3D"gmail-gWqWw gmail-rnc2Gd" style=3D"color:rgb(31,31,31);font-family:&qu=
+ot;Google Sans&quot;,Roboto,Arial,sans-serif;font-size:15.75px;font-variant=
+-ligatures:no-contextual">Myeonghun Pak</div></div><br><div class=3D"gmail_=
+quote gmail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">2026=EB=
+=85=84 5=EC=9B=94 5=EC=9D=BC (=ED=99=94) =EC=98=A4=ED=9B=84 6:18, Linus Wal=
+leij &lt;<a href=3D"mailto:linusw@kernel.org">linusw@kernel.org</a>&gt;=EB=
+=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:<br></div><blockquote class=3D"gmail_quo=
+te" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204=
+);padding-left:1ex">On Fri, Apr 24, 2026 at 2:41=E2=80=AFPM Myeonghun Pak &=
+lt;<a href=3D"mailto:mhun512@gmail.com" target=3D"_blank">mhun512@gmail.com=
+</a>&gt; wrote:<br>
+<br>
+&gt; tve200_modeset_init() creates a panel bridge and initializes the DRM<b=
+r>
+&gt; mode config before tve200_probe() registers the DRM device. If<br>
+&gt; drm_dev_register() fails, probe returns an error and the driver&#39;s =
+remove<br>
+&gt; callback is not called, so those modeset resources are left behind.<br=
+>
+&gt;<br>
+&gt; Unwind the panel bridge and mode config on that failure path before<br=
+>
+&gt; disabling the clock and dropping the DRM device reference.<br>
+&gt;<br>
+&gt; Signed-off-by: Myeonghun Pak &lt;<a href=3D"mailto:mhun512@gmail.com" =
+target=3D"_blank">mhun512@gmail.com</a>&gt;<br>
+<br>
+Patch applied to drm-misc-next.<br>
+<br>
+Yours,<br>
+Linus Walleij<br>
+</blockquote></div></div>
+
+--000000000000b47ea306512145c4--
