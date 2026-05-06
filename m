@@ -4,85 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 387ACCD342C
-	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 17:06:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73715CD342C
+	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 17:11:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7608C10EE37;
-	Wed,  6 May 2026 17:06:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0C9710E56B;
+	Wed,  6 May 2026 17:11:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=compal-corp-partner-google-com.20251104.gappssmtp.com header.i=@compal-corp-partner-google-com.20251104.gappssmtp.com header.b="WzbsYzJ0";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="LmkOwblY";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NHFcYCXM";
 	dkim-atps=neutral
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com
- [209.85.215.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B197B10EE39
- for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 17:06:39 +0000 (UTC)
-Received: by mail-pg1-f180.google.com with SMTP id
- 41be03b00d2f7-c80148ae949so1672582a12.2
- for <dri-devel@lists.freedesktop.org>; Wed, 06 May 2026 10:06:39 -0700 (PDT)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 095A910E220
+ for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 17:11:42 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 646E9JNI1434850
+ for <dri-devel@lists.freedesktop.org>; Wed, 6 May 2026 17:11:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=un3yVwWjhGsMpiYluHyNBGdsRgvIh0stQSQ
+ 2hPW6rbQ=; b=LmkOwblYOW9eQr4d0meXPmxgBYpmcZ5tw78+ewWA3mXPFDJUGYC
+ CFSIC6c3MDylMFl4ULaXK95mA85K43T+I7dH2RRJR87CoiowcnGQpGtWh1Afzz/U
+ xtZ/R0HUlrzQpQ5RnkXtGJbwh/X1D+y+xoreQosMb31g7PMyxAdwfZu8gr//zkkc
+ AhhgT9x3gpMIJN2hqWdZKB63Pvm/RRXAWcDiU+FeexH08PMfe0nllmFz8zeTyOmD
+ 4IkY8f2UZ1lYOCxZFYMwMSOM19KXnSApDH6Are+hRa5elCARCuus8i+lGjb0u7tg
+ rhiKBO6dt6jGVHAl4kdZHcRYyJgKLJ83l+A==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
+ [209.85.214.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dyuqduep2-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 06 May 2026 17:11:41 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id
+ d9443c01a7336-2b99eb06178so120973995ad.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 06 May 2026 10:11:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=compal-corp-partner-google-com.20251104.gappssmtp.com; s=20251104;
- t=1778087199; x=1778691999; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=28KXxo0LUshly9aWm6dlmQsJn/WVgxR4OO3p2iyJ3ys=;
- b=WzbsYzJ0dNtOEzAF9tqSSd56rnM9b20SMIafNcRXJlAV1FNDby0vmt1TMpDtBxocUX
- BLZitB/dyS4/vIfQ06yjMlgG7ivLYn/uL73fq1OCOLpJ7329w2zSVlaWTstH95I6m6U2
- h6FnNtugUufpebKsR5GYLGLxEZXe/+d79x5YMgfFtTru28IYNjK9slGTGcMk2fWN9N4u
- pp+oSJhzUktanN02MG10gPVO6RjPweRms7dNijwpaoQYOthpIyMKctA8LrC7v203orYS
- AIDmOEoONC/YisliI4/Q2Za4QCGwiq+KprzWPWJFVIyQhB090ZGRxfPXVn1mw8RZVpj4
- Hwzw==
+ d=oss.qualcomm.com; s=google; t=1778087501; x=1778692301;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=un3yVwWjhGsMpiYluHyNBGdsRgvIh0stQSQ2hPW6rbQ=;
+ b=NHFcYCXMnFC0NuvWrpszgkPh0QG+hlEOSxtvaXokhxmVaiR2p7mdPalNR2Y5gB6sL4
+ fh/li9ZVCQ9uMFKpvRJGt0RH+R/cW9gwzHZjKeAfww6AV0TPO9EfzY+ut9LNxJ75ML0+
+ A07mHazG/+5jEp11vMEH15MwEouf1dsMUebgeFlUp67KwZpEcXHQ+Ygf5pG7S+p65Sgb
+ 4bSmYzjeFQC0cWKYFcD8gN2CspOXUtY18Z1O6GDj2M/qiIIx4O3iofy+NiKBZ1bqtt+K
+ lAhfVtsAToCbyzwJqlpXXZQPd+tAv14OSxgGASiIz2p1HiNZGVZi1JcRr5WnyNcAdna1
+ oq+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778087199; x=1778691999;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=28KXxo0LUshly9aWm6dlmQsJn/WVgxR4OO3p2iyJ3ys=;
- b=URlbl/pXbO5qr0XJedFoo1YIeYsy5sNWxifFlr8aEcvq2Qf+vEQU4gj/btjvcMAK/e
- ddRVOFJB/4R0qDhKeRaf3bMHjA0TmnW3PX0rPwTnhKU8zoNko5WHrjgWFj3Q9fpxn9Ye
- 5le+LwMKL63ptfRKq5hq29BcN/ulbu6qYet3Jk0PnjFxouadJrOxiPYZL+zXZa+krZUv
- 7uk2ox1jqfaHBsIo+ghUSIM18emoUirghKPw4NsMXFj34YDzneLVYAM5Rt6Hhz0r04GS
- DnoWUMaBGZVny7gNSwA8okRwWN0388eCQNmTD+pYJV2PguIMrHPz9bcUA/FnV8/hHsHy
- 1nXg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+eqcFA0RmVEfMz+Ognh4qZXMpqtM9nROfXs1Wa1jz843TcUgFPzxJ3HAywUjx/oMnESnrwN1u2CLA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzvWygGXymtE+RvzQglmLXMzhY7fdmUmbV+XfxOSrPTXZjK6OvD
- Dof6tZRypQVE9WAuBXBVQGmHcGzJeV1PBwkdvXbpn2UHPrzCtf5XnUUuWSgOyy9gfBQ=
-X-Gm-Gg: AeBDieskNejMgp6aegJgwdbRZEvA+lBswB5doyWM1LLRzbvC9mrTSqNfGzjyfJlPQfE
- hndth7XX5UsM6zIBxauTToWpt3ILVbP0yvicaqqgpM1qkKjFyH+JFaSH/ffWaPOXBiIURD+WdNW
- GGq2DyFCynZxzgwAVtDNf4eagrGgaKNrmdFZsEZPW4muJAzb19NehEEXWCgsUM/U5MG5vTDAwdB
- d3T9DDSQu6aJhp56/JFJZe1U+FUb3CVTRFwAbJ4rPsbu9qlm1JxwkOHGewla9bVSdbAslxVI4mj
- 2ItZn1WLoME30UjHisFm+vkEPS8wr3QTpEw3BkHC5hqU2h1WQCyOmp/cKQ+C+kBxziwvcl1lT2f
- KXhAsDtNNMOiD0Tin1sQbx8iqCKWWrnJJRNRi+LG3cDU2WDBwmut4E2DexNFgBDW+xjdL32mi3k
- lufvFc4oOvnzP93GxhN2E5xmnm/P9s3AHokvqKaccw83zQisz325UuwdL3CIQnG7DP/mtlbye8X
- 674MTcW+vqR03vrzSx5Ag==
-X-Received: by 2002:a05:6a20:7293:b0:398:b95c:51ed with SMTP id
- adf61e73a8af0-3aa5ababc9emr4750241637.35.1778087199053; 
- Wed, 06 May 2026 10:06:39 -0700 (PDT)
-Received: from terryhsiao-Latitude-5490.. ([150.116.253.88])
+ d=1e100.net; s=20251104; t=1778087501; x=1778692301;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=un3yVwWjhGsMpiYluHyNBGdsRgvIh0stQSQ2hPW6rbQ=;
+ b=R9JGigCR5KBKBchfxxTeVJBSCSZexglgs2sTYOFuIwBlRK8hbp6ilOXF1f0rK1P9d8
+ pWZFy2X9fyiLSF+6kzldlyl3OTRqMJ1nir2doCI7si4Q00+amD+iCVlpsdVaqCdRX7Yj
+ WrRoHfY4TGHJqopj9NloE6kEzlPdJhTDwyhOq8uQtaOq5NqqeUMU/lHTTakfJY09mG5O
+ fPOUY97wQWzP4vSC5CvE2KBliBytUmpB//HMaPgIeqkxvSO/lKtj6H41gFD8LtOFHqvx
+ dPL2woLn/BXnhTABmAlFsQMwBqtJhubjDuXep5jPsQCUrHDpa9Ji55pC+uaogP6Rk8fm
+ tTvQ==
+X-Gm-Message-State: AOJu0YxkijKc7dLP5FkCHMHbvuFmlVrUmT505qJX1pZCugw5FLzyFfp8
+ OOvEYOXhNOGekaOHnagGQKHjN/ahhzQwSfLlCAoDt3g/QPZhugOERjIugSophK6nEUYsSIJJEnK
+ MmJAQvOpvp0PMdqEkttJiGGufwzgQrs4cqpPXEjXDT5CM48EBMZd9V6+pVo6GDc6Xyj68cNnjb+
+ LDpnk=
+X-Gm-Gg: AeBDietg7a/+tKa652c6+eS48E1b0MdT/ppYd4FlX/MbLAXQApD98I5sjqJCw24XhC9
+ Sqn/93KXu5r/hKHsplXJ6yzeArR+4hIrhNQ+KDAkhgY9lMIlI+zjHOHLUf4272afm4WZQM1/PGG
+ vRX+q4EDUb4poVlGoE5VKoBbfgiPItQHqAny4gcP6z78iTG2cgAhIRWuRcbDCRjgyfS6/YSXiCx
+ 9NP2dLpXSEmKz7qom3FLoj6vpZIB4bSVXax2dtuO1dSjFIrla59BZHoXbrSKXLTmlcKd3JuQf5L
+ 6F+1sQCF+l5Kbv2fMumVmM8nRXxhmzgMXx0tSMSzsWlft+vjY7yYbVWCdivd9ebeR9GhtM7jsFv
+ yLJUlD+S6DSF5CFJlyNBd8n+fQ1aiXphICJTA7RS4N5w=
+X-Received: by 2002:a17:902:db02:b0:2b0:67a7:5c4b with SMTP id
+ d9443c01a7336-2ba79bdcd67mr42125135ad.28.1778087500626; 
+ Wed, 06 May 2026 10:11:40 -0700 (PDT)
+X-Received: by 2002:a17:902:db02:b0:2b0:67a7:5c4b with SMTP id
+ d9443c01a7336-2ba79bdcd67mr42124695ad.28.1778087499967; 
+ Wed, 06 May 2026 10:11:39 -0700 (PDT)
+Received: from localhost ([2601:1c0:5000:d5c:4ec8:83f5:8254:6891])
  by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c8242ab8bf4sm2649096a12.4.2026.05.06.10.06.36
+ d9443c01a7336-2ba7be21fabsm30423975ad.1.2026.05.06.10.11.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 06 May 2026 10:06:38 -0700 (PDT)
-From: Terry Hsiao <terry_hsiao@compal.corp-partner.google.com>
-To: linux-kernel@vger.kernel.org
-Cc: Douglas Anderson <dianders@chromium.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
+ Wed, 06 May 2026 10:11:39 -0700 (PDT)
+From: Rob Clark <robin.clark@oss.qualcomm.com>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Bill Wendling <morbo@google.com>, David Airlie <airlied@gmail.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
  Jessica Zhang <jesszhan0024@gmail.com>,
+ Justin Stitt <justinstitt@google.com>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ linux-kernel@vger.kernel.org (open list),
+ llvm@lists.linux.dev (open list:CLANG/LLVM BUILD
+ SUPPORT:Keyword:\b(?i:clang|llvm)\b), 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- Terry Hsiao <terry_hsiao@compal.corp-partner.google.com>
-Subject: [PATCH v1 4/4] drm/panel-edp: Modify panel name and delay for CMN
- 0x14d6
-Date: Thu,  7 May 2026 01:06:07 +0800
-Message-Id: <20260506170607.10813-5-terry_hsiao@compal.corp-partner.google.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260506170607.10813-1-terry_hsiao@compal.corp-partner.google.com>
-References: <20260506170607.10813-1-terry_hsiao@compal.corp-partner.google.com>
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maxime Ripard <mripard@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+ Sean Paul <sean@poorly.run>, Simona Vetter <simona@ffwll.ch>,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v3 00/16] drm/msm: Add PERFCNTR_CONFIG ioctl
+Date: Wed,  6 May 2026 10:10:24 -0700
+Message-ID: <20260506171127.133572-1-robin.clark@oss.qualcomm.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=W4sIkxWk c=1 sm=1 tr=0 ts=69fb764d cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=xqWC_Br6kY4A:10 a=NGcC8JguVDcA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yx91gb_oNiZeI1HMLzn7:22 a=e5mUnYsNAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=j6mXroKpKqDHY7BEWhIA:9 a=GvdueXVYPmCkWapjIL-Q:22 a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA2MDE2OCBTYWx0ZWRfX53G2ChlT9Ade
+ bS+k8TeFVHsEkF17CmVs8WJ89U4IaHwjVB1LRqYRYXY/64fp2/XWpSYeyMx2phS1H8T4PE3vrhv
+ 8yfVUsErwmWNvv8uz5vFgCzdHxv4OXWPWxdZEs2oJd2Og6KmJL+qHAf3hwLgxGtf03+NRCPXl+o
+ qToiPBrn23mW/fv3tcyH47CmXbzKxKokaxSLE7rQkbZsHchOOBSwNGcGrvbcHe18OEayW1RyXVa
+ kmCRueUpMRpQGT/VL8tGdKP2HScE1B72TKG3XPtBR3Qz2JyVnB+WL6bbi6DRPGUDr/4CiZV04zu
+ /VWWW+DcbE747zDWLwGGsL5sOtPHsbs2PfoysvPj7t8zAHRRb/SygzDjZbM3oYwC5cMVoTtvwnM
+ pjhpbhMBAFBkDdZ6g8gRpxyXLuBWnLu1qHian/slBThvyBJJ5EAuppkiDsR6xQGH5hxHaLnAa4p
+ RHP26hyt7I7MuGenOWQ==
+X-Proofpoint-ORIG-GUID: biINiSfV_81fLtrZMy7vlpJXphshX4u-
+X-Proofpoint-GUID: biINiSfV_81fLtrZMy7vlpJXphshX4u-
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-06_01,2026-05-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 malwarescore=0 impostorscore=0 lowpriorityscore=0
+ clxscore=1015 priorityscore=1501 suspectscore=0 phishscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605060168
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,39 +147,140 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Correct the panel name for CMN 0x14d6 from N140BGA-EA4 to N140BGA-E54.
+The "at least Claude reviews my patches" edition.
 
-Additionally, adjust the power sequence delay_200_500_e80_d50 to 
-delay_200_500_e80.
+Add a new PERFCNTR_CONFIG ioctl, serving two functions:
 
-CMN N140BGA-E54
-00 ff ff ff ff ff ff 00 0d ae d6 14 00 00 00 00
-22 21 01 04 95 1f 11 78 03 8e d5 94 57 53 93 27
-21 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 da 1d 56 e2 50 00 20 30 2e 1e
-a6 00 35 ad 10 00 00 1a e7 13 56 e2 50 00 20 30
-2e 1e a6 00 35 ad 10 00 00 1a 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02
-00 0c 3d ff 0d 3c 7d 11 10 21 7d 00 00 00 00 3d
+1. Global counter collection (restricted to perfmon_capable()) using the
+   MSM_PERFCNTR_STREAM flag.  Global counter sampling is, global, across
+   contexts.  Only a single global counter stream is allowed at a time.
+2. Reserve counters for local counter collection.  Local counter
+   collection is local to a cmdstream (GEM_SUBMIT), and as such is
+   allowed in all processes without additional privileges.
 
-Signed-off-by: Terry Hsiao <terry_hsiao@compal.corp-partner.google.com>
----
- drivers/gpu/drm/panel/panel-edp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+The kernel enforces that counters assigned for global counter collection
+do not conflict with counters reserved for local counter collection, and
+visa versa.  Since local counter collection is scoped to a single cmd-
+stream, multiple UMD processes can overlap in their reserved counters.
+But cannot conflict with global counter usage.
 
-diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
-index 427a4b4c6712..295412ba13cd 100644
---- a/drivers/gpu/drm/panel/panel-edp.c
-+++ b/drivers/gpu/drm/panel/panel-edp.c
-@@ -2069,7 +2069,7 @@ static const struct edp_panel_entry edp_panels[] = {
- 	EDP_PANEL_ENTRY('C', 'M', 'N', 0x14a8, &delay_200_500_e80, "N140JCA-ELP"),
- 	EDP_PANEL_ENTRY('C', 'M', 'N', 0x14c7, &delay_200_500_e80, "N140HCA-EEK"),
- 	EDP_PANEL_ENTRY('C', 'M', 'N', 0x14d4, &delay_200_500_e80_d50, "N140HCA-EAC"),
--	EDP_PANEL_ENTRY('C', 'M', 'N', 0x14d6, &delay_200_500_e80_d50, "N140BGA-EA4"),
-+	EDP_PANEL_ENTRY('C', 'M', 'N', 0x14d6, &delay_200_500_e80, "N140BGA-E54"),
- 	EDP_PANEL_ENTRY('C', 'M', 'N', 0x14e5, &delay_200_500_e80_d50, "N140HGA-EA1"),
- 	EDP_PANEL_ENTRY('C', 'M', 'N', 0x1565, &delay_200_500_e80, "N156HCA-EAB"),
- 	EDP_PANEL_ENTRY('C', 'M', 'N', 0x156b, &delay_200_500_e80_d50, "N153JCA-ELK"),
+In the case of local counter collection, the UMD is still responsible
+for programming the corresponding SELect registers, and sampling the
+counter values, from it's cmdstream.  But by performing the reservation
+step, the UMD protects itself from the kernel trying to use the same
+SEL/counter regs for global counter collection.
+
+For global counter collection, the kernel programs SEL regs, and sets up
+a timer for counter sampling.  Userspace reads out the sampled values
+from the returned perfcntr stream fd.  Releasing the global perfcntr
+stream is simply a matter of close()ing the fd.
+
+The final two patches wire up the needed support for global counter
+stream collection while IFPC is active, and drops disabling of IFPC.
+
+The mesa side of this is at:
+https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/41158
+
+igt test at:
+https://gitlab.freedesktop.org/robclark/igt-gpu-tools/-/commits/perfcntrs
+
+wiki page about the design:
+https://gitlab.freedesktop.org/drm/msm/-/wikis/adreno:-perfcounter-UABI
+
+Changes in v4:
+- Fix null ptr deref on older gens without perfcntr support [Claude]
+- Add upper limit to userspace controlled FIFO size [Claude]
+- Fix nr_regs calculation [Claude]
+- Link to v3: https://lore.kernel.org/all/20260504190751.61052-1-robin.clark@oss.qualcomm.com/
+
+Changes in v3:
+- Fix loop counter issue spotted by Claude review
+- Add MSM_PERFCNTR_UPDATE flag to ask kernel to return the actual # of
+  available counters in case of -E2BIG
+- Proper barriers for modifying pwrup_Link
+- Link to v2: https://lore.kernel.org/all/20260424151140.104093-1-robin.clark@oss.qualcomm.com
+
+Changes in v2:
+- Rework makefile magic based on Dmitry's suggestion, and add a2xx/a5xx
+  perfcntr tables (although only a6xx+ is supported at this point)
+- Fix compile error for compilers that are picky about a struct that
+  only contains a flex array
+- Drop a6xx_idle() under gpu->lock in a6xx_perfcntr_configure(), replace
+  with perfcntr_fence that sel_worker can check
+- Add a7xx+ pwrup_reglist support for restoring SELect regs on exit from
+  IFPC.  (a6xx doesn't support IFPC, and the pwrup_reglist works a bit
+  differently)
+- Stop disabling IFPC when global counter stream is active.
+- Link to v1: https://lore.kernel.org/all/20260420222621.417276-1-robin.clark@oss.qualcomm.com/
+
+Rob Clark (16):
+  drm/msm: Remove obsolete perf infrastructure
+  drm/msm: Allow CAP_PERFMON for setting SYSPROF
+  drm/msm/adreno: Sync registers from mesa
+  drm/msm/registers: Sync gen_header.py from mesa
+  drm/msm/registers: Add perfcntr json
+  drm/msm: Add a6xx+ perfcntr tables
+  drm/msm: Add sysprof accessors
+  drm/msm/a6xx: Add yield & flush helper
+  drm/msm: Add per-context perfcntr state
+  drm/msm: Add basic perfcntr infrastructure
+  drm/msm/a6xx+: Add support to configure perfcntrs
+  drm/msm/a8xx: Add perfcntr flush sequence
+  drm/msm: Add PERFCNTR_CONFIG ioctl
+  drm/msm/a6xx: Increase pwrup_reglist size
+  drm/msm/a6xx: Append SEL regs to dyn pwrup reglist
+  drm/msm/a6xx: Allow IFPC with perfcntr stream
+
+ drivers/gpu/drm/msm/Makefile                  |   27 +-
+ drivers/gpu/drm/msm/adreno/a2xx_gpu.c         |    7 -
+ drivers/gpu/drm/msm/adreno/a3xx_gpu.c         |   16 -
+ drivers/gpu/drm/msm/adreno/a4xx_gpu.c         |    3 -
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c         |   16 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c         |   10 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c         |  217 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h         |   15 +-
+ drivers/gpu/drm/msm/adreno/a6xx_preempt.c     |    2 +-
+ drivers/gpu/drm/msm/adreno/a8xx_gpu.c         |   33 +-
+ drivers/gpu/drm/msm/adreno/a8xx_preempt.c     |    2 +-
+ drivers/gpu/drm/msm/adreno/adreno_device.c    |    8 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c       |    7 +-
+ drivers/gpu/drm/msm/msm_debugfs.c             |    6 -
+ drivers/gpu/drm/msm/msm_drv.c                 |    2 +-
+ drivers/gpu/drm/msm/msm_drv.h                 |   13 +-
+ drivers/gpu/drm/msm/msm_gpu.c                 |  119 +-
+ drivers/gpu/drm/msm/msm_gpu.h                 |  104 +-
+ drivers/gpu/drm/msm/msm_perf.c                |  235 --
+ drivers/gpu/drm/msm/msm_perfcntr.c            |  650 ++++++
+ drivers/gpu/drm/msm/msm_perfcntr.h            |  155 ++
+ drivers/gpu/drm/msm/msm_ringbuffer.h          |    2 +
+ drivers/gpu/drm/msm/msm_submitqueue.c         |    3 +-
+ .../msm/registers/adreno/a2xx_perfcntrs.json  |  109 +
+ drivers/gpu/drm/msm/registers/adreno/a3xx.xml |    8 +-
+ drivers/gpu/drm/msm/registers/adreno/a5xx.xml |  141 +-
+ .../msm/registers/adreno/a5xx_perfcntrs.json  |  128 +
+ drivers/gpu/drm/msm/registers/adreno/a6xx.xml | 1300 ++++++-----
+ .../msm/registers/adreno/a6xx_descriptors.xml |   71 +-
+ .../drm/msm/registers/adreno/a6xx_enums.xml   |    3 +
+ .../msm/registers/adreno/a6xx_perfcntrs.json  |  105 +
+ .../msm/registers/adreno/a7xx_perfcntrs.json  |  228 ++
+ .../msm/registers/adreno/a8xx_descriptors.xml |   96 +-
+ .../msm/registers/adreno/a8xx_perfcntrs.json  |  240 ++
+ .../msm/registers/adreno/a8xx_perfcntrs.xml   | 1929 +++++++++++++++
+ .../msm/registers/adreno/adreno_common.xml    |   42 +
+ .../drm/msm/registers/adreno/adreno_pm4.xml   |   50 +-
+ drivers/gpu/drm/msm/registers/gen_header.py   | 2079 +++++++++--------
+ include/uapi/drm/msm_drm.h                    |   48 +
+ 39 files changed, 6017 insertions(+), 2212 deletions(-)
+ delete mode 100644 drivers/gpu/drm/msm/msm_perf.c
+ create mode 100644 drivers/gpu/drm/msm/msm_perfcntr.c
+ create mode 100644 drivers/gpu/drm/msm/msm_perfcntr.h
+ create mode 100644 drivers/gpu/drm/msm/registers/adreno/a2xx_perfcntrs.json
+ create mode 100644 drivers/gpu/drm/msm/registers/adreno/a5xx_perfcntrs.json
+ create mode 100644 drivers/gpu/drm/msm/registers/adreno/a6xx_perfcntrs.json
+ create mode 100644 drivers/gpu/drm/msm/registers/adreno/a7xx_perfcntrs.json
+ create mode 100644 drivers/gpu/drm/msm/registers/adreno/a8xx_perfcntrs.json
+ create mode 100644 drivers/gpu/drm/msm/registers/adreno/a8xx_perfcntrs.xml
+
 -- 
-2.34.1
+2.54.0
 
