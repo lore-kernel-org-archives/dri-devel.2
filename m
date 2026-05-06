@@ -4,126 +4,109 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3CCDCD342C
-	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 09:49:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11B4BCD3436
+	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 09:51:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DC51892F8;
-	Wed,  6 May 2026 09:49:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52B9410E52A;
+	Wed,  6 May 2026 09:51:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="PEUl9OkI";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="RI27SDbK";
+	dkim=pass (2048-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="rh7gjW6p";
 	dkim-atps=neutral
-Received: from DB3PR0202CU003.outbound.protection.outlook.com
- (mail-northeuropeazon11010035.outbound.protection.outlook.com [52.101.84.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E723810E54B
- for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 09:49:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zBrFDlcGroBPV5Pd9OlmU4LlD70/BZI18BAIOkK7XNMu2azDI93JukBmERYfr7tskcBawhU6x05Cd4T32j3yxnRWQSdFhtUN8VPLwrrVsHLQunDg6DNkYA8k3eY/ZGSddeM6moY3jHG7B8sxsW8FQPKAFOSuLasfWdMvXwlB27Q6S1VmpO3t3jXOSA83T2ZHGnoiaw9QJpOwrdljniOGu1QENJ+yvT8nZJ9Q2uFcrOkBypsk4Ejv7Lqka26gcqWfyn4g4WoZyCN4/FPeshEto4jQuyhzUx+RwtwH0JpteRkkVnu8aPg9Dz3NQcgyh1dAj/mt1NGSBdAQDkrniipGog==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pbT7eYbrTDkqK9kwna8h+8xmULvqe7kKh4+/p/UJgQw=;
- b=TCEDm19ctBr5dV3YvX8KdAnuB9UQ7qxNJKiG+mvKznE4Vj4gDE0KQfIFYilr1v3ZvLIr6J86DFJoFKkVh8cIShjajqcveSnyS9s2wZENIYWybvspzL7AMEbfJ9ZrRU4FVXjpXIeCo+OB/kA3UPX60+BGpGG7W6WOGWjBMfDqCszQzJlyfWmUyPpyKavXd85C4GwHPSzVx0u9ACxCZThoRLMHqC7htDWfmSj14rhDzrihPBrteNrLPbG2rBhT1Iz1KX7vj9AaQc3QWqkesBRyiuNwNUNRLgVlTMEgzehd2KMMF+9suKU3Hk00pIZOUZcJHc8VTN/SOVs7Jwu4WcOTzg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pbT7eYbrTDkqK9kwna8h+8xmULvqe7kKh4+/p/UJgQw=;
- b=PEUl9OkIt6bR05bUC0eYbaDOALYTv8s0SKIPu/nKsyu5bGHzS+klIckpmHiaCD/Vi0GlzrTv719nOG25f59SiRVKYK7OSPApHZ2nY/mQiRa0rnClyiZyeeRZ6Tdmtb6J1y4472x/1EfaQBk+EzDoFN/rKx0ToEA0Pv/RI2q3Myvdq8JDkSLde7IY3yWBrUMMJY970rWHJjbuy4pIR7lQlBO/bfxPkfVq47teO6vRrIYEMPnKd7fUqmoy8UulXZlYRABtH8OEWrNV0e2FcelZvGjtUNSz6ehoTr2/ZhelsYzMNeIMxh89j43u1jaU3E7GtZLNJSdQ6XiJShwPrMTu9A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AS1PR04MB9287.eurprd04.prod.outlook.com (2603:10a6:20b:4dd::8)
- by DU4PR04MB11815.eurprd04.prod.outlook.com (2603:10a6:10:622::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.15; Wed, 6 May
- 2026 09:49:23 +0000
-Received: from AS1PR04MB9287.eurprd04.prod.outlook.com
- ([fe80::6f30:763d:17d2:b79c]) by AS1PR04MB9287.eurprd04.prod.outlook.com
- ([fe80::6f30:763d:17d2:b79c%3]) with mapi id 15.20.9891.008; Wed, 6 May 2026
- 09:49:23 +0000
-Date: Wed, 6 May 2026 17:50:45 +0800
-From: Liu Ying <victor.liu@nxp.com>
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH v5] drm/bridge: imx8qxp-pxl2dpi: avoid ERR_PTR with
- device_node cleanup
-Message-ID: <afsO9TxVuz79FFQ0@raspi>
-References: <20260506092324.635014-1-lgs201920130244@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260506092324.635014-1-lgs201920130244@gmail.com>
-X-ClientProxiedBy: SI2PR01CA0015.apcprd01.prod.exchangelabs.com
- (2603:1096:4:191::15) To AS1PR04MB9287.eurprd04.prod.outlook.com
- (2603:10a6:20b:4dd::8)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F23710E52A
+ for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 09:51:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1778061063;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=vfrATgQHWoLdism2lue+ijTptYIlhESry+/AqSEnFWE=;
+ b=RI27SDbKKDguoKKMbbzFH5qRa0MoeviY4xlJbsMLl7Jt2poMo0opihyY+5fM0OXw/908LH
+ q/xE0FtLRnYeCQ12+/v9O6t3tHmcJJlYGKjnmSlZ/9egSs6XULXLM9/6AwIzW8uIald+Pq
+ jIwPdQqSoD6Nn9J29NX6ai1uqB5WTng=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-194-AvVlmUOoM56YXqUalxUXqg-1; Wed, 06 May 2026 05:51:01 -0400
+X-MC-Unique: AvVlmUOoM56YXqUalxUXqg-1
+X-Mimecast-MFC-AGG-ID: AvVlmUOoM56YXqUalxUXqg_1778061060
+Received: by mail-wr1-f69.google.com with SMTP id
+ ffacd0b85a97d-44696b11265so6440627f8f.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 06 May 2026 02:51:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=redhat.com; s=google; t=1778061060; x=1778665860; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=vfrATgQHWoLdism2lue+ijTptYIlhESry+/AqSEnFWE=;
+ b=rh7gjW6prWO1aqq7QZi3knr40MFN+YVbHm+H1e7D1MSsjnxtA5iiEeE5rTPrhUw+S6
+ dlWnf1iQLIaDPIIgVkOgZF1+vjsr85y8rzfMfD8SHNchtDuk8WGYLNZ91QedTb3pn34Z
+ 3dU/8WeP+E2/uljYdrogK4XIbE1Av5DFXcSSD4ApyQRk70yFbLZBMmyGbsyQP26+BiKc
+ 0/z8Gvf5PDwM03o6KnUf+Nw1aSaIyTZh02VyJmXPIiil9hGgi09iIUeTM5FPdoTFyXZ9
+ BwnyYDTQFHmtjCF1GennF262zs+kQJHZrxmMKqJTocRQ+1P581WpnZAT15xTw9LBLZQs
+ x55A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778061060; x=1778665860;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=vfrATgQHWoLdism2lue+ijTptYIlhESry+/AqSEnFWE=;
+ b=LHY53U56PoYEC1S6i0l2V+T1/tgVKZsUxFvuzlpuFNB7pXPIIIA2toIWz133QH0bf1
+ 6XdTiiXkYMney98SFVmVGnm6Q7VZcmREd89tK5S38mzjKjtSba1WqZ5pPdutfJP9F/SY
+ nwq6sUf2QzdSCCkPrEInMkZuA8L5gmhFeEsUIuZf5LuO+2mM7zeYy2HnFpJ63Xo8aQKU
+ OAOGnUdLCJJvmVYi6FjE5btiy17+nmqJ+Tu5Lm1lslVOY63u0mEtnmLWc85kmIGjNxBw
+ 1xqZ8AXXJZ14Htgxz/1/KbukfJycDB9AEnbTqu1N0+fszKcxc07rGksQKBbwASCnxqWj
+ bAlA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9X1llqNyfQXiK9+YNLL/jqcABY2QIilPyjBky5u+oqrbBBLHPYzghTN/mzhcqbG8qLNfhSRGSAN8A=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwrnrukSg8IEsdd3tuHidU1PBeXg4z5vp2O+vgjWsv9YmGgazz+
+ K39i1q3156bYdTUdFoGQNA3f0oD6y6oU4vA8r3T96nKVcmERiWYb9B0eivpqBTl6f7f8jploN9I
+ kRUmQo6gUFJ773ZXhqiwMXWHN/JCJQtcFSggx9e4dCVPlnDhdXynp2sAmsiKI+SPSk8lWgA==
+X-Gm-Gg: AeBDiesZhpqAqivPjbWvIi8HWA2Ciym8ID5TK8Yjx4L+Zezo8cJauJHCRDR7Wq90t0x
+ /f17KQAF7du5+lCwRVHqa7w7LhC4Ij3JElxYfjwO3xcU7ffi4HEmGz1YVI3HsTeomLy/nbQ7bOk
+ 05jlLq60fOICRntjqegswoPq6LUsrQ5SPw/1nStH9pA/BvFOjeJq8YgIsDSvmM0p4DKLzbZFvOu
+ wRsPOjkailWRBteleKuesMKfKCtFhrygvAHf/8YeuofV+z8c7qasRp9Q/H40DPqsZ2jHMT9ClT/
+ VGHXBBdEmoOJjCLvjwBcowmNHFZV07L6wFPbu74JoByaGUE7xUl/T3QZetxaltpLvKWxehQzRff
+ atpr7y9fr
+X-Received: by 2002:a5d:5f83:0:b0:446:ef9a:8f41 with SMTP id
+ ffacd0b85a97d-4515da970a0mr4473825f8f.40.1778061060054; 
+ Wed, 06 May 2026 02:51:00 -0700 (PDT)
+X-Received: by 2002:a5d:5f83:0:b0:446:ef9a:8f41 with SMTP id
+ ffacd0b85a97d-4515da970a0mr4473777f8f.40.1778061059498; 
+ Wed, 06 May 2026 02:50:59 -0700 (PDT)
+Received: from localhost ([2a01:e0a:b25:f902::ff])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-45054b02abbsm10793056f8f.18.2026.05.06.02.50.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 06 May 2026 02:50:58 -0700 (PDT)
+Date: Wed, 6 May 2026 11:50:58 +0200
+From: Maxime Ripard <mripard@redhat.com>
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, 
+ John Stultz <jstultz@google.com>, "T . J . Mercier" <tjmercier@google.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@redhat.com>,
+ Mike Rapoport <rppt@kernel.org>, Sumit Garg <sumit.garg@kernel.org>, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-tegra@vger.kernel.org, 
+ linaro-mm-sig@lists.linaro.org, linux-mm@kvack.org
+Subject: Re: [PATCH v2 06/10] dma-buf: heaps: Add support for Tegra VPR
+Message-ID: <20260506-tentacled-unicorn-of-typhoon-cb4edb@houat>
+References: <20260122161009.3865888-1-thierry.reding@kernel.org>
+ <20260122161009.3865888-7-thierry.reding@kernel.org>
+ <20260123-meteoric-butterfly-of-imagination-fd691f@houat>
+ <aY3nov29aBGWw93Y@orome>
+ <20260218-voracious-orchid-malamute-febce0@houat>
+ <afJSQbArB8USb6mt@orome>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS1PR04MB9287:EE_|DU4PR04MB11815:EE_
-X-MS-Office365-Filtering-Correlation-Id: 63204cf3-1fba-4d8d-3890-08deab54c07e
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|19092799006|1800799024|366016|7416014|376014|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: IGOgOCA5+G2jn9CQptqTkpAneC28Llnr+D4yJxsfIvxZdtmX0XKPdxhXHTrvZ5aK+glsUdlYTY7oBFRr60FzBn5yDU0SzqHLZxTavH4gjv638GetS2AHYexIt+G0o8suAcN5dAES500uFQrKi2FvOrhedumfxpcorGbk7lDi1P9vEiYV3G/AC23lSO24HU7rBpVI0zYxlw1B1xLe3lp5SD9+n7A1NscHB2dh1X7NmeQHH4XYV4wTOlRROvOrlkdBypzv1EUDqEEDg8TdMT84cnhBeVsVGSfLY7r777PRBFdP/AnEBKHdlcGAlVY5hazR0luSf3HPM8bfffv17ovKyALvAoKLqreys2AfSG5f12MA/Dkrx6e3l7WO8+3FhA6QypJOVF3bDj5UGNOnAK6zkkze6soYjXEv0tFGfkCj/8bvGaOyUHJ2Eb8E1soQaLHS4flQfDxeubxMpR/NpUcLRLQWQxP8utmIWc2gSbFh5nm75rUCzSlnjTQTUJJ10Hmo30wxxHEo+WD/8iGr84vauJaQoo88lmNq0t9dHmRzHU4cTsLYXuxiGEsd88RxUHpDQCDyUDTFhI3LKR8j40ytGtBj/MpuCRfObO/PgwNF1DDAfgNUzl0xqajwdXG2yfXRqqLhwqLuKGlQgqiBIlpWYgvlTQAD928NvKpOr9tuPIi2ylBYaiOc5d3LnOLKpBfq
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AS1PR04MB9287.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(19092799006)(1800799024)(366016)(7416014)(376014)(22082099003)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?h/rDrF/2EFkaT/kQWfQEL05gWmp3LaEbrukUmvvYFodny7Z3I1kBd4yugWAE?=
- =?us-ascii?Q?+mrRPuzIl0fe+HJxEWg75IiUAH9h0azuXrtXgflF9tkWRE8SMnEZYnrIa9tm?=
- =?us-ascii?Q?4Oh6XWLrsJB9D9hq/OBMTYop5v46OxlSixHGP5HDfeLenIiu+ZJVs88ENfzd?=
- =?us-ascii?Q?HYoMRXH3VCP1auk4/ZOoSFzx4CTvI7oM8CSDwZWhlxnENGm/ad3JkARzkQYY?=
- =?us-ascii?Q?hvNTmNrh2MMSd9Tri/ONrFwdztyavFKh02JTqo6vlPfq/x+ozHrGsHfEG460?=
- =?us-ascii?Q?R3oOgSDo+RwT+3o59HQQ3RVmW89PqhQZt+XrZpDMPfRgQ8DjflbF25Mrf7/J?=
- =?us-ascii?Q?SOlRwdQuSdrfxhgMQxnr/KoPJ48wB0OYNW/XBmtvAXgWOoEIuGYrIngGMZ2N?=
- =?us-ascii?Q?TIXR5s14JvsA4W6CM5MQqTtC1aaZJQ/sobVOzz2dkJXiAntH9GAY3qyafs2r?=
- =?us-ascii?Q?zhQY+ohtfuHsdGH6w7s19OvpacSyAyVwN5RTAaLQrP5hcojl1RbLHjZnKD0w?=
- =?us-ascii?Q?KWPMFc0tj3yqtg+9/OP7C3cYfK/oDLf7s5sEoQ1IKq0mtTc35zm7nEZrYRD8?=
- =?us-ascii?Q?wyZljbMWLp4PqCRyFe9G87FlV6pFguJX48j16Z+6RzfVGv1ToY80+T1X26y1?=
- =?us-ascii?Q?9deY6yPOAd/wmceFqoJ5cEQ8Yqy7itz+oSzOw45Yma/T1FQekdFGdP+sgts7?=
- =?us-ascii?Q?1aaIUTy0WFzEHGW4l3lAcCUXIsWe88upjgET0GaKxR2RUq+FhgT5+2w4tAvk?=
- =?us-ascii?Q?mmWCpN90/DnOeoer4tPvv5qx8mMHnMUF6brt2y12p+O9KZTcWK6s/ht+/zVq?=
- =?us-ascii?Q?60IIFlDZkvrBqoNwopeQaYFVt/sUkmZFs204cCavO3hzunzIuIoJeoBo0XOH?=
- =?us-ascii?Q?ch4oal8PO3JcsbVOBH1gllPNtBD4E7+8w4rbRdf4JmFOFU/P6U1xRK4POGJL?=
- =?us-ascii?Q?ezLNDYuP0CXzd0Usgf9gnBrDv/0vfEBl1Dvz3K/fC07ctk8U6CFtQA97gm8G?=
- =?us-ascii?Q?6dpZs5lgnQF1gLDf1WQP1qbLSGWZQFnrPmWjQlUb8Cv0+oYypphvzLKPZS2W?=
- =?us-ascii?Q?5n036idHn9pE0mM2W3C0gFGkdIXiRfiY3AZct1GFmiTpMPqJe+pKI23EcXF6?=
- =?us-ascii?Q?A+s7aDDy2S96kdHRuzVxXggAdgjrE1k3EGye2ab9uA3xAGaXzV0eMbjsbPOx?=
- =?us-ascii?Q?N6tVZPrLs2ORE3FBw7onsBmY/XYLGdXdFTllornnvOT0hDn/SqYb7qOmZ+AU?=
- =?us-ascii?Q?47QrFd0YhgU16OuRWdLukptbDx4T4YpVrRf9VH3WsUEo/HGralUOqmwdp2nh?=
- =?us-ascii?Q?3MYQIm/ks9+8nrXJnlRdg3EKGDb9VD136rAzIbiC9aKhUF/0H+qZv6uPXIxj?=
- =?us-ascii?Q?r1j9Lku28zSwn0L1KPYC7hoqrZAvOEZtKaX2oSUuHHO+5sCdDsIv/+xXCG1e?=
- =?us-ascii?Q?4xadFkUhanLPQYcVbYIpFn7N5IKkyY5jI622qa7nPSPj0JdrMRF11KBIt5he?=
- =?us-ascii?Q?Dp901aCxtDoZ2cyWjabiQWWNf3cSJYp3Dy2fjwxVcFabWAJ7ap7e8cJH29M4?=
- =?us-ascii?Q?11xK/5z0Rdpv9JivV8JmY7sbNj2gn2ZI+Y9f41g3GNh4AI2IHxrajXnP0tc2?=
- =?us-ascii?Q?hteQ2i4T4oK3IlsAOu0gKvenS86flZ2aR7XvQmoF00myErS7tNXg6F7Ys4R0?=
- =?us-ascii?Q?8UoW1nBHKVTxWiS5PKTXZoMD66LjiMzvOAoJYx1/hdFIbTL/h4MU9dImZWz4?=
- =?us-ascii?Q?rBOhiCLGbg=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 63204cf3-1fba-4d8d-3890-08deab54c07e
-X-MS-Exchange-CrossTenant-AuthSource: AS1PR04MB9287.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2026 09:49:23.1334 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 48pWGZ9glEPe37aDJVbY+s3U5mbV/xTxuzko5vqEEJNWnfmJfshLGyZcqGyKBN+u+vsmahK33tQYPgRlfBl5Yg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB11815
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="sztjivasnlwpybgk"
+Content-Disposition: inline
+In-Reply-To: <afJSQbArB8USb6mt@orome>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,44 +122,129 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, May 06, 2026 at 05:23:24PM +0800, Guangshuo Li wrote:
-> imx8qxp_pxl2dpi_get_available_ep_from_port() returns ERR_PTR()
-> on errors. imx8qxp_pxl2dpi_find_next_bridge() stores its return
-> value in a __free(device_node) variable before checking IS_ERR().
-> When the function returns on the error path, the cleanup action calls
-> of_node_put() on the ERR_PTR() value.
-> 
-> Do not store the endpoint node in a cleanup variable before checking
-> whether it is an error pointer. Use a regular device_node pointer for
-> the endpoint node, check it with IS_ERR() first, and release it
-> explicitly with of_node_put() after getting the remote port parent.
-> 
-> This keeps the fix minimal and avoids changing
-> imx8qxp_pxl2dpi_get_available_ep_from_port().
-> 
-> Fixes: ceea3f7806a10 ("drm/bridge: imx8qxp-pxl2dpi: simplify put of device_node pointers")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> ---
-> v5:
->   - Make the fix minimal for stable by avoiding __free(device_node)
->     for the endpoint node in imx8qxp_pxl2dpi_find_next_bridge().
 
-By "minimal" in v4 comment, I meant not to use __free(device_node)
-in imx8qxp_pxl2dpi_get_available_ep_from_port() and
-imx8qxp_pxl2dpi_set_pixel_link_sel() - please keep using
-__free(device_node) in imx8qxp_pxl2dpi_find_next_bridge().
+--sztjivasnlwpybgk
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 06/10] dma-buf: heaps: Add support for Tegra VPR
+MIME-Version: 1.0
 
+Hi Thierry,
 
->   - Keep imx8qxp_pxl2dpi_get_available_ep_from_port() unchanged.
+On Wed, Apr 29, 2026 at 08:49:58PM +0200, Thierry Reding wrote:
+> On Wed, Feb 18, 2026 at 10:42:22AM +0100, Maxime Ripard wrote:
+> > On Thu, Feb 12, 2026 at 03:50:09PM +0100, Thierry Reding wrote:
+> > > On Fri, Jan 23, 2026 at 02:30:14PM +0100, Maxime Ripard wrote:
+> > > > Hi,
+> > > >=20
+> > > > On Thu, Jan 22, 2026 at 05:10:05PM +0100, Thierry Reding wrote:
+> > > > > From: Thierry Reding <treding@nvidia.com>
+> > > > >=20
+> > > > > NVIDIA Tegra SoCs commonly define a Video-Protection-Region, whic=
+h is a
+> > > > > region of memory dedicated to content-protected video decode and
+> > > > > playback. This memory cannot be accessed by the CPU and only cert=
+ain
+> > > > > hardware devices have access to it.
+> > > > >=20
+> > > > > Expose the VPR as a DMA heap so that applications and drivers can
+> > > > > allocate buffers from this region for use-cases that require this=
+ kind
+> > > > > of protected memory.
+> > > > >=20
+> > > > > VPR has a few very critical peculiarities. First, it must be a si=
+ngle
+> > > > > contiguous region of memory (there is a single pair of registers =
+that
+> > > > > set the base address and size of the region), which is configured=
+ by
+> > > > > calling back into the secure monitor. The memory region also need=
+s to
+> > > > > quite large for some use-cases because it needs to fit multiple v=
+ideo
+> > > > > frames (8K video should be supported), so VPR sizes of ~2 GiB are
+> > > > > expected. However, some devices cannot afford to reserve this amo=
+unt
+> > > > > of memory for a particular use-case, and therefore the VPR must be
+> > > > > resizable.
+> > > > >=20
+> > > > > Unfortunately, resizing the VPR is slightly tricky because the GP=
+U found
+> > > > > on Tegra SoCs must be in reset during the VPR resize operation. T=
+his is
+> > > > > currently implemented by freezing all userspace processes and cal=
+ling
+> > > > > invoking the GPU's freeze() implementation, resizing and the thaw=
+ing the
+> > > > > GPU and userspace processes. This is quite heavy-handed, so event=
+ually
+> > > > > it might be better to implement thawing/freezing in the GPU drive=
+r in
+> > > > > such a way that they block accesses to the GPU so that the VPR re=
+size
+> > > > > operation can happen without suspending all userspace.
+> > > > >=20
+> > > > > In order to balance the memory usage versus the amount of resizin=
+g that
+> > > > > needs to happen, the VPR is divided into multiple chunks. Each ch=
+unk is
+> > > > > implemented as a CMA area that is completely allocated on first u=
+se to
+> > > > > guarantee the contiguity of the VPR. Once all buffers from a chun=
+k have
+> > > > > been freed, the CMA area is deallocated and the memory returned t=
+o the
+> > > > > system.
+> > > > >=20
+> > > > > Signed-off-by: Thierry Reding <treding@nvidia.com>
+> > > >=20
+> > > > Aside from the discussion on CMA, it doesn't look like the heap def=
+ines
+> > > > anywhere the attributes of the allocated buffers this heap provides.
+> > >=20
+> > > Attributes like what? Where would you expect the driver to define thi=
+s?
+> > > I don't see anything in struct drm_heap_export_info that sounds like
+> > > what you expect, nor does the allocation ABI provide any means of
+> > > reporting attributes.
+> > >=20
+> > > There's also not a whole lot to this, other than that the memory
+> > > allocated by this can't be accessed by anything other than a select s=
+et
+> > > of devices. You can't have any CPU access to these buffers (the hardw=
+are
+> > > will refuse to let the CPU read from this memory) either, which is
+> > > hinted at by the fact that no mmap() operations are allowed.
+> > >=20
+> > > Can you elaborate what you're looking for?
+> >=20
+> > Are the buffers you're getting when allocating cacheable? uncacheable?
+> > mappable? physically or virtually contiguous? etc.
+> >=20
+> > See
+> > https://docs.kernel.org/userspace-api/dma-buf-heaps.html#heaps
+>=20
+> The CPU doesn't have access to the contents of these buffers, so
+> cacheable or uncacheable aren't really meaningful, but I guess they are
+> unmappable in that sense. The buffers are physically contiguous, but I
+> think "protected" is the right name for the heap since it most
+> accurately describes what the purpose (and access pattern) is.
 
-No, please fix imx8qxp_pxl2dpi_get_available_ep_from_port() to make it
-return int.
+Yeah, that's what panthor has been using too:
+https://lore.kernel.org/r/20260505140516.1372388-1-ketil.johnsen@arm.com
 
->   - Do not change imx8qxp_pxl2dpi_set_pixel_link_sel().
+--sztjivasnlwpybgk
+Content-Type: application/pgp-signature; name="signature.asc"
 
-No, you need to change it.
+-----BEGIN PGP SIGNATURE-----
 
--- 
-Regards,
-Liu Ying
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCafsPAQAKCRAnX84Zoj2+
+duZVAX4rZKstjm4yGIoK4/qxMtpVXLGWXrhCS66Fx3Nz2VUdigwaNxKdo0VUnHgz
+6sVzgJsBfRq2AlW+F/stHpXM0fMsHUXere2S6tyHKPw8gwt6dAO5rXziaIeIl7HL
+rUTTJPnxiQ==
+=nQPK
+-----END PGP SIGNATURE-----
+
+--sztjivasnlwpybgk--
+
