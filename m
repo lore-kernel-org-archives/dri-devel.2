@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45BFACD3439
-	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 21:53:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5679FCD342C
+	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 21:53:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FF6510EED4;
-	Wed,  6 May 2026 21:53:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA66110EED3;
+	Wed,  6 May 2026 21:53:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ccn5zjyH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Q19nEG2C";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A60BE10EED4
- for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 21:53:50 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE8F610EED3
+ for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 21:53:56 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 17AC16015B;
+ by sea.source.kernel.org (Postfix) with ESMTP id C6612403E3;
+ Wed,  6 May 2026 21:53:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CF14C2BCB2;
  Wed,  6 May 2026 21:53:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83CFFC2BCB0;
- Wed,  6 May 2026 21:53:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778104429;
- bh=g2KiL/CMPCnweI4E7xuxmAbnHThqGiuaJZ5Xgj96eoQ=;
+ s=k20201202; t=1778104436;
+ bh=JemW6+hXTNe2roNUmuhyi6dJSHZ2hsaM41xXJeGWXFU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ccn5zjyHSwiiC5I5sDThi8TB9aiUc88iMMoHEE04BAyedJ0wJ8vo7wBJILTfOkTaW
- hbq566Ll9IWHtbvBmjHyQ2EM1s57FqAs9pt5KjrPi4AOqKyXyS4Ezswrem+ye+NoUw
- AC35F9Qigy6HZiOXGpu9zP1vR6FNK0P9MaQ+73wjk9mTONmK28JKU6awmhBZvbM7h5
- HBxJ/CbCJuy7fiL7BKBIxcYKdaLPz3ekhmKy9AC7TfuBYWjtqDNpLTqkkUNfFpItjZ
- Ez55jCG215SEPaCplJ6GerZ1A6e05do4aai6jt9Xt0qJQZ6XQc+FjSIyCkDucsPv80
- afq4HWEkZo80w==
+ b=Q19nEG2Cgkh58jimLzg/BPtuOxYrcF8uDCvMbepj/dLeF2Yc1z6Po0VIQkEVyPkWo
+ 7d1XtbLnjtlqYvK9jfsa7B1spr5VkcFuhckDh3aee+PNec23wrfXE7GDmh4fSyFbYF
+ zFwfb21iBqVr1snKbrX6nLrZxUHyJ6kDdUYdqriWUz4p3l2NC4JqvKBD8ZMHWirMOq
+ rzIMP3LOE18QfcE4MNtN1xvL9E8gt3wUKBnbVub7H2bLJqIS+sBUYV1Fg3UJNxARHM
+ 5aIuRnE3UoHFzR4dxHrqskYtTI5F5JN5qgfQljOyHYqy5wGptNJcjdmhfemtSqSGMv
+ sW8vByLQupKlA==
 From: Danilo Krummrich <dakr@kernel.org>
 To: gregkh@linuxfoundation.org, rafael@kernel.org, acourbot@nvidia.com,
  aliceryhl@google.com, david.m.ertman@intel.com, ira.weiny@intel.com,
@@ -43,10 +43,11 @@ Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
  nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
  linux-pm@vger.kernel.org, linux-pwm@vger.kernel.org,
  linux-pci@vger.kernel.org, rust-for-linux@vger.kernel.org,
- Danilo Krummrich <dakr@kernel.org>
-Subject: [PATCH v2 22/25] gpu: nova-core: use HRT lifetime for Bar
-Date: Wed,  6 May 2026 23:50:58 +0200
-Message-ID: <20260506215113.851360-23-dakr@kernel.org>
+ Danilo Krummrich <dakr@kernel.org>, Eliot Courtney <ecourtney@nvidia.com>
+Subject: [PATCH v2 23/25] gpu: nova-core: unregister sysmem flush page from
+ Drop
+Date: Wed,  6 May 2026 23:50:59 +0200
+Message-ID: <20260506215113.851360-24-dakr@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260506215113.851360-1-dakr@kernel.org>
 References: <20260506215113.851360-1-dakr@kernel.org>
@@ -67,200 +68,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Take advantage of the lifetime-parameterized pci::Bar<'bound> to hold
-the BAR mapping directly in NovaCore<'bound>, and pass a borrowed
-reference to Gpu<'bound>.
+Now that SysmemFlush can borrow the Bar via HRT lifetime, store a
+&'bound Bar0 reference and implement Drop to automatically unregister
+the sysmem flush page. This removes the need for manual unregister()
+calls and the Gpu::unbind() method.
 
-This eliminates the Arc<Devres<Bar0>> indirection, removes runtime
-revocation checks for BAR access, and simplifies Gpu::unbind().
-
+Reported-by: Eliot Courtney <ecourtney@nvidia.com>
+Closes: https://lore.kernel.org/all/20260409-fix-systemflush-v1-1-a1d6c968f17c@nvidia.com/
+Fixes: 6554ad65b589 ("gpu: nova-core: register sysmem flush page")
 Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 ---
- drivers/gpu/nova-core/driver.rs    | 40 ++++++++++++++----------------
- drivers/gpu/nova-core/gpu.rs       | 27 ++++++++------------
- drivers/gpu/nova-core/nova_core.rs |  2 +-
- 3 files changed, 30 insertions(+), 39 deletions(-)
+ drivers/gpu/nova-core/driver.rs |  4 ----
+ drivers/gpu/nova-core/fb.rs     | 22 ++++++++++------------
+ drivers/gpu/nova-core/gpu.rs    |  9 +--------
+ 3 files changed, 11 insertions(+), 24 deletions(-)
 
 diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver.rs
-index 6ee2021ef56e..11b632ae3789 100644
+index 11b632ae3789..31d2a8dadb7b 100644
 --- a/drivers/gpu/nova-core/driver.rs
 +++ b/drivers/gpu/nova-core/driver.rs
-@@ -14,12 +14,9 @@
-     },
-     prelude::*,
-     sizes::SZ_16M,
--    sync::{
--        atomic::{
--            Atomic,
--            Relaxed, //
--        },
--        Arc,
-+    sync::atomic::{
-+        Atomic,
-+        Relaxed, //
-     },
-     types::ForLt,
- };
-@@ -30,9 +27,10 @@
- static AUXILIARY_ID_COUNTER: Atomic<u32> = Atomic::new(0);
- 
- #[pin_data]
--pub(crate) struct NovaCore {
-+pub(crate) struct NovaCore<'bound> {
-     #[pin]
--    pub(crate) gpu: Gpu,
-+    pub(crate) gpu: Gpu<'bound>,
-+    bar: pci::Bar<'bound, BAR0_SIZE>,
-     #[allow(clippy::type_complexity)]
-     _reg: Devres<auxiliary::Registration<ForLt!(())>>,
- }
-@@ -47,12 +45,12 @@ pub(crate) struct NovaCore {
- // DMA addresses. These systems should be quite rare.
- const GPU_DMA_BITS: u32 = 47;
- 
--pub(crate) type Bar0 = pci::Bar<'static, BAR0_SIZE>;
-+pub(crate) type Bar0 = kernel::io::Mmio<BAR0_SIZE>;
- 
- kernel::pci_device_table!(
-     PCI_TABLE,
-     MODULE_PCI_TABLE,
--    <NovaCore as pci::Driver<'_>>::IdInfo,
-+    <NovaCore<'_> as pci::Driver<'_>>::IdInfo,
-     [
-         // Modern NVIDIA GPUs will show up as either VGA or 3D controllers.
-         (
-@@ -74,7 +72,7 @@ pub(crate) struct NovaCore {
-     ]
- );
- 
--impl<'bound> pci::Driver<'bound> for NovaCore {
-+impl<'bound> pci::Driver<'bound> for NovaCore<'bound> {
-     type IdInfo = ();
-     const ID_TABLE: pci::IdTable<Self::IdInfo> = &PCI_TABLE;
- 
-@@ -93,14 +91,14 @@ fn probe(
-             // other threads of execution.
-             unsafe { pdev.dma_set_mask_and_coherent(DmaMask::new::<GPU_DMA_BITS>())? };
- 
--            let bar = Arc::new(
--                pdev.iomap_region_sized::<BAR0_SIZE>(0, c"nova-core/bar0")?
--                    .into_devres()?,
--                GFP_KERNEL,
--            )?;
--
--            Ok(try_pin_init!(Self {
--                gpu <- Gpu::new(pdev, bar.clone(), bar.access(pdev.as_ref())?),
-+            Ok(try_pin_init!(NovaCore {
-+                bar: pdev.iomap_region_sized::<BAR0_SIZE>(0, c"nova-core/bar0")?,
-+                // TODO: Use `&bar` self-referential pin-init syntax once available.
-+                //
-+                // SAFETY: `bar` is initialized before this expression is evaluated
-+                // (`try_pin_init!()` initializes fields in declaration order), lives at a pinned
-+                // stable address, and is dropped after `gpu` (struct field drop order).
-+                gpu <- Gpu::new(pdev, unsafe { &*core::ptr::from_ref(bar) }),
-                 _reg: auxiliary::Registration::new(
-                     pdev.as_ref(),
-                     c"nova-drm",
-@@ -114,7 +112,7 @@ fn probe(
+@@ -111,8 +111,4 @@ fn probe(
+             }))
          })
      }
- 
--    fn unbind(pdev: &pci::Device<Core>, this: Pin<&Self>) {
--        this.gpu.unbind(pdev.as_ref());
-+    fn unbind(_pdev: &'bound pci::Device<Core>, this: Pin<&'bound Self>) {
-+        this.gpu.unbind();
-     }
+-
+-    fn unbind(_pdev: &'bound pci::Device<Core>, this: Pin<&'bound Self>) {
+-        this.gpu.unbind();
+-    }
  }
+diff --git a/drivers/gpu/nova-core/fb.rs b/drivers/gpu/nova-core/fb.rs
+index bdd5eed760e1..a707fbfe3ced 100644
+--- a/drivers/gpu/nova-core/fb.rs
++++ b/drivers/gpu/nova-core/fb.rs
+@@ -46,21 +46,20 @@
+ /// Because of this, the sysmem flush memory page must be registered as early as possible during
+ /// driver initialization, and before any falcon is reset.
+ ///
+-/// Users are responsible for manually calling [`Self::unregister`] before dropping this object,
+-/// otherwise the GPU might still use it even after it has been freed.
+-pub(crate) struct SysmemFlush {
++pub(crate) struct SysmemFlush<'bound> {
+     /// Chipset we are operating on.
+     chipset: Chipset,
+     device: ARef<device::Device>,
++    bar: &'bound Bar0,
+     /// Keep the page alive as long as we need it.
+     page: CoherentHandle,
+ }
+ 
+-impl SysmemFlush {
++impl<'bound> SysmemFlush<'bound> {
+     /// Allocate a memory page and register it as the sysmem flush page.
+     pub(crate) fn register(
+         dev: &device::Device<device::Bound>,
+-        bar: &Bar0,
++        bar: &'bound Bar0,
+         chipset: Chipset,
+     ) -> Result<Self> {
+         let page = CoherentHandle::alloc(dev, kernel::page::PAGE_SIZE, GFP_KERNEL)?;
+@@ -70,19 +69,18 @@ pub(crate) fn register(
+         Ok(Self {
+             chipset,
+             device: dev.into(),
++            bar,
+             page,
+         })
+     }
++}
+ 
+-    /// Unregister the managed sysmem flush page.
+-    ///
+-    /// In order to gracefully tear down the GPU, users must make sure to call this method before
+-    /// dropping the object.
+-    pub(crate) fn unregister(&self, bar: &Bar0) {
++impl Drop for SysmemFlush<'_> {
++    fn drop(&mut self) {
+         let hal = hal::fb_hal(self.chipset);
+ 
+-        if hal.read_sysmem_flush_page(bar) == self.page.dma_handle() {
+-            let _ = hal.write_sysmem_flush_page(bar, 0).inspect_err(|e| {
++        if hal.read_sysmem_flush_page(self.bar) == self.page.dma_handle() {
++            let _ = hal.write_sysmem_flush_page(self.bar, 0).inspect_err(|e| {
+                 dev_warn!(
+                     &self.device,
+                     "failed to unregister sysmem flush page: {:?}\n",
 diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-index 9288b30fe4c3..03295fa6fb32 100644
+index 03295fa6fb32..c17d068b35eb 100644
 --- a/drivers/gpu/nova-core/gpu.rs
 +++ b/drivers/gpu/nova-core/gpu.rs
-@@ -2,13 +2,11 @@
- 
- use kernel::{
-     device,
--    devres::Devres,
-     fmt,
-     io::Io,
-     num::Bounded,
-     pci,
--    prelude::*,
--    sync::Arc, //
-+    prelude::*, //
- };
- 
- use crate::{
-@@ -224,10 +222,10 @@ fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
- 
- /// Structure holding the resources required to operate the GPU.
- #[pin_data]
--pub(crate) struct Gpu {
-+pub(crate) struct Gpu<'bound> {
-     spec: Spec,
--    /// MMIO mapping of PCI BAR 0
--    bar: Arc<Devres<Bar0>>,
-+    /// MMIO mapping of PCI BAR 0.
-+    bar: &'bound Bar0,
+@@ -228,7 +228,7 @@ pub(crate) struct Gpu<'bound> {
+     bar: &'bound Bar0,
      /// System memory page required for flushing all pending GPU-side memory writes done through
      /// PCIE into system memory, via sysmembar (A GPU-initiated HW memory-barrier operation).
-     sysmem_flush: SysmemFlush,
-@@ -240,10 +238,9 @@ pub(crate) struct Gpu {
-     gsp: Gsp,
- }
- 
--impl Gpu {
--    pub(crate) fn new<'bound>(
-+impl<'bound> Gpu<'bound> {
-+    pub(crate) fn new(
-         pdev: &'bound pci::Device<device::Bound>,
--        devres_bar: Arc<Devres<Bar0>>,
-         bar: &'bound Bar0,
-     ) -> impl PinInit<Self, Error> + 'bound {
-         try_pin_init!(Self {
-@@ -257,6 +254,8 @@ pub(crate) fn new<'bound>(
-                     .inspect_err(|_| dev_err!(pdev, "GFW boot did not complete\n"))?;
-             },
- 
-+            bar,
-+
-             sysmem_flush: SysmemFlush::register(pdev.as_ref(), bar, spec.chipset)?,
- 
-             gsp_falcon: Falcon::new(
-@@ -270,19 +269,13 @@ pub(crate) fn new<'bound>(
-             gsp <- Gsp::new(pdev),
- 
+-    sysmem_flush: SysmemFlush,
++    sysmem_flush: SysmemFlush<'bound>,
+     /// GSP falcon instance, used for GSP boot up and cleanup.
+     gsp_falcon: Falcon<GspFalcon>,
+     /// SEC2 falcon instance, used for GSP boot up and cleanup.
+@@ -271,11 +271,4 @@ pub(crate) fn new(
              _: { gsp.boot(pdev, bar, spec.chipset, gsp_falcon, sec2_falcon)? },
--
--            bar: devres_bar,
          })
      }
- 
-     /// Called when the corresponding [`Device`](device::Device) is unbound.
-     ///
-     /// Note: This method must only be called from `Driver::unbind`.
--    pub(crate) fn unbind(&self, dev: &device::Device<device::Core>) {
--        kernel::warn_on!(self
--            .bar
--            .access(dev)
--            .inspect(|bar| self.sysmem_flush.unregister(bar))
--            .is_err());
-+    pub(crate) fn unbind(&self) {
-+        self.sysmem_flush.unregister(self.bar);
-     }
+-
+-    /// Called when the corresponding [`Device`](device::Device) is unbound.
+-    ///
+-    /// Note: This method must only be called from `Driver::unbind`.
+-    pub(crate) fn unbind(&self) {
+-        self.sysmem_flush.unregister(self.bar);
+-    }
  }
-diff --git a/drivers/gpu/nova-core/nova_core.rs b/drivers/gpu/nova-core/nova_core.rs
-index 49c093a0cb42..ed5eb39c8201 100644
---- a/drivers/gpu/nova-core/nova_core.rs
-+++ b/drivers/gpu/nova-core/nova_core.rs
-@@ -49,7 +49,7 @@ struct NovaCoreModule {
-     // then `_debugfs_guard` clears `DEBUGFS_ROOT`.
-     #[allow(clippy::type_complexity)]
-     #[pin]
--    _driver: Registration<pci::Adapter<ForLt!(driver::NovaCore)>>,
-+    _driver: Registration<pci::Adapter<ForLt!(driver::NovaCore<'_>)>>,
-     _debugfs_guard: DebugfsRootGuard,
- }
- 
 -- 
 2.54.0
 
