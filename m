@@ -4,66 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 424A7CD342C
-	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 16:26:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F966CD342C
+	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 16:33:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A544F10E1DA;
-	Wed,  6 May 2026 16:26:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCD3E10EE0F;
+	Wed,  6 May 2026 16:33:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZBRjfWlH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cf8lga9t";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4627D10E1DA;
- Wed,  6 May 2026 16:26:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778084810; x=1809620810;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=/mDqpMIzFWzEpnLY9TglmlOA2Gp01KKDylgMxAfoYnY=;
- b=ZBRjfWlHi0NukU0pPlQ8zpSRxpGfmpziMDCn/fjjECwTD+wlGFAbi3yK
- DPEHz9fB0iWMsV770c3mmOykmnUnouSKZ0c3wXOmHCqga9gu+0t1/zYFP
- rygRq1OB5kCEmoyZpPYuZ0LcniALHpFI2yiw4CuzMFySs8wbVwNFFPdic
- 8LpsrMi0EmBa0PEfvHSUROjF5CPjbKvSHDdK2RC5kWYNyGQ6wdK0HqO9B
- gWgJojvG3THY+DBhB7GclNmqVzo+Lzcm1rEcfOjsawKXMTtZF4ZyFUa8G
- f6S4pZG/BdOPTQnGfFykFjRovxbtgiKJ5VqfdljHqws0tujNgDsdgM3aE g==;
-X-CSE-ConnectionGUID: L5vSQJUzQEic7KJBNsZIDg==
-X-CSE-MsgGUID: QE+sdqVaQdylAxEP9gLEXQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11778"; a="78741635"
-X-IronPort-AV: E=Sophos;i="6.23,219,1770624000"; d="scan'208";a="78741635"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2026 09:26:50 -0700
-X-CSE-ConnectionGUID: VkPqATJHSLiyGBIGcPtdrg==
-X-CSE-MsgGUID: a/z35rqlS7SqFwxXnPFDpw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,219,1770624000"; d="scan'208";a="240180678"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO [10.245.244.213])
- ([10.245.244.213])
- by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2026 09:26:47 -0700
-Message-ID: <906de072af1f6744aed1eb914ff196f0f5e00016.camel@linux.intel.com>
-Subject: Re: [PATCH v5 2/2] drm/ttm/pool: back up at native page order
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,  Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann	 <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter	 <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Date: Wed, 06 May 2026 18:26:43 +0200
-In-Reply-To: <afto1UzV/yfNrv1S@gsse-cloud1.jf.intel.com>
-References: <20260505200443.3300962-1-matthew.brost@intel.com>
- <20260505200443.3300962-3-matthew.brost@intel.com>
- <47256c5547c75296af32ca87161188588cacf727.camel@linux.intel.com>
- <afto1UzV/yfNrv1S@gsse-cloud1.jf.intel.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFE9210EE0F
+ for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 16:33:37 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 88557441AB;
+ Wed,  6 May 2026 16:33:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0D0AC2BCB0;
+ Wed,  6 May 2026 16:33:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1778085217;
+ bh=hO7+sisasLtQ/G1Nwt+ibyC7GY6sWD5tWw4F9IyNZzk=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=cf8lga9t1jnMke6utnxacqXBijJAEHt68jK17Z/ljRCxMMFqJM7awQ/prtAtgh4Zv
+ ZbOwPRzL5+ARZ1/7RFOQefPus5AR+G6FpYsaX8CqTvFsHynCwpvMz2S08ywv3Py/Ut
+ rmCnEcryx/FaH1KgEIU9UUUjJ0R6nsL7t9DYTqmPEFHyQPVQaOpVq4wdCl48Art2z4
+ lB4U4T9GyFo2cErvINnQ6uXJ3+/Wi/0GqaHELHv/8bjJev3pknh+MKNHkseCLrWYLW
+ UkFsE+KcA2sVt7Eb5s1D4fVJGBgcETQerELEXhaeDCJRqeLvGfohCa2U9ujRmCnHs0
+ GO6nDDOzl80uQ==
+Message-ID: <a52aa81d-a132-4014-8a9e-81f27d314822@kernel.org>
+Date: Wed, 6 May 2026 11:33:35 -0500
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V1 4/6] accel/amdxdna: Add command doorbell and wait
+ support
+Content-Language: en-US
+To: Lizhi Hou <lizhi.hou@amd.com>, ogabbay@kernel.org,
+ quic_jhugo@quicinc.com, dri-devel@lists.freedesktop.org,
+ karol.wachowski@linux.intel.com
+Cc: David Zhang <yidong.zhang@amd.com>, linux-kernel@vger.kernel.org,
+ max.zhen@amd.com, sonal.santan@amd.com,
+ Hayden Laccabue <Hayden.Laccabue@amd.com>
+References: <20260505160936.3917732-1-lizhi.hou@amd.com>
+ <20260505160936.3917732-5-lizhi.hou@amd.com>
+ <d2c7e43b-b3b6-4aee-abb4-82edfb98d2ab@kernel.org>
+ <01bdf8ee-f1bc-445e-3d82-ec460c630c7a@amd.com>
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <01bdf8ee-f1bc-445e-3d82-ec460c630c7a@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,486 +66,492 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 2026-05-06 at 09:14 -0700, Matthew Brost wrote:
-> On Wed, May 06, 2026 at 04:23:29PM +0200, Thomas Hellstr=C3=B6m wrote:
-> > Hi, Matt
-> >=20
-> > On Tue, 2026-05-05 at 13:04 -0700, Matthew Brost wrote:
-> > > ttm_pool_split_for_swap() splits high-order pool pages into
-> > > order-0
-> > > pages during backup so each 4K page can be released to the system
-> > > as
-> > > soon as it has been written to shmem. While this minimizes the
-> > > allocator's working set during reclaim, it actively fragments
-> > > memory:
-> > > every TTM-backed compound page that the shrinker touches is
-> > > shattered
-> > > into order-0 pages, even when the rest of the system would prefer
-> > > that
-> > > the high-order block stay intact. Under sustained kswapd pressure
-> > > this
-> > > is enough to drive other parts of MM into recovery loops from
-> > > which
-> > > they cannot easily escape, because the memory TTM just freed is
-> > > no
-> > > longer contiguous.
-> > >=20
-> > > Stop unconditionally splitting on the backup path and back up
-> > > each
-> > > compound at its native order in ttm_pool_backup():
-> > >=20
-> > > =C2=A0 - For each non-handle slot, read the order from the head page
-> > > and
-> > > =C2=A0=C2=A0=C2=A0 back up all 1<<order subpages to consecutive shmem=
- indices,
-> > > =C2=A0=C2=A0=C2=A0 writing the resulting handles into tt->pages[] as =
-we go.
-> > > =C2=A0 - On success, the compound is freed once at its native order.
-> > > No
-> > > =C2=A0=C2=A0=C2=A0 split_page(), no per-4K refcount juggling, no frag=
-mentation
-> > > =C2=A0=C2=A0=C2=A0 introduced from this path.
-> > > =C2=A0 - Slots that already hold a backup handle from a previous
-> > > partial
-> > > =C2=A0=C2=A0=C2=A0 attempt are skipped. A compound that would extend =
-past a
-> > > =C2=A0=C2=A0=C2=A0 fault-injection-truncated num_pages is skipped rat=
-her than
-> > > split.
-> > >=20
-> > > A per-subpage backup failure cannot be made fully atomic: backing
-> > > up
-> > > a
-> > > subpage allocates a shmem folio before the source page can be
-> > > released,
-> > > so under true OOM any subpage in a compound (not just the first)
-> > > may
-> > > fail to be backed up with the rest of the source compound still
-> > > live
-> > > and contiguous. To make forward progress in that case, fall back
-> > > to
-> > > splitting the source compound and backing up its remaining
-> > > subpages
-> > > individually:
-> > >=20
-> > > =C2=A0 - On the first per-subpage failure for a compound (and only if
-> > > =C2=A0=C2=A0=C2=A0 order > 0), call ttm_pool_split_for_swap() to spli=
-t the
-> > > source
-> > > =C2=A0=C2=A0=C2=A0 compound, release the subpages whose contents alre=
-ady live in
-> > > =C2=A0=C2=A0=C2=A0 shmem (their handles in tt->pages stay valid), and=
- retry the
-> > > =C2=A0=C2=A0=C2=A0 failing subpage at order 0.
-> > > =C2=A0 - Subsequent successful subpage backups in the now-split
-> > > compound
-> > > =C2=A0=C2=A0=C2=A0 free their source page individually as soon as the=
- handle is
-> > > =C2=A0=C2=A0=C2=A0 written.
-> > > =C2=A0 - A second failure after splitting terminates the loop with
-> > > partial
-> > > =C2=A0=C2=A0=C2=A0 progress; the remaining order-0 subpages stay in t=
-t->pages as
-> > > =C2=A0=C2=A0=C2=A0 plain page pointers and are cleaned up by the norm=
-al
-> > > =C2=A0=C2=A0=C2=A0 ttm_pool_drop_backed_up() / ttm_pool_free_range() =
-paths.
-> > >=20
-> > > This restores the original split-on-OOM fallback behavior while
-> > > keeping the common, non-OOM case fragmentation-free. It also
-> > > preserves the "partial backup is allowed" contract: shrunken is
-> > > incremented per backed-up subpage so the caller still sees
-> > > forward
-> > > progress when a compound only partially succeeds.
-> > >=20
-> > > The restore-side leftover-page branch in
-> > > ttm_pool_restore_commit() is
-> > > left as-is for now: that path can still split a previously-
-> > > retained
-> > > compound, but in practice it is unreachable under realistic
-> > > workloads
-> > > (per profiling we have not been able to trigger it), so it is not
-> > > worth complicating the restore state machine to avoid the split
-> > > there.
-> > > If it ever becomes a problem in practice it can be addressed
-> > > independently.
-> > >=20
-> > > ttm_pool_split_for_swap() itself is retained both for the OOM
-> > > fallback above and for the restore path's remaining caller. The
-> > > DMA-mapped pre-backup unmap loop, the purge path,
-> > > ttm_pool_free_*,
-> > > and ttm_pool_unmap_and_free() already operate at native order and
-> > > are unchanged.
-> > >=20
-> > > Cc: Christian Koenig <christian.koenig@amd.com>
-> > > Cc: Huang Rui <ray.huang@amd.com>
-> > > Cc: Matthew Auld <matthew.auld@intel.com>
-> > > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> > > Cc: Maxime Ripard <mripard@kernel.org>
-> > > Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> > > Cc: David Airlie <airlied@gmail.com>
-> > > Cc: Simona Vetter <simona@ffwll.ch>
-> > > Cc: dri-devel@lists.freedesktop.org
-> > > Cc: linux-kernel@vger.kernel.org
-> > > Cc: stable@vger.kernel.org
-> > > Fixes: b63d715b8090 ("drm/ttm/pool, drm/ttm/tt: Provide a helper
-> > > to
-> > > shrink pages")
-> > > Suggested-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com=
->
-> > > Assisted-by: Claude:claude-opus-4.6
-> > > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> > >=20
-> > > ---
-> > >=20
-> > > A follow-up should attempt writeback to shmem at folio order as
-> > > well,
-> > > but the API for doing so is unclear and may be incomplete.
-> > >=20
-> > > This patch is related to the pending series [1] and significantly
-> > > reduces the likelihood of Xe entering a kswapd loop under
-> > > fragmentation.
-> > > The kswapd =E2=86=92 shrinker =E2=86=92 Xe shrinker =E2=86=92 TTM bac=
-kup path is still
-> > > exercised; however, with this change the backup path no longer
-> > > worsens
-> > > fragmentation, which previously amplified reclaim pressure and
-> > > reinforced the kswapd loop.
-> > >=20
-> > > Nonetheless, the pathological case that [1] aims to address still
-> > > exists
-> > > and requires a proper solution. Even with this patch, a kswapd
-> > > loop
-> > > due
-> > > to severe fragmentation can still be triggered, although it is
-> > > now
-> > > substantially harder to reproduce.
-> > >=20
-> > > v2:
-> > > =C2=A0- Split pages and free immediately if backup fails are higher
-> > > order
-> > > =C2=A0=C2=A0 (Thomas)
-> > > v3:
-> > > =C2=A0- Skip handles in purge path (sashiko)
-> > > v5:
-> > > =C2=A0- Refactor into ttm_pool_backup_folio (Thomas)
-> > >=20
-> > > [1] https://patchwork.freedesktop.org/series/165330/
-> > > ---
-> > > =C2=A0drivers/gpu/drm/ttm/ttm_pool.c | 110
-> > > ++++++++++++++++++++++++++++---
-> > > --
-> > > =C2=A01 file changed, 94 insertions(+), 16 deletions(-)
-> > >=20
-> > > diff --git a/drivers/gpu/drm/ttm/ttm_pool.c
-> > > b/drivers/gpu/drm/ttm/ttm_pool.c
-> > > index d380a3c7fe40..78efc8524133 100644
-> > > --- a/drivers/gpu/drm/ttm/ttm_pool.c
-> > > +++ b/drivers/gpu/drm/ttm/ttm_pool.c
-> > > @@ -1019,6 +1019,70 @@ void ttm_pool_drop_backed_up(struct ttm_tt
-> > > *tt)
-> > > =C2=A0	ttm_pool_free_range(NULL, tt, ttm_cached, start_page,
-> > > tt-
-> > > > num_pages);
-> > > =C2=A0}
-> > > =C2=A0
-> > > +static int ttm_pool_backup_folio(struct ttm_pool *pool, struct
-> > > ttm_tt *tt,
-> > > +				 struct file *backup, struct
-> > > folio
-> > > *folio,
-> > > +				 unsigned int order, bool
-> > > writeback,
-> > > +				 pgoff_t idx, gfp_t page_gfp,
-> > > gfp_t
-> > > alloc_gfp)
-> >=20
-> > I don't really understand why we can't end up with a
-> > ttm_backup_backup_folio(), which I believe is the proper layering,
-> > already at this point? Please see a suggestion at=20
-> >=20
-> > https://gitlab.freedesktop.org/thomash/xe-vibe/-/commits/ttm_swapout?re=
-f_type=3Dheads
-> >=20
-> > Here the splitting logic is kept in the ttm_pool, but ttm_backup
-> > supports handing large folios to it.
-> >=20
-> > Although the cumulative diffstat becomes larger, the end code
-> > becomes
-> > smaller and IMO easier to read, and we don't need to introduce code
-> > that we immediately have to refactor.
->=20
-> That version looks fine too. If that is preference no issue.
+On 5/6/26 11:11, Lizhi Hou wrote:
+> 
+> On 5/5/26 13:31, Mario Limonciello wrote:
+>>
+>>
+>> On 5/5/26 11:09, Lizhi Hou wrote:
+>>> From: David Zhang <yidong.zhang@amd.com>
+>>>
+>>> Expose the command doorbell register to userspace on a per-hardware
+>>> context basis, enabling applications to notify the firmware of pending
+>>> commands via doorbell writes.
+>>>
+>>> Introduce DRM_IOCTL_AMDXDNA_WAIT_CMD to allow userspace to wait for
+>>> completion of individual commands.
+>>>
+>>> Co-developed-by: Hayden Laccabue <Hayden.Laccabue@amd.com>
+>>> Signed-off-by: Hayden Laccabue <Hayden.Laccabue@amd.com>
+>>> Signed-off-by: David Zhang <yidong.zhang@amd.com>
+>>> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+>> Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+>> Minor suggestion below.
+>>
+>>> ---
+>>>   drivers/accel/amdxdna/aie4_ctx.c        | 75 +++++++++++++++++++++++++
+>>>   drivers/accel/amdxdna/aie4_host_queue.h |  2 +
+>>>   drivers/accel/amdxdna/aie4_pci.c        | 34 +++++++++++
+>>>   drivers/accel/amdxdna/aie4_pci.h        |  3 +
+>>>   drivers/accel/amdxdna/amdxdna_ctx.c     | 34 +++++++++++
+>>>   drivers/accel/amdxdna/amdxdna_ctx.h     |  4 +-
+>>>   drivers/accel/amdxdna/amdxdna_gem.c     |  5 +-
+>>>   drivers/accel/amdxdna/amdxdna_pci_drv.c | 18 +++++-
+>>>   drivers/accel/amdxdna/amdxdna_pci_drv.h |  3 +
+>>>   drivers/accel/amdxdna/npu3_regs.c       |  5 ++
+>>>   include/uapi/drm/amdxdna_accel.h        | 22 +++++++-
+>>>   11 files changed, 198 insertions(+), 7 deletions(-)
+>>>
+>>> diff --git a/drivers/accel/amdxdna/aie4_ctx.c b/drivers/accel/ 
+>>> amdxdna/aie4_ctx.c
+>>> index 84ac706d0ffb..8408b0d2696f 100644
+>>> --- a/drivers/accel/amdxdna/aie4_ctx.c
+>>> +++ b/drivers/accel/amdxdna/aie4_ctx.c
+>>> @@ -256,3 +256,78 @@ void aie4_hwctx_fini(struct amdxdna_hwctx *hwctx)
+>>>       aie4_hwctx_umq_fini(hwctx);
+>>>       kfree(hwctx->priv);
+>>>   }
+>>> +
+>>> +static inline bool valid_queue_index(u64 read, u64 write, u32 capacity)
+>>> +{
+>>> +    return (write >= read) && ((write - read) <= capacity);
+>>> +}
+>>> +
+>>> +static u64 get_read_index(struct amdxdna_hwctx *hwctx)
+>>> +{
+>>> +    u64 wi = READ_ONCE(*hwctx->priv->umq_write_index);
+>>> +    u64 ri = READ_ONCE(*hwctx->priv->umq_read_index);
+>>> +    struct amdxdna_dev *xdna = hwctx->client->xdna;
+>>> +
+>>> +    /*
+>>> +     * CERT cannot update read index as uint64 atomically. Driver 
+>>> may read
+>>> +     * half-updated read index when it has bits in high 32bit. In 
+>>> case read
+>>> +     * index is not valid, wait for some time and retry once. It should
+>>> +     * allow CERT to complete the read index update.
+>>> +     */
+>>> +    if (!valid_queue_index(ri, wi, CTX_MAX_CMDS)) {
+>>> +        XDNA_WARN(xdna, "Invalid index, ri %llu, wi %llu", ri, wi);
+>>> +        usleep_range(100, 200);
+>>> +        ri = READ_ONCE(*hwctx->priv->umq_read_index);
+>>> +        if (!valid_queue_index(ri, wi, CTX_MAX_CMDS)) {
+>>> +            XDNA_ERR(xdna, "Invalid index after retry, ri %llu, wi 
+>>> %llu", ri, wi);
+>>> +            ri = 0;
+>>> +        }
+>>> +    }
+>>> +
+>>> +    return ri;
+>>> +}
+>>> +
+>>> +static inline bool check_cmd_done(struct amdxdna_hwctx *hwctx, u64 seq)
+>>> +{
+>>> +    u64 read_idx = get_read_index(hwctx);
+>>> +
+>>> +    return read_idx > seq;
+>>> +}
+>>> +
+>>> +int aie4_cmd_wait(struct amdxdna_hwctx *hwctx, u64 seq, u32 timeout)
+>>> +{
+>>> +    unsigned long wait_jifs = MAX_SCHEDULE_TIMEOUT;
+>>> +    struct amdxdna_hwctx_priv *priv = hwctx->priv;
+>>> +    struct cert_comp *cert_comp = priv->cert_comp;
+>>> +    long ret;
+>>
+>> Not sure I see the point in making ret a long. 
+>> wait_event_interruptible_timeout() retun 0 or 1.
+> 
+> Other than 0 or 1, wait_event_interruptible_timeout() can also return 
+> the remaining jiffies and -ERESTARTSYS
+> 
 
-Cool. Note that there is a bug in that we don't pass the folio order
-into ttm_backup_backup_folio(). I'm force-pushing a fix for that.
+Ah thanks.
 
+> Lizhi
+> 
+>>
+>> bool val;
+>> val = wait_event_interruptible_timeout()
+>> return val ? 0 : -ETIME;
+>>
+>>
+>>> +
+>>> +    if (timeout)
+>>> +        wait_jifs = msecs_to_jiffies(timeout);
+>>> +
+>>> +    ret = wait_event_interruptible_timeout(cert_comp->waitq,
+>>> +                           (check_cmd_done(hwctx, seq)),
+>>> +                           wait_jifs);
+>>> +
+>>> +    if (!ret)
+>>> +        ret = -ETIME;
+>>> +
+>>> +    return ret <= 0 ? ret : 0;
+>>> +}
+>>> +
+>>> +int aie4_hwctx_valid_doorbell(struct amdxdna_client *client, u32 
+>>> vm_pgoff)
+>>> +{
+>>> +    struct amdxdna_hwctx *hwctx;
+>>> +    unsigned long hwctx_id;
+>>> +    int idx;
+>>> +
+>>> +    idx = srcu_read_lock(&client->hwctx_srcu);
+>>> +    amdxdna_for_each_hwctx(client, hwctx_id, hwctx) {
+>>> +        if (vm_pgoff == (hwctx->doorbell_offset >> PAGE_SHIFT)) {
+>>> +            srcu_read_unlock(&client->hwctx_srcu, idx);
+>>> +            return 1;
+>>> +        }
+>>> +    }
+>>> +    srcu_read_unlock(&client->hwctx_srcu, idx);
+>>> +
+>>> +    return 0;
+>>> +}
+>>> diff --git a/drivers/accel/amdxdna/aie4_host_queue.h b/drivers/accel/ 
+>>> amdxdna/aie4_host_queue.h
+>>> index eb6a38dfb53e..1b33eda3f727 100644
+>>> --- a/drivers/accel/amdxdna/aie4_host_queue.h
+>>> +++ b/drivers/accel/amdxdna/aie4_host_queue.h
+>>> @@ -8,6 +8,8 @@
+>>>     #include <linux/types.h>
+>>>   +#define CTX_MAX_CMDS                    32
+>>> +
+>>>   struct host_queue_header {
+>>>       __u64 read_index;
+>>>       struct {
+>>> diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/ 
+>>> amdxdna/aie4_pci.c
+>>> index 3be9066b7178..9ff34ce57fcb 100644
+>>> --- a/drivers/accel/amdxdna/aie4_pci.c
+>>> +++ b/drivers/accel/amdxdna/aie4_pci.c
+>>> @@ -503,6 +503,38 @@ static int aie4m_pcidev_init(struct amdxdna_dev 
+>>> *xdna)
+>>>       return 0;
+>>>   }
+>>>   +static int aie4_doorbell_mmap(struct amdxdna_client *client, 
+>>> struct vm_area_struct *vma)
+>>> +{
+>>> +    struct amdxdna_dev *xdna = client->xdna;
+>>> +    struct pci_dev *pdev = to_pci_dev(xdna->ddev.dev);
+>>> +    const struct amdxdna_dev_priv *npriv = xdna->dev_info->dev_priv;
+>>> +    phys_addr_t res_start;
+>>> +    unsigned long pfn;
+>>> +    int ret;
+>>> +
+>>> +    if (!aie4_hwctx_valid_doorbell(client, vma->vm_pgoff)) {
+>>> +        XDNA_ERR(xdna, "Invalid doorbell page offset 0x%lx", vma- 
+>>> >vm_pgoff);
+>>> +        return -EINVAL;
+>>> +    }
+>>> +
+>>> +    if (vma_pages(vma) != 1) {
+>>> +        XDNA_ERR(xdna, "can only map one page, got %ld", 
+>>> vma_pages(vma));
+>>> +        return -EINVAL;
+>>> +    }
+>>> +
+>>> +    res_start = pci_resource_start(pdev, xdna->dev_info- 
+>>> >doorbell_bar) + npriv->doorbell_off;
+>>> +    pfn = PHYS_PFN(res_start) + vma->vm_pgoff;
+>>> +    vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
+>>> +    vm_flags_set(vma, VM_IO | VM_DONTEXPAND | VM_DONTDUMP);
+>>> +    ret = io_remap_pfn_range(vma, vma->vm_start,
+>>> +                 pfn,
+>>> +                 PAGE_SIZE,
+>>> +                 vma->vm_page_prot);
+>>> +
+>>> +    XDNA_DBG(xdna, "doorbell ret %d", ret);
+>>> +    return ret;
+>>> +}
+>>> +
+>>>   static int aie4_pf_init(struct amdxdna_dev *xdna)
+>>>   {
+>>>       int ret;
+>>> @@ -547,4 +579,6 @@ const struct amdxdna_dev_ops aie4_vf_ops = {
+>>>       .fini            = aie4_vf_fini,
+>>>       .hwctx_init        = aie4_hwctx_init,
+>>>       .hwctx_fini        = aie4_hwctx_fini,
+>>> +    .mmap            = aie4_doorbell_mmap,
+>>> +    .cmd_wait        = aie4_cmd_wait,
+>>>   };
+>>> diff --git a/drivers/accel/amdxdna/aie4_pci.h b/drivers/accel/ 
+>>> amdxdna/aie4_pci.h
+>>> index 6103007e6d2f..b69489acd53d 100644
+>>> --- a/drivers/accel/amdxdna/aie4_pci.h
+>>> +++ b/drivers/accel/amdxdna/aie4_pci.h
+>>> @@ -36,6 +36,7 @@ struct amdxdna_dev_priv {
+>>>       u32            mbox_bar;
+>>>       u32            mbox_rbuf_bar;
+>>>       u64            mbox_info_off;
+>>> +    u32            doorbell_off;
+>>>         struct aie_bar_off_pair    psp_regs_off[PSP_MAX_REGS];
+>>>       struct aie_bar_off_pair    smu_regs_off[SMU_MAX_REGS];
+>>> @@ -60,6 +61,8 @@ int aie4_suspend_fw(struct amdxdna_dev_hdl *ndev);
+>>>   /* aie4_ctx.c */
+>>>   int aie4_hwctx_init(struct amdxdna_hwctx *hwctx);
+>>>   void aie4_hwctx_fini(struct amdxdna_hwctx *hwctx);
+>>> +int aie4_cmd_wait(struct amdxdna_hwctx *hwctx, u64 seq, u32 timeout);
+>>> +int aie4_hwctx_valid_doorbell(struct amdxdna_client *client, u32 
+>>> vm_pgoff);
+>>>     /* aie4_sriov.c */
+>>>   #if IS_ENABLED(CONFIG_PCI_IOV)
+>>> diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/ 
+>>> amdxdna/amdxdna_ctx.c
+>>> index b5ad60d4b734..b79229a63af3 100644
+>>> --- a/drivers/accel/amdxdna/amdxdna_ctx.c
+>>> +++ b/drivers/accel/amdxdna/amdxdna_ctx.c
+>>> @@ -627,3 +627,37 @@ int amdxdna_drm_submit_cmd_ioctl(struct 
+>>> drm_device *dev, void *data, struct drm_
+>>>       XDNA_ERR(client->xdna, "Invalid command type %d", args->type);
+>>>       return -EINVAL;
+>>>   }
+>>> +
+>>> +int amdxdna_drm_wait_cmd_ioctl(struct drm_device *dev, void *data, 
+>>> struct drm_file *filp)
+>>> +{
+>>> +    struct amdxdna_client *client = filp->driver_priv;
+>>> +    struct amdxdna_dev *xdna = to_xdna_dev(dev);
+>>> +    struct amdxdna_drm_wait_cmd *args = data;
+>>> +    struct amdxdna_hwctx *hwctx;
+>>> +    int ret, idx;
+>>> +
+>>> +    XDNA_DBG(xdna, "PID %d ctx %d timeout set %d ms for cmd %llu",
+>>> +         client->pid, args->hwctx, args->timeout, args->seq);
+>>> +
+>>> +    if (!xdna->dev_info->ops->cmd_wait)
+>>> +        return -EOPNOTSUPP;
+>>> +
+>>> +    idx = srcu_read_lock(&client->hwctx_srcu);
+>>> +    hwctx = xa_load(&client->hwctx_xa, args->hwctx);
+>>> +    if (!hwctx) {
+>>> +        XDNA_DBG(xdna, "PID %d failed to get ctx %d", client->pid, 
+>>> args->hwctx);
+>>> +        ret = -EINVAL;
+>>> +        goto unlock_ctx_srcu;
+>>> +    }
+>>> +
+>>> +    ret = xdna->dev_info->ops->cmd_wait(hwctx, args->seq, args- 
+>>> >timeout);
+>>> +
+>>> +    XDNA_DBG(xdna, "PID %d ctx %d cmd %lld wait finished, ret %d",
+>>> +         client->pid, args->hwctx, args->seq, ret);
+>>> +
+>>> +    trace_amdxdna_debug_point(current->comm, args->seq, "job 
+>>> returned to user");
+>>> +
+>>> +unlock_ctx_srcu:
+>>> +    srcu_read_unlock(&client->hwctx_srcu, idx);
+>>> +    return ret;
+>>> +}
+>>> diff --git a/drivers/accel/amdxdna/amdxdna_ctx.h b/drivers/accel/ 
+>>> amdxdna/amdxdna_ctx.h
+>>> index c5622718b4d5..6e3c6371a088 100644
+>>> --- a/drivers/accel/amdxdna/amdxdna_ctx.h
+>>> +++ b/drivers/accel/amdxdna/amdxdna_ctx.h
+>>> @@ -211,12 +211,10 @@ int amdxdna_cmd_submit(struct amdxdna_client 
+>>> *client,
+>>>                  u32 *arg_bo_hdls, u32 arg_bo_cnt,
+>>>                  u32 hwctx_hdl, u64 *seq);
+>>>   -int amdxdna_cmd_wait(struct amdxdna_client *client, u32 hwctx_hdl,
+>>> -             u64 seq, u32 timeout);
+>>> -
+>>>   int amdxdna_drm_create_hwctx_ioctl(struct drm_device *dev, void 
+>>> *data, struct drm_file *filp);
+>>>   int amdxdna_drm_config_hwctx_ioctl(struct drm_device *dev, void 
+>>> *data, struct drm_file *filp);
+>>>   int amdxdna_drm_destroy_hwctx_ioctl(struct drm_device *dev, void 
+>>> *data, struct drm_file *filp);
+>>>   int amdxdna_drm_submit_cmd_ioctl(struct drm_device *dev, void 
+>>> *data, struct drm_file *filp);
+>>> +int amdxdna_drm_wait_cmd_ioctl(struct drm_device *dev, void *data, 
+>>> struct drm_file *filp);
+>>>     #endif /* _AMDXDNA_CTX_H_ */
+>>> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/ 
+>>> amdxdna/amdxdna_gem.c
+>>> index ebfc472aa9e7..319d2064fafa 100644
+>>> --- a/drivers/accel/amdxdna/amdxdna_gem.c
+>>> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
+>>> @@ -212,7 +212,8 @@ static bool amdxdna_hmm_invalidate(struct 
+>>> mmu_interval_notifier *mni,
+>>>       mmu_interval_set_seq(&mapp->notifier, cur_seq);
+>>>       up_write(&xdna->notifier_lock);
+>>>   -    xdna->dev_info->ops->hmm_invalidate(abo, cur_seq);
+>>> +    if (xdna->dev_info->ops->hmm_invalidate)
+>>> +        xdna->dev_info->ops->hmm_invalidate(abo, cur_seq);
+>>>         if (range->event == MMU_NOTIFY_UNMAP) {
+>>>           down_write(&xdna->notifier_lock);
+>>> @@ -295,7 +296,7 @@ static int amdxdna_hmm_register(struct 
+>>> amdxdna_gem_obj *abo,
+>>>       u32 nr_pages;
+>>>       int ret;
+>>>   -    if (!xdna->dev_info->ops->hmm_invalidate)
+>>> +    if (!amdxdna_pasid_on(abo->client))
+>>>           return 0;
+>>>         mapp = kzalloc_obj(*mapp);
+>>> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/ 
+>>> amdxdna/amdxdna_pci_drv.c
+>>> index 39ad081ac082..c0d00db25cde 100644
+>>> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
+>>> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
+>>> @@ -224,6 +224,21 @@ static int amdxdna_drm_set_state_ioctl(struct 
+>>> drm_device *dev, void *data, struc
+>>>       return ret;
+>>>   }
+>>>   +static int amdxdna_drm_gem_mmap(struct file *filp, struct 
+>>> vm_area_struct *vma)
+>>> +{
+>>> +    struct drm_file *drm_filp = filp->private_data;
+>>> +    struct amdxdna_client *client = drm_filp->driver_priv;
+>>> +    struct amdxdna_dev *xdna = client->xdna;
+>>> +
+>>> +    if (likely(vma->vm_pgoff >= DRM_FILE_PAGE_OFFSET_START))
+>>> +        return drm_gem_mmap(filp, vma);
+>>> +
+>>> +    if (!xdna->dev_info->ops->mmap)
+>>> +        return -EOPNOTSUPP;
+>>> +
+>>> +    return xdna->dev_info->ops->mmap(client, vma);
+>>> +}
+>>> +
+>>>   static const struct drm_ioctl_desc amdxdna_drm_ioctls[] = {
+>>>       /* Context */
+>>>       DRM_IOCTL_DEF_DRV(AMDXDNA_CREATE_HWCTX, 
+>>> amdxdna_drm_create_hwctx_ioctl, 0),
+>>> @@ -235,6 +250,7 @@ static const struct drm_ioctl_desc 
+>>> amdxdna_drm_ioctls[] = {
+>>>       DRM_IOCTL_DEF_DRV(AMDXDNA_SYNC_BO, amdxdna_drm_sync_bo_ioctl, 0),
+>>>       /* Execution */
+>>>       DRM_IOCTL_DEF_DRV(AMDXDNA_EXEC_CMD, 
+>>> amdxdna_drm_submit_cmd_ioctl, 0),
+>>> +    DRM_IOCTL_DEF_DRV(AMDXDNA_WAIT_CMD, amdxdna_drm_wait_cmd_ioctl, 0),
+>>>       /* AIE hardware */
+>>>       DRM_IOCTL_DEF_DRV(AMDXDNA_GET_INFO, amdxdna_drm_get_info_ioctl, 
+>>> 0),
+>>>       DRM_IOCTL_DEF_DRV(AMDXDNA_GET_ARRAY, 
+>>> amdxdna_drm_get_array_ioctl, 0),
+>>> @@ -281,7 +297,7 @@ static const struct file_operations amdxdna_fops = {
+>>>       .poll        = drm_poll,
+>>>       .read        = drm_read,
+>>>       .llseek        = noop_llseek,
+>>> -    .mmap        = drm_gem_mmap,
+>>> +    .mmap        = amdxdna_drm_gem_mmap,
+>>>       .show_fdinfo    = drm_show_fdinfo,
+>>>       .fop_flags    = FOP_UNSIGNED_OFFSET,
+>>>   };
+>>> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.h b/drivers/accel/ 
+>>> amdxdna/amdxdna_pci_drv.h
+>>> index caed11c09e55..471b72299aee 100644
+>>> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.h
+>>> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.h
+>>> @@ -56,12 +56,14 @@ struct amdxdna_dev_ops {
+>>>       int (*resume)(struct amdxdna_dev *xdna);
+>>>       int (*suspend)(struct amdxdna_dev *xdna);
+>>>       int (*sriov_configure)(struct amdxdna_dev *xdna, int num_vfs);
+>>> +    int (*mmap)(struct amdxdna_client *client, struct vm_area_struct 
+>>> *vma);
+>>>       int (*hwctx_init)(struct amdxdna_hwctx *hwctx);
+>>>       void (*hwctx_fini)(struct amdxdna_hwctx *hwctx);
+>>>       int (*hwctx_config)(struct amdxdna_hwctx *hwctx, u32 type, u64 
+>>> value, void *buf, u32 size);
+>>>       int (*hwctx_sync_debug_bo)(struct amdxdna_hwctx *hwctx, u32 
+>>> debug_bo_hdl);
+>>>       void (*hmm_invalidate)(struct amdxdna_gem_obj *abo, unsigned 
+>>> long cur_seq);
+>>>       int (*cmd_submit)(struct amdxdna_hwctx *hwctx, struct 
+>>> amdxdna_sched_job *job, u64 *seq);
+>>> +    int (*cmd_wait)(struct amdxdna_hwctx *hwctx, u64 seq, u32 timeout);
+>>>       int (*get_aie_info)(struct amdxdna_client *client, struct 
+>>> amdxdna_drm_get_info *args);
+>>>       int (*set_aie_state)(struct amdxdna_client *client, struct 
+>>> amdxdna_drm_set_state *args);
+>>>       int (*get_array)(struct amdxdna_client *client, struct 
+>>> amdxdna_drm_get_array *args);
+>>> @@ -85,6 +87,7 @@ struct amdxdna_dev_info {
+>>>       int                sram_bar;
+>>>       int                psp_bar;
+>>>       int                smu_bar;
+>>> +    int                doorbell_bar;
+>>>       int                device_type;
+>>>       int                first_col;
+>>>       u32                dev_mem_buf_shift;
+>>> diff --git a/drivers/accel/amdxdna/npu3_regs.c b/drivers/accel/ 
+>>> amdxdna/npu3_regs.c
+>>> index 6d5da779232b..d76b2e99c308 100644
+>>> --- a/drivers/accel/amdxdna/npu3_regs.c
+>>> +++ b/drivers/accel/amdxdna/npu3_regs.c
+>>> @@ -14,6 +14,9 @@
+>>>   #define NPU3_MBOX_BUFFER_BAR    2
+>>>   #define NPU3_MBOX_INFO_OFF    0x0
+>>>   +#define NPU3_DOORBELL_BAR       2
+>>> +#define NPU3_DOORBELL_OFF       0x0
+>>> +
+>>>   /* PCIe BAR Index for NPU3 */
+>>>   #define NPU3_REG_BAR_INDEX    0
+>>>   #define NPU3_PSP_BAR_INDEX      4
+>>> @@ -45,6 +48,7 @@ static const struct amdxdna_dev_priv npu3_dev_priv = {
+>>>       .mbox_bar        = NPU3_MBOX_BAR,
+>>>       .mbox_rbuf_bar        = NPU3_MBOX_BUFFER_BAR,
+>>>       .mbox_info_off        = NPU3_MBOX_INFO_OFF,
+>>> +    .doorbell_off        = NPU3_DOORBELL_OFF,
+>>>       .psp_regs_off   = {
+>>>           DEFINE_BAR_OFFSET(PSP_CMD_REG,    NPU3_PSP, 
+>>> MPASP_C2PMSG_123_ALT_1),
+>>>           DEFINE_BAR_OFFSET(PSP_ARG0_REG,   NPU3_PSP, 
+>>> MPASP_C2PMSG_156_ALT_1),
+>>> @@ -87,6 +91,7 @@ const struct amdxdna_dev_info dev_npu3_pf_info = {
+>>>   const struct amdxdna_dev_info dev_npu3_vf_info = {
+>>>       .mbox_bar        = NPU3_MBOX_BAR,
+>>>       .sram_bar        = NPU3_MBOX_BUFFER_BAR,
+>>> +    .doorbell_bar        = NPU3_DOORBELL_BAR,
+>>>       .default_vbnv        = "RyzenAI-npu3-vf",
+>>>       .device_type        = AMDXDNA_DEV_TYPE_UMQ,
+>>>       .dev_priv        = &npu3_dev_vf_priv,
+>>> diff --git a/include/uapi/drm/amdxdna_accel.h b/include/uapi/drm/ 
+>>> amdxdna_accel.h
+>>> index ad9b33dd7b13..51a507561df6 100644
+>>> --- a/include/uapi/drm/amdxdna_accel.h
+>>> +++ b/include/uapi/drm/amdxdna_accel.h
+>>> @@ -45,7 +45,8 @@ enum amdxdna_drm_ioctl_id {
+>>>       DRM_AMDXDNA_EXEC_CMD,
+>>>       DRM_AMDXDNA_GET_INFO,
+>>>       DRM_AMDXDNA_SET_STATE,
+>>> -    DRM_AMDXDNA_GET_ARRAY = 10,
+>>> +    DRM_AMDXDNA_WAIT_CMD,
+>>> +    DRM_AMDXDNA_GET_ARRAY,
+>>>   };
+>>>     /**
+>>> @@ -274,6 +275,21 @@ struct amdxdna_drm_exec_cmd {
+>>>       __u64 seq;
+>>>   };
+>>>   +/**
+>>> + * struct amdxdna_drm_wait_cmd - Wait execution command.
+>>> + *
+>>> + * @hwctx: Context handle.
+>>> + * @timeout: timeout in ms, 0 implies infinite wait.
+>>> + * @seq: sequence number of the command returned by execute command.
+>>> + *
+>>> + * Wait a command specified by seq to be completed.
+>>> + */
+>>> +struct amdxdna_drm_wait_cmd {
+>>> +    __u32 hwctx;
+>>> +    __u32 timeout;
+>>> +    __u64 seq;
+>>> +};
+>>> +
+>>>   /**
+>>>    * struct amdxdna_drm_query_aie_status - Query the status of the 
+>>> AIE hardware
+>>>    * @buffer: The user space buffer that will return the AIE status.
+>>> @@ -739,6 +755,10 @@ struct amdxdna_drm_set_power_mode {
+>>>       DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDXDNA_GET_ARRAY, \
+>>>            struct amdxdna_drm_get_array)
+>>>   +#define DRM_IOCTL_AMDXDNA_WAIT_CMD \
+>>> +    DRM_IOW(DRM_COMMAND_BASE + DRM_AMDXDNA_WAIT_CMD, \
+>>> +        struct amdxdna_drm_wait_cmd)
+>>> +
+>>>   #if defined(__cplusplus)
+>>>   } /* extern c end */
+>>>   #endif
+>>
 
->=20
-> My goal with this series is get something than can reasonably be
-> backported to LTS kernels so the desktop doesn't frequently enter
-> kswapd
-> because of fragmentation. We now have at least 3 reports of this
-> being
-> an issue.
->=20
-> This is larger fix [1] which works in tandem but seemly unlikely to
-> backportable given it add new concepts to the core MM [1].
->=20
-> [1] https://patchwork.freedesktop.org/series/165329/
->=20
-> >=20
-> > But I'm starting to question the general approach: Even if the
-> > *shrinker* can recover from a total kernel memory reserve
-> > depletion, it
-> > can't really be considered a reasonable practice, since if we
-> > frequently deplete the reserves, *other* important allocations in
-> > the
-> > system like GFP_ATOMIC, PF_MEMALLOC may spuriously start to fail
-> > and
-> > people will have a hard time finding out why.
-> >=20
->=20
-> Wouldn=E2=80=99t GFP_ATOMIC enter direct reclaim, hit our shrinker, and
-> eventually make progress=E2=80=94i.e., take the split path if needed? I=
-=E2=80=99m not
-> 100% sure, but my initial reaction is that this concern may not be
-> valid; however, MM is hard to reason about.
-
-No, GFP_ATOMIC just uses what's available without any reclaim at all.
-It's more aggressive than GFP_NOWAIT in that it allows dipping into the
-kernel reserves.
-
->=20
-> Again, FWIW, I=E2=80=99ve tried a lot of things to trigger OOM=E2=80=94fo=
-r example,
-> running WebGL tabs and then kicking off various very memory-intensive
-> workloads from the CLI=E2=80=94and I still haven=E2=80=99t hit OOM or see=
-n memory
-> allocation failures or warnings.
->=20
-> > So I actually don't think we can be avoiding the splitting without
-> > direct insertion. FWIW, up until recently when shmem started
-> > supporting
->=20
-> I agree direct insertion is better solution. Do you think this
-> something
-> we could reasonably get working and backport? I haven't done any
-> research on direct insertion yet, thus why I'm asking.
-
-Yes I think so. The problem would be to get it accepted. Looking into
-that now, but hitting various kinds of subtle issues.
-
-Thanks,
-Thomas
-
-
->=20
-> > huge page swapping, other GPU drivers basically also split pages at
-> > swapout.
->=20
-> I wonder if other drivers have the same issue? The deadly combo is
-> allow
-> GPUs to subscribe all of system memory, allocate THP pages (or higher
-> order pages), and split them in the shrinker. Xe might be the only
-> driver with right combo to hit this but not 100% sure without a deep
-> dive.
->=20
-> >=20
-> > Another idea for improving on the compaction loop, perhaps worth
-> > trying
-> > is this change, shamelessly stolen from i915:
-> >=20
-> > https://gitlab.freedesktop.org/thomash/xe-vibe/-/commits/shrinker_batch=
-?ref_type=3Dheads
-> >=20
->=20
-> I'd have to give this a try - I'm quickly running out of time before
-> I
-> leave for month though.
->=20
-> Matt
->=20
-> > /Thomas
-> >=20
-> >=20
-> > > +{
-> > > +	struct page *page =3D folio_page(folio, 0);
-> > > +	int shrunken =3D 0, npages =3D 1UL << order, ret =3D 0, i;
-> > > +	bool folio_has_been_split =3D false;
-> > > +
-> > > +	for (i =3D 0; i < npages; ++i) {
-> > > +		s64 shandle;
-> > > +
-> > > +try_again_after_split:
-> > > +		if (IS_ENABLED(CONFIG_FAULT_INJECTION) &&
-> > > +		=C2=A0=C2=A0=C2=A0 should_fail(&backup_fault_inject, 1))
-> > > +			shandle =3D -ENOMEM;
-> > > +		else
-> > > +			shandle =3D ttm_backup_backup_page(backup,
-> > > page + i,
-> > > +						=09
-> > > writeback,
-> > > idx + i,
-> > > +						=09
-> > > page_gfp,
-> > > alloc_gfp);
-> > > +
-> > > +		if (shandle < 0 && !folio_has_been_split &&
-> > > order) {
-> > > +			pgoff_t j;
-> > > +
-> > > +			/*
-> > > +			 * True OOM: could not allocate a shmem
-> > > folio
-> > > +			 * for the next subpage. Fall back to
-> > > splitting
-> > > +			 * the source compound and backing up
-> > > subpages
-> > > +			 * individually. Release the already-
-> > > backed-
-> > > up
-> > > +			 * subpages whose contents now live in
-> > > shmem;
-> > > +			 * any further failure terminates the
-> > > loop
-> > > with
-> > > +			 * partial progress (handled by the
-> > > caller).
-> > > +			 */
-> > > +			folio_has_been_split =3D true;
-> > > +			ttm_pool_split_for_swap(pool, page);
-> > > +
-> > > +			for (j =3D 0; j < i; ++j) {
-> > > +				__free_pages_gpu_account(page +
-> > > j,
-> > > 0, false);
-> > > +				shrunken++;
-> > > +			}
-> > > +
-> > > +			goto try_again_after_split;
-> > > +		} else if (shandle < 0) {
-> > > +			ret =3D shandle;
-> > > +			goto out;
-> > > +		} else if (folio_has_been_split) {
-> > > +			__free_pages_gpu_account(page + i, 0,
-> > > false);
-> > > +			shrunken++;
-> > > +		}
-> > > +
-> > > +		tt->pages[idx + i] =3D
-> > > ttm_backup_handle_to_page_ptr(shandle);
-> > > +	}
-> > > +
-> > > +	if (!folio_has_been_split) {
-> > > +		/* Compound fully backed up; free at native
-> > > order.
-> > > */
-> > > +		page->private =3D 0;
-> > > +		__free_pages_gpu_account(page, order, false);
-> > > +		shrunken +=3D npages;
-> > > +	}
-> > > +
-> > > +out:
-> > > +	return shrunken ? shrunken : ret;
-> > > +}
-> > > +
-> > > =C2=A0/**
-> > > =C2=A0 * ttm_pool_backup() - Back up or purge a struct ttm_tt
-> > > =C2=A0 * @pool: The pool used when allocating the struct ttm_tt.
-> > > @@ -1045,12 +1109,11 @@ long ttm_pool_backup(struct ttm_pool
-> > > *pool,
-> > > struct ttm_tt *tt,
-> > > =C2=A0{
-> > > =C2=A0	struct file *backup =3D tt->backup;
-> > > =C2=A0	struct page *page;
-> > > -	unsigned long handle;
-> > > =C2=A0	gfp_t alloc_gfp;
-> > > =C2=A0	gfp_t gfp;
-> > > =C2=A0	int ret =3D 0;
-> > > =C2=A0	pgoff_t shrunken =3D 0;
-> > > -	pgoff_t i, num_pages;
-> > > +	pgoff_t i, num_pages, npages;
-> > > =C2=A0
-> > > =C2=A0	if (WARN_ON(ttm_tt_is_backed_up(tt)))
-> > > =C2=A0		return -EINVAL;
-> > > @@ -1070,7 +1133,8 @@ long ttm_pool_backup(struct ttm_pool *pool,
-> > > struct ttm_tt *tt,
-> > > =C2=A0			unsigned int order;
-> > > =C2=A0
-> > > =C2=A0			page =3D tt->pages[i];
-> > > -			if (unlikely(!page)) {
-> > > +			if (unlikely(!page ||
-> > > +				=C2=A0=C2=A0=C2=A0=C2=A0
-> > > ttm_backup_page_ptr_is_handle(page))) {
-> > > =C2=A0				num_pages =3D 1;
-> > > =C2=A0				continue;
-> > > =C2=A0			}
-> > > @@ -1106,26 +1170,40 @@ long ttm_pool_backup(struct ttm_pool
-> > > *pool,
-> > > struct ttm_tt *tt,
-> > > =C2=A0	if (IS_ENABLED(CONFIG_FAULT_INJECTION) &&
-> > > should_fail(&backup_fault_inject, 1))
-> > > =C2=A0		num_pages =3D DIV_ROUND_UP(num_pages, 2);
-> > > =C2=A0
-> > > -	for (i =3D 0; i < num_pages; ++i) {
-> > > -		s64 shandle;
-> > > +	for (i =3D 0; i < num_pages; i +=3D npages) {
-> > > +		unsigned int order;
-> > > =C2=A0
-> > > +		npages =3D 1;
-> > > =C2=A0		page =3D tt->pages[i];
-> > > =C2=A0		if (unlikely(!page))
-> > > =C2=A0			continue;
-> > > =C2=A0
-> > > -		ttm_pool_split_for_swap(pool, page);
-> > > +		/* Already-handled entry from a previous
-> > > attempt. */
-> > > +		if
-> > > (unlikely(ttm_backup_page_ptr_is_handle(page)))
-> > > +			continue;
-> > > =C2=A0
-> > > -		shandle =3D ttm_backup_backup_page(backup, page,
-> > > flags->writeback, i,
-> > > -						 gfp,
-> > > alloc_gfp);
-> > > -		if (shandle < 0) {
-> > > -			/* We allow partially shrunken tts */
-> > > -			ret =3D shandle;
-> > > +		order =3D ttm_pool_page_order(pool, page);
-> > > +		npages =3D 1UL << order;
-> > > +
-> > > +		/*
-> > > +		 * Back up the compound atomically at its native
-> > > order. If
-> > > +		 * fault injection truncated num_pages mid-
-> > > compound,
-> > > skip
-> > > +		 * the partial tail rather than splitting.
-> > > +		 */
-> > > +		if (unlikely(i + npages > num_pages))
-> > > +			break;
-> > > +
-> > > +		ret =3D ttm_pool_backup_folio(pool, tt, backup,
-> > > page_folio(page),
-> > > +					=C2=A0=C2=A0=C2=A0 order, flags-
-> > > >writeback,
-> > > i, gfp,
-> > > +					=C2=A0=C2=A0=C2=A0 alloc_gfp);
-> > > +		if (unlikely(ret < 0))
-> > > +			break;
-> > > +
-> > > +		shrunken +=3D ret;
-> > > +
-> > > +		/* partial backup */
-> > > +		if (unlikely(ret !=3D npages))
-> > > =C2=A0			break;
-> > > -		}
-> > > -		handle =3D shandle;
-> > > -		tt->pages[i] =3D
-> > > ttm_backup_handle_to_page_ptr(handle);
-> > > -		__free_pages_gpu_account(page, 0, false);
-> > > -		shrunken++;
-> > > =C2=A0	}
-> > > =C2=A0
-> > > =C2=A0	return shrunken ? shrunken : ret;
