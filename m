@@ -4,59 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97B9ECD343B
-	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 14:19:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A78CCD342C
+	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 14:23:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03A7F10EDC6;
-	Wed,  6 May 2026 14:19:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1F3410EDBC;
+	Wed,  6 May 2026 14:23:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="J0+CPLXT";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EvZoWQjX";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC57610EDBC
- for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 14:19:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=In-Reply-To:Content-Transfer-Encoding:Content-Type:MIME-Version
- :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=nRaOz1lcNpsbT5rGgL5au+0YmvtZKsbg6EsSvRJK3wo=; b=J0+CPLXTtNQdpaIr6HVLL0e8Xl
- ERcF86Asw953dAX+lVYLW1no599f6dj17G6vx9xuNZy/XTr0AazOstdZ66BHYXBKoOiTrZsL5NBJB
- JKhxDu1tl/uZ1zzifPOyL+mRbBp6aHbi1syE5IrdaXrYSuFBxTodHrIZ0JjPWzh1/yEt/a4R/tp+D
- nNkNKzlwDHAcls/hefSAy7HJ3YENkstDkGe6Ch/fhAuKvDfol9x5V1I3oM753Ojypz3KX5gFhzb52
- 2dh7b9pu63gswb1OlPLJnVe//JdR0494s4hqRICH5sGbmdcSChgE9t4wrnwGYm1toQwKBkWs9XHUz
- XfaqdaKw==;
-Received: from 179-125-92-238-dinamico.pombonet.net.br ([179.125.92.238]
- helo=quatroqueijos.cascardo.eti.br)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wKd59-006vns-Jr; Wed, 06 May 2026 16:18:35 +0200
-Date: Wed, 6 May 2026 11:18:26 -0300
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-To: Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>
-Cc: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Maarten Lankhorst <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>,
- Natalie Vock <natalie.vock@gmx.de>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, cgroups@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- linux-doc@vger.kernel.org, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com
-Subject: Re: [PATCH 0/2] cgroup/dmem: introduce a peak file
-Message-ID: <aftNsqrv2sGPOPHX@quatroqueijos.cascardo.eti.br>
-References: <20260506-dmem_peak-v1-0-8d803eb3449c@igalia.com>
- <aftB-cc5EhDXxCGA@localhost.localdomain>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA27410E1D0;
+ Wed,  6 May 2026 14:23:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1778077417; x=1809613417;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=9gmabF7R9tkIoTGwekZ8pVOkM+XwcMSGYTXqxVNLWvc=;
+ b=EvZoWQjXZDMcLnRFmvumr0uSxzVf6ab0v9FC7wa5P87LHWl9wWYWha7K
+ Gcb/Qrfsqclw6cSx+p+4az+CjXiCTOE6Rlgcm0ThuLyrIMWhc1EVMqoT2
+ f1iXvso1fAlR1dfND7+7gSyw7CTGsmK2VRzGRlWOGzwm9M6hMtDmaV7Hq
+ o1SB4uQkAoLYNeKaXY5JL6321nWKdiHF88wFV4iIz+Xv6SDZVjD2kVZYZ
+ HOntkau4PPadNH76xsR6/NUXMZEYIInfv7kax73GnYuWxes9DyqNMlTOd
+ iBOOvnC0b9L5pfscjV7QGnP4DaT4ubANZRvJM16eQN275cCImqnlqh8FA Q==;
+X-CSE-ConnectionGUID: wWFzXQ2fSp65mKsCFbnObA==
+X-CSE-MsgGUID: Ai06kv0eR0qu4OEiKs06kw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11777"; a="90389589"
+X-IronPort-AV: E=Sophos;i="6.23,219,1770624000"; d="scan'208";a="90389589"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 May 2026 07:23:36 -0700
+X-CSE-ConnectionGUID: Ms2zYrP9Qa6EWCXJJtRb8w==
+X-CSE-MsgGUID: sB0Y5d9CQ4aKaU66u+LaXA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,219,1770624000"; d="scan'208";a="266512272"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO [10.245.244.213])
+ ([10.245.244.213])
+ by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 May 2026 07:23:33 -0700
+Message-ID: <47256c5547c75296af32ca87161188588cacf727.camel@linux.intel.com>
+Subject: Re: [PATCH v5 2/2] drm/ttm/pool: back up at native page order
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: Christian Koenig <christian.koenig@amd.com>, Huang Rui
+ <ray.huang@amd.com>,  Matthew Auld <matthew.auld@intel.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard	
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Wed, 06 May 2026 16:23:29 +0200
+In-Reply-To: <20260505200443.3300962-3-matthew.brost@intel.com>
+References: <20260505200443.3300962-1-matthew.brost@intel.com>
+ <20260505200443.3300962-3-matthew.brost@intel.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aftB-cc5EhDXxCGA@localhost.localdomain>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,61 +77,361 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, May 06, 2026 at 03:53:59PM +0200, Michal Koutný wrote:
-> Hello Thadeu.
-> 
-> On Wed, May 06, 2026 at 08:58:23AM -0300, Thadeu Lima de Souza Cascardo <cascardo@igalia.com> wrote:
-> > Just like we have memory.peak, introduce a dmem.peak, which uses the
-> > page_counter support for that.
-> > 
-> > It can be written to in order to reset the peak, but different from
-> > memory.peak, which expects any write, dmem.peak expects the region name to
-> > be written to it. That region peak is the one that is reset.
-> > 
-> > That requires ofp_peak to carry a pointer to the pool that was reset.
-> 
-> (It'd be nicer to have generic data in that generic structure, at least
-> some void *priv. But see below.)
-> 
+Hi, Matt
 
-I used void *, at first, but as the only current use is for the pool and as
-mixing different uses may lead to misuse, I thought it would be safer to
-use the type directly. This has been pointed out before for other members
-of cgroup_file_ctx. See [1].
+On Tue, 2026-05-05 at 13:04 -0700, Matthew Brost wrote:
+> ttm_pool_split_for_swap() splits high-order pool pages into order-0
+> pages during backup so each 4K page can be released to the system as
+> soon as it has been written to shmem. While this minimizes the
+> allocator's working set during reclaim, it actively fragments memory:
+> every TTM-backed compound page that the shrinker touches is shattered
+> into order-0 pages, even when the rest of the system would prefer
+> that
+> the high-order block stay intact. Under sustained kswapd pressure
+> this
+> is enough to drive other parts of MM into recovery loops from which
+> they cannot easily escape, because the memory TTM just freed is no
+> longer contiguous.
+>=20
+> Stop unconditionally splitting on the backup path and back up each
+> compound at its native order in ttm_pool_backup():
+>=20
+> =C2=A0 - For each non-handle slot, read the order from the head page and
+> =C2=A0=C2=A0=C2=A0 back up all 1<<order subpages to consecutive shmem ind=
+ices,
+> =C2=A0=C2=A0=C2=A0 writing the resulting handles into tt->pages[] as we g=
+o.
+> =C2=A0 - On success, the compound is freed once at its native order. No
+> =C2=A0=C2=A0=C2=A0 split_page(), no per-4K refcount juggling, no fragment=
+ation
+> =C2=A0=C2=A0=C2=A0 introduced from this path.
+> =C2=A0 - Slots that already hold a backup handle from a previous partial
+> =C2=A0=C2=A0=C2=A0 attempt are skipped. A compound that would extend past=
+ a
+> =C2=A0=C2=A0=C2=A0 fault-injection-truncated num_pages is skipped rather =
+than split.
+>=20
+> A per-subpage backup failure cannot be made fully atomic: backing up
+> a
+> subpage allocates a shmem folio before the source page can be
+> released,
+> so under true OOM any subpage in a compound (not just the first) may
+> fail to be backed up with the rest of the source compound still live
+> and contiguous. To make forward progress in that case, fall back to
+> splitting the source compound and backing up its remaining subpages
+> individually:
+>=20
+> =C2=A0 - On the first per-subpage failure for a compound (and only if
+> =C2=A0=C2=A0=C2=A0 order > 0), call ttm_pool_split_for_swap() to split th=
+e source
+> =C2=A0=C2=A0=C2=A0 compound, release the subpages whose contents already =
+live in
+> =C2=A0=C2=A0=C2=A0 shmem (their handles in tt->pages stay valid), and ret=
+ry the
+> =C2=A0=C2=A0=C2=A0 failing subpage at order 0.
+> =C2=A0 - Subsequent successful subpage backups in the now-split compound
+> =C2=A0=C2=A0=C2=A0 free their source page individually as soon as the han=
+dle is
+> =C2=A0=C2=A0=C2=A0 written.
+> =C2=A0 - A second failure after splitting terminates the loop with partia=
+l
+> =C2=A0=C2=A0=C2=A0 progress; the remaining order-0 subpages stay in tt->p=
+ages as
+> =C2=A0=C2=A0=C2=A0 plain page pointers and are cleaned up by the normal
+> =C2=A0=C2=A0=C2=A0 ttm_pool_drop_backed_up() / ttm_pool_free_range() path=
+s.
+>=20
+> This restores the original split-on-OOM fallback behavior while
+> keeping the common, non-OOM case fragmentation-free. It also
+> preserves the "partial backup is allowed" contract: shrunken is
+> incremented per backed-up subpage so the caller still sees forward
+> progress when a compound only partially succeeds.
+>=20
+> The restore-side leftover-page branch in ttm_pool_restore_commit() is
+> left as-is for now: that path can still split a previously-retained
+> compound, but in practice it is unreachable under realistic workloads
+> (per profiling we have not been able to trigger it), so it is not
+> worth complicating the restore state machine to avoid the split
+> there.
+> If it ever becomes a problem in practice it can be addressed
+> independently.
+>=20
+> ttm_pool_split_for_swap() itself is retained both for the OOM
+> fallback above and for the restore path's remaining caller. The
+> DMA-mapped pre-backup unmap loop, the purge path, ttm_pool_free_*,
+> and ttm_pool_unmap_and_free() already operate at native order and
+> are unchanged.
+>=20
+> Cc: Christian Koenig <christian.koenig@amd.com>
+> Cc: Huang Rui <ray.huang@amd.com>
+> Cc: Matthew Auld <matthew.auld@intel.com>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: stable@vger.kernel.org
+> Fixes: b63d715b8090 ("drm/ttm/pool, drm/ttm/tt: Provide a helper to
+> shrink pages")
+> Suggested-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+> Assisted-by: Claude:claude-opus-4.6
+> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+>=20
+> ---
+>=20
+> A follow-up should attempt writeback to shmem at folio order as well,
+> but the API for doing so is unclear and may be incomplete.
+>=20
+> This patch is related to the pending series [1] and significantly
+> reduces the likelihood of Xe entering a kswapd loop under
+> fragmentation.
+> The kswapd =E2=86=92 shrinker =E2=86=92 Xe shrinker =E2=86=92 TTM backup =
+path is still
+> exercised; however, with this change the backup path no longer
+> worsens
+> fragmentation, which previously amplified reclaim pressure and
+> reinforced the kswapd loop.
+>=20
+> Nonetheless, the pathological case that [1] aims to address still
+> exists
+> and requires a proper solution. Even with this patch, a kswapd loop
+> due
+> to severe fragmentation can still be triggered, although it is now
+> substantially harder to reproduce.
+>=20
+> v2:
+> =C2=A0- Split pages and free immediately if backup fails are higher order
+> =C2=A0=C2=A0 (Thomas)
+> v3:
+> =C2=A0- Skip handles in purge path (sashiko)
+> v5:
+> =C2=A0- Refactor into ttm_pool_backup_folio (Thomas)
+>=20
+> [1] https://patchwork.freedesktop.org/series/165330/
+> ---
+> =C2=A0drivers/gpu/drm/ttm/ttm_pool.c | 110 ++++++++++++++++++++++++++++--=
+-
+> --
+> =C2=A01 file changed, 94 insertions(+), 16 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c
+> b/drivers/gpu/drm/ttm/ttm_pool.c
+> index d380a3c7fe40..78efc8524133 100644
+> --- a/drivers/gpu/drm/ttm/ttm_pool.c
+> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
+> @@ -1019,6 +1019,70 @@ void ttm_pool_drop_backed_up(struct ttm_tt
+> *tt)
+> =C2=A0	ttm_pool_free_range(NULL, tt, ttm_cached, start_page, tt-
+> >num_pages);
+> =C2=A0}
+> =C2=A0
+> +static int ttm_pool_backup_folio(struct ttm_pool *pool, struct
+> ttm_tt *tt,
+> +				 struct file *backup, struct folio
+> *folio,
+> +				 unsigned int order, bool writeback,
+> +				 pgoff_t idx, gfp_t page_gfp, gfp_t
+> alloc_gfp)
 
-> > Writing a different region name will reset the different region and make
-> > the original region peak get back to its non-reset value.
-> 
-> I'm slightly confused by this fds x pool matricity when there's only
-> a single slot in cgroup_file_ctx::cgroup_of_peak.
-> 
-> The intended use case is that users should maintain one fd per pool and
-> not mix it up?
-> This stanza would better fit to cgroup-v2.rst proper than the commit
-> message. Or make it simpler and start with non-resettable peak file
-> (like memory.peak had started too) and see how it fares. WDYT?
-> 
+I don't really understand why we can't end up with a
+ttm_backup_backup_folio(), which I believe is the proper layering,
+already at this point? Please see a suggestion at=20
 
-That is also due to the limitation that each file descriptor has a single
-linked list under cgroup_file_ctx::cgroup_of_peak. To allow for all the
-pools to be reset at once, we would need one list per file descriptor.
+https://gitlab.freedesktop.org/thomash/xe-vibe/-/commits/ttm_swapout?ref_ty=
+pe=3Dheads
 
-But, on the other hand, as you pointed out, this leads to the flexibility
-of being able to reset only one pool, while leaving the others as is.
-Whereas, if one needs to reset all pools, they can use one file descriptor
-per region.
+Here the splitting logic is kept in the ttm_pool, but ttm_backup
+supports handing large folios to it.
 
-I started with a non-resettable peak file, but as memory.peak can be reset,
-I added that feature too. If we want to merge a non-resettable support
-ealier and need to take longer to discuss how to work on the resettable
-support given the above, I can resubmit. But I guess we can see if we can
-reach an agreement sonner rather than later.
+Although the cumulative diffstat becomes larger, the end code becomes
+smaller and IMO easier to read, and we don't need to introduce code
+that we immediately have to refactor.
 
-Thanks.
-Cascardo.
+But I'm starting to question the general approach: Even if the
+*shrinker* can recover from a total kernel memory reserve depletion, it
+can't really be considered a reasonable practice, since if we
+frequently deplete the reserves, *other* important allocations in the
+system like GFP_ATOMIC, PF_MEMALLOC may spuriously start to fail and
+people will have a hard time finding out why.
 
-> 
-> Thanks,
-> Michal
+So I actually don't think we can be avoiding the splitting without
+direct insertion. FWIW, up until recently when shmem started supporting
+huge page swapping, other GPU drivers basically also split pages at
+swapout.
 
-[1] https://lore.kernel.org/all/CAHk-=wgiYkECT=hZRKj8ZwfBPw2Uz=gpOGBGd4ny0KYhSsjC0w@mail.gmail.com/
+Another idea for improving on the compaction loop, perhaps worth trying
+is this change, shamelessly stolen from i915:
+
+https://gitlab.freedesktop.org/thomash/xe-vibe/-/commits/shrinker_batch?ref=
+_type=3Dheads
+
+/Thomas
+
+
+> +{
+> +	struct page *page =3D folio_page(folio, 0);
+> +	int shrunken =3D 0, npages =3D 1UL << order, ret =3D 0, i;
+> +	bool folio_has_been_split =3D false;
+> +
+> +	for (i =3D 0; i < npages; ++i) {
+> +		s64 shandle;
+> +
+> +try_again_after_split:
+> +		if (IS_ENABLED(CONFIG_FAULT_INJECTION) &&
+> +		=C2=A0=C2=A0=C2=A0 should_fail(&backup_fault_inject, 1))
+> +			shandle =3D -ENOMEM;
+> +		else
+> +			shandle =3D ttm_backup_backup_page(backup,
+> page + i,
+> +							 writeback,
+> idx + i,
+> +							 page_gfp,
+> alloc_gfp);
+> +
+> +		if (shandle < 0 && !folio_has_been_split && order) {
+> +			pgoff_t j;
+> +
+> +			/*
+> +			 * True OOM: could not allocate a shmem
+> folio
+> +			 * for the next subpage. Fall back to
+> splitting
+> +			 * the source compound and backing up
+> subpages
+> +			 * individually. Release the already-backed-
+> up
+> +			 * subpages whose contents now live in
+> shmem;
+> +			 * any further failure terminates the loop
+> with
+> +			 * partial progress (handled by the caller).
+> +			 */
+> +			folio_has_been_split =3D true;
+> +			ttm_pool_split_for_swap(pool, page);
+> +
+> +			for (j =3D 0; j < i; ++j) {
+> +				__free_pages_gpu_account(page + j,
+> 0, false);
+> +				shrunken++;
+> +			}
+> +
+> +			goto try_again_after_split;
+> +		} else if (shandle < 0) {
+> +			ret =3D shandle;
+> +			goto out;
+> +		} else if (folio_has_been_split) {
+> +			__free_pages_gpu_account(page + i, 0,
+> false);
+> +			shrunken++;
+> +		}
+> +
+> +		tt->pages[idx + i] =3D
+> ttm_backup_handle_to_page_ptr(shandle);
+> +	}
+> +
+> +	if (!folio_has_been_split) {
+> +		/* Compound fully backed up; free at native order.
+> */
+> +		page->private =3D 0;
+> +		__free_pages_gpu_account(page, order, false);
+> +		shrunken +=3D npages;
+> +	}
+> +
+> +out:
+> +	return shrunken ? shrunken : ret;
+> +}
+> +
+> =C2=A0/**
+> =C2=A0 * ttm_pool_backup() - Back up or purge a struct ttm_tt
+> =C2=A0 * @pool: The pool used when allocating the struct ttm_tt.
+> @@ -1045,12 +1109,11 @@ long ttm_pool_backup(struct ttm_pool *pool,
+> struct ttm_tt *tt,
+> =C2=A0{
+> =C2=A0	struct file *backup =3D tt->backup;
+> =C2=A0	struct page *page;
+> -	unsigned long handle;
+> =C2=A0	gfp_t alloc_gfp;
+> =C2=A0	gfp_t gfp;
+> =C2=A0	int ret =3D 0;
+> =C2=A0	pgoff_t shrunken =3D 0;
+> -	pgoff_t i, num_pages;
+> +	pgoff_t i, num_pages, npages;
+> =C2=A0
+> =C2=A0	if (WARN_ON(ttm_tt_is_backed_up(tt)))
+> =C2=A0		return -EINVAL;
+> @@ -1070,7 +1133,8 @@ long ttm_pool_backup(struct ttm_pool *pool,
+> struct ttm_tt *tt,
+> =C2=A0			unsigned int order;
+> =C2=A0
+> =C2=A0			page =3D tt->pages[i];
+> -			if (unlikely(!page)) {
+> +			if (unlikely(!page ||
+> +				=C2=A0=C2=A0=C2=A0=C2=A0
+> ttm_backup_page_ptr_is_handle(page))) {
+> =C2=A0				num_pages =3D 1;
+> =C2=A0				continue;
+> =C2=A0			}
+> @@ -1106,26 +1170,40 @@ long ttm_pool_backup(struct ttm_pool *pool,
+> struct ttm_tt *tt,
+> =C2=A0	if (IS_ENABLED(CONFIG_FAULT_INJECTION) &&
+> should_fail(&backup_fault_inject, 1))
+> =C2=A0		num_pages =3D DIV_ROUND_UP(num_pages, 2);
+> =C2=A0
+> -	for (i =3D 0; i < num_pages; ++i) {
+> -		s64 shandle;
+> +	for (i =3D 0; i < num_pages; i +=3D npages) {
+> +		unsigned int order;
+> =C2=A0
+> +		npages =3D 1;
+> =C2=A0		page =3D tt->pages[i];
+> =C2=A0		if (unlikely(!page))
+> =C2=A0			continue;
+> =C2=A0
+> -		ttm_pool_split_for_swap(pool, page);
+> +		/* Already-handled entry from a previous attempt. */
+> +		if (unlikely(ttm_backup_page_ptr_is_handle(page)))
+> +			continue;
+> =C2=A0
+> -		shandle =3D ttm_backup_backup_page(backup, page,
+> flags->writeback, i,
+> -						 gfp, alloc_gfp);
+> -		if (shandle < 0) {
+> -			/* We allow partially shrunken tts */
+> -			ret =3D shandle;
+> +		order =3D ttm_pool_page_order(pool, page);
+> +		npages =3D 1UL << order;
+> +
+> +		/*
+> +		 * Back up the compound atomically at its native
+> order. If
+> +		 * fault injection truncated num_pages mid-compound,
+> skip
+> +		 * the partial tail rather than splitting.
+> +		 */
+> +		if (unlikely(i + npages > num_pages))
+> +			break;
+> +
+> +		ret =3D ttm_pool_backup_folio(pool, tt, backup,
+> page_folio(page),
+> +					=C2=A0=C2=A0=C2=A0 order, flags->writeback,
+> i, gfp,
+> +					=C2=A0=C2=A0=C2=A0 alloc_gfp);
+> +		if (unlikely(ret < 0))
+> +			break;
+> +
+> +		shrunken +=3D ret;
+> +
+> +		/* partial backup */
+> +		if (unlikely(ret !=3D npages))
+> =C2=A0			break;
+> -		}
+> -		handle =3D shandle;
+> -		tt->pages[i] =3D
+> ttm_backup_handle_to_page_ptr(handle);
+> -		__free_pages_gpu_account(page, 0, false);
+> -		shrunken++;
+> =C2=A0	}
+> =C2=A0
+> =C2=A0	return shrunken ? shrunken : ret;
