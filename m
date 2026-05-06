@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EB61CD3439
-	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 20:17:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3326FCD342C
+	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 21:51:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD98B10E578;
-	Wed,  6 May 2026 20:17:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E8E610EE9D;
+	Wed,  6 May 2026 21:51:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="JPgcI2PS";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DKYsJ/XU";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73DFA10E578
- for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 20:17:20 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 988DD63D;
- Wed,  6 May 2026 22:17:15 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1778098635;
- bh=JDEa8g0o3dfL9qeA9kCbepQ7yQDVWpvLy6D2Hjsl56o=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=JPgcI2PSy8wtwg6ynLOthFx9CdYlCaZnvdhklwXbKDrxaexXJSwxK9DqntDDMek8I
- iNjj2/RAe8mNw7v/QqK/Wp5SWwNjnabvrXZnzGDTnVqbleUpKdYWlJRkrP81MiqzP4
- 5QI9S2g5luxsuyGcQnJe+/yB3ZGy9hghL8WRCA14=
-Date: Wed, 6 May 2026 23:17:17 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
- Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH 4/4] drm: renesas: rz-du: Add support for RZ/T2H SoC
-Message-ID: <20260506201717.GD1652535@killaraus.ideasonboard.com>
-References: <20260429170012.366537-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260429170012.366537-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B73A410EE9D
+ for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 21:51:22 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 4BF9A43FC9;
+ Wed,  6 May 2026 21:51:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC4BFC2BCB0;
+ Wed,  6 May 2026 21:51:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1778104282;
+ bh=eK+42iwer4stlgq5uFasabGEzh4LF2MsdeKvgd9ivO0=;
+ h=From:To:Cc:Subject:Date:From;
+ b=DKYsJ/XUxdPgaV3ZRzmV2hX0vsCs1rLlPTMS0wLRNL2J3LHQOZkt7FNA1vNmMWwvh
+ kVBE9Z9+UDkhd996+krBlBmEeitBNDcatEWn8Ior+Dw1bBPmaLNmKQtZGCFF43AEJS
+ O0Pl5fk4VDnilFtVw0/nJbH4rVNzg3v+XjjOCIfGGSOoVsalipViPL/KIHJuvwrLzK
+ 0uL92zUuCuj1G80CxIlikg3im7NobgvpulaTbd4QHLUL7zi13td7CUuW9k/o6ULrzu
+ 4EAKNeie9ilk78QCjjEvxqgp/pB4fLM2xSDU+1ZpwjiMdVTj59hC/ugiu5hPwXSw6E
+ 7pyEEy25QgZtA==
+From: Danilo Krummrich <dakr@kernel.org>
+To: gregkh@linuxfoundation.org, rafael@kernel.org, acourbot@nvidia.com,
+ aliceryhl@google.com, david.m.ertman@intel.com, ira.weiny@intel.com,
+ leon@kernel.org, viresh.kumar@linaro.org, m.wilczynski@samsung.com,
+ ukleinek@kernel.org, bhelgaas@google.com, kwilczynski@kernel.org,
+ abdiel.janulgue@gmail.com, robin.murphy@arm.com, markus.probst@posteo.de,
+ ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
+ bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org,
+ tmgross@umich.edu, igor.korotin@linux.dev, daniel.almeida@collabora.com
+Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ linux-pm@vger.kernel.org, linux-pwm@vger.kernel.org,
+ linux-pci@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ Danilo Krummrich <dakr@kernel.org>
+Subject: [PATCH v2 00/25] rust: device: Higher-Ranked Lifetime Types for
+ device drivers
+Date: Wed,  6 May 2026 23:50:36 +0200
+Message-ID: <20260506215113.851360-1-dakr@kernel.org>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260429170012.366537-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,122 +67,190 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Apr 29, 2026 at 06:00:12PM +0100, Prabhakar wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> 
-> The RZ/T2H (R9A09G077) SoC includes a DU with a DPI interface,
-> supporting resolutions up to WXGA with two RPFs for layer blending.
-> Unlike earlier RZ/G2L SoCs, RZ/T2H requires explicit assertion of a
-> DPI output-enable signal (DU_MCR0_DPI_EN) during CRTC startup.
-> 
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Currently, Rust device drivers access device resources such as PCI BAR mappings
+and I/O memory regions through Devres<T>.
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Devres::access() provides zero-overhead access by taking a &Device<Bound>
+reference as proof that the device is still bound. Since a &Device<Bound> is
+available in almost all contexts by design, Devres is mostly a type-system level
+proof that the resource is valid, but it can also be used from scopes without
+this guarantee through its try_access() accessor.
 
-> ---
->  drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c |  7 ++++++-
->  drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c  | 14 ++++++++++++++
->  drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h  | 10 ++++++++++
->  3 files changed, 30 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c
-> index 2b772a11c7ee..017d5f26bc96 100644
-> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c
-> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c
-> @@ -28,6 +28,7 @@
->  #include "rzg2l_du_vsp.h"
->  
->  #define DU_MCR0			0x00
-> +#define DU_MCR0_DPI_EN		BIT(0)
->  #define DU_MCR0_DI_EN		BIT(8)
->  
->  #define DU_DITR0		0x10
-> @@ -217,8 +218,12 @@ static void rzg2l_du_crtc_put(struct rzg2l_du_crtc *rcrtc)
->  static void rzg2l_du_start_stop(struct rzg2l_du_crtc *rcrtc, bool start)
->  {
->  	struct rzg2l_du_device *rcdu = rcrtc->dev;
-> +	u32 val = DU_MCR0_DI_EN;
->  
-> -	writel(start ? DU_MCR0_DI_EN : 0, rcdu->mmio + DU_MCR0);
-> +	if (start && rzg2l_du_has(rcdu, RZG2L_DU_FEATURE_DPIO_OE))
-> +		val |= DU_MCR0_DPI_EN;
-> +
-> +	writel(start ? val : 0, rcdu->mmio + DU_MCR0);
->  }
->  
->  static void rzg2l_du_crtc_start(struct rzg2l_du_crtc *rcrtc)
-> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-> index 3b7162c6e1f4..fc55dfffebaf 100644
-> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-> @@ -63,10 +63,24 @@ static const struct rzg2l_du_device_info rzg2l_du_r9a09g057_info = {
->  	},
->  };
->  
-> +static const struct rzg2l_du_device_info rzg2l_du_r9a09g077_info = {
-> +	.channels_mask = BIT(0),
-> +	.routes = {
-> +		[RZG2L_DU_OUTPUT_DPAD0] = {
-> +			.possible_outputs = BIT(0),
-> +			.port = 0,
-> +		},
-> +	},
-> +	.features = RZG2L_DU_FEATURE_DPIO_OE,
-> +	.mode_clock_min = 5000,
-> +	.mode_clock_max = 100000,
-> +};
-> +
->  static const struct of_device_id rzg2l_du_of_table[] = {
->  	{ .compatible = "renesas,r9a07g043u-du", .data = &rzg2l_du_r9a07g043u_info },
->  	{ .compatible = "renesas,r9a07g044-du", .data = &rzg2l_du_r9a07g044_info },
->  	{ .compatible = "renesas,r9a09g057-du", .data = &rzg2l_du_r9a09g057_info },
-> +	{ .compatible = "renesas,r9a09g077-du", .data = &rzg2l_du_r9a09g077_info },
->  	{ /* sentinel */ }
->  };
->  
-> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
-> index 885558eb9547..baf076d69cda 100644
-> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
-> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
-> @@ -20,6 +20,8 @@
->  struct device;
->  struct drm_property;
->  
-> +#define RZG2L_DU_FEATURE_DPIO_OE	BIT(0)	/* Has DPIO output enable control */
-> +
->  enum rzg2l_du_output {
->  	RZG2L_DU_OUTPUT_DSI0,
->  	RZG2L_DU_OUTPUT_DPAD0,
-> @@ -46,12 +48,14 @@ struct rzg2l_du_output_routing {
->   * @routes: array of CRTC to output routes, indexed by output (RZG2L_DU_OUTPUT_*)
->   * @mode_clock_min: minimum pixel clock in kHz
->   * @mode_clock_max: maximum pixel clock in kHz
-> + * @features: device features (RZG2L_DU_FEATURE_*)
->   */
->  struct rzg2l_du_device_info {
->  	unsigned int channels_mask;
->  	struct rzg2l_du_output_routing routes[RZG2L_DU_OUTPUT_MAX];
->  	u32 mode_clock_min;
->  	u32 mode_clock_max;
-> +	unsigned int features;
->  };
->  
->  #define RZG2L_DU_MAX_CRTCS		1
-> @@ -77,6 +81,12 @@ static inline struct rzg2l_du_device *to_rzg2l_du_device(struct drm_device *dev)
->  	return container_of(dev, struct rzg2l_du_device, ddev);
->  }
->  
-> +static inline bool rzg2l_du_has(struct rzg2l_du_device *rcdu,
-> +				unsigned int feature)
-> +{
-> +	return rcdu->info->features & feature;
-> +}
-> +
->  const char *rzg2l_du_output_name(enum rzg2l_du_output output);
->  
->  #endif /* __RZG2L_DU_DRV_H__ */
+This works well in general, but has a few limitations:
+
+  - Every access to a device resource goes through Devres::access(), which
+    despite zero cost, adds boilerplate to every access site.
+
+  - Destructors do not receive a &Device<Bound>, so they must use try_access(),
+    which can fail. In practice the access succeeds if teardown ordering is
+    correct, but the type system can't express this, forcing drivers to handle a
+    failure path that should never be taken.
+
+  - Sharing a resource across components (e.g. passing a BAR to a sub-component)
+    requires Arc<Devres<T>>.
+
+  - Device references must be stored as ARef<Device> rather than plain &Device
+    borrows.
+
+These limitations stem from the driver's bus device private data being 'static
+-- the driver struct cannot borrow from the device reference it receives in
+probe(), even though it structurally cannot outlive the device binding.
+
+This series introduces Higher-Ranked Lifetime Types (HRT) for Rust device
+drivers. An HRT is a type that is generic over a lifetime -- it does not have a
+fixed lifetime, but can be instantiated with any lifetime chosen by the caller.
+
+Rust does not directly support types that are generic over a lifetime as type
+parameters; the ForLt trait (contributed by Gary Guo) encodes this internally.
+
+The module_*_driver! macros handle the wrapping, so driver authors just write
+struct MyDriver<'a> and impl Driver<'a>.
+
+With HRT, driver structs carry a lifetime parameter tied to the device binding
+scope -- the interval of a bus device being bound to a driver. Device resources
+like pci::Bar<'a> and IoMem<'a> are handed out with this lifetime, so the
+compiler enforces at build time that they do not escape the binding scope.
+
+Before:
+
+	struct MyDriver {
+	    pdev: ARef<pci::Device>,
+	    bar: Devres<pci::Bar<BAR_SIZE>>,
+	}
+
+	let io = self.bar.access(dev)?;
+	io.read32(OFFSET);
+
+After:
+
+	struct MyDriver<'a> {
+	    pdev: &'a pci::Device,
+	    bar: pci::Bar<'a, BAR_SIZE>,
+	}
+
+	self.bar.read32(OFFSET);
+
+Lifetime-parameterized device resources can be put into a Devres at any point
+via Bar::into_devres() / IoMem::into_devres(), providing the exact same
+semantics as before. This is useful for resources shared across subsystem
+boundaries where revocation is needed.
+
+This also synergizes with the upcoming self-referential initialization support
+in pin-init, which allows one field of the driver struct to borrow another
+during initialization without unsafe code.
+
+The same pattern is applied to auxiliary device registration data as a first
+example beyond bus device private data. Registration<F: ForLt> can hold
+lifetime-parameterized data tied to the parent driver's binding scope. Since the
+auxiliary bus guarantees that the parent remains bound while the auxiliary
+device is registered, the registration data can safely borrow the parent's
+device resources.
+
+More generally, binding resource lifetimes to a registration scope applies to
+every registration that is scoped to a driver binding -- auxiliary devices,
+class devices, IRQ handlers, workqueues.
+
+A follow-up series extends this to class device registrations, starting with
+DRM, so that class device callbacks (IOCTLs, etc.) can safely access device
+resources through the separate registration data bound to the registration's
+lifetime without Devres indirection.
+
+The series contains a few driver patches for reference, indicated by the REF
+suffix.
+
+Thanks to Gary for coming up with the ForLt implementation; thanks to Alice for
+the early discussions around lifetime-parameterized private data that helped
+shape the direction of this work.
+
+This series depends on [1].
+
+[1] https://lore.kernel.org/driver-core/20260505152400.3905096-1-dakr@kernel.org/
+
+Changes in v2:
+  - Add 'a bound to ForLt::Of<'a> and WithLt::Of, making the lifetime bound
+    inherent to the trait; remove all F::Of<'static>: 'static where clauses
+  - Drop "rust: devres: add ForLt support to Devres"; Devres itself stays
+    unchanged -- ForLt-aware access is introduced later through DevresLt in a
+    separate series
+  - Use 'bound instead of 'a; add patches to consistently use 'bound for
+    pre-existing 'a
+
+Danilo Krummrich (24):
+  rust: driver core: drop drvdata before devres release
+  rust: device: generalize drvdata methods over ForLt
+  rust: driver: make Adapter trait lifetime-parameterized
+  rust: pci: implement Sync for Device<Bound>
+  rust: platform: implement Sync for Device<Bound>
+  rust: auxiliary: implement Sync for Device<Bound>
+  rust: usb: implement Sync for Device<Bound>
+  rust: device: implement Sync for Device<Bound>
+  rust: pci: make Driver trait lifetime-parameterized
+  rust: platform: make Driver trait lifetime-parameterized
+  rust: auxiliary: make Driver trait lifetime-parameterized
+  rust: auxiliary: generalize Registration over ForLt
+  samples: rust: rust_driver_auxiliary: showcase lifetime-bound
+    registration data
+  rust: usb: make Driver trait lifetime-parameterized
+  rust: i2c: make Driver trait lifetime-parameterized
+  rust: pci: make Bar lifetime-parameterized
+  rust: io: make IoMem and ExclusiveIoMem lifetime-parameterized
+  samples: rust: rust_driver_pci: use HRT lifetime for Bar
+  rust: driver-core: rename 'a lifetime to 'bound
+  gpu: nova-core: rename 'a lifetime to 'bound
+  gpu: nova-core: use HRT lifetime for Bar
+  gpu: nova-core: unregister sysmem flush page from Drop
+  gpu: nova-core: replace ARef<Device> with &'bound Device in
+    SysmemFlush
+  gpu: drm: tyr: use HRT lifetime for IoMem
+
+Gary Guo (1):
+  rust: types: add `ForLt` trait for higher-ranked lifetime support
+
+ drivers/base/dd.c                        |   2 +-
+ drivers/cpufreq/rcpufreq_dt.rs           |  10 +-
+ drivers/gpu/drm/nova/driver.rs           |   9 +-
+ drivers/gpu/drm/tyr/driver.rs            |  24 ++-
+ drivers/gpu/drm/tyr/gpu.rs               |  62 +++---
+ drivers/gpu/drm/tyr/regs.rs              |  21 +-
+ drivers/gpu/nova-core/driver.rs          |  48 ++---
+ drivers/gpu/nova-core/fb.rs              |  31 ++-
+ drivers/gpu/nova-core/firmware/gsp.rs    |   8 +-
+ drivers/gpu/nova-core/gpu.rs             |  38 ++--
+ drivers/gpu/nova-core/gsp/commands.rs    |  10 +-
+ drivers/gpu/nova-core/gsp/fw/commands.rs |   4 +-
+ drivers/gpu/nova-core/nova_core.rs       |   4 +-
+ drivers/pwm/pwm_th1520.rs                |  14 +-
+ include/linux/device/driver.h            |   4 +-
+ rust/Makefile                            |   1 +
+ rust/kernel/auxiliary.rs                 | 132 +++++++++----
+ rust/kernel/cpufreq.rs                   |   8 +-
+ rust/kernel/device.rs                    |  79 +++++---
+ rust/kernel/devres.rs                    |  16 +-
+ rust/kernel/driver.rs                    |  44 +++--
+ rust/kernel/i2c.rs                       | 130 +++++++-----
+ rust/kernel/io/mem.rs                    | 131 ++++++------
+ rust/kernel/pci.rs                       |  89 ++++++---
+ rust/kernel/pci/io.rs                    |  68 ++++---
+ rust/kernel/pci/irq.rs                   |  38 ++--
+ rust/kernel/platform.rs                  | 120 +++++++----
+ rust/kernel/types.rs                     |   4 +
+ rust/kernel/types/for_lt.rs              | 117 +++++++++++
+ rust/kernel/usb.rs                       |  94 +++++----
+ rust/macros/for_lt.rs                    | 242 +++++++++++++++++++++++
+ rust/macros/lib.rs                       |  12 ++
+ samples/rust/rust_debugfs.rs             |  10 +-
+ samples/rust/rust_dma.rs                 |   9 +-
+ samples/rust/rust_driver_auxiliary.rs    |  53 +++--
+ samples/rust/rust_driver_i2c.rs          |  18 +-
+ samples/rust/rust_driver_pci.rs          |  93 ++++-----
+ samples/rust/rust_driver_platform.rs     |  12 +-
+ samples/rust/rust_driver_usb.rs          |  14 +-
+ samples/rust/rust_i2c_client.rs          |  12 +-
+ samples/rust/rust_soc.rs                 |  12 +-
+ 41 files changed, 1220 insertions(+), 627 deletions(-)
+ create mode 100644 rust/kernel/types/for_lt.rs
+ create mode 100644 rust/macros/for_lt.rs
 
 -- 
-Regards,
+2.54.0
 
-Laurent Pinchart
