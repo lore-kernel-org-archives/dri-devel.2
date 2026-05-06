@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A723CD3436
-	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 12:16:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE50ECD342C
+	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 12:16:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0D2210ED65;
-	Wed,  6 May 2026 12:16:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DB8D10ED23;
+	Wed,  6 May 2026 12:16:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="VWrzPbJ6";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="JRYNrhtX";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C36B710ED5B;
- Wed,  6 May 2026 12:16:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2155710ED5B;
+ Wed,  6 May 2026 12:16:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1778069797;
- bh=s2rz6WBCQQLTAnI5a+CDvnoj5qWr+M9TUVuy622jV7E=;
- h=From:Subject:Date:To:Cc:From;
- b=VWrzPbJ6FcOZqnKVy9C3qqbzO/UWw1WydKijlVKnVjyqm9u1MBDBJ2Nkd0q+oKHCH
- yYwveoHyNmwYAwEMc8t+XI3eQesPyBSOb0SvwmJiFyUEvZBYmpm0BedDIy42Im/wCz
- +ohF0utsPg7ChM/qk6vrX8vGf61OwIgD/lemsBYylEpAYcJQc2/7321ZvR11c0cwlq
- dVvAE6HpgXxHrv4uCOdYOpqfk/FGElwyctgXzaWqwDb20C/AkgHTv2VdQ4MTGZ38BW
- 1sgJDgtxT/W8gVvB+C8B128MVbV2hZCU/nskg4w+f2pfwWCSi9eocFQqYzfc49/2OS
- NmSPzDvMKic0g==
+ s=mail; t=1778069798;
+ bh=bhfUdxskTM5eHiDMoxut02UxySr7YulKIsinhbB2loU=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=JRYNrhtXdh4SwlO/Xo8DsGy0cQBsJ7IeNhNbRySUIf+QTa5++UQyExPC4jBNuzav1
+ CUeZs6ENbRXUngd+Qj/7vFPjMGXIAXs13LwwHDWw4tlSMPZayWttzixd1h8CkN095e
+ C+80RLVsMcZDhLL8acx+G5iBLDf9lMF29yv8DV4Z1NR9SUKdRzcwBYOXSDPUXLzLJi
+ hGYz6L+Bg1bCKN9gUzrAxyPZJ+NH6XscC23rja2tmosTxxJXXKaMwl5xbRAYS08a94
+ 66ZPSbwg5uXNGVFE/0KnJn0mEyH9m99h76/XIdH2C8d6buDJms1uaSq2F5VUPhwnZW
+ KWvxTI8S3Halw==
 Received: from [100.64.0.11] (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 91D3017E1502;
- Wed,  6 May 2026 14:16:36 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 9813C17E1525;
+ Wed,  6 May 2026 14:16:37 +0200 (CEST)
 From: Boris Brezillon <boris.brezillon@collabora.com>
-Subject: [PATCH 0/3] drm/panthor: Fix a race in the shrinker logic
-Date: Wed, 06 May 2026 14:16:25 +0200
-Message-Id: <20260506-panthor-shrinker-fixes-v1-0-e7721526de96@collabora.com>
+Date: Wed, 06 May 2026 14:16:26 +0200
+Subject: [PATCH 1/3] drm/panthor: Don't use the racy drm_gem_lru_remove()
+ helper
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3LQQqAIBBA0avErBvQSImuEi3CxhwCjZmIILp70
- vLx+Q8oCZPC2DwgdLFyyRW2bSCkJW+EvFZDZzpvnPF4LPlMRVCTcN5JMPJNim4INvYuxNBbqPM
- h9If6TvP7fp9wy89oAAAA
-X-Change-ID: 20260506-panthor-shrinker-fixes-58c1f45cfc41
+Message-Id: <20260506-panthor-shrinker-fixes-v1-1-e7721526de96@collabora.com>
+References: <20260506-panthor-shrinker-fixes-v1-0-e7721526de96@collabora.com>
+In-Reply-To: <20260506-panthor-shrinker-fixes-v1-0-e7721526de96@collabora.com>
 To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
  Boris Brezillon <boris.brezillon@collabora.com>, 
  Dmitry Osipenko <dmitry.osipenko@collabora.com>
@@ -58,11 +57,11 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778069796; l=1376;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778069796; l=3557;
  i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
- bh=s2rz6WBCQQLTAnI5a+CDvnoj5qWr+M9TUVuy622jV7E=;
- b=THEVnc4x1Mq4RI7yePdlKafi+stM406BVAhLHlcFjn6UsvLD2Eypts6czFRA3bjzlawp9M/xm
- EuezyTmr5S/CiWGj5okBy6X1+9FnjKHz0kQAvjitxXZfCY8pUBv9Rgh
+ bh=bhfUdxskTM5eHiDMoxut02UxySr7YulKIsinhbB2loU=;
+ b=O2/ZfA/x6LWTnFgb5+Ig3AX2o7bvW0n2h3REdsGABoRpd2SI/bK9XAjjbLg4lttbiP15FDzpD
+ pRq2QwZDfTHCPTIVIbSWruFOpf5ncbHlZimE/LRtWgc6Gs4dTSN/wRI
 X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
  pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -80,37 +79,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-As reported by Chia-I [1], a race exists between drm_gem_lru_remove()
-and drm_gem_lru_scan(), causing a UAF on a stack-allocated object.
+drm_gem_lru_remove() dereference stores drm_gem_object::lru in a local
+variable that's then dereferenced to acquire the LRU lock. Because this
+assignment in done without the LRU lock held, it can race with
+drm_gem_lru_scan() where drm_gem_object::lru is temporarily assigned
+a stack-allcated LRU that goes away when leaving the function. By
+the time we dereference this local lru variable, the object might already
+be gone.
 
-This first patch fixes the problem at the panthor level by making
-sure we never use drm_gem_lru_remove(). The second one fixes an
-undetected race between drm_gem_lru_scan() and
-drm_gem_object_release(), and the last one kills drm_gem_lru_remove()
-so no one else relying on the drm_gem_lru infra gets bitten by this
-race again.
+It feels like drm_gem_lru_move_tail() was never meant to be used this
+way, because there's no easy way we can avoid this race unless we defer
+the locking to the caller. Let's add an explicit LRU for unreclaimable
+BOs instead, and have all BOs added to this LRU at creation time.
 
-Adding the MSM maintainers to the loop, since it's the only other
-driver relying on drm_gem_lru.
-
-[1]https://gitlab.freedesktop.org/panfrost/linux/-/work_items/86
-
+Fixes: fb42964e2a76 ("drm/panthor: Add a GEM shrinker")
+Reported-by: Chia-I Wu <olvaffe@gmail.com>
+Closes: https://gitlab.freedesktop.org/panfrost/linux/-/work_items/86
+Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+Reviewed-by: Chia-I Wu <olvaffe@gmail.com>
 ---
-Boris Brezillon (3):
-      drm/panthor: Don't use the racy drm_gem_lru_remove() helper
-      drm/gem: Fix a race between drm_gem_lru_scan() and drm_gem_object_release()
-      drm/gem: Stop exposing the racy/unsafe drm_gem_lru_remove() helper
+ drivers/gpu/drm/panthor/panthor_device.h | 10 ++++++++++
+ drivers/gpu/drm/panthor/panthor_gem.c    |  5 ++++-
+ 2 files changed, 14 insertions(+), 1 deletion(-)
 
- drivers/gpu/drm/drm_gem.c                | 63 ++++++++++++++------------------
- drivers/gpu/drm/panthor/panthor_device.h | 10 +++++
- drivers/gpu/drm/panthor/panthor_gem.c    |  5 ++-
- include/drm/drm_gem.h                    |  1 -
- 4 files changed, 41 insertions(+), 38 deletions(-)
----
-base-commit: 57f68ed1f08cd10f51a9091645fd5dfcc369a885
-change-id: 20260506-panthor-shrinker-fixes-58c1f45cfc41
+diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
+index 4e4607bca7cc..45b71546f83c 100644
+--- a/drivers/gpu/drm/panthor/panthor_device.h
++++ b/drivers/gpu/drm/panthor/panthor_device.h
+@@ -190,6 +190,16 @@ struct panthor_device {
+ 		/** @reclaim.lock: Lock protecting all LRUs */
+ 		struct mutex lock;
+ 
++		/**
++		 * @reclaim.unreclaimable: unreclaimable BOs
++		 *
++		 * Either the BO is unreclaimable because it has no pages allocated,
++		 * or it's unreclaimable because pages are pinned.
++		 *
++		 * All BOs start in that list at creation time.
++		 */
++		struct drm_gem_lru unreclaimable;
++
+ 		/**
+ 		 * @reclaim.unused: BOs with unused pages
+ 		 *
+diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
+index 13295d7a593d..8e31740126e7 100644
+--- a/drivers/gpu/drm/panthor/panthor_gem.c
++++ b/drivers/gpu/drm/panthor/panthor_gem.c
+@@ -204,7 +204,7 @@ void panthor_gem_update_reclaim_state_locked(struct panthor_gem_object *bo,
+ 		drm_gem_lru_move_tail(&ptdev->reclaim.gpu_mapped_shared, &bo->base);
+ 		break;
+ 	case PANTHOR_GEM_UNRECLAIMABLE:
+-		drm_gem_lru_remove(&bo->base);
++		drm_gem_lru_move_tail(&ptdev->reclaim.unreclaimable, &bo->base);
+ 		break;
+ 	default:
+ 		drm_WARN(&ptdev->base, true, "invalid GEM reclaim state (%d)\n", new_state);
+@@ -994,6 +994,7 @@ static struct panthor_gem_object *
+ panthor_gem_create(struct drm_device *dev, size_t size, uint32_t flags,
+ 		   struct panthor_vm *exclusive_vm, u32 usage_flags)
+ {
++	struct panthor_device *ptdev = container_of(dev, struct panthor_device, base);
+ 	struct panthor_gem_object *bo;
+ 	int ret;
+ 
+@@ -1026,6 +1027,7 @@ panthor_gem_create(struct drm_device *dev, size_t size, uint32_t flags,
+ 	}
+ 
+ 	panthor_gem_debugfs_set_usage_flags(bo, usage_flags);
++	drm_gem_lru_move_tail(&ptdev->reclaim.unreclaimable, &bo->base);
+ 	return bo;
+ 
+ err_put:
+@@ -1551,6 +1553,7 @@ int panthor_gem_shrinker_init(struct panthor_device *ptdev)
+ 		return ret;
+ 
+ 	INIT_LIST_HEAD(&ptdev->reclaim.vms);
++	drm_gem_lru_init(&ptdev->reclaim.unreclaimable, &ptdev->reclaim.lock);
+ 	drm_gem_lru_init(&ptdev->reclaim.unused, &ptdev->reclaim.lock);
+ 	drm_gem_lru_init(&ptdev->reclaim.mmapped, &ptdev->reclaim.lock);
+ 	drm_gem_lru_init(&ptdev->reclaim.gpu_mapped_shared, &ptdev->reclaim.lock);
 
-Best regards,
 -- 
-Boris Brezillon <boris.brezillon@collabora.com>
+2.54.0
 
