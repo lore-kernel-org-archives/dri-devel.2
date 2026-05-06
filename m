@@ -4,127 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01E76CD3439
-	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 18:23:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB761CD3439
+	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 18:47:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 557A310E25A;
-	Wed,  6 May 2026 18:23:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0671610E1EE;
+	Wed,  6 May 2026 18:47:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="ecrKNO8M";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZxXcdMC/";
 	dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
- [67.231.145.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE18210E25A
- for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 18:23:32 +0000 (UTC)
-Received: from pps.filterd (m0109334.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6464u76m885586
- for <dri-devel@lists.freedesktop.org>; Wed, 6 May 2026 11:23:32 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
- bh=2YYLKXiToPfzzk84iAjnpM/kE1au7fYknVhGTQOnVXE=; b=ecrKNO8MJk5q
- oKIjdTP3cT9AdMHpRtYIW89FhY5abcRsfaMChsqaI29WSGcVqrxmCW6KF0syyjsU
- vXI+L5TDYQh9jgaGGd8jj0BHllL5waomMFt0M0n9CBCiB1dPI9YoWYdjX9Ms3CAr
- /SAHXyeletOuK9p8msNRfKXlukH2yHk5gRcTM18srPB6KJhdvGbk2B06ATSaEUy0
- GNA4BpGfx4il8hopju1ylXLm53Xe1Jd0huucKOv9aqixb3LuPoCYJS2o5kzLnMkP
- tS+7rw11iVZoYfP9udWgz/AiMp9YnhOy+Cp1r+syjSjMfpGJEU/w5r3R/fpUCjql
- KHoh0wEEWw==
-Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com
- [209.85.210.72])
- by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4dwgjh20gn-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 06 May 2026 11:23:32 -0700 (PDT)
-Received: by mail-ot1-f72.google.com with SMTP id
- 46e09a7af769-7dcc5fa38faso59564a34.1
- for <dri-devel@lists.freedesktop.org>; Wed, 06 May 2026 11:23:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778091811; cv=none;
- d=google.com; s=arc-20240605;
- b=T6Ph/sBTXNAiestHy4vrxDW+cGCjWIBW4IqAEsDUnfF0IaP6Z4HC9EFrRjQNqchBLo
- j5t0IQlU3IXy6JknBYaqaJ7pQ6xT8HSY1MgTMMI8Ghkk5sszbBJdkrIHyhq06u3ZG8ba
- U8QY0wM0PAmoj1aN+QPfFaFQeLbZaI8eYx97aidaJ+UsiObBQmlKbpEDDQg5iGt+RiUk
- Yt29C4DmENoGPMAxzw15uP88hf2lEXO7TUzn9obZQG58EpfDdRWgdmK4iW098xlVQEkX
- 2f46l2g29fhUwkLjS03Xtibvu0Ad2fTXWUslsZrITQZXAS1gzj7TwCmHWKwlxipzqxUU
- r5dA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version;
- bh=06MsYmJiQI0tIH7Lw/430OArMXdAJd2jDLxFSIS0mBU=;
- fh=tFlg6U9vLwF2jN9G/nmawCMzSaOmdo9SHvot9OAbvis=;
- b=Wq8acWiTdiZE7f1YrrJPcfJEEUkO06SwsHLk4orOyU/BFwRX5d0U4ngDf/ENeYMoPO
- zp5Txqb6Is2tPaDcpoPeBvVPUAVlruSwSewXzNU+hq+TJ1ctkLKdcTJ/a55Rs9yBN161
- emDXmlyTnH28fy6iMNpP0iRxMemJPJVPXrsyIZ1+tQvEW5oLVf1D1vhfVlrPPWdjiziC
- TRGf/BdspCEGHaEN+wTK8LtQIzAhqLUGRx4qseHBx0OvZQAV0nTorn5d56czSIzDdb/s
- QGdZdRjl2M0PdSgOQHhjFczYS7rCVWhlAv8Wk2sPlZqIKa64WhpJijUsIX47wXEjD8jg
- vz+w==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778091811; x=1778696611;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=06MsYmJiQI0tIH7Lw/430OArMXdAJd2jDLxFSIS0mBU=;
- b=Uw8mMRgMRsa0O3OUTTWNCewuVb7BHifXtzvjhgaPu/CnY/37Acv5RYSXtaoMQdQO1F
- JrC5DbeDL3o9VGIWgsZwCzN6LAK+WXYW3eCAjZmzYRaIoz7gGuNDRVKCXcjLAT8Gga1n
- esACc5tLMGkQKlOV+EkGD1PLvZyvl95VG6keBIsvgShVZh14Xce5kxcqp/Smv1DZdltm
- qFHwRN6ceyt9lU6y7lkhg+GS4GcxASCLiueJOg8SQ33iElnfTzDRxtDimo9ICaz1dt6j
- w/SQUP9nOSP2V6djTNrz+8CgDTT2p2hBDygSey3zbulfgFA2S8Gl3FkOAkuwlKjzd+GI
- E2+Q==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+OZZpjEef+rB6zr2SmKEvUy3yyM1YtnQfV543YSE5TfFGBysxRSncMkdi2H6kXalr0pKbhDyLVdbQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzSSdtKd5+hKoB9azK3zaJNK7DQMIHbBDCMc9b4oNmkJBe/NhkJ
- T5sKuDCE+PqbzULa1/zu5+nOCWjdz8A7JYCMipTE6Ca/GMreBbgwQH4aw7hGxxT7Yyl+rg+Dws2
- lZn60o5kVaV5KT1oEukIYecL04kMiU8BRhv0WxWjh3ZLTxm/B6VXMGqAW6/L19P59UfWsaAGCIi
- WlKrNkfl32WfYoTBx8R8kNFUgNLvl/ePcxpmuHw0DSMZQ=
-X-Gm-Gg: AeBDievOuPy+x/L0fPO2JwDdBlVetgOZh6rAl7enozPt5iD3g5eY/1qjoC4nic7ALop
- cK/64j0j5nHjNUfrVgx+4X7x5zuwt13ZArjeyGmARLf/psRCFQvhz6L9IVdgqZo7p5BWdfyxtMF
- m5PuZAWACIld6w+Qqd7bCLcsbyjlN2b3/UBTwq24zpJHhSm5yyYPM46OH6l1kLzbnmvlKSZGzv6
- 07DaQ6gNNcQQ4uR5guj+QPxqzQ9A+tyHnIFwcGdnY4=
-X-Received: by 2002:a05:6830:4986:b0:7dc:e032:9b5f with SMTP id
- 46e09a7af769-7e1df220611mr2715778a34.25.1778091811266; 
- Wed, 06 May 2026 11:23:31 -0700 (PDT)
-X-Received: by 2002:a05:6830:4986:b0:7dc:e032:9b5f with SMTP id
- 46e09a7af769-7e1df220611mr2715758a34.25.1778091810773; Wed, 06 May 2026
- 11:23:30 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B90F10E1EE;
+ Wed,  6 May 2026 18:47:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1778093237; x=1809629237;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=3xpbKJPzqoU1Z63eak0Nx7FiPMzzURfEUudld2qqJTU=;
+ b=ZxXcdMC/fatLn/BOtuZE5v7iCPX/572DkxaDDSPtG+Jzjas9GOVppDU2
+ BAR59Q7IgDGBBWi8H0bfaM6aXo+OAgQGZQ0mVlrfxngkAQsovugEDDMBx
+ 578Z4PNLw88LzBI5df7m3JzCxZIIQDBXQpC7LQaiFRGB0KhLKdkJVfSIR
+ i4c+grI9+NG9Xm7b8fttRjzvCLyUHDQxgLu40yj8ZWqmXwUK2t5FAlOXC
+ 9zLoIOZH7M5iRO1eETTZCA+5L3JpEGBlbbZOlmR4BA2I+XvO/9bCjt5Mk
+ en5ykbxoOF4/TjJ7Zhcj9oLVU5/GJlpebGY6rDZBSr3t0iF9sVP4wnerV A==;
+X-CSE-ConnectionGUID: HjhATKS+RC2ZdR2cBHTOVQ==
+X-CSE-MsgGUID: UxZudTMBR2y8r4JjiHU0pA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11778"; a="66566774"
+X-IronPort-AV: E=Sophos;i="6.23,220,1770624000"; d="scan'208";a="66566774"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 May 2026 11:47:16 -0700
+X-CSE-ConnectionGUID: h5WmaH2FTjeC1v/DIqpSdg==
+X-CSE-MsgGUID: wyaab4rqQyeoF1LpeBAujA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,220,1770624000"; d="scan'208";a="236137464"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.47])
+ by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 May 2026 11:47:09 -0700
+Date: Wed, 6 May 2026 21:47:05 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Hamza Mahfooz <someguy@effective-light.com>
+Cc: dri-devel@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Alex Hung <alex.hung@amd.com>, Wayne Lin <Wayne.Lin@amd.com>,
+ Timur =?iso-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ "Mario Limonciello (AMD)" <superm1@kernel.org>,
+ Ivan Lipski <ivan.lipski@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>,
+ Matthew Schwartz <matthew.schwartz@linux.dev>,
+ Tom Chung <chiahsuan.chung@amd.com>, Roman Li <Roman.Li@amd.com>,
+ Takashi Iwai <tiwai@suse.de>, Colin Ian King <colin.i.king@gmail.com>,
+ Charlene Liu <charlene.liu@amd.com>, Kees Cook <kees@kernel.org>,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 1/2] drm/atomic: attempt full modeset on page flip
+ timeout
+Message-ID: <afuMqXoBt2oIFRm9@intel.com>
+References: <20260505182105.420525-1-someguy@effective-light.com>
 MIME-Version: 1.0
-References: <20260430200704.352228-1-zhipingz@meta.com>
- <20260430200704.352228-2-zhipingz@meta.com>
- <09995589-b81d-4cb7-a313-15a943d8b28d@huawei.com>
-In-Reply-To: <09995589-b81d-4cb7-a313-15a943d8b28d@huawei.com>
-From: Zhiping Zhang <zhipingz@meta.com>
-Date: Wed, 6 May 2026 11:23:19 -0700
-X-Gm-Features: AVHnY4Lr6ainK1nflhUwWMi2SscR_b7hHjj8HpGh-ezHilmWJEso71FyiVM42gA
-Message-ID: <CAH3zFs2x2QebpqDC0qwQg_GP2FVs-qqNxPupck40cEHNrBMEsA@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] vfio: add dma-buf get_tph callback and DMA_BUF_TPH
- feature
-To: fengchengwen <fengchengwen@huawei.com>
-Cc: Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <helgaas@kernel.org>,
- linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org,
- netdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Keith Busch <kbusch@kernel.org>, Yochai Cohen <yochai@nvidia.com>,
- Yishai Hadas <yishaih@nvidia.com>, kvm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=FpA1OWrq c=1 sm=1 tr=0 ts=69fb8724 cx=c_pps
- a=+3WqYijBVYhDct2f5Fivkw==:117 a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=crHB47gyY4rKiduisYu9:22
- a=i0EeH86SAAAA:8 a=VabnemYjAAAA:8 a=jjQCJkVV9gP_kkOIbcAA:9 a=QEXdDO2ut3YA:10
- a=eYe2g0i6gJ5uXG_o6N4q:22 a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-GUID: RYLbAWEO2zQ7Z0s9P8J-kn-DcR_gz9If
-X-Proofpoint-ORIG-GUID: RYLbAWEO2zQ7Z0s9P8J-kn-DcR_gz9If
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA2MDE4MCBTYWx0ZWRfX0VDq0aVJxLVf
- BWYVlTjVmXNI+HMwsXH2xFi6MN0ItJ9LsJNwgLvMSmeOlRSUZaFiamX6GPIdIOVonUOrb+qX69i
- EAYIJ73MV8WY6zpi9gNlMHL1WWZHJJd2YkIdR4LdUZe4rStChbqUuaYiOm3VdQOtbZwCzrtkod9
- cvTi4Y0NlsGtJpdPxQHpu7Fp+AtMViU1ZfBeIItB0de4aQKNFgXHGdaYGCveTqzgTuIgo/nbz3n
- Y4/0HUN2kx01mcJ3KySQEhT0Gou6+KWBlLf50QkKJ83Yq0CvsXeab764O5L96BuWxVj4+WA4KPU
- 3EFsGzcLkVOQcxtv/luqPj7zuUzpglhP3AUIKCsSFyPNxK09IRkH5nXZ6uhtB26ERDYp+B+sLoN
- 6dAGnpjm6UYLKOyjf67TJGYHvsoURh7FeQZClhts7wfUkWTgXW2H78Td1nDS6UywIcQpGC6UHHI
- irH/rQvazsrZSsFAo9Q==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-06_01,2026-05-06_01,2025-10-01_01
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260505182105.420525-1-someguy@effective-light.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,114 +91,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, May 5, 2026 at 11:58=E2=80=AFPM fengchengwen <fengchengwen@huawei.c=
-om> wrote:
->
-> >
-> On 5/1/2026 4:06 AM, Zhiping Zhang wrote:
-> > Add a dma-buf callback that returns raw TPH metadata from the exporter
-> > so peer devices can reuse the steering tag and processing hint
-> > associated with a VFIO-exported buffer.
-> >
-> > Add a new VFIO_DEVICE_FEATURE_DMA_BUF_TPH ioctl that takes the fd from
-> > VFIO_DEVICE_FEATURE_DMA_BUF along with a steering tag and processing
-> > hint, validates the fd is a vfio-exported dma-buf belonging to this
-> > device, and stores the TPH values under memory_lock. This keeps the
-> > existing VFIO_DEVICE_FEATURE_DMA_BUF uAPI completely unchanged.
-> >
-> > The user sequences setting TPH on the dma-buf before the importer
-> > consumes it.
-> >
-> > Add an st_width parameter to get_tph() so the exporter can reject
-> > steering tags that exceed the consumer's supported width (8 vs 16 bit).
-> > When no TPH metadata was supplied, get_tph() returns -EOPNOTSUPP.
-> >
-> > Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
-> >
-> > diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_p=
-ci_core.c
-> > --- a/drivers/vfio/pci/vfio_pci_core.c
-> > +++ b/drivers/vfio/pci/vfio_pci_core.c
-> > @@ -1534,6 +1534,9 @@ int vfio_pci_core_ioctl_feature(struct vfio_devic=
-e *device, u32 flags,
-> >               return vfio_pci_core_feature_token(vdev, flags, arg, args=
-z);
-> >       case VFIO_DEVICE_FEATURE_DMA_BUF:
-> >               return vfio_pci_core_feature_dma_buf(vdev, flags, arg, ar=
-gsz);
-> > +     case VFIO_DEVICE_FEATURE_DMA_BUF_TPH:
-> > +             return vfio_pci_core_feature_dma_buf_tph(vdev, flags, arg,
-> > +                                                      argsz);
-> >       default:
-> >               return -ENOTTY;
-> >       }
-> > diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio=
-_pci_dmabuf.c
-> > --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
-> > +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
-> > @@ -19,6 +19,9 @@ struct vfio_pci_dma_buf {
-> >       u32 nr_ranges;
-> >       struct kref kref;
-> >       struct completion comp;
-> > +     u16 steering_tag;
-> > +     u8 ph;
-> > +     u8 tph_present : 1;
-> >       u8 revoked : 1;
-> >  };
-> >
-> > @@ -69,6 +72,22 @@ vfio_pci_dma_buf_map(struct dma_buf_attachment *atta=
-chment,
-> >       return ret;
-> >  }
-> >
-> > +static int vfio_pci_dma_buf_get_tph(struct dma_buf *dmabuf, u16 *steer=
-ing_tag,
-> > +                                 u8 *ph, u8 st_width)
-> > +{
-> > +     struct vfio_pci_dma_buf *priv =3D dmabuf->priv;
-> > +
-> > +     if (!priv->tph_present)
-> > +             return -EOPNOTSUPP;
-> > +
-> > +     if (st_width < 16 && priv->steering_tag > ((1U << st_width) - 1))
-> > +             return -EINVAL;
->
-> The checker will failed in following cases:
-> 1. If the exporter passed 8bit st, and importer support 16bit st, then it=
- will pass
->    the checker.
-> 2. The exporter enabled 16bit st and its st is < 256 (note: the pcie prot=
-ocol doesn't
->    restrict 16bit-st must >=3D256), and importer only support 8bit st, th=
-en it will also
->    pass the checker
->
-> Suggest userspace passing both st(8bit) and extend-st(16bit), and importe=
-r chose the
-> right one.
->
+On Tue, May 05, 2026 at 02:20:57PM -0400, Hamza Mahfooz wrote:
+> We should try to recover from page flip timeouts. Forcing
+> a full modeset should be generic across all atomic KMS drivers,
+> so try that first.
+> 
+> Signed-off-by: Hamza Mahfooz <someguy@effective-light.com>
+> ---
+>  drivers/gpu/drm/drm_atomic_helper.c | 49 +++++++++++++++++++++++++++--
+>  1 file changed, 46 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+> index a768398a1884..7ee9d52f63c5 100644
+> --- a/drivers/gpu/drm/drm_atomic_helper.c
+> +++ b/drivers/gpu/drm/drm_atomic_helper.c
+> @@ -1926,6 +1926,43 @@ drm_atomic_helper_wait_for_vblanks(struct drm_device *dev,
+>  }
+>  EXPORT_SYMBOL(drm_atomic_helper_wait_for_vblanks);
+>  
+> +static int force_full_modeset(struct drm_crtc *crtc)
+> +{
+> +	struct drm_modeset_acquire_ctx ctx;
+> +	struct drm_crtc_state *crtc_state;
+> +	struct drm_atomic_state *state;
+> +	int ret;
+> +	int err;
+> +
+> +	if (drm_atomic_crtc_needs_modeset(crtc->state))
+> +		return -EBUSY;
+> +
+> +	DRM_MODESET_LOCK_ALL_BEGIN(crtc->dev, ctx, 0, err);
+> +	state = drm_atomic_state_alloc(crtc->dev);
+> +	if (!state)
+> +		return -ENOMEM;
+> +
+> +	state->acquire_ctx = &ctx;
+> +
+> +	crtc_state = drm_atomic_get_crtc_state(state, crtc);
+> +	if (IS_ERR(crtc_state)) {
+> +		ret = PTR_ERR(crtc_state);
+> +		goto out;
+> +	}
+> +
+> +	crtc_state->mode_changed = true;
+> +
+> +	drm_info(crtc->dev,
+> +		 "[CRTC:%d:%s] Attempting force full modeset...\n",
+> +		 crtc->base.id, crtc->name);
+> +
+> +	ret = drm_atomic_commit(state);
+> +out:
+> +	drm_atomic_state_put(state);
+> +	DRM_MODESET_LOCK_ALL_END(crtc->dev, ctx, err);
+> +	return ret;
+> +}
+> +
+>  /**
+>   * drm_atomic_helper_wait_for_flip_done - wait for all page flips to be done
+>   * @dev: DRM device
+> @@ -1949,17 +1986,23 @@ void drm_atomic_helper_wait_for_flip_done(struct drm_device *dev,
+>  
+>  	for (i = 0; i < dev->mode_config.num_crtc; i++) {
+>  		struct drm_crtc_commit *commit = state->crtcs[i].commit;
+> -		int ret;
+>  
+>  		crtc = state->crtcs[i].ptr;
+>  
+>  		if (!crtc || !commit)
+>  			continue;
+>  
+> -		ret = wait_for_completion_timeout(&commit->flip_done, 10 * HZ);
+> -		if (ret == 0)
+> +		if (!wait_for_completion_timeout(&commit->flip_done, 10 * HZ)) {
+> +			int ret;
+>  			drm_err(dev, "[CRTC:%d:%s] flip_done timed out\n",
+>  				crtc->base.id, crtc->name);
+> +
+> +			ret = force_full_modeset(crtc);
 
- Agreed =E2=80=94 8-bit ST and 16-bit Extended ST are distinct namespaces
-(firmware returns
-them as separate fields with separate validity bits), so a numeric
-range check is insufficient.
-For v3 I'll change the uAPI to carry both, gated by a flags field:
+This looks like some kind of ugly hack to paper over a driver bug.
+I really don't want this for i915/xe because all it'll end up doing
+is make it harder to debug any real issues.
 
-  #define VFIO_DMA_BUF_TPH_ST (1 << 0)  /* steering_tag valid */
-  #define VFIO_DMA_BUF_TPH_ST_EXT (1 << 1)  /* steering_tag_ext valid
-*/
-  struct vfio_device_feature_dma_buf_tph {
-      __s32 dmabuf_fd;
-      __u32 flags;
-      __u16 steering_tag;       /* 8-bit ST */
-      __u16 steering_tag_ext;   /* 16-bit Extended ST */
-      __u8  ph;
-      __u8  reserved[3];
-  };
+> +			if (ret)
+> +				drm_err(dev,
+> +					"[CRTC:%d:%s] force full modeset failed! ret=%d\n",
+> +					crtc->base.id, crtc->name, ret);
+> +		}
+>  	}
+>  
+>  	if (state->fake_commit)
+> -- 
+> 2.54.0
 
-get_tph() then picks the field matching the importer's st_width and
-returns -EOPNOTSUPP
-if that one isn't valid.
-
-Thanks,
-Zhiping
+-- 
+Ville Syrjälä
+Intel
