@@ -4,187 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AD38CD342C
-	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 07:47:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6179CD3439
+	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 07:47:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0390810E2A8;
-	Wed,  6 May 2026 07:47:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F128D10E189;
+	Wed,  6 May 2026 07:47:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="e7Pv1Xcx";
+	dkim=pass (2048-bit key; secure) header.d=web.de header.i=alexanders83@web.de header.b="uhZAiz5e";
 	dkim-atps=neutral
-Received: from AM0PR83CU005.outbound.protection.outlook.com
- (mail-westeuropeazon11010015.outbound.protection.outlook.com [52.101.69.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AFCC10E126;
- Tue,  5 May 2026 09:30:48 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aU9zGRIR3Yqssvlv6dvxzFhnHC4HYZKYn2eawG/0vIOxr6Wc5y4yXwi+1GgZocRlyHaWcuphwUGz+VCdgg1bn0zmW97zWtDrpdoqN9AEo+VJumkt6HQHSEi9D4P/fgOlBCaygjO0/Kv+5sP8KbgiiVrHCpnMPMQ6E4I/GNKsafQpAT1ga150AZtXhytA5IdxtHu34KQyc/BFJraTkkG/eYDtoWcgUxNNkKOq0n1Yzs3/Zip/eHcLZePnAAtzLpnUahPTeVsmCgm05CTRByWffq9svsmUnHaJPkTg6r02sKtRzrt7ModejrMcdlU6rD56IAaCMjBaz04J2Q05C2PJbA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=buMu2dCWSqT2zwkuvzvOyaoMh5IAF1ls0sy2X5mRtfM=;
- b=wXyJViAG1QQ4ySMYZpCn7xm5hwTvoR5PkUhdohDjHqn0CAtWIaNd5650RTqbjJwZggiEZj1FSHbIALR0E6JC9IBtmnnKRSc8FXY8qITw7fKUSEy8jrIJ7Y5Tr8QXQcFTcB1FSjgNIYKnVc9ZMsjQf3bPijDchy+D2lveAUJe1LRZzjnvoOSz5zfqktg4tUxb+VFYbqBLM/O30nzRVxnvGZ6faD+Fy0XSKRHkTvpfIaGpPBn+XEEpKJog93Tih2VNHudKWWG85YT6tPQwtCwkN6pnVYyv8H6E9wfLS1d3ytohnTpU5awMTVvOruuZC3qpN1Knc2QFCThntSz7dl1yuQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=buMu2dCWSqT2zwkuvzvOyaoMh5IAF1ls0sy2X5mRtfM=;
- b=e7Pv1Xcx8u3eW3ACjTXISArGZN9QSv62Oo5Rm7qzQ+ZXi4Kbag3X7+yksoIAQgfyRGHX7tpWvv29FA0amvAePzsDDt1knvr3db/cF88ZmVMi8duj75U0H4jOSm+hMv051jnn26npr+kDW0SDtULrGN7l38dNSw7+O07wfz1boDfGek6eabdbzV/wRlyrcmgP1ebIiqgfgUOkb+/KJLbfY6Zg27WW8ecxOmPTs3kJRg2V7C6p8wBSaA/hfvKY0LTVbupNm8AiGWUERmN/eb1sX/uRejTdjZ0rmlJVjvYlDp4CbbWHW/uOfzs5+yqKYxF5kRU+lblPzqzfDjSxc1VHAQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM9PR04MB8585.eurprd04.prod.outlook.com (2603:10a6:20b:438::13)
- by GV4PR04MB11305.eurprd04.prod.outlook.com (2603:10a6:150:297::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Tue, 5 May
- 2026 09:30:39 +0000
-Received: from AM9PR04MB8585.eurprd04.prod.outlook.com
- ([fe80::f010:fca8:7ef:62f4]) by AM9PR04MB8585.eurprd04.prod.outlook.com
- ([fe80::f010:fca8:7ef:62f4%4]) with mapi id 15.20.9870.023; Tue, 5 May 2026
- 09:30:39 +0000
-Date: Tue, 5 May 2026 12:30:31 +0300
-From: Vladimir Oltean <vladimir.oltean@nxp.com>
-To: linux-phy@lists.infradead.org
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- linux-can@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-riscv@lists.infradead.org,
- linux-rockchip@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org,
- linux-usb@vger.kernel.org, netdev@vger.kernel.org,
- spacemit@lists.linux.dev, UNGLinuxDriver@microchip.com,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- =?utf-8?B?QW5kcsOp?= Draszik <andre.draszik@linaro.org>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Andy Yan <andy.yan@rock-chips.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Chanho Park <chanho61.park@samsung.com>, Chen-Yu Tsai <wens@kernel.org>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- Damien Le Moal <dlemoal@kernel.org>,
- Daniel Machon <daniel.machon@microchip.com>,
- David Airlie <airlied@gmail.com>, "David S. Miller" <davem@davemloft.net>,
- Dmitry Baryshkov <lumag@kernel.org>, Eric Dumazet <edumazet@google.com>,
- Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
- Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>,
- Jakub Kicinski <kuba@kernel.org>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- JC Kuo <jckuo@nvidia.com>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jessica Zhang <jesszhan0024@gmail.com>, Joe Perches <joe@perches.com>,
- Johan Hovold <johan+linaro@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Kevin Xie <kevin.xie@starfivetech.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Linus Walleij <linusw@kernel.org>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Magnus Damm <magnus.damm@gmail.com>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Marc Kleine-Budde <mkl@pengutronix.de>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Markus Schneider-Pargmann <msp@baylibre.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Mathias Nyman <mathias.nyman@intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Maxime Ripard <mripard@kernel.org>,
- Michael Dege <michael.dege@renesas.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Niklas Cassel <cassel@kernel.org>, Nitin Rawat <quic_nitirawa@quicinc.com>,
- Paolo Abeni <pabeni@redhat.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Peter Chen <peter.chen@kernel.org>,
- Peter Griffin <peter.griffin@linaro.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Robert Foss <rfoss@kernel.org>, Rob Herring <robh@kernel.org>,
- "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
- Samuel Holland <samuel@sholland.org>, Sandy Huang <hjc@rock-chips.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Sean Paul <sean@poorly.run>,
- Sebastian Reichel <sre@kernel.org>, Shawn Guo <shawn.guo@linaro.org>,
- Shawn Lin <shawn.lin@rock-chips.com>, Simona Vetter <simona@ffwll.ch>,
- Steen Hegelund <Steen.Hegelund@microchip.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Tudor Ambarus <tudor.ambarus@linaro.org>,
- Vincent Mailhol <mailhol@kernel.org>, Yixun Lan <dlan@kernel.org>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-Subject: Re: [PATCH v7 phy-next 15/27] phy: move provider API out of public
- <linux/phy/phy.h>
-Message-ID: <20260505093031.zjewnvpvyiptxz6f@skbuf>
-References: <20260430110652.558622-1-vladimir.oltean@nxp.com>
- <20260430110652.558622-16-vladimir.oltean@nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260430110652.558622-16-vladimir.oltean@nxp.com>
-X-ClientProxiedBy: VI1PR08CA0215.eurprd08.prod.outlook.com
- (2603:10a6:802:15::24) To AM9PR04MB8585.eurprd04.prod.outlook.com
- (2603:10a6:20b:438::13)
+X-Greylist: delayed 455 seconds by postgrey-1.36 at gabe;
+ Wed, 06 May 2026 04:06:52 UTC
+Received: from mout.web.de (mout.web.de [217.72.192.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B32AB10EC6B;
+ Wed,  6 May 2026 04:06:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+ s=s29768273; t=1778040411; x=1778645211; i=alexanders83@web.de;
+ bh=aGBEo2EK5ttcDFGXea5lOQ0GxuV2d/r3SEIJBSPZ+NM=;
+ h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+ References:MIME-Version:Content-Transfer-Encoding:Content-Type:cc:
+ content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=uhZAiz5eG8LdaHAfVUaoKOoUFxP4Fll1g/VBgJcSCxc3NVuUY7mSedw1YAWpSY5E
+ YguS/Nw/OCexXwmdE4J5LjsqxyKxJMRLt8Lkox0osCQg8ZNnQ4wWg2UyrpsI6uvXZ
+ 1ShA7bWPLqLIXofFuByl/S5XhGG6eFfpCZ4A0NKYq2fHf9zxJLU5mjc1bmIg76p3d
+ u6xRwzMZXMLPfMZi4md5HOoRG8TPru457DDbRehwsCeXRbz99yB/6XSPJNExil0s4
+ HgpmTM8zWgQ8o7WXYEisAHuqBcVG0dOnnA38DHj+3XQbqC1WOVnQfUS1lHpTUYuvX
+ t/0kta0d/jUWl6UtjA==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb105
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1N1LwP-1vIHpB2I2t-00tixn; Wed, 06
+ May 2026 05:54:10 +0200
+From: Alexander Stein <alexanders83@web.de>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Subject: Re: amdgpu: possible regression since 7.0
+Date: Wed, 06 May 2026 05:54:09 +0200
+Message-ID: <DgNdVC2lSBiLvQZjtA0kFg@web.de>
+In-Reply-To: <CADnq5_N3OkOmsbv3zCbc5Kk1P1rAtngt5DQowUg8kKOb_2Divg@mail.gmail.com>
+References: <EPoORLxTThi7O4O6Mpq3ZQ@web.de>
+ <CADnq5_N3OkOmsbv3zCbc5Kk1P1rAtngt5DQowUg8kKOb_2Divg@mail.gmail.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM9PR04MB8585:EE_|GV4PR04MB11305:EE_
-X-MS-Office365-Filtering-Correlation-Id: d4591da2-10e3-4859-6d51-08deaa88f835
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|19092799006|1800799024|366016|7416014|376014|10070799003|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 6xY0Nr6S4qKu7jd+eHgx4rLlps2tc/iWiqVGcbHplpY9OF/Syt5PMpxldumR8pWkUgIlu2LY42tftrQHrYNdcuLkT22HhsVYO28fVo0nhi7heDN4LBqsMRrexw2YGUda2TqhQ9dQHBO9jvBmJW+h6zTodbRuo6UL1R0TLpq+D8JaqrkHiS3MSxLuGIGffkSvWfXKiRaDu4hDkWFlJqUA6PB+UIz5hlIk9Sxo89inihM0nWLWxD2EMmyKrxrEhw2bZ6THcjjKkKkQApXLCZfXBqMTXNxh7PK/rPuY/JtBL+HCpJYF2B/DJ+UEIQN4Z+QdpjfWv7WotyoSlUT4gQyfnb07XXeJ8K/BmnTR1r2gJB12YLX3R2dYnNounD5hY4X2MdwF5PdavVghzwzFtl+h8IkMHFUZ59gjFe6XW4PeaXwivvj3TCd+/QyjrFiHV5RFialOWVEd35VmmS02DWjFfM1ww4IV0F86gmWv43lnMTqEq5XXdi23+Q8eO9HHz7N3P1JX0EGzIwDz0jukpVOKHvyF9MB8LAq9494xMC7cUYAfNRas/NPH+wzFki7nPgdcZzZLsqak3d5EVZVVVnMWtm3BbLgQmcfHbuUzPW4oLbnp+Tr0MaZ+4fTjLhGn8Ed/zqbQvec74Lw3hXQ+S7NLfUEEbkyB5fcCXzs9xI7GCnsvIxP+Yr7vm5qq0e6pKzoJ
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM9PR04MB8585.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(19092799006)(1800799024)(366016)(7416014)(376014)(10070799003)(22082099003)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?PyL9NOA2fBkuYBkBFWRmfBNNoJJ6oZOHiG6678lJXvmieFUx4dppjBn7tV6v?=
- =?us-ascii?Q?1sx9YSUJCypa8XZNiwAA3piz1/wG/g5/xU52Nl4zZ+76gNxLSvadY/ciBQT3?=
- =?us-ascii?Q?jqudsYlFaCWbrFO5UFEt1hN1zivnNfmtpD6z/FmmOcskhsMwOH3EE+w0ucNT?=
- =?us-ascii?Q?G+aQmSLibMXtsvvmJwyHYaxSwhysEk+9XhK5hxmAIzEdZwMtl3I/20G7C7wl?=
- =?us-ascii?Q?3sgknUfNVkOrWsZvhvUMUucgWWyVhvIHLsn1qkQx03KlF3LktKxATf5X8tiU?=
- =?us-ascii?Q?C4cnSmBAF+xzqzViwy7qyW+FOx1q7yt+AC7pv0mRUnsUvD4UR3BYtIqSLqek?=
- =?us-ascii?Q?8l4TgFKJicbs6vNJQ/X5GZativC9OLMZm8MRglciu0EQcPlkd95hSu/OpH3b?=
- =?us-ascii?Q?wt0FYjbb+TEzIoejX0jxy9JKXDqRbqF3oNH+iu+igJl0m44HZTXNYW3bPd0C?=
- =?us-ascii?Q?xFO3+Fm/xWdDu0aXdQNJ7IlNUgnflzJBZZAgCBUzyy0uQdlyS5Qde0gXjm6G?=
- =?us-ascii?Q?LJ0pazb8Ct1ZEtxi1xrFHzTHhU4HrOFSjX4qDYQNP7ymMEAvmlwZeAldSBo3?=
- =?us-ascii?Q?0ccmICVcD4AY3Hl4N64Z4JJrsFRlv1VPMKZfI3JmPJ6mwr9bggDrL8M3Met1?=
- =?us-ascii?Q?EdUlp7gbl7ksPEYBljmxea0d74hOsFtY6dD1HXSR/Da/n+ehNS1NvjNHQFNQ?=
- =?us-ascii?Q?awuIG11KazVXaOupWT47T0DvukY17s+ju6QmFvFSUXvL7dj7gscb96kz0U3U?=
- =?us-ascii?Q?S7cTxks87nxFVvbrAPWXyGD3tEhDqV/PxDbTIILHDJnxwuk8uAdaw2m2FbYD?=
- =?us-ascii?Q?q1XIoUylGy/b7Y0jqBB4T6WuIUDv51yvLVk/Mtk5qE72OLcQ6azfBI1ER51D?=
- =?us-ascii?Q?os348whgQSS0wJ4PGURnd5vLaVI5IA06PQ54zG0yKheYiATA714i5Nv1bguI?=
- =?us-ascii?Q?GtwLK3pX67P5JYs/8xmn0nx/yPYk+29UdiEP21Ax1MkCNM7CEbBwJtpYmdFJ?=
- =?us-ascii?Q?XlEJbIKE+JXWIWSYMBNMcGeLqOzTUK0Db2POZPm8CRVd0CxFgyw0cKB4/2VS?=
- =?us-ascii?Q?X7j+1pcThGtdXmgpf3+Ny9MJcelGO5nFDG5XRNCVvYqlzU71ZgFEceIaR/nH?=
- =?us-ascii?Q?2dnrjKBxv8wYfZ4PcsDW3r1U/Hba5kelx31LA+X8BfWW7ttl7Y4OFHc/fQ5Z?=
- =?us-ascii?Q?nrRgmShubwbZE7R7bMuDNH5b1WKyriQi2ixvlnbXl91jhyVv+kTqVcbH+Y0C?=
- =?us-ascii?Q?HXN6qqAR5079yyR6Yr+jcfG2um3gs6zHuyC1RHKRZHrgRoHXZYBvNFTuvB6O?=
- =?us-ascii?Q?t21qzM10EcjuHLnsMkqi2yPXzmNR8E69p49UwO6TYIC6Sai62J5QkkslAEvn?=
- =?us-ascii?Q?yULaRGIU1plNc1VPYnmIzJD5hLs8IZEP8F9o+Kwf+BUvH3Lc0Yw3xMKjkHiz?=
- =?us-ascii?Q?5oAl5rnz0IgIoLvT61ZPix2Fzx/dIT637mB/LHYnG5bOrJd/2vtFE0tT38yv?=
- =?us-ascii?Q?PMtA2nobz27pg8IZu/+epdUNs7JAT0ATix0EHU102rw48x+z3FjiXY4H4F37?=
- =?us-ascii?Q?yZAZCIFEQq+YPFiXMMGHZN0Gkr/lBRD50rrpu4fKF5ETovlyElrHYAKB+X0Z?=
- =?us-ascii?Q?1VAjoWbjbBUT+a/xc/2mthYRWTMIMWJ+ELyQjk12PWpiOHxli2Jq28+/aOY2?=
- =?us-ascii?Q?svTzPYvkLy97MFz2mTu729oUjziVN3nqmX8g6WrAxL2E5BVxX1xjaiWgU7UM?=
- =?us-ascii?Q?lR/rHmz9zntS5FrAQaeELrgMQMR9RIjaBzvGoWkiQsQGJYUlvxQx32+CIUnj?=
-X-MS-Exchange-AntiSpam-MessageData-1: hxYglHDTIzGfqSbgtIeQxF1qnkmjxvCb/wg=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d4591da2-10e3-4859-6d51-08deaa88f835
-X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8585.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2026 09:30:39.5222 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UpodD0h0Y+qFHJFnV+zFvLz3JOETD18Xns2JkYQZ7/rjZzqjbRG1wBsGSizQedJx0xrLgIQy0xm9cxcB+fItbw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV4PR04MB11305
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-Provags-ID: V03:K1:9LM5O+d25CeV8iLF/WO5SE+iW1DOytBAJX7+n8JnUxROBEOmsTm
+ 8/CLdibIH2CKIZczhnIjO4h9AX0c6+tt39tODmq8O+ROBOz40TYdIFStmJuuvwJInSxoxv/
+ mJ1y4IV6KcngqyrYG4LLusXj36lSyRDi5tl7gEjVU9nNdyfQrUapUKlgsl4RWhQm4lszP6Q
+ Hf7LQDjUOt6d+XvVlWexA==
+UI-OutboundReport: notjunk:1;M01:P0:r6rdQzCqhVw=;sdWgnZ9YZT+EkyOJWM/4U2/T3UE
+ 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
 X-Mailman-Approved-At: Wed, 06 May 2026 07:47:21 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -201,92 +143,183 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Sashiko says:
-> commit 65f3c7aba94024fd51e12abfeeb5cdaae7e123cd
-> Author: Vladimir Oltean <vladimir.oltean@nxp.com>
-> phy: move provider API out of public <linux/phy/phy.h>
-> 
-> The major goal is to hide the contents of struct phy from consumer
-> drivers by moving the provider API out of the public linux/phy/phy.h
-> header and into drivers/phy/phy-provider.h. For temporary compatibility,
-> the consumer header currently includes the provider header via a relative
-> path.
-> 
-> > diff --git a/drivers/phy/phy-core.c b/drivers/phy/phy-core.c
-> > index 21aaf2f76e53e..a1aff00fba7c5 100644
-> > --- a/drivers/phy/phy-core.c
-> > +++ b/drivers/phy/phy-core.c
-> [ ... ]
-> > @@ -606,6 +622,24 @@ int phy_validate(struct phy *phy, enum phy_mode mode, int submode,
-> >  }
-> >  EXPORT_SYMBOL_GPL(phy_validate);
-> >
-> > +enum phy_mode phy_get_mode(struct phy *phy)
-> > +{
-> > +	return phy->attrs.mode;
-> 
-> The PHY framework supports optional PHYs (represented as NULL pointers via
-> devm_phy_optional_get()). Does this unconditional dereference cause a NULL
-> pointer dereference if called with an optional PHY?
-> 
-> I noticed this was also the case in the previous inline implementation, and
-> that a fix is provided later in the series in the commit "phy: make
-> phy_get_mode(), phy_(get|set)_bus_width() NULL tolerant".
-> 
-> > +}
-> > +EXPORT_SYMBOL_GPL(phy_get_mode);
-> > +
-> > +int phy_get_bus_width(struct phy *phy)
-> > +{
-> > +	return phy->attrs.bus_width;
-> 
-> Can this also cause a NULL pointer dereference when called with an optional
-> PHY?
-> 
-> > +}
-> > +EXPORT_SYMBOL_GPL(phy_get_bus_width);
-> > +
-> > +void phy_set_bus_width(struct phy *phy, int bus_width)
-> > +{
-> > +	phy->attrs.bus_width = bus_width;
-> 
-> Can this also cause a NULL pointer dereference when called with an optional
-> PHY?
+Hi,
 
-It was a conscious decision to move code first and then to start fixing
-it up later, so that more context is present in 'git blame'. So I will
-ignore these comments for issues that are resolved later in the series.
+Am Dienstag, 5. Mai 2026, 15:06:56 Mitteleurop=C3=A4ische Sommerzeit schrie=
+b Alex=20
+Deucher:
+> On Tue, May 5, 2026 at 3:34=E2=80=AFAM Alexander Stein <alexanders83@web.=
+de> wrote:
+> > Hi,
+> >=20
+> > I'm running an Arch 7.0.3 kernel and I'm experiencing various lockups of
+> > the GPU. System still runs and I can shutdown using another VT.
+> > I haven't experienced that on a 6.19.x kernel before.
+> > If you need more information I can try, but it occurs more or less
+> > randomly. Below is the kernel log. My GPU is
+> > 03:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/AT=
+I]
+> > Navi 48 [Radeon RX 9070/9070 XT/9070 GRE] (rev c0)
+>=20
+> Can you bisect?
 
-> > +}
-> > +EXPORT_SYMBOL_GPL(phy_set_bus_width);
-> [ ... ]
-> > diff --git a/include/linux/phy/phy.h b/include/linux/phy/phy.h
-> > index ea47975e288ae..f208edd25afee 100644
-> > --- a/include/linux/phy/phy.h
-> > +++ b/include/linux/phy/phy.h
-> > @@ -1,246 +1,38 @@
-> >  /* SPDX-License-Identifier: GPL-2.0-or-later */
-> >  /*
-> > - * phy.h -- generic phy header file
-> > + * phy.h -- Generic PHY consumer API
-> [ ... ]
-> > -#include <linux/phy/phy-mipi-dphy.h>
-> > +#include <linux/phy/phy-props.h>
-> >
-> > +#include "../../../drivers/phy/phy-provider.h"
-> 
-> Does this relative include of a private driver header break out-of-tree
-> module builds?
-> 
-> Out-of-tree modules compile against kernel headers packages that typically do
-> not contain the private drivers/ directory tree, which would cause
-> compilation to fail with a missing file error.
-> 
-> I note this is resolved later in the series in the commit "phy: remove
-> temporary provider compatibility from consumer header".
+I can try. Although the problem just occurred randomly without any idea (fo=
+r=20
+now) hwo to reproduce.
 
-Yes, out of tree building will temporarily be broken but resolved by the
-end of the series for PHY consumers (but remains broken for PHY providers).
-My understanding is that support for out of tree modules is best effort,
-and I don't see how breakage could be avoided, given Vinod's request to
-have phy-provider.h be a non-public header.
+Best regards,
+Alexander
+
+> Thanks,
+>=20
+> Alex
+>=20
+> > Best regards,
+> > Alexander
+> >=20
+> > amdgpu 0000:03:00.0: [drm] *ERROR* [CRTC:416:crtc-0] flip_done timed out
+> > amdgpu 0000:03:00.0: [drm] *ERROR* flip_done timed out
+> > amdgpu 0000:03:00.0: [drm] *ERROR* [CRTC:416:crtc-0] commit wait timed =
+out
+> > amdgpu 0000:03:00.0: [drm] *ERROR* flip_done timed out
+> > amdgpu 0000:03:00.0: [drm] *ERROR* [PLANE:413:plane-7] commit wait timed
+> > out ------------[ cut here ]------------
+> > acrtc->event
+> > WARNING: drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:95=
+72
+> > at amdgpu_dm_atomic_commit_tail+0x38cf/0x3930 [amdgpu], CPU#3:
+> > systemd-logind/ 1063
+> > Modules linked in: cmac nls_utf8 cifs nls_ucs2_utils rdma_cm iw_cm ib_cm
+> > ib_core cifs_md4 dns_resolver netfs snd_seq_dummy snd_hrtimer snd_seq v=
+fat
+> > fat snd_hda_codec_alc882 snd_hda_codec_realtek_lib snd_hda_codec_generic
+> > snd_hda_codec_atihdmi snd_hda_codec_hdmi snd_hda_intel btusb mt7921e
+> > uvcvideo snd_hda_codec btmtk mt7921_common snd_usb_audio
+> > videobuf2_vmalloc btrtl snd_hda_core uvc mt792x_lib btbcm snd_usbmidi_l=
+ib
+> > videobuf2_memops snd_intel_dspcfg mt76_connac_lib btintel videobuf2_v4l2
+> > snd_ump amd_atl snd_intel_sdw_acpi snd_rawmidi intel_rapl_msr
+> > videobuf2_common r8169 mt76 intel_rapl_common snd_hwdep snd_seq_device
+> > bluetooth videodev spd5118 joydev mousedev realtek snd_pcm mdio_devres
+> > mac80211 snd_timer mc libphy eeepc_wmi snd asus_wmi mdio_bus libarc4
+> > ghash_clmulni_intel soundcore sp5100_tco aesni_intel platform_profile
+> > sparse_keymap wmi_bmof rapl pcspkr i2c_piix4 gpio_amdpt k10temp i2c_smb=
+us
+> > gpio_generic mac_hid cfg80211 rfkill
+> > vboxnetflt(OE) vboxnetadp(OE) vboxdrv(OE) kvm_amd ccp kvm dm_mod
+> >=20
+> >  irqbypass i2c_dev crypto_user nfnetlink uas usb_storage amdgpu amdxcp
+> >=20
+> > i2c_algo_bit drm_ttm_helper ttm drm_exec drm_panel_backlight_quirks
+> > gpu_sched nvme drm_suballoc_helper drm_buddy nvme_core drm_display_help=
+er
+> > nvme_keyring video nvme_auth cec hkdf wmi
+> > CPU: 3 UID: 0 PID: 1063 Comm: systemd-logind Tainted: G           OE
+> > 7.0.3-arch1-1 #1 PREEMPT(full)  653fa807272d34162f0f7604ba64e0a2aa402e05
+> > Tainted: [O]=3DOOT_MODULE, [E]=3DUNSIGNED_MODULE
+> > Hardware name: ASUS System Product Name/TUF GAMING B850M-PLUS WIFI, BIOS
+> > 1644 03/10/2026
+> > RIP: 0010:amdgpu_dm_atomic_commit_tail+0x38cf/0x3930 [amdgpu]
+> > Code: 8d 84 24 20 5b 04 00 c6 85 18 fe ff ff 00 48 89 85 20 fe ff ff e9=
+ b0
+> > cd ff ff 0f 0b 0f 0b e9 9f f7 ff ff 0f 0b e9 f2 cd ff ff <0f> 0b e9 b0 =
+f7
+> > ff ff 48 c7 85 18 fe ff ff 00 00 00 00 48 c7 85 e8
+> > RSP: 0018:ffffcf07c5537418 EFLAGS: 00010082
+> > RAX: 0000000000000001 RBX: 0000000000000296 RCX: ffff8e36d56c6118
+> > RDX: 0000000000000001 RSI: 0000000000000286 RDI: ffff8e36d7980178
+> > RBP: ffffcf07c5537688 R08: ffffcf07c553730c R09: 0000000000000000
+> > R10: 0000000000000000 R11: ffffcf07c553737c R12: ffff8e36d56c6118
+> > R13: ffff8e3c0f7c7800 R14: 0000000000000000 R15: ffff8e36d56c6000
+> > FS:  00007f77aa5488c0(0000) GS:ffff8e3e69b52000(0000)
+> > knlGS:0000000000000000 CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> > CR2: 000024c6052cc000 CR3: 0000000134fe5000 CR4: 0000000000f50ef0
+> > PKRU: 55555554
+> >=20
+> > Call Trace:
+> >  <TASK>
+> >  commit_tail+0xc1/0x150
+> >  drm_atomic_helper_commit+0x13c/0x180
+> >  drm_atomic_commit+0xb1/0xe0
+> >  ? __pfx___drm_printfn_info+0x10/0x10
+> >  drm_client_modeset_commit_atomic+0x1ec/0x230
+> >  drm_client_modeset_commit_locked+0x58/0x160
+> >  ? mod_memcg_lruvec_state+0xc5/0x1f0
+> >  __drm_fb_helper_restore_fbdev_mode_unlocked.part.0+0x27/0x90
+> >  drm_fb_helper_set_par+0x57/0x70
+> >  fb_set_var+0x23c/0x430
+> >  ? update_cfs_rq_load_avg+0x1a/0x240
+> >  ? update_load_avg+0x73/0x210
+> >  ? psi_group_change+0x10c/0x2c0
+> >  ? set_next_entity+0xe7/0x270
+> >  fbcon_blank+0x1f2/0x310
+> >  do_unblank_screen+0xc8/0x1b0
+> >  complete_change_console+0x54/0x120
+> >  vt_ioctl+0xeca/0x1460
+> >  ? security_capable+0x7d/0x1a0
+> >  ? capable+0x32/0x60
+> >  ? kernel_termios_to_user_termios+0x13/0x20
+> >  ? tty_mode_ioctl+0x67a/0x6e0
+> >  tty_ioctl+0xe4/0x980
+> >  ? __seccomp_filter+0x42/0x5a0
+> >  __x64_sys_ioctl+0x97/0xe0
+> >  do_syscall_64+0x12b/0x15f0
+> >  ? __x64_sys_ioctl+0x97/0xe0
+> >  ? do_syscall_64+0x12b/0x15f0
+> >  ? do_syscall_64+0x12b/0x15f0
+> >  ? evdev_ioctl+0x6d/0xa0
+> >  ? __x64_sys_ioctl+0x97/0xe0
+> >  ? do_syscall_64+0x12b/0x15f0
+> >  ? do_syscall_64+0x12b/0x15f0
+> >  ? evdev_ioctl+0x6d/0xa0
+> >  ? __x64_sys_ioctl+0x97/0xe0
+> >  ? do_syscall_64+0x12b/0x15f0
+> >  ? do_syscall_64+0x12b/0x15f0
+> >  ? __x64_sys_close+0x3d/0x80
+> >  ? do_syscall_64+0x12b/0x15f0
+> >  ? __irq_exit_rcu+0x4c/0xf0
+> >  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+> >=20
+> > RIP: 0033:0x7f77a9d1604d
+> > Code: 04 25 28 00 00 00 48 89 45 c8 31 c0 48 8d 45 10 c7 45 b0 10 00 00=
+ 00
+> > 48 89 45 b8 48 8d 45 d0 48 89 45 c0 b8 10 00 00 00 0f 05 <89> c2 3d 00 =
+f0
+> > ff ff 77 1a 48 8b 45 c8 64 48 2b 04 25 28 00 00 00
+> > RSP: 002b:00007fffe582da10 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+> > RAX: ffffffffffffffda RBX: 000000000000001b RCX: 00007f77a9d1604d
+> > RDX: 0000000000000001 RSI: 0000000000005605 RDI: 000000000000001b
+> > RBP: 00007fffe582da60 R08: 00000000ffffffff R09: 00007fffe582da40
+> > R10: 00000000ffffffff R11: 0000000000000246 R12: 000055ae5d6c6e80
+> > R13: 0000000000000006 R14: 0000000000000000 R15: 0000000000000000
+> >=20
+> >  </TASK>
+> >=20
+> > amdgpu 0000:03:00.0: VM memory stats for proc (0) task (0) is non-zero
+> > when
+> > fini
+> > amdgpu 0000:03:00.0: VM memory stats for proc Xorg(1111) task
+> > Xorg:cs0(1106) is non-zero when fini
+> > amdgpu 0000:03:00.0: VM memory stats for proc (0) task (0) is non-zero
+> > when
+> > fini
+> > amdgpu 0000:03:00.0: VM memory stats for proc (0) task (0) is non-zero
+> > when
+> > fini
+> > amdgpu 0000:03:00.0: VM memory stats for proc (0) task (0) is non-zero
+> > when
+> > fini
+> > amdgpu 0000:03:00.0: VM memory stats for proc (0) task (0) is non-zero
+> > when
+> > fini
+> > amdgpu 0000:03:00.0: VM memory stats for proc (0) task (0) is non-zero
+> > when
+> > fini
+> > --
+> > Sorry if this hits the mailinglist twice. I sent it already days ago, b=
+ut
+> > it was not visible in the archives.
+
+
+
+
