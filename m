@@ -4,56 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3FB7CD343B
-	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 12:00:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A723CD3436
+	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 12:16:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55C9B10ED61;
-	Wed,  6 May 2026 12:00:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0D2210ED65;
+	Wed,  6 May 2026 12:16:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="N7UJOoSX";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="VWrzPbJ6";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9833610ED61
- for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 12:00:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329; h=Cc:To:In-Reply-To:References:Message-Id:
- Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
- Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
- :Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=VzPiqsNNKP8D31HnrqSylsehZjTjNsGJjks0JiVA82w=; b=N7UJOoSXgWni0eCu+o9wxTrZf6
- AxAqiL6kbPkBb2IQ++jLQV19OgJ8wRTlXztWj+Dx7a0pLObtJnwE0yjtiVer5Vd88BiY0te0LNqdO
- zKgXMDAsfiejsVOMG/L3qwiiMvqtixf5W+pC4WM858tjWZZTyx2f9dSxzeA2V9B3P9EtMXkr1T4oK
- 9hD9e4YlDhbHxXcRUQ7drQjFpakooglG9HtBBXP/ssDF0pAoMkT12/+3QISFWbIGoO1mHqCOG5Xmb
- cO2ZM3/7GDO/zs6lm96IDTRgV0kU6aVFiOmCZA2ApkJ7XuZbIBCDAuLlXyR5UHsgO69hRSaj9sR7u
- 6wikuVNg==;
-Received: from 179-125-92-238-dinamico.pombonet.net.br ([179.125.92.238]
- helo=[127.0.0.1]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wKavB-006sxt-2K; Wed, 06 May 2026 14:00:08 +0200
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Date: Wed, 06 May 2026 08:58:25 -0300
-Subject: [PATCH 2/2] cgroup/dmem: introduce a peak file
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C36B710ED5B;
+ Wed,  6 May 2026 12:16:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1778069797;
+ bh=s2rz6WBCQQLTAnI5a+CDvnoj5qWr+M9TUVuy622jV7E=;
+ h=From:Subject:Date:To:Cc:From;
+ b=VWrzPbJ6FcOZqnKVy9C3qqbzO/UWw1WydKijlVKnVjyqm9u1MBDBJ2Nkd0q+oKHCH
+ yYwveoHyNmwYAwEMc8t+XI3eQesPyBSOb0SvwmJiFyUEvZBYmpm0BedDIy42Im/wCz
+ +ohF0utsPg7ChM/qk6vrX8vGf61OwIgD/lemsBYylEpAYcJQc2/7321ZvR11c0cwlq
+ dVvAE6HpgXxHrv4uCOdYOpqfk/FGElwyctgXzaWqwDb20C/AkgHTv2VdQ4MTGZ38BW
+ 1sgJDgtxT/W8gVvB+C8B128MVbV2hZCU/nskg4w+f2pfwWCSi9eocFQqYzfc49/2OS
+ NmSPzDvMKic0g==
+Received: from [100.64.0.11] (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 91D3017E1502;
+ Wed,  6 May 2026 14:16:36 +0200 (CEST)
+From: Boris Brezillon <boris.brezillon@collabora.com>
+Subject: [PATCH 0/3] drm/panthor: Fix a race in the shrinker logic
+Date: Wed, 06 May 2026 14:16:25 +0200
+Message-Id: <20260506-panthor-shrinker-fixes-v1-0-e7721526de96@collabora.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260506-dmem_peak-v1-2-8d803eb3449c@igalia.com>
-References: <20260506-dmem_peak-v1-0-8d803eb3449c@igalia.com>
-In-Reply-To: <20260506-dmem_peak-v1-0-8d803eb3449c@igalia.com>
-To: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
- =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
- Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
- Andrew Morton <akpm@linux-foundation.org>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Maarten Lankhorst <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>, 
- Natalie Vock <natalie.vock@gmx.de>, 
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-mm@kvack.org, linux-doc@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, 
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>, kernel-dev@igalia.com
-X-Mailer: b4 0.16-dev-62088
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3LQQqAIBBA0avErBvQSImuEi3CxhwCjZmIILp70
+ vLx+Q8oCZPC2DwgdLFyyRW2bSCkJW+EvFZDZzpvnPF4LPlMRVCTcN5JMPJNim4INvYuxNBbqPM
+ h9If6TvP7fp9wy89oAAAA
+X-Change-ID: 20260506-panthor-shrinker-fixes-58c1f45cfc41
+To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
+ Boris Brezillon <boris.brezillon@collabora.com>, 
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Akash Goel <akash.goel@arm.com>, Chia-I Wu <olvaffe@gmail.com>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778069796; l=1376;
+ i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
+ bh=s2rz6WBCQQLTAnI5a+CDvnoj5qWr+M9TUVuy622jV7E=;
+ b=THEVnc4x1Mq4RI7yePdlKafi+stM406BVAhLHlcFjn6UsvLD2Eypts6czFRA3bjzlawp9M/xm
+ EuezyTmr5S/CiWGj5okBy6X1+9FnjKHz0kQAvjitxXZfCY8pUBv9Rgh
+X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
+ pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,274 +80,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Just like we have memory.peak, introduce a dmem.peak, which uses the
-page_counter support for that.
+As reported by Chia-I [1], a race exists between drm_gem_lru_remove()
+and drm_gem_lru_scan(), causing a UAF on a stack-allocated object.
 
-It can be written to in order to reset the peak, but different from
-memory.peak, which expects any write, dmem.peak expects the region name to
-be written to it. That region peak is the one that is reset.
+This first patch fixes the problem at the panthor level by making
+sure we never use drm_gem_lru_remove(). The second one fixes an
+undetected race between drm_gem_lru_scan() and
+drm_gem_object_release(), and the last one kills drm_gem_lru_remove()
+so no one else relying on the drm_gem_lru infra gets bitten by this
+race again.
 
-That requires ofp_peak to carry a pointer to the pool that was reset.
+Adding the MSM maintainers to the loop, since it's the only other
+driver relying on drm_gem_lru.
 
-Writing a different region name will reset the different region and make
-the original region peak get back to its non-reset value.
+[1]https://gitlab.freedesktop.org/panfrost/linux/-/work_items/86
 
-Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 ---
- Documentation/admin-guide/cgroup-v2.rst |  10 +++
- include/linux/cgroup-defs.h             |   1 +
- kernel/cgroup/dmem.c                    | 132 ++++++++++++++++++++++++++++++--
- 3 files changed, 137 insertions(+), 6 deletions(-)
+Boris Brezillon (3):
+      drm/panthor: Don't use the racy drm_gem_lru_remove() helper
+      drm/gem: Fix a race between drm_gem_lru_scan() and drm_gem_object_release()
+      drm/gem: Stop exposing the racy/unsafe drm_gem_lru_remove() helper
 
-diff --git a/Documentation/admin-guide/cgroup-v2.rst b/Documentation/admin-guide/cgroup-v2.rst
-index 6efd0095ed99..3ba7ab3a36b3 100644
---- a/Documentation/admin-guide/cgroup-v2.rst
-+++ b/Documentation/admin-guide/cgroup-v2.rst
-@@ -2808,6 +2808,16 @@ DMEM Interface Files
- 	The semantics are the same as for the memory cgroup controller, and are
- 	calculated in the same way.
- 
-+  dmem.peak
-+	A readwrite nested-keyed file that exists on non-root cgroups.
-+
-+	The max memory usage recorded for the cgroup and its descendants since
-+	either the creation of the cgroup or the most recent reset for that FD.
-+
-+	A write of a region name to this file resets it to the current memory
-+	usage for subsequent reads through the same file descriptor for that
-+	region.
-+
-   dmem.capacity
- 	A read-only file that describes maximum region capacity.
- 	It only exists on the root cgroup. Not all memory can be
-diff --git a/include/linux/cgroup-defs.h b/include/linux/cgroup-defs.h
-index a85044cb0553..b536054bd916 100644
---- a/include/linux/cgroup-defs.h
-+++ b/include/linux/cgroup-defs.h
-@@ -874,6 +874,7 @@ extern bool cgroup_enable_per_threadgroup_rwsem;
- struct cgroup_of_peak {
- 	unsigned long		value;
- 	struct list_head	list;
-+	struct dmem_cgroup_pool_state *pool;
- };
- 
- void of_peak_reset(struct cgroup_of_peak *ofp, struct page_counter *pc,
-diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
-index 1ab1fb47f271..afa380c9839b 100644
---- a/kernel/cgroup/dmem.c
-+++ b/kernel/cgroup/dmem.c
-@@ -57,6 +57,9 @@ struct dmemcg_state {
- 	struct cgroup_subsys_state css;
- 
- 	struct list_head pools;
-+
-+	/** @peaks_lock: Protects access to the pools' peaks lists */
-+	spinlock_t peaks_lock;
- };
- 
- struct dmem_cgroup_pool_state {
-@@ -72,6 +75,10 @@ struct dmem_cgroup_pool_state {
- 	struct rcu_head rcu;
- 
- 	struct page_counter cnt;
-+
-+	/* Protected by the dmemcg_state peaks_lock */
-+	struct list_head peaks;
-+
- 	struct dmem_cgroup_pool_state *parent;
- 
- 	refcount_t ref;
-@@ -162,26 +169,45 @@ set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val)
- 	page_counter_set_max(&pool->cnt, val);
- }
- 
--static u64 get_resource_low(struct dmem_cgroup_pool_state *pool)
-+static u64 get_resource_low(struct seq_file *sf, struct dmem_cgroup_pool_state *pool)
- {
- 	return pool ? READ_ONCE(pool->cnt.low) : 0;
- }
- 
--static u64 get_resource_min(struct dmem_cgroup_pool_state *pool)
-+static u64 get_resource_min(struct seq_file *sf, struct dmem_cgroup_pool_state *pool)
- {
- 	return pool ? READ_ONCE(pool->cnt.min) : 0;
- }
- 
--static u64 get_resource_max(struct dmem_cgroup_pool_state *pool)
-+static u64 get_resource_max(struct seq_file *sf, struct dmem_cgroup_pool_state *pool)
- {
- 	return pool ? READ_ONCE(pool->cnt.max) : PAGE_COUNTER_MAX;
- }
- 
--static u64 get_resource_current(struct dmem_cgroup_pool_state *pool)
-+static u64 get_resource_current(struct seq_file *sf, struct dmem_cgroup_pool_state *pool)
- {
- 	return pool ? page_counter_read(&pool->cnt) : 0;
- }
- 
-+static u64 get_resource_peak(struct seq_file *sf, struct dmem_cgroup_pool_state *pool)
-+{
-+	struct cgroup_of_peak *ofp = of_peak(sf->private);
-+	u64 fd_peak, peak;
-+	struct dmem_cgroup_pool_state *of_pool;
-+
-+	if (!pool)
-+		return 0;
-+
-+	of_pool = READ_ONCE(ofp->pool);
-+
-+	fd_peak = READ_ONCE(ofp->value);
-+	if (of_pool != pool || fd_peak == OFP_PEAK_UNSET)
-+		peak = pool->cnt.watermark;
-+	else
-+		peak = max(fd_peak, READ_ONCE(pool->cnt.local_watermark));
-+	return peak;
-+}
-+
- static void reset_all_resource_limits(struct dmem_cgroup_pool_state *rpool)
- {
- 	set_resource_min(rpool, 0);
-@@ -227,6 +253,7 @@ dmemcs_alloc(struct cgroup_subsys_state *parent_css)
- 		return ERR_PTR(-ENOMEM);
- 
- 	INIT_LIST_HEAD(&dmemcs->pools);
-+	spin_lock_init(&dmemcs->peaks_lock);
- 	return &dmemcs->css;
- }
- 
-@@ -377,6 +404,7 @@ alloc_pool_single(struct dmemcg_state *dmemcs, struct dmem_cgroup_region *region
- 			  ppool ? &ppool->cnt : NULL, true);
- 	reset_all_resource_limits(pool);
- 	refcount_set(&pool->ref, 1);
-+	INIT_LIST_HEAD(&pool->peaks);
- 	kref_get(&region->ref);
- 	if (ppool && !pool->parent) {
- 		pool->parent = ppool;
-@@ -784,7 +812,7 @@ static ssize_t dmemcg_limit_write(struct kernfs_open_file *of,
- }
- 
- static int dmemcg_limit_show(struct seq_file *sf, void *v,
--			    u64 (*fn)(struct dmem_cgroup_pool_state *))
-+			    u64 (*fn)(struct seq_file *, struct dmem_cgroup_pool_state *))
- {
- 	struct dmemcg_state *dmemcs = css_to_dmemcs(seq_css(sf));
- 	struct dmem_cgroup_region *region;
-@@ -796,7 +824,7 @@ static int dmemcg_limit_show(struct seq_file *sf, void *v,
- 
- 		seq_puts(sf, region->name);
- 
--		val = fn(pool);
-+		val = fn(sf, pool);
- 		if (val < PAGE_COUNTER_MAX)
- 			seq_printf(sf, " %lld\n", val);
- 		else
-@@ -807,6 +835,90 @@ static int dmemcg_limit_show(struct seq_file *sf, void *v,
- 	return 0;
- }
- 
-+static int dmem_cgroup_region_peak_open(struct kernfs_open_file *of)
-+{
-+	struct cgroup_of_peak *ofp = of_peak(of);
-+
-+	ofp->value = OFP_PEAK_UNSET;
-+
-+	return 0;
-+}
-+
-+static void dmem_cgroup_region_peak_remove(struct cgroup_of_peak *ofp)
-+{
-+	struct dmem_cgroup_pool_state *pool;
-+	struct dmemcg_state *dmemcs;
-+
-+	pool = xchg(&ofp->pool, NULL);
-+	if (!pool)
-+		return;
-+
-+	dmemcs = pool->cs;
-+
-+	spin_lock(&dmemcs->peaks_lock);
-+	list_del(&ofp->list);
-+	spin_unlock(&dmemcs->peaks_lock);
-+
-+	WRITE_ONCE(ofp->value, OFP_PEAK_UNSET);
-+
-+	dmemcg_pool_put(pool);
-+}
-+
-+static void dmem_cgroup_region_peak_release(struct kernfs_open_file *of)
-+{
-+	struct cgroup_of_peak *ofp = of_peak(of);
-+
-+	if (ofp->value == OFP_PEAK_UNSET) {
-+		/* fast path (no writes on this fd) */
-+		return;
-+	}
-+
-+	dmem_cgroup_region_peak_remove(ofp);
-+}
-+
-+static ssize_t dmem_cgroup_region_peak_write(struct kernfs_open_file *of,
-+					     char *buf, size_t nbytes, loff_t off)
-+{
-+	struct dmemcg_state *dmemcs = css_to_dmemcs(of_css(of));
-+	struct cgroup_of_peak *ofp = of_peak(of);
-+	struct dmem_cgroup_pool_state *pool = NULL;
-+	struct dmem_cgroup_region *region;
-+	int err = 0;
-+
-+	buf = strstrip(buf);
-+	if (!buf[0])
-+		return -EINVAL;
-+
-+	rcu_read_lock();
-+	region = dmemcg_get_region_by_name(buf);
-+	rcu_read_unlock();
-+
-+	if (!region)
-+		return -EINVAL;
-+
-+	pool = get_cg_pool_unlocked(dmemcs, region);
-+	if (IS_ERR(pool)) {
-+		err = PTR_ERR(pool);
-+		goto out_put;
-+	}
-+
-+	dmem_cgroup_region_peak_remove(ofp);
-+
-+	xchg(&ofp->pool, pool);
-+	spin_lock(&dmemcs->peaks_lock);
-+	of_peak_reset(ofp, &pool->cnt, &pool->peaks);
-+	spin_unlock(&dmemcs->peaks_lock);
-+
-+out_put:
-+	kref_put(&region->ref, dmemcg_free_region);
-+	return err ?: nbytes;
-+}
-+
-+static int dmem_cgroup_region_peak_show(struct seq_file *sf, void *v)
-+{
-+	return dmemcg_limit_show(sf, v, get_resource_peak);
-+}
-+
- static int dmem_cgroup_region_current_show(struct seq_file *sf, void *v)
- {
- 	return dmemcg_limit_show(sf, v, get_resource_current);
-@@ -855,6 +967,14 @@ static struct cftype files[] = {
- 		.name = "current",
- 		.seq_show = dmem_cgroup_region_current_show,
- 	},
-+	{
-+		.name = "peak",
-+		.open = dmem_cgroup_region_peak_open,
-+		.release = dmem_cgroup_region_peak_release,
-+		.write = dmem_cgroup_region_peak_write,
-+		.seq_show = dmem_cgroup_region_peak_show,
-+		.flags = CFTYPE_NOT_ON_ROOT,
-+	},
- 	{
- 		.name = "min",
- 		.write = dmem_cgroup_region_min_write,
+ drivers/gpu/drm/drm_gem.c                | 63 ++++++++++++++------------------
+ drivers/gpu/drm/panthor/panthor_device.h | 10 +++++
+ drivers/gpu/drm/panthor/panthor_gem.c    |  5 ++-
+ include/drm/drm_gem.h                    |  1 -
+ 4 files changed, 41 insertions(+), 38 deletions(-)
+---
+base-commit: 57f68ed1f08cd10f51a9091645fd5dfcc369a885
+change-id: 20260506-panthor-shrinker-fixes-58c1f45cfc41
 
+Best regards,
 -- 
-2.47.3
+Boris Brezillon <boris.brezillon@collabora.com>
 
