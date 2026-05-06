@@ -4,94 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3096ECD343B
-	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 15:46:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D766CD342C
+	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 15:46:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 936E510EE0B;
-	Wed,  6 May 2026 15:46:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5C2310EE03;
+	Wed,  6 May 2026 15:46:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dP9g+Djk";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="gMgd2baJ";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BB7910EDED
- for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 15:46:48 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 5290643C71;
- Wed,  6 May 2026 15:46:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 066ADC2BCB0;
- Wed,  6 May 2026 15:46:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778082408;
- bh=UrrPk+6g39IIpATE+r/ALmveb23Z8oczij81iLseye8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=dP9g+Djkm5vgq+XT5gHxbQN9nK+hgjOeB+2ttOxoZvfgDnuM7F+2kAMCpZZbaJfw3
- 1jYe7w/7c2RwHsLe4iWkucX0PdFn0oaxw1aSbg6rPOgvjdxpjZRs8UrDkT5f5w9gqX
- vvuH5q1CElQxuQDDpWikYzU6vpx7vXGIBsNlYQ9jEIMpzgGgaSCys0Ku7DMC7CFa8r
- NjvkjnoimqjIiVeUH0Ov5qg/36dMLogEPEe7o7Z8CvWuSZB8ZG6q5esUNQ7k13e2gI
- Pi1HDY363kky4+RKDCwSHg/qVJlThuzJs/RmeZnwhv35/N8Rj8X4xmmwDmevBzGAla
- 6eN+yC27w4Cyg==
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
- by mailfauth.phl.internal (Postfix) with ESMTP id 4C5E3F40070;
- Wed,  6 May 2026 11:46:46 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-01.internal (MEProxy); Wed, 06 May 2026 11:46:46 -0400
-X-ME-Sender: <xms:ZmL7aaCrplXZbMwKqZf_wHgZFma-18SVObNyRy5ZN7bZ2kJwgcvY_A>
- <xme:ZmL7aRrpHTg6rCA5tAy-BxDj4E9I1Amzk6Euw29pV8iRPs6fpIgC2b2J94_S64ApG
- mcSgB6BQBksYTCEmbA1QqrZSxG11sbj9Tc1SmLpcr-5m0P9PrNI3Ak>
-X-ME-Received: <xmr:ZmL7aeCDktInw5GHk2hJefv-_5IKudZcO1oWIYoAYtgSUg_0PS6Vhuaax1-TligsqpaKVPknC0d2fXWr9hYBLeLrcdwjX4-x>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgddutdegleelucetufdoteggodetrf
- dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
- rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
- gurhepfffhvfevuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepuehoqhhunhcu
- hfgvnhhguceosghoqhhunheskhgvrhhnvghlrdhorhhgqeenucggtffrrghtthgvrhhnpe
- euffdvtdegvdektdetgfevvdehgeevhfdtheeuieeijeeitdeutdefgefhjeduleenucff
- ohhmrghinhepkhgvrhhnvghlrdhorhhgpdhtrhgvvgdrmhgrnecuvehluhhsthgvrhfuih
- iivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepsghoqhhunhdomhgvshhmthhprghu
- thhhphgvrhhsohhnrghlihhthidqudeijedtleekgeejuddqudejjeekheehhedvqdgsoh
- hquhhnpeepkhgvrhhnvghlrdhorhhgsehfihigmhgvrdhnrghmvgdpnhgspghrtghpthht
- ohepfeefpdhmohguvgepshhmthhpohhuthdprhgtphhtthhopehjohgvlhgrghhnvghlfh
- esnhhvihguihgrrdgtohhmpdhrtghpthhtoheplhhinhhugidqkhgvrhhnvghlsehvghgv
- rhdrkhgvrhhnvghlrdhorhhgpdhrtghpthhtohepohhjvggurgeskhgvrhhnvghlrdhorh
- hgpdhrtghpthhtohepghgrrhihsehgrghrhihguhhordhnvghtpdhrtghpthhtohepsghj
- ohhrnhefpghghhesphhrohhtohhnmhgrihhlrdgtohhmpdhrtghpthhtoheplhhoshhsih
- hnsehkvghrnhgvlhdrohhrghdprhgtphhtthhopegrrdhhihhnuggsohhrgheskhgvrhhn
- vghlrdhorhhgpdhrtghpthhtoheprghlihgtvghrhihhlhesghhoohhglhgvrdgtohhmpd
- hrtghpthhtohepthhmghhrohhsshesuhhmihgthhdrvgguuh
-X-ME-Proxy: <xmx:ZmL7aZznNrlAxu4xTV4SLy9awAFbGk7hhvvyT_pHYRPfCouCbi81NA>
- <xmx:ZmL7aW6A5knDjHx_YgUPuSwoGItGjGRcxth0obiCn_feDX-32qdT_Q>
- <xmx:ZmL7aasUKCdE4FH2yr6CLWQiTup9SRqEkqVzsjVNMyMSXzHPnX1ZJQ>
- <xmx:ZmL7aTs7bthjmx0M_GRr-hQkuDAAkcR4w43kNtjNWY7c7gJ4NtEakg>
- <xmx:ZmL7aSvycf7zHrodrEPpch9XLB8S7iUQRtFzQiB_DHYDkT2o0DiJlu4T>
-Feedback-ID: i8dbe485b:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 6 May 2026 11:46:45 -0400 (EDT)
-Date: Wed, 6 May 2026 08:46:44 -0700
-From: Boqun Feng <boqun@kernel.org>
-To: Joel Fernandes <joelagnelf@nvidia.com>
-Cc: linux-kernel@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
- Gary Guo <gary@garyguo.net>,	Bjorn Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>,	Dave Airlie <airlied@redhat.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- nova-gpu@lists.linux.dev, Nikola Djukic <ndjukic@nvidia.com>,
- David Airlie <airlied@gmail.com>, Boqun Feng <boqun.feng@gmail.com>,
- John Hubbard <jhubbard@nvidia.com>,	Alistair Popple <apopple@nvidia.com>,
- Timur Tabi <ttabi@nvidia.com>,	Edwin Peer <epeer@nvidia.com>,
- Alexandre Courbot <acourbot@nvidia.com>,
- Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
- Philipp Stanner <phasta@kernel.org>, alexeyi@nvidia.com,
- Eliot Courtney <ecourtney@nvidia.com>, joel@joelfernandes.org,
- linux-doc@vger.kernel.org
-Subject: Re: [PATCH v2] rust: maple_tree: implement Send and Sync for MapleTree
-Message-ID: <aftiZGt3HQe0Bf_x@tardis.local>
-References: <20260506135122.GA1432412@joelbox2>
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010014.outbound.protection.outlook.com [52.101.61.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D3CDE10EE03;
+ Wed,  6 May 2026 15:46:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Gsea9TsDmTUKk3vDiSrNpucqFvSQENvExOxRkEKz1/7GlOt7B8OwsssCbtP20ofb/mNLYF8b8Hz9EEqiJFYRZECXL0fcMWG6pbROwVdETa5ntUsKbPSwhSK5UkjY9Q/Sb6D67ZMSRr8M0hFJQQEiYL3BkArqEY9XTH9BtF2878+68Mj8OVb+lw9oGE85wZHHAv9YQ3+jT8LcGDiRbKfggtIi5F4DdeICrBp7vi8at4gQnCzvHxALl5o1pXHF4l1Nq2pNzK5qFMbrxWLoG8oovkz3qy+qw6YoXTfkB+MTKl4vL3LYD3HHhxH/odoy6YJA7QypupjxC/TOjbb5xFEQ1w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=u57BuU3HDq97m/+Cgb50VL4h9MGwu9o98wm6HEhkg6I=;
+ b=uf6fUhKM9Svn0A5irZzMBCwGT1qgijBif9e2jMzuz7P9+VAmrIfjW/+Tz+nvztBblmGaskETAGS/d9zor9Cq963pyA0zj0FqeEu6RxVpkcxdjKOWZXrBoXzhWr5Ja5Ao9n52I0DD6hKFQxVp0zD8pNYRwrTdoskzkdtjkmvweuCdsjC2oNp+CI0TQzMIHvMFNoMp8GpKGhmCVRMElfCgZbAcBdQtS/LLWsv8Nbd3aB4hmURtt0y1UmUD2hO6Eij/bmlyJjqVo2qicxf5o2v7M2B9y+u2T9yL4JEqBP0Pjh8aXNpBYWxM2DzF60jLYgKYFYNRDQYy0XKnU7GpgfQ0cA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=u57BuU3HDq97m/+Cgb50VL4h9MGwu9o98wm6HEhkg6I=;
+ b=gMgd2baJyOYgsOcVv4IcgHwz8WZk7aCabdwp5So6Lme29WrRS9z+bOfZNmkQz+WcKLDCO521CqMiGO5cOQdY/VO7+vS2ajJJjRuYXKv6heMmQX7iUT6NTdZSzBix/kkh3wbJgB5uLKVnrO85E3O6w3GZ0hPqPQ6zE5ornm2GIBg=
+Received: from BN9PR03CA0306.namprd03.prod.outlook.com (2603:10b6:408:112::11)
+ by SN7PR12MB7450.namprd12.prod.outlook.com (2603:10b6:806:29a::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.15; Wed, 6 May
+ 2026 15:46:49 +0000
+Received: from BL6PEPF0002256E.namprd02.prod.outlook.com
+ (2603:10b6:408:112:cafe::ce) by BN9PR03CA0306.outlook.office365.com
+ (2603:10b6:408:112::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9870.27 via Frontend Transport; Wed,
+ 6 May 2026 15:46:49 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL6PEPF0002256E.mail.protection.outlook.com (10.167.249.36) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9891.9 via Frontend Transport; Wed, 6 May 2026 15:46:49 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Wed, 6 May
+ 2026 10:46:48 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 6 May
+ 2026 10:46:48 -0500
+Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Wed, 6 May 2026 10:46:48 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <simona.vetter@ffwll.ch>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull] amdgpu, amdkfd, radeon drm-fixes-7.1
+Date: Wed, 6 May 2026 11:46:31 -0400
+Message-ID: <20260506154631.1733034-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260506135122.GA1432412@joelbox2>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Received-SPF: None (SATLEXMB04.amd.com: alexander.deucher@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0002256E:EE_|SN7PR12MB7450:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2b140fe2-aa08-4c83-43fe-08deab86af80
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|1800799024|82310400026|376014|18002099003|56012099003|13003099007;
+X-Microsoft-Antispam-Message-Info: kujxcPAUtAhC25J23bhUy43+ceXS2UL/rlWsQPcL+ujnea0izZ4rrRpeNAZg82skJpzwesASEZbq+RWoePe9L9lKclU3DwbA9UsgIkhLuSYYqILnXMN6sSFyTci5KhSPIOhccpNkYp2yOYth9IWY64sYCK//pEXLr4LBhALJutQ+l7uVHKEMikSGV/UGuSO44HSYcpjRsmyXKO3ymcM1x6jdViqD+M++QN9LljTfOQ5lnf0wAtOl5AvAi+RC4wwH6Lm3S+YMun45MnSmUisQgrfiQJv/7yS0RfoNNJn3IrMcgo+13fELPDRSRHI1ntFJACWfpyyKEKd6bNOfyDq/BgkoX2eflEFmIOx/immw4Qawdj32sQuHnckg/I7tmAmBvUn9YDohR9N9E7TOPLW3uRg8LdH1tmo0s47KsC+/iXE0cMMcwHGJFVrwOUMsW63jKvBJWrBOby+Xpv59wFvH1vP383QgdLkt/spt2sb9l573s2W33vU/tfQhHPfK3M0+0mloKKq8viFiD8yPc71ZYkQ9OL/GoRYZj/uxp1s4MDdNlDxyDrS4WGhykucm4WrVWt/pJIO/TxostJ4C0cygx7nCE530y1lY8KJIxyluNTNrh2w0iNSsz4e6zH7/nzrZwnt6q2E5Tq+msCfu5xMWkkZP5MHCrFkpuRKCzxpjXtAzM+IzYgEOLr0ZgdDDNvVQ
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(1800799024)(82310400026)(376014)(18002099003)(56012099003)(13003099007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: G5tVMqYxvyrwr00Xt8Tgpqoctj/J8k4ki4EuWLONdrFt/uVsMx3HdKfKyWMGxV+PU0Rbn++az/axiHU1if7chcfuYrMknCwxLzaBPckZdJ0aDAes8t+5l2RshOfBMhWrhC8S7yaJm1uqeJOzCn42AROL+3oOon37KsqOHiq9A5jJaKRjhdEAzJhRupr47ZA2EIj1FP7Brnwzo7uM+bRfgkyjYWkfDYUZh8/triFHhQrLWjqLvY5Jalc69ervYEdWhluG9cT5J4kVbHrsaB1cIpobBN8pGUT2uMw6PaGkVVwiPj0BJsLF+oCBq6YjZKlHb/SMLMxrzobN+zZydgyZrK/5vUrA2sAykD6lr6Yl5O/HSgWuHbeTKivEhTwOIazENz/HTLIxlZUMausTz+s00qV2y0NJw0qeqkldwwYmw8/oxLExppY/H0agvR3r0JbG
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2026 15:46:49.1140 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2b140fe2-aa08-4c83-43fe-08deab86af80
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0002256E.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7450
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,142 +115,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, May 06, 2026 at 09:51:22AM -0400, Joel Fernandes wrote:
-> The C maple_tree struct contains a *mut c_void, which prevents Rust from
-> auto-deriving Send/Sync. Following is an example error message when using
-> MapleTree in nova-core's Vmm.
-> 
-> This propagates up through MapleTreeAlloc to Vmm, BarUser, Gpu, and NovaCore,
-> causing NovaCore to fail the Send bound required by pci::Driver:
-> 
->   error[E0277]: `*mut c_void` cannot be sent between threads safely
->       --> drivers/gpu/nova-core/driver.rs:77:22
->        |
->   77   | impl pci::Driver for NovaCore {
->        |                      ^^^^^^^^ `*mut c_void` cannot be sent between threads safely
->        |
->        = help: within `MapleTreeAlloc<()>`, the trait `Send` is not implemented for `*mut c_void`
->   note: required because it appears within the type `kernel::bindings::maple_tree`
->   note: required because it appears within the type `Opaque<kernel::bindings::maple_tree>`
->   note: required because it appears within the type `MapleTree<()>`
->   note: required because it appears within the type `MapleTreeAlloc<()>`
->        = note: required for `Box<MapleTreeAlloc<()>, Kmalloc>` to implement `Send`
->   note: required because it appears within the type `core::pin::Pin<Box<MapleTreeAlloc<()>, Kmalloc>>`
->   note: required because it appears within the type `Vmm`
->   note: required because it appears within the type `BarUser`
->   note: required because it appears within the type `Gpu`
->   note: required because it appears within the type `NovaCore`
->   note: required by a bound in `kernel::pci::Driver`
->       --> rust/kernel/pci.rs:294:19
-> 
-> Implement Send and Sync for MapleTree. The tree contains no thread-local
-> state, and all shared access goes through the internal ma_lock spinlock.
-> 
-> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
-> ---
-> RFC->v2: Just adjusted a few comments as suggested by Gary.
-> 
-> Sending this separately as discussed in the nova mm patch series that needs it:
-> https://lore.kernel.org/all/252a4eef-f4f4-4edf-8154-06cae4ad8518@nvidia.com/
-> 
->  rust/kernel/maple_tree.rs | 29 +++++++++++++++++++++++------
->  1 file changed, 23 insertions(+), 6 deletions(-)
-> 
-> diff --git a/rust/kernel/maple_tree.rs b/rust/kernel/maple_tree.rs
-> index 265d6396a78a..2400c905270d 100644
-> --- a/rust/kernel/maple_tree.rs
-> +++ b/rust/kernel/maple_tree.rs
-> @@ -16,7 +16,11 @@
->      alloc::Flags,
->      error::to_result,
->      prelude::*,
-> -    types::{ForeignOwnable, Opaque},
-> +    types::{
-> +        ForeignOwnable,
-> +        NotThreadSafe,
-> +        Opaque, //
-> +    },
->  };
->  
->  /// A maple tree optimized for storing non-overlapping ranges.
-> @@ -240,7 +244,10 @@ pub fn lock(&self) -> MapleGuard<'_, T> {
->          unsafe { bindings::spin_lock(self.ma_lock()) };
->  
->          // INVARIANT: We just took the spinlock.
-> -        MapleGuard(self)
-> +        MapleGuard {
-> +            tree: self,
-> +            _not_send: NotThreadSafe,
-> +        }
->      }
->  
->      #[inline]
-> @@ -302,19 +309,29 @@ fn drop(mut self: Pin<&mut Self>) {
->      }
->  }
->  
-> +// SAFETY: `MapleTree<T>` is `Send` if `T` is `Send` because `MapleTree` owns its elements.
-> +unsafe impl<T: ForeignOwnable + Send> Send for MapleTree<T> {}
-> +// SAFETY: `&MapleTree<T>` never hands out `&T`; all entry access is serialized
-> +// by `ma_lock` or `&mut Guard`, so `T: Send` suffices (`T: Sync` not required).
-> +unsafe impl<T: ForeignOwnable + Send> Sync for MapleTree<T> {}
+Hi Dave, Simona,
 
-I think you missed this:
+Fixes for 7.1.
 
-	https://lore.kernel.org/rust-for-linux/aepRx2jgIKmoRp-r@tardis.local/
+The following changes since commit f0997a06e3e32898bcae667d6807fc46ebfd0eec:
 
-;-)
+  Merge tag 'drm-xe-fixes-2026-04-30' of https://gitlab.freedesktop.org/drm/xe/kernel into drm-fixes (2026-05-01 12:49:29 +1000)
 
-But on a second thought, should that (we have methods of `&MapleTree<T>`
--> `&T`) happen, we could always guard those methods with T: Sync. Maybe
-it's worth to keep a note on that but, anyway
+are available in the Git repository at:
 
-Reviewed-by: Boqun Feng <boqun@kernel.org>
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-7.1-2026-05-06
 
-Regards,
-Boqun
+for you to fetch changes up to 4e02e0afa95f691dc7cc17538cdd648089a843f0:
 
-> +
->  /// A reference to a [`MapleTree`] that owns the inner lock.
->  ///
->  /// # Invariants
->  ///
->  /// This guard owns the inner spinlock.
->  #[must_use = "if unused, the lock will be immediately unlocked"]
-> -pub struct MapleGuard<'tree, T: ForeignOwnable>(&'tree MapleTree<T>);
-> +pub struct MapleGuard<'tree, T: ForeignOwnable> {
-> +    tree: &'tree MapleTree<T>,
-> +    // A held spinlock must be released on the same CPU that acquired it.
-> +    _not_send: NotThreadSafe,
-> +}
->  
->  impl<'tree, T: ForeignOwnable> Drop for MapleGuard<'tree, T> {
->      #[inline]
->      fn drop(&mut self) {
->          // SAFETY: By the type invariants, we hold this spinlock.
-> -        unsafe { bindings::spin_unlock(self.0.ma_lock()) };
-> +        unsafe { bindings::spin_unlock(self.tree.ma_lock()) };
->      }
->  }
->  
-> @@ -323,7 +340,7 @@ impl<'tree, T: ForeignOwnable> MapleGuard<'tree, T> {
->      pub fn ma_state(&mut self, first: usize, end: usize) -> MaState<'_, T> {
->          // SAFETY: The `MaState` borrows this `MapleGuard`, so it can also borrow the `MapleGuard`s
->          // read/write permissions to the maple tree.
-> -        unsafe { MaState::new_raw(self.0, first, end) }
-> +        unsafe { MaState::new_raw(self.tree, first, end) }
->      }
->  
->      /// Load the value at the given index.
-> @@ -375,7 +392,7 @@ pub fn ma_state(&mut self, first: usize, end: usize) -> MaState<'_, T> {
->      #[inline]
->      pub fn load(&mut self, index: usize) -> Option<T::BorrowedMut<'_>> {
->          // SAFETY: `self.tree` contains a valid maple tree.
-> -        let ret = unsafe { bindings::mtree_load(self.0.tree.get(), index) };
-> +        let ret = unsafe { bindings::mtree_load(self.tree.tree.get(), index) };
->          if ret.is_null() {
->              return None;
->          }
-> -- 
-> 2.34.1
-> 
+  drm/amdgpu: nuke amdgpu_userq_fence_slab v2 (2026-05-05 10:23:06 -0400)
+
+----------------------------------------------------------------
+amd-drm-fixes-7.1-2026-05-06:
+
+amdgpu:
+- GFX9 fixes
+- Hawaii SMU fixes
+- SDMA4 fix
+- GART fix
+- Userq fixes
+
+amdkfd:
+- GPUVM TLB flush fix
+- Hotplug fix
+
+radeon:
+- Hawaii SMU fixes
+
+----------------------------------------------------------------
+Alex Deucher (3):
+      drm/amdgpu/pm: add missing revision check for CI
+      drm/amdgpu/pm: align Hawaii mclk workaround with radeon
+      drm/radeon: add missing revision check for CI
+
+Christian König (1):
+      drm/amdgpu: nuke amdgpu_userq_fence_slab v2
+
+Felix Kuehling (1):
+      drm/amdkfd: Make all TLB-flushes heavy-weight
+
+John B. Moore (2):
+      drm/amdgpu/gfx9: drop unnecessary 64-bit fence flag check in KIQ
+      drm/amdgpu/sdma4: replace BUG_ON with WARN_ON in fence emission
+
+Philip Yang (1):
+      drm/amdgpu: zero-initialize GART table on allocation
+
+Sunil Khatri (1):
+      drm/amdgpu/userq: fix access to stale wptr mapping
+
+Xiaogang Chen (1):
+      drm/amdkfd: Check if there are kfd porcesses using adev by kfd_processes_count
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            | 13 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c           | 13 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c    | 28 +------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h    |  3 -
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c              |  3 -
+ drivers/gpu/drm/amd/amdgpu/mes_userqueue.c         | 95 +++++++++-------------
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c             |  4 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c           |  4 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c            | 33 +-------
+ .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |  6 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h              |  6 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c               |  4 +-
+ .../gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c    | 13 +--
+ drivers/gpu/drm/radeon/ci_dpm.c                    |  9 +-
+ 14 files changed, 80 insertions(+), 154 deletions(-)
