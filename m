@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3FF6CD343B
-	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 19:27:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50F16CD343B
+	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 19:27:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CA7310EE7C;
-	Wed,  6 May 2026 19:27:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB8FB10EE80;
+	Wed,  6 May 2026 19:27:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="GCMEKaL8";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="H8/W6XLa";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76D0710EE73;
- Wed,  6 May 2026 19:27:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E65510EE7E;
+ Wed,  6 May 2026 19:27:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=bJqPJBF9SekaGU8cT1ZSfs50O5CZ6j8t03exIfnIX5g=; b=GCMEKaL8BImfivcNvz2qWGWCNU
- 3ag8PoZDocq3DiBG+dLvm+gh/PMQpK2UeDzzn+KX8AlaBLMbO08ZXrgaz3FgSO23WlNRMV20EZ1Mx
- y7BqQ9hWfuMzRHRQo+fVjEfxqwK4qoA4uVCCs3l+oDttuEDmHY6ky0+twzYNq/jFSnqDSyEQVTDp+
- EXldSNHoQroC1oi3xGZoopFrdGQRFok4C1xdY3Ga4gSmS5h6VnN47pZetENXJSmxChNANkw6sqSHw
- H3innj188AQd5inku2jK8gH+XUBhsokQezhDU7YldUZuc8BYINqYiU3Hktlv9x3nM8QJFKlUH9iuF
- Bp5D+vXA==;
+ bh=ODId+Puv+ksLM5ZeP1J/HwczMH5qfWb0nljTGmHwaLI=; b=H8/W6XLa41JzkcGaEfRluJFnjb
+ OIkSAtQy7cmTFwEbiLtuTmgvnto79gBBmF2Pb9kX6tkwtvNUdVgKccWC5DPV9yHpvpHpQEamDHavI
+ r5b3e3PeoAMq+Abi4dPLYTePnpF4eSj4WWdL3BquLavdIk9pxIEXO5ylNr6kZQ+GELxIuh/QN9PkX
+ YYFqn/evZSZmHnq0lfFKiq4k5AfRSnlx7/uvYPQM8qeH2mUxmwktEK5eH6LDfUxDHJigDugQKTd1L
+ /3QQfT6xB3MOOjAEB1epeFcO/U5yf4906pxgbYNaS+caKcq8GS428qbCOCrRguQeoJwWV+lpLk6sx
+ yhZnqexA==;
 Received: from [186.208.73.228] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wKhtR-0072dZ-Q5; Wed, 06 May 2026 21:26:49 +0200
+ id 1wKhtg-0072dZ-Ho; Wed, 06 May 2026 21:27:04 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
  harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
@@ -52,10 +52,13 @@ Cc: Alex Hung <alex.hung@amd.com>, Simon Ser <contact@emersion.fr>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH v5 0/6] drm/atomic: track individual colorop updates
-Date: Wed,  6 May 2026 16:23:46 -0300
-Message-ID: <20260506192633.16066-1-mwen@igalia.com>
+Subject: [PATCH v5 2/6] drm/atomic: don't set colorop properties of inactive
+ color pipelines
+Date: Wed,  6 May 2026 16:23:48 -0300
+Message-ID: <20260506192633.16066-3-mwen@igalia.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260506192633.16066-1-mwen@igalia.com>
+References: <20260506192633.16066-1-mwen@igalia.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -73,70 +76,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series aims to track updates for each individual color operation,
-allowing the driver to react accordingly.
+Reject attempts to change property values of a colorop that is not
+part of an active plane color pipeline.
 
-- Patches 1 and 2 make colorop update process more consistent and
-  optimized by only keeping colorop states from active color pipelines.
+Suggested-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+Signed-off-by: Melissa Wen <mwen@igalia.com>
+---
+ drivers/gpu/drm/drm_atomic_uapi.c | 34 ++++++++++++++++++++++++++-----
+ 1 file changed, 29 insertions(+), 5 deletions(-)
 
-- Patches 3 and 4 make lut1d_interpolation and lut3d_interpolation
-  colorops correctly behave as mutable, handling their changes via
-  drm_colorop_state.
-
-- Finally, patches 5 and 6 track colorop updates of a given plane color
-  pipeline by setting plane `color_mgmt_changed` flag, similar to what
-  is done for tracking CRTC color mgmt property changes with CRTC
-  `color_mgmt_changed` flag. The flag also tracks when a different color
-  pipeline is set to a given plane. That way, the driver can react
-  accordingly and update their color blocks.
-
-It also fixes shaper/3D LUT updates when changing night mode settings on
-gamescope with a custom branch that supports `COLOR_PIPELINE`:
-- https://github.com/ValveSoftware/gamescope/pull/2113
-
-v1: https://lore.kernel.org/dri-devel/20260318162348.299807-1-mwen@igalia.com/
-Changes:
-- include linux types for function's bool return type (kernel bot on MSM
-  driver)
-- add Harry's r-b tags
-
-v2: https://lore.kernel.org/dri-devel/20260323131942.494217-1-mwen@igalia.com/
-Changes:
-- [NEW] two patches to only consider colorop updates from active color
-  pipelines (Chaitanya)
-- [NEW] make lut interpolation properties mutable + Alex H patch for
-  kernel docs
-- track lut(1/3)d_interpolation updates (Chaitanya)
-- rebase changes according to new patches
-
-v3: https://lore.kernel.org/dri-devel/20260403135909.214378-1-mwen@igalia.com/
-Changes: rebase on drm-misc-next
-
-v4: https://lore.kernel.org/dri-devel/20260501132527.522320-1-mwen@igalia.com/
-Changes: fix kernel doc (kernel bot)
-
-Melissa Wen
-
-Alex Hung (1):
-  drm/colorop: Remove read-only comments from interpolation fields
-
-Melissa Wen (5):
-  drm/atomic: only add colorop state from active color pipeline
-  drm/atomic: don't set colorop properties of inactive color pipelines
-  drm/colorop: make lut(1/3)d_interpolation mutable
-  drm/atomic: track individual colorop updates
-  drm/amd/display: use plane color_mgmt_changed to track colorop changes
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  6 +-
- drivers/gpu/drm/drm_atomic.c                  | 43 +++++----
- drivers/gpu/drm/drm_atomic_helper.c           |  9 +-
- drivers/gpu/drm/drm_atomic_uapi.c             | 93 +++++++++++++++----
- drivers/gpu/drm/drm_colorop.c                 | 16 +++-
- include/drm/drm_atomic.h                      |  2 +-
- include/drm/drm_atomic_uapi.h                 |  4 +-
- include/drm/drm_colorop.h                     | 34 ++++---
- 8 files changed, 136 insertions(+), 71 deletions(-)
-
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index 5bd5bf6661df..bff8d58f8f12 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -1275,15 +1275,38 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
+ 		break;
+ 	}
+ 	case DRM_MODE_OBJECT_COLOROP: {
+-		struct drm_colorop *colorop = obj_to_colorop(obj);
+-		struct drm_colorop_state *colorop_state;
++		struct drm_colorop *active_colorop, *colorop = obj_to_colorop(obj);
++		struct drm_colorop_state *colorop_state = NULL;
++		struct drm_plane_state *plane_state;
+ 
+-		colorop_state = drm_atomic_get_colorop_state(state, colorop);
+-		if (IS_ERR(colorop_state)) {
+-			ret = PTR_ERR(colorop_state);
++		plane_state = drm_atomic_get_plane_state(state, colorop->plane);
++		if (IS_ERR(plane_state)) {
++			ret = PTR_ERR(plane_state);
+ 			break;
+ 		}
+ 
++		/* Check if the colorop obj is part of an active color pipeline */
++		for (active_colorop = plane_state->color_pipeline;
++		     active_colorop;
++		     active_colorop = active_colorop->next) {
++			if (active_colorop == colorop) {
++				colorop_state = drm_atomic_get_colorop_state(state, colorop);
++				if (IS_ERR(colorop_state)) {
++					ret = PTR_ERR(colorop_state);
++					goto err;
++				}
++				break;
++			}
++		}
++
++		if (!colorop_state) {
++			drm_dbg_atomic(prop->dev,
++				       "[COLOROP:%d:%d] not part of the active pipeline\n",
++					obj->id, colorop->type);
++			ret = -EINVAL;
++			goto err;
++		}
++
+ 		ret = drm_atomic_colorop_set_property(colorop, colorop_state,
+ 						      file_priv, prop, prop_value);
+ 		break;
+@@ -1294,6 +1317,7 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
+ 		break;
+ 	}
+ 
++err:
+ 	drm_property_change_valid_put(prop, ref);
+ 	return ret;
+ }
 -- 
 2.53.0
 
