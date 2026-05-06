@@ -4,76 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 334A1CD343B
-	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 14:14:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97B9ECD343B
+	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 14:19:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91D4B10E1BA;
-	Wed,  6 May 2026 14:14:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03A7F10EDC6;
+	Wed,  6 May 2026 14:19:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="P0TWWejF";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="J0+CPLXT";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB1AA10E1BA
- for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 14:14:56 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 8E76E43C4A
- for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 14:14:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 737D3C2BCC9
- for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 14:14:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778076896;
- bh=S/kmyfCtgRcnnR6uKuRsciK1a6EFOEAiOWDDIUPH/n8=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=P0TWWejFiVyGwBeEGQrswyDGhgdW3tEtXcFMPmnguQ8KcsqeSQOXhsZoC63lqhyb1
- QmlbF8fsIgMfwR6YxJgd5qY2LHmYtDUROxTPmuthCQPOXlzWT7ZzmrslZSdS40CIYa
- DfwGCgJlb+o3MaVxHG7+SS0gk9F2yfPPrSRWQLVtGDnAWsMj5Wk7q0qHFt9N/GmUPR
- xmVXMFYvPwe9jmt/1m46Cgb6S3RYyniJIegzXa4HQ4n2fNZmzDK7g3vZhnCZlRi87C
- xFfN0ManqEBJD90kQ3GaX5yB9dl1NUv+v+wEObvaHsQ+zcnGyUPMi056dk50UzOwFc
- ipcCbzgIEgF7g==
-Received: by mail-ej1-f50.google.com with SMTP id
- a640c23a62f3a-b9382e59c0eso1024970266b.0
- for <dri-devel@lists.freedesktop.org>; Wed, 06 May 2026 07:14:56 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AFNElJ+JbuomU10dU+YuMU0jlcuaAg3rq7DxxeCpQcNpZI0TaNjKScCYInoCaFZwerWxpZ/prlTMJHZrPa8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzI91rrnJNG73HV+DMNyzENFmaLfglDQBiKhjTV0nlM8Sn38NuT
- pqgiU491f5r1vYoXLeHQwKVj/sKP2kIi70wm0IacxuX/lvQBk1wkGE+HSxAL2fUsCMrzcJF81xS
- NlRi8yCX7fd0trihk85xRNQm17I/mnQ==
-X-Received: by 2002:a17:906:ef02:b0:ba7:b198:7d25 with SMTP id
- a640c23a62f3a-bc56d13529bmr176376066b.21.1778076892767; Wed, 06 May 2026
- 07:14:52 -0700 (PDT)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC57610EDBC
+ for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 14:19:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=In-Reply-To:Content-Transfer-Encoding:Content-Type:MIME-Version
+ :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=nRaOz1lcNpsbT5rGgL5au+0YmvtZKsbg6EsSvRJK3wo=; b=J0+CPLXTtNQdpaIr6HVLL0e8Xl
+ ERcF86Asw953dAX+lVYLW1no599f6dj17G6vx9xuNZy/XTr0AazOstdZ66BHYXBKoOiTrZsL5NBJB
+ JKhxDu1tl/uZ1zzifPOyL+mRbBp6aHbi1syE5IrdaXrYSuFBxTodHrIZ0JjPWzh1/yEt/a4R/tp+D
+ nNkNKzlwDHAcls/hefSAy7HJ3YENkstDkGe6Ch/fhAuKvDfol9x5V1I3oM753Ojypz3KX5gFhzb52
+ 2dh7b9pu63gswb1OlPLJnVe//JdR0494s4hqRICH5sGbmdcSChgE9t4wrnwGYm1toQwKBkWs9XHUz
+ XfaqdaKw==;
+Received: from 179-125-92-238-dinamico.pombonet.net.br ([179.125.92.238]
+ helo=quatroqueijos.cascardo.eti.br)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wKd59-006vns-Jr; Wed, 06 May 2026 16:18:35 +0200
+Date: Wed, 6 May 2026 11:18:26 -0300
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+To: Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>
+Cc: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Maarten Lankhorst <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>,
+ Natalie Vock <natalie.vock@gmx.de>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, cgroups@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ linux-doc@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com
+Subject: Re: [PATCH 0/2] cgroup/dmem: introduce a peak file
+Message-ID: <aftNsqrv2sGPOPHX@quatroqueijos.cascardo.eti.br>
+References: <20260506-dmem_peak-v1-0-8d803eb3449c@igalia.com>
+ <aftB-cc5EhDXxCGA@localhost.localdomain>
 MIME-Version: 1.0
-References: <20260504-v7-1-topic-ldb-fixes-v1-0-0125d937ff7f@pengutronix.de>
- <20260504-v7-1-topic-ldb-fixes-v1-2-0125d937ff7f@pengutronix.de>
- <20260505141538.GA2547282-robh@kernel.org>
- <2bl2mwpk57xgkuye2gydliymjkzikiovnb7ovnb73olwtfkjwn@byn3732grvnh>
-In-Reply-To: <2bl2mwpk57xgkuye2gydliymjkzikiovnb7ovnb73olwtfkjwn@byn3732grvnh>
-From: Rob Herring <robh@kernel.org>
-Date: Wed, 6 May 2026 09:14:41 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqLYS1sgU680KNR60+OvtNwEVKWovht7K2APO3sqeJe6Nw@mail.gmail.com>
-X-Gm-Features: AVHnY4JuaUtVhW_AwoHvUdOyEnlQ7azzni1rJEniHezJvRpnnGicHK1-9_FNIHQ
-Message-ID: <CAL_JsqLYS1sgU680KNR60+OvtNwEVKWovht7K2APO3sqeJe6Nw@mail.gmail.com>
-Subject: Re: [PATCH 2/4] Revert "dt-bindings: display: bridge: ldb: Fill in
- reg property"
-To: Marco Felsch <m.felsch@pengutronix.de>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Marek Vasut <marex@denx.de>, 
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, laurentiu.palcu@oss.nxp.com, 
- victor.liu@nxp.com, dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aftB-cc5EhDXxCGA@localhost.localdomain>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,87 +72,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, May 5, 2026 at 10:46=E2=80=AFAM Marco Felsch <m.felsch@pengutronix.=
-de> wrote:
->
-> On 26-05-05, Rob Herring wrote:
-> > On Mon, May 04, 2026 at 10:21:42PM +0200, Marco Felsch wrote:
-> > > This reverts commit 16c8d76abe83d75b578d72ee22d25a52c764e14a.
-> > >
-> > > Remove the 'reg' and 'reg-names' property from the LDB.
-> > >
-> > > The LDB is either part of the IOMUX_GPR (i.MX6SX) or the BLKCTRL
-> > > (i.MX8MP, i.MX93) register space. Both IOMUX_GPR and BLKCTRL are
-> > > register ranges with loose register definitions. E.g.
-> > >
-> > >   - On the i.MX8MP there is one register which controls the AXI
-> > >     threshold for two different IPs (BIT(31:16) - IP1, BIT(15:0) - IP=
-2).
-> > >   - On the i.MX6SX IOMUXC_GPR5 controlls: CSI2 mux, WDOG3 settings, P=
-XP
-> > >     handshake, ...
-> > >
-> > > In conclusion: it can't be ensured that one register belongs to one
-> > > dedicated IP and the LDB is rather an exception than the rule.
-> >
-> > It is fine if there's a child node for LDB if the LDB registers are
-> > consistent, but the other misc things are represented by the parent
-> > node. It is certainly not a requirement that either everything be in
-> > child nodes or nothing be in child nodes.
-> >
-> > What I don't see in this series is what problem does this fix? If you
-> > are going to break compatibility, then there had better be a good
-> > reason.
->
-> Hi Rob,
->
-> with the upcoming i.MX9x SoCs the parent syscon (BLKCTRL) controlls
-> multiple other IPs, e.g. a DPI mux added by commit 3feaa4342637
-> ("dt-bindings: soc: imx93-media-blk-ctrl: Add PDFC subnode to schema and
-> example").
->
-> During the discussion of the above commit we agreed that the sub-devices
-> of the syscon shall not use the reg property due to the fact that one
-> register serves multiple purposes. In the above case the same register
-> controlling the dpi-mux also controlls MIPI-DSI bits. The MIPI-DSI bits
-> can be abstracted as drm-bridge as well. Two sub-devs using the same
-> 'reg' property below the same parent seems odd and I don't know if this
-> allowed either.
+On Wed, May 06, 2026 at 03:53:59PM +0200, Michal Koutný wrote:
+> Hello Thadeu.
+> 
+> On Wed, May 06, 2026 at 08:58:23AM -0300, Thadeu Lima de Souza Cascardo <cascardo@igalia.com> wrote:
+> > Just like we have memory.peak, introduce a dmem.peak, which uses the
+> > page_counter support for that.
+> > 
+> > It can be written to in order to reset the peak, but different from
+> > memory.peak, which expects any write, dmem.peak expects the region name to
+> > be written to it. That region peak is the one that is reset.
+> > 
+> > That requires ofp_peak to carry a pointer to the pool that was reset.
+> 
+> (It'd be nicer to have generic data in that generic structure, at least
+> some void *priv. But see below.)
+> 
 
-It's not generally. There are some exceptions to define things at the
-bit-offset level rather than byte level.
+I used void *, at first, but as the only current use is for the pool and as
+mixing different uses may lead to misuse, I thought it would be safer to
+use the type directly. This has been pointed out before for other members
+of cgroup_file_ctx. See [1].
 
-> Now the LDB is also part of this BLKCTRL syscon device but requires the
-> reg property. TBH, I don't know why the reg property was added in the
-> first place, due to the above fact (multiple sub-devs - same register).
+> > Writing a different region name will reset the different region and make
+> > the original region peak get back to its non-reset value.
+> 
+> I'm slightly confused by this fds x pool matricity when there's only
+> a single slot in cgroup_file_ctx::cgroup_of_peak.
+> 
+> The intended use case is that users should maintain one fd per pool and
+> not mix it up?
+> This stanza would better fit to cgroup-v2.rst proper than the commit
+> message. Or make it simpler and start with non-resettable peak file
+> (like memory.peak had started too) and see how it fares. WDYT?
+> 
 
-Probably because we asked for it, but we don't always get a complete
-picture of all the h/w functions (though we ask for that too).
+That is also due to the limitation that each file descriptor has a single
+linked list under cgroup_file_ctx::cgroup_of_peak. To allow for all the
+pools to be reset at once, we would need one list per file descriptor.
 
-But nowhere have you said the LDB registers are mixed with other
-functions. If they aren't, then there is absolutely nothing to change
-in the binding. If they are, then yes, we shouldn't have 'reg'.
+But, on the other hand, as you pointed out, this leads to the flexibility
+of being able to reset only one pool, while leaving the others as is.
+Whereas, if one needs to reset all pools, they can use one file descriptor
+per region.
 
-> Of course, we could limit the breakage to i.MX9* SoCs only which is done
-> by:
->  - https://lore.kernel.org/all/20260329-fsl_ldb_schema_fix-v1-1-351372754=
-bc0@nxp.com/
+I started with a non-resettable peak file, but as memory.peak can be reset,
+I added that feature too. If we want to merge a non-resettable support
+ealier and need to take longer to discuss how to work on the resettable
+support given the above, I can resubmit. But I guess we can see if we can
+reach an agreement sonner rather than later.
 
-The rational for that doesn't answer my question either.
+Thanks.
+Cascardo.
 
->
-> but I don't think that this would be nice from user and from maintainer
-> perspective, because:
->  1) The same LDB "IP" would have a different dt-binding
->     (user perspective)
+> 
+> Thanks,
+> Michal
 
-It's not the same if the register layout is different. The point of
-having sub nodes is because the sub-block is reused. If that's not the
-case, then there shouldn't be a sub node in the first place.
-
->  2) It introduces another dimension drivers need to care about
->     (maintainer perspective)
-
-I thought Linux didn't even look at 'reg' here.
-
-Rob
+[1] https://lore.kernel.org/all/CAHk-=wgiYkECT=hZRKj8ZwfBPw2Uz=gpOGBGd4ny0KYhSsjC0w@mail.gmail.com/
