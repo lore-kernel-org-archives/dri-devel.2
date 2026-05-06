@@ -4,56 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB0C8CD342C
-	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 19:43:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52A54CD342C
+	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 19:50:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AC9510E54E;
-	Wed,  6 May 2026 19:43:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A99F010E25E;
+	Wed,  6 May 2026 19:50:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CCq6KrSN";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="VajIfYK+";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6A4010E54E
- for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 19:43:49 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 1DBBA6013B;
- Wed,  6 May 2026 19:43:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C797C2BCB0;
- Wed,  6 May 2026 19:43:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778096628;
- bh=yBKhUTLCJ2QHF56yMuQaZcb5yds3Ll46g1mWTKd7ads=;
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A24BB10E25E
+ for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 19:50:05 +0000 (UTC)
+Received: from killaraus.ideasonboard.com
+ (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8DF0CDA;
+ Wed,  6 May 2026 21:50:00 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1778097000;
+ bh=CWjjeBSxLJ/PhJIT9LxxVUi9vAPPXt+Nm+NkyfHpUVE=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=CCq6KrSNkSQO91CBMGr4ZxfEL0nMqSHwov+dNb1ce79jaaRcmGUnQST0w5yuS7jON
- e30q9jKRiWa00x58mJSARedHjp1OsuDFfylHa1yJqERtVSJrmM45yw9Phadc7i232u
- Ht4p89Hcgwa5Cu3n2k/3kYy75hZOE4PkBmePeyo/F0Lzv1q2jH9+W8/IRuY+ksrAMq
- uINmzVkT4sCsYW3TTDL4JRl0tPERFaz+Aq/spOPxJodhAr5dwt7XUbZNSI0CPuAkKj
- RhmTVucwnREQhRPdivWrVmrW80aEHgRG0nmzkFulgI3ajgdmLe2nafQKybBNLe/8rZ
- N9YClUXE1XUKQ==
-Date: Wed, 6 May 2026 14:43:46 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
+ b=VajIfYK+IXrqe845Dd8lP3zE7zmGBCNQq1uGwbfCaBGWbgRenuLU/+BWhZFaLf+l9
+ FgLmcwTIH60Ec2hnRo3aa9E8cEmkXeYu8Qgrt8jOIkOaeWQG/gopM+jCLM8M9mq0RN
+ StZnxTlQ6XZKWsPB8BX0xdF0pklwJQdGR9mXarKM=
+Date: Wed, 6 May 2026 22:50:02 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+Cc: Biju Das <biju.das.jz@bp.renesas.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Simona Vetter <simona@ffwll.ch>, Maxime Ripard <mripard@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
- devicetree@vger.kernel.org, Geert Uytterhoeven <geert+renesas@glider.be>,
- David Airlie <airlied@gmail.com>, Magnus Damm <magnus.damm@gmail.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- linux-kernel@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>,
- Conor Dooley <conor+dt@kernel.org>,
  Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
- Biju Das <biju.das.jz@bp.renesas.com>
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 Subject: Re: [PATCH 1/4] dt-bindings: display: renesas,rzg2l-du: Add RZ/T2H
  and RZ/N2H support
-Message-ID: <177809662589.2997094.4845644199076103667.robh@kernel.org>
+Message-ID: <20260506195002.GA1778786@killaraus.ideasonboard.com>
 References: <20260429170012.366537-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
  <20260429170012.366537-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 In-Reply-To: <20260429170012.366537-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -71,8 +68,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi Prabhakar,
 
-On Wed, 29 Apr 2026 18:00:09 +0100, Prabhakar wrote:
+Thank you for the patch.
+
+On Wed, Apr 29, 2026 at 06:00:09PM +0100, Prabhakar wrote:
 > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 > 
 > Document the Display Unit (DU) support for the RZ/T2H and RZ/N2H SoCs.
@@ -88,12 +88,81 @@ On Wed, 29 Apr 2026 18:00:09 +0100, Prabhakar wrote:
 > RZ/N2H DU has a single output and is modelled using a single port node
 > with one endpoint. Add a port property to support this and update the
 > allOf constraints accordingly.
-> 
+
+Wouldn't it be simpler to always have a "ports" node, even for variants
+with a single port ?
+
 > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 > ---
 >  .../bindings/display/renesas,rzg2l-du.yaml    | 24 +++++++++++++++++--
 >  1 file changed, 22 insertions(+), 2 deletions(-)
 > 
+> diff --git a/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml b/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
+> index 2cc66dcef870..45678d536a75 100644
+> --- a/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
+> +++ b/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
+> @@ -21,6 +21,7 @@ properties:
+>            - renesas,r9a07g043u-du # RZ/G2UL
+>            - renesas,r9a07g044-du # RZ/G2{L,LC}
+>            - renesas,r9a09g057-du # RZ/V2H(P)
+> +          - renesas,r9a09g077-du # RZ/T2H
+>        - items:
+>            - enum:
+>                - renesas,r9a07g054-du    # RZ/V2L
+> @@ -28,6 +29,9 @@ properties:
+>        - items:
+>            - const: renesas,r9a09g056-du # RZ/V2N
+>            - const: renesas,r9a09g057-du # RZ/V2H(P) fallback
+> +      - items:
+> +          - const: renesas,r9a09g087-du # RZ/N2H
+> +          - const: renesas,r9a09g077-du # RZ/T2H fallback
+>  
+>    reg:
+>      maxItems: 1
+> @@ -53,6 +57,10 @@ properties:
+>    power-domains:
+>      maxItems: 1
+>  
+> +  port:
+> +    $ref: /schemas/graph.yaml#/properties/port
+> +    description: Single output port for single-output DU variants.
+> +
+>    ports:
+>      $ref: /schemas/graph.yaml#/properties/ports
+>      description: |
+> @@ -83,9 +91,7 @@ required:
+>    - interrupts
+>    - clocks
+>    - clock-names
+> -  - resets
+>    - power-domains
+> -  - ports
+>    - renesas,vsps
+>  
+>  additionalProperties: false
+> @@ -137,6 +143,20 @@ allOf:
+>  
+>            required:
+>              - port@0
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: renesas,r9a09g077-du
+> +    then:
+> +      properties:
+> +        resets: false
+> +      required:
+> +        - port
+> +    else:
+> +      required:
+> +        - resets
+> +        - ports
+>  
+>  examples:
+>    # RZ/G2L DU
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+-- 
+Regards,
 
+Laurent Pinchart
