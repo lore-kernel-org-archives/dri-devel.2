@@ -4,56 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFD5CCD3439
-	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 22:14:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51CE7CD343B
+	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 22:17:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 460F610E1A4;
-	Wed,  6 May 2026 22:14:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DD2310EEE9;
+	Wed,  6 May 2026 22:17:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="okgXWAw7";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FYYVQUlU";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F45010E1A4
- for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 22:14:43 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 1E38142B9E;
- Wed,  6 May 2026 22:14:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17D64C2BCB0;
- Wed,  6 May 2026 22:14:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778105682;
- bh=axvNPgDrWLZKKnsf+q30PofwYb4GXr/st7pQxXGLpm4=;
- h=Date:To:From:Subject:Cc:References:In-Reply-To:From;
- b=okgXWAw7Ej1oFp5s1UT6ehxBJP9cqnvEQCej3k8ZNsUpsrZZX/kbq/22g83H84JhN
- QRH/nZ4KOhsr+oUuLPi50k49++/KBTaZD23yO9U/5qh9CSG8HOOcR9VpItYOO1rJ9l
- bcgUgTS5q2+zklR4ksWF8xMnQLzIQe+HEnV6wd5ruyuR7Cp9sGNU1gSWfoN1wKPyDn
- NkhMEbVPI6FWK31lPctLEadIZqqFw57ywZ3PTSdbvrE8ooRKsT/H0Qxk4MDJkadzY1
- kuP0Vb4uMgYWL3l5QMuvbW2Nd/Pwu81vpCV3CXYsMzR7/YbeKUwiHUVxUecL9DZmA3
- RDko0GXRT38og==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 07 May 2026 00:14:35 +0200
-Message-Id: <DIBXUUL0JN6B.2H1X89OCUB6D0@kernel.org>
-To: <gregkh@linuxfoundation.org>, <rafael@kernel.org>,
- <acourbot@nvidia.com>, <aliceryhl@google.com>, <david.m.ertman@intel.com>,
- <ira.weiny@intel.com>, <leon@kernel.org>, <viresh.kumar@linaro.org>,
- <m.wilczynski@samsung.com>, <ukleinek@kernel.org>, <bhelgaas@google.com>,
- <kwilczynski@kernel.org>, <abdiel.janulgue@gmail.com>,
- <robin.murphy@arm.com>, <markus.probst@posteo.de>, <ojeda@kernel.org>,
- <boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
- <lossin@kernel.org>, <a.hindborg@kernel.org>, <tmgross@umich.edu>,
- <igor.korotin@linux.dev>, <daniel.almeida@collabora.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH v2 02/25] rust: types: add `ForLt` trait for
- higher-ranked lifetime support
-Cc: <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pm@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
-References: <20260506215113.851360-1-dakr@kernel.org>
- <20260506215113.851360-3-dakr@kernel.org>
-In-Reply-To: <20260506215113.851360-3-dakr@kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D935C10EEE9;
+ Wed,  6 May 2026 22:17:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1778105854; x=1809641854;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=sSBdSxsfHapwhnk8JWsFU92IVShCY53vUe1hkAP78Xk=;
+ b=FYYVQUlUuOdgu6QOMScu03H4VqahhfCgK8iUGrroFE3kHmH/N1ER7+mq
+ iMX7/L3AvyXxUXa8boelSbeYNu8H+R5toB5MJdw4bbHyb/eu/EtYF7STK
+ udJsvFXLHf+9UAGd2LUjf7GRZLlOSfIqig76nMMn4rxIt8L4RdbOreFVr
+ 0AcVFQag1uLSXQEtKY2zY70+wDYszcEtVX3qlI0y5kdELX2hTnTLj3c1L
+ 0L7IK60piEPjr+EEGC0X9MrndzHI7nGohIGsPkiiimQxeFSOGj6s38S2y
+ 4FpfNOxA4wPdKU++tpPT5cnV97joS91Zu57LtoI8hFJT7IykWx8wVxpj4 w==;
+X-CSE-ConnectionGUID: rENedALCQO2uuvr/tNzeTg==
+X-CSE-MsgGUID: pekZhiNwRjelBQbOUtTrQQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11778"; a="89638198"
+X-IronPort-AV: E=Sophos;i="6.23,220,1770624000"; d="scan'208";a="89638198"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 May 2026 15:16:42 -0700
+X-CSE-ConnectionGUID: JIThJWJVRKuSM5IItQBo2Q==
+X-CSE-MsgGUID: 8T928h7nSWWvXYEh0v5dug==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,220,1770624000"; d="scan'208";a="238072298"
+Received: from lkp-server01.sh.intel.com (HELO 9ec114424ce8) ([10.239.97.150])
+ by fmviesa004.fm.intel.com with ESMTP; 06 May 2026 15:16:36 -0700
+Received: from kbuild by 9ec114424ce8 with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1wKkXg-000000001Gz-27pO;
+ Wed, 06 May 2026 22:16:32 +0000
+Date: Thu, 7 May 2026 06:15:55 +0800
+From: kernel test robot <lkp@intel.com>
+To: Melissa Wen <mwen@igalia.com>, airlied@gmail.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com,
+ harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, simona@ffwll.ch, siqueira@igalia.com,
+ sunpeng.li@amd.com, tzimmermann@suse.de
+Cc: oe-kbuild-all@lists.linux.dev, Alex Hung <alex.hung@amd.com>,
+ Simon Ser <contact@emersion.fr>, Uma Shankar <uma.shankar@intel.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Xaver Hugl <xaver.hugl@kde.org>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ Matthew Schwartz <matthew.schwartz@linux.dev>,
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v4 6/6] drm/amd/display: use plane color_mgmt_changed to
+ track colorop changes
+Message-ID: <202605070624.Fss9vEZt-lkp@intel.com>
+References: <20260501132527.522320-7-mwen@igalia.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260501132527.522320-7-mwen@igalia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,52 +88,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed May 6, 2026 at 11:50 PM CEST, Danilo Krummrich wrote:
-> From: Gary Guo <gary@garyguo.net>
->
-> There are a few cases, e.g. when dealing with data referencing each other=
-,
-> one might want to write code that are generic over lifetimes. For example=
-,
-> if you want take a function that takes `&'a Foo` and gives `Bar<'a>`, you
-> can write:
->
->     f: impl for<'a> FnOnce(&'a Foo) -> Bar<'a>,
->
-> However, it becomes tricky when you want that function to not have a fixe=
-d
-> `Bar`, but have it be generic again. In this case, one needs something th=
-at
-> is generic over types that are themselves generic over lifetimes.
->
-> `ForLt` provides such support. It provides a trait `ForLt` which describe=
-s
-> a type generic over lifetime. One may use `ForLt::Of<'a>` to get an
-> instance of a type for a specific lifetime.
->
-> For the case of cross referencing, one would almost always want the
-> lifetime to be covariant. Therefore this is also made a requirement for t=
-he
-> `ForLt` trait, so functions with `ForLt` trait bound can assume covarianc=
-e.
->
-> A macro `ForLt!()` is provided to be able to obtain a type that implement=
-s
-> `ForLt`. For example, `ForLt!(for<'a> Bar<'a>)` would yield a type that
-> `<TheType as ForLt>::Of<'a>` is `Bar<'a>`. This also works with lifetime
-> elision, e.g. `ForLt!(Bar<'_>)` or for types without lifetime at all, e.g=
-.
-> `ForLt!(u32)`.
->
-> The API design draws inspiration from the higher-kinded-types [1] crate,
-> however different design decision has been taken (e.g. covariance
-> requirement) and the implementation is independent.
->
-> License headers use "Apache-2.0 OR MIT" because I anticipate this to be
-> used in pin-init crate too which is licensed as such.
->
-> Link: https://docs.rs/higher-kinded-types/ [1]
->
-> Signed-off-by: Gary Guo <gary@garyguo.net>
+Hi Melissa,
 
-Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+kernel test robot noticed the following build warnings:
+
+[auto build test WARNING on drm-misc/drm-misc-next]
+[also build test WARNING on linus/master v7.1-rc2]
+[cannot apply to next-20260506]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Melissa-Wen/drm-atomic-only-add-colorop-state-from-active-color-pipeline/20260504-102820
+base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+patch link:    https://lore.kernel.org/r/20260501132527.522320-7-mwen%40igalia.com
+patch subject: [PATCH v4 6/6] drm/amd/display: use plane color_mgmt_changed to track colorop changes
+config: alpha-allyesconfig (https://download.01.org/0day-ci/archive/20260507/202605070624.Fss9vEZt-lkp@intel.com/config)
+compiler: alpha-linux-gcc (GCC) 15.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260507/202605070624.Fss9vEZt-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202605070624.Fss9vEZt-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> Warning: drivers/gpu/drm/drm_atomic.c:1625 function parameter 'plane_state' not described in 'drm_atomic_add_affected_colorops'
+>> Warning: drivers/gpu/drm/drm_atomic.c:1625 function parameter 'plane_state' not described in 'drm_atomic_add_affected_colorops'
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
