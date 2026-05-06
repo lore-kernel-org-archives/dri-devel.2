@@ -4,51 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3125BCD3439
-	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 17:56:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10FB8CD342C
+	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 18:00:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0191510E550;
-	Wed,  6 May 2026 17:56:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 721BD10E575;
+	Wed,  6 May 2026 18:00:30 +0000 (UTC)
 Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1349F10E550
- for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 17:56:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 262CC10E575
+ for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 18:00:27 +0000 (UTC)
 Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.82])
- by APP-01 (Coremail) with SMTP id qwCowAD3oW3AgPtpT_RzDw--.33952S3;
- Thu, 07 May 2026 01:56:20 +0800 (CST)
+ by APP-01 (Coremail) with SMTP id qwCowAA33Gevgftp9QJ0Dw--.26398S2;
+ Thu, 07 May 2026 02:00:16 +0800 (CST)
+Message-ID: <02da4b80a80e2ed9e90af8469f3c3ffb6f2f42a1.camel@iscas.ac.cn>
+Subject: Re: [PATCH] drm: verisilicon: support non-coherent DMA framebuffers
 From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Han Gao <rabenda.cn@gmail.com>, Icenowy Zheng <uwu@icenowy.me>,
- Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Subject: [PATCH v3 1/2] drm: verisilicon: add max cursor size to HWDB
-Date: Thu,  7 May 2026 01:56:09 +0800
-Message-ID: <20260506175610.2542888-2-zhengxingda@iscas.ac.cn>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260506175610.2542888-1-zhengxingda@iscas.ac.cn>
-References: <20260506175610.2542888-1-zhengxingda@iscas.ac.cn>
+To: Dominique Belhachemi <domibel@debian.org>
+Cc: Maxime Ripard <mripard@kernel.org>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
+ <tzimmermann@suse.de>,  David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Paul Cercueil <paul@crapouillou.net>,  Michal Wilczynski
+ <m.wilczynski@samsung.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Date: Thu, 07 May 2026 02:00:15 +0800
+In-Reply-To: <CAAvaLCznuRK86JkQA0EaFswyagnmaOnDCCEWDoC86+_Gc0wYqQ@mail.gmail.com>
+References: <20260505042631.1916555-1-domibel@debian.org>
+ <9f7eaea02c2cb52afac4f59fb78224e9acc1f160.camel@iscas.ac.cn>
+ <CAAvaLCyZfdo+h+gYjEd6=kDug0A77rqH2e4U7JzpUEEGo_mvDA@mail.gmail.com>
+ <de419b42100ae55bfc1d6db44cac3d763c57247b.camel@iscas.ac.cn>
+ <CAAvaLCznuRK86JkQA0EaFswyagnmaOnDCCEWDoC86+_Gc0wYqQ@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qwCowAD3oW3AgPtpT_RzDw--.33952S3
-X-Coremail-Antispam: 1UD129KBjvJXoW7AFWrAFW5GFWxCF4DGr4xtFb_yoW8tFyDpF
- 47t34DWa95Ja13trn7J3y2gryfCas5JayIgryrK34F9rs0ga4UXa43C34YkFZ5tr1xAryY
- qF4v9rW3Cr4IyF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUm014x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jr4l82xGYIkIc2
- x26xkF7I0E14v26r1I6r4UM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
- Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l84
- ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r4UJwAS
- 0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2
- IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0
- Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kIc2
- xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWU
- JVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67
- kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY
- 6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0x
- vEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVj
- vjDU0xZFpf9x0JUqkskUUUUU=
+X-CM-TRANSID: qwCowAA33Gevgftp9QJ0Dw--.26398S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7tr13KFWUJF4UKF4fAr18Zrb_yoW8Kw13pF
+ WDKF4YgF4DJr97Zws2gw1YkF4Fy395JFy5Xwn5Xw1xXrZ0vF18ZF47JrW5uFnFqryv9F4a
+ v3WFvas3Xa4DGaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvlb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+ A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+ jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I
+ 8E87Iv6xkF7I0E14v26r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
+ F2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r
+ 4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xK
+ xwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJV
+ W8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF
+ 1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6x
+ IIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvE
+ x4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvj
+ DU0xZFpf9x07b0SoAUUUUU=
 X-Originating-IP: [112.94.100.82]
 X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -66,78 +70,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Different display controller variants support different maximum cursor
-size. All known DC8200 variants support both 32x32 and 64x64, but some
-DC8000 variants support either only 32x32 or up to 256x256.
+=E5=9C=A8 2026-05-06=E4=B8=89=E7=9A=84 13:38 -0400=EF=BC=8CDominique Belhac=
+hemi=E5=86=99=E9=81=93=EF=BC=9A
+> On Wed, May 6, 2026 at 1:14=E2=80=AFPM Icenowy Zheng
+> <zhengxingda@iscas.ac.cn> wrote:
+> >=20
+> > =E5=9C=A8 2026-05-05=E4=BA=8C=E7=9A=84 18:25 -0400=EF=BC=8CDominique Be=
+lhachemi=E5=86=99=E9=81=93=EF=BC=9A
+> > > On Tue, May 5, 2026 at 5:03=E2=80=AFAM Icenowy Zheng
+> > > <zhengxingda@iscas.ac.cn> wrote:
+> > > >=20
+> > > > =E5=9C=A8 2026-05-05=E4=BA=8C=E7=9A=84 04:26 +0000=EF=BC=8CDominiqu=
+e Belhachemi=E5=86=99=E9=81=93=EF=BC=9A
+> > > > > Wire up the standard non-coherent path matching the ingenic
+> > > > > DRM
+> > > > > driver.
+> > > > >=20
+> > > > > Tested on StarFive JH7110 (VisionFive 2 v1.3B).
+> > > >=20
+> > > > Interesting, I am curious about other patches added to test
+> > > > this.
+> > > >=20
+> > > Hi,
+> > >=20
+> > > I tested this on Debian unstable with a slightly patched 7.0.3
+> > > kernel
+> > > [1].
+> > > The test branch contains your verisilicon series, Michal's JH7110
+> > > display series [2],
+> > > and a JH7110 ccache change [3], which was also required to
+> > > communicate
+> > > with the BXE-4-32 firmware [4].
+> >=20
+> > BTW did you run any rendering? I think the way currently powervr
+> > open
+> > source driver works requires "coherent memory" (although it's
+> > usually
+> > implemented as uncached memory).
+>=20
+> Yes, GPU dispatches run with [4].
+> Compute shaders run fine, but rendering crashes after a few frames.
+>=20
+> > >=20
+> > > This change here is only used to remove the ugly framebuffer
+> > > stripes
+> > > on the console and in the desktop environment.
+> >=20
+> > But I still think it'd be better to implement proper uncached
+> > memory
+> > support instead of flushing caches with dirty tracking.
+>=20
+> Maybe, this patch is just a working alternative.
 
-The minimum size is fixed at 32 and only PoT square sizes are supported.
+I wonder whether it's possible to detect the availability of uncached
+memory.
 
-Add the max cursor size field to HWDB and fill all entries with 64.
+At least detecting using `of_dma_is_coherent()` isn't enough because it
+will only be true when the device is fully coherent with the CPU
+(snooping CPU cache).
 
-Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
----
-Changes in v3:
-- Add R-b from Thomas.
-Changes in v2:
-- Added a comment about the cursor being square.
+Thanks,
+Icenowy
 
- drivers/gpu/drm/verisilicon/vs_hwdb.c | 4 ++++
- drivers/gpu/drm/verisilicon/vs_hwdb.h | 5 +++++
- 2 files changed, 9 insertions(+)
-
-diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.c b/drivers/gpu/drm/verisilicon/vs_hwdb.c
-index 09336af0900ae..2a0f7c59afa3a 100644
---- a/drivers/gpu/drm/verisilicon/vs_hwdb.c
-+++ b/drivers/gpu/drm/verisilicon/vs_hwdb.c
-@@ -95,6 +95,7 @@ static struct vs_chip_identity vs_chip_identities[] = {
- 		.customer_id = ~0U,
- 
- 		.display_count = 2,
-+		.max_cursor_size = 64,
- 		.formats = &vs_formats_no_yuv444,
- 	},
- 	{
-@@ -103,6 +104,7 @@ static struct vs_chip_identity vs_chip_identities[] = {
- 		.customer_id = 0x30B,
- 
- 		.display_count = 2,
-+		.max_cursor_size = 64,
- 		.formats = &vs_formats_no_yuv444,
- 	},
- 	{
-@@ -111,6 +113,7 @@ static struct vs_chip_identity vs_chip_identities[] = {
- 		.customer_id = 0x310,
- 
- 		.display_count = 2,
-+		.max_cursor_size = 64,
- 		.formats = &vs_formats_with_yuv444,
- 	},
- 	{
-@@ -119,6 +122,7 @@ static struct vs_chip_identity vs_chip_identities[] = {
- 		.customer_id = 0x311,
- 
- 		.display_count = 2,
-+		.max_cursor_size = 64,
- 		.formats = &vs_formats_no_yuv444,
- 	},
- };
-diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.h b/drivers/gpu/drm/verisilicon/vs_hwdb.h
-index 92192e4fa0862..2065ecb730437 100644
---- a/drivers/gpu/drm/verisilicon/vs_hwdb.h
-+++ b/drivers/gpu/drm/verisilicon/vs_hwdb.h
-@@ -20,6 +20,11 @@ struct vs_chip_identity {
- 	u32 customer_id;
- 
- 	u32 display_count;
-+	/*
-+	 * The hardware only supports square cursor planes, so this field
-+	 * is both the maximum width and height in pixels.
-+	 */
-+	int32_t max_cursor_size;
- 	const struct vs_formats *formats;
- };
- 
--- 
-2.52.0
+>=20
+> Dominique
+>=20
+> > >=20
+> > > [1]
+> > > https://github.com/domibel/linux/tree/jh7110_dc8200_hdmi_v7.0.3
+> > > [2]
+> > > https://lore.kernel.org/lkml/20251108-jh7110-clean-send-v1-0-06bf43bb=
+76b1@samsung.com/
+> > > [3]
+> > > https://lore.kernel.org/lkml/20260430035259.3402954-1-domibel@debian.=
+org/
+> > > [4]
+> > > https://github.com/domibel/linux/tree/powervr_on_jh7110_visionfive2_v=
+7.0.3
+> >=20
+> > The POW_RASCALDUST thing looks quite interesting, maybe I should
+> > investigate it further.
+> >=20
+> > Thanks,
+> > Icenowy
+> > >=20
+> > > Dominique
+> >=20
+> >=20
 
