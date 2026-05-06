@@ -4,51 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 041E3CD342C
-	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 09:51:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F153FCD3436
+	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 09:53:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64EA210EA8D;
-	Wed,  6 May 2026 09:51:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DAD410E196;
+	Wed,  6 May 2026 09:53:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lontium.com header.i=@lontium.com header.b="FxmMLckH";
+	dkim=pass (2048-bit key; unprotected) header.d=microchip.com header.i=@microchip.com header.b="NSnVooGA";
 	dkim-atps=neutral
-Received: from out28-147.mail.aliyun.com (out28-147.mail.aliyun.com
- [115.124.28.147])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A520010EA8D
- for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 09:51:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lontium.com; s=default;
- t=1778061071; h=From:To:Subject:Date:Message-Id:MIME-Version;
- bh=1zbpaSpNh/FgoYC3QtA9uTuNYNA5XCi3TeB0kIaL9UY=;
- b=FxmMLckHuBk4zS9TsEEztst0KlUuRWrf5q0N+Wwfrrpi1yjuzB4vGWVPE8vAECaSxIILUn2TBiYq3RQibZtTxdRsvrDPo2ecVcHe10UiukBzqf8Z2yo6cipYfz10n/tSA8Kiv+F7c1s/YC/Kg7YeHILL6EvtDmgJTacTZpfb3mqUMXgwQvdCQ7HJdBB5YqDRIkUU/b0PQYRBAC95uR8M+3elguIDQ1G5GheUEjt9gGu3bEQimLeqt8mcP2ps1VYfJbQyAi5lQuatiVXHn4PmCc9W+JcS2V2WIti0grVt8Ms3GaF9QrnXJ4noUN8u40STux8C4cO4uhqC8iDYBK3IyQ==
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.07436259|-1; CH=green;
- DM=|CONTINUE|false|;
- DS=CONTINUE|ham_system_inform|0.00392706-0.000191039-0.995882;
- FP=13437406692538799839|0|0|0|0|-1|-1|-1;
- HT=maildocker-contentspam033037025160; MF=syyang@lontium.com; NM=1; PH=DS;
- RN=22; RT=22; SR=0; TI=SMTPD_---.hQlP4dI_1778061067; 
-Received: from DESKTOP-V2MKAT2.localdomain(mailfrom:syyang@lontium.com
- fp:SMTPD_---.hQlP4dI_1778061067 cluster:ay29) by smtp.aliyun-inc.com;
- Wed, 06 May 2026 17:51:09 +0800
-From: syyang@lontium.com
-To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com,
- rfoss@kernel.org, mripard@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com, tzimmermann@suse.de, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- yangsunyun1993@gmail.com, xmzhu@lontium.corp-partner.google.com,
- xmzhu@lontium.com, rlyu@lontium.com, xbpeng@lontium.com,
- Sunyun Yang <syyang@lontium.com>
-Subject: [PATCH v4 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI to
- HDMI driver
-Date: Wed,  6 May 2026 17:51:00 +0800
-Message-Id: <20260506095100.78998-3-syyang@lontium.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260506095100.78998-1-syyang@lontium.com>
-References: <20260506095100.78998-1-syyang@lontium.com>
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011030.outbound.protection.outlook.com [40.107.208.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2ED9710EB11
+ for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 09:53:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PDHKI0W3Uoiu5Qk5A1wxrrj8aqh7tSFgWYnLLrZgZV/8bzIG28aUFoXt9GeyBDJ3f1P4b0MepKRwo6M73wWj96biWIV7LGzpdQ9dI4V+C3e/pMoc+5j4DSHavOj627dF4s9gZNlAOL7VeDZ/yBxWKAgtL9VhAlUiaI+DoTZvEZsOk6+NDRAQxTaPzLjpDt9mnF6btRNcobSvLyHHSyJ1/lam3gyBgFFpwGrRXEadb/8ejXCFumuk+fEwhHv69gThxw4pFvgxk0pj/EWunybjj4/chhzOnxHDvK+VTu7heIRJCGb8yUVNkQZPaQIof+/te4tRcpSlkQQPbW0b240kxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dQuXjmy5UAQnTqP5IrU8uLxnFA7/JkJzRUxNDuKIi7M=;
+ b=g0tU4nP4buHc/pm2HXpZ6DPI1hITqiFcDR66iX8jsBFMT1zUM1x4bNbIpJTCnNv497hr9nlqkMk0lzdbOtASKE7zJvidKxfROJYoLXSc6O5u3h5u1WIRD4uwsSncqc2hkHdEhTBsMVm5SnLpQyVq7wRrTn4s/PSLhv4Ul826EawPQh1mDJ0Gk4DBUHLAWUM5mSeljOAsMcrQ24fEcSSh1Bl6z42bnRxeO2r/g2XhmmhtYkveHQI4MyqBbrSE2LHthR5R3nRBOSJRngVXtfHJGUjFhmhZndKzP/G7CF54L8YW78YYPCiSw4yHQRz1VKXPJG/6yLWEwj7HZXT31xKTDA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=microchip.com; dmarc=pass action=none
+ header.from=microchip.com; dkim=pass header.d=microchip.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microchip.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dQuXjmy5UAQnTqP5IrU8uLxnFA7/JkJzRUxNDuKIi7M=;
+ b=NSnVooGAf5tnCnbF+S8fXXb47K4sxO39jD7aU0Mfyd3hFvcilm42uA87JseB8GDd3zQoibVwa+mROakPljFvoBTtpeZAkejMBeoo+eCQOzNaHsbE20A2eGs9RYBVrut3UMl+3MaQnh/vNWwECQ1Upc1eGHFescfJ/pv9LQtJ0kyNU5VYYJTYa/41oVrrRtn7ojCtP633HRXuJsZM/JwTMJCqvJDjXqcVJ2tqKP1tUYYKtvbZkBu0lKhOt/lwtlmaKY/GuqycBH0cMgm22CX1udGsTrGbaDr0Jh9KFVZIB05fAMCyPSHc94gaqf8MBQYW7BDSpBBjNEsA70rWHh6fEQ==
+Received: from DM3PPF9623118BD.namprd11.prod.outlook.com
+ (2603:10b6:f:fc00::f3a) by IA1PR11MB7245.namprd11.prod.outlook.com
+ (2603:10b6:208:42f::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.15; Wed, 6 May
+ 2026 09:53:31 +0000
+Received: from DM3PPF9623118BD.namprd11.prod.outlook.com
+ ([fe80::ad98:5674:dd4c:875d]) by DM3PPF9623118BD.namprd11.prod.outlook.com
+ ([fe80::ad98:5674:dd4c:875d%6]) with mapi id 15.20.9870.023; Wed, 6 May 2026
+ 09:53:31 +0000
+From: <Manikandan.M@microchip.com>
+To: <dharma.b@microchip.com>, <andrzej.hajda@intel.com>,
+ <neil.armstrong@linaro.org>, <rfoss@kernel.org>,
+ <Laurent.pinchart@ideasonboard.com>, <jonas@kwiboo.se>,
+ <jernej.skrabec@gmail.com>, <maarten.lankhorst@linux.intel.com>,
+ <mripard@kernel.org>, <tzimmermann@suse.de>, <airlied@gmail.com>,
+ <simona@ffwll.ch>
+CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <Sandeep.Sheriker@microchip.com>
+Subject: Re: [PATCH v6 0/3] drm/bridge: microchip-lvds: clean up and fix bus
+ formats
+Thread-Topic: [PATCH v6 0/3] drm/bridge: microchip-lvds: clean up and fix bus
+ formats
+Thread-Index: AQHb5a0KcJcbzrI6bUaf36KYqYgUvrYCsQeA
+Date: Wed, 6 May 2026 09:53:31 +0000
+Message-ID: <42ba65e3-1b1f-4fb1-ad2b-37907b36b336@microchip.com>
+References: <20250625-microchip-lvds-v6-0-7ce91f89d35a@microchip.com>
+In-Reply-To: <20250625-microchip-lvds-v6-0-7ce91f89d35a@microchip.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-GB
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=microchip.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM3PPF9623118BD:EE_|IA1PR11MB7245:EE_
+x-ms-office365-filtering-correlation-id: 840b8a59-3748-4585-79d8-08deab5554de
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|7416014|376014|1800799024|38070700021|921020|56012099003|18002099003|22082099003;
+x-microsoft-antispam-message-info: fnh0ZX0x7nB3UDAu60xgzGkM9w/+KiBIMyzkdoLXpBoKJptYY8HvGVEgwFTrHjMmtilGVp3JACaAHvMczRUwkN9Kp+spO9tMBJxHRnj+2/aHyPqOJHMMtJV2hZyN/swQDKccR6pgBMbHwgWgtCiBy5LkpgYTT6JImKK0N8Zq+wW+dpyJnu7yMdgHirMiCFm3/t//fYpx52gXmBkKYlbID15QL3T0Q+R3FeB/9ieaycW4G8Y4toi7OlQFem+ARrrzOTdPVFiWAbVkGY+dCsNVBK3yFbL2dyuZWzy7xyxGvQCYJlEgLujDq/qf0Nx0rsl9DDjSir5NiByT/DAmkDwIghe4xPj/SNMrHYvCKZ/cSxBazqhsGUIzZxugdGw1EwwlsxXcbFkkE+CDZZURNIyfh7XOH9baeimZd5Nvb991G57JZsOvvIvs2W/aiaOy9DE//i8aPL4Kwz7jh3Pl5tSSaEBynbcmCGh2JtIHpt0aG5uf+ZWqi9wkpol0X0LMcnNPEM6ji4XLfv75T7UeuF8H5Jvw7RpWrO4QF9YCQ1M9bEsb2Czy6UdSHfgN+G7hWEKc0IEx1aPzUH4X+OO5c+IHkSCfe0a2tTT08P6hoY+qBuWZj4SbJsOKOF1Qxp71ZejTwPUmvGT3utfy4yzQNq/C6DRIgIVoU5ChD887Cl/DDY3on+1tM3wWWwXzf4xkjE/mIG+a/Jb3oPgEfvrcft3/3QEeXHalRJo1GIi5CMvIQtP89Kf2t2qzo/SDdnwalodf6A6QOn0LAS/F/37JfegBHQ==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM3PPF9623118BD.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(7416014)(376014)(1800799024)(38070700021)(921020)(56012099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?NmRkWElmOFZOOE9EckZQREVxK3RKbi92TGU5eE95R3R1LzN3Z3JaNjhSMzJk?=
+ =?utf-8?B?RE9wZTlVL3haa3hJVzZHWWhnajdWNzRsMjcxcS9lK2lqS3MyMlp2cmdETU9U?=
+ =?utf-8?B?Q1d1Y05ITUdiMGJjZUxmWldXbDdEdjA3emhGdzFIanZMSkthTzNIR1NCTWg5?=
+ =?utf-8?B?RFlTclFqVFBKOEZwSDJrWFpYb2puNTN2K3dia0VFSUpTR2dkV3ozT0lNZkha?=
+ =?utf-8?B?cjRqMndISldRc2cxaGs4aDIyRFhyZkVwdktxNVRNOGNxaTNDSEFDVEIyOGk5?=
+ =?utf-8?B?UkRxMVY3VlArOEwvMXo4Zmx3NXUrZWNxS2k5YkhiOUdDSkdTRU5ybzVtczhn?=
+ =?utf-8?B?eXE4MGp2U1YvbHlRUlpvTkpGNXAzTGFWd2ZSYVhoUE96SkxCWElmODRVamxl?=
+ =?utf-8?B?dDJEeDc0eFkxcWcwQzBGVzB1aUpsVS9ZV0trOWVMU0d4NCtpNDE5K0ZpQW15?=
+ =?utf-8?B?VEZXZFRJdU83a0MxZndJV3VCK2FMRmFsYWs5cU94Wmd2SEEzSitERXllTmtO?=
+ =?utf-8?B?Wjd1aXYzeDlqR2l3dnlXWi9HamJNVXN3U0JVRDJtRkRIUGlZcHE5eVhuWWtq?=
+ =?utf-8?B?eFRVelNOY3FkdVREMmIzdWpxeldIcDI2akphcit2UXJmUlljeTIxKzE5dXpa?=
+ =?utf-8?B?Wk1oRkdpNTU4c3ROTmNmbk0yNHEwcmlLTW43OVRCN3Y1NFRZZGtOV2ZjRHpG?=
+ =?utf-8?B?YkppcXhMUGtaUjRsNitpUnphdkZOVmJCMlphMEhiVm9TcTRvYUJXRDV6NUkv?=
+ =?utf-8?B?eHg1V1JpYUFMSk9zSkVraEJRdzRidTBWeTNqaDV6S0x3VjNiTnZrMDExcFNw?=
+ =?utf-8?B?WS9FODNQTjhadkh5eXcxWkRydnY3RUJHd0FXMUhGSkVSRFlMOTZPZFFqaEFM?=
+ =?utf-8?B?Tk51cXJLekI5VlY2b2ZNTHJBaW5jVEJKNG1Bcm9zRERvQ3Q1RVdoU2V2OTdk?=
+ =?utf-8?B?UzFwL1RqdERTSWVWZ0xBMm5iZDhTRDhvQW1kcUlhQ0tRWmM4cVhCNGF4K2lO?=
+ =?utf-8?B?b2NHWWJaaTlHWEhIL1VJTkRCRUVHK09pQkFFOU81U0h1M0YrWTlNQlpoaGE1?=
+ =?utf-8?B?K3lKMkxuOGNuNG5jVWZYalFNL0JiSzU3Q05wWk1pOFMzT2RxMFg4NFIyWXU0?=
+ =?utf-8?B?NVRwc3ZqMXdFbmFZSmM1L2gwMk1NaGQwRVA4Wjk4ZWpCbFNYdHIraVBQT0d1?=
+ =?utf-8?B?dE5FNmJ0Y0dmcXlSSDNYNldZMmN4ek5peTNuN1JrdDE4ZjdqSFlFS0Zud0hB?=
+ =?utf-8?B?K3Y4aGhyWXpWbmkxelhTb2crSUZKT3lVSEFBM1E0REc0ZkJqZm9JaFVxWVIw?=
+ =?utf-8?B?ZmhNRU84anFOQWVzb3l4L2RSVW1HSm0rdmY1T3lWWkgwdEdldVFSQnZDZlNL?=
+ =?utf-8?B?bktyczBBSzNDdGVTNG5CaWRBSndPNS9La1dFVDBIVmR0WDlTWk9mOEZycTBN?=
+ =?utf-8?B?dVBJdVNhLzZNenU5OWVWcGZMVlVoSXE3SHMrUUI1VWJJenhFMmUwMkhCQXoy?=
+ =?utf-8?B?T1c4ZHZSb1ZtaVh1RDdxdE03VGdEZ0w1Yk9sT0lJTzRXaStYaUs1bmFFZWtP?=
+ =?utf-8?B?ODdoamdXSCtoZ0V4WjNpOEdMWUFlZnFMb09xREZJdUdpUWtwTy8zZW0rOVZ3?=
+ =?utf-8?B?aE1YZHplY2J1RFhJTVJYUTFIRHk3aWxvOWVxdHA3Q0JCTWplSDlkRG5JWEty?=
+ =?utf-8?B?MjBoRDV6dWs5MDd5dGhNaDB3VElOanZ6S0FZY1Q2SkNkb2MzYmE0bTlDV1JR?=
+ =?utf-8?B?OTNIWnNLK29wdzZSSldWVmNtMHdkRVFOaldkdGZUZlE3aXk0bWZrcndQN2xE?=
+ =?utf-8?B?cEthTkN3Q1NTeFpJLzh6M3puanE4Z3VkVjUrU1lpa2IyYjBpcHZaUGltbkhM?=
+ =?utf-8?B?VWRCSGZ0MTJ2MVBQdzExR05OUEhqWkE0aGNET2RlYmlyTXo0Ujg4Y1ltMTVn?=
+ =?utf-8?B?RW9lNXl5NzJqMExFakx4NlhEK1k1V1pXYlEvRDUySVFSNFMxSkNERG1qM29H?=
+ =?utf-8?B?WTJPOTVRang3eGU5Mm5xbUcvV2hRWlI2OXlzZHpxVHRaOXdOVXBpbHhtaDhw?=
+ =?utf-8?B?WVNwLzdpOHFycWtzR1BzODFZZFZFTzZ5c1VPZE52Y0g4cS81ZHhEWXdMNEMz?=
+ =?utf-8?B?NHJiLy81a2ZMTFRUcHM2UmU0MHRUZ29TcTFQY2dzUjJxODFEMkFnUWRrRVQr?=
+ =?utf-8?B?YVhCVWMwYS9XU3pYOHd6MmhFajJrQzRBTW1RY2pGbHJDNWY3dFMrcW5LNkpi?=
+ =?utf-8?B?TnhNbmwzZVZPSmJjTkVjeUJYWGE5U2puV1B1STE3RTR1OFRYUnQ5amkxMzJH?=
+ =?utf-8?B?cHR6Tm1jR1VwL3pyZUd4dmNCZ2FEeXRObm90VDRpc3dIWUUybDB4dz09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <237098997F31C946B726C1996B3470D8@namprd11.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: microchip.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM3PPF9623118BD.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 840b8a59-3748-4585-79d8-08deab5554de
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 May 2026 09:53:31.6974 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3f4057f3-b418-4d4e-ba84-d55b4e897d88
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 4YNpvcUq5PKIO+E+7R5DYmqqVpuN8Jo99/Kn/UMf9Tldd50/c1GV7dAOlEu8IS0HoQ4KM5ENyO+y6j7TuiPODt92B+zUTN5mxmXe1stJW3M=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB7245
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,1280 +145,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Sunyun Yang <syyang@lontium.com>
-
-LT9611C(EX/UXD) is an I2C-controlled chip that Receiver signal/dual port
-mipi dsi and output hdmi, differences in hardware features:
-- LT9611C: supports 1-port mipi dsi to hdmi 1.4
-- LT9611EX: supports 2-port mipi dsi to hdmi 1.4
-- LT9611UXD: supports 2-port mipi dsi to hdmi 1.4/2.0
-
-Signed-off-by: Sunyun Yang <syyang@lontium.com>
----
- drivers/gpu/drm/bridge/Kconfig           |   18 +
- drivers/gpu/drm/bridge/Makefile          |    1 +
- drivers/gpu/drm/bridge/lontium-lt9611c.c | 1211 ++++++++++++++++++++++
- 3 files changed, 1230 insertions(+)
- create mode 100644 drivers/gpu/drm/bridge/lontium-lt9611c.c
-
-diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-index c3209b0f4678..32b85a2a65d9 100644
---- a/drivers/gpu/drm/bridge/Kconfig
-+++ b/drivers/gpu/drm/bridge/Kconfig
-@@ -177,6 +177,24 @@ config DRM_LONTIUM_LT9611
- 	  HDMI signals
- 	  Please say Y if you have such hardware.
- 
-+config DRM_LONTIUM_LT9611C
-+	tristate "Lontium LT9611C DSI/HDMI bridge"
-+	select SND_SOC_HDMI_CODEC if SND_SOC
-+	depends on OF
-+	select CRC8
-+	select FW_LOADER
-+	select DRM_PANEL_BRIDGE
-+	select DRM_KMS_HELPER
-+	select DRM_MIPI_DSI
-+	select DRM_DISPLAY_HELPER
-+	select DRM_DISPLAY_HDMI_STATE_HELPER
-+	select REGMAP_I2C
-+	help
-+	  Driver for Lontium DSI to HDMI bridge
-+	  chip driver that converts dual DSI and I2S to
-+	  HDMI signals
-+	  Please say Y if you have such hardware.
-+
- config DRM_LONTIUM_LT9611UXC
- 	tristate "Lontium LT9611UXC DSI/HDMI bridge"
- 	select SND_SOC_HDMI_CODEC if SND_SOC
-diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/Makefile
-index beab5b695a6e..92688be9692f 100644
---- a/drivers/gpu/drm/bridge/Makefile
-+++ b/drivers/gpu/drm/bridge/Makefile
-@@ -16,6 +16,7 @@ obj-$(CONFIG_DRM_ITE_IT6505) += ite-it6505.o
- obj-$(CONFIG_DRM_LONTIUM_LT8912B) += lontium-lt8912b.o
- obj-$(CONFIG_DRM_LONTIUM_LT9211) += lontium-lt9211.o
- obj-$(CONFIG_DRM_LONTIUM_LT9611) += lontium-lt9611.o
-+obj-$(CONFIG_DRM_LONTIUM_LT9611C) += lontium-lt9611c.o
- obj-$(CONFIG_DRM_LONTIUM_LT9611UXC) += lontium-lt9611uxc.o
- obj-$(CONFIG_DRM_LONTIUM_LT8713SX) += lontium-lt8713sx.o
- obj-$(CONFIG_DRM_LVDS_CODEC) += lvds-codec.o
-diff --git a/drivers/gpu/drm/bridge/lontium-lt9611c.c b/drivers/gpu/drm/bridge/lontium-lt9611c.c
-new file mode 100644
-index 000000000000..3131f4a32dfd
---- /dev/null
-+++ b/drivers/gpu/drm/bridge/lontium-lt9611c.c
-@@ -0,0 +1,1211 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2026 Lontium Semiconductor, Inc.
-+ */
-+
-+#include <linux/crc8.h>
-+#include <linux/firmware.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/i2c.h>
-+#include <linux/interrupt.h>
-+#include <linux/media-bus-format.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/of_graph.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
-+#include <drm/drm_atomic_helper.h>
-+#include <drm/drm_bridge.h>
-+#include <drm/drm_connector.h>
-+#include <drm/drm_drv.h>
-+#include <drm/drm_edid.h>
-+#include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_modes.h>
-+#include <drm/drm_of.h>
-+#include <drm/drm_print.h>
-+#include <drm/drm_probe_helper.h>
-+#include <drm/display/drm_hdmi_audio_helper.h>
-+#include <drm/display/drm_hdmi_state_helper.h>
-+#include <sound/hdmi-codec.h>
-+
-+#define FW_SIZE (64 * 1024)
-+#define LT_PAGE_SIZE 256
-+#define FW_FILE  "lt9611c_fw.bin"
-+#define LT9611C_CRC_POLYNOMIAL 0x31
-+#define LT9611C_PAGE_CONTROL 0xff
-+
-+enum lt9611_chip_type {
-+	CHIP_LT9611C = 0,
-+	CHIP_LT9611EX,
-+	CHIP_LT9611UXD,
-+};
-+
-+struct lt9611c {
-+	struct device *dev;
-+	struct i2c_client *client;
-+	struct drm_bridge bridge;
-+	struct regmap *regmap;
-+	/* Protects all accesses to registers by stopping the on-chip MCU */
-+	struct mutex ocm_lock;
-+	struct work_struct work;
-+	struct device_node *dsi0_node;
-+	struct device_node *dsi1_node;
-+	struct mipi_dsi_device *dsi0;
-+	struct mipi_dsi_device *dsi1;
-+	struct gpio_desc *reset_gpio;
-+	struct regulator_bulk_data supplies[2];
-+	int fw_version;
-+	/* Chip variant: C/EX/UXD */
-+	enum lt9611_chip_type chip_type;
-+	 /* HDMI cable connection status */
-+	bool hdmi_connected;
-+};
-+
-+DECLARE_CRC8_TABLE(lt9611c_crc8_table);
-+
-+static const struct regmap_range_cfg lt9611c_ranges[] = {
-+	{
-+		.name = "register_range",
-+		.range_min =  0,
-+		.range_max = 0xfe9c,
-+		.selector_reg = LT9611C_PAGE_CONTROL,
-+		.selector_mask = 0xff,
-+		.selector_shift = 0,
-+		.window_start = 0,
-+		.window_len = 0x100,
-+	},
-+};
-+
-+static const struct regmap_config lt9611c_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.max_register = 0xfe9c,
-+	.ranges = lt9611c_ranges,
-+	.num_ranges = ARRAY_SIZE(lt9611c_ranges),
-+};
-+
-+static int lt9611c_read_write_flow(struct lt9611c *lt9611c, u8 *params,
-+				   unsigned int param_count, u8 *return_buffer,
-+				   unsigned int return_count)
-+{
-+	int ret;
-+	unsigned int i;
-+	unsigned int temp;
-+	unsigned int max_params = 0xe0dd - 0xe0b0 + 1;
-+
-+	regmap_write(lt9611c->regmap, 0xe0de, 0x01);
-+
-+	ret = regmap_read_poll_timeout(lt9611c->regmap, 0xe0ae, temp,
-+				       temp == 0x01, 1000, 100 * 1000);
-+	if (ret)
-+		return -ETIMEDOUT;
-+
-+	for (i = 0; i < param_count && i < max_params; i++)
-+		regmap_write(lt9611c->regmap, 0xe0b0 + i, params[i]);
-+
-+	regmap_write(lt9611c->regmap, 0xe0de, 0x02);
-+
-+	ret = regmap_read_poll_timeout(lt9611c->regmap, 0xe0ae, temp,
-+				       temp == 0x02, 1000, 100 * 1000);
-+	if (ret)
-+		return -ETIMEDOUT;
-+
-+	return regmap_bulk_read(lt9611c->regmap, 0xe085, return_buffer,
-+				return_count);
-+}
-+
-+static void lt9611c_config_parameters(struct lt9611c *lt9611c)
-+{
-+	const struct reg_sequence seq_write_paras[] = {
-+		REG_SEQ0(0xe0ee, 0x01),
-+		REG_SEQ0(0xe103, 0x3f), /*fifo rst*/
-+		REG_SEQ0(0xe103, 0xff),
-+		REG_SEQ0(0xe05e, 0xc1),
-+		REG_SEQ0(0xe058, 0x00),
-+		REG_SEQ0(0xe059, 0x50),
-+		REG_SEQ0(0xe05a, 0x10),
-+		REG_SEQ0(0xe05a, 0x00),
-+		REG_SEQ0(0xe058, 0x21),
-+	};
-+
-+	regmap_multi_reg_write(lt9611c->regmap, seq_write_paras, ARRAY_SIZE(seq_write_paras));
-+}
-+
-+static void lt9611c_wren(struct lt9611c *lt9611c)
-+{
-+	regmap_write(lt9611c->regmap, 0xe05a, 0x04);
-+	regmap_write(lt9611c->regmap, 0xe05a, 0x00);
-+}
-+
-+static void lt9611c_wrdi(struct lt9611c *lt9611c)
-+{
-+	regmap_write(lt9611c->regmap, 0xe05a, 0x08);
-+	regmap_write(lt9611c->regmap, 0xe05a, 0x00);
-+}
-+
-+static void lt9611c_erase_op(struct lt9611c *lt9611c, u32 addr)
-+{
-+	const struct reg_sequence seq_write[] = {
-+		REG_SEQ0(0xe0ee, 0x01),
-+		REG_SEQ0(0xe05a, 0x04),
-+		REG_SEQ0(0xe05a, 0x00),
-+		REG_SEQ0(0xe05b, (addr >> 16) & 0xff),
-+		REG_SEQ0(0xe05c, (addr >> 8) & 0xff),
-+		REG_SEQ0(0xe05d, addr & 0xff),
-+		REG_SEQ0(0xe05a, 0x01),
-+		REG_SEQ0(0xe05a, 0x00),
-+	};
-+
-+	regmap_multi_reg_write(lt9611c->regmap, seq_write, ARRAY_SIZE(seq_write));
-+}
-+
-+static void read_flash_reg_status(struct lt9611c *lt9611c, unsigned int *status)
-+{
-+	const struct reg_sequence seq_write[] = {
-+		REG_SEQ0(0xe103, 0x3f),
-+		REG_SEQ0(0xe103, 0xff),
-+		REG_SEQ0(0xe05e, 0x40),
-+		REG_SEQ0(0xe056, 0x05),
-+		REG_SEQ0(0xe055, 0x25),
-+		REG_SEQ0(0xe055, 0x01),
-+		REG_SEQ0(0xe058, 0x21),
-+	};
-+
-+	regmap_multi_reg_write(lt9611c->regmap, seq_write, ARRAY_SIZE(seq_write));
-+
-+	regmap_read(lt9611c->regmap, 0xe05f, status);
-+}
-+
-+static void lt9611c_crc_to_sram(struct lt9611c *lt9611c)
-+{
-+	const struct reg_sequence seq_write[] = {
-+		REG_SEQ0(0xe051, 0x00),
-+		REG_SEQ0(0xe055, 0xc0),
-+		REG_SEQ0(0xe055, 0x80),
-+		REG_SEQ0(0xe05e, 0xc0),
-+		REG_SEQ0(0xe058, 0x21),
-+	};
-+
-+	regmap_multi_reg_write(lt9611c->regmap, seq_write, ARRAY_SIZE(seq_write));
-+}
-+
-+static void lt9611c_data_to_sram(struct lt9611c *lt9611c)
-+{
-+	const struct reg_sequence seq_write[] = {
-+		REG_SEQ0(0xe051, 0xff),
-+		REG_SEQ0(0xe055, 0x80),
-+		REG_SEQ0(0xe05e, 0xc0),
-+		REG_SEQ0(0xe058, 0x21),
-+	};
-+
-+	regmap_multi_reg_write(lt9611c->regmap, seq_write, ARRAY_SIZE(seq_write));
-+}
-+
-+static void lt9611c_sram_to_flash(struct lt9611c *lt9611c, size_t addr)
-+{
-+	const struct reg_sequence seq_write[] = {
-+		REG_SEQ0(0xe05b, (addr >> 16) & 0xff),
-+		REG_SEQ0(0xe05c, (addr >> 8) & 0xff),
-+		REG_SEQ0(0xe05d, addr & 0xff),
-+		REG_SEQ0(0xe05a, 0x30),
-+		REG_SEQ0(0xe05a, 0x00),
-+	};
-+
-+	regmap_multi_reg_write(lt9611c->regmap, seq_write, ARRAY_SIZE(seq_write));
-+}
-+
-+static void lt9611c_block_erase(struct lt9611c *lt9611c)
-+{
-+	struct device *dev = lt9611c->dev;
-+	int i;
-+	unsigned int block_num;
-+	unsigned int flash_status = 0;
-+	u32 flash_addr = 0;
-+
-+	for (block_num = 0; block_num < 2; block_num++) {
-+		flash_addr = (block_num * 0x008000);
-+		lt9611c_erase_op(lt9611c, flash_addr);
-+		msleep(100);
-+		i = 0;
-+		while (1) {
-+			read_flash_reg_status(lt9611c, &flash_status);
-+			if ((flash_status & 0x01) == 0)
-+				break;
-+
-+			if (i > 50)
-+				break;
-+
-+			i++;
-+			msleep(50);
-+		}
-+	}
-+
-+	dev_dbg(dev, "erase flash done.\n");
-+}
-+
-+static int lt9611c_write_data(struct lt9611c *lt9611c, const struct firmware *fw, size_t addr)
-+{
-+	struct device *dev = lt9611c->dev;
-+	int ret;
-+	unsigned int page = 0, num = 0, i = 0;
-+	size_t size, index;
-+	const u8 *data;
-+	u8 value;
-+
-+	data = fw->data;
-+	size = fw->size;
-+	page = (size + LT_PAGE_SIZE - 1) / LT_PAGE_SIZE;
-+	if (page * LT_PAGE_SIZE > FW_SIZE) {
-+		dev_err(dev, "firmware size out of range\n");
-+		return -EINVAL;
-+	}
-+
-+	dev_dbg(dev, "%u pages, total size %zu byte\n", page, size);
-+
-+	for (num = 0; num < page; num++) {
-+		lt9611c_data_to_sram(lt9611c);
-+
-+		for (i = 0; i < LT_PAGE_SIZE; i++) {
-+			index = num * LT_PAGE_SIZE + i;
-+			value = (index < size) ? data[index] : 0xff;
-+
-+			ret = regmap_write(lt9611c->regmap, 0xe059, value);
-+			if (ret < 0) {
-+				dev_err(dev, "write error at page %u, index %u\n", num, i);
-+				return ret;
-+			}
-+		}
-+
-+		lt9611c_wren(lt9611c);
-+		lt9611c_sram_to_flash(lt9611c, addr);
-+
-+		addr += LT_PAGE_SIZE;
-+	}
-+
-+	lt9611c_wrdi(lt9611c);
-+
-+	return 0;
-+}
-+
-+static int lt9611c_write_crc(struct lt9611c *lt9611c, u8 fw_crc, size_t addr)
-+{
-+	struct device *dev = lt9611c->dev;
-+	int ret;
-+
-+	lt9611c_crc_to_sram(lt9611c);
-+	ret = regmap_write(lt9611c->regmap, 0xe059, fw_crc);
-+	if (ret < 0) {
-+		dev_err(dev, "failed to write crc\n");
-+		return ret;
-+	}
-+
-+	lt9611c_wren(lt9611c);
-+	lt9611c_sram_to_flash(lt9611c, addr);
-+	lt9611c_wrdi(lt9611c);
-+
-+	dev_dbg(dev, "crc 0x%02x written to flash at addr 0x%zx\n", fw_crc, addr);
-+
-+	return 0;
-+}
-+
-+static void lt9611c_reset(struct lt9611c *lt9611c)
-+{
-+	gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
-+	msleep(20);
-+
-+	gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
-+	msleep(20);
-+
-+	gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
-+	msleep(400);
-+
-+	dev_dbg(lt9611c->dev, "lt9611c reset");
-+}
-+
-+static int lt9611c_upgrade_result(struct lt9611c *lt9611c, u8 fw_crc)
-+{
-+	struct device *dev = lt9611c->dev;
-+	unsigned int crc_result;
-+
-+	regmap_write(lt9611c->regmap, 0xe0ee, 0x01);
-+	regmap_read(lt9611c->regmap, 0xe021, &crc_result);
-+
-+	if (crc_result != fw_crc) {
-+		dev_err(dev, "lt9611c fw upgrade failed, expected crc=0x%02x, read crc=0x%02x\n",
-+			fw_crc, crc_result);
-+		return -1;
-+	}
-+
-+	dev_dbg(dev, "lt9611c firmware upgrade success, crc=0x%02x\n", crc_result);
-+	return 0;
-+}
-+
-+static int lt9611c_firmware_upgrade(struct lt9611c *lt9611c)
-+{
-+	struct device *dev = lt9611c->dev;
-+	const struct firmware *fw;
-+	u8 *buffer;
-+	size_t total_size = FW_SIZE - 1;
-+	u8 fw_crc;
-+	int ret;
-+
-+	/*1. load firmware*/
-+	ret = request_firmware(&fw, FW_FILE, dev);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to load '%s'\n", FW_FILE);
-+
-+	/*2. check size*/
-+	if (fw->size > total_size) {
-+		dev_err(dev, "firmware too large (%zu > %zu)\n", fw->size, total_size);
-+		ret = -EINVAL;
-+		goto out_release_fw;
-+	}
-+	dev_dbg(dev, "firmware size: %zu bytes\n", fw->size);
-+
-+	/*3. calculate crc8 */
-+	buffer = kzalloc(total_size, GFP_KERNEL);
-+	if (!buffer) {
-+		ret = -ENOMEM;
-+		goto out_release_fw;
-+	}
-+
-+	memset(buffer, 0xff, total_size);
-+	memcpy(buffer, fw->data, fw->size);
-+
-+	fw_crc = crc8(lt9611c_crc8_table, buffer, total_size, 0);
-+	kfree(buffer);
-+
-+	dev_dbg(dev, "firmware crc: 0x%02x\n", fw_crc);
-+	dev_dbg(dev, "starting firmware upgrade, size: %zu bytes\n", fw->size);
-+
-+	lt9611c_config_parameters(lt9611c);
-+	lt9611c_block_erase(lt9611c);
-+
-+	ret = lt9611c_write_data(lt9611c, fw, 0);
-+	if (ret < 0) {
-+		dev_err(dev, "failed to write firmware data\n");
-+		goto out_release_fw;
-+	}
-+
-+	ret = lt9611c_write_crc(lt9611c, fw_crc, FW_SIZE - 1);
-+	if (ret < 0) {
-+		dev_err(dev, "failed to write firmware crc\n");
-+		goto out_release_fw;
-+	}
-+
-+	/*5. check upgrade of result*/
-+	lt9611c_reset(lt9611c);
-+	ret = lt9611c_upgrade_result(lt9611c, fw_crc);
-+
-+out_release_fw:
-+	release_firmware(fw);
-+	return ret;
-+}
-+
-+static struct lt9611c *bridge_to_lt9611c(struct drm_bridge *bridge)
-+{
-+	return container_of(bridge, struct lt9611c, bridge);
-+}
-+
-+/*read only*/
-+static const struct lt9611c *bridge_to_lt9611c_const(const struct drm_bridge *bridge)
-+{
-+	return container_of(bridge, const struct lt9611c, bridge);
-+}
-+
-+static void lt9611c_lock(struct lt9611c *lt9611c)
-+{
-+	mutex_lock(&lt9611c->ocm_lock);
-+	regmap_write(lt9611c->regmap, 0xe0ee, 0x01);
-+}
-+
-+static void lt9611c_unlock(struct lt9611c *lt9611c)
-+{
-+	regmap_write(lt9611c->regmap, 0xe0ee, 0x00);
-+	mutex_unlock(&lt9611c->ocm_lock);
-+}
-+
-+static irqreturn_t lt9611c_irq_thread_handler(int irq, void *dev_id)
-+{
-+	struct lt9611c *lt9611c = dev_id;
-+	struct device *dev = lt9611c->dev;
-+	int ret;
-+	unsigned int irq_status;
-+	u8 cmd[5] = {0x52, 0x48, 0x31, 0x3a, 0x00};
-+	u8 data[5];
-+
-+	guard(mutex)(&lt9611c->ocm_lock);
-+
-+	ret = regmap_read(lt9611c->regmap, 0xe084, &irq_status);
-+	if (ret) {
-+		dev_err(dev, "failed to read irq status: %d\n", ret);
-+		return IRQ_HANDLED;
-+	}
-+
-+	if (!(irq_status & BIT(0)))
-+		return IRQ_HANDLED;
-+
-+	ret = lt9611c_read_write_flow(lt9611c, cmd, ARRAY_SIZE(cmd), data, ARRAY_SIZE(data));
-+	if (ret) {
-+		dev_err(dev, "failed to read HPD status\n");
-+	} else {
-+		lt9611c->hdmi_connected = (data[4] == 0x02);
-+		dev_dbg(dev, "HDMI %s\n", lt9611c->hdmi_connected ? "connected" : "disconnected");
-+	}
-+
-+	/*Clear interrupt: hardware requires two writes with delay*/
-+	regmap_write(lt9611c->regmap, 0xe0df, irq_status & BIT(0));
-+	usleep_range(10000, 12000);
-+	regmap_write(lt9611c->regmap, 0xe0df, irq_status & (~BIT(0)));
-+
-+	schedule_work(&lt9611c->work);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static void lt9611c_hpd_work(struct work_struct *work)
-+{
-+	struct lt9611c *lt9611c = container_of(work, struct lt9611c, work);
-+	bool connected;
-+
-+	mutex_lock(&lt9611c->ocm_lock);
-+	connected = lt9611c->hdmi_connected;
-+	mutex_unlock(&lt9611c->ocm_lock);
-+
-+	drm_bridge_hpd_notify(&lt9611c->bridge,
-+			      connected ? connector_status_connected :
-+			      connector_status_disconnected);
-+}
-+
-+static int lt9611c_regulator_init(struct lt9611c *lt9611c)
-+{
-+	struct device *dev = lt9611c->dev;
-+	int ret;
-+
-+	lt9611c->supplies[0].supply = "vcc";
-+	lt9611c->supplies[1].supply = "vdd";
-+
-+	ret = devm_regulator_bulk_get(dev, 2, lt9611c->supplies);
-+
-+	return ret;
-+}
-+
-+static struct mipi_dsi_device *lt9611c_attach_dsi(struct lt9611c *lt9611c,
-+						  struct device_node *dsi_node)
-+{
-+	const struct mipi_dsi_device_info info = { "lt9611c", 0, NULL };
-+	struct mipi_dsi_device *dsi;
-+	struct mipi_dsi_host *host;
-+	struct device *dev = lt9611c->dev;
-+	int ret;
-+
-+	host = of_find_mipi_dsi_host_by_node(dsi_node);
-+	if (!host)
-+		return ERR_PTR(dev_err_probe(dev, -EPROBE_DEFER, "failed to find dsi host\n"));
-+
-+	dsi = devm_mipi_dsi_device_register_full(dev, host, &info);
-+	if (IS_ERR(dsi))
-+		return ERR_PTR(dev_err_probe(dev, PTR_ERR(dsi), "failed to create dsi device\n"));
-+
-+	dsi->lanes = 4;
-+	dsi->format = MIPI_DSI_FMT_RGB888;
-+	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
-+			 MIPI_DSI_MODE_VIDEO_HSE;
-+
-+	ret = devm_mipi_dsi_attach(dev, dsi);
-+	if (ret < 0)
-+		return ERR_PTR(dev_err_probe(dev, ret, "failed to attach dsi to host\n"));
-+
-+	return dsi;
-+}
-+
-+static int lt9611c_bridge_attach(struct drm_bridge *bridge,
-+				 struct drm_encoder *encoder,
-+				 enum drm_bridge_attach_flags flags)
-+{
-+	struct lt9611c *lt9611c = bridge_to_lt9611c(bridge);
-+
-+	return drm_bridge_attach(encoder, lt9611c->bridge.next_bridge, bridge, flags);
-+}
-+
-+static enum drm_mode_status
-+lt9611c_hdmi_tmds_char_rate_valid(const struct drm_bridge *bridge,
-+				  const struct drm_display_mode *mode,
-+				  unsigned long long tmds_rate)
-+{
-+	const struct lt9611c *lt9611c = bridge_to_lt9611c_const(bridge);
-+
-+	if (lt9611c->chip_type == CHIP_LT9611UXD) {
-+		if (tmds_rate > 600000000)
-+			return MODE_CLOCK_HIGH;
-+
-+	} else {
-+		if (tmds_rate > 340000000)
-+			return MODE_CLOCK_HIGH;
-+	}
-+
-+	if (tmds_rate < 25000000)
-+		return MODE_CLOCK_LOW;
-+
-+	return MODE_OK;
-+}
-+
-+static void lt9611c_video_setup(struct lt9611c *lt9611c,
-+				const struct drm_display_mode *mode)
-+{
-+	struct device *dev = lt9611c->dev;
-+	int ret;
-+	u32 h_total, hactive, hsync_len, hfront_porch, hback_porch;
-+	u32 v_total, vactive, vsync_len, vfront_porch, vback_porch;
-+	u8 timing_set_cmd[26] = {0x57, 0x4d, 0x33, 0x3a};
-+	u8 return_param[3];
-+	u8 framerate;
-+	u8 vic = 0x00;
-+
-+	guard(mutex)(&lt9611c->ocm_lock);
-+	h_total = mode->htotal;
-+	hactive = mode->hdisplay;
-+	hsync_len = mode->hsync_end - mode->hsync_start;
-+	hfront_porch = mode->hsync_start - mode->hdisplay;
-+	hback_porch = mode->htotal - mode->hsync_end;
-+
-+	v_total = mode->vtotal;
-+	vactive = mode->vdisplay;
-+	vsync_len = mode->vsync_end - mode->vsync_start;
-+	vfront_porch = mode->vsync_start - mode->vdisplay;
-+	vback_porch = mode->vtotal - mode->vsync_end;
-+	framerate = drm_mode_vrefresh(mode);
-+	vic = drm_match_cea_mode(mode);
-+
-+	dev_dbg(dev, "hactive=%d, vactive=%d\n", hactive, vactive);
-+	dev_dbg(dev, "framerate=%d\n", framerate);
-+	dev_dbg(dev, "vic = 0x%02x\n", vic);
-+
-+	timing_set_cmd[4] = (h_total >> 8) & 0xff;
-+	timing_set_cmd[5] = h_total & 0xff;
-+	timing_set_cmd[6] = (hactive >> 8) & 0xff;
-+	timing_set_cmd[7] = hactive & 0xff;
-+	timing_set_cmd[8] = (hfront_porch >> 8) & 0xff;
-+	timing_set_cmd[9] = hfront_porch & 0xff;
-+	timing_set_cmd[10] = (hsync_len >> 8) & 0xff;
-+	timing_set_cmd[11] = hsync_len & 0xff;
-+	timing_set_cmd[12] = (hback_porch >> 8) & 0xff;
-+	timing_set_cmd[13] = hback_porch & 0xff;
-+	timing_set_cmd[14] = (v_total >> 8) & 0xff;
-+	timing_set_cmd[15] = v_total & 0xff;
-+	timing_set_cmd[16] = (vactive >> 8) & 0xff;
-+	timing_set_cmd[17] = vactive & 0xFF;
-+	timing_set_cmd[18] = (vfront_porch >> 8) & 0xff;
-+	timing_set_cmd[19] = vfront_porch & 0xff;
-+	timing_set_cmd[20] = (vsync_len >> 8) & 0xff;
-+	timing_set_cmd[21] = vsync_len & 0xff;
-+	timing_set_cmd[22] = (vback_porch >> 8) & 0xff;
-+	timing_set_cmd[23] = vback_porch & 0xff;
-+	timing_set_cmd[24] = framerate;
-+	timing_set_cmd[25] = vic;
-+
-+	ret = lt9611c_read_write_flow(lt9611c,
-+				      timing_set_cmd, ARRAY_SIZE(timing_set_cmd),
-+				      return_param, ARRAY_SIZE(return_param));
-+	if (ret)
-+		dev_err(dev, "video set failed\n");
-+}
-+
-+static void lt9611c_bridge_atomic_enable(struct drm_bridge *bridge,
-+					 struct drm_atomic_state *state)
-+{
-+	struct lt9611c *lt9611c = bridge_to_lt9611c(bridge);
-+	struct drm_connector *connector;
-+	struct drm_connector_state *conn_state;
-+	struct drm_crtc_state *crtc_state;
-+	struct drm_display_mode *mode;
-+
-+	connector = drm_atomic_get_new_connector_for_encoder(state, bridge->encoder);
-+	if (WARN_ON(!connector))
-+		return;
-+
-+	conn_state = drm_atomic_get_new_connector_state(state, connector);
-+	if (WARN_ON(!conn_state))
-+		return;
-+
-+	crtc_state = drm_atomic_get_new_crtc_state(state, conn_state->crtc);
-+	if (WARN_ON(!crtc_state))
-+		return;
-+
-+	mode = &crtc_state->adjusted_mode;
-+
-+	lt9611c_video_setup(lt9611c, mode);
-+}
-+
-+static enum drm_connector_status
-+lt9611c_bridge_detect(struct drm_bridge *bridge, struct drm_connector *connector)
-+{
-+	struct lt9611c *lt9611c = bridge_to_lt9611c(bridge);
-+	struct device *dev = lt9611c->dev;
-+	int ret;
-+	bool connected = false;
-+	u8 cmd[5] = {0x52, 0x48, 0x31, 0x3a, 0x00};
-+	u8 data[5];
-+
-+	guard(mutex)(&lt9611c->ocm_lock);
-+
-+	ret = lt9611c_read_write_flow(lt9611c, cmd, ARRAY_SIZE(cmd), data, ARRAY_SIZE(data));
-+	if (ret)
-+		dev_err(dev, "failed to read HPD status (err=%d)\n", ret);
-+	else
-+		connected = (data[4] == 0x02);
-+
-+	lt9611c->hdmi_connected = connected;
-+
-+	return connected ? connector_status_connected :
-+				connector_status_disconnected;
-+}
-+
-+static int lt9611c_get_edid_block(void *data, u8 *buf,
-+				  unsigned int block, size_t len)
-+{
-+	struct lt9611c *lt9611c = data;
-+	struct device *dev = lt9611c->dev;
-+	u8 cmd[5] = {0x52, 0x48, 0x33, 0x3a, 0x00};
-+	u8 packet[37];
-+	int ret, i, offset = 0;
-+
-+	if (len != 128)
-+		return -EINVAL;
-+	guard(mutex)(&lt9611c->ocm_lock);
-+
-+	for (i = 0; i < 4; i++) {
-+		cmd[4] = block * 4 + i;
-+		ret = lt9611c_read_write_flow(lt9611c, cmd, ARRAY_SIZE(cmd),
-+					      packet, ARRAY_SIZE(packet));
-+		if (ret) {
-+			dev_err(dev, "Failed to read EDID block %u packet %d\n",
-+				block, i);
-+			return ret;
-+		}
-+		memcpy(buf + offset, &packet[5], 32);
-+		offset += 32;
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct drm_edid *lt9611c_bridge_edid_read(struct drm_bridge *bridge,
-+						       struct drm_connector *connector)
-+{
-+	struct lt9611c *lt9611c = bridge_to_lt9611c(bridge);
-+
-+	return drm_edid_read_custom(connector, lt9611c_get_edid_block, lt9611c);
-+}
-+
-+static int lt9611c_hdmi_write_avi_infoframe(struct drm_bridge *bridge,
-+					    const u8 *buffer, size_t len)
-+{
-+	struct lt9611c *lt9611c = bridge_to_lt9611c(bridge);
-+	u8 *cmd;
-+	u8 data[5];
-+	int ret;
-+
-+	guard(mutex)(&lt9611c->ocm_lock);
-+
-+	cmd = kmalloc(5 + len, GFP_KERNEL);
-+	if (!cmd)
-+		return -ENOMEM;
-+
-+	cmd[0] = 0x57;
-+	cmd[1] = 0x48;
-+	cmd[2] = 0x35;
-+	cmd[3] = 0x3a;
-+	cmd[4] = 0x01;/*write avi*/
-+	memcpy(cmd + 5, buffer, len);
-+
-+	ret = lt9611c_read_write_flow(lt9611c, cmd, 5 + len,
-+				      data, ARRAY_SIZE(data));
-+	kfree(cmd);
-+
-+	if (ret < 0) {
-+		dev_err(lt9611c->dev, "write avi infoframe failed!\n");
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int lt9611c_hdmi_clear_avi_infoframe(struct drm_bridge *bridge)
-+{
-+	struct lt9611c *lt9611c = bridge_to_lt9611c(bridge);
-+	u8 cmd[5] = {0x57, 0x48, 0x42, 0x3a, 0x01};
-+	u8 data[5];
-+	int ret;
-+
-+	guard(mutex)(&lt9611c->ocm_lock);
-+
-+	ret = lt9611c_read_write_flow(lt9611c, cmd, ARRAY_SIZE(cmd),
-+				      data, ARRAY_SIZE(data));
-+
-+	if (ret < 0) {
-+		dev_err(lt9611c->dev, "clear avi infoframe failed!\n");
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int lt9611c_hdmi_write_audio_infoframe(struct drm_bridge *bridge,
-+					      const u8 *buffer, size_t len)
-+{
-+	struct lt9611c *lt9611c = bridge_to_lt9611c(bridge);
-+	u8 *cmd;
-+	u8 data[5];
-+	int ret;
-+
-+	guard(mutex)(&lt9611c->ocm_lock);
-+
-+	cmd = kmalloc(5 + len, GFP_KERNEL);
-+	if (!cmd)
-+		return -ENOMEM;
-+
-+	cmd[0] = 0x57;
-+	cmd[1] = 0x48;
-+	cmd[2] = 0x35;
-+	cmd[3] = 0x3a;
-+	cmd[4] = 0x02;/*write audio*/
-+	memcpy(cmd + 5, buffer, len);
-+
-+	ret = lt9611c_read_write_flow(lt9611c, cmd, 5 + len,
-+				      data, ARRAY_SIZE(data));
-+
-+	kfree(cmd);
-+
-+	if (ret < 0) {
-+		dev_err(lt9611c->dev, "write audio infoframe failed!\n");
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int lt9611c_hdmi_clear_audio_infoframe(struct drm_bridge *bridge)
-+{
-+	struct lt9611c *lt9611c = bridge_to_lt9611c(bridge);
-+	u8 cmd[5] = {0x57, 0x48, 0x42, 0x3a, 0x02};
-+	u8 data[5];
-+	int ret;
-+
-+	guard(mutex)(&lt9611c->ocm_lock);
-+
-+	ret = lt9611c_read_write_flow(lt9611c, cmd, ARRAY_SIZE(cmd),
-+				      data, ARRAY_SIZE(data));
-+
-+	if (ret < 0) {
-+		dev_err(lt9611c->dev, "clear audio infoframe failed!\n");
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int lt9611c_hdmi_audio_prepare(struct drm_bridge *bridge,
-+				      struct drm_connector *connector,
-+				      struct hdmi_codec_daifmt *fmt,
-+				      struct hdmi_codec_params *hparms)
-+{
-+	struct lt9611c *lt9611c = bridge_to_lt9611c(bridge);
-+	u8 audio_cmd[6] = {0x57, 0x48, 0x36, 0x3a};
-+	u8 data[5];
-+	int ret;
-+
-+	if (hparms->sample_width == 32)
-+		return -EINVAL;
-+
-+	switch (fmt->fmt) {
-+	case HDMI_I2S:
-+		audio_cmd[4] = 0x01;
-+		break;
-+	case HDMI_SPDIF:
-+		audio_cmd[4] = 0x02;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	audio_cmd[5] = hparms->channels;
-+	guard(mutex)(&lt9611c->ocm_lock);
-+
-+	ret = lt9611c_read_write_flow(lt9611c, audio_cmd, sizeof(audio_cmd),
-+				      data, sizeof(data));
-+	if (ret < 0) {
-+		dev_err(lt9611c->dev, "set audio info failed!\n");
-+		return ret;
-+	}
-+
-+	return drm_atomic_helper_connector_hdmi_update_audio_infoframe(connector,
-+									&hparms->cea);
-+}
-+
-+static void lt9611c_hdmi_audio_shutdown(struct drm_bridge *bridge,
-+					struct drm_connector *connector)
-+{
-+	drm_atomic_helper_connector_hdmi_clear_audio_infoframe(connector);
-+}
-+
-+static int lt9611c_hdmi_audio_startup(struct drm_bridge *bridge,
-+				      struct drm_connector *connector)
-+{
-+	return 0;
-+}
-+
-+static const struct drm_bridge_funcs lt9611c_bridge_funcs = {
-+	.attach = lt9611c_bridge_attach,
-+	.detect = lt9611c_bridge_detect,
-+	.edid_read = lt9611c_bridge_edid_read,
-+	.atomic_enable = lt9611c_bridge_atomic_enable,
-+
-+	.hdmi_tmds_char_rate_valid = lt9611c_hdmi_tmds_char_rate_valid,
-+	.hdmi_write_avi_infoframe = lt9611c_hdmi_write_avi_infoframe,
-+	.hdmi_clear_avi_infoframe = lt9611c_hdmi_clear_avi_infoframe,
-+	.hdmi_write_audio_infoframe = lt9611c_hdmi_write_audio_infoframe,
-+	.hdmi_clear_audio_infoframe = lt9611c_hdmi_clear_audio_infoframe,
-+
-+	.hdmi_audio_startup = lt9611c_hdmi_audio_startup,
-+	.hdmi_audio_prepare = lt9611c_hdmi_audio_prepare,
-+	.hdmi_audio_shutdown = lt9611c_hdmi_audio_shutdown,
-+};
-+
-+static int lt9611c_parse_dt(struct device *dev,
-+			    struct lt9611c *lt9611c)
-+{
-+	lt9611c->dsi0_node = of_graph_get_remote_node(dev->of_node, 0, -1);
-+	if (!lt9611c->dsi0_node)
-+		return dev_err_probe(dev, -ENODEV, "failed to get remote node for primary dsi\n");
-+
-+	lt9611c->dsi1_node = of_graph_get_remote_node(dev->of_node, 1, -1);
-+
-+	return drm_of_find_panel_or_bridge(dev->of_node, 2, -1, NULL, &lt9611c->bridge.next_bridge);
-+}
-+
-+static int lt9611c_gpio_init(struct lt9611c *lt9611c)
-+{
-+	struct device *dev = lt9611c->dev;
-+
-+	lt9611c->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
-+	if (IS_ERR(lt9611c->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(lt9611c->reset_gpio),
-+				"failed to acquire reset gpio\n");
-+
-+	return 0;
-+}
-+
-+static int lt9611c_read_version(struct lt9611c *lt9611c)
-+{
-+	u8 buf[2];
-+	int ret;
-+
-+	ret = regmap_write(lt9611c->regmap, 0xe0ee, 0x01);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_bulk_read(lt9611c->regmap, 0xe080, buf, ARRAY_SIZE(buf));
-+	if (ret)
-+		return ret;
-+
-+	return (buf[0] << 8) | buf[1];
-+}
-+
-+static int lt9611c_read_chipid(struct lt9611c *lt9611c)
-+{
-+	struct device *dev = lt9611c->dev;
-+	u8 chipid[2];
-+	int ret;
-+
-+	ret = regmap_write(lt9611c->regmap, 0xe0ee, 0x01);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_bulk_read(lt9611c->regmap, 0xe100, chipid, 2);
-+	if (ret)
-+		return ret;
-+
-+	if (chipid[0] != 0x23 || chipid[1] != 0x06) {
-+		dev_err(dev, "ChipID: 0x%02x 0x%02x\n", chipid[0], chipid[1]);
-+		return -ENODEV;
-+	}
-+
-+	return 0;
-+}
-+
-+static ssize_t lt9611c_firmware_store(struct device *dev, struct device_attribute *attr,
-+				      const char *buf, size_t len)
-+{
-+	struct lt9611c *lt9611c = dev_get_drvdata(dev);
-+	int ret;
-+
-+	lt9611c_lock(lt9611c);
-+
-+	ret = lt9611c_firmware_upgrade(lt9611c);
-+	if (ret < 0)
-+		dev_err(dev, "upgrade failure\n");
-+
-+	lt9611c_unlock(lt9611c);
-+
-+	return ret < 0 ? ret : len;
-+}
-+
-+static ssize_t lt9611c_firmware_show(struct device *dev, struct device_attribute *attr, char *buf)
-+{
-+	struct lt9611c *lt9611c = dev_get_drvdata(dev);
-+
-+	return sysfs_emit(buf, "0x%04x\n", lt9611c->fw_version);
-+}
-+
-+static DEVICE_ATTR_RW(lt9611c_firmware);
-+
-+static struct attribute *lt9611c_attrs[] = {
-+	&dev_attr_lt9611c_firmware.attr,
-+	NULL,
-+};
-+
-+static const struct attribute_group lt9611c_attr_group = {
-+	.attrs = lt9611c_attrs,
-+};
-+
-+static const struct attribute_group *lt9611c_attr_groups[] = {
-+	&lt9611c_attr_group,
-+	NULL,
-+};
-+
-+static int lt9611c_probe(struct i2c_client *client)
-+{
-+	const struct i2c_device_id *id = i2c_client_get_device_id(client);
-+	struct lt9611c *lt9611c;
-+	struct device *dev = &client->dev;
-+	bool fw_updated = false;
-+	int ret;
-+
-+	crc8_populate_msb(lt9611c_crc8_table, LT9611C_CRC_POLYNOMIAL);
-+
-+	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
-+		return dev_err_probe(dev, -ENODEV, "device doesn't support I2C\n");
-+
-+	lt9611c = devm_drm_bridge_alloc(dev, struct lt9611c, bridge, &lt9611c_bridge_funcs);
-+	if (IS_ERR(lt9611c))
-+		return dev_err_probe(dev, PTR_ERR(lt9611c), "drm bridge alloc failed.\n");
-+
-+	lt9611c->dev = dev;
-+	lt9611c->client = client;
-+	lt9611c->chip_type = id->driver_data;
-+	ret = devm_mutex_init(dev, &lt9611c->ocm_lock);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to init mutex\n");
-+
-+	lt9611c->regmap = devm_regmap_init_i2c(client, &lt9611c_regmap_config);
-+	if (IS_ERR(lt9611c->regmap))
-+		return dev_err_probe(dev, PTR_ERR(lt9611c->regmap), "regmap i2c init failed\n");
-+
-+	ret = lt9611c_parse_dt(dev, lt9611c);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to parse device tree\n");
-+
-+	ret = lt9611c_gpio_init(lt9611c);
-+	if (ret < 0)
-+		goto err_of_put;
-+
-+	ret = lt9611c_regulator_init(lt9611c);
-+	if (ret < 0)
-+		goto err_of_put;
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(lt9611c->supplies), lt9611c->supplies);
-+	if (ret)
-+		goto err_of_put;
-+
-+	lt9611c_reset(lt9611c);
-+
-+	lt9611c_lock(lt9611c);
-+
-+	ret = lt9611c_read_chipid(lt9611c);
-+	if (ret < 0) {
-+		dev_err(dev, "failed to read chip id.\n");
-+		lt9611c_unlock(lt9611c);
-+		goto err_disable_regulators;
-+	}
-+
-+retry:
-+	lt9611c->fw_version = lt9611c_read_version(lt9611c);
-+	if (lt9611c->fw_version < 0) {
-+		dev_err(dev, "failed to read fw version\n");
-+		ret = -EOPNOTSUPP;
-+		lt9611c_unlock(lt9611c);
-+		goto err_disable_regulators;
-+
-+	} else if (lt9611c->fw_version == 0) {
-+		if (!fw_updated) {
-+			fw_updated = true;
-+			ret = lt9611c_firmware_upgrade(lt9611c);
-+			if (ret < 0) {
-+				lt9611c_unlock(lt9611c);
-+				goto err_disable_regulators;
-+			}
-+
-+			goto retry;
-+
-+		} else {
-+			dev_err(dev, "fw version 0x%04x, update failed\n", lt9611c->fw_version);
-+			ret = -EOPNOTSUPP;
-+			lt9611c_unlock(lt9611c);
-+			goto err_disable_regulators;
-+		}
-+	}
-+
-+	lt9611c_unlock(lt9611c);
-+	dev_dbg(dev, "current version:0x%04x", lt9611c->fw_version);
-+
-+	INIT_WORK(&lt9611c->work, lt9611c_hpd_work);
-+
-+	ret = devm_request_threaded_irq(&client->dev, client->irq, NULL,
-+					lt9611c_irq_thread_handler,
-+					IRQF_TRIGGER_FALLING |
-+					IRQF_ONESHOT |
-+					IRQF_NO_AUTOEN,
-+					"lt9611c", lt9611c);
-+	if (ret) {
-+		dev_err(dev, "failed to request irq\n");
-+		goto err_disable_regulators;
-+	}
-+
-+	lt9611c->bridge.of_node = client->dev.of_node;
-+	lt9611c->bridge.ops = DRM_BRIDGE_OP_DETECT |
-+			DRM_BRIDGE_OP_EDID |
-+			DRM_BRIDGE_OP_HPD |
-+			DRM_BRIDGE_OP_HDMI |
-+			DRM_BRIDGE_OP_HDMI_AUDIO;
-+	lt9611c->bridge.type = DRM_MODE_CONNECTOR_HDMIA;
-+
-+	lt9611c->bridge.hdmi_audio_dev = dev;
-+	lt9611c->bridge.hdmi_audio_max_i2s_playback_channels = 8;
-+	lt9611c->bridge.hdmi_audio_dai_port = 2;
-+
-+	devm_drm_bridge_add(dev, &lt9611c->bridge);
-+
-+	/* Attach primary DSI */
-+	lt9611c->dsi0 = lt9611c_attach_dsi(lt9611c, lt9611c->dsi0_node);
-+	if (IS_ERR(lt9611c->dsi0)) {
-+		ret = PTR_ERR(lt9611c->dsi0);
-+		goto err_remove_bridge;
-+	}
-+
-+	/* Attach secondary DSI, if specified */
-+	if (lt9611c->dsi1_node) {
-+		lt9611c->dsi1 = lt9611c_attach_dsi(lt9611c, lt9611c->dsi1_node);
-+		if (IS_ERR(lt9611c->dsi1)) {
-+			ret = PTR_ERR(lt9611c->dsi1);
-+			goto err_remove_bridge;
-+		}
-+	}
-+
-+	lt9611c->hdmi_connected = false;
-+	i2c_set_clientdata(client, lt9611c);
-+	enable_irq(client->irq);
-+	lt9611c_reset(lt9611c);
-+
-+	return 0;
-+
-+err_remove_bridge:
-+	free_irq(client->irq, lt9611c);
-+	cancel_work_sync(&lt9611c->work);
-+	drm_bridge_remove(&lt9611c->bridge);
-+
-+err_disable_regulators:
-+	regulator_bulk_disable(ARRAY_SIZE(lt9611c->supplies), lt9611c->supplies);
-+
-+err_of_put:
-+	of_node_put(lt9611c->dsi1_node);
-+	of_node_put(lt9611c->dsi0_node);
-+
-+	return ret;
-+}
-+
-+static void lt9611c_remove(struct i2c_client *client)
-+{
-+	struct lt9611c *lt9611c = i2c_get_clientdata(client);
-+
-+	free_irq(client->irq, lt9611c);
-+	cancel_work_sync(&lt9611c->work);
-+	regulator_bulk_disable(ARRAY_SIZE(lt9611c->supplies), lt9611c->supplies);
-+	of_node_put(lt9611c->dsi1_node);
-+	of_node_put(lt9611c->dsi0_node);
-+}
-+
-+static int lt9611c_bridge_suspend(struct device *dev)
-+{
-+	struct lt9611c *lt9611c = dev_get_drvdata(dev);
-+	int ret;
-+
-+	dev_dbg(lt9611c->dev, "suspend\n");
-+	disable_irq(lt9611c->client->irq);
-+	ret = regulator_bulk_disable(ARRAY_SIZE(lt9611c->supplies), lt9611c->supplies);
-+	if (ret) {
-+		dev_err(lt9611c->dev, "regulator bulk disable failed.\n");
-+		return ret;
-+	}
-+	gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
-+
-+	return ret;
-+}
-+
-+static int lt9611c_bridge_resume(struct device *dev)
-+{
-+	struct lt9611c *lt9611c = dev_get_drvdata(dev);
-+	int ret;
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(lt9611c->supplies), lt9611c->supplies);
-+	if (ret) {
-+		dev_err(lt9611c->dev, "regulator bulk enable failed.\n");
-+		return ret;
-+	}
-+	enable_irq(lt9611c->client->irq);
-+	lt9611c_reset(lt9611c);
-+	dev_dbg(lt9611c->dev, "resume\n");
-+
-+	return ret;
-+}
-+
-+static const struct dev_pm_ops lt9611c_bridge_pm_ops = {
-+	SET_SYSTEM_SLEEP_PM_OPS(lt9611c_bridge_suspend,
-+				lt9611c_bridge_resume)
-+};
-+
-+static struct i2c_device_id lt9611c_id[] = {
-+	/* chip_type */
-+	{ "lontium,lt9611c", 0 },
-+	{ "lontium,lt9611ex", 1 },
-+	{ "lontium,lt9611uxd", 2 },
-+	{ /* sentinel */ }
-+};
-+
-+static const struct of_device_id lt9611c_match_table[] = {
-+	{ .compatible = "lontium,lt9611c" },
-+	{ .compatible = "lontium,lt9611ex" },
-+	{ .compatible = "lontium,lt9611uxd" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, lt9611c_match_table);
-+
-+static struct i2c_driver lt9611c_driver = {
-+	.driver = {
-+		.name = "lt9611c",
-+		.of_match_table = lt9611c_match_table,
-+		.pm = &lt9611c_bridge_pm_ops,
-+		.dev_groups = lt9611c_attr_groups,
-+	},
-+	.probe = lt9611c_probe,
-+	.remove = lt9611c_remove,
-+	.id_table = lt9611c_id,
-+};
-+module_i2c_driver(lt9611c_driver);
-+
-+MODULE_AUTHOR("SunYun Yang <syyang@lontium.com>");
-+MODULE_DESCRIPTION("Lontium LT9611C(EX/UXD) MIPI DSI to HDMI driver");
-+MODULE_LICENSE("GPL");
-+MODULE_FIRMWARE(FW_FILE);
-+
--- 
-2.34.1
-
+T24gMjUvMDYvMjUgMjoxMSBwbSwgRGhhcm1hIEJhbGFzdWJpcmFtYW5pIHdyb3RlOg0KPiBUaGlz
+IHBhdGNoIHNlcmllcyBkcm9wcyB0aGUgdW5zZWQgcGFuZWwgZmllbGQsIHN3aXRjaGVzIHRvIGF0
+b21pYyB2YXJpYW50cw0KPiBhbmQgYWRkcyBzdXBwb3J0IHRvIHNlbGVjdCBiZXR3ZWVuIHRoZSB0
+d28gc3VwcG9ydGVkIGZvcm1hdHMgKEpFSURBIGFuZA0KPiBWRVNBKSBieSB0aGUgTFZEU0MuDQo+
+IA0KPiBTaWduZWQtb2ZmLWJ5OiBEaGFybWEgQmFsYXN1YmlyYW1hbmkgPGRoYXJtYS5iQG1pY3Jv
+Y2hpcC5jb20+DQoNCkFwcGxpZWQgdG8gZHJtLW1pc2MtbmV4dCwgVGhhbmtzLg0KPiAtLS0NCj4g
+Q2hhbmdlcyBpbiB2NjoNCj4gLSBEcm9wIHByZSBhbmQgcG9zdCBob29rcyBhcyB0aGV5IGFyZSBu
+b3QgbmVjY2Vzc2FyeSBub3cuDQo+IC0gRHJvcCB0dXJuaW5nIG9mZiB0aGUgc2VyaWFsaXNlci4N
+Cj4gLSBMaW5rIHRvIHY1OiBodHRwczovL2xvcmUua2VybmVsLm9yZy9yLzIwMjUwNjI1LW1pY3Jv
+Y2hpcC1sdmRzLXY1LTAtNjI0Y2Y3MmIyNjUxQG1pY3JvY2hpcC5jb20NCj4gDQo+IENoYW5nZXMg
+aW4gdjU6DQo+IC0gRHJvcCB0aGUgcmVkdW5kYW50IHBvcnQgbm9kZSBsb29rdXAuDQo+IC0gU3Bs
+aXQgdGhlIGNvbW1pdHMgYWRkaW5nIGF0b21pYyBicmlkZ2Ugb3BzIGludG8gMi4NCj4gLSBVcGRh
+dGUgY29tbWl0IG1lc3NhZ2VzIGFjY29yZGluZ2x5Lg0KPiAtIExpbmsgdG8gdjQ6IGh0dHBzOi8v
+bG9yZS5rZXJuZWwub3JnL3IvMjAyNTA2MjQtbWljcm9jaGlwLWx2ZHMtdjQtMC05MzdkNDJhNDIw
+ZTlAbWljcm9jaGlwLmNvbQ0KPiANCj4gQ2hhbmdlcyBpbiB2NDoNCj4gLSBTcGxpdCB0aGUgY29t
+bWl0cyBpbnRvIDMuDQo+IC0gRHJvcCA8ZHJtL2RybV9wYW5lbC5oPg0KPiAtIExpbmsgdG8gdjM6
+IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL3IvMjAyNTA2MjQtbWljcm9jaGlwLWx2ZHMtdjMtMS1j
+M2M2ZjFlNDA1MTZAbWljcm9jaGlwLmNvbQ0KPiANCj4gQ2hhbmdlcyBpbiB2MzoNCj4gLSBVc2Ug
+QklUKDApIGluc3RlYWQgb2YgMS4NCj4gLSBEcm9wIHRoZSBwYW5lbCBmaWVsZCBvZiB0aGUgbWNo
+cF9sdmRzIHN0cnVjdHVyZS4NCj4gLSBEcm9wIHRoZSBpbm5lciBwYXJlbnRoZXNlcyBpbiB3cml0
+ZSBpbiBzZXJpYWxpc2VyX29uKCkuDQo+IC0gTGluayB0byB2MjogaHR0cHM6Ly9sb3JlLmtlcm5l
+bC5vcmcvci8yMDI1MDYyMy1taWNyb2NoaXAtbHZkcy12Mi0xLThlY2JhYmM2YWJjNEBtaWNyb2No
+aXAuY29tDQo+IA0KPiBDaGFuZ2VzIGluIHYyOg0KPiAtIFN3aXRjaCB0byBhdG9taWMgYnJpZGdl
+IGZ1bmN0aW9ucw0KPiAtIERyb3AgY3VzdG9tIGNvbm5lY3RvciBjcmVhdGlvbg0KPiAtIFVzZSBk
+cm1fYXRvbWljX2dldF9uZXdfY29ubmVjdG9yX2Zvcl9lbmNvZGVyKCkNCj4gLSBMaW5rIHRvIHYx
+OiBodHRwczovL2xvcmUua2VybmVsLm9yZy9yLzIwMjUwNjE4LW1pY3JvY2hpcC1sdmRzLXYxLTEt
+MWVhZTVhY2Q3YTgyQG1pY3JvY2hpcC5jb20NCj4gDQo+IC0tLQ0KPiBEaGFybWEgQmFsYXN1Ymly
+YW1hbmkgKDMpOg0KPiAgICAgICAgZHJtL2JyaWRnZTogbWljcm9jaGlwLWx2ZHM6IFJlbW92ZSB1
+bnVzZWQgZHJtX3BhbmVsIGFuZCByZWR1bmRhbnQgcG9ydCBub2RlIGxvb2t1cA0KPiAgICAgICAg
+ZHJtL2JyaWRnZTogbWljcm9jaGlwLWx2ZHM6IG1pZ3JhdGUgdG8gYXRvbWljIGJyaWRnZSBvcHMN
+Cj4gICAgICAgIGRybS9icmlkZ2U6IG1pY3JvY2hpcC1sdmRzOiBmaXggYnVzIGZvcm1hdCBtaXNt
+YXRjaCB3aXRoIFZFU0EgZGlzcGxheXMNCj4gDQo+ICAgZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9t
+aWNyb2NoaXAtbHZkcy5jIHwgNjMgKysrKysrKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0tDQo+
+ICAgMSBmaWxlIGNoYW5nZWQsIDM3IGluc2VydGlvbnMoKyksIDI2IGRlbGV0aW9ucygtKQ0KPiAt
+LS0NCj4gYmFzZS1jb21taXQ6IDQzMjU3NDNjN2UyMDlhZTc4NDUyOTM2NzlhNGRlOTRiOTY5ZjJi
+ZWYNCj4gY2hhbmdlLWlkOiAyMDI1MDYxOC1taWNyb2NoaXAtbHZkcy1iNzE1MWQ5NjA5NGENCj4g
+DQo+IEJlc3QgcmVnYXJkcywNCg0KLS0gDQpUaGFua3MgYW5kIFJlZ2FyZHMsDQpNYW5pa2FuZGFu
+IE0uDQoNCg==
