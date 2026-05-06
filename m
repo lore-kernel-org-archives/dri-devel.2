@@ -4,63 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D9F0CD342C
-	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 09:15:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8685BCD342C
+	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 09:23:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DF3310E146;
-	Wed,  6 May 2026 09:15:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F17FC10E18C;
+	Wed,  6 May 2026 09:23:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="DVsaldBt";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QEdGvEuZ";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 802C510E146
- for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 09:15:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1778058901;
- bh=06C2qHH59OhXzqVMBdMq/suIja8tImr+yasYlUa5fI8=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=DVsaldBtO6Cm41DSMAvyFjU2Qn9rmDgR+Tv/wv7rF8hnNrvb5wffdwNG3nrbHUNBl
- 2IW12heqWSfFUGLOoFx3+nq+LcBcolYjNeUKURcdBfh0XBCSG9nTNnpBwmORWeNpCQ
- pGAVT2ViRzhK4qj8NQopsGR8QcMwbXWDfbXliWKoxOdNJnMi7ythH4QYOMf/sZVV7q
- MLWscdAGpmjrrZIuvwG0dAwFi2SGU1hXIopcX5Et59FVo/IHPLRMt6VAyRZkbSa/fN
- Fwiqcscz2IhFU5YVzMqMpOFe0nGE1zPxHWp9mdjWJfFGgdCupCp8Y3NL3F3urgynhG
- DCAhfAb/K9/aQ==
-Received: from fedora (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id CD44617E1525;
- Wed,  6 May 2026 11:15:00 +0200 (CEST)
-Date: Wed, 6 May 2026 11:14:56 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Ketil Johnsen <ketil.johnsen@arm.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Jonathan
- Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Sumit
- Semwal <sumit.semwal@linaro.org>, Benjamin Gaignard
- <benjamin.gaignard@collabora.com>, Brian Starkey <Brian.Starkey@arm.com>,
- John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, Steven Price
- <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, Daniel Almeida
- <daniel.almeida@collabora.com>, Alice Ryhl <aliceryhl@google.com>, Matthias
- Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>, dri-devel@lists.freedesktop.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH 8/8] drm/panthor: Expose protected rendering features
-Message-ID: <20260506111456.70721b13@fedora>
-In-Reply-To: <20260505140516.1372388-9-ketil.johnsen@arm.com>
-References: <20260505140516.1372388-1-ketil.johnsen@arm.com>
- <20260505140516.1372388-9-ketil.johnsen@arm.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
+ [209.85.216.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 052B110E18C
+ for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 09:23:50 +0000 (UTC)
+Received: by mail-pj1-f49.google.com with SMTP id
+ 98e67ed59e1d1-35f9ab079bdso5021705a91.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 06 May 2026 02:23:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1778059429; x=1778664229; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=//nou2Qb1FnpkEvM0SdcsiAXuxlLxSwwu1Tjy8/lIKE=;
+ b=QEdGvEuZ9hnoiIBHcmIJMbozt53G2dqRcSOGyCGO89/ebpSW5sw25+SWQKYv21vsQp
+ yDIoo7D8EFcHKVybACeh9P0v7oYvjRQUmR0saTT/SkV3AZpWqPXuIWxXhta+finIhd7P
+ ua12w1BAsrHiS4e7zAA0AIeOHcQWzKDCP6S7RNF8xOBYP6ryYX5CpiQNyFkvHqFAa60A
+ FP9HUcVoXbB0I+XfgjkpZhvbDpjq0zYkAP0jpi+u+gaH6HbEOJIzWpiBZ2NBe8CGTkop
+ IchxFhlfe3N9trDupnHIDD7faY9MR4ngpblYQBtSa8m9U09g1wrCXfgWHDJ1yt7CqavE
+ pDcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778059429; x=1778664229;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=//nou2Qb1FnpkEvM0SdcsiAXuxlLxSwwu1Tjy8/lIKE=;
+ b=kwGsGz9P6L/lGZ8KsI1kj0cWff17isan4qHekwDDUbLgAJJDNhgcMSMkTVJ6ANaqhN
+ yckEyY/xUuVgh1UUs4EjQpFr9QStFKuCo896SgF+UxYpWLALWP6DIZ+iNi1LrIIsR1Pw
+ xaq+ss5nQ0MEcxdotz5Z/r7n2Pj4h2GF5hzmbypsGRKN4JmWit458C3DVnnOAi3RUVsT
+ Nxu7YWsobKcks9HpnwhKZdaqFXdmD2B1SUQx3uTZWiSxbY+AR3TSF+XgHTsSiBBKg2wZ
+ yO8n8omJOorqnEiCqt178o42YhTXm2Owjmxv40VbmhQHrKbJu3/wVm0ogGVvbcMqBNUw
+ GLNQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/aVXu1wvaCNCZToPpAgKo9wjc09NNlmJLXsQugAfMr5ruyJydSIHxHQmw/8psxywgv+ZNG8nCHafc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyEAVZ5yWxOZlqDbvTu9cjybuK/wcs5wk0J4TNMIPUbVn8Lfx/K
+ kjRoqyYFJAG1Jq351b2j7KMdEfTPoEdtdXKqtcooXOI7sPkxUAY9Eksn
+X-Gm-Gg: AeBDiet15gp0eO9lI+MuX3prh+F8LnlG84A2i6Mz2uMCM9Q2uJPMWRaVTQjniBqtmHF
+ rKqb5Tjw9kJdNFtpFsvVLba1wnX29IMY6W0c1OFLCSO4kfZ0quth5jESbOKXeqfs5DjDwr4GKb0
+ kOA6Hj27xaXUkbkNVlW+GhAeR/ntejPte3aNNINczXMfM0GgR0EwQgsxXnweYc0rKSLaDGFoafD
+ cNNeLun7XOHolKEvZ0CiFTSmPaMCUwAFEo0JR0YcypEYNiSGp0IXWODsHLoCkAijMbn2SaClAsc
+ s3cjoLbARkAo5iXO4oK9yBZDXud7yhtOlYThCqwraGLckyV+HNnT8tmnAfdxcrNysqhKebgoF+W
+ Oy+i9DKOcvJSsKz7JFQpeMvPfXWJdaB5eKTO8I94Xarxh+0X1aQ2H8C5jM/dd20RZmQ9cJJA4re
+ 9qBBvuymcpFF6sh47IXa+MuIryCH2E+drmdg==
+X-Received: by 2002:a17:90b:1c84:b0:35d:a3b4:2ef6 with SMTP id
+ 98e67ed59e1d1-365ac47f086mr2457412a91.21.1778059429387; 
+ Wed, 06 May 2026 02:23:49 -0700 (PDT)
+Received: from lgs.. ([118.193.33.13]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-365b06adc51sm716818a91.4.2026.05.06.02.23.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 06 May 2026 02:23:48 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Liu Ying <victor.liu@nxp.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v5] drm/bridge: imx8qxp-pxl2dpi: avoid ERR_PTR with
+ device_node cleanup
+Date: Wed,  6 May 2026 17:23:24 +0800
+Message-ID: <20260506092324.635014-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,252 +99,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue,  5 May 2026 16:05:14 +0200
-Ketil Johnsen <ketil.johnsen@arm.com> wrote:
+imx8qxp_pxl2dpi_get_available_ep_from_port() returns ERR_PTR()
+on errors. imx8qxp_pxl2dpi_find_next_bridge() stores its return
+value in a __free(device_node) variable before checking IS_ERR().
+When the function returns on the error path, the cleanup action calls
+of_node_put() on the ERR_PTR() value.
 
-> Add query for protected rendering capability.
-> Add flag to group creation to specify need for protected rendering.
-> Bump panthor version number.
-> 
-> Signed-off-by: Ketil Johnsen <ketil.johnsen@arm.com>
-> ---
->  drivers/gpu/drm/panthor/panthor_drv.c   | 21 +++++++++++-
->  drivers/gpu/drm/panthor/panthor_sched.c | 21 +++++++-----
->  include/uapi/drm/panthor_drm.h          | 45 +++++++++++++++++++++++--
->  3 files changed, 76 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-> index 73fc983dc9b44..817df17f31f15 100644
-> --- a/drivers/gpu/drm/panthor/panthor_drv.c
-> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
-> @@ -177,6 +177,7 @@ panthor_get_uobj_array(const struct drm_panthor_obj_array *in, u32 min_stride,
->  		 PANTHOR_UOBJ_DECL(struct drm_panthor_csif_info, pad), \
->  		 PANTHOR_UOBJ_DECL(struct drm_panthor_timestamp_info, current_timestamp), \
->  		 PANTHOR_UOBJ_DECL(struct drm_panthor_group_priorities_info, pad), \
-> +		 PANTHOR_UOBJ_DECL(struct drm_panthor_protected_info, features), \
->  		 PANTHOR_UOBJ_DECL(struct drm_panthor_sync_op, timeline_value), \
->  		 PANTHOR_UOBJ_DECL(struct drm_panthor_queue_submit, syncs), \
->  		 PANTHOR_UOBJ_DECL(struct drm_panthor_queue_create, ringbuf_size), \
-> @@ -928,12 +929,20 @@ static void panthor_query_group_priorities_info(struct drm_file *file,
->  	}
->  }
->  
-> +static void panthor_query_protected_info(struct panthor_device *ptdev,
-> +					 struct drm_panthor_protected_info *arg)
-> +{
-> +	arg->features =
-> +		ptdev->protm.heap ? DRM_PANTHOR_PROTECTED_FEATURE_BASIC : 0;
-> +}
-> +
->  static int panthor_ioctl_dev_query(struct drm_device *ddev, void *data, struct drm_file *file)
->  {
->  	struct panthor_device *ptdev = container_of(ddev, struct panthor_device, base);
->  	struct drm_panthor_dev_query *args = data;
->  	struct drm_panthor_timestamp_info timestamp_info;
->  	struct drm_panthor_group_priorities_info priorities_info;
-> +	struct drm_panthor_protected_info protected_info;
->  	int ret;
->  
->  	if (!args->pointer) {
-> @@ -954,6 +963,10 @@ static int panthor_ioctl_dev_query(struct drm_device *ddev, void *data, struct d
->  			args->size = sizeof(priorities_info);
->  			return 0;
->  
-> +		case DRM_PANTHOR_DEV_QUERY_PROTECTED_INFO:
-> +			args->size = sizeof(protected_info);
-> +			return 0;
-> +
->  		default:
->  			return -EINVAL;
->  		}
-> @@ -984,6 +997,11 @@ static int panthor_ioctl_dev_query(struct drm_device *ddev, void *data, struct d
->  		panthor_query_group_priorities_info(file, &priorities_info);
->  		return PANTHOR_UOBJ_SET(args->pointer, args->size, priorities_info);
->  
-> +	case DRM_PANTHOR_DEV_QUERY_PROTECTED_INFO:
-> +		panthor_query_protected_info(ptdev, &protected_info);
-> +		return PANTHOR_UOBJ_SET(args->pointer, args->size,
-> +					protected_info);
-> +
->  	default:
->  		return -EINVAL;
->  	}
-> @@ -1779,6 +1797,7 @@ static void panthor_debugfs_init(struct drm_minor *minor)
->   *       - adds DRM_IOCTL_PANTHOR_BO_QUERY_INFO ioctl
->   *       - adds drm_panthor_gpu_info::selected_coherency
->   * - 1.8 - extends DEV_QUERY_TIMESTAMP_INFO with flags
-> + * - 1.9 - adds DEV_QUERY_PROTECTED_INFO query
+Do not store the endpoint node in a cleanup variable before checking
+whether it is an error pointer. Use a regular device_node pointer for
+the endpoint node, check it with IS_ERR() first, and release it
+explicitly with of_node_put() after getting the remote port parent.
 
-It's adding more than just DEV_QUERY_PROTECTED_INFO (it also adds a new
-flags field to group_create and a flag that tells that the group intends
-to use protected mode).
+This keeps the fix minimal and avoids changing
+imx8qxp_pxl2dpi_get_available_ep_from_port().
 
->   */
->  static const struct drm_driver panthor_drm_driver = {
->  	.driver_features = DRIVER_RENDER | DRIVER_GEM | DRIVER_SYNCOBJ |
-> @@ -1792,7 +1811,7 @@ static const struct drm_driver panthor_drm_driver = {
->  	.name = "panthor",
->  	.desc = "Panthor DRM driver",
->  	.major = 1,
-> -	.minor = 8,
-> +	.minor = 9,
->  
->  	.gem_prime_import_sg_table = panthor_gem_prime_import_sg_table,
->  	.gem_prime_import = panthor_gem_prime_import,
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-> index acb04250c7def..0e8a1059de589 100644
-> --- a/drivers/gpu/drm/panthor/panthor_sched.c
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-> @@ -3868,6 +3868,7 @@ static void add_group_kbo_sizes(struct panthor_device *ptdev,
->  }
->  
->  #define MAX_GROUPS_PER_POOL		128
-> +#define GROUP_CREATE_FLAGS DRM_PANTHOR_GROUP_CREATE_PROTECTED
->  
->  int panthor_group_create(struct panthor_file *pfile,
->  			 const struct drm_panthor_group_create *group_args,
-> @@ -3882,10 +3883,10 @@ int panthor_group_create(struct panthor_file *pfile,
->  	u32 gid, i, suspend_size;
->  	int ret;
->  
-> -	if (group_args->pad)
-> +	if (group_args->priority >= PANTHOR_CSG_PRIORITY_COUNT)
->  		return -EINVAL;
->  
-> -	if (group_args->priority >= PANTHOR_CSG_PRIORITY_COUNT)
-> +	if (group_args->flags & ~GROUP_CREATE_FLAGS)
->  		return -EINVAL;
->  
->  	if ((group_args->compute_core_mask & ~ptdev->gpu_info.shader_present) ||
-> @@ -3937,12 +3938,16 @@ int panthor_group_create(struct panthor_file *pfile,
->  		goto err_put_group;
->  	}
->  
-> -	suspend_size = csg_iface->control->protm_suspend_size;
-> -	group->protm_suspend_buf = panthor_fw_alloc_protm_suspend_buf_mem(ptdev, suspend_size);
-> -	if (IS_ERR(group->protm_suspend_buf)) {
-> -		ret = PTR_ERR(group->protm_suspend_buf);
-> -		group->protm_suspend_buf = NULL;
-> -		goto err_put_group;
-> +	if (group_args->flags & DRM_PANTHOR_GROUP_CREATE_PROTECTED) {
-> +		suspend_size = csg_iface->control->protm_suspend_size;
-> +		group->protm_suspend_buf =
-> +			panthor_fw_alloc_protm_suspend_buf_mem(ptdev,
-> +							       suspend_size);
-> +		if (IS_ERR(group->protm_suspend_buf)) {
-> +			ret = PTR_ERR(group->protm_suspend_buf);
-> +			group->protm_suspend_buf = NULL;
-> +			goto err_put_group;
-> +		}
->  	}
->  
->  	group->syncobjs = panthor_kernel_bo_create(ptdev, group->vm,
-> diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
-> index 0e455d91e77d4..914110003bcd1 100644
-> --- a/include/uapi/drm/panthor_drm.h
-> +++ b/include/uapi/drm/panthor_drm.h
-> @@ -253,6 +253,11 @@ enum drm_panthor_dev_query_type {
->  	 * @DRM_PANTHOR_DEV_QUERY_GROUP_PRIORITIES_INFO: Query allowed group priorities information.
->  	 */
->  	DRM_PANTHOR_DEV_QUERY_GROUP_PRIORITIES_INFO,
-> +
-> +	/**
-> +	 * @DRM_PANTHOR_DEV_QUERY_PROTECTED_INFO: Query supported protected rendering information.
-> +	 */
-> +	DRM_PANTHOR_DEV_QUERY_PROTECTED_INFO,
->  };
->  
->  /**
-> @@ -504,6 +509,28 @@ struct drm_panthor_group_priorities_info {
->  	__u8 pad[3];
->  };
->  
-> +/**
-> + * enum drm_panthor_protected_feature_flags - Supported protected rendering features
+Fixes: ceea3f7806a10 ("drm/bridge: imx8qxp-pxl2dpi: simplify put of device_node pointers")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+v5:
+  - Make the fix minimal for stable by avoiding __free(device_node)
+    for the endpoint node in imx8qxp_pxl2dpi_find_next_bridge().
+  - Keep imx8qxp_pxl2dpi_get_available_ep_from_port() unchanged.
+  - Do not change imx8qxp_pxl2dpi_set_pixel_link_sel().
+  - Drop Frank's Reviewed-by tag due to the implementation change.
 
-Protected rendering is a bit vague, especially since it's usually
-referred as protected memory/content in graphics APIs. Maybe we should
-have a short paragraph explaining what we mean by that (access of
-protected memory from the GPU).
+v4:
+  - Drop the sentence mentioning the custom static analysis tool.
+  - Add Frank's Reviewed-by tag.
+  - No functional code changes.
 
-> + *
-> + * Place new types at the end, don't re-order, don't remove or replace.
-> + */
-> +enum drm_panthor_protected_feature_flags {
-> +	/** @DRM_PANTHOR_PROTECTED_FEATURE_BASIC: Protected rendering available */
-> +	DRM_PANTHOR_PROTECTED_FEATURE_BASIC = 1 << 0,
+v3:
+  - Do not change DEFINE_FREE(device_node, ...).
+  - Fix the driver pattern by making
+    imx8qxp_pxl2dpi_get_available_ep_from_port() return an int and
+    pass the endpoint via an output argument.
+  - Update both callers so __free(device_node) never holds ERR_PTR().
 
-I'm not a huge fan of this _BASIC specifier, since it doesn't
-tell much about the actual implementation, and what the UMD
-has to do to access protected memory from the GPU. Given the
-feature/CS-instruction is named _PROTM, I'd go for
+v2:
+  - Fix DEFINE_FREE(device_node, ...) directly.
 
-	/**
-	 * @DRM_PANTHOR_PROTECTED_FEATURE_PROTM: Protected memory access
-	 * based on PROTM CS instructions
-	 *
-	 * This is currently the only option to access protected
-	 * memory from the GPU. Other modes or advanced features might
-	 * be added at some point.
-	 */
-	DRM_PANTHOR_PROTECTED_FEATURE_PROTM = 1 << 0,
-> +};
-> +
-> +/**
-> + * struct drm_panthor_protected_info - protected support information
-> + *
-> + * Structure grouping all queryable information relating to the allowed group priorities.
-> + */
-> +struct drm_panthor_protected_info {
-> +	/**
-> +	 * @features: Combination of enum drm_panthor_protected_feature_flags flags.
-> +	 */
-> +	__u32 features;
-> +};
-> +
->  /**
->   * struct drm_panthor_dev_query - Arguments passed to DRM_PANTHOR_IOCTL_DEV_QUERY
->   */
-> @@ -843,6 +870,18 @@ enum drm_panthor_group_priority {
->  	PANTHOR_GROUP_PRIORITY_REALTIME,
->  };
->  
-> +/**
-> + * enum drm_panthor_group_create_flags - Group create flags
-> + */
-> +enum drm_panthor_group_create_flags {
+ drivers/gpu/drm/bridge/imx/imx8qxp-pxl2dpi.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-s/drm_panthor_group_create_flags/drm_panthor_group_feature_flags/
-
-> +	/**
-> +	 * @DRM_PANTHOR_GROUP_CREATE_PROTECTED: Support protected mode
-> +	 *
-> +	 * Enable protected rendering work to be executed on this group.
-> +	 */
-> +	DRM_PANTHOR_GROUP_CREATE_PROTECTED = 1 << 0,
-
-I'd go directly DRM_PANTHOR_GROUP_FEATURE_PROTM, since this is the
-instruction the group will use to enter protected mode. If we ever have
-multiple ways to do protected rendering, I guess it would materialize
-as a different flag, allowing the KMD to know exactly the way
-protected rendering is going to be done.
-
-> +};
-> +
->  /**
->   * struct drm_panthor_group_create - Arguments passed to DRM_IOCTL_PANTHOR_GROUP_CREATE
->   */
-> @@ -877,8 +916,10 @@ struct drm_panthor_group_create {
->  	/** @priority: Group priority (see enum drm_panthor_group_priority). */
->  	__u8 priority;
->  
-> -	/** @pad: Padding field, MBZ. */
-> -	__u32 pad;
-> +	/**
-> +	 * @flags: Flags. Must be a combination of drm_panthor_group_create_flags flags.
-> +	 */
-> +	__u32 flags;
->  
->  	/**
->  	 * @compute_core_mask: Mask encoding cores that can be used for compute jobs.
+diff --git a/drivers/gpu/drm/bridge/imx/imx8qxp-pxl2dpi.c b/drivers/gpu/drm/bridge/imx/imx8qxp-pxl2dpi.c
+index 441fd32dc91c..f64f57a33c62 100644
+--- a/drivers/gpu/drm/bridge/imx/imx8qxp-pxl2dpi.c
++++ b/drivers/gpu/drm/bridge/imx/imx8qxp-pxl2dpi.c
+@@ -264,12 +264,13 @@ imx8qxp_pxl2dpi_get_available_ep_from_port(struct imx8qxp_pxl2dpi *p2d,
+ 
+ static int imx8qxp_pxl2dpi_find_next_bridge(struct imx8qxp_pxl2dpi *p2d)
+ {
+-	struct device_node *ep __free(device_node) =
++	struct device_node *ep =
+ 		imx8qxp_pxl2dpi_get_available_ep_from_port(p2d, 1);
+ 	if (IS_ERR(ep))
+ 		return PTR_ERR(ep);
+ 
+ 	struct device_node *remote __free(device_node) = of_graph_get_remote_port_parent(ep);
++	of_node_put(ep);
+ 	if (!remote || !of_device_is_available(remote)) {
+ 		DRM_DEV_ERROR(p2d->dev, "no available remote\n");
+ 		return -ENODEV;
+-- 
+2.43.0
 
