@@ -4,103 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CA8ACD342C
-	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 16:17:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A11ACD343B
+	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 16:18:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CCEB410E1E7;
-	Wed,  6 May 2026 16:17:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9102810E556;
+	Wed,  6 May 2026 16:18:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fx5tkXoy";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="GMmi/8Va";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010046.outbound.protection.outlook.com [52.101.46.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1886B10E1E7
- for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 16:17:04 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013027.outbound.protection.outlook.com
+ [40.93.201.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 005E610E556
+ for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 16:18:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=V6OKl7PVBOVy4tF6jvsbzovso6pmLWPIcVZ9jhVFgdwQxCdnyJk7ykFLj+4zvBKnGdqoYmS5O0JfoLbZwhB35oXojtXe1ZS40OIvduQfqGphMZXpg9d3lN1AGPDBfnkdaVHdATzuu73KOm8hcOmPYprinFEh32m9YDi8QkhHtHKYCV6KMvcCJt5SHUd8KYTTQp7QgDxOigjDQ8c6K4wZ3XL/CYNw+xJorNYLRCexA+yMletK+rkPy+cRCift4deR+VvvgOPG2krD+ypbUwoswIAZJiv/5fATuB0Q+jQ1HCbUqJRSBM5QZcYaqAatrAEHl6Su57smRGcqxUiCZpzVig==
+ b=LXWRe8rVo2MdH56vDfxHD2I78i5FwwbMlWMsfQvyuteuFFtnT9B3uvvYk4Xs5q1MNb+OrRypyaZAfJbb2Iks9e+S5XWKMg+Msz/ykA2/kiML2i5NPFdXp2qawjaSjTWvJ9aoYY8SiyJcbeHoUDcFXoriLliV8DTkHf/aD1xQRgnV/VX4GstB1BEz1JYe1UxlnvsGq5A/mIvnzlOkG9REILMTefiErZmj9kTErbEc/n9E61GBNTEjs6rOa2/T9BjUcgC2SOUX9HoHVbX6DiMb8UtbGjz4U1pL4Ps1q+vmSOA/i3pBLtu3zfRy0EkXNN5atGPntVawqDF9gJ4QnVcuJg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=shCzsizNq6WHJR1Hb3ockdLFQn3LzPu/Elqm+JkGViM=;
- b=YFfvCexm1egN6eGLe7fYr9LTYfiScQLFdrFsIZxGRmmAeOoj/MUr+vFrTkCWdTs5A6hVTbtjHgOwZAfX8MSBZfTqsddY+VWYXxjU7ZLdAN/2Jk/ZzQ8nXeb14y+Xs36oRaTvBYuZHlX+AIR+HJlV6ZvJtpF31XeFTI/4qWOFlFIcSCoe2maMIGh2A+oMK+Aqw8vI3//lKD8DZSgxqLBrpDz2FTkblNmx1YwEsrpEmCgeroIsi7ahiJq76VXdDHbGoHQ1pOYCnBwUiicVwEsb9A6XMI9HYZgbqiiPEyxp1QqjBRekgiU3NIqp/ifIZueMXWcgaO5VHTVLqSzUYaHx9Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ bh=9C1G/YQbDfk3TDGrvXEUFjA5pOIkcxhBBG/lJQVeH6g=;
+ b=rA4RGodTy06SAx6s9f2aYma4Metw04SZWSI0wl1TMRQWY67ZTi8R5G8zJHAWhbmWrHEh3WopXY5qtANXGp+AVuHwKsOcU4BP1q2jwu1M0mLTzs7eTLpj10HDJKCc2qmbAS51xMomQBCu9V1Q9Jg+UsX4ec3z3S3yXFwGipLE6mKfviZrjhwXAIzX0JvJwTYAprXd1qbDWdCH+IP7YOWJvnZjNMTvsWOv0w3Bs5VWSpZcSRavOIIi2nzBU4pI1kLE/FKu1WuiVFeT12lxPnEdex0UBVme7rT12LcSpzXQYIlWYJoNA0mXz72Q1LSvifL6M2hVzYWhvnGgfVMav2I9Tg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=shCzsizNq6WHJR1Hb3ockdLFQn3LzPu/Elqm+JkGViM=;
- b=fx5tkXoy0SviZNZupRXnOuRrYc/Z5WsVXF56QzawgWr1QSAhRyLmf675OX8DRRi7VC9nE/suoVYaRthCgxfN+mtrHaqtZc5ZIGtujMxXiRYXf9a8b6InPLmkGnZ32gcTqvlK9gzWFjtxFgBS8qJs4eCISws8pHlYXSro30TPBOY=
-Received: from CY8PR12CA0014.namprd12.prod.outlook.com (2603:10b6:930:4e::16)
- by MW4PR12MB6705.namprd12.prod.outlook.com (2603:10b6:303:1e3::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.15; Wed, 6 May
- 2026 16:17:00 +0000
-Received: from DS2PEPF000061C8.namprd02.prod.outlook.com
- (2603:10b6:930:4e:cafe::d2) by CY8PR12CA0014.outlook.office365.com
- (2603:10b6:930:4e::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.16 via Frontend Transport; Wed,
- 6 May 2026 16:17:00 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DS2PEPF000061C8.mail.protection.outlook.com (10.167.23.75) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9891.9 via Frontend Transport; Wed, 6 May 2026 16:16:59 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 6 May
- 2026 11:16:59 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 6 May
- 2026 11:16:59 -0500
-Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Wed, 6 May 2026 11:16:58 -0500
-From: Lizhi Hou <lizhi.hou@amd.com>
-To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
- <dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
- <karol.wachowski@linux.intel.com>
-CC: David Zhang <yidong.zhang@amd.com>, <linux-kernel@vger.kernel.org>,
- <max.zhen@amd.com>, <sonal.santan@amd.com>, Hayden Laccabue
- <Hayden.Laccabue@amd.com>, Lizhi Hou <lizhi.hou@amd.com>
-Subject: [PATCH V2 5/6] accel/amdxdna: Add AIE4 metadata query support
-Date: Wed, 6 May 2026 09:16:42 -0700
-Message-ID: <20260506161642.141257-1-lizhi.hou@amd.com>
-X-Mailer: git-send-email 2.34.1
+ bh=9C1G/YQbDfk3TDGrvXEUFjA5pOIkcxhBBG/lJQVeH6g=;
+ b=GMmi/8Va7DYoR+krEtgKFxjNl39BzL2BsNLZOVND0FhF8EEY2CxIxFZRMHNgeaHwF60Ilaa22M0UXa2yypLdCl5076L9wZ6xG5sMFzcCytrF4tve9KuN/Q5Kn8pO9dVg3g3QbTvLQO9BVBAZhBBv4YjTRAX/ay/lTkWa1BZI+soYgmOeq0RsJ4I+ObIiKgu/vChq+qyx9vpZ2MFt1ZmHttUQ7iz5CIdu2mrSil4ABSS3BxbLcXVkyBi3SPcve2LUMb9S6lzTJMBUJyeN8oiNLrvSP0fmajY7jxZJ9PmAu/kO6HoQDyy7Syd3KoGq7ObzzdEmyBvwznY87eI6LbEtBw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
+ CH3PR12MB8725.namprd12.prod.outlook.com (2603:10b6:610:170::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.27; Wed, 6 May
+ 2026 16:18:19 +0000
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33%6]) with mapi id 15.20.9891.008; Wed, 6 May 2026
+ 16:18:19 +0000
+Message-ID: <871a3194-5960-4e94-b177-6173c49167be@nvidia.com>
+Date: Wed, 6 May 2026 12:18:16 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] rust: maple_tree: implement Send and Sync for MapleTree
+To: Boqun Feng <boqun@kernel.org>
+Cc: linux-kernel@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
+ Gary Guo <gary@garyguo.net>, Bjorn Roy Baron <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
+ nova-gpu@lists.linux.dev, Nikola Djukic <ndjukic@nvidia.com>,
+ David Airlie <airlied@gmail.com>, Boqun Feng <boqun.feng@gmail.com>,
+ John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Timur Tabi <ttabi@nvidia.com>, Edwin Peer <epeer@nvidia.com>,
+ Alexandre Courbot <acourbot@nvidia.com>, Andrea Righi <arighi@nvidia.com>,
+ Andy Ritger <aritger@nvidia.com>, Zhi Wang <zhiw@nvidia.com>,
+ Balbir Singh <balbirs@nvidia.com>, Philipp Stanner <phasta@kernel.org>,
+ alexeyi@nvidia.com, Eliot Courtney <ecourtney@nvidia.com>,
+ joel@joelfernandes.org, linux-doc@vger.kernel.org
+References: <20260506135122.GA1432412@joelbox2> <aftiZGt3HQe0Bf_x@tardis.local>
+Content-Language: en-US
+From: Joel Fernandes <joelagnelf@nvidia.com>
+In-Reply-To: <aftiZGt3HQe0Bf_x@tardis.local>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: IA4P221CA0007.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:208:559::17) To DS0PR12MB6486.namprd12.prod.outlook.com
+ (2603:10b6:8:c5::21)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF000061C8:EE_|MW4PR12MB6705:EE_
-X-MS-Office365-Filtering-Correlation-Id: d6b257b5-a6d6-489d-c88a-08deab8ae6d4
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|CH3PR12MB8725:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9cafef02-74c6-4df2-e36a-08deab8b162f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|82310400026|1800799024|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: qSB3DJwBKft+lBSx1md45H0+fLJr8rQhT3CkwUoYx+Uwf1URTKVgla67R7ipfYZiaFgGNNYHYJpthj5BURGxUyyyQjFiVKbwjD267z297/uvhzmw1YhnQt/h0sAqQCPnsEHYO0SK5k8A+/z6srKLaaB+822C7c2+hWnfLQnFkyAwGquuUAwxH7pkxjOK/6gI2nPbxtrQZvJZRMr/6GT0U4YmoLJE+mFMrJyEeXkWIKwwKq6oFeeLbST/K73xlejmKohbkWJyx8olCVaHSJF+nSZxIKd/atVgvjREncsc5Rf0ehJzrY8Cy/m3FJOVqp62Irqe1FcMO0aWADdXKDNNS/fXboSjhlnGi4YMLridtqpdpCfj2oFgHpHMVkfMqVHkhZq24z4aGHXwn/IhhrtAfqSo2pCUnByDLXwkUMy6Nk+ir4rnlGs330kgAxj+CZj/0CismLNU9YCn4YGiE7rU5e+gwF6w9xYDp9+wnrW4b3pcY+OZ8lxYES8Ng4YT2r02/tk5k8JQU0RCa4xQnUTAFdJ1vDnOXqZ19KArTHDPYo67WqEfXj/PDXYLdwq2U3s/PIHy/PrXOoFdl9ZdxQE3oUi1wjXYTwqO0rIx1KWyeMYHOucEpD8ErHcSRH6cLB2kkNf+EYuv9KOdFKLqd92sg123LiwTN1gkQuZE+5+rCiKHIbCv3TDGt4gWP7kPlyW6HaBX5Ixvxu7DnSfornoLnVvCTJxHXIu4W4Kdicg2yhQ=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(56012099003)(18002099003);
+ ARA:13230040|376014|7416014|1800799024|366016|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: VlhWOUlnZlduTJDMJTCRHDCZGKX6M3Rqz73JeciSOEcYtoeRczQaXbUCvvhTLU/49NiCvz/ilgbZw1Yntx9RrgbR80E8Pr9YzSyvu3jzORID/yXq71yNleXArFcJlxKuM/YLPvTBtVlg0rPTimEB7Vf9012d2cp1sBkay+oZZqPmFQXrtf0CX8suv/YJ7/p1CMyXIU60rP5K95w3VF+VxAyp/QWRXP9uCulT7LKT6T3k290eq9cwZuzDgwGKjXmCnVb63ZPkxOXK7jq90H8z3RHAjUnbDYqGJ6VgSjbhK24MzGhpOkSX2uX48A/63muNa4eiEqbF01CXeotUa+/YB73cn0F1psaXbRg4IrjDY2wQ4RI0ECe2u1gUj/l4ZyhKkeTersLbduk/9wujHkZMZ+Yko9VHmCBAXfNdOY3YBYhEtAOCDUANqC89Ervf1bd2q+y/t72IlzgZuDc/roYNJ2WdtaDpo3Lb2x+gZZcOIaARVQQ8RPTccQgvCI7ZeGO1CVE454Y7sgKmF+mAuGeL0w3A61ViwEUe714kIv04ebtP5GdZlDAx+X6tIpsCWedRw79lKZ0nYuF0x5P1yGeVHAGV+gxUKLLx7lZAHPxfoFDn12J0XCd6FdBqp5iDjIUK5fgvRO9gIboD5Shup7I43B0iTF9D8iDvNoM1XeXb7sWlW5lrKX/OLYW2CvR63efkBpEDPN4MORai3yc6VarLgw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(1800799024)(366016)(56012099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 71CQKOigcv+NEwwQptq4YbFEnSpS3V51HRp0EZza1fEiJra42wmRR8Dkg4OLtS/85T16gV4usQU277KnEEbUo1Yfn7mvDaZhInVg3+BVvL7Mg171rKUmiC7wzAb0kGgXjSP93kcT6rt/t6KqkbLkPQeNI7kROwCohl8RkOTwME0AwSBkt+BZpX+GNG+cycTEKknpmL69xfQtEEDFPN8XL6yHeE5oD9bnK0vLgNQZrYzyGy4Kzpk5lt2nmf1xsb5wBwlFlCXViblohO88EHPGPsD18BPZnsrg7lKOy5MNdE2OmSqnFr5D0AxWdnbhMwPmr7cFEMTvOzA8p+TJz5chEOT1eG6E6vVOqZCjEOP5hZLZHl6gk0R0hAq6QXp5dEqsAu7fixBWzJogxygI3EAR8+RjZ6+7lRj2P4wB5wsQBkxmU/zgzCHkpUzLVHbO38sx
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2026 16:16:59.9026 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d6b257b5-a6d6-489d-c88a-08deab8ae6d4
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF000061C8.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6705
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UjRDam9hSmFLL05XaU0ySHJtYWRoUGlkTXJNUmJ5ak1pblZxdjdwZzV4UmVj?=
+ =?utf-8?B?UHZCMHoyN050bSt0Wmk4WVdER09yM2NydjR0QU8vZm5jWitYZ3FpNmZxeUNy?=
+ =?utf-8?B?UUdoLzhpZXVaVkd5elhKU2dUeTRlUzFBZmZQdVdLUFFFNnczdksvR2tieEVi?=
+ =?utf-8?B?UTNuaVh6c0g2OXZ2ckpEZXI2VlJPd2ZRakZsZ0pqZS83MXhqTjlFbzFsNEpC?=
+ =?utf-8?B?Zk8zMlNHeUwvc2J2NHZkYXp3OTdWS0p2U2ZqQWczall1VWlFR0V4Q3V0cFJU?=
+ =?utf-8?B?VVFsUmZEK1ZvNWt1STlxN2VZS0llY1Z2TnEvYXJBSTB2andjeU9xU0dYSlhT?=
+ =?utf-8?B?em5oVU9EWUJrUVhzMnFGZDgwVmJXb2s0K2s2ZjZiRjNQSnB4K1lKQWlyR3F2?=
+ =?utf-8?B?dmc5TzdNUmxpdVc0eGY3MFg3ZThkZm4rT256aUdwb3YraWx5MEk0RDRZRlV2?=
+ =?utf-8?B?WHk2RjNHTjU5Vi8yS0VWOXpsTTJUcG5QcThPb2RmYUtCck9NbHllUVUrSkg4?=
+ =?utf-8?B?d2ZHelhaYlVUQmtFck5jREZtZ3hvUktJSlZyNE9DMWZJMnNZWGJObFpVcERs?=
+ =?utf-8?B?U1dOcFY5Y1B2MXlTM1UrL3V2dVBKTWNtOURuSmRDQjBJZjIzOVMyTTgyR2RS?=
+ =?utf-8?B?VmU5UWNKeEIrc3p2QzB1R2cvbVVTSnk3cnBFUFExS3pCcDhmSm9DaUdUSkZo?=
+ =?utf-8?B?bGNESForZG5FVVVYNFE2T2dVQmh4S1VOTVA5Vkczc29PN1dDL04rUUsydnli?=
+ =?utf-8?B?eDFSUGJ6c2tTUDBnOURDM21HM3VyK0IrVEljQ0dZSXdCRERORUxEYlh5dHhC?=
+ =?utf-8?B?M3ljNzdoZ2NwMkFIZUs3UnU5WTgyOHZLVys5cU1mRUVKTi85TVdpYXIrSEtq?=
+ =?utf-8?B?NVdiaUVBZlJFWDF6ZmJleUVSMHVNQnpkNnBOWHJXMUI1d3MvOUFNM1p6amFF?=
+ =?utf-8?B?d1REZGg2bnFiU05FdDExbVJTMjlHYXJYWFY5TXBSME5tT2xzMkRUdWIzRXFB?=
+ =?utf-8?B?aVdtZDFldmFPczJ3Um8yMnl5YkxHV0NHeE1FMWJHdHNWMEJGQ0NjZk4zOUhq?=
+ =?utf-8?B?eDFGMGtxenEvTU5qanhBUjVEWWY4ZThIRjFSZjNRa3F1YjlMcFJHaExLRTNE?=
+ =?utf-8?B?RmFYWjM1NGM0bEkzSkhKQWNvb3NVVG9uMVdUdXJIRVBDSlVQQTNMTk9SVzVw?=
+ =?utf-8?B?Y2JYTElNNnZZcUY3dDI5bjVtRHpZcU5JRXNSM2FVaHFTOG1sRmJLRzhvdE9m?=
+ =?utf-8?B?bUlyY3FRVW5yWHRXTThBWWlrVk9DangzOEphcys0bFlUditFTG8rYVRCVUxq?=
+ =?utf-8?B?ZGU0KysxLy93VEZ0WDdiSk55OEVpYityV1kvZEZBejQ2R3Q4RDZvaDA4MUg3?=
+ =?utf-8?B?WjZsUUxNMldCRzhQcS91Vm9VSFNldkFKMlJYSlpxUEFld1F0V2NQRlZvU09M?=
+ =?utf-8?B?VEVKWkNPSDRSdnpIM21LcDg2aFdUR1JneW9BeUxLaU1BR1hiVHEwc1NCZ1Ba?=
+ =?utf-8?B?TFBhc1k3TlJFUnlsUXpIMnhHZmtBZFQva09JblpYNU1Ua01DemtmbGZudDZi?=
+ =?utf-8?B?d2oyQllycUE3UUhSQmQxcHFoNHJXclRwMER3MHl6WjB3a2FYZ0s5Y2lFUW9q?=
+ =?utf-8?B?dkJ3SFF2UCtUZDRhU0VJNm1tb3hKNi96V1F0TDc3RlRSODJxWXB6Tmwwbm0v?=
+ =?utf-8?B?ZmtvWkpzUlBCN3Y2ZXFpRFgvU3J4ZU9TN0hZb1dPQ3BaVDhtTGkrWjNJaE5N?=
+ =?utf-8?B?ZlFHUkZueXVxdUtQTnpkRW9ESmpQL2xGS1FJQnl4WVo2S3JDUE0vRDhjcVBv?=
+ =?utf-8?B?S1p6YVZWempaaDJrRFpFTEEvdWpTaWNlQVZUU29iTzBqQm9UamZ5a0hFbHQx?=
+ =?utf-8?B?VlE2MURuMlg3YllmSlFFb3JNSmFvTFEwKzRsN3BXemd4VXQ4T2NnaDd2ZlFM?=
+ =?utf-8?B?R21teUZhdzZZUTIyTHN2T1ZnbVQwa0xNYkdTYVJCQXlTYkdtVVFVTVZ5VHJI?=
+ =?utf-8?B?dEdybWo3WGNpYjV1alZ4R2h1QzJaZVVRY1RIdlhVN3ZLS1JrN3lSMFBCaWg3?=
+ =?utf-8?B?SXBCTGRGMzZnR3BSMjdLZHdoWDd2ZE9QaEtENGZGdTQ2ZnAyUWxrVlA5ZGwv?=
+ =?utf-8?B?RlgyTDhrMmhmc2NxUHA5eDY1b2N5bDZYS3d6dFFiSThLcEJqYXpyZ01FNTVI?=
+ =?utf-8?B?TmVxV3VVTHJ1aExYcU14b1l1eExyZHI2WHlkR0dUTWpPMlB6OTFVUWx4Rkgr?=
+ =?utf-8?B?Z2d2UTNTU3lFZVJmQXJTM3NmWi90RXNmb3JHTFdCTk9rbFpLcUNyVkNKa3dt?=
+ =?utf-8?B?OTV2OUp3SndHb3VuK1Y0YTZibnRJWHMwTlQ0bUUyMy92ZytrNUpiUT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9cafef02-74c6-4df2-e36a-08deab8b162f
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2026 16:18:19.5894 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: cgI/rp1vS/RdqG3Fq75pVy4UyD/SaK6x05hv29K8ARsgTDWZpw0dU1oKyeW/34p3kRINJf/6GgE8GAME3bcApw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8725
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,460 +151,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: David Zhang <yidong.zhang@amd.com>
 
-Add support for querying device metadata on AIE4 via a mailbox message.
-Refactor aie2_get_aie_metadata() into a common helper by moving it to
-aie.c and renaming it to amdxdna_get_metadata(), allowing both AIE2
-and AIE4 to reuse the implementation.
 
-Co-developed-by: Hayden Laccabue <Hayden.Laccabue@amd.com>
-Signed-off-by: Hayden Laccabue <Hayden.Laccabue@amd.com>
-Signed-off-by: David Zhang <yidong.zhang@amd.com>
-Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
----
- drivers/accel/amdxdna/aie.c           | 14 +++++++
- drivers/accel/amdxdna/aie.h           |  5 +++
- drivers/accel/amdxdna/aie2_ctx.c      |  4 +-
- drivers/accel/amdxdna/aie2_message.c  | 10 +++--
- drivers/accel/amdxdna/aie2_pci.c      | 54 ++-------------------------
- drivers/accel/amdxdna/aie2_pci.h      | 32 +++-------------
- drivers/accel/amdxdna/aie4_message.c  | 38 +++++++++++++++++++
- drivers/accel/amdxdna/aie4_msg_priv.h | 34 +++++++++++++++++
- drivers/accel/amdxdna/aie4_pci.c      | 30 +++++++++++++++
- drivers/accel/amdxdna/aie4_pci.h      |  2 +
- 10 files changed, 140 insertions(+), 83 deletions(-)
+On 5/6/2026 11:46 AM, Boqun Feng wrote:
+> On Wed, May 06, 2026 at 09:51:22AM -0400, Joel Fernandes wrote:
+>> The C maple_tree struct contains a *mut c_void, which prevents Rust from
+>> auto-deriving Send/Sync. Following is an example error message when using
+>> MapleTree in nova-core's Vmm.
+>>
+>> This propagates up through MapleTreeAlloc to Vmm, BarUser, Gpu, and NovaCore,
+>> causing NovaCore to fail the Send bound required by pci::Driver:
+>>
+>>   error[E0277]: `*mut c_void` cannot be sent between threads safely
+>>       --> drivers/gpu/nova-core/driver.rs:77:22
+>>        |
+>>   77   | impl pci::Driver for NovaCore {
+>>        |                      ^^^^^^^^ `*mut c_void` cannot be sent between threads safely
+>>        |
+>>        = help: within `MapleTreeAlloc<()>`, the trait `Send` is not implemented for `*mut c_void`
+>>   note: required because it appears within the type `kernel::bindings::maple_tree`
+>>   note: required because it appears within the type `Opaque<kernel::bindings::maple_tree>`
+>>   note: required because it appears within the type `MapleTree<()>`
+>>   note: required because it appears within the type `MapleTreeAlloc<()>`
+>>        = note: required for `Box<MapleTreeAlloc<()>, Kmalloc>` to implement `Send`
+>>   note: required because it appears within the type `core::pin::Pin<Box<MapleTreeAlloc<()>, Kmalloc>>`
+>>   note: required because it appears within the type `Vmm`
+>>   note: required because it appears within the type `BarUser`
+>>   note: required because it appears within the type `Gpu`
+>>   note: required because it appears within the type `NovaCore`
+>>   note: required by a bound in `kernel::pci::Driver`
+>>       --> rust/kernel/pci.rs:294:19
+>>
+>> Implement Send and Sync for MapleTree. The tree contains no thread-local
+>> state, and all shared access goes through the internal ma_lock spinlock.
+>>
+>> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+>> ---
+>> RFC->v2: Just adjusted a few comments as suggested by Gary.
+>>
+>> Sending this separately as discussed in the nova mm patch series that needs it:
+>> https://lore.kernel.org/all/252a4eef-f4f4-4edf-8154-06cae4ad8518@nvidia.com/
+>>
+>>  rust/kernel/maple_tree.rs | 29 +++++++++++++++++++++++------
+>>  1 file changed, 23 insertions(+), 6 deletions(-)
+>>
+>> diff --git a/rust/kernel/maple_tree.rs b/rust/kernel/maple_tree.rs
+>> index 265d6396a78a..2400c905270d 100644
+>> --- a/rust/kernel/maple_tree.rs
+>> +++ b/rust/kernel/maple_tree.rs
+>> @@ -16,7 +16,11 @@
+>>      alloc::Flags,
+>>      error::to_result,
+>>      prelude::*,
+>> -    types::{ForeignOwnable, Opaque},
+>> +    types::{
+>> +        ForeignOwnable,
+>> +        NotThreadSafe,
+>> +        Opaque, //
+>> +    },
+>>  };
+>>  
+>>  /// A maple tree optimized for storing non-overlapping ranges.
+>> @@ -240,7 +244,10 @@ pub fn lock(&self) -> MapleGuard<'_, T> {
+>>          unsafe { bindings::spin_lock(self.ma_lock()) };
+>>  
+>>          // INVARIANT: We just took the spinlock.
+>> -        MapleGuard(self)
+>> +        MapleGuard {
+>> +            tree: self,
+>> +            _not_send: NotThreadSafe,
+>> +        }
+>>      }
+>>  
+>>      #[inline]
+>> @@ -302,19 +309,29 @@ fn drop(mut self: Pin<&mut Self>) {
+>>      }
+>>  }
+>>  
+>> +// SAFETY: `MapleTree<T>` is `Send` if `T` is `Send` because `MapleTree` owns its elements.
+>> +unsafe impl<T: ForeignOwnable + Send> Send for MapleTree<T> {}
+>> +// SAFETY: `&MapleTree<T>` never hands out `&T`; all entry access is serialized
+>> +// by `ma_lock` or `&mut Guard`, so `T: Send` suffices (`T: Sync` not required).
+>> +unsafe impl<T: ForeignOwnable + Send> Sync for MapleTree<T> {}
+> 
+> I think you missed this:
+> 
+> 	https://lore.kernel.org/rust-for-linux/aepRx2jgIKmoRp-r@tardis.local/
+> 
+> ;-)
 
-diff --git a/drivers/accel/amdxdna/aie.c b/drivers/accel/amdxdna/aie.c
-index 66849ba9026a..94747fb72340 100644
---- a/drivers/accel/amdxdna/aie.c
-+++ b/drivers/accel/amdxdna/aie.c
-@@ -117,3 +117,17 @@ void amdxdna_vbnv_init(struct amdxdna_dev *xdna)
- 
- 	amdxdna_update_vbnv(xdna, info->rev_vbnv_tbl, rev);
- }
-+
-+int amdxdna_get_metadata(struct aie_device *aie,
-+			 struct amdxdna_client *client,
-+			 struct amdxdna_drm_get_info *args)
-+{
-+	int ret = 0;
-+	u32 buf_sz;
-+
-+	buf_sz = min(args->buffer_size, sizeof(aie->metadata));
-+	if (copy_to_user(u64_to_user_ptr(args->buffer), &aie->metadata, buf_sz))
-+		ret = -EFAULT;
-+
-+	return ret;
-+}
-diff --git a/drivers/accel/amdxdna/aie.h b/drivers/accel/amdxdna/aie.h
-index 7a68b114f235..cca0cfdeee1a 100644
---- a/drivers/accel/amdxdna/aie.h
-+++ b/drivers/accel/amdxdna/aie.h
-@@ -5,6 +5,7 @@
- #ifndef _AIE_H_
- #define _AIE_H_
- 
-+#include <drm/amdxdna_accel.h>
- #include "amdxdna_pci_drv.h"
- #include "amdxdna_mailbox.h"
- 
-@@ -26,6 +27,8 @@ struct aie_device {
- 
- 	struct psp_device *psp_hdl;
- 	struct smu_device *smu_hdl;
-+
-+	struct amdxdna_drm_query_aie_metadata metadata;
- };
- 
- #define DECLARE_AIE_MSG(name, op) \
-@@ -94,6 +97,8 @@ void aie_destroy_chann(struct aie_device *aie, struct mailbox_channel **chann);
- int aie_send_mgmt_msg_wait(struct aie_device *aie, struct xdna_mailbox_msg *msg);
- int aie_check_protocol(struct aie_device *aie, u32 fw_major, u32 fw_minor);
- void amdxdna_vbnv_init(struct amdxdna_dev *xdna);
-+int amdxdna_get_metadata(struct aie_device *aie, struct amdxdna_client *client,
-+			 struct amdxdna_drm_get_info *args);
- 
- /* aie_psp.c */
- struct psp_device *aiem_psp_create(struct drm_device *ddev, struct psp_config *conf);
-diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
-index 139825ac8515..7d6094aefb6f 100644
---- a/drivers/accel/amdxdna/aie2_ctx.c
-+++ b/drivers/accel/amdxdna/aie2_ctx.c
-@@ -489,12 +489,12 @@ static int aie2_hwctx_col_list(struct amdxdna_hwctx *hwctx)
- 	}
- 
- 	ndev = xdna->dev_handle;
--	if (unlikely(!ndev->metadata.core.row_count)) {
-+	if (unlikely(!ndev->aie.metadata.core.row_count)) {
- 		XDNA_WARN(xdna, "Core tile row count is zero");
- 		return -EINVAL;
- 	}
- 
--	hwctx->num_col = hwctx->num_tiles / ndev->metadata.core.row_count;
-+	hwctx->num_col = hwctx->num_tiles / ndev->aie.metadata.core.row_count;
- 	if (!hwctx->num_col || hwctx->num_col > ndev->total_col) {
- 		XDNA_ERR(xdna, "Invalid num_col %d", hwctx->num_col);
- 		return -EINVAL;
-diff --git a/drivers/accel/amdxdna/aie2_message.c b/drivers/accel/amdxdna/aie2_message.c
-index 6e98af7b74db..bbe701ad5574 100644
---- a/drivers/accel/amdxdna/aie2_message.c
-+++ b/drivers/accel/amdxdna/aie2_message.c
-@@ -127,7 +127,8 @@ int aie2_assign_mgmt_pasid(struct amdxdna_dev_hdl *ndev, u16 pasid)
- 	return aie_send_mgmt_msg_wait(&ndev->aie, &msg);
- }
- 
--int aie2_query_aie_version(struct amdxdna_dev_hdl *ndev, struct aie_version *version)
-+int aie2_query_aie_version(struct amdxdna_dev_hdl *ndev,
-+			   struct amdxdna_drm_query_aie_version *version)
- {
- 	DECLARE_AIE_MSG(aie_version_info, MSG_OP_QUERY_AIE_VERSION);
- 	struct amdxdna_dev *xdna = ndev->aie.xdna;
-@@ -146,7 +147,8 @@ int aie2_query_aie_version(struct amdxdna_dev_hdl *ndev, struct aie_version *ver
- 	return 0;
- }
- 
--int aie2_query_aie_metadata(struct amdxdna_dev_hdl *ndev, struct aie_metadata *metadata)
-+int aie2_query_aie_metadata(struct amdxdna_dev_hdl *ndev,
-+			    struct amdxdna_drm_query_aie_metadata *metadata)
- {
- 	DECLARE_AIE_MSG(aie_tile_info, MSG_OP_QUERY_AIE_TILE_INFO);
- 	int ret;
-@@ -155,7 +157,7 @@ int aie2_query_aie_metadata(struct amdxdna_dev_hdl *ndev, struct aie_metadata *m
- 	if (ret)
- 		return ret;
- 
--	metadata->size = resp.info.size;
-+	metadata->col_size = resp.info.size;
- 	metadata->cols = resp.info.cols;
- 	metadata->rows = resp.info.rows;
- 
-@@ -375,7 +377,7 @@ int aie2_query_status(struct amdxdna_dev_hdl *ndev, char __user *buf,
- 	u8 *buff_addr;
- 	int ret;
- 
--	buf_sz = ndev->metadata.cols * ndev->metadata.size;
-+	buf_sz = ndev->aie.metadata.cols * ndev->aie.metadata.col_size;
- 	buff_addr = aie2_alloc_msg_buffer(ndev, &buf_sz, &dma_addr);
- 	if (IS_ERR(buff_addr))
- 		return PTR_ERR(buff_addr);
-diff --git a/drivers/accel/amdxdna/aie2_pci.c b/drivers/accel/amdxdna/aie2_pci.c
-index f0ddb843eb21..6c8a0f70b73d 100644
---- a/drivers/accel/amdxdna/aie2_pci.c
-+++ b/drivers/accel/amdxdna/aie2_pci.c
-@@ -219,13 +219,13 @@ static int aie2_mgmt_fw_query(struct amdxdna_dev_hdl *ndev)
- 		return ret;
- 	}
- 
--	ret = aie2_query_aie_metadata(ndev, &ndev->metadata);
-+	ret = aie2_query_aie_metadata(ndev, &ndev->aie.metadata);
- 	if (ret) {
- 		XDNA_ERR(ndev->aie.xdna, "Query AIE metadata failed");
- 		return ret;
- 	}
- 
--	ndev->total_col = min(aie2_max_col, ndev->metadata.cols);
-+	ndev->total_col = min(aie2_max_col, ndev->aie.metadata.cols);
- 
- 	return 0;
- }
-@@ -658,53 +658,6 @@ static int aie2_get_aie_status(struct amdxdna_client *client,
- 	return 0;
- }
- 
--static int aie2_get_aie_metadata(struct amdxdna_client *client,
--				 struct amdxdna_drm_get_info *args)
--{
--	struct amdxdna_drm_query_aie_metadata *meta;
--	struct amdxdna_dev *xdna = client->xdna;
--	struct amdxdna_dev_hdl *ndev;
--	int ret = 0;
--	u32 buf_sz;
--
--	ndev = xdna->dev_handle;
--	meta = kzalloc_obj(*meta);
--	if (!meta)
--		return -ENOMEM;
--
--	meta->col_size = ndev->metadata.size;
--	meta->cols = ndev->metadata.cols;
--	meta->rows = ndev->metadata.rows;
--
--	meta->version.major = ndev->metadata.version.major;
--	meta->version.minor = ndev->metadata.version.minor;
--
--	meta->core.row_count = ndev->metadata.core.row_count;
--	meta->core.row_start = ndev->metadata.core.row_start;
--	meta->core.dma_channel_count = ndev->metadata.core.dma_channel_count;
--	meta->core.lock_count = ndev->metadata.core.lock_count;
--	meta->core.event_reg_count = ndev->metadata.core.event_reg_count;
--
--	meta->mem.row_count = ndev->metadata.mem.row_count;
--	meta->mem.row_start = ndev->metadata.mem.row_start;
--	meta->mem.dma_channel_count = ndev->metadata.mem.dma_channel_count;
--	meta->mem.lock_count = ndev->metadata.mem.lock_count;
--	meta->mem.event_reg_count = ndev->metadata.mem.event_reg_count;
--
--	meta->shim.row_count = ndev->metadata.shim.row_count;
--	meta->shim.row_start = ndev->metadata.shim.row_start;
--	meta->shim.dma_channel_count = ndev->metadata.shim.dma_channel_count;
--	meta->shim.lock_count = ndev->metadata.shim.lock_count;
--	meta->shim.event_reg_count = ndev->metadata.shim.event_reg_count;
--
--	buf_sz = min(args->buffer_size, sizeof(*meta));
--	if (copy_to_user(u64_to_user_ptr(args->buffer), meta, buf_sz))
--		ret = -EFAULT;
--
--	kfree(meta);
--	return ret;
--}
--
- static int aie2_get_aie_version(struct amdxdna_client *client,
- 				struct amdxdna_drm_get_info *args)
- {
-@@ -1039,6 +992,7 @@ static int aie2_get_preempt_state(struct amdxdna_client *client,
- static int aie2_get_info(struct amdxdna_client *client, struct amdxdna_drm_get_info *args)
- {
- 	struct amdxdna_dev *xdna = client->xdna;
-+	struct amdxdna_dev_hdl *ndev = xdna->dev_handle;
- 	int ret, idx;
- 
- 	if (!drm_dev_enter(&xdna->ddev, &idx))
-@@ -1053,7 +1007,7 @@ static int aie2_get_info(struct amdxdna_client *client, struct amdxdna_drm_get_i
- 		ret = aie2_get_aie_status(client, args);
- 		break;
- 	case DRM_AMDXDNA_QUERY_AIE_METADATA:
--		ret = aie2_get_aie_metadata(client, args);
-+		ret = amdxdna_get_metadata(&ndev->aie, client, args);
- 		break;
- 	case DRM_AMDXDNA_QUERY_AIE_VERSION:
- 		ret = aie2_get_aie_version(client, args);
-diff --git a/drivers/accel/amdxdna/aie2_pci.h b/drivers/accel/amdxdna/aie2_pci.h
-index f12073175676..fe51d516a358 100644
---- a/drivers/accel/amdxdna/aie2_pci.h
-+++ b/drivers/accel/amdxdna/aie2_pci.h
-@@ -77,29 +77,6 @@ struct amdxdna_fw_ver;
- struct amdxdna_hwctx;
- struct amdxdna_sched_job;
- 
--struct aie_version {
--	u16 major;
--	u16 minor;
--};
--
--struct aie_tile_metadata {
--	u16 row_count;
--	u16 row_start;
--	u16 dma_channel_count;
--	u16 lock_count;
--	u16 event_reg_count;
--};
--
--struct aie_metadata {
--	u32 size;
--	u16 cols;
--	u16 rows;
--	struct aie_version version;
--	struct aie_tile_metadata core;
--	struct aie_tile_metadata mem;
--	struct aie_tile_metadata shim;
--};
--
- enum rt_config_category {
- 	AIE2_RT_CFG_INIT,
- 	AIE2_RT_CFG_CLK_GATING,
-@@ -177,8 +154,7 @@ struct amdxdna_dev_hdl {
- 	void			__iomem *mbox_base;
- 
- 	u32				total_col;
--	struct aie_version		version;
--	struct aie_metadata		metadata;
-+	struct amdxdna_drm_query_aie_version version;
- 	struct aie2_exec_msg_ops	*exec_msg_ops;
- 
- 	/* power management and clock*/
-@@ -283,8 +259,10 @@ int aie2_resume_fw(struct amdxdna_dev_hdl *ndev);
- int aie2_set_runtime_cfg(struct amdxdna_dev_hdl *ndev, u32 type, u64 value);
- int aie2_get_runtime_cfg(struct amdxdna_dev_hdl *ndev, u32 type, u64 *value);
- int aie2_assign_mgmt_pasid(struct amdxdna_dev_hdl *ndev, u16 pasid);
--int aie2_query_aie_version(struct amdxdna_dev_hdl *ndev, struct aie_version *version);
--int aie2_query_aie_metadata(struct amdxdna_dev_hdl *ndev, struct aie_metadata *metadata);
-+int aie2_query_aie_version(struct amdxdna_dev_hdl *ndev,
-+			   struct amdxdna_drm_query_aie_version *version);
-+int aie2_query_aie_metadata(struct amdxdna_dev_hdl *ndev,
-+			    struct amdxdna_drm_query_aie_metadata *metadata);
- int aie2_query_firmware_version(struct amdxdna_dev_hdl *ndev,
- 				struct amdxdna_fw_ver *fw_ver);
- int aie2_query_app_health(struct amdxdna_dev_hdl *ndev, u32 context_id,
-diff --git a/drivers/accel/amdxdna/aie4_message.c b/drivers/accel/amdxdna/aie4_message.c
-index d621dd32ac40..8d19af2a186f 100644
---- a/drivers/accel/amdxdna/aie4_message.c
-+++ b/drivers/accel/amdxdna/aie4_message.c
-@@ -25,3 +25,41 @@ int aie4_suspend_fw(struct amdxdna_dev_hdl *ndev)
- 
- 	return ret;
- }
-+
-+int aie4_query_aie_metadata(struct amdxdna_dev_hdl *ndev,
-+			    struct amdxdna_drm_query_aie_metadata *metadata)
-+{
-+	DECLARE_AIE_MSG(aie4_msg_aie4_tile_info, AIE4_MSG_OP_AIE_TILE_INFO);
-+	int ret;
-+
-+	ret = aie_send_mgmt_msg_wait(&ndev->aie, &msg);
-+	if (ret)
-+		return ret;
-+
-+	metadata->col_size = resp.info.size;
-+	metadata->cols = resp.info.cols;
-+	metadata->rows = resp.info.rows;
-+
-+	metadata->version.major = resp.info.major;
-+	metadata->version.minor = resp.info.minor;
-+
-+	metadata->core.row_count = resp.info.core_rows;
-+	metadata->core.row_start = resp.info.core_row_start;
-+	metadata->core.dma_channel_count = resp.info.core_dma_channels;
-+	metadata->core.lock_count = resp.info.core_locks;
-+	metadata->core.event_reg_count = resp.info.core_events;
-+
-+	metadata->mem.row_count = resp.info.mem_rows;
-+	metadata->mem.row_start = resp.info.mem_row_start;
-+	metadata->mem.dma_channel_count = resp.info.mem_dma_channels;
-+	metadata->mem.lock_count = resp.info.mem_locks;
-+	metadata->mem.event_reg_count = resp.info.mem_events;
-+
-+	metadata->shim.row_count = resp.info.shim_rows;
-+	metadata->shim.row_start = resp.info.shim_row_start;
-+	metadata->shim.dma_channel_count = resp.info.shim_dma_channels;
-+	metadata->shim.lock_count = resp.info.shim_locks;
-+	metadata->shim.event_reg_count = resp.info.shim_events;
-+
-+	return 0;
-+}
-diff --git a/drivers/accel/amdxdna/aie4_msg_priv.h b/drivers/accel/amdxdna/aie4_msg_priv.h
-index 7faa01ca3436..69e220e40900 100644
---- a/drivers/accel/amdxdna/aie4_msg_priv.h
-+++ b/drivers/accel/amdxdna/aie4_msg_priv.h
-@@ -18,6 +18,7 @@ enum aie4_msg_opcode {
- 	AIE4_MSG_OP_DESTROY_PARTITION                = 0x30002,
- 	AIE4_MSG_OP_CREATE_HW_CONTEXT                = 0x30003,
- 	AIE4_MSG_OP_DESTROY_HW_CONTEXT               = 0x30004,
-+	AIE4_MSG_OP_AIE_TILE_INFO                    = 0x30006,
- };
- 
- enum aie4_msg_status {
-@@ -96,4 +97,37 @@ struct aie4_msg_destroy_hw_context_resp {
- 	enum aie4_msg_status status;
- } __packed;
- 
-+struct aie4_tile_info {
-+	__u32 size;
-+	__u16 major;
-+	__u16 minor;
-+	__u16 cols;
-+	__u16 rows;
-+	__u16 core_rows;
-+	__u16 mem_rows;
-+	__u16 shim_rows;
-+	__u16 core_row_start;
-+	__u16 mem_row_start;
-+	__u16 shim_row_start;
-+	__u16 core_dma_channels;
-+	__u16 mem_dma_channels;
-+	__u16 shim_dma_channels;
-+	__u16 core_locks;
-+	__u16 mem_locks;
-+	__u16 shim_locks;
-+	__u16 core_events;
-+	__u16 mem_events;
-+	__u16 shim_events;
-+	__u16 resvd;
-+} __packed;
-+
-+struct aie4_msg_aie4_tile_info_req {
-+	__u32 resvd;
-+} __packed;
-+
-+struct aie4_msg_aie4_tile_info_resp {
-+	enum aie4_msg_status status;
-+	struct aie4_tile_info info;
-+} __packed;
-+
- #endif /* _AIE4_MSG_PRIV_H_ */
-diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/amdxdna/aie4_pci.c
-index 9ff34ce57fcb..8b5eff0e45c1 100644
---- a/drivers/accel/amdxdna/aie4_pci.c
-+++ b/drivers/accel/amdxdna/aie4_pci.c
-@@ -269,6 +269,11 @@ static void aie4_partition_fini(struct amdxdna_dev_hdl *ndev)
- 		XDNA_ERR(xdna, "partition fini failed: %d", ret);
- }
- 
-+static int aie4_query(struct amdxdna_dev_hdl *ndev)
-+{
-+	return aie4_query_aie_metadata(ndev, &ndev->aie.metadata);
-+}
-+
- static int aie4_pf_hw_start(struct amdxdna_dev_hdl *ndev)
- {
- 	int ret;
-@@ -308,6 +313,10 @@ static int aie4_vf_hw_start(struct amdxdna_dev_hdl *ndev)
- 	if (ret)
- 		return ret;
- 
-+	ret = aie4_query(ndev);
-+	if (ret)
-+		goto mailbox_fini;
-+
- 	ret = aie4_partition_init(ndev);
- 	if (ret)
- 		goto mailbox_fini;
-@@ -535,6 +544,26 @@ static int aie4_doorbell_mmap(struct amdxdna_client *client, struct vm_area_stru
- 	return ret;
- }
- 
-+static int aie4_get_info(struct amdxdna_client *client, struct amdxdna_drm_get_info *args)
-+{
-+	struct amdxdna_dev *xdna = client->xdna;
-+	struct amdxdna_dev_hdl *ndev = xdna->dev_handle;
-+	int ret;
-+
-+	switch (args->param) {
-+	case DRM_AMDXDNA_QUERY_AIE_METADATA:
-+		ret = amdxdna_get_metadata(&ndev->aie, client, args);
-+		break;
-+	default:
-+		XDNA_ERR(xdna, "Not supported request parameter %u", args->param);
-+		ret = -EOPNOTSUPP;
-+	}
-+
-+	XDNA_DBG(xdna, "Got param %d", args->param);
-+
-+	return ret;
-+}
-+
- static int aie4_pf_init(struct amdxdna_dev *xdna)
- {
- 	int ret;
-@@ -581,4 +610,5 @@ const struct amdxdna_dev_ops aie4_vf_ops = {
- 	.hwctx_fini		= aie4_hwctx_fini,
- 	.mmap			= aie4_doorbell_mmap,
- 	.cmd_wait		= aie4_cmd_wait,
-+	.get_aie_info		= aie4_get_info,
- };
-diff --git a/drivers/accel/amdxdna/aie4_pci.h b/drivers/accel/amdxdna/aie4_pci.h
-index b69489acd53d..64a1955cab9a 100644
---- a/drivers/accel/amdxdna/aie4_pci.h
-+++ b/drivers/accel/amdxdna/aie4_pci.h
-@@ -56,6 +56,8 @@ struct amdxdna_dev_hdl {
- };
- 
- /* aie4_message.c */
-+int aie4_query_aie_metadata(struct amdxdna_dev_hdl *ndev,
-+			    struct amdxdna_drm_query_aie_metadata *metadata);
- int aie4_suspend_fw(struct amdxdna_dev_hdl *ndev);
- 
- /* aie4_ctx.c */
--- 
-2.34.1
+Oops, sorry about that.
+
+> 
+> But on a second thought, should that (we have methods of `&MapleTree<T>`
+> -> `&T`) happen, we could always guard those methods with T: Sync. Maybe
+> it's worth to keep a note on that but, anyway
+> 
+> Reviewed-by: Boqun Feng <boqun@kernel.org>
+Ok, so I will leave as it is then, thanks for the tag!
+
+--
+Joel Fernandes
 
