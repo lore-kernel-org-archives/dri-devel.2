@@ -4,75 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB761CD3439
-	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 18:47:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 874C4CD343B
+	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 18:55:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0671610E1EE;
-	Wed,  6 May 2026 18:47:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4457910E562;
+	Wed,  6 May 2026 18:55:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZxXcdMC/";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lc66VpGb";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B90F10E1EE;
- Wed,  6 May 2026 18:47:16 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFF3A10E3B5;
+ Wed,  6 May 2026 18:55:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778093237; x=1809629237;
+ t=1778093733; x=1809629733;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:content-transfer-encoding:in-reply-to;
- bh=3xpbKJPzqoU1Z63eak0Nx7FiPMzzURfEUudld2qqJTU=;
- b=ZxXcdMC/fatLn/BOtuZE5v7iCPX/572DkxaDDSPtG+Jzjas9GOVppDU2
- BAR59Q7IgDGBBWi8H0bfaM6aXo+OAgQGZQ0mVlrfxngkAQsovugEDDMBx
- 578Z4PNLw88LzBI5df7m3JzCxZIIQDBXQpC7LQaiFRGB0KhLKdkJVfSIR
- i4c+grI9+NG9Xm7b8fttRjzvCLyUHDQxgLu40yj8ZWqmXwUK2t5FAlOXC
- 9zLoIOZH7M5iRO1eETTZCA+5L3JpEGBlbbZOlmR4BA2I+XvO/9bCjt5Mk
- en5ykbxoOF4/TjJ7Zhcj9oLVU5/GJlpebGY6rDZBSr3t0iF9sVP4wnerV A==;
-X-CSE-ConnectionGUID: HjhATKS+RC2ZdR2cBHTOVQ==
-X-CSE-MsgGUID: UxZudTMBR2y8r4JjiHU0pA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11778"; a="66566774"
-X-IronPort-AV: E=Sophos;i="6.23,220,1770624000"; d="scan'208";a="66566774"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2026 11:47:16 -0700
-X-CSE-ConnectionGUID: h5WmaH2FTjeC1v/DIqpSdg==
-X-CSE-MsgGUID: wyaab4rqQyeoF1LpeBAujA==
+ bh=33U3n0RtJXkMLjn7Ssg3zvfU+/1rp5IxRAh2FxLbGOw=;
+ b=lc66VpGbY13eFMveiR1cocs3I6TC/KbZu8b1TokJV5T8l/PF963KlPUI
+ MgqFvuaqp/RDUNhYbbU20XKKU7DUrVCeDFc3M4cQIN6cSPfBzp7YM77G5
+ UW9V5vjPUO4UmkSbloFoti2ZL4wBi4Rj23OB4OABcK2GL9F6D0622VKMi
+ ojwPFap4wmuCCGQea/DEHozlqbQrgf7K4wyHRvs7EZS2Q2HWGfacZnUgB
+ tqj8i3Kh/cfM/Ocx5o8S7Mly1EyMD1Fxb330nkhEgT84OK3pfoZy3i9gP
+ 7XBxc9npAYzpiKv2MO0eFUSYgTHPpKBSLnBoLBNh+zCO267b4ay1UlVbb g==;
+X-CSE-ConnectionGUID: TJuEYbviTzmhNjaiFBbYkQ==
+X-CSE-MsgGUID: Cvno8SoVSEGHBHjhj52dcQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11778"; a="78927932"
+X-IronPort-AV: E=Sophos;i="6.23,220,1770624000"; d="scan'208";a="78927932"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 May 2026 11:55:32 -0700
+X-CSE-ConnectionGUID: 6j/Q/CclSzymvvOp9dn43A==
+X-CSE-MsgGUID: YqkCJ+LWToypuEkV52fCgA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,220,1770624000"; d="scan'208";a="236137464"
+X-IronPort-AV: E=Sophos;i="6.23,220,1770624000"; d="scan'208";a="231852609"
 Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
  ([10.245.245.47])
- by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2026 11:47:09 -0700
-Date: Wed, 6 May 2026 21:47:05 +0300
+ by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 May 2026 11:55:29 -0700
+Date: Wed, 6 May 2026 21:55:26 +0300
 From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Hamza Mahfooz <someguy@effective-light.com>
-Cc: dri-devel@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+To: ChunAn Wu <an.wu@canonical.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Alex Hung <alex.hung@amd.com>, Wayne Lin <Wayne.Lin@amd.com>,
- Timur =?iso-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- "Mario Limonciello (AMD)" <superm1@kernel.org>,
- Ivan Lipski <ivan.lipski@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>,
- Matthew Schwartz <matthew.schwartz@linux.dev>,
- Tom Chung <chiahsuan.chung@amd.com>, Roman Li <Roman.Li@amd.com>,
- Takashi Iwai <tiwai@suse.de>, Colin Ian King <colin.i.king@gmail.com>,
- Charlene Liu <charlene.liu@amd.com>, Kees Cook <kees@kernel.org>,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 1/2] drm/atomic: attempt full modeset on page flip
- timeout
-Message-ID: <afuMqXoBt2oIFRm9@intel.com>
-References: <20260505182105.420525-1-someguy@effective-light.com>
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] drm/i915/tc: Recover AUX channel after external TC
+ port mode change
+Message-ID: <afuOnvFCEHEft4-R@intel.com>
+References: <20260505033558.157604-1-an.wu@canonical.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260505182105.420525-1-someguy@effective-light.com>
+In-Reply-To: <20260505033558.157604-1-an.wu@canonical.com>
 X-Patchwork-Hint: comment
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
@@ -91,98 +79,207 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, May 05, 2026 at 02:20:57PM -0400, Hamza Mahfooz wrote:
-> We should try to recover from page flip timeouts. Forcing
-> a full modeset should be generic across all atomic KMS drivers,
-> so try that first.
+On Tue, May 05, 2026 at 11:35:57AM +0800, ChunAn Wu wrote:
+> When Fn+F4 triggers mirror mode, the BIOS/EC reconfigures a TC port
+> mode (e.g. DP-Alt to TBT-Alt via UCSI) without generating HPD. The
+> driver's cached TC mode becomes stale, so intel_dp_aux_xfer() uses
+> the wrong power domain and IO routing, and AUX transactions fail.
 > 
-> Signed-off-by: Hamza Mahfooz <someguy@effective-light.com>
+> This occurs when the USB-C-to-HDMI dongle does not support TBT, so
+> the mode switch creates a mismatch. It also occurs with slow monitors
+> whose delayed HPD/DDC/EDID recovery causes the Type-C layer to settle
+> on a stale tbt-alt state before the dongle finishes re-negotiation.
+> 
+> Add intel_tc_port_aux_recover() to detect hardware/cached TC mode
+> divergence and reset the PHY. Wrap it with
+> intel_dp_aux_xfer_with_recovery() to retry with corrected settings.
+> 
+> Tested on Panther Lake and Lunar Lake with a BenQ HDMI monitor via
+> USB-C-to-HDMI dongle.
+
+This sounds like a completely insane thing for the firmware to do.
+It's not supposed to screw with the hardware while the driver is in
+control.
+
+Please file a bug in gitlab and also attach full acpidumps there so
+that we can check if that's where the insanity lives. This is isn't
+some Fujitsu-Siemens laptop is it? Those have historically known to
+do stupid stuff like this...
+
+> 
+> Signed-off-by: ChunAn Wu <an.wu@canonical.com>
 > ---
->  drivers/gpu/drm/drm_atomic_helper.c | 49 +++++++++++++++++++++++++++--
->  1 file changed, 46 insertions(+), 3 deletions(-)
+>  drivers/gpu/drm/i915/display/intel_dp_aux.c | 41 +++++++++--
+>  drivers/gpu/drm/i915/display/intel_tc.c     | 75 +++++++++++++++++++++
+>  drivers/gpu/drm/i915/display/intel_tc.h     |  1 +
+>  3 files changed, 113 insertions(+), 4 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
-> index a768398a1884..7ee9d52f63c5 100644
-> --- a/drivers/gpu/drm/drm_atomic_helper.c
-> +++ b/drivers/gpu/drm/drm_atomic_helper.c
-> @@ -1926,6 +1926,43 @@ drm_atomic_helper_wait_for_vblanks(struct drm_device *dev,
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux.c b/drivers/gpu/drm/i915/display/intel_dp_aux.c
+> index b20ec3e589fa..d496b2231656 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp_aux.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp_aux.c
+> @@ -481,6 +481,39 @@ static u32 intel_dp_aux_xfer_flags(const struct drm_dp_aux_msg *msg)
+>  	return 0;
 >  }
->  EXPORT_SYMBOL(drm_atomic_helper_wait_for_vblanks);
 >  
-> +static int force_full_modeset(struct drm_crtc *crtc)
+> +/**
+> + * intel_dp_aux_xfer_with_recovery - AUX transfer with TC port recovery
+> + * @intel_dp: the DP port
+> + * @send: buffer of bytes to send
+> + * @send_bytes: number of bytes to send
+> + * @recv: buffer to store received reply
+> + * @recv_size: maximum number of bytes to receive
+> + * @aux_send_ctl_flags: extra flags for the AUX send control register
+> + *
+> + * Wrapper around intel_dp_aux_xfer() that attempts to recover from an
+> + * external TC port mode change (e.g., dp-alt -> tbt-alt via hotkey BIOS
+> + * action) when the initial AUX transfer fails. On failure, recovery is
+> + * attempted once via intel_tc_port_aux_recover() before retrying.
+> + *
+> + * Returns: number of received bytes on success, negative error code on failure.
+> + */
+> +static int
+> +intel_dp_aux_xfer_with_recovery(struct intel_dp *intel_dp,
+> +				const u8 *send, int send_bytes,
+> +				u8 *recv, int recv_size,
+> +				u32 aux_send_ctl_flags)
 > +{
-> +	struct drm_modeset_acquire_ctx ctx;
-> +	struct drm_crtc_state *crtc_state;
-> +	struct drm_atomic_state *state;
+> +	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
 > +	int ret;
-> +	int err;
 > +
-> +	if (drm_atomic_crtc_needs_modeset(crtc->state))
-> +		return -EBUSY;
-> +
-> +	DRM_MODESET_LOCK_ALL_BEGIN(crtc->dev, ctx, 0, err);
-> +	state = drm_atomic_state_alloc(crtc->dev);
-> +	if (!state)
-> +		return -ENOMEM;
-> +
-> +	state->acquire_ctx = &ctx;
-> +
-> +	crtc_state = drm_atomic_get_crtc_state(state, crtc);
-> +	if (IS_ERR(crtc_state)) {
-> +		ret = PTR_ERR(crtc_state);
-> +		goto out;
-> +	}
-> +
-> +	crtc_state->mode_changed = true;
-> +
-> +	drm_info(crtc->dev,
-> +		 "[CRTC:%d:%s] Attempting force full modeset...\n",
-> +		 crtc->base.id, crtc->name);
-> +
-> +	ret = drm_atomic_commit(state);
-> +out:
-> +	drm_atomic_state_put(state);
-> +	DRM_MODESET_LOCK_ALL_END(crtc->dev, ctx, err);
+> +	ret = intel_dp_aux_xfer(intel_dp, send, send_bytes, recv, recv_size,
+> +				aux_send_ctl_flags);
+> +	if (ret < 0 && intel_tc_port_aux_recover(dig_port))
+> +		ret = intel_dp_aux_xfer(intel_dp, send, send_bytes, recv,
+> +					recv_size, aux_send_ctl_flags);
 > +	return ret;
 > +}
 > +
->  /**
->   * drm_atomic_helper_wait_for_flip_done - wait for all page flips to be done
->   * @dev: DRM device
-> @@ -1949,17 +1986,23 @@ void drm_atomic_helper_wait_for_flip_done(struct drm_device *dev,
+>  static ssize_t
+>  intel_dp_aux_transfer(struct drm_dp_aux *aux, struct drm_dp_aux_msg *msg)
+>  {
+> @@ -508,8 +541,8 @@ intel_dp_aux_transfer(struct drm_dp_aux *aux, struct drm_dp_aux_msg *msg)
+>  		if (msg->buffer)
+>  			memcpy(txbuf + HEADER_SIZE, msg->buffer, msg->size);
 >  
->  	for (i = 0; i < dev->mode_config.num_crtc; i++) {
->  		struct drm_crtc_commit *commit = state->crtcs[i].commit;
-> -		int ret;
+> -		ret = intel_dp_aux_xfer(intel_dp, txbuf, txsize,
+> -					rxbuf, rxsize, flags);
+> +		ret = intel_dp_aux_xfer_with_recovery(intel_dp, txbuf, txsize,
+> +						      rxbuf, rxsize, flags);
+>  		if (ret > 0) {
+>  			msg->reply = rxbuf[0] >> 4;
 >  
->  		crtc = state->crtcs[i].ptr;
+> @@ -531,8 +564,8 @@ intel_dp_aux_transfer(struct drm_dp_aux *aux, struct drm_dp_aux_msg *msg)
+>  		if (drm_WARN_ON(display->drm, rxsize > 20))
+>  			return -E2BIG;
 >  
->  		if (!crtc || !commit)
->  			continue;
+> -		ret = intel_dp_aux_xfer(intel_dp, txbuf, txsize,
+> -					rxbuf, rxsize, flags);
+> +		ret = intel_dp_aux_xfer_with_recovery(intel_dp, txbuf, txsize,
+> +						      rxbuf, rxsize, flags);
+>  		if (ret > 0) {
+>  			msg->reply = rxbuf[0] >> 4;
+>  			/*
+> diff --git a/drivers/gpu/drm/i915/display/intel_tc.c b/drivers/gpu/drm/i915/display/intel_tc.c
+> index a21dd4e3fe4c..1b23161e4eea 100644
+> --- a/drivers/gpu/drm/i915/display/intel_tc.c
+> +++ b/drivers/gpu/drm/i915/display/intel_tc.c
+> @@ -1861,6 +1861,81 @@ void intel_tc_port_link_cancel_reset_work(struct intel_digital_port *dig_port)
+>  	cancel_delayed_work(&tc->link_reset_work);
+>  }
 >  
-> -		ret = wait_for_completion_timeout(&commit->flip_done, 10 * HZ);
-> -		if (ret == 0)
-> +		if (!wait_for_completion_timeout(&commit->flip_done, 10 * HZ)) {
-> +			int ret;
->  			drm_err(dev, "[CRTC:%d:%s] flip_done timed out\n",
->  				crtc->base.id, crtc->name);
+> +/**
+> + * intel_tc_port_aux_recover - Recover AUX channel after external TC mode change
+> + * @dig_port: digital port
+> + *
+> + * When firmware causes a TC port mode change (e.g., dp-alt -> disconnect ->
+> + * tbt-alt) during a hotkey-triggered display mode switch, AUX transactions
+> + * using the stale power domain and IO flags will fail with timeouts or errors.
+> + * This happens because:
+> + *
+> + *   1. The display driver holds the TC link in dp-alt mode (link_refcount > 0)
+> + *   2. Firmware (e.g., via HP WMI hotkey BIOS action) reconfigures the TC port
+> + *      mode externally without notifying the display driver
+> + *   3. tc->mode stays as TC_PORT_DP_ALT while HW transitions to a different
+> + *      mode, invalidating the AUX power domain and IO flags used by
+> + *      intel_dp_aux_xfer()
+> + *
+> + * This function detects the discrepancy between tc->mode and actual HW state,
+> + * and re-synchronizes them via a TC PHY reset. After recovery, AUX retries
+> + * will use the correct power domain and control flags.
+> + *
+> + * The link_refcount is temporarily cleared to allow intel_tc_port_reset_mode()
+> + * to proceed without the PHY-ownership assertion that fires when link_refcount
+> + * is non-zero and firmware has already released PHY ownership.
+> + *
+> + * Must be called outside the TC port lock (tc->lock).
+> + *
+> + * Returns: %true if recovery was performed and AUX can be retried,
+> + *          %false if recovery was not needed or not possible.
+> + */
+> +bool intel_tc_port_aux_recover(struct intel_digital_port *dig_port)
+> +{
+> +	struct intel_tc_port *tc;
+> +	struct intel_display *display;
+> +	bool recovered = false;
 > +
-> +			ret = force_full_modeset(crtc);
-
-This looks like some kind of ugly hack to paper over a driver bug.
-I really don't want this for i915/xe because all it'll end up doing
-is make it harder to debug any real issues.
-
-> +			if (ret)
-> +				drm_err(dev,
-> +					"[CRTC:%d:%s] force full modeset failed! ret=%d\n",
-> +					crtc->base.id, crtc->name, ret);
-> +		}
->  	}
+> +	if (!intel_encoder_is_tc(&dig_port->base))
+> +		return false;
+> +
+> +	tc = to_tc_port(dig_port);
+> +	display = to_intel_display(dig_port);
+> +
+> +	mutex_lock(&tc->lock);
+> +
+> +	/*
+> +	 * Recovery is only needed when the link is actively held AND the HW
+> +	 * TC mode has diverged from the driver's cached state.
+> +	 */
+> +	if (!tc->link_refcount || !intel_tc_port_needs_reset(tc))
+> +		goto out;
+> +
+> +	drm_dbg_kms(display->drm,
+> +		    "Port %s: AUX recover: external TC mode change detected (%s -> HW), reconnecting TC PHY\n",
+> +		    tc->port_name, tc_port_mode_name(tc->mode));
+> +
+> +	/*
+> +	 * Temporarily clear link_refcount so intel_tc_port_reset_mode() can
+> +	 * run the PHY disconnect/connect cycle without the ownership assertion
+> +	 * that fires when link_refcount > 0 and firmware has already released
+> +	 * PHY ownership externally.
+> +	 */
+> +	tc->link_refcount = 0;
+> +	intel_tc_port_reset_mode(tc, 1, false);
+> +	tc->link_refcount = 1;
+> +
+> +	recovered = tc->mode != TC_PORT_DISCONNECTED;
+> +	if (!recovered)
+> +		drm_warn(display->drm,
+> +			 "Port %s: AUX recover: failed to restore TC port mode\n",
+> +			 tc->port_name);
+> +
+> +out:
+> +	mutex_unlock(&tc->lock);
+> +	return recovered;
+> +}
+> +
+>  static void __intel_tc_port_lock(struct intel_tc_port *tc,
+>  				 int required_lanes)
+>  {
+> diff --git a/drivers/gpu/drm/i915/display/intel_tc.h b/drivers/gpu/drm/i915/display/intel_tc.h
+> index 6719aea5bd58..d44998a3081a 100644
+> --- a/drivers/gpu/drm/i915/display/intel_tc.h
+> +++ b/drivers/gpu/drm/i915/display/intel_tc.h
+> @@ -108,6 +108,7 @@ bool intel_tc_port_ref_held(struct intel_digital_port *dig_port);
+>  bool intel_tc_port_link_needs_reset(struct intel_digital_port *dig_port);
+>  bool intel_tc_port_link_reset(struct intel_digital_port *dig_port);
+>  void intel_tc_port_link_cancel_reset_work(struct intel_digital_port *dig_port);
+> +bool intel_tc_port_aux_recover(struct intel_digital_port *dig_port);
 >  
->  	if (state->fake_commit)
+>  int intel_tc_port_init(struct intel_digital_port *dig_port, bool is_legacy);
+>  void intel_tc_port_cleanup(struct intel_digital_port *dig_port);
 > -- 
-> 2.54.0
+> 2.34.1
 
 -- 
 Ville Syrjälä
