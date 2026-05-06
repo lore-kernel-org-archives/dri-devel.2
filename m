@@ -4,75 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51CE7CD343B
-	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 22:17:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CADBFCD3439
+	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 23:33:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DD2310EEE9;
-	Wed,  6 May 2026 22:17:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1680A10EEF7;
+	Wed,  6 May 2026 23:33:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FYYVQUlU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="s0ZdA8oc";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D935C10EEE9;
- Wed,  6 May 2026 22:17:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778105854; x=1809641854;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=sSBdSxsfHapwhnk8JWsFU92IVShCY53vUe1hkAP78Xk=;
- b=FYYVQUlUuOdgu6QOMScu03H4VqahhfCgK8iUGrroFE3kHmH/N1ER7+mq
- iMX7/L3AvyXxUXa8boelSbeYNu8H+R5toB5MJdw4bbHyb/eu/EtYF7STK
- udJsvFXLHf+9UAGd2LUjf7GRZLlOSfIqig76nMMn4rxIt8L4RdbOreFVr
- 0AcVFQag1uLSXQEtKY2zY70+wDYszcEtVX3qlI0y5kdELX2hTnTLj3c1L
- 0L7IK60piEPjr+EEGC0X9MrndzHI7nGohIGsPkiiimQxeFSOGj6s38S2y
- 4FpfNOxA4wPdKU++tpPT5cnV97joS91Zu57LtoI8hFJT7IykWx8wVxpj4 w==;
-X-CSE-ConnectionGUID: rENedALCQO2uuvr/tNzeTg==
-X-CSE-MsgGUID: pekZhiNwRjelBQbOUtTrQQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11778"; a="89638198"
-X-IronPort-AV: E=Sophos;i="6.23,220,1770624000"; d="scan'208";a="89638198"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 May 2026 15:16:42 -0700
-X-CSE-ConnectionGUID: JIThJWJVRKuSM5IItQBo2Q==
-X-CSE-MsgGUID: 8T928h7nSWWvXYEh0v5dug==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,220,1770624000"; d="scan'208";a="238072298"
-Received: from lkp-server01.sh.intel.com (HELO 9ec114424ce8) ([10.239.97.150])
- by fmviesa004.fm.intel.com with ESMTP; 06 May 2026 15:16:36 -0700
-Received: from kbuild by 9ec114424ce8 with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1wKkXg-000000001Gz-27pO;
- Wed, 06 May 2026 22:16:32 +0000
-Date: Thu, 7 May 2026 06:15:55 +0800
-From: kernel test robot <lkp@intel.com>
-To: Melissa Wen <mwen@igalia.com>, airlied@gmail.com,
- alexander.deucher@amd.com, christian.koenig@amd.com,
- harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, simona@ffwll.ch, siqueira@igalia.com,
- sunpeng.li@amd.com, tzimmermann@suse.de
-Cc: oe-kbuild-all@lists.linux.dev, Alex Hung <alex.hung@amd.com>,
- Simon Ser <contact@emersion.fr>, Uma Shankar <uma.shankar@intel.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Xaver Hugl <xaver.hugl@kde.org>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Matthew Schwartz <matthew.schwartz@linux.dev>,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v4 6/6] drm/amd/display: use plane color_mgmt_changed to
- track colorop changes
-Message-ID: <202605070624.Fss9vEZt-lkp@intel.com>
-References: <20260501132527.522320-7-mwen@igalia.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260501132527.522320-7-mwen@igalia.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DB1F10EEF7
+ for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 23:33:22 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id A3DE46015B;
+ Wed,  6 May 2026 23:33:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81A29C2BCB0;
+ Wed,  6 May 2026 23:33:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1778110401;
+ bh=glSgko/3lRAUAdpS5Vo5lsW3Gcp/ZQ8rSY8RK15A8E0=;
+ h=Date:Subject:Cc:To:From:From;
+ b=s0ZdA8oc/SPhN/sedJwH0DfYKAWXNtLEkHlrwcP88DQyYOxtbLW+Dy7rleMaGgJCr
+ aHY1CCEHM/g1mzs4izcDfvG58w/QC36uWs39HXuj+3E11xAfm1WBurQh+ZOVjNRLom
+ 1ICWedKqmF8g8YDGWUPLT0BTREzu/yzAULU58M5IlByOb7vYZxQQwwhwV1/yUvbF7D
+ cjxhr+9f/i40q5u1pO1sIWgxypBFqWqVoAs/UxR44KD8zip534iJH7QPFR7e/tyOyS
+ 5nTljbbPkRxnD/WB7R8Ff3FXYDqhpqpHBA+FK526q+boGe/BS0NaOO3OJWkGkHrtis
+ rvVoRA70Xm4vg==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 07 May 2026 01:33:17 +0200
+Message-Id: <DIBZJ40ZC4J3.Y1DLA7JTS2PC@kernel.org>
+Subject: [GIT PULL] DRM Rust fixes for v7.1-rc3
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Alexandre Courbot" <acourbot@nvidia.com>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, <dri-devel@lists.freedesktop.org>,
+ <nova-gpu@lists.linux.dev>, <rust-for-linux@vger.kernel.org>
+To: "Dave Airlie" <airlied@gmail.com>, "Simona Vetter" <simona.vetter@ffwll.ch>
+From: "Danilo Krummrich" <dakr@kernel.org>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,35 +58,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Melissa,
+Hi Dave and Sima,
 
-kernel test robot noticed the following build warnings:
+Please pull these DRM Rust fixes.
 
-[auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on linus/master v7.1-rc2]
-[cannot apply to next-20260506]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Not all of them have been in linux-next -- linux-next keeps merging branche=
+s
+from the drm-rust tree, but without fetching the remote; I reported this in=
+ [1].
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Melissa-Wen/drm-atomic-only-add-colorop-state-from-active-color-pipeline/20260504-102820
-base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link:    https://lore.kernel.org/r/20260501132527.522320-7-mwen%40igalia.com
-patch subject: [PATCH v4 6/6] drm/amd/display: use plane color_mgmt_changed to track colorop changes
-config: alpha-allyesconfig (https://download.01.org/0day-ci/archive/20260507/202605070624.Fss9vEZt-lkp@intel.com/config)
-compiler: alpha-linux-gcc (GCC) 15.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260507/202605070624.Fss9vEZt-lkp@intel.com/reproduce)
+No conflicts expected.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202605070624.Fss9vEZt-lkp@intel.com/
+- Danilo
 
-All warnings (new ones prefixed by >>):
+[1] https://lore.kernel.org/linux-next/DIBZCHAXRBPZ.2AM1ZBR61RA9Z@kernel.or=
+g/
 
->> Warning: drivers/gpu/drm/drm_atomic.c:1625 function parameter 'plane_state' not described in 'drm_atomic_add_affected_colorops'
->> Warning: drivers/gpu/drm/drm_atomic.c:1625 function parameter 'plane_state' not described in 'drm_atomic_add_affected_colorops'
+The following changes since commit 254f49634ee16a731174d2ae34bc50bd5f45e731=
+:
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+  Linux 7.1-rc1 (2026-04-26 14:19:00 -0700)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/rust/kernel.git tags/drm-rust-fixes-20=
+26-05-07
+
+for you to fetch changes up to 0a69ac25bd596d50823d530d0a2004336668c0df:
+
+  rust: drm: fix unsound initialization in drm::Device::new (2026-05-03 14:=
+04:57 +0200)
+
+----------------------------------------------------------------
+DRM Rust fixes for v7.1-rc3
+
+- Fix unsound initialization in drm::Device::new(); if pinned
+  initialization of drm::Device::Data fails, make sure
+  drm::Device::release() isn't called, so we don't run the data's
+  destructor
+
+- Fix missing GEM state cleanup in the init failure case; call
+  drm_gem_private_object_fini() if drm_gem_object_init() fails
+
+- Fix wrong ARef import in the DRM shmem GEM helper abstraction
+
+- Replace the nouveau mailing list with the new nova-gpu mailing list
+  for both nova-core and nova-drm, and remove unused patchwork entries
+
+----------------------------------------------------------------
+Danilo Krummrich (1):
+      MAINTAINERS: nova: update mailing list
+
+Eliot Courtney (2):
+      rust: drm: gem: clean up GEM state in init failure case
+      rust: drm: fix unsound initialization in drm::Device::new
+
+Mukesh Kumar Chaurasiya (IBM) (1):
+      rust/drm: import ARef from sync crate
+
+ MAINTAINERS                  |  6 ++----
+ rust/kernel/drm/device.rs    | 22 ++++++++++++++++------
+ rust/kernel/drm/gem/mod.rs   | 13 +++++++++++--
+ rust/kernel/drm/gem/shmem.rs |  6 ++----
+ 4 files changed, 31 insertions(+), 16 deletions(-)
