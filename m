@@ -4,53 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50302CD3439
-	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 22:00:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A509CD342C
+	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 22:10:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A97FA10EEDB;
-	Wed,  6 May 2026 22:00:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAECD10E16B;
+	Wed,  6 May 2026 22:10:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="uwmnhyPM";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TvgerBoz";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3262710EEDB
- for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 22:00:54 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88C7010E16B
+ for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 22:10:38 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id AAB2E60181;
- Wed,  6 May 2026 22:00:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B396C2BCB0;
- Wed,  6 May 2026 22:00:47 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 23E7F4058A;
+ Wed,  6 May 2026 22:10:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B67F7C2BCB0;
+ Wed,  6 May 2026 22:10:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778104853;
- bh=on0f2dzM4OyBJJ/2FK/55nr+4xNDyqrNSyiwAHUz4Rk=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=uwmnhyPMk0cS4CjrFv8Om71Z3XOiTp3862EkfaXMedsCh+8jyu8hE4M/tU8GHHdxV
- HgJLiMwSPSWzYUFik535ujPWCYhJSRLH68+Rekwy4p78bip0BYP2TDl2Ega1sllgcv
- +c6Co0jTLuy2Dgl9GlweTdV6Qdy20SHQlHjx1L4Bu+kTsXe5CgH9nZdc1MqgyaazWq
- gcBbZgcpxvHIrpg1pRKvXi9k9LOVY/bdA6RGDNwv3wY5V3ZSRPz20IzTZktGiQuYXo
- rCrF3vwqhaYVeErHSgO76MkiynGqsXsAWDIE39M1ToJ9Ve2+q69ranrJFXU0TvVziO
- NNLBOQGA9I1ag==
+ s=k20201202; t=1778105438;
+ bh=wIb27fgE7wEMQLxtUmbxgRPah5fDXVsjpjKKLmGMqOo=;
+ h=From:To:Cc:Subject:Date:From;
+ b=TvgerBozD9svzBlBATfugEciTLNBnvdM2jOeDSDwhSIRI24OxD7l7sraw4fy8C3Az
+ LUgwrzoyWvpyKQMgcRgFAJ1uf33s3bDM36/jqheezxe5IT+6jUFtkWXultQpdquPMq
+ SPaWgJCslnrh8bCYwB3cjPOLw/iEusZJ8w/KbnpNkhbh/kVjOa8WGK+Sk8TuuqLcdG
+ Wo8GkuEwzfjNf7TvuWgkPWN5uTUGIDvKZdbrjamLvindP7JpbX89VS4MNm+5YoYrl7
+ QIWkuLX0/hNLSYJSyatT5aEGjyWRjAqKDog0RUKYeE1QcaEgOpEJKFGgq5/2VAYX+/
+ dgGwGtWXnbvGw==
 From: Danilo Krummrich <dakr@kernel.org>
-To: gregkh@linuxfoundation.org, rafael@kernel.org, acourbot@nvidia.com,
- aliceryhl@google.com, david.m.ertman@intel.com, ira.weiny@intel.com,
- leon@kernel.org, viresh.kumar@linaro.org, m.wilczynski@samsung.com,
- ukleinek@kernel.org, bhelgaas@google.com, kwilczynski@kernel.org,
- abdiel.janulgue@gmail.com, robin.murphy@arm.com, markus.probst@posteo.de,
+To: aliceryhl@google.com, airlied@gmail.com, simona@ffwll.ch,
+ daniel.almeida@collabora.com, acourbot@nvidia.com, apopple@nvidia.com,
+ ecourtney@nvidia.com, deborah.brouwer@collabora.com, lyude@redhat.com,
  ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
  bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org,
- tmgross@umich.edu, igor.korotin@linux.dev, daniel.almeida@collabora.com
-Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
- linux-pm@vger.kernel.org, linux-pwm@vger.kernel.org,
- linux-pci@vger.kernel.org, rust-for-linux@vger.kernel.org,
- Danilo Krummrich <dakr@kernel.org>
-Subject: [PATCH 3/3] rust: io: mem: return DevresLt from
- IoMem/ExclusiveIoMem::into_devres()
-Date: Wed,  6 May 2026 23:58:35 +0200
-Message-ID: <20260506220012.855173-4-dakr@kernel.org>
+ tmgross@umich.edu
+Cc: driver-core@lists.linux.dev, nova-gpu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, Danilo Krummrich <dakr@kernel.org>
+Subject: [PATCH 0/6] rust: drm: Higher-Ranked Lifetime private data
+Date: Thu,  7 May 2026 00:05:58 +0200
+Message-ID: <20260506221027.858481-1-dakr@kernel.org>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260506220012.855173-1-dakr@kernel.org>
-References: <20260506220012.855173-1-dakr@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -68,149 +61,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Implement ForLt for IoMem<'static, SIZE> and ExclusiveIoMem<'static,
-SIZE> so that DevresLt can shorten the stored 'static lifetime back to
-the caller's borrow lifetime via ForLt::cast_ref.
+DRM ioctls run in process context without any guarantee that the parent
+bus device is still bound. This series solves the problem by introducing
+UnbindGuard -- a guard representing a drm_dev_enter/exit SRCU critical
+section that proves the parent bus device is bound for the lifetime of
+the guard.
 
-Change into_devres() to return DevresLt instead of Devres; add
-DevresIoMem<SIZE> and DevresExclusiveIoMem<SIZE> type aliases.
+On top of that, add RegistrationData as a ForLt associated type on
+drm::Driver, allowing drivers to store data whose lifetime is tied to
+the parent bus device binding scope. The data is allocated in
+Registration::new(), lifetime-erased to 'static for storage, and made
+accessible through UnbindGuard::registration_data() with the lifetime
+shortened back via ForLt::cast_ref.
 
-Signed-off-by: Danilo Krummrich <dakr@kernel.org>
----
- drivers/pwm/pwm_th1520.rs |  5 ++--
- rust/kernel/io/mem.rs     | 55 ++++++++++++++++++++++++++++-----------
- 2 files changed, 42 insertions(+), 18 deletions(-)
+Also update the ioctl dispatch macro to wrap every handler in an
+UnbindGuard, returning ENODEV if the device has been unplugged, and
+pass both the bound parent bus device and the registration data as
+arguments to handlers.
 
-diff --git a/drivers/pwm/pwm_th1520.rs b/drivers/pwm/pwm_th1520.rs
-index 3deb39d8e0fc..6b094be35310 100644
---- a/drivers/pwm/pwm_th1520.rs
-+++ b/drivers/pwm/pwm_th1520.rs
-@@ -24,9 +24,8 @@
- use kernel::{
-     clk::Clk,
-     device::{Bound, Core, Device},
--    devres,
-     io::{
--        mem::IoMem,
-+        mem::DevresIoMem,
-         Io, //
-     },
-     of, platform,
-@@ -92,7 +91,7 @@ struct Th1520WfHw {
- #[pin_data(PinnedDrop)]
- struct Th1520PwmDriverData {
-     #[pin]
--    iomem: devres::Devres<IoMem<'static, TH1520_PWM_REG_SIZE>>,
-+    iomem: DevresIoMem<TH1520_PWM_REG_SIZE>,
-     clk: Clk,
- }
- 
-diff --git a/rust/kernel/io/mem.rs b/rust/kernel/io/mem.rs
-index a4cb12ee70d3..928aa7742490 100644
---- a/rust/kernel/io/mem.rs
-+++ b/rust/kernel/io/mem.rs
-@@ -9,7 +9,7 @@
-         Bound,
-         Device, //
-     },
--    devres::Devres,
-+    devres::DevresLt,
-     io::{
-         self,
-         resource::{
-@@ -20,6 +20,7 @@
-         MmioRaw, //
-     },
-     prelude::*,
-+    types::ForLt, //
- };
- 
- /// An IO request for a specific device and resource.
-@@ -170,6 +171,18 @@ pub struct ExclusiveIoMem<'bound, const SIZE: usize> {
-     _region: Region,
- }
- 
-+// SAFETY: `ExclusiveIoMem<'bound, SIZE>` is covariant over `'bound` --
-+// it holds an `IoMem<'bound, SIZE>`, which holds
-+// `&'bound Device<Bound>`, which is covariant.
-+unsafe impl<const SIZE: usize> ForLt for ExclusiveIoMem<'static, SIZE> {
-+    type Of<'bound> = ExclusiveIoMem<'bound, SIZE>;
-+}
-+
-+/// A device-managed exclusive I/O memory region.
-+///
-+/// See [`ExclusiveIoMem::into_devres`].
-+pub type DevresExclusiveIoMem<const SIZE: usize> = DevresLt<ExclusiveIoMem<'static, SIZE>>;
-+
- impl<'bound, const SIZE: usize> ExclusiveIoMem<'bound, SIZE> {
-     /// Creates a new `ExclusiveIoMem` instance.
-     fn ioremap(dev: &'bound Device<Bound>, resource: &Resource) -> Result<Self> {
-@@ -196,15 +209,16 @@ fn ioremap(dev: &'bound Device<Bound>, resource: &Resource) -> Result<Self> {
- 
-     /// Consume the `ExclusiveIoMem` and register it as a device-managed resource.
-     ///
--    /// The returned `Devres<ExclusiveIoMem<'static, SIZE>>` can outlive the original lifetime
--    /// `'bound`. Access to the I/O memory is revoked when the device is unbound.
--    pub fn into_devres(self) -> Result<Devres<ExclusiveIoMem<'static, SIZE>>> {
--        // SAFETY: Casting to `'static` is sound because `Devres` guarantees the
-+    /// Access methods on the returned [`DevresLt`] shorten the inner lifetime via
-+    /// [`ForLt::cast_ref`], so the transmuted `'static` is never exposed to callers.
-+    pub fn into_devres(self) -> Result<DevresLt<ExclusiveIoMem<'static, SIZE>>> {
-+        // SAFETY: Casting to `'static` is sound because `DevresLt` guarantees the
-         // `ExclusiveIoMem` does not actually outlive the device -- access is revoked and the
--        // resource is released when the device is unbound.
-+        // resource is released when the device is unbound. The `ForLt` encoding ensures
-+        // `access()` shortens the lifetime back to the caller's borrow.
-         let iomem: ExclusiveIoMem<'static, SIZE> = unsafe { core::mem::transmute(self) };
-         let dev = iomem.iomem.dev;
--        Devres::new(dev, iomem)
-+        DevresLt::new(dev, iomem)
-     }
- }
- 
-@@ -230,6 +244,17 @@ pub struct IoMem<'bound, const SIZE: usize = 0> {
-     io: MmioRaw<SIZE>,
- }
- 
-+// SAFETY: `IoMem<'bound, SIZE>` is covariant over `'bound` -- it holds
-+// `&'bound Device<Bound>`, which is covariant.
-+unsafe impl<const SIZE: usize> ForLt for IoMem<'static, SIZE> {
-+    type Of<'bound> = IoMem<'bound, SIZE>;
-+}
-+
-+/// A device-managed I/O memory region.
-+///
-+/// See [`IoMem::into_devres`].
-+pub type DevresIoMem<const SIZE: usize> = DevresLt<IoMem<'static, SIZE>>;
-+
- impl<'bound, const SIZE: usize> IoMem<'bound, SIZE> {
-     fn ioremap(dev: &'bound Device<Bound>, resource: &Resource) -> Result<Self> {
-         // Note: Some ioremap() implementations use types that depend on the CPU
-@@ -269,16 +294,16 @@ fn ioremap(dev: &'bound Device<Bound>, resource: &Resource) -> Result<Self> {
- 
-     /// Consume the `IoMem` and register it as a device-managed resource.
-     ///
--    /// The returned `Devres<IoMem<'static, SIZE>>` can outlive the original
--    /// lifetime `'bound`. Access to the I/O memory is revoked when the device
--    /// is unbound.
--    pub fn into_devres(self) -> Result<Devres<IoMem<'static, SIZE>>> {
--        // SAFETY: Casting to `'static` is sound because `Devres` guarantees the `IoMem` does not
--        // actually outlive the device -- access is revoked and the resource is released when the
--        // device is unbound.
-+    /// Access methods on the returned [`DevresLt`] shorten the inner lifetime via
-+    /// [`ForLt::cast_ref`], so the transmuted `'static` is never exposed to callers.
-+    pub fn into_devres(self) -> Result<DevresLt<IoMem<'static, SIZE>>> {
-+        // SAFETY: Casting to `'static` is sound because `DevresLt` guarantees the `IoMem` does
-+        // not actually outlive the device -- access is revoked and the resource is released when
-+        // the device is unbound. The `ForLt` encoding ensures `access()` shortens the lifetime
-+        // back to the caller's borrow.
-         let iomem: IoMem<'static, SIZE> = unsafe { core::mem::transmute(self) };
-         let dev = iomem.dev;
--        Devres::new(dev, iomem)
-+        DevresLt::new(dev, iomem)
-     }
- }
- 
+This series is based on [1], as well as Lyudes drm::DeviceContext work;
+a branch with all patches can be found in [2].
+
+[1] https://lore.kernel.org/driver-core/20260506220012.855173-1-dakr@kernel.org/
+[2] https://git.kernel.org/pub/scm/linux/kernel/git/dakr/linux.git/log/?h=drm-lifetime
+
+Danilo Krummrich (6):
+  rust: drm: Add Driver::ParentDevice associated type
+  rust: drm: Add UnbindGuard for drm_dev_enter/exit critical sections
+  rust: drm: Add RegistrationData to drm::Driver
+  rust: drm: Wrap ioctl dispatch in UnbindGuard
+  rust: drm: Pass registration data to ioctl handlers
+  rust: drm: Pass bound parent device to ioctl handlers
+
+ drivers/gpu/drm/nova/driver.rs |  14 +++-
+ drivers/gpu/drm/nova/file.rs   |   8 ++
+ drivers/gpu/drm/tyr/driver.rs  |  12 ++-
+ drivers/gpu/drm/tyr/file.rs    |   4 +
+ rust/kernel/drm/device.rs      | 134 ++++++++++++++++++++++++++++++++-
+ rust/kernel/drm/driver.rs      | 100 +++++++++++++++++++-----
+ rust/kernel/drm/ioctl.rs       |  17 ++++-
+ rust/kernel/drm/mod.rs         |   1 +
+ 8 files changed, 258 insertions(+), 32 deletions(-)
+
 -- 
 2.54.0
 
