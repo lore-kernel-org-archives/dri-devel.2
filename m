@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AB6BCD343B
-	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 12:16:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED43ACD3436
+	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 12:16:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D359910ED5B;
-	Wed,  6 May 2026 12:16:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84C7910ED6F;
+	Wed,  6 May 2026 12:16:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="LjHrHRS0";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="HwIiRzUq";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FCEE10ED5B;
- Wed,  6 May 2026 12:16:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A813710ED5B;
+ Wed,  6 May 2026 12:16:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1778069800;
- bh=WOtqjv3FDzYb3+bj/irlhWg2OHoRy/G/0OVw3EpOZOY=;
+ s=mail; t=1778069799;
+ bh=u1rbbnIoyFZA7O2vs7QHol/yHibz7ircmGOOnRxEjGA=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=LjHrHRS0urOjbm8y0X0K21zx9YomzGIGQgtQysgaUuExqQanzt93OBDCZQ5RGmo0D
- sQBxW+649Kwan1TI2gKcGAGd3OPR8oTpexAtRwIbUybuZ5jE4epfbdgayiApSclD/e
- 9sJIi694TdfsTiZN9EyGVuTODpSC0jGCkec5S3qzcbhdO/lrnMNTZXfujS/z5bakdv
- PEJ211H/bJZaAdHEI+8RGtTsSYEAVIlR0XDexrmnerYNyPQTv0A+3BeAau9xSMMPMN
- uVt30Zt1yWTrI5Tnaoubv6EDBAln6ZA0ISSU7+i3fAp9o2JjiNA9ku5rBtsIq4dG3i
- YAzx3KLt4/Ekg==
+ b=HwIiRzUqisePGYSP+oQv8nut2BrQ2Y8Yz8rFZyvpXSXIu7PXyeQTv249ZYry8t5FR
+ fFHvXPH6osctGucWoC4Py5gh+56RV9cb2cKqXg+xZxMlxkr1BU1nMaLmEF0dY/9bom
+ 8U6gtSxzpKQD4MJedEhlwrdzVZ9xguxercMdIKl5K/scxHlpTCCqd7FaDDtQBgib3s
+ vrDk7euO9rvVmNaF3F94HWrpkFy9aQLBdySDTuFadoQ9f5BoQkUx07lfZBLQNclaNM
+ bKNNVU/J5Dug5BJUUW8lL+kKmty/lAwn86wPo/uyg5ZwUoFWMMniXkivncb7UWOAzh
+ uQPcjpPDJ4r0w==
 Received: from [100.64.0.11] (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 929CB17E1562;
- Wed,  6 May 2026 14:16:39 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 94F7917E1537;
+ Wed,  6 May 2026 14:16:38 +0200 (CEST)
 From: Boris Brezillon <boris.brezillon@collabora.com>
-Date: Wed, 06 May 2026 14:16:28 +0200
-Subject: [PATCH 3/3] drm/gem: Stop exposing the racy/unsafe
- drm_gem_lru_remove() helper
+Date: Wed, 06 May 2026 14:16:27 +0200
+Subject: [PATCH 2/3] drm/gem: Fix a race between drm_gem_lru_scan() and
+ drm_gem_object_release()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260506-panthor-shrinker-fixes-v1-3-e7721526de96@collabora.com>
+Message-Id: <20260506-panthor-shrinker-fixes-v1-2-e7721526de96@collabora.com>
 References: <20260506-panthor-shrinker-fixes-v1-0-e7721526de96@collabora.com>
 In-Reply-To: <20260506-panthor-shrinker-fixes-v1-0-e7721526de96@collabora.com>
 To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
@@ -57,11 +57,11 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778069796; l=3269;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778069796; l=2777;
  i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
- bh=WOtqjv3FDzYb3+bj/irlhWg2OHoRy/G/0OVw3EpOZOY=;
- b=UeuoKbZtO0sViuF9+YSdaQdvfa4dctHnpv4/OJEcfdfHbK3bU5SITMtB3cxZlrM8SbP+/junN
- DztOTEFUK0jAPlEEFeD+7lb0troRRmqAofaEAwHgiOIYyo1HNJCXHOD
+ bh=u1rbbnIoyFZA7O2vs7QHol/yHibz7ircmGOOnRxEjGA=;
+ b=0Vn0g7A6fEq54VBM8lGGCLNX9mHH+iAkL1OkGKe/jCH9w71OWroJV8R46OeF5EN1tdfdBhZwI
+ cmjDTvLf01KDnH2rNOTeUgKqGCKEDTXPmK0yMv53DqAjtz8gkdpAlyR
 X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
  pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -79,106 +79,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The only place where it's safe to call drm_gem_lru_remove() is when
-we know the drm_gem_object::lru field can't be concurrently updated,
-which we know is the case when the drm_gem_object is destroyed.
+The following race can currently happen:
 
-Rather than trying to make that safe, let's kill the function and inline
-its content in drm_gem_object_release().
+| Thread 0 in `drm_gem_lru_scan`               | Thread 1 in `drm_gem_object_release` |
+| -                                            | -                                    |
+| move obj1 with refcount==0 to `still_in_lru` |                                      |
+| move obj2 with refcount!=0 to `still_in_lru` |                                      |
+| mutex_unlock                                 |                                      |
+| shrink obj2                                  |                                      |
+|                                              | lru = obj1->lru; // `still_in_lru`   |
+| mutex_lock                                   |                                      |
+| move obj1 back to the original lru           |                                      |
+| mutex_unlock                                 |                                      |
+| return                                       |                                      |
+|                                              | dereference `still_in_lru`           |
 
+Move the drm_gem_lru_move_tail_locked() after the
+kref_get_unless_zero() check so that we don't end up with a
+vanishing LRU when we hit drm_gem_object_release(). We also need to
+remove the skipped object from its LRU, otherwise we'll keep hitting
+it on subsequent loop iterations until it's actually removed from the
+list in the drm_gem_release().
+
+Fixes: e7c2af13f811 ("drm/gem: Add LRU/shrinker helper")
+Reported-by: Chia-I Wu <olvaffe@gmail.com>
+Closes: https://gitlab.freedesktop.org/panfrost/linux/-/work_items/86
 Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 Reviewed-by: Chia-I Wu <olvaffe@gmail.com>
 ---
- drivers/gpu/drm/drm_gem.c | 49 +++++++++++++++++------------------------------
- include/drm/drm_gem.h     |  1 -
- 2 files changed, 18 insertions(+), 32 deletions(-)
+ drivers/gpu/drm/drm_gem.c | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-index 97cf63de0112..b6df4f62f7b5 100644
+index fca42949eb2b..97cf63de0112 100644
 --- a/drivers/gpu/drm/drm_gem.c
 +++ b/drivers/gpu/drm/drm_gem.c
-@@ -1108,6 +1108,15 @@ drm_gem_release(struct drm_device *dev, struct drm_file *file_private)
- 	idr_destroy(&file_private->object_idr);
- }
+@@ -1660,15 +1660,19 @@ drm_gem_lru_scan(struct drm_gem_lru *lru,
+ 		if (!obj)
+ 			break;
  
-+static void
-+drm_gem_lru_remove_locked(struct drm_gem_object *obj)
-+{
-+	obj->lru->count -= obj->size >> PAGE_SHIFT;
-+	WARN_ON(obj->lru->count < 0);
-+	list_del(&obj->lru_node);
-+	obj->lru = NULL;
-+}
+-		drm_gem_lru_move_tail_locked(&still_in_lru, obj);
+-
+ 		/*
+ 		 * If it's in the process of being freed, gem_object->free()
+-		 * may be blocked on lock waiting to remove it.  So just
+-		 * skip it.
++		 * may be blocked on lock waiting to remove it.  So just remove
++		 * it from its current LRU and skip it.
+ 		 */
+-		if (!kref_get_unless_zero(&obj->refcount))
++		if (!kref_get_unless_zero(&obj->refcount)) {
++			if (obj->lru)
++				drm_gem_lru_remove_locked(obj);
 +
- /**
-  * drm_gem_object_release - release GEM buffer object resources
-  * @obj: GEM buffer object
-@@ -1124,7 +1133,15 @@ drm_gem_object_release(struct drm_gem_object *obj)
- 	drm_gem_private_object_fini(obj);
- 
- 	drm_gem_free_mmap_offset(obj);
--	drm_gem_lru_remove(obj);
+ 			continue;
++		}
 +
-+	/* If the object refcount drops to zero, it means no one can change
-+	 * the LRU it's inserted into, so it's safe to dereference
-+	 * drm_gem_object::lru without the drm_gem_lru::lock held.
-+	 */
-+	if (obj->lru) {
-+		guard(mutex)(obj->lru->lock);
-+		drm_gem_lru_remove_locked(obj);
-+	}
- }
- EXPORT_SYMBOL(drm_gem_object_release);
++		drm_gem_lru_move_tail_locked(&still_in_lru, obj);
  
-@@ -1552,36 +1569,6 @@ drm_gem_lru_init(struct drm_gem_lru *lru, struct mutex *lock)
- }
- EXPORT_SYMBOL(drm_gem_lru_init);
- 
--static void
--drm_gem_lru_remove_locked(struct drm_gem_object *obj)
--{
--	obj->lru->count -= obj->size >> PAGE_SHIFT;
--	WARN_ON(obj->lru->count < 0);
--	list_del(&obj->lru_node);
--	obj->lru = NULL;
--}
--
--/**
-- * drm_gem_lru_remove - remove object from whatever LRU it is in
-- *
-- * If the object is currently in any LRU, remove it.
-- *
-- * @obj: The GEM object to remove from current LRU
-- */
--void
--drm_gem_lru_remove(struct drm_gem_object *obj)
--{
--	struct drm_gem_lru *lru = obj->lru;
--
--	if (!lru)
--		return;
--
--	mutex_lock(lru->lock);
--	drm_gem_lru_remove_locked(obj);
--	mutex_unlock(lru->lock);
--}
--EXPORT_SYMBOL(drm_gem_lru_remove);
--
- /**
-  * drm_gem_lru_move_tail_locked - move the object to the tail of the LRU
-  *
-diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
-index 86f5846154f7..d527df98d142 100644
---- a/include/drm/drm_gem.h
-+++ b/include/drm/drm_gem.h
-@@ -611,7 +611,6 @@ int drm_gem_dumb_map_offset(struct drm_file *file, struct drm_device *dev,
- 			    u32 handle, u64 *offset);
- 
- void drm_gem_lru_init(struct drm_gem_lru *lru, struct mutex *lock);
--void drm_gem_lru_remove(struct drm_gem_object *obj);
- void drm_gem_lru_move_tail_locked(struct drm_gem_lru *lru, struct drm_gem_object *obj);
- void drm_gem_lru_move_tail(struct drm_gem_lru *lru, struct drm_gem_object *obj);
- unsigned long
+ 		/*
+ 		 * Now that we own a reference, we can drop the lock for the
 
 -- 
 2.54.0
