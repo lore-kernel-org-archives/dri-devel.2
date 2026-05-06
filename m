@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33601CD343B
-	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 10:46:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 211E8CD3436
+	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 10:46:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71EA010ED48;
-	Wed,  6 May 2026 10:46:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 819C710ED4B;
+	Wed,  6 May 2026 10:46:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="FpF3u8K2";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="QhqfmTaP";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D028510ED48
- for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 10:46:31 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1778064385; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABF1610ED4B
+ for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 10:46:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1778064389; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=ToBYWr2rfPrx8OdcrtbsFqU3uBI2K19G16251aaDLeh/esreR80A+kvs+s26mEtHsbuhttJLzJmIa3kHwYaw+nefLxA879hC9IkyCT2miZJqgCtnR1Zd+QEn3XzEFNg8EBdYz/9V9LP4cj5r0N4GyLbm+SlgUBOyc9BMJXe7Elg=
+ b=D6FvrL7zivCavhxW8V2B+snCL/+ZyPrMVjOuZTJ5+vuT5yLGKlMTwva55lG5KxCbQQq9glD0auJwFpSMsMrQx3HwOa57ksvTBCR80HT5APctDxjLB6BUGyEo5KKMs1JwxvCoDXHGbMlzdc9XUX+1F2DugRUQDIGokBr8GbDx73A=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1778064385;
+ s=zohoarc; t=1778064389;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=vC5Ti96d2pHAA98KqlsOt+8u7IhA9j3QH0f3efMfNJI=; 
- b=NR/ktKsP6BmE2Cm4WiCNBi1Axq2E8p33FNZKZwZhPxLF3S3r3hApKbWaJ4cf3x2TvQAyifr4auZzVcdNmo4IpXD5+xJBMuEOyxvjp32i9RJUixHG7RUVUrWU3ihwCewW+T3sqXRcP63nc9vXFL51v+otib/Qctq6EZtzIsRdtjE=
+ bh=vwfdhxDnYiWIt6VTFU0ct626I1R9RrLO+rBMwge8DiU=; 
+ b=hfCoArjp6Ukm2x/5P78YSbMfuiGxPt4M60o2+Ta9bEvu3gr+pxbH7hdj+VQDzevvf7ONGijqZl3kGRiXFUYTI9+uQPrw5Lg1O5JBT1YjnYeCeJMOrDcxI1dCpHK5wzRNq5Dz50uTw4FgkBmk3RQBhW+BjWdNhuGVG7r2O7CqH6E=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1778064385; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1778064389; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=vC5Ti96d2pHAA98KqlsOt+8u7IhA9j3QH0f3efMfNJI=;
- b=FpF3u8K2IeD13Tcp4UvT9hz46SpsmnD607gkQuDQTvsa0QCu7HpzP+oDBUyzqjjD
- K3NaLk2fJnDkmVRn8HEQmgRJ/s+5FU6eOYDVaOrwX4A00kHcTtCgZwA/yZWergrKdox
- /ut1z/b8w3TZvj+9Mxe9AVHJk0BdzcMppkKSogVY=
-Received: by mx.zohomail.com with SMTPS id 1778064383726461.6157625485929;
- Wed, 6 May 2026 03:46:23 -0700 (PDT)
+ bh=vwfdhxDnYiWIt6VTFU0ct626I1R9RrLO+rBMwge8DiU=;
+ b=QhqfmTaPibZSRPSq2JTdt8BPbfh2ZtO9l0qmBkLgG7wLpO8pELsGDi8q86/rNFWM
+ IpcmWF7QuenR0odLEn/EA+Fw6M6l3QhaJGh8ev0yL16rPY++8RpOCv5IaMnIiIqYdey
+ LiVbvgBRYhn9RUi1xiEx81f6I0Xf6I5sRocHgkI4=
+Received: by mx.zohomail.com with SMTPS id 177806438704319.20442345053607;
+ Wed, 6 May 2026 03:46:27 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Wed, 06 May 2026 12:45:58 +0200
-Subject: [PATCH 3/4] drm/panthor: Add explicit memory reclaim sysfs knob
+Date: Wed, 06 May 2026 12:45:59 +0200
+Subject: [PATCH 4/4] drm/panthor: Add explicit memory claim sysfs knob
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260506-panthor-explicit-reclaim-v1-3-44f82ac147ce@collabora.com>
+Message-Id: <20260506-panthor-explicit-reclaim-v1-4-44f82ac147ce@collabora.com>
 References: <20260506-panthor-explicit-reclaim-v1-0-44f82ac147ce@collabora.com>
 In-Reply-To: <20260506-panthor-explicit-reclaim-v1-0-44f82ac147ce@collabora.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>, 
@@ -74,100 +74,60 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 For deployments of systems with very tight memory and a system resource
 manager process that can make well-founded decisions on trade-offs, a
-way to tell panthor's GEM shrinker to run a reclaim on a specific
-process immediately is of interest.
+way to tell panthor that all of a process' swapped-out GPU memory should
+be swapped back in without touching every page manually is of interest.
 
 Make it possible to do this by adding a new sysfs file, called
-"mem_reclaim", which kicks off a reclaim for private BOs owned by the
-process whose TGID is written to the file.
+"mem_claim". Writing a TGID to it will cause panthor to search through
+all panthor_files associated with that process, and bring all its
+buffers back from swap.
 
-Processes may trigger an explicit reclaim on themselves, but triggering
-it on other processes requires the CAP_SYS_RESOURCE capability.
+Doing this requires the writer to have the CAP_SYS_RESOURCE capability,
+even when operating on themselves.
 
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- Documentation/ABI/testing/sysfs-driver-panthor-mem | 17 ++++++
- drivers/gpu/drm/panthor/panthor_drv.c              | 67 ++++++++++++++++++++++
- drivers/gpu/drm/panthor/panthor_gem.c              |  4 +-
- drivers/gpu/drm/panthor/panthor_gem.h              |  1 +
- drivers/gpu/drm/panthor/panthor_mmu.c              | 33 +++++++++++
- drivers/gpu/drm/panthor/panthor_mmu.h              |  2 +
- 6 files changed, 122 insertions(+), 2 deletions(-)
+ Documentation/ABI/testing/sysfs-driver-panthor-mem | 17 ++++++++++++++
+ drivers/gpu/drm/panthor/panthor_drv.c              | 26 ++++++++++++++++++++++
+ drivers/gpu/drm/panthor/panthor_mmu.c              | 25 +++++++++++++++++++++
+ drivers/gpu/drm/panthor/panthor_mmu.h              |  1 +
+ 4 files changed, 69 insertions(+)
 
 diff --git a/Documentation/ABI/testing/sysfs-driver-panthor-mem b/Documentation/ABI/testing/sysfs-driver-panthor-mem
-new file mode 100644
-index 000000000000..6639394abed2
---- /dev/null
+index 6639394abed2..41e2c18f641d 100644
+--- a/Documentation/ABI/testing/sysfs-driver-panthor-mem
 +++ b/Documentation/ABI/testing/sysfs-driver-panthor-mem
-@@ -0,0 +1,17 @@
-+What:		/sys/bus/platform/drivers/panthor/.../mem_reclaim
+@@ -15,3 +15,20 @@ Description:
+ 		* -EPERM: insufficient permissions to run a reclaim on given TGID
+ 		* -EINTR: interrupted by signal
+ 		* -ESRCH: given TGID is not using panthor, and might not exist at all
++
++What:		/sys/bus/platform/drivers/panthor/.../mem_claim
 +Date:		May 2026
 +Contact:	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 +Description:
-+		(WO) Writing to this file will trigger a GPU memory reclaim run for all
-+		panthor GPU contexts associated with the TGID written to it. The write
-+		completes when the reclaim operation has finished.
++		(WO) Writing to this file will cause GPU memory for all panthor GPU
++		contexts associated with the TGID that's written to it to be brought
++		back from swap. The write completes when the operation has finished.
 +
-+		To run a reclaim on a TGID other than its own, a process requires the
-+		CAP_SYS_RESOURCE capability.
++		The writing process requires the CAP_SYS_RESOURCE capability.
 +
 +		Possible error codes:
 +		* -ERANGE: given TGID is too large/small for the TGID type.
 +		* -EINVAL: given TGID could not be parsed.
-+		* -EPERM: insufficient permissions to run a reclaim on given TGID
++		* -EPERM: insufficient permissions
 +		* -EINTR: interrupted by signal
 +		* -ESRCH: given TGID is not using panthor, and might not exist at all
 diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-index 66996c9147c2..7d19b8785ea3 100644
+index 7d19b8785ea3..fb2172b0439c 100644
 --- a/drivers/gpu/drm/panthor/panthor_drv.c
 +++ b/drivers/gpu/drm/panthor/panthor_drv.c
-@@ -1858,8 +1858,75 @@ static ssize_t profiling_store(struct device *dev,
+@@ -1924,9 +1924,35 @@ static ssize_t mem_reclaim_store(struct device *dev,
  
- static DEVICE_ATTR_RW(profiling);
+ static DEVICE_ATTR_WO(mem_reclaim);
  
-+/**
-+ * panthor_run_on_pfiles_of_tgid - Run function on each panthor_file of process
-+ * @ptdev: pointer to the &struct panthor_device
-+ * @tgid: The TGID of the process to look for
-+ * @func: function pointer to run on every &struct panthor_file opened by @tgid
-+ *
-+ * Searches through the list of all panthor DRM files for ones that are opened
-+ * by a process with TGID @tgid. For every match found, runs @func with the
-+ * associated &struct panthor_file.
-+ *
-+ * Returns: negative errno on error, number of files matching @tgid otherwise.
-+ */
-+static int panthor_run_on_pfiles_of_tgid(struct panthor_device *ptdev, pid_t tgid,
-+					 void (*func)(struct panthor_file *pf))
-+{
-+	struct drm_file *file;
-+	int found = 0;
-+
-+	scoped_cond_guard(mutex_intr, return -EINTR, &ptdev->base.filelist_mutex) {
-+		list_for_each_entry(file, &ptdev->base.filelist, lhead) {
-+			struct task_struct *task;
-+			struct pid *file_pid;
-+
-+			rcu_read_lock();
-+			file_pid = rcu_dereference(file->pid);
-+			task = pid_task(file_pid, PIDTYPE_TGID);
-+			if (!task || task->tgid != tgid) {
-+				rcu_read_unlock();
-+				continue;
-+			}
-+			rcu_read_unlock();
-+			found++;
-+			/* func needs to run outside RCU lock */
-+			func(file->driver_priv);
-+		}
-+	}
-+
-+	return found;
-+}
-+
-+static ssize_t mem_reclaim_store(struct device *dev,
-+				 struct device_attribute *attr,
-+				 const char *buf, size_t len)
++static ssize_t mem_claim_store(struct device *dev, struct device_attribute *attr,
++			       const char *buf, size_t len)
 +{
 +	struct panthor_device *ptdev = dev_get_drvdata(dev);
 +	pid_t tgid;
@@ -177,10 +137,10 @@ index 66996c9147c2..7d19b8785ea3 100644
 +	if (ret)
 +		return ret;
 +
-+	if (tgid != current->tgid && !capable(CAP_SYS_RESOURCE))
++	if (!capable(CAP_SYS_RESOURCE))
 +		return -EPERM;
 +
-+	ret = panthor_run_on_pfiles_of_tgid(ptdev, tgid, panthor_mmu_force_reclaim);
++	ret = panthor_run_on_pfiles_of_tgid(ptdev, tgid, panthor_mmu_force_claim);
 +	if (ret < 0)
 +		return ret;
 +	else if (!ret)
@@ -189,102 +149,60 @@ index 66996c9147c2..7d19b8785ea3 100644
 +	return len;
 +}
 +
-+static DEVICE_ATTR_WO(mem_reclaim);
++static DEVICE_ATTR_WO(mem_claim);
 +
  static struct attribute *panthor_attrs[] = {
  	&dev_attr_profiling.attr,
-+	&dev_attr_mem_reclaim.attr,
+ 	&dev_attr_mem_reclaim.attr,
++	&dev_attr_mem_claim.attr,
  	NULL,
  };
  
-diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
-index 80e82238f3c5..5780fd51170c 100644
---- a/drivers/gpu/drm/panthor/panthor_gem.c
-+++ b/drivers/gpu/drm/panthor/panthor_gem.c
-@@ -1473,8 +1473,8 @@ static bool panthor_gem_try_evict_no_resv_wait(struct drm_gem_object *obj,
- 	return ret == 0;
- }
- 
--static bool panthor_gem_try_evict(struct drm_gem_object *obj,
--				  struct ww_acquire_ctx *ticket)
-+bool panthor_gem_try_evict(struct drm_gem_object *obj,
-+			   struct ww_acquire_ctx *ticket)
- {
- 	struct panthor_gem_object *bo = to_panthor_bo(obj);
- 
-diff --git a/drivers/gpu/drm/panthor/panthor_gem.h b/drivers/gpu/drm/panthor/panthor_gem.h
-index ae0491d0b121..593d8e7b7aaf 100644
---- a/drivers/gpu/drm/panthor/panthor_gem.h
-+++ b/drivers/gpu/drm/panthor/panthor_gem.h
-@@ -254,6 +254,7 @@ panthor_gem_get_dev_sgt(struct panthor_gem_object *bo);
- int panthor_gem_pin(struct panthor_gem_object *bo);
- void panthor_gem_unpin(struct panthor_gem_object *bo);
- int panthor_gem_swapin_locked(struct panthor_gem_object *bo);
-+bool panthor_gem_try_evict(struct drm_gem_object *obj, struct ww_acquire_ctx *ticket);
- void panthor_gem_update_reclaim_state_locked(struct panthor_gem_object *bo,
- 					     enum panthor_gem_reclaim_state *old_state);
- int panthor_gem_shrinker_init(struct panthor_device *ptdev);
 diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-index b81388b35a58..e185787f5657 100644
+index e185787f5657..7130ba4a24da 100644
 --- a/drivers/gpu/drm/panthor/panthor_mmu.c
 +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-@@ -3199,6 +3199,39 @@ panthor_mmu_reclaim_priv_bos(struct panthor_device *ptdev,
- 	return freed;
+@@ -3232,6 +3232,31 @@ void panthor_mmu_force_reclaim(struct panthor_file *pfile)
+ 		freed, freed_sz, nr_to_scan, remaining);
  }
  
 +/**
-+ * panthor_mmu_force_reclaim - Run a reclaim on all VMs associated with a file
-+ * @pfile: pointer to the &struct panthor_file to reclaim memory on
++ * panthor_mmu_force_claim - Swap in all VMs associated with a file
++ * @pfile: pointer to the &struct panthor_file whose memory to swap in
 + *
-+ * Attempt to evict all private BOs of VMs associated with @pfile. In other
-+ * words, attempt to swap out as much GPU memory of the context associated with
-+ * @pfile as possible.
++ * Attempt to get all GPU memory of @pfile swapped back in.
 + */
-+void panthor_mmu_force_reclaim(struct panthor_file *pfile)
++void panthor_mmu_force_claim(struct panthor_file *pfile)
 +{
-+	struct panthor_device *ptdev = pfile->ptdev;
-+	unsigned long i, remaining, freed;
-+	unsigned int nr_to_scan = 0;
 +	struct panthor_vm *vm;
-+	size_t freed_sz;
++	unsigned long i;
++	int ret;
 +
-+	scoped_guard(mutex, &ptdev->reclaim.lock) {
-+		xa_for_each(&pfile->vms->xa, i, vm) {
-+			/* Skip VMs that already aren't backed by any pages */
-+			if (!vm->reclaim.lru.count)
-+				continue;
++	xa_for_each(&pfile->vms->xa, i, vm) {
++		struct dma_resv *resv = drm_gpuvm_resv(&vm->base);
 +
-+			nr_to_scan += vm->reclaim.lru.count;
-+			list_move(&vm->reclaim.lru_node, &ptdev->reclaim.vms);
-+		}
++		dma_resv_lock(resv, NULL);
++		ret = drm_gpuvm_validate(&vm->base, NULL);
++		if (ret)
++			drm_dbg(&vm->ptdev->base, "drm_gpuvm_validate failed: %pe\n",
++				ERR_PTR(ret));
++
++		dma_resv_unlock(resv);
 +	}
-+	freed = panthor_mmu_reclaim_priv_bos(ptdev, nr_to_scan, &remaining,
-+					     &freed_sz, panthor_gem_try_evict);
-+	drm_dbg(&ptdev->base,
-+		"Reclaimed %lu pages (%zu bytes) out of %u scanned, with %lu remaining\n",
-+		freed, freed_sz, nr_to_scan, remaining);
 +}
 +
  /**
   * panthor_mmu_unplug() - Unplug the MMU logic
   * @ptdev: Device.
 diff --git a/drivers/gpu/drm/panthor/panthor_mmu.h b/drivers/gpu/drm/panthor/panthor_mmu.h
-index 12b18b5f90e1..34adca4b4e95 100644
+index 34adca4b4e95..460f83eb22a9 100644
 --- a/drivers/gpu/drm/panthor/panthor_mmu.h
 +++ b/drivers/gpu/drm/panthor/panthor_mmu.h
-@@ -11,6 +11,7 @@
- struct drm_exec;
- struct drm_sched_job;
- struct drm_memory_stats;
-+struct panthor_file;
- struct panthor_gem_object;
- struct panthor_heap_pool;
- struct panthor_vm;
-@@ -23,6 +24,7 @@ void panthor_mmu_pre_reset(struct panthor_device *ptdev);
- void panthor_mmu_post_reset(struct panthor_device *ptdev);
+@@ -25,6 +25,7 @@ void panthor_mmu_post_reset(struct panthor_device *ptdev);
  void panthor_mmu_suspend(struct panthor_device *ptdev);
  void panthor_mmu_resume(struct panthor_device *ptdev);
-+void panthor_mmu_force_reclaim(struct panthor_file *pfile);
+ void panthor_mmu_force_reclaim(struct panthor_file *pfile);
++void panthor_mmu_force_claim(struct panthor_file *pfile);
  
  int panthor_vm_map_bo_range(struct panthor_vm *vm, struct panthor_gem_object *bo,
  			    u64 offset, u64 size, u64 va, u32 flags);
