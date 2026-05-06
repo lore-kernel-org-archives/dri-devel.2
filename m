@@ -4,126 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2985FCD3424
-	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 07:03:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBC6DCD342C
+	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 07:04:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6539310ECCF;
-	Wed,  6 May 2026 07:03:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 595C310E3F6;
+	Wed,  6 May 2026 07:04:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="cqaabRXa";
+	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="Ew/DB68b";
 	dkim-atps=neutral
-Received: from DU2PR03CU002.outbound.protection.outlook.com
- (mail-northeuropeazon11011038.outbound.protection.outlook.com [52.101.65.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7073E10ECCF
- for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 07:03:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KjSHVLn4zuq+M2zZCgN+JFvbkyZdj+EJLfR3JVUaoWZynkNIY9UdXSswOg9GYLJgYd+eOUjayKwXgUrh++FCCodRAgxCFNfOD/dDH+xwBDnE1Ao5PWWsw2kET4SQTU9wxxYWylnaJDuYFwGUH/kRDYtqA1TLUGQZGL2DJqkMp+Py1s++VV9NC7rEmLSJvNV1xKbh2fgrkB/VlYADWUXzxgjyt36EwWSh/i75CT/uxsjHGIGWwaqA+DBz+RcV8r9E81A2KzV04UCL9YarzNEcGmN/Ju8S90J3glwcEFAx0cd0E69gUlaomCTw7sV2TAwT5I1LnT7ONXCwa/sUcPh7Rg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7JA3nIN660S/nrqXCDDx9Bd65PjBY+s8DMW0UtiIyp4=;
- b=SoCvr5lig9Xka6GVR9B0SSUlTlmw+XIRDQHDZWxwM8JCTgI/+NyFXIUk+XJRO0HHemYUU/lZoMGTCBBcbMXGrgFVr+twmOp8PuMXFMSyA49z27Nfm0KE/vVPRA3FPpfX0KEraTjh9dJY05PkG84vh4bvpENeY0H7kml7d9sjTBBdiISdvbdK03QZp6H3aaoUnCpX/hLb08vl0/O3SH9es+iVJiO7cMb86ZS5kQvlZKTzq7RhSavMuCGBayXKrs4V815v0FK8fWCaImxieeI5h8mdm9y7FWoDsc0EmVOFgayid4Y8UlSJE/fjx+qxn4c/nt4K0NGiPabydFVKTK2Y5w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7JA3nIN660S/nrqXCDDx9Bd65PjBY+s8DMW0UtiIyp4=;
- b=cqaabRXaW+Fy5DnXtQAokMrzTVriZtEzHYUnpUFDWyiF3hXeXvtNJhB4Gd+Zi0EfU/rM0vK5+rU63ZO/ej12vmk7W6chu8yWLp2gak2nJ1q23EhGVO1GmuZ7HDWPt8pIhZP5D7P0tChWWzh3VYZV674L8yzs6OD5oyB2dYeu7rcg5yvpILkoE7GsMOHHUBZm9fSyBUB24tcOo3nXpYCk2R+BlqNTpHby2DDIaFLmxomtwWkMvSlZ9Ii34MimKaM1xeEBI++pQCqEW37bfAdbf+F9ZWijspikCuzJAYa4C1PMnwUQ4aai0n5j+4pIVSjMHsAXuMZ7fmMKBAmUhe83Xw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AS1PR04MB9287.eurprd04.prod.outlook.com (2603:10a6:20b:4dd::8)
- by GVXPR04MB10851.eurprd04.prod.outlook.com (2603:10a6:150:21e::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.15; Wed, 6 May
- 2026 07:03:07 +0000
-Received: from AS1PR04MB9287.eurprd04.prod.outlook.com
- ([fe80::6f30:763d:17d2:b79c]) by AS1PR04MB9287.eurprd04.prod.outlook.com
- ([fe80::6f30:763d:17d2:b79c%3]) with mapi id 15.20.9891.008; Wed, 6 May 2026
- 07:03:07 +0000
-Date: Wed, 6 May 2026 15:04:27 +0800
-From: Liu Ying <victor.liu@nxp.com>
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH v4] drm/bridge: imx8qxp-pxl2dpi: avoid ERR_PTR with
- device_node cleanup
-Message-ID: <afrn-zcfiRpJzIcO@raspi>
-References: <20260505082145.603262-1-lgs201920130244@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260505082145.603262-1-lgs201920130244@gmail.com>
-X-ClientProxiedBy: SI1PR02CA0036.apcprd02.prod.outlook.com
- (2603:1096:4:1f6::20) To AS1PR04MB9287.eurprd04.prod.outlook.com
- (2603:10a6:20b:4dd::8)
+Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com
+ [113.46.200.226])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D14E210E3F6
+ for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 07:04:28 +0000 (UTC)
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+ c=relaxed/relaxed; q=dns/txt; h=From;
+ bh=I4AmL4fvNpHMSVvocXatLftD8fJJA1bCgo9cY2QiSIw=;
+ b=Ew/DB68bHUrSMhBn5/hMtVsMFKu006BxiMFiG/N/kYcaJph0xKfstdQz6yH8GMWVGNimnU5P+
+ 9jpxClX/XwWL12MleUz9H09yjPafzKAzBbYjrVhyN686xOBytdxGOZ9Ry4uzdkFlyqWw9a9tt5z
+ nQPJxUjeIBbD/1b5iR8YL0s=
+Received: from mail.maildlp.com (unknown [172.19.163.200])
+ by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4g9R693VDZzKm5S;
+ Wed,  6 May 2026 14:57:53 +0800 (CST)
+Received: from kwepemk500009.china.huawei.com (unknown [7.202.194.94])
+ by mail.maildlp.com (Postfix) with ESMTPS id 79D764055B;
+ Wed,  6 May 2026 15:04:26 +0800 (CST)
+Received: from [10.67.121.161] (10.67.121.161) by
+ kwepemk500009.china.huawei.com (7.202.194.94) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Wed, 6 May 2026 15:04:25 +0800
+Message-ID: <a63179d7-28b1-4269-9ef2-c20368d0b91c@huawei.com>
+Date: Wed, 6 May 2026 15:04:25 +0800
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS1PR04MB9287:EE_|GVXPR04MB10851:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3125bc6b-68c5-4b5f-6299-08deab3d868c
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|19092799006|1800799024|366016|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: ao7/mt1/B69IMg3vA+wusEJnww8pcd0GNVBT6TB35Es7KKBnoIJ0otB3reom1MfOQbOaedoaKCywMHK6lg398eeqz+XwDDHbKcQWh6rgjAbculP0EDDMjc4US7ytDyp1KCrhWAf4LrrABjww9QzVDZ6hHi/t8e9OP1DmJqfH/X/JhGMx59yfymSdBa5q5G0uzZj446MEEQV95IWzUqhlumpPkbre0R2F7Zag8ZzEuVZ2PSy4xC/7bmIXht3e4V51p3MbBRlc9cAuxShW6GSGis9DzvWofXFSkd5fgkUJvLupNKi1aVRY31IPOG/DDcl5h6VvykEeDrH2XO61pWwzWk79ngpeBfuG97uEQPXTEUWRH7JzVIpvXkozrSM2ujQ+hqbL8RiSP2zCXrOPdvK5t1e+TIfB5K9ncD4qGmSCGUV1JoL9zvYF5TAnjg+po1lwVedzJdC9TnQXQc9xwHo4BqH0X6hmwvIDUMLfZr05WLjAFdRMwAXmRBLFHnhTnYHxn0H3rjVEUd3dvYowRI2miQqtYKwwGFh0dGBKXhDTe6n8rKU4tZWiuXSx3+gMOWYkak0GEF8Y/pBXHfzQJexbyYIr6W5UmkDJCf2Oo4NiXH+CsiUqhWYrNJ1b+/KUxiP17nBVzxz7T4iUPPebN6ucS2Wi5AXkHfNbtY9Ap5NbXrNNfw+oTNgi+C4uJqNsjVLv
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AS1PR04MB9287.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(19092799006)(1800799024)(366016)(56012099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Uh3Jv9nUIR3tbCrQlTJCCrzdZ0Zo+OzxM0nA0p030+sFbVSs1fGxiQrnS9CI?=
- =?us-ascii?Q?e1elFj3ZVRQ/Weaac3MT5B3kEmEPq0kiD5t6S+xoDZiF/vXFIAAkPCeUiTbO?=
- =?us-ascii?Q?ogzAbNyuLzNesKrp4+wBSf787x6CUa0Sze1u0LWmtg9z8yiulg/261BBSAHq?=
- =?us-ascii?Q?W3B3BvP9OA+JvU2orQ7oypXN4lH+ACcXtV7moN+D0XHqUbE3czh0H9Z9orzs?=
- =?us-ascii?Q?ebVqj28ylL5HaLD9FqQ98zP140rLdaF2ciwDmdWNQ4JrPZ+7evuXKeV8j+sm?=
- =?us-ascii?Q?YFgjA8FjoZ4Q1TqxJOzfG3SP9d1ysY3B71z5ej2u30W2SCIY1doPdLapg2k0?=
- =?us-ascii?Q?s6+9hhg2e9j0gD00+cwaI7sc1T9xabHI51rlSAPGdaebysBfxsad0lyhOQMa?=
- =?us-ascii?Q?XXr/jaaKgn5LeTDk+YnhWzJ3XWaJLiscQpEU0jrK+yaGbU1u3vnCVKAHrONr?=
- =?us-ascii?Q?I/JP6cNfAVu6GCseSko2Gf57CtySzbu2sLecSb4Qo9G8mGT1S0FMpSKNzDiq?=
- =?us-ascii?Q?bOk70EpUJZt3tn8rIhaZpViGyY+sEH2fyR4921VjLCXcJ0RX2NydvMTBvH9Q?=
- =?us-ascii?Q?Es0T298ljKjEwDCe/7UiPxUcEpziFkxJW88oHckhWQYn3OyYQ5qeroBx6gEq?=
- =?us-ascii?Q?UW5JGPdBbMDOjkGkHhiwFxkc2Ak7rK4aULNkqvpFmOYFvT53f8m2XU+ma3pX?=
- =?us-ascii?Q?gB86422Zhnf2mTr7go9L3C384ypPZrRlLhYHWOJKOzMuDmP+5MLH+y/lJn4Q?=
- =?us-ascii?Q?DBcg0pi69yBtInszmKduwrZA9OS1Jaftqt8/YQcvRfEiwRLMw7OiI2BVac05?=
- =?us-ascii?Q?rJOtVawE0l8xaofLThDirpeLFE7jpmp0bRe2IhYrpcaeWWQY4BBQcB7CCC/H?=
- =?us-ascii?Q?H8ouJkWDHA0wVmdW0ES15wiDKUCXoOEPUns1CqxfzFghW1FS6UjMthUfdCzN?=
- =?us-ascii?Q?Jv3RjJUVnXC8ZuyHhjrENcHRi1qZ5fqZj2q20kZH5+RRimvMovY+YwPsLdWU?=
- =?us-ascii?Q?pcZMSabQrjDNCr75JZ38zc7Gu8yOG9sNORJYJpXwQ9hJj3Cn+Ui7g7cN5QC5?=
- =?us-ascii?Q?iExJVmrguInmfdyVnLsxKD2ouv7hOoS6lyWTCNlSQ6BdrR0sf3hvHGjRsILk?=
- =?us-ascii?Q?mduyaJ64X0WlVEY9NbfAYArtTpR7QyFwR7GlzlUMh55CK8I9HHg5p4HhBQe+?=
- =?us-ascii?Q?HFJk/4TdvkfuvcELQyWDIcZI4IsGF0OS7AUYK4p6FAcp0UnQoUbogTbH3g1B?=
- =?us-ascii?Q?+w90VeW42+Ys88tkbTMIUkr6c4WdLV9gjXZnL11sorsUiSGPpCQKezX6/Id7?=
- =?us-ascii?Q?SxK7WfCizNQfTJ0LpdfxoLk9ieRQ4FCA8QAyA1Ucd0Ttn1dz+ctaBw9w4WdZ?=
- =?us-ascii?Q?jBfxS3CKubGj/j7IIvfnIIDL24oeMEAPH95/UCYrL9zuxgvYvDJPbHyu7wWR?=
- =?us-ascii?Q?wMgFKODyr0Uj77FWdTg+s8GJmfjNDdUoRNkbuZPcRBYKoCe3b/RVrXJ5EBXA?=
- =?us-ascii?Q?J49Z+LCOsSc2Bp5rFtSf3F0iBJrDny1M1xWjGaMwayAJiEVrRGgqGc9Jomj+?=
- =?us-ascii?Q?2xCltKO9UFpqRZWPp1YK4tQ7M6nV5vgLCSvt0KYRpXr1dfTYC6+hu0B3SYvh?=
- =?us-ascii?Q?nfMW0EhUcmuU7IpR9wNXkNr1eKw3a8Ie8ggxOfTKEytvX45fSJhrnGTu7CHC?=
- =?us-ascii?Q?q8YZ+3DCtgBfSKv2BmcNzWrGrY2SpQHQl4qvAtxuwDXhuSYWRDG2abRoYttm?=
- =?us-ascii?Q?74wf2UqKeQ=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3125bc6b-68c5-4b5f-6299-08deab3d868c
-X-MS-Exchange-CrossTenant-AuthSource: AS1PR04MB9287.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2026 07:03:07.6012 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: b+cR6BGgtkI0YOxgjYXg0oMRDeSBorzdE1stSdPqwFzRCxf0j0UpN85d8t1Pqaq25HGPMDYxc/fCb2mfsXI7hw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10851
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] RDMA/mlx5: get tph for p2p access when registering
+ dma-buf mr
+To: Zhiping Zhang <zhipingz@meta.com>, Alex Williamson <alex@shazbot.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>
+CC: Bjorn Helgaas <helgaas@kernel.org>, <linux-rdma@vger.kernel.org>,
+ <linux-pci@vger.kernel.org>, <netdev@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, Keith Busch <kbusch@kernel.org>, Yochai
+ Cohen <yochai@nvidia.com>, Yishai Hadas <yishaih@nvidia.com>
+References: <20260430200704.352228-1-zhipingz@meta.com>
+ <20260430200704.352228-3-zhipingz@meta.com>
+Content-Language: en-US
+From: fengchengwen <fengchengwen@huawei.com>
+In-Reply-To: <20260430200704.352228-3-zhipingz@meta.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.67.121.161]
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ kwepemk500009.china.huawei.com (7.202.194.94)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,168 +69,168 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, May 05, 2026 at 04:21:45PM +0800, Guangshuo Li wrote:
-> imx8qxp_pxl2dpi_get_available_ep_from_port() returns ERR_PTR()
-> on errors. imx8qxp_pxl2dpi_find_next_bridge() stores its return
-> value in a __free(device_node) variable before checking IS_ERR().
-> When the function returns on the error path, the cleanup action calls
-> of_node_put() on the ERR_PTR() value.
+On 5/1/2026 4:06 AM, Zhiping Zhang wrote:
+> Query dma-buf TPH metadata when registering a dma-buf MR for peer to
+> peer access and translate the raw steering tag into an mlx5 steering tag
+> index. Factor mlx5_st_alloc_index() so callers that already have a raw
+> steering tag can allocate the corresponding mlx5 index directly. Keep the
+> DMAH path as the first priority and only fall back to dma-buf metadata when
+> no DMAH is supplied.
 > 
-> Do not let a device_node cleanup variable hold error pointers. Return
-> the error code from imx8qxp_pxl2dpi_get_available_ep_from_port()
-> directly and pass the endpoint node through an output argument. This
-> keeps the cleanup action operating only on NULL or a valid device_node,
-> while preserving the existing error codes.
+> Pass the device's supported ST width (8 or 16 bit, derived from
+> pdev->tph_req_type) to get_tph() so the exporter can reject tags that
+> exceed the consumer's capability. Initialize ret in mlx5_st_create() so the
+> cached steering-tag path returns success cleanly under clang builds.
 > 
-> Fixes: ceea3f7806a10 ("drm/bridge: imx8qxp-pxl2dpi: simplify put of device_node pointers")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> ---
-> v4:
->   - Drop the sentence mentioning the custom static analysis tool.
->   - Add Frank's Reviewed-by tag.
->   - No functional code changes.
+> Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
 > 
-> v3:
->   - Do not change DEFINE_FREE(device_node, ...).
->   - Fix the driver pattern by making
->     imx8qxp_pxl2dpi_get_available_ep_from_port() return an int and
->     pass the endpoint via an output argument.
->   - Update both callers so __free(device_node) never holds ERR_PTR().
-> 
-> v2:
->   - Fix DEFINE_FREE(device_node, ...) directly.
-> 
->  drivers/gpu/drm/bridge/imx/imx8qxp-pxl2dpi.c | 54 ++++++++++----------
->  1 file changed, 26 insertions(+), 28 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/bridge/imx/imx8qxp-pxl2dpi.c b/drivers/gpu/drm/bridge/imx/imx8qxp-pxl2dpi.c
-> index 441fd32dc91c..881ebb811eb3 100644
-> --- a/drivers/gpu/drm/bridge/imx/imx8qxp-pxl2dpi.c
-> +++ b/drivers/gpu/drm/bridge/imx/imx8qxp-pxl2dpi.c
-> @@ -222,52 +222,52 @@ static const struct drm_bridge_funcs imx8qxp_pxl2dpi_bridge_funcs = {
->  			imx8qxp_pxl2dpi_bridge_atomic_get_output_bus_fmts,
+> diff --git a/drivers/infiniband/hw/mlx5/mr.c b/drivers/infiniband/hw/mlx5/mr.c
+> --- a/drivers/infiniband/hw/mlx5/mr.c
+> +++ b/drivers/infiniband/hw/mlx5/mr.c
+> @@ -46,6 +46,8 @@
+>  #include "data_direct.h"
+>  #include "dmah.h"
+>  
+> +MODULE_IMPORT_NS("DMA_BUF");
+> +
+>  static int mkey_max_umr_order(struct mlx5_ib_dev *dev)
+>  {
+>  	if (MLX5_CAP_GEN(dev->mdev, umr_extended_translation_offset))
+> @@ -899,6 +901,40 @@ static struct dma_buf_attach_ops mlx5_ib_dmabuf_attach_ops = {
+>  	.invalidate_mappings = mlx5_ib_dmabuf_invalidate_cb,
 >  };
 >  
-> -static struct device_node *
-> +static int
->  imx8qxp_pxl2dpi_get_available_ep_from_port(struct imx8qxp_pxl2dpi *p2d,
-> -					   u32 port_id)
-> +					   u32 port_id,
-> +					   struct device_node **ep)
->  {
-> -	struct device_node *port, *ep;
-> +	struct device_node *port __free(device_node) =
-
-Can you provide a minimal fix for stable tree by not using the cleanup
-action?  You can add the cleanup action with follow-up patch(es).
-
-> +		of_graph_get_port_by_id(p2d->dev->of_node, port_id);
->  	int ep_cnt;
->  
-> -	port = of_graph_get_port_by_id(p2d->dev->of_node, port_id);
-> +	*ep = NULL;
->  	if (!port) {
->  		DRM_DEV_ERROR(p2d->dev, "failed to get port@%u\n", port_id);
-> -		return ERR_PTR(-ENODEV);
-> +		return -ENODEV;
->  	}
->  
->  	ep_cnt = of_get_available_child_count(port);
->  	if (ep_cnt == 0) {
->  		DRM_DEV_ERROR(p2d->dev, "no available endpoints of port@%u\n",
->  			      port_id);
-> -		ep = ERR_PTR(-ENODEV);
-> -		goto out;
-> +		return -ENODEV;
->  	} else if (ep_cnt > 1) {
->  		DRM_DEV_ERROR(p2d->dev,
->  			      "invalid available endpoints of port@%u\n",
->  			      port_id);
-> -		ep = ERR_PTR(-EINVAL);
-> -		goto out;
-> +		return -EINVAL;
->  	}
->  
-> -	ep = of_get_next_available_child(port, NULL);
-> -	if (!ep) {
-> +	*ep = of_get_next_available_child(port, NULL);
-> +	if (!*ep) {
->  		DRM_DEV_ERROR(p2d->dev,
->  			      "failed to get available endpoint of port@%u\n",
->  			      port_id);
-> -		ep = ERR_PTR(-ENODEV);
-> -		goto out;
-> +		return -ENODEV;
->  	}
-> -out:
-> -	of_node_put(port);
-> -	return ep;
-> +
-> +	return 0;
->  }
->  
->  static int imx8qxp_pxl2dpi_find_next_bridge(struct imx8qxp_pxl2dpi *p2d)
->  {
-> -	struct device_node *ep __free(device_node) =
-> -		imx8qxp_pxl2dpi_get_available_ep_from_port(p2d, 1);
-> -	if (IS_ERR(ep))
-> -		return PTR_ERR(ep);
-> +	struct device_node *ep __free(device_node) = NULL;
-
-Why do you need to initialize ep to NULL?
-
+> +static void get_tph_mr_dmabuf(struct mlx5_ib_dev *dev, int fd, u16 *st_index,
+> +			      u8 *ph)
+> +{
+> +	struct pci_dev *pdev = dev->mdev->pdev;
+> +	struct dma_buf *dmabuf;
+> +	u16 steering_tag;
+> +	u8 st_width;
 > +	int ret;
 > +
-> +	ret = imx8qxp_pxl2dpi_get_available_ep_from_port(p2d, 1, &ep);
-> +	if (ret)
-> +		return ret;
->  
->  	struct device_node *remote __free(device_node) = of_graph_get_remote_port_parent(ep);
->  	if (!remote || !of_device_is_available(remote)) {
-> @@ -287,26 +287,24 @@ static int imx8qxp_pxl2dpi_find_next_bridge(struct imx8qxp_pxl2dpi *p2d)
->  
->  static int imx8qxp_pxl2dpi_set_pixel_link_sel(struct imx8qxp_pxl2dpi *p2d)
->  {
-> -	struct device_node *ep;
-> +	struct device_node *ep __free(device_node) = NULL;
+> +	st_width = (pdev->tph_req_type == PCI_TPH_REQ_EXT_TPH) ? 16 : 8;
 
-Same here:
-- Can you provide a minimal fix for stable tree?
-- Why do you need to initialize ep to NULL?
+The tph_req_type is defined under CONFIG_PCIE_TPH, how about add a wrap function
+to query it.
 
->  	struct of_endpoint endpoint;
->  	int ret;
->  
-> -	ep = imx8qxp_pxl2dpi_get_available_ep_from_port(p2d, 0);
-> -	if (IS_ERR(ep))
-> -		return PTR_ERR(ep);
-> +	ret = imx8qxp_pxl2dpi_get_available_ep_from_port(p2d, 0, &ep);
-> +	if (ret)
-> +		return ret;
->  
->  	ret = of_graph_parse_endpoint(ep, &endpoint);
->  	if (ret) {
->  		DRM_DEV_ERROR(p2d->dev,
->  			      "failed to parse endpoint of port@0: %d\n", ret);
-> -		goto out;
-> +		return ret;
+> +
+> +	dmabuf = dma_buf_get(fd);
+> +	if (IS_ERR(dmabuf))
+> +		return;
+> +
+> +	if (!dmabuf->ops->get_tph)
+> +		goto end_dbuf_put;
+> +
+> +	ret = dmabuf->ops->get_tph(dmabuf, &steering_tag, ph, st_width);
+> +	if (ret) {
+> +		mlx5_ib_dbg(dev, "get_tph failed (%d)\n", ret);
+> +		goto end_dbuf_put;
+> +	}
+> +
+> +	ret = mlx5_st_alloc_index_by_tag(dev->mdev, steering_tag, st_index);
+> +	if (ret) {
+> +		*ph = MLX5_IB_NO_PH;
+> +		mlx5_ib_dbg(dev, "st_alloc_index_by_tag failed (%d)\n", ret);
+> +	}
+> +
+> +end_dbuf_put:
+> +	dma_buf_put(dmabuf);
+> +}
+> +
+>  static struct ib_mr *
+>  reg_user_mr_dmabuf(struct ib_pd *pd, struct device *dma_device,
+>  		   u64 offset, u64 length, u64 virt_addr,
+> @@ -941,6 +977,8 @@ reg_user_mr_dmabuf(struct ib_pd *pd, struct device *dma_device,
+>  		ph = dmah->ph;
+>  		if (dmah->valid_fields & BIT(IB_DMAH_CPU_ID_EXISTS))
+>  			st_index = mdmah->st_index;
+> +	} else {
+> +		get_tph_mr_dmabuf(dev, fd, &st_index, &ph);
 >  	}
 >  
->  	p2d->pl_sel = endpoint.id;
-> -out:
-> -	of_node_put(ep);
+>  	mr = alloc_cacheable_mr(pd, &umem_dmabuf->umem, virt_addr,
+> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c b/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c
+> --- a/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c
+> +++ b/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c
+> @@ -29,7 +29,7 @@ struct mlx5_st *mlx5_st_create(struct mlx5_core_dev *dev)
+>  	u8 direct_mode = 0;
+>  	u16 num_entries;
+>  	u32 tbl_loc;
+> -	int ret;
+> +	int ret = 0;
 >  
-> -	return ret;
-> +	return 0;
+>  	if (!MLX5_CAP_GEN(dev, mkey_pcie_tph))
+>  		return NULL;
+> @@ -92,23 +92,18 @@ void mlx5_st_destroy(struct mlx5_core_dev *dev)
+>  	kfree(st);
 >  }
 >  
->  static int imx8qxp_pxl2dpi_parse_dt_companion(struct imx8qxp_pxl2dpi *p2d)
-> -- 
-> 2.43.0
+> -int mlx5_st_alloc_index(struct mlx5_core_dev *dev, enum tph_mem_type mem_type,
+> -			unsigned int cpu_uid, u16 *st_index)
+> +int mlx5_st_alloc_index_by_tag(struct mlx5_core_dev *dev, u16 tag,
+> +			       u16 *st_index)
+>  {
+>  	struct mlx5_st_idx_data *idx_data;
+>  	struct mlx5_st *st = dev->st;
+>  	unsigned long index;
+>  	u32 xa_id;
+> -	u16 tag;
+> -	int ret;
+> +	int ret = 0;
+>  
+>  	if (!st)
+>  		return -EOPNOTSUPP;
+>  
+> -	ret = pcie_tph_get_cpu_st(dev->pdev, mem_type, cpu_uid, &tag);
+> -	if (ret)
+> -		return ret;
+> -
+>  	if (st->direct_mode) {
+>  		*st_index = tag;
+>  		return 0;
+> @@ -152,6 +147,20 @@ int mlx5_st_alloc_index(struct mlx5_core_dev *dev, enum tph_mem_type mem_type,
+>  	mutex_unlock(&st->lock);
+>  	return ret;
+>  }
+> +EXPORT_SYMBOL_GPL(mlx5_st_alloc_index_by_tag);
+> +
+> +int mlx5_st_alloc_index(struct mlx5_core_dev *dev, enum tph_mem_type mem_type,
+> +			unsigned int cpu_uid, u16 *st_index)
+> +{
+> +	u16 tag;
+> +	int ret;
+> +
+> +	ret = pcie_tph_get_cpu_st(dev->pdev, mem_type, cpu_uid, &tag);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return mlx5_st_alloc_index_by_tag(dev, tag, st_index);
+> +}
+>  EXPORT_SYMBOL_GPL(mlx5_st_alloc_index);
+>  
+>  int mlx5_st_dealloc_index(struct mlx5_core_dev *dev, u16 st_index)
+> diff --git a/include/linux/mlx5/driver.h b/include/linux/mlx5/driver.h
+> --- a/include/linux/mlx5/driver.h
+> +++ b/include/linux/mlx5/driver.h
+> @@ -1166,10 +1166,17 @@ int mlx5_dm_sw_icm_dealloc(struct mlx5_core_dev *dev, enum mlx5_sw_icm_type type
+>  			   u64 length, u16 uid, phys_addr_t addr, u32 obj_id);
+>  
+>  #ifdef CONFIG_PCIE_TPH
+> +int mlx5_st_alloc_index_by_tag(struct mlx5_core_dev *dev, u16 tag,
+> +			       u16 *st_index);
+>  int mlx5_st_alloc_index(struct mlx5_core_dev *dev, enum tph_mem_type mem_type,
+>  			unsigned int cpu_uid, u16 *st_index);
+>  int mlx5_st_dealloc_index(struct mlx5_core_dev *dev, u16 st_index);
+>  #else
+> +static inline int mlx5_st_alloc_index_by_tag(struct mlx5_core_dev *dev,
+> +					     u16 tag, u16 *st_index)
+> +{
+> +	return -EOPNOTSUPP;
+> +}
+>  static inline int mlx5_st_alloc_index(struct mlx5_core_dev *dev,
+>  				      enum tph_mem_type mem_type,
+>  				      unsigned int cpu_uid, u16 *st_index)
+> 
 > 
 
--- 
-Regards,
-Liu Ying
