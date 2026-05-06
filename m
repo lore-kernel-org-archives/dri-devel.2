@@ -4,63 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A461BCD3445
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 10:13:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F928CD3446
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 10:13:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2CD810F027;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F6BC10F008;
 	Thu,  7 May 2026 10:13:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=qq.com header.i=@qq.com header.b="Xt92u7mx";
+	dkim=pass (1024-bit key; unprotected) header.d=2005.tr header.i=@2005.tr header.b="EMUn+NNK";
 	dkim-atps=neutral
-Received: from out203-205-221-242.mail.qq.com (out203-205-221-242.mail.qq.com
- [203.205.221.242])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 949B110E1B5
- for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 07:09:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1778137742; bh=jhfMdr7ZuzPK+ksWRv7O9E7u4d/Szfr8t5hOhPrLLPQ=;
- h=From:To:Cc:Subject:Date;
- b=Xt92u7mxzzHzdQwWRZroj/6Y5zuF/BtpI86MT+748TwDeei54e6ujW1Fc14/JngAp
- qU4y/OKrVbKwz6+3CsNz1g6zbFuZiAsEKFR+LSnAEJujXVYlk7zdaZBOkNVYfuxYfU
- mfeWJyunnqcF6RgKilhd0Uv4732z/vSsdc9aISdM=
-Received: from NTT-kernel-dev ([60.247.85.88])
- by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
- id 1F10E06F; Thu, 07 May 2026 15:07:49 +0800
-X-QQ-mid: xmsmtpt1778137669txqd1xqw3
-Message-ID: <tencent_7AE3B3373BFCA4633D11AD72CF6897B3EB07@qq.com>
-X-QQ-XMAILINFO: NbgegmlEc3JuoJxuK2QvNBHzvgoB2/ycHaXZXV2LHoggvdBcWnfw8r2vTByxaT
- u+J1DSdyyTyTlM69lYD+epVJHWfpyWLIKJVGkMNYjURg6UmtQ6tdyrQtXA00ktMhWUWSExihz7c7
- kiLXms1uRWDYPi1Nq0y920MxCy6qE1gy283ORkru/mNySzuEnPRSYBQsrCySCVvRQmEwxrfc02sC
- vlsAeCLP3kWophnvQ7LaGEIp299Xd+rMPbYNpsTXNBCvU/2pOI3735/2d4kVqu85UnsGxR9t0KZ/
- ycPljMQUmRAFdpxIO8QYZ0NvGmMIMHYYFwa8bo2yfkEwYLz9NRyRWP6JuX2WKFJWT3n1Og6AOPR1
- vDWjZBvU02Ipfr5DDiKwP3ti0eVBjiYzMmwqU97m8XULFf3bJHNv5i3pAiv5+UfTM41aCbD9K9fJ
- LMPUbrF2GCLLA3IblmYJ6h9r8zKH+drOurzLu8X4rwB4Y+/d2q11vf2tWaqkXtF31kuo9ktlImgt
- xyL6Oatnmh6qU5q/tEG5gj54B4lHKgpbHRb3CFJXmzQeTcq7Cj868LmAUk1i9S64MLcigAhsAwKR
- KEBSUg1rTePGjo4YOPeirH4xquPMw6URZnc96HdcKHRUXNsirRDqTA6Qe0rwDjeaghWMqI+bFuBA
- ZnTIow+2krhPToHpdn0yJTSOLnar9Qlbw0Px/7gEw9Qoeh6ndSbvADcEIl7qVrX7osme7kU6Y447
- omS/AjOoe2yqZEefPndIB/ezyU5RmUTCYdUE80P3S3A1WkJ2wFkHXLFylgCI+xg+tzFCSMaHWu0g
- ZmQrUwHhGlHj1d5mX2P8Iq7Z9qoTkJTg424uaotirMyzRGSIbABZpDE5L9OLSyJaJ1/G6IMCQ/rK
- +OsGwiaPGpl+1sxnrzSmmbTFyjVn+Jc1sw583tcpMMOkZfjEY4qT5V5DAiEINoRjpHPnHAsepzHC
- 74aqs3tdHrefmpPL1J7JgjbovlrIg4Yz7XQneqjN5O4IXT4V1TVD7ppwhsvA3dkRXN+wGjXK+Wij
- Ll6TfY8KlGFQO16gNsbkCSjtDOLUkyCzBDpokxoy1yaRcfAAsCXQdYuVPO2mujFVlRXpa2dYv95F
- Q20PZ8RVahp75BVjxZHNrKJL98yQ==
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-From: Fang Wang <32840572@qq.com>
-To: gregkh@linuxfoundation.org,
-	stable@vger.kernel.org,
-	dev@pp3345.net
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch, ray.wu@amd.com, Wayne.Lin@amd.com,
- sashal@kernel.org, mario.limonciello@amd.com, aurabindo.pillai@amd.com,
- timur.kristof@gmail.com, jdhillon@amd.com, hersenwu@amd.com,
- Roman.Li@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH 6.1.y] drm/amd/display: Do not skip unrelated mode changes in
- DSC validation
-Date: Thu,  7 May 2026 15:07:49 +0800
-X-OQ-MSGID: <20260507070749.2299524-1-32840572@qq.com>
-X-Mailer: git-send-email 2.34.1
+X-Greylist: delayed 323 seconds by postgrey-1.36 at gabe;
+ Wed, 06 May 2026 16:59:32 UTC
+Received: from forward205d.mail.yandex.net (forward205d.mail.yandex.net
+ [178.154.239.216])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3871589D39
+ for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 16:59:32 +0000 (UTC)
+Received: from forward102d.mail.yandex.net (forward102d.mail.yandex.net
+ [IPv6:2a02:6b8:c41:1300:1:45:d181:d102])
+ by forward205d.mail.yandex.net (Yandex) with ESMTPS id 87D1E86808
+ for <dri-devel@lists.freedesktop.org>; Wed, 06 May 2026 19:54:09 +0300 (MSK)
+Received: from mail-nwsmtp-smtp-production-main-94.klg.yp-c.yandex.net
+ (mail-nwsmtp-smtp-production-main-94.klg.yp-c.yandex.net
+ [IPv6:2a02:6b8:c42:2646:0:640:add0:0])
+ by forward102d.mail.yandex.net (Yandex) with ESMTPS id 9F697C0120;
+ Wed, 06 May 2026 19:54:06 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-94.klg.yp-c.yandex.net (smtp)
+ with ESMTPSA id 2skcjWGSoW20-P2IKQ00u; 
+ Wed, 06 May 2026 19:54:05 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=2005.tr; s=mail;
+ t=1778086446; bh=kMg+VAvJYbWrlFbwgOjXF47h84s1aNcKOZEo+xRdNek=;
+ h=Message-ID:Date:Subject:To:From;
+ b=EMUn+NNK9frgcpxDgm6YNPziOkFgflwHuE1bs4IAuNT5R6GufHyROF74YrVCR6i2R
+ 0DZOIenBeJBGlVtbAcdC3eg/OcItVNYRKZxQ9fPN9btOeXv7e0OVzjc2bXHn2oGfko
+ lu1R108jAr/J+pY70L/fhuwudxQg0+ka7UYUgLXI=
+Authentication-Results: mail-nwsmtp-smtp-production-main-94.klg.yp-c.yandex.net;
+ dkim=pass header.i=@2005.tr
+From: x@2005.tr
+To: dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/rockchip: Open-code drm_simple_encoder_init()
+Date: Wed,  6 May 2026 19:53:45 +0300
+Message-ID: <20260506165346.19819-1-x@2005.tr>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 07 May 2026 10:13:17 +0000
@@ -79,120 +64,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Yussuf Khalil <dev@pp3345.net>
+From: Favilances Noir <favilances@proton.me>
 
-[ Upstream commit aed3d041ab061ec8a64f50a3edda0f4db7280025 ]
+drm_simple_encoder_init() wraps drm_encoder_init().
 
-Starting with commit 17ce8a6907f7 ("drm/amd/display: Add dsc pre-validation in
-atomic check"), amdgpu resets the CRTC state mode_changed flag to false when
-recomputing the DSC configuration results in no timing change for a particular
-stream.
+It uses drm_encoder_cleanup() as the encoder destroy callback.
 
-However, this is incorrect in scenarios where a change in MST/DSC configuration
-happens in the same KMS commit as another (unrelated) mode change. For example,
-the integrated panel of a laptop may be configured differently (e.g., HDR
-enabled/disabled) depending on whether external screens are attached. In this
-case, plugging in external DP-MST screens may result in the mode_changed flag
-being dropped incorrectly for the integrated panel if its DSC configuration
-did not change during precomputation in pre_validate_dsc().
+Add driver-local drm_encoder_funcs and call drm_encoder_init() directly.
 
-At this point, however, dm_update_crtc_state() has already created new streams
-for CRTCs with DSC-independent mode changes. In turn,
-amdgpu_dm_commit_streams() will never release the old stream, resulting in a
-memory leak. amdgpu_dm_atomic_commit_tail() will never acquire a reference to
-the new stream either, which manifests as a use-after-free when the stream gets
-disabled later on:
+This is a TODO cleanup towards removing drm_simple_encoder_init().
 
-BUG: KASAN: use-after-free in dc_stream_release+0x25/0x90 [amdgpu]
-Write of size 4 at addr ffff88813d836524 by task kworker/9:9/29977
+No functional change intended.
 
-Workqueue: events drm_mode_rmfb_work_fn
-Call Trace:
- <TASK>
- dump_stack_lvl+0x6e/0xa0
- print_address_description.constprop.0+0x88/0x320
- ? dc_stream_release+0x25/0x90 [amdgpu]
- print_report+0xfc/0x1ff
- ? srso_alias_return_thunk+0x5/0xfbef5
- ? __virt_addr_valid+0x225/0x4e0
- ? dc_stream_release+0x25/0x90 [amdgpu]
- kasan_report+0xe1/0x180
- ? dc_stream_release+0x25/0x90 [amdgpu]
- kasan_check_range+0x125/0x200
- dc_stream_release+0x25/0x90 [amdgpu]
- dc_state_destruct+0x14d/0x5c0 [amdgpu]
- dc_state_release.part.0+0x4e/0x130 [amdgpu]
- dm_atomic_destroy_state+0x3f/0x70 [amdgpu]
- drm_atomic_state_default_clear+0x8ee/0xf30
- ? drm_mode_object_put.part.0+0xb1/0x130
- __drm_atomic_state_free+0x15c/0x2d0
- atomic_remove_fb+0x67e/0x980
-
-Since there is no reliable way of figuring out whether a CRTC has unrelated
-mode changes pending at the time of DSC validation, remember the value of the
-mode_changed flag from before the point where a CRTC was marked as potentially
-affected by a change in DSC configuration. Reset the mode_changed flag to this
-earlier value instead in pre_validate_dsc().
-
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5004
-Fixes: 17ce8a6907f7 ("drm/amd/display: Add dsc pre-validation in atomic check")
-Signed-off-by: Yussuf Khalil <dev@pp3345.net>
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit cc7c7121ae082b7b82891baa7280f1ff2608f22b)
-Signed-off-by: Fang Wang <32840572@qq.com>
+Signed-off-by: Favilances Noir <favilances@proton.me>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c          | 5 +++++
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h          | 1 +
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    | 7 +++++--
- 3 files changed, 11 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/rockchip/rockchip_rgb.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 7eff2b94ab66..bb5e3a6086f2 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -9908,6 +9908,11 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+diff --git a/drivers/gpu/drm/rockchip/rockchip_rgb.c b/drivers/gpu/drm/rockchip/rockchip_rgb.c
+index 5c0c6e2cc28d..fd93ffedad64 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_rgb.c
++++ b/drivers/gpu/drm/rockchip/rockchip_rgb.c
+@@ -13,11 +13,11 @@
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_bridge_connector.h>
++#include <drm/drm_encoder.h>
+ #include <drm/drm_of.h>
+ #include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+-#include <drm/drm_simple_kms_helper.h>
  
- #if defined(CONFIG_DRM_AMD_DC_DCN)
- 	if (dc_resource_is_dsc_encoding_supported(dc)) {
-+		for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state, new_crtc_state, i) {
-+			dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
-+			dm_new_crtc_state->mode_changed_independent_from_dsc = new_crtc_state->mode_changed;
-+		}
+ #include "rockchip_drm_drv.h"
+ #include "rockchip_rgb.h"
+@@ -70,6 +70,10 @@ struct drm_encoder_helper_funcs rockchip_rgb_encoder_helper_funcs = {
+ 	.atomic_check = rockchip_rgb_encoder_atomic_check,
+ };
+ 
++static const struct drm_encoder_funcs rockchip_rgb_encoder_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
 +
- 		for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state, new_crtc_state, i) {
- 			if (drm_atomic_crtc_needs_modeset(new_crtc_state)) {
- 				ret = add_affected_mst_dsc_crtcs(state, crtc);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index df18b4df1f2c..12385b6f8443 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -698,6 +698,7 @@ struct dm_crtc_state {
+ struct rockchip_rgb *rockchip_rgb_init(struct device *dev,
+ 				       struct drm_crtc *crtc,
+ 				       struct drm_device *drm_dev,
+@@ -127,7 +131,8 @@ struct rockchip_rgb *rockchip_rgb_init(struct device *dev,
+ 	encoder = &rgb->encoder.encoder;
+ 	encoder->possible_crtcs = drm_crtc_mask(crtc);
  
- 	bool freesync_vrr_info_changed;
- 
-+	bool mode_changed_independent_from_dsc;
- 	bool dsc_force_changed;
- 	bool vrr_supported;
- 	struct mod_freesync_config freesync_config;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index 495491decec1..94c83a707acc 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -1564,8 +1564,11 @@ int pre_validate_dsc(struct drm_atomic_state *state,
- 		} else {
- 			int ind = find_crtc_index_in_state_by_stream(state, stream);
- 
--			if (ind >= 0)
--				state->crtcs[ind].new_state->mode_changed = 0;
-+			if (ind >= 0) {
-+				struct dm_crtc_state *dm_new_crtc_state = to_dm_crtc_state(state->crtcs[ind].new_state);
-+
-+				dm_new_crtc_state->base.mode_changed = dm_new_crtc_state->mode_changed_independent_from_dsc;
-+			}
- 		}
- 	}
- clean_exit:
+-	ret = drm_simple_encoder_init(drm_dev, encoder, DRM_MODE_ENCODER_NONE);
++	ret = drm_encoder_init(drm_dev, encoder, &rockchip_rgb_encoder_funcs,
++			       DRM_MODE_ENCODER_NONE, NULL);
+ 	if (ret < 0) {
+ 		DRM_DEV_ERROR(drm_dev->dev,
+ 			      "failed to initialize encoder: %d\n", ret);
 -- 
-2.34.1
+2.54.0
 
