@@ -4,66 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CB47CD3424
-	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 08:51:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4566CD3424
+	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 08:56:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B3AB10E7AC;
-	Wed,  6 May 2026 08:51:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58D0710E18D;
+	Wed,  6 May 2026 08:56:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="lKCgYU5q";
+	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="JBMuNQlm";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 834F310E522
- for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 08:51:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1778057510;
- bh=qn8hCXeok/i1qfKg2+apfL6WRVPA2S3XWp9AscVrXqY=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=lKCgYU5q+LWXj791/sVDxiKvYI4BFPtsXRvttcatIxuqT3J1yAni62KB0nbdUOxLk
- v4ivYv29NjLOBkUC2QBpKm9WbmcgfBFie34FXsFNNZYxPCL8Pmq/M/miBfkkboBu2t
- 6R6uOqNJ0/wXMkvRsMAy+thzbYcQW40ZDDNpqgtY0Dcq2Da8ddgHFaD+M9xXoW53ZZ
- fRNgKmf/5ddJU9wqgVEocXO3lvgDxbsqSbgdir2cLL3ccBtHwrfSvIv088woF/ln6K
- Oj/3co90eLSWpB933nfuKazT99hfaDovfSpZefjzk5c+dc1GzIilxOlkSWuhVYjJdb
- GSmnSlW1VQ1Gw==
-Received: from fedora (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id D164117E1321;
- Wed,  6 May 2026 10:51:48 +0200 (CEST)
-Date: Wed, 6 May 2026 10:51:45 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Ketil Johnsen <ketil.johnsen@arm.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Jonathan
- Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Sumit
- Semwal <sumit.semwal@linaro.org>, Benjamin Gaignard
- <benjamin.gaignard@collabora.com>, Brian Starkey <Brian.Starkey@arm.com>,
- John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, Steven Price
- <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, Daniel Almeida
- <daniel.almeida@collabora.com>, Alice Ryhl <aliceryhl@google.com>, Matthias
- Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>, dri-devel@lists.freedesktop.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- Florent Tomasin <florent.tomasin@arm.com>, Paul Toadere
- <paul.toadere@arm.com>, Samuel Percival <samuel.percival@arm.com>
-Subject: Re: [PATCH 7/8] drm/panthor: Add support for entering and exiting
- protected mode
-Message-ID: <20260506105145.6f25181d@fedora>
-In-Reply-To: <20260505140516.1372388-8-ketil.johnsen@arm.com>
-References: <20260505140516.1372388-1-ketil.johnsen@arm.com>
- <20260505140516.1372388-8-ketil.johnsen@arm.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com
+ [113.46.200.219])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52D2F10E18D
+ for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 08:56:41 +0000 (UTC)
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+ c=relaxed/relaxed; q=dns/txt; h=From;
+ bh=ydlDrKKzD9l6U/itDIk8G3RoRu0sbmc29uyrR8UxEt4=;
+ b=JBMuNQlmO2mCMik+9qMd9pkICcVAu76mq1zgZsADStJYbypn2gsP2ACC39HVda7tSB3zYdGJT
+ dvPExQYGOhxeZCOXpqgVrXRXLNxw6rKdEYNKPD0mEv3SNZHLL4KppIkQnMKAFxema20JXzobzfp
+ tJhCVb6ZLOiRuHmrU34FaKA=
+Received: from mail.maildlp.com (unknown [172.19.162.223])
+ by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4g9Tbc5XXtz1prjj;
+ Wed,  6 May 2026 16:50:04 +0800 (CST)
+Received: from dggemv705-chm.china.huawei.com (unknown [10.3.19.32])
+ by mail.maildlp.com (Postfix) with ESMTPS id A03C840571;
+ Wed,  6 May 2026 16:56:38 +0800 (CST)
+Received: from kwepemq100007.china.huawei.com (7.202.195.175) by
+ dggemv705-chm.china.huawei.com (10.3.19.32) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Wed, 6 May 2026 16:56:38 +0800
+Received: from [10.159.167.44] (10.159.167.44) by
+ kwepemq100007.china.huawei.com (7.202.195.175) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Wed, 6 May 2026 16:56:37 +0800
+Message-ID: <e31fa859-1f68-4bc5-b723-f214eb3a3930@huawei.com>
+Date: Wed, 6 May 2026 16:56:36 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for drm-misc-fixes v5 2/4] drm/hisilicon/hibmc: fix no
+ showing when no connectors connected
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+ <dmitry.baryshkov@oss.qualcomm.com>, <tiantao6@hisilicon.com>,
+ <xinliang.liu@linaro.org>, <maarten.lankhorst@linux.intel.com>,
+ <mripard@kernel.org>, <airlied@gmail.com>, <daniel@ffwll.ch>,
+ <kong.kongxinwei@hisilicon.com>
+CC: <liangjian010@huawei.com>, <chenjianmin@huawei.com>,
+ <fengsheng5@huawei.com>, <helin52@h-partners.com>, <shenjian15@huawei.com>,
+ <shaojijie@huawei.com>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <shiyongbang@huawei.com>
+References: <20260423063233.1267631-1-shiyongbang@huawei.com>
+ <20260423063233.1267631-3-shiyongbang@huawei.com>
+ <27864583-4211-4553-bdc0-42dadd25d212@suse.de>
+ <cc33b5df-4048-423f-97d9-b00ca04b2d99@huawei.com>
+ <057ebc30-f103-4d24-b5be-bbc9b79050e8@suse.de>
+ <d00dc112-0412-4db8-824a-6e409abe48d4@huawei.com>
+ <125fa5ce-e0ad-4596-98ea-f894f6a6c018@suse.de>
+From: Yongbang Shi <shiyongbang@huawei.com>
+In-Reply-To: <125fa5ce-e0ad-4596-98ea-f894f6a6c018@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.159.167.44]
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ kwepemq100007.china.huawei.com (7.202.195.175)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,630 +80,167 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue,  5 May 2026 16:05:13 +0200
-Ketil Johnsen <ketil.johnsen@arm.com> wrote:
+> Hi,
+> 
+> sorry for the late reply. I'm fairly busy.
+> 
 
-Here comes the second part of the review :-).
+Thank you so much for taking the time to review our code. No worries at all—we'd really appreciate it if you could take
+a look whenever you have time.
 
-> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
-> index 2ab444ee8c710..e93042eaf3fc8 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
-> @@ -100,8 +100,11 @@ static void panthor_gpu_irq_handler(struct panthor_device *ptdev, u32 status)
->  			 fault_status, panthor_exception_name(ptdev, fault_status & 0xFF),
->  			 address);
->  	}
-> -	if (status & GPU_IRQ_PROTM_FAULT)
-> +	if (status & GPU_IRQ_PROTM_FAULT) {
->  		drm_warn(&ptdev->base, "GPU Fault in protected mode\n");
-> +		panthor_gpu_disable_protm_fault_interrupt(ptdev);
+> Am 28.04.26 um 14:53 schrieb Yongbang Shi:
+>>> Hi
+>>>
+>>> Am 28.04.26 um 05:58 schrieb Yongbang Shi:
+>>> [...]
+>>>>> There's a problem with the overall logic here: if the physical status is 'connected' and the helper could not retrieve
+>>>>> any modes, the helper should return 0 here. Then the DRM helpers do the right thing with setting up a few modes or an
+>>>>> EDID override as a fallback. See [2]. For example, on my broken test system, I'd be able to provide my display's EDID
+>>>>> and get the correct output.
+>>>>>
+>>>>> [2] https://elixir.bootlin.com/linux/v7.0.1/source/drivers/gpu/drm/drm_probe_helper.c#L436
+>>>>>
+>>>>> Any code below is BMC setup and should run in an else branch, just like in ast.
+>>>>>
+>>>> The `drm_edid_override_connector_update` interface is used to retrieve an overridden EDID from debugfs or from
+>>>> firmware:
+>>>>     * Debugfs: Requires the user to manually perform file operations to configure it;
+>>>>     * Firmware: Requires the distribution’s operating system or the user to place the EDID binary file in the
+>>>>                 `/lib/firmware/` directory, and the `drm.edid_firmware` parameter must be specified in the GRUB boot
+>>>>                 parameters;
+>>>>
+>>>> The modification method you provided allows for display even when the EDID cannot be retrieved. But both of these
+>>>> methods require cooperation from the user or the distribution's operating system, making implementation relatively
+>>>> difficult.
+>>> Yes, it's the established way for users to override the EDID.
+>>>
+>>>> Our use case requires that the KVM's display functionality remain intact even when no VGA or DisplayPort monitor is
+>>>> connected. I believe setting `drm_set_preferred_mode` (1024x768) as the default resolution when no monitor is present
+>>>> would be a more universal solution. Similarly, on your test system, this approach would ensure basic display
+>>>> functionality.
+>>> If no modes could be detected on the VGA and no EDID has been provided by the user, DRM helpers will install a set of
+>>> default modes that are suitable for graphics cards. See [1]. The modes installed for the KVM are not all compatible with
+>>> VGA.  If you rely on DRM helpers, you'll always get correct modes for VGA and KVM.
+>>>
+>>> Generally speaking, the decision of VGA-vs-KVM should be in ->detect. Having phys_state/phys_status does this very well.
+>>> The ->get_modes function should then use whatever has been detected.
+>>>
+>>> [1] https://elixir.bootlin.com/linux/v7.0.1/source/drivers/gpu/drm/drm_probe_helper.c#L653
+>>>
+>> Yes, I understand what you mean. But there's another issue here; we've also tested the scenario where we directly return
+>> 0. However, we found that only three resolutions remain supported: 1024*768, 800*600 and 640*480. This is because the
+>> resolution added via `drm_add_modes_noedid` in the helper has a maximum of 1024*768. This doesn't look good—there are
+>> too few resolutions available for users to choose from in KVM.
+>>
+>> With the current implementation, when `count == 0`, we set the resolution to the highest resolution supported by our
+>> CRTC, allowing users more options.
+> 
+> But why do you second-guess the results from ->detect?  Th call to ->detect already established that there's a display
+> connected.  If ->get_modes cannot find useful modes, then don't treat it as a BMC now. Return 0 and let DRM choose some
+> same defaults.  These 3 low-res modes act as a safe base line. Reporting high-res BMC modes might accidentally fry
+> someone's monitor.
+> 
 
-It's only used in a single place, so I'd just inline the content of
-panthor_gpu_disable_protm_fault_interrupt() here. Also, I think
-panthor_gpu_disable_protm_fault_interrupt() is not taking the right
-lock (see below).
+Sorry, my mistake. My previous reply was not quite right. I'm a little confused about this situation. I focused on
+optimizing the KVM display when no monitor is connected, but when no monitor is connected, `vdac->phys_status` is set to
+`disconnected`. Following the AST implementation you recommended[1], it takes the `else` branch and sets a custom list.
 
-> +		panthor_device_schedule_reset(ptdev);
-> +	}
->  
->  	spin_lock(&ptdev->gpu->reqs_lock);
->  	if (status & ptdev->gpu->pending_reqs) {
-> @@ -367,6 +370,10 @@ int panthor_gpu_soft_reset(struct panthor_device *ptdev)
->  	unsigned long flags;
->  
->  	spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
-> +
-> +	/** Re-enable the protm_irq_fault when reset is complete */
-> +	ptdev->gpu->irq.mask |= GPU_IRQ_PROTM_FAULT;
+`vdac->phys_state == connected` and `drm_connector_helper_get_modes` returns 0, in this case, either the returned EDID
+does not match any available options, or there is an issue with the display. In such situations, it's good to let DRM
+choose some defaults.
 
-panthor_irq::mask should only be modified with the
-panthor_irq::mask_lock held. Besides, we have a helper for
-that:
+I will follow the AST implementation[1] to make the modification in v6.
 
-	panthor_gpu_irq_enable_events(&ptdev->gpu->irq,	GPU_IRQ_PROTM_FAULT);
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/gpu/drm/ast/ast_vga.c?h=v7.1-rc2#L31
 
-> +
->  	if (!drm_WARN_ON(&ptdev->base,
->  			 ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED)) {
->  		ptdev->gpu->pending_reqs |= GPU_IRQ_RESET_COMPLETED;
-> @@ -427,3 +434,8 @@ void panthor_gpu_resume(struct panthor_device *ptdev)
->  	panthor_hw_l2_power_on(ptdev);
->  }
->  
-> +void panthor_gpu_disable_protm_fault_interrupt(struct panthor_device *ptdev)
-> +{
-> +	scoped_guard(spinlock_irqsave, &ptdev->gpu->reqs_lock)
-> +		ptdev->gpu->irq.mask &= ~GPU_IRQ_PROTM_FAULT;
+>>
+>> Of course, this implementation has its drawbacks; it doesn't allow users to provide a custom resolution list via debugfs
+>> using the override method when `count == 0`. But this method isn't very important for how our product is used.
+> 
+> The upstream Linux kernel is not a product, but a shared commodity. It needs to work in everyone's best interest.
+> 
 
-Same problem with wrong lock being taken to modify the mask, and
-panthor_gpu_irq_disable_events() probably being a better option?
+Yes, we'll keep that in mind; when developing community code, we should consider the overall architecture.
 
-> +}
-> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.h b/drivers/gpu/drm/panthor/panthor_gpu.h
-> index 12c263a399281..ca66c73f543e6 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gpu.h
-> +++ b/drivers/gpu/drm/panthor/panthor_gpu.h
-> @@ -54,4 +54,10 @@ int panthor_gpu_soft_reset(struct panthor_device *ptdev);
->  void panthor_gpu_power_changed_off(struct panthor_device *ptdev);
->  int panthor_gpu_power_changed_on(struct panthor_device *ptdev);
->  
-> +/**
-> + * panthor_gpu_disable_protm_fault_interrupt() - Disable GPU_PROTECTED_FAULT interrupt
-> + * @ptdev: Device.
-> + */
-> +void panthor_gpu_disable_protm_fault_interrupt(struct panthor_device *ptdev);
-> +
->  #endif
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> index 07f54176ec1bf..702f537905b56 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -31,6 +31,7 @@
->  #include <linux/sizes.h>
->  
->  #include "panthor_device.h"
-> +#include "panthor_fw.h"
->  #include "panthor_gem.h"
->  #include "panthor_gpu.h"
->  #include "panthor_heap.h"
-> @@ -1704,8 +1705,12 @@ static int panthor_vm_lock_region(struct panthor_vm *vm, u64 start, u64 size)
->  	if (drm_WARN_ON(&ptdev->base, vm->locked_region.size))
->  		return -EINVAL;
->  
-> +	down_read(&ptdev->protm.lock);
-> +
->  	mutex_lock(&ptdev->mmu->as.slots_lock);
->  	if (vm->as.id >= 0 && size) {
-> +		panthor_fw_protm_exit_sync(ptdev);
-> +
->  		/* Lock the region that needs to be updated */
->  		gpu_write64(ptdev, AS_LOCKADDR(vm->as.id),
->  			    pack_region_range(ptdev, &start, &size));
-> @@ -1720,6 +1725,9 @@ static int panthor_vm_lock_region(struct panthor_vm *vm, u64 start, u64 size)
->  	}
->  	mutex_unlock(&ptdev->mmu->as.slots_lock);
->  
-> +	if (ret)
-> +		up_read(&ptdev->protm.lock);
+Thanks,
+Yongbang.
 
-Let's try to keep the locked section local to a function: the protm.lock
-should, IMHO, be taken/released in panthor_vm_exec_op(). If we go for
-that, this also makes the panthor_vm_lock_region() vs
-panthor_vm_expand_locked_region() distinction useless, though it's
-probably fine to keep it for clarity.
+> Best regards
+> Thomas
+> 
+>>
+>> Thanks,
+>> Yongbang.
+>>
+>>> Best regards
+>>> Thomas
+>>>
+>>>>>>     +    drm_edid_connector_update(connector, NULL);
+>>>>>>         count = drm_add_modes_noedid(connector,
+>>>>>>                          connector->dev->mode_config.max_width,
+>>>>>>                          connector->dev->mode_config.max_height);
+>>>>>>         drm_set_preferred_mode(connector, 1024, 768);
+>>>>>>     -out:
+>>>>>> -    drm_edid_free(drm_edid);
+>>>>>> -
+>>>>>>         return count;
+>>>>>>     }
+>>>>>>     @@ -57,10 +50,32 @@ static void hibmc_connector_destroy(struct drm_connector *connector)
+>>>>>>         drm_connector_cleanup(connector);
+>>>>>>     }
+>>>>>>     +static int hibmc_vdac_detect(struct drm_connector *connector,
+>>>>>> +                 struct drm_modeset_acquire_ctx *ctx,
+>>>>>> +                 bool force)
+>>>>>> +{
+>>>>>> +    struct hibmc_drm_private *priv = to_hibmc_drm_private(connector->dev);
+>>>>>> +    int state = drm_connector_helper_detect_from_ddc(connector, ctx,
+>>>>>> +                             force);
+>>>>> 'state' -> 'status'
+>>>>>
+>>>> Okay.
+>>>>
+>>>>>> +    struct hibmc_vdac *vdac = to_hibmc_vdac(connector);
+>>>>>> +
+>>>>>> +    if (priv->dp.phys_state == connector_status_connected)
+>>>>>> +        return vdac->phys_state = state;
+>>>>> Please only one statement per line. First assign, then return.
+>>>>>
+>>>> Yes, Sorry about that. According to the Linux kernel coding guidelines, this line of code should be split.
+>>>>
+>>>>
+>>>> Thanks,
+>>>> Yongbang.
+>>>>
+>>>>>> +
+>>>>>> +    if (state != vdac->phys_state)
+>>>>>> +        ++connector->epoch_counter;
+>>>>>> +    vdac->phys_state = state;
+>>>>>> +
+>>>>>> +    /* If both the DP and VDAC physical states are disconnected,
+>>>>>> +     * the "connected" status is returned to support KVM display.
+>>>>>> +     */
+>>>>>> +    return connector_status_connected;
+>>>>> I haven't tried, but I think this should also resolve the problems on my test systems. Great, thanks a lot! I might
+>>>>> just
+>>>>> get default resolutions for now, but that's OK.
+>>>>>
+>>>>> Best regards
+>>>>> Thomas
+>>>>>
+>>>>>> +}
+>>>>>> +
+>>>>>>     static const struct drm_connector_helper_funcs
+>>>>>>         hibmc_connector_helper_funcs = {
+>>>>>>         .get_modes = hibmc_connector_get_modes,
+>>>>>> -    .detect_ctx = drm_connector_helper_detect_from_ddc,
+>>>>>> +    .detect_ctx = hibmc_vdac_detect,
+>>>>>>     };
+>>>>>>       static const struct drm_connector_funcs hibmc_connector_funcs = {
+>>>>>> @@ -130,6 +145,8 @@ int hibmc_vdac_init(struct hibmc_drm_private *priv)
+>>>>>>           connector->polled = DRM_CONNECTOR_POLL_CONNECT | DRM_CONNECTOR_POLL_DISCONNECT;
+>>>>>>     +    vdac->phys_state = connector_status_connected;
+>>>>>> +
+>>>>>>         return 0;
+>>>>>>       err:
+> 
 
-> +
->  	return ret;
->  }
->  
-> @@ -1805,6 +1813,8 @@ static void panthor_vm_unlock_region(struct panthor_vm *vm)
->  	vm->locked_region.start = 0;
->  	vm->locked_region.size = 0;
->  	mutex_unlock(&ptdev->mmu->as.slots_lock);
-> +
-> +	up_read(&ptdev->protm.lock);
->  }
->  
->  static void panthor_mmu_irq_handler(struct panthor_device *ptdev, u32 status)
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-> index 987072bd867c4..acb04250c7def 100644
-> --- a/drivers/gpu/drm/panthor/panthor_sched.c
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-> @@ -308,6 +308,15 @@ struct panthor_scheduler {
->  		 */
->  		struct list_head stopped_groups;
->  	} reset;
-> +
-> +	/** @protm: Protected mode related fields. */
-> +	struct {
-> +		/** @protected_mode: True if GPU is in protected mode. */
-> +		bool protected_mode;
-
-nit: s/protected_mode/enabled/s. But do we even need that boolean?
-Isn't active_group != NULL providing the same info?
-
-> +
-> +		/** @active_group: The active protected group. */
-> +		struct panthor_group *active_group;
-> +	} protm;
->  };
->  
->  /**
-> @@ -570,6 +579,16 @@ struct panthor_group {
->  	/** @fatal_queues: Bitmask reflecting the queues that hit a fatal exception. */
->  	u32 fatal_queues;
->  
-> +	/**
-> +	 * @protm_pending_queues: Bitmask reflecting the queues that are waiting
-> +	 *                        on a CS_PROTM_PENDING.
-> +	 *
-> +	 * The GPU will set the bit associated to the queue pending protected mode
-> +	 * when a PROT_REGION command is executing or when trying to resume previously
-> +	 * suspended protected mode jobs.
-> +	 */
-> +	u32 protm_pending_queues;
-> +
->  	/** @tiler_oom: Mask of queues that have a tiler OOM event to process. */
->  	atomic_t tiler_oom;
->  
-> @@ -1176,6 +1195,7 @@ queue_resume_timeout(struct panthor_queue *queue)
->   * @ptdev: Device.
->   * @csg_id: Group slot ID.
->   * @cs_id: Queue slot ID.
-> + * @protm_ack: Acknowledge pending protected mode queues
->   *
->   * Program a queue slot with the queue information so things can start being
->   * executed on this queue.
-> @@ -1472,6 +1492,34 @@ csg_slot_prog_locked(struct panthor_device *ptdev, u32 csg_id, u32 priority)
->  	return 0;
->  }
->  
-> +static void
-> +cs_slot_process_protm_pending_event_locked(struct panthor_device *ptdev,
-> +					   u32 csg_id, u32 cs_id)
-> +{
-> +	struct panthor_scheduler *sched = ptdev->scheduler;
-> +	struct panthor_csg_slot *csg_slot = &sched->csg_slots[csg_id];
-> +	struct panthor_group *group = csg_slot->group;
-> +
-> +	lockdep_assert_held(&sched->lock);
-> +
-> +	if (!group)
-> +		return;
-> +
-> +	/* No protected memory heap, a user space program tried to
-> +	 * submit a protected mode jobs resulting in the GPU raising
-> +	 * a CS_PROTM_PENDING request.
-> +	 *
-> +	 * This scenario is invalid and the protected mode jobs must
-> +	 * not be allowed to progress.
-> +	 */
-> +	if (!ptdev->protm.heap)
-> +		return;
-
-Should we flag the group unusable when that happens and schedule it out
-as soon as possible?
-
-	if (!ptdev->protm.heap)
-		group->fatal_queues |= BIT(cs_id);
-	else
-		group->protm_pending_queues |= BIT(cs_id);
-
-	sched_queue_delayed_work(sched, tick, 0);
-
-> +
-> +	group->protm_pending_queues |= BIT(cs_id);
-> +
-> +	sched_queue_delayed_work(sched, tick, 0);
-> +}
-> +
->  static void
->  cs_slot_process_fatal_event_locked(struct panthor_device *ptdev,
->  				   u32 csg_id, u32 cs_id)
-> @@ -1718,6 +1766,9 @@ static bool cs_slot_process_irq_locked(struct panthor_device *ptdev,
->  	if (events & CS_TILER_OOM)
->  		cs_slot_process_tiler_oom_event_locked(ptdev, csg_id, cs_id);
->  
-> +	if (events & CS_PROTM_PENDING)
-> +		cs_slot_process_protm_pending_event_locked(ptdev, csg_id, cs_id);
-> +
->  	/* We don't acknowledge the TILER_OOM event since its handling is
->  	 * deferred to a separate work.
->  	 */
-> @@ -1848,6 +1899,17 @@ static void sched_process_idle_event_locked(struct panthor_device *ptdev)
->  	sched_queue_delayed_work(ptdev->scheduler, tick, 0);
->  }
->  
-> +static void sched_process_protm_exit_event_locked(struct panthor_device *ptdev)
-> +{
-> +	lockdep_assert_held(&ptdev->scheduler->lock);
-> +
-> +	/* Acknowledge the protm exit and schedule a tick. */
-> +	panthor_fw_protm_exit(ptdev);
-
-Let's just inline the content of panthor_fw_protm_exit() here.*
-It doesn't make sense to have all these indirections, especially
-since PROTM and scheduling are intertwined anyway, so I consider
-it part of the scheduler responsibility (just like the scheduler
-deals with other GLB events).
-
-The same goes for the other panthor_fw_protm_ helpers defined in
-panthor_fw.c, I think panthor_sched.c would be a better fit for
-those, or even inlining their content if they are only used in
-a single place.
-
-> +	sched_queue_delayed_work(ptdev->scheduler, tick, 0);
-> +	ptdev->scheduler->protm.protected_mode = false;
-> +	ptdev->scheduler->protm.active_group = NULL;
-> +}
-> +
->  /**
->   * sched_process_global_irq_locked() - Process the scheduling part of a global IRQ
->   * @ptdev: Device.
-> @@ -1863,6 +1925,9 @@ static void sched_process_global_irq_locked(struct panthor_device *ptdev)
->  	ack = READ_ONCE(glb_iface->output->ack);
->  	evts = (req ^ ack) & GLB_EVT_MASK;
->  
-> +	if (evts & GLB_PROTM_EXIT)
-> +		sched_process_protm_exit_event_locked(ptdev);
-> +
->  	if (evts & GLB_IDLE)
->  		sched_process_idle_event_locked(ptdev);
->  }
-> @@ -1872,23 +1937,71 @@ static void process_fw_events_work(struct work_struct *work)
->  	struct panthor_scheduler *sched = container_of(work, struct panthor_scheduler,
->  						      fw_events_work);
->  	u32 events = atomic_xchg(&sched->fw_events, 0);
-> +	u32 csg_events = events & ~JOB_INT_GLOBAL_IF;
->  	struct panthor_device *ptdev = sched->ptdev;
->  
->  	mutex_lock(&sched->lock);
->  
-> +	while (csg_events) {
-> +		u32 csg_id = ffs(csg_events) - 1;
-> +
-> +		sched_process_csg_irq_locked(ptdev, csg_id);
-> +		csg_events &= ~BIT(csg_id);
-> +	}
-
-I'm sure you have a good reason to re-order the processing
-of CSG and GLB events, and it'd be good to have it documented
-in a comment.
-
-> +
->  	if (events & JOB_INT_GLOBAL_IF) {
->  		sched_process_global_irq_locked(ptdev);
->  		events &= ~JOB_INT_GLOBAL_IF;
->  	}
->  
-> -	while (events) {
-> -		u32 csg_id = ffs(events) - 1;
-> +	mutex_unlock(&sched->lock);
-> +}
->  
-> -		sched_process_csg_irq_locked(ptdev, csg_id);
-> -		events &= ~BIT(csg_id);
-> +static void handle_protm_fault(struct panthor_device *ptdev)
-
-This is a bit of a misnomer, I think. It doesn't seem to be triggered
-by a FAULT event, it's more a timeout on a PROTM section that would
-lead to a reset being scheduled, and this "blocked-in-protm" situation
-being detected as part of the reset.
-
-> +{
-> +	struct panthor_scheduler *sched = ptdev->scheduler;
-> +	u32 csg_id;
-> +	struct panthor_group *protm_group;
-> +
-> +	guard(mutex)(&sched->lock);
-> +
-> +	if (!sched->protm.protected_mode)
-> +		return;
-> +
-> +	protm_group = sched->protm.active_group;
-> +
-> +	if (drm_WARN_ON(&ptdev->base, !protm_group))
-> +		return;
-
-See, that's a perfect example of sched->protm.protected_mode being redundant.
-Now you're left with a potential protected_mode=true,active_group=NULL
-inconsistency you don't expect.
-
-> +
-> +	/* Group will be terminated by the device reset */
-> +	protm_group->fatal_queues |= GENMASK(protm_group->queue_count - 1, 0);
-> +
-> +	if (!panthor_fw_protm_exit_wait_event_timeout(ptdev))
-> +		goto cleanup_protm;
-> +
-> +	/**
-> +	 * GPU failed to exit protected mode. Mark all non-protected mode CSGs
-
-	/* GPU failed to exit protected mode. Mark all non-protected mode CSGs
-
-> +	 * as suspended so that they are unaffected by the GPU reset.
-> +	 */
-> +
-> +	for (csg_id = 0; csg_id < sched->csg_slot_count; csg_id++) {
-> +		struct panthor_group *group = sched->csg_slots[csg_id].group;
-> +
-> +		if (!group || group == protm_group)
-> +			continue;
-> +
-> +		group->state = PANTHOR_CS_GROUP_SUSPENDED;
-> +
-> +		group_unbind_locked(group);
-> +
-> +		list_move(&group->run_node, group_is_idle(group) ?
-> +						&sched->groups.idle[group->priority] :
-> +						&sched->groups.runnable[group->priority]);
-
-nit: Let's use a local struct list_head * variable to select the right list.
-
->  	}
->  
-> -	mutex_unlock(&sched->lock);
-> +cleanup_protm:
-> +	sched->protm.protected_mode = false;
-> +	sched->protm.active_group = NULL;
->  }
->  
->  /**
-> @@ -2029,6 +2142,7 @@ struct panthor_sched_tick_ctx {
->  	bool immediate_tick;
->  	bool stop_tick;
->  	u32 csg_upd_failed_mask;
-> +	struct panthor_group *protm_group;
->  };
->  
->  static bool
-> @@ -2299,6 +2413,7 @@ tick_ctx_evict_group(struct panthor_scheduler *sched,
->  
->  static void
->  tick_ctx_reschedule_group(struct panthor_scheduler *sched,
-> +			  struct panthor_sched_tick_ctx *ctx,
->  			  struct panthor_csg_slots_upd_ctx *upd_ctx,
->  			  struct panthor_group *group,
->  			  int new_csg_prio)
-> @@ -2321,6 +2436,30 @@ tick_ctx_reschedule_group(struct panthor_scheduler *sched,
->  					csg_iface->output->ack ^ CSG_ENDPOINT_CONFIG,
->  					CSG_ENDPOINT_CONFIG);
->  	}
-> +
-> +	if (ctx->protm_group == group) {
-> +		for (u32 q = 0; q < group->queue_count; q++) {
-> +			struct panthor_fw_cs_iface *cs_iface;
-> +
-> +			if (!(group->protm_pending_queues & BIT(q)))
-> +				continue;
-> +
-> +			cs_iface = panthor_fw_get_cs_iface(ptdev, group->csg_id, q);
-> +			panthor_fw_update_reqs(cs_iface, req, cs_iface->output->ack,
-> +					       CS_PROTM_PENDING);
-> +		}
-> +
-> +		panthor_fw_toggle_reqs(csg_iface, doorbell_req, doorbell_ack,
-> +				       group->protm_pending_queues);
-> +		csgs_upd_ctx_ring_doorbell(upd_ctx, group->csg_id);
-> +		group->protm_pending_queues = 0;
-> +
-> +		/*
-> +		 * We only allow one protected group to run at same time,
-> +		 * as it makes it easier to handle faults in protected mode.
-
-It's more something to document in the panthor_scheduler::protm::active_group
-section.
-
-> +		 */
-> +		sched->protm.active_group = group;
-
-Would it make sense to move this logic to a tick_ctx_handle_protm_group()
-helper that's called before/after tick_ctx_reschedule_group()? This way
-there's no extra if (ctx->protm_group == group) conditional branch in here.
-
-
-static void
-tick_ctx_handle_protm_group(struct panthor_scheduler *sched,
-			    struct panthor_sched_tick_ctx *ctx,
- 			    struct panthor_csg_slots_upd_ctx *upd_ctx)
-{
-	struct panthor_device *ptdev = sched->ptdev;
-	struct panthor_group *group = ctx->protm_group;
-	struct panthor_fw_csg_iface *csg_iface;
-
-	if (!group || drm_WARN_ON(&ptdev->base, group->csg_id < 0))
-		return;
-
-	csg_iface = panthor_fw_get_csg_iface(ptdev, group->csg_id);
-	for (u32 q = 0; q < group->queue_count; q++) {
-		struct panthor_fw_cs_iface *cs_iface;
-
-		if (!(group->protm_pending_queues & BIT(q)))
-			continue;
-
-		cs_iface = panthor_fw_get_cs_iface(ptdev, group->csg_id, q);
-		panthor_fw_update_reqs(cs_iface, req, cs_iface->output->ack,
-				       CS_PROTM_PENDING);
-	}
-
-	panthor_fw_toggle_reqs(csg_iface, doorbell_req, doorbell_ack,
-			       group->protm_pending_queues);
-	csgs_upd_ctx_ring_doorbell(upd_ctx, group->csg_id);
-	group->protm_pending_queues = 0;
-	sched->protm.active_group = group;
-}
-
-> +	}
->  }
->  
->  static void
-> @@ -2336,6 +2475,17 @@ tick_ctx_schedule_group(struct panthor_scheduler *sched,
->  	group_bind_locked(group, csg_id);
->  	csg_slot_prog_locked(ptdev, csg_id, csg_prio);
->  
-> +	/* If the group was waiting for protected mode before suspension,
-> +	 * and the tick context enters this mode, it should be serviced
-> +	 * immediately because the slot reset should have set the
-> +	 * CS_PROTM_PENDING bit to zero, and cs_prog_slot_locked() sets it to
-> +	 * zero too.
-> +	 * It's not clear if we will get a new CS_PROTM_PENDING event in that
-> +	 * case, but it should be safe either way.
-> +	 */
-> +	if (group->protm_pending_queues && ctx->protm_group)
-> +		group->protm_pending_queues = 0;
-
-I'd move this to the path where we do the SUSPEND, or group_unbind(), even.
-
-> +
->  	csgs_upd_ctx_queue_reqs(ptdev, upd_ctx, csg_id,
->  				group->state == PANTHOR_CS_GROUP_SUSPENDED ?
->  				CSG_STATE_RESUME : CSG_STATE_START,
-> @@ -2365,7 +2515,7 @@ tick_ctx_apply(struct panthor_scheduler *sched, struct panthor_sched_tick_ctx *c
->  
->  		/* Update priorities on already running groups. */
->  		list_for_each_entry(group, &ctx->groups[prio], run_node) {
-> -			tick_ctx_reschedule_group(sched, &upd_ctx, group, new_csg_prio--);
-> +			tick_ctx_reschedule_group(sched, ctx, &upd_ctx, group, new_csg_prio--);
->  		}
->  	}
->  
-> @@ -2457,6 +2607,15 @@ tick_ctx_apply(struct panthor_scheduler *sched, struct panthor_sched_tick_ctx *c
->  
->  	sched->used_csg_slot_count = ctx->group_count;
->  	sched->might_have_idle_groups = ctx->idle_group_count > 0;
-> +
-> +	if (ctx->protm_group) {
-> +		ret = panthor_fw_protm_enter(ptdev);
-> +		if (ret) {
-> +			panthor_device_schedule_reset(ptdev);
-> +			ctx->csg_upd_failed_mask = U32_MAX;
-
-It's weird to flag it as all CSGs update failed. Should we instead
-have
-
-			/* If we failed to enter PROTM, consider the group who
-			 * requested it as failed.
-			 */
-			ctx->csg_upd_failed_mask |= BIT(ctx->protm_group->csg_id);
-
-> +		}
-> +		sched->protm.protected_mode = true;
-
-I'd move that to a tick_ctx_service_protm_req() helper that has the
-panthor_fw_protm_enter() inlined, because again, it doesn't make
-sense to have this defined in panthor_fw.c if the only user lives
-in panthor_sched.c
-
-> +	}
->  }
->  
->  static u64
-> @@ -2490,7 +2649,7 @@ static void tick_work(struct work_struct *work)
->  	u64 resched_target = sched->resched_target;
->  	u64 remaining_jiffies = 0, resched_delay;
->  	u64 now = get_jiffies_64();
-> -	int prio, ret, cookie;
-> +	int prio, protm_prio, ret, cookie;
->  	bool full_tick;
->  
->  	if (!drm_dev_enter(&ptdev->base, &cookie))
-> @@ -2564,14 +2723,49 @@ static void tick_work(struct work_struct *work)
->  		}
->  	}
->  
-> +	/* Check if the highest priority group want to switch to protected mode */
-> +	for (protm_prio = PANTHOR_CSG_PRIORITY_COUNT - 1; protm_prio >= 0; protm_prio--) {
-> +		struct panthor_group *group;
-> +
-> +		group = list_first_entry_or_null(&ctx.groups[protm_prio],
-> +						 struct panthor_group,
-> +						 run_node);
-> +		if (group) {
-> +			ctx.protm_group = group;
-> +			break;
-> +		}
-
-Should this be
-
-		if (group) {
-			if (group->protm_pending_queues)
-				ctx.protm_group = group;
-
-			break;
-		}
-
-?
-
-> +	}
-> +
->  	/* If we have free CSG slots left, pick idle groups */
-> -	for (prio = PANTHOR_CSG_PRIORITY_COUNT - 1;
-> -	     prio >= 0 && !tick_ctx_is_full(sched, &ctx);
-> -	     prio--) {
-
-How about we keep it a single indentation level and skip higher prios if
-PROTM is requested:
-
-		/* Pick only idle groups with equal or lower priority than the
-		 * group triggering protected mode. Do not bother picking
-		 * unscheduled idle groups.
-		 */
-		if (ctx.protm_group && prio < protm_prio)
-			continue;
-
-This saves us an indentation level and limits the code duplication.
-
-> -		/* Check the old_group queue first to avoid reprogramming the slots */
-> -		tick_ctx_pick_groups_from_list(sched, &ctx, &ctx.old_groups[prio], false, true);
-> -		tick_ctx_pick_groups_from_list(sched, &ctx, &sched->groups.idle[prio],
-> -					       false, false);
-> +	if (ctx.protm_group) {
-> +		/* Pick only idle groups with equal or lower priority than the
-> +		 * group triggering protected mode. Do not bother picking
-> +		 * unscheduled idle groups.
-> +		 */
-> +		for (prio = protm_prio;
-> +		     prio >= 0 && !tick_ctx_is_full(sched, &ctx);
-> +		     prio--)
-> +			tick_ctx_pick_groups_from_list(sched, &ctx,
-> +						       &ctx.old_groups[prio],
-> +						       false, true);
-> +	} else {
-> +		/* No switch to protected, just pick any idle group according
-> +		 * to priority
-> +		 */
-> +		for (prio = PANTHOR_CSG_PRIORITY_COUNT - 1;
-> +		     prio >= 0 && !tick_ctx_is_full(sched, &ctx);
-> +		     prio--) {
-> +			/* Check the old_group queue first to avoid
-> +			 * reprogramming the slots
-> +			 */
-> +			tick_ctx_pick_groups_from_list(sched, &ctx,
-> +						       &ctx.old_groups[prio],
-> +						       false, true);
-> +			tick_ctx_pick_groups_from_list(sched, &ctx,
-> +						       &sched->groups.idle[prio],
-> +						       false, false);
-> +		}
-> +
->  	}
->  
->  	tick_ctx_apply(sched, &ctx);
-> @@ -2993,6 +3187,8 @@ void panthor_sched_pre_reset(struct panthor_device *ptdev)
->  	cancel_work_sync(&sched->sync_upd_work);
->  	cancel_delayed_work_sync(&sched->tick_work);
->  
-> +	handle_protm_fault(ptdev);
-
-I actually wonder if this should be part of the panthor_sched_suspend()
-logic. That is, we would automatically flag all non-protm groups as
-suspended if the GPU was in PROTM mode at the time the hang happened.
-
-> +
->  	panthor_sched_suspend(ptdev);
->  
->  	/* Stop all groups that might still accept jobs, so we don't get passed
-
-Regards,
-
-Boris
