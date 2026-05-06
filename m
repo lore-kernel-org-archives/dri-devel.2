@@ -4,51 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1F05CD342C
-	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 15:55:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87CAACD342C
+	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 16:09:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CCB310EE0C;
-	Wed,  6 May 2026 15:55:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2A7210E554;
+	Wed,  6 May 2026 16:09:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="OP8+PNR9";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="M6dmpqBh";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 3B47A10EE0C
- for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 15:55:48 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5F74D1A00;
- Wed,  6 May 2026 08:55:42 -0700 (PDT)
-Received: from [10.57.69.49] (unknown [10.57.69.49])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DAE7A3F7B4;
- Wed,  6 May 2026 08:55:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1778082947; bh=yx44QsR+dr0wp1FGWIHshhf2FouszWxeHYwpeS2FZdA=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=OP8+PNR9HAAL7fsQC1pkWVwQFHDeoeuWGPOUMiDIZm2DfhnHN1KIfEHs0OrIRvYaz
- xZSj4xf4c/FtDLNgS6E19u5T/pdKEJmw6oI8rUcTk9jiwZCAJ5g1QeRXU4zdbx5elF
- cN/N/QgEV5oR424hZ7qnkvgDAFMaE0jWBZz6r+J8=
-Message-ID: <b3c98120-2493-46a5-a48c-d90c31cf25c0@arm.com>
-Date: Wed, 6 May 2026 16:55:38 +0100
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 255BD10E554
+ for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 16:09:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1778083738;
+ bh=ew1ex7eZbmxkhpOrxzci5gg0b9fR3HdkzmAlheKcy0k=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=M6dmpqBhW6UqSRWF5ioWa6HcUtYB9rT7C+aahw/SxcosQCHaHqp4aiGsaLeTv8eFR
+ IzRzUb3Vas5DpdlsVXLbvL7/K6aetIkyvOylyjnf9xAeRbPfr17ezscSmSx2H7sNiH
+ DYLirsXPKoJdP8daMA2LjTr+RwkPau03xF5vNtKJmzF9VAcz1iuQuPVFGDW5bJT1Xo
+ JW+UYLCp76r85hjr1Yd8sb8n/TLQVGGFLP2eoHDH6f5B4Qf1okyHLs46pNfj5fF7W5
+ yCWqCJOKiEqlJLtXIDcdrMpF7b8nAM/Qjnwg3lpfUjgTaC1xbHf+72BngLthCjNibS
+ pecl8IWig8WDA==
+Received: from fedora (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 65C4317E132E;
+ Wed,  6 May 2026 18:08:58 +0200 (CEST)
+Date: Wed, 6 May 2026 18:08:54 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Steven Price <steven.price@arm.com>
+Cc: Liviu Dudau <liviu.dudau@arm.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 08/10] drm/panthor: Automatically enable interrupts in
+ panthor_fw_wait_acks()
+Message-ID: <20260506180854.61ae7d62@fedora>
+In-Reply-To: <687ecf58-3602-46ef-a76e-94f7b1852dce@arm.com>
+References: <20260429-panthor-signal-from-irq-v1-0-4b92ae4142d2@collabora.com>
+ <20260429-panthor-signal-from-irq-v1-8-4b92ae4142d2@collabora.com>
+ <446e9d1f-b6be-42fa-bd2b-f4fcbc130f70@arm.com>
+ <20260504130215.0222b3bd@fedora>
+ <687ecf58-3602-46ef-a76e-94f7b1852dce@arm.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] Let userspace explicitly trigger memory reclaims
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-References: <20260506-panthor-explicit-reclaim-v1-0-44f82ac147ce@collabora.com>
- <829b8887-48de-4cfa-8bb2-79db1471bb8d@arm.com>
- <qxAaM8FMQLuQt09qti64IA@collabora.com>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <qxAaM8FMQLuQt09qti64IA@collabora.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,120 +70,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 06/05/2026 16:43, Nicolas Frattaroli wrote:
-> On Wednesday, 6 May 2026 17:06:56 Central European Summer Time Steven Price wrote:
->> On 06/05/2026 11:45, Nicolas Frattaroli wrote:
->>> RAM is not, in fact, cheap. Especially on embedded systems with a low
->>> amount of memory, but known and well-defined userspace, more explicit
->>> resource management can lead to better utilisation patterns. As an
->>> example, a resource manager process on a purpose-built device may wish
->>> to launch, and then explicitly swap out, memory of processes that are
->>> kept "warm", to improve perceived startup latency of individual
->>> full-screen applications without making the kernel figure out the usage
->>> pattern from observation alone in order to swap out the right pages.
->>
->> Have you considered memory control groups (memcg) for this purpose?
->> Imposing a lower limit than currently allocated should trigger reclaim,
->> so 'background' applications could have the limit lowered and then
->> restored when moved to the foreground.
-> 
-> This is a suggestion in line with what I've made to the entity for
-> whom I am adding this, but was told that for them they really do want
-> tight control without having to use cgroups into technically doing it
-> by dynamically adjusting the limits of them.
-> 
-> I do think that writing 0 to `memory.high` to swap it out and `"max"`
-> to allow it to swap back in might work, though that'll then apply to
-> all of the process' memory, not just the GPU resources.
-> 
-> I will ask for clarification internally.
+On Wed, 6 May 2026 15:35:18 +0100
+Steven Price <steven.price@arm.com> wrote:
 
-Thanks, it would be good to have a better understanding of why GPU
-memory is special (and needs to be paged out) and the process' other
-memory can be kept.
-
->>
->>> To allow for this explicit control in the context of panthor's GPU
->>> memory, add two new sysfs knobs. The first, mem_reclaim, runs an
->>> explicit priv BO reclaim cycle on the TGID written to it.
->>>
->>> The second, mem_claim, does the opposite: it swaps BOs back into active
->>> memory.
->>
->> How necessary is this mem_claim for performance? Have you done any
->> benchmarking of explicitly claiming vs just allowing it to happen
->> naturally? My gut feeling is that mem_claim should be unnecessary in
->> most situations, but I'm prepared to be proved wrong.
+> On 04/05/2026 12:02, Boris Brezillon wrote:
+> > On Fri, 1 May 2026 15:20:17 +0100
+> > Steven Price <steven.price@arm.com> wrote:
+> >   
+> >> On 29/04/2026 10:38, Boris Brezillon wrote:  
+> >>> Rather than assuming an interrupt is always expected for request
+> >>> acks, temporarily enable the relevant interrupts when the polling-wait
+> >>> failed. This should hopefully reduce the number of interrupts the CPU
+> >>> has to process.
+> >>>
+> >>> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>    
+> >>
+> >> It seems to work, although I'm lightly uneasy about this because I'm not
+> >> entirely sure whether the FW will immediately see the updates to
+> >> ack_irq_mask and therefore whether there's a possibility to miss an
+> >> event and be stuck waiting for the timeout.
+> >>
+> >> Memory models are not my strong point, OpenAI tells me the sequence
+> >> should be something like:
+> >>
+> >>   scoped_guard(spinlock_irqsave, lock) {
+> >>   	u32 ack_irq_mask = READ_ONCE(*ack_irq_mask_ptr);
+> >>
+> >>   	WRITE_ONCE(*ack_irq_mask_ptr, ack_irq_mask | req_mask);
+> >>   }  
+> > 
+> > Is this really needed? In which situation would the compiler/CPU decide
+> > to re-order this read_update_modify sequence?  
 > 
-> I've done no benchmarking, but can do so if you have any preferred
-> workloads for this. Since we have to keep entire groups either in
-> memory or out of memory right now AFAIK, I don't expect this to be
-> very beneficial at all. At most we avoid a single fault I think.
-
-Yes the memory should be brought back in as soon as a job is submitted.
-I've no particular workloads in mind - but it would be nice to be able
-to point to something that actually improves by adding this feature.
-
-> I can drop the mem_claim part, though it may become relevant if we
-> ever have more fine-grained memory eviction where a single job or
-> group can run into multiple faults before everything it needs to
-> render a new frame is back in memory. In that case, it will be
-> beneficial, because it avoids doing the swap-in dance several
-> times while the user wonders why the UI is rendering at powerpoint
-> speeds as it touches memory pages that are still swapped out during
-> subsequent frames.
-
-We don't want to be faulting memory in a page at a time for exactly the
-reasons you state. So even if we do make things more fine-grained we're
-going to have to implement some form of read-ahead. Otherwise it's
-"powerpoint time" after any even that causes memory pressure.
-
-A possible justification is if the system can tell an application is
-about to be used and can "pre-fault" things before rendering starts. But
-it's a rare system design where it has this form of precognition.
-
-Thanks,
-Steve
-
->>
->> I'm not saying this series is necessarily the wrong approach - but I
->> think we need a bit more justification for adding a new API for this.
->>
->> Thanks,
->> Steve
+> I think that's the AI being a bit overzealous, but in general WRITE_ONCE
+> is necessary to avoid some surprising effects. In theory the compiler
+> can decide to perform multiple writes if it's non-volatile. I.e. a
+> sequence like:
 > 
-> Kind regards,
-> Nicolas Frattaroli
+> 	u32 old_mask = *ack_irq_mask_ptr;
+> 	if (condition)
+> 		*ack_irq_mask_ptr = 0;
+> 	else
+> 		*ack_irq_mask_ptr |= req_mask;
 > 
->>
->>> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
->>> ---
->>> Nicolas Frattaroli (4):
->>>       drm/panthor: Add freed_sz parameter to reclaim_priv_bos
->>>       MAINTAINERS: Add sysfs ABI docs to list of panthor files
->>>       drm/panthor: Add explicit memory reclaim sysfs knob
->>>       drm/panthor: Add explicit memory claim sysfs knob
->>>
->>>  Documentation/ABI/testing/sysfs-driver-panthor-mem | 34 ++++++++
->>>  MAINTAINERS                                        |  1 +
->>>  drivers/gpu/drm/panthor/panthor_drv.c              | 93 ++++++++++++++++++++++
->>>  drivers/gpu/drm/panthor/panthor_gem.c              |  7 +-
->>>  drivers/gpu/drm/panthor/panthor_gem.h              |  1 +
->>>  drivers/gpu/drm/panthor/panthor_mmu.c              | 70 +++++++++++++++-
->>>  drivers/gpu/drm/panthor/panthor_mmu.h              |  4 +
->>>  7 files changed, 205 insertions(+), 5 deletions(-)
->>> ---
->>> base-commit: 2c4b906cd135bbb44855287d0d0eff0ee0b47afe
->>> change-id: 20260506-panthor-explicit-reclaim-3dffed028d8c
->>>
->>> Best regards,
->>> --  
->>> Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
->>>
->>
->>
+> Can be 'optimised' to:
 > 
+> 	u32 old_mask = *ack_irq_mask_ptr;
+> 	*ack_irq_mask_ptr = 0;
+> 	if (!condition)
+> 		*ack_irq_mask_ptr = old_mask | req_mask;
 > 
+> In which the compiler has changed the (!condition) path to do two writes
+> one of which "should never be seen".
 > 
-> 
+> Given that the compiler shouldn't be able to move any of the effects
+> outside of the scoped_guard(), and since there's only one operation then
+> I can't see how a compiler would screw it up - but the compiler is
+> technically free to do so.
 
+Sure, I'm not saying read_modify_write is atomic per-se (even though
+I'd be surprised if the compiler wasn't generating instructions that
+are atomic in the end), but it is thread-safe because of the spinlock
+covering the read_modify_write op.
+
+> 
+> >>
+> >>   /*
+> >>    * The FW interface can be mapped write-combine/Normal-NC.  
+> > 
+> > I'm not too sure I see what the non-cached property has to do with it.
+> > If it was cached we would still need this memory barrier, and in
+> > addition, we'd need a cache flush if the FW is not IO-coherent.  
+> 
+> I *think* the point the AI was making is that the memory isn't Device.
+> I.e. it's writeback and the write might not have completed.
+
+Okay, get it now.
+
+> 
+> >> Make sure the
+> >>    * IRQ mask update is visible to the FW before sleeping waiting for
+> >> the IRQ.
+> >>    */
+> >>   wmb();
+> >>
+> >> Which seems plausible. But I've long ago learnt that plausible doesn't
+> >> mean much when dealing with memory models!  
+> > 
+> > Yeah, I'm not too sure. I was honestly expecting the spinlock guard to
+> > act as a memory barrier already, but maybe it's not enough.  
+> 
+> So logically it must be enough to enable other CPUs to see writes within
+> the spinlock - otherwise spinlocks would be completely broken on SMP. I
+> guess it should be sufficient for the GPU's firmware MCU to see.
+
+For the record, this is currently mapped uncached on both the CPU and
+GPU side, because we don't have a way to describe the
+shareability properly with the current IOMMU flags.
+
+So, my understanding was that the smp_wb() (DMB(ISH) on arm64) at
+the end of a spin_unlock(), would ensure proper store/load instruction
+ordering around this barrier, but that it would only wait for the
+content to reach the inner shareable domain before returning, not any
+further. But maybe I got that wrong from the start, and DMB(ISH)
+doesn't even start the transaction if the access is targeting uncached
+memory. In which case, AI is right, a full wmb() is needed, otherwise
+there's a chance we'll wait indefinitely because the update didn't make
+it to the FW interface in the first place.
+
+Also, if that's broken for ack_irq_mask, it's also broken in other
+places...
