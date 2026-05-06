@@ -4,83 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F20BFCD3442
-	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 07:47:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F18FCCD342C
+	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 07:47:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 116C810E513;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CB4E10E519;
 	Wed,  6 May 2026 07:47:27 +0000 (UTC)
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com
- [209.85.210.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F371A10E182
- for <dri-devel@lists.freedesktop.org>; Tue,  5 May 2026 22:25:52 +0000 (UTC)
-Received: by mail-pf1-f176.google.com with SMTP id
- d2e1a72fcca58-837b39eb078so1873931b3a.2
- for <dri-devel@lists.freedesktop.org>; Tue, 05 May 2026 15:25:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778019952; cv=none;
- d=google.com; s=arc-20240605;
- b=DrREx3IugoJqPyEKgBY/F1QPSHpS3f+gaM5klnfSm4V36L6kgoeNdxK9917oAtXd6b
- VoKiRlmwI9mBJ8u4cyrJsUJZZUxHojAeXO6EGy7B26cy7NUNsk4jg9yTNGunUsaSOtoC
- IrpYE3R8/epCCujIAAxI9z6jWRGDpqtCRtGroPnUCAVIl6+yT60zqHz2gLV8RflB2I2d
- ff5cgQ64RTzl3x0sZonRi8iMZattU/FGzZeyFdinLqA0wnx+30Co5S8jSu8g1lyPYLoZ
- rYYapd5H1G1dpOZ4yr9E0v3HIQhYF7y0mrNvVHrgN98c2Sfce9isClcaEXp/zS5h9Gzu
- ZiIA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version;
- bh=Z2JpVZpwEkkxXIyrqDzbrggAQUpIpo/aeYhdL9hdyqI=;
- fh=ZF/aOkM3ZPrRmKRhZS97b208lQGMQbai0J0D8KR1bUI=;
- b=SLF97SlXS8oSbdD+G94sw/vO4AJSG3bH/AhGOlat3LJvw5ObCr0ObVtdp83mypPhdr
- iXtlvR31Pdn18jp+Sb5ubmAXW2UsMs8QVn3H1FW7NHiBBP2Nung0E6tV8uvekEjJaKRQ
- gFsm6B++9PAXfi0di7HlTX7fkLdNeH/GSoOyVg2qZTz61qUC4/CsRgP+9c7/ydsZeaoy
- ZHwTEQuamJ9mH9DCaNas15kvbHoOjBD4bU3ZITlLzgF/Cb/Z4ejRBa7NSCE2Ye7d4sfy
- jEEj33CN8eOiceJxj6a0Hq/AkbOnUMleVK1G5aGX+cHYdVmFePDf/Xp+X4XxYJTQjaA0
- xuMw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778019952; x=1778624752;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=Z2JpVZpwEkkxXIyrqDzbrggAQUpIpo/aeYhdL9hdyqI=;
- b=A/zF1OhPdzbbsz4QUd14ltRLqIQutLDvXvxImRwND3ZtLYsh65ebr/1x6VNgkYcUDg
- 5WKsLac0HS+h2YqdnoGs8UTyLk9MWBqhSu6sAxKk0wlot88cJ7Q9YfzzOezaKXxYROpu
- neFnXFb+mmU6iY+1y6zVxR6slhsFngjxYxjzweQfLr9apZYcskZzt/TxsxqAvZYaR+vn
- 5ZKxc/KxuEgfuMKzsfZiDQAHNJleNE442bAc1HmM8usdx1EzMLXFHpA88h5yGpuh07EB
- MI8PHXAx2uGCZk3ZbQ/EZZANS9C1YHYCb/0G3WxRjn2LwfU5BS9KnoOuhXVINkS2aFW2
- Ydng==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8lMJ6xUxtNo8WKI8zW5+Cb6xZbhmWMSVgbN/yzFalo7hgCP0skncCLPTZk1bJtbP4UBF1sGuX+idc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxxrKQ7xsH9HgTH4tnd3nh1kSJgCcgimqLq7WEHb7d+PI7f4LMH
- gqrRKU+tY9CoihquuaU2K6UwrnqJAgB0zTfoB84ZYPftnZpFtXNi1TS/8oAB6aDfApbZYoeztBe
- mmreRRuqgJyceI7gXcpVr0K2OOO2m9mU=
-X-Gm-Gg: AeBDievK/QL7ldY14dGHXmN7yncpA6d3GrSEhKo514Q1p3eROTUVpP9CY0PuLB76cX5
- KOOrqQ6/G4Cxm3hrt37cMyPkNxTCMNPMHfP/zNjdkLJkHDBuHCr81gSOTCc2zvLCOglz71j/bZG
- JYmzLYV1M7lixuMaFLwcRR+rJ0HS3w/CnSllf6UfF40R+qZ5ZsDRAtGQeeFu1ayT1JXzcfWZuLk
- aQJrFZavnUEdQRhfgJ3uXg13PLv/1oJfttYh96NQc91W0JJFPNJq2Wmrn73h8h/pt/oaCpxseBW
- vAZXo7+p8T2UvMVEnbJz6ZOMNZ+KYlNPKE6MQM5p5fht5P3v9IYqrawEo60hRA==
-X-Received: by 2002:a05:6a00:3c81:b0:821:7d7e:41cd with SMTP id
- d2e1a72fcca58-83a5bad9ef1mr633954b3a.10.1778019952505; Tue, 05 May 2026
- 15:25:52 -0700 (PDT)
+X-Greylist: delayed 901 seconds by postgrey-1.36 at gabe;
+ Wed, 06 May 2026 06:42:24 UTC
+Received: from invmail4.hynix.com (exvmail4.skhynix.com [166.125.252.92])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 5F96610E51C
+ for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 06:42:24 +0000 (UTC)
+X-AuditID: a67dfc5b-c2dff70000001609-96-69fadf470ec0
+Date: Wed, 6 May 2026 15:27:14 +0900
+From: Byungchul Park <byungchul@sk.com>
+To: Yunseong Kim <yunseong.kim@est.tech>
+Cc: bagasdotme@gmail.com, 2407018371@qq.com, Dai.Ngo@oracle.com,
+ Liam.Howlett@oracle.com, a.hindborg@kernel.org,
+ ada.coupriediaz@arm.com, adilger.kernel@dilger.ca,
+ akpm@linux-foundation.org, alex.gaynor@gmail.com,
+ alexander.shishkin@linux.intel.com, aliceryhl@google.com,
+ amir73il@gmail.com, andi.shyti@kernel.org, andrii@kernel.org,
+ anna@kernel.org, arnd@arndb.de, ast@kernel.org,
+ baolin.wang@linux.alibaba.com, bigeasy@linutronix.de,
+ bjorn3_gh@protonmail.com, boqun.feng@gmail.com, bp@alien8.de,
+ brauner@kernel.org, broonie@kernel.org, bsegall@google.com,
+ catalin.marinas@arm.com, chenhuacai@kernel.org,
+ chris.p.wilson@intel.com, christian.koenig@amd.com,
+ chuck.lever@oracle.com, cl@linux.com, clrkwllms@kernel.org,
+ corbet@lwn.net, da.gomez@kernel.org, dakr@kernel.org,
+ damien.lemoal@opensource.wdc.com, dan.j.williams@intel.com,
+ daniel.vetter@ffwll.ch, dave.hansen@intel.com, david@fromorbit.com,
+ dennis@kernel.org, dietmar.eggemann@arm.com, djwong@kernel.org,
+ dri-devel@lists.freedesktop.org, duyuyang@gmail.com,
+ dwmw@amazon.co.uk, francesco@valla.it, frederic@kernel.org,
+ gary@garyguo.net, geert+renesas@glider.be, geert@linux-m68k.org,
+ gregkh@linuxfoundation.org, guoweikang.kernel@gmail.com,
+ gustavo@padovan.org, gwan-gyeong.mun@intel.com,
+ hamohammed.sa@gmail.com, hannes@cmpxchg.org, harry.yoo@oracle.com,
+ hch@infradead.org, her0gyugyu@gmail.com, hpa@zytor.com,
+ jack@suse.cz, jglisse@redhat.com, jiangshanlai@gmail.com,
+ jlayton@kernel.org, joel.granados@kernel.org,
+ joel@joelfernandes.org, joelagnelf@nvidia.com,
+ johannes.berg@intel.com, josef@toxicpanda.com,
+ josh@joshtriplett.org, jpoimboe@kernel.org, juri.lelli@redhat.com,
+ kees@kernel.org, kernel-team@lge.com, kernel_team@skhynix.com,
+ kevin.brodsky@arm.com, kristina.martsenko@arm.com,
+ lillian@star-ark.net, linaro-mm-sig@lists.linaro.org, link@vivo.com,
+ linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-block@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-i2c@vger.kernel.org, linux-ide@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-mm@kvack.org, linux-modules@vger.kernel.org,
+ linux-nfs@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+ linux@treblig.org, longman@redhat.com, lorenzo.stoakes@oracle.com,
+ lossin@kernel.org, luto@kernel.org, mark.rutland@arm.com,
+ masahiroy@kernel.org, mathieu.desnoyers@efficios.com,
+ matthew.brost@intel.com, max.byungchul.park@gmail.com,
+ mcgrof@kernel.org, melissa.srw@gmail.com, mgorman@suse.de,
+ mhocko@kernel.org, miguel.ojeda.sandonis@gmail.com,
+ minchan@kernel.org, mingo@redhat.com, mjguzik@gmail.com,
+ neeraj.upadhyay@kernel.org, neil@brown.name, neilb@ownmail.net,
+ netdev@vger.kernel.org, ngupta@vflare.org, ojeda@kernel.org,
+ okorniev@redhat.com, oleg@redhat.com, paulmck@kernel.org,
+ penberg@kernel.org, peterz@infradead.org, petr.pavlu@suse.com,
+ qiang.zhang@linux.dev, rcu@vger.kernel.org,
+ richard.weiyang@gmail.com, rientjes@google.com,
+ rodrigosiqueiramelo@gmail.com, rostedt@goodmis.org, rppt@kernel.org,
+ rust-for-linux@vger.kernel.org, samitolvanen@google.com,
+ sashal@kernel.org, shakeel.butt@linux.dev, sj@kernel.org,
+ sumit.semwal@linaro.org, surenb@google.com, tglx@linutronix.de,
+ thomas.weissschuh@linutronix.de, tim.c.chen@linux.intel.com,
+ tj@kernel.org, tmgross@umich.edu, tom@talpey.com,
+ torvalds@linux-foundation.org, trondmy@kernel.org, tytso@mit.edu,
+ urezki@gmail.com, usamaarif642@gmail.com, vbabka@suse.cz,
+ vdavydov.dev@gmail.com, vincent.guittot@linaro.org,
+ vschneid@redhat.com, wangfushuai@baidu.com,
+ wangkefeng.wang@huawei.com, will@kernel.org, willy@infradead.org,
+ wsa+renesas@sang-engineering.com, x86@kernel.org,
+ yeoreum.yun@arm.com, ysk@kzalloc.com, yunseong.kim@ericsson.com,
+ yuzhao@google.com, ziy@nvidia.com
+Subject: Re: [PATCH] dept: update documentation function names to match
+ implementation
+Message-ID: <20260506062714.GA48817@system.software.com>
+References: <aTN38kJjBftxnjm9@archie.me>
+ <20260428162614.786365-2-yunseong.kim@est.tech>
 MIME-Version: 1.0
-References: <20260505042631.1916555-1-domibel@debian.org>
- <9f7eaea02c2cb52afac4f59fb78224e9acc1f160.camel@iscas.ac.cn>
-In-Reply-To: <9f7eaea02c2cb52afac4f59fb78224e9acc1f160.camel@iscas.ac.cn>
-From: Dominique Belhachemi <domibel@debian.org>
-Date: Tue, 5 May 2026 18:25:41 -0400
-X-Gm-Features: AVHnY4Lo6UtcN4hSCb14mibdOGotokNdtYYLa4ze8bpapQKXeqjIKujnqT58ymA
-Message-ID: <CAAvaLCyZfdo+h+gYjEd6=kDug0A77rqH2e4U7JzpUEEGo_mvDA@mail.gmail.com>
-Subject: Re: [PATCH] drm: verisilicon: support non-coherent DMA framebuffers
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Cc: Maxime Ripard <mripard@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Paul Cercueil <paul@crapouillou.net>,
- Michal Wilczynski <m.wilczynski@samsung.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260428162614.786365-2-yunseong.kim@est.tech>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Brightmail-Tracker: H4sIAAAAAAAAA02Sa0yTdxjF83/v7ez2WsW92GTJOhMNxuvM9mwK0SzEf7IvW5Ysixpds75Z
+ OwuYVpmYEbmqBSaEBJEyt3KxNtDiVtzAQlmHsbOiowiDrqIFbJCuqyyskHFfCzHz2y/nOefk
+ fHg4Ul7PbOS0mSdFfaZKp2SklDS6pn4bDs5pd1a7N8BwMETDYL6bgsXaNhbuDBVQ4GtpRrBY
+ 6WEhNvuQhWWXB8GlvkoS/L6fSbDdyCcgcmsKQdVoiIHqcD4Fk5YyBKbxWhaiwQ4ahmb+QmAJ
+ LREQcp9H8F19KwORS3/HzVU+BFPhEQQuawED/aGXYWB6koFn3zNgLnDR0HcvgmA84CKgsOE6
+ AzdHnCz0RRYI6KmoJ6C2upCAKnsHAbOWJhbGrCYWFkZ3wbI5CzzNT1l4VF5FQUu0lwbv40Ea
+ 2vJGWHD8cRtBbGCUAFvZOAkXnNMUOJ7Er67AVqg710hBp8tLwYXFGAJP+xgB/c5vGHhsW6bB
+ 5+6hocdzh4KH98tZ6HXaabg61EfAzEXFfjUufrDIYNu3NoTn5yoR9o39RuJG4xyBb5oesbio
+ K8Bis+MUbrWm4IbOMIEDkVTsaDIy2DFVyeK6+QkSl0QHCDw82Ml8kHJIuk8t6rTZon5H2qdS
+ jTF4jzrRLDvtqSui89BVaQmScAK/R3g6d555ztGJRjbBFL9JKLnipRPM8JsFv3+WTPB6fovw
+ p79kxU/y9teEy3ZNgtfxnwhd57qIBMt4EGJhy0pWzh8S/KEyZlVfK3hrQtRqNkXwL4Xjfi7O
+ CuHaEpeQJfw+wXy3aWVCEv+G4P7p17hFGp92VyK0fm0mV3cmC79Y/VQF4k0v1JpeqDX9X2tG
+ ZBOSazOzM1Ra3Z7tmpxM7entn2VlOFD8cy25C4fb0ZTvo27Ec0i5RtY+MKuV06psQ05GNxI4
+ UrleNj8cl2RqVc4ZUZ91TH9KJxq6kYKjlK/Kds98qZbzn6tOisdF8YSof34lOMnGPHS8eP+7
+ x6bTf3/ni/s/Xg4U7UxvPPxDzXulac01r1c8uZL0tuJMS1K/7n3CdODAV6rYNTiroEo3NGjb
+ Jrel/8uWGubXHjQ+O2KH3tzkG2fx3g8Hb3cYran24ObdH5er9zoL3zRtufWP42KuJvBWz9bW
+ 1I6Drzy4/tLR5OKRTVmSNOVEwKukDBrVrhRSb1D9B8vjLae1AwAA
+X-Brightmail-Tracker: H4sIAAAAAAAAA02SbUhTYRTHe+69u7suVzezekgIWkoWaEUFB5KICLz0hlFQ+KFaemvDt9jM
+ MojUtZoWYqvNdFm+LpmapfZiMTUjy8rUypxlTWNZS02xLXE27a6I+nL4nf85PzgfDkMGeEUL
+ GWViMq9KlMfLaAkl2b5OExZp9yhX1tmXgk57EnrtDhG8SW+iwO3SUXC5upIGr+mOGHQ1eSJ4
+ 0p1BQcf1CgR2tw7B+KSJBG39NAVefYsYXBPvxGBIRzBtbUFg7NSTYOtoJKGyLp2A7zemaBh8
+ OIbA0O+gIdeZTsGI+RyC/AGTGJyPImHYfl8E0+8/E9D9YwiB2TFFgKPpDAKvMQ6uFtcKunGU
+ hsm2dhJyDR0IivrfkzDm7ENQ1/IBgbU8g4ZPObdIeOWYBa/dIzS0Gs7SMNx5mYBvN2gozLCK
+ oPP5IIICkx7BwFsrAZqSahqMBTUU1PfdE0Pn4E8Ceo16AipqtoHdPEDBs5xiQjhX2Lq5AEy5
+ GkIoXwgwVN0nYMJsEW8wI25cm01xltrbBKd96aW5yiuViJv06BHnKtOQnDZHaB8OjZDcqdqj
+ XNmzIZrzuLtoruPjC5Kz/iikuKfFmCvN9BDc+bawqI3RkohYPl6ZwqtWrN8vUWTan1OHK6TH
+ WopOidJQmSQL+TGYXYOHv5SKfUyxwTiroFXkY5pdim22CdLHgWwo/mrLon1MslWL8KUqhY/n
+ sntww+kGwsdSFrDLaf7tBrDR2OY4R//J5+DWPAf1x12ObVNOYZ8ROAhfm2J8sR8bgQufWn6f
+ MI9dgptuPyZykDT/Pzv/Pzv/n12ISAsKVCamJMiV8WvD1XGK1ETlsfCYpIQaJDyl+cTP83eR
+ 61VkM2IZJPOX3n09oQwQyVPUqQnNCDOkLFA62StE0lh56nFelbRPdSSeVzejIIaSLZBu3s3v
+ D2APyZP5OJ4/zKv+TgnGb2Eayhxvv3BhRnj9TpwW4+8fdahsdP2d2YHHnWQfm73Y0di+PTYr
+ Wm3VQUNTcs/el3PCzvp9HTvgsVxPWhbeUw/BbxNKZq4ObcuMqR69GNK1qaRUGtW4xQ7+2xT9
+ MipkOmj04IwHEbs0RZFabx7eOrYjKLg89LR7X7Znpi2pp1w2NF9GqRXyVctJlVr+C58CT62Q
+ AwAA
+X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Wed, 06 May 2026 07:47:21 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,35 +145,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, May 5, 2026 at 5:03=E2=80=AFAM Icenowy Zheng <zhengxingda@iscas.ac.=
-cn> wrote:
->
-> =E5=9C=A8 2026-05-05=E4=BA=8C=E7=9A=84 04:26 +0000=EF=BC=8CDominique Belh=
-achemi=E5=86=99=E9=81=93=EF=BC=9A
-> > Wire up the standard non-coherent path matching the ingenic DRM
-> > driver.
-> >
-> > Tested on StarFive JH7110 (VisionFive 2 v1.3B).
->
-> Interesting, I am curious about other patches added to test this.
->
-Hi,
+On Tue, Apr 28, 2026 at 06:26:15PM +0200, Yunseong Kim wrote:
+> Synchronize function names in the documentation with the actual
+> implementation to fix naming inconsistencies.
 
-I tested this on Debian unstable with a slightly patched 7.0.3 kernel [1].
-The test branch contains your verisilicon series, Michal's JH7110
-display series [2],
-and a JH7110 ccache change [3], which was also required to communicate
-with the BXE-4-32 firmware [4].
+Good catch!  Thanks Yunseong.  I will apply it on the top.
 
-This change here is only used to remove the ugly framebuffer stripes
-on the console and in the desktop environment.
+	Byungchul
 
-[1] https://github.com/domibel/linux/tree/jh7110_dc8200_hdmi_v7.0.3
-[2] https://lore.kernel.org/lkml/20251108-jh7110-clean-send-v1-0-06bf43bb76=
-b1@samsung.com/
-[3] https://lore.kernel.org/lkml/20260430035259.3402954-1-domibel@debian.or=
-g/
-[4] https://github.com/domibel/linux/tree/powervr_on_jh7110_visionfive2_v7.=
-0.3
-
-Dominique
+> Signed-off-by: Yunseong Kim <yunseong.kim@est.tech>
+> ---
+>  Documentation/dev-tools/dept.rst     | 2 +-
+>  Documentation/dev-tools/dept_api.rst | 2 +-
+>  2 files changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/dev-tools/dept.rst b/Documentation/dev-tools/dept.rst
+> index 333166464543..31b2fe629fab 100644
+> --- a/Documentation/dev-tools/dept.rst
+> +++ b/Documentation/dev-tools/dept.rst
+> @@ -97,7 +97,7 @@ No.  What about the following?
+> 
+>                            mutex_lock A
+>     mutex_lock A <- DEADLOCK
+> -                          wait_for_complete B <- DEADLOCK
+> +                          wait_for_completion B <- DEADLOCK
+>     complete B
+>                            mutex_unlock A
+>     mutex_unlock A
+> diff --git a/Documentation/dev-tools/dept_api.rst b/Documentation/dev-tools/dept_api.rst
+> index 409116a62849..74e7b1424ad5 100644
+> --- a/Documentation/dev-tools/dept_api.rst
+> +++ b/Documentation/dev-tools/dept_api.rst
+> @@ -113,7 +113,7 @@ Do not use these APIs directly.  The raw APIs of dept are:
+>     dept_stage_wait(map, key, ip, wait_func, time);
+>     dept_request_event_wait_commit();
+>     dept_clean_stage();
+> -   dept_stage_event(task, ip);
+> +   dept_ttwu_stage_wait(task, ip);
+>     dept_ecxt_enter(map, evt_flags, ip, ecxt_func, evt_func, sub_local);
+>     dept_ecxt_holding(map, evt_flags);
+>     dept_request_event(map, ext_wgen);
+> --
+> 2.53.0
