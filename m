@@ -4,88 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BC17CD343B
-	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 15:02:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C1DDCD342C
+	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 15:05:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 405B710E541;
-	Wed,  6 May 2026 15:02:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D20AC10E1E1;
+	Wed,  6 May 2026 15:05:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Kx3pizV5";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Xl2+76cJ";
 	dkim-atps=neutral
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
- [209.85.167.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D967E10E541
- for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 15:02:47 +0000 (UTC)
-Received: by mail-lf1-f54.google.com with SMTP id
- 2adb3069b0e04-5a8738c178dso2524339e87.1
- for <dri-devel@lists.freedesktop.org>; Wed, 06 May 2026 08:02:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778079766; x=1778684566; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=ZrHT8jRgn9wlWslwwDOMFUBlZ/k/+GYgzkcTlTMrZnY=;
- b=Kx3pizV5zf37U87+YL644jqD9lLuF5oc0NktLRwQbtBep+nNsArT4e+l5cKz6o2yP8
- wxC32uTnYAcLqEmSrU06IvjaURpdBe82ymUgTTGlMCOlMxgpHGgtlw/461QBm2sGdsLX
- dX2ACkVQPqrh9z1VcZSP2WwtP4uRFzaNxddEflfS82k1sLhSdLe7kaQfbTOAUokWoecR
- f6x2PPYIu9lhQ1xFI+j9xZwgbw9q9Tp3c+p5pf80iRD/Qye/yZV/CWSWFVOA5T22gsH7
- Rd/5L9TPgVtJztf0zmtD1qC47QkUW5qudEtkidudx9iSjS5/ZhiyqQF1Gf/tdQ20W2Zn
- cLSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778079766; x=1778684566;
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ZrHT8jRgn9wlWslwwDOMFUBlZ/k/+GYgzkcTlTMrZnY=;
- b=l+gcNUBFUSv0kt13gLaIsowWVKpd0mocIfcWuTZMpHUxk7hKQ6yJHzJpgzslAu68+d
- Jog++XZCT37FOcxJHdcoNOpPXtfWE53XaaivT2p1iwxjMoEsXqbUuxIQDZt9eLISTXof
- HsnG6tFw1oxdMt5Abv7LjdeedQOkK7m5K+49CcfsM59Bd8yNJx0uwlBn/R+EouTIFr4f
- rKVsz82ZBPKiJgmZj11pWL3kx7WzBgR8dAzHulZllYuGFG7u2KyW4WlSz9q9oKTrzDkF
- R/zk8mOpzHCdjPp8xui/G4YxL5PCotz5NqaPv/Y93LIGFjEZo807/AzmoBaU+4FnG7yu
- IYFw==
-X-Gm-Message-State: AOJu0Yx/FLX/FGhs6dVfbNm+MKNJ/hfKtSA17fx/uzrM5PhKrKvX8aJm
- 6JGXIDVxUS5JPV7m3Ah+lTTFgJ3Y7EXPlHfMuj8MZzh516o2W20/j7Y4
-X-Gm-Gg: AeBDietaaFnJP8dNojic0uD/eO788CNcPF9OOC/Yt7o4G7Z2JOVwcc8ayNkJVmVxWPs
- VhpRQOLRq0cN99QwUVxv693NWmTM7f7OSsVG7Z1TWi57aXrJOUgHhoQCq2P6+lF1ptZp//UhiB7
- 5rj22h2Se8/7uX3e3pq6HqFFHmjiWW8/ufK7LLM2HX+y/x9VkKloixrv1wBtrQp6X+XNHF4NQvv
- FeqYMRZTWRUTkPNoyR8H47q9qRHlQrECbFkMYwAWrLdTTIH2xgw9P+w5ywwAROfYlXf6r+Od6EP
- JTANI+3aNsY3Dci1nSP3wXfcS+KodifxMUA3GBm4oJJltDfOsYVpXR/Zde9I4ppbv9WRWEwEzpN
- 7imWuvxR6oCZa9t0xkkKcDhrSbAj984YMtdfihoqH6N9dOHGLcmd6yWIVOLE9a8GVWIaddnlVpp
- rYvL/6AADbtIWR4wCQbiZVTcyidRHU3fbE4tPBAuFXOQSzrbp4SMroHw/+fgVNhgGPlT8tVOCdO
- w==
-X-Received: by 2002:a05:6512:b82:b0:5a4:d4:5c5a with SMTP id
- 2adb3069b0e04-5a887ce65d4mr1311119e87.28.1778079765546; 
- Wed, 06 May 2026 08:02:45 -0700 (PDT)
-Received: from [192.168.2.20] (109-252-156-195.dynamic.spd-mgts.ru.
- [109.252.156.195]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a88867f754sm664935e87.61.2026.05.06.08.02.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 06 May 2026 08:02:44 -0700 (PDT)
-Message-ID: <7b8f06ec-dbf4-402a-a7bf-fe8227b4f8ba@gmail.com>
-Date: Wed, 6 May 2026 18:02:42 +0300
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8502D10E1E1
+ for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 15:05:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1778079924;
+ bh=5VmaZC0RomEbp6aSDoSjoUMQMXlIAykXwImP8NyVAX4=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=Xl2+76cJ+aSL9e3r2WJoupZZAaYmQbPGDTHPik5U1VTSygVKWY3ArXBA/kjLDvK4G
+ eg9+ssBQ7WGf+DKYenyfLSkd5s4HT/1O9GMoqrlLxFyY0gax8+zwirT6uUFHpDh13T
+ 0kqWAvplq2HRPGwxVpV7x81YumQffmyohu09SIXwfXESbDS5ZguwU2j2jNqVm+hpiq
+ laYdbYVv3n8e9Va/HRP8M9VY74Jc3EtOds65TNkUJAHJ/GXycujbibDaOv+giz73Cq
+ gCyTna02cmPHhb8AkVl3fQ23YY1KHnz1yMjPIfF63MXay/Kr/iYE/FwktK2luqam6O
+ nqUdERfFEz3VA==
+Received: from fedora (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id EBF9F17E0610;
+ Wed,  6 May 2026 17:05:22 +0200 (CEST)
+Date: Wed, 6 May 2026 17:05:15 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Ketil Johnsen <ketil.johnsen@arm.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
+ <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, Brian Starkey
+ <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, "T.J. Mercier"
+ <tjmercier@google.com>, Christian =?UTF-8?B?S8O2bmln?=
+ <christian.koenig@amd.com>, Steven Price <steven.price@arm.com>, Liviu
+ Dudau <liviu.dudau@arm.com>, Daniel Almeida <daniel.almeida@collabora.com>,
+ Alice Ryhl <aliceryhl@google.com>, Matthias Brugger
+ <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>, dri-devel@lists.freedesktop.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ Florent Tomasin <florent.tomasin@arm.com>
+Subject: Re: [PATCH 4/8] drm/panthor: Add support for protected memory
+ allocation in panthor
+Message-ID: <20260506170515.2d8511c3@fedora>
+In-Reply-To: <20260506-golden-python-of-aptitude-ff972a@houat>
+References: <20260505140516.1372388-1-ketil.johnsen@arm.com>
+ <20260505140516.1372388-5-ketil.johnsen@arm.com>
+ <20260506-energetic-azure-pig-2b6ec4@houat>
+ <20260506125015.0108ef44@fedora>
+ <20260506-golden-python-of-aptitude-ff972a@houat>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/7] drm/bridge: tc358768: Long command support
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Parth Pancholi <parth.pancholi@toradex.com>,
- Francesco Dolcini <francesco.dolcini@toradex.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- =?UTF-8?Q?Jo=C3=A3o_Paulo_Gon=C3=A7alves?= <joao.goncalves@toradex.com>
-References: <20260311-tc358768-v2-0-e75a99131bd5@ideasonboard.com>
- <cfc703b5-012a-49ab-a42c-ff99c3ba6256@ideasonboard.com>
-From: Dmitry Osipenko <digetx@gmail.com>
-Content-Language: en-US
-In-Reply-To: <cfc703b5-012a-49ab-a42c-ff99c3ba6256@ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,47 +82,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-06.05.2026 10:55, Tomi Valkeinen пишет:
-> Hi all,
-> 
-> On 11/03/2026 09:48, Tomi Valkeinen wrote:
->> This series makes some small improvements to the tc358768 driver, and
->> then adds support for long commands, commands that have more than 8
->> bytes of payload.
->>
->> This has been tested on Toradex Verdin AM62 board, with a ST7703 based
->> DSI panel which requires initial configuration using commands that have
->> 8+ bytes.
->>
->> I tested the following combinations, by observing the panel visually and
->> the DSI lanes with an oscilloscope:
->>
->> - HS command transfer, continuous clock
->> - HS command transfer, non-continuous clock
->> - LP command transfer, continuous clock
->> - LP command transfer, non-continuous clock
->>
->> All except LP + continuous clock work fine. While observing the lanes
->> with normal oscilloscope is a very high level and vague view of what
->> exactly is going on the lanes, it still looks good to me: initial
->> commands are sent in LP, and then video data is being sent in HS, and
->> clock lane is continuous. However, the panel stays black, so something
->> is not quite right.
->>
->> As it doesn't make sense to send commands in LP during initial
->> configuration, especially with longer commands, I will leave that
->> particular combination unresolved. I'd be interested to hear if it works
->> on some other panel.
->>
->> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
->> ---
->> Changes in v2:
->> - Add reviewed-by & tested-by tags
->> - Rebase on v7.0-rc2
->> - Link to v1: https://lore.kernel.org/r/20251021-tc358768-v1-0-
->> d590dc6a1a0c@ideasonboard.com
-> Any further comments from anyone? I don't see a specific maintainer for
-> this bridge chip, so if there are no comments I'll push this to drm-misc
-> in the coming days.
+On Wed, 6 May 2026 15:12:37 +0200
+Maxime Ripard <mripard@kernel.org> wrote:
 
-No objections
+> On Wed, May 06, 2026 at 12:50:15PM +0200, Boris Brezillon wrote:
+> > On Wed, 6 May 2026 12:08:24 +0200
+> > Maxime Ripard <mripard@kernel.org> wrote:
+> >   
+> > > Hi,
+> > > 
+> > > On Tue, May 05, 2026 at 04:05:10PM +0200, Ketil Johnsen wrote:  
+> > > > From: Florent Tomasin <florent.tomasin@arm.com>
+> > > > 
+> > > > This patch allows Panthor to allocate buffer objects from a
+> > > > protected heap. The Panthor driver should be seen as a consumer
+> > > > of the heap and not an exporter.
+> > > > 
+> > > > Protected memory buffers needed by the Panthor driver:
+> > > > - On CSF FW load, the Panthor driver must allocate a protected
+> > > >   buffer object to hold data to use by the FW when in protected
+> > > >   mode. This protected buffer object is owned by the device
+> > > >   and does not belong to a process.
+> > > > - On CSG creation, the Panthor driver must allocate a protected
+> > > >   suspend buffer object for the FW to store data when suspending
+> > > >   the CSG while in protected mode. The kernel owns this allocation
+> > > >   and does not allow user space mapping. The format of the data
+> > > >   in this buffer is only known by the FW and does not need to be
+> > > >   shared with other entities.
+> > > > 
+> > > > The driver will retrieve the protected heap using the name of the
+> > > > heap provided to the driver as module parameter.    
+> > > 
+> > > I know it's what dma_heap_find asks for, but I wonder if it wouldn't be
+> > > better in the device tree and lookup through the device node? heaps are
+> > > going to have a node anyway, right?  
+> > 
+> > I'm not too sure. Take the PROTMEM (name="protected,xxxx") dma_heaps
+> > instantiated by optee for instance, I don't think the originating
+> > tee_device comes from a device node, nor is the underlying heap
+> > described as a device node. The reserved memory pool this protected heap
+> > comes from is most likely defined somewhere as reserved memory in the
+> > DT, but there's nothing to correlate this range of reserved mem to some
+> > sub-range that the TEE implementation is carving out to provide
+> > protected memory.  
+> 
+> Maybe we should be working on a dt bindings for heaps then? Something
+> simple like we have for clocks with a phandle and an ID would probably
+> be enough. In optee's case, it looks like it would map nicely with
+> TEE_DMA_HEAP_* flags too.
+
+Sure.
+
+> 
+> The only two that wouldn't be covered would be the system and default
+> CMA heap if not setup in the DT, which shouldn't be too bad for this
+> particular use-case.
+
+I'm not opposed to the idea of describing the association through the
+DT (with a <phandle, ID> pair). My main fear is that it drags us into
+endless discussions around what's considered HW description and what's
+not (PTSD of all those DT-bindings discussions I suppose :-)), which
+ends up delaying the merging of Panthor's protected memory support.
+
+Honestly, at this point I'm considering going back to my initial
+suggestion to add a dedicated ioctl() (requiring high privilege) to let
+the user pass the memory for the FW protected sections as a dmabuf FD.
+Given we don't need those sections to be populated for the FW to boot,
+it wouldn't block the probe of the driver, it would just prevent PROTM
+usage until those sections are populated.
+
+This would let us make progress with the rest of the changes in this
+patchset, while the community decides how they want to expose dma_heaps
+to in-kernel users.
