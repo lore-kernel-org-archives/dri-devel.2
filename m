@@ -4,65 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 932C0CD3424
-	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 06:36:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D056BCD3424
+	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 06:42:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDAD910E4FF;
-	Wed,  6 May 2026 06:36:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22B4010E51C;
+	Wed,  6 May 2026 06:42:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="tBkFY0Kn";
+	dkim=pass (2048-bit key; unprotected) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="YYRuOUe4";
 	dkim-atps=neutral
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C1DE10E4FF
- for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 06:36:15 +0000 (UTC)
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20260506063613euoutp01fc23496a1d9d46cbd422e520e2381cd7~s5nww7kbH0190201902euoutp01V
- for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 06:36:13 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20260506063613euoutp01fc23496a1d9d46cbd422e520e2381cd7~s5nww7kbH0190201902euoutp01V
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1778049374;
- bh=UAOX7g+36grI83zuNghQw07p7liRfgICgVlYKc3Nluo=;
- h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
- b=tBkFY0KnbNbL7mqrZZLt4TmLURhgSco8cBjnYwUNKXSJRjsDoYHn4VKvY5cyIQ/kj
- +RTc7unxuyTPktcbg4qCNKvS8EaO0MSNy1vaenPrBI6nYZh0bouh4l6bdaNJpeYxe2
- Xt7o54cnUqRoGkMxha75sPFuNX746qzb4QHENLYw=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20260506063613eucas1p22e2010cea14e69222bfde5d3504571a1~s5nwfFy_d1876018760eucas1p2X;
- Wed,  6 May 2026 06:36:13 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
- eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20260506063612eusmtip2ba00c35a881fca512a095dc19595a723~s5nvKmbT_2580225802eusmtip2w;
- Wed,  6 May 2026 06:36:12 +0000 (GMT)
-Message-ID: <19fbdfbd-71f5-4e92-8525-aaeddcbf4467@samsung.com>
-Date: Wed, 6 May 2026 08:36:11 +0200
+Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch
+ [79.135.106.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D861A10E51C
+ for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 06:42:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
+ s=protonmail; t=1778049767; x=1778308967;
+ bh=q2TXCLAE2mPGzfy+dmYtqTEvX4ADjVRcu962o0Qm+Fw=;
+ h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
+ Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=YYRuOUe4hzQg3hZX3rBASWhHtohhj/47mncF5Iz2Us36uYCxYb7GI6UsGCojnD8jG
+ MBhR6pzqpTAEE5AlnDDfy2KRR6cZKiO1cjzTP6D2IRgVczUfOibvZpeYyNg6KNNHNv
+ vh9CDp3hLLi5f8JPEE1zDu0Cour7wa38jDdw1RJsBuAIkaYSHa3QH8Y/wLwYBS0azS
+ DNWKFq8UmEKKywpFKI75nWd+rHAk6/yR0g7Y+59KKb2Qfi4Ac0kUxHXLRhl1HHbCFF
+ WbbowqgK46V0zycJpYY2JgWH4JSCQPoKNQZG9ikhjLtAZXUx017dukn+pU5C2oXQmy
+ tO6hZsRYMm+Jw==
+X-Pm-Submission-Id: 4g9Qmd4dR6z2Scpx
+From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+To: Alice Ryhl <aliceryhl@google.com>
+Cc: Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Gary Guo <gary@garyguo.net>, Philipp Stanner <pstanner@redhat.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>, linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 2/2] drm/gpuvm: rust: add drm_gpuvm_exec support
+Date: Wed,  6 May 2026 09:42:33 +0300
+Message-ID: <20260506064240.29720-1-work@onurozkan.dev>
+X-Mailer: git-send-email 2.51.2
+In-Reply-To: <20260505-gpuvm-drm-exec-v1-2-958306ded36e@google.com>
+References: <20260505-gpuvm-drm-exec-v1-0-958306ded36e@google.com>
+ <20260505-gpuvm-drm-exec-v1-2-958306ded36e@google.com>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH] drm/exynos/gem: Fix printk specifier for
- gem_object.size and dma_addr
-To: Chen-Yu Tsai <wenst@chromium.org>, Inki Dae <inki.dae@samsung.com>,
- Seung-Woo Kim <sw0312.kim@samsung.com>, Kyungmin Park
- <kyungmin.park@samsung.com>, Krzysztof Kozlowski <krzk@kernel.org>, Alim
- Akhtar <alim.akhtar@samsung.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-samsung-soc@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, kernel
- test robot <lkp@intel.com>
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20260408064936.1342321-1-wenst@chromium.org>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260506063613eucas1p22e2010cea14e69222bfde5d3504571a1
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260408064951eucas1p14200e8d85d270f16435e38af36dbcae0
-X-EPHeader: CA
-X-CMS-RootMailID: 20260408064951eucas1p14200e8d85d270f16435e38af36dbcae0
-References: <CGME20260408064951eucas1p14200e8d85d270f16435e38af36dbcae0@eucas1p1.samsung.com>
- <20260408064936.1342321-1-wenst@chromium.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,64 +68,204 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 08.04.2026 08:49, Chen-Yu Tsai wrote:
-> In the recent change to use the GEM base object's size field instead of
-> the exynos_gem object's additional field, the printk format was not
-> adjusted for the change to size_t type. This causes a new warning on
-> platforms on which size_t is not unsigned long.
->
-> Fix this by using the correct "%zx" type.
->
-> While at it, fix the specifier for dma_addr so that the cast to unsigned
-> long is not longer needed.
->
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202604081331.jSJQSVmg-lkp@intel.com/
-> Fixes: 11e898373fba ("drm/exynos: Drop exynos_drm_gem.size field")
-> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
-
-Acked-by: Marek Szyprowski <m.szyprowski@samsung.com>
-
-
-> ---
-> This is only compile tested. Build for ARM 32-bit confirms the warning
-> is fixed. Sorry for the noise.
->
-> The commit hash used in the Fixes tag is the current one seen in
-> exynos-drm-next.
-> ---
->  drivers/gpu/drm/exynos/exynos_drm_gem.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/exynos/exynos_drm_gem.c b/drivers/gpu/drm/exynos/exynos_drm_gem.c
-> index d9d42809a1a9..f264e170bc26 100644
-> --- a/drivers/gpu/drm/exynos/exynos_drm_gem.c
-> +++ b/drivers/gpu/drm/exynos/exynos_drm_gem.c
-> @@ -66,8 +66,8 @@ static int exynos_drm_alloc_buf(struct exynos_drm_gem *exynos_gem, bool kvmap)
->  	if (kvmap)
->  		exynos_gem->kvaddr = exynos_gem->cookie;
->  
-> -	DRM_DEV_DEBUG_KMS(drm_dev_dma_dev(dev), "dma_addr(0x%lx), size(0x%lx)\n",
-> -			(unsigned long)exynos_gem->dma_addr, exynos_gem->base.size);
-> +	DRM_DEV_DEBUG_KMS(drm_dev_dma_dev(dev), "dma_addr(%pad), size(0x%zx)\n",
-> +			  &exynos_gem->dma_addr, exynos_gem->base.size);
->  	return 0;
->  }
->  
-> @@ -80,8 +80,8 @@ static void exynos_drm_free_buf(struct exynos_drm_gem *exynos_gem)
->  		return;
->  	}
->  
-> -	DRM_DEV_DEBUG_KMS(dev->dev, "dma_addr(0x%lx), size(0x%lx)\n",
-> -			(unsigned long)exynos_gem->dma_addr, exynos_gem->base.size);
-> +	DRM_DEV_DEBUG_KMS(dev->dev, "dma_addr(%pad), size(0x%zx)\n",
-> +			  &exynos_gem->dma_addr, exynos_gem->base.size);
->  
->  	dma_free_attrs(drm_dev_dma_dev(dev), exynos_gem->base.size, exynos_gem->cookie,
->  			(dma_addr_t)exynos_gem->dma_addr,
-
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
-
+On Tue, 05 May 2026 13:29:37 +0000=0D
+Alice Ryhl <aliceryhl@google.com> wrote:=0D
+=0D
+> This adds support for simple usage of drm_gpuvm_exec() for locking all=0D
+> of the dma reservations and adding fences to them. For more complex=0D
+> usage that does not involve locking all reservations, it is expected=0D
+> that the ww-mutex abstractions will be used instead.=0D
+> =0D
+> Signed-off-by: Alice Ryhl <aliceryhl@google.com>=0D
+> ---=0D
+>  rust/bindings/bindings_helper.h |  2 ++=0D
+>  rust/helpers/drm_gpuvm.c        |  6 ++++=0D
+>  rust/kernel/dma_buf/mod.rs      | 17 ++++++++++=0D
+>  rust/kernel/drm/gpuvm/mod.rs    | 71 +++++++++++++++++++++++++++++++++++=
+++++++=0D
+>  4 files changed, 96 insertions(+)=0D
+> =0D
+> diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_hel=
+per.h=0D
+> index 1124785e210b..3978682a6f2e 100644=0D
+> --- a/rust/bindings/bindings_helper.h=0D
+> +++ b/rust/bindings/bindings_helper.h=0D
+> @@ -151,6 +151,8 @@ const vm_flags_t RUST_CONST_HELPER_VM_MIXEDMAP =3D VM=
+_MIXEDMAP;=0D
+>  const vm_flags_t RUST_CONST_HELPER_VM_HUGEPAGE =3D VM_HUGEPAGE;=0D
+>  const vm_flags_t RUST_CONST_HELPER_VM_NOHUGEPAGE =3D VM_NOHUGEPAGE;=0D
+>  =0D
+> +const u32 RUST_CONST_HELPER_DRM_EXEC_INTERRUPTIBLE_WAIT =3D DRM_EXEC_INT=
+ERRUPTIBLE_WAIT;=0D
+> +=0D
+>  #if IS_ENABLED(CONFIG_GPU_BUDDY)=0D
+>  const unsigned long RUST_CONST_HELPER_GPU_BUDDY_RANGE_ALLOCATION =3D GPU=
+_BUDDY_RANGE_ALLOCATION;=0D
+>  const unsigned long RUST_CONST_HELPER_GPU_BUDDY_TOPDOWN_ALLOCATION =3D G=
+PU_BUDDY_TOPDOWN_ALLOCATION;=0D
+> diff --git a/rust/helpers/drm_gpuvm.c b/rust/helpers/drm_gpuvm.c=0D
+> index 4130b6325213..30fb1777fbf2 100644=0D
+> --- a/rust/helpers/drm_gpuvm.c=0D
+> +++ b/rust/helpers/drm_gpuvm.c=0D
+> @@ -23,4 +23,10 @@ bool rust_helper_drm_gpuvm_is_extobj(struct drm_gpuvm =
+*gpuvm,=0D
+>  	return drm_gpuvm_is_extobj(gpuvm, obj);=0D
+>  }=0D
+>  =0D
+> +__rust_helper=0D
+> +void rust_helper_drm_gpuvm_exec_unlock(struct drm_gpuvm_exec *vm_exec)=0D
+> +{=0D
+> +	drm_gpuvm_exec_unlock(vm_exec);=0D
+> +}=0D
+> +=0D
+>  #endif // CONFIG_RUST_DRM_GPUVM=0D
+> diff --git a/rust/kernel/dma_buf/mod.rs b/rust/kernel/dma_buf/mod.rs=0D
+> index b66e747c35ad..234936ba8265 100644=0D
+> --- a/rust/kernel/dma_buf/mod.rs=0D
+> +++ b/rust/kernel/dma_buf/mod.rs=0D
+> @@ -5,3 +5,20 @@=0D
+>  pub mod dma_fence;=0D
+>  =0D
+>  pub use self::dma_fence::Fence;=0D
+> +=0D
+> +/// How the fences from a `dma_resv` obj are used.=0D
+> +///=0D
+> +/// Please see [the C-side documentation][dma_resv_usage] for more detai=
+ls.=0D
+> +///=0D
+> +/// [dma_resv_usage]: https://docs.kernel.org/driver-api/dma-buf.html#c.=
+dma_resv_usage=0D
+> +#[repr(u32)]=0D
+> +pub enum DmaResvUsage {=0D
+> +    /// For in kernel memory management only (e.g. copying, clearing mem=
+ory).=0D
+> +    Kernel =3D bindings::dma_resv_usage_DMA_RESV_USAGE_KERNEL,=0D
+> +    /// Implicit write synchronization for userspace submissions.=0D
+> +    Write =3D bindings::dma_resv_usage_DMA_RESV_USAGE_WRITE,=0D
+> +    /// Implicit read synchronization for userspace submissions.=0D
+> +    Read =3D bindings::dma_resv_usage_DMA_RESV_USAGE_READ,=0D
+> +    /// No implicit sync (e.g. preemption fences, page table updates, TL=
+B flushes).=0D
+> +    Bookkeep =3D bindings::dma_resv_usage_DMA_RESV_USAGE_BOOKKEEP,=0D
+> +}=0D
+> diff --git a/rust/kernel/drm/gpuvm/mod.rs b/rust/kernel/drm/gpuvm/mod.rs=
+=0D
+> index ae58f6f667c1..a52fb25f22ff 100644=0D
+> --- a/rust/kernel/drm/gpuvm/mod.rs=0D
+> +++ b/rust/kernel/drm/gpuvm/mod.rs=0D
+> @@ -16,6 +16,7 @@=0D
+>          Flags as AllocFlags, //=0D
+>      },=0D
+>      bindings,=0D
+> +    dma_buf::{DmaResvUsage, Fence},=0D
+=0D
+This can be handled vertically.=0D
+=0D
+>      drm,=0D
+>      drm::gem::IntoGEMObject,=0D
+>      error::to_result,=0D
+> @@ -216,6 +217,30 @@ pub fn obtain(=0D
+>          Ok(GpuVmBoAlloc::new(self, obj, data)?.obtain())=0D
+>      }=0D
+>  =0D
+> +    /// Prepare this GPUVM.=0D
+> +    ///=0D
+> +    /// The parameter indicates how many fences to preallocate space for=
+.=0D
+> +    #[inline]=0D
+> +    pub fn prepare(&self, num_fences: u32) -> impl PinInit<GpuVmExec<'_,=
+ T>, Error> {=0D
+> +        try_pin_init!(GpuVmExec {=0D
+> +            exec <- Opaque::try_ffi_init(|exec: *mut bindings::drm_gpuvm=
+_exec| {=0D
+> +                // SAFETY: exec is valid but unused memory, so we can wr=
+ite.=0D
+> +                unsafe {=0D
+> +                    ptr::write_bytes(exec, 0u8, 1usize);=0D
+> +                    ptr::write(&raw mut (*exec).vm, self.as_raw());=0D
+> +                    ptr::write(&raw mut (*exec).flags, bindings::DRM_EXE=
+C_INTERRUPTIBLE_WAIT);=0D
+> +                    ptr::write(&raw mut (*exec).num_fences, num_fences);=
+=0D
+> +                }=0D
+> +=0D
+> +                // SAFETY: If successful, this `struct drm_gpuvm_exec` r=
+emains valid until this is=0D
+> +                // unlocked because it's pinned and unlocks it in drop. =
+The contained pointer to=0D
+> +                // `self` remains valid because `GpuVmExec` borrows from=
+ `self`.=0D
+> +                to_result(unsafe { bindings::drm_gpuvm_exec_lock(exec) }=
+)=0D
+> +            }),=0D
+> +            _gpuvm: PhantomData,=0D
+> +        })=0D
+> +    }=0D
+> +=0D
+>      /// Clean up buffer objects that are no longer used.=0D
+>      #[inline]=0D
+>      pub fn deferred_cleanup(&self) {=0D
+> @@ -326,3 +351,49 @@ fn deref(&self) -> &GpuVm<T> {=0D
+>          &self.0=0D
+>      }=0D
+>  }=0D
+> +=0D
+> +/// The exec token for preparing the objects.=0D
+> +///=0D
+> +/// # Invariants=0D
+> +///=0D
+> +/// Owns a GPUVM exec context.=0D
+> +#[pin_data(PinnedDrop)]=0D
+> +pub struct GpuVmExec<'vm, T: DriverGpuVm> {=0D
+> +    #[pin]=0D
+> +    exec: Opaque<bindings::drm_gpuvm_exec>,=0D
+> +    _gpuvm: PhantomData<&'vm mut GpuVm<T>>,=0D
+> +}=0D
+> +=0D
+> +impl<'vm, T: DriverGpuVm> GpuVmExec<'vm, T> {=0D
+> +    /// Add a fence.=0D
+> +    ///=0D
+> +    /// The caller must ensure that the preallocated space for fences is=
+ sufficient.=0D
+> +    #[inline]=0D
+> +    pub fn resv_add_fence(=0D
+> +        &self,=0D
+> +        fence: &Fence,=0D
+> +        private_usage: DmaResvUsage,=0D
+> +        extobj_usage: DmaResvUsage,=0D
+> +    ) {=0D
+> +        // SAFETY: This method takes a refcount on the fence, so it's on=
+ly required to be valid for=0D
+> +        // the duration of this method. If there is not enough space for=
+ the pre-allocated fence,=0D
+> +        // then this leads to a BUG_ON() but does not trigger UB.=0D
+=0D
+Did you think about tracking the space of fences? We can store num_fences f=
+rom=0D
+prepare and a counter added_fences then compare them in this function to av=
+oid=0D
+this risk.=0D
+=0D
+> +        unsafe {=0D
+> +            bindings::drm_gpuvm_resv_add_fence(=0D
+> +                (*self.exec.get()).vm,=0D
+> +                &raw mut (*self.exec.get()).exec,=0D
+> +                fence.as_raw(),=0D
+> +                private_usage as u32,=0D
+> +                extobj_usage as u32,=0D
+> +            )=0D
+> +        }=0D
+> +    }=0D
+> +}=0D
+> +=0D
+> +#[pinned_drop]=0D
+> +impl<'vm, T: DriverGpuVm> PinnedDrop for GpuVmExec<'vm, T> {=0D
+> +    fn drop(self: Pin<&mut Self>) {=0D
+> +        // SAFETY: We hold the lock, so it's safe to unlock.=0D
+> +        unsafe { bindings::drm_gpuvm_exec_unlock(self.exec.get()) };=0D
+> +    }=0D
+> +}=0D
+> =0D
+> -- =0D
+> 2.54.0.545.g6539524ca2-goog=0D
+> =0D
