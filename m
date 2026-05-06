@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5DC0FF8855
-	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 13:42:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43512CD342C
+	for <dri-devel@archiver.kernel.org>; Wed,  6 May 2026 13:42:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1243410EDAB;
-	Wed,  6 May 2026 13:42:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9994210ED89;
+	Wed,  6 May 2026 13:42:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jVDFM1lj";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Erbupagc";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A61A10EDC5;
- Wed,  6 May 2026 13:42:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2424B10EDB0;
+ Wed,  6 May 2026 13:42:32 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 326DD44104;
- Wed,  6 May 2026 13:42:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E73FEC2BCB8;
- Wed,  6 May 2026 13:42:26 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 0B6E3436D8;
+ Wed,  6 May 2026 13:42:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FDF1C2BCC9;
+ Wed,  6 May 2026 13:42:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778074948;
- bh=lM5/bP9mU6uA47yq2TORb0MSyMeH+anPQDvkVAb3Yl4=;
+ s=k20201202; t=1778074951;
+ bh=/Dwzo/puqQx4aqXdp4eoDtcbjc2mbw6uNmOMRrS8AgY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=jVDFM1ljm+D1MKK68jui0ASR3iLVHmVCa2NlaEZmehVgV2UY850Uy8Rp/vm5Haw19
- 8Dv8RarP+XK6DLm6ackSxohnieuchFCiIFXxEIePWOLdMcuP9IBAHJm7bN28UWxXk0
- j3sbQXznWOJzhaimVtsG/K5aFI2C3mil0qhkcafoZmhORbOhMez9KRK5j2cGcGusyz
- /1oZsZuYE8cmSmFFQhMdXVeztrkwVcMuX+pyVVuM1Ql3kQ3xDIY/X9sXhKlKcFi+oH
- ZbcXxxW8RxGdcevHMyZPApTCzCS7plevx8NISmFh09Z4L1AIsIMldYMizxuoF2ztGa
- PeqXOkBz0DpWg==
+ b=ErbupagchoYysG/5Mic6W9/FxVP4EkCRqNgj+nOQ5/oyyIOvAu9y+jVntJiX4EOWP
+ qX3YNOXM3J11a2ggGn6Ob0wSGX+TIjNi2MH9uBjZNnbidRL3mqa9yTAi6I/FvrJk8w
+ x36BP8Ze9RLEHu8WwXMABmJ7MyBUhPYA4LAOL3krDNc6IoJoq0r6AcLOhpqmhKmL2B
+ spxjC5z7Jyh7jtfFugqRgDPIEaTGe5YAxbdsfJJnRg1a1Tu556HOEwMSZc3k3q+YJX
+ 3b9ADud9BuNiwSy9DSkbuOMsOU8AOPk9RbhBoSLgvO5dLWDL3SKRS6qxwpaUs0pvKE
+ 7SVHAC0lazJjw==
 From: Thierry Reding <thierry.reding@kernel.org>
-Date: Wed, 06 May 2026 15:41:55 +0200
-Subject: [PATCH 4/9] media: vde: Explicitly specify PMC instance to use
+Date: Wed, 06 May 2026 15:41:56 +0200
+Subject: [PATCH 5/9] PCI: tegra: Explicitly specify PMC instance to use
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260506-pmc-v1-4-a6de5da7216b@nvidia.com>
+Message-Id: <20260506-pmc-v1-5-a6de5da7216b@nvidia.com>
 References: <20260506-pmc-v1-0-a6de5da7216b@nvidia.com>
 In-Reply-To: <20260506-pmc-v1-0-a6de5da7216b@nvidia.com>
 To: Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>, 
@@ -61,20 +61,20 @@ Cc: linux-ide@vger.kernel.org, linux-tegra@vger.kernel.org,
  linux-pci@vger.kernel.org, linux-usb@vger.kernel.org, 
  Thierry Reding <treding@nvidia.com>
 X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2554; i=treding@nvidia.com;
- h=from:subject:message-id; bh=+F+ps27/gnJ3VnvU71JsyKx65gpxKzUbon2OBL1Lc3o=;
- b=owEBbQKS/ZANAwAKAd0jrNd/PrOhAcsmYgBp+0UwSnUbmWcBCoWZiLfTGYBiCZlAr3oKcuDi9
- DR4XL10BtSJAjMEAAEKAB0WIQSI6sMIAUnM98CNyJ/dI6zXfz6zoQUCaftFMAAKCRDdI6zXfz6z
- obUwD/wN3jLuZ4txgWlc5UZCnKsseYhyfQYSaJ+z4eIgUuui8P1iNG/qMKUUM1qBuuOO294iza1
- DA/hK1jsz/rRCppDEwK9/Uhgb8hYyaiSZkKMFgDvHbpowPlQK8BI+D35vDIox6+vpC0I5viYo3f
- idcAaQTwAqLeLU+49H7GvmPV603Uju/CHCZMX5ZamDJYHIze/4cCVig85yf1tZjmP/+AfQmrph8
- aFWqOn5ttLW4YWivLFKm9q4ziygXiqZj2g8W8p6V/SaYERB+gOE8tRUGHXMl+GEKCtUAnlMl3gZ
- aRbjZdY+qYT0Ddnc7NCn9ZcTn7+dp9nA2VcUnDHhnJb8A4P02ij9T+EzQILCx7heG/cH1aXRAVu
- lvhZGQahIx1ytl7ASTTnSfQKglmsIgoZ15OK42+kDYrUxdE+hUUul8gWgCRddRzFpERykGK/v+Z
- t8hDXVnCyvk398jt48SvExynU3WVPfKZkpHo5UTFkVNwtusRqzc/CRoTwfI/k9ver+6h1vmTmrA
- yFudRUWvcYT3Z1j5nrJCOHv6fdhzKNZnccm4KwEnQQ84u2TXvlw+Nc3Y9ezkzb+wobLaJeZOlPv
- lIGrTuRzMCYmoqsd49vf2fPApaeMOpuimym6P82BZ8Dd16B3MjcNXbCG6+4x2a/vMrfo3ty26eo
- XaZ+fJSoiFqb4HQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2848; i=treding@nvidia.com;
+ h=from:subject:message-id; bh=CYr96E6ms2Tk8ZDR+mP5HFZviPNyyl97Fe72pEjoZuw=;
+ b=owEBbQKS/ZANAwAKAd0jrNd/PrOhAcsmYgBp+0UwxL3VvzItqN2RUEDLi5k9l0Y21sq4kNtrK
+ qnl9jDEtjmJAjMEAAEKAB0WIQSI6sMIAUnM98CNyJ/dI6zXfz6zoQUCaftFMAAKCRDdI6zXfz6z
+ ofMMD/0eaFvDXeIaU/iJrk/ytzSRyQdrahoL/bFCGo1OX82cfER4LwQC6h01yPnCRfaPgB9EMy6
+ +CH8w/uVW2W1ZBpIrcfsl3kPKaLOlVeLXbY+A0iqY6vjxo2bH2AqnxpprUK/G9AO7oDeTZaOvdT
+ LpzXOyzMOgr0YNTTI8iGg4OoRuz6al8myVgv88eBTdI18op304dE7dpjFbxgsxe+CVcUhm05Y9j
+ X/HuIvzVGxaOkhFIYUpLZfaSOeufkfxOjyAhi4j0XWIyGJ2eqk+/rZujKIWWnZCNbj5CQbp7GIB
+ 8DjffrNzntPo2TtFqM4ENhBu0r6UowLe3t3sEoqrAS7wBUGCbVAztRG2g6vkBpy3GfozfpWp39y
+ kSULfGPUuDg1khofowoLEXTS7RZEOX1KyEBKtqyONnNbIGE8CIVYBsvnJtDoF7p5b2BBc1sigjR
+ OZ5o/S78nK668Kr/PM99OCnDkKnjB3F/bmoQAL0TP7OUBKnrWRm3At6SgRTGNE1pGtEhSWvPKZU
+ pfAk9gELQMzSyDhljS1nNXbScYiUSki26vIewOMAde0XnFIIUga2sFx2L0pgkLH1wEwe6I2k7U6
+ fC5CfKU9DjCPQ9mu8mSYRof9LHRFnqZzmU19VFET7c5hkSuDzdjy6KSMYmoI+DXV5BgVYTETzNG
+ fgN6bB+QAB/82/g==
 X-Developer-Key: i=treding@nvidia.com; a=openpgp;
  fpr=88EAC3080149CCF7C08DC89FDD23ACD77F3EB3A1
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -100,68 +100,79 @@ PMC APIs.
 
 Signed-off-by: Thierry Reding <treding@nvidia.com>
 ---
- drivers/media/platform/nvidia/tegra-vde/vde.c | 15 +++++++++++----
- drivers/media/platform/nvidia/tegra-vde/vde.h |  1 +
- 2 files changed, 12 insertions(+), 4 deletions(-)
+ drivers/pci/controller/pci-tegra.c | 20 +++++++++++++++-----
+ 1 file changed, 15 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/media/platform/nvidia/tegra-vde/vde.c b/drivers/media/platform/nvidia/tegra-vde/vde.c
-index 2b3898828304..c3097085ad9d 100644
---- a/drivers/media/platform/nvidia/tegra-vde/vde.c
-+++ b/drivers/media/platform/nvidia/tegra-vde/vde.c
-@@ -161,7 +161,8 @@ static __maybe_unused int tegra_vde_runtime_suspend(struct device *dev)
- 	int err;
+diff --git a/drivers/pci/controller/pci-tegra.c b/drivers/pci/controller/pci-tegra.c
+index 512309763d1f..2c6c521e6901 100644
+--- a/drivers/pci/controller/pci-tegra.c
++++ b/drivers/pci/controller/pci-tegra.c
+@@ -340,6 +340,8 @@ struct tegra_pcie {
+ 	struct reset_control *afi_rst;
+ 	struct reset_control *pcie_xrst;
+ 
++	struct tegra_pmc *pmc;
++
+ 	bool legacy_phy;
+ 	struct phy *phy;
+ 
+@@ -1165,7 +1167,7 @@ static void tegra_pcie_power_off(struct tegra_pcie *pcie)
+ 	clk_disable_unprepare(pcie->afi_clk);
+ 
+ 	if (!dev->pm_domain)
+-		tegra_powergate_power_off(TEGRA_POWERGATE_PCIE);
++		tegra_pmc_powergate_power_off(pcie->pmc, TEGRA_POWERGATE_PCIE);
+ 
+ 	err = regulator_bulk_disable(pcie->num_supplies, pcie->supplies);
+ 	if (err < 0)
+@@ -1183,7 +1185,7 @@ static int tegra_pcie_power_on(struct tegra_pcie *pcie)
+ 	reset_control_assert(pcie->pex_rst);
+ 
+ 	if (!dev->pm_domain)
+-		tegra_powergate_power_off(TEGRA_POWERGATE_PCIE);
++		tegra_pmc_powergate_power_off(pcie->pmc, TEGRA_POWERGATE_PCIE);
+ 
+ 	/* enable regulators */
+ 	err = regulator_bulk_enable(pcie->num_supplies, pcie->supplies);
+@@ -1191,12 +1193,14 @@ static int tegra_pcie_power_on(struct tegra_pcie *pcie)
+ 		dev_err(dev, "failed to enable regulators: %d\n", err);
  
  	if (!dev->pm_domain) {
--		err = tegra_powergate_power_off(TEGRA_POWERGATE_VDEC);
-+		err = tegra_pmc_powergate_power_off(vde->pmc,
-+						    TEGRA_POWERGATE_VDEC);
+-		err = tegra_powergate_power_on(TEGRA_POWERGATE_PCIE);
++		err = tegra_pmc_powergate_power_on(pcie->pmc,
++						   TEGRA_POWERGATE_PCIE);
  		if (err) {
- 			dev_err(dev, "Failed to power down HW: %d\n", err);
- 			return err;
-@@ -193,15 +194,16 @@ static __maybe_unused int tegra_vde_runtime_resume(struct device *dev)
- 	}
- 
- 	if (!dev->pm_domain) {
--		err = tegra_powergate_sequence_power_up(TEGRA_POWERGATE_VDEC,
--							vde->clk, vde->rst);
-+		err = tegra_pmc_powergate_sequence_power_up(vde->pmc,
-+							    TEGRA_POWERGATE_VDEC,
-+							    vde->clk, vde->rst);
- 		if (err) {
- 			dev_err(dev, "Failed to power up HW : %d\n", err);
- 			goto release_reset;
+ 			dev_err(dev, "failed to power ungate: %d\n", err);
+ 			goto regulator_disable;
  		}
- 	} else {
- 		/*
--		 * tegra_powergate_sequence_power_up() leaves clocks enabled,
-+		 * tegra_pmc_powergate_sequence_power_up() leaves clocks enabled,
- 		 * while GENPD not.
- 		 */
- 		err = clk_prepare_enable(vde->clk);
-@@ -293,6 +295,11 @@ static int tegra_vde_probe(struct platform_device *pdev)
+-		err = tegra_powergate_remove_clamping(TEGRA_POWERGATE_PCIE);
++		err = tegra_pmc_powergate_remove_clamping(pcie->pmc,
++							  TEGRA_POWERGATE_PCIE);
+ 		if (err) {
+ 			dev_err(dev, "failed to remove clamp: %d\n", err);
+ 			goto powergate;
+@@ -1234,7 +1238,7 @@ static int tegra_pcie_power_on(struct tegra_pcie *pcie)
+ 	clk_disable_unprepare(pcie->afi_clk);
+ powergate:
+ 	if (!dev->pm_domain)
+-		tegra_powergate_power_off(TEGRA_POWERGATE_PCIE);
++		tegra_pmc_powergate_power_off(pcie->pmc, TEGRA_POWERGATE_PCIE);
+ regulator_disable:
+ 	regulator_bulk_disable(pcie->num_supplies, pcie->supplies);
+ 
+@@ -1432,6 +1436,12 @@ static int tegra_pcie_get_resources(struct tegra_pcie *pcie)
  		return err;
  	}
  
-+	vde->pmc = devm_tegra_pmc_get(dev);
-+	if (IS_ERR(vde->pmc))
-+		return dev_err_probe(dev, PTR_ERR(vde->pmc),
-+				     "failed to get PMC\n");
++	pcie->pmc = devm_tegra_pmc_get(dev);
++	if (IS_ERR(pcie->pmc)) {
++		dev_err_probe(dev, PTR_ERR(pcie->pmc), "failed to get PMC\n");
++		return err;
++	}
 +
- 	irq = platform_get_irq_byname(pdev, "sync-token");
- 	if (irq < 0)
- 		return irq;
-diff --git a/drivers/media/platform/nvidia/tegra-vde/vde.h b/drivers/media/platform/nvidia/tegra-vde/vde.h
-index b2890484b7c3..abac0221d6e4 100644
---- a/drivers/media/platform/nvidia/tegra-vde/vde.h
-+++ b/drivers/media/platform/nvidia/tegra-vde/vde.h
-@@ -107,6 +107,7 @@ struct tegra_vde {
- 	struct list_head map_list;
- 	struct reset_control *rst;
- 	struct reset_control *rst_mc;
-+	struct tegra_pmc *pmc;
- 	struct gen_pool *iram_pool;
- 	struct completion decode_completion;
- 	struct clk *clk;
+ 	if (soc->program_uphy) {
+ 		err = tegra_pcie_phys_get(pcie);
+ 		if (err < 0) {
 
 -- 
 2.52.0
