@@ -4,124 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EE1ECD342F
-	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 07:55:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F92DCD37AC
+	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 07:55:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A88710F3BE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28EDD10F3BC;
 	Fri,  8 May 2026 07:55:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="qL/Obi5d";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ojfjwjfN";
 	dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
- [67.231.145.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8EDB10E598
- for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 16:56:15 +0000 (UTC)
-Received: from pps.filterd (m0148461.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 646LQtSf1018365
- for <dri-devel@lists.freedesktop.org>; Thu, 7 May 2026 09:56:15 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
- bh=AStKs7gIf+H7qi7ZzQdIOFiCgW57yK3MpNAkRUF2is0=; b=qL/Obi5dvBwt
- i9c2sv9SNtqXpLw63YE0iVFyLwL6b4BaMhACgc6cvxDCuo+iXEgY5AqcK8DYXOfG
- Oy2Cy3R2kU+21KVGKEdcKnO+JORfiteK8SES7tlFIxyrNJzXgNQnK5HgJvFp3gp9
- ZnR3EfXRenjXlRDNZApwgtgRy4IabZdUKVivNibPvjxRcMi9IvB0Db0W3LQCsLet
- oDdCWe82S8Q9Od6e/B0LJxAkBUtfBo3NK8J9ZB1phV+Om3BTlNLhHQh4kwQdPjrt
- Yeq/XkO+njD2M7PWY6DdNkD4qHPoIjFPhOFiwolRaAFuyZWZzKXpW4t5P5TGgTnF
- 1qzC6F8MXg==
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69])
- by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4dwec799v4-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 09:56:15 -0700 (PDT)
-Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-48d104d1d8aso5959145e9.3
- for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 09:56:14 -0700 (PDT)
+Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com
+ [209.85.222.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D3F5C10E2C5
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 19:12:06 +0000 (UTC)
+Received: by mail-qk1-f172.google.com with SMTP id
+ af79cd13be357-8d65f4073bfso172942685a.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 12:12:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1778181126; x=1778785926; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=f7FKxb1CAp+U4Z7LLr7KZwzqX75i0WeSOczd8bry7I4=;
+ b=ojfjwjfNKozKK8GvctBTLy/6anLsuvbnZIix4E39bYSMWH0/GGb6k4k3xmlpZv56xY
+ tqtmHyPCExMXz/I/qASTPAiGRIb4nv8ExDMxwsk+KpPI2sUSx8SWjtGuIp1n2OE6KjUJ
+ cUzgXKaUsHPAVAfTqzyQLAspSThLC2rM6zGaEYsPpjnnaOACO2UUOQdQvMRNJosvCLNH
+ ciN9L336Mju8u/dKEX3Yoe4uDlcy/qH7ebxsihgEt7+b9LtgYuf7lA9HcKiCb7E8DiMo
+ Fpp91zdGbPofm9HHNDyg3KtOwDnTCm1D4bo1a/CWH5SM3bf5pZzpIV6UZGw4M928J4IY
+ OEjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778172973; x=1778777773;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=AStKs7gIf+H7qi7ZzQdIOFiCgW57yK3MpNAkRUF2is0=;
- b=LdY9bkbuotvcu+gmqjDqH4C2twHgtGDwQfS9neeHZS4Bdi2tg78/Zz2LH8DkzFLDUR
- ce/vcW/DYrBkg4R/vqifKnXf0fLxq6CDGZVRLRhJSUYc+0s7/WIZmaipgq87e1aUria/
- pFXsepR9fxsM0Hf2LTGeH1Vqt5cHIFnUz03kKVuNmfXyV0zGNOKAnOpPLibJ5J+rwoo6
- dPYud47ZZoCuyyVoPqwl5UnliDDIX0n0SCbpV270h2Q9prXuuY4VjWkUT/z4O/tzprVk
- nOsVJLFyLcsrN6jVfA5zfa5LwgxmIi43so+SUwq274wmAn9Q63tS2yDG06KuZE8jxh/T
- VcYg==
+ d=1e100.net; s=20251104; t=1778181126; x=1778785926;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=f7FKxb1CAp+U4Z7LLr7KZwzqX75i0WeSOczd8bry7I4=;
+ b=MpngtF7UurhO00IzbbpMFNCg3nhJw3Mhb3bPupAe9rC46g8mnwMxcwg2/Aw2CbzN9W
+ e2TItht6NAEVJTP2mD9FM9eLAwqnwUhMbw6gs4GcRQUWMJFN3DU98Inq+ncVfRrA67p5
+ hvyN/US4N0VGSEGO8/RBIqHx0uViFuJdMCzVM9oiYx5GyMiKW/XuS5MmWztjbJrDWTuQ
+ YYYRQf/MaUufx1AGpd44heIVvKNpH8pjBSc5UmIpYkSWOI6rid/k/4m7NQfGTwabuBxl
+ 2lpCnscXNhMLwrM3PzNaX0uIVCnYnzW0G8Yi+L47CrKnmqIuieUMk42ML7BOCKe57Eo7
+ tgGA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+mlZHvYKyYR6uvfRW6juYge8Fv0wQuaHbNPqjqIC2FZp35hmIn4Nfl3i0YK54fSJWIAlyV71+0EL8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxhk762Tmmx0kLeOirykDwzWxOVyRBwyTBHLDcmwCuoELpTAAdo
- XkU/Hdtwdx3Ftq3vcOTlmyQ5yR16Zqq8hpgjRpZHV9SGdq/IZoIWaTko5fLedMz6ZlKjtaC0sbB
- amx/AbXe8AeFlNx6GRL2jI2fuKjWsD55Ik6jMIEB5LGVxLwC20Ucu0akdgwBuib/JEP61
-X-Gm-Gg: AeBDiev+2LT56CpUGVNlgIx76j4fBCFWOtYyCHWwDi24cezQgVWnbrNGrO/0wdr+XpH
- DQX4Rbt6xX8vfwSrcRv/T8MN1qwA1hhNPLC2im7/HJ0NAhf7mhEpndSKgjNi30yxgadaq8qZNnn
- y9isX//slZKTgO39pCLMyOlanFstKe0rXPYg3QG6ReFmJFuqVfooMOstbpj2J1ow+51nxUjSqju
- WLtbO5RksuN4zGZHUbg+pR8+q3hrU5ZGr3pgGsUevvP3lOwt6oCIC7z3WHXeNst+szn4+Xz+jY+
- 1D7a0PKIZ5iuqtph+U9ZVIsWB2CkE5P/m3JF069kVVjpwO4D+BQN1xpEr2a7PypsuMm4gQOB0ic
- XEhkMMd4UXDyEFm9uyj46ywbsv8ejuvnzUo9NVtoLXb7sHhBBmO3bRi/4lWQmYX3HITHxCM0Y6p
- LG0bZmQueQqI9WnLyEZqIWLWHPW0uR/x1V0LizcdnII5WFkic6LC9E9DzE52V0qdHKKIqrqJ6d0
- TX2MyrUE4h7iDT13y8cDOY=
-X-Received: by 2002:a05:600c:4e0c:b0:48a:55d8:7882 with SMTP id
- 5b1f17b1804b1-48e51e16e58mr154922995e9.9.1778172973430; 
- Thu, 07 May 2026 09:56:13 -0700 (PDT)
-X-Received: by 2002:a05:600c:4e0c:b0:48a:55d8:7882 with SMTP id
- 5b1f17b1804b1-48e51e16e58mr154922585e9.9.1778172973017; 
- Thu, 07 May 2026 09:56:13 -0700 (PDT)
-Received: from ?IPV6:2001:8b0:8b6:13d4:102e:f2af:e074:5cde?
- (e.d.c.5.4.7.0.e.f.a.2.f.e.2.0.1.4.d.3.1.6.b.8.0.0.b.8.0.1.0.0.2.ip6.arpa.
- [2001:8b0:8b6:13d4:102e:f2af:e074:5cde])
+ AFNElJ/7yUmz463W2OYEmPsRaxDOvKQG/5Yt8ikfpPDWld8Fkyu1tIUipUTvzmQRnE5efj1Sgb/iYns4Poo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzSVkO3Eb0MQTYhfUN/GLUsz/eeq3xG335BR2sXYMmIY6huX0KG
+ eXdl/w7LyELCaKe4l4258j+7WHcEN1/KK1yCK1tkGVxAFkUXiJqoL+y0
+X-Gm-Gg: AeBDiesvDNLq4M/W7AsZl7k5xAdlTCe0sJOtqgxK74I5XQNTXAWsv1shFqVWyUI+CG7
+ YKmSkAft+r+/RzJEmIR28q+w57km2drAVwLGxDutDFDq+SSczNGR3VVSvVwxWpYhpqFx14qpcd/
+ Gc6RWryBEwJBEYbX783ripyz4yWEsk6nOnYsMZfh953RXUTNHbT2uO3bQ+BumM3UH/AXd4Yc23r
+ wL/OlcKwASES8ap5+AXg45BmvdubbPDukU95ORe5pRhBDWQ6dOtdxCMpvZxeopNkNsqx+swJygP
+ OoYPz1NgJp1gnGOWu7KcVD+IzMcx9rpP7l1VBtEPl+faI9+gvHhOWe7LznOG2lRgmSMxze72lE6
+ fHR4U6bREjW2VsAVKThzTQGR7Rhj3Bu3c5f5zmBqz0ZIdLU7iTiURvZFwmopSk7BgRBqGAyeJke
+ Z6i6fQQH58SfRASD6urGi2ifR2kq+qmDeaeQTn1okv2Pzxh722mH0IlRRR
+X-Received: by 2002:a05:620a:3197:b0:8cd:926f:6470 with SMTP id
+ af79cd13be357-904d74bbfd2mr1491810585a.59.1778181125418; 
+ Thu, 07 May 2026 12:12:05 -0700 (PDT)
+Received: from PF5YBGDS.localdomain ([163.114.130.6])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48e642f8d32sm369175e9.25.2026.05.07.09.56.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 May 2026 09:56:12 -0700 (PDT)
-Message-ID: <7d370a5d-3730-42f0-8656-14ad9c0da682@meta.com>
-Date: Thu, 7 May 2026 17:56:11 +0100
+ af79cd13be357-8fc29a80784sm2010560085a.12.2026.05.07.12.12.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 07 May 2026 12:12:05 -0700 (PDT)
+Date: Thu, 7 May 2026 15:12:02 -0400
+From: Mike Marciniszyn <mike.marciniszyn@gmail.com>
+To: Dmitry Ilvokhin <d@ilvokhin.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Andrew Lunn <andrew@lunn.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Mike Marciniszyn <mmarcini@meta.com>,
+ Jakub Kicinski <kuba@kernel.org>
+Subject: Re: [PATCH] drm/fbdev-helper: Fix deletion of stub for
+ drm_fb_helper_gem_is_fb()
+Message-ID: <afzkApARAHVuAcLW@PF5YBGDS.localdomain>
+References: <20260501204313.127616-1-mike.marciniszyn@gmail.com>
+ <afzVhCHu3FTwn9w0@shell.ilvokhin.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/9] vfio/pci: Provide a user-facing name for BAR mappings
-Content-Language: en-GB
-To: Alex Williamson <alex@shazbot.org>
-Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Alex Mastro <amastro@fb.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>,
- Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
- =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>,
- Pranjal Shrivastava <praan@google.com>, Alistair Popple
- <apopple@nvidia.com>, Vivek Kasireddy <vivek.kasireddy@intel.com>,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- kvm@vger.kernel.org
-References: <20260416131815.2729131-1-mattev@meta.com>
- <20260416131815.2729131-6-mattev@meta.com>
- <20260501164430.5d3ea683@shazbot.org>
-From: Matt Evans <mattev@meta.com>
-In-Reply-To: <20260501164430.5d3ea683@shazbot.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=Vc3H+lp9 c=1 sm=1 tr=0 ts=69fcc42f cx=c_pps
- a=Ech0Gv1thIkdqUNjVc2Ehg==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=03ozwUkBphtHgyqjj1sw:22 a=VwQbUJbxAAAA:8 a=VabnemYjAAAA:8
- a=L20xLjZDwgROH_O_AugA:9 a=QEXdDO2ut3YA:10 a=cZgK7WzY9ta9U-6s7oqD:22
- a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-GUID: guIV4H4g5GNZ47VAG1ub2Zs5xHWvG0dQ
-X-Proofpoint-ORIG-GUID: guIV4H4g5GNZ47VAG1ub2Zs5xHWvG0dQ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA3MDE3MCBTYWx0ZWRfX1NoCpjnMywIY
- lBF0GMf1SAbxA8AyJFTuguzvpG+83Cp2l9c+Tk+fKVqDBi7moLJnnuZrA4O+rrOZd+F/2T7A2Kp
- gNbRJSkvyDiIi2nyp0sn6x1afLVa0kbmPxCVfYxA3Q6Ad0KuvnFuFr/1Lc+AleuM8RDCmBymPI/
- kBxLlvXHE8ITg/7i9K/aDFiClK5TUondEuh4/aqC+rL+euaD+9B4l/l5Kl5ijrLeSxUjfxwSB/2
- Y6If5DWJB0xQCn1YI6vfjNuXfgBTJknkKWsrkqszpg7EKRgKD2fnQnCPiiljc5T4/IIAp7DQbFs
- ITKmfQlQZYPIvI2NOvEiTrmvi/eDslBM5XEbV/WW52UCaKsHH6JJWIFMo1dTtusQUUcUE7Q9VCE
- jzMPbClAkdSyQmGhHIAkfJ/yGDWTOgYclEMLrzOx23+JVvFhHtApBcaxWCvPCq+EAXsm4byCsqt
- vr0qviZeYJl4yBrkBmA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-07_02,2026-05-06_01,2025-10-01_01
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <afzVhCHu3FTwn9w0@shell.ilvokhin.com>
 X-Mailman-Approved-At: Fri, 08 May 2026 07:55:51 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -138,77 +98,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Alex,
+On Thu, May 07, 2026 at 06:10:12PM +0000, Dmitry Ilvokhin wrote:
+> On Fri, May 01, 2026 at 04:43:13PM -0400, mike.marciniszyn@gmail.com wrote:
+> > From: Mike Marciniszyn <mmarcini@meta.com>
+> >
+> > When CONFIG_DRM_FBDEV_EMULATION  is not defined this error results
+> > when building amdgpu_display.c with CONFIG_DRM_AMDGPU:
+> >
+> > error: call to undeclared function 'drm_fb_helper_gem_is_fb'; ISO C99 and
+> > later do not support implicit function
+> > declarations [-Wimplicit-function-declaration]
+> >
+> >  1777 |  if (!drm_fb_helper_gem_is_fb(dev->fb_helper, fb->obj[0])) {
+> >
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Mike Marciniszyn <mmarcini@meta.com>
+>
+> Just hit the same problem, thanks for the fix.
+>
+> Reviewed-by: Dmitry Ilvokhin <d@ilvokhin.com>
 
-On 01/05/2026 23:44, Alex Williamson wrote:
-> 
-> On Thu, 16 Apr 2026 06:17:48 -0700
-> Matt Evans <mattev@meta.com> wrote:
-> 
->> Since converting BAR mmap()s to using DMABUFs, we lose the original
->> device path in /proc/<pid>/maps, lsof, etc.  Generate a debug-oriented
->> synthetic 'filename' based on the cdev, plus BDF, plus resource index.
->>
->> This applies only to BAR mappings via the VFIO device fd, as
->> explicitly-exported DMABUFs are named by userspace via the
->> DMA_BUF_SET_NAME ioctl.
->>
->> Signed-off-by: Matt Evans <mattev@meta.com>
->> ---
->>   drivers/vfio/pci/vfio_pci_dmabuf.c | 27 +++++++++++++++++++++++++--
->>   1 file changed, 25 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
->> index a12432825e5e..04c7733fe712 100644
->> --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
->> +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
->> @@ -4,6 +4,7 @@
->>   #include <linux/dma-buf-mapping.h>
->>   #include <linux/pci-p2pdma.h>
->>   #include <linux/dma-resv.h>
->> +#include <uapi/linux/dma-buf.h>
->>   
->>   #include "vfio_pci_priv.h"
->>   
->> @@ -467,6 +468,7 @@ int vfio_pci_core_mmap_prep_dmabuf(struct vfio_pci_core_device *vdev,
->>   {
->>   	struct vfio_pci_dma_buf *priv;
->>   	const unsigned int nr_ranges = 1;
->> +	char *bufname;
->>   	int ret;
->>   
->>   	priv = kzalloc_obj(*priv);
->> @@ -479,6 +481,20 @@ int vfio_pci_core_mmap_prep_dmabuf(struct vfio_pci_core_device *vdev,
->>   		goto err_free_priv;
->>   	}
->>   
->> +	bufname = kzalloc(DMA_BUF_NAME_LEN, GFP_KERNEL);
->> +	if (!bufname) {
->> +		ret = -ENOMEM;
->> +		goto err_free_phys;
->> +	}
->> +
->> +	/*
->> +	 * Maximum size of the friendly debug name is
->> +	 * vfio1234567890:ffff:ff:3f.7-9 = 30, which fits within
->> +	 * DMA_BUF_NAME_LEN.
->> +	 */
->> +	snprintf(bufname, DMA_BUF_NAME_LEN, "%s:%s/%x",
->> +		 dev_name(&vdev->vdev.device), pci_name(vdev->pdev), res_index);
-> 
-> Comment suggests 9 is the max res_index that can be printed, but mmap
-> only directly supports standard BARs 0-5.  Comment also uses a '-'
-> while the code uses a '/'.  Thanks,
+Thanks, but actually there was already a fix.
 
-Right you are.  Fixed, but, since...
-https://lore.kernel.org/kvm/52162da4-e1cc-4f90-a95a-218d6089cd71@meta.com/
+Take a look at linux.git/master:
 
-...I'm keeping the resource index encoded in the vm_pgoffs and as that's
-in /proc/<pid>/maps it doesn't need to be in the name. I.e., an example
-mapping of BAR 2 looks like:
+commit 927011b65a875302d08709bbe82eaf4d0d96c5d5
+Author: Yury Norov <ynorov@nvidia.com>
+Date:   Mon Apr 27 22:49:41 2026 -0400
 
-ffffa9330000-ffffad300000 rw-s 20000030000 00:0b 12 /dmabuf:vfio0:0000:00:03.0
+    drm/amdgpu: fix build for CONFIG_DRM_FBDEV_EMULATION=n
 
-Thanks,
+I encountered this in net-next, but the above has yet to be put into net-next.
 
-Matt
+Mike
