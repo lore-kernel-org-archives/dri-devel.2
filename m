@@ -4,31 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74E51CD342C
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 02:42:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C1E2CD3436
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 02:42:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A490A10E56F;
-	Thu,  7 May 2026 02:42:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B468810EF32;
+	Thu,  7 May 2026 02:42:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lontium.com header.i=@lontium.com header.b="Go+Y/8G0";
+	dkim=pass (2048-bit key; unprotected) header.d=lontium.com header.i=@lontium.com header.b="gROYJ8fk";
 	dkim-atps=neutral
-Received: from out28-75.mail.aliyun.com (out28-75.mail.aliyun.com
- [115.124.28.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DB0610E56F
- for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 02:42:21 +0000 (UTC)
+Received: from out28-131.mail.aliyun.com (out28-131.mail.aliyun.com
+ [115.124.28.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE5AA10EF32
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 02:42:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lontium.com; s=default;
- t=1778121739; h=From:To:Subject:Date:Message-Id:MIME-Version;
- bh=cSJ9jnrnvZGTNSbO4jVs1jcndSnMw3BS+1A9Y46+N8M=;
- b=Go+Y/8G0VGey9A+GIL/glartZx6H+Pk+Mu5C3dwxDDrPJdCPnE/I3Y80SuoJIdU4LiUDJ+YeuAX0luR/o0aXTUvNaonSjvwdgL6/V1zE198Kh7BkX2lvas7jHrafNHOpRvCSP9sMGJ6TG5iW5MpPjcalxmuthk6W+Yyhq5A2C7gD5LGgFmroWKCm8kxABXkMRNsV0u8ZJaVz3zct0mrSiuGeTmA3lI6N0JA0fo1aKP37M9fC0PO+m6RUV/V154RpHsal6zcZaqLT9Axp9yfKEp2TcK+Mfu4xa+zyt/V3eEHVV2xfSEI6BGe5tsadxAfLQp5nzKhp8xHsxJ9KByyzLA==
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.07550596|-1; CH=green;
- DM=|CONTINUE|false|;
- DS=CONTINUE|ham_system_inform|0.0201271-0.000526132-0.979347;
- FP=12562846209438109432|0|0|0|0|-1|-1|-1;
+ t=1778121742; h=From:To:Subject:Date:Message-Id:MIME-Version:Content-Type;
+ bh=8hlh69TLukXNhYn2CsDByyP7GpON+gsj+HvV8295yUE=;
+ b=gROYJ8fkBANZhixcZObEli6cnd1CqRr6+VmmuB/7lRp4pVLHugrGDutC6sXIb8bleNLgqp6Al2FPgMucSJVLO3mIHh/ORZ5Ua1wTgD8KvXWbPmfsTglOYPq4w8pFh2QmAV/ByFYTJfQLms/pbilZMb/yTpI8us7c1/SGIJkyWQ6wL484C7TRW6ILZ1fv6ON2Ji8Da98oiIjyczkkAa7sYop5wkA94ozlJTroDrriNUlrowZLlJK5/YvshKmN+QAFFxlzynI5HP6ZYsJbv0S3PnPyrUgiQvW6YjO+elBtf1Elm5laWMwH5abbPsQeWGkG3l9a/rI3NUMPaDQlKzW1uw==
+X-Alimail-AntiSpam: AC=SUSPECT; BC=0.599292|-1; BR=01201311R121b1; CH=blue;
+ DM=|SUSPECT|false|; DS=CONTINUE|ham_system_inform|0.183518-0.00602126-0.810461;
+ FP=9943956383045776352|1|1|12|0|-1|-1|-1;
  HT=maildocker-contentspam033037022039; MF=syyang@lontium.com; NM=1; PH=DS;
- RN=22; RT=22; SR=0; TI=SMTPD_---.hRAhTVc_1778121737; 
+ RN=22; RT=22; SR=0; TI=SMTPD_---.hRAhTXa_1778121738; 
 Received: from DESKTOP-V2MKAT2.localdomain(mailfrom:syyang@lontium.com
- fp:SMTPD_---.hRAhTVc_1778121737 cluster:ay29) by smtp.aliyun-inc.com;
- Thu, 07 May 2026 10:42:18 +0800
+ fp:SMTPD_---.hRAhTXa_1778121738 cluster:ay29) by smtp.aliyun-inc.com;
+ Thu, 07 May 2026 10:42:21 +0800
 From: syyang@lontium.com
 To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
  andrzej.hajda@intel.com, neil.armstrong@linaro.org,
@@ -40,11 +39,15 @@ Cc: Laurent.pinchart@ideasonboard.com, tzimmermann@suse.de, jonas@kwiboo.se,
  yangsunyun1993@gmail.com, xmzhu@lontium.corp-partner.google.com,
  xmzhu@lontium.com, rlyu@lontium.com, xbpeng@lontium.com,
  Sunyun Yang <syyang@lontium.com>
-Subject: [PATCH v5 0/2] Add Lontium LT9611C(EX/UXD) MIPI DSI to HDMI driver
-Date: Thu,  7 May 2026 10:42:12 +0800
-Message-Id: <20260507024214.97708-1-syyang@lontium.com>
+Subject: [PATCH v5 1/2] dt-bindings: bridge: Add Lontium LT9611C(EX/UXD) MIPI
+ DSI to HDMI driver
+Date: Thu,  7 May 2026 10:42:13 +0800
+Message-Id: <20260507024214.97708-2-syyang@lontium.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260507024214.97708-1-syyang@lontium.com>
+References: <20260507024214.97708-1-syyang@lontium.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,85 +66,47 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Sunyun Yang <syyang@lontium.com>
 
-This series introduces:
-- A device tree binding YAML file describing the hardware
-- A new DRM bridge driver implementing the basic functionality
-
 LT9611C(EX/UXD) is an I2C-controlled chip that Receiver signal/dual port
 mipi dsi and output hdmi, differences in hardware features:
 - LT9611C: supports 1-port mipi dsi to hdmi 1.4
 - LT9611EX: supports 2-port mipi dsi to hdmi 1.4
 - LT9611UXD: supports 2-port mipi dsi to hdmi 1.4/2.0
 
-Signed-off-by: Sunyun Yang<syyang@lontium.com>
+Signed-off-by: Sunyun Yang <syyang@lontium.com>
 ---
-Changes in v5:
-- dt-binding:
-- drm/bridge:
- 1. use #define FW_FILE  "Lontium/lt9611c_fw.bin" to match linux-firmware    [Dmitry]
- 2. add atomic state management
-- Link to v4: https://lore.kernel.org/lkml/20260506095100.78998-1-syyang@lontium.com/
+ .../bindings/display/bridge/lontium,lt9611.yaml           | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-Changes in v4:
-- dt-binding:
- 1. fix commit message                                                    [Krzysztof]
-- drm/bridge:
- 1. use lt9611c_fw.bin                                                     [Dmitry]
- 2. use drm_bridge::next_bridge
- 3. use enum lt9611_chip_type
- 4. remove *fw from the lt9611c struct
- 5. "bool hdmi_connected;" variable add comment
- 6. use read_poll_timeout and -ETIMEDOUT in the "lt9611c_read_write_flow" function
- 7. replace mutex_lock(&lt9611c->ocm_lock) with guard(mutex)(&lt9611c->ocm_lock) in some place
- 8. switch to ARRAY_SIZE instead of specifying lengths directly
- 9. use dev_err_probe
- 10. add clear functions for AVI and audio infoframes
- 11. add DRM_BRIDGE_OP_HDMI  and remove .hpd_notify
- 12. remove the sample_rate validation code
- 13. fix MODULE_DESCRIPTION
- 14. replace "GPL v2" with "GPL"
-- Link to v3: https://lore.kernel.org/lkml/20260420061644.1251070-1-syyang@lontium.com/
-
-Changes in v3:
-- dt-binding:
- 1. lt9611c(ex/uxd) content merged into lontium,lt9611.yaml
-- drm/bridge:
- 1. Drop the licence text, only use SPDX header
- 2. Sort the headers
- 3. Use library functions for crc8
- 4. Drop i2c_read_byte and i2c_write_byte
- 5. Lowercase all hex values
- 6. Use paged writes as implemented for LT9611C(EX/UXD)
- 7. Drop dev_info, use dev_dbg
- 8. Modify lt9611c_get_edid_block, don't store EDID in the long-term structures
- 9. Use HDMI audio helpers.
- 10. Remove unnecessary flags,Implement proper cleanup path, unwinding resources one by one.
- 11. Replace devm_kzalloc with devm_drm_bridge_alloc.
- 12. Remove extra kthread.
-- Link to v1: https://lore.kernel.org/lkml/20250903123825.1721443-1-syyang@lontium.com/
-
-Changes in v2:
- 1. Forget modify code, operation error, Please disregard this submit.
-
-Changes in v1:
-- dt-binding:
- 1. Submit the first version of the code.
-- drm/bridge:
- 1. Submit the first version of the code.
-
----
-Sunyun Yang (2):
-  dt-bindings: bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI to HDMI
-    driver
-  drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI to HDMI driver
-
- .../display/bridge/lontium,lt9611.yaml        |    8 +-
- drivers/gpu/drm/bridge/Kconfig                |   18 +
- drivers/gpu/drm/bridge/Makefile               |    1 +
- drivers/gpu/drm/bridge/lontium-lt9611c.c      | 1240 +++++++++++++++++
- 4 files changed, 1265 insertions(+), 2 deletions(-)
- create mode 100644 drivers/gpu/drm/bridge/lontium-lt9611c.c
-
+diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
+index 429a06057ae8..b20a43456b01 100644
+--- a/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
++++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
+@@ -4,19 +4,23 @@
+ $id: http://devicetree.org/schemas/display/bridge/lontium,lt9611.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+-title: Lontium LT9611(UXC) 2 Port MIPI to HDMI Bridge
++title: Lontium LT9611(UXC/C/EX/UXD) 2 Port MIPI DSI to HDMI Bridge
+ 
+ maintainers:
+   - Vinod Koul <vkoul@kernel.org>
+ 
+ description: |
+-  The LT9611 and LT9611UXC are bridge devices which convert DSI to HDMI
++  The LT9611、LT9611UXC、LT9611C、LT9611EX and LT9611UXD
++  are bridge devices which convert DSI to HDMI
+ 
+ properties:
+   compatible:
+     enum:
+       - lontium,lt9611
+       - lontium,lt9611uxc
++      - lontium,lt9611c
++      - lontium,lt9611ex
++      - lontium,lt9611uxd
+ 
+   reg:
+     maxItems: 1
 -- 
 2.34.1
 
