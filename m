@@ -4,104 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3424CD3436
-	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 07:52:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 656D6CD3436
+	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 07:55:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E94E10F3BA;
-	Fri,  8 May 2026 07:52:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8CE8610F3B9;
+	Fri,  8 May 2026 07:55:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="upRGJq5j";
+	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="TBT8+x/D";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011018.outbound.protection.outlook.com [52.101.62.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC93E10F3B8;
- Fri,  8 May 2026 07:52:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=U/GTsnMr3ZaUrMNVUXWESGmzRoFejwwt2am/EgV3K22edX8A9MAT+5wivxrDvwE6+jQaSMH8KotSg+CkTARkmWtO9JRiqv9bsOSJk9HuAQkHDHzRaY8QCHnvmA/v0hAdLhSdAp/Judh38hFAwAjYCHUij5nQ0c2V3gozDkFN2AZljmWYz9Jh74Ayo3yWP1tDRZGHH0XamA8seaoOFUKOxvE+UFF9+MOgqcN1H1aM1Bm+llwAVXzYMy5vMva5KKVSb736JGdPC2uMDsa/PSV2efH8dhkgSXZaUreEbCWq2HQzFOLf+Db1Y2sbIErCN7FjuWslItKCLzceOD0LXgYe8w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Qoko8jELsGi9dTaw8s6Cs8VJlMgH4MHNzutwE+8Z4cs=;
- b=F8pN4XY/u6LDdm+CxDAXrdiLWJyMboPPjHUP/9BeXSjmFGLdWIwTFqjg4nhxtc/G/YypaFvBPunyQPpSKx9vy+V3kmy50iJCNNm+d9ggmrHfDv69YJV+vgIHJZPp5j5XsOEsmYAF4A6tq+D69WKYSk5tYitZUhq5RjrTrbfPgH8N1ePU+H6944WZE7FdYoyify98Oy1MKgLCM9GtZQywa2flkqhJKouS1QbbWFrXFnSQw+V1DWzZE0TIfxWcrm/F6b1bbAaGy0eUEXUAST1aI1uj0RyZYgUdNVvfAoI+OL4JfU1EyXlbrUP4n2iUoV1VwJorqPHGXxe5cxnXa6KaKg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=ffwll.ch smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Qoko8jELsGi9dTaw8s6Cs8VJlMgH4MHNzutwE+8Z4cs=;
- b=upRGJq5jm+PWEJGC9qP9kkowns0ZeSdYDp64PcCBHqdabut/nWQ/XrjDtEtVT5oAvRpJbqluZ0ykzJ+aXW2duEqDHcQxtLkrbAIPH+A8CfwyNst/ze8uLhNKc9Fgqgi5Z1yyO7Ypx1/l175p+E+ib57UZnSycJGnbVNUJxd6Ya8=
-Received: from MN0P222CA0015.NAMP222.PROD.OUTLOOK.COM (2603:10b6:208:531::24)
- by DM4PR12MB6012.namprd12.prod.outlook.com (2603:10b6:8:6c::5) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9891.16; Fri, 8 May 2026 07:52:42 +0000
-Received: from BN3PEPF0000B073.namprd04.prod.outlook.com
- (2603:10b6:208:531:cafe::6) by MN0P222CA0015.outlook.office365.com
- (2603:10b6:208:531::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.19 via Frontend Transport; Fri,
- 8 May 2026 07:52:42 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF0000B073.mail.protection.outlook.com (10.167.243.118) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9891.9 via Frontend Transport; Fri, 8 May 2026 07:52:42 +0000
-Received: from honglei-remote.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 8 May
- 2026 02:52:37 -0500
-From: Honglei Huang <honglei1.huang@amd.com>
-To: <Alexander.Deucher@amd.com>, <Felix.Kuehling@amd.com>,
- <Christian.Koenig@amd.com>, <Oak.Zeng@amd.com>, <Jenny-Jing.Liu@amd.com>,
- <Philip.Yang@amd.com>, <Xiaogang.Chen@amd.com>, <Ray.Huang@amd.com>,
- <Lingshan.Zhu@amd.com>, <Junhua.Shen@amd.com>, <Yiru.Ma@amd.com>,
- <sima@ffwll.ch>, <matthew.brost@intel.com>, <rodrigo.vivi@intel.com>,
- <thomas.hellstrom@linux.intel.com>, <dakr@kernel.org>, <aliceryhl@google.com>
-CC: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <honghuan@amd.com>
-Subject: [RFC V5 12/12] drm/amdgpu: integrate SVM into build system and VM
- fault path
-Date: Fri, 8 May 2026 15:51:29 +0800
-Message-ID: <20260508075129.1161157-13-honglei1.huang@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260508075129.1161157-1-honglei1.huang@amd.com>
-References: <20260508075129.1161157-1-honglei1.huang@amd.com>
+Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
+ [67.231.153.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6463E10F1CE
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 15:48:43 +0000 (UTC)
+Received: from pps.filterd (m0001303.ppops.net [127.0.0.1])
+ by m0001303.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 646LQfSg2865701
+ for <dri-devel@lists.freedesktop.org>; Thu, 7 May 2026 08:48:42 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
+ bh=7ee0kKFk8CI3AWhXFM+kSfgli3u7LAWrP2aGxa36TIM=; b=TBT8+x/DyOnF
+ /jQZcsP6J8KkrIiBxC1vYorXjlDpI2msIlIRN7YnrzQ7S97+CNmrwLuLnmCG39U6
+ 5WGItgxSXzSKsyUK5/JeGZHK3OSCo85kwy0yA/LYWhmAGPFxnmnfU922K3jm8nIT
+ D6kZnU/Jc26lv9Pyx2qJeaEuyB19C8fGbHTaxmaWGRZrReTC5Bn+8kanDEjaxT8e
+ olHoml38lvu+IzEADYEmLTw8bRp7+VgZp8YJuALcWXTrcq6+ZooeGRS9oF4bA1Wg
+ pcN0TocQODFgyyMk36wtNUKOTOErT/R6G4ig4mssnIp5xVNowY0gRwIekSsw70xe
+ 6Mknw6Euhw==
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70])
+ by m0001303.ppops.net (PPS) with ESMTPS id 4dwcxa13k9-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 08:48:42 -0700 (PDT)
+Received: by mail-wr1-f70.google.com with SMTP id
+ ffacd0b85a97d-44d79da8cf7so890475f8f.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 08:48:42 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778168921; x=1778773721;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=7ee0kKFk8CI3AWhXFM+kSfgli3u7LAWrP2aGxa36TIM=;
+ b=JOrwkE9JjqwWi5ziax/nTx+hsvVzoH1FmkuQYHWVOjlF7ITdYOQNn5ug7t3WRN8Z/r
+ Qm3OciR3RZD97v1I+OEhCKY/0qDtchfP/Z0ZaJBaiRgixS2eLWMRPY7KGxsCvsRKIsX9
+ pbWVhhG1Kwtf3JmGx5QDBwfak+/4FDHKarqoRn8oPlkHKZ+Z2yAkRGxiB4VjIDrTnri1
+ YihX904NB0qUI7jx7jur3bBbnvE3E0wXXGy96KewRBjgpKJ0u8zRHAngPPjq4noXZQ5q
+ vpPkMe3JOnsQ5qJF3npXSuLCzHWnmUyJyjdpI1oWojRSQpD0RsydIoKG/FIiPxdWXwnL
+ Sdkw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/L4GseUuz+JP3d5XeqS8ikMIcFzqcyd3ReVO4TGWw50jEeDOXTo1Pp/yI12Ch/OrhwVE3p2ps5aec=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzKkuDjHxQtBu7q62up1BJNUBr1dUFcA8uFFZjBAHSkbT9eTZx6
+ U8EE+6p2UiAe0cXjrQ5rNgeV92UJWSyS6EBx5EJiBS3S7WCpvQXqz0I5Olg8cUmPAQcX+AAOoCn
+ zr0JdDNuHxGk5TsQUEYYkwWjJ7D+vo8MzvruqykIgMP8nps724ASKhRQBsV5fwlQ1OVoC
+X-Gm-Gg: AeBDietnpF1LLePyG32MHFUOAOH676h0hdYD/DsMePKFcyf35hp1QQPIZv2w1kprvC+
+ k8o4F7nVMz194S/9FzoFmgpFa8hpVV6+zHpo1QJ4+TaskA/lqYgy9aUnjMdsI4f5x7DFnBqa2iU
+ 2TS/ljf/uKBAewuOZ57npVr4jKH8yM10axmleUJ1CB+UFC/B7W34x3gsZVPosQ5Aa21yzNMYAms
+ zU0x+vc+MEtyepI4uSDgMgYpkECNQ/RQ+jugIf7F1Ghl+35ADErStjHoNt7tYtcMaBVoWiUerJF
+ MVYbTImSAONk8DzGi/ApV0f7my1KOewMfcxnxdMvyHoyYN52+3abxI53hd/KqEAMAOHRHsfsavK
+ r33x9hMrdgfkf9SBMJq9ZOUhPd2YqOrDwPHFYc7HeorGmPd4SfMiTujML3VRs6QIRdykfHQxJkk
+ zWuHEZNscdtUjGoCaPqFgXa3x/it58JgKS5Z7eg27B6Og8i9aoWJrTF9/YMCITdth1AMcLR+ZlB
+ 90me1P0ODILONgtAZbxuLFKd7lU+mG3ghstgs3S/6np
+X-Received: by 2002:a5d:5f48:0:b0:43b:498f:dceb with SMTP id
+ ffacd0b85a97d-4515b056b4dmr13924645f8f.9.1778168920701; 
+ Thu, 07 May 2026 08:48:40 -0700 (PDT)
+X-Received: by 2002:a5d:5f48:0:b0:43b:498f:dceb with SMTP id
+ ffacd0b85a97d-4515b056b4dmr13924574f8f.9.1778168920112; 
+ Thu, 07 May 2026 08:48:40 -0700 (PDT)
+Received: from ?IPV6:2001:8b0:8b6:13d4:102e:f2af:e074:5cde?
+ (e.d.c.5.4.7.0.e.f.a.2.f.e.2.0.1.4.d.3.1.6.b.8.0.0.b.8.0.1.0.0.2.ip6.arpa.
+ [2001:8b0:8b6:13d4:102e:f2af:e074:5cde])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-45055f2203csm21318765f8f.37.2026.05.07.08.48.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 07 May 2026 08:48:39 -0700 (PDT)
+Message-ID: <c746c3a7-37df-49a6-9000-a3b67ae206ab@meta.com>
+Date: Thu, 7 May 2026 16:48:38 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B073:EE_|DM4PR12MB6012:EE_
-X-MS-Office365-Filtering-Correlation-Id: ef479939-50c3-4d44-2ba8-08deacd6c8df
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|82310400026|36860700016|921020|3023799003|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: M03hiE64GkfsLJ2nsy5/VWws3EemyA1ozVC3Xc/7DvFwg8EH+409VsqrgaYISIWXwbsubDAEQZLauAV03qOnLPKAPCblWC9DrP0qVfLnMn3qr8FfxVPctbpe1chDv6g7gyhf7dhe6NwbNJVy1pOSLGS2aCvlICh/a23nTGH4SuvVoDRe8JqP1FSiW9jXMCW4117QUXh3B/g8mRQQP/Uw9ztZpdjNUg68jyVdohfVx6enuWLdZqu0ticBV3llJpGsmjY9NI6GUzJgQ+NkLEbv7FJYUSfv3zrCTjeLKFCkPesxQ/TwBenZc5xwGXvisLJadTG+4hrLW31aftIvt7eJdD8YXCnAmNsaifgVgfekOWSoQb719dl1/KU5hQoa8zIgBiFrCD2p31G4HydowZKMVDY1vXMg/YwlKdC+YBTyRo9GCroG+utVLclPWaFrnLr5McqCuAF/PjxykRQAZQZjhZI8AXeWFYCF4h7bSyiBwQdvs1jspdSOu7DF4ar21AqlG6aecLVzTJvh/ePmhlnPrj2J4AKAibEFQbWKxMH6Kwbttcx7tkue1B1DdJ1XEV1cACeOvwMT4/EnLjSMXutPDfV23/csRDWzSgR1CKfg3HUUEi8Y/K6kTpBSt/eJerpU0eETAOZiZSPxeaJy9VTHo/PXj5AOwIbyyFzHO7CXy2E6kMpN4wm/Y8A4R7dDHVY0JPwL9FqCwFmRAKESTtJp7B8H1T52ePRrE0PyafidD7aQZhGevk4V83kBGqZQAriZbIMDxR9SFRkuffDzD8kcHQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(82310400026)(36860700016)(921020)(3023799003)(18002099003)(22082099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: cBlxWirHOFuyziHkqJgd3OsBTzG1Dyocr2n+JI3BwktEc8sMnF8oeKE0iXh3oKZj+cuwxz6ZhVPrNpZqVFYHlv4EPvi/oznXApGpAAXx3s2FRc3NZccPajJ2grYlg5ZhGukb15V4A+xYVwQ+T7dFLW153TIysKXz7FXf8RkmXYIliocs55iMeeCJ/Inm7Wco2rz0DMXO9/ykawGjoGlGOalDi4h/eSTCnj1Y3u5XMUVkQLZYGukzGL8xuebGktn8LoTRdyvlQLK631OnBroFGwAdl4ypSXGdTEKNdcb4Rr+5umN3tPU1H979MZPoVAq1ABvsdOPx1GGLcDK5EvTZxLlIe9h/cVWYKnjDxzMAkFiBzwQFfg64WKjGJSzbh/mPiECFow5/FnMqe99sTImvwqKPEqDSr/tYhQJ1K9fLDMGI+ULeEoPlaglHQ0PT61z6
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2026 07:52:42.5794 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ef479939-50c3-4d44-2ba8-08deacd6c8df
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B073.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6012
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/9] vfio/pci: Add a helper to look up PFNs for DMABUFs
+Content-Language: en-GB
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
+ Alex Mastro <amastro@fb.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>,
+ Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+ =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>,
+ Pranjal Shrivastava <praan@google.com>, Alistair Popple
+ <apopple@nvidia.com>, Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ kvm@vger.kernel.org
+References: <20260416131815.2729131-1-mattev@meta.com>
+ <20260416131815.2729131-3-mattev@meta.com>
+ <20260424181510.GF3444440@nvidia.com>
+From: Matt Evans <mattev@meta.com>
+In-Reply-To: <20260424181510.GF3444440@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: fYkRjBrYHNR1-WDAFmL-_4TsvC2P7oIb
+X-Proofpoint-GUID: fYkRjBrYHNR1-WDAFmL-_4TsvC2P7oIb
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA3MDE1OCBTYWx0ZWRfXxbG+ZN8XUFC+
+ qYxSLYKTVM9dFCOEVaL7i5AVoTCpbpYxOMQv2hU7MDWyLOnwWrRPEkSUsoE/ri7C4wUjQ0ahG2/
+ 6Mw60d6K5XOL68N4S0Vd2qlFT023dsOVIIcyJnZGFyTnB8o5X1T4rYz9NmlJq0f9AvRrFQ78jIG
+ zt1a/Rj3PStU2Lds5PMesvqQ/4jP4o4L3iSAasVAz4uLgj9IpQEmZ6a76p8l+fXFNWOnK2Yq63c
+ i9UZcZvZzEyPjzXoPLQV9lYyn15eRcQSgTQdAhhXS6GzZlJg/8Q90dPBSh1gs7Ccr7gpXiSvmsE
+ LxzDSj53/xrnyK8lHV5vfgzRXQEAQ5HfDoLQBOuliOSGKcRSxnEMaX3V3b8io0Igh68a7oK76h+
+ Hc8fngtfoAy88K66ylLYX7c0W0X/lw3zRNm4UfgG1Iz/06H5vkoWOt52ahXcc/2uH7uRKPFkcHF
+ JdzHeD1tdYZZdWIDQjw==
+X-Authority-Analysis: v=2.4 cv=SoCgLvO0 c=1 sm=1 tr=0 ts=69fcb45a cx=c_pps
+ a=I6ewnrIBtnKHmb6SxpX7Vg==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
+ a=_78whYxrdx1mplLwxq1U:22 a=VabnemYjAAAA:8 a=PVx_5XRel0ZW2V4eVl8A:9
+ a=QEXdDO2ut3YA:10 a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-07_01,2026-05-06_01,2025-10-01_01
+X-Mailman-Approved-At: Fri, 08 May 2026 07:55:51 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,186 +136,157 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Honglei Huang <honghuan@amd.com>
+Hi Jason,
 
-Wire up the SVM subsystem:
+On 24/04/2026 19:15, Jason Gunthorpe wrote:
+> 
+> On Thu, Apr 16, 2026 at 06:17:45AM -0700, Matt Evans wrote:
+>> Add vfio_pci_dma_buf_find_pfn(), which a VMA fault handler can use to
+>> find a PFN.
+>>
+>> This supports multi-range DMABUFs, which typically would be used to
+>> represent scattered spans but might even represent overlapping or
+>> aliasing spans of PFNs.
+>>
+>> Because this is intended to be used in vfio_pci_core.c, we also need
+>> to expose the struct vfio_pci_dma_buf in the vfio_pci_priv.h header.
+>>
+>> Signed-off-by: Matt Evans <mattev@meta.com>
+>> ---
+>>   drivers/vfio/pci/vfio_pci_dmabuf.c | 124 ++++++++++++++++++++++++++---
+>>   drivers/vfio/pci/vfio_pci_priv.h   |  19 +++++
+>>   2 files changed, 130 insertions(+), 13 deletions(-)
+>>
+>> diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
+>> index 04478b7415a0..8b6bae56bbf2 100644
+>> --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
+>> +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
+>> @@ -9,19 +9,6 @@
+>>   
+>>   MODULE_IMPORT_NS("DMA_BUF");
+>>   
+>> -struct vfio_pci_dma_buf {
+>> -	struct dma_buf *dmabuf;
+>> -	struct vfio_pci_core_device *vdev;
+>> -	struct list_head dmabufs_elm;
+>> -	size_t size;
+>> -	struct phys_vec *phys_vec;
+>> -	struct p2pdma_provider *provider;
+>> -	u32 nr_ranges;
+>> -	struct kref kref;
+>> -	struct completion comp;
+>> -	u8 revoked : 1;
+>> -};
+>> -
+>>   static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
+>>   				   struct dma_buf_attachment *attachment)
+>>   {
+>> @@ -106,6 +93,117 @@ static const struct dma_buf_ops vfio_pci_dmabuf_ops = {
+>>   	.release = vfio_pci_dma_buf_release,
+>>   };
+>>   
+>> +int vfio_pci_dma_buf_find_pfn(struct vfio_pci_dma_buf *vpdmabuf,
+>> +			      struct vm_area_struct *vma,
+>> +			      unsigned long address,
+>> +			      unsigned int order,
+>> +			      unsigned long *out_pfn)
+>> +{
+>> +	/*
+>> +	 * Given a VMA (start, end, pgoffs) and a fault address,
+>> +	 * search the corresponding DMABUF's phys_vec[] to find the
+>> +	 * range representing the address's offset into the VMA, and
+>> +	 * its PFN.
+>> +	 *
+>> +	 * The phys_vec[] ranges represent contiguous spans of VAs
+>> +	 * upwards from the buffer offset 0; the actual PFNs might be
+>> +	 * in any order, overlap/alias, etc.  Calculate an offset of
+>> +	 * the desired page given VMA start/pgoff and address, then
+>> +	 * search upwards from 0 to find which span contains it.
+>> +	 *
+>> +	 * On success, a valid PFN for a page sized by 'order' is
+>> +	 * returned into out_pfn.
+>> +	 *
+>> +	 * Failure occurs if:
+>> +	 * - The page would cross the edge of the VMA
+>> +	 * - The page isn't entirely contained within a range
+>> +	 * - We find a range, but the final PFN isn't aligned to the
+>> +	 *   requested order.
+>> +	 *
+>> +	 * (Upon failure, the caller is expected to try again with a
+>> +	 * smaller order; the tests above will always succeed for
+>> +	 * order=0 as the limit case.)
+>> +	 *
+>> +	 * It's suboptimal if DMABUFs are created with neigbouring
+>> +	 * ranges that are physically contiguous, since hugepages
+>> +	 * can't straddle range boundaries.  (The construction of the
+>> +	 * ranges vector should merge such ranges.)
+>> +	 */
+>> +
+>> +	const unsigned long pagesize = PAGE_SIZE << order;
+>> +	unsigned long rounded_page_addr = address & ~(pagesize - 1);
+> 
+> ALIGN_DOWN(address, pagesize);
 
-Kconfig:
-- CONFIG_DRM_AMDGPU_SVM option (depends on DEVICE_PRIVATE, selects
-  DRM_GPUSVM, HMM_MIRROR, MMU_NOTIFIER), default y
+Oops, right, fixed.
 
-Makefile:
-- Build amdgpu_svm.o, amdgpu_svm_attr.o, amdgpu_svm_fault.o,
-  amdgpu_svm_range.o when CONFIG_DRM_AMDGPU_SVM=y
-- KBUILD_EXTRA_SYMBOLS for drm Module.symvers (drm_gpusvm exports)
-- clean-svm phony target for development convenience
+>> +	unsigned long rounded_page_end = rounded_page_addr + pagesize;
+>> +	unsigned long buf_page_offset;
+>> +	unsigned long buf_offset = 0;
+>> +	unsigned int i;
+>> +
+>> +	if (rounded_page_addr < vma->vm_start || rounded_page_end > vma->vm_end) {
+>> +		if (order > 0)
+>> +			return -EAGAIN;
+>> +
+>> +		/* A fault address outside of the VMA is absurd. */
+>> +		WARN(1, "Fault addr 0x%lx outside VMA 0x%lx-0x%lx\n",
+>> +		     address, vma->vm_start, vma->vm_end);
+>> +		return -EFAULT;
+>> +	}
+>> +
+>> +	if (unlikely(check_add_overflow(rounded_page_addr - vma->vm_start,
+>> +					vma->vm_pgoff << PAGE_SHIFT, &buf_page_offset)))
+>> +		return -EFAULT;
+> 
+>> +
+>> +	for (i = 0; i < vpdmabuf->nr_ranges; i++) {
+>> +		size_t range_len = vpdmabuf->phys_vec[i].len;
+>> +		phys_addr_t range_start = vpdmabuf->phys_vec[i].paddr;
+>> +
+>> +		/*
+>> +		 * If the current range starts after the page's span,
+>> +		 * this and any future range won't match.  Bail early.
+>> +		 */
+>> +		if (buf_page_offset + pagesize <= buf_offset)
+>> +			break;
+> 
+> No overflow check on this +? If we are worried order is so large that
+> the first needs a check then this would too..
 
-amdgpu_drv.c:
-- Register DRM_IOCTL_DEF_DRV(AMDGPU_GEM_SVM) in ioctl table
+In the earlier check it's not order being large but the vm_pgoff, but 
+yes an overflow check wouldn't hurt here.  Added.
 
-amdgpu_vm.c:
-- Initialize vm->svm = NULL in amdgpu_vm_init
-- Call amdgpu_svm_init in amdgpu_vm_make_compute
-- Call amdgpu_svm_close + amdgpu_svm_fini in amdgpu_vm_fini
-- Route GPU page faults through amdgpu_svm_handle_fault when SVM
-  context exists, falling back to svm_range_restore_pages otherwise
+I've found (my) choice of variable names here awkward, and have renamed 
+them to make it a bit clearer as to what's the page being searched for 
+and what's the range, etc.
 
-Signed-off-by: Honglei Huang <honghuan@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/Kconfig      | 11 +++++++++++
- drivers/gpu/drm/amd/amdgpu/Makefile     | 13 +++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  2 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 20 +++++++++++++++++++-
- 4 files changed, 45 insertions(+), 1 deletion(-)
+>> +
+>> +		if (buf_page_offset >= buf_offset &&
+>> +		    buf_page_offset + pagesize <= buf_offset + range_len) {
+> 
+>> +			/*
+>> +			 * The faulting page is wholly contained
+>> +			 * within the span represented by the range.
+>> +			 * Validate PFN alignment for the order:
+>> +			 */
+>> +			unsigned long pfn = (range_start >> PAGE_SHIFT) +
+>> +				((buf_page_offset - buf_offset) >> PAGE_SHIFT);
+> 
+> (range_start + (buf_page_offset - buf_offset)) / PAGE_SIZE;
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig b/drivers/gpu/drm/amd/amdgpu/Kconfig
-index 7f515be51..337314011 100644
---- a/drivers/gpu/drm/amd/amdgpu/Kconfig
-+++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
-@@ -82,6 +82,17 @@ config DRM_AMDGPU_USERPTR
- 	  This option selects CONFIG_HMM and CONFIG_HMM_MIRROR if it
- 	  isn't already selected to enabled full userptr support.
- 
-+config DRM_AMDGPU_SVM
-+	bool "Enable AMDGPU SVM support (experimental)"
-+	depends on DRM_AMDGPU
-+	depends on DEVICE_PRIVATE
-+	select DRM_GPUSVM
-+	select HMM_MIRROR
-+	select MMU_NOTIFIER
-+	default y
-+	help
-+	  Experimental SVM support based on DRM GPUSVM.
-+
- config DRM_AMD_ISP
- 	bool "Enable AMD Image Signal Processor IP support"
- 	depends on DRM_AMDGPU && ACPI
-diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-index 6a7e9bfec..a40a42995 100644
---- a/drivers/gpu/drm/amd/amdgpu/Makefile
-+++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-@@ -44,6 +44,10 @@ ccflags-y := -I$(FULL_AMD_PATH)/include/asic_reg \
- subdir-ccflags-y += -Wno-override-init
- subdir-ccflags-$(CONFIG_DRM_AMDGPU_WERROR) += -Werror
- 
-+ifneq ($(wildcard $(objtree)/drivers/gpu/drm/Module.symvers),)
-+KBUILD_EXTRA_SYMBOLS += $(objtree)/drivers/gpu/drm/Module.symvers
-+endif
-+
- amdgpu-y := amdgpu_drv.o
- 
- # add KMS driver
-@@ -317,6 +321,15 @@ amdgpu-$(CONFIG_VGA_SWITCHEROO) += amdgpu_atpx_handler.o
- amdgpu-$(CONFIG_ACPI) += amdgpu_acpi.o
- amdgpu-$(CONFIG_HMM_MIRROR) += amdgpu_hmm.o
- 
-+# svm support
-+amdgpu-$(CONFIG_DRM_AMDGPU_SVM) += amdgpu_svm.o amdgpu_svm_attr.o \
-+	amdgpu_svm_fault.o amdgpu_svm_range.o
-+
-+.PHONY: clean-svm
-+clean-svm:
-+	rm -f $(obj)/amdgpu_svm.o $(obj)/amdgpu_svm_attr.o $(obj)/amdgpu_svm_fault.o $(obj)/amdgpu_svm_range.o \
-+	      $(obj)/.amdgpu_svm.o.cmd $(obj)/.amdgpu_svm_attr.o.cmd $(obj)/.amdgpu_svm_fault.o.cmd $(obj)/.amdgpu_svm_range.o.cmd
-+
- include $(FULL_AMD_PATH)/pm/Makefile
- 
- amdgpu-y += $(AMD_POWERPLAY_FILES)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index a44baa9ee..d5ccacdf2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -51,6 +51,7 @@
- #include "amdgpu_ras.h"
- #include "amdgpu_reset.h"
- #include "amdgpu_sched.h"
-+#include "amdgpu_svm.h"
- #include "amdgpu_xgmi.h"
- #include "amdgpu_userq.h"
- #include "amdgpu_userq_fence.h"
-@@ -3064,6 +3065,7 @@ const struct drm_ioctl_desc amdgpu_ioctls_kms[] = {
- 	DRM_IOCTL_DEF_DRV(AMDGPU_USERQ_SIGNAL, amdgpu_userq_signal_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(AMDGPU_USERQ_WAIT, amdgpu_userq_wait_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_LIST_HANDLES, amdgpu_gem_list_handles_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
-+	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_SVM, amdgpu_gem_svm_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
- };
- 
- static const struct drm_driver amdgpu_kms_driver = {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 429947f75..86603d2b3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -43,6 +43,7 @@
- #include "amdgpu_xgmi.h"
- #include "amdgpu_dma_buf.h"
- #include "amdgpu_res_cursor.h"
-+#include "amdgpu_svm.h"
- #include "kfd_svm.h"
- 
- /**
-@@ -2606,6 +2607,7 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 	int r, i;
- 
- 	vm->va = RB_ROOT_CACHED;
-+	vm->svm = NULL;
- 	for (i = 0; i < AMDGPU_MAX_VMHUBS; i++)
- 		vm->reserved_vmid[i] = NULL;
- 	INIT_LIST_HEAD(&vm->evicted);
-@@ -2766,6 +2768,10 @@ int amdgpu_vm_make_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm)
- 	vm->is_compute_context = true;
- 	vm->need_tlb_fence = true;
- 
-+	r = amdgpu_svm_init(adev, vm);
-+	if (r)
-+		goto unreserve_bo;
-+
- unreserve_bo:
- 	amdgpu_bo_unreserve(vm->root.bo);
- 	return r;
-@@ -2798,6 +2804,9 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)
- 	unsigned long flags;
- 	int i;
- 
-+	amdgpu_svm_close(vm);
-+	amdgpu_svm_fini(vm);
-+
- 	amdgpu_amdkfd_gpuvm_destroy_cb(adev, vm);
- 
- 	root = amdgpu_bo_ref(vm->root.bo);
-@@ -2976,8 +2985,10 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
- 			    bool write_fault)
- {
- 	bool is_compute_context = false;
-+	bool has_svm = false;
- 	struct amdgpu_bo *root;
- 	unsigned long irqflags;
-+	uint64_t fault_addr = addr;
- 	uint64_t value, flags;
- 	struct amdgpu_vm *vm;
- 	int r;
-@@ -2987,6 +2998,7 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
- 	if (vm) {
- 		root = amdgpu_bo_ref(vm->root.bo);
- 		is_compute_context = vm->is_compute_context;
-+		has_svm = !!vm->svm;
- 	} else {
- 		root = NULL;
- 	}
-@@ -2997,7 +3009,13 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
- 
- 	addr /= AMDGPU_GPU_PAGE_SIZE;
- 
--	if (is_compute_context && !svm_range_restore_pages(adev, pasid, vmid,
-+	if (is_compute_context && has_svm && !amdgpu_svm_handle_fault(adev, pasid, addr,
-+		ts, write_fault)) {
-+		amdgpu_bo_unref(&root);
-+		return true;
-+	}
-+
-+	if (is_compute_context && !has_svm && !svm_range_restore_pages(adev, pasid, vmid,
- 	    node_id, addr, ts, write_fault)) {
- 		amdgpu_bo_unref(&root);
- 		return true;
--- 
-2.34.1
+WFM, done.
+
+Thank you,
+
+Matt
 
