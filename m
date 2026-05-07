@@ -4,26 +4,26 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CDCBCD37A7
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 23:32:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D2CBCD37AD
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 23:32:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F51210F2C2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A22D610F2C6;
 	Thu,  7 May 2026 23:32:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="bLnOMmQF";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="TXkUciE/";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AC5B10E5B1
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7FCD10F2B7
  for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 23:32:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; t=1778196769; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=B0gKagO8Brbvh2dtH5CQYZF2oKOX1R9r00JZZXK0C/iTD1gP7WcdolnilHRz+nxsadSp3JLoGQ2mJUqSLAjTB3vgmwVNPU8Ld/3d5nBpZ/eEFCAWvZyTe64YmfahP4hF+5xh2T9wLE389CqEouzCmhabS/BLxzCsWyg2ByRc2iU=
+ b=QBQGgnzSiXMZRek/wVE5S4DwcwZhlyUc607ZZuhr9U9a0Mr7rIYQeXY1TcBf+x+tIby3dX7O2LdnTZJmJpMIx9hvhGob9cIcNOlVESEy0ZoK74JTzsnpkUejKjeGl7XrA+uhrvVtxZLa4hopwDTVmJRtNHslI5cpAjm8w0Bc09g=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
  s=zohoarc; t=1778196769;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=vTqw3jc94opHT2uoxPiQwEHdp0J+oq/GgnCRmE7vr4k=; 
- b=Nw9RcZPiylbkyhrkkXx1dRyClrdga9qu4TyCwlawcXmmCnQRnVSK7f8bEM41UYcaVCcC7pz55Z68aHKix9vF0Z68bksprpkN2X/6f8JXXVTdusgU07FqwrphEhQvyNMTIP3NyiXev8Crl/XKkdkrCMlJaY49D4//sQSHLuoE3ng=
+ bh=oCMt4Wqtp340hUTxlyZxiVOiVlULGTbK7i1z5h8C21U=; 
+ b=Wbreo7nBgKEmHWiQADc9Wu+HdVBBGtfl6kBsl4W3fAYzWvNRdZZ8sfFH+qCk1S9wo696r9i6T5850UWf/J7gSf3x9yS58rcPq+4CwAmnJ6uns5XPfRY3D8t+K8ofdqWB3cCPNw/DLohouaOZGfnAkmAMSYnAKd1sPY2Q6Mo7vKc=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
@@ -31,19 +31,19 @@ ARC-Authentication-Results: i=1; mx.zohomail.com;
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1778196769; 
  s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=vTqw3jc94opHT2uoxPiQwEHdp0J+oq/GgnCRmE7vr4k=;
- b=bLnOMmQF4ag3NVS7UO6/9eDpodF6H9woyCqEw7csrAXF8k9EjvauGMOcl61iA+5f
- xa79o6hQJ8k0sgn4VJl8ZQVugR1i1Wc8LjfnxQktMwz4bz9jQBb/70xOQJBbXAMLq46
- QFuTH9PRyGEdrFOJAt2+gpZMLN3209lJxN0iy27w=
-Received: by mx.zohomail.com with SMTPS id 1778196766791583.476563743686;
- Thu, 7 May 2026 16:32:46 -0700 (PDT)
+ bh=oCMt4Wqtp340hUTxlyZxiVOiVlULGTbK7i1z5h8C21U=;
+ b=TXkUciE/cJKYDXsmS5Oe9NPWvT9tdlEtg/c64LaikWuN8aDow1v4IXdLT9fQdiEG
+ PZZ9qUbhMa6xj+/qu4r+/levKLwnmHM/r6VNmXcqPfNviynQWu8YS83xs0QLVs2Gkep
+ 4bn1fri7SbgufExEbMGbbsCZW5DmeyxxFhmIA2Es=
+Received: by mx.zohomail.com with SMTPS id 1778196767897434.22785911951655;
+ Thu, 7 May 2026 16:32:47 -0700 (PDT)
 From: Deborah Brouwer <deborah.brouwer@collabora.com>
-Date: Thu, 07 May 2026 16:32:41 -0700
-Subject: [PATCH 3/7] drm/rust: add File::device() helper
+Date: Thu, 07 May 2026 16:32:42 -0700
+Subject: [PATCH 4/7] drm/rust: allow drivers to override file operations
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260507-tyr-mmap-v1-3-eec048a23c25@collabora.com>
+Message-Id: <20260507-tyr-mmap-v1-4-eec048a23c25@collabora.com>
 References: <20260507-tyr-mmap-v1-0-eec048a23c25@collabora.com>
 In-Reply-To: <20260507-tyr-mmap-v1-0-eec048a23c25@collabora.com>
 To: Alice Ryhl <aliceryhl@google.com>, Lorenzo Stoakes <ljs@kernel.org>, 
@@ -62,13 +62,13 @@ Cc: linux-mm@kvack.org, rust-for-linux@vger.kernel.org,
  Laura Nao <laura.nao@collabora.com>, 
  Deborah Brouwer <deborah.brouwer@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1560;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2654;
  i=deborah.brouwer@collabora.com; h=from:subject:message-id;
- bh=LS72whzBPfI8wJ5XGKSFg2YZwraPxlufzrfYFanpH6w=;
- b=owGbwMvMwCVWuULzOU9c7WvG02pJDJl/FSXnnEoSj0v+Wfl/wVnruTPaf/gLX4m8/LJBe/f/a
- cYFOw6v6ShlYRDjYpAVU2Q5a2/UI1713kh3/v9mmDmsTCBDGLg4BWAitzwZGY6YKvGG9RQcXhii
- W3zB4vOz1xrsy18UJRiffv4+eadU+VlGhns2Zmv/hSrNiXAzEE1sdOJMLAlzOVi3hV1Gc975G0Y
- /+AE=
+ bh=snKSqFTk/LCWniRtE2VzwTiY0L106zF+84qJmJfsNZI=;
+ b=owGbwMvMwCVWuULzOU9c7WvG02pJDJl/FSUjbJZszlCUvRzy/8xh163PDNgnH5E02fXkyvXlv
+ BKVqdN2dJSyMIhxMciKKbKctTfqEa96b6Q7/38zzBxWJpAhDFycAjCRCxsZGY5xTLm8847Lppvf
+ eBsSLq9JuakwcQXDHp7HK0qL63Qu+p5g+B/tbXzSdzv/vxUSyu7uL7WWarULa5kyzM8vceRaOtv
+ iFSsA
 X-Developer-Key: i=deborah.brouwer@collabora.com; a=openpgp;
  fpr=CD3F328C177AEF322D9FFF8379A829E70C5E7DEB
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -86,44 +86,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a helper to retrieve the DRM device associated with an open
-`drm::file::File<T>`.
+Add a Driver::FOPS associated constant so Rust DRM drivers can override
+or extend the default file operations table.
 
-This wraps the common pattern of traversing `drm_file.minor->dev` and
-returning the corresponding `drm::Device<T::Driver>`.
+Use the driver's FOPS in drm::Device instead of always constructing the
+default GEM file operations internally.
 
-This is useful for DRM file operation callbacks that need access to the
-owning DRM device from a `File<T>` reference, avoiding repeated open-coded
-raw pointer traversal in drivers.
+Also make drm::gem::create_fops() public so drivers can build on top of
+the default GEM handlers while overriding selected operations such as
+mmap.
 
 Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
 ---
- rust/kernel/drm/file.rs | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ rust/kernel/drm/device.rs  | 4 ++--
+ rust/kernel/drm/driver.rs  | 6 ++++++
+ rust/kernel/drm/gem/mod.rs | 3 ++-
+ 3 files changed, 10 insertions(+), 3 deletions(-)
 
-diff --git a/rust/kernel/drm/file.rs b/rust/kernel/drm/file.rs
-index 10160601ce5a..5af28a9558e9 100644
---- a/rust/kernel/drm/file.rs
-+++ b/rust/kernel/drm/file.rs
-@@ -45,6 +45,18 @@ pub(super) fn as_raw(&self) -> *mut bindings::drm_file {
-         self.0.get()
-     }
+diff --git a/rust/kernel/drm/device.rs b/rust/kernel/drm/device.rs
+index adbafe8db54d..82760a9a426e 100644
+--- a/rust/kernel/drm/device.rs
++++ b/rust/kernel/drm/device.rs
+@@ -108,10 +108,10 @@ impl<T: drm::Driver> Device<T> {
+         driver_features: drm::driver::FEAT_GEM,
+         ioctls: T::IOCTLS.as_ptr(),
+         num_ioctls: T::IOCTLS.len() as i32,
+-        fops: &Self::GEM_FOPS,
++        fops: &Self::FOPS,
+     };
  
-+    /// Returns the DRM device associated with this open file.
-+    pub fn device(&self) -> &drm::Device<T::Driver> {
-+        // SAFETY: By the type invariant, `self.as_raw()` points to a valid open
-+        // `struct drm_file`. DRM initializes `minor` for open DRM files, and
-+        // `minor->dev` points to the registered DRM device associated with this
-+        // file.
-+        unsafe {
-+            let minor = (*self.as_raw()).minor;
-+            drm::Device::from_raw((*minor).dev)
-+        }
-+    }
+-    const GEM_FOPS: bindings::file_operations = drm::gem::create_fops();
++    const FOPS: bindings::file_operations = T::FOPS;
+ 
+     /// Create a new `drm::Device` for a `drm::Driver`.
+     pub fn new(dev: &device::Device, data: impl PinInit<T::Data, Error>) -> Result<ARef<Self>> {
+diff --git a/rust/kernel/drm/driver.rs b/rust/kernel/drm/driver.rs
+index 5233bdebc9fc..79218c482fce 100644
+--- a/rust/kernel/drm/driver.rs
++++ b/rust/kernel/drm/driver.rs
+@@ -115,6 +115,12 @@ pub trait Driver {
+ 
+     /// IOCTL list. See `kernel::drm::ioctl::declare_drm_ioctls!{}`.
+     const IOCTLS: &'static [drm::ioctl::DrmIoctlDescriptor];
 +
-     fn driver_priv(&self) -> *mut T {
-         // SAFETY: By the type invariants of `Self`, `self.as_raw()` is always valid.
-         unsafe { (*self.as_raw()).driver_priv }.cast()
++    /// File operations for this driver.
++    ///
++    /// Override to replace or extend the default GEM file operations. The default
++    /// provides the standard GEM mmap handler via [`drm::gem::create_fops`].
++    const FOPS: bindings::file_operations = drm::gem::create_fops();
+ }
+ 
+ /// The registration type of a `drm::Device`.
+diff --git a/rust/kernel/drm/gem/mod.rs b/rust/kernel/drm/gem/mod.rs
+index 75acda7ba500..de7222ee0542 100644
+--- a/rust/kernel/drm/gem/mod.rs
++++ b/rust/kernel/drm/gem/mod.rs
+@@ -348,7 +348,8 @@ impl<T: DriverObject> AllocImpl for Object<T> {
+     };
+ }
+ 
+-pub(super) const fn create_fops() -> bindings::file_operations {
++/// Returns the default GEM [`bindings::file_operations`] for a DRM driver.
++pub const fn create_fops() -> bindings::file_operations {
+     let mut fops: bindings::file_operations = pin_init::zeroed();
+ 
+     fops.owner = core::ptr::null_mut();
 
 -- 
 2.53.0
