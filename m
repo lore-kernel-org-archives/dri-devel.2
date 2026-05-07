@@ -4,64 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86623CD3427
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 10:13:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B94FECD3446
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 10:13:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 689D910EFE2;
-	Thu,  7 May 2026 10:13:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81EAF10EFEE;
+	Thu,  7 May 2026 10:13:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=qq.com header.i=@qq.com header.b="M4PewaA/";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fnfAPSzI";
 	dkim-atps=neutral
-Received: from out203-205-221-191.mail.qq.com (out203-205-221-191.mail.qq.com
- [203.205.221.191])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9F2D10E1B5
- for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 07:10:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1778137847; bh=iskF8EoVx1eo+u9A/G98mixKei1oUBNv8bPdbjEb1eU=;
- h=From:To:Cc:Subject:Date;
- b=M4PewaA/n26f2MvomTR6t3qWBxobRD+4DD+Fv+2fFYXYbKlxWnNRbKgrpi03U0mk4
- Bmx8r7/SnvJHfFRkht0Lkon8FoQP5oSkbq2fshcJVsgwgfCuTjCCPC7t4TKvkOlRYl
- HRO6PiokPHR0GZ4phgWBFvNX/5EEKklYiwDm7Bv8=
-Received: from NTT-kernel-dev ([60.247.85.88])
- by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
- id 1E23C653; Thu, 07 May 2026 15:07:34 +0800
-X-QQ-mid: xmsmtpt1778137654tvpn0zexu
-Message-ID: <tencent_CCDB1B23FED831830856396BB4DF59D1B106@qq.com>
-X-QQ-XMAILINFO: M0vdiI0AC4YkCeFnOQd/Eo9/iodKPHs5oU6o8zGDpT0HZp0yiCh3ASQlSn5snD
- UirnXplLp0LTqU40FyFDOzZAtsponI6rBi3vETFJLH1NoA/iWm5Z5r5A/TleDF6sgd79kmUoGbPs
- je+3pC7onu1BU5CmTMtNW+ki3do0R1k9OpJds+DJqJkmusGyzNuQ8CxSN+CBhx97DuZIJzdnXf5T
- 9ly/M1ejh8b63lLZL2luTItVsJzSOthOAWe/EM+SYlfkxWVwE9yoyPxfIE9fskYAmErkIf45IATV
- 8tL0Al9f2UFe/njQyc+Wwa0fWlxocUoCwws/sNEKq1iL6yJp2KpHMTOVkYDjfIxM3MrYL+D9e1Jl
- p9wZWJ27gZTvGjZPOYn1NXC+1wFeymM1+mJ7okODyf5Dr17uuLT/hHHLsExgvD9ySS2p6vSyPq8s
- 4q4TJugTQdxPy5paLe31B7neE3Yl3ZJBmTPacPfN1BgTjTVqK3fnaPMZ/VasKIugwgQwJ0BwITZG
- 2NIFG7ooBRQ5f35l6p7qqbOXgmuAvLpLWxu/bVeTkWAq3VxNsO8tafo3It8SrSSF20EQxMfUjCuF
- UpnJ3hMrz2mH9mOmTYQeJfBd6sVg09gVQPkBbZRRFDLAFmPpQgVt14c3NUqkpAWhWEaGxqwq0+RX
- RYcWtyuoyl04mkBv/fPe0MW54eh7nAojRxBfLTOB3WQbnmnj69q9adkx+hbIKbiy2A4ssPpMmAP8
- nbTNpIjUyxZ4dKvLM0m6NPdgnV5gOoXJ2cdOAS17yvyX5JvDK7yvT65iB4PIlDSOpniwO47QfLUQ
- qxXF3+bNZXTeqThNGs63LTRNbbSAub9NlOj+nmN7U36gU3juL8AhKM3C2cDiM3jGswzMZxBLrRtS
- 6gBsDg9MYWG+6Qq8gHJBttSMog78M/9m/XUD08Js4aKxQ9GsmxgdY+w4bFrHES1XtosHhAKxpi4Y
- MYr0bPhc4Ps/KmXG1kgQeLsi1MFW1qkBDaLDavSzFy6GyTkr65iNKrWRWvsWA/td/zp5tOaGR7jI
- iGfwHyc+iPB+7MroIjrZjPnAYyYRwmrHlfFNbwYg==
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-From: Fang Wang <32840572@qq.com>
-To: gregkh@linuxfoundation.org,
-	stable@vger.kernel.org,
-	dev@pp3345.net
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch, ray.wu@amd.com, Wayne.Lin@amd.com,
- sashal@kernel.org, mario.limonciello@amd.com, aurabindo.pillai@amd.com,
- timur.kristof@gmail.com, jdhillon@amd.com, hersenwu@amd.com,
- Roman.Li@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH 6.6.y] drm/amd/display: Do not skip unrelated mode changes in
- DSC validation
-Date: Thu,  7 May 2026 15:07:29 +0800
-X-OQ-MSGID: <20260507070729.2299428-1-32840572@qq.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com
+ [209.85.161.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05F1B10E236
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 01:03:11 +0000 (UTC)
+Received: by mail-oo1-f53.google.com with SMTP id
+ 006d021491bc7-6967080e6c0so176218eaf.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 06 May 2026 18:03:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778115790; cv=none;
+ d=google.com; s=arc-20240605;
+ b=gMegphzkaKaDQ98qnZpyJM/5WvoxXZZYkSHEivKVa0ed+LNdPYz2pFa+Q4PWFbJl54
+ mYOixQYK2B65pAwEOwIx3IZ3JFJC9fYGdTfBP67P5KhbijxAcvnZyPKYJ9tvqjKUfx3y
+ 8sS6hwadXSSfdhIpp11BY+TWq1rrpvjTLWGDIEs9SXfJystRmuiEONcxETXacS9FQyp+
+ s6vCs4LlFDHRsSOtwSxqzsIOXT//aqw93nrsHAmffbknzrtni2KqDPMtfEVLh05khzGR
+ J+q8ntd5ZnO8Rl4K5KeH9qmlwgAVUDgMacxKUgyziQrgNKGWHjnOLSOdOgDRRaZar6Jy
+ uLVA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=BjCezK8EDBdoyp0R3o6exrU7QV1NCQnuUfyShKygXeQ=;
+ fh=U5pwa7sw6A9FlX5h5iPFxO9l/IFAG+onz4PjEOE1LNs=;
+ b=N97gjszY0nkRK0F0NIiLObUjxDbiqK+2SOSwx0o5Cd5cgom3b84BpJE7q8wMUMU0p0
+ qemTViKzfLqb0XqXSBM8QpUWLn338PPpqQOyHWPPlgCTwb3RC5XfXFYXbyY0694/JQ+t
+ soFSMsqT2RLns8GHrGlv1WX7gP0URwMfb+dG2G9R7YKoeddxwT3PO7TvlyFJ7zZhbtFL
+ J/2AnooQexMs3meEv/Q55hYKVoEkJf2S4L76TVPoKUoLD3S08mZStU6k+WYR33GCE7Ra
+ j//v9W5Rx/701K6DZK+EmIBGJgcKl76a17SEPKZIDc5fIO7YzpIG7BG5taSccH5kw8Ab
+ 7JBA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1778115790; x=1778720590; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=BjCezK8EDBdoyp0R3o6exrU7QV1NCQnuUfyShKygXeQ=;
+ b=fnfAPSzIkpZ4tbpL+8PoLzAxA7w5XipgnBDsFe4xJTiHugu98jyAy0fA8bxZTzOdYo
+ G/arXJCU99w7n5WGd6zy1RhlbDuPUcTCkYzXaQH8DRQWid8bZVUGDdSlqKundL9Lpp6f
+ D0mjswvUhK8zOKBgN6NK2iAoMampim8Wpmvycz8N89j7TIVeZUlTxyWyPdTmvL47ToLQ
+ n/hGNfKBuCUNp/AYBlaRs16rE7bCj7G7713wiBSCGLSqk10cwBveUa+eLBWV8X9khbFI
+ 2q7lDvvyx1Oh/ST5o0/vh9yvWn9p2JQo/rdMsKvMYytHi21nPlO4DW2z3qQEEeYmsVhh
+ +NVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778115790; x=1778720590;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=BjCezK8EDBdoyp0R3o6exrU7QV1NCQnuUfyShKygXeQ=;
+ b=rJRHgLB2atZfyOlHA1Ax8txeiakj95dacoD7/B8aDVszMYZX+j+1IyvB9Cv4p7z0be
+ cOXGTZi/OWj1FMUDMm1t2rgEX5Aq6AStQuAMSBsKBGtKMMQjoivYum217Zd9mvATrSKe
+ /pn4Yh9gl7NL2mhFlxF6oLtW6NBy3MgkYDbU1rrlZFT0pG6KltF7WRJdbXGQl7guE53B
+ 4Xn4efJehu/UEJu5LL9HYD6NSd77MFzPGQnUMt7rOSZEXMlb+xko2T6k6WBerCG3GgMX
+ 3aNV2XtQYTh9fRY59w90bsSu8gXexNO0RzUReGd2AK/TJxfGYKUVSzzShetT2Nj0kB95
+ pK0g==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ864yX3GCKmau77PZKRRymCdUbNDHc+pxEwKnV6uFosX8qe4epNMg3uT3EdRk2iskH5yvRAYNNZMcQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyrIbCvc6yPaAhGi0ctz811L2vZKJoA73yhfHaKZHfrlu57JYJd
+ CGT/xAFiCCiAopYVTos29Hbfyc6ZxaIM6RCl3LzBZuk933VwzmL7FepoSlIXXMlZYHB/vmNzfku
+ 4K9SS7HZzF0clv0lemDGVUOXxrigXkWc=
+X-Gm-Gg: AeBDietDksb1X2Oqpwy74LNwlPNZeAj4ehwGLIh5KimqxVPTYiuVZVQEYLdJwI51RDQ
+ Y+2P/pb7u1wptRAeG2Uy/nh0OIOldc/Obv/+vskNgWk53FmGZP4U9HO45dafkzTPKa+qojOWdDr
+ BrTx6cwbtYQInwoat5l4gMusWXkU2xAHyg5NO3Vf7lxOnMZFestn94nJsNteumbHx5yCKFcFYlc
+ vIObd6RrVwn/CKERm0p3V7C7pVInMejFE69I2hFBM+fRat1wicys6nKBq8sgvRV9etQuo9ypKcW
+ TtMNSsO3Gc9xh7hRYg==
+X-Received: by 2002:a05:6820:c2d0:10b0:699:a28b:18ed with SMTP id
+ 006d021491bc7-699a28b1f15mr1399631eaf.48.1778115790055; Wed, 06 May 2026
+ 18:03:10 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260506095100.78998-1-syyang@lontium.com>
+ <20260506095100.78998-3-syyang@lontium.com>
+ <zcteqdnovguyiae22jnittje4au5pcohdcyga5l5wk42v5rczk@5x2qs7x5tfq7>
+In-Reply-To: <zcteqdnovguyiae22jnittje4au5pcohdcyga5l5wk42v5rczk@5x2qs7x5tfq7>
+From: =?UTF-8?B?5p2o5a2Z6L+Q?= <yangsunyun1993@gmail.com>
+Date: Thu, 7 May 2026 09:02:58 +0800
+X-Gm-Features: AVHnY4L319oQnDxPhs9arzb739HJx0OKlznkXMgo9epR6XZx-sxEJjzfi2uAB9w
+Message-ID: <CAFQXuNYLZrMCzneK3Lk827vExheBmjzoAw=Wm+u34RxWfFXLdg@mail.gmail.com>
+Subject: Re: [PATCH v4 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
+ to HDMI driver
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: syyang@lontium.com, robh@kernel.org, krzk+dt@kernel.org, 
+ conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org, 
+ maarten.lankhorst@linux.intel.com, rfoss@kernel.org, mripard@kernel.org, 
+ Laurent.pinchart@ideasonboard.com, tzimmermann@suse.de, jonas@kwiboo.se, 
+ jernej.skrabec@gmail.com, devicetree@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ xmzhu@lontium.corp-partner.google.com, xmzhu@lontium.com, rlyu@lontium.com, 
+ xbpeng@lontium.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 07 May 2026 10:13:17 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,120 +115,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Yussuf Khalil <dev@pp3345.net>
+Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=E5=B9=B4=
+5=E6=9C=887=E6=97=A5=E5=91=A8=E5=9B=9B 04:06=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Wed, May 06, 2026 at 05:51:00PM +0800, syyang@lontium.com wrote:
+> > From: Sunyun Yang <syyang@lontium.com>
+> >
+> > LT9611C(EX/UXD) is an I2C-controlled chip that Receiver signal/dual por=
+t
+> > mipi dsi and output hdmi, differences in hardware features:
+> > - LT9611C: supports 1-port mipi dsi to hdmi 1.4
+> > - LT9611EX: supports 2-port mipi dsi to hdmi 1.4
+> > - LT9611UXD: supports 2-port mipi dsi to hdmi 1.4/2.0
+> >
+> > Signed-off-by: Sunyun Yang <syyang@lontium.com>
+> > ---
+> >  drivers/gpu/drm/bridge/Kconfig           |   18 +
+> >  drivers/gpu/drm/bridge/Makefile          |    1 +
+> >  drivers/gpu/drm/bridge/lontium-lt9611c.c | 1211 ++++++++++++++++++++++
+> >  3 files changed, 1230 insertions(+)
+> >  create mode 100644 drivers/gpu/drm/bridge/lontium-lt9611c.c
+> >
+> > diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kc=
+onfig
+> > index c3209b0f4678..32b85a2a65d9 100644
+> > --- a/drivers/gpu/drm/bridge/Kconfig
+> > +++ b/drivers/gpu/drm/bridge/Kconfig
+> > @@ -177,6 +177,24 @@ config DRM_LONTIUM_LT9611
+> >         HDMI signals
+> >         Please say Y if you have such hardware.
+> >
+> > +config DRM_LONTIUM_LT9611C
+> > +     tristate "Lontium LT9611C DSI/HDMI bridge"
+> > +     select SND_SOC_HDMI_CODEC if SND_SOC
+> > +     depends on OF
+> > +     select CRC8
+> > +     select FW_LOADER
+> > +     select DRM_PANEL_BRIDGE
+> > +     select DRM_KMS_HELPER
+> > +     select DRM_MIPI_DSI
+> > +     select DRM_DISPLAY_HELPER
+> > +     select DRM_DISPLAY_HDMI_STATE_HELPER
+> > +     select REGMAP_I2C
+> > +     help
+> > +       Driver for Lontium DSI to HDMI bridge
+> > +       chip driver that converts dual DSI and I2S to
+> > +       HDMI signals
+> > +       Please say Y if you have such hardware.
+> > +
+> >  config DRM_LONTIUM_LT9611UXC
+> >       tristate "Lontium LT9611UXC DSI/HDMI bridge"
+> >       select SND_SOC_HDMI_CODEC if SND_SOC
+> > diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/M=
+akefile
+> > index beab5b695a6e..92688be9692f 100644
+> > --- a/drivers/gpu/drm/bridge/Makefile
+> > +++ b/drivers/gpu/drm/bridge/Makefile
+> > @@ -16,6 +16,7 @@ obj-$(CONFIG_DRM_ITE_IT6505) +=3D ite-it6505.o
+> >  obj-$(CONFIG_DRM_LONTIUM_LT8912B) +=3D lontium-lt8912b.o
+> >  obj-$(CONFIG_DRM_LONTIUM_LT9211) +=3D lontium-lt9211.o
+> >  obj-$(CONFIG_DRM_LONTIUM_LT9611) +=3D lontium-lt9611.o
+> > +obj-$(CONFIG_DRM_LONTIUM_LT9611C) +=3D lontium-lt9611c.o
+> >  obj-$(CONFIG_DRM_LONTIUM_LT9611UXC) +=3D lontium-lt9611uxc.o
+> >  obj-$(CONFIG_DRM_LONTIUM_LT8713SX) +=3D lontium-lt8713sx.o
+> >  obj-$(CONFIG_DRM_LVDS_CODEC) +=3D lvds-codec.o
+> > diff --git a/drivers/gpu/drm/bridge/lontium-lt9611c.c b/drivers/gpu/drm=
+/bridge/lontium-lt9611c.c
+> > new file mode 100644
+> > index 000000000000..3131f4a32dfd
+> > --- /dev/null
+> > +++ b/drivers/gpu/drm/bridge/lontium-lt9611c.c
+> > @@ -0,0 +1,1211 @@
+> > +// SPDX-License-Identifier: GPL-2.0
+> > +/*
+> > + * Copyright (C) 2026 Lontium Semiconductor, Inc.
+> > + */
+> > +
+> > +#include <linux/crc8.h>
+> > +#include <linux/firmware.h>
+> > +#include <linux/gpio/consumer.h>
+> > +#include <linux/i2c.h>
+> > +#include <linux/interrupt.h>
+> > +#include <linux/media-bus-format.h>
+> > +#include <linux/module.h>
+> > +#include <linux/mutex.h>
+> > +#include <linux/of_graph.h>
+> > +#include <linux/platform_device.h>
+> > +#include <linux/regmap.h>
+> > +#include <linux/regulator/consumer.h>
+> > +#include <drm/drm_atomic_helper.h>
+> > +#include <drm/drm_bridge.h>
+> > +#include <drm/drm_connector.h>
+> > +#include <drm/drm_drv.h>
+> > +#include <drm/drm_edid.h>
+> > +#include <drm/drm_mipi_dsi.h>
+> > +#include <drm/drm_modes.h>
+> > +#include <drm/drm_of.h>
+> > +#include <drm/drm_print.h>
+> > +#include <drm/drm_probe_helper.h>
+> > +#include <drm/display/drm_hdmi_audio_helper.h>
+> > +#include <drm/display/drm_hdmi_state_helper.h>
+> > +#include <sound/hdmi-codec.h>
+> > +
+> > +#define FW_SIZE (64 * 1024)
+> > +#define LT_PAGE_SIZE 256
+> > +#define FW_FILE  "lt9611c_fw.bin"
+>
+> So, this file doesn't have any subdir (like all other Lontium firmware
+> files), but then you submit a file to linux-firmware with the Lontium/
+> subdir. Could you please settle on one location?
+>
+In the next version of the driver (v5),
+I will use  #define FW_FILE "Lontium/lt9611c_fw.bin".
 
-[ Upstream commit aed3d041ab061ec8a64f50a3edda0f4db7280025 ]
+> > +#define LT9611C_CRC_POLYNOMIAL 0x31
+> > +#define LT9611C_PAGE_CONTROL 0xff
+> > +
+>
+> [...]
+>
+> > +
+> > +static const struct drm_bridge_funcs lt9611c_bridge_funcs =3D {
+> > +     .attach =3D lt9611c_bridge_attach,
+> > +     .detect =3D lt9611c_bridge_detect,
+> > +     .edid_read =3D lt9611c_bridge_edid_read,
+> > +     .atomic_enable =3D lt9611c_bridge_atomic_enable,
+>
+> There is .atomic_enable, but no atomic state management here. Was it
+> actually tested?
+>
+we will fix in next version.
 
-Starting with commit 17ce8a6907f7 ("drm/amd/display: Add dsc pre-validation in
-atomic check"), amdgpu resets the CRTC state mode_changed flag to false when
-recomputing the DSC configuration results in no timing change for a particular
-stream.
-
-However, this is incorrect in scenarios where a change in MST/DSC configuration
-happens in the same KMS commit as another (unrelated) mode change. For example,
-the integrated panel of a laptop may be configured differently (e.g., HDR
-enabled/disabled) depending on whether external screens are attached. In this
-case, plugging in external DP-MST screens may result in the mode_changed flag
-being dropped incorrectly for the integrated panel if its DSC configuration
-did not change during precomputation in pre_validate_dsc().
-
-At this point, however, dm_update_crtc_state() has already created new streams
-for CRTCs with DSC-independent mode changes. In turn,
-amdgpu_dm_commit_streams() will never release the old stream, resulting in a
-memory leak. amdgpu_dm_atomic_commit_tail() will never acquire a reference to
-the new stream either, which manifests as a use-after-free when the stream gets
-disabled later on:
-
-BUG: KASAN: use-after-free in dc_stream_release+0x25/0x90 [amdgpu]
-Write of size 4 at addr ffff88813d836524 by task kworker/9:9/29977
-
-Workqueue: events drm_mode_rmfb_work_fn
-Call Trace:
- <TASK>
- dump_stack_lvl+0x6e/0xa0
- print_address_description.constprop.0+0x88/0x320
- ? dc_stream_release+0x25/0x90 [amdgpu]
- print_report+0xfc/0x1ff
- ? srso_alias_return_thunk+0x5/0xfbef5
- ? __virt_addr_valid+0x225/0x4e0
- ? dc_stream_release+0x25/0x90 [amdgpu]
- kasan_report+0xe1/0x180
- ? dc_stream_release+0x25/0x90 [amdgpu]
- kasan_check_range+0x125/0x200
- dc_stream_release+0x25/0x90 [amdgpu]
- dc_state_destruct+0x14d/0x5c0 [amdgpu]
- dc_state_release.part.0+0x4e/0x130 [amdgpu]
- dm_atomic_destroy_state+0x3f/0x70 [amdgpu]
- drm_atomic_state_default_clear+0x8ee/0xf30
- ? drm_mode_object_put.part.0+0xb1/0x130
- __drm_atomic_state_free+0x15c/0x2d0
- atomic_remove_fb+0x67e/0x980
-
-Since there is no reliable way of figuring out whether a CRTC has unrelated
-mode changes pending at the time of DSC validation, remember the value of the
-mode_changed flag from before the point where a CRTC was marked as potentially
-affected by a change in DSC configuration. Reset the mode_changed flag to this
-earlier value instead in pre_validate_dsc().
-
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5004
-Fixes: 17ce8a6907f7 ("drm/amd/display: Add dsc pre-validation in atomic check")
-Signed-off-by: Yussuf Khalil <dev@pp3345.net>
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit cc7c7121ae082b7b82891baa7280f1ff2608f22b)
-Signed-off-by: Fang Wang <32840572@qq.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c          | 5 +++++
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h          | 1 +
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    | 7 +++++--
- 3 files changed, 11 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index f51c3921cbc2..12f75b2ad664 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -10152,6 +10152,11 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
- 	}
- 
- 	if (dc_resource_is_dsc_encoding_supported(dc)) {
-+		for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state, new_crtc_state, i) {
-+			dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
-+			dm_new_crtc_state->mode_changed_independent_from_dsc = new_crtc_state->mode_changed;
-+		}
-+
- 		for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state, new_crtc_state, i) {
- 			if (drm_atomic_crtc_needs_modeset(new_crtc_state)) {
- 				ret = add_affected_mst_dsc_crtcs(state, crtc);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index 88606b805330..8d4f2cadb915 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -737,6 +737,7 @@ struct dm_crtc_state {
- 
- 	bool freesync_vrr_info_changed;
- 
-+	bool mode_changed_independent_from_dsc;
- 	bool dsc_force_changed;
- 	bool vrr_supported;
- 	struct mod_freesync_config freesync_config;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index 2698e5c74ddf..ab6924d3046b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -1587,8 +1587,11 @@ int pre_validate_dsc(struct drm_atomic_state *state,
- 		} else {
- 			int ind = find_crtc_index_in_state_by_stream(state, stream);
- 
--			if (ind >= 0)
--				state->crtcs[ind].new_state->mode_changed = 0;
-+			if (ind >= 0) {
-+				struct dm_crtc_state *dm_new_crtc_state = to_dm_crtc_state(state->crtcs[ind].new_state);
-+
-+				dm_new_crtc_state->base.mode_changed = dm_new_crtc_state->mode_changed_independent_from_dsc;
-+			}
- 		}
- 	}
- clean_exit:
--- 
-2.34.1
-
+> > +
+>
+> --
+> With best wishes
+> Dmitry
