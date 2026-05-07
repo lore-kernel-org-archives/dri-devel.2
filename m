@@ -4,155 +4,156 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B17E3CD3436
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 01:11:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2B1BCD342C
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 01:17:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 108AB10EF38;
-	Thu,  7 May 2026 01:11:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDD2510EF27;
+	Thu,  7 May 2026 01:17:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="EXy8xgsR";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jBOM4HKK";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="a/bx5rZd";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4ABFA10EF35
- for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 01:11:06 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 646Ln9hv2427834
- for <dri-devel@lists.freedesktop.org>; Thu, 7 May 2026 01:11:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- W/n8lIy6TJAx0t/SbpKSBMWtMGWB6AELaqSTzQbbTRI=; b=EXy8xgsRBbltMzUU
- 9/w5mfj709mmiwudJx1TszpPTa986/WfdXQScANdHdhZj8CvRrBrDm5t9YGh0Z+E
- 76HNIQvo467oL5ayyhLZ1L4RacGuu5VIn6Z9djmz7H1IudDinwHW3el3D4O3OL8t
- mufFritKotu32BNt2JHdKfDt2RzZdKTBxTgP5ufp9W8DVw1t9sz+lJUP1vb3TaH5
- fn/3UwCyndlvTcn/7intSSjdeFbUV1LVGZdvHxaa/kJUyiOrI7hZPuRNSJ1zP93d
- IN/kFaspDCBZzwhv5Q5kbyO6frRvXetRsVLA/+h62Z1Dl65eXjoS9hmcV1sebb5z
- LlDtuQ==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e01ph3j92-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 01:11:05 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-50f13da9684so3429681cf.3
- for <dri-devel@lists.freedesktop.org>; Wed, 06 May 2026 18:11:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1778116265; x=1778721065;
- darn=lists.freedesktop.org; 
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=W/n8lIy6TJAx0t/SbpKSBMWtMGWB6AELaqSTzQbbTRI=;
- b=jBOM4HKK8aWEXzGqycVuvo6aGNr5mq14Jrqu3b58oZnb9LK5BMTWl/NaRRkg6RhF+f
- KoDdm8grm4qgGFzaOWtOnpF1ff6tOGcunPH5c/K0QU6v1IELa2Fas10VWoWzEj/zF3oS
- r+UbbYz4KY7XhwU/XQaBvqNexgbU8NdTqjeNW3J629bflXAPqDCH3X1CL9/c/CoaYwE3
- gI0B8/394GWg6eAk4p/i8G218KOQA9tP73UKxj8sLovvQBCUVXvKY7IoFaGrq/LgUXyI
- rwEPfP7Ao4FviNRwRYxW4Nik5li76aQ5NIs7nH4OujjVmbe8a5S4YFWbKJgqFXKyS+zt
- gPaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778116265; x=1778721065;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=W/n8lIy6TJAx0t/SbpKSBMWtMGWB6AELaqSTzQbbTRI=;
- b=qKp/tmPrTaGShJzpMf+Bbs2lDR4TJ6ReeVTR9ymd9eWMfMBJnMdGENYrWgk78ULKLq
- UdlKnCaLYNX5OMW/42p/DMkq4X9ffs+v4o0pyJDnmWG0vUrS0MYXo/9KT1fLOcfWvOfo
- K5bBcORQJe8wh3tZHNSqNagv3gkjczm12QsOnTXTorLw3g4nGOfDNReD07cXmtbpAmmv
- gJBM2mbARYX4ZpOxALyhT2X3OoEMfq6B/yMxMVu8ewyA6rLnE+RCH4BFEJIc+hvLF0qL
- 7bjolfL++A4MlwYrh43LP/e+9/uLsEgm7VD+y/KM0sAQ1tZ8VBFfs10AXNuKoLUAaMPU
- 1RgA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8WDeiZdTMyoAF86pMnofis5Dyljm8ES18vnzqFgKzgicQDiXavjR0zfJOKh7evsAGwIQzqfMSDV7A=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YywJi1ExMgpqODbR32EKxpuTJ4zZTl1JPcCL6WxmQbgzRbUoKwV
- lm2P35GfzFtzMGR6hnAQ8uyMftZfw+2eQ2kYiZOVFRvk0FD+UEGfBcJSuI/7eRW5i2rz1o0jtsl
- 3cwoWWV1EFz996A/KofNbwcx1/xO0YzvMVBm6WIaoKjuT6LEHhYug2gUwqhWqmZEqC5pXPUg=
-X-Gm-Gg: AeBDietSOPXDPXrvnim2B4NE55YbgKKI0KC6nv7pvanzMBIe7dPSHP29ayouv3ywdna
- rCDmjTIclO6XZxgHZnyzXzKEDyQyYEjXDkRK0NLITzUQyNz4tEsPtS+q6zuioAMqypd6dZ9iyOI
- JwHX7nGV0hcr6+MQ7v1tsURvxtvRa50M+TfOJOW0x68UZTWRx/N3y8YtVg966+Y88p2dPx2gVoZ
- hQVDnLZ1rvH7wdF3FOxJyNSGE42HTU7HGC3AXo9bMDTkshA2vxpagw5WiiwB60yinaMqpphAra9
- ZZuTF/f9IryDJvLZ86+17s7Z9MlXKkeU2eNz1JEolKuWE1z7xUEjK8SPJ6kELCHYkZPCVl8RvXH
- 2B2LkgRAcYGpvLB9L28aXKHLXFqFH8xM/hXYCIJkm6i9Jz339ft6lexdAiGIWrMauhiFDHGtW8C
- aGWqdALm/n8O8isUyGzxjrgSPnQ3aacRm2//74Weg/Iu2CXHG3+ceXcNjr
-X-Received: by 2002:a05:622a:5a9b:b0:50e:6139:492b with SMTP id
- d75a77b69052e-51461c3620dmr77944791cf.23.1778116264681; 
- Wed, 06 May 2026 18:11:04 -0700 (PDT)
-X-Received: by 2002:a05:622a:5a9b:b0:50e:6139:492b with SMTP id
- d75a77b69052e-51461c3620dmr77944191cf.23.1778116264100; 
- Wed, 06 May 2026 18:11:04 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a85c230e00sm5221967e87.29.2026.05.06.18.11.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 06 May 2026 18:11:02 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Thu, 07 May 2026 04:10:46 +0300
-Subject: [PATCH v5 7/7] media: iris: drop remnants of UBWC configuration
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18FB010EF27;
+ Thu,  7 May 2026 01:17:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1778116678; x=1809652678;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=WS0TbNzDsBO7sBQBuhPNH4Yyy8OziDdZR1yjL/lh5M0=;
+ b=a/bx5rZdUPV+wdhSUJvv71ROvddxbxUauZDR9DPPJfuND72VjTHawYpw
+ iURKaodAY/Fzdl727NSHXCvdne9KqRmsqSMmHzD/aaFpfpvcQT+SUv0O7
+ R0fvNlvTw2Kk+RXiK0TSZWk+oPVBwolcXdlyUdxUmQCQzyfGMHEjg3y+T
+ YhdKzSbCUr8hIx36x9lvbHgvK4EnEqwf5OowcpK5fOP0ayfYBousbiTda
+ 7h+cpqR08LxROeAFYuxcNeyVw4ttKH1633R511UF9cv8q/eCUDgPh0/xD
+ uToE01pZLtgl1+cAv169sGgRmdknxgeanH2+BwjtJ/ub4WA8CWdHkpQC2 w==;
+X-CSE-ConnectionGUID: Zsz1fCCoT+++5BMv422/sw==
+X-CSE-MsgGUID: 4sVkJcpOQSOVPu3ydkGniA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11778"; a="89757556"
+X-IronPort-AV: E=Sophos;i="6.23,220,1770624000"; d="scan'208";a="89757556"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 May 2026 18:17:57 -0700
+X-CSE-ConnectionGUID: nIkQw/HXQVSN11DZJDXafw==
+X-CSE-MsgGUID: 452nLTo3T3qg27+lpiDfNA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,220,1770624000"; d="scan'208";a="266690323"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+ by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 May 2026 18:17:58 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Wed, 6 May 2026 18:17:56 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Wed, 6 May 2026 18:17:56 -0700
+Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.14) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Wed, 6 May 2026 18:17:54 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Q3qZ5UsX4k5adOlmaaGPKFsMEEeDpX0Yn10s7hgeZove1QkcyRf+qzgKPEIJ+6N9x5BiRaAR2O67fAhz5WoQPHL43zMeXb/KKvjTycp/n2zEHn0lMCb4cuvIyB6MSxOwHZ++Oi19x1cPCF+KEuAsHjQ90pDiKsKiQRxpEudvYiX5LbXpJ56Yt9GeV/t+dOxD1h1lO6noepOOu/hM22I6lIH0++IVtHW0TDd4JPO5HrA6HNMJdGJo8B+v+pknn2U0eIdyQ1ow2Umlz+uuo4p5nLqS04DNqEXzpua2E2iiZWqiq2dljhRU/Dl0P6Znlq/XO6mdJm9PcFQK6KddnSBwHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=a2mpuzB5/gop/+ZapgNWu//gLFehh9HQ0J67zPcKxPg=;
+ b=U6F2aq/YJM3R2J4dnya+xtwqe47anMS5WfwJIWgBrMYdPBLEyTGPB03dHPAVlYRP3WDBHK4XSWZyFyNJf3IKfPy6AVVQ5qWOuk167lzfh/iBaX6WBRbC1JfZG5tJeOrJwI3Qz9lVs7VcL/zvMLlruZhPy8p3X6PHkhtg0jOI3HglyNmNNrZIf+fXMXVJ2sH4fUx5/UPnlUA2xfIoGpFkGlVzCnZ1gkZx/EGma5mIcXt2BhvPN3WAo6YZANsi2xJ3giQH67TMvyhn4dyhMfPH/KV8PleJMumHZefW6ilSjPhhiQyfz93A9vGF5dgfv7DAb4rLnXMVLXgD6rk7JM3hIw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from DM4PR11MB5456.namprd11.prod.outlook.com (2603:10b6:5:39c::14)
+ by DS4PPFBA72E12AE.namprd11.prod.outlook.com (2603:10b6:f:fc02::48) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.17; Thu, 7 May
+ 2026 01:17:52 +0000
+Received: from DM4PR11MB5456.namprd11.prod.outlook.com
+ ([fe80::62e5:4a7c:f965:9082]) by DM4PR11MB5456.namprd11.prod.outlook.com
+ ([fe80::62e5:4a7c:f965:9082%6]) with mapi id 15.20.9891.008; Thu, 7 May 2026
+ 01:17:52 +0000
+From: "Lin, Shuicheng" <shuicheng.lin@intel.com>
+To: "Brost, Matthew" <matthew.brost@intel.com>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "mripard@kernel.org" <mripard@kernel.org>, "tzimmermann@suse.de"
+ <tzimmermann@suse.de>
+CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>, "Auld,
+ Matthew" <matthew.auld@intel.com>
+Subject: RE: [PATCH v3] drm/gpusvm: Drop redundant @flags.* kernel-doc on
+ struct drm_gpusvm_pages
+Thread-Topic: [PATCH v3] drm/gpusvm: Drop redundant @flags.* kernel-doc on
+ struct drm_gpusvm_pages
+Thread-Index: AQHc2ZRaHoNcfsLn6E+vgwdGkaSunbX5w5sAgAgGjHA=
+Date: Thu, 7 May 2026 01:17:51 +0000
+Message-ID: <DM4PR11MB54566E418AC5AEEE8DCF1E4FEA3C2@DM4PR11MB5456.namprd11.prod.outlook.com>
+References: <20260501175956.4054088-1-shuicheng.lin@intel.com>
+ <afUrpqc4vd0zFekW@gsse-cloud1.jf.intel.com>
+In-Reply-To: <afUrpqc4vd0zFekW@gsse-cloud1.jf.intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR11MB5456:EE_|DS4PPFBA72E12AE:EE_
+x-ms-office365-filtering-correlation-id: a3e7a8c4-3728-49d6-b6a4-08deabd675bb
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|10070799003|1800799024|366016|38070700021|56012099003|22082099003|18002099003;
+x-microsoft-antispam-message-info: HcPx6A9KiGMqw6b7qrV4J4hJQBqJr6cHG2TjT9wsZR+W6YyWgxlujtSGojecDUgax7PmJoiePLdKHGnwNSXnP6veaqRwDnxvuC/bK0jFSkI00jq0H3EBRmLY/EqQq+99hdMAZL4qjfQAcLtxZDra8NPAotnAYVMPTTDGikLrskM8DqBvw9Phh3wzUTgjDjs20RXXZK6HM20osJKuyJNVx89FAM7WTuu5RSSNBD5iSJuH8ETlADQNAWp+TXRRCdEzB0er/M93FTBcrzudPCo4dHvDFv8dQu+gMij45BO+Vx+nIeBggBIy+SLgH5wMyTZeG/msYu2eNdv4bGo1+SImhDQV7BZuX1NUzRbEJUxCLWb0ojcbk/671WnwGpRwjpKg4sMevbapgA0PshJ/oea8vGDGOT2UKX9ZdEL0xyeSV3YYkpazb2H0j0PQtmh43KrGtS9EhNgHgI3b8tvVYRwmmb2OxBlxbAt8wTjFJ8F34rZIwhqrN/qLnCR34e7CE/YaLdAoN1svXFrriIhq8DCBiiR6hGlvdYXrGiQOECU2EnZ3V33IPYTg0qAUlOBW7eQgqf7wLAlAu6XKTDSIf1ZhGaIcBGCiW/Mx0pVdisoTM1s2xV2sYsiObzg6Gi9APP2OGgGnqMwYyHZVU1nj5k3tMEEh82hnyGqZ005cnpalnE3Illn0bBfGXMDRqbIsAGZaKVVhMzJTtyrFxD6kaExZEw==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR11MB5456.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(10070799003)(1800799024)(366016)(38070700021)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 2
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?kdkhbEwbnbKablYG4hXRDfP0YY0zm0Cuw0LbKAcKdws91BE84bn8tNtLZa07?=
+ =?us-ascii?Q?4jDpB6wOBVUs8RxUcOjA/a29KUAfvyPzZ91TpXLBWl3j/Y//U8GdKRzZnZZK?=
+ =?us-ascii?Q?zr1dNeK9HIkFoC6oBt4f79sQ2qayXWIRj4AirurqnVaPfh/oJD9iFMVkXe5w?=
+ =?us-ascii?Q?YKCDdt3gx3YNMe7I5lYklJhpC8qZbNR09u3FKF+tFWm+mndZTgB31UL6WrAr?=
+ =?us-ascii?Q?xUhOeO8eRwfgBYGu73Clc1kKAZsMj/5jA5I9CJIluDgUuGkyc6xzMN/pVwCL?=
+ =?us-ascii?Q?njcpbIFSNcrNC5mxQOo6JQFUtuiEnGLX3amu2Cpur1ouNC/Dt1ySe/Kixkws?=
+ =?us-ascii?Q?fgWZxcj5GYyfdxBYuhtKnvqqUpz3CsIzKmXranTieasDIv8lP/gN7yCWUwM1?=
+ =?us-ascii?Q?Qb6qfXXuoPbd5tO0I2L5pzJxVjPe0xvtXTu7vazSI+qwUMo3J8gEY/Fx+Umr?=
+ =?us-ascii?Q?2yr1gVpX7Ac18QLdjr34C5mkUbUUyaUjSb93DePk074njQTMO6R0qQolcroe?=
+ =?us-ascii?Q?KYOW7Mq1HpSM4RE4n/YMMmo0Rbznf8bEpJNdkoFFwHgZtJl/eF1KPPKv+yNb?=
+ =?us-ascii?Q?VkDTiqeoRiMj5OdNV9CLxpmgLa7tXtUX0T3L8eK6TVRveiIkkN5+92kzOLwl?=
+ =?us-ascii?Q?Wl8I/Dh/UgyM61nOH01PyI3Z1iY0w7n6mr/3Pa65s2wPavX3xDKjZp3W8yaO?=
+ =?us-ascii?Q?BdoOC4HEuhGDJlhTwT/HjAMWgYENYKN97sCrlOhewXQBarjKi+1D3dQb81ze?=
+ =?us-ascii?Q?QVT51eOjuepyTMvns7L+uRLO7TicuR8pJylFeVU1XRfVkTmWMoc1vy1DELK+?=
+ =?us-ascii?Q?GaZrHxylfq/yiiyfr4NmfmvPm3Ra7mky/bVhm1u09MCoj2djsZgEVBG05Hc8?=
+ =?us-ascii?Q?/c/OqSmmpAs70RM1EOuEooymFHqVtjGqYhYRR2ymi3q3xFQP4o4aAHPJKjkX?=
+ =?us-ascii?Q?IsGAl1KJuayi0N5Z+wDx0Vz8ubFZfMLtP/RUS+BWh8sJzilpT0w2SYL1X4Ae?=
+ =?us-ascii?Q?aM/biLE6aKfj5BZ+lcct6gGxdxZ14/UCveSNvC1B9xOr1dELlS0NyPMNKTPN?=
+ =?us-ascii?Q?YLt2c2e5woNQXaEiLcYiw7ocvYGdZZ3tjcgfvzZg23HyamGmu4oBHJT6ohTd?=
+ =?us-ascii?Q?MWDdV7fvD7Xbm4GPUKFO9PBWR0LT7Mi2S7msnm3Bnm9qKghxQJi6b5zDw9Ll?=
+ =?us-ascii?Q?ECNZ50i7Y6V8wFEdm61+0NxX0fz9PU739vmtr653rnRwoTxtONkze2kJpyvx?=
+ =?us-ascii?Q?0h2epEotZnJzfE0I/i1LvjcuBx0lN7h9KqgQLYD1QmEw07ZPabZkQ4UDIAZq?=
+ =?us-ascii?Q?hqngWDtiE/KtPPWVAulOR7RXQGosw6SyOjwzo4QQSHdKWUNlIS4hJ8PXA3oC?=
+ =?us-ascii?Q?77N8Ib7dJqJdSv5j3G69OdgrILLIwGHFAXZfFy8YpZMtwzQU4F0jt5kAjvNX?=
+ =?us-ascii?Q?Xww4haiS9DCWEZjIg57VYh0WL5ggY3mrOohStdwEW+NN7ODRw+5+Q9edDwwW?=
+ =?us-ascii?Q?L+8uxYsUjn/haqIvXnoKEg9hBJryaRkf8AGkTB7R54ktYKZ2fSWPVmArWzZW?=
+ =?us-ascii?Q?oCW5DJ7wWAEyAeIymrpv/En9AMZCRgKyIF14uQC00Hx2KG8Wr0ZWzCZbnLMF?=
+ =?us-ascii?Q?D7rtRwyACIQBe9Vsnvucq6I4Ww0xwIDF5hNRR16aVYOxTdqvBZVP0B/zobTJ?=
+ =?us-ascii?Q?RtoEwTNM+XR5KrYo4hnkz1hi+aElTfBK5DH/uEDL1qoylu7mdw4578fSOXfB?=
+ =?us-ascii?Q?2390RULU25d+yCoIywOG+N9vlnUzZgcDJ4Re0CzPuymCPjAAQT7U7/xlF67H?=
+x-ms-exchange-antispam-messagedata-1: D6CVBScUcOvGCQ==
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260507-iris-ubwc-v5-7-e9a3aee53c49@oss.qualcomm.com>
-References: <20260507-iris-ubwc-v5-0-e9a3aee53c49@oss.qualcomm.com>
-In-Reply-To: <20260507-iris-ubwc-v5-0-e9a3aee53c49@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-media@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Wangao Wang <wangao.wang@oss.qualcomm.com>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3291;
- i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=/9nEVbBbZylkYnurLYSAS/hZukhtGTEGsaxE9DNa3To=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBp++aVh6IZ+jV2o5J5RH1giNT3lNZ1unZ8Ayvb3
- s7MFeQ5VAOJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCafvmlQAKCRCLPIo+Aiko
- 1QaSB/90X34ni4hJpeXgAwDtXwokYiXk4Qv46OD4sJcnHVYnKzUaWG8aTLWdHZSGoXcn4Na1BiE
- EJmtv4sxv20sxG8H0B5IdBfP6g4dRWr2z3Ot7JdPRDT5Y/pDe5dVaQ5bbDALrpUruyN8Xh0FmSd
- MSc9KjQYKVeI4EmCKbOxrRG19fx/rAJqtP7DRSIMBNxGBRd7Goo7PmN05FKpoGeNq9uYYc6DHLx
- 5ajgaJlR6hsdeWo/g/EmKW2m1OMhQG8YRjWRZx08yYolcNBoMO7UvbxGbX8ddQf15zFO1cBFrFy
- g6F0LQ97Nvdni0nFdGahwz8hxdLjofJNWqErd/EWxqgjnQ89
-X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA3MDAwOSBTYWx0ZWRfXyWPw+YRPZWEJ
- +wKgwZVobBC4myNPdhnFJDdEaDxiQOC8JOxq81wuc52NW8GPRnkne0iLZWKaHuJUgy+xFaPuIPX
- Z99Lc3wyuauZK3Abr49YqyPYANAmI/FuPZK0W0R36bwytTvbPGJClmC1TjeG8xiBIiJZBhFb2Od
- wkvf+Zmcvd4iTQhBvvWVwyl4eZ33RPyErbAe0JG499JIL16ErJa1sgkppd2if8GQArVEzgOcXXW
- /fbVXPZ2EV9Pn9RqUnZeHZYV/KcJrTTidyaq97BZTHLFQGG5NnwJD+gaFtpFaDqCVOR8DdWMw0H
- mAF/X91DUsrhimTdlBoynWQJBUMvj6ulEXq0aYoddNQYZPQcz1vKeHix0pByRZE+x1zssnEy7h+
- xbBBX/h83DyyYUbXihksgMnYSYhwowhZTuPH/JNdfcTUe2xOV8ooSPHg2BVHF7CZgfdB+QTNXdC
- 16rWgT/izYVXwV7KTHA==
-X-Proofpoint-GUID: -qfiu750HcsbtsbTOnReqb3BWxXIL0fU
-X-Proofpoint-ORIG-GUID: -qfiu750HcsbtsbTOnReqb3BWxXIL0fU
-X-Authority-Analysis: v=2.4 cv=MYhcfZ/f c=1 sm=1 tr=0 ts=69fbe6a9 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
- a=KKAkSRfTAAAA:8 a=0TfDEXg-tPZCovj8PBUA:9 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-06_02,2026-05-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 bulkscore=0 clxscore=1015 impostorscore=0 adultscore=0
- spamscore=0 priorityscore=1501 malwarescore=0 lowpriorityscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
- definitions=main-2605070009
+X-Exchange-RoutingPolicyChecked: k/v7FK91hpH/U/xQir9FKlIxrWIJQcPN41xE1PDQL6MbIh4x9EN8fulo22VkiUKk+PNMLfApZx6fMKdyHguLaGZNTvsxKaTpYN6AhyUg01BCxWt1SCMgqmuE3yXMqR1XJQ5wtPQJO/1j6kNFa5Crh/MPmPcH+b2sORxnGAKlaWoJJK+E7hfGTaR6tSHR4iZJeoMGkqyiDHzg3Ylrx5Bqauti4CAdHuLGuR/wJyKvQOU+hqcQRFQ6FrDsp8tVGEX5nVI0SEwoWpMlh18vrsHXuaDaXLOEklNYZU32QdZjfqOieH7XwYOFSA7kUgmGufM3MQysGXCKeJQHQygwqm9jiw==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB5456.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a3e7a8c4-3728-49d6-b6a4-08deabd675bb
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 May 2026 01:17:51.9688 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: PTks1p1/qS5UzD9gL9S5WPELbkr8ImvGSpEWuJO7aVI1pUDWsTak+GASzvShoh7arZJ8aDvBJPv4PhpDgtwUAA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PPFBA72E12AE
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -168,89 +169,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Now as all UBWC configuration bits were migrated to be used or derived
-from the global UBWC platform-specific data, drop the unused struct and
-field definitions.
+Thanks Matt for the review.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Reviewed-by: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
-Tested-by: Wangao Wang <wangao.wang@oss.qualcomm.com>
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
----
- drivers/media/platform/qcom/iris/iris_platform_common.h | 4 ----
- drivers/media/platform/qcom/iris/iris_platform_gen2.c   | 7 -------
- 2 files changed, 11 deletions(-)
+Hi drm misc maintainers,
+Could you please help me merge it?
+Thanks in advance for your support.
 
-diff --git a/drivers/media/platform/qcom/iris/iris_platform_common.h b/drivers/media/platform/qcom/iris/iris_platform_common.h
-index e8b5446dce76..f42e1798747c 100644
---- a/drivers/media/platform/qcom/iris/iris_platform_common.h
-+++ b/drivers/media/platform/qcom/iris/iris_platform_common.h
-@@ -75,9 +75,6 @@ struct tz_cp_config {
- 	u32 cp_nonpixel_size;
- };
- 
--struct ubwc_config_data {
--};
--
- struct platform_inst_caps {
- 	u32 min_frame_width;
- 	u32 max_frame_width;
-@@ -241,7 +238,6 @@ struct iris_platform_data {
- 	u32 tz_cp_config_data_size;
- 	u32 core_arch;
- 	u32 hw_response_timeout;
--	struct ubwc_config_data *ubwc_config;
- 	u32 num_vpp_pipe;
- 	bool no_aon;
- 	u32 max_session_count;
-diff --git a/drivers/media/platform/qcom/iris/iris_platform_gen2.c b/drivers/media/platform/qcom/iris/iris_platform_gen2.c
-index 05b1dd11abce..a526b50a1cd3 100644
---- a/drivers/media/platform/qcom/iris/iris_platform_gen2.c
-+++ b/drivers/media/platform/qcom/iris/iris_platform_gen2.c
-@@ -790,9 +790,6 @@ static const char * const sm8550_opp_clk_table[] = {
- 	NULL,
- };
- 
--static struct ubwc_config_data ubwc_config_sm8550 = {
--};
--
- static const struct tz_cp_config tz_cp_config_sm8550[] = {
- 	{
- 		.cp_start = 0,
-@@ -949,7 +946,6 @@ const struct iris_platform_data sm8550_data = {
- 	.tz_cp_config_data_size = ARRAY_SIZE(tz_cp_config_sm8550),
- 	.core_arch = VIDEO_ARCH_LX,
- 	.hw_response_timeout = HW_RESPONSE_TIMEOUT_VALUE,
--	.ubwc_config = &ubwc_config_sm8550,
- 	.num_vpp_pipe = 4,
- 	.max_session_count = 16,
- 	.max_core_mbpf = NUM_MBS_8K * 2,
-@@ -1054,7 +1050,6 @@ const struct iris_platform_data sm8650_data = {
- 	.tz_cp_config_data_size = ARRAY_SIZE(tz_cp_config_sm8550),
- 	.core_arch = VIDEO_ARCH_LX,
- 	.hw_response_timeout = HW_RESPONSE_TIMEOUT_VALUE,
--	.ubwc_config = &ubwc_config_sm8550,
- 	.num_vpp_pipe = 4,
- 	.max_session_count = 16,
- 	.max_core_mbpf = NUM_MBS_8K * 2,
-@@ -1150,7 +1145,6 @@ const struct iris_platform_data sm8750_data = {
- 	.tz_cp_config_data_size = ARRAY_SIZE(tz_cp_config_sm8550),
- 	.core_arch = VIDEO_ARCH_LX,
- 	.hw_response_timeout = HW_RESPONSE_TIMEOUT_VALUE,
--	.ubwc_config = &ubwc_config_sm8550,
- 	.num_vpp_pipe = 4,
- 	.max_session_count = 16,
- 	.max_core_mbpf = NUM_MBS_8K * 2,
-@@ -1250,7 +1244,6 @@ const struct iris_platform_data qcs8300_data = {
- 	.tz_cp_config_data_size = ARRAY_SIZE(tz_cp_config_sm8550),
- 	.core_arch = VIDEO_ARCH_LX,
- 	.hw_response_timeout = HW_RESPONSE_TIMEOUT_VALUE,
--	.ubwc_config = &ubwc_config_sm8550,
- 	.num_vpp_pipe = 2,
- 	.max_session_count = 16,
- 	.max_core_mbpf = ((4096 * 2176) / 256) * 4,
+Shuicheng
 
--- 
-2.47.3
-
+On Fri, May 1, 2026 3:40 PM Matthew Brost wrote:
+> On Fri, May 01, 2026 at 05:59:56PM +0000, Shuicheng Lin wrote:
+> > The kernel-doc block above struct drm_gpusvm_pages duplicates the
+> > descriptions of the bit-flags that live in struct
+> > drm_gpusvm_pages_flags using dotted notation (@flags.migrate_devmem,
+> @flags.unmapped, ...).
+> > That dotted notation is intended for nested anonymous structs/unions
+> > that the parser flattens into the parent's parameter list.  Here,
+> > however, flags is of a named external type, so the parser does not
+> > flatten its members and the dotted entries do not match any member of
+> > drm_gpusvm_pages.  They also duplicate the canonical descriptions
+> > already present in the kernel-doc of struct drm_gpusvm_pages_flags itse=
+lf.
+> >
+> > Drop the five @flags.* lines and replace them with a single @flags
+> > entry that cross-references the type via kernel-doc's "&struct ..." syn=
+tax.
+> > This eliminates the redundancy and removes warnings emitted by the new
+> > parameterdescs check in scripts/kernel-doc:
+> >
+> >   Excess struct member 'flags.migrate_devmem' description in
+> >    'drm_gpusvm_pages'
+> >   Excess struct member 'flags.unmapped' description in 'drm_gpusvm_page=
+s'
+> >   Excess struct member 'flags.partial_unmap' description in
+> >    'drm_gpusvm_pages'
+> >   Excess struct member 'flags.has_devmem_pages' description in
+> >    'drm_gpusvm_pages'
+> >   Excess struct member 'flags.has_dma_mapping' description in
+> >    'drm_gpusvm_pages'
+> >
+> > No functional change.
+> >
+> > Assisted-by: Claude:claude-opus-4.6
+> > Cc: Matthew Auld <matthew.auld@intel.com>
+> > Signed-off-by: Shuicheng Lin <shuicheng.lin@intel.com>
+>=20
+> Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+>=20
+> > ---
+> > v2: change base to drm-misc.
+> > v3: correct the assisted-by tag.
+> >
+> > The failure is reported by the new kernel-doc check in:
+> > https://patchwork.freedesktop.org/series/164948/
+> > ---
+> >  include/drm/drm_gpusvm.h | 7 +------
+> >  1 file changed, 1 insertion(+), 6 deletions(-)
+> >
+> > diff --git a/include/drm/drm_gpusvm.h b/include/drm/drm_gpusvm.h index
+> > cd94bb2ee6ee..8a4d7134a9a7 100644
+> > --- a/include/drm/drm_gpusvm.h
+> > +++ b/include/drm/drm_gpusvm.h
+> > @@ -140,12 +140,7 @@ struct drm_gpusvm_pages_flags {
+> >   * @state: DMA IOVA state for mapping.
+> >   * @state_offset: DMA IOVA offset for mapping.
+> >   * @notifier_seq: Notifier sequence number of the range's pages
+> > - * @flags: Flags for range
+> > - * @flags.migrate_devmem: Flag indicating whether the range can be
+> > migrated to device memory
+> > - * @flags.unmapped: Flag indicating if the range has been unmapped
+> > - * @flags.partial_unmap: Flag indicating if the range has been
+> > partially unmapped
+> > - * @flags.has_devmem_pages: Flag indicating if the range has devmem
+> > pages
+> > - * @flags.has_dma_mapping: Flag indicating if the range has a DMA
+> > mapping
+> > + * @flags: Flags for the range; see &struct drm_gpusvm_pages_flags
+> >   */
+> >  struct drm_gpusvm_pages {
+> >  	struct drm_pagemap_addr *dma_addr;
+> > --
+> > 2.43.0
+> >
