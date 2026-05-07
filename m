@@ -4,101 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4055CD3427
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 09:01:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 028C4CD3427
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 09:01:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08BE210E1D9;
-	Thu,  7 May 2026 09:01:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 218BF10E596;
+	Thu,  7 May 2026 09:01:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="aBHwSjxS";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KlaCfdiB";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="nbONzyc7";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Z/OnatPJ";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A96EE10E1D9
- for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 09:01:44 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 364F010E596
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 09:01:47 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6475LejU1068275
- for <dri-devel@lists.freedesktop.org>; Thu, 7 May 2026 09:01:44 GMT
+ 6477pfCb1424581
+ for <dri-devel@lists.freedesktop.org>; Thu, 7 May 2026 09:01:46 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=qcppdkim1; bh=QvsauNTq3rUboIdRUovFsE
- quKr6TllKsvzUgfaR9kbo=; b=aBHwSjxS6EJ2z88l7pE4wXiR0iON5CG+5SY7ze
- rOc6ER0R4wQLE/c08P7ZPW5zibUnSxtoriKanBGCmUg6qBR7erkNQM0AyCJ3AF8i
- O+XZJTtbK1UsaCQH5OCiawc4WDX46+vz8VtZGHDL54FEFCFOHbOVkYJT90wVnWbH
- r7lOf3vz6EPsxq5QgPj7M8kzSW4AatiJRyFU2OuZsU5f2AL6RZtH7nqvXGtox//w
- lZRrHRlw+h8fK9XgjYt9hW40xmyvSXp6Di34uS7WDgIOJ58wXrAOVVFoyNU/4Xlm
- GOMh8xyVO540xPNtANvqXTx/8HspWBAIH8/vVFBDONAquP5g==
-Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com
- [209.85.222.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e0mh18tcd-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ cRa6k2yGNWTv2u39mO+7rvnN9ZODp7GRurjicrpgf9w=; b=nbONzyc7Dl1xsX65
+ raPyO7Bz2IFfjkNwR28WjPYmvQgkmo+qIxOfg/K8NEIr7YYkc6vD3Sc45qpVo9Qs
+ hUylzDXmpM7Wyn7964ddUzOzQNpd2Cx+DnJkL/Udxda0rDEZBqmSpd7Ar8SeY5sa
+ uvIdtiOC5y3aGkQj4WodVIVdGzvOGNxKIfGLrregX0nnmnaaGEQKlYxTOtqCg4DW
+ dO2SseyCfJ+rMgyDvhON/iFeQB9WvS8oLBcg2ezuAO+rGIdsOgqN7VV82D84sPrV
+ 5iBeaXUSRFE1qOeHpe/mwSX7eomkP93YZqZaYTVNuihchgRQEr6jv+uSX3QMOWYl
+ TErgiw==
+Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com
+ [209.85.161.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e0pqfr98k-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 09:01:43 +0000 (GMT)
-Received: by mail-ua1-f70.google.com with SMTP id
- a1e0cc1a2514c-95d5f0ac7bfso182980241.1
- for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 02:01:43 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 09:01:46 +0000 (GMT)
+Received: by mail-oo1-f70.google.com with SMTP id
+ 006d021491bc7-6961e8fa90bso1127473eaf.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 02:01:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1778144502; x=1778749302;
+ d=oss.qualcomm.com; s=google; t=1778144505; x=1778749305;
  darn=lists.freedesktop.org; 
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=QvsauNTq3rUboIdRUovFsEquKr6TllKsvzUgfaR9kbo=;
- b=KlaCfdiBXa+fMzzZ7mkmIhWdf2dWOMHfrxg92ofqNXZB3JFpgpdyYOu9nmeVJsX/Sd
- ZS0Ki6hVbBF64qe6kPhrOIYhZ6tDpH6VK4e+uR55Z/DasCjaxhIXGV/4guxGNCJ3hGrr
- d0CbUKuIufKF9PGw5W1T1zqDdS12v507OZrpmiuDrpwLC4OgWxkuPQ84lKIPrbKHR90M
- 4aC9S/KELUrNlM45jlMLFPk0vJyPcPzKKeSyiXtjdrvBnj5ZpVaWQIRwsc2VzCEJ8g/X
- ZvS7q7ud4vfX5hAaA/rd6ZNNLHIJFJ+xPQPb48P+nhtpmTI4y1b8C1rZespXW35fJwtx
- mqag==
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=cRa6k2yGNWTv2u39mO+7rvnN9ZODp7GRurjicrpgf9w=;
+ b=Z/OnatPJbe1qW5yKrNIPSsUZvSl5aoqEEWFSFKLDGIMVFa2RM+TNtCYUli5687dY46
+ GX/gY5O4woTFH9u8XvEXBkFsoaLYkpjZBSXs+QIbY414vKxBmRrN6owQnzoNVhqtqEBD
+ TyGB3lVP3WlW6snNBG1WBqc8Bzze9pcMj2s9vNFgAxKUh5dNE8BN6rtC1ZSLK5EQE7vR
+ 2d+Xcf+AgK/QBqADFhwopQi1S3PaFXYZeHKJQ4y9k6LwMNf9N1tl8iHN4qr4KQ0qc4xN
+ t6I5bdxxGRyJV+cf7ZQf2qeEckTpYHkPg+kXJvs+8tw3YGXr7koCWCSdv6gCht7tzzAf
+ D1Jw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778144502; x=1778749302;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=QvsauNTq3rUboIdRUovFsEquKr6TllKsvzUgfaR9kbo=;
- b=L1cZUC95zALnUYhxfDajoLrwwLqS/HKj+rCE8I9zo4Pgf758IkfLRvnzpOb0OMRzHQ
- Kg8MuhDni5zr+rAv1mvUi7mgY2wIVyJObnDqRIsXPjIj4MDyAz/1WN897GCfuNyyZC91
- HzZOZlMYdPE5v1GED7LTJxcFGVo4z7lgAFldOjHyJYUp2T2REjSOVJ/h+/LerGpxBa+R
- K6aCAu4wHkD8rLq9JF9A0EpF/QY/CRzmG9AYVskwhQqESBBH5aSBOMvGcynSLFpCF9yb
- JO6oxuuJaQh0DET1i3cJP1M0bkYwA2Ee3M4l/4FokwRJ7+7RBmX8yWaTKAcgrniPfOzu
- nyAA==
-X-Gm-Message-State: AOJu0YwV77qVW/WNhjU3bFhHpM77EE40ZV3dvwDrv0Zv/NgJ9mRkmOug
- qfCppTNfZ5VZl8kVZ8nopvZapIzJLgFvp/1ewnAFniKCPGayqsdWAizsLqcaMHPpZU5oTprNeWh
- pAo/lGtfvgXi0V61dVN4R4uOhFptgYSbJRvXlvb01sfpj8/oIHZ10GZY0CUHOCyt7wvMGvxRL94
- 4mGhg=
-X-Gm-Gg: AeBDieuRlNtOEJ8d5Gk/egQoXLR/UPBrT6yEQHLR+HloeEpwC7IqCUYqiwsnfggKh8z
- dx70L0tpC7ZXlozbD3cNQes2ZIbAIFK5bb8FDafF2aNQUXTBaoaMwXY816p/OGqRMEavEfj5OJ2
- J3WtHSkA6iijlEoEOK5n5WyhoTJG0Jwr5lToaMM8iOhPw8GAAD3kR9/NmzFCklrnxQESphMKm8S
- 9qJ/hjl40+MktzB0dxut3rMZZY4byv90HeCe2XYsCabnN9mEZArg0AcF/xbeEGkeCd4gCP9c5Cv
- 0bP01TJytLH8QokyyMZp/EbMrquzJyMAKiORnwVOyzj2vj95qMb6L5pMeutdgCqKsG82PBh4sFQ
- 7AWd0CeRrmkzbf9iEsAvMLgssyTBOIbu5ihsjdLXdfRr4KkPmZXy9blJUVO0QcyZzs5d3xfa4QP
- 7a7WhZXIDx7e4A+lx/2t5UD9rUuJhknKZmVVyG3HLDe7KMBA==
-X-Received: by 2002:a05:6102:84da:20b0:631:23fa:38d7 with SMTP id
- ada2fe7eead31-63123fa65c9mr117601137.14.1778144502103; 
- Thu, 07 May 2026 02:01:42 -0700 (PDT)
-X-Received: by 2002:a05:6102:84da:20b0:631:23fa:38d7 with SMTP id
- ada2fe7eead31-63123fa65c9mr117553137.14.1778144501588; 
- Thu, 07 May 2026 02:01:41 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1778144505; x=1778749305;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=cRa6k2yGNWTv2u39mO+7rvnN9ZODp7GRurjicrpgf9w=;
+ b=gXMFOJi42vfPSVQroGclOCkz6iNWtD0vFC35uy9ui5KV4sPJz7dl2RndYVuAnmhkwm
+ 8wh9JFD0G3qNQIVpQtDcwmE3Me1Nu0njNdlnjzXAmnNQppVfjYg/LacHRIzAHdUS+yVA
+ BQ0An6M/4o8anPiW+FO6ouZiM0+tlh/BpoO5NmSg9Fb62QZuhp/Uu4D4iFS9jSQh/jY3
+ e44e3HMVEi302u14aSanL/wTUr5vM+ziNjZj4OeqkcqoJr6GbIdCNsWfr34JoWsVjGR+
+ trcMS9KWDD9as2ZpUp5wpj+RGL2t2nM/sz1g7oN3BlhE5+OY4MYzvJmBt9ILC+NKCyc/
+ 1cLA==
+X-Gm-Message-State: AOJu0Yzl7JpJHdx5915KeawWSgCszIk3ap7VPVvYFHfSQyqXjFiI7v+A
+ 3PsbJQcBxdSo+MRdLkj1KtVc0JH5BE2bI+yEYmyOoxRak1iwmTLPM1z9EAcadn21WvqC4r0PX9c
+ KDKUEf4j5WnZD3m/VfvmsIzvuW71SogaFF+Qs+ccGZnPXOFcRk5MMnbKmATQ0Up62Y4UkK4GN2U
+ CLnVQ=
+X-Gm-Gg: AeBDievmUPdD/yiZG1/KT+AmARLkqbTsprY2TKoJnn5k+dW97OpjOkIpv0a1cZviVPz
+ UPhtzYUBv/LrZJKcINn8Jy/QGxvm2Zpy8A20NLO+FGOwf4CTUBc/ZMtaRxwO3DK3QrAW/70niU8
+ 4xXvxJYAb9W1MCRut3Jt6LjUJblxw3QWL1G3NKRADNQgejhJLIOT89BqVuddhcitCPjhPUzYkLc
+ KdFg/nIX5/l4R/U1FexTgXegWeW3Gn5bFs01LDW4YCq20ZUMJ6yOe705iCrjf5Oeo9Bk4tbI5ly
+ d/Uq+ykW4cDyLcqYIT0YTB7LTSPNbV2ObIiXEweIHYmmHHXZ2j+hEKQBCrgqWrau1Dx9wr+iuP5
+ ipI6JpBqPqJ6ERGaZJzfA9DzWf5irTq+dyrHWkSJm6GQa1OkxwFFn404TMEcqoQXQDSo7FCyHGU
+ 7S/yOKS/EEYbSwgfnc22A0y2jIJ5J5TZQMVXQuQWTVvJkk6NLSKsT6bgaW
+X-Received: by 2002:a05:6820:1352:b0:696:2cb1:a019 with SMTP id
+ 006d021491bc7-69998d0fc71mr3582184eaf.28.1778144504721; 
+ Thu, 07 May 2026 02:01:44 -0700 (PDT)
+X-Received: by 2002:a05:6820:1352:b0:696:2cb1:a019 with SMTP id
+ 006d021491bc7-69998d0fc71mr3582151eaf.28.1778144504236; 
+ Thu, 07 May 2026 02:01:44 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a870f96cb1sm3480516e87.22.2026.05.07.02.01.35
+ 2adb3069b0e04-5a870f96cb1sm3480516e87.22.2026.05.07.02.01.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 May 2026 02:01:35 -0700 (PDT)
+ Thu, 07 May 2026 02:01:42 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: [PATCH v5 0/2] drm/panel: support Waveshare DSI TOUCH kits
-Date: Thu, 07 May 2026 12:01:31 +0300
-Message-Id: <20260507-waveshare-dsi-touch-v5-0-d2ac7ccc22d4@oss.qualcomm.com>
+Date: Thu, 07 May 2026 12:01:32 +0300
+Subject: [PATCH v5 1/2] dt-bindings: gpio: describe Waveshare GPIO controller
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAOtU/GkC/33NQU7DMBAF0KtUXuPKM7Yb0hX3QCxsZ0KMaA2ex
- ICq3B2nbLJI2Iz0pT/v3wRTjsTifLiJTCVyTNca7MNBhMFdX0nGrmaBCk/KKJBfrhAPLpPsOMo
- xTWGQBA00Dvo+GCXq50emPn7f1eeXv8yTf6MwLtTSGCKPKf/cZwssvf8XCkglLbUArbdOgXlKz
- MfPyb2HdLkc6xHLUMEVBTsUVqqxofPkggV72qH0mtLblK6UduStVohB4w5l1tTjNmUq5dG0vaZ
- Goe82qHmefwH3TFB9sAEAAA==
-X-Change-ID: 20260401-waveshare-dsi-touch-e1717a1ffc40
+Message-Id: <20260507-waveshare-dsi-touch-v5-1-d2ac7ccc22d4@oss.qualcomm.com>
+References: <20260507-waveshare-dsi-touch-v5-0-d2ac7ccc22d4@oss.qualcomm.com>
+In-Reply-To: <20260507-waveshare-dsi-touch-v5-0-d2ac7ccc22d4@oss.qualcomm.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>,
  Jessica Zhang <jesszhan0024@gmail.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
@@ -114,46 +111,44 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
  Bartosz Golaszewski <brgl@kernel.org>, Jie Gan <jie.gan@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
- Conor Dooley <conor.dooley@microchip.com>,
- Riccardo Mereu <r.mereu@arduino.cc>
+ Conor Dooley <conor.dooley@microchip.com>
 X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2331;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2894;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=hC8gKxPAIzgcAiCj4HFnCCX8CcpOJ7V8eE3rHascLoE=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBp/FTujaLZhqlfcwayX7sT39yXXp3nnbfAwrNYB
- MNe/6xhaHqJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCafxU7gAKCRCLPIo+Aiko
- 1ThICACuFYxF7qCax7SDv5ziEm5eOGVJeGWP+9tZXlWlKK7NvYNaNHOnmCivZN+0/u/nhYJCsva
- w6G7P48wuUeeVjexqKW6DlO4nIhNh/1GKpJl657YW0DhnK5TmEUpaPuWvDDI0z+FEjHZWxk72Qh
- nEvbLK0MiFWDIOuxveejtaPqSSVmCk3tpNEYA5cM9LDMZPOEZcLaXVHdprOSp681D/jLGxjNHTx
- R5m4cpZthxG0gP0ng86u+YoT9BidjySLMVQ77cbBO3nP9wyuHxuSt/yVMS1KyhT4qaoVF4tBK/w
- nqOuoAMwn+G3R6hNsbOc+8Wjlt8byBDC/uH//rWXBWKMvb9d
+ bh=w48Zy9gh5QY1c+XBDez5fRMIM+TtMcaQ5hJ5uAZ3v3w=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBp/FTuy7mfOfX5kl07Us/qpiAyzHwTLGyx9ydu7
+ NTUppEPARqJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCafxU7gAKCRCLPIo+Aiko
+ 1fdWB/wPpnOVm0D7aCjD77DcG2BIksrTgqtu9mc4m1QefgIzAtXub3PGmjaGDderabja1f83ALp
+ zo8EPN+tQ0rC+z0iODQc5GXSI9+tts3VhNMtFdsA6RD+zIy8TQhbOH+UQPKrih7HfahBpuOtaJu
+ QLSuBephxSEjUKCXAKnVBk+XLwW2Z3qrr2hn0OcHcSftvkMCWOaaRnMADPaO3zOK3C+4h5QZp81
+ DxAPUVe2/UnLBw5mbDUVNd1tzbOqwRCv/12pRB1/CZ6/QHVEaP8JaYAgTYdGYl4t3GXiuIAf1Yv
+ fVOpqEJXCR9qr1WOCaratjm5n3XioAimdHG3GVbfk2gwfd0d
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-GUID: 6PbhGBxagTq_ehCLM9qMZHH8I4U40v8Y
-X-Proofpoint-ORIG-GUID: 6PbhGBxagTq_ehCLM9qMZHH8I4U40v8Y
-X-Authority-Analysis: v=2.4 cv=P9gKQCAu c=1 sm=1 tr=0 ts=69fc54f7 cx=c_pps
- a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Authority-Analysis: v=2.4 cv=TJB1jVla c=1 sm=1 tr=0 ts=69fc54fa cx=c_pps
+ a=lkkFf9KBb43tY3aOjL++dA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=bC-a23v3AAAA:8
- a=EUspDBNiAAAA:8 a=woyZ9DH24JpTQh7i3M0A:9 a=QEXdDO2ut3YA:10
- a=TD8TdBvy0hsOASGTdmB-:22 a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA3MDA4OSBTYWx0ZWRfX7W3NKGlI3pvL
- ln64p3uHjGF3I7HXuQxiO7Jw4mnegcivk3zyrw1qH4AuxoLwAwFJRvaOIswxmuqJR10PhVdjPfz
- 5dw2c+4wvLdYw4/ZlcCmaxX55xH0ldsBNEw8jOAu05BQ8AUCLsDZwQwB5qihvTWvREYiBsq2Kjf
- OwvWwnN6n82GbNyLzOQVX/WFFC3MGnEayhIw7V6VRhUTIXkbE+VO5rTEdgc5tQ1sHzZSEby6SoE
- nvnzGBeMhTV5opDPZsSko4Ib4obIjBjO5VOCe+hGdqgQgwx+pFbJz5jrQlRmTFoi6ZDZgrdR5TZ
- 3jIXwcC1Xt6e1nwDjI5NAvCL4x6+C3ESZp1AlfV9WN75MMUiXYVqx+ITMDXjmmjAbkLcztLIa8u
- UePqrSugKmTugz1sx2jW/vW+2Aj59pe/Ho8O4W3tadmbG+NgRhsb00F6DSnCrLlxsT3LWf0O2ww
- yJXMjy0w+yOx41HOUzA==
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=gEfo2CItAAAA:8
+ a=XYAwZIGsAAAA:8 a=EUspDBNiAAAA:8 a=btNYDYKGUqI20VIe7WUA:9 a=QEXdDO2ut3YA:10
+ a=k4UEASGLJojhI9HsvVT1:22 a=sptkURWiP4Gy88Gu7hUp:22 a=E8ToXWR_bxluHZ7gmE-Z:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA3MDA4OSBTYWx0ZWRfX9FsalDvXuM9I
+ 0y6gX5frsNKMcJ4HgRPq9qwjr0PGkdCGLO6qeiPQddigY06I3KxR6OjkQ/b6o6X9TonqLVATqAF
+ GRes/fYsPNfCOnj8bXYhOZSBbvpXumt433e4YJC5aQVj+cnrrNSs/nJPe8JQ1+9Btv9h4/RpMJR
+ vdxVqMna480r/qhIPkWOq98TCpAxUKPNg0np0NfSpl3huYj99FqYiD4nB6Y6pgoopXLKATEJY8s
+ uCsGI/xR4uULnUyZUY5yXKucGPESbhMiI8yVzJhPBb4EifwwNNNqrSVY0448uIPRGtO1Oi/RyYg
+ sokpYwoVfKP2Pc+Dvx0EbZeUc/oRAGc5pq+YFXIlCRCXwcp9IJnSOQEMVq3BqvTfyktX0IpG6KK
+ eooQ/5E/QwsNUnotQrbyC0FsHUvLad+0YA6kOOYSs57uOcdi4Rf5Hqq4TtZMuHniODob9yfPk/K
+ asIxpFPHY6PZUTzDXyw==
+X-Proofpoint-GUID: 2FkdFkkMl3Ny-YJ3Nrx7oYRelAk969NL
+X-Proofpoint-ORIG-GUID: 2FkdFkkMl3Ny-YJ3Nrx7oYRelAk969NL
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-05-06_02,2026-05-06_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0 adultscore=0 lowpriorityscore=0
- priorityscore=1501 malwarescore=0 bulkscore=0 spamscore=0 impostorscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
- definitions=main-2605070089
+ clxscore=1015 lowpriorityscore=0 malwarescore=0 impostorscore=0 bulkscore=0
+ phishscore=0 priorityscore=1501 adultscore=0 spamscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605070089
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -169,58 +164,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The Waveshare DSI TOUCH family of DSI panel kits feature different DSI
-video-mode panels, bundled with the separate controlling circuit,
-produing necessary voltages from the 3.3V and 5V supplies. Extend panel
-drivers to support those Waveshare panels and also add GPIO driver for
-the onboard control circuitry.
+The Waveshare DSI TOUCH family of panels has separate on-board GPIO
+controller, which controls power supplies to the panel and the touch
+screen and provides reset pins for both the panel and the touchscreen.
+Also it provides a simple PWM controller for panel backlight.
 
+Add bindings for these GPIO controllers. As overall integration might be
+not very obvious (and it differs significantly from the bindings used by
+the original drivers), provide complete example with the on-board
+regulators and the DSI panel.
+
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
-Changes in v5:
-- Dropped applied patches, leaving just GPIO part.
-- Dropped panel example from the GPIO controller node, it's has no added
-  value.
-- Link to v4: https://patch.msgid.link/20260418-waveshare-dsi-touch-v4-0-b249f3e702bd@oss.qualcomm.com
+ .../bindings/gpio/waveshare,dsi-touch-gpio.yaml    | 73 ++++++++++++++++++++++
+ 1 file changed, 73 insertions(+)
 
-Changes in v4:
-- Dropped patches applied to drm-misc-next
-- Link to v3: https://patch.msgid.link/20260413-waveshare-dsi-touch-v3-0-3aeb53022c32@oss.qualcomm.com
+diff --git a/Documentation/devicetree/bindings/gpio/waveshare,dsi-touch-gpio.yaml b/Documentation/devicetree/bindings/gpio/waveshare,dsi-touch-gpio.yaml
+new file mode 100644
+index 000000000000..091e1fffcd47
+--- /dev/null
++++ b/Documentation/devicetree/bindings/gpio/waveshare,dsi-touch-gpio.yaml
+@@ -0,0 +1,73 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/gpio/waveshare,dsi-touch-gpio.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Waveshare GPIO controller on DSI TOUCH panels
++
++maintainers:
++  - Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
++
++description:
++  Waveshare DSI TOUCH panel kits contain separate GPIO controller for toggling
++  power supplies and panel / touchscreen resets.
++
++properties:
++  compatible:
++    const: waveshare,dsi-touch-gpio
++
++  reg:
++    maxItems: 1
++
++  gpio-controller: true
++
++  '#gpio-cells':
++    const: 2
++
++required:
++  - compatible
++  - reg
++  - gpio-controller
++  - "#gpio-cells"
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        wsgpio: gpio@45 {
++            compatible = "waveshare,dsi-touch-gpio";
++            reg = <0x45>;
++            gpio-controller;
++            #gpio-cells = <2>;
++        };
++    };
++
++    panel_avdd: regulator-panel-avdd {
++        compatible = "regulator-fixed";
++        regulator-name = "panel-avdd";
++        gpios = <&wsgpio 0 GPIO_ACTIVE_HIGH>;
++        enable-active-high;
++    };
++
++    panel_iovcc: regulator-panel-iovcc {
++        compatible = "regulator-fixed";
++        regulator-name = "panel-iovcc";
++        gpios = <&wsgpio 4 GPIO_ACTIVE_HIGH>;
++        enable-active-high;
++    };
++
++    panel_vcc: regulator-panel-vcc {
++        compatible = "regulator-fixed";
++        regulator-name = "panel-vcc";
++        gpios = <&wsgpio 8 GPIO_ACTIVE_HIGH>;
++        enable-active-high;
++        regulator-always-on;
++    };
++...
 
-Changes in v3:
-- Fix another typo in the focaltech,ota7290b schema, sorted out voltage
-  supplies in the schema and in the driver
-- Dropped Ricardo's T-B from bindings patch (Krzysztof)
-- In the Waveshare GPIO driver bumped max register to REG_VERSION (Jie
-  Gan)
-- Add a lanes vs config check in the JD9365 driver (Jie Gan)
-- Link to v2: https://patch.msgid.link/20260411-waveshare-dsi-touch-v2-0-75cdbeac5156@oss.qualcomm.com
-
-Changes in v2:
-- Fixed errors in focaltech,ota7290b and waveshare,dsi-touch-gpio schemas
-- Split the JD9365 patch, making the changes more obvious (and
-  describing panel classes)
-- Cleaned up GPIO driver: moved NUM_GPIOS from the enum, switched to
-  guard(), added regmap error handling, dropped
-waveshare_gpio_i2c_read() (Bartosz)
-- Link to v1: https://patch.msgid.link/20260401-waveshare-dsi-touch-v1-0-5e9119b5a014@oss.qualcomm.com
-
----
-Dmitry Baryshkov (2):
-      dt-bindings: gpio: describe Waveshare GPIO controller
-      gpio: add GPIO controller found on Waveshare DSI TOUCH panels
-
- .../bindings/gpio/waveshare,dsi-touch-gpio.yaml    |  73 ++++++++
- drivers/gpio/Kconfig                               |  10 +
- drivers/gpio/Makefile                              |   1 +
- drivers/gpio/gpio-waveshare-dsi.c                  | 208 +++++++++++++++++++++
- 4 files changed, 292 insertions(+)
----
-base-commit: 735d2f48cadaa9a87e7c7601667878de70c771c5
-change-id: 20260401-waveshare-dsi-touch-e1717a1ffc40
-
-Best regards,
---  
-With best wishes
-Dmitry
+-- 
+2.47.3
 
