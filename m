@@ -4,131 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB6E4CD3427
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 06:07:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F24CCD3427
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 06:22:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02D7410E18B;
-	Thu,  7 May 2026 06:07:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 378E510E1AB;
+	Thu,  7 May 2026 06:22:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="iS8wK0tE";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="b2uwiEXS";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="iS8wK0tE";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="b2uwiEXS";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="GAqcjy+U";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="i5rbsS23";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FABF10E18B
- for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 06:07:37 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id BA5226C0B9;
- Thu,  7 May 2026 06:07:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1778134055; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=3yitmUNX5qry8C6kAIHkb/BHeQ8+xsSzpFY0NAW8cW8=;
- b=iS8wK0tECUzCEss3unO8zP0BH5UgRVOcm+a2HyplJuPe3KYjXi7X4UkUPetUBfOgPpjpPR
- +gc74xZ0XIC7/AgToKwiQo1+QL560U1rBi6RXLpNnoMPU3geZLk+Vhut9027nmnTSK+TzI
- 9k+GltHDJ4gzrBmQkfpF76fPArpi5aE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1778134055;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=3yitmUNX5qry8C6kAIHkb/BHeQ8+xsSzpFY0NAW8cW8=;
- b=b2uwiEXSYDZ4Anj7Pm6YTXwRwKPgMQ6iXVSl8m7cch013G5FOyy2lNZFoUrUCfE+Vapo3u
- 8MgiN/JiM9C9oqDQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1778134055; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=3yitmUNX5qry8C6kAIHkb/BHeQ8+xsSzpFY0NAW8cW8=;
- b=iS8wK0tECUzCEss3unO8zP0BH5UgRVOcm+a2HyplJuPe3KYjXi7X4UkUPetUBfOgPpjpPR
- +gc74xZ0XIC7/AgToKwiQo1+QL560U1rBi6RXLpNnoMPU3geZLk+Vhut9027nmnTSK+TzI
- 9k+GltHDJ4gzrBmQkfpF76fPArpi5aE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1778134055;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=3yitmUNX5qry8C6kAIHkb/BHeQ8+xsSzpFY0NAW8cW8=;
- b=b2uwiEXSYDZ4Anj7Pm6YTXwRwKPgMQ6iXVSl8m7cch013G5FOyy2lNZFoUrUCfE+Vapo3u
- 8MgiN/JiM9C9oqDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 70C03593A7;
- Thu,  7 May 2026 06:07:35 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id oVa4GScs/GmkNgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 07 May 2026 06:07:35 +0000
-Message-ID: <49290671-92ee-4fbc-aef9-972ac976cf42@suse.de>
-Date: Thu, 7 May 2026 08:07:34 +0200
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECA8010E1AB
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 06:22:52 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6475wTRF1926223
+ for <dri-devel@lists.freedesktop.org>; Thu, 7 May 2026 06:22:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=0bYlSt7DWtFV9/30w21jcxKBV6pVHX6j/yi
+ YjnHQK14=; b=GAqcjy+UyF2OdNB80Qo0WASGdve03m019NIzIpUkj3xXHgiJFH7
+ +5cE8HUCJKFt/xMUjl0tGLwEx+EH3MczqQLm7lagXescsQ0dXzLaijWK+FcqXa2E
+ zDdQsqCors/T+WDNVwPAYOMlZvBJ6EzyRZLL9BNs4RCAT4tqBGRn4JVmpD7WwFyN
+ jxmOx0ExafeeA+rs4MhPff1Imox6K+cQVxeCDhPLy0MRH4+3oNZWMOjS574zUngy
+ q8fRQR7PQguVoIrr6kfoq+zn8fL/sLsMfnHwMPUg2m3joGAdNZ8DpAJz1dY1nmNb
+ mMurm5YzYr/iRJnQ71s9S2/p2dloWrqKTQA==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com
+ [209.85.210.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e0n2g82qv-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 06:22:52 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id
+ d2e1a72fcca58-83565161a6eso307219b3a.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 06 May 2026 23:22:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1778134972; x=1778739772;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=0bYlSt7DWtFV9/30w21jcxKBV6pVHX6j/yiYjnHQK14=;
+ b=i5rbsS23spOaaqbNNl2yS6fyBIOntBogWCuD1sZJGV8I7QNdNLAAXw0W/GzeWItgwL
+ GvU59diiNz+usXi/vhIY6XmFrYKSyKOT5pa5t/f9sgDsNxzWVKjeNKEMj3qhoERqaYh2
+ bqutBbl5QHnjdptaOulwpijlzHiLVayRFLKbpZpMt4tZkDMmx09tfcc2pPDAStVPTRQr
+ NV8gFUC5zYRwYkhQEF9VTiow7SBgje6uOZUjUb+OynTRWlxz225XENahH/FPxHVgWH4x
+ fPpOMlvVQKL2Xt/ocF3AtaX2z+iZip+IDxhAOnEMeNfPFm4ttb+M5RDiSxrBzUMsucqS
+ Gw5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778134972; x=1778739772;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=0bYlSt7DWtFV9/30w21jcxKBV6pVHX6j/yiYjnHQK14=;
+ b=aufj6U3a4B+H4k2kRrK0zOysMzVOvEvhJe44mIt/WwSpla6FcBmPw6Eew9clo4dF+c
+ GdqUS+1T90+ciF42CFeohbJKHwZbUjr7FNTLcm6XOEP1c5zbgOk8uiDanqiR903lhjyr
+ 5JzBv5XEAORT6vJGpJ+2hAzFsNyb1tglo0PC4bun5Bfz7vpMKiz2VpJPV8DKTs777ggz
+ imXygj72lyk7Stn4dzsNyPQJQWW4c9Y1dLln3l1KPmCYpe3eTBzGXo5uF9nZkK8u0zR/
+ 6aVFQISj9RgXgqh6HW6toOKqTJw3BTY7xJE1oEU0AjgRa487+d+lKqdZUOMRsSYh+s51
+ stFA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+Vyi2R675Qf7ethljlRb0XCkh1TmRiEMDWT0O1HRgsJbhvowsGYRbAij2tMb1P6BHQc19vsN3mw8U=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwB4U1Smkg6EQ/K6OlSD3DxAtHrPLE1Os9isTYwCp3eOj7LO019
+ WuFKpITMX5jXnCL4mOtFeC5yn1OGCFBLAMEBfdUyStvAtHQ5Dy4QJLTYL9Ec9rLTt/4chPCTWwF
+ bnXuCf5dWqN+erTEwswjaiG7GgRg38fV4uzlgEAuQXyDA2vBYa0aGLoswjvFy9rakdAXYYzs=
+X-Gm-Gg: AeBDiesLWRqNYW1eY583JMnEcKq858VFCUXDAJKRkTzVKD5JXAQmIdtQGIRmtFDgU8S
+ wGMd54X0BTplge6bhd8C8OmTMZ+SxknBCFtL2YRHY9hr6ezv8TMpovfhJ2z/l5dO2mquj6vVdzq
+ 2c3KePlSbMxWEPMzu7vnKp0fV3TCX4Y8Yla7bBAxZ/vmivAuzAgWCXBk4lQ0T5Y9i3vvdBRC3Qo
+ NJWIS522kOmII6uMjcACW7z2nyA2kCX/tj91KmBLCAVGXbSrw+nycby0CsEySZ0BqYeN6P12xSC
+ tw79CPl4N+ZidtWaOIy2gmjGHrco9mAYIAMTLbS9t/I54/J8uX4DyU7MxmMXgIAq7rUyyMS0J13
+ l6iXnDjs3A8G9ZWDR6qTGNeXK+uQL27SnPUW3gywEsYS2d4kQQSZJ5OBrB/lc7Xqk3+U6qGx8HJ
+ xTJY2hryG6+0mkMLdIyl8eI9W2STjSWtdwb79UKDLwCCUwz94T/xhLPfxauA==
+X-Received: by 2002:a05:6a00:2986:b0:82c:9c90:6ea0 with SMTP id
+ d2e1a72fcca58-83bb630704bmr1396465b3a.3.1778134971538; 
+ Wed, 06 May 2026 23:22:51 -0700 (PDT)
+X-Received: by 2002:a05:6a00:2986:b0:82c:9c90:6ea0 with SMTP id
+ d2e1a72fcca58-83bb630704bmr1396426b3a.3.1778134971017; 
+ Wed, 06 May 2026 23:22:51 -0700 (PDT)
+Received: from hu-sibis-blr.qualcomm.com
+ (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-83965945101sm7346557b3a.13.2026.05.06.23.22.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 06 May 2026 23:22:50 -0700 (PDT)
+From: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+To: cristian.marussi@arm.com, sudeep.holla@kernel.org, cw00.choi@samsung.com, 
+ kyungmin.park@samsung.com, myungjoo.ham@samsung.com,
+ konradybcio@kernel.org, andersson@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ arm-scmi@vger.kernel.org, linux-tegra@vger.kernel.org,
+ linux-pm@vger.kernel.org, dmitry.baryshkov@oss.qualcomm.com,
+ jonathanh@nvidia.com, thierry.reding@kernel.org, digetx@gmail.com,
+ conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org
+Subject: [RFC V6 0/8] arm_scmi: vendors: Qualcomm Generic Vendor Extensions
+Date: Thu,  7 May 2026 11:52:29 +0530
+Message-Id: <20260507062237.78051-1-sibi.sankar@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] drm: verisilicon: add support for cursor planes
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Han Gao <rabenda.cn@gmail.com>, Icenowy Zheng <uwu@icenowy.me>
-References: <20260506175610.2542888-1-zhengxingda@iscas.ac.cn>
- <20260506175610.2542888-3-zhengxingda@iscas.ac.cn>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260506175610.2542888-3-zhengxingda@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; RCVD_TLS_ALL(0.00)[];
- ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- TAGGED_RCPT(0.00)[]; TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
- FREEMAIL_TO(0.00)[iscas.ac.cn,linux.intel.com,kernel.org,gmail.com,ffwll.ch]; 
- MID_RHS_MATCH_FROM(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[vger.kernel.org,lists.freedesktop.org,gmail.com,icenowy.me]; 
- RCPT_COUNT_SEVEN(0.00)[9]; FROM_EQ_ENVFROM(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, imap1.dmz-prg2.suse.org:helo,
- suse.de:email, suse.de:mid]
+X-Authority-Analysis: v=2.4 cv=Wv4b99fv c=1 sm=1 tr=0 ts=69fc2fbc cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=bK4GZpSpkxiEjqyRu_sA:9
+ a=IoOABgeZipijB_acs4fv:22
+X-Proofpoint-ORIG-GUID: _WP2BiGWibdvKJNQ6-J5wqWkGwszKd_Z
+X-Proofpoint-GUID: _WP2BiGWibdvKJNQ6-J5wqWkGwszKd_Z
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA3MDA2MCBTYWx0ZWRfX3GdSG3kjR+N+
+ Uq8zR8ZnwKmJFODSRG0iI8+xSzo95aGXuLOULW7EN3hybTBHMkMn+xaQYweeYKgb1eaP8YCRv4B
+ z0hkFZMLaZbUgVNekLe4TewFj1A1W2jrOqAGg18yuryS3wtzcNV9SBnIyR8MCiIrXnC7e4TVDey
+ HvGYhKF2w4KJCjZA4LlIBncgUUZ5qi1CwXhmEzph9zIJSmMM/GzkgOJaznPFQc4jnRIM8h0yWry
+ uBlIuOUURQSm1/7m0MUwJRmYESrParuwV7AitHO86A4yGJHVDA+uu4sh4CEW2fBR3v4mVxOIh2O
+ ZYhINm0RwX/K5NNuph7TKQVXxEDptUZcOQXCbLtr5m1A5DG++VjhMQKaRELpc+SigZduO0N704q
+ dqLUvLa1VLFH94GQHlHb94Yu6BJfT1Ye+hFUYQbSHEefTv7kPoFWy5cHfc0m0WU5btEAIv0ZGKx
+ gOeZCF9JFmjsOG0iHmg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-06_02,2026-05-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015
+ impostorscore=0 spamscore=0 phishscore=0 priorityscore=1501 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605070060
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,437 +140,156 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+The QCOM SCMI vendor protocol provides a generic way of exposing a number of
+Qualcomm SoC specific features (like memory bus scaling) through a mixture of
+pre-determined algorithm strings and param_id pairs hosted on the SCMI
+controller. On Qualcomm Glymur and Hamoa SoCs, the memlat governor and the
+mechanism to control the various caches and ram is hosted on the CPU Control
+Processor (CPUCP) and the method to tweak and start the governor is exposed
+through the QCOM SCMI Generic Extension Protocol.
 
-Am 06.05.26 um 19:56 schrieb Icenowy Zheng:
-> Verisilicon display controllers support hardware cursors per output
-> port.
->
-> Add support for them as cursor planes.
->
-> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+This series introduces the devfreq scmi client driver that uses the memlat
+algorithm string hosted on QCOM SCMI Generic Extension Protocol to detect
+memory latency workloads and control frequency/level of the various memory
+buses (DDR/LLCC/DDR_QOS). The DDR/LLCC/DDR_QOS are modelled as devfreq
+devices, with the governor set to remote devfreq governor. This serves as
+a way to get a basic insight into the device operation through trans_stat
+and provides for ways to further tweak the parameters of the remote
+governor.
 
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+Transtat data for DDR/LLCC/DDR_QOS is now available in this series:
 
-You should get commit access to drm-misc, if you haven't already.
+#cat llcc/trans_stat 
+From  :   To
+315000000 479000000 545000000 725000000 840000000 95900000010900000001211000000   time(ms)
+315000000:         0         3         6         6         6         7         0        30    143956
+479000000:         2         0         7         1         1         1         0         3       356
+545000000:         7         6         0         5         5         0         0        10      1200
+725000000:         3         0         5         0         6         1         0         6      2172
+840000000:         8         2         3         2         0         4         0        12      1188
+959000000:         3         0         1         2         2         0         0        13       272
+1090000000:         0         0         0         0         0         0         0         0         0
+1211000000:        35         4        11         5        11         8         0         0     21684
+Total transition : 253
 
-https://drm.pages.freedesktop.org/maintainer-tools/committer/commit-access.html
+QCOM SCMI Generic Vendor protocol background:
+It was found that a lot of the vendor protocol used internally was
+for debug/internal development purposes that would either be super
+SoC specific or had to be disabled because of some features being
+fused out during production. This lead to a large number of vendor
+protocol numbers being quickly consumed and were never released
+either. Using a generic vendor protocol with functionality abstracted
+behind algorithm strings gave us the flexibility of allowing such
+functionality exist during initial development/debugging while
+still being able to expose functionality like memlat once they have
+matured enough. The param-ids are certainly expected to act as ABI
+for algorithms strings like MEMLAT.
 
-Best regards
-Thomas
+Thanks in advance for taking time to review the series.
 
-> ---
-> Changes in v3:
-> - Moved the validity check for max_cursor_size to
->    vs_cursor_plane_init().
-> - Removed NULL check for new_plane_state->fb because
->    drm_atomic_helper_check_plane_state() will set visibility to false in
->    such case.
-> Changes in v2:
-> - Use is_power_of_two instead of switch to validate cursor size.
-> - Remove unneeded format check.
-> - Skip the whole validity check if the plane is invisible (previously
->    it's only skipped when the plane is not bound to CRTC).
-> - Explicitly set modifiers list (linear only).
->
->   drivers/gpu/drm/verisilicon/Makefile          |   3 +-
->   drivers/gpu/drm/verisilicon/vs_crtc.c         |  11 +-
->   drivers/gpu/drm/verisilicon/vs_cursor_plane.c | 272 ++++++++++++++++++
->   .../drm/verisilicon/vs_cursor_plane_regs.h    |  44 +++
->   drivers/gpu/drm/verisilicon/vs_plane.h        |   1 +
->   5 files changed, 328 insertions(+), 3 deletions(-)
->   create mode 100644 drivers/gpu/drm/verisilicon/vs_cursor_plane.c
->   create mode 100644 drivers/gpu/drm/verisilicon/vs_cursor_plane_regs.h
->
-> diff --git a/drivers/gpu/drm/verisilicon/Makefile b/drivers/gpu/drm/verisilicon/Makefile
-> index fd8d805fbcde1..426f4bcaa834d 100644
-> --- a/drivers/gpu/drm/verisilicon/Makefile
-> +++ b/drivers/gpu/drm/verisilicon/Makefile
-> @@ -1,5 +1,6 @@
->   # SPDX-License-Identifier: GPL-2.0-only
->   
-> -verisilicon-dc-objs := vs_bridge.o vs_crtc.o vs_dc.o vs_drm.o vs_hwdb.o vs_plane.o vs_primary_plane.o
-> +verisilicon-dc-objs := vs_bridge.o vs_crtc.o vs_dc.o vs_drm.o vs_hwdb.o \
-> +	vs_plane.o vs_primary_plane.o vs_cursor_plane.o
->   
->   obj-$(CONFIG_DRM_VERISILICON_DC) += verisilicon-dc.o
-> diff --git a/drivers/gpu/drm/verisilicon/vs_crtc.c b/drivers/gpu/drm/verisilicon/vs_crtc.c
-> index f494017130006..5c9714a3e69a7 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_crtc.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_crtc.c
-> @@ -159,7 +159,7 @@ struct vs_crtc *vs_crtc_init(struct drm_device *drm_dev, struct vs_dc *dc,
->   			     unsigned int output)
->   {
->   	struct vs_crtc *vcrtc;
-> -	struct drm_plane *primary;
-> +	struct drm_plane *primary, *cursor;
->   	int ret;
->   
->   	vcrtc = drmm_kzalloc(drm_dev, sizeof(*vcrtc), GFP_KERNEL);
-> @@ -175,9 +175,16 @@ struct vs_crtc *vs_crtc_init(struct drm_device *drm_dev, struct vs_dc *dc,
->   		return ERR_PTR(PTR_ERR(primary));
->   	}
->   
-> +	/* Create our cursor plane */
-> +	cursor = vs_cursor_plane_init(drm_dev, dc);
-> +	if (IS_ERR(cursor)) {
-> +		drm_err(drm_dev, "Couldn't create the cursor plane\n");
-> +		return ERR_CAST(cursor);
-> +	}
-> +
->   	ret = drmm_crtc_init_with_planes(drm_dev, &vcrtc->base,
->   					 primary,
-> -					 NULL,
-> +					 cursor,
->   					 &vs_crtc_funcs,
->   					 NULL);
->   	if (ret) {
-> diff --git a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-> new file mode 100644
-> index 0000000000000..acb9854fa67ed
-> --- /dev/null
-> +++ b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-> @@ -0,0 +1,272 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (C) 2026 Institute of Software, Chinese Academy of Sciences (ISCAS)
-> + *
-> + * Authors:
-> + * Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> + */
-> +
-> +#include <linux/log2.h>
-> +#include <linux/regmap.h>
-> +
-> +#include <drm/drm_atomic.h>
-> +#include <drm/drm_atomic_helper.h>
-> +#include <drm/drm_crtc.h>
-> +#include <drm/drm_fourcc.h>
-> +#include <drm/drm_framebuffer.h>
-> +#include <drm/drm_gem_atomic_helper.h>
-> +#include <drm/drm_modeset_helper_vtables.h>
-> +#include <drm/drm_plane.h>
-> +#include <drm/drm_print.h>
-> +
-> +#include "vs_crtc.h"
-> +#include "vs_plane.h"
-> +#include "vs_dc.h"
-> +#include "vs_hwdb.h"
-> +#include "vs_cursor_plane_regs.h"
-> +
-> +#define VSDC_MIN_CURSOR_SIZE 32
-> +#define VSDC_MAX_CURSOR_SIZE 256
-> +
-> +#define VSDC_CURSOR_LOCATION_MAX_POSITIVE BIT_MASK(15)
-> +#define VSDC_CURSOR_LOCATION_MAX_NEGATIVE BIT_MASK(5)
-> +
-> +static bool vs_cursor_plane_check_coord(int32_t coord)
-> +{
-> +	if (coord >= 0)
-> +		return coord <= VSDC_CURSOR_LOCATION_MAX_POSITIVE;
-> +	else
-> +		return (-coord) <= VSDC_CURSOR_LOCATION_MAX_NEGATIVE;
-> +}
-> +
-> +static int vs_cursor_plane_atomic_check(struct drm_plane *plane,
-> +					struct drm_atomic_state *state)
-> +{
-> +	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state,
-> +										 plane);
-> +	struct drm_crtc *crtc = new_plane_state->crtc;
-> +	struct drm_framebuffer *fb = new_plane_state->fb;
-> +	struct drm_crtc_state *crtc_state = NULL;
-> +	struct vs_crtc *vcrtc;
-> +	struct vs_dc *dc;
-> +	int ret;
-> +
-> +	if (crtc)
-> +		crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
-> +
-> +	ret = drm_atomic_helper_check_plane_state(new_plane_state,
-> +						  crtc_state,
-> +						  DRM_PLANE_NO_SCALING,
-> +						  DRM_PLANE_NO_SCALING,
-> +						  true, true);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (!new_plane_state->visible)
-> +		return 0; /* Skip validity check */
-> +
-> +	vcrtc = drm_crtc_to_vs_crtc(crtc);
-> +	dc = vcrtc->dc;
-> +
-> +	/* Only certain PoT square sizes is supported. */
-> +	if (!is_power_of_2(new_plane_state->crtc_w) ||
-> +	    new_plane_state->crtc_w < VSDC_MIN_CURSOR_SIZE ||
-> +	    new_plane_state->crtc_w > dc->identity.max_cursor_size)
-> +		return -EINVAL;
-> +
-> +	if (new_plane_state->crtc_w != new_plane_state->crtc_h)
-> +		return -EINVAL;
-> +
-> +	/* Check if the cursor is inside the register fields' range */
-> +	if (!vs_cursor_plane_check_coord(new_plane_state->crtc_x) ||
-> +	    !vs_cursor_plane_check_coord(new_plane_state->crtc_y))
-> +		return -EINVAL;
-> +
-> +	/* Extra line padding isn't supported */
-> +	if (fb->pitches[0] !=
-> +	    drm_format_info_min_pitch(fb->format, 0, new_plane_state->crtc_w))
-> +		return -EINVAL;
-> +
-> +	return 0;
-> +}
-> +
-> +static void vs_cursor_plane_commit(struct vs_dc *dc, unsigned int output)
-> +{
-> +	regmap_set_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
-> +			VSDC_CURSOR_CONFIG_COMMIT |
-> +			VSDC_CURSOR_CONFIG_IMG_UPDATE);
-> +}
-> +
-> +static void vs_cursor_plane_atomic_enable(struct drm_plane *plane,
-> +					   struct drm_atomic_state *atomic_state)
-> +{
-> +	struct drm_plane_state *state = drm_atomic_get_new_plane_state(atomic_state,
-> +								       plane);
-> +	struct drm_crtc *crtc = state->crtc;
-> +	struct vs_crtc *vcrtc = drm_crtc_to_vs_crtc(crtc);
-> +	unsigned int output = vcrtc->id;
-> +	struct vs_dc *dc = vcrtc->dc;
-> +
-> +	regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
-> +			   VSDC_CURSOR_CONFIG_FMT_MASK,
-> +			   VSDC_CURSOR_CONFIG_FMT_ARGB8888);
-> +
-> +	vs_cursor_plane_commit(dc, output);
-> +}
-> +
-> +static void vs_cursor_plane_atomic_disable(struct drm_plane *plane,
-> +					    struct drm_atomic_state *atomic_state)
-> +{
-> +	struct drm_plane_state *state = drm_atomic_get_old_plane_state(atomic_state,
-> +								       plane);
-> +	struct drm_crtc *crtc = state->crtc;
-> +	struct vs_crtc *vcrtc = drm_crtc_to_vs_crtc(crtc);
-> +	unsigned int output = vcrtc->id;
-> +	struct vs_dc *dc = vcrtc->dc;
-> +
-> +	regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
-> +			   VSDC_CURSOR_CONFIG_FMT_MASK,
-> +			   VSDC_CURSOR_CONFIG_FMT_OFF);
-> +
-> +	vs_cursor_plane_commit(dc, output);
-> +}
-> +
-> +static void vs_cursor_plane_atomic_update(struct drm_plane *plane,
-> +					   struct drm_atomic_state *atomic_state)
-> +{
-> +	struct drm_plane_state *state = drm_atomic_get_new_plane_state(atomic_state,
-> +								       plane);
-> +	struct drm_framebuffer *fb = state->fb;
-> +	struct drm_crtc *crtc = state->crtc;
-> +	struct vs_dc *dc;
-> +	struct vs_crtc *vcrtc;
-> +	unsigned int output;
-> +	dma_addr_t dma_addr;
-> +
-> +	if (!state->visible) {
-> +		vs_cursor_plane_atomic_disable(plane, atomic_state);
-> +		return;
-> +	}
-> +
-> +	vcrtc = drm_crtc_to_vs_crtc(crtc);
-> +	output = vcrtc->id;
-> +	dc = vcrtc->dc;
-> +
-> +	/* Other sizes should be rejected by atomic_check */
-> +	switch (state->crtc_w) {
-> +	case 32:
-> +		regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
-> +				   VSDC_CURSOR_CONFIG_SIZE_MASK,
-> +				   VSDC_CURSOR_CONFIG_SIZE_32);
-> +		break;
-> +	case 64:
-> +		regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
-> +				   VSDC_CURSOR_CONFIG_SIZE_MASK,
-> +				   VSDC_CURSOR_CONFIG_SIZE_64);
-> +		break;
-> +	case 128:
-> +		regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
-> +				   VSDC_CURSOR_CONFIG_SIZE_MASK,
-> +				   VSDC_CURSOR_CONFIG_SIZE_128);
-> +		break;
-> +	case 256:
-> +		regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
-> +				   VSDC_CURSOR_CONFIG_SIZE_MASK,
-> +				   VSDC_CURSOR_CONFIG_SIZE_256);
-> +		break;
-> +	}
-> +
-> +	dma_addr = vs_fb_get_dma_addr(fb, &state->src);
-> +
-> +	regmap_write(dc->regs, VSDC_CURSOR_ADDRESS(output),
-> +		     lower_32_bits(dma_addr));
-> +
-> +	/*
-> +	 * The X_OFF and Y_OFF fields define which point does the LOCATION
-> +	 * register represent in the cursor image, and LOCATION register
-> +	 * values are unsigned. To for positive left-top  coordinates the
-> +	 * offset is set to 0 and the location is set to the coordinate, for
-> +	 * negative coordinates the location is set to 0 and the offset
-> +	 * is set to the opposite number of the coordinate to offset the
-> +	 * cursor image partly off-screen.
-> +	 */
-> +	if (state->crtc_x >= 0) {
-> +		regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
-> +				   VSDC_CURSOR_CONFIG_X_OFF_MASK, 0);
-> +		regmap_update_bits(dc->regs, VSDC_CURSOR_LOCATION(output),
-> +				   VSDC_CURSOR_LOCATION_X_MASK,
-> +				   VSDC_CURSOR_LOCATION_X(state->crtc_x));
-> +	} else {
-> +		regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
-> +				   VSDC_CURSOR_CONFIG_X_OFF_MASK,
-> +				   -state->crtc_x);
-> +		regmap_update_bits(dc->regs, VSDC_CURSOR_LOCATION(output),
-> +				   VSDC_CURSOR_LOCATION_X_MASK, 0);
-> +	}
-> +
-> +	if (state->crtc_y >= 0) {
-> +		regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
-> +				   VSDC_CURSOR_CONFIG_Y_OFF_MASK, 0);
-> +		regmap_update_bits(dc->regs, VSDC_CURSOR_LOCATION(output),
-> +				   VSDC_CURSOR_LOCATION_Y_MASK,
-> +				   VSDC_CURSOR_LOCATION_Y(state->crtc_y));
-> +	} else {
-> +		regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
-> +				   VSDC_CURSOR_CONFIG_Y_OFF_MASK,
-> +				   -state->crtc_y);
-> +		regmap_update_bits(dc->regs, VSDC_CURSOR_LOCATION(output),
-> +				   VSDC_CURSOR_LOCATION_Y_MASK, 0);
-> +	}
-> +
-> +	vs_cursor_plane_commit(dc, output);
-> +}
-> +
-> +static const struct drm_plane_helper_funcs vs_cursor_plane_helper_funcs = {
-> +	.atomic_check	= vs_cursor_plane_atomic_check,
-> +	.atomic_update	= vs_cursor_plane_atomic_update,
-> +	.atomic_enable	= vs_cursor_plane_atomic_enable,
-> +	.atomic_disable	= vs_cursor_plane_atomic_disable,
-> +};
-> +
-> +static const struct drm_plane_funcs vs_cursor_plane_funcs = {
-> +	.atomic_destroy_state	= drm_atomic_helper_plane_destroy_state,
-> +	.atomic_duplicate_state	= drm_atomic_helper_plane_duplicate_state,
-> +	.disable_plane		= drm_atomic_helper_disable_plane,
-> +	.reset			= drm_atomic_helper_plane_reset,
-> +	.update_plane		= drm_atomic_helper_update_plane,
-> +};
-> +
-> +static const u32 vs_cursor_plane_formats[] = {
-> +	DRM_FORMAT_ARGB8888,
-> +};
-> +
-> +static const u64 vs_cursor_plane_modifiers[] = {
-> +	DRM_FORMAT_MOD_LINEAR,
-> +	DRM_FORMAT_MOD_INVALID, /* sentinel */
-> +};
-> +
-> +struct drm_plane *vs_cursor_plane_init(struct drm_device *drm_dev,
-> +				       struct vs_dc *dc)
-> +{
-> +	int32_t max_cursor_size = dc->identity.max_cursor_size;
-> +	struct drm_plane *plane;
-> +
-> +	if (drm_WARN_ON_ONCE(drm_dev, max_cursor_size < VSDC_MIN_CURSOR_SIZE ||
-> +				      max_cursor_size > VSDC_MAX_CURSOR_SIZE))
-> +		return ERR_PTR(-EINVAL);
-> +
-> +	plane = drmm_universal_plane_alloc(drm_dev, struct drm_plane, dev, 0,
-> +					   &vs_cursor_plane_funcs,
-> +					   vs_cursor_plane_formats,
-> +					   ARRAY_SIZE(vs_cursor_plane_formats),
-> +					   vs_cursor_plane_modifiers,
-> +					   DRM_PLANE_TYPE_CURSOR,
-> +					   NULL);
-> +
-> +	if (IS_ERR(plane))
-> +		return plane;
-> +
-> +	drm_plane_helper_add(plane, &vs_cursor_plane_helper_funcs);
-> +
-> +	return plane;
-> +}
-> diff --git a/drivers/gpu/drm/verisilicon/vs_cursor_plane_regs.h b/drivers/gpu/drm/verisilicon/vs_cursor_plane_regs.h
-> new file mode 100644
-> index 0000000000000..99693f2c95b94
-> --- /dev/null
-> +++ b/drivers/gpu/drm/verisilicon/vs_cursor_plane_regs.h
-> @@ -0,0 +1,44 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +/*
-> + * Copyright (C) 2025 Icenowy Zheng <uwu@icenowy.me>
-> + *
-> + * Based on vs_dc_hw.h, which is:
-> + *   Copyright (C) 2023 VeriSilicon Holdings Co., Ltd.
-> + */
-> +
-> +#ifndef _VS_CURSOR_PLANE_REGS_H_
-> +#define _VS_CURSOR_PLANE_REGS_H_
-> +
-> +#include <linux/bits.h>
-> +
-> +#define VSDC_CURSOR_CONFIG(n)		(0x1468 + 0x1080 * (n))
-> +#define VSDC_CURSOR_CONFIG_FMT_MASK	GENMASK(1, 0)
-> +#define VSDC_CURSOR_CONFIG_FMT_ARGB8888	(0x2 << 0)
-> +#define VSDC_CURSOR_CONFIG_FMT_OFF	(0x0 << 0)
-> +#define VSDC_CURSOR_CONFIG_IMG_UPDATE	BIT(2)
-> +#define VSDC_CURSOR_CONFIG_COMMIT	BIT(3)
-> +#define VSDC_CURSOR_CONFIG_SIZE_MASK	GENMASK(7, 5)
-> +#define VSDC_CURSOR_CONFIG_SIZE_32	(0x0 << 5)
-> +#define VSDC_CURSOR_CONFIG_SIZE_64	(0x1 << 5)
-> +#define VSDC_CURSOR_CONFIG_SIZE_128	(0x2 << 5)
-> +#define VSDC_CURSOR_CONFIG_SIZE_256	(0x3 << 5)
-> +#define VSDC_CURSOR_CONFIG_Y_OFF_MASK	GENMASK(12, 8)
-> +#define VSDC_CURSOR_CONFIG_Y_OFF(v)	((v) << 8)
-> +#define VSDC_CURSOR_CONFIG_X_OFF_MASK	GENMASK(20, 16)
-> +#define VSDC_CURSOR_CONFIG_X_OFF(v)	((v) << 16)
-> +
-> +#define VSDC_CURSOR_ADDRESS(n)		(0x146C + 0x1080 * (n))
-> +
-> +#define VSDC_CURSOR_LOCATION(n)		(0x1470 + 0x1080 * (n))
-> +#define VSDC_CURSOR_LOCATION_X_MASK	GENMASK(14, 0)
-> +#define VSDC_CURSOR_LOCATION_X(v)	((v) << 0)
-> +#define VSDC_CURSOR_LOCATION_Y_MASK	GENMASK(30, 16)
-> +#define VSDC_CURSOR_LOCATION_Y(v)	((v) << 16)
-> +
-> +#define VSDC_CURSOR_BACKGROUND(n)	(0x1474 + 0x1080 * (n))
-> +#define VSDC_CURSOR_BACKGRUOND_DEFAULT	0x00FFFFFF
-> +
-> +#define VSDC_CURSOR_FOREGROUND(n)	(0x1478 + 0x1080 * (n))
-> +#define VSDC_CURSOR_FOREGRUOND_DEFAULT	0x00AAAAAA
-> +
-> +#endif /* _VS_CURSOR_PLANE_REGS_H_ */
-> diff --git a/drivers/gpu/drm/verisilicon/vs_plane.h b/drivers/gpu/drm/verisilicon/vs_plane.h
-> index 41875ea3d66a5..60b5b3a1bc22a 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_plane.h
-> +++ b/drivers/gpu/drm/verisilicon/vs_plane.h
-> @@ -68,5 +68,6 @@ dma_addr_t vs_fb_get_dma_addr(struct drm_framebuffer *fb,
->   			      const struct drm_rect *src_rect);
->   
->   struct drm_plane *vs_primary_plane_init(struct drm_device *dev, struct vs_dc *dc);
-> +struct drm_plane *vs_cursor_plane_init(struct drm_device *dev, struct vs_dc *dc);
->   
->   #endif /* _VS_PLANE_H_ */
+Changes in v5:
+ - Combining vendor protocol and the client and moving it
+   back into RFC mode.
+ - Introduce target_freq attr flag and TRACK_REMOTE devfreq
+   governor flag.
+ - Add basic remote devfreq governor to give users data like
+   transtat [Dmitry]
+ - Drop the current design that relies on manual parsing of
+   device tree data and move those into SoC specific structs
+ - Add Glymur/Mahua/Hamoa/Purwa support in the same series.
 
+ Changes in v4:
+ - Splitting the series into vendor protocol and memlat client.
+ - Also the move the memlat client implementation back to RFC
+   due to multiple opens.
+ - Use common xfer helper to avoid code duplication [Dmitry]
+ - Update enum documentation without duplicate enum info [Dmitry]
+ - Update the protol attributes doc with more information. [Cristian]
+
+Changes in v3:
+ - Restructure the bindings to mimic IMX [Christian]
+ - Add documentation for the qcom generic vendor protocol [Christian/Sudeep]
+ - Pick up Rb tag and fixup/re-order elements of the vendor ops [Christian]
+ - Follow naming convention and folder structure used by IMX
+ - Add missing enum in the vendor protocol and fix documentation [Konrad]
+ - Add missing enum in the scmi memlat driver and fix documentation [Konrad]
+ - Add checks for max memory and monitor [Shivnandan]
+ - Fix typo from START_TIMER -> STOP_TIMER [Shivnandan]
+ - Make populate_physical_mask func to void [Shivnandan]
+ - Remove unecessary zero set [Shivnandan]
+ - Use __free(device node) in init_cpufreq-memfreqmap [Christian/Konrad]
+ - Use sdev->dev.of_node directly [Christian]
+ - use return dev_err_probe in multiple places [Christian]
+
+Changes in v2:
+ - Drop container dvfs memlat container node. [Rob]
+ - Move scmi-memlat.yaml to protocol level given that a lot of vendors might end up
+ - using the same protocol number. [Rob]
+ - Replace qcom,cpulist with the standard "cpus" property. [Rob]
+ - Fix up compute-type/ipm-ceil required. [Rob]
+ - Make driver changes to the accommodate bindings changes. [Rob]
+ - Minor fixups in subjects/coverletter.
+ - Minor style fixes in dts.
+
+Changes in v1:
+ - Add missing bindings for the protocol. [Konrad/Dmitry]
+ - Use alternate bindings. [Dmitry/Konrad]
+ - Rebase on top of Cristian's "SCMI multiple vendor protocol support" series. [Cristian]
+ - Add more documentation wherever possible. [Sudeep]
+ - Replace pr_err/info with it's dev equivalents.
+ - Mixed tabs and initialization cleanups in the memlat driver. [Konrad]
+ - Commit message update for the memlat driver. [Dmitry]
+ - Cleanups/Fixes suggested for the client driver. [Dmitry/Konrad/Cristian]
+ - Use opp-tables instead of memfreq-tbl. [Dmitry/Konrad]
+ - Detect physical cpu to deal with variants with reduced cpu count.
+ - Add support for DDR_QOS mem_type.
+
+Sibi Sankar (8):
+  firmware: arm_scmi: Add QCOM Generic Vendor Protocol documentation
+  firmware: arm_scmi: vendors: Add QCOM SCMI Generic Extensions
+  PM / devfreq: Add new target_freq attribute flag for governors
+  PM / devfreq: Add new track_remote flag for governors
+  PM / devfreq: Add a governor for tracking remote device frequencies
+  PM / devfreq: Introduce the QCOM SCMI Memlat devfreq device
+  arm64: dts: qcom: glymur: Enable LLCC/DDR/DDR_QOS dvfs
+  arm64: dts: qcom: hamoa: Enable LLCC/DDR/DDR_QOS dvfs
+
+ arch/arm64/boot/dts/qcom/glymur.dtsi          |  42 ++
+ arch/arm64/boot/dts/qcom/hamoa.dtsi           |   4 +
+ drivers/devfreq/Kconfig                       |  21 +
+ drivers/devfreq/Makefile                      |   2 +
+ drivers/devfreq/devfreq.c                     |   9 +
+ drivers/devfreq/governor_passive.c            |   1 +
+ drivers/devfreq/governor_performance.c        |   1 +
+ drivers/devfreq/governor_powersave.c          |   1 +
+ drivers/devfreq/governor_remote.c             |  80 +++
+ drivers/devfreq/governor_simpleondemand.c     |   1 +
+ drivers/devfreq/governor_userspace.c          |   1 +
+ drivers/devfreq/hisi_uncore_freq.c            |   1 +
+ drivers/devfreq/scmi-qcom-memlat-cfg.h        | 473 ++++++++++++++
+ drivers/devfreq/scmi-qcom-memlat-devfreq.c    | 582 ++++++++++++++++++
+ drivers/devfreq/tegra30-devfreq.c             |   3 +-
+ drivers/firmware/arm_scmi/Kconfig             |   1 +
+ drivers/firmware/arm_scmi/Makefile            |   1 +
+ .../firmware/arm_scmi/vendors/qcom/Kconfig    |  15 +
+ .../firmware/arm_scmi/vendors/qcom/Makefile   |   2 +
+ .../arm_scmi/vendors/qcom/qcom-generic-ext.c  | 135 ++++
+ .../arm_scmi/vendors/qcom/qcom_generic.rst    | 211 +++++++
+ include/linux/devfreq-governor.h              |   4 +
+ include/linux/devfreq.h                       |   1 +
+ include/linux/scmi_qcom_protocol.h            |  37 ++
+ 24 files changed, 1628 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/devfreq/governor_remote.c
+ create mode 100644 drivers/devfreq/scmi-qcom-memlat-cfg.h
+ create mode 100644 drivers/devfreq/scmi-qcom-memlat-devfreq.c
+ create mode 100644 drivers/firmware/arm_scmi/vendors/qcom/Kconfig
+ create mode 100644 drivers/firmware/arm_scmi/vendors/qcom/Makefile
+ create mode 100644 drivers/firmware/arm_scmi/vendors/qcom/qcom-generic-ext.c
+ create mode 100644 drivers/firmware/arm_scmi/vendors/qcom/qcom_generic.rst
+ create mode 100644 include/linux/scmi_qcom_protocol.h
+
+
+base-commit: 9d0d467c3572e93c5faa2e5906a8bbcd70b24efd
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
+2.34.1
 
