@@ -4,69 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B63C9CD3439
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 14:54:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DA07CD343F
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 14:57:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F82010E29E;
-	Thu,  7 May 2026 14:54:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A2D910F19D;
+	Thu,  7 May 2026 14:57:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="biSdJiwe";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="IKvZO0E0";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MKoV5zNz";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D11C10E29E
- for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 14:54:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1778165671; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=T8Ex0I6R6Kc95dgWSzf49Nw5eDqQnUIdIobggoG+yhFnDI14pX3v/So6Ofta8XQ7LfDF+jMnt/vJzzybHqvSTMUz3qGpHhFWlc78ZOCDxTyWC8obSsd/FiEBkw+9C1sBr14sbDYwjfXzN/UFY4UZx25trcMM7jq5bNfMBa1okZI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1778165671;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=tNetuxkRt+N+4b2uSrH5ou0P5bOjAaDGsQRXbP0f+Xw=; 
- b=bbqTPH4v2MNwkXrRMOvT0NWaeya0EUs1bWLuGn9FHYPtY7NKv8+qoDv+Wu1u3OTOzB+pfGI7shTRh/o/1Yy/9QUs7y6INH9nHZLxiVkanOIuPyKOx6U7ayAD5juPBknsuu49KXFo0X+IaqhcdMypji6BLWRnUofWiFm7FV6tKl4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1778165671; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=tNetuxkRt+N+4b2uSrH5ou0P5bOjAaDGsQRXbP0f+Xw=;
- b=biSdJiwecFJhgMX9AlCKB0S+0fCEKx89Auy+BkwYYsIwiTPt4cXifAV3ZgPlscQS
- vZwoGuYKPiNTxB3P3zMTUv/yR+zGXHbBxmZlnO4BYgCTo20ErY1EehOIAYv+1qwv5w2
- ay8jEoqxvcEtC+f4kjHZ5A9yJ7sqJWMPdn99460M=
-Received: by mx.zohomail.com with SMTPS id 1778165669942952.534754209186;
- Thu, 7 May 2026 07:54:29 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- "T.J. Mercier" <tjmercier@google.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Alice Ryhl <aliceryhl@google.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Ketil Johnsen <ketil.johnsen@arm.com>, Ketil Johnsen <ketil.johnsen@arm.com>
-Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH 6/8] drm/panthor: Explicit expansion of locked VM region
-Date: Thu, 07 May 2026 16:54:21 +0200
-Message-ID: <vq-4uSFHRCWR0Whm98eJ2Q@collabora.com>
-In-Reply-To: <kC1hpRBAS8uGaw7vVFyW2g@collabora.com>
-References: <20260505140516.1372388-1-ketil.johnsen@arm.com>
- <20260505140516.1372388-7-ketil.johnsen@arm.com>
- <kC1hpRBAS8uGaw7vVFyW2g@collabora.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D114F10F193
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 14:57:11 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 647AOmUn879574
+ for <dri-devel@lists.freedesktop.org>; Thu, 7 May 2026 14:57:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 4npxAss+cBkEEkowA0VPvewqjM3l+sBKHX3dTsvFTvA=; b=IKvZO0E0r2pupgEl
+ 87XJIk8uojF4AcTI1foHZax3+hTAnQAzOH19HwAJsU/VmHevm8oE4Tn3vmJ2RSgq
+ fYxRzW1JHA/c44O3gK0nrJc6/3iwygll9fXpsSqqiN8aKHFwfbE5kO3DbxfW4ifi
+ sV2r/XhPWEC+HNdPzT692Ih+lxEhEHmVDK2SRRyHVL4I6UOm5XrY9E3UQcC0EWEk
+ n/ATea9ikR94ynTW8DvwQN5+bzNECxwpcmFmxa87EsgHDYQPLMIK+2nTjsMxiYeh
+ kLpIJfBl7RrrFfUQWC/niCOhnVMxozvM+IsQuRwFW/ZbeBJHhcMxdX176R0car2C
+ 7RwnTA==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
+ [209.85.214.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e0kdq2btt-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 14:57:10 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id
+ d9443c01a7336-2b9b8137828so10718645ad.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 07:57:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1778165830; x=1778770630;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:content-language:from
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=4npxAss+cBkEEkowA0VPvewqjM3l+sBKHX3dTsvFTvA=;
+ b=MKoV5zNzMh5kwSl6fLcWo6vnHKBDsVPK9BgM4mZGzjJJwDeZ+EB6jJlu5BNnRpZDYk
+ Qa3nfh43UT7J2TtOUMyJyc/vhwpxFXXZyakc82h1Kiu1/f+Kyv5UpbFCWsA0uVlU0f1M
+ 4lxYYHx8tOQry2OTLjI0ImF/CLE9c9w6HdG3nA7SK6V3SAdK63hFZiyg3GugtD70N0f2
+ MQmLZ/VgXvETklX3riC08gDIemvhdPDq62UZA7k4v8710/bsNjNIkLCGAgKquGQlf9wr
+ RTpV9Sz8QaPITI2HQrWp8c8O42x/PO4OR+M6MaS+bFdXr54OkIFT9uOYyg4tJAUs04oF
+ iLBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778165830; x=1778770630;
+ h=content-transfer-encoding:in-reply-to:content-language:from
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=4npxAss+cBkEEkowA0VPvewqjM3l+sBKHX3dTsvFTvA=;
+ b=TRsa5WFTGRTvo/T6vI3CBZI+Y+Pk/3KF6/F83WqX2cX5bfo721YSI/wrQ1gkDCzm/i
+ bxEPhDuefKqcCegthtM7IvZ+EBorTxuB8nlusc3WTYGWc3SJ0BjRgoDp6Qtq9EItk7H1
+ S6WJWQzVZzBWnlDbuWMGs+v1vWTfU8H0YOqmTqiJYzGrq4T47xqZV+WJuD3Cb1CqTLgE
+ z8LDlOMg8lowBv58Nf8m/w9bajORedMbO92uAKblqMbsj77QyZw1DalqwX3jWrDELZU+
+ KPHUyGfuX6FGuAQzXXKMfm8O3HeFw+WfAno1ObBjVzCcGNVVxhQmIQiE+kTkvEt+kZXG
+ h9Tw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ91XL2pPkifmIeo32uc8lQltAqLLZCkE0M3BW1kS4V+M3zxAWqdCgE8Vq+2eoeXZITtL3h6Z2Vwpkc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyH0X1ORlfG2w5HuLLMWaOEYm33yXApfTqHb18GYHot/O2RAgq6
+ QeoBSC965SPKW3+Be/fZzTlCFVx/6Q/z6jG0WK8K406MhOtVlVh5isxa0sVZ86G1x0RS3xk9h1Z
+ qgVftTnZBO3dBRBTEdOM7gLVoZYMYpOsqmuYA+cW9fQVS24R6Lr6X3WEy37VC39HADY3B13o=
+X-Gm-Gg: AeBDiesc5bxEaUgSz9PARICYcJNhr50SMdvwiuEKcfJ3QPGBYcgrCMojOFdtGBgRYRm
+ MDPq4VnM9cW5wUF+4cP62MBylBLagRT4vKeCbAY59+I3ZyaFT63X5PoG3FIvXkaOcKH8NwnN4AA
+ e87Gtp4Zf6ZPU7AbJzmR6klGI3DKxOvkDCR02g+MulhGVgufevVjzCV2ZfPjjqnEeJEwazkjhlM
+ KZXKtkXjqPESIP0UZJgL5sAIwNIwTnrTWxXN+pe+//Vi2X5h67DXJmClM4pyfbk4ojm6ZBxvRUU
+ QlDitx16lSi6wYVVxk7Ood0GNnsiJ/ZupsYi79KDUYUB99ICMArCmDOrt/25CEKXsQfmUphS99x
+ qigSAEwhy5RKN7oJwYbKFLIrYoExIEE9pXxyUHjIa3nz2JxKhQ9orClY=
+X-Received: by 2002:a17:903:3201:b0:2b2:9f9f:fe6b with SMTP id
+ d9443c01a7336-2ba79bda3e7mr81185505ad.40.1778165829775; 
+ Thu, 07 May 2026 07:57:09 -0700 (PDT)
+X-Received: by 2002:a17:903:3201:b0:2b2:9f9f:fe6b with SMTP id
+ d9443c01a7336-2ba79bda3e7mr81185225ad.40.1778165829268; 
+ Thu, 07 May 2026 07:57:09 -0700 (PDT)
+Received: from [10.206.103.12] ([202.46.23.25])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2babadee7c8sm27872465ad.57.2026.05.07.07.57.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 07 May 2026 07:57:08 -0700 (PDT)
+Message-ID: <581743f9-6385-4803-a91e-0b7d38fa6a17@oss.qualcomm.com>
+Date: Thu, 7 May 2026 20:27:02 +0530
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 19/29] drm/msm/adreno: use version ranges in A8xx UBWC
+ code
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260507-ubwc-rework-v4-0-c19593d20c1d@oss.qualcomm.com>
+ <20260507-ubwc-rework-v4-19-c19593d20c1d@oss.qualcomm.com>
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <20260507-ubwc-rework-v4-19-c19593d20c1d@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=P6IKQCAu c=1 sm=1 tr=0 ts=69fca846 cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=F66dyu4Cpv24ktMMw0UA:9 a=QEXdDO2ut3YA:10
+ a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-ORIG-GUID: wW6nl6s8X36bPDhke-LJzuvmxs10k8GE
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA3MDE1MCBTYWx0ZWRfX/q1Ojv6TEL3V
+ mVT0wWKndNCfIAZmhEQw1KHTavZyJkCL3eH2DTOAxKqjJnO6rMdPio4a1wajxbq9mhzKNe1xIs5
+ 3D0JspQLCiZVkHq9AcuXB1Bbocglsi62Moc29llSIgyLwLb3Hpf7SoyaUqV4m3YG8YPajM4N7eA
+ oDaGbxDm143D1BVeCk2OA+jzFAzi/BC+VG9B/zdywhGp6joFpllbgMg+lSrsUgbgw4HpylDXxba
+ ToygVlOckyfL1OeyjzepgQCdVEoQIMqLd3HggSwzbZdqfOi35YQ+wvSnKGSsf+q3jYxNmuSLaLx
+ tHv+1pa19+LYGCC6EHycEf76kWrnVdXb147hjH2a3uR+aKDsbS1CIv8r3s2P9bj3NVI763ybiJ2
+ Ia0F1cArxJw12TLRY9HyRgs/vd+cXqmn+klfM2xLQcYejpvLvJRryFIbBpOedtWd8jJRNh2S6ro
+ zOKPfVYvX5/Aww6p7mA==
+X-Proofpoint-GUID: wW6nl6s8X36bPDhke-LJzuvmxs10k8GE
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-07_01,2026-05-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 suspectscore=0 clxscore=1015 bulkscore=0 spamscore=0
+ lowpriorityscore=0 malwarescore=0 adultscore=0 priorityscore=1501
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2605070150
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,151 +150,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wednesday, 6 May 2026 17:14:45 Central European Summer Time Nicolas Frat=
-taroli wrote:
-> On Tuesday, 5 May 2026 16:05:12 Central European Summer Time Ketil Johnse=
-n wrote:
-> > Currently the panthor_vm_lock_region() function will implicitly expand
-> > an already locked VM region. This can be problematic because the caller
-> > do not reliably know if it needs to call panthor_vm_unlock_region()
-> > or not.
-> >=20
-> > Worth noting, there is currently no known issues with this as the code
-> > is written today.
-> >=20
-> > This change introduces panthor_vm_expand_region() which will only work
-> > if there is already a locked VM region. This again means that the
-> > original lock and unlock functions can work as a pair. This pairing is
-> > needed for subsequent protected memory changes.
-> >=20
-> > Signed-off-by: Ketil Johnsen <ketil.johnsen@arm.com>
-> > ---
-> >  drivers/gpu/drm/panthor/panthor_mmu.c | 69 +++++++++++++++++++--------
-> >  1 file changed, 50 insertions(+), 19 deletions(-)
-> >=20
->=20
-> While trying this series, I attempted my usual
-> `modprobe -r panthor && modprobe panthor protected_heap_name=3Ddefault_cm=
-a_region`.
->=20
-> Unfortunately, it oopses when attempting to unmap the sg for a bo labeled
-> "FW section" on panthor module unload, and I bisected it to this patch.
+On 5/7/2026 6:33 PM, Dmitry Baryshkov wrote:
+> In order to simplify handling of UBWC minor revisions (like 3.1 or 4.3)
+> use version ranges instead of a case switch.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Okay, so this one is due to the iomem access rework having landed
-in drm-misc-next already, but this series being based on something
-before that, so now all the new gpu_read(_.*)? and gpu_write.* calls
-pass a panthor_device to something that expects the iomem. Since the
-iomem uses void pointers, this wasn't caught by the compiler.
+Reviewed-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 
-So, no "real" bug here, just an incredible dice roll for luck from my side.
+-Akhil
 
-Kind regards
-Nicolas Frattaroli
-
->=20
-> The oops:
->=20
-> [  598.515550] Unable to handle kernel paging request at virtual address =
-0000000000400267
-> [  598.516864] Mem abort info:
-> [  598.517676]   ESR =3D 0x0000000096000004
-> [  598.518560]   EC =3D 0x25: DABT (current EL), IL =3D 32 bits
-> [  598.520414]   SET =3D 0, FnV =3D 0
-> [  598.521275]   EA =3D 0, S1PTW =3D 0
-> [  598.522099]   FSC =3D 0x04: level 0 translation fault
-> [  598.523069] Data abort info:
-> [  598.524311]   ISV =3D 0, ISS =3D 0x00000004, ISS2 =3D 0x00000000
-> [  598.525566]   CM =3D 0, WnR =3D 0, TnD =3D 0, TagAccess =3D 0
-> [  598.526850]   GCS =3D 0, Overlay =3D 0, DirtyBit =3D 0, Xs =3D 0
-> [  598.527905] user pgtable: 4k pages, 48-bit VAs, pgdp=3D0000000104056000
-> [  598.529019] [0000000000400267] pgd=3D0000000000000000, p4d=3D000000000=
-0000000
-> [  598.530170] Internal error: Oops: 0000000096000004 [#1]  SMP
-> [  598.531158] Modules linked in: btusb btrtl btmtk btintel btbcm bluetoo=
-th ecdh_generic ecc kpp snd_soc_hdmi_codec cfg80211 r8169 rfkill_gpio pwm_f=
-an rfkill snd_soc_es8316 rtc_hym8563 rk805_pwrkey at24 fusb302 tcpm aux_hpd=
-_bridge display_connector snd_soc_simple_card phy_rockchip_samsung_hdptx ph=
-y_rockchip_usbdp rockchip_thermal typec phy_rockchip_naneng_combphy rockchi=
-p_saradc industrialio_triggered_buffer kfifo_buf rockchipdrm inno_hdmi dw_d=
-p hantro_vpu rockchip_vdec dw_mipi_dsi2 v4l2_jpeg v4l2_vp9 rockchip_rga dw_=
-mipi_dsi v4l2_h264 synopsys_hdmirx v4l2_dv_timings spi_rockchip_sfc videobu=
-f2_dma_contig videobuf2_dma_sg v4l2_mem2mem videobuf2_memops dw_hdmi_qp onb=
-oard_usb_dev analogix_dp videobuf2_v4l2 videobuf2_common snd_soc_rockchip_i=
-2s_tdm dw_hdmi videodev mc drm_display_helper nvme cec panthor(-) drm_gpuvm=
- drm_exec gpu_sched drm_dp_aux_bus drm_dma_helper drm_client_lib nvme_core =
-drm_kms_helper drm pci_endpoint_test backlight snd_soc_audio_graph_card snd=
-_soc_simple_card_utils fuse dm_mod
-> [  598.541237] CPU: 6 UID: 0 PID: 806 Comm: modprobe Not tainted 7.1.0-rc=
-2-00726-g8ab0a3092b56-dirty #2 PREEMPT
-> [  598.542733] Hardware name: Radxa ROCK 5T (DT)
-> [  598.543746] pstate: 80400009 (Nzcv daif +PAN -UAO -TCO -DIT -SSBS BTYP=
-E=3D--)
-> [  598.544991] pc : dma_unmap_sg_attrs (kernel/dma/mapping.c:0)
-> [  598.546021] lr : panthor_gem_free_object (include/linux/dma-mapping.h:=
-565 drivers/gpu/drm/panthor/panthor_gem.c:308 drivers/gpu/drm/panthor/panth=
-or_gem.c:469) panthor
-> [  598.547180] sp : ffff80008835bb90
-> [  598.548123] x29: ffff80008835bb90 x28: ffff00012610bf00 x27: 000000000=
-0000000
-> [  598.549412] x26: 0000000000000000 x25: 0000000000000000 x24: 000000000=
-0000000
-> [  598.550696] x23: ffff000127194600 x22: ffff0001271943d0 x21: ffff00011=
-8671000
-> [  598.551984] x20: ffff000127194200 x19: ffff000127194600 x18: 000000000=
-02ab980
-> [  598.553273] x17: 00000000002ab980 x16: ffffa39a6b372a04 x15: 000000000=
-0000000
-> [  598.554568] x14: 0000000000000010 x13: 0000000000000000 x12: 000000000=
-000003c
-> [  598.555864] x11: 0000000000000002 x10: ffff000100a5d000 x9 : ffff00011=
-8671000
-> [  598.557164] x8 : ffff000102f8b490 x7 : ffff000149569000 x6 : ffff00014=
-9569000
-> [  598.558461] x5 : ffff000100faa7e8 x4 : 0000000000000000 x3 : 000000000=
-0000000
-> [  598.559763] x2 : 0000000000000010 x1 : ffff000127194000 x0 : 000000000=
-040000f
-> [  598.561069] Call trace:
-> [  598.561961]  dma_unmap_sg_attrs (kernel/dma/mapping.c:0) (P)
-> [  598.563038] panthor_gem_free_object (include/linux/dma-mapping.h:565 d=
-rivers/gpu/drm/panthor/panthor_gem.c:308 drivers/gpu/drm/panthor/panthor_ge=
-m.c:469) panthor
-> [  598.564218] drm_gem_object_free (drivers/gpu/drm/drm_gem.c:1148) drm
-> [  598.565386] panthor_kernel_bo_destroy (include/linux/kref.h:65 include=
-/drm/drm_gem.h:565 include/drm/drm_gem.h:578 drivers/gpu/drm/panthor/pantho=
-r_gem.c:1317) panthor
-> [  598.566575] panthor_fw_unplug (drivers/gpu/drm/panthor/panthor_fw.c:13=
-06) panthor
-> [  598.567705] panthor_device_unplug (drivers/gpu/drm/panthor/panthor_dev=
-ice.c:103) panthor
-> [  598.568878] panthor_remove (drivers/gpu/drm/panthor/panthor_drv.c:1846=
-) panthor
-> [  598.569991]  platform_remove (drivers/base/platform.c:1435)
-> [  598.571029]  device_release_driver_internal (drivers/base/dd.c:619 dri=
-vers/base/dd.c:1352 drivers/base/dd.c:1375)
-> [  598.572209]  driver_detach (drivers/base/dd.c:1438)
-> [  598.573237]  bus_remove_driver (drivers/base/bus.c:825)
-> [  598.574304]  driver_unregister (drivers/base/driver.c:277)
-> [  598.575363]  platform_driver_unregister (drivers/base/platform.c:920)
-> [  598.576494] cleanup_module (drivers/gpu/drm/panthor/panthor_devfreq.c:=
-134) panthor
-> [  598.577617]  __arm64_sys_delete_module (kernel/module/main.c:863 kerne=
-l/module/main.c:804 kernel/module/main.c:804)
-> [  598.578751]  invoke_syscall (arch/arm64/kernel/syscall.c:35 arch/arm64=
-/kernel/syscall.c:49)
-> [  598.579794]  el0_svc_common (arch/arm64/kernel/syscall.c:121)
-> [  598.580842]  do_el0_svc (arch/arm64/kernel/syscall.c:140)
-> [  598.581862]  el0_svc (arch/arm64/kernel/entry-common.c:723)
-> [  598.582853]  el0t_64_sync_handler (arch/arm64/kernel/entry-common.c:74=
-2)
-> [  598.583949]  el0t_64_sync (arch/arm64/kernel/entry.S:594)
->=20
-> Kind regards,
-> Nicolas Frattaroli
->=20
->=20
->=20
-
-
-
+> ---
+>  drivers/gpu/drm/msm/adreno/a8xx_gpu.c | 32 +++++++++++++++-----------------
+>  1 file changed, 15 insertions(+), 17 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
+> index 5c73a9ebb22b..29d559fe4683 100644
+> --- a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
+> @@ -286,26 +286,24 @@ static void a8xx_set_ubwc_config(struct msm_gpu *gpu)
+>  	u32 hbb, hbb_hi, hbb_lo, mode;
+>  	u8 uavflagprd_inv = 2;
+>  
+> -	switch (ubwc_version) {
+> -	case UBWC_6_0:
+> +	if (ubwc_version > UBWC_6_0)
+> +		dev_err(&gpu->pdev->dev, "Unknown UBWC version: 0x%x\n", ubwc_version);
+> +
+> +	if (ubwc_version == UBWC_6_0)
+>  		yuvnotcomptofc = true;
+> -		rgb565_predicator = true;
+> -		break;
+> -	case UBWC_5_0:
+> -		rgb565_predicator = true;
+> -		break;
+> -	case UBWC_4_0:
+> -		rgb565_predicator = true;
+> -		fp16compoptdis = true;
+> +
+> +	if (ubwc_version < UBWC_5_0 &&
+> +	    ubwc_version >= UBWC_4_0)
+>  		rgba8888_lossless = true;
+> -		break;
+> -	case UBWC_3_0:
+> +
+> +	if (ubwc_version < UBWC_4_3)
+>  		fp16compoptdis = true;
+> -		break;
+> -	default:
+> -		dev_err(&gpu->pdev->dev, "Unknown UBWC version: 0x%x\n", ubwc_version);
+> -		break;
+> -	}
+> +
+> +	if (cfg->ubwc_enc_version >= UBWC_4_0)
+> +		rgb565_predicator = true;
+> +
+> +	if (ubwc_version < UBWC_3_0)
+> +		dev_err(&gpu->pdev->dev, "Unsupported UBWC version: 0x%x\n", ubwc_version);
+>  
+>  	mode = qcom_ubwc_version_tag(cfg);
+>  
+> 
 
