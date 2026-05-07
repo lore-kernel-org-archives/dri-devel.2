@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 618A6CD343F
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 14:57:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86B3FCD343F
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 14:58:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6F0410F1A3;
-	Thu,  7 May 2026 14:57:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E612D10F193;
+	Thu,  7 May 2026 14:58:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gUmfUBRK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="l56QzxdB";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D3B7210F1A3
- for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 14:57:19 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D117710F193
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 14:58:02 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 58C9A419EA;
- Thu,  7 May 2026 14:57:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA878C2BCB2;
- Thu,  7 May 2026 14:57:18 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 15EFF6015B;
+ Thu,  7 May 2026 14:58:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63CE4C2BCB2;
+ Thu,  7 May 2026 14:58:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778165839;
- bh=Zj9goVZkk3uH3KcKgVT6uhDP1rHu9LmB95T0Lu/5iD4=;
+ s=k20201202; t=1778165881;
+ bh=3p/GQpkMmyFcb+5cbWtULSyvjXHvqKU0BX5xnK9DDoo=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=gUmfUBRKvaW4imTXyrJQLH2gaLVPQdBnvUPHdNHVt3fJLkmOob9V5NSY1z5sMgKxj
- uHovTxAMxA0vNeQCFRI6GwptwZzXTZZ337ZdL3QPwrh7ceU34uPOSGj+tLtx3k1wJD
- cJc8E3QZzuI6ngUH45rSF+22lHvwB3PhBuInORqw9CvoAMLCgG01013Sq52y7ND2In
- /EbsFIBpzUG71JF22BLFoX4msEw1H/NzQXX1JY0g+0W5OZ6bQnA3TvIzrAVMKK0t8u
- 076ZcgzXXQifgkmr+mjqp2jhyk/1K191qS4fRf5j/PMgtsJOgu2yrNK2hnTxQPVucq
- h/NKw0kTbhh7Q==
-Date: Thu, 7 May 2026 16:57:16 +0200
+ b=l56QzxdB3EoXVtSmyV223W2jOWqei39bHytUw38H/G/9DSYZMIO1klatapxsD+5+0
+ We0FnozAmVlTuBfOtBasUzJsXn6Nj4wLvo5LxKt36Klgo1NWezlFcGjRj64J4FXcdk
+ C7h6hEb4RRN9EkJcpEOW5mT1XTvIIPzpiDdlfabmghXWdObK1sEnsrgs2CBU7A7GZ+
+ fthDOruUzBvdL4It7skEEFxcTRoMHLWqW2HiGeC2JlYd2TFcjrQQaaxBMWjstcWOjN
+ dTj/HrZjC7vfRVCyzRgSRyDGz7eYzocgFTeEhSdBnDnsW9fhbCycDDNysEE02SrE9g
+ vNjg+/pq188ww==
+Date: Thu, 7 May 2026 16:57:58 +0200
 From: Maxime Ripard <mripard@kernel.org>
 To: Albert Esteve <aesteve@redhat.com>
 Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -41,15 +41,15 @@ Cc: Neil Armstrong <neil.armstrong@linaro.org>,
  Michael Walle <mwalle@kernel.org>,
  Dario Binacchi <dario.binacchi@amarulasolutions.com>, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 10/10] drm/panel: Make drm_panel_init() static
-Message-ID: <20260507-premium-curious-macaw-d43cbe@houat>
+Subject: Re: [PATCH 00/10] drm/panel: Use refcounted allocation for remaining
+ panel drivers
+Message-ID: <20260507-frisky-spoonbill-of-defiance-dcb8cd@houat>
 References: <20260507-drm_panel_init_rm-v1-0-51f448c7c291@redhat.com>
- <20260507-drm_panel_init_rm-v1-10-51f448c7c291@redhat.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="3la7iaptlro7xr2g"
+ protocol="application/pgp-signature"; boundary="axdda5jrsphvlkw4"
 Content-Disposition: inline
-In-Reply-To: <20260507-drm_panel_init_rm-v1-10-51f448c7c291@redhat.com>
+In-Reply-To: <20260507-drm_panel_init_rm-v1-0-51f448c7c291@redhat.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,98 +66,59 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---3la7iaptlro7xr2g
+--axdda5jrsphvlkw4
 Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 10/10] drm/panel: Make drm_panel_init() static
+Subject: Re: [PATCH 00/10] drm/panel: Use refcounted allocation for remaining
+ panel drivers
 MIME-Version: 1.0
 
 Hi,
 
-On Thu, May 07, 2026 at 01:53:08PM +0200, Albert Esteve wrote:
-> Now that all panel drivers use devm_drm_panel_alloc(),
-> there are no external callers of drm_panel_init().
-> Make it static to prevent new users from bypassing the
-> refcounted allocation path.
+On Thu, May 07, 2026 at 01:52:58PM +0200, Albert Esteve wrote:
+> This series converts 9 remaining panel drivers from the deprecated
+> devm_kzalloc() + drm_panel_init() pattern to the refcounted
+> devm_drm_panel_alloc() API. This follows the work by Anusha Srivatsa
+> who introduced the refcounted panel allocation infrastructure [1] and
+> converted a first batch of drivers [2] (the last part of a 5 sub-series).
 >=20
-> Remove stale references to drm_panel_init() in kdocs.
+> Reasoning:
+> ----------
+> The old allocation pattern is unsafe: when the panel device is
+> unbound, devm frees the context struct immediately, but the DRM
+> device may still hold a reference to the embedded drm_panel through
+> the panel bridge, leading to a use-after-free. devm_drm_panel_alloc()
+> wraps the allocation in a kref scheme, so the memory is only freed
+> when the last reference is dropped.
+>=20
+> After this series, there are no remaining callers of drm_panel_init()
+> under drivers/gpu/drm/panel/, and drm_panel_init() is entirely removed
+> from the public API.
+>=20
+> [1] https://lore.kernel.org/all/20250331-b4-panel-refcounting-v4-0-dad50c=
+60c6c9@redhat.com/
+> [2] https://lore.kernel.org/all/20250710-b4-driver-convert-last-part-july=
+-v1-0-de73ba81b2f5@redhat.com/
 >=20
 > Signed-off-by: Albert Esteve <aesteve@redhat.com>
-> ---
->  drivers/gpu/drm/display/drm_dp_helper.c | 2 +-
->  drivers/gpu/drm/drm_panel.c             | 8 ++++----
->  include/drm/drm_panel.h                 | 4 ----
->  3 files changed, 5 insertions(+), 9 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/di=
-splay/drm_dp_helper.c
-> index a697cc227e289..380ebf0fad2be 100644
-> --- a/drivers/gpu/drm/display/drm_dp_helper.c
-> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
-> @@ -4626,7 +4626,7 @@ static const struct backlight_ops dp_aux_bl_ops =3D=
- {
->   * Backlight will then be handled transparently without requiring
->   * any intervention from the driver.
->   *
-> - * drm_panel_dp_aux_backlight() must be called after the call to drm_pan=
-el_init().
-> + * drm_panel_dp_aux_backlight() must be called after devm_drm_panel_allo=
-c().
->   *
->   * Return: 0 on success or a negative error code on failure.
->   */
-> diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
-> index d1e6598ea3bc0..e3e1c5ceb8ff8 100644
-> --- a/drivers/gpu/drm/drm_panel.c
-> +++ b/drivers/gpu/drm/drm_panel.c
-> @@ -56,8 +56,9 @@ static LIST_HEAD(panel_list);
->   * Initialize the panel structure for subsequent registration with
->   * drm_panel_add().
->   */
-> -void drm_panel_init(struct drm_panel *panel, struct device *dev,
-> -		    const struct drm_panel_funcs *funcs, int connector_type)
-> +static void drm_panel_init(struct drm_panel *panel, struct device *dev,
-> +			   const struct drm_panel_funcs *funcs,
-> +			   int connector_type)
->  {
->  	if (connector_type =3D=3D DRM_MODE_CONNECTOR_Unknown)
->  		DRM_WARN("%s: %s: a valid connector type is required!\n", __func__, de=
-v_name(dev));
-> @@ -69,7 +70,6 @@ void drm_panel_init(struct drm_panel *panel, struct dev=
-ice *dev,
->  	panel->funcs =3D funcs;
->  	panel->connector_type =3D connector_type;
->  }
-> -EXPORT_SYMBOL(drm_panel_init);
-> =20
->  /**
->   * drm_panel_add - add a panel to the global registry
-> @@ -708,7 +708,7 @@ EXPORT_SYMBOL(devm_drm_panel_add_follower);
->   * A typical implementation for a panel driver supporting device tree
->   * will call this function at probe time. Backlight will then be handled
->   * transparently without requiring any intervention from the driver.
-> - * drm_panel_of_backlight() must be called after the call to drm_panel_i=
-nit().
-> + * drm_panel_of_backlight() must be called after devm_drm_panel_alloc().
 
-I think we can drop that sentence entirely. Now that we can only get a
-panel structure through devm_drm_panel_alloc, and that it also
-initializes it, we can't call drm_panel_of_backlight before having an
-initialized drm_panel.
+Aside from the minor comment on the doc in patch 10,
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
 
+Thanks!
 Maxime
 
---3la7iaptlro7xr2g
+--axdda5jrsphvlkw4
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCafyoSwAKCRAnX84Zoj2+
-dvSIAX9U56ZHrDNtQnIQRYt3f8eEAzO6UVKoMIMDAm/gvUcNk3EafoLUQP8NeQYj
-3So15UcBf19f/KH9ZAWRXGI3flN+olcDyE73XIJKV2mZSsLQ5Al7XAzy/81rBJV/
-C7t3214oFg==
-=jEIC
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCafyodgAKCRAnX84Zoj2+
+dtAAAYDNPWTlga6y0Fxc4tlWyLoAE4rKE+OTQ3iJSTsZUnBTDUmhqatp6S6OqMrY
+7w6ezFUBgPXKOvTFbC3BkHd0ZgI7FyRgRmGaCdEKmaHerzU0j7asKYwCqej7PfWo
+Zr7BfCdzrA==
+=rnFm
 -----END PGP SIGNATURE-----
 
---3la7iaptlro7xr2g--
+--axdda5jrsphvlkw4--
