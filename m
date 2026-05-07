@@ -4,98 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 800AECD343F
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 13:03:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48805CD343F
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 13:03:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB33E10F0DD;
-	Thu,  7 May 2026 13:03:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C5CC10F0E3;
+	Thu,  7 May 2026 13:03:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="IDWHqlYf";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RpcfzEmU";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="GBexpJWU";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="I41ZiqHp";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2517510F108
- for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 13:03:26 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA3EB10F0E6
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 13:03:29 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 647AKWwo1669936
- for <dri-devel@lists.freedesktop.org>; Thu, 7 May 2026 13:03:25 GMT
+ 647AISM4879630
+ for <dri-devel@lists.freedesktop.org>; Thu, 7 May 2026 13:03:29 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- lRizh296idxaeGEPnbWh+8suGLFulwB7M6vVue2aYVg=; b=IDWHqlYf2XmYUPKH
- sJFnDRMRH16Gy9+uC1UG2Y+xpZdJqptWtvg1/qU2c6wgK9s9MI+kkz82w1JdKCQR
- EqVlj3h4fFuOzP7dHm0g/H7DmcMowDcqYzcifr8X1LUfIlkaoKHLrLkXripbQrlr
- iBt1Xnnu+vzdGMVz1VR6MZEnxY3GuHLpqjtjL/BR9plCElaGsouWS7EAhBdPmphi
- tnx2SPEZflzC3qRSSlZXpvcZf3HLd7t6+KRbBhR6Gskl+Ge8D9ulBE+36TZRe7+d
- jXYYNDf/7/SS28Pw5EDlWQK4gR3PO2uAxtF6ugcA2YIQa+Yy1MOEchO4tqe68UnW
- O48HFA==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
- [209.85.214.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e0k1p1xek-1
+ KrGdZ6Bna8qkROGke7rL/1evORye3ZzPkLd+P26j6Fs=; b=GBexpJWUB7j3H2Vs
+ gh0De5AnopuN2Awsfv78GrepAEtx+UtVwH6f+0BxVfE+yzc4YIRxYzS3RCVYPgpP
+ zRBPy+gyQXC/Kn71FX7jDnKhm0HcibpjrGTf72eRVLylmEpNFNh3NV90NFIW7Rg2
+ cUCs7ATJr7D83jIR37Hyg9GefPyZZwcdE9mJG1thdOXSQdQqhumzJ9F8U75IvDlv
+ qyVmFCxfAAjAXj0bSEErYB4AmUkg/MIFmXrgDj/B2qcjdcuXoyBiLKAxCe+OQ+Cz
+ tb0opRS3w7OjLnl840wJjxrDkJ7QlMzIrllI/LIro2MHTyxOdDX5omOt9V788W7T
+ yh00CA==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
+ [209.85.214.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e0kdq1v9g-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 13:03:25 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id
- d9443c01a7336-2b9a3c3c4eeso9504675ad.3
- for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 06:03:25 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 13:03:28 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id
+ d9443c01a7336-2b2e91add2aso10855675ad.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 06:03:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1778159005; x=1778763805;
+ d=oss.qualcomm.com; s=google; t=1778159008; x=1778763808;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=lRizh296idxaeGEPnbWh+8suGLFulwB7M6vVue2aYVg=;
- b=RpcfzEmUok85Ac5Wio8aw2vsj5H9+kV+I55m9IBB/Km9HPo3wD+gHfQURAZu/0r766
- 3xHQLDmCUS5At+Myf3qyyj0bdlQPXnV6/U611ch5EDs4v/SWWL4agdDUtuHrZMR3+m2H
- zs5PlohGh869rUA9DtGY+MdC6XXmcF/CMU1GNOlJGpbueEbIN2gZJ/Gh4MH+OiDKPTE6
- o0dIDPhJtbBcSY8g6IzVy4wXqvhtD2IudmsRIfhRex62nqJfRI4GlkxYOJwPXCEhQgkt
- I2Bbg0YDJzPuBfw4ptjFOSJLFOsz8ip8zkcVvTPJgMBLTC6n26itqsalP5v21IcmIdBw
- wo1Q==
+ :reply-to; bh=KrGdZ6Bna8qkROGke7rL/1evORye3ZzPkLd+P26j6Fs=;
+ b=I41ZiqHptDeLNvKjquDyieQ+R46RmRwvLt4T65/rJvz8l0LPiy5+ww7oxOHn91TN+R
+ lfWXLk/v4QSgnkX+5hNMrJv1cYyPsavWEruqZHNz8uJlbanS05tWB+hn2EMqyui6257j
+ NCdrozXmUUGTbJkP5n/VIV2CFCNU91iAv3R9Lu9fNdyN6SezHU66vCanKIBNmL2BmK39
+ d9UgJ/vrPo2XWMhVajQ66ZshDF+WyxMPVRD7PMNxEKBJ6/s68TYymDYPfZlkUC18r+Ss
+ zXfxx3s5b9hwcRrlLKdHOeexgAltYNdLukUwJwTzc14kZhZs1JJxtTDF51soF0S06zjZ
+ goIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778159005; x=1778763805;
+ d=1e100.net; s=20251104; t=1778159008; x=1778763808;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=lRizh296idxaeGEPnbWh+8suGLFulwB7M6vVue2aYVg=;
- b=EJngmFPxAtaFvC+y9uakbsdU2RL9+JeC4AKPVs48OtfD7HjDODjNMpZKTnyVAiJ8qL
- vxH0Pzg3R5B6hcgGOKF1GYKm+asZj1Ob926GplEqwx71YLjrQ3QIDy2PfRe4+rYM5jGR
- 8TAn6xYXeP3nRWqA1cHRynvQjIVVXV+EV7NtWkN9rwhPYIv4DDxXuuE+Hbu4LYDZgtzL
- FYbwc9oAvDSVC2OHCBnSBTC8f0WxDzhFUUdQ3B/h3X09+Ps014geuY1HoKra4Of6dNHY
- GDy2jk3xfXM/a+9O53USxzPUw9m/s6xXFF1OBNTaeQ26M43wezXBMOYXDVduVQCn/HkL
- HTCA==
+ bh=KrGdZ6Bna8qkROGke7rL/1evORye3ZzPkLd+P26j6Fs=;
+ b=Ul3rZRtRLLakEj75EU85YVo9nSU/hv8N4kFKIA3LSEF0XdE7fsset6sLcr8KjRp1WN
+ 1ZMyujyj4x3O3WcmMbNv8w0Z8T3YmzvY77ae/d2+A96NkJxtDYNZ6E0Ufs4x7l84uSlQ
+ Y2IYnzuMLcnLAwXjIDEOFKIaxt8BguyTIo222doVBl3tHJ7pbpYUeFDYIRyL9Xeyl4km
+ oOLZSNaqhbvDnAgpjnfeB5mcRXgrP6QZp0LzjV/E70aGl9PHqeLEDSpTceU9nJrRNzEH
+ VL2fjHUj/OFNBQCtCtrGAdNnW10zeZrXmJUJmmZxtnwhjD6PoRUdRL25BbaoEgYexits
+ TklQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9agS1fkJZAHr/0+6XyWaotm4bF/UKyA/CE99gQ2UiiC7rBYiqK8lJR985m72SvkYgs+uRpfXnJB+4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw2iGRuGXfEhMOhhB9EGO6vbZ7b0GzUkfySWN55pgFV/0HX75WU
- clpkQG549K0Nvs0/CzAqrKdQftHF9IgeH6RGxMT09lMZguvBeeXpuTbxiQaWBgivspyqS7BhIkz
- 0o8kLuFu39sIpTylRAoA2M7E541THg2Mb5I8tbXppFevyQgv7z1WKxSxUuEqCeMM6gGRU5iU=
-X-Gm-Gg: AeBDiesuu4W1RUnkoaxJ5qci3Al3KVYfk6aUIKfa+gDo6Bon/6HxtLb8ogAoqFUrQvb
- dmbB7qcibc5RCXIaQYSRiACnBiS4wDnmEWH4/PFG0bGs7GxTjDfsx//Lm7zg8qekJskUS/Od0xw
- yIrXLg/J+Vg2eK9X0iK8T1dPKE/SW/rX/d5gPsMieSAjodUtsoNqtrTBg9y4gREtj/mIembGnZu
- 3etzNs+GSJzaFENKT5vHtVS1GI3OoJj6se4l8oC3g7scZeTac3rAedHNK4IyEJmxxdJuvEi7mS2
- 02dM0MT5UB57guVErFM/ohwpmIej2YYfxyGbQZPVjF4/d0RpY04kTaf/gx+fOE/k9+4JUWLm7mN
- X9Xo7/LbyD9rFlFUe3L6zFES6iprr7Q3CEbcUNqbGH8Q8mQSEubKrghAdzqFn28ZONAk9F2M4aw
- 6bg5pnHauwVqbG5r4t2IS043MUuxcPYmY9N9cjlWYQ+hRmYg==
-X-Received: by 2002:a17:902:e790:b0:2ba:bfc:76b5 with SMTP id
- d9443c01a7336-2ba78b40166mr83458675ad.4.1778159004361; 
- Thu, 07 May 2026 06:03:24 -0700 (PDT)
-X-Received: by 2002:a17:902:e790:b0:2ba:bfc:76b5 with SMTP id
- d9443c01a7336-2ba78b40166mr83457155ad.4.1778159003317; 
- Thu, 07 May 2026 06:03:23 -0700 (PDT)
+ AFNElJ835S0YJaDC2Xq0rZAVu3eTnDMBmyBGOdp6Lna7+UyB3NuwhSrYeQ4xjs6hJBkUgc5i4ZJxaNLpWMM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwDp2voD6EVkZlpjP9eKQ0eLUpQ02oaJu5rveVsY7Qkk3olg0ob
+ /ioQB3Vy4g2UdU+KVe37fyItI1+ygis/eIeX5wZMIPF5cTBrmsU93lnEM2ZmpPslQJXgXr9VRKX
+ Wtz2DHfD79eEN3kL2P4617oYcQ3CFkcGjgMZbGdKemIITIbI/qsFxKoHRlxiHyYqvJmffX6Y=
+X-Gm-Gg: AeBDieuUO9kJYtiiffIPmm+31vwxuUUdKbrtivcHMb1jky5a4rK3/RFk7rImK4uS4ja
+ rosSIEqrVUGpUnvxYeyQ0z5zhJwGDZ69DyHpeZiTds2v9oVXk11PPE68ImdMN6EnIMsJE0vApZh
+ 4QxuXwfwbgYeHsikeKbWJFr86xiTVyJLaMYxoj60Qdgke6EWQCwBseEDbu2U6uyx9WS5zodRE7Q
+ w8ID+cVuKP6Tc0hSANQzJkplLn8YcqwxN/cBn3ysuHfgQZPMTiIQAp6io9lICL49QP3wTca9oJS
+ 26rBtcYe0hNDch2G/eTpnAaaIgrf2nHPvxB/p47HtyNHsIV4fUx/jtsJBLgRutKP90PbH6E9kWk
+ BNxG1i9o04KBYw2ORAPUK6VEUeTBfcntCJku8QNAaOtm/9mfxaZoFJLQrUVcYtcRb2Mss+P+Nu5
+ 2y/D8hvDc/K+g4brAM5k/t+4H9vRYYgMaPPRekuwZMkjOXhw==
+X-Received: by 2002:a17:903:291:b0:2b2:49a7:a5bc with SMTP id
+ d9443c01a7336-2ba799d39c8mr77213125ad.39.1778159007529; 
+ Thu, 07 May 2026 06:03:27 -0700 (PDT)
+X-Received: by 2002:a17:903:291:b0:2b2:49a7:a5bc with SMTP id
+ d9443c01a7336-2ba799d39c8mr77212145ad.39.1778159006887; 
+ Thu, 07 May 2026 06:03:26 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a85c230c68sm5595959e87.19.2026.05.07.06.03.20
+ 2adb3069b0e04-5a85c230c68sm5595959e87.19.2026.05.07.06.03.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 May 2026 06:03:21 -0700 (PDT)
+ Thu, 07 May 2026 06:03:24 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Thu, 07 May 2026 16:03:02 +0300
-Subject: [PATCH v4 06/29] drm/msm/adreno: use qcom_ubwc_version_tag()
- helper
+Date: Thu, 07 May 2026 16:03:03 +0300
+Subject: [PATCH v4 07/29] drm/msm/mdss: use qcom_ubwc_version_tag() helper
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260507-ubwc-rework-v4-6-c19593d20c1d@oss.qualcomm.com>
+Message-Id: <20260507-ubwc-rework-v4-7-c19593d20c1d@oss.qualcomm.com>
 References: <20260507-ubwc-rework-v4-0-c19593d20c1d@oss.qualcomm.com>
 In-Reply-To: <20260507-ubwc-rework-v4-0-c19593d20c1d@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -111,41 +110,42 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1565;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1662;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=taU2aKAGQBJ6W2MyCZ4bOSBa16fxBG0Rs7Rtqck5Xao=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBp/I2EnmzZQ9Ysoo2V1PXmrQNKg0nbhsvvYayiU
- vxiP7NzJRaJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCafyNhAAKCRCLPIo+Aiko
- 1RrhCACrPvBm62tRCkk7HoECYx2MJcGTM/IlTReOG3sDeHdoUQnzfkbAVF9yYO6JRXa9vF998pC
- y6+lGq0kFFtPSew2q9ggzIKfHpWgA9NviJ0EGGsjADx9A0ZJs4Dq8JBoQOQxaYPS3j3G6YClaE7
- lifQEGGfy3UiQjT/Gvv22N2JECkALgXBGCvISbjfjKQ/AECXgCFeumjCcmmQxQ3OkWHqhO+2wVn
- C2UbpoNLvCUB9qwPF+jiOIzA+DuZBuZQZfGDlHvnMy6IWi7rYe+ptPm62Zh1Ioye/RfosCi8zo+
- h4FMml3CgoBS1upR4DTxUoBeK74mZUbwHGVjlig621jDhjYe
+ bh=pQcZSLClq75f0H7mdOxTbEo5DpGKFB3n0GBshQz7Fb8=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBp/I2F69Gf0+wrJZ+PAcIYbdCZBc3bLgBJpG3EJ
+ 0+hZRvmqt2JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCafyNhQAKCRCLPIo+Aiko
+ 1YrBB/oDsZ6AVPY2ZhV7yKScT8oIWVeq2n5oJtdKLpgtIMphPmRL+a82CLnLw1RhBcNnlqpCFlZ
+ cNiZPg4pWyklMEENCYwQ+zezrwoKmGcgl4cTjnHxqgOIFMgCL3YKmZQFwUpi/j+l0REimJwbl3B
+ 8TrPkOFEwEKmz6nOB9FAfEqW2EvPQWmRTqhVdSj0cUUK/2vUYSsktZ+EtBH/iC1TGvjMO8a2bf0
+ OwieVYHZIOTH1AN64R2+6rJFspKZ2wydps8vAtybEyf9eVevJAQhFvdjsx/4UaiCKTvvaIOPVKg
+ YR/4+lH4qMq8FEgn8ZUkD0Kj4+G9bZZ1xBy20PwJClCsUA34
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA3MDEzMCBTYWx0ZWRfX3uY+ZjLO/qog
- owBGTbN6PssWUTOnb5UK/evsFo3sgwFTDpf9xPgabt2TlqaLwTLGbX3dfGY8ti7r5z8XWZAmp89
- FhMxuSYjA/ryN+j52GIOYWtWanaRb1nHhj5ByjamAen2KDEuVVdFr+penMD1eaJEJsJLBLRi8C7
- oujm/8Qv7mKFdyYKQWvxnBuNiRUHTvs17aHXHXTneuDaWyASvXiEBMrdst78oaqBLWbSfYZt8B7
- 6FQ6OUXJverOTgyp2IWbyl97ZIGzEHlu9EQQ83Ag3bVHa69vO19R+9OQdEgEcrxzl5DENU2w5Pq
- g+n6BbUpXMRrYmjNS2kRNptdE5tLiDvwQQObSFpjUNj33fwwXFeY2K38EUXD5qHfdQSeF8oQWoe
- gmZBz+ZKfEj7diNHzL0DCvJlOq0LD78Lg5KOvhsJkPuAAZQOiZ+rcoiPMF09hXeXz5CdIoXOw15
- dQJ8DC2+2w4g9iOA0WA==
-X-Proofpoint-GUID: XAQ1haVbbU-YGElHBqAuhloI7FM9nbWC
-X-Proofpoint-ORIG-GUID: XAQ1haVbbU-YGElHBqAuhloI7FM9nbWC
-X-Authority-Analysis: v=2.4 cv=K4IS2SWI c=1 sm=1 tr=0 ts=69fc8d9d cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Authority-Analysis: v=2.4 cv=P6IKQCAu c=1 sm=1 tr=0 ts=69fc8da0 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
- a=xoTxleRWwXRO4XdZWWkA:9 a=QEXdDO2ut3YA:10 a=uG9DUKGECoFWVXl0Dc02:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
+ a=qBJULKV797PGQuHHbA8A:9 a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-ORIG-GUID: WMlkYSlG3x1v8TJUum-ZO7mA_LLz1rKS
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA3MDEzMCBTYWx0ZWRfX3c+MMQl8z/85
+ eKCtzMf0pxXKIaBfo7bJnvNUlAK7UWT//aAwpbaCIuaOVDBb0tx7v/0HP26bxTvDryPubBuvgcs
+ Y/HhbygomMQ2yV6O459pgEk6pVvIZyWhc7KMNhH0XEX7WXxnuuaTnei95tA98e3yQOIIdPmv3yc
+ 0rYRc7SxbywxH5xgiFAdyNvO6N1U+KNEnMTsx3M9XkMZ3vXnC/oUpwnIQR47Bgb9s9itZx46RKi
+ qTMBdVOXT69sPX/qv+oHHMYzE8u846XYsmMRCR2519GErtggovo4vY3m7LG/gZPxbD5o3KpEMUy
+ ucGNmzBd+eZU03H485qqoDq57/JBiioiF1v9r73JSjsGvE2zjbbtOegE5XTj4LtCXylhLzq2tD7
+ vaicb5P8juCUbfeiTgBI9MXJ+fGLd/C+V1guRwGJWTvB1uRPvA2mLOdJOXyVTne4pUA06K/Xomf
+ fjCNKn+XmBKw0Xe3TDQ==
+X-Proofpoint-GUID: WMlkYSlG3x1v8TJUum-ZO7mA_LLz1rKS
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-05-07_01,2026-05-06_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 adultscore=0 malwarescore=0 lowpriorityscore=0
- impostorscore=0 phishscore=0 clxscore=1015 bulkscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605070130
+ phishscore=0 suspectscore=0 clxscore=1015 bulkscore=0 spamscore=0
+ lowpriorityscore=0 malwarescore=0 adultscore=0 priorityscore=1501
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2605070130
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,52 +166,45 @@ Use new helper defined to program UBWC version to the hardware.
 Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/adreno/a8xx_gpu.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/msm/msm_mdss.c | 18 +++---------------
+ 1 file changed, 3 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-index ccfccc45133f..1923f904d37d 100644
---- a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-@@ -282,35 +282,33 @@ static void a8xx_set_ubwc_config(struct msm_gpu *gpu)
- 	bool rgb565_predicator = false, amsbc = false;
- 	bool ubwc_mode = qcom_ubwc_get_ubwc_mode(cfg);
- 	u32 ubwc_version = cfg->ubwc_enc_version;
--	u32 hbb, hbb_hi, hbb_lo, mode = 1;
-+	u32 hbb, hbb_hi, hbb_lo, mode;
- 	u8 uavflagprd_inv = 2;
+diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
+index 4a6acd468bc8..229b47415f29 100644
+--- a/drivers/gpu/drm/msm/msm_mdss.c
++++ b/drivers/gpu/drm/msm/msm_mdss.c
+@@ -201,7 +201,7 @@ static void msm_mdss_6x_setup_ubwc(struct msm_mdss *msm_mdss)
+ 	const struct qcom_ubwc_cfg_data *data = msm_mdss->mdss_data;
+ 	u32 value = MDSS_UBWC_STATIC_UBWC_SWIZZLE(data->ubwc_swizzle) |
+ 		    MDSS_UBWC_STATIC_HIGHEST_BANK_BIT(data->highest_bank_bit - 13);
+-	u32 ver, prediction_mode;
++	u32 prediction_mode;
  
- 	switch (ubwc_version) {
- 	case UBWC_6_0:
- 		yuvnotcomptofc = true;
--		mode = 5;
- 		break;
- 	case UBWC_5_0:
- 		amsbc = true;
- 		rgb565_predicator = true;
--		mode = 4;
- 		break;
- 	case UBWC_4_0:
- 		amsbc = true;
- 		rgb565_predicator = true;
- 		fp16compoptdis = true;
- 		rgba8888_lossless = true;
--		mode = 2;
- 		break;
- 	case UBWC_3_0:
- 		amsbc = true;
--		mode = 1;
- 		break;
- 	default:
- 		dev_err(&gpu->pdev->dev, "Unknown UBWC version: 0x%x\n", ubwc_version);
- 		break;
- 	}
+ 	if (data->ubwc_bank_spread)
+ 		value |= MDSS_UBWC_STATIC_UBWC_BANK_SPREAD;
+@@ -219,20 +219,8 @@ static void msm_mdss_6x_setup_ubwc(struct msm_mdss *msm_mdss)
+ 	else
+ 		prediction_mode = 1;
  
-+	mode = qcom_ubwc_version_tag(cfg);
-+
- 	/*
- 	 * We subtract 13 from the highest bank bit (13 is the minimum value
- 	 * allowed by hw) and write the lowest two bits of the remaining value
+-	if (data->ubwc_enc_version >= UBWC_6_0)
+-		ver = 5;
+-	else if (data->ubwc_enc_version >= UBWC_5_0)
+-		ver = 4;
+-	else if (data->ubwc_enc_version >= UBWC_4_3)
+-		ver = 3;
+-	else if (data->ubwc_enc_version >= UBWC_4_0)
+-		ver = 2;
+-	else if (data->ubwc_enc_version >= UBWC_3_0)
+-		ver = 1;
+-	else /* UBWC 1.0 and 2.0 */
+-		ver = 0;
+-
+-	writel_relaxed(ver, msm_mdss->mmio + REG_MDSS_UBWC_CTRL_2);
++	writel_relaxed(qcom_ubwc_version_tag(data),
++		       msm_mdss->mmio + REG_MDSS_UBWC_CTRL_2);
+ 	writel_relaxed(prediction_mode, msm_mdss->mmio + REG_MDSS_UBWC_PREDICTION_MODE);
+ }
+ 
 
 -- 
 2.47.3
