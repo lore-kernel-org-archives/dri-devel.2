@@ -4,113 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82085CD3444
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 11:52:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 845A3CD3427
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 11:52:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAD1510F020;
-	Thu,  7 May 2026 11:52:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E231810E042;
+	Thu,  7 May 2026 11:52:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="dho6Eakv";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="D7bpLThL";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="zGFDhazQ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="CwhEcVW8";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="HGNab578";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C366A10F05B
- for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 11:52:17 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 0AC725D93F;
- Thu,  7 May 2026 11:52:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1778154736; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=BI0h7K7D7RBhJ4C/LfArVtjppHL+7fmlkKWVzAzvlx4=;
- b=dho6Eakvt61Udn9fgyn8IztUU/E8RDDsPrrDy0QGBLAYPWBKpNdAOtk0UdMZt53gGFPjbk
- /+w73bP7TTbqasFkOGw1Yh/lpS65ZH6U4jV1nnONursgQKhGn+WpZJCUMZ5i3i69FOWSez
- 0p0emQXnEe+OvnL4RtdeKUMtOfQDcwk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1778154736;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=BI0h7K7D7RBhJ4C/LfArVtjppHL+7fmlkKWVzAzvlx4=;
- b=D7bpLThLo0+NaB+WsR9HWMOehGYX8zG6kkc6h0xMxB5ZrVi/r8Hsn+ZTeycqGc2n+3nKiK
- PacaS/HJtlX+eVAw==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=zGFDhazQ;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=CwhEcVW8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1778154735; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=BI0h7K7D7RBhJ4C/LfArVtjppHL+7fmlkKWVzAzvlx4=;
- b=zGFDhazQR4LiJVbj2C7iq/IfHNKzCDR6xZVl53YZI7GgRto3/NrnnSwPTO7T7Pz44K4AAM
- aGZC22Ez1esbg1dGl3h2KWfHDGZZ5OYkcqQ4Qv9H2Euj5tWRsaLBt265kPwOklUKKsCZ9R
- O+A+ewjI+nrNSD030knZtzcKM6DsowE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1778154735;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=BI0h7K7D7RBhJ4C/LfArVtjppHL+7fmlkKWVzAzvlx4=;
- b=CwhEcVW8iEzqUxrQtX/0naGYeYb2xEfSU6zhtoqU+AUuWwfdNbZChlLn6C4UFMbpzZH1oP
- m5mHGLjxuk1h6PAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 91F52593A7;
- Thu,  7 May 2026 11:52:14 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id CopcIu58/GnbFQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 07 May 2026 11:52:14 +0000
-Date: Thu, 7 May 2026 13:52:13 +0200
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dim-tools@lists.freedesktop.org
-Subject: [PULL] drm-misc-fixes
-Message-ID: <20260507115213.GA206508@linux.fritz.box>
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E65810E042
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 11:52:33 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-4891b4934ffso87765e9.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 04:52:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778154752; cv=none;
+ d=google.com; s=arc-20240605;
+ b=VaF5xNK6v3vLkx60mU+P2JBVrJJ/2sZxXrniJWQKFKzc8Eer3FcvxrfxG7O8ydXAf1
+ 1o5x8gxvXqV8FTeE8rsEttuVyvZLphcebynclZ7w3qzDv2KCLuJtRElJ9jTZ5T3ZVTc3
+ G0JhRsceD8CTCBrBy+9P3CfSG+i2nUvuV8nUhzl71Vjfq91SSFUpvg31ymQPYL8aTjG4
+ z1QyjpZnnnR+UJ9jjuIjPq23pOCPkKy9BXx35vjWON2b3u2Ws6qqNAMfmvaDIs5EMrbq
+ QQNp2yNaByrLh+xedDqLYazDcGMdYIjmzJKMk8/k3VQxLlOX9tU5YiT8E/PVYeD7nVvt
+ NwQA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=h2fMYnCYIrNFnwnb1qtbtb1UtOtqen5sV4Rb7709pMQ=;
+ fh=mVhPbqivWzGuxxaeJeRFe+LsWul9Fm1hvqzmUBFt0io=;
+ b=ZBQ0/05+jppRhuK3qKKoLKKD8kotnR5FeTF6PCVYmlpLdt8UoYuCIoxJclDxO9hHfM
+ o1EpwXIS7/QSLCEwO0VylFyWedGOxYE58Igk7ZMzubMMKkHIzyxeUIuCdYWDzVmdcKON
+ 6C5fe4Rrz8PIlpdBzET7QEKhQVC0WfHP/NPSr4qFoOr0UqgspsW+dhSWkARFOsne5kix
+ 9nyhfsbxOjg9j9TNRDL+pMwD26ofbGZ+tG+3WCcg98SHURwKaxT71sSzCOmJzCEDJJ03
+ FcKF9RkIOpRHp+WiCaMicq6Frt60x7VV/xRk/cKReCF5nr1IrTnnJ+tniDV8OLQt3umz
+ Lekw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1778154752; x=1778759552;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=h2fMYnCYIrNFnwnb1qtbtb1UtOtqen5sV4Rb7709pMQ=;
+ b=HGNab578tZysBtIg2KPT/cKe/RSILIEVWvyKLHFw9046VhptcWSWWl0lWZ5Hgdi2nS
+ +l4yNsDFDcd6tYnvXr21FOdiVwT/IveeNcDXsFdJwCLMbnb/T90N0o14r1IOCXTILzuL
+ jjc/oWkcQ1DVy202a4/DHaBp/UyRxiJPKfnwQ5JGv2s9Hgg17zzWk+OIR0guHfxlaAK4
+ yKZNiDPtovOZXXrbaMLoBlYPtUI97/N4t1qfyg+2f2CWVDiuqRe6o5QU7RobBxswOd8R
+ ebIJtvnXKEhxu/DakVu/0QYD6xf45z4CC/cABlHIqBk2FBjB9AVZqp/Cj4iElS3fSSdq
+ ilXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778154752; x=1778759552;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=h2fMYnCYIrNFnwnb1qtbtb1UtOtqen5sV4Rb7709pMQ=;
+ b=QKkPkes7j2IfHnTPUaLukbylz0lX9eEXvYa07STghL0JJaII5KPTQKRaIMvZhnpQ7Y
+ qnse/lRWR+OGPQ5yaMMb2oitCHCEu5FHb/sR5/hK2u/hYmmVwi6PIjca+SEwtNPpR+rS
+ yyOidNbeNowz+WZmErge+Hk2iO47VT+fjNadgbCA24KtLN6UPxKJlRwKs5Lk8g43LdCS
+ JLXjj955XGPHU4jSn2WbHj3CioyhQuEauKHCYTMo+R8W2sWcMGEJIO+u9qfbJ9WETvY2
+ x7nXBY0oYF95OqPv/SvqV5sI7SofUvnMrC8PyufBkn6FBWDgCNO9wyIiKRWTBZn3TZVO
+ CW/w==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+wH2AN8FU/oUE8mfS0Jz5VA+pfukQHk9uonCr1zzAsXFDg9xj8pPxDYDOkRb+n5jBjkmmGclfSt6g=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy0sbo3Vm15fhuAK0FIn5kb83ueaRIA3SJod+cBCjjJ62MY5x/G
+ Ra13W84WC6RsABFzmpo/BLhwbAhIJRAR4oEaNrwNiSDYjqZxjf+Eyn0OcHyvGK7SFhGPLuEXVdZ
+ VrTpJvbMgQJN3TlTtNtF2pga8r2nccSFUGcZcXDXL
+X-Gm-Gg: AeBDietT28xiVpJGTBqbby2PVZ39iC8Dksw2BJm9LYLCUY96iLz2UT0lSUAbS53WXHY
+ xo0z0tEFUKsqUvOjm15MneQTzsOUIcG+ZAuTqcYtsPlCgnlsW8xvFSNs7+Aas2hrV6ReADbfkSN
+ m9Y3mZ6m6Cpo1AKYWLidLgQGQiMTOOECspHwUqkCQAzgLituxmnG73ZCa3h9GphHrg40JqfvV0b
+ CC6cyHiP/AoSlTrXMIK6V/QxJEQ0CDnjdeynNDz0HQe60qzlnD2+lD6coIw90JKHJkJL5xfVkDI
+ H5SIJrBvkz1DIvWZi/zn6zrJ2hXMKZiWDa2vJPtoSAfrg2c3Wv9ep1czitRU
+X-Received: by 2002:a05:600d:6450:10b0:48a:55dc:9c1e with SMTP id
+ 5b1f17b1804b1-48e5d45d30dmr663245e9.10.1778154751362; Thu, 07 May 2026
+ 04:52:31 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
- MISSING_XM_UA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[16];
- ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
- FUZZY_RATELIMITED(0.00)[rspamd.com];
- FREEMAIL_TO(0.00)[gmail.com,ffwll.ch];
- RCVD_VIA_SMTP_AUTH(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,linux.fritz.box:mid,suse.de:dkim,gitlab.freedesktop.org:url];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Queue-Id: 0AC725D93F
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+References: <CAHijbEXhuVRgkkPA2dAC=njGBU7vpAbxAbsSmxvvPznO-ckVRA@mail.gmail.com>
+ <cf945dda-f526-4544-bc43-22f70acb28f5@amd.com>
+ <CAHijbEXQfm4QDDfo1yiVBV9mVvogGqt_BAu2ipnhqa-EDOKteg@mail.gmail.com>
+ <CABdmKX1pDc7wpLVQzM0ihH6AfW+=KWdyaZuorMqWCbC80Y7-Bw@mail.gmail.com>
+ <b9c1b7a3-12a8-4104-b98f-a1e57b343046@amd.com>
+In-Reply-To: <b9c1b7a3-12a8-4104-b98f-a1e57b343046@amd.com>
+From: "T.J. Mercier" <tjmercier@google.com>
+Date: Thu, 7 May 2026 04:52:19 -0700
+X-Gm-Features: AVHnY4LrtQD1vp6VlN2Vm6s4bEP0BXc-IojZFRNiMBPSNFKjm4nQmQFAY7f1gs8
+Message-ID: <CABdmKX0KQqD=QtongicEBL5y-3xMvf94YC3wqH_FynLVTJaAew@mail.gmail.com>
+Subject: Re: Regression due to /sys/kernel/dmabuf/buffers removal
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Julian Orth <ju.orth@gmail.com>, corbet@lwn.net,
+ dri-devel@lists.freedesktop.org, 
+ linaro-mm-sig@lists.linaro.org, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ Sumit Semwal <sumit.semwal@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,177 +113,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Dave, Sima, 
+On Thu, May 7, 2026 at 4:35=E2=80=AFAM Christian K=C3=B6nig <christian.koen=
+ig@amd.com> wrote:
+>
+> On 5/5/26 16:32, T.J. Mercier wrote:
+> > On Tue, May 5, 2026 at 6:00=E2=80=AFAM Julian Orth <ju.orth@gmail.com> =
+wrote:
+> >>
+> >> On Tue, May 5, 2026 at 2:41=E2=80=AFPM Christian K=C3=B6nig <christian=
+.koenig@amd.com> wrote:
+> >>>
+> >>> Hi Julian,
+> >>>
+> >>> On 5/5/26 14:25, Julian Orth wrote:
+> >>>> In ab4c3dcf9a71582503b4fb25aeab884c696cab25 ("dma-buf: Remove DMA-BU=
+F
+> >>>> sysfs stats") the /sys/kernel/dmabuf/buffer directory was removed.
+> >>>>
+> >>>> I've been using this interface, specifically the exporter_name file,
+> >>>> to detect dmabufs created via udmabuf. Such dmabufs show "udmabuf" i=
+n
+> >>>> exporter_name. I've been doing this for two reasons: 1) to detect th=
+at
+> >>>> mmap on such buffers will be fast and 2) to detect that GPU access t=
+o
+> >>>> such buffers will be slow.
+> >>>
+> >>> Crap, I really hoped that Android was the only user of that sysfs int=
+erface since that approach turned out to be quite broken.
+> >>>
+> >>> It's number one rule on Linux that we don't break userspace. So I hop=
+e that you don't insist on bringing that interface back, but if you do I wi=
+ll just revert the removal until we found a better solution.
+> >>
+> >> Bringing it back shouldn't be necessary.
+> >>
+> >>>
+> >>>> With the removal of that file, that detection mechanism no longer wo=
+rks.
+> >>>>
+> >>>> I'm not particularly fond of that mechanism but it was the only one
+> >>>> providing that functionality that I could find at the time. If there
+> >>>> is another one, ideally an ioctl on the dmabuf, please let me know.
+> >>>
+> >>> The virtual fdinfo file you can find under /proc/$pid/fdinfo/$fd also=
+ contains the exporter name for the DMA-buf.
+> >>>
+> >>> You can find the full documentation here: https://docs.kernel.org/fil=
+esystems/proc.html#dma-buffer-files
+> >>>
+> >>> Is that sufficient?
+> >>
+> >> I think that is sufficient. I probably didn't use fdinfo initially
+> >> because 1) it's a lot more work to parse and 2) I wasn't sure if it
+> >> was intended to be machine-readable or if there could sometimes be
+> >> newlines in the values and such.
+> >>
+> >>>
+> >>> Additional to that the debugfs for DMA-buf also contains that informa=
+tion and I'm open to the suggestion with the IOCTL.
+> >>
+> >> My application runs as a regular user so it cannot access /sys/kernel/=
+debug.
+> >>
+> >> Having an IOCTL would be ideal if it is not too much work. I'll fall
+> >> back to fdinfo for now.
+> >>
+> >> Thanks, Julian
+> >
+> > Phew, I'm glad fdinfo suits your needs.
+>
+> Yeah, exactly my thinking as well :)
+>
+> A college questioned me this week how to find DMA-buf stats for debugging=
+ and it turned out that Google points to the outdated DMA-buf sysfs documen=
+tation instead of the debugfs one.
+>
+> No idea why, maybe we need to improve the documentation here a bit.
 
-here's the (rather large) PR from drm-misc-fixes for this week.
+Ah, this? https://source.android.com/docs/core/graphics/implement-dma-buf-g=
+pu-mem
 
-Best regards
-Thomas
+I will update it to mark it as deprecated, and only applicable to
+kernels < 6.18 where CONFIG_DMABUF_SYSFS_STATS was first disabled.
 
-drm-misc-fixes-2026-05-07:
-Short summary of fixes pull:
+source.android.com updates are usually released with the platform,
+which is very soon for Android 17.
 
-bochs:
-- fix managed cleanup
-
-bridge:
-- tda998x: fix sparse warnings on type correctness
-
-etnaviv:
-- schedule armed jobs
-
-exynos:
-- managed bridge cleanup
-
-fb-helper:
-- fix clipping
-
-ivpu:
-- disallow reexport of GEM buffer objects
-
-noveau:
-- revert support for GA100
-
-panel:
-- boe-tv101wum-nl16: use correct MIPI_DSI mode
-- feyjang-fy07024di26a30d: fix error reporting
-- himax-hx83102: use correct MIPI_DSI mode
-- himax-hx83121a: fix error checks
-- himax-hx83121a: select DRM_DISPLAY_DSC_HELPER
-
-qaic:
-- fix RAS message handling
-
-qxl:
-- clean up polling
-
-sti:
-- managed bridge cleanup
-
-ttm:
-- update GPU MM stats on pool shrinking
-The following changes since commit ac2c996675755c725a0065dbe3e2ebffded9080b:
-
-  drm/udl: Increase GET_URB_TIMEOUT (2026-04-28 10:50:41 +0200)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-fixes-2026-05-07
-
-for you to fetch changes up to b15838b03cd0c6cf35651cfde62d17f14bb1d566:
-
-  drm/bochs: Drop manual put on probe error path (2026-05-07 10:51:18 +0200)
-
-----------------------------------------------------------------
-Short summary of fixes pull:
-
-bochs:
-- fix managed cleanup
-
-bridge:
-- tda998x: fix sparse warnings on type correctness
-
-etnaviv:
-- schedule armed jobs
-
-exynos:
-- managed bridge cleanup
-
-fb-helper:
-- fix clipping
-
-ivpu:
-- disallow reexport of GEM buffer objects
-
-noveau:
-- revert support for GA100
-
-panel:
-- boe-tv101wum-nl16: use correct MIPI_DSI mode
-- feyjang-fy07024di26a30d: fix error reporting
-- himax-hx83102: use correct MIPI_DSI mode
-- himax-hx83121a: fix error checks
-- himax-hx83121a: select DRM_DISPLAY_DSC_HELPER
-
-qaic:
-- fix RAS message handling
-
-qxl:
-- clean up polling
-
-sti:
-- managed bridge cleanup
-
-ttm:
-- update GPU MM stats on pool shrinking
-
-----------------------------------------------------------------
-Alok Tiwari (1):
-      accel/qaic: fix incorrect counter check in RAS message decode
-
-Arnd Bergmann (1):
-      drm/panel: hx83121a: select DRM_DISPLAY_DSC_HELPER
-
-Chen Ni (1):
-      drm/panel: himax-hx83121a: Fix incorrect error check for devm_drm_panel_alloc()
-
-Christian Van (1):
-      drm/panel: feiyang-fy07024di26a30d: return display-on error
-
-Francesco Lavra (1):
-      drm/fb-helper: Fix clipping when damage area spans a single scanline
-
-Icenowy Zheng (2):
-      drm/panel: boe-tv101wum-nl6: restore MODE_LPM after sending disable cmds
-      drm/panel: himax-hx83102: restore MODE_LPM after sending disable cmds
-
-Karol Wachowski (1):
-      accel/ivpu: Disallow re-exporting imported GEM objects
-
-Kory Maincent (TI) (2):
-      drm/bridge: tda998x: Use __be32 for audio port OF property pointer
-      drm/bridge: tda998x: Return NULL instead of 0 in tda998x_edid_read()
-
-Matthew Brost (1):
-      drm/ttm: Fix GPU MM stats during pool shrinking
-
-Maíra Canal (1):
-      drm/etnaviv: Fix armed job not being pushed to the DRM scheduler
-
-Myeonghun Pak (2):
-      drm/qxl: Fix missing KMS poll cleanup
-      drm/bochs: Drop manual put on probe error path
-
-Osama Abdelkader (2):
-      drm/sti: remove bridge when sti_hda component_add fails
-      drm/exynos: remove bridge when component_add fails
-
-Timur Tabi (1):
-      Revert "drm/nouveau/gsp: add support for GA100"
-
- drivers/accel/ivpu/ivpu_drv.c                       | 21 +++++++++++++++++++++
- drivers/accel/qaic/qaic_ras.c                       |  4 ++--
- drivers/gpu/drm/bridge/tda998x_drv.c                |  4 ++--
- drivers/gpu/drm/drm_fb_helper.c                     |  2 +-
- drivers/gpu/drm/etnaviv/etnaviv_sched.c             | 16 +++++++++-------
- drivers/gpu/drm/exynos/exynos_drm_mic.c             |  8 +++-----
- drivers/gpu/drm/nouveau/nvkm/engine/device/base.c   | 11 +++++++++--
- drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga100.c     |  4 ++++
- drivers/gpu/drm/nouveau/nvkm/subdev/gsp/tu102.c     | 18 +++++-------------
- drivers/gpu/drm/panel/Kconfig                       |  1 +
- drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c      |  2 ++
- .../gpu/drm/panel/panel-feiyang-fy07024di26a30d.c   |  4 +---
- drivers/gpu/drm/panel/panel-himax-hx83102.c         |  2 ++
- drivers/gpu/drm/panel/panel-himax-hx83121a.c        |  4 ++--
- drivers/gpu/drm/qxl/qxl_drv.c                       |  6 ++++--
- drivers/gpu/drm/sti/sti_hda.c                       |  8 ++++----
- drivers/gpu/drm/tiny/bochs.c                        | 10 +++-------
- drivers/gpu/drm/ttm/ttm_pool.c                      | 18 ++++++++++++------
- 18 files changed, 87 insertions(+), 56 deletions(-)
-
--- 
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+> > Adding an ioctl would introduce new UAPI so I think we'd want to avoid
+> > that unless absolutely necessary.
+>
+> CRIU has some similar requirements, e.g. they need to know the exporting =
+driver of a DMA-buf.
+>
+> Not sure if the fdinfo file will be sufficient for that case or not. But =
+yeah I agree that we only need this if actually necessary.
+>
+> Regards,
+> Christian.
+>
+> >
+> > Thanks,
+> > T.J.
+> >
+> >>>
+> >>> Regards,
+> >>> Christian.
+> >>>
+> >>>>
+> >>>> Shipping an entire BPF compiler in my application, which the origina=
+l
+> >>>> patch suggests as the replacement, is not an option when the removed
+> >>>> alternative was simply reading a file.
+> >>>>
+> >>>> Thanks, Julian
+> >>>
+>
