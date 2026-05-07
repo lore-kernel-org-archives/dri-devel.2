@@ -4,51 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72801CD343F
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 13:15:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DC5FCD3439
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 13:19:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6D2F10E28C;
-	Thu,  7 May 2026 13:15:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F388110F10A;
+	Thu,  7 May 2026 13:19:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="vCCRWOyA";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="c+WbO38f";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FB5310E28C
- for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 13:15:44 +0000 (UTC)
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
- [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1400A9CE;
- Thu,  7 May 2026 15:15:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1778159738;
- bh=+uSz2CvqI6QodBN7KGNT3VsASm33XInFFTQY4uOydhA=;
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 1A6C610F116
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 13:19:09 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3EDC51688;
+ Thu,  7 May 2026 06:19:03 -0700 (PDT)
+Received: from [10.57.67.110] (unknown [10.57.67.110])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 417483F763;
+ Thu,  7 May 2026 06:19:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1778159948; bh=yXfCBFCPgjOdOHb+BXpPtV18+dE1tw2IPBvEyejnGQ8=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=vCCRWOyAtDNbSBzKIWXupOvdI4SwYVP5TIGXS30lwmLvsYJUbRRQKE/QMh9BZmg4g
- Z9yf3Bk1PRfWBKX8iLnQ2Fet+AGWWE60e4NugtrW/bcA1RiU0ZMRmvaIpaCZuvjwfL
- UITqqqRL/eWuBDG+4EeBnSTHgnwl4QGE3iVexuqI=
-Message-ID: <e7762253-fbc3-455a-b197-fe040a3cf443@ideasonboard.com>
-Date: Thu, 7 May 2026 16:15:39 +0300
+ b=c+WbO38fpAK05jEpTLtFj9smv59nLRjtMjNRcVMBvyloemq6GwEzBhTeDMcS5JRnz
+ 1qquED8BFq//9bSqSSWM6A3j/+v1n701n5LlvRFxfk2qeuX6wPxudG+02ZkjpOUTeT
+ MA12aXU+nJq+H7WSP3yBSeZEHAvPKzdJV/6wFTMg=
+Message-ID: <96bb98c0-33ff-46b6-99fc-f325582c5a94@arm.com>
+Date: Thu, 7 May 2026 14:19:03 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] MAINTAINERS: Add entry for Toshiba TC358768/TC358778 DRM
- bridge
-To: Francesco Dolcini <francesco@dolcini.it>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260507131407.77711-1-francesco@dolcini.it>
-Content-Language: en-US
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-In-Reply-To: <20260507131407.77711-1-francesco@dolcini.it>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v2] drm/panthor: Avoid potential UAF due to memory reclaim
+To: Akash Goel <akash.goel@arm.com>, boris.brezillon@collabora.com,
+ liviu.dudau@arm.com
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, daniel@ffwll.ch, nd@arm.com
+References: <20260413080253.1288157-1-akash.goel@arm.com>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260413080253.1288157-1-akash.goel@arm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,46 +58,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+On 13/04/2026 09:02, Akash Goel wrote:
+> Recent changes to add shrinker support introduced a use after free
+> vulnerability.
+> When a BO is evicted from the shrinker callback, all its CPU and GPU
+> mappings are invalidated. It can happen that another GPU mapping is
+> created for the BO after the eviction. Because of the new GPU mapping,
+> BO will be added back to one of the reclaim list but the state of
+> corresponding vm_bo will not be changed.
+> If vm_bo remains in evicted state and shrinker callback is invoked
+> again then the new GPU mapping won't be invalidated. As a result the
+> backing pages, which were acquired on the creation of new GPU mapping,
+> can get reclaimed and reused whilst they are still mapped to the GPU.
+> 
+> To prevent the use after free possibility, this commit removes the
+> evicted check for vm_bo so that all GPU mappings are checked for
+> invalidation.
+> 
+> v2:
+>  - Update comment and add a newline in
+>    panthor_vm_evict_bo_mappings_locked().
+> 
+> Fixes: fb42964e2a76 ("drm/panthor: Add a GEM shrinker")
+> Suggested-by: Boris Brezillon <boris.brezillon@collabora.com>
+> Signed-off-by: Akash Goel <akash.goel@arm.com>
+> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 
-On 07/05/2026 16:14, Francesco Dolcini wrote:
-> From: Francesco Dolcini <francesco.dolcini@toradex.com>
-> 
-> Add a MAINTAINERS entry for the Toshiba TC358768/TC358778
-> parallel RGB to MIPI-DSI bridge DRM driver and associated DT
-> bindings.
-> 
-> The driver has active users and ongoing maintenance activity.
-> I have been working on the driver for some time and have access
-> to the Toshiba hardware documentation as well as hardware using
-> the bridge in different display configurations, including setups
-> using LT8912B and TI DSI bridge devices.
-> 
-> Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+Applied to drm-misc-next
+
+Thanks,
+Steve
+
 > ---
->   MAINTAINERS | 6 ++++++
->   1 file changed, 6 insertions(+)
+>  drivers/gpu/drm/panthor/panthor_mmu.c | 16 +++++++++++-----
+>  1 file changed, 11 insertions(+), 5 deletions(-)
 > 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index c61ef65d71ef..73a6b240ff78 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -8465,6 +8465,12 @@ R:	Douglas Anderson <dianders@chromium.org>
->   F:	Documentation/devicetree/bindings/display/bridge/ti,sn65dsi86.yaml
->   F:	drivers/gpu/drm/bridge/ti-sn65dsi86.c
->   
-> +DRM DRIVER FOR TOSHIBA TC358768/TC358778 PARALLEL RGB TO MIPI-DSI BRIDGE
-> +M:	Francesco Dolcini <francesco@dolcini.it>
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/display/bridge/toshiba,tc358768.yaml
-> +F:	drivers/gpu/drm/bridge/tc358768.c
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+> index fa8b31df85c9..592a6829bee6 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> @@ -2350,14 +2350,20 @@ int panthor_vm_evict_bo_mappings_locked(struct panthor_gem_object *bo)
+>  		struct panthor_vm *vm = container_of(vm_bo->vm, struct panthor_vm, base);
+>  		struct drm_gpuva *va;
+>  
+> -		/* Skip already evicted GPU mappings. */
+> -		if (vm_bo->evicted)
+> -			continue;
+> -
+>  		if (!mutex_trylock(&vm->op_lock))
+>  			return -EDEADLK;
+>  
+> -		drm_gpuvm_bo_evict(vm_bo, true);
+> +		/* It can be that the vm_bo was already evicted but a new
+> +		 * mapping pointing to this BO got created in the meantime,
+> +		 * thus turning the vm_bo in partially evicted state. In that case
+> +		 * we don't call drm_gpuvm_bo_evict() again because this would
+> +		 * mess up with the internal gpuvm lists, but we do walk the
+> +		 * VAs on this vm_bo to make sure the non-evicted ones are
+> +		 * torn down.
+> +		 */
+> +		if (!vm_bo->evicted)
+> +			drm_gpuvm_bo_evict(vm_bo, true);
 > +
->   DRM DRIVER FOR TPO TPG110 PANELS
->   M:	Linus Walleij <linusw@kernel.org>
->   S:	Maintained
-
-Acked-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-
-  Tomi
-
+>  		drm_gpuvm_bo_for_each_va(va, vm_bo) {
+>  			struct panthor_vma *vma = container_of(va, struct panthor_vma, base);
+>  
 
