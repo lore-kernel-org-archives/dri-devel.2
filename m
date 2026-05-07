@@ -4,149 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9A38CD3442
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 07:05:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 885BCCD3442
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 07:11:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F095D10EF7E;
-	Thu,  7 May 2026 07:05:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE5D610E1B5;
+	Thu,  7 May 2026 07:11:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="oKefP0mb";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="WSLAL7MM";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3713710E1B5;
- Thu,  7 May 2026 07:05:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778137514; x=1809673514;
- h=date:from:to:cc:subject:message-id:mime-version;
- bh=oygo/6XQsaVgAAZ/tcSDUJHUqelXbZqybRb8Zlzpqlg=;
- b=oKefP0mbJM+FDGqnDT9NaDWmf+cW9Tve2QKVrj49G1Hzn+pEmrYlegmZ
- PkMTxzmMTsdoIj41YlX9dHzU4oG8KIbGamEAUX6NuZRlQhavnmNITmN2A
- LSICA2l7JXnnhLJZNp39c6GdtUtXKMzX67ZLpciacNTANyswSNGO/rzhx
- hRQIRWxqdoXMzxzYpeV5KGUWSiTj34qLbOzU2lsua8LSxmoQbzYlCg/XQ
- eTJN5AHaZV+P0xUwh83wb5ejjCIRu7lPPJ9J5HSRK9fT0KwSSH9SZEWaJ
- YPDrJaVLdwLm+YNiMoAR+xZ5V4XBUobswdFACi4Pnm3zZc14FStNz/eSs g==;
-X-CSE-ConnectionGUID: s50jmlpGSGii73XRwXLv1A==
-X-CSE-MsgGUID: qicbXo+GRmyiMd37yQ1kmA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11778"; a="89387885"
-X-IronPort-AV: E=Sophos;i="6.23,221,1770624000"; d="scan'208";a="89387885"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 May 2026 00:05:13 -0700
-X-CSE-ConnectionGUID: S8re0N5XQQiQtgpgBWi2UQ==
-X-CSE-MsgGUID: 8B3aQl8DSyizve+ZEHEk4w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,221,1770624000"; d="scan'208";a="235528971"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by orviesa010.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 May 2026 00:05:11 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Thu, 7 May 2026 00:05:10 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Thu, 7 May 2026 00:05:10 -0700
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (40.93.194.43)
- by edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Thu, 7 May 2026 00:05:10 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TrLSMMLQPM8xPZ9uZ90P9nUdX2fyxTYERG86SUwqco0HNwxToqYGJ4qD7+YqJ2JVN6PwNqIcHd4Fg9NFTkBTTgxExBqY/DO+nctlQEkcZIZdfC5Z2LHurhR2lWFAPZmxWYQsnvl7HAJXx8o2sGGWU5fYq+rt8NJIXSBWXlrx2+MRk0c2fnj647f7l1bwlY+X5wN1rLTmHkcuzCme3sWjM8R5KDyfAJ/niCZfHTZEpgxmgtSaie9oXK0WP1Z3lDcGLHoLv4KW4V0s+uU+eSFbV9yiDw5ajITIvHxtrhEbeuG+6YlxJUDyAJnOzzjhfaENv0ah83DcvrqXXxmP7uCr6w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IMIFAKTiVS6bEk5hc3gHP8SnCp33FnABmM2a/mP2ujA=;
- b=YJvrYjfy0/JqiAYeFvwPYGZ31blb5hphiD5mYk+x4/2XwwkqoE+JpiM2lzrOvDcQl9+sOMpitvG5uAkMLFupJtl0CUmdPcR+ClyxBeRT8vOcQZfVqmrnIrfK34uBfUpaWVsX15vdpHhZ4QETwZTm2c/Vc2iNls+9Rc54B/p14POrqY1L2ES1z4GRiNaXXpWNbLaK4r+pRz7u/eZM9bMJAJh45KChgNfhbiMJdAC4MxNLF2hSBvBSpidoh4sVFa835ioD1QJs7zrZ4NNHVPGyTZZ2qvuTj28vZA5Y9tvN9CefUM8Klyc43Rl4htwQfShg40UuFYLmP9k8VUzdGLEMHw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from BL3PR11MB6508.namprd11.prod.outlook.com (2603:10b6:208:38f::5)
- by IA1PR11MB6098.namprd11.prod.outlook.com (2603:10b6:208:3d6::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.15; Thu, 7 May
- 2026 07:05:02 +0000
-Received: from BL3PR11MB6508.namprd11.prod.outlook.com
- ([fe80::53c9:f6c2:ffa5:3cb5]) by BL3PR11MB6508.namprd11.prod.outlook.com
- ([fe80::53c9:f6c2:ffa5:3cb5%7]) with mapi id 15.20.9891.008; Thu, 7 May 2026
- 07:04:59 +0000
-Date: Thu, 7 May 2026 00:04:54 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
-CC: Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, "Oded
- Gabbay" <ogabbay@kernel.org>, <dri-devel@lists.freedesktop.org>,
- <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
- <dim-tools@lists.freedesktop.org>
-Subject: [PULL] drm-xe-fixes
-Message-ID: <afw5lsrjE4pStEml@gsse-cloud1.jf.intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-X-ClientProxiedBy: BYAPR04CA0013.namprd04.prod.outlook.com
- (2603:10b6:a03:40::26) To BL3PR11MB6508.namprd11.prod.outlook.com
- (2603:10b6:208:38f::5)
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
+ [209.85.221.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8054610E1B5
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 07:11:51 +0000 (UTC)
+Received: by mail-wr1-f41.google.com with SMTP id
+ ffacd0b85a97d-44b330c5cc6so357728f8f.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 00:11:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1778137910; x=1778742710; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=bGYzjuf3R/p5pJNr3Enknt/6f+NCeQFDRQlWU1+0ACg=;
+ b=WSLAL7MMl6k3DYG1IExdMK6mfbrzNXr9lAgGj3uDVvhFUSbNY1TED4rcEPWEH2HI2y
+ zfr5Hmm4DrTxeJpidhNROzDZk+XLUiBFbEXPUO2XOoOlR5AyWl/3e1owPQs6IfS41RAb
+ Rw1QWFcBlzzR+XQm6QAKJJ4r2qAgJj0+5Dhy0w73RYuCK20eREgX7N+MEQsbU7S7CZ0W
+ bSwlFIoV5h/0iAgq6cdVLzAYEq+kkUEw87kjugNasYbfXu0mA9wrTzgphyqPmHdnYlzG
+ +8TVWs/6JRUCQc085ACU3vhG/9lxRFLPwG7Nz7Y9FhwsPagcF+xeVGGJMzSdxqdpKyoH
+ FJqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778137910; x=1778742710;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=bGYzjuf3R/p5pJNr3Enknt/6f+NCeQFDRQlWU1+0ACg=;
+ b=dt6+vWQJP4kO1HQMqzzg3wB7oaN9/M9G8UnCEv65yYToDrEUiDiJKhOwiAlZy5QTxc
+ dfI5Z6Ep/UgRlJWEilQZMq7xNozUTamb2ReP5F7lCEinWnLhchsk0UeaqHT1xDuVVKrY
+ vJCZn/HSeWZ7mAormdPR0CdaNq5+pvZ+L+snw60ItnMS5w50We4mpAuADZsHIVdeJvOw
+ +80x+nhAWAyOlvd2X/7PKj4BXsewoc/ajFE6eB1sdPOPoMUM5/whXNzCcWfiJXJKGxZa
+ ZR1TGQV8idNW/ycQQ/RcU8iJTpZpItXI2OIBk8YbEYoQ1tGpSHMRTURqRVJg7VuclcR0
+ kHjw==
+X-Gm-Message-State: AOJu0YxbWDBR3JyZmP8uH//pbtDm5tzuidLFx+zJSOxSRMSlQkzE4w5k
+ 5AejiWTrv7jiU7bNSPl7vCm5aLNsmVGLdfngnoKdQCPmqV3ufv/P5c4n+Q8vbITmOqE=
+X-Gm-Gg: AeBDiev2sPAVTD5+b7CpgFjBjTvZtHACGP3vbEmfeuNgNz+0B6A4O9U4pbatvonvEPi
+ nw1Rn+43mZxgFFKtRem3wgHk9ByF/9qUBk+KrGkzge0SFwb4+Cw7yiP6JQL8+ALOP9GeWytOzBn
+ cEKtTo6nPxzz8vkHXYxuJIkhzB+hKyAYCqjYHauwB3kj59xk6naDQjr0yNSBdPGcNmwcShmQY6w
+ G414YoyUrzlhik2MfDnK5RPl4oKeucuD4Iijlabor6G0cf6KuIwJzWrnODJjjLBiBKkxQoxR/rc
+ 6cNUs3M/o9WLJ4PBHRLkWeysTYXR55yLmgbSEDRMeGJ11dtSXlKdsas3yZgdB3W3hChllUA7Sn9
+ /ASmy8S1Uh4/YxQYhjrCBOXKYfbSYwRCLp8TZ4lU3cyc9RZwYaBMDsrpWxqTeqAdRj8skBEg2g8
+ S8cDbrbUE0r5TVN8OWW14Ngq+ytlVqfd9DefmgbYNc/0OlXbxhY/mgw/CIxuYUlhWkLzJg4zf6R
+ h634kEjq9nt0qh9/A==
+X-Received: by 2002:a5d:5d87:0:b0:43d:d037:d59c with SMTP id
+ ffacd0b85a97d-4515b524224mr10977840f8f.16.1778137909805; 
+ Thu, 07 May 2026 00:11:49 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:5798:67fd:c866:b378?
+ ([2a01:e0a:106d:1080:5798:67fd:c866:b378])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-450524834eesm17521496f8f.4.2026.05.07.00.11.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 07 May 2026 00:11:49 -0700 (PDT)
+Message-ID: <d3f99285-1811-45f7-91be-5017438c2475@linaro.org>
+Date: Thu, 7 May 2026 09:11:47 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL3PR11MB6508:EE_|IA1PR11MB6098:EE_
-X-MS-Office365-Filtering-Correlation-Id: 38bb7b5c-44b7-4e7a-b325-08deac06f37a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|7416014|1800799024|18002099003|56012099003; 
-X-Microsoft-Antispam-Message-Info: 5LgwIcpmrw0TCT/GexSjji6Hpsn7k1rx8wOxuA+zoW/vxyMgoW1yTXC/Jmd8LbQ6YGYd9mny+4fS4a8NztdhQmteSmarLPUHFeikOPtnitlERgQCyDo1V4b1ku2tggm2653cJ1SrclSq5TZUoAii2iuyfs360LTYEuboiiaeXnYjFsypdymTWe3BaK7MVkJlrP/xe5yuZqRaxD0LjnMXCMKFvrzMAkFBTi8gZDrZ9sYkEVy5RKf3rdgi48IfPypXA9C1b/9mzN+oc72/M7QBT9qVzUYNknQjf0lTghjvsmqjSKwz+W2cKtOMWO+/sQ1Wg4RRBGkXDVWNw7Gh73f8apMnckIedTHNQuAhP74X4yEobtZpiH8jJMphVNm7Mc/tzadY2TlD1twsgSCD/y4YmJuxjpE9kfoVLkGpDMQsbVU4bPp8kCpXqBrao+dXrHuzjQxyZS1DdJWBVbAb+8CVchWA6WSrwAA5rEcBB+/VAVLG4UHsdsEOPWCIE1UHWTBY79E74pYXK8QK7w2F9HvqdkBUkJdFJXiNFxICJFXaDkGIjMPdzzCmEIfHMgM2dR40bH/r389XryiXTxbco6VQzadvcyCkQdh+PuFoG5JMmnsWBaQSstHou0MeChX/WEtdCJzcH7ulKdQOPsTIwkboJw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL3PR11MB6508.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(7416014)(1800799024)(18002099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?udbCbhzH51P3WpaB9GiPR+jOBmYsQyBBSws5N5+eAYIDH4PytlJyR21/N5rb?=
- =?us-ascii?Q?RABmP4K6Ue45sqJA6XLd0EhacNgWHSJ7mc9hoiRVhKzogKdWzAEcOxF3kU80?=
- =?us-ascii?Q?/jXHWeaoeP5BqgkVUc+NdwiZOfaQdfssSaKjR1uH+EOQys4q6AIj+F6O7uGX?=
- =?us-ascii?Q?HHkpaKCwRmu/Q6EcsBOFZZ2uYjCC2g9hPC6mcZll/pV00S/9HwzF8Qsaenqb?=
- =?us-ascii?Q?bORAjLbVK5RaXnuhBu+N8SESLEEFWB0RkFcy9UWRSKY1n/5IT0Lj/Zz44jEz?=
- =?us-ascii?Q?ER45iFEj3jbF0hnr6ylh7sCWLCKUVl3dRt7zvF9BzYNwH62DjoUlfTE6bXWW?=
- =?us-ascii?Q?sSs0h8hr3m2nIObaPUKc7gjUBEwKxu7Ien5GH0srsNsNM5sxKsX1+YIhv++M?=
- =?us-ascii?Q?qcPWzUzg41J4qpg0BVhLRVATtJnXKDUAih+UiGSEPzp41GxM1T8uwioL3ffN?=
- =?us-ascii?Q?OFuFsPtXbc0Y57MreX1vzg22cMYQhQFwOajPU2atmjPPxqI0fM1LfyrIGVmn?=
- =?us-ascii?Q?tEPZL/WXMN1jHCV0aHy/xOPxKqGHZYau3akuU7+/MyDh6gukKefwSWm9yDAH?=
- =?us-ascii?Q?XKcafnx3w0RvFSV68lYL30ixfubNMNb0fV9rrGhRFKsfpzWPWr7tvnfH4NtF?=
- =?us-ascii?Q?2bXIAouTo68zwFuYLmPSbE8bkc/t+Fimf05aiBcaFGeF6rB8jfIUC1nxpBiA?=
- =?us-ascii?Q?ojR8qqutlFYbxVUGiIovSKBdYIyteUbW5Qia27nheX5xn76PDZCSjBKBkOX7?=
- =?us-ascii?Q?a81evQEjLRrqzM9LSdsGi19OdwLX8hcieZ7vFm/S7SCGzHMf5GJHGzcgBg19?=
- =?us-ascii?Q?FXwxn5cf0uTmWj+Veu2IMejkOEnvNjmr/Lvjil2ef+jqJdqUMLVlHbUvg08H?=
- =?us-ascii?Q?fU8Uyy1wqicHpOpX82JKLnQEETsAN1ZfDz8LffkV/35IJ1sW5t0Pklq7Z6pd?=
- =?us-ascii?Q?dDeYjZ5sguQw2k+t6QnQgoPp6zrrd+qaOWi6AIES9WwxwNPjfCeCSg5Wj8Ds?=
- =?us-ascii?Q?w816TFvZIiG+nXYgtBiIaWS9qwMEZaNxiiNxeoUmEIQZD1mbhREpzEUfI953?=
- =?us-ascii?Q?Nq/mT3w6QRpMUmhqfTdR27ccU65bWe6hrTgD+/XpOHJ3cs8eRoaC2P1PAwT3?=
- =?us-ascii?Q?AOL9kVccj+/yckv1EHeD+o9Nq5yGIZwxauFBIEsDdIliRXbavavabjj4Wy/v?=
- =?us-ascii?Q?mlfIwl3jfBrcDycuRh4TQKAYsSvYXTyzLKq3hUH5mvcXjX6A9QXiYfyZ70Ry?=
- =?us-ascii?Q?28T/Ggy6M8fP2yl+cIN/InC8CsXNTwvjv5y06mwjkSapGLqdpBkJ6YrpvoFO?=
- =?us-ascii?Q?Dlt/zk5RrcJDUEcCH24qJOHY6TVKee5vPb+rWIuB6yZ46WFklSl7snkb2rPS?=
- =?us-ascii?Q?t5SfO2CbWzGGkFKDXvqJH/HsOpGu6g3o6ya/rUj/mHG7pgkd8XOHnMffYE1H?=
- =?us-ascii?Q?wSFozYkvFsUW2an2ga8kkxJvVpWcEwGtaC9wtZy3kJEcKkWrPY7TCs9eimNO?=
- =?us-ascii?Q?X6et5WbWzJ/n+CqwJUsfUDMWen7eQBDF3ZLMzXvmlDRVWtXhxcvX5fFM8LmS?=
- =?us-ascii?Q?6NpeoY8gKAR8eweELLgThWaTNkz5iYpuMQU4nHZ29EDO+8hGG0YBNS4drIP4?=
- =?us-ascii?Q?6sYHfX6eCC7kKQbS/tb308/+t06xMKvEvE3WBAccNlOkzQdMyKITNFlXCHsX?=
- =?us-ascii?Q?91EBqZ/BAItk75UGPgqXxjRNyY2Nr3WLSBSZ9MoF/kgUYg+utfmQ67OaW0hv?=
- =?us-ascii?Q?qzI/IdCTVZe0J1qSMVec3o0uqXApxlo=3D?=
-X-Exchange-RoutingPolicyChecked: tgDZ/cA1SyI4pGXOsLxGpfec/MOl60wC0/4oSyBplVpYPEm+LGLMrVyhWpKdFZLfnDhhNl1RkLBTmlSV12XpHCxL9P9E8VRCVLdmgwgLGXwXmaYxJWOOMrBFFu4asbK1Ni06inKnzRVKPM4kBjB0FG0zodGl+1unwg71oppOOFmzNWV8zAl0smgfAE6FutlsYWHb11MH5qYaQOMQesW2IPR1AKAUJ/Pe7D23sO3BxEaV+3YxmmrSErV7LylMYxyoOaZmirB0i6fKHr1kwjAjbUUDfNYFNVcidGD+171CvauD0LT7gYfVtfkTlNyzFjXPHQvYv5Ii66lqILILcxS3Pg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 38bb7b5c-44b7-4e7a-b325-08deac06f37a
-X-MS-Exchange-CrossTenant-AuthSource: BL3PR11MB6508.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2026 07:04:58.9594 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: I3wJ6bJvZVnsZPZd2yn35NBuExYC0e2J7VlfpY3wHkgv2q+KFyrC1WH0/qmbjKkj4FCdqPgBlfryr4CP7f+BAA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB6098
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 1/2] drm/panel: visionox-rm69299: Split DSI commands out
+ into enable/disable
+To: =?UTF-8?Q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
+References: <20260427-visionox-rm69299-enable-v1-0-fa7d62d26d87@sigxcpu.org>
+ <20260427-visionox-rm69299-enable-v1-1-fa7d62d26d87@sigxcpu.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260427-visionox-rm69299-enable-v1-1-fa7d62d26d87@sigxcpu.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,68 +120,140 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Dave, Sima
+On 4/27/26 15:56, Guido Günther wrote:
+> It's when DSI commands should be sent and it also fixes these DSI errors
+> on every screen blank/unblank on the SHIFT6mq:
+> 
+> dmesg:
+>    msm_dsi ae94000.dsi: [drm:dsi_cmds2buf_tx] *ERROR* wait for video done timed out
+>    dsi_cmds2buf_tx: cmd dma tx failed, type=0x5, data0=0x28, len=4, ret=-110
+>    panel-visionox-rm69299 ae94000.dsi.0: sending DCS SET_DISPLAY_OFF failed: -110
 
-Here is this weeks PR for for drm-xe-fixes. Nothing major, just a few
-small fixes.
+This error is un unprepare, the link should be in LP11 so the command should still work,
+but you can move them to disable(), but in the other way you should still keep the
+power on commands in prepare() since the link is in LP11 and video is not flowing.
 
-Matt
+Neil
 
-drm-xe-fixes-2026-05-07:
-UAPI Changes:
+> 
+> Signed-off-by: Guido Günther <agx@sigxcpu.org>
+> ---
+>   drivers/gpu/drm/panel/panel-visionox-rm69299.c | 77 +++++++++++++++-----------
+>   1 file changed, 44 insertions(+), 33 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panel/panel-visionox-rm69299.c b/drivers/gpu/drm/panel/panel-visionox-rm69299.c
+> index f1430370ff94..3c92a6ceb8df 100644
+> --- a/drivers/gpu/drm/panel/panel-visionox-rm69299.c
+> +++ b/drivers/gpu/drm/panel/panel-visionox-rm69299.c
+> @@ -158,6 +158,46 @@ static inline struct visionox_rm69299 *panel_to_ctx(struct drm_panel *panel)
+>   	return container_of(panel, struct visionox_rm69299, panel);
+>   }
+>   
+> +static int visionox_rm69299_enable(struct drm_panel *panel)
+> +{
+> +	struct visionox_rm69299 *ctx = panel_to_ctx(panel);
+> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+> +
+> +	ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
+> +
+> +	for (int i = 0; i < ctx->desc->init_seq_len; i++)
+> +		mipi_dsi_dcs_write_buffer_multi(&dsi_ctx, &ctx->desc->init_seq[i * 2], 2);
+> +
+> +	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
+> +
+> +	/* Per DSI spec wait 120ms after sending exit sleep DCS command */
+> +	mipi_dsi_msleep(&dsi_ctx, 120);
+> +
+> +	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
+> +
+> +	/* Per DSI spec wait 120ms after sending set_display_on DCS command */
+> +	mipi_dsi_msleep(&dsi_ctx, 120);
+> +
+> +	return dsi_ctx.accum_err;
+> +}
+> +
+> +static int visionox_rm69299_disable(struct drm_panel *panel)
+> +{
+> +	struct visionox_rm69299 *ctx = panel_to_ctx(panel);
+> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+> +
+> +	ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
+> +
+> +	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+> +
+> +	/* 120ms delay required here as per DCS spec */
+> +	mipi_dsi_msleep(&dsi_ctx, 120);
+> +
+> +	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
+> +
+> +	return dsi_ctx.accum_err;
+> +}
+> +
+>   static int visionox_rm69299_power_on(struct visionox_rm69299 *ctx)
+>   {
+>   	int ret;
+> @@ -193,16 +233,6 @@ static int visionox_rm69299_power_off(struct visionox_rm69299 *ctx)
+>   static int visionox_rm69299_unprepare(struct drm_panel *panel)
+>   {
+>   	struct visionox_rm69299 *ctx = panel_to_ctx(panel);
+> -	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+> -
+> -	ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
+> -
+> -	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+> -
+> -	/* 120ms delay required here as per DCS spec */
+> -	mipi_dsi_msleep(&dsi_ctx, 120);
+> -
+> -	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
+>   
+>   	return visionox_rm69299_power_off(ctx);
+>   }
+> @@ -210,29 +240,8 @@ static int visionox_rm69299_unprepare(struct drm_panel *panel)
+>   static int visionox_rm69299_prepare(struct drm_panel *panel)
+>   {
+>   	struct visionox_rm69299 *ctx = panel_to_ctx(panel);
+> -	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+> -	int ret, i;
+>   
+> -	ret = visionox_rm69299_power_on(ctx);
+> -	if (ret < 0)
+> -		return ret;
+> -
+> -	ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
+> -
+> -	for (i = 0; i < ctx->desc->init_seq_len; i++)
+> -		mipi_dsi_dcs_write_buffer_multi(&dsi_ctx, &ctx->desc->init_seq[i * 2], 2);
+> -
+> -	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
+> -
+> -	/* Per DSI spec wait 120ms after sending exit sleep DCS command */
+> -	mipi_dsi_msleep(&dsi_ctx, 120);
+> -
+> -	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
+> -
+> -	/* Per DSI spec wait 120ms after sending set_display_on DCS command */
+> -	mipi_dsi_msleep(&dsi_ctx, 120);
+> -
+> -	return dsi_ctx.accum_err;
+> +	return visionox_rm69299_power_on(ctx);
+>   }
+>   
+>   static const struct drm_display_mode visionox_rm69299_1080x2248_60hz = {
+> @@ -284,7 +293,9 @@ static int visionox_rm69299_get_modes(struct drm_panel *panel,
+>   
+>   static const struct drm_panel_funcs visionox_rm69299_drm_funcs = {
+>   	.unprepare = visionox_rm69299_unprepare,
+> -	.prepare = visionox_rm69299_prepare,
+> +	.disable   = visionox_rm69299_disable,
+> +	.prepare   = visionox_rm69299_prepare,
+> +	.enable	   = visionox_rm69299_enable,
+>   	.get_modes = visionox_rm69299_get_modes,
+>   };
+>   
+> 
 
-Cross-subsystem Changes:
-
-Core Changes:
-
-Driver Changes:
-- Add NULL check for media_gt in intel_hdcp_gsc_check_status (Gustavo)
-- Fix EAGAIN sign in pf_migration_consume (Shuicheng)
-- Fix MMIO access using PF view instead of VF view during migration (Shuicheng)
-- Exclude indirect ring state page from ADS engine state size (Satya)
-The following changes since commit 7fd2df204f342fc17d1a0bfcd474b24232fb0f32:
-
-  Linux 7.1-rc2 (2026-05-03 14:21:25 -0700)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/xe/kernel.git tags/drm-xe-fixes-2026-05-07
-
-for you to fetch changes up to b29987dfd943e655df6e3b641ecffad5cc1509c2:
-
-  drm/xe/guc: Exclude indirect ring state page from ADS engine state size (2026-05-05 16:15:04 -0700)
-
-----------------------------------------------------------------
-UAPI Changes:
-
-Cross-subsystem Changes:
-
-Core Changes:
-
-Driver Changes:
-- Add NULL check for media_gt in intel_hdcp_gsc_check_status (Gustavo)
-- Fix EAGAIN sign in pf_migration_consume (Shuicheng)
-- Fix MMIO access using PF view instead of VF view during migration (Shuicheng)
-- Exclude indirect ring state page from ADS engine state size (Satya)
-
-----------------------------------------------------------------
-Gustavo Sousa (1):
-      drm/xe/hdcp: Add NULL check for media_gt in intel_hdcp_gsc_check_status()
-
-Satyanarayana K V P (1):
-      drm/xe/guc: Exclude indirect ring state page from ADS engine state size
-
-Shuicheng Lin (2):
-      drm/xe/pf: Fix EAGAIN sign in pf_migration_consume()
-      drm/xe/pf: Fix MMIO access using PF view instead of VF view during migration
-
- drivers/gpu/drm/xe/display/xe_hdcp_gsc.c      | 12 ++++++++++--
- drivers/gpu/drm/xe/xe_gt_sriov_pf_migration.c |  8 ++++----
- drivers/gpu/drm/xe/xe_guc_ads.c               |  5 +----
- drivers/gpu/drm/xe/xe_lrc.c                   | 11 +++++++++--
- drivers/gpu/drm/xe/xe_lrc.h                   |  2 +-
- drivers/gpu/drm/xe/xe_sriov_pf_migration.c    |  7 ++++---
- 6 files changed, 29 insertions(+), 16 deletions(-)
