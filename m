@@ -4,72 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27632CD3439
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 15:36:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AEFACD3439
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 15:36:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D79910F1AE;
-	Thu,  7 May 2026 15:36:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80C3310F1BC;
+	Thu,  7 May 2026 15:36:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="VA5/MjH3";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="nP8XwYKH";
 	dkim-atps=neutral
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B9C210F1BC
- for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 15:36:28 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-4891f625344so11828065e9.0
- for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 08:36:28 -0700 (PDT)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3AB7810F1D1
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 15:36:53 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-48d146705b4so12567895e9.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 08:36:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1778168187; x=1778772987; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1778168212; x=1778773012; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :content-language:references:cc:to:subject:reply-to:from:user-agent
  :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=BOJ+8+8n014/ZZxYvTpXNz4gBXn6E+/f1gXcWqpdrZs=;
- b=VA5/MjH3e4TOJvOtS7Xxkmsequ2o8HnO+YDQrVfUFeuD9i/o5zVmDqXbrSJ9kfVJXK
- bkAH91MuHqs1EzRr3v0HBKsDPBfMsNfWZUk73mamt/Xs7Nd0nq+ARuvkPj/n3PYzPere
- Qq/nKs9a5zyqoyGBgwa6WBAKqalXFkYwZ+YBN9gcOBhL08r2hFJsCU7mMh57QBOJSrnG
- pT5was4iAb/JWLboNZoFjOid4OqgidWYnHeYaTFFSEIHHnEI0/AgAsaH97BU9QuBnK07
- Gm1Ba/I+iGPMO1+JeTq+HXi/4eCr2smn5ApiG1eemVOKz9q3q1hvbpBlrGnDtbHOX+Lx
- wkvw==
+ :reply-to; bh=TC+WcOmSnmbCmszuAYvNK3p+hdwx02QbAixg42UI5rI=;
+ b=nP8XwYKH1SN56EjDG3w3ciMo87Gidpe3jMbsCCccVC9Yk6D9FqBFXVK1GHBeW3Idpo
+ MAakGZ7vu4WfSYPrqHW8eFRfxcTZuYW430XYNkTWd3wYGsYdKemC3Hwbzwabbiho97Pr
+ 8WQks27lL7Knb1+WvUyqhuVuKQz3xLS40wX75vt7pjtw8r54DSs2R442WVzW/sPOQy0Z
+ FElHClzm3HHjcry2jGZ2/wKstcjpnJglAiv+rzZzvmdP+XJfk2LS+t9KJe3dneFcz0Za
+ 09T+PFBgvSbFoa9hpRj2nB/otNiZSX5iXQoSwEU3n7ub0JBS/CA7z7FVfKXeovKt0kNw
+ QP1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778168187; x=1778772987;
+ d=1e100.net; s=20251104; t=1778168212; x=1778773012;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :content-language:references:cc:to:subject:reply-to:from:user-agent
  :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=BOJ+8+8n014/ZZxYvTpXNz4gBXn6E+/f1gXcWqpdrZs=;
- b=Y7B94CBqy7oJ1cBS0RjQn4TnYB6pFrnh/K7jc3zYUPgnf8h5+uPb7pyPk1o+2Dzfxs
- wj4Sd3Z7wMgggK07k1YZs1XTmo7PTHU9SZX+oBgKZn9n2IBWqM0Hg55lFT6K37p40dFP
- +ETNrUu3Jzv0znRUNnAHDSdnozob//arKqua9NfLNCYx7gSrSRYjVbDMtdjuBl7lco8M
- FO3vAfqfWbyR4Ob0VnFmTl75bLX7xviryQMoGzS+4XFTSvSVYVmhiVtLJ0QN+k6/kAYH
- lDTpN7ZCeRggs98caOuFzRZvzv+DGvR8bb82jTOHnq8lgu0+Bdfj7NfSkmKCwRSnsM0O
- 04fQ==
-X-Gm-Message-State: AOJu0YxH7ENp0oOJjxwMtbIjTBjmiBmOIdNdKnsTI8sGBv/SMeE4bIIL
- WmenEmzIaq2IQ+0b3Ids4FOKAJSh84mUTxiEUTsrK3sL7E1CilSIHuySJY11/4V9oKA=
-X-Gm-Gg: AeBDieslTnC7jqoGHgK1gBNkMt4oryqEbDVyxZIHLhd5DxFWedXGwrbKMLUASWpWq8w
- QLZX7uLm9caCh0EXL8XQpzkYWFZBtl2ek2dXwo7B7fg5iMzhNtgn163Af+MPBK42p/ultkfnp0F
- YXFs8JEStKPS9WcbC0wp66pQLauBYwHJoKmMNNhHQAv+OlJ9q/puiAn/rPTL31OU96UwtZnlzYT
- bnSco+7NTyCR5U+53/ZPC5BUujxFELmp0q1INHdxlPbzNw48QPBKF0DnL8QASf+8ZW8FWANZ7LQ
- crpjJXWc3rh8S36S4FF36AUX0/DQ9O0ajm+m3qrtOR19F/B+3RGoTe1NzL6l1PP/XyVEA/+l+gw
- FGjWsnOnjWZjdbdcV+wat0PQvsh0a8pq7fUJSAZAoqvltmwL82Ry2seyOkioWYfYB7bMziTFxGr
- Ys2/e5j7G7VrinPlEJhHPu5wUEIW5E+EmkT8P7GOSJ0ujFwF1lJvfLfqlKerA9IY4br1lqb+Oj0
- ljMdbLep2Cm1C5Epw==
-X-Received: by 2002:a05:600c:3e10:b0:485:3cef:d6ea with SMTP id
- 5b1f17b1804b1-48e5e0089e0mr57342345e9.13.1778168186924; 
- Thu, 07 May 2026 08:36:26 -0700 (PDT)
+ bh=TC+WcOmSnmbCmszuAYvNK3p+hdwx02QbAixg42UI5rI=;
+ b=bq7emKVywdlPJAQvcXnp0bQM2b6UYCMPK3p1PHV8dwBI8B3hK7TjsxSNcU3n2RT7oR
+ /TtQIA09OmTRoZQ/qsz1FAWsOTphvzafgT8K3oAPjHq8U++nYJ/Nrh0s5exrOl8SvF1m
+ PDWiZhZT9rWIOWON7G9HCSBWaRubsUSkosZWx285QzY/WGFMn19wXiJKm0Wo70ZZhSlU
+ SZcVeuFzy+GlAlQ1TDZLtwaM9zP2MiLEKN2fKsMu36j9OwoUy55Vp4pyLoSbHzOuC96H
+ s93f1Ds7jMm1cIXcRgBXDnITVSCg+9iK/dRJ0tvPFk8JUGJy3uY9kHhrmomXZqLpTnHN
+ WLnA==
+X-Gm-Message-State: AOJu0YyN5UQbzOK8JvJCJd4Ozoe+lseTVe7hpqsGoXDY4dN+vKZ2q3Da
+ ju4kC++8E8StFWH0mDE803ZSJgCaYQMiY6MJgmtpp3ZjrzfOAk3FTr24j1kplZ4edss=
+X-Gm-Gg: AeBDieuTX1KjgzJR2+J3ytABpadr7Hknguobt7FstUfkoXj+YsUm1IgeFrwWUeMcXDN
+ emO9DddUP0XxQxrLA8MZrVztZzk0c/7TGLRJQg9W+iFE3hSA64AsG6bYgaS/fE87vgEG0RNm2ua
+ jXCHUnWaWVcdvXb7ah+J7Bd8506X0+9Hv36FrMy3luoQEIyl0uT4f1AW2XNEfOaKQV2SvKMKN2n
+ zt+rkUSO9uERpD1YDtK6nBdwVRjPpyVjHqBTFQDw9LorhuFsjdnJaU804JfJ+En5mlse1hB248F
+ Y/sPdxZMCOCHqBbl8z+as/HhoMvrgp1ziaWMOuC6cyjrDMlC4jNIsTjvgMkS0J1WZ41Cg2dRUWC
+ p1848nrj80ebnGy8F1A99ZwyoV8expFELF2i6SINMbY3i1z8kQjnyXcL2laKwAEKylj+8KYff8k
+ zfXbecH2NkqQb3vVL2tm5x+OJT7/Yi/jY3KCxo50YiFrLiq22N07fCDvq4NxKQ6aNBO1tvCT5J6
+ Nx/scFqHzZPZUspT3E27fEjD9Er
+X-Received: by 2002:a05:600c:1d18:b0:48a:906b:14ca with SMTP id
+ 5b1f17b1804b1-48e51f46e46mr136818815e9.20.1778168211126; 
+ Thu, 07 May 2026 08:36:51 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:106d:1080:6762:47bb:1e06:ff70?
  ([2a01:e0a:106d:1080:6762:47bb:1e06:ff70])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48e5312dbf8sm40556895e9.23.2026.05.07.08.36.25
+ 5b1f17b1804b1-48e5389da63sm133465345e9.4.2026.05.07.08.36.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 May 2026 08:36:26 -0700 (PDT)
-Message-ID: <bbb995b8-198b-4d05-a1c3-d9050830ea10@linaro.org>
-Date: Thu, 7 May 2026 17:36:24 +0200
+ Thu, 07 May 2026 08:36:50 -0700 (PDT)
+Message-ID: <f08ea3a8-3ab8-4060-9f3a-3815ca43026e@linaro.org>
+Date: Thu, 7 May 2026 17:36:49 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 06/10] drm/panel/tdo-tl070wsh30: Use refcounted allocation
- in place of devm_kzalloc()
+Subject: Re: [PATCH 07/10] drm/panel/sharp-ls043t1le01: Use refcounted
+ allocation in place of devm_kzalloc()
 To: Albert Esteve <aesteve@redhat.com>, Jessica Zhang <jesszhan0024@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
@@ -78,7 +78,7 @@ To: Albert Esteve <aesteve@redhat.com>, Jessica Zhang <jesszhan0024@gmail.com>,
  <mwalle@kernel.org>, Dario Binacchi <dario.binacchi@amarulasolutions.com>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 References: <20260507-drm_panel_init_rm-v1-0-51f448c7c291@redhat.com>
- <20260507-drm_panel_init_rm-v1-6-51f448c7c291@redhat.com>
+ <20260507-drm_panel_init_rm-v1-7-51f448c7c291@redhat.com>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -105,7 +105,7 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20260507-drm_panel_init_rm-v1-6-51f448c7c291@redhat.com>
+In-Reply-To: <20260507-drm_panel_init_rm-v1-7-51f448c7c291@redhat.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -131,41 +131,38 @@ On 5/7/26 13:53, Albert Esteve wrote:
 > 
 > Signed-off-by: Albert Esteve <aesteve@redhat.com>
 > ---
->   drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c | 14 +++++++-------
->   1 file changed, 7 insertions(+), 7 deletions(-)
+>   drivers/gpu/drm/panel/panel-sharp-ls043t1le01.c | 11 ++++++-----
+>   1 file changed, 6 insertions(+), 5 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c b/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c
-> index 227f97f9b136f..13cfe252a838d 100644
-> --- a/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c
-> +++ b/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c
-> @@ -162,9 +162,6 @@ static int tdo_tl070wsh30_panel_add(struct tdo_tl070wsh30_panel *tdo_tl070wsh30)
->   		return err;
+> diff --git a/drivers/gpu/drm/panel/panel-sharp-ls043t1le01.c b/drivers/gpu/drm/panel/panel-sharp-ls043t1le01.c
+> index dd1eaba23ad3c..989b030ea22de 100644
+> --- a/drivers/gpu/drm/panel/panel-sharp-ls043t1le01.c
+> +++ b/drivers/gpu/drm/panel/panel-sharp-ls043t1le01.c
+> @@ -199,8 +199,6 @@ static int sharp_nt_panel_add(struct sharp_nt_panel *sharp_nt)
+>   		gpiod_set_value(sharp_nt->reset_gpio, 0);
 >   	}
 >   
-> -	drm_panel_init(&tdo_tl070wsh30->base, &tdo_tl070wsh30->link->dev,
-> -		       &tdo_tl070wsh30_panel_funcs, DRM_MODE_CONNECTOR_DSI);
-> -
->   	err = drm_panel_of_backlight(&tdo_tl070wsh30->base);
->   	if (err)
->   		return err;
-> @@ -183,10 +180,13 @@ static int tdo_tl070wsh30_panel_probe(struct mipi_dsi_device *dsi)
->   	dsi->format = MIPI_DSI_FMT_RGB888;
->   	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST | MIPI_DSI_MODE_LPM;
+> -	drm_panel_init(&sharp_nt->base, &sharp_nt->dsi->dev,
+> -		       &sharp_nt_panel_funcs, DRM_MODE_CONNECTOR_DSI);
+>   	sharp_nt->base.prepare_prev_first = true;
 >   
-> -	tdo_tl070wsh30 = devm_kzalloc(&dsi->dev, sizeof(*tdo_tl070wsh30),
-> -				    GFP_KERNEL);
-> -	if (!tdo_tl070wsh30)
+>   	ret = drm_panel_of_backlight(&sharp_nt->base);
+> @@ -231,9 +229,12 @@ static int sharp_nt_panel_probe(struct mipi_dsi_device *dsi)
+>   			MIPI_DSI_CLOCK_NON_CONTINUOUS |
+>   			MIPI_DSI_MODE_NO_EOT_PACKET;
+>   
+> -	sharp_nt = devm_kzalloc(&dsi->dev, sizeof(*sharp_nt), GFP_KERNEL);
+> -	if (!sharp_nt)
 > -		return -ENOMEM;
-> +	tdo_tl070wsh30 = devm_drm_panel_alloc(&dsi->dev,
-> +					      __typeof(*tdo_tl070wsh30), base,
-> +					      &tdo_tl070wsh30_panel_funcs,
-> +					      DRM_MODE_CONNECTOR_DSI);
+> +	sharp_nt = devm_drm_panel_alloc(&dsi->dev, __typeof(*sharp_nt), base,
+> +					&sharp_nt_panel_funcs,
+> +					DRM_MODE_CONNECTOR_DSI);
 > +
-> +	if (IS_ERR(tdo_tl070wsh30))
-> +		return PTR_ERR(tdo_tl070wsh30);
+> +	if (IS_ERR(sharp_nt))
+> +		return PTR_ERR(sharp_nt);
 >   
->   	mipi_dsi_set_drvdata(dsi, tdo_tl070wsh30);
->   	tdo_tl070wsh30->link = dsi;
+>   	mipi_dsi_set_drvdata(dsi, sharp_nt);
+>   
 > 
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
