@@ -4,72 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBC9FCD3442
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 19:03:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58EB7CD343F
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 19:22:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48CDA10E29D;
-	Thu,  7 May 2026 19:03:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C17110E2C3;
+	Thu,  7 May 2026 19:22:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="gn3xC8qs";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="MXLYTcCL";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 032CC10E2BA
- for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 19:03:48 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C936710E2C3
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 19:22:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1778180628;
+ s=mimecast20190719; t=1778181728;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=uKT1nQZUxN9fXiQAjzu9iuep+Yxp4ZZA+R3IIcHJMTM=;
- b=gn3xC8qsH3/3PNtxZkm9yTvSCXEYYmZ89GcBPIct32L8LIdwNlsi9tq7xovoDtHGAogfMF
- x+UM+CGsbmcPoxbB6yAuSdG+90vybu/GgwrNG/aJk/KDed3jOnySqKqniegg9i1UFr4GLR
- IrCxw/X0iTo4PuGOdoXUxJ5zV+bLNiE=
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=mx4HZQb1lpFQW0PBBGUfMhaBB5Wg3WA/cjHCKrVt3LQ=;
+ b=MXLYTcCLICoO/da/93OBuvkQZDCFHLPvy1NSgsdkgtYrpMC7q1wLvADd+xd1wrHLEhY3aq
+ n82RHDmrR7edR+53GrOho6FeTjpNS2Hl908xJCAJpFPwT1Yjl9Lurp4QKgjF8MlZQOdVZC
+ FvPHNfjqs82lu/SK27UzYVaYB/8p9go=
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-683-F8rCv90fOGCO9v8N6slskg-1; Thu, 07 May 2026 15:03:46 -0400
-X-MC-Unique: F8rCv90fOGCO9v8N6slskg-1
-X-Mimecast-MFC-AGG-ID: F8rCv90fOGCO9v8N6slskg_1778180626
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-514551d5f2aso21635061cf.2
- for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 12:03:46 -0700 (PDT)
+ us-mta-660-F99mdSx7MQCsdsJBqB-NYQ-1; Thu, 07 May 2026 15:22:07 -0400
+X-MC-Unique: F99mdSx7MQCsdsJBqB-NYQ-1
+X-Mimecast-MFC-AGG-ID: F99mdSx7MQCsdsJBqB-NYQ_1778181727
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-50d812c898cso29590161cf.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 12:22:07 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778180626; x=1778785426;
+ d=1e100.net; s=20251104; t=1778181727; x=1778786527;
  h=mime-version:user-agent:content-transfer-encoding:references
  :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=1Da30zB6qHlYB/8upFKz9PSKeDig+zmAcVMkZYstCps=;
- b=E6SjI26YPNZOQlT5ZkAiqrfPYHbXRnrffAzxFBeNW1dFlW0/fRYTwZmHFFF4weZdua
- mgY0WGf9R0sJsZG/xMw4TIhhgHIuCLTx40Ur7p/yrE0fawP2ccv83KNQBepz86UlytpA
- 4MTp4Fu77FhtzXoiXibPam0yTVuX9IhFTTRn7OH4XnG1hGvPzNNh2F2EYojkfZVpVGiD
- QKKwHIw50WX4RuC9I0XV8PQSJKYts66TZberZ4GNgeqUN6En8UkzyAc0hRZophVm5fFM
- FU77hrqEKBgYDsXc7xjRQVJmCVv7jXq+vcHEs2Vi3adXRD713/po8/fY+Kn/6OhDnmyo
- shEQ==
+ bh=h4Z240fQp2pA+4pbLjOL0fSakiiKJZNOCixmjOSCA0s=;
+ b=itPytDiq/7KgUWIaCgMt0o545tOKt45CspOqrDJBRKh4uSXIXXGthux/wIIsGhqDeg
+ 6EvYeRbxczm2d/gOHJjA+K2zyY1+DhEspsNAo8DM3FIDekpi4++2pnLaQQqxV6HeKeNd
+ lTBp2URkXkN41kZ49h18V3sdi24fGQyrFS2WjgC03TcpE0maykVGQm45lR/ybskrssfu
+ Sn1bmQYPuD+qIxUjRg3Fz+2Z8O4XLS+1/Yi8wZQB0wS7bc/jhxw7u1bOJEaeUAguJO6c
+ lZzPV7XS9hlaSaFsFnksbeUj3EABGPBduyrNnirjTJqxAjfC5wEs7+Bex6AvhXlFDDHZ
+ IOug==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/xRqzfMf1YkdyTMeEf0cnrVgyDZwnQeI0bs6JVrwYc/GLzfITEIH5jfDAoxA8Okrt0qrT1ydYYh98=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwX8HcdO+K2EfOy2fZ0PjhzA5czvZ34+Gc7gWCysDYnFEzTy7XN
- cnLyCNbZYUoa/ZF3xCzPSjMslKm27AFXqKSxD0HYjtq4uBGURfYThJYDBwkDju6u+4jf73BVIfp
- RO3zGnpjPsj/71hpBvJOoMRyyF9gRSTqPiB9PVd6hn0YDdhGKc3zDcMI/707iddF5P4KNPg==
-X-Gm-Gg: AeBDiesxsYYLVADJUu3owu0aAMzVKS09uvAbHEO3NBMBQiQxBLv00AD4+UoX1Pa9wZZ
- VHKmj2zN1AF0ipW8GkongeT/yezIZREvp1wo7XcmmYOG6rqHX83RYELMCAsr8IUEKhKW+ljrmXj
- x8jIBoKRC/Am25z9/3Aebyugj21cWGgu1gmF+ObEMO9Cmq3LtlaM09K2Ojm8NGEbprGftWTsX5M
- BT3aWue2JzdrgwzNqwo+oOdxr41FnpPPsXJnh8mdXAqwLg3DoIHwyb6NSPk81311GYLIw0/eUVK
- /l1laEiiuONIYFiuB/zQV00i9h/XL4SzYu5KZdRFi4qcVrHB2IDzfLioDHmvE30+xrj58Et78kX
- Kpxzg+MWEdTJG/ErEkQ==
-X-Received: by 2002:a05:622a:647:b0:514:5d88:8296 with SMTP id
- d75a77b69052e-514621d0e45mr126050221cf.52.1778180626133; 
- Thu, 07 May 2026 12:03:46 -0700 (PDT)
-X-Received: by 2002:a05:622a:647:b0:514:5d88:8296 with SMTP id
- d75a77b69052e-514621d0e45mr126049701cf.52.1778180625477; 
- Thu, 07 May 2026 12:03:45 -0700 (PDT)
+ AFNElJ+Ng0xtMgpukyPU4i520aFOMz6HWo033gVXJQaksRARFF33S0wnbHzUjanguOErF1cEZbYny890qVk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YztrV8VFFl4HeA4O9lRKvJDBf62MjCvG4ybrpQtid8ggf8hCKH+
+ /YtxkXZtfV0DFGEYUSOvhH60Vg/zxOjcNPALsJ1z5ie6wcNfcgxu78QMbDemasceRpUTCWR8hcM
+ 3n0pwpO4/XBvBKxpNsZU2wgNXrVg3rlz7O1VMFB4Lo/kEs0l++s/RU0SA+T00MZ8THX6W9g==
+X-Gm-Gg: AeBDietycr2QeZbOL4QUIPrA7s2PJmXiD6957DLw8T82PuvxlUSCZm1Opyzb13Lqpws
+ gltfn0hSit1yvDZ14EdV66jbBMfOv3XZlRk2Flbx7jqWMs5UEyiKjYb0MskJgfYfMswpw0EYp6b
+ jci2zUqriYfphwgKLigm6p+jHRcMWJ/dBxL2NqtASACG0BAqBZuXUqDFSxCYLq1DkO0p8iKbf5m
+ srsr2HXvF5xoF8rPBQl1xUraVm6ILOHb+F2EteGUoGslaXGQs+NXrbNrFHEbrIKW8eTodyz3HLb
+ IwE0oi3oDM69Ff7KJQqxumZKkddm9gR+DK+flQMvB4/lJe6PhQMYUdczXSN2qOHJ0AzVcyXMnSO
+ euOkO3HbdBS5WQiiRlg==
+X-Received: by 2002:a05:622a:1f8a:b0:50f:ccdd:13f1 with SMTP id
+ d75a77b69052e-51461c26254mr144206871cf.16.1778181726633; 
+ Thu, 07 May 2026 12:22:06 -0700 (PDT)
+X-Received: by 2002:a05:622a:1f8a:b0:50f:ccdd:13f1 with SMTP id
+ d75a77b69052e-51461c26254mr144206201cf.16.1778181726201; 
+ Thu, 07 May 2026 12:22:06 -0700 (PDT)
 Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-514850cad3csm4919841cf.3.2026.05.07.12.03.44
+ d75a77b69052e-514850d0d82sm5922791cf.5.2026.05.07.12.22.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 May 2026 12:03:44 -0700 (PDT)
-Message-ID: <d1120aef54d335abf90d7032c9071992bbd7062f.camel@redhat.com>
-Subject: Re: [PATCH] drm/dp/mst: fix OOB reads in remote DPCD/I2C sideband
+ Thu, 07 May 2026 12:22:05 -0700 (PDT)
+Message-ID: <3af593e5ff0c3afa7e9e10b06ed9b6c9ab9edad2.camel@redhat.com>
+Subject: Re: [PATCH] drm/dp/mst: fix OOB reads on 2-byte fields in sideband
  reply parsers
 From: lyude@redhat.com
 To: Ashutosh Desai <ashutoshdesai993@gmail.com>, 
@@ -77,13 +77,13 @@ To: Ashutosh Desai <ashutoshdesai993@gmail.com>,
 Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
  tzimmermann@suse.de, 	airlied@gmail.com, simona@ffwll.ch,
  linux-kernel@vger.kernel.org
-Date: Thu, 07 May 2026 15:03:44 -0400
-In-Reply-To: <20260410034123.2433769-1-ashutoshdesai993@gmail.com>
-References: <20260410034123.2433769-1-ashutoshdesai993@gmail.com>
+Date: Thu, 07 May 2026 15:22:04 -0400
+In-Reply-To: <20260410040026.2436280-1-ashutoshdesai993@gmail.com>
+References: <20260410040026.2436280-1-ashutoshdesai993@gmail.com>
 User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 601CLh4WChQGesQVcrBMiTPzZEdirC_iRgcAcHG2RQQ_1778180626
+X-Mimecast-MFC-PROC-ID: r8O9ZwywqzfSGxN003MRRvHklEcbYFZ_pHNZDiNyD54_1778181727
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -102,73 +102,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi - one comment down below:
+Comments down below
 
-On Fri, 2026-04-10 at 03:41 +0000, Ashutosh Desai wrote:
-> drm_dp_sideband_parse_remote_dpcd_read() reads num_bytes from the raw
-> message and then unconditionally does:
+On Fri, 2026-04-10 at 04:00 +0000, Ashutosh Desai wrote:
+> Three sideband reply parsers read 16-bit fields as:
 >=20
-> =C2=A0 memcpy(bytes, &raw->msg[idx], num_bytes);
+> =C2=A0 val =3D (raw->msg[idx] << 8) | (raw->msg[idx+1]);
 >=20
-> without checking that idx + num_bytes <=3D raw->curlen.=C2=A0 raw->msg[] =
-is
-> 256 bytes; if a malicious or misbehaving MST hub sets num_bytes
-> larger
-> than the remaining payload, the memcpy reads past the received data
-> into whatever follows in raw->msg[].
+> and only check bounds after the fact (idx +=3D 2, then
+> if (idx > raw->curlen)).=C2=A0 When idx =3D=3D raw->curlen at the
+> point of the read, raw->msg[idx+1] is one byte past the
+> received message data, reading into the following struct
+> fields (curchunk_len, curchunk_idx, curlen).
 >=20
-> drm_dp_sideband_parse_remote_i2c_read_ack() has the same flaw and
-> also
-> lacked the post-increment idx bounds check (noted with a /* TODO
-> check */
-> comment since the code was introduced).
+> Affected functions:
+> =C2=A0- drm_dp_sideband_parse_enum_path_resources_ack()
+> =C2=A0=C2=A0 full_payload_bw_number and avail_payload_bw_number fields
+> =C2=A0- drm_dp_sideband_parse_allocate_payload_ack()
+> =C2=A0=C2=A0 allocated_pbn field
+> =C2=A0- drm_dp_sideband_parse_query_payload_ack()
+> =C2=A0=C2=A0 allocated_pbn field
 >=20
-> Add the missing bounds checks in both functions, consistent with the
-> pattern used throughout the rest of the sideband parser.
+> Move the bounds check to immediately before each 2-byte read,
+> using idx + 2 > raw->curlen, consistent with the fix pattern
+> used elsewhere in this file.
 >=20
 > Signed-off-by: Ashutosh Desai <ashutoshdesai993@gmail.com>
 > ---
-> =C2=A0drivers/gpu/drm/display/drm_dp_mst_topology.c | 8 +++++++-
-> =C2=A01 file changed, 7 insertions(+), 1 deletion(-)
+> =C2=A0drivers/gpu/drm/display/drm_dp_mst_topology.c | 17 +++++++---------=
+-
+> =C2=A01 file changed, 7 insertions(+), 10 deletions(-)
 >=20
 > diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c
 > b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> index 170113520..9cef6c576 100644
+> index 9cef6c576..f2a7dbc5e 100644
 > --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
 > +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> @@ -873,6 +873,8 @@ static bool
-> drm_dp_sideband_parse_remote_dpcd_read(struct drm_dp_sideband_msg_rx
+> @@ -931,14 +931,13 @@ static bool
+> drm_dp_sideband_parse_enum_path_resources_ack(struct drm_dp_sideband
 > =C2=A0=09idx++;
 > =C2=A0=09if (idx > raw->curlen)
 > =C2=A0=09=09goto fail_len;
-> +=09if (idx + repmsg->u.remote_dpcd_read_ack.num_bytes > raw-
-> >curlen)
+> +=09if (idx + 2 > raw->curlen)
 > +=09=09goto fail_len;
 
-Do we need both checks here? It seems like we could just replace the
-first check with the second check.
+Same feedback as the other patch - we can just remove the idx check
+above and replace it with the idx + 2 > raw->curlen check.
 
-> =C2=A0
-> =C2=A0=09memcpy(repmsg->u.remote_dpcd_read_ack.bytes, &raw->msg[idx],
-> repmsg->u.remote_dpcd_read_ack.num_bytes);
-> =C2=A0=09return true;
-> @@ -907,7 +909,11 @@ static bool
-> drm_dp_sideband_parse_remote_i2c_read_ack(struct drm_dp_sideband_msg
+> =C2=A0=09repmsg->u.path_resources.full_payload_bw_number =3D (raw-
+> >msg[idx] << 8) | (raw->msg[idx+1]);
+> =C2=A0=09idx +=3D 2;
+> -=09if (idx > raw->curlen)
+> +=09if (idx + 2 > raw->curlen)
 > =C2=A0=09=09goto fail_len;
-> =C2=A0=09repmsg->u.remote_i2c_read_ack.num_bytes =3D raw->msg[idx];
-> =C2=A0=09idx++;
-> -=09/* TODO check */
-> +=09if (idx > raw->curlen)
-> +=09=09goto fail_len;
-> +=09if (idx + repmsg->u.remote_i2c_read_ack.num_bytes > raw-
-> >curlen)
-> +=09=09goto fail_len;
-
-Same here
-
-> +
-> =C2=A0=09memcpy(repmsg->u.remote_i2c_read_ack.bytes, &raw->msg[idx],
-> repmsg->u.remote_i2c_read_ack.num_bytes);
+> =C2=A0=09repmsg->u.path_resources.avail_payload_bw_number =3D (raw-
+> >msg[idx] << 8) | (raw->msg[idx+1]);
+> -=09idx +=3D 2;
+> -=09if (idx > raw->curlen)
+> -=09=09goto fail_len;
 > =C2=A0=09return true;
 > =C2=A0fail_len:
+> =C2=A0=09DRM_DEBUG_KMS("enum resource parse length fail %d %d\n",
+> idx, raw->curlen);
+> @@ -958,10 +957,9 @@ static bool
+> drm_dp_sideband_parse_allocate_payload_ack(struct drm_dp_sideband_ms
+> =C2=A0=09idx++;
+> =C2=A0=09if (idx > raw->curlen)
+> =C2=A0=09=09goto fail_len;
+> -=09repmsg->u.allocate_payload.allocated_pbn =3D (raw->msg[idx] <<
+> 8) | (raw->msg[idx+1]);
+> -=09idx +=3D 2;
+> -=09if (idx > raw->curlen)
+> +=09if (idx + 2 > raw->curlen)
+> =C2=A0=09=09goto fail_len;
+> +=09repmsg->u.allocate_payload.allocated_pbn =3D (raw->msg[idx] <<
+> 8) | (raw->msg[idx+1]);
+> =C2=A0=09return true;
+> =C2=A0fail_len:
+> =C2=A0=09DRM_DEBUG_KMS("allocate payload parse length fail %d %d\n",
+> idx, raw->curlen);
+> @@ -977,10 +975,9 @@ static bool
+> drm_dp_sideband_parse_query_payload_ack(struct drm_dp_sideband_msg_r
+> =C2=A0=09idx++;
+> =C2=A0=09if (idx > raw->curlen)
+> =C2=A0=09=09goto fail_len;
+> -=09repmsg->u.query_payload.allocated_pbn =3D (raw->msg[idx] << 8)
+> | (raw->msg[idx + 1]);
+> -=09idx +=3D 2;
+> -=09if (idx > raw->curlen)
+> +=09if (idx + 2 > raw->curlen)
+> =C2=A0=09=09goto fail_len;
+> +=09repmsg->u.query_payload.allocated_pbn =3D (raw->msg[idx] << 8)
+> | (raw->msg[idx + 1]);
+> =C2=A0=09return true;
+> =C2=A0fail_len:
+> =C2=A0=09DRM_DEBUG_KMS("query payload parse length fail %d %d\n",
+> idx, raw->curlen);
 
