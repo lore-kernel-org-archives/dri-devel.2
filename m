@@ -4,129 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 281B8CD3442
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 10:18:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9C07CD3442
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 10:19:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89F5F10F0A6;
-	Thu,  7 May 2026 10:18:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C80E10F0AA;
+	Thu,  7 May 2026 10:19:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="jNb3n9qx";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="oXzD96vh";
 	dkim-atps=neutral
-Received: from TY3P286CU002.outbound.protection.outlook.com
- (mail-japaneastazon11010038.outbound.protection.outlook.com [52.101.229.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8001310F0A6
- for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 10:18:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DqDxRmXCz9hSYJtTf7j6MBGZPEktBsoK9UNdflClu1UAiYnP4rgaVSbkE72/OT5jbJ3EBbsAyJh4aiww8B7Sn9HlE2C8xZkZXj0yPbGo8qksMZjrR4KLLR4whdcnp1XQUMHd3x3erjP9SYYLlvdLDTZfi9a4AFLPtqh10IiTR15nJo/wk0OEKJrVBghMFhAOrgqDcEPDI8J2x3EOiEKHDaLSsML2ISfz+KvgZBV6pXTi1piHcQVgJ6575xpuHgxy9KTa9sZEosHFKVd2d6R4Obyj5vwqtXjzSZ2DIMHKrQ+0N36s9wMao4jCU2WJJHMc6VBhBvYARucDGGqQzbfdTA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VZ/F/Cn5h87mAbdNf8wyGuK5+MUAWyeFfPAavyHaQt4=;
- b=GX9o+IptRQsiYo0bMCICBIvkYqX0ufy/L35mkgyficz8mmlH5b0J+emdAD7D4amtm2fU2nF6i43yPEQYm17vVcU1fFLNp/60CAihS8l9nFNeLVYNPKo3n5x10V2xjuzMWMsmNoUq46cKckRbNFl8ftZ8iUpqbQ7jhiXSGOUqQeqLV1j4GGA6xopY5YZ9TQKiGW7wO1mVf09jFJ4WT+Qe6dnRX+ri/AD94SdBRg4TiGStmI3kV9KicjakWhyiRA5FTewyf8wf4LB3yCf1mDVGaFEA9MQ7fjhXigFaIj0m6uxr8a1jVmkQwNYRhwJEGV1s/cd3v55sM0mgNICAPokKzg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VZ/F/Cn5h87mAbdNf8wyGuK5+MUAWyeFfPAavyHaQt4=;
- b=jNb3n9qxeMkJpfua5dXrS6u9vuLUzN8kcdxx1GHFVIoMQxe980U+mPEinF2mZA5s0mbtdsrxrDNQ12mMj5jkaWIbDDBgWAxJkoHEFZj7hyVTg7Wj5vzomBl9FgCv8EtvXZrM0KL2ZNLzQFObM6mlEFL4OWdKGczZJarx5jAsY+0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com (2603:1096:400:3e1::6)
- by OSRPR01MB11490.jpnprd01.prod.outlook.com (2603:1096:604:22d::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.17; Thu, 7 May
- 2026 10:18:15 +0000
-Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com
- ([fe80::33f1:f7cd:46be:e4d8]) by TYCPR01MB11947.jpnprd01.prod.outlook.com
- ([fe80::33f1:f7cd:46be:e4d8%5]) with mapi id 15.20.9891.016; Thu, 7 May 2026
- 10:18:15 +0000
-From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-To: tomm.merciai@gmail.com, geert@linux-m68k.org,
- laurent.pinchart@ideasonboard.com
-Cc: linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com,
- Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id D091D10F0AA
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 10:19:21 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 106D519F6
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 03:19:16 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ 1E26C3F836
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 03:19:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1778149161; bh=TG08dbsdevsuUuKiOfCppaUESy80nCb00HkxvqnrU2A=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=oXzD96vhu672aCnXbsoMO3Gh92QJjDkkwSB7/EYGXTMlgWMAIJ4d7rSonpxIrpXqX
+ zqxJCuaMy38ePyiLQmFxFLfeP6aBBGLp2nT9yQWGE0yhtVny3nuaKOErNMch5SXja1
+ jmxOODwdyu1Kmq9/hAgoAAM6SmzYYX2jkZuUTchQ=
+Date: Thu, 7 May 2026 11:18:55 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Steven Price <steven.price@arm.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v7 4/4] drm: renesas: rz-du: mipi_dsi: Add support for RZ/G3E
-Date: Thu,  7 May 2026 12:17:05 +0200
-Message-ID: <83c59209a182d44001df2dfa46d8980b66edab4a.1778148715.git.tommaso.merciai.xr@bp.renesas.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <cover.1778148715.git.tommaso.merciai.xr@bp.renesas.com>
-References: <cover.1778148715.git.tommaso.merciai.xr@bp.renesas.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: FR0P281CA0155.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b3::18) To TYCPR01MB11947.jpnprd01.prod.outlook.com
- (2603:1096:400:3e1::6)
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Akash Goel <akash.goel@arm.com>, Chia-I Wu <olvaffe@gmail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] drm/gem: Fix a race between drm_gem_lru_scan() and
+ drm_gem_object_release()
+Message-ID: <afxnD-YhUsLdLmWN@e142607>
+References: <20260506-panthor-shrinker-fixes-v1-0-e7721526de96@collabora.com>
+ <20260506-panthor-shrinker-fixes-v1-2-e7721526de96@collabora.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCPR01MB11947:EE_|OSRPR01MB11490:EE_
-X-MS-Office365-Filtering-Correlation-Id: 35e55040-4833-4739-fa1e-08deac21f391
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|52116014|376014|7416014|38350700014|3023799003|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: RXcQiuku9V0z8EmxbRQJuo25d34ydbIrPYf36ykcNb2YwLKJN0bWfD8ut5cp+s2zjIuOtWegua4Gt86glVjl0ebGOjqb4UCWIvBIT1pSJmLNHwUQwWvRhpcLCBldY6DsWw4Ah2i82ccBqW9g6Cpsn6k+tqosJnXtCq8bcrMpeRFKtyvjK7WawjhY3dg0AeB2rWQxSSAK9QSTPjrwxxjPbZ9Ig7CTsgdElTlA3H+JKXgeA8eAxZLcsUUnXL1UmpdJzb919avEXA3RA+RfN78a4QnrvURxe2QH1p4ZbxSLj/ntZK9UZ96aG2rJf0YDLyuXmF/JNeg6HS/tVYKkgSsIx+NvUSK6u2JIjcKUn6/7tqNaQy8KhU8UuEc/uKgOb4k+ITbIyPoZ0dazk0w8YEAJY/3kfFoyajctWDO/l3ImlMAwYkzhwPG3GRs6IDtMFON9vtslGCJTtg4u9xOuZp0FIAD03Of84mWNiNPTHmPFzzZYOT5O0vyoLz9iMIMVhZ37A+z9XaM3k+boAfeXZGZxnSgfmVnunRIwTLL0njfNOqCqj8iq3ZxoRClj5i0epatH9Zz0bmmHURJJZAUdx5I5Za64hlLS+Q5/SUK91dlk3QkP3n06Ac13P5uddyl4DNo2/8z/LW4zpjSwSVKkhK0uuUx9hoN6SDWVdFe1Ne5NlLFiKPeYU+zJWjaPwhUhqpepA3DLrrZvL5NlkZCykbeyYdgyeQVwgxu1MBLTove3H34EVIj3hwVwkNvKYklwb5Wg
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TYCPR01MB11947.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(52116014)(376014)(7416014)(38350700014)(3023799003)(56012099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?1JOLqP0yLKXN36HWZubNOhOmYN7w5YIPciYZKt53LK8E66MxjZ8JlHUhC0dZ?=
- =?us-ascii?Q?xBUEtxXty7jltL/6kjZ+EL2fP/JHOsE1nmCv9fw6wcmhK//w99lKal0JpJXv?=
- =?us-ascii?Q?2qSkxnA0ym/eM5ESaCeQVR8VSNO3F45RoCAJd3E9dOlMsaGjZJy+BdRyDXGY?=
- =?us-ascii?Q?6CStNA0PYsf/TbKsUQgMICanSJtbyiFxsu354KPx+Qbzaezic4dh6v5JYR+D?=
- =?us-ascii?Q?9mOAvJmsuLTtAZHxiHAGQ+DkfDyugEF5amUrRTWmKzBYfHEdPlZ/qBtp4/1S?=
- =?us-ascii?Q?icw0W76lWJrIB+4BMd2VAngnuujr86T8A4S4Qe2w7lHX/zwEdahdGTMEDnBm?=
- =?us-ascii?Q?aEG9Oou4pNMX2yscMw80UAz/73zl3NnEaavEDIbi8ju7Wpd1wDzXcr/QDIVd?=
- =?us-ascii?Q?Tj+FWJf3Ul9Cx2U4fRDbWSXdeOVq2rFMO8K3/+M0J0nV8kYkjW2a6L4LBB9Z?=
- =?us-ascii?Q?L+R5Txq6JJFTgg6/Zveckd0d6aiRAPJBNhHHBYVbVu1EzKlnCRSvtb9nFBbi?=
- =?us-ascii?Q?v5EEvEtyDKCfyteFass1o7s/6IQTcLJbMFY6CyVra+DbhttbbasCVlVTl5yw?=
- =?us-ascii?Q?Kg7GsI0sjyKH0ou7MRDcDKD/FgJryU9mshi0LMS9G4Z+3hUE8zPw0HCE16z8?=
- =?us-ascii?Q?MJOId1Dy3RW7MEYfXT4lARqswuOV6ytN4txjZgBtIRpkbyGBQZSqRpahzrlV?=
- =?us-ascii?Q?C2QWMhpoZiswKNP5okLDdE2OhcsDY3ioO0OzmdERN+700vOVWzProKjX7PGx?=
- =?us-ascii?Q?G44d0YF1j+rmC8to5POgGL+yfpWWhLFeGp4Rtqn+9tPlq77+7NVRpbZj+3ig?=
- =?us-ascii?Q?3auE7I/6NRNdoVZF39t19yk5HT4m5mzjE8AR9W9cFGtt0ZIUPO5JW0j7rVFF?=
- =?us-ascii?Q?2+K0jbd6uyDgtpVss3JtjWas/C2vfKjpoGaj28Hl5mHORZ3UnFzxlLBAlJEy?=
- =?us-ascii?Q?fXEl0bD45SlcX7gA1/Koe0vt+vmBiade4jkjfSY5SKV5k9JYtJbs5t8q7HKb?=
- =?us-ascii?Q?FMUebqMFwLo9r+9YwYAyv5lcTXp0YNPhb0nut5qtjjShmcGu6L8aFsw/4ddv?=
- =?us-ascii?Q?wiW/OnDbV6fEFMrkOltp9sNz6pX01IwBBeBpUFAxAMiqh2abZiL2IlQj+YJP?=
- =?us-ascii?Q?zpxymd56n8/pSfKcgyPU1Y9KSUj9aPRfQP9ijeY0sP2OOcg3fD3Q3i/NO9xS?=
- =?us-ascii?Q?C5+hgvlSUFs6253coE1YBtzR6FF0TRx+L5aE0NENnGeH+prxNXVH623K21ws?=
- =?us-ascii?Q?nFQ52vv/KENUvzXY5J92lwzPfw1Sfs0iYkT+pppWuA/VrpeTpr4GZw/+5IPM?=
- =?us-ascii?Q?QYd6AprWsrn1gR/yBZig0irUK8Pxvw+caC6TsW34j8g5DpjfTUAfeWUH7Gl/?=
- =?us-ascii?Q?581MGj1vQOZ8Mmm0h4lGgXonsyfsd5xnSWDB5hWnnno6vdLyl6klaauoCpy3?=
- =?us-ascii?Q?zSEsPB6T2Zo5W+Dc+vxtwDjGXyouS7fTunGpadT3OWS3HkXaLRX+MkB7ElKv?=
- =?us-ascii?Q?PHSTeuNPOF4Pmx3Eoo2D7d2GziJb56MXGpt00Rir9CwCSJ4ciK/STitS+iU4?=
- =?us-ascii?Q?lWm109pWPu/EUQSUChHvFfLnLHs1FTiuh3IYZZAF/zBKcKb7SQ0S8OP7SaOp?=
- =?us-ascii?Q?CsYsLWy6TtM8P937akH4p4B0Yvva0drhY9m04NYDpct2CsOBUnNAodcaq4vG?=
- =?us-ascii?Q?cXBPu5dMFGd8p7UO6NZ8hnlCvybZ0eWN3gwhZQirGDwkhn99ZyxDeK7t5qsG?=
- =?us-ascii?Q?XrnpxtCmx/SHBMcskUoZl0WeuRkR1sJJ/7nsbRs3AY3A9jvwKW/j?=
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 35e55040-4833-4739-fa1e-08deac21f391
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB11947.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2026 10:18:15.4856 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Zj9P+znqUEi3qN9Hp+XBatXGge+ZZXHMC1ZwSg5/2R4GDtCb0xr0pcEM8sdF86a8ZAZu6rcxdMiSP5sUZ9sC6lWx8ZqzXzEQxTkR65Gq+cvuOAL+Ng6NB7c07J52Crx+
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSRPR01MB11490
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260506-panthor-shrinker-fixes-v1-2-e7721526de96@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,103 +70,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add MIPI DSI support for the Renesas RZ/G3E SoC.
+On Wed, May 06, 2026 at 02:16:27PM +0200, Boris Brezillon wrote:
+> The following race can currently happen:
+> 
+> | Thread 0 in `drm_gem_lru_scan`               | Thread 1 in `drm_gem_object_release` |
+> | -                                            | -                                    |
+> | move obj1 with refcount==0 to `still_in_lru` |                                      |
+> | move obj2 with refcount!=0 to `still_in_lru` |                                      |
+> | mutex_unlock                                 |                                      |
+> | shrink obj2                                  |                                      |
+> |                                              | lru = obj1->lru; // `still_in_lru`   |
+> | mutex_lock                                   |                                      |
+> | move obj1 back to the original lru           |                                      |
+> | mutex_unlock                                 |                                      |
+> | return                                       |                                      |
+> |                                              | dereference `still_in_lru`           |
+> 
+> Move the drm_gem_lru_move_tail_locked() after the
+> kref_get_unless_zero() check so that we don't end up with a
+> vanishing LRU when we hit drm_gem_object_release(). We also need to
+> remove the skipped object from its LRU, otherwise we'll keep hitting
+> it on subsequent loop iterations until it's actually removed from the
+> list in the drm_gem_release().
+> 
+> Fixes: e7c2af13f811 ("drm/gem: Add LRU/shrinker helper")
+> Reported-by: Chia-I Wu <olvaffe@gmail.com>
+> Closes: https://gitlab.freedesktop.org/panfrost/linux/-/work_items/86
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+> Reviewed-by: Chia-I Wu <olvaffe@gmail.com>
 
-RZ/V2H(P) and RZ/G3E share identical PLLDSI divider constraints from the
-DSI PHY perspective, so both can reuse the existing
-rzv2h_plldsi_div_limits structure. However, at the CPG level the limits
-differ:
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
- - PLLDSI0 limits apply when vclk1 is used.
- - PLLDSI1 limits apply when vclk2 is used.
+Best regards,
+Liviu
 
-To support this introduce rzg3e_plldsis_limits for RZ/G3E SoC.
+> ---
+>  drivers/gpu/drm/drm_gem.c | 14 +++++++++-----
+>  1 file changed, 9 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+> index fca42949eb2b..97cf63de0112 100644
+> --- a/drivers/gpu/drm/drm_gem.c
+> +++ b/drivers/gpu/drm/drm_gem.c
+> @@ -1660,15 +1660,19 @@ drm_gem_lru_scan(struct drm_gem_lru *lru,
+>  		if (!obj)
+>  			break;
+>  
+> -		drm_gem_lru_move_tail_locked(&still_in_lru, obj);
+> -
+>  		/*
+>  		 * If it's in the process of being freed, gem_object->free()
+> -		 * may be blocked on lock waiting to remove it.  So just
+> -		 * skip it.
+> +		 * may be blocked on lock waiting to remove it.  So just remove
+> +		 * it from its current LRU and skip it.
+>  		 */
+> -		if (!kref_get_unless_zero(&obj->refcount))
+> +		if (!kref_get_unless_zero(&obj->refcount)) {
+> +			if (obj->lru)
+> +				drm_gem_lru_remove_locked(obj);
+> +
+>  			continue;
+> +		}
+> +
+> +		drm_gem_lru_move_tail_locked(&still_in_lru, obj);
+>  
+>  		/*
+>  		 * Now that we own a reference, we can drop the lock for the
+> 
+> -- 
+> 2.54.0
+> 
 
-During rzv2h_dphy_mode_clk_check(), the appropriate limits are selected
-dynamically based on vclk_idx, which reflects the currently selected
-vclk.
-
-Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
----
-v6->v7:
- - Added missing const to rzg3e_mipi_dsi_info struct
-
-v5->v6:
- - Collected BDas tag.
-
-v4->v5:
- - No changes.
-
-v3->v4:
- - No changes.
-
-v2->v3:
- - No changes.
-
-v1->v2:
- - No changes.
-
- .../gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c    | 33 ++++++++++++++++++-
- 1 file changed, 32 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-index 19f8f19e538f..5cdb52b045f5 100644
---- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-+++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-@@ -582,7 +582,7 @@ static unsigned int rzv2h_dphy_mode_clk_check(struct rzg2l_mipi_dsi *dsi,
- 	mode_freq_hz = mul_u32_u32(mode_freq, KILO);
- 	mode_freq_millihz = mode_freq_hz * MILLI;
- 	parameters_found =
--		rzv2h_get_pll_divs_pars(dsi->info->cpg_plldsi.limits[0],
-+		rzv2h_get_pll_divs_pars(dsi->info->cpg_plldsi.limits[dsi->vclk_idx],
- 					&cpg_dsi_parameters,
- 					dsi->info->cpg_plldsi.table,
- 					dsi->info->cpg_plldsi.table_size,
-@@ -1527,6 +1527,36 @@ static void rzg2l_mipi_dsi_remove(struct platform_device *pdev)
- 	pm_runtime_disable(&pdev->dev);
- }
- 
-+RZG3E_CPG_PLL_DSI0_LIMITS(rzg3e_cpg_pll_dsi0_limits);
-+RZG3E_CPG_PLL_DSI1_LIMITS(rzg3e_cpg_pll_dsi1_limits);
-+
-+static const struct rzv2h_pll_limits *rzg3e_plldsis_limits[] = {
-+	&rzg3e_cpg_pll_dsi0_limits,
-+	&rzg3e_cpg_pll_dsi1_limits,
-+};
-+
-+static const u8 rzg3e_cpg_div_table[] = {
-+	2, 4, 6, 8, 10, 12, 14, 16,
-+};
-+
-+static const struct rzg2l_mipi_dsi_hw_info rzg3e_mipi_dsi_info = {
-+	.dphy_init = rzv2h_mipi_dsi_dphy_init,
-+	.dphy_startup_late_init = rzv2h_mipi_dsi_dphy_startup_late_init,
-+	.dphy_exit = rzv2h_mipi_dsi_dphy_exit,
-+	.dphy_mode_clk_check = rzv2h_dphy_mode_clk_check,
-+	.dphy_conf_clks = rzv2h_dphy_conf_clks,
-+	.cpg_plldsi.limits = rzg3e_plldsis_limits,
-+	.cpg_plldsi.table = rzg3e_cpg_div_table,
-+	.cpg_plldsi.table_size = ARRAY_SIZE(rzg3e_cpg_div_table),
-+	.phy_reg_offset = 0x10000,
-+	.link_reg_offset = 0,
-+	.min_dclk = 5440,
-+	.max_dclk = 187500,
-+	.out_port = 2,
-+	.features = RZ_MIPI_DSI_FEATURE_16BPP |
-+		    RZ_MIPI_DSI_FEATURE_GPO0R,
-+};
-+
- RZV2H_CPG_PLL_DSI_LIMITS(rzv2h_cpg_pll_dsi_limits);
- 
- static const struct rzv2h_pll_limits *rzv2h_plldsi_limits[] = {
-@@ -1565,6 +1595,7 @@ static const struct rzg2l_mipi_dsi_hw_info rzg2l_mipi_dsi_info = {
- };
- 
- static const struct of_device_id rzg2l_mipi_dsi_of_table[] = {
-+	{ .compatible = "renesas,r9a09g047-mipi-dsi", .data = &rzg3e_mipi_dsi_info, },
- 	{ .compatible = "renesas,r9a09g057-mipi-dsi", .data = &rzv2h_mipi_dsi_info, },
- 	{ .compatible = "renesas,rzg2l-mipi-dsi", .data = &rzg2l_mipi_dsi_info, },
- 	{ /* sentinel */ }
 -- 
-2.54.0
-
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
