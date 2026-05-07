@@ -4,78 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36A44CD3439
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 15:25:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E339CD3439
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 15:29:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D6DE10E27F;
-	Thu,  7 May 2026 15:25:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58F3410F1BF;
+	Thu,  7 May 2026 15:29:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IiYPc+6m";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eEOu1H8o";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2530A10E27F
- for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 15:25:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 044E010E2D3
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 15:29:31 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 84EFD60583
- for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 15:25:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34BC7C2BCC9
- for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 15:25:54 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6D4346015B;
+ Thu,  7 May 2026 15:29:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0BDFC2BCB2;
+ Thu,  7 May 2026 15:29:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778167554;
- bh=wWbaNgLjvgEK60SoLK00HREVJw2pjszb4CF+qYI0K7w=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=IiYPc+6mLChtKGBenijU6gMwDozISCBsh5s0UVIU39zm0Ba+5cMfNhtyej2cT3POg
- 8ooc59U+xSIwocabHngDh5KPtmqO78vRzCmxy/h2YsjWFtL/0rBmWevWbRcUsMtE+A
- rP5EIo5kx3kWPBEis8SbD9jWDTpmkV4Ni4me8YzqYRLDqJE6Nn8ZF/1sl7DWf3+KGn
- Sna6brPjZFimyNKAHYWhvMq8rpo5jCfK8anLeBC3AZiThqFAhu/wcRuXjhUufDxUTZ
- 4zhI6VvgWLOKHK4JBtHrX2sSY3eRmi2w+/fnhYQKfne/Y1Wl+DLGzr+aH0vJwXIkiW
- dWDE+K/b0JHlg==
-Received: by mail-ed1-f45.google.com with SMTP id
- 4fb4d7f45d1cf-678a16429c6so1460129a12.1
- for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 08:25:54 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AFNElJ/CVpy3KeELPHi7YQEWIjAE2P5g/mGqZ3X4kHirR20bkfntW+P917s510dAAOnO6+UvOU9/NiVpcN8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyhFBAYxpdjuAwH+TlkU7JPEwKiMX8cpPO1l1GKj8RqjaQ33hY4
- PLX4lclut+qzvqll+yAJg6HXEzeIkPx5T2NjhOf90mFzp8Dx7GX/LZlHncCuMCbXYGkxeVBfefR
- j07IWN6v7O07cmeJJuk+L5xUwsKESAQ==
-X-Received: by 2002:a05:6402:5344:20b0:67d:98bd:e44e with SMTP id
- 4fb4d7f45d1cf-67e0efb390emr1326327a12.17.1778167552504; Thu, 07 May 2026
- 08:25:52 -0700 (PDT)
+ s=k20201202; t=1778167770;
+ bh=aMk2O9QcXe4QdMYynYZZvBWho4N8dqGI1/RuB3qFjX8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=eEOu1H8o+V1LItWVTzpI4T0zTwu7zvm0br3nrsHAcKXIAE+891uz7IurvUEbywaUh
+ O/L0LjLPa6JMmHLDhsyJ+AxEg17pV9hVWAo1uDS5KPpD8kQHE9WXlNE5ih1OE1VQ/t
+ yA6j8fJPC5jge9/GRnWLPDlko0Cw6bwXzrApEG1hirRrNlnGF91UL3tZf8G7EBDi14
+ gW/z9sUfazSeT11Qzec7KYd+LnJJw2hI4py5utZgY3RpUF6qM+SplBBH8DAX/rPZRO
+ jr0iUwHYvLeiNsDS+dNhVQIMti/NzamyrriZKbRlRlA/qNNHEqtDKQLOGMIgAV8P20
+ v+KE0dMabFclQ==
+Date: Thu, 7 May 2026 17:29:27 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Albert Esteve <aesteve@redhat.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Michael Tretter <m.tretter@pengutronix.de>, 
+ Michael Walle <mwalle@kernel.org>,
+ Dario Binacchi <dario.binacchi@amarulasolutions.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 10/10] drm/panel: Make drm_panel_init() static
+Message-ID: <20260507-foamy-classic-wildcat-a320c6@houat>
+References: <20260507-drm_panel_init_rm-v1-0-51f448c7c291@redhat.com>
+ <20260507-drm_panel_init_rm-v1-10-51f448c7c291@redhat.com>
+ <20260507-premium-curious-macaw-d43cbe@houat>
+ <CADSE00+UN3wgsJnfCn3CLB3h-RnR-FLLfAOY3UhDyCOmt5HTKA@mail.gmail.com>
 MIME-Version: 1.0
-References: <20260504-v7-1-topic-ldb-fixes-v1-0-0125d937ff7f@pengutronix.de>
- <20260504-v7-1-topic-ldb-fixes-v1-2-0125d937ff7f@pengutronix.de>
- <20260505141538.GA2547282-robh@kernel.org>
- <2bl2mwpk57xgkuye2gydliymjkzikiovnb7ovnb73olwtfkjwn@byn3732grvnh>
- <CAL_JsqLYS1sgU680KNR60+OvtNwEVKWovht7K2APO3sqeJe6Nw@mail.gmail.com>
- <zbbez4lpme7szgnsd7fqufbuhmvcftw4sqrmwwwzyxu64i2ppb@fh2fgdkc6tat>
-In-Reply-To: <zbbez4lpme7szgnsd7fqufbuhmvcftw4sqrmwwwzyxu64i2ppb@fh2fgdkc6tat>
-From: Rob Herring <robh@kernel.org>
-Date: Thu, 7 May 2026 10:25:41 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqJWyRPh_hmJW8p7+VvtcqpS0a_azjMO-PyQgkqQUfLAGA@mail.gmail.com>
-X-Gm-Features: AVHnY4K59HFC-Lj0a6_OWOrJwlVTiPxlkDo7ivtKaVL4QyHlHtRcFSTM5LnBqeE
-Message-ID: <CAL_JsqJWyRPh_hmJW8p7+VvtcqpS0a_azjMO-PyQgkqQUfLAGA@mail.gmail.com>
-Subject: Re: [PATCH 2/4] Revert "dt-bindings: display: bridge: ldb: Fill in
- reg property"
-To: Marco Felsch <m.felsch@pengutronix.de>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Marek Vasut <marex@denx.de>, 
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, laurentiu.palcu@oss.nxp.com, 
- victor.liu@nxp.com, dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="xdii3lctv73unbwr"
+Content-Disposition: inline
+In-Reply-To: <CADSE00+UN3wgsJnfCn3CLB3h-RnR-FLLfAOY3UhDyCOmt5HTKA@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,124 +67,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, May 7, 2026 at 6:55=E2=80=AFAM Marco Felsch <m.felsch@pengutronix.d=
-e> wrote:
->
-> On 26-05-06, Rob Herring wrote:
-> > On Tue, May 5, 2026 at 10:46=E2=80=AFAM Marco Felsch <m.felsch@pengutro=
-nix.de> wrote:
-> > >
-> > > On 26-05-05, Rob Herring wrote:
-> > > > On Mon, May 04, 2026 at 10:21:42PM +0200, Marco Felsch wrote:
-> > > > > This reverts commit 16c8d76abe83d75b578d72ee22d25a52c764e14a.
-> > > > >
-> > > > > Remove the 'reg' and 'reg-names' property from the LDB.
-> > > > >
-> > > > > The LDB is either part of the IOMUX_GPR (i.MX6SX) or the BLKCTRL
-> > > > > (i.MX8MP, i.MX93) register space. Both IOMUX_GPR and BLKCTRL are
-> > > > > register ranges with loose register definitions. E.g.
-> > > > >
-> > > > >   - On the i.MX8MP there is one register which controls the AXI
-> > > > >     threshold for two different IPs (BIT(31:16) - IP1, BIT(15:0) =
-- IP2).
-> > > > >   - On the i.MX6SX IOMUXC_GPR5 controlls: CSI2 mux, WDOG3 setting=
-s, PXP
-> > > > >     handshake, ...
-> > > > >
-> > > > > In conclusion: it can't be ensured that one register belongs to o=
-ne
-> > > > > dedicated IP and the LDB is rather an exception than the rule.
-> > > >
-> > > > It is fine if there's a child node for LDB if the LDB registers are
-> > > > consistent, but the other misc things are represented by the parent
-> > > > node. It is certainly not a requirement that either everything be i=
-n
-> > > > child nodes or nothing be in child nodes.
-> > > >
-> > > > What I don't see in this series is what problem does this fix? If y=
-ou
-> > > > are going to break compatibility, then there had better be a good
-> > > > reason.
-> > >
-> > > Hi Rob,
-> > >
-> > > with the upcoming i.MX9x SoCs the parent syscon (BLKCTRL) controlls
-> > > multiple other IPs, e.g. a DPI mux added by commit 3feaa4342637
-> > > ("dt-bindings: soc: imx93-media-blk-ctrl: Add PDFC subnode to schema =
-and
-> > > example").
-> > >
-> > > During the discussion of the above commit we agreed that the sub-devi=
-ces
-> > > of the syscon shall not use the reg property due to the fact that one
-> > > register serves multiple purposes. In the above case the same registe=
-r
-> > > controlling the dpi-mux also controlls MIPI-DSI bits. The MIPI-DSI bi=
-ts
-> > > can be abstracted as drm-bridge as well. Two sub-devs using the same
-> > > 'reg' property below the same parent seems odd and I don't know if th=
-is
-> > > allowed either.
+
+--xdii3lctv73unbwr
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 10/10] drm/panel: Make drm_panel_init() static
+MIME-Version: 1.0
+
+On Thu, May 07, 2026 at 05:11:15PM +0200, Albert Esteve wrote:
+> On Thu, May 7, 2026 at 4:57=E2=80=AFPM Maxime Ripard <mripard@kernel.org>=
+ wrote:
 > >
-> > It's not generally. There are some exceptions to define things at the
-> > bit-offset level rather than byte level.
->
-> Thanks for the clarification.
->
-> > > Now the LDB is also part of this BLKCTRL syscon device but requires t=
-he
-> > > reg property. TBH, I don't know why the reg property was added in the
-> > > first place, due to the above fact (multiple sub-devs - same register=
-).
+> > Hi,
 > >
-> > Probably because we asked for it, but we don't always get a complete
-> > picture of all the h/w functions (though we ask for that too).
->
-> I get your point completely and I don't blame anyone.
->
-> > But nowhere have you said the LDB registers are mixed with other
-> > functions. If they aren't, then there is absolutely nothing to change
-> > in the binding. If they are, then yes, we shouldn't have 'reg'.
->
-> No they aren't mixed with other functions (for now).
+> > On Thu, May 07, 2026 at 01:53:08PM +0200, Albert Esteve wrote:
+> > > Now that all panel drivers use devm_drm_panel_alloc(),
+> > > there are no external callers of drm_panel_init().
+> > > Make it static to prevent new users from bypassing the
+> > > refcounted allocation path.
+> > >
+> > > Remove stale references to drm_panel_init() in kdocs.
+> > >
+> > > Signed-off-by: Albert Esteve <aesteve@redhat.com>
+> > > ---
+> > >  drivers/gpu/drm/display/drm_dp_helper.c | 2 +-
+> > >  drivers/gpu/drm/drm_panel.c             | 8 ++++----
+> > >  include/drm/drm_panel.h                 | 4 ----
+> > >  3 files changed, 5 insertions(+), 9 deletions(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/dr=
+m/display/drm_dp_helper.c
+> > > index a697cc227e289..380ebf0fad2be 100644
+> > > --- a/drivers/gpu/drm/display/drm_dp_helper.c
+> > > +++ b/drivers/gpu/drm/display/drm_dp_helper.c
+> > > @@ -4626,7 +4626,7 @@ static const struct backlight_ops dp_aux_bl_ops=
+ =3D {
+> > >   * Backlight will then be handled transparently without requiring
+> > >   * any intervention from the driver.
+> > >   *
+> > > - * drm_panel_dp_aux_backlight() must be called after the call to drm=
+_panel_init().
+> > > + * drm_panel_dp_aux_backlight() must be called after devm_drm_panel_=
+alloc().
+> > >   *
+> > >   * Return: 0 on success or a negative error code on failure.
+> > >   */
+> > > diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
+> > > index d1e6598ea3bc0..e3e1c5ceb8ff8 100644
+> > > --- a/drivers/gpu/drm/drm_panel.c
+> > > +++ b/drivers/gpu/drm/drm_panel.c
+> > > @@ -56,8 +56,9 @@ static LIST_HEAD(panel_list);
+> > >   * Initialize the panel structure for subsequent registration with
+> > >   * drm_panel_add().
+> > >   */
+> > > -void drm_panel_init(struct drm_panel *panel, struct device *dev,
+> > > -                 const struct drm_panel_funcs *funcs, int connector_=
+type)
+> > > +static void drm_panel_init(struct drm_panel *panel, struct device *d=
+ev,
+> > > +                        const struct drm_panel_funcs *funcs,
+> > > +                        int connector_type)
+> > >  {
+> > >       if (connector_type =3D=3D DRM_MODE_CONNECTOR_Unknown)
+> > >               DRM_WARN("%s: %s: a valid connector type is required!\n=
+", __func__, dev_name(dev));
+> > > @@ -69,7 +70,6 @@ void drm_panel_init(struct drm_panel *panel, struct=
+ device *dev,
+> > >       panel->funcs =3D funcs;
+> > >       panel->connector_type =3D connector_type;
+> > >  }
+> > > -EXPORT_SYMBOL(drm_panel_init);
+> > >
+> > >  /**
+> > >   * drm_panel_add - add a panel to the global registry
+> > > @@ -708,7 +708,7 @@ EXPORT_SYMBOL(devm_drm_panel_add_follower);
+> > >   * A typical implementation for a panel driver supporting device tree
+> > >   * will call this function at probe time. Backlight will then be han=
+dled
+> > >   * transparently without requiring any intervention from the driver.
+> > > - * drm_panel_of_backlight() must be called after the call to drm_pan=
+el_init().
+> > > + * drm_panel_of_backlight() must be called after devm_drm_panel_allo=
+c().
+> >
+> > I think we can drop that sentence entirely. Now that we can only get a
+> > panel structure through devm_drm_panel_alloc, and that it also
+> > initializes it, we can't call drm_panel_of_backlight before having an
+> > initialized drm_panel.
+>=20
+> Makes sense, I will remove the sentence and send a v2. It probably
+> follows the same reasoning, but just to ensure you did not miss it:
+> does that apply to drm_panel_dp_aux_backlight() above too?
 
-For now? Is the h/w going to change or is the binding *still* incomplete.
+Yep, thanks!
+Maxime
 
-> Can you please
-> confirm that mixing 'reg' based sub-device nodes with non 'reg' based
-> sub-device nodes  is allowed? E.g. if the below example is allowed?
->
->         system-controller@4ac10000 {
->                 compatible =3D "fsl,imx93-media-blk-ctrl", "syscon";
->                 reg =3D <0x4ac10000 0x10000>;
->                 #address-cells =3D <1>;
->                 #size-cells =3D <1>;
->
->                 ...
->
->                 bridge@5c {
->                         compatible =3D "fsl,imx8mp-ldb";
->                         reg =3D <0x5c 0x4>, <0x128 0x4>;
->                         reg-names =3D "ldb", "lvds";
->
->                         ...
->                 };
->
->                 dpi-bridge {
->                         compatible =3D "nxp,imx93-pdfc";
->
->                         ...
+--xdii3lctv73unbwr
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Depends what is in "...". If only a compatible, then no. If there are
-actual resources defined, then yes.
+-----BEGIN PGP SIGNATURE-----
 
->                 };
->         };
->
-> Furthermore I thought that for the MMIO bridge@5c device, the 'reg'
-> porperty would either require the full register address, e.g. 0x4ac1005c
-> or there needs to be a ranges property.
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCafyv0gAKCRAnX84Zoj2+
+dg6eAYDdFIdKQ9dtmjTMF+4W0CeItlgW5Nh0oIn9zrh2SE/4oz5dH+RnuoOSAfq9
+Vr8IEaMBgJiK4UmdkKEg/l1YiTPaqvFK8vPaJZIitVN26Lp0XmrLEzBgGX+wZn75
+u8YjiA0XkA==
+=ol8M
+-----END PGP SIGNATURE-----
 
-There should be a ranges property no matter what.
-
-Rob
+--xdii3lctv73unbwr--
