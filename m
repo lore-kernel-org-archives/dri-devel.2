@@ -4,76 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3BEFCD3447
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 16:15:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12D90CD343F
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 16:23:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6A5C10E59A;
-	Thu,  7 May 2026 16:15:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D65F10F1F6;
+	Thu,  7 May 2026 16:23:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="GrWRAy91";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hhsGdeN3";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 118B610E2A7;
- Thu,  7 May 2026 16:15:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
- Message-ID:Content-Type:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=dL/Cdj70a+69RDawvzXxspykwjNRMwleKvjJH59GSgY=; b=GrWRAy91TakeCfhYNYFXFYADxz
- z86ckN/CCswbutFrbySDyC/sG1DCj7LI4bZHTNXNZ1RzGyT2KPSewfvi6Lg4TwF0nSKTjG3LM7A3A
- 6t/6uEVRwzk/hRoX3XU/XFoNHDcnqDcNbk5+s94jC4FyV9Vf4AzkInYYTVaRBMy4Xt+eL73uR+3/j
- dW4FtD1lIswqXxAqhC2bFpD5R62fB+VTcbMW2Tl7qZVearEPFOp407ymKe5lWv1eSXiqAzF0eww1C
- wEwYoH7hYwaL8joP/54WJutfHX+SgALvnntn4q0v4KOVzYfUhb0s+OvxcpxxwTgUeyi2XTBvaSouf
- dzelp+CQ==;
-Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91]
- helo=[192.168.1.133]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wL1NG-007Tof-7N; Thu, 07 May 2026 18:14:53 +0200
-Content-Type: multipart/alternative;
- boundary="------------0kipZKtZbyND9PGbNQ31AJu7"
-Message-ID: <3cf6f786-6ef4-4ab5-9c68-fe34e6066913@Igalia.com>
-Date: Thu, 7 May 2026 09:14:39 -0700
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
+ [209.85.221.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3768B10F20F
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 16:23:28 +0000 (UTC)
+Received: by mail-wr1-f47.google.com with SMTP id
+ ffacd0b85a97d-44e1860558fso789953f8f.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 09:23:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778171007; cv=none;
+ d=google.com; s=arc-20240605;
+ b=YcPOBYEgRGZMEN/ubz6wN3DW+UAiZdibvjIONofBZX+3F2IfSL+zTICt2dWSXN0OQr
+ 9qCdWTCkZlByYDFi+eAkVYVkEd+IRRVeqEj9+cZYzgNmlI1eQSdYqQkHOlThVGU1GxZ9
+ 74cX4wAy8V1TDIKgaXe7tL6AiGlUVg9Q3kRfzzM/7p2sF1zS9z91SE0ieyx99v5iZaju
+ Wr0qjHoxeteA+qvL31K5FF0Oiz4il1ScTzVk/dmGDs7fxB4sLAryF7ttcAwifg0WZ9gJ
+ MuKrmkCGLrCCURrZ2vvLy/wEuIt0OpPlOXPPIj/U36sjvpr0cg/+gT6cbisCAd6wYuUB
+ S8Sg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=78n13q0JxWmtufuvEqwAQZAMZxadvALvItN4XP7CsJ4=;
+ fh=tCp1cVSM462KHB4SkKzSl9OUcjS6g/tBmByJDEEpoCI=;
+ b=NgsKbTGiZWmr3rxdTTdnCtBBRE5jPb4jV3KSFV0QwhelrLKeQyU7uoKLx6wFaUfIV9
+ +igFhntCsBVHL3dFkrpZoZ6NV+LIr5UPOVavhjpbpTMa0vsfLPMUtCgeEwnuITE2t+KS
+ iOf4JwnLGKnVUxli0yOcLNRiKfRvyOcp4ejgE9OABQPSo72Wqp3vR66aMn8syQkaBfAJ
+ 0oveH+3xqk30D9BrvF/mRYI9t3iUYlIRcHwttPowjizs/xCe+zJ8rX5ZbejWGVmzQWXa
+ fmoZweM6Hc3gqowrYvwl0TniRjaeku9uHn28RNjjmJfYaAh0NDr4OHkKdXpkYRR9oeU1
+ e2aw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1778171007; x=1778775807; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=78n13q0JxWmtufuvEqwAQZAMZxadvALvItN4XP7CsJ4=;
+ b=hhsGdeN3QTOVGZ7Mrfx5WADOBtoBp+Ey1xtgKaXRsjPqz7EZZlcG7tFMtHEvC7F4RI
+ wXXG1NDItymNbieJ9MPt/JL0tKJVL520WvR9EZIH5gTatDba93xbR4v3BXlRDDrRiHyM
+ LYrIJ5d5uPJFrYIa+A5qL4tQBminxAmPDDTmZWdEClzjaYsRXWHSnbtPd88r1RWPVLHG
+ N6qvlV29kE6GE53+6FnRCZrso5YRjRgwz1Z6z96Iuynn195kKZEqLMqz5eeNuxbBFuuk
+ 6HvA58DMzlpxQlHV6x/saPGP3dfz/vaSuEuKj4n/1p+igpSoG6ER7rHlcK22SjNWtvsb
+ Pkug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778171007; x=1778775807;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=78n13q0JxWmtufuvEqwAQZAMZxadvALvItN4XP7CsJ4=;
+ b=Rh91Qd30/YSfuoUfPDjsLlBn0mJLQOgq/z6VWr5YdETX6SFcw4Qaa+Vm043vQFqPVo
+ 0fHOVR4I0FsfLgE3eOAQyXi9DII2ZXWrXnh3NfIY5SEZA37PtHRfuzpSeQQV39FMcIdY
+ N1c+sPhlFq7ORBbwqY9EmbiZL9GBzcINiztp1pcCwH3KF4LI4VSOu4dmNVY88X7AWkmA
+ +N8Re71pOsMMnnVp4QWqJBvLk5wuYjgdD2Ylurip4bDiNuf5Tsr2Me2Gqffkk8xKir7v
+ BE7kYgvnaQHsdZG36JuF+NZEIocHd8pu0DTy+UeldK+PBjlh4XJQg99LMipu5q82LSNh
+ 5jCQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8mfgGZD8yTGDmhgaPK7NcSIMzwbBanQl43t29oWpsLqz2zCizLMd9yOl4rB5zAvvB5TPxHake57Ao=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzzcwj7YWro3NCzCTaI3JhbF1trc7dqbJmiEypkvbrTMJom6q5w
+ w91XECm82qPasZEDU+Xwt0bVPQa/Z9XhWnDY/KTnvrI0hFjW+m9/aUvQiOz2gbJ8w4cF5q1u93n
+ ydUMx59WmecI51qPbeFa1yeePEmhTxPY=
+X-Gm-Gg: AeBDies5BfPTkI43l9rah5YRzK0wv0VQXlIeSJz5TyEpdyXrXiUnbVii7t9RRZSGC7P
+ hVA1ZS915z6UXj/qFNwpCP0jkDCv3dxLYcL/RQILENDj+bnzzbW4V+Quh7FOQkcgYuUVAbxf3Es
+ Fab4xih7YNGrbCGtswV+YGAHD0vi+HKLM91qI4t57CrwFwuKvA6cyijLArzrMuufX2g3ky6ALpt
+ gI5K6yBv8+/SNC/gTKIp7+rMWgOQvcmH/NdTYDKL8LhxGl4tNW+Jbu8iS/c3dDK+8IiwD5kqZBn
+ xx9Aq5s7auF5t3r4ij1Xzpws7CYzNMRCu9n4QZA6IhxO1XOB6D0K1gxcAr9Sfm6DyUZQWQ==
+X-Received: by 2002:adf:e786:0:b0:451:bbe4:b48e with SMTP id
+ ffacd0b85a97d-451bbe4b4cdmr9706562f8f.5.1778171006277; Thu, 07 May 2026
+ 09:23:26 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/8] drm/msm/dpu: don't mix devm and drmm functions
-To: rob.clark@oss.qualcomm.com,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- "Kandpal, Suraj" <suraj.kandpal@intel.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Liviu Dudau <liviu.dudau@arm.com>,
+References: <20260429170012.366537-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260429170012.366537-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260506195002.GA1778786@killaraus.ideasonboard.com>
+ <CA+V-a8u8=mfR0zDJRNMEjnjrzFVAkOrqtro05Zgd1JFqGRByKw@mail.gmail.com>
+ <TY3PR01MB1134676FA7479724BDCE40649863C2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <20260507103830.GM1778786@killaraus.ideasonboard.com>
+ <TY3PR01MB113460CD4F3609EEA898FE648863C2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+In-Reply-To: <TY3PR01MB113460CD4F3609EEA898FE648863C2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Thu, 7 May 2026 17:22:59 +0100
+X-Gm-Features: AVHnY4LRMvX5NWqGQvTosoP_Ri2LYKGR7IldmZ4eLshJruHuK1dfbRXarsoS31o
+Message-ID: <CA+V-a8t+HHYNxet4Od9F2Hk980kQ5yfru4-hF1f-6i_yKZGN0w@mail.gmail.com>
+Subject: Re: [PATCH 1/4] dt-bindings: display: renesas,rzg2l-du: Add RZ/T2H
+ and RZ/N2H support
+To: Biju Das <biju.das.jz@bp.renesas.com>, 
+ "laurent.pinchart" <laurent.pinchart@ideasonboard.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org, kernel-dev@igalia.com
-References: <20260505-wb-drop-encoder-v5-0-42567b7c7af2@oss.qualcomm.com>
- <20260505-wb-drop-encoder-v5-1-42567b7c7af2@oss.qualcomm.com>
- <CACSVV00TsXn=yx2UeGpxvCWRkSdj0=_=3_s01wCaO1RDH8t_vA@mail.gmail.com>
-Content-Language: en-GB
-From: John Harrison <John.Harrison@Igalia.com>
-In-Reply-To: <CACSVV00TsXn=yx2UeGpxvCWRkSdj0=_=3_s01wCaO1RDH8t_vA@mail.gmail.com>
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ "magnus.damm" <magnus.damm@gmail.com>, 
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>, 
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+ Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, 
+ Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,167 +126,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------0kipZKtZbyND9PGbNQ31AJu7
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Hi Biju, Laurent,
 
-On 5/5/26 14:49, Rob Clark wrote:
-> On Mon, May 4, 2026 at 5:25 PM Dmitry Baryshkov
-> <dmitry.baryshkov@oss.qualcomm.com> wrote:
->> Mixing devm and drmm functions will result in a use-after-free on msm
->> driver teardown if userspace keeps a reference on the drm device:
->> The WB connector data will be destroyed because of the use of
->> devm_kzalloc()), while the usersoace still can try interacting with the
->> WB connector (which uses drmm_ functions).
->>
->> Change dpu_writeback_init() to use drmm_.
->  From [1] it doesn't sound like userspace holding the drm device open
-> is the issue (if that were possible, it seems like it would go badly),
-> but rather the order of managed cleanup?
+On Thu, May 7, 2026 at 11:54=E2=80=AFAM Biju Das <biju.das.jz@bp.renesas.co=
+m> wrote:
 >
-> [1]https://web.git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/drivers/gpu/drm/xe/xe_hwmon.c?id=3a13c2de442d6bfaef9c102cd1092e6cae22b753
-So is this not an actual issue that has been seen in the wild? It is 
-just a theoretical issue based on code observation?
-
-If so, then maybe the comment should just be something like:
-
-    dpu_writeback_init() was mixing devm and drmm functions - allocating
-    using devm and then passing to drmm to manage. This creates the
-    potential for a use-after-free bug as drmm and devm have different
-    lifetimes. Fix that by consistently using drmm management.
-
-
-John.
-
-
+> Hi Laurent,
 >
->> Fixes: 0b37ac63fc9d ("drm/msm/dpu: use drmm_writeback_connector_init()")
->> Reported-by: Christophe JAILLET<christophe.jaillet@wanadoo.fr>
->> Closes:https://lore.kernel.org/r/78c764b8-44cf-4db5-88e7-807a85954518@wanadoo.fr
->> Signed-off-by: Dmitry Baryshkov<dmitry.baryshkov@oss.qualcomm.com>
->> ---
->>   drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c | 3 ++-
->>   1 file changed, 2 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
->> index 7545c0293efb..6f2370c9dd98 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
->> @@ -5,6 +5,7 @@
->>
->>   #include <drm/drm_edid.h>
->>   #include <drm/drm_framebuffer.h>
->> +#include <drm/drm_managed.h>
->>
->>   #include "dpu_writeback.h"
->>
->> @@ -125,7 +126,7 @@ int dpu_writeback_init(struct drm_device *dev, struct drm_encoder *enc,
->>          struct dpu_wb_connector *dpu_wb_conn;
->>          int rc = 0;
->>
->> -       dpu_wb_conn = devm_kzalloc(dev->dev, sizeof(*dpu_wb_conn), GFP_KERNEL);
->> +       dpu_wb_conn = drmm_kzalloc(dev, sizeof(*dpu_wb_conn), GFP_KERNEL);
->>          if (!dpu_wb_conn)
->>                  return -ENOMEM;
->>
->>
->> --
->> 2.47.3
->>
+> Thanks for the feedback.
+>
+> > -----Original Message-----
+> > From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> > Sent: 07 May 2026 11:39
+> > Subject: Re: [PATCH 1/4] dt-bindings: display: renesas,rzg2l-du: Add RZ=
+/T2H and RZ/N2H support
+> >
+> > On Thu, May 07, 2026 at 09:24:48AM +0000, Biju Das wrote:
+> > > On 06 May 2026 20:58, Lad, Prabhakar wrote:
+> > > > On Wed, May 6, 2026 at 8:50=E2=80=AFPM Laurent Pinchart wrote:
+> > > > > On Wed, Apr 29, 2026 at 06:00:09PM +0100, Prabhakar wrote:
+> > > > > > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> > > > > >
+> > > > > > Document the Display Unit (DU) support for the RZ/T2H and RZ/N2=
+H SoCs.
+> > > > > >
+> > > > > > The DU block on RZ/T2H is functionally equivalent to the RZ/G2U=
+L
+> > > > > > DU and supports the DPI interface, but includes SoC-specific re=
+gister differences.
+> > > > > > Add a dedicated compatible string to represent this variant.
+> > > > > >
+> > > > > > As the DU implementation on RZ/N2H matches RZ/T2H, describe it
+> > > > > > using an RZ/N2H specific compatible string with the RZ/T2H comp=
+atible as fallback.
+> > > > > >
+> > > > > > Unlike other DU variants which use a multi-port model, the
+> > > > > > RZ/T2H and RZ/N2H DU has a single output and is modelled using =
+a
+> > > > > > single port node with one endpoint. Add a port property to
+> > > > > > support this and update the allOf constraints accordingly.
+> > > > >
+> > > > > Wouldn't it be simpler to always have a "ports" node, even for
+> > > > > variants with a single port ?
+> > > > >
+> > > > I agree that, from a binding perspective, always having a "ports"
+> > > > node keeps things simpler and consistent. Biju suggested this chang=
+e based on earlier feedback for
+> > the RZ/G3E series.
+> > >
+> > > From G3E feedback, I got the impression that going forward all future
+> > > SoCs needs to have single port and multiple endpoints. That is the re=
+ason for suggesting port for new
+> > SoCs.
+> >
+> > Right, let's clarify that.
+> >
+> > TL;DR: it depends on the hardware architecture (what a surprise :-))
+> >
+> > When reviewing the G3E, I noticed that the LCDC has a single output tha=
+t is connected to one or
+> > multiple encoders, depending on the SoC. I think this should be modeled=
+ in DT with a single port.
+>
+> OK.
+>
+> >
+> > Note that this does not preclude using a "ports" node, containing a sin=
+gle "port@0". If you're
+> > confident enough that no future generation will require multiple ports,=
+ then it makes sense to
+> > standardize on a single "port" node and no "ports". If, on the other ha=
+nd, you think that some SoCs
+> > would have multiple ports, then using a top-level "ports" node uncondit=
+ionally would lead to simpler
+> > bindings.
+>
+> OK.
+>
+> >
+> > I'll let you all decide what you think is the most suitable approach.
+>
+> Thanks for the advice. We will use ports that will make the binding simpl=
+er.
+> We will continue to use ports for SoCs which has single output connected =
+to
+> Single encoder(RZ/T2H) as well as multiple encoders(RZ/G3{E,L}).
+>
+As agreed, I will switch back to the ports property.
 
---------------0kipZKtZbyND9PGbNQ31AJu7
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <div class="moz-cite-prefix">On 5/5/26 14:49, Rob Clark wrote:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:CACSVV00TsXn=yx2UeGpxvCWRkSdj0=_=3_s01wCaO1RDH8t_vA@mail.gmail.com">
-      <pre wrap="" class="moz-quote-pre">On Mon, May 4, 2026 at 5:25 PM Dmitry Baryshkov
-<a class="moz-txt-link-rfc2396E" href="mailto:dmitry.baryshkov@oss.qualcomm.com">&lt;dmitry.baryshkov@oss.qualcomm.com&gt;</a> wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">
-Mixing devm and drmm functions will result in a use-after-free on msm
-driver teardown if userspace keeps a reference on the drm device:
-The WB connector data will be destroyed because of the use of
-devm_kzalloc()), while the usersoace still can try interacting with the
-WB connector (which uses drmm_ functions).
-
-Change dpu_writeback_init() to use drmm_.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-From [1] it doesn't sound like userspace holding the drm device open
-is the issue (if that were possible, it seems like it would go badly),
-but rather the order of managed cleanup?
-
-[1] <a class="moz-txt-link-freetext" href="https://web.git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/drivers/gpu/drm/xe/xe_hwmon.c?id=3a13c2de442d6bfaef9c102cd1092e6cae22b753">https://web.git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/drivers/gpu/drm/xe/xe_hwmon.c?id=3a13c2de442d6bfaef9c102cd1092e6cae22b753</a></pre>
-    </blockquote>
-    So is this not an actual issue that has been seen in the wild? It is
-    just a theoretical issue based on code observation?<br>
-    <br>
-    If so, then maybe the comment should just be something like:<br>
-    <blockquote>dpu_writeback_init() was mixing devm and drmm functions
-      - allocating using devm and then passing to drmm to manage. This
-      creates the potential for a use-after-free bug as drmm and devm
-      have different lifetimes. Fix that by consistently using drmm
-      management.</blockquote>
-    <br>
-    John.<br>
-    <br>
-    <br>
-    <blockquote type="cite"
-cite="mid:CACSVV00TsXn=yx2UeGpxvCWRkSdj0=_=3_s01wCaO1RDH8t_vA@mail.gmail.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">Fixes: 0b37ac63fc9d ("drm/msm/dpu: use drmm_writeback_connector_init()")
-Reported-by: Christophe JAILLET <a class="moz-txt-link-rfc2396E" href="mailto:christophe.jaillet@wanadoo.fr">&lt;christophe.jaillet@wanadoo.fr&gt;</a>
-Closes: <a class="moz-txt-link-freetext" href="https://lore.kernel.org/r/78c764b8-44cf-4db5-88e7-807a85954518@wanadoo.fr">https://lore.kernel.org/r/78c764b8-44cf-4db5-88e7-807a85954518@wanadoo.fr</a>
-Signed-off-by: Dmitry Baryshkov <a class="moz-txt-link-rfc2396E" href="mailto:dmitry.baryshkov@oss.qualcomm.com">&lt;dmitry.baryshkov@oss.qualcomm.com&gt;</a>
----
- drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
-index 7545c0293efb..6f2370c9dd98 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
-@@ -5,6 +5,7 @@
-
- #include &lt;drm/drm_edid.h&gt;
- #include &lt;drm/drm_framebuffer.h&gt;
-+#include &lt;drm/drm_managed.h&gt;
-
- #include "dpu_writeback.h"
-
-@@ -125,7 +126,7 @@ int dpu_writeback_init(struct drm_device *dev, struct drm_encoder *enc,
-        struct dpu_wb_connector *dpu_wb_conn;
-        int rc = 0;
-
--       dpu_wb_conn = devm_kzalloc(dev-&gt;dev, sizeof(*dpu_wb_conn), GFP_KERNEL);
-+       dpu_wb_conn = drmm_kzalloc(dev, sizeof(*dpu_wb_conn), GFP_KERNEL);
-        if (!dpu_wb_conn)
-                return -ENOMEM;
-
-
---
-2.47.3
-
-</pre>
-      </blockquote>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------0kipZKtZbyND9PGbNQ31AJu7--
+Cheers,
+Prabhakar
