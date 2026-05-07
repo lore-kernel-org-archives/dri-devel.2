@@ -4,122 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C83BCD3427
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 10:24:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 469F1CD3442
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 10:25:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BB5710F022;
-	Thu,  7 May 2026 10:24:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9166610E11B;
+	Thu,  7 May 2026 10:25:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="TkUzYLVd";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VlVC7/ax";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="TqKvcUrv";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Z5HroGGU";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D7D410F022
- for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 10:24:19 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2006510E1FC
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 10:25:11 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6475LoEZ682765
- for <dri-devel@lists.freedesktop.org>; Thu, 7 May 2026 10:24:18 GMT
+ 647AGtRQ879589
+ for <dri-devel@lists.freedesktop.org>; Thu, 7 May 2026 10:25:10 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=JoRWGgOZZS3G91zVwdG4c9Lr
- n6Mvfm03iqOH0vlvM/U=; b=TkUzYLVdDiDMQQqwZkOHH0vOVJwRA6Fw9vGkCznr
- P8/7iK/sHrwHY8tJTuFv67LAHfocEBWPmPzwLzOiq0RdZmXlt2DBqAGBnW1eo35L
- cHbnbTy0xVf6ITKvwk5QV0pR/K2lsaCdRkZhMJKdTzaLWiHJeXN4Tek1xCn4MUBt
- zk5zvD7ZX9wKua1nA/kGk08oZxomwuJDb5mMxHicFnb6RA9vjBCqY1MVMT8Zq7/b
- HzkyYbDDUlWhcWz1MCIpGGh7Q3kkM800DjV9rV/CD2ipSvNG+UgAjabH/5dGtAU4
- cKiWwlr1JRVNBZ+M+oxzMKTHXjP+B6QwlIoA4VWWCZwjWw==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e0mhas4t7-1
+ :references:subject:to; s=qcppdkim1; bh=UQDRk0q0QWS/zSxYXlfjEJKx
+ TwFS4cm8rZqdd13L8PI=; b=TqKvcUrvvYRFAKjai4nvZ0mwySIHdw+sZVi4WNvA
+ 9IvTmHK4Gng8FnCm8xB6hlozlcCI/j+fPNnfvAg7grdakjcQujb7Piy6hu9APGTW
+ 1k31Q/YOfaPs2/maSHgmlSmoYJq5xmdP8wo8wdBcd5wn5tV03zAFZWg1sTvlUmd0
+ 0t45lEeqljgZWTF00P4U+3F1Bx4WPk8qO4Zap4STtGh8FfncPL3ZSVRFhbBUrrHu
+ q+pMlVXJGQvqsYYQTQObsmczf+tO0x9wSj3KzjeH8BDiSMNrHwNmPy6TixwnZ3IS
+ jTmr1a9p5+1Qj7kaYesmB7RbY4Wu5yTgq0had4L/v/H8dA==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e0kdq1c2f-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 10:24:18 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-50e575a50bcso8167281cf.0
- for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 03:24:18 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 10:25:10 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-50d6bf346adso11152941cf.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 03:25:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1778149458; x=1778754258;
+ d=oss.qualcomm.com; s=google; t=1778149509; x=1778754309;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=JoRWGgOZZS3G91zVwdG4c9Lrn6Mvfm03iqOH0vlvM/U=;
- b=VlVC7/axLLPNurE/9FNUzK7wkDrkyLNS5JvMMDwc1rmYnIipx0LN3WIMa3+peXqM2y
- Hsc6J/dUPP8h/FnyneDm0bH3YIl7qYj0tfb1ANMO88TGVvuOigPnQHbcEjqusH4CRFUF
- VmPw0atroBOvmlN2wKREcf0VahEvdENg6oAF6OKKOFZ909ZqFaFhShCP5gWIz4uWjA09
- L8whuMJQD7/vcQF29l7mqosis826WsEi9MGFSZv9R06anBiaU/wu3YYJT/MnSjGn7xn7
- f0GK4E9hw67iQswFsV/hmrXo39BuvtqvZbE5Bch/xiOiLayZT8HU9ajhFe/KjfzpQ5dY
- T02A==
+ bh=UQDRk0q0QWS/zSxYXlfjEJKxTwFS4cm8rZqdd13L8PI=;
+ b=Z5HroGGU0HcCb2kD4Sth4BnfVsWpqw/0Er3UWky4EBtdS1AsVpUZnqvjQzbFIJLbpt
+ BeiGr4aGrCCJl9jBuwxTHvhWKuVO8AsQmeoWZ3tUnOQIJAfwFnkmFQAKoqjDo8NBlmgJ
+ 7kB5MKkDVQjXap+vucQIljuur3DC1ajxXI5HpZKdlYfb79nwdyLUoK/BuPdD7qIxujaq
+ rsAgJjWPSjJWtBNfqdg46OqIQU00OoQQYbGdpG74AQOvXNR2Vce9UJ7pBgsDngt1zir6
+ 05UrtZtukdivUEnx2kwDfE7I7PTc2fPlC71IvdPeuG7ynUIMCODoriWXqNZ4toymxMrm
+ kf4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778149458; x=1778754258;
+ d=1e100.net; s=20251104; t=1778149509; x=1778754309;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=JoRWGgOZZS3G91zVwdG4c9Lrn6Mvfm03iqOH0vlvM/U=;
- b=KEgmUIk8Tkon2Bl1+owMi46KKna+p14qkxQcTU8uzI3j9DqUa+SY8GJSz2PYHyzvN6
- kBqwbyrtfxxAv9B4jlEXCPDKtVZHYLczJQOgIwLcm2FFERbFmpQZd6GpY04L7MnIeeHL
- MrdA0DhbPpWDG0ddsWWohlui9dl3XWpAVzVG38hfKFYOjVFXSGpsLPjL9O9VPBo31Ypj
- KVJR7ZKwM4NAVLykm+ubmSmBxO0RlEnsLmNR9dQfWPWrX4aJFfiOBUFmkvHJFO4raAkI
- CftyK1Pm/vcbI9zZtGChHi/uattTIZLANNhtq3RM2etYzcue/FGBGoqTMV63lG8NPi0m
- 3Dog==
-X-Gm-Message-State: AOJu0YyhrF9aYiLd1OKTI4e8nPDi64mDiEruTznLRMr0sw5KFY+X3hP6
- 1e0hSal/TYh3xowX1BB/ZddZARwYZ3dMlU4+QQN5NayIcZPiQLaQXGDVRxADR8974OsDrx8buSN
- W5z120mRT+TXZFHFqwiPhu2FL8dhqi0+j3nDtLwa4S0i8H5FqC8Hzz3tdD9MVcINFzui/EaU=
-X-Gm-Gg: AeBDietsNo5ljMT4ccdzkY8c0YF7RkvzX/YSCc+AvMqpvKS8XY1tD2+eIMkUqefwQEQ
- JjXpx2OhFx/fS6wo4rd6RjNz3yPYpUdM+XiTGZYVZD6W0hx+8k3UO38sLMZegeShSk1xZBhNI1D
- 1SLJGIWHn12QxaE8a46jQpBkXSlS35AMVqFBiuQ3DbVXj4jGmwdhpVT82vI8TKGV4GWBHGdAwhk
- H6XmovUAq+xHFcDBaN9wWZ1oDd8uwcYZO+/U/pjUS65wsqACZpvR7kq4W1tGIN1WEN8I8OSNPNt
- bkEecbx254YEXWWmUkmZ6OMClF5ITJmVPvU1a8tm/wiI0eEZjLFNnsGDSka9rMf3krryxlmcyBY
- X2rwc8b8Wy908MXD1KsiEdVMm2qPYx87U1BCas1SotKayWlVHOjvyB2KAu35DDcQDYTygL2g4mo
- hqVcw4HEoXaRS5ITsnN9WS2EqCZjj3pA9ObV0sq2Azf1EmpQ==
-X-Received: by 2002:a05:622a:4a8e:b0:50f:ade2:2da with SMTP id
- d75a77b69052e-51461fcdddamr103694241cf.44.1778149456962; 
- Thu, 07 May 2026 03:24:16 -0700 (PDT)
-X-Received: by 2002:a05:622a:4a8e:b0:50f:ade2:2da with SMTP id
- d75a77b69052e-51461fcdddamr103690731cf.44.1778149455632; 
- Thu, 07 May 2026 03:24:15 -0700 (PDT)
+ bh=UQDRk0q0QWS/zSxYXlfjEJKxTwFS4cm8rZqdd13L8PI=;
+ b=Ap36g+94pQffwP+cDvmI0hZfDHKlcuNgo/lOSNNFKHlpcUhZsal/L4ZP4Wi0AtNyjW
+ G3nP0TqJYfqbIZd1zsleefM1gUc5Zppjut4ZQjhAXzNmeV21EfN7o2DkdPDblzgnsIUd
+ w7fRbzHh4RlvQeFQ8slbf5J8TixZj1eoxKMavzfnjndd+Ue/ZLo332L8ucPqTWmG+EC+
+ r4nroGYU9GRbJ86zq3hZEcblEeD3dBXP8zcO4rBtrxZ7j2oIrifYoygTiluOh0LG5qMx
+ /1jPULLkpOYZ5jY+XaujUHDmtbJB9UCbV6zc+HeFi9BNdAT33KnGHf2hYnoMO+97x5DL
+ WpQQ==
+X-Gm-Message-State: AOJu0Yzu8u35km+yeje4L6je5oP/jb58lyxhO6M2/+MoWs9a/H/PFY8D
+ Ov2O3PYqYhBZYMI7OWxOrD8xyCoCI0Z1VXOmz/sQytxooTxRFeP3CdcmzyCjlMMueMPZqLxNv5d
+ z7H2ViUULUzyQkSqxFmu8oKysRXPSe+KYG9PDjgw6JCSEuCmJpp6mGk0jllBNzTc/VgerVHw=
+X-Gm-Gg: AeBDieuz0DiQD91TyR3tu+jQJjuFF5gg6K0/LcNZpr6yPQ6igL+xV+b5UG6EXzRcmAY
+ 62BcA5KUFqf4zsLeKChSckvRyHwOdBBptidKyYOJi/j8dwNQJGdMjZyWrSIFgJN9HwGWhLOST8X
+ OUM9UQzubK+AEKI3/vI5NOeGcrlohWd5skz5ngjbANMo243tei7GfzYXhC6Mh5ELUWgHmqYCFI1
+ 6FPCpeFuTdACwwF/ZDI1VxhnJynzLX7dsH1g3s76Xu0i71Yq2thIUHa5oohGHBTWJ5BZA3ffVvK
+ HVWkPT1b4Qi14DdaTv2qbyu9tm764UuxHcGs6amb+rqDd53JHgUyZXwU/QpgtFgQG9+tkBo3CGo
+ CnsgzJ/Q7pMZuO/bftpAYwRwDk4JU83cQIk86wLwGKNCHkZu5c0gBY40lUej2VJ3P+iKz8sRxbG
+ jM59WvGKU59Jvbai9S6FWEY20l3gOKwNBOKB9+SWk1Xmakkg==
+X-Received: by 2002:a05:622a:558f:b0:510:4174:5086 with SMTP id
+ d75a77b69052e-51461fa02e0mr94750401cf.28.1778149509608; 
+ Thu, 07 May 2026 03:25:09 -0700 (PDT)
+X-Received: by 2002:a05:622a:558f:b0:510:4174:5086 with SMTP id
+ d75a77b69052e-51461fa02e0mr94750041cf.28.1778149509121; 
+ Thu, 07 May 2026 03:25:09 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3939a58fa47sm37503021fa.37.2026.05.07.03.24.13
+ 2adb3069b0e04-5a86c7a1698sm4123047e87.3.2026.05.07.03.25.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 May 2026 03:24:13 -0700 (PDT)
-Date: Thu, 7 May 2026 13:24:12 +0300
+ Thu, 07 May 2026 03:25:06 -0700 (PDT)
+Date: Thu, 7 May 2026 13:25:04 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: x@2005.tr
-Cc: dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/rockchip: Open-code drm_simple_encoder_init()
-Message-ID: <g7p4goe3fhnfxgp2tsopvvgbqmvvkktji25h4rsrbkavxac2es@ghc5v7xjw64e>
-References: <20260506165346.19819-1-x@2005.tr>
+To: Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v4 05/16] drm/msm/registers: Add perfcntr json
+Message-ID: <aigfthmrjytktawlxi42zsq5rgvhwus7saqdusjv22wodn7fuv@5chrjknkz3tr>
+References: <20260506171127.133572-1-robin.clark@oss.qualcomm.com>
+ <20260506171127.133572-6-robin.clark@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260506165346.19819-1-x@2005.tr>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA3MDEwMyBTYWx0ZWRfX6wCPjUDwmWhY
- aBO6kuIV8CF/mxybqu8/rfavqC//+q1rqgzr7d9qyyKChyoxO1lSHrpx1uxubAfRMcD2hNgC48E
- lE4aQmsUeXFtjWbHjlHpHa7sJ3ROOgToqGO6d+5EKlOL+ySOc64Lw6JQuS9ZZMd2j2eHGwhxHIy
- M15uY6HxOT5pUip0aO2ycrloLPqogWk8sh0polD7u+JkgBNVp9HRCXIXRPe0LesesY2nhPTCQR0
- 3aIXQyF9doayJp3/SW+ff3FayopK0CYUO16dE6bAJbNl1qeXjfvZ1mKM2BzgdvHJtldro7vOxff
- ag64m3k9tM+y9Lko9a+eVewDDZ0avSIGeusQNpFenleD/vEtAhmb1T96b2ls0/Fr8lzKOGavIg4
- qz2IWxbatRKWjAEXzGUnExQrwy93oNkbuiU+WgXEzzy1DyVW/39MHNd126EofTvZCf13budLvKO
- N74DoJh3Rc22TBshr0A==
-X-Proofpoint-ORIG-GUID: YTp7C-7F7rpiZny1ttULY3Q3gKgDo86f
-X-Proofpoint-GUID: YTp7C-7F7rpiZny1ttULY3Q3gKgDo86f
-X-Authority-Analysis: v=2.4 cv=ReWgzVtv c=1 sm=1 tr=0 ts=69fc6852 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+In-Reply-To: <20260506171127.133572-6-robin.clark@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=P6IKQCAu c=1 sm=1 tr=0 ts=69fc6886 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=K37GZDC8KpGTtN--OQ8A:9 a=CjuIK1q_8ugA:10 a=dawVfQjAaf238kedN5IG:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=e5mUnYsNAAAA:8
+ a=EUspDBNiAAAA:8 a=thqBxEDTGtn9z525fxIA:9 a=CjuIK1q_8ugA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22 a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-ORIG-GUID: Ybw5LQTY-4YcJRwZalYsUPLa0FIYbQWN
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA3MDEwMyBTYWx0ZWRfX0ZRRoFFXCTDg
+ Jng9GXjBwFBEvGTimD5DSVulg+cDiEfZik0fJLSjeKbLFnPNyZ5MYpXwcldPSr4cIxVdLPOZGZU
+ Pqs5oUAF7aiu6SfIBZYvyK2Ky8vDqoTvu2aZNiw3RdJIVPiCbOrVf/Xt/qCDGCvSy7v6fVeeib0
+ CBE2DdQhUlHNlJPtS1fd0h6qoXnGAUFxQ8GV+W3+vkicNUDKXnn8H4Jcm9Gm9YEWOa8zhYAxSa0
+ Nda9XPwtEXtBJ2+P16YsNBK4AhBd0Ky7umqOYT+CabDTJA9thyBPXOxJgFgjZ5SD/6o+DfMucw+
+ Stjp6iF73GmX9Z/Gj2tB2QwbhWPZYUrDHXbXD5AplStHHxHUaKsUzEGeVhl5koDBXTMGkErJkyd
+ G61ChHguDoK1vIazCLUWCPjXWhUhXIwmCSCsjNjtLOHiFBQ9NNEBDwURDlN9CtR4CJO/D26U3Pf
+ xNTn3s0bkDRZzxwdoUQ==
+X-Proofpoint-GUID: Ybw5LQTY-4YcJRwZalYsUPLa0FIYbQWN
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-05-06_02,2026-05-06_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 impostorscore=0 lowpriorityscore=0
- spamscore=0 suspectscore=0 adultscore=0 phishscore=0 malwarescore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ phishscore=0 suspectscore=0 clxscore=1015 bulkscore=0 spamscore=0
+ lowpriorityscore=0 malwarescore=0 adultscore=0 priorityscore=1501
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
  definitions=main-2605070103
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -136,27 +145,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, May 06, 2026 at 07:53:45PM +0300, x@2005.tr wrote:
-> From: Favilances Noir <favilances@proton.me>
+On Wed, May 06, 2026 at 10:10:29AM -0700, Rob Clark wrote:
+> Pull in perfcntr json and wire up generation of perfcntr tables.
 > 
-> drm_simple_encoder_init() wraps drm_encoder_init().
+> Sync from https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/40522
 > 
-> It uses drm_encoder_cleanup() as the encoder destroy callback.
-> 
-> Add driver-local drm_encoder_funcs and call drm_encoder_init() directly.
-> 
-> This is a TODO cleanup towards removing drm_simple_encoder_init().
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Favilances Noir <favilances@proton.me>
+> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 > ---
->  drivers/gpu/drm/rockchip/rockchip_rgb.c | 9 +++++++--
->  1 file changed, 7 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/msm/Makefile                  |  25 +-
+>  drivers/gpu/drm/msm/msm_perfcntr.h            |  48 ++++
+>  .../msm/registers/adreno/a2xx_perfcntrs.json  | 109 ++++++++
+>  .../msm/registers/adreno/a5xx_perfcntrs.json  | 128 ++++++++++
+>  .../msm/registers/adreno/a6xx_perfcntrs.json  | 105 ++++++++
+>  .../msm/registers/adreno/a7xx_perfcntrs.json  | 228 +++++++++++++++++
+>  .../msm/registers/adreno/a8xx_perfcntrs.json  | 240 ++++++++++++++++++
+>  7 files changed, 882 insertions(+), 1 deletion(-)
+>  create mode 100644 drivers/gpu/drm/msm/msm_perfcntr.h
+>  create mode 100644 drivers/gpu/drm/msm/registers/adreno/a2xx_perfcntrs.json
+>  create mode 100644 drivers/gpu/drm/msm/registers/adreno/a5xx_perfcntrs.json
+>  create mode 100644 drivers/gpu/drm/msm/registers/adreno/a6xx_perfcntrs.json
+>  create mode 100644 drivers/gpu/drm/msm/registers/adreno/a7xx_perfcntrs.json
+>  create mode 100644 drivers/gpu/drm/msm/registers/adreno/a8xx_perfcntrs.json
 > 
+> diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
+> index ce00cfb0a875..337634e7e247 100644
+> --- a/drivers/gpu/drm/msm/Makefile
+> +++ b/drivers/gpu/drm/msm/Makefile
+> @@ -176,6 +176,11 @@ quiet_cmd_headergen = GENHDR  $@
+>        cmd_headergen = mkdir -p $(obj)/generated && $(PYTHON3) $(src)/registers/gen_header.py \
+>  		      $(headergen-opts) --rnn $(src)/registers --xml $< c-defines > $@
+>  
+> +# TODO how to do this for a2xx/a5xx which have different .xml arg?
+
+Nit: the comment is now obsolete. Other than that:
+
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
+
+
+> +quiet_cmd_headergen_json = GENHDRJSN  $@
+> +      cmd_headergen_json = mkdir -p $(obj)/generated && $(PYTHON3) $(src)/registers/gen_header.py \
+> +		      $(headergen-opts) --rnn $(src)/registers --xml $(filter %.xml,$^) perfcntrs --json $< > $@
+> +
 
 -- 
 With best wishes
