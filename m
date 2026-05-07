@@ -4,68 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D8D2CD37AC
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 22:01:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CDD5CD343F
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 23:32:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BC1310F2A7;
-	Thu,  7 May 2026 22:01:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83A7410E040;
+	Thu,  7 May 2026 23:32:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="HVqBjiG6";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="Mo9N+WCi";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D542410F297
- for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 22:01:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1778191284;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=fLt3WGeAszQOp0olBKNdpytn+4u5isqNVmxsJU5nCFE=;
- b=HVqBjiG6fe+ZrBjQXvu0kNadXvJe8YrURbMz7pakE9ziTkpd/oI0z+9fgzDhWNWrHPhC+d
- is1uYmS0dVd1rUIINXQJPMCFxuNlgCtetX0Mpm7PaAgMU+dbKxA9ucOydZrEYIr+2xNNSS
- 6gA+UsphB5gReFGo/u6u0xscLX+QQIE=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-338-HeX9_qVcM2m-bxzIpFFgSQ-1; Thu,
- 07 May 2026 18:01:17 -0400
-X-MC-Unique: HeX9_qVcM2m-bxzIpFFgSQ-1
-X-Mimecast-MFC-AGG-ID: HeX9_qVcM2m-bxzIpFFgSQ_1778191275
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id D58E41956080; Thu,  7 May 2026 22:01:14 +0000 (UTC)
-Received: from GoldenWind.lan (unknown [10.22.89.165])
- by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 6DB0F300019F; Thu,  7 May 2026 22:01:12 +0000 (UTC)
-From: Lyude Paul <lyude@redhat.com>
-To: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org
-Cc: "Gary Guo" <gary@garyguo.net>, "Miguel Ojeda" <ojeda@kernel.org>,
- "Simona Vetter" <simona@ffwll.ch>, "Alice Ryhl" <aliceryhl@google.com>,
- Nova-gpu@lists.linux.dev, "Shankari Anand" <shankari.ak0208@gmail.com>,
- "David Airlie" <airlied@gmail.com>, "Benno Lossin" <lossin@kernel.org>,
- "Danilo Krummrich" <dakr@kernel.org>,
- "Asahi Lina" <lina+kernel@asahilina.net>,
- "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>,
- "Daniel Almeida" <daniel.almeida@collabora.com>,
- "Lyude Paul" <lyude@redhat.com>
-Subject: [PATCH v6 2/3] rust/drm/gem: Add DriverAllocImpl type alias
-Date: Thu,  7 May 2026 17:59:20 -0400
-Message-ID: <20260507220044.3204919-3-lyude@redhat.com>
-In-Reply-To: <20260507220044.3204919-1-lyude@redhat.com>
-References: <20260507220044.3204919-1-lyude@redhat.com>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9851E10E040
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 23:32:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1778196765; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=WvVL8phvZR0VPyplkOLu1nEXMtdUkgnEhpQPjC5spVZn/6nDERtv48C1rvhvyqlRd3+EzGt0KSbrWQpXxuso/SWzRAlFPpgkY/ZiNNnbbg//TJjSeBi6NLvaV7aYmMy+nqqrEqYmztEsQODGeVoxRm5MG9RydjCTh5hd5YMirAY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1778196765;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=0UlbuoJOpWJO9LmwFxWlvdYkZE8HSkEeJJElxb5VGTI=; 
+ b=UV9nwN9GM94DEbqxsbxCaCZl74HAqDElQ+ehxtLRy7KEo4oqhKndGVsPQVfBL6PBSeMJZP/+VaPBSoO69mSSuMeX3b4TM7RJ8TOKkMj4IYmQY3jq1S5q2SI0jYi78FMQEmikDmAoX+rYzSYSKavlZJKjtgFkuVnMo84sQofUOsc=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
+ dmarc=pass header.from=<deborah.brouwer@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1778196765; 
+ s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=0UlbuoJOpWJO9LmwFxWlvdYkZE8HSkEeJJElxb5VGTI=;
+ b=Mo9N+WCiIoOjoBPFky7Izz246sxFrA8lQrxNvNENPIUNntltUV4IgZD9mkbI+CWH
+ nvNQE3y+KEB37MV9CARgm1O5ro/WquMFlIfpJ0xrW2AwsCbvd2DkljM/vf/tLpDxYXG
+ HkLqN8KTmmsgYGOvZnGV441xRbgVpJfHaNgO7N+U=
+Received: by mx.zohomail.com with SMTPS id 1778196764054628.3617629136472;
+ Thu, 7 May 2026 16:32:44 -0700 (PDT)
+From: Deborah Brouwer <deborah.brouwer@collabora.com>
+Date: Thu, 07 May 2026 16:32:39 -0700
+Subject: [PATCH 1/7] mm: rust: add pgprot_noncached helper
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
-X-Mimecast-MFC-PROC-ID: 84NeVHXW2x-HDt9Yw3XBEabMwivqAnAbJRMX54MzT1A_1778191275
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260507-tyr-mmap-v1-1-eec048a23c25@collabora.com>
+References: <20260507-tyr-mmap-v1-0-eec048a23c25@collabora.com>
+In-Reply-To: <20260507-tyr-mmap-v1-0-eec048a23c25@collabora.com>
+To: Alice Ryhl <aliceryhl@google.com>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Daniel Almeida <daniel.almeida@collabora.com>
+Cc: linux-mm@kvack.org, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ boris.brezillon@collabora.com, beata.michalska@arm.com, lyude@redhat.com, 
+ acourbot@nvidia.com, work@onurozkan.dev, alvin.sun@linux.dev, 
+ Laura Nao <laura.nao@collabora.com>, 
+ Deborah Brouwer <deborah.brouwer@collabora.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1098;
+ i=deborah.brouwer@collabora.com; h=from:subject:message-id;
+ bh=+mpm0JxqkEncuLxmzYLQSpzrEq2zrX8fexEElroeW4A=;
+ b=owGbwMvMwCVWuULzOU9c7WvG02pJDJl/FSW9vF/HnN1WZlhpk7f97HIBMxevOFbuL0JvXTe1H
+ Dkbef94RykLgxgXg6yYIstZe6Me8ar3Rrrz/zfDzGFlAhnCwMUpABP55MLwz85R6pV83PpVbp0W
+ T5vurtpksyJEVq6Be/EjTctmm9llQYwM6z1lFy3JOfMiPa/6VfSZLyc6pI32fr664IHvvpkOu2W
+ r2AA=
+X-Developer-Key: i=deborah.brouwer@collabora.com; a=openpgp;
+ fpr=CD3F328C177AEF322D9FFF8379A829E70C5E7DEB
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,46 +86,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This is just a type alias that resolves into the AllocImpl for a given
-  T: drm::gem::DriverObject
+From: Daniel Almeida <daniel.almeida@collabora.com>
 
-Signed-off-by: Lyude Paul <lyude@redhat.com>
-Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+Expose pgprot_noncached() to Rust code through a small helper wrapper.
+
+Rust drivers that insert raw PFN mappings into userspace MMIO VMAs need
+to derive an appropriate non-cached pgprot before calling helpers such
+as vmf_insert_pfn_prot(). pgprot_noncached() is currently inaccessible
+from Rust because it is provided through C helpers/macros rather than a
+normal exported symbol.
+
+Add a Rust helper wrapper so Rust MMIO mmap paths can construct
+non-cached page protections for device mappings.
+
+Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
+Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
 ---
- rust/kernel/drm/gem/mod.rs | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ rust/helpers/mm.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/rust/kernel/drm/gem/mod.rs b/rust/kernel/drm/gem/mod.rs
-index 75acda7ba5001..568b5c08019e7 100644
---- a/rust/kernel/drm/gem/mod.rs
-+++ b/rust/kernel/drm/gem/mod.rs
-@@ -73,6 +73,11 @@ unsafe fn dec_ref(obj: core::ptr::NonNull<Self>) {
- /// [`DriverFile`]: drm::file::DriverFile
- pub type DriverFile<T> = drm::File<<<T as DriverObject>::Driver as drm::Driver>::File>;
- 
-+/// A type alias for retrieving the current [`AllocImpl`] for a given [`DriverObject`].
-+///
-+/// [`Driver`]: drm::Driver
-+pub type DriverAllocImpl<T> = <<T as DriverObject>::Driver as drm::Driver>::Object;
-+
- /// GEM object functions, which must be implemented by drivers.
- pub trait DriverObject: Sync + Send + Sized {
-     /// Parent `Driver` for this object.
-@@ -89,12 +94,12 @@ fn new(
-     ) -> impl PinInit<Self, Error>;
- 
-     /// Open a new handle to an existing object, associated with a File.
--    fn open(_obj: &<Self::Driver as drm::Driver>::Object, _file: &DriverFile<Self>) -> Result {
-+    fn open(_obj: &DriverAllocImpl<Self>, _file: &DriverFile<Self>) -> Result {
-         Ok(())
-     }
- 
-     /// Close a handle to an existing object, associated with a File.
--    fn close(_obj: &<Self::Driver as drm::Driver>::Object, _file: &DriverFile<Self>) {}
-+    fn close(_obj: &DriverAllocImpl<Self>, _file: &DriverFile<Self>) {}
+diff --git a/rust/helpers/mm.c b/rust/helpers/mm.c
+index b5540997bd20..22194d3196d2 100644
+--- a/rust/helpers/mm.c
++++ b/rust/helpers/mm.c
+@@ -48,3 +48,8 @@ __rust_helper void rust_helper_vma_end_read(struct vm_area_struct *vma)
+ {
+ 	vma_end_read(vma);
  }
- 
- /// Trait that represents a GEM object subtype
++
++__rust_helper pgprot_t rust_helper_pgprot_noncached(pgprot_t prot)
++{
++	return pgprot_noncached(prot);
++}
+
 -- 
-2.54.0
+2.53.0
 
