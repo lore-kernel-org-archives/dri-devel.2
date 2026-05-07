@@ -4,127 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29589CD343F
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 11:35:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AE10CD3427
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 11:40:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F96D10E5A0;
-	Thu,  7 May 2026 11:35:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93D1E10F01C;
+	Thu,  7 May 2026 11:40:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="eZgwNX7W";
+	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="uZP5i3W2";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010035.outbound.protection.outlook.com [52.101.201.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 318E310E5A0
- for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 11:35:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cCV76/VbIpeabubopHgNT5KmDt/N0e1pLQihRJsumL1QE5tiSq3BjHle2fhE0ZpxezsLdB5Xlg3J2BYxphn3o57gIek2GcrefcBKDES60Lw2ev2wm02QQ3x7b5NR0bXFOUlCNdRaFXwH7Ku7wvTJKxj1iHQe6UvCU/pKNs85jqkpJa2fkHxAtElWaXLDGBmYg8IcDTvKtbsII0O2l1opcB+ZSL+0t2fL1hHdcdlpTDFPoVshL+e9QGGWfydDk8r7+YvuV1k7vx7cq95Q5sBFf+CgJ7BrihAEtQe6x1FP6TlmhO2eZ+K5VR1CoQxl7xTX+ngHKBAErIxeH84Fkm6xiw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3tZ9Df+6xyGXnbdwce84lyz3ti1TvdAdikpWhLyEGoM=;
- b=UUWC69Mvo5Ikab51eHRKkySwZ90Ip+Q7C6aQW9jtBfNg5sjIzJVwO1JoYskeNFaeCmjUy4H8uu6Yonef54SytoARJVtdKVS2ia737ZLAeK1pUUS16y4S+w0Y6oEx/KYWe25jkuGdAW/Md23ex1LCfMLunKhQG/MKVTDAfFiqc/w5yCEkIWCXjrjqaZFhE7ONPjNsv9/PrzhboVetaZuTnoEogoAsH2SC7lggX4GpZyuhJss0cNjEYaxkXuheEKpqjEzradTYz4kxiYHS/vqMqHj/Cd5HnnDGow8skG1LtTKTfJqpHXhrHvYU9Sdc1dF5OIJjrnMUc5T9xliIppCqjA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3tZ9Df+6xyGXnbdwce84lyz3ti1TvdAdikpWhLyEGoM=;
- b=eZgwNX7W9Dkxu39b+Fd8VTZjllf5vKg1bQpN2eJBi7ZOviYqI2d5kuhG5NB/Zx9+e74+NXTEWRO+CoabCK2wYvM9hRwYVZjNutiw9XT9uOsLwLZ9raIPHTycbRDrArC2VVplshrdbSE++Gp+pEFh1IW8wA5dtHJYOQEm++lpLVs=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MW4PR12MB6949.namprd12.prod.outlook.com (2603:10b6:303:208::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.18; Thu, 7 May
- 2026 11:35:51 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9870.023; Thu, 7 May 2026
- 11:35:50 +0000
-Message-ID: <b9c1b7a3-12a8-4104-b98f-a1e57b343046@amd.com>
-Date: Thu, 7 May 2026 13:35:44 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: Regression due to /sys/kernel/dmabuf/buffers removal
-To: "T.J. Mercier" <tjmercier@google.com>, Julian Orth <ju.orth@gmail.com>
-Cc: corbet@lwn.net, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- Sumit Semwal <sumit.semwal@linaro.org>
-References: <CAHijbEXhuVRgkkPA2dAC=njGBU7vpAbxAbsSmxvvPznO-ckVRA@mail.gmail.com>
- <cf945dda-f526-4544-bc43-22f70acb28f5@amd.com>
- <CAHijbEXQfm4QDDfo1yiVBV9mVvogGqt_BAu2ipnhqa-EDOKteg@mail.gmail.com>
- <CABdmKX1pDc7wpLVQzM0ihH6AfW+=KWdyaZuorMqWCbC80Y7-Bw@mail.gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <CABdmKX1pDc7wpLVQzM0ihH6AfW+=KWdyaZuorMqWCbC80Y7-Bw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0081.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9a::8) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EABC10F020
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 11:40:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
+ s=gloria202408;
+ h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+ References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+ bh=WLd8tadd6RgVQITSoROvnyWzRDgtw6k0fr0kVxewnoo=; b=uZP5i3W2+KimMtmYaSf/uCvKZV
+ KEyBd0w83gRrX+PTidaEPIilv/qhe62UYI2lAj/K0byTUqyJbwrGo2gCcbCK4LPkVtg6wPs5ftYjX
+ ozIbvqSh9uiA3fJ7f0VEp4u7jKiOczy7T+68cEov9WxUeFFsjwT+ZB3nFSwLA6tOoN8tXLo6FVRtU
+ QGTTbDH6fkRLN7I/FE/0hdXG3WlkRH5cabBBT6Ik3cyVaXKP2AIYfax4nTSUkKy3LdLnNDKF2StmK
+ NdX1WdSgOYlF8/0gtt7OVnSyZ7jSgNyGIsqgHIa8XFIZ0Su/0YfPFQBRuI5NDdMq9IEmEASsswJYs
+ o+u0eUSQ==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: hjc@rock-chips.com, andy.yan@rock-chips.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+ rfoss@kernel.org, Damon Ding <damon.ding@rock-chips.com>
+Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com,
+ cristian.ciocaltea@collabora.com, sebastian.reichel@collabora.com,
+ dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com,
+ dianders@chromium.org, m.szyprowski@samsung.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Damon Ding <damon.ding@rock-chips.com>
+Subject: Re: [PATCH v3 01/10] dt-bindings: display: rockchip: analogix-dp:
+ Expand clock-names "hclk" for the third clock
+Date: Thu, 07 May 2026 13:40:09 +0200
+Message-ID: <6496645.8F6SAcFxjW@phil>
+In-Reply-To: <20260507112948.1115003-2-damon.ding@rock-chips.com>
+References: <20260507112948.1115003-1-damon.ding@rock-chips.com>
+ <20260507112948.1115003-2-damon.ding@rock-chips.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MW4PR12MB6949:EE_
-X-MS-Office365-Filtering-Correlation-Id: 648388ac-2848-439f-f835-08deac2cca35
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|22082099003|18002099003|56012099003; 
-X-Microsoft-Antispam-Message-Info: A2yBIx8ZtxB/sBvYr1/X/VX+dqZNMZLQOdY4TTCowSAuh6ZVSwB987KEASY378E29NtOr0F2H5mlIvdBJw2L0x8scYu/5wzXcfeua+4Wzh5DOgBYCVNQQugzKbD/7koX6EO0K1ZZpBSqaH2R2LBwfK6Dilwz8CC/gEgvbmdK8HAHxO0TTOwZv4cAVHnObcMdRqAKuuDvdoXxY1E5pqGm3At4xTyoq4q6a/SXbTRv6XYQg/imXuJVQVkDzbkgTNnxKr2LLfbTwDKN1n2PN/I/YSikRyXo4HU8ehMrjw6fW/t9iCff4Vpd/SYx7/NTiSyMKwDT8L7qDCaXC+J8skMRQiKS5vVbfLM5OgRIFK7hNeC17hdhuYv5Ts1HzznuuZzz2QXxrYvwdBFdAYpgQb+0T77FXRuIYP1JCiIxi7D/qqGbLzn06wNzlx3yT0KEQVeW22huepLOwVgqA6aziMu8YBzrD5/UFf/lpn7iLvPbupHbUureEih1YzQa9s9ie/dDNjZ5OwW9H1hI7LyTJNMNXCWseIZRKo9FyF4yuHCwyvrS+yikcxGKWGtZFBZD9Um76Do3uPkzHfuA4w9A3ZakXazGUZfmqTBIzId5bQA4G4l4ZndlJpue11rL8O7Hc8dZDrKt13TUq1kaBXlbnD4vREQhI8nCjUyBfAtP2Ppf1w4C68ZZ/T392wAWcIcPDW9qiciPqHkxUDCBDKcWj4cIpQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(22082099003)(18002099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TU4vTnhBUzlsSEQ0NXdROWZ6WWRQeW5aZnMyaUZYaFA0NDUxdXJNY2RKWW13?=
- =?utf-8?B?T3kwbDJJNkRYRzNNMmtMa1Y3ZWcyL1p2L3FVWEpHSjh1SWllakk1b0orOW9R?=
- =?utf-8?B?cnFLOTc1ZFVjVTk4VFVkc3hpV2x5TWVRSm84cVhKQmc4amtMa2NzL0NCSi9p?=
- =?utf-8?B?cWx1ZkZCNGZtMkFuOHhKTGtwbitYenhSZmhqS2dFNC9JYWU3enMveGVKSDg5?=
- =?utf-8?B?cmFZNm9DdHZRczhGLzVCdzBoYWx5YksyUHJkNkxvZjRwdE5wS2llNFFEQ3Z4?=
- =?utf-8?B?SVd6cHFoNXU3Q0k2T1lYWVBleGYyYjEvdGcwRjljUlBRUXdXNllJYjdpcTBx?=
- =?utf-8?B?a1EvLzZHSXdmbmc5M3h2VTU0aUdXTlhsVkVtQzdHUVJ3Z21JdFd2bGtLcGIw?=
- =?utf-8?B?NnVFckpuU242MGxnTXZVL3l6VGhTS2JuSVJuSU8zM0Zkci8vMzlGWGVFY0Ro?=
- =?utf-8?B?UUNaMWpIZjZyZXdQVDJrNUROOXFQbVBUNVRha0dVWlB5NG9EemF2NzdoT3Yw?=
- =?utf-8?B?cEpydjRNaVdSZDlNMGlWY0hodW1nWWU1dHlMTUFIRVNuYVUvaGxGZlFaRk54?=
- =?utf-8?B?RTA4dzhoU3AwclRxMDFxckhkOEZyYURQRTQ1YmgyYUpiZkozQlpqbmp3cmtP?=
- =?utf-8?B?bSt2bkRTa2NIcUZVdGdSKzBHOTRVbmJKNWZqeHloaklpQVdFNEpnSnphOVE4?=
- =?utf-8?B?bHlaUWxkMzhnQ0hud3gxZ3FNRE9HQktHN0pvanZxaWNuWVZVT3JHMGdzOHBv?=
- =?utf-8?B?cEI5MG45MXcwYUZqK0FWUGdtMWNpUThPZXhnRHM0WU05ZzZmc1BlSmxEY2I0?=
- =?utf-8?B?VWlzRldXL3FiRGRPMFFmQWRJWDZNdUluNlJUNXdJS3Evb0ZwV3ZhTUtCRXly?=
- =?utf-8?B?TFlWczdXZXpPVGE3OUtQTStKSjVnNzNEajNySURKSHU2dUJ5UUc3ODdWbm41?=
- =?utf-8?B?L29nMmliQUxYOUp4UmR3aVIxcXZIK3lJd1Y0R3Ywa2xob2NadWNNRjdPUXg4?=
- =?utf-8?B?NkU4UXdaRDVybWZZdWRDT1E2dTlmVUlxVFo0STFTZEFSajRuRHdKeDFyRGFS?=
- =?utf-8?B?aU5RYVczTXVzR01wK0lMOEJRdjhxZ3BGdml2cXlhR0lUTk5YaU5CYWpuaFFy?=
- =?utf-8?B?ZjVuNE16K1dObGJ2Z3NjTzR6RTN6eTdBM0FjSkFjVGFmRHVEODAzaVYwTkV5?=
- =?utf-8?B?aGNkaE5aS3JxNmxMR0g4dHhsWjRkcHYyeUk3M3g1ZEhLWk4zcUpyc0tpRE9L?=
- =?utf-8?B?MFM2QmYrcVJwblV0a0J6RXZ1NUx0aUtPVitJSmI5OXBBeGpJcmRsbTFuQUNi?=
- =?utf-8?B?NFBSYm01UjFvYS9JSVZLQjE2STlVZ0lhS1lZZlM5ZUdTancwdXZZa1huWE5T?=
- =?utf-8?B?cm0rVTRvQnN4QWdXQk9wL0pSTjQzTmZBUDRhcW9BYy8rdjZ6emFoYkhpeTlv?=
- =?utf-8?B?ZGNnc3dQYUNrZzNIVG5LN3g5Vk56TzZVVk9qN3JHdkZJSVFrR2xsK0xQN2Nw?=
- =?utf-8?B?S2poSzZpNDdvZjVpT0ZKUDZVQ0M2cFR4c0NwU0FWaXQybk5PK3ZQa1BEbWJF?=
- =?utf-8?B?S1BwUk12UTA2ODhENnI2RGo4YmNvWmdxT1FvYVNkN21VOWJkeGRWMGxzYnpa?=
- =?utf-8?B?dG1yREJlc0ZKWnhHZDhZdStvUUVzbUV0cUxDUSt4OFIrYWlYOHdJNGJKcTdW?=
- =?utf-8?B?cDBYRG85STRTdHhnN1lFTmE1cFhTSysrYzNVWVFnYzhDVkp6OVNmYWp2SEd6?=
- =?utf-8?B?ajJHRm5RVGJJOXBPS1J5b0FaNW1HL0FuR2tvN2VrYXdEdVgwMkVzaE1ybWRJ?=
- =?utf-8?B?Z0Q0WlhCTVFJRWg0bk9xOVFwc3lKZmZaYXNyY3ZhNGowTGRBbjJiSVYyZ1BK?=
- =?utf-8?B?OGtJK3JkU3doNktPcmF5QU9LVHpDNWNSNGIzOEVIS082aWJFYUYvWVo4RXpL?=
- =?utf-8?B?dTRwTEtjbkszcXNLRjJGS0tpc1E2dUQ2Z1pUalJsZUJveEFudEdEVndVUDlJ?=
- =?utf-8?B?NC9USC9GSDBkaVdGZFFBMU0reTdnMzdUK2ZNUk5HOXI0VitGWUg1eitUcE14?=
- =?utf-8?B?b0NSYzdseWxBMUYwMGdGVUxjQVN1Y3VGY0FsdTl5aGd5NnV2MXJZQ1JicVc3?=
- =?utf-8?B?c21zbVg0TkNhZlZhOVFTaVNnZlEvdHBSUlhwQnBMUkR2S29HcEF5WDVYa2xM?=
- =?utf-8?B?RExadm42S2ZMWVF1VnJUZjBabnFuc1Y0RmI0NWhkT1NNQTlDdmRSaVFvYWtt?=
- =?utf-8?B?UmtpaFJtWE5OaVRVejlubkU5aXFIam5SSVZpdTlXdWYwekFZOHk5S0h5N3FQ?=
- =?utf-8?Q?qsp8PVuzb6K3iI51Tn?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 648388ac-2848-439f-f835-08deac2cca35
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2026 11:35:50.7876 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vQZM9jgkvd0DN+xErr6aDyLCjjVz2BqssdPKbKEJBrzgcJ33eOzxTYKXRdiXBSRY
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6949
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,88 +64,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/5/26 16:32, T.J. Mercier wrote:
-> On Tue, May 5, 2026 at 6:00 AM Julian Orth <ju.orth@gmail.com> wrote:
->>
->> On Tue, May 5, 2026 at 2:41 PM Christian König <christian.koenig@amd.com> wrote:
->>>
->>> Hi Julian,
->>>
->>> On 5/5/26 14:25, Julian Orth wrote:
->>>> In ab4c3dcf9a71582503b4fb25aeab884c696cab25 ("dma-buf: Remove DMA-BUF
->>>> sysfs stats") the /sys/kernel/dmabuf/buffer directory was removed.
->>>>
->>>> I've been using this interface, specifically the exporter_name file,
->>>> to detect dmabufs created via udmabuf. Such dmabufs show "udmabuf" in
->>>> exporter_name. I've been doing this for two reasons: 1) to detect that
->>>> mmap on such buffers will be fast and 2) to detect that GPU access to
->>>> such buffers will be slow.
->>>
->>> Crap, I really hoped that Android was the only user of that sysfs interface since that approach turned out to be quite broken.
->>>
->>> It's number one rule on Linux that we don't break userspace. So I hope that you don't insist on bringing that interface back, but if you do I will just revert the removal until we found a better solution.
->>
->> Bringing it back shouldn't be necessary.
->>
->>>
->>>> With the removal of that file, that detection mechanism no longer works.
->>>>
->>>> I'm not particularly fond of that mechanism but it was the only one
->>>> providing that functionality that I could find at the time. If there
->>>> is another one, ideally an ioctl on the dmabuf, please let me know.
->>>
->>> The virtual fdinfo file you can find under /proc/$pid/fdinfo/$fd also contains the exporter name for the DMA-buf.
->>>
->>> You can find the full documentation here: https://docs.kernel.org/filesystems/proc.html#dma-buffer-files
->>>
->>> Is that sufficient?
->>
->> I think that is sufficient. I probably didn't use fdinfo initially
->> because 1) it's a lot more work to parse and 2) I wasn't sure if it
->> was intended to be machine-readable or if there could sometimes be
->> newlines in the values and such.
->>
->>>
->>> Additional to that the debugfs for DMA-buf also contains that information and I'm open to the suggestion with the IOCTL.
->>
->> My application runs as a regular user so it cannot access /sys/kernel/debug.
->>
->> Having an IOCTL would be ideal if it is not too much work. I'll fall
->> back to fdinfo for now.
->>
->> Thanks, Julian
-> 
-> Phew, I'm glad fdinfo suits your needs.
+Hi Damon,
 
-Yeah, exactly my thinking as well :)
+Am Donnerstag, 7. Mai 2026, 13:29:39 Mitteleurop=C3=A4ische Sommerzeit schr=
+ieb Damon Ding:
+> The RK3588 eDP controller needs the video datapath clock "hclk" to work
+> well. Previously, it works without explicitly adding this clock because
+> the 'rockchip,vo-grf =3D <&vo1_grf>' property implicitly enables HCLK_VO1.
+>
+> Fixes: f855146263b1 ("dt-bindings: display: rockchip: analogix-dp: Add su=
+pport for RK3588")
+> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+> ---
+>  .../bindings/display/rockchip/rockchip,analogix-dp.yaml       | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,=
+analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockc=
+hip,analogix-dp.yaml
+> index d99b23b88cc5..d2bc8636b626 100644
+> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogi=
+x-dp.yaml
+> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogi=
+x-dp.yaml
+> @@ -26,7 +26,9 @@ properties:
+>      items:
+>        - const: dp
+>        - const: pclk
+> -      - const: grf
+> +      - enum:
+> +          - grf
+> +          - hclk
 
-A college questioned me this week how to find DMA-buf stats for debugging and it turned out that Google points to the outdated DMA-buf sysfs documentation instead of the debugfs one.
+are you sure about that?
 
-No idea why, maybe we need to improve the documentation here a bit.
+The edp uses the vo1-grf - so what enables its clock?
+=46or example the hdmi controllers on rk3588 also use the vo1-grf and
+explicitly handle that clock.
 
-> Adding an ioctl would introduce new UAPI so I think we'd want to avoid
-> that unless absolutely necessary.
+So who does it for the eDP?
 
-CRIU has some similar requirements, e.g. they need to know the exporting driver of a DMA-buf.
 
-Not sure if the fdinfo file will be sufficient for that case or not. But yeah I agree that we only need this if actually necessary.
+Heiko
 
-Regards,
-Christian.
+> =20
+>    power-domains:
+>      maxItems: 1
+>=20
 
-> 
-> Thanks,
-> T.J.
-> 
->>>
->>> Regards,
->>> Christian.
->>>
->>>>
->>>> Shipping an entire BPF compiler in my application, which the original
->>>> patch suggests as the replacement, is not an option when the removed
->>>> alternative was simply reading a file.
->>>>
->>>> Thanks, Julian
->>>
+
+
 
