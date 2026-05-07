@@ -4,144 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6803FCD343F
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 15:59:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3BEFCD3447
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 16:15:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A45D810E0F9;
-	Thu,  7 May 2026 15:59:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6A5C10E59A;
+	Thu,  7 May 2026 16:15:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="LATo3EpI";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EbG2VMuR";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="GrWRAy91";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A73DB10E25D
- for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 15:59:41 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 647C5cqw1971798
- for <dri-devel@lists.freedesktop.org>; Thu, 7 May 2026 15:59:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- gGu2wFTIajaPBghQ0FihXQpYUWio1degOPuerHJdNKs=; b=LATo3EpI9rT6o28r
- KCoPbI3+MQtZievPhb720w5ihgtyGXjJZKsB69pAmEbfuCcRR8V+7lLuUTZZo99q
- lsRjkZmMwSxGPNcNZb8QJ/h/bM/DGv4/26XhxIxFvf1mi4/ep/5/xDGhe5mEvxat
- WsF8q0rOfUc9eaY+UXkzfbdtSYhjXWwjoxcym5g0nQwIzuuQicoGDzONhVtndOjM
- Y89yNz6vhdtitpewPXX3ZiudNR1QY9rb3VGesJm6SNyeXWj+WLZJWPkb1IOTm5UY
- rNmIRkOEA2rszmMvaE5MHz84IG3o2832IOAIzTckyjRuOMLnzoyllHVlQo8HYrRW
- 8uNfuA==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
- [209.85.214.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e0tej902k-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 15:59:41 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id
- d9443c01a7336-2ba268cb5e6so12761585ad.1
- for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 08:59:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1778169580; x=1778774380;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=gGu2wFTIajaPBghQ0FihXQpYUWio1degOPuerHJdNKs=;
- b=EbG2VMuRZ5NRL6k72oGw89QrFbsgyFOtMsiuVHSGw0JyoG3oPYnKNakT4le8Zt74CB
- U3HJf5nx59bmAihKSCX/Kec4Kza9SADNMUrsJzC2Ord1U0alVcHaiGx6kXz1zVjM/p6v
- OG1G07dFDrJBDYVcAPGSKodCOqS+45KBXiqXxyBL8MbJHsAjrYejrBWQpaGmHyrIhM5m
- 1sncfpE+E1uMl9Sxgh7D+rDUihyvda1yzmB5otBzb2atp4Q5vvG8TlQjTABKQSjNyLJ8
- eNcfmmhqWwT+rnhq7o+5Dl2Lc978uX4fh7sITFKq5GPqxd2xu599CR+xZbON7pKp2wa/
- GqVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778169580; x=1778774380;
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=gGu2wFTIajaPBghQ0FihXQpYUWio1degOPuerHJdNKs=;
- b=mPutZtiA8I2mmIwOQWiXgICbJIBFWISLWkwyLLRThOVuYQ1O2QWc0a5JElUcCQD2Ks
- +/DRkBBxYPUlT/c4gLHGh4q5tE2ry8CNaIqVx57CT7tWthDHxrguWELQ1qs5mvKKERCg
- tFJEMvsLDH4MPE0uSxVCpgq4tkPVkDZRSsajb34CKHr/CEcVOCIFseZll8E1boTYpjZa
- h9q7WTg/Ut0UXYphcmFWhNLIJ6omXW+odULwOlgmoU40/7aZbRnGyU9AsaHDgZNUs5PD
- 1p+Q4RHb91lqboS33X7gtgjYSj8IxqExMtxjzNLEZ7NZKfZvVaZAaWn1+w07MyKlwlaW
- 7+5g==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+ksJd5ee3gx9fnDNbzIKqkXh3xPNbay+WUeIXx619o1YVIMMseg3JiKTl+ubU5dEl4+ttRNgrwIXk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywj22yV6BOMnz1RZ2SZ7KWOifjJtUBbhk8EzjWpjnA3dkz9iVab
- VlrNUBjizjnfoB78B0Y8UlCG5ywhBAUIygtSMLZEuJTHPTs0zcNTyTR7QpQSktZK4x5w45fT9ze
- mQn6grYJoXQukMhGYNxbfqgIGZ24aVruFbaKo7hPBVFSEE3anOl7UnTQMI69xsIjrlkxxI6I=
-X-Gm-Gg: Acq92OFq+SMUlfzQZPSR0id24PVqqVrglnsdR6vn+VXT/qlvEszEgJ7UFsVrWIcNfE0
- qdBb1JwFyxVgJ1rKbMx4y4GVGz7oP1a5Qzn+WQDoMdl9Jz2PZET469nDGdLnov2DkJe7gLwThNH
- Rz60KZC2beT3ADbc2fUtf6vOFtjvIGvHGgvKH+bDbGtn8RGX6xKXCu44X7bNq+GdWRcLN5Gh69F
- +4mq71lto6YUz/ukhAt81xdw0k9uxLSJzUYJcZF1hgg81hZeufx7i0EC5A7cep0TuH8KUEe1gB5
- GVTUEFVdI64CIu2LXlrXgo7QL+VhdB60njXwY4wxyqq/f1fiiSzeiSfnVtjaC0JZvWF1SoOU+9C
- ofQlrzHKIEEH2hXoxhviyHc50H7nZfOSR1yx3X2DRP2gj1r/TG4cJrrw=
-X-Received: by 2002:a17:903:38cd:b0:2ba:be5f:cabc with SMTP id
- d9443c01a7336-2babe5fcdd5mr36392265ad.32.1778169580376; 
- Thu, 07 May 2026 08:59:40 -0700 (PDT)
-X-Received: by 2002:a17:903:38cd:b0:2ba:be5f:cabc with SMTP id
- d9443c01a7336-2babe5fcdd5mr36391845ad.32.1778169579854; 
- Thu, 07 May 2026 08:59:39 -0700 (PDT)
-Received: from [10.206.103.12] ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2bae7854891sm1194865ad.57.2026.05.07.08.59.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 May 2026 08:59:39 -0700 (PDT)
-Message-ID: <2efe667a-c3fa-45de-88fc-ecded1f34543@oss.qualcomm.com>
-Date: Thu, 7 May 2026 21:29:30 +0530
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 118B610E2A7;
+ Thu,  7 May 2026 16:15:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+ Message-ID:Content-Type:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=dL/Cdj70a+69RDawvzXxspykwjNRMwleKvjJH59GSgY=; b=GrWRAy91TakeCfhYNYFXFYADxz
+ z86ckN/CCswbutFrbySDyC/sG1DCj7LI4bZHTNXNZ1RzGyT2KPSewfvi6Lg4TwF0nSKTjG3LM7A3A
+ 6t/6uEVRwzk/hRoX3XU/XFoNHDcnqDcNbk5+s94jC4FyV9Vf4AzkInYYTVaRBMy4Xt+eL73uR+3/j
+ dW4FtD1lIswqXxAqhC2bFpD5R62fB+VTcbMW2Tl7qZVearEPFOp407ymKe5lWv1eSXiqAzF0eww1C
+ wEwYoH7hYwaL8joP/54WJutfHX+SgALvnntn4q0v4KOVzYfUhb0s+OvxcpxxwTgUeyi2XTBvaSouf
+ dzelp+CQ==;
+Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91]
+ helo=[192.168.1.133]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wL1NG-007Tof-7N; Thu, 07 May 2026 18:14:53 +0200
+Content-Type: multipart/alternative;
+ boundary="------------0kipZKtZbyND9PGbNQ31AJu7"
+Message-ID: <3cf6f786-6ef4-4ab5-9c68-fe34e6066913@Igalia.com>
+Date: Thu, 7 May 2026 09:14:39 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] dt-bindings: display/msm: gpu: Document Adreno
- X2-185
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+Subject: Re: [PATCH v5 1/8] drm/msm/dpu: don't mix devm and drmm functions
+To: rob.clark@oss.qualcomm.com,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ "Kandpal, Suraj" <suraj.kandpal@intel.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Liviu Dudau <liviu.dudau@arm.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-References: <20260501-glymur-gpu-dt-v2-0-2f128b5596bb@oss.qualcomm.com>
- <20260501-glymur-gpu-dt-v2-1-2f128b5596bb@oss.qualcomm.com>
- <20260503-resourceful-walrus-of-bloom-3ec6f4@quoll>
- <1136c1e1-749d-455b-9176-5e71fc1fe18c@kernel.org>
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <1136c1e1-749d-455b-9176-5e71fc1fe18c@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA3MDE2MCBTYWx0ZWRfXzwYOgB37VQF9
- wxMWAmSabZWi0Qmf981iqdwhIAvkb4eTDc/w/Lsh279tFJBVXXBc/hXykGdhix2UaXhzSuXF7+z
- DInZohIAi1U+P6nsscSTPjX6bdC/SKDPSgvzbamILgyHg7cNcf9vPs7tiJSmMWcohHL9LCoRRdS
- JazX1aPcvoSKS1H7s344uUrAFbHvnVDVHPevrXTD3X99ZiQeZ8juy9Ah37q2ec+/T98ob8K3UOg
- pDBTbgsM8QMig82wpdI6VT3UWxWazL5kMWlbhCwDFBY0XNu6XK4Gf9L4GzbOd8vfVRCZmyOAUZy
- R5SjfbXm7J36IRtWeyob/HpUp0ES7qcxmrNUR1E7q6bGyvXHQphmf3NR5QULyEcLku7TzHx48Wq
- 5nlS9C8TTxVMlB3CbcB6lVEL8+Y9xPi2HNUGWL7fDvdSOEmRryOHNOH3lRL6AnaE56V/TJmEaBM
- d80uIzYMvkkquZ+n6NA==
-X-Proofpoint-GUID: nhQbWhfKiw-ktF74Mzw2xPE6C5Ub-MIK
-X-Authority-Analysis: v=2.4 cv=VNbtWdPX c=1 sm=1 tr=0 ts=69fcb6ed cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=i7vGOPbq9zpShFDyuUEA:9 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-ORIG-GUID: nhQbWhfKiw-ktF74Mzw2xPE6C5Ub-MIK
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-07_01,2026-05-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 impostorscore=0 priorityscore=1501 malwarescore=0
- bulkscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605070160
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-renesas-soc@vger.kernel.org, kernel-dev@igalia.com
+References: <20260505-wb-drop-encoder-v5-0-42567b7c7af2@oss.qualcomm.com>
+ <20260505-wb-drop-encoder-v5-1-42567b7c7af2@oss.qualcomm.com>
+ <CACSVV00TsXn=yx2UeGpxvCWRkSdj0=_=3_s01wCaO1RDH8t_vA@mail.gmail.com>
+Content-Language: en-GB
+From: John Harrison <John.Harrison@Igalia.com>
+In-Reply-To: <CACSVV00TsXn=yx2UeGpxvCWRkSdj0=_=3_s01wCaO1RDH8t_vA@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,33 +89,167 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/3/2026 7:43 PM, Krzysztof Kozlowski wrote:
-> On 03/05/2026 16:10, Krzysztof Kozlowski wrote:
->> On Fri, May 01, 2026 at 10:40:37PM +0530, Akhil P Oommen wrote:
->>> Adreno X2-185 GPU found in Glymur chipsets belongs to the A8x family.
->>> It features a new slice architecture with 4 slices, significantly higher
->>> bandwidth throughput compared to mobile counterparts, raytracing support,
->>> and the highest GPU Fmax seen so far on an Adreno GPU (1850 Mhz), among
->>> other improvements. Update the dt bindings documentation to describe this
->>> GPU.
->>>
->>> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
->>> ---
->>>  Documentation/devicetree/bindings/display/msm/gpu.yaml | 1 +
->>>  1 file changed, 1 insertion(+)
+This is a multi-part message in MIME format.
+--------------0kipZKtZbyND9PGbNQ31AJu7
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+On 5/5/26 14:49, Rob Clark wrote:
+> On Mon, May 4, 2026 at 5:25 PM Dmitry Baryshkov
+> <dmitry.baryshkov@oss.qualcomm.com> wrote:
+>> Mixing devm and drmm functions will result in a use-after-free on msm
+>> driver teardown if userspace keeps a reference on the drm device:
+>> The WB connector data will be destroyed because of the use of
+>> devm_kzalloc()), while the usersoace still can try interacting with the
+>> WB connector (which uses drmm_ functions).
 >>
->> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> 
-> I was a bit too fast and did not notice that this is only one if out of
-> two required. Where are the constraints for the rest of flexible properties?
-> 
+>> Change dpu_writeback_init() to use drmm_.
+>  From [1] it doesn't sound like userspace holding the drm device open
+> is the issue (if that were possible, it seems like it would go badly),
+> but rather the order of managed cleanup?
+>
+> [1]https://web.git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/drivers/gpu/drm/xe/xe_hwmon.c?id=3a13c2de442d6bfaef9c102cd1092e6cae22b753
+So is this not an actual issue that has been seen in the wild? It is 
+just a theoretical issue based on code observation?
 
-I will add a new entry under 'allOf' for Glymur to describe a constraint
-for the 'reg' property.
+If so, then maybe the comment should just be something like:
 
--Akhil
+    dpu_writeback_init() was mixing devm and drmm functions - allocating
+    using devm and then passing to drmm to manage. This creates the
+    potential for a use-after-free bug as drmm and devm have different
+    lifetimes. Fix that by consistently using drmm management.
 
 
-> Best regards,
-> Krzysztof
+John.
 
+
+>
+>> Fixes: 0b37ac63fc9d ("drm/msm/dpu: use drmm_writeback_connector_init()")
+>> Reported-by: Christophe JAILLET<christophe.jaillet@wanadoo.fr>
+>> Closes:https://lore.kernel.org/r/78c764b8-44cf-4db5-88e7-807a85954518@wanadoo.fr
+>> Signed-off-by: Dmitry Baryshkov<dmitry.baryshkov@oss.qualcomm.com>
+>> ---
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c | 3 ++-
+>>   1 file changed, 2 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+>> index 7545c0293efb..6f2370c9dd98 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+>> @@ -5,6 +5,7 @@
+>>
+>>   #include <drm/drm_edid.h>
+>>   #include <drm/drm_framebuffer.h>
+>> +#include <drm/drm_managed.h>
+>>
+>>   #include "dpu_writeback.h"
+>>
+>> @@ -125,7 +126,7 @@ int dpu_writeback_init(struct drm_device *dev, struct drm_encoder *enc,
+>>          struct dpu_wb_connector *dpu_wb_conn;
+>>          int rc = 0;
+>>
+>> -       dpu_wb_conn = devm_kzalloc(dev->dev, sizeof(*dpu_wb_conn), GFP_KERNEL);
+>> +       dpu_wb_conn = drmm_kzalloc(dev, sizeof(*dpu_wb_conn), GFP_KERNEL);
+>>          if (!dpu_wb_conn)
+>>                  return -ENOMEM;
+>>
+>>
+>> --
+>> 2.47.3
+>>
+
+--------------0kipZKtZbyND9PGbNQ31AJu7
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <div class="moz-cite-prefix">On 5/5/26 14:49, Rob Clark wrote:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:CACSVV00TsXn=yx2UeGpxvCWRkSdj0=_=3_s01wCaO1RDH8t_vA@mail.gmail.com">
+      <pre wrap="" class="moz-quote-pre">On Mon, May 4, 2026 at 5:25 PM Dmitry Baryshkov
+<a class="moz-txt-link-rfc2396E" href="mailto:dmitry.baryshkov@oss.qualcomm.com">&lt;dmitry.baryshkov@oss.qualcomm.com&gt;</a> wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">
+Mixing devm and drmm functions will result in a use-after-free on msm
+driver teardown if userspace keeps a reference on the drm device:
+The WB connector data will be destroyed because of the use of
+devm_kzalloc()), while the usersoace still can try interacting with the
+WB connector (which uses drmm_ functions).
+
+Change dpu_writeback_init() to use drmm_.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+From [1] it doesn't sound like userspace holding the drm device open
+is the issue (if that were possible, it seems like it would go badly),
+but rather the order of managed cleanup?
+
+[1] <a class="moz-txt-link-freetext" href="https://web.git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/drivers/gpu/drm/xe/xe_hwmon.c?id=3a13c2de442d6bfaef9c102cd1092e6cae22b753">https://web.git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/drivers/gpu/drm/xe/xe_hwmon.c?id=3a13c2de442d6bfaef9c102cd1092e6cae22b753</a></pre>
+    </blockquote>
+    So is this not an actual issue that has been seen in the wild? It is
+    just a theoretical issue based on code observation?<br>
+    <br>
+    If so, then maybe the comment should just be something like:<br>
+    <blockquote>dpu_writeback_init() was mixing devm and drmm functions
+      - allocating using devm and then passing to drmm to manage. This
+      creates the potential for a use-after-free bug as drmm and devm
+      have different lifetimes. Fix that by consistently using drmm
+      management.</blockquote>
+    <br>
+    John.<br>
+    <br>
+    <br>
+    <blockquote type="cite"
+cite="mid:CACSVV00TsXn=yx2UeGpxvCWRkSdj0=_=3_s01wCaO1RDH8t_vA@mail.gmail.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">Fixes: 0b37ac63fc9d ("drm/msm/dpu: use drmm_writeback_connector_init()")
+Reported-by: Christophe JAILLET <a class="moz-txt-link-rfc2396E" href="mailto:christophe.jaillet@wanadoo.fr">&lt;christophe.jaillet@wanadoo.fr&gt;</a>
+Closes: <a class="moz-txt-link-freetext" href="https://lore.kernel.org/r/78c764b8-44cf-4db5-88e7-807a85954518@wanadoo.fr">https://lore.kernel.org/r/78c764b8-44cf-4db5-88e7-807a85954518@wanadoo.fr</a>
+Signed-off-by: Dmitry Baryshkov <a class="moz-txt-link-rfc2396E" href="mailto:dmitry.baryshkov@oss.qualcomm.com">&lt;dmitry.baryshkov@oss.qualcomm.com&gt;</a>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+index 7545c0293efb..6f2370c9dd98 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+@@ -5,6 +5,7 @@
+
+ #include &lt;drm/drm_edid.h&gt;
+ #include &lt;drm/drm_framebuffer.h&gt;
++#include &lt;drm/drm_managed.h&gt;
+
+ #include "dpu_writeback.h"
+
+@@ -125,7 +126,7 @@ int dpu_writeback_init(struct drm_device *dev, struct drm_encoder *enc,
+        struct dpu_wb_connector *dpu_wb_conn;
+        int rc = 0;
+
+-       dpu_wb_conn = devm_kzalloc(dev-&gt;dev, sizeof(*dpu_wb_conn), GFP_KERNEL);
++       dpu_wb_conn = drmm_kzalloc(dev, sizeof(*dpu_wb_conn), GFP_KERNEL);
+        if (!dpu_wb_conn)
+                return -ENOMEM;
+
+
+--
+2.47.3
+
+</pre>
+      </blockquote>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------0kipZKtZbyND9PGbNQ31AJu7--
