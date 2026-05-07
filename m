@@ -4,132 +4,160 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E93F9CD3442
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 09:03:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E112CD3442
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 09:03:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E642C10EFD1;
-	Thu,  7 May 2026 09:03:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62B8110EFED;
+	Thu,  7 May 2026 09:03:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="OXqRstjJ";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cATXr6Cs";
+	dkim=pass (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="UmXr930S";
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="UmXr930S";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A742510EFD1
- for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 09:03:10 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6472LAbZ3463977
- for <dri-devel@lists.freedesktop.org>; Thu, 7 May 2026 09:03:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=YrpuQ2HaYJKwDOP37Hw7zBeW
- /Ufbpln0zt9mK/SKQFY=; b=OXqRstjJjGvFsW5N3pX6hg0UzIvYeVD80k5yPZGN
- sIbl1ZyuKmkd9T17G8yX5KsHOSqCII5trZ9qdlexm5kPcaYAE6vZgQon04n7XUpa
- CjwvUkRYYZTe3VAO/DshO9t1YBiZVsJPOVm5qqLe/7+87mwnaYTSVhadjCD6SIW4
- IDR7NVxwYf57LhoGYV+sj8yugNXZFn7u2ZhLYWh81wcvAzuARVUi8B6+9iW+FuD9
- mIQEmjTpoCyxtJuoYDO+jz7rxnaxw6ObzLcL9VgNGYkGoELe12wNxc4eXYWU9lL2
- ieTV2z6RaTCjLbKUKs3LTLhZGwngvu4USnPE0GMkGVap1A==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e0hvn1b1m-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 09:03:10 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-50fb3c7b989so9488341cf.0
- for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 02:03:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1778144589; x=1778749389;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=YrpuQ2HaYJKwDOP37Hw7zBeW/Ufbpln0zt9mK/SKQFY=;
- b=cATXr6CsODT3e6hi7isr75F7Q9wOdZ7BmIc0KsjuYROsEvKj7g72VXiXwvSDUwkZDw
- gglFG5Vcmn0ToAuhrpRiR66CbA9bRUYsmWsJZqKHzNeLzkm6OPMaGZfja9+mb2TXXUW9
- m0OnSMf9SgL873y+LpKfMm9GtTn8nrs9iLgWpEgN8taSjEximGgHd6fUPySzUPUF49Ta
- WfZ+23LceCDhdiEk9dl+MdDtCt52ADgroAspmM7v2Sy3Q61y435+ptVibOYzQpVavYRx
- E58X9fnQVyKTBZawabfJtpRCwd11o782Vrq9YwHxiW7QuZM0fOcIZFjq3pU6HG8XhJ0k
- 6NJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778144589; x=1778749389;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=YrpuQ2HaYJKwDOP37Hw7zBeW/Ufbpln0zt9mK/SKQFY=;
- b=eXPyHI2ZsvLxdV3bm5ESLO9AkR7/ul9YlRXg1sPLyy/6O8o3UiIWSQxYYRb0Dfh88s
- 4B8U9ut3ICoP9Jq6osMEHFwy2h0ZsVc+6GJbv8cXI7/bDnkM03Q37a2/1oaL9mep0sOP
- oqRC5JOAavmII/3BkAhUfX4leYctcx9M3s7eN/8vYgACR7BsESp8lio0WRyx/C1EtzF5
- lJDlo4pj7zTeETI69Bg/aUK3dFscs9PDI+lHciA2zrLR6PBfneeupHTFq/Kytpw5sZsU
- X4dnyVsc9EIiR0cIzhhxHS6/IlwMW9jCNWLF+BcC0mhz6pW/Z4n/dg9ATsNzGP3tw88w
- k23Q==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/ToNpZZvGG4dlxdtZ7xx+jgXF+5O9E502cXajFBfoMahr+WSQB0rZQYX0A7C2JurqMk+bxqfncaXE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxh5Fb/0pPECkIuNrNCMwsSydCGd5ibyg0bNi84xBq5eCphRVYd
- tk1+VsoWrbmx5m1sEaCxXECiZXIKBwwMmYTNEjsETS3qGlZ/8JqU7slcnyi1PTsUSLlT1coXcS9
- ZyzoxyZX6j8q5IqW3sBqndlN3+AlTshOGx3lOF8wBIBq5ZHcrERqeAh966efPDXLpnIfpqB0=
-X-Gm-Gg: AeBDieucBVsjsnTCk3eNTOtYIckbCngBm1/wZwXTSoGQ0VvE0a9O2Mr+hQXlXo84Fk2
- nMEUqYv4t02ycRkQKuN6inAz3i3NDF0wwAs82GKYZJkvoGbqcQRk0IpawFKxpKZWdzfdprUHeTS
- Xz9K5ZIfxxuMVe8iIoFu6/FMVopPQTtGd0IJfHMS7HqdR5z5HFJQ1xzmr2kqp+xK1LP4QgJDpao
- zpK8+JtcBwHRVc9fTSQ/qw8tSm9V3wqlCgF8hd/XwGGiozufSdbhJJlAz5V+8AIAWFpPTus54GU
- T0UD4uhhPiLzoYSJNTjSBwYmKUFfCBRJkVZfy/L01a8+MfhtWGwEHVyb1GxiF563lue3oKUmM5c
- 25EU3PlZ2aAQXQSTqFwKXkntqX0ZkV+rmN0UAwz1aMvuF7fWdv/uRgqUjcdEDx3i8JsawUdIUkt
- t0pfD+WJUEySRT6nXK+o+xkY+IF88OKu+vQ2X67cPMnNSkfA==
-X-Received: by 2002:a05:622a:647:b0:50e:5de8:6458 with SMTP id
- d75a77b69052e-514621eadccmr90870401cf.57.1778144588830; 
- Thu, 07 May 2026 02:03:08 -0700 (PDT)
-X-Received: by 2002:a05:622a:647:b0:50e:5de8:6458 with SMTP id
- d75a77b69052e-514621eadccmr90869991cf.57.1778144588300; 
- Thu, 07 May 2026 02:03:08 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a8670a37absm4678403e87.55.2026.05.07.02.03.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 May 2026 02:03:07 -0700 (PDT)
-Date: Thu, 7 May 2026 12:03:05 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
+Received: from GVXPR05CU001.outbound.protection.outlook.com
+ (mail-swedencentralazon11013070.outbound.protection.outlook.com
+ [52.101.83.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3CB010EFED
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 09:03:56 +0000 (UTC)
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=JaVPDLzoFMGlVWswQI90aXUWM5ym9xObmWHYQwpRKvNf4VDe9PX5mIfH8Sn/sPQN0J3Qvd/QP5M36PKJh8hBegY19ciVepxShUJSyTJ7shaVHFcbIL72Pyf4Qz4dPo8CJ3hR/37LUMSy/0aHbWdy+2rvwiP7/RXyP4XjpuaEW0WRxkSS3G1KyiXIhfg4qnW4TY2yTEbKpwjQxYfLTW/AwSPPVJHw+TLSDFwlUxWnclgS6CNUwcQyu/5lrIjY7HppVgOlUT05GisuGoDtDuZdqGrzp9lOO8ZJqMQqbldxZBqYHIs46TOA/4mDFGL/G5/BLPC37mbOBpQFlaI1X8iXuA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mKRDwNHO9CCOWjAuV2t7h3EkjZpo/JcMPvzaQJBw8UE=;
+ b=AIMt1TIB1WGdYbZMiGI3MiWDjZjxozw9wvzDnhQn4PJNzoOoAlsvkHf5+h4xLu0SXYLswsnAsChqktjVoTDYB9wSBNWqSe6AcC7AAnleS9IICVVnF3fwREzV6gd+Ndqt1vG+LMUBtWFTS5c8rOpGYGTONdd+acmHAl8gRTg2HYpBHKo5J5KWwGbMmel4i2KKfojHkohZ8qJiBPfDKTH9g0SkBfeVpOVwMYCYLtGASNFb9/7RA2o3FhQQJR5COUn2AviX8UsAM8cC0/hHpGBMMEO20bMmC+ojBQOheSl8Su9fbFsyuWVTgv7zS4XPbBAMHCW7U6mDrA8tt0AEjAaQgg==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=collabora.com smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mKRDwNHO9CCOWjAuV2t7h3EkjZpo/JcMPvzaQJBw8UE=;
+ b=UmXr930SmYZf8KzIPx5ni4l7KoRwmJhd1dB7ffQ5AuZJ8wCQTA7OPlC5jEl8W66ginn4h+4p9/x1giNAZkSLK+0Yc+AQldDxWNoGF33ff+smcHGlH3NL2hl5xMcB3a6NOV/8gvxqWQDgVBoNFgYjdiBAstcHQfj5uJ9jmFhgoEo=
+Received: from DU7P194CA0013.EURP194.PROD.OUTLOOK.COM (2603:10a6:10:553::29)
+ by AS8PR08MB5896.eurprd08.prod.outlook.com (2603:10a6:20b:294::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.15; Thu, 7 May
+ 2026 09:03:50 +0000
+Received: from DB5PEPF00014B9A.eurprd02.prod.outlook.com
+ (2603:10a6:10:553:cafe::13) by DU7P194CA0013.outlook.office365.com
+ (2603:10a6:10:553::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.17 via Frontend Transport; Thu,
+ 7 May 2026 09:03:50 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ DB5PEPF00014B9A.mail.protection.outlook.com (10.167.8.167) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.9
+ via Frontend Transport; Thu, 7 May 2026 09:03:50 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vchLfvXcp1FeT5MRB1Rymxi8FdCVkBZtar8yMCBJAxZaalf0AoudpP3VKcM4q1VmzDYKaNnsH8woNXluAKmc/96onwY9xecT+c6sxS18rl/kQeq6p4pp1LC7oIAcsX2+4U7pUNtn1ra9fH4tmBWO+y5q+2gzbcTToTtg8T4WaWpjbVU0eUHQEKqwicyJJWF/1lyYAk68sjVQwKmJG7keplpnsm2XhNXPzWpu3uMs49gTdpls1Hf/GzWgzKYutqXw1GUbOGeUKxS6pqYj6fdNV9vf3ghN/dkr+ktDzrBLr+dzwEf6EYh9L6j4ke562oHkIABJdTrkUPAbm/8hj2kmzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mKRDwNHO9CCOWjAuV2t7h3EkjZpo/JcMPvzaQJBw8UE=;
+ b=uBWLjFiXpoHsTxGpU/vbLdZDPf9eNsLwIhhH65b+b8PHmS5B8eypQ4CnwYzApsDm1R9b60USpg2dQ/Sf+fZWYPcdNOWtfXA5waGjV3mstbXBFrjWZK/LBmGNjkaA9OM/i8jGgj5ck+rb+MNq8Q6ZZ2w+SAFxbs9jpsMWP4vIf5bDOSyqkU1rxM4haWUiyA35Uq4WZQbziMiKYhVj5C19TPeYPcoUi3OVRY4dkzqMdjwwMNcnfiA12YiCaPV0iypOb1VzbOh2KMi3pPow51vOsUSNImqJcCHMUlTIKvQU2qeW8LP4Fsx5kRxIKxC03lvXsoI8JulVAkOq8X1IiWa7MQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mKRDwNHO9CCOWjAuV2t7h3EkjZpo/JcMPvzaQJBw8UE=;
+ b=UmXr930SmYZf8KzIPx5ni4l7KoRwmJhd1dB7ffQ5AuZJ8wCQTA7OPlC5jEl8W66ginn4h+4p9/x1giNAZkSLK+0Yc+AQldDxWNoGF33ff+smcHGlH3NL2hl5xMcB3a6NOV/8gvxqWQDgVBoNFgYjdiBAstcHQfj5uJ9jmFhgoEo=
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+Received: from PAWPR08MB9996.eurprd08.prod.outlook.com (2603:10a6:102:35a::11)
+ by GV1PR08MB11050.eurprd08.prod.outlook.com (2603:10a6:150:1f4::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.15; Thu, 7 May
+ 2026 09:02:44 +0000
+Received: from PAWPR08MB9996.eurprd08.prod.outlook.com
+ ([fe80::5856:8db5:9ee6:414f]) by PAWPR08MB9996.eurprd08.prod.outlook.com
+ ([fe80::5856:8db5:9ee6:414f%6]) with mapi id 15.20.9891.016; Thu, 7 May 2026
+ 09:02:43 +0000
+Date: Thu, 7 May 2026 11:02:26 +0200
+From: Marcin =?utf-8?Q?=C5=9Alusarz?= <marcin.slusarz@arm.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Ketil Johnsen <ketil.johnsen@arm.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>,
  Sumit Semwal <sumit.semwal@linaro.org>,
- Casey Connolly <casey.connolly@linaro.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] drm/panel: lg-sw43408: use devm_drm_panel_add()
-Message-ID: <okjjjez3vp3tqkfmkbadtph7kssa6gfaremax6ocg63tn7whbd@2sg7kjat3dr5>
-References: <20260423125922.57428-1-mhun512@gmail.com>
- <20260423125922.57428-4-mhun512@gmail.com>
-MIME-Version: 1.0
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
+ "T.J. Mercier" <tjmercier@google.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Alice Ryhl <aliceryhl@google.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org,
+ Florent Tomasin <florent.tomasin@arm.com>, nd@arm.com
+Subject: Re: [PATCH 4/8] drm/panthor: Add support for protected memory
+ allocation in panthor
+Message-ID: <afxVIuVVPisBQ9p_@e129842.arm.com>
+References: <20260505140516.1372388-1-ketil.johnsen@arm.com>
+ <20260505140516.1372388-5-ketil.johnsen@arm.com>
+ <20260505181523.49a3d85c@fedora>
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260423125922.57428-4-mhun512@gmail.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA3MDA4OSBTYWx0ZWRfX8XtneXkrx15q
- dOvnDRmbLxgVNilh64HvLhwSKHX9x+nfXqgJxFPnZaX3isgPuq99UuhmrNHiPBYR7OyBmLG+lNg
- BSPxs2LEpAdhyUPB9wmAiNiMJe+BpBav1iYPsYu1eSGui+W8b3z/kCRCsgSHyqFK2vvhmXhCLZC
- L1ONXc2YZrCjD9Uu8rh/cVUthxy3dJqj01s2RGuIwDMa4cPvcVv6/kmdlJp5VINWAlDRDvdS6dv
- XVsovJt5iW8JI+PlydJuMfOOYq3fWlS4I+09S0cjiM6+1A7t+RFPm1yNQfsLjfqwYP162Hprr2J
- oVJu2a4FMBU+IsnaS26dlI4/l8QhSH7Q7/dEvklemgE7GJ5lxCos1JfDQwb3aWOtI39Ju/5+GZ8
- Wzp4zEmnY1lZ+3s7a46zVIA2ZaQt72TvVXaHnXsWuD1g+iAtfyGL2fIkPuCUrcakQlVLMMPTLzH
- QUvCplN1jyU5VMkL3/A==
-X-Proofpoint-ORIG-GUID: iM7VwxxWWTe2m1k5_dhurSWWUIEeBBdz
-X-Proofpoint-GUID: iM7VwxxWWTe2m1k5_dhurSWWUIEeBBdz
-X-Authority-Analysis: v=2.4 cv=ZZ4t8MVA c=1 sm=1 tr=0 ts=69fc554e cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=pGLkceISAAAA:8
- a=HECvZMaGUAMxNc25RbcA:9 a=CjuIK1q_8ugA:10 a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-06_02,2026-05-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 spamscore=0 priorityscore=1501 bulkscore=0
- phishscore=0 clxscore=1015 impostorscore=0 malwarescore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605070089
+In-Reply-To: <20260505181523.49a3d85c@fedora>
+X-ClientProxiedBy: LO6P123CA0002.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:338::6) To PAWPR08MB9996.eurprd08.prod.outlook.com
+ (2603:10a6:102:35a::11)
+MIME-Version: 1.0
+X-MS-TrafficTypeDiagnostic: PAWPR08MB9996:EE_|GV1PR08MB11050:EE_|DB5PEPF00014B9A:EE_|AS8PR08MB5896:EE_
+X-MS-Office365-Filtering-Correlation-Id: ad911ab8-5169-4bd0-8354-08deac178e16
+X-LD-Processed: f34e5979-57d9-4aaa-ad4d-b122a662184d,ExtAddr,ExtAddr
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+ ARA:13230040|366016|7416014|1800799024|376014|22082099003|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info-Original: K2xq1PP1A6l1UvXWdW+Bj3nc83B+6K+LRaqYD+uZ3voE28di9ZdhYBdJ+10lN0zlphXI7fWHUKsHiSo8xKRGY45ZpNodTZJ8cuBZgt6WIUiw5r8PqsTFSxY81ZEG9OmVruVbyqdcJrLej/kwzLtEupdhZiaFFAwQA2ZD7ktQFC5VrQpnexOP7/VjMyDS0Ma+Rud5eg8TkO+qxkiIRXgUygEYc0mK0YVKi/pGw78nIY6LqcUCNM04zfq1Lm2u8q7bSZ5wjrCGJmUpuWj0mGqZT/lVn3ij6mxzHCLxU38m5N96dSq6QCgnVI9QQ21Ah4aVMbxWvuT1CClG4utEilBmnxV/acmr2/ahJzYOChXIW/nMA3g5mjDoqwbeTot4lhfq9x9i4dSKLJoN2NcUTAwtH6ZycNkv8/mRM8oC4qKz6OG31i/n8K2mSSPlyJCrLv1JqJkGfwphZTiPOIE3gc8QrtDbTdlweqRqMzSsglTZPVIWflyrXgu/0LdHyWTCsbo3408kdolhybyi7Qivo3+nx6qAHwQkzHV3YOwe/vI2aWeHv6vt/Bt8dqF3m++ubE2tag2NrcsVYWRpRv+BT0ircb+Wg+grvBlnRdeFEmUmD31wSRDX9aQ9IWVlr+amVxx7z10EXySFtnHjoFwnuLwwrCKT/zKTKwT/Fr740vOTzeKBwMIvGIbWEpBtF2Kft78J
+X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
+ SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:PAWPR08MB9996.eurprd08.prod.outlook.com;
+ PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(7416014)(1800799024)(376014)(22082099003)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-Exchange-RoutingPolicyChecked: XJ1T6EoheAt6U+FREPkCNk9lmTPcfzSATSqW1yw+CL0VauPjAPvg0atTwGy6E2XOscgZriGtllJzvEMDByJ4mXxl/Ewd17+joUZcDGAkkNpoorbenAno8gaoJzpGnd7tBaucC1+bzNRn2jLbBwjfwuAj4DuBctHLOiNP3BFJ0924yDQhuVvuzerWRC3DBzOMlXTwNn+ocgGK+qu7RLmxsTOn2HXVIofFOfw8ZFtSeVo+D3yPyzzdrCxlEm+y9q52IoryKTY8yY5td+OF83hiRJWkaZwxBNKp4aCORgcJPmzxpzAwQj89zk9lpksBqnqxrRQ+mwyr1BnUbNO5VI/XOw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR08MB11050
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: DB5PEPF00014B9A.eurprd02.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs: a30f35dd-b7e1-4ff8-fb75-08deac176625
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|35042699022|376014|36860700016|7416014|14060799003|82310400026|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 4PMk609cGl8yM/iCXDNq5MjFLTeHOukpC5pJhnfVbfogGwBsn5pIpif3fJhaCOG9DbPAuTTMEuA6IfI2Q0HZsPj5q7U1Ji+KAOM8FteiWOL5bgewPeYl/k2w2Md/Vi3gzTybGSFUUxkFM0llVyEPrxEyDSQzY7CkLIXVhA4mYeJWF1I6KteFe5XCKM07NTIwGWF0wDp8P7LRrY5hEgOZ9aPI+5Hn03JIA5o4kD5wYPlY7AEC5oCyOK2zKyferyuw8GFn4DRJzwBSmGc3JR2OBtwpMDHF/+ycijpTdfVGRRUdMDg/FvnhIZJ5ESo69SO4DrrgL0N2avMSm2EmtkYjGrEctdglGVZRzDx0ttq8OR5TNggQG1qW8k0xsx3UvBa48p6WBTWCPGkv93W7wJUMaA3zEjAykwnB5IMen0mmiIdmwphVpmpWt0s2S80WVKWFrMA+LYecfMgLxwmTg3xLWM8XjsxIZsemBKlTd7E6oke6Ejn3sZifEizoQofBt2dA0Zis2tstRAQ8uKX8vrCJ+kUiECCYcZhJgBXqlulbXbA5DVwREYK2XNWUWN0qlmIcFEmygQAiNVdVFt67mtPimnJG4yH3EpnKvvo5hxoOw8heYVnY4NAr0xjBSPzDE6mDIFl7wXPQhLdOcTq2RTHYLl65psdzQDNbyYVZdx/wAA1Uz0kLogqsJ7z5wyHctR1LrSPDw74THoT5b3dE+cj7ZKO2eVglJpNevoNi+5xG9wo=
+X-Forefront-Antispam-Report: CIP:4.158.2.129; CTRY:GB; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:outbound-uk1.az.dlp.m.darktrace.com;
+ PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(35042699022)(376014)(36860700016)(7416014)(14060799003)(82310400026)(56012099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: QJWvgALR1WNRC/tRN7VrsCzAf3Sm1moslUv4ThmlKKZEXxBFtSs3iaYs3DQarPjewgLny9TBYL7//x2E5/Rkzq6lSTm2fe9fdT1tWdMnPrsUkqcXYEtCX8nJ+xtnbVmZqrPEOY/I6MsfHaVkIpE5G0mlMCsNeQ+j7mqLvACpwIEqMC+06VuElmspkuE403j6m3vHZ1VZ+BE1YyPOTUPpyLz9rbwZ64WMZMWZliJ+sXtoDR5Z2rzXTXpsYmaPA8P09wuP5u1V1ejspl+jxwICVbreAq7GebtqHXWlovOtIw4vPEAkO7hXpgpCIVx/xY6ysq3IxDEO/gVW9V4K1BBigyebMooHZ7J2ebjniigoc9BAI+nbLG6lcBWzSIjIezAF/MfMM6GVT6G4OVo8xwMT+/PMDONZUrB/MKnaTXMIcDWP/r/U+qO5u9D45kH1roa7
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2026 09:03:50.0262 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ad911ab8-5169-4bd0-8354-08deac178e16
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[4.158.2.129];
+ Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource: DB5PEPF00014B9A.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB5896
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,58 +173,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Apr 23, 2026 at 09:59:22PM +0900, Myeonghun Pak wrote:
-> Replace drm_panel_add()/drm_panel_remove() with devm_drm_panel_add()
-> now that drm-misc-next provides it. This keeps panel deregistration tied
-> to the device lifetime and removes the manual cleanup from the remove
-> callback.
+On Tue, May 05, 2026 at 06:15:23PM +0200, Boris Brezillon wrote:
+> > @@ -277,9 +286,21 @@ int panthor_device_init(struct panthor_device *ptdev)
+> >  			return ret;
+> >  	}
+> >  
+> > +	/* If a protected heap name is specified but not found, defer the probe until created */
+> > +	if (protected_heap_name && strlen(protected_heap_name)) {
 > 
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-> ---
->  drivers/gpu/drm/panel/panel-lg-sw43408.c | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
+> Do we really need this strlen() > 0? Won't dma_heap_find() fail is the
+> name is "" already?
+
+If dma_heap_find() will fail, then the whole probe with fail too.
+This check prevents that. I'm not sure why it's needed at all, but if
+it is really needed, then s/strlen(protected_heap_name)/protected_heap_name[0]/
+would simplify this.
+
+> > +		ptdev->protm.heap = dma_heap_find(protected_heap_name);
+> > +		if (!ptdev->protm.heap) {
+> > +			drm_warn(&ptdev->base,
+> > +				 "Protected heap \'%s\' not (yet) available - deferring probe",
+> > +				 protected_heap_name);
+> > +			ret = -EPROBE_DEFER;
+> > +			goto err_rpm_put;
 > 
-> diff --git a/drivers/gpu/drm/panel/panel-lg-sw43408.c b/drivers/gpu/drm/panel/panel-lg-sw43408.c
-> index 293826c500..8969f57b89 100644
-> --- a/drivers/gpu/drm/panel/panel-lg-sw43408.c
-> +++ b/drivers/gpu/drm/panel/panel-lg-sw43408.c
-> @@ -254,8 +254,11 @@ static int sw43408_add(struct sw43408_panel *ctx)
->  
->  	ctx->base.prepare_prev_first = true;
->  
-> -	drm_panel_add(&ctx->base);
-> -	return ret;
-> +	ret = devm_drm_panel_add(dev, &ctx->base);
-> +	if (ret < 0)
-> +		return dev_err_probe(dev, ret, "Failed to add panel\n");
-> +
-> +	return 0;
->  }
->  
->  static int sw43408_probe(struct mipi_dsi_device *dsi)
-> @@ -299,14 +302,11 @@ static int sw43408_probe(struct mipi_dsi_device *dsi)
->  
->  static void sw43408_remove(struct mipi_dsi_device *dsi)
->  {
-> -	struct sw43408_panel *ctx = mipi_dsi_get_drvdata(dsi);
->  	int ret;
->  
->  	ret = mipi_dsi_detach(dsi);
-
-This begs to use devm_mipi_dsi_attach() in the probe function. The whole
-remove callback can be removed then.
-
->  	if (ret < 0)
->  		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", ret);
-> -
-> -	drm_panel_remove(&ctx->base);
->  }
->  
->  static struct mipi_dsi_driver sw43408_driver = {
-> -- 
-> 2.47.1
+> If you move the heap retrieval before the rpm enablement, you can get
+> rid of this goto err_rpm_put.
 > 
-
--- 
-With best wishes
-Dmitry
+> > +		}
+> > +	}
+> > +
+> >  	ret = panthor_hw_init(ptdev);
+> >  	if (ret)
+> > -		goto err_rpm_put;
+> > +		goto err_dma_heap_put;
+> >  
+> >  	ret = panthor_pwr_init(ptdev);
+> >  	if (ret)
