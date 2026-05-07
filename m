@@ -4,72 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B7A4CD343F
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 15:35:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2195CD343F
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 15:36:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 970F410F1AC;
-	Thu,  7 May 2026 15:35:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 467E910F1D5;
+	Thu,  7 May 2026 15:36:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="vMBs+VMI";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="lgkmyRXH";
 	dkim-atps=neutral
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E2CF10F1AC
- for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 15:35:40 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-48984d29fe3so12581625e9.0
- for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 08:35:39 -0700 (PDT)
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5330810F1B1
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 15:35:52 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-44ccbd3290aso773387f8f.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 08:35:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1778168138; x=1778772938; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1778168151; x=1778772951; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :content-language:references:cc:to:subject:reply-to:from:user-agent
  :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=48EgchF5dtmC/4scZDvcW2a4RnHCw/qdBUIKinwh0Wk=;
- b=vMBs+VMIxspwuYvQRkIdnh9X4L8B9bM9j6ovrrVo1Chu30ccLD23+KD1hVItUE9g4Z
- X62sQ31jydbrgcHzbjFvw7vlmvo/ZlwnOlX1sMerKBYYUI+2IEFY9I705y9sNUUgQd7q
- O0izyg0AtNInD5QjkoWyyFAxOe8X04qDCKeLCE0TDMLuWrvW3T962jVFuSNZS+cH2F+1
- ScbvNTpOG/ifVLeOaTC8R6ThU3uxRrNFlbPp+3UhF5rBJm4M7THOE9gX6e3TtbaMHP68
- 5TQ2UZe5GPmoHU6hJQ/XB7AfJ0aMQyoI+6u1ARlg6LUC3xx/f3yHVmDj4EPkUNisTIDx
- ZWyg==
+ :reply-to; bh=4z5DD24RfTrdP45OX3nmt+xGieHCkU7CBzs7THghyBo=;
+ b=lgkmyRXHZpv4p+yAv7RR/2T5UCldOBXbxmQgjt8FdIo1YELD1k0lcgncMhdGKEkM38
+ Jy4nhhSahMb60qzBpcGXGO5OAFPnH+x7YWt2qdvt++uEG/taXl8MrbIGJTxKSZ5KXAA+
+ zHxLN2VBQZFQXG0Ebaq8c9urMeI4W7g41UhAEWoQSoxSwGaLqrVtSf6fh0oVPNaAMbbU
+ K23ydHoEIqJ7lY0G/d7atWWSeJTfVAGd3osrKdv+Y27KZyNYM7DbmNc9K9riCk3Fz166
+ iSm8U4mPHS44qcWToGeuKbtGwOByhQ7ry/U8sktyWmqWr8C3klOKRprk11us2Ugwsaq6
+ vSmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778168138; x=1778772938;
+ d=1e100.net; s=20251104; t=1778168151; x=1778772951;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :content-language:references:cc:to:subject:reply-to:from:user-agent
  :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=48EgchF5dtmC/4scZDvcW2a4RnHCw/qdBUIKinwh0Wk=;
- b=TMxgHfMSwIFndkLJ4p5tzOoYtt3VfGK0FiffLNvW7sf69ZGEDyoXAFnHqIwsA1ZB2X
- UOT5j+m1Nn4YpYue32CPuPuuQO6/uhG5ijTGmTAAXVrgl/t+d6ujo9PWDjW/Z4287YvK
- R9rwBYYPAVpiL9vEQ89Tc1rGOl7sHJHpjCIP/39pPFkc1GdvCaCTegzw+OpzCPECiHKb
- KwHGL6BPrkVYsuOkDAMtHYKW8DxgnWE8D2Rs5GzIP3JNxJvvIzv1LKLCRcpitrz2CExy
- wIqWGs0xT3Tcu+1xY4TwjaFPo5SIMrAo91bUfn6eRHV3Flq3konNVXs5wEBbXkpQzbMb
- 8pMw==
-X-Gm-Message-State: AOJu0YxF9eUHMBQC7d/qAGa1FEk77mLa6D4H53BfgSFCHRfY1cvu1HfF
- XdsGtj69jeNBVFdURF+z77RlCpTeuJZdAtl5LS5/SHZA21mTx3hsQ1gztTEIA+4IMc4=
-X-Gm-Gg: AeBDieuJwue5KsN1zMSfDdKlIKiB0UJCqf90PKUx8FrmTRMjvT85E36ZLQWkFOvdq9j
- iFzJpAmUOTyihhG72+AR2IAiA25ioI/3ZovRmnGYz01BPmreD69rW5Xf8Saxgkf63CzRmTdnB6v
- VyVxVE3/Bw4W4UHvIklHnLMxuNFlUy4ARCKHr/fihbCcRWAbQ5mrCIzYs6E/JcOkkGdxc4d3i3v
- lCB279uue98j3Rw/avVS/dEnMkw3VIBOlxiDyOyQPfluAVYUBlfor9bgMDjkmp7vq/hu/nbeVbm
- w17GLOBF4BhRuSSEjkNglJaSoIPV6G8UxP33cqi1hnA5AyffBX9Olhy4oOMctUKL0acuYxaDkvl
- sh4+3bpevzSp1f3ZyIaw4r+LivUe1DNgHeOaun17UzdsTBZxClY6izvKJUZv9OfRdEvIm1QW7R9
- K+/PpXApESErCQnh0ZuCo4KnDqY2JvQwHNV6jaaYwPD/W19TWOuvv5wONalroMLq60pQrKdZpcI
- FqpO5UBM3DhraGqNA==
-X-Received: by 2002:a05:600c:8908:b0:48a:7a10:4f17 with SMTP id
- 5b1f17b1804b1-48e51f21e0cmr94559425e9.6.1778168138248; 
- Thu, 07 May 2026 08:35:38 -0700 (PDT)
+ bh=4z5DD24RfTrdP45OX3nmt+xGieHCkU7CBzs7THghyBo=;
+ b=SKO2EVEYxyFFof8h0XYaexcCmokQu2j/9vA1S+0dEy24di/5ay6zUAke43tEOOeOju
+ 8Igt8VOmjyup8Mu8C3S2oE546MSpkyba3fHuggXj7PMyq7Y/jUSjmVq3ZWtvSC5Cpvdt
+ o0sxSNfeXF/Tal/lNCLb8hIlAvqSO5kS6OKA9jiXbqxg27F7NHgJTZF/dws/cWSX+hOm
+ YxOx0YzHmJYiP5ewv77ccgKzaLVaSdAtVDdNtwkW+KEvNos3oJ4ALLqO9pS6AxCiIHJf
+ gk/cKp8DOhLOBAjfcJAJeU/hndZbcR+oSv5xAAgmTexdrIOiZE9Vc2waSiSpYq7HXHkU
+ FH/g==
+X-Gm-Message-State: AOJu0Yyj2fyK16gkFu90oRPRVP/I+vwbS0TkAWljQw6EBK9F6G4/i466
+ M8gwRpuZgZjKvarlg3Ewhyt+0Yyb7W1kvayL4CgnXA6lU5JfjhCmAQy3UlpQZLQMCQo=
+X-Gm-Gg: AeBDiesF5qUO+wwZjBlzwHNnbhtD9Pc+PLzIUmSItS5Z6dfdzslAr3wigTwHHQl00hr
+ Vo8iPr6Xhn3x4trIKeOwnGGhW6AxOiUtrNxKOs19VSQtEzTFkrQiPF54o7Tj2TcvIWRkfh2JFyx
+ VNzrt0sBUZ39bZsiRydthyVcyHBexaOjmgw5f9B13i2pIlnuhW9E/nUHNa20oJECBJz7+5lgKmv
+ V+hj1yHQK4Cn/q3jVyxWORm7QtlnUSkR6ibhUZv3DJgK1rRYf6QHhXirtGT3wa8rk88WF08+o/K
+ wvl7VpBE+HwJd340CAS6F7orJEyFvDPFHY0/6W9dGloCBQ6dzXCFI6DL/kRhjEDyEXngfrYWUJi
+ RHOUNG5Zdi0IgTPlvseTRJKYtJok8g9Jn+T/FRjR72kQ48udVWo5qB31d9bBTmEFDrYU5zfZT1p
+ Ou2zDqEz0+rVKWn4pK0t/KYAatkR8rOIlFWUcpw8JVvS+G5kvqHuZ4WKS86RlyvyVwbWVdvtdHM
+ yUfWukn9dzUC60xRBf5cRMqYyxW
+X-Received: by 2002:a05:600d:10:b0:488:e7e4:8425 with SMTP id
+ 5b1f17b1804b1-48e51f4ea40mr114855745e9.23.1778168150443; 
+ Thu, 07 May 2026 08:35:50 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:106d:1080:6762:47bb:1e06:ff70?
  ([2a01:e0a:106d:1080:6762:47bb:1e06:ff70])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48e53116a9fsm63026735e9.8.2026.05.07.08.35.37
+ 5b1f17b1804b1-48e53142043sm43689315e9.27.2026.05.07.08.35.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 May 2026 08:35:37 -0700 (PDT)
-Message-ID: <3e306cdc-ebc9-4aa5-b820-d73808072945@linaro.org>
-Date: Thu, 7 May 2026 17:35:37 +0200
+ Thu, 07 May 2026 08:35:49 -0700 (PDT)
+Message-ID: <cb8a5660-4951-4652-b326-2e0103aecada@linaro.org>
+Date: Thu, 7 May 2026 17:35:49 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 04/10] drm/panel/lxd-m9189a: Use refcounted allocation in
- place of devm_kzalloc()
+Subject: Re: [PATCH 05/10] drm/panel/ilitek-ili9806e: Use refcounted
+ allocation in place of devm_kzalloc()
 To: Albert Esteve <aesteve@redhat.com>, Jessica Zhang <jesszhan0024@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
@@ -78,7 +78,7 @@ To: Albert Esteve <aesteve@redhat.com>, Jessica Zhang <jesszhan0024@gmail.com>,
  <mwalle@kernel.org>, Dario Binacchi <dario.binacchi@amarulasolutions.com>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 References: <20260507-drm_panel_init_rm-v1-0-51f448c7c291@redhat.com>
- <20260507-drm_panel_init_rm-v1-4-51f448c7c291@redhat.com>
+ <20260507-drm_panel_init_rm-v1-5-51f448c7c291@redhat.com>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -105,7 +105,7 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20260507-drm_panel_init_rm-v1-4-51f448c7c291@redhat.com>
+In-Reply-To: <20260507-drm_panel_init_rm-v1-5-51f448c7c291@redhat.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -131,38 +131,37 @@ On 5/7/26 13:53, Albert Esteve wrote:
 > 
 > Signed-off-by: Albert Esteve <aesteve@redhat.com>
 > ---
->   drivers/gpu/drm/panel/panel-lxd-m9189a.c | 11 ++++++-----
->   1 file changed, 6 insertions(+), 5 deletions(-)
+>   drivers/gpu/drm/panel/panel-ilitek-ili9806e-core.c | 10 +++++-----
+>   1 file changed, 5 insertions(+), 5 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/panel/panel-lxd-m9189a.c b/drivers/gpu/drm/panel/panel-lxd-m9189a.c
-> index 68019e1e43a96..baaf170779e03 100644
-> --- a/drivers/gpu/drm/panel/panel-lxd-m9189a.c
-> +++ b/drivers/gpu/drm/panel/panel-lxd-m9189a.c
-> @@ -165,9 +165,12 @@ static int lxd_m9189_probe(struct mipi_dsi_device *dsi)
->   	struct m9189_panel *m9189;
+> diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9806e-core.c b/drivers/gpu/drm/panel/panel-ilitek-ili9806e-core.c
+> index be2cf14401553..53e25d1086db8 100644
+> --- a/drivers/gpu/drm/panel/panel-ilitek-ili9806e-core.c
+> +++ b/drivers/gpu/drm/panel/panel-ilitek-ili9806e-core.c
+> @@ -78,9 +78,11 @@ int ili9806e_probe(struct device *dev, void *transport,
+>   	bool set_prepare_prev_first = false;
 >   	int ret;
 >   
-> -	m9189 = devm_kzalloc(dev, sizeof(*m9189), GFP_KERNEL);
-> -	if (!m9189)
+> -	ctx = devm_kzalloc(dev, sizeof(struct ili9806e), GFP_KERNEL);
+> -	if (!ctx)
 > -		return -ENOMEM;
-> +	m9189 = devm_drm_panel_alloc(dev, __typeof(*m9189), panel,
-> +				    &m9189_panel_funcs,
-> +				    DRM_MODE_CONNECTOR_DSI);
+> +	ctx = devm_drm_panel_alloc(dev, __typeof(*ctx), panel,
+> +				  funcs, connector_type);
 > +
-> +	if (IS_ERR(m9189))
-> +		return PTR_ERR(m9189);
+> +	if (IS_ERR(ctx))
+> +		return PTR_ERR(ctx);
 >   
->   	m9189->supply = devm_regulator_get(dev, "power");
->   	if (IS_ERR(m9189->supply))
-> @@ -191,8 +194,6 @@ static int lxd_m9189_probe(struct mipi_dsi_device *dsi)
->   	dsi->format = MIPI_DSI_FMT_RGB888;
->   	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST;
+>   	dev_set_drvdata(dev, ctx);
+>   	ctx->transport = transport;
+> @@ -103,8 +105,6 @@ int ili9806e_probe(struct device *dev, void *transport,
+>   		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
+>   				     "Failed to get reset-gpios\n");
 >   
-> -	drm_panel_init(&m9189->panel, dev, &m9189_panel_funcs,
-> -		       DRM_MODE_CONNECTOR_DSI);
->   	m9189->panel.prepare_prev_first = true;
->   
->   	ret = drm_panel_of_backlight(&m9189->panel);
+> -	drm_panel_init(&ctx->panel, dev, funcs, connector_type);
+> -
+>   	ret = drm_panel_of_backlight(&ctx->panel);
+>   	if (ret)
+>   		return dev_err_probe(dev, ret, "Failed to get backlight\n");
 > 
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
