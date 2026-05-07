@@ -4,49 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4761CD3442
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 08:14:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCD08CD3442
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 08:44:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3473A10F074;
-	Thu,  7 May 2026 08:14:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4171710F2F4;
+	Thu,  7 May 2026 08:44:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ispras.ru header.i=@ispras.ru header.b="VaR7Nx4i";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="2J93Nt/B";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="yV9hJX4c";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="bM0E5Grc";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="3AVpuDmk";
 	dkim-atps=neutral
-X-Greylist: delayed 491 seconds by postgrey-1.36 at gabe;
- Thu, 07 May 2026 08:14:19 UTC
-Received: from mail.ispras.ru (mail.ispras.ru [83.149.199.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AFEC10F074;
- Thu,  7 May 2026 08:14:19 +0000 (UTC)
-Received: from debian.lan (unknown [95.24.24.108])
- by mail.ispras.ru (Postfix) with ESMTPSA id 0FEE945A1D2A;
- Thu,  7 May 2026 08:06:04 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.ispras.ru 0FEE945A1D2A
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ispras.ru;
- s=default; t=1778141164;
- bh=t6msmjqawU/IEsj5CPxud70TuqJjAjCucEWvMJ3Guhk=;
- h=From:To:Cc:Subject:Date:From;
- b=VaR7Nx4iurJc2k38ZCC7sKPUbG60TZzh7zWCskj64/r4czrnXDx1pFOSS1dizzxNP
- wBq7v7eOONtbPocEz7tHcevL23XJV6XUduTbRQL971Nov5XqcgXBwRfmg4XIKQdCUS
- +SkSk6FIcNQkkmyra6AbeboWACBXhpWV3ReiyMnA=
-From: Fedor Pchelkin <pchelkin@ispras.ru>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: Fedor Pchelkin <pchelkin@ispras.ru>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>,
- Matt Roper <matthew.d.roper@intel.com>,
- Michael Cheng <michael.cheng@intel.com>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- lvc-project@linuxtesting.org, stable@vger.kernel.org
-Subject: [PATCH] drm/i915/gt: fix up region size calculation for flushing
- dcache lines
-Date: Thu,  7 May 2026 11:05:43 +0300
-Message-ID: <20260507080544.57053-1-pchelkin@ispras.ru>
-X-Mailer: git-send-email 2.53.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6785810F2F4
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 08:44:12 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id D63E15D7F7;
+ Thu,  7 May 2026 08:44:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1778143451; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=mvanPMNhA16wlsm5OZWUR2ZtqGGdbZ7gyn4M0hO9OW8=;
+ b=2J93Nt/BBAT3Vekys9uxSCVKdMhyoEO76KwW9G+tzEhrW79cbQM7x0eriwfY3GNdk7sfzp
+ gck+52pjRTk+dvISJIjOy153RH5D5OivHKmsuzAQ0WxuK4OWVoK2gIp2hUeLLZcd+TjhDs
+ KupQCPtRa+1dqYUhjhjBk9wucmzpNGU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1778143451;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=mvanPMNhA16wlsm5OZWUR2ZtqGGdbZ7gyn4M0hO9OW8=;
+ b=yV9hJX4cz8O7F5YODeYbARCp9F2lKk6QwloyLm8E8TBdtSpbNRJAUTH/qDIqOpnJxcNkoU
+ Rin8Svx6glnkU7Cg==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=bM0E5Grc;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=3AVpuDmk
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1778143450; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=mvanPMNhA16wlsm5OZWUR2ZtqGGdbZ7gyn4M0hO9OW8=;
+ b=bM0E5GrcAsuplc6zXGbZxFUlVjplu+dp42Efh/o3Oc0W4a5Li8Zu4+/K80tgHXf3PTvZcR
+ 9eZTegIOotjQGoSjh9QX1QPssfAppX8ZywHtD84svRVEbrmDGx+r0ADRGZBgoGVClPQAjr
+ v49bnarP1oYA1+HnULxNqtNsnWyJYQs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1778143450;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=mvanPMNhA16wlsm5OZWUR2ZtqGGdbZ7gyn4M0hO9OW8=;
+ b=3AVpuDmk1sDQJzA4QXSjaO9xZoZE0lreLzUwDRuW/HyaPKBI166E2534qqOLe1wnOkpALN
+ JvBCJ52lrTyTpOBQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9193D593A7;
+ Thu,  7 May 2026 08:44:10 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 1FqkIdpQ/Gk9VAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 07 May 2026 08:44:10 +0000
+Message-ID: <da9ecab6-063f-4c29-a685-7b776234905a@suse.de>
+Date: Thu, 7 May 2026 10:44:10 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/bochs: Drop manual put on probe error path
+To: Myeonghun Pak <mhun512@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: virtualization@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260424123506.32275-1-mhun512@gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260424123506.32275-1-mhun512@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ FREEMAIL_TO(0.00)[gmail.com,redhat.com,linux.intel.com,kernel.org,ffwll.ch];
+ TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
+ RCPT_COUNT_SEVEN(0.00)[9]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Queue-Id: D63E15D7F7
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,43 +150,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Computing region size for flushing dcache lines currently involves
 
-  execlists->csb_size * sizeof(execlists->csb_status)
 
-while the second operand should represent the size of the csb status array
-element (u64), not the size of the pointer variable.  It works on a 64-bit
-kernel, but it's not correct for exotic 32-bit ones and may result in an
-incomplete flush when the number of csb entries covers more than a single
-cacheline.
+Am 24.04.26 um 14:34 schrieb Myeonghun Pak:
+> bochs_pci_probe() allocates the DRM device with devm_drm_dev_alloc(),
+> which registers a devres action to drop the initial DRM device reference
+> on driver detach or probe failure.
+>
+> The error path currently calls drm_dev_put() manually. If probe then
+> returns an error, devres will run the registered release action and put
+> the same device again, after the first put may already have released it.
+>
+> Return the probe error directly and let devres own the final put.
+>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 
-Found by Linux Verification Center (linuxtesting.org) with Svace static
-analysis tool.
+Fixes: 04826f588682 ("drm/bochs: Allocate DRM device in struct 
+bochs_device")
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Gerd Hoffmann <kraxel@redhat.com>
+Cc: virtualization@lists.linux.dev
+Cc: <stable@vger.kernel.org> # v6.13+
 
-Fixes: dc0406820ee7 ("drm/i915/gt: Drop invalidate_csb_entries")
-Cc: stable@vger.kernel.org
-Signed-off-by: Fedor Pchelkin <pchelkin@ispras.ru>
----
 
-The patch is against drm-intel/drm-intel-next,
-HEAD:775fb670745015d679a65f948b3da0fbff3f100c
+> ---
+>   drivers/gpu/drm/tiny/bochs.c | 10 +++-------
+>   1 file changed, 3 insertions(+), 7 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/tiny/bochs.c b/drivers/gpu/drm/tiny/bochs.c
+> index 222e4ae1ab..5d8dc5efec 100644
+> --- a/drivers/gpu/drm/tiny/bochs.c
+> +++ b/drivers/gpu/drm/tiny/bochs.c
+> @@ -761,25 +761,21 @@ static int bochs_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent
+>   
+>   	ret = pcim_enable_device(pdev);
+>   	if (ret)
+> -		goto err_free_dev;
+> +		return ret;
+>   
+>   	pci_set_drvdata(pdev, dev);
+>   
+>   	ret = bochs_load(bochs);
+>   	if (ret)
+> -		goto err_free_dev;
+> +		return ret;
+>   
+>   	ret = drm_dev_register(dev, 0);
+>   	if (ret)
+> -		goto err_free_dev;
+> +		return ret;
+>   
+>   	drm_client_setup(dev, NULL);
+>   
+>   	return ret;
+> -
+> -err_free_dev:
+> -	drm_dev_put(dev);
+> -	return ret;
+>   }
+>   
+>   static void bochs_pci_remove(struct pci_dev *pdev)
 
- drivers/gpu/drm/i915/gt/intel_execlists_submission.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index 1359fc9cb88e..31037ee3c2c4 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -2833,7 +2833,7 @@ static void reset_csb_pointers(struct intel_engine_cs *engine)
- 	memset(execlists->csb_status, -1, (reset_value + 1) * sizeof(u64));
- 	drm_clflush_virt_range(execlists->csb_status,
- 			       execlists->csb_size *
--			       sizeof(execlists->csb_status));
-+			       sizeof(execlists->csb_status[0]));
- 
- 	/* Once more for luck and our trusty paranoia */
- 	ENGINE_WRITE(engine, RING_CONTEXT_STATUS_PTR,
 -- 
-2.53.0
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
 
