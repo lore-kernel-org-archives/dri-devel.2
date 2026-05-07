@@ -4,61 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C468CD3427
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 12:46:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B7C3CD3427
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 12:50:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E59F210E222;
-	Thu,  7 May 2026 12:46:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A08510E0A3;
+	Thu,  7 May 2026 12:50:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="P3JDXcbm";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="hrz8wgSn";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D320410E222;
- Thu,  7 May 2026 12:46:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1778158003;
- bh=cnZR5W9FGizEToKXwLmQBP3mXWODE6QQC3LUbnT2NB4=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=P3JDXcbmffUPrjf53yyyKHDM8ZwYE8VVRM9AO9P417tn50mcZq/T4XpEFLDz/6L1c
- o1cjbQGiGudEFelzd8awsYxSzXg5XC60ULejTVd+5QUWKERxwmzVZU/XGMo6QD4zOv
- eT6l9HqOwKYfZsNa4rrLxvsqICkctWKRObkJI7jmWcd/l1yJB1VqHOoTfwcGcAmCXR
- ig9BvA5XeDfekjJaNq/ZVztMRON/nH0Uf1ousDGyXz1QtqJrzjhP+r3yzn01tzop0c
- MOc2ySNBSGDDwbwV9QfuprQKsbuFT7aUxlzXM/xATHXZ8pFOhVGzJC8ZeQleYXpyz8
- Io4t+NH/yBvUg==
-Received: from fedora (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id C4B1F17E138B;
- Thu,  7 May 2026 14:46:42 +0200 (CEST)
-Date: Thu, 7 May 2026 14:46:39 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Boris Brezillon <boris.brezillon@collabora.com>, Dmitry Osipenko
- <dmitry.osipenko@collabora.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Akash Goel
- <akash.goel@arm.com>, Chia-I Wu <olvaffe@gmail.com>, Rob Clark
- <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang
- <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/3] drm/gem: Fix a race between drm_gem_lru_scan() and
- drm_gem_object_release()
-Message-ID: <20260507144639.68bd699f@fedora>
-In-Reply-To: <20260506-panthor-shrinker-fixes-v1-2-e7721526de96@collabora.com>
-References: <20260506-panthor-shrinker-fixes-v1-0-e7721526de96@collabora.com>
- <20260506-panthor-shrinker-fixes-v1-2-e7721526de96@collabora.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Received: from mail-wm1-f73.google.com (mail-wm1-f73.google.com
+ [209.85.128.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67BEE10E0A3
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 12:50:57 +0000 (UTC)
+Received: by mail-wm1-f73.google.com with SMTP id
+ 5b1f17b1804b1-488d8deb75fso6500045e9.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 05:50:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1778158256; x=1778763056;
+ darn=lists.freedesktop.org; 
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=B8srcPUz2iRMxUgzpDjJPZ915RsxNlRqzvXbEly4DTQ=;
+ b=hrz8wgSnx8FTXOsYkJC7bHJUvne+4Poo7OJmdYcD/SAqkXHKIQC/mMfhlKbwRa0VQl
+ QiUitEM6QqJrL7cE9SiApywkSThKsmz6Kp3l91aIHwyMBHg5TQhi+V5f0zoglXFV+Nv2
+ R2KRsESjQI3i/21DFmUW9gh/oxVJTCqD+9sxrevuMqXg2K5gkk19hyGUkk0K5EcH3hwq
+ FP56SPOdEy7yIl02QXPiuuGmwomVXWmZIK80DkuFluJBvUxzZYKgqE0trtIjhfFUVbCy
+ +U3jBYYTa273HLyhWeD4njdp+Z72AtVXkvLD84zYZLDFcMLakYq3QLCrt64GHLs+hKBn
+ xz2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778158256; x=1778763056;
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=B8srcPUz2iRMxUgzpDjJPZ915RsxNlRqzvXbEly4DTQ=;
+ b=nLyovZXZFlxeNxZ9giykmLc3/kUeBQb0zdB4U8oiyWFNBiBv3+mfhH4LPcYh2+qeWq
+ KlmYOiDbiIe9DSPJHWg74HBMdVMvC97TtDkQBUkJb7hlGkhmDFnk7jsrPD0Fb8+MQ3QU
+ R5x64Tp1BSpy1+z7/PPHdUtp+CilRya4phTm4Ml2acahKlMofOjcgK0ZW1MVr5U/vibj
+ g9mUDvHjiu154sLPSfyHy127/AtlxyZJUy6bOJVZTOL8HXky/BpYqOU5j363ZjMNVwGd
+ Ygmz50aAXYZzY3k1LWOANTdHoxgyx64Ax6ypShtOhmnH4QUV8g8Sr+sX0gr1SefEvL//
+ +Raw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+d+jVIjsSejvhsjaqwSPUAuXkuIpSdfuboaDpPvgX+SpXOnFeSn7+rQULXZETEBgJq2alLL8l6pkY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxiaTZuVEXuE7AmKRHp1SAFfKCtBuUN7f2hEt0ixjsnIhjYXKfQ
+ PoUqxltXSze9tvwkpjkhgZ47ZIxYxoHITvAeMEDnU1+NO80DeYk0Wrv88NwEFeB6cOsuPPYSzkE
+ 8Oc/vDO5B/MdnOQYDpg==
+X-Received: from wrpu17.prod.google.com ([2002:adf:f891:0:b0:43d:70b2:d297])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:3f18:b0:487:2671:fb8f with SMTP id
+ 5b1f17b1804b1-48e51e19668mr127556795e9.8.1778158255465; 
+ Thu, 07 May 2026 05:50:55 -0700 (PDT)
+Date: Thu, 7 May 2026 12:50:51 +0000
+In-Reply-To: <20260506215113.851360-4-dakr@kernel.org>
+Mime-Version: 1.0
+References: <20260506215113.851360-1-dakr@kernel.org>
+ <20260506215113.851360-4-dakr@kernel.org>
+Message-ID: <afyKqwxDxu3cT7U9@google.com>
+Subject: Re: [PATCH v2 03/25] rust: device: generalize drvdata methods over
+ ForLt
+From: Alice Ryhl <aliceryhl@google.com>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: gregkh@linuxfoundation.org, rafael@kernel.org, acourbot@nvidia.com, 
+ david.m.ertman@intel.com, ira.weiny@intel.com, leon@kernel.org, 
+ viresh.kumar@linaro.org, m.wilczynski@samsung.com, ukleinek@kernel.org, 
+ bhelgaas@google.com, kwilczynski@kernel.org, abdiel.janulgue@gmail.com, 
+ robin.murphy@arm.com, markus.probst@posteo.de, ojeda@kernel.org, 
+ boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com, 
+ lossin@kernel.org, a.hindborg@kernel.org, tmgross@umich.edu, 
+ igor.korotin@linux.dev, daniel.almeida@collabora.com, 
+ driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ linux-pm@vger.kernel.org, linux-pwm@vger.kernel.org, 
+ linux-pci@vger.kernel.org, rust-for-linux@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,70 +90,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 06 May 2026 14:16:27 +0200
-Boris Brezillon <boris.brezillon@collabora.com> wrote:
+On Wed, May 06, 2026 at 11:50:39PM +0200, Danilo Krummrich wrote:
+> -    /// The type of the driver's device private data.
+> -    type DriverData;
+> +    /// The [`ForLt`](trait@ForLt) encoding of the driver's device private data type.
+> +    type DriverData: ForLt;
 
-> The following race can currently happen:
-> 
-> | Thread 0 in `drm_gem_lru_scan`               | Thread 1 in `drm_gem_object_release` |
-> | -                                            | -                                    |
-> | move obj1 with refcount==0 to `still_in_lru` |                                      |
-> | move obj2 with refcount!=0 to `still_in_lru` |                                      |
-> | mutex_unlock                                 |                                      |
-> | shrink obj2                                  |                                      |
-> |                                              | lru = obj1->lru; // `still_in_lru`   |
-> | mutex_lock                                   |                                      |
-> | move obj1 back to the original lru           |                                      |
-> | mutex_unlock                                 |                                      |
-> | return                                       |                                      |
-> |                                              | dereference `still_in_lru`           |
-> 
-> Move the drm_gem_lru_move_tail_locked() after the
-> kref_get_unless_zero() check so that we don't end up with a
-> vanishing LRU when we hit drm_gem_object_release(). We also need to
-> remove the skipped object from its LRU, otherwise we'll keep hitting
-> it on subsequent loop iterations until it's actually removed from the
-> list in the drm_gem_release().
-> 
-> Fixes: e7c2af13f811 ("drm/gem: Add LRU/shrinker helper")
-> Reported-by: Chia-I Wu <olvaffe@gmail.com>
-> Closes: https://gitlab.freedesktop.org/panfrost/linux/-/work_items/86
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-> Reviewed-by: Chia-I Wu <olvaffe@gmail.com>
-> ---
->  drivers/gpu/drm/drm_gem.c | 14 +++++++++-----
->  1 file changed, 9 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-> index fca42949eb2b..97cf63de0112 100644
-> --- a/drivers/gpu/drm/drm_gem.c
-> +++ b/drivers/gpu/drm/drm_gem.c
-> @@ -1660,15 +1660,19 @@ drm_gem_lru_scan(struct drm_gem_lru *lru,
->  		if (!obj)
->  			break;
->  
-> -		drm_gem_lru_move_tail_locked(&still_in_lru, obj);
-> -
->  		/*
->  		 * If it's in the process of being freed, gem_object->free()
-> -		 * may be blocked on lock waiting to remove it.  So just
-> -		 * skip it.
-> +		 * may be blocked on lock waiting to remove it.  So just remove
-> +		 * it from its current LRU and skip it.
->  		 */
-> -		if (!kref_get_unless_zero(&obj->refcount))
-> +		if (!kref_get_unless_zero(&obj->refcount)) {
-> +			if (obj->lru)
-> +				drm_gem_lru_remove_locked(obj);
-> +
+Associated types support ForLt natively.
 
-Actually, this thing is still racy, because obj->lru is dereferenced
-without the lru->lock held in drm_gem_object_release(). At this point
-I'm wondering if we should expose a drm_gem_lru_remove() taking the LRU
-lock as an argument as suggested by Steve, and delegate the
-responsibility to call drm_gem_lru_remove() to the driver. Either that,
-or we make it so the LRU lock is attached to the drm_device instead of
-the GEM (both MSM and panthor assume a device-wide lock for LRU
-manipulation).
+    type DriverData<'bound>;
 
-Rob, what's your take on this matter?
+Alice
