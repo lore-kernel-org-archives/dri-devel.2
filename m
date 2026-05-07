@@ -4,59 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BF35CD3427
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 09:58:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C49E8CD3442
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 10:01:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACCA410EFFF;
-	Thu,  7 May 2026 09:58:50 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [185.203.201.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D18FE10EFFF
- for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 09:58:49 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <p.zabel@pengutronix.de>)
- id 1wKvUv-0003AI-LK; Thu, 07 May 2026 11:58:25 +0200
-Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e]
- helo=lupine)
- by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <p.zabel@pengutronix.de>) id 1wKvUu-000tk0-16;
- Thu, 07 May 2026 11:58:24 +0200
-Received: from pza by lupine with local (Exim 4.98.2)
- (envelope-from <p.zabel@pengutronix.de>) id 1wKvUu-000000005ng-2rLM;
- Thu, 07 May 2026 11:58:24 +0200
-Message-ID: <8382e2b9fd07fb1132c26e228b3899336fc1fdd4.camel@pengutronix.de>
-Subject: Re: [PATCH v7 05/13] reset: Add
- devm_reset_control_get_optional_shared_by_index()
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, 
- tomm.merciai@gmail.com, geert@linux-m68k.org,
- laurent.pinchart@ideasonboard.com
-Cc: linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com, David
- Airlie	 <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten
- Lankhorst	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor Dooley
- <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, Magnus
- Damm	 <magnus.damm@gmail.com>, Laurent Pinchart	
- <laurent.pinchart+renesas@ideasonboard.com>,
- dri-devel@lists.freedesktop.org, 	devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Thu, 07 May 2026 11:58:24 +0200
-In-Reply-To: <72334ae433516dd6bfd45da8523936ed7e73f44d.1778141145.git.tommaso.merciai.xr@bp.renesas.com>
-References: <cover.1778141145.git.tommaso.merciai.xr@bp.renesas.com>
- <72334ae433516dd6bfd45da8523936ed7e73f44d.1778141145.git.tommaso.merciai.xr@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33BE610EFB1;
+	Thu,  7 May 2026 10:01:58 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="fhalT9yd";
+	dkim-atps=neutral
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id B02D110EFB1
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 10:01:56 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B3E283532
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 03:01:50 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ 944873F763
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 03:01:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1778148115; bh=V6SSn9JDAt3Sb2yowSSRXctJvfC9kF3/lLVSaXdPYEQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=fhalT9ydBzVprPEoO+3PuS3GrYMixs3EpBZcsY4Yy93kFXSlmfX9Ybq4MVz0YsPzK
+ a3ljzoZJ7I0UZtfyYjXk9sEVrKqBOrdx9aZPnkOo3DD5Y+LVZ6eVWH20DPFgZRArEV
+ HLVDzSxWbFvQHoF0eXZy6XyzDOV9ovQA7BpDD/6Y=
+Date: Thu, 7 May 2026 11:01:25 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Steven Price <steven.price@arm.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Akash Goel <akash.goel@arm.com>, Chia-I Wu <olvaffe@gmail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] drm/panthor: Don't use the racy drm_gem_lru_remove()
+ helper
+Message-ID: <afxi9ab1O9J_7J1Y@e142607>
+References: <20260506-panthor-shrinker-fixes-v1-0-e7721526de96@collabora.com>
+ <20260506-panthor-shrinker-fixes-v1-1-e7721526de96@collabora.com>
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: p.zabel@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260506-panthor-shrinker-fixes-v1-1-e7721526de96@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,61 +70,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Do, 2026-05-07 at 11:21 +0200, Tommaso Merciai wrote:
-> Add devm_reset_control_get_optional_shared_by_index() to allow the
-> drivers to get optional shared reset by passing the index.
->=20
-> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+On Wed, May 06, 2026 at 02:16:26PM +0200, Boris Brezillon wrote:
+> drm_gem_lru_remove() dereference stores drm_gem_object::lru in a local
+> variable that's then dereferenced to acquire the LRU lock. Because this
+> assignment in done without the LRU lock held, it can race with
+> drm_gem_lru_scan() where drm_gem_object::lru is temporarily assigned
+> a stack-allcated LRU that goes away when leaving the function. By
+> the time we dereference this local lru variable, the object might already
+> be gone.
+> 
+> It feels like drm_gem_lru_move_tail() was never meant to be used this
+> way, because there's no easy way we can avoid this race unless we defer
+> the locking to the caller. Let's add an explicit LRU for unreclaimable
+> BOs instead, and have all BOs added to this LRU at creation time.
+
+I would argue that drm_gem_lru_scan() is broken by design. If you're going
+to release the LRU lock in the middle of a loop you can expect that someone
+will get hold of your stack-allocated LRU and end up picking the pieces.
+This patch is fine in itself by trying to avoid stepping into the fight,
+but I think we should also add a warning in drm_gem_lru_scan() for future
+users to be aware of the dangers.
+
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+
+Best regards,
+Liviu
+
+> 
+> Fixes: fb42964e2a76 ("drm/panthor: Add a GEM shrinker")
+> Reported-by: Chia-I Wu <olvaffe@gmail.com>
+> Closes: https://gitlab.freedesktop.org/panfrost/linux/-/work_items/86
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+> Reviewed-by: Chia-I Wu <olvaffe@gmail.com>
 > ---
-> v6->v7:
->  - New patch.
->=20
->  include/linux/reset.h | 18 ++++++++++++++++++
->  1 file changed, 18 insertions(+)
->=20
-> diff --git a/include/linux/reset.h b/include/linux/reset.h
-> index 9c391cf0c822..d49545019631 100644
-> --- a/include/linux/reset.h
-> +++ b/include/linux/reset.h
-> @@ -965,6 +965,24 @@ devm_reset_control_get_shared_by_index(struct device=
- *dev, int index)
->  	return __devm_reset_control_get(dev, NULL, index, RESET_CONTROL_SHARED)=
-;
->  }
-> =20
-> +/**
-> + * devm_reset_control_get_optional_shared_by_index - resource managed
-> + *                                                   reset_control_get_o=
-ptional_shared()
-> + * @dev: device to be reset by the controller
-> + * @index: index of the reset controller
-> + *
-> + * Managed reset_control_get_optional_shared(). For reset controllers re=
-turned
-> + * from this function, reset_control_put() is called automatically on dr=
-iver
-> + * detach.
-> + *
-> + * See reset_control_get_optional_shared() for more information.
-> + */
-> +static inline struct reset_control *
-> +devm_reset_control_get_optional_shared_by_index(struct device *dev, int =
-index)
-> +{
-> +	return __devm_reset_control_get(dev, NULL, index, RESET_CONTROL_OPTIONA=
-L_SHARED);
-> +}
+>  drivers/gpu/drm/panthor/panthor_device.h | 10 ++++++++++
+>  drivers/gpu/drm/panthor/panthor_gem.c    |  5 ++++-
+>  2 files changed, 14 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
+> index 4e4607bca7cc..45b71546f83c 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.h
+> +++ b/drivers/gpu/drm/panthor/panthor_device.h
+> @@ -190,6 +190,16 @@ struct panthor_device {
+>  		/** @reclaim.lock: Lock protecting all LRUs */
+>  		struct mutex lock;
+>  
+> +		/**
+> +		 * @reclaim.unreclaimable: unreclaimable BOs
+> +		 *
+> +		 * Either the BO is unreclaimable because it has no pages allocated,
+> +		 * or it's unreclaimable because pages are pinned.
+> +		 *
+> +		 * All BOs start in that list at creation time.
+> +		 */
+> +		struct drm_gem_lru unreclaimable;
 > +
->  /*
->   * TEMPORARY calls to use during transition:
->   *
+>  		/**
+>  		 * @reclaim.unused: BOs with unused pages
+>  		 *
+> diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
+> index 13295d7a593d..8e31740126e7 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gem.c
+> +++ b/drivers/gpu/drm/panthor/panthor_gem.c
+> @@ -204,7 +204,7 @@ void panthor_gem_update_reclaim_state_locked(struct panthor_gem_object *bo,
+>  		drm_gem_lru_move_tail(&ptdev->reclaim.gpu_mapped_shared, &bo->base);
+>  		break;
+>  	case PANTHOR_GEM_UNRECLAIMABLE:
+> -		drm_gem_lru_remove(&bo->base);
+> +		drm_gem_lru_move_tail(&ptdev->reclaim.unreclaimable, &bo->base);
+>  		break;
+>  	default:
+>  		drm_WARN(&ptdev->base, true, "invalid GEM reclaim state (%d)\n", new_state);
+> @@ -994,6 +994,7 @@ static struct panthor_gem_object *
+>  panthor_gem_create(struct drm_device *dev, size_t size, uint32_t flags,
+>  		   struct panthor_vm *exclusive_vm, u32 usage_flags)
+>  {
+> +	struct panthor_device *ptdev = container_of(dev, struct panthor_device, base);
+>  	struct panthor_gem_object *bo;
+>  	int ret;
+>  
+> @@ -1026,6 +1027,7 @@ panthor_gem_create(struct drm_device *dev, size_t size, uint32_t flags,
+>  	}
+>  
+>  	panthor_gem_debugfs_set_usage_flags(bo, usage_flags);
+> +	drm_gem_lru_move_tail(&ptdev->reclaim.unreclaimable, &bo->base);
+>  	return bo;
+>  
+>  err_put:
+> @@ -1551,6 +1553,7 @@ int panthor_gem_shrinker_init(struct panthor_device *ptdev)
+>  		return ret;
+>  
+>  	INIT_LIST_HEAD(&ptdev->reclaim.vms);
+> +	drm_gem_lru_init(&ptdev->reclaim.unreclaimable, &ptdev->reclaim.lock);
+>  	drm_gem_lru_init(&ptdev->reclaim.unused, &ptdev->reclaim.lock);
+>  	drm_gem_lru_init(&ptdev->reclaim.mmapped, &ptdev->reclaim.lock);
+>  	drm_gem_lru_init(&ptdev->reclaim.gpu_mapped_shared, &ptdev->reclaim.lock);
+> 
+> -- 
+> 2.54.0
+> 
 
-Please don't look up by index.
-
-I'd prefer to get rid of the remaining users of the _by_index() APIs
-and remove them entirely.
-
-You have specified reset-names in the bindings. Use them.
-
-regards
-Philipp
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
