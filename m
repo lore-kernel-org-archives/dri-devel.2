@@ -4,68 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDC15CD343F
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 15:33:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65277CD3439
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 15:34:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54AC610E2D3;
-	Thu,  7 May 2026 15:33:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C07E810E2BB;
+	Thu,  7 May 2026 15:34:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IMik015O";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="qis7Ux2X";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A629410E2D3
- for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 15:33:03 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 574B340101;
- Thu,  7 May 2026 15:33:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF0FCC2BCB2;
- Thu,  7 May 2026 15:33:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778167983;
- bh=bGFuzFNBmWQ++Cqr0wCwwrQj4yFByartBwvFLjKOROA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=IMik015OizlxxJ9XrdK5XDZRfGoJ1MW6WAIBT/JbrAuUsDAvrD5ploKjLWx8K6cHU
- UJSMihXALFzKXaWpBDaGQXcUqx1djJgGXUUvBOgFpYSGv1o9kD+BZ7N7ieyVqctdVC
- 2oYOOayiJ+i4u28RgQqNq9Hb+AGpPio/J+QchYfICPqKGmkOBHl958t10kHzUMyEGk
- DumUEtyVhCWDSL5xRnPym2izxf4O7buZXuX1lzEpMW2y2KgIGrb+tM0BF15MX0wr0X
- tIwZnCh5D8zC3eUjdPy43M1TdPLyxuxOBIoZmLdjsHuh3lk3qctVTD8Yae2+z8LVFS
- 2tTRTg59vdluw==
-Date: Thu, 7 May 2026 17:33:00 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Ketil Johnsen <ketil.johnsen@arm.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Sumit Semwal <sumit.semwal@linaro.org>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
- "T.J. Mercier" <tjmercier@google.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
- Daniel Almeida <daniel.almeida@collabora.com>,
- Alice Ryhl <aliceryhl@google.com>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- Yong Wu <yong.wu@mediatek.com>, Yunfei Dong <yunfei.dong@mediatek.com>, 
- Florent Tomasin <florent.tomasin@arm.com>
-Subject: Re: [PATCH 1/8] dma-heap: Add proper kref handling on dma-buf heaps
-Message-ID: <20260507-strict-raptor-of-glee-2fd0df@houat>
-References: <20260505140516.1372388-1-ketil.johnsen@arm.com>
- <20260505140516.1372388-2-ketil.johnsen@arm.com>
- <20260505172048.1c48e030@fedora>
- <20260505-spaniel-of-scientific-warranty-ca075e@houat>
- <20260505184021.3676f9af@fedora>
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0655D10E2BB
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 15:34:50 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-4852b81c73aso9703005e9.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 08:34:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1778168088; x=1778772888; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=HNpNxTDdt1OmLULsDYJhJ1FFpNi+U6Ym7YcH8EiGwkY=;
+ b=qis7Ux2XJbYcm+CVYbhKwkeMkyINSi1zrDsWMVIGC07kkGwz+iGCgQPC25l1iIfITq
+ gg0UOO0h5/a8QrXjSApF6MrRmJH7ZlfgFLDYPnEDdMEqX/BWo5MUE7snZZZeKFV0Gy6b
+ eIjt9OaRXKSwGVqIjiA3ztXpdG3NZjVICdWBF94/EyoRCB+1LhD4g9tyMF/8xllY7y5E
+ 5hZccQJhPEXc3TtK1z9y8APnzaJOeJpD5tJ24PB+iDYi0UQrmVQ3ZelxotmGYlqetjBr
+ fYc2Lb7a5cj+kc+P1YcAlNHYFoQw8ZGU8LFRf67D8UWUm7WlI/YkDy4cTySzBrzRaMMX
+ Z2lA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778168088; x=1778772888;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=HNpNxTDdt1OmLULsDYJhJ1FFpNi+U6Ym7YcH8EiGwkY=;
+ b=mHRuV+Ap3JG+V42SJiVB4W+js3yPQcGgVE0T/ZZS344LKpOot1qipJ4lRk4ynGcE7L
+ TII4oaU5672p2jEYM+JJcWCky2Y9ZFny46fuRaRtciYAwrk/CDlfhA5hB3h3JW26x1ie
+ l/NYEXMbS/h6rZ8RhdJ6AHddzWtX38sytaP1LYtfFeUpOGCm6KIOkTYFNVaauB/Gg/1n
+ rVnmlEmt9TEpxkbkBp1paIUyvBoJzZeH7zIPGpoYRV0QVFIDJYkCQF+Y/A/g6lzdlHym
+ FqvpCqAHmbCF2c8mISSfrShP1g5cC4vUiJP1esv91Fx4K9Na9KsWw6Vq2QS+bvHazgX1
+ b+qg==
+X-Gm-Message-State: AOJu0YxmGjt/Au3lHTIYcxgkIo6XbgVMeL2j0HeFePzqIEURcZZ2wNO1
+ IzZBlXeSFAhiMNr6mxJJAkzTfAfpT9qdrPWDpV9nLt4m4zcersLkWV1YHD9WYv7UjGI=
+X-Gm-Gg: AeBDieuvb4th3i5zVr8Hh3RUS7BqhTsO2pOgIMxNIx3qO6ARx00W97mrkS6toHI7Bvp
+ lfXbtSRol8IYR/CFFmSpfrOxIearPcnqwjYP4eAHPYgQuPkjW9SYaRHjtEZzKtvIFKUYzm2WZy8
+ WpTWqEVk9W6Z4qrcvWmSUu75kaYSN41fDYtXBYxNXIbGmQfBiSVussSEuKeXTZCy8WrLY+y8gN1
+ ybqyfB07X6CiGRyb9phFz5Dr/TpHErf7gG4XC26lCC5RozoLTWNSL/6DpiXK08RpAapnoibuaD7
+ nlTSjwBWA7Brd2f6FY4c5UU+vHrE+FyXqXDAMjKywSFBVXpHN+zr0TKnhgYBGiypQ3z3pEnWkML
+ c/Tg7+cd3pp9lmKjDjXBKDdFirp2Xs9MsuONYqYk4DNhWik2pCjtTLl25manFv4dNRgU6Qmg+Nt
+ 6rOMOemSoZYPlN3nmMSWe2BYIRCepq1VzZyr2yVqJvY6N0+Csh3vGEFAG1k+sBNhoR4igm+Oscy
+ uwcO8gre1+DWWEaEMGF7Pr4Kr7A
+X-Received: by 2002:a05:600c:a30b:b0:489:1c1f:35f9 with SMTP id
+ 5b1f17b1804b1-48e51e1773bmr103146425e9.9.1778168088174; 
+ Thu, 07 May 2026 08:34:48 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:6762:47bb:1e06:ff70?
+ ([2a01:e0a:106d:1080:6762:47bb:1e06:ff70])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4505558e213sm22225403f8f.25.2026.05.07.08.34.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 07 May 2026 08:34:47 -0700 (PDT)
+Message-ID: <9b2d61b9-6f7e-49fb-967d-e0858ff782ce@linaro.org>
+Date: Thu, 7 May 2026 17:34:47 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="lt53jirsatoosmgv"
-Content-Disposition: inline
-In-Reply-To: <20260505184021.3676f9af@fedora>
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 01/10] drm/panel/visionox-g2647fb105: Use refcounted
+ allocation in place of devm_kzalloc()
+To: Albert Esteve <aesteve@redhat.com>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Michael Tretter <m.tretter@pengutronix.de>, Michael Walle
+ <mwalle@kernel.org>, Dario Binacchi <dario.binacchi@amarulasolutions.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260507-drm_panel_init_rm-v1-0-51f448c7c291@redhat.com>
+ <20260507-drm_panel_init_rm-v1-1-51f448c7c291@redhat.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260507-drm_panel_init_rm-v1-1-51f448c7c291@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,172 +120,55 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 5/7/26 13:52, Albert Esteve wrote:
+> Move to using the new API devm_drm_panel_alloc() to allocate the
+> panel. In the call to the new API, avoid using explicit type and use
+> __typeof() for more type safety. Also deduplicate the prepare_prev_first
+> assignment that was set both before and after drm_panel_init().
+> 
+> Signed-off-by: Albert Esteve <aesteve@redhat.com>
+> ---
+>   drivers/gpu/drm/panel/panel-visionox-g2647fb105.c | 13 ++++++-------
+>   1 file changed, 6 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panel/panel-visionox-g2647fb105.c b/drivers/gpu/drm/panel/panel-visionox-g2647fb105.c
+> index 413849f7b4dec..d5555a1731575 100644
+> --- a/drivers/gpu/drm/panel/panel-visionox-g2647fb105.c
+> +++ b/drivers/gpu/drm/panel/panel-visionox-g2647fb105.c
+> @@ -207,9 +207,12 @@ static int visionox_g2647fb105_probe(struct mipi_dsi_device *dsi)
+>   	struct visionox_g2647fb105 *ctx;
+>   	int ret;
+>   
+> -	ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
+> -	if (!ctx)
+> -		return -ENOMEM;
+> +	ctx = devm_drm_panel_alloc(dev, __typeof(*ctx), panel,
+> +				  &visionox_g2647fb105_panel_funcs,
+> +				  DRM_MODE_CONNECTOR_DSI);
+> +
+> +	if (IS_ERR(ctx))
+> +		return PTR_ERR(ctx);
+>   
+>   	ret = devm_regulator_bulk_get_const(dev,
+>   					    ARRAY_SIZE(visionox_g2647fb105_supplies),
+> @@ -233,10 +236,6 @@ static int visionox_g2647fb105_probe(struct mipi_dsi_device *dsi)
+>   
+>   	ctx->panel.prepare_prev_first = true;
+>   
+> -	drm_panel_init(&ctx->panel, dev, &visionox_g2647fb105_panel_funcs,
+> -		       DRM_MODE_CONNECTOR_DSI);
+> -	ctx->panel.prepare_prev_first = true;
+> -
+>   	ctx->panel.backlight = visionox_g2647fb105_create_backlight(dsi);
+>   	if (IS_ERR(ctx->panel.backlight))
+>   		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
+> 
 
---lt53jirsatoosmgv
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 1/8] dma-heap: Add proper kref handling on dma-buf heaps
-MIME-Version: 1.0
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-On Tue, May 05, 2026 at 06:40:21PM +0200, Boris Brezillon wrote:
-> On Tue, 5 May 2026 17:39:13 +0200
-> Maxime Ripard <mripard@kernel.org> wrote:
->=20
-> > Hi Boris,
-> >=20
-> > On Tue, May 05, 2026 at 05:20:48PM +0200, Boris Brezillon wrote:
-> > > Hi Ketil,
-> > >=20
-> > > On Tue,  5 May 2026 16:05:07 +0200
-> > > Ketil Johnsen <ketil.johnsen@arm.com> wrote:
-> > >  =20
-> > > > From: John Stultz <jstultz@google.com>
-> > > >=20
-> > > > Add proper reference counting on the dma_heap structure. While
-> > > > existing heaps are built-in, we may eventually have heaps loaded
-> > > > from modules, and we'll need to be able to properly handle the
-> > > > references to the heaps =20
-> > >=20
-> > > It's weird that this "heap as module" thing is mentioned here, but
-> > > actual robustness to make this safe is not added in the commit or any
-> > > of the following ones.
-> > >  =20
-> > > >=20
-> > > > Signed-off-by: John Stultz <jstultz@google.com>
-> > > > Signed-off-by: T.J. Mercier <tjmercier@google.com>
-> > > > Signed-off-by: Yong Wu <yong.wu@mediatek.com>
-> > > > [Yong: Just add comment for "minor" and "refcount"]
-> > > > Signed-off-by: Yunfei Dong <yunfei.dong@mediatek.com>
-> > > > [Yunfei: Change reviewer's comments]
-> > > > Signed-off-by: Florent Tomasin <florent.tomasin@arm.com>
-> > > > [Florent: Rebase]
-> > > > Signed-off-by: Ketil Johnsen <ketil.johnsen@arm.com>
-> > > > [Ketil: Rebase]
-> > > > ---
-> > > >  drivers/dma-buf/dma-heap.c | 29 +++++++++++++++++++++++++++++
-> > > >  include/linux/dma-heap.h   |  2 ++
-> > > >  2 files changed, 31 insertions(+)
-> > > >=20
-> > > > diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
-> > > > index ac5f8685a6494..9fd365ddbd517 100644
-> > > > --- a/drivers/dma-buf/dma-heap.c
-> > > > +++ b/drivers/dma-buf/dma-heap.c
-> > > > @@ -12,6 +12,7 @@
-> > > >  #include <linux/dma-heap.h>
-> > > >  #include <linux/err.h>
-> > > >  #include <linux/export.h>
-> > > > +#include <linux/kref.h>
-> > > >  #include <linux/list.h>
-> > > >  #include <linux/nospec.h>
-> > > >  #include <linux/syscalls.h>
-> > > > @@ -31,6 +32,7 @@
-> > > >   * @heap_devt:		heap device node
-> > > >   * @list:		list head connecting to list of heaps
-> > > >   * @heap_cdev:		heap char device
-> > > > + * @refcount:		reference counter for this heap device
-> > > >   *
-> > > >   * Represents a heap of memory from which buffers can be made.
-> > > >   */
-> > > > @@ -41,6 +43,7 @@ struct dma_heap {
-> > > >  	dev_t heap_devt;
-> > > >  	struct list_head list;
-> > > >  	struct cdev heap_cdev;
-> > > > +	struct kref refcount;
-> > > >  };
-> > > > =20
-> > > >  static LIST_HEAD(heap_list);
-> > > > @@ -248,6 +251,7 @@ struct dma_heap *dma_heap_add(const struct dma_=
-heap_export_info *exp_info)
-> > > >  	if (!heap)
-> > > >  		return ERR_PTR(-ENOMEM);
-> > > > =20
-> > > > +	kref_init(&heap->refcount);
-> > > >  	heap->name =3D exp_info->name;
-> > > >  	heap->ops =3D exp_info->ops;
-> > > >  	heap->priv =3D exp_info->priv;
-> > > > @@ -313,6 +317,31 @@ struct dma_heap *dma_heap_add(const struct dma=
-_heap_export_info *exp_info)
-> > > >  }
-> > > >  EXPORT_SYMBOL_NS_GPL(dma_heap_add, "DMA_BUF_HEAP");
-> > > > =20
-> > > > +static void dma_heap_release(struct kref *ref)
-> > > > +{
-> > > > +	struct dma_heap *heap =3D container_of(ref, struct dma_heap, refc=
-ount);
-> > > > +	unsigned int minor =3D MINOR(heap->heap_devt);
-> > > > +
-> > > > +	mutex_lock(&heap_list_lock);
-> > > > +	list_del(&heap->list);
-> > > > +	mutex_unlock(&heap_list_lock);
-> > > > +
-> > > > +	device_destroy(dma_heap_class, heap->heap_devt);
-> > > > +	cdev_del(&heap->heap_cdev);
-> > > > +	xa_erase(&dma_heap_minors, minor);
-> > > > +
-> > > > +	kfree(heap); =20
-> > >=20
-> > > That's actually problematic, because cdev_del() doesn't guarantee that
-> > > all opened FDs have been closed [1], it just guarantees that no new o=
-nes
-> > > can materialize. In order to make that safe, we'd need a
-> > >=20
-> > > 1. kref_get_unless_zero() in dma_heap_open(), with proper locking aro=
-und
-> > >    the xa_load() to protect against the heap removal that's happening
-> > >    here
-> > > 2. a dma_heap_put() in a new dma_heap_close() implementation
-> > > 3. a guarantee that heap implementations won't go away until the last
-> > >    ref is dropped, which means ops and all the data needed for this h=
-eap
-> > >    to satisfy ioctl()s (and more generally every passed at
-> > >    dma_heap_add() time) have to stay valid until the last ref is
-> > >    dropped. Alternatively, we could restrict this only to in-flight
-> > >    ioctl()s, and have the ops replaced by some dummy ops using RCU or=
- a
-> > >    rwlock. But I guess live dmabufs allocated on this heap have to
-> > >    retain the heap and its implementation anyway.
-> > >=20
-> > > For record, #3 is already not satisfied by the current tee_heap
-> > > implementation (tee_dma_heap objects can vanish before the dma_heap
-> > > object is gone). The other implementations seem to be fine because th=
-ey
-> > > are statically linked, and they either have exp_info.priv set to NULL,
-> > > or something that's never released. =20
-> >=20
-> > That statement won't hold for long, see:
-> > https://lore.kernel.org/r/20260427-dma-buf-heaps-as-modules-v5-0-b6f567=
-8feefc@kernel.org
-> >=20
-> > However, all upstream heaps can be loaded as module, but not unloaded.
-> > So once you get a reference to it, you can assume it will live forever.
-> > That's why we didn't merge that patch before, even though it was discus=
-sed:
-> >=20
-> > https://lore.kernel.org/all/CANDhNCqk9Uk4aXHhUsL4hR1GHNmWZnH3C9Np-A02wd=
-i+J3D7tA@mail.gmail.com/
->=20
-> Hm, not too sure that makes the tee_heap implementation sane WRT
-> tee_heap removal though, unless we have a guarantee that
-> tee_device_unregister() will never be called...
-
-I missed that part. You're totally right then :)
-
-Maxime
-
---lt53jirsatoosmgv
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCafywrAAKCRAnX84Zoj2+
-dlrEAYDUWefxt16Ub+Wp0zpIpxumXimJURzQDBuzgGyAiEJHfEPu5vzqZ+lW0o0v
-HuXvVd8BgN4T3DXXQhia3Am5Yv8L2DwsJgJ/x/u6CyeDO7mD4McOqe5R0yPZ9LZW
-06tk6Ye0qA==
-=poOT
------END PGP SIGNATURE-----
-
---lt53jirsatoosmgv--
+Thanks,
+Neil
