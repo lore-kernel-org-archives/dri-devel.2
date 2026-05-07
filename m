@@ -4,132 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EC9ECD3427
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 11:21:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A62DBCD343F
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 11:22:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFA6110E1ED;
-	Thu,  7 May 2026 11:21:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B8D510E1FF;
+	Thu,  7 May 2026 11:22:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ONVH7j4k";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XOZWYBdk";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="URR8d2bl";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Db64mpTP";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DB2510E1ED
- for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 11:21:33 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B25D910E1FF
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 11:22:03 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6475wv1l1927314
- for <dri-devel@lists.freedesktop.org>; Thu, 7 May 2026 11:21:32 GMT
+ 6479nUFQ1671923
+ for <dri-devel@lists.freedesktop.org>; Thu, 7 May 2026 11:22:03 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=u/mKZsfu+vzPsOkujCLiqglD
- wWI00N7ItfTwCnxyziY=; b=ONVH7j4kqYQLVl2VDhduBWcGX2I7Y1tUe6W7YhGY
- ASv6tAYNq4oGoFyxWH2Cb+yTb0AyGugFFAGynBl5+yP/uNgOEUIQ2LRdjmc0SXWG
- MNGJO/EtQ2jyAMQS3N2UzopFYwk6VfT7N3d2u1IThslCGAMszSWbjeXxxf3SUlsr
- 7XbwjEzjD9a/joZbgPCbll9swdBe0WEv9M8HqGVHhhZGVczg9zBV6k22nzn6Famq
- fHklI+54Ji/zfMPl2aG9U06jJu5MxRbIfOu/7bjIi7T1uOpmLs5MdsL928MHNumq
- PQGbYb/Do9J5L5tGWCbhQb6DqE03zud+T3A4H4/6tzmTVA==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e0n2g976n-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ Fo9XydOcHJ80jEDSvGOMPB4sx1vBdCwRS1ijKyB9oUs=; b=URR8d2blSwSfUFYR
+ zFb5Xdm0N7Hl1wTlq9BLyiBjT/qbPNL8vDJEPtb39yUtUq4Nyaag27ZxCDS0F7Q7
+ ktcycNQBz5WkVbTu/epblDCzMEw1/6pOtn0N7DaAQj68plIVn8IPjUYxRVycFG3I
+ x1CzdDPHcKR83DFgBm3mhjdJhJS8tu5KUzUHw07Khy1VTswUJJjljGMWTtd4ZHwg
+ +QKuP0yO0TVgGhN9nwlZXLotBS9jSLQ2NHqv/H4Jj8yBMOIbYZOUarvROgIR0NPd
+ WogkQx+/vQe3I827NcoXdkzC4pMyYfAvppJrmRGnKtqHddF0/tNxRkyQZQYyPnt+
+ zfXtUA==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e0k1p1kw2-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 11:21:32 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-5147078691fso16898471cf.3
- for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 04:21:32 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 11:22:02 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-50ff051e189so14134121cf.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 04:22:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1778152892; x=1778757692;
+ d=oss.qualcomm.com; s=google; t=1778152922; x=1778757722;
  darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=u/mKZsfu+vzPsOkujCLiqglDwWI00N7ItfTwCnxyziY=;
- b=XOZWYBdkMQpGZLMj/Dv1NTEpn5ZGTH5zeDfgybNQsKQJ/7ec7Kx8whwu4fdtCy7ZDO
- pF7M/fDM1kXr9lfHwbqyh5TsStthDPsCjEHp7Pm8HVUksVrs5VYFIyAWdpyRukCT/Q9u
- IU/SbLo4qAcj72gp8fRfesfgG4FzMzXOPQw7JVuGfJmT3LbAuRDLiITiXf80Cs5OBP+c
- bJkc7gOOaEca/r7MDEBGKN4SaGDYTXDq6/GSMUbPGauQswNrO+IHn/0F8QpKMDMyAwPm
- lGuj7+zWJi40/rkcAS96nGvoCwCipLb3IVFcZmZh8u+EhTY+DM/4/wfMtKb/InrGj2hP
- fFqg==
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=Fo9XydOcHJ80jEDSvGOMPB4sx1vBdCwRS1ijKyB9oUs=;
+ b=Db64mpTPcOkxUOWDhENNqre3uqucyjg1HSDZ6tY5bj9DROqlFZPh4cmsKFplJSK1m+
+ KMtFjWEACYpEif0QpuRYHP4Jm5Phe6KbXzPpOOt4dQIY5jMluj3Ycr1ES2fPuqtDS9Uc
+ dfaJGxhIkeIBmHbsYZblWYLofqQHTuLQu9ZwBJjlD3aHntgb1avo+WyqXn/Nlld4lyZY
+ kgmg4Ni9uRkoB4dA98HBCL3gumYMuj7SGm897iXRZOJGtEOkHnbVuzu1hQkB3C+bYXKS
+ PbJYs8NDTLqEUDX9Wb7QJ7FXwNQ2lDQcP0CD2aZZanATdNGGYO5iazeaKdH4pblajE31
+ hQGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778152892; x=1778757692;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=u/mKZsfu+vzPsOkujCLiqglDwWI00N7ItfTwCnxyziY=;
- b=iStA1GeIuWUsAOaPUOz7lkpA2tfAwXNt01qbWslXFKh+TbmRSfrcVM8ZIFwi5Vb4M2
- mRIvwbxNiSCTu51ZPmJX7G0xqxWbwQNEGzGLCpdH68ogGLiIqlJdUXlJN9LB60Gp+4dX
- jvp6raETpAFIVfP41/B7U+z3Eon3UIdbdb+yZW1WmqpFOHa2prGzkJwv/LvdKLO8BiuE
- uC/HwzEoueYxwpWM+KpifbUy96zAKgJ9gVxHMsfqiZRsyW9od2kXUp5l2aGk2iH1Yjfa
- DQJX3g7Vr9cG4dA9nyN4UjPqvFTbVA7Uyb0pfFSklnoe3PV9FtsYhwruvfhJ/qx0uCpL
- xKbQ==
+ d=1e100.net; s=20251104; t=1778152922; x=1778757722;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Fo9XydOcHJ80jEDSvGOMPB4sx1vBdCwRS1ijKyB9oUs=;
+ b=Y+ORm+J9q47qZyz3oCUz1m1pWAITN8ZfHDFp+PyIg1jvVhSsMVNXIVZZ4lsHnd4zcI
+ /s+2FMzwBY2EtirBR2dpYM6hw7+XVpRiNNwR43WIBZPAUgaOONy3/Z9suys6lQqYVrIA
+ eREG9Gm1aoykBmclbrny2u0iHy+S/QFR2L22mSw6J5pwoLgPtaO+ThdtcRBSfMsf2sT/
+ J/nrD3ehu/1OVx6DLSF6t3gHyJyZSIBO1KFPGWSHKcTYdPp0FScxHr0MJFpI+ssGeFOw
+ PlCl+EUmPMaR2AoszSXJFFKz1iNlQegTb5g0xVLqJ8U5+EOlEO5SO3rjuSQnE+yEWlcC
+ IiKg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8NUfXEOPBzkv+lx9yw0HcVoAQc8RCfrSgRL8P4eCtwLGVkHvVjs4qYcYhaiUAWVyrj/6Bcmy9w90o=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzLjvmvLg1w0QIe1wQ7VL2t8em/SYfE5up/rg+ZC5QdsNEve1WU
- g2VxNu7bcUUkqcVMNz8NO0gjloBsBDZA1SR5tscWao6hhpUcbGfVsmh2p/PJBRFF2OSgj2zi908
- QulWp8eLB5JaKdHumhOy7uaAAFe8WXeYxOL7DZHdAHUO6iJc+XenKmoOZw/q+jjrR7ZmDNuI=
-X-Gm-Gg: AeBDieswuchNV2Dr5uVbIcaZoK2AkzyukqH2YYJHX4W14dtURS0DlIf/5T8xluNf3VR
- xiPsr/w2Jm0nksgriJvjoakGXqCPlmq0+tPb0hEyVr3il2jpeafwTlaG1kJW7nqjh1IYEu790bQ
- b6uhZdtdA6AAxtl8jIhteMPXMe+xyOinYwggVUOSYr4rilRfpy+nUkSCAv1kmPOaP5d5JpLQKmb
- X1dKjiYEYJAptrOLzDMiMemO314ICSZEQLPN0y9VQFfEwW56b47cosfcI9UWsDJng3mjf0e9UXp
- /YRtWc6oId7se/ftgwo28l7HDOy+8A0XXvrNaGe7UhsinQ8TmARZvX00p/ApzBrn4xvtIdp70ID
- 3p1G6bzHTe9nX8qHF+2BvkqH5FAFVP7bz7/3CeW0AYXr4fmRuVcr4fKIK0vgTWp+IzllaHM+YyA
- BAtoIebwD0OvpxA5HESEweY8WnaAdcQfCwq3jRztcIqH4NHg==
-X-Received: by 2002:a05:622a:a0c:b0:50f:135e:d5d with SMTP id
- d75a77b69052e-51461be0571mr107689591cf.8.1778152891662; 
- Thu, 07 May 2026 04:21:31 -0700 (PDT)
-X-Received: by 2002:a05:622a:a0c:b0:50f:135e:d5d with SMTP id
- d75a77b69052e-51461be0571mr107688971cf.8.1778152891217; 
- Thu, 07 May 2026 04:21:31 -0700 (PDT)
+ AFNElJ9DGkOuaIVqAcTJwQ/FQxpVoq9iWB6HHh7Yy4BYD332trHBTxHoUkH9R978aePx2j97PLW+2dAoE/s=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx8WLYZmVkakE1lVVmaj/hD1clYsyB3w7pxqd/79BiK4r4OWGrX
+ LFadMQbVqRuE9jhZPI+1OxsFHIIZiNmf6q7gZvoyXoBP+s/Alqjsp6J0BHCYeknY2PDQgBkniZQ
+ 65kTj/5dKQ7bkYuPtdyEV4vN0cuUDk1lnDWvXNrvKXN9VioyN5e1OgGGJOWoFS/uC5fyabic=
+X-Gm-Gg: AeBDieu1BJUWMlKvgEnUcXS2R3Bak3kT0VoRF5iV3+ImihVKM/bshGdMaqpk82O6KYT
+ delZspdiQ1X7E2mxQRL1dqFoFOhzE7gC9H3zbPLzts9/Idsx3jHPZhzRr6AO+44WY4al4sgTYSS
+ CW3V6DaQxARCrRVmYWdivhV0RPd4sYIlO/pbYP0gsYNBzgpuXoTRQ5RcYbxJvdcQZibWp1E368y
+ uqSLaBdFaMqz1B5L6Z0SVuDL2p/9H8sJJsz8d0uKP1/ZBNP5Xbnd2iDpMv7nFk603RN+CoCw3vM
+ 1a0pThzO9vLBiWSRiGr8TIC5EAjDpB6JfvIp506Ky9igCs65giVa1uAKnlVCuK1qnCbeLAVJYdK
+ drpK3YvLOzUU/Eyw6nuhKe+G4uuzKmZbt1H2VsnKJ7LTV6asNwdYMdwxHb4j3QrRARn4yZu+Z44
+ 99KIT6/qHNdnZ9xy4DlzuoPdYuUWTXgLO3pVy+GjxhqRPNvg==
+X-Received: by 2002:a05:622a:1105:b0:50f:c625:4dc2 with SMTP id
+ d75a77b69052e-51461f9ee04mr99576301cf.35.1778152921998; 
+ Thu, 07 May 2026 04:22:01 -0700 (PDT)
+X-Received: by 2002:a05:622a:1105:b0:50f:c625:4dc2 with SMTP id
+ d75a77b69052e-51461f9ee04mr99575831cf.35.1778152921478; 
+ Thu, 07 May 2026 04:22:01 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-393d114988dsm8231861fa.10.2026.05.07.04.21.29
+ 38308e7fff4ca-39380eca9aesm44533811fa.30.2026.05.07.04.22.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 May 2026 04:21:29 -0700 (PDT)
-Date: Thu, 7 May 2026 14:21:28 +0300
+ Thu, 07 May 2026 04:22:00 -0700 (PDT)
+Date: Thu, 7 May 2026 14:21:58 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: syyang@lontium.com
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- maarten.lankhorst@linux.intel.com, rfoss@kernel.org,
- mripard@kernel.org, Laurent.pinchart@ideasonboard.com,
- tzimmermann@suse.de, jonas@kwiboo.se, jernej.skrabec@gmail.com,
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, yangsunyun1993@gmail.com,
+To: =?utf-8?B?5p2o5a2Z6L+Q?= <yangsunyun1993@gmail.com>
+Cc: syyang@lontium.com, linux-firmware@kernel.org,
  xmzhu@lontium.corp-partner.google.com, xmzhu@lontium.com,
- rlyu@lontium.com, xbpeng@lontium.com
-Subject: Re: [PATCH v5 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
- to HDMI driver
-Message-ID: <j55fc3jzquz6napxloqsk5x2c37s4twl2g4bwjll32ha3kmxbt@wsw7hdlkbdf4>
-References: <20260507024214.97708-1-syyang@lontium.com>
- <20260507024214.97708-3-syyang@lontium.com>
+ rlyu@lontium.com, xbpeng@lontium.com, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v2] linux-firmware: Add firmware for Lontium LT9611C
+Message-ID: <sgxdjvn45w32mz3hmbpgahvz472zmqrvd3souzu5yl2n3q3tsa@l6qbuxdsqxz3>
+References: <20260506104934.82275-1-syyang@lontium.com>
+ <CAO9ioeVBF2O9sRT+KzMETvYuV5Jw0okj6MiM1sxVdc5j8Pdk3w@mail.gmail.com>
+ <CAFQXuNbA-wW-ZyqZKjRagA+qpPMP7AAtaX67Y4=AHOx23s2SEg@mail.gmail.com>
+ <CAFQXuNbWQQN0U+s0K2XV7hy6ow3x7RAB8Q=nxOvsWENDAE=2VQ@mail.gmail.com>
+ <uprzduq4ct2dpkwvlbwxw43b77yzubjwkzvjhadlkoajmbbybe@3cygq6vamfy4>
+ <CAFQXuNZpBnA=kCCKEhXtN4wDOdU48D94PpbYrR_cEu+YUt8aBw@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260507024214.97708-3-syyang@lontium.com>
-X-Authority-Analysis: v=2.4 cv=Wv4b99fv c=1 sm=1 tr=0 ts=69fc75bc cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAFQXuNZpBnA=kCCKEhXtN4wDOdU48D94PpbYrR_cEu+YUt8aBw@mail.gmail.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA3MDExMyBTYWx0ZWRfX7d5TlzEzycV6
+ 6JrJCyJ/4r3yph5Mqlh42jE7TtNo8p0g7q6EP3wqdAcUiJlnH2flQxLCSlFwjjbsSbyhaijI/Ne
+ HmnwQWyMZ4OqhM3t6z3J6zcfLn9iKNvHRspmFpFzycwV+EArNDs8lDDxEJ/tmJ2VcyrhjHQw/0u
+ 228M05QX4t2FCY+XjY9FtigD/rHHAVMWcdd2Rc6T4JSYPBfkKCMjitDPKbAsI9ILcESuVnnPuY2
+ 03XlCbDnqMlwNW/0g8eIiEprNEWOdNoZhXzcvWUoLygDl393xW8Eau3Y97LGdFBqmLG4UuvjIvZ
+ pD7mMuAWTczPFeDTD+TczGDMc7BWs5TZO2APaUyy8CbF0FsGfe5eCyCmLznQD5ISfz2iXrIEVnh
+ k5mO2hXUG9bNVIxMP0NbzVUukWHYg2or9G9WgzVLCExxbk0PmLEp32XX2a2hluTyYxYEVi//R8U
+ LS2zo3Mdh+K7v1UgKlA==
+X-Proofpoint-GUID: Ol2gvzS47VLVb7CD4Y8OzCzSB6IG6kgr
+X-Proofpoint-ORIG-GUID: Ol2gvzS47VLVb7CD4Y8OzCzSB6IG6kgr
+X-Authority-Analysis: v=2.4 cv=K4IS2SWI c=1 sm=1 tr=0 ts=69fc75db cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=Kz8-B0t5AAAA:8
- a=EUspDBNiAAAA:8 a=m6_i6vA6q9rtELufO00A:9 a=CjuIK1q_8ugA:10
- a=uxP6HrT_eTzRwkO_Te1X:22 a=RuZk68QooNbwfxovefhk:22
-X-Proofpoint-ORIG-GUID: sUMFNlKqRCt29qKO1WQNZ571-9VMACAR
-X-Proofpoint-GUID: sUMFNlKqRCt29qKO1WQNZ571-9VMACAR
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA3MDExMyBTYWx0ZWRfXy8XjxTzxpmAD
- BsDDr9UQwCmuuoIkVqOlq5pO3bs/aZLqcz3xH31j1P9yqregYwA9e7synaBA/LZu0rhmee2+wX5
- rPZ5Qv69iZ6SNRmC5Evf1Z9dvchIgjLQ2IJaIJiRIfTrEv95wgYFhekyDO1Mo7q7+vnrhJVu9eg
- jHhGFOfWRB83Hhf8to1ubUUSIb3Xkqf7LmF7i2ervFH0OgGrN9dC3Z8iCnKKmWAmZLJo5nxPn7e
- xuatwsBLSVt9hb2FKXu4aVeoPK7lgl2ch1TtPDIjYzM0u92Rv3zDySW8k6OfLu3NRIy7H3RkB3v
- uij9Gtmy8vq5VEFCoRBSTDverkg4RoE0RFDIjmYffQV4rwn8iimQVEp8gkv8M2qPgbPWDeksj/D
- 2V+SEyNbgP3c/5362pCD69Y6WlyueSdLcH8JIaHRpDpgsTj7jgW2APurLBNNUIXiviKhDemkZqs
- Sl1JyHQMguXdqCv0FFg==
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=VwQbUJbxAAAA:8
+ a=Kz8-B0t5AAAA:8 a=p0WdMEafAAAA:8 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8
+ a=CUJi3jauEGqHWIC8MBIA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22 a=RuZk68QooNbwfxovefhk:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-05-06_02,2026-05-06_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015
- impostorscore=0 spamscore=0 phishscore=0 priorityscore=1501 adultscore=0
+ suspectscore=0 spamscore=0 adultscore=0 malwarescore=0 lowpriorityscore=0
+ impostorscore=0 phishscore=0 clxscore=1015 bulkscore=0 priorityscore=1501
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605070113
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -147,26 +148,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, May 07, 2026 at 10:42:14AM +0800, syyang@lontium.com wrote:
-> From: Sunyun Yang <syyang@lontium.com>
+On Thu, May 07, 2026 at 08:56:35AM +0800, 杨孙运 wrote:
+> Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> 于2026年5月7日周四 04:08写道：
+> >
+> > On Wed, May 06, 2026 at 08:01:46PM +0800, 杨孙运 wrote:
+> > > 杨孙运 <yangsunyun1993@gmail.com> 于2026年5月6日周三 19:55写道：
+> > > >
+> > > > Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> 于2026年5月6日周三 19:46写道：
+> > > > >
+> > > > > On Wed, 6 May 2026 at 13:49, <syyang@lontium.com> wrote:
+> > > > > >
+> > > > > > From: Sunyun Yang <syyang@lontium.com>
+> > > > > >
+> > > > > > This is the firmware for the Lontium LT9611C,
+> > > > > > which implements the function of converting MIPI DSI to HDMI.
+> > > > > >
+> > > > > > Signed-off-by: Sunyun Yang <syyang@lontium.com>
+> > > > > > ---
+> > > > > > Change in v2:
+> > > > > > - WHENCE
+> > > > > >  1. Modify lt9611c_fw.bin to Lontium/lt9611c_fw.bin in the WHENCE file.
+> > > > > > - Link to v1: https://lore.kernel.org/all/20260506100242.79276-1-syyang@lontium.com/
+> > > > >
+> > > > > Why? The rest of the Lontium firmware is in the root directory. The
+> > > > > driver also (IIRC) expects the firmware in the root firmware
+> > > > > directory.
+> > > > >
+> > > >
+> > > > Our intention is to place all Lontium firmware in the Lontium/
+> > > > directory for the following reasons:
+> > > >
+> > > > 1. To distinguish them from other companies' firmware files，such as
+> > > > rockchip, qcom.
+> > > >
+> > > > 2. To keep the root directory cleaner and more organized.
+> > > >
+> > > 3. Clear organizational structure
+> > > 4. Avoid root directory bloat
+> > > 5. Improve readability
+> > >
+> > > That's what I think.
+> >
+> > It's all fine... If it was consistent with the driver that is being sent
+> > to dri-devel@. I'm fine either way (and yes, having Lontium subdir makes
+> > sense as this is the 3rd one already). But then at least drop a note to
+> > the dri-devel mailing list that you'll send the next iteration of the
+> > driver.
+> >
+> thanks Dmitry, your reply is very useful to me.
 > 
-> LT9611C(EX/UXD) is an I2C-controlled chip that Receiver signal/dual port
-> mipi dsi and output hdmi, differences in hardware features:
-> - LT9611C: supports 1-port mipi dsi to hdmi 1.4
-> - LT9611EX: supports 2-port mipi dsi to hdmi 1.4
-> - LT9611UXD: supports 2-port mipi dsi to hdmi 1.4/2.0
-> 
-> Signed-off-by: Sunyun Yang <syyang@lontium.com>
-> ---
->  drivers/gpu/drm/bridge/Kconfig           |   18 +
->  drivers/gpu/drm/bridge/Makefile          |    1 +
->  drivers/gpu/drm/bridge/lontium-lt9611c.c | 1240 ++++++++++++++++++++++
->  3 files changed, 1259 insertions(+)
->  create mode 100644 drivers/gpu/drm/bridge/lontium-lt9611c.c
-> 
+> In the next version of the driver (v5), I will use  #define FW_FILE
+> "Lontium/lt9611c_fw.bin".
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Thanks, the firmware is merged and pushed out:
 
+https://gitlab.com/kernel-firmware/linux-firmware/-/merge_requests/1034
+
+> 
+> > --
+> > With best wishes
+> > Dmitry
 
 -- 
 With best wishes
