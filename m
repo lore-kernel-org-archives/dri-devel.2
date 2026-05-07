@@ -4,67 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81C03CD343F
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 15:35:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EB97CD3439
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 15:35:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDA4910F1AA;
-	Thu,  7 May 2026 15:35:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 751A510F1AB;
+	Thu,  7 May 2026 15:35:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="hT7aifRu";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="IuFWWKuq";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C90E010F1AA
- for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 15:35:21 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-48d102471a4so10558345e9.2
- for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 08:35:21 -0700 (PDT)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A1E310F1AB
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 15:35:29 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-488ab2db91aso11619505e9.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 08:35:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1778168120; x=1778772920; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1778168128; x=1778772928; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :content-language:references:cc:to:subject:reply-to:from:user-agent
  :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=GI9QQt0uat60f27/e8CjUrG4GRyOGDwHMWobsR5o1QQ=;
- b=hT7aifRuHLy5bUkfCzmxL3y4ddACe6SIrq7UbIGCQe34z+zjuUednGDzOcbT0ALC2C
- QlkRZtXZcaGxHQpUAoGD8t5MKl79YF+fAmv0lwbKqnDIOQK8/KGQHnbUN3EpXX0pErHG
- N8Ort374FavwhcBsF3j87Z0zZFu77tcXcBXmPMv5w9fpF/wwV3WIpVljLKqua4yFt84+
- 7H2yY7Uz6ntu7M8jZ6B79e9XVYv3tcmqA6qVERE4x3Tzy/CEZqjYrRCF9aoZtnhbvTyG
- R/s+c5wQPEpnYxB5Iiq4BBVjw5NBfcbCKaXvr+5pPOLAfIuuQ2QP0Y+Qp2P5mrYdw2kA
- 1AyQ==
+ :reply-to; bh=Yei7lOebU/Uz3u8Jf+bfKKJkQIzcyOOAKefSxTqCzB8=;
+ b=IuFWWKuq8dwwYqPFNQZMh7ywptNvA+bOHPeIoqM0NcGK3jNRdW9Km7+rMP5ZNF6XiY
+ gRBZNzkYiq29ZMgM+OTPWw8UEvWa3+iG6hfDy1DqGIhRwf72JxiO1sRng3YWRog4/MuI
+ oko48I6RVp0yNAjmpXZpNCxLGMnniaBDOr2qp0HtKWoRdDuGlU7FlsPlszLO85Y9F5Mk
+ ciQE8GNcSOsKmr4C0bSql3hkSIkseEZzvYMoawmu733vBvquJV6R4IOiqACqC6tZTC93
+ UXxomA33QLSX1nl/p19kq+GcSzcwH/eCpGTCWNQ5OnZB1BG9dD1kBLUKg7lshW2tKESU
+ OfYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778168120; x=1778772920;
+ d=1e100.net; s=20251104; t=1778168128; x=1778772928;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :content-language:references:cc:to:subject:reply-to:from:user-agent
  :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=GI9QQt0uat60f27/e8CjUrG4GRyOGDwHMWobsR5o1QQ=;
- b=H2y3gDnq6yCUDgCO9tO+/yGdDqIJxM/ozC5DsXBcBz8KmDzoXbUC1kWUkfJngmBtHg
- +6SFLKzKo1vr2tlMIGbjN3RJKCvEV6Jp2Ca4iKlUG4qXTG+CRylliJPIvp4jBPGeK/2A
- +6kmkw40SYOjMojm7B8gLAFBKTWFjleocqEYv9oQI36XgwXDVcAQeyw5aiWFuY4zr0Me
- 11H8kIa8tcDZu7JFrzJnXro7+R5TIw1F/wK4fFSYF5FdxOCb7Dx1PTMhVC5I9/Ciu7CP
- tpu98ofB+G69sq226UrYbYDRXE62cOSi+qf2wI9VtBi7HgoBHQ9DQqTZ2PXf7ucngjgB
- l9oA==
-X-Gm-Message-State: AOJu0YyAwNp7rKFt2CXMZzYx10GIvlgLh/ObnxYoBrUns5+BZsNiBTxH
- xbUzf/zEVa2Gm53Dadyz/dD0kLhYCIexr9EvG4vJlarXpmzWUZOBRbHmiuz6nC3Bbl4=
-X-Gm-Gg: AeBDieuYKahF3o8R2mEISY8kDwx7gNJYxN4YHlDHTdyGRRExBrLIF1FvpsWRa3IMl2N
- qLRkf0sMtXxNnuFvQ3YXf0ViuNzdtEcLI3KIwnBZB+jngYY2DOhKxbnS3JsNQn12RFx0y6wnvD0
- bh92t9tRKENmP/DxQ1L5/kg/S01Id/CX79YsGZakg0jEbMI+VveuEN4mI+JaqmVtSwwwEWexaEn
- luJ8PY/H1pg2GI5kzm8vCXbCXDXrvxhDZAxBzSGEfd/97njQ+Z4k8KBoJMqtFlfYXd2rve5IYcl
- VV6mYx2/X63KQs9aEef6rPLcEyg02bJ+ezEh6UPuFpBKnPm4Axs16F/b57BptJp8NpvzcLpXbGE
- LAUxEHTJrdS/5D+XRIduWYu5jYDUkJZFF/wQztX0I0STab8swxM1Jban5WRaiCECFfjhQqB0t8T
- CJXoeOQspKcvWqkGacZMXXPm4ub+LOM0CypL3jJxRjv6KgGUCu/S5+x+GOgy4P07tUL7w5Yw2Yu
- sWNKK9Q7Ct0VOK31w==
-X-Received: by 2002:a05:600d:18:b0:48a:75b9:5e07 with SMTP id
- 5b1f17b1804b1-48e51f2f14emr104673885e9.11.1778168120170; 
- Thu, 07 May 2026 08:35:20 -0700 (PDT)
+ bh=Yei7lOebU/Uz3u8Jf+bfKKJkQIzcyOOAKefSxTqCzB8=;
+ b=g3wSudxUbw1KScg75xXcYxohflRN+D36tTWA08vOT9E4Ijs7qQPIxK+b3LuyCDP35V
+ YnW/eH1Mvl8KZX69qZGhMCNABHtdpugaciQSUMaXWNTHStOIskAGk4TjleepP7gu+3sb
+ aJ7tqCeMlaqdOfxZF8AdXuzhAnyMFuCBDzlAKBxzARIblnInpHJltzIt+dWUK3zSFdKk
+ LJmAwIfKQqPgqrnOApZp0bOoZ4lOgLdtccW1p52D/4bFCZKJRg4VYfx6QoEa0eiV4Nmg
+ +S8cKNStzQQBgMulLMLdJKryTNcwtMw3KotxiGXcHPRhkh2ZkN8UaoSzdotjHGxGXoeq
+ Q1lQ==
+X-Gm-Message-State: AOJu0Yym945BrpN4O9hWdk5UMEy+HBC1E5aSNpKY7mbZ9PjzwNHKPJQ0
+ 5k8VVOn29azgJCeLGqwF983VcSRNpxZyuH4C+vaK5PvH2AiRunOu8MfeOfWRHdMbnP8=
+X-Gm-Gg: AeBDieupoyatVKhsrA88UqHm2SyvukLSDzkWNhTd87abfcXhanSW0tn/ou3uIpx3vOH
+ XorhICV42jcjkOMIsQ+JJ+22sjMGtV0BzFUWLpdfGraS28dxBYOa1Iqej97FRbpA11MT0Ux4Oug
+ 3yStSYAUQNxCcJMp1U0HNFUfwen9+pN3TmxgEVvRZeLrij1V/NDZnZlu21xgLvO0skaz0HywuQO
+ Ge0NDEavYmmFL6wA1r5GQ5r3dZ8EP49o9wsMIvfp7YFXWFZskqxiAEdJyZS2dHqCx8uDQlK9hEW
+ EyJjhiaqpXjMmdrdM5HWup9cmKnx5VQtSdOIrYzFk09DhvXs3zCSz1nwgrQXVHT6er9Jsq4zty6
+ oTQX9vIkIY4eBw9zrUHmks7+etgupvxjCsXMBVt7+qidWT7nhlNNMkJ7afbwnmWVAFD8F6R2sJM
+ ycNwe52zWURmXs5s2+BVUdPRBdGITLKcfPyXxE27D9/PpZwIoTlo0Xsw4Yt4BkZoziSCRYQOzHx
+ 9avgPD5GfgyCZvK2faGrzMcKauQ
+X-Received: by 2002:a05:600c:811a:b0:483:7903:c3b1 with SMTP id
+ 5b1f17b1804b1-48e51f35d0emr140931315e9.20.1778168127868; 
+ Thu, 07 May 2026 08:35:27 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:106d:1080:6762:47bb:1e06:ff70?
  ([2a01:e0a:106d:1080:6762:47bb:1e06:ff70])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48e628d8da6sm12073945e9.4.2026.05.07.08.35.18
+ 5b1f17b1804b1-48e53108c4csm63010005e9.6.2026.05.07.08.35.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 May 2026 08:35:19 -0700 (PDT)
-Message-ID: <494a5e7d-03fe-4138-b8fb-e17110787af4@linaro.org>
-Date: Thu, 7 May 2026 17:35:18 +0200
+ Thu, 07 May 2026 08:35:27 -0700 (PDT)
+Message-ID: <1c01b79d-e716-47bf-87a1-fb9f630a993c@linaro.org>
+Date: Thu, 7 May 2026 17:35:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
@@ -165,3 +165,7 @@ On 5/7/26 13:53, Albert Esteve wrote:
 >   	ctx->panel.backlight = nt37700f_tianma_create_backlight(dsi);
 > 
 
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+
+Thanks,
+Neil
