@@ -4,108 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0026CD3442
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 16:26:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A71ECD3442
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 16:29:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56AFB10E2AC;
-	Thu,  7 May 2026 16:26:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63E6B10E579;
+	Thu,  7 May 2026 16:29:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PJsTwLMr";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="YnJZZNG0";
 	dkim-atps=neutral
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02D2B10E2AC
- for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 16:26:06 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-43d77f6092eso737849f8f.2
- for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 09:26:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778171165; cv=none;
- d=google.com; s=arc-20240605;
- b=D1CfEZ2w4qVk/6eess+RBE8wWVbYrlt0OHui97oiizW5Cyo1adtEni+RBW0s2aF+9T
- wuz1zmo45pO4nBdGLbauJbrVxaV7wE3OeKm6DcdpEqQarr7SomNaF7aN896iV5f0zv4p
- +ilZWRLa1twjk7x1lqovGv/i7Z+zJJ8j4KjXcY2zlaBFox7Pd8l8PU8ZMYdVb4UvqdMZ
- 3ExbV8jdlNzBXwjs8YssObosJ3BSf2RxBBE39PL2ppwBGaUNeuaoLLxB4IzfsXgR82ia
- ceq65oOnrcJCm42fWnRj2xza0EubTGo7XryyCfWZJmuJdbmulSMPQEoxn7E4lmSfNln9
- s+3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=Int/Ioom6uDImBPOoRcQOfqmGnwZxp9cr18IQ5rmQ0A=;
- fh=muRhCHkdnpW8qBw+Q8g6WjCEjyWup+VZ54dvvJuxAJY=;
- b=T8tZ44+PdC7uAP5Kh2Z3QETZCM5htSHfUO2ZRDrZM2pLO0bpNoTwUcGpYDloI7PFj+
- 7Ap6Yd+4ZH7i2ksQEmSwsUTva/dZbwRa/8H1ik5j23SXpNkKU4NhMPc2iJ2IxNXd+RcZ
- VZ3NsS+5b/xHT5/Q1GzF7nd/kqf165RInkh+/U1MXLQw0hAbu7RVm6tIYV/IcKwmmgPN
- KD2EOGjh67vfKreOEwHBMF/ilTC0mI8Jr1hzjWe29zw3Qv2BpuX6CMrZRg/NjPFBJUdF
- I1LvgWXgUA5XavI3pO+OSKZ+UxlTkxjy92aQavMhX4su25o8yWWADbYXjb8jX8lW0Ter
- 0XSw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778171165; x=1778775965; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Int/Ioom6uDImBPOoRcQOfqmGnwZxp9cr18IQ5rmQ0A=;
- b=PJsTwLMr610KJLUPctYQvSPOahNgvuyOCKBgFAMddZuX5IJebWCM2vLCwY6ieRZAXY
- L3B7LMehGI3BBFe9s9KHD4YbGbVS0nP8m9y0iFGJEe1ZoXPlZXf1onRfLAC2/Lxkd8j1
- DS02RnSNeHzURDQVHVpNNxBh//t0v8a/ZZa2/E6PvQVhrhJEtnsxFSr2c9BtO5QW5/SR
- clbI9lN/AKY/SXIkoX1xP18aUdZegSO+pId/uS4q9T1b67CUMHuxuNNHcdNtRnJS1B+K
- xmAjmaXuU9XK1S+MNChbWY5zgyquRZN/iLmwtv2n6pGqoT/h5ssXJBHkAaVxfkvDDlg4
- Fg3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778171165; x=1778775965;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=Int/Ioom6uDImBPOoRcQOfqmGnwZxp9cr18IQ5rmQ0A=;
- b=jQoUFe7C7vCoF+rmhVNextulSOtCOtWbaZfxXssba4CTmpLknEHMNZEILYoSE1HHir
- 9OmigqArGEcbGEGt/zdSiq8Z4tz3IYGM+s0vgKJS6ft0dpZm4PRsgJy9D1km8qaqFLPi
- 5RJL6A+uBeNkzhvpioCOL9KNKWwjzR0zJjb1c9lXLAooWAKllUrCFL78qHyeDnw8pWPH
- ocu28h9Bc0mIGPAKKcOjZHCDLK0hKxcJLJYy1u5tm7Y0X0kydWHWxDnrh7W+Yn1AhqUU
- 94T4aVbFqj2Hp3MpYefTzgLj8vmW4n6sqnuVQ1DYVtjAA0h/nAN/bN06d5g8qytnW/Jp
- BXUg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9zp3qQWZtXdudbYo0LtvufAMHjUYAEKuxPL/QfDwmakUH/FNLxWGXg1xmz8WSxabxH3HEEcNbDxp4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyP9FOTT3Q6eBJ+8NCxmbCau9qdy+Ii1AogjRNbK7Xq5EfozEKC
- wzbtQcax3FSYA1Rso4jLhsH2j1CKmWGuyyTiSmzGFBUHzkQiC6Bin3ZOVg2ykyripnz42bYFUX3
- 8cuEQ8by4uQcmuCTFj4tAZ7ldJYNmTtc=
-X-Gm-Gg: AeBDies+i99xzpjeuZdZNy2XuaaGWnh5jhQCci+FS8blx5B40GGSeEzAsBGtt9tTcFB
- HeEfRAYCa3lzC+0Kg1g460IPRIbrbWF+QiXKO5AsxwPi7jbvGSun25v7uJlv5iKTsjJrsnXym9M
- D+MitN1cEbwx5R8aXnMb0mmEJGqrPf42n9QM/p9xrdY+Jaxeey9GW2gyJlB6H0pilb3/kQyqYkb
- n2mZIU/gva+CnkC+46ARFFz5+2szyWE93MTCRXZbyIm5WRLIP7ONlKchcRVrQtPtrJFTVMJroTS
- uIjsxEl7yQNh0V1rId4xDHlfqenBeg0LYdD3uxDO9vF0f7fLNks7Dj/cLBzKm1W2myKZz6UV4zk
- iq0zx
-X-Received: by 2002:a05:600c:3548:b0:48a:7aad:4425 with SMTP id
- 5b1f17b1804b1-48e51e097fcmr139299195e9.3.1778171165189; Thu, 07 May 2026
- 09:26:05 -0700 (PDT)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B270D10E29B;
+ Thu,  7 May 2026 16:29:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=BEYSRI1ts1Dc483/vmuXrRD78Mho4nYcEd4Ou4NeA0A=; b=YnJZZNG0vG4tdTbGQ++0CB6Tyl
+ 8UwltCtqFmANdPxH2EBYKetnWs89YA9zL5X/8MRBi+lTPRB//vBFl7pvJ+SM9StO141lULmEQQbRn
+ 0quDkK3xBpObFYxnxBj/k0DwDCns4xfKOQDWwWwrVxnRRXcMleWS1reBRN+BILx4Zd6iYsh9ZFK5v
+ xVRj4GFSEthCeL+uBq+MrHrJzkS0El3jkTm3Y0vNn2LqIiWEJHpzTkAFB+ccDthLbSgWq2myiC7Q6
+ cpRHF/O9ZPFx0ZCVxQOTAzmAvI3z6vMZNthcmChmQsFgIkavbiUh941D+xiimR4EXRKpTVYFDMkbD
+ sBf9+GVg==;
+Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91]
+ helo=[192.168.1.133]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wL1au-007UD1-ET; Thu, 07 May 2026 18:28:59 +0200
+Message-ID: <f6d9e805-328d-4d9c-8a40-32b47fcedd51@Igalia.com>
+Date: Thu, 7 May 2026 09:28:45 -0700
 MIME-Version: 1.0
-References: <20260429170012.366537-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260429170012.366537-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260506200826.GB1652535@killaraus.ideasonboard.com>
-In-Reply-To: <20260506200826.GB1652535@killaraus.ideasonboard.com>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Thu, 7 May 2026 17:25:38 +0100
-X-Gm-Features: AVHnY4J0DaxPufqdFXqftS14umWBtVlA89V6qUT2eHHlB5Fn79fAtb5gBsvy_HQ
-Message-ID: <CA+V-a8vKuDzJ-ZCZFohDm2nTur4wvnQEQnZsZc0OUaJh=MwVSA@mail.gmail.com>
-Subject: Re: [PATCH 2/4] drm: renesas: rz-du: Make DU reset control optional
- for RZ/T2H support
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/8] drm/msm/dpu: don't mix devm and drmm functions
+To: rob.clark@oss.qualcomm.com,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ "Kandpal, Suraj" <suraj.kandpal@intel.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>,
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, dri-devel@lists.freedesktop.org, 
- linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
- Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, 
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-renesas-soc@vger.kernel.org
+References: <20260505-wb-drop-encoder-v5-0-42567b7c7af2@oss.qualcomm.com>
+ <20260505-wb-drop-encoder-v5-1-42567b7c7af2@oss.qualcomm.com>
+ <CACSVV00TsXn=yx2UeGpxvCWRkSdj0=_=3_s01wCaO1RDH8t_vA@mail.gmail.com>
+Content-Language: en-GB
+From: John Harrison <John.Harrison@Igalia.com>
+In-Reply-To: <CACSVV00TsXn=yx2UeGpxvCWRkSdj0=_=3_s01wCaO1RDH8t_vA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,32 +89,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Laurent,
+Resending because apparently it got sent as HTML and was rejected by the 
+mailing lists...
 
-Thank you for the review.
+On 5/5/26 14:49, Rob Clark wrote:
+> On Mon, May 4, 2026 at 5:25 PM Dmitry Baryshkov
+> <dmitry.baryshkov@oss.qualcomm.com> wrote:
+>> Mixing devm and drmm functions will result in a use-after-free on msm
+>> driver teardown if userspace keeps a reference on the drm device:
+>> The WB connector data will be destroyed because of the use of
+>> devm_kzalloc()), while the usersoace still can try interacting with the
+>> WB connector (which uses drmm_ functions).
+>>
+>> Change dpu_writeback_init() to use drmm_.
+>  From [1] it doesn't sound like userspace holding the drm device open
+> is the issue (if that were possible, it seems like it would go badly),
+> but rather the order of managed cleanup?
+>
+> [1] https://web.git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/drivers/gpu/drm/xe/xe_hwmon.c?id=3a13c2de442d6bfaef9c102cd1092e6cae22b753
+So is this not an actual issue that has been seen in the wild? It is 
+just a theoretical issue based on code observation?
 
-On Wed, May 6, 2026 at 9:08=E2=80=AFPM Laurent Pinchart
-<laurent.pinchart@ideasonboard.com> wrote:
->
-> On Wed, Apr 29, 2026 at 06:00:10PM +0100, Prabhakar wrote:
-> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> >
-> > Update the DU CRTC initialisation to request the reset control using
-> > devm_reset_control_get_optional_shared(). On RZ/T2H SoCs the DU block d=
-oes
-> > not expose a reset line, and treating the reset as mandatory prevents t=
-he
-> > driver from probing on those platforms.
->
-> This assume a device tree compliant with the bindings. In case of a
-> non-compliant device tree on platforms other than RZ/T2H, the driver may
-> silently fail to work as it won't complain about the lack of reset. I
-> think that's acceptable, as the reset should be specified in the SoC's
-> .dtsi. If if was the responsibility of board DT authors I would be a bit
-> more concerned.
->
-I agree. Since the reset is expected to be defined in the SoC-level
-.dtsi and dtbs checks do complain if it is missed.
+If so, then maybe the comment should just be something like:
 
-Cheers,
-Prabhakar
+    dpu_writeback_init() was mixing devm and drmm functions - allocating
+    using devm and then passing to drmm to manage. This creates the
+    potential for a use-after-free bug as drmm and devm have different
+    lifetimes. Fix that by consistently using drmm management.
+
+
+John.
+
+>
+>> Fixes: 0b37ac63fc9d ("drm/msm/dpu: use drmm_writeback_connector_init()")
+>> Reported-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+>> Closes: https://lore.kernel.org/r/78c764b8-44cf-4db5-88e7-807a85954518@wanadoo.fr
+>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+>> ---
+>>   drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c | 3 ++-
+>>   1 file changed, 2 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+>> index 7545c0293efb..6f2370c9dd98 100644
+>> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+>> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c
+>> @@ -5,6 +5,7 @@
+>>
+>>   #include <drm/drm_edid.h>
+>>   #include <drm/drm_framebuffer.h>
+>> +#include <drm/drm_managed.h>
+>>
+>>   #include "dpu_writeback.h"
+>>
+>> @@ -125,7 +126,7 @@ int dpu_writeback_init(struct drm_device *dev, struct drm_encoder *enc,
+>>          struct dpu_wb_connector *dpu_wb_conn;
+>>          int rc = 0;
+>>
+>> -       dpu_wb_conn = devm_kzalloc(dev->dev, sizeof(*dpu_wb_conn), GFP_KERNEL);
+>> +       dpu_wb_conn = drmm_kzalloc(dev, sizeof(*dpu_wb_conn), GFP_KERNEL);
+>>          if (!dpu_wb_conn)
+>>                  return -ENOMEM;
+>>
+>>
+>> --
+>> 2.47.3
+>>
+
