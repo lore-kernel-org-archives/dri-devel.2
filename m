@@ -4,130 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E5A1CD3427
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 09:10:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 492CBCD3427
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 09:10:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFC3610E1DD;
-	Thu,  7 May 2026 09:10:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADA4F10E202;
+	Thu,  7 May 2026 09:10:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="R7H7A5Xs";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="aaj2kPf7";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FrzLypE4";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010029.outbound.protection.outlook.com [52.101.201.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D772810E1DD
- for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 09:10:16 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xQBRGDmwaI2Y6Kjc+Pj2sW1ff5r4UkyEMipOGiKvgOOP3tLjCmWSz4lSdZ2jyA9gEEnybu9pCXCkJgfdsunpdqWu+WV9ixrZJ+ZyBMBe7z8XEVI4sMxi/F5tJfITPa2HrqSJ9BmXgS2FcYS9w24hBXMxtTWKi2CG71JvP2KXkh3jWJAzEFTtPtOHxugxSZfkfm4X0eAMj3Cocj0jZw7Cml0uO/sHvmC1o3U2G5MR39EGC+5r2BzjSrewtzlvr39zWIRV0mC/9U6DWm3Wf3rrsTdOLdN1/RJDMPMzQL7n1SvtikMY1GgYRRv16H2kht9JIPM3dAPkRV/i3ICysEHq1w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=j99NuJDAmwqo+J3Hk7o3bLwrrzjexHVAJRgaFoZDfPY=;
- b=m+CmLQsj5ar9Sb/rA1QF8fy/rWggVmG3vghBVFYwrnsLgIi4zHXDYHrs2Xh7idQZL3HGAWXW0mC07DXe1tDhQe0o0eSucBOmEeLD9dG0z+PtcBH0BO1oTXKqyk4DYdWo91V4+OVX4F5Ojf/gcDCwvsJlKvD7p1XT6LyulCD/beWuQ/IMhu6bHvmM7Nb5auFBvFmrYYjdWrLESiOsf09Btq6xQfddrQ7HiuMGdNy3NvoyjCHRtBucEOtTK5ZNam2R/Tu0tnUp67Yk14SeKow12kdidJgkRxJ8WozbRa4vvWQDZpRszVN3CFbQLbxyzCmGccnlCGWTQfxi4ZF4HixVKA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j99NuJDAmwqo+J3Hk7o3bLwrrzjexHVAJRgaFoZDfPY=;
- b=R7H7A5XsZlRNTSGTWpLnY8ssXl+2+RsdpswEvByK2A4bIB5TCz9O5k7vHqAzoSxyU/+VrAfA0MlazHNvxm+ZWTeu47SXo85yU6d5VeY02MK9cWr0KxjmTX4RWzBugux9jEjD/Dm9oAoiqLkH37tyw7GeC77uXN4C+RhikpO07e4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by IA0PR12MB8693.namprd12.prod.outlook.com (2603:10b6:208:48e::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.15; Thu, 7 May
- 2026 09:10:13 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9870.023; Thu, 7 May 2026
- 09:10:13 +0000
-Message-ID: <762200d5-7631-4db7-b8a1-a2078344826f@amd.com>
-Date: Thu, 7 May 2026 11:10:04 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] Let userspace explicitly trigger memory reclaims
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>, Steven Price <steven.price@arm.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-References: <20260506-panthor-explicit-reclaim-v1-0-44f82ac147ce@collabora.com>
- <829b8887-48de-4cfa-8bb2-79db1471bb8d@arm.com>
- <qxAaM8FMQLuQt09qti64IA@collabora.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <qxAaM8FMQLuQt09qti64IA@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0099.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a1::16) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99B7D10E202
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 09:10:44 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6475wTm21926229
+ for <dri-devel@lists.freedesktop.org>; Thu, 7 May 2026 09:10:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=fiLRyqVWGS0Ix+7Et8ZETjKI
+ EZ4pzdPJfw5gz/TlT3w=; b=aaj2kPf7Vt70KA2i3+8H5rqr4GaTBRUxUXfFCAIX
+ 1wdBO8jPUfsMqMrznswtbQ2P2Sc+PW6u3Lv/QSqcGF6r0+iMf3u3kaQtK6o9hdEQ
+ CbqLEGnxg2KU0oLYXWLl4EXauJIGscXmUQ7FkaJ5ATmeVNCi9CPdyPreNdMhujls
+ lo2BJ7dWx4/ULLNGvksEnomZ1gSIjLo9AVuTUsGBgxibOK+a9ikaCy7nV2o1vnKy
+ +7+q98leDPrDHpE1aow5LsCT1+nLVzy8Pwfnb6CvPbz7NcYllukprl0QwQL2LNMG
+ cMQ0cNd/S3qW7IY5fCfePp5fy9uOvRNQhHlP8BRedEPrmQ==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e0n2g8qrr-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 09:10:44 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id
+ af79cd13be357-8eaec5f60edso96808285a.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 02:10:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1778145043; x=1778749843;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=fiLRyqVWGS0Ix+7Et8ZETjKIEZ4pzdPJfw5gz/TlT3w=;
+ b=FrzLypE4+wQYt2a91Zf14JkK+apC1wL6coq7ypLABGOS3dsDAzi6dfDLPvT0RzOohd
+ ZVLmRlo8l4AWJfopTiRInJvkmWvKpEyDR9WEeg9e+k0Als6X/8wQcUGZYC4Xc4dclkdQ
+ G2RGBD2hbhmVOtthh5iROGfWoE8gUeDgs+3TLsM5vu4AOy6QXnz5gzOXqiaqeekWj3JB
+ RrQ3IB+4XWW1pzd0LIm14FE2vov9SwMykkuLr8+A/rtYrLKECdAqzyrQstAB/JNrKCwZ
+ gM6wwtiS+pqLXg+jy+gzZ3JrMtttAxz8Ss/Dg7Nb+C42SEgevR330Yn72T9MKjvTSI2G
+ GKFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778145043; x=1778749843;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=fiLRyqVWGS0Ix+7Et8ZETjKIEZ4pzdPJfw5gz/TlT3w=;
+ b=PAoBIwXH8q+e7PCI3E38gvvm59A173VXk3sL+n+yADFoTTv2ECRn0FG3dAGzRqpOMc
+ ExE03KB5VsZM+ITexeB8BpCL6/rChSOQcy8bQVsgMpkqkc+OE+RX4KyRXjEBgFa6iOYX
+ 6VriJSkp7Wni4DkRI+wwlZJ+r7anxOX1F9QUs/MudgvHCIfOrpE1h4GfUA0ghF6WHw7F
+ 94dFRg1nnvxOXLRqA2wM9f6GJgVv+DP4oBt6q20ZEDpxWQRwk+4fCEF4PjAWQUTrpoF6
+ V7AcZzVKE9sIhmpWr/CyOrg8vdyGXpPX6UCs3uSVsWaGaEC0CKkkpaSNkQDeTJ1vtM40
+ hiSw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8OrZj89GKiy+oOeuJeflgS59PcQbswgVa+hpNasdwe9a6RdMmk0/rrxl4AA857Rkw83dxaX+fSqOs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxfmtBwkdpAdaesquq0Nyj7+wvUn34KM6sP/ZVAT5FzgViYmjj4
+ EydFtLBMuysmLxfM4EnODSEF04LLexEPnT2NKemYX+WAmw/7w3puioSjfGHGAbn2v+ifHvGlDTx
+ 869wVkrgJeCKpiRdSs3wUaj5kuhi4VM+dQSVpqhVblxf5BSi24meIOPTBZ1g+CjBtha4AbjU=
+X-Gm-Gg: AeBDieu46eBkVTiK9N7gI9dDzYshsAMNLH3Qt9OJPcQ+7LIKuivglUeHjqAgbLHRhEv
+ eMFGbYlIbZ3aKW4cxUAIZJGkzv9dpy5ClbcMW7B9anyNqvZ2QdT6M4eH6vTkkCZja427xMcmfeC
+ H6s9X/jyRknP3jxqLbUP9pMS1qG6alipOmzqm2+ULajn4W0r9jO0D0jh7v3QimvXyrZDHcQPO3X
+ 8V7ucHZa/TJwAlcgL1uLMB47/fFCjdXGElIO8vCpWvZRsfMa18mFvR+7UerZoYjWq+TbNlPTL2c
+ ywqpQqawVzYqdSluRWQwLZe/i6PUiSNpEMnkipSxGeoNSt5vHKMte0XRkU4rbV1M+TUT67A6xkK
+ RRsGZtaZxDpEVAnq39ZgqPhkvlGs17Q0OgqqE4A+hW3UWZZmGKkArWBiqbxbqJmiFRsqOk1LlA9
+ UyEjNs/DBaGQjXW20GTorhyBY7Y4MKfSGFd1nc77CHg9OCtvIOS/DXZydg
+X-Received: by 2002:a05:620a:2848:b0:8d0:82e:7423 with SMTP id
+ af79cd13be357-904d69d8e00mr989745185a.44.1778145043102; 
+ Thu, 07 May 2026 02:10:43 -0700 (PDT)
+X-Received: by 2002:a05:620a:2848:b0:8d0:82e:7423 with SMTP id
+ af79cd13be357-904d69d8e00mr989741085a.44.1778145042666; 
+ Thu, 07 May 2026 02:10:42 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a86e65fdf6sm3822632e87.78.2026.05.07.02.10.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 07 May 2026 02:10:40 -0700 (PDT)
+Date: Thu, 7 May 2026 12:10:39 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+Cc: cristian.marussi@arm.com, sudeep.holla@kernel.org, cw00.choi@samsung.com, 
+ kyungmin.park@samsung.com, myungjoo.ham@samsung.com,
+ konradybcio@kernel.org, andersson@kernel.org,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ arm-scmi@vger.kernel.org, linux-tegra@vger.kernel.org,
+ linux-pm@vger.kernel.org, jonathanh@nvidia.com,
+ thierry.reding@kernel.org, digetx@gmail.com, conor+dt@kernel.org,
+ krzk+dt@kernel.org, robh@kernel.org
+Subject: Re: [RFC V6 0/8] arm_scmi: vendors: Qualcomm Generic Vendor Extensions
+Message-ID: <mplk3qvyslzazuolwlcgy6fb6ta7ts63x3dq5wwybyejaxpyh3@fctfzjkyxi55>
+References: <20260507062237.78051-1-sibi.sankar@oss.qualcomm.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA0PR12MB8693:EE_
-X-MS-Office365-Filtering-Correlation-Id: fe5d03a3-2308-4e68-12b5-08deac187240
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|7416014|1800799024|921020|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: ef7BrHfA1qfa8eQ6js/yUSUYAecjdFDXNTIFQ8wvi3qWR+IqKcHP6iVmJGQaZmM5kLMZafIUHfmrwbQvMHu29KM49s8MxNrTli8SpozsQq7GEp9qiRnFn3GellLDNdOtMvvgHeM2u30l9JsSiR4t6rHeBzwFEVY3Qr+LycpFGNjZw/9xzGOa1UtcSaAcHUbiJdIOY2ACGVZ102kyQsKNtuV6y5ol1g0XuatkPQniXylpJpKcAj2cGC0+JnHOZ2AxAm64dkwzo6yRPs4Vukbc0qnwAIiGsGqlej76rE/IoqvCvk6+Vz4FJ7Wqy9Iq0C1T4/3tXV4YMB6LlLqf/XsA0he1On1MsbixaQX/5+66FbXevTT/NNVk/reqxGMF6MuPic9xD8alRpqfa4MNcotE51GSDmoh8VKsNexL9kcwUSw5ORPVUGzvcTqsI3QhqQ0aL1ke0WqVzut2K5BY3FszKHdGt17qh/F0MUs1+n+QniY2GRg4o5/pCV/ADGF6PeCWAa8TMiIYbtJ9PQqU/x6N2RBa7bogV692vAE+Ex7/Ge5ye2c0ONd1STI1YXCX+kAW8NaxuGY7rYjCoNAeu0XHq/0RloVISwWNMR2T1c0IbuXSPZlI/RbTdHaaAnt/m9IyR8Gn6lSkWtPG9UmCbTgmrIiWZVh6XRivBGUNO204EJULFt2QD5YZ4e8BHwHy+x/iiwn27+6DqkndjKXJpmCzlKFJhI/4sdcvqRWh4rJjYQ9Ty5K+YoaqvFti5POODsxv
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(7416014)(1800799024)(921020)(18002099003)(56012099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RncveXE0TW1xSWxXbXM1ZVlvcVF0dkduOTdsSXdmMmRCdndhcCt0c3drQXNU?=
- =?utf-8?B?ZnkycTdBRWZLOTFEMlpZLzNlRUs0SWwyWVFmTDZzWU9pVzRwNGdaTWRWenVS?=
- =?utf-8?B?bjNRRm9qbGdHWVJ1OWxZdEdWZ0U4MkN3Qk9oaVUrRm4rQmthTFc2S29UZGRr?=
- =?utf-8?B?NitrbnA4N21qWHAzM2Q5MUZwc3R2cWFwOGY0emJjSjJTcEEwejZ1N2NkdXVp?=
- =?utf-8?B?S3k2WUtCd0d1b3ZXV0grWXI5SHRlZkxWK3FrcXdibENzSUJSMTJRWDVXWEVy?=
- =?utf-8?B?ZjRETW1pb3d1VGJ3bW5vRnFBN3B1cXMxcVFPbHVCa3RxTDhpZCtRU1Nob1lD?=
- =?utf-8?B?R0g2NDB4dEYxUHJIUlpJVlFFa04xbXJNNXJVVHRPZVRlVWYxZ0tKUWJ3blVM?=
- =?utf-8?B?N2MxNkdDbE5WbFl3a0lZRm5qYXNDcThiNU45YXFSZ2ZQVC9jWTMxcDN1VzUr?=
- =?utf-8?B?RzFpc05JTm9RSmxTZTVNRkZmWW1tNVhRY2pCMllpT0VRdFdtMmxHS1ZpSEVC?=
- =?utf-8?B?c1RYU0xadWdzc3RSc0lVSFNzMWEwRG1kVmdvNEtKVWljVHVLZVN2V21QWVNB?=
- =?utf-8?B?VnBmRXNhdXNNZFVScStYaU4vOStjN0RqQkltWFhHN2lKWGdSUVBIT0dBOStE?=
- =?utf-8?B?Y0NWR2RWOGpUOXJ4R3VLVjU4Y2NlTjUxQW5QWDdmNG42UDYyNXFaK2FyTUo3?=
- =?utf-8?B?TW83cldDMU0vODdDMHhVRFByd1pORGczWEh6c29IR2p5ZGdjNkxmY0J0SmJZ?=
- =?utf-8?B?Z2hEVjJOdnZTUnp2MjJ5ZnZMcFo1L3AvNXozVUZCUVRlMjBnRDV4Mlg2R3Rm?=
- =?utf-8?B?UGYvcDdnOTZQSmtzaDVadGQwZFluZFVwQVo4WUt6SlRoT3FBTHpDUGNvaWlT?=
- =?utf-8?B?RFZkWXlReWJhM0lacm1hWG9IdG0wRUdYejNkZTQvbWJ6SSthd2R3MXhZN0JH?=
- =?utf-8?B?SmZBR1J5SFBiSndkNXRIQjZxMGlGK3BCaHU0bi9ORDFQWjA0KzZua3BKSVJY?=
- =?utf-8?B?b2hRNFoxb3lCQS9RRHhwYUJmTWFMcjJDL3VKaHpaV2twbm5aQTIwOEdrMGxs?=
- =?utf-8?B?NnQwc3h1N2M0eVRhVE1XVzUraDEvczVNWE9RSUNUelNscmRoaWpWenBJeHZR?=
- =?utf-8?B?eWpnV3VyMGlHVnRTaU5EaEJUQ3pUR1BuNkxaK3R4Vkt2Y29mSGJOZE9LVzhm?=
- =?utf-8?B?bGNpbDRMUGcyNUdDQjRORElaMW5HbDM2aEVVRlZOQndlTzdGOVBrUG0rdm9L?=
- =?utf-8?B?T09ScEhoZ2NnZlYxSlhPZm1PaFlYcjhjUmdZNWVSMDREdlJYdHRRZzBvWTl1?=
- =?utf-8?B?NWp5VUFqcElLZGpqVnhXT0lKRXNLMVVyTHBNNmczbmI4ekFNK2ludElvd0do?=
- =?utf-8?B?bmRpVE1DSHh0d0lxWkUzV1djaDQ4dmd5eDFWeThLMWNoTENkSmlmeUk3eXVp?=
- =?utf-8?B?WXUra0lNKzQ1RzRLZ2JQYnZyYnV1K0MzNTMyV3J6My9zWEsxaXpBcEhTbDVk?=
- =?utf-8?B?VlArK0orWUJoa1Z0dGg1NGhvSnlCVVQ0Z3k1MjRWczRlZDl5aWFIUUNJUzU0?=
- =?utf-8?B?a01tdkZpcEd0UmNjT0xxVmVCeEFSUy9Hbll4bTgwdDhMYUFPb3J0VHo1aUZO?=
- =?utf-8?B?L052cjFtWGF3Z0xmNzc1Y2F2eWlZUEhJcjd2Y21PektLaTJxQVc0aElqS2FJ?=
- =?utf-8?B?dFFFRjRtSU50b01zMU5LZ0NDRHRvWjRpcUVLbkRjWm9nY3FVcTdOMXJnWGRs?=
- =?utf-8?B?MWlWUEd2eG82NTNTcGdQVG5seHFlb1RFY0JUMG44Zk9qaEtoNm04Q25Nclow?=
- =?utf-8?B?TktmaW5YeUIvVWFFaUplUGtnWVR2VlBMOHNLTmltMWpoRWFCQWVrMU0yM0tN?=
- =?utf-8?B?UzJudVN5anFkVzZNdndkeWhCdWZFQUg0LysrR2JzeFZsUys0U2I2S0pBZ1Nm?=
- =?utf-8?B?VllwVTA5dzZLb1dkc1Npakc3SDNMaFVrWktvWFlhQlpzcWI5VXdkSGdxTHZL?=
- =?utf-8?B?NWxwa1BmYi9HN21rMkI4RldCUTZRM0hQSTlHNytVcEtLakR2RHpTN2JCS3VZ?=
- =?utf-8?B?eUY3RHZhbERKVitWdHJUaWk5V2RETW9yMk43eWUvWnNTRi9oL2hsTGJmQ25t?=
- =?utf-8?B?NWNjMHRkOWd2bW56QlJ5ZFFkSVhRTzFXOG0xT1ZxdCtQb2JEK0xVOW13V21l?=
- =?utf-8?B?V1BHRHRnWHlzaXdFUE53SGVuZE9WUjBseVV3L3Q0UWEwdU44dGF3QXpuM3Rq?=
- =?utf-8?B?RnhsY1RCRXdiT0RTWUxaWkk0cVRrZzRwQW5uMm1TejI0N3ZGTElUYVVJZHB2?=
- =?utf-8?Q?JvUJ2/aeWvMT0kZPzP?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fe5d03a3-2308-4e68-12b5-08deac187240
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2026 09:10:13.2376 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jHIXHdn9cadTC4A+LdlvMeVx+nYy30ulIc+gRMFq9w/wXzFT0a9fmgQlFsXKPQAy
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8693
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260507062237.78051-1-sibi.sankar@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=Wv4b99fv c=1 sm=1 tr=0 ts=69fc5714 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=RJIkCpciCD5dGSa3Y80A:9
+ a=CjuIK1q_8ugA:10 a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-ORIG-GUID: 2Oh0SfYRsACXEkUzNqCRbpV__WjQVyB_
+X-Proofpoint-GUID: 2Oh0SfYRsACXEkUzNqCRbpV__WjQVyB_
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA3MDA5MCBTYWx0ZWRfXyB4BrM5E0thB
+ iQOBNOMX0iwq13Mbjw9b/0faCnrN3ueuZdWljmVUDkrPz7VMpFKwZInoPvCuZPXD0Ky5aDZtiEF
+ V8nZq808mnG2mA6RZS0vpkE9xVOOfs6gXh3iqLwcyhctFJ7QcrdFxh+SI5+Pmxsd8L73W9MOdJd
+ EPdxO3aZacHfZug/Dqx5h9dOYkQ3IzmwQUSnIlJ0ro419TI+0DFvD5js48Y74w2PKWSqFgsQYQ4
+ UXzplGQp38epK4V6eTYFcsGG/PplRU7fvHUShRx9Mdkhq+dCR6bFXQ+GEhY6F22ON41ATbV26gm
+ KCcEe/7YXA6AxJn5hJOtXS72IXyfkx21MC8TOnaahNTPeLrXYPVrheMtGPZ4lXqQR60KOOBdHzG
+ gojZGQ5MOsh4n6w+K9CRd+okywL0UqMFZqetHIqdI7dNIm6jXIxBPqbo3ELIx040X/C7/63N3mN
+ ycc3pSAFHRBV+E+cAyg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-06_02,2026-05-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015
+ impostorscore=0 spamscore=0 phishscore=0 priorityscore=1501 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605070090
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,43 +144,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/6/26 17:43, Nicolas Frattaroli wrote:
-> On Wednesday, 6 May 2026 17:06:56 Central European Summer Time Steven Price wrote:
->> On 06/05/2026 11:45, Nicolas Frattaroli wrote:
->>> RAM is not, in fact, cheap. Especially on embedded systems with a low
->>> amount of memory, but known and well-defined userspace, more explicit
->>> resource management can lead to better utilisation patterns. As an
->>> example, a resource manager process on a purpose-built device may wish
->>> to launch, and then explicitly swap out, memory of processes that are
->>> kept "warm", to improve perceived startup latency of individual
->>> full-screen applications without making the kernel figure out the usage
->>> pattern from observation alone in order to swap out the right pages.
->>
->> Have you considered memory control groups (memcg) for this purpose?
->> Imposing a lower limit than currently allocated should trigger reclaim,
->> so 'background' applications could have the limit lowered and then
->> restored when moved to the foreground.
-> 
-> This is a suggestion in line with what I've made to the entity for
-> whom I am adding this, but was told that for them they really do want
-> tight control without having to use cgroups into technically doing it
-> by dynamically adjusting the limits of them.
+On Thu, May 07, 2026 at 11:52:29AM +0530, Sibi Sankar wrote:
+> The QCOM SCMI vendor protocol provides a generic way of exposing a number of
+> Qualcomm SoC specific features (like memory bus scaling) through a mixture of
+> pre-determined algorithm strings and param_id pairs hosted on the SCMI
+> controller. On Qualcomm Glymur and Hamoa SoCs, the memlat governor and the
+> mechanism to control the various caches and ram is hosted on the CPU Control
+> Processor (CPUCP) and the method to tweak and start the governor is exposed
+> through the QCOM SCMI Generic Extension Protocol.
 
-I agree with Steven that cgroups looks like a better fit for this.
 
-We had similar approaches for DMA-buf where Android people upstreamed their hand crafted resource reporting framework exposed through sysfs. That turned into a quite a mess and was recently reverted after Greg intervened and said that this is not really a good use case for sysfs.
+Could you please clarify, does this apply to the common commercial
+Glymur and Hamoa laptops?
 
-This case here is of course different since it is only for a specific driver and not kernel wide framework etc... so I don't think that Dave, Simona, Greg or Linus will block it.
-
-But the question is still if it wouldn't be better to solve it in a generalized manner and not each driver implementing its own sysfs interface.
-
-> I do think that writing 0 to `memory.high` to swap it out and `"max"`
-> to allow it to swap back in might work, though that'll then apply to
-> all of the process' memory, not just the GPU resources.
-> 
-> I will ask for clarification internally.
-
-I think you need to come up with some kind of justification which not only explains why you want this, but also why cgroups can't be used and maybe even why crgoups can't be extended to do this.
-
-Regards,
-Christian.
+-- 
+With best wishes
+Dmitry
