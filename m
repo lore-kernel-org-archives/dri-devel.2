@@ -4,128 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE8BFCD3442
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 10:13:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A461BCD3445
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 10:13:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A427D10F01B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2CD810F027;
 	Thu,  7 May 2026 10:13:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="LVK6U0wJ";
+	dkim=pass (1024-bit key; unprotected) header.d=qq.com header.i=@qq.com header.b="Xt92u7mx";
 	dkim-atps=neutral
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0AB8310EE17
- for <dri-devel@lists.freedesktop.org>; Wed,  6 May 2026 16:42:46 +0000 (UTC)
-Received: from pps.filterd (m0528004.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6464pVee3763303
- for <dri-devel@lists.freedesktop.org>; Wed, 6 May 2026 09:42:46 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
- bh=KvzelPFNcl7MU+TM0miXboxQSsRGRRlAbQLX3lQgau0=; b=LVK6U0wJ9iIb
- vlscmhtMH1uiKx6GtvkvD3PFd3zgD6F0pJGalLirUzyn7txEkM7B87H6hJ3gBB/R
- xy6LpmR0MAd+x0ZIqp8r0Hyc0y1/04XFD7dLYOiSF6fGh+E8tNIVi/vB/zavG3F8
- 8TN42shcv5hTMVXNvb74VYPbCsICbn9zU0M4AXi1sq9f+h9zZCOy9fgdkWE+OWLN
- jvoNlSSljZ+OfTzxu3364d0Kvicl9FDoxbDiiEVrSaNxol0u2vIUnHyNPLDd0Ix5
- f5o4c4x9PCLCIVbSwzFZPTO6tjK7i7qWftyIVCUjJ+tCPZ9EmmMKHs9roWgbBdAX
- UkgXxMdO6A==
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69])
- by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4dx2wdx1tf-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 06 May 2026 09:42:45 -0700 (PDT)
-Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-4837bfcfe0dso80781565e9.1
- for <dri-devel@lists.freedesktop.org>; Wed, 06 May 2026 09:42:45 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778085765; x=1778690565;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=KvzelPFNcl7MU+TM0miXboxQSsRGRRlAbQLX3lQgau0=;
- b=MLu/7lwMx72EQEMN58Fgmtm0gmoLL1L8be1SKML98XMuqqeOPEEWNhrw039MTzkjUT
- HgFwKD5fib1+xClsicpVHb86Pas4tDD9fhbE0wv4D3PNhBdowYaYghex2Ugj0GnKGtLI
- WSYz4zoBTxyWDZN63+sbm8k6IqfD+HZA7pUcrf2yG87fP4R0DpPlO4LRDA7AlOkph2BC
- QqCCyyOrQFUR1IT2gMTzqJNaKWGtDf6Va/arQ4orU46HkQGnC4jawLPvDzTDBObEopuc
- 6DC3LRNSwikbtMY7FTvp1gJaCIfP4egnqFbxOFsjDoKI9rJKa5tO7RRu2e0/854HR1cD
- WaUw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ//qZQEtZWbAsvqCtwT8VHZaHnLZs4LM7cpxGqzx/DxcZChfrkDYaJFjzBeiMW32yi8pHip+7a7Gg8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwkS4vaXAl0mshY7lqEpHgOsXGQx9Vm2NSgnL80HInve2H40zd3
- eGju0g3FmJNE31Rty/6uoUXWkqWXbheVtVta1wDxVflhTT3/aThgMHukd7SMTt7WgRXeYPwPHfQ
- tghjCJd+xkXTrYcL0q1UWkd8thFf4VVTgP05YLSAxl1TGryRcrZAUBwOPsnjhhqVWGHpj
-X-Gm-Gg: AeBDiesUDnunYFaDV5TDnRNRT1Ddhua643QYO+Re/bH5Lxkzyx9/ZmBNByXEYaitxk7
- 0/VXKlT9INMVbqW1C36CZieF4Asf7+RmihiYEC7PKgLcLxxmMS0Z6eUfr0J+uoWxJ4H+ZHNgQIi
- 570Tv6CILMDz6c+xWXIotqrWu8nY88UOKoJLG8kbs9vcVO59wqfv/roObQx6T/Djz+qPtH1GYjP
- RXeiVVPKHmUpiV5Gm0WNZl23/cmM95QTaUqAx5N4w1cqnEgDcEV47tOzkC5MwQXUmidSDN8J7Rd
- hHup5Zql8QNaTlx4Q7Mc/8XXfaqGi8gbBnnmJtaIbloB9Z3OoWjsPg+wXlOV6oymo55FCcppIur
- wJqpSa2j3DQDJ9RsBfaBSXBQ+L/hrSnBWwuDEKUrNSpmwxZbaOjI2oCScZqSKKZyAPbyI/C4Aur
- Oqnv9QclX3WkjfQ/1ydHbhAObrS6nTxUN+JGiwprQTD0cjgDEK8tnMLMVw/UXXlRHoLD21U/LHV
- 4S7I1NAtX/bYDVQPAfLifrG1rx3yIoJ7Q==
-X-Received: by 2002:a05:600c:2ed3:b0:488:d6eb:e63c with SMTP id
- 5b1f17b1804b1-48e51f427b3mr46111965e9.15.1778085764711; 
- Wed, 06 May 2026 09:42:44 -0700 (PDT)
-X-Received: by 2002:a05:600c:2ed3:b0:488:d6eb:e63c with SMTP id
- 5b1f17b1804b1-48e51f427b3mr46111525e9.15.1778085764222; 
- Wed, 06 May 2026 09:42:44 -0700 (PDT)
-Received: from ?IPV6:2001:8b0:8b6:13d4:102e:f2af:e074:5cde?
- (e.d.c.5.4.7.0.e.f.a.2.f.e.2.0.1.4.d.3.1.6.b.8.0.0.b.8.0.1.0.0.2.ip6.arpa.
- [2001:8b0:8b6:13d4:102e:f2af:e074:5cde])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48e538fb1a7sm113622555e9.9.2026.05.06.09.42.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 06 May 2026 09:42:43 -0700 (PDT)
-Message-ID: <9a7e51bc-351d-4ca0-8080-fd9e0265f3a0@meta.com>
-Date: Wed, 6 May 2026 17:42:42 +0100
+Received: from out203-205-221-242.mail.qq.com (out203-205-221-242.mail.qq.com
+ [203.205.221.242])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 949B110E1B5
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 07:09:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+ t=1778137742; bh=jhfMdr7ZuzPK+ksWRv7O9E7u4d/Szfr8t5hOhPrLLPQ=;
+ h=From:To:Cc:Subject:Date;
+ b=Xt92u7mxzzHzdQwWRZroj/6Y5zuF/BtpI86MT+748TwDeei54e6ujW1Fc14/JngAp
+ qU4y/OKrVbKwz6+3CsNz1g6zbFuZiAsEKFR+LSnAEJujXVYlk7zdaZBOkNVYfuxYfU
+ mfeWJyunnqcF6RgKilhd0Uv4732z/vSsdc9aISdM=
+Received: from NTT-kernel-dev ([60.247.85.88])
+ by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
+ id 1F10E06F; Thu, 07 May 2026 15:07:49 +0800
+X-QQ-mid: xmsmtpt1778137669txqd1xqw3
+Message-ID: <tencent_7AE3B3373BFCA4633D11AD72CF6897B3EB07@qq.com>
+X-QQ-XMAILINFO: NbgegmlEc3JuoJxuK2QvNBHzvgoB2/ycHaXZXV2LHoggvdBcWnfw8r2vTByxaT
+ u+J1DSdyyTyTlM69lYD+epVJHWfpyWLIKJVGkMNYjURg6UmtQ6tdyrQtXA00ktMhWUWSExihz7c7
+ kiLXms1uRWDYPi1Nq0y920MxCy6qE1gy283ORkru/mNySzuEnPRSYBQsrCySCVvRQmEwxrfc02sC
+ vlsAeCLP3kWophnvQ7LaGEIp299Xd+rMPbYNpsTXNBCvU/2pOI3735/2d4kVqu85UnsGxR9t0KZ/
+ ycPljMQUmRAFdpxIO8QYZ0NvGmMIMHYYFwa8bo2yfkEwYLz9NRyRWP6JuX2WKFJWT3n1Og6AOPR1
+ vDWjZBvU02Ipfr5DDiKwP3ti0eVBjiYzMmwqU97m8XULFf3bJHNv5i3pAiv5+UfTM41aCbD9K9fJ
+ LMPUbrF2GCLLA3IblmYJ6h9r8zKH+drOurzLu8X4rwB4Y+/d2q11vf2tWaqkXtF31kuo9ktlImgt
+ xyL6Oatnmh6qU5q/tEG5gj54B4lHKgpbHRb3CFJXmzQeTcq7Cj868LmAUk1i9S64MLcigAhsAwKR
+ KEBSUg1rTePGjo4YOPeirH4xquPMw6URZnc96HdcKHRUXNsirRDqTA6Qe0rwDjeaghWMqI+bFuBA
+ ZnTIow+2krhPToHpdn0yJTSOLnar9Qlbw0Px/7gEw9Qoeh6ndSbvADcEIl7qVrX7osme7kU6Y447
+ omS/AjOoe2yqZEefPndIB/ezyU5RmUTCYdUE80P3S3A1WkJ2wFkHXLFylgCI+xg+tzFCSMaHWu0g
+ ZmQrUwHhGlHj1d5mX2P8Iq7Z9qoTkJTg424uaotirMyzRGSIbABZpDE5L9OLSyJaJ1/G6IMCQ/rK
+ +OsGwiaPGpl+1sxnrzSmmbTFyjVn+Jc1sw583tcpMMOkZfjEY4qT5V5DAiEINoRjpHPnHAsepzHC
+ 74aqs3tdHrefmpPL1J7JgjbovlrIg4Yz7XQneqjN5O4IXT4V1TVD7ppwhsvA3dkRXN+wGjXK+Wij
+ Ll6TfY8KlGFQO16gNsbkCSjtDOLUkyCzBDpokxoy1yaRcfAAsCXQdYuVPO2mujFVlRXpa2dYv95F
+ Q20PZ8RVahp75BVjxZHNrKJL98yQ==
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+From: Fang Wang <32840572@qq.com>
+To: gregkh@linuxfoundation.org,
+	stable@vger.kernel.org,
+	dev@pp3345.net
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, daniel@ffwll.ch, ray.wu@amd.com, Wayne.Lin@amd.com,
+ sashal@kernel.org, mario.limonciello@amd.com, aurabindo.pillai@amd.com,
+ timur.kristof@gmail.com, jdhillon@amd.com, hersenwu@amd.com,
+ Roman.Li@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH 6.1.y] drm/amd/display: Do not skip unrelated mode changes in
+ DSC validation
+Date: Thu,  7 May 2026 15:07:49 +0800
+X-OQ-MSGID: <20260507070749.2299524-1-32840572@qq.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/9] vfio/pci: Fix vfio_pci_dma_buf_cleanup() double-put
-Content-Language: en-GB
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Alex Mastro <amastro@fb.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>,
- Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
- =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>,
- Pranjal Shrivastava <praan@google.com>, Alistair Popple
- <apopple@nvidia.com>, Vivek Kasireddy <vivek.kasireddy@intel.com>,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- kvm@vger.kernel.org, =?UTF-8?Q?Carlos_L=C3=B3pez?= <clopez@suse.de>
-References: <20260416131815.2729131-1-mattev@meta.com>
- <20260416131815.2729131-2-mattev@meta.com>
- <20260501131236.278ac431@shazbot.org>
- <9304aada-ee84-4cf2-a1d7-82313eda07aa@meta.com>
- <20260506152937.GJ11063@unreal>
- <c0bd0e23-712c-483e-a809-47126ab6e9e9@meta.com>
- <20260506161441.GK11063@unreal>
-From: Matt Evans <mattev@meta.com>
-In-Reply-To: <20260506161441.GK11063@unreal>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=fLsJG5ae c=1 sm=1 tr=0 ts=69fb6f86 cx=c_pps
- a=Ech0Gv1thIkdqUNjVc2Ehg==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=GbPsI2Ihf5RTnMjR_gZv:22 a=VwQbUJbxAAAA:8 a=Ikd4Dj_1AAAA:8 a=VabnemYjAAAA:8
- a=uIBLic6oc_-Le5kNHd0A:9 a=QEXdDO2ut3YA:10 a=cZgK7WzY9ta9U-6s7oqD:22
- a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-GUID: bc6wiwRXTGFZBu_bEEJ3PY44I6_VM4FL
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA2MDE2MyBTYWx0ZWRfX0uR97ZyJxBMR
- 2ALPOT+z5VSXey90WV0CR0BansDWyjT/5x2yfssZm08C6QyfhLlc6SpIPhcVxSg4dWdhHOs5spZ
- NkBZmKvUd+fXDOIEN09Sh/Rd0TsY4hwB92ydq3C1OrB2vPboxcPTsnbnV0ir/y6TI3CRBeXIY2Y
- 4pY0Yvbr11kM/4OowhrkQdsHZSbHHTYK1LpkmWFyVtZkIG6W6fUG+OXUsGtRpXv8koxGgFogPpA
- HV+6a/lI6cxwv4lnAVWoODJ09nbjoV/BMH03S8pLK1NtdWZkWdHObyqbAJfTC6o+vG8DWw45ySY
- eeh2otBTRnPYVRMAw29ye4WTR839JPfHAZM+zSZiRXF8fU2atA23en/VqPASeez8AbPZSgmtfuv
- Wim140LYt9625lsaNoWhd0qSwiTEZygwv6vcub1pib2cW/9P8WTat6M0rv88lxbstzpvsO+EKLw
- iWHhzdVusE9nGP62Psw==
-X-Proofpoint-ORIG-GUID: bc6wiwRXTGFZBu_bEEJ3PY44I6_VM4FL
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-06_01,2026-05-06_01,2025-10-01_01
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 07 May 2026 10:13:17 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -142,82 +79,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Leon,
+From: Yussuf Khalil <dev@pp3345.net>
 
-On 06/05/2026 17:14, Leon Romanovsky wrote:
-> 
-> On Wed, May 06, 2026 at 04:55:27PM +0100, Matt Evans wrote:
->> Hi Leon,
->>
->> On 06/05/2026 16:29, Leon Romanovsky wrote:
->>>
->>> On Wed, May 06, 2026 at 02:53:31PM +0100, Matt Evans wrote:
->>>> Hi Alex,
->>>>
->>>> On 01/05/2026 20:12, Alex Williamson wrote:
->>>>>
->>>>> On Thu, 16 Apr 2026 06:17:44 -0700
->>>>> Matt Evans <mattev@meta.com> wrote:
->>>>>
->>>>>> vfio_pci_dma_buf_cleanup() assumed all VFIO device DMABUFs need to be
->>>>>> revoked.  However, if vfio_pci_dma_buf_move() revokes DMABUFs before
->>>>>> the fd/device closes, then vfio_pci_dma_buf_cleanup() would do a
->>>>>> second/underflowing kref_put() then wait_for_completion() on a
->>>>>> completion that never fires.  Fixed by predicating on revocation
->>>>>> status.
->>>>>>
->>>>>> This could happen if PCI_COMMAND_MEMORY is cleared before closing the
->>>>>> device fd (but the scenario is more likely to hit when future commits
->>>>>> add more methods to revoke DMABUFs).
->>>>>>
->>>>>> Fixes: 1a8a5227f2299 ("vfio: Wait for dma-buf invalidation to complete")
->>>>>> Signed-off-by: Matt Evans <mattev@meta.com>
->>>>>> ---
->>>>>>
->>>>>> (Just a fix, but later "vfio/pci: Convert BAR mmap() to use a DMABUF"
->>>>>> and "vfio/pci: Permanently revoke a DMABUF on request" depend on this
->>>>>> context, so including in this series.)
->>>>>
->>>>> We really need a fix for this split out from this series, It's already
->>>>> been shown[1] that this is trivially reachable.  Carlos proposed[2] a
->>>>> similar solution to the one below.  I was concurrently working on the
->>>>> issued and suggested an alternative[3].  Let's pick a solution for
->>>>> 7.1-rc.  Thanks,
->>>>
->>>> It looks like [3] is progressing, so I'll drop this one when I can rebase
->>>> onto it.
->>>>
->>>> I noticed [3] removes the dma_resv_lock(priv->dmabuf->resv) around the
->>>> priv->vdev = NULL, and this series' vfio_pci_mmap_huge_fault() relies on
->>>> vdev only changing whilst resv is held to resolve a race between a fault and
->>>> cleanup (see patch 7 of this series).  The handler takes resv so that it can
->>>> stably test vdev in order to take memory_lock.
->>>
->>> I think that you should rely on priv->revoked and not on priv->vdev.
->>
->> Needs both unfortunately, as the fault handler ultimately needs to take
->> vdev->memory_lock.
-> 
-> One can argue that if priv->revoked == True, all accesses to device
-> should be denied and treated as priv->vdev == Null.
+[ Upstream commit aed3d041ab061ec8a64f50a3edda0f4db7280025 ]
 
-I agree, the handler will early-exit when a buffer is revoked.  Though 
-when it _isn't_ revoked, it still needs to go through a careful set of 
-steps to keep vdev around long enough to take the lock (and ensure it 
-still isn't revoked, etc.).
+Starting with commit 17ce8a6907f7 ("drm/amd/display: Add dsc pre-validation in
+atomic check"), amdgpu resets the CRTC state mode_changed flag to false when
+recomputing the DSC configuration results in no timing change for a particular
+stream.
 
-I think the sequence in patch 7 still works (with Alex's patch in [3]), 
-since the invariants still hold:
+However, this is incorrect in scenarios where a change in MST/DSC configuration
+happens in the same KMS commit as another (unrelated) mode change. For example,
+the integrated panel of a laptop may be configured differently (e.g., HDR
+enabled/disabled) depending on whether external screens are attached. In this
+case, plugging in external DP-MST screens may result in the mode_changed flag
+being dropped incorrectly for the integrated panel if its DSC configuration
+did not change during precomputation in pre_validate_dsc().
 
-- if not-revoked then vdev is still valid (IOW, vdev = NULL only happens 
-after revoked = true)
-- revoke is only changed when holding priv->dmabuf->resv
+At this point, however, dm_update_crtc_state() has already created new streams
+for CRTCs with DSC-independent mode changes. In turn,
+amdgpu_dm_commit_streams() will never release the old stream, resulting in a
+memory leak. amdgpu_dm_atomic_commit_tail() will never acquire a reference to
+the new stream either, which manifests as a use-after-free when the stream gets
+disabled later on:
 
-OK, [3] doesn't seem to break this series (just context/rebase).  Sorry 
-for the thinking out loud, it'll be good if someone sees a flaw in my 
-reasoning though.
+BUG: KASAN: use-after-free in dc_stream_release+0x25/0x90 [amdgpu]
+Write of size 4 at addr ffff88813d836524 by task kworker/9:9/29977
 
-[3] was https://lore.kernel.org/all/20260429142242.70f746b4@nvidia.com/
+Workqueue: events drm_mode_rmfb_work_fn
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0x6e/0xa0
+ print_address_description.constprop.0+0x88/0x320
+ ? dc_stream_release+0x25/0x90 [amdgpu]
+ print_report+0xfc/0x1ff
+ ? srso_alias_return_thunk+0x5/0xfbef5
+ ? __virt_addr_valid+0x225/0x4e0
+ ? dc_stream_release+0x25/0x90 [amdgpu]
+ kasan_report+0xe1/0x180
+ ? dc_stream_release+0x25/0x90 [amdgpu]
+ kasan_check_range+0x125/0x200
+ dc_stream_release+0x25/0x90 [amdgpu]
+ dc_state_destruct+0x14d/0x5c0 [amdgpu]
+ dc_state_release.part.0+0x4e/0x130 [amdgpu]
+ dm_atomic_destroy_state+0x3f/0x70 [amdgpu]
+ drm_atomic_state_default_clear+0x8ee/0xf30
+ ? drm_mode_object_put.part.0+0xb1/0x130
+ __drm_atomic_state_free+0x15c/0x2d0
+ atomic_remove_fb+0x67e/0x980
 
+Since there is no reliable way of figuring out whether a CRTC has unrelated
+mode changes pending at the time of DSC validation, remember the value of the
+mode_changed flag from before the point where a CRTC was marked as potentially
+affected by a change in DSC configuration. Reset the mode_changed flag to this
+earlier value instead in pre_validate_dsc().
 
-Matt
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5004
+Fixes: 17ce8a6907f7 ("drm/amd/display: Add dsc pre-validation in atomic check")
+Signed-off-by: Yussuf Khalil <dev@pp3345.net>
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit cc7c7121ae082b7b82891baa7280f1ff2608f22b)
+Signed-off-by: Fang Wang <32840572@qq.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c          | 5 +++++
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h          | 1 +
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    | 7 +++++--
+ 3 files changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 7eff2b94ab66..bb5e3a6086f2 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -9908,6 +9908,11 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 
+ #if defined(CONFIG_DRM_AMD_DC_DCN)
+ 	if (dc_resource_is_dsc_encoding_supported(dc)) {
++		for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state, new_crtc_state, i) {
++			dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
++			dm_new_crtc_state->mode_changed_independent_from_dsc = new_crtc_state->mode_changed;
++		}
++
+ 		for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state, new_crtc_state, i) {
+ 			if (drm_atomic_crtc_needs_modeset(new_crtc_state)) {
+ 				ret = add_affected_mst_dsc_crtcs(state, crtc);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index df18b4df1f2c..12385b6f8443 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -698,6 +698,7 @@ struct dm_crtc_state {
+ 
+ 	bool freesync_vrr_info_changed;
+ 
++	bool mode_changed_independent_from_dsc;
+ 	bool dsc_force_changed;
+ 	bool vrr_supported;
+ 	struct mod_freesync_config freesync_config;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index 495491decec1..94c83a707acc 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -1564,8 +1564,11 @@ int pre_validate_dsc(struct drm_atomic_state *state,
+ 		} else {
+ 			int ind = find_crtc_index_in_state_by_stream(state, stream);
+ 
+-			if (ind >= 0)
+-				state->crtcs[ind].new_state->mode_changed = 0;
++			if (ind >= 0) {
++				struct dm_crtc_state *dm_new_crtc_state = to_dm_crtc_state(state->crtcs[ind].new_state);
++
++				dm_new_crtc_state->base.mode_changed = dm_new_crtc_state->mode_changed_independent_from_dsc;
++			}
+ 		}
+ 	}
+ clean_exit:
+-- 
+2.34.1
+
