@@ -4,58 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E7ABCD343F
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 21:50:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A7E4CD343F
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 22:01:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F413810F2A1;
-	Thu,  7 May 2026 21:50:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6965010F2AC;
+	Thu,  7 May 2026 22:01:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="MQ2o752T";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="eGn1A6dx";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3F3B10F2A1
- for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 21:50:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1778190611; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=FjdOf0jkxzABNhEJEIJv/4Txdk8gkNe7Q5KvzcViHR2TEm8iB98zq5G6Bw5ZZhJ5bZyFKOEXMt5zr/WOi4bN48ANrnTaqLRekzvn9sq7mZQHmrM8pRten9qAx6SyME7CC/oIXEDnrCJiGq5cU6Rznip4NLzJjdbUV5DodEK32X0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1778190611;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=cLsPoqXdNgnJpPLfc54fcRrQummLcdcVrXH6Ve1sFN0=; 
- b=gizQizqj17QayR/9Ca0vi3PvbEJWf5clA7RGZFHlJVbx1FMgwVSxUeC3YqJiMuGshHIPoPt4NsOiMA/+6XPJ2wxAGvsNxLq7d1oYYetxWfnMSiKeKAbVNbw8ji7+R/N7/Pw+HmZC93zU1UUHrCSQPa0hu0ZLyt6haF2U+BMRr9Q=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
- dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1778190611; 
- s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=cLsPoqXdNgnJpPLfc54fcRrQummLcdcVrXH6Ve1sFN0=;
- b=MQ2o752TEJtJcVTgo2KRvTnjcI5oOXpaTdoM2UjQLNy/Ze/jvvwMAKUo/B8sbcDv
- N4uHF6RSrsku3aZ6v2LrD4C8qvOwq8LgB2IpaGrx4elSHFGBAreu/JOrMp8DcYXWe07
- 68DyvEPX9UFMY/BLqJISDc7Hc6JyPYrj/ifT96Wc=
-Received: by mx.zohomail.com with SMTPS id 1778190609763546.4197834228718;
- Thu, 7 May 2026 14:50:09 -0700 (PDT)
-From: =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>
-To: linux-kernel@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org, Steven Price <steven.price@arm.com>,
- Boris Brezillon <boris.brezillon@collabora.com>, kernel@collabora.com,
- =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Subject: [PATCH v11 6/6] drm/panthor: Bump the driver version to 1.9
-Date: Thu,  7 May 2026 22:49:07 +0100
-Message-ID: <20260507214939.2852489-7-adrian.larumbe@collabora.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260507214939.2852489-1-adrian.larumbe@collabora.com>
-References: <20260507214939.2852489-1-adrian.larumbe@collabora.com>
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 242BB10F297
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 22:01:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1778191276;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=zKAcFOrw3UOnhiABCMSyb2Xk9WWZbNSVVZtY6eioZ3Q=;
+ b=eGn1A6dxecClRTimpKh7giF3I5GS+cWf/V5ihfTErEpF8BbiW/c/n/GyRC2msKm9ryHYKn
+ WGMxBLWHW1/rf+KysSkm6juEX9qPohf8eHbH8x4LXKHWA8yW5dgGulWLvQFmt8OFLH2WRu
+ Swem0C6JaUh2/HaSsAlSS6f7Yk89X0U=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-523-I5Awh4lLPBOnkIhWD5hhqA-1; Thu,
+ 07 May 2026 18:01:12 -0400
+X-MC-Unique: I5Awh4lLPBOnkIhWD5hhqA-1
+X-Mimecast-MFC-AGG-ID: I5Awh4lLPBOnkIhWD5hhqA_1778191270
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 84A7E18002C9; Thu,  7 May 2026 22:01:09 +0000 (UTC)
+Received: from GoldenWind.lan (unknown [10.22.89.165])
+ by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id 30BD6300019F; Thu,  7 May 2026 22:01:06 +0000 (UTC)
+From: Lyude Paul <lyude@redhat.com>
+To: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org
+Cc: "Gary Guo" <gary@garyguo.net>, "Miguel Ojeda" <ojeda@kernel.org>,
+ "Simona Vetter" <simona@ffwll.ch>, "Alice Ryhl" <aliceryhl@google.com>,
+ Nova-gpu@lists.linux.dev, "Shankari Anand" <shankari.ak0208@gmail.com>,
+ "David Airlie" <airlied@gmail.com>, "Benno Lossin" <lossin@kernel.org>,
+ "Danilo Krummrich" <dakr@kernel.org>,
+ "Asahi Lina" <lina+kernel@asahilina.net>,
+ "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>,
+ "Daniel Almeida" <daniel.almeida@collabora.com>,
+ "Lyude Paul" <lyude@redhat.com>
+Subject: [PATCH v6 0/3] Introduce DeviceContext
+Date: Thu,  7 May 2026 17:59:18 -0400
+Message-ID: <20260507220044.3204919-1-lyude@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+X-Mimecast-MFC-PROC-ID: Zd1krHezuBicSVsbfd-_6-1cLAvNMBb3-rnFWIZUQpM_1778191270
+X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
+content-type: text/plain; charset="US-ASCII"; x-default=true
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,38 +78,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Bump the driver version to reflect the new DRM_PANTHOR_DEV_QUERY_MMU_INFO
-query type and the DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE flag.
+Previous version of this patch series:
+  https://patchwork.freedesktop.org/series/160217/#rev5
 
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-Reviewed-by: Steven Price <steven.price@arm.com>
-Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
----
- drivers/gpu/drm/panthor/panthor_drv.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+One of the unsolved issues we still have with the rust DRM bindings is
+the ability to limit certain Device operations to contexts where we can
+guarantee that a Device has been fully initialized and registered with
+userspace, or vice-versa (e.g. must be unregistered).
 
-diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-index beca75b34293..d0070a28a634 100644
---- a/drivers/gpu/drm/panthor/panthor_drv.c
-+++ b/drivers/gpu/drm/panthor/panthor_drv.c
-@@ -1787,6 +1787,8 @@ static void panthor_debugfs_init(struct drm_minor *minor)
-  *       - adds DRM_IOCTL_PANTHOR_BO_QUERY_INFO ioctl
-  *       - adds drm_panthor_gpu_info::selected_coherency
-  * - 1.8 - extends DEV_QUERY_TIMESTAMP_INFO with flags
-+ * - 1.9 - adds DRM_PANTHOR_DEV_QUERY_MMU_INFO query
-+ *       - adds DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE flag
-  */
- static const struct drm_driver panthor_drm_driver = {
- 	.driver_features = DRIVER_RENDER | DRIVER_GEM | DRIVER_SYNCOBJ |
-@@ -1800,7 +1802,7 @@ static const struct drm_driver panthor_drm_driver = {
- 	.name = "panthor",
- 	.desc = "Panthor DRM driver",
- 	.major = 1,
--	.minor = 8,
-+	.minor = 9,
- 
- 	.gem_prime_import_sg_table = panthor_gem_prime_import_sg_table,
- 	.gem_prime_import = panthor_gem_prime_import,
+While the previous solution for this that I had was simply not exposing
+drm::Device at all until the device has been registered with userspace,
+unfortunately this isn't enough since:
+
+* As we found out with Tyr, drivers occasionally need to be able to
+  create GEM objects before device registration
+* We would still need to be able to handle KMS callbacks which could be
+  invoked after KMS init but before userspace registration (not handled
+  in this series specifically, but DeviceContext will be required for
+  handling this).
+
+This patch series provides a pretty nice solution to this, by
+implementing a very similar solution to kernel::device::DeviceContext:
+introducing our own DeviceContext type state.
+
+                          Series-wide changes
+
+V2:
+* s/DeviceCtx/DeviceContext/ for consistency
+* Move private driver-data availability to the Registration
+  DeviceContext
+* s/AnyCtx/Init/
+V4:
+* Split out DriverAllocImpl into it's own patch
+V6:
+* Rebase
+
+More changes described in each patch description.
+
+Lyude Paul (3):
+  rust/drm: Introduce DeviceContext
+  rust/drm/gem: Add DriverAllocImpl type alias
+  rust/drm/gem: Use DeviceContext with GEM objects
+
+ drivers/gpu/drm/nova/driver.rs |  10 +-
+ drivers/gpu/drm/nova/gem.rs    |  15 ++-
+ drivers/gpu/drm/tyr/driver.rs  |  12 +-
+ drivers/gpu/drm/tyr/gem.rs     |  11 +-
+ rust/kernel/drm/device.rs      | 240 +++++++++++++++++++++++++--------
+ rust/kernel/drm/driver.rs      |  37 +++--
+ rust/kernel/drm/gem/mod.rs     |  72 +++++++---
+ rust/kernel/drm/gem/shmem.rs   |  57 ++++----
+ rust/kernel/drm/mod.rs         |   4 +
+ 9 files changed, 333 insertions(+), 125 deletions(-)
+
+
+base-commit: 37f748ed0c19e007e7c5677f5d605d6b93841792
 -- 
-2.53.0
+2.54.0
 
