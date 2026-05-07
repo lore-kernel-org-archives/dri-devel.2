@@ -4,61 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9919ACD3427
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 10:38:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB5D1CD3427
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 10:47:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99DE310E263;
-	Thu,  7 May 2026 10:38:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0801710E27C;
+	Thu,  7 May 2026 10:47:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="SSLrc/lN";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="h/zcRLW7";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49B2C10EFBB
- for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 10:38:33 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id B7DFB664;
- Thu,  7 May 2026 12:38:27 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1778150307;
- bh=ydmTmsjfRJ0hth7ILhAiLaP0jMYvJoZgq1tSBlpEHq8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=SSLrc/lNt577vc7KdRU5Lp7rvS19wjBj/Atp47wfhnbIQE29QoLJ9Z/c0K9jzOxMV
- P+0fOPK2eBeuitkxn2PxO76f2/ceMBkRx+EiwzLx0uHlfYzXQHv2INJ3XT+eJWAvEl
- 2ToegnWLEYNhE3g++h6115a5yHLIzBGuC3nZoonk=
-Date: Thu, 7 May 2026 13:38:30 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Biju Das <biju.das.jz@bp.renesas.com>
-Cc: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- "magnus.damm" <magnus.damm@gmail.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
- Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
- Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH 1/4] dt-bindings: display: renesas,rzg2l-du: Add RZ/T2H
- and RZ/N2H support
-Message-ID: <20260507103830.GM1778786@killaraus.ideasonboard.com>
-References: <20260429170012.366537-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260429170012.366537-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260506195002.GA1778786@killaraus.ideasonboard.com>
- <CA+V-a8u8=mfR0zDJRNMEjnjrzFVAkOrqtro05Zgd1JFqGRByKw@mail.gmail.com>
- <TY3PR01MB1134676FA7479724BDCE40649863C2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <TY3PR01MB1134676FA7479724BDCE40649863C2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4557610E27C;
+ Thu,  7 May 2026 10:47:52 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 599D460252;
+ Thu,  7 May 2026 10:47:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8E63C2BCB2;
+ Thu,  7 May 2026 10:47:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1778150871;
+ bh=2khru/DOkaa/Vn4AxiniN4WAypSs00tFxSzj+sF3p68=;
+ h=Date:From:To:Cc:Cc:Cc:Cc:Cc:Cc:Cc:Subject:From;
+ b=h/zcRLW7hTLI82O7Edb8zvEpGX24DPBS9WcqSQeYj2QUetIhtmDg5EoNpMz8+kcm9
+ jtdozRgyN0HR5ivBWsFcfcAo9FU8Pf8a5Ibfp7+Qynb+fgb04A52YnbqmgbaPj+Mna
+ OI3JqSm7RJHvWNzQsvDHFU2BQ9JC7uxojxBe49Sf4MuWSR5/xbJiLDpUM5YuQ/Lqoj
+ 3XNgZojW0xt/Gqjvbz/Vn4G2DAmEeAuLX5aia3wgARZHh56Pd9WN7Cs1yNhSDcMsx7
+ 3xsfEZBO0o+G1XADm2cJQhe4H4Tb0TFto+VbqWDdirWZAZrr+IhIC2xzswUPyrhReM
+ Xj6ZMRrUSS6mQ==
+Date: Thu, 07 May 2026 12:47:48 +0200
+Message-ID: <3b729608ad4bc3bb161c3779a9768b12@kernel.org>
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Simona Vetter <simona.vetter@ffwll.ch>
+Cc: DRI <dri-devel@lists.freedesktop.org>
+Cc: Intel Graphics <intel-gfx@lists.freedesktop.org>
+Cc: Dharma Balasubiramani <dharma.b@microchip.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Manikandan Muralidharan <manikandan.m@microchip.com>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Cc: Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: linux-next: build failure after merge of the pinctrl-intel tree
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,53 +57,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, May 07, 2026 at 09:24:48AM +0000, Biju Das wrote:
-> On 06 May 2026 20:58, Lad, Prabhakar wrote:
-> > On Wed, May 6, 2026 at 8:50 PM Laurent Pinchart wrote:
-> > > On Wed, Apr 29, 2026 at 06:00:09PM +0100, Prabhakar wrote:
-> > > > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> > > >
-> > > > Document the Display Unit (DU) support for the RZ/T2H and RZ/N2H SoCs.
-> > > >
-> > > > The DU block on RZ/T2H is functionally equivalent to the RZ/G2UL DU
-> > > > and supports the DPI interface, but includes SoC-specific register differences.
-> > > > Add a dedicated compatible string to represent this variant.
-> > > >
-> > > > As the DU implementation on RZ/N2H matches RZ/T2H, describe it using
-> > > > an RZ/N2H specific compatible string with the RZ/T2H compatible as fallback.
-> > > >
-> > > > Unlike other DU variants which use a multi-port model, the RZ/T2H
-> > > > and RZ/N2H DU has a single output and is modelled using a single
-> > > > port node with one endpoint. Add a port property to support this and
-> > > > update the allOf constraints accordingly.
-> > >
-> > > Wouldn't it be simpler to always have a "ports" node, even for
-> > > variants with a single port ?
-> > >
-> > I agree that, from a binding perspective, always having a "ports" node keeps things simpler and
-> > consistent. Biju suggested this change based on earlier feedback for the RZ/G3E series.
-> 
-> From G3E feedback, I got the impression that going forward all future SoCs needs to have
-> single port and multiple endpoints. That is the reason for suggesting port for new SoCs.
+Hi all,
 
-Right, let's clarify that.
+After merging the drm-misc tree, today's linux-next build (x86_64
+allmodconfig) failed like this:
 
-TL;DR: it depends on the hardware architecture (what a surprise :-))
+  drivers/gpu/drm/bridge/microchip-lvds.c:132:44: error: 'struct drm_atomic_state' declared inside parameter list will not be visible outside of this definition or declaration [-Werror]
+    132 |                                     struct drm_atomic_state *state)
+        |                                            ^~~~~~~~~~~~~~~~
+  drivers/gpu/drm/bridge/microchip-lvds.c: In function 'mchp_lvds_atomic_enable':
+  drivers/gpu/drm/bridge/microchip-lvds.c:153:62: error: passing argument 1 of 'drm_atomic_get_new_connector_for_encoder' from incompatible pointer type [-Wincompatible-pointer-types]
+    153 |         connector = drm_atomic_get_new_connector_for_encoder(state, bridge->encoder);
+        |                                                              ^~~~~
+        |                                                              |
+        |                                                              struct drm_atomic_state *
+  In file included from include/drm/drm_bridge.h:31,
+                   from drivers/gpu/drm/bridge/microchip-lvds.c:25:
+  include/drm/drm_atomic.h:758:74: note: expected 'const struct drm_atomic_commit *' but argument is of type 'struct drm_atomic_state *'
+    758 | drm_atomic_get_new_connector_for_encoder(const struct drm_atomic_commit *state,
+        |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~
+  drivers/gpu/drm/bridge/microchip-lvds.c: At top level:
+  drivers/gpu/drm/bridge/microchip-lvds.c:161:45: error: 'struct drm_atomic_state' declared inside parameter list will not be visible outside of this definition or declaration [-Werror]
+    161 |                                      struct drm_atomic_state *state)
+        |                                             ^~~~~~~~~~~~~~~~
+  drivers/gpu/drm/bridge/microchip-lvds.c:171:26: error: initialization of 'void (*)(struct drm_bridge *, struct drm_atomic_commit *)' from incompatible pointer type 'void (*)(struct drm_bridge *, struct drm_atomic_state *)' [-Wincompatible-pointer-types]
+    171 |         .atomic_enable = mchp_lvds_atomic_enable,
+        |                          ^~~~~~~~~~~~~~~~~~~~~~~
+  drivers/gpu/drm/bridge/microchip-lvds.c:171:26: note: (near initialization for 'mchp_lvds_bridge_funcs.atomic_enable')
+  drivers/gpu/drm/bridge/microchip-lvds.c:172:27: error: initialization of 'void (*)(struct drm_bridge *, struct drm_atomic_commit *)' from incompatible pointer type 'void (*)(struct drm_bridge *, struct drm_atomic_state *)' [-Wincompatible-pointer-types]
+    172 |         .atomic_disable = mchp_lvds_atomic_disable,
+        |                           ^~~~~~~~~~~~~~~~~~~~~~~~
+  drivers/gpu/drm/bridge/microchip-lvds.c:172:27: note: (near initialization for 'mchp_lvds_bridge_funcs.atomic_disable')
 
-When reviewing the G3E, I noticed that the LCDC has a single output that
-is connected to one or multiple encoders, depending on the SoC. I think
-this should be modeled in DT with a single port.
+Caused by commit
 
-Note that this does not preclude using a "ports" node, containing a
-single "port@0". If you're confident enough that no future generation
-will require multiple ports, then it makes sense to standardize on a
-single "port" node and no "ports". If, on the other hand, you think that
-some SoCs would have multiple ports, then using a top-level "ports" node
-unconditionally would lead to simpler bindings.
+  c4cbe5d9e87d ("drm/bridge: microchip-lvds: migrate to atomic bridge ops")
 
-I'll let you all decide what you think is the most suitable approach.
+from the drm-misc tree interacting badly with commit
 
+  5164f7e7ff8e ("drm: Rename struct drm_atomic_state to drm_atomic_commit")
+
+from the drm tree.
+
+I fixed it up (see below) and can carry the fix for now, but please get
+this fixed in the drm-misc tree.
+
+Thanks,
+Thierry
+
+diff --git a/drivers/gpu/drm/bridge/microchip-lvds.c b/drivers/gpu/drm/bridge/microchip-lvds.c
+index 12fc442f9867..5fb8633f43c5 100644
+--- a/drivers/gpu/drm/bridge/microchip-lvds.c
++++ b/drivers/gpu/drm/bridge/microchip-lvds.c
+@@ -129,7 +129,7 @@ static int mchp_lvds_attach(struct drm_bridge *bridge,
+ }
+ 
+ static void mchp_lvds_atomic_enable(struct drm_bridge *bridge,
+-				    struct drm_atomic_state *state)
++				    struct drm_atomic_commit *state)
+ {
+ 	struct mchp_lvds *lvds = bridge_to_lvds(bridge);
+ 	struct drm_connector *connector;
+@@ -158,7 +158,7 @@ static void mchp_lvds_atomic_enable(struct drm_bridge *bridge,
+ }
+ 
+ static void mchp_lvds_atomic_disable(struct drm_bridge *bridge,
+-				     struct drm_atomic_state *state)
++				     struct drm_atomic_commit *state)
+ {
+ 	struct mchp_lvds *lvds = bridge_to_lvds(bridge);
+ 
 -- 
-Regards,
-
-Laurent Pinchart
+2.52.0
