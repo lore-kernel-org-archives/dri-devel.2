@@ -4,123 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65C01CD37AC
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1980CD3436
 	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 07:56:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A28E910F3C1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C713F10F3C3;
 	Fri,  8 May 2026 07:56:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="sC/HxRbj";
+	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=panix.com header.i=@panix.com header.b="nMlLegKM";
 	dkim-atps=neutral
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 202C610E2A7
- for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 16:10:04 +0000 (UTC)
-Received: from pps.filterd (m0528004.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 646MX9nb3763922
- for <dri-devel@lists.freedesktop.org>; Thu, 7 May 2026 09:10:03 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
- bh=eFG1vBkuGjV5WqwCWdKJSFjXXoeKLNuaVc0SsnohSl0=; b=sC/HxRbj/khP
- lauwqZ9En1m3PiufFWhk2MVi8NnVzUAemf9bI6F5CBdj1cHPIggkaXe2/+EQOCEU
- Qfst0vpp73IxZdukxzFpSLZ/U+7vQBDU5pepEIqV/Iud44cWwJgw12gI1g58sTtM
- KksXYFPHQ8h6CUL6YKHLFFteuLAoXy3X/XAZiCtRuXtKlenAOWQS4xrDbUZ67XKR
- BAi7ALQLC2NtDOk9eMoLHqLiIEvmiSJgtKCAHe7XRwq5NbKpCcUkRb+O1q4FcLKp
- jMlfnYMVmysh10DkwwgF9TodXhraCJ5gFNKqgDPilbYYJj3L3jdHUXWSyilWfZwb
- YMz6VepcRw==
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69])
- by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4dx2we5fyt-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 09:10:03 -0700 (PDT)
-Received: by mail-wr1-f69.google.com with SMTP id
- ffacd0b85a97d-44696b11265so1128243f8f.0
- for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 09:10:02 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778170202; x=1778775002;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=eFG1vBkuGjV5WqwCWdKJSFjXXoeKLNuaVc0SsnohSl0=;
- b=Fo/dGGyCdx1kbg+WXqIymyjBAkN07kMQvsLgODtO6h5x7g4jm6Ea5s8e+B1TBsdeRx
- 5P3xBmWdusV8K1oBakU41wvxB/K/OuUsWQr1V8UElZs8M1Gh50aNODtPmE8VkMygHrCV
- C9hUFXVnexYFN3/zg6BJjiBmjx31bxLpcmNt5rzm6oYgaS8Hr2VozIEs9buyamLarkim
- nJC24KrqzMeqO07kVDDKSgANzwWGQRZJpZjO6grNEAe+nYk9Ii4zuxMxx+PDdhPCRiud
- 0mBHrJw8wavcfXS/sAc7nav2CGpZbd+NVIf84tM8qgl6b+M+39m8iEOHdp8WAd9TwibF
- PFJA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+8MnZxs/oxH1/8ih53WKES7mHZY6Lxk1QykstVJvG4vET5z5+3Tty/ieQN/WQT83qCBmMdMsphrwQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzJRbZV2/9t64kaKm7iG25aordosjzSAYIlxqJqIxB0Ibq4SNip
- BrL+tGp4C86qvy7CKzk0ySUYzJpjOTVlu67+23pm2rlyi/JwNgSuFPnhoYiaqrT3LFQd2L+Ag+m
- RwkZ4zdDuCOCQMu6jibzVJ8YnqdoynI3fSDPmvSr2bOOu49OwKWlgs91+RBx8gf9Il4R9
-X-Gm-Gg: AeBDieuOQIwa8x+UZBRlhwCGFAuu0fXkJbZKuDQY9uCo4tXAHDR5L0p+LN5nMVCj2J1
- JjhQUP8anWTbERnyIOp3W+tqDR6dUrZnBeNR9Cm9szm7/L6ktCbJro11obXQGcQtDwxLHSlZhGe
- SYZ9fYkULx492EuKJSB/ppCPaTpOxEDzGMfWSCa467IQirLmawO8/lpCCsWSckTrqXOkN88Cx2m
- fRwymSeVN53ZTk73cCjW+UI7hsIlpb+3wpECwGL6LTrkO2iwQdklmFqTvs9TI7OhVC3NY0VgXuP
- KbgPkLmN6axSZmX5gp15ggOPnfgFMVsaoy2uYtV7Je5n7Io4hYVdBCzIAxcpTVH+PX+CwizloFH
- Co+5Z8wZzwtSL7pDc2N3YmSjMVQb/PUZHkdrv+kJmseri2HVy7q6cxuWUD7Bq5aOlH6uDHsmrel
- M5m2uiIM7N6sz6Sq/8VPE/RNwOCQ1P7do43CTxV5utvFXOUEBGMLGjjZ5jikyREM+FZKvSJWTrp
- OjhFA25f2UdiNbY50829Tc=
-X-Received: by 2002:a5d:5f47:0:b0:43d:613:33de with SMTP id
- ffacd0b85a97d-4515cf11d94mr13854420f8f.20.1778170201775; 
- Thu, 07 May 2026 09:10:01 -0700 (PDT)
-X-Received: by 2002:a5d:5f47:0:b0:43d:613:33de with SMTP id
- ffacd0b85a97d-4515cf11d94mr13854369f8f.20.1778170201226; 
- Thu, 07 May 2026 09:10:01 -0700 (PDT)
-Received: from ?IPV6:2001:8b0:8b6:13d4:102e:f2af:e074:5cde?
- (e.d.c.5.4.7.0.e.f.a.2.f.e.2.0.1.4.d.3.1.6.b.8.0.0.b.8.0.1.0.0.2.ip6.arpa.
- [2001:8b0:8b6:13d4:102e:f2af:e074:5cde])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45412820454sm149530f8f.6.2026.05.07.09.09.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 May 2026 09:10:00 -0700 (PDT)
-Message-ID: <2a75c858-5dfe-4b93-98fc-909a2ee5558d@meta.com>
-Date: Thu, 7 May 2026 17:09:59 +0100
+Received: from mailbackend.panix.com (mailbackend.panix.com [166.84.1.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0F1310E29D;
+ Thu,  7 May 2026 18:55:58 +0000 (UTC)
+Received: from [192.168.126.122] (ip72-219-82-239.oc.oc.cox.net
+ [72.219.82.239])
+ by mailbackend.panix.com (Postfix) with ESMTPSA id 4gBM0D4szpz4vYg;
+ Thu,  7 May 2026 14:55:56 -0400 (EDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=panix.com; s=panix;
+ t=1778180158; bh=0JRspU6Ag1qbFyJEo754biQR9Gl1feunZsM8EHK3oAA=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=nMlLegKMP2oZ0Kz5oVC0yOJgmC2ZptuvaTFMYXE3HB2hsTOvrjatRSRg4Yf9pGbBH
+ qaY3jmpA27R8EXrjUsatP4kkitGHjKbVvR4ZuibdfUryWg9IwO6jwcOmMszEuJuT+w
+ OyEwKD8Aw414CZe0PDkaCEGrRVnSdqSSGuqa4oVE=
+Content-Type: multipart/mixed; boundary="------------0pxR5AsLyaF5gTLlhV9PxJUY"
+Message-ID: <f457fa71-c1e1-4490-9db5-d8d56766882b@panix.com>
+Date: Thu, 7 May 2026 11:55:55 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/9] vfio/pci: Support mmap() of a VFIO DMABUF
-Content-Language: en-GB
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
- Alex Mastro <amastro@fb.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>,
- Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
- =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>,
- Pranjal Shrivastava <praan@google.com>, Alistair Popple
- <apopple@nvidia.com>, Vivek Kasireddy <vivek.kasireddy@intel.com>,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- kvm@vger.kernel.org
-References: <20260416131815.2729131-1-mattev@meta.com>
- <20260416131815.2729131-8-mattev@meta.com>
- <20260424183006.GI3444440@nvidia.com>
-From: Matt Evans <mattev@meta.com>
-In-Reply-To: <20260424183006.GI3444440@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=fLsJG5ae c=1 sm=1 tr=0 ts=69fcb95b cx=c_pps
- a=CsXZvLRfiTx/ye2xXAwb9g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=GbPsI2Ihf5RTnMjR_gZv:22 a=bfFL6uTa8VbwhnMIod8A:9 a=QEXdDO2ut3YA:10
- a=F7q00xkr9EfWfQvbdVXI:22
-X-Proofpoint-GUID: HHOHaD2gQyHnDkTjceNmdaoiZVbW9sC7
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA3MDE2MSBTYWx0ZWRfXwkkUntf3R7Qo
- 3VOD8u54AxDL3s4y6vtiB+31esLc/6RGoAuM8K2qr8WB3CTMlDbjIB3YNE7In9+ziymEbP987WU
- yq2vEd0lGQ9ZTzxYHnrgT7w/86rXyXzi2kOL/8jJlfRHZkwnl/FS3Z4lwLhBqBsz+QNze9EknSN
- pBhCsyoqKgO3laWEaI2dIA/hTGIDOOD2kTtJbiXZNDqgIEkgesUeZ1c7pyocJP7KD2VR5v8N+Qr
- FGDvjsZyQhyVu6va5JlYVkyQTWTp6erfMd/Lzs8adPox/ptrn1zjXmqutqSZWSgHP0FEi8GyWy2
- XYO+KiRLddLKzDRqOEuYwER42a/2nuBWVZS+dTh4sQs9sETdY4wfU5aJtklALi2GcjVwaVJhHEy
- iUwDySv07LPZURm96WXxCL+rXYuM6CsMmHLjtDna0ikhOLhzRomugeSvCez/mZAUXIvwVZEw6Xk
- X8tbJHN7MctxASHxGUg==
-X-Proofpoint-ORIG-GUID: HHOHaD2gQyHnDkTjceNmdaoiZVbW9sC7
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-07_01,2026-05-06_01,2025-10-01_01
+Subject: Re: PATCH v4 0/6] mm, drm/ttm, drm/xe: Avoid reclaim/eviction loops
+ under fragmentation
+To: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20260430191809.2142544-1-matthew.brost@intel.com>
+ <20260430191809.2142544-3-matthew.brost@intel.com>
+ <f25f27a1-bf09-44bd-9b37-49f159d82d6a@panix.com>
+Content-Language: en-US
+From: Kenneth Crudup <kenny@panix.com>
+In-Reply-To: <f25f27a1-bf09-44bd-9b37-49f159d82d6a@panix.com>
 X-Mailman-Approved-At: Fri, 08 May 2026 07:55:51 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -137,56 +63,266 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Jason,
+This is a multi-part message in MIME format.
+--------------0pxR5AsLyaF5gTLlhV9PxJUY
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 24/04/2026 19:30, Jason Gunthorpe wrote:
+
+Perhaps this issue actually lies elsewhere?
+
+I've been working with this patchset for a few days now and while it 
+does seem to fix my "runaway kswapd" issue, every now and then I'd get a 
+hard panic while seeking in large-format video files (using the "mpv" 
+video player, FWIW). Suspecting it had to do with the shrinker path in 
+this patch, I'd started looking at ways to burn thru memory to verify 
+that hypothesis and found the following one-liner:
+
+echo {1..1000000000}
+
+It works perfectly- eats thru all it can, until it gets OOMed. Thing 
+was, after this would run, kswapd would go runaway again, even if this 
+was run on a freshly-booted system (I'd also have a few Chrome tabs open).
+
+As I run Linus' master on my LunarLake box I tried running this again on 
+the stock ((K)ubuntu 7.0.0-15-generic) kernel, and once the oom_reaper 
+killed off the bash, the system settled down to normal again with no 
+runaway kswapd as before. So I recompiled back to 7.0 with my preferred 
+config options (minimal modules, a bigger log_buf, that kind of thing) 
+and the runaway kswapd issue persisted after the bash was OOMed.
+
+I then built 7.0.0 again, using the basic kernel.org source version (as 
+I know sometimes Ubuntu special-sauces their kernels) BUT using the 
+config from Ubuntu's stock generic 7.0, and huh- the problem didn't 
+occur. I went all the way to 7.0.3 with the same result, so the problem 
+had to have been in the config options I'd used.
+
+It took some doing and some trial-and-error but I was able to generate a 
+custom defconfig for my machine that has the right config options so 
+that now after the bash gets killed off, kswapd quiets down. I've 
+attached a diff of the savedefconfig'ed defconfig for reference (So is 
+it CMA? PSI? CGROUP? ?? ... maybe someone here can tell me which option 
+made the difference, I'm kind of over fine-graining it any longer :) )
+
+But now here's the thing- since fixing the defconfig options, I'm now 
+back to running Linus' master kernel (which has the drm-next Xe memory 
+changes/fixes that presumably warrant the patchset in this thread) and 
+no matter what I do to reproduce the reclaim/eviction loops (and I could 
+easily before in the 7.1-rcX series- making a kernel, running bonnie++ , 
+the bash one-liner above), I haven't been able to, and WITHOUT this patch.
+
+-Kenny
+
+On 5/1/26 12:08, Kenneth Crudup wrote:
 > 
-> On Thu, Apr 16, 2026 at 06:17:50AM -0700, Matt Evans wrote:
->> +
->> +	dma_resv_lock(priv->dmabuf->resv, NULL);
->>   	vdev = READ_ONCE(priv->vdev);
->>
->> +	if (READ_ONCE(priv->revoked) || !vdev) {
+> On 4/30/26 12:18, Matthew Brost wrote:
 > 
-> Why is this read once? It is inside the resv lock so it is stable?
+>> Introduce zone_maybe_fragmented_in_shrinker() as a lightweight helper to
+>> allow subsystems to make coarse decisions about reclaim behavior in the
+>> presence of likely fragmentation
 > 
->> +		pr_debug_ratelimited("%s VA 0x%lx, pgoff 0x%lx: DMABUF revoked/cleaned up\n",
->> +				     __func__, vmf->address, vma->vm_pgoff);
->> +		dma_resv_unlock(priv->dmabuf->resv);
->> +		return VM_FAULT_SIGBUS;
->> +	}
->> +	/* vdev is usable */
->> +
->> +	if (!vfio_device_try_get_registration(&vdev->vdev)) {
->> +		/*
->> +		 * If vdev != NULL (above), the registration should
->> +		 * already be >0 and so this try_get should never
->> +		 * fail.
->> +		 */
->> +		dev_warn(&vdev->pdev->dev, "%s: Unexpected registration failure\n",
->> +			 __func__);
->> +		dma_resv_unlock(priv->dmabuf->resv);
->> +		return VM_FAULT_SIGBUS;
->> +	}
->> +	dma_resv_unlock(priv->dmabuf->resv);
->> +
->>   	scoped_guard(rwsem_read, &vdev->memory_lock) {
->> -		if (!priv->revoked) {
->> +		if (!READ_ONCE(priv->revoked)) {
+> I'm running Linus' master on my LunarLake (258v) laptop, and sometimes 
+> after compiling a kernel (of all things) I'd see kswapd0 thrash despite 
+> having quite a bit of free memory.
 > 
-> Same here, it is not read once since you hold the memory_lock it is
-> stable.
-
-I used them more as an 'eyecatcher' to complement the comment.  Although 
-they're not strictly required (compiler barriers at the lock/unlocks), 
-they stand out to say "something's going on here".
-
-Revoked/status is read first holding resv, and _must be read a second 
-time_ once that's released and after memory_lock is taken, so two 
-READ_ONCEs seemed appropriate to show this.
-
-But if you feel strongly, sure, I can remove it (though I'd add, say, a 
-/* Re-read status value */ comment).
+> I finally traced it to the xe driver after seeing the "GPUActive" field 
+> in /proc/meminfo suddenly start rising, eventually growing larger than 
+> real memory by several times (see below).
+> 
+> This patchset fixes the issue, and I'm sure there'll be a fix going into 
+> Linus' master soon, but what I'M wondering is how could building a 
+> kernel (which is just in a KDE Konsole running on Wayland) make the 
+> GPActive grow from ~1.6G to > 30G (and continue to rise, RN I'm seeing 
+> 91839848 kBs and still growing).
+> 
+> -Kenny
 
 
-Matt
+-- 
+Kenneth R. Crudup / Sr. SW Engineer, Scott County Consulting, Orange 
+County CA
+
+--------------0pxR5AsLyaF5gTLlhV9PxJUY
+Content-Type: text/x-patch; charset=UTF-8;
+ name="0001-x86-Yoga9i-Fix-memory-pressure-issues-refine-defconf.patch"
+Content-Disposition: attachment;
+ filename*0="0001-x86-Yoga9i-Fix-memory-pressure-issues-refine-defconf.pa";
+ filename*1="tch"
+Content-Transfer-Encoding: base64
+
+RnJvbSA4ZGE1M2ZhOWQxNzQxYTNmY2ZkOWE1NGZhZTljYTVjZGNiNWMwZDBjIE1vbiBTZXAg
+MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiAiS2VubmV0aCBSLiBDcnVkdXAiIDxrZW5ueUBwYW5p
+eC5jb20+CkRhdGU6IFRodSwgNyBNYXkgMjAyNiAwMzowODoyOSAtMDcwMApTdWJqZWN0OiBb
+UEFUQ0hdIHg4NjogWW9nYTlpOiBGaXggbWVtb3J5LXByZXNzdXJlIGlzc3VlcywgcmVmaW5l
+IGRlZmNvbmZpZwogZnVydGhlcgoKLS0tCiBhcmNoL3g4Ni9jb25maWdzL3lvZ2E5aV9kZWZj
+b25maWcgfCA5MSArKysrKysrKysrKysrLS0tLS0tLS0tLS0tLS0tLS0tCiAxIGZpbGUgY2hh
+bmdlZCwgMzggaW5zZXJ0aW9ucygrKSwgNTMgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEv
+YXJjaC94ODYvY29uZmlncy95b2dhOWlfZGVmY29uZmlnIGIvYXJjaC94ODYvY29uZmlncy95
+b2dhOWlfZGVmY29uZmlnCmluZGV4IGQwYWZiMDUwYmRmYi4uZDZkYzQyZTg5YTliIDEwMDY0
+NAotLS0gYS9hcmNoL3g4Ni9jb25maWdzL3lvZ2E5aV9kZWZjb25maWcKKysrIGIvYXJjaC94
+ODYvY29uZmlncy95b2dhOWlfZGVmY29uZmlnCkBAIC0xLDEzICsxLDE1IEBACiBDT05GSUdf
+TE9DQUxWRVJTSU9OPSIta2VubnkiCiAjIENPTkZJR19MT0NBTFZFUlNJT05fQVVUTyBpcyBu
+b3Qgc2V0CiBDT05GSUdfS0VSTkVMX1pTVEQ9eQotQ09ORklHX0RFRkFVTFRfSE9TVE5BTUU9
+Inhwcy05MzIwIgorQ09ORklHX0RFRkFVTFRfSE9TVE5BTUU9InlvZ2EtOWkiCiBDT05GSUdf
+U1lTVklQQz15CiBDT05GSUdfUE9TSVhfTVFVRVVFPXkKIENPTkZJR19XQVRDSF9RVUVVRT15
+CiBDT05GSUdfQVVESVQ9eQorQ09ORklHX05PX0haX0ZVTEw9eQogQ09ORklHX05PX0haPXkK
+IENPTkZJR19ISUdIX1JFU19USU1FUlM9eQorQ09ORklHX1BPU0lYX0FVWF9DTE9DS1M9eQog
+Q09ORklHX0JQRl9TWVNDQUxMPXkKIENPTkZJR19CUEZfSklUPXkKIENPTkZJR19CUEZfSklU
+X0FMV0FZU19PTj15CkBAIC0yMCw2ICsyMiw3IEBAIENPTkZJR19UQVNLU1RBVFM9eQogQ09O
+RklHX1RBU0tfREVMQVlfQUNDVD15CiBDT05GSUdfVEFTS19YQUNDVD15CiBDT05GSUdfVEFT
+S19JT19BQ0NPVU5USU5HPXkKK0NPTkZJR19QU0k9eQogQ09ORklHX0lLQ09ORklHPXkKIENP
+TkZJR19JS0NPTkZJR19QUk9DPXkKIENPTkZJR19JS0hFQURFUlM9eQpAQCAtMzEsNiArMzQs
+NyBAQCBDT05GSUdfQ0ZTX0JBTkRXSURUSD15CiBDT05GSUdfVUNMQU1QX1RBU0tfR1JPVVA9
+eQogQ09ORklHX0NHUk9VUF9QSURTPXkKIENPTkZJR19DR1JPVVBfUkRNQT15CitDT05GSUdf
+Q0dST1VQX0RNRU09eQogQ09ORklHX0NHUk9VUF9GUkVFWkVSPXkKIENPTkZJR19DR1JPVVBf
+SFVHRVRMQj15CiBDT05GSUdfQ1BVU0VUUz15CkBAIC03NSwxMiArNzksMTIgQEAgQ09ORklH
+X0VGST15CiBDT05GSUdfRUZJX1NUVUI9eQogQ09ORklHX0VGSV9NSVhFRD15CiBDT05GSUdf
+SFpfMTAwMD15Ci1DT05GSUdfUkFORE9NSVpFX01FTU9SWV9QSFlTSUNBTF9QQURESU5HPTB4
+YQogIyBDT05GSUdfQ1BVX01JVElHQVRJT05TIGlzIG5vdCBzZXQKIENPTkZJR19ISUJFUk5B
+VElPTj15CiAjIENPTkZJR19ISUJFUk5BVElPTl9TTkFQU0hPVF9ERVYgaXMgbm90IHNldAog
+Q09ORklHX1BNX1NURF9QQVJUSVRJT049Ii9zd2FwZmlsZSIKIENPTkZJR19QTV9XQUtFTE9D
+S1M9eQorQ09ORklHX1BNX1FPU19DUFVfU1lTVEVNX1dBS0VVUD15CiBDT05GSUdfUE1fREVC
+VUc9eQogQ09ORklHX1BNX0FEVkFOQ0VEX0RFQlVHPXkKIENPTkZJR19QTV9UUkFDRV9SVEM9
+eQpAQCAtMTQ0LDIxICsxNDgsMjkgQEAgQ09ORklHX1pTV0FQX0RFRkFVTFRfT049eQogQ09O
+RklHX1pTV0FQX1NIUklOS0VSX0RFRkFVTFRfT049eQogQ09ORklHX1pTV0FQX0NPTVBSRVNT
+T1JfREVGQVVMVF9MWjQ9eQogQ09ORklHX1NMQUJfRlJFRUxJU1RfUkFORE9NPXkKLUNPTkZJ
+R19TTEFCX0ZSRUVMSVNUX0hBUkRFTkVEPXkKK0NPTkZJR19TTEFCX0JVQ0tFVFM9eQorQ09O
+RklHX1JBTkRPTV9LTUFMTE9DX0NBQ0hFUz15CiBDT05GSUdfU0hVRkZMRV9QQUdFX0FMTE9D
+QVRPUj15CiAjIENPTkZJR19DT01QQVRfQlJLIGlzIG5vdCBzZXQKK0NPTkZJR19NRU1PUllf
+SE9UUExVRz15CitDT05GSUdfTUhQX0RFRkFVTFRfT05MSU5FX1RZUEVfT05MSU5FX0FVVE89
+eQorQ09ORklHX01FTU9SWV9IT1RSRU1PVkU9eQogQ09ORklHX1BBR0VfUkVQT1JUSU5HPXkK
+IENPTkZJR19LU009eQogQ09ORklHX0RFRkFVTFRfTU1BUF9NSU5fQUREUj02NTUzNgogQ09O
+RklHX01FTU9SWV9GQUlMVVJFPXkKLUNPTkZJR19QRVJTSVNURU5UX0hVR0VfWkVST19GT0xJ
+Tz15CiBDT05GSUdfVFJBTlNQQVJFTlRfSFVHRVBBR0U9eQogQ09ORklHX1RSQU5TUEFSRU5U
+X0hVR0VQQUdFX01BRFZJU0U9eQotQ09ORklHX1RSQU5TUEFSRU5UX0hVR0VQQUdFX1NITUVN
+X0hVR0VfQURWSVNFPXkKLUNPTkZJR19UUkFOU1BBUkVOVF9IVUdFUEFHRV9UTVBGU19IVUdF
+X0FEVklTRT15CitDT05GSUdfQ01BPXkKK0NPTkZJR19DTUFfREVCVUdGUz15CitDT05GSUdf
+Q01BX1NZU0ZTPXkKIENPTkZJR19NRU1fU09GVF9ESVJUWT15CiBDT05GSUdfSURMRV9QQUdF
+X1RSQUNLSU5HPXkKK0NPTkZJR19aT05FX0RFVklDRT15CitDT05GSUdfQU5PTl9WTUFfTkFN
+RT15CiBDT05GSUdfVVNFUkZBVUxURkQ9eQorQ09ORklHX0xSVV9HRU49eQorQ09ORklHX0xS
+VV9HRU5fRU5BQkxFRD15CiBDT05GSUdfTkVUPXkKIENPTkZJR19QQUNLRVQ9eQogQ09ORklH
+X1BBQ0tFVF9ESUFHPXkKQEAgLTM4NywxMCArMzk5LDYgQEAgQ09ORklHX0JUX0hJRFA9eQog
+Q09ORklHX0JUX0xFRFM9eQogQ09ORklHX0JUX01TRlRFWFQ9eQogQ09ORklHX0JUX0FPU1BF
+WFQ9eQotQ09ORklHX0JUX0hDSUJUVVNCPW0KLUNPTkZJR19CVF9IQ0lCVFVTQl9BVVRPU1VT
+UEVORD15Ci0jIENPTkZJR19CVF9IQ0lCVFVTQl9CQ00gaXMgbm90IHNldAotIyBDT05GSUdf
+QlRfSENJQlRVU0JfUlRMIGlzIG5vdCBzZXQKIENPTkZJR19CVF9JTlRFTF9QQ0lFPW0KIENP
+TkZJR19DRkc4MDIxMT1tCiBDT05GSUdfQ0ZHODAyMTFfREVCVUdGUz15CkBAIC00MDAsNiAr
+NDA4LDcgQEAgQ09ORklHX01BQzgwMjExX01FU0g9eQogQ09ORklHX01BQzgwMjExX0RFQlVH
+RlM9eQogQ09ORklHX1JGS0lMTD15CiBDT05GSUdfUkZLSUxMX0lOUFVUPXkKK0NPTkZJR19Q
+QUdFX1BPT0xfU1RBVFM9eQogQ09ORklHX1BDST15CiBDT05GSUdfUENJRUFFUj15CiBDT05G
+SUdfUENJRV9EUEM9eQpAQCAtNDE2LDEwICs0MjUsMTIgQEAgQ09ORklHX0RFVlRNUEZTX01P
+VU5UPXkKICMgQ09ORklHX1NUQU5EQUxPTkUgaXMgbm90IHNldAogQ09ORklHX0ZXX0xPQURF
+Ul9VU0VSX0hFTFBFUj15CiBDT05GSUdfRldfTE9BREVSX0NPTVBSRVNTPXkKK0NPTkZJR19G
+V19MT0FERVJfQ09NUFJFU1NfWlNURD15CiBDT05GSUdfQ09OTkVDVE9SPXkKIENPTkZJR19F
+REQ9eQogQ09ORklHX0VERF9PRkY9eQogQ09ORklHX0RNSV9TWVNGUz15CitDT05GSUdfU1lT
+RkJfU0lNUExFRkI9eQogQ09ORklHX0VGSV9CT09UTE9BREVSX0NPTlRST0w9eQogQ09ORklH
+X1JFU0VUX0FUVEFDS19NSVRJR0FUSU9OPXkKIENPTkZJR19FRklfUkNJMl9UQUJMRT15CkBA
+IC00MzgsOCArNDQ5LDkgQEAgQ09ORklHX1NSQU09eQogQ09ORklHX0VFUFJPTV9BVDI0PXkK
+IENPTkZJR19FRVBST01fRUUxMDA0PXkKIENPTkZJR19JTlRFTF9NRUlfR1NDPXkKK0NPTkZJ
+R19JTlRFTF9NRUlfQ1NDPXkKIENPTkZJR19JTlRFTF9NRUlfR1NDX1BST1hZPXkKLUNPTkZJ
+R19WTVdBUkVfVk1DST1tCitDT05GSUdfVk1XQVJFX1ZNQ0k9eQogQ09ORklHX1NDU0k9eQog
+Q09ORklHX0JMS19ERVZfU0Q9eQogQ09ORklHX0NIUl9ERVZfU1Q9eQpAQCAtNTM3LDYgKzU0
+OSw3IEBAIENPTkZJR19JR0M9eQogIyBDT05GSUdfTkVUX1ZFTkRPUl9YSUxJTlggaXMgbm90
+IHNldAogQ09ORklHX1BIWUxJQj15CiBDT05GSUdfTEVEX1RSSUdHRVJfUEhZPXkKK0NPTkZJ
+R19GSVhFRF9QSFk9eQogQ09ORklHX0FYODg3OTZCX1BIWT15CiBDT05GSUdfU01TQ19QSFk9
+eQogQ09ORklHX1BQUD15CkBAIC01NTAsMTUgKzU2MywxNSBAQCBDT05GSUdfUFBQT0wyVFA9
+eQogQ09ORklHX1BQUF9BU1lOQz15CiBDT05GSUdfVVNCX1JUTDgxNTA9bQogQ09ORklHX1VT
+Ql9SVEw4MTUyPW0KLUNPTkZJR19VU0JfVVNCTkVUPW0KK0NPTkZJR19VU0JfVVNCTkVUPXkK
+ICMgQ09ORklHX1VTQl9ORVRfQVg4ODE3WCBpcyBub3Qgc2V0Ci1DT05GSUdfVVNCX05FVF9D
+RENfRUVNPW0KLUNPTkZJR19VU0JfTkVUX0NEQ19NQklNPW0KK0NPTkZJR19VU0JfTkVUX0FY
+ODgxNzlfMTc4QT1tCitDT05GSUdfVVNCX05FVF9DRENfRUVNPXkKK0NPTkZJR19VU0JfTkVU
+X0NEQ19NQklNPXkKICMgQ09ORklHX1VTQl9ORVRfTkVUMTA4MCBpcyBub3Qgc2V0CiAjIENP
+TkZJR19VU0JfTkVUX0NEQ19TVUJTRVQgaXMgbm90IHNldAogIyBDT05GSUdfVVNCX05FVF9a
+QVVSVVMgaXMgbm90IHNldAogQ09ORklHX1VTQl9IU089eQotQ09ORklHX1VTQl9TSUVSUkFf
+TkVUPW0KIENPTkZJR19VU0JfTkVUX0FRQzExMT1tCiAjIENPTkZJR19XTEFOX1ZFTkRPUl9B
+RE1URUsgaXMgbm90IHNldAogIyBDT05GSUdfV0xBTl9WRU5ET1JfQVRIIGlzIG5vdCBzZXQK
+QEAgLTYzMywxMCArNjQ2LDEwIEBAIENPTkZJR19JMkNfREVTSUdOV0FSRV9QQ0k9eQogQ09O
+RklHX1NQST15CiBDT05GSUdfU1BJX01FTT15CiBDT05GSUdfU1BJX0NIMzQxPXkKLUNPTkZJ
+R19TUElfQ1M0Mkw0Mz1tCitDT05GSUdfU1BJX0NTNDJMNDM9eQogQ09ORklHX1NQSV9JTlRF
+TF9QQ0k9eQogIyBDT05GSUdfUFRQXzE1ODhfQ0xPQ0sgaXMgbm90IHNldAotQ09ORklHX1BJ
+TkNUUkxfQ1M0Mkw0Mz1tCitDT05GSUdfUElOQ1RSTF9DUzQyTDQzPXkKIENPTkZJR19QSU5D
+VFJMX0lOVEVMX1BMQVRGT1JNPXkKIENPTkZJR19QSU5DVFJMX1RJR0VSTEFLRT15CiBDT05G
+SUdfR1BJT19TWVNGUz15CkBAIC02NzAsNyArNjgzLDYgQEAgQ09ORklHX1dBVENIRE9HX1NZ
+U0ZTPXkKIENPTkZJR19XREFUX1dEVD15CiBDT05GSUdfSU5URUxfT0NfV0FUQ0hET0c9eQog
+Q09ORklHX0lUQ09fV0RUPXkKLUNPTkZJR19NRkRfQ1M0Mkw0M19TRFc9eQogQ09ORklHX0xQ
+Q19JQ0g9eQogQ09ORklHX0xQQ19TQ0g9eQogQ09ORklHX01GRF9JTlRFTF9MUFNTX0FDUEk9
+eQpAQCAtNjg3LDggKzY5OSw2IEBAIENPTkZJR19NRURJQV9VU0JfU1VQUE9SVD15CiBDT05G
+SUdfVVNCX0dTUENBPXkKIENPTkZJR19VU0JfVklERU9fQ0xBU1M9eQogQ09ORklHX01FRElB
+X1BDSV9TVVBQT1JUPXkKLUNPTkZJR19WSURFT19JTlRFTF9JUFU2PW0KLUNPTkZJR19JUFVf
+QlJJREdFPXkKIENPTkZJR19WNExfUExBVEZPUk1fRFJJVkVSUz15CiBDT05GSUdfVjRMX01F
+TTJNRU1fRFJJVkVSUz15CiBDT05GSUdfVklERU9fTUVNMk1FTV9ERUlOVEVSTEFDRT15CkBA
+IC02OTcsNyArNzA3LDcgQEAgQ09ORklHX1ZJREVPX09WMDFBMTA9eQogQ09ORklHX0RSTT15
+CiBDT05GSUdfRFJNX0NMSUVOVF9MT0c9eQogQ09ORklHX0RSTV9ESVNQTEFZX0RQX0FVWF9D
+RUM9eQotQ09ORklHX0RSTV9FRklEUk09eQorQ09ORklHX0RSTV9TSU1QTEVEUk09eQogQ09O
+RklHX0RSTV9VREw9eQogQ09ORklHX0RSTV9YRT1tCiBDT05GSUdfRkI9eQpAQCAtNzQxLDcg
+Kzc1MSw3IEBAIENPTkZJR19TTkRfU09DPXkKICMgQ09ORklHX1NORF9TT0NfSU5URUxfU1NU
+X1RPUExFVkVMIGlzIG5vdCBzZXQKIENPTkZJR19TTkRfU09DX0lOVEVMX1VTRVJfRlJJRU5E
+TFlfTE9OR19OQU1FUz15CiBDT05GSUdfU05EX1NPQ19JTlRFTF9TS0xfSERBX0RTUF9HRU5F
+UklDX01BQ0g9eQotQ09ORklHX1NORF9TT0NfSU5URUxfU09VTkRXSVJFX1NPRl9NQUNIPW0K
+K0NPTkZJR19TTkRfU09DX0lOVEVMX1NPVU5EV0lSRV9TT0ZfTUFDSD15CiBDT05GSUdfU05E
+X1NPQ19TT0ZfVE9QTEVWRUw9eQogQ09ORklHX1NORF9TT0NfU09GX1BDST15CiBDT05GSUdf
+U05EX1NPQ19TT0ZfQUNQST15CkBAIC03NjAsMjMgKzc3MCwxMSBAQCBDT05GSUdfU05EX1NP
+Q19TT0ZfSU5URUxfVE9QTEVWRUw9eQogIyBDT05GSUdfU05EX1NPQ19TT0ZfRUxLSEFSVExB
+S0UgaXMgbm90IHNldAogIyBDT05GSUdfU05EX1NPQ19TT0ZfQUxERVJMQUtFIGlzIG5vdCBz
+ZXQKICMgQ09ORklHX1NORF9TT0NfU09GX01FVEVPUkxBS0UgaXMgbm90IHNldAotQ09ORklH
+X1NORF9TT0NfU09GX0xVTkFSTEFLRT1tCisjIENPTkZJR19TTkRfU09DX1NPRl9MVU5BUkxB
+S0UgaXMgbm90IHNldAogIyBDT05GSUdfU05EX1NPQ19TT0ZfUEFOVEhFUkxBS0UgaXMgbm90
+IHNldAogQ09ORklHX1NORF9TT0NfU09GX0hEQV9MSU5LPXkKIENPTkZJR19TTkRfU09DX1NP
+Rl9IREFfQVVESU9fQ09ERUM9eQotQ09ORklHX1NORF9TT0NfQ1MzNUw1Nl9JMkM9bQogQ09O
+RklHX1NORF9TT0NfSERBPXkKLUNPTkZJR19TTkRfU09DX01BWDk4MzYzPXkKLUNPTkZJR19T
+TkRfU09DX01BWDk4MzczX0kyQz15Ci1DT05GSUdfU05EX1NPQ19NQVg5ODM3M19TRFc9eQot
+Q09ORklHX1NORF9TT0NfUlQxMzA4X1NEVz15Ci1DT05GSUdfU05EX1NPQ19SVDEzMTZfU0RX
+PXkKLUNPTkZJR19TTkRfU09DX1JUNTY4Ml9TRFc9eQotQ09ORklHX1NORF9TT0NfUlQ3MDBf
+U0RXPXkKLUNPTkZJR19TTkRfU09DX1JUNzExX1NEVz15Ci1DT05GSUdfU05EX1NPQ19SVDcx
+MV9TRENBX1NEVz15Ci1DT05GSUdfU05EX1NPQ19SVDcxNV9TRFc9eQotQ09ORklHX1NORF9T
+T0NfUlQ3MTVfU0RDQV9TRFc9eQogIyBDT05GSUdfU05EX1NPQ19TRFdfTU9DS1VQIGlzIG5v
+dCBzZXQKICMgQ09ORklHX1NORF9YODYgaXMgbm90IHNldAogQ09ORklHX0hJRF9CQVRURVJZ
+X1NUUkVOR1RIPXkKQEAgLTgwMCwxMiArNzk4LDkgQEAgQ09ORklHX1VTQl9MRURfVFJJRz15
+CiBDT05GSUdfVVNCPXkKIENPTkZJR19VU0JfQU5OT1VOQ0VfTkVXX0RFVklDRVM9eQogQ09O
+RklHX1VTQl9EWU5BTUlDX01JTk9SUz15Ci1DT05GSUdfVVNCX0xFRFNfVFJJR0dFUl9VU0JQ
+T1JUPXkKLUNPTkZJR19VU0JfTU9OPW0KIENPTkZJR19VU0JfWEhDSV9IQ0Q9eQogQ09ORklH
+X1VTQl9BQ009eQogQ09ORklHX1VTQl9QUklOVEVSPXkKLUNPTkZJR19VU0JfV0RNPXkKIENP
+TkZJR19VU0JfU1RPUkFHRT15CiBDT05GSUdfVVNCX1VBUz15CiBDT05GSUdfVVNCX1NFUklB
+TD15CkBAIC04MTUsMTMgKzgxMCwxMiBAQCBDT05GSUdfVVNCX1NFUklBTF9TSU1QTEU9eQog
+Q09ORklHX1VTQl9TRVJJQUxfQkVMS0lOPXkKIENPTkZJR19VU0JfU0VSSUFMX0NIMzQxPXkK
+IENPTkZJR19VU0JfU0VSSUFMX0NQMjEwWD15Ci1DT05GSUdfVVNCX1NFUklBTF9GVERJX1NJ
+Tz1tCitDT05GSUdfVVNCX1NFUklBTF9GVERJX1NJTz15CiBDT05GSUdfVVNCX1NFUklBTF9L
+RVlTUEFOX1BEQT15CiBDT05GSUdfVVNCX1NFUklBTF9LRVlTUEFOPXkKIENPTkZJR19VU0Jf
+U0VSSUFMX01DVF9VMjMyPXkKIENPTkZJR19VU0JfU0VSSUFMX01YVVBPUlQ9eQogQ09ORklH
+X1VTQl9TRVJJQUxfUEwyMzAzPXkKLUNPTkZJR19VU0JfU0VSSUFMX1NJRVJSQVdJUkVMRVNT
+PXkKIENPTkZJR19VU0JfU0VSSUFMX09QVElPTj15CiBDT05GSUdfVVNCX1VTQklPPXkKIENP
+TkZJR19UWVBFQz15CkBAIC04MzcsMTkgKzgzMSw5IEBAIENPTkZJR19MRURTX0JSSUdIVE5F
+U1NfSFdfQ0hBTkdFRD15CiBDT05GSUdfTEVEU19QV009eQogQ09ORklHX0xFRFNfVVNFUj15
+CiBDT05GSUdfTEVEU19QV01fTVVMVElDT0xPUj15Ci1DT05GSUdfTEVEU19UUklHR0VSX1RJ
+TUVSPXkKLUNPTkZJR19MRURTX1RSSUdHRVJfT05FU0hPVD15Ci1DT05GSUdfTEVEU19UUklH
+R0VSX0hFQVJUQkVBVD15CiBDT05GSUdfTEVEU19UUklHR0VSX0JBQ0tMSUdIVD15Ci1DT05G
+SUdfTEVEU19UUklHR0VSX0NQVT15Ci1DT05GSUdfTEVEU19UUklHR0VSX0FDVElWSVRZPXkK
+IENPTkZJR19MRURTX1RSSUdHRVJfREVGQVVMVF9PTj15Ci1DT05GSUdfTEVEU19UUklHR0VS
+X1RSQU5TSUVOVD15Ci1DT05GSUdfTEVEU19UUklHR0VSX0NBTUVSQT15CiBDT05GSUdfTEVE
+U19UUklHR0VSX1BBTklDPXkKLUNPTkZJR19MRURTX1RSSUdHRVJfTkVUREVWPXkKLUNPTkZJ
+R19MRURTX1RSSUdHRVJfUEFUVEVSTj15Ci1DT05GSUdfTEVEU19UUklHR0VSX1RUWT15CiBD
+T05GSUdfRURBQz15CiBDT05GSUdfRURBQ19HSEVTPXkKIENPTkZJR19FREFDX0lHRU42PXkK
+QEAgLTkzNSw4ICs5MTksNyBAQCBDT05GSUdfSU5URUxfUkFQTF9UUE1JPXkKIENPTkZJR19V
+U0I0PXkKICMgQ09ORklHX0JMS19ERVZfUE1FTSBpcyBub3Qgc2V0CiAjIENPTkZJR19CVFQg
+aXMgbm90IHNldAotQ09ORklHX0NPVU5URVI9eQotQ09ORklHX0lOVEVSUlVQVF9DTlQ9eQor
+IyBDT05GSUdfTlZESU1NX0RBWCBpcyBub3Qgc2V0CiBDT05GSUdfVkFMSURBVEVfRlNfUEFS
+U0VSPXkKIENPTkZJR19FWFQ0X0ZTPXkKIENPTkZJR19FWFQ0X0ZTX1BPU0lYX0FDTD15CkBA
+IC05NTksNyArOTQyLDYgQEAgQ09ORklHX0ZTX1ZFUklUWT15CiBDT05GSUdfRlNfVkVSSVRZ
+X0JVSUxUSU5fU0lHTkFUVVJFUz15CiBDT05GSUdfRkFOT1RJRlk9eQogQ09ORklHX0ZBTk9U
+SUZZX0FDQ0VTU19QRVJNSVNTSU9OUz15Ci1DT05GSUdfUVVPVEE9eQogQ09ORklHX1FVT1RB
+X05FVExJTktfSU5URVJGQUNFPXkKIENPTkZJR19BVVRPRlNfRlM9eQogQ09ORklHX0ZVU0Vf
+RlM9eQpAQCAtOTc5LDYgKzk2MSw3IEBAIENPTkZJR19QUk9DX0tDT1JFPXkKIENPTkZJR19Q
+Uk9DX1ZNQ09SRV9ERVZJQ0VfRFVNUD15CiBDT05GSUdfVE1QRlNfUE9TSVhfQUNMPXkKIENP
+TkZJR19UTVBGU19JTk9ERTY0PXkKK0NPTkZJR19UTVBGU19RVU9UQT15CiBDT05GSUdfSFVH
+RVRMQkZTPXkKIENPTkZJR19FRklWQVJfRlM9eQogQ09ORklHX0VDUllQVF9GUz15CkBAIC0x
+MTM4LDYgKzExMjEsNyBAQCBDT05GSUdfUEFDS0lORz15CiAjIENPTkZJR19YWl9ERUNfU1BB
+UkMgaXMgbm90IHNldAogIyBDT05GSUdfWFpfREVDX1JJU0NWIGlzIG5vdCBzZXQKIENPTkZJ
+R19TV0lPVExCX0RZTkFNSUM9eQorQ09ORklHX0RNQV9DTUE9eQogQ09ORklHX0lSUV9QT0xM
+PXkKIENPTkZJR19GT05UUz15CiBDT05GSUdfRk9OVF84eDg9eQpAQCAtMTE2OCw2ICsxMTUy
+LDcgQEAgQ09ORklHX0JPT1RQQVJBTV9IQVJETE9DS1VQX1BBTklDPXkKIENPTkZJR19XUV9X
+QVRDSERPRz15CiBDT05GSUdfV1FfQ1BVX0lOVEVOU0lWRV9SRVBPUlQ9eQogQ09ORklHX1ND
+SEVEU1RBVFM9eQorQ09ORklHX05NSV9DSEVDS19DUFU9eQogQ09ORklHX1NUQUNLVFJBQ0U9
+eQogQ09ORklHX1JDVV9DUFVfU1RBTExfVElNRU9VVD02MAogIyBDT05GSUdfUkNVX1RSQUNF
+IGlzIG5vdCBzZXQKLS0gCjIuNTMuMAoK
+
+--------------0pxR5AsLyaF5gTLlhV9PxJUY--
