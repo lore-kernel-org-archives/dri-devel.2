@@ -4,49 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E4B2CD343F
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 13:25:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 474E1CD3439
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 13:32:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A020C10E276;
-	Thu,  7 May 2026 13:25:45 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DtftW3QB";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23F2710E276
- for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 13:25:44 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id E0C00419E1;
- Thu,  7 May 2026 13:25:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAA82C2BCB2;
- Thu,  7 May 2026 13:25:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778160343;
- bh=KH+/lr31F6Z0z+vUx680aRlaO0mvzZuASV171zsRe8M=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=DtftW3QB/Z/jretElAvHJ7PrQmnYEsr3qOnEDjSuXYLSiPGkvRl/dSVlsxnl1s7LV
- 9mwoVb4hK3ZqbQMqHxRnUp6fQPFaPVYWzxEXtIGX9bRhX0H0Sxa82RLI2ZaqGcB/gL
- +qAZAVkIYjfWiHyVlqH6pD6XX8cophk8g9bW2lNnxji1XxaajwNKGIl341796pImal
- aK7I1OyFgQ0U4pqr+KFu9Nfuys4nAwLQohcMQTXdBcCrWi6DduD0LQF1r8stq7Cz56
- mtix+wc/TC1PDTcPmr6aqpXwap2mv5xxJf09FbyvxfASlLFYZB7OlxR1oku9gfTEvb
- TCkVxc7X7nUiw==
-From: Lee Jones <lee@kernel.org>
-To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
- Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>, 
- Thomas Richard <thomas.richard@bootlin.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260427-backlight-cgbc-remove-x86-dependency-v2-0-da9f2375a34a@bootlin.com>
-References: <20260427-backlight-cgbc-remove-x86-dependency-v2-0-da9f2375a34a@bootlin.com>
-Subject: Re: [PATCH v2 0/2] Remove redundant X86 dependency for the cgbc
- backlight driver
-Message-Id: <177816034168.1867063.1520145469415761822.b4-ty@b4>
-Date: Thu, 07 May 2026 14:25:41 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D9B810E286;
+	Thu,  7 May 2026 13:32:58 +0000 (UTC)
+Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 617E510E286
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 13:32:57 +0000 (UTC)
+Received: from local
+ by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256)
+ (Exim 4.99) (envelope-from <daniel@makrotopia.org>)
+ id 1wKyqO-000000005G2-3cSu; Thu, 07 May 2026 13:32:48 +0000
+Date: Thu, 7 May 2026 14:32:45 +0100
+From: Daniel Golle <daniel@makrotopia.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Junzhi Zhao <junzhi.zhao@mediatek.com>,
+ Jie Qiu <jie.qiu@mediatek.com>, dri-devel@lists.freedesktop.org,
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 2/2] drm/mediatek: hdmi: report jack plugged state from
+ bridge enable/disable
+Message-ID: <afyUfcr8HuFs6EKF@makrotopia.org>
+References: <a3e22cbae528c9a38d854a586d1736b860998d41.1776265222.git.daniel@makrotopia.org>
+ <c4d62fc2244fb72207855c5a366ff10fad419f2d.1776265222.git.daniel@makrotopia.org>
+ <lhxivpwo6aq3ehgzsnkgxnqis5tptmey4dtbhaokyckkl7ghbn@dzaj225pnpk3>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16-dev-ad80c
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <lhxivpwo6aq3ehgzsnkgxnqis5tptmey4dtbhaokyckkl7ghbn@dzaj225pnpk3>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,16 +53,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 27 Apr 2026 11:40:32 +0200, Thomas Richard wrote:
-> For this second iteration, I just added Daniel's RB tags.
+On Thu, May 07, 2026 at 12:51:56PM +0300, Dmitry Baryshkov wrote:
+> On Wed, Apr 15, 2026 at 04:04:16PM +0100, Daniel Golle wrote:
+> > Notify hdmi-codec of the current sink plugged state from
+> > mtk_hdmi_bridge_atomic_enable() and mtk_hdmi_bridge_atomic_disable()
+> > via mtk_hdmi_update_plugged_status(). This matches the pattern used
+> > by dw-hdmi, which invokes handle_plugged_change() from the bridge
+> > enable and disable paths so that ASoC jack state stays in sync with
+> > the actual sink presence across atomic commit cycles, and not only
+> > on CEC HPD transitions.
+> > 
+> > Userspace audio daemons (e.g. pipewire) rely on the jack state to
+> > route streams, restore per-sink volume levels, and recover the last
+> > used device after a reconnect. Without this, those transitions are
+> > missed whenever the sink change is driven by a mode set rather than
+> > by a bare HPD event.
+> 
+> I can only hope to see mtk_hdmi to migrate to DRM_BRIDGE_OP_HDMI and
+> DRM_BRIDGE_OP_HDMI_AUDIO...
+> 
+> I think the correct timing was discussed several times and the overall
+> conclusion was that the correct time is when the actual HDMI cable is
+> being plugged / unplugged. See the discussion around [1] and the
+> captured response of Mark Brown.
 
-Applied, thanks!
-
-[1/2] backlight: cgbc: Remove redundant X86 dependency
-      commit: db8e26c435698222b333cafcbc043dfdf083d591
-[2/2] MAINTAINERS: Add cgbc backlight driver
-      commit: acea35b567d0f610d533ca661f4106ac12583f78
-
---
-Lee Jones [李琼斯]
-
+Thank you for bringing this to my attention. I'll follow up on it.
+Meanwhile, can (independent) patch 1/2 already be merged, or at least
+get reviewed?
