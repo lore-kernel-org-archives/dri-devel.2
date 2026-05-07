@@ -4,52 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86B3FCD343F
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 14:58:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04466CD3439
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 15:03:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E612D10F193;
-	Thu,  7 May 2026 14:58:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D55010E325;
+	Thu,  7 May 2026 15:03:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="l56QzxdB";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Tgcl6Rx6";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D117710F193
- for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 14:58:02 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 15EFF6015B;
- Thu,  7 May 2026 14:58:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63CE4C2BCB2;
- Thu,  7 May 2026 14:58:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778165881;
- bh=3p/GQpkMmyFcb+5cbWtULSyvjXHvqKU0BX5xnK9DDoo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=l56QzxdB3EoXVtSmyV223W2jOWqei39bHytUw38H/G/9DSYZMIO1klatapxsD+5+0
- We0FnozAmVlTuBfOtBasUzJsXn6Nj4wLvo5LxKt36Klgo1NWezlFcGjRj64J4FXcdk
- C7h6hEb4RRN9EkJcpEOW5mT1XTvIIPzpiDdlfabmghXWdObK1sEnsrgs2CBU7A7GZ+
- fthDOruUzBvdL4It7skEEFxcTRoMHLWqW2HiGeC2JlYd2TFcjrQQaaxBMWjstcWOjN
- dTj/HrZjC7vfRVCyzRgSRyDGz7eYzocgFTeEhSdBnDnsW9fhbCycDDNysEE02SrE9g
- vNjg+/pq188ww==
-Date: Thu, 7 May 2026 16:57:58 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Albert Esteve <aesteve@redhat.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Michael Tretter <m.tretter@pengutronix.de>, 
- Michael Walle <mwalle@kernel.org>,
- Dario Binacchi <dario.binacchi@amarulasolutions.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 00/10] drm/panel: Use refcounted allocation for remaining
- panel drivers
-Message-ID: <20260507-frisky-spoonbill-of-defiance-dcb8cd@houat>
-References: <20260507-drm_panel_init_rm-v1-0-51f448c7c291@redhat.com>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0A5F10E036;
+ Thu,  7 May 2026 15:03:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1778166228;
+ bh=EoEm50eq18e3JDHSSBDVklCEN8e3aV3FIWaW7RmeUkc=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=Tgcl6Rx6RUwgIgvHBRoTqoUS8RYyZeNRieaTPs7AscQKz8h28tpcnt5eHLaKf5UMF
+ tAF/Gh85D3rtNa2HHmTxTY6E4/SSI37ekgLPteUh6i9FsDIjxfwRNzdwhxMx6aRq8L
+ LS0KAkxnkQ7c1Lt1F+evXMlSNxUd3cV3q4u4pgU/q/wRmLj1r5niD+bvlV+goDu+hr
+ gUQlXIqBilYqfOkC1V7tFjmkqjWAh0bOi71ovlE+hFEGeUTrj7+rbHs3FmiXzS7SQV
+ 9HqGcxnKXQUsLgfYlIpcbPBVTvn5fijyml78CZjm6QKsRE7W7NDi+qzOfHicbxP3X8
+ tHfqvoWanU8sw==
+Received: from fedora (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id D46B617E124B;
+ Thu,  7 May 2026 17:03:47 +0200 (CEST)
+Date: Thu, 7 May 2026 17:03:43 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Liviu Dudau <liviu.dudau@arm.com>
+Cc: dri-devel@lists.freedesktop.org, Steven Price <steven.price@arm.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Akash Goel <akash.goel@arm.com>, Chia-I Wu
+ <olvaffe@gmail.com>, Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry
+ Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, Marijn
+ Suijten <marijn.suijten@somainline.org>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] drm/panthor: Don't use the racy
+ drm_gem_lru_remove() helper
+Message-ID: <20260507170343.044934a0@fedora>
+In-Reply-To: <afykcyiURGZh0xdr@e142607>
+References: <20260506-panthor-shrinker-fixes-v1-0-e7721526de96@collabora.com>
+ <20260506-panthor-shrinker-fixes-v1-1-e7721526de96@collabora.com>
+ <afxi9ab1O9J_7J1Y@e142607> <20260507141027.166ab00d@fedora>
+ <afykcyiURGZh0xdr@e142607>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="axdda5jrsphvlkw4"
-Content-Disposition: inline
-In-Reply-To: <20260507-drm_panel_init_rm-v1-0-51f448c7c291@redhat.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,60 +74,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Thu, 7 May 2026 15:40:51 +0100
+Liviu Dudau <liviu.dudau@arm.com> wrote:
 
---axdda5jrsphvlkw4
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 00/10] drm/panel: Use refcounted allocation for remaining
- panel drivers
-MIME-Version: 1.0
+> On Thu, May 07, 2026 at 02:10:27PM +0200, Boris Brezillon wrote:
+> > On Thu, 7 May 2026 11:01:25 +0100
+> > Liviu Dudau <liviu.dudau@arm.com> wrote:
+> >   
+> > > On Wed, May 06, 2026 at 02:16:26PM +0200, Boris Brezillon wrote:  
+> > > > drm_gem_lru_remove() dereference stores drm_gem_object::lru in a local
+> > > > variable that's then dereferenced to acquire the LRU lock. Because this
+> > > > assignment in done without the LRU lock held, it can race with
+> > > > drm_gem_lru_scan() where drm_gem_object::lru is temporarily assigned
+> > > > a stack-allcated LRU that goes away when leaving the function. By
+> > > > the time we dereference this local lru variable, the object might already
+> > > > be gone.
+> > > > 
+> > > > It feels like drm_gem_lru_move_tail() was never meant to be used this
+> > > > way, because there's no easy way we can avoid this race unless we defer
+> > > > the locking to the caller. Let's add an explicit LRU for unreclaimable
+> > > > BOs instead, and have all BOs added to this LRU at creation time.    
+> > > 
+> > > I would argue that drm_gem_lru_scan() is broken by design. If you're going
+> > > to release the LRU lock in the middle of a loop you can expect that someone
+> > > will get hold of your stack-allocated LRU and end up picking the pieces.  
+> > 
+> > I think it's fine as long as you always use the drm_gem_lru helpers to
+> > manipulate the lru field, which is true of a lot of kernel constructs.  
+> 
+> I think drm_gem_lru_scan() should never set an object's lru field to still_in_lru.
+> It should set it to NULL when the object's node is removed from its lru and add
+> it into still_in_lru without making the drm_gem_object->lru to point back to it.
+> At the very end when we splice back the still_in_lru list back into lru's list we
+> can then update obj->lru.
 
-Hi,
+Then you run into another race between drm_gem_lru_scan() and
+drm_gem_object_release(), where the LRU removal in _release() is
+skipped because obj->lru is NULL, and all of a sudden, the still_in_lru
+list has an element that's freed. Honestly, I don't think obj->lru
+pointing to a stack allocated object is a problem as long as we don't
+let gem users play freely with obj->lru (which we shouldn't do anyway).
 
-On Thu, May 07, 2026 at 01:52:58PM +0200, Albert Esteve wrote:
-> This series converts 9 remaining panel drivers from the deprecated
-> devm_kzalloc() + drm_panel_init() pattern to the refcounted
-> devm_drm_panel_alloc() API. This follows the work by Anusha Srivatsa
-> who introduced the refcounted panel allocation infrastructure [1] and
-> converted a first batch of drivers [2] (the last part of a 5 sub-series).
->=20
-> Reasoning:
-> ----------
-> The old allocation pattern is unsafe: when the panel device is
-> unbound, devm frees the context struct immediately, but the DRM
-> device may still hold a reference to the embedded drm_panel through
-> the panel bridge, leading to a use-after-free. devm_drm_panel_alloc()
-> wraps the allocation in a kref scheme, so the memory is only freed
-> when the last reference is dropped.
->=20
-> After this series, there are no remaining callers of drm_panel_init()
-> under drivers/gpu/drm/panel/, and drm_panel_init() is entirely removed
-> from the public API.
->=20
-> [1] https://lore.kernel.org/all/20250331-b4-panel-refcounting-v4-0-dad50c=
-60c6c9@redhat.com/
-> [2] https://lore.kernel.org/all/20250710-b4-driver-convert-last-part-july=
--v1-0-de73ba81b2f5@redhat.com/
->=20
-> Signed-off-by: Albert Esteve <aesteve@redhat.com>
+> 
+> >   
+> > > This patch is fine in itself by trying to avoid stepping into the fight,
+> > > but I think we should also add a warning in drm_gem_lru_scan() for future
+> > > users to be aware of the dangers.  
+> > 
+> > Warning the user about what? There's nothing they can do about it, and
+> > I don't even think it's unsafe per-se, unless someone goes off and
+> > stores the drm_gem_object::lru value somewhere else while their shrink()
+> > callback is called, and accesses it later, outside the shrinker path.
+> > Given drm_gem_lru is not refcounted, there's no way one could safely
+> > hold on the LRU they saw in the shrink() callback anyway, so I don't
+> > think that's fair to blame the drm_gem_lru API for this kind of misuse.  
+> 
+> Yeah, that would be the warning: don't store the object's lru as you might
+> get a temporary one that will become invalid after the shrinker has run.
 
-Aside from the minor comment on the doc in patch 10,
-Reviewed-by: Maxime Ripard <mripard@kernel.org>
-
-Thanks!
-Maxime
-
---axdda5jrsphvlkw4
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCafyodgAKCRAnX84Zoj2+
-dtAAAYDNPWTlga6y0Fxc4tlWyLoAE4rKE+OTQ3iJSTsZUnBTDUmhqatp6S6OqMrY
-7w6ezFUBgPXKOvTFbC3BkHd0ZgI7FyRgRmGaCdEKmaHerzU0j7asKYwCqej7PfWo
-Zr7BfCdzrA==
-=rnFm
------END PGP SIGNATURE-----
-
---axdda5jrsphvlkw4--
+Oh, you mean a comment explaining this should be avoided, not an actual
+drm_warn(). Then yes, I think it's fine to document the expectations in
+the drm_gem_object::lru doc.
