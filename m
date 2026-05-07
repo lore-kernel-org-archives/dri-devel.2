@@ -4,71 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65277CD3439
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 15:34:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61ED2CD3439
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 15:35:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C07E810E2BB;
-	Thu,  7 May 2026 15:34:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1D8510E58B;
+	Thu,  7 May 2026 15:35:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="qis7Ux2X";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ilHafS1H";
 	dkim-atps=neutral
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0655D10E2BB
- for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 15:34:50 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-4852b81c73aso9703005e9.3
- for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 08:34:49 -0700 (PDT)
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0260410E58B
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 15:35:02 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-488ba840146so9356675e9.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 08:35:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1778168088; x=1778772888; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1778168101; x=1778772901; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :content-language:references:cc:to:subject:reply-to:from:user-agent
  :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=HNpNxTDdt1OmLULsDYJhJ1FFpNi+U6Ym7YcH8EiGwkY=;
- b=qis7Ux2XJbYcm+CVYbhKwkeMkyINSi1zrDsWMVIGC07kkGwz+iGCgQPC25l1iIfITq
- gg0UOO0h5/a8QrXjSApF6MrRmJH7ZlfgFLDYPnEDdMEqX/BWo5MUE7snZZZeKFV0Gy6b
- eIjt9OaRXKSwGVqIjiA3ztXpdG3NZjVICdWBF94/EyoRCB+1LhD4g9tyMF/8xllY7y5E
- 5hZccQJhPEXc3TtK1z9y8APnzaJOeJpD5tJ24PB+iDYi0UQrmVQ3ZelxotmGYlqetjBr
- fYc2Lb7a5cj+kc+P1YcAlNHYFoQw8ZGU8LFRf67D8UWUm7WlI/YkDy4cTySzBrzRaMMX
- Z2lA==
+ :reply-to; bh=qviuCjYgg89dp4Zj0iDLZr+bYb7DPV34z48Pa7dHTMc=;
+ b=ilHafS1HcFvsT+T1zlRjYQ9LaVhKsizM6nW3XHZbwfFF7O6X//JRxKg4aLBWOCOl8m
+ 8Gbi7VrKq6db+fDWB6b8M8uW+B0v9HFD0Bjyr+LhgroMLVX9F+dmPBT/2bikr9C6Co0+
+ uuvs24SDerqT58F2Oj1RvjdVzEHwMBRkfpUKfrFNkCy5LpH1UYV7wDIUmtSwK1cFYwCE
+ fw8OT9uo19ZNVDdMomWRWjKE1pIjOXdNdophutraBZDRxF0XiZvTnyLsF8fovbdB1ygs
+ 2FlbfLjWDqMn7q7LIcJyoUgHTbufJQhuhrhyTIBnd8fYOWJMEXYUSS0HvYN2I/xx6RFc
+ xevQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778168088; x=1778772888;
+ d=1e100.net; s=20251104; t=1778168101; x=1778772901;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :content-language:references:cc:to:subject:reply-to:from:user-agent
  :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=HNpNxTDdt1OmLULsDYJhJ1FFpNi+U6Ym7YcH8EiGwkY=;
- b=mHRuV+Ap3JG+V42SJiVB4W+js3yPQcGgVE0T/ZZS344LKpOot1qipJ4lRk4ynGcE7L
- TII4oaU5672p2jEYM+JJcWCky2Y9ZFny46fuRaRtciYAwrk/CDlfhA5hB3h3JW26x1ie
- l/NYEXMbS/h6rZ8RhdJ6AHddzWtX38sytaP1LYtfFeUpOGCm6KIOkTYFNVaauB/Gg/1n
- rVnmlEmt9TEpxkbkBp1paIUyvBoJzZeH7zIPGpoYRV0QVFIDJYkCQF+Y/A/g6lzdlHym
- FqvpCqAHmbCF2c8mISSfrShP1g5cC4vUiJP1esv91Fx4K9Na9KsWw6Vq2QS+bvHazgX1
- b+qg==
-X-Gm-Message-State: AOJu0YxmGjt/Au3lHTIYcxgkIo6XbgVMeL2j0HeFePzqIEURcZZ2wNO1
- IzZBlXeSFAhiMNr6mxJJAkzTfAfpT9qdrPWDpV9nLt4m4zcersLkWV1YHD9WYv7UjGI=
-X-Gm-Gg: AeBDieuvb4th3i5zVr8Hh3RUS7BqhTsO2pOgIMxNIx3qO6ARx00W97mrkS6toHI7Bvp
- lfXbtSRol8IYR/CFFmSpfrOxIearPcnqwjYP4eAHPYgQuPkjW9SYaRHjtEZzKtvIFKUYzm2WZy8
- WpTWqEVk9W6Z4qrcvWmSUu75kaYSN41fDYtXBYxNXIbGmQfBiSVussSEuKeXTZCy8WrLY+y8gN1
- ybqyfB07X6CiGRyb9phFz5Dr/TpHErf7gG4XC26lCC5RozoLTWNSL/6DpiXK08RpAapnoibuaD7
- nlTSjwBWA7Brd2f6FY4c5UU+vHrE+FyXqXDAMjKywSFBVXpHN+zr0TKnhgYBGiypQ3z3pEnWkML
- c/Tg7+cd3pp9lmKjDjXBKDdFirp2Xs9MsuONYqYk4DNhWik2pCjtTLl25manFv4dNRgU6Qmg+Nt
- 6rOMOemSoZYPlN3nmMSWe2BYIRCepq1VzZyr2yVqJvY6N0+Csh3vGEFAG1k+sBNhoR4igm+Oscy
- uwcO8gre1+DWWEaEMGF7Pr4Kr7A
-X-Received: by 2002:a05:600c:a30b:b0:489:1c1f:35f9 with SMTP id
- 5b1f17b1804b1-48e51e1773bmr103146425e9.9.1778168088174; 
- Thu, 07 May 2026 08:34:48 -0700 (PDT)
+ bh=qviuCjYgg89dp4Zj0iDLZr+bYb7DPV34z48Pa7dHTMc=;
+ b=M6AJXvB3zwaHCOfRA/hblB8XLmjcRfy6EbO52klXXadFqcBiCRuHtvAzxVeqqK51al
+ ogKJ+lbl3xDuS8hOT5v0bvmsm5/oZwk6j/j3pH1Ci0mBDx0Mns3eJRiOtMqCMs66q/zF
+ XG0PE7wbjhIuZhuAoxnj9iadkYCpevlHBhox0cRhrDUhDv4QefS66hP9z+la5J83rjTA
+ 1Zfe1+S3szPjpha2HVFLqRTgLRtMttqH808L4ESxl1Q7EWjEMDolyO0nrCskfP6FZb1d
+ DLjGR2ZXq9cm3s+fT6WmufjOvadL7pLaEv2wh4HfYEwZu/3ieHtS+a8uQOJJPCu4W/Wx
+ Jk2A==
+X-Gm-Message-State: AOJu0Yx3JsFT9TphbPvtZbf6Z4SdoU3W8KYk/KW5TzBYFa6VDOuMWq2j
+ /gLsZ5JxpZ8X8eIOCwshS/ctkVicunS9yLalSou3r5I/edWLVBtmt4GGT7pzcguEVP0=
+X-Gm-Gg: AeBDieuazdsyzuQihEBZELn1TN7keOrx24DIFxAqn8Rm2eQEPMJ+zdO1vnlp/Vjuvt0
+ Ibk8pyd4IaYgVNTEdtfVqh4wCnLczMLqKfMJH9PM8pG7SJBnkuWF195gHF8el3nXONjuT/xaMXP
+ DbYe5TpG1j+jvgguINAcH8HDoy2tsKMZ08G80BVuFIML2VEJo0LLLDeIQ/hWj0oR/ZJ/s9Oe6gR
+ php9IcxYymSPq64e/Hr283f/uaNetEEoF2IB6XlKRs93huJJbmIZ9mrtFR/uJTfiuFIfxyW2/9l
+ 7nMMdEJUwAzmQ+RzbUnnRlQ91rxFUrlKtt+Jppp3W/AzESxz4kU8w1NgTQmpERkwLwdR/Upt3El
+ m5q4wZdn9mOcZ6YNuv2ovra9M5LEkpvY2NKIC/2xXFhk6Rv+/7Pu5z749/K4tiYQa0X7fCy7MuZ
+ Agul6f5192BUOYcfWlnKV63WyKxyry5+EVD2VIddENh8fn+R0xKRjkagCSD5P3YomXCw4p5Lo1N
+ DaOM53KX4mxYt4/EA==
+X-Received: by 2002:a05:600c:a110:b0:488:9e43:9690 with SMTP id
+ 5b1f17b1804b1-48e51e17746mr108372715e9.10.1778168101138; 
+ Thu, 07 May 2026 08:35:01 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:106d:1080:6762:47bb:1e06:ff70?
  ([2a01:e0a:106d:1080:6762:47bb:1e06:ff70])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4505558e213sm22225403f8f.25.2026.05.07.08.34.47
+ 5b1f17b1804b1-48e538a8159sm140909335e9.6.2026.05.07.08.35.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 May 2026 08:34:47 -0700 (PDT)
-Message-ID: <9b2d61b9-6f7e-49fb-967d-e0858ff782ce@linaro.org>
-Date: Thu, 7 May 2026 17:34:47 +0200
+ Thu, 07 May 2026 08:35:00 -0700 (PDT)
+Message-ID: <8e401d8a-728d-447a-b647-b21da6849ea7@linaro.org>
+Date: Thu, 7 May 2026 17:35:00 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 01/10] drm/panel/visionox-g2647fb105: Use refcounted
+Subject: Re: [PATCH 02/10] drm/panel/samsung-s6e63m0: Use refcounted
  allocation in place of devm_kzalloc()
 To: Albert Esteve <aesteve@redhat.com>, Jessica Zhang <jesszhan0024@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -78,7 +78,7 @@ To: Albert Esteve <aesteve@redhat.com>, Jessica Zhang <jesszhan0024@gmail.com>,
  <mwalle@kernel.org>, Dario Binacchi <dario.binacchi@amarulasolutions.com>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 References: <20260507-drm_panel_init_rm-v1-0-51f448c7c291@redhat.com>
- <20260507-drm_panel_init_rm-v1-1-51f448c7c291@redhat.com>
+ <20260507-drm_panel_init_rm-v1-2-51f448c7c291@redhat.com>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -105,7 +105,7 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20260507-drm_panel_init_rm-v1-1-51f448c7c291@redhat.com>
+In-Reply-To: <20260507-drm_panel_init_rm-v1-2-51f448c7c291@redhat.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -124,48 +124,48 @@ Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/7/26 13:52, Albert Esteve wrote:
+On 5/7/26 13:53, Albert Esteve wrote:
 > Move to using the new API devm_drm_panel_alloc() to allocate the
 > panel. In the call to the new API, avoid using explicit type and use
-> __typeof() for more type safety. Also deduplicate the prepare_prev_first
-> assignment that was set both before and after drm_panel_init().
+> __typeof() for more type safety.
 > 
 > Signed-off-by: Albert Esteve <aesteve@redhat.com>
 > ---
->   drivers/gpu/drm/panel/panel-visionox-g2647fb105.c | 13 ++++++-------
->   1 file changed, 6 insertions(+), 7 deletions(-)
+>   drivers/gpu/drm/panel/panel-samsung-s6e63m0.c | 14 +++++++-------
+>   1 file changed, 7 insertions(+), 7 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/panel/panel-visionox-g2647fb105.c b/drivers/gpu/drm/panel/panel-visionox-g2647fb105.c
-> index 413849f7b4dec..d5555a1731575 100644
-> --- a/drivers/gpu/drm/panel/panel-visionox-g2647fb105.c
-> +++ b/drivers/gpu/drm/panel/panel-visionox-g2647fb105.c
-> @@ -207,9 +207,12 @@ static int visionox_g2647fb105_probe(struct mipi_dsi_device *dsi)
->   	struct visionox_g2647fb105 *ctx;
+> diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e63m0.c b/drivers/gpu/drm/panel/panel-samsung-s6e63m0.c
+> index ea241c89593b6..997115b1e541d 100644
+> --- a/drivers/gpu/drm/panel/panel-samsung-s6e63m0.c
+> +++ b/drivers/gpu/drm/panel/panel-samsung-s6e63m0.c
+> @@ -677,9 +677,13 @@ int s6e63m0_probe(struct device *dev, void *trsp,
+>   	u32 max_brightness;
 >   	int ret;
 >   
-> -	ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
+> -	ctx = devm_kzalloc(dev, sizeof(struct s6e63m0), GFP_KERNEL);
 > -	if (!ctx)
 > -		return -ENOMEM;
 > +	ctx = devm_drm_panel_alloc(dev, __typeof(*ctx), panel,
-> +				  &visionox_g2647fb105_panel_funcs,
-> +				  DRM_MODE_CONNECTOR_DSI);
+> +				  &s6e63m0_drm_funcs,
+> +				  dsi_mode ? DRM_MODE_CONNECTOR_DSI :
+> +				  DRM_MODE_CONNECTOR_DPI);
 > +
 > +	if (IS_ERR(ctx))
 > +		return PTR_ERR(ctx);
 >   
->   	ret = devm_regulator_bulk_get_const(dev,
->   					    ARRAY_SIZE(visionox_g2647fb105_supplies),
-> @@ -233,10 +236,6 @@ static int visionox_g2647fb105_probe(struct mipi_dsi_device *dsi)
+>   	ctx->transport_data = trsp;
+>   	ctx->dsi_mode = dsi_mode;
+> @@ -712,10 +716,6 @@ int s6e63m0_probe(struct device *dev, void *trsp,
+>   		return PTR_ERR(ctx->reset_gpio);
+>   	}
 >   
->   	ctx->panel.prepare_prev_first = true;
->   
-> -	drm_panel_init(&ctx->panel, dev, &visionox_g2647fb105_panel_funcs,
-> -		       DRM_MODE_CONNECTOR_DSI);
-> -	ctx->panel.prepare_prev_first = true;
+> -	drm_panel_init(&ctx->panel, dev, &s6e63m0_drm_funcs,
+> -		       dsi_mode ? DRM_MODE_CONNECTOR_DSI :
+> -		       DRM_MODE_CONNECTOR_DPI);
 > -
->   	ctx->panel.backlight = visionox_g2647fb105_create_backlight(dsi);
->   	if (IS_ERR(ctx->panel.backlight))
->   		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
+>   	ret = s6e63m0_backlight_register(ctx, max_brightness);
+>   	if (ret < 0)
+>   		return ret;
 > 
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
