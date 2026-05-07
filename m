@@ -4,82 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C177CD3442
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 07:12:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5259DCD3442
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 07:13:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E244310E312;
-	Thu,  7 May 2026 07:12:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5D9A10EF84;
+	Thu,  7 May 2026 07:13:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Lo/GP9i0";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="YmsAlV6g";
 	dkim-atps=neutral
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB61410E312
- for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 07:12:46 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-4891f625344so5080675e9.0
- for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 00:12:46 -0700 (PDT)
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+ [209.85.221.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3712610EF84
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 07:13:16 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-43fe608cb92so281049f8f.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 00:13:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1778137965; x=1778742765; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1778137995; x=1778742795; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :content-language:references:cc:to:subject:reply-to:from:user-agent
  :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=nxn+gzXZryt3B/YHtHg/ku/ujylgebVtdoLvLxBx7Y8=;
- b=Lo/GP9i0xwhKPo4L05igur4DgHXrJkA059Xf5KIjUB2DzEQQHOLwVes/P/ub7MMB2Y
- yhz6L0Xba2pefUj4ciN73WZCRuvvIwpKzn/v4fHlR3fKjNCVSOh0RPjlxQqHcc/YSq1m
- xvpbkcm1dDuidElMqCcLlPJXEipYmwPgNziz6hYTiQIBk3qFdwWLv/axr0FWTvI2pYET
- U7MCuknL+XHBKdWAQXIVp+2nFcmxgwQNDVyADcNRTROwhi2Mgu5obi7xAou1qO4vNe/V
- +jTMq+Povl7FGgKlKT0Vexf1pugiflmrZ0CpTvPxVPzFG5nuDl8gJ5HEfYoxDOiQBfc0
- sT6Q==
+ :reply-to; bh=G41bDsatk3cCulgpFzbpkSJCbrl3/zJ51rH92RZf3TQ=;
+ b=YmsAlV6gL1mVFXlUDJVho5TjGhMw019plhCrPU7B+5FInPIcCDaOwdUPK0RKJgE+Rq
+ J7M2h2HsJCtC3lpn4qUjyTu4oV93PGp5Lh9LugiXpNN8ayYro/+inx8TDu2fdmMGF4Ht
+ EL/yZ7p+Ko2DWajy3P7926QM9uzFxTUrgZl6S1nE0bMiS9UwvpO7iZLEIENHpBH32qzv
+ SXvi57DOSyHZOvQwsAwY0OfPYPjrUeaBp2zigeG+R3v09aeDG5LlXAw9gZHBwZjF2Rcd
+ g8OKat3N7/dflPIFSEbfqWDW5MSHlpMeh9FtsuXAvRYm5ep6I2GyLfWmztprfey2p8Dk
+ zbwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778137965; x=1778742765;
+ d=1e100.net; s=20251104; t=1778137995; x=1778742795;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :content-language:references:cc:to:subject:reply-to:from:user-agent
  :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=nxn+gzXZryt3B/YHtHg/ku/ujylgebVtdoLvLxBx7Y8=;
- b=g5IT6BSpGjguZfOydLuQjeJaa/HWh9u/+FC2pMBycMM4XtCRBSUtNu/eMlTCCFvMls
- yRq6FEFpuRqORx3NwHoQRP01oiJ2UfZ2WyP58oGZVurOL2DP+41qTA3MU/rlSyK81C1V
- ld9GpVP7hl6a08h13rqkCYW4kA8rO8toxW2EzneAZ1de7qMqfliFRFTXUJsMo3XA9HO1
- F7Cmi6I5KL4OWJtI/v6Z4ZDT7boAReRWxPIROhZZIhFWei13XqDIRmYbdC+wPUHLC2hd
- jpQ03C7R6Uz+27eAAwbjg2WS3t/oWTtvcfiPaShv5quHZpVz2hkCE6rmKxjHRVnMPEXN
- Khog==
-X-Gm-Message-State: AOJu0Yx/FAMQOdCFIWF+bn3N3JqP+rP81AL6sRw3KdB7ehn0zEEb2aAc
- BHNPeiiH25jWsP5sGRnkC6Xg4wYRlyBKMW1rmYkrRtDb7dwLX5u8w3lZD37haas2auaUMZeKx14
- XHXtM
-X-Gm-Gg: AeBDieuBtkVLR92mpBZomWgxx82YcwHVJasSpNWVSo2l5GEBdHdBCgud9GyZV7yYnaq
- 21e6DZT0G8krmLZz9YmUrHUv2nAcJNbmWBq5QqxHKo79s6CeZBWVOWx84PoAITqPVmXsTUIyde/
- QxcOJbnNiFALQHHCUq+ct4WF++3VHY2+hQE6nHTQoDEL8B6l60Q6S+E0UqfCIvztTgzkkWm+Snb
- 1FJAdmQCt0QYLfjVT+OcBfXngJjPdYJ6tfGWXy7HqkX9qyK/sdXPdvtfRoZZu3bb6eOzpGtE+i6
- YelCbvM8WgciNMaqylSQm2GY1uRZ40t/LYuKsZyfh/KnsimoofpQD7MMZtI9y3Vsa8urfFAjFJk
- ygLlBZKRUGM9ZDGfVGJrZYztYxuC5uOYxmimQGWlCjip+mosYI85sTR7sCw0/LWbNSQ7vHg60C9
- wP+AfngxV7e3PeQ/u9R93pFxedlfXCK/95MX8SvY6XfrnaWIrjCmaOE6uoETOkFij3VGghJ9Ams
- Zx7XaRqnxvaotxlmQ==
-X-Received: by 2002:a05:600c:c0d8:b0:486:faa8:9e4 with SMTP id
- 5b1f17b1804b1-48e5e000c1cmr17768625e9.12.1778137965257; 
- Thu, 07 May 2026 00:12:45 -0700 (PDT)
+ bh=G41bDsatk3cCulgpFzbpkSJCbrl3/zJ51rH92RZf3TQ=;
+ b=VMnHY6sasUSOBCuoUjAvbZ5t9Z3FsHgxBPS8fFTgHR8NLtcjicTKq13FpDeCSjnEU1
+ shfXD3jjzDTZJBsnlI/E/rC6Jporyno0IgKCPNjjmh2eD5GgHkzAorEQ1NK0GgobNxVB
+ sEIrkbEwplI/QkIRdy8PraAUlpa9XValKC7clowK7g3earaisSSpWoIfzqLqBNuL4kxH
+ 2mspbUnEqYB5Mn8SB2kXsROIG7km2KvBIVzCXuBy738kVfpykLgiqF2yAIaUD/Ft5AD0
+ w02G4Q9ST7s+f6AMoEaRYWgJ4/3y6Tzznd1DbHdMvYZiZm9weBodLNP4Kyixo9JgL4PI
+ mVAw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+hEKZeKISFIAJK8TayKiwr08XUYrHbwhdxRkLk8L5lJ1n3QqHPcm+DLUoEooxgFTlzSc4l5Z0TjqQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyw9OApf4wCSbFnPR0tapIET4vBC/9lv03001qxKj2LHEMx15Zo
+ lwhj3OLZyTZNlj9UtsbQICTLfCNv7VjSCtge+JK7vNlY9MZUE8nXj+lN6YI8JXe8upQ=
+X-Gm-Gg: AeBDies4VfrwmxwcE8p0oSrBSqUcFTHkZrfNcd8HnLgxo/ZX6Ib0gIQIx2MgJ+uPTqu
+ Zu3FyvKPMvFKRSY2LJ5obvJ0fQkplMKAQKH0l21LhFPOM9Yyp18MVtdcG42fmNZuLlCe9E+cCbh
+ s+sNCh50F1rLaJmQhKlTJ5AcNEXA2UDv2JRgQ1WZxbKW90aY2PsKHq2nZlU/AW4eYZLEffEC31R
+ TMan2KyCh+Rp8tMmoojcIiYP5hQyQzKCu67Ynm8B7RJfzSLS8scWcR+FkZeyOxAMRUnU6rGIqEI
+ C/0JIGP5ei9XA+RdK3Mxeoi+TwaDbychSBYWVA+Y6E/oDzkcrlvQelMixtFrN0WsgtAvtpHfzAS
+ I6AUwT5GS6CMMir0T+jwN4OfdwuuRxPhw6BW6KIaCit8JvlRpEdPzR6AndauVJMBD+Vtfpz4KFA
+ QWERVM4RsuEPGoJJuM19jVQe3zxepn5mjQtu55vcWGR2LFvBZPzmrWIHUC8Tu6TzctTr0THP5xZ
+ bbsNtqXcdTkP+qRng==
+X-Received: by 2002:a5d:64e3:0:b0:43e:a73e:cc8a with SMTP id
+ ffacd0b85a97d-4515d6bbb26mr11455692f8f.36.1778137994443; 
+ Thu, 07 May 2026 00:13:14 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:106d:1080:5798:67fd:c866:b378?
  ([2a01:e0a:106d:1080:5798:67fd:c866:b378])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48e5389da63sm103677125e9.4.2026.05.07.00.12.43
+ ffacd0b85a97d-45052a4878fsm17288755f8f.9.2026.05.07.00.13.13
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 May 2026 00:12:44 -0700 (PDT)
-Message-ID: <fb94f291-3831-417a-a924-e355cae27d89@linaro.org>
-Date: Thu, 7 May 2026 09:12:43 +0200
+ Thu, 07 May 2026 00:13:13 -0700 (PDT)
+Message-ID: <8da442ed-a651-4feb-aee9-ac7cccd576ca@linaro.org>
+Date: Thu, 7 May 2026 09:13:13 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 2/2] drm/panel: visionox-rm69299: Move power_on/off into
- prepare/unprepare
-To: =?UTF-8?Q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
+Subject: Re: [PATCH v2 0/3] drm/panel: switch panel registration to
+ devm_drm_panel_add()
+To: Myeonghun Pak <mhun512@gmail.com>
+Cc: Jessica Zhang <jesszhan0024@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
-References: <20260427-visionox-rm69299-enable-v1-0-fa7d62d26d87@sigxcpu.org>
- <20260427-visionox-rm69299-enable-v1-2-fa7d62d26d87@sigxcpu.org>
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Casey Connolly <casey.connolly@linaro.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260423125922.57428-1-mhun512@gmail.com>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -106,9 +107,9 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20260427-visionox-rm69299-enable-v1-2-fa7d62d26d87@sigxcpu.org>
+In-Reply-To: <20260423125922.57428-1-mhun512@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,81 +126,31 @@ Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/27/26 15:56, Guido Günther wrote:
-> No need to have separate functions now that prepare/unprepare only
-> handle powering on & off.
+On 4/23/26 14:59, Myeonghun Pak wrote:
+> This respins the previous attach-failure fixes as a single series.
+> 
+> drm-misc-next now has devm_drm_panel_add() in commit e43a8e3ad8fa
+> ("drm/panel: add devm_drm_panel_add() helper"), so convert the three
+> affected panel drivers to the managed helper instead of open-coding
+> drm_panel_remove() in their failure and remove paths.
+> 
+> Changes in v2:
+> - group the three related panel fixes into one series
+> - rebase onto drm-misc-next and use devm_drm_panel_add()
+> - drop manual drm_panel_remove() handling from probe/remove
+> 
+> Myeonghun Pak (3):
+>    drm/panel: ilitek-ili9881c: use devm_drm_panel_add()
+>    drm/panel: jdi-fhd-r63452: use devm_drm_panel_add()
+>    drm/panel: lg-sw43408: use devm_drm_panel_add()
+> 
+>   drivers/gpu/drm/panel/panel-ilitek-ili9881c.c |  7 +++----
+>   drivers/gpu/drm/panel/panel-jdi-fhd-r63452.c  |  7 +++----
+>   drivers/gpu/drm/panel/panel-lg-sw43408.c      | 10 +++++-----
+>   3 files changed, 11 insertions(+), 13 deletions(-)
+> 
 
-Following my comment on patch 1, just move the unprepare() one, keep the
-power on in prepare().
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
+Thanks,
 Neil
-
-> 
-> Signed-off-by: Guido Günther <agx@sigxcpu.org>
-> ---
->   drivers/gpu/drm/panel/panel-visionox-rm69299.c | 36 +++++++++-----------------
->   1 file changed, 12 insertions(+), 24 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panel/panel-visionox-rm69299.c b/drivers/gpu/drm/panel/panel-visionox-rm69299.c
-> index 3c92a6ceb8df..5c869d353368 100644
-> --- a/drivers/gpu/drm/panel/panel-visionox-rm69299.c
-> +++ b/drivers/gpu/drm/panel/panel-visionox-rm69299.c
-> @@ -198,15 +198,25 @@ static int visionox_rm69299_disable(struct drm_panel *panel)
->   	return dsi_ctx.accum_err;
->   }
->   
-> -static int visionox_rm69299_power_on(struct visionox_rm69299 *ctx)
-> +static int visionox_rm69299_unprepare(struct drm_panel *panel)
-> +{
-> +	struct visionox_rm69299 *ctx = panel_to_ctx(panel);
-> +
-> +	gpiod_set_value(ctx->reset_gpio, 0);
-> +
-> +	return regulator_bulk_disable(ARRAY_SIZE(visionox_rm69299_supplies),
-> +				      ctx->supplies);
-> +}
-> +
-> +static int visionox_rm69299_prepare(struct drm_panel *panel)
->   {
->   	int ret;
-> +	struct visionox_rm69299 *ctx = panel_to_ctx(panel);
->   
->   	ret = regulator_bulk_enable(ARRAY_SIZE(visionox_rm69299_supplies),
->   				    ctx->supplies);
->   	if (ret < 0)
->   		return ret;
-> -
->   	/*
->   	 * Reset sequence of visionox panel requires the panel to be
->   	 * out of reset for 10ms, followed by being held in reset
-> @@ -222,28 +232,6 @@ static int visionox_rm69299_power_on(struct visionox_rm69299 *ctx)
->   	return 0;
->   }
->   
-> -static int visionox_rm69299_power_off(struct visionox_rm69299 *ctx)
-> -{
-> -	gpiod_set_value(ctx->reset_gpio, 0);
-> -
-> -	return regulator_bulk_disable(ARRAY_SIZE(visionox_rm69299_supplies),
-> -				      ctx->supplies);
-> -}
-> -
-> -static int visionox_rm69299_unprepare(struct drm_panel *panel)
-> -{
-> -	struct visionox_rm69299 *ctx = panel_to_ctx(panel);
-> -
-> -	return visionox_rm69299_power_off(ctx);
-> -}
-> -
-> -static int visionox_rm69299_prepare(struct drm_panel *panel)
-> -{
-> -	struct visionox_rm69299 *ctx = panel_to_ctx(panel);
-> -
-> -	return visionox_rm69299_power_on(ctx);
-> -}
-> -
->   static const struct drm_display_mode visionox_rm69299_1080x2248_60hz = {
->   	.name = "1080x2248",
->   	.clock = 158695,
-> 
-
