@@ -4,52 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A73C5CD343F
-	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 18:03:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46859CD343F
+	for <dri-devel@archiver.kernel.org>; Thu,  7 May 2026 18:07:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D46BE10F30E;
-	Thu,  7 May 2026 18:03:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A07CC10E032;
+	Thu,  7 May 2026 18:07:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="FVNZ2V1l";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="VwK0oycC";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0174A10F30E
- for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 18:03:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1778177021;
- bh=wrAzBvN495bkOFIYpdDRCnF+YrgQs4GzP4K6gY0sbCs=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=FVNZ2V1ljY17TcqsYRfPWcEBQrta29nFZ3RXvLSJOEmF29w0NjZ+OPh0wTpu3hKLj
- sbw51M5WTlBuW0nKCNCThTdufmmF7bLS9tLoYVi4ci+1xnU7wzCj43cC2W7SPBtbu7
- 5AYB7/1xg03gwukRgeEX6sBWk1CeTABv2G1TRWESZvCl8kijgqB/WfAem/zZaSaSCd
- XsTsKhkICnHHamrzikqtCCPfrqST/boWNczs9trdpwOI4mRC+IRtQ7Tlv3QQhgpvMM
- o2s6fi8wORceosUTI6ez87f3iLqy4UvKyeMXbV+IsE4Ag+jQIzkqdWl3lvrvm8G+uY
- w+jJfRAJaMq7g==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 681C617E125C;
- Thu,  7 May 2026 20:03:41 +0200 (CEST)
-Message-ID: <61e86f45-cc62-433b-b929-2df66ab0f1ff@collabora.com>
-Date: Thu, 7 May 2026 21:03:40 +0300
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F00F10E032
+ for <dri-devel@lists.freedesktop.org>; Thu,  7 May 2026 18:07:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1778177243;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=IrrI79pacw/kK2y17dUabmRSfQ53U5DgkGSMXM7cHlQ=;
+ b=VwK0oycCJSvw2o7umVQOUbi+CTLQo0yV1AzNyy4fB72uPmUD447DaZ2emOfWFOJY7feWfW
+ YhEANx6o7FHj51otEaOougy2Jwfo146oV7xMHwQwYdGz6WyJwynZ7qrYAjuOZXwfdW/gLK
+ bJKxY/5VzDmsTInpsANwsMHFe5XJcd8=
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-17-EIlN7_ZyNliFHFzYqsYeRw-1; Thu, 07 May 2026 14:07:21 -0400
+X-MC-Unique: EIlN7_ZyNliFHFzYqsYeRw-1
+X-Mimecast-MFC-AGG-ID: EIlN7_ZyNliFHFzYqsYeRw_1778177241
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-50d8ed08aa4so34612101cf.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 11:07:21 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778177241; x=1778782041;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=IMramWm34LJwqXAbzHOSM29JunUaIBH0eWDhplWtOIc=;
+ b=c0HyNfV1jFeYrWWSlHT0PS3HZ+vE8tbI7sj19OKB0z4UKnyYldWbGZLmq9KogrH1ak
+ fW2a9jYPvzacAPuL9XtJIdLPz350O+y+8EcrGo7GE4nEZbicyatWi068qFUP5k8SpL/X
+ dM/Is8QExUE5rBioz6+J/D8QUhU90QKfI95f6YjtFUODkxJxasIc5ueHHbyUwCAGujHE
+ bc1eZsKN78PnjYY8mTMn9PYzarltPfQ/JU3cKCt4JBQe9I/WoljSOKFRT/uFUypZOzI9
+ cYb3JNEQGgSJ/AR0XxFRtDwGnPvj9rSCeuqV2KwIJ7zKrPBGF6wjWeXLkewnh4lU6IZW
+ TiCQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8Znxiw4uiXJtxvUbFWbAR0V3iQR0MLX+bnv5mHf+FnPPPwWjlV2dBEITkCRgM5kQZ6US2iJf9l0L0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxxh+U1D9z0br8DnU/6kTPJWX1cjXqFcP4JZydxYSuyD+L+aUoe
+ Vg3hlNGCpQgWN/FXSBMUjeoCNfQCGkIWgoj7SJdqCqW+v3+P7WSIMd87/ojie/sUp42sCnV4F+q
+ sDn4n+m/IY0KJLds7MXRd4KAB2bUISlg1VsVHLlKOrDJFurIC6oWs/64offhrWEEn2LEDbQ==
+X-Gm-Gg: AeBDieuAKF1+yxrY2E3KN1TfutQY1eIGlnqZfckgvyMdGoIhlzX6sqHv0tKh8506UOw
+ d2VMJtJtIC3Qw8Cf8mf0SadySh/4cP9F0aEViioPQ7SPnHC7kke5GQBbU/0IsQGWGvvNiGVuuaN
+ aS7naTGop2i2w99LLt+BJygmvx/oOB0yj4817Kh7QXoLWVSx6B9Aagesqv11e7QOsQWEazMI6uf
+ Bx5fy3DCcew8RjaZslAHJwjSnBUM4OtH8IzN80F3gUANrIziEYliqj7eoOppgrihOwFhgn41dvW
+ cSLk0UY+WF4CEp77eeQ3O11VPTzj6kOQDhiIDvsIiixAfHsUOMkYjzQQMAX1vxoxdTAVCCqKaMa
+ 28fYl0u/xOxOLojJZPw==
+X-Received: by 2002:a05:622a:18a9:b0:50e:6302:340b with SMTP id
+ d75a77b69052e-514621ff185mr135509081cf.53.1778177241249; 
+ Thu, 07 May 2026 11:07:21 -0700 (PDT)
+X-Received: by 2002:a05:622a:18a9:b0:50e:6302:340b with SMTP id
+ d75a77b69052e-514621ff185mr135508241cf.53.1778177240620; 
+ Thu, 07 May 2026 11:07:20 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-514850cb131sm3655181cf.2.2026.05.07.11.07.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 07 May 2026 11:07:19 -0700 (PDT)
+Message-ID: <02ebf0e092a810cbb61eaab13a0cd6f46881c23f.camel@redhat.com>
+Subject: Re: [PATCH] drm/dp/mst: fix buffer overflows in sideband chunk
+ accumulation
+From: lyude@redhat.com
+To: Ashutosh Desai <ashutoshdesai993@gmail.com>, 
+ dri-devel@lists.freedesktop.org
+Cc: stable@vger.kernel.org, Dave Airlie <airlied@gmail.com>, Daniel Vetter
+ <daniel@ffwll.ch>
+Date: Thu, 07 May 2026 14:07:19 -0400
+In-Reply-To: <20260410041901.2438960-1-ashutoshdesai993@gmail.com>
+References: <20260410041901.2438960-1-ashutoshdesai993@gmail.com>
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: drm/bridge: dw-hdmi-qp: seamless handoff sets wrong
- tmds_char_rate, breaking audio on strict HDMI 2.1 sinks
-To: Simon Wright <Simon@symple.nz>,
- "linux-rockchip@lists.infradead.org" <linux-rockchip@lists.infradead.org>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "kernel@collabora.com" <kernel@collabora.com>
-References: <ME3P282MB21960D9D68BFF520316BDFCEA83E2@ME3P282MB2196.AUSP282.PROD.OUTLOOK.COM>
- <38b2e226-c8f0-44b4-bf71-66caa0b27d43@collabora.com>
- <ME3P282MB2196C1D097CB4A61D2376FAFA83C2@ME3P282MB2196.AUSP282.PROD.OUTLOOK.COM>
-Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <ME3P282MB2196C1D097CB4A61D2376FAFA83C2@ME3P282MB2196.AUSP282.PROD.OUTLOOK.COM>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: _qa44ODc6MApJooeNkzgQQxKJkTF59XqRasR18Km1co_1778177241
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,121 +101,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Simon,
+Reviewed-by: Lyude Paul <lyude@redhat.com>
 
-On 5/7/26 1:39 PM, Simon Wright wrote:
-> Hi Cristian,
-> 
-> Thanks for the pointer. Quick test results before writing back.
-> 
-> Test rig: NanoPi R76S (RK3576) on Armbian-edge mainline 7.0.1, LG G3
-> OLED sink (the same strict HDMI 2.1 sink that surfaced the original
-> audio bug). Stack: hdptx-clk-fixes v1 + frl-enable-gpios v2 patch 3/13
-> + SCDC v5 patch 5 (hand-ported to v7.0; `.detect` kept instead of
-> `.detect_ctx` so the OOT module loads against unpatched vmlinux).
-> 
-> Tested-by for hdptx-clk-fixes v1: dmesg shows phy_configure /
-> phy_power_on / atomic_enable consistent at rate=185625000 bpc=10 with
-> no recalc drift -- exactly what the cover letter promises. Happy to
-> add the trailer to the v1 cover and any individual patch.
+Will push to drm-misc in a moment
 
-Please provide the trailer and maybe also a kind reminder for the maintainers to
-get the series applied.. :-)
+On Fri, 2026-04-10 at 04:19 +0000, Ashutosh Desai wrote:
+> drm_dp_sideband_append_payload() has three related bugs when
+> processing
+> device-provided sideband reply data:
+>=20
+> 1. Zero-length curchunk_len underflow: msg_len is a 6-bit field taken
+> =C2=A0=C2=A0 directly from the DP sideband header. If a device sends msg_=
+len=3D0,
+> =C2=A0=C2=A0 curchunk_len is set to zero. The condition (curchunk_idx >=
+=3D
+> curchunk_len)
+> =C2=A0=C2=A0 is immediately true, and curchunk_len-1 wraps to 255 (u8
+> underflow).
+> =C2=A0=C2=A0 drm_dp_msg_data_crc4() reads 255 bytes from chunk[48], then
+> memcpy()
+> =C2=A0=C2=A0 writes 255 bytes into msg[], both far out of bounds.
+>=20
+> 2. chunk[48] overflow: curchunk_len can reach 63 (6-bit field).
+> chunk[] is
+> =C2=A0=C2=A0 only 48 bytes. Multi-iteration payload assembly appends 16-b=
+yte
+> blocks
+> =C2=A0=C2=A0 until curchunk_idx reaches curchunk_len, writing up to 15 by=
+tes
+> past
+> =C2=A0=C2=A0 the end of chunk[] into msg[].
+>=20
+> 3. msg[256] overflow: each chunk contributes (curchunk_len-1) bytes
+> to
+> =C2=A0=C2=A0 msg[]. No check ensures curlen + (curchunk_len-1) stays with=
+in
+> msg[256],
+> =C2=A0=C2=A0 so the memcpy can spill into adjacent struct fields.
+>=20
+> All three are reachable from any DP MST device that can forge
+> sideband
+> reply messages on a physical connection.
+>=20
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ashutosh Desai <ashutoshdesai993@gmail.com>
+> ---
+> =C2=A0drivers/gpu/drm/display/drm_dp_mst_topology.c | 9 +++++++++
+> =C2=A01 file changed, 9 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> index f2a7dbc5e..5261a4a54 100644
+> --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> @@ -789,6 +789,12 @@ static bool
+> drm_dp_sideband_append_payload(struct drm_dp_sideband_msg_rx *msg,
+> =C2=A0{
+> =C2=A0=09u8 crc4;
+> =C2=A0
+> +=09/* curchunk_len must be >=3D 1 (min 1 CRC byte) and fit in
+> chunk[] */
+> +=09if (!msg->curchunk_len ||
+> +=09=C2=A0=C2=A0=C2=A0 msg->curchunk_len > ARRAY_SIZE(msg->chunk) ||
+> +=09=C2=A0=C2=A0=C2=A0 msg->curchunk_idx + replybuflen > ARRAY_SIZE(msg-
+> >chunk))
+> +=09=09return false;
+> +
+> =C2=A0=09memcpy(&msg->chunk[msg->curchunk_idx], replybuf,
+> replybuflen);
+> =C2=A0=09msg->curchunk_idx +=3D replybuflen;
+> =C2=A0
+> @@ -799,6 +805,9 @@ static bool drm_dp_sideband_append_payload(struct
+> drm_dp_sideband_msg_rx *msg,
+> =C2=A0=09=09=09print_hex_dump(KERN_DEBUG, "wrong crc",
+> =C2=A0=09=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 DUMP_PREFIX_NONE, =
+16, 1,
+> =C2=A0=09=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 msg->chunk,=C2=A0 =
+msg-
+> >curchunk_len, false);
+> +=09=09/* Guard against accumulated msg[] overflow */
+> +=09=09if (msg->curlen + msg->curchunk_len - 1 >
+> ARRAY_SIZE(msg->msg))
+> +=09=09=09return false;
+> =C2=A0=09=09/* copy chunk into bigger msg */
+> =C2=A0=09=09memcpy(&msg->msg[msg->curlen], msg->chunk, msg-
+> >curchunk_len - 1);
+> =C2=A0=09=09msg->curlen +=3D msg->curchunk_len - 1;
 
-> 
-> That said, audio still mutes at high-bpc / high-TMDS rates on the
-> LG G3 even with your series applied:
-> 
->     1080p60  8-bit (148.5  MHz): audio plays  -- already worked
->     1080p60 10-bit (185.625 MHz): muted        -- original bug regime
->     4K@60   8-bit (594.0  MHz):  muted        -- production cast path
-> 
-> The "muted" rates are precisely those not in `common_tmds_cts_table[]`.
-> For those, `dw_hdmi_qp_find_cts()` returns 0, the override path is
-> skipped, and the QP IP falls back to its auto-CTS measurement -- which
-> the LG G3 cross-check rejects. The BSP-derived dw-hdmi-qp.c
-> (develop-6.6) carries an in-source comment attributing this to the
-> auto-circuit measuring at half the actual TMDS rate; I haven't read
-> that register out myself to confirm the specific value, so I can only
-> report that empirically the override path with explicit CTS works on
-> the LG G3 and the bare auto path doesn't.
-> 
-> The fix is to compute CTS from N when the table misses, and feed it
-> through the standard override path. Six lines + comment in
-> `dw_hdmi_qp_set_sample_rate()`, between find_cts() and set_cts_n():
-> 
->     /*
->      * When no CTS table entry exists for the given TMDS rate, compute
->      * CTS from N rather than relying on the IP's auto-measure path,
->      * which mis-measures on this controller at high TMDS rates and
->      * produces incorrect ACR timing on strict HDMI 2.1 sinks.
->      * Computed CTS = (TMDS * N) / (128 * Fs) per HDMI spec.
->      */
->     if (!cts && n) {
->         u64 computed = (u64)tmds_char_rate * n;
->         do_div(computed, 128ULL * sample_rate);
->         cts = (unsigned int)computed;
->     }
-> 
-> With this on top of your series, all three regimes above play audio
-> cleanly -- including the 1080p 10-bit case from my original bug
-> report and the 4K@60 path on our production cast rig.
-> 
-> That makes my earlier rate-block patch
-> (linux-rockchip 2026-May/070673) redundant -- I'm happy to withdraw
-> it on its thread once you've decided where the CTS-from-N fix should
-> land.
-
-Nice catch, will try to reproduce this on my end. 
-
-Regardless, the fix should be submitted as a separate patch, as it's not
-(directly) related to any of the existing serieses posted on ML. 
-I.e. you mentioned "... mis-measures on this controller at high TMDS rates", but
-the 1080p60 10-bit (185.625 MHz) use case falls under HDMI 1.4, hence the
-problem doesn't seem to be limited to HDMI 2.x.
-
-> 
-> Two questions:
-> 
-> 1. Where would you like the CTS-from-N fix? Its own small thread, 
-
-Yep, dedicated submission, per the above.
-
-a
->    trailer on hdptx-clk-fixes, or folded into the SCDC series --
->    whichever fits your workflow.
-> 
-> 2. The kernel 7.0 announcement flagged controller-side FRL as "not
->    yet landed". Is that still on Collabora's roadmap
-
-Yes, I'm currently preparing a new revision of the HDMI 2.0 patchset, then I
-will focus on the HDMI 2.1 FRL support. The latest version of these patches is
-already available in our rockchip-devel branch, which contains all the
-necessary dependencies:
-
- https://gitlab.collabora.com/hardware-enablement/rockchip-3588/linux/-/commits/rockchip-devel?ref_type=heads
-
-> , or open for me
->    to send a develop-6.6-derived prototype as RFC once I've ported it
->    to mainline? Happy to wait if you have a series in flight.
-> 
-> Reproducer for the audio fix is the stack above plus a small libdrm
-> helper to hold the mode against fbcon (modetest releases DRM master
-> on exit). I can share the helper if useful.
-
-Yes, please detail the reproducer steps.  So far, I've only tried playing audio
-using speaker-test while switching the modes via modetest and it works as
-expected.
-
-> 
-> Sige5/Sige7 DTS follow-ups to your frl-enable-gpios v2 series are in
-> draft against the schematics; both boards are on order so I'll
-> validate on my own hardware before sending. I'll start a separate
-> thread on the v2 series for those rather than burying them here.
-
-That series has been applied and is available in linux-next since next-20260506.
-It also handles the rk3576-armsom-sige5 board, do you need anything else for
-this particular one?
-
-Regards,
-Cristian
