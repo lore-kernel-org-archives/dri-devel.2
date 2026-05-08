@@ -4,93 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B508FCD342F
-	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 07:44:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D76BCD3436
+	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 07:49:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF7B710E5BC;
-	Fri,  8 May 2026 07:44:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02DAD10E29C;
+	Fri,  8 May 2026 07:49:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fairphone.com header.i=@fairphone.com header.b="OXB/9Bbj";
+	dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.b="OmJ93peD";
 	dkim-atps=neutral
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
- [209.85.218.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 012A310E06A
- for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 07:44:43 +0000 (UTC)
-Received: by mail-ej1-f41.google.com with SMTP id
- a640c23a62f3a-ba6838e76f2so214037666b.2
- for <dri-devel@lists.freedesktop.org>; Fri, 08 May 2026 00:44:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fairphone.com; s=fair; t=1778226282; x=1778831082; darn=lists.freedesktop.org;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-transfer-encoding:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=nDjfGFQB/3KLdXokArqrjAXXqhWAtauRetXWKTzWGMw=;
- b=OXB/9BbjuQTa0zAycj7tFo89Y9gaxDKHkUbXBI2mBnCQGnZ+GorAiy+tF5zrbMDqe6
- +k1FNkTwWcyCLY7TXV2mb/BhkLhYaXTx3GHJy0w/N04C+xgILISwe0yyVi+71rWWdyo3
- UguQ4M5O0q9rvDJlUQyksuI7g+SlcY/bt5FRICXsrwcdAHvHm0LZi5+nxD6arRbxMVev
- XmzuzP0M6oxevtcJQ+E+uGJmpmKfT4ibCGrUyhzSaLfYgILOkTkRUznOnK5k491Xcpf8
- ZsjONUL6K5NcYX2mbGsIDjHzLkunBtR1PaqVEMbtqw576vJNtFyiHf8Cqq1yLwgM2QyT
- dHgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778226282; x=1778831082;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=nDjfGFQB/3KLdXokArqrjAXXqhWAtauRetXWKTzWGMw=;
- b=UXFyM92TL+tZlFrv/WmEk0X/ZeO9lbAyad5XhXBlQE8XKB1VegjiWEWsYdApsTAQzr
- Bl0/RYtEFGRYjXJSvBp1Fg7Pl3srSLN0QqWBz6SmxPHM8JWU8YjDTt7kmv8Mgh6VlcXQ
- rQeKinp80Yyjl3LvsxsXRgxcxZLmCsjTyMqz2NgNW8XupVeN87HXUWNrqPxf33wBOEZd
- 8KuySf1grm1LXnHqqU3eQVVRCut9MaC5ZsVmldljXkLc+6WODqeHW74hPQlbu6IUWbLv
- WRFlvZqdB9l5nG3TT4Mll/14CmlKT4JW6plVbCHmz75HKfN7bC/5iINxExULfd+9Ijfw
- XvdQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8R0Vn4OZ6PMS/13vJw/4QZVQn5lMiDJVGYscm7toToU1UYGubvG5n91XgWuU5A0AEGYcbdyazVIEE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwuLanVMCguJsy2e1B4UFKs+/Yiy6AC52zQTRCrOkBJgjMZpWLo
- M8aNcmimVOepSghmKlKa/c/AsNYnQq6IPs/9ZF7QwnkfMw4wyKBTDGqBYa/3RESqk6k=
-X-Gm-Gg: Acq92OHTKjkK5KNawpEEmkOYakntFoBEVCYpYQwyYJnpj9q4VAusQKavfDR+Cdhkv1J
- pQmUitrwEWtxU2boagVn8/fhppo7a5pfF4p8OjjAxxz9l4SeLYFP6xw4JL0phKHN7oqFitrEZWQ
- jQJqxuEaKygIrsYGxG00wfJWth2+SiBmDRUym4+2tF1b7kbEZxlPfio/IKBKxk5Adn9kTIxmSej
- l1QV8KBwJ9CTW/wwVgx74qr6H/7qLRLNWhZO055UNodK6uJ6Sqx5a/3IjO3q1KUKAmRleqKTk0j
- xGJFJjU6BhnM/00EEuJYM4v6WplFfwrs9+s/H2DFTZmyyolIUgDQw02Y4KWrAZjRUnKKMhZl4jJ
- oggFlwApWTJUaQDelcVT0peHX5NwSBjcW3ZOy67Wl9SRx/Zg6WlDY3LKfVhqZpzGbwVkP3dNDyC
- ljXIoLBlISmX74JAc0AImdU5KiJmaTH67buMdajinqFaWjxDAd8UdbAijwxZES4+/zfX8y
-X-Received: by 2002:a17:906:c394:b0:bc5:cff4:8e3c with SMTP id
- a640c23a62f3a-bc5cff4af34mr446060566b.40.1778226282237; 
- Fri, 08 May 2026 00:44:42 -0700 (PDT)
-Received: from localhost (144-178-202-139.static.ef-service.nl.
- [144.178.202.139]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bcac43581bfsm42651566b.46.2026.05.08.00.44.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 08 May 2026 00:44:41 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+X-Greylist: delayed 353 seconds by postgrey-1.36 at gabe;
+ Fri, 08 May 2026 07:49:17 UTC
+Received: from mout.web.de (mout.web.de [212.227.15.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C748E10E29C
+ for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 07:49:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+ s=s29768273; t=1778226550; x=1778831350; i=markus.elfring@web.de;
+ bh=+Os89qT9lWZoyf0ho5AZI9aaHqEOG1x9v4JqfTAOc7I=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
+ Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+ cc:content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=OmJ93peD1VbPkXIfHILHXxKtaUOLWixjOSiZ0v3JIDGFcJX0tw54UBEp2LSB9sWO
+ 4JtWKwSbb6FK4b9a9lWV9DkZKhjIaigiDaQhO77LmXqNE/TTVDlumsNxy5MIAlzP+
+ EJ3iwvqO0/RPZpkf6iqyZ6AfjMHUtwgPpguaFmqBysBoJIMkmECVgyf9l5bZkh0AE
+ UmfA+WueqVCaumu05Zebrc2tc5+TAHPBfYYnfoH+LcDcmkbFpJx/jxHGux773uQf2
+ ksWyGHQHWpwoCNf2gbyt6BodfpSiE7dqwLQL/yO/Q0OZ13KYkMcsCGJFNF0qSwB2d
+ R74tEX5fQwA2OyS+6g==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb006
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1MXoca-1vnFPr061c-00JVks; Fri, 08
+ May 2026 09:43:23 +0200
+Message-ID: <c565ab8a-edcd-48fe-8ae4-e788febb4208@web.de>
+Date: Fri, 8 May 2026 09:43:12 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: Thomas Zimmermann <tzimmermann@suse.de>, Myeonghun Pak
+ <mhun512@gmail.com>, dri-devel@lists.freedesktop.org,
+ virtualization@lists.linux.dev, David Airlie <airlied@gmail.com>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Simona Vetter <simona@ffwll.ch>
+Cc: LKML <linux-kernel@vger.kernel.org>
+References: <da9ecab6-063f-4c29-a685-7b776234905a@suse.de>
+Subject: Re: drm/bochs: Drop manual put on probe error path
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <da9ecab6-063f-4c29-a685-7b776234905a@suse.de>
 Content-Type: text/plain; charset=UTF-8
-Date: Fri, 08 May 2026 09:44:41 +0200
-Message-Id: <DID4LW3GMLDV.338VDV2L2IPL@fairphone.com>
-Cc: "Neil Armstrong" <neil.armstrong@linaro.org>, "Jessica Zhang"
- <jesszhan0024@gmail.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Rob Herring"
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, "Bjorn Andersson" <andersson@kernel.org>,
- "Konrad Dybcio" <konradybcio@kernel.org>,
- <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>
-Subject: Re: [PATCH 1/4] dt-bindings: display: panel: Add Novatek NT37705
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Krzysztof Kozlowski" <krzk@kernel.org>, "Luca Weiss"
- <luca.weiss@fairphone.com>, "Conor Dooley" <conor@kernel.org>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260501-fp6-panel-v1-0-e09cb05651cc@fairphone.com>
- <20260501-fp6-panel-v1-1-e09cb05651cc@fairphone.com>
- <20260501-yogurt-wise-2a2884e3ec59@spud>
- <DI9XL1VYYTY7.19IRSM8VIDO53@fairphone.com>
- <a2444df4-abf1-4b56-8556-7efb238bc677@kernel.org>
- <DIAJCURQ37FA.1CNEKX6QM6ZO8@fairphone.com>
- <dd7ebb25-014c-4983-ae31-6a6cbd24e628@kernel.org>
-In-Reply-To: <dd7ebb25-014c-4983-ae31-6a6cbd24e628@kernel.org>
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:F/3giASq9svOJyDZkN2hAZH1lLD5yErkrMd5Hb3JAx1BuNTJ3si
+ GjHq+dd3lsfwBVa/ZAGjiwdC9kFhIBqfuDvWwIhGnSCefUlh8ocEuB6o9hyhH565RIKjNdn
+ S1ZpD3/CQMfgbRZU0GfWXgaA0K1SxZ8TJtus6oZeE0uUdECaVGpLC/B9oN1y+8HXnjAGhYZ
+ /4r28RdJ1pTwYFsy5Updw==
+UI-OutboundReport: notjunk:1;M01:P0:6EnuduEw53c=;5pwMLRLrPWDY+w+r7fzN8xBa+vv
+ U5Ya8a2fr1XL/qg4IN7DzBXVsecjG07cUxB54BY0uYDiRI/8E7woSs3/GQBJDl6xv4WNQVeDq
+ fwYBWC0d6/4CK7snaed6Lb42hM07JkMwSSLx+lh8Qe/57GYK14V15irVs+WRBDHpXp9zaUDkX
+ W2IupMdO8JdyAIqXA5T+HfaLnBXlNY2Kb38f6yvfM7ceLgSJj2RSSMT3oVzK3CsqVfkmeSnbI
+ 1HCkBep6ErVGaQweuPlR2VBwI6vyG0JafHE9eqq2KW0kHwtOuYY8VhJVjxhGhW+AZUOOI2pej
+ ZA5fRu6AbbMnkxsa4Ora74Txo4sW3OtLsu6pbSWGjDnV3nByZMsI0iUHl+EWTaWlkmH6qEo9n
+ xVwjnzWNbWBD2xpR3jQ1bmyUMukIUUZX2wffOl3UxOgf7eJOdgSjY4GEcrwcPAaK7TjvV8dQq
+ pKQZ6Qfb9NxMYccMPt4tWA/wDjMtHoloe356oG96DpX5Ol+FfcHm9v9vAyaKEd1fPzx9jhVQ0
+ T2GEm4EMQs+ae0wa1iyO+KHVb5Kvs7KUO6OXFmwLexCFgtfhgcwYivzIR4xAHon4UbL6g3nXK
+ PWOrlVrXAqksOlHe8K5tb697tbdSMPvGA/EpZNy4psqShimNhptyGst2heKIEBHegQKPCOFKb
+ 2VJqN3eJV/KCGx6srz26ujnlnGK9Nebz5V3dvNT7YmDd+gJg/12+Iuuyx1gZA79Iv+bBxM2/8
+ ksQhKZxOA0o3D3KI8suRQK0WC2+3JM/4t8ELvm4oehmFGCFmaStBxXQIgWXHy1Ud3Y3exKk0A
+ F7hf1Ix7COiDWwU9ebtJI2YZg0o1Z1OYvsonQba1mw2LR/0Vr2tw/WLhCWCePgWYGkBj24Vch
+ 2W8m/bLbsamufnrz0e91M/8jVo6VHyTrinItrbDPQ7sBaDRchJ6Dg3LQmEiN4/g7BcY9h1a/C
+ pe1u8TvYbT62xwa4SujCCYgg6JoIMNQJzbev5y0rhfluSzuiLuWzcayJl+bfmEe5iIZcfwUMl
+ d8tQU3j0u61g2Ke7UCT+6IqXPDj9wqt860Tj1EVOf02FLtM7dX3o/AjCMdfVxo/yRu4srW8Kk
+ U2Gws9NDJsT9iOnV9JHgYBGEvV8pQc/kq17I3jQf6UP8t4Mrpd5t8iRc7DPPE6n+L4pCoHzuW
+ lPoBPIDab0w0Kdb+fF1RseMxN56S6D4X4P97lLLQp8SbZ/C6GO5gV6+zQMUAlSN97rmrgNIlz
+ fkLP3bW6BaztsARv8dhp5AP6AVJ6dD/WuQdsSXr26mlQIUJCCzr93ZabVIkkOEr212cfE4ViY
+ x14jMwGt+qGWzE71SVrKcwwyCgEWOkNXPhJ3F5Mcb+ZLyJe/eBAzyBnx+s803gq2uaGx+VFFM
+ 5uqAkyT89fmaFEvYT5rzurKCJ+JVl6lk0d5dDlfohrSgFVboHFgIw6jTzXf8o5khmZ+lP1J9Y
+ vuQRdEVgfjLUhJ1G/4syMumsQlNZpxDQ1Q4mxUV2S1yJa//rg5KYpH7N3khbZZQ7o9uASRQgk
+ 65mwtYnwSRj+msZlKy4fcFZApN8EVMIlSu3+vmiYO1SKhIeLP8JM2Y9nUXUYtViZY03ukR3++
+ utmVSMzciKs8EKPOJwoWDuyvtVFMUt0gqlfAws1dzZyMe9H75AoXKH3UK0ZKS36B5mk7DS/SD
+ viSzhLyPe6KQP4fECInSP0aaSJDxP0eU8aHX/QG1Zrca7daYLD/owQmK5rVSOlmx/Pcv11Siy
+ 59oIxAki8SzF2fOiio7mI3k8xNtqV+jyqbTBAcuOSiJkVCts1Pv4DXDme4n10Yr2Ir1FY7OlT
+ Yfh7oOd+L+PPUsMC4eEvcLFC0ZK1+7DDARzXxQuQB9kHxk1uXboIT5RzHezpjQskSjVAP8zrs
+ PVzUpKNDIh6aIw5gaMKcFM8tjY7evLmkhJOfce4xxvnOnrsaFySTTo33XlikZLI0xEeulbng/
+ aNJsE3lO3hL7n4Co4HtKWOGnwJoNsxwholj+GPRCXnpmmlI4ZU1lkbmlzVF7YdfFn8kfC3f2h
+ iWISWXj1557XYOUDNZ4zAY/2DuNBuOQ7b49F/FR7exDh8nabZft6T79CuX4RBkt/PR0AuaksW
+ uFpVBRmuklbuk+R3ySJwrzGJL4D1gz7AtMWl+piOUwxtLxk4GvO7Kn0Dpm9Dy5U4sihhMnJD3
+ /6ZvgDOMAG6W6G6Pm5IYM9zyls1HKqzCQK+5B7SG0V64zhs0jeQOajXCngOxW2/Uz7tjBI9Ni
+ E2I5dV5f/UVgEw9dQqcWhPcSf7b3H0sx9Zjf5InAKxdK6chb6OI+TUwtEWY4Q9tshqMxlrPZc
+ PsseZeLE+vFeJEOOzqV9oxwN/K5cDtXu2jiDlZTdw/VR1oo66jxVzojH9wUYgIEos2NqLCiYn
+ EA476lU9DZ7AxSLgOsJN6NYgj42sM/D0KpPKKe8msqV0y49EBhW5ovmlADszo7qzqsH1oOu5I
+ z9DvhjuQjgoMYnf5s0fvyEo9XaP1Dr9XbDsi5yd7pPvgv/hjVGkJqcG+v7sJL3LriZJr0Bcg3
+ ov5JHsMRNHgtVDihADPUAe8QRQOiA3MUIC9RWlkdJ3P4qaXKArY6LGM//rqi3ZuRuku5iG2al
+ EjzjFEJBKUm/Gpe2O+IV/XQrYsl0yzHRp2e0YhMacSejOft3BkT96EbCnbswmgx/QH6eahHWf
+ BDtU5rugAphBceUJ2a5Wo9gyJGEcitrRUzzeY4LFnYqN/KzEEU0VFWRHowyaRbG11gHxo1UFO
+ hIBmNmYxNrhjxEWgvAOU2N9k/6IZkDC09t5lZ7+JT2/tPyjvDkNbVM1EsUR+hXUJARweNvlRc
+ kcbmFQ1bvuLjCqmoXaf3YAvvTwWiP63JIV3FmkGuOZmZldUwmiPkTg2xUdiFBGhyboXOJhGoj
+ NQMaZEnZy0gwADYQX0DcUBCuQJVUgy/bsNTPCfTh77QGWKgXEdPMxlwYj+emPdXwF/o9OWF+Q
+ BU2/ageFaKAZSGoB6TbwQMbZGUJBrlKhK3c2exGB7Im8XgSOePc1ZmEO+91ZhZLSxImX95RuV
+ h5waB8wlE9HeWacnIXx/vz2zK9qdhIj+RrRb++oEs3jZN0c9gMHx3azymc4+YCYR9LTcKHB9C
+ ig0HeZA/ea/BKn+2TkcZSXOAqJI3prKXIRUmjHTXBbJ2brwwAqCySrK/YKPcFT3WYI6+8zLqh
+ kcgP6i07B+eWSJQa5S3aqJFQCEe8Vv+sD0+TMwm+nbtcegPI16sDX/AyW3QXY0mOcmh3gGVT1
+ MXZujczI0XuuwF0z2FEz4ZqwY1RSQsNzZlxYwe9JYBmpLfdl/YmLS3XtnVY4TaqeXSgIcF2s3
+ ZqLzcJF8bLuJq768UOaN4lMFl8SrFk1CmBtM/LtfelnVtS+Jn0L3m6YUAo5BmG7rv0Rl7VzCs
+ Xb0NlMUZyaf1YeTnk8t4P5Gl8icboIFCYvTud8BBE6kGTL7lghef70Mz2A58peSoj7K2Z8wOy
+ XvqPOUUwWxmDEqwnaJxU81BgqNAtsWPzUAzoNNqkEC3abalV1MnjxsVePgEgyBpISbkYxnS4r
+ qprdYMserxFq1XuFHM+kO+SYyX54hWDOjSaAiTMej1uzFTRPrajHBBOFwoEdHcOVFdkqIDw8o
+ +bwn1KVcG+FcBs2tEnXiGIpWqZhOzAm7026M9JNDnG8kxLdeDouNhC/hR+6fho4d1ySbEC1KA
+ VAN9W6AJFixKYcZBAF5plJc4Z5dWS/8uz+OE5S3z3dZ+ciWOXrvjTW7PSexH4AdzNYNqHkhCH
+ 33+aOnNjNk4QRBzcCbD5rmXPSv7dYaz6xrLvOg3/9CGvHpoNiWPMkXMmpt69OBdgQWKxJJnUJ
+ un43dvMzoxMKq395m/yQ6YVYlA+FfT9DWVkxKAFFYlKP1Cj+V/j35G+MLRC16TPLgvAItwVYS
+ Eqp7jQVzUaGg0DSckojdyw0Dqua7pFNpDxi9w94tXZ1oai15JlXRITCrnh+pLOF08ySCZwn/D
+ iXvmbXEM/2E+mVCQyG0YCrE8yUVlVga5bgj8dX14wU2xcQHXbCnJZaO2IYtqcgFKcpqYyGZFU
+ vD38pClLVIH5fIjJk1bKqG9g+5KMmKva76B9Pc61uTZ3ATdPIuNRz5KRu9I6Q03NMxhaBFedY
+ 3Leou/MYEg8fDsO6mGvATM2O/TePDrmrfOtsQtj5dsDY09OMGA4CSrG4EaqRSjCWSXFSyNhCp
+ 4l8fjIl6Co68Bx/K+byQCdJBaZwmu5XzmxR1BSIHLg/sZ8m+yCE8Dj8gs8wrL7e+4xGvokEM2
+ zufk1LbYJm/4rjTC4UoK0+Ey5O4Uo3GtI3HRGlsDxpjkKbuyk7uTGpYrxquwNQ4p0wJRFytml
+ cCZz5GAQJTSRqEBNyhspJPean0s3HusYh5S5kS8pdVwyw6XP4DUOk5UldfiFtVBgAIMv4aBaR
+ HE3PJpg/b2zuT1kxH1bEdWcNFedPw1aQUOYC+cyOaiaKGI10WOgahFtGi1pRkkSh06P8+iANU
+ Ue9EkMz6rBjtk5Eqg0RW9QZb6XmkyPDoA4QQniAD4hGWcIiSo9je23J7GPO1d9igJX9pf170B
+ kZ3QAjhMDXivpORLGOxn+wfh9m4pWicoMsxqfXi3uNgHEKYhQ/pGJalFX81x9mFlwu05+aKod
+ 5TTrXt5qTa4/DQSVuBhbFQDc2nfQiKMnwnkgnBOPPy34ZFvBVt5kIyTi0FOtJU102BOBhW6Ra
+ G0ykZMous4gDWYrklDGn8zRX/pH5gZJF9548808TMVZVkIrVuht2JPkSj0GqVNdIFhVST+7RH
+ Efu9s/GLYEr70LsfFJ5qEW01rWXZEkk5f5FwBW5dVzKwhH0RYiIyRM6OT2J3AWg/pSq/mkyNc
+ aqrJI+Q/O3fhWo5CJkP/kmgMtLPgpzv4f40V+MJl/IP7nhhNeIxlWymmooz3/IwFfcEW/mwry
+ NSt8zuOprxlkjel5/2fh2bZrvmbj9GDNzkek9Y8+cNXwlSRztVljLpkcSeCieyoj2Mg65EOPi
+ 7zxL0UmEiqsZkGNik6fCixyGvyTFtbGu12ZCGFNtPDyP/IXfoE6cjuZHZgUyWAn/KuoVRM4zE
+ ptEBb4Kv56hYkO8hCQ/kv5SZfVwOYY8wAcIfv3cpDtUnDm83I98BMhFr4wEyqv7AwCX9Vz6Zz
+ i0KKreqYGDTqrAM8lpS0kD6G28Uu3T+UAWB6YYsC76c/dkdfOWzYpAFDKu1pwSRU/5WnBZB//
+ 3WWP7ME9FZvgDtDkXkXRKvZwSc6c63E9QGiQEGLHzzZCYinlIG8jwOuXB5KRcXiCE7zIgbs3L
+ 8e+WpTG+4rGm1JVdhXOMG9LUl9F8dvVH7OxJFZcY32+uHDA/q8YBBjQpTtmMd87scUqxJ+9W8
+ /CrkAxLCugsF792SB3ZvWZoeHqye1uE9f4ajUY1pYMGzaMPvQJRzDm6Iaa0YWR9tR4IWGTh5Z
+ Y6tkXaeZlPFYBj9XMMX827iA==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,71 +148,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Krzysztof,
+=E2=80=A6
+> > Return the probe error directly and let devres own the final put.
+=E2=80=A6
+> Fixes: 04826f588682 ("drm/bochs: Allocate DRM device in struct=20
+> bochs_device")
+=E2=80=A6
 
-On Tue May 5, 2026 at 9:25 AM CEST, Krzysztof Kozlowski wrote:
-> On 05/05/2026 08:40, Luca Weiss wrote:
->>>>>> +  compatible:
->>>>>> +    contains:
->>>>>> +      const: boe,bj631jhm-t71-d900
->>>>>
->>>>> Compatible doesn't match the filename, nor does the commit message ma=
-tch
->>>>> what you've got here. Sounds like you're missing a fallback to
->>>>> $filename.
->>>>
->>>> The last times I was upstreaming panel drivers (Feb 2024 and June 2025=
-),
->>>> this was the requested way of doing things.
->>>
->>> So this was requested that time and is requested now. What is here
->>> uncertain?
->>>
->>>>
->>>> Compatible being the company and model number making the actual panel
->>>> assembly (driver IC + touchscreen + glass etc), while the rest being
->>>> named after the driver IC manufacturer & number.
->>>
->>> So exactly what was asked for...
->>=20
->> I don't quite understand what is asked for now, that's my issue.
->>=20
->> 1. Change the filename to boe,bj631jhm-t71-d900.yaml and leave the rest
->>    as-is.
->>=20
->> 2. Add a fallback compatible for novatek,nt37705. IIRC last time it was
->>    argued that a "generic" nt37705 driver will never be correct for a
->>    specific panel since it's missing a bunch of panel-specific init. So
->>    that's why there should not be a fallback to nt37705.
->
-> To my limited knowledge the (2) with fallback describing the specific IC
-> is preferred, because that compatible although not currently usable is
-> still specific and describes actual IC used. I imagine that such
-> fallback still could be useful to some SW implementation to determine
-> the IC and act based on that.
->
-> If you have sources of other preference, please share, but I just gave
-> same review to Neil for his ayaneo,wt0600-2k panels.
+See also once more:
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Do=
+cumentation/process/submitting-patches.rst?h=3Dv7.1-rc2#n145
 
-I found the discussion from 2024 for the Fairphone 4 panel:
-
-https://lore.kernel.org/lkml/f9164049-6529-42c1-a35a-e91132c823b9@linaro.or=
-g/
-
-(quoting)
-
-'''
-  Not sure if "himax,hx83112a" is needed here, the "djn,9a-3r063-1102b"
-  is enough to know the IC is hx83112a.
-
-  I don't think you'll ever find a "djn,9a-3r063-1102b" with another
-  controller IC ?
-
-  And "himax,hx83112a" alone as fallback is not enough to describe the
-  panel hardware, so I think it should be dropped.
-'''
-
-With Konrad replying "+1" to that.
-
-Regards
-Luca
+Regards,
+Markus
