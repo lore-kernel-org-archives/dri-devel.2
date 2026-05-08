@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDB96CD3447
-	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 10:41:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35758CD3436
+	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 10:41:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 227F310F435;
-	Fri,  8 May 2026 10:41:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C261D10F441;
+	Fri,  8 May 2026 10:41:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="LS4wB9Ow";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="moiQufS+";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85FCC10E333;
- Fri,  8 May 2026 10:41:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BA3310E5E4;
+ Fri,  8 May 2026 10:41:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1778236873;
- bh=CCjbAOv+AUfwV71P61bambB9KPgJkBGpAkVfSqu3IzE=;
+ s=mail; t=1778236874;
+ bh=0SZ027itVmKWLKnDx2ABO2cRND/xTdZFsyJoY99ik1Y=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=LS4wB9OwTbq8MAUejBMyJj3E3GtQ9Qa9GzIbZZAv3gl5VxR5tJ5/k2BeAF+VWaLFY
- 7skauOxzS+4Vfo8bYcwjriU9GTtP/DDH0OXJ8zQ/9NOjTpkQ9B0d+YxDVGkMAqXycC
- 5nPiIKp1zWIA9XG5tulH8huQZDVTSppp2wq36r1yAcIhrO4j6DmNKWrA6/UbVC+yqz
- BISTiKWXkiZcsMBmxLEA7BEf3ImfH/qcNDXQ5HFO0MeWgrKXqI2N8sMme9c9X0VlIY
- /JbXlVnI7eGXAxuC7zPSatJR5Ho0ZFpE45pUewJt1h5aj+vIYMcKuyIBQmG1pY7xRP
- X6s1DmrUqW3JA==
+ b=moiQufS+pP62dMZQMxsjJd+oVLV+35b9sbpN7yApjREtAf99HbU/baope+GzT0tL4
+ gE+dzy67JkURm3GGqH/lDE4LkOU9jflsmpOIceshq6HyU4Eq1A+jIIe5pK/IvgAAlO
+ f+/JqeGFs6RyDuXIFfWbwP6RNZr4mcvKlGePeOZbioVS05rBwmU6XPk3vsCsw/hVAT
+ eHLix+rRF3Bv1ZPd+wpzh0wF8RI8DYavpoEjA1fNSM0Vs3oVfnrAYszo6nWSpYwAGt
+ vEC8MvJN7gnzS7QYivGb2b7pz/61STNo+0Z5zcfVHpc3WRx8XkKX6oGYzyUSXVt5x/
+ oEhY1zEi3RsEA==
 Received: from [100.64.0.11] (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 8A3B717E138B;
- Fri,  8 May 2026 12:41:12 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 69D6617E14DD;
+ Fri,  8 May 2026 12:41:13 +0200 (CEST)
 From: Boris Brezillon <boris.brezillon@collabora.com>
-Date: Fri, 08 May 2026 12:40:47 +0200
-Subject: [PATCH v2 1/4] drm/panthor: Don't use the racy
- drm_gem_lru_remove() helper
+Date: Fri, 08 May 2026 12:40:48 +0200
+Subject: [PATCH v2 2/4] drm/gem: Fix a race between drm_gem_lru_scan() and
+ drm_gem_object_release()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260508-panthor-shrinker-fixes-v2-1-39cdb7d577c9@collabora.com>
+Message-Id: <20260508-panthor-shrinker-fixes-v2-2-39cdb7d577c9@collabora.com>
 References: <20260508-panthor-shrinker-fixes-v2-0-39cdb7d577c9@collabora.com>
 In-Reply-To: <20260508-panthor-shrinker-fixes-v2-0-39cdb7d577c9@collabora.com>
 To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
@@ -57,11 +57,11 @@ Cc: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778236871; l=3640;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778236871; l=3930;
  i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
- bh=CCjbAOv+AUfwV71P61bambB9KPgJkBGpAkVfSqu3IzE=;
- b=S+kY1FBPu22WvLC7UmxPfpUmHF0PXd4jJKCwO+GBDLneBrvYhv2/fwn+tybBr1jVPdusToIko
- rYY2lkNnIDrDklIlf8CddnL8TyJks/V1TNctT6p+avkhkliKvorufOQ
+ bh=0SZ027itVmKWLKnDx2ABO2cRND/xTdZFsyJoY99ik1Y=;
+ b=WJffySdN1YIdiEbDmRDkc7kl5DHu70qjBa5OH8jQMMSnX3dqQ46JdxMyQwb1tZUbblBv61mm6
+ ue0lG6MYqNKCN/HyHsB/lsjZ2HHKuLxFDn2Rws7yxASZFsnVlTVS6/a
 X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
  pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -79,89 +79,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_gem_lru_remove() stores drm_gem_object::lru in a local variable
-that's then dereferenced to acquire the LRU lock. Because this
-assignment is done without the LRU lock held, it can race with
-drm_gem_lru_scan() where drm_gem_object::lru is temporarily assigned
-a stack-allcated LRU that goes away when leaving the function. By
-the time we dereference this local lru variable, the object might
-already be gone.
+The following race can currently happen:
 
-It feels like drm_gem_lru_remove() was never meant to be used this
-way, because there's no easy way we can avoid this race unless we defer
-the locking to the caller. Let's add an explicit LRU for unreclaimable
-BOs instead, and have all BOs added to this LRU at creation time.
+| Thread 0 in `drm_gem_lru_scan`               | Thread 1 in `drm_gem_object_release` |
+| -                                            | -                                    |
+| move obj1 with refcount==0 to `still_in_lru` |                                      |
+| move obj2 with refcount!=0 to `still_in_lru` |                                      |
+| mutex_unlock                                 |                                      |
+| shrink obj2                                  |                                      |
+|                                              | lru = obj1->lru; // `still_in_lru`   |
+| mutex_lock                                   |                                      |
+| move obj1 back to the original lru           |                                      |
+| mutex_unlock                                 |                                      |
+| return                                       |                                      |
+|                                              | dereference `still_in_lru`           |
 
-Fixes: fb42964e2a76 ("drm/panthor: Add a GEM shrinker")
+Move the drm_gem_lru_move_tail_locked() after the
+kref_get_unless_zero() check so that we don't end up with a
+vanishing LRU when we hit drm_gem_object_release(). We also need to
+remove the skipped object from its LRU, otherwise we'll keep hitting
+it on subsequent loop iterations until it's actually removed from the
+list in the drm_gem_release().
+
+Fixes: e7c2af13f811 ("drm/gem: Add LRU/shrinker helper")
 Reported-by: Chia-I Wu <olvaffe@gmail.com>
 Closes: https://gitlab.freedesktop.org/panfrost/linux/-/work_items/86
-Reviewed-by: Chia-I Wu <olvaffe@gmail.com>
-Reviewed-by: Steven Price <steven.price@arm.com>
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 ---
- drivers/gpu/drm/panthor/panthor_device.h | 10 ++++++++++
- drivers/gpu/drm/panthor/panthor_gem.c    |  5 ++++-
- 2 files changed, 14 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/drm_gem.c | 34 ++++++++++++++++++++++++++++------
+ 1 file changed, 28 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-index 4e4607bca7cc..dcdce75b683b 100644
---- a/drivers/gpu/drm/panthor/panthor_device.h
-+++ b/drivers/gpu/drm/panthor/panthor_device.h
-@@ -190,6 +190,16 @@ struct panthor_device {
- 		/** @reclaim.lock: Lock protecting all LRUs */
- 		struct mutex lock;
- 
-+		/**
-+		 * @reclaim.unreclaimable: unreclaimable BOs
-+		 *
-+		 * Either the BO is unreclaimable because it has no pages allocated,
-+		 * or it's unreclaimable because pages are pinned.
-+		 *
-+		 * All BOs start in this list at creation time.
-+		 */
-+		struct drm_gem_lru unreclaimable;
-+
- 		/**
- 		 * @reclaim.unused: BOs with unused pages
- 		 *
-diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
-index 13295d7a593d..8e31740126e7 100644
---- a/drivers/gpu/drm/panthor/panthor_gem.c
-+++ b/drivers/gpu/drm/panthor/panthor_gem.c
-@@ -204,7 +204,7 @@ void panthor_gem_update_reclaim_state_locked(struct panthor_gem_object *bo,
- 		drm_gem_lru_move_tail(&ptdev->reclaim.gpu_mapped_shared, &bo->base);
- 		break;
- 	case PANTHOR_GEM_UNRECLAIMABLE:
--		drm_gem_lru_remove(&bo->base);
-+		drm_gem_lru_move_tail(&ptdev->reclaim.unreclaimable, &bo->base);
- 		break;
- 	default:
- 		drm_WARN(&ptdev->base, true, "invalid GEM reclaim state (%d)\n", new_state);
-@@ -994,6 +994,7 @@ static struct panthor_gem_object *
- panthor_gem_create(struct drm_device *dev, size_t size, uint32_t flags,
- 		   struct panthor_vm *exclusive_vm, u32 usage_flags)
+diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+index fca42949eb2b..0e087c770883 100644
+--- a/drivers/gpu/drm/drm_gem.c
++++ b/drivers/gpu/drm/drm_gem.c
+@@ -1573,11 +1573,31 @@ drm_gem_lru_remove(struct drm_gem_object *obj)
  {
-+	struct panthor_device *ptdev = container_of(dev, struct panthor_device, base);
- 	struct panthor_gem_object *bo;
- 	int ret;
+ 	struct drm_gem_lru *lru = obj->lru;
  
-@@ -1026,6 +1027,7 @@ panthor_gem_create(struct drm_device *dev, size_t size, uint32_t flags,
- 	}
++	/*
++	 * We do the lru != NULL check without the lru->lock held, which
++	 * means we might end up with a stale lru value by the time the
++	 * lock is acquired.
++	 *
++	 * This is deemed safe because:
++	 * 1. the LRU is assumed to outlive any GEM object it was attached
++	 *    (LRUs are usually bound to a drm_device). So even if obj->lru
++	 *    has become NULL, it still point to a valid object that can
++	 *    safely be dereferenced to get the lock.
++	 *
++	 * 2. all LRUs a GEM object might be attached to must share the same
++	 *    lock (lock that's usually part of the driver-specific device
++	 *    object), so taking the lock on the 'old' LRU is equivalent
++	 *    to taking it on the new one (if any)
++	 */
+ 	if (!lru)
+ 		return;
  
- 	panthor_gem_debugfs_set_usage_flags(bo, usage_flags);
-+	drm_gem_lru_move_tail(&ptdev->reclaim.unreclaimable, &bo->base);
- 	return bo;
+ 	mutex_lock(lru->lock);
+-	drm_gem_lru_remove_locked(obj);
++	/* Check a second time with the lock held to make sure we're not racing
++	 * with another drm_gem_lru_remove[_locked]() call.
++	 */
++	if (obj->lru)
++		drm_gem_lru_remove_locked(obj);
+ 	mutex_unlock(lru->lock);
+ }
+ EXPORT_SYMBOL(drm_gem_lru_remove);
+@@ -1660,15 +1680,17 @@ drm_gem_lru_scan(struct drm_gem_lru *lru,
+ 		if (!obj)
+ 			break;
  
- err_put:
-@@ -1551,6 +1553,7 @@ int panthor_gem_shrinker_init(struct panthor_device *ptdev)
- 		return ret;
+-		drm_gem_lru_move_tail_locked(&still_in_lru, obj);
+-
+ 		/*
+ 		 * If it's in the process of being freed, gem_object->free()
+-		 * may be blocked on lock waiting to remove it.  So just
+-		 * skip it.
++		 * may be blocked on lock waiting to remove it.  So just remove
++		 * it from its current LRU and skip it.
+ 		 */
+-		if (!kref_get_unless_zero(&obj->refcount))
++		if (!kref_get_unless_zero(&obj->refcount)) {
++			drm_gem_lru_remove_locked(obj);
+ 			continue;
++		}
++
++		drm_gem_lru_move_tail_locked(&still_in_lru, obj);
  
- 	INIT_LIST_HEAD(&ptdev->reclaim.vms);
-+	drm_gem_lru_init(&ptdev->reclaim.unreclaimable, &ptdev->reclaim.lock);
- 	drm_gem_lru_init(&ptdev->reclaim.unused, &ptdev->reclaim.lock);
- 	drm_gem_lru_init(&ptdev->reclaim.mmapped, &ptdev->reclaim.lock);
- 	drm_gem_lru_init(&ptdev->reclaim.gpu_mapped_shared, &ptdev->reclaim.lock);
+ 		/*
+ 		 * Now that we own a reference, we can drop the lock for the
 
 -- 
 2.54.0
