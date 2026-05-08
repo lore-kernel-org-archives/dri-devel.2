@@ -4,62 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1694ACD3445
-	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 17:30:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CBA7CD342F
+	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 17:50:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B60510F57A;
-	Fri,  8 May 2026 17:30:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDAB910E33A;
+	Fri,  8 May 2026 17:50:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YXUdUfzS";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="S9bLNOBj";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A77A010F57A
- for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 17:30:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778261419; x=1809797419;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=6RBLVHT763iWCAiYJpYG5D13YdW8r7qO5LV7VD/wqLs=;
- b=YXUdUfzSJJm5tLJ0nzAFCqmGitSHm4ENQAxaO2Td7rifzYMH9xlfI3rU
- FmyiAWa20EkSziCpPhBbcVkJlgxP0P6Snx6VH/+U1PDpolZSUPe01bhql
- s4WUXiqHn30a949AaaC4fbYvb2Pg65A82qxLzaHJTYuFH8XIczqqWlg5e
- L1sHzo45/xUOjG0IFOYqG5bV6dJiuvWc2tuzq+nGwEbo5S5hgkaK2XJ8q
- l0JvXZDT5q7H9etvz/Y7BgpS/jSCSfcXCMw6bdJUWKCnVaUrW27Exjqxq
- Z9aOeUZ1pjkbjjy1Nm4CFCEErKDz8d8Sg2B8GYjRCvhGtflFDkSPq6Kge w==;
-X-CSE-ConnectionGUID: fbzAqHQ8TO2D3zeVaLXuzw==
-X-CSE-MsgGUID: DvN0e6fkQfSmOQjlkF//sg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11780"; a="89938812"
-X-IronPort-AV: E=Sophos;i="6.23,223,1770624000"; d="scan'208";a="89938812"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 May 2026 10:30:17 -0700
-X-CSE-ConnectionGUID: o76zTJr+Ra+d+4BhWnyHLw==
-X-CSE-MsgGUID: 7OjNYW/5Q4SD0uBTnc3hwA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,223,1770624000"; d="scan'208";a="235841029"
-Received: from kwachows-mobl.ger.corp.intel.com (HELO [10.246.20.129])
- ([10.246.20.129])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 May 2026 10:30:13 -0700
-Message-ID: <17c27a42-a1ec-4b7a-b6c7-ad6fb2d50df1@linux.intel.com>
-Date: Fri, 8 May 2026 19:30:10 +0200
+X-Greylist: delayed 320 seconds by postgrey-1.36 at gabe;
+ Fri, 08 May 2026 17:50:50 UTC
+Received: from out-178.mta1.migadu.com (out-178.mta1.migadu.com
+ [95.215.58.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6BB710E33A
+ for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 17:50:50 +0000 (UTC)
+Message-ID: <0aa24b65-bf32-4955-95ff-e83b5cf4a95e@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1778262318;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=fYSZnDmTsuozUYUmJINbc98ChIljg9omdqVjq5iRYaw=;
+ b=S9bLNOBjMg09zTj2wf5tnT6yK4ofbB5j3KPH8NKiOuSpxgLgJai6TmNQHjw9pkrJmJHMw5
+ 0Pk7O188L/xNfASlN2d9JlTGQ7kNpzkJv4RTpdMoW0C2sr705NnRoBgdFVRrIdESgQlbqq
+ qoh/Xo3sPJIFy91HStTEBYgjg7oJ//4=
+Date: Fri, 8 May 2026 10:45:10 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] accel/ivpu: Reject PRIME export of userptr BOs
-To: Ziyi Guo <guoziyi114@gmail.com>, maciej.falkowski@linux.intel.com
-Cc: ogabbay@kernel.org, sumit.semwal@linaro.org, christian.koenig@amd.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- Ziyi Guo <n7l8m4@u.northwestern.edu>
-References: <20260508162856.1131843-1-n7l8m4@u.northwestern.edu>
+Subject: Re: [PATCH v2 0/5] better LUT segmentation for EOTFs
+To: Melissa Wen <mwen@igalia.com>, airlied@gmail.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, harry.wentland@amd.com,
+ simona@ffwll.ch, siqueira@igalia.com, sunpeng.li@amd.com
+Cc: Krunoslav Kovac <Krunoslav.Kovac@amd.com>,
+ "Dr . David Alan Gilbert" <linux@treblig.org>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, Alex Hung
+ <alex.hung@amd.com>, Aurabindo Pillai <Aurabindo.Pillai@amd.com>,
+ pekka.paalanen@collabora.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, kernel-dev@igalia.com
+References: <20260506191606.15022-1-mwen@igalia.com>
 Content-Language: en-US
-From: Karol Wachowski <karol.wachowski@linux.intel.com>
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298
- Gdansk - KRS 101882 - NIP 957-07-52-316
-In-Reply-To: <20260508162856.1131843-1-n7l8m4@u.northwestern.edu>
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Matthew Schwartz <matthew.schwartz@linux.dev>
+In-Reply-To: <20260506191606.15022-1-mwen@igalia.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,122 +65,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/8/2026 6:28 PM, Ziyi Guo wrote:
->   Userptr BOs wrap pinned user pages in a private dma-buf solely for
->   internal use by the NPU driver. Allowing userspace to re-export such a
->   BO via DRM_IOCTL_PRIME_HANDLE_TO_FD would expose those pages to other
->   drivers through an interface that was never intended to be shared.
+On 5/6/26 12:11 PM, Melissa Wen wrote:
+> Hi,
 > 
->   Override the driver's prime_handle_to_fd callback to detect dma-bufs
->   backed by ivpu_gem_userptr_dmabuf_ops and reject the export with
->   -EINVAL.
+> With an external HDR monitor, we can see gradient banding around the sun
+> in the intro of Ori and the Will of the Wisps game on steamOS/Gamescope.
+> Gamescope uses AMD predefined transfer functions for degamma,
+> shaper/pre-3D-LUT and blend/post-3D-LUT plus CRTC regamma, however, only
+> degamma block has hardware curves. Shaper, blend, regamma predefined TFs
+> are software-computed by AMD color module into PWL LUTs. In addition, we
+> cannot use hardware curves on PRE_DEGAM with subsampled format, so that,
+> predefined TFs are also translated to LUTs in this situation, using
+> GAMCOR block instead. For this translation, the driver originally used
+> the same helper for EOTFs and inverse EOTFs, even though they differ in
+> input domain, number of regions and number of TF points per region.
 > 
-> Signed-off-by: Ziyi Guo <n7l8m4@u.northwestern.edu>
-
-Hi,
-
-Thank you for submission. Actually very similar (with the same intent)
-patch was already applied:
-
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/diff/drivers/accel/ivpu/ivpu_drv.c?id=51d24842acb9b8d643046c71314cc3d7a846a3cf
-
-Kind regards,
-Karol
-
-
-> ---
->  drivers/accel/ivpu/ivpu_drv.c         |  1 +
->  drivers/accel/ivpu/ivpu_gem.c         | 28 +++++++++++++++++++++++++++
->  drivers/accel/ivpu/ivpu_gem.h         |  3 +++
->  drivers/accel/ivpu/ivpu_gem_userptr.c |  5 +++++
->  4 files changed, 37 insertions(+)
+> Baring this in mind, patch 1 maps degamma predefined curves as LUT using
+> GAMCOR block for AMD driver-specific property that are still in use by
+> current gamescope. This was inspired by a similar patch from Harry for
+> colorop [1]. Patch 2 reverts commit 8b89acc0b2ba ("drm/amd/display:
+> Remove unused cm3_helper_translate_curve_to_degamma_hw_format") to
+> reintroduce cm3_helper_translate_curve_to_degamma_hw_format() and patch
+> 3 wire it up for encoded -> linear-light LUTs (degamma/blend). With 16
+> samples per region across 12 regions for blend LUT (where hardware
+> fixed-function curves are not available and predefined TFs are
+> software-computed into LUTs), banding becomes almost imperceptible.
 > 
-> diff --git a/drivers/accel/ivpu/ivpu_drv.c b/drivers/accel/ivpu/ivpu_drv.c
-> index 2801378e3e19..086d4c769b33 100644
-> --- a/drivers/accel/ivpu/ivpu_drv.c
-> +++ b/drivers/accel/ivpu/ivpu_drv.c
-> @@ -545,6 +545,7 @@ static const struct drm_driver driver = {
->  
->  	.gem_create_object = ivpu_gem_create_object,
->  	.gem_prime_import = ivpu_gem_prime_import,
-> +	.prime_handle_to_fd = ivpu_gem_prime_handle_to_fd,
->  
->  	.ioctls = ivpu_drm_ioctls,
->  	.num_ioctls = ARRAY_SIZE(ivpu_drm_ioctls),
-> diff --git a/drivers/accel/ivpu/ivpu_gem.c b/drivers/accel/ivpu/ivpu_gem.c
-> index 4f2005a8d496..82079f372b39 100644
-> --- a/drivers/accel/ivpu/ivpu_gem.c
-> +++ b/drivers/accel/ivpu/ivpu_gem.c
-> @@ -12,6 +12,7 @@
->  #include <drm/drm_cache.h>
->  #include <drm/drm_debugfs.h>
->  #include <drm/drm_file.h>
-> +#include <drm/drm_prime.h>
->  #include <drm/drm_utils.h>
->  
->  #include "ivpu_drv.h"
-> @@ -249,6 +250,33 @@ struct drm_gem_object *ivpu_gem_prime_import(struct drm_device *dev,
->  	return ERR_PTR(ret);
->  }
->  
-> +int ivpu_gem_prime_handle_to_fd(struct drm_device *dev, struct drm_file *file_priv,
-> +				u32 handle, u32 flags, int *prime_fd)
-> +{
-> +	struct ivpu_device *vdev = to_ivpu_device(dev);
-> +	struct dma_buf *dmabuf;
-> +	int fd;
-> +
-> +	dmabuf = drm_gem_prime_handle_to_dmabuf(dev, file_priv, handle, flags);
-> +	if (IS_ERR(dmabuf))
-> +		return PTR_ERR(dmabuf);
-> +
-> +	if (ivpu_gem_is_userptr_dma_buf(dmabuf)) {
-> +		ivpu_dbg(vdev, IOCTL, "Exporting userptr BO is not allowed\n");
-> +		dma_buf_put(dmabuf);
-> +		return -EINVAL;
-> +	}
-> +
-> +	fd = dma_buf_fd(dmabuf, flags);
-> +	if (fd < 0) {
-> +		dma_buf_put(dmabuf);
-> +		return fd;
-> +	}
-> +
-> +	*prime_fd = fd;
-> +	return 0;
-> +}
-> +
->  static struct ivpu_bo *ivpu_bo_alloc(struct ivpu_device *vdev, u64 size, u32 flags)
->  {
->  	struct drm_gem_shmem_object *shmem;
-> diff --git a/drivers/accel/ivpu/ivpu_gem.h b/drivers/accel/ivpu/ivpu_gem.h
-> index 0c3350f22b55..bfd15ce02354 100644
-> --- a/drivers/accel/ivpu/ivpu_gem.h
-> +++ b/drivers/accel/ivpu/ivpu_gem.h
-> @@ -29,6 +29,9 @@ void ivpu_bo_unbind_all_bos_from_context(struct ivpu_device *vdev, struct ivpu_m
->  
->  struct drm_gem_object *ivpu_gem_create_object(struct drm_device *dev, size_t size);
->  struct drm_gem_object *ivpu_gem_prime_import(struct drm_device *dev, struct dma_buf *dma_buf);
-> +int ivpu_gem_prime_handle_to_fd(struct drm_device *dev, struct drm_file *file_priv,
-> +				u32 handle, u32 flags, int *prime_fd);
-> +bool ivpu_gem_is_userptr_dma_buf(struct dma_buf *dma_buf);
->  struct ivpu_bo *ivpu_bo_create(struct ivpu_device *vdev, struct ivpu_mmu_context *ctx,
->  			       struct ivpu_addr_range *range, u64 size, u32 flags);
->  struct ivpu_bo *ivpu_bo_create_runtime(struct ivpu_device *vdev, u64 addr, u64 size, u32 flags);
-> diff --git a/drivers/accel/ivpu/ivpu_gem_userptr.c b/drivers/accel/ivpu/ivpu_gem_userptr.c
-> index 7cbf3a4cdc73..45eabea5961e 100644
-> --- a/drivers/accel/ivpu/ivpu_gem_userptr.c
-> +++ b/drivers/accel/ivpu/ivpu_gem_userptr.c
-> @@ -61,6 +61,11 @@ static const struct dma_buf_ops ivpu_gem_userptr_dmabuf_ops = {
->  	.release = ivpu_gem_userptr_dmabuf_release,
->  };
->  
-> +bool ivpu_gem_is_userptr_dma_buf(struct dma_buf *dma_buf)
-> +{
-> +	return dma_buf->ops == &ivpu_gem_userptr_dmabuf_ops;
-> +}
-> +
->  static struct dma_buf *
->  ivpu_create_userptr_dmabuf(struct ivpu_device *vdev, void __user *user_ptr,
->  			   size_t size, uint32_t flags)
+> Patch 4 and 5 increase precision in the brightest half, where PQ/SRGB
+> EOTFs are steeper, by enabling up to 256 samples per region and halving
+> the per-region point count across 9 regions (128 in [0.5, 1], 64 in
+> [0.25, 0.5], …). This better matches the shape of PQ/SRGB EOTFs.
+> Although patches 4 and 5 seem conceptually correct to me, I couldn't see
+> clear improvement in the bright end with or without them.
+> 
+> This series targets DCN3+ hw families. With this series:
+> - degamma and blend LUTs use
+>   cm3_helper_translate_curve_to_degamma_hw_format(): encoded input,
+>   non-zero end slope, up to 256 points linearly interpolated between
+>   adjacent TF pts, fitting [0,1] encoded input range.
+> - shaper and regamma LUTs continue using
+>   cm3_helper_translate_curve_to_hw_format(): linear-light input, zero
+>   end slope, 16 points per region across 32 regions.
+> 
+> [1] https://lore.kernel.org/dri-devel/20260330153451.99472-8-harry.wentland@amd.com/
+> 
+> [v1] https://lore.kernel.org/dri-devel/20260414220237.184289-1-mwen@igalia.com/
+> Changes:
+> - new patch for GAMCOR usage in case of degamma predefined TF with subsampled formats
+> - fix misleading information regarding degamma hw curves (Kruno)
+> - clarify LUT segmentation choice using 8-bit sRGB as a reference (Kruno)
+> 
+> Best Regards,
+> 
+> Melissa
+
+I tested this on a DCN35 device with an internal HDR panel that was affected by the gradient issue. I cannot see any banding present with this series applied on top of amd-staging-drm-next with AMD private color properties enabled.
+
+Tested-by: Matthew Schwartz <matthew.schwartz@linux.dev>
+for the series.
+
+Thanks,
+Matt
+
+> 
+> Melissa Wen (5):
+>   drm/amd/display: use GAMCOR for degamma private props in subsampled
+>     format
+>   Revert "drm/amd/display: Remove unused
+>     cm3_helper_translate_curve_to_degamma_hw_format"
+>   drm/amd/display: use a separate helper to translate degamma curves
+>   drm/amd/display: support up to 256 samples per region in degamma/blend
+>     LUT
+>   drm/amd/display: use halving distribution for PQ/sRGB linearizing LUT
+> 
+>  .../amd/display/amdgpu_dm/amdgpu_dm_color.c   |  16 +-
+>  .../amd/display/dc/dcn30/dcn30_cm_common.c    | 184 ++++++++++++++++++
+>  .../display/dc/dwb/dcn30/dcn30_cm_common.h    |   4 +
+>  .../amd/display/dc/hwss/dcn32/dcn32_hwseq.c   |  10 +-
+>  4 files changed, 204 insertions(+), 10 deletions(-)
+> 
 
