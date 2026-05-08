@@ -4,53 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE904CD3445
-	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 17:21:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1694ACD3445
+	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 17:30:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F07110F566;
-	Fri,  8 May 2026 17:21:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B60510F57A;
+	Fri,  8 May 2026 17:30:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bS6NLouJ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YXUdUfzS";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 816A210F566
- for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 17:21:13 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id C5BA344372;
- Fri,  8 May 2026 17:21:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8CE8C2BCC7;
- Fri,  8 May 2026 17:21:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778260872;
- bh=Dp9K+cTdAR9Ad22w803RAmQvWPlWzLWi9hAvbCMDQRA=;
- h=Subject:From:In-Reply-To:References:Date:To:Cc:From;
- b=bS6NLouJWK2TXNEjnbfWNIaRZYocx5hGb79ByTVSoRT5lZR73v7e/qXXLk3pVnR4d
- GYJLv+1BCyVEW1llld7CxnLiqIFZ16DEVLlH+mfrSVOUcb9iKd1KWDjZTgQ7Ib4azw
- 3C3AcaD/M8hEhaFy8Mx+GF/KjeXbwhl1k/ddXK8jBa3G4bcP5+GkphI/wgVconjDoY
- wFpaazFFmVShsw+YQhXFLrDWg7BK5eCOuIurfnitTIxdsw3IpgZetpR+TrIIhciYTO
- cHkJv5f0cABPrRozKENCoXe4ryVKLdZiogtyimy61ggO2ETH4qlwsdPL1vT+VpUCqO
- GnGxGwK9S2nXw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
- by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- 7D0C13811979; Fri,  8 May 2026 17:20:22 +0000 (UTC)
-Subject: Re: [git pull] drm fixes for 7.1-rc3
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <CAPM=9tw+hnprz_uW=B3TprAfTgNMWzAEQgeCVrKvuqam8tirDg@mail.gmail.com>
-References: <CAPM=9tw+hnprz_uW=B3TprAfTgNMWzAEQgeCVrKvuqam8tirDg@mail.gmail.com>
-X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <CAPM=9tw+hnprz_uW=B3TprAfTgNMWzAEQgeCVrKvuqam8tirDg@mail.gmail.com>
-X-PR-Tracked-Remote: https://gitlab.freedesktop.org/drm/kernel.git
- tags/drm-fixes-2026-05-08-1
-X-PR-Tracked-Commit-Id: 5e28b7b94408897e41c63477aabc9e1db439bc8c
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 51d24842acb9b8d643046c71314cc3d7a846a3cf
-Message-Id: <177826082123.771267.780862208449071855.pr-tracker-bot@kernel.org>
-Date: Fri, 08 May 2026 17:20:21 +0000
-To: Dave Airlie <airlied@gmail.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
- Simona Vetter <simona@ffwll.ch>, dri-devel <dri-devel@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A77A010F57A
+ for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 17:30:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1778261419; x=1809797419;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=6RBLVHT763iWCAiYJpYG5D13YdW8r7qO5LV7VD/wqLs=;
+ b=YXUdUfzSJJm5tLJ0nzAFCqmGitSHm4ENQAxaO2Td7rifzYMH9xlfI3rU
+ FmyiAWa20EkSziCpPhBbcVkJlgxP0P6Snx6VH/+U1PDpolZSUPe01bhql
+ s4WUXiqHn30a949AaaC4fbYvb2Pg65A82qxLzaHJTYuFH8XIczqqWlg5e
+ L1sHzo45/xUOjG0IFOYqG5bV6dJiuvWc2tuzq+nGwEbo5S5hgkaK2XJ8q
+ l0JvXZDT5q7H9etvz/Y7BgpS/jSCSfcXCMw6bdJUWKCnVaUrW27Exjqxq
+ Z9aOeUZ1pjkbjjy1Nm4CFCEErKDz8d8Sg2B8GYjRCvhGtflFDkSPq6Kge w==;
+X-CSE-ConnectionGUID: fbzAqHQ8TO2D3zeVaLXuzw==
+X-CSE-MsgGUID: DvN0e6fkQfSmOQjlkF//sg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11780"; a="89938812"
+X-IronPort-AV: E=Sophos;i="6.23,223,1770624000"; d="scan'208";a="89938812"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 May 2026 10:30:17 -0700
+X-CSE-ConnectionGUID: o76zTJr+Ra+d+4BhWnyHLw==
+X-CSE-MsgGUID: 7OjNYW/5Q4SD0uBTnc3hwA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,223,1770624000"; d="scan'208";a="235841029"
+Received: from kwachows-mobl.ger.corp.intel.com (HELO [10.246.20.129])
+ ([10.246.20.129])
+ by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 May 2026 10:30:13 -0700
+Message-ID: <17c27a42-a1ec-4b7a-b6c7-ad6fb2d50df1@linux.intel.com>
+Date: Fri, 8 May 2026 19:30:10 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] accel/ivpu: Reject PRIME export of userptr BOs
+To: Ziyi Guo <guoziyi114@gmail.com>, maciej.falkowski@linux.intel.com
+Cc: ogabbay@kernel.org, sumit.semwal@linaro.org, christian.koenig@amd.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ Ziyi Guo <n7l8m4@u.northwestern.edu>
+References: <20260508162856.1131843-1-n7l8m4@u.northwestern.edu>
+Content-Language: en-US
+From: Karol Wachowski <karol.wachowski@linux.intel.com>
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298
+ Gdansk - KRS 101882 - NIP 957-07-52-316
+In-Reply-To: <20260508162856.1131843-1-n7l8m4@u.northwestern.edu>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,15 +75,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The pull request you sent on Fri, 8 May 2026 18:10:26 +1000:
+On 5/8/2026 6:28 PM, Ziyi Guo wrote:
+>   Userptr BOs wrap pinned user pages in a private dma-buf solely for
+>   internal use by the NPU driver. Allowing userspace to re-export such a
+>   BO via DRM_IOCTL_PRIME_HANDLE_TO_FD would expose those pages to other
+>   drivers through an interface that was never intended to be shared.
+> 
+>   Override the driver's prime_handle_to_fd callback to detect dma-bufs
+>   backed by ivpu_gem_userptr_dmabuf_ops and reject the export with
+>   -EINVAL.
+> 
+> Signed-off-by: Ziyi Guo <n7l8m4@u.northwestern.edu>
 
-> https://gitlab.freedesktop.org/drm/kernel.git tags/drm-fixes-2026-05-08-1
+Hi,
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/51d24842acb9b8d643046c71314cc3d7a846a3cf
+Thank you for submission. Actually very similar (with the same intent)
+patch was already applied:
 
-Thank you!
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/diff/drivers/accel/ivpu/ivpu_drv.c?id=51d24842acb9b8d643046c71314cc3d7a846a3cf
 
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+Kind regards,
+Karol
+
+
+> ---
+>  drivers/accel/ivpu/ivpu_drv.c         |  1 +
+>  drivers/accel/ivpu/ivpu_gem.c         | 28 +++++++++++++++++++++++++++
+>  drivers/accel/ivpu/ivpu_gem.h         |  3 +++
+>  drivers/accel/ivpu/ivpu_gem_userptr.c |  5 +++++
+>  4 files changed, 37 insertions(+)
+> 
+> diff --git a/drivers/accel/ivpu/ivpu_drv.c b/drivers/accel/ivpu/ivpu_drv.c
+> index 2801378e3e19..086d4c769b33 100644
+> --- a/drivers/accel/ivpu/ivpu_drv.c
+> +++ b/drivers/accel/ivpu/ivpu_drv.c
+> @@ -545,6 +545,7 @@ static const struct drm_driver driver = {
+>  
+>  	.gem_create_object = ivpu_gem_create_object,
+>  	.gem_prime_import = ivpu_gem_prime_import,
+> +	.prime_handle_to_fd = ivpu_gem_prime_handle_to_fd,
+>  
+>  	.ioctls = ivpu_drm_ioctls,
+>  	.num_ioctls = ARRAY_SIZE(ivpu_drm_ioctls),
+> diff --git a/drivers/accel/ivpu/ivpu_gem.c b/drivers/accel/ivpu/ivpu_gem.c
+> index 4f2005a8d496..82079f372b39 100644
+> --- a/drivers/accel/ivpu/ivpu_gem.c
+> +++ b/drivers/accel/ivpu/ivpu_gem.c
+> @@ -12,6 +12,7 @@
+>  #include <drm/drm_cache.h>
+>  #include <drm/drm_debugfs.h>
+>  #include <drm/drm_file.h>
+> +#include <drm/drm_prime.h>
+>  #include <drm/drm_utils.h>
+>  
+>  #include "ivpu_drv.h"
+> @@ -249,6 +250,33 @@ struct drm_gem_object *ivpu_gem_prime_import(struct drm_device *dev,
+>  	return ERR_PTR(ret);
+>  }
+>  
+> +int ivpu_gem_prime_handle_to_fd(struct drm_device *dev, struct drm_file *file_priv,
+> +				u32 handle, u32 flags, int *prime_fd)
+> +{
+> +	struct ivpu_device *vdev = to_ivpu_device(dev);
+> +	struct dma_buf *dmabuf;
+> +	int fd;
+> +
+> +	dmabuf = drm_gem_prime_handle_to_dmabuf(dev, file_priv, handle, flags);
+> +	if (IS_ERR(dmabuf))
+> +		return PTR_ERR(dmabuf);
+> +
+> +	if (ivpu_gem_is_userptr_dma_buf(dmabuf)) {
+> +		ivpu_dbg(vdev, IOCTL, "Exporting userptr BO is not allowed\n");
+> +		dma_buf_put(dmabuf);
+> +		return -EINVAL;
+> +	}
+> +
+> +	fd = dma_buf_fd(dmabuf, flags);
+> +	if (fd < 0) {
+> +		dma_buf_put(dmabuf);
+> +		return fd;
+> +	}
+> +
+> +	*prime_fd = fd;
+> +	return 0;
+> +}
+> +
+>  static struct ivpu_bo *ivpu_bo_alloc(struct ivpu_device *vdev, u64 size, u32 flags)
+>  {
+>  	struct drm_gem_shmem_object *shmem;
+> diff --git a/drivers/accel/ivpu/ivpu_gem.h b/drivers/accel/ivpu/ivpu_gem.h
+> index 0c3350f22b55..bfd15ce02354 100644
+> --- a/drivers/accel/ivpu/ivpu_gem.h
+> +++ b/drivers/accel/ivpu/ivpu_gem.h
+> @@ -29,6 +29,9 @@ void ivpu_bo_unbind_all_bos_from_context(struct ivpu_device *vdev, struct ivpu_m
+>  
+>  struct drm_gem_object *ivpu_gem_create_object(struct drm_device *dev, size_t size);
+>  struct drm_gem_object *ivpu_gem_prime_import(struct drm_device *dev, struct dma_buf *dma_buf);
+> +int ivpu_gem_prime_handle_to_fd(struct drm_device *dev, struct drm_file *file_priv,
+> +				u32 handle, u32 flags, int *prime_fd);
+> +bool ivpu_gem_is_userptr_dma_buf(struct dma_buf *dma_buf);
+>  struct ivpu_bo *ivpu_bo_create(struct ivpu_device *vdev, struct ivpu_mmu_context *ctx,
+>  			       struct ivpu_addr_range *range, u64 size, u32 flags);
+>  struct ivpu_bo *ivpu_bo_create_runtime(struct ivpu_device *vdev, u64 addr, u64 size, u32 flags);
+> diff --git a/drivers/accel/ivpu/ivpu_gem_userptr.c b/drivers/accel/ivpu/ivpu_gem_userptr.c
+> index 7cbf3a4cdc73..45eabea5961e 100644
+> --- a/drivers/accel/ivpu/ivpu_gem_userptr.c
+> +++ b/drivers/accel/ivpu/ivpu_gem_userptr.c
+> @@ -61,6 +61,11 @@ static const struct dma_buf_ops ivpu_gem_userptr_dmabuf_ops = {
+>  	.release = ivpu_gem_userptr_dmabuf_release,
+>  };
+>  
+> +bool ivpu_gem_is_userptr_dma_buf(struct dma_buf *dma_buf)
+> +{
+> +	return dma_buf->ops == &ivpu_gem_userptr_dmabuf_ops;
+> +}
+> +
+>  static struct dma_buf *
+>  ivpu_create_userptr_dmabuf(struct ivpu_device *vdev, void __user *user_ptr,
+>  			   size_t size, uint32_t flags)
+
