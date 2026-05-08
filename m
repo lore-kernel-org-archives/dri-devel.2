@@ -4,137 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89B90CD3436
-	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 12:13:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A67ECD3436
+	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 12:14:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E264C10F46E;
-	Fri,  8 May 2026 12:13:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECFA610F474;
+	Fri,  8 May 2026 12:14:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="XaJ3ctv8";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="F8SDuIHq";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="oZrz2XsQ";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QENXwm+l";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1958D10F46E
- for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 12:13:10 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA54010F474
+ for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 12:14:39 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 648CABXU1174043
- for <dri-devel@lists.freedesktop.org>; Fri, 8 May 2026 12:13:09 GMT
+ 648BleGr4069446
+ for <dri-devel@lists.freedesktop.org>; Fri, 8 May 2026 12:14:39 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- AzJKM4LY9eDR05imqaETs6SnpHADXv5BDM6HRtwJMwA=; b=XaJ3ctv8qvehTC7D
- GxP/NOyT6paq8IsQE+pk8dkQoaegmlN5mRIOt8r8WE4VRqJcBU/LBfoVdSmA9AYE
- /I6MwWtHP9l5VQ7yMRRhl4kscwSapmDlGqBukoC16PJXtHpZZzrBsMZfOvh9BhIu
- xT5KgH4vuFvGow9JqtHsIc41yURC0/P2SOL1fmIJdGF49hWyiyahxC1xvl0IZ+zY
- tHYxFh5qr1/yg6Xj8GWKInnbSS9q32ZmsyCtmY8aWu4VesrbGCLEx217f4JuPFNN
- JYBuYjfKlvhuxnsFh6vqPFiRBmdk4OJ3AKZ79UWJ49sV2qL713NviRazigps6ArU
- 9U51BA==
-Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com
- [209.85.217.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e132hathe-1
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=In49/1HCdY0mp+ShQ8tlA4tT
+ XudR8PGllAHcd0hZ7Sc=; b=oZrz2XsQ3iZv6f+hTcT7U1Ab+sy8McNKW7I4YJwn
+ 0dXWt1F9plOou+Zdx1J1ZtDG9/tjqfSqR5D8G7GzTCyXgKFllC3KKBCWq7SLv7Kg
+ w4b3BEo3G/CxY5z9B4c3NFZFVJ5GiUkKs2RA1l5c7P1QfJtAZ1AO7ZEd6ggzK93J
+ ooXS2FD4/P7M8aAvSghEnyo/Dluo7JC0sy1UvjLlJrDm4BRydEd8VQqsYiUgRZCQ
+ 5CV3ZTeSz/GZ2Lves8D6V7ekk1CSiwtOmIGdR6TK/Tb+8GZNeAX9Nh8G7CNzjSz5
+ Ie838JuRUlZLStKHN21xlZJhKqj0iGbF3D1SU1AmtRek+A==
+Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com
+ [209.85.217.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e12sp2v4p-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 08 May 2026 12:13:09 +0000 (GMT)
-Received: by mail-vs1-f69.google.com with SMTP id
- ada2fe7eead31-611af0d600bso1262459137.2
- for <dri-devel@lists.freedesktop.org>; Fri, 08 May 2026 05:13:09 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 08 May 2026 12:14:39 +0000 (GMT)
+Received: by mail-vs1-f71.google.com with SMTP id
+ ada2fe7eead31-62f30279e90so1764655137.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 08 May 2026 05:14:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1778242388; x=1778847188;
+ d=oss.qualcomm.com; s=google; t=1778242478; x=1778847278;
  darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=AzJKM4LY9eDR05imqaETs6SnpHADXv5BDM6HRtwJMwA=;
- b=F8SDuIHqTunzTIBRf9zaX8A1AmGDSr4fUv76Wz2l4yGH3Lc6uEXfNW+sIhyAKvpBEJ
- 4O7cGZc7/0g2gpbnMKoAe42FGP7WuaOkIKgcrAs+sNo1WSmLj9MXj4UDKZpKWQAgIihV
- rQ1Tzbd7padrzHdK+RYWUPjJJd0/2YkrCnq+2AZZfOLTMvhk08yM8sgTBXogH1tVW6Sz
- C4Wjj+Zq4EkhzSu9Xi4RJ8K9CCl+ICyjHAnTK2mZbVlxfj7bUzLEZX8EASo1/CjGaI5Y
- AKLuFssB9YmhB9+GBFkDqR3FoInVjsU3PI1bxVzzAuR1yo8MK9382UTOQVj98XMt7ixu
- EPTw==
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=In49/1HCdY0mp+ShQ8tlA4tTXudR8PGllAHcd0hZ7Sc=;
+ b=QENXwm+l7Lx+KgWMhiD6VbbuXpXFlutv5MO4yslpik72PkHScIuTgpWgxZfhudH7Ca
+ gQw4xNbpzRTu613GGLhwsuF/WnU9f8b1JJnblRkER40pU8ELlaDxWp2p2x0wMcJxm1Ud
+ Jf6jCbO/LQraCiPEx+xXDjc214izq65xBrHNgqPTB4uMcTuKBOWRYMZuZeMhjo63D92D
+ jnzem4VitXliW9ov1mIIyico4aN31cUeiVNl6X9ScCFe6u5GUDdpnz9xh5gmw/tu7sKt
+ 86pkuFcUNtQL6QXCE/9UPwXKRFJv51JuDTCr9yPJnz4I1I3pfgPvWrQS+dH+/jZ0SR2K
+ ca7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778242388; x=1778847188;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=AzJKM4LY9eDR05imqaETs6SnpHADXv5BDM6HRtwJMwA=;
- b=NouFrOCFFNI0vw8sT2Qe7Pn9RRI0p8yGuaii/vuwB05zJ9Uv5Kgy+tjkoPR3xexehF
- sfUq+8B63mwXdVEljD36uHXy3Y3mSXBXjmsk0dIvCOHESSWQp70v7Ixk48AjfZA2zWYm
- 84RvgfWPsTBf5tuVvFERMf9E8EJWg+o/eW+0wdp7c+0kpEkjJcWYo4Pci466SmCs09fK
- JMNiMOAUsZUQh2CqqUkSYb5CzpfiYgkPNEqW8cC+Jnvp3UOFGxHm0WDbLggcfOYbwiBD
- UfKCdKQ9tKvelwhM+UqugADT6ZkTZ4mmADr72/9HUYvNahuA4vcThhCCbFmZn0mRB5z8
- WE2A==
+ d=1e100.net; s=20251104; t=1778242478; x=1778847278;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=In49/1HCdY0mp+ShQ8tlA4tTXudR8PGllAHcd0hZ7Sc=;
+ b=durHtuY1kU+vMLXZUso67OqOTbZDilQ6I4aHGhh/iwEpYUAij5LDWy42bgZcoZWdga
+ Zc77rzNk9NmSdDivRKI3QwBJIQxDFWPhSs6fguHDIVOdGCSKJy4jjnwo+wWY5TCOemut
+ lIKye/MWaHs8iptJcN30WIT7BOXW0a17/twVkJ/LMuNqtJbBd2OXVwoMjt869x9+lOrN
+ deTDjwGrn0nUXztEsNfLPJN9a7kVvf9HcHlgq43gWia0oKCq+ZyuNkfXH7z9RaC2Sbm/
+ W6PgpuOpHMsr3IgH40vDD/nAjtyZ8VOpHdqUhRMQoYzbdWhnQPgSH1Lx4EbBSsYoCYDj
+ B4tA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/1C9b0oEZ6eE5ytaBToABHGlS99zyIsUuTbrp6Vzfr/4+1lYs61VTvg2ZxI6Hd4p/3L/eW5GUjhEw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yws4rTXiCv6EZurKONZSPECIuGab4DI1leSyEOfHrztQfxGzGP4
- cEX5o44t1as5FxdODe8azv6JCdpdUODo4ai5BSxZlJyAz/nGZnHOoaPvZIEZfflHhzgkZtAfug7
- XGP0clkB8V3xSdKTncdRwkYg4nlevgWjE2PLtJDA9MuyEVU0w7eRzJiZf+DzaHgELejezdyI=
-X-Gm-Gg: Acq92OEpJwz40o/3jJC1fsS/GlkWslKP/MHYFWmbj6imodBtR8hItMjLWI65ItsmTLP
- peJXkVjypf8Oylnl0n0xjmGknTPCJXAJrup5GlY3+pZWOz23uQXwwoOszWngZBj6Cwrp2RiilgX
- CYn34L6QXBHZC6dMuhgc+Kh6PTkxxB2FW89vyYE1FXIYYdjiF7Y/NZ39iWHlZkHBkm0xgQSayvC
- 5pLkSDGzw8wgfBxx73WPguTAjxZz+CYO9A47CggsYRcJZBHS16NlLei4L/Pb/36rTiYf1/wmK97
- xTHq20BYeuNT7SDZQcKoexDAV61M1codyzDDpX0+Fb5Sb7oalDZtD3wVyBlAcqWCHkfAlP/Fq5+
- d+qyRjTdLRD+IKzwRLyMjJUzD1Mcz8qhbJG+jgbXbizCTLbAf8+1wVQm7d00vTuL5efyJJUbZix
- tNUZNVZz70Z7FyGkO42rbP+k+zI3tX8HgZO2A=
-X-Received: by 2002:a05:6102:f9d:b0:631:4cd8:b6aa with SMTP id
- ada2fe7eead31-6314cd8bb9fmr251681137.13.1778242388320; 
- Fri, 08 May 2026 05:13:08 -0700 (PDT)
-X-Received: by 2002:a05:6102:f9d:b0:631:4cd8:b6aa with SMTP id
- ada2fe7eead31-6314cd8bb9fmr251631137.13.1778242387830; 
- Fri, 08 May 2026 05:13:07 -0700 (PDT)
+ AFNElJ/NOAPUsqLjWeojOGl9krRrCgxh2lWJPeN7G4fzFSy65ltZvkAeaLFMtsWdhQj+dWpxpt/WU3TkfoE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyzCrsZCvgYwc5UYepf1hz8Ye9qdCKU3RMexxtgh5/Iy9aqkWeR
+ 4v+RJ0evl+vMyXSZzwYOhi9kZhYvtlhjbw8PvEm2+hCcm9KkRKxspGssrUqERknz8KwTzU/BUde
+ WYMp9IbTf0KklalLyBPXqdtbFLGi3sI+u2e9bldmUxOr+hNqPhHC+FuTnb0VVyQLnIx5kwt4=
+X-Gm-Gg: Acq92OHiEBiDKJC+rY5WUI2XdPo6RpqDluPoiM3FYlCmBOlSwYt+JSmZsj2TbYN7YrC
+ TQ6VIN98AiW9T+rmVNJvnl4Z5Qd0HmgLE3Xq/uogapDhc3Hpn96l97zxcD8cLyE/LMOzebGuP0Q
+ tvvcGPNSK/IgCYlCQZhKeN3Cpha+lc499VfNdQKGXnpFLGBsoIKo2xE8Is0pP+hKtp3aE+kDCfT
+ qoXxMAzaI/w37mQ6LP+zHY88MEoHN50BuX4Y7yhFh62y/fNcfh1+flLTwUfRzGfbQkN03mYvgq4
+ V+mF2e6SrOEr/Tj7QpkVkCRcbQ6Z2CS2BAkn6kLxbBxDjv4fBaWGDuRg7qSYakRf7z1SKid9U3A
+ WlUgVD6NqGVWxklPBQ3CjbqhTIUvZ4Aoqz2tGPN6L080QiTkqfYIavd+rMEAT8SIZc7yNS4cIUL
+ hQuYdCYVY1pHhp6PAMIYIcxch80rbQUlEgKBk=
+X-Received: by 2002:a05:6102:dd0:b0:607:4fde:1921 with SMTP id
+ ada2fe7eead31-6313eb08909mr674059137.24.1778242478137; 
+ Fri, 08 May 2026 05:14:38 -0700 (PDT)
+X-Received: by 2002:a05:6102:dd0:b0:607:4fde:1921 with SMTP id
+ ada2fe7eead31-6313eb08909mr674046137.24.1778242477632; 
+ Fri, 08 May 2026 05:14:37 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a8a956b3d0sm455378e87.80.2026.05.08.05.13.06
+ 2adb3069b0e04-5a8a951d2f2sm478339e87.28.2026.05.08.05.14.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 08 May 2026 05:13:06 -0700 (PDT)
-Date: Fri, 8 May 2026 15:13:04 +0300
+ Fri, 08 May 2026 05:14:36 -0700 (PDT)
+Date: Fri, 8 May 2026 15:14:34 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: syyang@lontium.com
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- maarten.lankhorst@linux.intel.com, rfoss@kernel.org,
- mripard@kernel.org, Laurent.pinchart@ideasonboard.com,
- tzimmermann@suse.de, jonas@kwiboo.se, jernej.skrabec@gmail.com,
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, yangsunyun1993@gmail.com,
- xmzhu@lontium.corp-partner.google.com, xmzhu@lontium.com,
- rlyu@lontium.com, xbpeng@lontium.com
-Subject: Re: [PATCH v5 1/2] dt-bindings: bridge: Add Lontium LT9611C(EX/UXD)
- MIPI DSI to HDMI driver
-Message-ID: <ly35dnwogvo4omdjvm2sqajwponibhegdws6pdbthqf6zutscb@nm5j7uyfw36l>
-References: <20260507024214.97708-1-syyang@lontium.com>
- <20260507024214.97708-2-syyang@lontium.com>
+To: Daniel Golle <daniel@makrotopia.org>
+Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Junzhi Zhao <junzhi.zhao@mediatek.com>, Jie Qiu <jie.qiu@mediatek.com>,
+ dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 2/2] drm/mediatek: hdmi: report jack plugged state from
+ bridge enable/disable
+Message-ID: <mv5qeardy5xy5657hb32ewkwg3gmgll3kow4xuhiklswnmj2sc@mhncl5reoqlc>
+References: <a3e22cbae528c9a38d854a586d1736b860998d41.1776265222.git.daniel@makrotopia.org>
+ <c4d62fc2244fb72207855c5a366ff10fad419f2d.1776265222.git.daniel@makrotopia.org>
+ <lhxivpwo6aq3ehgzsnkgxnqis5tptmey4dtbhaokyckkl7ghbn@dzaj225pnpk3>
+ <afyUfcr8HuFs6EKF@makrotopia.org>
+ <v343uqdgy65yg3lm7rcv57mlpkudqxrnori6lnunaiiewakhyd@wnxkqhhwwvgg>
+ <af3Ml252DaeyXzwe@makrotopia.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260507024214.97708-2-syyang@lontium.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA4MDEyNyBTYWx0ZWRfXy1zCB3PYWGSe
- EHJejOvrQnok3bPgKf8Gd8HEy8hMt1rCeTjdydDMGRlMB+vENZTgwe0Xu5OAsbw3b5IxdG3aVzb
- YEge7DXg9XTGMvwASCd8Ex3sjEfLGc3cmxcplx2x0+WeaNsEJ9/zq2eb5JMAIeQtuE/cFHp4G8E
- YUFv3oKvK1kkw8aUux1OmsgKRpgrCO+AtcZ514cn0ZSwA1O+jGQCn9d9E9JbVn5N6LMfUmuk+qh
- nU5qOtle7dN36dPsQZa4ws9GLHiKu+yRnljOtV/0xkJR+2UHxChmaQDlF5OZViRixqg0QI/mszU
- DbMiseA6DmgquR4BolgiOvPTR0UgzPEcTfsKXP/3PqBtK7RnO7c1iXeFnxYs3f19KCSAj9mcoZZ
- qZEcQ4J4S9K7HcIoLZ53gw8+PSlBUPHmtsTupbeI40p2G7F2lT9bsGqV1hMDRy1rMyAZdoLs/xj
- 0bexcE+spX07NzCsFfw==
-X-Proofpoint-ORIG-GUID: Hv4lrGwFF0idTadCsrGCqzSB-ljCi98e
-X-Proofpoint-GUID: Hv4lrGwFF0idTadCsrGCqzSB-ljCi98e
-X-Authority-Analysis: v=2.4 cv=McxcfZ/f c=1 sm=1 tr=0 ts=69fdd355 cx=c_pps
- a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+In-Reply-To: <af3Ml252DaeyXzwe@makrotopia.org>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA4MDEyNyBTYWx0ZWRfX0IhXssO73q3V
+ IhAdlAxV3ae1bOiJeIeLrrIgNOySLklVB4v2PVB+fnppJblvrKNj6yYVWhutg7myhDeiPqK7txo
+ VeVaOBrTlGZQXxTva1syDjQpa7IbpZuSzbdpIdDIX8S7eI9YxHgP6O+d9lbC9xdvAXBXqptfVrk
+ umrxZFYhi5HD/4YRAQuUID0VEjOJv5w1+URw/DOeRArfYdW0Mn67YUNWIh2O8PoJrps8RLafnce
+ s38cdhgJKxBcddiUrHjxbbn8xWNmQFDtW3I+00TJBKTbKal7Di6MvTG+AI1sVoOzKs1CcV+Ffve
+ 9Tk7oQ/dxQFLGP1MGdxFr0XPDqgawZ4DTGcEJkadriw+jNGaxf60Xg8i6GiKz6G7z1fYMa8uysj
+ EZ+L5n4z3c6FSJeJXXiaIKNvV3BAJmnrjifmaKxuHaBDC4RYKg6T+Yr0nk/tMWzND7AFG3x82eb
+ fV0jsqYl/G+k4sBG9uA==
+X-Proofpoint-ORIG-GUID: gHFrU4GcVM5XhoAT6CRLYIX1tMZrEqu8
+X-Authority-Analysis: v=2.4 cv=Wu4b99fv c=1 sm=1 tr=0 ts=69fdd3af cx=c_pps
+ a=P2rfLEam3zuxRRdjJWA2cw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=gEfo2CItAAAA:8
- a=Kz8-B0t5AAAA:8 a=VwQbUJbxAAAA:8 a=FA6Kg9t7gy3gg5_aXx8A:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=gYDTvv6II1OnSo0itH1n:22 a=sptkURWiP4Gy88Gu7hUp:22
- a=RuZk68QooNbwfxovefhk:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=nwvF3KZO1n6Oi4RS03UA:9
+ a=CjuIK1q_8ugA:10 a=ODZdjJIeia2B_SHc_B0f:22
+X-Proofpoint-GUID: gHFrU4GcVM5XhoAT6CRLYIX1tMZrEqu8
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-05-07_02,2026-05-06_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 suspectscore=0 spamscore=0 bulkscore=0
- adultscore=0 priorityscore=1501 lowpriorityscore=0 impostorscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ clxscore=1015 malwarescore=0 priorityscore=1501 suspectscore=0
+ lowpriorityscore=0 bulkscore=0 spamscore=0 impostorscore=0 phishscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
  definitions=main-2605080127
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -152,56 +150,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, May 07, 2026 at 10:42:13AM +0800, syyang@lontium.com wrote:
-> From: Sunyun Yang <syyang@lontium.com>
+On Fri, May 08, 2026 at 12:44:23PM +0100, Daniel Golle wrote:
+> On Fri, May 08, 2026 at 02:29:29PM +0300, Dmitry Baryshkov wrote:
+> > On Thu, May 07, 2026 at 02:32:45PM +0100, Daniel Golle wrote:
+> > > On Thu, May 07, 2026 at 12:51:56PM +0300, Dmitry Baryshkov wrote:
+> > > > On Wed, Apr 15, 2026 at 04:04:16PM +0100, Daniel Golle wrote:
+> > > > > Notify hdmi-codec of the current sink plugged state from
+> > > > > mtk_hdmi_bridge_atomic_enable() and mtk_hdmi_bridge_atomic_disable()
+> > > > > via mtk_hdmi_update_plugged_status(). This matches the pattern used
+> > > > > by dw-hdmi, which invokes handle_plugged_change() from the bridge
+> > > > > enable and disable paths so that ASoC jack state stays in sync with
+> > > > > the actual sink presence across atomic commit cycles, and not only
+> > > > > on CEC HPD transitions.
+> > > > > 
+> > > > > Userspace audio daemons (e.g. pipewire) rely on the jack state to
+> > > > > route streams, restore per-sink volume levels, and recover the last
+> > > > > used device after a reconnect. Without this, those transitions are
+> > > > > missed whenever the sink change is driven by a mode set rather than
+> > > > > by a bare HPD event.
+> > > > 
+> > > > I can only hope to see mtk_hdmi to migrate to DRM_BRIDGE_OP_HDMI and
+> > > > DRM_BRIDGE_OP_HDMI_AUDIO...
+> > > > 
+> > > > I think the correct timing was discussed several times and the overall
+> > > > conclusion was that the correct time is when the actual HDMI cable is
+> > > > being plugged / unplugged. See the discussion around [1] and the
+> > > > captured response of Mark Brown.
+> > > 
+> > > Thank you for bringing this to my attention. I'll follow up on it.
+> > > Meanwhile, can (independent) patch 1/2 already be merged, or at least
+> > > get reviewed?
+> > 
+> > 
+> > The discussion that I pointed to suggests that the patch is incorrect.
 > 
-> LT9611C(EX/UXD) is an I2C-controlled chip that Receiver signal/dual port
-> mipi dsi and output hdmi, differences in hardware features:
-> - LT9611C: supports 1-port mipi dsi to hdmi 1.4
-> - LT9611EX: supports 2-port mipi dsi to hdmi 1.4
-> - LT9611UXD: supports 2-port mipi dsi to hdmi 1.4/2.0
-> 
-> Signed-off-by: Sunyun Yang <syyang@lontium.com>
-> ---
->  .../bindings/display/bridge/lontium,lt9611.yaml           | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
-> index 429a06057ae8..b20a43456b01 100644
-> --- a/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
-> +++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
-> @@ -4,19 +4,23 @@
->  $id: http://devicetree.org/schemas/display/bridge/lontium,lt9611.yaml#
->  $schema: http://devicetree.org/meta-schemas/core.yaml#
->  
-> -title: Lontium LT9611(UXC) 2 Port MIPI to HDMI Bridge
-> +title: Lontium LT9611(UXC/C/EX/UXD) 2 Port MIPI DSI to HDMI Bridge
->  
->  maintainers:
->    - Vinod Koul <vkoul@kernel.org>
->  
->  description: |
-> -  The LT9611 and LT9611UXC are bridge devices which convert DSI to HDMI
-> +  The LT9611、LT9611UXC、LT9611C、LT9611EX and LT9611UXD
-> +  are bridge devices which convert DSI to HDMI
->  
->  properties:
->    compatible:
->      enum:
->        - lontium,lt9611
->        - lontium,lt9611uxc
-> +      - lontium,lt9611c
-> +      - lontium,lt9611ex
-> +      - lontium,lt9611uxd
+> I understand that patch 2/2 is incorrect, but (the independent fix in)
+> patch 1/2 as well?
 
-Please keep the list sorted
-
->  
->    reg:
->      maxItems: 1
-> -- 
-> 2.34.1
-> 
+1/2 moves plugged updates to the atomic_enable() / atomic_disable(),
+which is not correct according to the discussion I pointed to.
 
 -- 
 With best wishes
