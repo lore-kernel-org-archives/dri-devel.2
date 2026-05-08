@@ -4,45 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BF09CD37B0
-	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 17:03:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE904CD3445
+	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 17:21:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71DCC10F574;
-	Fri,  8 May 2026 17:03:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F07110F566;
+	Fri,  8 May 2026 17:21:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="miuG7geX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bS6NLouJ";
 	dkim-atps=neutral
-Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC16410F569;
- Fri,  8 May 2026 17:03:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1778259792;
- bh=g7sFg48r5Dm+Qo/8mMdFgMdzbwgpDyCQ/p6NpvKjuO8=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=miuG7geX4V6aqu09394g21y6aer2ii5J64k2rHShJV8jxg/42yvdAD+jr8x1BExwg
- PmLL9b/4p/cj6ohFV2NhFfHbyKkXEuIwEFeFsOo3TxcQv424om/vILos5m59ZGvfHQ
- /yOrmhjgjr0Pskt7f0HccWUa1Lis4ijC1oiBt410jI5yfdIEEcccL4FT/e+hzPOX9O
- 2bvHcx2+FCcRCyGs9J3p5iBtXsdGk2cZkEUCaL3svIVO63DCZ1kasqQmCeMk5vX+gy
- sTWk2FNsVbcecTdbihl5sTP32OhZ1LoYQCZsVwLnkQ6gHvNFVtzStkIqvvTsR0TemU
- IKi5yt+iqOA2A==
-Message-ID: <433c0bbd-6c47-4011-8551-d1cfd0b4e17c@lankhorst.se>
-Date: Fri, 8 May 2026 19:03:11 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/ttm: Convert -EAGAIN from dmem_cgroup_try_charge to
- -ENOSPC
-To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- intel-xe@lists.freedesktop.org
-Cc: Friedrich Vock <friedrich.vock@gmx.de>, Tejun Heo <tj@kernel.org>,
- Maxime Ripard <mripard@kernel.org>,
- Christian Koenig <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org, stable@vger.kernel.org
-References: <20260508160920.230339-1-thomas.hellstrom@linux.intel.com>
-Content-Language: en-US
-From: Maarten Lankhorst <dev@lankhorst.se>
-In-Reply-To: <20260508160920.230339-1-thomas.hellstrom@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 816A210F566
+ for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 17:21:13 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id C5BA344372;
+ Fri,  8 May 2026 17:21:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8CE8C2BCC7;
+ Fri,  8 May 2026 17:21:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1778260872;
+ bh=Dp9K+cTdAR9Ad22w803RAmQvWPlWzLWi9hAvbCMDQRA=;
+ h=Subject:From:In-Reply-To:References:Date:To:Cc:From;
+ b=bS6NLouJWK2TXNEjnbfWNIaRZYocx5hGb79ByTVSoRT5lZR73v7e/qXXLk3pVnR4d
+ GYJLv+1BCyVEW1llld7CxnLiqIFZ16DEVLlH+mfrSVOUcb9iKd1KWDjZTgQ7Ib4azw
+ 3C3AcaD/M8hEhaFy8Mx+GF/KjeXbwhl1k/ddXK8jBa3G4bcP5+GkphI/wgVconjDoY
+ wFpaazFFmVShsw+YQhXFLrDWg7BK5eCOuIurfnitTIxdsw3IpgZetpR+TrIIhciYTO
+ cHkJv5f0cABPrRozKENCoXe4ryVKLdZiogtyimy61ggO2ETH4qlwsdPL1vT+VpUCqO
+ GnGxGwK9S2nXw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ 7D0C13811979; Fri,  8 May 2026 17:20:22 +0000 (UTC)
+Subject: Re: [git pull] drm fixes for 7.1-rc3
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <CAPM=9tw+hnprz_uW=B3TprAfTgNMWzAEQgeCVrKvuqam8tirDg@mail.gmail.com>
+References: <CAPM=9tw+hnprz_uW=B3TprAfTgNMWzAEQgeCVrKvuqam8tirDg@mail.gmail.com>
+X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <CAPM=9tw+hnprz_uW=B3TprAfTgNMWzAEQgeCVrKvuqam8tirDg@mail.gmail.com>
+X-PR-Tracked-Remote: https://gitlab.freedesktop.org/drm/kernel.git
+ tags/drm-fixes-2026-05-08-1
+X-PR-Tracked-Commit-Id: 5e28b7b94408897e41c63477aabc9e1db439bc8c
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 51d24842acb9b8d643046c71314cc3d7a846a3cf
+Message-Id: <177826082123.771267.780862208449071855.pr-tracker-bot@kernel.org>
+Date: Fri, 08 May 2026 17:20:21 +0000
+To: Dave Airlie <airlied@gmail.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel <dri-devel@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,66 +66,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hey,
+The pull request you sent on Fri, 8 May 2026 18:10:26 +1000:
 
-Den 2026-05-08 kl. 18:09, skrev Thomas Hellström:
-> dmem_cgroup_try_charge() returns -EAGAIN when the cgroup limit is
-> hit and the charge fails. TTM has no concept of -EAGAIN from resource
-> allocation; -ENOSPC is the canonical error meaning "no space, try
-> eviction". Convert at the source in ttm_resource_alloc() so no caller
-> needs to handle an unexpected error code, and clean up the now-redundant
-> -EAGAIN check in ttm_bo_alloc_resource().
-> 
-> Without this, -EAGAIN escaping ttm_resource_alloc() during an eviction
-> walk causes the walk to terminate early instead of continuing to the
-> next candidate.
-> 
-> Cc: Friedrich Vock <friedrich.vock@gmx.de>
-> Cc: Maarten Lankhorst <dev@lankhorst.se>
-> Cc: Tejun Heo <tj@kernel.org>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Christian Koenig <christian.koenig@amd.com>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: <stable@vger.kernel.org> # v6.14+
-> Fixes: 2b624a2c1865 ("drm/ttm: Handle cgroup based eviction in TTM")
-> Assisted-by: GitHub_Copilot:claude-sonnet-4.6
-> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> ---
->  drivers/gpu/drm/ttm/ttm_bo.c       | 2 +-
->  drivers/gpu/drm/ttm/ttm_resource.c | 5 ++++-
->  2 files changed, 5 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-> index d85f0a37ac35..cee3828df655 100644
-> --- a/drivers/gpu/drm/ttm/ttm_bo.c
-> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
-> @@ -739,7 +739,7 @@ static int ttm_bo_alloc_resource(struct ttm_buffer_object *bo,
->  		may_evict = (force_space && place->mem_type != TTM_PL_SYSTEM);
->  		ret = ttm_resource_alloc(bo, place, res, force_space ? &limit_pool : NULL);
->  		if (ret) {
-> -			if (ret != -ENOSPC && ret != -EAGAIN) {
-> +			if (ret != -ENOSPC) {
->  				dmem_cgroup_pool_state_put(limit_pool);
->  				return ret;
->  			}
-> diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
-> index 9f36631d48b6..b0efffe5a526 100644
-> --- a/drivers/gpu/drm/ttm/ttm_resource.c
-> +++ b/drivers/gpu/drm/ttm/ttm_resource.c
-> @@ -385,8 +385,11 @@ int ttm_resource_alloc(struct ttm_buffer_object *bo,
->  
->  	if (man->cg) {
->  		ret = dmem_cgroup_try_charge(man->cg, bo->base.size, &pool, ret_limit_pool);
-> -		if (ret)
-> +		if (ret) {
-> +			if (ret == -EAGAIN)
-> +				ret = -ENOSPC;
->  			return ret;
-> +		}
->  	}
->  
->  	ret = man->func->alloc(man, bo, place, res_ptr);
+> https://gitlab.freedesktop.org/drm/kernel.git tags/drm-fixes-2026-05-08-1
 
-Yeah looks reasonable with the conversion to callbacks.
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/51d24842acb9b8d643046c71314cc3d7a846a3cf
 
-Reviewed-by: Maarten Lankhorst <dev@lankhrost.se>
+Thank you!
+
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
