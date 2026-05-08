@@ -4,63 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5417CD3447
-	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 10:21:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70244CD3447
+	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 10:41:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0896A10F413;
-	Fri,  8 May 2026 10:21:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBDE610E333;
+	Fri,  8 May 2026 10:41:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BxNcf+7K";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Ug0kLtuF";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC11210F413;
- Fri,  8 May 2026 10:21:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778235677; x=1809771677;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=cojI/gwaZHr93LDbN4OO8ZbULbP2R4eNiodl6E7Ecs4=;
- b=BxNcf+7KPpkDRXqpD/ChH3la2iuG9f5h0qYqnWuk1oIJ2Yk2e8d7qiQc
- gvuCycZ/jajMZUTjAGgNUauxaE201R1xdrigxwrMmsKIav4j9eBhYykgp
- nr9xne5+shzZ8iyKFDaKVrmEaG7TIk3Vtpo9/9IKitmmuIizoxghzQJ7Z
- oMR+coIG8fck/ZOz0+BdKkJ+eDO179xKdSLXM2oHhFIwVE8queTIX1vvy
- PhExG7Ahugo6rRezcetDwaUAeMRP4/IV2hb5x0HpRYkULDA225EK1gw5H
- 9+C6GYKmeHDE1aFHegSnGuuvtwnrnajs9I+U7ARRe064Gh7I6BUb+eLXX A==;
-X-CSE-ConnectionGUID: UuKivsKiQpaHG2HuRlj9wg==
-X-CSE-MsgGUID: YWESGzvfTTCzmJPXBiulPA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11779"; a="79055468"
-X-IronPort-AV: E=Sophos;i="6.23,223,1770624000"; d="scan'208";a="79055468"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 May 2026 03:21:17 -0700
-X-CSE-ConnectionGUID: fJX+Tc7oTtaTIOHJU2ZKJA==
-X-CSE-MsgGUID: Idp2DgbXTYKlAbYWVe7f0w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,223,1770624000"; d="scan'208";a="230333933"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.244.40])
- by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 May 2026 03:21:15 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
-Cc: rodrigo.vivi@intel.com, Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- joonas.lahtinen@linux.intel.com, tursulin@ursulin.net,
- Jani Nikula <jani.nikula@intel.com>
-Subject: [PATCH 3/3] Documentation/gpu: add remaining DOC: comments to Intel
- display documentation
-Date: Fri,  8 May 2026 13:20:49 +0300
-Message-ID: <589c46cf9a46763f4fbb7e1756656e6d71ba1431.1778235406.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1778235406.git.jani.nikula@intel.com>
-References: <cover.1778235406.git.jani.nikula@intel.com>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B995A10E333;
+ Fri,  8 May 2026 10:41:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1778236872;
+ bh=AyVzusdvo7gkyag9NVEBy5NipM7PG5vpfz+BPxvmftM=;
+ h=From:Subject:Date:To:Cc:From;
+ b=Ug0kLtuFT2743B69qDMt43ARZvCaozCkHwOD3FlW32OzOOAT2O3/+bA4jbLmqOKBB
+ 7tzLUgaN37kPwL+pTqnOZu+H+cTzv9zdJ2WGm8CHM9weLVa/9TfOU0zCn6ytANDSgF
+ nDZ/Qa3ItpSIDNlm3cUtnOyUOoCUUS3jCYjHOmDTATtMI1vmELkres7GwJeUdaILsg
+ dk5KIsL6GVKPSM4jbNN59KqOUBuarbUnTQ9QI1b7n4/brousU70hZkPGodvgog4aK0
+ 2wwLyOg10HnXoVwTwGYER2/Fs+0MSF50HR+iIwWLIsYQIMFgk9yyObhpLoa+h+ZKgP
+ nY37DOwWJ8KOQ==
+Received: from [100.64.0.11] (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id A929717E137F;
+ Fri,  8 May 2026 12:41:11 +0200 (CEST)
+From: Boris Brezillon <boris.brezillon@collabora.com>
+Subject: [PATCH v2 0/4] drm/panthor: Fix a race in the shrinker logic
+Date: Fri, 08 May 2026 12:40:46 +0200
+Message-Id: <20260508-panthor-shrinker-fixes-v2-0-39cdb7d577c9@collabora.com>
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNQQ7CIBBFr9LM2jFAClVX3sN0gXQqxArN0DSah
+ ruLvYDL93/e/xtk4kAZLs0GTGvIIcUK6tCA8zY+CMNQGZRQRmhhcLZx8Ykxew7xSYxjeFNGfXJ
+ ybLUbXSuhyjPTXlT31lf2IS+JP/vPKn/p38lVokDqOiW1MgOdzdWlabL3xPbo0gv6UsoXxrD2w
+ 8AAAAA=
+X-Change-ID: 20260506-panthor-shrinker-fixes-58c1f45cfc41
+To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
+ Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Akash Goel <akash.goel@arm.com>, Chia-I Wu <olvaffe@gmail.com>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778236871; l=3348;
+ i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
+ bh=AyVzusdvo7gkyag9NVEBy5NipM7PG5vpfz+BPxvmftM=;
+ b=upV/5PAtIwICd9o0/5dAU6L2MQwmbnuJCMq8WufaoyP1AS2CoSAdkfvaQkwqq9SM6OWEvB0iN
+ lqEvB9JscfeDI1SJZHsDSpF5IW5gzgLS68yct0WSE5vIQJftGsPw7s9
+X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
+ pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,104 +81,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Not all of the overview DOC: comments in the display driver are
-incorporated into the documentation. Add the missing ones, including
-some function documentation.
+As reported by Chia-I [1], a race exists between drm_gem_lru_remove()
+and drm_gem_lru_scan(), causing a UAF on a stack-allocated object.
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+This first patch fixes the problem at the panthor level by making
+sure we never use drm_gem_lru_remove(). The second one fixes an
+undetected race between drm_gem_lru_scan() and
+drm_gem_object_release(). The third one kills drm_gem_lru_remove()
+so no one else relying on the drm_gem_lru infra gets bitten by this
+race again. And the last one tries to simplify the locking around
+LRU updates so we can solve the chicken/egg problem where the lock
+that needs to acquired is under gem->lru->lock, and gem->lru is
+also supposed to be accessed with the lru->lock held.
+
+Note that patch 1, 2 and 3 could be skipped if we go directly for the
+approach in patch 4. Panthor wouldn't be impacted because the
+shrinker support didn't land in Linus tree yet, so no fix to backport
+there. We might still want patch 2 so it can easily be backported (if
+the bug is deemed important for MSM).
+
+Rob, I'll leave it up to you, but no matter what we decide, I'd really
+like to have some fix in before the next merge window.
+
+Liviu, Chia-I, Steve, I've intentionally dropped your R-b on patch 2
+and 3 because they changed a bit.
+
+[1]https://gitlab.freedesktop.org/panfrost/linux/-/work_items/86
+
 ---
- Documentation/gpu/intel-display/atomic.rst   | 11 +++++++++++
- Documentation/gpu/intel-display/casf.rst     |  8 ++++++++
- Documentation/gpu/intel-display/cmtg.rst     |  8 ++++++++
- Documentation/gpu/intel-display/index.rst    |  4 ++++
- Documentation/gpu/intel-display/snps-phy.rst |  8 ++++++++
- 5 files changed, 39 insertions(+)
- create mode 100644 Documentation/gpu/intel-display/atomic.rst
- create mode 100644 Documentation/gpu/intel-display/casf.rst
- create mode 100644 Documentation/gpu/intel-display/cmtg.rst
- create mode 100644 Documentation/gpu/intel-display/snps-phy.rst
+Changes in v2:
+- Collect R-b
+- Drop a useless obj->lru != NULL check in drm_gem_lru_scan()
+- Fix another race introduced in patch 2
+- Document why the lru != NULL check done without the lru lock held
+  in drm_gem_lru_remove() is safe
+- Add a patch to sanitize the GEM LRU locking: lock is now part of
+  drm_device, meaning we don't have this chicken/egg problem where
+  the lock that needs to acquired is under gem->lru->lock, and
+  gem->lru is also supposed to be accessed with the lru->lock held
+- Fix typos in commit messages and comments
+- Link to v1: https://lore.kernel.org/r/20260506-panthor-shrinker-fixes-v1-0-e7721526de96@collabora.com
 
-diff --git a/Documentation/gpu/intel-display/atomic.rst b/Documentation/gpu/intel-display/atomic.rst
-new file mode 100644
-index 000000000000..43a473181e7a
---- /dev/null
-+++ b/Documentation/gpu/intel-display/atomic.rst
-@@ -0,0 +1,11 @@
-+.. SPDX-License-Identifier: MIT
-+.. Copyright © 2026 Intel Corporation
-+
-+Atomic Modeset Support
-+======================
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/display/intel_atomic.c
-+   :doc: atomic modeset support
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/display/intel_atomic.c
-+   :internal:
-diff --git a/Documentation/gpu/intel-display/casf.rst b/Documentation/gpu/intel-display/casf.rst
-new file mode 100644
-index 000000000000..406778ccd94c
---- /dev/null
-+++ b/Documentation/gpu/intel-display/casf.rst
-@@ -0,0 +1,8 @@
-+.. SPDX-License-Identifier: MIT
-+.. Copyright © 2026 Intel Corporation
-+
-+Content Adaptive Sharpness Filter (CASF)
-+========================================
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/display/intel_casf.c
-+   :doc: Content Adaptive Sharpness Filter (CASF)
-diff --git a/Documentation/gpu/intel-display/cmtg.rst b/Documentation/gpu/intel-display/cmtg.rst
-new file mode 100644
-index 000000000000..04edd0bd165d
---- /dev/null
-+++ b/Documentation/gpu/intel-display/cmtg.rst
-@@ -0,0 +1,8 @@
-+.. SPDX-License-Identifier: MIT
-+.. Copyright © 2026 Intel Corporation
-+
-+Common Primary Timing Generator (CMTG)
-+======================================
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/display/intel_cmtg.c
-+   :doc: Common Primary Timing Generator (CMTG)
-diff --git a/Documentation/gpu/intel-display/index.rst b/Documentation/gpu/intel-display/index.rst
-index 8d40363b8f90..01c3d1e576b7 100644
---- a/Documentation/gpu/intel-display/index.rst
-+++ b/Documentation/gpu/intel-display/index.rst
-@@ -24,8 +24,11 @@ driver. The display driver isn't an independent driver in that sense.
-    :caption: Detailed display topics
- 
-    async-flip
-+   atomic
-    audio
-+   casf
-    cdclk
-+   cmtg
-    dmc
-    dpio
-    dpll
-@@ -37,4 +40,5 @@ driver. The display driver isn't an independent driver in that sense.
-    hotplug
-    plane
-    psr
-+   snps-phy
-    vbt
-diff --git a/Documentation/gpu/intel-display/snps-phy.rst b/Documentation/gpu/intel-display/snps-phy.rst
-new file mode 100644
-index 000000000000..c9e333fa7f62
---- /dev/null
-+++ b/Documentation/gpu/intel-display/snps-phy.rst
-@@ -0,0 +1,8 @@
-+.. SPDX-License-Identifier: MIT
-+.. Copyright © 2026 Intel Corporation
-+
-+Synopsis PHY support
-+====================
-+
-+.. kernel-doc:: drivers/gpu/drm/i915/display/intel_snps_phy.c
-+   :doc: Synopsis PHY support
+---
+Boris Brezillon (4):
+      drm/panthor: Don't use the racy drm_gem_lru_remove() helper
+      drm/gem: Fix a race between drm_gem_lru_scan() and drm_gem_object_release()
+      drm/gem: Stop exposing the racy/unsafe drm_gem_lru_remove() helper
+      drm/gem: Make the GEM LRU lock part of drm_device
+
+ drivers/gpu/drm/drm_drv.c                |  2 +
+ drivers/gpu/drm/drm_gem.c                | 79 +++++++++++++-------------------
+ drivers/gpu/drm/msm/msm_drv.c            | 11 ++---
+ drivers/gpu/drm/msm/msm_drv.h            |  7 ---
+ drivers/gpu/drm/msm/msm_gem.c            | 32 ++++++-------
+ drivers/gpu/drm/msm/msm_gem_shrinker.c   |  4 +-
+ drivers/gpu/drm/msm/msm_gem_submit.c     |  6 +--
+ drivers/gpu/drm/msm/msm_gem_vma.c        | 12 ++---
+ drivers/gpu/drm/msm/msm_ringbuffer.c     |  6 +--
+ drivers/gpu/drm/panthor/panthor_device.h | 11 ++++-
+ drivers/gpu/drm/panthor/panthor_gem.c    | 24 +++++-----
+ drivers/gpu/drm/panthor/panthor_mmu.c    | 29 ++++++------
+ include/drm/drm_device.h                 |  7 +++
+ include/drm/drm_gem.h                    | 21 ++++-----
+ 14 files changed, 120 insertions(+), 131 deletions(-)
+---
+base-commit: c006978163fd001fbca55e5fa57bddcf49f47ad9
+change-id: 20260506-panthor-shrinker-fixes-58c1f45cfc41
+
+Best regards,
 -- 
-2.47.3
+Boris Brezillon <boris.brezillon@collabora.com>
 
