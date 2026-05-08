@@ -4,126 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15188CD342F
-	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 08:44:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CAFBCD3436
+	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 09:59:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36B2310F3DE;
-	Fri,  8 May 2026 08:43:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7009910E078;
+	Fri,  8 May 2026 09:59:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="AQMNGGad";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="mWL3Eum8";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZclNG3Ti";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010056.outbound.protection.outlook.com
- [40.93.198.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84C3D10F3DE;
- Fri,  8 May 2026 08:43:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kYwOpe3sAFGL3v2gHQ8yIQequfeoyx5YA3nu5nZ77IUgw/qv6viDXQd+ZyJcrXZWYSXUdZl8Ji+g7uv+rgACmDcPA2il0ozHbebDP0VaAyz+o9mulm691lf+U+1ZbWHIULizCHIJc32Zizk7npVzdCB2aFOoCh96aoNAxNX8yZSWOZJsZhAtjtsMnGAVnKbEEEqnOiZwXNuCjZ4X2q79dw8W9FUVIxqhCIXFXSA88YCFTAIcbdb0ZYUPJQEkOBacfy6Xrc/aJt+GPQoP/ZEOH7sfsPh5l1pZw9EI7DvZ761v3EBrIoT4XwZk8/ZRMn3ApZC9epdy7X4F9ZFMRL78hw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=d/UDwidXjwOhNN3ywh/iHiYHh+OQMutAJhw0P5Me7Qw=;
- b=Wmp9jABQM4laF66CmspwT4EO7x28MlRdJ6swDbJbVEdd6EbKj/TgEPcPxcf+4j+fxHRMWDH2n0uWZ2dRixX2fHzAj4GxMpXTuktxuScuWQokE9r291P4IzjpPtzEcdchiBBhIiC4uf9KWcByLFjX2XLW6/09gpaAK+viaTnG4kCPzKvtq1I8/mU95fav/JF87xCB3XD2UJYOzUtf7W88uZNlv9MT7+2zt5gHvc7uTS3aIxXfArDblXJClZZbmuABANpZs63dvX/L7b0mt0kA2AIVl799CaKtu9ht0rEMZqu58BNXV8nzSC1AGfStIoRfdrnUFPx5Sj6leiL1Jumtkg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=d/UDwidXjwOhNN3ywh/iHiYHh+OQMutAJhw0P5Me7Qw=;
- b=AQMNGGadATaC/9DURt/40p1KXnCRvOSHmbve9ocRPbWk/FtGBsKLEpwHnCAlgCQqJM2fTTVHkzCCRdEpDfw0IaF8qDGXl2gDaKgs0IeyM/lnq04FYnHRAQqLS42dUSIo70keIb+IrlAb0nySIezrMHW+sb+oIK5uZdZj+NCjfEU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MN0PR12MB6319.namprd12.prod.outlook.com (2603:10b6:208:3c0::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.15; Fri, 8 May
- 2026 08:43:54 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9870.023; Fri, 8 May 2026
- 08:43:54 +0000
-Message-ID: <dcc966e0-da1d-4589-ad04-02aeb1a8e06f@amd.com>
-Date: Fri, 8 May 2026 10:43:48 +0200
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 182EE10E319
+ for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 09:59:21 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64872cap1062071
+ for <dri-devel@lists.freedesktop.org>; Fri, 8 May 2026 09:59:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ Qn0u2rVFSmOsPw9dKW2MjjRKtDspoihKo23AtaIa+f8=; b=mWL3Eum8QSKgmA0e
+ M147kIoPilIPbnVJNQlUEC4gIRzkgPbuU0u3fckW5lsWkJ8Spz/FeQNmOeFJCgUh
+ O4GQuO5Jd1DvybTdiUtsQ4Tf16rMifr5DX14yVjkH3CRM4v3bQm2SsEwOukVAbw6
+ lz+IUUurCJUaL67TjQaeD+kc2L9jMArNTJefNT+VvISKw30mzwGqCZnhuoUI9KTk
+ xZIKg76qQsaMpEb6PugiixNsFwcMjfuKhgYfiZFQhCxO5zN18rCGagZXWb1zhcQg
+ e2Xpx644gilT7k1QLpY5psHyNWTUOx6HLypVQmJ0Cb31hbpJKj7lX9HNpmy6irF+
+ /BqtWg==
+Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com
+ [209.85.221.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e1b3fgnup-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 08 May 2026 09:59:20 +0000 (GMT)
+Received: by mail-vk1-f197.google.com with SMTP id
+ 71dfb90a1353d-5751831fe6dso207937e0c.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 08 May 2026 02:59:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1778234359; x=1778839159;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Qn0u2rVFSmOsPw9dKW2MjjRKtDspoihKo23AtaIa+f8=;
+ b=ZclNG3TiQ04aiqTuAjL1Bpz8R42Q2Yf30seSSbj/aoR6RIEpNg8T1n/lXHTp7vUKIP
+ O2XPjhoXUBRHDQn+MQ52JdESakiZk4PNGgFIjdvqBrjLxZq0IbEyRoopd0dAZD5LpGVo
+ uI7v4ggL+DAxQtkUxl4g/5K8mcVmtvBH7l4DcuafJ8IsKHN72wr3EjuqQk6EGl/Eca0Y
+ wYUz0d+tUfdAr5SWtmNFOm9fsHxw9pXhWTvDnBR6rtxPZYP8p4dRCKkCBf7keJaV48Wj
+ 0BUrc9Ag0tzUU4/TO4onxTCQzcprTBqhIJanFTATIFeyeif1m9BDTjtzLUZvKLEbHNbJ
+ B8NA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778234359; x=1778839159;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Qn0u2rVFSmOsPw9dKW2MjjRKtDspoihKo23AtaIa+f8=;
+ b=ERkO8Jjy5+Qoo3QLX8ih9khah3JgoSk6oN49qM18G3CWHzMBW9t00M9zeG54E5oQSr
+ dBUhgQ9UzTmREU3+vYrDDQFqooh3oTBvetkLXCjl1N3sCzowrzStUbGr2ynurh75sWSW
+ X/79KH0XcOzsGVvT2r1VgrZUpGTeaf4EoN7RAAnRrbyIRHVzyq7foLOZN9t+3hoQCob+
+ 3uHHV3Tyvdiih6J1btMb+BJ0MVntKJI/pAlhqfZWta1GWgpZMbdgjsjT8injFjBxNoPf
+ IUsSnTDlmXwERvDgzpb7Oa5roklzfyfG11Q8RCritBFrQW6TukQVJMtyMaD465C/zGuf
+ EVpA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8a80zUYRR4lUaM0JkRkykkCiHa9rJ4SblUkr6DcEHgSB2L6cI/vwQDSBNfOiy6z1Na9xHU0dTy17A=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxbg5idI6MQQPHl5lpFPcGw/iIHbfv9+q07x53x3hsPAm345udA
+ aIKKi7/E/YPpz3zWS17iFplLBICQbMYyBWMd5OQzNj9y2tIy+iWYV/scABWL1zv8OPYARliDoWK
+ ORfk+rzlkNYgOwCms78hTEDo7ASrEEDmX47UpAYXN9fGuehUF5ctFr5/irf7T5BNSrN5CdQY=
+X-Gm-Gg: Acq92OHCnFqP0ORN8OwWGyoxvRo1WQ1q/bbvBxfrb9XmdwY0b+GObFyo6N+0t/cryQr
+ uNbGiy63rU6bVV0k5VbwdSiRQoYurozmC8Aoe8ZFi9TcExCMggCFMnqgyqxHZoLu5CEMO5Hj6Yv
+ pNBGHP/UMbNRBhbB0/QMcsZdvj949YuyHjwXdtnbHAPzyHA3NLCZnWmIXLpgqX5RFZWFMhJcIW0
+ Qpzh9IpiUvSiMddpFxrXIJ4vqjwI7Fbcpq/+85zojNruPv+pLZMKYitFbuTJ5lm2rrG3UyktHBI
+ zA89EQU6g0RDTmNRvc/mJ2oPQgk9AsQg8rO6eCnediAjHx8xNw2XGa/ywhRbwGMejTj5bjAdSy3
+ /Cme/3z/AVpS6p+OJDCKNDeoDcjoJO04aJaF6xTDp2g3SwhdW7vxcldb00Ve56CTNK+0gRSWbUJ
+ R3pXvQZgWmNdulkA==
+X-Received: by 2002:a05:6122:32c8:b0:575:1954:4396 with SMTP id
+ 71dfb90a1353d-5755cdfee8amr2625428e0c.2.1778234359606; 
+ Fri, 08 May 2026 02:59:19 -0700 (PDT)
+X-Received: by 2002:a05:6122:32c8:b0:575:1954:4396 with SMTP id
+ 71dfb90a1353d-5755cdfee8amr2625412e0c.2.1778234359209; 
+ Fri, 08 May 2026 02:59:19 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-bcac398b017sm58092266b.38.2026.05.08.02.59.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 08 May 2026 02:59:18 -0700 (PDT)
+Message-ID: <9e1f0853-21ff-4d81-a653-f3cabf254190@oss.qualcomm.com>
+Date: Fri, 8 May 2026 11:59:15 +0200
+MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND] drm/amd/pm: Use guard(mutex) instead of manual
- lock+unlock
-To: Andre Hirata <andrejhirata@usp.br>, kenneth.feng@amd.com,
- alexander.deucher@amd.com, airlied@gmail.com, simona@ffwll.ch
-Cc: Gabriel Dimant <gabriel.dimant@usp.br>,
- Guilherme Gabriel <guilhermesangabriel@usp.br>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <20260508024744.6523-1-andrejhirata@usp.br>
+Subject: Re: [PATCH v4 20/29] drm/msm/mdss: use new helper to set amsbc
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260507-ubwc-rework-v4-0-c19593d20c1d@oss.qualcomm.com>
+ <20260507-ubwc-rework-v4-20-c19593d20c1d@oss.qualcomm.com>
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260508024744.6523-1-andrejhirata@usp.br>
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260507-ubwc-rework-v4-20-c19593d20c1d@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MN0P222CA0030.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:208:531::32) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MN0PR12MB6319:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1b3c46b5-f8e0-40d3-5ea2-08deacddef6b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|56012099003|22082099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: FfvuwFh72XWw/m23grNXyH1r7Y8bDLY11IxASTeY6HyWb9NtQy/4QPZzKh53xw0EsX5y6hfKOHVM8MZyvzziQA3Hnb2JSLVVLumXB45P/AR5nm/zU4wq2Py5yfs0raPLQrLi9r4kSfXZ0oe/JevryaCnsceih40y1iALue+G+UWoOOPYh3T9UmAFQ9gWMiqPuDrlG881T0rQV+BB2YhMm+KWqbmQ3Y65k6japEDerRtKv1x27UMnDe9Wv1IRApZUGoEU9SCIN3cfGsmaQMvwkUgKqD2QFjYNFaGxk/KJmA0MDQCiMqLzXOfpwHxDfNdBZQwU8BhzOVaotzkdZgGb1+QBM8u3oguBFgGUEeZOOpd35ioLne4qOl4nIGRV6BLdPophoPkC3ovNstUIGOVTv/eec/UnnwV23C5nww26D9s0CkixQxuSNHtZYo0O1ldxusuKNQgT8//RgyxhUbuWUiKA/RuJTQcVjimdkze4WfZJyr2c9bwkSwPdy7AH9N9wboBGrk5qzs27T361LwZsZkG1cASQk3ovKvbJ7Dpskr84lc0u9FgG27o5QvH55Szv1jguQ5yt6yJLmTqJtGNURawNsp7g0EGahoFU4dZ4PtcUamfbpPrw/HkxaQSLL/FqJ38j4Ao/XSOYcvPSwOfyOPXW/CEgQF1+sDUKxNXcidnM2W1DqiEFBa5W5PWuqtA5
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(56012099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MFhrREhZNlVLNWVzTVMrUWZuQnlEQXNNSXllTUJQazZoLzZHMUdwT2xsSnBZ?=
- =?utf-8?B?Mi9rMlVGRUJqYnVhejhGOEhvUDUrRVF4S0s4Ny9vRzNQeTU1QVdSSlRqMTVI?=
- =?utf-8?B?aUh1OW03cnBRMUh4SGVYZzM4UG9RN21hajVOQU1IeTRxcVUzUzBPRkF3VitD?=
- =?utf-8?B?K3c5ekVabWVCeStNMEpWaXJ0WnNQMXNwQUtzd1Z0MFZJdTg5SSs5MXFDSVdV?=
- =?utf-8?B?all1aWxZckN3N1YwUjNrbHU1WXVjdzEzUW83LzVRd1BmVmR1R205RzNnUUFo?=
- =?utf-8?B?MTVCNUFRK3BDY2xzNllWYmhyMlpVUDRUUjF6aEh1Tjd0RGdJNDVwQmYzeU9k?=
- =?utf-8?B?QTVVcnVyT2JNamFteUFUSHhPTVhkQzFpVHNtekZGYUk2dUhmWmZpVWRSQVRH?=
- =?utf-8?B?TWxrTDFYZ1NBQW1MSTd5bk1UdzV4eG5NQ2Z6NjdObHFlQnJiOUxaM1dhS2lI?=
- =?utf-8?B?aWIzeVo4b1dmZ21MRE1ES2tTbXBaK2o3Q3hLc2pRTFh2dnFpZkhoUGFNL2JQ?=
- =?utf-8?B?NTQ0SHhBakdndHcyRGdsYzlkMXJ5UDkvMXRodTlvSVJxTGI5Z3pWdTg2OU9j?=
- =?utf-8?B?YTBSckRvT0hYSDFXckQ2bmtRbTBnazJlVGxYbXpTMEN2MVZ0OWRCU0R5OEh2?=
- =?utf-8?B?NXFtaEdPOHArUGs3WmNrTTBvRzMxWFM3K0tQNmVvTDNyU01TUzRjMkZFUmVO?=
- =?utf-8?B?QnUwNkh6NHYyaVRhMkF3c3NCVkY5VHhDaTljQVBPTEEzM2dGVlk2Ymw5UDlr?=
- =?utf-8?B?UUo2Q1NTT0FlNUlWUzI2cGNXNkNsWlhjWjlsK25lU2VrSEQybkt4R1djc2NK?=
- =?utf-8?B?N2F3M21oemhtRDI1SkN5dzFlNTNpRkVDc1c3VzJNUElRdTR0NEp1RlN0cGhP?=
- =?utf-8?B?WEpkNlFOU1lnODdkZUVLUENIQWNHSWQ2ZE5ZSGNmcnlQNnZPTVlncFVtSFA1?=
- =?utf-8?B?OUhoc0o3elpscUhncnJvODRBYUl6TDRMQ3lqUTM1RXpra1pCbUtpL2ZDbTRp?=
- =?utf-8?B?UjRKRFpvSVNHN3pOQitHZjBtaGpBRmpaODFVaENGeUZWQ3lWU3hZSFB3cXl4?=
- =?utf-8?B?VFJPN3oySmpHVE9IaStHMjJOQ080ajBMYk83QWZ4YmdDdXJoT1dmV2I0VG9l?=
- =?utf-8?B?OFUrQTcyK3d2eDRHTzJ3NTB1dkxodXEvVXFldXp0UzR5VldkQmhXeDFoNk04?=
- =?utf-8?B?Y2FnUW9ZV0d3ZUtpczY5eHFzaVRGUUR6Q1JkeERFdHJMQkFHd3Z3MGlPMmlC?=
- =?utf-8?B?TnE4VTdIRzd5eWhnVUc3WlpwTGl6YWplTlJKWXZmQUlyS2VsT09JejlSNVRm?=
- =?utf-8?B?TUN0VllzSW5oMWYrV09NUnNNNWpWOEs0SUsvZmUzMURMWVBsUnI4dTVJeWxm?=
- =?utf-8?B?Z1BWOFFRb01pRDY0bFpQV280Tm9iNlZ3R0tndmc1T0d1WHREMDREeENyQWVu?=
- =?utf-8?B?M1RZSE10S0FjR2gzak5MNmV6NHFFV1JlTTZyNnFMRnlTSzZYNUxndkw1WVI4?=
- =?utf-8?B?U3pzZy9UenVHa2N6UDJvNjRhMmhHR1Q0djFwTHVJL29ZcjJNMUxZay9wSFJU?=
- =?utf-8?B?RHlJcTREMGNPMm5NeXRkUHVtbFl3RHdUWmNpdlRWTWdPSmU5QjVXVjg4NFlv?=
- =?utf-8?B?cGhlQitEUFlpV0FrNWJDaFZhc0RRTzIxMkFSWGpNZUlPVEpENm5Zc2JqOU9P?=
- =?utf-8?B?VUQ4UUJWN2szdkUxanRMVGlVVHJVSFlPTktGNjVubzV1WllEVDhyUVArYTlr?=
- =?utf-8?B?Ni8rS1hNM0ZTNzY2bWE3SlByZndkR25MU3p0cDJ5UUljbG90ZUVFMlB4NDAy?=
- =?utf-8?B?RzB4N1dsclRLeFI1MjNMNUJpbjJ3dURBci9FTVNrcG1ybU1UalRzSWRqdGtU?=
- =?utf-8?B?NHEwTSttRVN0YnpkTy8xY3c0aGdOVGdXVlp6eHNJdktWb3hkSnhIYjhVb0pn?=
- =?utf-8?B?ekdaTTlvSkhwcWI2MXNYS0lwMUtaN24zdUhOVnhxSG8zb3JmSytBSUdpZXF2?=
- =?utf-8?B?YkJnQURpeEhtVkwyaGtEVjZmR21qMEd6T0dvRFI0SzJUSXpmZjdFcUUxd3pu?=
- =?utf-8?B?YU1BOWhnalpiODBINmpyMG5DcDlQY3ZTSTZ4QjY0NFIwd3ViUS9JeDVvMU9C?=
- =?utf-8?B?TWRQVFBEU1M1bUVYd1pBN0xMbmp2dVNtYkFkUiszbGNRQkR4Y3Nwd05kOTAz?=
- =?utf-8?B?Y1R4ejhUZXNKWGtzMU9FUWtZSFYvbHBHc3dscW0xckVsRTRVTVVwbEpISDNH?=
- =?utf-8?B?dmlWSTBuM1NXTVQ4Z0lBaEFPOE80OTE4NC9DUWY1dmpaVllIdXFzUFJNNDFL?=
- =?utf-8?Q?MnelTlA+OBgVr2huV9?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1b3c46b5-f8e0-40d3-5ea2-08deacddef6b
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2026 08:43:53.9793 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1szSWjqdn2txFOLsXs3p1invMXsvaz860jAiCSGpAi+MtGsOy1g1H5MworEzlnVA
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6319
+X-Proofpoint-GUID: ElyGyoNZrc29n_4VHGSzYJ5vm8zPrY8J
+X-Authority-Analysis: v=2.4 cv=YMOvDxGx c=1 sm=1 tr=0 ts=69fdb3f8 cx=c_pps
+ a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=vz_rfR1X6w8aG-yi8FgA:9 a=QEXdDO2ut3YA:10 a=zgiPjhLxNE0A:10
+ a=tNoRWFLymzeba-QzToBc:22
+X-Proofpoint-ORIG-GUID: ElyGyoNZrc29n_4VHGSzYJ5vm8zPrY8J
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA4MDEwMiBTYWx0ZWRfX8ZfarmDdo6G4
+ JrXkxeVAhJzlSxsJBVfgoOMmA3j5l5Av5cwfx+4tAMk/oO7wius1k354NhDw+GPO8ZI2hHxvtyb
+ 503O6vnRKP+WMMFCTmjYSg1BDRQv5ps8TGbyWe4HAjzZHwY2O1tDJBdEtXbmTh4U4SjhUHT2BZh
+ 8QopMWg0S+7rB+kHpA+BW3Hl9nbtzyc+q4hI+NXzSpZeAXyYjYdl8QJr9Dxxl0tW4YCCDMt3Xdy
+ feuzljkySDllJqJHpoaJgVXKHTClRJDbaY7lu8/5w//4L+jy2Gr4JUhpeono7RqbF0ldPGNGDal
+ UMLtZXYrNTNy2h7JY1GAQb3UhpltZ/QhkOlf4fnOHFb/j+MiEnmMd7XCkeMDHH9sdV5GN+vyHFX
+ FtI3Ow7/MHmMPVHE+vd86mqhiISOeZAqyRVJA6nagJhvxQOldEUTMgZ586fN9MnV6IOtCuzTR9U
+ GCwQl/6yBqETU1gqxfg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-07_02,2026-05-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 clxscore=1015 malwarescore=0 impostorscore=0 phishscore=0
+ suspectscore=0 adultscore=0 bulkscore=0 priorityscore=1501 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605080102
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,50 +150,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Just two notes, apart from that looks like a nice cleanup to me.
-
-On 5/8/26 04:47, Andre Hirata wrote:
-> @@ -46,10 +47,9 @@ int amdgpu_dpm_get_sclk(struct amdgpu_device *adev, bool low)
->         if (!pp_funcs->get_sclk)
->                 return 0;
+On 5/7/26 3:03 PM, Dmitry Baryshkov wrote:
+> Use freshly defined helper instead of checking the UBWC version
+> directly.
 > 
-> -       mutex_lock(&adev->pm.mutex);
-> +       guard(mutex)(&adev->pm.mutex);
->         ret = pp_funcs->get_sclk((adev)->powerplay.pp_handle,
->                                  low);
-> -       mutex_unlock(&adev->pm.mutex);
-> 
->         return ret;
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
 
-In a lot of cases you can now turn the patter "ret = f(...); return ret;" into just return f(..); and potentially drop the ret variable.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
->  }
-> 
-> @@ -291,9 +265,8 @@ bool amdgpu_dpm_is_mode1_reset_supported(struct amdgpu_device *adev)
->         bool support_mode1_reset = false;
-> 
->         if (is_support_sw_smu(adev)) {
-> -               mutex_lock(&adev->pm.mutex);
-> +               guard(mutex)(&adev->pm.mutex);
->                 support_mode1_reset = smu_mode1_reset_is_support(smu);
-> -               mutex_unlock(&adev->pm.mutex);
->         }
-> 
->         return support_mode1_reset;
-
-For cases like this here the coding pattern to check the pre-requisites and abort early is usually better.
-
-So this example here would become:
-
-if (!is_support_sw_smu(adev))
-	return false;
-
-guard(mutex)(&adev->pm.mutex);
-return smu_mode1_reset_is_support(smu);
-
-Which as far as I can see is less code and much easier to read/understand.
-
-But both suggestions could be a separate patch if you want to keep this one as it is.
-
-Regards,
-Christian.
+Konrad
