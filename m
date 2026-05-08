@@ -4,170 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A0D4CD342F
-	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 06:54:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88283CD37AA
+	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 06:56:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19C9C88668;
-	Fri,  8 May 2026 06:54:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE8C310F36C;
+	Fri,  8 May 2026 06:56:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=mediatek.com header.i=@mediatek.com header.b="XrGQ4Ctf";
-	dkim=pass (1024-bit key; unprotected) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b="TKwe0vON";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="L8KHJCk6";
 	dkim-atps=neutral
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2336C10F369
- for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 06:54:24 +0000 (UTC)
-X-UUID: bb2fc4404aaa11f1b96f91537e34a508-20260508
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
- s=dk; 
- h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From;
- bh=Ae8ZM2jdkEo9J8wv2h3T31koaxxBShRHPqruV15KQ1I=; 
- b=XrGQ4CtfBkzpOrE7LrtxRk1v7RxXNBXiIYOutLG6PgXRnXa0J6Zd8o5+iEosuhrAA2xf6iGli99kaBGIkEOWMi1PPnXNQaiA/N5T0HbXPRukSH188bhwYUszK9cOAMskzOVaG4VhI/M/MGhfasT7FQjCP9pu41EaINZfurfK4kU=;
-X-CID-CACHE: Type:Local,Time:202605081454+08,HitQuantity:1
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12, REQID:111d6cb0-877f-49dc-8677-d4dd32b2184c, IP:0,
- U
- RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
- release,TS:0
-X-CID-META: VersionHash:e7bac3a, CLOUDID:77810ebf-65a8-4b41-ac18-3671578a914d,
- B
- ulkID:nil,BulkQuantity:0,Recheck:0,SF:80|81|82|83|102|110|111|836|865|888|
- 898,TC:-5,Content:0|15|50,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:ni
- l,BEC:-1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: bb2fc4404aaa11f1b96f91537e34a508-20260508
-Received: from mtkmbs13n2.mediatek.inc [(172.21.101.108)] by
- mailgw01.mediatek.com (envelope-from <ck.hu@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 500824660; Fri, 08 May 2026 14:54:17 +0800
-Received: from mtkmbs10n2.mediatek.inc (172.21.101.183) by
- MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Fri, 8 May 2026 14:54:15 +0800
-Received: from SI4PR04CU002.outbound.protection.outlook.com (172.21.101.237)
- by mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Fri, 8 May 2026 14:54:15 +0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GqBqiWZRXku5sx5B74A2xiQvLzNaG3FSIqU+4vlQ3+U2hAPPZOe5ivK7lh8V4y4e5/u55cEtaeatolhpsfJ6SgTJKj2gJUQ4ig8WO2I4SQ1HlT+bUPv6o3XylteDF107qBrTU2lKsllv7tJVVyvd6+CAZNZMDph7+7/aqTzAMMzVHBEbxopkgQid9GxtRX5pxFpCaN8Y+f+y79eveBqPYMrhR8bNHTVDZnj9e9ajEyWJlR0q39i99wVQSVGDatxSr3Fvr8bzTMqLwUSMIj86WMba2IeLno/9ZEnuigUanBP8KjhkEvE1AafwJoEdi0Fkvz8f726jM5yoe55ooqP7bA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ae8ZM2jdkEo9J8wv2h3T31koaxxBShRHPqruV15KQ1I=;
- b=nofRuUs278QQuIF1BkWajk9dLV4flFkYcKsPYpbzjhhmSSxX/PayRj4PHxUty6bhplZIueLQc2arlBhRihUG6ki9aGTT3i5A2DiClTS6Tym4uElF4j/Nbsij/mk1QccwT+xBFgChKGCNcjf09A4tWBbD8wxED73ghSmH690aiy9hULjB6OMW4SvBVnoqrxS2EVO4uV72r9HFbOeKcDluvUS7V8QnU7fWgWJ+GFUOXdTa7C2KlHPCmxr+7RQLuFgt/g3Fp1ZIjKBuS/uGVD5Zh9sJMyomGORlEFQ7edGzrW5HEKuojjA7ntoxniYS4IpqFgiUAmRI4BXY6vaanVq+rQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
- dkim=pass header.d=mediatek.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ae8ZM2jdkEo9J8wv2h3T31koaxxBShRHPqruV15KQ1I=;
- b=TKwe0vONs2VAj/f45B27YieHxmm8FykHT7fD0z68lRhyhin/6qkFNROCo+4Sc5K4s8mWMajEx4Qvc3bVsdkpZFAKmX5uIkbBlpJCmLa4A24vwJXbUnfj8Wg3hurPovnxk3AhhQMLDV5G/cglMTd7cJJyK8Q6yuqKA2XZInJK/NQ=
-Received: from TYZPR03MB6624.apcprd03.prod.outlook.com (2603:1096:400:1f4::13)
- by SEZPR03MB6642.apcprd03.prod.outlook.com (2603:1096:101:7a::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.15; Fri, 8 May
- 2026 06:54:08 +0000
-Received: from TYZPR03MB6624.apcprd03.prod.outlook.com
- ([fe80::a3c2:b94a:70f:e640]) by TYZPR03MB6624.apcprd03.prod.outlook.com
- ([fe80::a3c2:b94a:70f:e640%4]) with mapi id 15.20.9891.008; Fri, 8 May 2026
- 06:54:06 +0000
-From: =?utf-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>
-To: "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
- "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>, "AngeloGioacchino Del
- Regno" <angelogioacchino.delregno@collabora.com>, "airlied@gmail.com"
- <airlied@gmail.com>, "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
- "shivamkalra98@zohomail.in" <shivamkalra98@zohomail.in>, "simona@ffwll.ch"
- <simona@ffwll.ch>
-CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "tzimmermann@suse.de" <tzimmermann@suse.de>
-Subject: Re: [PATCH] drm/mediatek: mtk_dpi: Open-code drm_simple_encoder_init()
-Thread-Topic: [PATCH] drm/mediatek: mtk_dpi: Open-code
- drm_simple_encoder_init()
-Thread-Index: AQHcw2GQJ0nehK1HRESTuOaiYKwTTrYD6CkA
-Date: Fri, 8 May 2026 06:54:06 +0000
-Message-ID: <994eb0bb21a12aa022ea37a2604032ca4a541381.camel@mediatek.com>
-References: <20260403-drm-mediatek-opencode-encoder-init-v1-1-7be86241b876@zohomail.in>
-In-Reply-To: <20260403-drm-mediatek-opencode-encoder-init-v1-1-7be86241b876@zohomail.in>
-Accept-Language: zh-TW, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Evolution 3.52.3-0ubuntu1 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mediatek.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TYZPR03MB6624:EE_|SEZPR03MB6642:EE_
-x-ms-office365-filtering-correlation-id: da9e15b6-f2ad-4dc5-ff35-08deacce9942
-x-ld-processed: a7687ede-7a6b-4ef6-bace-642f677fbe31,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|7416014|42112799006|366016|376014|38070700021|56012099003|22082099003|18002099003;
-x-microsoft-antispam-message-info: wFN4cZPInRcY7fn21Xh1Kp8J0IcSilINk+JyOtAAaiFd2q4TL6/TQkr8aG5feOa5gMun6FYev7YgeG1n7j8CxDTtP8Dvy2aBqZixViiAZDhdxMJGDudNFn+P5PcM8+67zr7LzW5F4A4svL7dUEDlp5jml3GXU4+Nt4A4bWsvf9YRm2ziGeKGbR1BsoYHp1fYgELfLYx7kzM/RQ7BU6NOiIQ9CPDpcC1Bmypo+PGxCi4YMvCQ4Clf3G2RKqArCnIt8DB6N8AaA8qKfGE8O8rCGs5B9nfrndZbVZEvdLMrjDWcDJaeaivXVqNBjpv/mhpL+JIsrAbiSGY754c10nG3Wb9CcQQE3u6pV/dOVksC2hThbpR+IV4Vfed/bCkV91/93kMR32MPMZQdSwzvHlXX3367KFwc0vVhmFumdVDbn9O5YkUoFCFZve0nUu6nDW6vtoyzh84Mx/cizz9wxyATe0mveQyT9fmM+GWlqtwxuLwkHgEr5BxFd8uWURsxt75ReJ1QAKLrl+9KpvZHSeV425cl+izQKAj5afpbHEswWazOEg8IB5mqypDqi4rl3qZHWbeG9si5IRRpLInMYUP2lMLWOUCdoyRumiE2gGCB8PnVsaVFKXPZV41hySjL5SfezVQPIfvtdgbd5nonpRHYUZ6mj3E88zPp6qNQw+9/jERI+p76N5v1w6822nK0ubKRWt4PT7UdVSTztihL3ga4QpRd3wqDHe2rhGy3EHKk+s5exK1rdLb6OSTmbjrnqrKW
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TYZPR03MB6624.apcprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(7416014)(42112799006)(366016)(376014)(38070700021)(56012099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?dHUva3R5ZEg4RkxBYWlzUFgzL2trL3pFdkFTR2R2c0FWZFRKYjJ4ZS83QXla?=
- =?utf-8?B?UHhlUzRrMkdRUEZ1d1Vmb0lveFd4Mmk3SjJuTmNxZitmQ0V2ckkzajg4eGhw?=
- =?utf-8?B?K3IxQW1xajhFVFJhcjRWd1RiUjMrVVY0RFpNZno0bXA2R0dQMUpGa25YVFBq?=
- =?utf-8?B?elU5cU52dTI3aksyb3lIQzZ0V0J4NG9yUDQ4SUdjWWQrbkhLTVkvRDBsWmRP?=
- =?utf-8?B?c1lVaTFzeFNBbkl0ZW52cFZCM0V5aE5aRGYxMnloUFF1SlJPV0FFVVZvT2lr?=
- =?utf-8?B?UmpxZ0VyQWdZUzZuNTB6OS8rTzNqN3Z2VWFnN3lSeG14Y01UNzRoN3lSY0JL?=
- =?utf-8?B?b2U3WHFvRCtCN3FFQWhXYllVb1hpOElyYmpwUlF5UFZVZmxUMU0xYTBHK0Vx?=
- =?utf-8?B?VW9HV2xqNnRydG1zV2hvNnI4ZzJ5RDhRSzEyKzl5cUt0QVRjeDZVUW1DS0xR?=
- =?utf-8?B?TU5vMW1BZmtDSkhCbWF6VTBBWUxNcDBHOXI3NytCYlkybUcyZWtZRC84THN1?=
- =?utf-8?B?aTA5b1M3NVFpa09BVmNnS0NHd2lHbkFEbGx0RElSbDlEQTBlajV0NmE5RlMx?=
- =?utf-8?B?KzJ0NUhTY3RKOFJVYnB5SllldG5ZdTZGRzUwdWh3OTZzVGtTVEY4TjVkOXkz?=
- =?utf-8?B?ViszUWF5QXpHL3k5QXl0WTNmclVOREZJcFVLR1Bjbk9Sei80eFkxbjJJZ3NU?=
- =?utf-8?B?MTVFbTdDL09SQ25pVGhOZkEwZ08xdFlZK2F4dXpTNCtCWFJURnZuMG1Pak9C?=
- =?utf-8?B?Q0ZkdHRhSWR3OWxQUVdWUEhyMm5JWG4ySERzTGVPcEd6U3Jtdmh0cUl2Wkxh?=
- =?utf-8?B?eGlGdHdocWgrMmU3MkZQbDBpakdlekNLWUI5cXg4V2FuWmJrSmE4VXVEbXBB?=
- =?utf-8?B?QXZHd1ViZittcnk1Qks2R09FTVFORFZoZWdYTkIrOEtHbTVBT0dIKzFXV3ZK?=
- =?utf-8?B?aTJHcWNZbGpUelhHRTNtQjMwdXZUWUtRVFZMdHBDbjVJVUxhbmhCSzF2bVA1?=
- =?utf-8?B?Qmg2R041bFdpcVprOE9EOGhCbytzT3hPQTM2N2dya0o0dWZPYnNwbDRGVEhM?=
- =?utf-8?B?SUhJY3RmZXZEbUxTc0tudEdWOERrVFVlS0pDcjBEVWY1NzVTS0JZOUk3dlFL?=
- =?utf-8?B?L2ZJMzRlRTVnZ20zYWNLZWN0azVRK2NCK0Q2cUticnRTK0dCMDZuVFJ0ZlVv?=
- =?utf-8?B?N0NFRHVJMTVSUElCcTI4aEVrVXAzVXpMSEsxMzZhbkZSTHNFb2JQMitLTnBx?=
- =?utf-8?B?WjRaVmxNcDUxNGJpOWNydTZQUFNQbGxoVW5zREhsR3ZKNkdSVm1vZFA0Zy81?=
- =?utf-8?B?OVVPSXBweHdqT2E5MHIxcThaUjJFcmNOOU9JNGZzS2JXUXAvb3hSUnJWejhF?=
- =?utf-8?B?cVM1bEdLYTRJQkRNMVAzTEIwSVIrUXpHcGpySzVFdmdtU0VsbjBFbEoxRU5I?=
- =?utf-8?B?NHR6ZGN1Nkl4ZDkwbzRJRmd0RnFGckxEQUJ5emFid09OZThZbFJEazlnK29l?=
- =?utf-8?B?eHdiaEtsVjR5Ymw1K3pUMTNoNWtMN2x3dGVJQ2FJS0VUaTh4dnJrK3VtOUxY?=
- =?utf-8?B?eG5yeVpIeUp1amF0ODhubncra2lnOFN6QUNqdHBzeVhSTGFzU1IwS3BmemFI?=
- =?utf-8?B?Z2llblF3cmttWW1KenhkT1VIa1V6d1VxODgrd1k1NFc4NVlPazZXL3lwWEhx?=
- =?utf-8?B?VWJaNDB2a1J0bmthYWJyQkRzR1F1STdlbTZJVFhkdlJpdmJWVFZmZnpRTlNa?=
- =?utf-8?B?NHhPalIrQmlqaE1lM0Q3UmhrWXpOQmFIUGFrNXY3Y2hZaDNTUXhaYnhwZEl0?=
- =?utf-8?B?ODZPbXRMZmozQXRpL1VrZm5wR1diWXlHRWVjeEhFaVQvWGlwV1ppL0ZlTUIz?=
- =?utf-8?B?SXFVSFlLcnVpQmlCYVRKOG5VUEZxSXM3dlRHSHpyNzBaczlkekFZcVZ2ejBl?=
- =?utf-8?B?Y1AwMlpXaGxicjhEZ1QvREZSS2dHVE1KWUVPMlZMRHdvcFBGUkRRR0Y2Vy9C?=
- =?utf-8?B?ejJhYkczQVloMWNBOFhtV0l6S0c5YWErSGIvL0ZyZE4vb3QrQUh4WTZQQTVB?=
- =?utf-8?B?NXVNM2FHcSs4NHBPTmxGaGRtQVFHdnBibGhNblN6d2wzZGVSdiswUXkvV0xw?=
- =?utf-8?B?RHptUHNBNnM0UEdRM1B3b0drRDF3VXB5K3JEZzloQjBHVWtpaFpVRDFnZXdr?=
- =?utf-8?B?RWI3ZjIyR0M5YUtzMmU4YWZsUCtDZE5VYjFlczdVYVVtYytrVFZOOVlaMXNF?=
- =?utf-8?B?bmZTVTlNeE9nS1NsVFkxVlkrQXAxREdxU1hiYi9CZGd1b0M3dW1UWWhreFQr?=
- =?utf-8?B?TUZXRjdLTnhjTkRrb2svUnZ3RWh0d0x0aHg2eWFEbjZMWVpFSThBUT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <0C0DE44DE497CD468CDFA809D33EE7F5@apcprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EA1C10F369;
+ Fri,  8 May 2026 06:56:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1778223364; x=1809759364;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=47POBLVaUrXtK1fn5h2rHbXgKdBedhfQvXbum5KWZpY=;
+ b=L8KHJCk6taFyMXyAoAmZyKAbRI4ljiOboWt1PV+cdcPFKuUcGU53eDZV
+ OllX892Dwr9BU7Z5Es02CnlKmCKclnmduTUd6f/9cweldEN212jEgeikh
+ u9wL3hIQunc34UypSq0M7a11w/sD2lueud9mDZOTsclPufA2Rdnrd4sxJ
+ OlSMeIYI1+I7L+SUI4RRhMkIL4ZUJH0UqVQbNH6ABndjdH816jdQcnSzx
+ uGorDDZduLCK0YV3pkn99HEhi6ai2SCtz4WIpkbipjDh9yms2u4JnBcId
+ Gb50FdHeoWxczpf4q5IFWspdg0OAHxlR6pAn/nN/A/IWkPkGR0w728OKK w==;
+X-CSE-ConnectionGUID: z7a1qwv5SN6aQcp0zk+W/A==
+X-CSE-MsgGUID: RVvl4OzcTj6CRTRDvCAj/w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11779"; a="79373325"
+X-IronPort-AV: E=Sophos;i="6.23,223,1770624000"; d="scan'208";a="79373325"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 May 2026 23:56:03 -0700
+X-CSE-ConnectionGUID: F50X2WD0Tn6WkjwwFx5+Nw==
+X-CSE-MsgGUID: vHEYlSuQSi2eEDhF3COPEQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,223,1770624000"; d="scan'208";a="232153647"
+Received: from tejasupa-desk.iind.intel.com (HELO tejasupa-desk)
+ ([10.190.239.37])
+ by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 May 2026 23:56:00 -0700
+From: Tejas Upadhyay <tejas.upadhyay@intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: matthew.auld@intel.com, Arunpravin.PaneerSelvam@amd.com,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Tejas Upadhyay <tejas.upadhyay@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>
+Subject: [PATCH V2] drm/buddy: Integrate lockdep annotations for gpu buddy
+ manager
+Date: Fri,  8 May 2026 12:25:45 +0530
+Message-ID: <20260508065544.4049240-2-tejas.upadhyay@intel.com>
+X-Mailer: git-send-email 2.52.0
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: iWHaDuPzqBP8JmDGNm6B3wvosqWLr6J0BJuvCFjmxDiUcMOD+doO9Evl8xVdyFdGpJ2GNj2ED9E1d42lG02RLsk2ShhrdJgWzr3FS3SUBcDzwSaDxcX0gBY1iH18pjb5RCcj7Xxw8LCdoYUwglMm5DnX/UNQMrKR9jVg/zYYbt2HHsqEwa4hUN5qlqgWIzgjJmUC7aAtS0znvxRvIRcy7yxtnqjxj7MYrclht0OIt6Eb9RCxCqkQJArhNCsF5FU3slmG9WoFyETXYRaFx2D9seLuCuTG9YdHW1Ti083PfRbrwrZDsHYrfIvuMe32sXC9dLe7wvPzY0hSVOF64XOZBw==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB6624.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: da9e15b6-f2ad-4dc5-ff35-08deacce9942
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 May 2026 06:54:06.7666 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: HRzD1zjg38ukrOSRDo213/dyBVPmQDcUL4uuPIao7+bFJhA+4NZzVdnSUJKFgnSIfn2VAPtr0ijkXItNRUR5Uw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR03MB6642
-X-MTK: N
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -183,46 +70,180 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-T24gRnJpLCAyMDI2LTA0LTAzIGF0IDE3OjMwICswNTMwLCBTaGl2YW0gS2FscmEgdmlhIEI0IFJl
-bGF5IHdyb3RlOg0KPiBGcm9tOiBTaGl2YW0gS2FscmEgPHNoaXZhbWthbHJhOThAem9ob21haWwu
-aW4+DQo+IA0KPiBUaGUgaGVscGVyIGRybV9zaW1wbGVfZW5jb2Rlcl9pbml0KCkgaXMgYSB0cml2
-aWFsIHdyYXBwZXIgYXJvdW5kDQo+IGRybV9lbmNvZGVyX2luaXQoKSB0aGF0IG9ubHkgcHJvdmlk
-ZXMgYSBzdGF0aWMgZHJtX2VuY29kZXJfZnVuY3Mgd2l0aA0KPiAuZGVzdHJveSBzZXQgdG8gZHJt
-X2VuY29kZXJfY2xlYW51cCgpLiBPcGVuLWNvZGUgdGhlIGluaXRpYWxpemF0aW9uDQo+IHdpdGgg
-YSBkcml2ZXItc3BlY2lmaWMgaW5zdGFuY2Ugb2YgZHJtX2VuY29kZXJfZnVuY3MgYW5kIHJlbW92
-ZSB0aGUNCj4gZGVwZW5kZW5jeSBvbiBkcm1fc2ltcGxlX2ttc19oZWxwZXIuDQoNClJldmlld2Vk
-LWJ5OiBDSyBIdSA8Y2suaHVAbWVkaWF0ZWsuY29tPg0KDQo+IA0KPiBTdWdnZXN0ZWQtYnk6IFRo
-b21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPg0KPiBTaWduZWQtb2ZmLWJ5OiBT
-aGl2YW0gS2FscmEgPHNoaXZhbWthbHJhOThAem9ob21haWwuaW4+DQo+IC0tLQ0KPiBBZGRyZXNz
-ZXMgdGhlICJPcGVuLWNvZGUgZHJtX3NpbXBsZV9lbmNvZGVyX2luaXQoKSIgdGFzayBmcm9tDQo+
-IERvY3VtZW50YXRpb24vZ3B1L3RvZG8ucnN0Lg0KPiAtLS0NCj4gIGRyaXZlcnMvZ3B1L2RybS9t
-ZWRpYXRlay9tdGtfZHBpLmMgfCAxMCArKysrKysrLS0tDQo+ICAxIGZpbGUgY2hhbmdlZCwgNyBp
-bnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9tZWRpYXRlay9tdGtfZHBpLmMgYi9kcml2ZXJzL2dwdS9kcm0vbWVkaWF0ZWsvbXRr
-X2RwaS5jDQo+IGluZGV4IDUzMzYwYjVkMTJiYS4uNWI4M2NhNmFlY2IyIDEwMDY0NA0KPiAtLS0g
-YS9kcml2ZXJzL2dwdS9kcm0vbWVkaWF0ZWsvbXRrX2RwaS5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1
-L2RybS9tZWRpYXRlay9tdGtfZHBpLmMNCj4gQEAgLTI1LDggKzI1LDggQEANCj4gICNpbmNsdWRl
-IDxkcm0vZHJtX2JyaWRnZV9jb25uZWN0b3IuaD4NCj4gICNpbmNsdWRlIDxkcm0vZHJtX2NydGMu
-aD4NCj4gICNpbmNsdWRlIDxkcm0vZHJtX2VkaWQuaD4NCj4gKyNpbmNsdWRlIDxkcm0vZHJtX2Vu
-Y29kZXIuaD4NCj4gICNpbmNsdWRlIDxkcm0vZHJtX29mLmg+DQo+IC0jaW5jbHVkZSA8ZHJtL2Ry
-bV9zaW1wbGVfa21zX2hlbHBlci5oPg0KPiAgDQo+ICAjaW5jbHVkZSAibXRrX2RkcF9jb21wLmgi
-DQo+ICAjaW5jbHVkZSAibXRrX2Rpc3BfZHJ2LmgiDQo+IEBAIC05OTMsNiArOTkzLDEwIEBAIHN0
-YXRpYyBjb25zdCBzdHJ1Y3QgZHJtX2JyaWRnZV9mdW5jcyBtdGtfZHBpX2JyaWRnZV9mdW5jcyA9
-IHsNCj4gIAkuZGVidWdmc19pbml0ID0gbXRrX2RwaV9kZWJ1Z2ZzX2luaXQsDQo+ICB9Ow0KPiAg
-DQo+ICtzdGF0aWMgY29uc3Qgc3RydWN0IGRybV9lbmNvZGVyX2Z1bmNzIG10a19kcGlfZW5jb2Rl
-cl9mdW5jcyA9IHsNCj4gKwkuZGVzdHJveSA9IGRybV9lbmNvZGVyX2NsZWFudXAsDQo+ICt9Ow0K
-PiArDQo+ICB2b2lkIG10a19kcGlfc3RhcnQoc3RydWN0IGRldmljZSAqZGV2KQ0KPiAgew0KPiAg
-CXN0cnVjdCBtdGtfZHBpICpkcGkgPSBkZXZfZ2V0X2RydmRhdGEoZGV2KTsNCj4gQEAgLTEwMjYs
-OCArMTAzMCw4IEBAIHN0YXRpYyBpbnQgbXRrX2RwaV9iaW5kKHN0cnVjdCBkZXZpY2UgKmRldiwg
-c3RydWN0IGRldmljZSAqbWFzdGVyLCB2b2lkICpkYXRhKQ0KPiAgCWludCByZXQ7DQo+ICANCj4g
-IAlkcGktPm1tc3lzX2RldiA9IHByaXYtPm1tc3lzX2RldjsNCj4gLQlyZXQgPSBkcm1fc2ltcGxl
-X2VuY29kZXJfaW5pdChkcm1fZGV2LCAmZHBpLT5lbmNvZGVyLA0KPiAtCQkJCSAgICAgIERSTV9N
-T0RFX0VOQ09ERVJfVE1EUyk7DQo+ICsJcmV0ID0gZHJtX2VuY29kZXJfaW5pdChkcm1fZGV2LCAm
-ZHBpLT5lbmNvZGVyLCAmbXRrX2RwaV9lbmNvZGVyX2Z1bmNzLA0KPiArCQkJICAgICAgIERSTV9N
-T0RFX0VOQ09ERVJfVE1EUywgTlVMTCk7DQo+ICAJaWYgKHJldCkgew0KPiAgCQlkZXZfZXJyKGRl
-diwgIkZhaWxlZCB0byBpbml0aWFsaXplIGRlY29kZXI6ICVkXG4iLCByZXQpOw0KPiAgCQlyZXR1
-cm4gcmV0Ow0KPiANCj4gLS0tDQo+IGJhc2UtY29tbWl0OiA0YjljMzZjODNiMzRmNzEwZGE5NTcz
-MjkxNDA0ZjZhMjI0NjI1MWMxDQo+IGNoYW5nZS1pZDogMjAyNjA0MDMtZHJtLW1lZGlhdGVrLW9w
-ZW5jb2RlLWVuY29kZXItaW5pdC0zNjMzNmU0YzRmZjMNCj4gDQo+IEJlc3QgcmVnYXJkcywNCj4g
-LS0gIA0KPiBTaGl2YW0gS2FscmEgPHNoaXZhbWthbHJhOThAem9ob21haWwuaW4+DQo+IA0KPiAN
-Cg0K
+gpu_buddy APIs are expected to be called with the driver-provided lock
+held, but there is no runtime enforcement of this contract. Add lockdep
+annotations to catch locking violations early.
+
+Introduce gpu_buddy_driver_set_lock() for the driver to register the
+lock that protects the buddy manager. Add gpu_buddy_driver_lock_held()
+assertions to all exported gpu_buddy and drm_buddy APIs that
+access/modify the manager state. The lock_dep_map field is only compiled
+in when CONFIG_LOCKDEP is enabled, adding zero overhead to production
+builds.
+
+Wire up xe_ttm_vram_mgr to register its mutex with the buddy manager
+after initialization.
+
+Assisted-by: Copilot:claude-opus-4.6
+Suggested-by: Matthew Brost <matthew.brost@intel.com>
+Signed-off-by: Tejas Upadhyay <tejas.upadhyay@intel.com>
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+---
+ drivers/gpu/buddy.c                  | 11 ++++++++
+ drivers/gpu/drm/drm_buddy.c          |  1 +
+ drivers/gpu/drm/xe/xe_ttm_vram_mgr.c |  1 +
+ include/linux/gpu_buddy.h            | 41 ++++++++++++++++++++++++++++
+ 4 files changed, 54 insertions(+)
+
+diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+index 52686672e99f..eb1457376307 100644
+--- a/drivers/gpu/buddy.c
++++ b/drivers/gpu/buddy.c
+@@ -437,6 +437,9 @@ int gpu_buddy_init(struct gpu_buddy *mm, u64 size, u64 chunk_size)
+ 		root_count++;
+ 	} while (size);
+ 
++#ifdef CONFIG_LOCKDEP
++	mm->lock_dep_map = NULL;
++#endif
+ 	return 0;
+ 
+ out_free_roots:
+@@ -538,6 +541,7 @@ void gpu_buddy_reset_clear(struct gpu_buddy *mm, bool is_clear)
+ 	unsigned int order;
+ 	int i;
+ 
++	gpu_buddy_driver_lock_held(mm);
+ 	size = mm->size;
+ 	for (i = 0; i < mm->n_roots; ++i) {
+ 		order = ilog2(size) - ilog2(mm->chunk_size);
+@@ -580,6 +584,7 @@ EXPORT_SYMBOL(gpu_buddy_reset_clear);
+ void gpu_buddy_free_block(struct gpu_buddy *mm,
+ 			  struct gpu_buddy_block *block)
+ {
++	gpu_buddy_driver_lock_held(mm);
+ 	BUG_ON(!gpu_buddy_block_is_allocated(block));
+ 	mm->avail += gpu_buddy_block_size(mm, block);
+ 	if (gpu_buddy_block_is_clear(block))
+@@ -633,6 +638,7 @@ void gpu_buddy_free_list(struct gpu_buddy *mm,
+ {
+ 	bool mark_clear = flags & GPU_BUDDY_CLEARED;
+ 
++	gpu_buddy_driver_lock_held(mm);
+ 	__gpu_buddy_free_list(mm, objects, mark_clear, !mark_clear);
+ }
+ EXPORT_SYMBOL(gpu_buddy_free_list);
+@@ -1172,6 +1178,8 @@ int gpu_buddy_block_trim(struct gpu_buddy *mm,
+ 	u64 new_start;
+ 	int err;
+ 
++	gpu_buddy_driver_lock_held(mm);
++
+ 	if (!list_is_singular(blocks))
+ 		return -EINVAL;
+ 
+@@ -1287,6 +1295,8 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
+ 	unsigned long pages;
+ 	int err;
+ 
++	gpu_buddy_driver_lock_held(mm);
++
+ 	if (size < mm->chunk_size)
+ 		return -EINVAL;
+ 
+@@ -1475,6 +1485,7 @@ void gpu_buddy_print(struct gpu_buddy *mm)
+ {
+ 	int order;
+ 
++	gpu_buddy_driver_lock_held(mm);
+ 	pr_info("chunk_size: %lluKiB, total: %lluMiB, free: %lluMiB, clear_free: %lluMiB\n",
+ 		mm->chunk_size >> 10, mm->size >> 20, mm->avail >> 20, mm->clear_avail >> 20);
+ 
+diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
+index 841f3de5f307..faa025498de4 100644
+--- a/drivers/gpu/drm/drm_buddy.c
++++ b/drivers/gpu/drm/drm_buddy.c
+@@ -42,6 +42,7 @@ void drm_buddy_print(struct gpu_buddy *mm, struct drm_printer *p)
+ {
+ 	int order;
+ 
++	gpu_buddy_driver_lock_held(mm);
+ 	drm_printf(p, "chunk_size: %lluKiB, total: %lluMiB, free: %lluMiB, clear_free: %lluMiB\n",
+ 		   mm->chunk_size >> 10, mm->size >> 20, mm->avail >> 20, mm->clear_avail >> 20);
+ 
+diff --git a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
+index 6ba47996bc7c..9f67df646955 100644
+--- a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
++++ b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
+@@ -322,6 +322,7 @@ int __xe_ttm_vram_mgr_init(struct xe_device *xe, struct xe_ttm_vram_mgr *mgr,
+ 	if (err)
+ 		return err;
+ 
++	gpu_buddy_driver_set_lock(&mgr->mm, &mgr->lock);
+ 	ttm_set_driver_manager(&xe->ttm, mem_type, &mgr->manager);
+ 	ttm_resource_manager_set_used(&mgr->manager, true);
+ 
+diff --git a/include/linux/gpu_buddy.h b/include/linux/gpu_buddy.h
+index 5fa917ba5450..71941a039648 100644
+--- a/include/linux/gpu_buddy.h
++++ b/include/linux/gpu_buddy.h
+@@ -154,6 +154,7 @@ struct gpu_buddy_block {
+  * @avail: Total free space currently available for allocation in bytes.
+  * @clear_avail: Free space available in the clear tree (zeroed memory) in bytes.
+  *               This is a subset of @avail.
++ * @lock_dep_map: Annotates gpu_buddy API with a driver provided lock.
+  */
+ struct gpu_buddy {
+ /* private: */
+@@ -179,8 +180,48 @@ struct gpu_buddy {
+ 	u64 size;
+ 	u64 avail;
+ 	u64 clear_avail;
++#ifdef CONFIG_LOCKDEP
++	struct lockdep_map *lock_dep_map;
++#endif
+ };
+ 
++#ifdef CONFIG_LOCKDEP
++/**
++ * gpu_buddy_driver_set_lock() - Set the lock protecting accesses to GPU BUDDY
++ * @mm: Pointer to GPU buddy structure.
++ * @lock: the lock used to protect the gpu buddy. The locking primitive
++ * must contain a dep_map field.
++ *
++ * Call this to annotate gpu_buddy APIs which access/modify gpu_buddy manager
++ */
++#define gpu_buddy_driver_set_lock(mm, lock) \
++	do { \
++		struct gpu_buddy *__mm = (mm); \
++		if (!WARN(__mm->lock_dep_map, "GPU BUDDY MM lock should be set only once.")) \
++			__mm->lock_dep_map = &(lock)->dep_map; \
++	} while (0)
++#else
++#define gpu_buddy_driver_set_lock(mm, lock) do { (void)(mm); (void)(lock); } while (0)
++#endif
++
++#ifdef CONFIG_LOCKDEP
++/**
++ * gpu_buddy_driver_lock_held() - Assert GPU BUDDY manager lock is held
++ * @mm: Pointer to the GPU BUDDY structure.
++ *
++ * Ensure driver lock is held.
++ */
++static inline void gpu_buddy_driver_lock_held(struct gpu_buddy *mm)
++{
++	if (mm->lock_dep_map)
++		lockdep_assert(lock_is_held_type(mm->lock_dep_map, 0));
++}
++#else
++static inline void gpu_buddy_driver_lock_held(struct gpu_buddy *mm)
++{
++}
++#endif
++
+ static inline u64
+ gpu_buddy_block_offset(const struct gpu_buddy_block *block)
+ {
+-- 
+2.52.0
+
