@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B552DCD3436
-	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 07:05:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D1A8CD3436
+	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 07:05:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22CD710F381;
-	Fri,  8 May 2026 07:05:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85FB810F382;
+	Fri,  8 May 2026 07:05:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="eZ1TcvkX";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="BTU9P6kO";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C76C10F381
- for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 07:05:16 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51EB310F382
+ for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 07:05:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1778223915;
+ s=mimecast20190719; t=1778223917;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=stC3h3MHcmK2P0dezLV1nWsyclpObqsD2Ho0cm6fPRk=;
- b=eZ1TcvkXQH7dor87p2ZfmpWBhLDIvW32sNtVAw07TrI3hMKcSRUA7HctEhcPqDc5u4h/IE
- AayHUKZveTFmKxNn/HT7kvTiafFwrY9JAlzPauNSeGLRLw2SmQqY3QNLBQDNHBVYqTYa7o
- 5XdP7HDQVvDrU8vB/j933vORSf4o/nU=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ bh=boV6EPQtUfzTmTg+5yfj+I+/wEttTpMW77VvDFs9D8k=;
+ b=BTU9P6kOzsbhNuS72qBpaJmwAMZZZb+OS1g8Ja2OFI1s95Gdks7SKhcObNjgqwU3FZCC3w
+ rXGUsBLKJZSO8kdK/Uy7XtdloRONBjgHk5gc1otNSIFIxMQDFIPd75tae4c9F55D6a5J+B
+ JoGrRNxOIK1PCr7mSFYxYwhEzEETLFI=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-591-PtdU6G-pPYycJEEqXBKVJg-1; Fri,
- 08 May 2026 03:05:08 -0400
-X-MC-Unique: PtdU6G-pPYycJEEqXBKVJg-1
-X-Mimecast-MFC-AGG-ID: PtdU6G-pPYycJEEqXBKVJg_1778223906
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-624-dxLPL3QCNTCEbBnWqh8FNQ-1; Fri,
+ 08 May 2026 03:05:14 -0400
+X-MC-Unique: dxLPL3QCNTCEbBnWqh8FNQ-1
+X-Mimecast-MFC-AGG-ID: dxLPL3QCNTCEbBnWqh8FNQ_1778223912
 Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 4014319560B2; Fri,  8 May 2026 07:05:06 +0000 (UTC)
+ by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 817EC195608F; Fri,  8 May 2026 07:05:12 +0000 (UTC)
 Received: from [192.168.1.153] (headnet01.pony-001.prod.iad2.dc.redhat.com
  [10.2.32.101])
  by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 22C7C300019F; Fri,  8 May 2026 07:05:02 +0000 (UTC)
+ id DE84E300019F; Fri,  8 May 2026 07:05:09 +0000 (UTC)
 From: Albert Esteve <aesteve@redhat.com>
-Date: Fri, 08 May 2026 09:04:44 +0200
-Subject: [PATCH v2 04/10] drm/panel/lxd-m9189a: Use refcounted allocation
- in place of devm_kzalloc()
+Date: Fri, 08 May 2026 09:04:46 +0200
+Subject: [PATCH v2 06/10] drm/panel/tdo-tl070wsh30: Use refcounted
+ allocation in place of devm_kzalloc()
 MIME-Version: 1.0
-Message-Id: <20260508-drm_panel_init_rm-v2-4-0bd4ac429971@redhat.com>
+Message-Id: <20260508-drm_panel_init_rm-v2-6-0bd4ac429971@redhat.com>
 References: <20260508-drm_panel_init_rm-v2-0-0bd4ac429971@redhat.com>
 In-Reply-To: <20260508-drm_panel_init_rm-v2-0-0bd4ac429971@redhat.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -62,15 +62,15 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
  Dario Binacchi <dario.binacchi@amarulasolutions.com>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Albert Esteve <aesteve@redhat.com>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778223888; l=1555;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778223888; l=1753;
  i=aesteve@redhat.com; s=20260303; h=from:subject:message-id;
- bh=yG+RtBwhDZoj2AxhrujtWwgsytaELI8TN8cNu99TMXM=;
- b=PZ1IDLxB2ziRNNEoivKc/9wBwaE30ijFlju2I5tz3k/s5vwR/AZT9EerQDuH/S+dg+he++lKz
- +UM8mDrKgvyB81UYbjX6+mqHZvo9BBmcIXcrdumsp6sLjSc2BFYXqwP
+ bh=7kTj1OHxzG5jFzOAGeWNfUFLlc9UET6DJf46M5QiT1A=;
+ b=XPhC+ZOSnNwfKV1RBSPp7cP9ZrJkEr1Q2wQ6wijfIO9DQBmJxmZDsBvMONqVLGTA1nAK2VN+S
+ h2mtloqrhuMDdAgih8ExpMM0JE7HVl6+zNWTUtfCEOKr6hlaPehlEoC
 X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
  pk=YSFz6sOHd2L45+Fr8DIvHTi6lSIjhLZ5T+rkxspJt1s=
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
-X-Mimecast-MFC-PROC-ID: nFNQX2H6rFifRQ5NQ9MQdprpwBI6QtnDQ9kBBT90yV8_1778223906
+X-Mimecast-MFC-PROC-ID: DE81zkaH1Aoois_5-b-lhgj1V-r-i_GlguErohhFATg_1778223912
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -97,38 +97,41 @@ Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 Reviewed-by: Maxime Ripard <mripard@kernel.org>
 Signed-off-by: Albert Esteve <aesteve@redhat.com>
 ---
- drivers/gpu/drm/panel/panel-lxd-m9189a.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-lxd-m9189a.c b/drivers/gpu/drm/panel/panel-lxd-m9189a.c
-index 68019e1e43a96..baaf170779e03 100644
---- a/drivers/gpu/drm/panel/panel-lxd-m9189a.c
-+++ b/drivers/gpu/drm/panel/panel-lxd-m9189a.c
-@@ -165,9 +165,12 @@ static int lxd_m9189_probe(struct mipi_dsi_device *dsi)
- 	struct m9189_panel *m9189;
- 	int ret;
+diff --git a/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c b/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c
+index 227f97f9b136f..13cfe252a838d 100644
+--- a/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c
++++ b/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c
+@@ -162,9 +162,6 @@ static int tdo_tl070wsh30_panel_add(struct tdo_tl070wsh30_panel *tdo_tl070wsh30)
+ 		return err;
+ 	}
  
--	m9189 = devm_kzalloc(dev, sizeof(*m9189), GFP_KERNEL);
--	if (!m9189)
--		return -ENOMEM;
-+	m9189 = devm_drm_panel_alloc(dev, __typeof(*m9189), panel,
-+				    &m9189_panel_funcs,
-+				    DRM_MODE_CONNECTOR_DSI);
-+
-+	if (IS_ERR(m9189))
-+		return PTR_ERR(m9189);
- 
- 	m9189->supply = devm_regulator_get(dev, "power");
- 	if (IS_ERR(m9189->supply))
-@@ -191,8 +194,6 @@ static int lxd_m9189_probe(struct mipi_dsi_device *dsi)
+-	drm_panel_init(&tdo_tl070wsh30->base, &tdo_tl070wsh30->link->dev,
+-		       &tdo_tl070wsh30_panel_funcs, DRM_MODE_CONNECTOR_DSI);
+-
+ 	err = drm_panel_of_backlight(&tdo_tl070wsh30->base);
+ 	if (err)
+ 		return err;
+@@ -183,10 +180,13 @@ static int tdo_tl070wsh30_panel_probe(struct mipi_dsi_device *dsi)
  	dsi->format = MIPI_DSI_FMT_RGB888;
- 	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST;
+ 	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST | MIPI_DSI_MODE_LPM;
  
--	drm_panel_init(&m9189->panel, dev, &m9189_panel_funcs,
--		       DRM_MODE_CONNECTOR_DSI);
- 	m9189->panel.prepare_prev_first = true;
+-	tdo_tl070wsh30 = devm_kzalloc(&dsi->dev, sizeof(*tdo_tl070wsh30),
+-				    GFP_KERNEL);
+-	if (!tdo_tl070wsh30)
+-		return -ENOMEM;
++	tdo_tl070wsh30 = devm_drm_panel_alloc(&dsi->dev,
++					      __typeof(*tdo_tl070wsh30), base,
++					      &tdo_tl070wsh30_panel_funcs,
++					      DRM_MODE_CONNECTOR_DSI);
++
++	if (IS_ERR(tdo_tl070wsh30))
++		return PTR_ERR(tdo_tl070wsh30);
  
- 	ret = drm_panel_of_backlight(&m9189->panel);
+ 	mipi_dsi_set_drvdata(dsi, tdo_tl070wsh30);
+ 	tdo_tl070wsh30->link = dsi;
 
 -- 
 2.53.0
