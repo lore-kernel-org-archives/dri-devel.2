@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E987CD3445
-	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 15:03:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A7FDCD3445
+	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 15:03:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F4E110F548;
-	Fri,  8 May 2026 15:03:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D34610F55F;
+	Fri,  8 May 2026 15:03:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="A+BKxeab";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="dTBLqokp";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDA9E10F548
- for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 15:03:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A74C10F55F
+ for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 15:03:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1778252609;
+ s=mimecast20190719; t=1778252623;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=XN7RJMkZbwU/+oNQFrZVFJ0TZE8D9N2ZdrT8gwrLswo=;
- b=A+BKxeabyaaNAC1zp6uwTcjdgCCCIPxD3vJBkGPbWfom0XgEPAe3KHDpz7/wmn3e612LtG
- io4lUUF9CqrDY/RfGQd9Mb4iyPsH2iLH99KO58qo6ISVxXnU0zRPVB4CbkYPMXjbd7tq46
- XvTUzRVMWMKfBfUj11nA+u6tO+1Jbcs=
+ bh=pTM5bDRFu2LnEWelZ4UVeTQriZB7mfNT46GLFzc2/xE=;
+ b=dTBLqokpXmRAegDS+ryPS23a+nBr+zvImhma74NDTnWu1dUjChmXPN/e74sIAIoSu/pRbn
+ ui4oMb2hZB1jgFzbQnxGaGPYDI7zmJVM+Z6DPyqdLgsBPejnVrugd0yfxRdseFMhji+C2O
+ gRfF/YFk1emg8sWIak3FVj4Kijjs33E=
 Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-481-rR9xWvIIPJqNPVu23r5Lcw-1; Fri,
- 08 May 2026 11:03:22 -0400
-X-MC-Unique: rR9xWvIIPJqNPVu23r5Lcw-1
-X-Mimecast-MFC-AGG-ID: rR9xWvIIPJqNPVu23r5Lcw_1778252598
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-113-CspO-cBrOmeqIlR5CcKP1A-1; Fri,
+ 08 May 2026 11:03:31 -0400
+X-MC-Unique: CspO-cBrOmeqIlR5CcKP1A-1
+X-Mimecast-MFC-AGG-ID: CspO-cBrOmeqIlR5CcKP1A_1778252605
 Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
  by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 7D4DA19560A7; Fri,  8 May 2026 15:03:17 +0000 (UTC)
+ id BB9FC19560B7; Fri,  8 May 2026 15:03:24 +0000 (UTC)
 Received: from [192.168.1.153] (headnet01.pony-001.prod.iad2.dc.redhat.com
  [10.2.32.101])
  by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 28EF318001EF; Fri,  8 May 2026 15:03:09 +0000 (UTC)
+ id D8224180075F; Fri,  8 May 2026 15:03:17 +0000 (UTC)
 From: Albert Esteve <aesteve@redhat.com>
-Date: Fri, 08 May 2026 17:02:46 +0200
-Subject: [PATCH v9 2/4] kunit: Add backtrace suppression self-tests
+Date: Fri, 08 May 2026 17:02:47 +0200
+Subject: [PATCH v9 3/4] drm: Suppress intentional warning backtraces in
+ scaling unit tests
 MIME-Version: 1.0
-Message-Id: <20260508-kunit_add_support-v9-2-99df7aa880f6@redhat.com>
+Message-Id: <20260508-kunit_add_support-v9-3-99df7aa880f6@redhat.com>
 References: <20260508-kunit_add_support-v9-0-99df7aa880f6@redhat.com>
 In-Reply-To: <20260508-kunit_add_support-v9-0-99df7aa880f6@redhat.com>
 To: Arnd Bergmann <arnd@arndb.de>, 
@@ -67,21 +68,22 @@ Cc: linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org,
  linux-riscv@lists.infradead.org, linux-doc@vger.kernel.org, 
  peterz@infradead.org, Guenter Roeck <linux@roeck-us.net>, 
  Linux Kernel Functional Testing <lkft@linaro.org>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
  Alessandro Carminati <acarmina@redhat.com>, 
  Albert Esteve <aesteve@redhat.com>, Dan Carpenter <error27@gmail.com>, 
- Kees Cook <kees@kernel.org>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778252571; l=7126;
+ Simona Vetter <simona.vetter@ffwll.ch>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778252571; l=3273;
  i=aesteve@redhat.com; s=20260303; h=from:subject:message-id;
- bh=ihPZEIO16j1okyfyZgMud8QmQNYwfosM6DWzDekF42U=;
- b=I8w2KtMZlEr4GVCpdV9rQcebNER6WPhbt7P3v8LqaTmHSDSX9ws4tWezcmPkKAYjgua4ptZ7N
- F9fT/xeXdvwAZyMbS69qWM3opA560MuIl5hvN1I/xef2Cbb4H/Y3DDo
+ bh=OzxKDl7juzBnGFv8nRO4KYyX446iqYsOHsLTSHCA/XY=;
+ b=eRPZlXY0oZGNDAQpUv/i+XN1tRR4oFcuvNsNePj/TPFZTO4ljQZ5s0YOyA05Z0ONI4q4xTFKo
+ R+2fJodStnmDnC9kzZ4GrIUOUC3P+HSFidoOMOuCg2vOOBDrpbup0Ao
 X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
  pk=YSFz6sOHd2L45+Fr8DIvHTi6lSIjhLZ5T+rkxspJt1s=
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
-X-Mimecast-MFC-PROC-ID: tOulQ7ytPjHjqkaBwH_Gs0rRS2r4cSDcDjRyxPNaluI_1778252598
+X-Mimecast-MFC-PROC-ID: N7E6z352VTGB3e23rgkNwzJe1vW8g1sLQzXkrQLAdLM_1778252605
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,229 +101,77 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Guenter Roeck <linux@roeck-us.net>
 
-Add unit tests to verify that warning backtrace suppression works.
-
-Tests cover both API forms:
-- Scoped: kunit_warning_suppress() with in-block count verification
-  and post-block inactivity check.
-- Direct functions: kunit_start/end_suppress_warning() with
-  sequential independent suppression blocks and per-block counts.
-
-Furthermore, tests verify incremental warning counting, that
-kunit_has_active_suppress_warning() transitions correctly around
-suppression boundaries, and that suppression active in the test
-kthread does not leak to a separate kthread.
-
-If backtrace suppression does _not_ work, the unit tests will likely
-trigger unsuppressed backtraces, which should actually help to get
-the affected architectures / platforms fixed.
+The drm_test_rect_calc_hscale and drm_test_rect_calc_vscale unit tests
+intentionally trigger warning backtraces by providing bad parameters to
+the tested functions. What is tested is the return value, not the existence
+of a warning backtrace. Suppress the backtraces to avoid clogging the
+kernel log and distraction from real problems. Additionally, the
+suppression API allows to actually ensure a warning was triggered,
+without parsing any kernel logs and keeping them clean.
 
 Tested-by: Linux Kernel Functional Testing <lkft@linaro.org>
 Acked-by: Dan Carpenter <dan.carpenter@linaro.org>
-Reviewed-by: Kees Cook <keescook@chromium.org>
+Acked-by: Maíra Canal <mcanal@igalia.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>
 Signed-off-by: Guenter Roeck <linux@roeck-us.net>
 Signed-off-by: Alessandro Carminati <acarmina@redhat.com>
-Reviewed-by: David Gow <david@davidgow.net>
+Acked-by: David Gow <david@davidgow.net>
 Signed-off-by: Albert Esteve <aesteve@redhat.com>
 ---
- lib/kunit/Makefile                     |   1 +
- lib/kunit/backtrace-suppression-test.c | 176 +++++++++++++++++++++++++++++++++
- 2 files changed, 177 insertions(+)
+ drivers/gpu/drm/tests/drm_rect_test.c | 27 +++++++++++++++++++++++----
+ 1 file changed, 23 insertions(+), 4 deletions(-)
 
-diff --git a/lib/kunit/Makefile b/lib/kunit/Makefile
-index 4592f9d0aa8dd..2e8a6b71a2ab0 100644
---- a/lib/kunit/Makefile
-+++ b/lib/kunit/Makefile
-@@ -22,6 +22,7 @@ obj-$(if $(CONFIG_KUNIT),y) +=		hooks.o
+diff --git a/drivers/gpu/drm/tests/drm_rect_test.c b/drivers/gpu/drm/tests/drm_rect_test.c
+index 17e1f34b76101..809e73cb74498 100644
+--- a/drivers/gpu/drm/tests/drm_rect_test.c
++++ b/drivers/gpu/drm/tests/drm_rect_test.c
+@@ -407,10 +407,20 @@ KUNIT_ARRAY_PARAM(drm_rect_scale, drm_rect_scale_cases, drm_rect_scale_case_desc
+ static void drm_test_rect_calc_hscale(struct kunit *test)
+ {
+ 	const struct drm_rect_scale_case *params = test->param_value;
++	int expected_warnings = params->expected_scaling_factor == -EINVAL;
+ 	int scaling_factor;
  
- obj-$(CONFIG_KUNIT_TEST) +=		kunit-test.o
- obj-$(CONFIG_KUNIT_TEST) +=		platform-test.o
-+obj-$(CONFIG_KUNIT_TEST) +=		backtrace-suppression-test.o
+-	scaling_factor = drm_rect_calc_hscale(&params->src, &params->dst,
+-					      params->min_range, params->max_range);
++	/*
++	 * drm_rect_calc_hscale() generates a warning backtrace whenever bad
++	 * parameters are passed to it. This affects unit tests with -EINVAL
++	 * error code in expected_scaling_factor.
++	 */
++	kunit_warning_suppress(test) {
++		scaling_factor = drm_rect_calc_hscale(&params->src, &params->dst,
++						      params->min_range,
++						      params->max_range);
++		KUNIT_EXPECT_SUPPRESSED_WARNING_COUNT(test, expected_warnings);
++	}
  
- # string-stream-test compiles built-in only.
- ifeq ($(CONFIG_KUNIT_TEST),y)
-diff --git a/lib/kunit/backtrace-suppression-test.c b/lib/kunit/backtrace-suppression-test.c
-new file mode 100644
-index 0000000000000..3f0b2ae83312f
---- /dev/null
-+++ b/lib/kunit/backtrace-suppression-test.c
-@@ -0,0 +1,176 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * KUnit test for suppressing warning tracebacks.
-+ *
-+ * Copyright (C) 2024, Guenter Roeck
-+ * Author: Guenter Roeck <linux@roeck-us.net>
-+ */
-+
-+#include <kunit/test.h>
-+#include <linux/bug.h>
-+#include <linux/completion.h>
-+#include <linux/kthread.h>
-+
-+static void backtrace_suppression_test_warn_direct(struct kunit *test)
-+{
+ 	KUNIT_EXPECT_EQ(test, scaling_factor, params->expected_scaling_factor);
+ }
+@@ -418,10 +428,19 @@ static void drm_test_rect_calc_hscale(struct kunit *test)
+ static void drm_test_rect_calc_vscale(struct kunit *test)
+ {
+ 	const struct drm_rect_scale_case *params = test->param_value;
++	int expected_warnings = params->expected_scaling_factor == -EINVAL;
+ 	int scaling_factor;
+ 
+-	scaling_factor = drm_rect_calc_vscale(&params->src, &params->dst,
+-					      params->min_range, params->max_range);
++	/*
++	 * drm_rect_calc_vscale() generates a warning backtrace whenever bad
++	 * parameters are passed to it. This affects unit tests with -EINVAL
++	 * error code in expected_scaling_factor.
++	 */
 +	kunit_warning_suppress(test) {
-+		WARN(1, "This backtrace should be suppressed");
-+		/*
-+		 * Count must be checked inside the scope; the handle
-+		 * is not accessible after the block exits.
-+		 */
-+		KUNIT_EXPECT_SUPPRESSED_WARNING_COUNT(test, 1);
++		scaling_factor = drm_rect_calc_vscale(&params->src, &params->dst,
++						      params->min_range, params->max_range);
++		KUNIT_EXPECT_SUPPRESSED_WARNING_COUNT(test, expected_warnings);
 +	}
-+	KUNIT_EXPECT_FALSE(test, kunit_has_active_suppress_warning());
-+}
-+
-+static void trigger_backtrace_warn(void)
-+{
-+	WARN(1, "This backtrace should be suppressed");
-+}
-+
-+static void backtrace_suppression_test_warn_indirect(struct kunit *test)
-+{
-+	kunit_warning_suppress(test) {
-+		trigger_backtrace_warn();
-+		KUNIT_EXPECT_SUPPRESSED_WARNING_COUNT(test, 1);
-+	}
-+}
-+
-+static void backtrace_suppression_test_warn_multi(struct kunit *test)
-+{
-+	kunit_warning_suppress(test) {
-+		WARN(1, "This backtrace should be suppressed");
-+		trigger_backtrace_warn();
-+		KUNIT_EXPECT_SUPPRESSED_WARNING_COUNT(test, 2);
-+	}
-+}
-+
-+static void backtrace_suppression_test_warn_on_direct(struct kunit *test)
-+{
-+	if (!IS_ENABLED(CONFIG_DEBUG_BUGVERBOSE) && !IS_ENABLED(CONFIG_KALLSYMS))
-+		kunit_skip(test, "requires CONFIG_DEBUG_BUGVERBOSE or CONFIG_KALLSYMS");
-+
-+	kunit_warning_suppress(test) {
-+		WARN_ON(1);
-+		KUNIT_EXPECT_SUPPRESSED_WARNING_COUNT(test, 1);
-+	}
-+}
-+
-+static void trigger_backtrace_warn_on(void)
-+{
-+	WARN_ON(1);
-+}
-+
-+static void backtrace_suppression_test_warn_on_indirect(struct kunit *test)
-+{
-+	if (!IS_ENABLED(CONFIG_DEBUG_BUGVERBOSE))
-+		kunit_skip(test, "requires CONFIG_DEBUG_BUGVERBOSE");
-+
-+	kunit_warning_suppress(test) {
-+		trigger_backtrace_warn_on();
-+		KUNIT_EXPECT_SUPPRESSED_WARNING_COUNT(test, 1);
-+	}
-+}
-+
-+static void backtrace_suppression_test_count(struct kunit *test)
-+{
-+	kunit_warning_suppress(test) {
-+		KUNIT_EXPECT_SUPPRESSED_WARNING_COUNT(test, 0);
-+
-+		WARN(1, "suppressed");
-+		KUNIT_EXPECT_SUPPRESSED_WARNING_COUNT(test, 1);
-+
-+		WARN(1, "suppressed again");
-+		KUNIT_EXPECT_SUPPRESSED_WARNING_COUNT(test, 2);
-+	}
-+}
-+
-+static void backtrace_suppression_test_active_state(struct kunit *test)
-+{
-+	KUNIT_EXPECT_FALSE(test, kunit_has_active_suppress_warning());
-+
-+	kunit_warning_suppress(test) {
-+		KUNIT_EXPECT_TRUE(test, kunit_has_active_suppress_warning());
-+	}
-+
-+	KUNIT_EXPECT_FALSE(test, kunit_has_active_suppress_warning());
-+
-+	kunit_warning_suppress(test) {
-+		KUNIT_EXPECT_TRUE(test, kunit_has_active_suppress_warning());
-+	}
-+
-+	KUNIT_EXPECT_FALSE(test, kunit_has_active_suppress_warning());
-+}
-+
-+static void backtrace_suppression_test_multi_scope(struct kunit *test)
-+{
-+	struct kunit_suppressed_warning *sw1, *sw2;
-+
-+	if (!IS_ENABLED(CONFIG_DEBUG_BUGVERBOSE))
-+		kunit_skip(test, "requires CONFIG_DEBUG_BUGVERBOSE");
-+
-+	sw1 = kunit_start_suppress_warning(test);
-+	trigger_backtrace_warn_on();
-+	WARN(1, "suppressed by sw1");
-+	kunit_end_suppress_warning(test, sw1);
-+
-+	sw2 = kunit_start_suppress_warning(test);
-+	WARN(1, "suppressed by sw2");
-+	kunit_end_suppress_warning(test, sw2);
-+
-+	KUNIT_EXPECT_EQ(test, kunit_suppressed_warning_count(sw1), 2);
-+	KUNIT_EXPECT_EQ(test, kunit_suppressed_warning_count(sw2), 1);
-+}
-+
-+struct cross_kthread_data {
-+	bool was_active;
-+	struct completion done;
-+};
-+
-+static int cross_kthread_fn(void *data)
-+{
-+	struct cross_kthread_data *d = data;
-+
-+	d->was_active = kunit_has_active_suppress_warning();
-+	complete(&d->done);
-+	return 0;
-+}
-+
-+static void backtrace_suppression_test_cross_kthread(struct kunit *test)
-+{
-+	struct cross_kthread_data data;
-+	struct task_struct *task;
-+
-+	init_completion(&data.done);
-+
-+	kunit_warning_suppress(test) {
-+		task = kthread_run(cross_kthread_fn, &data, "kunit-cross-test");
-+		KUNIT_ASSERT_FALSE(test, IS_ERR(task));
-+		wait_for_completion(&data.done);
-+	}
-+
-+	KUNIT_EXPECT_FALSE(test, data.was_active);
-+}
-+
-+static struct kunit_case backtrace_suppression_test_cases[] = {
-+	KUNIT_CASE(backtrace_suppression_test_warn_direct),
-+	KUNIT_CASE(backtrace_suppression_test_warn_indirect),
-+	KUNIT_CASE(backtrace_suppression_test_warn_multi),
-+	KUNIT_CASE(backtrace_suppression_test_warn_on_direct),
-+	KUNIT_CASE(backtrace_suppression_test_warn_on_indirect),
-+	KUNIT_CASE(backtrace_suppression_test_count),
-+	KUNIT_CASE(backtrace_suppression_test_active_state),
-+	KUNIT_CASE(backtrace_suppression_test_multi_scope),
-+	KUNIT_CASE(backtrace_suppression_test_cross_kthread),
-+	{}
-+};
-+
-+static struct kunit_suite backtrace_suppression_test_suite = {
-+	.name = "backtrace-suppression-test",
-+	.test_cases = backtrace_suppression_test_cases,
-+};
-+kunit_test_suites(&backtrace_suppression_test_suite);
-+
-+MODULE_LICENSE("GPL");
-+MODULE_DESCRIPTION("KUnit test to verify warning backtrace suppression");
+ 
+ 	KUNIT_EXPECT_EQ(test, scaling_factor, params->expected_scaling_factor);
+ }
 
 -- 
 2.53.0
