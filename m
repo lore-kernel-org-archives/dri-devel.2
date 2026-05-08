@@ -4,120 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D026CD3445
-	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 16:13:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35EBACD3445
+	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 16:23:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CCF610F512;
-	Fri,  8 May 2026 16:13:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E18A910F54F;
+	Fri,  8 May 2026 16:23:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ti.com header.i=@ti.com header.b="l33rxF6l";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="eeyqdjaN";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010042.outbound.protection.outlook.com [52.101.85.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F2F210F512
- for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 16:13:09 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012007.outbound.protection.outlook.com [52.101.53.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 882A110F520;
+ Fri,  8 May 2026 16:23:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SXj+5EUXohv4x4AvCCUtkkX+3C8HF/PuCJDl9VKUQ+ZlYKIAkZiSpLeNPFrrARvBn8pxU2aySmkHnrWFGJz5vaK3KdzSIseoly8xr0246ICLzdbBH+mvJxXZUM2/myBO3/HQ5ErbVqzJahvz5ad+AOfSJXO/7m8PYQ+Ym1ehmiFNIua/9hDiGi1Jdve293zpJJnHO7GPZ3kmDFqNP2De0R8A36XjCjxJrjMuFPzXg9GtnfwTeLVKdKwPOXbJyxVt9qJ1cQuXgmmQ4baJql2mmSKF+OLrf9DqHghlh6PhAvPOJ685M3g8mMbJf3UC6Bz24FKm1peb8aUxgtD2f0jOFQ==
+ b=X6oYaL6lr2jgapD80HH+INgEa6G6X+/IMXrSoXvxCDTO+xrDsnSrSnZ2AlwV4dqltWpPRBzBTH5Ol+mKcB6KzboMfVmAWSeynAkkuVJBUqw1RSNA/zf+729nl764/Xk02u3rIEkdp6mDTG12dr24b3tQT0LZLRNfZLsnMETOaGyO7mheo2w/8UEg7tcy0PgN0VBZSjRbIARcz4aA9f88ptK9UhLzmG/h7mRvWo71N91awd5uGbD9nqS+Ky0H2UvqG6q5NfYib4EqJSZi9H7+kdtmtr62PgA7zCYF5PnCI7QiQTVJDVrOedjKwz1RqeDaco3M5jfPm1oav3y5jRSIYg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=txpyJibmULQ7Aq3uaHtIGpKcjgxGhXK9JYX0V+nrtJs=;
- b=mr2yL1AFNhjTPLw+ca8SRWT8eet0meougv6CRXaevS9faFPQoLmNvBDyZs20cPAxBa8mblhnb1ei22Szq7Lax2ZC5jngdIxqZcjcJlXkXU6St7gGlLc6wlSYNKEQX9WxjVof012DdurN+eSKpMBJEEMdGWp5snBmhLUBu0dzL7PtUtUHOjb+3uHwlv2KPtX5QxMnn+QtgdQVh95tRPUGrYfJsMVa1ZiQnBxj0Iwskva5d6PAqzqvR84Phc+1Lov98pmALyvX0YJp0DSPkUFN4vv94Z9QEfL7T07Hqy+89YNUTwNHch608F8fpvD0UvnlE3jeQxnF640w5WLr7XajUw==
+ bh=24bkFD0hHkX7cBeMtOAvivKc1gg8afCoYJq5dlhzF9M=;
+ b=JpVORdNh7zGIyN1G35PG4VN629sG58owu1FwZ1pkwuYNGGCQ0NYlFQUnnVN+LEbIJirYOLQOUWy+nQ54Vu97NMWQ5D8K/xUn69U2V1FFJtwpfnjZjd2mgcDROwdrYnI1vh6Q1xH9jk4eg2WIW/wvLWzwkAh4idnMNTPkwB9ZMaKeAESar3bB5Q898BMEFTbtT8cAX54MyUqrBVynXtWX0/Dj9UoN4tkaK+eIvW+nbrzpENQjGYN1AVS2qCppqgknPvmMLGl5+mjuzxkKbhx847exgM3wcfUcdJez796+pPQD5eCuMIAgOD1G0hzGJNd3rcBtmPLtxH/EPkI/uJFBKw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=txpyJibmULQ7Aq3uaHtIGpKcjgxGhXK9JYX0V+nrtJs=;
- b=l33rxF6l6BlrQ54Fr6X7+sv8W0ewJvBA9VlzEOckVnsp9tMlQnHEjTVCkpZVsa4S2Gl3G7Vdk7bTwSNp+R3COXe8OECXKZQJ3+5UnFm5OMT1Tajlugfwx3KKTaCEOngXd7+GcUXv10wCzCkj4opRLLhK7t5nZU/lAZZhtGez8ps=
-Received: from CH2PR05CA0035.namprd05.prod.outlook.com (2603:10b6:610::48) by
- LV3PR10MB8033.namprd10.prod.outlook.com (2603:10b6:408:280::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.15; Fri, 8 May
- 2026 16:13:05 +0000
-Received: from CH1PEPF0000A349.namprd04.prod.outlook.com
- (2603:10b6:610:0:cafe::de) by CH2PR05CA0035.outlook.office365.com
- (2603:10b6:610::48) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9913.7 via Frontend Transport; Fri, 8
- May 2026 16:13:05 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none; dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
-Received: from lewvzet200.ext.ti.com (198.47.23.194) by
- CH1PEPF0000A349.mail.protection.outlook.com (10.167.244.9) with Microsoft
+ bh=24bkFD0hHkX7cBeMtOAvivKc1gg8afCoYJq5dlhzF9M=;
+ b=eeyqdjaNiL/vFSe4kLXiajsmxULAKKqYaiI+4LTctICH5waxncnRelobXUhnOuKVkcLY9ADTTTXreb+M8rVvd4GIDg/pIHWAk0g6n2M/IzNT0UwL/PYAFMYJQerBtEZdCQDpMyf0sArJZh+jDsr5sG0cE7I8AONadpiwrssdM4o=
+Received: from BL1P223CA0025.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:2c4::30)
+ by SA3PR12MB9227.namprd12.prod.outlook.com (2603:10b6:806:398::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.20; Fri, 8 May
+ 2026 16:23:28 +0000
+Received: from BL02EPF00021F6C.namprd02.prod.outlook.com
+ (2603:10b6:208:2c4:cafe::4f) by BL1P223CA0025.outlook.office365.com
+ (2603:10b6:208:2c4::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.19 via Frontend Transport; Fri,
+ 8 May 2026 16:23:27 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL02EPF00021F6C.mail.protection.outlook.com (10.167.249.8) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9891.9 via Frontend Transport; Fri, 8 May 2026 16:13:05 +0000
-Received: from DLEE202.ent.ti.com (157.170.170.77) by lewvzet200.ext.ti.com
- (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Fri, 8 May
- 2026 11:13:04 -0500
-Received: from DLEE201.ent.ti.com (157.170.170.76) by DLEE202.ent.ti.com
- (157.170.170.77) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Fri, 8 May
- 2026 11:13:03 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE201.ent.ti.com
- (157.170.170.76) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Fri, 8 May 2026 11:13:03 -0500
-Received: from [172.24.233.62] (devarsh-precision-tower-3620.dhcp.ti.com
- [172.24.233.62])
- by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 648GCvAf2030332;
- Fri, 8 May 2026 11:12:58 -0500
-Message-ID: <eccf407a-c469-4744-a56f-aa7366c58be3@ti.com>
-Date: Fri, 8 May 2026 21:42:56 +0530
+ 15.20.9891.9 via Frontend Transport; Fri, 8 May 2026 16:23:27 +0000
+Received: from arun-nv33.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 8 May
+ 2026 11:23:24 -0500
+From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+To: <matthew.auld@intel.com>, <christian.koenig@amd.com>,
+ <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
+ <intel-xe@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+CC: <alexander.deucher@amd.com>, Arunpravin Paneer Selvam
+ <Arunpravin.PaneerSelvam@amd.com>
+Subject: [PATCH v3 1/2] gpu/buddy: replace dual-tree/force_merge with
+ decoupled clear tracker
+Date: Fri, 8 May 2026 21:53:09 +0530
+Message-ID: <20260508162310.57080-1-Arunpravin.PaneerSelvam@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/6] drm/tiny: Add DRM driver for Solomon SSD16xx e-paper
- display controllers
-To: Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, "Rob
- Herring" <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
- <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-CC: <praneeth@ti.com>, <vigneshr@ti.com>, <s-jain1@ti.com>,
- <r-donadkar@ti.com>, <r-sharma3@ti.com>, <afd@ti.com>, Sen Wang <sen@ti.com>
-References: <20260430183311.2978142-1-devarsht@ti.com>
- <20260430183311.2978142-4-devarsht@ti.com>
- <9b35f7c0-f326-4f42-bfe2-82160495bd53@suse.de>
-Content-Language: en-US
-From: Devarsh Thakkar <devarsht@ti.com>
-In-Reply-To: <9b35f7c0-f326-4f42-bfe2-82160495bd53@suse.de>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000A349:EE_|LV3PR10MB8033:EE_
-X-MS-Office365-Filtering-Correlation-Id: 365e784c-4ada-4e4f-0656-08dead1cb01a
+X-MS-TrafficTypeDiagnostic: BL02EPF00021F6C:EE_|SA3PR12MB9227:EE_
+X-MS-Office365-Filtering-Correlation-Id: 111d80aa-a3ef-48b0-104f-08dead1e22ae
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|376014|7416014|82310400026|1800799024|3023799003|56012099003|18092099006|18002099003|921020|13003099007|22082099003;
-X-Microsoft-Antispam-Message-Info: 5k3IK1GMDZEiWTHBvhapwq1nXY3ipAwwVKp3nyQBvkfssN6QQZCOA7PA5ZOQH79Te2fn8XulbBz3vjgvzRy3nWX/xil69wQ8c5ct3NeUTYHNE2/tyLVxOD2VkkKiE9racsuVgiuCbOoEUl9tfpdd8Jm1rICvvru2pBpqmfNpTY5j7sOrpoHUK39mGZYCSfHWXioEaxJuFM9WPupHhxPMD1pioeMn8ts6Edfb0bHaRPFjU9exXihsabT9MBrJD0FuhsEGanTYoGefUjoxBu0HXSOKybtF+nkBhhRXdNNJsMwXSEKJiWTHRXv2fulOJNXpgU5sx1Tq3n/X0NnKMJJG3rCju+F9aRnl58MxNFpLuwvGnUIdwRaJSKg5qzMKCnLnHCn559VX9lgzHAn6xK31HiOKKZxgYxWey5WjtnJRVXiD563y0NpNAVbNnSpbCf1EDVHDVlS4342RyR6tBYQlr/SSCmLYH2waiC2hSTddVxSy4EAT6ppGJHIJxh9GDTuI0FGQaxysWAvss0WK2F2noy1rAQfn2UFA+gmCHTsNzKJh3TVqvzsMaAAR889iO385p4x0WIHwCnmiID5rEFTVxZduejMjQkLtvFsX+EvPKkjER7NTJlBIpuGML/+z63YyPmvmYpNKFOEnCsUk9wMi5DRVttlQC7kpKzJeI5DfhSsJ2BkWlNW/1S6vPr34XxJej2O/h10qfCp0GbU0615ptyUJcYlbqLOBAjg7QTjDf5o=
-X-Forefront-Antispam-Report: CIP:198.47.23.194; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:lewvzet200.ext.ti.com; PTR:InfoDomainNonexistent;
- CAT:NONE;
- SFS:(13230040)(36860700016)(376014)(7416014)(82310400026)(1800799024)(3023799003)(56012099003)(18092099006)(18002099003)(921020)(13003099007)(22082099003);
+ ARA:13230040|36860700016|376014|1800799024|82310400026|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: W/srXR6P0tThlzGJkjVyEWVscL0hHaZW3BY5uKpIDZl4Iktl6bV7p3/k7iqB9RJ6fhcLZ5a7rvbSKZZq43Wsjrc+hkCKI//iDlJDsgnxP24tu08zQBGT32vM291/EiLMjINT24PBNnELCoUw3Z9Ew0dFcRDrX4LbU14NvRaqE7DDATOO6JRGjwFgpDMJ6j97EVv2esNp1kjxV1chKGX7EgC9xflgdZpYCE5ycJNR8o/+cinZkMbH5Bcb6KmX8l+HXVXpOx9iqATIijeTWIQWRin5Q67VQW6adHuwdHnIvvFir7MqfVV3A3/lOhKEXtUdCB7nxcfLNm/bipm+lOvQ/m1P+ZK/MQp4dAZKQvUWHhdM4MBvnGcrVLYPnu7q3b10o1Arern7gQtvbNFS3E3hAAEHCFm/eY3m8ppovLIVnwETv1+stOF27mBXQvWWBxiUKDWvQ8Syi9Rh5/U+rR1EwbVGNEZ7r8rxVrIHM5o3rSn6P6mXsm22M1KGWBR07CxFFPYLtGBBcqSGNVhS/ZURpXltwJoD7dRLQJSht1DHd8QFWr/khF5ByYbHG95GRyxmTfQy8twOTzcu+t6Ct5K5roXpD1+DhCs19+kuK1Dr6eJD/eSjN2iVLxQfWfb7MUpW5qB+r/pCI8Rt9OKJibMZgX9VW6r4b8AtuXOe/VoeneoIPox1SfHe2tK7XrJKMWP94MIX1fk6jgwrNxTLr65+086pZtB3foZ/ygX/Z5o1FMg=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(376014)(1800799024)(82310400026)(18002099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: xtmkwcAJPAMfMsw3XIfubwuhKD/0aQ9gLCls3xOlI2aaDlYdbU/dO6WQpCnueP/bYwxW/gqiNFlUtrtItQhcUnQFm9sjtmlVM4Aj9A9IME+XDkj0M+ylNCWIgWqDuQboObwAkOEOis2dx0u0O43224GWw/zq8YyY8k7Inkp7l1+U+sRF9mWzf0W+VztbP8S/gfQcysf9lB/mOhkU+3P8Wx6Yla0PoEFhQc8tG+GvUMJy32KYyZSRt3BKRYJOI4cqodAN6YaQPogmJcCzFqXlwkGB+zTnHk9uBcUepII4/1PYYF4+6bLWuub+jHmO8R8Ln1//G84JcWqEhF0w30Nu+erdjnAMhYPQQoaFLeeUAUe7fqCXGd0VEvZRyop02tVoLUU25hOzaySYsRB7/0XORiAcmzIa9VhIV5kGdSlnJJLQ9O1puFfb9v7OJ5yo6Ete
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2026 16:13:05.7147 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 365e784c-4ada-4e4f-0656-08dead1cb01a
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7; Ip=[198.47.23.194];
- Helo=[lewvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000A349.namprd04.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: NcstSLuH2EzYu1qzVsxbglnCJUqq3DvBfjbtYm4huFznj0GKlSc6fOeKfxVneBmt4vDtoOgVvbiqOBNohFIAeeV1RFAYESs5U2e8E8dL/qU92S5G7P6PPKCWASLIKD/FL5H9fhOyhR1Bx4Tt7vFyVFg+JZ6HCqH4JyUvjt0iNNY1x2pETAxz16MlNCZnu2RSIyiawMlO2VJoXIuYzQpzVNBwRT2QaZbAA6n9C9F402CRwgaa7aSnSzh6mWyqUMBT0XjDl3RhOUnMw3+rGIYM6wjXaaa1O6S9lw0YsxsDV/LfHYhAeDDOeAzDooTnyluzUn8cNoMtCuTIaFUexcVdBQsJTfUrjsZGmmXcptGOGPT5d3Ef+W9ZHxUQIPSoMZJBVNOfZq/ffSom8qy8AN5jBD/0AVb7+65qb4rRoc16bTtjkpfOcrCeIHaWCryHxFYW
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2026 16:23:27.5215 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 111d80aa-a3ef-48b0-104f-08dead1e22ae
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F6C.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR10MB8033
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9227
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,3412 +112,1904 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Thomas,
-
-Thanks for the quick review.
-
-On 05/05/26 12:35, Thomas Zimmermann wrote:
-> Hi,
-> 
-> thanks for the driver. See below for a review.
-> 
-> There is support for Solomon SSD13xx in solomon/. You should check if 
-> the new driver belongs there.
-> 
-
-Yes I had noticed the solomon directory, but it was only having OLED 
-SSD130x drivers which use I2C or SPI to drive an emissive display with a 
-completely different programming model and no common factor between this 
-ssd16xx driver (which is e-paper display controller) and other drivers 
-in that directory.
-
-And since all the e-paper drivers were residing in drivers/gpu/drm/tiny 
-I thought to put here along with other e-paper drivers. But if you think 
-it is more appropriate to have it in solomon directory along with other 
-solomon controller drivers then we can migrate to that folder in V2, 
-please let us know your opinion.
-
-> Am 30.04.26 um 20:33 schrieb Devarsh Thakkar:
->> Add a DRM driver for the Solomon Systech SSD16xx family of e-paper 
->> display
->> controllers (SSD1680 [4], SSD1673 [3], SSD1681 [5], SSD1683 [1]) based
->> e-paper display panels, starting with support for the Gooddisplay
->> GDEY042T81 which is 4.2", 400x300 resolution black/white e-paper display
->> using SSD1683 controller.
->>
->> Hardware features supported:
->>    - SPI communication with optional D/C GPIO (4-wire mode) or 9-bit SPI
->>      with embedded D/C# bit (3-wire mode) command/data signaling
->>    - BUSY GPIO polling with configurable timeout
->>    - Hardware reset via dedicated reset GPIO
->>    - Internal temperature sensor readout
->>    - Border waveform control with 10 configurable modes:
->>      LUT0-3 (GS transition waveforms), fixed voltage levels (VSS/VSH1/ 
->> VSL/
->>      VSH2), VCOM follow, and HiZ (floating, default)
->>    - Deep sleep modes: Mode 1 (RAM retained) and Mode 2 (RAM lost)
->>    - Data entry modes for all four orientations
->>    - Dual display RAM planes: BW RAM (primary image) and RED RAM
->>      (partial refresh baseline / 3-color BWR red pixels)
->>
->> Refresh modes:
->>    Three independently selectable refresh waveforms:
->>    - Partial (~300-500 ms): low-latency BW update using RED RAM as
->>      waveform transition baseline
->>    - Full (~1.5-2 s): complete pixel-cycle reset with temperature-
->>      compensated LUT reload
->>    - Fast (~1.0-1.5 s): abbreviated waveform using a pre-loaded LUT
->>
->> Pixel format conversions:
->>    The driver accepts all common DRM formats and converts to 1bpp:
->>    - R1 (native 1bpp), color formats (XRGB8888, RGB888, RGB565),
->>      packed YUV (YUYV, UYVY), planar YUV (NV12, NV16), grayscale (R8)
->>    - 3-color BWR: classifies pixels as black, white, or red by dominant
->>      channel; writes separate 1bpp BW and RED buffers
->>
->> Orientation / rotation:
->>    - Full 4-way rotation: 0° (landscape), 90° (portrait CW),
->>      180° (landscape inverted), 270° (portrait CCW)
->>    - Implemented via the Data Entry Mode register — no GPU or memory
->>      rotation overhead
->>    - Configurable via device tree 'rotation' property, module parameter
->>      (overrides DT), or runtime DRM connector property (highest priority)
->>
->> DRM framework integration:
->>    - drm_atomic_helper-based modesetting with damage tracking
->>    - Single primary plane, CRTC, simple encoder, SPI connector
->>    - drm_gem_dma backend for physically contiguous SPI DMA buffers
->>    - fbdev fallback via DRM_FBDEV_DMA_DRIVER_OPS
->>
->> E-paper panels are bistable: they retain the last displayed image
->> indefinitely without power.  Ghosting artefacts may accumulate over time,
->> and based on user policy the driver can switch to a full refresh mode to
->> clear them.  Similarly, based on user policy, the driver can clear the
->> screen on every application start or stop to provide a clean slate for 
->> the
->> next application although some applications may require preserving the
->> last displayed context when going to suspend or exiting.  To provide such
->> flexibility, the driver introduces the following DRM connector properties
->> along with corresponding module parameters:
->> DRM connector properties (runtime configurable):
->>    - rotation: Display orientation in degrees (0, 90, 180, 270).
->>
->>    - refresh_mode: Select update waveform (0=partial, 1=full, 2=fast).
->>      Affects all subsequent frames until changed.
->>
->>    - refresh_mode_init: Waveform for the first frame after CRTC enable 
->> or a
->>      new DRM master taking control (0=disabled, 1=partial, 2=full, 
->> 3=fast).
->>      After the first frame the driver reverts to refresh_mode.  Armed via
->>      drm_driver.master_set; disarmed by master_drop if the client exits
->>      without submitting a frame.
->>
->>    - clear_on_init: Clear display on first DRM client open (0=disabled,
->>      1=partial, 2=full, 3=fast).
->>
->>    - clear_on_close: Clear display when the displaying client exits
->>      (0=disabled, 1=partial, 2=full, 3=fast). Fires via
->>      drm_driver.master_drop when a client drops DRM master.
->>      It also disarms init_refresh_pending so no stale init refresh 
->> leaks to
->>      the next client.
->>
->>    - clear_on_disable: Clear display on CRTC disable / DPMS off
->>      (0=disabled, 1=partial, 2=full, 3=fast). Fires via
->>      crtc_atomic_disable. Independent of clear_on_close — a
->>      display_cleared_on_deinit guard prevents a redundant second clear
->>      when both fire for the same session (e.g. compositor does DPMS off
->>      then exits).
->>
->>    - color_mode: Selects whether a red-plane-capable panel is driven in
->>      3-color (black/white/red) or black-white-only mode (0=black-white,
->>      1=3-color). 3-color is only valid for panels with red plane support;
->>      black-white mode bypasses the RED RAM regardless of panel 
->> capability,
->>      allowing a BWR panel to be driven as a faster BW display.
->>
->>    - border_waveform_init: Border waveform during clear/init operations
->>      (enum 0-9: LUT0-3, VSS, VSH1, VSL, VSH2, VCOM, HiZ).
->>
->>    - border_waveform_refresh: Border waveform during display updates
->>      (enum 0-9, same values).
->>
->>    - border_refresh_on_every_update: When disabled, border waveform
->>      command is sent only when the border state changes (0=disabled,
->>      1=enabled).
-> 
-> Generally speaking, your driver does way too much and leaves too much to 
-> DRM clients.
-> 
-
-The architecture is such that driver does configure the sane defaults so 
-that application need not configure anything mandatorily if the default 
-configuration satisfies application requirements before running, but if 
-application has specific needs due to which it wants to modify some 
-configurations I wanted to provide that flexibility via driver so that 
-application can do the re-configuration run-time via drm properties or 
-via module params too (which could be helpful for legacy fbdev apps). I 
-have given some examples below on where this could be helpful.
-
-
-> - All these properties should go away. There is (mostly) no reason why 
-> any of this should be of interest to user space.
->
-
-We had some reasons actually especially considering the e-paper specific 
-properties and use-cases which we have to support and the module params 
-and drm properties were mainly added because we did not want to impose 
-application specific policy decisions to the kernel and rather provide 
-an interface for the applications to customize the configuration as per 
-their needs. As e-paper displays are fundamentally different from 
-LCD/OLED: they are bistable and retain the last image across sessions 
-and power cycles and there is a bit of management w.r.t ghosting and 
-refresh mode selection which depends on end use-case and application. 
-This create management requirements with no LCD equivalent.
-
-For e.g. w.r.t below properties:
-  
-
-1. Regarding refresh_mode (partial/full/fast): these are not internal 
-implementation details but they represent user-visible quality/speed 
-tradeoffs. For e.g. Partial refresh is ~300ms but accumulates ghosting 
-over time; full refresh is ~1.5-2s but cleans the display.
-
-A drm application displaying clock may want to use partial refresh for 
-second or minute updates (as it's only updating a part of screen) but 
-switch to full refresh periodically (for e.g. after every few hours) to 
-clear ghosting artifacts.
-
-But for another drm application such as an e-book reader when user turns 
-the page, the screen is filled with completely new text which has 
-updates over most part of the screen and in this case user may want to 
-do a full refresh for each page or after every few pages as there are 
-more chances of ghosting.
-
-Furthermore, drm application could also leave it to user via a GPIO 
-button whenever it want to perform full refresh to clear ghosting based 
-on user sees ghosting has started to happen in the screen.
-
-2. Regarding clear_on_init / clear_on_close / clear_on_disable: because 
-bistable displays remember their last content indefinitely, whether to 
-clear on session start or end (or not clear at all) is a legitimate 
-application policy decision, not a driver decision. A kiosk may always 
-want to blank the screen on exit (as it may be displaying 
-personal/sensitive information); a document reader or a badge display 
-may want to preserve content instead. The driver cannot know which 
-policy is correct.
-
-3. Regarding color_mode: for BWR panels, switching between 3-color (full 
-waveform, ~1.5s) and BW-only (faster, bypasses RED RAM) is a rendering 
-policy the application must choose based on whether it has red content 
-to display and I think this can't be deduced solely from user-selected 
-DRM format. For e.g. if user-space is giving XR24 format then we don't 
-know whether they want to render it in color format or BW mode (which 
-can give faster refresh rate).
-
-4. Regarding border_waveform* properties: These control the behaviour of 
-e-paper borders which is independent and outside of framebuffer scan-out 
-region. So for e.g. if user wants a black border or a  gray border or a 
-white border, we wanted to provide flexiblity to the user to change 
-based on their use-case requirements and since ghosting can accumulate 
-in border waveform area too although at a different rate than primary 
-screen area, we provided options to trigger a full refresh for border 
-areas independently too.
-  To summarize, I think these properties reflect genuinte e-paper 
-specific application policy decisions and I felt that driver should be 
-able to retreive that context from application via these properties and 
-make decision accordingly thus supporting the end application use-case 
-more properly.
-
-> - User space sets up a state for the display pipeline and the client 
-> configures the hardware accordingly.
-> 
-> - Don't emulate all these color formats and format conversions. Export 
-> what the hardware supports and let user space pick it. Then program the 
-> hardware accordingly. You might export XRGB8888 for compatibility and 
-> emulate it such that it fits the hardware.
-> 
-
-The hardware only supports DRM_FORMAT_R1, DRM_FORMAT_Y1 (which is 
-pending upstream merge I think), the other formats we enumerated to 
-support pre-configured display servers and apps which generally don't 
-support above format. Sure we can support only XRGB8888 as extra format, 
-but I just wanted to understand on what's the downside to support other 
-formats ? We have tested that there is very less conversion overhead 
-given these are all small resolution displays and some of the display 
-servers which don't support the native formats (R1, Y1) can use any of 
-those.
-
-> 
->>
->> Module parameters (override DT / panel config defaults):
->>    Each DRM connector property above has a corresponding module parameter
->> that sets its initial value at load time, providing the same control via
->> sysfs and the kernel command line without requiring a DRM-capable 
->> userspace
->> or handling.  All parameters default to -1 (use panel config default) so
->> that a bare insmod with no arguments works correctly out of the box.
-> 
-> That's another thing. Your driver should make good decisions about 
-> hardware configuration. Users should not override them.
-> 
-
-Yes we have put the most common/sane defaults in the driver w.r.t panel 
-(i.e use panel config defaults configured in driver) but as mentioned 
-earlier especially for the e-paper panels different applications may 
-have conflicting requirements w.r.t configurations, the module params we 
-have kept mainly to support legacy fbdev apps.
-> 
->>
->> Links:
->> [1] : https://www.crystalfontz.com/controllers/SolomonSystech/SSD1683
->> [2] : https://files.seeedstudio.com/wiki/Other_Display/42-epaper/ 
->> GDEY042T81.pdf
->> [3] : https://www.crystalfontz.com/controllers/SolomonSystech/SSD1673
->> [4] : https://www.crystalfontz.com/controllers/SolomonSystech/SSD1680
->> [5] : https://www.crystalfontz.com/controllers/SolomonSystech/SSD1681
->>
->> Signed-off-by: Devarsh Thakkar <devarsht@ti.com>
->> ---
->>   drivers/gpu/drm/tiny/Kconfig         |   13 +
->>   drivers/gpu/drm/tiny/Makefile        |    1 +
->>   drivers/gpu/drm/tiny/panel-ssd16xx.c | 2548 ++++++++++++++++++++++++++
->>   3 files changed, 2562 insertions(+)
->>   create mode 100644 drivers/gpu/drm/tiny/panel-ssd16xx.c
->>
->> diff --git a/drivers/gpu/drm/tiny/Kconfig b/drivers/gpu/drm/tiny/Kconfig
->> index f0e72d4b6a47..d25363962a1e 100644
->> --- a/drivers/gpu/drm/tiny/Kconfig
->> +++ b/drivers/gpu/drm/tiny/Kconfig
->> @@ -215,3 +215,16 @@ config TINYDRM_SHARP_MEMORY
->>         * 4.40" Sharp Memory LCD (LS044Q7DH01)
->>         If M is selected the module will be called sharp_memory.
->> +
->> +config DRM_PANEL_SSD16XX
-> 
-> Just call it DRM_SSD16XX without the panel. In DRM, things named 'panel' 
-> are usually built around struct drm_panel, which doesn't seem the case 
-> here.
-> 
-
-Oh ok, I preferred DRM_PANEL_SSD16XX since it also enumerates and uses 
-panel specific data/compatible such as this driver supporting 
-gooddisplay,gdey042t81 and more can be added too (just like 
-panel-ilitek* for e.g.) unlike controller only drivers which need to be 
-linked to separate panel drivers.
-
-Do you prefer to change it to DRM_SSD16XX_PANEL to not conflict with 
-DRM_PANEL* drivers and for better context or still prefer to keep it as 
-DRM_SSD16XX ?
-
->> +    tristate "DRM support for Solomon SSD16xx e-ink display controllers"
->> +    depends on DRM && SPI
->> +    select DRM_CLIENT_SELECTION
->> +    select DRM_KMS_HELPER
->> +    select DRM_GEM_DMA_HELPER
-> 
-> Your driver doesn't seem to do actual DMA from the GEM buffers, but 
-> read-and-copy them to the device over SPI.  The ideomatic pattern is to 
-> use gem-shmem and shadow-plane helpers. Please convert the driver 
-> accordingly. See [1] and [2].  Using the initialize macros, you should 
-> be able to drop them into the driver without much issues.
-> 
-
-Thanks for pointing. Yes i agree with you and will update accordingly in V2.
-
-> [1] https://elixir.bootlin.com/linux/v7.0.1/source/include/drm/ 
-> drm_gem_shmem_helper.h
-> [2] https://elixir.bootlin.com/linux/v7.0.1/source/include/drm/ 
-> drm_gem_atomic_helper.h#L42
-> 
->> +    help
->> +      DRM driver for Solomon SSD16xx family e-ink display controllers
->> +      (SSD1680, SSD1681, SSD1683). Supports the GDEY042T81 4.2" 400x300
->> +      monochrome e-ink panel.
->> +
->> +      If M is selected the module will be called panel-ssd16xx.
->> diff --git a/drivers/gpu/drm/tiny/Makefile b/drivers/gpu/drm/tiny/ 
->> Makefile
->> index 48d30bf6152f..3f24e5c6a79a 100644
->> --- a/drivers/gpu/drm/tiny/Makefile
->> +++ b/drivers/gpu/drm/tiny/Makefile
->> @@ -15,3 +15,4 @@ obj-$(CONFIG_TINYDRM_ILI9486)        += ili9486.o
->>   obj-$(CONFIG_TINYDRM_MI0283QT)        += mi0283qt.o
->>   obj-$(CONFIG_TINYDRM_REPAPER)        += repaper.o
->>   obj-$(CONFIG_TINYDRM_SHARP_MEMORY)    += sharp-memory.o
->> +obj-$(CONFIG_DRM_PANEL_SSD16XX)        += panel-ssd16xx.o
->> diff --git a/drivers/gpu/drm/tiny/panel-ssd16xx.c b/drivers/gpu/drm/ 
->> tiny/panel-ssd16xx.c
->> new file mode 100644
->> index 000000000000..b232837c54ff
->> --- /dev/null
->> +++ b/drivers/gpu/drm/tiny/panel-ssd16xx.c
-> 
-> Again, remove 'panel'.
-
-Yes I can remove the panel, but I am just concerned if it won't mislead 
-folks to understand ssd16xx as a controller only driver, requiring a 
-separate panel driver to interface with ?
-
-Basically panel-ssd16xx naming was chosen since this driver houses both 
-the ssd16xx controller context and also the panel being used along with 
-that (similar to panel-ilitek-ili9881c.c) and i did not want to confuse 
-it with a controller only driver (similar to tc358775.c), if it is 
-overalapping a known pattern reserved for drm_panel drivers do you think 
-we should rename it to ssd16xx-panel.c instead or you prefer ssd16xx.c 
-as more appropriate one ?
-
-> 
->> @@ -0,0 +1,2548 @@
->> +// SPDX-License-Identifier: GPL-2.0-only
->> +/*
->> + * DRM driver for e-paper display panels using Solomon SSD16xx family 
->> controllers
->> + *
->> + * Copyright (C) 2026 Texas Instruments Incorporated - https:// 
->> www.ti.com/
->> + *
->> + * Author: Devarsh Thakkar <devarsht@ti.com>
->> + *
->> + * References: https://github.com/Lesords/epaper
->> + */
->> +
->> +#include <linux/delay.h>
->> +#include <linux/module.h>
->> +#include <linux/of.h>
->> +#include <linux/property.h>
->> +#include <linux/spi/spi.h>
->> +
->> +#include <drm/clients/drm_client_setup.h>
->> +#include <drm/drm_atomic.h>
->> +#include <drm/drm_atomic_helper.h>
->> +#include <drm/drm_damage_helper.h>
->> +#include <drm/drm_drv.h>
->> +#include <drm/drm_fb_helper.h>
->> +#include <drm/drm_fbdev_dma.h>
->> +#include <drm/drm_fb_dma_helper.h>
->> +#include <drm/drm_framebuffer.h>
->> +#include <drm/drm_gem_dma_helper.h>
->> +#include <drm/drm_gem_framebuffer_helper.h>
->> +#include <drm/drm_probe_helper.h>
-> 
->> +#include <drm/drm_simple_kms_helper.h>
-> 
-> Obsolete. Anything you use from this header should be open-coded in the 
-> driver.
-> 
-
-Agreed, will remove it in V2.
-
->> +#include <drm/drm_print.h>
-> 
-> 
-> Please remove all of the parameters below. They might be nice for your 
-> debugging, but they do not belong in the upstream driver.
-> 
-
-As mentioned previously, had kept these params mainly for legacy non-drm 
-fbdev based applications.
-
->> +
->> +static int rotation = -1;
->> +module_param(rotation, int, 0644);
->> +MODULE_PARM_DESC(rotation,
->> +         "Display rotation (-1=use DT, 0/180=landscape, 
->> 90/270=portrait)");
-> 
-> Please remove this. There is a rotation property in struct 
-> drm_connector, which stores the rotation. IIRC it can be overridden on 
-> the kernel command line.
-> 
-
-As I understand you are referring to below fields from drm_connector 
-struct, please correct me if I am wrong here but I think the 
-rotation/orientation functionality supported by ssd16xx controller does 
-not match much with below model but instead matches what is done in 
-drivers/gpu/drm/drm_mipi_dbi.c (although that does not support runtime 
-rotation) as explained below  :
-
-drm_connector (rotation specific members):
-  
-
-1. panel_orientation (display_info.panel_orientation): 
-
-Readable from DT via of_drm_get_panel_orientation(), overridable from 
-
-cmdline. However it is not writable by userspace at runtime (which we 
-require). More importantly, when Weston reads panel_orientation it 
-applies an output transform and then attempts to offload rotation to the 
-plane via plane.rotation. This model assumes the plane can geometrically 
-map a 300x400 source framebuffer to a 400x300 CRTC i.e. hardware 
-scan-out rotation. Our driver has no such hardware as explained in 
-detail below.
-  
-
-2. rotation_reflection (cmdline_mode.rotation_reflection):
-Cmdline-only (video=...:rotate=N), no DT path (we require both DT-path 
-and runtime suport). Also I think this is strictly for in-kernel 
-drm_clients and also It currently returns false for 90/270 unless 
-
-the plane has a hardware rotation property. 
-
-  
-
-Both paths therefore ultimately require hardware plane rotation that 
-
-this driver does not have and both seem to be supported just 
-statically i.e. cmdline or dt property.
-
-Our use-case needs to support runtime rotation configuration ours is not 
-a mounted display but a portable hand-held device 
-(https://www.beagleboard.org/boards/beaglebadge) and we have an 
-accelerometer in our device which can detect panel orientation and based 
-on accelerometer reading the drm app can runtime set the custom drm 
-rotation property to switch to new orientation dynamically.
-
-Also our driver is fundamentally different from a GPU display pipeline 
-or controllers supporting transpose function. The SSD16xx display 
-controller has no transpose or rotation function but instead supports 
-different scan-modes, so there is no hardware path that can take a 
-400x300 plane and transpose it to a 300x400 display output. The 
-controller is a simple RAM writer: the CPU 
-writes a byte stream over SPI, and the controller's internal cursor 
-
-advances sequentially according to the data entry mode register (command 
-
-0x11), which selects between X++/Y++ and X--/Y-- scan directions with a 
-
-configurable start position.
-  
-
-For portrait orientation we therefore change the DRM mode itself to 
-
-300x400 from the original 400x300, so the application is asked to 
-provide a 300x400 framebuffer.
-The driver then writes this buffer column-by-column over SPI to the 
-
-display controller's RAM. Since the controller supports different scan 
-
-start positions (cursor at origin vs cursor at maximum address) combined 
-
-with the appropriate X/Y scan direction, we are able to correctly render 
-
-the 300x400 buffer onto the panel when it is held in portrait 
-orientation (90*, 270*).
-  
-
-This means the CRTC mode must reflect the logical dimensions directly, 
-
-exactly as drm_mipi_dbi_dev_init() does via mipi_dbi_rotate_mode() for 
-
-MIPI DBI drivers. Accepting a 300x400 framebuffer onto a 400x300 CRTC 
-
-(as the panel_orientation + plane.rotation model requires) is not 
-
-possible: drm_atomic_helper_check_plane_state(DRM_PLANE_NO_SCALING) 
-
-enforces src_w == crtc_w and src_h == crtc_h, and there is no hardware 
-
-to perform the geometric remapping between the two sizes. 
-
-  
-
-For runtime rotation changes (which are required as the panel is not 
-
-physically fixed), we therefor wanted to use a custom drm connector 
-property. We can look to use the standard DRM_MODE_ROTATE_* bitmask (not 
-a custom enum, that was used in v1), we can also look to check if driver 
-can triggers a full modeset through the normal DRM path, 
-connector_get_modes returns the correctly dimensioned mode for the new 
-orientation, and userspace receives a mode-changed event with the new 
-dimensions.
-  
-
-This is semantically what MIPI DBI tiny drivers do at boot (fixed from 
-DT), made runtime-changeable via the custom drm connector property in 
-this driver.
-
-Maybe, I can try to use standard bitmask instead of custom enum to 
-re-use standard macros :
-
-drm_property_create_bitmask(drm, 0, "rotation",
-                 rotation_props,
-                 ARRAY_SIZE(rotation_props),
-                 DRM_MODE_ROTATE_0  DRM_MODE_ROTATE_90 |
-                 DRM_MODE_ROTATE_180 |DRM_MODE_ROTATE_270); 
-
-
-but keep it as connector property?
-
->> +
->> +static int refresh_mode = -1;
->> +module_param(refresh_mode, int, 0644);
->> +MODULE_PARM_DESC(refresh_mode,
->> +         "Refresh mode (-1=panel default, 0=partial ~300-500ms, 
->> 1=full ~1.5-2s, 2=fast ~1.0-1.5s)");
->> +
->> +static int border_waveform_init_lut = -1;
->> +module_param(border_waveform_init_lut, int, 0644);
->> +MODULE_PARM_DESC(border_waveform_init_lut,
->> +         "Border waveform index during clear/init (-1=panel default, 
->> 0-9=enum index)");
->> +
->> +static int border_waveform_lut = -1;
->> +module_param(border_waveform_lut, int, 0644);
->> +MODULE_PARM_DESC(border_waveform_lut,
->> +         "Border waveform index during display updates (-1=panel 
->> default, 0-9=enum index)");
->> +
-> 
-> Please remove it. Only the panel default. If you have panels where the 
-> default is known to be incorrect, you can add specific workarounds in 
-> the driver.
-> 
-
-I think the most of these params are kept to sane defaults but they may 
-change w.r.t use-cases and each panel can be used in context of multiple 
-use-cases.
-
-> 
->> +static bool border_refresh_on_every_update;
->> +module_param(border_refresh_on_every_update, bool, 0644);
->> +MODULE_PARM_DESC(border_refresh_on_every_update,
->> +         "Re-send border waveform command before each display update 
->> (default: false)");
-> 
-> Pick a sane default.
-> 
-
-Yes driver is picking a sane default already for this (refresh border on 
-init once with white border and keep it as floating in later updates), 
-but just a back-door for the application in case it wants to avoid 
-ghosting totally altogether or has specific needs w.r.t border handling.
-
->> +
->> +static int clear_on_init = -1;
->> +module_param(clear_on_init, int, 0644);
->> +MODULE_PARM_DESC(clear_on_init,
->> +         "Clear display on first app launch (-1=disabled, 0=partial, 
->> 1=full, 2=fast)");
->> +
->> +static int clear_on_close = -1;
->> +module_param(clear_on_close, int, 0644);
->> +MODULE_PARM_DESC(clear_on_close,
->> +         "Clear display on app close/CRTC disable (-1=disabled, 
->> 0=partial, 1=full, 2=fast)");
->> +
->> +static int clear_on_disable = -1;
->> +module_param(clear_on_disable, int, 0644);
->> +MODULE_PARM_DESC(clear_on_disable,
->> +         "Clear display on CRTC disable/DPMS off (-1=disabled, 
->> 0=partial, 1=full, 2=fast)");
->> +
->> +static int refresh_mode_init = -1;
->> +module_param(refresh_mode_init, int, 0644);
->> +MODULE_PARM_DESC(refresh_mode_init,
->> +         "Skip baseline establishment on first enable (-1=disabled, 
->> 0=partial, 1=full, 2=fast)");
-> 
-> Use 'disabled' for all of them.
-> 
->> +
->> +static int color_mode = -1;
->> +module_param(color_mode, int, 0644);
->> +MODULE_PARM_DESC(color_mode,
->> +         "Color mode (-1=panel default, 0=black-white, 1=3-color; 3- 
->> color only valid for panels with red plane support)");
-> 
-> 'Panel default.'  Colors should be controlled by DRM clients via the 
-> framebuffer.
-> 
-
-As mentioned previously, say user-space is only supporting and giving 
-XR24 or XR32 format, from that we can't infer whether user-space want to 
-drive display in B/W mode or color-mode.
-
->> +
->> +/* 
->> -----------------------------------------------------------------------
->> + * SSD16xx family common: commands, data values, and bit definitions.
->> + * These apply equally to SSD1673, SSD1680, and SSD1683.
->> + * 
->> -----------------------------------------------------------------------
->> + */
->> +
->> +/* SPI command codes (common) */
->> +#define SSD16XX_CMD_DRIVER_OUTPUT_CONTROL        0x01
->> +#define SSD16XX_CMD_DATA_ENTRY_MODE            0x11
->> +#define SSD16XX_CMD_SW_RESET                0x12
->> +#define SSD16XX_CMD_MASTER_ACTIVATION            0x20
->> +#define SSD16XX_CMD_DISPLAY_UPDATE_CONTROL1        0x21
->> +#define SSD16XX_CMD_DISPLAY_UPDATE_CONTROL2        0x22
->> +#define SSD16XX_CMD_WRITE_RAM_BW            0x24
->> +#define SSD16XX_CMD_BORDER_WAVEFORM_CONTROL        0x3C
->> +#define SSD16XX_CMD_SET_RAM_X_ADDRESS_START_END        0x44
->> +#define SSD16XX_CMD_SET_RAM_Y_ADDRESS_START_END        0x45
->> +#define SSD16XX_CMD_SET_RAM_X_ADDRESS_COUNTER        0x4E
->> +#define SSD16XX_CMD_SET_RAM_Y_ADDRESS_COUNTER        0x4F
->> +
->> +/*
->> + * Data Entry Mode (command 0x11) AM/IDY/IDX bit encoding (common).
->> + *
->> + * Bit 2 (AM): Address update direction: 0 = X direction, 1 = Y 
->> direction
->> + * ID[1:0] when AM=0 (X-direction modes, address counter advances in X):
->> + *   00 = X decrement, Y decrement   01 = X increment, Y decrement
->> + *   10 = X decrement, Y increment   11 = X increment, Y increment 
->> (default)
->> + *
->> + * Rotation to data entry mode mapping (actual implementation uses 
->> two modes,
->> + * with scan direction controlled via RAM cursor positioning and 
->> manual tweaking):
->> + *   0°/270° → 0x03 (X++, Y++)   Landscape/Portrait-CW: cursor at (0, 0)
->> + *   90°/180° → 0x00 (X--, Y--)  Portrait-CCW/Upside-down: cursor at 
->> (max, max)
->> + *
->> + * The pixel packing in convert_fb_to_1bpp is grouped by physical 
->> layout:
->> + *   - Portrait (90°/270°): column-major packing, rightmost column first
->> + *   - Landscape (0°/180°): row-major packing, top to bottom, left to 
->> right
->> + * Hardware cursor position and scan mode handle the final orientation.
->> + */
->> +#define SSD16XX_DATA_ENTRY_XDEC_YDEC        0x00  /* X--, Y-- (X- 
->> mode) */
->> +#define SSD16XX_DATA_ENTRY_XINC_YINC        0x03  /* X++, Y++ (X- 
->> mode, default) */
->> +
->> +/* POR reset value: GD=0 (G0 first), SM=0 (interlaced), TB=0 (G0- 
->> >G299) */
->> +#define SSD16XX_DRIVER_OUTPUT_CTRL_DEFAULT    0x00
->> +
->> +/* Display Update Control 1 (0x21) byte 2 default (common) */
->> +#define SSD16XX_CTRL1_BYTE2_DEFAULT        0x00
->> +
->> +/*
->> + * Display Update Control 2 (0x22) individual bit definitions (common).
->> + * NOTE: BIT(3) is NOT common — see SSD1683_CTRL2_MODE2 in the SSD1683
->> + * section below; it has a completely different meaning in SSD1673.
->> + */
->> +#define SSD16XX_CTRL2_ENABLE_CLK        BIT(7)
->> +#define SSD16XX_CTRL2_ENABLE_ANALOG        BIT(6)
->> +#define SSD16XX_CTRL2_LOAD_TEMPERATURE        BIT(5)
->> +#define SSD16XX_CTRL2_LOAD_LUT            BIT(4)
->> +#define SSD16XX_CTRL2_DISPLAY            BIT(2)
->> +#define SSD16XX_CTRL2_DISABLE_ANALOG        BIT(1)
->> +#define SSD16XX_CTRL2_DISABLE_CLK        BIT(0)
->> +
->> +#define SSD16XX_SPI_BITS_PER_WORD        8
->> +#define SSD16XX_SPI_SPEED_DEFAULT        1000000
->> +
->> +/* Maximum time to wait for the BUSY pin to deassert after a display 
->> update */
->> +#define SSD16XX_BUSY_WAIT_TIMEOUT_MS        6000
->> +
->> +/* 
->> -----------------------------------------------------------------------
->> + * SSD1683 / SSD1680 specific: commands, data values, and bit 
->> definitions.
->> + * 
->> -----------------------------------------------------------------------
->> + */
->> +
->> +/*
->> + * Deep Sleep Mode values (command 0x10).
->> + */
->> +#define SSD1683_DEEP_SLEEP_MODE_1            0x01  /* RAM retained */
->> +#define SSD1683_DEEP_SLEEP_MODE_2            0x03  /* RAM lost (max 
->> power) */
->> +
->> +/*
->> + * Temperature Sensor Selection (command 0x18).
->> + */
->> +#define SSD1683_CMD_TEMPERATURE_SENSOR_CONTROL        0x18
->> +#define SSD1683_TEMP_SENSOR_INTERNAL            0x80  /* Bit 7: use 
->> internal sensor */
->> +
->> +/*
->> + * Write RED RAM (command 0x26).
->> + */
->> +#define SSD1683_CMD_WRITE_RAM_RED            0x26
->> +
->> +/*
->> + * Border Waveform Control (command 0x3C) byte values.
->> + */
->> +#define SSD1683_BORDER_WAVEFORM_LUT0        0x00  /* GS Transition 
->> LUT0 (black) */
->> +#define SSD1683_BORDER_WAVEFORM_LUT1        0x01  /* GS Transition 
->> LUT1 (white) */
->> +#define SSD1683_BORDER_WAVEFORM_LUT2        0x02  /* GS Transition 
->> LUT2 (black) */
->> +#define SSD1683_BORDER_WAVEFORM_LUT3        0x03  /* GS Transition 
->> LUT3 (gray) */
->> +#define SSD1683_BORDER_WAVEFORM_FIXLVL_VSS    0x40  /* Fix Level VSS 
->> (0V, black) */
->> +#define SSD1683_BORDER_WAVEFORM_FIXLVL_VSH1    0x50  /* Fix Level 
->> VSH1 (+15V, black) */
->> +#define SSD1683_BORDER_WAVEFORM_FIXLVL_VSL    0x60  /* Fix Level VSL 
->> (-15V, white) */
->> +#define SSD1683_BORDER_WAVEFORM_FIXLVL_VSH2    0x70  /* Fix Level 
->> VSH2 (+15V alt, black) */
->> +#define SSD1683_BORDER_WAVEFORM_VCOM        0x80  /* Follow VCOM 
->> (-2V~-3V, preserve) */
->> +#define SSD1683_BORDER_WAVEFORM_HIZ        0xC0  /* HiZ (floating, 
->> default) */
->> +
->> +/*
->> + * Display Update Control 1 (0x21) byte 1 — RED RAM control.
->> + */
->> +#define SSD1683_CTRL1_NORMAL            0x00  /* Both BW and RED RAMs 
->> enabled */
->> +#define SSD1683_CTRL1_BYPASS_RED_RAM        0x40  /* Bypass RED RAM 
->> (force RED=0) */
->> +
->> +/*
->> + * Display Update Control 2 (0x22) BIT(3) — "Display Mode 
->> 2" (partial/BW).
->> + */
->> +#define SSD1683_CTRL2_MODE2            BIT(3)
->> +
->> +/* Composite CTRL2 sequences for each refresh mode */
->> +#define SSD1683_CTRL2_FULL_REFRESH (SSD16XX_CTRL2_ENABLE_CLK | \
->> +                    SSD16XX_CTRL2_ENABLE_ANALOG | \
->> +                    SSD16XX_CTRL2_LOAD_TEMPERATURE | \
->> +                    SSD16XX_CTRL2_LOAD_LUT | \
->> +                    SSD16XX_CTRL2_DISPLAY | \
->> +                    SSD16XX_CTRL2_DISABLE_ANALOG | \
->> +                    SSD16XX_CTRL2_DISABLE_CLK)  /* 0xF7, ~1.5-2s */
->> +
->> +#define SSD1683_CTRL2_FAST_REFRESH (SSD16XX_CTRL2_ENABLE_CLK | \
->> +                    SSD16XX_CTRL2_ENABLE_ANALOG | \
->> +                    SSD16XX_CTRL2_DISPLAY | \
->> +                    SSD16XX_CTRL2_DISABLE_ANALOG | \
->> +                    SSD16XX_CTRL2_DISABLE_CLK)  /* 0xC7, ~1.0-1.5s */
->> +
->> +#define SSD1683_CTRL2_PARTIAL_REFRESH (SSD16XX_CTRL2_ENABLE_CLK | \
->> +                       SSD16XX_CTRL2_ENABLE_ANALOG | \
->> +                       SSD16XX_CTRL2_LOAD_TEMPERATURE | \
->> +                       SSD16XX_CTRL2_LOAD_LUT | \
->> +                       SSD1683_CTRL2_MODE2 | \
->> +                       SSD16XX_CTRL2_DISPLAY | \
->> +                       SSD16XX_CTRL2_DISABLE_ANALOG | \
->> +                       SSD16XX_CTRL2_DISABLE_CLK)  /* 0xFF, 
->> ~300-500ms */
->> +
->> +/*
->> + * Standalone LUT pre-load sequence (0x91 = ENABLE_CLK | LOAD_LUT | 
->> LOAD_TEMPERATURE |
->> + *                                          DISABLE_CLK).
->> + * Pre-loads the OTP LUT without triggering a display update. 
->> Required for
->> + * FAST refresh mode (0xC7) which omits LOAD_LUT from each update cycle.
->> + */
->> +#define SSD1683_CTRL2_LOAD_TEMP_LUT        (SSD16XX_CTRL2_ENABLE_CLK | \
->> +                         SSD16XX_CTRL2_LOAD_LUT | \
->> +                         SSD16XX_CTRL2_LOAD_TEMPERATURE | \
->> +                         SSD16XX_CTRL2_DISABLE_CLK)  /* 0xB1 */
->> +
->> +MODULE_IMPORT_NS("DMA_BUF");
->> +
->> +enum ssd16xx_controller {
->> +    SSD1683 = 1,
->> +};
->> +
->> +enum ssd16xx_model {
->> +    GDEY042T81 = 1,
->> +};
->> +
->> +enum ssd16xx_refresh_mode {
->> +    SSD16XX_REFRESH_PARTIAL = 0,  /* Partial refresh (~300-500ms) */
->> +    SSD16XX_REFRESH_FULL,         /* Full refresh (~1.5-2s) */
->> +    SSD16XX_REFRESH_FAST,         /* Fast refresh, skip temp load 
->> (~1.0-1.5s) */
->> +};
->> +
->> +enum ssd16xx_color_mode {
->> +    SSD16XX_COLOR_MODE_BW = 0,     /* Black/white only; RED RAM 
->> always bypassed */
->> +    SSD16XX_COLOR_MODE_3COLOR = 1, /* 3-colour BWR; RED RAM used for 
->> red pixels */
->> +};
->> +
->> +/* Border waveform enum indices (0-9); mapped to HW bytes via
->> + * controller_cfg->border_waveform_table[]
->> + */
->> +enum ssd16xx_border_waveform {
->> +    SSD16XX_BORDER_LUT0 = 0,  /* GS Transition LUT0 (black) */
->> +    SSD16XX_BORDER_LUT1,      /* GS Transition LUT1 (white) */
->> +    SSD16XX_BORDER_LUT2,      /* GS Transition LUT2 (black) */
->> +    SSD16XX_BORDER_LUT3,      /* GS Transition LUT3 (gray) */
->> +    SSD16XX_BORDER_VSS,       /* Fix Level VSS (black) */
->> +    SSD16XX_BORDER_VSH1,      /* Fix Level VSH1 (black) */
->> +    SSD16XX_BORDER_VSL,       /* Fix Level VSL (white) */
->> +    SSD16XX_BORDER_VSH2,      /* Fix Level VSH2 (black) */
->> +    SSD16XX_BORDER_VCOM,      /* Follow VCOM (preserve) */
->> +    SSD16XX_BORDER_HIZ,       /* HiZ (floating, default) */
->> +};
->> +
->> +/* SSD1683/SSD1680 border waveform byte encoding for command 0x3C */
->> +static const u8 ssd1683_border_waveform_table[] = {
->> +    [SSD16XX_BORDER_LUT0] = SSD1683_BORDER_WAVEFORM_LUT0,
->> +    [SSD16XX_BORDER_LUT1] = SSD1683_BORDER_WAVEFORM_LUT1,
->> +    [SSD16XX_BORDER_LUT2] = SSD1683_BORDER_WAVEFORM_LUT2,
->> +    [SSD16XX_BORDER_LUT3] = SSD1683_BORDER_WAVEFORM_LUT3,
->> +    [SSD16XX_BORDER_VSS]  = SSD1683_BORDER_WAVEFORM_FIXLVL_VSS,
->> +    [SSD16XX_BORDER_VSH1] = SSD1683_BORDER_WAVEFORM_FIXLVL_VSH1,
->> +    [SSD16XX_BORDER_VSL]  = SSD1683_BORDER_WAVEFORM_FIXLVL_VSL,
->> +    [SSD16XX_BORDER_VSH2] = SSD1683_BORDER_WAVEFORM_FIXLVL_VSH2,
->> +    [SSD16XX_BORDER_VCOM] = SSD1683_BORDER_WAVEFORM_VCOM,
->> +    [SSD16XX_BORDER_HIZ]  = SSD1683_BORDER_WAVEFORM_HIZ,
->> +};
->> +
->> +struct ssd16xx_controller_config {
->> +    u16 max_width;
->> +    u16 max_height;
->> +    u8 ram_x_address_bits;
->> +    u8 ram_y_address_bits;
->> +
->> +    /*
->> +     * has_temp_sensor_ctrl: controller supports command 0x18 
->> (Temperature
->> +     * Sensor Selection).  Present in SSD1683/SSD1680; absent in SSD1673
->> +     * which uses command 0x1A (direct temperature write) instead.
->> +     */
->> +    bool has_temp_sensor_ctrl;
->> +
->> +    /*
->> +     * Deep sleep mode byte values for command 0x10.
->> +     *   deep_sleep_mode_level1: lower-power sleep, RAM content retained
->> +     *     (MODE_1 on SSD1683/SSD1680; used for runtime idle / app- 
->> close).
->> +     *   deep_sleep_mode_level2: maximum power savings, RAM may be lost
->> +     *     (MODE_2 on SSD1683/SSD1680; used for system suspend).
->> +     * Chips with a single sleep mode set both fields to the same value.
->> +     */
->> +    u8 deep_sleep_mode_level1;
->> +    u8 deep_sleep_mode_level2;
->> +
->> +    /*
->> +     * border_waveform_table: chip-specific byte values for the 10 
->> logical
->> +     * border waveform modes (indexed by enum ssd16xx_border_waveform).
->> +     * The encoding of command 0x3C differs between SSD1683/SSD1680 and
->> +     * SSD1673, so each controller provides its own translation table.
->> +     */
->> +    const u8 *border_waveform_table;
->> +
->> +    /*
->> +     * Display Update Control 1 (cmd 0x21) byte 1 values.
->> +     * ctrl1_normal:         both BW and RED RAMs participate in the 
->> waveform.
->> +     * ctrl1_bypass_red_ram: RED RAM bypassed; waveform driven from 
->> BW RAM only.
->> +     * SSD1673 has no RED RAM so both fields carry the same value.
->> +     */
->> +    u8 ctrl1_normal;
->> +    u8 ctrl1_bypass_red_ram;
->> +
->> +    /*
->> +     * Display Update Control 2 (cmd 0x22) composite sequences for each
->> +     * refresh mode (indexed by enum ssd16xx_refresh_mode) and the
->> +     * standalone LUT pre-load sequence used before fast refresh.
->> +     * Values differ between SSD1683/SSD1680 and SSD1673 (MODE2 bit, 
->> etc.).
->> +     */
->> +    u8 ctrl2_refresh[3];     /* indexed by SSD16XX_REFRESH_PARTIAL/ 
->> FULL/FAST */
->> +    u8 ctrl2_load_temp_lut;  /* standalone LUT pre-load (no display 
->> update) */
->> +};
->> +
->> +struct ssd16xx_panel_config {
->> +    /* Data Entry Mode - controls X/Y increment direction for 
->> landscape (0°) */
->> +    u8 data_entry_mode;
->> +
->> +    /* Driver Output Control - third byte (scan direction) */
->> +    u8 driver_output_ctrl_byte3;
->> +
->> +    /* Default refresh mode for this panel */
->> +    enum ssd16xx_refresh_mode default_refresh_mode;
->> +
->> +    /* Default border waveform during clear/init (enum index 0-9) */
->> +    enum ssd16xx_border_waveform default_border_waveform_init;
->> +
->> +    /* Default border waveform during display updates (enum index 
->> 0-9) */
->> +    enum ssd16xx_border_waveform default_border_waveform_update;
->> +
->> +    /* Whether to re-send border waveform command before each display 
->> update */
->> +    bool default_border_refresh_on_every_update;
->> +
->> +    /*
->> +     * Default clear-on-init behaviour.
->> +     * -1=disabled, 0=partial, 1=full, 2=fast (matches enum 
->> ssd16xx_refresh_mode)
->> +     */
->> +    int default_clear_on_init;
->> +
->> +    /* Default clear-on-close behaviour (-1=disabled, 0=partial, 
->> 1=full, 2=fast) */
->> +    int default_clear_on_close;
->> +
->> +    /* Default clear-on-disable behaviour (-1=disabled, 0=partial, 
->> 1=full, 2=fast) */
->> +    int default_clear_on_disable;
->> +
->> +    /*
->> +     * Default refresh-mode-init: -1=disabled, else skip baseline 
->> establishment
->> +     * and start directly in this refresh mode.
->> +     */
->> +    int default_refresh_mode_init;
->> +
->> +    /*
->> +     * Whether this panel has a physical red colour plane (3-colour 
->> BWR).
->> +     * false: 2-colour black/white only; the RED RAM is always bypassed.
->> +     * true:  3-colour panel; full-refresh writes to the RED RAM so that
->> +     *        red pixels are driven through the red waveform.
->> +     */
->> +    bool red_supported;
->> +
->> +    /* Panel-specific display mode (resolution and physical 
->> dimensions) */
->> +    const struct drm_display_mode *mode;
->> +};
->> +
->> +struct ssd16xx_panel {
-> 
-> Better call this 'struct ssd16xx_device' and the rsp variables 
-> 'ssd16xx'.  As mentioned, the name 'panel' already has a specific 
-> meaning in DRM.
-> 
-
-Alright I can do that, I thought folks won't confuse it since this is 
-not importing drm_panel struct.
-
-> 
->> +    struct drm_device drm;
->> +
->> +    struct drm_plane primary_plane;
->> +    struct drm_crtc crtc;
->> +    struct drm_encoder encoder;
->> +    struct drm_connector connector;
->> +
->> +    struct spi_device *spi;
->> +    struct gpio_desc *reset;
->> +    struct gpio_desc *busy;
->> +    struct gpio_desc *dc;
->> +
->> +    enum ssd16xx_model model;
->> +    enum ssd16xx_controller controller;
->> +    const struct ssd16xx_controller_config *controller_cfg;
->> +    const struct ssd16xx_panel_config *panel_cfg;
->> +    struct drm_display_mode *mode;
->> +    u32 width;
->> +    u32 height;
->> +
->> +    bool initialized;
->> +    bool reinit_pending;      /* HW re-init required after 
->> orientation change */
->> +    bool init_refresh_pending; /* First frame after refresh_mode_init 
->> enable */
->> +    bool first_clear_done;  /* clear_on_init has already fired once */
->> +    bool display_cleared_on_deinit; /* Avoid redundant clear in 
->> atomic_disable/master_drop */
->> +
->> +    int orientation; /* Display orientation in degrees: 0/90/180/270 */
->> +    enum ssd16xx_refresh_mode refresh_mode; /* Active refresh mode */
->> +    enum ssd16xx_color_mode color_mode;     /* Active color mode (BW 
->> or 3-color) */
->> +    bool fast_lut_pending; /* LUT pre-load needed before next fast 
->> refresh */
->> +
->> +    /* Border waveform (as enum indices) */
->> +    int border_waveform_init_idx;   /* Border waveform during clear/ 
->> init */
->> +    int border_waveform_update_idx; /* Border waveform during display 
->> updates */
->> +    bool border_refresh_on_every_update; /* Re-send border cmd each 
->> display update */
->> +    bool border_waveform_pending;   /* One-shot: send border cmd on 
->> next update */
->> +
->> +    /* Display control */
->> +    int clear_on_init;    /* -1=disabled, 0=partial, 1=full, 2=fast */
->> +    int clear_on_close;   /* -1=disabled, 0=partial, 1=full, 2=fast */
->> +    int clear_on_disable; /* -1=disabled, 0=partial, 1=full, 2=fast */
->> +    int refresh_mode_init; /* -1=disabled, else use this mode for the 
->> first frame */
->> +
->> +    u8  *tx_buf;     /* 1bpp frame buffer (mono + white) */
->> +    u8  *tx_red_buf; /* 1bpp red-channel buffer (3-color panels only) */
->> +    u16 *tx_buf9;    /* 9-bit SPI expansion buffer (3-wire mode only) */
->> +
->> +    struct drm_framebuffer *last_fb;        /* Last drawn FB for 
->> reinit redraws */
->> +    struct drm_property *rotation_property;
->> +    struct drm_property *refresh_mode_property;
->> +    struct drm_property *border_waveform_init_property;
->> +    struct drm_property *border_waveform_update_property;
->> +    struct drm_property *border_refresh_on_every_update_property;
->> +    struct drm_property *clear_on_init_property;
->> +    struct drm_property *clear_on_close_property;
->> +    struct drm_property *clear_on_disable_property;
->> +    struct drm_property *refresh_mode_init_property;
->> +    struct drm_property *color_mode_property;
->> +};
->> +
->> +static inline struct ssd16xx_panel *to_ssd16xx_panel(struct 
->> drm_device *drm)
->> +{
->> +    return container_of(drm, struct ssd16xx_panel, drm);
->> +}
->> +
->> +static inline struct ssd16xx_panel *crtc_to_ssd16xx_panel(struct 
->> drm_crtc *crtc)
->> +{
->> +    return container_of(crtc, struct ssd16xx_panel, crtc);
->> +}
->> +
->> +static inline struct ssd16xx_panel *plane_to_ssd16xx_panel(struct 
->> drm_plane *plane)
->> +{
->> +    return container_of(plane, struct ssd16xx_panel, primary_plane);
->> +}
->> +
->> +static const struct ssd16xx_controller_config 
->> ssd16xx_controller_configs[] = {
->> +    [SSD1683] = {
->> +        .max_width = 400,
->> +        .max_height = 300,
->> +        .ram_x_address_bits = 8,
->> +        .ram_y_address_bits = 16,
->> +        .has_temp_sensor_ctrl    = true,
->> +        .deep_sleep_mode_level1  = SSD1683_DEEP_SLEEP_MODE_1,
->> +        .deep_sleep_mode_level2  = SSD1683_DEEP_SLEEP_MODE_2,
->> +        .border_waveform_table   = ssd1683_border_waveform_table,
->> +        .ctrl1_normal            = SSD1683_CTRL1_NORMAL,
->> +        .ctrl1_bypass_red_ram    = SSD1683_CTRL1_BYPASS_RED_RAM,
->> +        .ctrl2_refresh = {
->> +            [SSD16XX_REFRESH_PARTIAL] = SSD1683_CTRL2_PARTIAL_REFRESH,
->> +            [SSD16XX_REFRESH_FULL]    = SSD1683_CTRL2_FULL_REFRESH,
->> +            [SSD16XX_REFRESH_FAST]    = SSD1683_CTRL2_FAST_REFRESH,
->> +        },
->> +        .ctrl2_load_temp_lut     = SSD1683_CTRL2_LOAD_TEMP_LUT,
->> +    },
->> +};
->> +
->> +/* GDEY042T81: 4.2" 400x300 panel, 84.8x63.6mm active area */
->> +static const struct drm_display_mode gdey042t81_mode = {
->> +    DRM_SIMPLE_MODE(400, 300, 85, 64),
->> +};
->> +
->> +static const struct ssd16xx_panel_config ssd16xx_panel_configs[] = {
->> +    [GDEY042T81] = {
->> +        .data_entry_mode = SSD16XX_DATA_ENTRY_XINC_YINC,
->> +        .driver_output_ctrl_byte3 = SSD16XX_DRIVER_OUTPUT_CTRL_DEFAULT,
->> +        .default_refresh_mode = SSD16XX_REFRESH_PARTIAL,
->> +        .default_border_waveform_init   = SSD16XX_BORDER_LUT1,  /* 
->> white, clean clear */
->> +        .default_border_waveform_update = SSD16XX_BORDER_HIZ,   /* 
->> floating, preserve */
->> +        .default_border_refresh_on_every_update = false,
->> +        .default_clear_on_init    = -1,
->> +        .default_clear_on_close   = -1,
->> +        .default_clear_on_disable = -1,
->> +        .default_refresh_mode_init = SSD16XX_REFRESH_FULL,
->> +        .red_supported = false,  /* 2-colour black/white panel */
->> +        .mode = &gdey042t81_mode,
->> +    },
->> +};
->> +
->> +static void ssd16xx_wait_for_panel(struct ssd16xx_panel *panel,
->> +                   int *err)
->> +{
->> +    unsigned long timeout_jiffies = jiffies +
->> +        msecs_to_jiffies(SSD16XX_BUSY_WAIT_TIMEOUT_MS);
->> +    unsigned long start_ms = jiffies_to_msecs(jiffies);
->> +    int busy_val;
->> +
->> +    if (*err)
->> +        return;
-> 
-> This is good. It'll simplify error handling in other places.
-> 
->> +
->> +    busy_val = gpiod_get_value_cansleep(panel->busy);
->> +    drm_dbg(&panel->drm, "BUSY initial value: %d\n", busy_val);
->> +
->> +    while (gpiod_get_value_cansleep(panel->busy) == 1) {
->> +        if (time_after(jiffies, timeout_jiffies)) {
->> +            drm_err(&panel->drm, "Busy wait timed out after %lums\n",
->> +                jiffies_to_msecs(jiffies) - start_ms);
->> +            *err = -ETIMEDOUT;
->> +            return;
->> +        }
->> +        usleep_range(100, 200);
->> +    }
->> +
->> +    drm_dbg(&panel->drm, "BUSY became ready after %lums\n",
->> +        jiffies_to_msecs(jiffies) - start_ms);
->> +}
->> +
->> +static void ssd16xx_spi_sync(struct spi_device *spi, struct 
->> spi_message *msg,
->> +                 int *err)
->> +{
->> +    int ret;
->> +
->> +    if (*err)
->> +        return;
->> +
->> +    ret = spi_sync(spi, msg);
->> +    if (ret < 0)
->> +        *err = ret;
->> +}
->> +
->> +static void ssd16xx_send_cmd(struct ssd16xx_panel *panel, u8 cmd,
->> +                 int *err)
->> +{
->> +    u16 word;
->> +    struct spi_transfer xfer = {};
->> +    struct spi_message msg;
->> +
->> +    if (*err)
->> +        return;
->> +
->> +    spi_message_init(&msg);
->> +    spi_message_add_tail(&xfer, &msg);
->> +
->> +    if (panel->dc) {
->> +        /* 4-wire SPI: D/C# GPIO low selects command mode */
->> +        xfer.tx_buf = &cmd;
->> +        xfer.len = 1;
->> +        gpiod_set_value_cansleep(panel->dc, 0);
->> +    } else {
->> +        /*
->> +         * 3-wire SPI (9-bit): bit 8 is the D/C# bit.
->> +         * D/C# = 0 means the following 8 bits are a command.
->> +         */
->> +        word = cmd; /* bit 8 = 0 for command */
->> +        xfer.tx_buf = &word;
->> +        xfer.len = sizeof(u16);
->> +        xfer.bits_per_word = 9;
->> +    }
->> +
->> +    ssd16xx_spi_sync(panel->spi, &msg, err);
->> +}
->> +
->> +static void ssd16xx_send_data(struct ssd16xx_panel *panel, u8 data,
->> +                  int *err)
->> +{
->> +    u16 word;
->> +    struct spi_transfer xfer = {};
->> +    struct spi_message msg;
->> +
->> +    if (*err)
->> +        return;
->> +
->> +    spi_message_init(&msg);
->> +    spi_message_add_tail(&xfer, &msg);
->> +
->> +    if (panel->dc) {
->> +        /* 4-wire SPI: D/C# GPIO high selects data mode */
->> +        xfer.tx_buf = &data;
->> +        xfer.len = 1;
->> +        gpiod_set_value_cansleep(panel->dc, 1);
->> +    } else {
->> +        /*
->> +         * 3-wire SPI (9-bit): bit 8 is the D/C# bit.
->> +         * D/C# = 1 means the following 8 bits are data.
->> +         */
->> +        word = 0x100 | data;
->> +        xfer.tx_buf = &word;
->> +        xfer.len = sizeof(u16);
->> +        xfer.bits_per_word = 9;
->> +    }
->> +
->> +    ssd16xx_spi_sync(panel->spi, &msg, err);
->> +}
->> +
->> +static void ssd16xx_send_x_param(struct ssd16xx_panel *panel, u16 x,
->> +                 int *err)
->> +{
->> +    if (*err)
->> +        return;
->> +
->> +    if (panel->controller_cfg->ram_x_address_bits == 8) {
->> +        ssd16xx_send_data(panel, (u8)x, err);
->> +    } else {
->> +        ssd16xx_send_data(panel, x & 0xFF, err);
->> +        ssd16xx_send_data(panel, (x >> 8) & 0xFF, err);
->> +    }
->> +}
->> +
->> +static void ssd16xx_send_y_param(struct ssd16xx_panel *panel, u16 y,
->> +                 int *err)
->> +{
->> +    if (*err)
->> +        return;
->> +
->> +    if (panel->controller_cfg->ram_y_address_bits == 8) {
->> +        ssd16xx_send_data(panel, (u8)y, err);
->> +    } else {
->> +        ssd16xx_send_data(panel, y & 0xFF, err);
->> +        ssd16xx_send_data(panel, (y >> 8) & 0xFF, err);
->> +    }
->> +}
->> +
->> +static void ssd16xx_send_data_bulk(struct ssd16xx_panel *panel,
->> +                   const u8 *data, size_t len,
->> +                   int *err)
->> +{
->> +    struct spi_transfer xfer = {};
->> +    struct spi_message msg;
->> +
->> +    if (*err)
->> +        return;
->> +
->> +    if (!data || !len)
->> +        return;
->> +
->> +    spi_message_init(&msg);
->> +    spi_message_add_tail(&xfer, &msg);
->> +
->> +    if (panel->dc) {
->> +        /* 4-wire SPI: D/C# GPIO high selects data mode */
->> +        xfer.tx_buf = data;
->> +        xfer.len = len;
->> +        gpiod_set_value_cansleep(panel->dc, 1);
->> +        ssd16xx_spi_sync(panel->spi, &msg, err);
->> +    } else {
->> +        /* 3-wire (9-bit): expand u8 → u16 with D/C#=1 in bit 8. */
->> +        size_t i;
->> +        u16 *buf = panel->tx_buf9;
->> +
->> +        for (i = 0; i < len; i++)
->> +            buf[i] = 0x100 | data[i];
->> +
->> +        xfer.tx_buf = buf;
->> +        xfer.len = len * sizeof(u16);
->> +        xfer.bits_per_word = 9;
->> +        ssd16xx_spi_sync(panel->spi, &msg, err);
->> +    }
->> +}
->> +
->> +static void ssd16xx_display_update(struct ssd16xx_panel *panel,
->> +                   u8 ctrl1_byte1, u8 ctrl1_byte2, u8 ctrl2_mode,
->> +                   int *err)
->> +{
->> +    if (*err)
->> +        return;
->> +
->> +    drm_dbg(&panel->drm,
->> +        "display_update: Setting ctrl1=0x%02x,0x%02x mode=0x%02x\n",
->> +        ctrl1_byte1, ctrl1_byte2, ctrl2_mode);
->> +
->> +    ssd16xx_send_cmd(panel, SSD16XX_CMD_DISPLAY_UPDATE_CONTROL1, err);
->> +    ssd16xx_send_data(panel, ctrl1_byte1, err);
->> +    ssd16xx_send_data(panel, ctrl1_byte2, err);
->> +
->> +    ssd16xx_send_cmd(panel, SSD16XX_CMD_DISPLAY_UPDATE_CONTROL2, err);
->> +    ssd16xx_send_data(panel, ctrl2_mode, err);
->> +    ssd16xx_send_cmd(panel, SSD16XX_CMD_MASTER_ACTIVATION, err);
->> +
->> +    drm_dbg(&panel->drm,
->> +        "display_update: Master activation sent, waiting...\n");
->> +
->> +    ssd16xx_wait_for_panel(panel, err);
->> +}
->> +
->> +static void ssd16xx_hw_reset(struct ssd16xx_panel *panel)
->> +{
->> +    gpiod_set_value_cansleep(panel->reset, 1);
->> +    usleep_range(10000, 11000);
->> +    gpiod_set_value_cansleep(panel->reset, 0);
->> +    usleep_range(10000, 11000);
->> +}
->> +
->> +/*
->> + * ssd16xx_preload_fast_lut() - pre-load the OTP LUT for fast refresh 
->> mode.
->> + *
->> + * Fast refresh (CTRL2 = 0xC7) omits the LOAD_LUT step on every 
->> update to save
->> + * time.  It relies on the LUT being loaded upfront via this 
->> standalone sequence
->> + * (CTRL2 = 0xB1: ENABLE_CLK | LOAD_LUT | 
->> SSD16XX_CTRL2_LOAD_TEMPERATURE | DISABLE_CLK,
->> + *  no display update).
->> + *
->> + * Must be called when:
->> + *   a) hw_init runs with refresh_mode == FAST, and
->> + *   b) switching to fast refresh from a mode that did not leave a 
->> valid Mode1
->> + *      LUT in the controller (i.e. previous mode was not FULL 
->> refresh, which
->> + *      carries LOAD_LUT in its own CTRL2 sequence).
->> + */
->> +static int ssd16xx_preload_fast_lut(struct ssd16xx_panel *panel)
->> +{
->> +    int err = 0;
->> +
->> +    ssd16xx_send_cmd(panel, SSD16XX_CMD_DISPLAY_UPDATE_CONTROL1, &err);
->> +    ssd16xx_send_data(panel, panel->controller_cfg- 
->> >ctrl1_bypass_red_ram, &err);
->> +    ssd16xx_send_data(panel, SSD16XX_CTRL1_BYTE2_DEFAULT, &err);
->> +
->> +    ssd16xx_send_cmd(panel, SSD16XX_CMD_DISPLAY_UPDATE_CONTROL2, &err);
->> +    ssd16xx_send_data(panel, panel->controller_cfg- 
->> >ctrl2_load_temp_lut, &err);
->> +
->> +    ssd16xx_send_cmd(panel, SSD16XX_CMD_MASTER_ACTIVATION, &err);
->> +    ssd16xx_wait_for_panel(panel, &err);
->> +
->> +    return err;
->> +}
->> +
->> +static int ssd16xx_hw_init(struct ssd16xx_panel *panel)
->> +{
->> +    int err = 0;
->> +    u16 ram_height = panel->controller_cfg->max_height;
->> +    u8 data_entry_mode;
->> +
->> +    ssd16xx_hw_reset(panel);
->> +
->> +    /* Software reset */
->> +    ssd16xx_send_cmd(panel, SSD16XX_CMD_SW_RESET, &err);
->> +    ssd16xx_wait_for_panel(panel, &err);
->> +
->> +    /* Driver output control (0x01): MUX ratio and scan direction. */
->> +    ssd16xx_send_cmd(panel, SSD16XX_CMD_DRIVER_OUTPUT_CONTROL, &err);
->> +    ssd16xx_send_y_param(panel, ram_height - 1, &err);
->> +    ssd16xx_send_data(panel, panel->panel_cfg- 
->> >driver_output_ctrl_byte3, &err);
->> +
->> +    /* Internal temperature sensor (SSD1683/SSD1680 only; not present 
->> in SSD1673) */
->> +    if (panel->controller_cfg->has_temp_sensor_ctrl) {
->> +        ssd16xx_send_cmd(panel, 
->> SSD1683_CMD_TEMPERATURE_SENSOR_CONTROL, &err);
->> +        ssd16xx_send_data(panel, SSD1683_TEMP_SENSOR_INTERNAL, &err);
->> +    }
->> +
->> +    /*
->> +     * For FAST refresh mode, pre-load the LUT once here during 
->> initialization.
->> +     * FAST mode ctrl2 (0xC7) omits LOAD_LUT on every update for 
->> speed, so the
->> +     * LUT must be loaded upfront. FULL (0xF7) and PARTIAL (0xFF) 
->> load LUT on
->> +     * every update, so no preload is needed for those modes.
->> +     */
->> +    if (panel->refresh_mode == SSD16XX_REFRESH_FAST) {
->> +        ssd16xx_send_cmd(panel, SSD16XX_CMD_DISPLAY_UPDATE_CONTROL1, 
->> &err);
->> +        ssd16xx_send_data(panel, panel->controller_cfg- 
->> >ctrl1_bypass_red_ram, &err);
->> +        ssd16xx_send_data(panel, SSD16XX_CTRL1_BYTE2_DEFAULT, &err);
->> +
->> +        ssd16xx_send_cmd(panel, SSD16XX_CMD_DISPLAY_UPDATE_CONTROL2, 
->> &err);
->> +        ssd16xx_send_data(panel, panel->controller_cfg- 
->> >ctrl2_load_temp_lut, &err);
->> +
->> +        ssd16xx_send_cmd(panel, SSD16XX_CMD_MASTER_ACTIVATION, &err);
->> +        ssd16xx_wait_for_panel(panel, &err);
->> +    }
->> +
->> +    /*
->> +     * Set Data Entry Mode (0x11) based on orientation.  This controls
->> +     * how the RAM address counter auto-advances after each byte write.
->> +     *
->> +     * Implementation uses two data entry modes:
->> +     *   - 90°/180° use XDEC_YDEC (0x00): X--, Y-- with cursor at 
->> (max, max)
->> +     *   - 0°/270° use XINC_YINC (0x03): X++, Y++ with cursor at (0, 0)
->> +     *
->> +     * The convert_fb_to_1bpp packing is grouped by physical layout:
->> +     *   - Portrait orientations (90°/270°): column-major packing
->> +     *   - Landscape orientations (0°/180°): row-major packing
->> +     *
->> +     * Final scan direction and image orientation are controlled by the
->> +     * combination of data entry mode and RAM cursor position set in 
->> fb_dirty.
->> +     *
->> +     * The RAM address window and cursor are NOT set here; fb_dirty
->> +     * always programmes them (with the correct end-before-start order
->> +     * for decrement modes) immediately before writing frame data.
->> +     */
->> +    switch (panel->orientation) {
-> 
-> As mentioned, use the connector property instead.
-> 
->> +    case 90:
->> +    case 180:
->> +        data_entry_mode = SSD16XX_DATA_ENTRY_XDEC_YDEC;
->> +        break;
->> +    default: /* 0°/270° */
->> +        data_entry_mode = SSD16XX_DATA_ENTRY_XINC_YINC;
->> +        break;
->> +    }
->> +
->> +    ssd16xx_send_cmd(panel, SSD16XX_CMD_DATA_ENTRY_MODE, &err);
->> +    ssd16xx_send_data(panel, data_entry_mode, &err);
->> +    drm_dbg(&panel->drm, "hw_init: orientation=%u° data_entry=0x%02x\n",
->> +        panel->orientation, data_entry_mode);
->> +
->> +    ssd16xx_wait_for_panel(panel, &err);
->> +
->> +    if (err)
->> +        drm_err(&panel->drm, "Hardware initialization failed: %d\n", 
->> err);
->> +
->> +    return err;
->> +}
->> +
->> +/*
->> + * Clear display by writing all-white to both BW and RED RAM.
->> + * The ctrl2 argument selects the waveform (full/partial/fast refresh).
->> + * Border waveform is set to init value before clearing, then restored
->> + * to the update value to preserve the border during subsequent updates.
->> + */
->> +static int ssd16xx_clear_display(struct ssd16xx_panel *panel, u8 ctrl2)
->> +{
->> +    const u8 *bw_tbl = panel->controller_cfg->border_waveform_table;
->> +    int err = 0;
->> +    unsigned int data_size = (panel->width * panel->height) / 8;
->> +    u8 *white_buffer = panel->tx_buf;
->> +
->> +    memset(white_buffer, 0xFF, data_size);
->> +
->> +    ssd16xx_send_cmd(panel, SSD16XX_CMD_SET_RAM_X_ADDRESS_COUNTER, 
->> &err);
->> +    ssd16xx_send_x_param(panel, 0x00, &err);
->> +
->> +    ssd16xx_send_cmd(panel, SSD16XX_CMD_SET_RAM_Y_ADDRESS_COUNTER, 
->> &err);
->> +    ssd16xx_send_y_param(panel, 0x00, &err);
->> +
->> +    ssd16xx_send_cmd(panel, SSD16XX_CMD_WRITE_RAM_BW, &err);
->> +    ssd16xx_send_data_bulk(panel, white_buffer, data_size, &err);
->> +
->> +    ssd16xx_send_cmd(panel, SSD1683_CMD_WRITE_RAM_RED, &err);
->> +    ssd16xx_send_data_bulk(panel, white_buffer, data_size, &err);
->> +
->> +    /* Set border waveform for the clear operation */
->> +    drm_dbg(&panel->drm, "clear_display: Set border init waveform: 
->> 0x%02x\n",
->> +        bw_tbl[panel->border_waveform_init_idx]);
->> +    ssd16xx_send_cmd(panel, SSD16XX_CMD_BORDER_WAVEFORM_CONTROL, &err);
->> +    ssd16xx_send_data(panel,
->> +              bw_tbl[panel->border_waveform_init_idx],
->> +              &err);
->> +
->> +    /* 3-colour mode: CTRL1_NORMAL (read both RAMs); BW mode: bypass 
->> RED. */
->> +    ssd16xx_display_update(panel,
->> +                   panel->color_mode == SSD16XX_COLOR_MODE_3COLOR
->> +                    ? panel->controller_cfg->ctrl1_normal
->> +                    : panel->controller_cfg->ctrl1_bypass_red_ram,
->> +                   SSD16XX_CTRL1_BYTE2_DEFAULT, ctrl2, &err);
->> +
->> +    /* Restore border waveform to update/preservation value */
->> +    drm_dbg(&panel->drm, "clear_display: Restored border update 
->> waveform: 0x%02x\n",
->> +        bw_tbl[panel->border_waveform_update_idx]);
->> +    ssd16xx_send_cmd(panel, SSD16XX_CMD_BORDER_WAVEFORM_CONTROL, &err);
->> +    ssd16xx_send_data(panel,
->> +              bw_tbl[panel->border_waveform_update_idx],
->> +              &err);
->> +
->> +    return err;
->> +}
->> +
->> +static u8 ssd16xx_refresh_mode_to_ctrl2(struct ssd16xx_panel *panel,
->> +                    enum ssd16xx_refresh_mode mode)
->> +{
->> +    if (mode < ARRAY_SIZE(panel->controller_cfg->ctrl2_refresh))
->> +        return panel->controller_cfg->ctrl2_refresh[mode];
->> +    return panel->controller_cfg->ctrl2_refresh[SSD16XX_REFRESH_FULL];
->> +}
->> +
->> +/*
->> + * Clear display on new DRM master open (if clear_on_init >= 0).
->> + * Guarded by panel->first_clear_done; master_drop resets it 
->> unconditionally
->> + * so each new client session gets a fresh clear.
->> + */
->> +static int ssd16xx_clear_display_on_init(struct ssd16xx_panel *panel)
->> +{
->> +    int ret;
->> +
->> +    if (panel->clear_on_init < 0 || panel->first_clear_done)
->> +        return 0;
->> +
->> +    drm_dbg(&panel->drm, "clear_on_init: running, mode=%d\n",
->> +        panel->clear_on_init);
->> +    ret = ssd16xx_clear_display(panel,
->> +                    ssd16xx_refresh_mode_to_ctrl2(panel, panel- 
->> >clear_on_init));
->> +    if (ret)
->> +        return ret;
->> +
->> +    panel->first_clear_done = true;
->> +    return 0;
->> +}
->> +
->> +/*
->> + * Clear display when the displaying client exits (if clear_on_close 
->> >= 0).
->> + * Called from ssd16xx_drm_master_drop().
->> + */
->> +static int ssd16xx_clear_display_on_exit(struct ssd16xx_panel *panel)
->> +{
->> +    int ret;
->> +
->> +    if (panel->clear_on_close < 0)
->> +        return 0;
->> +
->> +    drm_dbg(&panel->drm, "clear_on_close: running, mode=%d\n",
->> +        panel->clear_on_close);
->> +    ret =  ssd16xx_clear_display(panel,
->> +                     ssd16xx_refresh_mode_to_ctrl2(panel, panel- 
->> >clear_on_close));
->> +    if (ret)
->> +        return ret;
->> +
->> +    return 0;
->> +}
->> +
->> +/*
->> + * ssd16xx_pixel_luma() - return ITU-R BT.601 luminance (0-255) for 
->> one pixel.
->> + *
->> + * For colour formats the result is (299*R + 587*G + 114*B) / 1000;
->> + * for luma-only formats the luma byte is returned directly.
->> + *
->> + * R1 is never passed here — it is already 1bpp and is handled 
->> directly by
->> + * the callers.
->> + */
->> +static u8 ssd16xx_pixel_luma(struct iosys_map *src,
->> +                 struct drm_framebuffer *fb,
->> +                 unsigned int x, unsigned int y)
->> +{
->> +    switch (fb->format->format) {
->> +    case DRM_FORMAT_XRGB8888: {
->> +        u32 *line = (u32 *)(src->vaddr + y * fb->pitches[0]);
->> +        u32 px = line[x];
->> +        u8 r = (px >> 16) & 0xFF, g = (px >> 8) & 0xFF, b = px & 0xFF;
->> +
->> +        return (u8)((299u * r + 587u * g + 114u * b) / 1000u);
->> +    }
->> +    case DRM_FORMAT_RGB888: {
->> +        u8 *line = (u8 *)(src->vaddr + y * fb->pitches[0]);
->> +        u8 r = line[x * 3], g = line[x * 3 + 1], b = line[x * 3 + 2];
->> +
->> +        return (u8)((299u * r + 587u * g + 114u * b) / 1000u);
->> +    }
->> +    case DRM_FORMAT_RGB565: {
->> +        u16 *line = (u16 *)(src->vaddr + y * fb->pitches[0]);
->> +        u16 px = line[x];
->> +        u8 r = ((px >> 11) & 0x1F) << 3;
->> +        u8 g = ((px >> 5) & 0x3F) << 2;
->> +        u8 b = (px & 0x1F) << 3;
->> +
->> +        return (u8)((299u * r + 587u * g + 114u * b) / 1000u);
->> +    }
->> +    case DRM_FORMAT_R8: {
->> +        u8 *line = (u8 *)(src->vaddr + y * fb->pitches[0]);
->> +
->> +        return line[x];
->> +    }
->> +    case DRM_FORMAT_NV12:
->> +    case DRM_FORMAT_NV16:
->> +        return ((u8 *)(src->vaddr))[y * fb->pitches[0] + x];
->> +    case DRM_FORMAT_YUYV: {
->> +        u8 *line = (u8 *)(src->vaddr + y * fb->pitches[0]);
->> +
->> +        return line[x * 2];
->> +    }
->> +    case DRM_FORMAT_UYVY: {
->> +        u8 *line = (u8 *)(src->vaddr + y * fb->pitches[0]);
->> +
->> +        return line[x * 2 + 1];
->> +    }
->> +    default:
->> +        return 0;
->> +    }
->> +}
->> +
->> +/*
->> + * ssd16xx_pixel_is_white() - test whether a pixel maps to white in 
->> 1bpp output.
->> + *
->> + * Uses fixed threshold of 127. Pixels with luma strictly greater 
->> than 127
->> + * are rendered white.
->> + */
->> +static bool ssd16xx_pixel_is_white(struct iosys_map *src,
->> +                   struct drm_framebuffer *fb,
->> +                   unsigned int x, unsigned int y)
->> +{
->> +    /* R1 is already binarised; avoid the luma computation entirely. */
->> +    if (fb->format->format == DRM_FORMAT_R1) {
->> +        u8 *line = (u8 *)(src->vaddr + y * fb->pitches[0]);
->> +
->> +        return !!(line[x / 8] & (1 << (7 - (x % 8))));
->> +    }
->> +    return ssd16xx_pixel_luma(src, fb, x, y) > 127;
->> +}
->> +
->> +/*
->> + * ssd16xx_pixel_is_red() - test whether a pixel is dominated by the 
->> red channel.
->> + *
->> + * Only meaningful for formats that carry RGB information (XRGB8888, 
->> RGB888,
->> + * RGB565).  For luma-only and monochrome formats there is no red 
->> channel, so
->> + * the function always returns false; callers should use 
->> ssd16xx_pixel_is_white()
->> + * to obtain the BW value for those formats.
->> + *
->> + * Returns true when the red component exceeds 50% intensity AND is 
->> strictly
->> + * greater than both green and blue (dominant red hue).
->> + */
->> +static bool ssd16xx_pixel_is_red(struct iosys_map *src,
->> +                 struct drm_framebuffer *fb,
->> +                 unsigned int x, unsigned int y)
->> +{
->> +    u32 format = fb->format->format;
->> +
->> +    switch (format) {
->> +    case DRM_FORMAT_XRGB8888: {
->> +        u32 *line = (u32 *)(src->vaddr + y * fb->pitches[0]);
->> +        u32 px = line[x];
->> +        u8 r = (px >> 16) & 0xFF;
->> +        u8 g = (px >> 8) & 0xFF;
->> +        u8 b = px & 0xFF;
->> +
->> +        return r > 127 && r > g && r > b;
->> +    }
->> +    case DRM_FORMAT_RGB888: {
->> +        u8 *line = (u8 *)(src->vaddr + y * fb->pitches[0]);
->> +        u8 r = line[x * 3];
->> +        u8 g = line[x * 3 + 1];
->> +        u8 b = line[x * 3 + 2];
->> +
->> +        return r > 127 && r > g && r > b;
->> +    }
->> +    case DRM_FORMAT_RGB565: {
->> +        u16 *line = (u16 *)(src->vaddr + y * fb->pitches[0]);
->> +        u16 px = line[x];
->> +        u8 r = ((px >> 11) & 0x1F) << 3;
->> +        u8 g = ((px >> 5) & 0x3F) << 2;
->> +        u8 b = (px & 0x1F) << 3;
->> +
->> +        return r > 127 && r > g && r > b;
->> +    }
->> +    default:
->> +        return false; /* No colour channel information */
->> +    }
->> +}
->> +
->> +/*
->> + * ssd16xx_convert_fb_to_3color() - split a framebuffer into BW and 
->> RED planes.
->> + * @bw_dst:  output buffer for the black/white RAM plane (1=white, 
->> 0=black)
->> + * @red_dst: output buffer for the red RAM plane        (1=red,   
->> 0=not red)
->> + * @src:     mapped framebuffer memory
->> + * @fb:      DRM framebuffer descriptor
->> + * @rect:    region to convert (must be aligned to 8-pixel boundaries)
->> + *
->> + * Each output buffer must be at least rect_width/8 * rect_height bytes.
->> + * Pixels are classified as:
->> + *   - red:   written to red_dst as 1, bw_dst as 0 (black)
->> + *   - white: written to bw_dst as 1, red_dst as 0
->> + *   - black: written to both as 0
->> + *
->> + * For monochrome formats (R1) where no colour information is 
->> available the
->> + * source data is copied verbatim to bw_dst and red_dst is cleared to 
->> 0xFF
->> + * (all-white = no red pixels).
->> + */
->> +static void ssd16xx_convert_fb_to_3color(u8 *bw_dst, u8 *red_dst,
->> +                     struct iosys_map *src,
->> +                     struct drm_framebuffer *fb,
->> +                     struct drm_rect *rect)
->> +{
->> +    unsigned int x, y;
->> +    u8 bw_byte = 0, red_byte = 0;
->> +    unsigned int bit_pos = 0;
->> +    unsigned int dst_idx = 0;
->> +
->> +    drm_dbg(fb->dev,
->> +        "convert_3color: fmt=%p4cc rect=(%d,%d)-(%d,%d) path=%s\n",
->> +        &fb->format->format,
->> +        rect->x1, rect->y1, rect->x2, rect->y2,
->> +        fb->format->format == DRM_FORMAT_R1 ? "R1-direct" : "color- 
->> pixel");
->> +
->> +    /*
->> +     * R1 is already monochrome — no colour channel exists.
->> +     * Copy BW data directly and leave the red plane all-white 
->> (transparent).
->> +     */
->> +    if (fb->format->format == DRM_FORMAT_R1) {
->> +        unsigned int src_pitch = fb->pitches[0];
->> +        unsigned int width_bytes = drm_rect_width(rect) / 8;
->> +        unsigned int data_size = width_bytes * drm_rect_height(rect);
->> +
->> +        for (y = rect->y1; y < rect->y2; y++) {
->> +            u8 *line = src->vaddr + y * src_pitch + (rect->x1 / 8);
->> +
->> +            memcpy(bw_dst + dst_idx, line, width_bytes);
->> +            dst_idx += width_bytes;
->> +        }
->> +        memset(red_dst, 0xFF, data_size); /* 0xFF = all white: no red 
->> pixels */
->> +        return;
->> +    }
->> +
->> +    /* Use fixed threshold of 127 for grayscale to monochrome 
->> conversion. */
->> +    for (y = rect->y1; y < rect->y2; y++) {
->> +        for (x = rect->x1; x < rect->x2; x++) {
->> +            bool is_red = ssd16xx_pixel_is_red(src, fb, x, y);
->> +
->> +            if (is_red)
->> +                red_byte |= (1 << (7 - bit_pos));
->> +            else if (ssd16xx_pixel_is_white(src, fb, x, y))
->> +                bw_byte |= (1 << (7 - bit_pos));
->> +            /* else: black pixel — both bits remain 0 */
->> +            if (++bit_pos == 8) {
->> +                bw_dst[dst_idx] = bw_byte;
->> +                red_dst[dst_idx] = red_byte;
->> +                dst_idx++;
->> +                bw_byte = 0;
->> +                red_byte = 0;
->> +                bit_pos = 0;
->> +            }
->> +        }
->> +
->> +        /* Flush any partial byte at the end of each row */
->> +        if (bit_pos > 0) {
->> +            bw_dst[dst_idx] = bw_byte;
->> +            red_dst[dst_idx] = red_byte;
->> +            dst_idx++;
->> +            bw_byte = 0;
->> +            red_byte = 0;
->> +            bit_pos = 0;
->> +        }
->> +    }
->> +}
->> +
->> +/*
->> + * ssd16xx_convert_r8_to_red_only() - map an R8 framebuffer to the 
->> RED RAM plane.
->> + *
->> + * Used when the panel has a physical red colour plane (red_supported 
->> == true)
->> + * and the framebuffer format is DRM_FORMAT_R8.  Pixels with value >= 
->> 128 are
->> + * treated as red ink; the BW RAM is set to all-white so that only 
->> red ink
->> + * appears on the white background.
->> + *
->> + * Hardware orientation is handled by the caller via RAM counter 
->> positioning;
->> + * data is written in normal row-major order here (same as 
->> convert_fb_to_3color).
->> + */
->> +static void ssd16xx_convert_r8_to_red_only(u8 *bw_dst, u8 *red_dst,
->> +                       struct iosys_map *src,
->> +                       struct drm_framebuffer *fb,
->> +                       struct drm_rect *rect)
->> +{
->> +    unsigned int src_pitch = fb->pitches[0];
->> +    unsigned int width = drm_rect_width(rect);
->> +    unsigned int height = drm_rect_height(rect);
->> +    unsigned int data_size = DIV_ROUND_UP(width, 8) * height;
->> +    unsigned int dst_idx = 0;
->> +    unsigned int x, y;
->> +    u8 red_byte = 0;
->> +    unsigned int bit_pos = 0;
->> +
->> +    /* BW RAM: all-white background - no black ink, only red ink 
->> shows */
->> +    memset(bw_dst, 0xFF, data_size);
->> +
->> +    /* RED RAM: R8 >= 128 -> red ink (1-bit set) */
->> +    for (y = rect->y1; y < rect->y2; y++) {
->> +        u8 *line = src->vaddr + y * src_pitch;
->> +
->> +        for (x = rect->x1; x < rect->x2; x++) {
->> +            if (line[x] >= 128)
->> +                red_byte |= (1 << (7 - bit_pos));
->> +            if (++bit_pos == 8) {
->> +                red_dst[dst_idx++] = red_byte;
->> +                red_byte = 0;
->> +                bit_pos = 0;
->> +            }
->> +        }
->> +        if (bit_pos > 0) {
->> +            red_dst[dst_idx++] = red_byte;
->> +            red_byte = 0;
->> +            bit_pos = 0;
->> +        }
->> +    }
->> +}
->> +
->> +/*
->> + * Convert framebuffer to 1-bit monochrome for e-paper display.
->> + *
->> + * Supported formats: XRGB8888, RGB888, RGB565, R8, NV12, NV16, YUYV, 
->> UYVY, R1.
->> + * For colour and luma formats, Otsu's global binarisation method 
->> computes an
->> + * optimal per-image threshold from the luminance histogram.
->> + * R1 is the controller's native format and bypasses conversion 
->> entirely.
->> + *
->> + * Output layout:
->> + *   0°/180°  landscape: row-major, left-to-right, top-to-bottom
->> + *   90°/270° CW portrait: column-major, rightmost column first
->> + */
->> +static void ssd16xx_convert_fb_to_1bpp(u8 *dst, struct iosys_map *src,
->> +                       struct drm_framebuffer *fb,
->> +                       struct drm_rect *rect,
->> +                       unsigned int orientation)
->> +{
->> +    u32 format = fb->format->format;
->> +    int x, y;
->> +    u8 byte = 0;
->> +    unsigned int bit_pos = 0;
->> +    unsigned int dst_idx = 0;
->> +
->> +    /* Use fixed threshold of 127 for grayscale to monochrome 
->> conversion. */
->> +    drm_dbg(fb->dev,
->> +        "convert_1bpp: fmt=%p4cc rect=(%d,%d)-(%d,%d) orient=%u° 
->> path=%s\n",
->> +        &fb->format->format,
->> +        rect->x1, rect->y1, rect->x2, rect->y2,
->> +        orientation,
->> +        (format == DRM_FORMAT_R1 && orientation == 0 && rect->x1 % 8 
->> == 0) ? "R1-fast" :
->> +        (orientation == 90 || orientation == 270) ? "portrait" : 
->> "landscape");
->> +
->> +    /*
->> +     * R1 fast path: 0° landscape with byte-aligned rect.
->> +     * R1 is already 1bpp so landscape rows map directly to output 
->> bytes via
->> +     * memcpy — no per-pixel computation needed.  rect->x1 must be a
->> +     * multiple of 8 so that (rect->x1 / 8) gives the correct byte 
->> offset;
->> +     * if not, the generic pixel-by-pixel loop below handles non-aligned
->> +     * rects safely.
->> +     */
->> +    if (format == DRM_FORMAT_R1 && orientation == 0 && rect->x1 % 8 
->> == 0) {
->> +        unsigned int src_pitch = fb->pitches[0];
->> +        unsigned int width_bytes = drm_rect_width(rect) / 8;
->> +
->> +        for (y = rect->y1; y < rect->y2; y++) {
->> +            u8 *src_line = src->vaddr + y * src_pitch + (rect->x1 / 8);
->> +
->> +            memcpy(dst + dst_idx, src_line, width_bytes);
->> +            dst_idx += width_bytes;
->> +        }
->> +        return;
->> +    }
->> +
->> +    switch (orientation) {
->> +    case 90:
->> +    case 270:
->> +        /*
->> +         * Portrait (90° or 270°): column-major packing.
->> +         * Each portrait source column becomes one physical RAM row.
->> +         * The data entry mode and cursor position control scan 
->> direction.
->> +         */
->> +        for (x = rect->x2 - 1; x >= (int)rect->x1; x--) {
->> +            for (y = rect->y1; y < rect->y2; y++) {
->> +                if (ssd16xx_pixel_is_white(src, fb, x, y))
->> +                    byte |= (1 << (7 - bit_pos));
->> +                if (++bit_pos == 8) {
->> +                    dst[dst_idx++] = byte;
->> +                    byte = 0;
->> +                    bit_pos = 0;
->> +                }
->> +            }
->> +            if (bit_pos > 0) {
->> +                dst[dst_idx++] = byte;
->> +                byte = 0;
->> +                bit_pos = 0;
->> +            }
->> +        }
->> +        break;
->> +
->> +    case 0:
->> +    case 180:
->> +    default:
->> +        /*
->> +         * Landscape (0° or 180°): row-major packing.
->> +         * Each landscape source row becomes one physical RAM row.
->> +         * The data entry mode and cursor position control scan 
->> direction.
->> +         */
->> +        for (y = rect->y1; y < rect->y2; y++) {
->> +            for (x = rect->x1; x < rect->x2; x++) {
->> +                if (ssd16xx_pixel_is_white(src, fb, x, y))
->> +                    byte |= (1 << (7 - bit_pos));
->> +                if (++bit_pos == 8) {
->> +                    dst[dst_idx++] = byte;
->> +                    byte = 0;
->> +                    bit_pos = 0;
->> +                }
->> +            }
->> +            if (bit_pos > 0) {
->> +                dst[dst_idx++] = byte;
->> +                byte = 0;
->> +                bit_pos = 0;
->> +            }
->> +        }
->> +        break;
->> +    }
->> +}
->> +
->> +static int ssd16xx_fb_dirty(struct drm_framebuffer *fb, struct 
->> drm_rect *rect,
->> +                struct ssd16xx_panel *panel)
->> +{
->> +    const u8 *ctrl2_tbl = panel->controller_cfg->ctrl2_refresh;
->> +    struct drm_gem_dma_object *dma_obj = drm_fb_dma_get_gem_obj(fb, 0);
->> +    struct iosys_map map;
->> +    int err = 0;
->> +    unsigned int data_size = (panel->width * panel->height) / 8;
->> +    u8 *mono_buffer = NULL;
->> +    u8 *red_buffer = NULL;
->> +    u16 ram_x_start, ram_x_end, ram_y_start, ram_y_end;
->> +
->> +    /* Process full display area; convert handles orientation 
->> traversal. */
->> +    rect->x1 = 0;
->> +    rect->y1 = 0;
->> +    rect->x2 = panel->width;
->> +    rect->y2 = panel->height;
->> +
->> +    drm_dbg(&panel->drm,
->> +        "fb_dirty: fb=%dx%d, refresh_mode=%d, orientation=%d\n",
->> +        fb->width, fb->height, panel->refresh_mode, panel->orientation);
->> +
->> +    mono_buffer = panel->tx_buf;
->> +    memset(mono_buffer, 0, data_size);
->> +
->> +    /* 3-colour FULL/FAST: populate red channel. */
->> +    if (panel->color_mode == SSD16XX_COLOR_MODE_3COLOR &&
->> +        (panel->refresh_mode == SSD16XX_REFRESH_FULL ||
->> +         panel->refresh_mode == SSD16XX_REFRESH_FAST)) {
->> +        red_buffer = panel->tx_red_buf;
->> +        memset(red_buffer, 0, data_size);
->> +    }
->> +
->> +    iosys_map_set_vaddr(&map, dma_obj->vaddr);
->> +
->> +    if (red_buffer && fb->format->format == DRM_FORMAT_R8)
->> +        ssd16xx_convert_r8_to_red_only(mono_buffer, red_buffer, &map, 
->> fb, rect);
->> +    else if (red_buffer)
->> +        ssd16xx_convert_fb_to_3color(mono_buffer, red_buffer, &map, 
->> fb, rect);
->> +    else
->> +        ssd16xx_convert_fb_to_1bpp(mono_buffer, &map, fb, rect, 
->> panel->orientation);
->> +
->> +    drm_dbg(&panel->drm,
->> +        "fb_dirty: mono[0..3]=0x%02x 0x%02x 0x%02x 0x%02x 
->> (data_size=%u)\n",
->> +        mono_buffer[0], mono_buffer[1], mono_buffer[2], mono_buffer[3],
->> +        data_size);
->> +
->> +    /* Set RAM window and cursor for current orientation. */
->> +    ram_x_start = 0;
->> +    ram_x_end = (panel->controller_cfg->max_width / 8) - 1;
->> +    ram_y_start = 0;
->> +    ram_y_end = panel->controller_cfg->max_height - 1;
->> +
->> +    switch (panel->orientation) {
->> +    case 90:
->> +    case 180:
->> +        /* 90°/180°: XDEC_YDEC mode, send end-before-start; cursor at 
->> (max, max). */
->> +        ssd16xx_send_cmd(panel, 
->> SSD16XX_CMD_SET_RAM_X_ADDRESS_START_END, &err);
->> +        ssd16xx_send_x_param(panel, ram_x_end, &err);
->> +        ssd16xx_send_x_param(panel, ram_x_start, &err);
->> +
->> +        ssd16xx_send_cmd(panel, 
->> SSD16XX_CMD_SET_RAM_Y_ADDRESS_START_END, &err);
->> +        ssd16xx_send_y_param(panel, ram_y_end, &err);
->> +        ssd16xx_send_y_param(panel, ram_y_start, &err);
->> +
->> +        ssd16xx_send_cmd(panel, 
->> SSD16XX_CMD_SET_RAM_X_ADDRESS_COUNTER, &err);
->> +        ssd16xx_send_x_param(panel, ram_x_end, &err);
->> +
->> +        ssd16xx_send_cmd(panel, 
->> SSD16XX_CMD_SET_RAM_Y_ADDRESS_COUNTER, &err);
->> +        ssd16xx_send_y_param(panel, ram_y_end, &err);
->> +        break;
->> +
->> +    default: /* 0°/270° */
->> +        /* 0°/270°: XINC_YINC mode, cursor at (0, 0). */
->> +        ssd16xx_send_cmd(panel, 
->> SSD16XX_CMD_SET_RAM_X_ADDRESS_START_END, &err);
->> +        ssd16xx_send_x_param(panel, ram_x_start, &err);
->> +        ssd16xx_send_x_param(panel, ram_x_end, &err);
->> +
->> +        ssd16xx_send_cmd(panel, 
->> SSD16XX_CMD_SET_RAM_Y_ADDRESS_START_END, &err);
->> +        ssd16xx_send_y_param(panel, ram_y_start, &err);
->> +        ssd16xx_send_y_param(panel, ram_y_end, &err);
->> +
->> +        ssd16xx_send_cmd(panel, 
->> SSD16XX_CMD_SET_RAM_X_ADDRESS_COUNTER, &err);
->> +        ssd16xx_send_x_param(panel, ram_x_start, &err);
->> +
->> +        ssd16xx_send_cmd(panel, 
->> SSD16XX_CMD_SET_RAM_Y_ADDRESS_COUNTER, &err);
->> +        ssd16xx_send_y_param(panel, ram_y_start, &err);
->> +        break;
->> +    }
->> +
->> +    ssd16xx_send_cmd(panel, SSD16XX_CMD_WRITE_RAM_BW, &err);
->> +    ssd16xx_send_data_bulk(panel, mono_buffer, data_size, &err);
->> +
->> +    /* Re-send border waveform when: every-update mode, init frame, or
->> +     * the border_waveform_update property just changed (one-shot).
->> +     */
->> +    drm_dbg(&panel->drm,
->> +        "fb_dirty: border check: every_update=%d init_pending=%d 
->> border_pending=%d idx=%d hw=0x%02x\n",
->> +        panel->border_refresh_on_every_update, panel- 
->> >init_refresh_pending,
->> +        panel->border_waveform_pending, panel- 
->> >border_waveform_update_idx,
->> +        panel->controller_cfg->border_waveform_table[panel- 
->> >border_waveform_update_idx]);
->> +    if (panel->border_refresh_on_every_update || panel- 
->> >init_refresh_pending ||
->> +        panel->border_waveform_pending) {
->> +        u8 idx = panel->border_waveform_update_idx;
->> +        u8 border = panel->controller_cfg->border_waveform_table[idx];
->> +
->> +        drm_dbg(&panel->drm, "fb_dirty: Sending border waveform: 
->> 0x%02x\n",
->> +            border);
->> +        ssd16xx_send_cmd(panel, SSD16XX_CMD_BORDER_WAVEFORM_CONTROL, 
->> &err);
->> +        ssd16xx_send_data(panel, border, &err);
->> +        panel->border_waveform_pending = false;
->> +    }
->> +
->> +    switch (panel->refresh_mode) {
->> +    case SSD16XX_REFRESH_FULL:
->> +        /*
->> +         * BW full refresh: write RED RAM BEFORE display_update
->> +         * to avoid a post-BUSY write timing issue on some
->> +         * controller revisions that silently corrupts RED RAM.
->> +         * RED RAM is then bypassed (CTRL1_BYPASS_RED_RAM) so
->> +         * stale RED RAM content does not affect the output.
->> +         */
->> +        ssd16xx_send_cmd(panel, SSD1683_CMD_WRITE_RAM_RED, &err);
->> +        if (red_buffer) {
->> +            /* 3-colour: write red channel before activating */
->> +            ssd16xx_send_data_bulk(panel, red_buffer, data_size, &err);
->> +            ssd16xx_display_update(panel, panel->controller_cfg- 
->> >ctrl1_normal,
->> +                           SSD16XX_CTRL1_BYTE2_DEFAULT,
->> +                           ctrl2_tbl[SSD16XX_REFRESH_FULL], &err);
->> +        } else {
->> +            ssd16xx_send_data_bulk(panel, mono_buffer, data_size, &err);
->> +            ssd16xx_display_update(panel, panel->controller_cfg- 
->> >ctrl1_bypass_red_ram,
->> +                           SSD16XX_CTRL1_BYTE2_DEFAULT,
->> +                           ctrl2_tbl[SSD16XX_REFRESH_FULL], &err);
->> +        }
->> +        break;
->> +    case SSD16XX_REFRESH_FAST:
->> +        /*
->> +         * Fast refresh: LUT pre-loaded during hw_init; BYPASS_RED_RAM
->> +         * so RED RAM does not affect the current output.
->> +         * Write RED RAM BEFORE display_update (same reasoning as FULL)
->> +         * so it holds the just-displayed frame as a valid reference for
->> +         * any subsequent PARTIAL refresh.
->> +         */
->> +
->> +        ssd16xx_send_cmd(panel, SSD1683_CMD_WRITE_RAM_RED, &err);
->> +        if (red_buffer) {
->> +            /* 3-colour: write red channel before activating */
->> +            ssd16xx_send_data_bulk(panel, red_buffer, data_size, &err);
->> +            ssd16xx_display_update(panel, panel->controller_cfg- 
->> >ctrl1_normal,
->> +                           SSD16XX_CTRL1_BYTE2_DEFAULT,
->> +                           ctrl2_tbl[SSD16XX_REFRESH_FAST], &err);
->> +        } else {
->> +            ssd16xx_send_data_bulk(panel, mono_buffer, data_size, &err);
->> +            ssd16xx_display_update(panel, panel->controller_cfg- 
->> >ctrl1_bypass_red_ram,
->> +                           SSD16XX_CTRL1_BYTE2_DEFAULT,
->> +                           ctrl2_tbl[SSD16XX_REFRESH_FAST], &err);
->> +        }
->> +        break;
->> +    case SSD16XX_REFRESH_PARTIAL:
->> +    default:
->> +        /*
->> +         * Partial refresh: both RAMs used for transition waveforms.
->> +         * RED RAM must hold the PREVIOUS frame (= current display
->> +         * content) so the controller can compute pixel transitions.
->> +         * Write RED RAM AFTER display_update so it captures the
->> +         * just-displayed frame as the reference for the next partial.
->> +         */
->> +        drm_dbg(&panel->drm,
->> +            "fb_dirty: partial pre-update: mono[0]=0x%02x (BW=new, 
->> RED=prev)\n",
->> +            mono_buffer[0]);
->> +        ssd16xx_display_update(panel, panel->controller_cfg- 
->> >ctrl1_normal,
->> +                       SSD16XX_CTRL1_BYTE2_DEFAULT,
->> +                       ctrl2_tbl[SSD16XX_REFRESH_PARTIAL], &err);
->> +        ssd16xx_send_cmd(panel, SSD1683_CMD_WRITE_RAM_RED, &err);
->> +        ssd16xx_send_data_bulk(panel, mono_buffer, data_size, &err);
->> +        drm_dbg(&panel->drm,
->> +            "fb_dirty: partial post-update: wrote RED baseline 
->> mono[0]=0x%02x\n",
->> +            mono_buffer[0]);
->> +        break;
->> +    }
->> +
->> +    return err;
->> +}
->> +
->> +/* 
->> -----------------------------------------------------------------------------
->> + * Plane Functions
->> + */
->> +
->> +static void ssd16xx_plane_destroy(struct drm_plane *plane)
->> +{
->> +    drm_plane_cleanup(plane);
->> +}
->> +
->> +static void ssd16xx_plane_reset(struct drm_plane *plane)
->> +{
->> +    drm_atomic_helper_plane_reset(plane);
->> +}
-> 
-> Please avoid these wrappers.
-> 
-
-Understood, will update in V2.
-
->> +
->> +static const struct drm_plane_funcs ssd16xx_plane_funcs = {
->> +    .update_plane = drm_atomic_helper_update_plane,
->> +    .disable_plane = drm_atomic_helper_disable_plane,
->> +    .destroy = ssd16xx_plane_destroy,
->> +    .reset = ssd16xx_plane_reset,
->> +    .atomic_duplicate_state = drm_atomic_helper_plane_duplicate_state,
->> +    .atomic_destroy_state = drm_atomic_helper_plane_destroy_state,
->> +};
->> +
->> +static int ssd16xx_plane_atomic_check(struct drm_plane *plane,
->> +                      struct drm_atomic_state *state)
->> +{
->> +    struct drm_plane_state *new_plane_state =
->> +        drm_atomic_get_new_plane_state(state, plane);
->> +    struct drm_crtc_state *crtc_state;
->> +
->> +    if (!new_plane_state->crtc)
->> +        return 0;
->> +
->> +    crtc_state = drm_atomic_get_new_crtc_state(state, 
->> new_plane_state->crtc);
->> +
->> +    return drm_atomic_helper_check_plane_state(new_plane_state, 
->> crtc_state,
->> +                           DRM_PLANE_NO_SCALING,
->> +                           DRM_PLANE_NO_SCALING,
->> +                           false, false);
->> +}
->> +
->> +static void ssd16xx_plane_atomic_update(struct drm_plane *plane,
->> +                    struct drm_atomic_state *state)
->> +{
->> +    struct drm_plane_state *old_state = 
->> drm_atomic_get_old_plane_state(state, plane);
->> +    struct drm_plane_state *new_state = 
->> drm_atomic_get_new_plane_state(state, plane);
->> +    struct ssd16xx_panel *panel = plane_to_ssd16xx_panel(plane);
->> +    enum ssd16xx_refresh_mode saved_mode;
->> +    u8 saved_border_waveform_idx;
->> +    struct drm_framebuffer *fb = new_state->fb;
->> +    struct drm_rect rect;
->> +    int ret;
->> +
->> +    drm_dbg(&panel->drm, "plane_atomic_update: fb=%p, initialized=%d\n",
->> +        fb, panel->initialized);
->> +
->> +    if (!fb || !panel->initialized)
->> +        return;
->> +
->> +    /*
->> +     * If a rotation change is pending, skip the update here — 
->> crtc_atomic_flush
->> +     * will re-init the hardware for the new orientation and redraw.
->> +     */
->> +    if (panel->reinit_pending) {
->> +        drm_dbg(&panel->drm, "plane_atomic_update: skipping (reinit 
->> pending)\n");
->> +        return;
->> +    }
->> +
->> +    if (!drm_atomic_helper_damage_merged(old_state, new_state, &rect)) {
->> +        rect.x1 = 0;
->> +        rect.y1 = 0;
->> +        rect.x2 = fb->width;
->> +        rect.y2 = fb->height;
->> +        drm_dbg(&panel->drm, "plane_atomic_update: no damage, using 
->> full screen\n");
->> +    }
->> +
->> +    drm_dbg(&panel->drm, "plane_atomic_update: calling fb_dirty 
->> rect=(%d,%d)-(%d,%d)\n",
->> +        rect.x1, rect.y1, rect.x2, rect.y2);
->> +    /*
->> +     * When refresh_mode_init was set, use the specified mode for 
->> this first
->> +     * frame only, then restore the user-configured refresh_mode so
->> +     * subsequent updates continue with the configured mode.
->> +     */
->> +    saved_mode = panel->refresh_mode;
->> +    saved_border_waveform_idx = panel->border_waveform_update_idx;
->> +    if (panel->init_refresh_pending) {
->> +        panel->refresh_mode = panel->refresh_mode_init;
->> +        panel->border_waveform_update_idx = panel- 
->> >border_waveform_init_idx;
->> +    }
->> +
->> +    /*
->> +     * Fast refresh (0xC7) omits LOAD_LUT on every update cycle and 
->> relies
->> +     * on the LUT being pre-loaded upfront.  The property setter arms
->> +     * fast_lut_pending whenever the user switches into fast mode.  
->> Consume
->> +     * the flag here (once) before the first fast-refresh frame so the
->> +     * controller's LUT is in the correct state.
->> +     */
->> +    if (panel->fast_lut_pending) {
->> +        ret = ssd16xx_preload_fast_lut(panel);
->> +        if (ret) {
->> +            drm_err(&panel->drm,
->> +                "plane_atomic_update: fast LUT preload failed: %d\n", 
->> ret);
->> +        }
->> +
->> +        panel->fast_lut_pending = false;
->> +    }
->> +
->> +    ret = ssd16xx_fb_dirty(fb, &rect, panel);
->> +    if (ret)
->> +        drm_err(&panel->drm, "plane_atomic_update: display update 
->> failed: %d\n", ret);
->> +    else
->> +        panel->last_fb = fb;
->> +
->> +    panel->refresh_mode = saved_mode;
->> +    panel->border_waveform_update_idx = saved_border_waveform_idx;
->> +
->> +    /*
->> +     * If this was the init frame (which used border_waveform_init_idx
->> +     * inside fb_dirty), arm border_waveform_pending so the normal
->> +     * (non-init) border value is sent at the start of the next update.
->> +     */
->> +    if (panel->init_refresh_pending) {
->> +        panel->init_refresh_pending = false;
->> +        panel->border_waveform_pending = true;
->> +    }
->> +}
->> +
->> +static const struct drm_plane_helper_funcs ssd16xx_plane_helper_funcs 
->> = {
->> +    .atomic_check = ssd16xx_plane_atomic_check,
->> +    .atomic_update = ssd16xx_plane_atomic_update,
->> +};
->> +
->> +/* 
->> -----------------------------------------------------------------------------
->> + * CRTC Functions
->> + */
->> +
->> +static void ssd16xx_crtc_destroy(struct drm_crtc *crtc)
->> +{
->> +    drm_crtc_cleanup(crtc);
->> +}
->> +
->> +static const struct drm_crtc_funcs ssd16xx_crtc_funcs = {
->> +    .reset = drm_atomic_helper_crtc_reset,
->> +    .destroy = ssd16xx_crtc_destroy,
->> +    .set_config = drm_atomic_helper_set_config,
->> +    .page_flip = drm_atomic_helper_page_flip,
->> +    .atomic_duplicate_state = drm_atomic_helper_crtc_duplicate_state,
->> +    .atomic_destroy_state = drm_atomic_helper_crtc_destroy_state,
->> +};
->> +
->> +static enum drm_mode_status ssd16xx_crtc_mode_valid(struct drm_crtc 
->> *crtc,
->> +                            const struct drm_display_mode *mode)
->> +{
->> +    struct ssd16xx_panel *panel = crtc_to_ssd16xx_panel(crtc);
->> +
->> +    /* Accept only our panel's native mode (landscape or portrait) */
->> +    if ((mode->hdisplay == panel->mode->hdisplay &&
->> +         mode->vdisplay == panel->mode->vdisplay) ||
->> +        (mode->hdisplay == panel->mode->vdisplay &&
->> +         mode->vdisplay == panel->mode->hdisplay))
->> +        return MODE_OK;
->> +
->> +    return MODE_BAD;
->> +}
->> +
->> +static int ssd16xx_crtc_atomic_check(struct drm_crtc *crtc,
->> +                     struct drm_atomic_state *state)
->> +{
->> +    return 0;
->> +}
->> +
->> +static void ssd16xx_crtc_atomic_disable(struct drm_crtc *crtc,
->> +                    struct drm_atomic_state *state)
->> +{
->> +    struct ssd16xx_panel *panel = crtc_to_ssd16xx_panel(crtc);
->> +    int ret, idx;
->> +
->> +    if (!drm_dev_enter(&panel->drm, &idx))
->> +        return;
->> +
->> +    if (panel->clear_on_disable < 0 || panel->display_cleared_on_deinit)
->> +        goto out;
->> +
->> +    drm_dbg(&panel->drm, "clear_on_disable: running, mode=%d\n",
->> +        panel->clear_on_disable);
->> +    ret = ssd16xx_clear_display(panel,
->> +                    ssd16xx_refresh_mode_to_ctrl2(panel,
->> +                                  panel->clear_on_disable));
->> +    if (ret) {
->> +        drm_err(&panel->drm, "atomic_disable: clear failed: %d\n", ret);
->> +        goto out;
->> +    }
->> +
->> +    panel->display_cleared_on_deinit = true;
->> +out:
->> +    drm_dev_exit(idx);
->> +}
->> +
->> +static void ssd16xx_crtc_atomic_enable(struct drm_crtc *crtc,
->> +                       struct drm_atomic_state *state)
->> +{
->> +    struct ssd16xx_panel *panel = crtc_to_ssd16xx_panel(crtc);
->> +    struct drm_crtc_state *crtc_state = 
->> drm_atomic_get_new_crtc_state(state, crtc);
->> +    int ret, idx;
->> +
->> +    if (!drm_dev_enter(&panel->drm, &idx))
->> +        return;
->> +
->> +    panel->display_cleared_on_deinit = false;
->> +
->> +    drm_dbg(&panel->drm, "atomic_enable: %dx%d\n",
->> +        crtc_state->mode.hdisplay, crtc_state->mode.vdisplay);
->> +
->> +    panel->width = crtc_state->mode.hdisplay;
->> +    panel->height = crtc_state->mode.vdisplay;
->> +
->> +    ret = ssd16xx_hw_init(panel);
->> +    if (ret) {
->> +        drm_err(&panel->drm, "crtc_atomic_enable: HW init failed: 
->> %d\n", ret);
->> +        goto out;
->> +    }
->> +    panel->initialized = true;
->> +
->> +    /* Clear display on first app launch if configured */
->> +    ret = ssd16xx_clear_display_on_init(panel);
->> +    if (ret)
->> +        drm_err(&panel->drm, "crtc_atomic_enable: clear on init 
->> failed: %d\n", ret);
->> +
->> +    /*
->> +     * If refresh_mode_init is set, arm init_refresh_pending so
->> +     * plane_atomic_update uses the specified mode for the first frame
->> +     * then restores the user-configured or panel default refresh_mode.
->> +     */
->> +    if (panel->refresh_mode_init >= 0) {
->> +        drm_dbg(&panel->drm,
->> +            "atomic_enable: refresh_mode_init=%d, using for first 
->> frame\n",
->> +            panel->refresh_mode_init);
->> +        panel->init_refresh_pending = true;
->> +    }
->> +
->> +out:
->> +    drm_dev_exit(idx);
->> +}
->> +
->> +/*
->> + * Re-initialize hardware and redraw the current framebuffer when the
->> + * display orientation changes at runtime via the rotation connector 
->> property.
->> + * Called by the DRM atomic helper after atomic_enable/disable have run.
->> + */
->> +static void ssd16xx_crtc_atomic_flush(struct drm_crtc *crtc,
->> +                      struct drm_atomic_state *state)
->> +{
->> +    struct ssd16xx_panel *panel = crtc_to_ssd16xx_panel(crtc);
->> +    struct drm_framebuffer *fb;
->> +    struct drm_rect full;
->> +    int ret, idx;
->> +
->> +    if (!panel->reinit_pending || !panel->initialized)
->> +        return;
->> +
->> +    if (!drm_dev_enter(&panel->drm, &idx))
->> +        return;
->> +
->> +    panel->reinit_pending = false;
->> +
->> +    drm_dbg(&panel->drm, "atomic_flush: reinit, orientation=%u°\n",
->> +        panel->orientation);
->> +
->> +    ret = ssd16xx_hw_init(panel);
->> +    if (ret) {
->> +        drm_err(&panel->drm, "Orientation re-init failed: %d\n", ret);
->> +        goto out;
->> +    }
->> +
->> +    fb = panel->primary_plane.state ? panel->primary_plane.state->fb
->> +                    : panel->last_fb;
->> +    if (fb) {
->> +        full.x1 = 0;
->> +        full.y1 = 0;
->> +        full.x2 = fb->width;
->> +        full.y2 = fb->height;
->> +        ret = ssd16xx_fb_dirty(fb, &full, panel);
->> +        if (ret)
->> +            drm_err(&panel->drm, "atomic_flush: display update 
->> failed: %d\n", ret);
->> +        else
->> +            panel->last_fb = fb;
->> +    }
->> +
->> +out:
->> +    drm_dev_exit(idx);
->> +}
->> +
->> +static const struct drm_crtc_helper_funcs ssd16xx_crtc_helper_funcs = {
->> +    .mode_valid     = ssd16xx_crtc_mode_valid,
->> +    .atomic_check   = ssd16xx_crtc_atomic_check,
->> +    .atomic_disable = ssd16xx_crtc_atomic_disable,
->> +    .atomic_enable  = ssd16xx_crtc_atomic_enable,
->> +    .atomic_flush   = ssd16xx_crtc_atomic_flush,
->> +};
->> +
->> +/* 
->> -----------------------------------------------------------------------------
->> + * Connector Functions
->> + */
->> +
->> +static int ssd16xx_connector_get_modes(struct drm_connector *connector)
->> +{
->> +    struct ssd16xx_panel *panel = to_ssd16xx_panel(connector->dev);
->> +    bool mode_is_portrait = (panel->mode->hdisplay < panel->mode- 
->> >vdisplay);
->> +    bool orient_is_portrait = (panel->orientation == 90 || panel- 
->> >orientation == 270);
->> +
->> +    drm_dbg(&panel->drm, "connector_get_modes: orientation=%u°\n",
->> +        panel->orientation);
->> +
->> +    /* For portrait, swap dimensions so clients see logical size. */
->> +    if (mode_is_portrait != orient_is_portrait) {
->> +        struct drm_display_mode *mode;
->> +
->> +        mode = drm_mode_duplicate(&panel->drm, panel->mode);
->> +        if (!mode)
->> +            return 0;
->> +        swap(mode->hdisplay, mode->vdisplay);
->> +        swap(mode->hsync_start, mode->vsync_start);
->> +        swap(mode->hsync_end, mode->vsync_end);
->> +        swap(mode->htotal, mode->vtotal);
->> +        swap(mode->width_mm, mode->height_mm);
->> +        mode->type |= DRM_MODE_TYPE_PREFERRED;
->> +        drm_mode_set_name(mode);
->> +        drm_mode_probed_add(connector, mode);
->> +        return 1;
->> +    }
->> +
->> +    return drm_connector_helper_get_modes_fixed(connector, panel->mode);
->> +}
->> +
->> +static const struct drm_connector_helper_funcs 
->> ssd16xx_connector_helper_funcs = {
->> +    .get_modes = ssd16xx_connector_get_modes,
->> +};
->> +
->> +/* Enum values for the rotation connector property (degrees 
->> clockwise) */
->> +static const struct drm_prop_enum_list ssd16xx_rotation_enum[] = {
->> +    { 0,   "0"   },
->> +    { 90,  "90"  },
->> +    { 180, "180" },
->> +    { 270, "270" },
->> +};
->> +
->> +/* Enum values for the refresh_mode connector property */
->> +static const struct drm_prop_enum_list ssd16xx_refresh_mode_enum[] = {
->> +    { SSD16XX_REFRESH_PARTIAL, "partial" },
->> +    { SSD16XX_REFRESH_FULL,    "full"    },
->> +    { SSD16XX_REFRESH_FAST,    "fast"    },
->> +};
->> +
->> +/*
->> + * Enum for clear_on_init, clear_on_close, refresh_mode_init properties.
->> + * Value 0 = disabled; values 1-3 = partial/full/fast (refresh mode + 
->> 1).
->> + * The +1 offset allows a single enum to represent both "disabled" 
->> and the
->> + * three refresh modes without sign-extending the DRM property value.
->> + */
->> +static const struct drm_prop_enum_list ssd16xx_init_refresh_enum[] = {
->> +    { 0, "disabled" },
->> +    { 1, "partial"  },
->> +    { 2, "full"     },
->> +    { 3, "fast"     },
->> +};
->> +
->> +/* Enum values for the color_mode connector property */
->> +static const struct drm_prop_enum_list ssd16xx_color_mode_enum[] = {
->> +    { SSD16XX_COLOR_MODE_BW,     "black-white" },
->> +    { SSD16XX_COLOR_MODE_3COLOR, "3-color"     },
->> +};
->> +
->> +/* Enum values for border_waveform connector properties (one per HW 
->> mode) */
->> +static const struct drm_prop_enum_list ssd16xx_border_waveform_enum[] 
->> = {
->> +    { SSD16XX_BORDER_LUT0, "lut0_black"    },
->> +    { SSD16XX_BORDER_LUT1, "lut1_white"    },
->> +    { SSD16XX_BORDER_LUT2, "lut2_black"    },
->> +    { SSD16XX_BORDER_LUT3, "lut3_gray"     },
->> +    { SSD16XX_BORDER_VSS,  "vss_black"     },
->> +    { SSD16XX_BORDER_VSH1, "vsh1_black"    },
->> +    { SSD16XX_BORDER_VSL,  "vsl_white"     },
->> +    { SSD16XX_BORDER_VSH2, "vsh2_black"    },
->> +    { SSD16XX_BORDER_VCOM, "vcom_preserve" },
->> +    { SSD16XX_BORDER_HIZ,  "hiz_float"     },
->> +};
->> +
->> +static int ssd16xx_connector_create_properties(struct ssd16xx_panel 
->> *panel)
->> +{
->> +    struct drm_device *drm = &panel->drm;
->> +    struct drm_connector *connector = &panel->connector;
->> +
->> +    panel->rotation_property =
->> +        drm_property_create_enum(drm, 0, "rotation",
->> +                     ssd16xx_rotation_enum,
->> +                     ARRAY_SIZE(ssd16xx_rotation_enum));
->> +    if (!panel->rotation_property)
->> +        return -ENOMEM;
->> +    drm_object_attach_property(&connector->base,
->> +                   panel->rotation_property, panel->orientation);
->> +
->> +    panel->refresh_mode_property =
->> +        drm_property_create_enum(drm, 0, "refresh_mode",
->> +                     ssd16xx_refresh_mode_enum,
->> +                     ARRAY_SIZE(ssd16xx_refresh_mode_enum));
->> +    if (!panel->refresh_mode_property)
->> +        return -ENOMEM;
->> +    drm_object_attach_property(&connector->base,
->> +                   panel->refresh_mode_property, panel->refresh_mode);
->> +
->> +    panel->border_waveform_init_property =
->> +        drm_property_create_enum(drm, 0, "border_waveform_init",
->> +                     ssd16xx_border_waveform_enum,
->> +                     ARRAY_SIZE(ssd16xx_border_waveform_enum));
->> +    if (!panel->border_waveform_init_property)
->> +        return -ENOMEM;
->> +    drm_object_attach_property(&connector->base,
->> +                   panel->border_waveform_init_property,
->> +                   panel->border_waveform_init_idx);
->> +
->> +    panel->border_waveform_update_property =
->> +        drm_property_create_enum(drm, 0, "border_waveform_update",
->> +                     ssd16xx_border_waveform_enum,
->> +                     ARRAY_SIZE(ssd16xx_border_waveform_enum));
->> +    if (!panel->border_waveform_update_property)
->> +        return -ENOMEM;
->> +    drm_object_attach_property(&connector->base,
->> +                   panel->border_waveform_update_property,
->> +                   panel->border_waveform_update_idx);
->> +
->> +    panel->border_refresh_on_every_update_property =
->> +        drm_property_create_bool(drm, 0, 
->> "border_refresh_on_every_update");
->> +    if (!panel->border_refresh_on_every_update_property)
->> +        return -ENOMEM;
->> +    drm_object_attach_property(&connector->base,
->> +                   panel->border_refresh_on_every_update_property,
->> +                   panel->border_refresh_on_every_update);
->> +
->> +    panel->clear_on_init_property =
->> +        drm_property_create_enum(drm, 0, "clear_on_init",
->> +                     ssd16xx_init_refresh_enum,
->> +                     ARRAY_SIZE(ssd16xx_init_refresh_enum));
->> +    if (!panel->clear_on_init_property)
->> +        return -ENOMEM;
->> +    /* Property value 0=disabled, 1-3=mode; field is -1/0/1/2 → val = 
->> field+1 */
->> +    drm_object_attach_property(&connector->base,
->> +                   panel->clear_on_init_property,
->> +                   panel->clear_on_init + 1);
->> +
->> +    panel->clear_on_close_property =
->> +        drm_property_create_enum(drm, 0, "clear_on_close",
->> +                     ssd16xx_init_refresh_enum,
->> +                     ARRAY_SIZE(ssd16xx_init_refresh_enum));
->> +    if (!panel->clear_on_close_property)
->> +        return -ENOMEM;
->> +    drm_object_attach_property(&connector->base,
->> +                   panel->clear_on_close_property,
->> +                   panel->clear_on_close + 1);
->> +
->> +    panel->clear_on_disable_property =
->> +        drm_property_create_enum(drm, 0, "clear_on_disable",
->> +                     ssd16xx_init_refresh_enum,
->> +                     ARRAY_SIZE(ssd16xx_init_refresh_enum));
->> +    if (!panel->clear_on_disable_property)
->> +        return -ENOMEM;
->> +    drm_object_attach_property(&connector->base,
->> +                   panel->clear_on_disable_property,
->> +                   panel->clear_on_disable + 1);
->> +
->> +    panel->refresh_mode_init_property =
->> +        drm_property_create_enum(drm, 0, "refresh_mode_init",
->> +                     ssd16xx_init_refresh_enum,
->> +                     ARRAY_SIZE(ssd16xx_init_refresh_enum));
->> +    if (!panel->refresh_mode_init_property)
->> +        return -ENOMEM;
->> +    drm_object_attach_property(&connector->base,
->> +                   panel->refresh_mode_init_property,
->> +                   panel->refresh_mode_init + 1);
->> +
->> +    /*
->> +     * color_mode: only expose 3-color option on panels that 
->> physically have
->> +     * a red plane; on BW-only panels the property still exists for
->> +     * consistency but userspace can only set "black-white".
->> +     */
->> +    panel->color_mode_property =
->> +        drm_property_create_enum(drm, 0, "color_mode",
->> +                     ssd16xx_color_mode_enum,
->> +                     panel->panel_cfg->red_supported
->> +                        ? ARRAY_SIZE(ssd16xx_color_mode_enum)
->> +                        : 1);
->> +    if (!panel->color_mode_property)
->> +        return -ENOMEM;
->> +    drm_object_attach_property(&connector->base,
->> +                   panel->color_mode_property,
->> +                   panel->color_mode);
->> +
->> +    return 0;
->> +}
->> +
->> +static int ssd16xx_connector_atomic_get_property(struct drm_connector 
->> *connector,
->> +                         const struct drm_connector_state *state,
->> +                         struct drm_property *property,
->> +                         uint64_t *val)
->> +{
->> +    struct ssd16xx_panel *panel = to_ssd16xx_panel(connector->dev);
->> +
->> +    drm_dbg(&panel->drm, "get_property: %s\n", property->name);
->> +
->> +    if (property == panel->rotation_property) {
->> +        *val = panel->orientation;
->> +        return 0;
->> +    }
->> +    if (property == panel->refresh_mode_property) {
->> +        *val = panel->refresh_mode;
->> +        return 0;
->> +    }
->> +    if (property == panel->border_waveform_init_property) {
->> +        *val = panel->border_waveform_init_idx;
->> +        return 0;
->> +    }
->> +    if (property == panel->border_waveform_update_property) {
->> +        *val = panel->border_waveform_update_idx;
->> +        return 0;
->> +    }
->> +    if (property == panel->border_refresh_on_every_update_property) {
->> +        *val = panel->border_refresh_on_every_update;
->> +        return 0;
->> +    }
->> +    if (property == panel->clear_on_init_property) {
->> +        *val = panel->clear_on_init + 1;  /* field -1/0/1/2 → val 
->> 0/1/2/3 */
->> +        return 0;
->> +    }
->> +    if (property == panel->clear_on_close_property) {
->> +        *val = panel->clear_on_close + 1;
->> +        return 0;
->> +    }
->> +    if (property == panel->clear_on_disable_property) {
->> +        *val = panel->clear_on_disable + 1;
->> +        return 0;
->> +    }
->> +    if (property == panel->refresh_mode_init_property) {
->> +        *val = panel->refresh_mode_init + 1;
->> +        return 0;
->> +    }
->> +    if (property == panel->color_mode_property) {
->> +        *val = panel->color_mode;
->> +        return 0;
->> +    }
->> +
->> +    return -EINVAL;
->> +}
->> +
->> +static int ssd16xx_connector_atomic_set_property(struct drm_connector 
->> *connector,
->> +                         struct drm_connector_state *state,
->> +                         struct drm_property *property,
->> +                         uint64_t val)
->> +{
->> +    struct ssd16xx_panel *panel = to_ssd16xx_panel(connector->dev);
->> +
->> +    drm_dbg(&panel->drm, "set_property: %s = %llu\n", property->name, 
->> val);
->> +
->> +    if (property == panel->rotation_property) {
->> +        if (val != 0 && val != 90 && val != 180 && val != 270)
->> +            return -EINVAL;
->> +        panel->orientation = val;
->> +        /*
->> +         * Flag hardware re-init needed. crtc_atomic_flush will call
->> +         * ssd16xx_hw_init() with the new orientation and redraw.
->> +         */
->> +        panel->reinit_pending = true;
->> +        return 0;
->> +    }
->> +    if (property == panel->refresh_mode_property) {
->> +        if (val > SSD16XX_REFRESH_FAST)
->> +            return -EINVAL;
->> +        /*
->> +         * Fast refresh (0xC7) omits LOAD_LUT on every update and relies
->> +         * on the LUT being pre-loaded upfront.  Arm the one-shot flag
->> +         * when switching into fast mode so the next plane_atomic_update
->> +         * loads the LUT before the first fast-refresh cycle.  Clear it
->> +         * when switching away so a fresh pre-load happens if the user
->> +         * returns to fast mode later.
->> +         */
->> +        if (val == SSD16XX_REFRESH_FAST &&
->> +            panel->refresh_mode != SSD16XX_REFRESH_FULL)
->> +            panel->fast_lut_pending = true;
->> +        else
->> +            panel->fast_lut_pending = false;
->> +        panel->refresh_mode = val;
->> +        return 0;
->> +    }
->> +    if (property == panel->border_waveform_init_property) {
->> +        if (val >= ARRAY_SIZE(ssd1683_border_waveform_table))
->> +            return -EINVAL;
->> +        panel->border_waveform_init_idx = val;
->> +        return 0;
->> +    }
->> +    if (property == panel->border_waveform_update_property) {
->> +        const u8 *bw_tbl = panel->controller_cfg->border_waveform_table;
->> +        bool changed = (int)val != panel->border_waveform_update_idx;
->> +
->> +        if (val >= ARRAY_SIZE(ssd1683_border_waveform_table))
->> +            return -EINVAL;
->> +        drm_dbg(&panel->drm,
->> +            "set_property: border_waveform_update old=%d new=%llu 
->> hw=0x%02x -> 0x%02x %s\n",
->> +            panel->border_waveform_update_idx, val,
->> +            bw_tbl[panel->border_waveform_update_idx],
->> +            bw_tbl[val],
->> +            changed ? "(arming pending)" : "(no change)");
->> +        /* Arm one-shot flag so the new border value is sent on the very
->> +         * next display update, even if 
->> border_refresh_on_every_update is
->> +         * not set.  Cleared in fb_dirty after the command is sent.
->> +         */
->> +        if ((int)val != panel->border_waveform_update_idx)
->> +            panel->border_waveform_pending = true;
->> +        panel->border_waveform_update_idx = val;
->> +        return 0;
->> +    }
->> +    if (property == panel->border_refresh_on_every_update_property) {
->> +        panel->border_refresh_on_every_update = !!val;
->> +        return 0;
->> +    }
->> +    if (property == panel->clear_on_init_property) {
->> +        if (val > 3)
->> +            return -EINVAL;
->> +        panel->clear_on_init = (int)val - 1;  /* val 0/1/2/3 → field 
->> -1/0/1/2 */
->> +        panel->first_clear_done = false;  /* allow re-fire on next 
->> enable */
->> +        return 0;
->> +    }
->> +    if (property == panel->clear_on_close_property) {
->> +        if (val > 3)
->> +            return -EINVAL;
->> +        panel->clear_on_close = (int)val - 1;
->> +        return 0;
->> +    }
->> +    if (property == panel->clear_on_disable_property) {
->> +        if (val > 3)
->> +            return -EINVAL;
->> +        panel->clear_on_disable = (int)val - 1;
->> +        return 0;
->> +    }
->> +    if (property == panel->refresh_mode_init_property) {
->> +        if (val > 3)
->> +            return -EINVAL;
->> +        panel->refresh_mode_init = (int)val - 1;
->> +        return 0;
->> +    }
->> +    if (property == panel->color_mode_property) {
->> +        if (val > SSD16XX_COLOR_MODE_3COLOR)
->> +            return -EINVAL;
->> +        if (val == SSD16XX_COLOR_MODE_3COLOR && !panel->panel_cfg- 
->> >red_supported) {
->> +            drm_dbg(&panel->drm,
->> +                "set_property: 3-color mode not supported by this 
->> panel\n");
->> +            return -EINVAL;
->> +        }
->> +        panel->color_mode = val;
->> +        return 0;
->> +    }
->> +
->> +    return -EINVAL;
->> +}
->> +
->> +static const struct drm_connector_funcs ssd16xx_connector_funcs = {
->> +    .reset = drm_atomic_helper_connector_reset,
->> +    .fill_modes = drm_helper_probe_single_connector_modes,
->> +    .destroy = drm_connector_cleanup,
->> +    .atomic_duplicate_state = 
->> drm_atomic_helper_connector_duplicate_state,
->> +    .atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
->> +    .atomic_get_property = ssd16xx_connector_atomic_get_property,
->> +    .atomic_set_property = ssd16xx_connector_atomic_set_property,
->> +};
->> +
->> +static const u32 ssd16xx_formats[] = {
->> +    DRM_FORMAT_XRGB8888,  /* 32-bit RGB with padding (preferred) */
->> +    DRM_FORMAT_RGB888,    /* 24-bit packed RGB */
->> +    DRM_FORMAT_RGB565,    /* 16-bit RGB (5:6:5) */
->> +    DRM_FORMAT_R8,        /* 8-bit grayscale */
->> +    DRM_FORMAT_NV12,      /* YUV 4:2:0 planar */
->> +    DRM_FORMAT_NV16,      /* YUV 4:2:2 planar */
->> +    DRM_FORMAT_YUYV,      /* Packed YUV 4:2:2 (Y0 U0 Y1 V0) */
->> +    DRM_FORMAT_UYVY,      /* Packed YUV 4:2:2 (U0 Y0 V0 Y1) */
->> +    DRM_FORMAT_R1,        /* 1-bit monochrome (native, 8 pixels/byte) */
->> +};
-> 
-> Why do you have all these formats?
-> 
-> Only export the modes your panel can do natively; plus maybe XRGB8888 
-> for compatibility.
-> 
-
-I wanted to keep YUV formats too since some apps such as camera apps (in 
-case we want to click a picture and display over on the e-paper badge 
-directly) support only YUV formats but yeah if it's too much I can 
-remove them from driver and instead have the conversion in the app itself.
-
->> +
->> +DEFINE_DRM_GEM_FOPS(ssd16xx_fops);
->> +
->> +/*
->> + * ssd16xx_drm_master_set - arm init refresh when a new master takes 
->> control.
->> + */
->> +static void ssd16xx_drm_master_set(struct drm_device *drm,
->> +                   struct drm_file *file, bool from_open)
->> +{
->> +    struct ssd16xx_panel *panel = to_ssd16xx_panel(drm);
->> +
->> +    panel->display_cleared_on_deinit = false;
->> +    panel->first_clear_done = false;
->> +
->> +    if (panel->refresh_mode_init >= 0)
->> +        panel->init_refresh_pending = true;
->> +}
->> +
->> +/*
->> + * ssd16xx_drm_master_drop - clear display and disarm init refresh 
->> when the
->> + * master client exits.
->> + */
->> +static void ssd16xx_drm_master_drop(struct drm_device *drm,
->> +                    struct drm_file *file)
->> +{
->> +    struct ssd16xx_panel *panel = to_ssd16xx_panel(drm);
->> +    int ret;
->> +
->> +    panel->init_refresh_pending = false;
->> +    panel->first_clear_done = false;
->> +
->> +    if (panel->clear_on_close < 0 || panel->display_cleared_on_deinit)
->> +        return;
->> +
->> +    ret = ssd16xx_clear_display_on_exit(panel);
->> +    if (ret)
->> +        drm_err(drm, "master_drop: clear on close failed: %d\n", ret);
->> +
->> +    panel->display_cleared_on_deinit = true;
->> +}
-> 
-> No, don't overload these. Just remove all this. Clearing should be left 
-> to the DRM client.
-> 
-
-Yes, the choice to clear or not to clear is left to drm client depending 
-on drm property setting done by drm client, the driver clears the 
-display. It would be difficult to update all different apps to pass a 
-blank white buffer to clear the screen and what if the app gets closed 
-abruptly (as master drop callback will get triggered), then in that case 
-the current driver logic ensures that screen gets cleared. In normal LCD 
-displays if app gets closed abruptly, the display would have gone-off 
-automatically as signals would stop getting transmitted but in e-paper 
-panel the last display context would remain and I think it is driver 
-responsibility to clear that if that was the policy communicated by 
-application to the driver.
-
->> +
->> +static struct drm_driver ssd16xx_drm_driver = {
->> +    .driver_features = DRIVER_GEM | DRIVER_MODESET | DRIVER_ATOMIC,
->> +    .fops = &ssd16xx_fops,
->> +    .name = "ssd16xx",
->> +    .desc = "DRM driver for SSD16xx e-paper controller family",
->> +    .major = 1,
->> +    .minor = 0,
->> +    .master_set  = ssd16xx_drm_master_set,
->> +    .master_drop = ssd16xx_drm_master_drop,
->> +    DRM_GEM_DMA_DRIVER_OPS,
->> +    DRM_FBDEV_DMA_DRIVER_OPS,
->> +};
->> +
->> +static const struct drm_mode_config_funcs ssd16xx_mode_config_funcs = {
->> +    .fb_create = drm_gem_fb_create_with_dirty,
->> +    .atomic_check = drm_atomic_helper_check,
->> +    .atomic_commit = drm_atomic_helper_commit,
->> +};
->> +
->> +/*
->> + * Use the RPM commit-tail variant so that 
->> drm_atomic_helper_commit_modeset_enables
->> + * (which calls crtc_atomic_enable) runs before 
->> drm_atomic_helper_commit_planes.
->> + * Without this, the standard commit_tail calls commit_planes before
->> + * modeset_enables, so plane_atomic_update would see initialized == 
->> false on the
->> + * first commit and silently drop the frame.
->> + */
->> +static const struct drm_mode_config_helper_funcs 
->> ssd16xx_mode_config_helper_funcs = {
->> +    .atomic_commit_tail = drm_atomic_helper_commit_tail_rpm,
->> +};
->> +
->> +static int ssd16xx_alloc_tx_bufs(struct ssd16xx_panel *panel)
->> +{
->> +    struct device *dev = &panel->spi->dev;
->> +    size_t frame_size = (panel->controller_cfg->max_width *
->> +                 panel->controller_cfg->max_height) / 8;
->> +
->> +    panel->tx_buf = devm_kmalloc(dev, frame_size, GFP_KERNEL);
-> 
-> drmm_kmalloc() here and for the other buffers.
-> 
-
-Understood, thanks for pointing will fix it in V2.
-
-Best Regards
-Devarsh
-
-> Best regards
-> Thomas
-
-> 
->> +    if (!panel->tx_buf)
->> +        return -ENOMEM;
->> +
->> +    if (panel->panel_cfg->red_supported) {
->> +        panel->tx_red_buf = devm_kmalloc(dev, frame_size, GFP_KERNEL);
->> +        if (!panel->tx_red_buf)
->> +            return -ENOMEM;
->> +    }
->> +
->> +    if (!panel->dc) {
->> +        panel->tx_buf9 = devm_kmalloc_array(dev, frame_size,
->> +                            sizeof(u16), GFP_KERNEL);
->> +        if (!panel->tx_buf9)
->> +            return -ENOMEM;
->> +    }
->> +
->> +    return 0;
->> +}
->> +
->> +static int ssd16xx_probe(struct spi_device *spi)
->> +{
->> +    struct device *dev = &spi->dev;
->> +    struct ssd16xx_panel *panel;
->> +    struct drm_device *drm;
->> +    const struct spi_device_id *spi_id;
->> +    struct drm_display_mode *mode;
->> +    const void *match;
->> +    enum ssd16xx_model model;
->> +    u32 dt_rotation = 0;
->> +    int ret;
->> +
->> +    match = device_get_match_data(dev);
->> +    if (match) {
->> +        model = (enum ssd16xx_model)(uintptr_t)match;
->> +    } else {
->> +        spi_id = spi_get_device_id(spi);
->> +        model = (enum ssd16xx_model)spi_id->driver_data;
->> +    }
->> +
->> +    if (!dev->coherent_dma_mask) {
->> +        ret = dma_coerce_mask_and_coherent(dev, DMA_BIT_MASK(64));
->> +        if (ret) {
->> +            dev_warn(dev, "Failed to set DMA mask: %d\n", ret);
->> +            return ret;
->> +        }
->> +    }
->> +
->> +    panel = devm_drm_dev_alloc(dev, &ssd16xx_drm_driver,
->> +                   struct ssd16xx_panel, drm);
->> +    if (IS_ERR(panel))
->> +        return PTR_ERR(panel);
->> +
->> +    drm = &panel->drm;
->> +    panel->spi = spi;
->> +    panel->model = model;
->> +    spi_set_drvdata(spi, panel);
->> +
->> +    spi->mode = SPI_MODE_0;
->> +    spi->bits_per_word = SSD16XX_SPI_BITS_PER_WORD;
->> +
->> +    if (!spi->max_speed_hz) {
->> +        drm_warn(drm, "spi-max-frequency not specified, using %u Hz\n",
->> +             SSD16XX_SPI_SPEED_DEFAULT);
->> +        spi->max_speed_hz = SSD16XX_SPI_SPEED_DEFAULT;
->> +    }
->> +
->> +    ret = spi_setup(spi);
->> +    if (ret < 0) {
->> +        drm_err(drm, "SPI setup failed: %d\n", ret);
->> +        return ret;
->> +    }
->> +
->> +    switch (model) {
->> +    case GDEY042T81:
->> +        panel->controller = SSD1683;
->> +        break;
->> +    default:
->> +        drm_err(drm, "Unknown panel model: %d\n", model);
->> +        return -EINVAL;
->> +    }
->> +
->> +    if (panel->controller >= ARRAY_SIZE(ssd16xx_controller_configs) ||
->> +        !ssd16xx_controller_configs[panel->controller].max_width)
->> +        return -EINVAL;
->> +    panel->controller_cfg = &ssd16xx_controller_configs[panel- 
->> >controller];
->> +
->> +    if (model >= ARRAY_SIZE(ssd16xx_panel_configs))
->> +        return -EINVAL;
->> +    panel->panel_cfg = &ssd16xx_panel_configs[model];
->> +
->> +    mode = devm_kmemdup(dev, panel->panel_cfg->mode,
->> +                sizeof(*panel->panel_cfg->mode), GFP_KERNEL);
->> +    if (!mode)
->> +        return -ENOMEM;
->> +
->> +    panel->refresh_mode = panel->panel_cfg->default_refresh_mode;
->> +    /* Default color mode: 3-color for panels with red plane, BW 
->> otherwise */
->> +    panel->color_mode = panel->panel_cfg->red_supported
->> +                ? SSD16XX_COLOR_MODE_3COLOR
->> +                : SSD16XX_COLOR_MODE_BW;
->> +    panel->border_waveform_init_idx   = panel->panel_cfg- 
->> >default_border_waveform_init;
->> +    panel->border_waveform_update_idx = panel->panel_cfg- 
->> >default_border_waveform_update;
->> +    panel->border_refresh_on_every_update =
->> +        panel->panel_cfg->default_border_refresh_on_every_update;
->> +    panel->clear_on_init    = panel->panel_cfg->default_clear_on_init;
->> +    panel->clear_on_close   = panel->panel_cfg->default_clear_on_close;
->> +    panel->clear_on_disable = panel->panel_cfg- 
->> >default_clear_on_disable;
->> +    panel->refresh_mode_init = panel->panel_cfg- 
->> >default_refresh_mode_init;
->> +
->> +    /* Module parameter overrides for border/display control */
->> +    if (border_waveform_init_lut >= 0 &&
->> +        border_waveform_init_lut < 
->> (int)ARRAY_SIZE(ssd1683_border_waveform_table))
->> +        panel->border_waveform_init_idx = border_waveform_init_lut;
->> +    if (border_waveform_lut >= 0 &&
->> +        border_waveform_lut < 
->> (int)ARRAY_SIZE(ssd1683_border_waveform_table))
->> +        panel->border_waveform_update_idx = border_waveform_lut;
->> +    if (border_refresh_on_every_update)
->> +        panel->border_refresh_on_every_update = true;
->> +    if (clear_on_init >= 0 && clear_on_init <= 2)
->> +        panel->clear_on_init = clear_on_init;
->> +    if (clear_on_close >= 0 && clear_on_close <= 2)
->> +        panel->clear_on_close = clear_on_close;
->> +    if (clear_on_disable >= 0 && clear_on_disable <= 2)
->> +        panel->clear_on_disable = clear_on_disable;
->> +    if (refresh_mode_init >= 0 && refresh_mode_init <= 2)
->> +        panel->refresh_mode_init = refresh_mode_init;
->> +
->> +    /* Module parameter overrides panel default refresh mode when set */
->> +    if (refresh_mode >= 0) {
->> +        if (refresh_mode > SSD16XX_REFRESH_FAST)
->> +            drm_warn(drm, "Invalid refresh_mode module param %d, 
->> ignored\n",
->> +                 refresh_mode);
->> +        else
->> +            panel->refresh_mode = refresh_mode;
->> +    }
->> +
->> +    /* Module parameter overrides panel default color mode when set */
->> +    if (color_mode >= 0) {
->> +        if (color_mode > SSD16XX_COLOR_MODE_3COLOR)
->> +            drm_warn(drm, "Invalid color_mode module param %d, 
->> ignored\n",
->> +                 color_mode);
->> +        else if (color_mode == SSD16XX_COLOR_MODE_3COLOR &&
->> +             !panel->panel_cfg->red_supported)
->> +            drm_warn(drm,
->> +                 "color_mode=3-color requested but panel has no red 
->> plane, ignored\n");
->> +        else
->> +            panel->color_mode = color_mode;
->> +    }
->> +
->> +    /* Parse "rotation" DT property; swap mode dimensions for 
->> portrait. */
->> +    device_property_read_u32(dev, "rotation", &dt_rotation);
->> +    if (dt_rotation != 0 && dt_rotation != 90 && dt_rotation != 180 
->> && dt_rotation != 270) {
->> +        drm_warn(drm, "Invalid DT rotation %u, defaulting to 0°\n", 
->> dt_rotation);
->> +        dt_rotation = 0;
->> +    }
->> +    panel->orientation = dt_rotation;
->> +
->> +    /* Module parameter overrides DT rotation when set */
->> +    if (rotation >= 0) {
->> +        if (rotation != 0 && rotation != 90 && rotation != 180 && 
->> rotation != 270)
->> +            drm_warn(drm, "Invalid rotation module param %d, ignored\n",
->> +                 rotation);
->> +        else
->> +            panel->orientation = rotation;
->> +    }
->> +
->> +    drm_dbg(drm, "Using %s orientation (%u°, %ux%u logical)\n",
->> +        (panel->orientation == 90 || panel->orientation == 270) ? 
->> "portrait" : "landscape",
->> +        panel->orientation, mode->hdisplay, mode->vdisplay);
->> +
->> +    /* Swap mode dimensions for portrait so clients see logical size. */
->> +    if (panel->orientation == 90 || panel->orientation == 270) {
->> +        swap(mode->hdisplay, mode->vdisplay);
->> +        swap(mode->hsync_start, mode->vsync_start);
->> +        swap(mode->hsync_end, mode->vsync_end);
->> +        swap(mode->htotal, mode->vtotal);
->> +        swap(mode->width_mm, mode->height_mm);
->> +        drm_dbg(drm, "Mode dimensions swapped for portrait: %ux%u\n",
->> +            mode->hdisplay, mode->vdisplay);
->> +    } else {
->> +        drm_dbg(drm, "Mode dimensions unchanged: %ux%u\n",
->> +            mode->hdisplay, mode->vdisplay);
->> +    }
->> +    panel->mode = mode;
->> +    panel->width = mode->hdisplay;
->> +    panel->height = mode->vdisplay;
->> +
->> +    /* Acquire GPIOs. */
->> +    panel->reset = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
->> +    if (IS_ERR(panel->reset))
->> +        return dev_err_probe(dev, PTR_ERR(panel->reset), "Failed to 
->> get RESET GPIO\n");
->> +
->> +    panel->busy = devm_gpiod_get(dev, "busy", GPIOD_IN);
->> +    if (IS_ERR(panel->busy))
->> +        return dev_err_probe(dev, PTR_ERR(panel->busy), "Failed to 
->> get BUSY GPIO\n");
->> +
->> +    panel->dc = devm_gpiod_get_optional(dev, "dc", GPIOD_OUT_LOW);
->> +    if (IS_ERR(panel->dc))
->> +        return dev_err_probe(dev, PTR_ERR(panel->dc), "Failed to get 
->> DC GPIO\n");
->> +    if (!panel->dc) {
->> +        if (!spi_is_bpw_supported(spi, 9))
->> +            return dev_err_probe(dev, -EINVAL,
->> +                         "3-wire SPI mode requires 9-bit word 
->> support\n");
->> +        drm_dbg(drm, "dc-gpios not specified, using 3-wire (9-bit) 
->> SPI mode\n");
->> +    }
->> +
->> +    ret = ssd16xx_alloc_tx_bufs(panel);
->> +    if (ret)
->> +        return ret;
->> +
->> +    ssd16xx_hw_reset(panel);
->> +
->> +    ret = drmm_mode_config_init(drm);
->> +    if (ret)
->> +        return ret;
->> +
->> +    drm->mode_config.funcs = &ssd16xx_mode_config_funcs;
->> +    drm->mode_config.helper_private = &ssd16xx_mode_config_helper_funcs;
->> +    drm->mode_config.min_width = min(panel->width, panel->height);
->> +    drm->mode_config.max_width = max(panel->width, panel->height);
->> +    drm->mode_config.min_height = min(panel->width, panel->height);
->> +    drm->mode_config.max_height = max(panel->width, panel->height);
->> +
->> +    drm_connector_helper_add(&panel->connector, 
->> &ssd16xx_connector_helper_funcs);
->> +    ret = drm_connector_init(drm, &panel->connector, 
->> &ssd16xx_connector_funcs,
->> +                 DRM_MODE_CONNECTOR_SPI);
->> +    if (ret)
->> +        return ret;
->> +
->> +    ret = drm_universal_plane_init(drm, &panel->primary_plane, 0,
->> +                       &ssd16xx_plane_funcs,
->> +                       ssd16xx_formats, ARRAY_SIZE(ssd16xx_formats),
->> +                       NULL, DRM_PLANE_TYPE_PRIMARY, NULL);
->> +    if (ret)
->> +        return ret;
->> +    drm_plane_helper_add(&panel->primary_plane, 
->> &ssd16xx_plane_helper_funcs);
->> +    drm_plane_enable_fb_damage_clips(&panel->primary_plane);
->> +
->> +    ret = drm_crtc_init_with_planes(drm, &panel->crtc, &panel- 
->> >primary_plane,
->> +                    NULL, &ssd16xx_crtc_funcs, NULL);
->> +    if (ret)
->> +        return ret;
->> +    drm_crtc_helper_add(&panel->crtc, &ssd16xx_crtc_helper_funcs);
->> +
->> +    ret = drm_simple_encoder_init(drm, &panel->encoder, 
->> DRM_MODE_ENCODER_NONE);
->> +    if (ret)
->> +        return ret;
->> +    panel->encoder.possible_crtcs = drm_crtc_mask(&panel->crtc);
->> +
->> +    ret = drm_connector_attach_encoder(&panel->connector, &panel- 
->> >encoder);
->> +    if (ret)
->> +        return ret;
->> +
->> +    ret = ssd16xx_connector_create_properties(panel);
->> +    if (ret)
->> +        return ret;
->> +
->> +    drm_mode_config_reset(drm);
->> +
->> +    ret = drm_dev_register(drm, 0);
->> +    if (ret)
->> +        return ret;
->> +
->> +    drm_dbg(drm, "SSD16xx e-paper display initialized (%dx%d, %d° 
->> rotation)\n",
->> +        panel->width, panel->height, panel->orientation);
->> +
->> +    drm_client_setup(drm, NULL);
->> +
->> +    return 0;
->> +}
->> +
->> +static void ssd16xx_remove(struct spi_device *spi)
->> +{
->> +    struct ssd16xx_panel *panel = spi_get_drvdata(spi);
->> +
->> +    drm_dev_unplug(&panel->drm);
->> +    drm_atomic_helper_shutdown(&panel->drm);
->> +}
->> +
->> +static void ssd16xx_shutdown(struct spi_device *spi)
->> +{
->> +    struct ssd16xx_panel *panel = spi_get_drvdata(spi);
->> +
->> +    drm_atomic_helper_shutdown(&panel->drm);
->> +}
->> +
->> +static const struct of_device_id ssd16xx_of_match[] = {
->> +    { .compatible = "gooddisplay,gdey042t81", .data = (void 
->> *)GDEY042T81 },
->> +    { }
->> +};
->> +MODULE_DEVICE_TABLE(of, ssd16xx_of_match);
->> +
->> +static const struct spi_device_id ssd16xx_id[] = {
->> +    { "gdey042t81", GDEY042T81 },
->> +    { }
->> +};
->> +MODULE_DEVICE_TABLE(spi, ssd16xx_id);
->> +
->> +static struct spi_driver ssd16xx_spi_driver = {
->> +    .driver = {
->> +        .name = "ssd16xx",
->> +        .of_match_table = ssd16xx_of_match,
->> +    },
->> +    .probe = ssd16xx_probe,
->> +    .remove = ssd16xx_remove,
->> +    .shutdown = ssd16xx_shutdown,
->> +    .id_table = ssd16xx_id,
->> +};
->> +module_spi_driver(ssd16xx_spi_driver);
->> +
->> +MODULE_AUTHOR("Devarsh Thakkar <devarsht@ti.com>");
->> +MODULE_DESCRIPTION("DRM driver for Solomon SSD16xx e-paper display 
->> controller family");
->> +MODULE_LICENSE("GPL");
-> 
+The current buddy allocator maintains separate clear_tree[] and
+dirty_tree[] rbtrees per order, preventing coalescing between cleared
+and dirty buddies. Under mixed workloads, this creates a merge barrier:
+adjacent buddies frequently end up split across trees, forcing reliance
+on __force_merge() during allocation.
+
+__force_merge() performs an O(N x max_order) scan under the VRAM manager
+lock, leading to allocation stalls and failures for large contiguous
+requests even when sufficient total free memory is available.
+
+Solution
+
+Replace the dual-tree design with:
+- A single free_tree[order] rbtree for dirty and mixed free blocks
+  (fully cleared free blocks float outside this tree)
+- A lightweight out-of-band clear tracker (gpu_clear_tracker)
+
+Fully cleared free blocks are tracked outside the buddy trees using an
+augmented interval rbtree, enabling O(log E) lookup of the largest
+cleared extents.
+
+Buddy coalescing is now unconditional in __gpu_buddy_free(), regardless
+of clear/dirty state. This removes the merge barrier and eliminates the
+need for __force_merge().
+
+Benefits
+
+- Correct high-order allocations after mixed clear/dirty workloads
+- Elimination of O(N x max_order) merge cost from the allocation path
+- O(log E) cleared-extent lookup replacing O(N) scans
+- Predictable allocation latency under fragmentation
+- Reduced complexity with a single tree per order
+
+Test:
+dEQP-VK.memory.allocation.basic.size_8KiB.reverse.count_4000
+
+Below data is from /sys/kernel/debug/dri/1/amdgpu_vram_mm:
+
+Base (dual-tree), before VKCTS test:
+  order- 6 free:   6 MiB,  blocks: 26
+  order- 5 free:   1 MiB,  blocks: 15
+  order- 4 free: 960 KiB,  blocks: 15
+  order- 3 free:   5 MiB,  blocks: 171
+  order- 2 free:   2 MiB,  blocks: 176
+  order- 1 free:   1 MiB,  blocks: 165
+  order- 0 free:  16 KiB,  blocks: 4
+
+Base (dual-tree), after VKCTS test:
+  order- 6 free: 768 KiB,  blocks: 3
+  order- 5 free: 499 MiB,  blocks: 3999
+  order- 4 free: 250 MiB,  blocks: 4001
+  order- 3 free: 129 MiB,  blocks: 4157
+  order- 2 free:  65 MiB,  blocks: 4161
+  order- 1 free:  63 MiB,  blocks: 8138
+  order- 0 free:  20 KiB,  blocks: 5
+
+Clear tracker, before VKCTS test:
+  order- 6 free:   4 MiB,  blocks: 19
+  order- 5 free:   2 MiB,  blocks: 18
+  order- 4 free: 704 KiB,  blocks: 11
+  order- 3 free:   5 MiB,  blocks: 168
+  order- 2 free:   2 MiB,  blocks: 174
+  order- 1 free:   1 MiB,  blocks: 167
+  order- 0 free:  32 KiB,  blocks: 8
+
+Clear tracker, after VKCTS test:
+  order- 6 free:   4 MiB,  blocks: 19
+  order- 5 free:   2 MiB,  blocks: 18
+  order- 4 free: 704 KiB,  blocks: 11
+  order- 3 free:   5 MiB,  blocks: 168
+  order- 2 free:   2 MiB,  blocks: 174
+  order- 1 free:   1 MiB,  blocks: 167
+  order- 0 free:  28 KiB,  blocks: 7
+
+v2:
+ - Code-style cleanup and minor refactoring
+ - Renamed locals for clarity
+
+v3:
+ - Keep cleared blocks inside free_tree[] instead of floating them.
+ - Add subtree_has_dirty rbtree augment for O(log N) dirty-first walk.
+
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Christian König <christian.koenig@amd.com>
+Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+---
+ drivers/gpu/buddy.c                | 1136 ++++++++++++++++++----------
+ drivers/gpu/drm/drm_buddy.c        |   12 +-
+ drivers/gpu/tests/gpu_buddy_test.c |   18 +-
+ include/linux/gpu_buddy.h          |   64 +-
+ 4 files changed, 801 insertions(+), 429 deletions(-)
+
+diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+index eb1457376307..3ea4ed66a5f1 100644
+--- a/drivers/gpu/buddy.c
++++ b/drivers/gpu/buddy.c
+@@ -8,6 +8,7 @@
+ #include <linux/kmemleak.h>
+ #include <linux/module.h>
+ #include <linux/sizes.h>
++#include <linux/slab.h>
+ 
+ #include <linux/gpu_buddy.h>
+ 
+@@ -35,6 +36,334 @@
+ 
+ static struct kmem_cache *slab_blocks;
+ 
++static struct kmem_cache *slab_extents;
++
++/*
++ * Clear tracker
++ * -------------
++ *
++ * The clear tracker maintains an augmented interval rbtree of contiguous
++ * cleared (zeroed) address ranges, decoupled from the buddy free trees.
++ * Each node covers a maximal coalesced run; adjacent extents are merged
++ * on insertion so the tree always holds the smallest possible number of
++ * extents.  The augmentation field @subtree_max_size lets the allocator
++ * locate the largest cleared extent in O(log E).
++ */
++
++static u64 extent_size(struct gpu_clear_extent *clear_extent)
++{
++	return clear_extent->end - clear_extent->start;
++}
++
++RB_DECLARE_CALLBACKS_MAX(static, gpu_clear_augment_cb,
++			 struct gpu_clear_extent, rb,
++			 u64, subtree_max_size,
++			 extent_size)
++
++static struct gpu_clear_extent *extent_alloc(void)
++{
++	return kmem_cache_zalloc(slab_extents, GFP_KERNEL);
++}
++
++static void extent_free(struct gpu_clear_extent *clear_extent)
++{
++	kmem_cache_free(slab_extents, clear_extent);
++}
++
++/* Return the rightmost extent whose start is strictly below @offset. */
++static struct gpu_clear_extent *
++prev_extent(struct gpu_clear_tracker *clear_tracker, u64 offset)
++{
++	struct rb_node *rb = clear_tracker->root.rb_node;
++	struct gpu_clear_extent *clear_extent = NULL;
++
++	while (rb) {
++		struct gpu_clear_extent *tmp_extent =
++			rb_entry(rb, struct gpu_clear_extent, rb);
++
++		if (tmp_extent->start < offset) {
++			clear_extent = tmp_extent;
++			rb = rb->rb_right;
++		} else {
++			rb = rb->rb_left;
++		}
++	}
++
++	return clear_extent;
++}
++
++/* Return the leftmost extent whose start is at or above @offset. */
++static struct gpu_clear_extent *
++next_extent(struct gpu_clear_tracker *clear_tracker, u64 offset)
++{
++	struct rb_node *rb = clear_tracker->root.rb_node;
++	struct gpu_clear_extent *clear_extent = NULL;
++
++	while (rb) {
++		struct gpu_clear_extent *tmp_extent =
++			rb_entry(rb, struct gpu_clear_extent, rb);
++
++		if (tmp_extent->start >= offset) {
++			clear_extent = tmp_extent;
++			rb = rb->rb_left;
++		} else {
++			rb = rb->rb_right;
++		}
++	}
++
++	return clear_extent;
++}
++
++static void insert_extent(struct gpu_clear_tracker *clear_tracker,
++			  struct gpu_clear_extent *clear_extent)
++{
++	struct rb_node **link = &clear_tracker->root.rb_node;
++	struct rb_node *parent = NULL;
++
++	while (*link) {
++		struct gpu_clear_extent *tmp_extent;
++
++		parent = *link;
++		tmp_extent = rb_entry(parent, struct gpu_clear_extent, rb);
++
++		if (clear_extent->start < tmp_extent->start)
++			link = &parent->rb_left;
++		else
++			link = &parent->rb_right;
++	}
++
++	clear_extent->subtree_max_size = extent_size(clear_extent);
++	rb_link_node(&clear_extent->rb, parent, link);
++	rb_insert_augmented(&clear_extent->rb, &clear_tracker->root, &gpu_clear_augment_cb);
++}
++
++static void remove_extent(struct gpu_clear_tracker *clear_tracker,
++			  struct gpu_clear_extent *clear_extent)
++{
++	rb_erase_augmented(&clear_extent->rb, &clear_tracker->root, &gpu_clear_augment_cb);
++	RB_CLEAR_NODE(&clear_extent->rb);
++}
++
++static void gpu_clear_tracker_init(struct gpu_clear_tracker *clear_tracker)
++{
++	clear_tracker->root = RB_ROOT;
++	clear_tracker->total_clear = 0;
++}
++
++static void gpu_clear_tracker_fini(struct gpu_clear_tracker *clear_tracker)
++{
++	struct rb_node *rb;
++
++	while ((rb = rb_first(&clear_tracker->root))) {
++		struct gpu_clear_extent *clear_extent =
++			rb_entry(rb, struct gpu_clear_extent, rb);
++
++		remove_extent(clear_tracker, clear_extent);
++		extent_free(clear_extent);
++	}
++
++	clear_tracker->total_clear = 0;
++}
++
++/*
++ * Mark the range [start, start + size] as cleared. Merge with the neighbour on
++ * each side if they are contiguous, so the tree never holds two adjacent ranges.
++ */
++static void gpu_clear_tracker_mark_clear(struct gpu_clear_tracker *clear_tracker,
++					 u64 start, u64 size)
++{
++	struct gpu_clear_extent *left, *right, *clear_extent;
++	u64 end = start + size;
++
++	if (!size)
++		return;
++
++	/* Find contiguous neighbours, if any. */
++	left = prev_extent(clear_tracker, start);
++	if (left && left->end != start)
++		left = NULL;
++
++	right = next_extent(clear_tracker, end);
++	if (right && right->start != end)
++		right = NULL;
++
++	if (left && right) {
++		/* Merge left + new + right into a single extent. */
++		remove_extent(clear_tracker, left);
++		remove_extent(clear_tracker, right);
++		left->end = right->end;
++		extent_free(right);
++		insert_extent(clear_tracker, left);
++	} else if (left) {
++		/* Extend left neighbour rightwards. */
++		remove_extent(clear_tracker, left);
++		left->end = end;
++		insert_extent(clear_tracker, left);
++	} else if (right) {
++		/* Extend right neighbour leftwards. */
++		remove_extent(clear_tracker, right);
++		right->start = start;
++		insert_extent(clear_tracker, right);
++	} else {
++		/* Standalone extent. */
++		clear_extent = extent_alloc();
++		if (!clear_extent)
++			return;
++
++		clear_extent->start = start;
++		clear_extent->end   = end;
++		insert_extent(clear_tracker, clear_extent);
++	}
++
++	clear_tracker->total_clear += size;
++}
++
++/*
++ * Mark the range [start, start + size] as dirty. Remove the range from every
++ * overlapping clear extent, splitting one extent in two if the dirty range
++ * falls strictly inside it.
++ */
++static void gpu_clear_tracker_mark_dirty(struct gpu_clear_tracker *clear_tracker,
++					 u64 start, u64 size)
++{
++	struct gpu_clear_extent *clear_extent, *next;
++	u64 end = start + size;
++
++	if (!size)
++		return;
++
++	clear_extent = prev_extent(clear_tracker, start + 1);
++	if (!clear_extent)
++		clear_extent = next_extent(clear_tracker, start);
++
++	while (clear_extent && clear_extent->start < end) {
++		struct rb_node *next_node = rb_next(&clear_extent->rb);
++		u64 extent_start = clear_extent->start;
++		u64 extent_end = clear_extent->end;
++
++		if (next_node)
++			next = rb_entry(next_node, struct gpu_clear_extent, rb);
++		else
++			next = NULL;
++
++		/* Skip a non-overlapping neighbour returned by prev_extent(). */
++		if (extent_end <= start) {
++			clear_extent = next;
++			continue;
++		}
++
++		if (extent_start < start && extent_end > end) {
++			/* Dirty range falls strictly inside: split into left + right. */
++			struct gpu_clear_extent *right = extent_alloc();
++			if (!right)
++				return;
++
++			remove_extent(clear_tracker, clear_extent);
++
++			clear_extent->end = start;
++			right->start = end;
++			right->end   = extent_end;
++
++			insert_extent(clear_tracker, clear_extent);
++			insert_extent(clear_tracker, right);
++
++			clear_tracker->total_clear -= size;
++		} else if (extent_start >= start && extent_end <= end) {
++			/* Extent fully covered: drop it. */
++			remove_extent(clear_tracker, clear_extent);
++			extent_free(clear_extent);
++
++			clear_tracker->total_clear -= (extent_end - extent_start);
++		} else if (extent_start < start) {
++			/* Extent overlaps from the left: trim its right end. */
++			remove_extent(clear_tracker, clear_extent);
++			clear_extent->end = start;
++			insert_extent(clear_tracker, clear_extent);
++
++			clear_tracker->total_clear -= (extent_end - start);
++		} else {
++			/* Extent overlaps from the right: trim its left end. */
++			remove_extent(clear_tracker, clear_extent);
++			clear_extent->start = end;
++			insert_extent(clear_tracker, clear_extent);
++
++			clear_tracker->total_clear -= (end - extent_start);
++		}
++
++		clear_extent = next;
++	}
++}
++/*
++ * Returns true if the range [start, start + size] lies entirely within
++ * a single clear extent in the tracker, i.e. the whole range is known
++ * to be cleared.
++ */
++static bool gpu_clear_tracker_is_clear(struct gpu_clear_tracker *clear_tracker,
++				       u64 start, u64 size)
++{
++	struct gpu_clear_extent *clear_extent;
++	u64 end = start + size;
++
++	clear_extent = prev_extent(clear_tracker, start + 1);
++	if (!clear_extent)
++		return false;
++
++	return clear_extent->start <= start && clear_extent->end >= end;
++}
++
++/*
++ * Search the tracker for a clear extent of at least @min_size bytes
++ * and return it. The walk prefers higher-address candidates: at each
++ * node it descends into the right subtree first, then checks the node
++ * itself, and only falls back to the left subtree if neither matches.
++ *
++ * The augmented @subtree_max_size lets us skip whole subtrees that
++ * cannot contain a large-enough extent, so the search runs in
++ * O(log E) where E is the number of clear extents.
++ *
++ * Returns NULL if no extent satisfies @min_size.
++ */
++static struct gpu_clear_extent *
++gpu_clear_tracker_find(struct gpu_clear_tracker *clear_tracker, u64 min_size)
++{
++	struct rb_node *rb = clear_tracker->root.rb_node;
++
++	while (rb) {
++		struct gpu_clear_extent *clear_extent =
++			rb_entry(rb, struct gpu_clear_extent, rb);
++		struct rb_node *right = rb->rb_right;
++		struct rb_node *left  = rb->rb_left;
++
++		/* Prefer the right (higher-address) subtree. */
++		if (right) {
++			struct gpu_clear_extent *r =
++				rb_entry(right, struct gpu_clear_extent, rb);
++
++			if (r->subtree_max_size >= min_size) {
++				rb = right;
++				continue;
++			}
++		}
++
++		if (extent_size(clear_extent) >= min_size)
++			return clear_extent;
++
++		if (left) {
++			struct gpu_clear_extent *l =
++				rb_entry(left, struct gpu_clear_extent, rb);
++
++			if (l->subtree_max_size >= min_size) {
++				rb = left;
++				continue;
++			}
++		}
++
++		break;
++	}
++
++	return NULL;
++}
++
+ static unsigned int
+ gpu_buddy_block_state(struct gpu_buddy_block *block)
+ {
+@@ -67,10 +396,93 @@ static unsigned int gpu_buddy_block_offset_alignment(struct gpu_buddy_block *blo
+ 	return __ffs64(offset);
+ }
+ 
+-RB_DECLARE_CALLBACKS_MAX(static, gpu_buddy_augment_cb,
+-			 struct gpu_buddy_block, rb,
+-			 unsigned int, subtree_max_alignment,
+-			 gpu_buddy_block_offset_alignment);
++static inline bool
++gpu_buddy_block_is_dirty(struct gpu_buddy_block *block)
++{
++	return !gpu_buddy_block_is_clear(block);
++}
++
++static inline void gpu_buddy_augment_compute(struct gpu_buddy_block *block)
++{
++	struct gpu_buddy_block *right;
++	struct gpu_buddy_block *left;
++	unsigned int max_align;
++	bool has_dirty;
++
++	max_align = gpu_buddy_block_offset_alignment(block);
++	has_dirty = gpu_buddy_block_is_dirty(block);
++
++	left = rb_entry_safe(block->rb.rb_left, struct gpu_buddy_block, rb);
++	if (left) {
++		if (left->subtree_max_alignment > max_align)
++			max_align = left->subtree_max_alignment;
++
++		has_dirty |= left->subtree_has_dirty;
++	}
++
++	right = rb_entry_safe(block->rb.rb_right, struct gpu_buddy_block, rb);
++	if (right) {
++		if (right->subtree_max_alignment > max_align)
++			max_align = right->subtree_max_alignment;
++
++		has_dirty |= right->subtree_has_dirty;
++	}
++
++	block->subtree_max_alignment = max_align;
++	block->subtree_has_dirty = has_dirty;
++}
++
++static void gpu_buddy_augment_propagate(struct rb_node *rb, struct rb_node *stop)
++{
++	while (rb != stop) {
++		struct gpu_buddy_block *block;
++		unsigned int old_align;
++		bool old_has_dirty;
++
++		block = rb_entry(rb, struct gpu_buddy_block, rb);
++		old_align = block->subtree_max_alignment;
++		old_has_dirty = block->subtree_has_dirty;
++
++		gpu_buddy_augment_compute(block);
++		if (block->subtree_max_alignment == old_align &&
++		    block->subtree_has_dirty == old_has_dirty)
++			break;
++
++		rb = rb_parent(&block->rb);
++	}
++}
++
++static void gpu_buddy_augment_copy(struct rb_node *rb_old, struct rb_node *rb_new)
++{
++	struct gpu_buddy_block *old;
++	struct gpu_buddy_block *new;
++
++	old = rb_entry(rb_old, struct gpu_buddy_block, rb);
++	new = rb_entry(rb_new, struct gpu_buddy_block, rb);
++
++	new->subtree_max_alignment = old->subtree_max_alignment;
++	new->subtree_has_dirty = old->subtree_has_dirty;
++}
++
++static void gpu_buddy_augment_rotate(struct rb_node *rb_old, struct rb_node *rb_new)
++{
++	struct gpu_buddy_block *old;
++	struct gpu_buddy_block *new;
++
++	old = rb_entry(rb_old, struct gpu_buddy_block, rb);
++	new = rb_entry(rb_new, struct gpu_buddy_block, rb);
++
++	new->subtree_max_alignment = old->subtree_max_alignment;
++	new->subtree_has_dirty = old->subtree_has_dirty;
++
++	gpu_buddy_augment_compute(old);
++}
++
++static const struct rb_augment_callbacks gpu_buddy_augment_cb = {
++	.propagate = gpu_buddy_augment_propagate,
++	.copy      = gpu_buddy_augment_copy,
++	.rotate    = gpu_buddy_augment_rotate,
++};
+ 
+ static struct gpu_buddy_block *gpu_block_alloc(struct gpu_buddy *mm,
+ 					       struct gpu_buddy_block *parent,
+@@ -101,13 +513,6 @@ static void gpu_block_free(struct gpu_buddy *mm,
+ 	kmem_cache_free(slab_blocks, block);
+ }
+ 
+-static enum gpu_buddy_free_tree
+-get_block_tree(struct gpu_buddy_block *block)
+-{
+-	return gpu_buddy_block_is_clear(block) ?
+-	       GPU_BUDDY_CLEAR_TREE : GPU_BUDDY_DIRTY_TREE;
+-}
+-
+ static struct gpu_buddy_block *
+ rbtree_get_free_block(const struct rb_node *node)
+ {
+@@ -120,24 +525,58 @@ rbtree_last_free_block(struct rb_root *root)
+ 	return rbtree_get_free_block(rb_last(root));
+ }
+ 
+-static bool rbtree_is_empty(struct rb_root *root)
++/*
++ * Find the rightmost (highest-offset) free block in @root that is itself
++ * dirty, by descending the tree using the subtree_has_dirty augment to
++ * skip subtrees that contain only cleared blocks.  Returns NULL if no
++ * dirty block exists in the tree.
++ */
++static struct gpu_buddy_block *
++rbtree_last_dirty_free_block(struct rb_root *root)
+ {
+-	return RB_EMPTY_ROOT(root);
++	struct gpu_buddy_block *block = NULL;
++	struct rb_node *node = root->rb_node;
++
++	while (node) {
++		struct gpu_buddy_block *right_block;
++		struct gpu_buddy_block *node_block;
++
++		node_block = rbtree_get_free_block(node);
++		right_block = rbtree_get_free_block(node->rb_right);
++
++		/*
++		 * Prefer the rightmost subtree that contains a dirty block;
++		 * fall back to the current node if it is itself dirty;
++		 * otherwise descend left.
++		 */
++		if (right_block && right_block->subtree_has_dirty) {
++			node = node->rb_right;
++		} else if (gpu_buddy_block_is_dirty(node_block)) {
++			block = node_block;
++			break;
++		} else {
++			node = node->rb_left;
++		}
++	}
++
++	return block;
+ }
+ 
+ static void rbtree_insert(struct gpu_buddy *mm,
+-			  struct gpu_buddy_block *block,
+-			  enum gpu_buddy_free_tree tree)
++			  struct gpu_buddy_block *block)
+ {
+ 	struct rb_node **link, *parent = NULL;
+-	unsigned int block_alignment, order;
+ 	struct gpu_buddy_block *node;
++	unsigned int block_alignment;
+ 	struct rb_root *root;
++	unsigned int order;
++	bool block_dirty;
+ 
+ 	order = gpu_buddy_block_order(block);
+ 	block_alignment = gpu_buddy_block_offset_alignment(block);
++	block_dirty = gpu_buddy_block_is_dirty(block);
+ 
+-	root = &mm->free_trees[tree][order];
++	root = &mm->free_tree[order];
+ 	link = &root->rb_node;
+ 
+ 	while (*link) {
+@@ -147,10 +586,12 @@ static void rbtree_insert(struct gpu_buddy *mm,
+ 		 * Manual augmentation update during insertion traversal. Required
+ 		 * because rb_insert_augmented() only calls rotate callback during
+ 		 * rotations. This ensures all ancestors on the insertion path have
+-		 * correct subtree_max_alignment values.
++		 * correct subtree_max_alignment / subtree_has_dirty values.
+ 		 */
+ 		if (node->subtree_max_alignment < block_alignment)
+ 			node->subtree_max_alignment = block_alignment;
++		if (block_dirty)
++			node->subtree_has_dirty = true;
+ 
+ 		if (gpu_buddy_block_offset(block) < gpu_buddy_block_offset(node))
+ 			link = &parent->rb_left;
+@@ -159,6 +600,7 @@ static void rbtree_insert(struct gpu_buddy *mm,
+ 	}
+ 
+ 	block->subtree_max_alignment = block_alignment;
++	block->subtree_has_dirty = block_dirty;
+ 	rb_link_node(&block->rb, parent, link);
+ 	rb_insert_augmented(&block->rb, root, &gpu_buddy_augment_cb);
+ }
+@@ -167,26 +609,11 @@ static void rbtree_remove(struct gpu_buddy *mm,
+ 			  struct gpu_buddy_block *block)
+ {
+ 	unsigned int order = gpu_buddy_block_order(block);
+-	enum gpu_buddy_free_tree tree;
+-	struct rb_root *root;
+-
+-	tree = get_block_tree(block);
+-	root = &mm->free_trees[tree][order];
+ 
+-	rb_erase_augmented(&block->rb, root, &gpu_buddy_augment_cb);
++	rb_erase_augmented(&block->rb, &mm->free_tree[order], &gpu_buddy_augment_cb);
+ 	RB_CLEAR_NODE(&block->rb);
+ }
+ 
+-static void clear_reset(struct gpu_buddy_block *block)
+-{
+-	block->header &= ~GPU_BUDDY_HEADER_CLEAR;
+-}
+-
+-static void mark_cleared(struct gpu_buddy_block *block)
+-{
+-	block->header |= GPU_BUDDY_HEADER_CLEAR;
+-}
+-
+ static void mark_allocated(struct gpu_buddy *mm,
+ 			   struct gpu_buddy_block *block)
+ {
+@@ -199,13 +626,17 @@ static void mark_allocated(struct gpu_buddy *mm,
+ static void mark_free(struct gpu_buddy *mm,
+ 		      struct gpu_buddy_block *block)
+ {
+-	enum gpu_buddy_free_tree tree;
+-
+ 	block->header &= ~GPU_BUDDY_HEADER_STATE;
+ 	block->header |= GPU_BUDDY_FREE;
+ 
+-	tree = get_block_tree(block);
+-	rbtree_insert(mm, block, tree);
++	if (gpu_clear_tracker_is_clear(&mm->clear,
++				       gpu_buddy_block_offset(block),
++				       gpu_buddy_block_size(mm, block)))
++		block->header |= GPU_BUDDY_HEADER_CLEAR;
++	else
++		block->header &= ~GPU_BUDDY_HEADER_CLEAR;
++
++	rbtree_insert(mm, block);
+ }
+ 
+ static void mark_split(struct gpu_buddy *mm,
+@@ -243,36 +674,18 @@ __get_buddy(struct gpu_buddy_block *block)
+ }
+ 
+ static unsigned int __gpu_buddy_free(struct gpu_buddy *mm,
+-				     struct gpu_buddy_block *block,
+-				     bool force_merge)
++				     struct gpu_buddy_block *block)
+ {
+ 	struct gpu_buddy_block *parent;
+ 	unsigned int order;
+ 
+ 	while ((parent = block->parent)) {
+-		struct gpu_buddy_block *buddy;
+-
+-		buddy = __get_buddy(block);
++		struct gpu_buddy_block *buddy = __get_buddy(block);
+ 
+ 		if (!gpu_buddy_block_is_free(buddy))
+ 			break;
+ 
+-		if (!force_merge) {
+-			/*
+-			 * Check the block and its buddy clear state and exit
+-			 * the loop if they both have the dissimilar state.
+-			 */
+-			if (gpu_buddy_block_is_clear(block) !=
+-			    gpu_buddy_block_is_clear(buddy))
+-				break;
+-
+-			if (gpu_buddy_block_is_clear(block))
+-				mark_cleared(parent);
+-		}
+-
+ 		rbtree_remove(mm, buddy);
+-		if (force_merge && gpu_buddy_block_is_clear(buddy))
+-			mm->clear_avail -= gpu_buddy_block_size(mm, buddy);
+ 
+ 		gpu_block_free(mm, block);
+ 		gpu_block_free(mm, buddy);
+@@ -286,66 +699,15 @@ static unsigned int __gpu_buddy_free(struct gpu_buddy *mm,
+ 	return order;
+ }
+ 
+-static int __force_merge(struct gpu_buddy *mm,
+-			 u64 start,
+-			 u64 end,
+-			 unsigned int min_order)
++static void undo_partial_split(struct gpu_buddy *mm,
++			       struct gpu_buddy_block *block)
+ {
+-	unsigned int tree, order;
+-	int i;
+-
+-	if (!min_order)
+-		return -ENOMEM;
+-
+-	if (min_order > mm->max_order)
+-		return -EINVAL;
+-
+-	for_each_free_tree(tree) {
+-		for (i = min_order - 1; i >= 0; i--) {
+-			struct rb_node *iter = rb_last(&mm->free_trees[tree][i]);
+-
+-			while (iter) {
+-				struct gpu_buddy_block *block, *buddy;
+-				u64 block_start, block_end;
+-
+-				block = rbtree_get_free_block(iter);
+-				iter = rb_prev(iter);
+-
+-				if (!block || !block->parent)
+-					continue;
+-
+-				block_start = gpu_buddy_block_offset(block);
+-				block_end = block_start + gpu_buddy_block_size(mm, block) - 1;
+-
+-				if (!contains(start, end, block_start, block_end))
+-					continue;
+-
+-				buddy = __get_buddy(block);
+-				if (!gpu_buddy_block_is_free(buddy))
+-					continue;
+-
+-				gpu_buddy_assert(gpu_buddy_block_is_clear(block) !=
+-						 gpu_buddy_block_is_clear(buddy));
+-
+-				/*
+-				 * Advance to the next node when the current node is the buddy,
+-				 * as freeing the block will also remove its buddy from the tree.
+-				 */
+-				if (iter == &buddy->rb)
+-					iter = rb_prev(iter);
++	struct gpu_buddy_block *buddy = __get_buddy(block);
+ 
+-				rbtree_remove(mm, block);
+-				if (gpu_buddy_block_is_clear(block))
+-					mm->clear_avail -= gpu_buddy_block_size(mm, block);
+-
+-				order = __gpu_buddy_free(mm, block, true);
+-				if (order >= min_order)
+-					return 0;
+-			}
+-		}
+-	}
+-
+-	return -ENOMEM;
++	if (buddy &&
++	    gpu_buddy_block_is_free(block) &&
++	    gpu_buddy_block_is_free(buddy))
++		__gpu_buddy_free(mm, block);
+ }
+ 
+ /**
+@@ -362,7 +724,7 @@ static int __force_merge(struct gpu_buddy *mm,
+  */
+ int gpu_buddy_init(struct gpu_buddy *mm, u64 size, u64 chunk_size)
+ {
+-	unsigned int i, j, root_count = 0;
++	unsigned int root_count = 0;
+ 	u64 offset = 0;
+ 
+ 	if (size < chunk_size)
+@@ -384,22 +746,13 @@ int gpu_buddy_init(struct gpu_buddy *mm, u64 size, u64 chunk_size)
+ 
+ 	BUG_ON(mm->max_order > GPU_BUDDY_MAX_ORDER);
+ 
+-	mm->free_trees = kmalloc_array(GPU_BUDDY_MAX_FREE_TREES,
+-				       sizeof(*mm->free_trees),
+-				       GFP_KERNEL);
+-	if (!mm->free_trees)
++	mm->free_tree = kcalloc(mm->max_order + 1,
++				 sizeof(struct rb_root),
++				 GFP_KERNEL);
++	if (!mm->free_tree)
+ 		return -ENOMEM;
+ 
+-	for_each_free_tree(i) {
+-		mm->free_trees[i] = kmalloc_array(mm->max_order + 1,
+-						  sizeof(struct rb_root),
+-						  GFP_KERNEL);
+-		if (!mm->free_trees[i])
+-			goto out_free_tree;
+-
+-		for (j = 0; j <= mm->max_order; ++j)
+-			mm->free_trees[i][j] = RB_ROOT;
+-	}
++	gpu_clear_tracker_init(&mm->clear);
+ 
+ 	mm->n_roots = hweight64(size);
+ 
+@@ -447,9 +800,8 @@ int gpu_buddy_init(struct gpu_buddy *mm, u64 size, u64 chunk_size)
+ 		gpu_block_free(mm, mm->roots[root_count]);
+ 	kfree(mm->roots);
+ out_free_tree:
+-	while (i--)
+-		kfree(mm->free_trees[i]);
+-	kfree(mm->free_trees);
++	gpu_clear_tracker_fini(&mm->clear);
++	kfree(mm->free_tree);
+ 	return -ENOMEM;
+ }
+ EXPORT_SYMBOL(gpu_buddy_init);
+@@ -463,7 +815,7 @@ EXPORT_SYMBOL(gpu_buddy_init);
+  */
+ void gpu_buddy_fini(struct gpu_buddy *mm)
+ {
+-	u64 root_size, size, start;
++	u64 root_size, size;
+ 	unsigned int order;
+ 	int i;
+ 
+@@ -471,22 +823,17 @@ void gpu_buddy_fini(struct gpu_buddy *mm)
+ 
+ 	for (i = 0; i < mm->n_roots; ++i) {
+ 		order = ilog2(size) - ilog2(mm->chunk_size);
+-		start = gpu_buddy_block_offset(mm->roots[i]);
+-		__force_merge(mm, start, start + size, order);
++		root_size = mm->chunk_size << order;
+ 
+ 		gpu_buddy_assert(gpu_buddy_block_is_free(mm->roots[i]));
+-
+ 		gpu_block_free(mm, mm->roots[i]);
+-
+-		root_size = mm->chunk_size << order;
+ 		size -= root_size;
+ 	}
+ 
+ 	gpu_buddy_assert(mm->avail == mm->size);
+ 
+-	for_each_free_tree(i)
+-		kfree(mm->free_trees[i]);
+-	kfree(mm->free_trees);
++	gpu_clear_tracker_fini(&mm->clear);
++	kfree(mm->free_tree);
+ 	kfree(mm->roots);
+ }
+ EXPORT_SYMBOL(gpu_buddy_fini);
+@@ -512,13 +859,6 @@ static int split_block(struct gpu_buddy *mm,
+ 	}
+ 
+ 	mark_split(mm, block);
+-
+-	if (gpu_buddy_block_is_clear(block)) {
+-		mark_cleared(block->left);
+-		mark_cleared(block->right);
+-		clear_reset(block);
+-	}
+-
+ 	mark_free(mm, block->left);
+ 	mark_free(mm, block->right);
+ 
+@@ -536,42 +876,46 @@ static int split_block(struct gpu_buddy *mm,
+  */
+ void gpu_buddy_reset_clear(struct gpu_buddy *mm, bool is_clear)
+ {
+-	enum gpu_buddy_free_tree src_tree, dst_tree;
+-	u64 root_size, size, start;
+-	unsigned int order;
+-	int i;
++	unsigned int i;
+ 
+ 	gpu_buddy_driver_lock_held(mm);
+-	size = mm->size;
+-	for (i = 0; i < mm->n_roots; ++i) {
+-		order = ilog2(size) - ilog2(mm->chunk_size);
+-		start = gpu_buddy_block_offset(mm->roots[i]);
+-		__force_merge(mm, start, start + size, order);
+-
+-		root_size = mm->chunk_size << order;
+-		size -= root_size;
+-	}
+ 
+-	src_tree = is_clear ? GPU_BUDDY_DIRTY_TREE : GPU_BUDDY_CLEAR_TREE;
+-	dst_tree = is_clear ? GPU_BUDDY_CLEAR_TREE : GPU_BUDDY_DIRTY_TREE;
++	gpu_clear_tracker_fini(&mm->clear);
++	gpu_clear_tracker_init(&mm->clear);
+ 
+ 	for (i = 0; i <= mm->max_order; ++i) {
+-		struct rb_root *root = &mm->free_trees[src_tree][i];
+-		struct gpu_buddy_block *block, *tmp;
++		struct rb_node *node;
++
++		for (node = rb_first(&mm->free_tree[i]); node;
++		     node = rb_next(node)) {
++			struct gpu_buddy_block *block =
++				rb_entry(node, struct gpu_buddy_block, rb);
+ 
+-		rbtree_postorder_for_each_entry_safe(block, tmp, root, rb) {
+-			rbtree_remove(mm, block);
+ 			if (is_clear) {
+-				mark_cleared(block);
+-				mm->clear_avail += gpu_buddy_block_size(mm, block);
+-			} else {
+-				clear_reset(block);
+-				mm->clear_avail -= gpu_buddy_block_size(mm, block);
++				if (!gpu_buddy_block_is_clear(block))
++					block->header |= GPU_BUDDY_HEADER_CLEAR;
++				gpu_clear_tracker_mark_clear(&mm->clear,
++							     gpu_buddy_block_offset(block),
++							     gpu_buddy_block_size(mm, block));
++			} else if (gpu_buddy_block_is_clear(block)) {
++				block->header &= ~GPU_BUDDY_HEADER_CLEAR;
+ 			}
++		}
++	}
+ 
+-			rbtree_insert(mm, block, dst_tree);
++	for (i = 0; i <= mm->max_order; ++i) {
++		struct rb_node *node;
++
++		for (node = rb_first_postorder(&mm->free_tree[i]); node;
++		     node = rb_next_postorder(node)) {
++			struct gpu_buddy_block *block =
++				rb_entry(node, struct gpu_buddy_block, rb);
++
++			gpu_buddy_augment_compute(block);
+ 		}
+ 	}
++
++	mm->clear_avail = mm->clear.total_clear;
+ }
+ EXPORT_SYMBOL(gpu_buddy_reset_clear);
+ 
+@@ -584,13 +928,23 @@ EXPORT_SYMBOL(gpu_buddy_reset_clear);
+ void gpu_buddy_free_block(struct gpu_buddy *mm,
+ 			  struct gpu_buddy_block *block)
+ {
++	bool was_clear = gpu_buddy_block_is_clear(block);
++	u64 size   = gpu_buddy_block_size(mm, block);
++	u64 offset = gpu_buddy_block_offset(block);
++
+ 	gpu_buddy_driver_lock_held(mm);
++
+ 	BUG_ON(!gpu_buddy_block_is_allocated(block));
+-	mm->avail += gpu_buddy_block_size(mm, block);
+-	if (gpu_buddy_block_is_clear(block))
+-		mm->clear_avail += gpu_buddy_block_size(mm, block);
+ 
+-	__gpu_buddy_free(mm, block, false);
++	block->header &= ~GPU_BUDDY_HEADER_CLEAR;
++	mm->avail += size;
++
++	if (was_clear) {
++		gpu_clear_tracker_mark_clear(&mm->clear, offset, size);
++		mm->clear_avail = mm->clear.total_clear;
++	}
++
++	__gpu_buddy_free(mm, block);
+ }
+ EXPORT_SYMBOL(gpu_buddy_free_block);
+ 
+@@ -604,10 +958,15 @@ static void __gpu_buddy_free_list(struct gpu_buddy *mm,
+ 	gpu_buddy_assert(!(mark_dirty && mark_clear));
+ 
+ 	list_for_each_entry_safe(block, on, objects, link) {
++		/*
++		 * Propagate the caller's clear/dirty intent onto the block header
++		 * before handing it to gpu_buddy_free_block(), which will then
++		 * update the clear tracker accordingly.
++		 */
+ 		if (mark_clear)
+-			mark_cleared(block);
++			block->header |= GPU_BUDDY_HEADER_CLEAR;
+ 		else if (mark_dirty)
+-			clear_reset(block);
++			block->header &= ~GPU_BUDDY_HEADER_CLEAR;
+ 		gpu_buddy_free_block(mm, block);
+ 		cond_resched();
+ 	}
+@@ -643,23 +1002,14 @@ void gpu_buddy_free_list(struct gpu_buddy *mm,
+ }
+ EXPORT_SYMBOL(gpu_buddy_free_list);
+ 
+-static bool block_incompatible(struct gpu_buddy_block *block, unsigned int flags)
+-{
+-	bool needs_clear = flags & GPU_BUDDY_CLEAR_ALLOCATION;
+-
+-	return needs_clear != gpu_buddy_block_is_clear(block);
+-}
+-
+ static struct gpu_buddy_block *
+ __alloc_range_bias(struct gpu_buddy *mm,
+ 		   u64 start, u64 end,
+ 		   unsigned int order,
+-		   unsigned long flags,
+-		   bool fallback)
++		   unsigned long flags)
+ {
+ 	u64 req_size = mm->chunk_size << order;
+ 	struct gpu_buddy_block *block;
+-	struct gpu_buddy_block *buddy;
+ 	LIST_HEAD(dfs);
+ 	int err;
+ 	int i;
+@@ -702,9 +1052,6 @@ __alloc_range_bias(struct gpu_buddy *mm,
+ 				continue;
+ 		}
+ 
+-		if (!fallback && block_incompatible(block, flags))
+-			continue;
+-
+ 		if (contains(start, end, block_start, block_end) &&
+ 		    order == gpu_buddy_block_order(block)) {
+ 			/*
+@@ -722,68 +1069,55 @@ __alloc_range_bias(struct gpu_buddy *mm,
+ 				goto err_undo;
+ 		}
+ 
+-		list_add(&block->right->tmp_link, &dfs);
+ 		list_add(&block->left->tmp_link, &dfs);
++		list_add(&block->right->tmp_link, &dfs);
+ 	} while (1);
+ 
+ 	return ERR_PTR(-ENOSPC);
+ 
+ err_undo:
+-	/*
+-	 * We really don't want to leave around a bunch of split blocks, since
+-	 * bigger is better, so make sure we merge everything back before we
+-	 * free the allocated blocks.
+-	 */
+-	buddy = __get_buddy(block);
+-	if (buddy &&
+-	    (gpu_buddy_block_is_free(block) &&
+-	     gpu_buddy_block_is_free(buddy)))
+-		__gpu_buddy_free(mm, block, false);
++	undo_partial_split(mm, block);
+ 	return ERR_PTR(err);
+ }
+ 
+-static struct gpu_buddy_block *
+-__gpu_buddy_alloc_range_bias(struct gpu_buddy *mm,
+-			     u64 start, u64 end,
+-			     unsigned int order,
+-			     unsigned long flags)
+-{
+-	struct gpu_buddy_block *block;
+-	bool fallback = false;
+-
+-	block = __alloc_range_bias(mm, start, end, order,
+-				   flags, fallback);
+-	if (IS_ERR(block))
+-		return __alloc_range_bias(mm, start, end, order,
+-					  flags, !fallback);
+-
+-	return block;
+-}
+-
+ static struct gpu_buddy_block *
+ get_maxblock(struct gpu_buddy *mm,
+ 	     unsigned int order,
+-	     enum gpu_buddy_free_tree tree)
++	     unsigned long flags)
+ {
+-	struct gpu_buddy_block *max_block = NULL, *block = NULL;
+-	struct rb_root *root;
++	struct gpu_buddy_block *max_block;
++	struct gpu_buddy_block *block;
++	bool prefer_clear;
+ 	unsigned int i;
+ 
++	max_block = NULL;
++	prefer_clear = flags & GPU_BUDDY_CLEAR_ALLOCATION;
++
+ 	for (i = order; i <= mm->max_order; ++i) {
+-		root = &mm->free_trees[tree][i];
+-		block = rbtree_last_free_block(root);
++		if (prefer_clear)
++			block = rbtree_last_free_block(&mm->free_tree[i]);
++		else
++			block = rbtree_last_dirty_free_block(&mm->free_tree[i]);
++
+ 		if (!block)
+ 			continue;
+ 
+-		if (!max_block) {
++		if (!max_block ||
++		    gpu_buddy_block_offset(block) > gpu_buddy_block_offset(max_block))
+ 			max_block = block;
++	}
++
++	if (max_block || prefer_clear)
++		return max_block;
++
++	for (i = order; i <= mm->max_order; ++i) {
++		block = rbtree_last_free_block(&mm->free_tree[i]);
++		if (!block)
+ 			continue;
+-		}
+ 
+-		if (gpu_buddy_block_offset(block) >
+-		    gpu_buddy_block_offset(max_block)) {
++		if (!max_block ||
++		    gpu_buddy_block_offset(block) > gpu_buddy_block_offset(max_block))
+ 			max_block = block;
+-		}
+ 	}
+ 
+ 	return max_block;
+@@ -795,45 +1129,37 @@ alloc_from_freetree(struct gpu_buddy *mm,
+ 		    unsigned long flags)
+ {
+ 	struct gpu_buddy_block *block = NULL;
+-	struct rb_root *root;
+-	enum gpu_buddy_free_tree tree;
+ 	unsigned int tmp;
+ 	int err;
+ 
+-	tree = (flags & GPU_BUDDY_CLEAR_ALLOCATION) ?
+-		GPU_BUDDY_CLEAR_TREE : GPU_BUDDY_DIRTY_TREE;
+-
+ 	if (flags & GPU_BUDDY_TOPDOWN_ALLOCATION) {
+-		block = get_maxblock(mm, order, tree);
++		block = get_maxblock(mm, order, flags);
+ 		if (block)
+-			/* Store the obtained block order */
+ 			tmp = gpu_buddy_block_order(block);
+-	} else {
++	} else if (!(flags & GPU_BUDDY_CLEAR_ALLOCATION)) {
+ 		for (tmp = order; tmp <= mm->max_order; ++tmp) {
+-			/* Get RB tree root for this order and tree */
+-			root = &mm->free_trees[tree][tmp];
+-			block = rbtree_last_free_block(root);
++			block = rbtree_last_dirty_free_block(&mm->free_tree[tmp]);
+ 			if (block)
+ 				break;
+ 		}
+-	}
+-
+-	if (!block) {
+-		/* Try allocating from the other tree */
+-		tree = (tree == GPU_BUDDY_CLEAR_TREE) ?
+-			GPU_BUDDY_DIRTY_TREE : GPU_BUDDY_CLEAR_TREE;
+-
++		if (!block) {
++			for (tmp = order; tmp <= mm->max_order; ++tmp) {
++				block = rbtree_last_free_block(&mm->free_tree[tmp]);
++				if (block)
++					break;
++			}
++		}
++	} else {
+ 		for (tmp = order; tmp <= mm->max_order; ++tmp) {
+-			root = &mm->free_trees[tree][tmp];
+-			block = rbtree_last_free_block(root);
++			block = rbtree_last_free_block(&mm->free_tree[tmp]);
+ 			if (block)
+ 				break;
+ 		}
+-
+-		if (!block)
+-			return ERR_PTR(-ENOSPC);
+ 	}
+ 
++	if (!block)
++		return ERR_PTR(-ENOSPC);
++
+ 	BUG_ON(!gpu_buddy_block_is_free(block));
+ 
+ 	while (tmp != order) {
+@@ -841,14 +1167,18 @@ alloc_from_freetree(struct gpu_buddy *mm,
+ 		if (unlikely(err))
+ 			goto err_undo;
+ 
+-		block = block->right;
++		if (!(flags & GPU_BUDDY_CLEAR_ALLOCATION) &&
++		    gpu_buddy_block_is_clear(block->right))
++			block = block->left;
++		else
++			block = block->right;
+ 		tmp--;
+ 	}
+ 	return block;
+ 
+ err_undo:
+ 	if (tmp != order)
+-		__gpu_buddy_free(mm, block, false);
++		__gpu_buddy_free(mm, block);
+ 	return ERR_PTR(err);
+ }
+ 
+@@ -869,12 +1199,11 @@ static bool gpu_buddy_subtree_can_satisfy(struct rb_node *node,
+ 
+ static struct gpu_buddy_block *
+ gpu_buddy_find_block_aligned(struct gpu_buddy *mm,
+-			     enum gpu_buddy_free_tree tree,
+ 			     unsigned int order,
+ 			     unsigned int alignment,
+ 			     unsigned long flags)
+ {
+-	struct rb_root *root = &mm->free_trees[tree][order];
++	struct rb_root *root = &mm->free_tree[order];
+ 	struct rb_node *rb = root->rb_node;
+ 
+ 	while (rb) {
+@@ -912,8 +1241,6 @@ gpu_buddy_offset_aligned_allocation(struct gpu_buddy *mm,
+ {
+ 	struct gpu_buddy_block *block = NULL;
+ 	unsigned int order, tmp, alignment;
+-	struct gpu_buddy_block *buddy;
+-	enum gpu_buddy_free_tree tree;
+ 	unsigned long pages;
+ 	int err;
+ 
+@@ -921,19 +1248,8 @@ gpu_buddy_offset_aligned_allocation(struct gpu_buddy *mm,
+ 	pages = size >> ilog2(mm->chunk_size);
+ 	order = fls(pages) - 1;
+ 
+-	tree = (flags & GPU_BUDDY_CLEAR_ALLOCATION) ?
+-		GPU_BUDDY_CLEAR_TREE : GPU_BUDDY_DIRTY_TREE;
+-
+ 	for (tmp = order; tmp <= mm->max_order; ++tmp) {
+-		block = gpu_buddy_find_block_aligned(mm, tree, tmp,
+-						     alignment, flags);
+-		if (!block) {
+-			tree = (tree == GPU_BUDDY_CLEAR_TREE) ?
+-				GPU_BUDDY_DIRTY_TREE : GPU_BUDDY_CLEAR_TREE;
+-			block = gpu_buddy_find_block_aligned(mm, tree, tmp,
+-							     alignment, flags);
+-		}
+-
++		block = gpu_buddy_find_block_aligned(mm, tmp, alignment, flags);
+ 		if (block)
+ 			break;
+ 	}
+@@ -960,27 +1276,18 @@ gpu_buddy_offset_aligned_allocation(struct gpu_buddy *mm,
+ 	return block;
+ 
+ err_undo:
+-	/*
+-	 * We really don't want to leave around a bunch of split blocks, since
+-	 * bigger is better, so make sure we merge everything back before we
+-	 * free the allocated blocks.
+-	 */
+-	buddy = __get_buddy(block);
+-	if (buddy &&
+-	    (gpu_buddy_block_is_free(block) &&
+-	     gpu_buddy_block_is_free(buddy)))
+-		__gpu_buddy_free(mm, block, false);
++	undo_partial_split(mm, block);
+ 	return ERR_PTR(err);
+ }
+ 
+ static int __alloc_range(struct gpu_buddy *mm,
+ 			 struct list_head *dfs,
+ 			 u64 start, u64 size,
++			 unsigned long flags,
+ 			 struct list_head *blocks,
+ 			 u64 *total_allocated_on_err)
+ {
+ 	struct gpu_buddy_block *block;
+-	struct gpu_buddy_block *buddy;
+ 	u64 total_allocated = 0;
+ 	LIST_HEAD(allocated);
+ 	u64 end;
+@@ -1013,16 +1320,25 @@ static int __alloc_range(struct gpu_buddy *mm,
+ 
+ 		if (contains(start, end, block_start, block_end)) {
+ 			if (gpu_buddy_block_is_free(block)) {
++				u64 bsize = gpu_buddy_block_size(mm, block);
++				u64 boff  = gpu_buddy_block_offset(block);
++
+ 				mark_allocated(mm, block);
+-				total_allocated += gpu_buddy_block_size(mm, block);
+-				mm->avail -= gpu_buddy_block_size(mm, block);
+-				if (gpu_buddy_block_is_clear(block))
+-					mm->clear_avail -= gpu_buddy_block_size(mm, block);
++				total_allocated += bsize;
++				mm->avail -= bsize;
++
++				block->header &= ~GPU_BUDDY_HEADER_CLEAR;
++				if (gpu_clear_tracker_is_clear(&mm->clear,
++							       boff, bsize)) {
++					if (flags & GPU_BUDDY_CLEAR_ALLOCATION)
++						block->header |= GPU_BUDDY_HEADER_CLEAR;
++				}
++				gpu_clear_tracker_mark_dirty(&mm->clear,
++							     boff, bsize);
++				mm->clear_avail = mm->clear.total_clear;
++
+ 				list_add_tail(&block->link, &allocated);
+ 				continue;
+-			} else if (!mm->clear_avail) {
+-				err = -ENOSPC;
+-				goto err_free;
+ 			}
+ 		}
+ 
+@@ -1046,16 +1362,7 @@ static int __alloc_range(struct gpu_buddy *mm,
+ 	return 0;
+ 
+ err_undo:
+-	/*
+-	 * We really don't want to leave around a bunch of split blocks, since
+-	 * bigger is better, so make sure we merge everything back before we
+-	 * free the allocated blocks.
+-	 */
+-	buddy = __get_buddy(block);
+-	if (buddy &&
+-	    (gpu_buddy_block_is_free(block) &&
+-	     gpu_buddy_block_is_free(buddy)))
+-		__gpu_buddy_free(mm, block, false);
++	undo_partial_split(mm, block);
+ 
+ err_free:
+ 	if (err == -ENOSPC && total_allocated_on_err) {
+@@ -1071,6 +1378,7 @@ static int __alloc_range(struct gpu_buddy *mm,
+ static int __gpu_buddy_alloc_range(struct gpu_buddy *mm,
+ 				   u64 start,
+ 				   u64 size,
++				   unsigned long flags,
+ 				   u64 *total_allocated_on_err,
+ 				   struct list_head *blocks)
+ {
+@@ -1080,20 +1388,23 @@ static int __gpu_buddy_alloc_range(struct gpu_buddy *mm,
+ 	for (i = 0; i < mm->n_roots; ++i)
+ 		list_add_tail(&mm->roots[i]->tmp_link, &dfs);
+ 
+-	return __alloc_range(mm, &dfs, start, size,
++	return __alloc_range(mm, &dfs, start, size, flags,
+ 			     blocks, total_allocated_on_err);
+ }
+ 
+ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
+ 				     u64 size,
+ 				     u64 min_block_size,
++				     unsigned long flags,
+ 				     struct list_head *blocks)
+ {
+ 	u64 rhs_offset, lhs_offset, lhs_size, filled;
+ 	struct gpu_buddy_block *block;
+-	unsigned int tree, order;
+ 	LIST_HEAD(blocks_lhs);
++	struct rb_root *root;
++	struct rb_node *iter;
+ 	unsigned long pages;
++	unsigned int order;
+ 	u64 modify_size;
+ 	int err;
+ 
+@@ -1103,45 +1414,40 @@ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
+ 	if (order == 0)
+ 		return -ENOSPC;
+ 
+-	for_each_free_tree(tree) {
+-		struct rb_root *root;
+-		struct rb_node *iter;
+-
+-		root = &mm->free_trees[tree][order];
+-		if (rbtree_is_empty(root))
+-			continue;
++	root = &mm->free_tree[order];
++	if (RB_EMPTY_ROOT(root))
++		return -ENOSPC;
+ 
+-		iter = rb_last(root);
+-		while (iter) {
+-			block = rbtree_get_free_block(iter);
+-
+-			/* Allocate blocks traversing RHS */
+-			rhs_offset = gpu_buddy_block_offset(block);
+-			err =  __gpu_buddy_alloc_range(mm, rhs_offset, size,
+-						       &filled, blocks);
+-			if (!err || err != -ENOSPC)
+-				return err;
+-
+-			lhs_size = max((size - filled), min_block_size);
+-			if (!IS_ALIGNED(lhs_size, min_block_size))
+-				lhs_size = round_up(lhs_size, min_block_size);
+-
+-			/* Allocate blocks traversing LHS */
+-			lhs_offset = gpu_buddy_block_offset(block) - lhs_size;
+-			err =  __gpu_buddy_alloc_range(mm, lhs_offset, lhs_size,
+-						       NULL, &blocks_lhs);
+-			if (!err) {
+-				list_splice(&blocks_lhs, blocks);
+-				return 0;
+-			} else if (err != -ENOSPC) {
+-				gpu_buddy_free_list_internal(mm, blocks);
+-				return err;
+-			}
+-			/* Free blocks for the next iteration */
++	iter = rb_last(root);
++	while (iter) {
++		block = rbtree_get_free_block(iter);
++
++		/* Allocate blocks traversing RHS */
++		rhs_offset = gpu_buddy_block_offset(block);
++		err =  __gpu_buddy_alloc_range(mm, rhs_offset, size,
++					       flags, &filled, blocks);
++		if (!err || err != -ENOSPC)
++			return err;
++
++		lhs_size = max((size - filled), min_block_size);
++		if (!IS_ALIGNED(lhs_size, min_block_size))
++			lhs_size = round_up(lhs_size, min_block_size);
++
++		/* Allocate blocks traversing LHS */
++		lhs_offset = gpu_buddy_block_offset(block) - lhs_size;
++		err =  __gpu_buddy_alloc_range(mm, lhs_offset, lhs_size,
++					       flags, NULL, &blocks_lhs);
++		if (!err) {
++			list_splice(&blocks_lhs, blocks);
++			return 0;
++		} else if (err != -ENOSPC) {
+ 			gpu_buddy_free_list_internal(mm, blocks);
+-
+-			iter = rb_prev(iter);
++			return err;
+ 		}
++		/* Free blocks for the next iteration */
++		gpu_buddy_free_list_internal(mm, blocks);
++
++		iter = rb_prev(iter);
+ 	}
+ 
+ 	return -ENOSPC;
+@@ -1175,6 +1481,7 @@ int gpu_buddy_block_trim(struct gpu_buddy *mm,
+ 	struct gpu_buddy_block *block;
+ 	u64 block_start, block_end;
+ 	LIST_HEAD(dfs);
++	bool was_clear;
+ 	u64 new_start;
+ 	int err;
+ 
+@@ -1217,22 +1524,38 @@ int gpu_buddy_block_trim(struct gpu_buddy *mm,
+ 	}
+ 
+ 	list_del(&block->link);
++
++	was_clear = gpu_buddy_block_is_clear(block);
++	block->header &= ~GPU_BUDDY_HEADER_CLEAR;
++
++	if (was_clear) {
++		gpu_clear_tracker_mark_clear(&mm->clear,
++					     gpu_buddy_block_offset(block),
++					     gpu_buddy_block_size(mm, block));
++		mm->clear_avail = mm->clear.total_clear;
++	}
++
+ 	mark_free(mm, block);
+ 	mm->avail += gpu_buddy_block_size(mm, block);
+-	if (gpu_buddy_block_is_clear(block))
+-		mm->clear_avail += gpu_buddy_block_size(mm, block);
+ 
+ 	/* Prevent recursively freeing this node */
+ 	parent = block->parent;
+ 	block->parent = NULL;
+ 
+ 	list_add(&block->tmp_link, &dfs);
+-	err =  __alloc_range(mm, &dfs, new_start, new_size, blocks, NULL);
++	err =  __alloc_range(mm, &dfs, new_start, new_size,
++			     was_clear ? GPU_BUDDY_CLEAR_ALLOCATION : 0,
++			     blocks, NULL);
+ 	if (err) {
+ 		mark_allocated(mm, block);
+ 		mm->avail -= gpu_buddy_block_size(mm, block);
+-		if (gpu_buddy_block_is_clear(block))
+-			mm->clear_avail -= gpu_buddy_block_size(mm, block);
++		if (was_clear) {
++			gpu_clear_tracker_mark_dirty(&mm->clear,
++						     gpu_buddy_block_offset(block),
++						     gpu_buddy_block_size(mm, block));
++			mm->clear_avail = mm->clear.total_clear;
++			block->header |= GPU_BUDDY_HEADER_CLEAR;
++		}
+ 		list_add(&block->link, blocks);
+ 	}
+ 
+@@ -1241,6 +1564,21 @@ int gpu_buddy_block_trim(struct gpu_buddy *mm,
+ }
+ EXPORT_SYMBOL(gpu_buddy_block_trim);
+ 
++static bool clear_steer_window(struct gpu_buddy *mm, u64 min_sz,
++			       u64 *start, u64 *end, unsigned long *flags)
++{
++	struct gpu_clear_extent *ext =
++		gpu_clear_tracker_find(&mm->clear, min_sz);
++
++	if (!ext)
++		return false;
++
++	*start  = ext->start;
++	*end    = ext->end;
++	*flags |= GPU_BUDDY_RANGE_ALLOCATION;
++	return true;
++}
++
+ static struct gpu_buddy_block *
+ __gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
+ 			 u64 start, u64 end,
+@@ -1248,18 +1586,24 @@ __gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
+ 			 unsigned int order,
+ 			 unsigned long flags)
+ {
++	/* Steer cleared allocations to a cleared extent that fits the order */
++	if (!(flags & GPU_BUDDY_RANGE_ALLOCATION) &&
++	    (flags & GPU_BUDDY_CLEAR_ALLOCATION) && mm->clear_avail)
++		clear_steer_window(mm, mm->chunk_size << order,
++				   &start, &end, &flags);
++
+ 	if (flags & GPU_BUDDY_RANGE_ALLOCATION)
+ 		/* Allocate traversing within the range */
+-		return  __gpu_buddy_alloc_range_bias(mm, start, end,
+-						     order, flags);
+-	else if (size < min_block_size)
++		return __alloc_range_bias(mm, start, end, order, flags);
++
++	if (size < min_block_size)
+ 		/* Allocate from an offset-aligned region without size rounding */
+ 		return gpu_buddy_offset_aligned_allocation(mm, size,
+ 							   min_block_size,
+ 							   flags);
+-	else
+-		/* Allocate from freetree */
+-		return alloc_from_freetree(mm, order, flags);
++
++	/* Allocate from freetree */
++	return alloc_from_freetree(mm, order, flags);
+ }
+ 
+ /**
+@@ -1320,7 +1664,7 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
+ 		if (!IS_ALIGNED(start | end, min_block_size))
+ 			return -EINVAL;
+ 
+-		return __gpu_buddy_alloc_range(mm, start, size, NULL, blocks);
++		return __gpu_buddy_alloc_range(mm, start, size, flags, NULL, blocks);
+ 	}
+ 
+ 	original_size = size;
+@@ -1346,7 +1690,8 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
+ 		if ((flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION) &&
+ 		    !(flags & GPU_BUDDY_RANGE_ALLOCATION))
+ 			return __alloc_contig_try_harder(mm, original_size,
+-							 original_min_size, blocks);
++							 original_min_size,
++							 flags, blocks);
+ 
+ 		return -EINVAL;
+ 	}
+@@ -1361,8 +1706,6 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
+ 		BUG_ON(size >= min_block_size && order < min_order);
+ 
+ 		do {
+-			unsigned int fallback_order;
+-
+ 			block = __gpu_buddy_alloc_blocks(mm, start,
+ 							 end,
+ 							 size,
+@@ -1372,48 +1715,46 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
+ 			if (!IS_ERR(block))
+ 				break;
+ 
+-			if (size < min_block_size) {
+-				fallback_order = order;
+-			} else if (order == min_order) {
+-				fallback_order = min_order;
+-			} else {
++			if (size >= min_block_size && order > min_order) {
+ 				order--;
+ 				continue;
+ 			}
+ 
+-			/* Try allocation through force merge method */
+-			if (mm->clear_avail &&
+-			    !__force_merge(mm, start, end, fallback_order)) {
+-				block = __gpu_buddy_alloc_blocks(mm, start,
+-								 end,
+-								 size,
+-								 min_block_size,
+-								 fallback_order,
+-								 flags);
+-				if (!IS_ERR(block)) {
+-					order = fallback_order;
+-					break;
+-				}
+-			}
+-
+ 			/*
+ 			 * Try contiguous block allocation through
+ 			 * try harder method.
+ 			 */
+ 			if (flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION &&
+-			    !(flags & GPU_BUDDY_RANGE_ALLOCATION))
+-				return __alloc_contig_try_harder(mm,
+-								 original_size,
+-								 original_min_size,
+-								 blocks);
++			    !(flags & GPU_BUDDY_RANGE_ALLOCATION)) {
++				err = __alloc_contig_try_harder(mm,
++								original_size,
++								original_min_size,
++								flags,
++								blocks);
++				if (!err)
++					return 0;
++				if (err != -ENOSPC)
++					return err;
++				goto err_free;
++			}
+ 			err = -ENOSPC;
+ 			goto err_free;
+ 		} while (1);
+ 
+ 		mark_allocated(mm, block);
+ 		mm->avail -= gpu_buddy_block_size(mm, block);
+-		if (gpu_buddy_block_is_clear(block))
+-			mm->clear_avail -= gpu_buddy_block_size(mm, block);
++
++		block->header &= ~GPU_BUDDY_HEADER_CLEAR;
++		if (flags & GPU_BUDDY_CLEAR_ALLOCATION &&
++		    gpu_clear_tracker_is_clear(&mm->clear,
++					       gpu_buddy_block_offset(block),
++					       gpu_buddy_block_size(mm, block)))
++			block->header |= GPU_BUDDY_HEADER_CLEAR;
++
++		gpu_clear_tracker_mark_dirty(&mm->clear,
++					     gpu_buddy_block_offset(block),
++					     gpu_buddy_block_size(mm, block));
++		mm->clear_avail = mm->clear.total_clear;
+ 		kmemleak_update_trace(block);
+ 		list_add_tail(&block->link, &allocated);
+ 
+@@ -1492,31 +1833,30 @@ void gpu_buddy_print(struct gpu_buddy *mm)
+ 	for (order = mm->max_order; order >= 0; order--) {
+ 		struct gpu_buddy_block *block, *tmp;
+ 		struct rb_root *root;
+-		u64 count = 0, free;
+-		unsigned int tree;
++		u64 count = 0, clear = 0, free;
+ 
+-		for_each_free_tree(tree) {
+-			root = &mm->free_trees[tree][order];
+-
+-			rbtree_postorder_for_each_entry_safe(block, tmp, root, rb) {
+-				BUG_ON(!gpu_buddy_block_is_free(block));
+-				count++;
+-			}
++		root = &mm->free_tree[order];
++		rbtree_postorder_for_each_entry_safe(block, tmp, root, rb) {
++			BUG_ON(!gpu_buddy_block_is_free(block));
++			count++;
++			if (gpu_buddy_block_is_clear(block))
++				clear++;
+ 		}
+ 
+ 		free = count * (mm->chunk_size << order);
+ 		if (free < SZ_1M)
+-			pr_info("order-%2d free: %8llu KiB, blocks: %llu\n",
+-				order, free >> 10, count);
++			pr_info("order-%2d free: %8llu KiB, blocks: %llu (clear: %llu)\n",
++				order, free >> 10, count, clear);
+ 		else
+-			pr_info("order-%2d free: %8llu MiB, blocks: %llu\n",
+-				order, free >> 20, count);
++			pr_info("order-%2d free: %8llu MiB, blocks: %llu (clear: %llu)\n",
++				order, free >> 20, count, clear);
+ 	}
+ }
+ EXPORT_SYMBOL(gpu_buddy_print);
+ 
+ static void gpu_buddy_module_exit(void)
+ {
++	kmem_cache_destroy(slab_extents);
+ 	kmem_cache_destroy(slab_blocks);
+ }
+ 
+@@ -1526,6 +1866,12 @@ static int __init gpu_buddy_module_init(void)
+ 	if (!slab_blocks)
+ 		return -ENOMEM;
+ 
++	slab_extents = KMEM_CACHE(gpu_clear_extent, 0);
++	if (!slab_extents) {
++		kmem_cache_destroy(slab_blocks);
++		return -ENOMEM;
++	}
++
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
+index faa025498de4..a89c392a155a 100644
+--- a/drivers/gpu/drm/drm_buddy.c
++++ b/drivers/gpu/drm/drm_buddy.c
+@@ -50,15 +50,11 @@ void drm_buddy_print(struct gpu_buddy *mm, struct drm_printer *p)
+ 		struct gpu_buddy_block *block, *tmp;
+ 		struct rb_root *root;
+ 		u64 count = 0, free;
+-		unsigned int tree;
+ 
+-		for_each_free_tree(tree) {
+-			root = &mm->free_trees[tree][order];
+-
+-			rbtree_postorder_for_each_entry_safe(block, tmp, root, rb) {
+-				BUG_ON(!gpu_buddy_block_is_free(block));
+-				count++;
+-			}
++		root = &mm->free_tree[order];
++		rbtree_postorder_for_each_entry_safe(block, tmp, root, rb) {
++			BUG_ON(!gpu_buddy_block_is_free(block));
++			count++;
+ 		}
+ 
+ 		drm_printf(p, "order-%2d ", order);
+diff --git a/drivers/gpu/tests/gpu_buddy_test.c b/drivers/gpu/tests/gpu_buddy_test.c
+index 7df5c2ae83bb..e0d24a4542b2 100644
+--- a/drivers/gpu/tests/gpu_buddy_test.c
++++ b/drivers/gpu/tests/gpu_buddy_test.c
+@@ -78,15 +78,11 @@ static void gpu_test_buddy_subtree_offset_alignment_stress(struct kunit *test)
+ 		}
+ 
+ 		for (order = mm.max_order; order >= 0 && !root; order--) {
+-			for (tree = 0; tree < 2; tree++) {
+-				node = mm.free_trees[tree][order].rb_node;
+-				if (node) {
+-					root = container_of(node,
+-							    struct gpu_buddy_block,
+-							    rb);
+-					break;
+-				}
+-			}
++			node = mm.free_tree[order].rb_node;
++			if (node)
++				root = container_of(node,
++						    struct gpu_buddy_block,
++						    rb);
+ 		}
+ 
+ 		KUNIT_ASSERT_NOT_NULL(test, root);
+@@ -97,8 +93,8 @@ static void gpu_test_buddy_subtree_offset_alignment_stress(struct kunit *test)
+ 		gpu_buddy_free_list(&mm, &allocated[i], 0);
+ 
+ 		for (order = 0; order <= mm.max_order; order++) {
+-			for (tree = 0; tree < 2; tree++) {
+-				node = mm.free_trees[tree][order].rb_node;
++			{
++				node = mm.free_tree[order].rb_node;
+ 				if (!node)
+ 					continue;
+ 
+diff --git a/include/linux/gpu_buddy.h b/include/linux/gpu_buddy.h
+index 71941a039648..07da1aa4865b 100644
+--- a/include/linux/gpu_buddy.h
++++ b/include/linux/gpu_buddy.h
+@@ -67,15 +67,6 @@
+  */
+ #define GPU_BUDDY_TRIM_DISABLE			BIT(5)
+ 
+-enum gpu_buddy_free_tree {
+-	GPU_BUDDY_CLEAR_TREE = 0,
+-	GPU_BUDDY_DIRTY_TREE,
+-	GPU_BUDDY_MAX_FREE_TREES,
+-};
+-
+-#define for_each_free_tree(tree) \
+-	for ((tree) = 0; (tree) < GPU_BUDDY_MAX_FREE_TREES; (tree)++)
+-
+ /**
+  * struct gpu_buddy_block - Block within a buddy allocator
+  *
+@@ -103,6 +94,14 @@ struct gpu_buddy_block {
+ #define   GPU_BUDDY_ALLOCATED	   (1 << 10)
+ #define   GPU_BUDDY_FREE	   (2 << 10)
+ #define   GPU_BUDDY_SPLIT	   (3 << 10)
++/*
++ * GPU_BUDDY_HEADER_CLEAR has two roles:
++ *  - FREE state:      set when the block's full range is cleared (tracker
++ *                     confirmed).  Cleared free blocks float in the buddy
++ *                     tree and are NOT inserted into free_tree[].
++ *  - ALLOCATED state: set when the block was served from cleared memory,
++ *                     informing the caller that no GPU clear pass is needed.
++ */
+ #define GPU_BUDDY_HEADER_CLEAR  GENMASK_ULL(9, 9)
+ /* Free to be used, if needed in the future */
+ #define GPU_BUDDY_HEADER_UNUSED GENMASK_ULL(8, 6)
+@@ -130,11 +129,44 @@ struct gpu_buddy_block {
+ /* private: */
+ 	struct list_head tmp_link;
+ 	unsigned int subtree_max_alignment;
++	bool subtree_has_dirty;
+ };
+ 
+ /* Order-zero must be at least SZ_4K */
+ #define GPU_BUDDY_MAX_ORDER (63 - 12)
+ 
++/**
++ * struct gpu_clear_extent - a contiguous cleared (zeroed) address range
++ *
++ * Tracks a single contiguous address range whose memory content is known
++ * to be zeroed.  Extents are non-overlapping and stored in an augmented
++ * red-black tree sorted by @start.  The augmented value @subtree_max_size
++ * allows O(log N) search for an extent of at least a given size.
++ */
++struct gpu_clear_extent {
++/* private: */
++	struct rb_node	rb;
++	u64		start;
++	u64		end;
++	u64		subtree_max_size;
++};
++
++/**
++ * struct gpu_clear_tracker - tracks cleared (zeroed) address intervals
++ *
++ * Maintains a set of non-overlapping cleared extents as an augmented
++ * red-black tree.  The tracker is embedded inside struct gpu_buddy and
++ * replaces the former dual (clear/dirty) free-tree scheme.
++ *
++ * @total_clear: Total bytes of cleared memory currently tracked.
++ */
++struct gpu_clear_tracker {
++/* private: */
++	struct rb_root	root;
++/* public: */
++	u64		total_clear;
++};
++
+ /**
+  * struct gpu_buddy - GPU binary buddy allocator
+  *
+@@ -154,18 +186,20 @@ struct gpu_buddy_block {
+  * @avail: Total free space currently available for allocation in bytes.
+  * @clear_avail: Free space available in the clear tree (zeroed memory) in bytes.
+  *               This is a subset of @avail.
++ * @clear: Tracker of cleared address ranges (decoupled from free_tree).
+  * @lock_dep_map: Annotates gpu_buddy API with a driver provided lock.
+  */
+ struct gpu_buddy {
+ /* private: */
++	struct gpu_clear_tracker clear;
+ 	/*
+-	 * Array of red-black trees for free block management.
+-	 * Indexed as free_trees[clear/dirty][order] where:
+-	 * - Index 0 (GPU_BUDDY_CLEAR_TREE): blocks with zeroed content
+-	 * - Index 1 (GPU_BUDDY_DIRTY_TREE): blocks with unknown content
+-	 * Each tree holds free blocks of the corresponding order.
++	 * One RB-tree per order containing all free blocks (clear and
++	 * dirty alike).  The augment field subtree_has_dirty lets dirty
++	 * allocations skip subtrees with no dirty inventory in O(log N).
++	 * Cleared free blocks coexist here but are also indexed by the
++	 * @clear tracker for fast CLEAR_ALLOCATION lookups.
+ 	 */
+-	struct rb_root **free_trees;
++	struct rb_root *free_tree;
+ 	/*
+ 	 * Array of root blocks representing the top-level blocks of the
+ 	 * binary tree(s). Multiple roots exist when the total size is not
+
+base-commit: 35b535db69589ea0025ec3f06df08f2e3faad26f
+-- 
+2.34.1
 
