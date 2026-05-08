@@ -4,61 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 655C6CD3436
-	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 13:41:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 173A2CD3447
+	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 13:41:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6FF110F4A4;
-	Fri,  8 May 2026 13:41:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B3C110F4BE;
+	Fri,  8 May 2026 13:41:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="rT+LGN4r";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="nkk1Hnwm";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3628810F4A4
- for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 13:41:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 360B610F4A4
+ for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 13:41:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
- Message-Id:Date:Subject:From:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=TD63NL0rdsH/88RfhPlZtCVrKC7rD5HY6lMmP6yno4A=; b=rT+LGN4rDLoVlDbBuqRV4s/uJy
- IacNc2yLbX2Fs6wkFKax0wOKZ0gKjYlu2EVNcci8oo/nNGoHeYdJxd4g/RcMSss0ygIxbfkfaJ6Ry
- MJXldoVHZVvwujTjAJU+zwieZoQGOvJJ3l4k54of8C0scSH9ot2zYzmXP9Wa59aVAFatQDNCpSqD1
- jIjBWIZvfsZJRDaz/QulvQeAdB7huqTc2eTmd4VjVnwx4svlbTt+rZx98jiYZikCU98lgedMBn8Wj
- NkQ15tjeSe2ihEvhT5QEHG9TVfdsXW444BpkXUDz1aWTSaWWDvCSH+hZjG9+M37sWko/tJHm+HRmE
- idWFpEaA==;
+ s=20170329; h=Cc:To:In-Reply-To:References:Message-Id:
+ Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
+ Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
+ :Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=mW1IzGgBCsVRdjcpGgKEN3ia9qcV4gVDnt+tGB5oiGc=; b=nkk1HnwmeI5VvSStvm9SYEm61M
+ AuZ3vxRyOznfJLKmtK/ImTDngOwpYTiox99jK9S/Rj8q5Qi9md7q4nQgNKZt8u741uf9+E5gbYPCZ
+ 0DcwgTzRfXDd0kI+fl8YiIKXcaNQPMJxQKHg/SfTRh25fUmTkvJu9M0hbY6dORZYiCaOrJ2VVHr+x
+ wLhWhyC0qiS1fkvwTesc/smHsLprgOwXJFtfs2vkIIWEepTgOIeuAa2Bm7zOPLx1h9d3J1ao11JNT
+ aDqo7IOn0Ds9gH7Mm5MqFOXP81n9St/ztR7/gnwROKkSKMzzXaDwFrfOn0/y89breroKzBmcLK737
+ eVdbsB8A==;
 Received: from [189.7.87.137] (helo=[10.0.0.1])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wLLSU-007u6e-MD; Fri, 08 May 2026 15:41:38 +0200
+ id 1wLLSX-007u6e-Sk; Fri, 08 May 2026 15:41:41 +0200
 From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Subject: [PATCH 0/2] drm/v3d: Fix perfmon locking and cross-queue isolation
-Date: Fri, 08 May 2026 10:41:28 -0300
-Message-Id: <20260508-v3d-perfmon-lifetime-v1-0-f5b5642c085f@igalia.com>
+Date: Fri, 08 May 2026 10:41:29 -0300
+Subject: [PATCH 1/2] drm/v3d: Refactor perfmon locking
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/0XMywqDMBCF4VeRrDswMd7iqxQXmkzqQKM2sVIQ3
- 72pLrr8D5xvF5ECUxRttotAG0eepxTylgkz9tODgG1qkWNeYYklbMrCQsH5eYInO1rZExSN0Za
- sRC0Hka5LIMefk713Vwd6vZO+XuMfb7OTLrA+6WhGsuA5GjgFqHJVK42yplK1m/zpQx8JzOw9r
- 21mECtdN7JSzoruOL6lgSSg0gAAAA==
-X-Change-ID: 20260505-v3d-perfmon-lifetime-48c9ded1091b
+Message-Id: <20260508-v3d-perfmon-lifetime-v1-1-f5b5642c085f@igalia.com>
+References: <20260508-v3d-perfmon-lifetime-v1-0-f5b5642c085f@igalia.com>
+In-Reply-To: <20260508-v3d-perfmon-lifetime-v1-0-f5b5642c085f@igalia.com>
 To: Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>, 
  Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
 Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
  =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3875; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=4DuxPtSbvcBD+ARjZ29j8HnxkHeFIvk0Q6KRB9r2n1w=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBp/egOpu0w8407whbP7/UFwAI1CwIemYfkvl8KA
- HwLSQRh8LuJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCaf3oDgAKCRA/8w6Kdoj6
- qq7yB/4gLSRz1ngPXLWfEBvw541CN8sRPoG4LnHIHksrwU/Jh25oCar+6lAgcj3Hhf35uiJGLrR
- fp3vnpzW/eBb/8rPhrAQs0ol/ccGshOvcnNFfnuq0fO0pwaYaW2BdI8Ncx8vvI/LKSx/JHgkMCg
- I5Vmgb/IKqSZ4yHiINthb8zcEwiw0Xo6teFsoG3t0kVOXmKEWsuuwK3SA+eoDvbpumQ9lXZ5o+6
- CVY2H4U1lfvwErqv9oOb248+Gn8S+JHyoSbSh9Q9Y3CXWxT+gs1xM0LlSFi5yNuwCJDdZqhauuP
- uHJapXSKz1ienWYjBZVREZi59FqJFy7aFfzF/PwK/qL2wDVR
+X-Developer-Signature: v=1; a=openpgp-sha256; l=14628; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=mFgcLyeqM/WEGozYbUwxQV8UFsiacxQg/vx4W9gjimA=;
+ b=kA0DAAoBP/MOinaI+qoByyZiAGn96A6jh3w0zVJUzgzGsdRwQTGMnij+PsgMDp9lRrtBitNzq
+ YkBMwQAAQoAHRYhBPjkXX0BFncHKaZ30T/zDop2iPqqBQJp/egOAAoJED/zDop2iPqqYL8H+wUR
+ K4yLYPfnegi0F4qCd/quqv22FzfOcGWHO+DNUVtbRxiT2g2g3FrCKkevVnTOqbCozlF3EIqh+EK
+ xIvPNdH3dHuMfi1X6McQWeH8s9VgVm78Ttx+memDmvIcmIE3SFqumj6k9OX/nKCAgOFWytui13k
+ 9uTbqwL6VmUCwJa4DkrMz4CMP97/CZ1x2gXZU3FTwBgEiy617g9W0ek1zf7uYUSdnnNG1oN6D3j
+ Ppjoya/LgPOu+MgkFul2soMNtZoemzC2vCYvQyHNYe9gtaHh8GpBzgVIxlY0UvjJiJapW0gv9bd
+ UK44QXf6VIrIGF3sULdVyHzgyVA1Y3LNmHeoznk=
 X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
  fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -76,84 +72,453 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A v3d core is able to expose a single set of HW performance counters, so at
-any moment at most one perfmon can be programmed in HW. Currently, the
-driver tracks the active perfmon with v3d_dev->active_perfmon, but three
-long-standing issues makes perfmon handling unreliable:
+v3d exposes a single set of performance counters per core, so at any
+moment at most one performance monitor can be programmed in HW. In
+software, this singleton is represented by v3d_dev->active_perfmon, but
+until now nothing actually serialized access to it: scheduler callbacks,
+the GPU-reset path, and perfmon ioctls all read and wrote that field
+lock-free.
 
-1. The active_perfmon pointer is accessed lock-free from scheduler
-   callbacks, the GPU-reset path and the perfmon ioctls. Note that the
-   v3d_perfmon->lock mutex serialized start/stop of one perfmon object
-   against itself, but the invariant that needs protection is device-wide.
+The existence of v3d_perfmon->lock mutex did not close the gap. It
+serialized start/stop of *one* perfmon object against itself, but the
+invariant that needs protection is device-wide: there can be exactly one
+active perfmon at any moment in HW. Two threads acting on different
+perfmon objects could race through v3d_dev->active_perfmon and the
+counter registers, leaving software and HW out of sync.
 
-2. perfmon start/stop is hooked exclusively to run_job() callbacks via
-   v3d_switch_perfmon(). If nothing is queued behind a perfmon-carrying
-   job, the perfmon is never actually stopped.
+This commit moves the locking to where the invariant actually lives. Group
+the active perfmon pointer with a device-wide spinlock and route every
+state transition (job start, job completion, set global, reset,
+suspend/resume, destruction) through a small set of locked entry points
+that are the only mutators of the HW counters.
 
-3. A non-global perfmon should count events generated by a specific
-   submission, but the scheduler can run jobs from different queues
-   concurrently. Without explicit cross-queue serialization, an unrelated
-   job running in parallel pollutes the counters and produces unusable
-   results.
+Using a spinlock also unlocks two design improvements: stopping the
+perfmon from the IRQ handler at job-completion time (the natural boundary
+for "active perfmon follows the active job"), and pausing/resuming the HW
+counters across runtime-PM transitions without dropping the software
+reference. This solves yet another issue of the current design: perfmon
+start/stop was exclusively attached to run_job() callbacks, which means
+that if nothing was further queued up, a perfmon would never actually
+stopped.
 
-This series aims to address all three issues. PATCH 1 moves the locking to
-where the invariant actually lives (fixing issue #1) and replaces the
-sleeping mutex with a spinlock, which allows us to stop the perfmon from
-the IRQ handler at job-completion time (the natural boundary for "active
-perfmon follows the active job") and fixes issue #2.
-
-PATCH 2 addresses issue #3 by building on the new locking to enforce
-cross-queue serialization when a non-global perfmon is attached, by adding
-scheduler fence dependencies during submission. The fence dependencies
-allows us to enforce two rules:
-
-1. A job that carries a non-global perfmon waits for every job currently
-   in-flight across all HW queues to finish.
-
-2. While such a job is in-flight, any subsequently submitted job waits
-   for it.
-
-This allows us to ensure cross-queue isolation and the reliability of
-the performance counters values.
-
-To make sure that this series actually produces the expected results and 
-improves the overall reliability of v3d's performance monitors, this
-series is accompanied by a IGT series [1] that adds new perfmon tests
-for v3d.
-
-This series depends on [2].
-
-[1] https://lore.kernel.org/igt-dev/20260508124446.1260672-2-mcanal@igalia.com/T/
-[2] https://lore.kernel.org/dri-devel/20260413-v3d-sched-misc-fixes-v1-0-bac63a8ceb6c@igalia.com/T/
-
-Best regards,
-- Maíra
-
+Signed-off-by: Maíra Canal <mcanal@igalia.com>
 ---
-Maíra Canal (2):
-      drm/v3d: Refactor perfmon locking
-      drm/v3d: Serialize jobs across queues when a perfmon is attached
-
- drivers/gpu/drm/v3d/v3d_drv.h     |  50 ++++++++++---
- drivers/gpu/drm/v3d/v3d_gem.c     |   6 +-
+ drivers/gpu/drm/v3d/v3d_drv.h     |  20 ++++--
+ drivers/gpu/drm/v3d/v3d_gem.c     |   3 +-
  drivers/gpu/drm/v3d/v3d_irq.c     |   6 ++
- drivers/gpu/drm/v3d/v3d_perfmon.c | 148 ++++++++++++++++++++++++++------------
+ drivers/gpu/drm/v3d/v3d_perfmon.c | 145 ++++++++++++++++++++++++++------------
  drivers/gpu/drm/v3d/v3d_power.c   |   4 ++
  drivers/gpu/drm/v3d/v3d_sched.c   |  24 +------
- drivers/gpu/drm/v3d/v3d_submit.c  |  90 ++++++++++++++++++++---
- 7 files changed, 242 insertions(+), 86 deletions(-)
----
-base-commit: c006978163fd001fbca55e5fa57bddcf49f47ad9
-change-id: 20260505-v3d-perfmon-lifetime-48c9ded1091b
-prerequisite-change-id: 20260407-v3d-sched-misc-fixes-623739017e53:v1
-prerequisite-patch-id: 01823e165a822ddec72b0b18e49c096d35149e9a
-prerequisite-patch-id: 1df1c11ec62617336e2ed5445c24bbb912570035
-prerequisite-patch-id: 738852cd3115283b43cef336ba8fe88616f28a88
-prerequisite-patch-id: 8614f719aa20e50a006ed6ce32133cdae287988d
-prerequisite-patch-id: 32c804d9921bcf259b236b3f1d74f7972aec02f2
-prerequisite-patch-id: 737306a958062699aa5c0ac34fb4dfebed9ec5bc
-prerequisite-patch-id: dd4af1c51cf194a331814ba0ed997da19db633e3
-prerequisite-patch-id: 62fbbb75f3d28b21ac3922dd36aec6e7721d2c55
-prerequisite-patch-id: b5bd534295a27c8d4539bab81db0a4cfef4ea242
-prerequisite-patch-id: 11274552d6ed495d712083c5dced8aa2886185d2
+ drivers/gpu/drm/v3d/v3d_submit.c  |   7 +-
+ 7 files changed, 136 insertions(+), 73 deletions(-)
+
+diff --git a/drivers/gpu/drm/v3d/v3d_drv.h b/drivers/gpu/drm/v3d/v3d_drv.h
+index 071d919fe860..3a7801348697 100644
+--- a/drivers/gpu/drm/v3d/v3d_drv.h
++++ b/drivers/gpu/drm/v3d/v3d_drv.h
+@@ -86,9 +86,6 @@ struct v3d_perfmon {
+ 	 */
+ 	refcount_t refcnt;
+ 
+-	/* Protects perfmon stop, as it can be invoked from multiple places. */
+-	struct mutex lock;
+-
+ 	/* Number of counters activated in this perfmon instance
+ 	 * (should be less than DRM_V3D_MAX_PERF_COUNTERS).
+ 	 */
+@@ -170,8 +167,14 @@ struct v3d_dev {
+ 
+ 	struct v3d_queue_state queue[V3D_MAX_QUEUES];
+ 
+-	/* Used to track the active perfmon if any. */
+-	struct v3d_perfmon *active_perfmon;
++	/* Tracks the performance monitor state. */
++	struct {
++		/* Protects @active. */
++		spinlock_t lock;
++
++		/* Perfmon currently programmed in HW (or NULL if none). */
++		struct v3d_perfmon *active;
++	} perfmon_state;
+ 
+ 	/* Protects bo_stats */
+ 	struct mutex bo_lock;
+@@ -316,6 +319,9 @@ struct v3d_job {
+ 
+ 	struct v3d_dev *v3d;
+ 
++	/* The queue that the job was submitted on. */
++	enum v3d_queue queue;
++
+ 	/* This is the array of BOs that were looked up at the start
+ 	 * of submission.
+ 	 */
+@@ -663,6 +669,10 @@ void v3d_perfmon_put(struct v3d_perfmon *perfmon);
+ void v3d_perfmon_start(struct v3d_dev *v3d, struct v3d_perfmon *perfmon);
+ void v3d_perfmon_stop(struct v3d_dev *v3d, struct v3d_perfmon *perfmon,
+ 		      bool capture);
++void v3d_perfmon_stop_locked(struct v3d_dev *v3d, struct v3d_perfmon *perfmon,
++			     bool capture);
++void v3d_perfmon_suspend(struct v3d_dev *v3d);
++void v3d_perfmon_resume(struct v3d_dev *v3d);
+ struct v3d_perfmon *v3d_perfmon_find(struct v3d_file_priv *v3d_priv, int id);
+ void v3d_perfmon_open_file(struct v3d_file_priv *v3d_priv);
+ void v3d_perfmon_close_file(struct v3d_file_priv *v3d_priv);
+diff --git a/drivers/gpu/drm/v3d/v3d_gem.c b/drivers/gpu/drm/v3d/v3d_gem.c
+index 1ee3c038d5f6..6e387c41fbee 100644
+--- a/drivers/gpu/drm/v3d/v3d_gem.c
++++ b/drivers/gpu/drm/v3d/v3d_gem.c
+@@ -137,7 +137,7 @@ v3d_reset(struct v3d_dev *v3d)
+ 	v3d_mmu_set_page_table(v3d);
+ 	v3d_irq_reset(v3d);
+ 
+-	v3d_perfmon_stop(v3d, v3d->active_perfmon, false);
++	v3d_perfmon_stop(v3d, v3d->perfmon_state.active, false);
+ 
+ 	trace_v3d_reset_end(dev);
+ }
+@@ -299,6 +299,7 @@ v3d_gem_init(struct drm_device *dev)
+ 	}
+ 
+ 	spin_lock_init(&v3d->mm_lock);
++	spin_lock_init(&v3d->perfmon_state.lock);
+ 	ret = drmm_mutex_init(dev, &v3d->bo_lock);
+ 	if (ret)
+ 		goto err_stats;
+diff --git a/drivers/gpu/drm/v3d/v3d_irq.c b/drivers/gpu/drm/v3d/v3d_irq.c
+index d4d7c39227be..9b446672c424 100644
+--- a/drivers/gpu/drm/v3d/v3d_irq.c
++++ b/drivers/gpu/drm/v3d/v3d_irq.c
+@@ -92,6 +92,12 @@ v3d_irq_signal_fence(struct v3d_dev *v3d, enum v3d_queue q,
+ 	struct v3d_fence *fence = to_v3d_fence(queue->active_job->irq_fence);
+ 
+ 	v3d_job_update_stats(queue->active_job);
++
++	scoped_guard(spinlock_irqsave, &v3d->perfmon_state.lock) {
++		if (v3d->perfmon_state.active != v3d->global_perfmon)
++			v3d_perfmon_stop_locked(v3d, v3d->perfmon_state.active, true);
++	}
++
+ 	trace_irq(&v3d->drm, fence->seqno);
+ 
+ 	queue->active_job = NULL;
+diff --git a/drivers/gpu/drm/v3d/v3d_perfmon.c b/drivers/gpu/drm/v3d/v3d_perfmon.c
+index 02451fc09dbb..4f1c59e282b5 100644
+--- a/drivers/gpu/drm/v3d/v3d_perfmon.c
++++ b/drivers/gpu/drm/v3d/v3d_perfmon.c
+@@ -217,26 +217,15 @@ void v3d_perfmon_get(struct v3d_perfmon *perfmon)
+ 
+ void v3d_perfmon_put(struct v3d_perfmon *perfmon)
+ {
+-	if (perfmon && refcount_dec_and_test(&perfmon->refcnt)) {
+-		mutex_destroy(&perfmon->lock);
++	if (perfmon && refcount_dec_and_test(&perfmon->refcnt))
+ 		kfree(perfmon);
+-	}
+ }
+ 
+-void v3d_perfmon_start(struct v3d_dev *v3d, struct v3d_perfmon *perfmon)
++static void v3d_perfmon_hw_start(struct v3d_dev *v3d, struct v3d_perfmon *perfmon)
+ {
++	u8 ncounters = perfmon->ncounters;
++	u32 mask = GENMASK(ncounters - 1, 0);
+ 	unsigned int i;
+-	u32 mask;
+-	u8 ncounters;
+-
+-	if (WARN_ON_ONCE(!perfmon || v3d->active_perfmon))
+-		return;
+-
+-	if (!pm_runtime_get_if_active(v3d->drm.dev))
+-		return;
+-
+-	ncounters = perfmon->ncounters;
+-	mask = GENMASK(ncounters - 1, 0);
+ 
+ 	for (i = 0; i < ncounters; i++) {
+ 		u32 source = i / 4;
+@@ -258,8 +247,56 @@ void v3d_perfmon_start(struct v3d_dev *v3d, struct v3d_perfmon *perfmon)
+ 	V3D_CORE_WRITE(0, V3D_V4_PCTR_0_EN, mask);
+ 	V3D_CORE_WRITE(0, V3D_V4_PCTR_0_CLR, mask);
+ 	V3D_CORE_WRITE(0, V3D_PCTR_0_OVERFLOW, mask);
++}
+ 
+-	v3d->active_perfmon = perfmon;
++static void v3d_perfmon_hw_stop(struct v3d_dev *v3d, struct v3d_perfmon *perfmon,
++				bool capture)
++{
++	unsigned int i;
++
++	if (capture)
++		for (i = 0; i < perfmon->ncounters; i++)
++			perfmon->values[i] += V3D_CORE_READ(0, V3D_PCTR_0_PCTRX(i));
++
++	V3D_CORE_WRITE(0, V3D_V4_PCTR_0_EN, 0);
++}
++
++void v3d_perfmon_start(struct v3d_dev *v3d, struct v3d_perfmon *perfmon)
++{
++	guard(spinlock_irqsave)(&v3d->perfmon_state.lock);
++
++	perfmon = v3d->global_perfmon ?: perfmon;
++
++	if (!perfmon)
++		return;
++
++	if (perfmon == v3d->perfmon_state.active)
++		return;
++
++	if (!pm_runtime_get_if_active(v3d->drm.dev))
++		return;
++
++	v3d_perfmon_hw_start(v3d, perfmon);
++	v3d->perfmon_state.active = perfmon;
++
++	v3d_pm_runtime_put(v3d);
++}
++
++void v3d_perfmon_stop_locked(struct v3d_dev *v3d, struct v3d_perfmon *perfmon,
++			     bool capture)
++{
++	lockdep_assert_held(&v3d->perfmon_state.lock);
++
++	if (!perfmon || perfmon != v3d->perfmon_state.active)
++		return;
++
++	if (!pm_runtime_get_if_active(v3d->drm.dev)) {
++		v3d->perfmon_state.active = NULL;
++		return;
++	}
++
++	v3d_perfmon_hw_stop(v3d, perfmon, capture);
++	v3d->perfmon_state.active = NULL;
+ 
+ 	v3d_pm_runtime_put(v3d);
+ }
+@@ -267,30 +304,31 @@ void v3d_perfmon_start(struct v3d_dev *v3d, struct v3d_perfmon *perfmon)
+ void v3d_perfmon_stop(struct v3d_dev *v3d, struct v3d_perfmon *perfmon,
+ 		      bool capture)
+ {
+-	unsigned int i;
+-
+-	if (!perfmon || !v3d->active_perfmon)
++	if (!perfmon)
+ 		return;
+ 
+-	mutex_lock(&perfmon->lock);
+-	if (perfmon != v3d->active_perfmon)
+-		goto out;
++	guard(spinlock_irqsave)(&v3d->perfmon_state.lock);
++	v3d_perfmon_stop_locked(v3d, perfmon, capture);
++}
+ 
+-	if (!pm_runtime_get_if_active(v3d->drm.dev))
+-		goto out_clear;
++void v3d_perfmon_suspend(struct v3d_dev *v3d)
++{
++	guard(spinlock_irqsave)(&v3d->perfmon_state.lock);
+ 
+-	if (capture)
+-		for (i = 0; i < perfmon->ncounters; i++)
+-			perfmon->values[i] += V3D_CORE_READ(0, V3D_PCTR_0_PCTRX(i));
++	if (!v3d->perfmon_state.active)
++		return;
+ 
+-	V3D_CORE_WRITE(0, V3D_V4_PCTR_0_EN, 0);
++	v3d_perfmon_hw_stop(v3d, v3d->perfmon_state.active, true);
++}
+ 
+-	v3d_pm_runtime_put(v3d);
++void v3d_perfmon_resume(struct v3d_dev *v3d)
++{
++	guard(spinlock_irqsave)(&v3d->perfmon_state.lock);
+ 
+-out_clear:
+-	v3d->active_perfmon = NULL;
+-out:
+-	mutex_unlock(&perfmon->lock);
++	if (!v3d->perfmon_state.active)
++		return;
++
++	v3d_perfmon_hw_start(v3d, v3d->perfmon_state.active);
+ }
+ 
+ struct v3d_perfmon *v3d_perfmon_find(struct v3d_file_priv *v3d_priv, int id)
+@@ -316,11 +354,15 @@ static void v3d_perfmon_delete(struct v3d_file_priv *v3d_priv,
+ 	struct v3d_dev *v3d = v3d_priv->v3d;
+ 
+ 	/* If the active perfmon is being destroyed, stop it first */
+-	if (perfmon == v3d->active_perfmon)
+-		v3d_perfmon_stop(v3d, perfmon, false);
++	scoped_guard(spinlock_irqsave, &v3d->perfmon_state.lock) {
++		/* If the global perfmon is being destroyed, set it to NULL */
++		if (v3d->global_perfmon == perfmon) {
++			v3d->global_perfmon = NULL;
++			v3d_perfmon_put(perfmon);
++		}
+ 
+-	/* If the global perfmon is being destroyed, set it to NULL */
+-	cmpxchg(&v3d->global_perfmon, perfmon, NULL);
++		v3d_perfmon_stop_locked(v3d, perfmon, false);
++	}
+ 
+ 	v3d_perfmon_put(perfmon);
+ }
+@@ -368,12 +410,10 @@ int v3d_perfmon_create_ioctl(struct drm_device *dev, void *data,
+ 	perfmon->ncounters = req->ncounters;
+ 
+ 	refcount_set(&perfmon->refcnt, 1);
+-	mutex_init(&perfmon->lock);
+ 
+ 	ret = xa_alloc(&v3d_priv->perfmons, &id, perfmon, xa_limit_32b,
+ 		       GFP_KERNEL);
+ 	if (ret < 0) {
+-		mutex_destroy(&perfmon->lock);
+ 		kfree(perfmon);
+ 		return ret;
+ 	}
+@@ -471,16 +511,33 @@ int v3d_perfmon_set_global_ioctl(struct drm_device *dev, void *data,
+ 
+ 	/* If the request is to clear the global performance monitor */
+ 	if (req->flags & DRM_V3D_PERFMON_CLEAR_GLOBAL) {
+-		if (!v3d->global_perfmon)
+-			return -EINVAL;
++		struct v3d_perfmon *old;
+ 
+-		xchg(&v3d->global_perfmon, NULL);
++		scoped_guard(spinlock_irqsave, &v3d->perfmon_state.lock) {
++			old = v3d->global_perfmon;
++			if (!old) {
++				v3d_perfmon_put(perfmon);
++				return -EINVAL;
++			}
++
++			v3d->global_perfmon = NULL;
++			v3d_perfmon_stop_locked(v3d, old, true);
++		}
++
++		v3d_perfmon_put(old);
++		v3d_perfmon_put(perfmon);
+ 
+ 		return 0;
+ 	}
+ 
+-	if (cmpxchg(&v3d->global_perfmon, NULL, perfmon))
+-		return -EBUSY;
++	scoped_guard(spinlock_irqsave, &v3d->perfmon_state.lock) {
++		if (v3d->perfmon_state.active || v3d->global_perfmon) {
++			v3d_perfmon_put(perfmon);
++			return -EBUSY;
++		}
++
++		v3d->global_perfmon = perfmon;
++	}
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/v3d/v3d_power.c b/drivers/gpu/drm/v3d/v3d_power.c
+index 769e90032b04..1a4b651a2c5f 100644
+--- a/drivers/gpu/drm/v3d/v3d_power.c
++++ b/drivers/gpu/drm/v3d/v3d_power.c
+@@ -50,6 +50,8 @@ int v3d_power_suspend(struct device *dev)
+ 	struct v3d_dev *v3d = to_v3d_dev(drm);
+ 	int ret;
+ 
++	v3d_perfmon_suspend(v3d);
++
+ 	v3d_irq_disable(v3d);
+ 
+ 	ret = v3d_suspend_sms(v3d);
+@@ -83,5 +85,7 @@ int v3d_power_resume(struct device *dev)
+ 	v3d_mmu_set_page_table(v3d);
+ 	v3d_irq_enable(v3d);
+ 
++	v3d_perfmon_resume(v3d);
++
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
+index 96d476b20abd..ae7f08e60b9e 100644
+--- a/drivers/gpu/drm/v3d/v3d_sched.c
++++ b/drivers/gpu/drm/v3d/v3d_sched.c
+@@ -139,24 +139,6 @@ v3d_cpu_job_free(struct drm_sched_job *sched_job)
+ 	v3d_job_cleanup(&job->base);
+ }
+ 
+-static void
+-v3d_switch_perfmon(struct v3d_dev *v3d, struct v3d_job *job)
+-{
+-	struct v3d_perfmon *perfmon = v3d->global_perfmon;
+-
+-	if (!perfmon)
+-		perfmon = job->perfmon;
+-
+-	if (perfmon == v3d->active_perfmon)
+-		return;
+-
+-	if (perfmon != v3d->active_perfmon)
+-		v3d_perfmon_stop(v3d, v3d->active_perfmon, true);
+-
+-	if (perfmon && v3d->active_perfmon != perfmon)
+-		v3d_perfmon_start(v3d, perfmon);
+-}
+-
+ static void
+ v3d_stats_start(struct v3d_stats *stats, u64 now)
+ {
+@@ -233,7 +215,7 @@ static struct dma_fence *v3d_bin_job_run(struct drm_sched_job *sched_job)
+ 			    job->start, job->end);
+ 
+ 	v3d_job_start_stats(&job->base);
+-	v3d_switch_perfmon(v3d, &job->base);
++	v3d_perfmon_start(v3d, job->base.perfmon);
+ 
+ 	/* Set the current and end address of the control list.
+ 	 * Writing the end register is what starts the job.
+@@ -291,7 +273,7 @@ static struct dma_fence *v3d_render_job_run(struct drm_sched_job *sched_job)
+ 			    job->start, job->end);
+ 
+ 	v3d_job_start_stats(&job->base);
+-	v3d_switch_perfmon(v3d, &job->base);
++	v3d_perfmon_start(v3d, job->base.perfmon);
+ 
+ 	/* XXX: Set the QCFG */
+ 
+@@ -384,7 +366,7 @@ v3d_csd_job_run(struct drm_sched_job *sched_job)
+ 	trace_v3d_submit_csd(dev, to_v3d_fence(fence)->seqno);
+ 
+ 	v3d_job_start_stats(&job->base);
+-	v3d_switch_perfmon(v3d, &job->base);
++	v3d_perfmon_start(v3d, job->base.perfmon);
+ 
+ 	csd_cfg0_reg = V3D_CSD_QUEUED_CFG0(v3d->ver);
+ 	for (i = 1; i <= 6; i++)
+diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_submit.c
+index d1ce1a7dbcf4..1047aca58282 100644
+--- a/drivers/gpu/drm/v3d/v3d_submit.c
++++ b/drivers/gpu/drm/v3d/v3d_submit.c
+@@ -210,6 +210,7 @@ v3d_submit_add_job(struct v3d_submit *submit, void **container, size_t size,
+ 	job->v3d = v3d;
+ 	job->free = free;
+ 	job->file_priv = v3d_priv;
++	job->queue = queue;
+ 
+ 	ret = drm_sched_job_init(&job->base, &v3d_priv->sched_entity[queue],
+ 				 1, v3d_priv, submit->file_priv->client_id);
+@@ -251,8 +252,10 @@ v3d_attach_perfmon_to_jobs(struct v3d_submit *submit, u32 perfmon_id)
+ 	if (!perfmon_id)
+ 		return 0;
+ 
+-	if (v3d->global_perfmon)
+-		return -EAGAIN;
++	scoped_guard(spinlock_irqsave, &v3d->perfmon_state.lock) {
++		if (v3d->global_perfmon)
++			return -EAGAIN;
++	}
+ 
+ 	perfmon = v3d_perfmon_find(v3d_priv, perfmon_id);
+ 	if (!perfmon)
+
+-- 
+2.54.0
 
