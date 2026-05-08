@@ -4,62 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE4ABCD3447
-	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 11:17:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F4AFCD3447
+	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 11:17:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1550610E2FD;
-	Fri,  8 May 2026 11:17:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 421F710E5E4;
+	Fri,  8 May 2026 11:17:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OOl0GUwj";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PM1anrdo";
 	dkim-atps=neutral
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
- [209.85.221.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB28910E2FD
- for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 11:17:50 +0000 (UTC)
-Received: by mail-wr1-f51.google.com with SMTP id
- ffacd0b85a97d-449de065cb3so1745918f8f.2
- for <dri-devel@lists.freedesktop.org>; Fri, 08 May 2026 04:17:50 -0700 (PDT)
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
+ [209.85.221.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3024B10E5E4
+ for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 11:17:52 +0000 (UTC)
+Received: by mail-wr1-f52.google.com with SMTP id
+ ffacd0b85a97d-44985f4ab0fso1096139f8f.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 08 May 2026 04:17:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778239069; x=1778843869; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=a++Qkbe0N+QcN8OOW7PnS6Fd5+vAfw/HCIN0DGOehPI=;
- b=OOl0GUwjI/2L0GBEFiZYNVZ5ZDmbYTMvvlvBp+GTIjRXhIJ1vLkfMQIaXT93Tp8uhX
- QOuARLBk/4gFnLcU1v+iS19aAk2ehC6YEB+FhBNt4zrs/GFagN4abiRSIa4wZRjaFrRX
- R2V60dKaG2tU1hDwRRPmKM2pxRMY6giZxp5x/JnUnZly8ql2tsyq4ceTTBfXMJxC5Gkb
- KSwXa5/fPm2G91um9LB2jRLD78mrCaghcbrNL2OX0wrvJRMd2NNm2OgQ9HyONLYkqEFY
- slZmqxa7kNIu4a+8AJOoJgJgdRdHPWAXzGhUghWNVH7VazyrFk0YcLswuhAlMXNTXwK/
- b/qA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778239069; x=1778843869;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1778239071; x=1778843871; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=a++Qkbe0N+QcN8OOW7PnS6Fd5+vAfw/HCIN0DGOehPI=;
- b=Ba8kUFIvBkOw4HeIhG9hK7IacPDc7SoNx9uJfZaqG2MqeXAqqBtpiKasNl7nv/q7bp
- m0t5vr403txbmj+Q88oJAHfiFt/yh0h5A+gKfI8M1NpojUg8RK3yeXMB23hMPh3m6H8s
- xf/eF4KHsElzUv0CPMcdNzFaxHgoFtIf1h+fgGiLNY9u/uJ0ie/MbHcx+uOnffvGHv4V
- 9b3qs64qmBSUeLlHug46vtTyEqjjUd6spUWknhDspc2UvVfyt6SwXtVbsxRQyTemRVQD
- kp0jlNXR1HHMnSVD6ZjnpE9a9lFwW+qrXYLX9YPQVN1YOj/Zoa4NNjXMGwlg/HnffKa5
- PU9g==
-X-Gm-Message-State: AOJu0YyLlSkVRWQiEvRe9BeMwLv8SpvFKHaKCek4999iR3lG2Uf9El1q
- 2ygrBY7ieBvCC3D1W89WcUy/rrg265qCPH8T4A/Z3QbCEvRYUVItiJrI
-X-Gm-Gg: Acq92OGtuGp0ieZnKGjWPmTlagUqrsfUMM0rHHClbcVpKXCPIMaWqPYsn37irOX0+1w
- Fx6/ajIRz7TlZ06XZG18D9ZZ/sUe4GWLqMoYIaeCxqimx1yaM9ky22iEjkq27GMZiEYKxQDlO0M
- H5CwItASopW7JA40NsHcyBk0mPZazq9/sVxPocyQvW3w2YeMVxdnReG1E7Rv0mCiNdeR23Elqgy
- JHJh0O5BHRwCJAdG0a8OAhWPlwOarwyyjWeh0zdCEx7iTnuE2fYxYSbEPqJ1OITF5tGn/vZ237F
- MkZfeE905TUmV0B81UaRUFz+XOb8MRO48WLeNb5Au5No3Co48pCAJWdls0cuzB97Zdhk8iB9hQC
- 4Uu35fsrYu/qn7FWp4TxcbGwf04yfF1wUqpdMqUUyteXFQE2rWtR9ECV5YP9UUp+NUHgI5KEM19
- xwKLY+PHKd/3Sw6/xbtL8I9SWQNcf/yITgV/OtnX/KgdRwpgdyZi+ckEMxzzyZrvXZlRpOMvRdk
- n7WG054GUdUQdbjdWUdU45CXhs9l+D3O/gzaqF8Cy4y9gTO
-X-Received: by 2002:a05:6000:288f:b0:43e:a8ad:975e with SMTP id
- ffacd0b85a97d-4515ce1c8damr20978761f8f.27.1778239068762; 
- Fri, 08 May 2026 04:17:48 -0700 (PDT)
+ bh=39w49gZKpFRzhgKjJD0rTXzt/7rwWxh4HEQyrYnkNBo=;
+ b=PM1anrdooXX8DN1/wITpkUK5uFKmIA0qJfNB3fLOz/RFhUZXiaDXv1LZyzQBsdgWMn
+ uqPUmCtthvQ3t2CTLg/RjAM41lS0wjmeOPF+Dhzq5hLyhNdJ0eNYBTcwD41p2+Xm4vMb
+ 3ChMAhUhdN2UhJwYy8zf+1d5R5IM1MtS8ldbjCcocg3eF0C/YsegqJoluoIFW70sZfbH
+ adtXbkP9HK2JSHwBBIE4+PoF/UwwfGxQOFJI+KtzqazrIUkn+DZ3LdJWmN4BhWdZ17fO
+ 5InSo2P5gNWVf534nPQI94QdZvaI2oRQAje9mfuG/KQehAd9JRT6g8Bx1e4L2c5drN8j
+ JH6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778239071; x=1778843871;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=39w49gZKpFRzhgKjJD0rTXzt/7rwWxh4HEQyrYnkNBo=;
+ b=pjSNGuV3z+qLL+7WO0iwtIbtt5ci1qW3LphSyg5i2swiS2WlkHNYj42QM9kZkab2PL
+ 38pJ6Xi/VZE/TqGfCUOvE63N2sVVbczRKS4EIMuUd1/S+VaX+1xM6pICFHRLj/0quYba
+ 1WRPTnlN5CILX+QJRGHuUVFOI8TawgHViA28d5YWSP+4/E1Asb3GXiADErQjQXml4t5T
+ R2u+U48qoPmUIDRBH8beIYIHomOnb57Cg3IMtLtELslrYcUdS0io2EGl8PYPbIo1V1Ik
+ WlRqUq9GOHSG93ifkL70LaXGUw8dvPtindn87h55ZsrapCAq6Q8hWgt+tRRlQcF84BL9
+ m/RA==
+X-Gm-Message-State: AOJu0YzJgfnfA6cMqQweuZiymk02xRvQyGWzKCKMovWngjxXefr+sYyW
+ DXMR99kwkOp+0ypVj2p8wVU9PCXAEs053M77jhJbEWskttsI4a5XHr8+
+X-Gm-Gg: Acq92OEHqySFD0VUiGXrwQ8oEOmk9KXPN7knkO2OQciNWsl0C581Y/SGpIij5DTWSyW
+ gOG2svejCu0KXFTwyjoVnCll4GWBkYAM9B65iYGJZDYNvcPhM4IFqHIByTL5rs80F6S8iLEX8e+
+ Tgm8gfn3qZmOlGvsWzsl9jqfaqceMVLr1vH9LBikP4pDZvqmuj7Tuisd+nPRqzxhK8QN+wcBCIl
+ gTZXYtJou3DZCMqcxkZQdTdd55VuOjQw2Bk7IFhpKuSF+9tmKyDTA4jsIa8npvstK8A+S3Ehfrh
+ wcAr1pDaTjx1P9zruzK2zWPdFnJX5TOzVcmQjaetWFWwWOMK88aaZu9JIRsmR4QRoeh4RQH3sPk
+ ghoc9+4EjHGjGZKclepb/WyU4DZIRHc7PqtaNgyVkEv60P9TErX2wZZyxprPhzW+tqDhcKIIRV2
+ /obPLUPo2a3rXKUWDiC0a8iTJBaF3jUzkRG6M91zf7u/UtXey5C/90mEevduaxWERf8IaOZu3hF
+ GijciDGxQOAdqtlF+k0njuukHAc0UZ3qVbZCiU80eQKBLC1
+X-Received: by 2002:a05:6000:40c7:b0:448:7420:9ada with SMTP id
+ ffacd0b85a97d-4515b0570fcmr17977390f8f.9.1778239070587; 
+ Fri, 08 May 2026 04:17:50 -0700 (PDT)
 Received: from iku.Home ([2a06:5906:61b:2d00:74ae:919a:e57c:bd9c])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-454916df968sm3535563f8f.25.2026.05.08.04.17.47
+ ffacd0b85a97d-454916df968sm3535563f8f.25.2026.05.08.04.17.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 08 May 2026 04:17:48 -0700 (PDT)
+ Fri, 08 May 2026 04:17:50 -0700 (PDT)
 From: Prabhakar <prabhakar.csengg@gmail.com>
 X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 To: Biju Das <biju.das.jz@bp.renesas.com>,
@@ -77,10 +78,13 @@ Cc: dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
  Prabhakar <prabhakar.csengg@gmail.com>,
  Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
  Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH v2 0/4] Add DU support for RZ/T2H and RZ/N2H SoCs
-Date: Fri,  8 May 2026 12:17:40 +0100
-Message-ID: <20260508111744.771659-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH v2 2/4] drm: renesas: rz-du: Make DU reset control optional
+ for RZ/T2H support
+Date: Fri,  8 May 2026 12:17:42 +0100
+Message-ID: <20260508111744.771659-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260508111744.771659-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260508111744.771659-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -100,52 +104,33 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Hi All,
+Update the DU CRTC initialisation to request the reset control using
+devm_reset_control_get_optional_shared(). On RZ/T2H SoCs the DU block does
+not expose a reset line, and treating the reset as mandatory prevents the
+driver from probing on those platforms.
 
-This series adds support for the Display Unit (DU) on the RZ/T2H
-and RZ/N2H (R9A09G087) SoCs. The DU on these platforms is
-functionally similar to the RZ/G2UL DU but includes some SoC
-specific differences such as a single output port and explicit
-DPI output enable control. The series includes the following
-changes:
-1. Add device tree bindings for the RZ/T2H and RZ/N2H DU variants,
-   including a new compatible string.
-2. Make the DU reset control optional to allow probing on RZ/T2H
-   where the DU does not have a reset line.
-3. Move pixel clock validation logic to per-SoC constraints in
-   rzg2l_du_device_info to accommodate different clock limits
-   across SoCs.
-4. Implement support for the RZ/T2H DU variant in the driver,
-   including handling of the DPI output enable signal.
-
-Patches are rebased on next-20260507 and apply on drm-next.
-
+Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+---
 v1->v2:
-- Dropped the "port" property in favor of "ports" with a single port@0
-  child, to align with the existing RZ/G2L bindings and simplify the
-  device tree structure.
-- Updated the commit message to reflect the change from "port" to "ports".
-- Dropped storing info pointer in struct rzg2l_du_encoder as it's not
-  needed.
-- Add Reviewed-by tags from Laurent for patches 2-4.
-- Rebase on latest next-20260507.
+- Added Reviewed-by tag from Laurent Pinchart.
+---
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Cheers,
-Prabhakar
-
-Lad Prabhakar (4):
-  dt-bindings: display: renesas,rzg2l-du: Add RZ/T2H and RZ/N2H support
-  drm: renesas: rz-du: Make DU reset control optional for RZ/T2H support
-  drm: renesas: rz-du: Move mode_valid logic to per-SoC clock limits
-  drm: renesas: rz-du: Add support for RZ/T2H SoC
-
- .../bindings/display/renesas,rzg2l-du.yaml    | 20 +++++++++++++++++--
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c |  9 +++++++--
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c  | 16 +++++++++++++++
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h  | 14 +++++++++++++
- .../gpu/drm/renesas/rz-du/rzg2l_du_encoder.c  |  6 +++++-
- 5 files changed, 60 insertions(+), 5 deletions(-)
-
+diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c
+index 26b95153ce88..48065f4952a3 100644
+--- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c
++++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c
+@@ -380,7 +380,7 @@ int rzg2l_du_crtc_create(struct rzg2l_du_device *rcdu)
+ 	struct drm_plane *primary;
+ 	int ret;
+ 
+-	rcrtc->rstc = devm_reset_control_get_shared(rcdu->dev, NULL);
++	rcrtc->rstc = devm_reset_control_get_optional_shared(rcdu->dev, NULL);
+ 	if (IS_ERR(rcrtc->rstc)) {
+ 		dev_err(rcdu->dev, "can't get cpg reset\n");
+ 		return PTR_ERR(rcrtc->rstc);
 -- 
 2.54.0
 
