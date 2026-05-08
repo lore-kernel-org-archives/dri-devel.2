@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A21BCD342F
-	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 07:05:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61EB5CD3436
+	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 07:05:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A3D810F383;
-	Fri,  8 May 2026 07:05:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF9A010F386;
+	Fri,  8 May 2026 07:05:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="EZ+lmKR9";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="aB9VVS6Q";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6D3610F382
- for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 07:05:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BB0810F386
+ for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 07:05:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1778223916;
+ s=mimecast20190719; t=1778223921;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=xT5ZKkahajCuu7IltkZe/sz8ns2yzt1V3hkLKL/Sblo=;
- b=EZ+lmKR9oeHsrRxkcdq7STEbtxoxtAvEFjNSpYXsbZqnUraw9vHlBi/Q0g6FMmDhuhmUYd
- rlQJbeY4+y9n70nU7wW2rQdHqYUiMbHOGbd5HqR6DrNP0wTeC0+vT+PvW5em9Sxt/b07yP
- 96Jui7gm5JiF3YZ+vaxmd3VEz7j/Uqg=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ bh=hSX3kT04dBcUx7McLbktqYQMd8rf0d072yGD6WxHixk=;
+ b=aB9VVS6QeKCkj9i6Rz8K8Uhb8u2q3+9+xwCp+VK4TR3lm2+/3KO3awX5n6uE8ubucBut5i
+ G/UCCjCx4CTXpivjCILz7TpgKwbJNBE9gfRgMPju/BQknkeNdO7Am4CXlFm6RJQJ2OsWcL
+ fwexbS5G3otc5vk8AT9PwrtShj8rpus=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-636-jjZ3ZiSxPDWoR8d92DFxtQ-1; Fri,
- 08 May 2026 03:05:11 -0400
-X-MC-Unique: jjZ3ZiSxPDWoR8d92DFxtQ-1
-X-Mimecast-MFC-AGG-ID: jjZ3ZiSxPDWoR8d92DFxtQ_1778223909
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-400-DZsgZeDNOc-5y9chhIdsbA-1; Fri,
+ 08 May 2026 03:05:17 -0400
+X-MC-Unique: DZsgZeDNOc-5y9chhIdsbA-1
+X-Mimecast-MFC-AGG-ID: DZsgZeDNOc-5y9chhIdsbA_1778223915
 Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 8BE7A18002C7; Fri,  8 May 2026 07:05:09 +0000 (UTC)
+ by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 82FB91956096; Fri,  8 May 2026 07:05:15 +0000 (UTC)
 Received: from [192.168.1.153] (headnet01.pony-001.prod.iad2.dc.redhat.com
  [10.2.32.101])
  by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 925F7300019F; Fri,  8 May 2026 07:05:06 +0000 (UTC)
+ id D4C0E300019F; Fri,  8 May 2026 07:05:12 +0000 (UTC)
 From: Albert Esteve <aesteve@redhat.com>
-Date: Fri, 08 May 2026 09:04:45 +0200
-Subject: [PATCH v2 05/10] drm/panel/ilitek-ili9806e: Use refcounted
+Date: Fri, 08 May 2026 09:04:47 +0200
+Subject: [PATCH v2 07/10] drm/panel/sharp-ls043t1le01: Use refcounted
  allocation in place of devm_kzalloc()
 MIME-Version: 1.0
-Message-Id: <20260508-drm_panel_init_rm-v2-5-0bd4ac429971@redhat.com>
+Message-Id: <20260508-drm_panel_init_rm-v2-7-0bd4ac429971@redhat.com>
 References: <20260508-drm_panel_init_rm-v2-0-0bd4ac429971@redhat.com>
 In-Reply-To: <20260508-drm_panel_init_rm-v2-0-0bd4ac429971@redhat.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -62,15 +62,15 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
  Dario Binacchi <dario.binacchi@amarulasolutions.com>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Albert Esteve <aesteve@redhat.com>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778223888; l=1543;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778223888; l=1588;
  i=aesteve@redhat.com; s=20260303; h=from:subject:message-id;
- bh=XvUdWFTzNdyuU5xLadG370AsGNZj7Po+tgb5WdlRF20=;
- b=jB0zqHmUA0TBU9fZ0nf4XhSDti3tC2cVB/PVP3kcTGG/JcnWaAB8rpRgLyucVhtNK+gJsGGQm
- 2B6N8hM6cOKAnlGC5RDiAt57pAJhWRzgIUU6KF/ZENqG97wtCRW56De
+ bh=5N9oFZ8HECJaLNtbmhn4A0O6HWE+JPp+zj5icqVBAbc=;
+ b=mcvbDNGOVmsfyi/2gkIGXSeDxM7nJMC8PJR4/N/+oZWpvwIuaaTnOgQx2n70mFJyN6U6EgYQr
+ Q9tVE5X499zDk5U3ZGtReynH+zPE+f4JEbYzpfYG/Vj90CoZ4BIwE9y
 X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
  pk=YSFz6sOHd2L45+Fr8DIvHTi6lSIjhLZ5T+rkxspJt1s=
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
-X-Mimecast-MFC-PROC-ID: 8joxDziqrfZKMWYGdQj_6SiZ1Co-DOa7a9SSrxej2EQ_1778223909
+X-Mimecast-MFC-PROC-ID: GmrOAw0yE9w0N8zQYzDgRJ_mI-OYmFAV1OK5RaLt74w_1778223915
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -97,37 +97,38 @@ Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 Reviewed-by: Maxime Ripard <mripard@kernel.org>
 Signed-off-by: Albert Esteve <aesteve@redhat.com>
 ---
- drivers/gpu/drm/panel/panel-ilitek-ili9806e-core.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/panel/panel-sharp-ls043t1le01.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9806e-core.c b/drivers/gpu/drm/panel/panel-ilitek-ili9806e-core.c
-index be2cf14401553..53e25d1086db8 100644
---- a/drivers/gpu/drm/panel/panel-ilitek-ili9806e-core.c
-+++ b/drivers/gpu/drm/panel/panel-ilitek-ili9806e-core.c
-@@ -78,9 +78,11 @@ int ili9806e_probe(struct device *dev, void *transport,
- 	bool set_prepare_prev_first = false;
- 	int ret;
+diff --git a/drivers/gpu/drm/panel/panel-sharp-ls043t1le01.c b/drivers/gpu/drm/panel/panel-sharp-ls043t1le01.c
+index dd1eaba23ad3c..989b030ea22de 100644
+--- a/drivers/gpu/drm/panel/panel-sharp-ls043t1le01.c
++++ b/drivers/gpu/drm/panel/panel-sharp-ls043t1le01.c
+@@ -199,8 +199,6 @@ static int sharp_nt_panel_add(struct sharp_nt_panel *sharp_nt)
+ 		gpiod_set_value(sharp_nt->reset_gpio, 0);
+ 	}
  
--	ctx = devm_kzalloc(dev, sizeof(struct ili9806e), GFP_KERNEL);
--	if (!ctx)
+-	drm_panel_init(&sharp_nt->base, &sharp_nt->dsi->dev,
+-		       &sharp_nt_panel_funcs, DRM_MODE_CONNECTOR_DSI);
+ 	sharp_nt->base.prepare_prev_first = true;
+ 
+ 	ret = drm_panel_of_backlight(&sharp_nt->base);
+@@ -231,9 +229,12 @@ static int sharp_nt_panel_probe(struct mipi_dsi_device *dsi)
+ 			MIPI_DSI_CLOCK_NON_CONTINUOUS |
+ 			MIPI_DSI_MODE_NO_EOT_PACKET;
+ 
+-	sharp_nt = devm_kzalloc(&dsi->dev, sizeof(*sharp_nt), GFP_KERNEL);
+-	if (!sharp_nt)
 -		return -ENOMEM;
-+	ctx = devm_drm_panel_alloc(dev, __typeof(*ctx), panel,
-+				  funcs, connector_type);
++	sharp_nt = devm_drm_panel_alloc(&dsi->dev, __typeof(*sharp_nt), base,
++					&sharp_nt_panel_funcs,
++					DRM_MODE_CONNECTOR_DSI);
 +
-+	if (IS_ERR(ctx))
-+		return PTR_ERR(ctx);
++	if (IS_ERR(sharp_nt))
++		return PTR_ERR(sharp_nt);
  
- 	dev_set_drvdata(dev, ctx);
- 	ctx->transport = transport;
-@@ -103,8 +105,6 @@ int ili9806e_probe(struct device *dev, void *transport,
- 		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
- 				     "Failed to get reset-gpios\n");
+ 	mipi_dsi_set_drvdata(dsi, sharp_nt);
  
--	drm_panel_init(&ctx->panel, dev, funcs, connector_type);
--
- 	ret = drm_panel_of_backlight(&ctx->panel);
- 	if (ret)
- 		return dev_err_probe(dev, ret, "Failed to get backlight\n");
 
 -- 
 2.53.0
