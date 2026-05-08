@@ -4,129 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 293C1CD3436
-	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 11:58:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DFE9CD3436
+	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 12:06:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B96D10E305;
-	Fri,  8 May 2026 11:58:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 59BAF10E32D;
+	Fri,  8 May 2026 12:06:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="jsTVcJa0";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="M5dgRzeN";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="l9hLCzpG";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bB9XIjAV";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0C3A10E305
- for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 11:58:38 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EE2010E32D
+ for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 12:06:06 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6489qfgU2770996
- for <dri-devel@lists.freedesktop.org>; Fri, 8 May 2026 11:58:37 GMT
+ 64872SoH1061973
+ for <dri-devel@lists.freedesktop.org>; Fri, 8 May 2026 12:06:06 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=nfuqOW3nIEbZgS9+VlU86ZLX
- h5hfjbWg92U7xxM35eU=; b=jsTVcJa09XtZvUZDUelCg6p+uGbNYl3iqT6cm4wd
- b0JAdqcjt3Dax0+RC0Q3bPqJpMQF/81ROaa1x1Prpcd+MprV2UjZjzl6NenRWd6f
- T4IQ/7ZvEqGwg0Qh5HdYUcUGklPyhne64f5fKGcvVTw7Lq7YfOen8HFLRpjbC/+4
- a27HklNB+bzunS1RpFtygMqHnceBw+xH/fBuK8TBPXlO2FngA2K54waT4ZfX44Kg
- AQ9SYi9rztv1CAyKAPI6XF2rW4Fyty4SppmANM3hfwoDOTYlKlzQo7UEXgTgZwSH
- g6bDQJq8iM22p19sg9PafgZFHE78w6hCSutaQdDqodKULg==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e0yt5kjvk-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ JsPeSJpm1Gzish10iQDoB6ixGKak2ISCVny4R91SuMQ=; b=l9hLCzpGgu1zwdIX
+ qsB74BixolXE7boA2iDrwC8eYiisxS/Y/SVd2F+Sd6akxBp0m76VV/kZJ+mxYh1z
+ TIrRe18p5woVU9Y3Sy8PZ1IXs1Nhi0R+X/JT+cN1ocfiSkghDocXQvJ1xZtus2ia
+ bUo4ZI+GTeVpY/ssOa4qCbP8H5bi8lrMxWLilOSsY2iYAm5O6ewO9SoFI0kKXXi9
+ 5PgldEpFZ4Al8PKPeGUFD1SHthsdZxSD7cnLCwu4mzr+4l9s6cWeWMHWReyXxh7M
+ chBsnFrt9abEA7+4VIlLeTP5KqM8L1fHs5QtA7vQRTmu7PPmyZs5I8QCu5Qpou05
+ aXG9uw==
+Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com
+ [209.85.222.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e1b3fh434-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 08 May 2026 11:58:37 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-51306c1076dso40441921cf.3
- for <dri-devel@lists.freedesktop.org>; Fri, 08 May 2026 04:58:37 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 08 May 2026 12:06:05 +0000 (GMT)
+Received: by mail-ua1-f70.google.com with SMTP id
+ a1e0cc1a2514c-95d2da54a55so1106906241.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 08 May 2026 05:06:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1778241517; x=1778846317;
+ d=oss.qualcomm.com; s=google; t=1778241965; x=1778846765;
  darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=nfuqOW3nIEbZgS9+VlU86ZLXh5hfjbWg92U7xxM35eU=;
- b=M5dgRzeNXQLWySJXsWL7+eqJuW4XhBxnhgm/DHg+fVa+Rp9ZKX/34ytSGYNRTFCq5/
- qAYn3PbgdEvz+cQ+S6/K7icW02y8AfBUnuKdy/0nW01LWZjhLPuLh+pIFqySGacITyMZ
- BhQrBEHt8Q0idn0Z7SUYxVzDTKxa007WDiN/1o0s/H+S7N0GmkZ1OuBas//JYCmWw3FG
- XcbMlDcUZHmVUJf6nLOSksDLygGQRdGqj62i39FrR6M/AUGhHyApZKti3htlLhYl5JK9
- Ggp69VVK03yoRwRnPwm6oiKhmH8/4wGidu5ab4cFpWesvF18tgjJdnj/oswqwDWT3N4d
- k+Lg==
+ h=content-transfer-encoding:mime-version:date:message-id:subject
+ :references:in-reply-to:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=JsPeSJpm1Gzish10iQDoB6ixGKak2ISCVny4R91SuMQ=;
+ b=bB9XIjAVA3SQuIoPc3k/LzIZ2iBdIMOfQX4/NuEHHGo/3CtqHGd3+Y//CiHib2a7IW
+ rmKFnusSeqSNgKywYkpuSUQyM5XFdiKJBirSo4Il7Zw+z0P/C5loTZ2+TkAdbihqcKUq
+ IurvCwfrRQsyW10NdJ7Sgsf2AKgH3bHMRZk03wO+GwAI6AiTBy4KLGrXr3Hkv5j8MahS
+ /tJNeEvOEbJ4NdWTRUEShI4Nq3IkMb2NiNFtfRGiN41d1FyNa7ICwuafGvI6z+bgrxVO
+ YmXuP9E0uR3mWZlTg/veIyIdX/h/whapCvlrXyX2gGry5vH1tO1j/XgMDIBqEwvphwId
+ DWZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778241517; x=1778846317;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=nfuqOW3nIEbZgS9+VlU86ZLXh5hfjbWg92U7xxM35eU=;
- b=WyoxjTdw2wp8olFw3q+bw2Uwq785iAeUmpJbNCtAId5eVRTpvBEY4VoGxlcBIkHAk7
- 7Zlp9OC5ZcK+e9MqtEe/yoz9jB+asnYQGJyuzbiQz+C03oVUn/IwisKtJbjz9/l5KuTx
- S3ferzBgYumKuiUYs4rLWmbj7QhoX3J+1jcnUxBgCaJQHnpQSqTTKfL86dR0Uky8hgom
- rASLCE4ekzbM0gB0tiUp40wcjVkiE+EtP0mfcA9jYrC5CTviXvU44v+rb1mdxjicwFSY
- cHbWk7fsMbVMLMgOwcxHnnOF8RIFQeUYERjTtZdO/wRm4EDdpvdK3ekdaRzpL50Nx7kq
- rmfA==
+ d=1e100.net; s=20251104; t=1778241965; x=1778846765;
+ h=content-transfer-encoding:mime-version:date:message-id:subject
+ :references:in-reply-to:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=JsPeSJpm1Gzish10iQDoB6ixGKak2ISCVny4R91SuMQ=;
+ b=bo2bcVARTAK9z2G++9/puvRn37MyIKGdDUuff+4XB2RLII2lHIPj1V6f/Hm/MIXT/x
+ 4uSNPFTCsli4Oe6SinlccEOFnaW9fButNPPRpAiYXedfLqfdWu1XsaeeG4WEnd0m/A9H
+ z0wqPWeztKUGfDTNNrfT3gMU9g+KLDClBMOC7amEhXZ4iZdoXU8Gys7d6cgC3adTwCMs
+ XIRhdXFYIgdtP/SQ2cdqD2v6XZo2g4qnp+/FMASc3QPxNVYQ+bWKcp/d93bJAbPyS3Hk
+ V5HKWXsBZk2UYXEh+s4qaPIgbdY8c+1fu143rrWZxkgeaHMpKWNmxbin6CCvzTbrVY2y
+ oiDQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8XlG64OLCqOrpDQpAspX9q9JDS+sD5yMCWnDWYQE2AShU/+Q69fvyPHRezrnjbepsDbuMzj4KEyGI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzlTQBOd7NbpyxZdkZdyrAXAt+uV5/ZRwx8NdKzzPWeYNFmmhfi
- ORZlcop4X4s/J3utZnYPIzWYb+lU0GIEfs+4c/MDn9xtgLOaxu5APQ5I3tLDR5Jwi8PEKaKY9Uc
- AWZgBdObJN53I87emlxeYOLUsnLl9iPH+AhN6dX1bMBi/0hc/7yzE65zcupTamFWtvTixFYA=
-X-Gm-Gg: AeBDieuJ5TZeqU3CulJqFYkp2F8CEUyLIBu7nrDa3OWeSlTre9CjpjoyJKnYauMOirP
- unrC7gYxTfajOF7yoIGi1HXcdt4Q+sx94TQjSrrmNa2jHrAhVxYmm7212mCknR5TdQD/QUxTVfJ
- PzUg4SG2zeMtsGaTM4FYMwqaR8WcIhF9ONP3zfQpsfO+fKj6l9KRk+xFYNTQybjYj2f906EXtUZ
- Xb5Qs6qmTC2HqChvLDNrI6rMFthes8p5vlJWP14KfJAcauGt5xJaHFWhWRgKxPhO6T7eXG0X5UA
- bS1XZPoPUEoZkwZSHPkdtY9BkdihWtQsRpU2mNrH8tzQDVeQyrtN9CA4ZJIvGBV9via6HFyLRKR
- BCMZvPXV/21k0ML04FVFrGdM+BUidNXeBagFJAwNqzzuChyzteMmDVgbY2ojSI2S4NF3DRKBXVk
- QqntrkE9KhAbuFwnOpjh7sS8kcHAgniTr1HIM=
-X-Received: by 2002:a05:622a:580e:b0:50e:60b8:347e with SMTP id
- d75a77b69052e-514621e5a59mr181828791cf.59.1778241516628; 
- Fri, 08 May 2026 04:58:36 -0700 (PDT)
-X-Received: by 2002:a05:622a:580e:b0:50e:60b8:347e with SMTP id
- d75a77b69052e-514621e5a59mr181828431cf.59.1778241516218; 
- Fri, 08 May 2026 04:58:36 -0700 (PDT)
+ AFNElJ+caMbDYL8SWZHsDLX2oVcNk0E3vn0UBsjsVOYQ6SHIh0QZAnZTpCeXhUElvFYF++jTo4gGTP2CVDM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxCrLi3+WUMIAikxiBnj/9Jo+Vctd18F55lMJcI9ueElculvyHp
+ j7/cuAZyKZnQBFI8hhFusIvIjVh6sC6oOfb4qhgOtzJ4lCJlEt51Pv6gj3HwFWXivfszssSs4qJ
+ 0+Bt3MCbtCohf1nRM+z3aBFATqWb/l3/+KrlbjXIBeY+oOV6pdQQVzMeJYA3h0/SffB+6Ebg=
+X-Gm-Gg: Acq92OHZwMgAYrn9yBvGZU32eUlJnt1P/4RIe0UTtfacDTfk5zvMXg5TcqNlPSRNZGr
+ Vsdq0G+Ou0K1KRS+LXFumeVctpsYgQpCdbR8S+Svqem8f2E9nmrcYoMG8M2MyWjhM5fleUbNVL2
+ 8NSMoCVRF2Di0VekzwHqvhTX6EhC65SFbf3nCaWOuqD6cXYMLgGqSwQbAEEnI+0iIlj18oLMHGr
+ tlBwhgfAXvEQrqIl8OqYqNgbL+8pCBK1gS5q8AtohYxRIm9zEETPeejNM9sqxeU8350BuTCBHu6
+ hG7sXaknuOMA2S9I0i5OI2HJSHx/8xMGAa4ePVPyJ8mNydnDZRTWlkFS7DohizCM1izw3IKZP9L
+ 5rdB4cHq035VpgVutjaypHyMiyDGhzOvIh6Z83J8qF4ytyxJ4K1h+Po2vzBqPvQmikTbsoQuFlu
+ NGLV6EwZN1rmOd2aPfnXshxqSeVh21wPB3rR0=
+X-Received: by 2002:a05:6102:4b19:b0:62f:4349:ce2b with SMTP id
+ ada2fe7eead31-6313eb7fb77mr800486137.30.1778241964941; 
+ Fri, 08 May 2026 05:06:04 -0700 (PDT)
+X-Received: by 2002:a05:6102:4b19:b0:62f:4349:ce2b with SMTP id
+ ada2fe7eead31-6313eb7fb77mr800403137.30.1778241964433; 
+ Fri, 08 May 2026 05:06:04 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a8a951d16bsm467738e87.22.2026.05.08.04.58.34
+ 38308e7fff4ca-393f6131c08sm4477931fa.30.2026.05.08.05.06.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 08 May 2026 04:58:35 -0700 (PDT)
-Date: Fri, 8 May 2026 14:58:33 +0300
+ Fri, 08 May 2026 05:06:03 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Sen Wang <sen@ti.com>
-Cc: ple@baylibre.com, neil.armstrong@linaro.org, andrzej.hajda@intel.com,
- rfoss@kernel.org, Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, devarsht@ti.com, s-jain1@ti.com,
- j-sahu@ti.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] drm/bridge: ite-it66121: Convert to DRM HDMI Audio
- Helper
-Message-ID: <kbv3s76q3i4aal7jp5cbjlgned34lztxo3irqxf65mw5pwm2jy@kc362d22y5pu>
-References: <20260318154636.3230454-1-sen@ti.com>
+To: devicetree@vger.kernel.org, Marek Vasut <marex@nabladev.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Rob Herring <robh@kernel.org>, Robert Foss <rfoss@kernel.org>,
+ Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260407203109.34302-1-marex@nabladev.com>
+References: <20260407203109.34302-1-marex@nabladev.com>
+Subject: Re: [PATCH v2] dt-bindings: display: bridge: lt9211: Require
+ data-lanes on DSI input ports
+Message-Id: <177824196296.236860.8799112140087444595.b4-ty@b4>
+Date: Fri, 08 May 2026 15:06:02 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260318154636.3230454-1-sen@ti.com>
-X-Authority-Analysis: v=2.4 cv=Dc0nbPtW c=1 sm=1 tr=0 ts=69fdcfed cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.1
+X-Proofpoint-GUID: uNwarbzyM8cw_Ymka5t4HiIuU1LeKUAz
+X-Authority-Analysis: v=2.4 cv=YMOvDxGx c=1 sm=1 tr=0 ts=69fdd1ae cx=c_pps
+ a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
- a=sozttTNsAAAA:8 a=7dJF91htWd4eWW5YXtwA:9 a=CjuIK1q_8ugA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-GUID: NbVFKut30_t_DWZHblaiCvyS8n1ochmd
-X-Proofpoint-ORIG-GUID: NbVFKut30_t_DWZHblaiCvyS8n1ochmd
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA4MDEyNCBTYWx0ZWRfX3WWzxwVbxoa6
- fWbxAOwoxeeCeYDzUKQLQa3nm15TFEC03vucXuojzYaQ5Vvov7kew/x3MvzRdtk96NTUvgM9NwO
- d0vxy0r29lfkvKhIZtY8LgiJawz4ceNMGYDkPVq2NnvQse9VisT1vZSaYCF/7TT8gSgWlUfBt2o
- N6tjCtGMDe4YbmP6W7M6IbJ1D0PR+Y0NnBltz+ESvV7311JKX2OiqLHq4rVXIZva161O6E3ovNS
- XiOrLKAGv0y6S2CiNqipDltFlFUce5AwhoHzjHAErnqClydW2R0NispCNu9yXksHlM5u5c3Ng7L
- 6mK16TZBUl9Ja+y9QJeO7NFexgw1PHdXEjefa7dWf0k7f12o9fQu/PKbyNalZdJd9A9ZqmURV1A
- YIjgXCKsR1VzyjIUqfOiWGspk4OoHHTBIrmhNEYN+dx2Z8CA4eJRCIjrZWkEGIHjLfcKXgzYEH/
- d3aqjVjgwKvbc8D3oMA==
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=YpGkoaE24zJHBMRrs6oA:9
+ a=QEXdDO2ut3YA:10 a=TD8TdBvy0hsOASGTdmB-:22
+X-Proofpoint-ORIG-GUID: uNwarbzyM8cw_Ymka5t4HiIuU1LeKUAz
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA4MDEyNiBTYWx0ZWRfX9VNR3MlyUDp7
+ 64itbDE0zYd8k62SOS/BaxJ685bdaAj1hsMyopJJ1Itp2uArEKy25B+D+z2KFslPDdy4cOvgZKW
+ j6pICZopNTCoC/2YHsNUpApV9Hy0IQH4oJE0AEHxcn3rXvPcV8H6HpHKxG4iU8ljvUm/pvMnnfY
+ CKiXK9B34ZWe/umWoKDuOT4loGbTW3MNfmmo8v00FjMtHaZ5uDSCqV1M+NG+aBiLkk7bvPmX8KE
+ OVEMux8SIOX9GRLaeMRIPPBmaV/xfTr9RJyqXAv/mQcaAG1IsT4tfBrilRmSh9AZ2BM9a9h6Xho
+ AQH/Qwnmvi87QoPw1atCumxUfQYQS/QUJjy5F4xd2NJ8Sn6o6u8s9Mc8paYCBwCzgY+JTYOGbM4
+ UPHQyO2bGf1diQdx98AsHEuczjTzfBuOh/xqpN88mCME13ZZ9Rch5rRHi/IAQKAHcoV/ojlUBw5
+ 43Alf0jXKACVH2OgkOQ==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-05-07_02,2026-05-06_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 lowpriorityscore=0 spamscore=0 malwarescore=0
- bulkscore=0 priorityscore=1501 phishscore=0 adultscore=0 clxscore=1015
+ lowpriorityscore=0 clxscore=1015 malwarescore=0 impostorscore=0 phishscore=0
+ suspectscore=0 adultscore=0 bulkscore=0 priorityscore=1501 spamscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605080124
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605080126
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,48 +150,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Mar 18, 2026 at 10:46:36AM -0500, Sen Wang wrote:
-> Convert the IT66121 HDMI bridge driver from manually registering an
-> hdmi-codec platform device to using the DRM HDMI Audio Helper framework
-> via DRM_BRIDGE_OP_HDMI_AUDIO instead.
+On Tue, 07 Apr 2026 22:31:03 +0200, Marek Vasut wrote:
+> The Lontium LT9211 is capable of 1..4 DSI lanes per input DSI port,
+> describe the lane count for each input port in the schema.
 > 
-> The previous implementation manually allocated hdmi_codec_pdata,
-> registered the platform device, and implemented hdmi_codec_ops callbacks
-> including get_eld. The new approach sets DRM_BRIDGE_OP_HDMI_AUDIO on the
-> bridge, letting the framework handle the codec registration. This also
-> resolves some non-compliance issues with the current audio implementation,
-> such as HDMI audio advertising a non-functional capture stream to userspace.
+> For example Linux kernel driver does already use that information and
+> fails to probe if it is missing.
 > 
-> The audio callbacks are converted from hdmi_codec_ops signatures to
-> drm_bridge_funcs hdmi_audio callbacks:
->   - it66121_audio_hw_params   -> it66121_hdmi_audio_prepare
->   - it66121_audio_startup     -> it66121_hdmi_audio_startup
->   - it66121_audio_shutdown    -> it66121_hdmi_audio_shutdown
->   - it66121_audio_mute        -> it66121_hdmi_audio_mute_stream
 > 
-> The it66121_audio_get_eld, it66121_audio_codec_ops, and
-> it66121_audio_codec_init functions are removed as the framework handles
-> these responsibilities.
-> 
-> Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> Signed-off-by: Sen Wang <sen@ti.com>
-> ---
-> Tested in beagleplay ensuring HDMI/ HDMI audio works correctly with
-> the new implementation, including proper ELD data and audio.
-> 
-> Changelog:
-> 
->  v1 -> v2: Retained no audio registered dev_info warning.
+> [...]
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Applied to drm-misc-next, thanks!
 
-Also, if you have HW documentation for the bridge, would you consider
-implementing infoframes support? As another followup, would you consider
-switching the driver to drm_hdmi_acr_get_n_cts()?
+[1/1] dt-bindings: display: bridge: lt9211: Require data-lanes on DSI input ports
+      commit: c2738d88b624a977e42a1734fad4b15993ac354a
 
->  drivers/gpu/drm/bridge/ite-it66121.c | 135 ++++++++++-----------------
->  1 file changed, 48 insertions(+), 90 deletions(-)
-> 
+Best regards,
 -- 
 With best wishes
 Dmitry
+
+
