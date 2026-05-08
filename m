@@ -4,51 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 916D2CD3436
-	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 13:47:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFC97CD3445
+	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 13:49:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD7C510F4CD;
-	Fri,  8 May 2026 13:47:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1963010E5E1;
+	Fri,  8 May 2026 13:49:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lontium.com header.i=@lontium.com header.b="tQUfmdhZ";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="mIOLYQ6t";
 	dkim-atps=neutral
-Received: from out28-220.mail.aliyun.com (out28-220.mail.aliyun.com
- [115.124.28.220])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A31F810F4CC
- for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 13:47:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lontium.com; s=default;
- t=1778248033; h=From:To:Subject:Date:Message-Id:MIME-Version;
- bh=SHSV/YsxiS2PJaOcGC+6uyg6nU/hYMXrQEXAsO6Mb1g=;
- b=tQUfmdhZL+s2ZfPGmoYMAIbCnt8ZMYG1FPd/IgWwZQEoDg4HFELl6fJ8AkznmnpLXixxODK7O3lTrhf3vyILuk5zYte07D1B4boEAF24+vZlO423RiTU9tqYBm0V3j9Q/Od0N3pGwVlw4cUWT71SIXEXVNc6Dn91ccmxgaCFiFFQYkjQ3PP5RDP1F3BhAHwBCkxz62+5zwkvu6TU6wGzwthEzudlPF33fzfqDPrLPottfD5qg2iDdQJ9VDXkJYwXpvzM2uE5YtvMbDpFa4j/OzMbWFCjjYmbX2jrUr6m+Vfnz37MDmFz13+B8jEFRvCCkt41LqZ33lMhSwDSJpvTmg==
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.07436259|-1; CH=green;
- DM=|CONTINUE|false|;
- DS=CONTINUE|ham_system_inform|0.00694244-0.000684144-0.992373;
- FP=13770664448520374011|0|0|0|0|-1|-1|-1;
- HT=maildocker-contentspam033068016216; MF=syyang@lontium.com; NM=1; PH=DS;
- RN=22; RT=22; SR=0; TI=SMTPD_---.hSic1.Z_1778248031; 
-Received: from DESKTOP-V2MKAT2.localdomain(mailfrom:syyang@lontium.com
- fp:SMTPD_---.hSic1.Z_1778248031 cluster:ay29) by smtp.aliyun-inc.com;
- Fri, 08 May 2026 21:47:12 +0800
-From: syyang@lontium.com
-To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com,
- rfoss@kernel.org, mripard@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com, tzimmermann@suse.de, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- yangsunyun1993@gmail.com, xmzhu@lontium.corp-partner.google.com,
- xmzhu@lontium.com, rlyu@lontium.com, xbpeng@lontium.com,
- Sunyun Yang <syyang@lontium.com>
-Subject: [PATCH v6 2/2] drm/bridge: Add Lontium LT7911EXC eDP to MIPI DSI
- bridge
-Date: Fri,  8 May 2026 21:47:02 +0800
-Message-Id: <20260508134702.4713-3-syyang@lontium.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260508134702.4713-1-syyang@lontium.com>
-References: <20260508134702.4713-1-syyang@lontium.com>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id B24EA10E5E1
+ for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 13:49:37 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0758D358B
+ for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 06:49:32 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ 0B0C73F836
+ for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 06:49:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1778248177; bh=KWYJnVlBnj7V7qkaHdFDGEGcW0rUpKIbmySK/TzA54M=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=mIOLYQ6tmStQRUeNvHh+vTe9xgTcwMdTeG7naUJd4dbyytv13aSzBajRzughrCfQr
+ OZHPvsRlg8FjkWErqWLUGpjPMZiZAy+t5ErA0Qq0kkcBDEmq3JPzuLPa0CQzuCeyqR
+ l/Otf/7qAdkAcljJwBNRMJ9Q29C72MxEjUH7w0K8=
+Date: Fri, 8 May 2026 14:49:16 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Steven Price <steven.price@arm.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Akash Goel <akash.goel@arm.com>, Chia-I Wu <olvaffe@gmail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/4] drm/gem: Fix a race between drm_gem_lru_scan()
+ and drm_gem_object_release()
+Message-ID: <af3p3GsJAskjVMWQ@e142607>
+References: <20260508-panthor-shrinker-fixes-v2-0-39cdb7d577c9@collabora.com>
+ <20260508-panthor-shrinker-fixes-v2-2-39cdb7d577c9@collabora.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260508-panthor-shrinker-fixes-v2-2-39cdb7d577c9@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,555 +70,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Sunyun Yang <syyang@lontium.com>
+On Fri, May 08, 2026 at 12:40:48PM +0200, Boris Brezillon wrote:
+> The following race can currently happen:
+> 
+> | Thread 0 in `drm_gem_lru_scan`               | Thread 1 in `drm_gem_object_release` |
+> | -                                            | -                                    |
+> | move obj1 with refcount==0 to `still_in_lru` |                                      |
+> | move obj2 with refcount!=0 to `still_in_lru` |                                      |
+> | mutex_unlock                                 |                                      |
+> | shrink obj2                                  |                                      |
+> |                                              | lru = obj1->lru; // `still_in_lru`   |
+> | mutex_lock                                   |                                      |
+> | move obj1 back to the original lru           |                                      |
+> | mutex_unlock                                 |                                      |
+> | return                                       |                                      |
+> |                                              | dereference `still_in_lru`           |
+> 
+> Move the drm_gem_lru_move_tail_locked() after the
+> kref_get_unless_zero() check so that we don't end up with a
+> vanishing LRU when we hit drm_gem_object_release(). We also need to
+> remove the skipped object from its LRU, otherwise we'll keep hitting
+> it on subsequent loop iterations until it's actually removed from the
+> list in the drm_gem_release().
+> 
+> Fixes: e7c2af13f811 ("drm/gem: Add LRU/shrinker helper")
+> Reported-by: Chia-I Wu <olvaffe@gmail.com>
+> Closes: https://gitlab.freedesktop.org/panfrost/linux/-/work_items/86
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 
-The LT7911EXC is an I2C-controlled bridge that Receiver eDP1.4
-and output signal/dual port mipi dsi.
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
-Signed-off-by: Sunyun Yang <syyang@lontium.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
----
- drivers/gpu/drm/bridge/Kconfig             |  13 +
- drivers/gpu/drm/bridge/Makefile            |   1 +
- drivers/gpu/drm/bridge/lontium-lt7911exc.c | 493 +++++++++++++++++++++
- 3 files changed, 507 insertions(+)
- create mode 100644 drivers/gpu/drm/bridge/lontium-lt7911exc.c
+> ---
+>  drivers/gpu/drm/drm_gem.c | 34 ++++++++++++++++++++++++++++------
+>  1 file changed, 28 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+> index fca42949eb2b..0e087c770883 100644
+> --- a/drivers/gpu/drm/drm_gem.c
+> +++ b/drivers/gpu/drm/drm_gem.c
+> @@ -1573,11 +1573,31 @@ drm_gem_lru_remove(struct drm_gem_object *obj)
+>  {
+>  	struct drm_gem_lru *lru = obj->lru;
+>  
+> +	/*
+> +	 * We do the lru != NULL check without the lru->lock held, which
+> +	 * means we might end up with a stale lru value by the time the
+> +	 * lock is acquired.
+> +	 *
+> +	 * This is deemed safe because:
+> +	 * 1. the LRU is assumed to outlive any GEM object it was attached
+> +	 *    (LRUs are usually bound to a drm_device). So even if obj->lru
+> +	 *    has become NULL, it still point to a valid object that can
+> +	 *    safely be dereferenced to get the lock.
+> +	 *
+> +	 * 2. all LRUs a GEM object might be attached to must share the same
+> +	 *    lock (lock that's usually part of the driver-specific device
+> +	 *    object), so taking the lock on the 'old' LRU is equivalent
+> +	 *    to taking it on the new one (if any)
 
-diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-index c3209b0f4678..fe45a9052aa0 100644
---- a/drivers/gpu/drm/bridge/Kconfig
-+++ b/drivers/gpu/drm/bridge/Kconfig
-@@ -132,6 +132,19 @@ config DRM_ITE_IT6505
- 	help
- 	  ITE IT6505 DisplayPort bridge chip driver.
- 
-+config DRM_LONTIUM_LT7911EXC
-+	tristate "Lontium eDP/MIPI DSI bridge"
-+	depends on OF
-+	select CRC32
-+	select FW_LOADER
-+	select DRM_PANEL
-+	select DRM_KMS_HELPER
-+	help
-+	  DRM driver for the Lontium LT7911EXC bridge chip.
-+	  The LT7911EXC converts eDP input to single/dual port
-+	  MIPI DSI output.
-+	  Please say Y if you have such hardware.
-+
- config DRM_LONTIUM_LT8912B
- 	tristate "Lontium LT8912B DSI/HDMI bridge"
- 	depends on OF
-diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/Makefile
-index beab5b695a6e..70ddca75dd3a 100644
---- a/drivers/gpu/drm/bridge/Makefile
-+++ b/drivers/gpu/drm/bridge/Makefile
-@@ -13,6 +13,7 @@ obj-$(CONFIG_DRM_I2C_NXP_TDA998X) += tda998x.o
- obj-$(CONFIG_DRM_INNO_HDMI) += inno-hdmi.o
- obj-$(CONFIG_DRM_ITE_IT6263) += ite-it6263.o
- obj-$(CONFIG_DRM_ITE_IT6505) += ite-it6505.o
-+obj-$(CONFIG_DRM_LONTIUM_LT7911EXC) += lontium-lt7911exc.o
- obj-$(CONFIG_DRM_LONTIUM_LT8912B) += lontium-lt8912b.o
- obj-$(CONFIG_DRM_LONTIUM_LT9211) += lontium-lt9211.o
- obj-$(CONFIG_DRM_LONTIUM_LT9611) += lontium-lt9611.o
-diff --git a/drivers/gpu/drm/bridge/lontium-lt7911exc.c b/drivers/gpu/drm/bridge/lontium-lt7911exc.c
-new file mode 100644
-index 000000000000..d50fc979ebd4
---- /dev/null
-+++ b/drivers/gpu/drm/bridge/lontium-lt7911exc.c
-@@ -0,0 +1,493 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2026 Lontium Semiconductor, Inc.
-+ */
-+
-+#include <linux/crc32.h>
-+#include <linux/firmware.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/of_graph.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+
-+#include <drm/drm_bridge.h>
-+#include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_of.h>
-+
-+#define FW_SIZE (64 * 1024)
-+#define LT_PAGE_SIZE 32
-+#define FW_FILE  "Lontium/lt7911exc_fw.bin"
-+#define LT7911EXC_PAGE_CONTROL 0xff
-+
-+struct lt7911exc {
-+	struct device *dev;
-+	struct i2c_client *client;
-+	struct drm_bridge bridge;
-+	struct regmap *regmap;
-+	/* Protects all accesses to registers by stopping the on-chip MCU */
-+	struct mutex ocm_lock;
-+	struct regulator_bulk_data supplies[2];
-+	struct gpio_desc *reset_gpio;
-+	int fw_version;
-+};
-+
-+static const struct regmap_range_cfg lt7911exc_ranges[] = {
-+	{
-+		.name = "register_range",
-+		.range_min =  0,
-+		.range_max = 0xe8ff,
-+		.selector_reg = LT7911EXC_PAGE_CONTROL,
-+		.selector_mask = 0xff,
-+		.selector_shift = 0,
-+		.window_start = 0,
-+		.window_len = 0x100,
-+	},
-+};
-+
-+static const struct regmap_config lt7911exc_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.max_register = 0xe8ff,
-+	.ranges = lt7911exc_ranges,
-+	.num_ranges = ARRAY_SIZE(lt7911exc_ranges),
-+};
-+
-+static u32 cal_crc32_custom(const u8 *data, u64 length)
-+{
-+	u32 crc = 0xffffffff;
-+	u8 buf[4];
-+	u64 i;
-+
-+	for (i = 0; i < length; i += 4) {
-+		buf[0] = data[i + 3];
-+		buf[1] = data[i + 2];
-+		buf[2] = data[i + 1];
-+		buf[3] = data[i + 0];
-+		crc = crc32_be(crc, buf, 4);
-+	}
-+
-+	return crc;
-+}
-+
-+static inline struct lt7911exc *bridge_to_lt7911exc(struct drm_bridge *bridge)
-+{
-+	return container_of(bridge, struct lt7911exc, bridge);
-+}
-+
-+static void lt7911exc_reset(struct lt7911exc *lt7911exc)
-+{
-+	gpiod_set_value_cansleep(lt7911exc->reset_gpio, 0);
-+	msleep(20);
-+
-+	gpiod_set_value_cansleep(lt7911exc->reset_gpio, 1);
-+	msleep(20);
-+
-+	gpiod_set_value_cansleep(lt7911exc->reset_gpio, 0);
-+	msleep(400);
-+
-+	dev_dbg(lt7911exc->dev, "lt7911exc reset.\n");
-+}
-+
-+static int lt7911exc_parse_dt(struct lt7911exc *lt7911exc)
-+{
-+	struct device *dev = lt7911exc->dev;
-+	int ret;
-+
-+	lt7911exc->supplies[0].supply = "vcc";
-+	lt7911exc->supplies[1].supply = "vdd";
-+
-+	ret = devm_regulator_bulk_get(dev, 2, lt7911exc->supplies);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed get regulator\n");
-+
-+	lt7911exc->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
-+	if (IS_ERR(lt7911exc->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(lt7911exc->reset_gpio),
-+				     "failed to acquire reset gpio\n");
-+
-+	return 0;
-+}
-+
-+static int lt7911exc_read_version(struct lt7911exc *lt7911exc)
-+{
-+	u8 buf[3];
-+	int ret;
-+
-+	ret = regmap_write(lt7911exc->regmap, 0xe0ee, 0x01);
-+	if (ret)
-+		return ret;
-+	ret = regmap_bulk_read(lt7911exc->regmap, 0xe081, buf, sizeof(buf));
-+	if (ret)
-+		return ret;
-+
-+	return (buf[0] << 16) | (buf[1] << 8) | buf[2];
-+}
-+
-+static void lt7911exc_lock(struct lt7911exc *lt7911exc)
-+{
-+	mutex_lock(&lt7911exc->ocm_lock);
-+	regmap_write(lt7911exc->regmap, 0xe0ee, 0x01);
-+}
-+
-+static void lt7911exc_unlock(struct lt7911exc *lt7911exc)
-+{
-+	regmap_write(lt7911exc->regmap, 0xe0ee, 0x00);
-+	mutex_unlock(&lt7911exc->ocm_lock);
-+}
-+
-+static void lt7911exc_block_erase(struct lt7911exc *lt7911exc)
-+{
-+	struct device *dev = lt7911exc->dev;
-+	const u32 addr = 0x00;
-+
-+	const struct reg_sequence seq_write[] = {
-+		REG_SEQ0(0xe0ee, 0x01),
-+		REG_SEQ0(0xe054, 0x01),
-+		REG_SEQ0(0xe055, 0x06),
-+		REG_SEQ0(0xe051, 0x01),
-+		REG_SEQ0(0xe051, 0x00),
-+		REG_SEQ0(0xe054, 0x05),
-+		REG_SEQ0(0xe055, 0xd8),
-+		REG_SEQ0(0xe05a, (addr >> 16) & 0xff),
-+		REG_SEQ0(0xe05b, (addr >> 8) & 0xff),
-+		REG_SEQ0(0xe05c, addr & 0xff),
-+		REG_SEQ0(0xe051, 0x01),
-+		REG_SEQ0(0xe050, 0x00),
-+	};
-+
-+	regmap_multi_reg_write(lt7911exc->regmap, seq_write, ARRAY_SIZE(seq_write));
-+
-+	msleep(200);
-+	dev_dbg(dev, "erase flash done.\n");
-+}
-+
-+static void lt7911exc_prog_init(struct lt7911exc *lt7911exc, u64 addr)
-+{
-+	const struct reg_sequence seq_write[] = {
-+		REG_SEQ0(0xe0ee, 0x01),
-+		REG_SEQ0(0xe05f, 0x01),
-+		REG_SEQ0(0xe05a, (addr >> 16) & 0xff),
-+		REG_SEQ0(0xe05b, (addr >> 8) & 0xff),
-+		REG_SEQ0(0xe05c, addr & 0xff),
-+	};
-+
-+	regmap_multi_reg_write(lt7911exc->regmap, seq_write, ARRAY_SIZE(seq_write));
-+}
-+
-+static int lt7911exc_write_data(struct lt7911exc *lt7911exc, const struct firmware *fw, u64 addr)
-+{
-+	struct device *dev = lt7911exc->dev;
-+	int ret;
-+	int page = 0, num = 0, page_len = 0;
-+	u64 size, offset;
-+	const u8 *data;
-+
-+	data = fw->data;
-+	size = fw->size;
-+	page = (size + LT_PAGE_SIZE - 1) / LT_PAGE_SIZE;
-+	if (page * LT_PAGE_SIZE > FW_SIZE) {
-+		dev_err(dev, "firmware size out of range\n");
-+		return -EINVAL;
-+	}
-+
-+	dev_dbg(dev, "%u pages, total size %llu byte\n", page, size);
-+
-+	for (num = 0; num < page; num++) {
-+		offset = num * LT_PAGE_SIZE;
-+		page_len = (offset + LT_PAGE_SIZE <= size) ? LT_PAGE_SIZE : (size - offset);
-+		lt7911exc_prog_init(lt7911exc, addr);
-+
-+		ret = regmap_raw_write(lt7911exc->regmap, 0xe05d, &data[offset], page_len);
-+		if (ret) {
-+			dev_err(dev, "write error at page %d\n", num);
-+			return ret;
-+		}
-+
-+		if (page_len < LT_PAGE_SIZE) {
-+			regmap_write(lt7911exc->regmap, 0xe05f, 0x05);
-+			regmap_write(lt7911exc->regmap, 0xe05f, 0x01);
-+			//hardware requires delay
-+			usleep_range(1000, 2000);
-+		}
-+
-+		regmap_write(lt7911exc->regmap, 0xe05f, 0x00);
-+		addr += LT_PAGE_SIZE;
-+	}
-+
-+	return 0;
-+}
-+
-+static int lt7911exc_write_crc(struct lt7911exc *lt7911exc, u32 crc32, u64 addr)
-+{
-+	u8 crc[4];
-+	int ret;
-+
-+	crc[0] = crc32 & 0xff;
-+	crc[1] = (crc32 >> 8) & 0xff;
-+	crc[2] = (crc32 >> 16) & 0xff;
-+	crc[3] = (crc32 >> 24) & 0xff;
-+
-+	regmap_write(lt7911exc->regmap, 0xe05f, 0x01);
-+	regmap_write(lt7911exc->regmap, 0xe05a, (addr >> 16) & 0xff);
-+	regmap_write(lt7911exc->regmap, 0xe05b, (addr >> 8) & 0xff);
-+	regmap_write(lt7911exc->regmap, 0xe05c, addr & 0xff);
-+
-+	ret = regmap_raw_write(lt7911exc->regmap, 0xe05d, crc, 4);
-+	if (ret)
-+		return ret;
-+
-+	regmap_write(lt7911exc->regmap, 0xe05f, 0x05);
-+	regmap_write(lt7911exc->regmap, 0xe05f, 0x01);
-+	usleep_range(1000, 2000);
-+	regmap_write(lt7911exc->regmap, 0xe05f, 0x00);
-+
-+	return 0;
-+}
-+
-+static int lt7911exc_upgrade_result(struct lt7911exc *lt7911exc, u32 crc32)
-+{
-+	struct device *dev = lt7911exc->dev;
-+	u32 read_hw_crc = 0;
-+	u8 crc_tmp[4];
-+	int ret;
-+
-+	regmap_write(lt7911exc->regmap, 0xe0ee, 0x01);
-+	regmap_write(lt7911exc->regmap, 0xe07b, 0x60);
-+	regmap_write(lt7911exc->regmap, 0xe07b, 0x40);
-+	msleep(150);
-+	ret = regmap_bulk_read(lt7911exc->regmap, 0x22, crc_tmp, 4);
-+	if (ret) {
-+		dev_err(lt7911exc->dev, "Failed to read CRC: %d\n", ret);
-+		return ret;
-+	}
-+
-+	read_hw_crc = crc_tmp[0] << 24 | crc_tmp[1] << 16 |
-+				crc_tmp[2] << 8 | crc_tmp[3];
-+
-+	if (read_hw_crc != crc32) {
-+		dev_err(dev, "lt7911exc firmware upgrade failed, expected CRC=0x%08x, read CRC=0x%08x\n",
-+			crc32, read_hw_crc);
-+		return -EIO;
-+	}
-+
-+	dev_dbg(dev, "lt7911exc firmware upgrade success, CRC=0x%08x\n", read_hw_crc);
-+	return 0;
-+}
-+
-+static int lt7911exc_firmware_upgrade(struct lt7911exc *lt7911exc)
-+{
-+	struct device *dev = lt7911exc->dev;
-+	const struct firmware *fw;
-+	u8 *buffer;
-+	size_t total_size = FW_SIZE - 4;
-+	u32 crc32;
-+	int ret;
-+
-+	/*1. load firmware*/
-+	ret = request_firmware(&fw, FW_FILE, dev);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to load '%s'\n", FW_FILE);
-+
-+	/*2. check size*/
-+	if (fw->size > total_size) {
-+		dev_err(dev, "firmware too large (%zu > %zu)\n", fw->size, total_size);
-+		ret = -EINVAL;
-+		goto out_release_fw;
-+	}
-+
-+	/*3. calculate crc32 */
-+	buffer = kzalloc(total_size, GFP_KERNEL);
-+	if (!buffer) {
-+		ret = -ENOMEM;
-+		goto out_release_fw;
-+	}
-+	memset(buffer, 0xff, total_size);
-+	memcpy(buffer, fw->data, fw->size);
-+
-+	crc32 = cal_crc32_custom(buffer, total_size);
-+	kfree(buffer);
-+
-+	/*4. firmware upgrade */
-+	dev_dbg(dev, "starting firmware upgrade, size: %zu bytes\n", fw->size);
-+
-+	lt7911exc_block_erase(lt7911exc);
-+
-+	ret = lt7911exc_write_data(lt7911exc, fw, 0);
-+	if (ret < 0) {
-+		dev_err(dev, "failed to write firmware data\n");
-+		goto out_release_fw;
-+	}
-+
-+	ret = lt7911exc_write_crc(lt7911exc, crc32, FW_SIZE - 4);
-+	if (ret < 0) {
-+		dev_err(dev, "failed to write firmware crc\n");
-+		goto out_release_fw;
-+	}
-+
-+	/*5. check upgrade of result*/
-+	lt7911exc_reset(lt7911exc);
-+
-+	ret = lt7911exc_upgrade_result(lt7911exc, crc32);
-+
-+out_release_fw:
-+	release_firmware(fw);
-+	return ret;
-+}
-+
-+static void lt7911exc_atomic_pre_enable(struct drm_bridge *bridge, struct drm_atomic_state *state)
-+{
-+	struct lt7911exc *lt7911exc = bridge_to_lt7911exc(bridge);
-+	int ret;
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(lt7911exc->supplies), lt7911exc->supplies);
-+	if (ret)
-+		return;
-+
-+	lt7911exc_reset(lt7911exc);
-+}
-+
-+static void lt7911exc_atomic_disable(struct drm_bridge *bridge, struct drm_atomic_state *state)
-+{
-+	/* Delay after panel is disabled */
-+	msleep(20);
-+}
-+
-+static void lt7911exc_atomic_post_disable(struct drm_bridge *bridge, struct drm_atomic_state *state)
-+{
-+	struct lt7911exc *lt7911exc = bridge_to_lt7911exc(bridge);
-+	int ret;
-+
-+	ret = regulator_bulk_disable(ARRAY_SIZE(lt7911exc->supplies), lt7911exc->supplies);
-+	if (ret)
-+		return;
-+
-+	gpiod_set_value_cansleep(lt7911exc->reset_gpio, 1);
-+}
-+
-+static int lt7911exc_attach(struct drm_bridge *bridge,
-+			    struct drm_encoder *encoder,
-+			    enum drm_bridge_attach_flags flags)
-+{
-+	struct lt7911exc *lt7911exc = bridge_to_lt7911exc(bridge);
-+
-+	return drm_bridge_attach(lt7911exc->bridge.encoder, lt7911exc->bridge.next_bridge,
-+				 &lt7911exc->bridge, flags);
-+}
-+
-+static const struct drm_bridge_funcs lt7911exc_bridge_funcs = {
-+	.attach = lt7911exc_attach,
-+	.atomic_pre_enable = lt7911exc_atomic_pre_enable,
-+	.atomic_disable = lt7911exc_atomic_disable,
-+	.atomic_post_disable = lt7911exc_atomic_post_disable,
-+};
-+
-+static int lt7911exc_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct lt7911exc *lt7911exc;
-+	bool fw_updated = false;
-+	int ret;
-+
-+	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C)) {
-+		dev_err(dev, "device doesn't support I2C\n");
-+		return -ENODEV;
-+	}
-+
-+	lt7911exc = devm_drm_bridge_alloc(dev, struct lt7911exc, bridge,
-+					  &lt7911exc_bridge_funcs);
-+	if (IS_ERR(lt7911exc))
-+		return dev_err_probe(dev, PTR_ERR(lt7911exc), "drm bridge alloc failed.\n");
-+
-+	lt7911exc->bridge.next_bridge = devm_drm_of_get_bridge(dev, dev->of_node, 1, 0);
-+	if (IS_ERR(lt7911exc->bridge.next_bridge))
-+		return PTR_ERR(lt7911exc->bridge.next_bridge);
-+
-+	lt7911exc->client = client;
-+	lt7911exc->dev = dev;
-+	i2c_set_clientdata(client, lt7911exc);
-+
-+	ret = devm_mutex_init(dev, &lt7911exc->ocm_lock);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to init mutex\n");
-+
-+	lt7911exc->regmap = devm_regmap_init_i2c(client, &lt7911exc_regmap_config);
-+	if (IS_ERR(lt7911exc->regmap))
-+		return dev_err_probe(dev, PTR_ERR(lt7911exc->regmap), "regmap i2c init failed\n");
-+
-+	ret = lt7911exc_parse_dt(lt7911exc);
-+	if (ret)
-+		return ret;
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(lt7911exc->supplies), lt7911exc->supplies);
-+	if (ret)
-+		return ret;
-+
-+	lt7911exc_reset(lt7911exc);
-+	lt7911exc_lock(lt7911exc);
-+
-+retry:
-+	lt7911exc->fw_version = lt7911exc_read_version(lt7911exc);
-+	if (lt7911exc->fw_version < 0) {
-+		dev_err(dev, "failed to read chip fw version\n");
-+		ret = -EOPNOTSUPP;
-+		goto err_disable_regulators;
-+
-+	} else if (lt7911exc->fw_version == 0) {
-+		if (!fw_updated) {
-+			fw_updated = true;
-+			ret = lt7911exc_firmware_upgrade(lt7911exc);
-+			if (ret < 0)
-+				goto err_disable_regulators;
-+
-+			goto retry;
-+
-+		} else {
-+			dev_err(dev, "fw version 0x%04x, update failed\n", lt7911exc->fw_version);
-+			ret = -EOPNOTSUPP;
-+			goto err_disable_regulators;
-+		}
-+	}
-+
-+	lt7911exc_unlock(lt7911exc);
-+
-+	lt7911exc->bridge.of_node = dev->of_node;
-+	devm_drm_bridge_add(dev, &lt7911exc->bridge);
-+
-+	return 0;
-+
-+err_disable_regulators:
-+	lt7911exc_unlock(lt7911exc);
-+	regulator_bulk_disable(ARRAY_SIZE(lt7911exc->supplies), lt7911exc->supplies);
-+	return ret;
-+}
-+
-+static const struct i2c_device_id lt7911exc_i2c_table[] = {
-+	{"lt7911exc"},
-+	{/* sentinel */}
-+};
-+
-+MODULE_DEVICE_TABLE(i2c, lt7911exc_i2c_table);
-+
-+static const struct of_device_id lt7911exc_devices[] = {
-+	{.compatible = "lontium,lt7911exc"},
-+	{/* sentinel */}
-+};
-+MODULE_DEVICE_TABLE(of, lt7911exc_devices);
-+
-+static struct i2c_driver lt7911exc_driver = {
-+	.id_table	= lt7911exc_i2c_table,
-+	.probe		= lt7911exc_probe,
-+	.driver		= {
-+		.name	= "lt7911exc",
-+		.of_match_table = lt7911exc_devices,
-+	},
-+};
-+module_i2c_driver(lt7911exc_driver);
-+
-+MODULE_AUTHOR("SunYun Yang <syyang@lontium.com>");
-+MODULE_DESCRIPTION("Lontium LT7911EXC EDP to MIPI DSI bridge driver");
-+MODULE_LICENSE("GPL");
-+MODULE_FIRMWARE(FW_FILE);
+I like the description, but I think it's worth merging the later comment around
+the second check here as that is basically the whole "belt and braces" mechanism
+for ensuring correctness.
+
+Best regards,
+Liviu
+
+> +	 */
+>  	if (!lru)
+>  		return;
+>  
+>  	mutex_lock(lru->lock);
+> -	drm_gem_lru_remove_locked(obj);
+> +	/* Check a second time with the lock held to make sure we're not racing
+> +	 * with another drm_gem_lru_remove[_locked]() call.
+> +	 */
+> +	if (obj->lru)
+> +		drm_gem_lru_remove_locked(obj);
+>  	mutex_unlock(lru->lock);
+>  }
+>  EXPORT_SYMBOL(drm_gem_lru_remove);
+> @@ -1660,15 +1680,17 @@ drm_gem_lru_scan(struct drm_gem_lru *lru,
+>  		if (!obj)
+>  			break;
+>  
+> -		drm_gem_lru_move_tail_locked(&still_in_lru, obj);
+> -
+>  		/*
+>  		 * If it's in the process of being freed, gem_object->free()
+> -		 * may be blocked on lock waiting to remove it.  So just
+> -		 * skip it.
+> +		 * may be blocked on lock waiting to remove it.  So just remove
+> +		 * it from its current LRU and skip it.
+>  		 */
+> -		if (!kref_get_unless_zero(&obj->refcount))
+> +		if (!kref_get_unless_zero(&obj->refcount)) {
+> +			drm_gem_lru_remove_locked(obj);
+>  			continue;
+> +		}
+> +
+> +		drm_gem_lru_move_tail_locked(&still_in_lru, obj);
+>  
+>  		/*
+>  		 * Now that we own a reference, we can drop the lock for the
+> 
+> -- 
+> 2.54.0
+> 
+
 -- 
-2.34.1
-
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
