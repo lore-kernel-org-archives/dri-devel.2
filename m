@@ -4,57 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AAEDCD3445
-	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 15:01:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9929CD3436
+	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 15:03:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1D0010F533;
-	Fri,  8 May 2026 15:01:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29F4710E0D7;
+	Fri,  8 May 2026 15:03:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="c9i7qdR4";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="A/jx3z//";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 1367910E0D7
- for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 15:01:13 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 591493596
- for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 08:01:07 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- 6D90E3F763
- for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 08:01:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1778252472; bh=tBSLp4TFWnzxz3eHgUik+or3IqdAn5knLKmt0L5xo5M=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=c9i7qdR4lhHGdCkWpkGKeJldGli/BBQXOAUlgXotnztO9g01aem3rKzZdfBX+81u1
- Iwi/VgiT20unhTgUfMdLndJc2/ffEyl6WPsTxzw3jKKh4yQXQFv6eo/uSZuAC0+GCW
- zm3xm+MNh8wyULSScuGJ8MWNwL2Q4Naaec1FtosY=
-Date: Fri, 8 May 2026 16:00:51 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Steven Price <steven.price@arm.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Akash Goel <akash.goel@arm.com>, Chia-I Wu <olvaffe@gmail.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/4] drm/gem: Stop exposing the racy/unsafe
- drm_gem_lru_remove() helper
-Message-ID: <af36o8diwtmA4z8K@e142607>
-References: <20260508-panthor-shrinker-fixes-v2-0-39cdb7d577c9@collabora.com>
- <20260508-panthor-shrinker-fixes-v2-3-39cdb7d577c9@collabora.com>
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37F2010E0D7
+ for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 15:03:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1778252592;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=Ik/8Z8gDiRLPaXagOm1v4Os+dRe4w6p7nwhRLAZV8lc=;
+ b=A/jx3z//+hOHUXqRdl+nOhEN9cXA/BjsxnF6yBjHQ42RZwxzPZzll6zKMz2chzBjHzj9pR
+ wTLUDitBnvS7TPqwExW0Aknp2LLzu0q3PzZk8ZZFfEzDxnbiKuzgh7DO+brNoJfjVizKB2
+ mjGdZJ3i+YTby/jayYnvEgCuN4eRRK0=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-47-fXLlb8MVOZWjxRHvGCyYfg-1; Fri,
+ 08 May 2026 11:03:07 -0400
+X-MC-Unique: fXLlb8MVOZWjxRHvGCyYfg-1
+X-Mimecast-MFC-AGG-ID: fXLlb8MVOZWjxRHvGCyYfg_1778252582
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 4BEF619560AB; Fri,  8 May 2026 15:03:01 +0000 (UTC)
+Received: from [192.168.1.153] (headnet01.pony-001.prod.iad2.dc.redhat.com
+ [10.2.32.101])
+ by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 3CA3B1800374; Fri,  8 May 2026 15:02:52 +0000 (UTC)
+From: Albert Esteve <aesteve@redhat.com>
+Subject: [PATCH v9 0/4] kunit: Add support for suppressing warning backtraces
+Date: Fri, 08 May 2026 17:02:44 +0200
+Message-Id: <20260508-kunit_add_support-v9-0-99df7aa880f6@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260508-panthor-shrinker-fixes-v2-3-39cdb7d577c9@collabora.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23Oy2rDMBCF4VcJWldBl4xkZ9X3KCXImlEtii0jK
+ 6Yl+N0rB0Ja6uVZnI//xmbKkWZ2PtxYpiXOMY11tC8H5ns3fhCPWDdTQhmhpeKf1zGWi0O8zNd
+ pSrlwFTQ0wnSyRWT1N2UK8etuvr3XHXIaeOkzuYcEApSRWlmAozRGguCSO+/yEEf3mgl7V44+D
+ ZvWx7mk/H0PXMxmPlrsTstiuOCISjnqdCDA39oWs9gncVJij7CVoKbzhkSwAukf0TwJEKc9oqm
+ EJmjB+hqj4Q+xrusPFCKOT3cBAAA=
+X-Change-ID: 20260312-kunit_add_support-2f35806b19dd
+To: Arnd Bergmann <arnd@arndb.de>, 
+ Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, 
+ Rae Moar <raemoar63@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>
+Cc: linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, 
+ dri-devel@lists.freedesktop.org, workflows@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, linux-doc@vger.kernel.org, 
+ peterz@infradead.org, Alessandro Carminati <acarmina@redhat.com>, 
+ Guenter Roeck <linux@roeck-us.net>, Kees Cook <kees@kernel.org>, 
+ Albert Esteve <aesteve@redhat.com>, 
+ Linux Kernel Functional Testing <lkft@linaro.org>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Dan Carpenter <error27@gmail.com>, Kees Cook <kees@kernel.org>, 
+ Simona Vetter <simona.vetter@ffwll.ch>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778252571; l=8375;
+ i=aesteve@redhat.com; s=20260303; h=from:subject:message-id;
+ bh=8xWxjgj6GG2jezhUlaEtpjc6ZhQKLzry3m/rVm2AAH8=;
+ b=mPomJy2oz2IgFvKbcK8sHrFS2RWzqn6s5hhpOVCEfCYnQz+U0RBbNj8PTh/eEsUliLnkcfABb
+ X5HSMH0SzMaCpsLTqa2LEpPq9c2jntD0jPs4Nv4XaP2go8oEIVXjanA
+X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
+ pk=YSFz6sOHd2L45+Fr8DIvHTi6lSIjhLZ5T+rkxspJt1s=
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+X-Mimecast-MFC-PROC-ID: cef6n6bWOWf9OQdWPAmh9_ALTx_XxWqn8XeJzGFxN4g_1778252582
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,170 +102,185 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, May 08, 2026 at 12:40:49PM +0200, Boris Brezillon wrote:
-> The only place where it's safe to call drm_gem_lru_remove() is when
-> we know the drm_gem_object::lru field can't be concurrently updated,
-> which we know is the case when the drm_gem_object is destroyed.
-> 
-> Rather than trying to make that safe, let's kill the function and inline
-> its content in drm_gem_object_release().
-> 
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+Some unit tests intentionally trigger warning backtraces by passing bad
+parameters to kernel API functions. Such unit tests typically check the
+return value from such calls, not the existence of the warning backtrace.
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+Such intentionally generated warning backtraces are neither desirable
+nor useful for a number of reasons:
+- They can result in overlooked real problems.
+- A warning that suddenly starts to show up in unit tests needs to be
+  investigated and has to be marked to be ignored, for example by
+  adjusting filter scripts. Such filters are ad hoc because there is
+  no real standard format for warnings. On top of that, such filter
+  scripts would require constant maintenance.
+
+One option to address the problem would be to add messages such as
+"expected warning backtraces start/end here" to the kernel log.
+However, that would again require filter scripts, might result in
+missing real problematic warning backtraces triggered while the test
+is running, and the irrelevant backtrace(s) would still clog the
+kernel log.
+
+Solve the problem by providing a means to suppress warning backtraces
+originating from the current kthread while executing test code.
+Since each KUnit test runs in its own kthread, this effectively scopes
+suppression to the test that enabled it, without requiring any
+architecture-specific code.
+
+Overview:
+Patch#1 Introduces the suppression infrastructure integrated into
+        KUnit's hook mechanism.
+Patch#2 Adds selftests to validate the functionality.
+Patch#3 Demonstrates real-world usage in the DRM subsystem.
+Patch#4 Documents the new API and usage guidelines.
+
+Design Notes:
+Suppression is integrated into the existing KUnit hooks infrastructure,
+reusing the kunit_running static branch for zero overhead
+when no tests are running. The implementation lives entirely in the
+kunit module; only a static-inline wrapper and a function pointer
+slot are added to built-in code.
+
+Suppression is checked at three points in the warning path:
+- In `warn_slowpath_fmt()` (kernel/panic.c), for architectures without
+  __WARN_FLAGS. The check runs before any output, fully suppressing
+  both message and backtrace.
+- In `__warn_printk()` (kernel/panic.c), for architectures that define
+  __WARN_FLAGS but not their own __WARN_printf (arm64, loongarch,
+  parisc, powerpc, riscv, sh). The check suppresses the warning message
+  text that is printed before the trap enters __report_bug().
+- In `__report_bug()` (lib/bug.c), for architectures that define
+  __WARN_FLAGS. The check runs before `__warn()` is called, suppressing
+  the backtrace and stack dump. 
+
+To avoid double-counting on architectures where both `__warn_printk()`
+and `__report_bug()` run for the same warning, the hook takes a bool
+parameter: true to increment the suppression counter, false to suppress
+without counting.
+
+The suppression state is dynamically allocated via kunit_kzalloc() and
+tied to the KUnit test lifecycle via `kunit_add_action()`, ensuring
+automatic cleanup at test exit. Writer-side access to the global
+suppression list is serialized with a spinlock; readers use RCU.
+
+Two API forms are provided:
+- kunit_warning_suppress(test) { ... }: scoped blocks with automatic
+  cleanup. The suppression handle is not accessible outside the block,
+  so warning counts (if needed) must be checked inside. Multiple
+  suppression blocks are allowed.
+- kunit_start/end_suppress_warning(test): direct functions that return
+  an explicit handle. Use when the handle needs to be retained, or passed
+  across helpers. Multiple suppression blocks are allowed.
+
+This series is based on the RFC patch and subsequent discussion at
+https://patchwork.kernel.org/project/linux-kselftest/patch/02546e59-1afe-4b08-ba81-d94f3b691c9a@moroto.mountain/
+and offers a more comprehensive solution of the problem discussed there.
+
+Changes since RFC:
+- Introduced CONFIG_KUNIT_SUPPRESS_BACKTRACE
+- Minor cleanups and bug fixes
+- Added support for all affected architectures
+- Added support for counting suppressed warnings
+- Added unit tests using those counters
+- Added patch to suppress warning backtraces in dev_addr_lists tests
+
+Changes since v1:
+- Rebased to v6.9-rc1
+- Added Tested-by:, Acked-by:, and Reviewed-by: tags
+  [I retained those tags since there have been no functional changes]
+- Introduced KUNIT_SUPPRESS_BACKTRACE configuration option, enabled by
+  default.
+
+Changes since v2:
+- Rebased to v6.9-rc2
+- Added comments to drm warning suppression explaining why it is needed.
+- Added patch to move conditional code in arch/sh/include/asm/bug.h
+  to avoid kerneldoc warning
+- Added architecture maintainers to Cc: for architecture specific patches
+- No functional changes
+
+Changes since v3:
+- Rebased to v6.14-rc6
+- Dropped net: "kunit: Suppress lock warning noise at end of dev_addr_lists tests"
+  since 3db3b62955cd6d73afde05a17d7e8e106695c3b9
+- Added __kunit_ and KUNIT_ prefixes.
+- Tested on interessed architectures.
+
+Changes since v4:
+- Rebased to v6.15-rc7
+- Dropped all code in __report_bug()
+- Moved all checks in WARN*() macros.
+- Dropped all architecture specific code.
+- Made __kunit_is_suppressed_warning nice to noinstr functions.
+
+Changes since v5:
+- Rebased to v7.0-rc3
+- Added RCU protection for the suppressed warnings list.
+- Added static key and branching optimization.
+- Removed custom `strcmp` implementation and reworked
+  __kunit_is_suppressed_warning() entrypoint function.
+
+Changes since v6:
+- Moved suppression checks from WARN*() macros to warn_slowpath_fmt()
+  and __report_bug().
+- Replaced stack-allocated suppression struct with kunit_kzalloc() heap
+  allocation tied to the KUnit test lifecycle.
+- Changed suppression strategy from function-name matching to task-scoped:
+  all warnings on the current task are suppressed between START and END,
+  rather than only warnings originating from a specific named function.
+- Simplified macro API: removed KUNIT_DECLARE_SUPPRESSED_WARNING(),
+  the START macro now takes (test) and handles allocation internally.
+- Removed static key and branching optiomization, as by the time it
+  was executed, callers are already in warn slowpaths.
+- Link to v6: https://lore.kernel.org/r/20260317-kunit_add_support-v6-0-dd22aeb3fe5d@redhat.com
+
+Changes since v7:
+- Integrated suppression into existing KUnit hooks infrastructure
+- Removed CONFIG_KUNIT_SUPPRESS_BACKTRACE
+- Added suppression check in __warn_printk()
+- Added spinlock for writer-side RCU protection
+- Replaced explicit rcu_read_lock/unlock with guard(rcu)()
+- Added scoped API (kunit_warning_suppress) using __cleanup attribute
+- Updated DRM patch to use scoped API
+- Expanded self-tests: incremental counting, cross-kthread isolation
+- Rewrote documentation covering all three API forms with examples
+- Link to v7: https://lore.kernel.org/r/20260420-kunit_add_support-v7-0-e8bc6e0f70de@redhat.com
+
+Changes since v8:
+- Rebased to v7.1-rc2
+- Remove KUNIT_START/END_SUPPRESSED_WARNING() macros
+- Add KUNIT_EXPECT_SUPPRESSED_WARNING_COUNT checks to drm tests
+- Link to v8: https://lore.kernel.org/r/20260504-kunit_add_support-v8-0-3e5957cdd235@redhat.com
+
+--
+2.34.1
+
+---
+Alessandro Carminati (1):
+      bug/kunit: Core support for suppressing warning backtraces
+
+Guenter Roeck (3):
+      kunit: Add backtrace suppression self-tests
+      drm: Suppress intentional warning backtraces in scaling unit tests
+      kunit: Add documentation for warning backtrace suppression API
+
+ Documentation/dev-tools/kunit/usage.rst |  46 ++++++++-
+ drivers/gpu/drm/tests/drm_rect_test.c   |  27 ++++-
+ include/kunit/test-bug.h                |  25 +++++
+ include/kunit/test.h                    |  98 ++++++++++++++++++
+ kernel/panic.c                          |  15 ++-
+ lib/bug.c                               |  10 ++
+ lib/kunit/Makefile                      |   4 +-
+ lib/kunit/backtrace-suppression-test.c  | 176 ++++++++++++++++++++++++++++++++
+ lib/kunit/bug.c                         | 115 +++++++++++++++++++++
+ lib/kunit/hooks-impl.h                  |   2 +
+ 10 files changed, 510 insertions(+), 8 deletions(-)
+---
+base-commit: 74fe02ce122a6103f207d29fafc8b3a53de6abaf
+change-id: 20260312-kunit_add_support-2f35806b19dd
 
 Best regards,
-Liviu
-
-> ---
->  drivers/gpu/drm/drm_gem.c | 90 ++++++++++++++++++++---------------------------
->  include/drm/drm_gem.h     |  1 -
->  2 files changed, 39 insertions(+), 52 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-> index 0e087c770883..c85a39b8b163 100644
-> --- a/drivers/gpu/drm/drm_gem.c
-> +++ b/drivers/gpu/drm/drm_gem.c
-> @@ -1108,6 +1108,15 @@ drm_gem_release(struct drm_device *dev, struct drm_file *file_private)
->  	idr_destroy(&file_private->object_idr);
->  }
->  
-> +static void
-> +drm_gem_lru_remove_locked(struct drm_gem_object *obj)
-> +{
-> +	obj->lru->count -= obj->size >> PAGE_SHIFT;
-> +	WARN_ON(obj->lru->count < 0);
-> +	list_del(&obj->lru_node);
-> +	obj->lru = NULL;
-> +}
-> +
->  /**
->   * drm_gem_object_release - release GEM buffer object resources
->   * @obj: GEM buffer object
-> @@ -1118,13 +1127,42 @@ drm_gem_release(struct drm_device *dev, struct drm_file *file_private)
->  void
->  drm_gem_object_release(struct drm_gem_object *obj)
->  {
-> +	struct drm_gem_lru *lru;
-> +
->  	if (obj->filp)
->  		fput(obj->filp);
->  
->  	drm_gem_private_object_fini(obj);
->  
->  	drm_gem_free_mmap_offset(obj);
-> -	drm_gem_lru_remove(obj);
-> +
-> +	/*
-> +	 * We do the lru != NULL check without the lru->lock held, which
-> +	 * means we might end up with a stale lru value by the time the
-> +	 * lock is acquired.
-> +	 *
-> +	 * This is deemed safe because:
-> +	 * 1. the LRU is assumed to outlive any GEM object it was attached
-> +	 *    (LRUs are usually bound to a drm_device). So even if obj->lru
-> +	 *    has become NULL, it still point to a valid object that can
-> +	 *    safely be dereferenced to get the lock.
-> +	 *
-> +	 * 2. all LRUs a GEM object might be attached to must share the same
-> +	 *    lock (lock that's usually part of the driver-specific device
-> +	 *    object), so taking the lock on the 'old' LRU is equivalent
-> +	 *    to taking it on the new one (if any)
-> +	 */
-> +	lru = obj->lru;
-> +	if (lru) {
-> +		guard(mutex)(lru->lock);
-> +
-> +		/* Check a second time with the lock held to make sure we're
-> +		 * not racing with the drm_gem_lru_remove_locked() call in
-> +		 * drm_gem_lru_scan().
-> +		 */
-> +		if (obj->lru)
-> +			drm_gem_lru_remove_locked(obj);
-> +	}
->  }
->  EXPORT_SYMBOL(drm_gem_object_release);
->  
-> @@ -1552,56 +1590,6 @@ drm_gem_lru_init(struct drm_gem_lru *lru, struct mutex *lock)
->  }
->  EXPORT_SYMBOL(drm_gem_lru_init);
->  
-> -static void
-> -drm_gem_lru_remove_locked(struct drm_gem_object *obj)
-> -{
-> -	obj->lru->count -= obj->size >> PAGE_SHIFT;
-> -	WARN_ON(obj->lru->count < 0);
-> -	list_del(&obj->lru_node);
-> -	obj->lru = NULL;
-> -}
-> -
-> -/**
-> - * drm_gem_lru_remove - remove object from whatever LRU it is in
-> - *
-> - * If the object is currently in any LRU, remove it.
-> - *
-> - * @obj: The GEM object to remove from current LRU
-> - */
-> -void
-> -drm_gem_lru_remove(struct drm_gem_object *obj)
-> -{
-> -	struct drm_gem_lru *lru = obj->lru;
-> -
-> -	/*
-> -	 * We do the lru != NULL check without the lru->lock held, which
-> -	 * means we might end up with a stale lru value by the time the
-> -	 * lock is acquired.
-> -	 *
-> -	 * This is deemed safe because:
-> -	 * 1. the LRU is assumed to outlive any GEM object it was attached
-> -	 *    (LRUs are usually bound to a drm_device). So even if obj->lru
-> -	 *    has become NULL, it still point to a valid object that can
-> -	 *    safely be dereferenced to get the lock.
-> -	 *
-> -	 * 2. all LRUs a GEM object might be attached to must share the same
-> -	 *    lock (lock that's usually part of the driver-specific device
-> -	 *    object), so taking the lock on the 'old' LRU is equivalent
-> -	 *    to taking it on the new one (if any)
-> -	 */
-> -	if (!lru)
-> -		return;
-> -
-> -	mutex_lock(lru->lock);
-> -	/* Check a second time with the lock held to make sure we're not racing
-> -	 * with another drm_gem_lru_remove[_locked]() call.
-> -	 */
-> -	if (obj->lru)
-> -		drm_gem_lru_remove_locked(obj);
-> -	mutex_unlock(lru->lock);
-> -}
-> -EXPORT_SYMBOL(drm_gem_lru_remove);
-> -
->  /**
->   * drm_gem_lru_move_tail_locked - move the object to the tail of the LRU
->   *
-> diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
-> index 86f5846154f7..d527df98d142 100644
-> --- a/include/drm/drm_gem.h
-> +++ b/include/drm/drm_gem.h
-> @@ -611,7 +611,6 @@ int drm_gem_dumb_map_offset(struct drm_file *file, struct drm_device *dev,
->  			    u32 handle, u64 *offset);
->  
->  void drm_gem_lru_init(struct drm_gem_lru *lru, struct mutex *lock);
-> -void drm_gem_lru_remove(struct drm_gem_object *obj);
->  void drm_gem_lru_move_tail_locked(struct drm_gem_lru *lru, struct drm_gem_object *obj);
->  void drm_gem_lru_move_tail(struct drm_gem_lru *lru, struct drm_gem_object *obj);
->  unsigned long
-> 
-> -- 
-> 2.54.0
-> 
-
 -- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+Albert Esteve <aesteve@redhat.com>
+
