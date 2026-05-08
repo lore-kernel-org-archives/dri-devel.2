@@ -4,89 +4,164 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02236CD342F
-	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 08:10:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7ECADCD3436
+	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 08:25:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BB6F10E5C0;
-	Fri,  8 May 2026 08:10:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9F7610E2FC;
+	Fri,  8 May 2026 08:25:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="i+AeZ0+d";
+	dkim=pass (1024-bit key; unprotected) header.d=mediatek.com header.i=@mediatek.com header.b="Tn22uZoB";
+	dkim=pass (1024-bit key; unprotected) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b="XXNpRczq";
 	dkim-atps=neutral
-Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com
- [209.85.219.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7CB2110E5C0
- for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 08:10:39 +0000 (UTC)
-Received: by mail-qv1-f50.google.com with SMTP id
- 6a1803df08f44-8b6c9fdb68cso15338866d6.2
- for <dri-devel@lists.freedesktop.org>; Fri, 08 May 2026 01:10:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778227838; cv=none;
- d=google.com; s=arc-20240605;
- b=SuXhJI6NFgDqGvJRw4AFwVxsy1j2zdhfhZ+Pw5+BedAOoT6n1MVwS2HTfWGiIDRg05
- KAMHDRERbv07HOZIwC+BhqVmstKXI1cPZWptf2FDwcDmy6WWNZIU+ULnFSsnO1rDd/nR
- eg/ItMV1Q/1fFyfbYUeLEn/VLoBJ65PoQQ1f58t/zYU3S+GFEvyTJMajOxSybdTjhSyY
- r98B0T7ubT3xMGCMgqQYy0TJJRaqnNSw9tpYJAg896G4eOXgOplBxIm/vc92q5WQBjob
- JbAk7N7CWehkA7f/L0/arGMiEwy4NPqTrGczp8KXgQ3fLtq1RjU4kM0hxvLjfNjT0Zz6
- dzSg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :mime-version:dkim-signature;
- bh=70x4EHSDsFeXGT1tMeqNQOIz75/r+dfmtJOmc3ZiE+g=;
- fh=A08XZwmmb57jzirbgTkluPSvjDeiJMkkojF1n6qDmTk=;
- b=AVbRvXWcz+AcCn9nwAOP2aFMPYlic697h0jsDzu3FfJ39P16J50X4iAWsdW4cvumhM
- euhuusbJOt+6aRigssbQOuJi960e2MvdfmxXTuubY+SIkf/NKhu2CxyNB1gYQ/XLyBAZ
- NjLy5NliI4mJ+xwe3ndJ0y8FywT+r1WnR1qxlosZNWlWKto7z/fnCO4Qvp0QfNUVXt5D
- 9yr43mtvm+P7VOzYzutvXJPcrM9zdXlKX/MIaIawe7ktTIfHf23/92DTKEuNY0iADe9M
- ZWJuQdRTGSQb31itd5fPMMYM6vLnepI7WlPi1c8s2Oyp6lbapti2ETxviW/3h6eYjG8b
- 1bLQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3A0410E2FC
+ for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 08:25:27 +0000 (UTC)
+X-UUID: 74d0e21a4ab711f1a4e839cc21f16abe-20260508
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From;
+ bh=Z4tG/DeG+o9l2aKXwBrpvinR0jaHeIDIe2AOze6RrMM=; 
+ b=Tn22uZoBz0AfP5nreGM8RPFuH244+UeM7QHMyVjJuocxOf3gvk50jhlZYhxudWylppWo2c0+z6q/f/y+cte8r2RHO60NPpzDE8/snx7uhQezCRCnqRYEoeNOCiYdOc2rNhqRQMPgWRR0vs24/gHbWjzghleGeLQqL9QerZSR87s=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12, REQID:988f5a9f-37b6-4d9a-a027-801006aa636f, IP:0,
+ U
+ RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+ release,TS:0
+X-CID-META: VersionHash:e7bac3a, CLOUDID:1e044c45-8360-4d24-8500-9b9380fa4b0d,
+ B
+ ulkID:nil,BulkQuantity:0,Recheck:0,SF:80|81|82|83|102|110|111|836|865|888|
+ 898,TC:-5,Content:0|15|50,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:ni
+ l,BEC:-1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 74d0e21a4ab711f1a4e839cc21f16abe-20260508
+Received: from mtkmbs09n1.mediatek.inc [(172.21.101.35)] by
+ mailgw02.mediatek.com (envelope-from <ck.hu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 1745762387; Fri, 08 May 2026 16:25:22 +0800
+Received: from mtkmbs10n1.mediatek.inc (172.21.101.34) by
+ mtkmbs11n2.mediatek.inc (172.21.101.187) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Fri, 8 May 2026 16:25:21 +0800
+Received: from SG2PR04CU010.outbound.protection.outlook.com (172.21.101.237)
+ by mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Fri, 8 May 2026 16:25:21 +0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FjQBIhGaaftz6cWqdbWsbvCmpqsGfSYWKe/7sgkJ2BCo45a8z6nNm4xTiDCjA1W4O5DmzjUuMah1ah2KNCsuu/3umTWr2EaQUGaAzoxNQ29XFeqZDi/UynLbXaDx/E0xq2taAqsdhHF8ZRM3oOncxPhjXSmFrFY18gmozboUTdaqhdKyuoc1vzpFIE+iH4PH+azS3AHuO/D+3QgEHKmSt+K8S/Mg9+Nofd1y5X+MTo5Bc+aV4CwVJwf7S3UMJsKfD3daKB72+2j/hwNmPxwBEjiJCwB93kr1Nj8WhAGMpcgY3AjGV4t53gZMlIcG00knEwOmvl5LQwKbFNXDWCHWgQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Z4tG/DeG+o9l2aKXwBrpvinR0jaHeIDIe2AOze6RrMM=;
+ b=JqYQhq1Tll8KcBZAbRiWND2ZAW7SSqQl+ZppzIFqb60UytNEzk3tfC+XZsuwmdynnWKlnOSTbgOz8Qjz1/TXg8H3vOCp12a41z3iFkbpm+mQIvFpWs6geL34yQWUcGiXTwaSregI2M5RQOpLCKTnlukm8Oasp51ugJ+yveHoo0odsxVfM63MrNcM465zZtvO48NrLNdlw10iFcgrdyGs/fQbPV5201G6aZ2i51MEgk8zchM/R8MGhjPPcHi5l8QPhSdqAp7vANUlGcojzaErMQm0vOzIFocHiua/7B8TQH0SyilMi5PDjC/jciIvrpli+YchnbLXR0pJKMvT3tnO1w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
+ dkim=pass header.d=mediatek.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778227838; x=1778832638; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=70x4EHSDsFeXGT1tMeqNQOIz75/r+dfmtJOmc3ZiE+g=;
- b=i+AeZ0+dW2ZMtYwdi23v/voN82Yg7RWrtFw797C515t78+H5I2GYaiBEDZYrUthmKa
- ORZW1lFiWil52OlwsVyCB80f02stq1kdZtm0WDbnYbN1ScSE9C6kn9xcdUKhQvdSpCTj
- fU1OSV2XNw+HltTRIZRhxZ6k4ZFP96hxGGFNJAHgxOu/vb7gate6sMdiQ97GOlFDiPyU
- uKWXwD3t4jExxr95hYIUwdwLcsFpYCLrFfGb1dy/zs60+OBQl5E3wPrvLo57a+E0eeTz
- YSBGadc0Hh7hKKGiQOvkOdgbYOFvrn2VnvX3+E4wHLTusZhKmIZMLia7dnB+hfw1bmWY
- zogQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778227838; x=1778832638;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=70x4EHSDsFeXGT1tMeqNQOIz75/r+dfmtJOmc3ZiE+g=;
- b=dIortyYgBjZO/nTBm1nht/PZZj/Yl+4NV9CNbtlXlhV2+N/lvgzv96ABGjReDqN8P1
- cAmRkh5ivluNC0IHcMTwFBGZklrFiFGsly5s5aDI9fC2uwFTxNaqORXz42EpVOXJxSGf
- yZfJzxChdWQUSCL5QsYFdGBv9RS5O0m8pk2rioA7N2d+//9wOe7HGJHBvt+53PKKsbKs
- dLGgIhmaibSI0tt2465QUykjikxXvbA2ncQsqEVgz3pwEQp2Cj9I2DyWctPGB8pqoW8O
- INBtETUDt0HxXnNIgOVFVSuPBtp62W7f2xHuEKMb/ScRCCKT49+GDiPG2fofn/yjyJHG
- bJWg==
-X-Gm-Message-State: AOJu0YxGdi8C9vZ44xlUAEgVORF1dyI+eiCNPyR0es32g6BFO2K6BAES
- Y0sy/OV1CTsfZWKbwAdrJOSlWvjR5ux6cKI8iSosRDCPx8u4PZmWvb/jsGslK5/DPX/DoWGbcdO
- gliLP4SNM4weZ2/wdQr8jhCGzu9CNI24=
-X-Gm-Gg: Acq92OHn/y2OcNpHEEc8eNgT33PTIFat2AXf4FK27r4NSyQ8i1Cl5odYXGh4I7rPcxw
- W+ID/c8fYD2sXWZXg9d31L/3aAZGJ/Lsg5cSCJBaHhab+mtOLptseJeNUcj2Y8ZHTyoWJUtA4ij
- OILyRGPttEpS/uP6m7DOdl0VERJA6NBbHHirzxleavlbLIwizpKoNzrZ8lKhoffTgriqptQ32Dw
- kp5kA4gpj9gebSuUUtiTxObDqxH7wHRc5m4oASGRoD23OVEwO6JfQJwyoBTQPkSaZMMTg617+76
- KdYXkt3EJaXheeLAzXsgWnwb04wAGsEYcFE0uD2BoqK7e+G6Xyg3GS2091Dk4tqqDdm4XUL+rsE
- uQg==
-X-Received: by 2002:a05:6214:19ec:b0:8bd:de6d:c341 with SMTP id
- 6a1803df08f44-8bdde6dc718mr95905576d6.30.1778227838035; Fri, 08 May 2026
- 01:10:38 -0700 (PDT)
+ d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Z4tG/DeG+o9l2aKXwBrpvinR0jaHeIDIe2AOze6RrMM=;
+ b=XXNpRczqEJx1JGXBWdaTNnCickmLpvxUnnxVe4M+M09OlU/XWj1l3dcETW9GBi5k8GUwzOcryipFCbLrMKR7hx0D3thRhfkZo2xcvoE2f8tcOq+n0XbXDjlyLSepGVkTlNoQC4FjmQkV7DWO4QC1KaW+W5/7pTF2wj0MIBt8hd0=
+Received: from TYZPR03MB6624.apcprd03.prod.outlook.com (2603:1096:400:1f4::13)
+ by SG2PR03MB6430.apcprd03.prod.outlook.com (2603:1096:4:1c1::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.17; Fri, 8 May
+ 2026 08:25:18 +0000
+Received: from TYZPR03MB6624.apcprd03.prod.outlook.com
+ ([fe80::a3c2:b94a:70f:e640]) by TYZPR03MB6624.apcprd03.prod.outlook.com
+ ([fe80::a3c2:b94a:70f:e640%4]) with mapi id 15.20.9891.008; Fri, 8 May 2026
+ 08:25:18 +0000
+From: =?utf-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>
+To: "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>,
+ "suryasaimadhu369@gmail.com" <suryasaimadhu369@gmail.com>
+CC: "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2] drm/mediatek: hdmi: Convert DRM_ERROR() to drm_err()
+Thread-Topic: [PATCH v2] drm/mediatek: hdmi: Convert DRM_ERROR() to drm_err()
+Thread-Index: AQHc0JFti/hGESO5/kiM3dfKe3I5YbYD50OA
+Date: Fri, 8 May 2026 08:25:17 +0000
+Message-ID: <8bee5bc780319233c4e251b4a1129921216cc26b.camel@mediatek.com>
+References: <20260420064544.266478-1-suryasaimadhu369@gmail.com>
+In-Reply-To: <20260420064544.266478-1-suryasaimadhu369@gmail.com>
+Accept-Language: zh-TW, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Evolution 3.52.3-0ubuntu1 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=mediatek.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TYZPR03MB6624:EE_|SG2PR03MB6430:EE_
+x-ms-office365-filtering-correlation-id: ee89365c-6fed-48fd-52d2-08deacdb5657
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|42112799006|366016|376014|38070700021|22082099003|18002099003|56012099003;
+x-microsoft-antispam-message-info: FFkUCKJwq++1lWxax96G0hKIeGynX/wIlsEKBDYxdd1XI8HRlIG9uhbbzJhrJnoRjqwGXm0GHlWO3m6cHiNM3l8ddF4bx0bLPduy4p1yJAs4M9rdWG+wo/kCQG0rY7cceaN5RG+O6l5RivO1hCjpZ12U58HSLtbOeST4bCHzxpD1xW+f5ceaCULF341Wy0BB1UFboNBR78Q7+l0F7y7NPjv8zJwQqYXI9w5ZBBVWtDyWh8is5RQfmZAMvGyePcMsd1ihJh0KQT0ae98QI/ipOiroU3DzDhEp7LlfmGbwvgauQIrTxe1nKqOzZ8/NCOCxeE/Lvir+vhzHNBZF7uEqpaxZJSdzNarvBa0YWHWGK47LIHM/VAlw6GOGU7AUqZMQJqhXfdGlJwRjza4oSLE1/H88M72XyFXioiaqWFDbqpAH+K8riNZQA3WOqeSTyXpPpm3wzNoEA2IgBeF+W/tZinlEM9Q3utCoMlvBGk1/oEXmVQraFWcTvCPD7M4Q7IGnXUCs/Z8SbJ2lPlyo9hCp1YS14ARnw/gkJNFmiLKOkbNnuZ9Do+8Md4jFCHi9iC5CLPkd2iuBC1kVSLruR6nZz4xLSRD8m9S1vbuTlhN7eFJR7yBtOFSqbOy1MlvkyZPiu/cpwPRtNN6OlqD5LWdwvzZhVQdnkfxedw8oWrGq3AkVAUtHXmvJcds2Eggt1TM1UI4LQB/hliVX8LnKDExe3YhES9pTeNuR4PwGh6bW++0RZ/PkIX4FMwlCpjo9GP0S
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TYZPR03MB6624.apcprd03.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(42112799006)(366016)(376014)(38070700021)(22082099003)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?dDYzdldRZDJobVYzQUNBWG83c0NHTVVmNFYzNkxqYWQ0YlZiWmJxU2RVWHJE?=
+ =?utf-8?B?bXN0Y0RjOVdhNkw4TFE2T09CZldRSHRGVklaTENtRVVoQ1QyaW15NlJwS1Rx?=
+ =?utf-8?B?NDIwelhtaytBMXljYWdwSGttZ1JzRmRXSUhRWXpZaFREVlpsRnQ2L0FMdG00?=
+ =?utf-8?B?Q09RUC9aTHRyREo3Njl4UElSZ2NFZi9ZVFg2U2VBZWFhTnhtOVRjSXRmY2c3?=
+ =?utf-8?B?ajB1SkNoWU54MzR3NEZhUzNiamdHWnFDWTgrdFVDTDBpNTVWQ2dsdlM5Rkhl?=
+ =?utf-8?B?Y1JJeHdlUzhoU0RrWGp1SUtUL2xrcGtubGhyWWxWSkxROFZ1Z0ZHdUxwaUpP?=
+ =?utf-8?B?ZUV0Ky9JUzJHT0IvbG01MklKYmREUFYzcnFRZGM5bUhQcGM4RnczZmxyRW1s?=
+ =?utf-8?B?Mm9qS1Qvbk5Ia0VxWXV4QkdvM0tEcHB0VjNKM1JhakZKcHc4WG5xb1l2aldN?=
+ =?utf-8?B?NDNVTWxNdWFERFZsK0hORHdZbmJOckg4aElMZWl1cFFhb1M0WDhLaTFKckRO?=
+ =?utf-8?B?N0hRVlVzZEIwS2lNWVJKQVFmeFFRNFF2Y3Q1T3NvWHJ6STEyK25oSlBlWnhC?=
+ =?utf-8?B?b2crYm9MWDNXOWN6Y2pycEZ3VTRVaGNnRWJiMUdZc0xHcUVmVTNBSTlwZVA0?=
+ =?utf-8?B?MTVwUVRaZHg2TWVvL3R4RHJMNmQwYUZ4N3RUclRvWVVZYzQ0OUFTbzdMU2Zv?=
+ =?utf-8?B?U0F4QU41SGhSVUhKR2VoNTRDbDg0SDFBUG5mZktJelZaYmFXbmNGb3UyTkZa?=
+ =?utf-8?B?MmZwdHRBYWVnUklGZWc5cVBpbHA1QWlsQkpxZGlNeVB1ZmNuZk9WV3N5cTNX?=
+ =?utf-8?B?cGN6R3B4bkRoQzBTTHZCN1d4VGRHMVlTMktOR2VCaDg3K0VHUFdSaEovaTZy?=
+ =?utf-8?B?T2xoZmU2dnpNLzFUbHFmOWVwNEFYSkVXYVhSYStTNWo2ZmM0Y2Juc2V5Kzdu?=
+ =?utf-8?B?YndjTzQ3bzVidlV2YUlzdGhVY0Rxa1hxV0xvVUo1SGZReEozbEZxNUxINC8w?=
+ =?utf-8?B?RmhlTmRPWWhJVG9yMkVDQ1p6S3hZaFAzTDZBZXZaMStiNTJlUTUyYnRDbXV0?=
+ =?utf-8?B?THRDRGVMb0J2dkQ3NnovZFZzei9WdjdCcWNQTTN1VjFNdmxkQ2twSzlSU2p0?=
+ =?utf-8?B?UWdaMjd6bHZtL3A3bFUrMFM1dTAvTFFnRVU1ZkdySUt1QXcyQnM1dU9hQzMw?=
+ =?utf-8?B?M1pvMmxEMFduM2hXbSt6SDNnZm1KTzNET2kxdzd6R2RrZ3JwUUFJcXI4ZnBz?=
+ =?utf-8?B?RVlqVlJicW05Y2xOOEFTSmFMN1FYNzFsSk83b2RKa2Q0YWE5YjN5TmxPbjFm?=
+ =?utf-8?B?enNYbmJNcWt2c1JYNUZWYS9DVFBlS09DbUtTMVNjOExRbkpLWUNWUmhzZ0or?=
+ =?utf-8?B?RHkxTnpvT0o5TWdxUzBtSUNTbGRIU3hpS21yUkxvcWQxNXBLOTU0OFpXMTV1?=
+ =?utf-8?B?VVFxakxJUzRWd0RYRTNxRmdUek1NUlJ6NkhLZGdtKytSMjJLZnVrZGplK2lO?=
+ =?utf-8?B?bjAvcG83RXh5YlhTUHFrRkVRZFlGVFFBU2hlUms4QmQ2SkN5b3FKWE1HRE9I?=
+ =?utf-8?B?UlJNR0Fvb0ZTQU5rY0JYbFF5dDBuMm11Tm5CMlQ4Y0pRZlRlQmJSd1k2Zm1v?=
+ =?utf-8?B?UTIyYjZPRElURHBhd29hL3dyUGJTRWwvNWVNR3Vac0pxMVlHdzR5TnhFd2ZO?=
+ =?utf-8?B?L3hYREloNWtxcXJKQmtWUTF4VjA0bGRYOFhtV3FBbkZwZ2ZJYTV0RC9Fb1RY?=
+ =?utf-8?B?NjEwaU1VRkVucjIrTUh1UjJ3cEx1RVVqYms4VEhrZWNBZjlHeEJSYytNK1pP?=
+ =?utf-8?B?aUhVTE53MWlHNUNOMVk1T0RHSkZic3poQ1VTdjZabzFEN1F3SjZ3THgvTWZo?=
+ =?utf-8?B?dUVzTHdENEhyWDZxbFpsMVdMNFZhamVIV1Y2MVVXOHFkYVZsZDE5VVdLRldF?=
+ =?utf-8?B?b2V6Q3BWbnZVZkx2d1VReGloN1BqN2VmOHl3TFdQTUZMZmUzeGtLdk8rS2hZ?=
+ =?utf-8?B?bGxIbnExOENtNGNEeDVhd1VKcDYxQ2p1RUc3WWhXUUQ1cTA4TVlOeGNtOXho?=
+ =?utf-8?B?L0xjM0p4by9nQVVyY09pUEp6cksrd25Rem9jdzJGekJlNTV5WGwzWWQ3UCta?=
+ =?utf-8?B?ejlrM2FsalY4Q2JPUEI4cHRGZUI1Tys0TmF5OTlTRWRJcU51RWhjMytML0VQ?=
+ =?utf-8?B?cUgvdTdoZzQxbXhwUmR1SjhvZkVtbkpvYUY1YnVPdGZLM1A5ZExHY2JyRTd3?=
+ =?utf-8?B?djNhV0xrZUEwMktLSFIwdlJ3TTBxQVkzOGlmbDh5UUZTdXdKUHpGaHhLOXNE?=
+ =?utf-8?B?R3BESWlzb2MrUjhTQVY5ZnlwTlg2Z3hrNTNER2F6ZjdvOUZJcVl2dz09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <72204FE3EB3F62478F4A1EDB2835E672@apcprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-From: Dave Airlie <airlied@gmail.com>
-Date: Fri, 8 May 2026 18:10:26 +1000
-X-Gm-Features: AVHnY4KV8S77sfhj7lqSOQ16U3X0yQvhEQ8VJdLrtpMc6vyEcHESYDuHUwd_SXY
-Message-ID: <CAPM=9tw+hnprz_uW=B3TprAfTgNMWzAEQgeCVrKvuqam8tirDg@mail.gmail.com>
-Subject: [git pull] drm fixes for 7.1-rc3
-To: Linus Torvalds <torvalds@linux-foundation.org>,
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Exchange-RoutingPolicyChecked: K9GTCeOE+4SY19xoIljZGUISSKIogkL9BvauL5rpOeGEfPMqbnzPKFzd2S+HepttN6J7e8A5CIfnhbIJxNS7G3/B4wk1aPAIM9WcIEOTogLUzv1pKJNhaoTwYD9YDUfecjJb/br+CHO6+6pouTPTKHVtGhWzs4IKrulVtBsy3wIJREt+B4Ax28NfgdNt0Vi12JsDoILKbPjlRrZ3LR2Y90iB2A8Attnrf2ElSi2lfG6BzVlxqGBprrZk2ZsmiDSTLdoqIKXXarwGOcluoaYvJgQcpnuFi9h/+8ORsACBx3MciENqfNVCYoTc3y1e40I0lpoT58amUtJqoKEGUljpiA==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB6624.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ee89365c-6fed-48fd-52d2-08deacdb5657
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 May 2026 08:25:17.8491 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: RWG73OcGVXnBJun8uRNx6DORXY9WhZ5fLmboe0p00FqscAYbBNNLHm8NOZpxky3noZnTgbxLwZsCiwDl7nvIqw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SG2PR03MB6430
+X-MTK: N
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,336 +177,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Linus,
-
-Weekly fixes, lots of them but all pretty small, amdgpu and xe are the
-usual but then a large amount of fixes all over.
-
-Regards,
-Dave.
-
-drm-fixes-2026-05-08-1:
-drm fixes for 7.1-rc3
-
-core:
-- fix race condition in handle change ioctl
-
-fb-helper:
-- fix clipping
-
-rust:
-- fix unsound initialization
-- fix GEM state cleanup
-- fix wrong ARef import
-
-ttm:
-- update GPU MM stats on pool shrinking
-
-i915:
-- Re-enable ccs modifiers on dg2
-
-nova:
-- fix mailing list
-
-xe:
-- Add NULL check for media_gt in intel_hdcp_gsc_check_status
-- Fix EAGAIN sign in pf_migration_consume
-- Fix MMIO access using PF view instead of VF view during migration
-- Exclude indirect ring state page from ADS engine state size
-
-amdgpu:
-- GFX9 fixes
-- Hawaii SMU fixes
-- SDMA4 fix
-- GART fix
-- Userq fixes
-
-amdkfd:
-- GPUVM TLB flush fix
-- Hotplug fix
-
-radeon:
-- Hawaii SMU fixes
-
-bochs:
-- fix managed cleanup
-
-bridge:
-- tda998x: fix sparse warnings on type correctness
-
-etnaviv:
-- schedule armed jobs
-
-exynos:
-- managed bridge cleanup
-
-ivpu:
-- disallow reexport of GEM buffer objects
-
-noveau:
-- revert support for GA100
-
-panel:
-- boe-tv101wum-nl16: use correct MIPI_DSI mode
-- feyjang-fy07024di26a30d: fix error reporting
-- himax-hx83102: use correct MIPI_DSI mode
-- himax-hx83121a: fix error checks
-- himax-hx83121a: select DRM_DISPLAY_DSC_HELPER
-
-qaic:
-- fix RAS message handling
-
-qxl:
-- clean up polling
-
-sti:
-- managed bridge cleanup
-The following changes since commit 7fd2df204f342fc17d1a0bfcd474b24232fb0f32=
-:
-
-  Linux 7.1-rc2 (2026-05-03 14:21:25 -0700)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/kernel.git tags/drm-fixes-2026-05-08-1
-
-for you to fetch changes up to 5e28b7b94408897e41c63477aabc9e1db439bc8c:
-
-  drm: Set old handle to NULL before prime swap in change_handle
-(2026-05-08 17:53:59 +1000)
-
-----------------------------------------------------------------
-drm fixes for 7.1-rc3
-
-core:
-- fix race condition in handle change ioctl
-
-fb-helper:
-- fix clipping
-
-rust:
-- fix unsound initialization
-- fix GEM state cleanup
-- fix wrong ARef import
-
-ttm:
-- update GPU MM stats on pool shrinking
-
-i915:
-- Re-enable ccs modifiers on dg2
-
-nova:
-- fix mailing list
-
-xe:
-- Add NULL check for media_gt in intel_hdcp_gsc_check_status
-- Fix EAGAIN sign in pf_migration_consume
-- Fix MMIO access using PF view instead of VF view during migration
-- Exclude indirect ring state page from ADS engine state size
-
-amdgpu:
-- GFX9 fixes
-- Hawaii SMU fixes
-- SDMA4 fix
-- GART fix
-- Userq fixes
-
-amdkfd:
-- GPUVM TLB flush fix
-- Hotplug fix
-
-radeon:
-- Hawaii SMU fixes
-
-bochs:
-- fix managed cleanup
-
-bridge:
-- tda998x: fix sparse warnings on type correctness
-
-etnaviv:
-- schedule armed jobs
-
-exynos:
-- managed bridge cleanup
-
-ivpu:
-- disallow reexport of GEM buffer objects
-
-noveau:
-- revert support for GA100
-
-panel:
-- boe-tv101wum-nl16: use correct MIPI_DSI mode
-- feyjang-fy07024di26a30d: fix error reporting
-- himax-hx83102: use correct MIPI_DSI mode
-- himax-hx83121a: fix error checks
-- himax-hx83121a: select DRM_DISPLAY_DSC_HELPER
-
-qaic:
-- fix RAS message handling
-
-qxl:
-- clean up polling
-
-sti:
-- managed bridge cleanup
-
-----------------------------------------------------------------
-Alex Deucher (3):
-      drm/amdgpu/pm: add missing revision check for CI
-      drm/amdgpu/pm: align Hawaii mclk workaround with radeon
-      drm/radeon: add missing revision check for CI
-
-Alok Tiwari (1):
-      accel/qaic: fix incorrect counter check in RAS message decode
-
-Arnd Bergmann (1):
-      drm/panel: hx83121a: select DRM_DISPLAY_DSC_HELPER
-
-Chen Ni (1):
-      drm/panel: himax-hx83121a: Fix incorrect error check for
-devm_drm_panel_alloc()
-
-Christian K=C3=B6nig (1):
-      drm/amdgpu: nuke amdgpu_userq_fence_slab v2
-
-Christian Van (1):
-      drm/panel: feiyang-fy07024di26a30d: return display-on error
-
-Danilo Krummrich (1):
-      MAINTAINERS: nova: update mailing list
-
-Dave Airlie (5):
-      Merge tag 'drm-intel-fixes-2026-05-06' of
-https://gitlab.freedesktop.org/drm/i915/kernel into drm-fixes
-      Merge tag 'drm-rust-fixes-2026-05-07' of
-https://gitlab.freedesktop.org/drm/rust/kernel into drm-fixes
-      Merge tag 'drm-xe-fixes-2026-05-07' of
-https://gitlab.freedesktop.org/drm/xe/kernel into drm-fixes
-      Merge tag 'drm-misc-fixes-2026-05-07' of
-https://gitlab.freedesktop.org/drm/misc/kernel into drm-fixes
-      Merge tag 'amd-drm-fixes-7.1-2026-05-06' of
-https://gitlab.freedesktop.org/agd5f/linux into drm-fixes
-
-Eliot Courtney (2):
-      rust: drm: gem: clean up GEM state in init failure case
-      rust: drm: fix unsound initialization in drm::Device::new
-
-Felix Kuehling (1):
-      drm/amdkfd: Make all TLB-flushes heavy-weight
-
-Francesco Lavra (1):
-      drm/fb-helper: Fix clipping when damage area spans a single scanline
-
-Francis, David (1):
-      drm: Set old handle to NULL before prime swap in change_handle
-
-Gustavo Sousa (1):
-      drm/xe/hdcp: Add NULL check for media_gt in intel_hdcp_gsc_check_stat=
-us()
-
-Icenowy Zheng (2):
-      drm/panel: boe-tv101wum-nl6: restore MODE_LPM after sending disable c=
-mds
-      drm/panel: himax-hx83102: restore MODE_LPM after sending disable cmds
-
-John B. Moore (2):
-      drm/amdgpu/gfx9: drop unnecessary 64-bit fence flag check in KIQ
-      drm/amdgpu/sdma4: replace BUG_ON with WARN_ON in fence emission
-
-Juha-Pekka Heikkila (1):
-      drm/i915/display: enable ccs modifiers on dg2
-
-Karol Wachowski (1):
-      accel/ivpu: Disallow re-exporting imported GEM objects
-
-Kory Maincent (TI) (2):
-      drm/bridge: tda998x: Use __be32 for audio port OF property pointer
-      drm/bridge: tda998x: Return NULL instead of 0 in tda998x_edid_read()
-
-Matthew Brost (1):
-      drm/ttm: Fix GPU MM stats during pool shrinking
-
-Ma=C3=ADra Canal (1):
-      drm/etnaviv: Fix armed job not being pushed to the DRM scheduler
-
-Mukesh Kumar Chaurasiya (IBM) (1):
-      rust/drm: import ARef from sync crate
-
-Myeonghun Pak (2):
-      drm/qxl: Fix missing KMS poll cleanup
-      drm/bochs: Drop manual put on probe error path
-
-Osama Abdelkader (2):
-      drm/sti: remove bridge when sti_hda component_add fails
-      drm/exynos: remove bridge when component_add fails
-
-Philip Yang (1):
-      drm/amdgpu: zero-initialize GART table on allocation
-
-Satyanarayana K V P (1):
-      drm/xe/guc: Exclude indirect ring state page from ADS engine state si=
-ze
-
-Shuicheng Lin (2):
-      drm/xe/pf: Fix EAGAIN sign in pf_migration_consume()
-      drm/xe/pf: Fix MMIO access using PF view instead of VF view
-during migration
-
-Sunil Khatri (1):
-      drm/amdgpu/userq: fix access to stale wptr mapping
-
-Timur Tabi (1):
-      Revert "drm/nouveau/gsp: add support for GA100"
-
-Xiaogang Chen (1):
-      drm/amdkfd: Check if there are kfd porcesses using adev by
-kfd_processes_count
-
- MAINTAINERS                                        |  6 +-
- drivers/accel/ivpu/ivpu_drv.c                      | 21 +++++
- drivers/accel/qaic/qaic_ras.c                      |  4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            | 13 +--
- drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c           | 13 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c    | 28 +------
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h    |  3 -
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c              |  3 -
- drivers/gpu/drm/amd/amdgpu/mes_userqueue.c         | 97 +++++++++---------=
-----
- drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c             |  4 +-
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c           |  4 +-
- drivers/gpu/drm/amd/amdkfd/kfd_device.c            | 33 +-------
- .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |  6 +-
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h              |  6 +-
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c               |  4 +-
- .../gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c    | 13 +--
- drivers/gpu/drm/bridge/tda998x_drv.c               |  4 +-
- drivers/gpu/drm/drm_fb_helper.c                    |  2 +-
- drivers/gpu/drm/drm_gem.c                          | 25 +++++-
- drivers/gpu/drm/etnaviv/etnaviv_sched.c            | 16 ++--
- drivers/gpu/drm/exynos/exynos_drm_mic.c            |  8 +-
- drivers/gpu/drm/i915/i915_driver.c                 |  5 +-
- drivers/gpu/drm/nouveau/nvkm/engine/device/base.c  | 11 ++-
- drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga100.c    |  4 +
- drivers/gpu/drm/nouveau/nvkm/subdev/gsp/tu102.c    | 18 ++--
- drivers/gpu/drm/panel/Kconfig                      |  1 +
- drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c     |  2 +
- .../gpu/drm/panel/panel-feiyang-fy07024di26a30d.c  |  4 +-
- drivers/gpu/drm/panel/panel-himax-hx83102.c        |  2 +
- drivers/gpu/drm/panel/panel-himax-hx83121a.c       |  4 +-
- drivers/gpu/drm/qxl/qxl_drv.c                      |  6 +-
- drivers/gpu/drm/radeon/ci_dpm.c                    |  9 +-
- drivers/gpu/drm/sti/sti_hda.c                      |  8 +-
- drivers/gpu/drm/tiny/bochs.c                       | 10 +--
- drivers/gpu/drm/ttm/ttm_pool.c                     | 18 ++--
- drivers/gpu/drm/xe/display/xe_hdcp_gsc.c           | 12 ++-
- drivers/gpu/drm/xe/xe_gt_sriov_pf_migration.c      |  8 +-
- drivers/gpu/drm/xe/xe_guc_ads.c                    |  5 +-
- drivers/gpu/drm/xe/xe_lrc.c                        | 11 ++-
- drivers/gpu/drm/xe/xe_lrc.h                        |  2 +-
- drivers/gpu/drm/xe/xe_sriov_pf_migration.c         |  7 +-
- rust/kernel/drm/device.rs                          | 22 +++--
- rust/kernel/drm/gem/mod.rs                         | 13 ++-
- rust/kernel/drm/gem/shmem.rs                       |  6 +-
- 44 files changed, 254 insertions(+), 247 deletions(-)
+T24gTW9uLCAyMDI2LTA0LTIwIGF0IDA2OjQ1ICswMDAwLCBzYWkgbWFkaHUgd3JvdGU6DQo+IEV4
+dGVybmFsIGVtYWlsIDogUGxlYXNlIGRvIG5vdCBjbGljayBsaW5rcyBvciBvcGVuIGF0dGFjaG1l
+bnRzIHVudGlsIHlvdSBoYXZlIHZlcmlmaWVkIHRoZSBzZW5kZXIgb3IgdGhlIGNvbnRlbnQuDQo+
+IA0KPiANCj4gVGhlIERSTV9FUlJPUigpIG1hY3JvIGlzIGRlcHJlY2F0ZWQgaW4gZmF2b3Igb2Yg
+ZHJtX2VycigpIHdoaWNoDQo+IHByb3ZpZGVzIGRldmljZS1zcGVjaWZpYyBsb2dnaW5nLg0KPiAN
+Cj4gUmVwbGFjZSBEUk1fRVJST1IoKSB3aXRoIGRybV9lcnIoKSBpbiB0aGUgTWVkaWF0ZWsgSERN
+SSBicmlkZ2UNCj4gZHJpdmVyIGFuZCBwYXNzIHRoZSBkcm1fZGV2aWNlIHBvaW50ZXIgdmlhIGJy
+aWRnZS0+ZGV2Lg0KPiANCj4gTm8gZnVuY3Rpb25hbCBjaGFuZ2UgaW50ZW5kZWQuDQoNClJldmll
+d2VkLWJ5OiBDSyBIdSA8Y2suaHVAbWVkaWF0ZWsuY29tPg0KDQo+IA0KPiBTaWduZWQtb2ZmLWJ5
+OiBzYWkgbWFkaHUgPHN1cnlhc2FpbWFkaHUzNjlAZ21haWwuY29tPg0KPiAtLS0NCj4gIGRyaXZl
+cnMvZ3B1L2RybS9tZWRpYXRlay9tdGtfaGRtaS5jIHwgNCArKy0tDQo+ICAxIGZpbGUgY2hhbmdl
+ZCwgMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9tZWRpYXRlay9tdGtfaGRtaS5jIGIvZHJpdmVycy9ncHUvZHJtL21lZGlh
+dGVrL210a19oZG1pLmMNCj4gaW5kZXggMWVhMjU5ODU0NzgwLi40ZGRjZGJmN2JjOGMgMTAwNjQ0
+DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9tZWRpYXRlay9tdGtfaGRtaS5jDQo+ICsrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9tZWRpYXRlay9tdGtfaGRtaS5jDQo+IEBAIC05ODEsOCArOTgxLDggQEAg
+c3RhdGljIGludCBtdGtfaGRtaV9icmlkZ2VfYXR0YWNoKHN0cnVjdCBkcm1fYnJpZGdlICpicmlk
+Z2UsDQo+ICAgICAgICAgaW50IHJldDsNCj4gDQo+ICAgICAgICAgaWYgKCEoZmxhZ3MgJiBEUk1f
+QlJJREdFX0FUVEFDSF9OT19DT05ORUNUT1IpKSB7DQo+IC0gICAgICAgICAgICAgICBEUk1fRVJS
+T1IoIiVzOiBUaGUgZmxhZyBEUk1fQlJJREdFX0FUVEFDSF9OT19DT05ORUNUT1IgbXVzdCBiZSBz
+dXBwbGllZFxuIiwNCj4gLSAgICAgICAgICAgICAgICAgICAgICAgICBfX2Z1bmNfXyk7DQo+ICsg
+ICAgICAgICAgICAgICBkcm1fZXJyKGJyaWRnZS0+ZGV2LA0KPiArICAgICAgICAgICAgICAgICAg
+ICAgICAiRFJNX0JSSURHRV9BVFRBQ0hfTk9fQ09OTkVDVE9SIG11c3QgYmUgc3VwcGxpZWRcbiIp
+Ow0KPiAgICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7DQo+ICAgICAgICAgfQ0KPiANCj4g
+LS0NCj4gMi4zNC4xDQo+IA0KDQo=
