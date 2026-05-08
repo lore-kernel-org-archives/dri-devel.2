@@ -4,55 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88283CD37AA
-	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 06:56:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BB5DCD342F
+	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 06:57:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE8C310F36C;
-	Fri,  8 May 2026 06:56:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E372610F374;
+	Fri,  8 May 2026 06:57:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="L8KHJCk6";
+	dkim=pass (1024-bit key; secure) header.d=quora.org header.i=@quora.org header.b="Fg148Ifz";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EA1C10F369;
- Fri,  8 May 2026 06:56:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778223364; x=1809759364;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=47POBLVaUrXtK1fn5h2rHbXgKdBedhfQvXbum5KWZpY=;
- b=L8KHJCk6taFyMXyAoAmZyKAbRI4ljiOboWt1PV+cdcPFKuUcGU53eDZV
- OllX892Dwr9BU7Z5Es02CnlKmCKclnmduTUd6f/9cweldEN212jEgeikh
- u9wL3hIQunc34UypSq0M7a11w/sD2lueud9mDZOTsclPufA2Rdnrd4sxJ
- OlSMeIYI1+I7L+SUI4RRhMkIL4ZUJH0UqVQbNH6ABndjdH816jdQcnSzx
- uGorDDZduLCK0YV3pkn99HEhi6ai2SCtz4WIpkbipjDh9yms2u4JnBcId
- Gb50FdHeoWxczpf4q5IFWspdg0OAHxlR6pAn/nN/A/IWkPkGR0w728OKK w==;
-X-CSE-ConnectionGUID: z7a1qwv5SN6aQcp0zk+W/A==
-X-CSE-MsgGUID: RVvl4OzcTj6CRTRDvCAj/w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11779"; a="79373325"
-X-IronPort-AV: E=Sophos;i="6.23,223,1770624000"; d="scan'208";a="79373325"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 May 2026 23:56:03 -0700
-X-CSE-ConnectionGUID: F50X2WD0Tn6WkjwwFx5+Nw==
-X-CSE-MsgGUID: vHEYlSuQSi2eEDhF3COPEQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,223,1770624000"; d="scan'208";a="232153647"
-Received: from tejasupa-desk.iind.intel.com (HELO tejasupa-desk)
- ([10.190.239.37])
- by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 May 2026 23:56:00 -0700
-From: Tejas Upadhyay <tejas.upadhyay@intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: matthew.auld@intel.com, Arunpravin.PaneerSelvam@amd.com,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Tejas Upadhyay <tejas.upadhyay@intel.com>,
- Matthew Brost <matthew.brost@intel.com>
-Subject: [PATCH V2] drm/buddy: Integrate lockdep annotations for gpu buddy
- manager
-Date: Fri,  8 May 2026 12:25:45 +0530
-Message-ID: <20260508065544.4049240-2-tejas.upadhyay@intel.com>
-X-Mailer: git-send-email 2.52.0
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
+ [209.85.214.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B6E210F369
+ for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 06:57:30 +0000 (UTC)
+Received: by mail-pl1-f173.google.com with SMTP id
+ d9443c01a7336-2ba928852a5so11130975ad.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 07 May 2026 23:57:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quora.org; s=google; t=1778223450; x=1778828250; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=TetnCK6YoCpHxJceDDOD/QB+oKi7cDlyFmiU7j9vyl4=;
+ b=Fg148Ifz4z82MpRZspkofvPaR5ppXVugAHpVhEEyMQ0W2HG/X9qbj5roP6TGy6cjYR
+ f11vbEJdojEnDwHc7bXo7gW87e7EbCXSs/fvZtKz8qJbnuP0qrAeuu8NCnxvyUdShpEa
+ 0G8hI/MXL81jquvhMBR5Wx/mUcnmMEu4Uzh7E=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778223450; x=1778828250;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=TetnCK6YoCpHxJceDDOD/QB+oKi7cDlyFmiU7j9vyl4=;
+ b=a51+q+icNW0d7K+Q5Hnc//Zrx969VF40xMbMS14WnB9CsmLO+p9+tRYZ+in0gvk7ms
+ O8SredP9nhmPwffbdXX2BSntPIU14H24bXfSLl0VIGs3B8gXYI/Lxvojz4lVtXelA3gv
+ eK5BYlCWczw7hMlLenRYt6KFNEdHyDiTAtLws9rLHVKQVHaDxZUlWr8iwcwxSA5p6jox
+ pnnHf1x9H/etJKTkz/xe6Kw4qBwYUwexF8Bgx71/RDqn+PD+ZlEYUo3rlyqFIzthSAjn
+ AT9qf29dlr4jP276Rld3TWhnxKrg1RtCGfcnPZRLVNFzOz1EpIpCHh9dLoniAAP67dVz
+ Te+A==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/PDtz/6b+LFOcO/fBEG7j/taZsCSqcn5uE1tONE4LaOw5AYpLvs2tleoLkWZzPvwSu4je43gXr36c=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw4qogwB/wXqSbnnjVBBjEyY4q0uX7HHHH4phG6XpgeYy48fwWf
+ pq/Yv0kRsH14f2xMfmPJQvygzAA54ccWLfdr8c1A9wEAqY3TqF7kSCGE94nMepw+0KQ=
+X-Gm-Gg: Acq92OHz/GU+bmpcL0ogGLq5NBzuCFMtZMOBGB/q+CRXBPGwVJ/kFPvYV/d5ZLOVm5z
+ l5N3QnAAMg2v+VeMyC8NhaoHGkbVbBtHGGIFKw2nyi0oev367XfBUzJOKCloH0dwVVwg5aFBuVz
+ c8av22jgXSZK/S1KA5Kcp/Mttey1VO0w/DQJp8EJq2DoPIKP3Iy8aM/LMbgoR8ol54WlAhzFpFr
+ FwFYdeBDYngz2uci8yIGt6CK4nn+y+bkzeFgZ57j6Owzq+gd9dlp2gj+K/JV5zp6F6KaWx4ICth
+ k5d38cmJsgXO6LeqnXVoK2rYkDvW3WPXh4l15WA6i9swvDpmNKm2B+48Pt3LZbA84quVVO51Lgs
+ IHLC+EUnx2QaFCNGDMhcvsnEE3dRfG2wEFa/+8zct0iH6D+ytbf2M1FcIGgam/u1cO/2HEROkp7
+ 5qrqgX1IS0dnvS69Y4FTNaRz4LHBnZmWqiKtXfAYvnD/eonJaTdG8MwF9BWkpWhbq1l5Kge9992
+ kCXz79GiUgAIwrQg2izJ2wVHBzavP6GmjDaipj5R8P1AwHukOUAtpeUwSHMUqstoUIT6/wQrVnR
+ Qw5ZynFc299VVCgHH94xxiUSxsq/AFa1U9RVgQQBi4t3EULUSKkAuzccb1uRAqq+
+X-Received: by 2002:a17:903:3c2b:b0:2b9:ea53:4cfc with SMTP id
+ d9443c01a7336-2ba794b8118mr117896365ad.19.1778223450102; 
+ Thu, 07 May 2026 23:57:30 -0700 (PDT)
+Received: from aegis ([2001:fd8:4d01:3602:5317:86f3:5298:5270])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2baf1ead938sm10650785ad.73.2026.05.07.23.57.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 07 May 2026 23:57:29 -0700 (PDT)
+From: Daniel J Blueman <daniel@quora.org>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Antonino Maniscalco <antomani103@gmail.com>
+Cc: Daniel J Blueman <daniel@quora.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH] drm/msm: Fix shrinker deadlock
+Date: Fri,  8 May 2026 14:57:21 +0800
+Message-ID: <20260508065722.18785-1-daniel@quora.org>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -70,180 +92,173 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-gpu_buddy APIs are expected to be called with the driver-provided lock
-held, but there is no runtime enforcement of this contract. Add lockdep
-annotations to catch locking violations early.
+With PROVE_LOCKING on an Snapdragon X1 and VM reclaim pressure, we see:
 
-Introduce gpu_buddy_driver_set_lock() for the driver to register the
-lock that protects the buddy manager. Add gpu_buddy_driver_lock_held()
-assertions to all exported gpu_buddy and drm_buddy APIs that
-access/modify the manager state. The lock_dep_map field is only compiled
-in when CONFIG_LOCKDEP is enabled, adding zero overhead to production
-builds.
+"""
+kswapd0/121 is trying to acquire lock:
+ffff800080ed3800 (reservation_ww_class_acquire){+.+.}-{0:0}, at:
+  msm_gem_shrinker_scan (drivers/gpu/drm/msm/msm_gem_shrinker.c:189)
 
-Wire up xe_ttm_vram_mgr to register its mutex with the buddy manager
-after initialization.
+but task is already holding lock:
+ffffbf4ddb44ca40 (fs_reclaim){+.+.}-{0:0}, at:
+  balance_pgdat (mm/vmscan.c:7236 (discriminator 2))
 
-Assisted-by: Copilot:claude-opus-4.6
-Suggested-by: Matthew Brost <matthew.brost@intel.com>
-Signed-off-by: Tejas Upadhyay <tejas.upadhyay@intel.com>
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+which lock already depends on the new lock.
+
+the existing dependency chain (in reverse order) is:
+
+-> #2 (fs_reclaim){+.+.}-{0:0}:
+lock_acquire (kernel/locking/lockdep.c:5868 kernel/locking/lockdep.c:5825)
+fs_reclaim_acquire (mm/page_alloc.c:4325 mm/page_alloc.c:4339)
+dma_resv_lockdep (drivers/dma-buf/dma-resv.c:798)
+do_one_initcall (init/main.c:1392)
+kernel_init_freeable (init/main.c:1454 (discriminator 1) init/main.c:1470
+  (discriminator 1) init/main.c:1490 (discriminator 1) init/main.c:1703
+  (discriminator 1))
+kernel_init (init/main.c:1593)
+ret_from_fork (arch/arm64/kernel/entry.S:858)
+
+-> #1 (reservation_ww_class_mutex){+.+.}-{4:4}:
+lock_acquire (kernel/locking/lockdep.c:5868 kernel/locking/lockdep.c:5825)
+dma_resv_lockdep (./include/linux/ww_mutex.h:164 (discriminator 1)
+  drivers/dma-buf/dma-resv.c:791 (discriminator 1))
+do_one_initcall (init/main.c:1392)
+kernel_init_freeable (init/main.c:1454 (discriminator 1) init/main.c:1470
+  (discriminator 1) init/main.c:1490 (discriminator 1) init/main.c:1703
+  (discriminator 1))
+kernel_init (init/main.c:1593)
+ret_from_fork (arch/arm64/kernel/entry.S:858)
+
+-> #0 (reservation_ww_class_acquire){+.+.}-{0:0}:
+check_prev_add (kernel/locking/lockdep.c:3165)
+__lock_acquire (kernel/locking/lockdep.c:3284
+  kernel/locking/lockdep.c:3908 kernel/locking/lockdep.c:5237)
+lock_acquire (kernel/locking/lockdep.c:5868 kernel/locking/lockdep.c:5825)
+drm_gem_lru_scan (./include/linux/ww_mutex.h:163 (discriminator 1)
+  drivers/gpu/drm/drm_gem.c:1681 (discriminator 1))
+msm_gem_shrinker_scan (drivers/gpu/drm/msm/msm_gem_shrinker.c:189)
+do_shrink_slab (mm/shrinker.c:436)
+shrink_slab (mm/shrinker.c:667)
+shrink_one (mm/vmscan.c:5071)
+shrink_node (mm/vmscan.c:5132 mm/vmscan.c:5210 mm/vmscan.c:6198)
+balance_pgdat (mm/vmscan.c:7052 mm/vmscan.c:7228)
+kswapd (mm/vmscan.c:7501)
+kthread (kernel/kthread.c:436)
+ret_from_fork (arch/arm64/kernel/entry.S:858)
+
+other info that might help us debug this:
+
+Chain exists of:
+reservation_ww_class_acquire --> reservation_ww_class_mutex --> fs_reclaim
+"""
+
+kswapd0 holding fs_reclaim calls the MSM shrinker, which calls
+dma_resv_lock. This in turn acquires fs_reclaim.
+
+Fix this deadlock by using dma_resv_trylock() instead, dropping the
+subsequently unused passed wait-wound lock 'ticket'.
+
+Cc: stable@vger.kernel.org
+Signed-off-by: Daniel J Blueman <daniel@quora.org>
+Fixes: fe4952b5f27c ("drm/msm: Convert vm locking")
 ---
- drivers/gpu/buddy.c                  | 11 ++++++++
- drivers/gpu/drm/drm_buddy.c          |  1 +
- drivers/gpu/drm/xe/xe_ttm_vram_mgr.c |  1 +
- include/linux/gpu_buddy.h            | 41 ++++++++++++++++++++++++++++
- 4 files changed, 54 insertions(+)
+ drivers/gpu/drm/msm/msm_gem_shrinker.c | 34 ++++++++++----------------
+ 1 file changed, 13 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
-index 52686672e99f..eb1457376307 100644
---- a/drivers/gpu/buddy.c
-+++ b/drivers/gpu/buddy.c
-@@ -437,6 +437,9 @@ int gpu_buddy_init(struct gpu_buddy *mm, u64 size, u64 chunk_size)
- 		root_count++;
- 	} while (size);
- 
-+#ifdef CONFIG_LOCKDEP
-+	mm->lock_dep_map = NULL;
-+#endif
- 	return 0;
- 
- out_free_roots:
-@@ -538,6 +541,7 @@ void gpu_buddy_reset_clear(struct gpu_buddy *mm, bool is_clear)
- 	unsigned int order;
- 	int i;
- 
-+	gpu_buddy_driver_lock_held(mm);
- 	size = mm->size;
- 	for (i = 0; i < mm->n_roots; ++i) {
- 		order = ilog2(size) - ilog2(mm->chunk_size);
-@@ -580,6 +584,7 @@ EXPORT_SYMBOL(gpu_buddy_reset_clear);
- void gpu_buddy_free_block(struct gpu_buddy *mm,
- 			  struct gpu_buddy_block *block)
- {
-+	gpu_buddy_driver_lock_held(mm);
- 	BUG_ON(!gpu_buddy_block_is_allocated(block));
- 	mm->avail += gpu_buddy_block_size(mm, block);
- 	if (gpu_buddy_block_is_clear(block))
-@@ -633,6 +638,7 @@ void gpu_buddy_free_list(struct gpu_buddy *mm,
- {
- 	bool mark_clear = flags & GPU_BUDDY_CLEARED;
- 
-+	gpu_buddy_driver_lock_held(mm);
- 	__gpu_buddy_free_list(mm, objects, mark_clear, !mark_clear);
+diff --git a/drivers/gpu/drm/msm/msm_gem_shrinker.c b/drivers/gpu/drm/msm/msm_gem_shrinker.c
+index 31fa51a44f86..5320ef57dd90 100644
+--- a/drivers/gpu/drm/msm/msm_gem_shrinker.c
++++ b/drivers/gpu/drm/msm/msm_gem_shrinker.c
+@@ -43,8 +43,7 @@ msm_gem_shrinker_count(struct shrinker *shrinker, struct shrink_control *sc)
  }
- EXPORT_SYMBOL(gpu_buddy_free_list);
-@@ -1172,6 +1178,8 @@ int gpu_buddy_block_trim(struct gpu_buddy *mm,
- 	u64 new_start;
- 	int err;
  
-+	gpu_buddy_driver_lock_held(mm);
-+
- 	if (!list_is_singular(blocks))
- 		return -EINVAL;
- 
-@@ -1287,6 +1295,8 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
- 	unsigned long pages;
- 	int err;
- 
-+	gpu_buddy_driver_lock_held(mm);
-+
- 	if (size < mm->chunk_size)
- 		return -EINVAL;
- 
-@@ -1475,6 +1485,7 @@ void gpu_buddy_print(struct gpu_buddy *mm)
+ static bool
+-with_vm_locks(struct ww_acquire_ctx *ticket,
+-	      void (*fn)(struct drm_gem_object *obj),
++with_vm_locks(void (*fn)(struct drm_gem_object *obj),
+ 	      struct drm_gem_object *obj)
  {
- 	int order;
+ 	/*
+@@ -52,7 +51,7 @@ with_vm_locks(struct ww_acquire_ctx *ticket,
+ 	 * success paths
+ 	 */
+ 	struct drm_gpuvm_bo *vm_bo, *last_locked = NULL;
+-	int ret = 0;
++	bool locked = true;
  
-+	gpu_buddy_driver_lock_held(mm);
- 	pr_info("chunk_size: %lluKiB, total: %lluMiB, free: %lluMiB, clear_free: %lluMiB\n",
- 		mm->chunk_size >> 10, mm->size >> 20, mm->avail >> 20, mm->clear_avail >> 20);
+ 	drm_gem_for_each_gpuvm_bo (vm_bo, obj) {
+ 		struct dma_resv *resv = drm_gpuvm_resv(vm_bo->vm);
+@@ -60,23 +59,14 @@ with_vm_locks(struct ww_acquire_ctx *ticket,
+ 		if (resv == obj->resv)
+ 			continue;
  
-diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
-index 841f3de5f307..faa025498de4 100644
---- a/drivers/gpu/drm/drm_buddy.c
-+++ b/drivers/gpu/drm/drm_buddy.c
-@@ -42,6 +42,7 @@ void drm_buddy_print(struct gpu_buddy *mm, struct drm_printer *p)
+-		ret = dma_resv_lock(resv, ticket);
+-
+ 		/*
+-		 * Since we already skip the case when the VM and obj
+-		 * share a resv (ie. _NO_SHARE objs), we don't expect
+-		 * to hit a double-locking scenario... which the lock
+-		 * unwinding cannot really cope with.
++		 * dma_resv_lock can't be used due to acquiring 'ticket' before the
++		 * fs_reclaim lock, which is held in shrinker context
+ 		 */
+-		WARN_ON(ret == -EALREADY);
+-
+-		/*
+-		 * Don't bother with slow-lock / backoff / retry sequence,
+-		 * if we can't get the lock just give up and move on to
+-		 * the next object.
+-		 */
+-		if (ret)
++		if (!dma_resv_trylock(resv)) {
++			locked = false;
+ 			goto out_unlock;
++		}
+ 
+ 		/*
+ 		 * Hold a ref to prevent the vm_bo from being freed
+@@ -108,7 +98,7 @@ with_vm_locks(struct ww_acquire_ctx *ticket,
+ 		}
+ 	}
+ 
+-	return ret == 0;
++	return locked;
+ }
+ 
+ static bool
+@@ -120,7 +110,7 @@ purge(struct drm_gem_object *obj, struct ww_acquire_ctx *ticket)
+ 	if (msm_gem_active(obj))
+ 		return false;
+ 
+-	return with_vm_locks(ticket, msm_gem_purge, obj);
++	return with_vm_locks(msm_gem_purge, obj);
+ }
+ 
+ static bool
+@@ -164,7 +154,6 @@ static unsigned long
+ msm_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
  {
- 	int order;
- 
-+	gpu_buddy_driver_lock_held(mm);
- 	drm_printf(p, "chunk_size: %lluKiB, total: %lluMiB, free: %lluMiB, clear_free: %lluMiB\n",
- 		   mm->chunk_size >> 10, mm->size >> 20, mm->avail >> 20, mm->clear_avail >> 20);
- 
-diff --git a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
-index 6ba47996bc7c..9f67df646955 100644
---- a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
-+++ b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
-@@ -322,6 +322,7 @@ int __xe_ttm_vram_mgr_init(struct xe_device *xe, struct xe_ttm_vram_mgr *mgr,
- 	if (err)
- 		return err;
- 
-+	gpu_buddy_driver_set_lock(&mgr->mm, &mgr->lock);
- 	ttm_set_driver_manager(&xe->ttm, mem_type, &mgr->manager);
- 	ttm_resource_manager_set_used(&mgr->manager, true);
- 
-diff --git a/include/linux/gpu_buddy.h b/include/linux/gpu_buddy.h
-index 5fa917ba5450..71941a039648 100644
---- a/include/linux/gpu_buddy.h
-+++ b/include/linux/gpu_buddy.h
-@@ -154,6 +154,7 @@ struct gpu_buddy_block {
-  * @avail: Total free space currently available for allocation in bytes.
-  * @clear_avail: Free space available in the clear tree (zeroed memory) in bytes.
-  *               This is a subset of @avail.
-+ * @lock_dep_map: Annotates gpu_buddy API with a driver provided lock.
-  */
- struct gpu_buddy {
- /* private: */
-@@ -179,8 +180,48 @@ struct gpu_buddy {
- 	u64 size;
- 	u64 avail;
- 	u64 clear_avail;
-+#ifdef CONFIG_LOCKDEP
-+	struct lockdep_map *lock_dep_map;
-+#endif
- };
- 
-+#ifdef CONFIG_LOCKDEP
-+/**
-+ * gpu_buddy_driver_set_lock() - Set the lock protecting accesses to GPU BUDDY
-+ * @mm: Pointer to GPU buddy structure.
-+ * @lock: the lock used to protect the gpu buddy. The locking primitive
-+ * must contain a dep_map field.
-+ *
-+ * Call this to annotate gpu_buddy APIs which access/modify gpu_buddy manager
-+ */
-+#define gpu_buddy_driver_set_lock(mm, lock) \
-+	do { \
-+		struct gpu_buddy *__mm = (mm); \
-+		if (!WARN(__mm->lock_dep_map, "GPU BUDDY MM lock should be set only once.")) \
-+			__mm->lock_dep_map = &(lock)->dep_map; \
-+	} while (0)
-+#else
-+#define gpu_buddy_driver_set_lock(mm, lock) do { (void)(mm); (void)(lock); } while (0)
-+#endif
-+
-+#ifdef CONFIG_LOCKDEP
-+/**
-+ * gpu_buddy_driver_lock_held() - Assert GPU BUDDY manager lock is held
-+ * @mm: Pointer to the GPU BUDDY structure.
-+ *
-+ * Ensure driver lock is held.
-+ */
-+static inline void gpu_buddy_driver_lock_held(struct gpu_buddy *mm)
-+{
-+	if (mm->lock_dep_map)
-+		lockdep_assert(lock_is_held_type(mm->lock_dep_map, 0));
-+}
-+#else
-+static inline void gpu_buddy_driver_lock_held(struct gpu_buddy *mm)
-+{
-+}
-+#endif
-+
- static inline u64
- gpu_buddy_block_offset(const struct gpu_buddy_block *block)
- {
+ 	struct msm_drm_private *priv = shrinker->private_data;
+-	struct ww_acquire_ctx ticket;
+ 	struct {
+ 		struct drm_gem_lru *lru;
+ 		bool (*shrink)(struct drm_gem_object *obj, struct ww_acquire_ctx *ticket);
+@@ -185,11 +174,14 @@ msm_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
+ 	for (unsigned i = 0; (nr > 0) && (i < ARRAY_SIZE(stages)); i++) {
+ 		if (!stages[i].cond)
+ 			continue;
++		/*
++		 * 'ticket' not needed on trylock paths
++		 */
+ 		stages[i].freed =
+ 			drm_gem_lru_scan(stages[i].lru, nr,
+ 					 &stages[i].remaining,
+ 					 stages[i].shrink,
+-					 &ticket);
++					 NULL);
+ 		nr -= stages[i].freed;
+ 		freed += stages[i].freed;
+ 		remaining += stages[i].remaining;
 -- 
-2.52.0
+2.53.0
 
