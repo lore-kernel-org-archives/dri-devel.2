@@ -4,135 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 517C9CD3436
-	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 08:06:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02236CD342F
+	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 08:10:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADAFE10F3D6;
-	Fri,  8 May 2026 08:06:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BB6F10E5C0;
+	Fri,  8 May 2026 08:10:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="nIU6QoNQ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="TvynLIgd";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="nIU6QoNQ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="TvynLIgd";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="i+AeZ0+d";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BD2F10F3D6
- for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 08:06:55 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 127606A8E3;
- Fri,  8 May 2026 08:06:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1778227614; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=+oq7QcL/VmWamC5pkCzrNLPWLMW4hPIluYH/yDlUOGA=;
- b=nIU6QoNQ98GqpoDT5N+0Irtkoc9k/GeneW0DiUN02RtnwOODp17+KPm7m8g7Ulz1cO4qLo
- CTrGxEnZimIWeLFXq1RxAonyOz2QXC+sAUwdnzh+2jWnQ+DmTBvWsooLLRVz3RC6KgI4Ik
- L83cbDZF6gjokYgKfihiSmfQYAk1dP0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1778227614;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=+oq7QcL/VmWamC5pkCzrNLPWLMW4hPIluYH/yDlUOGA=;
- b=TvynLIgdN7a8NFEeeDiiamFAdQuY+S7s0R4Hxs6DzcFZyrQZJP4aVxP1osbxsYtFb8WRdo
- zTflnfMP/vvHfxAA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1778227614; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=+oq7QcL/VmWamC5pkCzrNLPWLMW4hPIluYH/yDlUOGA=;
- b=nIU6QoNQ98GqpoDT5N+0Irtkoc9k/GeneW0DiUN02RtnwOODp17+KPm7m8g7Ulz1cO4qLo
- CTrGxEnZimIWeLFXq1RxAonyOz2QXC+sAUwdnzh+2jWnQ+DmTBvWsooLLRVz3RC6KgI4Ik
- L83cbDZF6gjokYgKfihiSmfQYAk1dP0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1778227614;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=+oq7QcL/VmWamC5pkCzrNLPWLMW4hPIluYH/yDlUOGA=;
- b=TvynLIgdN7a8NFEeeDiiamFAdQuY+S7s0R4Hxs6DzcFZyrQZJP4aVxP1osbxsYtFb8WRdo
- zTflnfMP/vvHfxAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 95BE1593A7;
- Fri,  8 May 2026 08:06:53 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 5CMrI52Z/WmBQQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 08 May 2026 08:06:53 +0000
-Message-ID: <c06623ba-b19c-471a-becb-2fafddb3583c@suse.de>
-Date: Fri, 8 May 2026 10:06:53 +0200
+Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com
+ [209.85.219.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CB2110E5C0
+ for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 08:10:39 +0000 (UTC)
+Received: by mail-qv1-f50.google.com with SMTP id
+ 6a1803df08f44-8b6c9fdb68cso15338866d6.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 08 May 2026 01:10:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778227838; cv=none;
+ d=google.com; s=arc-20240605;
+ b=SuXhJI6NFgDqGvJRw4AFwVxsy1j2zdhfhZ+Pw5+BedAOoT6n1MVwS2HTfWGiIDRg05
+ KAMHDRERbv07HOZIwC+BhqVmstKXI1cPZWptf2FDwcDmy6WWNZIU+ULnFSsnO1rDd/nR
+ eg/ItMV1Q/1fFyfbYUeLEn/VLoBJ65PoQQ1f58t/zYU3S+GFEvyTJMajOxSybdTjhSyY
+ r98B0T7ubT3xMGCMgqQYy0TJJRaqnNSw9tpYJAg896G4eOXgOplBxIm/vc92q5WQBjob
+ JbAk7N7CWehkA7f/L0/arGMiEwy4NPqTrGczp8KXgQ3fLtq1RjU4kM0hxvLjfNjT0Zz6
+ dzSg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :mime-version:dkim-signature;
+ bh=70x4EHSDsFeXGT1tMeqNQOIz75/r+dfmtJOmc3ZiE+g=;
+ fh=A08XZwmmb57jzirbgTkluPSvjDeiJMkkojF1n6qDmTk=;
+ b=AVbRvXWcz+AcCn9nwAOP2aFMPYlic697h0jsDzu3FfJ39P16J50X4iAWsdW4cvumhM
+ euhuusbJOt+6aRigssbQOuJi960e2MvdfmxXTuubY+SIkf/NKhu2CxyNB1gYQ/XLyBAZ
+ NjLy5NliI4mJ+xwe3ndJ0y8FywT+r1WnR1qxlosZNWlWKto7z/fnCO4Qvp0QfNUVXt5D
+ 9yr43mtvm+P7VOzYzutvXJPcrM9zdXlKX/MIaIawe7ktTIfHf23/92DTKEuNY0iADe9M
+ ZWJuQdRTGSQb31itd5fPMMYM6vLnepI7WlPi1c8s2Oyp6lbapti2ETxviW/3h6eYjG8b
+ 1bLQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1778227838; x=1778832638; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=70x4EHSDsFeXGT1tMeqNQOIz75/r+dfmtJOmc3ZiE+g=;
+ b=i+AeZ0+dW2ZMtYwdi23v/voN82Yg7RWrtFw797C515t78+H5I2GYaiBEDZYrUthmKa
+ ORZW1lFiWil52OlwsVyCB80f02stq1kdZtm0WDbnYbN1ScSE9C6kn9xcdUKhQvdSpCTj
+ fU1OSV2XNw+HltTRIZRhxZ6k4ZFP96hxGGFNJAHgxOu/vb7gate6sMdiQ97GOlFDiPyU
+ uKWXwD3t4jExxr95hYIUwdwLcsFpYCLrFfGb1dy/zs60+OBQl5E3wPrvLo57a+E0eeTz
+ YSBGadc0Hh7hKKGiQOvkOdgbYOFvrn2VnvX3+E4wHLTusZhKmIZMLia7dnB+hfw1bmWY
+ zogQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778227838; x=1778832638;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=70x4EHSDsFeXGT1tMeqNQOIz75/r+dfmtJOmc3ZiE+g=;
+ b=dIortyYgBjZO/nTBm1nht/PZZj/Yl+4NV9CNbtlXlhV2+N/lvgzv96ABGjReDqN8P1
+ cAmRkh5ivluNC0IHcMTwFBGZklrFiFGsly5s5aDI9fC2uwFTxNaqORXz42EpVOXJxSGf
+ yZfJzxChdWQUSCL5QsYFdGBv9RS5O0m8pk2rioA7N2d+//9wOe7HGJHBvt+53PKKsbKs
+ dLGgIhmaibSI0tt2465QUykjikxXvbA2ncQsqEVgz3pwEQp2Cj9I2DyWctPGB8pqoW8O
+ INBtETUDt0HxXnNIgOVFVSuPBtp62W7f2xHuEKMb/ScRCCKT49+GDiPG2fofn/yjyJHG
+ bJWg==
+X-Gm-Message-State: AOJu0YxGdi8C9vZ44xlUAEgVORF1dyI+eiCNPyR0es32g6BFO2K6BAES
+ Y0sy/OV1CTsfZWKbwAdrJOSlWvjR5ux6cKI8iSosRDCPx8u4PZmWvb/jsGslK5/DPX/DoWGbcdO
+ gliLP4SNM4weZ2/wdQr8jhCGzu9CNI24=
+X-Gm-Gg: Acq92OHn/y2OcNpHEEc8eNgT33PTIFat2AXf4FK27r4NSyQ8i1Cl5odYXGh4I7rPcxw
+ W+ID/c8fYD2sXWZXg9d31L/3aAZGJ/Lsg5cSCJBaHhab+mtOLptseJeNUcj2Y8ZHTyoWJUtA4ij
+ OILyRGPttEpS/uP6m7DOdl0VERJA6NBbHHirzxleavlbLIwizpKoNzrZ8lKhoffTgriqptQ32Dw
+ kp5kA4gpj9gebSuUUtiTxObDqxH7wHRc5m4oASGRoD23OVEwO6JfQJwyoBTQPkSaZMMTg617+76
+ KdYXkt3EJaXheeLAzXsgWnwb04wAGsEYcFE0uD2BoqK7e+G6Xyg3GS2091Dk4tqqDdm4XUL+rsE
+ uQg==
+X-Received: by 2002:a05:6214:19ec:b0:8bd:de6d:c341 with SMTP id
+ 6a1803df08f44-8bdde6dc718mr95905576d6.30.1778227838035; Fri, 08 May 2026
+ 01:10:38 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] drm/panel: Add driver for Novatek NT37705 panel
-To: Luca Weiss <luca.weiss@fairphone.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-References: <20260501-fp6-panel-v1-0-e09cb05651cc@fairphone.com>
- <20260501-fp6-panel-v1-2-e09cb05651cc@fairphone.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260501-fp6-panel-v1-2-e09cb05651cc@fairphone.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- TAGGED_RCPT(0.00)[dt]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWELVE(0.00)[18];
- ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- FREEMAIL_TO(0.00)[fairphone.com,linaro.org,gmail.com,linux.intel.com,kernel.org,ffwll.ch];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; TO_DN_SOME(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[]; RCVD_TLS_ALL(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DBL_BLOCKED_OPENRESOLVER(0.00)[fairphone.com:email, suse.com:url, suse.de:mid,
- imap1.dmz-prg2.suse.org:helo]
+From: Dave Airlie <airlied@gmail.com>
+Date: Fri, 8 May 2026 18:10:26 +1000
+X-Gm-Features: AVHnY4KV8S77sfhj7lqSOQ16U3X0yQvhEQ8VJdLrtpMc6vyEcHESYDuHUwd_SXY
+Message-ID: <CAPM=9tw+hnprz_uW=B3TprAfTgNMWzAEQgeCVrKvuqam8tirDg@mail.gmail.com>
+Subject: [git pull] drm fixes for 7.1-rc3
+To: Linus Torvalds <torvalds@linux-foundation.org>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel <dri-devel@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,509 +102,336 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+Hi Linus,
 
-Am 01.05.26 um 15:52 schrieb Luca Weiss:
-> Add support for the 2484x1116 AMOLED panel from BOE (BJ631JHM-T71-D900)
-> bundled with a NT37705 driver IC, as found on the Fairphone (Gen. 6)
-> smartphone.
->
-> The panel can also be configured in 10-bit (RGB101010) mode, however
-> currently it's configured in 8-bit (RGB888) since there's some issues in
-> the Qualcomm DPU driver when driving this panel in 10-bit.
->
-> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
-> ---
->   drivers/gpu/drm/panel/Kconfig                 |  11 +
->   drivers/gpu/drm/panel/Makefile                |   1 +
->   drivers/gpu/drm/panel/panel-novatek-nt37705.c | 413 ++++++++++++++++++++++++++
->   3 files changed, 425 insertions(+)
->
-> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-> index 979109c27b9b..59ab3f29d8ef 100644
-> --- a/drivers/gpu/drm/panel/Kconfig
-> +++ b/drivers/gpu/drm/panel/Kconfig
-> @@ -624,6 +624,17 @@ config DRM_PANEL_NOVATEK_NT37700F
->   	  Say Y here if you want to enable support for Novatek NT37700F DSI
->   	  panel module. The panel has a resolution of 1080x2160.
->   
-> +config DRM_PANEL_NOVATEK_NT37705
-> +	tristate "Novatek NT37705-based DSI panel"
-> +	depends on OF
-> +	depends on DRM_MIPI_DSI
-> +	depends on BACKLIGHT_CLASS_DEVICE
-> +	select DRM_KMS_HELPER
-> +	help
-> +	  Say Y here if you want to enable support for Novatek NT37705-based
-> +	  display panels, such as the one found in the The Fairphone (Gen. 6)
+Weekly fixes, lots of them but all pretty small, amdgpu and xe are the
+usual but then a large amount of fixes all over.
 
-Duplicate 'the'
+Regards,
+Dave.
 
-> +	  smartphone.
-> +
->   config DRM_PANEL_NOVATEK_NT37801
->   	tristate "Novatek NT37801/NT37810 AMOLED DSI panel"
->   	depends on OF
-> diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-> index 0d694acbfbb6..94639bc58ca8 100644
-> --- a/drivers/gpu/drm/panel/Makefile
-> +++ b/drivers/gpu/drm/panel/Makefile
-> @@ -61,6 +61,7 @@ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36523) += panel-novatek-nt36523.o
->   obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36672A) += panel-novatek-nt36672a.o
->   obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36672E) += panel-novatek-nt36672e.o
->   obj-$(CONFIG_DRM_PANEL_NOVATEK_NT37700F) += panel-novatek-nt37700f.o
-> +obj-$(CONFIG_DRM_PANEL_NOVATEK_NT37705) += panel-novatek-nt37705.o
->   obj-$(CONFIG_DRM_PANEL_NOVATEK_NT37801) += panel-novatek-nt37801.o
->   obj-$(CONFIG_DRM_PANEL_NOVATEK_NT39016) += panel-novatek-nt39016.o
->   obj-$(CONFIG_DRM_PANEL_MANTIX_MLAF057WE51) += panel-mantix-mlaf057we51.o
-> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt37705.c b/drivers/gpu/drm/panel/panel-novatek-nt37705.c
-> new file mode 100644
-> index 000000000000..27bd8072ccd1
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panel/panel-novatek-nt37705.c
-> @@ -0,0 +1,413 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Generated with linux-mdss-dsi-panel-driver-generator from vendor device tree.
-> + * Copyright (c) 2026 Luca Weiss <luca.weiss@fairphone.com>
-> + */
-> +
-> +#include <linux/backlight.h>
-> +#include <linux/delay.h>
-> +#include <linux/gpio/consumer.h>
-> +#include <linux/mod_devicetable.h>
-> +#include <linux/module.h>
-> +#include <linux/regulator/consumer.h>
-> +
-> +#include <video/mipi_display.h>
-> +
-> +#include <drm/display/drm_dsc.h>
-> +#include <drm/display/drm_dsc_helper.h>
+drm-fixes-2026-05-08-1:
+drm fixes for 7.1-rc3
 
-IIRC this requires
+core:
+- fix race condition in handle change ioctl
 
-  select DRM_DISPLAY_DSC_HELPER
+fb-helper:
+- fix clipping
 
-in the Kconfig. Maybe double-check.
+rust:
+- fix unsound initialization
+- fix GEM state cleanup
+- fix wrong ARef import
 
-> +#include <drm/drm_mipi_dsi.h>
-> +#include <drm/drm_modes.h>
-> +#include <drm/drm_panel.h>
-> +#include <drm/drm_probe_helper.h>
-> +
-> +struct nt37705_panel {
-> +	struct drm_panel panel;
-> +	struct mipi_dsi_device *dsi;
-> +	struct drm_dsc_config dsc;
-> +	struct regulator_bulk_data *supplies;
-> +	struct gpio_desc *reset_gpio;
-> +};
-> +
-> +static const struct regulator_bulk_data nt37705_supplies[] = {
-> +	{ .supply = "vddio" },
-> +	{ .supply = "dvdd" },
-> +	{ .supply = "vci" },
-> +};
-> +
-> +static inline struct nt37705_panel *to_nt37705_panel(struct drm_panel *panel)
-> +{
-> +	return container_of_const(panel, struct nt37705_panel, panel);
+ttm:
+- update GPU MM stats on pool shrinking
 
-Either just use container_of or build something that respects the 
-input's const-ness.
+i915:
+- Re-enable ccs modifiers on dg2
 
-> +}
-> +
-> +static void nt37705_reset(struct nt37705_panel *ctx)
-> +{
-> +	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-> +	usleep_range(10000, 11000);
-> +	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-> +	usleep_range(5000, 6000);
-> +	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-> +	usleep_range(10000, 11000);
-> +}
-> +
-> +static int nt37705_on(struct nt37705_panel *ctx)
-> +{
-> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-> +
-> +	ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
-> +
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf0,
-> +				     0x55, 0xaa, 0x52, 0x08, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x1b);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba, 0x18);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x1c);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba,
-> +				     0x01, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00,
-> +				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-> +				     0x00, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x2c);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba,
-> +				     0x00, 0x01, 0x01, 0x01, 0x00, 0x05, 0x05,
-> +				     0x05, 0x00, 0x05, 0x05, 0x05, 0x00, 0x00,
-> +				     0x00, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x3c);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba,
-> +				     0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 0x0b,
-> +				     0x0b, 0x00, 0x00, 0x0b, 0x0b, 0x00, 0x00,
-> +				     0x00, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x4c);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba,
-> +				     0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00,
-> +				     0x1d, 0x00, 0x00, 0x00, 0x1d, 0x00, 0x00,
-> +				     0x00, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x5c);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba,
-> +				     0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
-> +				     0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
-> +				     0x01, 0x01);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x6c);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba,
-> +				     0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x0b,
-> +				     0x77, 0x77, 0x00, 0x00, 0x0b, 0x00, 0x1d,
-> +				     0x00, 0x1d);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x7c);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba,
-> +				     0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x0b,
-> +				     0x77, 0x77, 0x00, 0x00, 0x0b, 0x00, 0x1d,
-> +				     0x00, 0x1d);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x8c);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba,
-> +				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-> +				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-> +				     0x00, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x9c);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba,
-> +				     0x11, 0x11, 0x20, 0x02, 0x00, 0x03, 0x00,
-> +				     0x00);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0xa4);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba, 0x00, 0xc0, 0x40, 0x08);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0xa8);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba,
-> +				     0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22,
-> +				     0x22);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0xb0);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba,
-> +				     0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22,
-> +				     0x22);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf0,
-> +				     0x55, 0xaa, 0x52, 0x08, 0x01);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x05);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xc5, 0x15, 0x15, 0x15, 0xdd);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf0,
-> +				     0x55, 0xaa, 0x52, 0x08, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x0e);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb5, 0x32);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf0,
-> +				     0x55, 0xaa, 0x52, 0x00, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0xaa, 0x55, 0xa5, 0x80);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x19);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf2, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x1a);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf4, 0x55);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x11);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf8, 0x01, 0x7f);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x2d);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf8, 0x01, 0x20);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0xaa, 0x55, 0xa5, 0x81);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x05);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x3c);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x02);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf9, 0x04);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x1e);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfb, 0x0f);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x0f);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf5, 0x20);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x0d);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfb, 0x80);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0xaa, 0x55, 0xa5, 0x83);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x12);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x41);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x13);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfd, 0x21);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0xaa, 0x55, 0xa5, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x35);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_WRITE_CONTROL_DISPLAY,
-> +				     0x20);
-> +	mipi_dsi_dcs_set_column_address_multi(&dsi_ctx, 0x0000, 0x045b);
-> +	mipi_dsi_dcs_set_page_address_multi(&dsi_ctx, 0x0000, 0x09b3);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_SET_GAMMA_CURVE, 0x00);
-> +	mipi_dsi_dcs_set_display_brightness_multi(&dsi_ctx, 0xbb0d);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x04);
-> +	mipi_dsi_dcs_set_display_brightness_multi(&dsi_ctx, 0xfe0f);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x81, 0x01, 0x19);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x03, 0x01);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x90, 0x03, 0x03);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x91,
-> +				     0x89, 0x28, 0x00, 0x0c, 0xd2, 0x00, 0x02,
-> +				     0x2f, 0x01, 0x18, 0x00, 0x07, 0x09, 0x75,
-> +				     0x08, 0x34, 0x10, 0xf0);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x2f, 0x02);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5a, 0x01);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x2f, 0x30);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6d, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x11, 0x00);
-> +	mipi_dsi_msleep(&dsi_ctx, 120);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x29, 0x00);
-> +	mipi_dsi_msleep(&dsi_ctx, 22);
-> +
-> +	return dsi_ctx.accum_err;
-> +}
-> +
-> +static int nt37705_off(struct nt37705_panel *ctx)
-> +{
-> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-> +
-> +	ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
-> +
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x28, 0x00);
-> +	mipi_dsi_msleep(&dsi_ctx, 20);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x10, 0x00);
-> +	mipi_dsi_msleep(&dsi_ctx, 120);
-> +
-> +	return dsi_ctx.accum_err;
-> +}
-> +
-> +static int nt37705_prepare(struct drm_panel *panel)
-> +{
-> +	struct nt37705_panel *ctx = to_nt37705_panel(panel);
-> +	struct device *dev = &ctx->dsi->dev;
-> +	struct drm_dsc_picture_parameter_set pps;
-> +	int ret;
-> +
-> +	ret = regulator_bulk_enable(ARRAY_SIZE(nt37705_supplies), ctx->supplies);
-> +	if (ret < 0) {
+nova:
+- fix mailing list
 
-Common style is to check for errors with
+xe:
+- Add NULL check for media_gt in intel_hdcp_gsc_check_status
+- Fix EAGAIN sign in pf_migration_consume
+- Fix MMIO access using PF view instead of VF view during migration
+- Exclude indirect ring state page from ADS engine state size
 
-   if (ret)
+amdgpu:
+- GFX9 fixes
+- Hawaii SMU fixes
+- SDMA4 fix
+- GART fix
+- Userq fixes
 
-Here and everywhere else.
+amdkfd:
+- GPUVM TLB flush fix
+- Hotplug fix
 
-Best regards
-Thomas
+radeon:
+- Hawaii SMU fixes
 
-> +		dev_err(dev, "Failed to enable regulators: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	nt37705_reset(ctx);
-> +
-> +	ret = nt37705_on(ctx);
-> +	if (ret < 0) {
-> +		dev_err(dev, "Failed to initialize panel: %d\n", ret);
-> +		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-> +		regulator_bulk_disable(ARRAY_SIZE(nt37705_supplies), ctx->supplies);
-> +		return ret;
-> +	}
-> +
-> +	drm_dsc_pps_payload_pack(&pps, &ctx->dsc);
-> +
-> +	ret = mipi_dsi_picture_parameter_set(ctx->dsi, &pps);
-> +	if (ret < 0) {
-> +		dev_err(panel->dev, "failed to transmit PPS: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	ret = mipi_dsi_compression_mode(ctx->dsi, true);
-> +	if (ret < 0) {
-> +		dev_err(dev, "failed to enable compression mode: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	msleep(28); /* TODO: Is this panel-dependent? */
-> +
-> +	return 0;
-> +}
-> +
-> +static int nt37705_unprepare(struct drm_panel *panel)
-> +{
-> +	struct nt37705_panel *ctx = to_nt37705_panel(panel);
-> +	struct device *dev = &ctx->dsi->dev;
-> +	int ret;
-> +
-> +	ret = nt37705_off(ctx);
-> +	if (ret < 0)
-> +		dev_err(dev, "Failed to un-initialize panel: %d\n", ret);
-> +
-> +	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-> +	regulator_bulk_disable(ARRAY_SIZE(nt37705_supplies), ctx->supplies);
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct drm_display_mode nt37705_mode = {
-> +	.clock = (1116 + 100 + 30 + 100) * (2484 + 70 + 48 + 70) * 120 / 1000,
-> +	.hdisplay = 1116,
-> +	.hsync_start = 1116 + 100,
-> +	.hsync_end = 1116 + 100 + 30,
-> +	.htotal = 1116 + 100 + 30 + 100,
-> +	.vdisplay = 2484,
-> +	.vsync_start = 2484 + 70,
-> +	.vsync_end = 2484 + 70 + 48,
-> +	.vtotal = 2484 + 70 + 48 + 70,
-> +	.width_mm = 66,
-> +	.height_mm = 146,
-> +	.type = DRM_MODE_TYPE_DRIVER,
-> +};
-> +
-> +static int nt37705_get_modes(struct drm_panel *panel,
-> +			     struct drm_connector *connector)
-> +{
-> +	return drm_connector_helper_get_modes_fixed(connector, &nt37705_mode);
-> +}
-> +
-> +static const struct drm_panel_funcs nt37705_panel_funcs = {
-> +	.prepare = nt37705_prepare,
-> +	.unprepare = nt37705_unprepare,
-> +	.get_modes = nt37705_get_modes,
-> +};
-> +
-> +static int nt37705_bl_update_status(struct backlight_device *bl)
-> +{
-> +	struct mipi_dsi_device *dsi = bl_get_data(bl);
-> +	u16 brightness = backlight_get_brightness(bl);
-> +	int ret;
-> +
-> +	dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
-> +
-> +	ret = mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct backlight_ops nt37705_bl_ops = {
-> +	.update_status = nt37705_bl_update_status,
-> +};
-> +
-> +static struct backlight_device *
-> +nt37705_create_backlight(struct mipi_dsi_device *dsi)
-> +{
-> +	struct device *dev = &dsi->dev;
-> +	const struct backlight_properties props = {
-> +		.type = BACKLIGHT_RAW,
-> +		.scale = BACKLIGHT_SCALE_NON_LINEAR,
-> +		.brightness = 4095,
-> +		.max_brightness = 4095,
-> +	};
-> +
-> +	return devm_backlight_device_register(dev, dev_name(dev), dev, dsi,
-> +					      &nt37705_bl_ops, &props);
-> +}
-> +
-> +static int nt37705_probe(struct mipi_dsi_device *dsi)
-> +{
-> +	struct device *dev = &dsi->dev;
-> +	struct nt37705_panel *ctx;
-> +	int ret;
-> +
-> +	ctx = devm_drm_panel_alloc(dev, struct nt37705_panel, panel,
-> +				   &nt37705_panel_funcs,
-> +				   DRM_MODE_CONNECTOR_DSI);
-> +	if (IS_ERR(ctx))
-> +		return PTR_ERR(ctx);
-> +
-> +	ret = devm_regulator_bulk_get_const(dev,
-> +					    ARRAY_SIZE(nt37705_supplies),
-> +					    nt37705_supplies,
-> +					    &ctx->supplies);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
-> +	if (IS_ERR(ctx->reset_gpio))
-> +		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
-> +				     "Failed to get reset-gpios\n");
-> +
-> +	ctx->dsi = dsi;
-> +	mipi_dsi_set_drvdata(dsi, ctx);
-> +
-> +	dsi->lanes = 4;
-> +	dsi->format = MIPI_DSI_FMT_RGB888;
-> +	dsi->mode_flags = MIPI_DSI_MODE_NO_EOT_PACKET |
-> +			  MIPI_DSI_CLOCK_NON_CONTINUOUS;
-> +
-> +	ctx->panel.prepare_prev_first = true;
-> +
-> +	ctx->panel.backlight = nt37705_create_backlight(dsi);
-> +	if (IS_ERR(ctx->panel.backlight))
-> +		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
-> +				     "Failed to create backlight\n");
-> +
-> +	drm_panel_add(&ctx->panel);
-> +
-> +	/* This panel only supports DSC; unconditionally enable it */
-> +	dsi->dsc = &ctx->dsc;
-> +
-> +	ctx->dsc.dsc_version_major = 1;
-> +	ctx->dsc.dsc_version_minor = 1;
-> +
-> +	/* TODO: Pass slice_per_pkt = 2 */
-> +	ctx->dsc.slice_height = 12;
-> +	ctx->dsc.slice_width = 558;
-> +	/*
-> +	 * TODO: hdisplay should be read from the selected mode once
-> +	 * it is passed back to drm_panel (in prepare?)
-> +	 */
-> +	WARN_ON(1116 % ctx->dsc.slice_width);
-> +	ctx->dsc.slice_count = 1116 / ctx->dsc.slice_width;
-> +	ctx->dsc.bits_per_component = 8;
-> +	ctx->dsc.bits_per_pixel = 8 << 4; /* 4 fractional bits */
-> +	ctx->dsc.block_pred_enable = true;
-> +
-> +	ret = mipi_dsi_attach(dsi);
-> +	if (ret < 0) {
-> +		drm_panel_remove(&ctx->panel);
-> +		return dev_err_probe(dev, ret, "Failed to attach to DSI host\n");
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static void nt37705_remove(struct mipi_dsi_device *dsi)
-> +{
-> +	struct nt37705_panel *ctx = mipi_dsi_get_drvdata(dsi);
-> +	int ret;
-> +
-> +	ret = mipi_dsi_detach(dsi);
-> +	if (ret < 0)
-> +		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
-> +
-> +	drm_panel_remove(&ctx->panel);
-> +}
-> +
-> +static const struct of_device_id nt37705_of_match[] = {
-> +	{ .compatible = "boe,bj631jhm-t71-d900" },
-> +	{ /* sentinel */ }
-> +};
-> +MODULE_DEVICE_TABLE(of, nt37705_of_match);
-> +
-> +static struct mipi_dsi_driver nt37705_driver = {
-> +	.probe = nt37705_probe,
-> +	.remove = nt37705_remove,
-> +	.driver = {
-> +		.name = "panel-novatek-nt37705",
-> +		.of_match_table = nt37705_of_match,
-> +	},
-> +};
-> +module_mipi_dsi_driver(nt37705_driver);
-> +
-> +MODULE_DESCRIPTION("DRM driver for NT37705-equipped DSI panels");
-> +MODULE_LICENSE("GPL");
->
+bochs:
+- fix managed cleanup
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+bridge:
+- tda998x: fix sparse warnings on type correctness
 
+etnaviv:
+- schedule armed jobs
 
+exynos:
+- managed bridge cleanup
+
+ivpu:
+- disallow reexport of GEM buffer objects
+
+noveau:
+- revert support for GA100
+
+panel:
+- boe-tv101wum-nl16: use correct MIPI_DSI mode
+- feyjang-fy07024di26a30d: fix error reporting
+- himax-hx83102: use correct MIPI_DSI mode
+- himax-hx83121a: fix error checks
+- himax-hx83121a: select DRM_DISPLAY_DSC_HELPER
+
+qaic:
+- fix RAS message handling
+
+qxl:
+- clean up polling
+
+sti:
+- managed bridge cleanup
+The following changes since commit 7fd2df204f342fc17d1a0bfcd474b24232fb0f32=
+:
+
+  Linux 7.1-rc2 (2026-05-03 14:21:25 -0700)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/kernel.git tags/drm-fixes-2026-05-08-1
+
+for you to fetch changes up to 5e28b7b94408897e41c63477aabc9e1db439bc8c:
+
+  drm: Set old handle to NULL before prime swap in change_handle
+(2026-05-08 17:53:59 +1000)
+
+----------------------------------------------------------------
+drm fixes for 7.1-rc3
+
+core:
+- fix race condition in handle change ioctl
+
+fb-helper:
+- fix clipping
+
+rust:
+- fix unsound initialization
+- fix GEM state cleanup
+- fix wrong ARef import
+
+ttm:
+- update GPU MM stats on pool shrinking
+
+i915:
+- Re-enable ccs modifiers on dg2
+
+nova:
+- fix mailing list
+
+xe:
+- Add NULL check for media_gt in intel_hdcp_gsc_check_status
+- Fix EAGAIN sign in pf_migration_consume
+- Fix MMIO access using PF view instead of VF view during migration
+- Exclude indirect ring state page from ADS engine state size
+
+amdgpu:
+- GFX9 fixes
+- Hawaii SMU fixes
+- SDMA4 fix
+- GART fix
+- Userq fixes
+
+amdkfd:
+- GPUVM TLB flush fix
+- Hotplug fix
+
+radeon:
+- Hawaii SMU fixes
+
+bochs:
+- fix managed cleanup
+
+bridge:
+- tda998x: fix sparse warnings on type correctness
+
+etnaviv:
+- schedule armed jobs
+
+exynos:
+- managed bridge cleanup
+
+ivpu:
+- disallow reexport of GEM buffer objects
+
+noveau:
+- revert support for GA100
+
+panel:
+- boe-tv101wum-nl16: use correct MIPI_DSI mode
+- feyjang-fy07024di26a30d: fix error reporting
+- himax-hx83102: use correct MIPI_DSI mode
+- himax-hx83121a: fix error checks
+- himax-hx83121a: select DRM_DISPLAY_DSC_HELPER
+
+qaic:
+- fix RAS message handling
+
+qxl:
+- clean up polling
+
+sti:
+- managed bridge cleanup
+
+----------------------------------------------------------------
+Alex Deucher (3):
+      drm/amdgpu/pm: add missing revision check for CI
+      drm/amdgpu/pm: align Hawaii mclk workaround with radeon
+      drm/radeon: add missing revision check for CI
+
+Alok Tiwari (1):
+      accel/qaic: fix incorrect counter check in RAS message decode
+
+Arnd Bergmann (1):
+      drm/panel: hx83121a: select DRM_DISPLAY_DSC_HELPER
+
+Chen Ni (1):
+      drm/panel: himax-hx83121a: Fix incorrect error check for
+devm_drm_panel_alloc()
+
+Christian K=C3=B6nig (1):
+      drm/amdgpu: nuke amdgpu_userq_fence_slab v2
+
+Christian Van (1):
+      drm/panel: feiyang-fy07024di26a30d: return display-on error
+
+Danilo Krummrich (1):
+      MAINTAINERS: nova: update mailing list
+
+Dave Airlie (5):
+      Merge tag 'drm-intel-fixes-2026-05-06' of
+https://gitlab.freedesktop.org/drm/i915/kernel into drm-fixes
+      Merge tag 'drm-rust-fixes-2026-05-07' of
+https://gitlab.freedesktop.org/drm/rust/kernel into drm-fixes
+      Merge tag 'drm-xe-fixes-2026-05-07' of
+https://gitlab.freedesktop.org/drm/xe/kernel into drm-fixes
+      Merge tag 'drm-misc-fixes-2026-05-07' of
+https://gitlab.freedesktop.org/drm/misc/kernel into drm-fixes
+      Merge tag 'amd-drm-fixes-7.1-2026-05-06' of
+https://gitlab.freedesktop.org/agd5f/linux into drm-fixes
+
+Eliot Courtney (2):
+      rust: drm: gem: clean up GEM state in init failure case
+      rust: drm: fix unsound initialization in drm::Device::new
+
+Felix Kuehling (1):
+      drm/amdkfd: Make all TLB-flushes heavy-weight
+
+Francesco Lavra (1):
+      drm/fb-helper: Fix clipping when damage area spans a single scanline
+
+Francis, David (1):
+      drm: Set old handle to NULL before prime swap in change_handle
+
+Gustavo Sousa (1):
+      drm/xe/hdcp: Add NULL check for media_gt in intel_hdcp_gsc_check_stat=
+us()
+
+Icenowy Zheng (2):
+      drm/panel: boe-tv101wum-nl6: restore MODE_LPM after sending disable c=
+mds
+      drm/panel: himax-hx83102: restore MODE_LPM after sending disable cmds
+
+John B. Moore (2):
+      drm/amdgpu/gfx9: drop unnecessary 64-bit fence flag check in KIQ
+      drm/amdgpu/sdma4: replace BUG_ON with WARN_ON in fence emission
+
+Juha-Pekka Heikkila (1):
+      drm/i915/display: enable ccs modifiers on dg2
+
+Karol Wachowski (1):
+      accel/ivpu: Disallow re-exporting imported GEM objects
+
+Kory Maincent (TI) (2):
+      drm/bridge: tda998x: Use __be32 for audio port OF property pointer
+      drm/bridge: tda998x: Return NULL instead of 0 in tda998x_edid_read()
+
+Matthew Brost (1):
+      drm/ttm: Fix GPU MM stats during pool shrinking
+
+Ma=C3=ADra Canal (1):
+      drm/etnaviv: Fix armed job not being pushed to the DRM scheduler
+
+Mukesh Kumar Chaurasiya (IBM) (1):
+      rust/drm: import ARef from sync crate
+
+Myeonghun Pak (2):
+      drm/qxl: Fix missing KMS poll cleanup
+      drm/bochs: Drop manual put on probe error path
+
+Osama Abdelkader (2):
+      drm/sti: remove bridge when sti_hda component_add fails
+      drm/exynos: remove bridge when component_add fails
+
+Philip Yang (1):
+      drm/amdgpu: zero-initialize GART table on allocation
+
+Satyanarayana K V P (1):
+      drm/xe/guc: Exclude indirect ring state page from ADS engine state si=
+ze
+
+Shuicheng Lin (2):
+      drm/xe/pf: Fix EAGAIN sign in pf_migration_consume()
+      drm/xe/pf: Fix MMIO access using PF view instead of VF view
+during migration
+
+Sunil Khatri (1):
+      drm/amdgpu/userq: fix access to stale wptr mapping
+
+Timur Tabi (1):
+      Revert "drm/nouveau/gsp: add support for GA100"
+
+Xiaogang Chen (1):
+      drm/amdkfd: Check if there are kfd porcesses using adev by
+kfd_processes_count
+
+ MAINTAINERS                                        |  6 +-
+ drivers/accel/ivpu/ivpu_drv.c                      | 21 +++++
+ drivers/accel/qaic/qaic_ras.c                      |  4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            | 13 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c           | 13 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c    | 28 +------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h    |  3 -
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c              |  3 -
+ drivers/gpu/drm/amd/amdgpu/mes_userqueue.c         | 97 +++++++++---------=
+----
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c             |  4 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c           |  4 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c            | 33 +-------
+ .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |  6 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h              |  6 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c               |  4 +-
+ .../gpu/drm/amd/pm/powerplay/smumgr/ci_smumgr.c    | 13 +--
+ drivers/gpu/drm/bridge/tda998x_drv.c               |  4 +-
+ drivers/gpu/drm/drm_fb_helper.c                    |  2 +-
+ drivers/gpu/drm/drm_gem.c                          | 25 +++++-
+ drivers/gpu/drm/etnaviv/etnaviv_sched.c            | 16 ++--
+ drivers/gpu/drm/exynos/exynos_drm_mic.c            |  8 +-
+ drivers/gpu/drm/i915/i915_driver.c                 |  5 +-
+ drivers/gpu/drm/nouveau/nvkm/engine/device/base.c  | 11 ++-
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/ga100.c    |  4 +
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/tu102.c    | 18 ++--
+ drivers/gpu/drm/panel/Kconfig                      |  1 +
+ drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c     |  2 +
+ .../gpu/drm/panel/panel-feiyang-fy07024di26a30d.c  |  4 +-
+ drivers/gpu/drm/panel/panel-himax-hx83102.c        |  2 +
+ drivers/gpu/drm/panel/panel-himax-hx83121a.c       |  4 +-
+ drivers/gpu/drm/qxl/qxl_drv.c                      |  6 +-
+ drivers/gpu/drm/radeon/ci_dpm.c                    |  9 +-
+ drivers/gpu/drm/sti/sti_hda.c                      |  8 +-
+ drivers/gpu/drm/tiny/bochs.c                       | 10 +--
+ drivers/gpu/drm/ttm/ttm_pool.c                     | 18 ++--
+ drivers/gpu/drm/xe/display/xe_hdcp_gsc.c           | 12 ++-
+ drivers/gpu/drm/xe/xe_gt_sriov_pf_migration.c      |  8 +-
+ drivers/gpu/drm/xe/xe_guc_ads.c                    |  5 +-
+ drivers/gpu/drm/xe/xe_lrc.c                        | 11 ++-
+ drivers/gpu/drm/xe/xe_lrc.h                        |  2 +-
+ drivers/gpu/drm/xe/xe_sriov_pf_migration.c         |  7 +-
+ rust/kernel/drm/device.rs                          | 22 +++--
+ rust/kernel/drm/gem/mod.rs                         | 13 ++-
+ rust/kernel/drm/gem/shmem.rs                       |  6 +-
+ 44 files changed, 254 insertions(+), 247 deletions(-)
