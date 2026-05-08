@@ -4,67 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 074EDCD3447
-	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 13:20:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6ABDACD3436
+	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 13:21:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B55E10E308;
-	Fri,  8 May 2026 13:20:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BECC410E331;
+	Fri,  8 May 2026 13:21:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="uvCpTpO4";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=lechnology.com header.i=@lechnology.com header.b="a0zjVI+T";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 474EE10E308
- for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 13:20:52 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 5DA956024D;
- Fri,  8 May 2026 13:20:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6C78C2BCB0;
- Fri,  8 May 2026 13:20:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778246451;
- bh=nOPD9atbWThJNMmMoHB5sxyB+Zz+gBrCfQ8sDAbxWfs=;
- h=Date:From:To:Subject:References:In-Reply-To:From;
- b=uvCpTpO4REXkncNMBiNLPHMkLEABizVJIybZSKgueZ4IaHUHavnLFzv8P+NLJzgPD
- 56mAOXlI9nEg2TxsBRdamOk/G6RgaGfgclVMiMBk4VzWSh6B/UAarPqlvWcraWZJXy
- jCuzmip8H9tWuqWjWk0hYvRJ3cEuCB+w1yxeHSYw6eamGP8ZuLPDQexOjiAx8jgYsg
- GxsXWeadcSEiVfnwQTHBIyBWfSp3POF7V0KIVSt38axnzkQo/Wn9sz/rRMHJ4inVSS
- DLv7iX+VtDuDuXZ/g5upJqVAmV0nY7PxLtjLUXfjhjudd6i7+M6Ud41q0VPGIObm/9
- TDJJCCo63qNCw==
-Date: Fri, 8 May 2026 08:20:48 -0500
-From: Rob Herring <robh@kernel.org>
-To: Jakub Kicinski <kuba@kernel.org>, Eric Dumazet <edumazet@google.com>,
- Paolo Abeni <pabeni@redhat.com>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, linux-kernel@vger.kernel.org,
- linux-mmc@vger.kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, Johannes Berg <johannes@sipsolutions.net>,
- Bjorn Andersson <andersson@kernel.org>,
- Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- linux-arm-kernel@lists.infradead.org,
- Jeff Johnson <jjohnson@kernel.org>, linux-pci@vger.kernel.org,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- linux-usb@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- ath11k@lists.infradead.org, linux-spi@vger.kernel.org,
- linux-remoteproc@vger.kernel.org, Ulf Hansson <ulfh@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Andi Shyti <andi.shyti@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- "David S. Miller" <davem@davemloft.net>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Maxime Ripard <mripard@kernel.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- linux-wireless@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- linux-sound@vger.kernel.org, linux-i2c@vger.kernel.org,
- Bjorn Helgaas <bhelgaas@google.com>, netdev@vger.kernel.org,
- ath10k@lists.infradead.org, Krzysztof Kozlowski <krzk+dt@kernel.org>
-Subject: Re: [PATCH v2] dt-bindings: Fix phandle-array constraints, again
-Message-ID: <20260508132048.GA1170714-robh@kernel.org>
-References: <20260507201749.2605365-1-robh@kernel.org>
- <177818942584.2803269.2192622854542354589.robh@kernel.org>
+X-Greylist: delayed 1709 seconds by postgrey-1.36 at gabe;
+ Fri, 08 May 2026 13:21:45 UTC
+Received: from galaxy.gendns.com (galaxy.gendns.com [66.235.175.158])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EA3510E331
+ for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 13:21:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=lechnology.com; s=default; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=ybLMYbTpEEL/PLn0/nyuDr1jyAYYmelh3875iwOpTz0=; b=a0zjVI+TaV0PDp/q0IH9ivjBr+
+ rJPw68XEtK8hsSXaXJ/DZCZs0QvHREza7Eim7Zk3nWERC38WAepBfUpQu6rTs8oXJSV1Cu5V1VXpu
+ BR9UOtbr3hsbYDX2ENQ8Rpyqh0QlIMQUvsFTXGgo59JK20xVu1HLrAXWI6jgQfRxqT8SNU+knH8vG
+ 13zobL45UxDEuntRC+/plW9EPu3Q3BNyyqhpdfHUPYWNBhEJoGBEk+LKUgFRElUFKnCgSKBIvu9NC
+ U8rDCA/X0ZrzYnPKj23Dah0SxRsN8vcWmAdwzpHukuEYvqi2spj+m7w4MPDy2oSxex/fAHHhvVye9
+ m2pO3Vag==;
+Received: from ip98-183-112-25.ok.ok.cox.net ([98.183.112.25]:44016
+ helo=[192.168.1.142])
+ by galaxy.gendns.com with essmtpa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+ (Exim 4.99.2) (envelope-from <david@lechnology.com>)
+ id 1wLKhe-0000000Dt4v-46nl; Fri, 08 May 2026 08:53:14 -0400
+Message-ID: <5093f74c-9f74-4ec3-967f-c77c3d59097d@lechnology.com>
+Date: Fri, 8 May 2026 07:53:12 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <177818942584.2803269.2192622854542354589.robh@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 1/1] drm/st7735r: simplify with
+ spi_get_device_match_data()
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+References: <20260508080004.1143774-1-andriy.shevchenko@linux.intel.com>
+Content-Language: en-US
+From: David Lechner <david@lechnology.com>
+Autocrypt: addr=david@lechnology.com; keydata=
+ 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
+In-Reply-To: <20260508080004.1143774-1-andriy.shevchenko@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - galaxy.gendns.com
+X-AntiAbuse: Original Domain - lists.freedesktop.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - lechnology.com
+X-Get-Message-Sender-Via: galaxy.gendns.com: authenticated_id:
+ davidmain+lechnology.com/only user confirmed/virtual account not confirmed
+X-Authenticated-Sender: galaxy.gendns.com: davidmain@lechnology.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,58 +123,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, May 07, 2026 at 04:30:25PM -0500, Rob Herring (Arm) wrote:
+On 5/8/26 3:00 AM, Andy Shevchenko wrote:
+> Use spi_get_device_match_data() helper to simplify a bit the driver.
 > 
-> On Thu, 07 May 2026 15:16:00 -0500, Rob Herring (Arm) wrote:
-> > The unfortunately named 'phandle-array' property type is really a matrix
-> > with phandle and fixed arg cells entries. A matrix property should have 2
-> > levels of items constraints.
-> > 
-> > Acked-by: Mark Brown <broonie@kernel.org>
-> > Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> > Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> > ---
-> > v2:
-> >  - Add proper descriptions for 'qcom,smem-states'. Thanks Krzysztof!
-> >  - Fix i2c-parent warning
-> >  - Fix extra blank lines
-> > ---
-> >  .../rockchip/rockchip,rk3399-cdn-dp.yaml       |  2 ++
-> >  .../bindings/i2c/i2c-demux-pinctrl.yaml        |  1 +
-> >  .../mmc/hisilicon,hi3798cv200-dw-mshc.yaml     |  7 ++++---
-> >  .../devicetree/bindings/net/qcom,bam-dmux.yaml | 12 ++++++++++++
-> >  .../devicetree/bindings/net/qcom,ipa.yaml      | 12 ++++++++++++
-> >  .../bindings/net/wireless/qcom,ath10k.yaml     |  8 +++++++-
-> >  .../bindings/net/wireless/qcom,ath11k.yaml     |  8 +++++++-
-> >  .../net/wireless/qcom,ipq5332-wifi.yaml        | 18 ++++++++++++++++++
-> >  .../bindings/pci/toshiba,tc9563.yaml           |  5 +++--
-> >  .../remoteproc/qcom,msm8916-mss-pil.yaml       |  6 ++++++
-> >  .../remoteproc/qcom,msm8996-mss-pil.yaml       |  7 +++++++
-> >  .../bindings/remoteproc/qcom,pas-common.yaml   |  6 ++++++
-> >  .../remoteproc/qcom,qcs404-cdsp-pil.yaml       |  6 ++++++
-> >  .../remoteproc/qcom,sc7180-mss-pil.yaml        |  6 ++++++
-> >  .../remoteproc/qcom,sc7280-adsp-pil.yaml       |  6 ++++++
-> >  .../remoteproc/qcom,sc7280-mss-pil.yaml        |  6 ++++++
-> >  .../remoteproc/qcom,sc7280-wpss-pil.yaml       |  6 ++++++
-> >  .../remoteproc/qcom,sdm845-adsp-pil.yaml       |  6 ++++++
-> >  .../bindings/remoteproc/qcom,wcnss-pil.yaml    |  6 ++++++
-> >  .../devicetree/bindings/sound/samsung,tm2.yaml |  8 ++++++--
-> >  .../bindings/spi/st,stm32mp25-ospi.yaml        |  5 +++--
-> >  .../bindings/usb/chipidea,usb2-common.yaml     |  2 ++
-> >  .../devicetree/bindings/usb/ci-hdrc-usb2.yaml  |  7 ++++---
-> >  23 files changed, 142 insertions(+), 14 deletions(-)
-> > 
-> 
-> My bot found errors running 'make dt_binding_check' on your patch:
-> 
-> yamllint warnings/errors:
-> 
-> dtschema/dtc warnings/errors:
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/i2c/i2c-demux-pinctrl.example.dtb: i2c-mux3 (i2c-demux-pinctrl): i2c-parent:0: [2, 3, 4] is too long
-> 	from schema $id: http://devicetree.org/schemas/i2c/i2c-demux-pinctrl.yaml
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/i2c/i2c-demux-pinctrl.example.dtb: i2c-mux3 (i2c-demux-pinctrl): i2c-parent: [[2, 3, 4]] is too short
-> 	from schema $id: http://devicetree.org/schemas/i2c/i2c-demux-pinctrl.yaml
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> ---
+Reviewed-by: David Lechner <david@lechnology.com>
 
-This needs a fix in dtschema I have not yet pushed out.
-
-Rob
