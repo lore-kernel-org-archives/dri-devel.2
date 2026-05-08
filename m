@@ -4,108 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF4E7CD3436
-	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 10:00:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5ABC3CD3436
+	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 10:01:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 451F110E2F7;
-	Fri,  8 May 2026 10:00:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1B4E10E319;
+	Fri,  8 May 2026 10:01:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Y/xAe8b+";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="O2x69sam";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZPitwT0M";
 	dkim-atps=neutral
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
- [209.85.221.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB9D410E30F
- for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 10:00:43 +0000 (UTC)
-Received: by mail-wr1-f43.google.com with SMTP id
- ffacd0b85a97d-43eb05b1875so1106224f8f.3
- for <dri-devel@lists.freedesktop.org>; Fri, 08 May 2026 03:00:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778234442; cv=none;
- d=google.com; s=arc-20240605;
- b=iFoAxwqCCj7/RE8dZekWmlOBfMFKGpwDKQrpuCx3pfw1eRtxIdu0XpuRGl5Vkm/11x
- WTKMN+Oj+2X0MDbmJ4cMpnGs08o+94Bvo6RteU3hydf70/h45AryrP0qhX/eEGtTc/s+
- weKzBgL5MNqwAANeHmQvsqlC9Ryp1RerdGWcg+ztA+fiipeOjbra27vrJpyMEU104jXI
- QqtO9cy6Us9t+PewFnDyPmmiTJhZ7tZhj6smwumcV0O0Uu/J8TObszWK/OZw6binM+Oo
- pkYyQiwbP2+8u9BWibxwaZkvupmfoKEPHsB/rKLuMjCp4a9UOs31ZymtegcsH3CVxAqF
- uUIg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=u+geW7HzvpvuwmCodYfbhbpyQH/Dv/H3RYeFTEhDvMY=;
- fh=pWuasUF/FABhJnFqiOKQdPp2kd6PEUmoDOCDyjgNmJY=;
- b=hTRg1fMJPTiGo6hkFHtKUiBoIICBG7ZhOeI7hvTMGPFfSLZ/owoF0JzGABRvUJw9G6
- MJUTlQ1svPywfO8VwPBwe4QIFKluMC3ugApGmWvNh6rszVvCya8Bpdvw+eqvRH+y6XYy
- NmBwmMP8zOzd5FPr5WXGijynSEmoORrpXUS/hbV6N9ZzsH+KsU0X67SXyvXyPUJ9YyHw
- pDwkl0YjpFD5/kyw9WqFrGFaaac5TVTnsIShXrHt9OL91CWWxa1RPPCnRQxnRSkmS/XR
- oxTVxANVqWYj13U/SQGLWeSIeSUdl9PNAXBqAuqM7+r4iYeuuE4RzZn3gYLbC35YOFj0
- EdAQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7499D10E319
+ for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 10:01:19 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6486jG6C257851
+ for <dri-devel@lists.freedesktop.org>; Fri, 8 May 2026 10:01:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ mYVViA5lER/JWv5LGE7unDaZDBq0499CdgqNysorOsY=; b=O2x69samdgWyIMd6
+ 7cqPL7vAlIDvOUoeFYbDyUGzGj4mcYthiSaXdA8AdmVjCNs1tQ+cazifAcfsuONV
+ D/xO9oLZqKulN+fgmNTqXz9k2hLo0Y1wcAZMqsH9l/SLH/1ugLSGhL4Do7b8TZDN
+ cx+STkZxEtiJez2Dr74zvaEKgnZWoPL68wfDZmSATuNOwnr0JjXX5Xnea2mPJifa
+ kYPxpzgw5kdHcupJ+VRqKmJzLS+FcglOTuhYmI1/tI1s7iBTDPpkgl0cIc8IExN9
+ MAKPVMqcuGjeyzQe+tt9W1cv6/o6tzCzYuGqF+BbZTR2u8Mcabe9DPCXJKhS/Xic
+ QAFE7w==
+Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com
+ [209.85.221.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e1auegqr2-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 08 May 2026 10:01:18 +0000 (GMT)
+Received: by mail-vk1-f198.google.com with SMTP id
+ 71dfb90a1353d-5751831fe6dso207986e0c.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 08 May 2026 03:01:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778234442; x=1778839242; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=u+geW7HzvpvuwmCodYfbhbpyQH/Dv/H3RYeFTEhDvMY=;
- b=Y/xAe8b+4YDk4lAJroWvR4lqaly0y/nSSYHMAyjdOEGaJmbdJXAbTsWkgSuTsgzXuz
- TLKoaAI/4rOoEAMo7YZ/utvAPBV6s3MEdDd0aB2b/5JBY+R6/NE1RQSbo+5JrNBfpyAN
- a3lrHd4VCS9731z8hliDkHY0Af0xxEyZi95JKIbm3mBB3Zi2wotRIadl7qeSycwv5C1i
- 12gNJjJYx5cQgdOPbmRFaT+SuQLP/bRXdT4iflGOBkTkYGWfSm7l4DySbVYHzPTBQq96
- pBxV0m6kesmZ4dYNghVzDM+BqFwxsZYp4DCF1nPuWPMm29qqJjZPFOwEGLropf3BKt4q
- gVFw==
+ d=oss.qualcomm.com; s=google; t=1778234478; x=1778839278;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=mYVViA5lER/JWv5LGE7unDaZDBq0499CdgqNysorOsY=;
+ b=ZPitwT0MjNiDG07GJKVlEDnE5PdCr3qfwygbL3jl0IJBDrccVfZkw8ZIYFxzXjy/Hh
+ KGcq/bYigph1nU7hknP5ofJFe2ebbYfHQ3xnkDZGlyJlDNpmHtwOntbWQ85fDeySve5o
+ HECuUUvgxMXxDp20HZawR/qB6txhzumiu3Dh6CzzjUNodnrofLSYxyqi48xKDAQGKZZZ
+ vegPLkWTCpod0CdmnPTpPgfyx+aO+zl7RKU0lt7RP//sWD7mW/ZX+SKrak/RIeBPmQ80
+ 8iech04zJO6URb9Ojp6sH4VxN2t0mXaQGDD93qUDcuXohpRfPh8eaDlYW83QFn9MuQN3
+ CZCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778234442; x=1778839242;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=u+geW7HzvpvuwmCodYfbhbpyQH/Dv/H3RYeFTEhDvMY=;
- b=nRaZaM2k9OCt1qkeMNyPkzD4uGZPx1HaWwv60Ru9uVhnBd3QZPVobNLA26P2BHdNlI
- xGuLSSh5mbSSU0XYpnLipL5ExItDXJGPS1FiTzj7MPWcF5qCyAPI6MQ8cFUmjfzE5rb9
- fpNO2ZkzOlfznjDX999c7gsuqJFqsmvV2V8hqhiajRpQF31zIY1k5+Yhw9pIVYaYd8e3
- SHvFpQS8afewMUcDv5iNKZd+9O+Gd5lt6mgq612ij4mYTKrgFYVZEovl/Vm/BJjdzl9J
- ln0vF+AevusmUrA2x11fe6s5oVks0ce/Fkoyx0YlhqxGt35NuPP235aF3i+LVnyBJ5Hx
- SMWQ==
+ d=1e100.net; s=20251104; t=1778234478; x=1778839278;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=mYVViA5lER/JWv5LGE7unDaZDBq0499CdgqNysorOsY=;
+ b=E082qzyEyArQTBifGGudIGlXSkA/IfY+Obr//HgF24GFISkpn5adIGQnWJI0wSi4uu
+ H5q79Ia9ObV+GRMWTBNLlO09388MzeUcPkM9KFk8SRGz/BZ05or8HOfVggsNkQne/TEi
+ EXcdgVoukocx+VmZB0L8zwAE3MLe1fiGYgFaTslP9MHmFkwqqbwfbj8/Aqz9uzDPXd6t
+ lmw+hUFArF2DvgpcZvREPEbgtw7huT5jZY/8OJuG0P3xmFhwTqgzsFGa0v9ud268rESO
+ embsrv2keu9TXTadm6dnuHWITkWJpfpeOx9VFb01++NBbkEMJpreJs53EigYxqWF4z35
+ 2M4g==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+Bm7p417V95LQ0eL4PUGtBVDnqaxiJ4jycPn6coOtv1sTryQnC9bQCqTgoOCjJzJDyKgkAR07pwJ8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yya9q1uOsUnxlMrnAovhAMJBG55Iz5djYoEsCpuYX9loWy9wfY7
- PDHO7bMTTCG/JWN+ghsIwAtlDZK+r+UyAj0dDNF6N/xOVZWwWiYzfW/ovzwIO+pTbS3aaiNEAg7
- fsQCj6EzpwQk4NtJJpZv+ZE83fWGCqk4=
-X-Gm-Gg: Acq92OF+52d9QxhArdv/nsBlBsRoerhb03KVWoB19H/bMeEj3Ig52IeqmEBB1PuaYco
- LMHRB+c94oO88kEXze2YzVWIN6by3MWbHB8NaiSMc4AoEBejw/SBbA8sfkYf/XKuDmXz9ZTThx+
- 1FohQnroLLyfl5XkqvC86m3co147kmcCTd/b2XdFm1WvpsRpklgvsTDdbykxHzQDzRLj38bNFXC
- 3+7+92AZ97Yek69p+nLVtdH/Gj7P6lNSn45BZs3lsKFMRsWE+h2iOsVVM5EAsLCZBKch05KL2Fl
- 7bA7g0HlxG6AWoyxYZ+N8LbcNw8aYVD80+H8oaNi9zO2OVKtqQmSvzkXP3HgECsb+oeN+sXW9qf
- K/oJd
-X-Received: by 2002:a5d:5f90:0:b0:448:7049:a6c9 with SMTP id
- ffacd0b85a97d-4515b056c3emr18956040f8f.5.1778234441801; Fri, 08 May 2026
- 03:00:41 -0700 (PDT)
+ AFNElJ96zL716MtVyqKHmoOx6d5NnDRtYX++9gNXhJeUHGvjLPhaK8sNttaUhkUqBqWZzU7NlaA+bZZWvdc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzKEtaNZA0wSMv01aGKge2SagrunWoItxdc5eOFUNGlDs+DddLi
+ lVoVSDAqPgIQhWCVPQgnXllu+JVNTq31UjzFleufWY5GVa+e22xKSbB87xDgXGslAbYOL51rSWL
+ mBGW70IqQzZ3B0Ryva3siwIZ6ixxGMBnD5S3e/ogJjqrizpIiDu/SVxPojdfSxtA7RkvD+xw=
+X-Gm-Gg: Acq92OEov3wNiNwjdAf8K17KZyiBSmcNj6BE7U+f9w+bB/RK1B5qjtshF1gpTIDbhy2
+ JPoIvsIangq9VstSKpyegWL1p0SICft/jBg6R7WRZTW0OLhwz6WuOsswCn8jkGoo0JXSzmEVln/
+ Yw+kHKlK2Rnj1VPtUK1mNp3PFHt1DjRLsx4vmPvPEkvt7kBSgnizDP96TTMpXIuReYwhtHUl0aQ
+ QBoFily7oDkZBqEzHkhyEzz6gzy92COIjmcp2iFPCfSi9ma7drDIRPEdXnKCtMdQ3XBACYAmbpg
+ QmxwRhtUT9IZCj3esy4Io3bu3TVNlIsADk+59bs8G4G2btQTBibOBItyjxUaNNCCtKyhqCSMxiF
+ dXAk99XHjK2jS6iboxXObv3rAdt6PRDEudV9GZMFTBfXNhek0l/WZ53VCI2RMeKFnzfgEzUkm34
+ gVy5s=
+X-Received: by 2002:a05:6122:6214:b0:56d:baee:40 with SMTP id
+ 71dfb90a1353d-5755cc74085mr2303809e0c.1.1778234476543; 
+ Fri, 08 May 2026 03:01:16 -0700 (PDT)
+X-Received: by 2002:a05:6122:6214:b0:56d:baee:40 with SMTP id
+ 71dfb90a1353d-5755cc74085mr2303743e0c.1.1778234475956; 
+ Fri, 08 May 2026 03:01:15 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-bcac3a7f89fsm60530266b.29.2026.05.08.03.01.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 08 May 2026 03:01:15 -0700 (PDT)
+Message-ID: <2c43e6e3-979a-4413-9026-e6ef28acd3a7@oss.qualcomm.com>
+Date: Fri, 8 May 2026 12:01:12 +0200
 MIME-Version: 1.0
-References: <20260429170012.366537-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260429170012.366537-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260506201400.GC1652535@killaraus.ideasonboard.com>
-In-Reply-To: <20260506201400.GC1652535@killaraus.ideasonboard.com>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Fri, 8 May 2026 11:00:15 +0100
-X-Gm-Features: AVHnY4LP8csuKz7LBRlHomSywlqEiEgGQCH4EJ0easAGNDrVsix2yt5Y_eKl99w
-Message-ID: <CA+V-a8u_74SmeAKAXUqSKyWvp41pJavd_b_ESUOozCnrifBEpA@mail.gmail.com>
-Subject: Re: [PATCH 3/4] drm: renesas: rz-du: Move mode_valid logic to per-SoC
- clock limits
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>,
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, dri-devel@lists.freedesktop.org, 
- linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
- Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, 
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 26/29] soc: qcom: ubwc: drop macrotile_mode from the
+ database
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260507-ubwc-rework-v4-0-c19593d20c1d@oss.qualcomm.com>
+ <20260507-ubwc-rework-v4-26-c19593d20c1d@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260507-ubwc-rework-v4-26-c19593d20c1d@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA4MDEwMyBTYWx0ZWRfX32Y8Qm+0wzNj
+ 4SH0Tqap6Mb/fKPFRfy3cNugD8AkkuMjcFIS/x0jiDSyUVdQ78fp0zI4P9PUFh9UPlA0TXOhRl6
+ d0gIui3vDzEMukVvpxDnlnGgN7TdqsUUyECHKi9lLVO1QLvPg/KyT3qm98qfEwg5yDdJb3/7Hu/
+ j8T4ofiQ3xNTAfbew3qfWjzf+POJdZBtOJZBB7FLVqyfvLD0Y/CU4AsZ0dNK8UFtPyDzXB6+mUh
+ THnagafTsV/17wdhcVhrHwlwTeEcZONuFRWLH5pu0ttm4mS5Eh/ZQoTevDA1q6y+4tsLVesSS4l
+ eI+h/j68/68XYQwaahpK1ngMILnedZDHs5FIcEHHC4zncu4JVdNyMBIYWaT6dtBDr/fyfW/3qFH
+ djIHXrZxK1vFUHeYkSXKqwQiotMhw6lWMj0PhonGZ9eyx2CbhQzNFL5SJglldphVCTlPl5R8n9b
+ SyZWyDg+gBakVV4rRHw==
+X-Proofpoint-GUID: CIX1DZpbczObl0XvHdRirgGmcFyzi5QT
+X-Proofpoint-ORIG-GUID: CIX1DZpbczObl0XvHdRirgGmcFyzi5QT
+X-Authority-Analysis: v=2.4 cv=fcydDUQF c=1 sm=1 tr=0 ts=69fdb46e cx=c_pps
+ a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=I54dV6YZZfg9ki0ab94A:9 a=QEXdDO2ut3YA:10
+ a=hhpmQAJR8DioWGSBphRh:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-07_02,2026-05-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0 bulkscore=0 lowpriorityscore=0 phishscore=0
+ priorityscore=1501 impostorscore=0 adultscore=0 clxscore=1015 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605080103
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,145 +151,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Laurent,
+On 5/7/26 3:03 PM, Dmitry Baryshkov wrote:
+> All the users have been migrated to using qcom_ubwc_macrotile_mode()
+> instead of reading the raw value from the config structure. Drop the
+> field from struct qcom_ubwc_cfg_data and replace it with the calculated
+> value. Split single UBWC_3_0 into UBWC_3_0 (no macrotile mode) and
+> UBWC_3_1 (with macrotile mode).
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
 
-Thank you for the review.
+[...]
 
-On Wed, May 6, 2026 at 9:14=E2=80=AFPM Laurent Pinchart
-<laurent.pinchart@ideasonboard.com> wrote:
->
-> On Wed, Apr 29, 2026 at 06:00:11PM +0100, Prabhakar wrote:
-> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> >
-> > Move pixel clock validation from a fixed encoder check to per SoC
-> > constraints stored in rzg2l_du_device_info.
-> >
-> > Pixel clock limits differ across SoCs in the RZ DU family and cannot be
-> > expressed by a single shared rule. For example, RZ/G2UL (R9A07G043U)
-> > limits the DPAD0 pixel clock to 83.5 MHz, while other SoCs such as
-> > RZ/T2H require a wider operating range.
-> >
-> > Add mode_clock_min and mode_clock_max fields to rzg2l_du_device_info to
-> > describe the supported pixel clock range for each SoC. Update
-> > rzg2l_du_encoder_mode_valid() to return MODE_CLOCK_LOW when the pixel
-> > clock falls below mode_clock_min and MODE_CLOCK_HIGH when it exceeds
-> > mode_clock_max.
-> >
-> > Set the pixel clock limits for RZ/G2UL(R9A07G043U) to 20.875MHz minimum
-> > and 83.5MHz maximum.
-> >
-> > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> > ---
-> >  drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c     | 2 ++
-> >  drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h     | 4 ++++
-> >  drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c | 6 +++++-
-> >  drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.h | 2 ++
-> >  4 files changed, 13 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c b/drivers/gpu=
-/drm/renesas/rz-du/rzg2l_du_drv.c
-> > index 0fef33a5a089..3b7162c6e1f4 100644
-> > --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-> > +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-> > @@ -35,6 +35,8 @@ static const struct rzg2l_du_device_info rzg2l_du_r9a=
-07g043u_info =3D {
-> >                       .port =3D 0,
-> >               },
-> >       },
-> > +     .mode_clock_min =3D 20875,
-> > +     .mode_clock_max =3D 83500,
-> >  };
-> >
-> >  static const struct rzg2l_du_device_info rzg2l_du_r9a07g044_info =3D {
-> > diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h b/drivers/gpu=
-/drm/renesas/rz-du/rzg2l_du_drv.h
-> > index 58806c2a8f2b..885558eb9547 100644
-> > --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
-> > +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
-> > @@ -44,10 +44,14 @@ struct rzg2l_du_output_routing {
-> >   * struct rzg2l_du_device_info - DU model-specific information
-> >   * @channels_mask: bit mask of available DU channels
-> >   * @routes: array of CRTC to output routes, indexed by output (RZG2L_D=
-U_OUTPUT_*)
-> > + * @mode_clock_min: minimum pixel clock in kHz
-> > + * @mode_clock_max: maximum pixel clock in kHz
-> >   */
-> >  struct rzg2l_du_device_info {
-> >       unsigned int channels_mask;
-> >       struct rzg2l_du_output_routing routes[RZG2L_DU_OUTPUT_MAX];
-> > +     u32 mode_clock_min;
-> > +     u32 mode_clock_max;
-> >  };
-> >
-> >  #define RZG2L_DU_MAX_CRTCS           1
-> > diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c b/drivers=
-/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
-> > index d53068733c66..ad02efec1c23 100644
-> > --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
-> > +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
-> > @@ -50,8 +50,11 @@ rzg2l_du_encoder_mode_valid(struct drm_encoder *enco=
-der,
-> >                           const struct drm_display_mode *mode)
-> >  {
-> >       struct rzg2l_du_encoder *renc =3D to_rzg2l_encoder(encoder);
-> > +     const struct rzg2l_du_device_info *info =3D renc->info;
->
-> You could use
->
->         struct rzg2l_du_device *rcdu =3D to_rzg2l_du_device(renc->base.de=
-v);
->         const struct rzg2l_du_device_info *info =3D rcdu->info;
->
-> and avoid the info pointer in struct rzg2l_du_encoder. Up to you.
->
-Agreed, I will drop the info pointer for now.
+>  static const struct qcom_ubwc_cfg_data sc8180x_data = {
+> @@ -89,7 +84,6 @@ static const struct qcom_ubwc_cfg_data sc8180x_data = {
+>  	.ubwc_swizzle = UBWC_SWIZZLE_ENABLE_LVL2 |
+>  			UBWC_SWIZZLE_ENABLE_LVL3,
+>  	.highest_bank_bit = 16,
+> -	.macrotile_mode = true,
 
-> >
-> > -     if (renc->output =3D=3D RZG2L_DU_OUTPUT_DPAD0 && mode->clock > 83=
-500)
-> > +     if (info->mode_clock_min && mode->clock < info->mode_clock_min)
-> > +             return MODE_CLOCK_LOW;
-> > +     if (info->mode_clock_max && mode->clock > info->mode_clock_max)
-> >               return MODE_CLOCK_HIGH;
->
-> The new check now applies to all outputs, not just the DPAD0 output. Is
-> that intentional ?
->
-The RZ/G2UL SoC only supports DPAD0 so the check is redundant.
+8180 should also be 3.1
 
-> >
-> >       return MODE_OK;
-> > @@ -107,6 +110,7 @@ int rzg2l_du_encoder_init(struct rzg2l_du_device  *=
-rcdu,
-> >       if (IS_ERR(renc))
-> >               return PTR_ERR(renc);
-> >
-> > +     renc->info =3D rcdu->info;
-> >       renc->output =3D output;
-> >       drm_encoder_helper_add(&renc->base, &rzg2l_du_encoder_helper_func=
-s);
-> >
-> > diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.h b/drivers=
-/gpu/drm/renesas/rz-du/rzg2l_du_encoder.h
-> > index 3e430c1f6132..39a1d178b856 100644
-> > --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.h
-> > +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.h
-> > @@ -14,10 +14,12 @@
-> >  #include <linux/container_of.h>
-> >
-> >  struct rzg2l_du_device;
-> > +struct rzg2l_du_device_info;
-> >
-> >  struct rzg2l_du_encoder {
-> >       struct drm_encoder base;
-> >       enum rzg2l_du_output output;
-> > +     const struct rzg2l_du_device_info *info;
->
-> If you want to keep a pointer here to avoid going through
-> to_rzg2l_du_device(), I would store a backpointer to rzg2l_du_device
-> instead of just an info pointer, it could come handy in other places.
->
-As agreed above I will drop this pointer for now.
+with that:
 
-Cheers,
-Prabhakar
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+
+Konrad
