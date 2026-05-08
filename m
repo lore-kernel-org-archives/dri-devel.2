@@ -4,60 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AAAFCD37A7
-	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 13:41:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1711CCD3436
+	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 13:47:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3C9310F4C2;
-	Fri,  8 May 2026 13:41:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13E1A10E31C;
+	Fri,  8 May 2026 13:47:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="c6yxsUmw";
+	dkim=pass (2048-bit key; unprotected) header.d=lontium.com header.i=@lontium.com header.b="KFLcNgSe";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 183C610F4BE
- for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 13:41:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329; h=Cc:To:In-Reply-To:References:Message-Id:
- Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
- Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
- :Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=dO4bRdKPBM8yc0MxAw+buWmOYAjkDiLEtht8eIdOFMM=; b=c6yxsUmwZdDJSqGPKKJaF++YP+
- s5g3n214canXc73+w/anZ35PISKFocM6NkYXlj6I5jEAbzeRvGzeQ/2FDwkGlz/7lvFQhpXO/oHlL
- 2BwDOGVPD03PbPxH14zFKl9yTw8U/N9OO8f9IUyZHAH0CJRIas+REoCxds3oKtrMWcVX+CIYRHykF
- Fdo3/StSujcij+rsT3GLCWGPspayFTM+BqwonXg6iWwNfoYUxVS+dKQ8DQfUS1+uKjek+V9SgEHwA
- 8M8c2HhchsjNMyHdlVo+L4/drVSsiPE3TDmtopVzdzTNTx2R/ilmwU4+KGBfveft5P/er9he4nX4N
- 0IeYxl6w==;
-Received: from [189.7.87.137] (helo=[10.0.0.1])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wLLSb-007u6e-7C; Fri, 08 May 2026 15:41:44 +0200
-From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Fri, 08 May 2026 10:41:30 -0300
-Subject: [PATCH 2/2] drm/v3d: Serialize jobs across queues when a perfmon
- is attached
+Received: from out28-125.mail.aliyun.com (out28-125.mail.aliyun.com
+ [115.124.28.125])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0784110E31C
+ for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 13:47:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lontium.com; s=default;
+ t=1778248031; h=From:To:Subject:Date:Message-Id:MIME-Version;
+ bh=plRzfbW8Qws5ho7KRsBfti1sG4WFDyy3YZ+bQe0Yb2U=;
+ b=KFLcNgSeA8yo+eumx7ifP6zvvlck2tSc4D2UcUPwihVh3lBXfesl3CH69m++Qj2SOa/MQHZf7MMavDQtt9POUmalTUZMDDev/mLmXuLG33OpJlBLNDChBH3rq8/6Bbh3toiCxbXpIcseOVvLfe7bcmFb+zvxUlfG3YresoWFYPXPjmsSj0fhxjgdqCTmv7d5WCvh28d4p21qME4bKwxkZ2V/qXYG3X3SCk5bANWagjzgH2V1XIs4FTh1Dg1tfJATZlUdvEKQdrv96tyt0EH6PqEqP/m+M6265jmTfVyFVx0NVoLBJKUDl0LkgTg2CDjTI/RKV22I91q8sKmGgJ+lVA==
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.100362|-1; CH=green; DM=|CONTINUE|false|;
+ DS=CONTINUE|ham_system_inform|0.00363759-8.50324e-05-0.996277;
+ FP=7802761490420370552|0|0|0|0|-1|-1|-1; HT=maildocker-contentspam033037006180;
+ MF=syyang@lontium.com; NM=1; PH=DS; RN=22; RT=22; SR=0;
+ TI=SMTPD_---.hSic0zK_1778248029; 
+Received: from DESKTOP-V2MKAT2.localdomain(mailfrom:syyang@lontium.com
+ fp:SMTPD_---.hSic0zK_1778248029 cluster:ay29) by smtp.aliyun-inc.com;
+ Fri, 08 May 2026 21:47:10 +0800
+From: syyang@lontium.com
+To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+ dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com,
+ rfoss@kernel.org, mripard@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com, tzimmermann@suse.de, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ yangsunyun1993@gmail.com, xmzhu@lontium.corp-partner.google.com,
+ xmzhu@lontium.com, rlyu@lontium.com, xbpeng@lontium.com,
+ Sunyun Yang <syyang@lontium.com>
+Subject: [PATCH v6 0/2] Add Lontium LT7911EXC eDP to MIPI DSI bridge
+Date: Fri,  8 May 2026 21:47:00 +0800
+Message-Id: <20260508134702.4713-1-syyang@lontium.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260508-v3d-perfmon-lifetime-v1-2-f5b5642c085f@igalia.com>
-References: <20260508-v3d-perfmon-lifetime-v1-0-f5b5642c085f@igalia.com>
-In-Reply-To: <20260508-v3d-perfmon-lifetime-v1-0-f5b5642c085f@igalia.com>
-To: Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>, 
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8091; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=tMjAfIrtmQlvRlAr1Y3MmrbFaCXsRuVMuVacXtEs4xo=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBp/egOeWjSq0oTcBRf7LeMQGssm5RUg8cK4oBXD
- feRTdxdwXmJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCaf3oDgAKCRA/8w6Kdoj6
- qldCB/49y70jF2Lyg9tlsy9788All9TGoag7sQUkhzq2zzlIMzdGFed9TcaGgoiD3z3f/vD+FV0
- 1SaqyQADt7s5m72FLcj5Hc23AD3sZmOIqGGc7mbPWEEPzINx0gQVUbkUqzzseBYqUUGgIgOgCQS
- VI1v3ugS/W65jdjuKRKSV4zpH5mY8RwDoB3g0AfaQIFjFZNSoQcq9iWBbKtdVaNKqtUgg6fufFQ
- JJ1h9bMptMpaSTzv4Jdwv5mDoZIHjsUwOb4bm0j+Fx/MO/iqWiHY+ib4KXAA24VvA+XRtyFstSw
- YdSQMZqgxVnAdrkUXV0MaqTKqbguYCdamWkAjExx8cb9/+cs
-X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
- fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,230 +60,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A non-global perfmon is meant to count events generated by a specific
-submission, but the scheduler can run jobs from different queues
-concurrently on the same V3D core. Without explicit serialization, an
-unrelated job running in parallel with a perfmon-carrying job pollutes
-the counters and generates unusable results.
+From: Sunyun Yang <syyang@lontium.com>
 
-To address such issue, we must enforce cross-queue serialization when we
-detect a perfmon-carrying submission. It's possible to implement
-serialization by enforcing two rules:
+The LT7911EXC is an I2C-controlled bridge that Receiver eDP1.4
+and output signal/dual port mipi dsi. This series introduces:
 
-  1. A job that carries a non-global perfmon must wait for every job
-    currently in-flight across all HW queues to finish.
+- A device tree binding YAML file describing the hardware
+- A new DRM bridge driver implementing the basic functionality
 
-  2. While a perfmon-carrying job is still in-flight, all subsequently
-    submitted jobs must wait for it.
-
-Note that serialization is not needed in the global perfmon case, as the
-global perfmon tracks activity from all jobs, so concurrency is desirable.
-
-Therefore, check if serialization is needed during job submission and if
-so, attach fence dependences to enforce cross-queue serialization.
-
-Signed-off-by: Maíra Canal <mcanal@igalia.com>
+Signed-off-by: Sunyun Yang<syyang@lontium.com>
 ---
- drivers/gpu/drm/v3d/v3d_drv.h     | 32 ++++++++++++---
- drivers/gpu/drm/v3d/v3d_gem.c     |  3 ++
- drivers/gpu/drm/v3d/v3d_perfmon.c |  3 ++
- drivers/gpu/drm/v3d/v3d_submit.c  | 83 +++++++++++++++++++++++++++++++++++----
- 4 files changed, 107 insertions(+), 14 deletions(-)
+Change in v6:
+- dt-binding:
+- drm/bridge:
+ 1. use #define FW_FILE  "Lontium/lt7911exc_fw.bin" to match linux-firmware
+- Link to v5: https://lore.kernel.org/lkml/20260506013153.2240-1-syyang@lontium.com/
 
-diff --git a/drivers/gpu/drm/v3d/v3d_drv.h b/drivers/gpu/drm/v3d/v3d_drv.h
-index 3a7801348697..cdf4926d51f2 100644
---- a/drivers/gpu/drm/v3d/v3d_drv.h
-+++ b/drivers/gpu/drm/v3d/v3d_drv.h
-@@ -74,11 +74,13 @@ struct v3d_queue_state {
- 	spinlock_t queue_lock;
- };
- 
--/* Performance monitor object. The perform lifetime is controlled by userspace
-- * using perfmon related ioctls. A perfmon can be attached to a submit_cl
-- * request, and when this is the case, HW perf counters will be activated just
-- * before the submit_cl is submitted to the GPU and disabled when the job is
-- * done. This way, only events related to a specific job will be counted.
-+/* Performance monitor object
-+ *
-+ * The performance monitor (perfmon) lifetime is controlled by userspace using
-+ * perfmon related ioctls. A perfmon can be attached to a CL or CSD submission
-+ * request, and when it is, HW performance counters will be activated just
-+ * before the job is submitted to the GPU and disabled when the job is done.
-+ * This way, only events related to a specific submission will be counted.
-  */
- struct v3d_perfmon {
- 	/* Tracks the number of users of the perfmon, when this counter reaches
-@@ -167,13 +169,31 @@ struct v3d_dev {
- 
- 	struct v3d_queue_state queue[V3D_MAX_QUEUES];
- 
--	/* Tracks the performance monitor state. */
-+	/*
-+	 * Tracks the performance monitor state and consistency.
-+	 *
-+	 * When a non-global perfmon is attached to a job, the scheduler must
-+	 * not run any other job on the HW concurrently (otherwise, the
-+	 * counters would be polluted by unrelated work).
-+	 */
- 	struct {
- 		/* Protects @active. */
- 		spinlock_t lock;
- 
- 		/* Perfmon currently programmed in HW (or NULL if none). */
- 		struct v3d_perfmon *active;
-+
-+		/* Finished fence of the most recently submitted job that
-+		 * opened a serialization window (i.e. a job with a non-global
-+		 * perfmon attached).
-+		 */
-+		struct dma_fence *fence;
-+
-+		/* Finished fence of the most recently submitted job on each HW
-+		 * queue. Used so that a new perfmon-carrying job can depend on
-+		 * every job currently in-flight across all queues.
-+		 */
-+		struct dma_fence *last_hw_fence[V3D_MAX_QUEUES];
- 	} perfmon_state;
- 
- 	/* Protects bo_stats */
-diff --git a/drivers/gpu/drm/v3d/v3d_gem.c b/drivers/gpu/drm/v3d/v3d_gem.c
-index 6e387c41fbee..80fa7b3bde61 100644
---- a/drivers/gpu/drm/v3d/v3d_gem.c
-+++ b/drivers/gpu/drm/v3d/v3d_gem.c
-@@ -362,8 +362,11 @@ v3d_gem_destroy(struct drm_device *dev)
- 	for (q = 0; q < V3D_MAX_QUEUES; q++) {
- 		WARN_ON(v3d->queue[q].active_job);
- 		v3d_stats_put(v3d->queue[q].stats);
-+		dma_fence_put(v3d->perfmon_state.last_hw_fence[q]);
- 	}
- 
-+	dma_fence_put(v3d->perfmon_state.fence);
-+
- 	drm_mm_takedown(&v3d->mm);
- 
- 	dma_free_coherent(v3d->drm.dev, 4096 * 1024, (void *)v3d->pt,
-diff --git a/drivers/gpu/drm/v3d/v3d_perfmon.c b/drivers/gpu/drm/v3d/v3d_perfmon.c
-index 4f1c59e282b5..006eff007aa3 100644
---- a/drivers/gpu/drm/v3d/v3d_perfmon.c
-+++ b/drivers/gpu/drm/v3d/v3d_perfmon.c
-@@ -273,6 +273,9 @@ void v3d_perfmon_start(struct v3d_dev *v3d, struct v3d_perfmon *perfmon)
- 	if (perfmon == v3d->perfmon_state.active)
- 		return;
- 
-+	if (WARN_ON_ONCE(v3d->perfmon_state.active))
-+		return;
-+
- 	if (!pm_runtime_get_if_active(v3d->drm.dev))
- 		return;
- 
-diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_submit.c
-index 1047aca58282..9ce86cb3edd8 100644
---- a/drivers/gpu/drm/v3d/v3d_submit.c
-+++ b/drivers/gpu/drm/v3d/v3d_submit.c
-@@ -271,11 +271,67 @@ v3d_attach_perfmon_to_jobs(struct v3d_submit *submit, u32 perfmon_id)
- 	return 0;
- }
- 
-+/*
-+ * Prepare fences to enforce job serialization when a perfmon is active. A job
-+ * that carries a non-global perfmon must wait for every job currently in-flight
-+ * across all HW queues to finish, otherwise concurrent unrelated work on the
-+ * same core would pollute the performance counters. Symmetrically, while such a
-+ * job is still in-flight, all subsequently submitted jobs must wait for it.
-+ *
-+ * We don't serialize the jobs when using a global perfmon as it's expected to
-+ * track concurrent activity from all jobs.
-+ */
-+static int
-+v3d_serialize_for_perfmon(struct v3d_job *job)
-+{
-+	struct v3d_dev *v3d = job->v3d;
-+	bool is_global_perfmon;
-+	int ret;
-+
-+	lockdep_assert_held(&v3d->sched_lock);
-+
-+	scoped_guard(spinlock_irqsave, &v3d->perfmon_state.lock)
-+		is_global_perfmon = !!v3d->global_perfmon;
-+
-+	if (is_global_perfmon)
-+		goto publish;
-+
-+	if (job->perfmon) {
-+		for (enum v3d_queue q = 0; q < V3D_MAX_QUEUES; q++) {
-+			struct dma_fence *f = v3d->perfmon_state.last_hw_fence[q];
-+
-+			if (!f || dma_fence_is_signaled(f))
-+				continue;
-+
-+			ret = drm_sched_job_add_dependency(&job->base, dma_fence_get(f));
-+			if (ret)
-+				return ret;
-+		}
-+	} else if (v3d->perfmon_state.fence &&
-+		   !dma_fence_is_signaled(v3d->perfmon_state.fence)) {
-+		ret = drm_sched_job_add_dependency(&job->base,
-+						   dma_fence_get(v3d->perfmon_state.fence));
-+		if (ret)
-+			return ret;
-+	}
-+
-+publish:
-+	dma_fence_put(v3d->perfmon_state.last_hw_fence[job->queue]);
-+	v3d->perfmon_state.last_hw_fence[job->queue] = dma_fence_get(job->done_fence);
-+
-+	if (job->perfmon && !is_global_perfmon) {
-+		dma_fence_put(v3d->perfmon_state.fence);
-+		v3d->perfmon_state.fence = dma_fence_get(job->done_fence);
-+	}
-+
-+	return 0;
-+}
-+
- static int
- v3d_submit_jobs(struct v3d_submit *submit)
- {
- 	struct v3d_dev *v3d = submit->v3d;
--	int i, j, ret = 0;
-+	int i, ret = 0;
- 
- 	guard(mutex)(&v3d->sched_lock);
- 
-@@ -292,15 +348,26 @@ v3d_submit_jobs(struct v3d_submit *submit)
- 	for (i = 0; i + 1 < submit->job_count; i++) {
- 		ret = drm_sched_job_add_dependency(&submit->jobs[i + 1]->base,
- 						   dma_fence_get(submit->jobs[i]->done_fence));
--		if (ret) {
--			/* Mark every armed job as failed so run_job() skips execution */
--			for (j = 0; j < submit->job_count; j++)
--				dma_fence_set_error(&submit->jobs[j]->base.s_fence->finished,
--						    ret);
--			break;
--		}
-+		if (ret)
-+			goto err;
- 	}
- 
-+	for (i = 0; i < submit->job_count; i++) {
-+		ret = v3d_serialize_for_perfmon(submit->jobs[i]);
-+		if (ret)
-+			goto err;
-+	}
-+
-+	for (i = 0; i < submit->job_count; i++)
-+		drm_sched_entity_push_job(&submit->jobs[i]->base);
-+
-+	return 0;
-+
-+err:
-+	/* Mark every armed job as failed so run_job() skips execution */
-+	for (i = 0; i < submit->job_count; i++)
-+		dma_fence_set_error(&submit->jobs[i]->base.s_fence->finished, ret);
-+
- 	for (i = 0; i < submit->job_count; i++)
- 		drm_sched_entity_push_job(&submit->jobs[i]->base);
- 
+Change in v5:
+- dt-binding:
+- drm/bridge:
+ 1. Change "mipi" to "mipi dsi" in the commit message.     [Dmitry]
+ 2. Change "eDP/MIPI" to "eDP/MIPI DSI" in Kconfig.
+- Link to v4: https://lore.kernel.org/lkml/20260430094612.3408174-1-syyang@lontium.com/
+
+Change in v4:
+- dt-binding:
+ 1. Fix the missing spaces on the "subject".             [Krzysztof]
+ 2. Fix the error descriptions for port@0 and port@1.
+- drm/bridge:
+- Link to v3: https://lore.kernel.org/lkml/20260429040541.3404116-1-syyang@lontium.com/
+
+Change in v3:
+- dt-binding:
+- drm/bridge:
+ 1. already submit lt7911exc_fw.bin to linux-firmware.  [Dmitry]
+ 2. remove lt7911exc_remove function.
+ 3. drop  the "lontium, "  in lt7911exc_i2c_table.
+- Link to v2: https://lore.kernel.org/lkml/20260428063224.3316655-1-syyang@lontium.com/
+
+Change in v2:
+- dt-binding:
+ 1. reset pins use active low.                        [Dmitry]
+- drm/bridge:
+ 1. use atomic_* callbacks.                           [Quentin]
+ 2. fix the incorrect formatting and spaces.
+ 3. add the required header files.                    [Dmitry]
+ 4. remove "enabled" flag.
+ 5. remove *fw from the lt7911exc struct.
+ 6. .max_register and .range_max use actual range.
+ 7. regulator use bulk interface.
+ 8. use dev_err_probe, devm_mutex_init and devm_drm_bridge_add.
+ 9. Replace GPL v2 with GPL.
+- Link to v1: https://lore.kernel.org/lkml/20260420023354.1192642-1-syyang@lontium.com/
+---
+Sunyun Yang (2):
+  dt-bindings: bridge: Add Lontium LT7911EXC eDP to MIPI DSI bridge
+  drm/bridge: Add Lontium LT7911EXC eDP to MIPI DSI bridge
+
+ .../display/bridge/lontium,lt7911exc.yaml     |  89 ++++
+ drivers/gpu/drm/bridge/Kconfig                |  13 +
+ drivers/gpu/drm/bridge/Makefile               |   1 +
+ drivers/gpu/drm/bridge/lontium-lt7911exc.c    | 493 ++++++++++++++++++
+ 4 files changed, 596 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml
+ create mode 100644 drivers/gpu/drm/bridge/lontium-lt7911exc.c
 
 -- 
-2.54.0
+2.34.1
 
