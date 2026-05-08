@@ -4,139 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFD00CD3436
-	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 10:06:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C5E1CD3436
+	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 10:11:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DA8910E5D5;
-	Fri,  8 May 2026 10:06:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A3F910E30A;
+	Fri,  8 May 2026 10:11:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="eTAydDuR";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PUGV0Ss7";
+	dkim=fail reason="signature verification failed" (4096-bit key; unprotected) header.d=davidgow.net header.i=@davidgow.net header.b="iCbN+LJQ";
+	dkim=fail reason="signature verification failed" (4096-bit key) header.d=davidgow.net header.i=@davidgow.net header.b="JyDnB/3g";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 173C510F431
- for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 10:06:52 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6485siuP4069586
- for <dri-devel@lists.freedesktop.org>; Fri, 8 May 2026 10:06:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- LGR4LdbXleQPAwUEukrHDtQmkBd3wkefeJbVg2vCkPg=; b=eTAydDuRGhO5RWFD
- nDo3QtXnS9lNLSwxdMF6eVpaDOqkcshNTPpJszckkdoMEQ4Njgt+EH4oWrwNS8g1
- DPygtMIkkPvkXGMz5t4PIPDDr/1Bcb/J2N8gCrsIHNL1Oc0eB+3qms/Giw4CXteD
- U7U41C5NlqUvgTAf/V3OHsUcB6aoJN+fih9k3SJgQUGrISRncPL72IhqLma/LKbI
- +0qTTNdflf6jtMAoOrZ3GGnrjnigTOY8MEIlr8vVJT91UGsp0KJf5n1AAXge7IBT
- mZmdePQhe60GrOEJtm5GcUUV2Sv1wNX/Ts+3cuwEQGwrFi9qvf6u8IXqQFMWIB/4
- dncPEA==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e12sp2dy1-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 08 May 2026 10:06:51 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-50d8c183c2eso7560081cf.0
- for <dri-devel@lists.freedesktop.org>; Fri, 08 May 2026 03:06:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1778234810; x=1778839610;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=LGR4LdbXleQPAwUEukrHDtQmkBd3wkefeJbVg2vCkPg=;
- b=PUGV0Ss7GDgKAoadmbXniNvLgfCyRrk2WdKN7vB4wqvefi+YlaB0HP9vG0UEF7EjYB
- 6vU34zYwU6qMrmefLw5FZy0gscuJ9GBpbvR/XgmET5jMhn8vyI0ktKSCVuHZ1bm5wEdw
- wml2wovnsbtULkbvt/vQINUmD9JEEUvKh8YlkG3PWNzLorL3QI4F0IkmtaM4hhjPirFi
- /CFpZ/i/o2ksRDVZ1fnYFn9QC2ZxKg7CJHcDrOvuqQe6kfNNYHbg3RfzXqkGY4GX5jYy
- 3GAX5EGpUKwggrgZ4nsJkMT5vHs3InScqKiFQnok37l0DGrAR/J6fHZpxUVFj89+szTY
- RZQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778234810; x=1778839610;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=LGR4LdbXleQPAwUEukrHDtQmkBd3wkefeJbVg2vCkPg=;
- b=cfT8t7VymInFnNHylq0JB10/icvwVB03AxDYPSfo0GvGnzHNz0b2IssN5X9G9Hpfbo
- of6hQ2DZCnfcwZp2xXs3twkWZMCjmXffKpmXqsFSaqUN2Abu0F7di5WfGJ3pdZTApDsG
- 3PiZBCo21I+kye60lOnjGdwrPHUiiOlPREAGUNgGitepe4sgQXKGSZU/5abCsKS4VSRQ
- BD8IvA8A0rQ42NXWPGnaBGEGJ5HbU0rZwvsXPRITxkPq31LuSC4FvBb6yB3OWUdOFG3e
- qcU4i8PLvL+Y8Rdyz/Ysm8ObshJLdjsqSjSuj+WfMHgm/xsH9qLEa5yHSv8MrgMqkGJS
- GcLQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8G7vSonOIC4qGYlFkRjFBKWCzZvwK9GVnRhLH+BaUGhwsm5jePphB1HgBH6Di0r0pltsXLeEFe2q4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwLj5HzX1vGxx546pO04IrguZBIz8pUwe+mgR3gVrJ1wkD4+IFg
- qdGTKHlPYBv+IGIaf/QD4FZgP42OIx1ffw1WIJRhb3vYeTue2HR4ydQRDLN1hDOIDxQ3TPz0P2m
- /J5EJGD2EdQMsfdW6AH4QiYVz+6oVNipHP5NbP3XJIsnhhsc8hrEQ7z0UwWxHEpsRVVw6j1E=
-X-Gm-Gg: AeBDieuF65jP2o+31AFn9ROb1OV2zGUtB31NPUE3klMalv2AobBzUYyUUvT8iU3tTal
- A4u8+7uAazP+t4APxtpjnGIaFcmDR4RWFTqVTjDRMId/jw8WFKmqXQXdpJK4/DrBtJrIHaz0tTD
- VVB7buBbAcZFenHZaKNvd3qUwXyJaGjllpTsKmEFdopPaHHeVLcnZaLkSZAKy+3mVFa4IFjlGRu
- nq1Jln+yRydn+oFQ/JCXHv+nEOGdX1IEGZ5rv9ek4LgZUzzShi06McT53NIeEWYvbqWhDY4p6Yz
- i+AM9c5LFOSFxM9Fq/xOLvqQZFFL24DwdsfLq0uZewQjA7tFrBRpYwPQWFIS7ZrnrMmIjhpLUMM
- YHXSOo9gEOk8VDYleBrx533XuX3U5u+adQh9gRWoSymdIlbvFdxwcp2hDbh3S4u1GQ2b4z6myjL
- HEHRg=
-X-Received: by 2002:ac8:7d47:0:b0:50b:5286:f756 with SMTP id
- d75a77b69052e-514628a96d1mr116851261cf.6.1778234810638; 
- Fri, 08 May 2026 03:06:50 -0700 (PDT)
-X-Received: by 2002:ac8:7d47:0:b0:50b:5286:f756 with SMTP id
- d75a77b69052e-514628a96d1mr116850751cf.6.1778234810224; 
- Fri, 08 May 2026 03:06:50 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-67ef0e1c2f9sm476346a12.28.2026.05.08.03.06.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 08 May 2026 03:06:49 -0700 (PDT)
-Message-ID: <f4641fd1-9fdd-4908-914c-932943d58754@oss.qualcomm.com>
-Date: Fri, 8 May 2026 12:06:46 +0200
+Received: from sphereful.davidgow.net (sphereful.davidgow.net [203.29.242.92])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D272E10E30A
+ for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 10:11:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=davidgow.net;
+ s=201606; t=1778235076;
+ bh=KgtJhIGG/oabZEQ8m54wP2EOXP+m+YCNMNV/vnXzHgE=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=iCbN+LJQGiFTtJ5cF/yV7K33NP0p5gej0zTfQjzLQndImBB2vPwWTgDupuLk6JoZg
+ JuJxsqR65JIis7lqY31r0bFGnZ4lxWSRGBMr+7AVRhAsEnUA9LUnrzyYMDbN63y4RA
+ RSRd+mRbjvku8nuvqBKEcjYf/fs1um6EkPEGdtyp6yA1byCrtvs1vmF3r2RVFwb90e
+ rh+Nmq9YwEUG7rO5qFjqG6j21YpdNMeaT6FdlI56Tjp40TAAjJrig7cXKQSpPw4iAR
+ rEflZmY7KVQBTI8yc3omL4I9KWPz/Ix5t0Raq6W2xe2QW4fh9MHQShYIVbIOFF+inE
+ DvINQaRWXjkn78dE1RGSuI5f4cGdlRbG3LysaVoKmmxSUvQdqOyldG2fN4o0vBICRS
+ O5aXdmGtu6o2NA5M6dS8U3CY9MHuZ/rpTYojw25rwTBwJb+rzIpGAaxQbAOJzbWH+3
+ HjTOhGjJBIYCn0z6RLgWbCMp5QhgL02C6dd+sLYxwHLdCIeeACDuJn3kjpXyR46lmt
+ qnJawSp1grOckJjIsHGMg7LhBfWoMRHL0jaukODrdeInRPHIfLCNsgFJbg0cblGF2A
+ 7d6eeTEKfDHRq4qKcXZv/GSurwcb08Vceg61ck3VLQj7oTNfm9qv8KMKzLTePx6Z65
+ VngAa+ZX7mgNybXjmBe+biKI=
+Received: by sphereful.davidgow.net (Postfix, from userid 119)
+ id 963031D804C; Fri,  8 May 2026 18:11:16 +0800 (AWST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=davidgow.net;
+ s=201606; t=1778235015;
+ bh=KgtJhIGG/oabZEQ8m54wP2EOXP+m+YCNMNV/vnXzHgE=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=JyDnB/3gcDJfziHe3f8A/O6Bu3GBBOJHpG1l5DzaUEeBLF9mes/1cxeluMYxYLZjx
+ 7wRGZqvjczAcu7mghJ7VUiaJS7PsX2oJidB/NeChXXjnyq4mG/Y+yKvOjbGPCojZWi
+ ySbUDU7c1/Ry+qWm/53P3tEq32V3CpeYxTsl14MqrU3rXc7/T9lb4OTsSxz0a5Lljq
+ aopW8IQbgGsKLUVL2UF9jppv7GobQheeY1dQ4oIGmmQtSSIg5FsCwfm+r71bhZlpuc
+ mlF2GoPzw6ntA4EjrmrvUMbUQ00c71ITlxrpf4ZD9bAkgsfFUWbXN+C+TWXBefJQmY
+ S7Z20br9i6I4/SzkZwUKXpKua8JuVvI9vzRqsyTuUVpLUFlrD6nX5wzcmEZ/+crdj+
+ cQUcvhyUXBi0WamxaWtHBYqgrrcsSuA4ipngc2JVzGf8JyLdzQ763awja+seUOWy2k
+ QqykxE0iTulPFm+d6duMPkGhbAnRXsH4by6mRNhJ+1mo8bgtz/Sjk/wzMd201RRHOH
+ sK1cN9FkKTvVd7EnYkSMTlw5Tfd9VFTIEVSJeQS4k05+wEjnIDp1Y8UR+Hqi5iaXk8
+ jFAvhgustva340mXva8bAJibP/faX71gmOEFLUhxEkeFhMaKetHtlgvVT/JknOexyR
+ ogCYSyRnGM6QZOVypnOQoNms=
+Received: from [10.19.105.19] (the2438111.lnk.telstra.net [203.45.164.113])
+ by sphereful.davidgow.net (Postfix) with ESMTPSA id D56481D803D;
+ Fri,  8 May 2026 18:10:14 +0800 (AWST)
+Message-ID: <a66dc316-5c3c-447a-946c-ac02f523c8b9@davidgow.net>
+Date: Fri, 8 May 2026 18:10:13 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 04/29] soc: qcom: ubwc: add helper controlling AMSBC
- enablement
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+Subject: Re: [PATCH v8 1/4] bug/kunit: Core support for suppressing warning
+ backtraces
+To: Albert Esteve <aesteve@redhat.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, Brendan Higgins
+ <brendan.higgins@linux.dev>, Rae Moar <raemoar63@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260507-ubwc-rework-v4-0-c19593d20c1d@oss.qualcomm.com>
- <20260507-ubwc-rework-v4-4-c19593d20c1d@oss.qualcomm.com>
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>, linux-kernel@vger.kernel.org,
+ linux-arch@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ kunit-dev@googlegroups.com, dri-devel@lists.freedesktop.org,
+ workflows@vger.kernel.org, linux-riscv@lists.infradead.org,
+ linux-doc@vger.kernel.org, peterz@infradead.org,
+ Alessandro Carminati <acarmina@redhat.com>,
+ Guenter Roeck <linux@roeck-us.net>, Kees Cook <kees@kernel.org>
+References: <20260504-kunit_add_support-v8-0-3e5957cdd235@redhat.com>
+ <20260504-kunit_add_support-v8-1-3e5957cdd235@redhat.com>
+ <c5c28f16-3940-4960-84e6-33f5479a5450@davidgow.net>
+ <CADSE00KLhyUpRD031-YveOv+o71jJ-NojX6VteSyF+SqxG0n4g@mail.gmail.com>
+ <CADSE00L5OCSNH_XsUHSvi_wAwZWiC2=bUGmiXVAu-LZ=XtvDjQ@mail.gmail.com>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260507-ubwc-rework-v4-4-c19593d20c1d@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA4MDEwNCBTYWx0ZWRfXyH5SWnmR5e1u
- OVjoEnJ/qauyddXiphAjdo/tWUQ/fhiRmR7twdNxsdKuUMxXwOtmlKKR94MCUAZxzY6EEmt+YNA
- zQCY+cAsH5nDAIAsE7OhL/cMeCtiJmqSV+9Ifo6UmLgST0ZYg2TriSw7twHwL8JNW5A3pWnUd47
- fIMWWAm7u5y7bWvbJ6feQN6CUSjkHDJSKywmQVfp8AXfAwPIzVNO3oTxlYW23o95NzmuoWjD/hT
- 8xssxRwBQijvMFb3kpUpc59A908uKbGZFE/R+mQBNBcjg7kXrqYplC8HIVxAi7mAjw545hn3DEN
- 3z+ox9EkVoqrcXeaXjF15W9XTagNIJHKKfkArWj+DrlwThwnvhNMVePwO0c2LLWa1/gZU9EeIgB
- YG6UkhnxkHeTKpmwAbnnctZ4ZWT9UxBJFsPkJW5hT5xCoGGOjiFXh3xEDbKnPRx3NPue3c2ZEJ3
- LhMXz8z8Vw9Nu1/C3wQ==
-X-Proofpoint-ORIG-GUID: tHmTEkTabC5Lh5Ft2Ob8sxxFCwl7Z5pj
-X-Authority-Analysis: v=2.4 cv=Wu4b99fv c=1 sm=1 tr=0 ts=69fdb5bb cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=NqI5fCEo7b1so1Dk8qgA:9 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-GUID: tHmTEkTabC5Lh5Ft2Ob8sxxFCwl7Z5pj
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-07_02,2026-05-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 priorityscore=1501 suspectscore=0
- lowpriorityscore=0 bulkscore=0 spamscore=0 impostorscore=0 phishscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
- definitions=main-2605080104
+From: David Gow <david@davidgow.net>
+In-Reply-To: <CADSE00L5OCSNH_XsUHSvi_wAwZWiC2=bUGmiXVAu-LZ=XtvDjQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,13 +98,127 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 5/7/26 3:03 PM, Dmitry Baryshkov wrote:
-> Adreno and MDSS drivers need to know whether to enable AMSBC. Add
-> separate helper, describing that feature.
+Le 08/05/2026 à 14:52, Albert Esteve a écrit :
+> On Wed, May 6, 2026 at 12:11 PM Albert Esteve <aesteve@redhat.com> wrote:
+>>
+>> On Wed, May 6, 2026 at 11:40 AM David Gow <david@davidgow.net> wrote:
+>>>
+>>> Le 04/05/2026 à 3:41 PM, Albert Esteve a écrit :
+>>>> From: Alessandro Carminati <acarmina@redhat.com>
+>>>>
+>>>> Some unit tests intentionally trigger warning backtraces by passing bad
+>>>> parameters to kernel API functions. Such unit tests typically check the
+>>>> return value from such calls, not the existence of the warning backtrace.
+>>>>
+>>>> Such intentionally generated warning backtraces are neither desirable
+>>>> nor useful for a number of reasons:
+>>>> - They can result in overlooked real problems.
+>>>> - A warning that suddenly starts to show up in unit tests needs to be
+>>>>     investigated and has to be marked to be ignored, for example by
+>>>>     adjusting filter scripts. Such filters are ad hoc because there is
+>>>>     no real standard format for warnings. On top of that, such filter
+>>>>     scripts would require constant maintenance.
+>>>>
+>>>> Solve the problem by providing a means to suppress warning backtraces
+>>>> originating from the current kthread while executing test code. Since
+>>>> each KUnit test runs in its own kthread, this effectively scopes
+>>>> suppression to the test that enabled it. Limit changes to generic code
+>>>> to the absolute minimum.
+>>>>
+>>>> Implementation details:
+>>>> Suppression is integrated into the existing KUnit hooks infrastructure
+>>>> in test-bug.h, reusing the kunit_running static branch for zero
+>>>> overhead when no tests are running.
+>>>>
+>>>> Suppression is checked at three points in the warning path:
+>>>> - In warn_slowpath_fmt(), the check runs before any output, fully
+>>>>     suppressing both message and backtrace. This covers architectures
+>>>>     without __WARN_FLAGS.
+>>>> - In __warn_printk(), the check suppresses the warning message text.
+>>>>     This covers architectures that define __WARN_FLAGS but not their own
+>>>>     __WARN_printf (arm64, loongarch, parisc, powerpc, riscv, sh), where
+>>>>     the message is printed before the trap enters __report_bug().
+>>>> - In __report_bug(), the check runs before __warn() is called,
+>>>>     suppressing the backtrace and stack dump.
+>>>>
+>>>> To avoid double-counting on architectures where both __warn_printk()
+>>>> and __report_bug() run for the same warning, kunit_is_suppressed_warning()
+>>>> takes a bool parameter: true to increment the suppression counter
+>>>> (used in warn_slowpath_fmt and __report_bug), false to check only
+>>>> (used in __warn_printk).
+>>>>
+>>>> The suppression state is dynamically allocated via kunit_kzalloc() and
+>>>> tied to the KUnit test lifecycle via kunit_add_action(), ensuring
+>>>> automatic cleanup at test exit. Writer-side access to the global
+>>>> suppression list is serialized with a spinlock; readers use RCU.
+>>>>
+>>>> Three API forms are provided:
+>>>> - kunit_warning_suppress(test) { ... }: scoped, uses __cleanup for
+>>>>     automatic teardown on scope exit, kunit_add_action() as safety net
+>>>>     for abnormal exits (e.g. kthread_exit from failed assertions).
+>>>>     Suppression handle is only accessible inside the block.
+>>>> - KUNIT_START/END_SUPPRESSED_WARNING(test): manual macros for larger
+>>>>     blocks or when warning counts need to be checked after suppression
+>>>>     ends. Limited to one pair per scope.
+>>>> - kunit_start/end_suppress_warning(test): direct functions returning
+>>>>     an explicit handle, for retaining the handle within the test,
+>>>>     or for cross-function usage.
+>>>>
+>>>> Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+>>>> Signed-off-by: Alessandro Carminati <acarmina@redhat.com>
+>>>> Reviewed-by: Kees Cook <kees@kernel.org>
+>>>> Signed-off-by: Albert Esteve <aesteve@redhat.com>
+>>>> ---
+>>>
+>>> This looks pretty good to me, thanks.
+>>>
+>>> Reviewed-by: David Gow <david@davidgow.net>
+>>>
+>>> It's maybe slightly over-the-top to now have three different ways of
+>>> enabling warning suppression: I'd probably personally get rid of
+>>> KUNIT_START/END_SUPPRESSED_WARNING() if we had to lose one. But if
+>>> there's a real reason to prefer keeping all three, it's not actually a
+>>> problem to do so.
+>>
+>> Thanks for the review!
+>>
+>> I think the three forms earn their keep: the scoped form is the go-to
+>> for most cases, but the macros avoid indentation without requiring
+>> users to manage a raw pointer. I initially removed the macros and
+>> added them back later. Direct calls to the functions will be less
+>> frequent, used only when you need the handle.
+>>
+>> That said, if it becomes a maintenance burden, the macros are the
+>> easiest to drop since they're thin wrappers. Let me know if you prefer
+>> them to be dropped, and I will send a v9 with that and the
+>> `KUNIT_EXPECT_SUPPRESSED_WARNING_COUNT` additions to the drm test
+>> patch.
+>>
+>> BR,
+>> Albert.
+>>
+>>>
+>>> Regardless, this series is looking pretty ready to me. Let me know if
+>>> you're planning a v9, otherwise we'll take this when you're ready.
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
+> I have been thinking, and despite my last response arguing against it,
+> I think I will send that v9 and remove
+> KUNIT_START/END_SUPPRESSED_WARNING(). Since the scoped approach with a
+> reduced extent should be the default style for most cases, the direct
+> calls can cover any other use cases without needing macros. Plus,
+> since macros set the handler name for you, it seems odd not to be able
+> to use them more than once per test.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Yeah, that was a part of my thought: all of the possible uses of 
+KUNIT_START/END_SUPPRESSED_WARNING() can be replaced with the scoped 
+version except for the one case where you want to check the number of 
+warnings specifically after the scope. I'm not sure the latter would be 
+common, and in the few places it's useful, the direct calls are not 
+_that_ much more difficult to use.
 
-Konrad
+> I hope that's ok. After that I think it should be ready (at least from my side).
+> 
+Sounds good: assuming no last-minute disasters, we'll take v9 then.
+
+Cheers,
+-- David
