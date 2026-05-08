@@ -4,87 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CF57CD3436
-	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 06:34:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6584ECD342F
+	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 06:41:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27B8C10F342;
-	Fri,  8 May 2026 06:34:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DD4510F333;
+	Fri,  8 May 2026 06:41:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="yYuVes5k";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="F7jUEJpE";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="yYuVes5k";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="F7jUEJpE";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="TqgRgz+V";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Uj9E9Pnv";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="TqgRgz+V";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Uj9E9Pnv";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6ACAB10F333
- for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 06:34:12 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC60B10E5CB
+ for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 06:41:24 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 128F65CC5E;
- Fri,  8 May 2026 06:34:11 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id BD7496AF51;
+ Fri,  8 May 2026 06:41:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1778222051; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1778222483; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=zOsbIhlef44DTkGsoPWXHPBsl57WqM4Qt7XMbvRnzco=;
- b=yYuVes5kv4DMvt3PJUErhS4U2VMDuUxxPLdFXfP75wMvWW3kXNBfnXBY0R+K+zFiYHlDDj
- ScvCwui197BX8Sk5v81tWiuAo51Nqd5naCidAspjL1fOU7ZljO0sYx+oyioQv2tVu/u6Oq
- 9E6Gc8lQP59DPttFSxkqQVVFj1NxRkM=
+ bh=JHdeigwYS201aIa89lXxaBTXsIkwZE+jCEoWz6ruIxk=;
+ b=TqgRgz+VBnsHDa7AOjIBQTBBQsUCLO6gPB+xt8K+vRZSWu++dkYxKM8XBWEWGazbiHROR0
+ ByL4tZ4rw7bZ3Dew6KmQW4fqYr0WrL+UlDwG7yqgLrLisgOpCayNxdgJZC6vc/Nz6dIeG1
+ atW5v/6A00MXKp0xHYDgt5wdsyRbd4M=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1778222051;
+ s=susede2_ed25519; t=1778222483;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=zOsbIhlef44DTkGsoPWXHPBsl57WqM4Qt7XMbvRnzco=;
- b=F7jUEJpEyQ6BHpqMBcGzBWQJCIrg8ZO8/W7GwcjyEV/IqkjSfesuR8zxePBHZltEjRF9FZ
- 87lErDJPT+SpPtBg==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=yYuVes5k;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=F7jUEJpE
+ bh=JHdeigwYS201aIa89lXxaBTXsIkwZE+jCEoWz6ruIxk=;
+ b=Uj9E9Pnv7/+HS3D/R2DLy3p1K+GM9fkCWCklt5dGlVMOeoucYqqYhUPqq4RRJHFQOdhOaq
+ KN8ZOT2yfJVm+YAg==
+Authentication-Results: smtp-out1.suse.de;
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1778222051; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1778222483; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=zOsbIhlef44DTkGsoPWXHPBsl57WqM4Qt7XMbvRnzco=;
- b=yYuVes5kv4DMvt3PJUErhS4U2VMDuUxxPLdFXfP75wMvWW3kXNBfnXBY0R+K+zFiYHlDDj
- ScvCwui197BX8Sk5v81tWiuAo51Nqd5naCidAspjL1fOU7ZljO0sYx+oyioQv2tVu/u6Oq
- 9E6Gc8lQP59DPttFSxkqQVVFj1NxRkM=
+ bh=JHdeigwYS201aIa89lXxaBTXsIkwZE+jCEoWz6ruIxk=;
+ b=TqgRgz+VBnsHDa7AOjIBQTBBQsUCLO6gPB+xt8K+vRZSWu++dkYxKM8XBWEWGazbiHROR0
+ ByL4tZ4rw7bZ3Dew6KmQW4fqYr0WrL+UlDwG7yqgLrLisgOpCayNxdgJZC6vc/Nz6dIeG1
+ atW5v/6A00MXKp0xHYDgt5wdsyRbd4M=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1778222051;
+ s=susede2_ed25519; t=1778222483;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=zOsbIhlef44DTkGsoPWXHPBsl57WqM4Qt7XMbvRnzco=;
- b=F7jUEJpEyQ6BHpqMBcGzBWQJCIrg8ZO8/W7GwcjyEV/IqkjSfesuR8zxePBHZltEjRF9FZ
- 87lErDJPT+SpPtBg==
+ bh=JHdeigwYS201aIa89lXxaBTXsIkwZE+jCEoWz6ruIxk=;
+ b=Uj9E9Pnv7/+HS3D/R2DLy3p1K+GM9fkCWCklt5dGlVMOeoucYqqYhUPqq4RRJHFQOdhOaq
+ KN8ZOT2yfJVm+YAg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C9930593A7;
- Fri,  8 May 2026 06:34:10 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7D3CA593A7;
+ Fri,  8 May 2026 06:41:23 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id diPkL+KD/WkCZAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 08 May 2026 06:34:10 +0000
-Message-ID: <87ca272f-d202-4c08-b289-67fc953cde25@suse.de>
-Date: Fri, 8 May 2026 08:34:10 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id CilPHZOF/WmCagAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 08 May 2026 06:41:23 +0000
+Message-ID: <f44eab5f-40b6-4cd0-8cad-8526c0617b33@suse.de>
+Date: Fri, 8 May 2026 08:41:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/5] drm/exynos: fbdev: Use client buffers
-To: Marek Szyprowski <m.szyprowski@samsung.com>, inki.dae@samsung.com,
- sw0312.kim@samsung.com, kyungmin.park@samsung.com, airlied@gmail.com,
- simona@ffwll.ch, dri-devel@lists.freedesktop.org
-Cc: linux-samsung-soc@vger.kernel.org
-References: <CGME20260423095139eucas1p149a0e97f62e8bf353a65466ca26cbff9@eucas1p1.samsung.com>
- <20260423094452.32665-1-tzimmermann@suse.de>
- <b9765ddd-bb8a-458f-85d4-159d3cc5fe5b@samsung.com>
+Subject: Re: [PATCH 5/5] drm/exynos: Make exynos_drm_framebuffer_init() an
+ internal interface
+To: wens@kernel.org
+Cc: inki.dae@samsung.com, sw0312.kim@samsung.com, kyungmin.park@samsung.com,
+ airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-samsung-soc@vger.kernel.org
+References: <20260423094452.32665-1-tzimmermann@suse.de>
+ <20260423094452.32665-6-tzimmermann@suse.de>
+ <CAGb2v647JoUuNC_SLkm+wuBRAG=mTJJMu64cnFQHiY7w0of5-g@mail.gmail.com>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -111,30 +110,23 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <b9765ddd-bb8a-458f-85d4-159d3cc5fe5b@samsung.com>
+In-Reply-To: <CAGb2v647JoUuNC_SLkm+wuBRAG=mTJJMu64cnFQHiY7w0of5-g@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-5.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- DWL_DNSWL_LOW(-1.00)[suse.de:dkim];
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_VIA_SMTP_AUTH(0.00)[];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
- TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
- FREEMAIL_TO(0.00)[samsung.com,gmail.com,ffwll.ch,lists.freedesktop.org];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
  RCPT_COUNT_SEVEN(0.00)[8]; MID_RHS_MATCH_FROM(0.00)[];
- RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:url,suse.de:mid,suse.de:dkim];
+ RCVD_TLS_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 128F65CC5E
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[samsung.com,gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org];
+ MIME_TRACE(0.00)[0:+]; FROM_EQ_ENVFROM(0.00)[];
+ TO_DN_NONE(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.de:mid,
+ suse.com:url]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,51 +144,34 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi
 
-Am 06.05.26 um 08:35 schrieb Marek Szyprowski:
-> On 23.04.2026 11:37, Thomas Zimmermann wrote:
->> A client buffer holds the DRM framebuffer for an in-kernel DRM
->> client. Until now, exynos created an internal ad-hoc framebuffer for
->> its fbdev emulation, while by-passing the regular interfaces used by
->> user-space compositors.
+Am 06.05.26 um 08:59 schrieb Chen-Yu Tsai:
+[...]
+>> --- a/drivers/gpu/drm/exynos/exynos_drm_fb.h
+>> +++ b/drivers/gpu/drm/exynos/exynos_drm_fb.h
+>> @@ -12,13 +12,6 @@
 >>
->> Convert exynos' fbdev emulation to use client buffers. Replacing the
->> existing code with a client buffer allows for stream-lining exynos code
->> and later also the fbdev helpers. The new framebuffer will be registered
->> against the client's file and will support handles for GEM objects. It
->> is then just another framebuffer within the DRM ecosystem.
->>
->> If all driver's fbdev-emulation helpers can be converted to use client
->> buffers, the emulation's framebuffer handling as a whole can possibly be
->> moved into shared helpers.
-> Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
->
-> Acked-by: Marek Szyprowski <m.szyprowski@samsung.com>
+>>   #include "exynos_drm_gem.h"
+> Nit: you could move the include statement to exynos_drm_fb.c as well.
 
-Thanks a lot!
+Right, good point. I'll send an update in a bit.
+
+Best regards
+Thomas
 
 >
->
->> Patch 1 first fixes a long-standing bug.
+>> -struct drm_framebuffer *
+>> -exynos_drm_framebuffer_init(struct drm_device *dev,
+>> -                           const struct drm_format_info *info,
+>> -                           const struct drm_mode_fb_cmd2 *mode_cmd,
+>> -                           struct exynos_drm_gem **exynos_gem,
+>> -                           int count);
+>> -
+>>   dma_addr_t exynos_drm_fb_dma_addr(struct drm_framebuffer *fb, int index);
 >>
->> Patches 2 to 4 convert exynos' fbdev emulation to client buffers. It
->> still allocates a GEM object buffer tailored towards fbdev emulation,
->> but size calculations now use common DRM helpers.
+>>   void exynos_drm_mode_config_init(struct drm_device *dev);
+>> --
+>> 2.53.0
 >>
->> Patch 5 cleans up symbol visibility in exynos' fb code.
->>
->> Thomas Zimmermann (5):
->>    drm/exynos: fbdev: Remove offset into screen_buffer
->>    drm/exynos: fbdev: Inline exynos_drm_fbdev_update()
->>    drm/exynos: fbdev: Calculate buffer geometry with format helpers
->>    drm/exynos: fbdev: Use a DRM client buffer
->>    drm/exynos: Make exynos_drm_framebuffer_init() an internal interface
->>
->>   drivers/gpu/drm/exynos/exynos_drm_fb.c    |   2 +-
->>   drivers/gpu/drm/exynos/exynos_drm_fb.h    |   7 --
->>   drivers/gpu/drm/exynos/exynos_drm_fbdev.c | 100 ++++++++++------------
->>   3 files changed, 47 insertions(+), 62 deletions(-)
->>
-> Best regards
 
 -- 
 --
