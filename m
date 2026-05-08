@@ -4,77 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10217CD37AF
-	for <dri-devel@archiver.kernel.org>; Sun, 10 May 2026 10:07:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08D56CD37B9
+	for <dri-devel@archiver.kernel.org>; Sun, 10 May 2026 10:07:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A9EA510E409;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9EE8F10E17B;
 	Sun, 10 May 2026 10:07:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bNKQNnRH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="g+RY1sAJ";
 	dkim-atps=neutral
-Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com
- [209.85.210.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 135AE10E197
- for <dri-devel@lists.freedesktop.org>; Sat,  9 May 2026 16:24:28 +0000 (UTC)
-Received: by mail-ot1-f51.google.com with SMTP id
- 46e09a7af769-7dcd54a8d17so186556a34.0
- for <dri-devel@lists.freedesktop.org>; Sat, 09 May 2026 09:24:28 -0700 (PDT)
+Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com
+ [209.85.219.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1076910F566
+ for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 16:29:00 +0000 (UTC)
+Received: by mail-qv1-f54.google.com with SMTP id
+ 6a1803df08f44-8b59772d441so19645166d6.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 08 May 2026 09:29:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778343867; x=1778948667; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=vYSUkeQk08X5s5eiMKardz3dR/jsqi1HIQzkNjMFZNU=;
- b=bNKQNnRH3frfDVqRmtApxVheo+ntM2oqFfI/tvJLuA2LryNMQprnT6kI05IJ9o/x25
- nTC0Y96M6O8KgR4InBS4pjeG4QhDAqbEs7lSNp+gvaxRrtko1PfOsgRXdC8hbhiX4vJ1
- pkXHqFPd41PrdwBx4J0YZNpbbythPPS7b4AM6vy8WFk+ZK9ILDKtsQkZj/SNFiF3t/Ov
- /QS+WjOOdBY1p2wCT9EIFq7GiM4h1Y2OssaiqvBs0QS/NzXhcqKZz6qwQLL8oCUry10n
- rZw8qXI80K2lPDDoVzt4VCohOIGEtj6tdRp2zNIjey+umzcw5gQGHhtzROit3ssA8toW
- +IUg==
+ d=gmail.com; s=20251104; t=1778257739; x=1778862539; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=VJ1nt1raVmWGZpEel8fILUUX9Nl0Zn9ZJYTC5Z/rJck=;
+ b=g+RY1sAJGHu7iKf5JW5IcP+zjKzYOwAaUe2PJIYUjjwdlenthKdJe68OSPliygxdYh
+ nwJOY6fi2iOGwF13SJYT9AFglF7GdSjFEcN3nnY5ZR1yHepqsimEcGBJ1+bN3FmftQSl
+ FLx2dnhyEWIB1Fq4xmFB1LuuX+mjcVQk7CybFEo0lV8SFPrKFyiwiyhCiGm8ILUSUhZn
+ f10Yk/rUWOhYLaOEzUSxtDVWDJJQyFz1Y2UhB7sHmqr1LTJqGGFzvmSE5+YQXpfonpKs
+ A1f+Yv4nPbXGI2GW7W9SmaLGJmmRmexvlmx/1CVBP29z1gcmfbPBt7euWtwZ6cK/mG8F
+ HjGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778343867; x=1778948667;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=vYSUkeQk08X5s5eiMKardz3dR/jsqi1HIQzkNjMFZNU=;
- b=pV6Hfx22B/cWfLXBRssDtGPMpycdA+rwvRAHXva0ZUl0qDEt10X8rKa0CiLsPWyWyj
- FilfRMv6RXLLyNVm3o3OchzTFz+xz/ALcHJu8qGFUkHTtRmpol0L2g6VWW/wmZL3V+a0
- iAoaOaiWetLBPe5za9Z27or4cYV7r8llKNFbgYHj19OLG+dUOalvxjJjw5NsR4fneASb
- cb/1IboBAG7h5n27Y0mt7oqq+k2hO0U1+j6Kh1L46wQ4aeo+YAd4T46qT8vl9QwRYy3q
- AKoiX4DrCSFFZ+BM8g2yBrWLg9rNJKI4GNa5nrxP6rpoDJo5VxChluu4ft4txmKzeZLU
- VRxQ==
+ d=1e100.net; s=20251104; t=1778257739; x=1778862539;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=VJ1nt1raVmWGZpEel8fILUUX9Nl0Zn9ZJYTC5Z/rJck=;
+ b=f3VMVPuiLkVYBGATl2b5gD/ke9Qi/ZeITq5BCRzXZpgaK48oXUCRyJN8CxB5PrWz5V
+ iJjd2OwmFXSoeJxSjHvWQDX/8ddshVTJjpkCQImQcC6Q2hUTP47RpHC28WRFhi4C8fxL
+ ddB82dHOkjTeyI9Mlw9LD+NTDw7brxVv4m/t8vdTndRFJ010M9yEpvONqr7zOTYmOgDK
+ K3AsZjvMuZ0sQ64SEeleskQXAcH9YTo4F5TvPKX0fJxWsNAeVAI24Ttm9ERABrwQl91m
+ FclJkFf/7vS8rhoA3eRhWUNkBTX7knSDjEgyV0JEtgOJVumfhw7aDvr+gaEUVKw5b6yB
+ dn5A==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8pCNLinkHPtJ/sqg3tWMXtC0YvbehMQG6ioyb0+TAAcv8tIry1vrMWtX/sEjuMHQJopOnvcLANxzk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyokH8CitIffqPg3Z1f6gx2E/kobH1YTcuIaYYgSgOpF0TtDLZx
- aC2u4uuRXvdrHGkWjjm0BsV3ZugE4D5/OSL7v25Y2q/7Eg1R6WKVryW1G8AoFb0vYkw=
-X-Gm-Gg: Acq92OFz6W+rUqTyDNkyWH//5mp0TPn0dZT511eoPK5j1LaA1qaOQVOBXOVKrjYfA50
- E7o5vrb9qWhWBVFSzmTQjzUl0veEV9doQRyxF/Jixkdc8jbcS7v3Ukyi3Y7uX33jIQNMYclFQA+
- 3SLEXfB5i577Bx97MJHrRseQQWvQCXIcgmet0KkLLJ3jh9w7rB2U32CDbTIXxVopBdc+KampzNg
- bAOneXrzmzvnppG8txojBDd2S0hgDsW/uN26aC9Brh9TedBrmxWLSbtuarbtk065p9/pOh3MUgR
- flnNkI/aVaLsptCVuY55PvWDXo33xXXEDI5a1uWP6QORbSIhUZj4TwBenTl4oic2GRpyf49hvPm
- ZfPGSG6VRaGSUu4gr62yfFxzeApZWaHDw4W5vkP4o3G8CZQClIU60qHaz/jS2pD8UTJLv1N7mLy
- JTTQAMD66rYTtbY6wJIWydAEe3U2YO7HFx4OB2KS9kbJyuThk2ifl7xqRcxHjjpyj5LRAavXiT7
- VP9u2IKXJCoyMTNU/OSnogl//Aooqq1tgQ=
-X-Received: by 2002:a05:6808:19a3:b0:467:53b0:b414 with SMTP id
- 5614622812f47-480451ce0c8mr5800487b6e.6.1778343867067; 
- Sat, 09 May 2026 09:24:27 -0700 (PDT)
-Received: from localhost ([136.49.184.116]) by smtp.gmail.com with ESMTPSA id
- 5614622812f47-47c763b2c87sm17071559b6e.4.2026.05.09.09.24.26
+ AFNElJ+HsZkqDBjw447jEfTZhzSeL0k0bg/J4hr6TVHnZh9F/6Bnfv4tXyDxnU/YRyaQ+5bkQVOaR7uLs54=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwCsrbCqdgL+4HDKDn/xN1aJN9y/eRFTKpoyMigxjgDOei5KIop
+ LCStr6VZtVetfLnYi/QDeYWU9bGT/OpymVhn7NHmiWRNClxfn7uy3Wn4
+X-Gm-Gg: Acq92OGaUE7X5gbNrw7FcmJO29n5MUHII6OvWtq3GW8WOjX2LTxEgdtb7oQhS3dEVhA
+ TqtDg6QSRw/vOoi36JcIWlxPZ6/sayBXSsFoCcP7EgRg3WlO+kSX6pO/p+kTOmI19cm+ChGnPzp
+ wOwVXI+QBDwhdQB4JZ2HCdYDB4uA5Or1KUKd0MML9bIlnvojQmxWTF/G3ez+TmUEbWCm5SmgIs/
+ 9oESZJRRqf0kCCQHZrW5l/AeV2bV3BoaVzOt6XsMMSoVWVHPTX7Qp6Sa7Lt0ZcZtsY7/NdTMkKx
+ 8nY1TNl8I7hfl+Lo9dp3eGaO6vj07ZvCy2jkIxARyagBMervbEcpL80zA10DcCx/7Ot1t+LItmm
+ wiqqey328Sx406MeNGNUzMwuhNHLbXyVHyM9Gvw/ceRqjMaLHZTMTis96M0bxa9EZ6YUN6VemZo
+ oU2lMDNcEoANUycliHjfQ8q773TJ3jn633Z7spfe9sYCXf6DnlK6/JrOP6uuDZWr9CdS/VDQsQw
+ ajBewK47ablfl+vbckRK/JfxEuFaI1N2y9UJQfox5Q=
+X-Received: by 2002:a05:6214:3f81:b0:89c:a2b2:8d44 with SMTP id
+ 6a1803df08f44-8bc451770demr211625746d6.39.1778257738686; 
+ Fri, 08 May 2026 09:28:58 -0700 (PDT)
+Received: from security.cs.northwestern.edu (security.cs.northwestern.edu.
+ [165.124.184.136]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-8bf3b0c4db9sm21343796d6.4.2026.05.08.09.28.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 09 May 2026 09:24:26 -0700 (PDT)
-From: Aaron Esau <aaron1esau@gmail.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
- joonas.lahtinen@linux.intel.com, tursulin@ursulin.net,
- mika.kahola@intel.com, stable@vger.kernel.org,
- Aaron Esau <aaron1esau@gmail.com>
-Subject: [PATCH 3/3] drm/i915/cx0: return errors from CX0 PLL enable on failure
-Date: Sat,  9 May 2026 11:24:07 -0500
-Message-ID: <20260509162407.510539-4-aaron1esau@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260509162407.510539-1-aaron1esau@gmail.com>
-References: <20260509162407.510539-1-aaron1esau@gmail.com>
+ Fri, 08 May 2026 09:28:58 -0700 (PDT)
+From: Ziyi Guo <guoziyi114@gmail.com>
+X-Google-Original-From: Ziyi Guo <n7l8m4@u.northwestern.edu>
+To: maciej.falkowski@linux.intel.com,
+	karol.wachowski@linux.intel.com
+Cc: ogabbay@kernel.org, sumit.semwal@linaro.org, christian.koenig@amd.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ Ziyi Guo <n7l8m4@u.northwestern.edu>
+Subject: [PATCH] accel/ivpu: Reject PRIME export of userptr BOs
+Date: Fri,  8 May 2026 16:28:56 +0000
+Message-Id: <20260508162856.1131843-1-n7l8m4@u.northwestern.edu>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 10 May 2026 10:07:04 +0000
@@ -93,177 +92,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-intel_cx0pll_enable() silently continues when the PHY fails to come
-out of SOC reset or the PLL fails to lock. When the CX0 PHY MSGBUS
-is unresponsive, this causes all subsequent PLL register writes to be
-silently dropped and the PLL lock request to time out, leaving the
-display hardware in a broken state.
+  Userptr BOs wrap pinned user pages in a private dma-buf solely for
+  internal use by the NPU driver. Allowing userspace to re-export such a
+  BO via DRM_IOCTL_PRIME_HANDLE_TO_FD would expose those pages to other
+  drivers through an interface that was never intended to be shared.
 
-Return -ETIMEDOUT from intel_cx0_phy_lane_reset() when the PHY fails
-to come out of SOC reset. Return -ETIMEDOUT from intel_cx0pll_enable()
-when the PLL fails to lock. Propagate these errors through
-intel_mtl_pll_enable() and mtl_pll_enable() to the shared DPLL
-framework, which (as of the previous patch) will abort the CRTC
-enable sequence rather than driving a pipe with a non-functional PLL.
+  Override the driver's prime_handle_to_fd callback to detect dma-bufs
+  backed by ivpu_gem_userptr_dmabuf_ops and reject the export with
+  -EINVAL.
 
-Fixes: 51390cc0e00a ("drm/i915/mtl: Add Support for C10 PHY message bus and pll programming")
-Cc: stable@vger.kernel.org
-Signed-off-by: Aaron Esau <aaron1esau@gmail.com>
+Signed-off-by: Ziyi Guo <n7l8m4@u.northwestern.edu>
 ---
- drivers/gpu/drm/i915/display/intel_cx0_phy.c  | 47 ++++++++++++-------
- drivers/gpu/drm/i915/display/intel_cx0_phy.h  |  6 +--
- drivers/gpu/drm/i915/display/intel_dpll_mgr.c |  4 +-
- 3 files changed, 34 insertions(+), 23 deletions(-)
+ drivers/accel/ivpu/ivpu_drv.c         |  1 +
+ drivers/accel/ivpu/ivpu_gem.c         | 28 +++++++++++++++++++++++++++
+ drivers/accel/ivpu/ivpu_gem.h         |  3 +++
+ drivers/accel/ivpu/ivpu_gem_userptr.c |  5 +++++
+ 4 files changed, 37 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-index 4cacea802..f5c8444ef 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-@@ -3103,8 +3103,8 @@ static u32 intel_cx0_get_pclk_refclk_ack(u8 lane_mask)
- 	return val;
+diff --git a/drivers/accel/ivpu/ivpu_drv.c b/drivers/accel/ivpu/ivpu_drv.c
+index 2801378e3e19..086d4c769b33 100644
+--- a/drivers/accel/ivpu/ivpu_drv.c
++++ b/drivers/accel/ivpu/ivpu_drv.c
+@@ -545,6 +545,7 @@ static const struct drm_driver driver = {
+ 
+ 	.gem_create_object = ivpu_gem_create_object,
+ 	.gem_prime_import = ivpu_gem_prime_import,
++	.prime_handle_to_fd = ivpu_gem_prime_handle_to_fd,
+ 
+ 	.ioctls = ivpu_drm_ioctls,
+ 	.num_ioctls = ARRAY_SIZE(ivpu_drm_ioctls),
+diff --git a/drivers/accel/ivpu/ivpu_gem.c b/drivers/accel/ivpu/ivpu_gem.c
+index 4f2005a8d496..82079f372b39 100644
+--- a/drivers/accel/ivpu/ivpu_gem.c
++++ b/drivers/accel/ivpu/ivpu_gem.c
+@@ -12,6 +12,7 @@
+ #include <drm/drm_cache.h>
+ #include <drm/drm_debugfs.h>
+ #include <drm/drm_file.h>
++#include <drm/drm_prime.h>
+ #include <drm/drm_utils.h>
+ 
+ #include "ivpu_drv.h"
+@@ -249,6 +250,33 @@ struct drm_gem_object *ivpu_gem_prime_import(struct drm_device *dev,
+ 	return ERR_PTR(ret);
  }
  
--static void intel_cx0_phy_lane_reset(struct intel_encoder *encoder,
--				     bool lane_reversal)
-+static int intel_cx0_phy_lane_reset(struct intel_encoder *encoder,
-+				    bool lane_reversal)
- {
- 	struct intel_display *display = to_intel_display(encoder);
- 	enum port port = encoder->port;
-@@ -3121,10 +3121,12 @@ static void intel_cx0_phy_lane_reset(struct intel_encoder *encoder,
- 
- 	if (intel_de_wait_for_set_us(display, XELPDP_PORT_BUF_CTL1(display, port),
- 				     XELPDP_PORT_BUF_SOC_PHY_READY,
--				     XELPDP_PORT_BUF_SOC_READY_TIMEOUT_US))
--		drm_warn(display->drm,
--			 "PHY %c failed to bring out of SOC reset\n",
--			 phy_name(phy));
-+				     XELPDP_PORT_BUF_SOC_READY_TIMEOUT_US)) {
-+		drm_err(display->drm,
-+			"PHY %c failed to bring out of SOC reset\n",
-+			phy_name(phy));
-+		return -ETIMEDOUT;
-+	}
- 
- 	intel_de_rmw(display, XELPDP_PORT_BUF_CTL2(display, port), lane_pipe_reset,
- 		     lane_pipe_reset);
-@@ -3160,6 +3162,8 @@ static void intel_cx0_phy_lane_reset(struct intel_encoder *encoder,
- 		drm_warn(display->drm,
- 			 "PHY %c failed to bring out of lane reset\n",
- 			 phy_name(phy));
++int ivpu_gem_prime_handle_to_fd(struct drm_device *dev, struct drm_file *file_priv,
++				u32 handle, u32 flags, int *prime_fd)
++{
++	struct ivpu_device *vdev = to_ivpu_device(dev);
++	struct dma_buf *dmabuf;
++	int fd;
 +
++	dmabuf = drm_gem_prime_handle_to_dmabuf(dev, file_priv, handle, flags);
++	if (IS_ERR(dmabuf))
++		return PTR_ERR(dmabuf);
++
++	if (ivpu_gem_is_userptr_dma_buf(dmabuf)) {
++		ivpu_dbg(vdev, IOCTL, "Exporting userptr BO is not allowed\n");
++		dma_buf_put(dmabuf);
++		return -EINVAL;
++	}
++
++	fd = dma_buf_fd(dmabuf, flags);
++	if (fd < 0) {
++		dma_buf_put(dmabuf);
++		return fd;
++	}
++
++	*prime_fd = fd;
 +	return 0;
- }
- 
- static void intel_cx0_program_phy_lane(struct intel_encoder *encoder, int lane_count,
-@@ -3220,17 +3224,18 @@ static u32 intel_cx0_get_pclk_pll_ack(u8 lane_mask)
- 	return val;
- }
- 
--static void intel_cx0pll_enable(struct intel_encoder *encoder,
--				const struct intel_cx0pll_state *pll_state)
-+static int intel_cx0pll_enable(struct intel_encoder *encoder,
-+			       const struct intel_cx0pll_state *pll_state)
- {
- 	int port_clock = pll_state->use_c10 ? pll_state->c10.clock : pll_state->c20.clock;
- 	struct intel_display *display = to_intel_display(encoder);
- 	enum phy phy = intel_encoder_to_phy(encoder);
- 	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
-+	struct ref_tracker *wakeref = intel_cx0_phy_transaction_begin(encoder);
- 	bool lane_reversal = dig_port->lane_reversal;
- 	u8 maxpclk_lane = lane_reversal ? INTEL_CX0_LANE1 :
- 					  INTEL_CX0_LANE0;
--	struct ref_tracker *wakeref = intel_cx0_phy_transaction_begin(encoder);
-+	int ret;
- 
- 	/*
- 	 * Lane reversal is never used in DP-alt mode, in that case the
-@@ -3246,7 +3251,9 @@ static void intel_cx0pll_enable(struct intel_encoder *encoder,
- 	intel_program_port_clock_ctl(encoder, pll_state, port_clock, lane_reversal);
- 
- 	/* 2. Bring PHY out of reset. */
--	intel_cx0_phy_lane_reset(encoder, lane_reversal);
-+	ret = intel_cx0_phy_lane_reset(encoder, lane_reversal);
-+	if (ret)
-+		goto out;
- 
- 	/*
- 	 * 3. Change Phy power state to Ready.
-@@ -3296,9 +3303,12 @@ static void intel_cx0pll_enable(struct intel_encoder *encoder,
- 	if (intel_de_wait_us(display, XELPDP_PORT_CLOCK_CTL(display, encoder->port),
- 			     intel_cx0_get_pclk_pll_ack(INTEL_CX0_BOTH_LANES),
- 			     intel_cx0_get_pclk_pll_ack(maxpclk_lane),
--			     XELPDP_PCLK_PLL_ENABLE_TIMEOUT_US, NULL))
--		drm_warn(display->drm, "Port %c PLL not locked\n",
--			 phy_name(phy));
-+			     XELPDP_PCLK_PLL_ENABLE_TIMEOUT_US, NULL)) {
-+		drm_err(display->drm, "Port %c PLL not locked\n",
-+			phy_name(phy));
-+		ret = -ETIMEDOUT;
-+		goto out;
-+	}
- 
- 	/*
- 	 * 11. Follow the Display Voltage Frequency Switching Sequence After
-@@ -3320,7 +3330,10 @@ static void intel_cx0pll_enable(struct intel_encoder *encoder,
- 						    XELPDP_P2_STATE_READY);
- 	}
- 
-+out:
- 	intel_cx0_phy_transaction_end(encoder, wakeref);
++}
 +
-+	return ret;
- }
- 
- void intel_mtl_tbt_pll_calc_state(struct intel_dpll_hw_state *hw_state)
-@@ -3458,11 +3471,11 @@ void intel_mtl_tbt_pll_enable_clock(struct intel_encoder *encoder, int port_cloc
- 		       port_clock);
- }
- 
--void intel_mtl_pll_enable(struct intel_encoder *encoder,
--			  struct intel_dpll *pll,
--			  const struct intel_dpll_hw_state *dpll_hw_state)
-+int intel_mtl_pll_enable(struct intel_encoder *encoder,
-+			 struct intel_dpll *pll,
-+			 const struct intel_dpll_hw_state *dpll_hw_state)
+ static struct ivpu_bo *ivpu_bo_alloc(struct ivpu_device *vdev, u64 size, u32 flags)
  {
--	intel_cx0pll_enable(encoder, &dpll_hw_state->cx0pll);
-+	return intel_cx0pll_enable(encoder, &dpll_hw_state->cx0pll);
- }
+ 	struct drm_gem_shmem_object *shmem;
+diff --git a/drivers/accel/ivpu/ivpu_gem.h b/drivers/accel/ivpu/ivpu_gem.h
+index 0c3350f22b55..bfd15ce02354 100644
+--- a/drivers/accel/ivpu/ivpu_gem.h
++++ b/drivers/accel/ivpu/ivpu_gem.h
+@@ -29,6 +29,9 @@ void ivpu_bo_unbind_all_bos_from_context(struct ivpu_device *vdev, struct ivpu_m
  
- void intel_mtl_pll_enable_clock(struct intel_encoder *encoder,
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.h b/drivers/gpu/drm/i915/display/intel_cx0_phy.h
-index ae98ac23e..1d6cc32d7 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy.h
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.h
-@@ -28,9 +28,9 @@ struct intel_hdmi;
- void intel_clear_response_ready_flag(struct intel_encoder *encoder,
- 				     int lane);
- bool intel_encoder_is_c10phy(struct intel_encoder *encoder);
--void intel_mtl_pll_enable(struct intel_encoder *encoder,
--			  struct intel_dpll *pll,
--			  const struct intel_dpll_hw_state *dpll_hw_state);
-+int intel_mtl_pll_enable(struct intel_encoder *encoder,
-+			 struct intel_dpll *pll,
-+			 const struct intel_dpll_hw_state *dpll_hw_state);
- void intel_mtl_pll_disable(struct intel_encoder *encoder);
- enum icl_port_dpll_id
- intel_mtl_port_pll_type(struct intel_encoder *encoder,
-diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-index 78fd2e5f9..ce31deadc 100644
---- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-+++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-@@ -4441,9 +4441,7 @@ static int mtl_pll_enable(struct intel_display *display,
- 	if (drm_WARN_ON(display->drm, !encoder))
- 		return -ENODEV;
+ struct drm_gem_object *ivpu_gem_create_object(struct drm_device *dev, size_t size);
+ struct drm_gem_object *ivpu_gem_prime_import(struct drm_device *dev, struct dma_buf *dma_buf);
++int ivpu_gem_prime_handle_to_fd(struct drm_device *dev, struct drm_file *file_priv,
++				u32 handle, u32 flags, int *prime_fd);
++bool ivpu_gem_is_userptr_dma_buf(struct dma_buf *dma_buf);
+ struct ivpu_bo *ivpu_bo_create(struct ivpu_device *vdev, struct ivpu_mmu_context *ctx,
+ 			       struct ivpu_addr_range *range, u64 size, u32 flags);
+ struct ivpu_bo *ivpu_bo_create_runtime(struct ivpu_device *vdev, u64 addr, u64 size, u32 flags);
+diff --git a/drivers/accel/ivpu/ivpu_gem_userptr.c b/drivers/accel/ivpu/ivpu_gem_userptr.c
+index 7cbf3a4cdc73..45eabea5961e 100644
+--- a/drivers/accel/ivpu/ivpu_gem_userptr.c
++++ b/drivers/accel/ivpu/ivpu_gem_userptr.c
+@@ -61,6 +61,11 @@ static const struct dma_buf_ops ivpu_gem_userptr_dmabuf_ops = {
+ 	.release = ivpu_gem_userptr_dmabuf_release,
+ };
  
--	intel_mtl_pll_enable(encoder, pll, dpll_hw_state);
--
--	return 0;
-+	return intel_mtl_pll_enable(encoder, pll, dpll_hw_state);
- }
- 
- static void mtl_pll_disable(struct intel_display *display,
++bool ivpu_gem_is_userptr_dma_buf(struct dma_buf *dma_buf)
++{
++	return dma_buf->ops == &ivpu_gem_userptr_dmabuf_ops;
++}
++
+ static struct dma_buf *
+ ivpu_create_userptr_dmabuf(struct ivpu_device *vdev, void __user *user_ptr,
+ 			   size_t size, uint32_t flags)
 -- 
-2.54.0
+2.34.1
 
