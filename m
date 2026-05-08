@@ -4,131 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C7B8CD3436
-	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 12:32:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DEA6CD3447
+	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 12:35:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8734C10F48C;
-	Fri,  8 May 2026 12:32:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D23AF10F490;
+	Fri,  8 May 2026 12:34:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VXi59nTC";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MbXbdYnO";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012036.outbound.protection.outlook.com
- [40.107.200.36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE0B810F48C;
- Fri,  8 May 2026 12:32:35 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LuIiKArEZWmuHLtja/fElC9dj+I3+dNhc46AhPHL2wZ1HFcthcwm9WC2YB+rHA14QUz7gw+x+ak27NGXRHMb9TNCqiJEvHV4DlONm9cm7B6rQjmv6cppsVKRBdrwTir2/rpm6nykbN5tq3KSyYHGHz+eXFXyOa/Vb0sn1HJtKGEzxTf8S7JER8ECkFXFHaD5aHFCvW1i00XUhTsXLcNmumnBTy/W7ybo9fozlYD9jsglKPFu9AjEsU63wffwENYYxjF/7u6MJLS9L4mOvT0Tephi+e90a/sSB35z8suQKVU9r8C/AfG613oaQ5bfAcHzthjgjZgxqu5vs4nBHQL2xg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9v5LpI1A8ZlDVBN8X1KwTAlmHbJPxwrmv4p7rYgMhLA=;
- b=XIfFA+3jPwAvu9dkUd+xnqY1YMLIm7PiHOggWJkWQLecRdYlg55CcDhnUPR/I/fOmdiKFEeHWjgyxL3OMFbRis/zOg+Dfel//RQdt12vrz027cTHGitqg88CLfpJP0X0GfRD90CXdKgS0u2x7wwd58TLIuiIVbqErk5pU4npgPC/JS8mWuPCewc2/dXnJQELc2vQZfz/ryk5ta+1FJZCvyrCdq0n3pF3jcZWQ70CzXo1Qa/j67QK20OGfIlZ7jPGNcfdyGqsSubIX94MuledNdL+nGLCSfUjlEBaIhgC/15Zm7b/VeBhvidz2WpSy9zJ5B2GvxgS6/gDLCUvSBIRGg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9v5LpI1A8ZlDVBN8X1KwTAlmHbJPxwrmv4p7rYgMhLA=;
- b=VXi59nTCAwdSCzaHQNCsP5iMTWcsVF5FThI3rRDLWwiwuA8y9gb5p8w4qOPiQmRDcHi2cVhI5GnFxIFW3nWkTJ2RkUj4krMQLi0HxJ7Og+7/Ny048QVjVqu+tEozScA1yozvekNTQiKeh1WTgObjJZdHe2hA6QHM3EiX3qsl9aE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SJ5PPF6785369A4.namprd12.prod.outlook.com
- (2603:10b6:a0f:fc02::997) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.16; Fri, 8 May
- 2026 12:32:28 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9870.023; Fri, 8 May 2026
- 12:32:27 +0000
-Message-ID: <d20ce04b-1c05-4367-a497-b48013336ccd@amd.com>
-Date: Fri, 8 May 2026 14:32:21 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/i915: Fix potential UAF in TTM object purge
-To: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
- intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEC9110E322;
+ Fri,  8 May 2026 12:34:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1778243698; x=1809779698;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=0WGmnVcy0NsMCYIVACj9OxbaEm+Wyf0kR/zxsBeKDzo=;
+ b=MbXbdYnOHR0+MQErqVg9oVoxGcB5KwQovWOO4ge8s8IDIV64WnCGj2q6
+ Gk7wT0fCv+rf8RIIXYRY2xfy7sAkjcK7zSVo1NSYOsP0+1FzoEhJHnJ/J
+ XEjZHXhhLE+Bp1Xau3z+TqR6S0UwA+crJUCXKqEAk+pP8b1u7qk0QTW4Q
+ jCQfHxioIEclPPLl63fSiQe0BmE4Umj+2s36RoTxQU85D4aS9x7mCot9u
+ PnoFf29fWNhQlRX5Vt3KWAZ03rhvoXvOLYvO2zYEkFQkZ9LknO+5yVqsB
+ yU6pNQ5kYQQzUK1gq/CBI2vOsLKTN8vxopYAurXcrVYr3S9Wvn3aBMIr/ w==;
+X-CSE-ConnectionGUID: aL0OEHVGRdqF5lcLkwJtGQ==
+X-CSE-MsgGUID: R8ZoPygBR36NWgf1C6C0Vw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11779"; a="79250928"
+X-IronPort-AV: E=Sophos;i="6.23,223,1770624000"; d="scan'208";a="79250928"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 May 2026 05:34:57 -0700
+X-CSE-ConnectionGUID: TAZMSyG/QaG7jOr5waE0lg==
+X-CSE-MsgGUID: Ue4aUCJ6SbiMaH25zQ3hMg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,223,1770624000"; d="scan'208";a="241754245"
+Received: from abityuts-desk.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.67])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 May 2026 05:34:54 -0700
+Date: Fri, 8 May 2026 14:34:51 +0200
+From: Andi Shyti <andi.shyti@linux.intel.com>
+To: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Matthew Auld <matthew.auld@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Christian =?iso-8859-15?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Thomas =?iso-8859-15?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
  Andi Shyti <andi.shyti@linux.intel.com>,
  Krzysztof Karas <krzysztof.karas@intel.com>,
  Krzysztof Niemiec <krzysztof.niemiec@intel.com>,
  Sebastian Brzezinka <sebastian.brzezinka@intel.com>
+Subject: Re: [PATCH v2] drm/i915: Fix potential UAF in TTM object purge
+Message-ID: <af3Ya4JRnLuxcHlM@ashyti-mobl2.lan>
 References: <20260508122612.469227-2-janusz.krzysztofik@linux.intel.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260508122612.469227-2-janusz.krzysztofik@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0169.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b4::11) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ5PPF6785369A4:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5e8826f6-4621-4f1b-a017-08deacfddd6c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|366016|1800799024|18002099003|56012099003|22082099003|3023799003;
-X-Microsoft-Antispam-Message-Info: 0NwjDh4TM/kS0yxmedpUKaWYtETDj8Vyen+a0lWOD+Aj87ta19bfGuqe4vSjS1cyUs0o0yOQmX9XP/j9j9vLQG9U1MC3lXcHjsG5Hx9df6fL1W29mlt+HcfnkSTeTPi9XU3pUR8CGkWYPNPrHqrCwHCeX+yrhSFi3O9PtERlaH0pTVFz7TZtv0b1RXO9BFekK3I5ZWcRn+VHYMPc+BzVxlRvK9AJPwTTt+HOdfKOc22XppKXMokY0HeAJrM8w9nIUiGEadDuvrp2pJf6SbuQo+wRKAdZ9csBS9zLzptHYnFxftjgNrFLC4SiXhOUVWTfLYKT0QxzJXH4tYFpmKU7QvNyvOEy2UxPTT0/CecdWFV4KnJkUAsDxhVmiNugeyoC/cIsakUiH6GBDtrRSEhu1mw6Dwn82y9shmwDapjdm/gfaofHcVZtz4j4I4KSATRMfry42EDBynQwW81jQhuQkoiCoGviF9pQEK3/e8RoLIW9E6U84EGv6LXAa0eyVRGtfC/ep9VE1vpPYcEJXxZIuBCpZFppURclWfB1RIocDUdIQZgSpN/ektaZJuZOLNLt7nJAXNvzY9RGMXkmCc4o8NtVL+7mjzqcxi3QH49tExOqOdzFl2DyYZLvsW22jab5cNxHFdaULivS69vY0O8jYg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(366016)(1800799024)(18002099003)(56012099003)(22082099003)(3023799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K2JzS3RsV3RzOWpndDVtOUtxU3o1RFZtcEREWlpJWFdRNnNGeWFoblgxYW1a?=
- =?utf-8?B?Q0tHNE9nQXNEUEJFNVNZSUZONllqeHFBalQ3c1pZMGovSVBZSEZrKzc5b0Jp?=
- =?utf-8?B?R3ZJNUFVK1Bma2t4VFBpMWZjdmpnQ20vU2JqL2hiTDM0MzFWTWNtalNoelNW?=
- =?utf-8?B?UWhaMmtnZFdjMnFNcXEwZjlraG5JZGx0V1F6cFhXNE5pTzlFZnhQL2QyTXNp?=
- =?utf-8?B?WFlkK1RyOHFxSUdTZ3RIaTUxMHpzN1lNYlV0WkVEaVFpRWl6Y2gyV0pnSGZp?=
- =?utf-8?B?cW9JWngvMTRLc09aTys5SHIxV3phem8vdlNyQkdOcUljVjhoMm1MeDRiM2xu?=
- =?utf-8?B?MkJkbnJaUkYwbzg2MjRZQWxtK09kNThreTBPZWdaQUp3OGhma0RzazRXZkZj?=
- =?utf-8?B?ZFBFSXozSzFLZlA2ZzUwT0NsN1NBTVJtempYN3IxeVNSdXBTaWM2WHFlZ0Ry?=
- =?utf-8?B?bFg4OTRjWXBJcmhIN0JDS2pvcTFWS0V2SjIvWjVIYTBycC9tZzJtQXBVcWl0?=
- =?utf-8?B?bTI4R1BIWGJEZGx3bzJWaHZqU1dwS0VMbnVjOW1NMjNrSlJVbytna3hYWjNs?=
- =?utf-8?B?MTZwK3VqR0Z3K1NyYS9DY2lLbWhVN0dNbGxmVWR4MG5jMzlvbE5xaUlpYmdE?=
- =?utf-8?B?Yy95dmx0cTRDOTdwWEhvMzVVSXNPZ2VBdzJvVjJtMG5Ub01ERGZZdW1hL3JK?=
- =?utf-8?B?RkI2YnA2WWk0Q1llT1EyVnY3V1RDeGM4YWtZNkQ5K0t2OGVTM0ZOQVU1RHUx?=
- =?utf-8?B?UENXbWlhWTkwUlQ0N20zRys1djllQUljeDF2N2V4VWJEZDhSRno1cHhlSXN4?=
- =?utf-8?B?VGhHWXZsWVlZRHkwRi9SS0ZVYUFyTXJra1JXYnVMOGRYZEZlM0ZxWTQxNmQ2?=
- =?utf-8?B?NWtLWFB2LzIyWUYyTU1YZk9pM2xZTGNqMWNtQ0pTUHYrZWIxWHJNRlV5cWw0?=
- =?utf-8?B?dG1JbmxYT1ZNeDJqR2loY3IzWnpOdVcwTnhkb3k5M1o3OXZQTS8zbWRsck9w?=
- =?utf-8?B?R09mWDBiUjRNZGtZL0E2NWd0SXNlbzFwYkxHYUJTWmYveW1XT1hDY2Q3b1RJ?=
- =?utf-8?B?M3kzaTNIOFZTK1dBbEgyVlFLaEZwbTNqbmIyUC9MS01sRWNtSS9Nc0ROMUNV?=
- =?utf-8?B?cy9rajZiTGpKdDA4N3NLSVZJWkxDZzMwUURCaGQzeE43RHBHZStNRStYRlJu?=
- =?utf-8?B?ZkRFR2cvK1JGTldqc3EycGxhLzlTQW5GNzJTSEF1V0lwNm1HL2pYL0ZoOTFV?=
- =?utf-8?B?UGNoa1RHRlp3WVNGM2EvTkh5NHRHYXBhTWp1VWpwNENaSTFsOWxqVzU4MEdi?=
- =?utf-8?B?V1dIdmZ6NU1DWGZmYTBrSDZXVEVQRmgxZ1pNWU1MK3EwazRMNU5PZXZ6aDlx?=
- =?utf-8?B?WEc3L0RNTFIybWFlZ29qakVRc2J5WTFNY2VmU1BNaWZ2bzI0NWFodzNyY3NT?=
- =?utf-8?B?VGZJUHh5UUFyVXVlS1RyOEI4Tnd5L0kwaFFrWGltM2tNOUovbVUzMndMbloy?=
- =?utf-8?B?N09qOGZqVS9pblBxR3A1U0VQL0VGdUxUeUJDa0cxRVMyZEJFdjlha2ZtRDN4?=
- =?utf-8?B?VlI4dUgxRDNiWW5HM09tb20vSTJUNjhRUFRpcXpBWCtKbjE2TFNWV0VlTFdN?=
- =?utf-8?B?d3hBbUtua0pUVHZ5YUExQ0tzTnpQdmJ4REw0UEk5SElGU1ZjUU9nVG1PcmNr?=
- =?utf-8?B?TnNJOEd4U1pZYm5zbDUrenFmSHZLU2lSbzhzYXVnSnN3anc3d0ZkS3RyOEZQ?=
- =?utf-8?B?M1VIK3pMSndxK084V2M5dStHdEl2ZGJoL1craHdHWE9Xb0t4MWt6cEphRkFG?=
- =?utf-8?B?R2RUVU5Rd0xSN3JNd0JkWFdOemMzNVU1aGVnL1ljZGlzM3RzU2pyYXNOV0h6?=
- =?utf-8?B?M09wUTdNTkdFNEk5aEUrelR0Z085SUlXMldLam83NWh4M0NkS0RRRnVLMGdC?=
- =?utf-8?B?bjJMbW5FYzFhNXhPOUsvQzR5WTFlR09MWDBkQ080YTc1cTgxM3VVYUhuN1Vv?=
- =?utf-8?B?eTRUazBXMDZMUjdFOFBySVNlQW54Mlh5cTJWblRCZ2VoOG4rY3FpVktONEh5?=
- =?utf-8?B?SzludkFJRUppd3d5eVo0RFFXMEQ5N0tyeG12cU5xNkFtWUI4RlZSUlJkYTZ3?=
- =?utf-8?B?dUsxWE9PK2lXcHhoVy93V3NUMjJieFJCbW4wMWZKOGhHME9iMUt0Qy8veXVu?=
- =?utf-8?B?aE9kV2pBTXl6eTZzZnhZdW5Sb3BrbnA0T3JBU29XVE5TeHlIVmZ0NVIzOEV1?=
- =?utf-8?B?a01Fa1ZIbmhxOHF6YVBURVFBb2JVZnFOVUU3aXI0L0FtSE9KNUFRdlZCbkRE?=
- =?utf-8?Q?VHOMJ4xyzXypgIFEZe?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5e8826f6-4621-4f1b-a017-08deacfddd6c
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2026 12:32:27.7967 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9oHJ08fxi8WXk8MGruwj/RP/ZAeXxirGfGK+M4l3CoiOAg6cZCtwKxPntdO4r7/m
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF6785369A4
+Content-Type: text/plain; charset=iso-8859-15
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260508122612.469227-2-janusz.krzysztofik@linux.intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,9 +80,9 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi Janusz,
 
-
-On 5/8/26 14:23, Janusz Krzysztofik wrote:
+On Fri, May 08, 2026 at 02:23:51PM +0200, Janusz Krzysztofik wrote:
 > TLDR: The bo->ttm object might be changed by calling ttm_bo_validate(),
 >       move casting it to an i915_tt object later to actually get the right
 >       pointer.
@@ -229,60 +165,11 @@ On 5/8/26 14:23, Janusz Krzysztofik wrote:
 > Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
 > Cc: stable@vger.kernel.org # v5.17+
 > Cc: Matthew Auld <matthew.auld@intel.com>
-> Cc: "Thomas HellstrÃ¶m" <thomas.hellstrom@linux.intel.com>
+> Cc: "Thomas Hellström" <thomas.hellstrom@linux.intel.com>
 > Cc: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
-> Cc: "Christian KÃ¶nig" <christian.koenig@amd.com>
+> Cc: "Christian König" <christian.koenig@amd.com>
 
-Reviewed-by: Christian KÃ¶nig <christian.koenig@amd.com>
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
 
-> ---
->  drivers/gpu/drm/i915/gem/i915_gem_ttm.c | 28 ++++++++++++++-----------
->  1 file changed, 16 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-> index de70517b4ef22..df3fcc2b1248e 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-> @@ -419,8 +419,6 @@ void i915_ttm_free_cached_io_rsgt(struct drm_i915_gem_object *obj)
->  int i915_ttm_purge(struct drm_i915_gem_object *obj)
->  {
->  	struct ttm_buffer_object *bo = i915_gem_to_ttm(obj);
-> -	struct i915_ttm_tt *i915_tt =
-> -		container_of(bo->ttm, typeof(*i915_tt), ttm);
->  	struct ttm_operation_ctx ctx = {
->  		.interruptible = true,
->  		.no_wait_gpu = false,
-> @@ -435,16 +433,22 @@ int i915_ttm_purge(struct drm_i915_gem_object *obj)
->  	if (ret)
->  		return ret;
->  
-> -	if (bo->ttm && i915_tt->filp) {
-> -		/*
-> -		 * The below fput(which eventually calls shmem_truncate) might
-> -		 * be delayed by worker, so when directly called to purge the
-> -		 * pages(like by the shrinker) we should try to be more
-> -		 * aggressive and release the pages immediately.
-> -		 */
-> -		shmem_truncate_range(file_inode(i915_tt->filp),
-> -				     0, (loff_t)-1);
-> -		fput(fetch_and_zero(&i915_tt->filp));
-> +	if (bo->ttm) {
-> +		struct i915_ttm_tt *i915_tt =
-> +			container_of(bo->ttm, typeof(*i915_tt), ttm);
-> +
-> +		if (i915_tt->filp) {
-> +			/*
-> +			 * The below fput(which eventually calls shmem_truncate)
-> +			 * might be delayed by worker, so when directly called
-> +			 * to purge the pages(like by the shrinker) we should
-> +			 * try to be more aggressive and release the pages
-> +			 * immediately.
-> +			 */
-> +			shmem_truncate_range(file_inode(i915_tt->filp),
-> +					     0, (loff_t)-1);
-> +			fput(fetch_and_zero(&i915_tt->filp));
-> +		}
->  	}
->  
->  	obj->write_domain = 0;
-
+Thanks,
+Andi
