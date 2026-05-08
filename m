@@ -4,61 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFEB0CD37A7
-	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 14:38:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25ED0CD3436
+	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 14:46:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1187A10F527;
-	Fri,  8 May 2026 14:38:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 797CB10E2C1;
+	Fri,  8 May 2026 14:46:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IInGxdR2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="crONrLXH";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA7E410F526;
- Fri,  8 May 2026 14:38:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778251106; x=1809787106;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=GPJJjl5X/3lXWI/FH29zpPakong5zTs42mxiQE1zlZU=;
- b=IInGxdR2KNZFzirFQ/ws3SmdUwpHas1yZrxTysMXc/gMiss5Ejcz9lMX
- qfUGydPpeWOV8yKQzzOUpr8AUeI6tpBNvnEAi9cvX6FTUEIt2zfPjHkKx
- umjqTn6isR/NOi6hfMUA505V+kc3QJw+7uGOpD3Is/+VmIRdLv79osWXi
- oCs8oIJ6/mSPEqMCtTqyGxod77a2C6x4AeVG6D88DO8MxNhkxcGntcDU0
- RPwIH7yjMr+me6iItMA2AEvhfNm+iQ0xulBYDdQ/L4SGzlAOgopHqtkgy
- d0cMAvefRBXu1MZTpDTEBWnAxQHlz5mF1l2xPOIElxKmpzYmM6Q43NkUh w==;
-X-CSE-ConnectionGUID: w6wI6KCpSbm6ANp7EVFXdw==
-X-CSE-MsgGUID: 7hy1z8P9T62Nk6RCd/ww5g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11780"; a="101894066"
-X-IronPort-AV: E=Sophos;i="6.23,223,1770624000"; d="scan'208";a="101894066"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 May 2026 07:38:26 -0700
-X-CSE-ConnectionGUID: etR/9558QrKvskR7Gq6ywQ==
-X-CSE-MsgGUID: lhLNZetiS8CXwfdRp0JJSA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,223,1770624000"; d="scan'208";a="236897761"
-Received: from egrumbac-mobl6.ger.corp.intel.com (HELO localhost)
- ([10.245.244.104])
- by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 May 2026 07:38:23 -0700
-Date: Fri, 8 May 2026 17:38:20 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, jani.nikula@linux.intel.com
-Subject: Re: [PATCH 7/9] drm/dp: Add a helper to get the SDP type as a string
-Message-ID: <af31XJIB7mrif6BX@intel.com>
-References: <20260428074457.3566918-1-ankit.k.nautiyal@intel.com>
- <20260428074457.3566918-8-ankit.k.nautiyal@intel.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9046010F4FD
+ for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 14:46:29 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 01D18439C7;
+ Fri,  8 May 2026 14:46:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2FCAC2BCB0;
+ Fri,  8 May 2026 14:46:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1778251588;
+ bh=pcJbTLDoncDYuOjwOJV4L1AfLbap53q0hiYuc9oFonM=;
+ h=From:To:Cc:Subject:Date:From;
+ b=crONrLXHf+/ahloLLVXzsxTvVDuv47wzuU3QcjI9gHRh/5EcHKOJmxa/HIj4m0RGq
+ LedXKGOBYZNfi4Fum13XySZ/N+XymMsKrbqijV+0MP8Zsf/ihrrqh12pEzGEaFP5Zy
+ 9Ax8CdFQZxXIACFRJFcSlurcGOpLERKZmEAoaXcYLFPMM5k8wZy10ybDTndDdYPDJF
+ zsP06mSavZj8hFSRu+0ZEZ+DUZscSd8xU6AS0gnRn4hxdveZ/t7SPuCMQ78/ATQhTJ
+ euCYFOaltA8KxGo3ioD9WouuwJSIgDe/yZP6ApN8S4KPf1XXu0VC8YAdJ5u2Y8h5I2
+ i7aZKlz71Aqhg==
+Received: from johan by xi.lan with local (Exim 4.98.2)
+ (envelope-from <johan@kernel.org>) id 1wLMTC-00000000FZ1-2adL;
+ Fri, 08 May 2026 16:46:26 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Johan Hovold <johan@kernel.org>
+Subject: [PATCH 0/3] drm/gma500: fix i2c adapter hang and leaks
+Date: Fri,  8 May 2026 16:44:43 +0200
+Message-ID: <20260508144446.59722-1-johan@kernel.org>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260428074457.3566918-8-ankit.k.nautiyal@intel.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,80 +61,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Apr 28, 2026 at 01:14:55PM +0530, Ankit Nautiyal wrote:
-> Introduce dp_sdp_type_get_name() to get the SDP type as a string.
-> Use this to log the SDP type based on the sdp_type fields of the
-> VSC and AS SDPs instead of the hardcoded strings.
-> 
-> v2: Modify the SDP names to match the DisplayPort Spec. (Ville)
-> 
-> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+I stumbled over these when looking into i2c lifetime issues.
 
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Note that the allocated adapter (or looked up reference) appears to be
+leaking on successful LVDS init as well. Not sure if it matters.
 
-> ---
->  drivers/gpu/drm/display/drm_dp_helper.c | 36 ++++++++++++++++++++++---
->  1 file changed, 32 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-> index 5f523d0514a5..654be04431ad 100644
-> --- a/drivers/gpu/drm/display/drm_dp_helper.c
-> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
-> @@ -3487,10 +3487,38 @@ static const char *dp_content_type_get_name(enum dp_content_type content_type)
->  	}
->  }
->  
-> +static const char *dp_sdp_type_get_name(unsigned char type)
-> +{
-> +	switch (type) {
-> +	case DP_SDP_AUDIO_TIMESTAMP:
-> +		return "Audio_TimeStamp";
-> +	case DP_SDP_AUDIO_STREAM:
-> +		return "Audio_Stream";
-> +	case DP_SDP_EXTENSION:
-> +		return "Extension";
-> +	case DP_SDP_AUDIO_COPYMANAGEMENT:
-> +		return "Audio_CopyManagement";
-> +	case DP_SDP_ISRC:
-> +		return "ISRC";
-> +	case DP_SDP_VSC:
-> +		return "VSC";
-> +	case DP_SDP_PPS:
-> +		return "PPS";
-> +	case DP_SDP_VSC_EXT_VESA:
-> +		return "VSC_EXT_VESA";
-> +	case DP_SDP_VSC_EXT_CEA:
-> +		return "VSC_EXT_CEA";
-> +	case DP_SDP_ADAPTIVE_SYNC:
-> +		return "Adaptive-Sync";
-> +	default:
-> +		return "Unknown";
-> +	}
-> +}
-> +
->  void drm_dp_vsc_sdp_log(struct drm_printer *p, const struct drm_dp_vsc_sdp *vsc)
->  {
-> -	drm_printf(p, "DP SDP: VSC, revision %u, length %u\n",
-> -		   vsc->revision, vsc->length);
-> +	drm_printf(p, "DP SDP: %s, revision %u, length %u\n",
-> +		   dp_sdp_type_get_name(vsc->sdp_type), vsc->revision, vsc->length);
->  	drm_printf(p, "    pixelformat: %s\n",
->  		   dp_pixelformat_get_name(vsc->pixelformat));
->  	drm_printf(p, "    colorimetry: %s\n",
-> @@ -3505,8 +3533,8 @@ EXPORT_SYMBOL(drm_dp_vsc_sdp_log);
->  
->  void drm_dp_as_sdp_log(struct drm_printer *p, const struct drm_dp_as_sdp *as_sdp)
->  {
-> -	drm_printf(p, "DP SDP: AS_SDP, revision %u, length %u\n",
-> -		   as_sdp->revision, as_sdp->length);
-> +	drm_printf(p, "DP SDP: %s, revision %u, length %u\n",
-> +		   dp_sdp_type_get_name(as_sdp->sdp_type), as_sdp->revision, as_sdp->length);
->  	drm_printf(p, "    vtotal: %d\n", as_sdp->vtotal);
->  	drm_printf(p, "    target rr: %d\n", as_sdp->target_rr);
->  	drm_printf(p, "    duration increase ms: %d\n", as_sdp->duration_incr_ms);
-> -- 
-> 2.45.2
+Johan
+
+
+Johan Hovold (3):
+  drm/gma500/oaktrail_hdmi: fix i2c adapter leak on setup
+  drm/gma500/oaktrail_lvds: fix hang on init failure
+  drm/gma500/oaktrail_lvds: fix i2c adapter leaks on init
+
+ drivers/gpu/drm/gma500/oaktrail_hdmi.c | 1 +
+ drivers/gpu/drm/gma500/oaktrail_lvds.c | 9 +++++++--
+ 2 files changed, 8 insertions(+), 2 deletions(-)
 
 -- 
-Ville Syrjälä
-Intel
+2.53.0
+
