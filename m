@@ -4,54 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A137CD3445
-	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 00:53:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD71FCD37A7
+	for <dri-devel@archiver.kernel.org>; Fri,  8 May 2026 00:53:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D48110E10B;
-	Fri,  8 May 2026 00:53:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8275E10F2FA;
+	Fri,  8 May 2026 00:53:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="MGTXwWx9";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="jYVXySL9";
 	dkim-atps=neutral
 Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 367D410E047
- for <dri-devel@lists.freedesktop.org>; Fri,  8 May 2026 00:53:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA09710E047;
+ Fri,  8 May 2026 00:53:52 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id BF5841A3545;
- Fri,  8 May 2026 00:53:50 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 9A2D91A3556;
+ Fri,  8 May 2026 00:53:51 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 7569E605D0;
- Fri,  8 May 2026 00:53:50 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 65C58605D0;
+ Fri,  8 May 2026 00:53:51 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 0D7BB1081952F; 
- Fri,  8 May 2026 02:53:46 +0200 (CEST)
+ with ESMTPSA id 2F5A610819538; 
+ Fri,  8 May 2026 02:53:50 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1778201629; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1778201630; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:content-language:in-reply-to:references;
- bh=wuh4jrSq6HInUfrOG+rISYcrHBWF0+fSOdMKGvwq/wg=;
- b=MGTXwWx9ZEoyaq0zZ8HHN3WBOSoIaplf4xGtdD6xD6x544Mh5o8iX4RymmFCViOpY818ri
- dSZgc3yZL8HqhALSIDIh5p2+6JtSPTV8og/C3zUYtNelQTkP+hZi4cj0Q99ryBG/Bvp/d6
- CSfg4HZIN7Z7W/6mwSnSjedJ82BujLxvVMJO+944fXJdJhB8O1yUKTwhQjRxlGO0sj1a02
- b24mvW9OlZ1Vzdv3L9oA6j/aC9I+kqEn4ODoxZLjZOpCyyvLbV0MG8FA39q29NzpbTU+ct
- g2Bs1xO5h82ECdsI8yTPu1NjXshS66elo8Maueyv61YtJju6r+MWwsueQc86Lw==
-Message-ID: <2a4bb4dc-8909-46a7-94cb-1d57de09c38e@bootlin.com>
-Date: Fri, 8 May 2026 02:53:06 +0200
+ bh=7Wn2Ei5755ve6pC4TBqcfNQDbV3xREaxM21WYHNXDgg=;
+ b=jYVXySL97EVR/95wCu0z2w/NWSjXOVJXWNYCJ8AkpVoADhNPok4lu8hMrUkikysCYjwt5z
+ JCJdA60ClbjkogWdgGVytTXph+PE8U2pMW6atxNzynPEVdcVVdXR380Xy71yYB5cWYhHwF
+ EwT/jlgejShJK6/6iYZ6LKnRnpzMThqYBvIUVXy680q9uxIzwZ5Uww36JAMarQ2NidYlQC
+ VjntqOYEfZbDlgS+dj/5EC/lt3cTiqdl8M7k/VneHf965j6MUuVgW3IeNZ7b7nfgxkNGAc
+ OBmifv8G5l+QS1QjwubjyXW+XirA7XD/CvuGzs94IHi5jN8Ex22sAHGPOeLx2w==
+Message-ID: <faf150ee-4148-45ae-a3f3-a8a703361b30@bootlin.com>
+Date: Fri, 8 May 2026 02:53:08 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Louis Chauvet <louis.chauvet@bootlin.com>
-Subject: Re: [PATCH v3 1/8] backlight: add kernel-internal backlight API
+Subject: Re: [PATCH v3 4/8] DRM: Add support for client and driver indicating
+ support for luminance
 To: Mario Limonciello <mario.limonciello@amd.com>,
  dri-devel@lists.freedesktop.org
 Cc: harry.wentland@amd.com, Xaver Hugl <xaver.hugl@gmail.com>,
- amd-gfx@lists.freedesktop.org, David Herrmann <dh.herrmann@gmail.com>,
- Marta Lofstedt <marta.lofstedt@intel.com>
+ amd-gfx@lists.freedesktop.org
 References: <20260424220953.167058-1-mario.limonciello@amd.com>
- <20260424220953.167058-2-mario.limonciello@amd.com>
- <b1a09658-ff19-4331-a184-b1a5457b7f69@bootlin.com>
- <d2e0852e-006d-4d30-b754-7fe597b9b4f0@amd.com>
+ <20260424220953.167058-5-mario.limonciello@amd.com>
 Content-Language: en-US
-In-Reply-To: <d2e0852e-006d-4d30-b754-7fe597b9b4f0@amd.com>
+In-Reply-To: <20260424220953.167058-5-mario.limonciello@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,253 +68,220 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 
-On 5/4/26 19:55, Mario Limonciello wrote:
+On 4/25/26 00:09, Mario Limonciello wrote:
+> The legacy backlight control interface can only be disabled when both
+> the client and driver have agreed that the luminance can be set during
+> a modeset. Add capability for the client to register and for the driver
+> to indicate support.
 > 
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
+>   drivers/gpu/drm/drm_atomic_uapi.c | 24 ++++++++++++++++++++++++
+>   drivers/gpu/drm/drm_connector.c   |  4 ++--
+>   drivers/gpu/drm/drm_ioctl.c       | 10 ++++++++++
+>   include/drm/drm_connector.h       |  5 +++++
+>   include/drm/drm_drv.h             |  7 +++++++
+>   include/drm/drm_file.h            |  8 ++++++++
+>   include/uapi/drm/drm.h            | 10 ++++++++++
+>   7 files changed, 66 insertions(+), 2 deletions(-)
 > 
-> On 5/4/26 08:55, Louis Chauvet wrote:
->> [You don't often get email from louis.chauvet@bootlin.com. Learn why 
->> this is important at https://aka.ms/LearnAboutSenderIdentification ]
->>
->> On 4/25/26 00:09, Mario Limonciello wrote:
->>> From: David Herrmann <dh.herrmann@gmail.com>
->>>
->>> So far backlights have only been controlled via sysfs. However, sysfs is
->>> not a proper user-space API for runtime modifications, and never was
->>> intended to provide such. The DRM drivers are now prepared to provide
->>> such a backlight link so user-space can control backlight via DRM
->>> connector properties. This allows us to employ the same access- 
->>> management
->>> we use for mode-setting.
->>>
->>> This patch adds few kernel-internal backlight helpers so we can modify
->>> backlights from within DRM.
->>>
->>> Signed-off-by: David Herrmann <dh.herrmann@gmail.com>
->>>
->>> V2: Marta Lofstedt <marta.lofstedt@intel.com>
->>> - rebase
->>> - minor edit for checkpatch warning
->>>
->>> Signed-off-by: Marta Lofstedt <marta.lofstedt@intel.com>
->>>
->>> V3: Mario Limonciello <mario.limonciello@amd.com>
->>>   - rebase
->>>   - Use guard(mutex)
->>>
->>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
->>> ---
->>>   drivers/video/backlight/backlight.c | 60 +++++++++++++++++++++++++++++
->>>   include/linux/backlight.h           | 16 ++++++++
->>>   2 files changed, 76 insertions(+)
->>>
->>> diff --git a/drivers/video/backlight/backlight.c b/drivers/video/ 
->>> backlight/backlight.c
->>> index ab87a5e3dbf70..c3673bee6d9cf 100644
->>> --- a/drivers/video/backlight/backlight.c
->>> +++ b/drivers/video/backlight/backlight.c
->>> @@ -513,6 +513,66 @@ static int devm_backlight_device_match(struct 
->>> device *dev, void *res,
->>>       return *r == data;
->>>   }
->>>
->>> +/**
->>> + * backlight_device_lookup - find a backlight device
->>> + * @name: sysname of the backlight device
->>> + *
->>> + * @return Reference to the backlight device, NULL if not found.
->>> + *
->>> + * This searches through all registered backlight devices for a 
->>> device with the
->>> + * given device name. In case none is found, NULL is returned, 
->>> otherwise a
->>> + * new reference to the backlight device is returned. You must drop 
->>> this
->>> + * reference via backlight_device_unref() once done.
->>> + * Note that the devices might get unregistered at any time. You 
->>> need to lock
->>> + * around this lookup and inside of your backlight-notifier if you 
->>> need to know
->>> + * when a device gets unregistered.
->>> + *
->>> + * This function can be safely called from IRQ context.
->>> + */
->>> +struct backlight_device *backlight_device_lookup(const char *name)
->>> +{
->>> +     struct backlight_device *bd;
->>> +     const char *t;
->>> +
->>> +     guard(mutex)(&backlight_dev_list_mutex);
->>> +     list_for_each_entry(bd, &backlight_dev_list, entry) {
->>> +             t = dev_name(&bd->dev);
->>> +             if (t && !strcmp(t, name)) {
->>> +                     backlight_device_ref(bd);
->>> +                     return bd;
->>> +             }
->>> +     }
->>> +
->>> +     return NULL;
->>> +}
->>> +EXPORT_SYMBOL_GPL(backlight_device_lookup);
->>>
->>
->> Hello,
->>
->> I think this function can be repalced with backlight_device_get_by_name.
-> 
-> Yes; good call.
-> 
->>
->>> +/**
->>> + * backlight_set_brightness - set brightness on a backlight device
->>> + * @bd: backlight device to operate on
->>> + * @value: brightness value to set on the device
->>> + * @reason: backlight-change reason to use for notifications
->>> + *
->>> + * This is the in-kernel API equivalent of writing into the 
->>> 'brightness' sysfs
->>> + * file. It calls into the underlying backlight driver to change the 
->>> brightness
->>> + * value. The value is clamped according to device bounds.
->>> + * A uevent notification is sent with the reason set to @reason.
->>> + */
->>> +void backlight_set_brightness(struct backlight_device *bd, unsigned 
->>> int value,
->>> +                           enum backlight_update_reason reason)
->>> +{
->>> +     guard(mutex)(&bd->ops_lock);
->>> +     if (bd->ops) {
->>> +             value = clamp(value, 0U,
->>> +                           (unsigned int)bd->props.max_brightness);
->>
->> Why did you use a clamping here? I think it is better to return error
->> instead.
->>
-> 
-> This is called from a work queue.  This is the call path:
-> 
-> __drm_backlight_worker().
-> -> __drm_backlight_schedule()
-> ->-> __drm_backlight_prop_changed()
-> ->->-> drm_backlight_set_luminance().
-> 
-> So - I suppose that actually what you are suggesting is to plumb an 
-> error all the way from the work queue up to all the callers.  That might 
-> for a change to make things synchronous that weren't 'intended' to be 
-> synchronous.
+> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+> index 5bd5bf6661df7..de218206cef7e 100644
+> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+> @@ -30,6 +30,7 @@
+>   #include <drm/drm_atomic.h>
+>   #include <drm/drm_atomic_helper.h>
+>   #include <drm/drm_atomic_uapi.h>
+> +#include <drm/drm_backlight.h>
+>   #include <drm/drm_framebuffer.h>
+>   #include <drm/drm_print.h>
+>   #include <drm/drm_drv.h>
+> @@ -935,6 +936,14 @@ static int drm_atomic_connector_set_property(struct drm_connector *connector,
+>   		state->privacy_screen_sw_state = val;
+>   	} else if (property == connector->broadcast_rgb_property) {
+>   		state->hdmi.broadcast_rgb = val;
+> +	} else if (property == config->luminance_property) {
+> +		state->luminance = val;
+> +		/* Update hardware backlight only when DPMS is ON.
+> +		 * Property value is always updated to remember the user's
+> +		 * desired brightness.
+> +		 */
+> +		if (connector->dpms == DRM_MODE_DPMS_ON)
+> +			drm_backlight_set_luminance(connector->backlight, val);
+>   	} else if (connector->funcs->atomic_set_property) {
+>   		return connector->funcs->atomic_set_property(connector,
+>   				state, property, val);
+> @@ -1020,6 +1029,8 @@ drm_atomic_connector_get_property(struct drm_connector *connector,
+>   		*val = state->privacy_screen_sw_state;
+>   	} else if (property == connector->broadcast_rgb_property) {
+>   		*val = state->hdmi.broadcast_rgb;
+> +	} else if (property == config->luminance_property) {
+> +		*val = state->luminance;
 
-You are right, this is not a good idea to make this synchronous.
+I think this is a bad idea to have two "source of truth" for the 
+luminance value. Is there a reason to not get the backlight value 
+directly from the backlight driver?
 
-After looking a bit more at the code, I think you can simply not clamp 
-at all and use a warn. In all cases:
-- drm should never ask for a value outside 0..U16_MAX
-- the conversion from 0..U16_MAX to 0..bd->props.max_brightness should 
-never be bigger than bd->props.max_brightness
+>   	} else if (connector->funcs->atomic_get_property) {
+>   		return connector->funcs->atomic_get_property(connector,
+>   				state, property, val);
+> @@ -1126,8 +1137,21 @@ int drm_atomic_connector_commit_dpms(struct drm_atomic_state *state,
+>   	if (connector->dpms == mode)
+>   		goto out;
+>   
+> +	/* Handle backlight brightness coordination with DPMS state changes */
+> +	if (old_mode != DRM_MODE_DPMS_OFF && mode == DRM_MODE_DPMS_OFF) {
+> +		/* DPMS ON -> OFF: dim backlight to 0 to save power */
+> +		drm_backlight_set_luminance(connector->backlight, 0);
+> +	}
+> +
+>   	connector->dpms = mode;
+>   
+> +	/* DPMS OFF -> ON: restore brightness to property value */
+> +	if (old_mode == DRM_MODE_DPMS_OFF && mode == DRM_MODE_DPMS_ON &&
+> +	    connector->state) {
+> +		drm_backlight_set_luminance(connector->backlight,
+> +					    connector->state->luminance);
+> +	}
+> +
 
-So if you have to clamp, it means there is a bug somewhere in the process.
+According to the documentation, DPMS is a deprecated property and most 
+of the work should be handled using the crtc->active property.
 
-I imagine something like:
+I think this will not change the backlight of other connector using the 
+same CRTC (CRTC outputs on connector1 and connector2, userspace change 
+DPMS only for connector1, for me it makes sense to change connector1 and 
+connector2).
 
-b_set_brightness(value)
-	if value > max:
-		return -EINVAL
-	[...]
+After looking a bit more, I think you need to keep this code, but:
+- add something to also disable backlight of other connector using the 
+same crtc
+- handle the backlight when CRTC is disconnected from the connector (i.e 
+when you set CRTC=0 on a connector)
 
-__drm_backlight_worker()
-	r = b_set_brightness(new_value)
-	if r == -EINVAL: # This should never be the case, new_value should be 
-clamped to 0..max_value before
-		WARN("Invalid backlight value requested")
-		# maybe add a fallback to at least have a coherent on/off state and 
-avoid complete black screens
-		if new_value==0: b_set_brightness(0)
-		else: b_set_brightness(max_value)
+>   	crtc = connector->state->crtc;
+>   	if (!crtc)
+>   		goto out;
+> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+> index d76878548728a..5de33fc259b26 100644
+> --- a/drivers/gpu/drm/drm_connector.c
+> +++ b/drivers/gpu/drm/drm_connector.c
+> @@ -3268,9 +3268,9 @@ int drm_connector_set_obj_prop(struct drm_mode_object *obj,
+>   	/* Do DPMS ourselves */
+>   	if (property == connector->dev->mode_config.dpms_property) {
+>   		ret = (*connector->funcs->dpms)(connector, (int)value);
+> -	} else if (property == config->brightness_property) {
+> +	} else if (property == config->luminance_property) {
 
-__drm_backlight_prop_changed(u16 requested_value)
-	new_value = requested_value * max_value / U16_MAX
-	schedule_work(new_value)
+Can you directly name it luminance in the previous patch?
 
-
-> Maybe a better solution is to try to look at the max brightness 
-> 'directly' in drm_backlight_set_luminance() and then reject it before 
-> going down the work queue path.
->
-> Thoughts?
-
-That also a solution, but I think it is better to have a clear interface 
-for drm_backlight_set_luminance and the backlight property: 
-drm_backlight_set_luminance must get a 0..U16_MAX value, any other value 
-is invalid.
-
-But I have a question for this: is the scale of luminance linear or not? 
-I think this information should be given to userspace.
-And if lunimance is not linear, I don't think you can easily scale 
-between 0..U16MAX to 0..max_value.
-
-Same thing for backlight=0, IIRC sometimes the backlight driver switch 
-off the light, sometimes it is just the minimum luminosity.
-
-I think that can be a topic for discussion at drm hackfest, but it may 
-also require more precise information / specification from the backlight 
-subsystem / to the userspace interface.
-
-
->>> +             dev_dbg(&bd->dev, "set brightness to %u\n", value);
->>> +             bd->props.brightness = value;
->>> +             backlight_update_status(bd);
->>> +     }
->>> +     backlight_generate_event(bd, reason);
->>> +}
->>> +EXPORT_SYMBOL_GPL(backlight_set_brightness);
->>>
->>
->> I think this could be nice to update backlight_device_set_brightness to
->> avoid code duplication:
->>
->> int backlight_device_set_brightness(...) {
->>         return backlight_set_brightness(..., BACKLIGHT_UPDATE_SYSFS);
->> }
-> 
-> OK.
-
-(note: this is only valid if you don't clamp in 
-backlight_set_brightness, current code return -EINVAL if it is outside 
-the range)
-
->>
->>>   /**
->>>    * backlight_register_notifier - get notified of backlight 
->>> (un)registration
->>>    * @nb: notifier block with the notifier to call on backlight 
->>> (un)registration
->>> diff --git a/include/linux/backlight.h b/include/linux/backlight.h
->>> index d905173c7f73c..7e4fee65fddd9 100644
->>> --- a/include/linux/backlight.h
->>> +++ b/include/linux/backlight.h
->>> @@ -429,6 +429,22 @@ static inline void 
->>> backlight_notify_blank_all(struct device *display_dev,
->>>   { }
->>>   #endif
->>>
->>> +struct backlight_device *backlight_device_lookup(const char *name);
->>> +void backlight_set_brightness(struct backlight_device *bd, unsigned 
->>> int value,
->>> +                           enum backlight_update_reason reason);
->>> +
->>> +static inline void backlight_device_ref(struct backlight_device *bd)
->>> +{
->>> +     if (bd)
->>> +             get_device(&bd->dev);
->>> +}
->>> +
->>> +static inline void backlight_device_unref(struct backlight_device *bd)
->>> +{
->>> +     if (bd)
->>> +             put_device(&bd->dev);
->>> +}
->>> +
->> Most of the kernel use _put and _get functions, I think it could be nice
->> to keep the same naming.
-> 
-> OK.
-> 
+>   		if (connector->backlight && connector->dpms == DRM_MODE_DPMS_ON)
+> -			drm_backlight_set_brightness(connector->backlight,
+> +			drm_backlight_set_luminance(connector->backlight,
+>   						     value);
+>   		ret = 0;
+>   	} else if (connector->funcs->set_property)
+> diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
+> index ff193155129e7..b4435c2bd6091 100644
+> --- a/drivers/gpu/drm/drm_ioctl.c
+> +++ b/drivers/gpu/drm/drm_ioctl.c
+> @@ -28,6 +28,7 @@
+>    * OTHER DEALINGS IN THE SOFTWARE.
+>    */
+>   
+> +#include "drm/drm.h"
+>   #include <linux/export.h>
+>   #include <linux/nospec.h>
+>   #include <linux/pci.h>
+> @@ -380,6 +381,15 @@ drm_setclientcap(struct drm_device *dev, void *data, struct drm_file *file_priv)
+>   			return -EINVAL;
+>   		file_priv->plane_color_pipeline = req->value;
+>   		break;
+> +	case DRM_CLIENT_CAP_LUMINANCE:
+> +		if (!drm_core_check_feature(dev, DRIVER_CONNECTOR_LUMINANCE))
+> +			return -EOPNOTSUPP;
+> +		if (!file_priv->atomic)
+> +			return -EINVAL;
+> +		if (req->value > 1)
+> +			return -EINVAL;
+> +		file_priv->supports_luminance_control = req->value;
+> +		break;
+>   	default:
+>   		return -EINVAL;
+>   	}
+> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+> index 10daf088b8f1a..762a9e2ef6e30 100644
+> --- a/include/drm/drm_connector.h
+> +++ b/include/drm/drm_connector.h
+> @@ -1209,6 +1209,11 @@ struct drm_connector_state {
+>   	 * @drm_atomic_helper_connector_hdmi_check().
+>   	 */
+>   	struct drm_connector_hdmi_state hdmi;
+> +
+> +	/**
+> +	 * @luminance: Luminance for the connector
+> +	 */
+> +	u16 luminance;
+>   };
+>   
+>   struct drm_connector_hdmi_audio_funcs {
+> diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
+> index 42fc085f986de..a6b668cb68c5e 100644
+> --- a/include/drm/drm_drv.h
+> +++ b/include/drm/drm_drv.h
+> @@ -123,6 +123,13 @@ enum drm_driver_feature {
+>   	 */
+>   	DRIVER_CURSOR_HOTSPOT           = BIT(9),
+>   
+> +	/**
+> +	 * @DRIVER_CONNECTOR_LUMINANCE:
+> +	 *
+> +	 * Driver supports luminance control on a per connector basis.
+> +	 */
+> +	DRIVER_CONNECTOR_LUMINANCE           = BIT(10),
+> +
+>   	/* IMPORTANT: Below are all the legacy flags, add new ones above. */
+>   
+>   	/**
+> diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
+> index 6ee70ad65e1fd..0bb1e53f36bec 100644
+> --- a/include/drm/drm_file.h
+> +++ b/include/drm/drm_file.h
+> @@ -248,6 +248,14 @@ struct drm_file {
+>   	 */
+>   	bool supports_virtualized_cursor_plane;
+>   
+> +	/**
+> +	 * @supports_luminance_control:
+> +	 *
+> +	 * This client is capable of setting the luminance for connectors.
+> +	 *
+> +	 */
+> +	bool supports_luminance_control;
+> +
+>   	/**
+>   	 * @master:
+>   	 *
+> diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
+> index 27cc159c1d275..b5e6d940f2816 100644
+> --- a/include/uapi/drm/drm.h
+> +++ b/include/uapi/drm/drm.h
+> @@ -921,6 +921,16 @@ struct drm_get_cap {
+>    */
+>   #define DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE	7
+>   
+> +/**
+> + * DRM_CLIENT_CAP_LUMINANCE
+> + *
+> + * If set to 1, legacy sysfs interface for controlling backlight brightness will
+> + * be disabled.  The client will include luminance values as part of the modeset.
+> +
+> + * This capability is supported starting in kernel 7.2
+> + */
+> +#define DRM_CLIENT_CAP_LUMINANCE		8
+> +
+>   /* DRM_IOCTL_SET_CLIENT_CAP ioctl argument type */
+>   struct drm_set_client_cap {
+>   	__u64 capability;
 
