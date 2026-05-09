@@ -4,64 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06AC7CD37B7
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E24DCD3447
 	for <dri-devel@archiver.kernel.org>; Sat,  9 May 2026 19:00:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F0AB10E3E9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2272110E3E8;
 	Sat,  9 May 2026 19:00:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bbigV7Ua";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YPQjWKUp";
 	dkim-atps=neutral
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
- [209.85.221.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ABCCB10E3E9
- for <dri-devel@lists.freedesktop.org>; Sat,  9 May 2026 19:00:27 +0000 (UTC)
-Received: by mail-wr1-f52.google.com with SMTP id
- ffacd0b85a97d-43d64313c39so2208187f8f.3
- for <dri-devel@lists.freedesktop.org>; Sat, 09 May 2026 12:00:27 -0700 (PDT)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE2E310E3E8
+ for <dri-devel@lists.freedesktop.org>; Sat,  9 May 2026 19:00:28 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-43d77f6092eso1860809f8f.2
+ for <dri-devel@lists.freedesktop.org>; Sat, 09 May 2026 12:00:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778353226; x=1778958026; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1778353227; x=1778958027; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=OFHSVkKikAqL7V5/tk/bF1gVjwq2bK7i4HjBHfLDqaU=;
- b=bbigV7Uaj1hJVX5vrj/bFvlWav19cjLU/0YP3ggQqA8uzrU/5Ffoo6uviyGcsNa8tY
- yfBju7BQqDLcCOzKqLLmDEhj9tmjTDEVf4rWusTzKAvOsK/9O8ymGQkLdMrPMmlTUae4
- E50Hji+6syqq6kf3Z63Df9e3Vvzzxt5M8NfZb8Ty9jQbkwEZl95ujjkMBNcLB+HPRWdM
- ZfIlvD4rW3KsaZ/TTu7EinliGv9P5eDbJX8+A88IdByl9lf0DozzKUWusro3EgcSEeU6
- TvoBF8EqKKZsZw3nu0ipz2NFB1EH8uZUANCZi90RLIK/SYQhkBvvXcJ/ZuCNpBsAwaIb
- Pt5w==
+ bh=zfXcef4xsSF9aS7bEgNrFEzEGtCwPTxISiBE2oLRk0A=;
+ b=YPQjWKUp/irvlVmLrVyNL1ooyq4bbCfWshof32CsKHSAtGeEjTrw74k4U2dKEQdguQ
+ MMMeB7xkCgQcyxGti/5208poUdLRczAX3yj4INF/TRChQ2MhC8XIIvgYWuJfMExGKxpg
+ HI4+PckLKKtY+LucuBpKwfxfGkfWJaGae+HpfcappqefraFvf+4wO56NhfYTMhv6TWnz
+ YDVCpLMorkEWJdI0dVXipNPmrI32DEaldarj8ym0edSDHBe9m5swPqOzMTuxRmBYCwz9
+ x4FhU+pCv2jQqXB7wCkHR+NsC1s9zP1BMzSaXEXG6+HDBEJyuzUiULwM0drr6gPQ3Kb1
+ 6btA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778353226; x=1778958026;
+ d=1e100.net; s=20251104; t=1778353227; x=1778958027;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=OFHSVkKikAqL7V5/tk/bF1gVjwq2bK7i4HjBHfLDqaU=;
- b=NcaiI8TXCc21gTaKAMIrASVvozOrjKVHwW1LYcpRuw7RyFLp1tPBk7MLoV05dm10Uy
- eBVNHMDlZU+thGuFHzkjWJjZnm5VJnjM4w/NJ6LlXfJKE4lDARwAf6wtuRfHg3rE5MYQ
- brWdSGWinB2tMVjXp3vbHyRbWQQHqv13fwKpOdCq4uUNEx3jWHMcuVbVNx9EzvwGSbh+
- taRO+ZdFOmJxGVWcYl619sdsfobdY6JDSCPP9KC/It55HFdPWhCgPt6cQUPW1sOvhpwp
- or3h3OGDhvXoIGkv/5+7iPkwWcjwZJmhdQZpuV3PjbA/dG59+2JFMXo9hAxt8zhpv/PE
- 54AA==
+ bh=zfXcef4xsSF9aS7bEgNrFEzEGtCwPTxISiBE2oLRk0A=;
+ b=hCL9W4T+7918iHfz4OWpsOeLfdMmqMRY5tKC6ZJ/J2iUVbG8hQ2lyZ9IXF4RGgBlDQ
+ Be+PW5PaD1L+aj0K27h2/30TTjZrjH8Esa6eKhvCfy9a1kdishvJweOqVV8gI/sRR39o
+ 6qP6vPK87Mkaw/OlUkDnGlMQ3RlCrBQnp8epkh4BFTZ3B1Fi3RfhLwc6biY/Dkrrdw1r
+ 6uKIyq4Ef0fW+/KY7tceXZOg+hjRdSxDJCsRmE0bxAXWm1MhL+Xf+pRFgz0Z5sK6h7rt
+ 3sEuAihfGXtKT+xjlOt+7+vwOFgmUguIrecvBLLNEsiGyb+rLIBvku9o0vKnNGCtoL8O
+ K9bw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8QpkeI+Dqt5+/Si2S+AqwRgUvVbiFG5noUrZ4OEDkiKQodkVyyUTrX2vahuSjo4tXkzSoEq9BZRmM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwenmqOJ8RHnejmLsdIOR28hHVhWcHhehpIT/FkSObp9fV2/wnl
- Bf1gLwhVAXQYhybSyna8GPxX+xrB6OCaYVIu2KtBRTLZlRSKf0emBDlt
-X-Gm-Gg: Acq92OGjMVuRTHNBl+0pwIu+s0ZjPeWmVXcypmvLp/6fMpdgoN+gxkxq+NYv3wQdco4
- hTqsb27NYzhEozvka4APO51hl015i6yAps/rnSdwkDHLLzwzJRWQe3cdj1PFyNDw0CwB3IalvDv
- u1iJwViV2iBBb5tni8IIo3y6Oj5dhw9+YMpFN28xBjYb4TtZilPadN0ANOWWUd8NCl+0kdsqEDW
- 91ENvM+SzudmYzVFZednov6/EVKA/acvv4lxqn/Qwjl7SD1kT3We4T9Lp0j1YXERh3gEfYQBZsM
- uKcwLuL9sJGASqRnC1SumNfvCDn9bewYkivYnPX6Cxt4Si6NOJHw6+pec8fbxP9kZ5Td44roydS
- NUv/AndSXBr0ixwKNmINvFP24DrraQIO8dAzz9Quu6+T1Bw77Ch/1UoqSmpEadEcJbGQIdADJnI
- rPGPu1NWJLX2kny1qOBBWCdJhhI90uiRMszUTHpLGYYg8obAatAR2FjKETrmyST0HI9qs=
-X-Received: by 2002:a05:6000:40dc:b0:43d:309b:9c4f with SMTP id
- ffacd0b85a97d-4515b056c90mr27920879f8f.6.1778353225999; 
- Sat, 09 May 2026 12:00:25 -0700 (PDT)
+ AFNElJ+IR5+NLDZJt1+ivfu6iEUmPlAs9AKi0S3k2bXyyz+Zh0D16QzhyDxWeoJiujRUplT36hyDazdq23o=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YywN9VYLaUYR3jxyl+NhYu5Md45imGiXILp8QNMYZBnluG3PLTv
+ mdlsFx23cLP5G8YlYU1z4uuutfwPMS4/gYe+TJ9HXBIpvcJnCnxiBSJi
+X-Gm-Gg: Acq92OGTTxf1edbbJAFKeOrGmtr3kem/FolU05O3TQwoAuoSxrxSyE+okxKadUqLYi+
+ 2GFOleAAHpQmPUhYtKqrM7AgJpEVbvKyP5K6g9d6ga5dnpznTSVlDPhPc77nNl/tNXO575pWjPL
+ B6jwxPTt7UDDxpcvYRJev1Oa9HIGzbtg2MQSdzxOmnREVxMXSZLA6rLy5rweMYRDMW96sLlH1en
+ a0CYW7JGH7nNT11IJo/xAFqSil3A0igCHcdyMfkEb8tTcgG6JKauSzSXj6E3U8NG6GVnJYpb5zT
+ 0UNpFy+apv5EdJQpmBuQJwniNg94hY+Wcw1G2VeLmJuotunNnk2DDI4BMd29K91ZlbwAlxIUxOZ
+ YvHReXWX91sZi0S3CUJjk0QtHg+s/Jh+bvJCwS/NAUezgC7ciGkNyjtqfhbXSCTcwLwhG6qPc5r
+ RXhTEHNaje0FR0Rk4ZHDkTv9lDbx+bGpH7mX02vzp5sTpaXinOyMULAiKIot7+hq2BSWhQj9aLO
+ 8K+FA==
+X-Received: by 2002:a05:6000:2dc6:b0:439:c661:3245 with SMTP id
+ ffacd0b85a97d-4515cc31e43mr28677269f8f.34.1778353227339; 
+ Sat, 09 May 2026 12:00:27 -0700 (PDT)
 Received: from jernej-laptop (46-150-62-216.dynamic.telemach.net.
  [46.150.62.216]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-454913049ecsm13254407f8f.19.2026.05.09.12.00.24
+ ffacd0b85a97d-454913049ecsm13254407f8f.19.2026.05.09.12.00.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 09 May 2026 12:00:25 -0700 (PDT)
+ Sat, 09 May 2026 12:00:27 -0700 (PDT)
 From: Jernej Skrabec <jernej.skrabec@gmail.com>
 X-Google-Original-From: Jernej Skrabec <jernej.skrabec@siol.net>
 To: wens@csie.org,
@@ -72,10 +73,10 @@ Cc: mripard@kernel.org, maarten.lankhorst@linux.intel.com, tzimmermann@suse.de,
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
  linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
- jernej.skrabec@gmail.com, Chen-Yu Tsai <wens@kernel.org>
-Subject: [PATCH v2 4/8] drm/sun4i: vi_layer: Limit formats for DE33
-Date: Sat,  9 May 2026 21:00:11 +0200
-Message-ID: <20260509190015.79086-5-jernej.skrabec@siol.net>
+ jernej.skrabec@gmail.com
+Subject: [PATCH v2 5/8] dt-bindings: display: allwinner: Add DE33 planes
+Date: Sat,  9 May 2026 21:00:12 +0200
+Message-ID: <20260509190015.79086-6-jernej.skrabec@siol.net>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260509190015.79086-1-jernej.skrabec@siol.net>
 References: <20260509190015.79086-1-jernej.skrabec@siol.net>
@@ -98,78 +99,74 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Jernej Skrabec <jernej.skrabec@gmail.com>
 
-YUV formats need scaler support due to chroma upscaling, but that's not
-yet supported in the driver. Remove them from supported list until
-DE33 scaler is properly supported.
+Allwinner Display Engine 3.3 contains planes, which are shared resources
+between all mixers present in SoC. They can be assigned to specific
+mixer by using registers which reside in display clocks MMIO.
 
-Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
+Add a binding for them.
+
 Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 ---
 Changes from v1:
-- collected tag
-- generalize check to be dependant on scaler feature
+- dropped | for description
+- better description for allwinner,plane-mapping
 
- drivers/gpu/drm/sun4i/sun8i_vi_layer.c | 40 ++++++++++++++++++++++++--
- 1 file changed, 38 insertions(+), 2 deletions(-)
+ .../allwinner,sun50i-h616-de33-planes.yaml    | 46 +++++++++++++++++++
+ 1 file changed, 46 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/allwinner,sun50i-h616-de33-planes.yaml
 
-diff --git a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c b/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
-index cd8d6c2da0c7..afbd41a18a0e 100644
---- a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
-+++ b/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
-@@ -380,6 +380,33 @@ static const u32 sun8i_vi_layer_de3_formats[] = {
- 	DRM_FORMAT_YVU422,
- };
- 
-+static const u32 sun8i_vi_layer_de3_no_yuv_formats[] = {
-+	DRM_FORMAT_ABGR1555,
-+	DRM_FORMAT_ABGR2101010,
-+	DRM_FORMAT_ABGR4444,
-+	DRM_FORMAT_ABGR8888,
-+	DRM_FORMAT_ARGB1555,
-+	DRM_FORMAT_ARGB2101010,
-+	DRM_FORMAT_ARGB4444,
-+	DRM_FORMAT_ARGB8888,
-+	DRM_FORMAT_BGR565,
-+	DRM_FORMAT_BGR888,
-+	DRM_FORMAT_BGRA1010102,
-+	DRM_FORMAT_BGRA5551,
-+	DRM_FORMAT_BGRA4444,
-+	DRM_FORMAT_BGRA8888,
-+	DRM_FORMAT_BGRX8888,
-+	DRM_FORMAT_RGB565,
-+	DRM_FORMAT_RGB888,
-+	DRM_FORMAT_RGBA1010102,
-+	DRM_FORMAT_RGBA4444,
-+	DRM_FORMAT_RGBA5551,
-+	DRM_FORMAT_RGBA8888,
-+	DRM_FORMAT_RGBX8888,
-+	DRM_FORMAT_XBGR8888,
-+	DRM_FORMAT_XRGB8888,
-+};
+diff --git a/Documentation/devicetree/bindings/display/allwinner,sun50i-h616-de33-planes.yaml b/Documentation/devicetree/bindings/display/allwinner,sun50i-h616-de33-planes.yaml
+new file mode 100644
+index 000000000000..0a07cb8a5f79
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/allwinner,sun50i-h616-de33-planes.yaml
+@@ -0,0 +1,46 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/allwinner,sun50i-h616-de33-planes.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
- static const uint64_t sun8i_layer_modifiers[] = {
- 	DRM_FORMAT_MOD_LINEAR,
- 	DRM_FORMAT_MOD_INVALID
-@@ -410,8 +437,17 @@ struct sun8i_layer *sun8i_vi_layer_init_one(struct drm_device *drm,
- 	layer->cfg = cfg;
- 
- 	if (layer->cfg->de_type >= SUN8I_MIXER_DE3) {
--		formats = sun8i_vi_layer_de3_formats;
--		format_count = ARRAY_SIZE(sun8i_vi_layer_de3_formats);
-+		/*
-+		 * TODO: DE33 drivers doesn't support scaling yet, which is a
-+		 * requirement for YUV support.
-+		 */
-+		if (layer->cfg->scaler_mask & BIT(phy_index)) {
-+			formats = sun8i_vi_layer_de3_formats;
-+			format_count = ARRAY_SIZE(sun8i_vi_layer_de3_formats);
-+		} else {
-+			formats = sun8i_vi_layer_de3_no_yuv_formats;
-+			format_count = ARRAY_SIZE(sun8i_vi_layer_de3_no_yuv_formats);
-+		}
- 	} else {
- 		formats = sun8i_vi_layer_formats;
- 		format_count = ARRAY_SIZE(sun8i_vi_layer_formats);
++title: Allwinner H616 Display Engine 3.3 planes
++
++maintainers:
++  - Jernej Skrabec <jernej.skrabec@gmail.com>
++
++description:
++  Display Engine 3.3 planes are independent of mixers, contrary to
++  previous generations of Display Engine. Planes can be assigned to
++  mixers independently and even dynamically during runtime.
++
++properties:
++  compatible:
++    enum:
++      - allwinner,sun50i-h616-de33-planes
++
++  reg:
++    maxItems: 1
++
++  allwinner,plane-mapping:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description:
++      Phandle of the device responsible for assigning (mapping) planes
++      between mixers.
++
++required:
++  - compatible
++  - reg
++  - allwinner,plane-mapping
++
++additionalProperties: false
++
++examples:
++  - |
++    planes: planes@100000 {
++        compatible = "allwinner,sun50i-h616-de33-planes";
++        reg = <0x100000 0x180000>;
++        allwinner,plane-mapping = <&display_clocks>;
++    };
++
++...
 -- 
 2.54.0
 
