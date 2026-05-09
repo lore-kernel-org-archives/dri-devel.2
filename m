@@ -4,58 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E380CD3445
-	for <dri-devel@archiver.kernel.org>; Sat,  9 May 2026 16:01:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAF8ECD3447
+	for <dri-devel@archiver.kernel.org>; Sat,  9 May 2026 17:02:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2472710E3CA;
-	Sat,  9 May 2026 16:01:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB75C10E0D2;
+	Sat,  9 May 2026 17:02:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iEDCqhqV";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lHMveWvA";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D432E10E197
- for <dri-devel@lists.freedesktop.org>; Sat,  9 May 2026 16:01:07 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id CBEE360120;
- Sat,  9 May 2026 16:01:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1AB1C2BCB2;
- Sat,  9 May 2026 16:01:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778342466;
- bh=RGetAZVR5W/l0Zsnr/kYQLvvPTBdNxC5bNYVlWymdhQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=iEDCqhqV6kjsB31UJ5E/es2BHorRLdzgPaMid3VusVvSbsoGrahg1qwj6rCnVoWYJ
- rs3U1ylgFZiBGUwLuhf61CvVYUXvEw/oQKslxNMHm0UyMImphHVv1AGSvrfHIANeGA
- tWleBImoey1oLoZYYgJXhiwr3UIXgWpzpg1NmnsgCUiyxR6ZhN39QLS7PX6zAKqvLL
- agMDFyAuMdyF9O/7vm14WGyziGkVR5avHcLSdkHEG2WQzII3fwTTJfZQuyf6hkQiki
- i1w1flJu0fKaA04xed2GlX25sAcRDW9YEqVvJjB5P/dvqnQFWvy6TnFTtuM9uz3rJv
- 7vF/0F4boyJ4w==
-Date: Sat, 9 May 2026 17:01:00 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Frank Li <Frank.Li@nxp.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B50A710E0D2
+ for <dri-devel@lists.freedesktop.org>; Sat,  9 May 2026 17:02:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1778346144; x=1809882144;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=DZ9Vzy9EQuMpdpebAGj5naA0x7BLfOQ0ducYTB95hzU=;
+ b=lHMveWvAgVS0rgTtZWivJDf3bCCXSSWo4i1D8Zx7WJZG1V4TtnY1BnDn
+ /w/Bzac4232Qu4dQY+1HGyx3dPaWl+oxTGBvkI/mYc+12o5+uBemZeWQV
+ Oqutp2VsuwNz2xugo3zhw25PHK6ZLk9wvliSiBqBj5JuH/wnxx9HzEVll
+ 6DQQc7WJ0dXrF+nutOEVsfbe8LDaFFg4dTXltbx168Olarq8vma32puYP
+ fwLd3NMK7WJsE6XQbfA8fO9EGftI6krZK5GqI7TATUl8DB0QL9E6d514O
+ In8Sb+2ZWbtUnmVwkuj24H1Rm7+3n7a9m+x0liOFMf0bFOwzo9cHr0R7Q Q==;
+X-CSE-ConnectionGUID: CavwFF85RyaBtJRcq3q8Fw==
+X-CSE-MsgGUID: u2mTjq8jR8mWmZnZXIHwag==
+X-IronPort-AV: E=McAfee;i="6800,10657,11781"; a="83169068"
+X-IronPort-AV: E=Sophos;i="6.23,225,1770624000"; d="scan'208";a="83169068"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 May 2026 10:02:24 -0700
+X-CSE-ConnectionGUID: N0H3E+y0RMecToAgBYWHSA==
+X-CSE-MsgGUID: ITxvYUo8Q0WQE4mtSomAWA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,225,1770624000"; d="scan'208";a="267418505"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.146])
+ by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 May 2026 10:02:21 -0700
+Date: Sat, 9 May 2026 20:02:18 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: David Lechner <david@lechnology.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, 
- open list <linux-kernel@vger.kernel.org>, imx@lists.linux.dev
-Subject: Re: [PATCH 1/1] dt-bindings: display/lvds-codec: add ti,sn75lvds93
-Message-ID: <20260509-tingling-squirt-4c0126c9e729@spud>
-References: <20260508214444.255992-1-Frank.Li@nxp.com>
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Subject: Re: [PATCH v1 1/1] drm/st7735r: simplify with
+ spi_get_device_match_data()
+Message-ID: <af9ommD7xYIu-JzG@ashevche-desk.local>
+References: <20260508080004.1143774-1-andriy.shevchenko@linux.intel.com>
+ <5093f74c-9f74-4ec3-967f-c77c3d59097d@lechnology.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="9g5u3xAR5F2vWSMq"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260508214444.255992-1-Frank.Li@nxp.com>
+In-Reply-To: <5093f74c-9f74-4ec3-967f-c77c3d59097d@lechnology.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,33 +76,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Fri, May 08, 2026 at 07:53:12AM -0500, David Lechner wrote:
+> On 5/8/26 3:00 AM, Andy Shevchenko wrote:
+> > Use spi_get_device_match_data() helper to simplify a bit the driver.
+> > 
+> > Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> > ---
+> Reviewed-by: David Lechner <david@lechnology.com>
 
---9g5u3xAR5F2vWSMq
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Sorry, this was script-type change, it won't compile.
 
-On Fri, May 08, 2026 at 05:44:43PM -0400, Frank Li wrote:
-> Add compatible strings for TI SN75LVDS93, a FlatLink LVDS transmitter to
-> fix below CHECK_DTBS warnings:
-> arm/boot/dts/nxp/imx/imx6ul-var-som-concerto.dtb: lvds-encoder (ti,sn75lv=
-ds93): compatible: 'oneOf' conditional failed, one must be fixed:
-> 	['ti,sn75lvds93', 'lvds-encoder'] is too long
->=20
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
 
---9g5u3xAR5F2vWSMq
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaf9aPAAKCRB4tDGHoIJi
-0tXlAQDTJDvyOSOUE1Io7I5H3lN/+TuzMeZQuwmNDDgv2Q4p4wEA2oGdTkq+zc3N
-AuOKpz8WQ7IG2jwNy5ZLVxMtPFU+fwA=
-=OvgR
------END PGP SIGNATURE-----
-
---9g5u3xAR5F2vWSMq--
