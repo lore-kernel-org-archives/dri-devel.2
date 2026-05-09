@@ -4,100 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47E87CD3447
-	for <dri-devel@archiver.kernel.org>; Sat,  9 May 2026 03:19:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FB1BCD3447
+	for <dri-devel@archiver.kernel.org>; Sat,  9 May 2026 03:32:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DC6510E121;
-	Sat,  9 May 2026 03:19:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D334E10E17C;
+	Sat,  9 May 2026 03:32:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="aG+XLVjB";
+	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="UeDcLdLz";
 	dkim-atps=neutral
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com
- [209.85.222.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50A7F10E121
- for <dri-devel@lists.freedesktop.org>; Sat,  9 May 2026 03:19:09 +0000 (UTC)
-Received: by mail-qk1-f180.google.com with SMTP id
- af79cd13be357-8d736211595so186583885a.0
- for <dri-devel@lists.freedesktop.org>; Fri, 08 May 2026 20:19:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778296748; cv=none;
- d=google.com; s=arc-20240605;
- b=PumIKva+Ow2Sfi1mrVUk18pzcXroe3Pu2h9OWjUUhbAktESNlwQIKX8RFaTjgaJH0P
- lHXd1zkytVi3AzjwbDH1x14l2/BmWyki2WYWwqoNo5w0wziVrFxTKk54/2gxr27B2cSB
- FA0WEzXw5S6YuSe8V4y9wBtrlGJ+Gsnm3Tzo6Em+5GkciVHhzC3ZWBns3tuiGs8DCmeZ
- iwGJJBDp/xG/olXI7PxwoFt8Zgys5GoGkp+PkB4WQBzpS2hBj8smoU/S+muHherVOdDp
- n32Qcnj10A5jdx8rYpZLTIs2tCp3nu9eQhf1/D6DNAubfHy6ifVhU7aVKCO/SeZdsic6
- 3+tg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=CxMznwGJOgjrL67SxyQcq86ofqmaCMHw/Ooho7JXCtI=;
- fh=NFXHkCfowzjv4TnnOj5gRg7ZGC5V04GP5DX6tCErH8E=;
- b=DR3hv0GunicrMax5rMvM0kNAUqcwnXuYDxoKGL6S7nIYlisoO0ha8Vax7RECkjGaYD
- ME64rhfWHiy3t7ErFE1n8JO/q2oPhyL1f/LIU0MXF0hY0cTmihZ9S0xsYo0tpcr5Av7m
- exkrcYdUdBQWzTKwXfQ0UxPcOGEvpBM1W1fTx7AiwJyGKi8fESSGLeku5a3ICUz4X63s
- cpElLKwiCULc16q+MgvCwp+3XoUuhRdKtpeauohszRqYhAvY5SBfsIEPQz21d38F1n1W
- 4mXhWsqcTc6MKxt7ZCSidNuM74cAINEvz4yLEUhJurZ3wsPiAaKYJEDEs0LcYnXYM7kd
- LfrQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778296748; x=1778901548; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=CxMznwGJOgjrL67SxyQcq86ofqmaCMHw/Ooho7JXCtI=;
- b=aG+XLVjBmlQzzGglhjUguWbwrzBuiByKaTRi/ZH+O4qwH2DBwLooKaiLiiHkO+3qIL
- wNovf+ZkUCZ80587Jhvjgh1OjsTX97VH9vzsprGc5M4nCqeGngbbJz3IlDEK77ObP3p1
- +x15jbQ35NT9O+DON6yhnXDD62cg2wE15kUDpOmES1qr9E1x8+b/gjzb7ALZezq6cWFZ
- LKNZ3c4Lk4VaTLm6PjxDBKPDx4ujZpUXHNBru/lsotURiExnGAmE82UUIlafsqok8TzR
- KEoeNUwtANfB1f4KTQaTH9dkTGjAdEB7t9eKB9XL8jxWaSwrwK2lMKtgkDaOAMf6zXjI
- KZLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778296748; x=1778901548;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=CxMznwGJOgjrL67SxyQcq86ofqmaCMHw/Ooho7JXCtI=;
- b=NvUaXT0Yb6ZurAru6Cm6b52AdiPcESDvUPV+8BF3VTY/TNeZ7B6vkIi4qcb7JscZj6
- 9BewGnG+sxBPXM80xE9Rnks4WcXAzozKfQwLLKuFBaGKY+R+k0vjrTtDVbWnC/Lcx3qE
- G+jYkiikmAINrybVGe8CRgsMe1WUs2cMge8oDysQD8D0MevRYz6c1FEHSXVoHQJ11lYJ
- d+0myKij+cBYzuecdX/XmKNTycFEJIeHcrtk2rArskv9znn45ABRa7JGZYfUeU/guUX5
- /nx0Mgf8D0O8w2YJ6TPqTndkaSdZWNBDe5XOSEuO+5IEe9R6nvv1RGN8Fmz4NTKwgFk+
- UuNQ==
-X-Gm-Message-State: AOJu0YxNMfQZQvQNSCLKY9GCA63PlKd9Y//xSXR7jPP2xKuMFGHhuich
- 4qT/nQysKPTBqBWXjvaoVAhWsYL1/PQL+DbidCLkxDlctuEX2S4fIs04idmKNfCyNziMnd895ID
- C3ZsZTifZo09dOdjrJbYz1HCA66INBcQ=
-X-Gm-Gg: AeBDiet0Po+eOvFQzYTQnUIbiRdqw7hn74YeEIVa1uQAnXcxRvUW1I/kulvkP/U7/b3
- XeU7uMORLG13xRWWiA3GarEyfX4icxC7DOBPMTueAsVVb4T7DAhYL9Lpd7pe58A+c6X2c2HDzuY
- NM/vMipf0JPtwitWUo4Mhxh+hn1xMPSRlTpV/w1YyPdaIE8hs37xzxYDGyrIoTKf4OZL+E6BssR
- Iohfuxoy7L4H0wMnM5t1xr9GjUkz/eYo0VSjsTGMODYflTj3MGvFH/WZ8HSdExSeajruVT+Ux/k
- AgMGvEcDyojg16x/X4SghUJ1N30rwoaWxCT/L4AXH/33k6MSafrzi5ubVx+cD62gR5irVPADAzx
- hfHAa
-X-Received: by 2002:a05:620a:f0c:b0:8dd:7422:6934 with SMTP id
- af79cd13be357-904d68dee8bmr2359167685a.44.1778296747959; Fri, 08 May 2026
- 20:19:07 -0700 (PDT)
+Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com
+ [113.46.200.219])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CDB8D10E17C
+ for <dri-devel@lists.freedesktop.org>; Sat,  9 May 2026 03:32:17 +0000 (UTC)
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+ c=relaxed/relaxed; q=dns/txt; h=From;
+ bh=7lJhKW4xXjXUZ290xlOCUkrLRDnEo6xyiC/8DQaA1xA=;
+ b=UeDcLdLzMwKSWRo6RMi1GEvE5euxGf6z9/mwksq4+EqzrYHxbZrRIAZfkh/SF/xmztC8h07/4
+ RaY0CcWY1RpeVTJkDJXjjlPDvCUnHneTpeUpkKz6aJTx51AkY4lN6B2RZwz6/f8N+0FUDGTnouU
+ RXuIS4fhh3lV2V7/DWRcVqs=
+Received: from mail.maildlp.com (unknown [172.19.163.104])
+ by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4gCBDj4LGdz1prPw;
+ Sat,  9 May 2026 11:24:37 +0800 (CST)
+Received: from dggemv706-chm.china.huawei.com (unknown [10.3.19.33])
+ by mail.maildlp.com (Postfix) with ESMTPS id A57224048F;
+ Sat,  9 May 2026 11:32:14 +0800 (CST)
+Received: from kwepemq100007.china.huawei.com (7.202.195.175) by
+ dggemv706-chm.china.huawei.com (10.3.19.33) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Sat, 9 May 2026 11:32:14 +0800
+Received: from localhost.huawei.com (10.169.71.169) by
+ kwepemq100007.china.huawei.com (7.202.195.175) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Sat, 9 May 2026 11:32:13 +0800
+From: Yongbang Shi <shiyongbang@huawei.com>
+To: <tzimmermann@suse.de>, <dmitry.baryshkov@oss.qualcomm.com>,
+ <tiantao6@hisilicon.com>, <xinliang.liu@linaro.org>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <airlied@gmail.com>, <daniel@ffwll.ch>, <kong.kongxinwei@hisilicon.com>
+CC: <liangjian010@huawei.com>, <chenjianmin@huawei.com>,
+ <fengsheng5@huawei.com>, <shiyongbang@huawei.com>, <helin52@h-partners.com>,
+ <shenjian15@huawei.com>, <shaojijie@huawei.com>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH for drm-misc-fixes v6 2/4] drm/hisilicon/hibmc: fix no showing
+ when no connectors connected
+Date: Sat, 9 May 2026 11:23:00 +0800
+Message-ID: <20260509032302.2057227-3-shiyongbang@huawei.com>
+X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20260509032302.2057227-1-shiyongbang@huawei.com>
+References: <20260509032302.2057227-1-shiyongbang@huawei.com>
 MIME-Version: 1.0
-References: <20260429030348.3930866-1-lyude@redhat.com>
-In-Reply-To: <20260429030348.3930866-1-lyude@redhat.com>
-From: Dave Airlie <airlied@gmail.com>
-Date: Sat, 9 May 2026 13:18:54 +1000
-X-Gm-Features: AVHnY4JKAYfBzEvcCazoWW39EPzkIq8d6VGfmI7CrPBmf49am2bEWNkv5j3ODv4
-Message-ID: <CAPM=9tyeTxS+Dacc=YdXKrqC1OrrVG78EOkFv4x8f9ykcc3TFQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/nouveau/disp/r535: Add scanline position support +
- head state support
-To: Lyude Paul <lyude@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Ben Skeggs <bskeggs@redhat.com>, 
- Dave Airlie <airlied@redhat.com>, Timur Tabi <ttabi@nvidia.com>,
- Ben Skeggs <bskeggs@nvidia.com>, 
- James Jones <jajones@nvidia.com>, Faith Ekstrand <faith.ekstrand@collabora.com>,
- Suraj Kandpal <suraj.kandpal@intel.com>, Aaron Kling <webgeek1234@gmail.com>, 
- Danilo Krummrich <dakr@kernel.org>, Zhang Enpei <zhang.enpei@zte.com.cn>,
- stable@vger.kernel.org, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Kees Cook <kees@kernel.org>, 
- Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Maxime Ripard <mripard@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.169.71.169]
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ kwepemq100007.china.huawei.com (7.202.195.175)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,111 +73,253 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 29 Apr 2026 at 13:04, Lyude Paul <lyude@redhat.com> wrote:
->
-> That's right! It looks like this never actually got finished, something
-> which I just noticed today when I saw this fun message spamming one of my
-> test machine's kernel logs when enabling display debug output for nouveau:
->
->   [drm:drm_crtc_vblank_helper_get_vblank_timestamp_internal] crtc 0 : scanoutpos query failed.
->
-> So it looks like we've been falling back to DRM's core fallback for a while
-> now, whoops.
->
-> So, while it seems that we do have the option of doing this through GSP -
-> that doesn't seem like a great idea. Mainly because reading this from GSP
-> would involve a lot more latency then we should have for vblank handling
-> due to the RPC communication. So instead of implementing that, just use
-> gv100_head_state and gv100_head_rgpos for implementing .state and .rgpos.
-> It seems to work perfectly fine!
+From: Lin He <helin52@huawei.com>
 
-Does the open gpu module do this at all, I'm just mildly worried that
-blackwell might have moved stuff,
+Our chip support KVM over IP feature, so hibmc driver need to support
+displaying without any connectors plugged in. If no connectors are
+connected, the vdac connector status should be set to 'connected' to
+ensure proper KVM display functionality. Additionally, for
+previous-generation products that may lack hardware link support and
+thus cannot detect the monitor, the same approach should be applied
+to ensure VGA display functionality.
 
-If you can confirm by looking at open-gpu.
+* Add phys_state in the struct of dp and vdac to check physical outputs.
 
-Reviewed-by: Dave Airlie <airlied@redhat.com>
+* The 'epoch_counter' of the vdac connector is incremented when the
+physical status changes.
 
-Dave.
->
-> Fixes: 9e9944449023 ("drm/nouveau/disp/r535: initial support")
-> Cc: Ben Skeggs <bskeggs@redhat.com>
-> Cc: Dave Airlie <airlied@redhat.com>
-> Cc: Timur Tabi <ttabi@nvidia.com>
-> Cc: Ben Skeggs <bskeggs@nvidia.com>
-> Cc: James Jones <jajones@nvidia.com>
-> Cc: Faith Ekstrand <faith.ekstrand@collabora.com>
-> Cc: Suraj Kandpal <suraj.kandpal@intel.com>
-> Cc: Lyude Paul <lyude@redhat.com>
-> Cc: Aaron Kling <webgeek1234@gmail.com>
-> Cc: Danilo Krummrich <dakr@kernel.org>
-> Cc: Zhang Enpei <zhang.enpei@zte.com.cn>
-> Cc: <stable@vger.kernel.org> # v6.7+
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
-> ---
->  drivers/gpu/drm/nouveau/nvkm/engine/disp/gv100.c       | 4 ++--
->  drivers/gpu/drm/nouveau/nvkm/engine/disp/head.h        | 2 ++
->  drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c | 8 ++------
->  3 files changed, 6 insertions(+), 8 deletions(-)
->
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/disp/gv100.c b/drivers/gpu/drm/nouveau/nvkm/engine/disp/gv100.c
-> index dbd984da75014..0608266188d3e 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/engine/disp/gv100.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/disp/gv100.c
-> @@ -253,7 +253,7 @@ gv100_head_vblank_get(struct nvkm_head *head)
->         nvkm_mask(device, 0x611d80 + (head->id * 4), 0x00000004, 0x00000004);
->  }
->
-> -static void
-> +void
->  gv100_head_rgpos(struct nvkm_head *head, u16 *hline, u16 *vline)
->  {
->         struct nvkm_device *device = head->disp->engine.subdev.device;
-> @@ -263,7 +263,7 @@ gv100_head_rgpos(struct nvkm_head *head, u16 *hline, u16 *vline)
->         *hline = nvkm_rd32(device, 0x616334 + hoff) & 0x0000ffff;
->  }
->
-> -static void
-> +void
->  gv100_head_state(struct nvkm_head *head, struct nvkm_head_state *state)
->  {
->         struct nvkm_device *device = head->disp->engine.subdev.device;
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/disp/head.h b/drivers/gpu/drm/nouveau/nvkm/engine/disp/head.h
-> index 856252bf559a4..b642729c254fe 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/engine/disp/head.h
-> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/disp/head.h
-> @@ -53,6 +53,8 @@ void gf119_head_rgclk(struct nvkm_head *, int);
->
->  int gv100_head_cnt(struct nvkm_disp *, unsigned long *);
->  int gv100_head_new(struct nvkm_disp *, int id);
-> +void gv100_head_state(struct nvkm_head *head, struct nvkm_head_state *state);
-> +void gv100_head_rgpos(struct nvkm_head *head, u16 *hline, u16 *vline);
->
->  #define HEAD_MSG(h,l,f,a...) do {                                              \
->         struct nvkm_head *_h = (h);                                            \
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
-> index 6e63df816d855..49a1eef9bdf14 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
-> @@ -625,14 +625,10 @@ r535_head_vblank_get(struct nvkm_head *head)
->         nvkm_mask(device, 0x611d80 + (head->id * 4), 0x00000002, 0x00000002);
->  }
->
-> -static void
-> -r535_head_state(struct nvkm_head *head, struct nvkm_head_state *state)
-> -{
-> -}
-> -
->  static const struct nvkm_head_func
->  r535_head = {
-> -       .state = r535_head_state,
-> +       .state = gv100_head_state,
-> +       .rgpos = gv100_head_rgpos,
->         .vblank_get = r535_head_vblank_get,
->         .vblank_put = r535_head_vblank_put,
->  };
->
-> base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
-> --
-> 2.54.0
->
+For get_modes: using BMC modes for connector if no display is attached to
+phys VGA cable, otherwise use EDID modes by drm_connector_helper_get_modes,
+because KVM doesn't provide EDID reads.
+
+The polling mechanism for the KMS helper is enabled.
+
+Fixes: 4c962bc929f1 ("drm/hisilicon/hibmc: Add vga connector detect functions")
+Reported-by: Thomas Zimmermann <tzimmermann@suse.de>
+Closes: https://lore.kernel.org/all/0eb5c509-2724-4c57-87ad-74e4270d5a5a@suse.de/
+Signed-off-by: Lin He <helin52@huawei.com>
+Signed-off-by: Yongbang Shi <shiyongbang@huawei.com>
+---
+ChangeLog:
+v5 -> v6:
+  - Rename 'phys_state' to 'phys_status'
+  - Replace `drm_kms_helper_poll_init` with `drmm_kms_helper_poll_init`
+    and adjust the timing of the call.
+  - Split "return vdac->phys_state = state;" into separate statements.
+  - Change `get_modes` to return 0 when no modes are available, allowing DRM to 
+    install a default resolution.
+  - Change the initial phys_status of vdac from
+    'connector_status_connected' to 'connector_status_disconnected'
+v4 -> v5:
+  - The 'epoch_counter' of the vdac connector is incremented when the physical
+    status changes.
+  - The polling mechanism for the KMS helper is enabled.
+v1 -> v2:
+  - fix the checkpatch.pl warning "line length of 83/85 exceeds 80 columns".
+  - remove tag "Reviewed-by: Tao Tian <tiantao6@hisilicon.com>", witch will
+    be given in public.
+  - add 'drm-misc-fixes' in subject prefix.
+---
+ drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h    |  1 +
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c    | 33 ++++++++----
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   |  3 ++
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h   |  1 +
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c  | 53 +++++++++++++------
+ 5 files changed, 64 insertions(+), 27 deletions(-)
+
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
+index 31316fe1ea8d..0f3662d8737e 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
++++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
+@@ -55,6 +55,7 @@ struct hibmc_dp {
+ 	struct drm_dp_aux aux;
+ 	struct hibmc_dp_cbar_cfg cfg;
+ 	u32 irq_status;
++	int phys_status;
+ };
+ 
+ int hibmc_dp_hw_init(struct hibmc_dp *dp);
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
+index 35dff7bfbf76..596c5bfe32d8 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
++++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
+@@ -61,27 +61,38 @@ static int hibmc_dp_detect(struct drm_connector *connector,
+ {
+ 	struct hibmc_dp *dp = to_hibmc_dp(connector);
+ 	struct hibmc_dp_dev *dp_dev = dp->dp_dev;
+-	int ret;
++	int ret = connector_status_disconnected;
+ 
+ 	if (dp->irq_status) {
+-		if (dp_dev->hpd_status != HIBMC_HPD_IN)
+-			return connector_status_disconnected;
++		if (dp_dev->hpd_status != HIBMC_HPD_IN) {
++			ret = connector_status_disconnected;
++			goto exit;
++		}
+ 	}
+ 
+-	if (!hibmc_dp_get_dpcd(dp_dev))
+-		return connector_status_disconnected;
++	if (!hibmc_dp_get_dpcd(dp_dev)) {
++		ret = connector_status_disconnected;
++		goto exit;
++	}
+ 
+-	if (!dp_dev->is_branch)
+-		return connector_status_connected;
++	if (!dp_dev->is_branch) {
++		ret = connector_status_connected;
++		goto exit;
++	}
+ 
+ 	if (drm_dp_read_sink_count_cap(connector, dp_dev->dpcd, &dp_dev->desc) &&
+ 	    dp_dev->downstream_ports[0] & DP_DS_PORT_HPD) {
+ 		ret = drm_dp_read_sink_count(dp_dev->aux);
+-		if (ret > 0)
+-			return connector_status_connected;
++		if (ret > 0) {
++			ret = connector_status_connected;
++			goto exit;
++		}
+ 	}
+ 
+-	return connector_status_disconnected;
++exit:
++	dp->phys_status = ret;
++
++	return ret;
+ }
+ 
+ static int hibmc_dp_mode_valid(struct drm_connector *connector,
+@@ -243,5 +254,7 @@ int hibmc_dp_init(struct hibmc_drm_private *priv)
+ 
+ 	connector->polled = DRM_CONNECTOR_POLL_HPD;
+ 
++	dp->phys_status = connector_status_disconnected;
++
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+index a0ecf82b576f..e3b40c6a6250 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
++++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+@@ -25,6 +25,7 @@
+ #include <drm/drm_managed.h>
+ #include <drm/drm_module.h>
+ #include <drm/drm_vblank.h>
++#include <drm/drm_probe_helper.h>
+ 
+ #include "hibmc_drm_drv.h"
+ #include "hibmc_drm_regs.h"
+@@ -385,6 +386,8 @@ static int hibmc_load(struct drm_device *dev)
+ 	/* reset all the states of crtc/plane/encoder/connector */
+ 	drm_mode_config_reset(dev);
+ 
++	drmm_kms_helper_poll_init(dev);
++
+ 	return 0;
+ 
+ err:
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
+index 4e212af6143d..dce8572bf63e 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
++++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
+@@ -31,6 +31,7 @@ struct hibmc_vdac {
+ 	struct drm_connector connector;
+ 	struct i2c_adapter adapter;
+ 	struct i2c_algo_bit_data bit_data;
++	int phys_status;
+ };
+ 
+ struct hibmc_drm_private {
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c
+index 841e81f47b68..2fcfa3246fd1 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c
++++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c
+@@ -24,28 +24,21 @@
+ 
+ static int hibmc_connector_get_modes(struct drm_connector *connector)
+ {
++	struct drm_mode_config *mode_config = &connector->dev->mode_config;
+ 	struct hibmc_vdac *vdac = to_hibmc_vdac(connector);
+-	const struct drm_edid *drm_edid;
+ 	int count;
+ 
+-	drm_edid = drm_edid_read_ddc(connector, &vdac->adapter);
+-
+-	drm_edid_connector_update(connector, drm_edid);
+-
+-	if (drm_edid) {
+-		count = drm_edid_connector_add_modes(connector);
++	if (vdac->phys_status == connector_status_connected) {
++		count = drm_connector_helper_get_modes(connector);
++	} else {
++		drm_edid_connector_update(connector, NULL);
++		count = drm_add_modes_noedid(connector,
++					     mode_config->max_width,
++					     mode_config->max_height);
+ 		if (count)
+-			goto out;
++			drm_set_preferred_mode(connector, 1024, 768);
+ 	}
+ 
+-	count = drm_add_modes_noedid(connector,
+-				     connector->dev->mode_config.max_width,
+-				     connector->dev->mode_config.max_height);
+-	drm_set_preferred_mode(connector, 1024, 768);
+-
+-out:
+-	drm_edid_free(drm_edid);
+-
+ 	return count;
+ }
+ 
+@@ -57,10 +50,34 @@ static void hibmc_connector_destroy(struct drm_connector *connector)
+ 	drm_connector_cleanup(connector);
+ }
+ 
++static int hibmc_vdac_detect(struct drm_connector *connector,
++			     struct drm_modeset_acquire_ctx *ctx,
++			     bool force)
++{
++	struct hibmc_drm_private *priv = to_hibmc_drm_private(connector->dev);
++	int status = drm_connector_helper_detect_from_ddc(connector, ctx,
++							 force);
++	struct hibmc_vdac *vdac = to_hibmc_vdac(connector);
++
++	if (priv->dp.phys_status == connector_status_connected) {
++		vdac->phys_status = status;
++		return status;
++	}
++
++	if (status != vdac->phys_status)
++		++connector->epoch_counter;
++	vdac->phys_status = status;
++
++	/* When both the DP and VDAC physical status are disconnected,
++	 * the "connected" status is returned to support KVM display.
++	 */
++	return connector_status_connected;
++}
++
+ static const struct drm_connector_helper_funcs
+ 	hibmc_connector_helper_funcs = {
+ 	.get_modes = hibmc_connector_get_modes,
+-	.detect_ctx = drm_connector_helper_detect_from_ddc,
++	.detect_ctx = hibmc_vdac_detect,
+ };
+ 
+ static const struct drm_connector_funcs hibmc_connector_funcs = {
+@@ -130,6 +147,8 @@ int hibmc_vdac_init(struct hibmc_drm_private *priv)
+ 
+ 	connector->polled = DRM_CONNECTOR_POLL_CONNECT | DRM_CONNECTOR_POLL_DISCONNECT;
+ 
++	vdac->phys_status = connector_status_disconnected;
++
+ 	return 0;
+ 
+ err:
+-- 
+2.33.0
+
