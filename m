@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93FA0CD343F
-	for <dri-devel@archiver.kernel.org>; Sat,  9 May 2026 06:27:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10F5ACD343F
+	for <dri-devel@archiver.kernel.org>; Sat,  9 May 2026 06:39:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D090210E183;
-	Sat,  9 May 2026 06:27:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E30610E36C;
+	Sat,  9 May 2026 06:39:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oAJCiOj+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gguTAuAJ";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 345E710E183
- for <dri-devel@lists.freedesktop.org>; Sat,  9 May 2026 06:27:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0823010E36C
+ for <dri-devel@lists.freedesktop.org>; Sat,  9 May 2026 06:39:53 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id DC6FD43A78
- for <dri-devel@lists.freedesktop.org>; Sat,  9 May 2026 06:27:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id BD65DC2BCB2
- for <dri-devel@lists.freedesktop.org>; Sat,  9 May 2026 06:27:02 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B96A2409B0
+ for <dri-devel@lists.freedesktop.org>; Sat,  9 May 2026 06:39:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 9AB20C2BCB2
+ for <dri-devel@lists.freedesktop.org>; Sat,  9 May 2026 06:39:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778308022;
- bh=k4kjPg1sOOHMA+CC/Jkvv1mflHdeGPyin3vJJEfIaS0=;
+ s=k20201202; t=1778308792;
+ bh=vENe44hZ7W673DGFwM0R7CynwMdz+tD3pJS2BSm7UDA=;
  h=From:To:Subject:Date:In-Reply-To:References:From;
- b=oAJCiOj+PPn7QFDOgu6zUba5RhBrLea613RYDyy2G3KI59IHOEVUHX0kPRzB+X53V
- MfdvDAvVGZHVr79kYuVES5Wga8GWjZEmiw0XuJnML4xjZDKYOmxxu0DkaueH6NhN2t
- 7f/r12UVwwfXDBVCzXmhtWHDnlMPLp9QhshiDnR1/FabDznbGr7zbavUPFHscP5vHw
- 79NLO+L9+W4qv7W/psoVG6KQwxXmLotwhTHx+UAysi+4q6G7JH2p4i3opt4hFD99lB
- yO3aY4lDNid8uswSELE56jh/mWQK5cLTOVDoM8uXMoLiGFwSF20wXS22ivFVmExNhT
- 0xO+sIV9hnshw==
+ b=gguTAuAJWmcJUFYJGYWavQuMDRYHX/UMMb8xzInYESDgm1s2n8VB4DYlRz2qaWC9T
+ d2c4EMHdBkdA0ITgIS7lRjxdeRCijmUd6NzWyyRv1iir8c3wuC/OXUlE5/JaYR5yhH
+ rqp0PS3VUQW2GE/sTyvHW6preI3RECv8elvjYfReUmyBRUSBEuir9EVxneHhEzaMfv
+ Xo2xP4FMTHRfogYzwNvXLowWXSi5Uf4hwEs0aF22n+rmM58nSRyAf+bID87a4o766n
+ Xsq3E7LgJMYCiPZ+7OrvUvcOHyzXpdMdyRZXDqcpU4KHJHVDhU1WJsUh3DzG2ZHUGk
+ K22qGagXdV1WQ==
 Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix,
- from userid 48) id B0D93C41613; Sat,  9 May 2026 06:27:02 +0000 (UTC)
+ from userid 48) id 8FFDCC41613; Sat,  9 May 2026 06:39:52 +0000 (UTC)
 From: bugzilla-daemon@kernel.org
 To: dri-devel@lists.freedesktop.org
-Subject: [Bug 221480] drm/nouveau: timeout and WARN in tu102_vmm_flush while
- using mpv
-Date: Sat, 09 May 2026 06:27:02 +0000
+Subject: [Bug 221487] Nouveau GSP timeout (r535_gsp_msgq_wait) on ASUS TUF
+ Gaming A16 with NVIDIA RTX 4060 Max-Q / Mobile and kernel 6.12.86
+Date: Sat, 09 May 2026 06:39:52 +0000
 X-Bugzilla-Reason: None
 X-Bugzilla-Type: changed
 X-Bugzilla-Watch-Reason: AssignedTo drivers_video-dri@kernel-bugs.osdl.org
@@ -52,9 +52,9 @@ X-Bugzilla-Priority: P3
 X-Bugzilla-Assigned-To: drivers_video-dri@kernel-bugs.osdl.org
 X-Bugzilla-Flags: 
 X-Bugzilla-Changed-Fields: 
-Message-ID: <bug-221480-2300-B4uaRaYvbl@https.bugzilla.kernel.org/>
-In-Reply-To: <bug-221480-2300@https.bugzilla.kernel.org/>
-References: <bug-221480-2300@https.bugzilla.kernel.org/>
+Message-ID: <bug-221487-2300-EnnkAGFkWt@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-221487-2300@https.bugzilla.kernel.org/>
+References: <bug-221487-2300@https.bugzilla.kernel.org/>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-Bugzilla-URL: https://bugzilla.kernel.org/
@@ -75,10 +75,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D221480
+https://bugzilla.kernel.org/show_bug.cgi?id=3D221487
 
 --- Comment #2 from info@maketopsite.com ---
-done: https://gitlab.freedesktop.org/drm/nouveau/-/work_items/486
+Thank you for information.
+
+Reported here: https://gitlab.freedesktop.org/drm/nouveau/-/work_items/487
 
 --=20
 You may reply to this email to add a comment.
