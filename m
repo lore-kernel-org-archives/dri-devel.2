@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 899A6CD37B6
-	for <dri-devel@archiver.kernel.org>; Sat,  9 May 2026 19:00:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48731CD37B2
+	for <dri-devel@archiver.kernel.org>; Sat,  9 May 2026 19:00:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72FEE10E3E1;
-	Sat,  9 May 2026 19:00:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92AE210E0ED;
+	Sat,  9 May 2026 19:00:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UUBjT8fU";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MjyOy2n6";
 	dkim-atps=neutral
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
- [209.85.221.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C93810E0ED
- for <dri-devel@lists.freedesktop.org>; Sat,  9 May 2026 19:00:24 +0000 (UTC)
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-44e1ebb3122so1562444f8f.2
- for <dri-devel@lists.freedesktop.org>; Sat, 09 May 2026 12:00:24 -0700 (PDT)
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
+ [209.85.221.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D40B10E0ED
+ for <dri-devel@lists.freedesktop.org>; Sat,  9 May 2026 19:00:26 +0000 (UTC)
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-44e5624c053so1711214f8f.2
+ for <dri-devel@lists.freedesktop.org>; Sat, 09 May 2026 12:00:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778353223; x=1778958023; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1778353225; x=1778958025; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=AdLAbqgwB3cbfBit4ZVDmF5fOX+Cth+Nq8mrAQRYaDE=;
- b=UUBjT8fU6Of0K/F0wlVN3KTvjYaOLzyWHB2vSjXTvVMbJEPcRdlm6Y4kB95HsHKABN
- Uo32r/paJJ8EO4dLmFfrCO+L7jIn5Ncla3YTDhdAcjK3R+rXyWXm8OfFTxNmntL5IAuH
- Xnc6GjcUXHGNBBo9aEZ+My4LqC5gOV3KUt8Y+M1mH+zZULe+PWtGljiT2tquRfWFeDhF
- jItsEBDX6wHuC0Q2C8+9loq/ntpq2IAjoS6yIKfoTZTJRfDlEZHpromBlsCE2SK75caq
- fdP9q3JFRrSVFaRotNslFbM8hU+6a+fQ9+y/4PsbUHqjQoe8Ykq21CKqSR/NXJs0dyAl
- gECg==
+ bh=+CrDBvKu/hcgSB1anyD1GXBKe06ZzlWC9+3i2f9q0bQ=;
+ b=MjyOy2n686MsVDPyOYVcxEZjrlbt8/3wJf7GRX0itetERSwMK4UtlwdoASPb90H3yz
+ 875Ls/fqGfJ2T+EcnU9vSm1zCVATpWlSqOCW9CQ+oOga78PtGc8M3yPAtB1frpVryq1W
+ Rb8XAtaXKeo5sFXYU1zVHcoBPyXwHB2sNf4+ZpRPremJxt9fbcr8QdyPLT6HOxvu/DHa
+ 0q00j5DF+K+ikfUow0xx95mHKEszWh+bYGy/6wPky1vGKRuwGrPrhTdU1AAhP6VOg2ss
+ GLn43T9CqmSeyXdxyu/KI/nOHX+BfRQhKKPnW8ilBF7Nbr/YdWQ4WuPWxqlkkACPKfrS
+ G3DQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778353223; x=1778958023;
+ d=1e100.net; s=20251104; t=1778353225; x=1778958025;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=AdLAbqgwB3cbfBit4ZVDmF5fOX+Cth+Nq8mrAQRYaDE=;
- b=qiiOwRft1sGaPlxjjxy+PG0HVmc6r4gEGoOlijrR5TEMbjcn3Is5ojYjpC/P4THFZH
- ViffRSxkFto9yEJsJbGB8HKxwhfdpL+af/PGlznLCbujLDjVPLM8Aq/QeesZc+RQTY2d
- xugvvbFb4wQf63YQNhmu0XYwQr9EKWfz+NLgaiBF0rmSBYAI9spbFLWr5lbnIOKFcWqP
- Xh/mE557BtMT8AsmljYIMrZiawujg3Nrm0Ghcnc6/s1KRD89vO4vlPQ8X+PKvi4FtByu
- gtLqqZwa2jHbEMB0UU6th2faUe/ztZJ72lc7Lp6BB7fjIQdSDlcusfhI/Lif1m466Vo3
- WGmA==
+ bh=+CrDBvKu/hcgSB1anyD1GXBKe06ZzlWC9+3i2f9q0bQ=;
+ b=s/SZi+zYJj2Ko9ZnRlk+dLIp8dvGX9ZDVHi0Cg2+aiFKfB1XXlTaq9jUDyu9x91ZJ+
+ khjRpV4uRgq43EKgOHP4+5/0u1UDpkfMwGuCJe+DRhSEJEebZPnZXhupG1kiTyrS+h75
+ S3MP1OoiF8cvxyDPuSv9i9QcZFETwiYRedn0YgPxNQfri3hosCmsH/LvKdPcSSFD/NN8
+ O9O+xcNVhDnqEhdNCmvXa0Yb6j0+cwY4UsvcZLqpotGikAoQ25dayXo77ZfRg7ZnX8BW
+ I2p9lz54ecmc1/3gQIaGZhnHKYOA4gqFM/eCSIxDyVhlEfH5wSVOlxKzLTnWNqy+JuEW
+ o13g==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8kEGmzS0yPDO8hjFctuNsAqm1f9JuSLrxpy80P6bhQUumXKcWrgeN1tm+jUTXVyAKB4BrOmi9cf2E=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzPkvmJJIjzqV9RnLPdjfoSBpdlWcRIdi4QikR6R01vgOmDnM3N
- Vc+Br4vGj9U+CRj/wcsQP87psYeL6Pte01Uk/5gCS+xYmUo88PxK1jZJ
-X-Gm-Gg: Acq92OEa51xMljuoerSZYORlyf3bb6CfcSbU0ivMls3edcM+5kw1MGEa5xD/k0tp3q8
- NQeKs9LdpzoE5DQF7DLP5tR6nT0qx82SrTujCQhu8ALLkBfBlokch0kExF+6HKkZw3WL3NdKNgp
- MUJ/jiTsD/6Bgf51Xnp4hfxQ0+drbDR9Cbx4TdUW1FMXnhGF61Pk52hoR23J1uUkWQ/DPdJaQDS
- NC0DIdVJ6jA6LGZ82bhGS4dwimS/9VYA+4BA7nGIGOKzlHVoiprbRnRA7yNNppM4GrKFM2NTW4h
- RLpfXnkftrrn3AUcAgnniqAVF+1r2kY18V7BHpeSAwdx1GODtiuJVQJcm+NMla7otDYxIH8dujr
- OFm7aVCzm8rTRenAwhW0uQzQXMYzcYgbBB4oxh9Sk0qCY6ouraipiqF7MAy3rERebzh3iJ6JX0E
- SzlNslsZMEjBwJhYnIrCE+IWCzROMcvShEbpU7kjwjpOy6G+pzYd7+pkx5JQeVzbrCIvc=
-X-Received: by 2002:a5d:5f90:0:b0:451:ccc:a6e5 with SMTP id
- ffacd0b85a97d-4515d5c68d1mr27318999f8f.30.1778353222950; 
- Sat, 09 May 2026 12:00:22 -0700 (PDT)
+ AFNElJ+3XtUVIyF39LAnDBhEH/VfMa2GOE7++t2S4vbBIkmUDtGohLfe4Ixfi6WH3I8OJRJPoZ8w2/TnfZc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxqcVvVutZRYwxI/Rw6GgdDv/PWr9SJeX1g7yjuUkskm7wCzDTu
+ TutXuTR9r83oxB5C+978U0X8o+PehazoWU41NFMbuzSNON2vKMJKIeZT
+X-Gm-Gg: Acq92OFufhDyfdmzoSygokCzgYclvvSWjhXvGYYoc7NuaO5BCeVOMWgttuE4ov6Dqwn
+ iAx0UFt42ntXOQJAB9aFE8ZzabBQfOAhcvZbSzO9GxnV18dWBMiiR6ZQk5JbofRRxCotmhInayW
+ P54+Bqh2ceimAfzMNWQuH+hQEc1ZePdRGYG48PmBnriaG4sA1j6vhublBtwf9DIk1DHNxjTpJyt
+ JeKgT4DGfD6FAKt1N253c4S6R8qKD8Ro++JPjdgb+aK+kGbGEGGKCzqoHrw1nnje+fD2VTsm1RR
+ IQZ68AMEOtage/VDRbAttJXx9ZRO86MMrbXIMR5jvBZoP1tlg6Lzzo2EqsrePspTVkTxVI/JzYo
+ tyHwsYCXTix5hlsdwqRKNjOavp8k3z56efJdS2BcfNWG48EmlCcG5jPDYUR5UKOGufNm8UaP5Ms
+ xERGnYeKSv4zCGJTLl/oKe282f+oYXEgHH2F6/HqkVDT2JOYt7rQqLEj5niCyTYJm7+G0=
+X-Received: by 2002:a05:6000:2910:b0:44d:821:1a0b with SMTP id
+ ffacd0b85a97d-4515d3dc326mr27958440f8f.29.1778353224452; 
+ Sat, 09 May 2026 12:00:24 -0700 (PDT)
 Received: from jernej-laptop (46-150-62-216.dynamic.telemach.net.
  [46.150.62.216]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-454913049ecsm13254407f8f.19.2026.05.09.12.00.21
+ ffacd0b85a97d-454913049ecsm13254407f8f.19.2026.05.09.12.00.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 09 May 2026 12:00:22 -0700 (PDT)
+ Sat, 09 May 2026 12:00:24 -0700 (PDT)
 From: Jernej Skrabec <jernej.skrabec@gmail.com>
 X-Google-Original-From: Jernej Skrabec <jernej.skrabec@siol.net>
 To: wens@csie.org,
@@ -72,10 +72,10 @@ Cc: mripard@kernel.org, maarten.lankhorst@linux.intel.com, tzimmermann@suse.de,
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
  linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
- jernej.skrabec@gmail.com
-Subject: [PATCH v2 2/8] clk: sunxi-ng: de2: Export register regmap for DE33
-Date: Sat,  9 May 2026 21:00:09 +0200
-Message-ID: <20260509190015.79086-3-jernej.skrabec@siol.net>
+ jernej.skrabec@gmail.com, Chen-Yu Tsai <wens@kernel.org>
+Subject: [PATCH v2 3/8] drm/sun4i: Add support for DE33 CSC
+Date: Sat,  9 May 2026 21:00:10 +0200
+Message-ID: <20260509190015.79086-4-jernej.skrabec@siol.net>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260509190015.79086-1-jernej.skrabec@siol.net>
 References: <20260509190015.79086-1-jernej.skrabec@siol.net>
@@ -98,100 +98,127 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Jernej Skrabec <jernej.skrabec@gmail.com>
 
-DE33 clock pre-set plane mapping, which is not something that we want
-from clock driver. Export registers instead, so DRM driver can set them
-properly.
+DE33 has channel CSC units (for each plane separately) so pipeline can
+be configured to output in desired colorspace.
 
+Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
 Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 ---
 Changes from v1:
-- used access tables instead of functions
-- used macro for max register
-- used dev_of_node() instead of open coding
+- collected tag
 
- drivers/clk/sunxi-ng/ccu-sun8i-de2.c | 48 ++++++++++++++++++++++++++--
- 1 file changed, 45 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/sun4i/sun8i_csc.c | 71 +++++++++++++++++++++++++++++++
+ drivers/gpu/drm/sun4i/sun8i_csc.h |  5 +++
+ 2 files changed, 76 insertions(+)
 
-diff --git a/drivers/clk/sunxi-ng/ccu-sun8i-de2.c b/drivers/clk/sunxi-ng/ccu-sun8i-de2.c
-index 6ec6c0dc4c26..26d8abd5fac6 100644
---- a/drivers/clk/sunxi-ng/ccu-sun8i-de2.c
-+++ b/drivers/clk/sunxi-ng/ccu-sun8i-de2.c
-@@ -6,9 +6,11 @@
- #include <linux/clk.h>
- #include <linux/clk-provider.h>
- #include <linux/io.h>
-+#include <linux/mfd/syscon.h>
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/platform_device.h>
-+#include <linux/regmap.h>
- #include <linux/reset.h>
+diff --git a/drivers/gpu/drm/sun4i/sun8i_csc.c b/drivers/gpu/drm/sun4i/sun8i_csc.c
+index ce81c12f511d..70fc9b017d17 100644
+--- a/drivers/gpu/drm/sun4i/sun8i_csc.c
++++ b/drivers/gpu/drm/sun4i/sun8i_csc.c
+@@ -205,6 +205,72 @@ static void sun8i_de3_ccsc_setup(struct regmap *map, int layer,
+ 			   mask, val);
+ }
  
- #include "ccu_common.h"
-@@ -283,6 +285,36 @@ static const struct sunxi_ccu_desc sun50i_h616_de33_clk_desc = {
- 	.num_resets	= ARRAY_SIZE(sun50i_h616_de33_resets),
- };
- 
-+/*
-+ * Add a regmap for the DE33 plane driver to access plane
-+ * mapping registers.
-+ * Only these registers are allowed to be written, to prevent
-+ * overriding clock and reset configuration.
-+ */
++/* extract constant from high word and invert sign if necessary */
++static u32 sun8i_de33_ccsc_get_constant(u32 value)
++{
++	value >>= 16;
 +
-+#define SUN50I_DE33_CHN2CORE_REG 0x24
-+#define SUN50I_DE33_PORT12CHN_REG 0x2c
++	if (value & BIT(15))
++		return 0x400 - (value & 0x3ff);
 +
-+static const struct regmap_range sun8i_de2_ccu_regmap_accessible_ranges[] = {
-+	regmap_reg_range(SUN50I_DE33_CHN2CORE_REG, SUN50I_DE33_PORT12CHN_REG),
-+};
++	return value;
++}
 +
-+static const struct regmap_access_table sun8i_de2_ccu_regmap_accessible_table = {
-+	.yes_ranges = sun8i_de2_ccu_regmap_accessible_ranges,
-+	.n_yes_ranges = ARRAY_SIZE(sun8i_de2_ccu_regmap_accessible_ranges),
-+};
++static void sun8i_de33_convert_table(const u32 *src, u32 *dst)
++{
++	dst[0] = sun8i_de33_ccsc_get_constant(src[3]);
++	dst[1] = sun8i_de33_ccsc_get_constant(src[7]);
++	dst[2] = sun8i_de33_ccsc_get_constant(src[11]);
++	memcpy(&dst[3], src, sizeof(u32) * 12);
++	dst[6] &= 0xffff;
++	dst[10] &= 0xffff;
++	dst[14] &= 0xffff;
++}
 +
-+static const struct regmap_config sun8i_de2_ccu_regmap_config = {
-+	.reg_bits	= 32,
-+	.val_bits	= 32,
-+	.reg_stride	= 4,
-+	.max_register	= SUN50I_DE33_PORT12CHN_REG,
++static void sun8i_de33_ccsc_setup(struct regmap *map, int layer,
++				  enum sun8i_csc_mode mode,
++				  enum drm_color_encoding encoding,
++				  enum drm_color_range range)
++{
++	u32 addr, val, base, csc[15];
++	const u32 *table;
++	int i;
 +
-+	/* other devices have no business accessing other registers */
-+	.wr_table	= &sun8i_de2_ccu_regmap_accessible_table,
-+	.rd_table	= &sun8i_de2_ccu_regmap_accessible_table,
-+};
++	table = yuv2rgb_de3[range][encoding];
++	base = DE33_CCSC_BASE + layer * DE33_CH_SIZE;
 +
- static int sunxi_de2_clk_probe(struct platform_device *pdev)
- {
- 	struct clk *bus_clk, *mod_clk;
-@@ -336,13 +368,23 @@ static int sunxi_de2_clk_probe(struct platform_device *pdev)
- 	}
- 
- 	/*
--	 * The DE33 requires these additional (unknown) registers set
-+	 * The DE33 requires these additional plane mapping registers set
- 	 * during initialisation.
- 	 */
- 	if (of_device_is_compatible(pdev->dev.of_node,
- 				    "allwinner,sun50i-h616-de33-clk")) {
--		writel(0, reg + 0x24);
--		writel(0x0000a980, reg + 0x28);
-+		struct regmap *regmap;
-+
-+		regmap = devm_regmap_init_mmio(&pdev->dev, reg,
-+					       &sun8i_de2_ccu_regmap_config);
-+		if (IS_ERR(regmap)) {
-+			ret = PTR_ERR(regmap);
-+			goto err_assert_reset;
++	switch (mode) {
++	case SUN8I_CSC_MODE_OFF:
++		val = 0;
++		break;
++	case SUN8I_CSC_MODE_YUV2RGB:
++		val = SUN8I_CSC_CTRL_EN;
++		sun8i_de33_convert_table(table, csc);
++		regmap_bulk_write(map, SUN50I_CSC_COEFF(base, 0), csc, 15);
++		break;
++	case SUN8I_CSC_MODE_YVU2RGB:
++		val = SUN8I_CSC_CTRL_EN;
++		sun8i_de33_convert_table(table, csc);
++		for (i = 0; i < 15; i++) {
++			addr = SUN50I_CSC_COEFF(base, i);
++			if (i > 3) {
++				if (((i - 3) & 3) == 1)
++					addr = SUN50I_CSC_COEFF(base, i + 1);
++				else if (((i - 3) & 3) == 2)
++					addr = SUN50I_CSC_COEFF(base, i - 1);
++			}
++			regmap_write(map, addr, csc[i]);
 +		}
++		break;
++	default:
++		val = 0;
++		DRM_WARN("Wrong CSC mode specified.\n");
++		return;
++	}
 +
-+		ret = of_syscon_register_regmap(dev_of_node(&pdev->dev), regmap);
-+		if (ret)
-+			goto err_assert_reset;
++	regmap_write(map, SUN8I_CSC_CTRL(base), val);
++}
++
+ static u32 sun8i_csc_get_mode(struct drm_plane_state *state)
+ {
+ 	const struct drm_format_info *format;
+@@ -238,6 +304,11 @@ void sun8i_csc_config(struct sun8i_layer *layer,
+ 				     mode, state->color_encoding,
+ 				     state->color_range);
+ 		return;
++	} else if (layer->cfg->de_type == SUN8I_MIXER_DE33) {
++		sun8i_de33_ccsc_setup(layer->regs, layer->channel,
++				      mode, state->color_encoding,
++				      state->color_range);
++		return;
  	}
  
- 	ret = devm_sunxi_ccu_probe(&pdev->dev, reg, ccu_desc);
+ 	base = ccsc_base[layer->cfg->ccsc][layer->channel];
+diff --git a/drivers/gpu/drm/sun4i/sun8i_csc.h b/drivers/gpu/drm/sun4i/sun8i_csc.h
+index 2a4b79599610..d2ba5f8611aa 100644
+--- a/drivers/gpu/drm/sun4i/sun8i_csc.h
++++ b/drivers/gpu/drm/sun4i/sun8i_csc.h
+@@ -18,9 +18,14 @@ struct sun8i_layer;
+ #define CCSC10_OFFSET 0xA0000
+ #define CCSC11_OFFSET 0xF0000
+ 
++#define DE33_CCSC_BASE 0x800
++
+ #define SUN8I_CSC_CTRL(base)		((base) + 0x0)
+ #define SUN8I_CSC_COEFF(base, i)	((base) + 0x10 + 4 * (i))
+ 
++#define SUN50I_CSC_COEFF(base, i)	((base) + 0x04 + 4 * (i))
++#define SUN50I_CSC_ALPHA(base)		((base) + 0x40)
++
+ #define SUN8I_CSC_CTRL_EN		BIT(0)
+ 
+ void sun8i_csc_config(struct sun8i_layer *layer,
 -- 
 2.54.0
 
