@@ -4,46 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E656CD3447
-	for <dri-devel@archiver.kernel.org>; Sat,  9 May 2026 20:19:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37DD8CD37B6
+	for <dri-devel@archiver.kernel.org>; Sat,  9 May 2026 20:19:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 380CA10E004;
-	Sat,  9 May 2026 20:19:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EEE510E00D;
+	Sat,  9 May 2026 20:19:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UWfQQIo7";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XFWcQF9p";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB9D810E010
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7FE210E00D
  for <dri-devel@lists.freedesktop.org>; Sat,  9 May 2026 20:19:15 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id C490960583;
+ by tor.source.kernel.org (Postfix) with ESMTP id 76A1360121;
  Sat,  9 May 2026 20:19:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 6D142C2BCC9;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0F0DEC2BCB2;
  Sat,  9 May 2026 20:19:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1778357954;
- bh=sKobk+YDd1KDXHb/w+YQFE4z2kSaytJsYIScKTJIRLI=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=UWfQQIo7N7BIFAHfwaSh9cVO/IfpuidmeWQ77vTLnGdSbgE/+k1D2DUqjavkeLVDp
- 5XF94OLgIwoo8pETBPfMXNxSQKvbM5RIVgIdUw/pvMP+TRHALvd7XV2oGlB5YW+FO+
- pomBBy0IuI3lwOYLqtHYXRaxBcnAqAinf4zJ+JikHuYpfU0KO3d5ZublSp9FwPVqIE
- m4K1n+ji74ez+erJC1Cpr4vbzHYI1dEStnaLZtd/GzGPqg5XFxGulsF6n+KFnBs/I2
- ceerGR4/ckaVMzzfYsvB7lOsVYJ/bEFCIYcefQbSPxfjEM8TGC7v2BbmLiwOygA1aY
- 980+XlqefE5jA==
+ bh=aAuuip6jS0fKuG58+qmMYaxBKre4x4rRCnB9dSliLlQ=;
+ h=From:Subject:Date:To:Cc:Reply-To:From;
+ b=XFWcQF9pAiMEID6GPheqRG9ZYwaZyvDhEPhMs2H9DE5qV/PoQGWlD/jkdb5i3cDX+
+ TMkqD48k2VHTG7Ni56pZruYgbYiN1I5V7R8YDjH7yj7rD9M/ai+/dJSmZTB+PO/c69
+ Z80hl6u24Md3athGlhBbY1Csa/GSrSsQzBa15ocGbRGtwlOfVVz1HLYSQ/Ij4J0NOU
+ joqVpxplI4y1OuzUoqASjiwcTRK3kTKWqYiXn76LDI3wMFhxP9a8E9KW/UYMVWBrUw
+ VqinzjVaKRpVqruc8VFSd1UMu1m0vNqnfp94q8PWO36ASzliQbJPpf1jvTiXu8S8QU
+ rC+Ob5o0daoOQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 3F56ACD342F;
- Sat,  9 May 2026 20:19:14 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id B3B9ACD342F;
+ Sat,  9 May 2026 20:19:13 +0000 (UTC)
 From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
-Date: Sat, 09 May 2026 15:18:57 -0500
-Subject: [PATCH 1/2] dt-bindings: display: panel: Add Chipone ICNA 35xx
- OLED driver bindings
+Subject: [PATCH 0/2] drm/panel: Add panel driver for Chipone ICNA35XX based
+ panels
+Date: Sat, 09 May 2026 15:18:56 -0500
+Message-Id: <20260509-icna35xx-v1-0-688d3d4e10f9@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260509-icna35xx-v1-1-688d3d4e10f9@gmail.com>
-References: <20260509-icna35xx-v1-0-688d3d4e10f9@gmail.com>
-In-Reply-To: <20260509-icna35xx-v1-0-688d3d4e10f9@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/02OywqDMBBFf0Vm3cBMgvHxK8XFJJm0WajVWLGI/
+ 16pmy7P5XI4O2SZk2Roix1mWVNO43AC3QrwTx4eolI4GTRqi1qjSn5gU26bEt9wZDJCzHDeX7P
+ EtP1U9+7iWab3aVyuERxnUX7s+7S0hTR10OSpQocUgkRjbURtnIs+WmeoxCZybeC/pC2uDqoUf
+ wY1+VyXJSqyHitnTRBt27WG7ji+bO+btdkAAAA=
+X-Change-ID: 20260220-icna35xx-ec9afa13e1aa
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
  Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>, 
@@ -52,13 +55,14 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Aaron Kling <webgeek1234@gmail.com>
+ linux-kernel@vger.kernel.org, Aaron Kling <webgeek1234@gmail.com>, 
+ Teguh Sobirin <teguh@sobir.in>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778357952; l=2511;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778357952; l=1595;
  i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
- bh=OoHb7X7TZvRfCQ5uqL7afSM0e2bjFFLjyQXyOiI00xA=;
- b=6uSNnSYmltzddc/2xXICoPnuSAxj8kHy+BduRcIiwJUtDRsx1fsu9VR9C40I6+EpNuFShQDrM
- waiAsJmX+gdCwfXaOi4846s8iVeqEYP5V6psVRWJrIshu46R3nRsS1i
+ bh=aAuuip6jS0fKuG58+qmMYaxBKre4x4rRCnB9dSliLlQ=;
+ b=W7yzeZSuAG+gNcWHDCymdVfQpoQHfwZMr+LHYNxrWwRcnGUx5J14Lwt2j8439cTAlRcDEM0wR
+ tbNtrRtqJaXDI9O7MjUmsS6rpxfUfIjPkJK4Yn4v3HrjfzLHlXX2UU8
 X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
  pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
 X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
@@ -80,103 +84,41 @@ Reply-To: webgeek1234@gmail.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Aaron Kling <webgeek1234@gmail.com>
+This driver is based on the one by Teguh Sobirin [0].
+    
+Due to [1], the AYN vendor description patch has been folded into the
+AYN QCS8550 dt series. Which means this series depends on said series
+and it must be picked up before this.
 
-The Chipone ICNA35xx series of DDICs are high refresh, low power
-MIPI-DSI drivers for OLED panels. The icna3512 is used by the Ayn Odin 2
-Portal and the icna3520 is used by the Ayn Thor top panel and the Ayn
-Odin 3.
+[0] https://github.com/AYNTechnologies/linux/commit/4c5e76e974db7cca853619ca138eecd8f004622f
+[1] https://lore.kernel.org/linux-arm-msm/c7fb3f89-6574-4761-9ef2-2fdf6d4801b5@kernel.org
 
 Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
 ---
- .../bindings/display/panel/chipone,icna35xx.yaml   | 77 ++++++++++++++++++++++
- 1 file changed, 77 insertions(+)
+Aaron Kling (1):
+      dt-bindings: display: panel: Add Chipone ICNA 35xx OLED driver bindings
 
-diff --git a/Documentation/devicetree/bindings/display/panel/chipone,icna35xx.yaml b/Documentation/devicetree/bindings/display/panel/chipone,icna35xx.yaml
-new file mode 100644
-index 00000000000000..3c497a40101732
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/panel/chipone,icna35xx.yaml
-@@ -0,0 +1,77 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/panel/chipone,icna35xx.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Chipone ICNA35xx display drivers
-+
-+maintainers:
-+  - Neil Armstrong <neil.armstrong@linaro.org>
-+
-+description:
-+  The Chipone ICNA35xx are a series of DDICs connected
-+  using a MIPI-DSI video interface.
-+
-+allOf:
-+  - $ref: panel-common.yaml#
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - items:
-+          - const: ayntec,odin2portal-panel
-+          - const: chipone,icna3512
-+
-+      - items:
-+          - enum:
-+            - ayntec,odin3-panel
-+            - ayntec,thor-panel-top
-+          - const: chipone,icna3520
-+
-+  reg:
-+    maxItems: 1
-+    description: DSI virtual channel
-+
-+  vdd-supply: true
-+  vddio-supply: true
-+  vci-supply: true
-+  disp-supply: true
-+  blvdd-supply: true
-+
-+  port: true
-+  reset-gpios: true
-+  rotation: true
-+
-+required:
-+  - compatible
-+  - reg
-+  - vdd-supply
-+  - vddio-supply
-+  - vci-supply
-+  - disp-supply
-+  - blvdd-supply
-+  - reset-gpios
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    dsi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+        panel@0 {
-+            compatible = "ayntec,odin2portal-panel", "chipone,icna3512";
-+            reg = <0>;
-+            vdd-supply = <&vreg_l11b_1p2>;
-+            vddio-supply = <&vreg_l12b_1p8>;
-+            vci-supply = <&vreg_l13b_3p0>;
-+            disp-supply = <&vdd_disp_2v8>;
-+            blvdd-supply = <&vdd_bl_5v0>;
-+            reset-gpios = <&tlmm 133 GPIO_ACTIVE_LOW>;
-+        };
-+    };
-+
-+...
+Teguh Sobirin (1):
+      drm/panel: Add panel driver for Chipone ICNA35XX based panels
 
+ .../bindings/display/panel/chipone,icna35xx.yaml   |  77 +++
+ drivers/gpu/drm/panel/Kconfig                      |  11 +
+ drivers/gpu/drm/panel/Makefile                     |   1 +
+ drivers/gpu/drm/panel/panel-chipone-icna35xx.c     | 618 +++++++++++++++++++++
+ 4 files changed, 707 insertions(+)
+---
+base-commit: e98d21c170b01ddef366f023bbfcf6b31509fa83
+change-id: 20260220-icna35xx-ec9afa13e1aa
+prerequisite-change-id: 20260217-ayn-qcs8550-16c07b63de26:v8
+prerequisite-patch-id: 2b010637c46f5ea0e19a2fa87cc5ccb19bfd9204
+prerequisite-patch-id: d0c633dc17f0aba726a8e8d21fee52b944bf67ff
+prerequisite-patch-id: 11f4208bd788df984cec7404088c7d071ec49dfc
+prerequisite-patch-id: 76b61799dba520fc7fa3ff39b044e24103337af3
+prerequisite-patch-id: 3844bef2eda3cf59031b1d131eb6ba9295629bb4
+prerequisite-patch-id: 3331648bc6f4ac3bb156f0525aa1ede92bfc57f1
+
+Best regards,
 -- 
-2.53.0
+Aaron Kling <webgeek1234@gmail.com>
 
 
