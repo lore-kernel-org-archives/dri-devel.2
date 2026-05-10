@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3E35CD37B6
-	for <dri-devel@archiver.kernel.org>; Sun, 10 May 2026 12:43:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7340CD37B6
+	for <dri-devel@archiver.kernel.org>; Sun, 10 May 2026 12:44:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5DF710E42A;
-	Sun, 10 May 2026 12:43:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 405A910E42F;
+	Sun, 10 May 2026 12:44:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="wP7oJ2eS";
+	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="beXzSnvy";
 	dkim-atps=neutral
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5888310E42A
- for <dri-devel@lists.freedesktop.org>; Sun, 10 May 2026 12:43:00 +0000 (UTC)
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0405610E42F
+ for <dri-devel@lists.freedesktop.org>; Sun, 10 May 2026 12:44:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
  h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
  Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=fe-e1b5cab7be;
- t=1778416979; bh=UqGGh3H1sUTh9W3shIilOvORsLiwtCTjl7edRaUY1bI=;
- b=wP7oJ2eS6eLqj9yJA61HfxP5koSCscCZFhamxoZwMI7XyGIGRYw0q2vBahFUB3TqNLFVNNnKs
- fl/PGxJr4Yhz/q6aOQ/mjDjAYhC8c7tWmkONKBWmN/C4mhdYdw3XvAOQlZ1jck1YNOzrch6nnZf
- MgOr4dr1D8NmuUO0vFmVMTvwRR1xZSFI+nDv4kc21AA62+G0iz+KqJZQOigkqrfBskNkfbnrhw8
- vcpAF1iml2Ro0OlibTzmlJZ/A6rhhR+m9FpCq0y+mUN3MzMEC1ZqwYWXquaIwMYqxIlN0hzZivl
- GR4nsBK/ORZvbDeFuW9pCpVKk3tI8Ovd9h5nb9fBlAxA==
-X-Forward-Email-ID: 6a007d4f0d91f03a31a0bd8d
+ t=1778417040; bh=FPyGIfy6tY3Ib0+R0H0zIti0uHXNzPySOI4BX163cU0=;
+ b=beXzSnvyZyXhQDQkeclfHMAeTdc42vMQJtMfC/pEdAXbBCoZ7BxlVSUA/fbHmd2obaBpL15ty
+ BmKwdU4lYXnpwC+1kH0+IDnxjdJ+tLRfB6o4Vl6KNr734+jeywCs9FjrlcK3TM5/v941Yk3GQxL
+ Xlt8qp6tN3DmKYUAKbqcpLnmArdod4Ju2Fwk0weVvmzDlW5jgChNSAmhqVsCBW2wMItwabofNia
+ MM/WHvynG5jLT9NZSfnTtQffQpMItmdKCdsXiP/sDSUFuR/wV2Re+euhERiqLpuTjTuW6zV5XCU
+ dGdbgxV5Co4eYH+YVeGqYUIm1Lf9kb2o+HZku2I7NoMQ==
+X-Forward-Email-ID: 6a007d1b0d91f03a31a0bc58
 X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
- 121.127.44.73
+ 149.28.215.223
 X-Forward-Email-Version: 2.8.0
 X-Forward-Email-Website: https://forwardemail.net
 X-Complaints-To: abuse@forwardemail.net
@@ -53,10 +53,9 @@ Cc: Liu Ying <victor.liu@nxp.com>, Sandy Huang <hjc@rock-chips.com>,
  linux-rockchip@lists.infradead.org, linux-amlogic@lists.infradead.org,
  linux-sunxi@lists.linux.dev, imx@lists.linux.dev,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v5 21/21] drm: bridge: dw_hdmi: Drop call to
- drm_bridge_hpd_notify()
-Date: Sun, 10 May 2026 12:41:05 +0000
-Message-ID: <20260510124111.1226584-22-jonas@kwiboo.se>
+Subject: [PATCH v5 10/21] drm: bridge: dw_hdmi: Remove cec_notifier_mutex
+Date: Sun, 10 May 2026 12:40:54 +0000
+Message-ID: <20260510124111.1226584-11-jonas@kwiboo.se>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260510124111.1226584-1-jonas@kwiboo.se>
 References: <20260510124111.1226584-1-jonas@kwiboo.se>
@@ -77,134 +76,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The use of calls to both drm_helper_hpd_irq_event() and
-drm_bridge_hpd_notify() in HPD delayed_work may cause multiple hotplug
-uevents and modesets when the bridge connector is used.
+With CEC phys addr invalidation moved away from the irq handler there is
+no longer a need for cec_notifier_mutex, remove it.
 
-Use of drm_helper_hpd_irq_event() cause the internal DRM function
-check_connector_changed() to be called, which in turn calls the
-connector detect()/force() funcs to detect any connection status or
-epoch changes, and when changed trigger a hotplug uevent. For dw-hdmi
-connector this also help ensure that EDID and CEC phys addr is updated.
-
-If only a call drm_bridge_hpd_notify() would be used, a custom connector
-status/EDID change detection logic needs to be implemented, to fully
-match what check_connector_changed() already provides. Update of EDID
-and CEC phys addr typically is delayed until userspace trigger a modeset
-and fill_modes()/get_modes() ops is called.
-
-The bridge connector detect() func also ensures that any hpd_notify()
-funcs are called for all bridges in the chain, so there is not really
-any need to have a call to drm_bridge_hpd_notify() here.
-
-With both calls there is two hotplug uevents, two modesets and a total
-of four .hpd_notify() calls (using a bridge connector):
-
-  dw_hdmi_hardirq(): EVENT=plugout
-  dw_hdmi_hpd_work()
-  drm_helper_hpd_irq_event():
-    dw_hdmi_bridge_hpd_notify(status=2)
-    [drm:check_connector_changed] [CONNECTOR:46:HDMI-A-1] status updated from connected to disconnected
-    [drm:check_connector_changed] [CONNECTOR:46:HDMI-A-1] Changed epoch counter 1 => 2
-    [drm:drm_sysfs_connector_hotplug_event] [CONNECTOR:46:HDMI-A-1] generating connector hotplug event
-   drm_client_hotplug():
-    [drm:drm_fb_helper_hotplug_event]
-    [drm:drm_client_modeset_probe]
-    [drm:drm_helper_probe_single_connector_modes] [CONNECTOR:46:HDMI-A-1]
-    dw_hdmi_bridge_hpd_notify(status=2)
-    [drm:drm_helper_probe_single_connector_modes] [CONNECTOR:46:HDMI-A-1] disconnected
-    [drm:drm_edid_connector_update] [CONNECTOR:46:HDMI-A-1] EDID changed, epoch counter 3
-    [drm:drm_client_modeset_probe] No connectors reported connected with modes
-    [drm:drm_client_modeset_probe] [CONNECTOR:46:HDMI-A-1] enabled? no
-    [drm:drm_client_firmware_config.isra.0] Not using firmware configuration
-    [drm:drm_client_modeset_probe] picking CRTCs for 3840x2160 config
-    [drm:drm_client_hotplug] fbdev: ret=0
-  drm_bridge_hpd_notify():
-    dw_hdmi_bridge_hpd_notify(status=2)
-    [drm:drm_sysfs_connector_hotplug_event] [CONNECTOR:46:HDMI-A-1] generating connector hotplug event
-   drm_client_hotplug():
-    [drm:drm_fb_helper_hotplug_event]
-    [drm:drm_client_modeset_probe]
-    [drm:drm_helper_probe_single_connector_modes] [CONNECTOR:46:HDMI-A-1]
-    dw_hdmi_bridge_hpd_notify(status=2)
-    [drm:drm_helper_probe_single_connector_modes] [CONNECTOR:46:HDMI-A-1] disconnected
-    [drm:drm_client_modeset_probe] No connectors reported connected with modes
-    [drm:drm_client_modeset_probe] [CONNECTOR:46:HDMI-A-1] enabled? no
-    [drm:drm_client_firmware_config.isra.0] Not using firmware configuration
-    [drm:drm_client_modeset_probe] picking CRTCs for 3840x2160 config
-    [drm:drm_client_hotplug] fbdev: ret=0
-
-Change to only call drm_helper_hpd_irq_event() in HPD delayed_work to
-ensure there is only one hotplug uevent and that EDID and CEC phys addr
-is updated in a timely manner, independent from userspace having to
-react the hotplug uevent.
-
-With only a call the drm_helper_hpd_irq_event() there is only a single
-hotplug uevent and only two .hpd_notify() calls:
-
-  dw_hdmi_hardirq(): EVENT=plugout
-  dw_hdmi_hpd_work()
-  drm_helper_hpd_irq_event():
-    dw_hdmi_bridge_hpd_notify(status=2)
-    [drm:check_connector_changed] [CONNECTOR:46:HDMI-A-1] status updated from connected to disconnected
-    [drm:check_connector_changed] [CONNECTOR:46:HDMI-A-1] Changed epoch counter 1 => 2
-    [drm:drm_sysfs_connector_hotplug_event] [CONNECTOR:46:HDMI-A-1] generating connector hotplug event
-   drm_client_hotplug():
-    [drm:drm_fb_helper_hotplug_event]
-    [drm:drm_client_modeset_probe]
-    [drm:drm_helper_probe_single_connector_modes] [CONNECTOR:46:HDMI-A-1]
-    dw_hdmi_bridge_hpd_notify(status=2)
-    [drm:drm_helper_probe_single_connector_modes] [CONNECTOR:46:HDMI-A-1] disconnected
-    [drm:drm_edid_connector_update] [CONNECTOR:46:HDMI-A-1] EDID changed, epoch counter 3
-    [drm:drm_client_modeset_probe] No connectors reported connected with modes
-    [drm:drm_client_modeset_probe] [CONNECTOR:46:HDMI-A-1] enabled? no
-    [drm:drm_client_firmware_config.isra.0] Not using firmware configuration
-    [drm:drm_client_modeset_probe] picking CRTCs for 3840x2160 config
-    [drm:drm_client_hotplug] fbdev: ret=0
-
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
 ---
-v5: New patch
+v5: No change, cec_notifier_conn_unregister() call moved
+v4: No change
+v3: No change
+v2: Collect r-b tag
 ---
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 20 +++++++++++++++++---
- 1 file changed, 17 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 11 +----------
+ 1 file changed, 1 insertion(+), 10 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-index 2ea8ce5eca36..d9c9d03f8eff 100644
+index aae1b890167b..0dd4c823c60a 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-@@ -3019,14 +3019,28 @@ static irqreturn_t dw_hdmi_hardirq(int irq, void *dev_id)
- static void dw_hdmi_hpd_work(struct work_struct *work)
- {
- 	struct dw_hdmi *hdmi = container_of(work, struct dw_hdmi, hpd_work.work);
--	enum drm_connector_status status;
+@@ -189,7 +189,6 @@ struct dw_hdmi {
+ 	void (*enable_audio)(struct dw_hdmi *hdmi);
+ 	void (*disable_audio)(struct dw_hdmi *hdmi);
  
- 	if (WARN_ON(!hdmi->bridge.dev))
- 		return;
+-	struct mutex cec_notifier_mutex;
+ 	struct cec_notifier *cec_notifier;
  
-+	/*
-+	 * Notify the DRM core of the HPD event using drm_helper_hpd_irq_event()
-+	 * instead of drm_bridge_hpd_notify(). This will cause the DRM function
-+	 * check_connector_changed() to be called, which in turn calls the
-+	 * connector detect()/force() funcs to detect any connection status or
-+	 * epoch changes. Something that also triggers EDID and CEC phys address
-+	 * updates.
-+	 *
-+	 * If we were to instead call drm_bridge_hpd_notify() here, we would
-+	 * have to implement a very similar change detection logic or fully
-+	 * relay on userspace to react on a hotplug uevent to ensure EDID and
-+	 * CEC phys address are updated.
-+	 *
-+	 * The bridge connector detect() func also ensures that hpd_notify()
-+	 * funcs are called for all bridges in the chain.
-+	 */
-+
- 	drm_helper_hpd_irq_event(hdmi->bridge.dev);
--	status = dw_hdmi_phy_read_hpd(hdmi, hdmi->phy.data);
--	drm_bridge_hpd_notify(&hdmi->bridge, status);
+ 	hdmi_codec_plugged_cb plugged_cb;
+@@ -2476,11 +2475,8 @@ dw_hdmi_connector_detect(struct drm_connector *connector, bool force)
+ 
+ 	status = dw_hdmi_detect(hdmi);
+ 
+-	if (status == connector_status_disconnected) {
+-		mutex_lock(&hdmi->cec_notifier_mutex);
++	if (status == connector_status_disconnected)
+ 		cec_notifier_phys_addr_invalidate(hdmi->cec_notifier);
+-		mutex_unlock(&hdmi->cec_notifier_mutex);
+-	}
+ 
+ 	return status;
  }
+@@ -2542,10 +2538,8 @@ static void dw_hdmi_connector_destroy(struct drm_connector *connector)
+ {
+ 	struct dw_hdmi *hdmi = container_of(connector, struct dw_hdmi, connector);
  
- static const struct dw_hdmi_phy_data dw_hdmi_phys[] = {
+-	mutex_lock(&hdmi->cec_notifier_mutex);
+ 	cec_notifier_conn_unregister(hdmi->cec_notifier);
+ 	hdmi->cec_notifier = NULL;
+-	mutex_unlock(&hdmi->cec_notifier_mutex);
+ 
+ 	drm_connector_cleanup(connector);
+ 	drm_bridge_put(&hdmi->bridge);
+@@ -2612,9 +2606,7 @@ static int dw_hdmi_connector_create(struct dw_hdmi *hdmi)
+ 	if (!notifier)
+ 		return -ENOMEM;
+ 
+-	mutex_lock(&hdmi->cec_notifier_mutex);
+ 	hdmi->cec_notifier = notifier;
+-	mutex_unlock(&hdmi->cec_notifier_mutex);
+ 
+ 	return 0;
+ }
+@@ -3323,7 +3315,6 @@ struct dw_hdmi *dw_hdmi_probe(struct platform_device *pdev,
+ 
+ 	mutex_init(&hdmi->mutex);
+ 	mutex_init(&hdmi->audio_mutex);
+-	mutex_init(&hdmi->cec_notifier_mutex);
+ 	spin_lock_init(&hdmi->audio_lock);
+ 
+ 	ddc_node = of_parse_phandle(np, "ddc-i2c-bus", 0);
 -- 
 2.54.0
 
