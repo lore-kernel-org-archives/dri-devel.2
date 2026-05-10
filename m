@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C19ACD37B7
-	for <dri-devel@archiver.kernel.org>; Sun, 10 May 2026 18:32:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5F8DCD37B5
+	for <dri-devel@archiver.kernel.org>; Sun, 10 May 2026 18:32:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6D7910E13B;
-	Sun, 10 May 2026 18:32:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E6B2110E228;
+	Sun, 10 May 2026 18:32:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="tuus9Nsf";
+	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="MwWskJBA";
 	dkim-atps=neutral
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 260BD10E228
- for <dri-devel@lists.freedesktop.org>; Sun, 10 May 2026 18:31:59 +0000 (UTC)
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1274710E13B
+ for <dri-devel@lists.freedesktop.org>; Sun, 10 May 2026 18:31:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
- h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
- Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=fe-e1b5cab7be;
- t=1778437915; bh=VXsm+Lz0ARZMn6U4p+eyz1KbjJttmC6qCFCIJTnnoGU=;
- b=tuus9Nsf2DX+mh5d5lKujaZu8WnKNUYppUgMXGb6zFHtjqkF6vLw72cV8fNQrhfwhEH0pnYo2
- s4Ro9tODKAI5Pu0FYnHTdDU0YlNbXlOnbz0jE9DHB9OmDgtWHxO6hSG1ANcff+VBAJJjgs3R4Gj
- 7Z83x/Suq2gpVzRyiW6TcZYrC8jSIoLw3OutUu5z46DvWygsH4WdfF42VQDWcH47yOiHHx4nTvf
- Jt8f2btu3K8mcMEKvCm/XeeSSvKvAiDZ8bIIcQCVxKwvWHQgLe7+ZppxE1P4vBTW70kTsY/MS25
- zOIg47lyZDrCdcmxh5AzwJSrstOTn/j5u7AQV43jgxGg==
-X-Forward-Email-ID: 6a00cf0761db3ab145b0f277
+ h=Content-Transfer-Encoding: MIME-Version: Message-ID: Date: Subject: Cc:
+ To: From; q=dns/txt; s=fe-e1b5cab7be; t=1778437915;
+ bh=LWC2Dyj1Ts06tYFJbPdEZrK3i8UqPILa8yBO4xt6oB4=;
+ b=MwWskJBAIczJicajBTtTcQ0ulmNvXwnNjEH3T0Perj/B0n9BF7WX0ANZlGFobDFfZJW/Lmq4e
+ sXU0C2JrNMWpv3ccLOnkSUCujRyguLu0lpX0z10CARoMQxd1eKrgj81Vk9DJWQ5ZOMBhqP5KjWF
+ +W+2UrbNR6uOquDMfR64Avv5Ckgb9BKCXwk37ZVObazPghR11bhYwX8ROU3Xt3V2DIGqNOs1f+c
+ 6kS7kLEJ5evz6W38hpq+icJmS8+yOp7LGgrV2dRIeCssvCXQwFTwHDC4Mw88sQnpc6HbHkVUEo8
+ hiUUr6u1c39vFOn3GBc3k+VmNQyiszq38Aerd68hCFdw==
+X-Forward-Email-ID: 6a00cef861db3ab145b0f20b
 X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
- 121.127.44.73
+ 149.28.215.223
 X-Forward-Email-Version: 2.8.0
 X-Forward-Email-Website: https://forwardemail.net
 X-Complaints-To: abuse@forwardemail.net
@@ -34,21 +34,18 @@ X-Report-Abuse: abuse@forwardemail.net
 X-Report-Abuse-To: abuse@forwardemail.net
 From: Jonas Karlman <jonas@kwiboo.se>
 To: =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
- Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Jonas Karlman <jonas@kwiboo.se>
-Subject: [PATCH 04/10] drm/rockchip: dw_hdmi: Inline resource lookup into
- bind()
-Date: Sun, 10 May 2026 18:31:05 +0000
-Message-ID: <20260510183114.1248840-5-jonas@kwiboo.se>
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Jonas Karlman <jonas@kwiboo.se>
+Subject: [PATCH 00/10] drm/rockchip: dw_hdmi: Misc cleanup and propagate bus
+ format
+Date: Sun, 10 May 2026 18:31:01 +0000
+Message-ID: <20260510183114.1248840-1-jonas@kwiboo.se>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260510183114.1248840-1-jonas@kwiboo.se>
-References: <20260510183114.1248840-1-jonas@kwiboo.se>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -66,111 +63,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Inline rockchip_hdmi_parse_dt() into dw_hdmi_rockchip_bind() so the
-probe path is easier to follow in one place. Also ensure failures in
-bind() use dev_err_probe() so probe deferrals and errors are reported
-consistently.
+This series include misc cleanup of the dwhdmi-rockchip driver and
+prepares for future support of YCbCr output and Deep Color modes.
 
-Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
----
- drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c | 74 +++++++++------------
- 1 file changed, 30 insertions(+), 44 deletions(-)
+Patch 1-7 cleanup and changes to use drmres helpers for the encoder.
+Patch 8 prepare for use of a display-connector bridge for RK3568/RK3566.
+Patch 9-10 prepares for future support of YCbCr and Deep Color modes.
 
-diff --git a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
-index 982d0829f278..c5cdf2d1f04b 100644
---- a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
-@@ -196,41 +196,6 @@ static const struct dw_hdmi_phy_config rockchip_phy_config[] = {
- 	{ ~0UL,	     0x0000, 0x0000, 0x0000}
- };
- 
--static int rockchip_hdmi_parse_dt(struct rockchip_hdmi *hdmi)
--{
--	struct device_node *np = hdmi->dev->of_node;
--	int ret;
--
--	hdmi->regmap = syscon_regmap_lookup_by_phandle(np, "rockchip,grf");
--	if (IS_ERR(hdmi->regmap)) {
--		dev_err(hdmi->dev, "Unable to get rockchip,grf\n");
--		return PTR_ERR(hdmi->regmap);
--	}
--
--	hdmi->ref_clk = devm_clk_get_optional_enabled(hdmi->dev, "ref");
--	if (!hdmi->ref_clk)
--		hdmi->ref_clk = devm_clk_get_optional_enabled(hdmi->dev, "vpll");
--
--	if (IS_ERR(hdmi->ref_clk)) {
--		ret = PTR_ERR(hdmi->ref_clk);
--		return dev_err_probe(hdmi->dev, ret, "failed to get reference clock\n");
--	}
--
--	hdmi->grf_clk = devm_clk_get_optional(hdmi->dev, "grf");
--	if (IS_ERR(hdmi->grf_clk)) {
--		ret = PTR_ERR(hdmi->grf_clk);
--		return dev_err_probe(hdmi->dev, ret, "failed to get grf clock\n");
--	}
--
--	ret = devm_regulator_get_enable(hdmi->dev, "avdd-0v9");
--	if (ret)
--		return ret;
--
--	ret = devm_regulator_get_enable(hdmi->dev, "avdd-1v8");
--
--	return ret;
--}
--
- static enum drm_mode_status
- dw_hdmi_rockchip_mode_valid(struct dw_hdmi *dw_hdmi, void *data,
- 			    const struct drm_display_info *info,
-@@ -578,18 +543,39 @@ static int dw_hdmi_rockchip_bind(struct device *dev, struct device *master,
- 	 * the required CRTC is added later.
- 	 */
- 	if (encoder->possible_crtcs == 0)
--		return -EPROBE_DEFER;
-+		return dev_err_probe(dev, -EPROBE_DEFER,
-+				     "failed to find possible crtcs\n");
- 
--	ret = rockchip_hdmi_parse_dt(hdmi);
--	if (ret) {
--		return dev_err_probe(dev, ret, "Unable to parse OF data\n");
--	}
-+	hdmi->regmap = syscon_regmap_lookup_by_phandle(np, "rockchip,grf");
-+	if (IS_ERR(hdmi->regmap))
-+		return dev_err_probe(dev, PTR_ERR(hdmi->regmap),
-+				     "failed to get rockchip,grf\n");
-+
-+	hdmi->ref_clk = devm_clk_get_optional_enabled(dev, "ref");
-+	if (!hdmi->ref_clk)
-+		hdmi->ref_clk = devm_clk_get_optional_enabled(dev, "vpll");
-+
-+	if (IS_ERR(hdmi->ref_clk))
-+		return dev_err_probe(dev, PTR_ERR(hdmi->ref_clk),
-+				     "failed to get reference clock\n");
-+
-+	hdmi->grf_clk = devm_clk_get_optional(dev, "grf");
-+	if (IS_ERR(hdmi->grf_clk))
-+		return dev_err_probe(dev, PTR_ERR(hdmi->grf_clk),
-+				     "failed to get grf clock\n");
-+
-+	ret = devm_regulator_get_enable(dev, "avdd-0v9");
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to enable avdd-0v9\n");
-+
-+	ret = devm_regulator_get_enable(dev, "avdd-1v8");
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to enable avdd-1v8\n");
- 
- 	hdmi->phy = devm_phy_optional_get(dev, "hdmi");
--	if (IS_ERR(hdmi->phy)) {
--		ret = PTR_ERR(hdmi->phy);
--		return dev_err_probe(dev, ret, "failed to get phy\n");
--	}
-+	if (IS_ERR(hdmi->phy))
-+		return dev_err_probe(dev, PTR_ERR(hdmi->phy),
-+				     "failed to get phy\n");
- 
- 	index = of_property_match_string(np, "phy-names", "hdmi");
- 	if (index >= 0) {
+This series depends on the patch "drm/rockchip: dw_hdmi: avoid direct
+dereference of phy->dev.of_node" [1] from the series "Split Generic PHY
+consumer and provider API" [2].
+
+[1] https://lore.kernel.org/linux-phy/20260505100523.1922388-16-vladimir.oltean@nxp.com/
+[2] https://lore.kernel.org/linux-phy/20260505100523.1922388-1-vladimir.oltean@nxp.com/
+
+This series is part of a multi series effort to:
+- phy: rockchip: inno-hdmi: Change TMDS rate handling to configure() ops [v2]
+- drm/rockchip: dw_hdmi: Misc cleanup and propagate bus format [v1]
+- drm: bridge: dw_hdmi: Misc enable/disable, CEC and EDID cleanup [v5]
+- drm/bridge: dw-hdmi: Improve input/output bus format handling
+- drm/bridge: dw-hdmi: Convert to a HDMI bridge and use of bridge connector
+- drm/bridge: dw-hdmi: Add and use tmds_char_rate_valid() plat data ops
+- drm/meson: hdmi: Misc cleanup and use CEC notifier helpers
+- drm/rockchip: dw_hdmi: Enable YCbCr and Deep Color modes
+Link to snapshot: https://github.com/Kwiboo/linux-rockchip/commits/next-20260508-rk-hdmi-v3/
+
+Jonas Karlman (10):
+  drm/rockchip: dw_hdmi: Use of_device_get_match_data() to get match
+    data
+  drm/rockchip: dw_hdmi: Use local dev variable consistently in bind()
+  drm/rockchip: dw_hdmi: Use drmres helpers for encoder resources
+  drm/rockchip: dw_hdmi: Inline resource lookup into bind()
+  drm/rockchip: dw_hdmi: Hold a reference to the dw-hdmi bridge
+  drm/rockchip: dw_hdmi: Remove empty encoder helper funcs
+  drm/rockchip: dw_hdmi: Clean up whitespace
+  drm/rockchip: dw_hdmi: Set output_port for RK3568/RK3566
+  drm/rockchip: dw_hdmi: Configure HDMI PHY in atomic_mode_set()
+  drm/rockchip: dw_hdmi: Propagate bus format to display driver
+
+ drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c | 220 ++++++++++++--------
+ 1 file changed, 129 insertions(+), 91 deletions(-)
+
 -- 
 2.54.0
 
