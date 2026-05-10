@@ -4,59 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 537B5CD3427
-	for <dri-devel@archiver.kernel.org>; Sun, 10 May 2026 19:13:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 904D7CD3427
+	for <dri-devel@archiver.kernel.org>; Sun, 10 May 2026 19:15:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B8E710E0C6;
-	Sun, 10 May 2026 19:13:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF1BD10E24B;
+	Sun, 10 May 2026 19:15:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="gQucZzt3";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="ThueMIGu";
 	dkim-atps=neutral
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4F9310E1D1
- for <dri-devel@lists.freedesktop.org>; Sun, 10 May 2026 19:13:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
- h=Content-Transfer-Encoding: Content-Type: In-Reply-To: From: References:
- Cc: To: Subject: MIME-Version: Date: Message-ID; q=dns/txt;
- s=fe-e1b5cab7be; t=1778440388;
- bh=8NtVp+XegjZHVec+TG++C7hqL/jdKwHQkADv6jK3v0Y=;
- b=gQucZzt3wvGaZTTC+r9JlsPRrttGYGHcogvVMqwaww+48Dbt7yi/bDRAqM1r6978vLGCYrIsr
- Uxz3nK2h0CKJRnOkB0U+fsQw2wAGP9YQE5A74zPsU5ibW/Boe9POqJisvzwxYcwMZrv6hBNxjFe
- 4geqIcKsNKzQGprG0Li/rZtBXZdhNd9vjkrGDju6K58leGrlSrhUrwnDimShoghBw95zjd0cmSj
- gR1ZcYBv3v4J8P8dz6MayU9lNQeahedXvB36d0yPAyj573UJMrYQxuwbKygxMV9z0z4+1KbT2SU
- djQ+ERW1sIrTPfIKWYHAN08u/CLOdeFT54ckpLsIXPvw==
-X-Forward-Email-ID: 6a00d88e8983a631c215f734
-X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
- 121.127.44.66
-X-Forward-Email-Version: 2.8.0
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
-Message-ID: <53e09f70-c449-49bb-b2a0-636d5d4bd395@kwiboo.se>
-Date: Sun, 10 May 2026 21:12:08 +0200
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F18F710E24B
+ for <dri-devel@lists.freedesktop.org>; Sun, 10 May 2026 19:15:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1778440527;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=L5ghcGO/uZykueCouYPVSIKgvYjawm0B2pG8CDHe00c=;
+ b=ThueMIGumNKNPVfcZotai6M2UrD18fxe4bf6C4ZOhNX/jfmqeCqCWWgrdmDOyuSG4pYI9F
+ p0V/gdeP+C0CzNj3bU2RH/SWt8/Ax5MDwVmA0uvVaLaQ2kuIJvwp3EU+4+R+N+WUhd9uGi
+ sj4tBWoxu7lTsbUhhusywG1aUHA7lfU=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-675-oACq_cC9Mdibg5yvUSKojg-1; Sun, 10 May 2026 15:15:25 -0400
+X-MC-Unique: oACq_cC9Mdibg5yvUSKojg-1
+X-Mimecast-MFC-AGG-ID: oACq_cC9Mdibg5yvUSKojg_1778440524
+Received: by mail-wm1-f72.google.com with SMTP id
+ 5b1f17b1804b1-48a5952c635so41265275e9.2
+ for <dri-devel@lists.freedesktop.org>; Sun, 10 May 2026 12:15:24 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778440524; x=1779045324;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=L5ghcGO/uZykueCouYPVSIKgvYjawm0B2pG8CDHe00c=;
+ b=tJVCbsT1KGkFpG/P0tge/sGTRh+DUEk6Z0yf/jJKFTVmfqlMOasNfNbLGMEwouxt0o
+ pKgg8Y8usepJhQB19473/tamFGC2/LMJ6sJ/Ckb8737PXKu9IBSdOxxRlL3jFaE+n8Th
+ eRtRbQK2ZvUPIfFVVyHsgEUPfPJANJx+tqzgeV6d9z1j1TKR20cxYVSSBkyidOoWN8aR
+ wWykWKa0XCQ+oKP5YuO+4BlaUJNZmC6HXhzY4M7zwFjLYC7s+jrHXlu1Chp4E51o5boK
+ obuNfWzxwS/+8Z0Ip1j4frzA4WHXjuPCRL9wlFLZyJmZyGU23XRyPdGmuH3XlBhXFJzh
+ wxVg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+bcw5rTWe2lY9Ps/3c2epjzDWKaDraAJB6kxfyYTrO4k/qqSE22T5/cE2+mIoGHOzMMva4CFJchL0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywsha8Db3hCcnNg3auTlC9zxEfNn+pPsgVfmJ6kGgj94YC8mKOC
+ xu/IW78X9/lkTBjlvfR4TaZYeyC8aBjldpbzKkGSTuYHIrVb86vfvTXaf/MrXBc2UANZMzzDZsf
+ 4DfU8BFC0ypk2nOTdpNbjlPGBmBmoSISwUtFelbTqmlRYjQHhdUVra9FnyaQo+3FqpjZPLg==
+X-Gm-Gg: Acq92OHcDp3C4/9n29wgw+5rP1FdA3JgCWAob/HdOPxRqn8kwj22w908gxS0SlfNcps
+ 1YM0KgPq4jI0h/g6VkhYGjWbIhUTiwpQrWBpVmTuTYlWJQAe+5WpQX7BnU1/Lb0iDS5aU+RS/rt
+ o9xXKOyzDvXQIXkHME2IJOCvx52xlVKPx6ybmI83U6sbE3eWQ4agkXZTbHhrKDgsM7KF4n4aoN0
+ 5QGZWXnEgMe/ABF8bSJG5rMp6VWYThwI3uq1dLwNP0cWpMSfSRER/UTR44useTx5Wqwv6unLeWs
+ uri9bCJ2eI3mCBt5oLwxZ3gs7hVaHe7bjbrK9QDSS4Xu6nJGCp/9CLigYlre/D14DmL8T7EWXoS
+ 39FOAYIyuz88VkRt4CsEvML/iNFixuqIkSMN9nvZ2YTaKtRA=
+X-Received: by 2002:a05:600c:8907:b0:48a:65ad:1881 with SMTP id
+ 5b1f17b1804b1-48e51f32a46mr277826395e9.13.1778440523896; 
+ Sun, 10 May 2026 12:15:23 -0700 (PDT)
+X-Received: by 2002:a05:600c:8907:b0:48a:65ad:1881 with SMTP id
+ 5b1f17b1804b1-48e51f32a46mr277826135e9.13.1778440523384; 
+ Sun, 10 May 2026 12:15:23 -0700 (PDT)
+Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-48e6db0ec25sm48506205e9.24.2026.05.10.12.15.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 10 May 2026 12:15:22 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: linux-kernel@vger.kernel.org
+Cc: Javier Martinez Canillas <javierm@redhat.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, David Airlie <airlied@gmail.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Phong LE <ple@baylibre.com>,
+ Robert Foss <rfoss@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org
+Subject: [PATCH 0/3] drm/bridge: it66121: Fix display output on DVI monitors
+Date: Sun, 10 May 2026 21:14:46 +0200
+Message-ID: <20260510191459.90769-1-javierm@redhat.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 3/4] drm/rockchip: dw_hdmi: Apply
- DRM_BRIDGE_ATTACH_NO_CONNECTOR and the bridge-connector
-To: Damon Ding <damon.ding@rock-chips.com>
-Cc: andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, hjc@rock-chips.com, heiko@sntech.de,
- andy.yan@rock-chips.com, wens@kernel.org, samuel@sholland.org,
- luca.ceresoli@bootlin.com, Laurent.pinchart@ideasonboard.com,
- jernej.skrabec@gmail.com, victor.liu@nxp.com,
- dmitry.baryshkov@oss.qualcomm.com, shengjiu.wang@nxp.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-sunxi@lists.linux.dev
-References: <20260403070032.447102-1-damon.ding@rock-chips.com>
- <20260403070032.447102-4-damon.ding@rock-chips.com>
-Content-Language: en-US
-From: Jonas Karlman <jonas@kwiboo.se>
-In-Reply-To: <20260403070032.447102-4-damon.ding@rock-chips.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: BbqmIFVbcU1H35x3Nz3rRaXAFLBeWOeWq0ced2en71Q_1778440524
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+content-type: text/plain; charset="US-ASCII"; x-default=true
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,109 +105,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Damon,
+I wasn't getting any output on a monitor connected to an AM625 BeaglePlay
+board, and I tasked a Cursor agent based on Claude Opus 4.6 to conduct a
+root cause analysis.
 
-On 4/3/2026 9:00 AM, Damon Ding wrote:
-> Convert this driver to DRM_BRIDGE_ATTACH_NO_CONNECTOR and to the
-> drm_bridge_connector framework which is the current DRM bridge best
-> practice.
+It correctly figured out that it was due to the IT66121 bridge assuming that
+the sink type was HDMI and sending AVI infoframes, but this can confuse
+DVI monitors.
 
-Changing to use the bridge connector at this stage will cause the
-Rockchip platform to drop features the dw-hdmi connector currently only
-can provide, e.g. a CEC notifier, some connector properties and more.
+This patch series fixes the issue, the changes are fairly trivial and I
+take full responsibility of the contribution. An Assisted-by tag is added
+to the patches in conformance with the AI Coding Assistants [0] policy.
 
-I am also currently working on a multi series effort to:
-- phy: rockchip: inno-hdmi: Change TMDS rate handling to configure() ops [v2]
-- drm/rockchip: dw_hdmi: Misc cleanup and propagate bus format [v1]
-- drm: bridge: dw_hdmi: Misc enable/disable, CEC and EDID cleanup [v5]
-- drm/bridge: dw-hdmi: Improve input/output bus format handling
-- drm/bridge: dw-hdmi: Convert to a HDMI bridge and use of bridge connector
-- drm/bridge: dw-hdmi: Add and use tmds_char_rate_valid() plat data ops
-- drm/meson: hdmi: Misc cleanup and use CEC notifier helpers
-- drm/rockchip: dw_hdmi: Enable YCbCr and Deep Color modes
-Link to snapshot: https://github.com/Kwiboo/linux-rockchip/commits/next-20260508-rk-hdmi-v3/
+Patch #1 is just a cleanup to avoid doing direct calls to container_of()
+and use a helper function which is the convention in most drivers. Patch
+by storing the connector sink type in the bridge state, to determine
+whether the mode should be HDMI or DVI.
 
-Part of that effort include to fully convert the dw-hdmi bridge into a
-HDMI bridge, something that is required to fully be able to replace all
-features currently provided by the use of the dw-hdmi connector.
+The patches were tested both using a DVI monitor and a HDMI-to-DVI adapter
+and a HDMI monitor, to ensure that there are no regressions for HDMI mode.
 
-In that effort I have also taken a different approach and instead
-replace the dw-hdmi connector with the bridge connector directly from
-inside the dw-hdmi bridge driver.
+[0]: https://docs.kernel.org/process/coding-assistants.html
 
-Regards,
-Jonas
 
-> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
-> ---
->  drivers/gpu/drm/rockchip/Kconfig            |  1 +
->  drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c | 19 +++++++++++++++----
->  2 files changed, 16 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/rockchip/Kconfig b/drivers/gpu/drm/rockchip/Kconfig
-> index e7f49fe845ea..69b832d0c8c4 100644
-> --- a/drivers/gpu/drm/rockchip/Kconfig
-> +++ b/drivers/gpu/drm/rockchip/Kconfig
-> @@ -76,6 +76,7 @@ config ROCKCHIP_DW_DP
->  
->  config ROCKCHIP_DW_HDMI
->  	bool "Rockchip specific extensions for Synopsys DW HDMI"
-> +	select DRM_BRIDGE_CONNECTOR
->  	help
->  	  This selects support for Rockchip SoC specific extensions
->  	  for the Synopsys DesignWare HDMI driver. If you want to
-> diff --git a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
-> index 21b141b7cb9c..b5cfcb936078 100644
-> --- a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
-> +++ b/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
-> @@ -13,6 +13,7 @@
->  #include <linux/regulator/consumer.h>
->  
->  #include <drm/bridge/dw_hdmi.h>
-> +#include <drm/drm_bridge_connector.h>
->  #include <drm/drm_edid.h>
->  #include <drm/drm_of.h>
->  #include <drm/drm_probe_helper.h>
-> @@ -542,6 +543,7 @@ static int dw_hdmi_rockchip_bind(struct device *dev, struct device *master,
->  	struct drm_device *drm = data;
->  	struct drm_encoder *encoder;
->  	struct rockchip_hdmi *hdmi;
-> +	struct drm_connector *connector;
->  	int ret;
->  
->  	if (!pdev->dev.of_node)
-> @@ -608,7 +610,7 @@ static int dw_hdmi_rockchip_bind(struct device *dev, struct device *master,
->  
->  	platform_set_drvdata(pdev, hdmi);
->  
-> -	hdmi->hdmi = dw_hdmi_bind(pdev, encoder, plat_data, 0);
-> +	hdmi->hdmi = dw_hdmi_bind(pdev, encoder, plat_data, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
->  
->  	/*
->  	 * If dw_hdmi_bind() fails we'll never call dw_hdmi_unbind(),
-> @@ -616,12 +618,21 @@ static int dw_hdmi_rockchip_bind(struct device *dev, struct device *master,
->  	 */
->  	if (IS_ERR(hdmi->hdmi)) {
->  		ret = PTR_ERR(hdmi->hdmi);
-> -		goto err_bind;
-> +		goto err_cleanup_encoder;
->  	}
->  
-> -	return 0;
-> +	connector = drm_bridge_connector_init(drm, encoder);
-> +	if (IS_ERR(connector)) {
-> +		ret = PTR_ERR(connector);
-> +		dev_err(hdmi->dev, "Failed to initialize bridge_connector\n");
-> +		goto err_unbind_bridge;
-> +	}
->  
-> -err_bind:
-> +	return drm_connector_attach_encoder(connector, encoder);
-> +
-> +err_unbind_bridge:
-> +	dw_hdmi_unbind(hdmi->hdmi);
-> +err_cleanup_encoder:
->  	drm_encoder_cleanup(encoder);
->  
->  	return ret;
+Javier Martinez Canillas (3):
+  drm/bridge: it66121: Add bridge_to_it66121_ctx() helper
+  drm/bridge: it66121: Add bridge-private atomic state
+  drm/bridge: it66121: Select HDMI or DVI mode based on sink type
+
+ drivers/gpu/drm/bridge/ite-it66121.c | 137 +++++++++++++++++++--------
+ 1 file changed, 100 insertions(+), 37 deletions(-)
+
+-- 
+2.54.0
+
+base-commit: 19d584a634fe999786acfb0ac5289710cc84a5f6
+branch: drm-misc-next
 
