@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0B7DCD37B7
-	for <dri-devel@archiver.kernel.org>; Sun, 10 May 2026 18:32:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4062CD3427
+	for <dri-devel@archiver.kernel.org>; Sun, 10 May 2026 18:33:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E9C110E380;
-	Sun, 10 May 2026 18:32:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2FE6410E38F;
+	Sun, 10 May 2026 18:33:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="RKIPjzxo";
+	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="rVeg3W4y";
 	dkim-atps=neutral
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC86010E380
- for <dri-devel@lists.freedesktop.org>; Sun, 10 May 2026 18:32:23 +0000 (UTC)
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 65CF110E38F
+ for <dri-devel@lists.freedesktop.org>; Sun, 10 May 2026 18:33:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
  h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
  Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=fe-e1b5cab7be;
- t=1778437934; bh=P1Kh2IKLR7KBEjTyNxvLOAytvc9uZ7IZrGqAB3Q7wzc=;
- b=RKIPjzxozCqxZqc5WBSWc12LstU9PsUCjkVt18yKN3s/TZMPR7L7x5LxalQ0jYCgIp9J8zi5V
- nfFJzc1NvV4RenoVA2KcvH6Lw9gIH4zyWBNDeY0CVAeQqfuQP6ZliRKU/7pkLn/uWAo0nuyLr0O
- oMBuM/f+7RvKmYws4IoQ8zAGIFkLYMGYn2TuIB6s1yZ3V8mxFq0/k2rLFbtACxzBZVbQIrQCus5
- PJKSJayG0unJ1dVganPcH7d+ErbttRF5InHmq4YYoxT11vZJ3AqLlKySo4beTtRV7xeWoEwIq0T
- 0u23sZDRqvMPm39PWBEItbwYGvt5yePWlWXR4r6QpcUQ==
-X-Forward-Email-ID: 6a00cf1f61db3ab145b0f319
+ t=1778437952; bh=3Bb2d7ztUbMfwQrlOvAngrNnijawNk2qKWlgV+cKiBU=;
+ b=rVeg3W4yxXyz6aQ5x2qJVPnUMQXnSCsEnvDsKkhM2gd4Eyh0SO6Smx6YjrVcWmFHSECKVQtUu
+ RFcpHxS7/D3otDATi8gPkCHnBsZWYdQS0m6hPXgcFeNvo0Dkgh478gTBgQ9yBMca4kpauppsetE
+ 5tjbIghxBJYMN09g5a4o+n+pIWDmUET0rRyt/r9mQOQppD6llxiyByCCGD6zRk7Xw7qB3rIeKoK
+ 8F12qUVPpDtl1Gjyxehf+bp5bRDptyUbIfsiR8EDr4ZUFwnnV4+KiQN9ZPkRpNgCniEgsLjr3bU
+ Yf1KzfGfG3lZcwqb6Xy125tCgzAdDdTDHvqg/1LfycGA==
+X-Forward-Email-ID: 6a00cf1761db3ab145b0f2e3
 X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
- 121.127.44.73
+ 149.28.215.223
 X-Forward-Email-Version: 2.8.0
 X-Forward-Email-Website: https://forwardemail.net
 X-Complaints-To: abuse@forwardemail.net
@@ -42,10 +42,9 @@ To: =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
 Cc: dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  Jonas Karlman <jonas@kwiboo.se>
-Subject: [PATCH 10/10] drm/rockchip: dw_hdmi: Propagate bus format to display
- driver
-Date: Sun, 10 May 2026 18:31:11 +0000
-Message-ID: <20260510183114.1248840-11-jonas@kwiboo.se>
+Subject: [PATCH 08/10] drm/rockchip: dw_hdmi: Set output_port for RK3568/RK3566
+Date: Sun, 10 May 2026 18:31:09 +0000
+Message-ID: <20260510183114.1248840-9-jonas@kwiboo.se>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260510183114.1248840-1-jonas@kwiboo.se>
 References: <20260510183114.1248840-1-jonas@kwiboo.se>
@@ -66,93 +65,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The HDMI block is currently hardcoded to expect RGB output from the
-display controller. However, the VOP in some SoCs are capable of YCbCr
-output to the HDMI block.
+All in-tree RK3568/RK3566 device trees using HDMI also include the
+required hdmi-connector node at port@1 since their introduction.
 
-Read the negotiated bus format from the bridge state and propagate it to
-the CRCT state in form of output mode and bus format. Treat the format
-MEDIA_BUS_FMT_FIXED as RGB888 and reject any unsupported formats.
-
-This has no inpact until dw-hdmi bridge is fully converted to a HDMI
-bridge and also adds support for the "color format" connector property.
+Define the output_port for RK3568 so that dw-hdmi bridge driver can pick
+up the display-connector bridge once the dw-hdmi connector is replaced
+with a bridge connector in a future change.
 
 Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
 ---
- drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c | 44 ++++++++++++++++++++-
- 1 file changed, 43 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
-index 94a30579a736..b52114d5fe9c 100644
+index a55a89040590..9d3bb6cd5670 100644
 --- a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
 +++ b/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
-@@ -5,6 +5,7 @@
+@@ -459,6 +459,7 @@ static const struct dw_hdmi_plat_data rk3568_hdmi_drv_data = {
+ 	.phy_config = rockchip_phy_config,
+ 	.phy_data = &rk3568_chip_data,
+ 	.use_drm_infoframe = true,
++	.output_port = 1,
+ };
  
- #include <linux/clk.h>
- #include <linux/hw_bitfield.h>
-+#include <linux/media-bus-format.h>
- #include <linux/mfd/syscon.h>
- #include <linux/module.h>
- #include <linux/platform_device.h>
-@@ -275,6 +276,26 @@ static void dw_hdmi_rockchip_encoder_enable(struct drm_encoder *encoder)
- 	dev_dbg(hdmi->dev, "vop %s output to hdmi\n", ret ? "LIT" : "BIG");
- }
- 
-+static u32 dw_hdmi_rockchip_get_bus_format(struct drm_encoder *encoder,
-+					   struct drm_connector_state *conn_state)
-+{
-+	struct drm_bridge *bridge __free(drm_bridge_put) = NULL;
-+	struct drm_bridge_state *bridge_state;
-+
-+	bridge = drm_bridge_chain_get_first_bridge(encoder);
-+	if (!bridge)
-+		return 0;
-+
-+	bridge_state = drm_atomic_get_bridge_state(conn_state->state, bridge);
-+	if (!bridge_state)
-+		return 0;
-+
-+	if (bridge_state->input_bus_cfg.format != MEDIA_BUS_FMT_FIXED)
-+		return bridge_state->input_bus_cfg.format;
-+
-+	return bridge_state->output_bus_cfg.format;
-+}
-+
- static int
- dw_hdmi_rockchip_encoder_atomic_check(struct drm_encoder *encoder,
- 				      struct drm_crtc_state *crtc_state,
-@@ -283,9 +304,30 @@ dw_hdmi_rockchip_encoder_atomic_check(struct drm_encoder *encoder,
- 	struct rockchip_crtc_state *s = to_rockchip_crtc_state(crtc_state);
- 	struct rockchip_hdmi *hdmi = to_rockchip_hdmi(encoder);
- 	union phy_configure_opts opts = {};
-+	u32 bus_format;
-+
-+	bus_format = dw_hdmi_rockchip_get_bus_format(encoder, conn_state);
-+
-+	switch (bus_format) {
-+	case MEDIA_BUS_FMT_FIXED:
-+		bus_format = MEDIA_BUS_FMT_RGB888_1X24;
-+		fallthrough;
-+	case MEDIA_BUS_FMT_RGB888_1X24:
-+	case MEDIA_BUS_FMT_RGB101010_1X30:
-+	case MEDIA_BUS_FMT_YUV8_1X24:
-+	case MEDIA_BUS_FMT_YUV10_1X30:
-+		s->output_mode = ROCKCHIP_OUT_MODE_AAAA;
-+		break;
-+	case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
-+	case MEDIA_BUS_FMT_UYYVYY10_0_5X30:
-+		s->output_mode = ROCKCHIP_OUT_MODE_YUV420;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
- 
--	s->output_mode = ROCKCHIP_OUT_MODE_AAAA;
- 	s->output_type = DRM_MODE_CONNECTOR_HDMIA;
-+	s->bus_format = bus_format;
- 
- 	if (!hdmi->phy || !conn_state->hdmi.tmds_char_rate)
- 		return 0;
+ static const struct of_device_id dw_hdmi_rockchip_dt_ids[] = {
 -- 
 2.54.0
 
