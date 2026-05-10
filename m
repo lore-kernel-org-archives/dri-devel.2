@@ -4,60 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36A3CCD4F24
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 07:54:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8D71CD4F3D
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 07:54:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FD7610ED11;
-	Wed, 13 May 2026 07:54:09 +0000 (UTC)
-X-Greylist: delayed 310 seconds by postgrey-1.36 at gabe;
- Mon, 11 May 2026 01:37:43 UTC
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A71010E1CC
- for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 01:37:42 +0000 (UTC)
-X-UUID: 3ee7ca8c4cd911f1aa26b74ffac11d73-20260511
-X-CTIC-Tags: HR_CC_CHARSET, HR_CC_CHARSET_NUM, HR_CC_COUNT, HR_CC_DOMAIN_COUNT,
- HR_CC_NAME
- HR_CC_NO_NAME, HR_CHARSET, HR_CHARSET_NUM, HR_CTE_8B, HR_CTT_MISS
- HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME, HR_SJ_LANG
- HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM, HR_SJ_PHRASE, HR_SJ_PHRASE_LEN
- HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NAME, IP_TRUSTED
- SRC_TRUSTED, DN_TRUSTED, SA_TRUSTED, SA_EXISTED, SN_TRUSTED
- SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12, REQID:0dadb1d9-fc00-46eb-9c24-6964d252f479, IP:10,
- URL:0,TC:0,Content:0,EDM:0,RT:0,SF:-5,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
- N:release,TS:5
-X-CID-INFO: VERSION:1.3.12, REQID:0dadb1d9-fc00-46eb-9c24-6964d252f479, IP:10,
- UR
- L:0,TC:0,Content:0,EDM:0,RT:0,SF:-5,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
- release,TS:5
-X-CID-META: VersionHash:e7bac3a, CLOUDID:2a158005b00c5f2b5b8174380fdfa6ca,
- BulkI
- D:260511093220H3SA01AH,BulkQuantity:0,Recheck:0,SF:17|19|38|66|78|102|127|
- 898,TC:nil,Content:0|15|50,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk:nil,QS:
- nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,AR
- C:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 3ee7ca8c4cd911f1aa26b74ffac11d73-20260511
-X-User: zhangguopeng@kylinos.cn
-Received: from yan.. [(223.70.159.239)] by mailgw.kylinos.cn
- (envelope-from <zhangguopeng@kylinos.cn>)
- (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
- with ESMTP id 1407271403; Mon, 11 May 2026 09:32:17 +0800
-From: Guopeng Zhang <zhangguopeng@kylinos.cn>
-To: Maarten Lankhorst <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>,
- Natalie Vock <natalie.vock@gmx.de>, Tejun Heo <tj@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>,
- =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
- cgroups@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Guopeng Zhang <zhangguopeng@kylinos.cn>
-Subject: [PATCH] cgroup/dmem: return -ENOMEM on failed pool preallocation
-Date: Mon, 11 May 2026 09:31:50 +0800
-Message-ID: <20260511013150.7235-1-zhangguopeng@kylinos.cn>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 328CD10ED16;
+	Wed, 13 May 2026 07:54:10 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pYZUtnMY";
+	dkim-atps=neutral
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
+ [209.85.216.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 369EE10E04F
+ for <dri-devel@lists.freedesktop.org>; Sun, 10 May 2026 20:00:59 +0000 (UTC)
+Received: by mail-pj1-f47.google.com with SMTP id
+ 98e67ed59e1d1-3660b84347dso2121967a91.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 10 May 2026 13:00:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1778443259; x=1779048059; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=R29xRWOosbdM9TadRiN8P+ttpGm4BOCiuJb6z0yqxGA=;
+ b=pYZUtnMYfBwzBMG9Ob1HwZSCvLkKZ/kz/8B612WKdoGZ8Um2jYeIFoOmkhX3Azjiwj
+ lPE1gdeUeiMT+uvLf5dwprI1TXmUJj48tTqoNByuLepFBtE0wsdmX3EHQuUemxgmK0NM
+ VaaBN1biJ8mKcJvSdWSNFjFM98nQfeEfyfw1MBWxiLYxNt3E/3HYEoxL77HqDbSS/615
+ yXGHFpgMdOKAZKpDqh5wqH3eF0WjQArfJz454R1ueb30dPbtCh/aJrhPnxpdwhpCq5gE
+ Xk6s+9vT1ABdzhCjNF4kauXcHX2KoF8dBbl3Uu2Nufa/pz5/msvEVuuxdISbJbYqWT8K
+ gZhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778443259; x=1779048059;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=R29xRWOosbdM9TadRiN8P+ttpGm4BOCiuJb6z0yqxGA=;
+ b=Dum7t/mOX3HYmqfwg8rTRn2MaiZWrs9i0zKBGPMnBIRhFjwuY1LHHrs8H7G8OP/TvT
+ jNr2l/0Fx9NwXSvev+6ub1pylswh8qr0S0jBK0I5E6v0SE7/7Vcb11kUnwmpbv+0Wl1i
+ ZlXThHSQFYfTcj/NFSu36dERBLEoK22WgLH7rPGDyNcYWlNftHPAmBslzpQiyO6sr9cd
+ ukr+wea6LLWwJkS4APqbi8tp1+r+7AKX+ByBfc/p4jLOrB5UdOhojc0UBxd3zzuR7LFk
+ m8puPAk48+fU89/gy667tVk8wADoRUVDMEbBWt2Q2VkqRbdz+MOevYlgMr9pViVDGXRg
+ PXTw==
+X-Gm-Message-State: AOJu0Yw+mlYwnla505nOLAZ8Eo8g5rY9yWICUsarK7qdHSdsE7NNhsjf
+ 3Sc6474XjqBKT7DdpzFXkCIWneIKCocsWHNCALyRC0Ad2BVfvHdaHmzA
+X-Gm-Gg: Acq92OG3HT0LA8Gbk/+RxhJzgSwzvfWMX8YeRoCC/N4SsqKrjGow5LoU1WaeufpyxCC
+ OM4XJTQkNB+jD0NkruPWpGt1vkonmw67yYqcAf8GXPLDp1nwrmCv8zyK9p6JPI8d4woYyBiEDSt
+ HgLN709KJayRO1TZxLuMG7QKD1PAWR5/NT/mLxO9oXqt1mjMC1/6x7il233d0vW0xGxmNjaPxbw
+ rup0377UFBG5CKY8kahvHvxkGJhvv9Bp2WTNeweo7aamx1qPKYnhpqQgwaon7c1dXDFOwrU24US
+ FW+oOI+GawvclNWV7ycyHwb1AsE0ey9KpPSd227i1X6KY2U6Us0ajmM70IguRxgMHOtyWIfOuZb
+ 9njQXJg7/QypuwjT7weVfuuxJLchSUma24QzGPAjlxv540tcGxSVbJNEuibDXmuW3Im107lrTq7
+ qx+eS9sToYNZOAaakHdR5RhCU1q+6W7fQBrzA/+juwQXYOSqaT1EGfLHJLD/HFptLt4N6Kox0Fp
+ MGQJrgwoLMbS67O
+X-Received: by 2002:a17:90b:5683:b0:359:87a8:e65c with SMTP id
+ 98e67ed59e1d1-365ac080573mr22668476a91.17.1778443258494; 
+ Sun, 10 May 2026 13:00:58 -0700 (PDT)
+Received: from localhost.localdomain ([2409:40f2:38:d6b4:286e:7088:fd10:80a0])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-367d6262349sm5259124a91.6.2026.05.10.13.00.54
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Sun, 10 May 2026 13:00:58 -0700 (PDT)
+From: Kartik Nair <contact.kartikn@gmail.com>
+To: tomeu@tomeuvizoso.net,
+	ogabbay@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Kartik Nair <contact.kartikn@gmail.com>
+Subject: [PATCH] accel/rocket: fix ignored return value in rocket_ioctl_submit
+Date: Mon, 11 May 2026 01:30:47 +0530
+Message-ID: <20260510200047.6117-1-contact.kartikn@gmail.com>
+X-Mailer: git-send-email 2.50.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 13 May 2026 07:53:28 +0000
@@ -76,37 +87,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-get_cg_pool_unlocked() handles allocation failures under dmemcg_lock by
-dropping the lock, preallocating a pool with GFP_KERNEL, and retrying the
-locked lookup and creation path.
+rocket_ioctl_submit() calls rocket_ioctl_submit_job() in a loop but
+ignores its return value. If any job submission fails, the error is
+silently dropped and the function returns 0 (success) to userspace,
+leaving subsequent jobs potentially in an inconsistent state.
 
-If the fallback allocation fails too, pool remains NULL. Since the loop
-condition is while (!pool), the function can keep retrying instead of
-propagating the allocation failure to the caller.
+Fix this by propagating the error and breaking out of the loop on
+the first failure.
 
-Set pool to ERR_PTR(-ENOMEM) when the fallback allocation fails so the
-loop exits through the existing common return path. The callers already
-handle ERR_PTR() from get_cg_pool_unlocked(), so this restores the
-expected error path.
-
-Fixes: b168ed458dde ("kernel/cgroup: Add "dmem" memory accounting cgroup")
-Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+Signed-off-by: Kartik Nair <contact.kartikn@gmail.com>
 ---
- kernel/cgroup/dmem.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/accel/rocket/rocket_job.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
-index 1ab1fb47f271..4753a67d0f0f 100644
---- a/kernel/cgroup/dmem.c
-+++ b/kernel/cgroup/dmem.c
-@@ -602,6 +602,7 @@ get_cg_pool_unlocked(struct dmemcg_state *cg, struct dmem_cgroup_region *region)
- 				pool = NULL;
- 				continue;
- 			}
-+			pool = ERR_PTR(-ENOMEM);
- 		}
+diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+index ac51bff39..abac26853 100644
+--- a/drivers/accel/rocket/rocket_job.c
++++ b/drivers/accel/rocket/rocket_job.c
+@@ -626,8 +626,11 @@ int rocket_ioctl_submit(struct drm_device *dev, void *data, struct drm_file *fil
  	}
  
+ 
+-	for (i = 0; i < args->job_count; i++)
+-		rocket_ioctl_submit_job(dev, file, &jobs[i]);
++	for (i = 0; i < args->job_count; i++) {
++		ret = rocket_ioctl_submit_job(dev, file, &jobs[i]);
++		if (ret)
++			goto exit;
++	}
+ 
+ exit:
+ 	kvfree(jobs);
 -- 
-2.43.0
+2.50.0
 
