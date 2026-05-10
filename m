@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73BE1CD37B2
-	for <dri-devel@archiver.kernel.org>; Sun, 10 May 2026 22:12:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F320CD37B2
+	for <dri-devel@archiver.kernel.org>; Sun, 10 May 2026 22:12:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D630E10E435;
-	Sun, 10 May 2026 22:12:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E578010E43A;
+	Sun, 10 May 2026 22:12:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="AJLaA3nP";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="iXSnPFFg";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD33D10E435
- for <dri-devel@lists.freedesktop.org>; Sun, 10 May 2026 22:12:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 911BC10E43A
+ for <dri-devel@lists.freedesktop.org>; Sun, 10 May 2026 22:12:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329; h=Cc:To:In-Reply-To:References:Message-Id:
  Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
  Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
  :Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=c3VUU1ThhuXGrnJhzOSePKUdMf9ILg+Oa/1v8oMsF7Y=; b=AJLaA3nPUxMuWiQvQ5myOF72z9
- Z41hzzu355oubOJT6CLTyeMvPjmQV8d/SBxrLaZWbf2tezFMu97YGSUlIXqOShxcvt+r0yT6DWJP9
- lKkSm7BFO0j6KQsc+cPG6vX4B6m2Ua9bDjAxTwZmGw+0UXnlGvF4NN2YEByJobWYDmEN+SiSVGPab
- zmTINlqN52fc/JhcM3v+AJc0l+DghvVKfwuvpDyATM5HAQ2K6I4rhI2PxbL8sQhaKdNbribwZPmtJ
- 49/RildjB/ur/OTWJX07nDatBrN4qA0C4Xnp0FIMCgsW6rM+Tq5FuGklHg3U47CnuhQCGlYoMSTw9
- 7iVzChHw==;
+ bh=3FzBQqlvmae/EF2i8djaQHT3ekHuNg6J5S+OW7g+6a8=; b=iXSnPFFg5lWJ7ysqIiP2otUM3A
+ VHmkfS3ovvP8tqq1QI3IyKA6Jb9hgPgHUttAJ5MgGfFgffiQ+dPhXQYsUks5/NdlrKZsW3N5cmUBw
+ PodUNc52LB1+YhAAFWltuNa7mFlQsqtjE05p5oXhVop25lhu2DDSnkDFU6WG84hTlbcd6R1ygQ2Yz
+ ugx27fWtV0ACVocSrKhgQy/5SmDpDH4aC5WGOeE99cbzBi9ypLI9Fyky0dHtS9d5GvzTjJfashrJa
+ a1tegNCndi72/G0R8JwowcNLY4p9UEJK4h1mM4bdZQIS1AcC8iJtk9ZXYT6av/Z7cDyOF8CZxlLk1
+ ohCYA4YQ==;
 Received: from [189.7.87.67] (helo=[10.0.0.1])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wMCNw-008k1J-Cl; Mon, 11 May 2026 00:12:27 +0200
+ id 1wMCO1-008k1J-7y; Mon, 11 May 2026 00:12:32 +0200
 From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Sun, 10 May 2026 19:12:01 -0300
-Subject: [PATCH v2 04/14] drm/v3d: Replace spin_lock_irqsave() with spin_lock()
+Date: Sun, 10 May 2026 19:12:02 -0300
+Subject: [PATCH v2 05/14] drm/v3d: Extract v3d_job_add_syncobjs() helper
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260510-v3d-sched-misc-fixes-v2-4-ca4aba343ef6@igalia.com>
+Message-Id: <20260510-v3d-sched-misc-fixes-v2-5-ca4aba343ef6@igalia.com>
 References: <20260510-v3d-sched-misc-fixes-v2-0-ca4aba343ef6@igalia.com>
 In-Reply-To: <20260510-v3d-sched-misc-fixes-v2-0-ca4aba343ef6@igalia.com>
 To: Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>, 
@@ -49,15 +49,15 @@ To: Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
 Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
  =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3574; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=nWXVgLvfeXapfBl+TknZa1R0p58YVmbslFrgiapXWCU=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqAQK0SiXRuBTcmAgJ9djXJWfEd2nUtRmciRcBK
- dyDjTDL7uSJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCagECtAAKCRA/8w6Kdoj6
- qsx6CACcQc+dhsxHSHJZRsg+2BVu7PWDX6cAQtoUT1WDZl6iF3nHMQJ6DnB2oKn5a/6kUvCE59S
- o8lKWcvx01wf/VoErpf+ufLrSUitWCq0GAObzlzMpglBuI1vEdes/q+nA5FvkWG+7+nslRrwtaB
- /QzoEtgSsyGWy0VNV1a90OOjOtCL3JNg2IzJBFhLJ54RYnf29V/nWiO9jFuCll4bZB9JaZaCQOh
- z3t1oc0+9KIObS2JXA6mrkFPLaI7VI3k3lQI/e1GfXNF0SpjersWeT3QeXJe4Q6DJnzDh0cSmvX
- BOJSJmlg7QXlLA7RpPm48fdOQPoORrgvA3m/RieEtLqezIuH
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3565; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=M27jUN+Ep+tBh83MxTeN6CYJ+oydlhA9W7AtvABRsLY=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqAQK0O0UfhaH9OpWY2iK8WDFBB5OrYcB7ZZr2/
+ w4xstqSglWJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCagECtAAKCRA/8w6Kdoj6
+ qp8NB/9tgBhrt+SF1RovFeFQmYmUCrTOLkNZGAS/2rkNyjOZrAX581CV/UwNpAGGXp/uFqmQaYl
+ yUPykoNLgnrpKYIO5Ai30obdmdmTuAA6kYGMtZhE0/J+M+plGvT47kSOOlQ1OTfh16hYN8vbVRV
+ oSTrUP4ZYbYP6iJoBzTFzqmtuXqwB6X0LzFrnHyHnbExK0mhVAnYvW0BdEmYAU62nP6NN3p+yma
+ CXXLjj1vxuUvgmTj8W5YQbm19SvNXnBf7EkSuGRzJ930ECYerSd1mojdyIhiDa6cfz+Er6pgPK3
+ Ash7AYp/BR98D9RqwGTY/75gwF5HOa7pIYgdyu4c8dOPuY9N
 X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
  fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -75,103 +75,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-queue->queue_lock is only acquired from v3d_overflow_mem_work() and
-v3d_bin_job_run(), both of which run from workqueue context. The hard
-IRQ handler does not take this lock, so disabling interrupts while
-holding it is unnecessary.
+Move the syncobj dependency setup out of v3d_job_init() into its own
+v3d_job_add_syncobjs() helper. No functional change.
 
-Drop the spin_lock_irqsave() and use plain spin_(un)lock() instead.
+This prepares for the next commit which changes the error handling, and
+for a later consolidation that separates job allocation from syncobj
+attachment.
 
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Signed-off-by: Maíra Canal <mcanal@igalia.com>
 ---
- drivers/gpu/drm/v3d/v3d_irq.c   | 17 +++++++----------
- drivers/gpu/drm/v3d/v3d_sched.c | 21 ++++++++++-----------
- 2 files changed, 17 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/v3d/v3d_submit.c | 71 ++++++++++++++++++++++++----------------
+ 1 file changed, 43 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/gpu/drm/v3d/v3d_irq.c b/drivers/gpu/drm/v3d/v3d_irq.c
-index 86efaef2722c..754a969b862b 100644
---- a/drivers/gpu/drm/v3d/v3d_irq.c
-+++ b/drivers/gpu/drm/v3d/v3d_irq.c
-@@ -47,7 +47,6 @@ v3d_overflow_mem_work(struct work_struct *work)
- 	struct v3d_queue_state *queue = &v3d->queue[V3D_BIN];
- 	struct v3d_bin_job *bin_job;
- 	struct drm_gem_object *obj;
--	unsigned long irqflags;
- 
- 	if (IS_ERR(bo)) {
- 		drm_err(dev, "Couldn't allocate binner overflow mem\n");
-@@ -64,18 +63,16 @@ v3d_overflow_mem_work(struct work_struct *work)
- 	 * bin job got scheduled, that's fine.  We'll just give them
- 	 * some binner pool anyway.
- 	 */
--	spin_lock_irqsave(&queue->queue_lock, irqflags);
--	bin_job = (struct v3d_bin_job *)queue->active_job;
-+	scoped_guard(spinlock, &queue->queue_lock) {
-+		bin_job = (struct v3d_bin_job *)queue->active_job;
- 
--	if (!bin_job) {
--		spin_unlock_irqrestore(&queue->queue_lock, irqflags);
--		goto out;
-+		if (!bin_job)
-+			goto out;
-+
-+		drm_gem_object_get(obj);
-+		list_add_tail(&bo->unref_head, &bin_job->render->unref_list);
- 	}
- 
--	drm_gem_object_get(obj);
--	list_add_tail(&bo->unref_head, &bin_job->render->unref_list);
--	spin_unlock_irqrestore(&queue->queue_lock, irqflags);
--
- 	v3d_mmu_flush_all(v3d);
- 
- 	V3D_CORE_WRITE(0, V3D_PTB_BPOA, bo->node.start << V3D_MMU_PAGE_SHIFT);
-diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
-index 66569b538e4e..cc3212e2cb5d 100644
---- a/drivers/gpu/drm/v3d/v3d_sched.c
-+++ b/drivers/gpu/drm/v3d/v3d_sched.c
-@@ -204,7 +204,6 @@ static struct dma_fence *v3d_bin_job_run(struct drm_sched_job *sched_job)
- 	struct v3d_queue_state *queue = &v3d->queue[V3D_BIN];
- 	struct drm_device *dev = &v3d->drm;
- 	struct dma_fence *fence;
--	unsigned long irqflags;
- 
- 	if (unlikely(job->base.base.s_fence->finished.error))
- 		goto out_clean_job;
-@@ -212,13 +211,13 @@ static struct dma_fence *v3d_bin_job_run(struct drm_sched_job *sched_job)
- 	/* Lock required around bin_job update vs
- 	 * v3d_overflow_mem_work().
- 	 */
--	spin_lock_irqsave(&queue->queue_lock, irqflags);
--	queue->active_job = &job->base;
--	/* Clear out the overflow allocation, so we don't
--	 * reuse the overflow attached to a previous job.
--	 */
--	V3D_CORE_WRITE(0, V3D_PTB_BPOS, 0);
--	spin_unlock_irqrestore(&queue->queue_lock, irqflags);
-+	scoped_guard(spinlock, &queue->queue_lock) {
-+		queue->active_job = &job->base;
-+		/* Clear out the overflow allocation, so we don't
-+		 * reuse the overflow attached to a previous job.
-+		 */
-+		V3D_CORE_WRITE(0, V3D_PTB_BPOS, 0);
-+	}
- 
- 	v3d_invalidate_caches(v3d);
- 
-@@ -254,9 +253,9 @@ static struct dma_fence *v3d_bin_job_run(struct drm_sched_job *sched_job)
- 	return fence;
- 
- out_clean_job:
--	spin_lock_irqsave(&queue->queue_lock, irqflags);
--	queue->active_job = NULL;
--	spin_unlock_irqrestore(&queue->queue_lock, irqflags);
-+	scoped_guard(spinlock, &queue->queue_lock) {
-+		queue->active_job = NULL;
-+	}
- 	return NULL;
+diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_submit.c
+index d0f949a49dd2..f9231a87b963 100644
+--- a/drivers/gpu/drm/v3d/v3d_submit.c
++++ b/drivers/gpu/drm/v3d/v3d_submit.c
+@@ -162,14 +162,52 @@ v3d_job_deallocate(void **container)
+ 	*container = NULL;
  }
  
++static int
++v3d_job_add_syncobjs(struct v3d_job *job, struct drm_file *file_priv,
++		     u32 in_sync, struct v3d_submit_ext *se, enum v3d_queue queue)
++{
++	bool has_multisync = se && (se->flags & DRM_V3D_EXT_ID_MULTI_SYNC);
++	struct v3d_dev *v3d = job->v3d;
++	int ret = 0;
++
++	if (!has_multisync) {
++		ret = drm_sched_job_add_syncobj_dependency(&job->base, file_priv,
++							   in_sync, 0);
++		// TODO: Investigate why this was filtered out for the IOCTL.
++		if (ret && ret != -ENOENT)
++			return ret;
++		return 0;
++	}
++
++	if (se->in_sync_count && se->wait_stage == queue) {
++		struct drm_v3d_sem __user *handle = u64_to_user_ptr(se->in_syncs);
++
++		for (int i = 0; i < se->in_sync_count; i++) {
++			struct drm_v3d_sem in;
++
++			if (copy_from_user(&in, handle++, sizeof(in))) {
++				drm_dbg(&v3d->drm, "Failed to copy wait dep handle.\n");
++				return -EFAULT;
++			}
++
++			ret = drm_sched_job_add_syncobj_dependency(&job->base,
++								   file_priv, in.handle, 0);
++			// TODO: Investigate why this was filtered out for the IOCTL.
++			if (ret && ret != -ENOENT)
++				return ret;
++		}
++	}
++
++	return 0;
++}
++
+ static int
+ v3d_job_init(struct v3d_dev *v3d, struct drm_file *file_priv,
+ 	     struct v3d_job *job, void (*free)(struct kref *ref),
+ 	     u32 in_sync, struct v3d_submit_ext *se, enum v3d_queue queue)
+ {
+ 	struct v3d_file_priv *v3d_priv = file_priv->driver_priv;
+-	bool has_multisync = se && (se->flags & DRM_V3D_EXT_ID_MULTI_SYNC);
+-	int ret, i;
++	int ret;
+ 
+ 	job->v3d = v3d;
+ 	job->free = free;
+@@ -180,32 +218,9 @@ v3d_job_init(struct v3d_dev *v3d, struct drm_file *file_priv,
+ 	if (ret)
+ 		return ret;
+ 
+-	if (has_multisync) {
+-		if (se->in_sync_count && se->wait_stage == queue) {
+-			struct drm_v3d_sem __user *handle = u64_to_user_ptr(se->in_syncs);
+-
+-			for (i = 0; i < se->in_sync_count; i++) {
+-				struct drm_v3d_sem in;
+-
+-				if (copy_from_user(&in, handle++, sizeof(in))) {
+-					ret = -EFAULT;
+-					drm_dbg(&v3d->drm, "Failed to copy wait dep handle.\n");
+-					goto fail_job_init;
+-				}
+-				ret = drm_sched_job_add_syncobj_dependency(&job->base, file_priv, in.handle, 0);
+-
+-				// TODO: Investigate why this was filtered out for the IOCTL.
+-				if (ret && ret != -ENOENT)
+-					goto fail_job_init;
+-			}
+-		}
+-	} else {
+-		ret = drm_sched_job_add_syncobj_dependency(&job->base, file_priv, in_sync, 0);
+-
+-		// TODO: Investigate why this was filtered out for the IOCTL.
+-		if (ret && ret != -ENOENT)
+-			goto fail_job_init;
+-	}
++	ret = v3d_job_add_syncobjs(job, file_priv, in_sync, se, queue);
++	if (ret)
++		goto fail_job_init;
+ 
+ 	/* CPU jobs don't require hardware resources */
+ 	if (queue != V3D_CPU) {
 
 -- 
 2.54.0
