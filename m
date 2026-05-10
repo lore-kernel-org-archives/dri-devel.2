@@ -4,66 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D88B5CD37AF
-	for <dri-devel@archiver.kernel.org>; Sun, 10 May 2026 12:32:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE67ECD37AF
+	for <dri-devel@archiver.kernel.org>; Sun, 10 May 2026 12:41:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1447B10E105;
-	Sun, 10 May 2026 12:32:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 006AF10E131;
+	Sun, 10 May 2026 12:41:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="a4PZeRyV";
+	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="NtAedy/5";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FF2710E105;
- Sun, 10 May 2026 12:32:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778416324; x=1809952324;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=W2lnjd0EEjY95FWLS/VU+8zZVQxhrlAyAYdoXojkgTg=;
- b=a4PZeRyV04yV/AKq5esU57XnABx9ICDZSVknrUFtWAdqylbT62rVGwzc
- gOGvR0KAf4OCM2q23OK1FxpyRwO/FIIqJkjint7we3v+ezdw8MbPM0oHa
- Vy29sRSxe1tTpUYRk+RlLurzMNUy7wbI/ZxT3wgjJ0mMLWkY+PVFxH7ZG
- LAww0VAm8zDUA3iQ3vI3T1Mnvj6CF2rukN8jg1pGOXausAnpvGMFN2ERi
- Ps9mwbNciB84mmc+tuBOSoj/Issqg+0B59xdV8kzDbp5kNy9QKyRDGp+9
- LEroyZIgKL+Dk/IDTKxAZOBBaLvtgKI/DTLjiQCgsB0wKkPJ4T2LIGbRV Q==;
-X-CSE-ConnectionGUID: 4+ngMViqQVOtlXVBSaeHHw==
-X-CSE-MsgGUID: u+k4dL8iSQK4axr4QmP4Nw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11781"; a="83174439"
-X-IronPort-AV: E=Sophos;i="6.23,227,1770624000"; d="scan'208";a="83174439"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 May 2026 05:32:04 -0700
-X-CSE-ConnectionGUID: O+4Fc+NiTR6GKBhPTah8HQ==
-X-CSE-MsgGUID: cEwYlgaAQFCggNTGzUHM2g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,227,1770624000"; d="scan'208";a="275345921"
-Received: from lkp-server01.sh.intel.com (HELO 82327192134e) ([10.239.97.150])
- by orviesa001.jf.intel.com with ESMTP; 10 May 2026 05:32:00 -0700
-Received: from kbuild by 82327192134e with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1wM3K8-0000000028T-49cF;
- Sun, 10 May 2026 12:31:56 +0000
-Date: Sun, 10 May 2026 20:30:58 +0800
-From: kernel test robot <lkp@intel.com>
-To: Daniel J Blueman <daniel@quora.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Antonino Maniscalco <antomani103@gmail.com>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- Daniel J Blueman <daniel@quora.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/msm: Fix shrinker deadlock
-Message-ID: <202605102047.JRDq9587-lkp@intel.com>
-References: <20260508065722.18785-1-daniel@quora.org>
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9462A10E131
+ for <dri-devel@lists.freedesktop.org>; Sun, 10 May 2026 12:41:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
+ h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
+ Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=fe-e1b5cab7be;
+ t=1778416899; bh=YPElDtV9eg2ObFwq32yfRisczcjIwpWrEjsNQBlqzi0=;
+ b=NtAedy/5a3523gxGj5B42GvP6nxuVrEd8qhCgUSvqbhgZktWS9nxTmXNU0DZyyozcFgWFZIAu
+ Dj5foRP1xDA5h/o00xU29oYA0I1+nCVNtrphYzoVvC4vSqFCsF0NvkcZX4m8/8dn447wD1OLuk5
+ rLckq7/xvNEqF93wI4kbGava6Wlrjdyl+UI242e7/kCh6HWg8LgioOp+O9eUZB+sJEu3CP3XV22
+ Yxj68T6B9W2AYF/RaD4+P94WH6WgxFAJnnBr4Qk4reEXXjKKdYc6q0ge5hu4vjRCZ7Yd0EDGDjd
+ PPvLIKr+As3pqhHjfyROYmyFD1ve4oKolkZ3pRPtFAMw==
+X-Forward-Email-ID: 6a007cf30d91f03a31a0bb02
+X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
+ 121.127.44.73
+X-Forward-Email-Version: 2.8.0
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
+From: Jonas Karlman <jonas@kwiboo.se>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Heiko Stuebner <heiko@sntech.de>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Liu Ying <victor.liu@nxp.com>, Sandy Huang <hjc@rock-chips.com>,
+ Andy Yan <andy.yan@rock-chips.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Christian Hewitt <christianshewitt@gmail.com>,
+ Diederik de Haas <diederik@cknow-tech.com>,
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, imx@lists.linux.dev,
+ linux-kernel@vger.kernel.org,
+ Christopher Obbard <chris.obbard@collabora.com>
+Subject: [PATCH v5 01/21] drm: bridge: dw_hdmi: Disable scrambler feature when
+ not supported
+Date: Sun, 10 May 2026 12:40:45 +0000
+Message-ID: <20260510124111.1226584-2-jonas@kwiboo.se>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260510124111.1226584-1-jonas@kwiboo.se>
+References: <20260510124111.1226584-1-jonas@kwiboo.se>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260508065722.18785-1-daniel@quora.org>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,66 +78,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Daniel,
+The scrambler feature can be left enabled when hotplugging from a sink
+and mode that require scrambling to a sink that does not support SCDC or
+scrambling.
 
-kernel test robot noticed the following build errors:
+Typically a blank screen or 'no signal' message can be observed after
+using a HDMI 2.0 4K@60Hz mode and then hotplugging to a sink that only
+support HDMI 1.4.
 
-[auto build test ERROR on drm-misc/drm-misc-next]
-[also build test ERROR on linus/master v7.1-rc2 next-20260508]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Fix this by disabling the scrambler feature when SCDC is not supported.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Daniel-J-Blueman/drm-msm-Fix-shrinker-deadlock/20260510-132942
-base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link:    https://lore.kernel.org/r/20260508065722.18785-1-daniel%40quora.org
-patch subject: [PATCH] drm/msm: Fix shrinker deadlock
-config: um-allmodconfig (https://download.01.org/0day-ci/archive/20260510/202605102047.JRDq9587-lkp@intel.com/config)
-compiler: clang version 19.1.7 (https://github.com/llvm/llvm-project cd708029e0b2869e80abe31ddb175f7c35361f90)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260510/202605102047.JRDq9587-lkp@intel.com/reproduce)
+Fixes: 264fce6cc2c1 ("drm/bridge: dw-hdmi: Add SCDC and TMDS Scrambling support")
+Reported-by: Christopher Obbard <chris.obbard@collabora.com>
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
+---
+v5: No change
+v4: No change
+v3: Collect r-b tag
+v2: New patch
+---
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202605102047.JRDq9587-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   In file included from drivers/gpu/drm/msm/msm_gem_shrinker.c:10:
-   In file included from drivers/gpu/drm/msm/msm_drv.h:22:
-   In file included from include/linux/iommu.h:10:
-   In file included from include/linux/scatterlist.h:9:
-   In file included from arch/um/include/asm/io.h:24:
-   include/asm-generic/io.h:1209:55: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-    1209 |         return (port > MMIO_UPPER_LIMIT) ? NULL : PCI_IOBASE + port;
-         |                                                   ~~~~~~~~~~ ^
->> drivers/gpu/drm/msm/msm_gem_shrinker.c:125:46: error: too many arguments to function call, expected 2, have 3
-     125 |         return with_vm_locks(ticket, msm_gem_evict, obj);
-         |                ~~~~~~~~~~~~~                        ^~~
-   drivers/gpu/drm/msm/msm_gem_shrinker.c:46:1: note: 'with_vm_locks' declared here
-      46 | with_vm_locks(void (*fn)(struct drm_gem_object *obj),
-         | ^             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-      47 |               struct drm_gem_object *obj)
-         |               ~~~~~~~~~~~~~~~~~~~~~~~~~~
-   1 warning and 1 error generated.
-
-
-vim +125 drivers/gpu/drm/msm/msm_gem_shrinker.c
-
-6afb0750dba05c Rob Clark 2021-04-05  115  
-63f17ef834284d Rob Clark 2021-04-05  116  static bool
-02070f04987524 Rob Clark 2025-06-29  117  evict(struct drm_gem_object *obj, struct ww_acquire_ctx *ticket)
-63f17ef834284d Rob Clark 2021-04-05  118  {
-b352ba54a82072 Rob Clark 2022-08-02  119  	if (is_unevictable(to_msm_bo(obj)))
-63f17ef834284d Rob Clark 2021-04-05  120  		return false;
-63f17ef834284d Rob Clark 2021-04-05  121  
-b352ba54a82072 Rob Clark 2022-08-02  122  	if (msm_gem_active(obj))
-01780d02634a3a Rob Clark 2022-08-02  123  		return false;
-01780d02634a3a Rob Clark 2022-08-02  124  
-fe4952b5f27cca Rob Clark 2025-06-29 @125  	return with_vm_locks(ticket, msm_gem_evict, obj);
-63f17ef834284d Rob Clark 2021-04-05  126  }
-63f17ef834284d Rob Clark 2021-04-05  127  
-
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+index 41b3a9cfa2f5..d3e6a6562870 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+@@ -2135,6 +2135,8 @@ static void hdmi_av_composer(struct dw_hdmi *hdmi,
+ 				    HDMI_MC_SWRSTZ);
+ 			drm_scdc_set_scrambling(hdmi->curr_conn, 0);
+ 		}
++	} else if (hdmi->version >= 0x200a) {
++		hdmi_writeb(hdmi, 0, HDMI_FC_SCRAMBLER_CTRL);
+ 	}
+ 
+ 	/* Set up horizontal active pixel width */
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.54.0
+
