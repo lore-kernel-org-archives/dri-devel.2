@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96AA8CD3427
-	for <dri-devel@archiver.kernel.org>; Sun, 10 May 2026 18:31:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C19ACD37B7
+	for <dri-devel@archiver.kernel.org>; Sun, 10 May 2026 18:32:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4C7E10E133;
-	Sun, 10 May 2026 18:31:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E6D7910E13B;
+	Sun, 10 May 2026 18:32:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="zJpIhBGW";
+	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="tuus9Nsf";
 	dkim-atps=neutral
 Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2107010E133
- for <dri-devel@lists.freedesktop.org>; Sun, 10 May 2026 18:31:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 260BD10E228
+ for <dri-devel@lists.freedesktop.org>; Sun, 10 May 2026 18:31:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
  h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
  Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=fe-e1b5cab7be;
- t=1778437905; bh=4GhoY1fOJO8LWPdJh9qNDaVbnqnWOq2pyB0m4w0Zjdo=;
- b=zJpIhBGWMydjTRFiBfGOBmqjvNHcsKrXqwkUbbRgwoEinae8BW6y97yhokkY7g5eF7KsVCCgn
- B+MVkpaKoJjviDihlWvf0xPVCTN96IlVVvJRSq/u4icYw0xgJOfa+dDfMIToP3Aa5iiExpXR4ZR
- NmqGYeZSfT1StGBkQuPIbBCZPDP+HsCKVvLqfkMsMMt7tORNKUYt4SkgyluI8wKVbyzjwPyyGt2
- 3kQWnO9wXI45ItzTvdzwPryjwX/aYjpQGfoJQe/Xd1Yya7sBz9ZjujaLxTckZ/lZ2l+6fty7Eee
- 9Kfy/JhGXpZBEXhhmq4AIyJ9VMRQ8/hvh8g8unI6Ymsw==
-X-Forward-Email-ID: 6a00cf0b61db3ab145b0f292
+ t=1778437915; bh=VXsm+Lz0ARZMn6U4p+eyz1KbjJttmC6qCFCIJTnnoGU=;
+ b=tuus9Nsf2DX+mh5d5lKujaZu8WnKNUYppUgMXGb6zFHtjqkF6vLw72cV8fNQrhfwhEH0pnYo2
+ s4Ro9tODKAI5Pu0FYnHTdDU0YlNbXlOnbz0jE9DHB9OmDgtWHxO6hSG1ANcff+VBAJJjgs3R4Gj
+ 7Z83x/Suq2gpVzRyiW6TcZYrC8jSIoLw3OutUu5z46DvWygsH4WdfF42VQDWcH47yOiHHx4nTvf
+ Jt8f2btu3K8mcMEKvCm/XeeSSvKvAiDZ8bIIcQCVxKwvWHQgLe7+ZppxE1P4vBTW70kTsY/MS25
+ zOIg47lyZDrCdcmxh5AzwJSrstOTn/j5u7AQV43jgxGg==
+X-Forward-Email-ID: 6a00cf0761db3ab145b0f277
 X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
  121.127.44.73
 X-Forward-Email-Version: 2.8.0
@@ -42,10 +42,10 @@ To: =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
 Cc: dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  Jonas Karlman <jonas@kwiboo.se>
-Subject: [PATCH 05/10] drm/rockchip: dw_hdmi: Hold a reference to the dw-hdmi
- bridge
-Date: Sun, 10 May 2026 18:31:06 +0000
-Message-ID: <20260510183114.1248840-6-jonas@kwiboo.se>
+Subject: [PATCH 04/10] drm/rockchip: dw_hdmi: Inline resource lookup into
+ bind()
+Date: Sun, 10 May 2026 18:31:05 +0000
+Message-ID: <20260510183114.1248840-5-jonas@kwiboo.se>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260510183114.1248840-1-jonas@kwiboo.se>
 References: <20260510183114.1248840-1-jonas@kwiboo.se>
@@ -66,49 +66,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Take a reference on the dw-hdmi bridge during bind and drop it again
-from unbind to ensure the bridge is kept alive for the lifetime of the
-encoder component.
+Inline rockchip_hdmi_parse_dt() into dw_hdmi_rockchip_bind() so the
+probe path is easier to follow in one place. Also ensure failures in
+bind() use dev_err_probe() so probe deferrals and errors are reported
+consistently.
 
 Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
 ---
- drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c | 74 +++++++++------------
+ 1 file changed, 30 insertions(+), 44 deletions(-)
 
 diff --git a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
-index c5cdf2d1f04b..c7933f3eb64f 100644
+index 982d0829f278..c5cdf2d1f04b 100644
 --- a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
 +++ b/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
-@@ -79,6 +79,7 @@ struct rockchip_hdmi {
- 	struct clk *hdmiphy_clk;
- 	struct clk *ref_clk;
- 	struct clk *grf_clk;
-+	struct drm_bridge *bridge;
- 	struct dw_hdmi *hdmi;
- 	struct phy *phy;
+@@ -196,41 +196,6 @@ static const struct dw_hdmi_phy_config rockchip_phy_config[] = {
+ 	{ ~0UL,	     0x0000, 0x0000, 0x0000}
  };
-@@ -609,6 +610,13 @@ static int dw_hdmi_rockchip_bind(struct device *dev, struct device *master,
- 		return dev_err_probe(dev, PTR_ERR(hdmi->hdmi),
- 				     "failed to bind encoder\n");
  
-+	hdmi->bridge = of_drm_find_and_get_bridge(np);
-+	if (!hdmi->bridge) {
-+		dw_hdmi_remove(hdmi->hdmi);
-+		return dev_err_probe(dev, -ENODEV,
-+				     "failed to find bridge\n");
-+	}
+-static int rockchip_hdmi_parse_dt(struct rockchip_hdmi *hdmi)
+-{
+-	struct device_node *np = hdmi->dev->of_node;
+-	int ret;
+-
+-	hdmi->regmap = syscon_regmap_lookup_by_phandle(np, "rockchip,grf");
+-	if (IS_ERR(hdmi->regmap)) {
+-		dev_err(hdmi->dev, "Unable to get rockchip,grf\n");
+-		return PTR_ERR(hdmi->regmap);
+-	}
+-
+-	hdmi->ref_clk = devm_clk_get_optional_enabled(hdmi->dev, "ref");
+-	if (!hdmi->ref_clk)
+-		hdmi->ref_clk = devm_clk_get_optional_enabled(hdmi->dev, "vpll");
+-
+-	if (IS_ERR(hdmi->ref_clk)) {
+-		ret = PTR_ERR(hdmi->ref_clk);
+-		return dev_err_probe(hdmi->dev, ret, "failed to get reference clock\n");
+-	}
+-
+-	hdmi->grf_clk = devm_clk_get_optional(hdmi->dev, "grf");
+-	if (IS_ERR(hdmi->grf_clk)) {
+-		ret = PTR_ERR(hdmi->grf_clk);
+-		return dev_err_probe(hdmi->dev, ret, "failed to get grf clock\n");
+-	}
+-
+-	ret = devm_regulator_get_enable(hdmi->dev, "avdd-0v9");
+-	if (ret)
+-		return ret;
+-
+-	ret = devm_regulator_get_enable(hdmi->dev, "avdd-1v8");
+-
+-	return ret;
+-}
+-
+ static enum drm_mode_status
+ dw_hdmi_rockchip_mode_valid(struct dw_hdmi *dw_hdmi, void *data,
+ 			    const struct drm_display_info *info,
+@@ -578,18 +543,39 @@ static int dw_hdmi_rockchip_bind(struct device *dev, struct device *master,
+ 	 * the required CRTC is added later.
+ 	 */
+ 	if (encoder->possible_crtcs == 0)
+-		return -EPROBE_DEFER;
++		return dev_err_probe(dev, -EPROBE_DEFER,
++				     "failed to find possible crtcs\n");
+ 
+-	ret = rockchip_hdmi_parse_dt(hdmi);
+-	if (ret) {
+-		return dev_err_probe(dev, ret, "Unable to parse OF data\n");
+-	}
++	hdmi->regmap = syscon_regmap_lookup_by_phandle(np, "rockchip,grf");
++	if (IS_ERR(hdmi->regmap))
++		return dev_err_probe(dev, PTR_ERR(hdmi->regmap),
++				     "failed to get rockchip,grf\n");
 +
- 	return 0;
- }
++	hdmi->ref_clk = devm_clk_get_optional_enabled(dev, "ref");
++	if (!hdmi->ref_clk)
++		hdmi->ref_clk = devm_clk_get_optional_enabled(dev, "vpll");
++
++	if (IS_ERR(hdmi->ref_clk))
++		return dev_err_probe(dev, PTR_ERR(hdmi->ref_clk),
++				     "failed to get reference clock\n");
++
++	hdmi->grf_clk = devm_clk_get_optional(dev, "grf");
++	if (IS_ERR(hdmi->grf_clk))
++		return dev_err_probe(dev, PTR_ERR(hdmi->grf_clk),
++				     "failed to get grf clock\n");
++
++	ret = devm_regulator_get_enable(dev, "avdd-0v9");
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to enable avdd-0v9\n");
++
++	ret = devm_regulator_get_enable(dev, "avdd-1v8");
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to enable avdd-1v8\n");
  
-@@ -617,6 +625,7 @@ static void dw_hdmi_rockchip_unbind(struct device *dev, struct device *master,
- {
- 	struct rockchip_hdmi *hdmi = dev_get_drvdata(dev);
+ 	hdmi->phy = devm_phy_optional_get(dev, "hdmi");
+-	if (IS_ERR(hdmi->phy)) {
+-		ret = PTR_ERR(hdmi->phy);
+-		return dev_err_probe(dev, ret, "failed to get phy\n");
+-	}
++	if (IS_ERR(hdmi->phy))
++		return dev_err_probe(dev, PTR_ERR(hdmi->phy),
++				     "failed to get phy\n");
  
-+	drm_bridge_put(hdmi->bridge);
- 	dw_hdmi_unbind(hdmi->hdmi);
- }
- 
+ 	index = of_property_match_string(np, "phy-names", "hdmi");
+ 	if (index >= 0) {
 -- 
 2.54.0
 
