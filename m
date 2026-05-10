@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCC44CD3427
-	for <dri-devel@archiver.kernel.org>; Sun, 10 May 2026 22:13:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF417CD3427
+	for <dri-devel@archiver.kernel.org>; Sun, 10 May 2026 22:13:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CE5C10E447;
-	Sun, 10 May 2026 22:13:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B45B10E44C;
+	Sun, 10 May 2026 22:13:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="NeqDm3wc";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="S9z1Tavp";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6797510E447
- for <dri-devel@lists.freedesktop.org>; Sun, 10 May 2026 22:13:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6739B10E44D
+ for <dri-devel@lists.freedesktop.org>; Sun, 10 May 2026 22:13:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329; h=Cc:To:In-Reply-To:References:Message-Id:
  Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
  Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
  :Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=U0eJ7WvOjw9QEqlRjz1pIHE1YxWw5qh8XpXKSyy8Rgg=; b=NeqDm3wc1HemBpS7j8qPDVoMa1
- j6983vhtg3x5IqFmrxI03P7UlvqekuEbUyRM6J8ibTXeHiDfAypzwAu9CCeNUrwfj3NGsSZTQEKSW
- tzQOHWABjYXjITBOpsBXdltrdbzZx6F54b7mhMmXPCdhinTPBTYCeN7Qf/1BamDGCu1fEosxoYjpY
- 1V5LTk3dtXyeCknR8BlpDoeWKfoj70ehU0gSGgNnadFWmexBtj0OITY3ViuxrXzoFRtnxxlfp/xj6
- Mk05Tinhsp37TYx5n35RBg10UUNNp2VKsD+JQCFIyJUHcRKoRV0IjgHZ+yzA+WFvnnTDHYR59XnkC
- OUPeiFPw==;
+ bh=RPaIpTNOIv+W6lTsfSqLsYcvrEjpRqPqmc2rasPR8vw=; b=S9z1TavpQQQhcKGArO73sYtSwh
+ qKrGF02NEfbeOpVnTUPhVm8k2yYikfDnTn7gK5WMLmvn6kJzRnhRKBBEtOJEQX5SJh2J+KEesYdJJ
+ I0ZMfnZNuonkO2vAmmgTgZI+Gqa8VycORqUwjYBZe4QFyw+b0414pqn4kjx8fpoqTLR20Ba4SoUzr
+ bW6QLUQyaWw5oZMQ4/QS6YCqhBGhmsOM3mA3UYnvYnCSi5ri6QpjI6evr07UFn9cnd0n4ITA8EHF+
+ rAqiTGbG30uiEODpDoU5Mf7pdGuouVJU6yD/YftlJQwEby2AAFHto+7/HuzrROynjxElr+JXP3UqD
+ bHCvnd8g==;
 Received: from [189.7.87.67] (helo=[10.0.0.1])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wMCOS-008k1J-JB; Mon, 11 May 2026 00:13:00 +0200
+ id 1wMCOX-008k1J-04; Mon, 11 May 2026 00:13:04 +0200
 From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Sun, 10 May 2026 19:12:08 -0300
-Subject: [PATCH v2 11/14] drm/v3d: Refactor CPU ioctl into unified
- submission chain
+Date: Sun, 10 May 2026 19:12:09 -0300
+Subject: [PATCH v2 12/14] drm/v3d: Split BO fence attach from syncobj
+ output handling
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260510-v3d-sched-misc-fixes-v2-11-ca4aba343ef6@igalia.com>
+Message-Id: <20260510-v3d-sched-misc-fixes-v2-12-ca4aba343ef6@igalia.com>
 References: <20260510-v3d-sched-misc-fixes-v2-0-ca4aba343ef6@igalia.com>
 In-Reply-To: <20260510-v3d-sched-misc-fixes-v2-0-ca4aba343ef6@igalia.com>
 To: Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>, 
@@ -50,15 +50,15 @@ To: Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
 Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
  =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5552; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=f2KhOvowD+4zWV/5IPk/N+QouGS4vKaomU7whumtMWc=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqAQK16TgnQrQJjsWgWP8+qiknYfDwLtZNIiwz0
- f6zbpkQZ0qJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCagECtQAKCRA/8w6Kdoj6
- qt42B/wJe2Z/Uvt7UpEEgZg97BkzZ0+S/Pqxc6Fry2y3f0hEXT8Kyj2uwU/0AgK6oBmnR2YRW2v
- oO0uBAlQ1OeVkgVWhIOS2AMHJeTtMafnHx1CgPcJg0LDjlIGjvSlnh24hhyCUZIFP24Xonf8UIH
- 9p2+N4V4GVv4BfFJFCSSWxVr1rVud+09yRr1C9b+An7HCcnwVfjL5gx2PBHESN2B7Ju5Usa2eFn
- at8Sn+U0osK34Ix8ceACWpnhyPRWC+Ym7W7gMxtWGzGFUO8udNBFYJB9GryTx4ppNdKOUa24+0e
- uUWENHfT34SxiG/QOZRPmV0xRyCZ8S889/tqnQW10Ahj0r+G
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4405; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=5meq0tMRCxA0SGZZfTg24R9RmqRNkoJosSDe8oWAEJI=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqAQK1NOP+Uky8QzApNXVTCBDAj/NSk/YsbhetF
+ DeyO1ksDYGJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCagECtQAKCRA/8w6Kdoj6
+ qg1DCACs9WDQdaqutaAE81zLXNzMQT8Q8GRxOyWxnCUYAdGcJw9lDGGD8GjPswhX17qn1pmVbYT
+ JPYc3VNyL87VSHbKvxNZ4mrz4odY4S4W1lBzzwTDBDIugRcy/qbtFlZ11SjrVnmtCklLgJGepfh
+ nFKBOmLaVEJdDNuFRfnKcq2oZ9OkL73FoXurd0Qg2fTBdWuAwsgoXyHGqAkinw3qbPpz9cLiatZ
+ Vm5ITE8t3FdRZrRHODXcUbSaphEqM1Ie5UskO/xocGsx/FoH3zxOWnuUSfGYzJSyxkAYW2zMUtt
+ /hzHykqUEPmtoF1/WdUXTIh9tfSl+k8PBRcXz8kGMAA1GAsJ
 X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
  fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -76,174 +76,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Restructure the CPU ioctl so that all job types, including indirect CSD,
-use a single struct v3d_submit chain and a single DRM exec context.
+v3d_attach_fences_and_unlock_reservation() does three different things:
+(1) attaches the submission's last fence to every BO, (2) releases
+drm_exec, and (3) replaces the userspace out_sync syncobjs. Decouple
+these three behaviors into different functions, so that each function
+has a more self-contained behavior.
 
-Now that v3d_get_cpu_indirect_csd_params() is a pure parser and the
-submit helpers operate on struct v3d_submit, fold the indirect CSD path
-into the standard flow by appending the CSD and CLEAN_CACHE jobs to the
-same struct v3d_submit as the CPU job and locking the union of all jobs'
-BOs under one drm_exec. This eliminates the second drm_exec, the nested
-submission, and the conditional two-pass fence attachment that the CPU
-ioctl previously required for the indirect CSD path.
+Also, move fence attachment and reservation unlocking to v3d_submit_jobs(),
+so that callers no longer have to deal with this sequence. Now, after
+submitting the jobs, callers are only responsible for calling
+v3d_submit_process_post_deps().
+
+No functional change; just code consolidation.
 
 Signed-off-by: Maíra Canal <mcanal@igalia.com>
 ---
- drivers/gpu/drm/v3d/v3d_drv.h    |  6 ---
- drivers/gpu/drm/v3d/v3d_submit.c | 80 ++++++++++------------------------------
- 2 files changed, 20 insertions(+), 66 deletions(-)
+ drivers/gpu/drm/v3d/v3d_submit.c | 57 ++++++++++++++++++++++------------------
+ 1 file changed, 32 insertions(+), 25 deletions(-)
 
-diff --git a/drivers/gpu/drm/v3d/v3d_drv.h b/drivers/gpu/drm/v3d/v3d_drv.h
-index ec01668bacb6..071d919fe860 100644
---- a/drivers/gpu/drm/v3d/v3d_drv.h
-+++ b/drivers/gpu/drm/v3d/v3d_drv.h
-@@ -422,9 +422,6 @@ struct v3d_indirect_csd_info {
- 	/* Indirect CSD */
- 	struct v3d_csd_job *job;
- 
--	/* Clean cache job associated to the Indirect CSD job */
--	struct v3d_job *clean_job;
--
- 	/* Indirect CSD args, stashed by the extension parser and later used
- 	 * to create the CSD job from them.
- 	 */
-@@ -443,9 +440,6 @@ struct v3d_indirect_csd_info {
- 
- 	/* Indirect BO */
- 	struct drm_gem_object *indirect;
--
--	/* Context of the Indirect CSD job */
--	struct drm_exec exec;
- };
- 
- struct v3d_timestamp_query_info {
 diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_submit.c
-index 899128fc2bd5..6506acb6992e 100644
+index 6506acb6992e..08a7fa9bc366 100644
 --- a/drivers/gpu/drm/v3d/v3d_submit.c
 +++ b/drivers/gpu/drm/v3d/v3d_submit.c
-@@ -1250,15 +1250,10 @@ int
- v3d_submit_cpu_ioctl(struct drm_device *dev, void *data,
- 		     struct drm_file *file_priv)
- {
--	struct v3d_dev *v3d = to_v3d_dev(dev);
- 	struct v3d_submit submit = { .v3d = to_v3d_dev(dev), .file_priv = file_priv };
--	struct v3d_submit indirect_submit = { .v3d = to_v3d_dev(dev), .file_priv = file_priv };
- 	struct drm_v3d_submit_cpu *args = data;
- 	struct v3d_submit_ext se = {0};
--	struct v3d_submit_ext *out_se = NULL;
- 	struct v3d_cpu_job *cpu_job = NULL;
--	struct v3d_csd_job *csd_job = NULL;
--	struct v3d_job *clean_job = NULL;
- 	int ret;
+@@ -273,6 +273,25 @@ v3d_attach_perfmon_to_jobs(struct v3d_submit *submit, u32 perfmon_id)
+ 	return 0;
+ }
  
- 	if (args->flags && !(args->flags & DRM_V3D_SUBMIT_EXTENSION)) {
-@@ -1292,86 +1287,51 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void *data,
- 		goto fail;
- 	}
- 
--	trace_v3d_submit_cpu_ioctl(&v3d->drm, cpu_job->job_type);
-+	trace_v3d_submit_cpu_ioctl(dev, cpu_job->job_type);
- 
- 	ret = v3d_job_add_syncobjs(&cpu_job->base, file_priv, 0, &se, V3D_CPU);
- 	if (ret)
- 		goto fail;
- 
--	if (cpu_job->job_type == V3D_CPU_JOB_TYPE_INDIRECT_CSD) {
--		ret = v3d_setup_csd_jobs_and_bos(&indirect_submit,
--						 &cpu_job->indirect_csd.args,
--						 NULL);
--		if (ret)
--			goto fail;
--
--		cpu_job->indirect_csd.job = container_of(indirect_submit.jobs[0],
--							 struct v3d_csd_job, base);
--		cpu_job->indirect_csd.clean_job = indirect_submit.jobs[1];
--	}
--
--	clean_job = cpu_job->indirect_csd.clean_job;
--	csd_job = cpu_job->indirect_csd.job;
--
-+	/* Look up the CPU jobs' BOs first, so v3d_setup_csd_jobs_and_bos(), which
-+	 * locks all jobs' BOs at its end, picks them up too in the case of indirect
-+	 * CSD.
-+	 */
- 	if (args->bo_handle_count) {
- 		ret = v3d_lookup_bos(&submit, args->bo_handles, args->bo_handle_count);
- 		if (ret)
- 			goto fail;
-+	}
- 
-+	if (cpu_job->job_type == V3D_CPU_JOB_TYPE_INDIRECT_CSD) {
-+		ret = v3d_setup_csd_jobs_and_bos(&submit, &cpu_job->indirect_csd.args,
-+						 NULL);
-+		if (ret)
-+			goto fail;
++static void
++v3d_submit_attach_object_fences(struct v3d_submit *submit)
++{
++	struct v3d_job *last_job = submit->jobs[submit->job_count - 1];
 +
-+		/* The CSD job was appended at jobs[1] */
-+		cpu_job->indirect_csd.job = container_of(submit.jobs[1], struct v3d_csd_job,
-+							 base);
-+	} else {
- 		ret = v3d_submit_lock_reservations(&submit);
- 		if (ret)
- 			goto fail;
++	/* The submission's last fence covers the entire submission. Attach it
++	 * to every BO touched by any job in the submission.
++	 */
++	for (int i = 0; i < submit->job_count; i++) {
++		struct v3d_job *job = submit->jobs[i];
++
++		for (int j = 0; j < job->bo_count; j++) {
++			/* XXX: Use shared fences for read-only objects. */
++			dma_resv_add_fence(job->bo[j]->resv, last_job->done_fence,
++					   DMA_RESV_USAGE_WRITE);
++		}
++	}
++}
++
+ static void
+ v3d_push_job(struct v3d_job *job)
+ {
+@@ -307,6 +326,13 @@ v3d_submit_jobs(struct v3d_submit *submit)
+ 		}
  	}
  
--	mutex_lock(&v3d->sched_lock);
--	v3d_push_job(&cpu_job->base);
-+	ret = v3d_submit_jobs(&submit);
-+	if (ret)
-+		goto fail_unreserve;
++	mutex_unlock(&v3d->sched_lock);
++
++	v3d_submit_attach_object_fences(submit);
++	v3d_submit_unlock_reservations(submit);
++
++	return 0;
++
+ err:
+ 	mutex_unlock(&v3d->sched_lock);
+ 	return ret;
+@@ -327,28 +353,13 @@ v3d_submit_cleanup_jobs(struct v3d_submit *submit)
+ }
  
--	switch (cpu_job->job_type) {
--	case V3D_CPU_JOB_TYPE_INDIRECT_CSD:
--		ret = drm_sched_job_add_dependency(&csd_job->base.base,
--						   dma_fence_get(cpu_job->base.done_fence));
--		if (ret)
--			goto fail_unreserve;
--
--		v3d_push_job(&csd_job->base);
--
--		ret = drm_sched_job_add_dependency(&clean_job->base,
--						   dma_fence_get(csd_job->base.done_fence));
--		if (ret)
--			goto fail_unreserve;
--
--		v3d_push_job(clean_job);
--
--		break;
--	default:
--		break;
--	}
--	mutex_unlock(&v3d->sched_lock);
--
--	out_se = (cpu_job->job_type == V3D_CPU_JOB_TYPE_INDIRECT_CSD) ? NULL : &se;
--
--	v3d_attach_fences_and_unlock_reservation(&submit, 0, out_se);
--
--	switch (cpu_job->job_type) {
--	case V3D_CPU_JOB_TYPE_INDIRECT_CSD:
--		v3d_attach_fences_and_unlock_reservation(&indirect_submit, 0, &se);
--		break;
--	default:
--		break;
--	}
-+	v3d_attach_fences_and_unlock_reservation(&submit, 0, &se);
+ static void
+-v3d_attach_fences_and_unlock_reservation(struct v3d_submit *submit,
+-					 u32 out_sync, struct v3d_submit_ext *se)
++v3d_submit_process_post_deps(struct v3d_submit *submit, u32 out_sync,
++			     struct v3d_submit_ext *se)
+ {
+ 	bool has_multisync = se && (se->flags & DRM_V3D_EXT_ID_MULTI_SYNC);
+ 	struct v3d_job *last_job = submit->jobs[submit->job_count - 1];
+ 	struct drm_syncobj *sync_out;
  
+-	/* The submission's last fence covers the entire submission. Attach it
+-	 * to every BO touched by any job in the submission.
+-	 */
+-	for (int i = 0; i < submit->job_count; i++) {
+-		struct v3d_job *job = submit->jobs[i];
+-
+-		for (int j = 0; j < job->bo_count; j++) {
+-			/* XXX: Use shared fences for read-only objects. */
+-			dma_resv_add_fence(job->bo[j]->resv, last_job->done_fence,
+-					   DMA_RESV_USAGE_WRITE);
+-		}
+-	}
+-
+-	v3d_submit_unlock_reservations(submit);
+-
+ 	/* Update the return sync object for the job */
+ 	/* If it only supports a single signal semaphore*/
+ 	if (!has_multisync) {
+@@ -1052,8 +1063,7 @@ v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
+ 	if (ret)
+ 		goto fail_unreserve;
+ 
+-	v3d_attach_fences_and_unlock_reservation(&submit, args->out_sync, &se);
+-
++	v3d_submit_process_post_deps(&submit, args->out_sync, &se);
  	v3d_submit_put_jobs(&submit);
--	v3d_submit_put_jobs(&indirect_submit);
  
  	return 0;
+@@ -1145,8 +1155,7 @@ v3d_submit_tfu_ioctl(struct drm_device *dev, void *data,
+ 	if (ret)
+ 		goto fail_unreserve;
  
- fail_unreserve:
--	mutex_unlock(&v3d->sched_lock);
- 	v3d_submit_unlock_reservations(&submit);
--	v3d_submit_unlock_reservations(&indirect_submit);
- fail:
- 	v3d_submit_cleanup_jobs(&submit);
--	v3d_submit_cleanup_jobs(&indirect_submit);
- 	v3d_put_multisync_post_deps(&se);
- 	kvfree(cpu_job->timestamp_query.queries);
- 	kvfree(cpu_job->performance_query.queries);
+-	v3d_attach_fences_and_unlock_reservation(&submit, args->out_sync, &se);
+-
++	v3d_submit_process_post_deps(&submit, args->out_sync, &se);
+ 	v3d_submit_put_jobs(&submit);
+ 
+ 	return 0;
+@@ -1213,8 +1222,7 @@ v3d_submit_csd_ioctl(struct drm_device *dev, void *data,
+ 	if (ret)
+ 		goto fail_unreserve;
+ 
+-	v3d_attach_fences_and_unlock_reservation(&submit, args->out_sync, &se);
+-
++	v3d_submit_process_post_deps(&submit, args->out_sync, &se);
+ 	v3d_submit_put_jobs(&submit);
+ 
+ 	return 0;
+@@ -1322,8 +1330,7 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void *data,
+ 	if (ret)
+ 		goto fail_unreserve;
+ 
+-	v3d_attach_fences_and_unlock_reservation(&submit, 0, &se);
+-
++	v3d_submit_process_post_deps(&submit, 0, &se);
+ 	v3d_submit_put_jobs(&submit);
+ 
+ 	return 0;
 
 -- 
 2.54.0
