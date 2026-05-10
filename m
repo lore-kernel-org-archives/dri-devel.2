@@ -4,63 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8C12CD37B2
-	for <dri-devel@archiver.kernel.org>; Sun, 10 May 2026 22:13:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55404CD37B2
+	for <dri-devel@archiver.kernel.org>; Sun, 10 May 2026 22:26:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4235C10E449;
-	Sun, 10 May 2026 22:13:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C09B10E201;
+	Sun, 10 May 2026 22:26:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="GtKJBeY4";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b="EdN7zR/+";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=valla.it header.i=@valla.it header.b="HoBVklFE";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9871C10E449
- for <dri-devel@lists.freedesktop.org>; Sun, 10 May 2026 22:13:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329; h=Cc:To:In-Reply-To:References:Message-Id:
- Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
- Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
- :Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=DngzamtjuG2UdnUUhgu5fLJkV2pL6yX7PD6FxATkay8=; b=GtKJBeY4v8cHNsk+Tg53D03E3A
- V/rhodXou5MhFx7YTD6BS6hKYxEIU+rKkpuGLvFcnvMYP/VoZKQe2oQ90wi6RA/eBm1CUGlbEtwyM
- HKxEQZDs9UB2bRROEmGDipFUdhLqxtU5XvU4V1ELHNlWTGu9wFf752mZskRuHj/WOtp7bZS4IPXP3
- zZB9gChHN+zYDsHS8ywS1u5E4Lsw1V2wnRCHnuIXCmUvc3SNusgAxj+zJ3DYVyPOqu3QXtCBaJFDt
- jPSAmpf6Kro8B+XYc6i8ln14BGPOuWQNpSdd6g3wdNYXcN6WagXQsdPwuAsRLWN7Ns4QdKKB7qTUE
- 924x6oaQ==;
-Received: from [189.7.87.67] (helo=[10.0.0.1])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wMCOf-008k1J-TX; Mon, 11 May 2026 00:13:13 +0200
-From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Sun, 10 May 2026 19:12:11 -0300
-Subject: [PATCH v2 14/14] drm/v3d: Ensure atomic submissions in
- v3d_submit_jobs()
+Received: from delivery.antispam.mailspamprotection.com
+ (delivery.antispam.mailspamprotection.com [185.56.87.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF17910E201
+ for <dri-devel@lists.freedesktop.org>; Sun, 10 May 2026 22:26:39 +0000 (UTC)
+ARC-Seal: i=1; cv=none; a=rsa-sha256;
+ d=outgoing.instance-europe-west4-kz0n.prod.antispam.mailspamprotection.com;
+ s=arckey; t=1778451999; 
+ b=zvE/XPeu42QgWCS66z6C1MtR9pJB91Ip4uABIkaF4zQMT3gNMh7txP4Lp9vi1JpmWa23gWp3YN
+ i80MNsfVAXKs8XifRZqSfqtaNHPIP5XKjJQEwgi1CTdOutlD804Asi1VfjK7/qYxosF5nGwCf6
+ oZ3SzKZfAqXM6I0b49SdzqPGoPt2UZYgSzcjwTIdpO39loaONJNdrdr4L/5PQgpFEsSEd0yMBi
+ 7pogDxkGPsgT2bAnRWpS1iThkVw28jo6CWuRJlCadu82+NWRrd5EAqF5YdTBsKNFxW242eBWCg
+ wu7uz9uL0B5qN6hF+dh587+elmkw2OgHvvDl7fjT0nOJfQ==;
+ARC-Authentication-Results: i=1;
+ outgoing.instance-europe-west4-kz0n.prod.antispam.mailspamprotection.com;
+ smtp.remote-ip=35.214.173.214; 
+ iprev=pass (214.173.214.35.bc.googleusercontent.com)
+ smtp.remote-ip=35.214.173.214; 
+ auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+ dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+ arc=none
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed;
+ d=outgoing.instance-europe-west4-kz0n.prod.antispam.mailspamprotection.com;
+ s=arckey; t=1778451999; 
+ bh=rR+36T8oiKeMi7IFE5YhT8MhKdSCfW4HON6L9TmdTZY=;
+ h=Cc:To:In-Reply-To:References:Message-ID:Content-Transfer-Encoding:
+ Content-Type:MIME-Version:Subject:Date:From:DKIM-Signature:DKIM-Signature;
+ b=n44sDv2Weg6j/MU+0KdfJb35rd9AY3V3NKLKGtl1rSm/PBxCnJsebSJGHjNfxkqmAWxtFo0Srn
+ X0BB3IBJPNp9shdZWG+q9EyQJCALBfr2S6VVtS0yKAk8NOYz7aTj+xsM3qu9sN68wFCgBEbOAD
+ i7eSqxOq5qb+yujpaErauSgNAkixGuiZCQXQ9zSQygivO0NsnW3/YqMG4hFHhjaurCebv0/dqt
+ RpDyMG70MTDK+p+c1y6Sb31V1AvKdQWu4r7+Uoncb1Gn8zclolHherfIjOdMMgB69Su9CTEYWC
+ hnTkQQlNt73M5COlmKsCTrGwIr83T26qySaTovS0zmZ8fg==;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
+ :Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject
+ :Date:From:Reply-To:List-Unsubscribe;
+ bh=9CfoUdWJmLDzHn3cJ6W2kDGkt8ZqvTaMqW9oJ3gqphQ=; b=EdN7zR/+8Qcbq4h3zAgsykntmP
+ h2+iKQr294AUeDPnpeMYYoME0zMJiYKsj3O9X9quFxVSVlCTv2V+oEQ/TvoE41DVFk8RtU7Kjp+tg
+ nkGlrIah7hF3xTtow2biKpgjlVvbNlRNhpoOOSmZW+nsINezFb5eHP8plmjJIAjCJ2Js=;
+Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214]
+ helo=esm19.siteground.biz)
+ by instance-europe-west4-kz0n.prod.antispam.mailspamprotection.com with
+ esmtpsa (TLS1.3) tls TLS_AES_256_GCM_SHA384 (Exim 4.99.1)
+ (envelope-from <francesco@valla.it>) id 1wMCbb-000000041UO-2pBP
+ for dri-devel@lists.freedesktop.org; Sun, 10 May 2026 22:26:37 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
+ s=default; h=Cc:To:Subject:Date:From:list-help:list-unsubscribe:
+ list-subscribe:list-post:list-owner:list-archive;
+ bh=9CfoUdWJmLDzHn3cJ6W2kDGkt8ZqvTaMqW9oJ3gqphQ=; b=HoBVklFEW1jHuZMcwQaMw7jhSS
+ lot+wQwCQeGnwrDhufeOYnjLofyzOs0vXh37AqOWXPygZ0A2ogQgvYSxvL+XqqePFi1Aij94jArZS
+ 5TwW4MjfrbiSSMk0G++rtk6ePuO+g/C9UCpPyG279CFuYSnJ1ET0hhvf4k9xUCCXFGSA=;
+Received: from [95.232.18.244] (port=61481 helo=[192.168.178.43])
+ by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.99.1) (envelope-from <francesco@valla.it>)
+ id 1wMBin-00000000PdN-1XU3; Sun, 10 May 2026 21:29:57 +0000
+From: Francesco Valla <francesco@valla.it>
+Date: Sun, 10 May 2026 23:29:40 +0200
+Subject: [PATCH RFC v3 3/3] drm: docs: remove bootsplash from TODO
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260510-v3d-sched-misc-fixes-v2-14-ca4aba343ef6@igalia.com>
-References: <20260510-v3d-sched-misc-fixes-v2-0-ca4aba343ef6@igalia.com>
-In-Reply-To: <20260510-v3d-sched-misc-fixes-v2-0-ca4aba343ef6@igalia.com>
-To: Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>, 
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260510-drm_client_splash-v3-3-a9aee9f0b2fc@valla.it>
+References: <20260510-drm_client_splash-v3-0-a9aee9f0b2fc@valla.it>
+In-Reply-To: <20260510-drm_client_splash-v3-0-a9aee9f0b2fc@valla.it>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6080; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=1Q2AogcBIenq09ihFX2u8ErPMsnNL9p+9sj//V3dnHw=;
- b=kA0DAAoBP/MOinaI+qoByyZiAGoBArWhimZYFIM2nsKsVTBSHjS+uZEqLLaMxPu1LW67LmB6Z
- okBMwQAAQoAHRYhBPjkXX0BFncHKaZ30T/zDop2iPqqBQJqAQK1AAoJED/zDop2iPqqXtsIAJ1P
- TqblBaMDbdmvrHFh6Wlo8W7Kc+IL3EhP82UnbI86gUyxyc6ZdWKqAd2UQx04Re2eoegIFPdLOGg
- vwjyqaafSTL7vMRoTMpVxSCKPTbSn0G8o5xJBuvn2zAaanTbn03L9XjBuvhWwyyU5fC727xCXoH
- f8o8MCck+zAPJJ+Mct1X8BLI3v/eMKv/Vf2c/w5KW4lpA+W+W9eUoYMeyDxP40L3VdA40LXDJdW
- pOlRg6m409RSkBOL6YESguWQPYPgHjKfwsaEfHx5acsUvYeJpqzwhTxXs2cfmHCvHT/07IHzY4w
- jL0+RtKRGi8YrpIURK/EnLlMG62/No5hY4YLYPw=
-X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
- fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
+ Jonathan Corbet <corbet@lwn.net>, Jocelyn Falempe <jfalempe@redhat.com>, 
+ Javier Martinez Canillas <javierm@redhat.com>, 
+ Shuah Khan <skhan@linuxfoundation.org>
+Cc: Sam Ravnborg <sam@ravnborg.org>, 
+ Mario Limonciello <mario.limonciello@amd.com>, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
+ linux-embedded@vger.kernel.org, Francesco Valla <francesco@valla.it>
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1171; i=francesco@valla.it;
+ h=from:subject:message-id; bh=rR+36T8oiKeMi7IFE5YhT8MhKdSCfW4HON6L9TmdTZY=;
+ b=owGbwMvMwCX2aH1OUIzHTgbG02pJDFkMPy69ubF0adbcjQHlCTycx4OMI9InzuyY77VN7P7Vf
+ 9PSeQI+dpSyMIhxMciKKbKErLtxb89c829pGxgfwcxhZQIZwsDFKQAT8ctg+O9Sv7jzp8mdxjWy
+ fFrPzWvfT+96P/n9not7bNe/9O/occtgZJgicD2wi0mm8OgakdoNTF9eSR5/wnWLTzlBsfX4m6U
+ PXzADAA==
+X-Developer-Key: i=francesco@valla.it; a=openpgp;
+ fpr=CC70CBC9AA13257C6CCED8669601767CA07CA0EA
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - esm19.siteground.biz
+X-AntiAbuse: Original Domain - lists.freedesktop.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - valla.it
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-SGantispam-id: c86049ea7cb27eba96038ab7496dc802
+X-AntiAbuse: ID - c86049ea7cb27eba96038ab7496dc802
+AntiSpam-DLS: false
+AntiSpam-DLSP: 
+AntiSpam-DLSRS: 
+AntiSpam-TS: 1.0
+CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
+CFBL-Feedback-ID: 1wMCbb-000000041UO-2pBP-feedback@antispam.mailspamprotection.com
+Authentication-Results: outgoing.instance-europe-west4-kz0n.prod.antispam.mailspamprotection.com; 
+ iprev=pass (214.173.214.35.bc.googleusercontent.com)
+ smtp.remote-ip=35.214.173.214; 
+ auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+ dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+ arc=none
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,201 +133,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Currently, v3d_submit_jobs() arms and pushes each job one at a time,
-wiring dependencies between consecutive jobs after each push. If
-drm_sched_job_add_dependency() fails midway, the already-pushed jobs are
-scheduler-owned and will be submitted to the GPU for execution, even though
-the subsequent jobs won't be submitted.
+Now that a splash client exists, remove the bootsplash task from the
+TODO list for the DRM subsystem.
 
-This breaks the atomicity of the submissions, as only some of the jobs
-from a submission would be submitted to the hardware, while the other part
-fails.
-
-Restructure v3d_submit_jobs() into three phases: (1) arm all jobs belonging
-to a given submission, (2) wire inter-job dependencies, and (3) push all
-jobs to the scheduler unconditionally. Phase (2) can fail; on failure,
-it marks every armed job finished fence with an error, so that run_job()
-callbacks skip hardware execution.
-
-This guarantees that every armed job is always pushed, either to run
-or to be skipped, and it also ensures the atomicity of a submission.
-
-Suggested-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Signed-off-by: Maíra Canal <mcanal@igalia.com>
+Signed-off-by: Francesco Valla <francesco@valla.it>
 ---
- drivers/gpu/drm/v3d/v3d_sched.c  |  6 ++++
- drivers/gpu/drm/v3d/v3d_submit.c | 76 +++++++++++++++++++++++-----------------
- 2 files changed, 50 insertions(+), 32 deletions(-)
+ Documentation/gpu/todo.rst | 17 -----------------
+ 1 file changed, 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
-index cc3212e2cb5d..6e890b8547e5 100644
---- a/drivers/gpu/drm/v3d/v3d_sched.c
-+++ b/drivers/gpu/drm/v3d/v3d_sched.c
-@@ -670,6 +670,9 @@ v3d_cpu_job_run(struct drm_sched_job *sched_job)
- 	struct v3d_cpu_job *job = to_cpu_job(sched_job);
- 	struct v3d_dev *v3d = job->base.v3d;
+diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
+index bc9f14c8a2ec..f367d8980a87 100644
+--- a/Documentation/gpu/todo.rst
++++ b/Documentation/gpu/todo.rst
+@@ -802,23 +802,6 @@ See drivers/gpu/drm/amd/display/TODO for tasks.
  
-+	if (unlikely(job->base.base.s_fence->finished.error))
-+		return NULL;
-+
- 	if (job->job_type >= ARRAY_SIZE(cpu_job_function)) {
- 		drm_dbg(&v3d->drm, "Unknown CPU job: %d\n", job->job_type);
- 		return NULL;
-@@ -693,6 +696,9 @@ v3d_cache_clean_job_run(struct drm_sched_job *sched_job)
- 	struct v3d_job *job = to_v3d_job(sched_job);
- 	struct v3d_dev *v3d = job->v3d;
+ Contact: Harry Wentland, Alex Deucher
  
-+	if (unlikely(job->base.s_fence->finished.error))
-+		return NULL;
-+
- 	v3d_job_start_stats(job);
- 
- 	v3d_clean_caches(v3d);
-diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_submit.c
-index afe54e73a461..11ba3c977e2d 100644
---- a/drivers/gpu/drm/v3d/v3d_submit.c
-+++ b/drivers/gpu/drm/v3d/v3d_submit.c
-@@ -292,19 +292,6 @@ v3d_submit_attach_object_fences(struct v3d_submit *submit)
- 	}
- }
- 
--static void
--v3d_push_job(struct v3d_job *job)
--{
--	drm_sched_job_arm(&job->base);
+-Bootsplash
+-==========
 -
--	job->done_fence = dma_fence_get(&job->base.s_fence->finished);
+-There is support in place now for writing internal DRM clients making it
+-possible to pick up the bootsplash work that was rejected because it was written
+-for fbdev.
 -
--	/* put by scheduler job completion */
--	kref_get(&job->refcount);
+-- [v6,8/8] drm/client: Hack: Add bootsplash example
+-  https://patchwork.freedesktop.org/patch/306579/
 -
--	drm_sched_entity_push_job(&job->base);
--}
+-- [RFC PATCH v2 00/13] Kernel based bootsplash
+-  https://lore.kernel.org/r/20171213194755.3409-1-mstaudt@suse.de
 -
- static int
- v3d_submit_jobs(struct v3d_submit *submit)
- {
-@@ -316,16 +303,23 @@ v3d_submit_jobs(struct v3d_submit *submit)
- 	for (int i = 0; i < submit->job_count; i++) {
- 		struct v3d_job *job = submit->jobs[i];
+-Contact: Sam Ravnborg
+-
+-Level: Advanced
+-
+ Brightness handling on devices with multiple internal panels
+ ============================================================
  
--		v3d_push_job(job);
-+		drm_sched_job_arm(&job->base);
-+		job->done_fence = dma_fence_get(&job->base.s_fence->finished);
- 
--		if (i + 1 < submit->job_count) {
--			ret = drm_sched_job_add_dependency(&submit->jobs[i + 1]->base,
--							   dma_fence_get(job->done_fence));
--			if (ret)
--				goto err;
--		}
-+		/* put by scheduler job completion */
-+		kref_get(&job->refcount);
- 	}
- 
-+	for (int i = 0; i + 1 < submit->job_count; i++) {
-+		ret = drm_sched_job_add_dependency(&submit->jobs[i + 1]->base,
-+						   dma_fence_get(submit->jobs[i]->done_fence));
-+		if (ret)
-+			goto err;
-+	}
-+
-+	for (int i = 0; i < submit->job_count; i++)
-+		drm_sched_entity_push_job(&submit->jobs[i]->base);
-+
- 	mutex_unlock(&v3d->sched_lock);
- 
- 	v3d_submit_attach_object_fences(submit);
-@@ -334,7 +328,17 @@ v3d_submit_jobs(struct v3d_submit *submit)
- 	return 0;
- 
- err:
-+	/* Mark every armed job as failed so run_job() skips execution */
-+	for (int i = 0; i < submit->job_count; i++)
-+		dma_fence_set_error(&submit->jobs[i]->base.s_fence->finished, ret);
-+
-+	for (int i = 0; i < submit->job_count; i++)
-+		drm_sched_entity_push_job(&submit->jobs[i]->base);
-+
- 	mutex_unlock(&v3d->sched_lock);
-+
-+	v3d_submit_unlock_reservations(submit);
-+
- 	return ret;
- }
- 
-@@ -1068,8 +1072,11 @@ v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
- 		goto fail_unreserve;
- 
- 	ret = v3d_submit_jobs(&submit);
--	if (ret)
--		goto fail_unreserve;
-+	if (ret) {
-+		v3d_submit_put_jobs(&submit);
-+		v3d_submit_put_post_deps(sync_out, &se);
-+		return ret;
-+	}
- 
- 	v3d_submit_process_post_deps(&submit, sync_out, &se);
- 	v3d_submit_put_jobs(&submit);
-@@ -1167,16 +1174,17 @@ v3d_submit_tfu_ioctl(struct drm_device *dev, void *data,
- 		goto fail;
- 
- 	ret = v3d_submit_jobs(&submit);
--	if (ret)
--		goto fail_unreserve;
-+	if (ret) {
-+		v3d_submit_put_jobs(&submit);
-+		v3d_submit_put_post_deps(sync_out, &se);
-+		return ret;
-+	}
- 
- 	v3d_submit_process_post_deps(&submit, sync_out, &se);
- 	v3d_submit_put_jobs(&submit);
- 
- 	return 0;
- 
--fail_unreserve:
--	v3d_submit_unlock_reservations(&submit);
- fail:
- 	v3d_submit_cleanup_jobs(&submit);
- 	v3d_submit_put_post_deps(sync_out, &se);
-@@ -1241,8 +1249,11 @@ v3d_submit_csd_ioctl(struct drm_device *dev, void *data,
- 		goto fail_unreserve;
- 
- 	ret = v3d_submit_jobs(&submit);
--	if (ret)
--		goto fail_unreserve;
-+	if (ret) {
-+		v3d_submit_put_jobs(&submit);
-+		v3d_submit_put_post_deps(sync_out, &se);
-+		return ret;
-+	}
- 
- 	v3d_submit_process_post_deps(&submit, sync_out, &se);
- 	v3d_submit_put_jobs(&submit);
-@@ -1349,16 +1360,17 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void *data,
- 	}
- 
- 	ret = v3d_submit_jobs(&submit);
--	if (ret)
--		goto fail_unreserve;
-+	if (ret) {
-+		v3d_submit_put_jobs(&submit);
-+		v3d_submit_put_post_deps(NULL, &se);
-+		return ret;
-+	}
- 
- 	v3d_submit_process_post_deps(&submit, NULL, &se);
- 	v3d_submit_put_jobs(&submit);
- 
- 	return 0;
- 
--fail_unreserve:
--	v3d_submit_unlock_reservations(&submit);
- fail:
- 	v3d_submit_cleanup_jobs(&submit);
- 	v3d_submit_put_post_deps(NULL, &se);
 
 -- 
 2.54.0
