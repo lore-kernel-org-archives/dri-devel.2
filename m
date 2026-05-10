@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 117C8CD37B2
-	for <dri-devel@archiver.kernel.org>; Sun, 10 May 2026 12:42:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FF1FCD3427
+	for <dri-devel@archiver.kernel.org>; Sun, 10 May 2026 12:42:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A5A310E15F;
-	Sun, 10 May 2026 12:42:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91FD310E158;
+	Sun, 10 May 2026 12:42:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="vWYIABNV";
+	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="FqtSaHhO";
 	dkim-atps=neutral
 Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 399D510E159
- for <dri-devel@lists.freedesktop.org>; Sun, 10 May 2026 12:42:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6556010E158
+ for <dri-devel@lists.freedesktop.org>; Sun, 10 May 2026 12:42:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
  h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
  Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=fe-e1b5cab7be;
- t=1778416930; bh=Rdh0BB0LH0hOOSmxBLwLWxnKBxaJU8xXHPIyn2MeIhg=;
- b=vWYIABNVUVBgike+NcaC6eziTiuX+9FoSdKiBHxXDw/DxHVPKgUkTZL7pPBk3tjzYYLiCnhBl
- v/zo/EOOIqVbSfLpRfVP8+B+J7ythOCpen4mX9ofXirWXvowzaIod/s3t5U16k06+vJimEgs6xt
- yshErXSS4ek0kiwrIPp8iQlRYbPMmY5NOJzgoDRqYIlyR8UWIuMm9qlxjlWgIg056M52+yHTNDK
- DYuNSbg4he5JAnhzw/xM72FvlEB/fwTv8+oL+dE/Jk+r9NlqUIOEm6iPspLFoIg1+gsTEqV72z+
- kV2I7wi9wrKklLwwyedc+0alHp/g52R/4S96voZ8wXvg==
-X-Forward-Email-ID: 6a007d090d91f03a31a0bbc9
+ t=1778416953; bh=6bbljhWGbuqdXDsgmGYVzdY0KhxBYB2J1W7cZWHXuxI=;
+ b=FqtSaHhOBMkP25RbAy/og7weHw0qp2jBIOSM972Nl7NP20OHRbT+5mJOLFtoNilp8KqeDu/A4
+ AU0HKGV6wl5WoNRxcR08317ko9ILEzBQlif/dXh0P1YAVliPRAMeWGN4xqczfnxP1wAmRrkkbc1
+ JZGMEGbQ5MX8py2gGLJdZqZINsxjBv2ejQ7DLa8VN8phkHd/SB3uiMQsv7rtaDp95v6Eh/kl/g8
+ SUz7d0l4Iw7t5b1kojh3lU3vInGRlLgdXsNCWAiUNaxJypEvvxfrsrpygjacunzxxJOFiJv9je9
+ xi4woJxYJALiNYTrAYWjRTaURzvB8+C9AfK0CGmr+sTg==
+X-Forward-Email-ID: 6a007d330d91f03a31a0bce5
 X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
  121.127.44.73
 X-Forward-Email-Version: 2.8.0
@@ -35,16 +35,21 @@ X-Report-Abuse-To: abuse@forwardemail.net
 From: Jonas Karlman <jonas@kwiboo.se>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Heiko Stuebner <heiko@sntech.de>,
+ Heiko Stuebner <heiko@sntech.de>, Liu Ying <victor.liu@nxp.com>,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
  Luca Ceresoli <luca.ceresoli@bootlin.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: Liu Ying <victor.liu@nxp.com>, Sandy Huang <hjc@rock-chips.com>,
- Andy Yan <andy.yan@rock-chips.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Simona Vetter <simona@ffwll.ch>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>
+Cc: Chen-Yu Tsai <wens@kernel.org>,
  Christian Hewitt <christianshewitt@gmail.com>,
  Diederik de Haas <diederik@cknow-tech.com>,
  Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
@@ -53,10 +58,9 @@ Cc: Liu Ying <victor.liu@nxp.com>, Sandy Huang <hjc@rock-chips.com>,
  linux-rockchip@lists.infradead.org, linux-amlogic@lists.infradead.org,
  linux-sunxi@lists.linux.dev, imx@lists.linux.dev,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v5 06/21] drm: bridge: dw_hdmi: Remove previous_mode and
- mode_set
-Date: Sun, 10 May 2026 12:40:50 +0000
-Message-ID: <20260510124111.1226584-7-jonas@kwiboo.se>
+Subject: [PATCH v5 15/21] drm: bridge: dw_hdmi: Add common suspend helper
+Date: Sun, 10 May 2026 12:40:59 +0000
+Message-ID: <20260510124111.1226584-16-jonas@kwiboo.se>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260510124111.1226584-1-jonas@kwiboo.se>
 References: <20260510124111.1226584-1-jonas@kwiboo.se>
@@ -77,72 +81,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-With the use of adjusted_mode directly from the crtc_state there is no
-longer a need to store a copy in previous_mode, remove it and the now
-unneeded mode_set ops.
+Add a dw_hdmi_suspend() helper as the suspend-side counterpart to
+dw_hdmi_resume() and call it from the i.MX8MP, Amlogic and Rockchip
+platform PM suspend callbacks.
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+This is a preparatory change to route suspend handling through common
+dw-hdmi code so follow-up changes can add shared suspend cleanup in one
+place.
+
 Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
 ---
-v5: No change, rebase on next-20260508
-v4: No change
-v3: Collect r-b tag
-v2: No change
+v5: New patch
 ---
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 19 +------------------
- 1 file changed, 1 insertion(+), 18 deletions(-)
+ drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c |  4 ++++
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c   |  5 +++++
+ drivers/gpu/drm/meson/meson_dw_hdmi.c       |  2 ++
+ drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c | 11 ++++++++++-
+ include/drm/bridge/dw_hdmi.h                |  1 +
+ 5 files changed, 22 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-index 607faf4da967..a176eb55418c 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-@@ -156,8 +156,6 @@ struct dw_hdmi {
- 		bool enabled;
- 	} phy;
+diff --git a/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c b/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c
+index 8e8cfd66f23b..f15b3f8e1dbc 100644
+--- a/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c
++++ b/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c
+@@ -176,6 +176,10 @@ static void imx8mp_dw_hdmi_remove(struct platform_device *pdev)
  
--	struct drm_display_mode previous_mode;
--
- 	struct i2c_adapter *ddc;
- 	void __iomem *regs;
- 	bool sink_is_hdmi;
-@@ -167,7 +165,7 @@ struct dw_hdmi {
- 	struct pinctrl_state *default_state;
- 	struct pinctrl_state *unwedge_state;
- 
--	struct mutex mutex;		/* for state below and previous_mode */
-+	struct mutex mutex;		/* for state below */
- 	enum drm_connector_force force;	/* mutex-protected force state */
- 	struct drm_connector *curr_conn;/* current connector (only valid when !disabled) */
- 	bool disabled;			/* DRM has disabled our bridge */
-@@ -2928,20 +2926,6 @@ dw_hdmi_bridge_mode_valid(struct drm_bridge *bridge,
- 	return mode_status;
+ static int imx8mp_dw_hdmi_pm_suspend(struct device *dev)
+ {
++	struct imx8mp_hdmi *hdmi = dev_get_drvdata(dev);
++
++	dw_hdmi_suspend(hdmi->dw_hdmi);
++
+ 	return 0;
  }
  
--static void dw_hdmi_bridge_mode_set(struct drm_bridge *bridge,
--				    const struct drm_display_mode *orig_mode,
--				    const struct drm_display_mode *mode)
--{
--	struct dw_hdmi *hdmi = bridge->driver_private;
--
--	mutex_lock(&hdmi->mutex);
--
--	/* Store the display mode for plugin/DKMS poweron events */
--	drm_mode_copy(&hdmi->previous_mode, mode);
--
--	mutex_unlock(&hdmi->mutex);
--}
--
- static void dw_hdmi_bridge_atomic_disable(struct drm_bridge *bridge,
- 					  struct drm_atomic_commit *state)
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+index bf893c754539..a6f2702bca83 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+@@ -3568,6 +3568,11 @@ void dw_hdmi_unbind(struct dw_hdmi *hdmi)
+ }
+ EXPORT_SYMBOL_GPL(dw_hdmi_unbind);
+ 
++void dw_hdmi_suspend(struct dw_hdmi *hdmi)
++{
++}
++EXPORT_SYMBOL_GPL(dw_hdmi_suspend);
++
+ void dw_hdmi_resume(struct dw_hdmi *hdmi)
  {
-@@ -3005,7 +2989,6 @@ static const struct drm_bridge_funcs dw_hdmi_bridge_funcs = {
- 	.atomic_get_input_bus_fmts = dw_hdmi_bridge_atomic_get_input_bus_fmts,
- 	.atomic_enable = dw_hdmi_bridge_atomic_enable,
- 	.atomic_disable = dw_hdmi_bridge_atomic_disable,
--	.mode_set = dw_hdmi_bridge_mode_set,
- 	.mode_valid = dw_hdmi_bridge_mode_valid,
- 	.detect = dw_hdmi_bridge_detect,
- 	.edid_read = dw_hdmi_bridge_edid_read,
+ 	dw_hdmi_init_hw(hdmi);
+diff --git a/drivers/gpu/drm/meson/meson_dw_hdmi.c b/drivers/gpu/drm/meson/meson_dw_hdmi.c
+index fef1702acb14..9ba83bf4787c 100644
+--- a/drivers/gpu/drm/meson/meson_dw_hdmi.c
++++ b/drivers/gpu/drm/meson/meson_dw_hdmi.c
+@@ -809,6 +809,8 @@ static int __maybe_unused meson_dw_hdmi_pm_suspend(struct device *dev)
+ 	if (!meson_dw_hdmi)
+ 		return 0;
+ 
++	dw_hdmi_suspend(meson_dw_hdmi->hdmi);
++
+ 	/* Reset TOP */
+ 	meson_dw_hdmi->data->top_write(meson_dw_hdmi,
+ 				       HDMITX_TOP_SW_RESET, 0);
+diff --git a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
+index 0dc1eb5d2ae3..9677424075eb 100644
+--- a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
+@@ -651,6 +651,15 @@ static void dw_hdmi_rockchip_remove(struct platform_device *pdev)
+ 	component_del(&pdev->dev, &dw_hdmi_rockchip_ops);
+ }
+ 
++static int __maybe_unused dw_hdmi_rockchip_suspend(struct device *dev)
++{
++	struct rockchip_hdmi *hdmi = dev_get_drvdata(dev);
++
++	dw_hdmi_suspend(hdmi->hdmi);
++
++	return 0;
++}
++
+ static int __maybe_unused dw_hdmi_rockchip_resume(struct device *dev)
+ {
+ 	struct rockchip_hdmi *hdmi = dev_get_drvdata(dev);
+@@ -661,7 +670,7 @@ static int __maybe_unused dw_hdmi_rockchip_resume(struct device *dev)
+ }
+ 
+ static const struct dev_pm_ops dw_hdmi_rockchip_pm = {
+-	SET_SYSTEM_SLEEP_PM_OPS(NULL, dw_hdmi_rockchip_resume)
++	SET_SYSTEM_SLEEP_PM_OPS(dw_hdmi_rockchip_suspend, dw_hdmi_rockchip_resume)
+ };
+ 
+ struct platform_driver dw_hdmi_rockchip_pltfm_driver = {
+diff --git a/include/drm/bridge/dw_hdmi.h b/include/drm/bridge/dw_hdmi.h
+index 8500dd4f99d8..d587c4076a25 100644
+--- a/include/drm/bridge/dw_hdmi.h
++++ b/include/drm/bridge/dw_hdmi.h
+@@ -184,6 +184,7 @@ struct dw_hdmi *dw_hdmi_bind(struct platform_device *pdev,
+ 			     struct drm_encoder *encoder,
+ 			     const struct dw_hdmi_plat_data *plat_data);
+ 
++void dw_hdmi_suspend(struct dw_hdmi *hdmi);
+ void dw_hdmi_resume(struct dw_hdmi *hdmi);
+ 
+ void dw_hdmi_setup_rx_sense(struct dw_hdmi *hdmi, bool hpd, bool rx_sense);
 -- 
 2.54.0
 
