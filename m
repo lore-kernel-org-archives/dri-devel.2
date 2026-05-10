@@ -4,73 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84172CD3427
-	for <dri-devel@archiver.kernel.org>; Sun, 10 May 2026 20:18:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD194CD3427
+	for <dri-devel@archiver.kernel.org>; Sun, 10 May 2026 20:32:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62D1B10E04F;
-	Sun, 10 May 2026 20:18:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAF9F10E16F;
+	Sun, 10 May 2026 20:32:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jQRJATqA";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CMaFv6qC";
 	dkim-atps=neutral
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com
- [209.85.219.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCD8E10E04F
- for <dri-devel@lists.freedesktop.org>; Sun, 10 May 2026 20:18:25 +0000 (UTC)
-Received: by mail-qv1-f54.google.com with SMTP id
- 6a1803df08f44-8b5de17382cso26048516d6.1
- for <dri-devel@lists.freedesktop.org>; Sun, 10 May 2026 13:18:25 -0700 (PDT)
+Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com
+ [209.85.219.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B26C810E16F
+ for <dri-devel@lists.freedesktop.org>; Sun, 10 May 2026 20:32:13 +0000 (UTC)
+Received: by mail-qv1-f51.google.com with SMTP id
+ 6a1803df08f44-8b45dff1eebso36229746d6.2
+ for <dri-devel@lists.freedesktop.org>; Sun, 10 May 2026 13:32:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778444304; x=1779049104; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1778445132; x=1779049932; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=K67pIs/nY03A+3XziFzgPYzBlsoSwWL+5glnFKhN0Ic=;
- b=jQRJATqA8wr0teKo+7fbOXl3PayPbEIMnpeJIjLkENjDeiSvGKI3/BGB60kF94Rs/q
- hXd3fKVSnmdkkRjaF13fJbCcoQ/YLhI5nUTY6LFhyuB34+sA6/Vw5PsC5VvUTWqTyKAV
- 6bU+eE0nkR/+ptA/l20cWR5YUyFJQugoPTTXKbBbuNIEKOguFvYZa3KAAYG0R+v5CZJh
- mPM6oSnY/5eX6UIvYhoLiosF3ZAyK7mMINuidi4oNd49PpLMayprIVuAYbrnKmfeUx8m
- 9wR4qARdxNeoRxmSh/EIJ5kI09dUtvshB/8gAoRy1LHGd7lJFHMDmS2aju92hmGlAGRD
- 7uBQ==
+ bh=GH0BIPUR5p8mIEZWyU6SEUzThcS+ZdasVBlkjfRz1DA=;
+ b=CMaFv6qC+M7GVUsNae4DLtlP+03hU1o8GqHIqGy1RUYOWjqfLhpmB/vdW0+q17fa0m
+ 2Idf+r7kjDC7zMSUwc6D1jFcIA2gv9U4FSpaQi4SJHx7wN29+HmHC+rie3p4cL0qPu79
+ 1O3DZ2tVp7gstv1y6nqeQydmWK/m2Acqm6L9asBj6lvqQkiMwnexd4c/OigmsZp5L+n/
+ i3IAHsVibc0fLYFywPTjZf/tO+7ZuWQBLrWNrRfZRjgZkWq8LywAdvcaFfg7TmGFzhlT
+ Am1S+RnVnoZsSJwNb7NGVlkpjHO8168lDrnzESuPqi87OIuH0EPgcZ4L7T5xB+zPH7BI
+ 749w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778444304; x=1779049104;
+ d=1e100.net; s=20251104; t=1778445132; x=1779049932;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=K67pIs/nY03A+3XziFzgPYzBlsoSwWL+5glnFKhN0Ic=;
- b=ig2JqpY9TJz31/bRLI4RT5kOJkVwnn2i+eb+PUMNWmbesaXHMueuWuCmrqpCPtRcFd
- d3QaeXX02pHNhStlGjP0zAxHC8V+4OQQ5vuvhZmpgc/P05BKn/q/g+3nFK06vn4Y24ia
- qwQ0t4vCFRIhtTz5Lz3nHoJ9f2GFqv9kThr3s6a1Tase6opMB87SJcqS0M7DhJSzqXaR
- 3Sm77AHXz3TFqNhsnBWQO56JONVeOZnD4adHqUwuKVpOlCfPlzDGQYfGmuOE1A79kV1q
- MTNKFwiWDLvNi4LKoYUixwWyAB8lVXXfk8lQZ7v0s0iWa7TQN+sbT/u4Eg7ZOSKG/zcx
- ybhA==
-X-Gm-Message-State: AOJu0Ywd7pI5/wg8PeqoW7CDO8qXxSYPzJ51qaqRhX/6yCmI402fZn0o
- r8QcNhmkEe72ePacjnezCcb7GLWXGnXDoyUo2Pnodfavq2KpQ5lt4ES48LiUAo9cWjTV6A==
-X-Gm-Gg: Acq92OGURVmX3vXMQs0A9jApOBkZs5QMOcbnMROYGXUx7jDgzBCaBJFK8doaiTNyRGK
- wQupK4ze442RLmeHiOO1qPug3Ibkw2HGhijvqlyJBM5YMKBEVOhmFoVkp9zJxI8W7fcHspCJJC9
- q/GE5JgBT+M6N5j6oABLEyIlfG8HPS5YBSrNjZjV1eZSCe3LcI8FMAUQleP9rJXRANRqfxqrN5I
- /PlnSp7sLtR5v6MnWdk3Boy0n33O+dRhQB3C5T8Y3vwcwhzt2fScT2ZAskZCUhNBeB6AeQ4JKqO
- w0Ref6eEMCBGOf1m0tzeLmEHIisZhJOkBmWlwxPAihPNvaOae9TXjOSsQ2YdO78osGTetnRj+3n
- o3Z7gj4lopS8rr1kCtyXiRQ6XBselbDmpNqtPLgX575lfY6M182SrFtUan//SCH2xYzfKkuw+Cc
- bqxtISEoo+5bjZjow4Hoim1+FNOsiICmo0qsdv4YKdCzTS+V4i3PRX4n8C6JX4Qr0nwzFnNYrYA
- Z2pGQc1mJOJdIx+ziwaEuBNUKJX
-X-Received: by 2002:a05:6214:5e03:b0:8bd:4bc7:e19 with SMTP id
- 6a1803df08f44-8bd4bc714d5mr285979606d6.47.1778444304161; 
- Sun, 10 May 2026 13:18:24 -0700 (PDT)
+ bh=GH0BIPUR5p8mIEZWyU6SEUzThcS+ZdasVBlkjfRz1DA=;
+ b=b4y2QJjyf44RpmqvCQ3X6W31tlqH1DRkiyNwF6pNnPivvssDFBBa7hrcKwQgmQ7GXk
+ ssAHVRVXiNhgkpCmjVVxwMSMa8p/labGRn0AShS0c/PsIngaf5MY5Sa6m39tFiCljvRO
+ L2dDkNQoaNvQiyqCw0dhONZkYGzD45DKExi95w0wLhtMkjo7tXPyKyf0ZwF2pofWy5ZM
+ yxCST3qNXPZxHAIyMGon26n5I5CJtA8boIBw6XytwyefW+RLD5Xa9PhZNKK9TfWDE4U/
+ xhqDkyKJk45b8nnbbwSYuAACj4XWpwE1p1McSNKTl7ExOaitV0jGMUWYJuMdsXdtP1QQ
+ y6JA==
+X-Gm-Message-State: AOJu0YypFAbOY7VOU+I7qNd1QEYlOJYAZcLhv/G8G8NWRtMPSvyj8OdH
+ tcgHOumxC5N/+LjUv7dANICZK4mLRF+0l/3ZNRMeIYkjcZ6xyie+Ms8FKRg0V28XMTohjg==
+X-Gm-Gg: Acq92OGsfLhPm+QBCPn+QFUQb7DJMnCPqupDzv0/Ls1kOobbGWJcq1OBL/QilWJ5sAN
+ Kr1LQXE9WAH4bbyrOH8Lq8ytnXnapPkakd3NJ5hBNfz41qTE5hadScR9C+sSkfoSep1lCfzaJ5A
+ lvZIOUlAe48ELkze0jXzqD6qNb9vZ/f3mgXSy3VqOsqeiumhK1GPUz22zVB+ZqYDtS7d8mr8S7H
+ VEYqA1xNEJHL0JAQp/TtD7WkVQaJaisNmq3Ow4v7PaZN5MzjZ5IC5jvbRkkgGBw40HDg7kQoIPy
+ 1z9aUwnoNiCsU7AWT7aP9YDQKzo4mr+q1eeH9dub3v+ZePW2aKZXi5exGt5LeQYeRu94rNVSHy3
+ gW1/dyLVlGvRbY+GMHi0SDL1Rrx3tKIahT77cWsCTeTYkHzMXFFC2NxUwJ4bGzdFpBrSTn7sB1l
+ ZG1V14xD0Tnhi/X6V0OX3B7xapbNizHDXzUmr06w7NsxFY+fw8dXjhjTVbWEueCjvFFOhLvT1Ef
+ wsgg70jtfimclo6H1SCBXDWNun/WTvLxLKD47E=
+X-Received: by 2002:a05:6214:3111:b0:8ac:ab13:8f15 with SMTP id
+ 6a1803df08f44-8bc41cc2ea6mr361413956d6.7.1778445132299; 
+ Sun, 10 May 2026 13:32:12 -0700 (PDT)
 Received: from
  TDC4045031631.e0cglfehwr0e5gttmepj3hi3hf.ux.internal.cloudapp.net
  ([20.63.37.123]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-8bf3a43636fsm76040566d6.21.2026.05.10.13.18.22
+ 6a1803df08f44-8bf3addb3aasm76968056d6.10.2026.05.10.13.32.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 10 May 2026 13:18:23 -0700 (PDT)
+ Sun, 10 May 2026 13:32:10 -0700 (PDT)
 From: Ashutosh Desai <ashutoshdesai993@gmail.com>
 To: dri-devel@lists.freedesktop.org
 Cc: stable@vger.kernel.org, lyude@redhat.com, airlied@gmail.com,
  daniel@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
  tzimmermann@suse.de, simona@ffwll.ch, linux-kernel@vger.kernel.org,
  Ashutosh Desai <ashutoshdesai993@gmail.com>
-Subject: [PATCH v2] drm/dp/mst: fix OOB reads in remote DPCD/I2C sideband
+Subject: [PATCH v2] drm/dp/mst: fix OOB reads on 2-byte fields in sideband
  reply parsers
-Date: Sun, 10 May 2026 20:17:33 +0000
-Message-Id: <20260510201733.2882224-1-ashutoshdesai993@gmail.com>
+Date: Sun, 10 May 2026 20:31:28 +0000
+Message-Id: <20260510203128.2884846-1-ashutoshdesai993@gmail.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -89,58 +89,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_dp_sideband_parse_remote_dpcd_read() reads num_bytes from the raw
-message and then unconditionally does:
+Three sideband reply parsers read 16-bit fields as:
 
-  memcpy(bytes, &raw->msg[idx], num_bytes);
+  val = (raw->msg[idx] << 8) | (raw->msg[idx+1]);
 
-without checking that idx + num_bytes <= raw->curlen. raw->msg[] is
-256 bytes; if a malicious or misbehaving MST hub sets num_bytes larger
-than the remaining payload, the memcpy reads past the received data
-into whatever follows in raw->msg[].
+and check bounds only after the fact. When idx == raw->curlen,
+raw->msg[idx+1] reads one byte past the received message data into
+the following struct fields (curchunk_len, curchunk_idx, curlen).
 
-drm_dp_sideband_parse_remote_i2c_read_ack() has the same flaw (noted
-with a /* TODO check */ comment since the code was introduced).
+Affected functions:
+ - drm_dp_sideband_parse_enum_path_resources_ack()
+   full_payload_bw_number and avail_payload_bw_number fields
+ - drm_dp_sideband_parse_allocate_payload_ack()
+   allocated_pbn field
+ - drm_dp_sideband_parse_query_payload_ack()
+   allocated_pbn field
 
-Fix both functions by using a single combined check
-(idx + num_bytes > curlen) before each memcpy. Since num_bytes is u8,
-it is always >= 0, so this strictly subsumes the simpler idx > curlen
-form and no separate step is needed.
+Fix by using a single combined check (idx + 2 > curlen) before each
+2-byte read. Since the check is strictly tighter than idx > curlen,
+no separate step is needed.
 
 Cc: stable@vger.kernel.org
 Signed-off-by: Ashutosh Desai <ashutoshdesai993@gmail.com>
 ---
 Changes in v2:
-- Drop separate idx > curlen check; idx + num_bytes > curlen with u8
-  num_bytes (always >= 0) strictly subsumes it (Lyude Paul)
+- Drop separate idx > curlen check immediately before idx + 2 > curlen;
+  the combined check strictly subsumes it (Lyude Paul)
 
- drivers/gpu/drm/display/drm_dp_mst_topology.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/display/drm_dp_mst_topology.c | 17 ++++-------------
+ 1 file changed, 4 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-index 170113520a43..9416a48804c8 100644
+index 9416a48804c8..6e7896193772 100644
 --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
 +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-@@ -871,7 +871,7 @@ static bool drm_dp_sideband_parse_remote_dpcd_read(struct drm_dp_sideband_msg_rx
- 		goto fail_len;
- 	repmsg->u.remote_dpcd_read_ack.num_bytes = raw->msg[idx];
+@@ -925,16 +925,13 @@ static bool drm_dp_sideband_parse_enum_path_resources_ack(struct drm_dp_sideband
+ 	repmsg->u.path_resources.port_number = (raw->msg[idx] >> 4) & 0xf;
+ 	repmsg->u.path_resources.fec_capable = raw->msg[idx] & 0x1;
  	idx++;
 -	if (idx > raw->curlen)
-+	if (idx + repmsg->u.remote_dpcd_read_ack.num_bytes > raw->curlen)
++	if (idx + 2 > raw->curlen)
  		goto fail_len;
- 
- 	memcpy(repmsg->u.remote_dpcd_read_ack.bytes, &raw->msg[idx], repmsg->u.remote_dpcd_read_ack.num_bytes);
-@@ -907,7 +907,9 @@ static bool drm_dp_sideband_parse_remote_i2c_read_ack(struct drm_dp_sideband_msg
+ 	repmsg->u.path_resources.full_payload_bw_number = (raw->msg[idx] << 8) | (raw->msg[idx+1]);
+ 	idx += 2;
+-	if (idx > raw->curlen)
++	if (idx + 2 > raw->curlen)
  		goto fail_len;
- 	repmsg->u.remote_i2c_read_ack.num_bytes = raw->msg[idx];
- 	idx++;
--	/* TODO check */
-+	if (idx + repmsg->u.remote_i2c_read_ack.num_bytes > raw->curlen)
-+		goto fail_len;
-+
- 	memcpy(repmsg->u.remote_i2c_read_ack.bytes, &raw->msg[idx], repmsg->u.remote_i2c_read_ack.num_bytes);
+ 	repmsg->u.path_resources.avail_payload_bw_number = (raw->msg[idx] << 8) | (raw->msg[idx+1]);
+-	idx += 2;
+-	if (idx > raw->curlen)
+-		goto fail_len;
  	return true;
  fail_len:
+ 	DRM_DEBUG_KMS("enum resource parse length fail %d %d\n", idx, raw->curlen);
+@@ -952,12 +949,9 @@ static bool drm_dp_sideband_parse_allocate_payload_ack(struct drm_dp_sideband_ms
+ 		goto fail_len;
+ 	repmsg->u.allocate_payload.vcpi = raw->msg[idx];
+ 	idx++;
+-	if (idx > raw->curlen)
++	if (idx + 2 > raw->curlen)
+ 		goto fail_len;
+ 	repmsg->u.allocate_payload.allocated_pbn = (raw->msg[idx] << 8) | (raw->msg[idx+1]);
+-	idx += 2;
+-	if (idx > raw->curlen)
+-		goto fail_len;
+ 	return true;
+ fail_len:
+ 	DRM_DEBUG_KMS("allocate payload parse length fail %d %d\n", idx, raw->curlen);
+@@ -971,12 +965,9 @@ static bool drm_dp_sideband_parse_query_payload_ack(struct drm_dp_sideband_msg_r
+ 
+ 	repmsg->u.query_payload.port_number = (raw->msg[idx] >> 4) & 0xf;
+ 	idx++;
+-	if (idx > raw->curlen)
++	if (idx + 2 > raw->curlen)
+ 		goto fail_len;
+ 	repmsg->u.query_payload.allocated_pbn = (raw->msg[idx] << 8) | (raw->msg[idx + 1]);
+-	idx += 2;
+-	if (idx > raw->curlen)
+-		goto fail_len;
+ 	return true;
+ fail_len:
+ 	DRM_DEBUG_KMS("query payload parse length fail %d %d\n", idx, raw->curlen);
 -- 
 2.34.1
 
