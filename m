@@ -4,70 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94998CD4840
-	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 16:41:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFF27CD484C
+	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 16:42:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BD8F10E83F;
-	Mon, 11 May 2026 16:41:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AF7A10E556;
+	Mon, 11 May 2026 16:42:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="u1oxO7sr";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ihe4ArhB";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19B9C10E83B
- for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 16:41:20 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 02F334E42BF5;
- Mon, 11 May 2026 16:41:19 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id C966560646;
- Mon, 11 May 2026 16:41:18 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 6040F11AF9F7C; 
- Mon, 11 May 2026 18:41:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1778517676; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=2UxxWf9CEg75RZLf6dSEu0deL3RvVtRrxoEWj8XzsRg=;
- b=u1oxO7srhKo2zO0ajkX3fx+b0/B7r/NeD17pvOk4jW6MHZbxN9PZFbG1qE8E40cwCToDqq
- 5uAXo9jZhJe2K8CRrKEGDeH3cHJPd8sxl3gDeiTRPXOVgqfZbavuJ8re9u5mK2uO/qs++T
- GQ+WveOMkj9EfFoPB4LwU8BT8+fyAegIvxqsjqlPqzoyan4r6cuiIpGqSnEE+NEAdy02pc
- NTFkKbStmsMe4CcKH3fRKQ8vyUHwseD+JPbL6uZmUMsGwmFDLOZKs78oj469zAs53Nz5gd
- dPTAc7x3gW0ox5E8NHRqT311AdWlwyhT5FlLBKJWa3kxJzihKUaxOm1Qra8UDg==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Mon, 11 May 2026 18:40:15 +0200
-Subject: [PATCH v6 11/11] drm: of: forbid bridge-only calls to
- drm_of_find_panel_or_bridge()
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1F4D10E556;
+ Mon, 11 May 2026 16:42:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1778517752; x=1810053752;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=4EvNw1wDXPsNky1eHTbr2/ETInl09PNUQKfyZJqxj1w=;
+ b=ihe4ArhBCD6XGFTFifFyJtx7J/PprmFHa3eUAjyP6moz0XVMpFg6dNXC
+ 2HqXpVf2B8R8zsqtp3DhSxqsy70oWS+doykez2MSc+dSIHBUQFIHy9fzB
+ bG18Azr6FbZQiw+o7AyWxh8uWxuttxpracFLW0qC64IpCa99LM+HRfjmb
+ ejeV0kpoetA7YkBhBvveBbl7GwK34KQ1rTSmL1dlDVBeVyFUj2Qs5ooE5
+ 6/Sw+WhN7Sctz3qRdeyjwEtSriBINmuCJHjfuSdGwBUzUDNC4B1z2heNt
+ Vw9fPBTrhTUlU7WnAsCKi4IHULp++6RsThPGc6qvy9Ik61RDzOxnNRZKE Q==;
+X-CSE-ConnectionGUID: 0K+d+5ULS3q/enNfXm5PzQ==
+X-CSE-MsgGUID: XNz/8yd+TJqgapbWE5d/iA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11783"; a="79593717"
+X-IronPort-AV: E=Sophos;i="6.23,229,1770624000"; d="scan'208";a="79593717"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 May 2026 09:42:32 -0700
+X-CSE-ConnectionGUID: 5ofOSJ5+Tiys09gST459LQ==
+X-CSE-MsgGUID: 8zxdL8pdQHmY75VfVbRBaA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,229,1770624000"; d="scan'208";a="231111060"
+Received: from slindbla-desk.ger.corp.intel.com (HELO fdugast-desk.home)
+ ([10.245.245.34])
+ by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 May 2026 09:42:30 -0700
+From: Francois Dugast <francois.dugast@intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, matthew.auld@intel.com,
+ Francois Dugast <francois.dugast@intel.com>,
+ Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH v2 1/3] gpu/buddy: Fix use-after-free in split_block() call
+ sites
+Date: Mon, 11 May 2026 18:41:04 +0200
+Message-ID: <20260511164217.150237-2-francois.dugast@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260511164217.150237-1-francois.dugast@intel.com>
+References: <20260511164217.150237-1-francois.dugast@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260511-drm-bridge-alloc-getput-panel_or_bridge-v6-11-f61c9e498b3f@bootlin.com>
-References: <20260511-drm-bridge-alloc-getput-panel_or_bridge-v6-0-f61c9e498b3f@bootlin.com>
-In-Reply-To: <20260511-drm-bridge-alloc-getput-panel_or_bridge-v6-0-f61c9e498b3f@bootlin.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Sumit Semwal <sumit.semwal@linaro.org>, John Stultz <jstultz@google.com>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Michal Simek <michal.simek@amd.com>
-Cc: Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- linux-arm-kernel@lists.infradead.org, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-X-Mailer: b4 0.15.2
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,80 +71,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Up to now drm_of_find_panel_or_bridge() can be called with a bridge pointer
-only, a panel pointer only, or both a bridge and a panel pointers. The
-logic to handle all the three cases is somewhat complex to read however.
+When split_block() fails it returns before calling mark_split(), leaving
+the block in the FREE state and still linked in the rbtree.  The four
+err_undo paths then call __gpu_buddy_free() without first removing the
+block from the tree, which leads to two distinct bugs:
 
-Now all bridge-only callers have been converted to
-of_drm_get_bridge_by_endpoint(), which is simpler and handles bridge
-refcounting. So forbid new bridge-only users by mandating a non-NULL panel
-pointer in the docs and in the sanity checks along with a warning.
+ - If the buddy is also free, __gpu_buddy_free() merges the two siblings
+   by calling gpu_block_free(mm, block) while block->rb is still linked
+   in the tree.  Any subsequent rbtree traversal will follow the now-
+   dangling pointer, causing a use-after-free.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+ - In alloc_from_freetree(), where there is no buddy guard,
+   __gpu_buddy_free() always reaches mark_free() -> rbtree_insert() with
+   block still in the tree, corrupting the rbtree.
+
+The same pattern is already used correctly in __force_merge(): call
+rbtree_remove() to unlink the block before handing it to
+__gpu_buddy_free().  Apply the same fix to all four err_undo sites.
+
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Signed-off-by: Francois Dugast <francois.dugast@intel.com>
+Assisted-by: GitHub Copilot:claude-sonnet-4.6
 ---
- drivers/gpu/drm/drm_of.c | 26 ++++++++++++--------------
- 1 file changed, 12 insertions(+), 14 deletions(-)
+ drivers/gpu/buddy.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_of.c b/drivers/gpu/drm/drm_of.c
-index ef6b09316963..d03ada82eac9 100644
---- a/drivers/gpu/drm/drm_of.c
-+++ b/drivers/gpu/drm/drm_of.c
-@@ -225,15 +225,15 @@ EXPORT_SYMBOL_GPL(drm_of_encoder_active_endpoint);
-  * @np: device tree node containing encoder output ports
-  * @port: port in the device tree node
-  * @endpoint: endpoint in the device tree node
-- * @panel: pointer to hold returned drm_panel
-+ * @panel: pointer to hold returned drm_panel, must not be NULL
-  * @bridge: pointer to hold returned drm_bridge
-  *
-  * Given a DT node's port and endpoint number, find the connected node and
-- * return either the associated struct drm_panel or drm_bridge device. Either
-- * @panel or @bridge must not be NULL.
-+ * return either the associated struct drm_panel or drm_bridge device.
-  *
-  * This function is deprecated and should not be used in new drivers. Use
-- * devm_drm_of_get_bridge() instead.
-+ * of_drm_get_bridge_by_endpoint() instead when not looking for a panel, or
-+ * devm_drm_of_get_bridge() otherwise.
-  *
-  * Returns zero if successful, or one of the standard error codes if it fails.
-  */
-@@ -245,10 +245,10 @@ int drm_of_find_panel_or_bridge(const struct device_node *np,
- 	int ret = -EPROBE_DEFER;
- 	struct device_node *remote;
+diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+index eb1457376307..dac2027bb64a 100644
+--- a/drivers/gpu/buddy.c
++++ b/drivers/gpu/buddy.c
+@@ -737,8 +737,10 @@ __alloc_range_bias(struct gpu_buddy *mm,
+ 	buddy = __get_buddy(block);
+ 	if (buddy &&
+ 	    (gpu_buddy_block_is_free(block) &&
+-	     gpu_buddy_block_is_free(buddy)))
++	     gpu_buddy_block_is_free(buddy))) {
++		rbtree_remove(mm, block);
+ 		__gpu_buddy_free(mm, block, false);
++	}
+ 	return ERR_PTR(err);
+ }
  
--	if (!panel && !bridge)
-+	if (WARN_ON(!panel))
- 		return -EINVAL;
--	if (panel)
--		*panel = NULL;
-+
-+	*panel = NULL;
+@@ -847,8 +849,10 @@ alloc_from_freetree(struct gpu_buddy *mm,
+ 	return block;
  
- 	/*
- 	 * of_graph_get_remote_node() produces a noisy error message if port
-@@ -263,13 +263,11 @@ int drm_of_find_panel_or_bridge(const struct device_node *np,
- 	if (!remote)
- 		return -ENODEV;
+ err_undo:
+-	if (tmp != order)
++	if (tmp != order) {
++		rbtree_remove(mm, block);
+ 		__gpu_buddy_free(mm, block, false);
++	}
+ 	return ERR_PTR(err);
+ }
  
--	if (panel) {
--		*panel = of_drm_find_panel(remote);
--		if (!IS_ERR(*panel))
--			ret = 0;
--		else
--			*panel = NULL;
--	}
-+	*panel = of_drm_find_panel(remote);
-+	if (!IS_ERR(*panel))
-+		ret = 0;
-+	else
-+		*panel = NULL;
+@@ -968,8 +972,10 @@ gpu_buddy_offset_aligned_allocation(struct gpu_buddy *mm,
+ 	buddy = __get_buddy(block);
+ 	if (buddy &&
+ 	    (gpu_buddy_block_is_free(block) &&
+-	     gpu_buddy_block_is_free(buddy)))
++	     gpu_buddy_block_is_free(buddy))) {
++		rbtree_remove(mm, block);
+ 		__gpu_buddy_free(mm, block, false);
++	}
+ 	return ERR_PTR(err);
+ }
  
- 	if (bridge) {
- 		if (ret) {
-
+@@ -1054,8 +1060,10 @@ static int __alloc_range(struct gpu_buddy *mm,
+ 	buddy = __get_buddy(block);
+ 	if (buddy &&
+ 	    (gpu_buddy_block_is_free(block) &&
+-	     gpu_buddy_block_is_free(buddy)))
++	     gpu_buddy_block_is_free(buddy))) {
++		rbtree_remove(mm, block);
+ 		__gpu_buddy_free(mm, block, false);
++	}
+ 
+ err_free:
+ 	if (err == -ENOSPC && total_allocated_on_err) {
 -- 
-2.54.0
+2.43.0
 
