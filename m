@@ -4,59 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24BBACD37BE
-	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 16:25:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FDC3CD4840
+	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 16:27:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 808B710E80C;
-	Mon, 11 May 2026 16:25:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11F4D10E815;
+	Mon, 11 May 2026 16:27:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VG1jFpyC";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="hBTFhxz6";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05FF010E808;
- Mon, 11 May 2026 16:25:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778516708; x=1810052708;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=lwopUE8/yDCHMwZy/+ucK4EpsJaJ9gDkggd5H3h/eZo=;
- b=VG1jFpyCGBQjIke2BzJ74EKO5RUOgaVtpWasWv8UWwIKhRyOi790NHLE
- QSfkYFBDC95w0ejXIgXX3ftJHn+jZD4yYbxeV3mkVLcMLRRvUu8owvnEm
- qeCZIYgVbg4jdm8CWfSMDPmBBk6lXm8flmHL90LxeySr15I5+KcKOK/hz
- oga1H1tC1VIT4RcBB9WMI+npXgJoBUfMvV8P7m6VlGUwTy3LZDy17zS1r
- xqDxLk9dkiOQZu6ke6dlqfmbReOS4ZZkyz2VW1VrKXyuExs6vrZtJUj5b
- X4dWPEinj7oXDTb3oY0J+VznWKw0g8+gLLEy3D3bJJXv0ElO+yqjla/31 A==;
-X-CSE-ConnectionGUID: 0n46+M+8Q9aFH8b4zjwumg==
-X-CSE-MsgGUID: XDIzU1CvRQO60UhsUaTfJA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11783"; a="83023048"
-X-IronPort-AV: E=Sophos;i="6.23,229,1770624000"; d="scan'208";a="83023048"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 May 2026 09:25:07 -0700
-X-CSE-ConnectionGUID: 8OSRMlNfSUOOjgD1CkPVvg==
-X-CSE-MsgGUID: sbKhPI1OTFy9cYaycmlv8w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,229,1770624000"; d="scan'208";a="241489203"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO fedora)
- ([10.245.244.248])
- by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 May 2026 09:25:05 -0700
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>, Dave Airlie <airlied@redhat.com>,
- dri-devel@lists.freedesktop.org, stable@vger.kernel.org
-Subject: [PATCH] drm/ttm: Fix ttm_bo_shrink() infinite LRU walk on backup
- failure
-Date: Mon, 11 May 2026 18:24:43 +0200
-Message-ID: <20260511162443.24352-1-thomas.hellstrom@linux.intel.com>
-X-Mailer: git-send-email 2.54.0
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2E0810E808;
+ Mon, 11 May 2026 16:27:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1778516820;
+ bh=o/nruX8ocP49ocj+MJGaWE8H3U7n4bIxuduRAQlimDk=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=hBTFhxz64qsvOcHN7XP5q5gZ6kjAVpZ5UHS95KbcsH58nbl3Gcqeq/IkpL6tg0xVO
+ LnZtqAzfErhoKjegNRaiRlUAHt3QI693n0x3AgEf+nxWTtWP/K9/zU/lhjHkmAmTow
+ dm9xwHEeZKlZ4kGEGAhhxbXOpLnkpyIcISPr1zhyBEHk/HuZ39sPtj6OV+LvpvE6gS
+ KKICNIZCMgUuO4qHkc2uRMxv8H+wzDGTWl2GuB6QxtZq6z9wynQfW6/iBdejMSdxIe
+ eLwm8stfaOqpotqGytkJjG/8/3sUaaA406c3PkIpaZdr/Z69rNq1gc8wqV6m5uYHLS
+ xMKpXapI5FClw==
+Received: from fedora (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 72DB817E1004;
+ Mon, 11 May 2026 18:26:59 +0200 (CEST)
+Date: Mon, 11 May 2026 18:26:53 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Rob Clark <rob.clark@oss.qualcomm.com>
+Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Akash Goel <akash.goel@arm.com>, Chia-I Wu
+ <olvaffe@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, Sean
+ Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 4/4] drm/gem: Make the GEM LRU lock part of drm_device
+Message-ID: <20260511182653.5a9c99fb@fedora>
+In-Reply-To: <CACSVV02HQ-ci8mHg4os7e-yaf51hdHyQ6cFa9tGOpc9=keL28Q@mail.gmail.com>
+References: <20260508-panthor-shrinker-fixes-v2-0-39cdb7d577c9@collabora.com>
+ <20260508-panthor-shrinker-fixes-v2-4-39cdb7d577c9@collabora.com>
+ <CACSVV00NdUKe6-05U3g0q5X3tw4zmqO_s2gk-KZxQVykpydvAA@mail.gmail.com>
+ <20260511174429.35afcdee@fedora>
+ <CACSVV02HQ-ci8mHg4os7e-yaf51hdHyQ6cFa9tGOpc9=keL28Q@mail.gmail.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,54 +74,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Apply the same fix as b2ed01e7ad ("drm/ttm: Fix ttm_bo_swapout()
-infinite LRU walk on swapout failure") to the ttm_bo_shrink() path.
+On Mon, 11 May 2026 09:16:49 -0700
+Rob Clark <rob.clark@oss.qualcomm.com> wrote:
 
-Move del_bulk_move from before the backup to after success only,
-using ttm_resource_del_bulk_move_unevictable() since the resource
-is now unevictable once fully backed up.
+> On Mon, May 11, 2026 at 8:44=E2=80=AFAM Boris Brezillon
+> <boris.brezillon@collabora.com> wrote:
+> >
+> > On Mon, 11 May 2026 06:18:44 -0700
+> > Rob Clark <rob.clark@oss.qualcomm.com> wrote:
+> > =20
+> > > On Fri, May 8, 2026 at 3:41=E2=80=AFAM Boris Brezillon
+> > > <boris.brezillon@collabora.com> wrote: =20
+> > > >
+> > > > Recently, a few races have been discovered in the GEM LRU logic, all
+> > > > of them caused by the fact the LRU lock is accessed through
+> > > > gem->lru->lock, and that lock itself also protects changes to
+> > > > gem->lru, leading to situations where gem->lru needs to first be
+> > > > accessed without the lock held, to then get the lru to access the l=
+ock
+> > > > through and finally take the lock and do the expected operation.
+> > > >
+> > > > Currently, the two drivers making use of this API declare device-wi=
+de
+> > > > locks, and there's no clue that we will ever have a driver that wan=
+ts
+> > > > different pools of LRUs protected by different locks under the same
+> > > > drm_device. So we're better off moving this lock to drm_device and
+> > > > always locking it through obj->dev->gem_lru_mutex, or directly thro=
+ugh
+> > > > dev->gem_lru_mutex.
+> > > >
+> > > > If anyone ever needs more fine-grained locking, this can be revisit=
+ed
+> > > > to pass some drm_gem_lru_pool object represent the pool of LRUs und=
+er
+> > > > a specific lock, but for now, the per-device lock seems to be enoug=
+h.
+> > > >
+> > > > Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com> =20
+> > >
+> > > Reviewed-by: Rob Clark <rob.clark@oss.qualcomm.com> =20
+> >
+> > If every one is happy with patch 4, I'm tempted to drop patch 1 and 3,
+> > since they are irrelevant if the locking is fixed the way it is in this
+> > patch. Question is, do we care about patch 2 being backported to stable
+> > kernels then? =20
+>=20
+> Or backport patch 4?  It's a bit bigger, but mostly mechanical.. with
+> only issue being backporting across addition of panthor shrinker, I
+> guess?
 
-Fixes: 70d645deac98 ("drm/ttm: Add helpers for shrinking")
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Huang Rui <ray.huang@amd.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Dave Airlie <airlied@redhat.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: <stable@vger.kernel.org> # v6.15+
-Assisted-by: GitHub_Copilot:claude-opus-4.6
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
----
- drivers/gpu/drm/ttm/ttm_bo_util.c | 11 +++--------
- 1 file changed, 3 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
-index f83b7d5ec6c6..3e3c201a0222 100644
---- a/drivers/gpu/drm/ttm/ttm_bo_util.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
-@@ -1112,19 +1112,14 @@ long ttm_bo_shrink(struct ttm_operation_ctx *ctx, struct ttm_buffer_object *bo,
- 	if (lret < 0)
- 		return lret;
- 
--	if (bo->bulk_move) {
--		spin_lock(&bdev->lru_lock);
--		ttm_resource_del_bulk_move(bo->resource, bo);
--		spin_unlock(&bdev->lru_lock);
--	}
--
- 	lret = ttm_tt_backup(bdev, bo->ttm, (struct ttm_backup_flags)
- 			     {.purge = flags.purge,
- 			      .writeback = flags.writeback});
- 
--	if (lret <= 0 && bo->bulk_move) {
-+	if (lret > 0) {
- 		spin_lock(&bdev->lru_lock);
--		ttm_resource_add_bulk_move(bo->resource, bo);
-+		ttm_resource_del_bulk_move_unevictable(bo->resource, bo);
-+		ttm_resource_move_to_lru_tail(bo->resource);
- 		spin_unlock(&bdev->lru_lock);
- 	}
- 
--- 
-2.54.0
-
+I'm fine with that too (the panthor resolution should be fairly
+straightforward anyway). I'll post a v3 with just patch 4 then.
