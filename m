@@ -4,57 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE631CD484E
-	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 22:56:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6D75CD484E
+	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 23:09:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3156D10E918;
-	Mon, 11 May 2026 22:56:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D5EB10E90E;
+	Mon, 11 May 2026 23:09:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aTkUrt93";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="tD+ZfEvW";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E381010E52C
- for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 22:56:21 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39CFD10E902;
+ Mon, 11 May 2026 23:09:38 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id AFFBE600CB;
- Mon, 11 May 2026 22:56:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33552C2BCB0;
- Mon, 11 May 2026 22:56:13 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B39F243DA5;
+ Mon, 11 May 2026 23:09:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14A85C2BCB0;
+ Mon, 11 May 2026 23:09:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778540180;
- bh=QWVDVaeWXV4GbyWgoNQbtUfQbuZpi8pMwF5GmRCH69s=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To:From;
- b=aTkUrt93T4INKuz/JUkst2NoH/4WTrHZDn5J6NVFkO0Sjkv21Cnt18j1Q+2KOlFLA
- HkueXpk/4xIJ8PsT6YeQ1Wq6Ge6Al36L+JoX1wjcDplLOtT67dYkISlPXGRwELUwZv
- sAmSeWIPm5V/1bDyxMjQeUdiANWWWZZ8F/NWQMNYqRoPydnalHvLGnyg+viK1hMBDa
- cwkIAHNtXdhP1jw5GjPkDTafDVJJPM6AyFFCsFKXbZU0xegQ15GL8sqYF8VBYfzTQu
- 3g/fpf+u9BtLBYNIpwtsRBCQy7pjqKvEq8x91V6w3iiuqUPCnBxnpoWng5fN3A0GRV
- /utGGdamwtkvQ==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 12 May 2026 00:56:11 +0200
-Message-Id: <DIG7VF8XA0KX.3GLHRET0SLOTN@kernel.org>
-Subject: Re: [PATCH v2 00/25] rust: device: Higher-Ranked Lifetime Types for
- device drivers
-Cc: <gregkh@linuxfoundation.org>, <rafael@kernel.org>,
- <acourbot@nvidia.com>, <aliceryhl@google.com>, <david.m.ertman@intel.com>,
- <ira.weiny@intel.com>, <leon@kernel.org>, <viresh.kumar@linaro.org>,
- <m.wilczynski@samsung.com>, <ukleinek@kernel.org>, <bhelgaas@google.com>,
- <kwilczynski@kernel.org>, <abdiel.janulgue@gmail.com>,
- <robin.murphy@arm.com>, <markus.probst@posteo.de>, <ojeda@kernel.org>,
- <boqun@kernel.org>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
- <lossin@kernel.org>, <a.hindborg@kernel.org>, <tmgross@umich.edu>,
- <igor.korotin@linux.dev>, <daniel.almeida@collabora.com>,
- <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pm@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
-To: "Dirk Behme" <dirk.behme@de.bosch.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260506215113.851360-1-dakr@kernel.org>
- <2e1c9a71-46e7-4036-91ac-86453564b223@de.bosch.com>
-In-Reply-To: <2e1c9a71-46e7-4036-91ac-86453564b223@de.bosch.com>
+ s=k20201202; t=1778540977;
+ bh=oNHvi4oxjrwBg8WrHDE3QBzWxrrrcye8fddyPM6VQbA=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=tD+ZfEvWY6zNN4Rotzj2Kp774to8Jqfnshu16QaCSxae/YvNmIW1jJarDiSqRocLW
+ tVWXp2unxM4GrbwI8ccU9NuxPbVmKtlXWfhqTwPqsWIzA3IXkI6Mw7gvJarAMhhnav
+ 4w7IG99LKdnePjTd7/1hspEy91ix6y9dJ2WXOuUaT/ZHKcvtonxXqc5IM/OfHzcsXg
+ Y5XTqNcIhhX5X1Vkal6gpxp4Idmf/UG1Ay+iIvry5nvDAEfdcLGJOquwRABQvM0l/v
+ 2AVlu3J20fhPTcD5ytxrwUBJ+Z/V4weIlqOdaX/2/EjzqbldOYkjqBKe+jZgv//gqd
+ 70uwh/Pbbat8Q==
+Date: Mon, 11 May 2026 16:09:32 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Liu Ying <victor.liu@nxp.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li
+ <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix
+ Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>, Akhil P Oommen
+ <akhilpo@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, Abhinav
+ Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Vinod Koul
+ <vkoul@kernel.org>, Nas Chung <nas.chung@chipsnmedia.com>, Jackson Lee
+ <jackson.lee@chipsnmedia.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Mirela Rabulea <mirela.rabulea@nxp.com>, Detlev Casanova
+ <detlev.casanova@collabora.com>, Ezequiel Garcia
+ <ezequiel@vanguardiasur.com.ar>, Heiko Stuebner <heiko@sntech.de>, Hugues
+ Fruchet <hugues.fruchet@foss.st.com>, Alain Volmat
+ <alain.volmat@foss.st.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, MD Danish
+ Anwar <danishanwar@ti.com>, Roger Quadros <rogerq@kernel.org>, Parvathi
+ Pudi <parvathi@couthit.com>, Mohan Reddy Putluru <pmohan@couthit.com>,
+ Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier
+ <mathieu.poirier@linaro.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Michal Simek
+ <michal.simek@amd.com>, Mark Brown <broonie@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>, Linus Walleij
+ <linusw@kernel.org>, Lorenzo Bianconi <lorenzo@kernel.org>, Felix Fietkau
+ <nbd@nbd.name>, "Andrew F. Davis" <afd@ti.com>, Hussain Khaja
+ <basharath@couthit.com>, Suman Anna <s-anna@ti.com>, Ben Levinsky
+ <ben.levinsky@amd.com>, Tanmay Shah <tanmay.shah@amd.com>, Erwan Leray
+ <erwan.leray@foss.st.com>, Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
+ Roger Quadros <rogerq@ti.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ dmaengine@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-rockchip@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, netdev@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-spi@vger.kernel.org, linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH] dt-bindings: Consolidate "sram" property definition
+Message-ID: <20260511160932.0e2cf50a@kernel.org>
+In-Reply-To: <20260511165942.2774868-1-robh@kernel.org>
+References: <20260511165942.2774868-1-robh@kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,16 +100,8 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu May 7, 2026 at 2:14 PM CEST, Dirk Behme wrote:
-> I have applied this series together with [1] on top of 7.1.0-rc1. I made=
-=20
-> some adaptions to local changes (e.g. my ARM64 TMU interrupt test) and=20
-> boot tested it. Several parts this patch series touches (e.g. PCI,=20
-> auxiliary, gpu) I might not use or even don't have it enabled. So I=20
-> don't know if this is worth mentioning
->
-> Tested-by: Dirk Behme <dirk.behme@de.bosch.com>
->
-> Please feel free to ignore this, then.
+On Mon, 11 May 2026 11:59:36 -0500 Rob Herring (Arm) wrote:
+>  .../bindings/net/ti,icssg-prueth.yaml         |  2 +-
+>  .../bindings/net/ti,icssm-prueth.yaml         |  2 +-
 
-Thanks Dirk! Any test coverage is valuable and much appreciated.
+Acked-by: Jakub Kicinski <kuba@kernel.org>
