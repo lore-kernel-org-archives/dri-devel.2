@@ -4,125 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF02FCD37BE
-	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 22:09:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CE85CD37BE
+	for <dri-devel@archiver.kernel.org>; Mon, 11 May 2026 22:19:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C80610E082;
-	Mon, 11 May 2026 22:09:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0470889D7C;
+	Mon, 11 May 2026 22:19:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="eUk+ADWF";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="qqLGucAH";
 	dkim-atps=neutral
-Received: from AM0PR02CU008.outbound.protection.outlook.com
- (mail-westeuropeazon11013060.outbound.protection.outlook.com [52.101.72.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C7F810E20F
- for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 22:09:48 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YdLqdNv2hwZEuh3zbWD77Gz0S/Fymj+cjpUZEPBRV22nPGs2AuKIf+FtlSssHYdo2Cm8mFHEIE759C2cuG28Jm0UX9maDFJLeWsN26AsBujw2hjT8JdolS0YKdMj8bKvfWZOmojL8dYntkRz4x4x4Q8anBfOGxNHs411bk/bpmtk9bPYfosk/2jkbaZVTidFyZHkbltHDigDx4qR/htAG7QtgrB/MFCDRd2/uZLUg/jAfguZL8vE7TCkFcpqM0TZX9YODcmcB45ngtkYOEe6Oiar+0/zf0iBzVK3cigXFfuDDi9OYWlfkQBujYB13EdZosVcMW5sMSCx0nrdun1nNQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ekoRYnK4z55lFVyhTkG15nV4sfaeKTQNLBqvN0G2Z7Q=;
- b=StxamrdjCUmgnaxgBUbj6cfWoSzaU5yZEwe63CXrGJsqyNf2B6HpnOwkS4C6tVAfvVXMhWrsa/6mz22Ee1ZFwvRnH0OWJlyybsls2B+VlWXmoSRy+WQncTmk0pK7X5DSAsMiq22xq2GqPuaoaqBnnP+baEudrfeGeBuUZBTt4b95td9K28ujeSQ2ZinNKrV3gxFmzHUJyZ+cOEXHEEZRQiGmoE/zy1kYMWjFNB/Ff+mCE+zNPWMg93YVMsRC3lrly3zyPcxL3+05oRlPFfLQ27+CLAJRrNcfM+npRmY3Za59mD6f6pxUW8r5gx2jbwLu/0fgSZUIpqqR1pWwrP68Yg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ekoRYnK4z55lFVyhTkG15nV4sfaeKTQNLBqvN0G2Z7Q=;
- b=eUk+ADWFiSA9ltxLI8umQBUFUhPi7wU4+U0KIkt0cs5MteKcMYhRCu7X05k85e0pt8JqK76DgMN2oLIUUIPqGGwf/+hbZpYCEj/MTAyJS+xKFOlc2+sJujbLlO1VntzsXm8h3T9rSc9lq6pOggf06Y6Q0hJRJO2/UR6sWLjTTNR81MfHTbkdmIN5yHb39e6Q0RX17b9lgmAfZQhZOadv0ibVzJ2NZTbPfXtfFs9kttRbXr4mS1mjyPsVZ2zrh53KvUl811zZnhkfB4KK1vnVHwv/qvWL22sHhuZqMuNVJdmx+pMYf3UDR57Zv8PK8pbxufVQ3v1g7EyfQ4dNqq5QKA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
- by PAXPR04MB8895.eurprd04.prod.outlook.com (2603:10a6:102:20e::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Mon, 11 May
- 2026 22:09:45 +0000
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588%3]) with mapi id 15.20.9891.021; Mon, 11 May 2026
- 22:09:45 +0000
-From: Frank Li <Frank.Li@nxp.com>
-To: Philipp Zabel <p.zabel@pengutronix.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- dri-devel@lists.freedesktop.org (open list:DRM DRIVERS FOR FREESCALE IMX 5/6), 
- devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE
- BINDINGS), 
- imx@lists.linux.dev (open list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE),
- linux-arm-kernel@lists.infradead.org (moderated list:ARM/FREESCALE IMX / MXC
- ARM ARCHITECTURE), linux-kernel@vger.kernel.org (open list)
-Cc: imx@lists.linux.dev
-Subject: [PATCH 1/1] dt-bindings: display: imx: add deprecated property 'port'
- and 'display-timings'
-Date: Mon, 11 May 2026 18:09:24 -0400
-Message-ID: <20260511220924.1905571-1-Frank.Li@nxp.com>
-X-Mailer: git-send-email 2.43.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SN6PR05CA0009.namprd05.prod.outlook.com
- (2603:10b6:805:de::22) To PA4PR04MB9366.eurprd04.prod.outlook.com
- (2603:10a6:102:2a9::8)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5C4789D7C
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 22:19:36 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 63FD044398;
+ Mon, 11 May 2026 22:19:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43875C2BCFB;
+ Mon, 11 May 2026 22:19:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1778537976;
+ bh=IX/Repa1aySqfY4fx8TzeX6rhq3yO0kNzFJX8DguvF8=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=qqLGucAH+g9oXPzahke6R+Qva28gMIYuRBhyTuj34WeL5VK1YGYDmukUnB9YjuVUv
+ XKr1bMo+M68RIIuOiP//+/GdLj15IOLK855TISpcwEd69XjtE/HJmXXf2VnzcMhgSE
+ xdQS93X3X3T9eoWR8E/BfJMqhoHYF/nqqpwY1zpZkhksFwpa1ClZTzGRlfxM4hDmm1
+ BIcV2Egtw8l3i5Xiy4XNHlE4ahcMv9Mra5D5Kb86cVHRMtJ4ZjXKOG1VLRhjzx11HR
+ +zzTJSW05GdaHIwmJ3YrkW4DTduNkSO+JabmeFyM/kDnGETvCM81pO4gLJtYnSOJOY
+ RrCs+27I7aehw==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Cc: Christian Van <cvan20191@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Sasha Levin <sashal@kernel.org>, jagan@amarulasolutions.com,
+ airlied@gmail.com, daniel@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 7.0-5.10] drm/panel: feiyang-fy07024di26a30d: return
+ display-on error
+Date: Mon, 11 May 2026 18:19:02 -0400
+Message-ID: <20260511221931.2370053-3-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260511221931.2370053-1-sashal@kernel.org>
+References: <20260511221931.2370053-1-sashal@kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|PAXPR04MB8895:EE_
-X-MS-Office365-Filtering-Correlation-Id: 37bc014d-0e7e-4c34-9509-08deafaa026b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|52116014|366016|19092799006|376014|7416014|38350700014|921020|11063799003|18002099003|56012099003|3023799003;
-X-Microsoft-Antispam-Message-Info: g5wtLrhNE9nJ4BmIMsG4fmvjME3wFcB0wTSGRV85R6XfgEoCsuw+L3dTwZpHmmwXAEqkXV3ZX2DiEgAYwmdll2s+wF/rq4LZ25XIJ05IKlrjgZJxufF50jn38KZbfaT0I9OvxLYawkQu1NtF5TLTN8UICXg4ToYRNArEkypFJ6lmjOXSBq4U5M3rJ84/ZwsO+CCCrOJTqyOV4Zte2w0MBNLPB2+Q6h5zWSbKcJUWh4Rsuk5K0A6K0OLXbiSZeA++IWgGT6Et7o3SVwrAQndSwARdu6kHC3OLBOuxBo4qGvh5ys6AO2YEE1kQsdbM7mQULz+FyxeT+wapUHze6h5HCq66wcd8bC+yw250cSoNkMQw3OO1ZNdxUk9+ZrLwqE2ekFDiErJaYynZaeCXGvrClWqEMIuOrZaLqRpbltITOVQ+mRFFFCRTmQSpXCtZQberMhII5pMuu30SvlFKnu06UYZaXHDUVvgi5pHXVxKKbZnG8d/iJDfIEhCqZyEyREJTbv8fbx9szgPIOC00mJYil0BucAWbuJcDoDrfV3C6QpiZt1XAk8mbq21wIQ8Jwly5WioK4PMLZXzc6AUEWHtd9CDCWusx6ukNjV/XrDeQDqC3yGkYP2NbCEnGZAy9ysYz6arGxZwh/qjJQ0Sv3SlRHw4yAqdm/UgHxEPDBS4IoqbQh+iIXPK3/rG8+tiW5HE71F4QG6AiZJrykzlpapeDYLkt42ii/wVDb9cMkLRQiu96Mqe2EXmMQJBMX8i4aYHnDA9R+tdGzDuZlUinFQMF0w==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PA4PR04MB9366.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(52116014)(366016)(19092799006)(376014)(7416014)(38350700014)(921020)(11063799003)(18002099003)(56012099003)(3023799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?qoaanQrChxkfJ2rnOuTgxea2ADzsj1X8ebIaGjdQzu7CApIABErvIv0iD9JD?=
- =?us-ascii?Q?soWx3Xjwjdg1kru/wILy8U3fc6VSStdID1pFCfFnuqLx9e29VLgw4TI6BFmK?=
- =?us-ascii?Q?Z6jYRwumHysc97Ltc/c5t4X0QYjDyuveHOA8unRJCrEQcaRMWeV+uynPAs7D?=
- =?us-ascii?Q?uXfrm1EhucvM+zYMEiSCF5GS3TQbjZ0dmncWVLWpIZzNRoukQRSWoosluyob?=
- =?us-ascii?Q?q3ThHc6CA6H56lE78g3e0ajdr7gM8QQlPqUg1gMJm/MmMNKKDr4jbNkrqC0O?=
- =?us-ascii?Q?7+vNAK53HJVN5h73ewNif3ipFUcgkcDt5GKwIwhQiCwSKGzVvpmAwBhjSrTQ?=
- =?us-ascii?Q?ynn/WuyOEFrcL3yVg/p9HpmOUUvX7ej434YTeNZ9KelG+es40zWHaOKzjGlR?=
- =?us-ascii?Q?uAqD8nDrBWKNGKiSEmDr3GnnfrYYX5Aqv/zJ2gdFxYrClYup9HnMRJ7h24wZ?=
- =?us-ascii?Q?kbLBAjCnvY5nFZEOJZNoWa9rmZ1M4zMyMaVPwNd6BiBeODyu5BKw+6MXT8A2?=
- =?us-ascii?Q?ihuGPmf1AzTz93PyPwnO1Em0lkpRJiAsFl+n2KND3YdQdpC+MGq7rmJKArWx?=
- =?us-ascii?Q?gZ11ZCprvHZklHLAfa9d0sH5ITgE/KAH6OTLsSBxR153POVCmKP6m9g5ntdE?=
- =?us-ascii?Q?OIL5SJFjc4hPqvovHxYuSwo/ojBg0/p1dZsqu+w3dQftj42WxPE5ymmc2AYs?=
- =?us-ascii?Q?Zh6bN7rNq2Js0f6rg0uJEETTZRjRfpD5JyoVTyhQl7lESwRnX9ObWTAWhR8X?=
- =?us-ascii?Q?MMPhVqqVzz1nfEJpPZjOyeqWy9c/5iYilhdgJt3gbKXE91WzS5nR4p6HMKMM?=
- =?us-ascii?Q?nk2RoV3SgKGzwZy55PO2zLJHlnZVJTUEF4pUjHW4tq8RbmiALy9uj4P9DDs8?=
- =?us-ascii?Q?366/+DnkfDHKuy+4JUw3usggH0xgo4IVFvt/jxbFz5kasMbUBTrEzuBwpkNZ?=
- =?us-ascii?Q?uAXk4aZrMY9FZI8NeQPnEOv1F26/wE6N8HZ3r/XQQxjqCveM+6us7oN48ELw?=
- =?us-ascii?Q?UFtDylEwb65eNvmVsr4+GY3kIcot5+C469EwY9o6oDySkTSKz01hCd+TJ0gV?=
- =?us-ascii?Q?AXLJT7f/jK/8qPll/XKE++bmcjW81NnRWIz2RdosmCsNuRWibdlzxwJAPHE8?=
- =?us-ascii?Q?MTzJejc/mFeKGC5QYBcE8cBWdTqa2v+M+PtcSIUTGAt0vyc+7x0jP6JZMiQV?=
- =?us-ascii?Q?JBC2X3zgOaPZ/PfpkXG0orOeyI7jgCvVnKqC/eOoB+WRq6WIIKH4IXddVwPN?=
- =?us-ascii?Q?yWJgk+mCcY4XmZqv0AZzzGe3s+aswTO/SN7M0Xs/NVLqfFOKlIBHHSiAd5/Y?=
- =?us-ascii?Q?rBT5De6Zd6aJKw+eqwSRr6gGCTVGmLpBta4m9qtDVYQQVyNLz/3tPn5aUMdH?=
- =?us-ascii?Q?2eRvbG4lBIJMaWB0247iMhzBmPTExC1WiRXbDoWMQXjyjQc4OImon0T5javi?=
- =?us-ascii?Q?DPOAmGB86/1FmxoOY6QtPPLgFpkRjy+yCOytrxsuS/VyNEnCiRKxxvk1xuJo?=
- =?us-ascii?Q?42353PXCjg78mwmpzR+i57OoxOg7tzl50sanBLvh/bciLEFHePjmHwg3+8v+?=
- =?us-ascii?Q?tXkSO2Ls4w54kV4on6E7/pIXkDIxt9GebtJgro8VLwItIERgv52H4zvNds5/?=
- =?us-ascii?Q?E1lzv6tQLIOJjQ0U4o5g/HFVMealXFSlJQF7KKNJpjjVavp3aFLxaQl6s5JN?=
- =?us-ascii?Q?faW8Y7sAEZuKP4SUhtjPw8O9r268wdYfv7V7KWKArCSq3amGahlspI4KxfgZ?=
- =?us-ascii?Q?evq3RI8ALA=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 37bc014d-0e7e-4c34-9509-08deafaa026b
-X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2026 22:09:45.5401 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2if90W5BeexmJ162QWgB2/QvyRHxqnKrwyqq8lTss07LGjMlqWJShvpLY5a06jAFXe2KcCqXl+GHJusVmzuO0w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8895
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 7.0.6
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,38 +66,280 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add deprecated property 'port' and 'display-timings' for i.MX5 SoCs (over
-15 years) to fix below CHECK_DTBS warnings:
-  arm/boot/dts/nxp/imx/imx51-apf51dev.dtb: disp1 (fsl,imx-parallel-display): 'display-timings', 'port' do not match any of the regexes: '^pinctrl-[0-9]+$'
-        from schema $id: http://devicetree.org/schemas/display/imx/fsl,imx-parallel-display.yaml
+From: Christian Van <cvan20191@gmail.com>
 
-Signed-off-by: Frank Li <Frank.Li@nxp.com>
+[ Upstream commit c67e8787f6743101c90c7a9c4bb7cf6f1f739f83 ]
+
+mipi_dsi_dcs_set_display_on() returns an error code, but feiyang_enable()
+currently ignores it and always reports success.
+
+Return the DCS command result so callers can observe enable failures.
+
+Signed-off-by: Christian Van <cvan20191@gmail.com>
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+Link: https://patch.msgid.link/20260425053948.117714-1-cvan20191@gmail.com
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../display/imx/fsl,imx-parallel-display.yaml         | 11 +++++++++++
- 1 file changed, 11 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/display/imx/fsl,imx-parallel-display.yaml b/Documentation/devicetree/bindings/display/imx/fsl,imx-parallel-display.yaml
-index bbcfe7e2958b7..b0c5869771fae 100644
---- a/Documentation/devicetree/bindings/display/imx/fsl,imx-parallel-display.yaml
-+++ b/Documentation/devicetree/bindings/display/imx/fsl,imx-parallel-display.yaml
-@@ -42,6 +42,17 @@ properties:
-     unevaluatedProperties: false
-     description: output port connected to a panel
+LLM Generated explanations, may be completely bogus:
+
+## Phase 1: Commit Message Forensics
+Step 1.1 Record: subsystem `drm/panel`, action verb `return`, summary:
+`feiyang-fy07024di26a30d` should propagate the MIPI DSI display-on
+command error instead of reporting success.
+
+Step 1.2 Record: tags verified:
+- `Signed-off-by: Christian Van <cvan20191@gmail.com>`
+- `Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>`
+- `Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>`
+- `Link:
+  https://patch.msgid.link/20260425053948.117714-1-cvan20191@gmail.com`
+No `Fixes:`, `Reported-by:`, `Tested-by:`, `Cc: stable`, syzbot, or
+sanitizer tags were present.
+
+Step 1.3 Record: the body says `mipi_dsi_dcs_set_display_on()` returns
+an error but `feiyang_enable()` ignores it and always returns success.
+Verified in `drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c`.
+Symptom: DRM panel core cannot observe a failed display-on command and
+may continue the enable sequence as if the panel enabled successfully.
+No user report, stack trace, or affected-version statement was found.
+
+Step 1.4 Record: yes, this is a hidden bug fix: it fixes ignored error
+handling in a panel enable path. It is not cleanup or refactoring.
+
+## Phase 2: Diff Analysis
+Step 2.1 Record: one file changed, `drivers/gpu/drm/panel/panel-feiyang-
+fy07024di26a30d.c`; 1 insertion, 3 deletions. Modified function:
+`feiyang_enable()`. Scope: single-file surgical driver fix.
+
+Step 2.2 Record: before, `feiyang_enable()` called
+`mipi_dsi_dcs_set_display_on(ctx->dsi)` and always returned `0`. After,
+it returns the DCS command result directly. Affected path: normal panel
+enable path, after the 200 ms enable delay.
+
+Step 2.3 Record: bug category is logic/error-propagation correctness.
+The broken mechanism was an ignored negative return from
+`mipi_dsi_dcs_set_display_on()`. Verified that
+`mipi_dsi_dcs_set_display_on()` returns `0` on success or a negative
+error code on failure.
+
+Step 2.4 Record: fix quality is high: minimal, obviously correct, no new
+API, no locking, no data structure change. Regression risk is very low;
+the only behavior change is that a real display-on failure prevents
+`drm_panel_enable()` from marking the panel enabled and enabling
+backlight/followers.
+
+## Phase 3: Git History Investigation
+Step 3.1 Record: `git blame` shows the ignored return was introduced
+with the original driver commit
+`69dc678abc2b9d36ff005413ca6e9edabe4c369a` (`drm/panel: Add Feiyang
+FY07024DI26A30-D MIPI-DSI LCD panel`), first contained in `v5.2-rc1`.
+
+Step 3.2 Record: no `Fixes:` tag was present, so there was no tag to
+follow. I inspected the original driver commit anyway; it added the
+driver and already ignored this display-on return.
+
+Step 3.3 Record: recent file history shows mostly unrelated panel API
+conversions and cleanup. The candidate patch is standalone and only
+needs the existing `feiyang_enable()` and
+`mipi_dsi_dcs_set_display_on()` code.
+
+Step 3.4 Record: no other `Christian Van` commits under
+`drivers/gpu/drm/panel` were found in checked `master` or `graphics-
+next`. Neil Armstrong is listed as DRM panel maintainer in `MAINTAINERS`
+and reviewed/applied the patch.
+
+Step 3.5 Record: no dependencies found. The patch applies directly to
+`v5.10`, `v5.15`, `v6.1`, `v6.6`, `v6.12`, `v6.19`, and `v7.0`; `v5.4`
+contains the buggy code but needs a trivial context backport.
+
+## Phase 4: Mailing List And External Research
+Step 4.1 Record: `b4 dig -c c67e8787f6743101c90c7a9c4bb7cf6f1f739f83`
+found the original submission at
+`https://patch.msgid.link/20260425053948.117714-1-cvan20191@gmail.com`.
+`b4 dig -a` found only v1, so the committed version is the only revision
+found.
+
+Step 4.2 Record: `b4 dig -w` showed the original recipients included
+Christian Van, Jagan Teki, Neil Armstrong, Jessica Zhang, Maarten
+Lankhorst, Maxime Ripard, Thomas Zimmermann, David Airlie, Simona
+Vetter, `dri-devel`, and `linux-kernel`. Neil Armstrong reviewed it and
+later applied it to `drm-misc-fixes`.
+
+Step 4.3 Record: no `Reported-by` or bug-report link exists. WebFetch
+for lore URLs was blocked by Anubis, but `b4 mbox` fetched the thread
+successfully. The thread contained Neil’s `Reviewed-by` reply and an
+applied notice.
+
+Step 4.4 Record: no multi-patch series found; this is a standalone
+1-patch series.
+
+Step 4.5 Record: WebFetch searches of `lore.kernel.org/stable` were
+blocked by Anubis. Local pending/stable candidate branches searched did
+not show this patch already present.
+
+## Phase 5: Code Semantic Analysis
+Step 5.1 Record: modified function: `feiyang_enable()`.
+
+Step 5.2 Record: `feiyang_enable()` is installed as `.enable` in
+`feiyang_funcs`. `drm_panel_enable()` calls
+`panel->funcs->enable(panel)` and checks negative returns. Multiple DRM
+bridge/host drivers call `drm_panel_enable()`.
+
+Step 5.3 Record: key callees are `msleep(200)` and
+`mipi_dsi_dcs_set_display_on(ctx->dsi)`. The latter calls
+`mipi_dsi_dcs_write()` and returns a negative error on write failure.
+
+Step 5.4 Record: reachable through DRM panel enable paths during display
+modeset/enable for systems using this panel. This is driver/hardware-
+specific, not universal. No in-tree DTS user of
+`feiyang,fy07024di26a30d` was found beyond the binding example and
+driver match table.
+
+Step 5.5 Record: many other panel drivers already check and return or
+handle `mipi_dsi_dcs_set_display_on()` errors, confirming this driver
+was an outlier.
+
+## Phase 6: Cross-Referencing And Stable Tree Analysis
+Step 6.1 Record: buggy code exists in `v5.4`, `v5.10`, `v5.15`, `v6.1`,
+`v6.6`, `v6.12`, `v6.19`, and `v7.0`. The driver was introduced for
+`v5.2-rc1`, so all active stable trees at or after that point likely
+contain it.
+
+Step 6.2 Record: expected backport difficulty is clean for `v5.10+`
+based on apply checks. `v5.4` failed direct apply due to context drift
+but contains the same ignored call and should need only a trivial one-
+function backport.
+
+Step 6.3 Record: no related stable-side fix for this same issue was
+found in the checked stable/pending branches.
+
+## Phase 7: Subsystem And Maintainer Context
+Step 7.1 Record: subsystem is DRM panel driver, criticality
+`PERIPHERAL`/driver-specific. It affects users of Feiyang
+FY07024DI26A30-D MIPI-DSI panels.
+
+Step 7.2 Record: DRM panel is maintained and active. The file has had
+several API-conversion commits since introduction, but this fix is not
+dependent on those conversions for `v5.10+`.
+
+## Phase 8: Impact And Risk Assessment
+Step 8.1 Record: affected population is driver-specific/config-specific:
+kernels with `CONFIG_DRM_PANEL_FEIYANG_FY07024DI26A30D` and hardware
+described with `feiyang,fy07024di26a30d`.
+
+Step 8.2 Record: trigger is a failure of the DSI `SET_DISPLAY_ON`
+command during panel enable. I did not verify a specific real-world
+reporter, so frequency is unverified. It is not shown to be
+unprivileged-user-triggerable.
+
+Step 8.3 Record: failure mode is user-visible display enable
+misreporting: before the patch, the panel core could treat the panel as
+enabled despite the failed display-on command. Severity: `MEDIUM` for
+affected hardware, because it can leave display/backlight state wrong,
+but no crash, memory corruption, deadlock, or security issue was
+verified.
+
+Step 8.4 Record: benefit is moderate for affected hardware; risk is very
+low because the patch only returns an existing error code from a
+function that already has an `int` return type.
+
+## Phase 9: Final Synthesis
+Step 9.1 Record:
+Evidence for backporting: real ignored-error bug; affects display enable
+correctness; original buggy code dates to `v5.2-rc1`; one-line surgical
+fix; maintainer reviewed/applied to `drm-misc-fixes`; clean apply to
+`v5.10+`; no new API or feature.
+Evidence against backporting: no user report, crash, security issue,
+data corruption, syzbot report, or `Fixes:` tag; affected population is
+limited to one panel driver; `v5.4` needs a trivial manual backport.
+Unresolved: actual field frequency of DSI display-on failures was not
+verified.
+
+Step 9.2 Record:
+1. Obviously correct and tested? Correct by inspection; reviewed by DRM
+   panel maintainer. No explicit `Tested-by`.
+2. Fixes a real bug? Yes, ignored negative return from a hardware
+   command.
+3. Important issue? Moderate: display enable state correctness for
+   affected hardware, not a critical kernel-wide failure.
+4. Small and contained? Yes, one function, one file, 1 insertion/3
+   deletions.
+5. No new features/APIs? Yes.
+6. Can apply to stable? Yes for `v5.10+`; trivial backport needed for
+   `v5.4`.
+
+Step 9.3 Record: no automatic exception category applies; this is not a
+device ID, quirk, DT, build, or documentation patch.
+
+Step 9.4 Record: I recommend backporting. Although the impact is driver-
+specific and not a crash-class bug, the fix is a genuine hardware enable
+error propagation fix, very small, maintainer-reviewed, and low risk.
+Stable users with this panel should not have the panel core mark the
+panel enabled after the display-on command failed.
+
+## Verification
+- Phase 1: Parsed commit `c67e8787f6743101c90c7a9c4bb7cf6f1f739f83` with
+  `git show`; confirmed subject, body, trailers, and diff.
+- Phase 2: Read `panel-feiyang-fy07024di26a30d.c`; confirmed old
+  `feiyang_enable()` ignored `mipi_dsi_dcs_set_display_on()` and
+  returned `0`.
+- Phase 2: Read `drm_mipi_dsi.c`; confirmed
+  `mipi_dsi_dcs_set_display_on()` returns a negative error on failure.
+- Phase 3: Ran `git blame -L 94,104`; confirmed buggy lines came from
+  `69dc678abc2b9d`.
+- Phase 3: Ran `git describe --contains 69dc678abc2b9d`; confirmed first
+  containing version `v5.2-rc1`.
+- Phase 3: Inspected original commit `69dc678abc2b9d`; confirmed the
+  ignored return existed from driver introduction.
+- Phase 4: Ran `b4 dig -c`, `b4 dig -a`, and `b4 dig -w`; confirmed one
+  v1 patch, original lore URL, and recipient list.
+- Phase 4: Ran `b4 mbox`; confirmed Neil Armstrong reviewed and applied
+  it to `drm-misc-fixes`.
+- Phase 4: WebFetch lore and stable searches were blocked by Anubis;
+  this limitation did not drive the final decision.
+- Phase 5: Read `drm_panel.c`; confirmed `drm_panel_enable()` checks
+  negative `.enable` return and skips enabled/backlight/follower path on
+  failure.
+- Phase 5: Searched for `feiyang_enable`; confirmed it is used via
+  `.enable = feiyang_enable`.
+- Phase 5: Searched panel drivers for `mipi_dsi_dcs_set_display_on()`;
+  confirmed many peers handle its return.
+- Phase 6: Used `git grep` against stable tags; confirmed the ignored
+  call exists in `v5.4`, `v5.10`, `v5.15`, `v6.1`, `v6.6`, `v6.19`, and
+  `v7.0`.
+- Phase 6: Apply-checked the patch in detached worktrees; clean for
+  `v5.10`, `v5.15`, `v6.1`, `v6.6`, `v6.12`, `v6.19`, and `v7.0`; failed
+  direct apply on `v5.4` due to context only.
+- Phase 7: Checked `MAINTAINERS`; confirmed Neil Armstrong maintains DRM
+  panel drivers.
+- Phase 8: Checked Kconfig and compatible strings; confirmed impact is
+  limited to the Feiyang panel driver/config and no in-tree board DTS
+  use was found.
+- UNVERIFIED: no actual user report or frequency of display-on command
+  failures was found.
+
+**YES**
+
+ drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c b/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c
+index 4f8d6d8c07e4d..dbdb7e3cb7b62 100644
+--- a/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c
++++ b/drivers/gpu/drm/panel/panel-feiyang-fy07024di26a30d.c
+@@ -98,9 +98,7 @@ static int feiyang_enable(struct drm_panel *panel)
+ 	/* T12 (video & logic signal rise + backlight rise) T12 >= 200ms */
+ 	msleep(200);
  
-+  port:
-+    $ref: /schemas/graph.yaml#/properties/port
-+    unevaluatedProperties: false
-+    deprecated: true
-+    description: input port connected to the IPU display interface, see port@0
-+
-+  display-timings:
-+    $ref: /schemas/display/panel/display-timings.yaml#
-+    unevaluatedProperties: false
-+    deprecated: true
-+
- required:
-   - compatible
+-	mipi_dsi_dcs_set_display_on(ctx->dsi);
+-
+-	return 0;
++	return mipi_dsi_dcs_set_display_on(ctx->dsi);
+ }
  
+ static int feiyang_disable(struct drm_panel *panel)
 -- 
-2.43.0
+2.53.0
 
