@@ -4,81 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB1D2CD4F39
-	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 07:54:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D2D2CD4851
+	for <dri-devel@archiver.kernel.org>; Wed, 13 May 2026 07:54:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A976810ED14;
-	Wed, 13 May 2026 07:54:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D0B210ED15;
+	Wed, 13 May 2026 07:54:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YENSNUTi";
+	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="djLYzU0w";
 	dkim-atps=neutral
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com
- [209.85.210.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED06710E0F6
- for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 07:51:57 +0000 (UTC)
-Received: by mail-pf1-f182.google.com with SMTP id
- d2e1a72fcca58-835386ff122so3622221b3a.3
- for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 00:51:57 -0700 (PDT)
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DADFD10E712
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 12:42:55 +0000 (UTC)
+Received: by mail-dl1-f48.google.com with SMTP id
+ a92af1059eb24-132c3280e8fso1844021c88.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 11 May 2026 05:42:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778485917; x=1779090717; darn=lists.freedesktop.org;
+ d=usp.br; s=usp-google; t=1778503375; x=1779108175; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ncOLD5lTLUziFiCRB20nnJgnBHULNrVrpQmpze3oHIE=;
- b=YENSNUTipRaCbPkHruMOcwLIBAB5SxDiHaHhZ+0cYHoB86s3E/BsZYHfDh9uAGej7i
- ccTI4DQkpuJki6GUxIYB6JqWH5tyY7/lhNZiAGfrV43z7NEi8W8imeHMhf1Obfo9hw6Y
- IKmn0k+kgQNFSshAZb0Mnd8/Dy3FEVkuGuaUhDIlLlRRtsIqHojva2DxF83w2/EeSzWF
- dADg80C0xFhRmUugxFvXHaEHj1uWzP2AsMZn0RybVRdTlxWbDJv4rHUuaK9YYqDHTBPP
- 3mIcYLbRlAA5QoEWkhGrWB0uqXeuIA2QO20XaWIfmMoAWQcczrTlZVlFDzxASXgW6vO7
- VaSQ==
+ bh=IIA/PCGHwUuYzFYf0JdmLWFIb4EL/tR2tlYs3hzPt0s=;
+ b=djLYzU0wubU4rYjMDnuqvL9HzTNIS5nYrRKmwhwYbL/2SDdd90ssVL396RxVIUmpPS
+ hb2NJA9rKWgoe7Si38khovlCURcZubGXHJ5yRUVeXkgtGNeHRJtusR7quTD1qn4d1Itd
+ pZ4NO5ebPzEeCU9YPFO9SP0IKOWAtSbNMuxCAsQ3YUM3Buv13LjBnVAl4nsPpU5KP3nd
+ 01oarCrkQF2p5W47lgfjl9BAvsigISlaAmmgAzGUpkckh5pSSdcP/S/Xmb9taTRSD37a
+ JrxijQvr6csl5QRLIR7Vnd5qxxrQe4pWm2U6JzN41Rs8lVhVYuzMSOPnor5ZjzfxtCI2
+ +WbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778485917; x=1779090717;
+ d=1e100.net; s=20251104; t=1778503375; x=1779108175;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=ncOLD5lTLUziFiCRB20nnJgnBHULNrVrpQmpze3oHIE=;
- b=m0GlN5PERb4geSc+tBVNK3WaP+5w+kkPu55uhtvUGgtbJ20fNMGRr75I4bwDJxe6yP
- i/g0BS/qtUxfNeBIeY5aSmhzfr/smTG+6XfpV+FofbujjsZw6jEZOdRsJJyUwF2/1sJV
- ibuYperN53E0bvKV8wifct+a+5By0WwTY1ACV1qHCb59DgDujnzMv1I5UmOpluQvVDHr
- wFMx/7Un/SW8Y0f5NUfFcXdY5IF9ty6OYdVbhQ1E6l+9yy9iY6Qg4WVHGLpJoJ75vVzy
- 9AZ/T9dB6+QOMKb5N1uj6IUbhUet/pclAG4ezvSjH7M9Cgbm2JwTvBKHgLyixPn0BZRv
- 3ayg==
+ bh=IIA/PCGHwUuYzFYf0JdmLWFIb4EL/tR2tlYs3hzPt0s=;
+ b=hjw34TjvcF3A37J18aT7gViAnih6EBn1OGoFrZy2lX1YjHs8H++EWMmWyPbuWGS6KJ
+ 6hTfK/fHXIZ1xKN44HMB6Uu6C7pW/BUP6laAM9uu4w2bKfcyu+gCa6H1lN4RLqi6rPBh
+ hqZuHgxrvdMy4R8oI26Q/y5s+v9RYjid4HlIKT25b3Um2PuI1dF8EvJUj9UHlveUnwJG
+ 3WEl2aTlsGJoNqJ7DCKjHyfQYOusM+fKkFdkpC98yH2dXTVkJgHNtX+lNoouhBhCvObg
+ QWkv3Fj47D/eA6oKgRfDba49ADQ+rA0xhjKdF23NoV/dUjDUHOjzHyd6vKULsX015ccj
+ D4oQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8ChxaSpkpEUexkwTjZ6iZcIUy/iM4bwxztBRuehTQa2qcWSaLPRoAJSdar6szC7kW5XLCRx6rWx+A=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxSJskHgJoitlE7+/nwrjOH65gA/iL6YFfr//Zk36DCu3YojiH9
- DfPRoKE6Ug3Ip1X8UyOMYBM4/wSzRbdM6o+YH8P41iNxRMrnOBD3Bsrh
-X-Gm-Gg: Acq92OHd2rpNS8Z8vaLEyauRxfBKP4fqH9MgU/8sX3gqYHCqTvMFKSRmtMHSfujvQmk
- Ff3OuSTj5H1F0cX3ailI6aDga1nTJYECuAFRozVaBaP4ls51Tu2mA8q2haj2u300hxrBDSv/eBQ
- gZfzawh5P9hLaGQI8s/aAOtQfsbIyo+1oU6GBKcG5Jt7mj1GlHtqhWvPXrOSy4HgKdAz3ZX/WIC
- 1nk3ng2xjU74crFTDGJGz7+nrS17OHStKyyiKN7wOn+61faYTviov/187gx4c+0h972FF1adUiw
- FN8O3wCwbSl3GmHpANVGbRVn/Kr5bJm4hdZfCC2hSuUZF6gycuBntMbKRVe8Ize0lowL1t+x3Nk
- PVzQ/7o5WeR/pUKsJlL8B8wPxd0c/Lw3sMfx0LAdEe2EAVoLGhgSVD8WMvqUnhqfgCNOZmo3RLw
- hDM1VQu+ZO6gB0530yjucjC1xQp7d0C5OSxPvYJSikBBza/HOnrVt/A+h+hm71m7jfCQaUEe/bm
- Xxr0bXi8mVy
-X-Received: by 2002:a05:6a00:b83:b0:82c:247b:ffdc with SMTP id
- d2e1a72fcca58-83a5df489c3mr21724738b3a.29.1778485917247; 
- Mon, 11 May 2026 00:51:57 -0700 (PDT)
-Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net.
- [60.250.196.139]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-83965d36a12sm17694642b3a.27.2026.05.11.00.51.53
+ AFNElJ/Kc6nRoA0tY//dzfvk6/pKQdF00u1b+WrV/zyomvWsMdteM2yLrEdEJBOrz4LfDixA9lkJkmEqxnU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz89j06h7o+eO0UjusOBiBc3XmzFjHjUFRD1sW/4qat0Amy7dLT
+ 0TZCMlub9oKT2HyZGH8dFzhna6cU/UGou193M4ML6g2UqCIHbwo2GtYbTPqG5ILhe5w=
+X-Gm-Gg: Acq92OG0Wxy1olujmlERj9NrXdQ30uIkMX3M/+czyor/IIbk93f8GcxzTsXjKxbb6uw
+ Ke1x/xDTlgrPaz0fAV/aoYrhU4hE2oINyNyNyibedrgA7T7qqglJ1b3LZr3+a9Bdw5AphswpsM6
+ RMCOsk77n9DX3vf6rwQlEXv+gShctj/k04zEDrclkZ+feXGEHUWf4yiZ75LA5L1BH3/VmZ208bm
+ luMfF28xNHb/FOe95NEX+IUyMSaZDh4zflT39hnV9X6JKt2K2PqidghdIC5sajnoyRP5W55Cy/b
+ dIZr736wjEPULJ2pExWM7YWK7lnJWLxQ126cuCBy7auq2YfVhuMrHBtn53S73DoJVwrfqGL+y3e
+ 3Uhh6qKXy+stL11X67yLdfe46F8fq20GLHSMtTA5TXK8kaUQ2t1ETbAFklBcKFCMMM5mgjx4Zu8
+ UdbZXc2Zt+iMU7fHh7FMhud8ATgOGfzpNfC6qDLAhc8f68C0A4JsqRLN1U33sX9tA1d5xzG2v95
+ ohXZ4ngN0LOSmfwrLk=
+X-Received: by 2002:a05:7022:629:b0:130:c9cc:3395 with SMTP id
+ a92af1059eb24-132a84f722amr4613117c88.29.1778503374676; 
+ Mon, 11 May 2026 05:42:54 -0700 (PDT)
+Received: from DontFreeze.tail1d9320.ts.net (201-68-218-231.dsl.telesp.net.br.
+ [201.68.218.231]) by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-1327865700asm14267977c88.9.2026.05.11.05.42.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 May 2026 00:51:56 -0700 (PDT)
-From: Joey Lu <a0987203069@gmail.com>
-To: zhengxingda@iscas.ac.cn, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Joey Lu <a0987203069@gmail.com>
-Subject: [PATCH 2/2] drm/verisilicon: add support for Nuvoton MA35D1 DCUltra
- Lite display controller
-Date: Mon, 11 May 2026 15:51:42 +0800
-Message-ID: <20260511075142.54752-3-a0987203069@gmail.com>
+ Mon, 11 May 2026 05:42:54 -0700 (PDT)
+From: Andre Jun Hirata <andrejhirata@usp.br>
+To: kenneth.feng@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ airlied@gmail.com, simona@ffwll.ch
+Cc: Andre Jun Hirata <andrejhirata@usp.br>,
+ Gabriel Dimant <gabriel.dimant@usp.br>,
+ Guilherme Gabriel <guilhermesangabriel@usp.br>,
+ Yang Wang <kevinyang.wang@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH v6] drm/amd/pm: Use guard(mutex) instead of manual lock+unlock
+Date: Mon, 11 May 2026 09:42:27 -0300
+Message-ID: <20260511124240.8484-1-andrejhirata@usp.br>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260511075142.54752-1-a0987203069@gmail.com>
-References: <20260511075142.54752-1-a0987203069@gmail.com>
+In-Reply-To: <DM6PR12MB2972C1F2B155E1930319634682382@DM6PR12MB2972.namprd12.prod.outlook.com>
+References: <DM6PR12MB2972C1F2B155E1930319634682382@DM6PR12MB2972.namprd12.prod.outlook.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 13 May 2026 07:53:28 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -96,598 +95,2006 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The Nuvoton MA35D1 SoC integrates a Verisilicon DCUltra Lite display
-controller, which is a previous generation of the DC8000 series. While
-the general register layout is similar to the DC8000, there are several
-key differences that require per-variant handling in the driver.
+Use guard() and scoped_guard() for handling mutex lock instead of
+manually locking and unlocking the mutex. This prevents forgotten
+locks due to early exits and removes the need of gotos.
 
-Add a vs_dc_info platform data structure (in vs_hwdb.h) to describe
-per-IP-variant capabilities, and use it throughout the driver to select
-the correct code paths at runtime.
+Signed-off-by: Andre Jun Hirata <andrejhirata@usp.br>
+Co-developed-by: Gabriel Dimant <gabriel.dimant@usp.br>
+Signed-off-by: Gabriel Dimant <gabriel.dimant@usp.br>
+Co-developed-by: Guilherme Gabriel <guilhermesangabriel@usp.br>
+Signed-off-by: Guilherme Gabriel <guilhermesangabriel@usp.br>
 
-Key differences between DC8000 and DCUltra Lite handled:
-
-1. No chip identity registers (0x0020-0x0030): DCUltra Lite uses static
-   platform data instead of reading model/revision/customer_id from HW.
-
-2. No CONFIG_EX commit mechanism: DC8000 uses registers at 0x1CC0
-   (FB_CONFIG_EX), 0x24D8 (FB_TOP_LEFT), 0x24E0 (FB_BOTTOM_RIGHT),
-   0x2510 (FB_BLEND_CONFIG), 0x2518 (PANEL_CONFIG_EX). DCUltra Lite
-   omits all of these and instead uses enable/reset bits in FB_CONFIG
-   (bit 0 = enable, bit 4 = reset) for direct framebuffer updates.
-
-3. No PANEL_START register (0x1CCC): DCUltra Lite panel output starts
-   when PANEL_CONFIG.RUNNING is set; no separate multi-display sync
-   start register is needed.
-
-4. Different IRQ registers: DCUltra Lite uses 0x147C (IRQ_STA) /
-   0x1480 (IRQ_EN); DC8000 uses 0x0010 (IRQ_ACK) / 0x0014 (IRQ_EN).
-
-5. Different clock/reset topology: DCUltra Lite requires only "core"
-   (bus gate) and "pix0" (pixel divider) clocks with no reset lines
-   managed by the driver. DC8000 needs core/axi/ahb clocks and three
-   resets.
-
-6. Single output only: DCUltra Lite has one display output; per-output
-   index logic is still in place but display_count is fixed at 1.
-
-7. Reduced register space: max_register is 0x2000 vs DC8000's 0x2544.
-
-Add the "nuvoton,ma35d1-dcu" compatible string to the OF match table,
-extend Kconfig to allow building on ARCH_MA35 platforms, and expose
-vs_formats_no_yuv444 as the default format table for DCUltra Lite
-(YUV444 blending is a DC8000-only feature).
-
-All changes have been tested on Nuvoton MA35D1 hardware and are
-functioning correctly.
-
-Signed-off-by: Joey Lu <a0987203069@gmail.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
 ---
- drivers/gpu/drm/verisilicon/Kconfig           |   2 +-
- drivers/gpu/drm/verisilicon/vs_bridge.c       |  28 ++--
- drivers/gpu/drm/verisilicon/vs_crtc.c         |  13 +-
- drivers/gpu/drm/verisilicon/vs_dc.c           | 129 ++++++++++++------
- drivers/gpu/drm/verisilicon/vs_dc.h           |   1 +
- drivers/gpu/drm/verisilicon/vs_drm.c          |  16 ++-
- drivers/gpu/drm/verisilicon/vs_hwdb.c         |   2 +-
- drivers/gpu/drm/verisilicon/vs_hwdb.h         |  25 ++++
- .../gpu/drm/verisilicon/vs_primary_plane.c    |  43 +++---
- .../drm/verisilicon/vs_primary_plane_regs.h   |   2 +
- 10 files changed, 187 insertions(+), 74 deletions(-)
+v2: incorporate Christian König's suggestions:
+  - use return f() directly instead of ret = f(); return ret;
+  - use early return pattern before guard() where applicable
 
-diff --git a/drivers/gpu/drm/verisilicon/Kconfig b/drivers/gpu/drm/verisilicon/Kconfig
-index 7cce86ec8603..295d246eb4b4 100644
---- a/drivers/gpu/drm/verisilicon/Kconfig
-+++ b/drivers/gpu/drm/verisilicon/Kconfig
-@@ -2,7 +2,7 @@
- config DRM_VERISILICON_DC
- 	tristate "DRM Support for Verisilicon DC-series display controllers"
- 	depends on DRM && COMMON_CLK
--	depends on RISCV || COMPILE_TEST
-+	depends on RISCV || ARCH_MA35 || COMPILE_TEST
- 	select DRM_BRIDGE_CONNECTOR
- 	select DRM_CLIENT_SELECTION
- 	select DRM_DISPLAY_HELPER
-diff --git a/drivers/gpu/drm/verisilicon/vs_bridge.c b/drivers/gpu/drm/verisilicon/vs_bridge.c
-index 7a93049368db..225af322de32 100644
---- a/drivers/gpu/drm/verisilicon/vs_bridge.c
-+++ b/drivers/gpu/drm/verisilicon/vs_bridge.c
-@@ -164,13 +164,16 @@ static void vs_bridge_enable_common(struct vs_crtc *crtc,
- 			VSDC_DISP_PANEL_CONFIG_CLK_EN);
- 	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_CONFIG(output),
- 			VSDC_DISP_PANEL_CONFIG_RUNNING);
--	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_START,
--			  VSDC_DISP_PANEL_START_MULTI_DISP_SYNC);
--	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_START,
--			VSDC_DISP_PANEL_START_RUNNING(output));
+v3: fix style nits pointed by Christian König:
+  - drop superfluous ret initialization in set_gfx_power_up_by_imu
+  - drop unnecessary braces around single-line scoped_guard
+
+v4:
+ - fix build errors introduced in v3
+ - fix incorrect is_support_sw_smu() condition
+ - remove accidental "return =" typos
+
+v5: fix incorrect diff in v4
+
+v6: fix missing semicolon in smu_mode1_reset_is_support() return statement
+
+ drivers/gpu/drm/amd/pm/amdgpu_dpm.c | 868 +++++++++-------------------
+ 1 file changed, 260 insertions(+), 608 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+index feadf604b..e7ffb2b1b 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+@@ -30,6 +30,7 @@
+ #include "amd_pcie.h"
+ #include "amdgpu_display.h"
+ #include "hwmgr.h"
++#include <linux/cleanup.h>
+ #include <linux/power_supply.h>
+ #include "amdgpu_smu.h"
  
--	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_CONFIG_EX(crtc->id),
--			VSDC_DISP_PANEL_CONFIG_EX_COMMIT);
-+	if (dc->info->has_config_ex) {
-+		regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_START,
-+				  VSDC_DISP_PANEL_START_MULTI_DISP_SYNC);
-+		regmap_set_bits(dc->regs, VSDC_DISP_PANEL_START,
-+				VSDC_DISP_PANEL_START_RUNNING(output));
-+
-+		regmap_set_bits(dc->regs, VSDC_DISP_PANEL_CONFIG_EX(crtc->id),
-+				VSDC_DISP_PANEL_CONFIG_EX_COMMIT);
-+	}
- }
- 
- static void vs_bridge_atomic_enable_dpi(struct drm_bridge *bridge,
-@@ -228,14 +231,17 @@ static void vs_bridge_atomic_disable(struct drm_bridge *bridge,
- 	struct vs_dc *dc = crtc->dc;
- 	unsigned int output = crtc->id;
- 
--	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_START,
--			  VSDC_DISP_PANEL_START_MULTI_DISP_SYNC |
--			  VSDC_DISP_PANEL_START_RUNNING(output));
- 	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_CONFIG(output),
- 			  VSDC_DISP_PANEL_CONFIG_RUNNING);
- 
--	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_CONFIG_EX(crtc->id),
--			VSDC_DISP_PANEL_CONFIG_EX_COMMIT);
-+	if (dc->info->has_config_ex) {
-+		regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_START,
-+				  VSDC_DISP_PANEL_START_MULTI_DISP_SYNC |
-+				  VSDC_DISP_PANEL_START_RUNNING(output));
-+
-+		regmap_set_bits(dc->regs, VSDC_DISP_PANEL_CONFIG_EX(crtc->id),
-+				VSDC_DISP_PANEL_CONFIG_EX_COMMIT);
-+	}
- }
- 
- static const struct drm_bridge_funcs vs_dpi_bridge_funcs = {
-diff --git a/drivers/gpu/drm/verisilicon/vs_crtc.c b/drivers/gpu/drm/verisilicon/vs_crtc.c
-index 9080344398ca..2f3e6d41c657 100644
---- a/drivers/gpu/drm/verisilicon/vs_crtc.c
-+++ b/drivers/gpu/drm/verisilicon/vs_crtc.c
-@@ -18,6 +18,7 @@
- #include "vs_dc.h"
- #include "vs_dc_top_regs.h"
- #include "vs_drm.h"
-+#include "vs_hwdb.h"
- #include "vs_plane.h"
- 
- static void vs_crtc_atomic_disable(struct drm_crtc *crtc,
-@@ -132,7 +133,11 @@ static int vs_crtc_enable_vblank(struct drm_crtc *crtc)
- 	struct vs_crtc *vcrtc = drm_crtc_to_vs_crtc(crtc);
- 	struct vs_dc *dc = vcrtc->dc;
- 
--	regmap_set_bits(dc->regs, VSDC_TOP_IRQ_EN, VSDC_TOP_IRQ_VSYNC(vcrtc->id));
-+	if (dc->info->family == VS_DC_FAMILY_DCULTRA_LITE)
-+		regmap_write(dc->regs, VSDC_DISP_IRQ_EN, BIT(0));
-+	else
-+		regmap_set_bits(dc->regs, VSDC_TOP_IRQ_EN,
-+				VSDC_TOP_IRQ_VSYNC(vcrtc->id));
- 
- 	return 0;
- }
-@@ -142,7 +147,11 @@ static void vs_crtc_disable_vblank(struct drm_crtc *crtc)
- 	struct vs_crtc *vcrtc = drm_crtc_to_vs_crtc(crtc);
- 	struct vs_dc *dc = vcrtc->dc;
- 
--	regmap_clear_bits(dc->regs, VSDC_TOP_IRQ_EN, VSDC_TOP_IRQ_VSYNC(vcrtc->id));
-+	if (dc->info->family == VS_DC_FAMILY_DCULTRA_LITE)
-+		regmap_write(dc->regs, VSDC_DISP_IRQ_EN, 0);
-+	else
-+		regmap_clear_bits(dc->regs, VSDC_TOP_IRQ_EN,
-+				  VSDC_TOP_IRQ_VSYNC(vcrtc->id));
- }
- 
- static const struct drm_crtc_funcs vs_crtc_funcs = {
-diff --git a/drivers/gpu/drm/verisilicon/vs_dc.c b/drivers/gpu/drm/verisilicon/vs_dc.c
-index dad9967bc10b..82a6a26f6d81 100644
---- a/drivers/gpu/drm/verisilicon/vs_dc.c
-+++ b/drivers/gpu/drm/verisilicon/vs_dc.c
-@@ -9,21 +9,45 @@
- #include <linux/of_graph.h>
- 
- #include "vs_crtc.h"
-+#include "vs_crtc_regs.h"
- #include "vs_dc.h"
- #include "vs_dc_top_regs.h"
- #include "vs_drm.h"
- #include "vs_hwdb.h"
- 
--static const struct regmap_config vs_dc_regmap_cfg = {
-+static const struct regmap_config vs_dc8000_regmap_cfg = {
- 	.reg_bits = 32,
- 	.val_bits = 32,
- 	.reg_stride = sizeof(u32),
--	/* VSDC_OVL_CONFIG_EX(1) */
- 	.max_register = 0x2544,
- };
- 
-+static const struct regmap_config vs_dcultra_lite_regmap_cfg = {
-+	.reg_bits = 32,
-+	.val_bits = 32,
-+	.reg_stride = sizeof(u32),
-+	.max_register = 0x2000,
-+};
-+
-+static const struct vs_dc_info vs_dc8000_info = {
-+	.family = VS_DC_FAMILY_DC8000,
-+	.has_chip_id = true,
-+	.has_config_ex = true,
-+	.regmap_cfg = &vs_dc8000_regmap_cfg,
-+};
-+
-+static const struct vs_dc_info vs_dcultra_lite_info = {
-+	.family = VS_DC_FAMILY_DCULTRA_LITE,
-+	.display_count = 1,
-+	.has_chip_id = false,
-+	.has_config_ex = false,
-+	.regmap_cfg = &vs_dcultra_lite_regmap_cfg,
-+	.formats = &vs_formats_no_yuv444,
-+};
-+
- static const struct of_device_id vs_dc_driver_dt_match[] = {
--	{ .compatible = "verisilicon,dc" },
-+	{ .compatible = "verisilicon,dc", .data = &vs_dc8000_info },
-+	{ .compatible = "nuvoton,ma35d1-dcu", .data = &vs_dcultra_lite_info },
- 	{},
- };
- MODULE_DEVICE_TABLE(of, vs_dc_driver_dt_match);
-@@ -33,6 +57,13 @@ static irqreturn_t vs_dc_irq_handler(int irq, void *private)
- 	struct vs_dc *dc = private;
- 	u32 irqs;
- 
-+	if (dc->info->family == VS_DC_FAMILY_DCULTRA_LITE) {
-+		regmap_read(dc->regs, VSDC_DISP_IRQ_STA, &irqs);
-+		if (irqs & BIT(0))
-+			vs_drm_handle_irq(dc, VSDC_TOP_IRQ_VSYNC(0));
-+		return IRQ_HANDLED;
-+	}
-+
- 	regmap_read(dc->regs, VSDC_TOP_IRQ_ACK, &irqs);
- 
- 	vs_drm_handle_irq(dc, irqs);
-@@ -43,6 +74,7 @@ static irqreturn_t vs_dc_irq_handler(int irq, void *private)
- static int vs_dc_probe(struct platform_device *pdev)
+@@ -41,33 +42,25 @@
+ int amdgpu_dpm_get_sclk(struct amdgpu_device *adev, bool low)
  {
- 	struct device *dev = &pdev->dev;
-+	const struct vs_dc_info *info;
- 	struct vs_dc *dc;
- 	void __iomem *regs;
- 	unsigned int port_count, i;
-@@ -55,6 +87,10 @@ static int vs_dc_probe(struct platform_device *pdev)
- 		return -ENODEV;
- 	}
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
  
-+	info = of_device_get_match_data(dev);
-+	if (!info)
-+		return -ENODEV;
-+
- 	port_count = of_graph_get_port_count(dev->of_node);
- 	if (!port_count) {
- 		dev_err(dev, "can't find DC downstream ports\n");
-@@ -75,15 +111,31 @@ static int vs_dc_probe(struct platform_device *pdev)
- 	if (!dc)
- 		return -ENOMEM;
+ 	if (!pp_funcs->get_sclk)
+ 		return 0;
  
--	dc->rsts[0].id = "core";
--	dc->rsts[1].id = "axi";
--	dc->rsts[2].id = "ahb";
-+	dc->info = info;
- 
--	ret = devm_reset_control_bulk_get_optional_shared(dev, VSDC_RESET_COUNT,
--							  dc->rsts);
--	if (ret) {
--		dev_err(dev, "can't get reset lines\n");
--		return ret;
-+	if (info->family == VS_DC_FAMILY_DC8000) {
-+		dc->rsts[0].id = "core";
-+		dc->rsts[1].id = "axi";
-+		dc->rsts[2].id = "ahb";
-+
-+		ret = devm_reset_control_bulk_get_optional_shared(dev,
-+				VSDC_RESET_COUNT, dc->rsts);
-+		if (ret) {
-+			dev_err(dev, "can't get reset lines\n");
-+			return ret;
-+		}
-+
-+		dc->axi_clk = devm_clk_get_enabled(dev, "axi");
-+		if (IS_ERR(dc->axi_clk)) {
-+			dev_err(dev, "can't get axi clock\n");
-+			return PTR_ERR(dc->axi_clk);
-+		}
-+
-+		dc->ahb_clk = devm_clk_get_enabled(dev, "ahb");
-+		if (IS_ERR(dc->ahb_clk)) {
-+			dev_err(dev, "can't get ahb clock\n");
-+			return PTR_ERR(dc->ahb_clk);
-+		}
- 	}
- 
- 	dc->core_clk = devm_clk_get_enabled(dev, "core");
-@@ -92,28 +144,18 @@ static int vs_dc_probe(struct platform_device *pdev)
- 		return PTR_ERR(dc->core_clk);
- 	}
- 
--	dc->axi_clk = devm_clk_get_enabled(dev, "axi");
--	if (IS_ERR(dc->axi_clk)) {
--		dev_err(dev, "can't get axi clock\n");
--		return PTR_ERR(dc->axi_clk);
--	}
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->get_sclk((adev)->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->get_sclk((adev)->powerplay.pp_handle,
+ 				 low);
+-	mutex_unlock(&adev->pm.mutex);
 -
--	dc->ahb_clk = devm_clk_get_enabled(dev, "ahb");
--	if (IS_ERR(dc->ahb_clk)) {
--		dev_err(dev, "can't get ahb clock\n");
--		return PTR_ERR(dc->ahb_clk);
--	}
+-	return ret;
+ }
+ 
+ int amdgpu_dpm_get_mclk(struct amdgpu_device *adev, bool low)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs->get_mclk)
+ 		return 0;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->get_mclk((adev)->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->get_mclk((adev)->powerplay.pp_handle,
+ 				 low);
+-	mutex_unlock(&adev->pm.mutex);
 -
- 	irq = platform_get_irq(pdev, 0);
- 	if (irq < 0) {
- 		dev_err(dev, "can't get irq\n");
- 		return irq;
+-	return ret;
+ }
+ 
+ int amdgpu_dpm_set_powergating_by_smu(struct amdgpu_device *adev,
+@@ -80,13 +73,12 @@ int amdgpu_dpm_set_powergating_by_smu(struct amdgpu_device *adev,
+ 	enum ip_power_state pwr_state = gate ? POWER_STATE_OFF : POWER_STATE_ON;
+ 	bool is_vcn = block_type == AMD_IP_BLOCK_TYPE_VCN;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-
++	guard(mutex)(&adev->pm.mutex);
+ 	if (atomic_read(&adev->pm.pwr_state[block_type]) == pwr_state &&
+ 			(!is_vcn || adev->vcn.num_vcn_inst == 1)) {
+ 		dev_dbg(adev->dev, "IP block%d already in the target %s state!",
+ 				block_type, gate ? "gate" : "ungate");
+-		goto out_unlock;
++		return ret;
  	}
  
--	ret = reset_control_bulk_deassert(VSDC_RESET_COUNT, dc->rsts);
--	if (ret) {
--		dev_err(dev, "can't deassert reset lines\n");
--		return ret;
-+	if (info->family == VS_DC_FAMILY_DC8000) {
-+		ret = reset_control_bulk_deassert(VSDC_RESET_COUNT, dc->rsts);
-+		if (ret) {
-+			dev_err(dev, "can't deassert reset lines\n");
-+			return ret;
-+		}
- 	}
+ 	switch (block_type) {
+@@ -115,20 +107,16 @@ int amdgpu_dpm_set_powergating_by_smu(struct amdgpu_device *adev,
+ 	if (!ret)
+ 		atomic_set(&adev->pm.pwr_state[block_type], pwr_state);
  
- 	regs = devm_platform_ioremap_resource(pdev, 0);
-@@ -123,23 +165,30 @@ static int vs_dc_probe(struct platform_device *pdev)
- 		goto err_rst_assert;
- 	}
- 
--	dc->regs = devm_regmap_init_mmio(dev, regs, &vs_dc_regmap_cfg);
-+	dc->regs = devm_regmap_init_mmio(dev, regs, info->regmap_cfg);
- 	if (IS_ERR(dc->regs)) {
- 		ret = PTR_ERR(dc->regs);
- 		goto err_rst_assert;
- 	}
- 
--	ret = vs_fill_chip_identity(dc->regs, &dc->identity);
--	if (ret)
--		goto err_rst_assert;
-+	if (info->has_chip_id) {
-+		ret = vs_fill_chip_identity(dc->regs, &dc->identity);
-+		if (ret)
-+			goto err_rst_assert;
- 
--	dev_info(dev, "Found DC%x rev %x customer %x\n", dc->identity.model,
--		 dc->identity.revision, dc->identity.customer_id);
-+		dev_info(dev, "Found DC%x rev %x customer %x\n",
-+			 dc->identity.model, dc->identity.revision,
-+			 dc->identity.customer_id);
- 
--	if (port_count > dc->identity.display_count) {
--		dev_err(dev, "too many downstream ports than HW capability\n");
--		ret = -EINVAL;
--		goto err_rst_assert;
-+		if (port_count > dc->identity.display_count) {
-+			dev_err(dev, "too many downstream ports than HW capability\n");
-+			ret = -EINVAL;
-+			goto err_rst_assert;
-+		}
-+	} else {
-+		/* Fill identity from platform data */
-+		dc->identity.display_count = info->display_count;
-+		dc->identity.formats = info->formats;
- 	}
- 
- 	for (i = 0; i < dc->identity.display_count; i++) {
-@@ -168,7 +217,8 @@ static int vs_dc_probe(struct platform_device *pdev)
- 	return 0;
- 
- err_rst_assert:
--	reset_control_bulk_assert(VSDC_RESET_COUNT, dc->rsts);
-+	if (info->family == VS_DC_FAMILY_DC8000)
-+		reset_control_bulk_assert(VSDC_RESET_COUNT, dc->rsts);
+-out_unlock:
+-	mutex_unlock(&adev->pm.mutex);
+-
  	return ret;
  }
  
-@@ -180,7 +230,8 @@ static void vs_dc_remove(struct platform_device *pdev)
- 
- 	dev_set_drvdata(&pdev->dev, NULL);
- 
--	reset_control_bulk_assert(VSDC_RESET_COUNT, dc->rsts);
-+	if (dc->info->family == VS_DC_FAMILY_DC8000)
-+		reset_control_bulk_assert(VSDC_RESET_COUNT, dc->rsts);
- }
- 
- static void vs_dc_shutdown(struct platform_device *pdev)
-diff --git a/drivers/gpu/drm/verisilicon/vs_dc.h b/drivers/gpu/drm/verisilicon/vs_dc.h
-index ed1016f18758..f0613519af37 100644
---- a/drivers/gpu/drm/verisilicon/vs_dc.h
-+++ b/drivers/gpu/drm/verisilicon/vs_dc.h
-@@ -31,6 +31,7 @@ struct vs_dc {
- 	struct clk *pix_clk[VSDC_MAX_OUTPUTS];
- 	struct reset_control_bulk_data rsts[VSDC_RESET_COUNT];
- 
-+	const struct vs_dc_info *info;
- 	struct vs_drm_dev *drm_dev;
- 	struct vs_chip_identity identity;
- };
-diff --git a/drivers/gpu/drm/verisilicon/vs_drm.c b/drivers/gpu/drm/verisilicon/vs_drm.c
-index fd259d53f49f..ff0fc6673006 100644
---- a/drivers/gpu/drm/verisilicon/vs_drm.c
-+++ b/drivers/gpu/drm/verisilicon/vs_drm.c
-@@ -27,6 +27,7 @@
- #include "vs_dc.h"
- #include "vs_dc_top_regs.h"
- #include "vs_drm.h"
-+#include "vs_hwdb.h"
- 
- #define DRIVER_NAME	"verisilicon"
- #define DRIVER_DESC	"Verisilicon DC-series display controller driver"
-@@ -72,12 +73,19 @@ static struct drm_mode_config_helper_funcs vs_mode_config_helper_funcs = {
- 	.atomic_commit_tail = drm_atomic_helper_commit_tail,
- };
- 
--static void vs_mode_config_init(struct drm_device *drm)
-+static void vs_mode_config_init(struct drm_device *drm, struct vs_dc *dc)
+ int amdgpu_dpm_set_gfx_power_up_by_imu(struct amdgpu_device *adev)
  {
- 	drm->mode_config.min_width = 0;
- 	drm->mode_config.min_height = 0;
--	drm->mode_config.max_width = 8192;
--	drm->mode_config.max_height = 8192;
-+
-+	if (dc->info->family == VS_DC_FAMILY_DCULTRA_LITE) {
-+		drm->mode_config.max_width = 1920;
-+		drm->mode_config.max_height = 1080;
-+	} else {
-+		drm->mode_config.max_width = 8192;
-+		drm->mode_config.max_height = 8192;
-+	}
-+
- 	drm->mode_config.funcs = &vs_mode_config_funcs;
- 	drm->mode_config.helper_private = &vs_mode_config_helper_funcs;
+ 	struct smu_context *smu = adev->powerplay.pp_handle;
+-	int ret = -EOPNOTSUPP;
++	int ret;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = smu_set_gfx_power_up_by_imu(smu);
+-	mutex_unlock(&adev->pm.mutex);
++	scoped_guard(mutex, &adev->pm.mutex)
++		ret = smu_set_gfx_power_up_by_imu(smu);
+ 
+ 	msleep(10);
+ 
+@@ -139,44 +127,31 @@ int amdgpu_dpm_baco_enter(struct amdgpu_device *adev)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+ 	void *pp_handle = adev->powerplay.pp_handle;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs || !pp_funcs->set_asic_baco_state)
+ 		return -ENOENT;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-
++	guard(mutex)(&adev->pm.mutex);
+ 	/* enter BACO state */
+-	ret = pp_funcs->set_asic_baco_state(pp_handle, 1);
+-
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
++	return pp_funcs->set_asic_baco_state(pp_handle, 1);
  }
-@@ -125,7 +133,7 @@ int vs_drm_initialize(struct vs_dc *dc, struct platform_device *pdev)
+ 
+ int amdgpu_dpm_baco_exit(struct amdgpu_device *adev)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+ 	void *pp_handle = adev->powerplay.pp_handle;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs || !pp_funcs->set_asic_baco_state)
+ 		return -ENOENT;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-
++	guard(mutex)(&adev->pm.mutex);
+ 	/* exit BACO state */
+-	ret = pp_funcs->set_asic_baco_state(pp_handle, 0);
+-
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
++	return pp_funcs->set_asic_baco_state(pp_handle, 0);
+ }
+ 
+ int amdgpu_dpm_set_mp1_state(struct amdgpu_device *adev,
+ 			     enum pp_mp1_state mp1_state)
+ {
+-	int ret = 0;
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+ 
+ 	if (mp1_state == PP_MP1_STATE_FLR) {
+@@ -184,23 +159,19 @@ int amdgpu_dpm_set_mp1_state(struct amdgpu_device *adev,
+ 		if (amdgpu_sriov_vf(adev))
+ 			adev->pm.dpm_enabled = false;
+ 	} else if (pp_funcs && pp_funcs->set_mp1_state) {
+-		mutex_lock(&adev->pm.mutex);
+-
+-		ret = pp_funcs->set_mp1_state(
++		guard(mutex)(&adev->pm.mutex);
++		return pp_funcs->set_mp1_state(
+ 				adev->powerplay.pp_handle,
+ 				mp1_state);
+-
+-		mutex_unlock(&adev->pm.mutex);
+ 	}
+ 
+-	return ret;
++	return 0;
+ }
+ 
+ int amdgpu_dpm_is_baco_supported(struct amdgpu_device *adev)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+ 	void *pp_handle = adev->powerplay.pp_handle;
+-	int ret;
+ 
+ 	if (!pp_funcs || !pp_funcs->get_asic_baco_capability)
+ 		return 0;
+@@ -216,49 +187,32 @@ int amdgpu_dpm_is_baco_supported(struct amdgpu_device *adev)
+ 	if (adev->in_s3)
+ 		return 0;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-
+-	ret = pp_funcs->get_asic_baco_capability(pp_handle);
+-
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->get_asic_baco_capability(pp_handle);
+ }
+ 
+ int amdgpu_dpm_mode2_reset(struct amdgpu_device *adev)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+ 	void *pp_handle = adev->powerplay.pp_handle;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs || !pp_funcs->asic_reset_mode_2)
+ 		return -ENOENT;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-
+-	ret = pp_funcs->asic_reset_mode_2(pp_handle);
+-
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->asic_reset_mode_2(pp_handle);
+ }
+ 
+ int amdgpu_dpm_enable_gfx_features(struct amdgpu_device *adev)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+ 	void *pp_handle = adev->powerplay.pp_handle;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs || !pp_funcs->asic_reset_enable_gfx_features)
+ 		return -ENOENT;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-
+-	ret = pp_funcs->asic_reset_enable_gfx_features(pp_handle);
+-
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->asic_reset_enable_gfx_features(pp_handle);
+ }
+ 
+ int amdgpu_dpm_baco_reset(struct amdgpu_device *adev)
+@@ -270,75 +224,60 @@ int amdgpu_dpm_baco_reset(struct amdgpu_device *adev)
+ 	if (!pp_funcs || !pp_funcs->set_asic_baco_state)
+ 		return -ENOENT;
+ 
+-	mutex_lock(&adev->pm.mutex);
++	guard(mutex)(&adev->pm.mutex);
+ 
+ 	/* enter BACO state */
+ 	ret = pp_funcs->set_asic_baco_state(pp_handle, 1);
  	if (ret)
- 		return ret;
+-		goto out;
++		return ret;
  
--	vs_mode_config_init(drm);
-+	vs_mode_config_init(drm, dc);
+ 	/* exit BACO state */
+ 	ret = pp_funcs->set_asic_baco_state(pp_handle, 0);
+-
+-out:
+-	mutex_unlock(&adev->pm.mutex);
+ 	return ret;
+ }
  
- 	/* Enable connectors polling */
- 	drm_kms_helper_poll_init(drm);
-diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.c b/drivers/gpu/drm/verisilicon/vs_hwdb.c
-index 09336af0900a..39402d75d841 100644
---- a/drivers/gpu/drm/verisilicon/vs_hwdb.c
-+++ b/drivers/gpu/drm/verisilicon/vs_hwdb.c
-@@ -78,7 +78,7 @@ static const u32 vs_formats_array_with_yuv444[] = {
- 	/* TODO: non-RGB formats */
- };
- 
--static const struct vs_formats vs_formats_no_yuv444 = {
-+const struct vs_formats vs_formats_no_yuv444 = {
- 	.array = vs_formats_array_no_yuv444,
- 	.num = ARRAY_SIZE(vs_formats_array_no_yuv444)
- };
-diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.h b/drivers/gpu/drm/verisilicon/vs_hwdb.h
-index 92192e4fa086..655cf93ca3aa 100644
---- a/drivers/gpu/drm/verisilicon/vs_hwdb.h
-+++ b/drivers/gpu/drm/verisilicon/vs_hwdb.h
-@@ -14,6 +14,29 @@ struct vs_formats {
- 	unsigned int num;
- };
- 
-+enum vs_dc_family {
-+	VS_DC_FAMILY_DC8000,
-+	VS_DC_FAMILY_DCULTRA_LITE,
-+};
-+
-+/**
-+ * struct vs_dc_info - per-SoC DC platform data
-+ * @family:		DC IP family (DC8000, DCUltra Lite, etc.)
-+ * @display_count:	number of display outputs (0 = auto-detect from DT/HW)
-+ * @has_chip_id:	whether chip identity registers exist
-+ * @has_config_ex:	whether CONFIG_EX commit mechanism exists
-+ * @regmap_cfg:		regmap configuration for this variant
-+ * @formats:		supported pixel formats (NULL = auto-detect from chip ID)
-+ */
-+struct vs_dc_info {
-+	enum vs_dc_family family;
-+	u32 display_count;
-+	bool has_chip_id;
-+	bool has_config_ex;
-+	const struct regmap_config *regmap_cfg;
-+	const struct vs_formats *formats;
-+};
-+
- struct vs_chip_identity {
- 	u32 model;
- 	u32 revision;
-@@ -23,6 +46,8 @@ struct vs_chip_identity {
- 	const struct vs_formats *formats;
- };
- 
-+extern const struct vs_formats vs_formats_no_yuv444;
-+
- int vs_fill_chip_identity(struct regmap *regs,
- 			  struct vs_chip_identity *ident);
- 
-diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-index 1f2be41ae496..197d5d683e22 100644
---- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-+++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-@@ -55,8 +55,9 @@ static int vs_primary_plane_atomic_check(struct drm_plane *plane,
- 
- static void vs_primary_plane_commit(struct vs_dc *dc, unsigned int output)
+ bool amdgpu_dpm_is_mode1_reset_supported(struct amdgpu_device *adev)
  {
--	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
--			VSDC_FB_CONFIG_EX_COMMIT);
-+	if (dc->info->has_config_ex)
-+		regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-+				VSDC_FB_CONFIG_EX_COMMIT);
+ 	struct smu_context *smu = adev->powerplay.pp_handle;
+-	bool support_mode1_reset = false;
+ 
+-	if (is_support_sw_smu(adev)) {
+-		mutex_lock(&adev->pm.mutex);
+-		support_mode1_reset = smu_mode1_reset_is_support(smu);
+-		mutex_unlock(&adev->pm.mutex);
+-	}
++	if (!is_support_sw_smu(adev))
++		return false;
+ 
+-	return support_mode1_reset;
++	guard(mutex)(&adev->pm.mutex);
++	return smu_mode1_reset_is_support(smu);
  }
  
- static void vs_primary_plane_atomic_enable(struct drm_plane *plane,
-@@ -69,11 +70,13 @@ static void vs_primary_plane_atomic_enable(struct drm_plane *plane,
- 	unsigned int output = vcrtc->id;
- 	struct vs_dc *dc = vcrtc->dc;
+ int amdgpu_dpm_mode1_reset(struct amdgpu_device *adev)
+ {
+ 	struct smu_context *smu = adev->powerplay.pp_handle;
+-	int ret = -EOPNOTSUPP;
  
--	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
--			VSDC_FB_CONFIG_EX_FB_EN);
--	regmap_update_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
--			   VSDC_FB_CONFIG_EX_DISPLAY_ID_MASK,
--			   VSDC_FB_CONFIG_EX_DISPLAY_ID(output));
-+	if (dc->info->has_config_ex) {
-+		regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-+				VSDC_FB_CONFIG_EX_FB_EN);
-+		regmap_update_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-+				   VSDC_FB_CONFIG_EX_DISPLAY_ID_MASK,
-+				   VSDC_FB_CONFIG_EX_DISPLAY_ID(output));
-+	}
+-	if (is_support_sw_smu(adev)) {
+-		mutex_lock(&adev->pm.mutex);
+-		ret = smu_mode1_reset(smu);
+-		mutex_unlock(&adev->pm.mutex);
+-	}
++	if (!is_support_sw_smu(adev))
++		return -EOPNOTSUPP;
  
- 	vs_primary_plane_commit(dc, output);
+-	return ret;
++	guard(mutex)(&adev->pm.mutex);
++	return smu_mode1_reset(smu);
  }
-@@ -88,8 +91,9 @@ static void vs_primary_plane_atomic_disable(struct drm_plane *plane,
- 	unsigned int output = vcrtc->id;
- 	struct vs_dc *dc = vcrtc->dc;
  
--	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
--			VSDC_FB_CONFIG_EX_FB_EN);
-+	if (dc->info->has_config_ex)
-+		regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-+				VSDC_FB_CONFIG_EX_FB_EN);
+ bool amdgpu_dpm_is_link_reset_supported(struct amdgpu_device *adev)
+ {
+ 	struct smu_context *smu = adev->powerplay.pp_handle;
+-	bool support_link_reset = false;
  
- 	vs_primary_plane_commit(dc, output);
+-	if (is_support_sw_smu(adev)) {
+-		mutex_lock(&adev->pm.mutex);
+-		support_link_reset = smu_link_reset_is_support(smu);
+-		mutex_unlock(&adev->pm.mutex);
+-	}
++	if (!is_support_sw_smu(adev))
++		return false;
+ 
+-	return support_link_reset;
++	guard(mutex)(&adev->pm.mutex);
++	return smu_link_reset_is_support(smu);
  }
-@@ -126,6 +130,11 @@ static void vs_primary_plane_atomic_update(struct drm_plane *plane,
- 			   VSDC_FB_CONFIG_UV_SWIZZLE_EN,
- 			   vs_state->format.uv_swizzle);
  
-+	/* DCUltra Lite requires explicit enable/reset bits in FB_CONFIG */
-+	if (!dc->info->has_config_ex)
-+		regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
-+				VSDC_FB_CONFIG_ENABLE | VSDC_FB_CONFIG_RESET);
+ int amdgpu_dpm_link_reset(struct amdgpu_device *adev)
+ {
+ 	struct smu_context *smu = adev->powerplay.pp_handle;
+-	int ret = -EOPNOTSUPP;
+ 
+-	if (is_support_sw_smu(adev)) {
+-		mutex_lock(&adev->pm.mutex);
+-		ret = smu_link_reset(smu);
+-		mutex_unlock(&adev->pm.mutex);
+-	}
++	if (!is_support_sw_smu(adev))
++		return -EOPNOTSUPP;
+ 
+-	return ret;
++	guard(mutex)(&adev->pm.mutex);
++	return smu_link_reset(smu);
+ }
+ 
+ int amdgpu_dpm_switch_power_profile(struct amdgpu_device *adev,
+@@ -346,100 +285,82 @@ int amdgpu_dpm_switch_power_profile(struct amdgpu_device *adev,
+ 				    bool en)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (amdgpu_sriov_vf(adev))
+ 		return 0;
+ 
+-	if (pp_funcs && pp_funcs->switch_power_profile) {
+-		mutex_lock(&adev->pm.mutex);
+-		ret = pp_funcs->switch_power_profile(
+-			adev->powerplay.pp_handle, type, en);
+-		mutex_unlock(&adev->pm.mutex);
+-	}
++	if (!pp_funcs || !pp_funcs->switch_power_profile)
++		return 0;
+ 
+-	return ret;
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->switch_power_profile(
++			adev->powerplay.pp_handle, type, en);
+ }
+ 
+ int amdgpu_dpm_pause_power_profile(struct amdgpu_device *adev,
+ 				   bool pause)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (amdgpu_sriov_vf(adev))
+ 		return 0;
+ 
+-	if (pp_funcs && pp_funcs->pause_power_profile) {
+-		mutex_lock(&adev->pm.mutex);
+-		ret = pp_funcs->pause_power_profile(
+-			adev->powerplay.pp_handle, pause);
+-		mutex_unlock(&adev->pm.mutex);
+-	}
++	if (!pp_funcs || !pp_funcs->pause_power_profile)
++		return 0;
+ 
+-	return ret;
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->pause_power_profile(
++			adev->powerplay.pp_handle, pause);
+ }
+ 
+ int amdgpu_dpm_set_xgmi_pstate(struct amdgpu_device *adev,
+ 			       uint32_t pstate)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+-	if (pp_funcs && pp_funcs->set_xgmi_pstate) {
+-		mutex_lock(&adev->pm.mutex);
+-		ret = pp_funcs->set_xgmi_pstate(adev->powerplay.pp_handle,
+-								pstate);
+-		mutex_unlock(&adev->pm.mutex);
+-	}
++	if (!pp_funcs || !pp_funcs->set_xgmi_pstate)
++		return 0;
+ 
+-	return ret;
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->set_xgmi_pstate(adev->powerplay.pp_handle,
++								pstate);
+ }
+ 
+ int amdgpu_dpm_set_df_cstate(struct amdgpu_device *adev,
+ 			     uint32_t cstate)
+ {
+-	int ret = 0;
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+ 	void *pp_handle = adev->powerplay.pp_handle;
+ 
+-	if (pp_funcs && pp_funcs->set_df_cstate) {
+-		mutex_lock(&adev->pm.mutex);
+-		ret = pp_funcs->set_df_cstate(pp_handle, cstate);
+-		mutex_unlock(&adev->pm.mutex);
+-	}
++	if (!pp_funcs || !pp_funcs->set_df_cstate)
++		return 0;
+ 
+-	return ret;
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->set_df_cstate(pp_handle, cstate);
+ }
+ 
+ ssize_t amdgpu_dpm_get_pm_policy_info(struct amdgpu_device *adev,
+ 				      enum pp_pm_policy p_type, char *buf)
+ {
+ 	struct smu_context *smu = adev->powerplay.pp_handle;
+-	int ret = -EOPNOTSUPP;
+ 
+-	if (is_support_sw_smu(adev)) {
+-		mutex_lock(&adev->pm.mutex);
+-		ret = smu_get_pm_policy_info(smu, p_type, buf);
+-		mutex_unlock(&adev->pm.mutex);
+-	}
++	if (!is_support_sw_smu(adev))
++		return -EOPNOTSUPP;
+ 
+-	return ret;
++	guard(mutex)(&adev->pm.mutex);
++	return smu_get_pm_policy_info(smu, p_type, buf);
+ }
+ 
+ int amdgpu_dpm_set_pm_policy(struct amdgpu_device *adev, int policy_type,
+ 			     int policy_level)
+ {
+ 	struct smu_context *smu = adev->powerplay.pp_handle;
+-	int ret = -EOPNOTSUPP;
+ 
+-	if (is_support_sw_smu(adev)) {
+-		mutex_lock(&adev->pm.mutex);
+-		ret = smu_set_pm_policy(smu, policy_type, policy_level);
+-		mutex_unlock(&adev->pm.mutex);
+-	}
++	if (!is_support_sw_smu(adev))
++		return -EOPNOTSUPP;
+ 
+-	return ret;
++	guard(mutex)(&adev->pm.mutex);
++	return smu_set_pm_policy(smu, policy_type, policy_level);
+ }
+ 
+ int amdgpu_dpm_enable_mgpu_fan_boost(struct amdgpu_device *adev)
+@@ -447,15 +368,12 @@ int amdgpu_dpm_enable_mgpu_fan_boost(struct amdgpu_device *adev)
+ 	void *pp_handle = adev->powerplay.pp_handle;
+ 	const struct amd_pm_funcs *pp_funcs =
+ 			adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+-	if (pp_funcs && pp_funcs->enable_mgpu_fan_boost) {
+-		mutex_lock(&adev->pm.mutex);
+-		ret = pp_funcs->enable_mgpu_fan_boost(pp_handle);
+-		mutex_unlock(&adev->pm.mutex);
+-	}
++	if (!pp_funcs || !pp_funcs->enable_mgpu_fan_boost)
++		return 0;
+ 
+-	return ret;
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->enable_mgpu_fan_boost(pp_handle);
+ }
+ 
+ int amdgpu_dpm_set_clockgating_by_smu(struct amdgpu_device *adev,
+@@ -464,16 +382,13 @@ int amdgpu_dpm_set_clockgating_by_smu(struct amdgpu_device *adev,
+ 	void *pp_handle = adev->powerplay.pp_handle;
+ 	const struct amd_pm_funcs *pp_funcs =
+ 			adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+-	if (pp_funcs && pp_funcs->set_clockgating_by_smu) {
+-		mutex_lock(&adev->pm.mutex);
+-		ret = pp_funcs->set_clockgating_by_smu(pp_handle,
+-						       msg_id);
+-		mutex_unlock(&adev->pm.mutex);
+-	}
++	if (!pp_funcs || !pp_funcs->set_clockgating_by_smu)
++		return 0;
+ 
+-	return ret;
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->set_clockgating_by_smu(pp_handle,
++						       msg_id);
+ }
+ 
+ int amdgpu_dpm_smu_i2c_bus_access(struct amdgpu_device *adev,
+@@ -482,22 +397,19 @@ int amdgpu_dpm_smu_i2c_bus_access(struct amdgpu_device *adev,
+ 	void *pp_handle = adev->powerplay.pp_handle;
+ 	const struct amd_pm_funcs *pp_funcs =
+ 			adev->powerplay.pp_funcs;
+-	int ret = -EOPNOTSUPP;
+ 
+-	if (pp_funcs && pp_funcs->smu_i2c_bus_access) {
+-		mutex_lock(&adev->pm.mutex);
+-		ret = pp_funcs->smu_i2c_bus_access(pp_handle,
+-						   acquire);
+-		mutex_unlock(&adev->pm.mutex);
+-	}
++	if (!pp_funcs || !pp_funcs->smu_i2c_bus_access)
++		return -EOPNOTSUPP;
+ 
+-	return ret;
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->smu_i2c_bus_access(pp_handle,
++						   acquire);
+ }
+ 
+ void amdgpu_pm_acpi_event_handler(struct amdgpu_device *adev)
+ {
+ 	if (adev->pm.dpm_enabled) {
+-		mutex_lock(&adev->pm.mutex);
++		guard(mutex)(&adev->pm.mutex);
+ 		if (power_supply_is_system_supplied() > 0)
+ 			adev->pm.ac_power = true;
+ 		else
+@@ -510,7 +422,6 @@ void amdgpu_pm_acpi_event_handler(struct amdgpu_device *adev)
+ 		if (is_support_sw_smu(adev))
+ 			smu_set_ac_dc(adev->powerplay.pp_handle);
+ 
+-		mutex_unlock(&adev->pm.mutex);
+ 	}
+ }
+ 
+@@ -518,49 +429,40 @@ int amdgpu_dpm_read_sensor(struct amdgpu_device *adev, enum amd_pp_sensors senso
+ 			   void *data, uint32_t *size)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = -EINVAL;
+ 
+ 	if (!data || !size)
+ 		return -EINVAL;
+ 
+-	if (pp_funcs && pp_funcs->read_sensor) {
+-		mutex_lock(&adev->pm.mutex);
+-		ret = pp_funcs->read_sensor(adev->powerplay.pp_handle,
++	if (!pp_funcs || !pp_funcs->read_sensor)
++		return -EINVAL;
 +
- 	dma_addr = vs_fb_get_dma_addr(fb, &state->src);
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->read_sensor(adev->powerplay.pp_handle,
+ 					    sensor,
+ 					    data,
+ 					    size);
+-		mutex_unlock(&adev->pm.mutex);
+-	}
+-
+-	return ret;
+ }
  
- 	regmap_write(dc->regs, VSDC_FB_ADDRESS(output),
-@@ -133,16 +142,18 @@ static void vs_primary_plane_atomic_update(struct drm_plane *plane,
- 	regmap_write(dc->regs, VSDC_FB_STRIDE(output),
- 		     fb->pitches[0]);
+ int amdgpu_dpm_get_apu_thermal_limit(struct amdgpu_device *adev, uint32_t *limit)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = -EOPNOTSUPP;
  
--	regmap_write(dc->regs, VSDC_FB_TOP_LEFT(output),
--		     VSDC_MAKE_PLANE_POS(state->crtc_x, state->crtc_y));
--	regmap_write(dc->regs, VSDC_FB_BOTTOM_RIGHT(output),
--		     VSDC_MAKE_PLANE_POS(state->crtc_x + state->crtc_w,
--					 state->crtc_y + state->crtc_h));
- 	regmap_write(dc->regs, VSDC_FB_SIZE(output),
- 		     VSDC_MAKE_PLANE_SIZE(state->crtc_w, state->crtc_h));
+-	if (pp_funcs && pp_funcs->get_apu_thermal_limit) {
+-		mutex_lock(&adev->pm.mutex);
+-		ret = pp_funcs->get_apu_thermal_limit(adev->powerplay.pp_handle, limit);
+-		mutex_unlock(&adev->pm.mutex);
+-	}
++	if (!pp_funcs || !pp_funcs->get_apu_thermal_limit)
++		return -EOPNOTSUPP;
  
--	regmap_write(dc->regs, VSDC_FB_BLEND_CONFIG(output),
--		     VSDC_FB_BLEND_CONFIG_BLEND_DISABLE);
-+	if (dc->info->has_config_ex) {
-+		regmap_write(dc->regs, VSDC_FB_TOP_LEFT(output),
-+			     VSDC_MAKE_PLANE_POS(state->crtc_x, state->crtc_y));
-+		regmap_write(dc->regs, VSDC_FB_BOTTOM_RIGHT(output),
-+			     VSDC_MAKE_PLANE_POS(state->crtc_x + state->crtc_w,
-+						 state->crtc_y + state->crtc_h));
-+		regmap_write(dc->regs, VSDC_FB_BLEND_CONFIG(output),
-+			     VSDC_FB_BLEND_CONFIG_BLEND_DISABLE);
+-	return ret;
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->get_apu_thermal_limit(adev->powerplay.pp_handle, limit);
+ }
+ 
+ int amdgpu_dpm_set_apu_thermal_limit(struct amdgpu_device *adev, uint32_t limit)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = -EOPNOTSUPP;
+ 
+-	if (pp_funcs && pp_funcs->set_apu_thermal_limit) {
+-		mutex_lock(&adev->pm.mutex);
+-		ret = pp_funcs->set_apu_thermal_limit(adev->powerplay.pp_handle, limit);
+-		mutex_unlock(&adev->pm.mutex);
+-	}
++	if (!pp_funcs || !pp_funcs->set_apu_thermal_limit)
++		return -EOPNOTSUPP;
+ 
+-	return ret;
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->set_apu_thermal_limit(adev->powerplay.pp_handle, limit);
+ }
+ 
+ void amdgpu_dpm_compute_clocks(struct amdgpu_device *adev)
+@@ -583,9 +485,8 @@ void amdgpu_dpm_compute_clocks(struct amdgpu_device *adev)
+ 			amdgpu_fence_wait_empty(ring);
+ 	}
+ 
+-	mutex_lock(&adev->pm.mutex);
++	guard(mutex)(&adev->pm.mutex);
+ 	pp_funcs->pm_compute_clocks(adev->powerplay.pp_handle);
+-	mutex_unlock(&adev->pm.mutex);
+ }
+ 
+ void amdgpu_dpm_enable_uvd(struct amdgpu_device *adev, bool enable)
+@@ -593,14 +494,14 @@ void amdgpu_dpm_enable_uvd(struct amdgpu_device *adev, bool enable)
+ 	int ret = 0;
+ 
+ 	if (adev->family == AMDGPU_FAMILY_SI) {
+-		mutex_lock(&adev->pm.mutex);
+-		if (enable) {
+-			adev->pm.dpm.uvd_active = true;
+-			adev->pm.dpm.state = POWER_STATE_TYPE_INTERNAL_UVD;
+-		} else {
+-			adev->pm.dpm.uvd_active = false;
++		scoped_guard(mutex, &adev->pm.mutex) {
++			if (enable) {
++				adev->pm.dpm.uvd_active = true;
++				adev->pm.dpm.state = POWER_STATE_TYPE_INTERNAL_UVD;
++			} else {
++				adev->pm.dpm.uvd_active = false;
++			}
+ 		}
+-		mutex_unlock(&adev->pm.mutex);
+ 
+ 		amdgpu_dpm_compute_clocks(adev);
+ 		return;
+@@ -627,15 +528,15 @@ void amdgpu_dpm_enable_vce(struct amdgpu_device *adev, bool enable)
+ 	int ret = 0;
+ 
+ 	if (adev->family == AMDGPU_FAMILY_SI) {
+-		mutex_lock(&adev->pm.mutex);
+-		if (enable) {
+-			adev->pm.dpm.vce_active = true;
+-			/* XXX select vce level based on ring/task */
+-			adev->pm.dpm.vce_level = AMD_VCE_LEVEL_AC_ALL;
+-		} else {
+-			adev->pm.dpm.vce_active = false;
++		scoped_guard(mutex, &adev->pm.mutex) {
++			if (enable) {
++				adev->pm.dpm.vce_active = true;
++				/* XXX select vce level based on ring/task */
++				adev->pm.dpm.vce_level = AMD_VCE_LEVEL_AC_ALL;
++			} else {
++				adev->pm.dpm.vce_active = false;
++			}
+ 		}
+-		mutex_unlock(&adev->pm.mutex);
+ 
+ 		amdgpu_dpm_compute_clocks(adev);
+ 		return;
+@@ -670,84 +571,66 @@ void amdgpu_dpm_enable_vpe(struct amdgpu_device *adev, bool enable)
+ int amdgpu_pm_load_smu_firmware(struct amdgpu_device *adev, uint32_t *smu_version)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int r = 0;
++	int ret = 0;
+ 
+ 	if (!pp_funcs || !pp_funcs->load_firmware ||
+ 	    (is_support_sw_smu(adev) && (adev->flags & AMD_IS_APU)))
+ 		return 0;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	r = pp_funcs->load_firmware(adev->powerplay.pp_handle);
+-	if (r) {
++	guard(mutex)(&adev->pm.mutex);
++	ret = pp_funcs->load_firmware(adev->powerplay.pp_handle);
++	if (ret) {
+ 		pr_err("smu firmware loading failed\n");
+-		goto out;
++		return ret;
+ 	}
+ 
+ 	if (smu_version)
+ 		*smu_version = adev->pm.fw_version;
+ 
+-out:
+-	mutex_unlock(&adev->pm.mutex);
+-	return r;
++	return ret;
+ }
+ 
+ int amdgpu_dpm_handle_passthrough_sbr(struct amdgpu_device *adev, bool enable)
+ {
+-	int ret = 0;
++	if (!is_support_sw_smu(adev))
++		return 0;
+ 
+-	if (is_support_sw_smu(adev)) {
+-		mutex_lock(&adev->pm.mutex);
+-		ret = smu_handle_passthrough_sbr(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return smu_handle_passthrough_sbr(adev->powerplay.pp_handle,
+ 						 enable);
+-		mutex_unlock(&adev->pm.mutex);
+-	}
+-
+-	return ret;
+ }
+ 
+ int amdgpu_dpm_send_hbm_bad_pages_num(struct amdgpu_device *adev, uint32_t size)
+ {
+ 	struct smu_context *smu = adev->powerplay.pp_handle;
+-	int ret = 0;
+ 
+ 	if (!is_support_sw_smu(adev))
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = smu_send_hbm_bad_pages_num(smu, size);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
++	guard(mutex)(&adev->pm.mutex);
++	return smu_send_hbm_bad_pages_num(smu, size);
+ }
+ 
+ int amdgpu_dpm_send_hbm_bad_channel_flag(struct amdgpu_device *adev, uint32_t size)
+ {
+ 	struct smu_context *smu = adev->powerplay.pp_handle;
+-	int ret = 0;
+ 
+ 	if (!is_support_sw_smu(adev))
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = smu_send_hbm_bad_channel_flag(smu, size);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
++	guard(mutex)(&adev->pm.mutex);
++	return smu_send_hbm_bad_channel_flag(smu, size);
+ }
+ 
+ int amdgpu_dpm_send_rma_reason(struct amdgpu_device *adev)
+ {
+ 	struct smu_context *smu = adev->powerplay.pp_handle;
+-	int ret;
+ 
+ 	if (!is_support_sw_smu(adev))
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = smu_send_rma_reason(smu);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
++	guard(mutex)(&adev->pm.mutex);
++	return smu_send_rma_reason(smu);
+ }
+ 
+ /**
+@@ -761,61 +644,45 @@ int amdgpu_dpm_send_rma_reason(struct amdgpu_device *adev)
+ bool amdgpu_dpm_reset_sdma_is_supported(struct amdgpu_device *adev)
+ {
+ 	struct smu_context *smu = adev->powerplay.pp_handle;
+-	bool ret;
+ 
+ 	if (!is_support_sw_smu(adev))
+ 		return false;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = smu_reset_sdma_is_supported(smu);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
++	guard(mutex)(&adev->pm.mutex);
++	return smu_reset_sdma_is_supported(smu);
+ }
+ 
+ int amdgpu_dpm_reset_sdma(struct amdgpu_device *adev, uint32_t inst_mask)
+ {
+ 	struct smu_context *smu = adev->powerplay.pp_handle;
+-	int ret;
+ 
+ 	if (!is_support_sw_smu(adev))
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = smu_reset_sdma(smu, inst_mask);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
++	guard(mutex)(&adev->pm.mutex);
++	return smu_reset_sdma(smu, inst_mask);
+ }
+ 
+ int amdgpu_dpm_reset_vcn(struct amdgpu_device *adev, uint32_t inst_mask)
+ {
+ 	struct smu_context *smu = adev->powerplay.pp_handle;
+-	int ret;
+ 
+ 	if (!is_support_sw_smu(adev))
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = smu_reset_vcn(smu, inst_mask);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
++	guard(mutex)(&adev->pm.mutex);
++	return smu_reset_vcn(smu, inst_mask);
+ }
+ 
+ bool amdgpu_dpm_reset_vcn_is_supported(struct amdgpu_device *adev)
+ {
+ 	struct smu_context *smu = adev->powerplay.pp_handle;
+-	bool ret;
+ 
+ 	if (!is_support_sw_smu(adev))
+ 		return false;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = smu_reset_vcn_is_supported(smu);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
++	guard(mutex)(&adev->pm.mutex);
++	return smu_reset_vcn_is_supported(smu);
+ }
+ 
+ int amdgpu_dpm_get_dpm_freq_range(struct amdgpu_device *adev,
+@@ -823,22 +690,17 @@ int amdgpu_dpm_get_dpm_freq_range(struct amdgpu_device *adev,
+ 				  uint32_t *min,
+ 				  uint32_t *max)
+ {
+-	int ret = 0;
+-
+ 	if (type != PP_SCLK)
+ 		return -EINVAL;
+ 
+ 	if (!is_support_sw_smu(adev))
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = smu_get_dpm_freq_range(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return smu_get_dpm_freq_range(adev->powerplay.pp_handle,
+ 				     SMU_SCLK,
+ 				     min,
+ 				     max);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ int amdgpu_dpm_set_soft_freq_range(struct amdgpu_device *adev,
+@@ -862,16 +724,12 @@ int amdgpu_dpm_set_soft_freq_range(struct amdgpu_device *adev,
+ int amdgpu_dpm_write_watermarks_table(struct amdgpu_device *adev)
+ {
+ 	struct smu_context *smu = adev->powerplay.pp_handle;
+-	int ret = 0;
+ 
+ 	if (!is_support_sw_smu(adev))
+ 		return 0;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = smu_write_watermarks_table(smu);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
++	guard(mutex)(&adev->pm.mutex);
++	return smu_write_watermarks_table(smu);
+ }
+ 
+ int amdgpu_dpm_wait_for_event(struct amdgpu_device *adev,
+@@ -879,76 +737,56 @@ int amdgpu_dpm_wait_for_event(struct amdgpu_device *adev,
+ 			      uint64_t event_arg)
+ {
+ 	struct smu_context *smu = adev->powerplay.pp_handle;
+-	int ret = 0;
+ 
+ 	if (!is_support_sw_smu(adev))
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = smu_wait_for_event(smu, event, event_arg);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
++	guard(mutex)(&adev->pm.mutex);
++	return smu_wait_for_event(smu, event, event_arg);
+ }
+ 
+ int amdgpu_dpm_set_residency_gfxoff(struct amdgpu_device *adev, bool value)
+ {
+ 	struct smu_context *smu = adev->powerplay.pp_handle;
+-	int ret = 0;
+ 
+ 	if (!is_support_sw_smu(adev))
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = smu_set_residency_gfxoff(smu, value);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
++	guard(mutex)(&adev->pm.mutex);
++	return smu_set_residency_gfxoff(smu, value);
+ }
+ 
+ int amdgpu_dpm_get_residency_gfxoff(struct amdgpu_device *adev, u32 *value)
+ {
+ 	struct smu_context *smu = adev->powerplay.pp_handle;
+-	int ret = 0;
+ 
+ 	if (!is_support_sw_smu(adev))
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = smu_get_residency_gfxoff(smu, value);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
++	guard(mutex)(&adev->pm.mutex);
++	return smu_get_residency_gfxoff(smu, value);
+ }
+ 
+ int amdgpu_dpm_get_entrycount_gfxoff(struct amdgpu_device *adev, u64 *value)
+ {
+ 	struct smu_context *smu = adev->powerplay.pp_handle;
+-	int ret = 0;
+ 
+ 	if (!is_support_sw_smu(adev))
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = smu_get_entrycount_gfxoff(smu, value);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
++	guard(mutex)(&adev->pm.mutex);
++	return smu_get_entrycount_gfxoff(smu, value);
+ }
+ 
+ int amdgpu_dpm_get_status_gfxoff(struct amdgpu_device *adev, uint32_t *value)
+ {
+ 	struct smu_context *smu = adev->powerplay.pp_handle;
+-	int ret = 0;
+ 
+ 	if (!is_support_sw_smu(adev))
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = smu_get_status_gfxoff(smu, value);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
++	guard(mutex)(&adev->pm.mutex);
++	return smu_get_status_gfxoff(smu, value);
+ }
+ 
+ uint64_t amdgpu_dpm_get_thermal_throttling_counter(struct amdgpu_device *adev)
+@@ -969,28 +807,23 @@ uint64_t amdgpu_dpm_get_thermal_throttling_counter(struct amdgpu_device *adev)
+ void amdgpu_dpm_gfx_state_change(struct amdgpu_device *adev,
+ 				 enum gfx_change_state state)
+ {
+-	mutex_lock(&adev->pm.mutex);
++	guard(mutex)(&adev->pm.mutex);
+ 	if (adev->powerplay.pp_funcs &&
+ 	    adev->powerplay.pp_funcs->gfx_state_change_set)
+ 		((adev)->powerplay.pp_funcs->gfx_state_change_set(
+ 			(adev)->powerplay.pp_handle, state));
+-	mutex_unlock(&adev->pm.mutex);
+ }
+ 
+ int amdgpu_dpm_get_ecc_info(struct amdgpu_device *adev,
+ 			    void *umc_ecc)
+ {
+ 	struct smu_context *smu = adev->powerplay.pp_handle;
+-	int ret = 0;
+ 
+ 	if (!is_support_sw_smu(adev))
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = smu_get_ecc_info(smu, umc_ecc);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
++	guard(mutex)(&adev->pm.mutex);
++	return smu_get_ecc_info(smu, umc_ecc);
+ }
+ 
+ struct amd_vce_state *amdgpu_dpm_get_vce_clock_state(struct amdgpu_device *adev,
+@@ -1002,12 +835,9 @@ struct amd_vce_state *amdgpu_dpm_get_vce_clock_state(struct amdgpu_device *adev,
+ 	if (!pp_funcs->get_vce_clock_state)
+ 		return NULL;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	vstate = pp_funcs->get_vce_clock_state(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->get_vce_clock_state(adev->powerplay.pp_handle,
+ 					       idx);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return vstate;
+ }
+ 
+ void amdgpu_dpm_get_current_power_state(struct amdgpu_device *adev,
+@@ -1015,28 +845,24 @@ void amdgpu_dpm_get_current_power_state(struct amdgpu_device *adev,
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+ 
+-	mutex_lock(&adev->pm.mutex);
++	guard(mutex)(&adev->pm.mutex);
+ 
+ 	if (!pp_funcs->get_current_power_state) {
+ 		*state = adev->pm.dpm.user_state;
+-		goto out;
++		return;
+ 	}
+ 
+ 	*state = pp_funcs->get_current_power_state(adev->powerplay.pp_handle);
+ 	if (*state < POWER_STATE_TYPE_DEFAULT ||
+ 	    *state > POWER_STATE_TYPE_INTERNAL_3DPERF)
+ 		*state = adev->pm.dpm.user_state;
+-
+-out:
+-	mutex_unlock(&adev->pm.mutex);
+ }
+ 
+ void amdgpu_dpm_set_power_state(struct amdgpu_device *adev,
+ 				enum amd_pm_state_type state)
+ {
+-	mutex_lock(&adev->pm.mutex);
+-	adev->pm.dpm.user_state = state;
+-	mutex_unlock(&adev->pm.mutex);
++	scoped_guard(mutex, &adev->pm.mutex)
++		adev->pm.dpm.user_state = state;
+ 
+ 	if (is_support_sw_smu(adev))
+ 		return;
+@@ -1055,12 +881,11 @@ enum amd_dpm_forced_level amdgpu_dpm_get_performance_level(struct amdgpu_device
+ 	if (!pp_funcs)
+ 		return AMD_DPM_FORCED_LEVEL_AUTO;
+ 
+-	mutex_lock(&adev->pm.mutex);
++	guard(mutex)(&adev->pm.mutex);
+ 	if (pp_funcs->get_performance_level)
+ 		level = pp_funcs->get_performance_level(adev->powerplay.pp_handle);
+ 	else
+ 		level = adev->pm.dpm.forced_level;
+-	mutex_unlock(&adev->pm.mutex);
+ 
+ 	return level;
+ }
+@@ -1151,17 +976,13 @@ int amdgpu_dpm_get_pp_num_states(struct amdgpu_device *adev,
+ 				 struct pp_states_info *states)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs->get_pp_num_states)
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->get_pp_num_states(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->get_pp_num_states(adev->powerplay.pp_handle,
+ 					  states);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ int amdgpu_dpm_dispatch_task(struct amdgpu_device *adev,
+@@ -1169,24 +990,19 @@ int amdgpu_dpm_dispatch_task(struct amdgpu_device *adev,
+ 			      enum amd_pm_state_type *user_state)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs->dispatch_tasks)
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->dispatch_tasks(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->dispatch_tasks(adev->powerplay.pp_handle,
+ 				       task_id,
+ 				       user_state);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ int amdgpu_dpm_get_pp_table(struct amdgpu_device *adev, char **table)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!table)
+ 		return -EINVAL;
+@@ -1194,12 +1010,9 @@ int amdgpu_dpm_get_pp_table(struct amdgpu_device *adev, char **table)
+ 	if (amdgpu_sriov_vf(adev) || !pp_funcs->get_pp_table || adev->scpm_enabled)
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->get_pp_table(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->get_pp_table(adev->powerplay.pp_handle,
+ 				     table);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ int amdgpu_dpm_set_fine_grain_clk_vol(struct amdgpu_device *adev,
+@@ -1208,19 +1021,15 @@ int amdgpu_dpm_set_fine_grain_clk_vol(struct amdgpu_device *adev,
+ 				      uint32_t size)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs->set_fine_grain_clk_vol)
+ 		return 0;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->set_fine_grain_clk_vol(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->set_fine_grain_clk_vol(adev->powerplay.pp_handle,
+ 					       type,
+ 					       input,
+ 					       size);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ int amdgpu_dpm_odn_edit_dpm_table(struct amdgpu_device *adev,
+@@ -1229,19 +1038,15 @@ int amdgpu_dpm_odn_edit_dpm_table(struct amdgpu_device *adev,
+ 				  uint32_t size)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs->odn_edit_dpm_table)
+ 		return 0;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->odn_edit_dpm_table(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->odn_edit_dpm_table(adev->powerplay.pp_handle,
+ 					   type,
+ 					   input,
+ 					   size);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ int amdgpu_dpm_emit_clock_levels(struct amdgpu_device *adev,
+@@ -1250,52 +1055,40 @@ int amdgpu_dpm_emit_clock_levels(struct amdgpu_device *adev,
+ 				  int *offset)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs->emit_clock_levels)
+ 		return -ENOENT;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->emit_clock_levels(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->emit_clock_levels(adev->powerplay.pp_handle,
+ 					   type,
+ 					   buf,
+ 					   offset);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ int amdgpu_dpm_set_ppfeature_status(struct amdgpu_device *adev,
+ 				    uint64_t ppfeature_masks)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs->set_ppfeature_status)
+ 		return 0;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->set_ppfeature_status(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->set_ppfeature_status(adev->powerplay.pp_handle,
+ 					     ppfeature_masks);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ int amdgpu_dpm_get_ppfeature_status(struct amdgpu_device *adev, char *buf)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs->get_ppfeature_status)
+ 		return 0;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->get_ppfeature_status(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->get_ppfeature_status(adev->powerplay.pp_handle,
+ 					     buf);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ int amdgpu_dpm_force_clock_level(struct amdgpu_device *adev,
+@@ -1303,33 +1096,25 @@ int amdgpu_dpm_force_clock_level(struct amdgpu_device *adev,
+ 				 uint32_t mask)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs->force_clock_level)
+ 		return 0;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->force_clock_level(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->force_clock_level(adev->powerplay.pp_handle,
+ 					  type,
+ 					  mask);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ int amdgpu_dpm_get_sclk_od(struct amdgpu_device *adev)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs->get_sclk_od)
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->get_sclk_od(adev->powerplay.pp_handle);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->get_sclk_od(adev->powerplay.pp_handle);
+ }
+ 
+ int amdgpu_dpm_set_sclk_od(struct amdgpu_device *adev, uint32_t value)
+@@ -1339,10 +1124,10 @@ int amdgpu_dpm_set_sclk_od(struct amdgpu_device *adev, uint32_t value)
+ 	if (is_support_sw_smu(adev))
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	if (pp_funcs->set_sclk_od)
+-		pp_funcs->set_sclk_od(adev->powerplay.pp_handle, value);
+-	mutex_unlock(&adev->pm.mutex);
++	scoped_guard(mutex, &adev->pm.mutex) {
++		if (pp_funcs->set_sclk_od)
++			pp_funcs->set_sclk_od(adev->powerplay.pp_handle, value);
 +	}
  
- 	vs_primary_plane_commit(dc, output);
- }
-diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane_regs.h b/drivers/gpu/drm/verisilicon/vs_primary_plane_regs.h
-index cbb125c46b39..288064760b48 100644
---- a/drivers/gpu/drm/verisilicon/vs_primary_plane_regs.h
-+++ b/drivers/gpu/drm/verisilicon/vs_primary_plane_regs.h
-@@ -16,6 +16,8 @@
- #define VSDC_FB_STRIDE(n)			(0x1408 + 0x4 * (n))
+ 	if (amdgpu_dpm_dispatch_task(adev,
+ 				     AMD_PP_TASK_READJUST_POWER_STATE,
+@@ -1357,16 +1142,12 @@ int amdgpu_dpm_set_sclk_od(struct amdgpu_device *adev, uint32_t value)
+ int amdgpu_dpm_get_mclk_od(struct amdgpu_device *adev)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
  
- #define VSDC_FB_CONFIG(n)			(0x1518 + 0x4 * (n))
-+#define VSDC_FB_CONFIG_ENABLE			BIT(0)
-+#define VSDC_FB_CONFIG_RESET			BIT(4)
- #define VSDC_FB_CONFIG_CLEAR_EN			BIT(8)
- #define VSDC_FB_CONFIG_ROT_MASK			GENMASK(13, 11)
- #define VSDC_FB_CONFIG_ROT(v)			((v) << 11)
+ 	if (!pp_funcs->get_mclk_od)
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->get_mclk_od(adev->powerplay.pp_handle);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->get_mclk_od(adev->powerplay.pp_handle);
+ }
+ 
+ int amdgpu_dpm_set_mclk_od(struct amdgpu_device *adev, uint32_t value)
+@@ -1376,10 +1157,10 @@ int amdgpu_dpm_set_mclk_od(struct amdgpu_device *adev, uint32_t value)
+ 	if (is_support_sw_smu(adev))
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	if (pp_funcs->set_mclk_od)
+-		pp_funcs->set_mclk_od(adev->powerplay.pp_handle, value);
+-	mutex_unlock(&adev->pm.mutex);
++	scoped_guard(mutex, &adev->pm.mutex) {
++		if (pp_funcs->set_mclk_od)
++			pp_funcs->set_mclk_od(adev->powerplay.pp_handle, value);
++	}
+ 
+ 	if (amdgpu_dpm_dispatch_task(adev,
+ 				     AMD_PP_TASK_READJUST_POWER_STATE,
+@@ -1395,170 +1176,130 @@ int amdgpu_dpm_get_power_profile_mode(struct amdgpu_device *adev,
+ 				      char *buf)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs->get_power_profile_mode)
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->get_power_profile_mode(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->get_power_profile_mode(adev->powerplay.pp_handle,
+ 					       buf);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ int amdgpu_dpm_set_power_profile_mode(struct amdgpu_device *adev,
+ 				      long *input, uint32_t size)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs->set_power_profile_mode)
+ 		return 0;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->set_power_profile_mode(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->set_power_profile_mode(adev->powerplay.pp_handle,
+ 					       input,
+ 					       size);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ int amdgpu_dpm_get_gpu_metrics(struct amdgpu_device *adev, void **table)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs->get_gpu_metrics)
+ 		return 0;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->get_gpu_metrics(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->get_gpu_metrics(adev->powerplay.pp_handle,
+ 					table);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ ssize_t amdgpu_dpm_get_pm_metrics(struct amdgpu_device *adev, void *pm_metrics,
+ 				  size_t size)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs->get_pm_metrics)
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->get_pm_metrics(adev->powerplay.pp_handle, pm_metrics,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->get_pm_metrics(adev->powerplay.pp_handle, pm_metrics,
+ 				       size);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ int amdgpu_dpm_get_fan_control_mode(struct amdgpu_device *adev,
+ 				    uint32_t *fan_mode)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs->get_fan_control_mode)
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->get_fan_control_mode(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->get_fan_control_mode(adev->powerplay.pp_handle,
+ 					     fan_mode);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ int amdgpu_dpm_set_fan_speed_pwm(struct amdgpu_device *adev,
+ 				 uint32_t speed)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs->set_fan_speed_pwm)
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->set_fan_speed_pwm(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->set_fan_speed_pwm(adev->powerplay.pp_handle,
+ 					  speed);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ int amdgpu_dpm_get_fan_speed_pwm(struct amdgpu_device *adev,
+ 				 uint32_t *speed)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs->get_fan_speed_pwm)
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->get_fan_speed_pwm(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->get_fan_speed_pwm(adev->powerplay.pp_handle,
+ 					  speed);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ int amdgpu_dpm_get_fan_speed_rpm(struct amdgpu_device *adev,
+ 				 uint32_t *speed)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs->get_fan_speed_rpm)
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->get_fan_speed_rpm(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->get_fan_speed_rpm(adev->powerplay.pp_handle,
+ 					  speed);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ int amdgpu_dpm_set_fan_speed_rpm(struct amdgpu_device *adev,
+ 				 uint32_t speed)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs->set_fan_speed_rpm)
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->set_fan_speed_rpm(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->set_fan_speed_rpm(adev->powerplay.pp_handle,
+ 					  speed);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ int amdgpu_dpm_set_fan_control_mode(struct amdgpu_device *adev,
+ 				    uint32_t mode)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs->set_fan_control_mode)
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->set_fan_control_mode(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->set_fan_control_mode(adev->powerplay.pp_handle,
+ 					     mode);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ int amdgpu_dpm_get_power_limit(struct amdgpu_device *adev,
+@@ -1567,19 +1308,15 @@ int amdgpu_dpm_get_power_limit(struct amdgpu_device *adev,
+ 			       enum pp_power_type power_type)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs->get_power_limit)
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->get_power_limit(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->get_power_limit(adev->powerplay.pp_handle,
+ 					limit,
+ 					pp_limit_level,
+ 					power_type);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ int amdgpu_dpm_set_power_limit(struct amdgpu_device *adev,
+@@ -1587,17 +1324,13 @@ int amdgpu_dpm_set_power_limit(struct amdgpu_device *adev,
+ 			       uint32_t limit)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs->set_power_limit)
+ 		return -EINVAL;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->set_power_limit(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->set_power_limit(adev->powerplay.pp_handle,
+ 					limit_type, limit);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ int amdgpu_dpm_is_cclk_dpm_supported(struct amdgpu_device *adev)
+@@ -1607,9 +1340,8 @@ int amdgpu_dpm_is_cclk_dpm_supported(struct amdgpu_device *adev)
+ 	if (!is_support_sw_smu(adev))
+ 		return false;
+ 
+-	mutex_lock(&adev->pm.mutex);
++	guard(mutex)(&adev->pm.mutex);
+ 	cclk_dpm_supported = is_support_cclk_dpm(adev);
+-	mutex_unlock(&adev->pm.mutex);
+ 
+ 	return (int)cclk_dpm_supported;
+ }
+@@ -1622,10 +1354,9 @@ int amdgpu_dpm_debugfs_print_current_performance_level(struct amdgpu_device *ade
+ 	if (!pp_funcs->debugfs_print_current_performance_level)
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
++	guard(mutex)(&adev->pm.mutex);
+ 	pp_funcs->debugfs_print_current_performance_level(adev->powerplay.pp_handle,
+ 							  m);
+-	mutex_unlock(&adev->pm.mutex);
+ 
+ 	return 0;
+ }
+@@ -1635,18 +1366,14 @@ int amdgpu_dpm_get_smu_prv_buf_details(struct amdgpu_device *adev,
+ 				       size_t *size)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs->get_smu_prv_buf_details)
+ 		return -ENOSYS;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->get_smu_prv_buf_details(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->get_smu_prv_buf_details(adev->powerplay.pp_handle,
+ 						addr,
+ 						size);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ int amdgpu_dpm_is_overdrive_supported(struct amdgpu_device *adev)
+@@ -1698,7 +1425,6 @@ int amdgpu_dpm_set_pp_table(struct amdgpu_device *adev,
+ 			    size_t size)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!buf || !size)
+ 		return -EINVAL;
+@@ -1706,13 +1432,10 @@ int amdgpu_dpm_set_pp_table(struct amdgpu_device *adev,
+ 	if (amdgpu_sriov_vf(adev) || !pp_funcs->set_pp_table || adev->scpm_enabled)
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->set_pp_table(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->set_pp_table(adev->powerplay.pp_handle,
+ 				     buf,
+ 				     size);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ int amdgpu_dpm_get_num_cpu_cores(struct amdgpu_device *adev)
+@@ -1737,17 +1460,13 @@ int amdgpu_dpm_display_configuration_change(struct amdgpu_device *adev,
+ 					    const struct amd_pp_display_configuration *input)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs->display_configuration_change)
+ 		return 0;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->display_configuration_change(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->display_configuration_change(adev->powerplay.pp_handle,
+ 						     input);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ int amdgpu_dpm_get_clock_by_type(struct amdgpu_device *adev,
+@@ -1755,35 +1474,27 @@ int amdgpu_dpm_get_clock_by_type(struct amdgpu_device *adev,
+ 				 struct amd_pp_clocks *clocks)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs->get_clock_by_type)
+ 		return 0;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->get_clock_by_type(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->get_clock_by_type(adev->powerplay.pp_handle,
+ 					  type,
+ 					  clocks);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ int amdgpu_dpm_get_display_mode_validation_clks(struct amdgpu_device *adev,
+ 						struct amd_pp_simple_clock_info *clocks)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs->get_display_mode_validation_clocks)
+ 		return 0;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->get_display_mode_validation_clocks(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->get_display_mode_validation_clocks(adev->powerplay.pp_handle,
+ 							   clocks);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ int amdgpu_dpm_get_clock_by_type_with_latency(struct amdgpu_device *adev,
+@@ -1791,18 +1502,14 @@ int amdgpu_dpm_get_clock_by_type_with_latency(struct amdgpu_device *adev,
+ 					      struct pp_clock_levels_with_latency *clocks)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs->get_clock_by_type_with_latency)
+ 		return 0;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->get_clock_by_type_with_latency(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->get_clock_by_type_with_latency(adev->powerplay.pp_handle,
+ 						       type,
+ 						       clocks);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ int amdgpu_dpm_get_clock_by_type_with_voltage(struct amdgpu_device *adev,
+@@ -1810,69 +1517,53 @@ int amdgpu_dpm_get_clock_by_type_with_voltage(struct amdgpu_device *adev,
+ 					      struct pp_clock_levels_with_voltage *clocks)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs->get_clock_by_type_with_voltage)
+ 		return 0;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->get_clock_by_type_with_voltage(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->get_clock_by_type_with_voltage(adev->powerplay.pp_handle,
+ 						       type,
+ 						       clocks);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ int amdgpu_dpm_set_watermarks_for_clocks_ranges(struct amdgpu_device *adev,
+ 					       void *clock_ranges)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs->set_watermarks_for_clocks_ranges)
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->set_watermarks_for_clocks_ranges(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->set_watermarks_for_clocks_ranges(adev->powerplay.pp_handle,
+ 							 clock_ranges);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ int amdgpu_dpm_display_clock_voltage_request(struct amdgpu_device *adev,
+ 					     struct pp_display_clock_request *clock)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs->display_clock_voltage_request)
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->display_clock_voltage_request(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->display_clock_voltage_request(adev->powerplay.pp_handle,
+ 						      clock);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ int amdgpu_dpm_get_current_clocks(struct amdgpu_device *adev,
+ 				  struct amd_pp_clock_info *clocks)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs->get_current_clocks)
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->get_current_clocks(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->get_current_clocks(adev->powerplay.pp_handle,
+ 					   clocks);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ void amdgpu_dpm_notify_smu_enable_pwe(struct amdgpu_device *adev)
+@@ -1882,43 +1573,34 @@ void amdgpu_dpm_notify_smu_enable_pwe(struct amdgpu_device *adev)
+ 	if (!pp_funcs->notify_smu_enable_pwe)
+ 		return;
+ 
+-	mutex_lock(&adev->pm.mutex);
++	guard(mutex)(&adev->pm.mutex);
+ 	pp_funcs->notify_smu_enable_pwe(adev->powerplay.pp_handle);
+-	mutex_unlock(&adev->pm.mutex);
+ }
+ 
+ int amdgpu_dpm_set_active_display_count(struct amdgpu_device *adev,
+ 					uint32_t count)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs->set_active_display_count)
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->set_active_display_count(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->set_active_display_count(adev->powerplay.pp_handle,
+ 						 count);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ int amdgpu_dpm_set_min_deep_sleep_dcefclk(struct amdgpu_device *adev,
+ 					  uint32_t clock)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs->set_min_deep_sleep_dcefclk)
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->set_min_deep_sleep_dcefclk(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->set_min_deep_sleep_dcefclk(adev->powerplay.pp_handle,
+ 						   clock);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ void amdgpu_dpm_set_hard_min_dcefclk_by_freq(struct amdgpu_device *adev,
+@@ -1929,10 +1611,9 @@ void amdgpu_dpm_set_hard_min_dcefclk_by_freq(struct amdgpu_device *adev,
+ 	if (!pp_funcs->set_hard_min_dcefclk_by_freq)
+ 		return;
+ 
+-	mutex_lock(&adev->pm.mutex);
++	guard(mutex)(&adev->pm.mutex);
+ 	pp_funcs->set_hard_min_dcefclk_by_freq(adev->powerplay.pp_handle,
+ 					       clock);
+-	mutex_unlock(&adev->pm.mutex);
+ }
+ 
+ void amdgpu_dpm_set_hard_min_fclk_by_freq(struct amdgpu_device *adev,
+@@ -1943,44 +1624,35 @@ void amdgpu_dpm_set_hard_min_fclk_by_freq(struct amdgpu_device *adev,
+ 	if (!pp_funcs->set_hard_min_fclk_by_freq)
+ 		return;
+ 
+-	mutex_lock(&adev->pm.mutex);
++	guard(mutex)(&adev->pm.mutex);
+ 	pp_funcs->set_hard_min_fclk_by_freq(adev->powerplay.pp_handle,
+ 					    clock);
+-	mutex_unlock(&adev->pm.mutex);
+ }
+ 
+ int amdgpu_dpm_display_disable_memory_clock_switch(struct amdgpu_device *adev,
+ 						   bool disable_memory_clock_switch)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs->display_disable_memory_clock_switch)
+ 		return 0;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->display_disable_memory_clock_switch(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->display_disable_memory_clock_switch(adev->powerplay.pp_handle,
+ 							    disable_memory_clock_switch);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ int amdgpu_dpm_get_max_sustainable_clocks_by_dc(struct amdgpu_device *adev,
+ 						struct pp_smu_nv_clock_table *max_clocks)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs->get_max_sustainable_clocks_by_dc)
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->get_max_sustainable_clocks_by_dc(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->get_max_sustainable_clocks_by_dc(adev->powerplay.pp_handle,
+ 							 max_clocks);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ enum pp_smu_status amdgpu_dpm_get_uclk_dpm_states(struct amdgpu_device *adev,
+@@ -1988,35 +1660,27 @@ enum pp_smu_status amdgpu_dpm_get_uclk_dpm_states(struct amdgpu_device *adev,
+ 						  unsigned int *num_states)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs->get_uclk_dpm_states)
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->get_uclk_dpm_states(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->get_uclk_dpm_states(adev->powerplay.pp_handle,
+ 					    clock_values_in_khz,
+ 					    num_states);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ int amdgpu_dpm_get_dpm_clock_table(struct amdgpu_device *adev,
+ 				   struct dpm_clocks *clock_table)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs->get_dpm_clock_table)
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->get_dpm_clock_table(adev->powerplay.pp_handle,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->get_dpm_clock_table(adev->powerplay.pp_handle,
+ 					    clock_table);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ /**
+@@ -2037,17 +1701,13 @@ ssize_t amdgpu_dpm_get_temp_metrics(struct amdgpu_device *adev,
+ 				    enum smu_temp_metric_type type, void *table)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret;
+ 
+ 	if (!pp_funcs->get_temp_metrics ||
+ 	    !amdgpu_dpm_is_temp_metrics_supported(adev, type))
+ 		return -EOPNOTSUPP;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->get_temp_metrics(adev->powerplay.pp_handle, type, table);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->get_temp_metrics(adev->powerplay.pp_handle, type, table);
+ }
+ 
+ /**
+@@ -2064,19 +1724,15 @@ bool amdgpu_dpm_is_temp_metrics_supported(struct amdgpu_device *adev,
+ 					  enum smu_temp_metric_type type)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	bool support_temp_metrics = false;
+ 
+ 	if (!pp_funcs->temp_metrics_is_supported)
+-		return support_temp_metrics;
++		return false;
+ 
+-	if (is_support_sw_smu(adev)) {
+-		mutex_lock(&adev->pm.mutex);
+-		support_temp_metrics =
+-			pp_funcs->temp_metrics_is_supported(adev->powerplay.pp_handle, type);
+-		mutex_unlock(&adev->pm.mutex);
+-	}
++	if (!is_support_sw_smu(adev))
++		return false;
+ 
+-	return support_temp_metrics;
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->temp_metrics_is_supported(adev->powerplay.pp_handle, type);
+ }
+ 
+ /**
+@@ -2098,17 +1754,13 @@ ssize_t amdgpu_dpm_get_xcp_metrics(struct amdgpu_device *adev, int xcp_id,
+ 				   void *table)
+ {
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+-	int ret = 0;
+ 
+ 	if (!pp_funcs->get_xcp_metrics)
+ 		return 0;
+ 
+-	mutex_lock(&adev->pm.mutex);
+-	ret = pp_funcs->get_xcp_metrics(adev->powerplay.pp_handle, xcp_id,
++	guard(mutex)(&adev->pm.mutex);
++	return pp_funcs->get_xcp_metrics(adev->powerplay.pp_handle, xcp_id,
+ 					table);
+-	mutex_unlock(&adev->pm.mutex);
+-
+-	return ret;
+ }
+ 
+ const struct ras_smu_drv *amdgpu_dpm_get_ras_smu_driver(struct amdgpu_device *adev)
 -- 
 2.43.0
 
